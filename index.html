@@ -6027,18 +6027,18 @@ body,
           <div class="mixer-list">
             <div class="mixer-row">
               <span class="mixer-name" data-i18n="mixer.piano">Klavier</span>
-              <input type="range" id="mixPiano" min="0" max="1" step="0.05" value="0.85">
-              <span id="valPiano" class="mixer-val">85%</span>
+              <input type="range" id="mixPiano" min="0" max="1" step="0.05" value="1.00">
+              <span id="valPiano" class="mixer-val">100%</span>
             </div>
             <div class="mixer-row">
               <span class="mixer-name" data-i18n="mixer.guitar">Gitarre</span>
-              <input type="range" id="mixGuitar" min="0" max="1" step="0.05" value="0.70">
-              <span id="valGuitar" class="mixer-val">70%</span>
+              <input type="range" id="mixGuitar" min="0" max="1" step="0.05" value="0.00">
+              <span id="valGuitar" class="mixer-val">0%</span>
             </div>
             <div class="mixer-row">
               <span class="mixer-name" data-i18n="mixer.strings">Streicher</span>
-              <input type="range" id="mixStrings" min="0" max="1" step="0.05" value="0.45">
-              <span id="valStrings" class="mixer-val">45%</span>
+              <input type="range" id="mixStrings" min="0" max="1" step="0.05" value="0.00">
+              <span id="valStrings" class="mixer-val">0%</span>
             </div>
             <div class="mixer-row">
               <span class="mixer-name" data-i18n="mixer.brass">Bläser</span>
@@ -6052,8 +6052,8 @@ body,
             </div>
             <div class="mixer-row">
               <span class="mixer-name" data-i18n="mixer.bass">Bass</span>
-              <input type="range" id="mixBass" min="0" max="1" step="0.05" value="0.80">
-              <span id="valBass" class="mixer-val">80%</span>
+              <input type="range" id="mixBass" min="0" max="1" step="0.05" value="0.00">
+              <span id="valBass" class="mixer-val">0%</span>
             </div>
           </div>
         </div>
@@ -6062,9 +6062,9 @@ body,
           <h4 data-i18n="mixer.presetsHeading">Mix-Presets</h4>
           <div class="btn-group">
             <button class="opt-btn" data-preset="duo" data-i18n="mixer.presetDuo">Duo (Klavier &amp; Gitarre)</button>
-            <button class="opt-btn active" data-preset="ensemble" data-i18n="mixer.presetEnsemble">Ensemble (Standard)</button>
+            <button class="opt-btn" data-preset="ensemble" data-i18n="mixer.presetEnsemble">Ensemble</button>
             <button class="opt-btn" data-preset="orchestra" data-i18n="mixer.presetOrchestra">Orchester (Streicher & Bläser)</button>
-            <button class="opt-btn" data-preset="piano" data-i18n="mixer.presetPiano">Solo Klavier</button>
+            <button class="opt-btn active" data-preset="piano" data-i18n="mixer.presetPiano">Solo Klavier (Standard)</button>
             <button class="opt-btn opt-btn-wide" data-preset="custom" data-i18n="mixer.presetCustom">Benutzerdefiniert</button>
           </div>
           <p class="settings-hint" data-i18n="mixer.presetHint">Jede manuelle Änderung an den Reglern aktiviert automatisch „Benutzerdefiniert“.</p>
@@ -6501,12 +6501,12 @@ class AudioEngine {
         }
 
         const levels = initialMixer || {
-          piano: 0.85,
-          guitar: 0.70,
-          strings: 0.45,
+          piano: 1.00,
+          guitar: 0.00,
+          strings: 0.00,
           brass: 0.00,
           voice: 0.00,
-          bass: 0.80
+          bass: 0.00
         };
 
         // 1. Klavier (Synth als Fallback, wird bei geladenem DAW-Pack durch nativen EarLabSampledInstrument ersetzt)
@@ -7648,9 +7648,9 @@ const I18N_STATIC = {
   "mixer.bass": { de: "Bass", en: "Bass" },
   "mixer.presetsHeading": { de: "Mix-Presets", en: "Mix Presets" },
   "mixer.presetDuo": { de: "Duo (Klavier & Gitarre)", en: "Duo (Piano & Guitar)" },
-  "mixer.presetEnsemble": { de: "Ensemble (Standard)", en: "Ensemble (Default)" },
+  "mixer.presetEnsemble": { de: "Ensemble", en: "Ensemble" },
   "mixer.presetOrchestra": { de: "Orchester (Streicher & Bläser)", en: "Orchestra (Strings & Brass)" },
-  "mixer.presetPiano": { de: "Solo Klavier", en: "Solo Piano" },
+  "mixer.presetPiano": { de: "Solo Klavier (Standard)", en: "Solo Piano (Default)" },
   "mixer.presetCustom": { de: "Benutzerdefiniert", en: "Custom" },
   "mixer.presetHint": {
     de: "Jede manuelle Änderung an den Reglern aktiviert automatisch „Benutzerdefiniert“.",
@@ -7823,7 +7823,7 @@ const LAUSCHEBAER_QUOTES_EN = [
   { cat: "Tip", text: "“Open the Mixer in the top right: how does the same cadence sound with only Strings and Bass?”" },
   { cat: "Tip", text: "“Switch things up: can you still spot the Tonic just as easily in a 3/4 waltz?”" },
   { cat: "Tip", text: "“Pay special attention to the vi chord today: that gentle, bittersweet turn is everywhere in pop.”" },
-  { cat: "Tip", text: "“Try the ‘Solo Piano’ preset in the Mixer — it pairs wonderfully with piano practice!”" },
+  { cat: "Tip", text: "“Try switching the Mixer to ‘Ensemble’ — guitar, strings, and bass join right in like a cozy acoustic band!”" },
   { cat: "Tip", text: "“How does the Subdominant (IV) feel to you? Many players hear it as opening a wide window.”" },
   { cat: "Tip", text: "“In Solfège and Melodies, ‘Replay Tone’ replays only the single note you’re hunting — ideal for locking it in.”" },
   { cat: "Tip", text: "“During Melodies you can replay the whole phrase anytime — any notes you already solved stay right in place.”" },
@@ -15126,7 +15126,7 @@ const LAUSCHEBAER_QUOTES = [
   { cat: "Tipp", text: "„Probier oben rechts mal den Mixer aus: Wie klingt dieselbe Kadenz nur mit Streichern und Bass?“" },
   { cat: "Tipp", text: "„Kleine Abwechslung: Erkennst du die Tonika auch im 3/4-Walzertakt?“" },
   { cat: "Tipp", text: "„Achte heute mal auf die Moll-Parallele (vi): Sie klingt oft wie ein sanfter, nachdenklicher Rückblick.“" },
-  { cat: "Tipp", text: "„Stell im Mixer mal auf ‚Solo Klavier‘ – ideal als Ergänzung zum Klavierunterricht!“" },
+  { cat: "Tipp", text: "„Stell im Mixer mal auf ‚Ensemble‘ – dann begleiten dich Gitarre, Streicher und Bass als kleine Band!“" },
   { cat: "Tipp", text: "„Wie fühlt sich für dich die Subdominante (IV) an? Viele beschreiben sie wie ein weites Öffnen.“" },
   { cat: "Tipp", text: "„In Solfège und Melodien spielt ‚Ton nochmal‘ nur den einen gesuchten Ton – perfekt zum ruhigen Einprägen!“" },
   { cat: "Tipp", text: "„Bei den Melodien kannst du die gesamte Folge jederzeit wiederholen – deine erkannten Töne bleiben dabei stehen.“" },
@@ -16026,15 +16026,15 @@ class AppState {
     };
 
     this.mixer = {
-      piano: 0.85,
-      guitar: 0.70,
-      strings: 0.45,
+      piano: 1.00,
+      guitar: 0.00,
+      strings: 0.00,
       brass: 0.00,
       voice: 0.00,
-      bass: 0.80
+      bass: 0.00
     };
     this.customMixer = { ...this.mixer };
-    this.activePreset = "ensemble";
+    this.activePreset = "piano";
 
     this.currentKey = "C";
     this.solfegeSessionKey = "G";
@@ -24651,6 +24651,9 @@ document.addEventListener("DOMContentLoaded", () => {
       audioEngine.setMixerGains(state.mixer);
     });
   });
+
+  syncMixerSliders();
+  setActivePresetButton(state.activePreset);
 
   // Einstellungen: Tonart, Tempo (Schieberegler inline & Modal), Taktart
   document.querySelectorAll("[data-keymode]").forEach(btn => {
