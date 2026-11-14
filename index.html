@@ -16027,6 +16027,9 @@ function resolveEffectiveAppearance(pref) {
   return prefersDark ? "dark" : "light";
 }
 
+const CADENCE_DEFAULT_BPM = 120;
+const SOLFEGE_DEFAULT_BPM = 120;
+
 class AppState {
   constructor() {
     this.currentView = "home"; // 'home' | 'category' | 'knowledge' | 'knowledge-detail' | 'space' | 'exercise'
@@ -16064,7 +16067,7 @@ class AppState {
       keyMode: "fixed",
       timeSig: "4/4",
       defaultBpm: 90,
-      bpm: 90,
+      bpm: CADENCE_DEFAULT_BPM,
       randomBpm: false,
       loop: false,
       autoNextAfterCorrect: initialVisual.autoNextAfterCorrect,
@@ -16094,7 +16097,7 @@ class AppState {
     this.currentKey = "C";
     this.solfegeSessionKey = "G";
     this.activeTimeSig = "4/4";
-    this.activeBpm = 90;
+    this.activeBpm = CADENCE_DEFAULT_BPM;
     this.hasManualExerciseBpm = false;
     this.currentExercise = null;
     this.isPlaying = false;
@@ -17771,12 +17774,12 @@ function initTabSwipeNavigation() {
   }, { passive: true });
 }
 
-const SOLFEGE_DEFAULT_BPM = 120;
-
 function getDefaultExerciseBpm(mode = state?.settings?.mode) {
   const globalDefault = Number(state?.settings?.defaultBpm) || 90;
-  // Solfège-Übungsaufgaben starten standardmäßig mit 120 BPM
-  return mode === "solfege" ? SOLFEGE_DEFAULT_BPM : globalDefault;
+  // Kadenz- und Solfège-Übungen starten standardmäßig mit 120 BPM
+  if (mode === "cadence") return CADENCE_DEFAULT_BPM;
+  if (mode === "solfege") return SOLFEGE_DEFAULT_BPM;
+  return globalDefault;
 }
 
 function switchView(targetView, options = {}) {
@@ -17787,7 +17790,7 @@ function switchView(targetView, options = {}) {
   state.currentView = targetView;
 
   // Beim Starten eines Übungsmoduls wird zunächst das modulspezifische Standardtempo übernommen
-  // (Solfège: 120 BPM, übrige Module: defaultBpm), bis der Nutzer im Modul manuell anpasst (außer bei Mix-Direktstart mit eigenem BPM).
+  // (Kadenz & Solfège: 120 BPM, übrige Module: defaultBpm), bis der Nutzer im Modul manuell anpasst (außer bei Mix-Direktstart mit eigenem BPM).
   if (targetView === "exercise" && prevView !== "exercise" && !options.preserveBpm && (!options.fromHistory || !state.currentExercise)) {
     const startBpm = getDefaultExerciseBpm(state.settings.mode);
     state.hasManualExerciseBpm = false;
@@ -19721,6 +19724,31 @@ function getMelodicIntervalTiming(bpm = state.activeBpm) {
   const note2DurSec = Math.max(0.28, beatSec * 1.25);
   const cycleMs = Math.round(beatSec * 2.4 * 1000);
   return { beatSec, stepMs, note1DurSec, note2DurSec, cycleMs };
+}
+
+/**
+ * Berechnet kompakte, musikalisch gebundene Schrittabstände und Kadenzdauern
+ * (~1,5–2 Schläge je Stufe mit längerem Schlussakkord, skaliert über BPM & Taktart).
+ */
+function getCadenceStepTiming(bpm = state.activeBpm, timeSig = state.activeTimeSig) {
+  const safeBpm = Math.max(40, Math.min(220, Number(bpm) || CADENCE_DEFAULT_BPM));
+  const beatSec = 60 / safeBpm;
+  let stepBeats = 1.8;
+  let finalHoldBeats = 2.4;
+  if (timeSig === "3/4" || timeSig === "6/8") {
+    stepBeats = 1.5;
+    finalHoldBeats = 2.1;
+  } else if (timeSig === "odd") {
+    stepBeats = 2.0;
+    finalHoldBeats = 2.6;
+  }
+  const stepSec = stepBeats * beatSec;
+  const stepMs = Math.round(stepSec * 1000);
+  const finalHoldSec = finalHoldBeats * beatSec;
+  const finalHoldMs = Math.round(finalHoldSec * 1000);
+  const stepDurSec = Math.max(0.32, stepSec * 0.99);
+  const finalDurSec = Math.max(0.55, finalHoldSec * 0.94);
+  return { beatSec, stepBeats, finalHoldBeats, stepMs, finalHoldMs, stepDurSec, finalDurSec };
 }
 
 function generateIntervalExercise(rootMidi, intervalMode) {
@@ -22835,23 +22863,39 @@ async function playSequence() {
     return;
   }
 
-  // Ablauf für Kadenzen, harmonische Intervalle & Akkordtypen
+  // Ablauf für Kadenzen (kompakter Legato-Wechsel), harmonische Intervalle & Akkordtypen
   const totalBars = ex.bars.length;
+  let stepScheduleMs;
+  let stepDursSec;
+  let totalDurationMs;
 
-  const beatSec = 60 / state.activeBpm;
-  let beatsPerBar = 4;
-  if (state.activeTimeSig === "3/4") beatsPerBar = 3;
-  if (state.activeTimeSig === "6/8") beatsPerBar = 3;
-  if (state.activeTimeSig === "odd") beatsPerBar = 5;
+  if (ex.type === "cadence") {
+    const cadTiming = getCadenceStepTiming(state.activeBpm, state.activeTimeSig);
+    stepScheduleMs = ex.bars.map((_, index) => index * cadTiming.stepMs);
+    stepDursSec = ex.bars.map((_, index) =>
+      index === totalBars - 1 ? cadTiming.finalDurSec : cadTiming.stepDurSec
+    );
+    totalDurationMs = Math.max(0, totalBars - 1) * cadTiming.stepMs + cadTiming.finalHoldMs;
+  } else {
+    const beatSec = 60 / state.activeBpm;
+    let beatsPerBar = 4;
+    if (state.activeTimeSig === "3/4") beatsPerBar = 3;
+    if (state.activeTimeSig === "6/8") beatsPerBar = 3;
+    if (state.activeTimeSig === "odd") beatsPerBar = 5;
 
-  const barSec = beatsPerBar * beatSec;
-  const barMs = barSec * 1000;
+    const barSec = beatsPerBar * beatSec;
+    const barMs = barSec * 1000;
+    stepScheduleMs = ex.bars.map((_, index) => index * barMs);
+    stepDursSec = ex.bars.map(() => barSec * 0.9);
+    totalDurationMs = totalBars * barMs;
+  }
 
   function runLoopCycle() {
     if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
 
     ex.bars.forEach((bar, index) => {
-      const delay = index * barMs;
+      const delay = stepScheduleMs[index];
+      const stepDur = stepDursSec[index];
 
       audioEngine.registerTimer(() => {
         if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
@@ -22876,12 +22920,11 @@ async function playSequence() {
           document.getElementById("stageFunctionText").textContent = bar.label;
         }
 
-        audioEngine.playStep(bar.notes, barSec * 0.9, bar.bass, ex.type === "interval-harmonic" ? "interval-harmonic" : "cadence");
+        audioEngine.playStep(bar.notes, stepDur, bar.bass, ex.type === "interval-harmonic" ? "interval-harmonic" : "cadence");
 
       }, delay);
     });
 
-    const totalDurationMs = totalBars * barMs;
     audioEngine.registerTimer(() => {
       if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
       if (state.settings.loop) {
