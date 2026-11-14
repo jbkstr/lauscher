@@ -9530,7 +9530,7 @@ const CATEGORY_HELP_GUIDES_EN = {
 
       <div class="article-highlight-box">
         <h4>On-Screen Helpers</h4>
-        <p>Above the keyboard sit the <strong>Key Badge</strong> (tap to hear the tonic chord), <strong>Tonic (Do)</strong>, and <strong>Repeat Tone</strong>. In the bottom dock, toggle the purple <strong>Auto-Next button</strong> to roll smoothly from resolution straight into the next round.</p>
+        <p>Above the keyboard sit the <strong>Key Badge</strong> (tap to hear the tonic chord), <strong>Tonic (Do)</strong>, and <strong>Repeat Tone</strong>. In the bottom dock, the purple <strong>Loop button</strong> repeats the target note slowly every 3 seconds; whether the next round starts automatically after the resolution is configured in <strong>App Settings</strong>.</p>
       </div>
     `
   },
@@ -12635,7 +12635,7 @@ const CATEGORY_HELP_GUIDES = {
 
       <div class="article-highlight-box">
         <h4>Hilfen direkt über &amp; unter der Klaviatur</h4>
-        <p>Über der Klaviatur stehen der <strong>Tonarten-Button</strong> (spielt den Tonika-Akkord an), <strong>Tonika (Do)</strong> und <strong>Ton nochmal</strong> bereit. Unten links schaltet der <strong>Auto-Weiter-Button</strong> (lila) ein, dass nach der Auflösung direkt die nächste Abfrage startet.</p>
+        <p>Über der Klaviatur stehen der <strong>Tonarten-Button</strong> (spielt den Tonika-Akkord an), <strong>Tonika (Do)</strong> und <strong>Ton nochmal</strong> bereit. Unten links schaltet der <strong>Loop-Button</strong> (lila) eine langsame Wiederholung des abgefragten Tons (alle 3 Sekunden) ein; ob nach der Auflösung automatisch die nächste Aufgabe startet, stellst du in den <strong>App-Einstellungen</strong> ein.</p>
       </div>
     `
   },
@@ -16029,6 +16029,7 @@ function resolveEffectiveAppearance(pref) {
 
 const CADENCE_DEFAULT_BPM = 120;
 const SOLFEGE_DEFAULT_BPM = 120;
+const SOLFEGE_LOOP_INTERVAL_MS = 3000;
 
 class AppState {
   constructor() {
@@ -16570,13 +16571,14 @@ function syncAutoNextControls() {
   const loopBtn = document.getElementById("loopToggleBtn");
   if (loopBtn) {
     const modeAutoNextMap = {
-      solfege: state.settings.solfegeAutoNext,
       melody: state.settings.melodyAutoNext,
       "rhythm-dictation": state.settings.rhythmDictationAutoNext,
       "rhythm-tap": state.settings.rhythmTapAutoNext
     };
     if (Object.prototype.hasOwnProperty.call(modeAutoNextMap, state.settings.mode)) {
       loopBtn.classList.toggle("btn-active", Boolean(modeAutoNextMap[state.settings.mode]));
+    } else {
+      loopBtn.classList.toggle("btn-active", Boolean(state.settings.loop));
     }
   }
 }
@@ -20813,16 +20815,10 @@ function renderUI() {
   }
 
   // Links unten in der Transportleiste:
-  // In Solfège, Melodie, Rhythmus-Diktat & Nachklopfen schaltet der Button Auto-Weiter um; sonst Endlosschleife.
+  // In Melodie, Rhythmus-Diktat & Nachklopfen schaltet der Button Auto-Weiter um; in Solfège (Zielton-Loop 3s) & sonst Endlosschleife.
   const loopBtn = document.getElementById("loopToggleBtn");
   if (loopBtn) {
-    if (isSolfege) {
-      loopBtn.innerHTML = ICON_AUTO_NEXT_SVG;
-      loopBtn.title = tr("Nach richtiger Antwort automatisch nächste Abfrage starten", "Automatically start the next prompt after a correct answer");
-      loopBtn.setAttribute("aria-label", tr("Automatisch weiter nach richtiger Antwort", "Auto-advance after correct answer"));
-      loopBtn.classList.remove("btn-active-green");
-      loopBtn.classList.toggle("btn-active", state.settings.solfegeAutoNext);
-    } else if (isMelody) {
+    if (isMelody) {
       loopBtn.innerHTML = ICON_AUTO_NEXT_SVG;
       loopBtn.title = tr("Nächste 4-Ton-Melodie nach 4/4 Lösung automatisch abspielen", "Automatically play the next 4-note melody after 4/4 solved");
       loopBtn.setAttribute("aria-label", tr("Nächste Melodie automatisch abspielen", "Auto-play next melody"));
@@ -20842,8 +20838,15 @@ function renderUI() {
       loopBtn.classList.toggle("btn-active", state.settings.rhythmTapAutoNext);
     } else {
       loopBtn.innerHTML = ICON_LOOP_SVG;
-      loopBtn.title = tr("Endlosschleife umschalten", "Toggle continuous loop");
-      loopBtn.setAttribute("aria-label", tr("Loop", "Loop"));
+      loopBtn.title = isSolfege
+        ? tr("Zielton alle 3 Sekunden wiederholen (Loop)", "Repeat target note every 3 seconds (Loop)")
+        : tr("Endlosschleife umschalten", "Toggle continuous loop");
+      loopBtn.setAttribute(
+        "aria-label",
+        isSolfege
+          ? tr("Zielton-Loop umschalten", "Toggle target note loop")
+          : tr("Loop", "Loop")
+      );
       loopBtn.classList.remove("btn-active-green");
       loopBtn.classList.toggle("btn-active", state.settings.loop);
     }
@@ -22231,6 +22234,46 @@ function playModeExercisePattern(ex, modeDef, startDelayMs = 0) {
   return totalNotesMs;
 }
 
+function scheduleSolfegeTargetLoopTick(expectedEx, expectedPlaybackId, delayMs = SOLFEGE_LOOP_INTERVAL_MS) {
+  audioEngine.registerTimer(() => {
+    if (
+      !state.isPlaying ||
+      audioEngine.playbackId !== expectedPlaybackId ||
+      state.currentExercise !== expectedEx ||
+      state.solfegeAnswered ||
+      !state.settings.loop
+    ) {
+      return;
+    }
+    audioEngine.playStep([expectedEx.targetItem.noteName], 1.1, null, "interval");
+    scheduleSolfegeTargetLoopTick(expectedEx, expectedPlaybackId, SOLFEGE_LOOP_INTERVAL_MS);
+  }, delayMs);
+}
+
+async function startSolfegeTargetLoop(playImmediately = true) {
+  const ex = state.currentExercise;
+  if (!ex || ex.type !== "solfege" || state.solfegeAnswered) return;
+  if (!audioEngine.isInitialized) await ensureAudioReady();
+  audioEngine.stopPlayback();
+  ex.solfegePromptPlayed = true;
+  state.isPlaying = true;
+  updatePlayButtonUI(true);
+
+  if (document.getElementById("centralStageCard")) {
+    setCentralStageMode("stage-target");
+    updateStageMascot("question");
+    document.getElementById("stageSubtext").textContent = tr("GESUCHTER TON", "TARGET NOTE");
+    document.getElementById("stageMainText").textContent = "?";
+    document.getElementById("stageFunctionText").textContent = tr("Welche Stufe (Do bis Do) hörst du?", "Which scale degree (Do to Do) do you hear?");
+  }
+
+  const currentId = audioEngine.playbackId;
+  if (playImmediately) {
+    audioEngine.playStep([ex.targetItem.noteName], 1.1, null, "interval");
+  }
+  scheduleSolfegeTargetLoopTick(ex, currentId, SOLFEGE_LOOP_INTERVAL_MS);
+}
+
 async function repeatSolfegeTargetTone() {
   const ex = state.currentExercise;
   if (!ex) return;
@@ -22248,6 +22291,10 @@ async function repeatSolfegeTargetTone() {
   }
   if (ex.type !== "solfege") return;
   await ensureAudioReady();
+  if (state.settings.loop && !state.solfegeAnswered) {
+    await startSolfegeTargetLoop(true);
+    return;
+  }
   audioEngine.stopPlayback();
   state.isPlaying = false;
   if (!state.solfegeAnswered) updatePlayButtonUI(false);
@@ -22762,8 +22809,9 @@ async function playSequence() {
   }
 
   // Spezieller Ablauf für Solfège (abhängig vom eingestellten Tempo state.activeBpm!):
-  // 1. Ruhige Kadenz (I - vi - IV - V) -> 2. Deutliche Pause -> 3. Einzelner Zielton
+  // 1. Ruhige Kadenz (I - vi - IV - V) -> 2. Deutliche Pause -> 3. Einzelner Zielton (optional alle 3 s im Loop)
   if (ex.type === "solfege") {
+    ex.solfegePromptPlayed = false;
     const beatSec = 60 / state.activeBpm;
     // Jeder Akkord der Kadenz dauert 1,45 Schläge (bei 90 BPM ca. 970 ms pro Akkord)
     const chordSec = beatSec * 1.45;
@@ -22790,11 +22838,12 @@ async function playSequence() {
       }, index * chordMs);
     });
 
-    // Nach deutlicher Pause: Einzelner abgefragter Ton
+    // Nach deutlicher Pause: Einzelner abgefragter Ton (bei Loop alle 3 s nur Zielton wiederholen)
     const targetDelayMs = totalChords * chordMs + pauseAfterCadenceMs;
     audioEngine.registerTimer(() => {
       if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
 
+      ex.solfegePromptPlayed = true;
       for (let i = 0; i < totalChords; i++) {
         document.getElementById(`barCard_${i}`)?.classList.remove("bar-active");
       }
@@ -22806,13 +22855,21 @@ async function playSequence() {
       document.getElementById("stageFunctionText").textContent = tr("Tippe die Stufe auf der Klaviatur an!", "Tap the scale degree on the keyboard!");
 
       audioEngine.playStep([ex.targetItem.noteName], 1.1, null, "interval");
-    }, targetDelayMs);
 
-    audioEngine.registerTimer(() => {
-      if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
-      state.isPlaying = false;
-      updatePlayButtonUI(false);
-    }, targetDelayMs + 1150);
+      if (state.settings.loop && !state.solfegeAnswered) {
+        scheduleSolfegeTargetLoopTick(ex, currentId, SOLFEGE_LOOP_INTERVAL_MS);
+      } else {
+        audioEngine.registerTimer(() => {
+          if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
+          if (state.settings.loop && !state.solfegeAnswered) {
+            scheduleSolfegeTargetLoopTick(ex, currentId, Math.max(0, SOLFEGE_LOOP_INTERVAL_MS - 1150));
+          } else {
+            state.isPlaying = false;
+            updatePlayButtonUI(false);
+          }
+        }, 1150);
+      }
+    }, targetDelayMs);
 
     return;
   }
@@ -24601,14 +24658,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const loopBtn = document.getElementById("loopToggleBtn");
   loopBtn?.addEventListener("click", () => {
-    if (state.settings.mode === "solfege") {
-      state.settings.solfegeAutoNext = !state.settings.solfegeAutoNext;
-      loopBtn.classList.toggle("btn-active", state.settings.solfegeAutoNext);
-      if (state.settings.solfegeAutoNext && state.solfegeAnswered && !state.isPlaying) {
-        generateExercise();
-        playSequence();
-      }
-    } else if (state.settings.mode === "melody") {
+    if (state.settings.mode === "melody") {
       state.settings.melodyAutoNext = !state.settings.melodyAutoNext;
       loopBtn.classList.toggle("btn-active", state.settings.melodyAutoNext);
     } else if (state.settings.mode === "rhythm-dictation") {
@@ -24620,6 +24670,16 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       state.settings.loop = !state.settings.loop;
       loopBtn.classList.toggle("btn-active", state.settings.loop);
+      if (state.settings.mode === "solfege") {
+        const ex = state.currentExercise;
+        if (state.settings.loop) {
+          if (!state.isPlaying && ex?.solfegePromptPlayed && !state.solfegeAnswered) {
+            startSolfegeTargetLoop(true);
+          }
+        } else if (state.isPlaying && ex?.solfegePromptPlayed && !state.solfegeAnswered) {
+          stopPlayback();
+        }
+      }
     }
   });
 
