@@ -7232,10 +7232,11 @@ class AudioEngine {
         (a, b) => EarLabSampledInstrument.noteToMidi(a) - EarLabSampledInstrument.noteToMidi(b)
       );
       const rawNow = this.piano?.rawCtx?.currentTime ?? Tone.context?.rawContext?.currentTime ?? 0;
+      const onsetGapSec = 0.022;
       const baseAt = Math.max(now, rawNow + 0.024);
       harmonicVoices = [
-        { note: sorted[0], dur, at: baseAt, vel: 0.54 },
-        { note: sorted[1], dur: Math.max(0.2, dur - 0.048), at: baseAt + 0.048, vel: 1.0 }
+        { note: sorted[0], dur, at: baseAt, vel: 0.50 },
+        { note: sorted[1], dur: Math.max(0.2, dur - onsetGapSec), at: baseAt + onsetGapSec, vel: 1.0 }
       ];
     }
 
@@ -21374,7 +21375,9 @@ function getChordArpeggioTiming(noteCount, bpm = state.activeBpm) {
   const noteDurSec = Math.max(0.24, stepSec * 1.45);
   const lastNoteDurSec = Math.max(0.48, stepSec * 2.15);
   const lastOffsetMs = (count - 1) * stepMs;
-  const nextExerciseDelayMs = lastOffsetMs + Math.max(580, Math.round(lastNoteDurSec * 1000));
+  const lastNoteHoldMs = Math.max(580, Math.round(lastNoteDurSec * 1000));
+  const postArpeggioPauseMs = 1000;
+  const nextExerciseDelayMs = lastOffsetMs + lastNoteHoldMs + postArpeggioPauseMs;
   return { stepMs, noteDurSec, lastNoteDurSec, nextExerciseDelayMs };
 }
 
