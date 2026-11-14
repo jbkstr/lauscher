@@ -17697,6 +17697,14 @@ function initTabSwipeNavigation() {
   }, { passive: true });
 }
 
+const SOLFEGE_DEFAULT_BPM = 120;
+
+function getDefaultExerciseBpm(mode = state?.settings?.mode) {
+  const globalDefault = Number(state?.settings?.defaultBpm) || 90;
+  // Solfège-Übungsaufgaben starten standardmäßig mit 120 BPM
+  return mode === "solfege" ? SOLFEGE_DEFAULT_BPM : globalDefault;
+}
+
 function switchView(targetView, options = {}) {
   const prevView = state.currentView;
   stopPlayback();
@@ -17704,15 +17712,16 @@ function switchView(targetView, options = {}) {
   closeTransientPopovers();
   state.currentView = targetView;
 
-  // Beim Starten eines Übungsmoduls wird zunächst das eingestellte Standardtempo übernommen,
-  // bis der Nutzer das Tempo im Übungsmodul manuell über den Schieberegler anpasst (außer bei Mix-Direktstart mit eigenem BPM).
+  // Beim Starten eines Übungsmoduls wird zunächst das modulspezifische Standardtempo übernommen
+  // (Solfège: 120 BPM, übrige Module: defaultBpm), bis der Nutzer im Modul manuell anpasst (außer bei Mix-Direktstart mit eigenem BPM).
   if (targetView === "exercise" && prevView !== "exercise" && !options.preserveBpm && (!options.fromHistory || !state.currentExercise)) {
+    const startBpm = getDefaultExerciseBpm(state.settings.mode);
     state.hasManualExerciseBpm = false;
     state.settings.randomBpm = false;
-    state.settings.bpm = state.settings.defaultBpm;
-    state.activeBpm = state.settings.defaultBpm;
+    state.settings.bpm = startBpm;
+    state.activeBpm = startBpm;
     const inlineSlider = document.getElementById("inlineBpmSlider");
-    if (inlineSlider) inlineSlider.value = state.settings.defaultBpm;
+    if (inlineSlider) inlineSlider.value = startBpm;
     document.getElementById("inlineBpmRandomBtn")?.classList.remove("active");
   }
 
@@ -24785,7 +24794,7 @@ document.addEventListener("DOMContentLoaded", () => {
     state.settings.defaultBpm = newDefault;
     if (defaultBpmDisplay) defaultBpmDisplay.textContent = `${newDefault} BPM`;
     if (!state.hasManualExerciseBpm) {
-      syncExerciseBpmUI(newDefault, false);
+      syncExerciseBpmUI(getDefaultExerciseBpm(state.settings.mode), false);
     }
   });
 
