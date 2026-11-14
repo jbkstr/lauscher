@@ -7224,13 +7224,33 @@ class AudioEngine {
     const uniqNotes = hasNotes ? [...new Set(notes)] : [];
     const chordVel = uniqNotes.length > 0 ? Math.min(1, 1.05 / Math.sqrt(uniqNotes.length)) : undefined;
 
+    // Bei zweistimmigen harmonischen Intervallen (z. B. Oktave vs. Prime) verhindert ein minimaler
+    // Onset-Versatz mit klarer Oberstimmen-Betonung die Oberton-Verschmelzung am selben Einschwingmoment.
+    let harmonicVoices = null;
+    if (_mode === "interval-harmonic" && uniqNotes.length === 2) {
+      const sorted = uniqNotes.slice().sort(
+        (a, b) => EarLabSampledInstrument.noteToMidi(a) - EarLabSampledInstrument.noteToMidi(b)
+      );
+      const rawNow = this.piano?.rawCtx?.currentTime ?? Tone.context?.rawContext?.currentTime ?? 0;
+      const baseAt = Math.max(now, rawNow + 0.024);
+      harmonicVoices = [
+        { note: sorted[0], dur, at: baseAt, vel: 0.54 },
+        { note: sorted[1], dur: Math.max(0.2, dur - 0.048), at: baseAt + 0.048, vel: 1.0 }
+      ];
+    }
+
     const triggerChordStem = (stemKey) => {
       if (!hasNotes) return;
       const inst = this[stemKey];
       if (!inst) return;
       const isSampled = this.sampledStems[stemKey] || (stemKey === "piano" && this.pianoUsingSampler);
-      if (isSampled) inst.triggerAttackRelease(uniqNotes, dur, now, chordVel);
-      else inst.triggerAttackRelease(notes, dur, now);
+      if (harmonicVoices) {
+        harmonicVoices.forEach(v => inst.triggerAttackRelease([v.note], v.dur, v.at, v.vel));
+      } else if (isSampled) {
+        inst.triggerAttackRelease(uniqNotes, dur, now, chordVel);
+      } else {
+        inst.triggerAttackRelease(notes, dur, now);
+      }
     };
 
     if (hasNotes) {
@@ -18043,7 +18063,7 @@ function openKnowledgeRef(refKey, options = {}) {
         initWaveVisualizer(num, den);
         await ensureAudioReady();
         audioEngine.stopPlayback();
-        audioEngine.playStep(["C4", midiToNote(60 + semi)], 1.3, null, "interval");
+        audioEngine.playStep(["C4", midiToNote(60 + semi)], 1.3, null, "interval-harmonic");
       });
     });
 
@@ -18427,7 +18447,7 @@ function bindKnowledgeAudioButtons(rootEl) {
       await ensureAudioReady();
       audioEngine.stopPlayback();
       const semi = parseInt(btn.dataset.playIntHarm, 10);
-      audioEngine.playStep(["C4", midiToNote(60 + semi)], 1.3, null, "interval");
+      audioEngine.playStep(["C4", midiToNote(60 + semi)], 1.3, null, "interval-harmonic");
     });
   });
 
@@ -18450,7 +18470,7 @@ function bindKnowledgeAudioButtons(rootEl) {
       audioEngine.stopPlayback();
       const def = HARMONIC_DATA.intervals[btn.dataset.playIntervalHarm];
       if (!def) return;
-      audioEngine.playStep(["C4", midiToNote(60 + def.semitones)], 1.3, null, "interval");
+      audioEngine.playStep(["C4", midiToNote(60 + def.semitones)], 1.3, null, "interval-harmonic");
     });
   });
 
@@ -21345,6 +21365,19 @@ async function handleSolfegeKeyClick(clickedKeyDef, keyBtn) {
   }, autoNextDelayMs);
 }
 
+function getChordArpeggioTiming(noteCount, bpm = state.activeBpm) {
+  const clampedBpm = Math.max(55, Math.min(160, Number(bpm) || 90));
+  const beatSec = 60 / clampedBpm;
+  const stepSec = beatSec * 0.5; // Achtel-Tempo: moderat schnell statt ganzer Noten
+  const stepMs = Math.round(stepSec * 1000);
+  const count = Math.max(1, noteCount || 1);
+  const noteDurSec = Math.max(0.24, stepSec * 1.45);
+  const lastNoteDurSec = Math.max(0.48, stepSec * 2.15);
+  const lastOffsetMs = (count - 1) * stepMs;
+  const nextExerciseDelayMs = lastOffsetMs + Math.max(580, Math.round(lastNoteDurSec * 1000));
+  return { stepMs, noteDurSec, lastNoteDurSec, nextExerciseDelayMs };
+}
+
 function handleAnswer(selectedKey, btnElement) {
   const ex = state.currentExercise;
   if (!ex) return;
@@ -21352,10 +21385,12 @@ function handleAnswer(selectedKey, btnElement) {
   if (ex.type === "rhythm-dictation") {
     return handleRhythmDictationChoice(selectedKey, btnElement);
   }
+  if (ex.isSolved) return;
 
   const isCorrect = selectedKey === ex.targetItem.key;
 
   if (isCorrect) {
+    ex.isSolved = true;
     // Im Intervall-, Kadenz- & Rhythmus-Übungsmodul: Wenn Loop aktiviert ist, nach richtiger Antwort automatisch nächste Abfrage starten
     const shouldAutoContinue = state.settings.loop || state.isPlaying;
     audioEngine.stopPlayback();
@@ -21383,13 +21418,64 @@ function handleAnswer(selectedKey, btnElement) {
       }
     });
 
-    setTimeout(() => {
+    const advanceToNextExercise = () => {
       if (state.currentView !== "exercise") return;
       generateExercise();
       if (shouldAutoContinue) {
         playSequence();
       }
-    }, 1050);
+    };
+
+    const chordNotes = ex.type === "interval-chords" && Array.isArray(ex.targetItem?.notes)
+      ? ex.targetItem.notes
+      : null;
+
+    if (chordNotes && chordNotes.length > 0) {
+      const { stepMs, noteDurSec, lastNoteDurSec, nextExerciseDelayMs } = getChordArpeggioTiming(
+        chordNotes.length,
+        state.activeBpm
+      );
+      const arpeggioPlaybackId = audioEngine.playbackId;
+      const startChordArpeggio = () => {
+        if (!audioEngine.isInitialized || audioEngine.playbackId !== arpeggioPlaybackId) return;
+        chordNotes.forEach((note, idx) => {
+          const isLast = idx === chordNotes.length - 1;
+          const noteDur = isLast ? lastNoteDurSec : noteDurSec;
+          const delayMs = idx * stepMs;
+          if (delayMs === 0) {
+            audioEngine.playStep([note], noteDur, null, "interval");
+          } else {
+            audioEngine.registerTimer(() => {
+              if (audioEngine.playbackId !== arpeggioPlaybackId || state.currentView !== "exercise") return;
+              audioEngine.playStep([note], noteDur, null, "interval");
+            }, delayMs);
+          }
+        });
+        audioEngine.registerTimer(() => {
+          if (audioEngine.playbackId !== arpeggioPlaybackId) return;
+          advanceToNextExercise();
+        }, nextExerciseDelayMs);
+      };
+
+      if (audioEngine.isInitialized) {
+        startChordArpeggio();
+      } else {
+        ensureAudioReady().then(() => {
+          if (audioEngine.playbackId !== arpeggioPlaybackId || state.currentView !== "exercise") return;
+          if (audioEngine.isInitialized) {
+            startChordArpeggio();
+          } else {
+            audioEngine.registerTimer(advanceToNextExercise, 1050);
+          }
+        }).catch(() => {
+          if (audioEngine.playbackId === arpeggioPlaybackId) {
+            audioEngine.registerTimer(advanceToNextExercise, 1050);
+          }
+        });
+      }
+    } else {
+      setTimeout(advanceToNextExercise, 1050);
+    }
 
   } else {
     btnElement.classList.add("btn-wrong");
@@ -22704,7 +22790,7 @@ async function playSequence() {
           document.getElementById("stageFunctionText").textContent = bar.label;
         }
 
-        audioEngine.playStep(bar.notes, barSec * 0.9, bar.bass, "cadence");
+        audioEngine.playStep(bar.notes, barSec * 0.9, bar.bass, ex.type === "interval-harmonic" ? "interval-harmonic" : "cadence");
 
       }, delay);
     });
@@ -24871,13 +24957,16 @@ document.addEventListener("DOMContentLoaded", () => {
         audioEngine.playStep(state.wrongAnswerData.target.notes, 1.25, null, "cadence");
       }, 1150);
     } else {
-      const refNote = midiToNote(rootMidi);
-      const chosenTarget = midiToNote(rootMidi + state.wrongAnswerData.chosen.semitones);
+      stopPlayback();
+      const baseRootMidi = ex.targetItem.rootMidi ?? rootMidi;
+      const refNote = ex.targetItem.refNote || midiToNote(baseRootMidi);
+      const chosenTarget = midiToNote(baseRootMidi + state.wrongAnswerData.chosen.semitones);
+      const stepMode = ex.type === "interval-harmonic" ? "interval-harmonic" : "cadence";
 
-      audioEngine.playStep([refNote, chosenTarget], 1.0, null, "cadence");
-      setTimeout(() => {
-        audioEngine.playStep(state.wrongAnswerData.target.notes, 1.2, null, "cadence");
-      }, 1100);
+      audioEngine.playStep([refNote, chosenTarget], 1.15, null, stepMode);
+      audioEngine.registerTimer(() => {
+        audioEngine.playStep(state.wrongAnswerData.target.notes, 1.35, null, stepMode);
+      }, 1250);
     }
   });
 
