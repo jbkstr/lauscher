@@ -608,6 +608,7 @@ html, body {
 .knowledge-tab-btn,
 .category-help-btn,
 .tonic-btn,
+.listen-only-btn,
 .overtone-btn,
 .module-chip-btn,
 .btn-tool,
@@ -664,6 +665,7 @@ html, body {
   .view-leave-to-left,
   .view-leave-to-right,
   .tile-selected-pulse,
+  .listen-only-btn.btn-active .listen-only-dot,
   .btn-correct,
   .btn-wrong,
   .bar-card.bar-active,
@@ -2486,6 +2488,7 @@ html, body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 0.45rem;
   padding: 0.08rem 0.22rem;
 }
 
@@ -2493,6 +2496,62 @@ html, body {
   font-size: 0.84rem;
   color: var(--raccoon-mid);
   font-weight: 700;
+  min-width: 0;
+  flex: 1;
+  line-height: 1.24;
+}
+
+.listen-only-btn {
+  background-color: var(--surface-white);
+  color: var(--raccoon-mid);
+  border: 1.5px solid var(--border-strong);
+  padding: 0.24rem 0.62rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.7rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  flex-shrink: 0;
+  white-space: nowrap;
+  box-shadow: var(--shadow-card);
+}
+
+.listen-only-btn svg {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+.listen-only-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--dot-idle-bg);
+  flex-shrink: 0;
+  transition: background-color 0.15s, transform 0.15s;
+}
+
+.listen-only-btn:active {
+  transform: scale(0.96);
+  background-color: var(--surface-warm);
+}
+
+.listen-only-btn.btn-active {
+  background-color: var(--sage);
+  color: var(--raccoon-dark);
+  border-color: var(--sage-strong);
+}
+
+.listen-only-btn.btn-active .listen-only-dot {
+  background-color: var(--sage-strong);
+  animation: listenOnlyPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes listenOnlyPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.28); opacity: 0.65; }
 }
 
 /* Auswahlmodul & Transportleiste in allen Übungen um 15% vergrößert */
@@ -5955,6 +6014,14 @@ body,
 
         <div class="input-header">
           <span id="inputPromptText" class="input-prompt">Tippe Stufe für Takt 4:</span>
+          <button id="listenOnlyBtn" type="button" class="listen-only-btn" aria-pressed="false" title="Nur-Hören-Modus ein-/ausschalten" data-i18n-title="ex.listenOnlyTitle" data-i18n-aria="ex.listenOnlyAria">
+            <span class="listen-only-dot" aria-hidden="true"></span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+              <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+            </svg>
+            <span id="listenOnlyBtnLabel" data-i18n="ex.listenOnly">Nur Hören</span>
+          </button>
         </div>
         <div id="degreeButtonsGrid" class="degrees-grid"></div>
         <div id="solfegeKeyboardWrap" class="solfege-keyboard-wrap hidden"></div>
@@ -7658,6 +7725,9 @@ const I18N_STATIC = {
   "ex.tonicRefDefault": { de: "Tonika (I)", en: "Tonic (I)" },
   "ex.repeatToneTitle": { de: "Gerade abgefragten Ton nochmal abspielen", en: "Replay target note" },
   "ex.repeatTone": { de: "Ton nochmal", en: "Replay Tone" },
+  "ex.listenOnly": { de: "Nur Hören", en: "Listen Only" },
+  "ex.listenOnlyTitle": { de: "Nur-Hören-Modus ein-/ausschalten", en: "Toggle Listen-Only Mode" },
+  "ex.listenOnlyAria": { de: "Nur-Hören-Modus", en: "Listen-Only Mode" },
   "ex.loopTitle": { de: "Endlosschleife umschalten", en: "Toggle loop" },
   "ex.loopAria": { de: "Endlosschleife", en: "Loop" },
   "ex.playBtn": { de: "▶ Abspielen", en: "▶ Play" },
@@ -9433,7 +9503,7 @@ const CATEGORY_HELP_GUIDES_EN = {
 
       <div class="article-highlight-box">
         <h4>Controls While Practicing</h4>
-        <p>Use the chips above the stage to adjust <strong>Key</strong>, <strong>Time Signature</strong>, and <strong>Tempo (BPM)</strong>. Below, <strong>Tonic (I)</strong> grounds your ear anytime, the <strong>Loop / Auto-Next toggle</strong> automatically moves on after a correct answer, and after a miss <strong>A/B Compare</strong> and <strong>Hear Bass</strong> let you contrast your guess directly with the solution.</p>
+        <p>Use the chips above the stage to adjust <strong>Key</strong>, <strong>Time Signature</strong>, and <strong>Tempo (BPM)</strong>. Below, <strong>Tonic (I)</strong> grounds your ear anytime, <strong>Replay Chord</strong> lets you hear the queried degree in isolation, the <strong>Loop toggle</strong> repeats the progression seamlessly, and after a miss <strong>A/B Compare</strong> and <strong>Hear Bass</strong> let you contrast your guess directly with the solution.</p>
       </div>
     `
   },
@@ -12538,7 +12608,7 @@ const CATEGORY_HELP_GUIDES = {
 
       <div class="article-highlight-box">
         <h4>Steuerung während der Aufgabe</h4>
-        <p>Oben im Aufgabenfeld stellst du <strong>Tonart</strong>, <strong>Taktart</strong> und <strong>Tempo (BPM)</strong> direkt ein. Unten gibt dir <strong>Tonika (I)</strong> jederzeit das klangliche Zuhause, der <strong>Loop-Button</strong> startet nach richtiger Antwort automatisch die nächste Kadenz, und bei Fehlern vergleicht <strong>Vergleich</strong> bzw. <strong>Bass hören</strong> deinen Tipp mit der Lösung.</p>
+        <p>Oben im Aufgabenfeld stellst du <strong>Tonart</strong>, <strong>Taktart</strong> und <strong>Tempo (BPM)</strong> direkt ein. Unten gibt dir <strong>Tonika (I)</strong> jederzeit das klangliche Zuhause, mit <strong>Stufe nochmal</strong> hörst du die gesuchte Akkordstufe isoliert, der <strong>Loop-Button</strong> aktiviert die Endlosschleife, und bei Fehlern vergleicht <strong>Vergleich</strong> bzw. <strong>Bass hören</strong> deinen Tipp mit der Lösung.</p>
       </div>
     `
   },
@@ -16106,6 +16176,13 @@ class AppState {
     this.melodyCompleted = false;
     this.rhythmDictationCompleted = false;
     this.rhythmTapSession = null;
+    this.exerciseSolved = false;
+    this.listenOnly = {
+      active: false,
+      token: 0,
+      timerId: null,
+      phase: "idle"
+    };
     this.lastAnswerWasWrong = false;
     this.wrongAnswerData = null;
     this.currentQuoteIndex = -1;
@@ -17786,6 +17863,9 @@ function getDefaultExerciseBpm(mode = state?.settings?.mode) {
 
 function switchView(targetView, options = {}) {
   const prevView = state.currentView;
+  if (typeof state.listenOnly === "object" && state.listenOnly.active && (targetView !== "exercise" || prevView !== "exercise")) {
+    setListenOnlyMode(false, { keepPlayback: true });
+  }
   stopPlayback();
   stopWaveAnimation();
   closeTransientPopovers();
@@ -19617,6 +19697,7 @@ function generateExercise() {
   state.melodyCompleted = false;
   state.rhythmDictationCompleted = false;
   state.rhythmTapSession = null;
+  state.exerciseSolved = false;
   state.lastAnswerWasWrong = false;
   state.wrongAnswerData = null;
   renderUI();
@@ -20796,13 +20877,16 @@ function renderUI() {
     if (tonicRefBtn) tonicRefBtn.title = tr("Tonika / Grundton anspielen", "Play tonic / root note");
   }
 
-  // „🔊 Ton nochmal“ / „Schlag nochmal“ / „Nur anhören“
+  // „🔊 Stufe nochmal“ / „Ton nochmal“ / „Schlag nochmal“ / „Nur anhören“
   const repeatBtn = document.getElementById("repeatToneBtn");
   if (repeatBtn) {
-    const showRepeat = isKeyboardMode || isRhythmDict || isRhythmTap;
+    const showRepeat = isCadence || isKeyboardMode || isRhythmDict || isRhythmTap;
     repeatBtn.classList.toggle("hidden", !showRepeat);
     const repeatSpan = repeatBtn.querySelector("span");
-    if (isRhythmDict) {
+    if (isCadence) {
+      if (repeatSpan) repeatSpan.textContent = tr("Stufe nochmal", "Replay Chord");
+      repeatBtn.title = tr("Abgefragte Stufe nochmal abspielen", "Replay the queried chord degree");
+    } else if (isRhythmDict) {
       if (repeatSpan) repeatSpan.textContent = tr("Schlag nochmal", "Replay Beat");
       repeatBtn.title = tr("Aktuellen Schlag (mit Vorpuls) nochmal anhören", "Replay current beat (with lead-in pulse)");
     } else if (isRhythmTap) {
@@ -21218,6 +21302,7 @@ function renderUI() {
 
   resetCentralStage();
   updatePlayButtonUI(false);
+  syncListenOnlyUI();
   document.getElementById("feedbackContainer").classList.add("hidden");
 }
 
@@ -21294,6 +21379,9 @@ function buildSolfegeResolutionSchedule(noteCount, bpm) {
 async function handleMelodyKeyClick(clickedKeyDef, keyBtn) {
   const ex = state.currentExercise;
   if (!ex || ex.type !== "melody" || state.melodyCompleted) return;
+  if (state.listenOnly?.active) {
+    setListenOnlyMode(false, { keepPlayback: true });
+  }
 
   await ensureAudioReady();
 
@@ -21369,6 +21457,8 @@ async function handleMelodyKeyClick(clickedKeyDef, keyBtn) {
 
   // Alle 4 Töne gelöst -> nächste Abfrage automatisch starten
   state.melodyCompleted = true;
+  state.exerciseSolved = true;
+  ex.isSolved = true;
   audioEngine.stopPlayback();
   state.isPlaying = false;
   updatePlayButtonUI(false);
@@ -21401,11 +21491,19 @@ async function handleMelodyKeyClick(clickedKeyDef, keyBtn) {
  * - Richtig: Taste wird grün, Auflösung zur Tonika erklingt (Do-Fa abwärts, Sol-Ti aufwärts)
  *   mit rhythmisch sich verjüngenden Notenwerten hin zur Tonika.
  */
-async function handleSolfegeKeyClick(clickedKeyDef, keyBtn) {
+async function handleSolfegeKeyClick(clickedKeyDef, keyBtn, options = {}) {
   const ex = state.currentExercise;
   if (!ex || ex.type !== "solfege" || state.solfegeAnswered) return;
+  const isListenOnly = Boolean(options.fromListenOnly && state.listenOnly?.active);
+  const listenOnlyToken = isListenOnly ? state.listenOnly.token : null;
+  if (!options.fromListenOnly && state.listenOnly?.active) {
+    setListenOnlyMode(false, { keepPlayback: true });
+  }
 
   await ensureAudioReady();
+  if (isListenOnly && (!state.listenOnly?.active || state.listenOnly.token !== listenOnlyToken || state.currentView !== "exercise" || state.currentExercise !== ex || state.solfegeAnswered)) {
+    return;
+  }
 
   const target = ex.targetItem;
   // Prüfe, ob die richtige Taste (oder bei Do eine der beiden Do-Tasten) getroffen wurde
@@ -21414,7 +21512,7 @@ async function handleSolfegeKeyClick(clickedKeyDef, keyBtn) {
 
   if (!isCorrect) {
     // Falsche Antwort: Taste nur rot färben (KEIN Ton erklingt, damit der gehörte Zielton im Ohr bleibt)
-    keyBtn.classList.add("key-wrong");
+    keyBtn?.classList.add("key-wrong");
 
     setCentralStageMode("stage-wrong");
     updateStageMascot("thinking");
@@ -21426,6 +21524,11 @@ async function handleSolfegeKeyClick(clickedKeyDef, keyBtn) {
 
   // Richtige Antwort!
   state.solfegeAnswered = true;
+  state.exerciseSolved = true;
+  ex.isSolved = true;
+  if (isListenOnly) {
+    state.listenOnly.phase = "reveal";
+  }
   audioEngine.stopPlayback();
   state.isPlaying = false;
 
@@ -21439,7 +21542,7 @@ async function handleSolfegeKeyClick(clickedKeyDef, keyBtn) {
   });
 
   const initialGreenEl = document.getElementById(`solfegeKey_${target.midi}`) || keyBtn;
-  initialGreenEl.classList.add("key-correct");
+  initialGreenEl?.classList.add("key-correct");
 
   setCentralStageMode("stage-playing");
   updateStageMascot("happy");
@@ -21447,12 +21550,7 @@ async function handleSolfegeKeyClick(clickedKeyDef, keyBtn) {
   document.getElementById("stageMainText").textContent = getSolfegeDisplayLabel(target.syllable);
   document.getElementById("stageFunctionText").textContent = target.label;
 
-  // Hauptbutton auf „Nächste Abfrage ⏭“ umstellen, damit der Nutzer selbst weiterklicken kann
-  const playBtn = document.getElementById("playBtn");
-  if (playBtn) {
-    playBtn.innerHTML = tr("Nächste Abfrage ⏭", "Next Prompt ⏭");
-    playBtn.classList.remove("btn-stop");
-  }
+  updatePlayButtonUI(false);
 
   // Auflösung zur Tonika abspielen (takt-technisch gestaffelt & gekoppelt an state.activeBpm)
   const resolutionSchedule = buildSolfegeResolutionSchedule(keyboardResolveSeq.length, state.activeBpm);
@@ -21471,14 +21569,20 @@ async function handleSolfegeKeyClick(clickedKeyDef, keyBtn) {
     }, step.delayMs);
   });
 
-  // Falls der Auto-Weiter-Button (links in der Leiste) aktiv ist:
+  // Falls Auto-Weiter oder der Nur-Hören-Modus aktiv ist:
   // Nach dem Ausklingen der Auflösung automatisch die nächste Abfrage starten!
   const autoNextDelayMs = resolutionSchedule.totalEndMs + 320;
   audioEngine.registerTimer(() => {
     if (audioEngine.playbackId !== currentId) return;
-    if (state.settings.solfegeAutoNext && state.currentView === "exercise" && state.settings.mode === "solfege") {
-      generateExercise();
-      playSequence();
+    if ((state.settings.solfegeAutoNext || isListenOnly) && state.currentView === "exercise" && state.settings.mode === "solfege") {
+      if (isListenOnly) {
+        if (!state.listenOnly.active || state.listenOnly.token !== listenOnlyToken) return;
+        generateExercise();
+        startListenOnlyCycle();
+      } else {
+        generateExercise();
+        playSequence();
+      }
     }
   }, autoNextDelayMs);
 }
@@ -21498,7 +21602,7 @@ function getChordArpeggioTiming(noteCount, bpm = state.activeBpm) {
   return { stepMs, noteDurSec, lastNoteDurSec, nextExerciseDelayMs };
 }
 
-function handleAnswer(selectedKey, btnElement) {
+function handleAnswer(selectedKey, btnElement, options = {}) {
   const ex = state.currentExercise;
   if (!ex) return;
 
@@ -21507,17 +21611,27 @@ function handleAnswer(selectedKey, btnElement) {
   }
   if (ex.isSolved) return;
 
+  const isListenOnly = Boolean(options.fromListenOnly && state.listenOnly?.active);
+  const listenOnlyToken = isListenOnly ? state.listenOnly.token : null;
+  if (!options.fromListenOnly && state.listenOnly?.active) {
+    setListenOnlyMode(false, { keepPlayback: true });
+  }
+
   const isCorrect = selectedKey === ex.targetItem.key;
 
   if (isCorrect) {
     ex.isSolved = true;
-    // Wenn Auto-Weiter aktiviert ist (oder Loop im Modul aktiv ist), nach richtiger Antwort automatisch nächste Abfrage starten
-    const shouldAutoContinue = state.settings.autoNextAfterCorrect || state.settings.loop;
+    state.exerciseSolved = true;
+    if (isListenOnly) {
+      state.listenOnly.phase = "reveal";
+    }
+    // Wenn Auto-Weiter, Loop oder Nur-Hören aktiv ist, nach richtiger Antwort automatisch nächste Abfrage starten
+    const shouldAutoContinue = isListenOnly || state.settings.autoNextAfterCorrect || state.settings.loop;
     audioEngine.stopPlayback();
     state.isPlaying = false;
     updatePlayButtonUI(false);
 
-    btnElement.classList.add("btn-correct");
+    btnElement?.classList.add("btn-correct");
     setCentralStageMode("stage-playing");
     updateStageMascot("happy");
     document.getElementById("stageSubtext").textContent = tr("RICHTIG!", "CORRECT!");
@@ -21540,6 +21654,12 @@ function handleAnswer(selectedKey, btnElement) {
 
     const advanceToNextExercise = () => {
       if (state.currentView !== "exercise") return;
+      if (isListenOnly) {
+        if (!state.listenOnly.active || state.listenOnly.token !== listenOnlyToken) return;
+        generateExercise();
+        startListenOnlyCycle();
+        return;
+      }
       generateExercise();
       if (shouldAutoContinue) {
         playSequence();
@@ -21584,15 +21704,23 @@ function handleAnswer(selectedKey, btnElement) {
           if (audioEngine.playbackId !== arpeggioPlaybackId || state.currentView !== "exercise") return;
           if (audioEngine.isInitialized) {
             startChordArpeggio();
+          } else if (isListenOnly) {
+            scheduleListenOnlyStep(advanceToNextExercise, LISTEN_ONLY_POST_REVEAL_MS, listenOnlyToken);
           } else {
             audioEngine.registerTimer(advanceToNextExercise, 1050);
           }
         }).catch(() => {
           if (audioEngine.playbackId === arpeggioPlaybackId) {
-            audioEngine.registerTimer(advanceToNextExercise, 1050);
+            if (isListenOnly) {
+              scheduleListenOnlyStep(advanceToNextExercise, LISTEN_ONLY_POST_REVEAL_MS, listenOnlyToken);
+            } else {
+              audioEngine.registerTimer(advanceToNextExercise, 1050);
+            }
           }
         });
       }
+    } else if (isListenOnly) {
+      scheduleListenOnlyStep(advanceToNextExercise, LISTEN_ONLY_POST_REVEAL_MS, listenOnlyToken);
     } else {
       setTimeout(advanceToNextExercise, 1050);
     }
@@ -21643,6 +21771,9 @@ function handleAnswer(selectedKey, btnElement) {
 async function handleRhythmDictationChoice(cellKey, btnElement) {
   const ex = state.currentExercise;
   if (!ex || ex.type !== "rhythm-dictation" || state.rhythmDictationCompleted) return;
+  if (state.listenOnly?.active) {
+    setListenOnlyMode(false, { keepPlayback: true });
+  }
 
   await ensureAudioReady();
 
@@ -21723,6 +21854,8 @@ async function handleRhythmDictationChoice(cellKey, btnElement) {
 
   // Alle 4 Schläge gelöst -> nächste Aufgabe vorbereiten/starten
   state.rhythmDictationCompleted = true;
+  state.exerciseSolved = true;
+  ex.isSolved = true;
   audioEngine.stopPlayback();
   state.isPlaying = false;
   updatePlayButtonUI(false);
@@ -21756,6 +21889,9 @@ async function handleRhythmDictationChoice(cellKey, btnElement) {
 async function repeatRhythmDictationBeat(slotIdx = null) {
   const ex = state.currentExercise;
   if (!ex || ex.type !== "rhythm-dictation") return;
+  if (state.listenOnly?.active) {
+    setListenOnlyMode(false, { keepPlayback: true });
+  }
   const idx = typeof slotIdx === "number" ? slotIdx : ex.rhythmStep;
   const slot = ex.rhythmSlots[idx];
   if (!slot) return;
@@ -21857,15 +21993,21 @@ function renderRhythmTapPad() {
       }
       return;
     }
+    if (state.listenOnly?.active) {
+      setListenOnlyMode(false, { keepPlayback: true });
+    }
     playSequence();
   });
 }
 
-async function playRhythmTapDemoOnly() {
+async function playRhythmTapDemoOnly(options = {}) {
   const ex = state.currentExercise;
   if (!ex || ex.type !== "rhythm-tap") return;
 
   await ensureAudioReady();
+  if (options.fromListenOnly && (!state.listenOnly?.active || state.listenOnly.token !== options.token || state.currentView !== "exercise" || state.currentExercise !== ex)) {
+    return;
+  }
   audioEngine.stopPlayback();
   state.rhythmTapSession = null;
   state.isPlaying = true;
@@ -21926,6 +22068,7 @@ async function playRhythmTapDemoOnly() {
   audioEngine.registerTimer(() => {
     if (audioEngine.playbackId !== currentId) return;
     stopPlayback();
+    handleListenOnlyPromptEnded(ex);
   }, 50 + Math.round(2 * barMs + 140));
 }
 
@@ -21983,6 +22126,8 @@ function finishRhythmTapRound() {
   const res = evaluateRhythmTaps(session.expectedEvents, session.tapsMs, ex.toleranceMs);
   ex.tapEvaluated = true;
   ex.lastEvaluation = res;
+  state.exerciseSolved = true;
+  ex.isSolved = true;
 
   const padBtn = document.getElementById("rhythmTapPadBtn");
   padBtn?.classList.remove("is-counting", "is-ready", "is-hit");
@@ -22093,6 +22238,9 @@ async function ensureAudioReady() {
 async function repeatMelodySlotTone(slotIdx = null) {
   const ex = state.currentExercise;
   if (!ex || ex.type !== "melody") return;
+  if (state.listenOnly?.active) {
+    setListenOnlyMode(false, { keepPlayback: true });
+  }
   const idx = typeof slotIdx === "number" ? slotIdx : ex.melodyStep;
   const slot = ex.melodySlots[idx];
   if (!slot) return;
@@ -22274,9 +22422,45 @@ async function startSolfegeTargetLoop(playImmediately = true) {
   scheduleSolfegeTargetLoopTick(ex, currentId, SOLFEGE_LOOP_INTERVAL_MS);
 }
 
+/**
+ * Spielt in den Kadenzübungen die aktuell abgefragte Akkordstufe isoliert erneut ab.
+ */
+async function repeatCadenceTargetChord() {
+  const ex = state.currentExercise;
+  if (!ex || ex.type !== "cadence" || !ex.targetItem) return;
+  if (!audioEngine.isInitialized) await ensureAudioReady();
+  audioEngine.stopPlayback();
+  state.isPlaying = false;
+  updatePlayButtonUI(false);
+
+  const totalBars = ex.bars?.length ?? 4;
+  for (let i = 0; i < totalBars; i++) {
+    document.getElementById(`barCard_${i}`)?.classList.toggle("bar-active", i === ex.targetIndex);
+  }
+
+  if (document.getElementById("centralStageCard") && !ex.isSolved) {
+    setCentralStageMode("stage-target");
+    updateStageMascot("question");
+    document.getElementById("stageSubtext").textContent = tf("TAKT {n} • GESUCHT", "BAR {n} • TARGET", { n: ex.targetIndex + 1 });
+    document.getElementById("stageMainText").textContent = "?";
+    document.getElementById("stageFunctionText").textContent = tr("Welche Stufe erklingt jetzt?", "Which chord degree plays now?");
+  }
+
+  const playId = audioEngine.playbackId;
+  audioEngine.playStep(ex.targetItem.notes, 1.2, ex.targetItem.bass, "cadence");
+  audioEngine.registerTimer(() => {
+    if (audioEngine.playbackId !== playId) return;
+    document.getElementById(`barCard_${ex.targetIndex}`)?.classList.remove("bar-active");
+  }, 1200);
+}
+
 async function repeatSolfegeTargetTone() {
   const ex = state.currentExercise;
   if (!ex) return;
+  if (ex.type === "cadence") {
+    await repeatCadenceTargetChord();
+    return;
+  }
   if (ex.type === "melody") {
     await repeatMelodySlotTone(ex.melodyStep);
     return;
@@ -22310,8 +22494,334 @@ async function repeatSolfegeTargetTone() {
   audioEngine.playStep([ex.targetItem.noteName], 0.95, null, "interval");
 }
 
-async function playSequence() {
+const LISTEN_ONLY_REVEAL_DELAY_MS = 2000;
+const LISTEN_ONLY_POST_REVEAL_MS = 1350;
+const LISTEN_ONLY_MULTI_POST_REVEAL_MS = 1800;
+const LISTEN_ONLY_EQ_NOISE_LISTEN_MS = 1600;
+const LISTEN_ONLY_LOOP_MODE_EXCLUSIONS = new Set(["melody", "rhythm-dictation", "rhythm-tap"]);
+
+function cancelListenOnlyTimers() {
+  if (!state.listenOnly) return;
+  state.listenOnly.token += 1;
+  if (state.listenOnly.timerId !== null) {
+    clearTimeout(state.listenOnly.timerId);
+    state.listenOnly.timerId = null;
+  }
+  state.listenOnly.phase = "idle";
+}
+
+function isCurrentExerciseSolved(ex = state.currentExercise) {
+  if (!ex) return false;
+  return Boolean(
+    state.exerciseSolved ||
+    ex.isSolved ||
+    state.solfegeAnswered ||
+    state.melodyCompleted ||
+    state.rhythmDictationCompleted ||
+    ex.tapEvaluated
+  );
+}
+
+function clearTransientExerciseWrongMarks() {
+  document.querySelectorAll("#degreeButtonsGrid .degree-btn").forEach(el => {
+    el.classList.remove("btn-wrong");
+  });
+  document.querySelectorAll("#solfegeKeyboardWrap .piano-white-key, #solfegeKeyboardWrap .piano-black-key").forEach(el => {
+    el.classList.remove("key-wrong");
+  });
+  document.getElementById("feedbackContainer")?.classList.add("hidden");
+  state.lastAnswerWasWrong = false;
+  state.wrongAnswerData = null;
+}
+
+function syncListenOnlyUI() {
+  const btn = document.getElementById("listenOnlyBtn");
+  const lbl = document.getElementById("listenOnlyBtnLabel");
+  const active = Boolean(state.listenOnly?.active);
+  if (btn) {
+    btn.classList.toggle("btn-active", active);
+    btn.setAttribute("aria-pressed", active ? "true" : "false");
+    btn.title = active
+      ? tr("Nur-Hören-Modus läuft (Tippen zum Beenden)", "Listen-Only Mode active (tap to stop)")
+      : tr("Nur-Hören-Modus ein-/ausschalten", "Toggle Listen-Only Mode");
+  }
+  if (lbl) {
+    lbl.textContent = tr("Nur Hören", "Listen Only");
+  }
+  updatePlayButtonUI(state.isPlaying);
+}
+
+function scheduleListenOnlyStep(fn, delayMs, expectedToken) {
+  if (!state.listenOnly) return;
+  if (state.listenOnly.timerId !== null) {
+    clearTimeout(state.listenOnly.timerId);
+    state.listenOnly.timerId = null;
+  }
+  state.listenOnly.timerId = setTimeout(() => {
+    state.listenOnly.timerId = null;
+    if (!state.listenOnly?.active || state.listenOnly.token !== expectedToken || state.currentView !== "exercise") {
+      return;
+    }
+    fn(expectedToken);
+  }, Math.max(0, Math.round(delayMs)));
+}
+
+function scheduleNextListenOnlyExercise(delayMs, token) {
+  scheduleListenOnlyStep(() => {
+    generateExercise();
+    startListenOnlyCycle();
+  }, delayMs, token);
+}
+
+function revealMelodyListenOnly(ex, token) {
+  state.listenOnly.phase = "reveal";
+  state.melodyCompleted = true;
+  state.exerciseSolved = true;
+  ex.isSolved = true;
+  audioEngine.stopPlayback();
+  state.isPlaying = false;
+
+  document.querySelectorAll("#solfegeKeyboardWrap .piano-white-key, #solfegeKeyboardWrap .piano-black-key").forEach(el => {
+    el.classList.remove("key-wrong", "key-correct");
+  });
+
+  ex.melodySlots.forEach((slot, idx) => {
+    slot.solved = true;
+    const card = document.getElementById(`barCard_${idx}`);
+    if (card) {
+      card.className = "bar-card melody-slot-solved tile-selected-pulse";
+      const romanEl = card.querySelector(".bar-roman");
+      const lblEl = card.querySelector(".bar-label");
+      if (romanEl) romanEl.textContent = getSolfegeDisplayLabel(slot.syllable);
+      if (lblEl) lblEl.textContent = `✓ ${slot.germanNote}`;
+    }
+    const keyEl = document.getElementById(`solfegeKey_${slot.midi}`) ||
+      document.getElementById(`solfegeKey_${slot.playedMidi}`) ||
+      document.querySelector(`#solfegeKeyboardWrap [data-syllable="${slot.syllable}"]`);
+    keyEl?.classList.add("key-correct");
+  });
+
+  const badge = document.getElementById("targetBarBadge");
+  if (badge) badge.textContent = tr("4 / 4 gelöst ✓", "4 / 4 solved ✓");
+  const promptEl = document.getElementById("inputPromptText");
+  if (promptEl) promptEl.textContent = tr("Alle 4 Fragezeichen gelöst – weiter geht’s!", "All 4 notes solved — moving on!");
+
+  setCentralStageMode("stage-playing");
+  updateStageMascot("happy");
+  document.getElementById("stageSubtext").textContent = tr("MELODIE GELÖST! (4/4)", "MELODY SOLVED! (4/4)");
+  document.getElementById("stageMainText").textContent = ex.melodySlots.map(s => getSolfegeDisplayLabel(s.syllable)).join(" – ");
+  document.getElementById("stageFunctionText").textContent = tr("Nächste Aufgabe wird geladen…", "Loading next exercise…");
+  updatePlayButtonUI(false);
+
+  scheduleNextListenOnlyExercise(LISTEN_ONLY_MULTI_POST_REVEAL_MS, token);
+}
+
+function revealRhythmDictationListenOnly(ex, token) {
+  state.listenOnly.phase = "reveal";
+  state.rhythmDictationCompleted = true;
+  state.exerciseSolved = true;
+  ex.isSolved = true;
+  audioEngine.stopPlayback();
+  state.isPlaying = false;
+
+  document.querySelectorAll("#degreeButtonsGrid .degree-btn").forEach(el => {
+    el.classList.remove("btn-wrong", "btn-correct");
+  });
+
+  ex.rhythmSlots.forEach((slot, idx) => {
+    slot.solved = true;
+    const card = document.getElementById(`barCard_${idx}`);
+    if (card) {
+      card.className = "bar-card melody-slot-solved rhythm-slot-clickable tile-selected-pulse";
+      const romanEl = card.querySelector(".bar-roman");
+      const lblEl = card.querySelector(".bar-label");
+      if (romanEl) romanEl.innerHTML = getRhythmCellSVG(slot.cellKey, 40, 22);
+      if (lblEl) lblEl.textContent = `✓ ${slot.cell.short}`;
+    }
+    const matchingChoice = Array.from(document.querySelectorAll("#degreeButtonsGrid .degree-btn"))
+      .find(el => el.dataset.choice === slot.cellKey);
+    matchingChoice?.classList.add("btn-correct");
+  });
+
+  const badge = document.getElementById("targetBarBadge");
+  if (badge) badge.textContent = tr("4 / 4 gelöst ✓", "4 / 4 solved ✓");
+  const promptEl = document.getElementById("inputPromptText");
+  if (promptEl) promptEl.textContent = tr("Alle 4 Zählzeiten gelöst – weiter geht’s!", "All 4 beats solved — moving on!");
+
+  setCentralStageMode("stage-playing");
+  updateStageMascot("happy");
+  document.getElementById("stageSubtext").textContent = tr("RHYTHMUS GELÖST! (4/4)", "RHYTHM SOLVED! (4/4)");
+  document.getElementById("stageMainText").textContent = ex.rhythmSlots.map(s => s.cell.short).join(" • ");
+  document.getElementById("stageFunctionText").textContent = tr("Nächste Aufgabe wird geladen…", "Loading next exercise…");
+  updatePlayButtonUI(false);
+
+  scheduleNextListenOnlyExercise(LISTEN_ONLY_MULTI_POST_REVEAL_MS, token);
+}
+
+function revealRhythmTapListenOnly(ex, token) {
+  state.listenOnly.phase = "reveal";
+  ex.tapEvaluated = true;
+  ex.isSolved = true;
+  state.exerciseSolved = true;
+  audioEngine.stopPlayback();
+  state.isPlaying = false;
+
+  const padBtn = document.getElementById("rhythmTapPadBtn");
+  padBtn?.classList.remove("is-counting", "is-ready", "is-hit");
+  const padTitle = document.getElementById("rhythmPadTitle");
+  const padSub = document.getElementById("rhythmPadSub");
+  if (padTitle) padTitle.textContent = tr("Rhythmus-Muster ✓", "Rhythm Pattern ✓");
+  if (padSub) padSub.textContent = tr("Nächste Runde startet gleich…", "Next round starting soon…");
+
+  for (let i = 0; i < ex.beatsPerBar; i++) {
+    const card = document.getElementById(`barCard_${i}`);
+    if (!card) continue;
+    card.classList.remove("bar-active", "rhythm-blind", "melody-slot-pending", "rhythm-tap-exact", "rhythm-tap-close", "rhythm-tap-missed");
+    card.classList.add("rhythm-tap-exact");
+    const lbl = card.querySelector(".bar-label");
+    if (lbl && ex.tapSlots[i]?.cell) {
+      lbl.textContent = `✓ ${ex.tapSlots[i].cell.short}`;
+    }
+  }
+
+  const badge = document.getElementById("targetBarBadge");
+  if (badge) badge.textContent = tr("Muster gezeigt ✓", "Pattern shown ✓");
+
+  if (document.getElementById("centralStageCard")) {
+    setCentralStageMode("stage-playing");
+    updateStageMascot("happy");
+    document.getElementById("stageSubtext").textContent = tr("MUSTER • NUR HÖREN", "PATTERN • LISTEN ONLY");
+    document.getElementById("stageMainText").textContent = ex.tapSlots.map(s => s.cell.short).join(" • ");
+    document.getElementById("stageFunctionText").textContent = tr("Nächste Aufgabe wird geladen…", "Loading next exercise…");
+  }
+  updatePlayButtonUI(false);
+
+  scheduleNextListenOnlyExercise(LISTEN_ONLY_MULTI_POST_REVEAL_MS, token);
+}
+
+function revealListenOnlyAnswer(token) {
+  const ex = state.currentExercise;
+  if (!ex || !state.listenOnly?.active || state.listenOnly.token !== token || state.currentView !== "exercise") {
+    return;
+  }
+  if (isCurrentExerciseSolved(ex)) {
+    scheduleNextListenOnlyExercise(LISTEN_ONLY_POST_REVEAL_MS, token);
+    return;
+  }
+
+  if (ex.type === "solfege") {
+    const target = ex.targetItem;
+    const keyBtn = document.getElementById(`solfegeKey_${target.midi}`) ||
+      document.querySelector(`#solfegeKeyboardWrap [data-syllable="${target.syllable}"]`);
+    handleSolfegeKeyClick({ midi: target.midi, syllable: target.syllable }, keyBtn, { fromListenOnly: true });
+    return;
+  }
+
+  if (ex.type === "melody") {
+    revealMelodyListenOnly(ex, token);
+    return;
+  }
+
+  if (ex.type === "rhythm-dictation") {
+    revealRhythmDictationListenOnly(ex, token);
+    return;
+  }
+
+  if (ex.type === "rhythm-tap") {
+    revealRhythmTapListenOnly(ex, token);
+    return;
+  }
+
+  const targetKey = ex.targetItem?.key;
+  const targetBtn = Array.from(document.querySelectorAll("#degreeButtonsGrid .degree-btn"))
+    .find(el => el.dataset.choice === targetKey) || null;
+  handleAnswer(targetKey, targetBtn, { fromListenOnly: true });
+}
+
+function handleListenOnlyPromptEnded(expectedEx) {
+  if (!state.listenOnly?.active || state.currentView !== "exercise") return;
+  if (!expectedEx || state.currentExercise !== expectedEx) return;
+  if (state.listenOnly.phase !== "playing") return;
+
+  const token = state.listenOnly.token;
+  state.listenOnly.phase = "think";
+
+  if (document.getElementById("centralStageCard") && !isCurrentExerciseSolved(expectedEx)) {
+    setCentralStageMode("stage-target");
+    updateStageMascot("question");
+    document.getElementById("stageSubtext").textContent = tr("NUR HÖREN • DENKPAUSE", "LISTEN ONLY • THINK");
+    document.getElementById("stageMainText").textContent = "?";
+    document.getElementById("stageFunctionText").textContent =
+      expectedEx.type === "prod-eq-noise"
+        ? tr("EQ-Boost läuft – Auflösung folgt gleich…", "EQ boost playing — showing answer shortly…")
+        : tr("Lösung wird gleich angezeigt…", "Showing answer shortly…");
+  }
+
+  scheduleListenOnlyStep(() => {
+    if (state.currentExercise !== expectedEx) return;
+    revealListenOnlyAnswer(token);
+  }, LISTEN_ONLY_REVEAL_DELAY_MS, token);
+}
+
+async function startListenOnlyCycle() {
+  if (!state.listenOnly?.active || state.currentView !== "exercise") return;
+  cancelListenOnlyTimers();
+  const token = state.listenOnly.token;
+  state.listenOnly.phase = "playing";
+
+  if (isCurrentExerciseSolved()) {
+    generateExercise();
+  } else {
+    clearTransientExerciseWrongMarks();
+    syncListenOnlyUI();
+  }
+
+  const targetEx = state.currentExercise;
   await ensureAudioReady();
+  if (!state.listenOnly?.active || state.listenOnly.token !== token || state.currentView !== "exercise") {
+    return;
+  }
+  if (state.currentExercise !== targetEx) return;
+
+  await playSequence();
+}
+
+function setListenOnlyMode(enabled, options = {}) {
+  const nextActive = Boolean(enabled);
+  if (!state.listenOnly) {
+    state.listenOnly = { active: false, token: 0, timerId: null, phase: "idle" };
+  }
+  if (nextActive === state.listenOnly.active && !options.restart) {
+    syncListenOnlyUI();
+    return;
+  }
+
+  cancelListenOnlyTimers();
+
+  if (!nextActive || state.currentView !== "exercise") {
+    state.listenOnly.active = false;
+    syncListenOnlyUI();
+    if (!options.keepPlayback) {
+      stopPlayback();
+    }
+    return;
+  }
+
+  state.listenOnly.active = true;
+  if (state.settings.loop && !LISTEN_ONLY_LOOP_MODE_EXCLUSIONS.has(state.settings.mode)) {
+    state.settings.loop = false;
+    document.getElementById("loopToggleBtn")?.classList.remove("btn-active");
+  }
+  syncListenOnlyUI();
+  startListenOnlyCycle();
+}
+
+async function playSequence() {
+  const listenOnlyCycleToken = state.listenOnly?.active ? state.listenOnly.token : null;
+  await ensureAudioReady();
+  if (listenOnlyCycleToken !== null && (!state.listenOnly?.active || state.listenOnly.token !== listenOnlyCycleToken || state.currentView !== "exercise")) {
+    return;
+  }
   audioEngine.stopPlayback();
   state.rhythmTapSession = null;
   state.isPlaying = true;
@@ -22319,6 +22829,7 @@ async function playSequence() {
 
   const ex = state.currentExercise;
   const currentId = audioEngine.playbackId;
+  const keepPromptLooping = () => Boolean(state.settings.loop && !state.listenOnly?.active);
 
   // Produktion 1: Isolierte Sinus-Frequenz erkennen
   if (ex.type === "prod-tone") {
@@ -22338,13 +22849,14 @@ async function playSequence() {
       audioEngine.registerTimer(() => {
         if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
         document.getElementById("barCard_0")?.classList.remove("bar-active");
-        if (state.settings.loop) {
+        if (keepPromptLooping()) {
           audioEngine.registerTimer(() => {
             if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
             runProdToneLoopCycle();
           }, 380);
         } else {
           stopPlayback();
+          handleListenOnlyPromptEnded(ex);
         }
       }, 1520);
     }
@@ -22368,6 +22880,12 @@ async function playSequence() {
         }
       }
     });
+    if (state.listenOnly?.active) {
+      audioEngine.registerTimer(() => {
+        if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
+        handleListenOnlyPromptEnded(ex);
+      }, LISTEN_ONLY_EQ_NOISE_LISTEN_MS);
+    }
     return;
   }
 
@@ -22410,13 +22928,14 @@ async function playSequence() {
         if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
         document.getElementById("barCard_0")?.classList.remove("bar-active");
         document.getElementById("barCard_1")?.classList.remove("bar-active");
-        if (state.settings.loop) {
+        if (keepPromptLooping()) {
           audioEngine.registerTimer(() => {
             if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
             runModeLoopCycle();
           }, 420);
         } else {
           stopPlayback();
+          handleListenOnlyPromptEnded(ex);
         }
       }, cycleEndMs);
     }
@@ -22450,10 +22969,11 @@ async function playSequence() {
 
       audioEngine.registerTimer(() => {
         if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
-        if (state.settings.loop) {
+        if (keepPromptLooping()) {
           runMeterLoopCycle();
         } else {
           stopPlayback();
+          handleListenOnlyPromptEnded(ex);
         }
       }, 40 + Math.round(totalMs));
     }
@@ -22530,13 +23050,18 @@ async function playSequence() {
         document.getElementById("stageFunctionText").textContent =
           tf("Tippe das Muster für Schlag {n} (oder „Schlag nochmal“).", "Select the pattern for Beat {n} (or tap “Replay Beat”).", { n: ex.rhythmStep + 1 });
       }
+      handleListenOnlyPromptEnded(ex);
     }, 40 + Math.round(2 * barMs + 80));
 
     return;
   }
 
-  // 3. Rhythmus nachklopfen (Tap-Pad): 1 Takt Vorzähler -> 1 Takt Demo -> 1 Takt Nachklopfen
+  // 3. Rhythmus nachklopfen (Tap-Pad): 1 Takt Vorzähler -> 1 Takt Demo -> 1 Takt Nachklopfen (im Nur-Hören-Modus nur Demo)
   if (ex.type === "rhythm-tap") {
+    if (state.listenOnly?.active) {
+      await playRhythmTapDemoOnly({ fromListenOnly: true, token: state.listenOnly.token });
+      return;
+    }
     ex.tapEvaluated = false;
     ex.lastEvaluation = null;
 
@@ -22722,10 +23247,11 @@ async function playSequence() {
 
       audioEngine.registerTimer(() => {
         if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
-        if (state.settings.loop) {
+        if (keepPromptLooping()) {
           runGrooveLoopCycle();
         } else {
           stopPlayback();
+          handleListenOnlyPromptEnded(ex);
         }
       }, 40 + Math.round(totalMs));
     }
@@ -22803,6 +23329,7 @@ async function playSequence() {
         document.getElementById("stageFunctionText").textContent =
           tf("Tippe den Solfège-Namen für Ton {n} (oder „Ton nochmal“).", "Tap the Solfège syllable for Note {n} (or “Replay Tone”).", { n: ex.melodyStep + 1 });
       }
+      handleListenOnlyPromptEnded(ex);
     }, melodyEndMs);
 
     return;
@@ -22856,16 +23383,17 @@ async function playSequence() {
 
       audioEngine.playStep([ex.targetItem.noteName], 1.1, null, "interval");
 
-      if (state.settings.loop && !state.solfegeAnswered) {
+      if (keepPromptLooping() && !state.solfegeAnswered) {
         scheduleSolfegeTargetLoopTick(ex, currentId, SOLFEGE_LOOP_INTERVAL_MS);
       } else {
         audioEngine.registerTimer(() => {
           if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
-          if (state.settings.loop && !state.solfegeAnswered) {
+          if (keepPromptLooping() && !state.solfegeAnswered) {
             scheduleSolfegeTargetLoopTick(ex, currentId, Math.max(0, SOLFEGE_LOOP_INTERVAL_MS - 1150));
           } else {
             state.isPlaying = false;
             updatePlayButtonUI(false);
+            handleListenOnlyPromptEnded(ex);
           }
         }, 1150);
       }
@@ -22911,10 +23439,11 @@ async function playSequence() {
 
       audioEngine.registerTimer(() => {
         if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
-        if (state.settings.loop) {
+        if (keepPromptLooping()) {
           runMelodicIntervalLoopCycle();
         } else {
           stopPlayback();
+          handleListenOnlyPromptEnded(ex);
         }
       }, cycleMs);
     }
@@ -22987,10 +23516,11 @@ async function playSequence() {
 
     audioEngine.registerTimer(() => {
       if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
-      if (state.settings.loop) {
+      if (keepPromptLooping()) {
         runLoopCycle();
       } else {
         stopPlayback();
+        handleListenOnlyPromptEnded(ex);
       }
     }, totalDurationMs);
   }
@@ -23040,6 +23570,11 @@ function stopPlayback() {
 function updatePlayButtonUI(isPlaying) {
   const btn = document.getElementById("playBtn");
   if (!btn) return;
+  if (state.listenOnly?.active && state.currentView === "exercise") {
+    btn.innerHTML = tr("■ Stopp", "■ Stop");
+    btn.classList.add("btn-stop");
+    return;
+  }
   if (state.solfegeAnswered && !isPlaying && state.settings.mode === "solfege") {
     btn.innerHTML = tr("Nächste Abfrage ⏭", "Next Prompt ⏭");
     btn.classList.remove("btn-stop");
@@ -24634,7 +25169,15 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Transport-Steuerung in der Übung
+  document.getElementById("listenOnlyBtn")?.addEventListener("click", () => {
+    setListenOnlyMode(!state.listenOnly.active);
+  });
+
   document.getElementById("playBtn")?.addEventListener("click", () => {
+    if (state.listenOnly.active) {
+      setListenOnlyMode(false);
+      return;
+    }
     if (state.settings.mode === "solfege" && state.solfegeAnswered) {
       generateExercise();
       playSequence();
@@ -24645,6 +25188,13 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.getElementById("skipBtn")?.addEventListener("click", () => {
+    if (state.listenOnly.active) {
+      cancelListenOnlyTimers();
+      stopPlayback();
+      generateExercise();
+      startListenOnlyCycle();
+      return;
+    }
     stopPlayback();
     generateExercise();
     if (state.settings.mode === "solfege" || state.settings.mode === "melody" || state.settings.mode === "rhythm-dictation") {
@@ -24653,6 +25203,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.getElementById("repeatToneBtn")?.addEventListener("click", () => {
+    if (state.listenOnly.active) {
+      setListenOnlyMode(false, { keepPlayback: true });
+    }
     repeatSolfegeTargetTone();
   });
 
@@ -24669,6 +25222,9 @@ document.addEventListener("DOMContentLoaded", () => {
       loopBtn.classList.toggle("btn-active", state.settings.rhythmTapAutoNext);
     } else {
       state.settings.loop = !state.settings.loop;
+      if (state.settings.loop && state.listenOnly.active) {
+        setListenOnlyMode(false, { keepPlayback: true });
+      }
       loopBtn.classList.toggle("btn-active", state.settings.loop);
       if (state.settings.mode === "solfege") {
         const ex = state.currentExercise;
@@ -24711,12 +25267,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (mode === "prod-tone") {
+      if (state.listenOnly.active) {
+        setListenOnlyMode(false, { keepPlayback: true });
+      }
       audioEngine.stopPlayback();
       audioEngine.playProductionTone(1000, 1.05);
       return;
     }
 
     if (mode === "prod-eq-noise") {
+      if (state.listenOnly.active && (!state.isPlaying || !audioEngine.activeNoiseSession)) {
+        setListenOnlyMode(false, { keepPlayback: true });
+      }
       await triggerProdEqNoiseComparison(null);
       return;
     }
@@ -24941,8 +25503,12 @@ document.addEventListener("DOMContentLoaded", () => {
         b.classList.toggle("active", b.dataset.keymode === chosenMode);
       });
       state.settings.keyMode = chosenMode;
+      cancelListenOnlyTimers();
       stopPlayback();
       generateExercise();
+      if (state.listenOnly.active) {
+        startListenOnlyCycle();
+      }
     });
   });
 
@@ -24990,7 +25556,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (state.settings.randomBpm) {
       if (inlineBpmVal) inlineBpmVal.textContent = tr("Zufall", "Random");
+      cancelListenOnlyTimers();
+      stopPlayback();
       generateExercise();
+      if (state.listenOnly.active) {
+        startListenOnlyCycle();
+      }
     } else {
       syncExerciseBpmUI(state.settings.bpm, true);
     }
@@ -25005,8 +25576,12 @@ document.addEventListener("DOMContentLoaded", () => {
         b.classList.toggle("active", b.dataset.timesig === chosenSig);
       });
       state.settings.timeSig = chosenSig;
+      cancelListenOnlyTimers();
       stopPlayback();
       generateExercise();
+      if (state.listenOnly.active) {
+        startListenOnlyCycle();
+      }
     });
   });
 
@@ -25229,7 +25804,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("click", (e) => {
     const tile = typeof e.target?.closest === "function"
       ? e.target.closest(
-          ".category-nav-card, .subpage-node-btn, .ref-hub-card, .degree-btn, .opt-btn:not(:disabled), .theme-preview-item, .popover-pill-btn, .k-filter-pill, .knowledge-tab-btn, .tonic-btn, .overtone-btn, .category-help-btn, .btn-primary-action, .btn-secondary-action, .module-chip-btn, .btn-tool"
+          ".category-nav-card, .subpage-node-btn, .ref-hub-card, .degree-btn, .opt-btn:not(:disabled), .theme-preview-item, .popover-pill-btn, .k-filter-pill, .knowledge-tab-btn, .tonic-btn, .listen-only-btn, .overtone-btn, .category-help-btn, .btn-primary-action, .btn-secondary-action, .module-chip-btn, .btn-tool"
         )
       : null;
     if (tile) triggerTilePulse(tile);
@@ -25238,7 +25813,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Leertaste als Takt-/Tap-Taste im Modul „Rhythmus nachklopfen“
   document.addEventListener("keydown", (e) => {
     if (e.code !== "Space" && e.key !== " ") return;
-    if (state.currentView !== "exercise" || state.settings.mode !== "rhythm-tap" || e.repeat) return;
+    if (state.currentView !== "exercise" || state.settings.mode !== "rhythm-tap" || state.listenOnly?.active || e.repeat) return;
     const tag = e.target?.tagName;
     if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
     const openModal = ["mixerBackdrop", "settingsBackdrop"].some(
