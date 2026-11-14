@@ -6094,6 +6094,15 @@ body,
         </div>
 
         <div class="settings-section">
+          <h4 data-i18n="settings.autoNextHeading">Nächste Abfragung automatisch abspielen</h4>
+          <p class="settings-hint" data-i18n="settings.autoNextHint">Spielt nach einer richtigen Lösung automatisch die nächste Aufgabe ab.</p>
+          <div id="autoNextGroup" class="btn-group" role="group" aria-label="Nächste Abfragung automatisch abspielen" data-i18n-aria="settings.autoNextAria">
+            <button type="button" class="opt-btn active" data-auto-next="on" aria-pressed="true" data-i18n="settings.autoNextOn">Ein</button>
+            <button type="button" class="opt-btn" data-auto-next="off" aria-pressed="false" data-i18n="settings.autoNextOff">Aus</button>
+          </div>
+        </div>
+
+        <div class="settings-section">
           <h4 data-i18n="settings.quickMixHeading">Quick-Mixe (Startseite)</h4>
           <p class="settings-hint" data-i18n="settings.quickMixHint">Passe deine Schnellstart-Mixe jederzeit in ‚Mein Konto‘ an oder lege neue Favoriten an.</p>
           <button id="settingsManageMixesBtn" class="btn-tool" type="button" data-i18n="settings.manageMixesBtn">Quick-Mixe anpassen →</button>
@@ -7687,6 +7696,20 @@ const I18N_STATIC = {
     de: "Wird beim Start einer Übung übernommen, bis du das Tempo im Modul manuell anpasst.",
     en: "Applied when opening an exercise until you change the tempo inside the module."
   },
+  "settings.autoNextHeading": {
+    de: "Nächste Abfragung automatisch abspielen",
+    en: "Auto-Play Next Prompt"
+  },
+  "settings.autoNextHint": {
+    de: "Spielt nach einer richtigen Lösung automatisch die nächste Aufgabe ab.",
+    en: "Automatically plays the next prompt after a correct answer."
+  },
+  "settings.autoNextAria": {
+    de: "Nächste Abfragung automatisch abspielen",
+    en: "Auto-play next prompt"
+  },
+  "settings.autoNextOn": { de: "Ein", en: "On" },
+  "settings.autoNextOff": { de: "Aus", en: "Off" },
   "settings.quickMixHeading": { de: "Quick-Mixe (Startseite)", en: "Quick Mixes (Home)" },
   "settings.quickMixHint": {
     de: "Passe deine Schnellstart-Mixe jederzeit in ‚Mein Konto‘ an oder lege neue Favoriten an.",
@@ -15779,26 +15802,36 @@ const THEME_PALETTE_META = {
 function loadVisualPrefs() {
   try {
     if (typeof localStorage === "undefined") {
-      return { appearance: "light", theme: "waldlichtung", language: "de" };
+      return { appearance: "light", theme: "waldlichtung", language: "de", autoNextAfterCorrect: true };
     }
     const raw = localStorage.getItem(VISUAL_PREFS_STORAGE_KEY);
-    if (!raw) return { appearance: "light", theme: "waldlichtung", language: "de" };
+    if (!raw) return { appearance: "light", theme: "waldlichtung", language: "de", autoNextAfterCorrect: true };
     const parsed = JSON.parse(raw);
     return {
       appearance: VALID_APPEARANCES.includes(parsed?.appearance) ? parsed.appearance : "light",
       theme: ALL_VALID_THEMES.includes(parsed?.theme) ? parsed.theme : "waldlichtung",
-      language: parsed?.language === "en" ? "en" : "de"
+      language: parsed?.language === "en" ? "en" : "de",
+      autoNextAfterCorrect: parsed?.autoNextAfterCorrect !== false
     };
   } catch (_err) {
-    return { appearance: "light", theme: "waldlichtung", language: "de" };
+    return { appearance: "light", theme: "waldlichtung", language: "de", autoNextAfterCorrect: true };
   }
 }
 
-function saveVisualPrefs(appearance, theme, language = (typeof state !== "undefined" ? state?.settings?.language : null)) {
+function saveVisualPrefs(
+  appearance,
+  theme,
+  language = (typeof state !== "undefined" ? state?.settings?.language : null),
+  autoNextAfterCorrect = (typeof state !== "undefined" ? state?.settings?.autoNextAfterCorrect : true)
+) {
   try {
     if (typeof localStorage === "undefined") return;
     const validLang = language === "en" ? "en" : "de";
-    localStorage.setItem(VISUAL_PREFS_STORAGE_KEY, JSON.stringify({ appearance, theme, language: validLang }));
+    const validAutoNext = autoNextAfterCorrect !== false;
+    localStorage.setItem(
+      VISUAL_PREFS_STORAGE_KEY,
+      JSON.stringify({ appearance, theme, language: validLang, autoNextAfterCorrect: validAutoNext })
+    );
   } catch (_err) {
     // Auf eingeschränkten content:// oder privaten WebViews ignorieren
   }
@@ -16020,8 +16053,8 @@ class AppState {
       rhythmDictationDifficulty: 1,
       rhythmTapDifficulty: 1,
       rhythmTapClick: true,
-      rhythmTapAutoNext: true,
-      rhythmDictationAutoNext: true,
+      rhythmTapAutoNext: initialVisual.autoNextAfterCorrect,
+      rhythmDictationAutoNext: initialVisual.autoNextAfterCorrect,
       rhythmGrooveDifficulty: 1,
       prodToneDifficulty: 1,
       prodEqNoiseDifficulty: 1,
@@ -16034,8 +16067,9 @@ class AppState {
       bpm: 90,
       randomBpm: false,
       loop: false,
-      solfegeAutoNext: false,
-      melodyAutoNext: true,
+      autoNextAfterCorrect: initialVisual.autoNextAfterCorrect,
+      solfegeAutoNext: initialVisual.autoNextAfterCorrect,
+      melodyAutoNext: initialVisual.autoNextAfterCorrect,
       appearance: initialVisual.appearance,
       theme: initialVisual.theme,
       language: initialVisual.language
@@ -16521,6 +16555,46 @@ function setLanguagePreference(nextLang) {
   }
 
   state.updateHeaderSubtext();
+}
+
+function syncAutoNextControls() {
+  const enabled = state.settings.autoNextAfterCorrect !== false;
+  document.querySelectorAll("[data-auto-next]").forEach(btn => {
+    const isMatch = (btn.dataset.autoNext !== "off") === enabled;
+    btn.classList.toggle("active", isMatch);
+    btn.setAttribute("aria-pressed", String(isMatch));
+  });
+  const loopBtn = document.getElementById("loopToggleBtn");
+  if (loopBtn) {
+    const modeAutoNextMap = {
+      solfege: state.settings.solfegeAutoNext,
+      melody: state.settings.melodyAutoNext,
+      "rhythm-dictation": state.settings.rhythmDictationAutoNext,
+      "rhythm-tap": state.settings.rhythmTapAutoNext
+    };
+    if (Object.prototype.hasOwnProperty.call(modeAutoNextMap, state.settings.mode)) {
+      loopBtn.classList.toggle("btn-active", Boolean(modeAutoNextMap[state.settings.mode]));
+    }
+  }
+}
+
+function setAutoNextPreference(nextEnabled) {
+  const enabled = nextEnabled !== false && nextEnabled !== "off";
+  state.settings.autoNextAfterCorrect = enabled;
+  state.settings.solfegeAutoNext = enabled;
+  state.settings.melodyAutoNext = enabled;
+  state.settings.rhythmDictationAutoNext = enabled;
+  state.settings.rhythmTapAutoNext = enabled;
+  saveVisualPrefs(
+    state.settings.appearance,
+    state.settings.theme,
+    state.settings.language,
+    enabled
+  );
+  syncAutoNextControls();
+  if (state.currentExercise && state.currentView === "exercise") {
+    renderUI();
+  }
 }
 
 const NOTE_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
@@ -21403,8 +21477,8 @@ function handleAnswer(selectedKey, btnElement) {
 
   if (isCorrect) {
     ex.isSolved = true;
-    // Im Intervall-, Kadenz- & Rhythmus-Übungsmodul: Wenn Loop aktiviert ist, nach richtiger Antwort automatisch nächste Abfrage starten
-    const shouldAutoContinue = state.settings.loop || state.isPlaying;
+    // Wenn Auto-Weiter aktiviert ist (oder Loop im Modul aktiv ist), nach richtiger Antwort automatisch nächste Abfrage starten
+    const shouldAutoContinue = state.settings.autoNextAfterCorrect || state.settings.loop;
     audioEngine.stopPlayback();
     state.isPlaying = false;
     updatePlayButtonUI(false);
@@ -25005,10 +25079,17 @@ document.addEventListener("DOMContentLoaded", () => {
   initStartupSplash();
   initTabSwipeNavigation();
   applyThemeAndAppearance();
+  syncAutoNextControls();
 
   document.querySelectorAll("[data-language]").forEach(btn => {
     btn.addEventListener("click", () => {
       setLanguagePreference(btn.dataset.language);
+    });
+  });
+
+  document.querySelectorAll("[data-auto-next]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      setAutoNextPreference(btn.dataset.autoNext);
     });
   });
 
