@@ -21248,14 +21248,17 @@ function resetCentralStage() {
 
 const SOLFEGE_RESOLUTION_BEATS = {
   1: [2.0],
-  2: [1.0, 2.0],
+  2: [1.0, 3.0],
   3: [1.5, 0.5, 2.0],
-  4: [1.0, 0.75, 0.25, 2.0]
+  4: [1.0, 0.5, 0.5, 2.0]
 };
 
 /**
- * Berechnet ein takttreues Auflösungs-Timing zur Tonika, bei dem die Notenwerte
- * bis zur finalen Tonika schrittweise kleiner werden (z. B. 4/4-Takt: ♩ ♪. ♬ 𝅗𝅥 bzw. ♩. ♪ 𝅗𝅥).
+ * Berechnet ein takttreues Auflösungs-Timing zur Tonika innerhalb eines 4/4-Takts:
+ * - 4 Töne (z. B. Fa/Sol → Do): Viertel, Achtel, Achtel, Halbe [1.0, 0.5, 0.5, 2.0]
+ * - 3 Töne (z. B. Mi/La → Do): Punktierte Viertel, Achtel, Halbe [1.5, 0.5, 2.0]
+ * - 2 Töne (z. B. Re/Ti → Do): Viertel, Punktierte Halbe [1.0, 3.0]
+ * - 1 Ton  (Do):               Halbe [2.0]
  */
 function buildSolfegeResolutionSchedule(noteCount, bpm) {
   const beatValues = SOLFEGE_RESOLUTION_BEATS[noteCount]
