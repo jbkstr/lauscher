@@ -4908,7 +4908,7 @@ body,
         document.documentElement.lang = lang;
         document.documentElement.setAttribute("data-lang", lang);
         if (lang === "en") document.title = "Lauschebär • Ear Training";
-        var appearance = (prefs.appearance === "light" || prefs.appearance === "dark" || prefs.appearance === "system") ? prefs.appearance : "system";
+        var appearance = (prefs.appearance === "light" || prefs.appearance === "dark" || prefs.appearance === "system") ? prefs.appearance : "light";
         var isBuiltInTheme = (prefs.theme === "waldlichtung" || prefs.theme === "morgentau" || prefs.theme === "abenddaemmerung");
         var isCustomTheme = (prefs.theme === "custom_1" || prefs.theme === "custom_2" || prefs.theme === "custom_3");
         var theme = (isBuiltInTheme || isCustomTheme) ? prefs.theme : "waldlichtung";
@@ -5667,9 +5667,9 @@ body,
         <div class="account-field">
           <span class="account-label" data-i18n="settings.appearanceHeading">Erscheinungsbild</span>
           <div class="btn-group" id="spaceAppearanceGroup" role="group" aria-label="Erscheinungsbild" data-i18n-aria="settings.appearanceAria">
-            <button class="opt-btn" type="button" data-appearance="light" data-i18n="settings.appearanceLight">Hell</button>
+            <button class="opt-btn active" type="button" data-appearance="light" data-i18n="settings.appearanceLight">Hell</button>
             <button class="opt-btn" type="button" data-appearance="dark" data-i18n="settings.appearanceDark">Dunkel</button>
-            <button class="opt-btn active" type="button" data-appearance="system" data-i18n="settings.appearanceSystem">System</button>
+            <button class="opt-btn" type="button" data-appearance="system" data-i18n="settings.appearanceSystem">System</button>
           </div>
         </div>
 
@@ -6133,9 +6133,9 @@ body,
           <h4 data-i18n="settings.appearanceHeading">Erscheinungsbild</h4>
           <p class="settings-hint" data-i18n="settings.appearanceHint">Wähle Hell, Dunkel oder passe dich automatisch an dein Gerät an.</p>
           <div class="btn-group" id="appearanceGroup" role="group" aria-label="Erscheinungsbild" data-i18n-aria="settings.appearanceAria">
-            <button class="opt-btn" type="button" data-appearance="light" data-i18n="settings.appearanceLight">Hell</button>
+            <button class="opt-btn active" type="button" data-appearance="light" data-i18n="settings.appearanceLight">Hell</button>
             <button class="opt-btn" type="button" data-appearance="dark" data-i18n="settings.appearanceDark">Dunkel</button>
-            <button class="opt-btn active" type="button" data-appearance="system" data-i18n="settings.appearanceSystem">System</button>
+            <button class="opt-btn" type="button" data-appearance="system" data-i18n="settings.appearanceSystem">System</button>
           </div>
         </div>
 
@@ -15758,18 +15758,18 @@ const THEME_PALETTE_META = {
 function loadVisualPrefs() {
   try {
     if (typeof localStorage === "undefined") {
-      return { appearance: "system", theme: "waldlichtung", language: "de" };
+      return { appearance: "light", theme: "waldlichtung", language: "de" };
     }
     const raw = localStorage.getItem(VISUAL_PREFS_STORAGE_KEY);
-    if (!raw) return { appearance: "system", theme: "waldlichtung", language: "de" };
+    if (!raw) return { appearance: "light", theme: "waldlichtung", language: "de" };
     const parsed = JSON.parse(raw);
     return {
-      appearance: VALID_APPEARANCES.includes(parsed?.appearance) ? parsed.appearance : "system",
+      appearance: VALID_APPEARANCES.includes(parsed?.appearance) ? parsed.appearance : "light",
       theme: ALL_VALID_THEMES.includes(parsed?.theme) ? parsed.theme : "waldlichtung",
       language: parsed?.language === "en" ? "en" : "de"
     };
   } catch (_err) {
-    return { appearance: "system", theme: "waldlichtung", language: "de" };
+    return { appearance: "light", theme: "waldlichtung", language: "de" };
   }
 }
 
@@ -16350,7 +16350,7 @@ function getActivePaletteMeta() {
 }
 
 function applyThemeAndAppearance() {
-  const appearance = VALID_APPEARANCES.includes(state.settings.appearance) ? state.settings.appearance : "system";
+  const appearance = VALID_APPEARANCES.includes(state.settings.appearance) ? state.settings.appearance : "light";
   let theme = ALL_VALID_THEMES.includes(state.settings.theme) ? state.settings.theme : "waldlichtung";
   let customEntry = getCustomThemeEntry(theme);
   if (CUSTOM_THEME_SLOT_IDS.includes(theme) && !customEntry) {
@@ -16422,7 +16422,7 @@ function applyThemeAndAppearance() {
 }
 
 function setAppearancePreference(nextAppearance) {
-  state.settings.appearance = VALID_APPEARANCES.includes(nextAppearance) ? nextAppearance : "system";
+  state.settings.appearance = VALID_APPEARANCES.includes(nextAppearance) ? nextAppearance : "light";
   if (CUSTOM_THEME_SLOT_IDS.includes(state.settings.theme)) {
     state.settings.theme = "waldlichtung";
   }
