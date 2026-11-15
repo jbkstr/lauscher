@@ -609,6 +609,9 @@ html, body {
 .category-help-btn,
 .tonic-btn,
 .listen-only-btn,
+.warmup-phase-pill,
+.warmup-kb-white,
+.warmup-kb-black,
 .overtone-btn,
 .module-chip-btn,
 .btn-tool,
@@ -666,6 +669,8 @@ html, body {
   .view-leave-to-right,
   .tile-selected-pulse,
   .listen-only-btn.btn-active .listen-only-dot,
+  .warmup-breath-orb,
+  .warmup-progress-fill,
   .btn-correct,
   .btn-wrong,
   .bar-card.bar-active,
@@ -4953,6 +4958,318 @@ body,
   }
 }
 
+/* =====================================================
+   EINSING-HELFER / VOCAL WARMUP (#viewWarmup)
+   ===================================================== */
+.warmup-header-card {
+  gap: 0.45rem;
+}
+
+.warmup-phase-pills {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.34rem;
+}
+
+.warmup-phase-pill {
+  border: 1.5px solid var(--border-soft);
+  background: var(--surface-soft);
+  color: var(--raccoon-mid);
+  border-radius: 10px;
+  padding: 0.28rem 0.28rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.warmup-phase-pill.is-done {
+  background: var(--sage-soft);
+  color: var(--sage-strong);
+  border-color: var(--sage);
+}
+
+.warmup-phase-pill.is-active {
+  background: var(--sage);
+  color: var(--raccoon-dark);
+  border-color: var(--sage-strong);
+}
+
+.warmup-progress-row {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.warmup-progress-track {
+  flex: 1;
+  height: 7px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-soft);
+  border: 1px solid var(--border-soft);
+  overflow: hidden;
+}
+
+.warmup-progress-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, var(--sage-strong) 0%, var(--lilac-strong) 100%);
+  transition: width 280ms ease;
+}
+
+.warmup-step-counter {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--raccoon-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.warmup-stage-wrapper {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.warmup-stage-card {
+  width: 100%;
+  padding: 0.95rem 1rem;
+  gap: 0.42rem;
+}
+
+.warmup-stage-card.phase-breath {
+  border-color: var(--sage);
+  background: linear-gradient(160deg, var(--surface-white) 0%, var(--sage-soft) 100%);
+}
+
+.warmup-stage-card.phase-resonance {
+  border-color: var(--lilac);
+  background: linear-gradient(160deg, var(--surface-white) 0%, var(--lilac-soft) 100%);
+}
+
+.warmup-stage-card.phase-arpeggio {
+  border-color: var(--peach);
+  background: linear-gradient(160deg, var(--surface-white) 0%, var(--peach-soft) 100%);
+}
+
+.warmup-stage-card.phase-choir {
+  border-color: var(--sage-strong);
+  background: linear-gradient(160deg, var(--surface-white) 0%, var(--sage-soft) 100%);
+}
+
+.warmup-mascot svg {
+  width: 48px;
+  height: 44px;
+}
+
+.warmup-step-title {
+  margin: 0;
+  font-size: 1.02rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+  line-height: 1.25;
+}
+
+.warmup-syllable-main {
+  font-size: 1.55rem;
+  font-weight: 900;
+  color: var(--raccoon-dark);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+.warmup-pattern-degrees {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--raccoon-mid);
+  background: var(--surface-soft);
+  border: 1px solid var(--border-soft);
+  padding: 0.22rem 0.68rem;
+  border-radius: var(--radius-pill);
+}
+
+.warmup-key-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--sage-strong);
+  background: var(--sage-soft);
+  border: 1.5px solid var(--sage);
+  padding: 0.2rem 0.72rem;
+  border-radius: var(--radius-pill);
+}
+
+.warmup-stage-hint {
+  max-width: 34ch;
+}
+
+.warmup-breath-orb-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.35rem 0;
+}
+
+.warmup-breath-orb {
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0.6rem;
+  background: radial-gradient(circle at 35% 30%, var(--surface-white) 0%, var(--sage) 92%);
+  border: 2.5px solid var(--sage-strong);
+  box-shadow: 0 6px 18px rgba(46, 111, 78, 0.16);
+  transform: scale(0.84);
+  transition: transform 3.6s ease-in-out, box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.warmup-breath-orb.is-inhale {
+  transform: scale(1.08);
+  transition-duration: 3.8s;
+  box-shadow: 0 10px 26px rgba(46, 111, 78, 0.26);
+}
+
+.warmup-breath-orb.is-hold {
+  transform: scale(1.08);
+  transition-duration: 0.4s;
+  border-color: var(--lilac-strong);
+}
+
+.warmup-breath-orb.is-exhale {
+  transform: scale(0.8);
+  transition-duration: 4.8s;
+  box-shadow: 0 4px 12px rgba(46, 111, 78, 0.12);
+}
+
+.warmup-breath-orb.is-pulse {
+  transform: scale(1.04);
+  transition-duration: 0.12s;
+  border-color: var(--peach-strong);
+}
+
+.warmup-breath-cue {
+  font-size: 0.84rem;
+  font-weight: 900;
+  color: var(--raccoon-dark);
+  line-height: 1.2;
+}
+
+.warmup-keyboard-wrap {
+  width: 100%;
+  border-radius: var(--radius-md);
+  background: var(--surface-white);
+  border: 1.5px solid var(--border-strong);
+  padding: 0.42rem;
+  box-shadow: var(--shadow-card);
+}
+
+.warmup-kb {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 78px;
+  user-select: none;
+}
+
+.warmup-kb-white {
+  flex: 1 1 0%;
+  min-width: 0;
+  height: 100%;
+  border: 1px solid #D5CEC2;
+  border-radius: 0 0 6px 6px;
+  background: #FFFFFF;
+  position: relative;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 4px;
+}
+
+.warmup-kb-white + .warmup-kb-white {
+  margin-left: 2px;
+}
+
+.warmup-kb-note {
+  font-size: 0.56rem;
+  font-weight: 800;
+  color: #6B6D7C;
+  pointer-events: none;
+  line-height: 1;
+}
+
+.warmup-kb-white.is-tonic {
+  background: #FFF2E6;
+  border-color: #E3A77C;
+}
+
+.warmup-kb-white.is-active {
+  background: var(--sage) !important;
+  border-color: var(--sage-strong) !important;
+}
+
+.warmup-kb-white.is-active .warmup-kb-note {
+  color: #1F2622;
+}
+
+.warmup-kb-black {
+  position: absolute;
+  top: 0;
+  height: 58%;
+  transform: translateX(-50%);
+  border: 1px solid #1C1E2E;
+  border-radius: 0 0 5px 5px;
+  background: linear-gradient(180deg, #3D405B 0%, #242639 100%);
+  z-index: 3;
+  cursor: pointer;
+  padding: 0;
+}
+
+.warmup-kb-black.is-tonic {
+  background: linear-gradient(180deg, #C77A4A 0%, #8C4E27 100%);
+  border-color: #6E3918;
+}
+
+.warmup-kb-black.is-active {
+  background: var(--sage-strong) !important;
+  border-color: var(--sage) !important;
+}
+
+.warmup-manual-row {
+  justify-content: center;
+  gap: 0.42rem;
+}
+
+.warmup-shift-btn,
+.warmup-replay-btn {
+  padding: 0.34rem 0.72rem;
+  font-size: 0.75rem;
+}
+
+.warmup-bottom-dock {
+  gap: 0.5rem;
+}
+
+@media (max-width: 390px) {
+  .warmup-syllable-main {
+    font-size: 1.32rem;
+  }
+  .warmup-kb {
+    height: 68px;
+  }
+}
+
 .hidden, .modal-hidden {
   display: none !important;
 }
@@ -5284,6 +5601,29 @@ body,
           <div class="cat-text-box">
             <h3 data-i18n="home.catProduction">Produktion</h3>
             <p data-i18n="home.catProductionDesc">Frequenzen &amp; EQ-Anhebungen im Noise heraushören</p>
+          </div>
+          <span class="cat-chevron">›</span>
+        </button>
+      </div>
+
+      <div class="section-heading-row">
+        <h2 class="section-heading" data-i18n="home.voiceHeading">Stimme &amp; Chor</h2>
+      </div>
+
+      <div class="category-nav-list">
+        <button class="category-nav-card card-accent-sage category-card-wide" data-open-category="warmup">
+          <div class="cat-icon-box badge-sage">
+            <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="9" y="2.8" width="6" height="9.4" rx="3"/>
+              <path d="M5 10.5a7 7 0 0 0 14 0"/>
+              <line x1="12" y1="17.5" x2="12" y2="21"/>
+              <line x1="8.5" y1="21" x2="15.5" y2="21"/>
+              <path d="M19.2 5.5c1.2 1.2 1.2 3.3 0 4.5"/>
+            </svg>
+          </div>
+          <div class="cat-text-box">
+            <h3 data-i18n="home.catWarmup">Einsing-Helfer</h3>
+            <p data-i18n="home.catWarmupDesc">5-Minuten-Warmup: Atem, Summen, Arpeggios &amp; Chorklang</p>
           </div>
           <span class="cat-chevron">›</span>
         </button>
@@ -6043,6 +6383,111 @@ body,
         </div>
 
       </div>
+    </main>
+
+    <!-- =====================================================
+         ANSICHT 5: EINSING-HELFER / VOCAL WARMUP (#viewWarmup)
+         ===================================================== -->
+    <main id="viewWarmup" class="view-exercise-container hidden">
+
+      <section class="module-card warmup-header-card">
+        <div class="module-header">
+          <div class="module-header-left">
+            <span id="warmupTitleText" class="module-title" data-i18n="warmup.defaultTitle">5-Minuten Einsingen</span>
+            <div class="module-inline-controls">
+              <button id="warmupVoiceBtn" class="module-chip-btn chip-sage" type="button" title="Stimmfach / Tonumfang wählen" data-i18n-title="warmup.voiceBtnTitle">Chor-Mitte</button>
+              <button id="warmupSoundBtn" class="module-chip-btn chip-peach" type="button" title="Begleitklang wählen" data-i18n-title="warmup.soundBtnTitle">Klavier + Stimme</button>
+              <button id="warmupBpmBtn" class="module-chip-btn chip-lilac" type="button" title="Tempo-Schieberegler öffnen" data-i18n-title="ex.bpmBtnTitle">95 BPM</button>
+            </div>
+          </div>
+          <span id="warmupRemainingBadge" class="module-badge">⏱ 05:00</span>
+        </div>
+
+        <div id="warmupVoicePopover" class="module-inline-popover hidden">
+          <span class="popover-label" data-i18n="warmup.voiceLabel">Stimmfach:</span>
+          <div class="popover-pills-row">
+            <button class="popover-pill-btn active" type="button" data-warmup-voice="mixed" data-i18n="warmup.voiceMixed">Chor-Mitte</button>
+            <button class="popover-pill-btn" type="button" data-warmup-voice="soprano" data-i18n="warmup.voiceSoprano">Sopran</button>
+            <button class="popover-pill-btn" type="button" data-warmup-voice="alto" data-i18n="warmup.voiceAlto">Alt</button>
+            <button class="popover-pill-btn" type="button" data-warmup-voice="tenor" data-i18n="warmup.voiceTenor">Tenor</button>
+            <button class="popover-pill-btn" type="button" data-warmup-voice="bass" data-i18n="warmup.voiceBass">Bass</button>
+          </div>
+        </div>
+
+        <div id="warmupSoundPopover" class="module-inline-popover hidden">
+          <span class="popover-label" data-i18n="warmup.soundLabel">Klang:</span>
+          <div class="popover-pills-row">
+            <button class="popover-pill-btn" type="button" data-warmup-sound="piano" data-i18n="warmup.soundPiano">Klavier</button>
+            <button class="popover-pill-btn active" type="button" data-warmup-sound="piano-voice" data-i18n="warmup.soundBoth">Klavier + Stimme</button>
+            <button class="popover-pill-btn" type="button" data-warmup-sound="voice" data-i18n="warmup.soundVoice">Stimme</button>
+          </div>
+        </div>
+
+        <div id="warmupBpmPopover" class="module-inline-popover hidden">
+          <span class="popover-label" data-i18n="ex.tempoLabel">Tempo:</span>
+          <input type="range" id="warmupBpmSlider" min="65" max="135" step="5" value="95">
+          <span id="warmupBpmVal" class="popover-val">95 BPM</span>
+        </div>
+
+        <div id="warmupPhasePills" class="warmup-phase-pills"></div>
+
+        <div class="warmup-progress-row">
+          <div class="warmup-progress-track">
+            <div id="warmupProgressFill" class="warmup-progress-fill" style="width: 0%;"></div>
+          </div>
+          <span id="warmupStepCounter" class="warmup-step-counter">1 / 9</span>
+        </div>
+      </section>
+
+      <div class="stage-wrapper warmup-stage-wrapper">
+        <div id="warmupStageCard" class="central-stage warmup-stage-card phase-breath">
+          <div id="warmupMascotWrap" class="stage-mascot warmup-mascot"></div>
+          <span id="warmupPhaseBadge" class="stage-sub">PHASE 1 • ATEM &amp; KÖRPER</span>
+
+          <div id="warmupBreathOrbWrap" class="warmup-breath-orb-wrap hidden">
+            <div id="warmupBreathOrb" class="warmup-breath-orb">
+              <span id="warmupBreathCue" class="warmup-breath-cue">Einatmen</span>
+            </div>
+          </div>
+
+          <h2 id="warmupStepTitle" class="warmup-step-title">Bauchatmung auf „ffff / ssss“</h2>
+          <div id="warmupSyllableMain" class="warmup-syllable-main">ffff · ssss</div>
+          <div id="warmupPatternDegrees" class="warmup-pattern-degrees hidden">1 – 2 – 3 – 2 – 1</div>
+          <div id="warmupKeyNoteBadge" class="warmup-key-pill hidden">C-Dur • C4</div>
+          <span id="warmupStageHint" class="stage-desc warmup-stage-hint">Schultern locker lassen und tief in den Bauch atmen.</span>
+        </div>
+      </div>
+
+      <div class="bottom-dock warmup-bottom-dock">
+        <div id="warmupKeyboardWrap" class="warmup-keyboard-wrap"></div>
+
+        <div id="warmupManualBar" class="tonic-ref-row warmup-manual-row">
+          <button id="warmupKeyDownBtn" class="tonic-btn warmup-shift-btn" type="button" title="Einen Halbton tiefer modulieren" data-i18n-title="warmup.semiDownTitle">
+            <span data-i18n="warmup.semiDown">−1 Halbton</span>
+          </button>
+          <button id="warmupReplayStepBtn" class="tonic-btn warmup-replay-btn" type="button" title="Aktuelles Muster wiederholen" data-i18n-title="warmup.replayTitle">
+            <span data-i18n="warmup.replayStep">↻ Nochmal</span>
+          </button>
+          <button id="warmupKeyUpBtn" class="tonic-btn warmup-shift-btn" type="button" title="Einen Halbton höher modulieren" data-i18n-title="warmup.semiUpTitle">
+            <span data-i18n="warmup.semiUp">+1 Halbton</span>
+          </button>
+        </div>
+
+        <div class="dock-bar">
+          <button id="warmupPrevBtn" class="dock-icon-btn" type="button" title="Vorherige Übung" aria-label="Vorherige Übung" data-i18n-title="warmup.prevTitle" data-i18n-aria="warmup.prevTitle">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/>
+            </svg>
+          </button>
+          <button id="warmupPlayBtn" class="dock-action-btn" type="button" data-i18n="warmup.startBtn">▶ Einsingen starten</button>
+          <button id="warmupNextBtn" class="dock-icon-btn" type="button" title="Nächste Übung" aria-label="Nächste Übung" data-i18n-title="warmup.nextTitle" data-i18n-aria="warmup.nextTitle">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
     </main>
 
     </div><!-- /.views-stage -->
@@ -7202,16 +7647,17 @@ class AudioEngine {
    * Spielt eine isolierte Instrumenten- oder Gesangsklangprobe direkt über den Master-Bus ab
    * (unabhängig davon, wie die 6 Mixer-Fader der Übung gerade stehen).
    */
-  playInstrumentSample(style, notes, durationSec = 1.35, arpeggioStepMs = 0) {
+  playInstrumentSample(style, notes, durationSec = 1.35, arpeggioStepMs = 0, gainScale = 1.0) {
     if (!this.isInitialized || !this.masterGain || !notes || notes.length === 0) return;
 
+    const safeGainScale = Math.max(0.05, Math.min(1.25, Number.isFinite(gainScale) ? gainScale : 1.0));
     const demoSampler = this.demoSamplers[style] || (style === "piano" ? this.demoPiano : null);
     if (demoSampler) {
       const isSeq = arpeggioStepMs > 0 && notes.length > 1;
       const stepDur = Math.max(0.2, durationSec);
       const totalWindowSec = isSeq ? ((notes.length - 1) * arpeggioStepMs) / 1000 + stepDur : stepDur;
       const samplerNotes = isSeq ? notes : [...new Set(notes)];
-      const vel = isSeq ? 0.92 : Math.min(1, 1.05 / Math.sqrt(samplerNotes.length));
+      const vel = Math.min(1, (isSeq ? 0.92 : Math.min(1, 1.05 / Math.sqrt(samplerNotes.length))) * safeGainScale);
       const entry = { demoSampler };
       this.activeDemoNodes.push(entry);
 
@@ -7255,7 +7701,7 @@ class AudioEngine {
     const totalWindowSec = isSeq ? ((notes.length - 1) * arpeggioStepMs) / 1000 + stepDur : stepDur;
 
     const voiceCount = isSeq ? 1 : Math.sqrt(notes.length);
-    const tempGain = new Tone.Gain(cfg.gain / voiceCount).connect(this.masterGain);
+    const tempGain = new Tone.Gain((cfg.gain * safeGainScale) / voiceCount).connect(this.masterGain);
     const tempFilter = cfg.filter ? new Tone.Filter(cfg.filter, "lowpass").connect(tempGain) : null;
     const destNode = tempFilter || tempGain;
 
@@ -7286,6 +7732,26 @@ class AudioEngine {
       } catch (_) {}
       this.activeDemoNodes = this.activeDemoNodes.filter(item => item !== entry);
     }, (totalWindowSec + 0.9) * 1000);
+  }
+
+  /**
+   * Spielt Begleit- oder Stimmführungs-Töne für den Einsing-Helfer direkt über den Master-Bus ab
+   * (unabhängig von den Übungs-Mixer-Fadern).
+   */
+  playWarmupNotes(soundMode, notes, durationSec = 0.85, isChordCue = false, layerChoirOnChord = false) {
+    if (!this.isInitialized || !notes || notes.length === 0) return;
+    const dur = Math.max(0.22, Number(durationSec) || 0.85);
+    const mode = soundMode === "voice" || soundMode === "piano-voice" ? soundMode : "piano";
+
+    if (mode === "voice") {
+      this.playInstrumentSample("choir", notes, dur, 0, isChordCue ? 0.72 : 0.88);
+      return;
+    }
+
+    this.playInstrumentSample("piano", notes, dur, 0, isChordCue ? 0.80 : 0.90);
+    if (mode === "piano-voice" && (!isChordCue || layerChoirOnChord)) {
+      this.playInstrumentSample("choir", notes, Math.max(0.32, dur * 1.04), 0, isChordCue ? 0.44 : 0.56);
+    }
   }
 
   /**
@@ -7586,6 +8052,9 @@ const I18N_STATIC = {
   "home.catRhythmDesc": { de: "Taktarten, Puls und Notenwerte sicher erfassen", en: "Master time signatures, beat pulse & subdivisions" },
   "home.catProduction": { de: "Produktion", en: "Production" },
   "home.catProductionDesc": { de: "Frequenzen & EQ-Anhebungen im Noise heraushören", en: "Identify frequencies & EQ boosts in pink noise" },
+  "home.voiceHeading": { de: "Stimme & Chor", en: "Voice & Choir" },
+  "home.catWarmup": { de: "Einsing-Helfer", en: "Vocal Warmup" },
+  "home.catWarmupDesc": { de: "5-Minuten-Warmup: Atem, Summen, Arpeggios & Chorklang", en: "5-min routine: breath, humming, arpeggios & choir blend" },
 
   "knowledge.tabsAria": { de: "Wissensbereiche", en: "Knowledge sections" },
   "knowledge.tabTheory": { de: "Theorie & Tools", en: "Theory & Tools" },
@@ -7732,6 +8201,29 @@ const I18N_STATIC = {
   "ex.loopAria": { de: "Endlosschleife", en: "Loop" },
   "ex.playBtn": { de: "▶ Abspielen", en: "▶ Play" },
   "ex.skipTitle": { de: "Nächste Abfrage", en: "Next exercise" },
+
+  "warmup.defaultTitle": { de: "5-Minuten Einsingen", en: "5-Min Vocal Warmup" },
+  "warmup.voiceBtnTitle": { de: "Stimmfach / Tonumfang wählen", en: "Choose vocal range" },
+  "warmup.soundBtnTitle": { de: "Begleitklang wählen", en: "Choose accompaniment sound" },
+  "warmup.voiceLabel": { de: "Stimmfach:", en: "Range:" },
+  "warmup.voiceMixed": { de: "Chor-Mitte", en: "Choir Mid" },
+  "warmup.voiceSoprano": { de: "Sopran", en: "Soprano" },
+  "warmup.voiceAlto": { de: "Alt", en: "Alto" },
+  "warmup.voiceTenor": { de: "Tenor", en: "Tenor" },
+  "warmup.voiceBass": { de: "Bass", en: "Bass" },
+  "warmup.soundLabel": { de: "Klang:", en: "Sound:" },
+  "warmup.soundPiano": { de: "Klavier", en: "Piano" },
+  "warmup.soundBoth": { de: "Klavier + Stimme", en: "Piano + Voice" },
+  "warmup.soundVoice": { de: "Stimme", en: "Voice" },
+  "warmup.semiDownTitle": { de: "Einen Halbton tiefer modulieren", en: "Transpose one semitone down" },
+  "warmup.semiDown": { de: "−1 Halbton", en: "−1 Semitone" },
+  "warmup.replayTitle": { de: "Aktuelles Muster wiederholen", en: "Replay current pattern" },
+  "warmup.replayStep": { de: "↻ Nochmal", en: "↻ Replay" },
+  "warmup.semiUpTitle": { de: "Einen Halbton höher modulieren", en: "Transpose one semitone up" },
+  "warmup.semiUp": { de: "+1 Halbton", en: "+1 Semitone" },
+  "warmup.prevTitle": { de: "Vorherige Übung", en: "Previous exercise" },
+  "warmup.startBtn": { de: "▶ Einsingen starten", en: "▶ Start Warmup" },
+  "warmup.nextTitle": { de: "Nächste Übung", en: "Next exercise" },
 
   "nav.mainAria": { de: "Hauptnavigation", en: "Main navigation" },
   "nav.home": { de: "Startseite", en: "Home" },
@@ -9660,6 +10152,26 @@ const CATEGORY_HELP_GUIDES_EN = {
         <p>At first, compare every mode starting from the <strong>same root</strong> (e.g., <strong>C Ionian</strong> vs. <strong>C Mixolydian</strong> vs. <strong>C Dorian</strong>). Tap <em>“Anchor 5th”</em> or the A/B diagnostic compare button after a miss to hear the exact color tone shift.</p>
       </div>
     `
+  },
+  warmup: {
+    tagClass: "tag-sage",
+    tag: "How It Works • Vocal Warmup",
+    title: "How the 5-Minute Vocal Warmup Works",
+    lead: "Built for choir rehearsals, voice lessons, and focused home practice: a guided arc from relaxed diaphragmatic breathing and humming resonance through modulated arpeggios into balanced choral chords.",
+    sections: `
+      <h3>The 4 Warmup Phases</h3>
+      <ul class="article-steps-list">
+        <li><strong>Phase 1 – Breath &amp; Body:</strong> A pacing breath orb on <code>ffff / ssss</code> and gentle rhythmic articulation pulses (<code>P – T – K</code>) wake up breath support without pressing the throat.</li>
+        <li><strong>Phase 2 – Resonance &amp; Placement:</strong> Easy humming / lip trills (<code>Mmm / Brrr</code>) and descending 5th sighs (<code>5–4–3–2–1</code>) blend chest and head resonance gently.</li>
+        <li><strong>Phase 3 – Agility &amp; Arpeggios:</strong> Ascending triad and octave arpeggios (<code>1–3–5–3–1</code> and <code>1–3–5–8–5–3–1</code>) automatically modulate by semitone in your chosen <strong>Choir Mid, Soprano, Alto, Tenor, or Bass</strong> tessitura — then gently cool down.</li>
+        <li><strong>Phase 4 – Vowels &amp; Choral Blend:</strong> Vowel morphing (<code>Oo → Oh → Ah → Eh → Ee</code>) and a layered SATB closing chord lock in unified tuning.</li>
+      </ul>
+
+      <div class="article-highlight-box">
+        <h4>Live Teaching Controls</h4>
+        <p>Use the chips at the top anytime to switch <strong>Vocal Range (SATB)</strong>, <strong>Accompaniment Sound</strong> (Piano, Piano + Voice, or Voice), and <strong>Tempo</strong>. Tap <strong>“−1 / +1 Semitone”</strong> or <strong>“↻ Replay”</strong> mid-exercise to tailor the key to your students or choir.</p>
+      </div>
+    `
   }
 };
 
@@ -10042,6 +10554,7 @@ function renderVocalsReferenceHTML_EN() {
       <div class="k-btn-row">
         <button class="btn-tool" data-play-inst="true" data-style="choir" data-notes="C3,G3,E4,C5" data-dur="1.4" data-step="460">▶ Build Voice by Voice (Bass → Sop)</button>
         <button class="btn-tool" data-play-inst="true" data-style="choir" data-notes="C3,G3,E4,C5" data-dur="2.4" data-step="0">▶ Full SATB Choir Chord</button>
+        <button class="btn-tool" data-open-warmup="true">▶ Open 5-Min Vocal Warmup</button>
       </div>
     </article>
   `;
@@ -12765,6 +13278,26 @@ const CATEGORY_HELP_GUIDES = {
         <p>Vergleiche Modi am Anfang immer über denselben Grundton (z. B. <strong>C-Ionisch</strong> vs. <strong>C-Mixolydisch</strong> vs. <strong>C-Dorisch</strong>). Über den Button <em>„Anker-Quinte“</em> oder den A/B-Diagnosevergleich hörst du sofort, welcher einzelne Leit- oder Charakterton sich verschiebt.</p>
       </div>
     `
+  },
+  warmup: {
+    tagClass: "tag-sage",
+    tag: "Anleitung • Einsing-Helfer",
+    title: "So funktioniert das 5-Minuten-Einsingen",
+    lead: "Ideal für Chorprobe, Einzelunterricht oder vor dem Üben: Das Programm führt dich Schritt für Schritt von ruhiger Bauchatmung über Resonanz-Summen und modulierte Arpeggios bis zum mehrstimmigen Chorklang.",
+    sections: `
+      <h3>Die 4 Warmup-Phasen</h3>
+      <ul class="article-steps-list">
+        <li><strong>Phase 1 – Atem &amp; Körper:</strong> Ruhiger Atemkreis auf <code>ffff / ssss</code> und leichte Zwerchfell-Impulse (<code>P – T – K</code>) wecken die Stütze, ganz ohne Druck auf den Stimmlippen.</li>
+        <li><strong>Phase 2 – Stimmsitz &amp; Resonanz:</strong> Sanftes Summen (<code>Mmm</code> / Lippenflattern) und Seufzer-Abgänge über die Quinte öffnen weich den Resonanzraum.</li>
+        <li><strong>Phase 3 – Beweglichkeit &amp; Arpeggios:</strong> Aufsteigende Dreiklangs- und Oktav-Arpeggios (<code>1–3–5–3–1</code> und <code>1–3–5–8–5–3–1</code>) modulieren automatisch in Halbtonschritten – wahlweise passend für <strong>Chor-Mitte, Sopran, Alt, Tenor oder Bass</strong> – und holen die Stimme anschließend behutsam wieder in die Mittellage zurück.</li>
+        <li><strong>Phase 4 – Vokalausgleich &amp; Chorklang:</strong> Vokal-Wandern (<code>U → O → A → E → I</code>) und ein schichtweise aufgebauter SATB-Schlussakkord festigen Mischung und reine Intonation.</li>
+      </ul>
+
+      <div class="article-highlight-box">
+        <h4>Unterrichts-Tipp für Klavier &amp; Chor</h4>
+        <p>Über die Chips oben wechselst du jederzeit zwischen <strong>Stimmfach (SATB)</strong>, <strong>Klang</strong> (Klavier pur, Klavier + Stimme oder Stimme pur) und <strong>Tempo</strong>. Unten lassen sich laufende Muster mit <strong>„−1 / +1 Halbton“</strong> oder <strong>„↻ Nochmal“</strong> direkt an die Gruppe anpassen.</p>
+      </div>
+    `
   }
 };
 
@@ -13274,6 +13807,7 @@ function renderVocalsReferenceHTML() {
       <div class="k-btn-row">
         <button class="btn-tool" data-play-inst="true" data-style="choir" data-notes="C3,G3,E4,C5" data-dur="1.4" data-step="460">▶ Stimmaufbau (Bass → Sopran)</button>
         <button class="btn-tool" data-play-inst="true" data-style="choir" data-notes="C3,G3,E4,C5" data-dur="2.4" data-step="0">▶ Voller SATB-Chorklang</button>
+        <button class="btn-tool" data-open-warmup="true">▶ 5-Min.-Einsing-Helfer öffnen</button>
       </div>
     </article>
   `;
@@ -16183,6 +16717,28 @@ class AppState {
       timerId: null,
       phase: "idle"
     };
+    this.warmupReturnView = "category";
+    this.warmup = {
+      presetId: "full-5min",
+      voiceRange: "mixed",
+      soundMode: "piano-voice",
+      bpm: 95,
+      status: "idle", // 'idle' | 'running' | 'paused' | 'completed'
+      stepIndex: 0,
+      keyOffsetIndex: 0,
+      transposeShift: 0,
+      token: 0,
+      timerId: null,
+      tickIntervalId: null,
+      tickAnchorSec: 0,
+      roundStartedWallMs: 0,
+      currentTonicMidi: 60,
+      activeMidis: [],
+      breathCueKey: "idle",
+      breathCueText: "",
+      vowelLabel: "",
+      hintText: ""
+    };
     this.lastAnswerWasWrong = false;
     this.wrongAnswerData = null;
     this.currentQuoteIndex = -1;
@@ -16439,12 +16995,24 @@ class AppState {
         solfege: "Solfège",
         rhythm: tr("Rhythmus", "Rhythm"),
         production: tr("Produktion", "Production"),
-        modes: tr("Tonleitern & Modi", "Scales & Modes")
+        modes: tr("Tonleitern & Modi", "Scales & Modes"),
+        warmup: tr("Stimme & Chor", "Voice & Choir")
       };
       mainTitle.textContent = catNames[this.activeCategory] || tr("Übungen", "Exercises");
       el.textContent = this.currentView === "category-help"
         ? tr("So funktioniert’s • Anleitung & Aufgaben", "How It Works • Guide & Levels")
-        : tr("Wähle Modus & Schwierigkeitsgrad", "Choose a mode & difficulty");
+        : (this.activeCategory === "warmup"
+            ? tr("Wähle Programm & Stimmfach", "Choose routine & vocal range")
+            : tr("Wähle Modus & Schwierigkeitsgrad", "Choose a mode & difficulty"));
+    } else if (this.currentView === "warmup") {
+      const preset = typeof getLocalizedWarmupPreset === "function"
+        ? getLocalizedWarmupPreset(this.warmup?.presetId || "full-5min")
+        : null;
+      const range = typeof getLocalizedWarmupVoiceRange === "function"
+        ? getLocalizedWarmupVoiceRange(this.warmup?.voiceRange || "mixed")
+        : null;
+      mainTitle.textContent = tr("Einsing-Helfer", "Vocal Warmup");
+      el.textContent = `${preset ? preset.title : tr("5-Minuten Einsingen", "5-Min Warmup")} • ${range ? range.label : tr("Chor-Mitte", "Choir Mid")}`;
     } else {
       mainTitle.textContent = "Lauschebär";
       el.textContent = this.getModeSummaryText();
@@ -16633,6 +17201,10 @@ function setLanguagePreference(nextLang) {
     }
   } else {
     updatePlayButtonUI(state.isPlaying);
+  }
+
+  if (typeof renderWarmupView === "function" && state.currentView === "warmup") {
+    renderWarmupView();
   }
 
   state.updateHeaderSubtext();
@@ -17469,7 +18041,10 @@ function closeTransientPopovers() {
   [
     ["inlineBpmPopover", "moduleBpmBtn"],
     ["inlineKeyPopover", "moduleKeyBtn"],
-    ["inlineTimeSigPopover", "moduleTimeSigBtn"]
+    ["inlineTimeSigPopover", "moduleTimeSigBtn"],
+    ["warmupVoicePopover", "warmupVoiceBtn"],
+    ["warmupSoundPopover", "warmupSoundBtn"],
+    ["warmupBpmPopover", "warmupBpmBtn"]
   ].forEach(([popId, btnId]) => {
     document.getElementById(popId)?.classList.add("hidden");
     document.getElementById(btnId)?.classList.remove("chip-open");
@@ -17484,6 +18059,7 @@ function captureHistorySnapshot(modalName = getOpenModalName()) {
     knowledgeTab: state.activeKnowledgeTab,
     knowledgeDetail: state.activeKnowledgeDetail ? { ...state.activeKnowledgeDetail } : null,
     exerciseReturnView: state.exerciseReturnView,
+    warmupReturnView: state.warmupReturnView,
     modal: modalName
   };
 }
@@ -17517,6 +18093,9 @@ function applyHistorySnapshot(snapshot) {
     appHistoryState.idx = snapshot.idx;
     if (snapshot.exerciseReturnView) {
       state.exerciseReturnView = snapshot.exerciseReturnView;
+    }
+    if (snapshot.warmupReturnView) {
+      state.warmupReturnView = snapshot.warmupReturnView;
     }
     if (snapshot.activeCategory) {
       state.activeCategory = snapshot.activeCategory;
@@ -17576,6 +18155,8 @@ function navigateBackFromUI() {
   }
   if (state.currentView === "exercise") {
     switchView(state.exerciseReturnView || "home", { skipHistoryPush: true });
+  } else if (state.currentView === "warmup") {
+    switchView(state.warmupReturnView || "category", { skipHistoryPush: true });
   } else if (state.currentView === "knowledge-detail") {
     switchView("knowledge", { skipHistoryPush: true });
   } else if (state.currentView === "category-help") {
@@ -17610,7 +18191,7 @@ function getViewOrderInfo(view) {
   let depth = 0;
   if (view === "category" || view === "knowledge-detail") depth = 1;
   else if (view === "category-help") depth = 2;
-  else if (view === "exercise") depth = 3;
+  else if (view === "exercise" || view === "warmup") depth = 3;
   return { tabIdx, depth };
 }
 
@@ -17866,6 +18447,9 @@ function switchView(targetView, options = {}) {
   if (typeof state.listenOnly === "object" && state.listenOnly.active && (targetView !== "exercise" || prevView !== "exercise")) {
     setListenOnlyMode(false, { keepPlayback: true });
   }
+  if (prevView === "warmup" && targetView !== "warmup" && typeof pauseWarmupSession === "function") {
+    pauseWarmupSession({ keepPlayback: true });
+  }
   stopPlayback();
   stopWaveAnimation();
   closeTransientPopovers();
@@ -17891,7 +18475,8 @@ function switchView(targetView, options = {}) {
     knowledge: document.getElementById("viewKnowledge"),
     "knowledge-detail": document.getElementById("viewKnowledgeDetail"),
     space: document.getElementById("viewSpace"),
-    exercise: document.getElementById("viewExercise")
+    exercise: document.getElementById("viewExercise"),
+    warmup: document.getElementById("viewWarmup")
   };
 
   finishActiveViewLeave();
@@ -17943,7 +18528,7 @@ function switchView(targetView, options = {}) {
 
   const isMainTabView = targetView === "home" || targetView === "knowledge" || targetView === "space";
   const activeTab = getTabForView(targetView);
-  const showBottomNav = targetView !== "exercise";
+  const showBottomNav = targetView !== "exercise" && targetView !== "warmup";
   document.getElementById("bottomNav")?.classList.toggle("hidden", !showBottomNav);
   document.getElementById("backBtn")?.classList.toggle("hidden", isMainTabView);
   document.getElementById("brandLogoWrap")?.classList.toggle("hidden", !isMainTabView);
@@ -17959,6 +18544,8 @@ function switchView(targetView, options = {}) {
     renderHomeQuickMixBar();
   } else if (targetView === "space") {
     renderProfileAccountView();
+  } else if (targetView === "warmup" && typeof renderWarmupView === "function") {
+    renderWarmupView();
   }
 
   if (targetView === "exercise") {
@@ -18577,6 +19164,14 @@ function initWaveVisualizer(num, den) {
  * Verbindet alle interaktiven Audio-Buttons im Wissens-Bereich
  */
 function bindKnowledgeAudioButtons(rootEl) {
+  rootEl.querySelectorAll("[data-open-warmup]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (typeof openWarmupView === "function") {
+        openWarmupView("full-5min", { returnView: "knowledge-detail" });
+      }
+    });
+  });
+
   rootEl.querySelectorAll("[data-jump-ref]").forEach(btn => {
     btn.addEventListener("click", () => {
       const refKey = btn.dataset.jumpRef;
@@ -19536,6 +20131,54 @@ function openCategoryPage(categoryKey, options = {}) {
         state.setModesLevel(btn.dataset.launchModes, btn.dataset.modesLvl);
         state.exerciseReturnView = "category";
         switchView("exercise");
+      });
+    });
+
+  } else if (categoryKey === "warmup") {
+    const activeVoice = state.warmup?.voiceRange || "mixed";
+    const voiceButtonsHtml = Object.values(WARMUP_VOICE_RANGES).map(vr => `
+      <button class="k-filter-pill ${vr.id === activeVoice ? "active" : ""}" type="button" data-select-warmup-voice="${vr.id}">
+        ${tr(vr.de, vr.en)} (${tr(vr.subDe, vr.subEn)})
+      </button>
+    `).join("");
+
+    container.innerHTML = `
+      <div class="subpage-section">
+        <h3 class="subpage-section-title">${tr("1. Stimmfach / Tonumfang wählen", "1. Choose Vocal Range (SATB)")}</h3>
+        <p class="subpage-section-desc">${tr("Passt Grundton und Modulationsbereich der Übungen an dich oder deinen Chor an", "Tailors starting pitch and modulation range to your voice or choir section")}</p>
+        <div class="k-filter-bar">${voiceButtonsHtml}</div>
+      </div>
+
+      <div class="subpage-section">
+        <h3 class="subpage-section-title">${tr("2. Einsing-Programm starten", "2. Start Warmup Routine")}</h3>
+        <p class="subpage-section-desc">${tr("Geführtes Einsingen mit Atem-Cues, Klavier-/Chor-Begleitung, Live-Klaviatur und Halbton-Steuerung", "Guided vocal warmup with breath cues, piano/choir accompaniment, live keyboard & semitone control")}</p>
+        <div class="subpage-nodes-grid">
+          ${WARMUP_PRESETS.map(p => `
+            <button class="subpage-node-btn" type="button" data-launch-warmup="${p.id}">
+              <div class="node-circle ${p.circle}">${p.badge}</div>
+              <span class="node-title">${tr(p.titleDe, p.titleEn)}</span>
+              <span class="node-sub">${tr(p.descDe, p.descEn)}</span>
+            </button>
+          `).join("")}
+        </div>
+      </div>
+    `;
+
+    container.querySelectorAll("[data-select-warmup-voice]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const voiceId = btn.dataset.selectWarmupVoice;
+        if (WARMUP_VOICE_RANGES[voiceId]) {
+          state.warmup.voiceRange = voiceId;
+          container.querySelectorAll("[data-select-warmup-voice]").forEach(el => {
+            el.classList.toggle("active", el.dataset.selectWarmupVoice === voiceId);
+          });
+        }
+      });
+    });
+
+    container.querySelectorAll("[data-launch-warmup]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        openWarmupView(btn.dataset.launchWarmup, { returnView: "category" });
       });
     });
   }
@@ -25804,16 +26447,62 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("click", (e) => {
     const tile = typeof e.target?.closest === "function"
       ? e.target.closest(
-          ".category-nav-card, .subpage-node-btn, .ref-hub-card, .degree-btn, .opt-btn:not(:disabled), .theme-preview-item, .popover-pill-btn, .k-filter-pill, .knowledge-tab-btn, .tonic-btn, .listen-only-btn, .overtone-btn, .category-help-btn, .btn-primary-action, .btn-secondary-action, .module-chip-btn, .btn-tool"
+          ".category-nav-card, .subpage-node-btn, .ref-hub-card, .degree-btn, .opt-btn:not(:disabled), .theme-preview-item, .popover-pill-btn, .k-filter-pill, .knowledge-tab-btn, .tonic-btn, .listen-only-btn, .warmup-phase-pill, .overtone-btn, .category-help-btn, .btn-primary-action, .btn-secondary-action, .module-chip-btn, .btn-tool"
         )
       : null;
     if (tile) triggerTilePulse(tile);
   });
 
-  // Leertaste als Takt-/Tap-Taste im Modul „Rhythmus nachklopfen“
+  // Transport-Steuerung im Einsing-Helfer (#viewWarmup)
+  document.getElementById("warmupVoiceBtn")?.addEventListener("click", () => {
+    toggleWarmupPopover("warmupVoicePopover", "warmupVoiceBtn");
+  });
+  document.getElementById("warmupSoundBtn")?.addEventListener("click", () => {
+    toggleWarmupPopover("warmupSoundPopover", "warmupSoundBtn");
+  });
+  document.getElementById("warmupBpmBtn")?.addEventListener("click", () => {
+    toggleWarmupPopover("warmupBpmPopover", "warmupBpmBtn");
+  });
+
+  document.querySelectorAll("[data-warmup-voice]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      setWarmupVoiceRange(btn.dataset.warmupVoice);
+    });
+  });
+
+  document.querySelectorAll("[data-warmup-sound]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      setWarmupSoundMode(btn.dataset.warmupSound);
+    });
+  });
+
+  document.getElementById("warmupBpmSlider")?.addEventListener("input", (e) => {
+    setWarmupBpm(parseInt(e.target.value, 10) || WARMUP_DEFAULT_BPM);
+  });
+
+  document.getElementById("warmupKeyDownBtn")?.addEventListener("click", () => {
+    shiftWarmupTranspose(-1);
+  });
+  document.getElementById("warmupReplayStepBtn")?.addEventListener("click", () => {
+    replayWarmupRound();
+  });
+  document.getElementById("warmupKeyUpBtn")?.addEventListener("click", () => {
+    shiftWarmupTranspose(1);
+  });
+  document.getElementById("warmupPrevBtn")?.addEventListener("click", () => {
+    stepWarmupIndex(-1);
+  });
+  document.getElementById("warmupPlayBtn")?.addEventListener("click", () => {
+    toggleWarmupPlayPause();
+  });
+  document.getElementById("warmupNextBtn")?.addEventListener("click", () => {
+    stepWarmupIndex(1);
+  });
+
+  // Leertaste als Takt-/Tap-Taste (Rhythmus) bzw. Start/Pause (Einsing-Helfer)
   document.addEventListener("keydown", (e) => {
     if (e.code !== "Space" && e.key !== " ") return;
-    if (state.currentView !== "exercise" || state.settings.mode !== "rhythm-tap" || state.listenOnly?.active || e.repeat) return;
+    if (e.repeat) return;
     const tag = e.target?.tagName;
     if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
     const openModal = ["mixerBackdrop", "settingsBackdrop"].some(
@@ -25823,6 +26512,14 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     );
     if (openModal) return;
+
+    if (state.currentView === "warmup") {
+      e.preventDefault();
+      toggleWarmupPlayPause();
+      return;
+    }
+
+    if (state.currentView !== "exercise" || state.settings.mode !== "rhythm-tap" || state.listenOnly?.active) return;
 
     e.preventDefault();
     const session = state.rhythmTapSession;
@@ -25835,6 +26532,1123 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+// =====================================================
+// EINSING-HELFER / VOCAL WARMUP ENGINE (#viewWarmup)
+// =====================================================
+
+const WARMUP_DEFAULT_BPM = 95;
+const WARMUP_KEY_CODES_BY_PC = ["C", "Db", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"];
+const WARMUP_FLAT_PITCH_CLASSES = new Set([1, 3, 5, 8, 10]);
+
+const WARMUP_VOICE_RANGES = {
+  mixed:   { id: "mixed",   baseMidi: 60, de: "Chor-Mitte", en: "Choir Mid", subDe: "c¹–e²", subEn: "C4–E5" },
+  soprano: { id: "soprano", baseMidi: 62, de: "Sopran",     en: "Soprano",   subDe: "d¹–a²", subEn: "D4–A5" },
+  alto:    { id: "alto",    baseMidi: 57, de: "Alt",        en: "Alto",      subDe: "a–d²",  subEn: "A3–D5" },
+  tenor:   { id: "tenor",   baseMidi: 48, de: "Tenor",      en: "Tenor",     subDe: "c–g¹",  subEn: "C3–G4" },
+  bass:    { id: "bass",    baseMidi: 43, de: "Bass",       en: "Bass",      subDe: "G–d¹",  subEn: "G2–D4" }
+};
+
+const WARMUP_SOUND_MODES = {
+  piano:         { id: "piano",       de: "Klavier",         en: "Piano" },
+  "piano-voice": { id: "piano-voice", de: "Klavier + Stimme",en: "Piano + Voice" },
+  voice:         { id: "voice",       de: "Stimme",          en: "Voice" }
+};
+
+const WARMUP_PHASES = [
+  { id: "breath",    num: 1, cls: "phase-breath",    shortDe: "1 Atem",     shortEn: "1 Breath",    labelDe: "PHASE 1 • ATEM & KÖRPER",       labelEn: "PHASE 1 • BREATH & BODY" },
+  { id: "resonance", num: 2, cls: "phase-resonance", shortDe: "2 Summen",   shortEn: "2 Humming",   labelDe: "PHASE 2 • RESONANZ & STIMMSITZ", labelEn: "PHASE 2 • RESONANCE & TONE" },
+  { id: "arpeggio",  num: 3, cls: "phase-arpeggio",  shortDe: "3 Arpeggio", shortEn: "3 Arpeggios", labelDe: "PHASE 3 • ARPEGGIOS & UMFANG",  labelEn: "PHASE 3 • ARPEGGIOS & RANGE" },
+  { id: "choir",     num: 4, cls: "phase-choir",     shortDe: "4 Chorklang",shortEn: "4 Choir",     labelDe: "PHASE 4 • VOKALE & CHORKLANG",  labelEn: "PHASE 4 • VOWELS & BLEND" }
+];
+
+const WARMUP_STEP_CATALOG = {
+  "breath-circle": {
+    id: "breath-circle",
+    phaseId: "breath",
+    kind: "breath-orb",
+    titleDe: "Ruhige Bauchatmung",
+    titleEn: "Calm Diaphragmatic Breathing",
+    syllableDe: "ffff · ssss",
+    syllableEn: "ffff · ssss",
+    hintDe: "Schultern entspannt lassen – sanft in den Bauch einatmen und gleichmäßig auf ffff/ssss ausströmen.",
+    hintEn: "Keep shoulders relaxed — breathe low into the belly and exhale steadily on ffff/ssss.",
+    cycles: 4,
+    cyclePhases: [
+      { cue: "inhale", sec: 4.0, cueNoteOffset: 0, de: "Tief einatmen…",         en: "Inhale deeply…" },
+      { cue: "hold",   sec: 1.5, cueNoteOffset: null, de: "Kurz weich halten",  en: "Hold gently" },
+      { cue: "exhale", sec: 5.5, cueNoteOffset: 7, de: "Ausströmen: ffff / ssss", en: "Exhale: ffff / ssss" },
+      { cue: "rest",   sec: 1.5, cueNoteOffset: null, de: "Lösen & nachspüren", en: "Release & soften" }
+    ]
+  },
+  "diaphragm-pulse": {
+    id: "diaphragm-pulse",
+    phaseId: "breath",
+    kind: "breath-pulse",
+    titleDe: "Zwerchfell-Impulse",
+    titleEn: "Diaphragm Pulses",
+    syllableDe: "P – T – K – Sch!",
+    syllableEn: "P – T – K – Sh!",
+    hintDe: "Kurze, federnde Bauchimpulse im Puls setzen – zwischen den Takten locker einatmen.",
+    hintEn: "Articulate crisp rhythmic pulses from the core — let breath drop back in between bars.",
+    rounds: 5,
+    pulseCount: 4,
+    restBeats: 2.5
+  },
+  "humming-wave": {
+    id: "humming-wave",
+    phaseId: "resonance",
+    kind: "vocal-pattern",
+    titleDe: "Summen & Lippenflattern",
+    titleEn: "Humming & Lip Trills",
+    syllableDe: "Mmm / Brrrr",
+    syllableEn: "Mmm / Brrrr",
+    degreesText: "1 – 2 – 3 – 2 – 1",
+    hintDe: "Weich nach vorne an die Lippen summen oder locker blubbern lassen (SOVT).",
+    hintEn: "Hum gently forward to the lips or flutter with a relaxed lip trill (SOVT).",
+    semitones: [0, 2, 4, 2, 0],
+    noteBeats: [0.9, 0.9, 0.9, 0.9, 1.75],
+    keyOffsets: [0, 1, 2, 3, 4, 5, 6],
+    cueChordBeats: 1.25,
+    breathGapBeats: 0.75,
+    postRestBeats: 0.85,
+    staccato: false
+  },
+  "fifth-sigh": {
+    id: "fifth-sigh",
+    phaseId: "resonance",
+    kind: "vocal-pattern",
+    titleDe: "Seufzer-Abgang (Quinte)",
+    titleEn: "Descending 5th Sigh",
+    syllableDe: "Mjaa – Nuu",
+    syllableEn: "Myaa – Noo",
+    degreesText: "5 – 4 – 3 – 2 – 1",
+    hintDe: "Mit einem sanften Seufzer von oben weich durch das Register gleiten – Kiefer bleibt locker.",
+    hintEn: "Glide gently downward like a relaxed sigh — keep the jaw soft and effortless.",
+    semitones: [7, 5, 4, 2, 0],
+    noteBeats: [1.0, 0.9, 0.9, 0.9, 1.85],
+    keyOffsets: [5, 4, 3, 2, 1, 0],
+    cueChordBeats: 1.25,
+    breathGapBeats: 0.75,
+    postRestBeats: 0.85,
+    staccato: false
+  },
+  "triad-syllables": {
+    id: "triad-syllables",
+    phaseId: "arpeggio",
+    kind: "vocal-pattern",
+    titleDe: "Dreiklangs-Arpeggio",
+    titleEn: "Triad Syllable Arpeggio",
+    syllableDe: "Ma – Me – Mi – Mo – Mu",
+    syllableEn: "Mah – Meh – Mee – Moh – Moo",
+    degreesText: "1 – 3 – 5 – 3 – 1",
+    hintDe: "Vokale auf demselben Stimmstrom verbinden, bei jedem Halbton frisch nach oben denken.",
+    hintEn: "Link vowels on one steady airflow; think gently upward as each half-step rises.",
+    semitones: [0, 4, 7, 4, 0],
+    noteBeats: [0.85, 0.85, 0.9, 0.85, 1.7],
+    keyOffsets: [0, 1, 2, 3, 4, 5, 6, 7],
+    cueChordBeats: 1.25,
+    breathGapBeats: 0.7,
+    postRestBeats: 0.8,
+    staccato: false
+  },
+  "octave-staccato": {
+    id: "octave-staccato",
+    phaseId: "arpeggio",
+    kind: "vocal-pattern",
+    titleDe: "Oktav-Arpeggio (federnd)",
+    titleEn: "Bouncy Octave Arpeggio",
+    syllableDe: "Ha – ha – ha – ha!",
+    syllableEn: "Ha – ha – ha – ha!",
+    degreesText: "1 – 3 – 5 – 8 – 5 – 3 – 1",
+    hintDe: "Leicht und präzise aus dem Zwerchfell abfedern – oben offen und ohne Druck klingen.",
+    hintEn: "Bounce lightly from the core — let the top octave ring open without pushing.",
+    semitones: [0, 4, 7, 12, 7, 4, 0],
+    noteBeats: [0.65, 0.65, 0.65, 0.95, 0.65, 0.65, 1.55],
+    keyOffsets: [2, 3, 4, 5, 6, 7],
+    cueChordBeats: 1.25,
+    breathGapBeats: 0.75,
+    postRestBeats: 0.85,
+    staccato: true
+  },
+  "cool-down-arp": {
+    id: "cool-down-arp",
+    phaseId: "arpeggio",
+    kind: "vocal-pattern",
+    titleDe: "Lagen-Ausgleich (Abwärts)",
+    titleEn: "Register Cool-Down (Descending)",
+    syllableDe: "Joo – oo – ooh",
+    syllableEn: "Yoh – oh – ooh",
+    degreesText: "8 – 5 – 3 – 1",
+    hintDe: "Kopfklang behutsam in die entspannte Mittellage mitnehmen und weich abrunden.",
+    hintEn: "Carry head resonance smoothly back down into a relaxed middle voice.",
+    semitones: [12, 7, 4, 0],
+    noteBeats: [1.0, 0.9, 0.9, 1.85],
+    keyOffsets: [6, 5, 4, 3, 2],
+    cueChordBeats: 1.2,
+    breathGapBeats: 0.7,
+    postRestBeats: 0.85,
+    staccato: false
+  },
+  "vowel-blend": {
+    id: "vowel-blend",
+    phaseId: "choir",
+    kind: "vowel-blend",
+    titleDe: "Vokal-Wandern (Chor-Blend)",
+    titleEn: "Vowel Morph & Blend",
+    syllableDe: "U → O → A → E → I",
+    syllableEn: "Oo → Oh → Ah → Eh → Ee",
+    degreesText: "1 • Vokalausgleich",
+    hintDe: "Auf einem liegenden Ton weich von dunklem U bis hellem I übergehen, ohne dass der Klang abreißt.",
+    hintEn: "Morph smoothly across all five vowels on one steady pitch without breaking the line.",
+    vowelsDe: ["Uuuu…", "Oooo…", "Aaaa…", "Eeee…", "Iiii…"],
+    vowelsEn: ["Oooo…", "Ohhh…", "Ahhh…", "Ehhh…", "Eeee…"],
+    keyOffsets: [0, 2, 4, 5],
+    cueChordBeats: 1.35,
+    breathGapBeats: 0.8,
+    vowelStepBeats: 1.9,
+    postRestBeats: 1.0
+  },
+  "choir-cadence": {
+    id: "choir-cadence",
+    phaseId: "choir",
+    kind: "choir-cadence",
+    titleDe: "SATB Chor-Blend & Schlusskadenz",
+    titleEn: "SATB Choir Blend & Cadence",
+    syllableDe: "Nuu / Ahh (SATB)",
+    syllableEn: "Noo / Ahh (SATB)",
+    degreesText: "Bass → Tenor → Alt → Sopran",
+    hintDe: "Jede Stimme rastet nacheinander in den reinen Schlussakkord ein – ruhig lauschen und einschwingen.",
+    hintEn: "Hear each voice lock in from root up to 3rd and 8ve — blend smoothly into just intonation.",
+    keyOffsets: [0, 2, 4],
+    cadenceBeat: 1.35,
+    stackStepBeats: 1.15,
+    holdBeats: 4.5,
+    postRestBeats: 1.4
+  }
+};
+
+const WARMUP_PRESETS = [
+  {
+    id: "full-5min",
+    badge: "5:00",
+    circle: "circle-sage",
+    titleDe: "5-Minuten Komplett-Einsingen",
+    titleEn: "5-Min Complete Vocal Warmup",
+    descDe: "Alle 4 Phasen: Bauchatmung, Summen, modulierte Arpeggios & SATB-Chorklang",
+    descEn: "All 4 phases: deep breathing, humming, modulated arpeggios & SATB blend",
+    steps: [
+      { id: "breath-circle" },
+      { id: "diaphragm-pulse" },
+      { id: "humming-wave" },
+      { id: "fifth-sigh" },
+      { id: "triad-syllables" },
+      { id: "octave-staccato" },
+      { id: "cool-down-arp" },
+      { id: "vowel-blend" },
+      { id: "choir-cadence" }
+    ]
+  },
+  {
+    id: "quick-3min",
+    badge: "3:00",
+    circle: "circle-lilac",
+    titleDe: "Kompakt-Warmup (ca. 3 Min.)",
+    titleEn: "Compact Warmup (~3 Min.)",
+    descDe: "Kurzer Start für die Unterrichtsstunde: Atem, Summen, Dreiklang & Chorklang",
+    descEn: "Fast lesson opener: breathing, humming, triad syllables & closing choir blend",
+    steps: [
+      { id: "breath-circle", cycles: 3 },
+      { id: "humming-wave", keyOffsets: [0, 1, 2, 3, 4, 5, 6] },
+      { id: "fifth-sigh", keyOffsets: [5, 4, 3, 2, 1] },
+      { id: "triad-syllables" },
+      { id: "vowel-blend", keyOffsets: [0, 2] },
+      { id: "choir-cadence", keyOffsets: [0, 2] }
+    ]
+  },
+  {
+    id: "arpeggio-focus",
+    badge: "1–3–5–8",
+    circle: "circle-peach",
+    titleDe: "Arpeggio & Register-Training",
+    titleEn: "Arpeggio & Register Drill",
+    descDe: "Fokus auf Beweglichkeit, Staccato-Oktaven und sanften Lagen-Ausgleich",
+    descEn: "Focused agility work: humming, triad vows, staccato octaves & cool-down",
+    steps: [
+      { id: "humming-wave", keyOffsets: [0, 2, 4] },
+      { id: "triad-syllables" },
+      { id: "octave-staccato" },
+      { id: "cool-down-arp" },
+      { id: "choir-cadence", keyOffsets: [0] }
+    ]
+  },
+  {
+    id: "breath-choir",
+    badge: "SATB",
+    circle: "circle-sage",
+    titleDe: "Chor-Atem & Intonation",
+    titleEn: "Choir Breath & Intonation",
+    descDe: "Atemstütze, Zwerchfell-Impulse, Vokalausgleich und reiner Chorklang",
+    descEn: "Breath support, core pulses, vowel morphing & pure choral chord tuning",
+    steps: [
+      { id: "breath-circle" },
+      { id: "diaphragm-pulse" },
+      { id: "humming-wave", keyOffsets: [0, 1, 2, 3] },
+      { id: "vowel-blend" },
+      { id: "choir-cadence" }
+    ]
+  }
+];
+
+function getLocalizedWarmupPreset(presetId = state?.warmup?.presetId) {
+  const raw = WARMUP_PRESETS.find(p => p.id === presetId) || WARMUP_PRESETS[0];
+  return {
+    ...raw,
+    title: tr(raw.titleDe, raw.titleEn),
+    desc: tr(raw.descDe, raw.descEn)
+  };
+}
+
+function getLocalizedWarmupVoiceRange(voiceId = state?.warmup?.voiceRange) {
+  const raw = WARMUP_VOICE_RANGES[voiceId] || WARMUP_VOICE_RANGES.mixed;
+  return {
+    ...raw,
+    label: tr(raw.de, raw.en),
+    sub: tr(raw.subDe, raw.subEn)
+  };
+}
+
+function getLocalizedWarmupSoundMode(soundId = state?.warmup?.soundMode) {
+  const raw = WARMUP_SOUND_MODES[soundId] || WARMUP_SOUND_MODES["piano-voice"];
+  return { ...raw, label: tr(raw.de, raw.en) };
+}
+
+function getWarmupStepsForPreset(presetId = state?.warmup?.presetId) {
+  const preset = WARMUP_PRESETS.find(p => p.id === presetId) || WARMUP_PRESETS[0];
+  return preset.steps.map(entry => {
+    const base = WARMUP_STEP_CATALOG[entry.id];
+    return { ...base, ...entry };
+  });
+}
+
+function getWarmupPhaseInfo(phaseId) {
+  const raw = WARMUP_PHASES.find(p => p.id === phaseId) || WARMUP_PHASES[0];
+  return {
+    ...raw,
+    short: tr(raw.shortDe, raw.shortEn),
+    label: tr(raw.labelDe, raw.labelEn)
+  };
+}
+
+function getWarmupKeyNameFromMidi(midi) {
+  const pc = ((midi % 12) + 12) % 12;
+  const keyCode = WARMUP_KEY_CODES_BY_PC[pc] || "C";
+  return {
+    keyCode,
+    keyName: getKeyDisplayName(keyCode),
+    preferFlat: WARMUP_FLAT_PITCH_CLASSES.has(pc)
+  };
+}
+
+function getWarmupStepRoundCount(step) {
+  if (!step) return 1;
+  if (step.kind === "breath-orb") return 1;
+  if (step.kind === "breath-pulse") return step.rounds || 4;
+  return Array.isArray(step.keyOffsets) && step.keyOffsets.length ? step.keyOffsets.length : 1;
+}
+
+function getWarmupRoundDurationSec(step, bpm = WARMUP_DEFAULT_BPM) {
+  const beatSec = 60 / Math.max(60, Math.min(140, Number(bpm) || WARMUP_DEFAULT_BPM));
+  if (step.kind === "breath-orb") {
+    const oneCycle = (step.cyclePhases || []).reduce((sum, p) => sum + p.sec, 0);
+    return (step.cycles || 3) * oneCycle;
+  }
+  if (step.kind === "breath-pulse") {
+    return ((step.pulseCount || 4) + (step.restBeats || 2.5)) * beatSec;
+  }
+  if (step.kind === "vowel-blend") {
+    const vowelsLen = (step.vowelsDe || []).length || 5;
+    return ((step.cueChordBeats || 1.35) + (step.breathGapBeats || 0.8) + vowelsLen * (step.vowelStepBeats || 1.9) + (step.postRestBeats || 1.0)) * beatSec;
+  }
+  if (step.kind === "choir-cadence") {
+    return (4 * (step.cadenceBeat || 1.35) + 4 * (step.stackStepBeats || 1.15) + (step.holdBeats || 4.5) + (step.postRestBeats || 1.4)) * beatSec;
+  }
+  const notesBeats = (step.noteBeats || []).reduce((sum, b) => sum + b, 0);
+  return ((step.cueChordBeats || 1.25) + (step.breathGapBeats || 0.75) + notesBeats + (step.postRestBeats || 0.85)) * beatSec;
+}
+
+function getWarmupRemainingSec(w = state.warmup) {
+  const steps = getWarmupStepsForPreset(w?.presetId);
+  const bpm = w?.bpm || WARMUP_DEFAULT_BPM;
+  const sIdx = Math.max(0, Math.min(steps.length, w?.stepIndex || 0));
+  if (w?.status === "completed") return 0;
+
+  let totalSec = 0;
+  for (let i = sIdx; i < steps.length; i++) {
+    const step = steps[i];
+    const roundCount = getWarmupStepRoundCount(step);
+    const roundSec = getWarmupRoundDurationSec(step, bpm);
+    const startRound = i === sIdx ? Math.max(0, Math.min(roundCount - 1, w?.keyOffsetIndex || 0)) : 0;
+    totalSec += (roundCount - startRound) * roundSec;
+  }
+  return Math.max(0, Math.round(totalSec));
+}
+
+function getWarmupTonicMidi(step, roundIdx = 0, w = state.warmup) {
+  const voiceDef = getLocalizedWarmupVoiceRange(w?.voiceRange);
+  const offset = Array.isArray(step?.keyOffsets) && step.keyOffsets.length > 0
+    ? step.keyOffsets[Math.max(0, Math.min(step.keyOffsets.length - 1, roundIdx))]
+    : 0;
+  const rawMidi = voiceDef.baseMidi + offset + (w?.transposeShift || 0);
+  return Math.max(36, Math.min(82, rawMidi));
+}
+
+function clearWarmupTimers() {
+  const w = state.warmup;
+  if (!w) return;
+  w.token += 1;
+  if (w.timerId !== null) {
+    clearTimeout(w.timerId);
+    w.timerId = null;
+  }
+  if (w.tickIntervalId !== null) {
+    clearInterval(w.tickIntervalId);
+    w.tickIntervalId = null;
+  }
+}
+
+function scheduleWarmupCallback(fn, delayMs, expectedToken) {
+  const w = state.warmup;
+  if (!w) return;
+  if (w.timerId !== null) {
+    clearTimeout(w.timerId);
+    w.timerId = null;
+  }
+  w.timerId = setTimeout(() => {
+    w.timerId = null;
+    if (!state.warmup || state.warmup.token !== expectedToken || state.warmup.status !== "running" || state.currentView !== "warmup") {
+      return;
+    }
+    fn(expectedToken);
+  }, Math.max(0, Math.round(delayMs)));
+}
+
+function toggleWarmupPopover(popoverId, btnId) {
+  const target = document.getElementById(popoverId);
+  if (!target) return;
+  const wasHidden = target.classList.contains("hidden");
+  closeTransientPopovers();
+  if (wasHidden) {
+    target.classList.remove("hidden");
+    document.getElementById(btnId)?.classList.add("chip-open");
+  }
+}
+
+function renderWarmupKeyboard(tonicMidi, activeMidis = []) {
+  const wrap = document.getElementById("warmupKeyboardWrap");
+  if (!wrap) return;
+
+  const activeSet = new Set(Array.isArray(activeMidis) ? activeMidis : []);
+  const startBase = Math.max(36, Math.min(72, (Number.isFinite(tonicMidi) ? tonicMidi : 60) - 2));
+  const firstWhite = prevWhiteMidi(startBase);
+
+  const whiteKeys = [];
+  const blackKeys = [];
+  let m = firstWhite;
+  while (whiteKeys.length < 15 && m <= 96) {
+    if (isWhiteMidi(m)) {
+      whiteKeys.push({ midi: m, label: getWhiteNoteLabel(m % 12) });
+    } else {
+      blackKeys.push({ midi: m, afterWhiteIdx: whiteKeys.length - 1 });
+    }
+    m += 1;
+  }
+
+  const kb = document.createElement("div");
+  kb.className = "warmup-kb";
+
+  whiteKeys.forEach(wk => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "warmup-kb-white";
+    btn.id = `warmupKey_${wk.midi}`;
+    btn.dataset.midi = wk.midi;
+    if (wk.midi === tonicMidi) btn.classList.add("is-tonic");
+    if (activeSet.has(wk.midi)) btn.classList.add("is-active");
+
+    const pc = ((wk.midi % 12) + 12) % 12;
+    if (pc === 0 || wk.midi === tonicMidi) {
+      const oct = Math.floor(wk.midi / 12) - 1;
+      const lbl = document.createElement("span");
+      lbl.className = "warmup-kb-note";
+      lbl.textContent = pc === 0 ? `${wk.label}${oct}` : wk.label;
+      btn.appendChild(lbl);
+    }
+
+    btn.addEventListener("click", () => auditionWarmupKeyboardNote(wk.midi));
+    kb.appendChild(btn);
+  });
+
+  const whiteCount = whiteKeys.length || 15;
+  const blackWidthPct = (100 / whiteCount) * 0.64;
+
+  blackKeys.forEach(bk => {
+    if (bk.afterWhiteIdx < 0 || bk.afterWhiteIdx >= whiteCount - 1) return;
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "warmup-kb-black";
+    btn.id = `warmupKey_${bk.midi}`;
+    btn.dataset.midi = bk.midi;
+    btn.style.left = `${((bk.afterWhiteIdx + 1) / whiteCount) * 100}%`;
+    btn.style.width = `${blackWidthPct}%`;
+    if (bk.midi === tonicMidi) btn.classList.add("is-tonic");
+    if (activeSet.has(bk.midi)) btn.classList.add("is-active");
+
+    btn.addEventListener("click", () => auditionWarmupKeyboardNote(bk.midi));
+    kb.appendChild(btn);
+  });
+
+  wrap.innerHTML = "";
+  wrap.appendChild(kb);
+}
+
+function updateWarmupKeyboardHighlights(tonicMidi, activeMidis = []) {
+  const wrap = document.getElementById("warmupKeyboardWrap");
+  if (!wrap) return;
+  const hasTonicEl = document.getElementById(`warmupKey_${tonicMidi}`);
+  const activeArr = Array.isArray(activeMidis) ? activeMidis : [];
+  const missingActive = activeArr.some(m => !document.getElementById(`warmupKey_${m}`));
+  if (!hasTonicEl || missingActive) {
+    renderWarmupKeyboard(tonicMidi, activeArr);
+    return;
+  }
+  const activeSet = new Set(activeArr);
+  wrap.querySelectorAll("[data-midi]").forEach(el => {
+    const midi = parseInt(el.dataset.midi, 10);
+    el.classList.toggle("is-tonic", midi === tonicMidi);
+    el.classList.toggle("is-active", activeSet.has(midi));
+  });
+}
+
+async function auditionWarmupKeyboardNote(midi) {
+  await ensureAudioReady();
+  const w = state.warmup;
+  audioEngine.playWarmupNotes(w.soundMode, [midiToNote(midi)], 0.85, false);
+  w.activeMidis = [midi];
+  updateWarmupKeyboardHighlights(w.currentTonicMidi, [midi]);
+  const checkToken = w.token;
+  setTimeout(() => {
+    if (state.warmup.token === checkToken && state.warmup.status !== "running") {
+      state.warmup.activeMidis = [];
+      updateWarmupKeyboardHighlights(state.warmup.currentTonicMidi, []);
+    }
+  }, 550);
+}
+
+function syncWarmupCountdownDisplay(liveDecrementSec = 0) {
+  const badge = document.getElementById("warmupRemainingBadge");
+  if (!badge) return;
+  const baseRem = getWarmupRemainingSec(state.warmup);
+  const shown = Math.max(0, baseRem - Math.max(0, Math.floor(liveDecrementSec)));
+  badge.textContent = `⏱ ${formatSessionMMSS(shown)}`;
+}
+
+function renderWarmupView() {
+  const w = state.warmup;
+  if (!w) return;
+  const preset = getLocalizedWarmupPreset(w.presetId);
+  const steps = getWarmupStepsForPreset(w.presetId);
+  const safeIdx = Math.max(0, Math.min(steps.length - 1, w.stepIndex));
+  const step = steps[safeIdx];
+  const phaseInfo = getWarmupPhaseInfo(step.phaseId);
+  const voiceRange = getLocalizedWarmupVoiceRange(w.voiceRange);
+  const soundMode = getLocalizedWarmupSoundMode(w.soundMode);
+  const tonicMidi = getWarmupTonicMidi(step, w.keyOffsetIndex, w);
+  w.currentTonicMidi = tonicMidi;
+
+  const titleEl = document.getElementById("warmupTitleText");
+  if (titleEl) titleEl.textContent = preset.title;
+
+  const voiceBtn = document.getElementById("warmupVoiceBtn");
+  if (voiceBtn) voiceBtn.textContent = voiceRange.label;
+  document.querySelectorAll("[data-warmup-voice]").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.warmupVoice === w.voiceRange);
+  });
+
+  const soundBtn = document.getElementById("warmupSoundBtn");
+  if (soundBtn) soundBtn.textContent = soundMode.label;
+  document.querySelectorAll("[data-warmup-sound]").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.warmupSound === w.soundMode);
+  });
+
+  const bpmBtn = document.getElementById("warmupBpmBtn");
+  const bpmSlider = document.getElementById("warmupBpmSlider");
+  const bpmVal = document.getElementById("warmupBpmVal");
+  if (bpmBtn) bpmBtn.textContent = `${w.bpm} BPM`;
+  if (bpmSlider) bpmSlider.value = w.bpm;
+  if (bpmVal) bpmVal.textContent = `${w.bpm} BPM`;
+
+  syncWarmupCountdownDisplay(0);
+
+  const pillsWrap = document.getElementById("warmupPhasePills");
+  if (pillsWrap) {
+    const activePhaseNum = phaseInfo.num;
+    pillsWrap.innerHTML = WARMUP_PHASES.map(p => {
+      const hasPhaseSteps = steps.some(s => s.phaseId === p.id);
+      if (!hasPhaseSteps) return "";
+      const cls = p.num < activePhaseNum ? "is-done" : (p.num === activePhaseNum ? "is-active" : "");
+      return `<button type="button" class="warmup-phase-pill ${cls}" data-warmup-phase="${p.id}">${tr(p.shortDe, p.shortEn)}</button>`;
+    }).join("");
+    pillsWrap.querySelectorAll("[data-warmup-phase]").forEach(pill => {
+      pill.addEventListener("click", () => {
+        jumpToWarmupPhase(pill.dataset.warmupPhase);
+      });
+    });
+  }
+
+  const pct = w.status === "completed"
+    ? 100
+    : Math.round(((safeIdx + (w.keyOffsetIndex / Math.max(1, getWarmupStepRoundCount(step)))) / Math.max(1, steps.length)) * 100);
+  const progressEl = document.getElementById("warmupProgressFill");
+  if (progressEl) progressEl.style.width = `${Math.max(0, Math.min(100, pct))}%`;
+
+  const counterEl = document.getElementById("warmupStepCounter");
+  if (counterEl) {
+    counterEl.textContent = w.status === "completed"
+      ? tr("Fertig ✓", "Done ✓")
+      : `${safeIdx + 1} / ${steps.length}`;
+  }
+
+  const stageCard = document.getElementById("warmupStageCard");
+  if (stageCard) {
+    stageCard.className = `central-stage warmup-stage-card ${phaseInfo.cls}`;
+  }
+
+  const mascotEl = document.getElementById("warmupMascotWrap");
+  if (mascotEl) {
+    const mood = w.status === "completed" ? "happy" : (w.status === "running" ? "idle" : "thinking");
+    mascotEl.innerHTML = getMascotSVG(mood);
+  }
+
+  const phaseBadgeEl = document.getElementById("warmupPhaseBadge");
+  if (phaseBadgeEl) {
+    phaseBadgeEl.textContent = w.status === "completed"
+      ? tr("EINSINGEN ABGESCHLOSSEN", "WARMUP COMPLETE")
+      : phaseInfo.label;
+  }
+
+  const isBreath = step.kind === "breath-orb" || step.kind === "breath-pulse";
+  const orbWrap = document.getElementById("warmupBreathOrbWrap");
+  const orb = document.getElementById("warmupBreathOrb");
+  const orbCue = document.getElementById("warmupBreathCue");
+  if (orbWrap && orb && orbCue) {
+    orbWrap.classList.toggle("hidden", !isBreath || w.status === "completed");
+    orb.className = "warmup-breath-orb";
+    if (w.breathCueKey === "inhale") orb.classList.add("is-inhale");
+    else if (w.breathCueKey === "hold") orb.classList.add("is-hold");
+    else if (w.breathCueKey === "exhale") orb.classList.add("is-exhale");
+    else if (w.breathCueKey === "pulse") orb.classList.add("is-pulse");
+    orbCue.textContent = w.breathCueText || tr("Bereit", "Ready");
+  }
+
+  const titleStepEl = document.getElementById("warmupStepTitle");
+  if (titleStepEl) {
+    titleStepEl.textContent = w.status === "completed"
+      ? tr("Stimme ist warm & bereit!", "Voice is warm & ready!")
+      : tr(step.titleDe, step.titleEn);
+  }
+
+  const sylEl = document.getElementById("warmupSyllableMain");
+  if (sylEl) {
+    sylEl.textContent = w.status === "completed"
+      ? tr("Bravo!", "Great job!")
+      : (w.vowelLabel || tr(step.syllableDe, step.syllableEn));
+  }
+
+  const degEl = document.getElementById("warmupPatternDegrees");
+  if (degEl) {
+    const showDeg = !isBreath && w.status !== "completed" && Boolean(step.degreesText);
+    degEl.classList.toggle("hidden", !showDeg);
+    if (showDeg) degEl.textContent = step.degreesText;
+  }
+
+  const keyInfo = getWarmupKeyNameFromMidi(tonicMidi);
+  const noteText = midiToGermanNote(tonicMidi, keyInfo.preferFlat);
+  const keyBadgeEl = document.getElementById("warmupKeyNoteBadge");
+  if (keyBadgeEl) {
+    const roundTotal = getWarmupStepRoundCount(step);
+    const showKeyBadge = !isBreath && w.status !== "completed";
+    keyBadgeEl.classList.toggle("hidden", !showKeyBadge);
+    if (showKeyBadge) {
+      keyBadgeEl.textContent = `${keyInfo.keyName} (${noteText}) • ${w.keyOffsetIndex + 1}/${roundTotal}`;
+    }
+  }
+
+  const hintEl = document.getElementById("warmupStageHint");
+  if (hintEl) {
+    if (w.status === "completed") {
+      hintEl.textContent = tr(
+        "Viel Freude beim Singen und Musizieren! Tippe unten auf Starten für eine neue Runde.",
+        "Have a great rehearsal or practice session! Tap below to restart anytime."
+      );
+    } else if (w.hintText) {
+      hintEl.textContent = w.hintText;
+    } else {
+      hintEl.textContent = tr(step.hintDe, step.hintEn);
+    }
+  }
+
+  const manualBar = document.getElementById("warmupManualBar");
+  const kbWrap = document.getElementById("warmupKeyboardWrap");
+  const hideTonalTools = isBreath && step.kind === "breath-orb";
+  if (manualBar) manualBar.classList.toggle("hidden", isBreath || w.status === "completed");
+  if (kbWrap) {
+    kbWrap.classList.toggle("hidden", hideTonalTools || w.status === "completed");
+    if (!hideTonalTools && w.status !== "completed") {
+      renderWarmupKeyboard(tonicMidi, w.activeMidis);
+    }
+  }
+
+  const playBtn = document.getElementById("warmupPlayBtn");
+  if (playBtn) {
+    if (w.status === "running") {
+      playBtn.textContent = tr("⏸ Pause", "⏸ Pause");
+      playBtn.classList.add("btn-stop");
+    } else if (w.status === "paused") {
+      playBtn.textContent = tr("▶ Weiter", "▶ Resume");
+      playBtn.classList.remove("btn-stop");
+    } else if (w.status === "completed") {
+      playBtn.textContent = tr("↻ Nochmal einsingen", "↻ Warmup Again");
+      playBtn.classList.remove("btn-stop");
+    } else {
+      playBtn.textContent = tr("▶ Einsingen starten", "▶ Start Warmup");
+      playBtn.classList.remove("btn-stop");
+    }
+  }
+
+  const prevBtn = document.getElementById("warmupPrevBtn");
+  const nextBtn = document.getElementById("warmupNextBtn");
+  if (prevBtn) prevBtn.disabled = safeIdx <= 0 && w.keyOffsetIndex <= 0;
+  if (nextBtn) nextBtn.disabled = safeIdx >= steps.length - 1 && w.status === "completed";
+
+  state.updateHeaderSubtext();
+}
+
+function playWarmupMajorTriadCue(tonicMidi, durSec, soundMode) {
+  const notes = [midiToNote(tonicMidi), midiToNote(tonicMidi + 4), midiToNote(tonicMidi + 7)];
+  audioEngine.playWarmupNotes(soundMode, notes, durSec, true);
+}
+
+function runCurrentWarmupRound() {
+  const w = state.warmup;
+  if (!w || w.status !== "running" || state.currentView !== "warmup") return;
+
+  const steps = getWarmupStepsForPreset(w.presetId);
+  if (w.stepIndex >= steps.length) {
+    finishWarmupSession();
+    return;
+  }
+
+  const step = steps[w.stepIndex];
+  const roundCount = getWarmupStepRoundCount(step);
+  if (w.keyOffsetIndex >= roundCount) {
+    w.stepIndex += 1;
+    w.keyOffsetIndex = 0;
+    w.transposeShift = 0;
+    runCurrentWarmupRound();
+    return;
+  }
+
+  const token = w.token;
+  const beatSec = 60 / Math.max(60, Math.min(140, w.bpm || WARMUP_DEFAULT_BPM));
+  const beatMs = beatSec * 1000;
+  const tonicMidi = getWarmupTonicMidi(step, w.keyOffsetIndex, w);
+  const keyInfo = getWarmupKeyNameFromMidi(tonicMidi);
+  w.currentTonicMidi = tonicMidi;
+  w.activeMidis = [];
+  w.vowelLabel = "";
+  w.breathCueKey = "idle";
+  w.breathCueText = "";
+  w.hintText = tr(step.hintDe, step.hintEn);
+  w.roundStartedWallMs = Date.now();
+
+  if (w.tickIntervalId !== null) clearInterval(w.tickIntervalId);
+  w.tickIntervalId = setInterval(() => {
+    if (!state.warmup || state.warmup.status !== "running" || state.warmup.token !== token) return;
+    const elapsedSec = (Date.now() - state.warmup.roundStartedWallMs) / 1000;
+    syncWarmupCountdownDisplay(elapsedSec);
+  }, 500);
+
+  renderWarmupView();
+
+  const advanceRoundOrStep = () => {
+    if (!state.warmup || state.warmup.token !== token || state.warmup.status !== "running") return;
+    w.keyOffsetIndex += 1;
+    if (w.keyOffsetIndex >= roundCount) {
+      w.stepIndex += 1;
+      w.keyOffsetIndex = 0;
+      w.transposeShift = 0;
+    }
+    runCurrentWarmupRound();
+  };
+
+  if (step.kind === "breath-orb") {
+    const cycles = step.cycles || 3;
+    const oneCycleMs = (step.cyclePhases || []).reduce((sum, p) => sum + p.sec * 1000, 0);
+    let cursorMs = 0;
+    for (let c = 0; c < cycles; c++) {
+      step.cyclePhases.forEach(p => {
+        const atMs = cursorMs;
+        cursorMs += p.sec * 1000;
+        const cycleLabel = `${tr("Zyklus", "Cycle")} ${c + 1}/${cycles}`;
+        audioEngine.registerTimer(() => {
+          if (state.warmup.token !== token || state.warmup.status !== "running") return;
+          w.breathCueKey = p.cue;
+          w.breathCueText = tr(p.de, p.en);
+          w.hintText = `${cycleLabel} • ${tr(step.hintDe, step.hintEn)}`;
+          const orb = document.getElementById("warmupBreathOrb");
+          const cueEl = document.getElementById("warmupBreathCue");
+          const hintEl = document.getElementById("warmupStageHint");
+          if (orb) {
+            orb.className = "warmup-breath-orb";
+            orb.classList.add(`is-${p.cue}`);
+          }
+          if (cueEl) cueEl.textContent = w.breathCueText;
+          if (hintEl) hintEl.textContent = w.hintText;
+          if (p.cueNoteOffset !== null && p.cueNoteOffset !== undefined) {
+            audioEngine.playWarmupNotes("piano", [midiToNote(tonicMidi + p.cueNoteOffset)], 0.55, true);
+          }
+        }, atMs);
+      });
+    }
+    scheduleWarmupCallback(advanceRoundOrStep, cycles * oneCycleMs + 220, token);
+    return;
+  }
+
+  if (step.kind === "breath-pulse") {
+    const pulses = step.pulseCount || 4;
+    for (let i = 0; i < pulses; i++) {
+      audioEngine.registerTimer(() => {
+        if (state.warmup.token !== token || state.warmup.status !== "running") return;
+        audioEngine.triggerPercussion(i === 0 ? "accent" : "clave", null, i === 0 ? 0.92 : 0.78);
+        w.breathCueKey = "pulse";
+        w.breathCueText = `${tr("Impuls", "Pulse")} ${i + 1} / ${pulses}`;
+        const orb = document.getElementById("warmupBreathOrb");
+        const cueEl = document.getElementById("warmupBreathCue");
+        if (orb) {
+          orb.classList.add("is-pulse");
+          setTimeout(() => orb.classList.remove("is-pulse"), Math.min(200, Math.round(beatMs * 0.4)));
+        }
+        if (cueEl) cueEl.textContent = w.breathCueText;
+      }, i * beatMs);
+    }
+    audioEngine.registerTimer(() => {
+      if (state.warmup.token !== token || state.warmup.status !== "running") return;
+      w.breathCueKey = "inhale";
+      w.breathCueText = tr("Locker einatmen…", "Breathe in gently…");
+      const cueEl = document.getElementById("warmupBreathCue");
+      const orb = document.getElementById("warmupBreathOrb");
+      if (orb) orb.className = "warmup-breath-orb is-inhale";
+      if (cueEl) cueEl.textContent = w.breathCueText;
+    }, pulses * beatMs);
+    scheduleWarmupCallback(advanceRoundOrStep, (pulses + (step.restBeats || 2.5)) * beatMs, token);
+    return;
+  }
+
+  // Cue-Akkord + kurze Einatem-Lücke vor allen gesungenen Übungen
+  const cueMs = (step.cueChordBeats || 1.25) * beatMs;
+  const startVocalMs = cueMs + (step.breathGapBeats || 0.75) * beatMs;
+  playWarmupMajorTriadCue(tonicMidi, Math.max(0.55, cueMs / 1000 * 0.92), w.soundMode);
+  w.activeMidis = [tonicMidi, tonicMidi + 4, tonicMidi + 7];
+  updateWarmupKeyboardHighlights(tonicMidi, w.activeMidis);
+
+  if (step.kind === "vowel-blend") {
+    const vowels = tr("de", "en") === "en" ? step.vowelsEn : step.vowelsDe;
+    const stepMs = (step.vowelStepBeats || 1.9) * beatMs;
+    const tonicNote = midiToNote(tonicMidi);
+    const subDomNotes = [midiToNote(tonicMidi), midiToNote(tonicMidi + 5), midiToNote(tonicMidi + 9)];
+    const homeChordNotes = [midiToNote(tonicMidi), midiToNote(tonicMidi + 4), midiToNote(tonicMidi + 7)];
+
+    audioEngine.registerTimer(() => {
+      if (state.warmup.token !== token || state.warmup.status !== "running") return;
+      audioEngine.playWarmupNotes(w.soundMode, [tonicNote], (vowels.length * stepMs) / 1000 * 0.96, false);
+      w.activeMidis = [tonicMidi];
+      updateWarmupKeyboardHighlights(tonicMidi, [tonicMidi]);
+    }, startVocalMs);
+
+    vowels.forEach((vLabel, vIdx) => {
+      audioEngine.registerTimer(() => {
+        if (state.warmup.token !== token || state.warmup.status !== "running") return;
+        w.vowelLabel = vLabel;
+        const sylEl = document.getElementById("warmupSyllableMain");
+        if (sylEl) sylEl.textContent = vLabel;
+        if (vIdx === 2) {
+          audioEngine.playWarmupNotes("piano", subDomNotes, (stepMs * 2) / 1000, true);
+        } else if (vIdx === 4) {
+          audioEngine.playWarmupNotes("piano", homeChordNotes, (stepMs * 1.4) / 1000, true);
+        }
+      }, startVocalMs + vIdx * stepMs);
+    });
+
+    const endMs = startVocalMs + vowels.length * stepMs + (step.postRestBeats || 1.0) * beatMs;
+    scheduleWarmupCallback(advanceRoundOrStep, endMs, token);
+    return;
+  }
+
+  if (step.kind === "choir-cadence") {
+    const cBeatMs = (step.cadenceBeat || 1.35) * beatMs;
+    const sBeatMs = (step.stackStepBeats || 1.15) * beatMs;
+    const holdMs = (step.holdBeats || 4.5) * beatMs;
+    const bassMidi = Math.max(40, tonicMidi >= 48 ? tonicMidi - 12 : tonicMidi);
+    const tenorMidi = bassMidi + 7;
+    const altMidi = bassMidi + 12;
+    const sopMidi = bassMidi + 16;
+
+    const layers = [
+      { midi: bassMidi, labelDe: "1. Bass: Grundton einstimmen",   labelEn: "1. Bass: Lock the root" },
+      { midi: tenorMidi,labelDe: "2. Tenor: Reine Quinte darüber", labelEn: "2. Tenor: Pure 5th above" },
+      { midi: altMidi,  labelDe: "3. Alt: Oktave einschwingen",    labelEn: "3. Alto: Blend the octave" },
+      { midi: sopMidi,  labelDe: "4. Sopran: Strahlende Terz!",    labelEn: "4. Soprano: Shining major 3rd!" }
+    ];
+
+    const stackStartMs = cueMs + beatMs * 0.8;
+    const accumulated = [];
+    layers.forEach((layer, idx) => {
+      audioEngine.registerTimer(() => {
+        if (state.warmup.token !== token || state.warmup.status !== "running") return;
+        accumulated.push(layer.midi);
+        const isLast = idx === layers.length - 1;
+        const holdNoteSec = ((layers.length - idx) * sBeatMs + holdMs) / 1000 * 0.94;
+        audioEngine.playWarmupNotes(
+          w.soundMode === "piano" ? "piano" : "voice",
+          [midiToNote(layer.midi)],
+          holdNoteSec,
+          false
+        );
+        if (isLast && w.soundMode !== "voice") {
+          audioEngine.playWarmupNotes(
+            "piano-voice",
+            accumulated.map(m => midiToNote(m)),
+            holdMs / 1000 * 0.96,
+            false,
+            true
+          );
+        }
+        w.activeMidis = accumulated.slice();
+        w.hintText = `${tr(layer.labelDe, layer.labelEn)} (${keyInfo.keyName})`;
+        const hintEl = document.getElementById("warmupStageHint");
+        if (hintEl) hintEl.textContent = w.hintText;
+        updateWarmupKeyboardHighlights(tonicMidi, w.activeMidis);
+      }, stackStartMs + idx * sBeatMs);
+    });
+
+    const totalEndMs = stackStartMs + layers.length * sBeatMs + holdMs + (step.postRestBeats || 1.2) * beatMs;
+    scheduleWarmupCallback(advanceRoundOrStep, totalEndMs, token);
+    return;
+  }
+
+  // Standard vocal-pattern (Summen, Seufzer, Dreiklangs-Arpeggio, Oktav-Staccato, Cool-Down)
+  let elapsedNoteMs = 0;
+  (step.semitones || []).forEach((semi, nIdx) => {
+    const noteBeatDur = (step.noteBeats?.[nIdx] || 0.9) * beatMs;
+    const noteDurSec = step.staccato && nIdx < step.semitones.length - 1
+      ? Math.max(0.22, (noteBeatDur / 1000) * 0.56)
+      : Math.max(0.28, (noteBeatDur / 1000) * 0.94);
+    const playMidi = tonicMidi + semi;
+    const playAtMs = startVocalMs + elapsedNoteMs;
+    elapsedNoteMs += noteBeatDur;
+
+    audioEngine.registerTimer(() => {
+      if (state.warmup.token !== token || state.warmup.status !== "running") return;
+      audioEngine.playWarmupNotes(w.soundMode, [midiToNote(playMidi)], noteDurSec, false);
+      w.activeMidis = [playMidi];
+      updateWarmupKeyboardHighlights(tonicMidi, [playMidi]);
+    }, playAtMs);
+  });
+
+  const roundEndMs = startVocalMs + elapsedNoteMs + (step.postRestBeats || 0.85) * beatMs;
+  scheduleWarmupCallback(advanceRoundOrStep, roundEndMs, token);
+}
+
+async function startOrResumeWarmup() {
+  const w = state.warmup;
+  if (!w) return;
+  if (w.status === "completed") {
+    w.stepIndex = 0;
+    w.keyOffsetIndex = 0;
+    w.transposeShift = 0;
+  }
+  clearWarmupTimers();
+  const entryToken = w.token;
+  w.status = "running";
+  renderWarmupView();
+
+  await ensureAudioReady();
+  if (!state.warmup || state.warmup.token !== entryToken || state.warmup.status !== "running" || state.currentView !== "warmup") {
+    return;
+  }
+  runCurrentWarmupRound();
+}
+
+function pauseWarmupSession(options = {}) {
+  const w = state.warmup;
+  if (!w) return;
+  clearWarmupTimers();
+  if (!options.keepPlayback) {
+    stopPlayback();
+  }
+  if (w.status === "running") {
+    w.status = "paused";
+  }
+  w.activeMidis = [];
+  if (state.currentView === "warmup") {
+    renderWarmupView();
+  }
+}
+
+function finishWarmupSession() {
+  clearWarmupTimers();
+  stopPlayback();
+  const w = state.warmup;
+  w.status = "completed";
+  w.activeMidis = [];
+  w.breathCueKey = "idle";
+  w.vowelLabel = "";
+  renderWarmupView();
+}
+
+function toggleWarmupPlayPause() {
+  if (state.warmup?.status === "running") {
+    pauseWarmupSession();
+  } else {
+    startOrResumeWarmup();
+  }
+}
+
+function jumpToWarmupPhase(phaseId) {
+  const steps = getWarmupStepsForPreset(state.warmup.presetId);
+  const idx = steps.findIndex(s => s.phaseId === phaseId);
+  if (idx < 0) return;
+  const wasRunning = state.warmup.status === "running";
+  clearWarmupTimers();
+  stopPlayback();
+  state.warmup.stepIndex = idx;
+  state.warmup.keyOffsetIndex = 0;
+  state.warmup.transposeShift = 0;
+  state.warmup.activeMidis = [];
+  state.warmup.vowelLabel = "";
+  state.warmup.breathCueKey = "idle";
+  if (wasRunning) {
+    startOrResumeWarmup();
+  } else {
+    if (state.warmup.status === "completed") state.warmup.status = "idle";
+    renderWarmupView();
+  }
+}
+
+function stepWarmupIndex(delta) {
+  const steps = getWarmupStepsForPreset(state.warmup.presetId);
+  const nextIdx = Math.max(0, Math.min(steps.length - 1, state.warmup.stepIndex + delta));
+  const wasRunning = state.warmup.status === "running";
+  clearWarmupTimers();
+  stopPlayback();
+  state.warmup.stepIndex = nextIdx;
+  state.warmup.keyOffsetIndex = 0;
+  state.warmup.transposeShift = 0;
+  state.warmup.activeMidis = [];
+  state.warmup.vowelLabel = "";
+  state.warmup.breathCueKey = "idle";
+  if (wasRunning) {
+    startOrResumeWarmup();
+  } else {
+    if (state.warmup.status === "completed") state.warmup.status = "idle";
+    renderWarmupView();
+  }
+}
+
+async function replayWarmupRound() {
+  const w = state.warmup;
+  if (!w) return;
+  if (w.status === "running") {
+    clearWarmupTimers();
+    stopPlayback();
+    runCurrentWarmupRound();
+    return;
+  }
+  await ensureAudioReady();
+  const steps = getWarmupStepsForPreset(w.presetId);
+  const step = steps[Math.max(0, Math.min(steps.length - 1, w.stepIndex))];
+  const tonicMidi = getWarmupTonicMidi(step, w.keyOffsetIndex, w);
+  playWarmupMajorTriadCue(tonicMidi, 0.85, w.soundMode);
+  w.activeMidis = [tonicMidi, tonicMidi + 4, tonicMidi + 7];
+  renderWarmupView();
+}
+
+async function shiftWarmupTranspose(deltaSemitones) {
+  const w = state.warmup;
+  if (!w) return;
+  const steps = getWarmupStepsForPreset(w.presetId);
+  const step = steps[Math.max(0, Math.min(steps.length - 1, w.stepIndex))];
+  const nextShift = Math.max(-12, Math.min(12, (w.transposeShift || 0) + deltaSemitones));
+  const previewTonic = getWarmupTonicMidi(step, w.keyOffsetIndex, { ...w, transposeShift: nextShift });
+  if (previewTonic < 36 || previewTonic > 82) return;
+
+  w.transposeShift = nextShift;
+  if (w.status === "running") {
+    clearWarmupTimers();
+    stopPlayback();
+    runCurrentWarmupRound();
+  } else {
+    renderWarmupView();
+    await ensureAudioReady();
+    playWarmupMajorTriadCue(previewTonic, 0.75, w.soundMode);
+  }
+}
+
+function setWarmupVoiceRange(voiceId) {
+  if (!WARMUP_VOICE_RANGES[voiceId]) return;
+  state.warmup.voiceRange = voiceId;
+  state.warmup.transposeShift = 0;
+  closeTransientPopovers();
+  if (state.warmup.status === "running") {
+    clearWarmupTimers();
+    stopPlayback();
+    runCurrentWarmupRound();
+  } else {
+    renderWarmupView();
+  }
+}
+
+function setWarmupSoundMode(soundId) {
+  if (!WARMUP_SOUND_MODES[soundId]) return;
+  state.warmup.soundMode = soundId;
+  closeTransientPopovers();
+  renderWarmupView();
+}
+
+function setWarmupBpm(bpm) {
+  const clamped = Math.max(65, Math.min(135, parseInt(bpm, 10) || WARMUP_DEFAULT_BPM));
+  state.warmup.bpm = clamped;
+  renderWarmupView();
+}
+
+function openWarmupView(presetId = "full-5min", options = {}) {
+  clearWarmupTimers();
+  stopPlayback();
+  const validPreset = WARMUP_PRESETS.some(p => p.id === presetId) ? presetId : "full-5min";
+  state.warmupReturnView = options.returnView || "category";
+  state.warmup.presetId = validPreset;
+  state.warmup.status = "idle";
+  state.warmup.stepIndex = 0;
+  state.warmup.keyOffsetIndex = 0;
+  state.warmup.transposeShift = 0;
+  state.warmup.activeMidis = [];
+  state.warmup.breathCueKey = "idle";
+  state.warmup.breathCueText = "";
+  state.warmup.vowelLabel = "";
+  state.warmup.hintText = "";
+  switchView("warmup");
+}
 
 function initStartupSplash() {
   const splash = document.getElementById("startupSplash");
