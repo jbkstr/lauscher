@@ -2122,6 +2122,22 @@ html, body {
   transform: rotate(-8deg) scale(1.08);
 }
 
+.stage-awaiting .stage-mascot {
+  animation: awaitingBob 2.6s ease-in-out infinite;
+}
+
+@keyframes awaitingBob {
+  0%, 100% { transform: translateY(0) rotate(0deg) scale(1.05); }
+  50% { transform: translateY(-2.5px) rotate(2deg) scale(1.08); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage-awaiting .stage-mascot {
+    animation: none;
+    transform: scale(1.06);
+  }
+}
+
 .stage-sub {
   font-size: 0.62rem;
   font-weight: 800;
@@ -2175,6 +2191,11 @@ html, body {
 }
 
 .stage-target {
+  border-color: var(--peach-strong);
+  background-color: var(--peach-soft);
+}
+
+.stage-awaiting {
   border-color: var(--peach-strong);
   background-color: var(--peach-soft);
 }
@@ -16458,8 +16479,12 @@ const LAUSCHEBAER_QUOTES = [
 ];
 
 function getMascotSVG(mood = "idle", showAccessory = false) {
-  const earLeftRotate = mood === "question" ? "rotate(-14 14 18)" : (mood === "listening" ? "rotate(-6 14 18)" : "");
-  const earRightRotate = mood === "listening" ? "rotate(10 50 18)" : "";
+  const earLeftRotate = mood === "question"
+    ? "rotate(-14 14 18)"
+    : (mood === "listening" ? "rotate(-6 14 18)" : (mood === "awaiting" ? "rotate(-11 14 18)" : ""));
+  const earRightRotate = mood === "listening"
+    ? "rotate(10 50 18)"
+    : (mood === "awaiting" ? "rotate(6 50 18)" : "");
   const accessory = showAccessory && typeof state !== "undefined" && state?.profile
     ? (state.profile.companionAccessory || "none")
     : "none";
@@ -16478,6 +16503,13 @@ function getMascotSVG(mood = "idle", showAccessory = false) {
       <circle cx="23" cy="33" r="2.6" fill="#FFFFFF"/>
       <path d="M38 34 L44 34" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"/>
     `;
+  } else if (mood === "awaiting") {
+    eyesMarkup = `
+      <path d="M16.5 27.2 Q22 24.8 27 27.6" stroke="#5C5F77" stroke-width="1.9" stroke-linecap="round" fill="none"/>
+      <path d="M37.5 27.8 Q42.5 25.4 47.5 27.6" stroke="#5C5F77" stroke-width="1.9" stroke-linecap="round" fill="none"/>
+      <circle cx="23.2" cy="35.3" r="2.8" fill="#FFFFFF"/>
+      <circle cx="41.2" cy="35.3" r="2.8" fill="#FFFFFF"/>
+    `;
   }
 
   let extraBadge = "";
@@ -16490,11 +16522,31 @@ function getMascotSVG(mood = "idle", showAccessory = false) {
     extraBadge = `
       <text x="50" y="17" fill="var(--peach-strong)" font-size="16" font-weight="900" font-family="sans-serif">?</text>
     `;
+  } else if (mood === "awaiting") {
+    extraBadge = `
+      <rect x="44.5" y="2.5" width="18" height="11.5" rx="5.75" fill="var(--peach)" stroke="var(--peach-strong)" stroke-width="1.6"/>
+      <circle cx="45.8" cy="16.2" r="1.6" fill="var(--peach)" stroke="var(--peach-strong)" stroke-width="1.15"/>
+      <circle cx="43.3" cy="19.3" r="1.05" fill="var(--peach)" stroke="var(--peach-strong)" stroke-width="1"/>
+      <circle cx="49.5" cy="8.25" r="1.3" fill="var(--peach-strong)"/>
+      <circle cx="53.5" cy="8.25" r="1.3" fill="var(--peach-strong)"/>
+      <circle cx="57.5" cy="8.25" r="1.3" fill="var(--peach-strong)"/>
+    `;
   } else if (mood === "happy" && accessory !== "notes") {
     extraBadge = `
       <text x="49" y="16" fill="var(--sage-strong)" font-size="15" font-weight="900">♪</text>
     `;
   }
+
+  const awaitingPoseMarkup = mood === "awaiting" ? `
+    <path d="M29.4 45.3 Q32.5 47.1 35.7 45.1" stroke="#3D405B" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+    <g transform="translate(42.5 51.5) rotate(-18)">
+      <ellipse cx="0" cy="0" rx="6.6" ry="4.7" fill="#5C5F77" stroke="#3D405B" stroke-width="1.2"/>
+      <ellipse cx="-2.2" cy="-1.2" rx="1.25" ry="1.6" fill="#E4E1DA"/>
+      <ellipse cx="0.6" cy="-1.8" rx="1.2" ry="1.55" fill="#E4E1DA"/>
+      <ellipse cx="3.1" cy="-0.8" rx="1.15" ry="1.45" fill="#E4E1DA"/>
+      <ellipse cx="0.2" cy="1.8" rx="2.5" ry="1.5" fill="#FFD6BA" opacity="0.85"/>
+    </g>
+  ` : "";
 
   let accessoryMarkup = "";
   if (accessory === "headphones") {
@@ -16534,6 +16586,7 @@ function getMascotSVG(mood = "idle", showAccessory = false) {
       ${eyesMarkup}
       <ellipse cx="32" cy="42.5" rx="7" ry="5.5" fill="#FFFFFF"/>
       <ellipse cx="32" cy="40" rx="3.2" ry="2.3" fill="#3D405B"/>
+      ${awaitingPoseMarkup}
       ${accessoryMarkup}
       ${extraBadge}
     </svg>
@@ -22678,6 +22731,80 @@ function resetCentralStage() {
       : tr("Drücke unten auf Abspielen", "Press Play below to listen");
 }
 
+const AWAITING_STAGE_HEADLINES = [
+  { de: "Na, was war’s?", en: "What’s your call?" },
+  { de: "Ganz Ohr!",      en: "I’m all ears!" },
+  { de: "Was meinst du?", en: "What do you hear?" },
+  { de: "Und …?",         en: "Your hunch?" }
+];
+let awaitingPromptCounter = 0;
+
+function getAwaitingStageHint(ex) {
+  const type = ex?.type || "";
+  if (type === "cadence") {
+    return tr("Welche Stufe schwingt noch nach? Tippe sie unten an.", "Which chord degree lingers? Tap it below.");
+  }
+  if (type === "interval-chords") {
+    return tr("Welche Akkordfarbe ist hängengeblieben? Wähle unten aus.", "Which chord color stayed with you? Pick below.");
+  }
+  if (type.startsWith("interval")) {
+    return tr("Wie weit fühlte sich der Abstand an? Wähle das Intervall.", "How wide did that leap feel? Pick the interval below.");
+  }
+  if (type === "solfege") {
+    return tr("Wo sitzt dieser Ton in der Tonleiter? Tippe auf die Taste.", "Where does that pitch sit? Tap the matching key.");
+  }
+  if (type === "melody") {
+    return tf("Welche Silbe war Ton {n}? Tippe auf die Tasten (oder „Ton nochmal“).", "Which syllable was Note {n}? Tap the keys (or “Replay Tone”).", { n: (ex.melodyStep || 0) + 1 });
+  }
+  if (type === "rhythm-dictation") {
+    return tf("Welches Muster lag auf Schlag {n}? Wähle unten (oder „Schlag nochmal“).", "Which pattern landed on Beat {n}? Pick below (or “Replay Beat”).", { n: (ex.rhythmStep || 0) + 1 });
+  }
+  if (type === "rhythm-meter") {
+    return tr("Wo lag die betonte Eins? Wähle die passende Taktart.", "Where did the heavy beat land? Pick the meter below.");
+  }
+  if (type === "rhythm-groove") {
+    return tr("Wie hat der Groove für dich geatmet? Wähle unten aus.", "How did that groove feel? Pick your answer below.");
+  }
+  if (type === "prod-tone" || type === "prod-eq-noise") {
+    return tr("In welchem Band lag der Schwerpunkt? Tippe es unten an.", "Which band carried the focus? Tap it below.");
+  }
+  if (type.startsWith("modes-")) {
+    return tr("Welche Klangfarbe schwang da mit? Wähle den Modus.", "Which modal color shone through? Pick the mode below.");
+  }
+  return tr("Wähle unten deine Antwort – oder hör’s dir noch einmal an.", "Pick your answer below — or replay anytime.");
+}
+
+function showAwaitingAnswerStage(ex = state.currentExercise) {
+  if (!document.getElementById("centralStageCard")) return;
+  if (!ex || isCurrentExerciseSolved(ex)) return;
+
+  const headline = AWAITING_STAGE_HEADLINES[awaitingPromptCounter % AWAITING_STAGE_HEADLINES.length];
+  awaitingPromptCounter += 1;
+
+  setCentralStageMode("stage-awaiting");
+  updateStageMascot("awaiting");
+
+  let subtext = tr("DEIN TIPP", "YOUR PICK");
+  if (ex.type === "melody") {
+    subtext = tf("TON {n} VON 4 • DEIN TIPP", "NOTE {n} OF 4 • YOUR PICK", { n: (ex.melodyStep || 0) + 1 });
+  } else if (ex.type === "rhythm-dictation") {
+    subtext = tf("SCHLAG {n} VON 4 • DEIN TIPP", "BEAT {n} OF 4 • YOUR PICK", { n: (ex.rhythmStep || 0) + 1 });
+  }
+
+  document.getElementById("stageSubtext").textContent = subtext;
+  document.getElementById("stageMainText").textContent = tr(headline.de, headline.en);
+  document.getElementById("stageFunctionText").textContent = getAwaitingStageHint(ex);
+}
+
+function completePromptPlayback(ex = state.currentExercise) {
+  stopPlayback({ preserveStage: true });
+  if (state.listenOnly?.active) {
+    handleListenOnlyPromptEnded(ex);
+  } else if (ex && state.currentExercise === ex && !isCurrentExerciseSolved(ex)) {
+    showAwaitingAnswerStage(ex);
+  }
+}
+
 const SOLFEGE_RESOLUTION_BEATS = {
   1: [2.0],
   2: [1.0, 3.0],
@@ -23275,6 +23402,9 @@ async function repeatRhythmDictationBeat(slotIdx = null) {
   audioEngine.registerTimer(() => {
     if (audioEngine.playbackId !== singlePlaybackId) return;
     document.getElementById(`barCard_${idx}`)?.classList.remove("bar-active");
+    if (!slot.solved && !state.rhythmDictationCompleted && !state.isPlaying && !state.listenOnly?.active) {
+      showAwaitingAnswerStage(ex);
+    }
   }, Math.round(2 * beatMs + 140));
 }
 
@@ -23632,6 +23762,9 @@ async function repeatMelodySlotTone(slotIdx = null) {
   audioEngine.registerTimer(() => {
     if (audioEngine.playbackId !== singlePlaybackId) return;
     document.getElementById(`barCard_${idx}`)?.classList.remove("bar-active");
+    if (!slot.solved && !state.melodyCompleted && !state.isPlaying && !state.listenOnly?.active) {
+      showAwaitingAnswerStage(ex);
+    }
   }, 950);
 }
 
@@ -23813,6 +23946,9 @@ async function repeatCadenceTargetChord() {
   audioEngine.registerTimer(() => {
     if (audioEngine.playbackId !== playId) return;
     document.getElementById(`barCard_${ex.targetIndex}`)?.classList.remove("bar-active");
+    if (!ex.isSolved && !state.isPlaying && !state.listenOnly?.active) {
+      showAwaitingAnswerStage(ex);
+    }
   }, 1200);
 }
 
@@ -23853,7 +23989,14 @@ async function repeatSolfegeTargetTone() {
     document.getElementById("stageFunctionText").textContent = tr("Welche Stufe (Do bis Do) hörst du?", "Which scale degree (Do to Do) do you hear?");
   }
 
+  const playId = audioEngine.playbackId;
   audioEngine.playStep([ex.targetItem.noteName], 0.95, null, "interval");
+  audioEngine.registerTimer(() => {
+    if (audioEngine.playbackId !== playId) return;
+    if (!state.solfegeAnswered && !state.isPlaying && !state.listenOnly?.active) {
+      showAwaitingAnswerStage(ex);
+    }
+  }, 950);
 }
 
 const LISTEN_ONLY_REVEAL_DELAY_MS = 2000;
@@ -24217,8 +24360,7 @@ async function playSequence() {
             runProdToneLoopCycle();
           }, 380);
         } else {
-          stopPlayback();
-          handleListenOnlyPromptEnded(ex);
+          completePromptPlayback(ex);
         }
       }, 1520);
     }
@@ -24238,7 +24380,11 @@ async function playSequence() {
       maxDurationSec: 120,
       onAutoStop: () => {
         if (state.isPlaying && state.currentExercise?.type === "prod-eq-noise") {
-          stopPlayback();
+          if (!state.listenOnly?.active) {
+            completePromptPlayback(ex);
+          } else {
+            stopPlayback();
+          }
         }
       }
     });
@@ -24296,8 +24442,7 @@ async function playSequence() {
             runModeLoopCycle();
           }, 420);
         } else {
-          stopPlayback();
-          handleListenOnlyPromptEnded(ex);
+          completePromptPlayback(ex);
         }
       }, cycleEndMs);
     }
@@ -24334,8 +24479,7 @@ async function playSequence() {
         if (keepPromptLooping()) {
           runMeterLoopCycle();
         } else {
-          stopPlayback();
-          handleListenOnlyPromptEnded(ex);
+          completePromptPlayback(ex);
         }
       }, 40 + Math.round(totalMs));
     }
@@ -24404,15 +24548,11 @@ async function playSequence() {
       state.isPlaying = false;
       updatePlayButtonUI(false);
 
-      if (!state.rhythmDictationCompleted) {
-        setCentralStageMode("stage-target");
-        updateStageMascot("question");
-        document.getElementById("stageSubtext").textContent = tf("GESUCHT: SCHLAG {n} VON 4", "TARGET: BEAT {n} OF 4", { n: ex.rhythmStep + 1 });
-        document.getElementById("stageMainText").textContent = "?";
-        document.getElementById("stageFunctionText").textContent =
-          tf("Tippe das Muster für Schlag {n} (oder „Schlag nochmal“).", "Select the pattern for Beat {n} (or tap “Replay Beat”).", { n: ex.rhythmStep + 1 });
+      if (state.listenOnly?.active) {
+        handleListenOnlyPromptEnded(ex);
+      } else if (!state.rhythmDictationCompleted) {
+        showAwaitingAnswerStage(ex);
       }
-      handleListenOnlyPromptEnded(ex);
     }, 40 + Math.round(2 * barMs + 80));
 
     return;
@@ -24612,8 +24752,7 @@ async function playSequence() {
         if (keepPromptLooping()) {
           runGrooveLoopCycle();
         } else {
-          stopPlayback();
-          handleListenOnlyPromptEnded(ex);
+          completePromptPlayback(ex);
         }
       }, 40 + Math.round(totalMs));
     }
@@ -24683,15 +24822,11 @@ async function playSequence() {
       state.isPlaying = false;
       updatePlayButtonUI(false);
 
-      if (!state.melodyCompleted) {
-        setCentralStageMode("stage-target");
-        updateStageMascot("question");
-        document.getElementById("stageSubtext").textContent = tf("GESUCHT: TON {n} VON 4", "TARGET: NOTE {n} OF 4", { n: ex.melodyStep + 1 });
-        document.getElementById("stageMainText").textContent = "?";
-        document.getElementById("stageFunctionText").textContent =
-          tf("Tippe den Solfège-Namen für Ton {n} (oder „Ton nochmal“).", "Tap the Solfège syllable for Note {n} (or “Replay Tone”).", { n: ex.melodyStep + 1 });
+      if (state.listenOnly?.active) {
+        handleListenOnlyPromptEnded(ex);
+      } else if (!state.melodyCompleted) {
+        showAwaitingAnswerStage(ex);
       }
-      handleListenOnlyPromptEnded(ex);
     }, melodyEndMs);
 
     return;
@@ -24755,7 +24890,11 @@ async function playSequence() {
           } else {
             state.isPlaying = false;
             updatePlayButtonUI(false);
-            handleListenOnlyPromptEnded(ex);
+            if (state.listenOnly?.active) {
+              handleListenOnlyPromptEnded(ex);
+            } else if (!state.solfegeAnswered) {
+              showAwaitingAnswerStage(ex);
+            }
           }
         }, 1150);
       }
@@ -24804,8 +24943,7 @@ async function playSequence() {
         if (keepPromptLooping()) {
           runMelodicIntervalLoopCycle();
         } else {
-          stopPlayback();
-          handleListenOnlyPromptEnded(ex);
+          completePromptPlayback(ex);
         }
       }, cycleMs);
     }
@@ -24881,8 +25019,7 @@ async function playSequence() {
       if (keepPromptLooping()) {
         runLoopCycle();
       } else {
-        stopPlayback();
-        handleListenOnlyPromptEnded(ex);
+        completePromptPlayback(ex);
       }
     }, totalDurationMs);
   }
@@ -24890,7 +25027,7 @@ async function playSequence() {
   runLoopCycle();
 }
 
-function stopPlayback() {
+function stopPlayback(options = {}) {
   state.isPlaying = false;
   state.rhythmTapSession = null;
   audioEngine.stopPlayback();
@@ -24917,7 +25054,7 @@ function stopPlayback() {
   }
 
   const tapFinished = state.currentExercise?.type === "rhythm-tap" && state.currentExercise?.tapEvaluated;
-  if (!state.solfegeAnswered && !state.melodyCompleted && !state.rhythmDictationCompleted && !tapFinished) {
+  if (!options?.preserveStage && !state.solfegeAnswered && !state.melodyCompleted && !state.rhythmDictationCompleted && !tapFinished) {
     resetCentralStage();
   }
   const totalBars = state.currentExercise?.bars?.length ?? 4;
