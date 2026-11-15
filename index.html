@@ -6610,7 +6610,7 @@ body,
             <div class="module-inline-controls">
               <button id="warmupVoiceBtn" class="module-chip-btn chip-sage" type="button" title="Tonumfang wählen" data-i18n-title="warmup.voiceBtnTitle">Chor-Mitte</button>
               <button id="warmupSoundBtn" class="module-chip-btn chip-peach" type="button" title="Begleitklang wählen" data-i18n-title="warmup.soundBtnTitle">Klavier + Stimme</button>
-              <button id="warmupBpmBtn" class="module-chip-btn chip-lilac" type="button" title="Tempo-Schieberegler öffnen" data-i18n-title="ex.bpmBtnTitle">95 BPM</button>
+              <button id="warmupBpmBtn" class="module-chip-btn chip-lilac" type="button" title="Tempo-Schieberegler öffnen" data-i18n-title="ex.bpmBtnTitle">80 BPM</button>
             </div>
           </div>
           <span id="warmupRemainingBadge" class="module-badge">⏱ 05:00</span>
@@ -6638,8 +6638,8 @@ body,
 
         <div id="warmupBpmPopover" class="module-inline-popover hidden">
           <span class="popover-label" data-i18n="ex.tempoLabel">Tempo:</span>
-          <input type="range" id="warmupBpmSlider" min="65" max="135" step="5" value="95">
-          <span id="warmupBpmVal" class="popover-val">95 BPM</span>
+          <input type="range" id="warmupBpmSlider" min="65" max="135" step="5" value="80">
+          <span id="warmupBpmVal" class="popover-val">80 BPM</span>
         </div>
 
         <div id="warmupPhasePills" class="warmup-phase-pills"></div>
@@ -9346,6 +9346,8 @@ const CADENCE_ENCYCLOPEDIA_EN = [
     tag: "Baroque to Pop",
     tagClass: "tag-lilac",
     bars: ["I", "V", "vi", "iii", "IV", "I", "IV", "V"],
+    stepMs: 1500,
+    chordDur: 1.38,
     whyItWorks: "A stroke of bassline genius from 1680: the bass steps down and leaps cleanly (**C → G → A → E → F → C → F → G**). Every link interlocks seamlessly, creating an eight-bar loop that sounds both serene and endlessly forward-moving.",
     songs: [
       "“Canon in D” – Johann Pachelbel",
@@ -9721,6 +9723,184 @@ const KNOWLEDGE_ARTICLES_EN = [
           <li><strong>Engage your body:</strong> Hum the target pitch softly, tap the pulse with your foot, and always use the <strong>A/B Compare</strong> buttons after a miss.</li>
           <li><strong>Curiosity over pressure:</strong> Every wrong guess teaches just as much as a bullseye — side-by-side comparison is what rewires your ear.</li>
         </ul>
+      </div>
+    `
+  },
+  {
+    id: "art-talking-about-music",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/><path d="M9.5 10v3"/><path d="M12.5 8.5v6"/><path d="M15.5 10.5v2"/></svg>`,
+    badgeClass: "badge-peach",
+    title: "How Do We Talk About Music?",
+    subtitle: "Sharing feelings, imagery & impressions simply — zero music theory needed",
+    tag: "Listening & Dialogue",
+    render: () => `
+      <div class="article-body">
+        <span class="k-card-tag tag-peach">Perception &amp; Expression</span>
+        <h2>Talking About Music Without Notes, Chords, or Jargon</h2>
+        <p class="article-lead">
+          A piece of music moves you, puts you on edge, or paints a vivid scene in your mind — yet the second someone asks, <em>“So what did you think?”</em>, all that comes out is a helpless <em>“Kind of nice”</em> or <em>“Not really my thing.”</em> Why is putting musical experience into words so tricky — and how do we make it effortless?
+        </p>
+
+        <p>
+          Many people hold back because they assume you need note names, theory labels, or instrument trivia just to join the conversation. You don’t. Whether you’re chatting with friends, sitting in a lesson, or singing in a rehearsal, good dialogue rarely needs the technical <strong>why</strong>. What matters is the <strong>what</strong>: What lands in your ears? What shifts inside your body? How does the sound evolve from start to finish?
+        </p>
+
+        <div class="k-song-ref">
+          <strong>Worth remembering:</strong> Even seasoned conductors, film composers, studio engineers, and choir directors rely heavily on <em>sensory imagery and physical metaphors</em> every day. Saying <em>“The opening feels like thick fog, then halfway through a window suddenly opens”</em> communicates far more than dry technical labels.
+        </div>
+
+        <h3>1. The Golden Shift: From Judgment to Perception</h3>
+        <p>
+          Blanket verdicts like <em>“boring”</em>, <em>“weird”</em>, or <em>“amazing”</em> shut conversations down because they tell the other person nothing about what actually reached you. Sharing a <strong>perception</strong> opens the door instead. This simple 3-step bridge works anywhere:
+        </p>
+        <ul class="article-steps-list">
+          <li><strong>Where in the piece?</strong> Anchor the moment in time: <em>“Right at the start”</em>, <em>“When it swells in the middle”</em>, <em>“Just before the ending”</em>, or <em>“At that sudden drop.”</em></li>
+          <li><strong>What hits me there?</strong> Speak gently from your own experience: <em>“To me it feels…”</em>, <em>“My ears notice…”</em>, <em>“Right there I feel a pull…”</em></li>
+          <li><strong>What everyday image matches?</strong> Borrow ordinary words from space, light, touch, or motion: <em>“tight”</em>, <em>“warm”</em>, <em>“rushed”</em>, <em>“like finally exhaling.”</em></li>
+        </ul>
+
+        <h3>2. Six Everyday Dimensions of Listening</h3>
+        <p>
+          You don’t need a thick glossary. Almost anything you experience while listening fits cleanly into six sensory areas everyone instinctively understands:
+        </p>
+
+        <div class="k-compare-grid">
+          <div class="k-compare-box is-peach">
+            <h5>A. Mood &amp; Emotional Shade</h5>
+            <p>Look just past plain “happy vs. sad”: Does it feel <em>comforting, wistful, yearning, proud, playful, restless, fragile, solemn, wry, grounded, reconciling</em>, or <em>bittersweet</em>? Naming mixed feelings works wonders: <em>“Bright on the surface, yet tired underneath.”</em></p>
+          </div>
+          <div class="k-compare-box is-sage">
+            <h5>B. Space, Closeness &amp; Density</h5>
+            <p>How crowded or intimate does the moment feel? Helpful contrasts: <em>tight, packed, heavy, crowded, dense</em> vs. <em>wide, airy, transparent, sparse, delicate</em> — or <em>whisper-close at your ear</em> vs. <em>distant, echoing across a vast hall</em>.</p>
+          </div>
+          <div class="k-compare-box is-lilac">
+            <h5>C. Color, Temperature &amp; Texture</h5>
+            <p>Imagine touching or seeing the sound: Is it <em>warm, golden, velvety, matte, earthy, smoky, soft</em> — or <em>cool, glassy, silvery, bright, glaring, sharp, grainy, brittle, metallic</em>? Weight helps too: <em>anchored like stone</em> vs. <em>feather-light</em>.</p>
+          </div>
+          <div class="k-compare-box is-sage">
+            <h5>D. Motion, Energy &amp; Pull</h5>
+            <p>Notice how your body wants to respond: <em>driving forward, bouncing, dragging, stumbling, swaying, circling, breathless, laid-back, hesitant</em>. Ask: <em>Does it push me ahead, rock gently, or stop time altogether?</em></p>
+          </div>
+          <div class="k-compare-box is-peach">
+            <h5>E. Arc, Tension &amp; Breath</h5>
+            <p>Music tells a tiny unfolding story: <em>gathering momentum, waiting, tipping point, sudden release, retreat, lingering echo, an unanswered question, coming home</em>. Phrases like <em>“I hold my breath there”</em> or <em>“the weight drops away”</em> always land clearly.</p>
+          </div>
+          <div class="k-compare-box is-lilac">
+            <h5>F. How Voices Interact</h5>
+            <p>Even without naming instruments, you can describe roles: <em>“One line steps forward to speak while the rest forms a soft cushion”</em>, <em>“like tossing a ball back and forth”</em>, <em>“moving as one solid block”</em>, or <em>“talking past each other.”</em></p>
+          </div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>Sound Check: Hear Contrasting Words Directly</h4>
+          <p>Ignore theory for ten seconds — just notice which <strong>everyday sensation</strong> pops into your mind on each pair:</p>
+          <div class="k-btn-row">
+            <button class="btn-tool" data-play-custom="talk-dense">▶ Tight &amp; crowded</button>
+            <button class="btn-tool" data-play-custom="talk-open">▶ Wide &amp; airy</button>
+          </div>
+          <div class="k-btn-row">
+            <button class="btn-tool" data-play-custom="talk-warm">▶ Warm &amp; cushioned</button>
+            <button class="btn-tool" data-play-custom="talk-sharp">▶ Bright &amp; pointed</button>
+          </div>
+          <div class="k-btn-row">
+            <button class="btn-tool" data-play-custom="talk-drive">▶ Driving ahead</button>
+            <button class="btn-tool" data-play-custom="talk-float">▶ Floating &amp; still</button>
+          </div>
+        </div>
+
+        <h3>3. What Helps Conversations Flow — and What Blocks Them</h3>
+        <p>
+          Certain habits quietly stall musical dialogue or trigger misunderstandings — especially between listeners with different backgrounds.
+        </p>
+
+        <div class="k-compare-grid">
+          <div class="k-compare-box is-peach">
+            <h5>❌ Unhelpful &amp; Blocking</h5>
+            <p><strong>Empty pass/fail labels:</strong> “Good / bad / cheap / professional / unmusical.” They pass a verdict while leaving others guessing what you actually heard.</p>
+          </div>
+          <div class="k-compare-box is-sage">
+            <h5>✅ Clear &amp; Inviting</h5>
+            <p><strong>Describe the shift:</strong> “The gentle start drew me right in, though halfway through it started feeling a bit rushed and glaring to me.”</p>
+          </div>
+          <div class="k-compare-box is-peach">
+            <h5>❌ Guesswork Buzzwords</h5>
+            <p>Dropping words like “wrong”, “atonal”, “clipping”, or “too dynamic” when you really mean “it rubs harshly”, “feels too harsh”, or “misses warmth” — pros often attach strict technical meanings to those terms.</p>
+          </div>
+          <div class="k-compare-box is-sage">
+            <h5>✅ Honest Everyday Imagery</h5>
+            <p>Stay natural: “I don’t know the fancy term, yet right there it feels like two edges rubbing together before softening out again.”</p>
+          </div>
+          <div class="k-compare-box is-peach">
+            <h5>❌ Personal Attacks &amp; Stereotypes</h5>
+            <p>“No feeling at all” or “Sounds like elevator music / pure commercial fluff.” Putting labels on people or genres shuts curiosity down immediately.</p>
+          </div>
+          <div class="k-compare-box is-sage">
+            <h5>✅ Name the Texture &amp; Contrast</h5>
+            <p>“For me the passage flows so smoothly and evenly that I find myself wishing for one small surprise or rough edge to grab onto.”</p>
+          </div>
+        </div>
+
+        <h3>4. Phrase Translator: From “Sort Of…” to Vivid Clarity</h3>
+        <p>
+          Often you’re just one concrete image away from turning a vague hunch into something everyone gets right away:
+        </p>
+
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row">
+            <div>
+              <strong>Instead of: “Sounds kinda weird / off.”</strong>
+              <span>Try: “Something rubs uncomfortably for me there — restless, almost like briefly losing balance.”</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Instead of: “Super boring.”</strong>
+              <span>Try: “It stays in the exact same emotional room for a long stretch; I keep waiting for a spark or shift.”</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Instead of: “Just awesome!”</strong>
+              <span>Try: “That transition opens out so wide it feels like finally stepping into fresh air.”</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Instead of: “It’s somehow too fast.”</strong>
+              <span>Try: “To me things pile on top of each other there — it feels hurried even if the beat stays steady.”</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Instead of: “Too loud / annoying!”</strong>
+              <span>Try: “In the louder passage everything crowds together and feels bright and piercing on my ears.”</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Instead of: “Just sad music.”</strong>
+              <span>Try: “Not tragic — more quiet, reflective, and softly comforting, like dusk settling in.”</span>
+            </div>
+          </div>
+        </div>
+
+        <h3>5. Everyday Tips by Situation</h3>
+        <ul class="article-steps-list">
+          <li><strong>After a concert or listening with friends:</strong> Swap <em>“Did you like it?”</em> for warmer prompts like <em>“Which moment stayed with you?”</em>, <em>“What weather or movie scene fits that piece?”</em>, or <em>“Where did it grab you — and where did you drift away?”</em></li>
+          <li><strong>In choir, band, or lessons:</strong> Reflect what is already working before asking for change (<em>“The opening sounds wonderfully hush and intimate — on the return I’d love even more glow and lift”</em>). And as a learner, never hesitate to say <em>“It feels tight / heavy / rushed to me there”</em> — great teachers can translate that sensory clue straight into helpful action.</li>
+          <li><strong>When two listeners hear completely different things:</strong> Where you feel <em>peace</em>, someone else may hear <em>loneliness</em>. Personal memories, mood, and background always listen alongside our ears — comparing those honest impressions is what makes talking about music rich.</li>
+        </ul>
+
+        <div class="article-highlight-box">
+          <h4>Pocket Cheat Sheet (4 Easy Questions Anywhere)</h4>
+          <p>Whenever words run dry, pick just <strong>one</strong> of these four lenses:</p>
+          <ul class="article-steps-list">
+            <li><strong>Color &amp; Mood:</strong> Warm, soft, and dark — or bright, cool, and crisp?</li>
+            <li><strong>Space:</strong> Tight and close-up — or wide, open, and airy?</li>
+            <li><strong>Motion:</strong> Pushing forward, swaying, stumbling — or floating still?</li>
+            <li><strong>Turning Point:</strong> Which single moment flips the feeling of the piece?</li>
+          </ul>
+        </div>
       </div>
     `
   },
@@ -12447,6 +12627,8 @@ const CADENCE_ENCYCLOPEDIA = [
     tag: "Barock bis Pop",
     tagClass: "tag-lilac",
     bars: ["I", "V", "vi", "iii", "IV", "I", "IV", "V"],
+    stepMs: 1500,
+    chordDur: 1.38,
     whyItWorks: "Eine geniale Basslinie aus dem Jahr 1680: Der Bass schreitet abwechselnd abwärts und in Quarten voran (**C → G → A → E → F → C → F → G**). Jeder Schritt verzahnt sich nahtlos mit dem nächsten, sodass die ganze achttaktige Kette gleichzeitig beruhigend und endlos vorwärtstreibend klingt.",
     songs: [
       "„Kanon in D“ – Johann Pachelbel",
@@ -12833,6 +13015,184 @@ const KNOWLEDGE_ARTICLES = [
           <li><strong>Aktiv mitgehen:</strong> Summe den gesuchten Ton leise mit, klopfe den Puls mit dem Fuß oder nutze nach einem Irrtum gezielt die <strong>A/B-Vergleichsbuttons</strong>.</li>
           <li><strong>Neugier statt Druck:</strong> Jeder Fehler trainiert dein Gehirn genauso wie ein Treffer – erst durch den direkten Vergleich lernt das Ohr feine Unterschiede.</li>
         </ul>
+      </div>
+    `
+  },
+  {
+    id: "art-talking-about-music",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/><path d="M9.5 10v3"/><path d="M12.5 8.5v6"/><path d="M15.5 10.5v2"/></svg>`,
+    badgeClass: "badge-peach",
+    title: "Wie redet man über Musik?",
+    subtitle: "Empfindungen, Bilder & Wahrnehmung einfach teilen – ganz ohne Fachsprache",
+    tag: "Kommunikation & Hören",
+    render: () => `
+      <div class="article-body">
+        <span class="k-card-tag tag-peach">Wahrnehmung &amp; Sprache</span>
+        <h2>Über Musik sprechen, ohne Noten oder Fachwörter zu brauchen</h2>
+        <p class="article-lead">
+          Ein Song berührt dich tief, macht dich unruhig oder zaubert ein bestimmtes Bild vor dein inneres Auge – doch sobald dich jemand fragt: <em>„Und, wie fandest du es?“</em>, bleibt oft nur ein hilfloses <em>„Irgendwie schön“</em> oder <em>„Hat mir nicht so gefallen“</em>. Warum ist es so schwer, über Gehörtes zu sprechen – und wie wird es ganz leicht?
+        </p>
+
+        <p>
+          Viele Menschen schweigen über Musik, weil sie denken, man müsse erst Noten, Fachbegriffe oder Instrumentennamen kennen, um mitreden zu dürfen. Genau das stimmt nicht. Im Alltag – beim gemeinsamen Musikhören, nach einem Konzert, im Unterricht oder in der Probe – geht es selten um das technische <strong>Warum</strong>. Entscheidend ist das <strong>Was</strong>: Was spürst du? Was nimmst du wahr? Wie verändert sich der Klang für dich im Laufe des Stücks?
+        </p>
+
+        <div class="k-song-ref">
+          <strong>Wichtiger Unterschied:</strong> Selbst Profis, Filmkomponist:innen, Orchester und Chorleitungen sprechen im Arbeitsalltag überwiegend in <em>Gefühlen, Bildern und Körperwahrnehmungen</em>. Ein Satz wie <em>„Am Anfang wirkt es wie dichter Nebel, und ab der Mitte reißt plötzlich der Himmel auf“</em> sagt musikalisch oft viel mehr aus als jedes trockene Etikett.
+        </div>
+
+        <h3>1. Die wichtigste Grundregel: Vom Urteil zur Wahrnehmung</h3>
+        <p>
+          Ein Urteil wie <em>„Das ist langweilig“</em>, <em>„Das ist schief“</em> oder <em>„Das ist super“</em> schließt ein Gespräch ab, weil niemand weiß, was genau in deinem Ohr passiert ist. Eine <strong>Wahrnehmung</strong> hingegen lädt andere ein, mitzuhören. Dabei hilft eine einfache Drei-Schritt-Brücke:
+        </p>
+        <ul class="article-steps-list">
+          <li><strong>Wo im Stück?</strong> Verankere deinen Eindruck kurz zeitlich: <em>„Ganz am Anfang“</em>, <em>„Sobald es lauter wird“</em>, <em>„Kurz vor dem Ende“</em> oder <em>„Bei dem plötzlichen Bruch“</em>.</li>
+          <li><strong>Was passiert dort für mich?</strong> Bleibe bewusst bei der Ich-Perspektive: <em>„Auf mich wirkt es…“</em>, <em>„Da spüre ich…“</em>, <em>„Für meine Ohren wird es da…“</em>.</li>
+          <li><strong>Woran erinnert das Gefühl?</strong> Nutze ganz normale Wörter aus Raum, Temperatur, Bewegung oder Stimmungen: <em>„eng“</em>, <em>„warm“</em>, <em>„gehetzt“</em>, <em>„wie Durchatmen“</em>.</li>
+        </ul>
+
+        <h3>2. Sechs einfache Wahrnehmungs-Felder für den Alltag</h3>
+        <p>
+          Du brauchst kein riesiges Spezialvokabular. Fast alles, was Musik in uns auslöst, lässt sich über sechs ganz alltägliche Sinnebenen beschreiben, die wirklich jeder sofort versteht:
+        </p>
+
+        <div class="k-compare-grid">
+          <div class="k-compare-box is-peach">
+            <h5>A. Stimmung &amp; Gefühlston</h5>
+            <p>Gehe einen Schritt über „traurig“ und „fröhlich“ hinaus: Klingt es eher <em>tröstlich, wehmütig, sehnsüchtig, geborgen, versöhnlich, stolz, verspielt, spöttisch, rastlos, geheimnisvoll, verletzlich</em> oder <em>bittersüß</em>? Besonders genau wird es, wenn du Mischungen benennst: <em>„Auf den ersten Blick leicht, aber mit einem ernsten Unterton.“</em></p>
+          </div>
+          <div class="k-compare-box is-sage">
+            <h5>B. Raum, Nähe &amp; Dichte</h5>
+            <p>Wie voll und wie nah fühlt sich der Moment an? Hilfreiche Wörter sind <em>eng, dicht, geballt, überladen, wuchtig</em> vs. <em>weit, luftig, durchsichtig, aufgeräumt, zerbrechlich</em> – sowie <em>ganz nah (als flüstere jemand ans Ohr)</em> vs. <em>weit entfernt / wie in einer großen Halle</em>.</p>
+          </div>
+          <div class="k-compare-box is-lilac">
+            <h5>C. Farbe, Wärme &amp; Oberfläche</h5>
+            <p>Stell dir vor, du könntest den Klang anfassen oder sehen: Ist er <em>warm, golden, samtig, matt, rauchig, erdig, weich</em> – oder eher <em>kühl, silbrig, gläsern, hell, grell, spitz, kantig, körnig, rau, blechern</em>? Auch Gewicht hilft: <em>schwer wie Blei</em> vs. <em>federleicht</em>.</p>
+          </div>
+          <div class="k-compare-box is-sage">
+            <h5>D. Bewegung &amp; Körpersog</h5>
+            <p>Was macht dein Körper (oder würde er gern tun)? Wörter voller Leben: <em>vorwärtsdrängend, federnd, schleppend, marschierend, stolpernd, taumelnd, kreisend, atemlos, zurückgelehnt, zögerlich</em>. Und: <em>Zieht es dich mit – oder bremst es dich aus?</em></p>
+          </div>
+          <div class="k-compare-box is-peach">
+            <h5>E. Spannung, Atmung &amp; Verlauf</h5>
+            <p>Jedes Stück erzählt eine kleine Reise: <em>Anlauf nehmen, Warten, Kipppunkt, Befreiung, plötzliches Innehalten, Rückzug, offene Frage, Ankommen, Nachhall</em>. Sätze wie <em>„Da halte ich innerlich die Luft an“</em> oder <em>„Dort fällt endlich Druck ab“</em> treffen ins Schwarze.</p>
+          </div>
+          <div class="k-compare-box is-lilac">
+            <h5>F. Miteinander der Stimmen</h5>
+            <p>Auch ohne Instrumentennamen kannst du das Zusammenspiel schildern: <em>„Eine Stimme tritt vor und erzählt, der Rest trägt wie ein Teppich“</em>, <em>„wie ein Frage-Antwort-Spiel“</em>, <em>„alle ziehen am selben Strang“</em> oder <em>„plötzlich reden alle gleichzeitig aufeinander ein“</em>.</p>
+          </div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>Hör-Check: Spüre denselben Klangunterschied ohne jedes Fachwort</h4>
+          <p>Achte bei diesen drei kurzen Paaren nicht auf „richtige Töne“, sondern nur darauf, welches <strong>Alltagswort</strong> spontan in deinem Körper entsteht:</p>
+          <div class="k-btn-row">
+            <button class="btn-tool" data-play-custom="talk-dense">▶ Eng &amp; geballt</button>
+            <button class="btn-tool" data-play-custom="talk-open">▶ Weit &amp; luftig</button>
+          </div>
+          <div class="k-btn-row">
+            <button class="btn-tool" data-play-custom="talk-warm">▶ Warm &amp; weich</button>
+            <button class="btn-tool" data-play-custom="talk-sharp">▶ Hell &amp; spitz</button>
+          </div>
+          <div class="k-btn-row">
+            <button class="btn-tool" data-play-custom="talk-drive">▶ Drängend nach vorn</button>
+            <button class="btn-tool" data-play-custom="talk-float">▶ Schwebend &amp; ruhig</button>
+          </div>
+        </div>
+
+        <h3>3. Was im Gespräch hilft – und was eher blockiert</h3>
+        <p>
+          Manche gut gemeinten Ausdrücke machen ein Gespräch leider sofort eng oder sorgen für Missverständnisse – vor allem, wenn Menschen mit unterschiedlichem Vorwissen zusammensitzen.
+        </p>
+
+        <div class="k-compare-grid">
+          <div class="k-compare-box is-peach">
+            <h5>❌ Eher hinderlich &amp; unklar</h5>
+            <p><strong>Leere Gütesiegel:</strong> „Gut / schlecht / billig / professionell / unmusikalisch.“ Sie teilen nur ein Urteil mit, lassen das Gegenüber aber völlig im Dunkeln, was dich berührt oder gestört hat.</p>
+          </div>
+          <div class="k-compare-box is-sage">
+            <h5>✅ Hilfreich &amp; verbindend</h5>
+            <p><strong>Konkrete Wirkung beschreiben:</strong> „Am Anfang nimmt mich die ruhige Art sofort mit – im Mittelteil wird mir die Stimmung dann zu gehetzt und grell.“</p>
+          </div>
+          <div class="k-compare-box is-peach">
+            <h5>❌ Schein-Fachwörter auf Verdacht</h5>
+            <p>Wörter wie „falsch“, „atonal“, „übersteuert“, „zu viel Dynamik“ oder „schräg“, wenn man eigentlich „es reibt sich“, „es wird zu spitz“ oder „mir fehlt Wärme“ meint – Profis verstehen darunter oft technisch etwas ganz anderes.</p>
+          </div>
+          <div class="k-compare-box is-sage">
+            <h5>✅ Ehrliche Bildsprache</h5>
+            <p>Lieber unverstellt bleiben: „Ich kenne das Fachwort nicht, aber an der Stelle fühlt es sich an, als würden zwei Dinge kurz aneinander reiben, bevor es wieder weich wird.“</p>
+          </div>
+          <div class="k-compare-box is-peach">
+            <h5>❌ Personen-Urteile &amp; Schubladen</h5>
+            <p>„Er hat kein Gefühl“ oder „Typische Fahrstuhlmusik / reiner Kommerz.“ Das wertet ab und macht eine Gruppe oder ein Gespräch sofort defensiv.</p>
+          </div>
+          <div class="k-compare-box is-sage">
+            <h5>✅ Moment &amp; Kontrast benennen</h5>
+            <p>„Für mich fließt die ganze Stelle so gleichmäßig dahin, dass mir ein kleiner Haken oder eine Kante zum Festhalten fehlt.“</p>
+          </div>
+        </div>
+
+        <h3>4. Der Übersetzer: Von „irgendwie…“ zu klaren Sätzen</h3>
+        <p>
+          Oft fehlt nur ein kleiner Schubs, um aus einem vagen Bauchgefühl einen treffenden Satz zu machen. Diese sechs Alltagsbeispiele zeigen, wie einfach das geht:
+        </p>
+
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row">
+            <div>
+              <strong>Statt: „Klingt irgendwie komisch / schräg.“</strong>
+              <span>Besser: „An der Stelle reibt sich für mich kurz etwas – unruhig, fast als würde man kurz das Gleichgewicht suchen.“</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Statt: „Voll langweilig.“</strong>
+              <span>Besser: „Es bleibt für mich lange in derselben Stimmung; ich warte irgendwann auf einen kleinen Bruch oder Aufbruch.“</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Statt: „Einfach mega schön.“</strong>
+              <span>Besser: „Beim Übergang geht für mich richtig Weite auf – plötzlich kann ich tief durchatmen.“</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Statt: „Es ist irgendwie zu schnell.“</strong>
+              <span>Besser: „Für mein Gefühl überschlagen sich die Ereignisse dort – es wirkt gehetzt, selbst wenn das Tempo gleich bleibt.“</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Statt: „Zu laut / nervig!“</strong>
+              <span>Besser: „Im lauten Teil rückt alles sehr dicht zusammen und wird für meine Ohren hart und schneidend.“</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Statt: „Klingt halt traurig.“</strong>
+              <span>Besser: „Es wirkt nicht verzweifelt, sondern eher leise, rückblickend und ein bisschen tröstlich wie ein später Abend.“</span>
+            </div>
+          </div>
+        </div>
+
+        <h3>5. Tipps für verschiedene Situationen</h3>
+        <ul class="article-steps-list">
+          <li><strong>Nach einem Konzert oder beim Musikhören mit Freund:innen:</strong> Frag nicht nur <em>„Wie fandest du es?“</em>, sondern: <em>„Welcher Augenblick ist dir geblieben?“</em>, <em>„Welche Tageszeit oder Filmszene passt für dich dazu?“</em> oder <em>„Wo hat dich die Musik verloren – und wo gepackt?“</em></li>
+          <li><strong>Im Chor, in der Band oder im Unterricht:</strong> Wenn du selbst Feedback gibst, spiegle zuerst die vorhandene Wirkung, bevor du dir etwas anderes wünschst (<em>„Die Strophe klingt schon wunderbar zart und zurückgenommen – im letzten Teil wünsche ich mir noch mehr Aufleuchten und Mut“</em>). Und wenn du selbst lernst oder singst: Trau dich ruhig zu sagen <em>„Da fühlt es sich für mich eng/schwer/gehetzt an“</em> – genau mit solchen ehrlichen Eindrücken können Lehrkräfte sofort weiterarbeiten!</li>
+          <li><strong>Wenn zwei Menschen völlig Verschiedenes hören:</strong> Was für dich <em>tröstlich</em> klingt, empfindet jemand anderes vielleicht als <em>melancholisch</em> oder <em>kühl</em>. In der Musik gibt es bei Empfindungen kein Richtig oder Falsch – eigene Erinnerungen, Kultur und Tagesform hören immer mit. Gerade die Unterschiede machen das Gespräch spannend.</li>
+        </ul>
+
+        <div class="article-highlight-box">
+          <h4>Spickzettel für dein nächstes Musikgespräch (4 einfache Fragen)</h4>
+          <p>Wenn dir mal die Worte fehlen, pick dir einfach <strong>eine</strong> dieser vier Fragen heraus:</p>
+          <ul class="article-steps-list">
+            <li><strong>Farbe &amp; Gefühl:</strong> Ist es eher warm, weich, dunkel – oder hell, kühl, spitz?</li>
+            <li><strong>Raum:</strong> Wirkt es eng und nah – oder weit, offen und luftig?</li>
+            <li><strong>Bewegung:</strong> Drängt es nach vorn, wiegt es sich, hakt es – oder steht es ruhig?</li>
+            <li><strong>Verlauf:</strong> Welcher Moment verändert plötzlich das Gefühl im Stück?</li>
+          </ul>
+        </div>
       </div>
     `
   },
@@ -16934,6 +17294,7 @@ function resolveEffectiveAppearance(pref) {
 
 const CADENCE_DEFAULT_BPM = 120;
 const SOLFEGE_DEFAULT_BPM = 120;
+const WARMUP_DEFAULT_BPM = 80;
 const SOLFEGE_LOOP_INTERVAL_MS = 3000;
 
 class AppState {
@@ -17023,7 +17384,7 @@ class AppState {
       presetId: "full-5min",
       voiceRange: "mixed",
       soundMode: "piano-voice",
-      bpm: 95,
+      bpm: WARMUP_DEFAULT_BPM,
       status: "idle", // 'idle' | 'running' | 'paused' | 'completed'
       stepIndex: 0,
       keyOffsetIndex: 0,
@@ -19053,6 +19414,8 @@ function openKnowledgeRef(refKey, options = {}) {
         const formattedText = cad.whyItWorks
           .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
           .replace(/\*(.*?)\*/g, "<em>$1</em>");
+        const stepAttr = cad.stepMs ? ` data-step-ms="${cad.stepMs}"` : "";
+        const durAttr = cad.chordDur ? ` data-chord-dur="${cad.chordDur}"` : "";
         return `
           <article class="knowledge-card">
             <div class="k-card-top-row">
@@ -19068,7 +19431,7 @@ function openKnowledgeRef(refKey, options = {}) {
               </ul>
             </div>
             <div class="k-btn-row">
-              <button class="btn-tool" data-play-progression="${cad.bars.join(",")}">▶ ${tf("{f} in C-Dur anhören", "Hear {f} in C Major", { f: cad.formula })}</button>
+              <button class="btn-tool" data-play-progression="${cad.bars.join(",")}"${stepAttr}${durAttr}>▶ ${tf("{f} in C-Dur anhören", "Hear {f} in C Major", { f: cad.formula })}</button>
             </div>
           </article>
         `;
@@ -19544,8 +19907,14 @@ function bindKnowledgeAudioButtons(rootEl) {
       await ensureAudioReady();
       audioEngine.stopPlayback();
       const degrees = btn.dataset.playProgression.split(",");
-      const stepMs = degrees.length >= 6 ? 880 : 1050;
-      const chordDur = degrees.length >= 6 ? 0.80 : 0.95;
+      const customStepMs = parseInt(btn.dataset.stepMs || "", 10);
+      const customDur = parseFloat(btn.dataset.chordDur || "");
+      const stepMs = Number.isFinite(customStepMs) && customStepMs > 0
+        ? customStepMs
+        : (degrees.length >= 6 ? 880 : 1050);
+      const chordDur = Number.isFinite(customDur) && customDur > 0
+        ? customDur
+        : (degrees.length >= 6 ? 0.80 : 0.95);
       degrees.forEach((degKey, idx) => {
         audioEngine.registerTimer(() => {
           const def = HARMONIC_DATA.degrees[degKey];
@@ -19761,6 +20130,36 @@ function bindKnowledgeAudioButtons(rootEl) {
             audioEngine.playStep(s.top, 0.85, s.bass, "cadence");
           }, idx * 920);
         });
+      } else if (type === "talk-dense") {
+        audioEngine.playStep(["C3", "D3", "E3", "G3", "A3"], 1.55, "C3", "cadence");
+      } else if (type === "talk-open") {
+        audioEngine.playStep(["C3", "G3", "D4", "A4", "E5"], 1.85, "C2", "cadence");
+      } else if (type === "talk-warm") {
+        audioEngine.playStep(["F3", "A3", "C4", "E4"], 2.0, "F2", "cadence");
+      } else if (type === "talk-sharp") {
+        ["E5", "B5", "F5", "C6"].forEach((n, idx) => {
+          audioEngine.registerTimer(() => {
+            audioEngine.playStep([n], 0.16, null, "interval");
+          }, idx * 170);
+        });
+      } else if (type === "talk-drive") {
+        const driveEvts = [
+          [0, "kick", 0.92], [180, "hat", 0.55], [360, "snare", 0.85], [540, "hat", 0.55],
+          [720, "kick", 0.92], [900, "hat", 0.58], [1080, "snare", 0.88], [1260, "kick", 0.72], [1440, "hat", 0.65]
+        ];
+        audioEngine.playRhythmSequence(driveEvts);
+        [
+          { ms: 0, n: "C3" }, { ms: 360, n: "Eb3" }, { ms: 720, n: "G3" }, { ms: 1080, n: "Bb3" }, { ms: 1440, n: "C4" }
+        ].forEach(p => {
+          audioEngine.registerTimer(() => {
+            audioEngine.playStep([p.n], 0.22, null, "interval");
+          }, p.ms);
+        });
+      } else if (type === "talk-float") {
+        audioEngine.playStep(["D4", "A4", "E5"], 1.75, null, "cadence");
+        audioEngine.registerTimer(() => {
+          audioEngine.playStep(["C4", "G4", "D5"], 1.95, null, "cadence");
+        }, 1250);
       }
     });
   });
@@ -26873,7 +27272,6 @@ document.addEventListener("DOMContentLoaded", () => {
 // EINSING-HELFER / VOCAL WARMUP ENGINE (#viewWarmup)
 // =====================================================
 
-const WARMUP_DEFAULT_BPM = 95;
 const WARMUP_KEY_CODES_BY_PC = ["C", "Db", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"];
 const WARMUP_FLAT_PITCH_CLASSES = new Set([1, 3, 5, 8, 10]);
 
