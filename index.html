@@ -4284,6 +4284,39 @@ body,
   padding-bottom: 0.76rem;
 }
 
+.category-grid-home .category-nav-card.category-grid-wide {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.85rem;
+  min-height: 0;
+  padding: 0.76rem 0.95rem;
+}
+
+.category-grid-home .category-nav-card.category-grid-wide .cat-icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+}
+
+.category-grid-home .category-nav-card.category-grid-wide .cat-icon-box .icon-svg-large {
+  width: 28px;
+  height: 28px;
+}
+
+.category-grid-home .category-nav-card.category-grid-wide .cat-text-box p {
+  display: block;
+  -webkit-line-clamp: unset;
+  overflow: visible;
+}
+
+.category-grid-home .category-nav-card.category-grid-wide .cat-chevron {
+  position: static;
+  font-size: 1.4rem;
+  opacity: 1;
+}
+
 @media (max-width: 335px) {
   .category-grid-home {
     grid-template-columns: 1fr;
@@ -6029,13 +6062,31 @@ body,
           </div>
           <div class="cat-text-box">
             <h3 data-i18n="home.catIntervals">Intervalle</h3>
-            <p data-i18n="home.catIntervalsDesc">Aufwärts, abwärts, harmonisch &amp; Akkordtypen</p>
+            <p data-i18n="home.catIntervalsDesc">Aufwärts, abwärts &amp; harmonisch gleichzeitig</p>
           </div>
           <span class="cat-chevron">›</span>
         </button>
 
-        <button class="category-nav-card card-accent-sage" data-open-category="cadence">
+        <button class="category-nav-card card-accent-sage" data-open-category="chords">
           <div class="cat-icon-box badge-sage">
+            <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <ellipse cx="9.6" cy="21" rx="3.3" ry="2.3" transform="rotate(-16 9.6 21)" fill="currentColor"/>
+              <ellipse cx="9.6" cy="14.2" rx="3.3" ry="2.3" transform="rotate(-16 9.6 14.2)" fill="currentColor"/>
+              <ellipse cx="9.6" cy="7.4" rx="3.3" ry="2.3" transform="rotate(-16 9.6 7.4)" fill="currentColor"/>
+              <line x1="12.6" y1="20.2" x2="12.6" y2="5.2" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
+              <path d="M17.2 8.2C19.6 10.6 19.6 17.4 17.2 19.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M21 5.6C24.4 9.5 24.4 18.5 21 22.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.72"/>
+            </svg>
+          </div>
+          <div class="cat-text-box">
+            <h3 data-i18n="home.catChords">Akkorde</h3>
+            <p data-i18n="home.catChordsDesc">Arpeggios auf-/abwärts, Vollklänge &amp; Umkehrungen</p>
+          </div>
+          <span class="cat-chevron">›</span>
+        </button>
+
+        <button class="category-nav-card card-accent-lilac" data-open-category="cadence">
+          <div class="cat-icon-box badge-lilac">
             <span class="icon-text-glyph">I–V</span>
           </div>
           <div class="cat-text-box">
@@ -6045,8 +6096,8 @@ body,
           <span class="cat-chevron">›</span>
         </button>
 
-        <button class="category-nav-card card-accent-lilac" data-open-category="solfege">
-          <div class="cat-icon-box badge-lilac">
+        <button class="category-nav-card card-accent-peach" data-open-category="solfege">
+          <div class="cat-icon-box badge-peach">
             <span class="icon-text-glyph">Do</span>
           </div>
           <div class="cat-text-box">
@@ -6056,8 +6107,8 @@ body,
           <span class="cat-chevron">›</span>
         </button>
 
-        <button class="category-nav-card card-accent-peach" data-open-category="modes">
-          <div class="cat-icon-box badge-peach">
+        <button class="category-nav-card card-accent-sage" data-open-category="modes">
+          <div class="cat-icon-box badge-sage">
             <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
               <polygon points="15.5 8.5 13.4 13.4 8.5 15.5 10.6 10.6 15.5 8.5" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
@@ -6070,8 +6121,8 @@ body,
           <span class="cat-chevron">›</span>
         </button>
 
-        <button class="category-nav-card card-accent-sage" data-open-category="melody">
-          <div class="cat-icon-box badge-sage">
+        <button class="category-nav-card card-accent-lilac" data-open-category="melody">
+          <div class="cat-icon-box badge-lilac">
             <svg class="icon-svg-large" width="24" height="30" viewBox="0 0 28 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path d="M15.8 25.5 C19.5 25.2 21.5 22.4 21 19 C20.4 15.5 17.2 14.3 14.3 15.4 C11.5 16.5 10.6 19.5 12.2 21.6 C13.2 22.9 14.9 23.2 16.1 22.4" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M15.8 25.5 C10.4 25.6 7.5 22.3 7.8 17.9 C8.2 13.2 13.5 10.5 16.6 7 C18.1 5.3 18.2 3.3 16.5 3.1 C14.8 2.9 14 4.8 14.2 7.5 L15.1 29.2 C15.2 31.6 13.6 33.2 11.4 33 C10.2 32.9 9.5 32.2 9.4 31.2" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
@@ -6085,8 +6136,8 @@ body,
           <span class="cat-chevron">›</span>
         </button>
 
-        <button class="category-nav-card card-accent-lilac" data-open-category="rhythm">
-          <div class="cat-icon-box badge-lilac">
+        <button class="category-nav-card card-accent-peach category-grid-wide" data-open-category="rhythm">
+          <div class="cat-icon-box badge-peach">
             <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M10.5 5.5H17.5L21.5 23.5H6.5L10.5 5.5Z" stroke="currentColor" stroke-width="2.1" stroke-linejoin="round"/>
               <line x1="8.5" y1="19.5" x2="19.5" y2="19.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
@@ -6107,8 +6158,8 @@ body,
       </div>
 
       <div class="category-nav-list">
-        <button class="category-nav-card card-accent-peach category-card-wide" data-open-category="warmup">
-          <div class="cat-icon-box badge-peach">
+        <button class="category-nav-card card-accent-sage category-card-wide" data-open-category="warmup">
+          <div class="cat-icon-box badge-sage">
             <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <rect x="9" y="2.8" width="6" height="9.4" rx="3"/>
               <path d="M5 10.5a7 7 0 0 0 14 0"/>
@@ -6130,8 +6181,8 @@ body,
       </div>
 
       <div class="category-nav-list">
-        <button class="category-nav-card card-accent-sage category-card-wide" data-open-category="production">
-          <div class="cat-icon-box badge-sage">
+        <button class="category-nav-card card-accent-lilac category-card-wide" data-open-category="production">
+          <div class="cat-icon-box badge-lilac">
             <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <line x1="7" y1="5" x2="7" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
               <line x1="14" y1="5" x2="14" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -8657,7 +8708,9 @@ const I18N_STATIC = {
   "home.exercisesHeading": { de: "Gehörtraining & Musik", en: "Ear Training & Music" },
   "home.studioHeading": { de: "Studio & Mixing", en: "Studio & Mixing" },
   "home.catIntervals": { de: "Intervalle", en: "Intervals" },
-  "home.catIntervalsDesc": { de: "Aufwärts, abwärts, harmonisch & Akkordtypen", en: "Ascending, descending, harmonic & chord types" },
+  "home.catIntervalsDesc": { de: "Aufwärts, abwärts & harmonisch gleichzeitig", en: "Ascending, descending & harmonic simultaneously" },
+  "home.catChords": { de: "Akkorde", en: "Chords" },
+  "home.catChordsDesc": { de: "Arpeggios auf-/abwärts, Vollklänge & Umkehrungen", en: "Ascending/descending arpeggios, block chords & inversions" },
   "home.catCadences": { de: "Kadenzen", en: "Cadences" },
   "home.catCadencesDesc": { de: "Harmonien & Akkordfolgen im Kontext erkennen", en: "Hear chords & progressions in harmonic context" },
   "home.catSolfege": { de: "Solfège", en: "Solfège" },
@@ -9103,7 +9156,10 @@ const MIX_MODES_EN = {
   "interval-melodic":      "Intervals (Ascending)",
   "interval-melodic-down": "Intervals (Descending)",
   "interval-harmonic":     "Intervals (Harmonic)",
-  "interval-chords":       "Chord Types",
+  "chord-arp-up":          "Chords (Arpeggio ↗)",
+  "chord-arp-down":        "Chords (Arpeggio ↘)",
+  "interval-chords":       "Chords (Simultaneous)",
+  "chord-inversions":      "Chord Inversions",
   "solfege":               "Solfège",
   "melody":                "4-Note Melody",
   "rhythm-meter":          "Rhythm • Time Signature",
@@ -9183,6 +9239,13 @@ const CHORDS_EN = {
   "maj9":  { symbol: "maj9",    label: "Major 9th (1–3–5–7–9)",          short: "Major 9" },
   "7b9":   { symbol: "7♭9",     label: "Dominant 7♭9 (1–3–5–♭7–♭9)",     short: "Dom. 7♭9" },
   "7s9":   { symbol: "7♯9",     label: "Dominant 7♯9 (1–3–5–♭7–♯9)",     short: "Dom. 7♯9" }
+};
+
+const CHORD_INVERSIONS_EN = {
+  "inv0": { symbol: "Bass: 1", label: "Root Position (Bass: Root)", short: "Root Position" },
+  "inv1": { symbol: "Bass: 3", label: "1st Inversion (Bass: 3rd)",  short: "1st Inversion" },
+  "inv2": { symbol: "Bass: 5", label: "2nd Inversion (Bass: 5th)",  short: "2nd Inversion" },
+  "inv3": { symbol: "Bass: 7", label: "3rd Inversion (Bass: 7th)",  short: "3rd Inversion" }
 };
 
 const SOLFEGE_STEPS_LABEL_EN = {
@@ -9369,6 +9432,10 @@ function getLocalizedIntervalDef(key) {
 
 function getLocalizedChordDef(key) {
   return localizeEntry(HARMONIC_DATA.chords[key], CHORDS_EN[key]);
+}
+
+function getLocalizedChordInversionDef(key) {
+  return localizeEntry(HARMONIC_DATA.chordInversions[key], CHORD_INVERSIONS_EN[key]);
 }
 
 function getLocalizedSolfegeStepLabel(stepKey, deFallback) {
@@ -10826,11 +10893,11 @@ const CATEGORY_HELP_GUIDES_EN = {
   },
   interval: {
     tagClass: "tag-peach",
-    tag: "How It Works • Intervals & Chords",
-    title: "How Interval & Chord Training Works",
-    lead: "Train your ear on pure melodic leaps (ascending and descending), simultaneous dyads, and rich full chords. In melodic intervals, the starting pitch shifts randomly on every question across a clear mid-piano register.",
+    tag: "How It Works • Intervals",
+    title: "How Interval Training Works",
+    lead: "Train your ear on pure two-note distances — melodic ascending, melodic descending, and simultaneous dyads. In melodic intervals, the starting pitch shifts randomly on every question across a clear mid-piano register. (Looking for full chords &amp; inversions? They now live in the dedicated <strong>Chords</strong> module!)",
     sections: `
-      <h3>The 4 Exercise Types</h3>
+      <h3>The 3 Exercise Types</h3>
       <div class="k-compare-grid">
         <div class="k-compare-box is-peach">
           <h5>Melodic Intervals (Ascending)</h5>
@@ -10843,10 +10910,6 @@ const CATEGORY_HELP_GUIDES_EN = {
         <div class="k-compare-box is-sage">
           <h5>Harmonic Intervals</h5>
           <p>Both pitches sound together as a dyad. Listen for fusion vs. beating — solved cards display both pitches (e.g., <code>C4 + G4</code>).</p>
-        </div>
-        <div class="k-compare-box is-peach">
-          <h5>Chord Types</h5>
-          <p>Three to five notes chime together as one harmony. Catch the overall color — solved cards reveal every note in the chord (e.g., <code>C4 · E4 · G4 · B4</code>).</p>
         </div>
       </div>
 
@@ -10868,7 +10931,39 @@ const CATEGORY_HELP_GUIDES_EN = {
       </ul>
       <p><em>Switch Notation:</em> You can toggle between <strong>International (P / M / m)</strong> and <strong>German (P / G / k)</strong> anytime under <strong>App Settings → Musical Notation → Interval Naming</strong>.</p>
 
-      <h3>Chord Difficulty (4 Levels)</h3>
+      <div class="article-highlight-box">
+        <h4>Practice Tips</h4>
+        <p>Tap <strong>Root Note</strong> anytime to hear the starting pitch on its own. After a miss, <strong>A/B Compare</strong> replays your guess from the exact same starting pitch and in the same direction (up or down) right against the true answer; toggle <strong>Auto-Next</strong> to keep drills flowing effortlessly.</p>
+      </div>
+    `
+  },
+  chords: {
+    tagClass: "tag-sage",
+    tag: "How It Works • Chords",
+    title: "How Chord Training Works",
+    lead: "Build instant recognition for chord qualities whether rolled note by note (upward or downward arpeggios) or struck simultaneously — plus learn to spot which chord tone is anchoring the bass.",
+    sections: `
+      <h3>The 4 Exercise Types</h3>
+      <div class="k-compare-grid">
+        <div class="k-compare-box is-sage">
+          <h5>Chord Arpeggio (Ascending ↗)</h5>
+          <p>Chord tones sound one after another from bottom to top so you can trace every 3rd, 5th, and 7th clearly — once solved, the app locks them together into a full block chord.</p>
+        </div>
+        <div class="k-compare-box is-lilac">
+          <h5>Chord Arpeggio (Descending ↘)</h5>
+          <p>The chord unwinds downward from top to bottom. Great for breaking reading-direction habits — after answering, the full simultaneous chord reveals the unified harmony.</p>
+        </div>
+        <div class="k-compare-box is-peach">
+          <h5>Chords (Simultaneous)</h5>
+          <p>Three to five notes chime together as one color. Listen for overall brightness or tension — solved cards cascade through an ascending arpeggio showing every note (e.g., <code>C4 · E4 · G4 · B4</code>).</p>
+        </div>
+        <div class="k-compare-box is-sage">
+          <h5>Chord Inversions</h5>
+          <p>Spot which chord tone holds the bottom bass voice: <code>Bass: 1</code> (Root Position), <code>Bass: 3</code> (1st Inversion), <code>Bass: 5</code> (2nd Inversion), or <code>Bass: 7</code> (3rd Inversion). The bass pitch stays centered in mid-register so you judge voicing tension rather than pitch height.</p>
+        </div>
+      </div>
+
+      <h3>Chord Quality Difficulty (4 Levels)</h3>
       <ul class="article-steps-list">
         <li><strong>Level 1 – Basic Triads:</strong> The four core triads: Major (<code>maj</code>), Minor (<code>m</code>), Diminished (<code>dim</code>), and Augmented (<code>aug</code>).</li>
         <li><strong>Level 2 – 7ths &amp; Sus:</strong> Adds Suspended 4th (<code>sus4</code>), Dominant 7th (<code>7</code>), Major 7th (<code>maj7</code>), and Minor 7th (<code>m7</code>).</li>
@@ -10876,9 +10971,16 @@ const CATEGORY_HELP_GUIDES_EN = {
         <li><strong>Level 4 – Jazz &amp; Tensions:</strong> All 15 chord colors including lush jazz extensions like <code>maj9</code>, <code>7♭9</code>, and <code>7♯9</code>.</li>
       </ul>
 
+      <h3>Inversion Difficulty (3 Levels)</h3>
+      <ul class="article-steps-list">
+        <li><strong>Level 1 – Major Triad (3):</strong> Root position (<code>Bass: 1</code>), 1st inversion (<code>Bass: 3</code>), and 2nd inversion (<code>Bass: 5</code>).</li>
+        <li><strong>Level 2 – Major &amp; Minor (3):</strong> All three triad positions mixed across bright Major and warm Minor chords.</li>
+        <li><strong>Level 3 – 7th Chords (4):</strong> Four-note seventh chords (<code>7</code>, <code>maj7</code>, <code>m7</code>) introducing 3rd inversion with the 7th in the bass (<code>Bass: 7</code>).</li>
+      </ul>
+
       <div class="article-highlight-box">
         <h4>Practice Tips</h4>
-        <p>Tap <strong>Root Note</strong> anytime to hear the starting pitch on its own. After a miss, <strong>A/B Compare</strong> replays your guess from the exact same starting pitch and in the same direction (up or down) right against the true answer; toggle <strong>Auto-Next</strong> to keep drills flowing effortlessly.</p>
+        <p>In chord quality drills, <strong>Root Note</strong> replays the chord root; in inversions, the bass hint isolates the lowest sounding bass tone. After a miss, <strong>A/B Compare</strong> plays your chosen chord or inversion on the same root right before the true answer!</p>
       </div>
     `
   },
@@ -14178,11 +14280,11 @@ const CATEGORY_HELP_GUIDES = {
   },
   interval: {
     tagClass: "tag-peach",
-    tag: "Anleitung • Intervalle & Akkorde",
-    title: "So funktioniert das Intervall- & Akkordtraining",
-    lead: "Hier schärfst du dein Gehör für einzelne Tonabstände – aufwärts, abwärts und gleichzeitig – genauso wie für ganze Akkordklänge. Bei melodischen Intervallen wechselt der Ausgangston bei jeder Aufgabe zufällig in einer gut hörbaren mittleren Klavierlage.",
+    tag: "Anleitung • Intervalle",
+    title: "So funktioniert das Intervalltraining",
+    lead: "Hier schärfst du dein Gehör für einzelne Tonabstände zwischen zwei Tönen – aufwärts, abwärts und gleichzeitig. Bei melodischen Intervallen wechselt der Ausgangston bei jeder Aufgabe zufällig in einer gut hörbaren mittleren Klavierlage. (Für ganze Akkorde und Umkehrungen gibt es jetzt das eigene Modul <strong>Akkorde</strong>!)",
     sections: `
-      <h3>Die 4 Übungstypen</h3>
+      <h3>Die 3 Übungstypen</h3>
       <div class="k-compare-grid">
         <div class="k-compare-box is-peach">
           <h5>Melodische Intervalle (Aufwärts)</h5>
@@ -14196,13 +14298,9 @@ const CATEGORY_HELP_GUIDES = {
           <h5>Harmonische Intervalle</h5>
           <p>Beide Töne klingen gleichzeitig als Zweiklang. Du achtest auf Verschmelzung oder Reibung – nach richtiger Antwort stehen oben beide Töne (z. B. <code>C4 + G4</code>).</p>
         </div>
-        <div class="k-compare-box is-peach">
-          <h5>Akkordtypen erkennen</h5>
-          <p>Drei bis fünf Töne erklingen gleichzeitig als Vollklang. Du hörst auf den Gesamtcharakter – gelöst stehen oben alle klingenden Akkordtöne (z. B. <code>C4 · E4 · G4 · H4</code>).</p>
-        </div>
       </div>
 
-      <h3>Schwierigkeitsstufen: Intervalle (3 Stufen)</h3>
+      <h3>Schwierigkeitsstufen (3 Stufen)</h3>
       <ul class="article-steps-list">
         <li><strong>Stufe 1 – Einsteiger:</strong> Vier markante Kernintervalle (aufwärts oder abwärts): Prime (<code>P1</code>), große Terz (<code>M3</code>), reine Quinte (<code>P5</code>) und Oktave (<code>P8</code>).</li>
         <li><strong>Stufe 2 – Dur-Tonleiter:</strong> Alle 8 diatonischen Intervalle vom Ausgangston bis zur Oktave.</li>
@@ -14220,6 +14318,38 @@ const CATEGORY_HELP_GUIDES = {
       </ul>
       <p><em>Schreibweise wechseln:</em> In den <strong>App-Einstellungen → Musikalische Schreibweise → Intervall-Namensgebung</strong> kannst du jederzeit zwischen <strong>Deutsch (P / G / k)</strong> und <strong>International (P / M / m)</strong> wählen.</p>
 
+      <div class="article-highlight-box">
+        <h4>Tipps für deine Übungsrunde</h4>
+        <p>Mit <strong>Ausgangston</strong> hörst du jederzeit wieder den Startton der aktuellen Aufgabe. Bei einem Irrtum vergleicht <strong>A/B Vergleich</strong> deinen Tipp ab genau diesem Ausgangston und in derselben Richtung (auf- oder abwärts) direkt mit der Lösung; der <strong>Loop-Button</strong> startet nach jedem Treffer automatisch die nächste Abfrage.</p>
+      </div>
+    `
+  },
+  chords: {
+    tagClass: "tag-sage",
+    tag: "Anleitung • Akkorde",
+    title: "So funktioniert das Akkordtraining",
+    lead: "Trainiere Akkordfarben sowohl zerlegt als Arpeggio (aufwärts und abwärts) als auch als vollen Zusammenklang – und lerne gezielt zu hören, welcher Akkordton ganz unten im Bass liegt.",
+    sections: `
+      <h3>Die 4 Übungstypen</h3>
+      <div class="k-compare-grid">
+        <div class="k-compare-box is-sage">
+          <h5>Akkord-Arpeggio (Aufwärts ↗)</h5>
+          <p>Die Akkordtöne erklingen nacheinander von unten nach oben. So hörst du Terzen, Quinten und Septimen kristallklar heraus – nach Treffer fasst die App den Akkord als kurzen Vollklang zusammen.</p>
+        </div>
+        <div class="k-compare-box is-lilac">
+          <h5>Akkord-Arpeggio (Abwärts ↘)</h5>
+          <p>Der Akkord rollt von oben nach unten ab. Ideal, um Akkordstrukturen auch gegen die gewohnte Leserichtung sicher zu erkennen – nach der Lösung erklingt der komplette Akkord gleichzeitig.</p>
+        </div>
+        <div class="k-compare-box is-peach">
+          <h5>Akkorde (Gleichzeitig)</h5>
+          <p>Drei bis fünf Töne klingen gleichzeitig als Vollklang. Du achtest auf den Gesamtcharakter – nach richtiger Antwort fächert ein Arpeggio alle Einzeltöne (z. B. <code>C4 · E4 · G4 · H4</code>) sauber auf.</p>
+        </div>
+        <div class="k-compare-box is-sage">
+          <h5>Akkordumkehrungen</h5>
+          <p>Erkenne, welcher Akkordton ganz unten im Bass liegt: <code>Bass: 1</code> (Grundstellung), <code>Bass: 3</code> (1. Umkehrung), <code>Bass: 5</code> (2. Umkehrung) oder <code>Bass: 7</code> (3. Umkehrung). Der Basston bleibt dabei stets in einer mittleren Lage, damit du nach Farbe statt absoluter Tonhöhe entscheidest.</p>
+        </div>
+      </div>
+
       <h3>Schwierigkeitsstufen: Akkordtypen (4 Stufen)</h3>
       <ul class="article-steps-list">
         <li><strong>Stufe 1 – Einfache Dreiklänge:</strong> Die vier Grundfarben Dur (<code>maj</code>), Moll (<code>m</code>), Vermindert (<code>dim</code>) und Übermäßig (<code>aug</code>).</li>
@@ -14228,9 +14358,16 @@ const CATEGORY_HELP_GUIDES = {
         <li><strong>Stufe 4 – Jazz &amp; Optionstöne:</strong> Alle 15 Akkordtypen bis hin zu farbigen Jazz-Spannungen wie <code>maj9</code>, <code>7♭9</code> und <code>7♯9</code>.</li>
       </ul>
 
+      <h3>Schwierigkeitsstufen: Akkordumkehrungen (3 Stufen)</h3>
+      <ul class="article-steps-list">
+        <li><strong>Stufe 1 – Dur-Dreiklang (3):</strong> Grundstellung (<code>Bass: 1</code>), Sextakkord / 1. Umkehrung (<code>Bass: 3</code>) und Quartsextakkord / 2. Umkehrung (<code>Bass: 5</code>).</li>
+        <li><strong>Stufe 2 – Dur &amp; Moll (3):</strong> Alle drei Lagen sowohl mit hellen Dur- als auch mit weichen Moll-Dreiklängen.</li>
+        <li><strong>Stufe 3 – Septakkorde (4):</strong> Vierstimmige Septakkorde (<code>7</code>, <code>maj7</code>, <code>m7</code>) inklusive 3. Umkehrung mit der Septime im Bass (<code>Bass: 7</code>).</li>
+      </ul>
+
       <div class="article-highlight-box">
         <h4>Tipps für deine Übungsrunde</h4>
-        <p>Mit <strong>Ausgangston</strong> hörst du jederzeit wieder den Startton der aktuellen Aufgabe. Bei einem Irrtum vergleicht <strong>A/B Vergleich</strong> deinen Tipp ab genau diesem Ausgangston und in derselben Richtung (auf- oder abwärts) direkt mit der Lösung; der <strong>Loop-Button</strong> startet nach jedem Treffer automatisch die nächste Abfrage.</p>
+        <p>Bei den Akkordtypen spielt <strong>Ausgangston</strong> bzw. <strong>Grundton</strong> die Basis; bei Umkehrungen isoliert die <strong>Basston-Hilfe</strong> genau die tiefste Bass-Stimme. Mit <strong>A/B Vergleich</strong> hörst du nach einem Fehlversuch deinen gewählten Akkord bzw. dieselbe Umkehrung direkt vor der Lösung!</p>
       </div>
     `
   },
@@ -17621,7 +17758,10 @@ const MIX_MODE_CATALOG = {
   "interval-melodic":      { label: "Intervalle (Aufwärts)",        levels: [1, 2, 3] },
   "interval-melodic-down": { label: "Intervalle (Abwärts)",         levels: [1, 2, 3] },
   "interval-harmonic":     { label: "Intervalle (Gleichz.)",        levels: [1, 2, 3] },
-  "interval-chords":       { label: "Akkordtypen",                  levels: [1, 2, 3, 4] },
+  "chord-arp-up":          { label: "Akkorde (Arpeggio ↗)",         levels: [1, 2, 3, 4] },
+  "chord-arp-down":        { label: "Akkorde (Arpeggio ↘)",         levels: [1, 2, 3, 4] },
+  "interval-chords":       { label: "Akkorde (Gleichz.)",           levels: [1, 2, 3, 4] },
+  "chord-inversions":      { label: "Akkordumkehrungen",            levels: [1, 2, 3] },
   "solfege":               { label: "Solfège",                      levels: [1, 2, 3, 4, 5, 6] },
   "melody":                { label: "4-Ton-Melodie",                levels: ["do-fa", "sol-do", "full"] },
   "rhythm-meter":          { label: "Rhythmus • Taktart",           levels: [1, 2, 3] },
@@ -17817,6 +17957,7 @@ class AppState {
       cadencePos: "last", // 'last' (Takt 4) | 'random' (zufälliger Takt 1–4)
       intervalDifficulty: 1,
       chordDifficulty: 1,
+      chordInversionDifficulty: 1,
       solfegeDifficulty: 1,
       melodyRange: "do-fa",      // 'do-fa' | 'sol-do' | 'full'
       melodyKeyMode: "fixed",    // 'fixed' (C-Dur) | 'random' (Zufallstonarten)
@@ -17968,6 +18109,12 @@ class AppState {
     this.updateQuickStartLabel();
   }
 
+  setChordInversionDifficulty(level) {
+    this.settings.chordInversionDifficulty = parseInt(level, 10);
+    this.updateHeaderSubtext();
+    this.updateQuickStartLabel();
+  }
+
   setSolfegeDifficulty(level) {
     this.settings.solfegeDifficulty = parseInt(level, 10);
     // Für Stufe 2 und 4: Zufällige Nicht-C-Dur Tonart einmal beim Start des Moduls würfeln und für die Sitzung festhalten
@@ -18108,15 +18255,29 @@ class AppState {
       const lvl = this.settings.modesCadenceDifficulty || 1;
       return `${tr("Modi: Kadenzen", "Modes: Vamps")} • ${lvlWord} ${lvl} (${getLocalizedModeLevelLabel("cadence", lvl)})`;
     }
-    if (this.settings.mode === "interval-chords") {
+    if (isChordQualityMode(this.settings.mode)) {
       const chordDiffNames = {
         1: tr("Dreiklänge", "Triads"),
         2: tr("Sept & Sus", "7th & Sus"),
         3: tr("Erweitert", "Extended"),
         4: tr("Jazz & Optionstöne", "Jazz Tensions")
       };
+      const chordTypeLabels = {
+        "chord-arp-up":   tr("Akkord-Arpeggio (Aufwärts ↗)", "Chords (Arpeggio ↗)"),
+        "chord-arp-down": tr("Akkord-Arpeggio (Abwärts ↘)", "Chords (Arpeggio ↘)"),
+        "interval-chords": tr("Akkorde (Gleichzeitig)", "Chords (Simultaneous)")
+      };
       const lvl = this.settings.chordDifficulty || 1;
-      return `${tr("Akkordtypen", "Chord Types")} • ${lvlWord} ${lvl} (${chordDiffNames[lvl] || tr("Dreiklänge", "Triads")})`;
+      return `${chordTypeLabels[this.settings.mode] || tr("Akkorde", "Chords")} • ${lvlWord} ${lvl} (${chordDiffNames[lvl] || tr("Dreiklänge", "Triads")})`;
+    }
+    if (this.settings.mode === "chord-inversions") {
+      const invDiffNames = {
+        1: tr("Dur-Dreiklang", "Major Triad"),
+        2: tr("Dur & Moll", "Major & Minor"),
+        3: tr("Septakkorde (4)", "7th Chords (4)")
+      };
+      const lvl = this.settings.chordInversionDifficulty || 1;
+      return `${tr("Akkordumkehrungen", "Chord Inversions")} • ${lvlWord} ${lvl} (${invDiffNames[lvl] || tr("Dur-Dreiklang", "Major Triad")})`;
     }
     const intDiffNames = {
       1: tr("Einsteiger", "Beginner"),
@@ -18159,6 +18320,7 @@ class AppState {
       const catNames = {
         cadence: tr("Kadenzen", "Cadences"),
         interval: tr("Intervalle", "Intervals"),
+        chords: tr("Akkorde", "Chords"),
         melody: tr("Melodien", "Melodies"),
         solfege: "Solfège",
         rhythm: tr("Rhythmus", "Rhythm"),
@@ -18645,6 +18807,13 @@ const HARMONIC_DATA = {
     "7s9":   { symbol: "7♯9",     label: "Dominant-7♯9 (1–3–5–♭7–♯9)",   short: "Jazz 7♯9",   offsets: [0, 4, 7, 10, 15] }
   },
 
+  chordInversions: {
+    "inv0": { symbol: "Bass: 1", label: "Grundstellung (Grundton im Bass)", short: "Grundstellung", stepIndex: 0 },
+    "inv1": { symbol: "Bass: 3", label: "1. Umkehrung (Terz im Bass)",      short: "1. Umkehrung",  stepIndex: 1 },
+    "inv2": { symbol: "Bass: 5", label: "2. Umkehrung (Quinte im Bass)",    short: "2. Umkehrung",  stepIndex: 2 },
+    "inv3": { symbol: "Bass: 7", label: "3. Umkehrung (Septime im Bass)",   short: "3. Umkehrung",  stepIndex: 3 }
+  },
+
   // Solfège-Stufen für C-Dur (inklusive Auflösungsweg zur Tonika)
   solfegeScale: [
     { key: "Do_low",  syllable: "Do",  label: "Grundton (Do)",        midi: 60, semitones: 0,  resolveMidis: [60] },
@@ -18682,14 +18851,74 @@ const CHORD_LEVEL_POOLS = {
 const CHORD_FLAT_SEMITONES = new Set([1, 3, 6, 10, 13]);
 const CHORD_SHARP_SEMITONES = new Set([8, 15]);
 
-function formatChordGermanNotes(rootMidi, offsets, rootKey) {
+function formatChordMidiNoteList(midis, rootMidi, rootKey) {
   const keyPreferFlat = FLAT_KEYS.has(rootKey);
-  return offsets.map(semi => {
+  return midis.map(m => {
+    const semi = ((m - rootMidi) % 12 + 12) % 12;
     let useFlat = keyPreferFlat;
     if (CHORD_SHARP_SEMITONES.has(semi)) useFlat = false;
     else if (CHORD_FLAT_SEMITONES.has(semi)) useFlat = true;
-    return midiToGermanNote(rootMidi + semi, useFlat);
-  }).join(" · ");
+    return midiToGermanNote(m, useFlat);
+  });
+}
+
+function formatChordGermanNotes(rootMidi, offsets, rootKey) {
+  return formatChordMidiNoteList(offsets.map(semi => rootMidi + semi), rootMidi, rootKey).join(" · ");
+}
+
+const CHORD_INVERSION_LEVELS = {
+  1: { chordKeys: ["maj"],             choices: ["inv0", "inv1", "inv2"] },
+  2: { chordKeys: ["maj", "min"],      choices: ["inv0", "inv1", "inv2"] },
+  3: { chordKeys: ["7", "maj7", "m7"], choices: ["inv0", "inv1", "inv2", "inv3"] }
+};
+
+function isChordArpeggioMode(mode) {
+  return mode === "chord-arp-up" || mode === "chord-arp-down";
+}
+
+function isChordQualityMode(mode) {
+  return mode === "interval-chords" || isChordArpeggioMode(mode);
+}
+
+function isChordMode(mode) {
+  return isChordQualityMode(mode) || mode === "chord-inversions";
+}
+
+function formatInversionChordTitle(rootMidi, rootKey, chordKey, bassMidi, inversionStep) {
+  const keyPreferFlat = FLAT_KEYS.has(rootKey);
+  const rootName = midiToGermanNote(rootMidi, keyPreferFlat).replace(/[0-9]/g, "");
+  const suffixMap = { maj: "", min: "m", "7": "7", maj7: "maj7", m7: "m7" };
+  const suffix = Object.prototype.hasOwnProperty.call(suffixMap, chordKey) ? suffixMap[chordKey] : chordKey;
+  if (inversionStep === 0) return `${rootName}${suffix}`;
+  const bassSemi = ((bassMidi - rootMidi) % 12 + 12) % 12;
+  let bassUseFlat = keyPreferFlat;
+  if (CHORD_SHARP_SEMITONES.has(bassSemi)) bassUseFlat = false;
+  else if (CHORD_FLAT_SEMITONES.has(bassSemi)) bassUseFlat = true;
+  const bassName = midiToGermanNote(bassMidi, bassUseFlat).replace(/[0-9]/g, "");
+  return `${rootName}${suffix}/${bassName}`;
+}
+
+function buildChordInversionNotes(rootMidi, chordKey, inversionStep, rootKey = "C") {
+  const chordDef = HARMONIC_DATA.chords[chordKey] || HARMONIC_DATA.chords["maj"];
+  const baseOffsets = chordDef.offsets;
+  const len = baseOffsets.length;
+  const step = ((inversionStep % len) + len) % len;
+  const rotatedOffsets = [
+    ...baseOffsets.slice(step),
+    ...baseOffsets.slice(0, step).map(o => o + 12)
+  ];
+  let midis = rotatedOffsets.map(o => rootMidi + o);
+  while (midis[0] > 63) midis = midis.map(m => m - 12);
+  while (midis[0] < 52) midis = midis.map(m => m + 12);
+  const bassMidi = midis[0];
+  return {
+    midis,
+    bassMidi,
+    bassNote: midiToNote(bassMidi),
+    notes: midis.map(m => midiToNote(m)),
+    noteDisplay: formatChordMidiNoteList(midis, rootMidi, rootKey).join(" · "),
+    slashTitle: formatInversionChordTitle(rootMidi, rootKey, chordKey, bassMidi, step)
+  };
 }
 
 const RHYTHM_METERS = {
@@ -19137,7 +19366,8 @@ const MODE_CADENCE_LEVELS = {
 
 function getChoiceItem(exType, choiceKey) {
   if (exType === "cadence") return getLocalizedDegreeDef(choiceKey);
-  if (exType === "interval-chords") return getLocalizedChordDef(choiceKey);
+  if (isChordQualityMode(exType)) return getLocalizedChordDef(choiceKey);
+  if (exType === "chord-inversions") return getLocalizedChordInversionDef(choiceKey);
   if (exType === "rhythm-meter") return getLocalizedRhythmMeter(choiceKey);
   if (exType === "rhythm-dictation") return getLocalizedRhythmCell(choiceKey);
   if (exType === "rhythm-groove") {
@@ -20953,43 +21183,93 @@ function openCategoryPage(categoryKey, options = {}) {
             <span class="node-sub">${tr("Alle 15 Intervalle bis zur None", "All 15 intervals up to a 9th")}</span>
           </button>
         </div>
-      </div>
-
-      <div class="subpage-section">
-        <h3 class="subpage-section-title">${tr("Akkordtypen erkennen", "Chord Quality Recognition")}</h3>
-        <p class="subpage-section-desc">${tr("Drei bis fünf Töne gleichzeitig – von einfachen Dreiklängen bis zu Jazz-Akkorden", "Three to five notes together — from simple triads to extended jazz voicings")}</p>
-        <div class="subpage-nodes-grid">
-          <button class="subpage-node-btn" data-launch-int="interval-chords" data-int-lvl="1">
-            <div class="node-circle circle-sage">Δ</div>
-            <span class="node-title">${tr("Stufe 1: Dreiklänge", "Level 1: Triads")}</span>
-            <span class="node-sub">${tr("Dur, Moll, Vermindert &amp; Übermäßig", "Major, Minor, Diminished &amp; Augmented")}</span>
-          </button>
-          <button class="subpage-node-btn" data-launch-int="interval-chords" data-int-lvl="2">
-            <div class="node-circle circle-sage">7</div>
-            <span class="node-title">${tr("Stufe 2: Sept &amp; Sus", "Level 2: 7ths &amp; Sus")}</span>
-            <span class="node-sub">+ sus4, Dom. 7, maj7 &amp; m7</span>
-          </button>
-          <button class="subpage-node-btn" data-launch-int="interval-chords" data-int-lvl="3">
-            <div class="node-circle circle-sage">7♭5</div>
-            <span class="node-title">${tr("Stufe 3: Erweitert", "Level 3: Extended")}</span>
-            <span class="node-sub">${tr("+ sus2, Halb- &amp; Vollverm., m(maj7)", "+ sus2, Half- &amp; Full-Dim, m(maj7)")}</span>
-          </button>
-          <button class="subpage-node-btn" data-launch-int="interval-chords" data-int-lvl="4">
-            <div class="node-circle circle-sage">7♯9</div>
-            <span class="node-title">${tr("Stufe 4: Jazz &amp; Optionstöne", "Level 4: Jazz &amp; Tensions")}</span>
-            <span class="node-sub">+ maj9, 7♭9 &amp; 7♯9</span>
-          </button>
-        </div>
-      </div>
     `;
 
     container.querySelectorAll("[data-launch-int]").forEach(btn => {
       btn.addEventListener("click", () => {
         state.setMode(btn.dataset.launchInt);
-        if (btn.dataset.launchInt === "interval-chords") {
-          state.setChordDifficulty(btn.dataset.intLvl);
+        state.setIntervalDifficulty(btn.dataset.intLvl);
+        state.exerciseReturnView = "category";
+        switchView("exercise");
+      });
+    });
+
+  } else if (categoryKey === "chords") {
+    const CHORD_QUALITY_SECTIONS = [
+      {
+        mode: "chord-arp-up",
+        circleClass: "circle-sage",
+        title: tr("Akkord-Arpeggio (Aufwärts ↗)", "Chord Arpeggio (Ascending ↗)"),
+        desc: tr("Akkordtöne erklingen nacheinander von unten nach oben – ideal zum Heraushören einzelner Terzen &amp; Septimen", "Chord tones roll upward note by note — ideal for hearing every 3rd, 5th &amp; 7th clearly")
+      },
+      {
+        mode: "chord-arp-down",
+        circleClass: "circle-lilac",
+        title: tr("Akkord-Arpeggio (Abwärts ↘)", "Chord Arpeggio (Descending ↘)"),
+        desc: tr("Akkordtöne erklingen nacheinander von oben nach unten", "Chord tones cascade downward from top to bottom")
+      },
+      {
+        mode: "interval-chords",
+        circleClass: "circle-peach",
+        title: tr("Akkorde (Gleichzeitig)", "Chords (Simultaneous)"),
+        desc: tr("Drei bis fünf Töne gleichzeitig als Vollklang – von einfachen Dreiklängen bis zu Jazz-Akkorden", "Three to five notes sounded together as one chord — from simple triads to jazz voicings")
+      }
+    ];
+    const CHORD_QUALITY_LEVELS = [
+      { lvl: 1, badge: "Δ",   title: tr("Stufe 1: Dreiklänge", "Level 1: Triads"),                            sub: tr("Dur, Moll, Vermindert &amp; Übermäßig", "Major, Minor, Diminished &amp; Augmented") },
+      { lvl: 2, badge: "7",   title: tr("Stufe 2: Sept &amp; Sus", "Level 2: 7ths &amp; Sus"),                 sub: "+ sus4, Dom. 7, maj7 &amp; m7" },
+      { lvl: 3, badge: "7♭5", title: tr("Stufe 3: Erweitert", "Level 3: Extended"),                            sub: tr("+ sus2, Halb- &amp; Vollverm., m(maj7)", "+ sus2, Half- &amp; Full-Dim, m(maj7)") },
+      { lvl: 4, badge: "7♯9", title: tr("Stufe 4: Jazz &amp; Optionstöne", "Level 4: Jazz &amp; Tensions"),   sub: "+ maj9, 7♭9 &amp; 7♯9" }
+    ];
+    const renderQualitySection = (sec) => `
+      <div class="subpage-section">
+        <h3 class="subpage-section-title">${sec.title}</h3>
+        <p class="subpage-section-desc">${sec.desc}</p>
+        <div class="subpage-nodes-grid">
+          ${CHORD_QUALITY_LEVELS.map(lv => `
+            <button class="subpage-node-btn" data-launch-chord="${sec.mode}" data-chord-lvl="${lv.lvl}">
+              <div class="node-circle ${sec.circleClass}">${lv.badge}</div>
+              <span class="node-title">${lv.title}</span>
+              <span class="node-sub">${lv.sub}</span>
+            </button>
+          `).join("")}
+        </div>
+      </div>
+    `;
+
+    container.innerHTML = `
+      ${CHORD_QUALITY_SECTIONS.map(renderQualitySection).join("")}
+      <div class="subpage-section">
+        <h3 class="subpage-section-title">${tr("Akkordumkehrungen", "Chord Inversions")}</h3>
+        <p class="subpage-section-desc">${tr("Erkenne, welcher Akkordton ganz unten im Bass liegt (Grundstellung, 1., 2. oder 3. Umkehrung)", "Identify which chord tone sits lowest in the bass (Root Position, 1st, 2nd or 3rd Inversion)")}</p>
+        <div class="subpage-nodes-grid">
+          <button class="subpage-node-btn" data-launch-chord="chord-inversions" data-chord-lvl="1">
+            <div class="node-circle circle-sage">1/3/5</div>
+            <span class="node-title">${tr("Stufe 1: Dur-Dreiklang", "Level 1: Major Triad")}</span>
+            <span class="node-sub">${tr("Grundstellung, 1. &amp; 2. Umkehrung", "Root Pos., 1st &amp; 2nd Inversion")}</span>
+          </button>
+          <button class="subpage-node-btn" data-launch-chord="chord-inversions" data-chord-lvl="2">
+            <div class="node-circle circle-sage">${tr("D/m", "M/m")}</div>
+            <span class="node-title">${tr("Stufe 2: Dur &amp; Moll", "Level 2: Major &amp; Minor")}</span>
+            <span class="node-sub">${tr("Beide Dreiklangsfarben gemischt", "Major &amp; minor triads mixed")}</span>
+          </button>
+          <button class="subpage-node-btn" data-launch-chord="chord-inversions" data-chord-lvl="3">
+            <div class="node-circle circle-sage">1–7</div>
+            <span class="node-title">${tr("Stufe 3: Septakkorde (4)", "Level 3: 7th Chords (4)")}</span>
+            <span class="node-sub">${tr("Vierstimmig inkl. 3. Umkehrung (Bass: 7)", "Four-note chords incl. 3rd Inv. (Bass: 7)")}</span>
+          </button>
+        </div>
+      </div>
+    `;
+
+    container.querySelectorAll("[data-launch-chord]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const mode = btn.dataset.launchChord;
+        state.setMode(mode);
+        if (mode === "chord-inversions") {
+          state.setChordInversionDifficulty(btn.dataset.chordLvl);
         } else {
-          state.setIntervalDifficulty(btn.dataset.intLvl);
+          state.setChordDifficulty(btn.dataset.chordLvl);
         }
         state.exerciseReturnView = "category";
         switchView("exercise");
@@ -21550,8 +21830,10 @@ function generateExercise() {
     generateModesCharExercise();
   } else if (state.settings.mode === "modes-cadence") {
     generateModesCadenceExercise();
-  } else if (state.settings.mode === "interval-chords") {
-    generateChordExercise(rootMidi);
+  } else if (isChordQualityMode(state.settings.mode)) {
+    generateChordExercise(rootMidi, state.settings.mode);
+  } else if (state.settings.mode === "chord-inversions") {
+    generateChordInversionExercise(rootMidi);
   } else {
     generateIntervalExercise(rootMidi, state.settings.mode);
   }
@@ -21787,7 +22069,7 @@ function generateIntervalExercise(rootMidi, intervalMode) {
   };
 }
 
-function generateChordExercise(rootMidi) {
+function generateChordExercise(rootMidi, chordMode = "interval-chords") {
   const lvl = state.settings.chordDifficulty || 1;
   const pool = CHORD_LEVEL_POOLS[lvl] || CHORD_LEVEL_POOLS[1];
   const chosenKey = pool[Math.floor(Math.random() * pool.length)];
@@ -21810,7 +22092,7 @@ function generateChordExercise(rootMidi) {
   ];
 
   state.currentExercise = {
-    type: "interval-chords",
+    type: chordMode,
     offsets: targetDef.offsets,
     rootKey: state.currentKey,
     keyName: `${tr("Grundton", "Root")} ${rootDisplay}`,
@@ -21826,6 +22108,55 @@ function generateChordExercise(rootMidi) {
     },
     bars: bars,
     choices: pool
+  };
+}
+
+function generateChordInversionExercise(rootMidi) {
+  const lvl = state.settings.chordInversionDifficulty || 1;
+  const cfg = CHORD_INVERSION_LEVELS[lvl] || CHORD_INVERSION_LEVELS[1];
+  const chordKey = cfg.chordKeys[Math.floor(Math.random() * cfg.chordKeys.length)];
+  const chosenInvKey = cfg.choices[Math.floor(Math.random() * cfg.choices.length)];
+  const invDef = getLocalizedChordInversionDef(chosenInvKey);
+  const chordDef = getLocalizedChordDef(chordKey);
+  const invData = buildChordInversionNotes(rootMidi, chordKey, invDef.stepIndex, state.currentKey);
+  const rootDisplay = midiToGermanNote(rootMidi, FLAT_KEYS.has(state.currentKey)).replace(/[0-9]/g, "");
+  const solvedShort = `${invData.slashTitle} • ${invDef.short}`;
+  const fullLabel = `${invDef.label} • ${invData.slashTitle} (${chordDef.short})`;
+
+  const bars = [
+    {
+      symbol: invData.noteDisplay,
+      label: fullLabel,
+      short: solvedShort,
+      notes: invData.notes,
+      bass: null,
+      key: chosenInvKey
+    }
+  ];
+
+  state.currentExercise = {
+    type: "chord-inversions",
+    chordKey: chordKey,
+    inversionLevel: lvl,
+    rootKey: state.currentKey,
+    keyName: `${tr("Grundton", "Root")} ${rootDisplay}`,
+    targetIndex: 0,
+    targetItem: {
+      ...invDef,
+      label: fullLabel,
+      key: chosenInvKey,
+      chordKey: chordKey,
+      rootMidi: rootMidi,
+      bassMidi: invData.bassMidi,
+      bassNote: invData.bassNote,
+      refNote: midiToNote(rootMidi),
+      displayMain: invData.noteDisplay,
+      slashTitle: invData.slashTitle,
+      notes: invData.notes,
+      midis: invData.midis
+    },
+    bars: bars,
+    choices: cfg.choices
   };
 }
 
@@ -22275,7 +22606,7 @@ function refreshExerciseLocalization(ex) {
     return;
   }
 
-  if (ex.type === "interval-chords") {
+  if (isChordQualityMode(ex.type)) {
     const def = getLocalizedChordDef(ex.targetItem?.key);
     if (!def) return;
     const rootMidi = ex.targetItem.rootMidi;
@@ -22288,6 +22619,32 @@ function refreshExerciseLocalization(ex) {
       ex.bars[0].symbol = notesDisplay;
       ex.bars[0].label = def.label;
       ex.bars[0].short = def.short;
+    }
+    return;
+  }
+
+  if (ex.type === "chord-inversions") {
+    const invDef = getLocalizedChordInversionDef(ex.targetItem?.key);
+    const chordDef = getLocalizedChordDef(ex.chordKey);
+    if (!invDef || !chordDef) return;
+    const rootMidi = ex.targetItem.rootMidi;
+    const rootKey = ex.rootKey || state.currentKey;
+    const midis = ex.targetItem.midis || [];
+    const noteDisplay = formatChordMidiNoteList(midis, rootMidi, rootKey).join(" · ");
+    const slashTitle = formatInversionChordTitle(rootMidi, rootKey, ex.chordKey, ex.targetItem.bassMidi, invDef.stepIndex);
+    const rootDisplay = midiToGermanNote(rootMidi, FLAT_KEYS.has(rootKey)).replace(/[0-9]/g, "");
+    const solvedShort = `${slashTitle} • ${invDef.short}`;
+    const fullLabel = `${invDef.label} • ${slashTitle} (${chordDef.short})`;
+    ex.keyName = `${tr("Grundton", "Root")} ${rootDisplay}`;
+    Object.assign(ex.targetItem, invDef, {
+      label: fullLabel,
+      displayMain: noteDisplay,
+      slashTitle: slashTitle
+    });
+    if (ex.bars?.[0]) {
+      ex.bars[0].symbol = noteDisplay;
+      ex.bars[0].label = fullLabel;
+      ex.bars[0].short = solvedShort;
     }
     return;
   }
@@ -22745,7 +23102,11 @@ function renderUI() {
   } else {
     if (tonicRefLabel) {
       tonicRefLabel.textContent =
-        isCadence ? tr("Tonika (I)", "Tonic (I)") : (ex.type.startsWith("interval") ? tr("Ausgangston", "Root Note") : tr("Tonika (Do)", "Tonic (Do)"));
+        isCadence
+          ? tr("Tonika (I)", "Tonic (I)")
+          : (isChordMode(ex.type)
+              ? tr("Grundton", "Chord Root")
+              : (ex.type.startsWith("interval") ? tr("Ausgangston", "Root Note") : tr("Tonika (Do)", "Tonic (Do)")));
     }
     if (tonicRefBtn) tonicRefBtn.title = tr("Tonika / Grundton anspielen", "Play tonic / root note");
   }
@@ -22906,11 +23267,26 @@ function renderUI() {
     if (moduleTitleEl) moduleTitleEl.textContent = tr("Melodisches Intervall (Abwärts)", "Melodic Interval (Descending)");
     if (targetBadgeEl) targetBadgeEl.textContent = tr("Ziel: Ton 2 ↘", "Target: Note 2 ↘");
     document.getElementById("inputPromptText").textContent = tr("Welches Intervall erklingt abwärts?", "Which descending interval do you hear?");
+  } else if (ex.type === "chord-arp-up") {
+    barsGrid.classList.add("cols-1");
+    if (moduleTitleEl) moduleTitleEl.textContent = tr("Akkord-Arpeggio (Aufwärts ↗)", "Chord Arpeggio (Ascending ↗)");
+    if (targetBadgeEl) targetBadgeEl.textContent = tr("Arpeggio ↗", "Arpeggio ↗");
+    document.getElementById("inputPromptText").textContent = tr("Welcher Akkord erklingt?", "Which chord quality do you hear?");
+  } else if (ex.type === "chord-arp-down") {
+    barsGrid.classList.add("cols-1");
+    if (moduleTitleEl) moduleTitleEl.textContent = tr("Akkord-Arpeggio (Abwärts ↘)", "Chord Arpeggio (Descending ↘)");
+    if (targetBadgeEl) targetBadgeEl.textContent = tr("Arpeggio ↘", "Arpeggio ↘");
+    document.getElementById("inputPromptText").textContent = tr("Welcher Akkord erklingt?", "Which chord quality do you hear?");
   } else if (ex.type === "interval-chords") {
     barsGrid.classList.add("cols-1");
-    if (moduleTitleEl) moduleTitleEl.textContent = tr("Akkordtyp erkennen (Gleichzeitig)", "Chord Quality (Simultaneous)");
+    if (moduleTitleEl) moduleTitleEl.textContent = tr("Akkorde (Gleichzeitig)", "Chords (Simultaneous)");
     if (targetBadgeEl) targetBadgeEl.textContent = tr("Mehrklang", "Chord");
     document.getElementById("inputPromptText").textContent = tr("Welcher Akkord erklingt?", "Which chord quality do you hear?");
+  } else if (ex.type === "chord-inversions") {
+    barsGrid.classList.add("cols-1");
+    if (moduleTitleEl) moduleTitleEl.textContent = tr("Akkordumkehrung erkennen", "Chord Inversion Recognition");
+    if (targetBadgeEl) targetBadgeEl.textContent = tr("Umkehrung", "Inversion");
+    document.getElementById("inputPromptText").textContent = tr("Welcher Akkordton liegt ganz unten im Bass?", "Which chord tone sits lowest in the bass?");
   } else if (isModes) {
     barsGrid.classList.add("cols-2");
     if (ex.type === "modes-char") {
@@ -23081,19 +23457,21 @@ function renderUI() {
       lbl.textContent = isTarget
         ? (ex.type === "cadence"
             ? tr("Gesucht", "Target")
-            : (ex.type === "interval-chords"
+            : (isChordQualityMode(ex.type)
                 ? tr("Akkord ?", "Chord ?")
-                : (isRhythmMeter
-                    ? tr("Taktart ?", "Meter ?")
-                    : (isRhythmGroove
-                        ? tr("Gesucht", "Target")
-                        : (isProdTone
-                            ? tr("Frequenz ?", "Freq ?")
-                            : (isProdEqNoise
-                                ? ex.keyName
-                                : (isModes
-                                    ? (ex.type === "modes-cadence" ? tr("Vamp ?", "Vamp ?") : (ex.type === "modes-char" ? tr("Farbe ?", "Color ?") : tr("Modus ?", "Mode ?")))
-                                    : tr("Intervall ?", "Interval ?"))))))))
+                : (ex.type === "chord-inversions"
+                    ? tr("Umkehrung ?", "Inversion ?")
+                    : (isRhythmMeter
+                        ? tr("Taktart ?", "Meter ?")
+                        : (isRhythmGroove
+                            ? tr("Gesucht", "Target")
+                            : (isProdTone
+                                ? tr("Frequenz ?", "Freq ?")
+                                : (isProdEqNoise
+                                    ? ex.keyName
+                                    : (isModes
+                                        ? (ex.type === "modes-cadence" ? tr("Vamp ?", "Vamp ?") : (ex.type === "modes-char" ? tr("Farbe ?", "Color ?") : tr("Modus ?", "Mode ?")))
+                                        : tr("Intervall ?", "Interval ?")))))))))
         : bar.short;
 
       card.appendChild(tag);
@@ -23136,7 +23514,7 @@ function renderUI() {
     btnGrid.innerHTML = "";
     const isInterval = !isCadence;
     btnGrid.classList.toggle("grid-intervals", isInterval);
-    btnGrid.classList.toggle("grid-chords", ex.type === "interval-chords" || isRhythmGroove || isProd || isModes);
+    btnGrid.classList.toggle("grid-chords", isChordMode(ex.type) || isRhythmGroove || isProd || isModes);
 
     const layout = computeBalancedRows(ex.choices);
     btnGrid.style.setProperty("--max-cols", layout.maxCols);
@@ -23435,8 +23813,11 @@ function getAwaitingStageHint(ex) {
   if (type === "cadence") {
     return tr("Welche Stufe schwingt noch nach? Tippe sie unten an.", "Which chord degree lingers? Tap it below.");
   }
-  if (type === "interval-chords") {
+  if (isChordQualityMode(type)) {
     return tr("Welche Akkordfarbe ist hängengeblieben? Wähle unten aus.", "Which chord color stayed with you? Pick below.");
+  }
+  if (type === "chord-inversions") {
+    return tr("Welcher Akkordton saß ganz unten im Bass? Wähle die Umkehrung.", "Which chord tone sat lowest in the bass? Pick the inversion below.");
   }
   if (type.startsWith("interval")) {
     return tr("Wie weit fühlte sich der Abstand an? Wähle das Intervall.", "How wide did that leap feel? Pick the interval below.");
@@ -23776,6 +24157,18 @@ function getChordArpeggioTiming(noteCount, bpm = state.activeBpm) {
   return { stepMs, noteDurSec, lastNoteDurSec, nextExerciseDelayMs };
 }
 
+function getChordArpeggioPromptTiming(noteCount, bpm = state.activeBpm) {
+  const safeBpm = Math.max(55, Math.min(180, Number(bpm) || 90));
+  const beatSec = 60 / safeBpm;
+  const stepSec = beatSec * 0.55;
+  const stepMs = Math.round(stepSec * 1000);
+  const count = Math.max(1, noteCount || 1);
+  const noteDurSec = Math.max(0.28, stepSec * 1.45);
+  const lastNoteDurSec = Math.max(0.55, beatSec * 1.1);
+  const cycleMs = (count - 1) * stepMs + Math.round(Math.max(0.65, lastNoteDurSec) * 1000) + 350;
+  return { stepMs, noteDurSec, lastNoteDurSec, cycleMs };
+}
+
 function handleAnswer(selectedKey, btnElement, options = {}) {
   const ex = state.currentExercise;
   if (!ex) return;
@@ -23825,7 +24218,7 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
         const card = document.getElementById(`barCard_${i}`);
         if (card) {
           card.querySelector(".bar-roman").textContent = ex.targetItem.displayMain || ex.targetItem.roman || ex.targetItem.symbol;
-          card.querySelector(".bar-label").textContent = ex.targetItem.short;
+          card.querySelector(".bar-label").textContent = ex.type === "chord-inversions" ? (bar.short || ex.targetItem.short) : ex.targetItem.short;
           card.classList.remove("bar-target");
           card.classList.add("bar-active");
         }
@@ -23846,7 +24239,40 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
       }
     };
 
-    const chordNotes = ex.type === "interval-chords" && Array.isArray(ex.targetItem?.notes)
+    const runAudioRevealOrAdvance = (revealPlaybackId, startAudioRevealFn, onFallbackAdvance) => {
+      if (audioEngine.isInitialized) {
+        startAudioRevealFn();
+        return;
+      }
+      ensureAudioReady().then(() => {
+        if (audioEngine.playbackId !== revealPlaybackId || state.currentView !== "exercise") return;
+        if (audioEngine.isInitialized) {
+          startAudioRevealFn();
+        } else {
+          onFallbackAdvance();
+        }
+      }).catch(() => {
+        if (audioEngine.playbackId === revealPlaybackId) {
+          onFallbackAdvance();
+        }
+      });
+    };
+
+    const scheduleSimpleRevealAdvance = (delayPlaybackId, delayMs = 1050) => {
+      if (isListenOnly) {
+        scheduleListenOnlyStep(advanceToNextExercise, LISTEN_ONLY_POST_REVEAL_MS, listenOnlyToken);
+      } else {
+        audioEngine.registerTimer(() => {
+          if (audioEngine.playbackId !== delayPlaybackId) return;
+          advanceToNextExercise();
+        }, delayMs);
+      }
+    };
+
+    const chordNotes = (ex.type === "interval-chords" || ex.type === "chord-inversions") && Array.isArray(ex.targetItem?.notes)
+      ? ex.targetItem.notes
+      : null;
+    const arpBlockNotes = isChordArpeggioMode(ex.type) && Array.isArray(ex.targetItem?.notes)
       ? ex.targetItem.notes
       : null;
 
@@ -23856,49 +24282,42 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
         state.activeBpm
       );
       const arpeggioPlaybackId = audioEngine.playbackId;
-      const startChordArpeggio = () => {
-        if (!audioEngine.isInitialized || audioEngine.playbackId !== arpeggioPlaybackId) return;
-        chordNotes.forEach((note, idx) => {
-          const isLast = idx === chordNotes.length - 1;
-          const noteDur = isLast ? lastNoteDurSec : noteDurSec;
-          const delayMs = idx * stepMs;
-          if (delayMs === 0) {
-            audioEngine.playStep([note], noteDur, null, "interval");
-          } else {
-            audioEngine.registerTimer(() => {
-              if (audioEngine.playbackId !== arpeggioPlaybackId || state.currentView !== "exercise") return;
+      runAudioRevealOrAdvance(
+        arpeggioPlaybackId,
+        () => {
+          if (!audioEngine.isInitialized || audioEngine.playbackId !== arpeggioPlaybackId) return;
+          chordNotes.forEach((note, idx) => {
+            const isLast = idx === chordNotes.length - 1;
+            const noteDur = isLast ? lastNoteDurSec : noteDurSec;
+            const delayMs = idx * stepMs;
+            if (delayMs === 0) {
               audioEngine.playStep([note], noteDur, null, "interval");
-            }, delayMs);
-          }
-        });
-        audioEngine.registerTimer(() => {
-          if (audioEngine.playbackId !== arpeggioPlaybackId) return;
-          advanceToNextExercise();
-        }, nextExerciseDelayMs);
-      };
-
-      if (audioEngine.isInitialized) {
-        startChordArpeggio();
-      } else {
-        ensureAudioReady().then(() => {
-          if (audioEngine.playbackId !== arpeggioPlaybackId || state.currentView !== "exercise") return;
-          if (audioEngine.isInitialized) {
-            startChordArpeggio();
-          } else if (isListenOnly) {
-            scheduleListenOnlyStep(advanceToNextExercise, LISTEN_ONLY_POST_REVEAL_MS, listenOnlyToken);
-          } else {
-            audioEngine.registerTimer(advanceToNextExercise, 1050);
-          }
-        }).catch(() => {
-          if (audioEngine.playbackId === arpeggioPlaybackId) {
-            if (isListenOnly) {
-              scheduleListenOnlyStep(advanceToNextExercise, LISTEN_ONLY_POST_REVEAL_MS, listenOnlyToken);
             } else {
-              audioEngine.registerTimer(advanceToNextExercise, 1050);
+              audioEngine.registerTimer(() => {
+                if (audioEngine.playbackId !== arpeggioPlaybackId || state.currentView !== "exercise") return;
+                audioEngine.playStep([note], noteDur, null, "interval");
+              }, delayMs);
             }
-          }
-        });
-      }
+          });
+          audioEngine.registerTimer(() => {
+            if (audioEngine.playbackId !== arpeggioPlaybackId) return;
+            advanceToNextExercise();
+          }, nextExerciseDelayMs);
+        },
+        () => scheduleSimpleRevealAdvance(arpeggioPlaybackId, 1050)
+      );
+    } else if (arpBlockNotes && arpBlockNotes.length > 0) {
+      const confirmPlaybackId = audioEngine.playbackId;
+      const blockDurSec = Math.max(0.85, Math.min(1.4, (60 / (state.activeBpm || 90)) * 1.4));
+      runAudioRevealOrAdvance(
+        confirmPlaybackId,
+        () => {
+          if (!audioEngine.isInitialized || audioEngine.playbackId !== confirmPlaybackId) return;
+          audioEngine.playStep(arpBlockNotes, blockDurSec, null, "cadence");
+          scheduleSimpleRevealAdvance(confirmPlaybackId, 1150);
+        },
+        () => scheduleSimpleRevealAdvance(confirmPlaybackId, 1050)
+      );
     } else if (isListenOnly) {
       scheduleListenOnlyStep(advanceToNextExercise, LISTEN_ONLY_POST_REVEAL_MS, listenOnlyToken);
     } else {
@@ -23935,7 +24354,11 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
             ? tr("Flat → Ziel-EQ", "Flat → Target EQ")
             : (ex.type === "prod-tone"
                 ? tr("Ref: 1 kHz", "Ref: 1 kHz")
-                : (isModesWrong ? tr("Anker-Quinte", "Anchor Fifth") : tr("Bass / Grundton", "Bass / Root"))));
+                : (isModesWrong
+                    ? tr("Anker-Quinte", "Anchor Fifth")
+                    : (ex.type === "chord-inversions"
+                        ? tr("Basston hören", "Hear Bass Note")
+                        : tr("Bass / Grundton", "Bass / Root")))));
     }
 
     const fb = document.getElementById("feedbackContainer");
@@ -25673,6 +26096,53 @@ async function playSequence() {
     return;
   }
 
+  if (isChordArpeggioMode(ex.type)) {
+    function runChordArpeggioLoopCycle() {
+      if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
+      const rawNotes = Array.isArray(ex.targetItem?.notes) ? ex.targetItem.notes : [];
+      const seqNotes = ex.type === "chord-arp-down" ? [...rawNotes].reverse() : rawNotes;
+      const { stepMs, noteDurSec, lastNoteDurSec, cycleMs } = getChordArpeggioPromptTiming(
+        seqNotes.length,
+        state.activeBpm
+      );
+      const dirArrow = ex.type === "chord-arp-down" ? "↘" : "↗";
+
+      seqNotes.forEach((note, idx) => {
+        const delay = idx * stepMs;
+        const noteDur = idx === seqNotes.length - 1 ? lastNoteDurSec : noteDurSec;
+
+        audioEngine.registerTimer(() => {
+          if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
+          for (let i = 0; i < ex.bars.length; i++) {
+            document.getElementById(`barCard_${i}`)?.classList.toggle("bar-active", i === 0);
+          }
+          setCentralStageMode("stage-target");
+          updateStageMascot("question");
+          document.getElementById("stageSubtext").textContent = tf("ARPEGGIO {dir} • {bpm} BPM", "ARPEGGIO {dir} • {bpm} BPM", {
+            dir: dirArrow,
+            bpm: state.activeBpm
+          });
+          document.getElementById("stageMainText").textContent = "?";
+          document.getElementById("stageFunctionText").textContent = tr("Welcher Akkord erklingt jetzt?", "Which chord quality plays now?");
+
+          audioEngine.playStep([note], noteDur, null, "cadence");
+        }, delay);
+      });
+
+      audioEngine.registerTimer(() => {
+        if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
+        if (keepPromptLooping()) {
+          runChordArpeggioLoopCycle();
+        } else {
+          completePromptPlayback(ex);
+        }
+      }, cycleMs);
+    }
+
+    runChordArpeggioLoopCycle();
+    return;
+  }
+
   // Ablauf für Kadenzen (kompakter Legato-Wechsel), harmonische Intervalle & Akkordtypen
   const totalBars = ex.bars.length;
   let stepScheduleMs;
@@ -25721,7 +26191,11 @@ async function playSequence() {
           document.getElementById("stageMainText").textContent = "?";
           document.getElementById("stageFunctionText").textContent = ex.type === "cadence"
             ? tr("Welche Stufe erklingt jetzt?", "Which chord degree plays now?")
-            : (ex.type === "interval-chords" ? tr("Welcher Akkord erklingt jetzt?", "Which chord quality plays now?") : tr("Welches Intervall erklingt jetzt?", "Which interval plays now?"));
+            : (ex.type === "chord-inversions"
+                ? tr("Welcher Akkordton liegt im Bass?", "Which chord tone is in the bass?")
+                : (isChordQualityMode(ex.type)
+                    ? tr("Welcher Akkord erklingt jetzt?", "Which chord quality plays now?")
+                    : tr("Welches Intervall erklingt jetzt?", "Which interval plays now?")));
         } else {
           setCentralStageMode("stage-playing");
           updateStageMascot("listening");
@@ -25869,6 +26343,25 @@ function getLevelDisplayForMix(mode, level) {
       lbl: getLocalizedModeLevelLabel("cadence", level)
     });
   }
+  if (isChordQualityMode(mode)) {
+    const chordLvlLabels = {
+      1: tr("Dreiklänge", "Triads"),
+      2: tr("Sept & Sus", "7th & Sus"),
+      3: tr("Erweitert", "Extended"),
+      4: tr("Jazz & Optionstöne", "Jazz Tensions")
+    };
+    const lbl = chordLvlLabels[level];
+    if (lbl) return tf("Stufe {lvl} ({lbl})", "Level {lvl} ({lbl})", { lvl: level, lbl });
+  }
+  if (mode === "chord-inversions") {
+    const invLvlLabels = {
+      1: tr("Dur-Dreiklang", "Major Triad"),
+      2: tr("Dur & Moll", "Major & Minor"),
+      3: tr("Septakkorde (4)", "7th Chords (4)")
+    };
+    const lbl = invLvlLabels[level];
+    if (lbl) return tf("Stufe {lvl} ({lbl})", "Level {lvl} ({lbl})", { lvl: level, lbl });
+  }
   return tf("Stufe {lvl}", "Level {lvl}", { lvl: level });
 }
 
@@ -25884,8 +26377,10 @@ function applyModeAndLevelFromConfig(cfg) {
   state.setMode(mode);
   if (mode === "cadence") {
     state.setDifficulty(cfg.level || 1);
-  } else if (mode === "interval-chords") {
+  } else if (isChordQualityMode(mode)) {
     state.setChordDifficulty(cfg.level || 1);
+  } else if (mode === "chord-inversions") {
+    state.setChordInversionDifficulty(cfg.level || 1);
   } else if (mode === "solfege") {
     state.setSolfegeDifficulty(cfg.level || 1);
   } else if (mode === "melody") {
@@ -25930,7 +26425,8 @@ function captureCurrentExerciseAsMix(customTitle = "") {
   const mode = state.settings.mode;
   let level = 1;
   if (mode === "cadence") level = state.settings.difficulty;
-  else if (mode === "interval-chords") level = state.settings.chordDifficulty;
+  else if (isChordQualityMode(mode)) level = state.settings.chordDifficulty;
+  else if (mode === "chord-inversions") level = state.settings.chordInversionDifficulty;
   else if (mode === "solfege") level = state.settings.solfegeDifficulty;
   else if (mode === "melody") level = state.settings.melodyRange;
   else if (mode === "rhythm-meter") level = state.settings.rhythmMeterDifficulty;
@@ -26310,7 +26806,7 @@ function applyProfileDisplayChanges() {
     refreshExerciseLocalization(ex);
     if (state.currentView === "exercise") {
       renderUI();
-      if (ex.isSolved && String(ex.type || "").startsWith("interval-") && ex.targetItem) {
+      if (ex.isSolved && (String(ex.type || "").startsWith("interval-") || isChordMode(ex.type)) && ex.targetItem) {
         const stageMain = document.getElementById("stageMainText");
         const stageFn = document.getElementById("stageFunctionText");
         if (stageMain) stageMain.textContent = ex.targetItem.roman || ex.targetItem.symbol;
@@ -26320,7 +26816,11 @@ function applyProfileDisplayChanges() {
           const romanEl = targetCard.querySelector(".bar-roman");
           const lblEl = targetCard.querySelector(".bar-label");
           if (romanEl) romanEl.textContent = ex.targetItem.displayMain || ex.targetItem.roman || ex.targetItem.symbol;
-          if (lblEl) lblEl.textContent = ex.targetItem.short;
+          if (lblEl) {
+            lblEl.textContent = ex.type === "chord-inversions"
+              ? (ex.bars?.[ex.targetIndex]?.short || ex.targetItem.short)
+              : ex.targetItem.short;
+          }
         }
       }
       if (state.lastAnswerWasWrong && state.wrongAnswerData?.chosen) {
@@ -27397,7 +27897,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("surpriseStartBtn")?.addEventListener("click", () => {
     const modes = [
-      "cadence", "interval-melodic", "interval-melodic-down", "interval-harmonic", "interval-chords", "solfege", "melody",
+      "cadence", "interval-melodic", "interval-melodic-down", "interval-harmonic",
+      "chord-arp-up", "chord-arp-down", "interval-chords", "chord-inversions",
+      "solfege", "melody",
       "rhythm-meter", "rhythm-dictation", "rhythm-tap", "rhythm-groove",
       "prod-tone", "prod-eq-noise",
       "modes-scale", "modes-char", "modes-cadence"
@@ -27407,8 +27909,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (randomMode === "cadence") {
       state.setDifficulty(Math.floor(Math.random() * 4) + 1);
       state.setCadencePos(Math.random() < 0.5 ? "last" : "random");
-    } else if (randomMode === "interval-chords") {
+    } else if (isChordQualityMode(randomMode)) {
       state.setChordDifficulty(Math.floor(Math.random() * 4) + 1);
+    } else if (randomMode === "chord-inversions") {
+      state.setChordInversionDifficulty(Math.floor(Math.random() * 3) + 1);
     } else if (randomMode === "melody") {
       const ranges = ["do-fa", "sol-do", "full"];
       state.setMelodyConfig(
@@ -27568,7 +28072,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (mode === "cadence") {
       const tonicNotes = buildChordNotes(rootMidi, HARMONIC_DATA.degrees["I"]);
       audioEngine.playStep(tonicNotes.chordNotes, 1.2, tonicNotes.bassNote, "cadence");
-    } else if (mode.startsWith("interval") && ex?.targetItem?.refNote) {
+    } else if ((mode.startsWith("interval") || isChordMode(mode)) && ex?.targetItem?.refNote) {
       audioEngine.playStep([ex.targetItem.refNote], 1.1, null, "cadence");
     } else {
       const refNote = midiToNote(rootMidi);
@@ -27887,6 +28391,9 @@ document.addEventListener("DOMContentLoaded", () => {
           [Math.round(3 * beatMs), "tick", 0.68]
         ]);
       }
+    } else if (ex.type === "chord-inversions") {
+      stopPlayback();
+      audioEngine.playStep([state.wrongAnswerData.target.bassNote || state.wrongAnswerData.target.refNote], 1.3, null, "interval");
     } else {
       audioEngine.playStep([state.wrongAnswerData.target.refNote], 1.3, null, "interval");
     }
@@ -27980,12 +28487,51 @@ document.addEventListener("DOMContentLoaded", () => {
       audioEngine.registerTimer(() => audioEngine.playStep([chosenTarget], note2DurSec, null, "cadence"), stepMs);
       audioEngine.registerTimer(() => audioEngine.playStep([refNote], note1DurSec, null, "cadence"), secondPairStartMs);
       audioEngine.registerTimer(() => audioEngine.playStep([actualTarget], note2DurSec, null, "cadence"), secondPairStartMs + stepMs);
-    } else if (ex.type === "interval-chords") {
+    } else if (isChordQualityMode(ex.type)) {
+      stopPlayback();
+      const cmpId = audioEngine.playbackId;
       const baseRoot = ex.targetItem.rootMidi || rootMidi;
       const chosenNotes = (state.wrongAnswerData.chosen.offsets || [0, 4, 7]).map(s => midiToNote(baseRoot + s));
+      const targetNotes = state.wrongAnswerData.target.notes || [];
 
-      audioEngine.playStep(chosenNotes, 1.05, null, "cadence");
-      setTimeout(() => {
+      if (isChordArpeggioMode(ex.type)) {
+        const reverse = ex.type === "chord-arp-down";
+        const seqChosen = reverse ? [...chosenNotes].reverse() : chosenNotes;
+        const seqTarget = reverse ? [...targetNotes].reverse() : targetNotes;
+        const tChosen = getChordArpeggioPromptTiming(seqChosen.length, state.activeBpm);
+        const tTarget = getChordArpeggioPromptTiming(seqTarget.length, state.activeBpm);
+        const scheduleArp = (seq, timing, baseOffsetMs) => {
+          seq.forEach((note, idx) => {
+            const dur = idx === seq.length - 1 ? timing.lastNoteDurSec : timing.noteDurSec;
+            const atMs = baseOffsetMs + idx * timing.stepMs;
+            if (atMs === 0) {
+              audioEngine.playStep([note], dur, null, "cadence");
+            } else {
+              audioEngine.registerTimer(() => {
+                if (audioEngine.playbackId !== cmpId) return;
+                audioEngine.playStep([note], dur, null, "cadence");
+              }, atMs);
+            }
+          });
+        };
+        scheduleArp(seqChosen, tChosen, 0);
+        scheduleArp(seqTarget, tTarget, tChosen.cycleMs);
+      } else {
+        audioEngine.playStep(chosenNotes, 1.05, null, "cadence");
+        audioEngine.registerTimer(() => {
+          if (audioEngine.playbackId !== cmpId) return;
+          audioEngine.playStep(targetNotes, 1.25, null, "cadence");
+        }, 1150);
+      }
+    } else if (ex.type === "chord-inversions") {
+      stopPlayback();
+      const cmpId = audioEngine.playbackId;
+      const baseRoot = ex.targetItem.rootMidi ?? rootMidi;
+      const chosenStep = state.wrongAnswerData.chosen.stepIndex ?? 0;
+      const chosenInv = buildChordInversionNotes(baseRoot, ex.chordKey, chosenStep, ex.rootKey || state.currentKey);
+      audioEngine.playStep(chosenInv.notes, 1.05, null, "cadence");
+      audioEngine.registerTimer(() => {
+        if (audioEngine.playbackId !== cmpId) return;
         audioEngine.playStep(state.wrongAnswerData.target.notes, 1.25, null, "cadence");
       }, 1150);
     } else {
