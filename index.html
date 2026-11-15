@@ -2119,12 +2119,12 @@ html, body {
 
 /* Zentraler Visualizer */
 .stage-wrapper {
-  flex: 1;
+  flex: 1 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.25rem 0;
-  min-height: 0;
+  padding: 0.18rem 0;
+  min-height: max-content;
 }
 
 .central-stage {
@@ -6920,11 +6920,11 @@ body,
    KOMPAKTE MITTEL-ANZEIGE & KLAR MARKIERTE HILFSLINIEN
    ===================================================== */
 .module-card.is-notation {
-  padding: 0.62rem 0.72rem 0.56rem;
+  padding: 0.5rem 0.68rem 0.44rem;
 }
 
 .module-card.is-notation .module-header {
-  margin-bottom: 0.34rem;
+  margin-bottom: 0.24rem;
 }
 
 .bars-grid.is-notation {
@@ -6939,7 +6939,7 @@ body,
   background: var(--surface-warm);
   border: 1.5px solid var(--border-soft);
   border-radius: var(--radius-md);
-  padding: 0.25rem 0.35rem 0.22rem;
+  padding: 0.16rem 0.32rem 0.14rem;
   overflow: hidden;
   transition: border-color 0.16s ease, background-color 0.16s ease;
 }
@@ -6958,15 +6958,15 @@ body,
   display: block;
   width: 100%;
   height: auto;
-  min-height: 156px;
-  max-height: 204px;
+  min-height: 92px;
+  max-height: 168px;
   color: var(--raccoon-dark);
 }
 
 @media (min-width: 640px) {
   .notation-staff-svg {
-    min-height: 178px;
-    max-height: 230px;
+    min-height: 118px;
+    max-height: 196px;
   }
 }
 
@@ -6975,10 +6975,15 @@ body,
   justify-content: space-between;
   align-items: center;
   gap: 0.45rem;
-  padding: 0.14rem 0.28rem 0.04rem;
+  padding: 0.1rem 0.28rem 0.02rem;
   font-size: 0.66rem;
   font-weight: 700;
   color: var(--raccoon-muted);
+}
+
+.notation-queue-strip.is-single-clef {
+  justify-content: flex-end;
+  padding: 0.02rem 0.28rem 0;
 }
 
 .notation-clef-pill {
@@ -7130,6 +7135,36 @@ body,
   font-size: 0.54rem;
   line-height: 1.08;
   white-space: pre-line;
+}
+
+.solfege-keyboard-wrap.is-notation {
+  padding: 0.16rem 0 0.1rem 0;
+}
+
+.solfege-keyboard-wrap.is-notation .piano-keyboard {
+  height: 126px;
+}
+
+.solfege-keyboard-wrap.is-notation .piano-black-key {
+  height: 52%;
+}
+
+.solfege-keyboard-wrap.is-notation .notation-key-box-white {
+  top: 76%;
+  font-size: 0.78rem;
+  padding: 0.16rem 0.12rem;
+}
+
+.solfege-keyboard-wrap.is-notation .notation-key-box-black {
+  top: 46%;
+  font-size: 0.5rem;
+  padding: 0.11rem 0.05rem;
+}
+
+@media (min-width: 640px) {
+  .solfege-keyboard-wrap.is-notation .piano-keyboard {
+    height: 148px;
+  }
 }
 
 .piano-black-key.notation-black-active {
@@ -12919,7 +12954,7 @@ Object.assign(TR_FR, {
   "Stammlinien": "5 lignes",
   "Schlüssel-Mix • {clef}": "Mix de clés • {clef}",
   "Stufe {lvl} • {tag}": "Niveau {lvl} • {tag}",
-  "Wähle die erste Note links auf der Klaviatur:": "Jouez la première note à gauche sur le clavier :",
+  "Note links wählen:": "Note à gauche :",
   "{note}? Nein": "{note} ? Non",
   "Schau genau in den {clef} — oder tippe „Überspringen“.": "Observez bien la {clef} — ou touchez « Passer ».",
   "RICHTIG GELESEN!": "BIEN LU !",
@@ -14687,7 +14722,7 @@ Object.assign(TR_UK, {
   "Stammlinien": "5 лінійок",
   "Schlüssel-Mix • {clef}": "Мікс ключів • {clef}",
   "Stufe {lvl} • {tag}": "Рівень {lvl} • {tag}",
-  "Wähle die erste Note links auf der Klaviatur:": "Натисни першу ноту зліва на клавіатурі:",
+  "Note links wählen:": "Нота зліва:",
   "{note}? Nein": "{note}? Ні",
   "Schau genau in den {clef} — oder tippe „Überspringen“.": "Перевір {clef} уважніше — або натисни «Пропустити».",
   "RICHTIG GELESEN!": "ПРОЧИТАНО ВІРНО!",
@@ -32687,6 +32722,18 @@ function buildNotationStaffSVG(notes, options = {}) {
   const didShift = Boolean(options.didShift);
   const clsName = options.className || "notation-staff-svg";
 
+  const getClefYBounds = (cId, sc = 1) => {
+    if (cId === "bass") return [62, 111];
+    if (cId === "alto" || cId === "tenor") {
+      return cId === "tenor" ? [51, 101] : [63, 113];
+    }
+    return [42 + 2 * sc, 42 + 93 * sc];
+  };
+
+  let [inkMinY, inkMaxY] = getClefYBounds(firstClef, 1);
+  inkMinY = Math.min(inkMinY, 64);
+  inkMaxY = Math.max(inkMaxY, 112);
+
   // Fünf Stammlinien (Schritt 0, 2, 4, 6, 8)
   const staffLinesHtml = [0, 2, 4, 6, 8].map(st => {
     const ly = notationStepToY(st);
@@ -32723,6 +32770,9 @@ function buildNotationStaffSVG(notes, options = {}) {
     let changeClefHtml = "";
     if (showChangeClefs && idx > 0 && item.clefId && prevClef && item.clefId !== prevClef) {
       changeClefHtml = getNotationClefGlyphSVG(item.clefId, nx - 27, 0.72, 0.78);
+      const [cMin, cMax] = getClefYBounds(item.clefId, 0.72);
+      inkMinY = Math.min(inkMinY, cMin);
+      inkMaxY = Math.max(inkMaxY, cMax);
     }
 
     const ledgerHtml = getLedgerLinesForStep(item.staffStep).map(ls => {
@@ -32739,6 +32789,11 @@ function buildNotationStaffSVG(notes, options = {}) {
     const stemY1 = ny + (stemDown ? 1 : -1);
     const stemY2 = ny + (stemDown ? 28 : -28);
 
+    const accTopY = item.accidental === -1 ? (ny - 15) : item.accidental === 1 ? (ny - 11) : (ny - 7);
+    const accBotY = item.accidental === 1 ? (ny + 10) : (ny + 7);
+    inkMinY = Math.min(inkMinY, ny - 7, accTopY, stemDown ? stemY1 : stemY2 - 1);
+    inkMaxY = Math.max(inkMaxY, ny + 7, accBotY, stemDown ? stemY2 + 1 : stemY1);
+
     // Realistische Notenschrift ohne Einrahmung: aktive Note vorn leicht klarer (1.0), Folge-Noten minimal ruhiger
     const fadeOp = isTarget ? 1 : Math.max(0.64, 0.78 - idx * 0.028);
     const grpClass = `notation-note-group ${isTarget ? "is-target" : "is-upcoming"}`;
@@ -32753,7 +32808,18 @@ function buildNotationStaffSVG(notes, options = {}) {
       </g>`;
   }).join("");
 
-  return `<svg class="${clsName}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${escapeHtml(options.ariaLabel || tr("Notensystem", "Musical staff"))}">
+  let vbTop = 0;
+  let vbHeight = height;
+  if (options.level != null || options.compact) {
+    const lvl = Number(options.level) || 1;
+    const baseTop = lvl <= 1 ? 36 : lvl === 2 ? 22 : 10;
+    const baseBottom = lvl <= 1 ? 142 : lvl === 2 ? 150 : 162;
+    vbTop = Math.min(baseTop, Math.floor(inkMinY - 4));
+    const vbBottom = Math.max(baseBottom, Math.ceil(inkMaxY + 4), options.showLabels ? 176 : 0);
+    vbHeight = vbBottom - vbTop;
+  }
+
+  return `<svg class="${clsName}" viewBox="0 ${vbTop} ${width} ${vbHeight}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${escapeHtml(options.ariaLabel || tr("Notensystem", "Musical staff"))}">
     ${staffLinesHtml}
     ${anchorHighlightHtml}
     ${clefMarkup}
@@ -37595,6 +37661,7 @@ const NOTATION_BLACK_LABELS_INTL = {
 };
 
 function renderNotationKeyboard(wrap, ex) {
+  wrap.classList.add("is-notation");
   const firstWhite = 59; // H3 / B3 als halbe linke Rahmentaste
   const lastWhite = 72;  // C5 als halbe rechte Rahmentaste
   const showBlackLabels = Boolean(ex?.allowAccidentals);
@@ -37698,6 +37765,8 @@ function renderSolfegeKeyboard() {
     renderNotationKeyboard(wrap, state.currentExercise);
     return;
   }
+
+  wrap.classList.remove("is-notation");
 
   const rootMidi = (state.currentExercise && state.currentExercise.rootMidi)
     ? state.currentExercise.rootMidi
@@ -39287,7 +39356,7 @@ function syncNotationHeaderUI(ex = state.currentExercise) {
     tonicRefLabel.textContent = anchorMap[targetClefId] || anchorMap.treble;
   }
   if (inputPromptText) {
-    inputPromptText.textContent = tr("Wähle die erste Note links auf der Klaviatur:", "Play the leftmost note on the keyboard:");
+    inputPromptText.textContent = tr("Note links wählen:", "Play left note:");
   }
 }
 
@@ -39299,6 +39368,7 @@ function renderNotationStaffPanel(ex, didShift = false, targetGrid = document.ge
   const rightHint = state.exam?.active
     ? getLocalizedNotationClefAnchorHint(clefId)
     : (target?.ledgerDesc || getNotationLedgerDescription(target?.staffStep ?? 4));
+  const showClefPill = Boolean(ex.isMixedClef && !state.exam?.active);
 
   const panel = document.createElement("div");
   panel.className = `notation-staff-panel${ex.notationPanelState ? " " + ex.notationPanelState : ""}`;
@@ -39306,14 +39376,15 @@ function renderNotationStaffPanel(ex, didShift = false, targetGrid = document.ge
 
   const svg = buildNotationStaffSVG(ex.notationQueue, {
     clefId: clefId,
+    level: ex.level || 1,
     highlightFirst: true,
-    showChangeClefs: Boolean(ex.isMixedClef && !state.exam?.active),
+    showChangeClefs: showClefPill,
     didShift: Boolean(didShift)
   });
 
   panel.innerHTML = `
-    <div class="notation-queue-strip">
-      <span class="notation-clef-pill">${escapeHtml(clefName)}</span>
+    <div class="notation-queue-strip${showClefPill ? "" : " is-single-clef"}">
+      ${showClefPill ? `<span class="notation-clef-pill">${escapeHtml(clefName)}</span>` : ""}
       <span class="notation-ledger-hint">${escapeHtml(rightHint)}</span>
     </div>
     ${svg}
