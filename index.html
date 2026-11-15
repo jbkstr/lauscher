@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Lauschebär • Gehörtraining</title>
+  <title>Lauschebär • Hören · Verstehen · Musizieren</title>
   <meta name="theme-color" id="metaThemeColor" content="#FAF7F2">
   <style>
 :root {
@@ -331,6 +331,7 @@ html, body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 0.45rem;
   flex-shrink: 0;
   margin-bottom: 0.55rem;
 }
@@ -339,6 +340,8 @@ html, body {
   display: flex;
   align-items: center;
   gap: 0.45rem;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .back-btn {
@@ -365,6 +368,13 @@ html, body {
   display: flex;
   align-items: center;
   gap: 0.55rem;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.app-brand > div {
+  min-width: 0;
+  flex: 1 1 auto;
 }
 
 .brand-icon {
@@ -377,6 +387,7 @@ html, body {
   justify-content: center;
   border-radius: var(--radius-pill);
   box-shadow: var(--shadow-card);
+  flex-shrink: 0;
 }
 
 .brand-title-wrap {
@@ -394,9 +405,11 @@ html, body {
 
 .brand-sub {
   font-size: 0.74rem;
+  line-height: 1.25;
   color: var(--raccoon-muted);
   font-weight: 500;
   display: block;
+  overflow-wrap: break-word;
 }
 
 .status-dot {
@@ -415,6 +428,7 @@ html, body {
   display: flex;
   align-items: center;
   gap: 0.3rem;
+  flex-shrink: 0;
 }
 
 .icon-btn {
@@ -1437,6 +1451,15 @@ html, body {
 }
 
 @media (max-width: 420px) {
+  .brand-sub {
+    font-size: 0.69rem;
+  }
+
+  .splash-sub {
+    font-size: 0.69rem;
+    letter-spacing: 0.08em;
+  }
+
   .ref-hub-grid {
     gap: 0.55rem;
   }
@@ -3407,6 +3430,8 @@ html, body {
   color: var(--raccoon-mid);
   letter-spacing: 0.12em;
   text-transform: uppercase;
+  line-height: 1.4;
+  max-width: min(92vw, 400px);
   margin-top: 0.22rem;
   animation: splashTextUp 0.48s cubic-bezier(0.22, 1, 0.36, 1) 0.28s both;
 }
@@ -5839,10 +5864,11 @@ body,
       try {
         var raw = localStorage.getItem("lauschebaer_visual_prefs_v1");
         var prefs = raw ? JSON.parse(raw) : {};
-        var lang = prefs.language === "en" ? "en" : "de";
+        var lang = (prefs.language === "en" || prefs.language === "fr") ? prefs.language : "de";
         document.documentElement.lang = lang;
         document.documentElement.setAttribute("data-lang", lang);
-        if (lang === "en") document.title = "Lauschebär • Ear Training";
+        if (lang === "en") document.title = "Lauschebär • Listen · Understand · Play";
+        else if (lang === "fr") document.title = "Lauschebär • Écouter · Comprendre · Pratiquer";
         var appearance = (prefs.appearance === "light" || prefs.appearance === "dark" || prefs.appearance === "system") ? prefs.appearance : "light";
         var isBuiltInTheme = (prefs.theme === "waldlichtung" || prefs.theme === "morgentau" || prefs.theme === "abenddaemmerung");
         var isCustomTheme = (prefs.theme === "custom_1" || prefs.theme === "custom_2" || prefs.theme === "custom_3");
@@ -5930,7 +5956,7 @@ body,
         </div>
       </div>
       <div class="splash-title">Lauschebär</div>
-      <div class="splash-sub" data-i18n="app.tagline">Gehörtraining</div>
+      <div class="splash-sub" data-i18n="app.tagline">Hören · Verstehen · Musizieren</div>
     </div>
   </div>
 
@@ -5968,7 +5994,7 @@ body,
               <span id="headerMainTitle" class="brand-name">Lauschebär</span>
               <span id="audioStatusDot" class="status-dot dot-idle" title="Audio-Status" data-i18n-title="header.audioStatusTitle"></span>
             </div>
-            <span id="subHeaderInfo" class="brand-sub" data-i18n="app.tagline">Gehörtraining</span>
+            <span id="subHeaderInfo" class="brand-sub" data-i18n="app.tagline">Hören · Verstehen · Musizieren</span>
           </div>
         </div>
       </div>
@@ -7208,9 +7234,18 @@ body,
           <h4 data-i18n="settings.languageHeading">Anwendungssprache</h4>
           <p class="settings-hint" data-i18n="settings.languageHint">Wechselt sofort zwischen den verfügbaren Sprachen. Alle Texte und Musikbegriffe passen sich an.</p>
           <select id="languageSelect" class="account-select settings-language-select" data-i18n-aria="settings.languageSelectAria" aria-label="Anwendungssprache wählen">
-            <option value="de" data-i18n="settings.langDe">Deutsch</option>
-            <option value="en" data-i18n="settings.langEn">English</option>
-            <option value="fr" data-i18n="settings.langFr">Français</option>
+            <option value="de" selected>Deutsch</option>
+            <option value="en">English</option>
+            <option value="es" disabled>Español (demnächst)</option>
+            <option value="fr">Français</option>
+            <option value="it" disabled>Italiano (demnächst)</option>
+            <option value="nl" disabled>Nederlands (demnächst)</option>
+            <option value="no" disabled>Norsk (demnächst)</option>
+            <option value="pl" disabled>Polski (demnächst)</option>
+            <option value="sv" disabled>Svenska (demnächst)</option>
+            <option value="tr" disabled>Türkçe (demnächst)</option>
+            <option value="el" disabled>Ελληνικά (demnächst)</option>
+            <option value="uk" disabled>Українська (demnächst)</option>
           </select>
         </div>
 
@@ -8655,32 +8690,60 @@ const APP_LANGUAGES = {
     nativeName: "Deutsch",
     defaultNotation: "de",
     defaultIntervalNotation: "de",
-    htmlLang: "de"
+    htmlLang: "de",
+    available: true
   },
   en: {
     code: "en",
     nativeName: "English",
     defaultNotation: "intl",
     defaultIntervalNotation: "intl",
-    htmlLang: "en"
+    htmlLang: "en",
+    available: true
   },
   fr: {
     code: "fr",
     nativeName: "Français",
     defaultNotation: "intl",
     defaultIntervalNotation: "intl",
-    htmlLang: "fr"
-  }
+    htmlLang: "fr",
+    available: true
+  },
+  es: { code: "es", nativeName: "Español",    defaultNotation: "intl", defaultIntervalNotation: "intl", htmlLang: "es", available: false, placeholder: true },
+  it: { code: "it", nativeName: "Italiano",   defaultNotation: "intl", defaultIntervalNotation: "intl", htmlLang: "it", available: false, placeholder: true },
+  nl: { code: "nl", nativeName: "Nederlands", defaultNotation: "intl", defaultIntervalNotation: "intl", htmlLang: "nl", available: false, placeholder: true },
+  no: { code: "no", nativeName: "Norsk",      defaultNotation: "de",   defaultIntervalNotation: "de",   htmlLang: "nb", available: false, placeholder: true },
+  pl: { code: "pl", nativeName: "Polski",     defaultNotation: "de",   defaultIntervalNotation: "de",   htmlLang: "pl", available: false, placeholder: true },
+  sv: { code: "sv", nativeName: "Svenska",    defaultNotation: "de",   defaultIntervalNotation: "de",   htmlLang: "sv", available: false, placeholder: true },
+  tr: { code: "tr", nativeName: "Türkçe",     defaultNotation: "intl", defaultIntervalNotation: "intl", htmlLang: "tr", available: false, placeholder: true },
+  el: { code: "el", nativeName: "Ελληνικά",   defaultNotation: "intl", defaultIntervalNotation: "intl", htmlLang: "el", available: false, placeholder: true },
+  uk: { code: "uk", nativeName: "Українська", defaultNotation: "intl", defaultIntervalNotation: "intl", htmlLang: "uk", available: false, placeholder: true }
 };
 
-const VALID_LANGUAGES = Object.keys(APP_LANGUAGES);
+function getAvailableLanguages() {
+  return Object.keys(APP_LANGUAGES).filter(code => APP_LANGUAGES[code] && APP_LANGUAGES[code].available !== false);
+}
+
+const VALID_LANGUAGES = [];
+function refreshValidLanguages() {
+  VALID_LANGUAGES.length = 0;
+  getAvailableLanguages().forEach(code => VALID_LANGUAGES.push(code));
+  return VALID_LANGUAGES;
+}
+refreshValidLanguages();
+
 const TRANSLATIONS_BY_LANG = Object.create(null);
 const I18N_STATIC_BY_LANG = Object.create(null);
 const LOCALIZED_TABLES_BY_LANG = Object.create(null);
 
+function isLanguageAvailable(lang) {
+  const clean = typeof lang === "string" ? lang.trim().toLowerCase() : "";
+  return Boolean(clean && APP_LANGUAGES[clean] && APP_LANGUAGES[clean].available !== false);
+}
+
 function normalizeAppLanguage(lang) {
   const clean = typeof lang === "string" ? lang.trim().toLowerCase() : "";
-  return VALID_LANGUAGES.includes(clean) ? clean : "de";
+  return isLanguageAvailable(clean) ? clean : "de";
 }
 
 function getLanguageConfig(lang = getAppLanguage()) {
@@ -8692,10 +8755,18 @@ function getLanguageConfig(lang = getAppLanguage()) {
  * Registriert ein externes Sprachpaket (statische DOM-Texte, Phrasen, Zitate und Tabellen).
  */
 function registerLanguageBundle(langCode, bundle = {}) {
-  const code = normalizeAppLanguage(langCode);
-  if (bundle.meta && typeof bundle.meta === "object") {
-    APP_LANGUAGES[code] = { ...APP_LANGUAGES[code], ...bundle.meta, code };
-  }
+  const clean = typeof langCode === "string" ? langCode.trim().toLowerCase() : "";
+  const code = APP_LANGUAGES[clean] ? clean : normalizeAppLanguage(langCode);
+  const prev = APP_LANGUAGES[code] || {};
+  const meta = bundle.meta && typeof bundle.meta === "object" ? bundle.meta : {};
+  APP_LANGUAGES[code] = {
+    ...prev,
+    ...meta,
+    code,
+    available: bundle.available !== false,
+    placeholder: false
+  };
+  refreshValidLanguages();
   if (bundle.staticStrings && typeof bundle.staticStrings === "object") {
     I18N_STATIC_BY_LANG[code] = {
       ...(I18N_STATIC_BY_LANG[code] || {}),
@@ -8770,8 +8841,8 @@ function tf(deTemplate, enTemplate, vars = {}, extraMap = null) {
 }
 
 const I18N_STATIC = {
-  "app.title": { de: "Lauschebär • Gehörtraining", en: "Lauschebär • Ear Training" },
-  "app.tagline": { de: "Gehörtraining", en: "Ear Training" },
+  "app.title": { de: "Lauschebär • Hören · Verstehen · Musizieren", en: "Lauschebär • Listen · Understand · Play" },
+  "app.tagline": { de: "Hören · Verstehen · Musizieren", en: "Listen · Understand · Play" },
   "nav.backTitle": { de: "Zurück", en: "Back" },
   "header.audioStatusTitle": { de: "Audio-Status", en: "Audio Status" },
   "header.masterVolTitle": { de: "Master-Lautstärke", en: "Master Volume" },
@@ -9044,6 +9115,7 @@ const I18N_STATIC = {
   "settings.langDe": { de: "Deutsch", en: "Deutsch" },
   "settings.langEn": { de: "English", en: "English" },
   "settings.langFr": { de: "Français", en: "Français" },
+  "settings.langSoon": { de: "demnächst", en: "coming soon" },
   "settings.appearanceHeading": { de: "Erscheinungsbild", en: "Appearance" },
   "settings.appearanceAria": { de: "Erscheinungsbild", en: "Appearance" },
   "settings.appearanceHint": {
@@ -9130,6 +9202,61 @@ function getStaticI18nText(key, lang = getAppLanguage()) {
   return entry.en ?? entry.de ?? null;
 }
 
+function getLanguageSoonLabel(activeLang = getAppLanguage()) {
+  const active = normalizeAppLanguage(activeLang);
+  const extText = I18N_STATIC_BY_LANG[active]?.["settings.langSoon"];
+  if (typeof extText === "string" && extText.length > 0) return extText;
+  const entry = I18N_STATIC["settings.langSoon"];
+  return (entry && (entry[active] || entry.en || entry.de)) || "demnächst";
+}
+
+function getOrderedDropdownLanguages(activeLang = getAppLanguage()) {
+  const active = normalizeAppLanguage(activeLang);
+  const soonTag = getLanguageSoonLabel(active);
+  const restCodes = Object.keys(APP_LANGUAGES)
+    .filter(code => code !== active)
+    .sort((a, b) => {
+      const nameA = APP_LANGUAGES[a]?.nativeName || a;
+      const nameB = APP_LANGUAGES[b]?.nativeName || b;
+      return nameA.localeCompare(nameB, active, { sensitivity: "base" });
+    });
+
+  return [active, ...restCodes].map(code => {
+    const cfg = APP_LANGUAGES[code] || { code, nativeName: code, available: false };
+    const isPlaceholder = cfg.available === false;
+    return {
+      code,
+      nativeName: cfg.nativeName || code,
+      label: isPlaceholder ? `${cfg.nativeName} (${soonTag})` : (cfg.nativeName || code),
+      disabled: isPlaceholder,
+      selected: code === active
+    };
+  });
+}
+
+function syncLanguageSelectOptions(activeLang = getAppLanguage()) {
+  if (typeof document === "undefined") return;
+  const langSelect = document.getElementById?.("languageSelect");
+  if (!langSelect) return;
+  const active = normalizeAppLanguage(activeLang);
+  const ordered = getOrderedDropdownLanguages(active);
+
+  if (typeof document.createElement === "function" && typeof langSelect.appendChild === "function") {
+    langSelect.innerHTML = "";
+    ordered.forEach(item => {
+      const opt = document.createElement("option");
+      opt.value = item.code;
+      opt.textContent = item.label;
+      opt.disabled = item.disabled;
+      if (item.disabled) opt.setAttribute?.("disabled", "disabled");
+      else opt.removeAttribute?.("disabled");
+      opt.selected = item.selected;
+      langSelect.appendChild(opt);
+    });
+  }
+  langSelect.value = active;
+}
+
 function applyStaticDomLanguage(lang = getAppLanguage()) {
   const activeLang = normalizeAppLanguage(lang);
   const htmlLang = getLanguageConfig(activeLang).htmlLang || activeLang;
@@ -9165,17 +9292,7 @@ function applyStaticDomLanguage(lang = getAppLanguage()) {
     if (text != null) el.placeholder = text;
   });
 
-  const langSelect = document.getElementById?.("languageSelect");
-  if (langSelect) {
-    langSelect.value = activeLang;
-  }
-
-  document.querySelectorAll?.("[data-language]").forEach(btn => {
-    const btnLang = (btn.dataset && btn.dataset.language) || btn.getAttribute?.("data-language");
-    const isSel = btnLang === activeLang;
-    btn.classList?.toggle("active", isSel);
-    btn.setAttribute?.("aria-pressed", String(isSel));
-  });
+  syncLanguageSelectOptions(activeLang);
 }
 
 const LAUSCHEBAER_QUOTES_EN = [
@@ -9680,8 +9797,8 @@ function getLocalizedModeLevelLabel(kind, lvl) {
  */
 
 const I18N_STATIC_FR = {
-  "app.title": "Lauschebär • Formation de l’oreille",
-  "app.tagline": "Formation de l’oreille",
+  "app.title": "Lauschebär • Écouter · Comprendre · Pratiquer",
+  "app.tagline": "Écouter · Comprendre · Pratiquer",
   "nav.backTitle": "Retour",
   "header.audioStatusTitle": "État audio",
   "header.masterVolTitle": "Volume général",
@@ -9904,6 +10021,7 @@ const I18N_STATIC_FR = {
   "settings.langDe": "Deutsch",
   "settings.langEn": "English",
   "settings.langFr": "Français",
+  "settings.langSoon": "bientôt",
   "settings.appearanceHeading": "Apparence",
   "settings.appearanceAria": "Apparence",
   "settings.appearanceHint": "Choisissez Clair, Sombre ou le mode automatique du système.",
@@ -10284,6 +10402,7 @@ const TR_FR = {
   "Intervalle Melodisch (Abwärts)": "Intervalles mélodiques (Descendants)",
   "Intervalle Harmonisch": "Intervalles harmoniques",
   "Intervalle": "Intervalles",
+  "Hören · Verstehen · Musizieren": "Écouter · Comprendre · Pratiquer",
   "Gehörtraining": "Formation de l’oreille",
   "Wissen": "Savoir",
   "Instrumentenkunde, Besetzungen & Klangfarben": "Familles d’instruments, ensembles & timbres",
@@ -23360,7 +23479,9 @@ class AppState {
 
     if (this.currentView === "home") {
       mainTitle.textContent = "Lauschebär";
-      el.textContent = tr("Gehörtraining", "Ear Training");
+      el.textContent = typeof getStaticI18nText === "function"
+        ? (getStaticI18nText("app.tagline") || tr("Hören · Verstehen · Musizieren", "Listen · Understand · Play"))
+        : tr("Hören · Verstehen · Musizieren", "Listen · Understand · Play");
     } else if (this.currentView === "knowledge") {
       mainTitle.textContent = tr("Wissen", "Knowledge");
       if (this.activeKnowledgeTab === "instruments") {
@@ -23533,9 +23654,14 @@ function setThemePreference(nextTheme) {
 }
 
 function syncLanguageControls(lang = state?.settings?.language || "de") {
+  const active = typeof normalizeAppLanguage === "function" ? normalizeAppLanguage(lang) : "de";
+  if (typeof syncLanguageSelectOptions === "function") {
+    syncLanguageSelectOptions(active);
+    return;
+  }
   const selectEl = document.getElementById("languageSelect");
-  if (selectEl && selectEl.value !== lang) {
-    selectEl.value = lang;
+  if (selectEl && selectEl.value !== active) {
+    selectEl.value = active;
   }
 }
 
@@ -33672,6 +33798,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const languageSelectEl = document.getElementById("languageSelect");
   if (languageSelectEl) {
     languageSelectEl.addEventListener("change", () => {
+      if (typeof isLanguageAvailable === "function" && !isLanguageAvailable(languageSelectEl.value)) {
+        syncLanguageControls(state.settings.language);
+        return;
+      }
       setLanguagePreference(languageSelectEl.value);
     });
   }
