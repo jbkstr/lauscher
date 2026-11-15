@@ -6875,6 +6875,288 @@ body,
   color: var(--lilac-strong);
 }
 
+/* =====================================================
+   NOTATION (NOTENLESEN): GROẞES OBERES NOTENSYSTEM,
+   KOMPAKTE MITTEL-ANZEIGE & KLAR MARKIERTE HILFSLINIEN
+   ===================================================== */
+.module-card.is-notation {
+  padding: 0.62rem 0.72rem 0.56rem;
+}
+
+.module-card.is-notation .module-header {
+  margin-bottom: 0.34rem;
+}
+
+.bars-grid.is-notation {
+  display: block;
+  width: 100%;
+  padding: 0;
+}
+
+.notation-staff-panel {
+  position: relative;
+  width: 100%;
+  background: var(--surface-warm);
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  padding: 0.25rem 0.35rem 0.22rem;
+  overflow: hidden;
+  transition: border-color 0.16s ease, background-color 0.16s ease;
+}
+
+.notation-staff-panel.is-wrong {
+  border-color: var(--status-err);
+  background: rgba(217, 83, 79, 0.06);
+}
+
+.notation-staff-panel.is-correct {
+  border-color: var(--sage-strong);
+  background: rgba(91, 140, 122, 0.08);
+}
+
+.notation-staff-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 156px;
+  max-height: 204px;
+  color: var(--raccoon-dark);
+}
+
+@media (min-width: 640px) {
+  .notation-staff-svg {
+    min-height: 178px;
+    max-height: 230px;
+  }
+}
+
+.notation-queue-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.14rem 0.28rem 0.04rem;
+  font-size: 0.66rem;
+  font-weight: 700;
+  color: var(--raccoon-muted);
+}
+
+.notation-clef-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.24rem;
+  padding: 0.1rem 0.48rem;
+  border-radius: 999px;
+  background: var(--sage-soft);
+  color: var(--sage-strong);
+  font-weight: 800;
+  font-size: 0.65rem;
+}
+
+.notation-ledger-hint {
+  font-size: 0.65rem;
+  color: var(--raccoon-mid);
+  font-weight: 700;
+}
+
+.notation-staff-line {
+  stroke: var(--raccoon-mid);
+  stroke-width: 1.35;
+  opacity: 0.72;
+}
+
+.notation-ledger-line {
+  stroke: var(--raccoon-dark);
+  stroke-width: 1.55;
+  stroke-linecap: round;
+  opacity: 0.9;
+}
+
+.notation-target-band {
+  fill: var(--peach-soft);
+  stroke: var(--peach-strong);
+  stroke-width: 1.25;
+  stroke-dasharray: 3 3;
+  opacity: 0.9;
+}
+
+.notation-staff-panel.is-wrong .notation-target-band {
+  fill: rgba(217, 83, 79, 0.14);
+  stroke: var(--status-err);
+}
+
+.notation-staff-panel.is-correct .notation-target-band {
+  fill: var(--sage-soft);
+  stroke: var(--sage-strong);
+}
+
+.notation-target-pointer {
+  fill: var(--peach-strong);
+}
+
+.notation-staff-panel.is-wrong .notation-target-pointer {
+  fill: var(--status-err);
+}
+
+.notation-staff-panel.is-correct .notation-target-pointer {
+  fill: var(--sage-strong);
+}
+
+.notation-note-group.is-target {
+  color: var(--peach-strong);
+}
+
+.notation-staff-panel.is-wrong .notation-note-group.is-target {
+  color: var(--status-err);
+}
+
+.notation-staff-panel.is-correct .notation-note-group.is-target {
+  color: var(--sage-strong);
+}
+
+.notation-note-group.is-upcoming {
+  color: var(--raccoon-dark);
+}
+
+@keyframes notationQueueShift {
+  0% {
+    opacity: 0.72;
+    transform: translateX(26px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.notation-notes-layer.did-shift {
+  animation: notationQueueShift 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Kompakte mittlere Bühne in Notation, damit oben viel Raum für Hilfslinien bleibt */
+.central-stage.is-notation {
+  width: 100%;
+  max-width: 100%;
+  padding: 0.4rem 0.72rem;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-rows: auto auto auto;
+  align-items: center;
+  text-align: left;
+  gap: 0.04rem 0.62rem;
+  min-height: 60px;
+}
+
+.central-stage.is-notation .stage-mascot {
+  grid-column: 1;
+  grid-row: 1 / 4;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+}
+
+.central-stage.is-notation .stage-sub {
+  grid-column: 2;
+  grid-row: 1;
+  font-size: 0.56rem;
+}
+
+.central-stage.is-notation .stage-main {
+  grid-column: 2;
+  grid-row: 2;
+  font-size: 1.18rem;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.central-stage.is-notation .stage-desc {
+  grid-column: 2;
+  grid-row: 3;
+  font-size: 0.66rem;
+  line-height: 1.25;
+}
+
+.central-stage.is-notation .stage-streak-notice {
+  grid-column: 1 / -1;
+  margin-top: 0.14rem;
+}
+
+.dock-icon-btn.is-labeled {
+  width: auto;
+  padding: 0 0.78rem;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+}
+
+.skip-btn-label {
+  white-space: nowrap;
+}
+
+.notation-key-box-white {
+  font-size: 0.84rem;
+  padding: 0.22rem 0.14rem;
+}
+
+.notation-key-box-black {
+  top: 50%;
+  width: 92%;
+  padding: 0.14rem 0.06rem;
+  font-size: 0.54rem;
+  line-height: 1.08;
+  white-space: pre-line;
+}
+
+.piano-black-key.notation-black-active {
+  pointer-events: auto;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.piano-black-key.notation-black-active:active {
+  transform: translate(-50%, 2px);
+}
+
+.exam-notation-review-staff {
+  margin: 0.38rem 0 0.25rem;
+  background: var(--surface-warm);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: 0.22rem 0.3rem;
+}
+
+.exam-notation-review-staff svg {
+  display: block;
+  width: 100%;
+  max-width: 240px;
+  height: auto;
+  margin: 0 auto;
+  color: var(--raccoon-dark);
+}
+
+.notation-knowledge-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.65rem;
+  margin: 0.55rem 0;
+}
+
+.notation-knowledge-card {
+  background: var(--surface-soft);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  padding: 0.62rem 0.72rem;
+}
+
+.notation-knowledge-card svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  color: var(--raccoon-dark);
+  margin-bottom: 0.35rem;
+}
+
 .hidden, .modal-hidden {
   display: none !important;
 }
@@ -7190,7 +7472,7 @@ body,
           <span class="cat-chevron">›</span>
         </button>
 
-        <button class="category-nav-card card-accent-peach category-grid-wide" data-open-category="rhythm">
+        <button class="category-nav-card card-accent-peach" data-open-category="rhythm">
           <div class="cat-icon-box badge-peach">
             <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M10.5 5.5H17.5L21.5 23.5H6.5L10.5 5.5Z" stroke="currentColor" stroke-width="2.1" stroke-linejoin="round"/>
@@ -7205,6 +7487,26 @@ body,
           </div>
           <span class="cat-chevron">›</span>
         </button>
+
+        <button class="category-nav-card card-accent-sage" data-open-category="notation">
+          <div class="cat-icon-box badge-sage">
+            <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <line x1="3.5" y1="8.5" x2="24.5" y2="8.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.65"/>
+              <line x1="3.5" y1="13" x2="24.5" y2="13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.65"/>
+              <line x1="3.5" y1="17.5" x2="24.5" y2="17.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.65"/>
+              <line x1="3.5" y1="22" x2="24.5" y2="22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.65"/>
+              <ellipse cx="11.5" cy="17.5" rx="3.4" ry="2.4" transform="rotate(-18 11.5 17.5)" fill="currentColor"/>
+              <line x1="14.5" y1="16.8" x2="14.5" y2="6.2" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
+              <path d="M14.5 6.4L20.8 5.2V14.5" stroke="currentColor" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"/>
+              <ellipse cx="18.3" cy="15.2" rx="2.9" ry="2.1" transform="rotate(-18 18.3 15.2)" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="cat-text-box">
+            <h3 data-i18n="home.catNotation">Notation</h3>
+            <p data-i18n="home.catNotationDesc">Noten lesen im Violin-, Bass- &amp; Altschlüssel mit Hilfslinien</p>
+          </div>
+          <span class="cat-chevron">›</span>
+        </button>
       </div>
 
       <div class="section-heading-row">
@@ -7212,8 +7514,8 @@ body,
       </div>
 
       <div class="category-nav-list">
-        <button class="category-nav-card card-accent-sage category-card-wide" data-open-category="warmup">
-          <div class="cat-icon-box badge-sage">
+        <button class="category-nav-card card-accent-lilac category-card-wide" data-open-category="warmup">
+          <div class="cat-icon-box badge-lilac">
             <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <rect x="9" y="2.8" width="6" height="9.4" rx="3"/>
               <path d="M5 10.5a7 7 0 0 0 14 0"/>
@@ -7235,8 +7537,8 @@ body,
       </div>
 
       <div class="category-nav-list">
-        <button class="category-nav-card card-accent-lilac category-card-wide" data-open-category="production">
-          <div class="cat-icon-box badge-lilac">
+        <button class="category-nav-card card-accent-peach category-card-wide" data-open-category="production">
+          <div class="cat-icon-box badge-peach">
             <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <line x1="7" y1="5" x2="7" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
               <line x1="14" y1="5" x2="14" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -7412,6 +7714,21 @@ body,
             </div>
             <span class="ref-hub-title" data-i18n="knowledge.refSingPlay">Singen &amp; Spielen</span>
             <span class="ref-hub-sub" data-i18n="knowledge.refSingPlaySub">Koordination, Groove &amp; Praxis-Übungen</span>
+          </button>
+
+          <button class="ref-hub-card card-top-peach" data-open-ref="notation">
+            <div class="ref-hub-icon badge-peach">
+              <svg class="icon-svg-large" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="3" y1="7" x2="21" y2="7" opacity="0.65"/>
+                <line x1="3" y1="11.5" x2="21" y2="11.5" opacity="0.65"/>
+                <line x1="3" y1="16" x2="21" y2="16" opacity="0.65"/>
+                <line x1="3" y1="20.5" x2="21" y2="20.5" opacity="0.65"/>
+                <ellipse cx="10.2" cy="16" rx="2.9" ry="2.1" transform="rotate(-18 10.2 16)" fill="currentColor"/>
+                <line x1="12.8" y1="15.4" x2="12.8" y2="4.5" stroke-width="2.1"/>
+              </svg>
+            </div>
+            <span class="ref-hub-title" data-i18n="knowledge.refNotation">Notenschrift &amp; Schlüssel</span>
+            <span class="ref-hub-sub" data-i18n="knowledge.refNotationSub">Violin-, Bass- &amp; Altschlüssel, Hilfslinien &amp; Vorzeichen</span>
           </button>
         </div>
       </div>
@@ -8062,6 +8379,7 @@ body,
             <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
               <polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/>
             </svg>
+            <span id="skipBtnLabel" class="skip-btn-label hidden" data-i18n="ex.skipLabel">Überspringen</span>
           </button>
         </div>
 
@@ -9968,6 +10286,8 @@ const I18N_STATIC = {
   "home.catMelodiesDesc": { de: "Kurze Tonfolgen nach Gehör Schritt für Schritt nachbauen", en: "Transcribe short melodies step by step by ear" },
   "home.catRhythm": { de: "Rhythmus", en: "Rhythm" },
   "home.catRhythmDesc": { de: "Taktarten, Puls und Notenwerte sicher erfassen", en: "Master time signatures, beat pulse & subdivisions" },
+  "home.catNotation": { de: "Notation", en: "Notation" },
+  "home.catNotationDesc": { de: "Noten lesen im Violin-, Bass- & Altschlüssel mit Hilfslinien", en: "Read notes across Treble, Bass & Alto clefs with ledger lines" },
   "home.catProduction": { de: "Produktion", en: "Production" },
   "home.catProductionDesc": { de: "Frequenzen & EQ-Anhebungen im Noise heraushören", en: "Identify frequencies & EQ boosts in pink noise" },
   "home.voiceHeading": { de: "Stimme & Chor", en: "Voice & Choir" },
@@ -9999,6 +10319,8 @@ const I18N_STATIC = {
   "knowledge.refCircleSub": { de: "Interaktives Rad, Akkorde & Praxis", en: "Interactive wheel, chords & tips" },
   "knowledge.refSingPlay": { de: "Singen & Spielen", en: "Sing & Play" },
   "knowledge.refSingPlaySub": { de: "Koordination, Groove & Praxis-Übungen", en: "Coordination, flow & practical drills" },
+  "knowledge.refNotation": { de: "Notenschrift & Schlüssel", en: "Notation & Clefs" },
+  "knowledge.refNotationSub": { de: "Violin-, Bass- & Altschlüssel, Hilfslinien & Vorzeichen", en: "Treble, Bass & Alto clefs, ledger lines & accidentals" },
   "knowledge.articlesHeading": { de: "Artikel & Entdeckungen", en: "Articles & Insights" },
   "knowledge.articlesIntro": {
     de: "Vertiefende Hintergründe zu Geschichte, Psychologie, Gehirn und Improvisation – mit direkten Hörbeispielen.",
@@ -10129,6 +10451,7 @@ const I18N_STATIC = {
   "ex.loopAria": { de: "Endlosschleife", en: "Loop" },
   "ex.playBtn": { de: "▶ Abspielen", en: "▶ Play" },
   "ex.skipTitle": { de: "Nächste Abfrage", en: "Next exercise" },
+  "ex.skipLabel": { de: "Überspringen", en: "Skip" },
   "ex.examAbortBtn": { de: "Abbrechen", en: "Cancel" },
   "ex.examAbortTitle": { de: "Prüfung wirklich abbrechen?", en: "Abort exam?" },
   "ex.examAbortSub": { de: "Der aktuelle Prüfdurchlauf wird nicht im Verlauf gespeichert.", en: "Your current exam progress won’t be saved in history." },
@@ -10468,6 +10791,7 @@ const PROFILE_FOCUS_EN = {
   harmony:    { label: "Chords & Harmony",    hint: "Sharpen cadences & chord colors" },
   melody:     { label: "Melody & Solfège",    hint: "Practice scale degrees & melodic lines" },
   rhythm:     { label: "Rhythm & Groove",     hint: "Meter, tapping & micro-timing" },
+  notation:   { label: "Notation & Reading",  hint: "Treble, Bass, Alto clefs & ledger lines" },
   production: { label: "Production & Mixing", hint: "Frequencies & EQ in pink noise" },
   modes:      { label: "Scales & Modes",      hint: "Church modes & characteristic notes" }
 };
@@ -10498,7 +10822,11 @@ const MIX_MODES_EN = {
   "prod-eq-noise":         "Production • Pink Noise EQ",
   "modes-scale":           "Modes • Scale Recognition",
   "modes-char":            "Modes • Characteristic Note",
-  "modes-cadence":         "Modes • Modal Vamps"
+  "modes-cadence":         "Modes • Modal Vamps",
+  "notation-treble":       "Notation • Treble Clef",
+  "notation-bass":         "Notation • Bass Clef",
+  "notation-alto":         "Notation • Alto Clef",
+  "notation-mixed":        "Notation • Clef Mix"
 };
 
 const DEFAULT_MIX_TITLES_EN = {
@@ -10935,6 +11263,8 @@ const I18N_STATIC_FR = {
   "home.catMelodiesDesc": "Relever pas à pas de courtes phrases mélodiques à l’oreille",
   "home.catRhythm": "Rythme",
   "home.catRhythmDesc": "Maîtriser les mesures, la pulsation et les figures rythmiques",
+  "home.catNotation": "Lecture de notes",
+  "home.catNotationDesc": "Lire en clés de Sol, Fa & Ut 3 avec lignes supplémentaires",
   "home.catProduction": "Production",
   "home.catProductionDesc": "Identifier les fréquences & boosts d’égalisation dans du bruit rose",
   "home.voiceHeading": "Voix & Chœur",
@@ -10965,6 +11295,8 @@ const I18N_STATIC_FR = {
   "knowledge.refCircleSub": "Roue interactive, accords & pratique",
   "knowledge.refSingPlay": "Chanter & Jouer",
   "knowledge.refSingPlaySub": "Coordination, indépendance & exercices pratiques",
+  "knowledge.refNotation": "Notation & Clés",
+  "knowledge.refNotationSub": "Clés de Sol, Fa & Ut 3, lignes suppl. & altérations",
   "knowledge.articlesHeading": "Articles & Découvertes",
   "knowledge.articlesIntro": "Essais approfondis sur l’histoire, la psychologie musicale, les neurosciences et l’improvisation – avec exemples audio intégrés.",
   "knowledge.instHeading": "Familles d’instruments & Son moderne",
@@ -11069,6 +11401,7 @@ const I18N_STATIC_FR = {
   "ex.loopAria": "Boucle continue",
   "ex.playBtn": "▶ Écouter",
   "ex.skipTitle": "Exercice suivant",
+  "ex.skipLabel": "Passer",
   "ex.examAbortBtn": "Annuler",
   "ex.examAbortTitle": "Abandonner l’examen ?",
   "ex.examAbortSub": "La tentative d’examen en cours ne sera pas enregistrée dans l’historique.",
@@ -11235,6 +11568,7 @@ const PROFILE_FOCUS_FR = {
   harmony:    { label: "Accords & Harmonie", hint: "Affiner cadences et couleurs d’accords" },
   melody:     { label: "Mélodie & Solfège",  hint: "Travailler les degrés et lignes mélodiques" },
   rhythm:     { label: "Rythme & Groove",    hint: "Mesures, frappe et micro-timing" },
+  notation:   { label: "Lecture de notes",   hint: "Clés de Sol, Fa, Ut 3 & lignes supplémentaires" },
   production: { label: "Production & Mix",   hint: "Fréquences et égalisation dans le bruit rose" },
   modes:      { label: "Gammes & Modes",     hint: "Modes ecclésiastiques et notes caractéristiques" }
 };
@@ -11265,7 +11599,11 @@ const MIX_MODES_FR = {
   "prod-eq-noise":         "Production • Égalisation bruit rose",
   "modes-scale":           "Modes • Reconnaître la gamme",
   "modes-char":            "Modes • Note caractéristique",
-  "modes-cadence":         "Modes • Vamps modaux"
+  "modes-cadence":         "Modes • Vamps modaux",
+  "notation-treble":       "Notation • Clé de Sol",
+  "notation-bass":         "Notation • Clé de Fa",
+  "notation-alto":         "Notation • Clé d’Ut 3",
+  "notation-mixed":        "Notation • Mix de clés"
 };
 
 const DEFAULT_MIX_TITLES_FR = {
@@ -12487,7 +12825,78 @@ Object.assign(TR_FR, {
   "◐ {pts} Pkt.": "◐ {pts} pt",
   "✓ Richtig": "✓ Juste",
   "✗ Falsch": "✗ Faux",
-  "🎯 Schwächstes Modul üben: {mod}": "🎯 Travailler le module faible : {mod}"
+  "🎯 Schwächstes Modul üben: {mod}": "🎯 Travailler le module faible : {mod}",
+  "Notation": "Notation",
+  "Violinschlüssel": "Clé de Sol",
+  "Bassschlüssel": "Clé de Fa",
+  "Altschlüssel": "Clé d’Ut 3 (Alto)",
+  "Schlüssel-Mix": "Mix de clés",
+  "Tenorschlüssel": "Clé d’Ut 4 (Ténor)",
+  "5 Linien": "Dans la portée",
+  "±2 Hilfslinien": "±2 lignes suppl.",
+  "±3 Hilfslinien": "±3 lignes suppl.",
+  "3 Hilfsl. + ♯/♭": "±3 lignes + ♯/♭",
+  "±3 Hilfsl. + ♯/♭": "±3 lignes + ♯/♭",
+  "G4 (g') • 2. Linie": "Sol4 (G4) • 2e ligne",
+  "F3 (f) • 4. Linie": "Fa3 (F3) • 4e ligne",
+  "C4 (c') • Mittellinie": "Do4 (C4) • 3e ligne",
+  "C4 (c') • 4. Linie": "Do4 (C4) • 4e ligne",
+  "Unter der 1. Linie": "Sous la 1re ligne",
+  "Über der 5. Linie": "Au-dessus de la 5e ligne",
+  "Im 5-Linien-System": "Dans les 5 lignes",
+  "{n}. Hilfslinie unten": "{n}e ligne suppl. dessous",
+  "{n}. Hilfslinie oben": "{n}e ligne suppl. dessus",
+  "Notensystem": "Portée musicale",
+  "Notation & Schlüssel": "Notation & Clés",
+  "Notensystem, Schlüssel, Hilfslinien & Vorzeichen sicher beherrschen": "Maîtriser la portée à 5 lignes, les clés, les lignes suppl. & altérations",
+  "Violinschlüssel (G-Schlüssel)": "Clé de Sol (G)",
+  "Der G-Schlüssel markiert g' (G4) auf der 2. Linie von unten – die Basis für Klavier (rechte Hand), Gesang, Violine, Flöte &amp; Gitarre.": "Place Sol4 (G4) sur la 2e ligne du bas — indispensable pour main droite piano, chant, violon, flûte &amp; guitare.",
+  "Bassschlüssel (F-Schlüssel)": "Clé de Fa (F)",
+  "Der F-Schlüssel markiert f (F3) auf der 4. Linie zwischen den beiden Punkten – Standard für Bass, Cello, Posaune &amp; Klavier (linke Hand).": "Place Fa3 (F3) sur la 4e ligne entre ses deux points — standard pour basse, violoncelle, trombone &amp; main gauche piano.",
+  "Altschlüssel (C-Schlüssel)": "Clé d’Ut 3 (Alto)",
+  "Der C-Schlüssel legt das mittlere c' (C4) exakt auf die 3. (mittlere) Notenlinie – Pflichtschlüssel für Bratsche &amp; Partiturlesen.": "Fixe le Do central (C4) pile sur la 3e ligne — la clé naturelle de l’alto et de la lecture de partition.",
+  "Alle Schlüssel gemischt": "Mix de clés",
+  "Wechselt in der Notenzeile flexibel zwischen Violin-, Bass- und Altschlüssel – ideal für flüssiges Blattlesen und Partituren.": "Alterne souplement entre clés de Sol, Fa et Ut 3 — parfait pour aiguiser la lecture à vue.",
+  "Stufe 1: Im System": "Niveau 1 : Dans la portée",
+  "5 Linien &amp; 4 Räume (Stammtöne)": "5 lignes &amp; 4 interlignes (notes naturelles)",
+  "Stufe 2: ±1–2 Hilfslinien": "Niveau 2 : ±1–2 lignes suppl.",
+  "Erweiterter Umfang ohne Vorzeichen": "Tessiture étendue sans altérations",
+  "Stufe 3: Bis 3 Hilfslinien": "Niveau 3 : Jusqu’à 3 lignes suppl.",
+  "Voller Bereich nach oben &amp; unten": "Jusqu’à 3 lignes suppl. haut &amp; bas",
+  "Stufe 4: 3 Hilfsl. + Vorzeichen": "Niveau 4 : 3 lignes + ♯/♭",
+  "Voller Umfang mit ♯ und ♭": "Tessiture complète avec dièses &amp; bémols",
+  "Anker: g' (G4)": "Repère : Sol4 (G4)",
+  "Anker: f (F3)": "Repère : Fa3 (F3)",
+  "Anker: c' (C4)": "Repère : Do4 (C4)",
+  "Referenzton des aktuellen Notenschlüssels anhören": "Écouter la note de repère de la clé active",
+  "Aktuelle Note überspringen": "Passer la note actuelle",
+  "Nächste Abfrage": "Question suivante",
+  "Überspringen": "Passer",
+  "NOTENLESEN": "LECTURE DE NOTES",
+  "Lies die Note im System und wähle die Taste unten.": "Lisez la note sur la portée et touchez la touche correspondante.",
+  "Wähle die links markierte Note auf der Klaviatur — oder „Überspringen“.": "Touchez la note surlignée à gauche sur le clavier — ou « Passer ».",
+  "Stammlinien": "5 lignes",
+  "Schlüssel-Mix • {clef}": "Mix de clés • {clef}",
+  "Stufe {lvl} • {tag}": "Niveau {lvl} • {tag}",
+  "Wähle die links markierte Note auf der Klaviatur:": "Touchez la note surlignée à gauche sur le clavier :",
+  "{note}? Nein": "{note} ? Non",
+  "Schau genau in den {clef} — oder tippe „Überspringen“.": "Observez bien la {clef} — ou touchez « Passer ».",
+  "RICHTIG GELESEN!": "BIEN LU !",
+  "{clef} • {ledger}": "{clef} • {ledger}",
+  "ÜBERSPRUNGEN • DAS WAR:": "PASSÉ • C’ÉTAIT :",
+  "NUR HÖREN • NOTENLESEN": "ÉCOUTE SEULE • LECTURE",
+  "Lies zuerst die markierte Note links…": "Lisez d’abord la note surlignée à gauche…",
+  "▶ Ankerton": "▶ Repère",
+  "▶ Ton anhören": "▶ Écouter la note",
+  "NICHT GANZ": "PAS TOUT À FAIT",
+  "Stufe 1 • Violin & Bass (Im System)": "Niveau 1 • Sol & Fa (Dans la portée)",
+  "5 Linien & 4 Zwischenräume ohne Hilfslinien (Stammtöne)": "5 lignes & 4 interlignes sans lignes supplémentaires (notes naturelles)",
+  "Stufe 2 • Alle Schlüssel (±2 Hilfslinien)": "Niveau 2 • Toutes clés (±2 lignes suppl.)",
+  "Violinschlüssel, Bassschlüssel & Altschlüssel bis zu 2 Hilfslinien": "Clés de Sol, Fa & Ut 3 jusqu’à 2 lignes supplémentaires",
+  "Stufe 3 • Bis 3 Hilfslinien (Alle Schlüssel)": "Niveau 3 • Jusqu’à 3 lignes suppl. (Toutes clés)",
+  "Voller Umfang mit bis zu 3 Hilfslinien nach oben und unten": "Tessiture complète jusqu’à 3 lignes supplémentaires haut et bas",
+  "Stufe 4 • Meisterprüfung (3 Hilfslinien + ♯/♭)": "Niveau 4 • Maîtrise (3 lignes + ♯/♭)",
+  "Alle 3 Schlüssel, bis 3 Hilfslinien beidseitig & Vorzeichen (♯/♭)": "3 clés, jusqu’à 3 lignes suppl. des deux côtés & altérations (♯/♭)"
 });
 
 if (typeof registerLanguageBundle === "function") {
@@ -12570,6 +12979,8 @@ const I18N_STATIC_UK = {
   "home.catMelodiesDesc": "Підбирай короткі мелодичні фрази крок за кроком на слух",
   "home.catRhythm": "Ритм",
   "home.catRhythmDesc": "Опановуй розміри, пульс і ритмічні поділки",
+  "home.catNotation": "Нотна грамота",
+  "home.catNotationDesc": "Читання нот у скрипковому, басовому й альтовому ключах",
   "home.catProduction": "Продакшн",
   "home.catProductionDesc": "Розпізнавай частоти та підсилення еквалайзера в рожевому шумі",
   "home.voiceHeading": "Голос і хор",
@@ -12600,6 +13011,8 @@ const I18N_STATIC_UK = {
   "knowledge.refCircleSub": "Інтерактивне колесо, акорди та поради",
   "knowledge.refSingPlay": "Співай і грай",
   "knowledge.refSingPlaySub": "Координація, свобода та практичні вправи",
+  "knowledge.refNotation": "Нотопис і ключі",
+  "knowledge.refNotationSub": "Скрипковий, басовий, альтовий, додаткові лінійки й альтерація",
   "knowledge.articlesHeading": "Статті та відкриття",
   "knowledge.articlesIntro": "Ґрунтовні матеріали про історію, музичну психологію, нейронауку та імпровізацію — з аудіоприкладами прямо в тексті.",
   "knowledge.instHeading": "Родини інструментів і сучасний звук",
@@ -12704,6 +13117,7 @@ const I18N_STATIC_UK = {
   "ex.loopAria": "Повтор по колу",
   "ex.playBtn": "▶ Слухати",
   "ex.skipTitle": "Наступна вправа",
+  "ex.skipLabel": "Пропустити",
   "ex.examAbortBtn": "Скасувати",
   "ex.examAbortTitle": "Перервати іспит?",
   "ex.examAbortSub": "Поточний прохід іспиту не буде збережено в історії.",
@@ -12873,6 +13287,7 @@ const PROFILE_FOCUS_UK = {
   harmony:    { label: "Акорди та гармонія",  hint: "Впевненіше розпізнавати каданси й акорди" },
   melody:     { label: "Мелодія й сольфеджіо",hint: "Тренувати ладові ступені та мелодичний слух" },
   rhythm:     { label: "Ритм і ґрув",         hint: "Розміри, точність влучання й мікротаймінг" },
+  notation:   { label: "Читання нот",         hint: "Скрипковий, басовий, альтовий ключі й додаткові лінійки" },
   production: { label: "Продакшн і мікс",     hint: "Частоти та корекція в рожевому шумі" },
   modes:      { label: "Гами та лади",        hint: "Натуральні лади й характерні тяжіння" }
 };
@@ -12903,7 +13318,11 @@ const MIX_MODES_UK = {
   "prod-eq-noise": "Продакшн • EQ у рожевому шумі",
   "modes-scale": "Лади • Розпізнавання гами",
   "modes-char": "Лади • Характерний ступінь",
-  "modes-cadence": "Лади • Модальні звороти"
+  "modes-cadence": "Лади • Модальні звороти",
+  "notation-treble": "Нотопис • Скрипковий ключ",
+  "notation-bass": "Нотопис • Басовий ключ",
+  "notation-alto": "Нотопис • Альтовий ключ",
+  "notation-mixed": "Нотопис • Мікс ключів"
 };
 
 const DEFAULT_MIX_TITLES_UK = {
@@ -14168,7 +14587,78 @@ Object.assign(TR_UK, {
   "◐ {pts} Pkt.": "◐ {pts} б.",
   "✓ Richtig": "✓ Правильно",
   "✗ Falsch": "✗ Неправильно",
-  "🎯 Schwächstes Modul üben: {mod}": "🎯 Тренувати найслабший модуль: {mod}"
+  "🎯 Schwächstes Modul üben: {mod}": "🎯 Тренувати найслабший модуль: {mod}",
+  "Notation": "Нотна грамота",
+  "Violinschlüssel": "Скрипковий ключ",
+  "Bassschlüssel": "Басовий ключ",
+  "Altschlüssel": "Альтовий ключ",
+  "Schlüssel-Mix": "Мікс ключів",
+  "Tenorschlüssel": "Теноровий ключ",
+  "5 Linien": "На стані",
+  "±2 Hilfslinien": "±2 додаткові",
+  "±3 Hilfslinien": "±3 додаткові",
+  "3 Hilfsl. + ♯/♭": "±3 дод. + ♯/♭",
+  "±3 Hilfsl. + ♯/♭": "±3 дод. + ♯/♭",
+  "G4 (g') • 2. Linie": "G4 (соль1) • 2-га лінійка",
+  "F3 (f) • 4. Linie": "F3 (фа м.) • 4-та лінійка",
+  "C4 (c') • Mittellinie": "C4 (до1) • Середня лінійка",
+  "C4 (c') • 4. Linie": "C4 (до1) • 4-та лінійка",
+  "Unter der 1. Linie": "Під 1-ю лінійкою",
+  "Über der 5. Linie": "Над 5-ю лінійкою",
+  "Im 5-Linien-System": "У межах 5 лінійок",
+  "{n}. Hilfslinie unten": "{n}-тя дод. лінійка знизу",
+  "{n}. Hilfslinie oben": "{n}-тя дод. лінійка зверху",
+  "Notensystem": "Нотний стан",
+  "Notation & Schlüssel": "Нотопис і ключі",
+  "Notensystem, Schlüssel, Hilfslinien & Vorzeichen sicher beherrschen": "Опануй 5-лінійний стан, ключі, додаткові лінійки й альтерацію",
+  "Violinschlüssel (G-Schlüssel)": "Скрипковий ключ (G)",
+  "Der G-Schlüssel markiert g' (G4) auf der 2. Linie von unten – die Basis für Klavier (rechte Hand), Gesang, Violine, Flöte &amp; Gitarre.": "Закріплює G4 на 2-й лінійці знизу — основа для правої руки фортепіано, вокалу, скрипки, флейти й гітари.",
+  "Bassschlüssel (F-Schlüssel)": "Басовий ключ (F)",
+  "Der F-Schlüssel markiert f (F3) auf der 4. Linie zwischen den beiden Punkten – Standard für Bass, Cello, Posaune &amp; Klavier (linke Hand).": "Закріплює F3 на 4-й лінійці між двома крапками — стандарт для басу, віолончелі, тромбона й лівої руки фортепіано.",
+  "Altschlüssel (C-Schlüssel)": "Альтовий ключ (C)",
+  "Der C-Schlüssel legt das mittlere c' (C4) exakt auf die 3. (mittlere) Notenlinie – Pflichtschlüssel für Bratsche &amp; Partiturlesen.": "Ставить середнє C4 точно на 3-тю (центральну) лінійку — основний ключ альта й читання партитур.",
+  "Alle Schlüssel gemischt": "Мікс ключів",
+  "Wechselt in der Notenzeile flexibel zwischen Violin-, Bass- und Altschlüssel – ideal für flüssiges Blattlesen und Partituren.": "Гнучко чергує скрипковий, басовий та альтовий ключі — ідеально для вільного читання з листа.",
+  "Stufe 1: Im System": "Рівень 1: На 5 лінійках",
+  "5 Linien &amp; 4 Räume (Stammtöne)": "5 лінійок і 4 проміжки (натуральні)",
+  "Stufe 2: ±1–2 Hilfslinien": "Рівень 2: ±1–2 додаткові",
+  "Erweiterter Umfang ohne Vorzeichen": "Розширений діапазон без альтерації",
+  "Stufe 3: Bis 3 Hilfslinien": "Рівень 3: До 3 додаткових",
+  "Voller Bereich nach oben &amp; unten": "До 3 додаткових лінійок угору й униз",
+  "Stufe 4: 3 Hilfsl. + Vorzeichen": "Рівень 4: 3 дод. + ♯/♭",
+  "Voller Umfang mit ♯ und ♭": "Повний діапазон із дієзами та бемолями",
+  "Anker: g' (G4)": "Опора: G4",
+  "Anker: f (F3)": "Опора: F3",
+  "Anker: c' (C4)": "Опора: C4",
+  "Referenzton des aktuellen Notenschlüssels anhören": "Почути опорний тон активного ключа",
+  "Aktuelle Note überspringen": "Пропустити поточну ноту",
+  "Nächste Abfrage": "Наступне завдання",
+  "Überspringen": "Пропустити",
+  "NOTENLESEN": "ЧИТАННЯ НОТ",
+  "Lies die Note im System und wähle die Taste unten.": "Прочитай ноту на стані та натисни клавішу внизу.",
+  "Wähle die links markierte Note auf der Klaviatur — oder „Überspringen“.": "Натисни виділену зліва ноту на клавіатурі — або «Пропустити».",
+  "Stammlinien": "5 лінійок",
+  "Schlüssel-Mix • {clef}": "Мікс ключів • {clef}",
+  "Stufe {lvl} • {tag}": "Рівень {lvl} • {tag}",
+  "Wähle die links markierte Note auf der Klaviatur:": "Натисни виділену зліва ноту на клавіатурі:",
+  "{note}? Nein": "{note}? Ні",
+  "Schau genau in den {clef} — oder tippe „Überspringen“.": "Перевір {clef} уважніше — або натисни «Пропустити».",
+  "RICHTIG GELESEN!": "ПРОЧИТАНО ВІРНО!",
+  "{clef} • {ledger}": "{clef} • {ledger}",
+  "ÜBERSPRUNGEN • DAS WAR:": "ПРОПУЩЕНО • ЦЕ БУЛА:",
+  "NUR HÖREN • NOTENLESEN": "ЛИШЕ СЛУХАТИ • НОТИ",
+  "Lies zuerst die markierte Note links…": "Спершу прочитай виділену зліва ноту…",
+  "▶ Ankerton": "▶ Опорний звук",
+  "▶ Ton anhören": "▶ Послухати ноту",
+  "NICHT GANZ": "НЕ ЗОВСІМ",
+  "Stufe 1 • Violin & Bass (Im System)": "Рівень 1 • Скрипка й бас (На стані)",
+  "5 Linien & 4 Zwischenräume ohne Hilfslinien (Stammtöne)": "5 лінійок і 4 проміжки без додаткових лінійок (натуральні)",
+  "Stufe 2 • Alle Schlüssel (±2 Hilfslinien)": "Рівень 2 • Усі ключі (±2 дод. лінійки)",
+  "Violinschlüssel, Bassschlüssel & Altschlüssel bis zu 2 Hilfslinien": "Скрипковий, басовий та альтовий ключі до 2 додаткових лінійок",
+  "Stufe 3 • Bis 3 Hilfslinien (Alle Schlüssel)": "Рівень 3 • До 3 дод. лінійок (Усі ключі)",
+  "Voller Umfang mit bis zu 3 Hilfslinien nach oben und unten": "Повний діапазон до 3 додаткових лінійок угору та вниз",
+  "Stufe 4 • Meisterprüfung (3 Hilfslinien + ♯/♭)": "Рівень 4 • Майстерність (3 дод. + ♯/♭)",
+  "Alle 3 Schlüssel, bis 3 Hilfslinien beidseitig & Vorzeichen (♯/♭)": "Усі 3 ключі, до 3 дод. лінійок в обидва боки й альтерація (♯/♭)"
 });
 
 if (typeof registerLanguageBundle === "function") {
@@ -15822,6 +16312,33 @@ const CATEGORY_HELP_GUIDES_EN = {
       <div class="article-highlight-box">
         <h4>Live Teaching Controls</h4>
         <p>Use the chips at the top anytime to switch <strong>Vocal Range (SATB)</strong>, <strong>Accompaniment Sound</strong> (Piano, Piano + Voice, or Voice), and <strong>Tempo</strong>. Tap <strong>“−1 / +1 Semitone”</strong> or <strong>“↻ Replay”</strong> mid-exercise to tailor the key to your students or choir.</p>
+      </div>
+    `
+  },
+  notation: {
+    tagClass: "tag-sage",
+    tag: "How It Works • Notation & Sight-Reading",
+    title: "How Sight-Reading Training Works",
+    lead: "Build effortless sight-reading across Treble, Bass, and Alto clefs — from the 5 core staff lines out to ±3 ledger lines in both directions plus sharps and flats (♯/♭).",
+    sections: `
+      <h3>How the Exercise Screen Works</h3>
+      <ul class="article-steps-list">
+        <li><strong>1. Tall Upper Staff (6-Note Flow):</strong> The leftmost highlighted target band always marks the current note to read. Behind it, the next 5 notes sit ready in view so your eyes naturally learn to read ahead.</li>
+        <li><strong>2. Lower Keyboard Input:</strong> Tap the key matching the leftmost highlighted note. On a hit, you hear the pitch in its true staff octave, the compact stage clearly names the note, and every note shifts smoothly one step left while a fresh note enters on the right.</li>
+        <li><strong>3. Wrong Picks &amp; Skip:</strong> Wrong keys light up red and pause the queue without jumping ahead so you can inspect the staff position calmly. Stuck on a note? Tap <strong>Skip</strong> anytime to reveal its name on stage and move onward.</li>
+      </ul>
+
+      <h3>The 4 Difficulty Levels</h3>
+      <ul class="article-steps-list">
+        <li><strong>Level 1 – 5-Line Staff (Beginner):</strong> Core natural notes sitting across the 5 lines and 4 spaces with zero ledger lines.</li>
+        <li><strong>Level 2 – ±2 Ledger Lines:</strong> Expanded range extending up to 2 ledger lines above and below the staff (naturals).</li>
+        <li><strong>Level 3 – ±3 Ledger Lines (Full Compass):</strong> Complete reading compass reaching 3 ledger lines above and below the staff.</li>
+        <li><strong>Level 4 – ±3 Ledger Lines + ♯/♭:</strong> Adds chromatic sharps (<code>♯</code>) and flats (<code>♭</code>) — switching seamlessly between International (<code>B / B♭ / F♯</code>) and German spelling (<code>H / B / Fis</code>).</li>
+      </ul>
+
+      <div class="article-highlight-box">
+        <h4>Clef Mix &amp; Anchor Pitch Help</h4>
+        <p>In <strong>Clef Mix</strong>, the staff rotates between Treble, Bass, and Alto clefs every few notes with a clean inline clef sign ahead of the switch. Tap <strong>Anchor Pitch</strong> at the bottom left anytime to hear the clef’s open landmark tone (<code>G4</code> in Treble, <code>F3</code> in Bass, <code>C4</code> in Alto).</p>
       </div>
     `
   }
@@ -17572,6 +18089,132 @@ function getIntervalNamingGuideHTML_EN() {
   `;
 }
 
+function renderNotationReferenceHTML_EN() {
+  const staffFn = typeof buildNotationKnowledgeStaffSVG === "function" ? buildNotationKnowledgeStaffSVG : null;
+  const trebleAnchorSvg = staffFn ? staffFn("treble", [0, 2, 4, 6, 8], { width: 290, highlightAnchorLine: true, showLabels: true, labelShort: true }) : "";
+  const bassAnchorSvg = staffFn ? staffFn("bass", [0, 2, 4, 6, 8], { width: 290, highlightAnchorLine: true, showLabels: true, labelShort: true }) : "";
+  const altoAnchorSvg = staffFn ? staffFn("alto", [0, 2, 4, 6, 8], { width: 290, highlightAnchorLine: true, showLabels: true, labelShort: true }) : "";
+  const ledgerSvg = staffFn ? staffFn("treble", [-6, -4, -2, 4, 10, 12, 14], { width: 340, showLabels: true, labelShort: true }) : "";
+  const ledgerBassSvg = staffFn ? staffFn("bass", [-6, -4, -2, 4, 10, 12, 14], { width: 340, showLabels: true, labelShort: true }) : "";
+  const accSvg = staffFn ? staffFn("treble", [
+    { step: 1, accidental: 0 },
+    { step: 1, accidental: 1 },
+    { step: 2, accidental: -1 },
+    { step: 6, accidental: 0 },
+    { step: 6, accidental: -1 }
+  ], { width: 320, showLabels: true, labelShort: true }) : "";
+
+  return `
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-peach">1. The 5-Line Staff</span>
+        <span class="k-ratio-chip">Lines &amp; Spaces</span>
+      </div>
+      <h4>How Pitch &amp; Time Are Mapped on Paper</h4>
+      <p>
+        Standard notation works like a musical graph: the <strong>vertical axis</strong> encodes pitch (higher on the page = higher frequency, lower = deeper pitch), while the <strong>horizontal axis</strong> moves forward through time from left to right.
+      </p>
+      <ul class="k-physics-list">
+        <li><strong>Always Count Bottom-to-Top:</strong> Every grand staff unit uses <strong>5 lines</strong> (Line 1 at the bottom up to Line 5 at the top) framing <strong>4 spaces</strong> between them.</li>
+        <li><strong>Alternating Line – Space – Line:</strong> Moving from any line to the very next space steps exactly <strong>one natural letter name</strong> up or down (<code>C → D → E → F → G → A → B</code>).</li>
+        <li><strong>Why Clefs Exist:</strong> On their own, five lines carry no pitch name — the <strong>clef</strong> pins one unmistakable anchor pitch onto a specific line so every neighbor falls into place.</li>
+      </ul>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-sage">2. The 3 Main Clefs (Plus Special Clefs)</span>
+        <span class="k-ratio-chip">Treble • Bass • Alto</span>
+      </div>
+      <h4>Three Windows onto the Same Keyboard</h4>
+      <p>
+        The glowing orange line highlights each clef’s <strong>anchor reference pitch</strong>. Memorize that single landmark and you can read every other line or space fast.
+      </p>
+      <div class="notation-knowledge-grid">
+        <div class="notation-knowledge-card">
+          ${trebleAnchorSvg}
+          <h5>Treble Clef (G Clef)</h5>
+          <p>The center spiral wraps directly around <strong>Line 2 from the bottom = G4</strong>. Standard for vocals (soprano/alto), violin, flute, trumpet, guitar, and piano right hand.</p>
+          <p><strong>Memory Cues (bottom → top):</strong> Lines <em>E4 – G4 – B4 – D5 – F5</em> (“Every Good Bird Does Fly”); Spaces spell <em>F4 – A4 – C5 – E5</em> (“FACE”).</p>
+          <button type="button" class="btn-tool" data-play-solo-note="G4">▶ Hear Anchor G4</button>
+        </div>
+        <div class="notation-knowledge-card">
+          ${bassAnchorSvg}
+          <h5>Bass Clef (F Clef)</h5>
+          <p>The two dots bracket <strong>Line 4 from the bottom = F3</strong>. Essential for piano left hand, cello, double bass, bass guitar, trombone, bassoon, and low voices.</p>
+          <p><strong>Memory Cues (bottom → top):</strong> Lines <em>G2 – B2 – D3 – F3 – A3</em> (“Good Bikes Don’t Fall Apart”); Spaces <em>A2 – C3 – E3 – G3</em> (“All Cows Eat Grass”).</p>
+          <button type="button" class="btn-tool" data-play-solo-note="F3">▶ Hear Anchor F3</button>
+        </div>
+        <div class="notation-knowledge-card">
+          ${altoAnchorSvg}
+          <h5>Alto Clef (C Clef)</h5>
+          <p>The central dip points straight at <strong>Line 3 (dead center) = Middle C (C4)</strong>. The everyday clef of the viola and classic vocal/ensemble scores.</p>
+          <p><strong>Symmetry Shortcut:</strong> With <code>C4</code> sitting smack in the middle, stepping up gives <em>E4</em> (Line 4) &amp; <em>G4</em> (Line 5), while stepping down gives <em>A3</em> (Line 2) &amp; <em>F3</em> (Line 1).</p>
+          <button type="button" class="btn-tool" data-play-solo-note="C4">▶ Hear Anchor C4</button>
+        </div>
+      </div>
+
+      <div class="k-meta-box">
+        <div>🔑 <strong>Same Middle C (C4) Bridges All Three Clefs:</strong> In <strong>Treble</strong>, C4 rests on the 1st ledger line <em>below</em>; in <strong>Alto</strong>, it sits dead <em>center (Line 3)</em>; and in <strong>Bass</strong>, it floats on the 1st ledger line <em>above</em>!</div>
+        <div>🎼 <strong>Special Clefs (Outlook):</strong> The <strong>Tenor Clef</strong> slides the same C-clef up to Line 4 for high cello, bassoon, and trombone passages, while octave clefs (<code>8vb</code> / <code>8va</code>) transpose guitar or piccolo cleanly by an octave without ledger-line clutter.</div>
+      </div>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-lilac">3. Reading Up to 3 Ledger Lines</span>
+        <span class="k-ratio-chip">±3 Ledger Lines</span>
+      </div>
+      <h4>Going Above &amp; Below Without Slowly Counting</h4>
+      <p>
+        When notes climb above Line 5 or dip below Line 1, short horizontal dashes called <strong>ledger lines</strong> extend the staff strictly behind those notes. This trainer covers up to <strong>3 ledger lines in both directions</strong> — the core span needed for real orchestral, band, and piano scores.
+      </p>
+      <div class="notation-knowledge-grid">
+        <div class="notation-knowledge-card">
+          ${ledgerSvg}
+          <h5>Treble Clef: ±3 Ledger Lines</h5>
+          <p>Left: 3rd, 2nd &amp; 1st ledger lines below (<code>F3 – A3 – C4</code>); center: Line 3 <code>B4</code>; right: 1st, 2nd &amp; 3rd ledger lines above (<code>A5 – C6 – E6</code>).</p>
+        </div>
+        <div class="notation-knowledge-card">
+          ${ledgerBassSvg}
+          <h5>Bass Clef: Low Extension &amp; High Passages</h5>
+          <p>Below the staff: 3 ledger lines reach through <code>E2 – C2</code> down to low <code>A1</code>; above the staff: upward past Middle C (<code>C4</code>) to <code>E4</code> and <code>G4</code>.</p>
+        </div>
+      </div>
+      <ul class="k-physics-list">
+        <li><strong>Learn 2 Anchor “Buoys” Outside the Staff:</strong> Rather than counting every single dash from scratch, lock in the 1st &amp; 2nd ledger lines (e.g., <code>C4</code> &amp; <code>A3</code> below treble; <code>A5</code> &amp; <code>C6</code> above treble) and read immediate steps above or below them.</li>
+        <li><strong>Notice Line-to-Line &amp; Space-to-Space Skips:</strong> Skipping straight from one ledger line to the next always spans a <strong>3rd</strong> (just like stacking triads!).</li>
+      </ul>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-sage">4. Accidentals &amp; Notation Systems</span>
+        <span class="k-ratio-chip">♯ • ♭ • B vs. H</span>
+      </div>
+      <h4>Black Keys, Enharmonics &amp; International vs. German Spelling</h4>
+      <div class="notation-knowledge-grid">
+        <div class="notation-knowledge-card">
+          ${accSvg}
+          <div class="k-btn-row" style="margin-top:0.25rem;">
+            <button type="button" class="btn-tool" data-play-solo-note="F4">▶ F4</button>
+            <button type="button" class="btn-tool" data-play-solo-note="F#4">▶ F♯4 / G♭4</button>
+            <button type="button" class="btn-tool" data-play-solo-note="Bb4">▶ B♭4</button>
+          </div>
+        </div>
+        <div class="notation-knowledge-card">
+          <ul class="k-physics-list">
+            <li><strong>Sharp (<code>♯</code>):</strong> Raises the pitch by <strong>1 semitone</strong> (one key right). <code>F</code> becomes <code>F♯</code>.</li>
+            <li><strong>Flat (<code>♭</code>):</strong> Lowers the pitch by <strong>1 semitone</strong> (one key left). <code>G</code> becomes <code>G♭</code>.</li>
+            <li><strong>Enharmonic Equivalents:</strong> On the piano, <code>F♯</code> and <code>G♭</code> trigger the exact same physical key — their spelling on paper tells you which direction the harmony resolves.</li>
+            <li><strong>German vs. International Tip:</strong> In German scores, natural B is called <strong>H</strong> while flat B♭ is called <strong>B</strong>! You can toggle both conventions anytime in <em>App Settings</em>.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  `;
+}
+
 </script>
 <script>
 /**
@@ -19184,6 +19827,33 @@ const CATEGORY_HELP_GUIDES_FR = {
       <div class="article-highlight-box">
         <h4>Contrôles pédagogiques en direct</h4>
         <p>Utilisez les pastilles en haut à tout moment pour changer la <strong>Tessiture (SATB)</strong>, le <strong>Son d’accompagnement</strong> (Piano, Piano + Voix ou Voix) et le <strong>Tempo</strong>. Touchez <strong>« −1 / +1 demi-ton »</strong> ou <strong>« ↻ Répéter »</strong> en plein exercice pour adapter la tonalité à vos élèves ou à votre chœur.</p>
+      </div>
+    `
+  },
+  notation: {
+    tagClass: "tag-sage",
+    tag: "Mode d’emploi • Solfège & Lecture de notes",
+    title: "Comment fonctionne l’entraînement à la lecture de notes",
+    lead: "Développez une lecture fluide en clés de Sol, Fa et Ut 3 (Alto) — des 5 lignes centrales jusqu’à ±3 lignes supplémentaires dans les deux sens avec altérations (♯/♭).",
+    sections: `
+      <h3>Architecture de l’écran d’exercice</h3>
+      <ul class="article-steps-list">
+        <li><strong>1. Grande portée en haut (flux de 6 notes) :</strong> Le bandeau coloré tout à gauche met toujours en évidence la note active à lire. Juste derrière, les 5 notes suivantes anticipent le mouvement comme en vraie lecture à vue.</li>
+        <li><strong>2. Clavier en bas pour répondre :</strong> Touchez la note demandée sur le clavier. Si la réponse est exacte, le son retentit à sa véritable octave, la scène centrale affiche clairement son nom et toute la file glisse d’un cran vers la gauche tandis qu’une nouvelle note apparaît à droite.</li>
+        <li><strong>3. Erreurs &amp; bouton Passer :</strong> Une touche erronée devient rouge sans faire avancer la file afin de vérifier tranquillement l’emplacement. En cas d’hésitation, touchez <strong>Passer</strong> : la bonne note s’affiche aussitôt avant de passer à la suivante.</li>
+      </ul>
+
+      <h3>Les 4 niveaux de difficulté</h3>
+      <ul class="article-steps-list">
+        <li><strong>Niveau 1 – 5 lignes de base :</strong> Notes naturelles situées sur les 5 lignes et 4 interlignes, sans lignes supplémentaires.</li>
+        <li><strong>Niveau 2 – ±2 lignes supplémentaires :</strong> Tessiture élargie jusqu’à 2 lignes supplémentaires au-dessus et au-dessous (notes naturelles).</li>
+        <li><strong>Niveau 3 – ±3 lignes supplémentaires (Complet) :</strong> Tessiture complète s’étendant sur 3 lignes supplémentaires de chaque côté.</li>
+        <li><strong>Niveau 4 – ±3 lignes + ♯/♭ :</strong> Ajoute les dièses (<code>♯</code>) et bémols (<code>♭</code>), compatibles avec la notation internationale ou allemande.</li>
+      </ul>
+
+      <div class="article-highlight-box">
+        <h4>Mix de clés &amp; Note de repère</h4>
+        <p>Dans le <strong>Mix de clés</strong>, la portée alterne régulièrement entre clés de Sol, Fa et Ut 3 avec un petit repère de changement avant la note. En bas à gauche, le bouton <strong>Repère</strong> fait entendre à tout moment le son d’ancrage de la clé active (<code>Sol4</code>, <code>Fa3</code> ou <code>Do4</code>).</p>
       </div>
     `
   }
@@ -20925,6 +21595,132 @@ function getIntervalNamingGuideHTML_FR() {
     </details>
   `;
 }
+
+function renderNotationReferenceHTML_FR() {
+  const staffFn = typeof buildNotationKnowledgeStaffSVG === "function" ? buildNotationKnowledgeStaffSVG : null;
+  const trebleAnchorSvg = staffFn ? staffFn("treble", [0, 2, 4, 6, 8], { width: 290, highlightAnchorLine: true, showLabels: true, labelShort: true }) : "";
+  const bassAnchorSvg = staffFn ? staffFn("bass", [0, 2, 4, 6, 8], { width: 290, highlightAnchorLine: true, showLabels: true, labelShort: true }) : "";
+  const altoAnchorSvg = staffFn ? staffFn("alto", [0, 2, 4, 6, 8], { width: 290, highlightAnchorLine: true, showLabels: true, labelShort: true }) : "";
+  const ledgerSvg = staffFn ? staffFn("treble", [-6, -4, -2, 4, 10, 12, 14], { width: 340, showLabels: true, labelShort: true }) : "";
+  const ledgerBassSvg = staffFn ? staffFn("bass", [-6, -4, -2, 4, 10, 12, 14], { width: 340, showLabels: true, labelShort: true }) : "";
+  const accSvg = staffFn ? staffFn("treble", [
+    { step: 1, accidental: 0 },
+    { step: 1, accidental: 1 },
+    { step: 2, accidental: -1 },
+    { step: 6, accidental: 0 },
+    { step: 6, accidental: -1 }
+  ], { width: 320, showLabels: true, labelShort: true }) : "";
+
+  return `
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-peach">1. La portée à 5 lignes</span>
+        <span class="k-ratio-chip">Lignes &amp; Interlignes</span>
+      </div>
+      <h4>Comment la musique devient lisible sur le papier</h4>
+      <p>
+        La partition fonctionne comme un repère géométrique : l’<strong>axe vertical</strong> représente la hauteur (plus haut = plus aigu, plus bas = plus grave) et l’<strong>axe horizontal</strong> fait défiler le temps de gauche à droite.
+      </p>
+      <ul class="k-physics-list">
+        <li><strong>Toujours compter de bas en haut :</strong> Une portée comporte <strong>5 lignes</strong> (1re en bas jusqu’à la 5e en haut) et <strong>4 interlignes</strong> entre elles.</li>
+        <li><strong>Alternance ligne – interligne :</strong> Passer d’une ligne à l’interligne voisin correspond toujours à avancer d’<strong>une seule marche diatonique</strong> (<code>C → D → E → F → G → A → B</code> / Do à Si).</li>
+        <li><strong>Pourquoi la clé est indispensable :</strong> Sans clé, les lignes sont muettes : c’est elle qui fixe une <em>note de référence précise</em> sur l’une des lignes.</li>
+      </ul>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-sage">2. Les 3 clés principales (et clés spéciales)</span>
+        <span class="k-ratio-chip">Sol • Fa • Ut 3</span>
+      </div>
+      <h4>Trois regards sur le même clavier</h4>
+      <p>
+        La ligne surlignée en orange indique le <strong>point d’ancrage</strong> exact de chaque clé. Retenez ce repère unique pour déduire toutes les notes voisines en un instant.
+      </p>
+      <div class="notation-knowledge-grid">
+        <div class="notation-knowledge-card">
+          ${trebleAnchorSvg}
+          <h5>Clé de Sol (G)</h5>
+          <p>Sa boucle centrale encercle la <strong>2e ligne = Sol4 (G4)</strong>. Standard pour le chant (soprano/alto), le violon, la flûte, la trompette, la guitare et la main droite du piano.</p>
+          <p><strong>Repères (bas → haut) :</strong> Lignes <em>Mi – Sol – Si – Ré – Fa</em> ; Interlignes <em>Fa – La – Do – Mi</em>.</p>
+          <button type="button" class="btn-tool" data-play-solo-note="G4">▶ Écouter l’ancrage G4</button>
+        </div>
+        <div class="notation-knowledge-card">
+          ${bassAnchorSvg}
+          <h5>Clé de Fa (F)</h5>
+          <p>Les deux points encadrent la <strong>4e ligne = Fa3 (F3)</strong>. Incontournable pour la main gauche du piano, le violoncelle, la contrebasse, la basse, le trombone et les voix graves.</p>
+          <p><strong>Repères (bas → haut) :</strong> Lignes <em>Sol – Si – Ré – Fa – La</em> ; Interlignes <em>La – Do – Mi – Sol</em>.</p>
+          <button type="button" class="btn-tool" data-play-solo-note="F3">▶ Écouter l’ancrage F3</button>
+        </div>
+        <div class="notation-knowledge-card">
+          ${altoAnchorSvg}
+          <h5>Clé d’Ut 3e ligne (Alto)</h5>
+          <p>Son cœur pointe droit sur la <strong>3e ligne (centrale) = Do central (C4)</strong>. Clé naturelle de l’alto (orchestre) et de nombreuses partitions polyphoniques.</p>
+          <p><strong>Astuce de symétrie :</strong> <code>C4</code> au centre place <em>Mi</em> (4e) et <em>Sol</em> (5e) au-dessus, et <em>La</em> (2e) puis <em>Fa</em> (1re) juste en dessous.</p>
+          <button type="button" class="btn-tool" data-play-solo-note="C4">▶ Écouter l’ancrage C4</button>
+        </div>
+      </div>
+
+      <div class="k-meta-box">
+        <div>🔑 <strong>Le même Do central (C4) relie les trois clés :</strong> En <strong>clé de Sol</strong>, il est sur la 1re ligne supplémentaire <em>en bas</em> ; en <strong>clé d’Ut 3</strong>, pile au <em>centre (3e ligne)</em> ; en <strong>clé de Fa</strong>, sur la 1re ligne supplémentaire <em>en haut</em> !</div>
+        <div>🎼 <strong>Clés spéciales (Aperçu) :</strong> La <strong>clé d’Ut 4 (Ténor)</strong> place le même Do central sur la 4e ligne pour les passages aigus du violoncelle, du basson ou du trombone, tandis que les clés octaviantes (<code>8vb</code> / <code>8va</code>) évitent l’empilement de lignes pour la guitare ou le piccolo.</div>
+      </div>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-lilac">3. Jusqu’à 3 lignes supplémentaires</span>
+        <span class="k-ratio-chip">±3 lignes suppl.</span>
+      </div>
+      <h4>Lire haut et bas sans jamais compter une par une</h4>
+      <p>
+        Lorsque la mélodie sort des 5 lignes, de courts traits appelés <strong>lignes supplémentaires</strong> prolongent localement la portée. Vous travaillez ici jusqu’à <strong>3 lignes supplémentaires en haut et en bas</strong> — la tessiture réelle des partitions d’orchestre et de piano.
+      </p>
+      <div class="notation-knowledge-grid">
+        <div class="notation-knowledge-card">
+          ${ledgerSvg}
+          <h5>Clé de Sol : ±3 lignes supplémentaires</h5>
+          <p>À gauche : 3e, 2e et 1re lignes dessous (<code>F3 – A3 – C4</code>) ; au centre : <code>B4</code> ; à droite : 1re, 2e et 3e lignes dessus (<code>A5 – C6 – E6</code>).</p>
+        </div>
+        <div class="notation-knowledge-card">
+          ${ledgerBassSvg}
+          <h5>Clé de Fa : graves profonds &amp; aigu mélodique</h5>
+          <p>Vers le bas : 3 lignes descendent jusqu’à <code>A1</code> ; vers le haut : le Do central (<code>C4</code>) ouvre jusqu’à <code>E4</code> et <code>G4</code>.</p>
+        </div>
+      </div>
+      <ul class="k-physics-list">
+        <li><strong>Mémorisez 2 balises hors portée :</strong> Fixez la 1re et la 2e ligne supplémentaire (ex. <code>C4</code> et <code>A3</code> sous la clé de Sol, <code>A5</code> et <code>C6</code> au-dessus) pour identifier instantanément chaque degré voisin.</li>
+        <li><strong>Repérez les sauts de tierce :</strong> Passer directement d’une ligne supplémentaire à la suivante saute toujours une <strong>tierce</strong> (principe des accords empilés).</li>
+      </ul>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-sage">4. Altérations &amp; Systèmes de noms</span>
+        <span class="k-ratio-chip">♯ • ♭ • B vs H</span>
+      </div>
+      <h4>Touches noires, enharmonie &amp; particularité allemande</h4>
+      <div class="notation-knowledge-grid">
+        <div class="notation-knowledge-card">
+          ${accSvg}
+          <div class="k-btn-row" style="margin-top:0.25rem;">
+            <button type="button" class="btn-tool" data-play-solo-note="F4">▶ F4</button>
+            <button type="button" class="btn-tool" data-play-solo-note="F#4">▶ F♯4 / G♭4</button>
+            <button type="button" class="btn-tool" data-play-solo-note="Bb4">▶ B♭4</button>
+          </div>
+        </div>
+        <div class="notation-knowledge-card">
+          <ul class="k-physics-list">
+            <li><strong>Dièse (<code>♯</code>) :</strong> Monte la note d’<strong>1 demi-ton</strong> (une touche à droite). <code>F</code> devient <code>F♯</code>.</li>
+            <li><strong>Bémol (<code>♭</code>) :</strong> Abaisse la note d’<strong>1 demi-ton</strong> (une touche à gauche). <code>G</code> devient <code>G♭</code>.</li>
+            <li><strong>Enharmonie :</strong> Sur un clavier, <code>F♯</code> et <code>G♭</code> frappent exactement la même touche noire — seule leur fonction harmonique change l’écriture.</li>
+            <li><strong>Attention notation allemande :</strong> En notation allemande, la note blanche <em>Si (B)</em> s’écrit <strong>H</strong>, et le <em>Si♭ (B♭)</em> s’écrit <strong>B</strong> ! Basculez facilement entre les deux systèmes dans les <em>Réglages de l’application</em>.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  `;
+}
 </script>
 <script>
 /**
@@ -22604,6 +23400,33 @@ const CATEGORY_HELP_GUIDES = {
       <div class="article-highlight-box">
         <h4>Unterrichts-Tipp für Klavier &amp; Chor</h4>
         <p>Über die Chips oben wechselst du jederzeit zwischen <strong>Tonumfang (SATB)</strong>, <strong>Klang</strong> (Klavier pur, Klavier + Stimme oder Stimme pur) und <strong>Tempo</strong>. Unten lassen sich laufende Muster mit <strong>„−1 / +1 Halbton“</strong> oder <strong>„↻ Nochmal“</strong> direkt an die Gruppe anpassen.</p>
+      </div>
+    `
+  },
+  notation: {
+    tagClass: "tag-sage",
+    tag: "Anleitung • Notation & Notenlesen",
+    title: "So funktioniert das Notenlesen-Training",
+    lead: "Trainiere flüssiges Vom-Blatt-Lesen im Violin-, Bass- und Altschlüssel – vom sicheren Kern der 5 Stammlinien bis zu 3 Hilfslinien nach oben und unten plus Vorzeichen (♯/♭).",
+    sections: `
+      <h3>Aufbau des Übungsbildschirms</h3>
+      <ul class="article-steps-list">
+        <li><strong>1. Großes Notensystem oben (6 Noten im Fluss):</strong> Links im farbigen Zielband leuchtet immer die aktuell gesuchte Note. Dahinter siehst du bereits die nächsten 5 Noten, sodass dein Blick wie beim echten Vom-Blatt-Spielen vorauslesen kann.</li>
+        <li><strong>2. Klaviatur unten als Eingabe:</strong> Tippe die markierte Note ganz links auf der Klaviatur an. Ist dein Tipp richtig, erklingt die Note in ihrer echten Oktave, die mittlere Bühne benennt den Ton eindeutig, und alle Noten rücken flüssig einen Schritt nach links, während rechts eine neue Note erscheint.</li>
+        <li><strong>3. Falsche Antworten &amp; Überspringen:</strong> Falsche Tasten werden rot markiert und bleiben ohne Sprung stehen, damit du die Position in Ruhe prüfen kannst. Bist du unsicher, springst du mit <strong>Überspringen</strong> weiter – die richtige Note wird dir dabei direkt auf der Bühne benannt.</li>
+      </ul>
+
+      <h3>Die 4 Schwierigkeitsstufen</h3>
+      <ul class="article-steps-list">
+        <li><strong>Stufe 1 – Stammlinien (Einstieg):</strong> Alle 5 Notenlinien und 4 Zwischenräume direkt im System ohne Hilfslinien.</li>
+        <li><strong>Stufe 2 – ±2 Hilfslinien:</strong> Erweiterter Umfang bis zu 2 Hilfslinien über und unter dem System (Stammtöne).</li>
+        <li><strong>Stufe 3 – ±3 Hilfslinien (Voller Bereich):</strong> Voller Lesebereich mit bis zu 3 Hilfslinien nach oben und unten.</li>
+        <li><strong>Stufe 4 – ±3 Hilfslinien + ♯/♭:</strong> Zusätzlich Versetzungszeichen (Kreuze <code>♯</code> &amp; Bs <code>♭</code>) – wahlweise in deutscher (<code>H / B</code>, <code>Fis / Ges</code>) oder internationaler Schreibweise (<code>B / B♭</code>, <code>F♯ / G♭</code>).</li>
+      </ul>
+
+      <div class="article-highlight-box">
+        <h4>Hilfe im Schlüssel-Mix &amp; bei Prüfungen</h4>
+        <p>Im <strong>Schlüssel-Mix</strong> wechselt das System automatisch alle paar Noten zwischen Violin-, Bass- und Altschlüssel (mit kleinem Schlüsselsignal vor dem Wechsel). Unten links spielt der Button <strong>Anker</strong> jederzeit den Referenzton des aktiven Schlüssels (<code>g'</code> im Violin-, <code>f</code> im Bass-, <code>c'</code> im Altschlüssel).</p>
       </div>
     `
   }
@@ -25297,6 +26120,143 @@ function renderCircleOfFifthsReferenceHTML(selectedIdx = 0, ringMode = "major", 
   `;
 }
 
+function renderNotationReferenceHTML() {
+  const localized = resolveRegisteredKnowledgeRender(
+    "notation",
+    typeof renderNotationReferenceHTML_EN === "function" ? renderNotationReferenceHTML_EN : null,
+    typeof renderNotationReferenceHTML_FR === "function" ? renderNotationReferenceHTML_FR : null
+  );
+  if (localized !== null) return localized;
+
+  const staffFn = typeof buildNotationKnowledgeStaffSVG === "function" ? buildNotationKnowledgeStaffSVG : null;
+  const trebleAnchorSvg = staffFn ? staffFn("treble", [0, 2, 4, 6, 8], { width: 290, highlightAnchorLine: true, showLabels: true, labelShort: true }) : "";
+  const bassAnchorSvg = staffFn ? staffFn("bass", [0, 2, 4, 6, 8], { width: 290, highlightAnchorLine: true, showLabels: true, labelShort: true }) : "";
+  const altoAnchorSvg = staffFn ? staffFn("alto", [0, 2, 4, 6, 8], { width: 290, highlightAnchorLine: true, showLabels: true, labelShort: true }) : "";
+  const ledgerSvg = staffFn ? staffFn("treble", [-6, -4, -2, 4, 10, 12, 14], { width: 340, showLabels: true, labelShort: true }) : "";
+  const ledgerBassSvg = staffFn ? staffFn("bass", [-6, -4, -2, 4, 10, 12, 14], { width: 340, showLabels: true, labelShort: true }) : "";
+  const accSvg = staffFn ? staffFn("treble", [
+    { step: 1, accidental: 0 },
+    { step: 1, accidental: 1 },
+    { step: 2, accidental: -1 },
+    { step: 6, accidental: 0 },
+    { step: 6, accidental: -1 }
+  ], { width: 320, showLabels: true, labelShort: true }) : "";
+
+  return `
+    <!-- 1. Aufbau des 5-Linien-Systems -->
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-peach">1. Das 5-Linien-System</span>
+        <span class="k-ratio-chip">Linien &amp; Zwischenräume</span>
+      </div>
+      <h4>Wie Musik auf Papier sichtbar wird</h4>
+      <p>
+        Notenschrift funktioniert wie ein Koordinatensystem: Die <strong>senkrechte Achse</strong> bestimmt die Tonhöhe (weiter oben = höherer Ton, weiter unten = tieferer Ton), die <strong>waagerechte Achse</strong> liest man wie Text von links nach rechts durch die Zeit.
+      </p>
+      <ul class="k-physics-list">
+        <li><strong>Immer von unten nach oben zählen:</strong> Das Standard-Notensystem besteht aus <strong>5 Notenlinien</strong> (1 = unterste Linie bis 5 = oberste Linie) und <strong>4 Zwischenräumen</strong> dazwischen.</li>
+        <li><strong>Abwechselnd Linie – Raum – Linie:</strong> Jeder Schritt vom Zwischenraum auf die nächste Linie (oder umgekehrt) schreitet exakt <strong>einen Stammton</strong> im Alphabet weiter (<code>C → D → E → F → G → A → H/B</code>).</li>
+        <li><strong>Warum man einen Schlüssel braucht:</strong> Ohne Notenschlüssel sind Linien und Räume namenlos – erst der Schlüssel verankert <em>einen festen Bezugspunkt</em> auf einer bestimmten Linie.</li>
+      </ul>
+    </article>
+
+    <!-- 2. Die 3 wichtigsten Notenschlüssel (+ Spezialfälle) -->
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-sage">2. Notenschlüssel im Überblick</span>
+        <span class="k-ratio-chip">Violin • Bass • Alt</span>
+      </div>
+      <h4>Drei Perspektiven auf dieselbe Klaviatur</h4>
+      <p>
+        Die orange markierte Linie zeigt jeweils den <strong>Referenz- oder Ankerton</strong> des Schlüssels. Von diesem einen bekannten Ton aus lässt sich jede andere Linie sekundenschnell ableiten.
+      </p>
+      <div class="notation-knowledge-grid">
+        <div class="notation-knowledge-card">
+          ${trebleAnchorSvg}
+          <h5>Violinschlüssel (G-Schlüssel)</h5>
+          <p>Die Spirale umschließt die <strong>2. Linie von unten = g' (G4)</strong>. Standard für Melodieinstrumente (Geige, Flöte, Trompete), Gesang (Sopran/Alt) und die rechte Hand am Klavier.</p>
+          <p><strong>Merkspruch Linien (unten → oben):</strong> <em>e' – g' – h' – d'' – f''</em> („Eine Gans Hat Dicke Füße“); Zwischenräume: <em>f' – a' – c'' – e''</em> (FACE).</p>
+          <button type="button" class="btn-tool" data-play-solo-note="G4">▶ Anker g' (G4) hören</button>
+        </div>
+        <div class="notation-knowledge-card">
+          ${bassAnchorSvg}
+          <h5>Bassschlüssel (F-Schlüssel)</h5>
+          <p>Die beiden Punkte rahmen die <strong>4. Linie von unten = kleines f (F3)</strong> ein. Standard für linke Klavierhand, Cello, Kontrabass, E-Bass, Posaune, Fagott und tiefe Männerstimmen.</p>
+          <p><strong>Merkspruch Linien (unten → oben):</strong> <em>G – H – d – f – a</em> („Gehört Hans Dieses Fahrrad Auch?“); Zwischenräume: <em>A – c – e – g</em> („Alle Clowns Essen Gemüse“).</p>
+          <button type="button" class="btn-tool" data-play-solo-note="F3">▶ Anker f (F3) hören</button>
+        </div>
+        <div class="notation-knowledge-card">
+          ${altoAnchorSvg}
+          <h5>Altschlüssel (C-Schlüssel)</h5>
+          <p>Die Mitte des Zeichens zeigt exakt auf die <strong>3. (mittlere) Linie = eingestrichenes c' (C4 / Schloss-C)</strong>. Der Hauptschlüssel der Bratsche (Viola) und früherer Chorsätze.</p>
+          <p><strong>Symmetrie-Trick:</strong> Weil das mittlere <code>C4</code> exakt im Zentrum sitzt, liegen <em>c'</em> auf Linie 3, <em>e'</em> auf Linie 4, <em>g'</em> auf Linie 5 und nach unten <em>a</em> auf Linie 2 sowie <em>f</em> auf Linie 1.</p>
+          <button type="button" class="btn-tool" data-play-solo-note="C4">▶ Anker c' (C4) hören</button>
+        </div>
+      </div>
+
+      <div class="k-meta-box">
+        <div>🔑 <strong>Dasselbe Schloss-C (C4) verbindet alle drei Systeme:</strong> Im <strong>Violinschlüssel</strong> liegt c' auf der 1. Hilfslinie <em>unten</em>, im <strong>Altschlüssel</strong> genau in der <em>Mitte (Linie 3)</em> und im <strong>Bassschlüssel</strong> auf der 1. Hilfslinie <em>oben</em>!</div>
+        <div>🎼 <strong>Weitere Spezialschlüssel (Ausblick):</strong> Der <strong>Tenorschlüssel</strong> setzt denselben C-Schlüssel eine Stufe höher auf die 4. Linie (häufig für hohe Cello-, Fagott- oder Posaunenstellen). Oktavierende Schlüssel (<code>8vb</code> / <code>8va</code>) verschieben Gitarre oder Piccolo bequem um eine ganze Oktave, ohne Hilfslinien-Chaos zu erzeugen.</div>
+      </div>
+    </article>
+
+    <!-- 3. Bis zu 3 Hilfslinien oben & unten -->
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-lilac">3. Hilfslinien sicher lesen</span>
+        <span class="k-ratio-chip">Bis ±3 Hilfslinien</span>
+      </div>
+      <h4>Raus aus dem 5-Linien-Käfig – ohne Zählen</h4>
+      <p>
+        Sobald Töne höher als die 5. Linie oder tiefer als die 1. Linie klingen, verlängert man das System nur für diese Note mit kurzen <strong>Hilfslinien</strong>. In dieser App trainierst du bis zu <strong>3 Hilfslinien in beide Richtungen</strong> – genau der Bereich, der in Band-, Orchester- und Klavierliteratur täglich vorkommt.
+      </p>
+      <div class="notation-knowledge-grid">
+        <div class="notation-knowledge-card">
+          ${ledgerSvg}
+          <h5>Violinschlüssel: 3 Hilfslinien unten bis oben</h5>
+          <p>Die Abbildung zeigt links die 3., 2. und 1. Hilfslinie unten (<code>f – a – c'</code>), in der Mitte die Ziellinie <code>h'</code> und rechts die 1., 2. und 3. Hilfslinie oben (<code>a'' – c''' – e'''</code>).</p>
+        </div>
+        <div class="notation-knowledge-card">
+          ${ledgerBassSvg}
+          <h5>Bassschlüssel: Tiefe Register &amp; hohe Lagen</h5>
+          <p>Nach unten reichen 3 Hilfslinien über <code>E – C</code> bis zum Kontra-A (<code>A1</code>), nach oben über das Schloss-<code>c'</code> bis <code>e'</code> und <code>g'</code> für melodisches Cello- oder linke-Hand-Spiel.</p>
+        </div>
+      </div>
+      <ul class="k-physics-list">
+        <li><strong>Orientierungspunkt statt abzählen:</strong> Merke dir pro Richtung zwei feste „Bojen“ – im Violinschlüssel z. B. unten <code>c'</code> (1. Linie) &amp; <code>a</code> (2. Linie) und oben <code>a''</code> (1. Linie) &amp; <code>c'''</code> (2. Linie). Jeden Ton direkt darüber oder darunter liest du als direkten Nachbarschritt.</li>
+        <li><strong>Linien- und Zwischenraum-Muster erkennen:</strong> Zwei benachbarte Notenköpfe springen entweder von <em>Linie auf Linie</em> (Terzabstand, wie ein Dreiklang!) oder von <em>Raum auf Raum</em>. Das spart mindestens die Hälfte der Rechenzeit.</li>
+      </ul>
+    </article>
+
+    <!-- 4. Vorzeichen & Schreibweisen -->
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-sage">4. Vorzeichen &amp; Schreibweise</span>
+        <span class="k-ratio-chip">♯ • ♭ • H vs. B</span>
+      </div>
+      <h4>Schwarze Tasten, Enharmonik &amp; die deutsche H/B-Falle</h4>
+      <div class="notation-knowledge-grid">
+        <div class="notation-knowledge-card">
+          ${accSvg}
+          <div class="k-btn-row" style="margin-top:0.25rem;">
+            <button type="button" class="btn-tool" data-play-solo-note="F4">▶ F4</button>
+            <button type="button" class="btn-tool" data-play-solo-note="F#4">▶ F♯4 / Fis</button>
+            <button type="button" class="btn-tool" data-play-solo-note="Bb4">▶ B♭4 / B</button>
+          </div>
+        </div>
+        <div class="notation-knowledge-card">
+          <ul class="k-physics-list">
+            <li><strong>Kreuz (<code>♯</code>):</strong> Erhöht den Stammton um genau <strong>1 Halbton</strong> (eine Taste nach rechts). Aus <code>F</code> wird <code>Fis</code> / <code>F♯</code>.</li>
+            <li><strong>Be (<code>♭</code>):</strong> Erniedrigt den Stammton um genau <strong>1 Halbton</strong> (eine Taste nach links). Aus <code>G</code> wird <code>Ges</code> / <code>G♭</code>.</li>
+            <li><strong>Enharmonische Verwechslung:</strong> Auf der Klaviatur teilen sich z. B. <code>Fis (F♯)</code> und <code>Ges (G♭)</code> exakt dieselbe schwarze Taste – in den Noten sieht man aber je nach Tonart verschiedene Stufen!</li>
+            <li><strong>Achtung Deutsch vs. International:</strong> Auf Deutsch heißt die weiße Taste unter C <strong>H</strong> und die erniedrigte schwarze Taste <strong>B</strong>. International (Englisch/Französisch) heißt die weiße Taste <strong>B</strong> und die schwarze Taste <strong>B♭</strong>! Du kannst das jederzeit in den <em>App-Einstellungen</em> umschalten.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  `;
+}
+
 </script>
 <script>
 /**
@@ -26911,6 +27871,33 @@ const CATEGORY_HELP_GUIDES_UK = {
       <div class="article-highlight-box">
         <h4>Живе керування під час заняття</h4>
         <p>Плашки вгорі будь-коли перемикають <strong>Вокальний діапазон (SATB)</strong>, <strong>Тембр супроводу</strong> (Фортепіано, Фортепіано + голос, або Голос) і <strong>Темп</strong>. Натискай <strong>«−1 / +1 півтон»</strong> або <strong>«↻ Повторити»</strong> просто посеред вправи, щоб підлаштувати тональність під себе чи хор.</p>
+      </div>
+    `
+  },
+  notation: {
+    tagClass: "tag-sage",
+    tag: "Як це працює • Нотна грамота",
+    title: "Як працює тренування читання з листа",
+    lead: "Відпрацьовуй упевнене читання нот у скрипковому, басовому та альтовому ключах — від 5 основних лінійок до ±3 додаткових лінійок угору й униз плюс знаки альтерації (♯/♭).",
+    sections: `
+      <h3>Будова екрана вправи</h3>
+      <ul class="article-steps-list">
+        <li><strong>1. Великий нотний стан угорі (потік із 6 нот):</strong> Кольорова рамка ліворуч завжди виділяє активну ноту. Праворуч уже видно наступні 5 нот, щоб погляд звикав читати наперед, як під час справжньої гри з листа.</li>
+        <li><strong>2. Клавіатура внизу для відповіді:</strong> Натисни клавішу, що відповідає крайній лівій ноті. Якщо відповідь правильна, нота прозвучить у своїй реальній октаві, центральна панель чітко назве її, і весь ряд плавно зсунеться ліворуч, а праворуч з’явиться нова нота.</li>
+        <li><strong>3. Помилки та «Пропустити»:</strong> Хибна клавіша підсвічується червоним без зсуву, щоб спокійно перевірити позицію на стані. Вагаєшся? Натисни <strong>Пропустити</strong> — система одразу назве правильну ноту й перейде до наступної.</li>
+      </ul>
+
+      <h3>4 рівні складності</h3>
+      <ul class="article-steps-list">
+        <li><strong>Рівень 1 — Основні 5 лінійок:</strong> Натуральні ноти в межах 5 лінійок і 4 проміжків без жодної додаткової лінійки.</li>
+        <li><strong>Рівень 2 — ±2 додаткові лінійки:</strong> Розширений діапазон до 2 додаткових лінійок зверху та знизу (натуральні ноти).</li>
+        <li><strong>Рівень 3 — ±3 додаткові лінійки (Повний):</strong> Повний робочий діапазон до 3 додаткових лінійок в обидва боки.</li>
+        <li><strong>Рівень 4 — ±3 лінійки + ♯/♭:</strong> Додаються дієзи (<code>♯</code>) і бемолі (<code>♭</code>) — з підтримкою міжнародної або німецької нотації.</li>
+      </ul>
+
+      <div class="article-highlight-box">
+        <h4>Мікс ключів та опорний звук</h4>
+        <p>У <strong>Міксі ключів</strong> стан автоматично чергує скрипковий, басовий та альтовий ключі з підказкою перед зміною. Кнопка <strong>Опорний звук</strong> унизу ліворуч будь-коли нагадає ключову ноту активного ключа (<code>G4</code> у скрипковому, <code>F3</code> у басовому, <code>C4</code> в альтовому).</p>
       </div>
     `
   }
@@ -28774,6 +29761,132 @@ const CIRCLE_ROLES_UK = {
   }
 };
 
+function renderNotationReferenceHTML_UK() {
+  const staffFn = typeof buildNotationKnowledgeStaffSVG === "function" ? buildNotationKnowledgeStaffSVG : null;
+  const trebleAnchorSvg = staffFn ? staffFn("treble", [0, 2, 4, 6, 8], { width: 290, highlightAnchorLine: true, showLabels: true, labelShort: true }) : "";
+  const bassAnchorSvg = staffFn ? staffFn("bass", [0, 2, 4, 6, 8], { width: 290, highlightAnchorLine: true, showLabels: true, labelShort: true }) : "";
+  const altoAnchorSvg = staffFn ? staffFn("alto", [0, 2, 4, 6, 8], { width: 290, highlightAnchorLine: true, showLabels: true, labelShort: true }) : "";
+  const ledgerSvg = staffFn ? staffFn("treble", [-6, -4, -2, 4, 10, 12, 14], { width: 340, showLabels: true, labelShort: true }) : "";
+  const ledgerBassSvg = staffFn ? staffFn("bass", [-6, -4, -2, 4, 10, 12, 14], { width: 340, showLabels: true, labelShort: true }) : "";
+  const accSvg = staffFn ? staffFn("treble", [
+    { step: 1, accidental: 0 },
+    { step: 1, accidental: 1 },
+    { step: 2, accidental: -1 },
+    { step: 6, accidental: 0 },
+    { step: 6, accidental: -1 }
+  ], { width: 320, showLabels: true, labelShort: true }) : "";
+
+  return `
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-peach">1. П’ятилінійний нотний стан</span>
+        <span class="k-ratio-chip">Лінійки й проміжки</span>
+      </div>
+      <h4>Як музика перетворюється на координати</h4>
+      <p>
+        Нотний запис працює як точний графік: <strong>вертикальна вісь</strong> задає висоту звука (вище = вищий тон, нижче = басовитіший), а <strong>горизонтальна вісь</strong> рухає час зліва направо.
+      </p>
+      <ul class="k-physics-list">
+        <li><strong>Завжди рахуй знизу вгору:</strong> Нотний стан має <strong>5 лінійок</strong> (1-ша внизу, 5-та вгорі) та <strong>4 проміжки</strong> між ними.</li>
+        <li><strong>Чергування «лінійка – проміжок»:</strong> Перехід із лінійки на сусідній проміжок (чи навпаки) завжди дорівнює рівно <strong>одному діатонічному кроку</strong> (<code>C → D → E → F → G → A → B</code>).</li>
+        <li><strong>Навіщо потрібен ключ:</strong> Без ключа лінійки безіменні — саме ключ закріплює <em>один точний орієнтир</em> на певній лінійці.</li>
+      </ul>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-sage">2. 3 головні ключі (і спецключі)</span>
+        <span class="k-ratio-chip">Скрипковий • Басовий • Альтовий</span>
+      </div>
+      <h4>Три погляди на ту саму клавіатуру</h4>
+      <p>
+        Помаранчева лінійка підсвічує <strong>опорну ноту</strong> кожного ключа. Варто запам’ятати цей один маяк, щоб миттєво зчитувати сусідні ступені.
+      </p>
+      <div class="notation-knowledge-grid">
+        <div class="notation-knowledge-card">
+          ${trebleAnchorSvg}
+          <h5>Скрипковий ключ (ключ Соль)</h5>
+          <p>Завиток центру охоплює <strong>2-гу лінійку знизу = Соль першої октави (G4)</strong>. Стандарт для вокалу (сопрано/альт), скрипки, флейти, труби, гітари й правої руки фортепіано.</p>
+          <p><strong>Орієнтири (знизу → вгору):</strong> лінійки <em>Мі – Соль – Сі – Ре – Фа</em>; проміжки <em>Фа – Ля – До – Мі</em> (FACE).</p>
+          <button type="button" class="btn-tool" data-play-solo-note="G4">▶ Почути орієнтир G4</button>
+        </div>
+        <div class="notation-knowledge-card">
+          ${bassAnchorSvg}
+          <h5>Басовий ключ (ключ Фа)</h5>
+          <p>Дві крапки обрамлюють <strong>4-ту лінійку знизу = Фа малої октави (F3)</strong>. Основа для лівої руки фортепіано, віолончелі, контрабаса, бас-гітари, тромбона, фагота й чоловічих басів.</p>
+          <p><strong>Орієнтири (знизу → вгору):</strong> лінійки <em>Соль – Сі – Ре – Фа – Ля</em>; проміжки <em>Ля – До – Мі – Соль</em>.</p>
+          <button type="button" class="btn-tool" data-play-solo-note="F3">▶ Почути орієнтир F3</button>
+        </div>
+        <div class="notation-knowledge-card">
+          ${altoAnchorSvg}
+          <h5>Альтовий ключ (ключ До на 3-й лінійці)</h5>
+          <p>Центр знака вказує точно на <strong>3-тю (середню) лінійку = До першої октави (C4)</strong>. Основний ключ альта в оркестрі та класичної хорової поліфонії.</p>
+          <p><strong>Симетрія ключа До:</strong> Оскільки <code>C4</code> стоїть точно посередині, угору на 4-й і 5-й лінійках лежать <em>Мі</em> та <em>Соль</em>, а вниз на 2-й і 1-й — <em>Ля</em> та <em>Фа</em>.</p>
+          <button type="button" class="btn-tool" data-play-solo-note="C4">▶ Почути орієнтир C4</button>
+        </div>
+      </div>
+
+      <div class="k-meta-box">
+        <div>🔑 <strong>Та сама середня До (C4) з’єднує всі три ключі:</strong> у <strong>скрипковому</strong> вона лежить на 1-й додатковій лінійці <em>знизу</em>, в <strong>альтовому</strong> — точно в <em>центрі (3-тя лінійка)</em>, а в <strong>басовому</strong> — на 1-й додатковій лінійці <em>зверху</em>!</div>
+        <div>🎼 <strong>Спеціальні ключі (огляд):</strong> <strong>Теноровий ключ</strong> піднімає той самий ключ До на 4-ту лінійку (для високих партій віолончелі, фагота чи тромбона), а октавні ключі (<code>8vb</code> / <code>8va</code>) зміщують нотацію гітари чи флейти-піколо без зайвих додаткових лінійок.</div>
+      </div>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-lilac">3. До 3 додаткових лінійок</span>
+        <span class="k-ratio-chip">±3 додаткові лінійки</span>
+      </div>
+      <h4>Читаємо високо й низько без повільного перерахунку</h4>
+      <p>
+        Коли мелодія піднімається вище 5-ї або спускається нижче 1-ї лінійки, тільки під цією нотою малюють короткі <strong>додаткові лінійки</strong>. У тренажері охоплено до <strong>3 додаткових лінійок в обидва боки</strong> — саме той обсяг, що щодня трапляється в нотах для ансамблю й фортепіано.
+      </p>
+      <div class="notation-knowledge-grid">
+        <div class="notation-knowledge-card">
+          ${ledgerSvg}
+          <h5>Скрипковий ключ: ±3 додаткові лінійки</h5>
+          <p>Ліворуч: 3-тя, 2-га і 1-ша лінійки знизу (<code>F3 – A3 – C4</code>); у центрі: <code>B4</code>; праворуч: 1-ша, 2-га і 3-тя лінійки зверху (<code>A5 – C6 – E6</code>).</p>
+        </div>
+        <div class="notation-knowledge-card">
+          ${ledgerBassSvg}
+          <h5>Басовий ключ: глибокий бас і верхній регістр</h5>
+          <p>Униз 3 лінійки сягають через <code>E2 – C2</code> до субконтр/контр-Ля (<code>A1</code>), а вгору через середню <code>C4</code> відкривають <code>E4</code> і <code>G4</code>.</p>
+        </div>
+      </div>
+      <ul class="k-physics-list">
+        <li><strong>Запам’ятай по 2 «буйки» за межами стану:</strong> Зафіксуй 1-шу та 2-гу додаткову лінійку (напр., <code>C4</code> і <code>A3</code> під скрипковим або <code>A5</code> і <code>C6</code> над ним) та зчитуй сусідів у проміжках миттєво.</li>
+        <li><strong>Бач кроки через лінійку:</strong> Стрибок із додаткової лінійки на наступну додаткову лінійку завжди дорівнює <strong>терції</strong> — так само, як будуються тризвуки!</li>
+      </ul>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-sage">4. Знаки альтерації та нотації</span>
+        <span class="k-ratio-chip">♯ • ♭ • B vs H</span>
+      </div>
+      <h4>Чорні клавіші, енгармонізм і німецька система H / B</h4>
+      <div class="notation-knowledge-grid">
+        <div class="notation-knowledge-card">
+          ${accSvg}
+          <div class="k-btn-row" style="margin-top:0.25rem;">
+            <button type="button" class="btn-tool" data-play-solo-note="F4">▶ F4</button>
+            <button type="button" class="btn-tool" data-play-solo-note="F#4">▶ F♯4 / G♭4</button>
+            <button type="button" class="btn-tool" data-play-solo-note="Bb4">▶ B♭4</button>
+          </div>
+        </div>
+        <div class="notation-knowledge-card">
+          <ul class="k-physics-list">
+            <li><strong>Дієз (<code>♯</code>):</strong> Підвищує ноту рівно на <strong>1 півтон</strong> (на сусідню клавішу праворуч). Із <code>F</code> утворюється <code>F♯</code>.</li>
+            <li><strong>Бемоль (<code>♭</code>):</strong> Знижує ноту рівно на <strong>1 півтон</strong> (ліворуч). Із <code>G</code> утворюється <code>G♭</code>.</li>
+            <li><strong>Енгармонійна рівність:</strong> На клавіатурі <code>F♯</code> і <code>G♭</code> — та сама фізична клавіша, але в нотах написання показує гармонічну функцію.</li>
+            <li><strong>Німецька vs міжнародна нотація:</strong> У німецькій традиції чиста біла нота <em>Сі (B)</em> позначається літерою <strong>H</strong>, а <em>Сі-бемоль (B♭)</em> — літерою <strong>B</strong>! Обидва варіанти можна перемикати в <em>Налаштуваннях застосунку</em>.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  `;
+}
+
 if (typeof registerKnowledgeBundle === "function") {
   registerKnowledgeBundle("uk", {
     data: {
@@ -28798,6 +29911,7 @@ if (typeof registerKnowledgeBundle === "function") {
       modes: renderModesReferenceHTML_UK,
       keys: renderKeysReferenceHTML_UK,
       singAndPlay: renderSingAndPlayReferenceHTML_UK,
+      notation: renderNotationReferenceHTML_UK,
       intervalNamingGuide: getIntervalNamingGuideHTML_UK,
       circleOfFifthsTheory: renderCircleOfFifthsTheoryHTML_UK
     },
@@ -29562,6 +30676,7 @@ const PROFILE_FOCUS_OPTIONS = {
   harmony:    { key: "harmony",    label: "Akkorde & Harmonie",   hint: "Kadenzen & Mehrklänge schärfen",   mode: "cadence" },
   melody:     { key: "melody",     label: "Melodie & Gehör",      hint: "Solfège & Melodie-Linien üben",    mode: "melody" },
   rhythm:     { key: "rhythm",     label: "Rhythmus & Groove",    hint: "Metrum, Klopfen & Mikro-Timing",   mode: "rhythm-tap" },
+  notation:   { key: "notation",   label: "Notation & Lesen",     hint: "Violin-, Bass-, Altschlüssel & Hilfslinien", mode: "notation-treble" },
   production: { key: "production", label: "Produktion & Mixing",  hint: "Frequenzen & EQ im Noise üben",    mode: "prod-eq-noise" },
   modes:      { key: "modes",      label: "Tonleitern & Modi",    hint: "Kirchentonarten & Charaktertöne",  mode: "modes-scale" }
 };
@@ -29590,7 +30705,11 @@ const MIX_MODE_CATALOG = {
   "prod-eq-noise":         { label: "Produktion • EQ im Noise",     levels: [1, 2, 3] },
   "modes-scale":           { label: "Modi • Tonleitern erkennen",   levels: [1, 2, 3] },
   "modes-char":            { label: "Modi • Charakterton",          levels: [1, 2, 3] },
-  "modes-cadence":         { label: "Modi • Kadenzen & Vamps",      levels: [1, 2] }
+  "modes-cadence":         { label: "Modi • Kadenzen & Vamps",      levels: [1, 2] },
+  "notation-treble":       { label: "Notation • Violinschlüssel",   levels: [1, 2, 3, 4] },
+  "notation-bass":         { label: "Notation • Bassschlüssel",     levels: [1, 2, 3, 4] },
+  "notation-alto":         { label: "Notation • Altschlüssel",      levels: [1, 2, 3, 4] },
+  "notation-mixed":        { label: "Notation • Schlüssel-Mix",     levels: [1, 2, 3, 4] }
 };
 
 function createDefaultMixes() {
@@ -29993,6 +31112,55 @@ const EXAM_CATEGORY_LEVELS = {
         apply: { prodToneDifficulty: 3, prodEqNoiseDifficulty: 3 }
       }
     ]
+  },
+  notation: {
+    accent: "sage",
+    presets: [
+      {
+        id: "notation_l1",
+        levelNumber: 1,
+        title: { de: "Stufe 1 • Violin & Bass (Im System)", en: "Level 1 • Treble & Bass (On Staff)" },
+        desc: {
+          de: "5 Linien & 4 Zwischenräume ohne Hilfslinien (Stammtöne)",
+          en: "5 lines & 4 spaces with no ledger lines (natural notes)"
+        },
+        modes: ["notation-treble", "notation-bass"],
+        apply: { notationDifficulty: 1 }
+      },
+      {
+        id: "notation_l2",
+        levelNumber: 2,
+        title: { de: "Stufe 2 • Alle Schlüssel (±2 Hilfslinien)", en: "Level 2 • All Clefs (±2 Ledgers)" },
+        desc: {
+          de: "Violinschlüssel, Bassschlüssel & Altschlüssel bis zu 2 Hilfslinien",
+          en: "Treble, Bass & Alto clefs with up to 2 ledger lines"
+        },
+        modes: ["notation-treble", "notation-bass", "notation-alto"],
+        apply: { notationDifficulty: 2 }
+      },
+      {
+        id: "notation_l3",
+        levelNumber: 3,
+        title: { de: "Stufe 3 • Bis 3 Hilfslinien (Alle Schlüssel)", en: "Level 3 • Up to 3 Ledger Lines (All Clefs)" },
+        desc: {
+          de: "Voller Umfang mit bis zu 3 Hilfslinien nach oben und unten",
+          en: "Full range with up to 3 ledger lines above and below the staff"
+        },
+        modes: ["notation-treble", "notation-bass", "notation-alto"],
+        apply: { notationDifficulty: 3 }
+      },
+      {
+        id: "notation_l4",
+        levelNumber: 4,
+        title: { de: "Stufe 4 • Meisterprüfung (3 Hilfslinien + ♯/♭)", en: "Level 4 • Mastery (3 Ledgers + ♯/♭)" },
+        desc: {
+          de: "Alle 3 Schlüssel, bis 3 Hilfslinien beidseitig & Vorzeichen (♯/♭)",
+          en: "All 3 clefs, up to 3 ledger lines both ways & accidentals (♯/♭)"
+        },
+        modes: ["notation-treble", "notation-bass", "notation-alto"],
+        apply: { notationDifficulty: 4 }
+      }
+    ]
   }
 };
 
@@ -30266,7 +31434,11 @@ const MODE_CATEGORY_MAP = {
   "prod-eq-noise":         "production",
   "modes-scale":           "modes",
   "modes-char":            "modes",
-  "modes-cadence":         "modes"
+  "modes-cadence":         "modes",
+  "notation-treble":       "notation",
+  "notation-bass":         "notation",
+  "notation-alto":         "notation",
+  "notation-mixed":        "notation"
 };
 
 /**
@@ -30287,6 +31459,7 @@ function getCategoryTitle(categoryKey) {
     melody: tr("Melodien", "Melodies"),
     solfege: "Solfège",
     rhythm: tr("Rhythmus", "Rhythm"),
+    notation: tr("Notation", "Notation"),
     production: tr("Produktion", "Production"),
     modes: tr("Tonleitern & Modi", "Scales & Modes"),
     warmup: tr("Stimme & Chor", "Voice & Choir")
@@ -30331,6 +31504,7 @@ class AppState {
       modesScaleDifficulty: 1,
       modesCharDifficulty: 1,
       modesCadenceDifficulty: 1,
+      notationDifficulty: 1,
       keyMode: "fixed",
       timeSig: "4/4",
       defaultBpm: 90,
@@ -30541,6 +31715,21 @@ class AppState {
     this.updateQuickStartLabel();
   }
 
+  setNotationLevel(subModeOrLevel, maybeLevel) {
+    let validMode = isNotationMode(this.settings.mode) ? this.settings.mode : "notation-treble";
+    let rawLevel = maybeLevel;
+    if (maybeLevel === undefined && !isNotationMode(subModeOrLevel)) {
+      rawLevel = subModeOrLevel;
+    } else if (isNotationMode(subModeOrLevel)) {
+      validMode = subModeOrLevel;
+    }
+    const lvl = Math.max(1, Math.min(4, parseInt(rawLevel, 10) || 1));
+    this.settings.mode = validMode;
+    this.settings.notationDifficulty = lvl;
+    this.updateHeaderSubtext();
+    this.updateQuickStartLabel();
+  }
+
   getModeSummaryText(includeCategory = true) {
     const lvlWord = tr("Stufe", "Level");
     if (this.settings.mode === "cadence") {
@@ -30650,6 +31839,24 @@ class AppState {
       const lvl = this.settings.modesCadenceDifficulty || 1;
       const prefix = includeCategory ? tr("Modi: Kadenzen", "Modes: Vamps") : tr("Kadenzen & Vamps", "Modal Vamps");
       return `${prefix} • ${lvlWord} ${lvl} (${getLocalizedModeLevelLabel("cadence", lvl)})`;
+    }
+    if (isNotationMode(this.settings.mode)) {
+      const lvl = Math.max(1, Math.min(4, parseInt(this.settings.notationDifficulty, 10) || 1));
+      const clefNames = {
+        "notation-treble": tr("Violinschlüssel", "Treble Clef"),
+        "notation-bass":   tr("Bassschlüssel", "Bass Clef"),
+        "notation-alto":   tr("Altschlüssel", "Alto Clef"),
+        "notation-mixed":  tr("Schlüssel-Mix", "Mixed Clefs")
+      };
+      const lvlNames = {
+        1: tr("5 Linien", "On Staff"),
+        2: tr("±2 Hilfslinien", "±2 Ledgers"),
+        3: tr("±3 Hilfslinien", "±3 Ledgers"),
+        4: tr("3 Hilfsl. + ♯/♭", "3 Ledgers + ♯/♭")
+      };
+      const clefText = clefNames[this.settings.mode] || tr("Violinschlüssel", "Treble Clef");
+      const prefix = includeCategory ? `${tr("Notation", "Notation")}: ${clefText}` : clefText;
+      return `${prefix} • ${lvlWord} ${lvl} (${lvlNames[lvl]})`;
     }
     if (isChordQualityMode(this.settings.mode)) {
       const chordDiffNames = {
@@ -31109,6 +32316,405 @@ function pickRandomAnyKey(excludeKey = null) {
   const allKeys = Object.keys(HARMONIC_DATA.roots);
   const pool = allKeys.filter(k => k !== excludeKey);
   return pool[Math.floor(Math.random() * pool.length)];
+}
+
+/* =====================================================
+   NOTATION (NOTENLESEN) • SCHLÜSSEL, HILFSLINIEN & SVG
+   ===================================================== */
+const NOTATION_LETTERS = ["C", "D", "E", "F", "G", "A", "B"];
+const NOTATION_LETTER_PC = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
+const NOTATION_GERMAN_SPELLED = {
+  C: { "-1": "Ces", 0: "C", 1: "Cis" },
+  D: { "-1": "Des", 0: "D", 1: "Dis" },
+  E: { "-1": "Es",  0: "E", 1: "Eis" },
+  F: { "-1": "Fes", 0: "F", 1: "Fis" },
+  G: { "-1": "Ges", 0: "G", 1: "Gis" },
+  A: { "-1": "As",  0: "A", 1: "Ais" },
+  B: { "-1": "B",   0: "H", 1: "His" }
+};
+const NOTATION_SHARP_ELIGIBLE = new Set(["C", "D", "F", "G", "A"]);
+const NOTATION_FLAT_ELIGIBLE  = new Set(["D", "E", "G", "A", "B"]);
+const NOTATION_QUEUE_SIZE = 6;
+const NOTATION_ACTIVE_CLEFS = ["treble", "bass", "alto"];
+
+const NOTATION_CLEFS = {
+  treble: {
+    id: "treble",
+    mode: "notation-treble",
+    anchorDiatonicIndex: 32, // G4 = 4*7 + 4
+    anchorStep: 2,           // 2. Linie von unten
+    anchorMidi: 67,
+    anchorNote: "G4",
+    active: true
+  },
+  bass: {
+    id: "bass",
+    mode: "notation-bass",
+    anchorDiatonicIndex: 24, // F3 = 3*7 + 3
+    anchorStep: 6,           // 4. Linie von unten
+    anchorMidi: 53,
+    anchorNote: "F3",
+    active: true
+  },
+  alto: {
+    id: "alto",
+    mode: "notation-alto",
+    anchorDiatonicIndex: 28, // C4 = 4*7 + 0
+    anchorStep: 4,           // 3. (mittlere) Linie
+    anchorMidi: 60,
+    anchorNote: "C4",
+    active: true
+  },
+  tenor: {
+    id: "tenor",
+    mode: "notation-tenor",
+    anchorDiatonicIndex: 28, // C4 = 4*7 + 0
+    anchorStep: 6,           // 4. Linie von unten (Spezialschlüssel für Ausbau/Wissen)
+    anchorMidi: 60,
+    anchorNote: "C4",
+    active: false
+  }
+};
+
+const NOTATION_LEVELS = {
+  1: { level: 1, minStep: -1, maxStep: 9,  maxLedgers: 0, allowAccidentals: false },
+  2: { level: 2, minStep: -4, maxStep: 12, maxLedgers: 2, allowAccidentals: false },
+  3: { level: 3, minStep: -7, maxStep: 15, maxLedgers: 3, allowAccidentals: false },
+  4: { level: 4, minStep: -7, maxStep: 15, maxLedgers: 3, allowAccidentals: true }
+};
+
+function isNotationMode(mode = state?.settings?.mode) {
+  return typeof mode === "string" && mode.startsWith("notation-");
+}
+
+function getNotationClefFromMode(mode = state?.settings?.mode) {
+  if (mode === "notation-bass") return "bass";
+  if (mode === "notation-alto") return "alto";
+  if (mode === "notation-tenor") return "tenor";
+  return "treble";
+}
+
+function getLocalizedNotationClefName(clefId) {
+  const names = {
+    treble: tr("Violinschlüssel", "Treble Clef"),
+    bass:   tr("Bassschlüssel", "Bass Clef"),
+    alto:   tr("Altschlüssel", "Alto Clef"),
+    tenor:  tr("Tenorschlüssel", "Tenor Clef")
+  };
+  return names[clefId] || names.treble;
+}
+
+function getLocalizedNotationClefAnchorHint(clefId) {
+  const hints = {
+    treble: tr("G4 (g') • 2. Linie", "G4 • Line 2"),
+    bass:   tr("F3 (f) • 4. Linie", "F3 • Line 4"),
+    alto:   tr("C4 (c') • Mittellinie", "C4 • Center Line"),
+    tenor:  tr("C4 (c') • 4. Linie", "C4 • Line 4")
+  };
+  return hints[clefId] || hints.treble;
+}
+
+function formatSpelledNotationNote(letter, accidental = 0, octave = 4, includeOctave = true) {
+  const useIntl = typeof state !== "undefined" && state?.profile?.notation === "intl";
+  const safeLetter = NOTATION_LETTER_PC[letter] !== undefined ? letter : "C";
+  const safeAcc = accidental > 0 ? 1 : (accidental < 0 ? -1 : 0);
+  let base = "";
+  if (useIntl) {
+    const accSym = safeAcc === 1 ? "♯" : (safeAcc === -1 ? "♭" : "");
+    base = `${safeLetter}${accSym}`;
+  } else {
+    base = (NOTATION_GERMAN_SPELLED[safeLetter] && NOTATION_GERMAN_SPELLED[safeLetter][String(safeAcc)]) || safeLetter;
+  }
+  return includeOctave ? `${base}${octave}` : base;
+}
+
+function getLedgerLinesForStep(staffStep) {
+  if (!Number.isFinite(staffStep)) return [];
+  if (staffStep <= -2) {
+    return [-2, -4, -6].filter(s => s >= staffStep);
+  }
+  if (staffStep >= 10) {
+    return [10, 12, 14].filter(s => s <= staffStep);
+  }
+  return [];
+}
+
+function getNotationLedgerDescription(staffStep) {
+  const ledgers = getLedgerLinesForStep(staffStep);
+  if (ledgers.length === 0) {
+    if (staffStep === -1) return tr("Unter der 1. Linie", "Space below Line 1");
+    if (staffStep === 9) return tr("Über der 5. Linie", "Space above Line 5");
+    return tr("Im 5-Linien-System", "Inside the 5-line staff");
+  }
+  const n = ledgers.length;
+  if (staffStep < 0) {
+    return tf("{n}. Hilfslinie unten", "{n} ledger line(s) below", { n });
+  }
+  return tf("{n}. Hilfslinie oben", "{n} ledger line(s) above", { n });
+}
+
+function getNotationNoteFromStaffStep(clefId = "treble", staffStep = 4, accidental = 0) {
+  const clef = NOTATION_CLEFS[clefId] || NOTATION_CLEFS.treble;
+  const clampedStep = Math.max(-7, Math.min(15, Math.round(staffStep)));
+  const safeAcc = accidental > 0 ? 1 : (accidental < 0 ? -1 : 0);
+  const diatonicIndex = clef.anchorDiatonicIndex + (clampedStep - clef.anchorStep);
+  const octave = Math.floor(diatonicIndex / 7);
+  const letterIdx = ((diatonicIndex % 7) + 7) % 7;
+  const letter = NOTATION_LETTERS[letterIdx];
+  const baseMidi = (octave + 1) * 12 + NOTATION_LETTER_PC[letter];
+  const midi = baseMidi + safeAcc;
+  const pc = ((midi % 12) + 12) % 12;
+  const ledgerSteps = getLedgerLinesForStep(clampedStep);
+
+  return {
+    clefId: clef.id,
+    staffStep: clampedStep,
+    letter: letter,
+    accidental: safeAcc,
+    octave: octave,
+    midi: midi,
+    pc: pc,
+    noteName: midiToNote(midi),
+    displayName: formatSpelledNotationNote(letter, safeAcc, octave, true),
+    shortName: formatSpelledNotationNote(letter, safeAcc, octave, false),
+    ledgerSteps: ledgerSteps,
+    ledgerCount: ledgerSteps.length,
+    ledgerDesc: getNotationLedgerDescription(clampedStep)
+  };
+}
+
+function pickRandomNotationNoteItem(clefId, level = 1, prevItem = null) {
+  const lvl = Math.max(1, Math.min(4, parseInt(level, 10) || 1));
+  const cfg = NOTATION_LEVELS[lvl] || NOTATION_LEVELS[1];
+  const allSteps = [];
+  for (let s = cfg.minStep; s <= cfg.maxStep; s++) {
+    allSteps.push(s);
+  }
+
+  // Bei Stufe 3 & 4 die äußeren Hilfslinien etwas häufiger trainieren, statt fast immer in der Mitte zu bleiben
+  let candidatePool = allSteps;
+  if (lvl >= 3 && Math.random() < 0.56) {
+    const outerSteps = allSteps.filter(s => s <= -2 || s >= 10);
+    if (outerSteps.length > 0) candidatePool = outerSteps;
+  }
+
+  for (let attempt = 0; attempt < 24; attempt++) {
+    const step = candidatePool[Math.floor(Math.random() * candidatePool.length)];
+    const probe = getNotationNoteFromStaffStep(clefId, step, 0);
+    let acc = 0;
+    if (cfg.allowAccidentals && Math.random() < 0.44) {
+      const accChoices = [];
+      if (NOTATION_SHARP_ELIGIBLE.has(probe.letter)) accChoices.push(1);
+      if (NOTATION_FLAT_ELIGIBLE.has(probe.letter)) accChoices.push(-1);
+      if (accChoices.length > 0) {
+        acc = accChoices[Math.floor(Math.random() * accChoices.length)];
+      }
+    }
+    const candidate = getNotationNoteFromStaffStep(clefId, step, acc);
+    const sameAsPrev = prevItem &&
+      prevItem.clefId === candidate.clefId &&
+      prevItem.staffStep === candidate.staffStep &&
+      prevItem.accidental === candidate.accidental;
+    if (!sameAsPrev || attempt >= 20) {
+      return candidate;
+    }
+  }
+  return getNotationNoteFromStaffStep(clefId, 4, 0);
+}
+
+function getNotationClefGlyphSVG(clefId = "treble", x = 22, scale = 1, opacity = 1) {
+  const opAttr = opacity < 1 ? ` opacity="${opacity}"` : "";
+  if (clefId === "bass") {
+    return `<g transform="translate(${(x - 22).toFixed(1)}, 0) scale(${scale})"${opAttr}>
+      <circle cx="25" cy="76" r="4.1" fill="currentColor"/>
+      <path d="M24.5 76 C23 67.5, 31 63.2, 37.5 66.2 C43.8 69.2, 43.2 84.5, 34 95 C28 102, 21.5 106, 17.5 108.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
+      <circle cx="48" cy="70" r="2.4" fill="currentColor"/>
+      <circle cx="48" cy="82" r="2.4" fill="currentColor"/>
+    </g>`;
+  }
+  if (clefId === "alto" || clefId === "tenor") {
+    const centerY = clefId === "tenor" ? 76 : 88;
+    const topY = centerY - 24;
+    const botY = centerY + 24;
+    return `<g transform="translate(${(x - 20).toFixed(1)}, 0) scale(${scale})"${opAttr}>
+      <rect x="20" y="${topY}" width="4.4" height="48" rx="1" fill="currentColor"/>
+      <line x1="27.5" y1="${topY}" x2="27.5" y2="${botY}" stroke="currentColor" stroke-width="1.7"/>
+      <path d="M29 ${centerY} C32 ${centerY - 7}, 42.5 ${centerY - 6.5}, 43.5 ${centerY - 14.5} C44.5 ${centerY - 21}, 39 ${centerY - 24}, 33 ${centerY - 22.5} C30.5 ${centerY - 21.8}, 30 ${centerY - 19}, 32.5 ${centerY - 17.5}" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M29 ${centerY} C32 ${centerY + 7}, 42.5 ${centerY + 6.5}, 43.5 ${centerY + 14.5} C44.5 ${centerY + 21}, 39 ${centerY + 24}, 33 ${centerY + 22.5} C30.5 ${centerY + 21.8}, 30 ${centerY + 19}, 32.5 ${centerY + 17.5}" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+    </g>`;
+  }
+  // Violinschlüssel (G-Schlüssel auf 2. Linie y = 100)
+  return `<g transform="translate(${x.toFixed(1)}, 42) scale(${scale})"${opAttr} fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M13 84 C12 91, 6 93, 4 89 C2.5 86, 5 82.5, 8 83.5 C10.5 84.5, 11.2 87.5, 13.5 82 L14.8 11 C15 3.5, 10.5 2, 8.5 7 C7 11, 14 21, 19.5 31 C24.5 40, 23 55, 13.5 60 C5 64, 1.5 55, 4.5 47 C7.5 39, 17.5 37, 21.5 44 C24.5 49.5, 22 57.5, 16.5 58 C12.5 58.2, 10.5 55, 11.5 51.5" stroke-width="2.55"/>
+    <circle cx="13" cy="58" r="2.1" fill="currentColor" stroke="none"/>
+  </g>`;
+}
+
+function getNotationAccidentalGlyphSVG(accidental, x, y) {
+  if (accidental === 1) {
+    return `<g transform="translate(${x.toFixed(1)}, ${y.toFixed(1)})" stroke="currentColor" stroke-linecap="round">
+      <line x1="-2.8" y1="-9" x2="-2.8" y2="9" stroke-width="1.5"/>
+      <line x1="2.8" y1="-10" x2="2.8" y2="8" stroke-width="1.5"/>
+      <line x1="-6" y1="-2.2" x2="6" y2="-4.2" stroke-width="2.3"/>
+      <line x1="-6" y1="3.8" x2="6" y2="1.8" stroke-width="2.3"/>
+    </g>`;
+  }
+  if (accidental === -1) {
+    return `<g transform="translate(${x.toFixed(1)}, ${y.toFixed(1)})" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="-2.5" y1="-13.5" x2="-2.5" y2="4.2" stroke-width="1.65"/>
+      <path d="M-2.5 -0.8 C1.2 -3.6, 5.2 -1.8, 4.8 1.5 C4.3 4.2, 0.2 5.2, -2.5 4.2" stroke-width="1.9"/>
+    </g>`;
+  }
+  return "";
+}
+
+function notationStepToY(staffStep) {
+  return 88 + (4 - staffStep) * 6;
+}
+
+/**
+ * Gemeinsamer Notensystem-SVG-Renderer für Übungs-Warteschlange, Prüfungs-Rückschau und Wissensmodul.
+ */
+function buildNotationStaffSVG(notes, options = {}) {
+  const list = Array.isArray(notes) ? notes : [notes].filter(Boolean);
+  const firstClef = options.clefId || list[0]?.clefId || "treble";
+  const width = Number(options.width) || 360;
+  const height = Number(options.height) || 176;
+  const startX = Number(options.startX) || 12;
+  const endX = width - 10;
+  const highlightFirst = options.highlightFirst !== false;
+  const highlightAll = Boolean(options.highlightAll);
+  const showTargetBand = options.showTargetBand !== false && highlightFirst;
+  const showChangeClefs = options.showChangeClefs !== false;
+  const didShift = Boolean(options.didShift);
+  const clsName = options.className || "notation-staff-svg";
+
+  // Fünf Stammlinien (Schritt 0, 2, 4, 6, 8)
+  const staffLinesHtml = [0, 2, 4, 6, 8].map(st => {
+    const ly = notationStepToY(st);
+    return `<line class="notation-staff-line" x1="${startX}" y1="${ly}" x2="${endX}" y2="${ly}"/>`;
+  }).join("");
+
+  // Optionale Anker-Linien-Betonung (z. B. für Erklärgrafiken im Wissensmodul)
+  const anchorStep = (NOTATION_CLEFS[firstClef] || NOTATION_CLEFS.treble).anchorStep;
+  const anchorHighlightHtml = options.highlightAnchorLine
+    ? `<line x1="${startX}" y1="${notationStepToY(anchorStep)}" x2="${endX}" y2="${notationStepToY(anchorStep)}" stroke="var(--peach-strong)" stroke-width="2.1" opacity="0.68"/>`
+    : "";
+
+  const clefMarkup = getNotationClefGlyphSVG(firstClef, startX + 10, 1, 1);
+
+  // X-Koordinaten pro Note berechnen
+  let positions = Array.isArray(options.xPositions) ? options.xPositions : null;
+  if (!positions) {
+    if (list.length === 1) {
+      positions = [Math.round(width * 0.56)];
+    } else {
+      const firstNoteX = Number(options.firstNoteX) || (startX + 86);
+      const spacing = Number(options.noteSpacing) || Math.min(48, Math.max(36, Math.floor((endX - firstNoteX - 18) / Math.max(1, list.length - 1))));
+      positions = list.map((_, i) => firstNoteX + i * spacing);
+    }
+  }
+
+  let targetBandHtml = "";
+  if (showTargetBand && positions.length > 0) {
+    const tx = positions[0];
+    targetBandHtml = `
+      <rect class="notation-target-band" x="${tx - 19}" y="15" width="38" height="146" rx="11"/>
+      <polygon class="notation-target-pointer" points="${tx - 5},6 ${tx + 5},6 ${tx},13"/>
+    `;
+  }
+
+  const notesHtml = list.map((item, idx) => {
+    if (!item) return "";
+    const nx = positions[idx] || (startX + 86 + idx * 46);
+    const ny = notationStepToY(item.staffStep);
+    const isTarget = highlightAll || (highlightFirst && idx === 0);
+    const prevClef = idx > 0 ? list[idx - 1]?.clefId : firstClef;
+
+    let changeClefHtml = "";
+    if (showChangeClefs && idx > 0 && item.clefId && prevClef && item.clefId !== prevClef) {
+      changeClefHtml = getNotationClefGlyphSVG(item.clefId, nx - 27, 0.72, 0.78);
+    }
+
+    const ledgerHtml = getLedgerLinesForStep(item.staffStep).map(ls => {
+      const ly = notationStepToY(ls);
+      return `<line class="notation-ledger-line" x1="${nx - 12.5}" y1="${ly}" x2="${nx + 12.5}" y2="${ly}"/>`;
+    }).join("");
+
+    const accHtml = item.accidental
+      ? getNotationAccidentalGlyphSVG(item.accidental, nx - 14.5, ny)
+      : "";
+
+    const stemDown = item.staffStep >= 4;
+    const stemX = stemDown ? (nx - 6.3) : (nx + 6.3);
+    const stemY1 = ny + (stemDown ? 1 : -1);
+    const stemY2 = ny + (stemDown ? 28 : -28);
+
+    const fadeOp = isTarget ? 1 : Math.max(0.7, 0.96 - idx * 0.045);
+    const grpClass = `notation-note-group ${isTarget ? "is-target" : "is-upcoming"}`;
+
+    return `${changeClefHtml}
+      <g class="${grpClass}" opacity="${fadeOp.toFixed(2)}">
+        ${ledgerHtml}
+        ${accHtml}
+        <line x1="${stemX.toFixed(1)}" y1="${stemY1.toFixed(1)}" x2="${stemX.toFixed(1)}" y2="${stemY2.toFixed(1)}" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+        <ellipse cx="${nx.toFixed(1)}" cy="${ny.toFixed(1)}" rx="7.0" ry="5.1" transform="rotate(-18 ${nx.toFixed(1)} ${ny.toFixed(1)})" fill="currentColor"/>
+        ${options.showLabels ? `<text x="${nx.toFixed(1)}" y="170" text-anchor="middle" font-size="10.5" font-weight="800" fill="currentColor">${escapeHtml(options.labelShort ? item.shortName : item.displayName)}</text>` : ""}
+      </g>`;
+  }).join("");
+
+  return `<svg class="${clsName}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${escapeHtml(options.ariaLabel || tr("Notensystem", "Musical staff"))}">
+    ${staffLinesHtml}
+    ${anchorHighlightHtml}
+    ${targetBandHtml}
+    ${clefMarkup}
+    <g class="notation-notes-layer${didShift ? " did-shift" : ""}">
+      ${notesHtml}
+    </g>
+  </svg>`;
+}
+
+function buildNotationMiniStaffSVG(snapshot) {
+  if (!snapshot) return "";
+  const item = getNotationNoteFromStaffStep(
+    snapshot.clefId || "treble",
+    Number.isFinite(Number(snapshot.staffStep)) ? Number(snapshot.staffStep) : 4,
+    Number(snapshot.accidental) || 0
+  );
+  return buildNotationStaffSVG([item], {
+    clefId: item.clefId,
+    width: 220,
+    height: 176,
+    firstNoteX: 132,
+    highlightFirst: true,
+    showTargetBand: false,
+    showChangeClefs: false,
+    className: "notation-mini-staff-svg"
+  });
+}
+
+function buildNotationKnowledgeStaffSVG(clefId, stepsOrSpecs, options = {}) {
+  const list = (Array.isArray(stepsOrSpecs) ? stepsOrSpecs : [stepsOrSpecs]).map(entry => {
+    if (typeof entry === "number") {
+      return getNotationNoteFromStaffStep(clefId, entry, 0);
+    }
+    return getNotationNoteFromStaffStep(clefId, entry.step ?? 4, entry.accidental ?? 0);
+  });
+  return buildNotationStaffSVG(list, {
+    clefId: clefId,
+    width: options.width || 300,
+    height: options.height || 176,
+    startX: 10,
+    firstNoteX: list.length === 1 ? 160 : 88,
+    noteSpacing: options.noteSpacing || 48,
+    highlightFirst: false,
+    highlightAll: Boolean(options.highlightAll),
+    highlightAnchorLine: Boolean(options.highlightAnchorLine),
+    showTargetBand: false,
+    showLabels: options.showLabels !== false,
+    labelShort: Boolean(options.labelShort),
+    className: options.className || "notation-knowledge-svg"
+  });
 }
 
 const SOLFEGE_SCALE_STEPS = [
@@ -33167,6 +34773,14 @@ function openKnowledgeRef(refKey, options = {}) {
     container.innerHTML = `<div class="knowledge-list">${renderSingAndPlayReferenceHTML()}</div>`;
     bindKnowledgeAudioButtons(container);
 
+  } else if (refKey === "notation") {
+    state.knowledgeTitle = tr("Notation & Schlüssel", "Notation & Clefs");
+    state.knowledgeSub = tr("Notensystem, Schlüssel, Hilfslinien & Vorzeichen sicher beherrschen", "Master the 5-line staff, clefs, ledger lines & accidentals");
+
+    const html = typeof renderNotationReferenceHTML === "function" ? renderNotationReferenceHTML() : "";
+    container.innerHTML = `<div class="knowledge-list">${html}</div>`;
+    bindKnowledgeAudioButtons(container);
+
   } else if (typeof getLocalizedInstrumentModule === "function" && getLocalizedInstrumentModule(refKey)) {
     const mod = getLocalizedInstrumentModule(refKey);
     state.knowledgeTitle = mod.title;
@@ -33432,6 +35046,17 @@ function bindKnowledgeAudioButtons(rootEl) {
       await ensureAudioReady();
       audioEngine.stopPlayback();
       audioEngine.playStep(["C2", btn.dataset.playNote], 1.15, "C2", "interval");
+    });
+  });
+
+  rootEl.querySelectorAll("[data-play-solo-note]").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      await ensureAudioReady();
+      audioEngine.stopPlayback();
+      const note = btn.dataset.playSoloNote;
+      if (note) {
+        audioEngine.playStep([note], 1.15, null, "interval");
+      }
     });
   });
 
@@ -34440,6 +36065,97 @@ function openCategoryPage(categoryKey, options = {}) {
       });
     });
 
+  } else if (categoryKey === "notation") {
+    const NOTATION_SECTIONS = [
+      {
+        mode: "notation-treble",
+        circleClass: "circle-peach",
+        title: tr("Violinschlüssel (G-Schlüssel)", "Treble Clef (G Clef)"),
+        desc: tr(
+          "Der G-Schlüssel markiert g' (G4) auf der 2. Linie von unten – die Basis für Klavier (rechte Hand), Gesang, Violine, Flöte &amp; Gitarre.",
+          "Marks G4 on the 2nd line from the bottom — essential for piano right hand, vocals, violin, flute &amp; guitar."
+        )
+      },
+      {
+        mode: "notation-bass",
+        circleClass: "circle-sage",
+        title: tr("Bassschlüssel (F-Schlüssel)", "Bass Clef (F Clef)"),
+        desc: tr(
+          "Der F-Schlüssel markiert f (F3) auf der 4. Linie zwischen den beiden Punkten – Standard für Bass, Cello, Posaune &amp; Klavier (linke Hand).",
+          "Marks F3 on the 4th line between its two dots — standard for bass, cello, trombone &amp; piano left hand."
+        )
+      },
+      {
+        mode: "notation-alto",
+        circleClass: "circle-lilac",
+        title: tr("Altschlüssel (C-Schlüssel)", "Alto Clef (C Clef)"),
+        desc: tr(
+          "Der C-Schlüssel legt das mittlere c' (C4) exakt auf die 3. (mittlere) Notenlinie – Pflichtschlüssel für Bratsche &amp; Partiturlesen.",
+          "Places middle C4 right on the 3rd (center) line — standard clef for viola and full-score reading."
+        )
+      },
+      {
+        mode: "notation-mixed",
+        circleClass: "circle-peach",
+        title: tr("Alle Schlüssel gemischt", "Mixed Clefs"),
+        desc: tr(
+          "Wechselt in der Notenzeile flexibel zwischen Violin-, Bass- und Altschlüssel – ideal für flüssiges Blattlesen und Partituren.",
+          "Alternates across Treble, Bass &amp; Alto clefs — great practice for agile sight-reading across systems."
+        )
+      }
+    ];
+
+    const NOTATION_DIFFICULTY_CARDS = [
+      {
+        lvl: 1,
+        badge: "5 L",
+        title: tr("Stufe 1: Im System", "Level 1: On Staff"),
+        sub: tr("5 Linien &amp; 4 Räume (Stammtöne)", "5 lines &amp; 4 spaces (naturals)")
+      },
+      {
+        lvl: 2,
+        badge: "±2",
+        title: tr("Stufe 2: ±1–2 Hilfslinien", "Level 2: ±1–2 Ledgers"),
+        sub: tr("Erweiterter Umfang ohne Vorzeichen", "Extended range without accidentals")
+      },
+      {
+        lvl: 3,
+        badge: "±3",
+        title: tr("Stufe 3: Bis 3 Hilfslinien", "Level 3: Up to 3 Ledgers"),
+        sub: tr("Voller Bereich nach oben &amp; unten", "Up to 3 ledger lines above &amp; below")
+      },
+      {
+        lvl: 4,
+        badge: "♯/♭",
+        title: tr("Stufe 4: 3 Hilfsl. + Vorzeichen", "Level 4: 3 Ledgers + ♯/♭"),
+        sub: tr("Voller Umfang mit ♯ und ♭", "Full 3-ledger range with sharps &amp; flats")
+      }
+    ];
+
+    container.innerHTML = NOTATION_SECTIONS.map(sec => `
+      <div class="subpage-section">
+        <h3 class="subpage-section-title">${sec.title}</h3>
+        <p class="subpage-section-desc">${sec.desc}</p>
+        <div class="subpage-nodes-grid">
+          ${NOTATION_DIFFICULTY_CARDS.map(lv => `
+            <button class="subpage-node-btn" data-launch-notation="${sec.mode}" data-notation-lvl="${lv.lvl}">
+              <div class="node-circle ${sec.circleClass}">${lv.badge}</div>
+              <span class="node-title">${lv.title}</span>
+              <span class="node-sub">${lv.sub}</span>
+            </button>
+          `).join("")}
+        </div>
+      </div>
+    `).join("");
+
+    container.querySelectorAll("[data-launch-notation]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        state.setNotationLevel(btn.dataset.launchNotation, btn.dataset.notationLvl);
+        state.exerciseReturnView = "category";
+        switchView("exercise");
+      });
+    });
+
   } else if (categoryKey === "warmup") {
     const activeVoice = state.warmup?.voiceRange || "mixed";
     const voiceButtonsHtml = Object.values(WARMUP_VOICE_RANGES).map(vr => `
@@ -34662,6 +36378,8 @@ function generateExercise() {
     generateModesCharExercise();
   } else if (state.settings.mode === "modes-cadence") {
     generateModesCadenceExercise();
+  } else if (isNotationMode(state.settings.mode)) {
+    generateNotationExercise(state.settings.mode);
   } else if (isChordQualityMode(state.settings.mode)) {
     generateChordExercise(rootMidi, state.settings.mode);
   } else if (state.settings.mode === "chord-inversions") {
@@ -35433,13 +37151,75 @@ function generateMelodyExercise(rootMidi) {
     rangeLabel: rangeCfg.label,
     isRandomKey: isRandomKey,
     isMultiOctave: isMultiOctave,
-    keyName: `${keyBaseName} (${leftFrameName}–${rightFrameName})`,
-    activeSemitones: rangeCfg.semitones,
-    cadenceBars: buildContextCadenceBars(rootMidi),
-    melodySlots: melodySlots,
-    melodyStep: 0,
-    bars: melodySlots
+      keyName: `${keyBaseName} (${leftFrameName}–${rightFrameName})`,
+      activeSemitones: rangeCfg.semitones,
+      cadenceBars: buildContextCadenceBars(rootMidi),
+      melodySlots: melodySlots,
+      melodyStep: 0,
+      bars: melodySlots
+    };
+  }
+
+function buildNextNotationQueueNote(ex, prevNote = null) {
+  let clefId = ex.baseClefId || "treble";
+  if (ex.isMixedClef && !state.exam?.active) {
+    // Im Schlüssel-Mix alle 3 Noten geordnet den Schlüssel wechseln (mit kleinem Wechsel-Schlüssel)
+    ex.mixedCounter = (ex.mixedCounter || 0);
+    if (prevNote && ex.mixedCounter > 0 && ex.mixedCounter % 3 === 0) {
+      const nextIdx = ((ex.mixedClefCursor || 0) + 1) % NOTATION_ACTIVE_CLEFS.length;
+      ex.mixedClefCursor = nextIdx;
+    }
+    clefId = NOTATION_ACTIVE_CLEFS[ex.mixedClefCursor || 0];
+    ex.mixedCounter += 1;
+  }
+  return pickRandomNotationNoteItem(clefId, ex.level, prevNote);
+}
+
+function generateNotationExercise(modeOverride = state.settings.mode) {
+  const mode = isNotationMode(modeOverride) ? modeOverride : "notation-treble";
+  const lvl = Math.max(1, Math.min(4, parseInt(state.settings.notationDifficulty, 10) || 1));
+  const isMixed = mode === "notation-mixed";
+  const initialClef = isMixed
+    ? NOTATION_ACTIVE_CLEFS[Math.floor(Math.random() * NOTATION_ACTIVE_CLEFS.length)]
+    : getNotationClefFromMode(mode);
+  const queueLen = state.exam?.active ? 1 : NOTATION_QUEUE_SIZE;
+  const lvlCfg = NOTATION_LEVELS[lvl] || NOTATION_LEVELS[1];
+
+  const ex = {
+    type: mode,
+    level: lvl,
+    allowAccidentals: Boolean(lvlCfg.allowAccidentals),
+    isMixedClef: isMixed,
+    baseClefId: initialClef,
+    mixedClefCursor: Math.max(0, NOTATION_ACTIVE_CLEFS.indexOf(initialClef)),
+    mixedCounter: 0,
+    rootMidi: 60,
+    notationQueue: [],
+    notationSolvedCount: 0,
+    notationSkippedCount: 0,
+    notationDidShift: false,
+    notationPanelState: "",
+    notationLastFeedback: null,
+    targetItem: null,
+    bars: []
   };
+
+  for (let i = 0; i < queueLen; i++) {
+    const prev = i > 0 ? ex.notationQueue[i - 1] : null;
+    ex.notationQueue.push(buildNextNotationQueueNote(ex, prev));
+  }
+  ex.targetItem = ex.notationQueue[0];
+  ex.keyName = getLocalizedNotationClefName(ex.targetItem.clefId);
+  state.currentExercise = ex;
+}
+
+function refreshNotationQueueLocalization(ex) {
+  if (!ex || !Array.isArray(ex.notationQueue)) return;
+  ex.notationQueue = ex.notationQueue.map(n => getNotationNoteFromStaffStep(n.clefId, n.staffStep, n.accidental));
+  ex.targetItem = ex.notationQueue[0] || null;
+  if (ex.targetItem) {
+    ex.keyName = getLocalizedNotationClefName(ex.targetItem.clefId);
+  }
 }
 
 function refreshExerciseLocalization(ex) {
@@ -35698,6 +37478,11 @@ function refreshExerciseLocalization(ex) {
       slot.label = getLocalizedSolfegeStepLabel(slot.key, baseStep?.label || slot.label);
       slot.germanNote = midiToGermanNote(slot.playedMidi, preferFlat).replace(/[0-9]/g, "");
     });
+    return;
+  }
+
+  if (isNotationMode(ex.type)) {
+    refreshNotationQueueLocalization(ex);
   }
 }
 
@@ -35707,9 +37492,125 @@ function refreshExerciseLocalization(ex) {
  * - Alle 8 Töne der aktuellen Dur-Tonleiter (egal ob weiße oder schwarze Taste) erhalten ihr mittiges Kästchen (Do–Re–Mi–Fa–Sol–La–Ti–Do).
  * - Alle Tasten außerhalb der Tonart (inkl. der beiden äußeren Rahmentasten) sind deutlich ausgegraut/verdunkelt.
  */
+const NOTATION_BLACK_LABELS_DE = {
+  1: "Cis\nDes",
+  3: "Dis\nEs",
+  6: "Fis\nGes",
+  8: "Gis\nAs",
+  10: "Ais\nB"
+};
+const NOTATION_BLACK_LABELS_INTL = {
+  1: "C♯\nD♭",
+  3: "D♯\nE♭",
+  6: "F♯\nG♭",
+  8: "G♯\nA♭",
+  10: "A♯\nB♭"
+};
+
+function renderNotationKeyboard(wrap, ex) {
+  const firstWhite = 59; // H3 / B3 als halbe linke Rahmentaste
+  const lastWhite = 72;  // C5 als halbe rechte Rahmentaste
+  const showBlackLabels = Boolean(ex?.allowAccidentals);
+  const useIntl = typeof state !== "undefined" && state?.profile?.notation === "intl";
+  const blackLabelMap = useIntl ? NOTATION_BLACK_LABELS_INTL : NOTATION_BLACK_LABELS_DE;
+
+  const whiteKeys = [];
+  const blackKeys = [];
+
+  for (let m = firstWhite; m <= lastWhite; m++) {
+    const pc = ((m % 12) + 12) % 12;
+    const isFrame = (m === firstWhite || m === lastWhite);
+    if (isWhiteMidi(m)) {
+      const noteLabel = getWhiteNoteLabel(pc);
+      whiteKeys.push({
+        midi: m,
+        pc: pc,
+        noteLabel: noteLabel,
+        isFrame: isFrame,
+        inScale: !isFrame
+      });
+    } else {
+      blackKeys.push({
+        midi: m,
+        pc: pc,
+        afterWhiteIdx: whiteKeys.length - 1,
+        noteLabel: blackLabelMap[pc] || ""
+      });
+    }
+  }
+
+  const kb = document.createElement("div");
+  kb.className = "piano-keyboard";
+
+  whiteKeys.forEach(wk => {
+    const keyBtn = document.createElement("button");
+    keyBtn.type = "button";
+    keyBtn.className = `piano-white-key ${wk.isFrame ? "piano-key-frame piano-key-inactive" : "piano-key-scale"}`;
+    keyBtn.id = `solfegeKey_${wk.midi}`;
+    keyBtn.dataset.midi = wk.midi;
+    keyBtn.dataset.pc = wk.pc;
+
+    if (wk.inScale) {
+      const box = document.createElement("span");
+      box.className = "solfege-key-box notation-key-box-white";
+      box.textContent = wk.noteLabel;
+      keyBtn.appendChild(box);
+      keyBtn.addEventListener("click", () => handleNotationKeyClick(wk, keyBtn));
+    } else {
+      const hint = document.createElement("span");
+      hint.className = "piano-note-hint";
+      hint.textContent = wk.noteLabel;
+      keyBtn.appendChild(hint);
+    }
+
+    kb.appendChild(keyBtn);
+  });
+
+  const numWhite = whiteKeys.length;
+  const totalWeight = whiteKeys.reduce((sum, wk) => sum + (wk.isFrame ? 0.5 : 1), 0);
+  const cumWeights = [];
+  let runningWeight = 0;
+  whiteKeys.forEach(wk => {
+    runningWeight += wk.isFrame ? 0.5 : 1;
+    cumWeights.push(runningWeight);
+  });
+  const totalDeductionPx = 10 + Math.max(0, numWhite - 1) * 3;
+
+  blackKeys.forEach(bk => {
+    const blackEl = document.createElement("button");
+    blackEl.type = "button";
+    blackEl.className = "piano-black-key notation-black-active";
+    blackEl.id = `solfegeKey_${bk.midi}`;
+    blackEl.dataset.midi = bk.midi;
+    blackEl.dataset.pc = bk.pc;
+
+    const k = bk.afterWhiteIdx;
+    const weightFrac = cumWeights[k] / totalWeight;
+    const gapOffsetPx = (5 + (k + 0.5) * 3).toFixed(1);
+    blackEl.style.left = `calc(${gapOffsetPx}px + (100% - ${totalDeductionPx}px) * ${weightFrac.toFixed(6)})`;
+
+    if (showBlackLabels && bk.noteLabel) {
+      const box = document.createElement("span");
+      box.className = "solfege-key-box solfege-key-box-black notation-key-box-black";
+      box.textContent = bk.noteLabel;
+      blackEl.appendChild(box);
+    }
+    blackEl.addEventListener("click", () => handleNotationKeyClick(bk, blackEl));
+    kb.appendChild(blackEl);
+  });
+
+  wrap.innerHTML = "";
+  wrap.appendChild(kb);
+}
+
 function renderSolfegeKeyboard() {
   const wrap = document.getElementById("solfegeKeyboardWrap");
   if (!wrap) return;
+
+  if (isNotationMode(state.currentExercise?.type)) {
+    renderNotationKeyboard(wrap, state.currentExercise);
+    return;
+  }
 
   const rootMidi = (state.currentExercise && state.currentExercise.rootMidi)
     ? state.currentExercise.rootMidi
@@ -36011,7 +37912,8 @@ function renderUI() {
 
   const isSolfege = ex.type === "solfege";
   const isMelody = ex.type === "melody";
-  const isKeyboardMode = isSolfege || isMelody;
+  const isNotation = isNotationMode(ex.type);
+  const isKeyboardMode = isSolfege || isMelody || isNotation;
   const isRhythmMeter = ex.type === "rhythm-meter";
   const isRhythmDict = ex.type === "rhythm-dictation";
   const isRhythmTap = ex.type === "rhythm-tap";
@@ -36022,10 +37924,12 @@ function renderUI() {
   const isModes = ex.type.startsWith("modes-");
   const isCadence = ex.type === "cadence";
 
-  document.getElementById("exerciseModuleCard")?.classList.toggle("is-solfege", isKeyboardMode);
+  document.getElementById("exerciseModuleCard")?.classList.toggle("is-solfege", isSolfege || isMelody);
   document.getElementById("exerciseModuleCard")?.classList.toggle("is-melody", isMelody || isRhythmDict || isRhythmTap);
-  document.getElementById("centralStageCard")?.classList.toggle("is-solfege", isKeyboardMode);
+  document.getElementById("exerciseModuleCard")?.classList.toggle("is-notation", isNotation);
+  document.getElementById("centralStageCard")?.classList.toggle("is-solfege", isSolfege || isMelody);
   document.getElementById("centralStageCard")?.classList.toggle("is-melody", isMelody);
+  document.getElementById("centralStageCard")?.classList.toggle("is-notation", isNotation);
 
   // Im oberen Aufgabenmodul eingebettete Steuerungs-Buttons aktualisieren:
   // - Kadenzmodus: Tonart (Salbei) + Taktart (Pfirsich) + Tempo (Lila)
@@ -36057,7 +37961,7 @@ function renderUI() {
   }
 
   if (moduleBpmBtn) {
-    moduleBpmBtn.classList.toggle("hidden", isProd || isModes);
+    moduleBpmBtn.classList.toggle("hidden", isProd || isModes || isNotation);
     moduleBpmBtn.textContent = `${state.activeBpm} BPM`;
   }
 
@@ -36073,7 +37977,7 @@ function renderUI() {
     moduleKeyBtn?.classList.remove("chip-open");
     moduleTimeSigBtn?.classList.remove("chip-open");
   }
-  if (isProd || isModes) {
+  if (isProd || isModes || isNotation) {
     document.getElementById("inlineBpmPopover")?.classList.add("hidden");
     moduleBpmBtn?.classList.remove("chip-open");
   }
@@ -36081,9 +37985,9 @@ function renderUI() {
   const solfegeKeyBtn = document.getElementById("solfegeKeyBtn");
   const solfegeKeyBtnLabel = document.getElementById("solfegeKeyBtnLabel");
   if (solfegeKeyBtn) {
-    solfegeKeyBtn.classList.toggle("hidden", !isKeyboardMode);
+    solfegeKeyBtn.classList.toggle("hidden", !(isSolfege || isMelody));
   }
-  if (solfegeKeyBtnLabel && isKeyboardMode) {
+  if (solfegeKeyBtnLabel && (isSolfege || isMelody)) {
     const baseKeyName = getKeyDisplayName(state.currentKey);
     solfegeKeyBtnLabel.textContent = `🎹 ${baseKeyName}`;
   }
@@ -36131,6 +38035,15 @@ function renderUI() {
   } else if (isModes) {
     if (tonicRefLabel) tonicRefLabel.textContent = tr("Anker-Quinte", "Anchor Fifth");
     if (tonicRefBtn) tonicRefBtn.title = tr("Neutrale Grundton-Quinte (ohne Terz) anhören", "Hear the neutral root-fifth anchor (no 3rd)");
+  } else if (isNotation) {
+    const activeClefId = ex.targetItem?.clefId || ex.baseClefId || "treble";
+    const anchorMap = {
+      treble: tr("Anker: g' (G4)", "Anchor: G4"),
+      bass:   tr("Anker: f (F3)", "Anchor: F3"),
+      alto:   tr("Anker: c' (C4)", "Anchor: C4")
+    };
+    if (tonicRefLabel) tonicRefLabel.textContent = anchorMap[activeClefId] || anchorMap.treble;
+    if (tonicRefBtn) tonicRefBtn.title = tr("Referenzton des aktuellen Notenschlüssels anhören", "Hear the anchor reference pitch of the current clef");
   } else {
     if (tonicRefLabel) {
       tonicRefLabel.textContent =
@@ -36146,7 +38059,7 @@ function renderUI() {
   // „🔊 Stufe nochmal“ / „Ton nochmal“ / „Schlag nochmal“ / „Nur anhören“
   const repeatBtn = document.getElementById("repeatToneBtn");
   if (repeatBtn) {
-    const showRepeat = isCadence || isKeyboardMode || isRhythmDict || isRhythmTap;
+    const showRepeat = isCadence || isSolfege || isMelody || isRhythmDict || isRhythmTap;
     repeatBtn.classList.toggle("hidden", !showRepeat);
     const repeatSpan = repeatBtn.querySelector("span");
     if (isCadence) {
@@ -36164,10 +38077,27 @@ function renderUI() {
     }
   }
 
+  // Skip-Button in Notation prominent mit Label versehen ("Überspringen")
+  const skipBtn = document.getElementById("skipBtn");
+  const skipBtnLabel = document.getElementById("skipBtnLabel");
+  if (skipBtn) {
+    skipBtn.classList.toggle("is-labeled", isNotation);
+    const skipHint = isNotation && !state.exam?.active
+      ? tr("Aktuelle Note überspringen", "Skip current note")
+      : tr("Nächste Abfrage", "Next Prompt");
+    skipBtn.title = skipHint;
+    skipBtn.setAttribute("aria-label", skipHint);
+  }
+  if (skipBtnLabel) {
+    skipBtnLabel.classList.toggle("hidden", !isNotation);
+    skipBtnLabel.textContent = tr("Überspringen", "Skip");
+  }
+
   // Links unten in der Transportleiste:
-  // In Melodie, Rhythmus-Diktat & Nachklopfen schaltet der Button Auto-Weiter um; in Solfège (Zielton-Loop 3s) & sonst Endlosschleife.
+  // In Melodie, Rhythmus-Diktat & Nachklopfen schaltet der Button Auto-Weiter um; in Notation ausgeblendet.
   const loopBtn = document.getElementById("loopToggleBtn");
   if (loopBtn) {
+    loopBtn.classList.toggle("hidden", isNotation || Boolean(state.exam?.active));
     if (isMelody) {
       loopBtn.innerHTML = ICON_AUTO_NEXT_SVG;
       loopBtn.title = tr("Nächste Melodie nach Lösung automatisch abspielen", "Automatically play the next melody after solving");
@@ -36231,6 +38161,9 @@ function renderUI() {
     if (totSlots === 5) barsGrid.classList.add("cols-5");
     else if (totSlots >= 6) barsGrid.classList.add("cols-3");
     syncMelodyHeaderAndPromptUI(ex);
+  } else if (isNotation) {
+    barsGrid.classList.add("is-notation");
+    syncNotationHeaderUI(ex);
   } else if (isRhythmMeter) {
     barsGrid.classList.add("cols-2");
     if (moduleTitleEl) moduleTitleEl.textContent = tr("2-Takt-Puls", "2-Bar Pulse");
@@ -36338,7 +38271,10 @@ function renderUI() {
   }
 
   barsGrid.innerHTML = "";
-  if (isMelody) {
+  if (isNotation) {
+    renderNotationStaffPanel(ex, Boolean(ex.notationDidShift), barsGrid);
+    ex.notationDidShift = false;
+  } else if (isMelody) {
     ex.melodySlots.forEach((slot, idx) => {
       const card = document.createElement("div");
       card.className = "bar-card";
@@ -36840,6 +38776,10 @@ function setCentralStageMode(stageStateClass) {
   const stage = document.getElementById("centralStageCard");
   if (!stage) return;
   const exType = state.currentExercise?.type;
+  if (isNotationMode(exType)) {
+    stage.className = `central-stage ${stageStateClass} is-notation`;
+    return;
+  }
   const isKeyboardLayout = exType === "solfege" || exType === "melody";
   stage.className = isKeyboardLayout
     ? `central-stage ${stageStateClass} is-solfege${exType === "melody" ? " is-melody" : ""}`
@@ -36852,7 +38792,18 @@ function resetCentralStage() {
   if (burstLayer) burstLayer.innerHTML = "";
   setCentralStageMode("stage-idle");
   updateStageMascot("idle");
-  const mode = state.currentExercise?.type;
+  const ex = state.currentExercise;
+  const mode = ex?.type;
+  if (isNotationMode(mode)) {
+    const clefName = getLocalizedNotationClefName(ex?.targetItem?.clefId || ex?.baseClefId || "treble");
+    document.getElementById("stageSubtext").textContent = tr("NOTENLESEN", "SIGHT-READING");
+    document.getElementById("stageMainText").textContent = clefName;
+    document.getElementById("stageFunctionText").textContent = state.exam?.active
+      ? tr("Lies die Note im System und wähle die Taste unten.", "Read the note on the staff and tap the key below.")
+      : tr("Wähle die links markierte Note auf der Klaviatur — oder „Überspringen“.", "Tap the highlighted left note on the keyboard — or “Skip”.");
+    renderStageStreakUI();
+    return;
+  }
   document.getElementById("stageSubtext").textContent = tr("STATUS", "STATUS");
   document.getElementById("stageMainText").textContent = tr("Bereit", "Ready");
   document.getElementById("stageFunctionText").textContent =
@@ -37209,6 +39160,236 @@ async function handleMelodyKeyClick(clickedKeyDef, keyBtn) {
   document.getElementById("stageSubtext").textContent = tf("TON {n} VON {tot} • TONHÖHE RICHTIG", "NOTE {n} OF {tot} • PITCH CORRECT", { n: currentSlotIdx + 1, tot });
   document.getElementById("stageMainText").textContent = getSolfegeDisplayLabel(slot.syllable);
   document.getElementById("stageFunctionText").textContent = tr("Jetzt noch den passenden Notenwert darüber wählen!", "Now pick the matching note value above!");
+}
+
+function getNotationLedgerLevelTag(ex) {
+  const lvlCfg = NOTATION_LEVELS[ex?.level] || NOTATION_LEVELS[1];
+  if (lvlCfg.maxLedgers === 0) return tr("Stammlinien", "5-Line Staff");
+  if (lvlCfg.maxLedgers <= 2) return tr("±2 Hilfslinien", "±2 Ledger Lines");
+  return ex?.allowAccidentals
+    ? tr("±3 Hilfsl. + ♯/♭", "±3 Ledger + ♯/♭")
+    : tr("±3 Hilfslinien", "±3 Ledger Lines");
+}
+
+function syncNotationHeaderUI(ex = state.currentExercise) {
+  if (!ex || !isNotationMode(ex.type)) return;
+  const targetClefId = ex.targetItem?.clefId || ex.baseClefId || "treble";
+  const targetClefName = getLocalizedNotationClefName(targetClefId);
+  const moduleTitleEl = document.getElementById("moduleTitleText");
+  const targetBadgeEl = document.getElementById("targetBarBadge");
+  const tonicRefLabel = document.getElementById("tonicRefLabel");
+  const inputPromptText = document.getElementById("inputPromptText");
+
+  if (moduleTitleEl) {
+    moduleTitleEl.textContent = ex.isMixedClef && !state.exam?.active
+      ? tf("Schlüssel-Mix • {clef}", "Clef Mix • {clef}", { clef: targetClefName })
+      : targetClefName;
+  }
+  if (targetBadgeEl) {
+    targetBadgeEl.textContent = tf("Stufe {lvl} • {tag}", "Level {lvl} • {tag}", {
+      lvl: ex.level || 1,
+      tag: getNotationLedgerLevelTag(ex)
+    });
+  }
+  if (tonicRefLabel) {
+    const anchorMap = {
+      treble: tr("Anker: g' (G4)", "Anchor: G4"),
+      bass:   tr("Anker: f (F3)", "Anchor: F3"),
+      alto:   tr("Anker: c' (C4)", "Anchor: C4")
+    };
+    tonicRefLabel.textContent = anchorMap[targetClefId] || anchorMap.treble;
+  }
+  if (inputPromptText) {
+    inputPromptText.textContent = tr("Wähle die links markierte Note auf der Klaviatur:", "Tap the highlighted left note on the keyboard:");
+  }
+}
+
+function renderNotationStaffPanel(ex, didShift = false, targetGrid = document.getElementById("barsGrid")) {
+  if (!ex || !targetGrid) return;
+  const target = ex.targetItem || ex.notationQueue?.[0];
+  const clefId = target?.clefId || ex.baseClefId || "treble";
+  const clefName = getLocalizedNotationClefName(clefId);
+  const rightHint = state.exam?.active
+    ? getLocalizedNotationClefAnchorHint(clefId)
+    : (target?.ledgerDesc || getNotationLedgerDescription(target?.staffStep ?? 4));
+
+  const panel = document.createElement("div");
+  panel.className = `notation-staff-panel${ex.notationPanelState ? " " + ex.notationPanelState : ""}`;
+  panel.id = "notationStaffPanel";
+
+  const svg = buildNotationStaffSVG(ex.notationQueue, {
+    clefId: clefId,
+    highlightFirst: true,
+    showTargetBand: true,
+    showChangeClefs: Boolean(ex.isMixedClef && !state.exam?.active),
+    didShift: Boolean(didShift)
+  });
+
+  panel.innerHTML = `
+    <div class="notation-queue-strip">
+      <span class="notation-clef-pill">${escapeHtml(clefName)}</span>
+      <span class="notation-ledger-hint">${escapeHtml(rightHint)}</span>
+    </div>
+    ${svg}
+  `;
+
+  targetGrid.innerHTML = "";
+  targetGrid.appendChild(panel);
+}
+
+function shiftAndAdvanceNotationQueue(ex, feedbackKind, stageSub, stageMain, stageDesc, keyBtn) {
+  if (!ex) return;
+  const queue = Array.isArray(ex.notationQueue) ? ex.notationQueue.slice(1) : [];
+  const lastNote = queue[queue.length - 1] || ex.targetItem || null;
+  queue.push(buildNextNotationQueueNote(ex, lastNote));
+  ex.notationQueue = queue;
+  ex.targetItem = queue[0] || null;
+  ex.keyName = getLocalizedNotationClefName(ex.targetItem?.clefId || ex.baseClefId || "treble");
+  ex.notationPanelState = feedbackKind === "correct" ? "is-correct" : "";
+
+  document.querySelectorAll("#solfegeKeyboardWrap .piano-white-key, #solfegeKeyboardWrap .piano-black-key").forEach(el => {
+    el.classList.remove("key-wrong", "key-correct");
+  });
+  if (feedbackKind === "correct" && keyBtn) {
+    keyBtn.classList.add("key-correct");
+    setTimeout(() => keyBtn.classList.remove("key-correct"), 230);
+  }
+
+  renderNotationStaffPanel(ex, true);
+  syncNotationHeaderUI(ex);
+
+  if (feedbackKind === "correct") {
+    const panelEl = document.getElementById("notationStaffPanel");
+    setTimeout(() => {
+      if (ex.notationPanelState === "is-correct") ex.notationPanelState = "";
+      panelEl?.classList.remove("is-correct");
+    }, 240);
+  }
+
+  if (document.getElementById("centralStageCard")) {
+    setCentralStageMode(feedbackKind === "correct" ? "stage-playing" : "stage-target");
+    updateStageMascot(feedbackKind === "correct" ? "happy" : "idle");
+    document.getElementById("stageSubtext").textContent = stageSub;
+    document.getElementById("stageMainText").textContent = stageMain;
+    document.getElementById("stageFunctionText").textContent = stageDesc;
+    renderStageStreakUI();
+  }
+}
+
+async function handleNotationKeyClick(clickedKeyDef, keyBtn, options = {}) {
+  const ex = state.currentExercise;
+  if (!ex || !isNotationMode(ex.type) || !ex.targetItem) return;
+  const isListenOnly = Boolean(options.fromListenOnly && state.listenOnly?.active);
+  const listenOnlyToken = isListenOnly ? state.listenOnly.token : null;
+  if (!options.fromListenOnly && state.listenOnly?.active) {
+    setListenOnlyMode(false, { keepPlayback: true });
+  }
+
+  await ensureAudioReady();
+  if (isListenOnly && (!state.listenOnly?.active || state.listenOnly.token !== listenOnlyToken || state.currentView !== "exercise" || state.currentExercise !== ex)) {
+    return;
+  }
+
+  if (state.exam?.active) {
+    handleExamNotationAnswer(ex, clickedKeyDef, keyBtn);
+    return;
+  }
+
+  const target = ex.targetItem;
+  const isCorrect = Boolean(clickedKeyDef && Number(clickedKeyDef.pc) === Number(target.pc));
+
+  if (!isCorrect) {
+    if (!isListenOnly) resetExerciseStreakOnAttempt(ex);
+    ex.notationPanelState = "is-wrong";
+    keyBtn?.classList.add("key-wrong");
+    const panelEl = document.getElementById("notationStaffPanel");
+    panelEl?.classList.remove("is-correct");
+    panelEl?.classList.add("is-wrong");
+
+    if (document.getElementById("centralStageCard")) {
+      setCentralStageMode("stage-wrong");
+      updateStageMascot("thinking");
+      const pickedLbl = clickedKeyDef?.noteLabel
+        ? String(clickedKeyDef.noteLabel).replace(/\s*\n\s*/g, " / ")
+        : "?";
+      document.getElementById("stageSubtext").textContent = tr("NOCH NICHT GANZ", "NOT QUITE");
+      document.getElementById("stageMainText").textContent = tf("{note}? Nein", "{note}? No", { note: pickedLbl });
+      document.getElementById("stageFunctionText").textContent = tf(
+        "Schau genau in den {clef} — oder tippe „Überspringen“.",
+        "Check the {clef} carefully — or tap “Skip”.",
+        { clef: getLocalizedNotationClefName(target.clefId) }
+      );
+    }
+    return;
+  }
+
+  audioEngine.stopPlayback();
+  state.isPlaying = false;
+  updatePlayButtonUI(false);
+  audioEngine.playStep([target.noteName], 0.85, null, "interval");
+
+  const streakRes = isListenOnly
+    ? { count: state.streakState?.count || 0, isMilestone: false }
+    : recordExerciseStreakSuccess(ex);
+  ex.notationSolvedCount = (ex.notationSolvedCount || 0) + 1;
+
+  if (!isListenOnly) {
+    triggerCelebrationFeedback(keyBtn, { isMilestone: streakRes.isMilestone });
+  }
+
+  shiftAndAdvanceNotationQueue(
+    ex,
+    "correct",
+    tr("RICHTIG GELESEN!", "READ CORRECTLY!"),
+    target.displayName,
+    tf("{clef} • {ledger}", "{clef} • {ledger}", {
+      clef: getLocalizedNotationClefName(target.clefId),
+      ledger: target.ledgerDesc
+    }),
+    keyBtn
+  );
+}
+
+function skipNotationNote() {
+  const ex = state.currentExercise;
+  if (!ex || !isNotationMode(ex.type) || state.exam?.active || !ex.targetItem) return;
+  const target = ex.targetItem;
+  stopPlayback();
+  if (state.listenOnly?.active) {
+    setListenOnlyMode(false, { keepPlayback: true });
+  }
+  ex.notationSkippedCount = (ex.notationSkippedCount || 0) + 1;
+  resetExerciseStreakOnAttempt(ex);
+
+  ensureAudioReady().then(() => {
+    if (state.currentView === "exercise" && state.currentExercise === ex && !state.exam?.active) {
+      audioEngine.playStep([target.noteName], 0.72, null, "interval");
+    }
+  }).catch(() => {});
+
+  shiftAndAdvanceNotationQueue(
+    ex,
+    "skip",
+    tr("ÜBERSPRUNGEN • DAS WAR:", "SKIPPED • THAT WAS:"),
+    target.displayName,
+    tf("{clef} • {ledger}", "{clef} • {ledger}", {
+      clef: getLocalizedNotationClefName(target.clefId),
+      ledger: target.ledgerDesc
+    }),
+    null
+  );
+}
+
+function revealNotationListenOnly(ex, token) {
+  if (!ex || !ex.targetItem || !state.listenOnly?.active || state.listenOnly.token !== token || state.currentView !== "exercise") {
+    return;
+  }
+  const target = ex.targetItem;
+  const keyBtn = Array.from(document.querySelectorAll("#solfegeKeyboardWrap [data-pc]"))
+    .find(el => parseInt(el.dataset.pc, 10) === target.pc) || null;
+  state.listenOnly.phase = "reveal";
+  handleNotationKeyClick({ pc: target.pc, midi: 60 + target.pc, noteLabel: target.shortName }, keyBtn, { fromListenOnly: true });
+  scheduleNextListenOnlyExercise(LISTEN_ONLY_POST_REVEAL_MS, token);
 }
 
 /**
@@ -38437,6 +40618,7 @@ function clearTransientExerciseWrongMarks() {
   document.querySelectorAll("#solfegeKeyboardWrap .piano-white-key, #solfegeKeyboardWrap .piano-black-key").forEach(el => {
     el.classList.remove("key-wrong");
   });
+  document.getElementById("notationStaffPanel")?.classList.remove("is-wrong", "is-correct");
   document.getElementById("feedbackContainer")?.classList.add("hidden");
   state.lastAnswerWasWrong = false;
   state.wrongAnswerData = null;
@@ -38639,6 +40821,11 @@ function revealListenOnlyAnswer(token) {
     return;
   }
 
+  if (isNotationMode(ex.type)) {
+    revealNotationListenOnly(ex, token);
+    return;
+  }
+
   const targetKey = ex.targetItem?.key;
   const targetBtn = Array.from(document.querySelectorAll("#degreeButtonsGrid .degree-btn"))
     .find(el => el.dataset.choice === targetKey) || null;
@@ -38740,6 +40927,40 @@ async function playSequence(options = {}) {
   const ex = state.currentExercise;
   const currentId = audioEngine.playbackId;
   const keepPromptLooping = () => Boolean(state.settings.loop && !state.listenOnly?.active);
+
+  // Notation (Notenlesen):
+  // - Im Nur-Hören-Modus: linke Note markieren & kurz Zeit zum Mitlesen lassen
+  // - Im Prüfungs-Modus: nur Schlüssel-Ankerton spielen (niemals Zielton vorspielen!)
+  // - Im freien Training: als optionale Hörhilfe die aktuelle Zielnote links anspielen
+  if (isNotationMode(ex?.type)) {
+    const target = ex.targetItem;
+    const clefId = target?.clefId || ex.baseClefId || "treble";
+    if (state.listenOnly?.active) {
+      setCentralStageMode("stage-target");
+      updateStageMascot("question");
+      document.getElementById("stageSubtext").textContent = tr("NUR HÖREN • NOTENLESEN", "LISTEN ONLY • SIGHT-READ");
+      document.getElementById("stageMainText").textContent = getLocalizedNotationClefName(clefId);
+      document.getElementById("stageFunctionText").textContent = tr("Lies zuerst die markierte Note links…", "Read the highlighted left note first…");
+      audioEngine.registerTimer(() => {
+        if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
+        state.isPlaying = false;
+        updatePlayButtonUI(false);
+        handleListenOnlyPromptEnded(ex);
+      }, 2100);
+      return;
+    }
+
+    const previewNote = state.exam?.active
+      ? (NOTATION_CLEFS[clefId]?.anchorNote || "G4")
+      : (target?.noteName || "C4");
+    audioEngine.playStep([previewNote], 0.95, null, "interval");
+    audioEngine.registerTimer(() => {
+      if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
+      state.isPlaying = false;
+      updatePlayButtonUI(false);
+    }, 980);
+    return;
+  }
 
   // Produktion 1: Isolierte Sinus-Frequenz erkennen
   if (ex.type === "prod-tone") {
@@ -39655,6 +41876,11 @@ function updatePlayButtonUI(isPlaying) {
   if (isPlaying) {
     btn.innerHTML = tr("■ Stopp", "■ Stop");
     btn.classList.add("btn-stop");
+  } else if (isNotationMode(state.currentExercise?.type)) {
+    btn.innerHTML = state.exam?.active
+      ? tr("▶ Ankerton", "▶ Anchor Pitch")
+      : tr("▶ Ton anhören", "▶ Hear Note");
+    btn.classList.remove("btn-stop");
   } else {
     btn.innerHTML = tr("▶ Abspielen", "▶ Play");
     btn.classList.remove("btn-stop");
@@ -39740,13 +41966,23 @@ function getLevelDisplayForMix(mode, level) {
     const lbl = invLvlLabels[level];
     if (lbl) return tf("Stufe {lvl} ({lbl})", "Level {lvl} ({lbl})", { lvl: level, lbl });
   }
+  if (isNotationMode(mode)) {
+    const notationLvlLabels = {
+      1: tr("Stammlinien", "5-Line Staff"),
+      2: tr("±2 Hilfslinien", "±2 Ledger Lines"),
+      3: tr("±3 Hilfslinien", "±3 Ledger Lines"),
+      4: tr("±3 Hilfsl. + ♯/♭", "±3 Ledger + ♯/♭")
+    };
+    const lbl = notationLvlLabels[level];
+    if (lbl) return tf("Stufe {lvl} ({lbl})", "Level {lvl} ({lbl})", { lvl: level, lbl });
+  }
   return tf("Stufe {lvl}", "Level {lvl}", { lvl: level });
 }
 
 function formatMixSubtitle(mix) {
   const modeLabel = getLocalizedMixModeLabel(mix.mode);
   const lvlText = getLevelDisplayForMix(mix.mode, mix.level);
-  const bpmText = !mix.mode.startsWith("prod-") && !mix.mode.startsWith("modes-") && mix.bpm > 0 ? ` • ${mix.bpm} BPM` : "";
+  const bpmText = !mix.mode.startsWith("prod-") && !mix.mode.startsWith("modes-") && !isNotationMode(mix.mode) && mix.bpm > 0 ? ` • ${mix.bpm} BPM` : "";
   return `${modeLabel} • ${lvlText}${bpmText}`;
 }
 
@@ -39761,6 +41997,8 @@ function applyModeAndLevelFromConfig(cfg) {
     state.setChordInversionDifficulty(cfg.level || 1);
   } else if (mode === "solfege") {
     state.setSolfegeDifficulty(cfg.level || 1);
+  } else if (isNotationMode(mode)) {
+    state.setNotationLevel(cfg.level || 1);
   } else if (mode === "melody") {
     state.setMelodyConfig(
       cfg.melodyRange || cfg.level || "do-fa",
@@ -39818,6 +42056,7 @@ function captureCurrentExerciseAsMix(customTitle = "") {
   else if (mode === "modes-scale") level = state.settings.modesScaleDifficulty;
   else if (mode === "modes-char") level = state.settings.modesCharDifficulty;
   else if (mode === "modes-cadence") level = state.settings.modesCadenceDifficulty;
+  else if (isNotationMode(mode)) level = state.settings.notationDifficulty;
   else level = state.settings.intervalDifficulty;
 
   const mix = sanitizeMixEntry({
@@ -39830,7 +42069,7 @@ function captureCurrentExerciseAsMix(customTitle = "") {
     melodyOctaveMode: state.settings.melodyOctaveMode,
     melodyStyle: state.settings.melodyStyle,
     melodyPulse: state.settings.melodyPulse,
-    bpm: !mode.startsWith("prod-") && !mode.startsWith("modes-") && state.hasManualExerciseBpm ? state.activeBpm : 0
+    bpm: !mode.startsWith("prod-") && !mode.startsWith("modes-") && !isNotationMode(mode) && state.hasManualExerciseBpm ? state.activeBpm : 0
   });
   if (!mix) return null;
 
@@ -41283,7 +43522,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "solfege", "melody",
       "rhythm-meter", "rhythm-dictation", "rhythm-tap", "rhythm-groove",
       "prod-tone", "prod-eq-noise",
-      "modes-scale", "modes-char", "modes-cadence"
+      "modes-scale", "modes-char", "modes-cadence",
+      "notation-treble", "notation-bass", "notation-alto", "notation-mixed"
     ];
     const randomMode = modes[Math.floor(Math.random() * modes.length)];
     state.setMode(randomMode);
@@ -41311,6 +43551,8 @@ document.addEventListener("DOMContentLoaded", () => {
       state.setModesLevel(randomMode, Math.floor(Math.random() * 2) + 1);
     } else if (randomMode.startsWith("modes-")) {
       state.setModesLevel(randomMode, Math.floor(Math.random() * 3) + 1);
+    } else if (isNotationMode(randomMode)) {
+      state.setNotationLevel(Math.floor(Math.random() * 4) + 1);
     } else if (randomMode !== "solfege") {
       state.setIntervalDifficulty(Math.floor(Math.random() * 3) + 1);
     }
@@ -41354,6 +43596,10 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         skipCurrentExamQuestion();
       }
+      return;
+    }
+    if (isNotationMode(state.settings.mode)) {
+      skipNotationNote();
       return;
     }
     if (state.listenOnly.active) {
@@ -41474,6 +43720,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (mode.startsWith("modes-") && ex?.anchorNotes) {
       audioEngine.playStep(ex.anchorNotes, 1.2, null, "cadence");
+      return;
+    }
+
+    if (isNotationMode(mode)) {
+      const clefId = ex?.targetItem?.clefId || ex?.baseClefId || "treble";
+      const anchorNote = NOTATION_CLEFS[clefId]?.anchorNote || "G4";
+      audioEngine.playStep([anchorNote], 1.1, null, "interval");
       return;
     }
 
@@ -43358,7 +45611,11 @@ function getLocalizedExamModeName(mode) {
     "rhythm-tap": tr("Rhythmus nachklopfen", "Rhythm Tap-Back"),
     "rhythm-groove": tr("Grooves & Mikro-Timing", "Grooves & Micro-Timing"),
     "prod-tone": tr("Isolierte Frequenzen", "Isolated Frequencies"),
-    "prod-eq-noise": tr("EQ-Boost im Pink Noise", "EQ Boost in Pink Noise")
+    "prod-eq-noise": tr("EQ-Boost im Pink Noise", "EQ Boost in Pink Noise"),
+    "notation-treble": tr("Violinschlüssel", "Treble Clef"),
+    "notation-bass": tr("Bassschlüssel", "Bass Clef"),
+    "notation-alto": tr("Altschlüssel", "Alto Clef"),
+    "notation-mixed": tr("Schlüssel-Mix", "Clef Mix")
   };
   return names[mode] || mode;
 }
@@ -43827,8 +46084,8 @@ function loadCurrentExamQuestion() {
   state.updateHeaderSubtext();
   syncExamExerciseControls();
 
-  // Rhythmus-Nachklopfen wartet auf bewussten Start (Play / Pad / Leertaste); Hör-Modi starten sauber automatisch
-  if (planMode !== "rhythm-tap") {
+  // Rhythmus-Nachklopfen & Notation warten auf bewusste Nutzereingabe (kein automatisches Zielton-Audio!)
+  if (planMode !== "rhythm-tap" && !isNotationMode(planMode)) {
     exam.autoPlayTimerId = setTimeout(() => {
       if (!state.exam || state.exam !== exam || !exam.active || state.currentView !== "exercise") return;
       if (exam.currentAnswered || exam.currentPromptPlayedOnce) return;
@@ -44161,6 +46418,91 @@ function handleExamSolfegeAnswer(ex, clickedKeyDef, keyBtn) {
     "Gewählt: {ch} • Lösung: {tg}",
     "Picked: {ch} • Target: {tg}",
     { ch: getSolfegeDisplayLabel(clickedKeyDef.syllable), tg: getSolfegeDisplayLabel(target.syllable) }
+  );
+  showExamPostAnswerNextBar();
+}
+
+function handleExamNotationAnswer(ex, clickedKeyDef, keyBtn) {
+  const exam = state?.exam;
+  if (!exam || !exam.active || exam.currentAnswered || !ex?.targetItem) return;
+
+  exam.currentAnswered = true;
+  clearExamTimers(exam);
+  stopPlayback();
+  state.exerciseSolved = true;
+  ex.isSolved = true;
+
+  const target = ex.targetItem;
+  const isCorrect = Boolean(clickedKeyDef && Number(clickedKeyDef.pc) === Number(target.pc));
+  const rawPickedLabel = clickedKeyDef?.noteLabel
+    ? String(clickedKeyDef.noteLabel).replace(/\s*\n\s*/g, " / ")
+    : "?";
+  const chosenDisplay = isCorrect ? target.displayName : rawPickedLabel;
+  const chosenNoteName = isCorrect
+    ? target.noteName
+    : (Number.isFinite(Number(clickedKeyDef?.midi)) ? midiToNote(clickedKeyDef.midi) : null);
+
+  recordExamQuestionEntry({
+    mode: ex.type,
+    status: isCorrect ? "correct" : "wrong",
+    score: isCorrect ? 1 : 0,
+    chosenKey: chosenDisplay,
+    targetKey: target.displayName,
+    chosenLabel: chosenDisplay,
+    targetLabel: target.displayName,
+    detailNote: getLocalizedNotationClefName(target.clefId),
+    audioSnapshot: {
+      type: ex.type,
+      clefId: target.clefId,
+      staffStep: target.staffStep,
+      accidental: target.accidental,
+      targetNoteName: target.noteName,
+      chosenNoteName: chosenNoteName
+    }
+  });
+
+  if (exam.feedbackMode === "blind") {
+    keyBtn?.classList.add("key-exam-recorded");
+    if (document.getElementById("centralStageCard")) {
+      setCentralStageMode("stage-playing");
+      updateStageMascot("listening");
+      document.getElementById("stageSubtext").textContent = tr("ANTWORT ERFASST", "ANSWER RECORDED");
+      document.getElementById("stageMainText").textContent = chosenDisplay;
+      document.getElementById("stageFunctionText").textContent = tr("Weiter zur nächsten Frage…", "Moving to the next question…");
+    }
+    scheduleExamAutoAdvance(260);
+    return;
+  }
+
+  document.querySelectorAll("#solfegeKeyboardWrap .piano-white-key, #solfegeKeyboardWrap .piano-black-key").forEach(el => {
+    el.classList.remove("key-wrong", "key-correct");
+  });
+  const targetEl = Array.from(document.querySelectorAll("#solfegeKeyboardWrap [data-pc]"))
+    .find(el => parseInt(el.dataset.pc, 10) === target.pc) || null;
+  const panelEl = document.getElementById("notationStaffPanel");
+  panelEl?.classList.remove("is-wrong", "is-correct");
+
+  if (isCorrect) {
+    (targetEl || keyBtn)?.classList.add("key-correct");
+    panelEl?.classList.add("is-correct");
+    audioEngine.playStep([target.noteName], 0.9, null, "interval");
+    setCentralStageMode("stage-playing");
+    updateStageMascot("happy");
+    document.getElementById("stageSubtext").textContent = tr("RICHTIG GELESEN!", "READ CORRECTLY!");
+  } else {
+    keyBtn?.classList.add("key-wrong");
+    targetEl?.classList.add("key-correct");
+    panelEl?.classList.add("is-wrong");
+    audioEngine.playStep([target.noteName], 0.9, null, "interval");
+    setCentralStageMode("stage-wrong");
+    updateStageMascot("thinking");
+    document.getElementById("stageSubtext").textContent = tr("NICHT GANZ", "NOT QUITE");
+  }
+  document.getElementById("stageMainText").textContent = target.displayName;
+  document.getElementById("stageFunctionText").textContent = tf(
+    "Gewählt: {ch} • Lösung: {tg}",
+    "Picked: {ch} • Target: {tg}",
+    { ch: chosenDisplay, tg: target.displayName }
   );
   showExamPostAnswerNextBar();
 }
@@ -44675,6 +47017,16 @@ function skipCurrentExamQuestion() {
       expectedOffsets: exp,
       tapsMs: null
     };
+  } else if (isNotationMode(curMode) && ex?.targetItem) {
+    targetLabel = ex.targetItem.displayName;
+    snapshot = {
+      type: curMode,
+      clefId: ex.targetItem.clefId,
+      staffStep: ex.targetItem.staffStep,
+      accidental: ex.targetItem.accidental,
+      targetNoteName: ex.targetItem.noteName,
+      chosenNoteName: null
+    };
   } else if (ex) {
     targetLabel = getExamChoiceDisplayText(curMode, ex.targetItem?.key);
     snapshot = buildExamChoiceSnapshot(ex, null);
@@ -44891,6 +47243,9 @@ function renderExamResultView() {
           <span class="exam-review-q">${escapeHtml(tf("Frage {n} • {mod}", "Question {n} • {mod}", { n: item.qIndex || (visiblePos + 1), mod: getLocalizedExamModeName(item.mode) }))}</span>
           <span class="exam-review-status ${statusCls}">${escapeHtml(statusText)}</span>
         </div>
+        ${isNotationMode(item.mode) && snap && Number.isFinite(Number(snap.staffStep)) ? `
+          <div class="exam-notation-review-staff">${buildNotationMiniStaffSVG(snap)}</div>
+        ` : ""}
         <div class="exam-review-answers">
           <div class="exam-review-line">
             <span class="exam-review-lbl">${escapeHtml(tr("Deine Wahl:", "Your pick:"))}</span>
@@ -45097,7 +47452,7 @@ function playSingleExamReviewSnapshot(snap, side) {
     return 1250;
   }
 
-  if (type === "solfege") {
+  if (type === "solfege" || isNotationMode(type)) {
     const noteName = side === "chosen" ? snap.chosenNoteName : snap.targetNoteName;
     if (noteName) audioEngine.playStep([noteName], 1.05, null, "interval");
     return 1100;
