@@ -1547,6 +1547,10 @@ html, body {
   letter-spacing: 0.04em;
 }
 
+.k-card-tag.is-interval-tag {
+  text-transform: none;
+}
+
 .tag-sage { background-color: var(--sage); color: var(--raccoon-dark); }
 .tag-peach { background-color: var(--peach); color: var(--raccoon-dark); }
 .tag-lilac { background-color: var(--lilac); color: var(--raccoon-dark); }
@@ -6869,11 +6873,18 @@ body,
 
         <div class="settings-section">
           <h4 data-i18n="space.notationTitle">Musikalische Schreibweise</h4>
-          <p class="settings-hint" data-i18n="space.notationSub">Steuert Tonnamen &amp; Tasten-Beschriftung in deinen Übungen.</p>
+          <p class="settings-hint" data-i18n="space.notationSub">Steuert Tonnamen, Intervall-Kürzel &amp; Tasten-Beschriftung in deinen Übungen.</p>
           <span class="account-label" data-i18n="space.notationSystem">Notensystem</span>
           <div class="btn-group" id="profileNotationGroup">
             <button type="button" class="opt-btn active" data-notation="de" data-i18n="space.notationDe">Deutsch (H / B / Cis)</button>
             <button type="button" class="opt-btn" data-notation="intl" data-i18n="space.notationIntl">International (B / Bb / C#)</button>
+          </div>
+          <div class="settings-sub-field">
+            <span class="account-label" data-i18n="space.intervalNotationSystem">Intervall-Namensgebung</span>
+            <div class="btn-group" id="profileIntervalNotationGroup">
+              <button type="button" class="opt-btn active" data-interval-notation="de" data-i18n="space.intervalNotationDe">Deutsch (P / G / k)</button>
+              <button type="button" class="opt-btn" data-interval-notation="intl" data-i18n="space.intervalNotationIntl">International (P / M / m)</button>
+            </div>
           </div>
           <div class="settings-sub-field">
             <span class="account-label" data-i18n="space.solfegeLabelSystem">Klaviatur-Beschriftung (Solfège &amp; Melodie)</span>
@@ -8479,12 +8490,15 @@ const I18N_STATIC = {
   "space.mixCancelBtn": { de: "Abbrechen", en: "Cancel" },
   "space.notationTitle": { de: "Musikalische Schreibweise", en: "Musical Notation" },
   "space.notationSub": {
-    de: "Steuert Tonnamen & Tasten-Beschriftung in deinen Übungen.",
-    en: "Controls note naming & keyboard labels across exercises."
+    de: "Steuert Tonnamen, Intervall-Kürzel & Tasten-Beschriftung in deinen Übungen.",
+    en: "Controls note naming, interval symbols & keyboard labels across exercises."
   },
   "space.notationSystem": { de: "Notensystem", en: "Pitch Naming" },
   "space.notationDe": { de: "Deutsch (H / B / Cis)", en: "German (H / B / Cis)" },
   "space.notationIntl": { de: "International (B / Bb / C#)", en: "International (B / Bb / C#)" },
+  "space.intervalNotationSystem": { de: "Intervall-Namensgebung", en: "Interval Naming" },
+  "space.intervalNotationDe": { de: "Deutsch (P / G / k)", en: "German (P / G / k)" },
+  "space.intervalNotationIntl": { de: "International (P / M / m)", en: "International (P / M / m)" },
   "space.solfegeLabelSystem": { de: "Klaviatur-Beschriftung (Solfège & Melodie)", en: "Keyboard Labels (Solfège & Melodies)" },
   "space.solfegeSyllables": { de: "Silben (Do – Ti)", en: "Syllables (Do – Ti)" },
   "space.solfegeNumbers": { de: "Stufenzahlen (1 – 7)", en: "Scale Degrees (1 – 7)" },
@@ -9040,8 +9054,32 @@ function getLocalizedDegreeDef(degKey) {
   return localizeEntry(HARMONIC_DATA.degrees[degKey], DEGREES_EN[degKey]);
 }
 
+const INTERVAL_GERMAN_SYMBOLS = {
+  "m2": "k2",
+  "M2": "G2",
+  "m3": "k3",
+  "M3": "G3",
+  "m6": "k6",
+  "M6": "G6",
+  "m7": "k7",
+  "M7": "G7",
+  "m9": "k9",
+  "M9": "G9"
+};
+
+/**
+ * Formats an interval symbol according to the user's interval notation preference
+ * ('de' -> P / G / k, 'intl' -> P / M / m).
+ */
+function formatIntervalSymbol(keyOrSym) {
+  const sym = String(keyOrSym || "");
+  const useGerman = typeof state !== "undefined" ? state?.profile?.intervalNotation !== "intl" : true;
+  return useGerman ? (INTERVAL_GERMAN_SYMBOLS[sym] || sym) : sym;
+}
+
 function getLocalizedIntervalDef(key) {
-  return localizeEntry(HARMONIC_DATA.intervals[key], INTERVALS_EN[key]);
+  const base = localizeEntry(HARMONIC_DATA.intervals[key], INTERVALS_EN[key]);
+  return base ? { ...base, key: base.key || key, symbol: formatIntervalSymbol(base.symbol || key) } : base;
 }
 
 function getLocalizedChordDef(key) {
@@ -10193,28 +10231,28 @@ const KNOWLEDGE_ARTICLES_EN = [
         <div class="song-cheat-grid">
           <div class="song-cheat-row">
             <div>
-              <strong>Minor 2nd (m2)</strong>
+              <strong>Minor 2nd (${typeof formatIntervalSymbol === "function" ? formatIntervalSymbol("m2") : "m2"})</strong>
               <span>Jaws Theme / Pink Panther</span>
             </div>
             <button class="btn-tool" data-play-interval-mel="m2">▶ Listen</button>
           </div>
           <div class="song-cheat-row">
             <div>
-              <strong>Major 2nd (M2)</strong>
+              <strong>Major 2nd (${typeof formatIntervalSymbol === "function" ? formatIntervalSymbol("M2") : "M2"})</strong>
               <span>Happy Birthday / Frère Jacques</span>
             </div>
             <button class="btn-tool" data-play-interval-mel="M2">▶ Listen</button>
           </div>
           <div class="song-cheat-row">
             <div>
-              <strong>Minor 3rd (m3)</strong>
+              <strong>Minor 3rd (${typeof formatIntervalSymbol === "function" ? formatIntervalSymbol("m3") : "m3"})</strong>
               <span>Seven Nation Army / Greensleeves</span>
             </div>
             <button class="btn-tool" data-play-interval-mel="m3">▶ Listen</button>
           </div>
           <div class="song-cheat-row">
             <div>
-              <strong>Major 3rd (M3)</strong>
+              <strong>Major 3rd (${typeof formatIntervalSymbol === "function" ? formatIntervalSymbol("M3") : "M3"})</strong>
               <span>When the Saints / Morning Has Broken</span>
             </div>
             <button class="btn-tool" data-play-interval-mel="M3">▶ Listen</button>
@@ -10242,7 +10280,7 @@ const KNOWLEDGE_ARTICLES_EN = [
           </div>
           <div class="song-cheat-row">
             <div>
-              <strong>Major 6th (M6)</strong>
+              <strong>Major 6th (${typeof formatIntervalSymbol === "function" ? formatIntervalSymbol("M6") : "M6"})</strong>
               <span>My Bonnie Lies Over the Ocean</span>
             </div>
             <button class="btn-tool" data-play-interval-mel="M6">▶ Listen</button>
@@ -10533,6 +10571,17 @@ const CATEGORY_HELP_GUIDES_EN = {
         <li><strong>Level 2 – Major Scale:</strong> All 8 diatonic intervals spanning from Unison up to Octave.</li>
         <li><strong>Level 3 – Chromatic:</strong> All 15 intervals from Unison up to Major 9th (<code>M9</code>), including minor intervals and the Tritone.</li>
       </ul>
+
+      <h3>How Interval Symbols Work</h3>
+      <ul class="article-steps-list">
+        <li><strong>Letter = Quality (Color), Number = Scale Distance (<code>1</code>–<code>9</code>):</strong> The number counts letter-name steps from the starting note (<code>1</code> = Unison, <code>2</code> = 2nd, <code>3</code> = 3rd … up to <code>9</code> = 9th), while the prefix clarifies the exact semitone width.</li>
+        <li><strong><code>P</code> = Perfect:</strong> Applies to Unison (<code>P1</code>), 4th (<code>P4</code>), 5th (<code>P5</code>), and Octave (<code>P8</code>). Perfect intervals don’t split into major/minor — they lock together with open acoustic clarity.</li>
+        <li><strong><code>M</code> &amp; <code>m</code> (International) or <code>G</code> &amp; <code>k</code> (German):</strong> Used for 2nds (<code>2</code>), 3rds (<code>3</code>), 6ths (<code>6</code>), 7ths (<code>7</code>), and 9ths (<code>9</code>):<br>
+          – <strong>Uppercase <code>M</code></strong> (<em>Major</em>, German <strong><code>G</code></strong> = <em>Groß</em>) marks the wider, brighter version (e.g., <code>M3</code> / <code>G3</code> = Major 3rd, 4 semitones).<br>
+          – <strong>Lowercase <code>m</code></strong> (<em>Minor</em>, German <strong><code>k</code></strong> = <em>klein</em>) is always <strong>1 semitone narrower</strong>, warmer or more tense (e.g., <code>m3</code> / <code>k3</code> = Minor 3rd, 3 semitones). Watch the case difference in <code>m</code> vs. <code>M</code> — they represent completely distinct sounds!</li>
+        <li><strong><code>TT</code> = Tritone:</strong> The electric 6-semitone midpoint splitting the octave cleanly between <code>P4</code> and <code>P5</code>.</li>
+      </ul>
+      <p><em>Switch Notation:</em> You can toggle between <strong>International (P / M / m)</strong> and <strong>German (P / G / k)</strong> anytime under <strong>App Settings → Musical Notation → Interval Naming</strong>.</p>
 
       <h3>Chord Difficulty (4 Levels)</h3>
       <ul class="article-steps-list">
@@ -12387,6 +12436,41 @@ function renderCircleOfFifthsTheoryHTML_EN() {
   `;
 }
 
+function getIntervalNamingGuideHTML_EN() {
+  const sym = k => (typeof formatIntervalSymbol === "function" ? formatIntervalSymbol(k) : k);
+  const useGerman = typeof state !== "undefined" ? state?.profile?.intervalNotation !== "intl" : true;
+  const activeSchemeLabel = useGerman ? "Active: P / G / k" : "Active: P / M / m";
+  return `
+    <details class="knowledge-card k-accordion" id="intervalNamingGuideAccordion" open>
+      <summary class="k-accordion-summary">
+        <div class="k-accordion-head">
+          <div class="k-card-top-row">
+            <span class="k-card-tag tag-sage">Naming &amp; Symbols</span>
+            <span class="k-ratio-chip">${activeSchemeLabel}</span>
+          </div>
+          <h4>How Interval Symbols Work (Letter + Number)</h4>
+        </div>
+        <span class="k-accordion-chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="k-accordion-body">
+        <p>Every interval shorthand packs two facts into two characters: the <strong>number</strong> counts scale-letter steps, while the <strong>prefix letter</strong> defines its exact semitone size.</p>
+        <ul class="k-physics-list">
+          <li><strong>1. The Number (<code>1</code>–<code>9</code>) Counts Scale Steps:</strong> From <code>1</code> = Unison (same note), <code>2</code> = 2nd, <code>3</code> = 3rd, <code>4</code> = 4th, <code>5</code> = 5th, <code>6</code> = 6th, <code>7</code> = 7th, <code>8</code> = Octave up to <code>9</code> = 9th.</li>
+          <li><strong>2. Perfect Intervals (<code>P</code>):</strong> <code>P1</code>, <code>P4</code>, <code>P5</code>, and <code>P8</code> occur in only one pure form — open, stable frequency ratios with no major/minor split.</li>
+          <li><strong>3. Major &amp; Minor Pairs (<code>2</code>, <code>3</code>, <code>6</code>, <code>7</code>, <code>9</code>):</strong> These five sizes come in two shades separated by <strong>1 semitone</strong>:<br>
+            – <strong>International (<code>P / M / m</code>):</strong> uppercase <strong><code>M</code></strong> (<em>Major</em>) marks the wider, brighter interval; lowercase <strong><code>m</code></strong> (<em>minor</em>) sits 1 semitone closer (e.g., <code>M3</code> vs. <code>m3</code>). Case matters completely here!<br>
+            – <strong>German (<code>P / G / k</code>):</strong> uppercase <strong><code>G</code></strong> (<em>Groß</em> = major) vs. lowercase <strong><code>k</code></strong> (<em>klein</em> = minor, e.g., <code>G3</code> vs. <code>k3</code>).</li>
+          <li><strong>4. Tritone (<code>TT</code>):</strong> Splits the octave cleanly in half at <strong>6 semitones</strong> right between <code>P4</code> and <code>P5</code> (augmented 4th / diminished 5th).</li>
+        </ul>
+        <div class="k-meta-box">
+          <div>🔎 <strong>Active Symbols:</strong> 2nds: <code>${sym("m2")}</code> (1 ST) vs. <code>${sym("M2")}</code> (2 ST) · 3rds: <code>${sym("m3")}</code> (3 ST) vs. <code>${sym("M3")}</code> (4 ST)</div>
+          <div>⚙️ <strong>Customize:</strong> Switch anytime between <strong>International (P / M / m)</strong> and <strong>German (P / G / k)</strong> in <strong>App Settings → Musical Notation → Interval Naming</strong>.</div>
+        </div>
+      </div>
+    </details>
+  `;
+}
+
 </script>
 <script>
 /**
@@ -13485,28 +13569,28 @@ const KNOWLEDGE_ARTICLES = [
         <div class="song-cheat-grid">
           <div class="song-cheat-row">
             <div>
-              <strong>Kleine Sekunde (m2)</strong>
+              <strong>Kleine Sekunde (${typeof formatIntervalSymbol === "function" ? formatIntervalSymbol("m2") : "m2"})</strong>
               <span>Der weiße Hai (Jaws)</span>
             </div>
             <button class="btn-tool" data-play-interval-mel="m2">▶ Hören</button>
           </div>
           <div class="song-cheat-row">
             <div>
-              <strong>Große Sekunde (M2)</strong>
+              <strong>Große Sekunde (${typeof formatIntervalSymbol === "function" ? formatIntervalSymbol("M2") : "M2"})</strong>
               <span>Happy Birthday / Alle meine Entchen</span>
             </div>
             <button class="btn-tool" data-play-interval-mel="M2">▶ Hören</button>
           </div>
           <div class="song-cheat-row">
             <div>
-              <strong>Kleine Terz (m3)</strong>
+              <strong>Kleine Terz (${typeof formatIntervalSymbol === "function" ? formatIntervalSymbol("m3") : "m3"})</strong>
               <span>Seven Nation Army / Greensleeves</span>
             </div>
             <button class="btn-tool" data-play-interval-mel="m3">▶ Hören</button>
           </div>
           <div class="song-cheat-row">
             <div>
-              <strong>Große Terz (M3)</strong>
+              <strong>Große Terz (${typeof formatIntervalSymbol === "function" ? formatIntervalSymbol("M3") : "M3"})</strong>
               <span>Oh When the Saints / Morning Has Broken</span>
             </div>
             <button class="btn-tool" data-play-interval-mel="M3">▶ Hören</button>
@@ -13534,7 +13618,7 @@ const KNOWLEDGE_ARTICLES = [
           </div>
           <div class="song-cheat-row">
             <div>
-              <strong>Große Sexte (M6)</strong>
+              <strong>Große Sexte (${typeof formatIntervalSymbol === "function" ? formatIntervalSymbol("M6") : "M6"})</strong>
               <span>My Bonnie Lies Over the Ocean</span>
             </div>
             <button class="btn-tool" data-play-interval-mel="M6">▶ Hören</button>
@@ -13839,6 +13923,17 @@ const CATEGORY_HELP_GUIDES = {
         <li><strong>Stufe 2 – Dur-Tonleiter:</strong> Alle 8 diatonischen Intervalle vom Ausgangston bis zur Oktave.</li>
         <li><strong>Stufe 3 – Chromatisch:</strong> Alle 15 Intervalle von der Prime bis zur großen None (<code>M9</code>) inklusive kleiner Intervalle und Tritonus.</li>
       </ul>
+
+      <h3>Wie die Intervall-Kürzel funktionieren</h3>
+      <ul class="article-steps-list">
+        <li><strong>Buchstabe = Klangfarbe (Qualität), Zahl = Tonschritt (<code>1</code>–<code>9</code>):</strong> Die Zahl zählt die Stammtöne vom Start- bis zum Zielton (z. B. <code>1</code> = Prime, <code>2</code> = Sekunde, <code>3</code> = Terz, … bis <code>9</code> = None). Der Buchstabe verrät die genaue Größe in Halbtönen.</li>
+        <li><strong><code>P</code> = Rein (engl. <em>Perfect</em>):</strong> Gilt für Prime (<code>P1</code>), Quarte (<code>P4</code>), Quinte (<code>P5</code>) und Oktave (<code>P8</code>). Diese Abstände gibt es nicht in „groß“ oder „klein“ – sie verschmelzen akustisch besonders stabil und klar.</li>
+        <li><strong><code>G</code> &amp; <code>k</code> (Deutsch) oder <code>M</code> &amp; <code>m</code> (International):</strong> Steht bei Sekunde (<code>2</code>), Terz (<code>3</code>), Sexte (<code>6</code>), Septime (<code>7</code>) und None (<code>9</code>):<br>
+          – <strong>Großbuchstabe <code>G</code></strong> (<em>Groß</em>) bzw. <strong><code>M</code></strong> (<em>Major</em>) markiert die größere, hellere Variante (z. B. <code>G3</code> / <code>M3</code> = große Terz, 4 Halbtöne).<br>
+          – <strong>Kleinbuchstabe <code>k</code></strong> (<em>klein</em>) bzw. <strong><code>m</code></strong> (<em>minor</em>) liegt genau <strong>1 Halbton enger</strong> und klingt weicher oder gespannter (z. B. <code>k3</code> / <code>m3</code> = kleine Terz, 3 Halbtöne). Achte in der internationalen Schreibweise besonders auf klein <code>m</code> vs. groß <code>M</code>!</li>
+        <li><strong><code>TT</code> = Tritonus:</strong> Der charakteristische 6-Halbton-Sprung genau zwischen Quarte (<code>P4</code>) und Quinte (<code>P5</code>).</li>
+      </ul>
+      <p><em>Schreibweise wechseln:</em> In den <strong>App-Einstellungen → Musikalische Schreibweise → Intervall-Namensgebung</strong> kannst du jederzeit zwischen <strong>Deutsch (P / G / k)</strong> und <strong>International (P / M / m)</strong> wählen.</p>
 
       <h3>Schwierigkeitsstufen: Akkordtypen (4 Stufen)</h3>
       <ul class="article-steps-list">
@@ -15739,9 +15834,49 @@ function renderSingAndPlayReferenceHTML() {
 }
 
 function getLocalizedIntervalEncyclopedia() {
-  return (typeof isEnglishLang === "function" && isEnglishLang() && typeof INTERVAL_ENCYCLOPEDIA_EN !== "undefined")
+  const list = (typeof isEnglishLang === "function" && isEnglishLang() && typeof INTERVAL_ENCYCLOPEDIA_EN !== "undefined")
     ? INTERVAL_ENCYCLOPEDIA_EN
     : INTERVAL_ENCYCLOPEDIA;
+  if (typeof formatIntervalSymbol !== "function") return list;
+  return list.map(item => ({ ...item, symbol: formatIntervalSymbol(item.symbol || item.key) }));
+}
+
+function getLocalizedIntervalNamingGuideHTML() {
+  if (typeof isEnglishLang === "function" && isEnglishLang() && typeof getIntervalNamingGuideHTML_EN === "function") {
+    return getIntervalNamingGuideHTML_EN();
+  }
+  const sym = k => (typeof formatIntervalSymbol === "function" ? formatIntervalSymbol(k) : k);
+  const useGerman = typeof state !== "undefined" ? state?.profile?.intervalNotation !== "intl" : true;
+  const activeSchemeLabel = useGerman ? "Aktiv: P / G / k" : "Aktiv: P / M / m";
+  return `
+    <details class="knowledge-card k-accordion" id="intervalNamingGuideAccordion" open>
+      <summary class="k-accordion-summary">
+        <div class="k-accordion-head">
+          <div class="k-card-top-row">
+            <span class="k-card-tag tag-sage">Systematik &amp; Kürzel</span>
+            <span class="k-ratio-chip">${activeSchemeLabel}</span>
+          </div>
+          <h4>Wie Intervalle benannt werden (Buchstabe + Zahl)</h4>
+        </div>
+        <span class="k-accordion-chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="k-accordion-body">
+        <p>Jedes Intervall-Kürzel verrät dir zwei Dinge auf einmal: Die <strong>Zahl</strong> benennt den Schritt in der Tonleiter, der <strong>Buchstabe</strong> davor gibt die exakte Größe in Halbtönen an.</p>
+        <ul class="k-physics-list">
+          <li><strong>1. Die Zahl (<code>1</code>–<code>9</code>) zählt die Stammton-Schritte:</strong> Von <code>1</code> = Prime (selber Ton), <code>2</code> = Sekunde, <code>3</code> = Terz, <code>4</code> = Quarte, <code>5</code> = Quinte, <code>6</code> = Sexte, <code>7</code> = Septime, <code>8</code> = Oktave bis <code>9</code> = None.</li>
+          <li><strong>2. Reine Intervalle (<code>P</code> = <em>Perfect</em>):</strong> <code>P1</code>, <code>P4</code>, <code>P5</code> und <code>P8</code> gibt es nur einmal – sie schwingen in einfachen Zahlenverhältnissen ohne „groß“ oder „klein“.</li>
+          <li><strong>3. Große &amp; kleine Intervalle (<code>2</code>, <code>3</code>, <code>6</code>, <code>7</code>, <code>9</code>):</strong> Diese fünf Intervalle existieren jeweils in zwei Varianten mit genau <strong>1 Halbton Unterschied</strong>:<br>
+            – <strong>Deutsch (<code>P / G / k</code>):</strong> großes <strong><code>G</code></strong> (<em>Groß</em>) für die weitere/hellere Form, kleines <strong><code>k</code></strong> (<em>klein</em>) für die einen Halbton engere Form (z. B. <code>G2</code> vs. <code>k2</code>, <code>G3</code> vs. <code>k3</code>).<br>
+            – <strong>International (<code>P / M / m</code>):</strong> großes <strong><code>M</code></strong> (<em>Major</em>) vs. kleines <strong><code>m</code></strong> (<em>minor</em>) – hier entscheidet allein Groß- vs. Kleinschreibung über 1 Halbton und einen völlig anderen Charakter!</li>
+          <li><strong>4. Tritonus (<code>TT</code>):</strong> Teilt die Oktave exakt bei <strong>6 Halbtönen</strong> zwischen <code>P4</code> und <code>P5</code> (übermäßige Quarte / verminderte Quinte).</li>
+        </ul>
+        <div class="k-meta-box">
+          <div>🔎 <strong>Aktive Schreibweise:</strong> Sekunde: <code>${sym("m2")}</code> (1 HT) vs. <code>${sym("M2")}</code> (2 HT) · Terz: <code>${sym("m3")}</code> (3 HT) vs. <code>${sym("M3")}</code> (4 HT)</div>
+          <div>⚙️ <strong>Umschalten:</strong> In den <strong>App-Einstellungen → Musikalische Schreibweise → Intervall-Namensgebung</strong> kannst du jederzeit zwischen <strong>Deutsch (P / G / k)</strong> und <strong>International (P / M / m)</strong> wechseln.</div>
+        </div>
+      </div>
+    </details>
+  `;
 }
 
 function getLocalizedCadenceEncyclopedia() {
@@ -15776,10 +15911,22 @@ function getLocalizedPhysicsOvertones() {
 }
 
 function getLocalizedCategoryHelpGuide(categoryKey) {
-  if (typeof isEnglishLang === "function" && isEnglishLang() && typeof CATEGORY_HELP_GUIDES_EN !== "undefined") {
-    return CATEGORY_HELP_GUIDES_EN[categoryKey] || CATEGORY_HELP_GUIDES[categoryKey] || null;
+  const guide = (typeof isEnglishLang === "function" && isEnglishLang() && typeof CATEGORY_HELP_GUIDES_EN !== "undefined")
+    ? (CATEGORY_HELP_GUIDES_EN[categoryKey] || CATEGORY_HELP_GUIDES[categoryKey] || null)
+    : (CATEGORY_HELP_GUIDES[categoryKey] || null);
+  if (!guide || categoryKey !== "interval" || typeof formatIntervalSymbol !== "function") {
+    return guide;
   }
-  return CATEGORY_HELP_GUIDES[categoryKey] || null;
+  const m3 = formatIntervalSymbol("M3");
+  const m9 = formatIntervalSymbol("M9");
+  return {
+    ...guide,
+    sections: guide.sections
+      .replace("große Terz (<code>M3</code>)", `große Terz (<code>${m3}</code>)`)
+      .replace("großen None (<code>M9</code>)", `großen None (<code>${m9}</code>)`)
+      .replace("Major 3rd (<code>M3</code>)", `Major 3rd (<code>${m3}</code>)`)
+      .replace("Major 9th (<code>M9</code>)", `Major 9th (<code>${m9}</code>)`)
+  };
 }
 
 function getLocalizedRhythmInstrumentsData() {
@@ -17206,6 +17353,8 @@ function createDefaultProfile() {
     companionAccessory: "headphones",
     notation: "de",
     notationManual: false,
+    intervalNotation: "de",
+    intervalNotationManual: false,
     solfegeLabels: "syllables",
     sessionMinutes: 10,
     inactivityMinutes: 3,
@@ -17266,6 +17415,8 @@ function sanitizeUserProfile(raw) {
     companionAccessory: validAccessories.includes(raw.companionAccessory) ? raw.companionAccessory : "headphones",
     notation: raw.notation === "intl" ? "intl" : "de",
     notationManual: Boolean(raw.notationManual),
+    intervalNotation: raw.intervalNotation === "intl" ? "intl" : "de",
+    intervalNotationManual: Boolean(raw.intervalNotationManual),
     solfegeLabels: raw.solfegeLabels === "numbers" ? "numbers" : "syllables",
     sessionMinutes: sessMins,
     inactivityMinutes: idleMins,
@@ -17462,6 +17613,9 @@ class AppState {
     this.wavePaused = false;
 
     this.profile = loadUserProfile();
+    if (!this.profile.intervalNotationManual) {
+      this.profile.intervalNotation = this.settings.language === "en" ? "intl" : "de";
+    }
     this.customThemeEditor = {
       open: false,
       slotIndex: 0,
@@ -17862,11 +18016,21 @@ function setLanguagePreference(nextLang) {
   state.settings.language = lang;
   saveVisualPrefs(state.settings.appearance, state.settings.theme, lang);
 
-  if (state.profile && !state.profile.notationManual) {
-    state.profile.notation = lang === "en" ? "intl" : "de";
-    saveUserProfile(state.profile);
-    if (state.currentExercise) {
-      applyProfileDisplayChanges();
+  if (state.profile) {
+    let profileUpdated = false;
+    if (!state.profile.notationManual) {
+      state.profile.notation = lang === "en" ? "intl" : "de";
+      profileUpdated = true;
+    }
+    if (!state.profile.intervalNotationManual) {
+      state.profile.intervalNotation = lang === "en" ? "intl" : "de";
+      profileUpdated = true;
+    }
+    if (profileUpdated) {
+      saveUserProfile(state.profile);
+      if (state.currentExercise) {
+        applyProfileDisplayChanges();
+      }
     }
   }
 
@@ -19366,6 +19530,7 @@ function openKnowledgeRef(refKey, options = {}) {
     );
 
     container.innerHTML = `
+      ${typeof getLocalizedIntervalNamingGuideHTML === "function" ? getLocalizedIntervalNamingGuideHTML() : ""}
       <div class="k-filter-row" id="intervalRefFilterRow">
         <button class="k-filter-pill active" data-ifilter="all">${tr("Alle (15)", "All (15)")}</button>
         <button class="k-filter-pill" data-ifilter="pure">${tr("Rein & Stabil", "Pure & Stable")}</button>
@@ -19388,10 +19553,11 @@ function openKnowledgeRef(refKey, options = {}) {
         const tagClass = item.category === "pure" ? "tag-sage"
           : (item.category === "minor" ? "tag-lilac" : "tag-peach");
         const semiUnit = item.semitones === 1 ? tr("Halbton", "Semitone") : tr("Halbtöne", "Semitones");
+        const symLabel = typeof formatIntervalSymbol === "function" ? formatIntervalSymbol(item.symbol) : item.symbol;
         return `
           <article class="knowledge-card">
             <div class="k-card-top-row">
-              <span class="k-card-tag ${tagClass}">${item.symbol} • ${item.semitones} ${semiUnit}</span>
+              <span class="k-card-tag is-interval-tag ${tagClass}">${symLabel} • ${item.semitones} ${semiUnit}</span>
               <button class="k-ratio-btn" data-toggle-ratio="${idx}" title="${item.ratioExplain}">
                 <span>ⓘ ${tr("Frequenz", "Ratio")} ${item.ratio}</span>
               </button>
@@ -21843,6 +22009,12 @@ function refreshExerciseLocalization(ex) {
       ex.bars[0].label = def.label;
     }
     Object.assign(ex.targetItem, def, { displayMain: ex.bars[ex.targetIndex]?.symbol || targetDisplayNote });
+    if (state.wrongAnswerData && state.wrongAnswerData.target === ex.targetItem && state.wrongAnswerData.chosen?.key) {
+      const refreshedChosen = getLocalizedIntervalDef(state.wrongAnswerData.chosen.key);
+      if (refreshedChosen) {
+        state.wrongAnswerData.chosen = { ...state.wrongAnswerData.chosen, ...refreshedChosen };
+      }
+    }
     return;
   }
 
@@ -25584,15 +25756,45 @@ function populateMixCreatorControls(options = {}) {
 
 function applyProfileDisplayChanges() {
   state.profileDisplayDirty = true;
-  if (state.currentExercise) {
-    refreshExerciseLocalization(state.currentExercise);
+  const ex = state.currentExercise;
+  if (ex) {
+    refreshExerciseLocalization(ex);
     if (state.currentView === "exercise") {
       renderUI();
+      if (ex.isSolved && String(ex.type || "").startsWith("interval-") && ex.targetItem) {
+        const stageMain = document.getElementById("stageMainText");
+        const stageFn = document.getElementById("stageFunctionText");
+        if (stageMain) stageMain.textContent = ex.targetItem.roman || ex.targetItem.symbol;
+        if (stageFn) stageFn.textContent = ex.targetItem.label;
+        const targetCard = document.getElementById(`barCard_${ex.targetIndex}`);
+        if (targetCard) {
+          const romanEl = targetCard.querySelector(".bar-roman");
+          const lblEl = targetCard.querySelector(".bar-label");
+          if (romanEl) romanEl.textContent = ex.targetItem.displayMain || ex.targetItem.roman || ex.targetItem.symbol;
+          if (lblEl) lblEl.textContent = ex.targetItem.short;
+        }
+      }
+      if (state.lastAnswerWasWrong && state.wrongAnswerData?.chosen) {
+        const chosenDef = state.wrongAnswerData.chosen;
+        const fbText = document.getElementById("feedbackText");
+        if (fbText) {
+          fbText.textContent = tf("Gewählt: {sym} ({lbl}).", "Selected: {sym} ({lbl}).", {
+            sym: chosenDef.roman || chosenDef.symbol,
+            lbl: chosenDef.label
+          });
+        }
+      }
       state.profileDisplayDirty = false;
     }
   }
-  if (state.currentView === "knowledge-detail" && state.activeKnowledgeDetail?.kind === "ref") {
-    openKnowledgeRef(state.activeKnowledgeDetail.key, { refreshOnly: true });
+  if (state.currentView === "category-help") {
+    openCategoryHelpPage(state.activeCategory, { refreshOnly: true });
+  } else if (state.currentView === "knowledge-detail" && state.activeKnowledgeDetail) {
+    if (state.activeKnowledgeDetail.kind === "article") {
+      openKnowledgeArticle(state.activeKnowledgeDetail.id, { refreshOnly: true });
+    } else if (state.activeKnowledgeDetail.kind === "ref") {
+      openKnowledgeRef(state.activeKnowledgeDetail.key, { refreshOnly: true });
+    }
   }
 }
 
@@ -25695,6 +25897,9 @@ function renderProfileAccountView() {
 
   document.querySelectorAll("[data-notation]").forEach(btn => {
     btn.classList.toggle("active", btn.dataset.notation === p.notation);
+  });
+  document.querySelectorAll("[data-interval-notation]").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.intervalNotation === (p.intervalNotation === "intl" ? "intl" : "de"));
   });
   document.querySelectorAll("[data-solfege-labels]").forEach(btn => {
     btn.classList.toggle("active", btn.dataset.solfegeLabels === p.solfegeLabels);
@@ -26268,8 +26473,9 @@ function importUserProfileJSON(rawText) {
 
 function resetUserProfile() {
   state.profile = createDefaultProfile();
-  if (!state.profile.notationManual && state.settings.language === "en") {
-    state.profile.notation = "intl";
+  if (state.settings.language === "en") {
+    if (!state.profile.notationManual) state.profile.notation = "intl";
+    if (!state.profile.intervalNotationManual) state.profile.intervalNotation = "intl";
   }
   saveUserProfile(state.profile);
   if (state.customThemeEditor) state.customThemeEditor.open = false;
@@ -26527,6 +26733,15 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.addEventListener("click", () => {
       state.profile.notation = btn.dataset.notation === "intl" ? "intl" : "de";
       state.profile.notationManual = true;
+      saveUserProfile(state.profile);
+      applyProfileDisplayChanges();
+      renderProfileAccountView();
+    });
+  });
+  document.querySelectorAll("[data-interval-notation]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      state.profile.intervalNotation = btn.dataset.intervalNotation === "intl" ? "intl" : "de";
+      state.profile.intervalNotationManual = true;
       saveUserProfile(state.profile);
       applyProfileDisplayChanges();
       renderProfileAccountView();
