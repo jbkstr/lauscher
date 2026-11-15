@@ -3538,6 +3538,302 @@ html, body {
 }
 
 /* ==========================================
+   ERSTSTART-ONBOARDING (SPRACHAUSWAHL & BEGRÜSSUNG)
+   ========================================== */
+[data-first-run="1"] .startup-splash {
+  display: none !important;
+}
+
+[data-first-run="1"] .welcome-onboarding.hidden {
+  display: flex !important;
+}
+
+.welcome-onboarding {
+  position: fixed;
+  inset: 0;
+  z-index: 210;
+  background: radial-gradient(circle at 50% 34%, var(--surface-white) 0%, var(--bg-base) 74%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.4rem;
+  overflow-y: auto;
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  transition: opacity 0.44s ease, transform 0.44s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.welcome-onboarding.hidden {
+  display: none !important;
+}
+
+.welcome-onboarding.welcome-out {
+  opacity: 0;
+  transform: scale(1.03) translateY(-12px);
+  pointer-events: none;
+}
+
+.welcome-shell {
+  width: 100%;
+  max-width: 390px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.welcome-step {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: opacity 0.18s ease, transform 0.2s ease;
+}
+
+.welcome-step.hidden {
+  display: none !important;
+}
+
+.welcome-step.is-step-exiting {
+  opacity: 0;
+  transform: translateY(-10px) scale(0.98);
+  pointer-events: none;
+}
+
+.welcome-step-greet {
+  animation: welcomeGreetIn 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.welcome-mascot-stage {
+  position: relative;
+  width: 92px;
+  height: 92px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.72rem;
+}
+
+.welcome-mascot-stage.is-greet {
+  width: 118px;
+  height: 118px;
+  margin-bottom: 0.92rem;
+}
+
+.welcome-mascot-badge {
+  width: 82px;
+  height: 82px;
+  border-radius: 50%;
+  background-color: var(--sage);
+  border: 2px solid var(--border-soft);
+  box-shadow: 0 10px 24px rgba(46, 111, 78, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  animation: splashBadgePop 0.55s cubic-bezier(0.22, 1.28, 0.36, 1) both;
+}
+
+.welcome-mascot-badge.is-greet {
+  width: 98px;
+  height: 98px;
+}
+
+.welcome-mascot-badge.is-greet svg {
+  width: 72px;
+  height: 72px;
+}
+
+.welcome-brand-title {
+  margin: 0;
+  font-size: 1.66rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+  letter-spacing: -0.02em;
+}
+
+.welcome-lang-sub {
+  margin: 0.26rem 0 1.05rem;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--raccoon-muted);
+  letter-spacing: 0.03em;
+}
+
+.welcome-lang-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.56rem;
+  width: 100%;
+}
+
+.welcome-lang-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.78rem 0.98rem;
+  background-color: var(--surface-white);
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  box-shadow: 0 3px 12px rgba(61, 64, 91, 0.05);
+  cursor: pointer;
+  text-align: left;
+  transition: transform 0.14s ease, border-color 0.16s ease, background-color 0.16s ease, box-shadow 0.16s ease;
+  animation: welcomeItemIn 0.36s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.welcome-lang-btn:nth-child(2) { animation-delay: 0.04s; }
+.welcome-lang-btn:nth-child(3) { animation-delay: 0.08s; }
+.welcome-lang-btn:nth-child(4) { animation-delay: 0.12s; }
+
+.welcome-lang-btn:hover {
+  border-color: var(--sage-strong);
+  background-color: var(--sage-soft);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(46, 111, 78, 0.12);
+}
+
+.welcome-lang-btn:active,
+.welcome-lang-btn.is-selected {
+  border-color: var(--sage-strong);
+  background-color: var(--sage-soft);
+  transform: scale(0.985);
+}
+
+.welcome-lang-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.12rem;
+  min-width: 0;
+}
+
+.welcome-lang-name {
+  font-size: 1.02rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+  line-height: 1.22;
+}
+
+.welcome-lang-tagline {
+  font-size: 0.71rem;
+  font-weight: 600;
+  color: var(--raccoon-muted);
+  line-height: 1.25;
+}
+
+.welcome-lang-arrow {
+  font-size: 1.02rem;
+  font-weight: 800;
+  color: var(--sage-strong);
+  flex-shrink: 0;
+}
+
+.welcome-greet-title {
+  margin: 0 0 0.55rem;
+  font-size: 1.38rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+}
+
+.welcome-greet-body {
+  margin: 0 0 1.25rem;
+  font-size: 0.94rem;
+  font-weight: 600;
+  color: var(--raccoon-mid);
+  line-height: 1.54;
+  max-width: 34ch;
+}
+
+.welcome-greet-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 260px;
+}
+
+.welcome-continue-btn {
+  width: 100%;
+  padding: 0.76rem 1.2rem;
+  font-size: 0.94rem;
+  font-weight: 800;
+  border-radius: var(--radius-pill);
+}
+
+.welcome-auto-progress {
+  width: 124px;
+  height: 3.5px;
+  border-radius: 99px;
+  background-color: var(--tint-subtle);
+  overflow: hidden;
+  margin-top: 0.22rem;
+}
+
+.welcome-auto-fill {
+  width: 0%;
+  height: 100%;
+  background-color: var(--sage-strong);
+  border-radius: 99px;
+}
+
+.welcome-auto-fill.is-counting {
+  animation: welcomeAutoProgress 3.4s linear forwards;
+}
+
+.welcome-redirect-hint {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--raccoon-muted);
+}
+
+#viewHome.home-welcome-enter {
+  animation: homeWelcomeEnter 0.48s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes welcomeItemIn {
+  0%   { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes welcomeGreetIn {
+  0%   { opacity: 0; transform: translateY(12px) scale(0.97); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes welcomeAutoProgress {
+  0%   { width: 0%; }
+  100% { width: 100%; }
+}
+
+@keyframes homeWelcomeEnter {
+  0%   { opacity: 0; transform: translateY(14px) scale(0.985); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .welcome-onboarding,
+  .welcome-step {
+    transition-duration: 0.16s !important;
+  }
+  .welcome-mascot-badge,
+  .welcome-lang-btn,
+  .welcome-step-greet,
+  #viewHome.home-welcome-enter {
+    animation: none !important;
+  }
+  .welcome-auto-fill.is-counting {
+    animation-duration: 2.2s !important;
+  }
+}
+
+/* ==========================================
    THEME & DARK-MODE KONTRAST-ANPASSUNGEN
    ========================================== */
 body,
@@ -6920,11 +7216,11 @@ body,
    KOMPAKTE MITTEL-ANZEIGE & KLAR MARKIERTE HILFSLINIEN
    ===================================================== */
 .module-card.is-notation {
-  padding: 0.5rem 0.68rem 0.44rem;
+  padding: 0.62rem 0.74rem 0.56rem;
 }
 
 .module-card.is-notation .module-header {
-  margin-bottom: 0.24rem;
+  margin-bottom: 0.34rem;
 }
 
 .bars-grid.is-notation {
@@ -6939,7 +7235,7 @@ body,
   background: var(--surface-warm);
   border: 1.5px solid var(--border-soft);
   border-radius: var(--radius-md);
-  padding: 0.16rem 0.32rem 0.14rem;
+  padding: 0.28rem 0.36rem 0.24rem;
   overflow: hidden;
   transition: border-color 0.16s ease, background-color 0.16s ease;
 }
@@ -6958,15 +7254,15 @@ body,
   display: block;
   width: 100%;
   height: auto;
-  min-height: 92px;
-  max-height: 168px;
+  min-height: 138px;
+  max-height: 205px;
   color: var(--raccoon-dark);
 }
 
 @media (min-width: 640px) {
   .notation-staff-svg {
-    min-height: 118px;
-    max-height: 196px;
+    min-height: 168px;
+    max-height: 238px;
   }
 }
 
@@ -7138,32 +7434,32 @@ body,
 }
 
 .solfege-keyboard-wrap.is-notation {
-  padding: 0.16rem 0 0.1rem 0;
+  padding: 0.22rem 0 0.14rem 0;
 }
 
 .solfege-keyboard-wrap.is-notation .piano-keyboard {
-  height: 126px;
+  height: 172px;
 }
 
 .solfege-keyboard-wrap.is-notation .piano-black-key {
-  height: 52%;
+  height: 54%;
 }
 
 .solfege-keyboard-wrap.is-notation .notation-key-box-white {
-  top: 76%;
-  font-size: 0.78rem;
-  padding: 0.16rem 0.12rem;
+  top: 75%;
+  font-size: 0.86rem;
+  padding: 0.22rem 0.14rem;
 }
 
 .solfege-keyboard-wrap.is-notation .notation-key-box-black {
-  top: 46%;
-  font-size: 0.5rem;
-  padding: 0.11rem 0.05rem;
+  top: 48%;
+  font-size: 0.54rem;
+  padding: 0.14rem 0.06rem;
 }
 
 @media (min-width: 640px) {
   .solfege-keyboard-wrap.is-notation .piano-keyboard {
-    height: 148px;
+    height: 198px;
   }
 }
 
@@ -7226,6 +7522,11 @@ body,
       try {
         var raw = localStorage.getItem("lauschebaer_visual_prefs_v1");
         var prefs = raw ? JSON.parse(raw) : {};
+        var hasProfileRaw = false;
+        try { hasProfileRaw = Boolean(localStorage.getItem("lauschebaer_profile_v1")); } catch (_pErr) {}
+        if ((!raw && !hasProfileRaw) || (prefs && prefs.onboardingDone === false)) {
+          document.documentElement.setAttribute("data-first-run", "1");
+        }
         var lang = (prefs.language === "en" || prefs.language === "fr" || prefs.language === "uk") ? prefs.language : "de";
         document.documentElement.lang = lang;
         document.documentElement.setAttribute("data-lang", lang);
@@ -7320,6 +7621,58 @@ body,
       </div>
       <div class="splash-title">Lauschebär</div>
       <div class="splash-sub" data-i18n="app.tagline">Hören · Verstehen · Musizieren</div>
+    </div>
+  </div>
+
+  <!-- Erststart-Willkommen: Sprachauswahl & Begrüßung durch den Lauschebär -->
+  <div id="welcomeOnboarding" class="welcome-onboarding hidden" role="dialog" aria-modal="true" aria-labelledby="welcomeLangTitle">
+    <div class="welcome-shell">
+      <div id="welcomeStepLang" class="welcome-step">
+        <div class="welcome-mascot-stage">
+          <div id="welcomeLangMascot" class="welcome-mascot-badge">
+            <svg class="splash-mascot-svg" width="60" height="60" viewBox="-1 0 68 64" fill="none">
+              <g class="splash-ear-left">
+                <circle cx="15" cy="18" r="9" fill="#5C5F77"/>
+                <circle cx="15" cy="18" r="5" fill="#FFD6BA"/>
+              </g>
+              <g class="splash-ear-right">
+                <circle cx="49" cy="18" r="9" fill="#5C5F77"/>
+                <circle cx="49" cy="18" r="5" fill="#FFD6BA"/>
+              </g>
+              <ellipse cx="32" cy="36" rx="22" ry="18" fill="#E6E4E0"/>
+              <path d="M32 18 L29 25 L35 25 Z" fill="#5C5F77" opacity="0.45"/>
+              <ellipse cx="22" cy="35" rx="8" ry="6" transform="rotate(-8 22 35)" fill="#3D405B"/>
+              <ellipse cx="42" cy="35" rx="8" ry="6" transform="rotate(8 42 35)" fill="#3D405B"/>
+              <g class="splash-eyes">
+                <circle cx="23" cy="34" r="2.6" fill="#FFFFFF"/>
+                <circle cx="41" cy="34" r="2.6" fill="#FFFFFF"/>
+              </g>
+              <ellipse cx="32" cy="42" rx="6.5" ry="5" fill="#FFFFFF"/>
+              <ellipse cx="32" cy="40" rx="3" ry="2.2" fill="#3D405B"/>
+            </svg>
+          </div>
+        </div>
+        <h1 id="welcomeLangTitle" class="welcome-brand-title">Lauschebär</h1>
+        <p class="welcome-lang-sub">Sprache wählen · Language · Langue · Мова</p>
+        <div id="welcomeLangList" class="welcome-lang-list" role="list"></div>
+      </div>
+
+      <div id="welcomeStepGreet" class="welcome-step welcome-step-greet hidden" aria-live="polite">
+        <div class="welcome-mascot-stage is-greet">
+          <span class="splash-ring splash-ring-1" aria-hidden="true"></span>
+          <span class="splash-ring splash-ring-2" aria-hidden="true"></span>
+          <div id="welcomeGreetMascot" class="welcome-mascot-badge is-greet"></div>
+        </div>
+        <h2 id="welcomeGreetTitle" class="welcome-greet-title"></h2>
+        <p id="welcomeGreetBody" class="welcome-greet-body"></p>
+        <div class="welcome-greet-actions">
+          <button id="welcomeContinueBtn" type="button" class="btn-primary-action welcome-continue-btn"></button>
+          <div class="welcome-auto-progress" aria-hidden="true">
+            <div id="welcomeAutoFill" class="welcome-auto-fill"></div>
+          </div>
+          <p id="welcomeRedirectHint" class="welcome-redirect-hint"></p>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -8279,6 +8632,7 @@ body,
               <button id="exportProfileBtn" type="button" class="btn-tool" data-i18n="space.exportBtn">Profil sichern (.json)</button>
               <button id="importProfileBtn" type="button" class="btn-tool" data-i18n="space.importBtn">Profil laden</button>
               <button id="resetProfileBtn" type="button" class="btn-tool account-btn-danger" data-i18n="space.resetBtn">Konto zurücksetzen</button>
+              <button id="appResetBtn" type="button" class="btn-tool account-btn-danger" data-i18n="space.appResetBtn">App-Reset</button>
             </div>
             <input id="importProfileFile" type="file" accept=".json,application/json" class="hidden">
           </div>
@@ -10324,6 +10678,22 @@ function tf(deTemplate, enTemplate, vars = {}, extraMap = null) {
 const I18N_STATIC = {
   "app.title": { de: "Lauschebär • Hören · Verstehen · Musizieren", en: "Lauschebär • Listen · Understand · Play" },
   "app.tagline": { de: "Hören · Verstehen · Musizieren", en: "Listen · Understand · Play" },
+  "welcome.greetTitle": {
+    de: "Hallo! Schön, dass du da bist.",
+    en: "Hello! Welcome to Lauschebär."
+  },
+  "welcome.greetBody": {
+    de: "Ich bin der Lauschebär und freue mich darauf, mit dir zu hören, Noten zu entdecken und Musik zu verstehen. Viel Freude und Erfolg beim Lernen!",
+    en: "I’m Lauschebär, excited to explore ear training, sight-reading, and music theory together with you. Take your time and have lots of fun learning!"
+  },
+  "welcome.continueBtn": {
+    de: "Los geht’s →",
+    en: "Let’s get started →"
+  },
+  "welcome.redirectHint": {
+    de: "Du wirst gleich zum Homescreen weitergeleitet …",
+    en: "Taking you to the home screen…"
+  },
   "nav.backTitle": { de: "Zurück", en: "Back" },
   "header.audioStatusTitle": { de: "Audio-Status", en: "Audio Status" },
   "header.masterVolTitle": { de: "Master-Lautstärke", en: "Master Volume" },
@@ -10488,6 +10858,7 @@ const I18N_STATIC = {
   "space.exportBtn": { de: "Profil sichern (.json)", en: "Export Profile (.json)" },
   "space.importBtn": { de: "Profil laden", en: "Import Profile" },
   "space.resetBtn": { de: "Konto zurücksetzen", en: "Reset Account" },
+  "space.appResetBtn": { de: "App-Reset", en: "App Reset" },
   "space.examHistoryTitle": { de: "Prüfungsverlauf", en: "Exam History" },
   "space.examHistorySub": {
     de: "Deine abgeschlossenen Kategorie-Prüfungen & Bestwerte (lokal auf deinem Gerät).",
@@ -11305,6 +11676,10 @@ function getLocalizedModeLevelLabel(kind, lvl) {
 const I18N_STATIC_FR = {
   "app.title": "Lauschebär • Écouter · Comprendre · Pratiquer",
   "app.tagline": "Écouter · Comprendre · Pratiquer",
+  "welcome.greetTitle": "Bonjour ! Bienvenue sur Lauschebär.",
+  "welcome.greetBody": "Je suis Lauschebär, ravi de vous accompagner pour entraîner votre oreille, lire les notes et explorer la musique. Prenez plaisir à apprendre !",
+  "welcome.continueBtn": "C’est parti →",
+  "welcome.redirectHint": "Redirection vers l’accueil…",
   "nav.backTitle": "Retour",
   "header.audioStatusTitle": "État audio",
   "header.masterVolTitle": "Volume général",
@@ -11445,6 +11820,7 @@ const I18N_STATIC_FR = {
   "space.exportBtn": "Exporter le profil (.json)",
   "space.importBtn": "Importer un profil",
   "space.resetBtn": "Réinitialiser le compte",
+  "space.appResetBtn": "Réinitialiser l’app",
   "space.examHistoryTitle": "Historique des examens",
   "space.examHistorySub": "Vos examens par catégorie terminés et vos records (stockés localement sur cet appareil).",
   "space.examHistoryClear": "Effacer l’historique",
@@ -12971,7 +13347,10 @@ Object.assign(TR_FR, {
   "Stufe 3 • Bis 3 Hilfslinien (Alle Schlüssel)": "Niveau 3 • Jusqu’à 3 lignes suppl. (Toutes clés)",
   "Voller Umfang mit bis zu 3 Hilfslinien nach oben und unten": "Tessiture complète jusqu’à 3 lignes supplémentaires haut et bas",
   "Stufe 4 • Meisterprüfung (3 Hilfslinien + ♯/♭)": "Niveau 4 • Maîtrise (3 lignes + ♯/♭)",
-  "Alle 3 Schlüssel, bis 3 Hilfslinien beidseitig & Vorzeichen (♯/♭)": "3 clés, jusqu’à 3 lignes suppl. des deux côtés & altérations (♯/♭)"
+  "Alle 3 Schlüssel, bis 3 Hilfslinien beidseitig & Vorzeichen (♯/♭)": "3 clés, jusqu’à 3 lignes suppl. des deux côtés & altérations (♯/♭)",
+  "App-Reset": "Réinitialiser l’app",
+  "App-Reset bestätigen?": "Confirmer la réinit. ?",
+  "Tippe erneut auf „App-Reset bestätigen?“, um alle lokalen Daten zu löschen und das Willkommens-Intro neu zu starten.": "Touchez encore « Confirmer la réinit. ? » pour effacer les données locales et relancer l’écran de bienvenue."
 });
 
 if (typeof registerLanguageBundle === "function") {
@@ -13023,6 +13402,10 @@ if (typeof registerLanguageBundle === "function") {
 const I18N_STATIC_UK = {
   "app.title": "Lauschebär • Слухай · Розумій · Грай",
   "app.tagline": "Слухай · Розумій · Грай",
+  "welcome.greetTitle": "Привіт! Радий вітати тебе в Lauschebär.",
+  "welcome.greetBody": "Я — Лаушебер, і з радістю допоможу тобі тренувати слух, читати ноти та пізнавати музику. Займайся у своєму темпі — гарного настрою та задоволення від навчання!",
+  "welcome.continueBtn": "Починаймо →",
+  "welcome.redirectHint": "Зараз перейдемо на головний екран…",
   "nav.backTitle": "Назад",
   "header.audioStatusTitle": "Стан аудіо",
   "header.masterVolTitle": "Загальна гучність",
@@ -13163,6 +13546,7 @@ const I18N_STATIC_UK = {
   "space.exportBtn": "Експорт профілю (.json)",
   "space.importBtn": "Імпорт профілю",
   "space.resetBtn": "Скинути профіль",
+  "space.appResetBtn": "Скинути додаток",
   "space.examHistoryTitle": "Історія іспитів",
   "space.examHistorySub": "Твої завершені іспити за категоріями та рекорди (зберігаються локально на цьому пристрої).",
   "space.examHistoryClear": "Очистити історію",
@@ -14735,7 +15119,10 @@ Object.assign(TR_UK, {
   "Stufe 3 • Bis 3 Hilfslinien (Alle Schlüssel)": "Рівень 3 • До 3 дод. лінійок (Усі ключі)",
   "Voller Umfang mit bis zu 3 Hilfslinien nach oben und unten": "Повний діапазон до 3 додаткових лінійок угору та вниз",
   "Stufe 4 • Meisterprüfung (3 Hilfslinien + ♯/♭)": "Рівень 4 • Майстерність (3 дод. + ♯/♭)",
-  "Alle 3 Schlüssel, bis 3 Hilfslinien beidseitig & Vorzeichen (♯/♭)": "Усі 3 ключі, до 3 дод. лінійок в обидва боки й альтерація (♯/♭)"
+  "Alle 3 Schlüssel, bis 3 Hilfslinien beidseitig & Vorzeichen (♯/♭)": "Усі 3 ключі, до 3 дод. лінійок в обидва боки й альтерація (♯/♭)",
+  "App-Reset": "Скинути додаток",
+  "App-Reset bestätigen?": "Підтвердити скидання?",
+  "Tippe erneut auf „App-Reset bestätigen?“, um alle lokalen Daten zu löschen und das Willkommens-Intro neu zu starten.": "Натисни «Підтвердити скидання?» ще раз, щоб стерти локальні дані й перезапустити вітальне інтро."
 });
 
 if (typeof registerLanguageBundle === "function") {
@@ -30708,23 +31095,43 @@ const THEME_PALETTE_META = {
   }
 };
 
+function isFirstRunOnboardingNeeded() {
+  try {
+    if (typeof localStorage === "undefined") return false;
+    const rawVisual = localStorage.getItem(VISUAL_PREFS_STORAGE_KEY);
+    const rawProfile = localStorage.getItem(PERSONAL_PROFILE_STORAGE_KEY);
+    if (!rawVisual && !rawProfile) return true;
+    if (rawVisual) {
+      const parsed = JSON.parse(rawVisual);
+      if (parsed && parsed.onboardingDone === false) return true;
+    }
+    return false;
+  } catch (_err) {
+    return false;
+  }
+}
+
 function loadVisualPrefs() {
   try {
     if (typeof localStorage === "undefined") {
-      return { appearance: "light", theme: "waldlichtung", language: "de", autoNextAfterCorrect: true, playCorrectAnswerAudio: true };
+      return { appearance: "light", theme: "waldlichtung", language: "de", autoNextAfterCorrect: true, playCorrectAnswerAudio: true, onboardingDone: true };
     }
     const raw = localStorage.getItem(VISUAL_PREFS_STORAGE_KEY);
-    if (!raw) return { appearance: "light", theme: "waldlichtung", language: "de", autoNextAfterCorrect: true, playCorrectAnswerAudio: true };
+    if (!raw) {
+      const hasProfile = Boolean(localStorage.getItem(PERSONAL_PROFILE_STORAGE_KEY));
+      return { appearance: "light", theme: "waldlichtung", language: "de", autoNextAfterCorrect: true, playCorrectAnswerAudio: true, onboardingDone: hasProfile };
+    }
     const parsed = JSON.parse(raw);
     return {
       appearance: VALID_APPEARANCES.includes(parsed?.appearance) ? parsed.appearance : "light",
       theme: ALL_VALID_THEMES.includes(parsed?.theme) ? parsed.theme : "waldlichtung",
       language: typeof normalizeAppLanguage === "function" ? normalizeAppLanguage(parsed?.language) : (parsed?.language === "en" ? "en" : "de"),
       autoNextAfterCorrect: parsed?.autoNextAfterCorrect !== false,
-      playCorrectAnswerAudio: parsed?.playCorrectAnswerAudio !== false
+      playCorrectAnswerAudio: parsed?.playCorrectAnswerAudio !== false,
+      onboardingDone: parsed?.onboardingDone !== false
     };
   } catch (_err) {
-    return { appearance: "light", theme: "waldlichtung", language: "de", autoNextAfterCorrect: true, playCorrectAnswerAudio: true };
+    return { appearance: "light", theme: "waldlichtung", language: "de", autoNextAfterCorrect: true, playCorrectAnswerAudio: true, onboardingDone: true };
   }
 }
 
@@ -30733,13 +31140,15 @@ function saveVisualPrefs(
   theme,
   language = (typeof state !== "undefined" ? state?.settings?.language : null),
   autoNextAfterCorrect = (typeof state !== "undefined" ? state?.settings?.autoNextAfterCorrect : true),
-  playCorrectAnswerAudio = (typeof state !== "undefined" ? state?.settings?.playCorrectAnswerAudio : true)
+  playCorrectAnswerAudio = (typeof state !== "undefined" ? state?.settings?.playCorrectAnswerAudio : true),
+  onboardingDone = (typeof state !== "undefined" ? state?.settings?.onboardingDone : true)
 ) {
   try {
     if (typeof localStorage === "undefined") return;
     const validLang = typeof normalizeAppLanguage === "function" ? normalizeAppLanguage(language) : (language === "en" ? "en" : "de");
     const validAutoNext = autoNextAfterCorrect !== false;
     const validAnswerAudio = playCorrectAnswerAudio !== false;
+    const validOnboardingDone = onboardingDone !== false;
     localStorage.setItem(
       VISUAL_PREFS_STORAGE_KEY,
       JSON.stringify({
@@ -30747,7 +31156,8 @@ function saveVisualPrefs(
         theme,
         language: validLang,
         autoNextAfterCorrect: validAutoNext,
-        playCorrectAnswerAudio: validAnswerAudio
+        playCorrectAnswerAudio: validAnswerAudio,
+        onboardingDone: validOnboardingDone
       })
     );
   } catch (_err) {
@@ -31603,7 +32013,8 @@ class AppState {
       melodyAutoNext: initialVisual.autoNextAfterCorrect,
       appearance: initialVisual.appearance,
       theme: initialVisual.theme,
-      language: initialVisual.language
+      language: initialVisual.language,
+      onboardingDone: initialVisual.onboardingDone !== false
     };
 
     this.master = {
@@ -31699,6 +32110,7 @@ class AppState {
       statusNote: tr("Bereit für eine entspannte Session.", "Ready for a calm session.")
     };
     this.resetConfirmArmed = false;
+    this.appResetConfirmArmed = false;
 
     this.examSetupCategory = "interval";
     this.examResultReturnView = "exam-setup";
@@ -32704,10 +33116,11 @@ function notationStepToY(staffStep) {
 function buildNotationStaffSVG(notes, options = {}) {
   const list = Array.isArray(notes) ? notes : [notes].filter(Boolean);
   const firstClef = options.clefId || list[0]?.clefId || "treble";
-  const width = Number(options.width) || 360;
+  const isExerciseStaff = options.level != null;
+  const width = Number(options.width) || (isExerciseStaff ? 320 : 360);
   const height = Number(options.height) || 176;
-  const startX = Number(options.startX) || 12;
-  const endX = width - 10;
+  const startX = Number(options.startX) || (isExerciseStaff ? 8 : 12);
+  const endX = width - (isExerciseStaff ? 8 : 10);
   const highlightFirst = options.highlightFirst !== false;
   const highlightAll = Boolean(options.highlightAll);
   const showChangeClefs = options.showChangeClefs !== false;
@@ -32738,7 +33151,7 @@ function buildNotationStaffSVG(notes, options = {}) {
     ? `<line x1="${startX}" y1="${notationStepToY(anchorStep)}" x2="${endX}" y2="${notationStepToY(anchorStep)}" stroke="var(--peach-strong)" stroke-width="2.1" opacity="0.68"/>`
     : "";
 
-  const clefMarkup = getNotationClefGlyphSVG(firstClef, startX + 10, 1, 1);
+  const clefMarkup = getNotationClefGlyphSVG(firstClef, startX + (isExerciseStaff ? 8 : 10), 1, 1);
 
   // X-Koordinaten pro Note berechnen
   let positions = Array.isArray(options.xPositions) ? options.xPositions : null;
@@ -32746,8 +33159,10 @@ function buildNotationStaffSVG(notes, options = {}) {
     if (list.length === 1) {
       positions = [Math.round(width * 0.56)];
     } else {
-      const firstNoteX = Number(options.firstNoteX) || (startX + 86);
-      const spacing = Number(options.noteSpacing) || Math.min(48, Math.max(36, Math.floor((endX - firstNoteX - 18) / Math.max(1, list.length - 1))));
+      const firstNoteX = Number(options.firstNoteX) || (startX + (isExerciseStaff ? 68 : 86));
+      const spacing = Number(options.noteSpacing) || (isExerciseStaff
+        ? Math.min(46, Math.max(34, Math.floor((endX - firstNoteX - 14) / Math.max(1, list.length - 1))))
+        : Math.min(48, Math.max(36, Math.floor((endX - firstNoteX - 18) / Math.max(1, list.length - 1)))));
       positions = list.map((_, i) => firstNoteX + i * spacing);
     }
   }
@@ -32804,8 +33219,8 @@ function buildNotationStaffSVG(notes, options = {}) {
   let vbHeight = height;
   if (options.level != null || options.compact) {
     const lvl = Number(options.level) || 1;
-    const baseTop = lvl <= 1 ? 36 : lvl === 2 ? 22 : 10;
-    const baseBottom = lvl <= 1 ? 142 : lvl === 2 ? 150 : 162;
+    const baseTop = lvl <= 1 ? 26 : lvl === 2 ? 18 : 6;
+    const baseBottom = lvl <= 1 ? 148 : lvl === 2 ? 156 : 168;
     vbTop = Math.min(baseTop, Math.floor(inkMinY - 4));
     const vbBottom = Math.max(baseBottom, Math.ceil(inkMaxY + 4), options.showLabels ? 176 : 0);
     vbHeight = vbBottom - vbTop;
@@ -34224,6 +34639,8 @@ function handleHorizontalTabSwipe({ startX, startY, endX, endY, durationMs, view
 
   const splash = document.getElementById("startupSplash");
   if (splash && !splash.classList.contains("splash-hidden")) return false;
+  const welcome = document.getElementById("welcomeOnboarding");
+  if (welcome && !welcome.classList.contains("hidden")) return false;
 
   if (target && hasHorizontalScrollableAncestor(target)) return false;
 
@@ -34273,6 +34690,11 @@ function initTabSwipeNavigation() {
     }
     const splash = document.getElementById("startupSplash");
     if (splash && !splash.classList.contains("splash-hidden")) {
+      tracker = null;
+      return;
+    }
+    const welcome = document.getElementById("welcomeOnboarding");
+    if (welcome && !welcome.classList.contains("hidden")) {
       tracker = null;
       return;
     }
@@ -38221,11 +38643,11 @@ function renderUI() {
     }
   }
 
-  // Skip-Button in Notation prominent mit Label versehen ("Überspringen")
+  // Skip-Button in allen Modi kompakt als reines Symbol anzeigen
   const skipBtn = document.getElementById("skipBtn");
   const skipBtnLabel = document.getElementById("skipBtnLabel");
   if (skipBtn) {
-    skipBtn.classList.toggle("is-labeled", isNotation);
+    skipBtn.classList.remove("is-labeled");
     const skipHint = isNotation && !state.exam?.active
       ? tr("Aktuelle Note überspringen", "Skip current note")
       : tr("Nächste Abfrage", "Next Prompt");
@@ -38233,8 +38655,7 @@ function renderUI() {
     skipBtn.setAttribute("aria-label", skipHint);
   }
   if (skipBtnLabel) {
-    skipBtnLabel.classList.toggle("hidden", !isNotation);
-    skipBtnLabel.textContent = tr("Überspringen", "Skip");
+    skipBtnLabel.classList.add("hidden");
   }
 
   // Links unten in der Transportleiste:
@@ -43299,6 +43720,7 @@ function resetUserProfile() {
     saveVisualPrefs(state.settings.appearance, state.settings.theme, state.settings.language);
   }
   state.resetConfirmArmed = false;
+  state.appResetConfirmArmed = false;
   state.examHistoryClearArmed = false;
   state.streakState = { count: 0, activeNoticeMilestone: 0 };
   if (typeof renderStageStreakUI === "function") renderStageStreakUI();
@@ -43309,7 +43731,81 @@ function resetUserProfile() {
   renderHomeProfileGreeting();
   const resetBtn = document.getElementById("resetProfileBtn");
   if (resetBtn) resetBtn.textContent = tr("Konto zurücksetzen", "Reset Account");
+  const appResetBtn = document.getElementById("appResetBtn");
+  if (appResetBtn) appResetBtn.textContent = tr("App-Reset", "App Reset");
   setSpaceBackupStatus(tr("Lokales Konto auf Standardwerte zurückgesetzt.", "Local account reset to defaults."));
+}
+
+function performFullAppReset() {
+  audioEngine?.stopPlayback?.();
+  state.isPlaying = false;
+  updatePlayButtonUI?.(false);
+  stopSessionTimer("idle", null, "idle");
+
+  state.appResetConfirmArmed = false;
+  state.resetConfirmArmed = false;
+  state.examHistoryClearArmed = false;
+  state.exam = null;
+  state.streakState = { count: 0, activeNoticeMilestone: 0 };
+  if (typeof renderStageStreakUI === "function") renderStageStreakUI();
+
+  state.profile = createDefaultProfile();
+  state.settings.appearance = "light";
+  state.settings.theme = "waldlichtung";
+  state.settings.language = "de";
+  state.settings.autoNextAfterCorrect = true;
+  state.settings.playCorrectAnswerAudio = true;
+  state.settings.solfegeAutoNext = true;
+  state.settings.melodyAutoNext = true;
+  state.settings.rhythmDictationAutoNext = true;
+  state.settings.rhythmTapAutoNext = true;
+  state.settings.onboardingDone = false;
+  if (state.customThemeEditor) state.customThemeEditor.open = false;
+
+  try {
+    if (typeof localStorage !== "undefined") {
+      localStorage.removeItem(VISUAL_PREFS_STORAGE_KEY);
+      localStorage.removeItem(PERSONAL_PROFILE_STORAGE_KEY);
+      localStorage.removeItem(CUSTOM_THEMES_STORAGE_KEY);
+    }
+  } catch (_err) {
+    // Auf eingeschränkten WebViews ignorieren
+  }
+
+  clearCustomThemeCssVars();
+  applyThemeAndAppearance();
+  if (typeof applyStaticDomLanguage === "function") {
+    applyStaticDomLanguage("de");
+  }
+  syncLanguageControls("de");
+  syncAnswerSoundToggleUI();
+  syncAutoNextControls();
+
+  const backupDisc = document.getElementById("spaceBackupDisclosure");
+  if (backupDisc) {
+    backupDisc.open = false;
+    backupDisc.removeAttribute?.("open");
+  }
+  const resetBtn = document.getElementById("resetProfileBtn");
+  if (resetBtn) resetBtn.textContent = tr("Konto zurücksetzen", "Reset Account");
+  const appResetBtn = document.getElementById("appResetBtn");
+  if (appResetBtn) appResetBtn.textContent = tr("App-Reset", "App Reset");
+  const statusEl = document.getElementById("spaceBackupStatus");
+  if (statusEl) {
+    statusEl.textContent = "";
+    statusEl.classList.add("hidden");
+  }
+
+  renderProfileAccountView();
+  renderHomeProfileGreeting();
+  renderHomeQuickMixBar();
+  state.updateQuickStartLabel();
+  renderKnowledgeHub();
+  pickRandomQuote();
+  generateExercise();
+
+  switchView("home", { animate: false, skipHistoryPush: true });
+  openFirstRunOnboarding();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -43614,6 +44110,21 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
     resetUserProfile();
+  });
+  document.getElementById("appResetBtn")?.addEventListener("click", () => {
+    const btn = document.getElementById("appResetBtn");
+    if (!state.appResetConfirmArmed) {
+      state.appResetConfirmArmed = true;
+      if (btn) btn.textContent = tr("App-Reset bestätigen?", "Confirm App Reset?");
+      setSpaceBackupStatus(tr("Tippe erneut auf „App-Reset bestätigen?“, um alle lokalen Daten zu löschen und das Willkommens-Intro neu zu starten.", "Tap “Confirm App Reset?” again to clear all local data and restart with the welcome intro."));
+      setTimeout(() => {
+        state.appResetConfirmArmed = false;
+        const b = document.getElementById("appResetBtn");
+        if (b) b.textContent = tr("App-Reset", "App Reset");
+      }, 4200);
+      return;
+    }
+    performFullAppReset();
   });
 
   document.getElementById("refreshQuoteBtn")?.addEventListener("click", () => {
@@ -45688,9 +46199,215 @@ function openWarmupView(presetId = "full-5min", options = {}) {
   switchView("warmup");
 }
 
+const _welcomeOnboardingState = {
+  selecting: false,
+  exiting: false,
+  stepTimer: null,
+  autoTimer: null,
+  exitTimer: null
+};
+
+function clearWelcomeOnboardingTimers() {
+  if (_welcomeOnboardingState.stepTimer) {
+    clearTimeout(_welcomeOnboardingState.stepTimer);
+    _welcomeOnboardingState.stepTimer = null;
+  }
+  if (_welcomeOnboardingState.autoTimer) {
+    clearTimeout(_welcomeOnboardingState.autoTimer);
+    _welcomeOnboardingState.autoTimer = null;
+  }
+  if (_welcomeOnboardingState.exitTimer) {
+    clearTimeout(_welcomeOnboardingState.exitTimer);
+    _welcomeOnboardingState.exitTimer = null;
+  }
+}
+
+function renderWelcomeLanguageList() {
+  const listEl = document.getElementById("welcomeLangList");
+  if (!listEl || typeof document.createElement !== "function") return;
+  const codes = typeof getAvailableLanguages === "function"
+    ? getAvailableLanguages()
+    : ["de", "en", "fr", "uk"];
+  listEl.innerHTML = "";
+  codes.forEach(code => {
+    const cfg = typeof APP_LANGUAGES !== "undefined" ? (APP_LANGUAGES[code] || {}) : {};
+    const nativeName = cfg.nativeName || code.toUpperCase();
+    const tagline = typeof getStaticI18nText === "function"
+      ? (getStaticI18nText("app.tagline", code) || "")
+      : "";
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "welcome-lang-btn";
+    btn.dataset.welcomeLang = code;
+    btn.setAttribute?.("role", "listitem");
+    btn.innerHTML = `<span class="welcome-lang-text"><span class="welcome-lang-name">${escapeHtml(nativeName)}</span>${tagline ? `<span class="welcome-lang-tagline">${escapeHtml(tagline)}</span>` : ""}</span><span class="welcome-lang-arrow" aria-hidden="true">→</span>`;
+    btn.addEventListener("click", () => selectWelcomeLanguage(code, btn));
+    listEl.appendChild(btn);
+  });
+}
+
+function completeWelcomeOnboarding() {
+  if (_welcomeOnboardingState.exiting) return;
+  _welcomeOnboardingState.exiting = true;
+  clearWelcomeOnboardingTimers();
+
+  const overlay = document.getElementById("welcomeOnboarding");
+  const homeView = document.getElementById("viewHome");
+  const prefersReduced =
+    typeof window !== "undefined" &&
+    typeof window.matchMedia === "function" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  state.settings.onboardingDone = true;
+  saveVisualPrefs(
+    state.settings.appearance,
+    state.settings.theme,
+    state.settings.language,
+    state.settings.autoNextAfterCorrect,
+    state.settings.playCorrectAnswerAudio,
+    true
+  );
+
+  if (typeof document !== "undefined" && document.documentElement?.removeAttribute) {
+    document.documentElement.removeAttribute("data-first-run");
+  }
+  if (state.currentView !== "home") {
+    switchView("home", { animate: false, skipHistoryPush: true });
+  }
+  if (homeView) {
+    homeView.classList.remove("home-welcome-enter");
+    homeView.classList.add("home-welcome-enter");
+  }
+  if (overlay) {
+    overlay.classList.add("welcome-out");
+  }
+
+  const exitDuration = prefersReduced ? 160 : 440;
+  _welcomeOnboardingState.exitTimer = setTimeout(() => {
+    if (overlay) {
+      overlay.classList.add("hidden");
+      overlay.classList.remove("welcome-out");
+    }
+    if (homeView) {
+      homeView.classList.remove("home-welcome-enter");
+    }
+    _welcomeOnboardingState.selecting = false;
+    _welcomeOnboardingState.exiting = false;
+    _welcomeOnboardingState.exitTimer = null;
+  }, exitDuration);
+}
+
+function selectWelcomeLanguage(lang, clickedBtn) {
+  if (_welcomeOnboardingState.selecting || _welcomeOnboardingState.exiting) return;
+  _welcomeOnboardingState.selecting = true;
+  clearWelcomeOnboardingTimers();
+
+  if (clickedBtn?.classList) clickedBtn.classList.add("is-selected");
+  state.settings.onboardingDone = false;
+  setLanguagePreference(lang);
+  const activeLang = state.settings.language;
+
+  const stepLang = document.getElementById("welcomeStepLang");
+  const stepGreet = document.getElementById("welcomeStepGreet");
+  const greetMascot = document.getElementById("welcomeGreetMascot");
+  const greetTitle = document.getElementById("welcomeGreetTitle");
+  const greetBody = document.getElementById("welcomeGreetBody");
+  const continueBtn = document.getElementById("welcomeContinueBtn");
+  const redirectHint = document.getElementById("welcomeRedirectHint");
+  const autoFill = document.getElementById("welcomeAutoFill");
+
+  if (greetMascot) {
+    greetMascot.innerHTML = getMascotSVG("happy");
+    greetMascot.classList.add("mascot-happy-hop");
+  }
+  const getText = (key, fallback) =>
+    (typeof getStaticI18nText === "function" && getStaticI18nText(key, activeLang)) || fallback;
+  if (greetTitle) greetTitle.textContent = getText("welcome.greetTitle", "Hallo! Schön, dass du da bist.");
+  if (greetBody) greetBody.textContent = getText("welcome.greetBody", "Ich bin der Lauschebär und freue mich darauf, mit dir zu hören, Noten zu entdecken und Musik zu verstehen. Viel Freude und Erfolg beim Lernen!");
+  if (continueBtn) {
+    continueBtn.textContent = getText("welcome.continueBtn", "Los geht’s →");
+    if (!continueBtn._welcomeBound) {
+      continueBtn._welcomeBound = true;
+      continueBtn.addEventListener("click", () => completeWelcomeOnboarding());
+    }
+  }
+  if (redirectHint) redirectHint.textContent = getText("welcome.redirectHint", "Du wirst gleich zum Homescreen weitergeleitet …");
+  if (autoFill) autoFill.classList.remove("is-counting");
+
+  const prefersReduced =
+    typeof window !== "undefined" &&
+    typeof window.matchMedia === "function" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (stepLang) stepLang.classList.add("is-step-exiting");
+  _welcomeOnboardingState.stepTimer = setTimeout(() => {
+    _welcomeOnboardingState.stepTimer = null;
+    if (stepLang) {
+      stepLang.classList.add("hidden");
+      stepLang.classList.remove("is-step-exiting");
+    }
+    if (stepGreet) {
+      stepGreet.classList.remove("hidden");
+    }
+    if (autoFill) {
+      autoFill.classList.add("is-counting");
+    }
+    const stayMs = prefersReduced ? 2200 : 3400;
+    _welcomeOnboardingState.autoTimer = setTimeout(() => {
+      completeWelcomeOnboarding();
+    }, stayMs);
+  }, prefersReduced ? 80 : 180);
+}
+
+function openFirstRunOnboarding() {
+  const overlay = document.getElementById("welcomeOnboarding");
+  if (!overlay) return false;
+  clearWelcomeOnboardingTimers();
+  _welcomeOnboardingState.selecting = false;
+  _welcomeOnboardingState.exiting = false;
+
+  if (typeof document !== "undefined" && document.documentElement?.setAttribute) {
+    document.documentElement.setAttribute("data-first-run", "1");
+  }
+  const langMascot = document.getElementById("welcomeLangMascot");
+  if (langMascot) langMascot.innerHTML = getMascotSVG("idle");
+  renderWelcomeLanguageList();
+
+  const stepLang = document.getElementById("welcomeStepLang");
+  const stepGreet = document.getElementById("welcomeStepGreet");
+  const autoFill = document.getElementById("welcomeAutoFill");
+  stepLang?.classList.remove("hidden", "is-step-exiting");
+  stepGreet?.classList.add("hidden");
+  autoFill?.classList.remove("is-counting");
+
+  overlay.classList.remove("hidden", "welcome-out");
+  return true;
+}
+
 function initStartupSplash() {
   const splash = document.getElementById("startupSplash");
+  const welcome = document.getElementById("welcomeOnboarding");
+
+  if (isFirstRunOnboardingNeeded() && welcome) {
+    if (splash) {
+      splash.classList.add("splash-out");
+      splash.classList.add("splash-hidden");
+    }
+    openFirstRunOnboarding();
+    return;
+  }
+
+  if (welcome) {
+    welcome.classList.add("hidden");
+    welcome.classList.remove("welcome-out");
+  }
+  if (typeof document !== "undefined" && document.documentElement?.removeAttribute) {
+    document.documentElement.removeAttribute("data-first-run");
+  }
   if (!splash) return;
+
+  splash.classList.remove("splash-out");
+  splash.classList.remove("splash-hidden");
 
   let dismissed = false;
   let autoTimer = null;
@@ -45710,7 +46427,13 @@ function initStartupSplash() {
     typeof window.matchMedia === "function" &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  splash.addEventListener("click", dismissSplash);
+  if (!splash._dismissSplashBound) {
+    splash._dismissSplashBound = true;
+    splash.addEventListener("click", () => {
+      if (splash._activeDismissFn) splash._activeDismissFn();
+    });
+  }
+  splash._activeDismissFn = dismissSplash;
   autoTimer = setTimeout(dismissSplash, prefersReduced ? 450 : 1200);
 }
 
