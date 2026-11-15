@@ -2398,27 +2398,30 @@ html, body {
   transform: translateY(2px);
 }
 
-/* Nicht aktive / tonartfremde weiße Tasten & äußere Rahmen-Tasten (an beiden Enden nur halb breit) */
-.piano-key-frame,
-.piano-key-inactive {
+/* Äußere Rahmen-Tasten (an beiden Enden nur halb breit, dezent abgesetzt wie bei Notation) */
+.piano-key-frame {
+  flex: 0.5 1 0%;
   background-color: var(--piano-key-inactive-bg);
   border-color: var(--piano-key-inactive-border);
   cursor: default;
   box-shadow: inset 0 2px 5px rgba(34, 36, 54, 0.14);
 }
 
-.piano-key-frame {
-  flex: 0.5 1 0%;
+/* Innere Tasten außerhalb der aktuellen Tonleiter behalten normale weiße Klaviatur-Optik; Markierung erfolgt über Solfège-Kästchen */
+.piano-key-inactive:not(.piano-key-frame) {
+  background-color: var(--piano-white-active-bg);
+  color: var(--piano-white-active-ink);
+  cursor: default;
 }
 
 .piano-key-frame .piano-note-hint {
   font-size: 0.64rem;
-}
-
-.piano-key-frame .piano-note-hint,
-.piano-key-inactive .piano-note-hint {
   color: var(--piano-key-inactive-text);
   opacity: 0.88;
+}
+
+.piano-key-inactive:not(.piano-key-frame) .piano-note-hint {
+  opacity: 0.55;
 }
 
 .piano-key-frame:active,
@@ -2533,12 +2536,11 @@ html, body {
   }
 }
 
-/* Tonartfremde schwarze Tasten: exakt gleiche Klaviatur-Geometrie, vollständig deckend ausgegraut (keine durchscheinenden Fugenlinien) */
+/* Tonartfremde schwarze Tasten: identisches Klaviatur-Design ohne Ausgrauen (Markierung erfolgt über Solfège-Namens-Kästchen) */
 .piano-black-key.key-out-of-scale {
-  background: var(--piano-black-out-bg);
-  border-color: var(--piano-black-out-border);
+  background: linear-gradient(180deg, var(--piano-black-bg-top) 0%, var(--piano-black-bg-bottom) 100%);
+  border-color: var(--piano-black-border);
   opacity: 1;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.16);
 }
 
 .tonic-dot {
@@ -3893,12 +3895,17 @@ body,
   border-color: rgba(15, 17, 24, 0.28);
 }
 
-[data-appearance="dark"] .piano-key-frame,
-[data-appearance="dark"] .piano-key-inactive {
+[data-appearance="dark"] .piano-key-frame {
   background-color: var(--piano-key-inactive-bg);
   border-color: var(--piano-key-inactive-border);
   color: var(--piano-key-inactive-text);
   box-shadow: inset 0 2px 6px rgba(10, 12, 16, 0.34);
+}
+
+[data-appearance="dark"] .piano-key-inactive:not(.piano-key-frame) {
+  background-color: var(--piano-white-active-bg);
+  border-color: rgba(15, 17, 24, 0.28);
+  color: var(--piano-white-active-ink);
 }
 
 [data-appearance="dark"] .piano-black-key {
@@ -3907,8 +3914,8 @@ body,
 }
 
 [data-appearance="dark"] .piano-black-key.key-out-of-scale {
-  background: var(--piano-black-out-bg);
-  border-color: var(--piano-black-out-border);
+  background: linear-gradient(180deg, var(--piano-black-bg-top) 0%, var(--piano-black-bg-bottom) 100%);
+  border-color: var(--piano-black-border);
 }
 
 [data-appearance="dark"] .solfege-key-box-black {
@@ -6006,7 +6013,7 @@ body,
   box-shadow: 0 0.5px 0 var(--tactile-edge);
 }
 
-.piano-white-key:not(.piano-key-frame):not(.piano-key-inactive) {
+.piano-white-key:not(.piano-key-frame) {
   box-shadow: inset 0 -3px 0 rgba(61, 64, 91, 0.11);
 }
 
@@ -6015,7 +6022,7 @@ body,
   box-shadow: inset 0 -1px 0 rgba(61, 64, 91, 0.08);
 }
 
-.piano-black-key.key-in-scale {
+.piano-black-key {
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.28), inset 0 -2px 0 rgba(255, 255, 255, 0.09);
 }
 
@@ -38135,8 +38142,8 @@ function refreshExerciseLocalization(ex) {
 /**
  * Baut die 1-Oktav-Klaviatur dynamisch für jede beliebige Tonart auf:
  * - Zeigt an beiden Enden jeweils eine weiße Rahmentaste nur halb breit (nicht in der Tonart benutzt); die gewonnene Breite wird proportional auf die Tasten dazwischen verteilt.
- * - Alle 8 Töne der aktuellen Dur-Tonleiter (egal ob weiße oder schwarze Taste) erhalten ihr mittiges Kästchen (Do–Re–Mi–Fa–Sol–La–Ti–Do).
- * - Alle Tasten außerhalb der Tonart (inkl. der beiden äußeren Rahmentasten) sind deutlich ausgegraut/verdunkelt.
+ * - Alle 8 Töne der aktuellen Dur-Tonleiter (egal ob weiße oder schwarze Taste) werden eindeutig über ihr mittiges Solfège-Kästchen (Do–Re–Mi–Fa–Sol–La–Ti–Do) markiert.
+ * - Innere Tasten außerhalb der Tonart behalten ihre reguläre Klaviatur-Farbe (ohne Kästchen); nur die beiden äußeren halben Rahmentasten bleiben dezent abgesetzt.
  */
 const NOTATION_BLACK_LABELS_DE = {
   1: "Cis\nDes",
