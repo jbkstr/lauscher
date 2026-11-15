@@ -7823,11 +7823,65 @@ body,
 }
 
 .metro-beats-card,
+.metro-mix-card,
 .metro-profiles-card,
 .metro-sound-placeholder-card {
   display: flex;
   flex-direction: column;
   gap: 0.68rem;
+}
+
+.metro-mix-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.56rem;
+}
+
+.metro-mix-row {
+  display: flex;
+  align-items: center;
+  gap: 0.62rem;
+  min-height: 30px;
+}
+
+.metro-mix-name {
+  flex: 0 0 132px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  line-height: 1.25;
+}
+
+.metro-mix-slider {
+  flex: 1;
+  min-width: 0;
+  height: 22px;
+  cursor: pointer;
+  accent-color: var(--raccoon-dark);
+}
+
+.metro-mix-slider--accent {
+  accent-color: var(--peach-strong);
+}
+
+.metro-mix-slider--normal {
+  accent-color: var(--sage-strong);
+}
+
+.metro-mix-val {
+  flex: 0 0 42px;
+  text-align: right;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 400px) {
+  .metro-mix-name {
+    flex: 0 0 112px;
+    font-size: 0.75rem;
+  }
 }
 
 .metro-section-head {
@@ -9810,6 +9864,29 @@ body,
               <button class="opt-btn metro-sub-btn" type="button" data-metro-subdiv="4" data-i18n="metro.sub4">4×</button>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section id="metroVolumeCard" class="module-card metro-mix-card">
+        <div class="metro-section-head">
+          <h3 class="metro-section-title" data-i18n="metro.mixHeading">Lautstärke</h3>
+        </div>
+        <div class="metro-mix-list">
+          <label class="metro-mix-row" for="metroMasterVolSlider">
+            <span class="metro-mix-name" data-i18n="metro.volMaster">Gesamtlautstärke</span>
+            <input id="metroMasterVolSlider" class="metro-mix-slider metro-mix-slider--master" type="range" min="0" max="1" step="0.05" value="1" data-i18n-aria="metro.volMasterAria" aria-label="Gesamtlautstärke des Metronoms anpassen" />
+            <span id="metroMasterVolVal" class="metro-mix-val">100%</span>
+          </label>
+          <label class="metro-mix-row" for="metroAccentVolSlider">
+            <span class="metro-mix-name" data-i18n="metro.volAccent">Akzente</span>
+            <input id="metroAccentVolSlider" class="metro-mix-slider metro-mix-slider--accent" type="range" min="0" max="1" step="0.05" value="1" data-i18n-aria="metro.volAccentAria" aria-label="Lautstärke der akzentuierten Zählzeiten anpassen" />
+            <span id="metroAccentVolVal" class="metro-mix-val">100%</span>
+          </label>
+          <label class="metro-mix-row" for="metroNormalVolSlider">
+            <span class="metro-mix-name" data-i18n="metro.volNormal">Normale Zählzeiten</span>
+            <input id="metroNormalVolSlider" class="metro-mix-slider metro-mix-slider--normal" type="range" min="0" max="1" step="0.05" value="0.8" data-i18n-aria="metro.volNormalAria" aria-label="Lautstärke der normalen Zählzeiten anpassen" />
+            <span id="metroNormalVolVal" class="metro-mix-val">80%</span>
+          </label>
         </div>
       </section>
 
@@ -11995,7 +12072,14 @@ const I18N_STATIC = {
   "metro.soundStandard": { de: "Standard-Klick", en: "Standard Click" },
   "metro.soundWoodblock": { de: "Woodblock (bald)", en: "Woodblock (soon)" },
   "metro.soundCowbell": { de: "Cowbell (bald)", en: "Cowbell (soon)" },
-  "metro.soundRimshot": { de: "Rimshot (bald)", en: "Rimshot (soon)" }
+  "metro.soundRimshot": { de: "Rimshot (bald)", en: "Rimshot (soon)" },
+  "metro.mixHeading": { de: "Lautstärke", en: "Volume" },
+  "metro.volMaster": { de: "Gesamtlautstärke", en: "Master volume" },
+  "metro.volMasterAria": { de: "Gesamtlautstärke des Metronoms anpassen", en: "Adjust metronome master volume" },
+  "metro.volAccent": { de: "Akzente", en: "Accents" },
+  "metro.volAccentAria": { de: "Lautstärke der akzentuierten Zählzeiten anpassen", en: "Adjust accented beat volume" },
+  "metro.volNormal": { de: "Normale Zählzeiten", en: "Normal beats" },
+  "metro.volNormalAria": { de: "Lautstärke der normalen Zählzeiten anpassen", en: "Adjust normal beat volume" }
 };
 
 function setElementLocalizedText(el, text) {
@@ -12964,7 +13048,14 @@ const I18N_STATIC_FR = {
   "metro.soundStandard": "Clic standard",
   "metro.soundWoodblock": "Woodblock (bientôt)",
   "metro.soundCowbell": "Cloche (bientôt)",
-  "metro.soundRimshot": "Rimshot (bientôt)"
+  "metro.soundRimshot": "Rimshot (bientôt)",
+  "metro.mixHeading": "Volume",
+  "metro.volMaster": "Volume général",
+  "metro.volMasterAria": "Régler le volume général du métronome",
+  "metro.volAccent": "Accents",
+  "metro.volAccentAria": "Régler le volume des temps accentués",
+  "metro.volNormal": "Temps normaux",
+  "metro.volNormalAria": "Régler le volume des temps normaux"
 };
 
 const LAUSCHEBAER_QUOTES_FR = [
@@ -14772,7 +14863,14 @@ const I18N_STATIC_UK = {
   "metro.soundStandard": "Стандартний клік",
   "metro.soundWoodblock": "Вудблок (скоро)",
   "metro.soundCowbell": "Ковбел (скоро)",
-  "metro.soundRimshot": "Рімшот (скоро)"
+  "metro.soundRimshot": "Рімшот (скоро)",
+  "metro.mixHeading": "Гучність",
+  "metro.volMaster": "Загальна гучність",
+  "metro.volMasterAria": "Налаштувати загальну гучність метронома",
+  "metro.volAccent": "Акценти",
+  "metro.volAccentAria": "Налаштувати гучність акцентованих долей",
+  "metro.volNormal": "Звичайні долі",
+  "metro.volNormalAria": "Налаштувати гучність звичайних долей"
 };
 
 const LAUSCHEBAER_QUOTES_UK = [
@@ -32986,6 +33084,27 @@ function sanitizeMetronomeProfileEntry(raw, fallbackIdx = 0) {
   };
 }
 
+const DEFAULT_METRONOME_MIX = Object.freeze({
+  master: 1.0,
+  accent: 1.0,
+  normal: 0.8
+});
+
+function sanitizeMetronomeMixValue(val, fallback) {
+  const num = Number(val);
+  if (!Number.isFinite(num)) return fallback;
+  return Math.round(Math.max(0, Math.min(1, num)) * 100) / 100;
+}
+
+function sanitizeMetronomeMix(raw) {
+  const src = (raw && typeof raw === "object") ? raw : {};
+  return {
+    master: sanitizeMetronomeMixValue(src.master, DEFAULT_METRONOME_MIX.master),
+    accent: sanitizeMetronomeMixValue(src.accent, DEFAULT_METRONOME_MIX.accent),
+    normal: sanitizeMetronomeMixValue(src.normal, DEFAULT_METRONOME_MIX.normal)
+  };
+}
+
 function createDefaultProfile() {
   return {
     name: "",
@@ -33001,6 +33120,7 @@ function createDefaultProfile() {
     inactivityMinutes: 3,
     mixes: createDefaultMixes(),
     metronomeProfiles: createDefaultMetronomeProfiles(),
+    metronomeMix: sanitizeMetronomeMix(DEFAULT_METRONOME_MIX),
     customThemes: [null, null, null],
     examHistory: []
   };
@@ -33079,6 +33199,7 @@ function sanitizeUserProfile(raw) {
     inactivityMinutes: idleMins,
     mixes: mixes,
     metronomeProfiles: metronomeProfiles,
+    metronomeMix: sanitizeMetronomeMix(raw.metronomeMix),
     customThemes: customThemes,
     examHistory: examHistory
   };
@@ -33328,7 +33449,8 @@ class AppState {
       beats: getDefaultMeterBeats(4),
       subdivision: 1,
       running: false,
-      activeProfileId: "metro_default_4_4"
+      activeProfileId: "metro_default_4_4",
+      mix: sanitizeMetronomeMix(DEFAULT_METRONOME_MIX)
     };
     this.lastAnswerWasWrong = false;
     this.wrongAnswerData = null;
@@ -33339,6 +33461,7 @@ class AppState {
     this.wavePaused = false;
 
     this.profile = loadUserProfile();
+    this.metronome.mix = sanitizeMetronomeMix(this.profile.metronomeMix);
     const initLangCfg = typeof getLanguageConfig === "function" ? getLanguageConfig(this.settings.language) : null;
     if (!this.profile.notationManual) {
       this.profile.notation = initLangCfg ? initLangCfg.defaultNotation : (this.settings.language === "en" ? "intl" : "de");
@@ -44978,6 +45101,10 @@ function importUserProfileJSON(rawText) {
     applyProfileDisplayChanges();
     renderProfileAccountView();
     renderHomeProfileGreeting();
+    if (typeof sanitizeMetronomeMix === "function" && state.metronome) {
+      state.metronome.mix = sanitizeMetronomeMix(state.profile.metronomeMix);
+    }
+    if (typeof syncMetronomeVolumeUI === "function") syncMetronomeVolumeUI();
     if (typeof renderMetronomeProfiles === "function") renderMetronomeProfiles();
     setSpaceBackupStatus(tr("Profil erfolgreich geladen!", "Profile loaded successfully!"));
     return { ok: true };
@@ -47706,12 +47833,14 @@ function scheduleSingleMetronomeStep(beatIdx, subIdx, whenSec, nowAudioSec, runT
   const beatState = beats[safeIdx] || "normal";
 
   if (beatState !== "muted" && audioEngine?.isInitialized) {
-    if (subIdx === 0) {
-      const kind = beatState === "accent" ? "accent" : "tick";
-      const vel = beatState === "accent" ? 1.0 : 0.8;
-      audioEngine.triggerPercussion(kind, whenSec, vel);
-    } else {
-      audioEngine.triggerPercussion("tick", whenSec, 0.3);
+    const mix = getMetronomeMix();
+    const masterVel = sanitizeMetronomeMixValue(mix.master, DEFAULT_METRONOME_MIX.master);
+    const vel = subIdx === 0
+      ? masterVel * sanitizeMetronomeMixValue(beatState === "accent" ? mix.accent : mix.normal, beatState === "accent" ? DEFAULT_METRONOME_MIX.accent : DEFAULT_METRONOME_MIX.normal)
+      : masterVel * sanitizeMetronomeMixValue(mix.normal, DEFAULT_METRONOME_MIX.normal) * 0.38;
+    if (vel > 0.001) {
+      const kind = subIdx === 0 && beatState === "accent" ? "accent" : "tick";
+      audioEngine.triggerPercussion(kind, whenSec, Math.min(1, vel));
     }
   }
 
@@ -48168,9 +48297,46 @@ function deleteMetronomeProfile(profileId) {
   return state.profile.metronomeProfiles.length < before;
 }
 
+const METRONOME_MIX_SLIDERS = [
+  { key: "master", sliderId: "metroMasterVolSlider", valId: "metroMasterVolVal" },
+  { key: "accent", sliderId: "metroAccentVolSlider", valId: "metroAccentVolVal" },
+  { key: "normal", sliderId: "metroNormalVolSlider", valId: "metroNormalVolVal" }
+];
+
+function getMetronomeMix() {
+  if (!state.metronome.mix) {
+    state.metronome.mix = sanitizeMetronomeMix(state.profile?.metronomeMix);
+  }
+  return state.metronome.mix;
+}
+
+function syncMetronomeVolumeUI() {
+  const mix = getMetronomeMix();
+  METRONOME_MIX_SLIDERS.forEach(({ key, sliderId, valId }) => {
+    const val = sanitizeMetronomeMixValue(mix[key], DEFAULT_METRONOME_MIX[key]);
+    const slider = document.getElementById(sliderId);
+    if (slider) slider.value = String(val);
+    const valEl = document.getElementById(valId);
+    if (valEl) valEl.textContent = `${Math.round(val * 100)}%`;
+  });
+}
+
+function setMetronomeMixValue(key, rawValue) {
+  if (!Object.prototype.hasOwnProperty.call(DEFAULT_METRONOME_MIX, key)) return;
+  const nextVal = sanitizeMetronomeMixValue(rawValue, DEFAULT_METRONOME_MIX[key]);
+  const mix = { ...getMetronomeMix(), [key]: nextVal };
+  state.metronome.mix = mix;
+  if (state.profile) {
+    state.profile.metronomeMix = { ...mix };
+    saveUserProfile(state.profile);
+  }
+  syncMetronomeVolumeUI();
+}
+
 function renderMetronomeView() {
   renderMetronomeBpmUI();
   renderMetronomeBeatGrid();
+  syncMetronomeVolumeUI();
   renderMetronomeProfiles();
   syncMetronomeTransportUI();
 }
@@ -48245,6 +48411,14 @@ function initMetronomeEventListeners() {
   document.querySelectorAll("[data-metro-subdiv]").forEach(btn => {
     btn.addEventListener("click", () => {
       setMetronomeSubdivision(parseInt(btn.dataset.metroSubdiv, 10));
+    });
+  });
+
+  METRONOME_MIX_SLIDERS.forEach(({ key, sliderId }) => {
+    const slider = document.getElementById(sliderId);
+    if (!slider) return;
+    slider.addEventListener("input", (e) => {
+      setMetronomeMixValue(key, parseFloat(e?.target?.value ?? slider.value));
     });
   });
 
