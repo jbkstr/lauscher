@@ -8389,7 +8389,7 @@ body,
           </div>
         </div>
 
-        <div class="tonic-ref-row">
+        <div id="tonicRefRow" class="tonic-ref-row">
           <button id="solfegeKeyBtn" class="tonic-btn key-ref-btn hidden" title="Aktuelle Tonart (Tippen für Tonika-Akkord)" data-i18n-title="ex.solfegeKeyTitle">
             <span id="solfegeKeyBtnLabel">🎹 C-Dur</span>
           </button>
@@ -12941,10 +12941,6 @@ Object.assign(TR_FR, {
   "Voller Bereich nach oben &amp; unten": "Jusqu’à 3 lignes suppl. haut &amp; bas",
   "Stufe 4: 3 Hilfsl. + Vorzeichen": "Niveau 4 : 3 lignes + ♯/♭",
   "Voller Umfang mit ♯ und ♭": "Tessiture complète avec dièses &amp; bémols",
-  "Anker: g' (G4)": "Repère : Sol4 (G4)",
-  "Anker: f (F3)": "Repère : Fa3 (F3)",
-  "Anker: c' (C4)": "Repère : Do4 (C4)",
-  "Referenzton des aktuellen Notenschlüssels anhören": "Écouter la note de repère de la clé active",
   "Aktuelle Note überspringen": "Passer la note actuelle",
   "Nächste Abfrage": "Question suivante",
   "Überspringen": "Passer",
@@ -14709,10 +14705,6 @@ Object.assign(TR_UK, {
   "Voller Bereich nach oben &amp; unten": "До 3 додаткових лінійок угору й униз",
   "Stufe 4: 3 Hilfsl. + Vorzeichen": "Рівень 4: 3 дод. + ♯/♭",
   "Voller Umfang mit ♯ und ♭": "Повний діапазон із дієзами та бемолями",
-  "Anker: g' (G4)": "Опора: G4",
-  "Anker: f (F3)": "Опора: F3",
-  "Anker: c' (C4)": "Опора: C4",
-  "Referenzton des aktuellen Notenschlüssels anhören": "Почути опорний тон активного ключа",
   "Aktuelle Note überspringen": "Пропустити поточну ноту",
   "Nächste Abfrage": "Наступне завдання",
   "Überspringen": "Пропустити",
@@ -38148,9 +38140,14 @@ function renderUI() {
     solfegeKeyBtnLabel.textContent = `🎹 ${baseKeyName}`;
   }
 
+  const tonicRefRow = document.getElementById("tonicRefRow");
   const tonicRefBtn = document.getElementById("tonicRefBtn");
   const tonicRefLabel = document.getElementById("tonicRefLabel");
+  if (tonicRefRow) {
+    tonicRefRow.classList.toggle("hidden", isNotation);
+  }
   if (tonicRefBtn) {
+    tonicRefBtn.classList.toggle("hidden", isNotation);
     tonicRefBtn.classList.remove("click-muted");
     if (!isProdEqNoise) tonicRefBtn.classList.remove("btn-active");
   }
@@ -38191,16 +38188,7 @@ function renderUI() {
   } else if (isModes) {
     if (tonicRefLabel) tonicRefLabel.textContent = tr("Anker-Quinte", "Anchor Fifth");
     if (tonicRefBtn) tonicRefBtn.title = tr("Neutrale Grundton-Quinte (ohne Terz) anhören", "Hear the neutral root-fifth anchor (no 3rd)");
-  } else if (isNotation) {
-    const activeClefId = ex.targetItem?.clefId || ex.baseClefId || "treble";
-    const anchorMap = {
-      treble: tr("Anker: g' (G4)", "Anchor: G4"),
-      bass:   tr("Anker: f (F3)", "Anchor: F3"),
-      alto:   tr("Anker: c' (C4)", "Anchor: C4")
-    };
-    if (tonicRefLabel) tonicRefLabel.textContent = anchorMap[activeClefId] || anchorMap.treble;
-    if (tonicRefBtn) tonicRefBtn.title = tr("Referenzton des aktuellen Notenschlüssels anhören", "Hear the anchor reference pitch of the current clef");
-  } else {
+  } else if (!isNotation) {
     if (tonicRefLabel) {
       tonicRefLabel.textContent =
         isCadence
@@ -39333,7 +39321,8 @@ function syncNotationHeaderUI(ex = state.currentExercise) {
   const targetClefName = getLocalizedNotationClefName(targetClefId);
   const moduleTitleEl = document.getElementById("moduleTitleText");
   const targetBadgeEl = document.getElementById("targetBarBadge");
-  const tonicRefLabel = document.getElementById("tonicRefLabel");
+  const tonicRefRow = document.getElementById("tonicRefRow");
+  const tonicRefBtn = document.getElementById("tonicRefBtn");
   const inputPromptText = document.getElementById("inputPromptText");
 
   if (moduleTitleEl) {
@@ -39347,14 +39336,8 @@ function syncNotationHeaderUI(ex = state.currentExercise) {
       tag: getNotationLedgerLevelTag(ex)
     });
   }
-  if (tonicRefLabel) {
-    const anchorMap = {
-      treble: tr("Anker: g' (G4)", "Anchor: G4"),
-      bass:   tr("Anker: f (F3)", "Anchor: F3"),
-      alto:   tr("Anker: c' (C4)", "Anchor: C4")
-    };
-    tonicRefLabel.textContent = anchorMap[targetClefId] || anchorMap.treble;
-  }
+  tonicRefRow?.classList.add("hidden");
+  tonicRefBtn?.classList.add("hidden");
   if (inputPromptText) {
     inputPromptText.textContent = tr("Note links wählen:", "Play left note:");
   }
@@ -43890,12 +43873,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    if (isNotationMode(mode)) {
-      const clefId = ex?.targetItem?.clefId || ex?.baseClefId || "treble";
-      const anchorNote = NOTATION_CLEFS[clefId]?.anchorNote || "G4";
-      audioEngine.playStep([anchorNote], 1.1, null, "interval");
-      return;
-    }
+    if (isNotationMode(mode)) return;
 
     if (mode.startsWith("rhythm-")) {
       const beatMs = 60000 / (state.activeBpm || 90);
