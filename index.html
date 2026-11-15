@@ -7521,6 +7521,210 @@ body,
   margin-bottom: 0.35rem;
 }
 
+/* Generalvorzeichen / Tonarten-Blattspiel (Notation) */
+.notation-keysig-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.1rem 0.48rem;
+  border-radius: 999px;
+  background: var(--peach-soft);
+  color: var(--peach-strong);
+  font-weight: 800;
+  font-size: 0.65rem;
+  white-space: nowrap;
+}
+
+.notation-key-toolbar {
+  background: var(--surface-warm);
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  padding: 0.72rem 0.78rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.56rem;
+  margin-bottom: 0.75rem;
+}
+
+.notation-key-pool-row,
+.notation-key-quick-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.36rem;
+  align-items: center;
+}
+
+.notation-key-quick-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.32rem;
+  margin-bottom: 0.58rem;
+}
+
+.notation-key-quick-label {
+  font-size: 0.71rem;
+  font-weight: 800;
+  color: var(--ink-soft);
+}
+
+.notation-key-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 0.42rem;
+}
+
+.notation-key-group-row {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.32rem;
+}
+
+@media (max-width: 480px) {
+  .notation-key-group-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.notation-key-sig-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.08rem;
+  padding: 0.34rem 0.24rem;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-soft);
+  background: var(--surface-card);
+  color: var(--ink);
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 0.14s ease, background-color 0.14s ease, transform 0.12s ease;
+}
+
+.notation-key-sig-btn:hover {
+  border-color: var(--sage-strong);
+}
+
+.notation-key-sig-btn.active {
+  background: var(--sage-soft);
+  border-color: var(--sage-strong);
+  color: var(--raccoon-dark);
+}
+
+.notation-key-sig-name {
+  font-size: 0.75rem;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.notation-key-sig-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  line-height: 1.1;
+}
+
+.notation-key-sig-btn.active .notation-key-sig-badge {
+  color: var(--sage-strong);
+}
+
+.notation-key-preview-box {
+  display: flex;
+  align-items: center;
+  gap: 0.68rem;
+  padding: 0.44rem 0.56rem;
+  border-radius: var(--radius-sm);
+  background: var(--surface-card);
+  border: 1px dashed var(--border-soft);
+}
+
+@media (max-width: 440px) {
+  .notation-key-preview-box {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.36rem;
+  }
+}
+
+.notation-key-preview-svg {
+  flex: 0 0 184px;
+  max-width: 100%;
+}
+
+.notation-key-preview-svg svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 82px;
+  color: var(--raccoon-dark);
+}
+
+.notation-key-preview-copy {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.14rem;
+}
+
+.notation-key-preview-title {
+  font-size: 0.79rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.notation-key-preview-desc {
+  font-size: 0.71rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  line-height: 1.32;
+}
+
+.subpage-section-head-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.35rem;
+}
+
+.subpage-section-key-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.16rem 0.52rem;
+  border-radius: 999px;
+  background: var(--sage-soft);
+  color: var(--sage-strong);
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+.notation-key-popover {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.45rem;
+}
+
+.notation-key-pop-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
+.notation-key-pop-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.28rem;
+}
+
+@media (max-width: 440px) {
+  .notation-key-pop-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
 /* =====================================================
    METRONOM: HOMESCREEN-KACHEL (HALBE BREITE, ZENTRIERT)
    ===================================================== */
@@ -9541,6 +9745,7 @@ body,
             <span id="moduleTitleText" class="module-title">Kadenz (Takt 1–4)</span>
             <div class="module-inline-controls">
               <button id="moduleKeyBtn" class="module-chip-btn chip-sage hidden" title="Tonart-Modus wählen" data-i18n-title="ex.keyBtnTitle">C-Dur</button>
+              <button id="moduleNotationKeyBtn" type="button" class="module-chip-btn chip-sage hidden" title="Tonart &amp; Generalvorzeichen fürs Notenlesen wählen" data-i18n-title="ex.notationKeyBtnTitle">Ohne (C-Dur)</button>
               <button id="moduleTimeSigBtn" class="module-chip-btn chip-peach hidden" title="Taktart wählen" data-i18n-title="ex.timeSigBtnTitle">4/4</button>
               <button id="melodyPulseBtn" class="module-chip-btn chip-sage hidden" type="button" title="Metrum-Puls während der Melodie ein-/ausschalten" data-i18n-title="ex.melodyPulseTitle">Puls: An</button>
               <button id="moduleBpmBtn" class="module-chip-btn chip-lilac" title="Tempo-Schieberegler öffnen" data-i18n-title="ex.bpmBtnTitle">90 BPM</button>
@@ -9578,6 +9783,9 @@ body,
             <button class="popover-pill-btn" data-timesig="random" data-i18n="ex.random">Zufall</button>
           </div>
         </div>
+
+        <!-- Direkt ausklappbare Tonart-Auswahl (Generalvorzeichen beim Notenlesen) -->
+        <div id="inlineNotationKeyPopover" class="module-inline-popover notation-key-popover hidden"></div>
 
         <div id="barsGrid" class="bars-grid"></div>
       </section>
@@ -11866,6 +12074,7 @@ const I18N_STATIC = {
   "space.examHistoryClear": { de: "Verlauf löschen", en: "Clear History" },
 
   "ex.keyBtnTitle": { de: "Tonart-Modus wählen", en: "Choose key mode" },
+  "ex.notationKeyBtnTitle": { de: "Tonart & Generalvorzeichen fürs Notenlesen wählen", en: "Choose key signature for sight-reading" },
   "ex.timeSigBtnTitle": { de: "Taktart wählen", en: "Choose time signature" },
   "ex.melodyPulseTitle": { de: "Metrum-Puls während der Melodie ein-/ausschalten", en: "Toggle beat pulse during the melody" },
   "ex.bpmBtnTitle": { de: "Tempo-Schieberegler öffnen", en: "Open tempo slider" },
@@ -12887,6 +13096,7 @@ const I18N_STATIC_FR = {
   "space.examHistorySub": "Vos examens par catégorie terminés et vos records (stockés localement sur cet appareil).",
   "space.examHistoryClear": "Effacer l’historique",
   "ex.keyBtnTitle": "Choisir le mode de tonalité",
+  "ex.notationKeyBtnTitle": "Choisir la tonalité et l'armure pour la lecture",
   "ex.timeSigBtnTitle": "Choisir la mesure",
   "ex.melodyPulseTitle": "Activer ou couper la pulsation pendant la mélodie",
   "ex.bpmBtnTitle": "Ouvrir le curseur de tempo",
@@ -14499,7 +14709,53 @@ Object.assign(TR_FR, {
   "Aktuelle Werte in diesem Profil speichern": "Enregistrer les réglages actuels dans ce profil",
   "Profil aktualisieren": "Mettre à jour le profil",
   "Profil löschen": "Supprimer le profil",
-  "Eigene Klick- & Percussion-Sounds folgen in einem kommenden Update (im Masterplan vorgemerkt). Aktuell aktiv: Standard-Klick.": "Des sons de clic et de percussion personnalisés arriveront dans une prochaine mise à jour (prévus au Masterplan). Actif : Clic standard."
+  "Eigene Klick- & Percussion-Sounds folgen in einem kommenden Update (im Masterplan vorgemerkt). Aktuell aktiv: Standard-Klick.": "Des sons de clic et de percussion personnalisés arriveront dans une prochaine mise à jour (prévus au Masterplan). Actif : Clic standard.",
+  "Ohne (C-Dur)": "Sans armure (Do maj.)",
+  "C-Dur (0)": "Do maj. (0)",
+  "Leicht (1–2 ♯/♭)": "Facile (1–2 ♯/♭)",
+  "Mittel (3–4 ♯/♭)": "Intermédiaire (3–4 ♯/♭)",
+  "Schwer (5–6 ♯/♭)": "Difficile (5–6 ♯/♭)",
+  "Alle 12 Tonarten (1–6 ♯/♭)": "Les 12 tonalités (1–6 ♯/♭)",
+  "Tonarten 1–2 ♯/♭": "Tonalités 1–2 ♯/♭",
+  "Tonarten 3–4 ♯/♭": "Tonalités 3–4 ♯/♭",
+  "Tonarten 5–6 ♯/♭": "Tonalités 5–6 ♯/♭",
+  "Alle Tonarten": "Toutes tonalités",
+  "Alle (1–6 ♯/♭)": "Toutes (1–6 ♯/♭)",
+  "1–2 ♯/♭": "1–2 ♯/♭",
+  "3–4 ♯/♭": "3–4 ♯/♭",
+  "5–6 ♯/♭": "5–6 ♯/♭",
+  "Alle 12": "Les 12",
+  "{mode} • Beispiel: {ex}": "{mode} • Exemple : {ex}",
+  "Keine Generalvorzeichen (C-Dur)": "Aucune altération à la clé (Do majeur)",
+  "Alle Noten gelten zunächst als Stammtöne (bei Stufe 4 mit ♯/♭ direkt vor einzelnen Noten).": "Toutes les notes sont naturelles au départ (avec ♯/♭ ponctuels au niveau 4).",
+  "Das Generalvorzeichen gilt für das ganze System: Achte bei betroffenen Stammlinien &amp; Räumen automatisch auf die schwarzen Tasten!": "L’armure s’applique à toute la portée : pensez aux touches noires pour les notes concernées !",
+  "5 Linien • {key}": "5 lignes • {key}",
+  "±2 Hilfslinien • {key}": "±2 lignes suppl. • {key}",
+  "±3 Hilfslinien • {key}": "±3 lignes suppl. • {key}",
+  "Stufe 4: + Auflösungszeichen (♮)": "Niveau 4 : + Bécarres (♮)",
+  "Tonart inkl. ♮ &amp; extra Vorzeichen": "Armure avec ♮ &amp; altérations",
+  "Leichte Tonarten (1–2 ♯/♭)": "Tonalités faciles (1–2 ♯/♭)",
+  "G-, D-, F- &amp; B-Dur am Systemanfang": "Sol, Ré, Fa &amp; Si♭ majeur à la clé",
+  "Mittlere Tonarten (3–4 ♯/♭)": "Tonalités intermédiaires (3–4 ♯/♭)",
+  "A-, E-, Es- &amp; As-Dur im Wechsel": "La, Mi, Mi♭ &amp; La♭ majeur en alternance",
+  "Kompletter Quintenzirkel bis Fis/Ges": "Cycle complet des quintes jusqu’à Fa♯/Sol♭",
+  "Tonarten + Auflösungszeichen": "Armures + Bécarres (♮)",
+  "Blattspiel-Profi mit ♮ &amp; Wechselvorzeichen": "Lecture à vue avancée avec ♮ &amp; altérations",
+  "1. Tonart / Generalvorzeichen wählen": "1. Choisir la tonalité / l’armure",
+  "Lege fest, ob Tonarten mit Vorzeichen am Notenanfang stehen sollen – gilt für alle Schlüssel-Übungen darunter.": "Définissez si une armure doit figurer à la clé — s’applique aussi aux exercices de clés ci-dessous.",
+  "2. Tonarten-Blattspiel (Generalvorzeichen)": "2. Lecture à vue avec armures",
+  "Lies ganze 8-Noten-Phrasen mit vorgegebener Tonart im Notensystem und beachte die Vorzeichen vom Blatt!": "Lisez des phrases de 8 notes avec une tonalité imposée et respectez l’armure en direct !",
+  "Schlüssel &amp; Umfang für diesen Direktstart:": "Clé &amp; tessiture pour ces accès rapides :",
+  "±3 + ♮/♯/♭": "±3 + ♮/♯/♭",
+  "Tonart (Vorzeichen):": "Armure (Tonalité) :",
+  "↻ Nächste Tonart": "↻ Tonalité suivante",
+  "Note links (mit Vorzeichen) wählen:": "Note à gauche (selon l’armure) :",
+  "Neue Tonart: {key} ({acc})!": "Nouvelle tonalité : {key} ({acc}) !",
+  "Tonart {key} ({acc}) beachten – oder „Überspringen“.": "Attention à l’armure {key} ({acc}) — ou touchez « Passer ».",
+  "Stufe 5 • Blattspiel Tonarten (1–2 ♯/♭)": "Niveau 5 • Armures (1–2 ♯/♭)",
+  "G-, D-, F- & B-Dur im Notensystem (±2 Hilfslinien) mit vorgegebenen Vorzeichen": "Sol, Ré, Fa & Si♭ majeur à la clé (±2 lignes suppl.)",
+  "Stufe 6 • Alle Tonarten + ♮ (1–6 ♯/♭)": "Niveau 6 • Toutes armures + ♮ (1–6 ♯/♭)",
+  "Alle 12 Vorzeichen-Tonarten (±3 Hilfslinien) inklusive Auflösungszeichen (♮)": "Les 12 armures (±3 lignes suppl.) incluant les bécarres (♮)"
 });
 
 if (typeof registerLanguageBundle === "function") {
@@ -14702,6 +14958,7 @@ const I18N_STATIC_UK = {
   "space.examHistorySub": "Твої завершені іспити за категоріями та рекорди (зберігаються локально на цьому пристрої).",
   "space.examHistoryClear": "Очистити історію",
   "ex.keyBtnTitle": "Обрати режим тональності",
+  "ex.notationKeyBtnTitle": "Обрати тональність і ключові знаки для читання з аркуша",
   "ex.timeSigBtnTitle": "Обрати музичний розмір",
   "ex.melodyPulseTitle": "Увімкнути або вимкнути пульс під час мелодії",
   "ex.bpmBtnTitle": "Відкрити повзунок темпу",
@@ -16360,7 +16617,53 @@ Object.assign(TR_UK, {
   "Aktuelle Werte in diesem Profil speichern": "Оновити профіль поточними параметрами",
   "Profil aktualisieren": "Оновити профіль",
   "Profil löschen": "Видалити профіль",
-  "Eigene Klick- & Percussion-Sounds folgen in einem kommenden Update (im Masterplan vorgemerkt). Aktuell aktiv: Standard-Klick.": "Вибір власних звуків кліку й перкусії з’явиться в наступному оновленні (додано в майстер-план). Зараз активний: Стандартний клік."
+  "Eigene Klick- & Percussion-Sounds folgen in einem kommenden Update (im Masterplan vorgemerkt). Aktuell aktiv: Standard-Klick.": "Вибір власних звуків кліку й перкусії з’явиться в наступному оновленні (додано в майстер-план). Зараз активний: Стандартний клік.",
+  "Ohne (C-Dur)": "Без знаків (До маж.)",
+  "C-Dur (0)": "До маж. (0)",
+  "Leicht (1–2 ♯/♭)": "Легкі (1–2 ♯/♭)",
+  "Mittel (3–4 ♯/♭)": "Середні (3–4 ♯/♭)",
+  "Schwer (5–6 ♯/♭)": "Складні (5–6 ♯/♭)",
+  "Alle 12 Tonarten (1–6 ♯/♭)": "Усі 12 тональностей (1–6 ♯/♭)",
+  "Tonarten 1–2 ♯/♭": "Тональності 1–2 ♯/♭",
+  "Tonarten 3–4 ♯/♭": "Тональності 3–4 ♯/♭",
+  "Tonarten 5–6 ♯/♭": "Тональності 5–6 ♯/♭",
+  "Alle Tonarten": "Усі тональності",
+  "Alle (1–6 ♯/♭)": "Усі (1–6 ♯/♭)",
+  "1–2 ♯/♭": "1–2 ♯/♭",
+  "3–4 ♯/♭": "3–4 ♯/♭",
+  "5–6 ♯/♭": "5–6 ♯/♭",
+  "Alle 12": "Усі 12",
+  "{mode} • Beispiel: {ex}": "{mode} • Приклад: {ex}",
+  "Keine Generalvorzeichen (C-Dur)": "Без ключових знаків (До мажор)",
+  "Alle Noten gelten zunächst als Stammtöne (bei Stufe 4 mit ♯/♭ direkt vor einzelnen Noten).": "Усі ноти читаються як натуральні (на 4-му рівні трапляються ♯/♭ біля окремих нот).",
+  "Das Generalvorzeichen gilt für das ganze System: Achte bei betroffenen Stammlinien &amp; Räumen automatisch auf die schwarzen Tasten!": "Ключові знаки діють на весь нотний стан: не забувай натискати чорні клавіші для відповідних ступенів!",
+  "5 Linien • {key}": "5 лінійок • {key}",
+  "±2 Hilfslinien • {key}": "±2 дод. лінійки • {key}",
+  "±3 Hilfslinien • {key}": "±3 дод. лінійки • {key}",
+  "Stufe 4: + Auflösungszeichen (♮)": "Рівень 4: + Бекари (♮)",
+  "Tonart inkl. ♮ &amp; extra Vorzeichen": "Тональність із ♮ та випадковими знаками",
+  "Leichte Tonarten (1–2 ♯/♭)": "Легкі тональності (1–2 ♯/♭)",
+  "G-, D-, F- &amp; B-Dur am Systemanfang": "Соль, Ре, Фа та Сі♭ мажор при ключі",
+  "Mittlere Tonarten (3–4 ♯/♭)": "Середні тональності (3–4 ♯/♭)",
+  "A-, E-, Es- &amp; As-Dur im Wechsel": "Ля, Мі, Мі♭ та Ля♭ мажор по черзі",
+  "Kompletter Quintenzirkel bis Fis/Ges": "Повне квінтове коло до Фа♯/Соль♭",
+  "Tonarten + Auflösungszeichen": "Тональності + Бекари (♮)",
+  "Blattspiel-Profi mit ♮ &amp; Wechselvorzeichen": "Профі-читання з ♮ та альтераціями",
+  "1. Tonart / Generalvorzeichen wählen": "1. Обери тональність / ключові знаки",
+  "Lege fest, ob Tonarten mit Vorzeichen am Notenanfang stehen sollen – gilt für alle Schlüssel-Übungen darunter.": "Визнач, чи показувати ключові знаки на початку стану — діє для всіх вправ у ключах нижче.",
+  "2. Tonarten-Blattspiel (Generalvorzeichen)": "2. Читання з листа у тональностях",
+  "Lies ganze 8-Noten-Phrasen mit vorgegebener Tonart im Notensystem und beachte die Vorzeichen vom Blatt!": "Читай 8-нотні фрази у заданій тональності та враховуй ключові знаки з листа!",
+  "Schlüssel &amp; Umfang für diesen Direktstart:": "Ключ і діапазон для швидкого старту:",
+  "±3 + ♮/♯/♭": "±3 + ♮/♯/♭",
+  "Tonart (Vorzeichen):": "Тональність (ключові знаки):",
+  "↻ Nächste Tonart": "↻ Наступна тональність",
+  "Note links (mit Vorzeichen) wählen:": "Нота ліворуч (з урахуванням знаків):",
+  "Neue Tonart: {key} ({acc})!": "Нова тональність: {key} ({acc})!",
+  "Tonart {key} ({acc}) beachten – oder „Überspringen“.": "Зверни увагу на {key} ({acc}) — або натисни «Пропустити».",
+  "Stufe 5 • Blattspiel Tonarten (1–2 ♯/♭)": "Рівень 5 • Тональності (1–2 ♯/♭)",
+  "G-, D-, F- & B-Dur im Notensystem (±2 Hilfslinien) mit vorgegebenen Vorzeichen": "Соль, Ре, Фа та Сі♭ мажор при ключі (±2 дод. лінійки)",
+  "Stufe 6 • Alle Tonarten + ♮ (1–6 ♯/♭)": "Рівень 6 • Усі тональності + ♮ (1–6 ♯/♭)",
+  "Alle 12 Vorzeichen-Tonarten (±3 Hilfslinien) inklusive Auflösungszeichen (♮)": "Усі 12 тональностей при ключі (±3 дод. лінійки) включно з бекарами (♮)"
 });
 
 if (typeof registerLanguageBundle === "function") {
@@ -18030,12 +18333,13 @@ const CATEGORY_HELP_GUIDES_EN = {
         <li><strong>3. Wrong Picks &amp; Skip:</strong> Wrong keys light up red and pause the queue without jumping ahead so you can inspect the staff position calmly. Stuck on a note? Tap <strong>Skip</strong> anytime to reveal its name on stage and move onward.</li>
       </ul>
 
-      <h3>The 4 Difficulty Levels</h3>
+      <h3>Difficulty Levels &amp; Key Signatures</h3>
       <ul class="article-steps-list">
         <li><strong>Level 1 – 5-Line Staff (Beginner):</strong> Core natural notes sitting across the 5 lines and 4 spaces with zero ledger lines.</li>
-        <li><strong>Level 2 – ±2 Ledger Lines:</strong> Expanded range extending up to 2 ledger lines above and below the staff (naturals).</li>
+        <li><strong>Level 2 – ±2 Ledger Lines:</strong> Expanded range extending up to 2 ledger lines above and below the staff.</li>
         <li><strong>Level 3 – ±3 Ledger Lines (Full Compass):</strong> Complete reading compass reaching 3 ledger lines above and below the staff.</li>
-        <li><strong>Level 4 – ±3 Ledger Lines + ♯/♭:</strong> Adds chromatic sharps (<code>♯</code>) and flats (<code>♭</code>) — switching seamlessly between International (<code>B / B♭ / F♯</code>) and German spelling (<code>H / B / Fis</code>).</li>
+        <li><strong>Level 4 – ±3 Ledger Lines + ♯/♭/♮:</strong> Adds local sharps (<code>♯</code>) and flats (<code>♭</code>) in C Major, or <strong>natural cancellations (<code>♮</code>)</strong> plus chromatic accidentals when a key signature is active — seamlessly in International (<code>B / B♭ / F♯</code>) or German spelling (<code>H / B / Fis</code>).</li>
+        <li><strong>Key Signature Sight-Reading (1–6 ♯/♭):</strong> Choose any individual key or a rotating pool on the Notation page or via the live <strong>Key</strong> chip in the exercise header. Sharps and flats appear only at the clef like real sheet music, so you must read them off the key signature.</li>
       </ul>
 
       <div class="article-highlight-box">
@@ -19805,6 +20109,16 @@ function renderNotationReferenceHTML_EN() {
     { step: 6, accidental: 0 },
     { step: 6, accidental: -1 }
   ], { width: 320, showLabels: true, labelShort: true }) : "";
+  const keySigSharpSvg = staffFn ? staffFn("treble", [
+    { step: 1, accidental: 1 },
+    { step: 5, accidental: 1 },
+    { step: 1, accidental: 0 }
+  ], { width: 300, keySignatureId: "D", showLabels: true, labelShort: true }) : "";
+  const keySigFlatSvg = staffFn ? staffFn("treble", [
+    { step: 4, accidental: -1 },
+    { step: 7, accidental: -1 },
+    { step: 2, accidental: 0 }
+  ], { width: 300, keySignatureId: "Eb", showLabels: true, labelShort: true }) : "";
 
   return `
     <article class="knowledge-card">
@@ -19911,6 +20225,29 @@ function renderNotationReferenceHTML_EN() {
             <li><strong>Enharmonic Equivalents:</strong> On the piano, <code>F♯</code> and <code>G♭</code> trigger the exact same physical key — their spelling on paper tells you which direction the harmony resolves.</li>
             <li><strong>German vs. International Tip:</strong> In German scores, natural B is called <strong>H</strong> while flat B♭ is called <strong>B</strong>! You can toggle both conventions anytime in <em>App Settings</em>.</li>
           </ul>
+        </div>
+      </div>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-peach">5. Key Signatures &amp; Sight-Reading</span>
+        <span class="k-ratio-chip">Global ♯/♭ + ♮</span>
+      </div>
+      <h4>When Accidentals Rule the Whole Staff</h4>
+      <p>
+        Instead of printing a <code>♯</code> or <code>♭</code> in front of every bar, key signatures sit right <strong>next to the clef</strong> and automatically reshape those note letters across <strong>every octave</strong> unless cancelled by a natural sign (<code>♮</code>).
+      </p>
+      <div class="notation-knowledge-grid">
+        <div class="notation-knowledge-card">
+          ${keySigSharpSvg}
+          <h5>Sharp Keys (Order: F♯ – C♯ – G♯ – D♯ – A♯ – E♯)</h5>
+          <p>In <strong>D Major (2♯)</strong> every written <code>F</code> plays as <code>F♯</code> and every <code>C</code> as <code>C♯</code> — only the <code>♮</code> before the third note brings back white <code>F</code>.</p>
+        </div>
+        <div class="notation-knowledge-card">
+          ${keySigFlatSvg}
+          <h5>Flat Keys (Order: B♭ – E♭ – A♭ – D♭ – G♭ – C♭)</h5>
+          <p>In <strong>E♭ Major (3♭)</strong> <code>B♭</code>, <code>E♭</code> and <code>A♭</code> govern the staff from the start, shifting every matching line or space until a natural (<code>♮</code>) cancels it.</p>
         </div>
       </div>
     </article>
@@ -21545,12 +21882,13 @@ const CATEGORY_HELP_GUIDES_FR = {
         <li><strong>3. Erreurs &amp; bouton Passer :</strong> Une touche erronée devient rouge sans faire avancer la file afin de vérifier tranquillement l’emplacement. En cas d’hésitation, touchez <strong>Passer</strong> : la bonne note s’affiche aussitôt avant de passer à la suivante.</li>
       </ul>
 
-      <h3>Les 4 niveaux de difficulté</h3>
+      <h3>Les niveaux &amp; les armures</h3>
       <ul class="article-steps-list">
         <li><strong>Niveau 1 – 5 lignes de base :</strong> Notes naturelles situées sur les 5 lignes et 4 interlignes, sans lignes supplémentaires.</li>
-        <li><strong>Niveau 2 – ±2 lignes supplémentaires :</strong> Tessiture élargie jusqu’à 2 lignes supplémentaires au-dessus et au-dessous (notes naturelles).</li>
+        <li><strong>Niveau 2 – ±2 lignes supplémentaires :</strong> Tessiture élargie jusqu’à 2 lignes supplémentaires au-dessus et au-dessous.</li>
         <li><strong>Niveau 3 – ±3 lignes supplémentaires (Complet) :</strong> Tessiture complète s’étendant sur 3 lignes supplémentaires de chaque côté.</li>
-        <li><strong>Niveau 4 – ±3 lignes + ♯/♭ :</strong> Ajoute les dièses (<code>♯</code>) et bémols (<code>♭</code>), compatibles avec la notation internationale ou allemande.</li>
+        <li><strong>Niveau 4 – ±3 lignes + ♯/♭/♮ :</strong> Ajoute les dièses (<code>♯</code>) et bémols (<code>♭</code>) en Do majeur, ou les <strong>bécarres (<code>♮</code>)</strong> et altérations accidentelles lorsqu’une armure est active, en notation internationale ou allemande.</li>
+        <li><strong>Lecture à vue avec armures (1–6 ♯/♭) :</strong> Choisissez une tonalité précise ou un ensemble rotatif depuis la page Notation ou via le bouton <strong>Tonalité</strong> en cours d’exercice. Comme sur une vraie partition, l’armure placée à la clé commande toutes les notes correspondantes sur le clavier.</li>
       </ul>
 
       <div class="article-highlight-box">
@@ -23312,6 +23650,16 @@ function renderNotationReferenceHTML_FR() {
     { step: 6, accidental: 0 },
     { step: 6, accidental: -1 }
   ], { width: 320, showLabels: true, labelShort: true }) : "";
+  const keySigSharpSvg = staffFn ? staffFn("treble", [
+    { step: 1, accidental: 1 },
+    { step: 5, accidental: 1 },
+    { step: 1, accidental: 0 }
+  ], { width: 300, keySignatureId: "D", showLabels: true, labelShort: true }) : "";
+  const keySigFlatSvg = staffFn ? staffFn("treble", [
+    { step: 4, accidental: -1 },
+    { step: 7, accidental: -1 },
+    { step: 2, accidental: 0 }
+  ], { width: 300, keySignatureId: "Eb", showLabels: true, labelShort: true }) : "";
 
   return `
     <article class="knowledge-card">
@@ -23418,6 +23766,29 @@ function renderNotationReferenceHTML_FR() {
             <li><strong>Enharmonie :</strong> Sur un clavier, <code>F♯</code> et <code>G♭</code> frappent exactement la même touche noire — seule leur fonction harmonique change l’écriture.</li>
             <li><strong>Attention notation allemande :</strong> En notation allemande, la note blanche <em>Si (B)</em> s’écrit <strong>H</strong>, et le <em>Si♭ (B♭)</em> s’écrit <strong>B</strong> ! Basculez facilement entre les deux systèmes dans les <em>Réglages de l’application</em>.</li>
           </ul>
+        </div>
+      </div>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-peach">5. Armures &amp; Lecture à vue</span>
+        <span class="k-ratio-chip">Armure ♯/♭ + ♮</span>
+      </div>
+      <h4>Quand les altérations s’appliquent à toute la portée</h4>
+      <p>
+        Plutôt que de réécrire un <code>♯</code> ou un <code>♭</code> devant chaque note, l’armure placée <strong>juste après la clé</strong> modifie automatiquement ces degrés dans <strong>toutes les octaves</strong> jusqu’à l’arrivée d’un bécarre (<code>♮</code>).
+      </p>
+      <div class="notation-knowledge-grid">
+        <div class="notation-knowledge-card">
+          ${keySigSharpSvg}
+          <h5>Tonalités à dièses (Ordre : Fa – Do – Sol – Ré – La – Mi)</h5>
+          <p>En <strong>Ré majeur (2♯)</strong>, chaque <code>Fa</code> devient <code>Fa♯</code> et chaque <code>Do</code> devient <code>Do♯</code> — seul le bécarre (<code>♮</code>) devant la 3e note rétablit le Fa naturel.</p>
+        </div>
+        <div class="notation-knowledge-card">
+          ${keySigFlatSvg}
+          <h5>Tonalités à bémols (Ordre : Si – Mi – La – Ré – Sol – Do)</h5>
+          <p>En <strong>Mi♭ majeur (3♭)</strong>, <code>Si♭</code>, <code>Mi♭</code> et <code>La♭</code> gouvernent toute la portée dès le début jusqu’à l’apparition éventuelle d’un bécarre (<code>♮</code>).</p>
         </div>
       </div>
     </article>
@@ -25118,12 +25489,13 @@ const CATEGORY_HELP_GUIDES = {
         <li><strong>3. Falsche Antworten &amp; Überspringen:</strong> Falsche Tasten werden rot markiert und bleiben ohne Sprung stehen, damit du die Position in Ruhe prüfen kannst. Bist du unsicher, springst du mit <strong>Überspringen</strong> weiter – die richtige Note wird dir dabei direkt auf der Bühne benannt.</li>
       </ul>
 
-      <h3>Die 4 Schwierigkeitsstufen</h3>
+      <h3>Die Schwierigkeitsstufen &amp; Tonarten</h3>
       <ul class="article-steps-list">
         <li><strong>Stufe 1 – Stammlinien (Einstieg):</strong> Alle 5 Notenlinien und 4 Zwischenräume direkt im System ohne Hilfslinien.</li>
         <li><strong>Stufe 2 – ±2 Hilfslinien:</strong> Erweiterter Umfang bis zu 2 Hilfslinien über und unter dem System (Stammtöne).</li>
         <li><strong>Stufe 3 – ±3 Hilfslinien (Voller Bereich):</strong> Voller Lesebereich mit bis zu 3 Hilfslinien nach oben und unten.</li>
-        <li><strong>Stufe 4 – ±3 Hilfslinien + ♯/♭:</strong> Zusätzlich Versetzungszeichen (Kreuze <code>♯</code> &amp; Bs <code>♭</code>) – wahlweise in deutscher (<code>H / B</code>, <code>Fis / Ges</code>) oder internationaler Schreibweise (<code>B / B♭</code>, <code>F♯ / G♭</code>).</li>
+        <li><strong>Stufe 4 – ±3 Hilfslinien + ♯/♭ (oder ♮):</strong> Ohne Generalvorzeichen mit direkten Versetzungszeichen (<code>♯</code>/<code>♭</code>); bei aktiver Tonart inklusive <strong>Auflösungszeichen (<code>♮</code>)</strong>, die das Generalvorzeichen aufheben – wahlweise in deutscher (<code>H / B / Fis</code>) oder internationaler Schreibweise (<code>B / B♭ / F♯</code>).</li>
+        <li><strong>Tonarten-Blattspiel (Generalvorzeichen 1–6 ♯/♭):</strong> Oben oder direkt über den Button <strong>Tonart</strong> in der Übung wählst du einzelne Tonarten bis 6 Kreuze/Bs oder rotierende Tonarten-Pools. Die Vorzeichen stehen wie im echten Notenheft nur am Systemanfang – alle betroffenen Stammnoten müssen automatisch auf den schwarzen Tasten gegriffen werden.</li>
       </ul>
 
       <div class="article-highlight-box">
@@ -27843,6 +28215,16 @@ function renderNotationReferenceHTML() {
     { step: 6, accidental: 0 },
     { step: 6, accidental: -1 }
   ], { width: 320, showLabels: true, labelShort: true }) : "";
+  const keySigSharpSvg = staffFn ? staffFn("treble", [
+    { step: 1, accidental: 1 },
+    { step: 5, accidental: 1 },
+    { step: 1, accidental: 0 }
+  ], { width: 300, keySignatureId: "D", showLabels: true, labelShort: true }) : "";
+  const keySigFlatSvg = staffFn ? staffFn("treble", [
+    { step: 4, accidental: -1 },
+    { step: 7, accidental: -1 },
+    { step: 2, accidental: 0 }
+  ], { width: 300, keySignatureId: "Eb", showLabels: true, labelShort: true }) : "";
 
   return `
     <!-- 1. Aufbau des 5-Linien-Systems -->
@@ -27953,6 +28335,30 @@ function renderNotationReferenceHTML() {
             <li><strong>Enharmonische Verwechslung:</strong> Auf der Klaviatur teilen sich z. B. <code>Fis (F♯)</code> und <code>Ges (G♭)</code> exakt dieselbe schwarze Taste – in den Noten sieht man aber je nach Tonart verschiedene Stufen!</li>
             <li><strong>Achtung Deutsch vs. International:</strong> Auf Deutsch heißt die weiße Taste unter C <strong>H</strong> und die erniedrigte schwarze Taste <strong>B</strong>. International (Englisch/Französisch) heißt die weiße Taste <strong>B</strong> und die schwarze Taste <strong>B♭</strong>! Du kannst das jederzeit in den <em>App-Einstellungen</em> umschalten.</li>
           </ul>
+        </div>
+      </div>
+    </article>
+
+    <!-- 5. Generalvorzeichen & Tonarten vom Blatt -->
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-peach">5. Tonarten &amp; Generalvorzeichen</span>
+        <span class="k-ratio-chip">Blattspiel mit ♮</span>
+      </div>
+      <h4>Wenn Vorzeichen für das ganze Stück gelten</h4>
+      <p>
+        Statt vor jeder einzelnen Note ein <code>♯</code> oder <code>♭</code> zu drucken, stehen die festen Vorzeichen der Tonart direkt <strong>am Anfang neben dem Notenschlüssel</strong>. Sie verändern diesen Ton Buchstabe für Buchstabe in <strong>allen Oktaven</strong>, solange kein Auflösungszeichen (<code>♮</code>) eingreift.
+      </p>
+      <div class="notation-knowledge-grid">
+        <div class="notation-knowledge-card">
+          ${keySigSharpSvg}
+          <h5>Kreuz-Tonarten (Reihenfolge: Fis – Cis – Gis – Dis – Ais – Eis)</h5>
+          <p>In <strong>D-Dur (2♯)</strong> werden jedes <code>F</code> zu <code>Fis</code> und jedes <code>C</code> zu <code>Cis</code> – erst das <code>♮</code> vor der letzten Note macht das <code>F</code> wieder weiß!</p>
+        </div>
+        <div class="notation-knowledge-card">
+          ${keySigFlatSvg}
+          <h5>Be-Tonarten (Reihenfolge: B – Es – As – Des – Ges – Ces)</h5>
+          <p>In <strong>Es-Dur (3♭)</strong> stehen <code>B</code>, <code>Es</code> und <code>As</code> am Systemanfang und verwandeln jede entsprechende Note automatisch – bis ein <code>♮</code> auflöst.</p>
         </div>
       </div>
     </article>
@@ -29589,12 +29995,13 @@ const CATEGORY_HELP_GUIDES_UK = {
         <li><strong>3. Помилки та «Пропустити»:</strong> Хибна клавіша підсвічується червоним без зсуву, щоб спокійно перевірити позицію на стані. Вагаєшся? Натисни <strong>Пропустити</strong> — система одразу назве правильну ноту й перейде до наступної.</li>
       </ul>
 
-      <h3>4 рівні складності</h3>
+      <h3>Рівні складності та ключові знаки</h3>
       <ul class="article-steps-list">
         <li><strong>Рівень 1 — Основні 5 лінійок:</strong> Натуральні ноти в межах 5 лінійок і 4 проміжків без жодної додаткової лінійки.</li>
-        <li><strong>Рівень 2 — ±2 додаткові лінійки:</strong> Розширений діапазон до 2 додаткових лінійок зверху та знизу (натуральні ноти).</li>
+        <li><strong>Рівень 2 — ±2 додаткові лінійки:</strong> Розширений діапазон до 2 додаткових лінійок зверху та знизу.</li>
         <li><strong>Рівень 3 — ±3 додаткові лінійки (Повний):</strong> Повний робочий діапазон до 3 додаткових лінійок в обидва боки.</li>
-        <li><strong>Рівень 4 — ±3 лінійки + ♯/♭:</strong> Додаються дієзи (<code>♯</code>) і бемолі (<code>♭</code>) — з підтримкою міжнародної або німецької нотації.</li>
+        <li><strong>Рівень 4 — ±3 лінійки + ♯/♭/♮:</strong> Додає місцеві дієзи (<code>♯</code>) та бемолі (<code>♭</code>) у До мажорі, або <strong>бекари (<code>♮</code>)</strong> для скасування ключових знаків, із підтримкою міжнародної та німецької нотації.</li>
+        <li><strong>Читання з листа у тональностях (1–6 ♯/♭):</strong> Обери конкретну тональність або змінний набір на сторінці нотації чи через кнопку <strong>Тональність</strong> під час вправи. Як у справжніх нотах, ключові знаки стоять біля ключа та діють на всі відповідні ноти системи.</li>
       </ul>
 
       <div class="article-highlight-box">
@@ -31477,6 +31884,16 @@ function renderNotationReferenceHTML_UK() {
     { step: 6, accidental: 0 },
     { step: 6, accidental: -1 }
   ], { width: 320, showLabels: true, labelShort: true }) : "";
+  const keySigSharpSvg = staffFn ? staffFn("treble", [
+    { step: 1, accidental: 1 },
+    { step: 5, accidental: 1 },
+    { step: 1, accidental: 0 }
+  ], { width: 300, keySignatureId: "D", showLabels: true, labelShort: true }) : "";
+  const keySigFlatSvg = staffFn ? staffFn("treble", [
+    { step: 4, accidental: -1 },
+    { step: 7, accidental: -1 },
+    { step: 2, accidental: 0 }
+  ], { width: 300, keySignatureId: "Eb", showLabels: true, labelShort: true }) : "";
 
   return `
     <article class="knowledge-card">
@@ -31583,6 +32000,29 @@ function renderNotationReferenceHTML_UK() {
             <li><strong>Енгармонійна рівність:</strong> На клавіатурі <code>F♯</code> і <code>G♭</code> — та сама фізична клавіша, але в нотах написання показує гармонічну функцію.</li>
             <li><strong>Німецька vs міжнародна нотація:</strong> У німецькій традиції чиста біла нота <em>Сі (B)</em> позначається літерою <strong>H</strong>, а <em>Сі-бемоль (B♭)</em> — літерою <strong>B</strong>! Обидва варіанти можна перемикати в <em>Налаштуваннях застосунку</em>.</li>
           </ul>
+        </div>
+      </div>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-peach">5. Тональності та ключові знаки</span>
+        <span class="k-ratio-chip">Читання з ♮</span>
+      </div>
+      <h4>Коли знаки альтерації діють на весь нотний стан</h4>
+      <p>
+        Замість того щоб ставити <code>♯</code> чи <code>♭</code> перед кожною нотою, ключові знаки стоять <strong>одразу після ключа</strong> і автоматично змінюють відповідні ступені у <strong>всіх октавах</strong>, доки їх не скасує бекар (<code>♮</code>).
+      </p>
+      <div class="notation-knowledge-grid">
+        <div class="notation-knowledge-card">
+          ${keySigSharpSvg}
+          <h5>Дієзні тональності (Порядок: Фа – До – Соль – Ре – Ля – Мі)</h5>
+          <p>У <strong>Ре мажорі (2♯)</strong> кожна <code>Fa</code> стає <code>F♯</code>, а <code>Do</code> стає <code>C♯</code> — і лише бекар (<code>♮</code>) перед третьою нотою повертає білу <code>F</code>.</p>
+        </div>
+        <div class="notation-knowledge-card">
+          ${keySigFlatSvg}
+          <h5>Бемольні тональності (Порядок: Сі – Мі – Ля – Ре – Соль – До)</h5>
+          <p>У <strong>Мі♭ мажорі (3♭)</strong> знаки <code>B♭</code>, <code>E♭</code> і <code>A♭</code> діють від самого початку стану, доки не з’явиться знак відміни <code>♮</code>.</p>
         </div>
       </div>
     </article>
@@ -32879,7 +33319,7 @@ const EXAM_CATEGORY_LEVELS = {
           en: "5 lines & 4 spaces with no ledger lines (natural notes)"
         },
         modes: ["notation-treble", "notation-bass"],
-        apply: { notationDifficulty: 1 }
+        apply: { notationDifficulty: 1, notationKeyMode: "none" }
       },
       {
         id: "notation_l2",
@@ -32890,7 +33330,7 @@ const EXAM_CATEGORY_LEVELS = {
           en: "Treble, Bass & Alto clefs with up to 2 ledger lines"
         },
         modes: ["notation-treble", "notation-bass", "notation-alto"],
-        apply: { notationDifficulty: 2 }
+        apply: { notationDifficulty: 2, notationKeyMode: "none" }
       },
       {
         id: "notation_l3",
@@ -32901,7 +33341,7 @@ const EXAM_CATEGORY_LEVELS = {
           en: "Full range with up to 3 ledger lines above and below the staff"
         },
         modes: ["notation-treble", "notation-bass", "notation-alto"],
-        apply: { notationDifficulty: 3 }
+        apply: { notationDifficulty: 3, notationKeyMode: "none" }
       },
       {
         id: "notation_l4",
@@ -32912,7 +33352,29 @@ const EXAM_CATEGORY_LEVELS = {
           en: "All 3 clefs, up to 3 ledger lines both ways & accidentals (♯/♭)"
         },
         modes: ["notation-treble", "notation-bass", "notation-alto"],
-        apply: { notationDifficulty: 4 }
+        apply: { notationDifficulty: 4, notationKeyMode: "none" }
+      },
+      {
+        id: "notation_l5",
+        levelNumber: 5,
+        title: { de: "Stufe 5 • Blattspiel Tonarten (1–2 ♯/♭)", en: "Level 5 • Key Signatures (1–2 ♯/♭)" },
+        desc: {
+          de: "G-, D-, F- & B-Dur im Notensystem (±2 Hilfslinien) mit vorgegebenen Vorzeichen",
+          en: "G, D, F & Bb Major key signatures on the staff (±2 ledgers)"
+        },
+        modes: ["notation-treble", "notation-bass", "notation-alto"],
+        apply: { notationDifficulty: 2, notationKeyMode: "easy" }
+      },
+      {
+        id: "notation_l6",
+        levelNumber: 6,
+        title: { de: "Stufe 6 • Alle Tonarten + ♮ (1–6 ♯/♭)", en: "Level 6 • All Key Signatures + ♮ (1–6 ♯/♭)" },
+        desc: {
+          de: "Alle 12 Vorzeichen-Tonarten (±3 Hilfslinien) inklusive Auflösungszeichen (♮)",
+          en: "All 12 key signatures (±3 ledgers) including natural signs (♮)"
+        },
+        modes: ["notation-treble", "notation-bass", "notation-alto"],
+        apply: { notationDifficulty: 4, notationKeyMode: "all" }
       }
     ]
   }
@@ -33149,6 +33611,9 @@ function sanitizeMixEntry(raw, fallbackIdx = 0) {
     melodyOctaveMode: raw.melodyOctaveMode === "multi" ? "multi" : "single",
     melodyStyle: ["steady", "rhythmic", "dictation"].includes(raw.melodyStyle) ? raw.melodyStyle : "rhythmic",
     melodyPulse: raw.melodyPulse === false ? false : true,
+    notationKeyMode: typeof normalizeNotationKeyMode === "function"
+      ? normalizeNotationKeyMode(raw.notationKeyMode)
+      : (raw.notationKeyMode ? String(raw.notationKeyMode).slice(0, 12) : "none"),
     bpm: (bpmNum >= 55 && bpmNum <= 160) ? bpmNum : 0
   };
 }
@@ -33371,6 +33836,9 @@ class AppState {
       modesCharDifficulty: 1,
       modesCadenceDifficulty: 1,
       notationDifficulty: 1,
+      notationKeyMode: "none",
+      notationKeyTrainerClef: "notation-treble",
+      notationKeyTrainerLevel: 2,
       keyMode: "fixed",
       timeSig: "4/4",
       defaultBpm: 90,
@@ -33594,17 +34062,30 @@ class AppState {
     this.updateQuickStartLabel();
   }
 
-  setNotationLevel(subModeOrLevel, maybeLevel) {
+  setNotationLevel(subModeOrLevel, maybeLevel, maybeKeyMode = undefined) {
     let validMode = isNotationMode(this.settings.mode) ? this.settings.mode : "notation-treble";
     let rawLevel = maybeLevel;
-    if (maybeLevel === undefined && !isNotationMode(subModeOrLevel)) {
-      rawLevel = subModeOrLevel;
-    } else if (isNotationMode(subModeOrLevel)) {
+    let resolvedKeyMode = maybeKeyMode;
+    if (isNotationMode(subModeOrLevel)) {
       validMode = subModeOrLevel;
+    } else {
+      rawLevel = subModeOrLevel;
+      if (resolvedKeyMode === undefined && typeof maybeLevel === "string") {
+        resolvedKeyMode = maybeLevel;
+      }
     }
     const lvl = Math.max(1, Math.min(4, parseInt(rawLevel, 10) || 1));
     this.settings.mode = validMode;
     this.settings.notationDifficulty = lvl;
+    if (resolvedKeyMode !== undefined) {
+      this.settings.notationKeyMode = normalizeNotationKeyMode(resolvedKeyMode);
+    }
+    this.updateHeaderSubtext();
+    this.updateQuickStartLabel();
+  }
+
+  setNotationKeyMode(nextKeyMode) {
+    this.settings.notationKeyMode = normalizeNotationKeyMode(nextKeyMode);
     this.updateHeaderSubtext();
     this.updateQuickStartLabel();
   }
@@ -33735,7 +34216,9 @@ class AppState {
       };
       const clefText = clefNames[this.settings.mode] || tr("Violinschlüssel", "Treble Clef");
       const prefix = includeCategory ? `${tr("Notation", "Notation")}: ${clefText}` : clefText;
-      return `${prefix} • ${lvlWord} ${lvl} (${lvlNames[lvl]})`;
+      const keyMode = normalizeNotationKeyMode(this.settings.notationKeyMode);
+      const keyTag = keyMode !== "none" ? ` • ${getLocalizedNotationKeyModeLabel(keyMode, true)}` : "";
+      return `${prefix} • ${lvlWord} ${lvl} (${lvlNames[lvl]})${keyTag}`;
     }
     if (isChordQualityMode(this.settings.mode)) {
       const chordDiffNames = {
@@ -34312,6 +34795,140 @@ const NOTATION_LEVELS = {
   4: { level: 4, minStep: -7, maxStep: 15, maxLedgers: 3, allowAccidentals: true }
 };
 
+const NOTATION_SHARP_ORDER = ["F", "C", "G", "D", "A", "E", "B"];
+const NOTATION_FLAT_ORDER  = ["B", "E", "A", "D", "G", "C", "F"];
+const NOTATION_KEY_PHRASE_LEN = 8;
+
+const NOTATION_KEY_SIGNATURES = {
+  none: { id: "none", rootKey: "C",  type: "none",  count: 0, tier: "base" },
+  G:    { id: "G",    rootKey: "G",  type: "sharp", count: 1, tier: "easy" },
+  D:    { id: "D",    rootKey: "D",  type: "sharp", count: 2, tier: "easy" },
+  A:    { id: "A",    rootKey: "A",  type: "sharp", count: 3, tier: "medium" },
+  E:    { id: "E",    rootKey: "E",  type: "sharp", count: 4, tier: "medium" },
+  B:    { id: "B",    rootKey: "B",  type: "sharp", count: 5, tier: "hard" },
+  "F#": { id: "F#",   rootKey: "F#", type: "sharp", count: 6, tier: "hard" },
+  F:    { id: "F",    rootKey: "F",  type: "flat",  count: 1, tier: "easy" },
+  Bb:   { id: "Bb",   rootKey: "Bb", type: "flat",  count: 2, tier: "easy" },
+  Eb:   { id: "Eb",   rootKey: "Eb", type: "flat",  count: 3, tier: "medium" },
+  Ab:   { id: "Ab",   rootKey: "Ab", type: "flat",  count: 4, tier: "medium" },
+  Db:   { id: "Db",   rootKey: "Db", type: "flat",  count: 5, tier: "hard" },
+  Gb:   { id: "Gb",   rootKey: "Gb", type: "flat",  count: 6, tier: "hard" }
+};
+
+const NOTATION_KEY_POOLS = {
+  easy:   ["G", "D", "F", "Bb"],
+  medium: ["A", "E", "Eb", "Ab"],
+  hard:   ["B", "F#", "Db", "Gb"],
+  all:    ["G", "D", "A", "E", "B", "F#", "F", "Bb", "Eb", "Ab", "Db", "Gb"]
+};
+
+const NOTATION_SHARP_KEY_ORDER = ["G", "D", "A", "E", "B", "F#"];
+const NOTATION_FLAT_KEY_ORDER  = ["F", "Bb", "Eb", "Ab", "Db", "Gb"];
+
+// Klassische Gravur-Positionen (staffStep) der Generalvorzeichen je Notenschlüssel
+const NOTATION_KEY_SIG_STEPS = {
+  treble: { sharps: [8, 5, 9, 6, 3, 7, 4], flats: [4, 7, 3, 6, 2, 5, 1] },
+  bass:   { sharps: [6, 3, 7, 4, 1, 5, 2], flats: [2, 5, 1, 4, 0, 3, -1] },
+  alto:   { sharps: [7, 4, 8, 5, 2, 6, 3], flats: [3, 6, 2, 5, 1, 4, 0] },
+  tenor:  { sharps: [2, 6, 3, 7, 4, 8, 5], flats: [5, 8, 4, 7, 3, 6, 2] }
+};
+
+function normalizeNotationKeySigId(raw) {
+  if (!raw || raw === "C" || raw === "none") return "none";
+  return Object.prototype.hasOwnProperty.call(NOTATION_KEY_SIGNATURES, raw) ? raw : "none";
+}
+
+function normalizeNotationKeyMode(raw) {
+  if (!raw || raw === "C" || raw === "none") return "none";
+  if (Object.prototype.hasOwnProperty.call(NOTATION_KEY_POOLS, raw)) return raw;
+  return normalizeNotationKeySigId(raw);
+}
+
+function isNotationKeyPoolMode(keyMode = "none") {
+  return Object.prototype.hasOwnProperty.call(NOTATION_KEY_POOLS, keyMode);
+}
+
+function resolveNotationKeySignatureId(keyMode = "none", excludeId = null) {
+  const safeMode = normalizeNotationKeyMode(keyMode);
+  if (safeMode === "none") return "none";
+  if (isNotationKeyPoolMode(safeMode)) {
+    const pool = NOTATION_KEY_POOLS[safeMode];
+    const filtered = excludeId && pool.length > 1 ? pool.filter(id => id !== excludeId) : pool;
+    const pickFrom = filtered.length > 0 ? filtered : pool;
+    return pickFrom[Math.floor(Math.random() * pickFrom.length)];
+  }
+  return safeMode;
+}
+
+function getKeySignatureDef(keySigId = "none") {
+  const safeId = normalizeNotationKeySigId(keySigId);
+  return NOTATION_KEY_SIGNATURES[safeId] || NOTATION_KEY_SIGNATURES.none;
+}
+
+function getKeySignatureAlteredLetters(keySigId = "none") {
+  const def = getKeySignatureDef(keySigId);
+  if (def.type === "sharp") return NOTATION_SHARP_ORDER.slice(0, def.count);
+  if (def.type === "flat") return NOTATION_FLAT_ORDER.slice(0, def.count);
+  return [];
+}
+
+function getKeySignatureAccidentalForLetter(keySigId = "none", letter = "C") {
+  const def = getKeySignatureDef(keySigId);
+  if (def.type === "none" || !letter) return 0;
+  const altered = getKeySignatureAlteredLetters(def.id);
+  if (!altered.includes(letter)) return 0;
+  return def.type === "sharp" ? 1 : -1;
+}
+
+function getNotationKeySignatureSteps(clefId = "treble", keySigId = "none") {
+  const def = getKeySignatureDef(keySigId);
+  if (def.type === "none" || def.count <= 0) return [];
+  const stepTbl = NOTATION_KEY_SIG_STEPS[clefId] || NOTATION_KEY_SIG_STEPS.treble;
+  const steps = def.type === "sharp" ? stepTbl.sharps : stepTbl.flats;
+  const letters = getKeySignatureAlteredLetters(def.id);
+  const acc = def.type === "sharp" ? 1 : -1;
+  return letters.map((lt, idx) => ({
+    letter: lt,
+    accidental: acc,
+    staffStep: steps[idx]
+  }));
+}
+
+function getLocalizedNotationKeySigName(keySigId = "none", shortZero = false) {
+  const safeId = normalizeNotationKeySigId(keySigId);
+  if (safeId === "none") {
+    return shortZero ? tr("C-Dur (0)", "C Maj (0)") : tr("Ohne (C-Dur)", "None (C Major)");
+  }
+  if (safeId === "Gb") {
+    const useIntl = typeof state !== "undefined" && state?.profile?.notation === "intl";
+    return tr(useIntl ? "G♭-Dur" : "Ges-Dur", "G♭ Major", { fr: "Sol♭ majeur", uk: "Соль♭ мажор" });
+  }
+  return getKeyDisplayName(safeId);
+}
+
+function getLocalizedNotationKeySigBadge(keySigId = "none", includeAccNames = false) {
+  const def = getKeySignatureDef(keySigId);
+  if (def.type === "none" || def.count === 0) return "0";
+  const sym = def.type === "sharp" ? "♯" : "♭";
+  const head = `${def.count}${sym}`;
+  if (!includeAccNames) return head;
+  const acc = def.type === "sharp" ? 1 : -1;
+  const accList = getKeySignatureAlteredLetters(def.id)
+    .map(lt => formatSpelledNotationNote(lt, acc, 4, false))
+    .join(", ");
+  return `${head}: ${accList}`;
+}
+
+function getLocalizedNotationKeyModeLabel(keyMode = "none", compact = false) {
+  const mode = normalizeNotationKeyMode(keyMode);
+  if (mode === "none") return getLocalizedNotationKeySigName("none", compact);
+  if (mode === "easy") return compact ? tr("Tonarten 1–2 ♯/♭", "Keys 1–2 ♯/♭") : tr("Leicht (1–2 ♯/♭)", "Easy (1–2 ♯/♭)");
+  if (mode === "medium") return compact ? tr("Tonarten 3–4 ♯/♭", "Keys 3–4 ♯/♭") : tr("Mittel (3–4 ♯/♭)", "Medium (3–4 ♯/♭)");
+  if (mode === "hard") return compact ? tr("Tonarten 5–6 ♯/♭", "Keys 5–6 ♯/♭") : tr("Schwer (5–6 ♯/♭)", "Hard (5–6 ♯/♭)");
+  if (mode === "all") return compact ? tr("Alle Tonarten", "All Keys") : tr("Alle 12 Tonarten (1–6 ♯/♭)", "All 12 Keys (1–6 ♯/♭)");
+  return `${getLocalizedNotationKeySigName(mode)} (${getLocalizedNotationKeySigBadge(mode, false)})`;
+}
+
 function isNotationMode(mode = state?.settings?.mode) {
   return typeof mode === "string" && mode.startsWith("notation-");
 }
@@ -34382,10 +34999,11 @@ function getNotationLedgerDescription(staffStep) {
   return tf("{n}. Hilfslinie oben", "{n} ledger line(s) above", { n });
 }
 
-function getNotationNoteFromStaffStep(clefId = "treble", staffStep = 4, accidental = 0) {
+function getNotationNoteFromStaffStep(clefId = "treble", staffStep = 4, accidental = 0, keySignatureId = "none", shownAccidental = undefined) {
   const clef = NOTATION_CLEFS[clefId] || NOTATION_CLEFS.treble;
   const clampedStep = Math.max(-7, Math.min(15, Math.round(staffStep)));
   const safeAcc = accidental > 0 ? 1 : (accidental < 0 ? -1 : 0);
+  const safeKeySig = normalizeNotationKeySigId(keySignatureId);
   const diatonicIndex = clef.anchorDiatonicIndex + (clampedStep - clef.anchorStep);
   const octave = Math.floor(diatonicIndex / 7);
   const letterIdx = ((diatonicIndex % 7) + 7) % 7;
@@ -34394,12 +35012,31 @@ function getNotationNoteFromStaffStep(clefId = "treble", staffStep = 4, accident
   const midi = baseMidi + safeAcc;
   const pc = ((midi % 12) + 12) % 12;
   const ledgerSteps = getLedgerLinesForStep(clampedStep);
+  const keySigAcc = getKeySignatureAccidentalForLetter(safeKeySig, letter);
+
+  let resolvedShownAcc = 0;
+  if (shownAccidental !== undefined && shownAccidental !== null) {
+    resolvedShownAcc = (shownAccidental === "nat" || shownAccidental === 2)
+      ? "nat"
+      : (shownAccidental > 0 ? 1 : (shownAccidental < 0 ? -1 : 0));
+  } else if (safeKeySig === "none") {
+    resolvedShownAcc = safeAcc;
+  } else if (safeAcc === keySigAcc) {
+    resolvedShownAcc = 0;
+  } else if (safeAcc === 0 && keySigAcc !== 0) {
+    resolvedShownAcc = "nat";
+  } else {
+    resolvedShownAcc = safeAcc;
+  }
 
   return {
     clefId: clef.id,
     staffStep: clampedStep,
     letter: letter,
     accidental: safeAcc,
+    keySignatureId: safeKeySig,
+    keySigAccidental: keySigAcc,
+    shownAccidental: resolvedShownAcc,
     octave: octave,
     midi: midi,
     pc: pc,
@@ -34412,9 +35049,11 @@ function getNotationNoteFromStaffStep(clefId = "treble", staffStep = 4, accident
   };
 }
 
-function pickRandomNotationNoteItem(clefId, level = 1, prevItem = null) {
+function pickRandomNotationNoteItem(clefId, level = 1, prevItem = null, keySignatureId = "none") {
   const lvl = Math.max(1, Math.min(4, parseInt(level, 10) || 1));
   const cfg = NOTATION_LEVELS[lvl] || NOTATION_LEVELS[1];
+  const safeKeySig = normalizeNotationKeySigId(keySignatureId);
+  const hasKeySig = safeKeySig !== "none";
   const allSteps = [];
   for (let s = cfg.minStep; s <= cfg.maxStep; s++) {
     allSteps.push(s);
@@ -34427,11 +35066,35 @@ function pickRandomNotationNoteItem(clefId, level = 1, prevItem = null) {
     if (outerSteps.length > 0) candidatePool = outerSteps;
   }
 
-  for (let attempt = 0; attempt < 24; attempt++) {
+  // Bei aktiver Tonart ~54% gezielt Töne wählen, die vom Generalvorzeichen verändert werden (sonst z. B. F# bei G-Dur zu selten)
+  if (hasKeySig && Math.random() < 0.54) {
+    const sigSteps = candidatePool.filter(s => {
+      const probe = getNotationNoteFromStaffStep(clefId, s, 0);
+      return getKeySignatureAccidentalForLetter(safeKeySig, probe.letter) !== 0;
+    });
+    if (sigSteps.length > 0) candidatePool = sigSteps;
+  }
+
+  for (let attempt = 0; attempt < 28; attempt++) {
     const step = candidatePool[Math.floor(Math.random() * candidatePool.length)];
     const probe = getNotationNoteFromStaffStep(clefId, step, 0);
-    let acc = 0;
-    if (cfg.allowAccidentals && Math.random() < 0.44) {
+    const keySigAcc = hasKeySig ? getKeySignatureAccidentalForLetter(safeKeySig, probe.letter) : 0;
+    let acc = keySigAcc;
+
+    if (hasKeySig) {
+      if (cfg.allowAccidentals && Math.random() < 0.36) {
+        if (keySigAcc !== 0) {
+          acc = 0; // Auflösungszeichen (♮)
+        } else {
+          const accChoices = [];
+          if (NOTATION_SHARP_ELIGIBLE.has(probe.letter)) accChoices.push(1);
+          if (NOTATION_FLAT_ELIGIBLE.has(probe.letter)) accChoices.push(-1);
+          if (accChoices.length > 0) {
+            acc = accChoices[Math.floor(Math.random() * accChoices.length)];
+          }
+        }
+      }
+    } else if (cfg.allowAccidentals && Math.random() < 0.44) {
       const accChoices = [];
       if (NOTATION_SHARP_ELIGIBLE.has(probe.letter)) accChoices.push(1);
       if (NOTATION_FLAT_ELIGIBLE.has(probe.letter)) accChoices.push(-1);
@@ -34439,16 +35102,20 @@ function pickRandomNotationNoteItem(clefId, level = 1, prevItem = null) {
         acc = accChoices[Math.floor(Math.random() * accChoices.length)];
       }
     }
-    const candidate = getNotationNoteFromStaffStep(clefId, step, acc);
+
+    const candidate = getNotationNoteFromStaffStep(clefId, step, acc, safeKeySig);
     const sameAsPrev = prevItem &&
       prevItem.clefId === candidate.clefId &&
       prevItem.staffStep === candidate.staffStep &&
-      prevItem.accidental === candidate.accidental;
-    if (!sameAsPrev || attempt >= 20) {
+      prevItem.accidental === candidate.accidental &&
+      (prevItem.keySignatureId || "none") === candidate.keySignatureId;
+    if (!sameAsPrev || attempt >= 22) {
       return candidate;
     }
   }
-  return getNotationNoteFromStaffStep(clefId, 4, 0);
+  const fbProbe = getNotationNoteFromStaffStep(clefId, 4, 0);
+  const fbAcc = hasKeySig ? getKeySignatureAccidentalForLetter(safeKeySig, fbProbe.letter) : 0;
+  return getNotationNoteFromStaffStep(clefId, 4, fbAcc, safeKeySig);
 }
 
 function getNotationClefGlyphSVG(clefId = "treble", x = 22, scale = 1, opacity = 1) {
@@ -34479,9 +35146,10 @@ function getNotationClefGlyphSVG(clefId = "treble", x = 22, scale = 1, opacity =
   </g>`;
 }
 
-function getNotationAccidentalGlyphSVG(accidental, x, y) {
+function getNotationAccidentalGlyphSVG(accidental, x, y, scale = 1) {
+  const scAttr = scale !== 1 ? ` scale(${scale})` : "";
   if (accidental === 1) {
-    return `<g transform="translate(${x.toFixed(1)}, ${y.toFixed(1)})" stroke="currentColor" stroke-linecap="round">
+    return `<g transform="translate(${x.toFixed(1)}, ${y.toFixed(1)})${scAttr}" stroke="currentColor" stroke-linecap="round">
       <line x1="-2.8" y1="-9" x2="-2.8" y2="9" stroke-width="1.5"/>
       <line x1="2.8" y1="-10" x2="2.8" y2="8" stroke-width="1.5"/>
       <line x1="-6" y1="-2.2" x2="6" y2="-4.2" stroke-width="2.3"/>
@@ -34489,9 +35157,17 @@ function getNotationAccidentalGlyphSVG(accidental, x, y) {
     </g>`;
   }
   if (accidental === -1) {
-    return `<g transform="translate(${x.toFixed(1)}, ${y.toFixed(1)})" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    return `<g transform="translate(${x.toFixed(1)}, ${y.toFixed(1)})${scAttr}" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
       <line x1="-2.5" y1="-13.5" x2="-2.5" y2="4.2" stroke-width="1.65"/>
       <path d="M-2.5 -0.8 C1.2 -3.6, 5.2 -1.8, 4.8 1.5 C4.3 4.2, 0.2 5.2, -2.5 4.2" stroke-width="1.9"/>
+    </g>`;
+  }
+  if (accidental === "nat" || accidental === 2) {
+    return `<g transform="translate(${x.toFixed(1)}, ${y.toFixed(1)})${scAttr}" stroke="currentColor" stroke-linecap="round">
+      <line x1="-2.7" y1="-10.8" x2="-2.7" y2="5.4" stroke-width="1.55"/>
+      <line x1="2.7" y1="-5.4" x2="2.7" y2="10.8" stroke-width="1.55"/>
+      <line x1="-2.7" y1="-2.5" x2="2.7" y2="-4.1" stroke-width="2.15"/>
+      <line x1="-2.7" y1="4.1" x2="2.7" y2="2.5" stroke-width="2.15"/>
     </g>`;
   }
   return "";
@@ -34507,8 +35183,14 @@ function notationStepToY(staffStep) {
 function buildNotationStaffSVG(notes, options = {}) {
   const list = Array.isArray(notes) ? notes : [notes].filter(Boolean);
   const firstClef = options.clefId || list[0]?.clefId || "treble";
+  const keySigId = normalizeNotationKeySigId(options.keySignatureId !== undefined ? options.keySignatureId : (list[0]?.keySignatureId || "none"));
+  const keySigItems = getNotationKeySignatureSteps(firstClef, keySigId);
+  const keySigCount = keySigItems.length;
   const isExerciseStaff = options.level != null;
-  const width = Number(options.width) || (isExerciseStaff ? 320 : 360);
+  const defaultWidth = isExerciseStaff
+    ? (320 + (keySigCount > 0 ? Math.min(52, keySigCount * 8 + 4) : 0))
+    : 360;
+  const width = Number(options.width) || defaultWidth;
   const height = Number(options.height) || 176;
   const startX = Number(options.startX) || (isExerciseStaff ? 8 : 12);
   const endX = width - (isExerciseStaff ? 8 : 10);
@@ -34544,18 +35226,36 @@ function buildNotationStaffSVG(notes, options = {}) {
 
   const clefMarkup = getNotationClefGlyphSVG(firstClef, startX + (isExerciseStaff ? 8 : 10), 1, 1);
 
+  // Generalvorzeichen direkt rechts neben dem Notenschlüssel rendern
+  const keySigPitch = keySigCount > 4 ? 9.5 : 10.5;
+  const keySigScale = isExerciseStaff || options.compact ? 0.88 : 0.92;
+  const keySigStartX = startX + (isExerciseStaff ? 44 : 46);
+  const keySigMarkup = keySigItems.map((ks, idx) => {
+    const kx = keySigStartX + idx * keySigPitch;
+    const ky = notationStepToY(ks.staffStep);
+    inkMinY = Math.min(inkMinY, ks.accidental === -1 ? (ky - 13) : (ky - 10));
+    inkMaxY = Math.max(inkMaxY, ky + 9);
+    return getNotationAccidentalGlyphSVG(ks.accidental, kx, ky, keySigScale);
+  }).join("");
+  const keySigRightEdge = keySigCount > 0 ? (keySigStartX + (keySigCount - 1) * keySigPitch + 8) : (startX + 46);
+
   // X-Koordinaten pro Note berechnen
   let positions = Array.isArray(options.xPositions) ? options.xPositions : null;
-  if (!positions) {
+  if (!positions && list.length > 0) {
     if (list.length === 1) {
-      positions = [Math.round(width * 0.56)];
+      const minSingleX = keySigCount > 0 ? Math.round(keySigRightEdge + 22) : Math.round(width * 0.56);
+      const baseSingleX = Number(options.firstNoteX) || Math.round(width * 0.56);
+      positions = [Math.min(endX - 18, Math.max(baseSingleX, minSingleX))];
     } else {
-      const firstNoteX = Number(options.firstNoteX) || (startX + (isExerciseStaff ? 68 : 86));
+      const minMultiX = keySigCount > 0 ? Math.round(keySigRightEdge + 20) : (startX + (isExerciseStaff ? 68 : 86));
+      const firstNoteX = Math.max(Number(options.firstNoteX) || (startX + (isExerciseStaff ? 68 : 86)), minMultiX);
       const spacing = Number(options.noteSpacing) || (isExerciseStaff
-        ? Math.min(46, Math.max(34, Math.floor((endX - firstNoteX - 14) / Math.max(1, list.length - 1))))
-        : Math.min(48, Math.max(36, Math.floor((endX - firstNoteX - 18) / Math.max(1, list.length - 1)))));
+        ? Math.min(46, Math.max(30, Math.floor((endX - firstNoteX - 14) / Math.max(1, list.length - 1))))
+        : Math.min(48, Math.max(34, Math.floor((endX - firstNoteX - 18) / Math.max(1, list.length - 1)))));
       positions = list.map((_, i) => firstNoteX + i * spacing);
     }
+  } else if (!positions) {
+    positions = [];
   }
 
   const notesHtml = list.map((item, idx) => {
@@ -34578,8 +35278,9 @@ function buildNotationStaffSVG(notes, options = {}) {
       return `<line class="notation-ledger-line" x1="${nx - 12.5}" y1="${ly}" x2="${nx + 12.5}" y2="${ly}"/>`;
     }).join("");
 
-    const accHtml = item.accidental
-      ? getNotationAccidentalGlyphSVG(item.accidental, nx - 14.5, ny)
+    const drawnAcc = item.shownAccidental !== undefined ? item.shownAccidental : item.accidental;
+    const accHtml = drawnAcc
+      ? getNotationAccidentalGlyphSVG(drawnAcc, nx - 14.5, ny)
       : "";
 
     const stemDown = item.staffStep >= 4;
@@ -34587,8 +35288,8 @@ function buildNotationStaffSVG(notes, options = {}) {
     const stemY1 = ny + (stemDown ? 1 : -1);
     const stemY2 = ny + (stemDown ? 28 : -28);
 
-    const accTopY = item.accidental === -1 ? (ny - 15) : item.accidental === 1 ? (ny - 11) : (ny - 7);
-    const accBotY = item.accidental === 1 ? (ny + 10) : (ny + 7);
+    const accTopY = drawnAcc === -1 ? (ny - 15) : (drawnAcc === 1 || drawnAcc === "nat" || drawnAcc === 2) ? (ny - 11) : (ny - 7);
+    const accBotY = (drawnAcc === 1 || drawnAcc === "nat" || drawnAcc === 2) ? (ny + 11) : (ny + 7);
     inkMinY = Math.min(inkMinY, ny - 7, accTopY, stemDown ? stemY1 : stemY2 - 1);
     inkMaxY = Math.max(inkMaxY, ny + 7, accBotY, stemDown ? stemY2 + 1 : stemY1);
 
@@ -34610,8 +35311,8 @@ function buildNotationStaffSVG(notes, options = {}) {
   let vbHeight = height;
   if (options.level != null || options.compact) {
     const lvl = Number(options.level) || 1;
-    const baseTop = lvl <= 1 ? 26 : lvl === 2 ? 18 : 6;
-    const baseBottom = lvl <= 1 ? 148 : lvl === 2 ? 156 : 168;
+    const baseTop = options.compact && list.length === 0 ? 34 : (lvl <= 1 ? 26 : lvl === 2 ? 18 : 6);
+    const baseBottom = options.compact && list.length === 0 ? 138 : (lvl <= 1 ? 148 : lvl === 2 ? 156 : 168);
     vbTop = Math.min(baseTop, Math.floor(inkMinY - 4));
     const vbBottom = Math.max(baseBottom, Math.ceil(inkMaxY + 4), options.showLabels ? 176 : 0);
     vbHeight = vbBottom - vbTop;
@@ -34621,6 +35322,7 @@ function buildNotationStaffSVG(notes, options = {}) {
     ${staffLinesHtml}
     ${anchorHighlightHtml}
     ${clefMarkup}
+    ${keySigMarkup ? `<g class="notation-keysig-layer">${keySigMarkup}</g>` : ""}
     <g class="notation-notes-layer${didShift ? " did-shift" : ""}">
       ${notesHtml}
     </g>
@@ -34629,13 +35331,17 @@ function buildNotationStaffSVG(notes, options = {}) {
 
 function buildNotationMiniStaffSVG(snapshot) {
   if (!snapshot) return "";
+  const snapKeySig = normalizeNotationKeySigId(snapshot.keySignatureId || "none");
   const item = getNotationNoteFromStaffStep(
     snapshot.clefId || "treble",
     Number.isFinite(Number(snapshot.staffStep)) ? Number(snapshot.staffStep) : 4,
-    Number(snapshot.accidental) || 0
+    Number(snapshot.accidental) || 0,
+    snapKeySig,
+    snapshot.shownAccidental
   );
   return buildNotationStaffSVG([item], {
     clefId: item.clefId,
+    keySignatureId: snapKeySig,
     width: 220,
     height: 176,
     firstNoteX: 132,
@@ -34646,18 +35352,23 @@ function buildNotationMiniStaffSVG(snapshot) {
 }
 
 function buildNotationKnowledgeStaffSVG(clefId, stepsOrSpecs, options = {}) {
+  const keySigId = normalizeNotationKeySigId(options.keySignatureId || "none");
   const list = (Array.isArray(stepsOrSpecs) ? stepsOrSpecs : [stepsOrSpecs]).map(entry => {
     if (typeof entry === "number") {
-      return getNotationNoteFromStaffStep(clefId, entry, 0);
+      const defAcc = keySigId !== "none"
+        ? getKeySignatureAccidentalForLetter(keySigId, getNotationNoteFromStaffStep(clefId, entry, 0).letter)
+        : 0;
+      return getNotationNoteFromStaffStep(clefId, entry, defAcc, keySigId);
     }
-    return getNotationNoteFromStaffStep(clefId, entry.step ?? 4, entry.accidental ?? 0);
+    return getNotationNoteFromStaffStep(clefId, entry.step ?? 4, entry.accidental ?? 0, keySigId, entry.shownAccidental);
   });
   return buildNotationStaffSVG(list, {
     clefId: clefId,
+    keySignatureId: keySigId,
     width: options.width || 300,
     height: options.height || 176,
     startX: 10,
-    firstNoteX: list.length === 1 ? 160 : 88,
+    firstNoteX: list.length === 1 ? 160 : (keySigId !== "none" ? 114 : 88),
     noteSpacing: options.noteSpacing || 48,
     highlightFirst: false,
     highlightAll: Boolean(options.highlightAll),
@@ -35724,6 +36435,7 @@ function closeTransientPopovers() {
   [
     ["inlineBpmPopover", "moduleBpmBtn"],
     ["inlineKeyPopover", "moduleKeyBtn"],
+    ["inlineNotationKeyPopover", "moduleNotationKeyBtn"],
     ["inlineTimeSigPopover", "moduleTimeSigBtn"],
     ["warmupVoicePopover", "warmupVoiceBtn"],
     ["warmupSoundPopover", "warmupSoundBtn"],
@@ -38075,56 +38787,279 @@ function openCategoryPage(categoryKey, options = {}) {
       }
     ];
 
-    const NOTATION_DIFFICULTY_CARDS = [
-      {
-        lvl: 1,
-        badge: "5 L",
-        title: tr("Stufe 1: Im System", "Level 1: On Staff"),
-        sub: tr("5 Linien &amp; 4 Räume (Stammtöne)", "5 lines &amp; 4 spaces (naturals)")
-      },
-      {
-        lvl: 2,
-        badge: "±2",
-        title: tr("Stufe 2: ±1–2 Hilfslinien", "Level 2: ±1–2 Ledgers"),
-        sub: tr("Erweiterter Umfang ohne Vorzeichen", "Extended range without accidentals")
-      },
-      {
-        lvl: 3,
-        badge: "±3",
-        title: tr("Stufe 3: Bis 3 Hilfslinien", "Level 3: Up to 3 Ledgers"),
-        sub: tr("Voller Bereich nach oben &amp; unten", "Up to 3 ledger lines above &amp; below")
-      },
-      {
-        lvl: 4,
-        badge: "♯/♭",
-        title: tr("Stufe 4: 3 Hilfsl. + Vorzeichen", "Level 4: 3 Ledgers + ♯/♭"),
-        sub: tr("Voller Umfang mit ♯ und ♭", "Full 3-ledger range with sharps &amp; flats")
-      }
+    const KEY_POOL_CHIPS = [
+      { id: "none",   label: tr("Ohne (C-Dur)", "None (C Major)") },
+      { id: "easy",   label: tr("Leicht (1–2 ♯/♭)", "Easy (1–2 ♯/♭)") },
+      { id: "medium", label: tr("Mittel (3–4 ♯/♭)", "Medium (3–4 ♯/♭)") },
+      { id: "hard",   label: tr("Schwer (5–6 ♯/♭)", "Hard (5–6 ♯/♭)") },
+      { id: "all",    label: tr("Alle (1–6 ♯/♭)", "All (1–6 ♯/♭)") }
     ];
 
-    container.innerHTML = NOTATION_SECTIONS.map(sec => `
-      <div class="subpage-section">
-        <h3 class="subpage-section-title">${sec.title}</h3>
-        <p class="subpage-section-desc">${sec.desc}</p>
-        <div class="subpage-nodes-grid">
-          ${NOTATION_DIFFICULTY_CARDS.map(lv => `
-            <button class="subpage-node-btn" data-launch-notation="${sec.mode}" data-notation-lvl="${lv.lvl}">
-              <div class="node-circle ${sec.circleClass}">${lv.badge}</div>
-              <span class="node-title">${lv.title}</span>
-              <span class="node-sub">${lv.sub}</span>
-            </button>
-          `).join("")}
-        </div>
-      </div>
-    `).join("");
+    const TRAINER_CLEFS = [
+      { mode: "notation-treble", label: tr("Violinschlüssel", "Treble") },
+      { mode: "notation-bass",   label: tr("Bassschlüssel", "Bass") },
+      { mode: "notation-alto",   label: tr("Altschlüssel", "Alto") },
+      { mode: "notation-mixed",  label: tr("Schlüssel-Mix", "Mixed") }
+    ];
 
-    container.querySelectorAll("[data-launch-notation]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        state.setNotationLevel(btn.dataset.launchNotation, btn.dataset.notationLvl);
-        state.exerciseReturnView = "category";
-        switchView("exercise");
+    const TRAINER_RANGES = [
+      { lvl: 1, label: tr("5 Linien", "5 Lines") },
+      { lvl: 2, label: tr("±2 Hilfslinien", "±2 Ledgers") },
+      { lvl: 3, label: tr("±3 Hilfslinien", "±3 Ledgers") }
+    ];
+
+    const renderNotationCategoryBody = () => {
+      const selectedKeyMode = normalizeNotationKeyMode(state.settings.notationKeyMode);
+      const hasSelectedKey = selectedKeyMode !== "none";
+      const trainerClefMode = isNotationMode(state.settings.notationKeyTrainerClef)
+        ? state.settings.notationKeyTrainerClef
+        : "notation-treble";
+      const trainerRangeLvl = Math.max(1, Math.min(3, parseInt(state.settings.notationKeyTrainerLevel, 10) || 2));
+      const previewClefId = trainerClefMode === "notation-mixed" ? "treble" : getNotationClefFromMode(trainerClefMode);
+
+      const previewKeySigId = isNotationKeyPoolMode(selectedKeyMode)
+        ? (selectedKeyMode === "easy" ? "D" : selectedKeyMode === "medium" ? "Eb" : selectedKeyMode === "hard" ? "B" : "A")
+        : selectedKeyMode;
+      const previewSvg = buildNotationStaffSVG([], {
+        clefId: previewClefId,
+        keySignatureId: previewKeySigId,
+        width: 210,
+        compact: true
       });
-    });
+      const previewTitle = isNotationKeyPoolMode(selectedKeyMode)
+        ? tf("{mode} • Beispiel: {ex}", "{mode} • Example: {ex}", {
+            mode: getLocalizedNotationKeyModeLabel(selectedKeyMode, false),
+            ex: `${getLocalizedNotationKeySigName(previewKeySigId)} (${getLocalizedNotationKeySigBadge(previewKeySigId, true)})`
+          })
+        : (selectedKeyMode === "none"
+            ? tr("Keine Generalvorzeichen (C-Dur)", "No key signature (C Major)")
+            : `${getLocalizedNotationKeySigName(selectedKeyMode)} • ${getLocalizedNotationKeySigBadge(selectedKeyMode, true)}`);
+      const previewDesc = selectedKeyMode === "none"
+        ? tr(
+            "Alle Noten gelten zunächst als Stammtöne (bei Stufe 4 mit ♯/♭ direkt vor einzelnen Noten).",
+            "All notes read as naturals unless Level 4 places an accidental right before the note."
+          )
+        : tr(
+            "Das Generalvorzeichen gilt für das ganze System: Achte bei betroffenen Stammlinien &amp; Räumen automatisch auf die schwarzen Tasten!",
+            "This key signature applies across the whole staff: play sharps/flats automatically on altered letters!"
+          );
+
+      const renderSigChip = (sigId) => {
+        const badge = getLocalizedNotationKeySigBadge(sigId, false);
+        const shortName = getLocalizedNotationKeySigName(sigId, true).replace(/-Dur$| Major$| majeur$| мажор$/i, "");
+        const activeCls = selectedKeyMode === sigId ? " active" : "";
+        return `
+          <button type="button" class="notation-key-sig-btn${activeCls}" data-notation-keymode="${sigId}">
+            <span class="notation-key-sig-name">${escapeHtml(shortName)}</span>
+            <span class="notation-key-sig-badge">${escapeHtml(badge)}</span>
+          </button>
+        `;
+      };
+
+      const NOTATION_DIFFICULTY_CARDS = [
+        {
+          lvl: 1,
+          badge: "5 L",
+          title: tr("Stufe 1: Im System", "Level 1: On Staff"),
+          sub: hasSelectedKey
+            ? tf("5 Linien • {key}", "5 lines • {key}", { key: getLocalizedNotationKeyModeLabel(selectedKeyMode, true) })
+            : tr("5 Linien &amp; 4 Räume (Stammtöne)", "5 lines &amp; 4 spaces (naturals)")
+        },
+        {
+          lvl: 2,
+          badge: "±2",
+          title: tr("Stufe 2: ±1–2 Hilfslinien", "Level 2: ±1–2 Ledgers"),
+          sub: hasSelectedKey
+            ? tf("±2 Hilfslinien • {key}", "±2 ledgers • {key}", { key: getLocalizedNotationKeyModeLabel(selectedKeyMode, true) })
+            : tr("Erweiterter Umfang ohne Vorzeichen", "Extended range without accidentals")
+        },
+        {
+          lvl: 3,
+          badge: "±3",
+          title: tr("Stufe 3: Bis 3 Hilfslinien", "Level 3: Up to 3 Ledgers"),
+          sub: hasSelectedKey
+            ? tf("±3 Hilfslinien • {key}", "±3 ledgers • {key}", { key: getLocalizedNotationKeyModeLabel(selectedKeyMode, true) })
+            : tr("Voller Bereich nach oben &amp; unten", "Up to 3 ledger lines above &amp; below")
+        },
+        {
+          lvl: 4,
+          badge: hasSelectedKey ? "♮/♯" : "♯/♭",
+          title: hasSelectedKey
+            ? tr("Stufe 4: + Auflösungszeichen (♮)", "Level 4: + Naturals (♮)")
+            : tr("Stufe 4: 3 Hilfsl. + Vorzeichen", "Level 4: 3 Ledgers + ♯/♭"),
+          sub: hasSelectedKey
+            ? tr("Tonart inkl. ♮ &amp; extra Vorzeichen", "Key sig. plus ♮ &amp; accidentals")
+            : tr("Voller Umfang mit ♯ und ♭", "Full 3-ledger range with sharps &amp; flats")
+        }
+      ];
+
+      const KEY_SIGNATURE_CARDS = [
+        {
+          id: "key_easy",
+          keyMode: "easy",
+          lvl: trainerRangeLvl,
+          circle: "circle-sage",
+          badge: "1–2",
+          title: tr("Leichte Tonarten (1–2 ♯/♭)", "Easy Keys (1–2 ♯/♭)"),
+          sub: tr("G-, D-, F- &amp; B-Dur am Systemanfang", "G, D, F &amp; Bb Major key signatures")
+        },
+        {
+          id: "key_medium",
+          keyMode: "medium",
+          lvl: trainerRangeLvl,
+          circle: "circle-peach",
+          badge: "3–4",
+          title: tr("Mittlere Tonarten (3–4 ♯/♭)", "Medium Keys (3–4 ♯/♭)"),
+          sub: tr("A-, E-, Es- &amp; As-Dur im Wechsel", "A, E, Eb &amp; Ab Major rotating")
+        },
+        {
+          id: "key_all",
+          keyMode: "all",
+          lvl: trainerRangeLvl,
+          circle: "circle-lilac",
+          badge: "1–6",
+          title: tr("Alle 12 Tonarten (1–6 ♯/♭)", "All 12 Keys (1–6 ♯/♭)"),
+          sub: tr("Kompletter Quintenzirkel bis Fis/Ges", "Full circle of fifths up to F♯ / G♭")
+        },
+        {
+          id: "key_nat",
+          keyMode: "all",
+          lvl: 4,
+          circle: "circle-peach",
+          badge: "♯/♮",
+          title: tr("Tonarten + Auflösungszeichen", "Key Signatures + Naturals (♮)"),
+          sub: tr("Blattspiel-Profi mit ♮ &amp; Wechselvorzeichen", "Pro sight-reading with ♮ &amp; accidentals")
+        }
+      ];
+
+      container.innerHTML = `
+        <div class="subpage-section">
+          <h3 class="subpage-section-title">${tr("1. Tonart / Generalvorzeichen wählen", "1. Choose Key Signature")}</h3>
+          <p class="subpage-section-desc">${tr(
+            "Lege fest, ob Tonarten mit Vorzeichen am Notenanfang stehen sollen – gilt für alle Schlüssel-Übungen darunter.",
+            "Set a key signature at the start of the staff — applies to all clef exercises below."
+          )}</p>
+          <div class="notation-key-toolbar">
+            <div class="notation-key-pool-row">
+              ${KEY_POOL_CHIPS.map(ch => `
+                <button type="button" class="k-filter-pill${selectedKeyMode === ch.id ? " active" : ""}" data-notation-keymode="${ch.id}">
+                  ${escapeHtml(ch.label)}
+                </button>
+              `).join("")}
+            </div>
+            <div class="notation-key-groups">
+              <div class="notation-key-group-row">
+                ${NOTATION_SHARP_KEY_ORDER.map(renderSigChip).join("")}
+              </div>
+              <div class="notation-key-group-row">
+                ${NOTATION_FLAT_KEY_ORDER.map(renderSigChip).join("")}
+              </div>
+            </div>
+            <div class="notation-key-preview-box">
+              <div class="notation-key-preview-svg">${previewSvg}</div>
+              <div class="notation-key-preview-copy">
+                <span class="notation-key-preview-title">${escapeHtml(previewTitle)}</span>
+                <span class="notation-key-preview-desc">${previewDesc}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="subpage-section">
+          <h3 class="subpage-section-title">${tr("2. Tonarten-Blattspiel (Generalvorzeichen)", "2. Key-Signature Sight-Reading")}</h3>
+          <p class="subpage-section-desc">${tr(
+            "Lies ganze 8-Noten-Phrasen mit vorgegebener Tonart im Notensystem und beachte die Vorzeichen vom Blatt!",
+            "Read 8-note phrases with an active key signature on the staff and remember the sharps &amp; flats while playing!"
+          )}</p>
+          <div class="notation-key-quick-group">
+            <span class="notation-key-quick-label">${tr("Schlüssel &amp; Umfang für diesen Direktstart:", "Clef &amp; range for quick-start cards:")}</span>
+            <div class="notation-key-quick-row">
+              ${TRAINER_CLEFS.map(tc => `
+                <button type="button" class="k-filter-pill${trainerClefMode === tc.mode ? " active" : ""}" data-notation-trainer-clef="${tc.mode}">
+                  ${escapeHtml(tc.label)}
+                </button>
+              `).join("")}
+            </div>
+            <div class="notation-key-quick-row">
+              ${TRAINER_RANGES.map(trng => `
+                <button type="button" class="k-filter-pill${trainerRangeLvl === trng.lvl ? " active" : ""}" data-notation-trainer-lvl="${trng.lvl}">
+                  ${escapeHtml(trng.label)}
+                </button>
+              `).join("")}
+            </div>
+          </div>
+          <div class="subpage-nodes-grid">
+            ${KEY_SIGNATURE_CARDS.map(kc => `
+              <button class="subpage-node-btn" data-launch-notation-key="${kc.id}" data-notation-keymode-launch="${kc.keyMode}" data-notation-mode="${trainerClefMode}" data-notation-lvl="${kc.lvl}">
+                <div class="node-circle ${kc.circle}">${kc.badge}</div>
+                <span class="node-title">${kc.title}</span>
+                <span class="node-sub">${kc.sub}</span>
+              </button>
+            `).join("")}
+          </div>
+        </div>
+
+        ${NOTATION_SECTIONS.map(sec => `
+          <div class="subpage-section">
+            <div class="subpage-section-head-row">
+              <h3 class="subpage-section-title">${sec.title}</h3>
+              <span class="subpage-section-key-pill">${escapeHtml(getLocalizedNotationKeyModeLabel(selectedKeyMode, true))}</span>
+            </div>
+            <p class="subpage-section-desc">${sec.desc}</p>
+            <div class="subpage-nodes-grid">
+              ${NOTATION_DIFFICULTY_CARDS.map(lv => `
+                <button class="subpage-node-btn" data-launch-notation="${sec.mode}" data-notation-lvl="${lv.lvl}">
+                  <div class="node-circle ${sec.circleClass}">${lv.badge}</div>
+                  <span class="node-title">${lv.title}</span>
+                  <span class="node-sub">${lv.sub}</span>
+                </button>
+              `).join("")}
+            </div>
+          </div>
+        `).join("")}
+      `;
+
+      container.querySelectorAll("[data-notation-keymode]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          state.setNotationKeyMode(btn.dataset.notationKeymode);
+          renderNotationCategoryBody();
+        });
+      });
+
+      container.querySelectorAll("[data-notation-trainer-clef]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          state.settings.notationKeyTrainerClef = isNotationMode(btn.dataset.notationTrainerClef)
+            ? btn.dataset.notationTrainerClef
+            : "notation-treble";
+          renderNotationCategoryBody();
+        });
+      });
+
+      container.querySelectorAll("[data-notation-trainer-lvl]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          state.settings.notationKeyTrainerLevel = Math.max(1, Math.min(3, parseInt(btn.dataset.notationTrainerLvl, 10) || 2));
+          renderNotationCategoryBody();
+        });
+      });
+
+      container.querySelectorAll("[data-launch-notation-key]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          state.setNotationLevel(btn.dataset.notationMode, btn.dataset.notationLvl, btn.dataset.notationKeymodeLaunch);
+          state.exerciseReturnView = "category";
+          switchView("exercise");
+        });
+      });
+
+      container.querySelectorAll("[data-launch-notation]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          state.setNotationLevel(btn.dataset.launchNotation, btn.dataset.notationLvl);
+          state.exerciseReturnView = "category";
+          switchView("exercise");
+        });
+      });
+    };
+
+    renderNotationCategoryBody();
 
   } else if (categoryKey === "warmup") {
     const activeVoice = state.warmup?.voiceRange || "mixed";
@@ -39142,23 +40077,41 @@ function buildNextNotationQueueNote(ex, prevNote = null) {
     clefId = NOTATION_ACTIVE_CLEFS[ex.mixedClefCursor || 0];
     ex.mixedCounter += 1;
   }
-  return pickRandomNotationNoteItem(clefId, ex.level, prevNote);
+  return pickRandomNotationNoteItem(clefId, ex.level, prevNote, ex.keySignatureId || "none");
+}
+
+function populateNotationExerciseQueue(ex) {
+  if (!ex) return;
+  const queueLen = state.exam?.active ? 1 : NOTATION_QUEUE_SIZE;
+  ex.notationQueue = [];
+  ex.mixedCounter = 0;
+  for (let i = 0; i < queueLen; i++) {
+    const prev = i > 0 ? ex.notationQueue[i - 1] : null;
+    ex.notationQueue.push(buildNextNotationQueueNote(ex, prev));
+  }
+  ex.targetItem = ex.notationQueue[0] || null;
+  ex.keyName = getLocalizedNotationClefName(ex.targetItem?.clefId || ex.baseClefId || "treble");
 }
 
 function generateNotationExercise(modeOverride = state.settings.mode) {
   const mode = isNotationMode(modeOverride) ? modeOverride : "notation-treble";
   const lvl = Math.max(1, Math.min(4, parseInt(state.settings.notationDifficulty, 10) || 1));
+  const keyMode = normalizeNotationKeyMode(state.settings.notationKeyMode);
+  const initialKeySig = resolveNotationKeySignatureId(keyMode);
   const isMixed = mode === "notation-mixed";
   const initialClef = isMixed
     ? NOTATION_ACTIVE_CLEFS[Math.floor(Math.random() * NOTATION_ACTIVE_CLEFS.length)]
     : getNotationClefFromMode(mode);
-  const queueLen = state.exam?.active ? 1 : NOTATION_QUEUE_SIZE;
   const lvlCfg = NOTATION_LEVELS[lvl] || NOTATION_LEVELS[1];
 
   const ex = {
     type: mode,
     level: lvl,
-    allowAccidentals: Boolean(lvlCfg.allowAccidentals),
+    notationKeyMode: keyMode,
+    keySignatureId: initialKeySig,
+    keySignaturePhraseProgress: 0,
+    keySignaturePhraseLength: NOTATION_KEY_PHRASE_LEN,
+    allowAccidentals: Boolean(lvlCfg.allowAccidentals || initialKeySig !== "none"),
     isMixedClef: isMixed,
     baseClefId: initialClef,
     mixedClefCursor: Math.max(0, NOTATION_ACTIVE_CLEFS.indexOf(initialClef)),
@@ -39174,18 +40127,16 @@ function generateNotationExercise(modeOverride = state.settings.mode) {
     bars: []
   };
 
-  for (let i = 0; i < queueLen; i++) {
-    const prev = i > 0 ? ex.notationQueue[i - 1] : null;
-    ex.notationQueue.push(buildNextNotationQueueNote(ex, prev));
-  }
-  ex.targetItem = ex.notationQueue[0];
-  ex.keyName = getLocalizedNotationClefName(ex.targetItem.clefId);
+  populateNotationExerciseQueue(ex);
   state.currentExercise = ex;
 }
 
 function refreshNotationQueueLocalization(ex) {
   if (!ex || !Array.isArray(ex.notationQueue)) return;
-  ex.notationQueue = ex.notationQueue.map(n => getNotationNoteFromStaffStep(n.clefId, n.staffStep, n.accidental));
+  const exSig = normalizeNotationKeySigId(ex.keySignatureId || "none");
+  ex.notationQueue = ex.notationQueue.map(n =>
+    getNotationNoteFromStaffStep(n.clefId, n.staffStep, n.accidental, n.keySignatureId || exSig, n.shownAccidental)
+  );
   ex.targetItem = ex.notationQueue[0] || null;
   if (ex.targetItem) {
     ex.keyName = getLocalizedNotationClefName(ex.targetItem.clefId);
@@ -39481,7 +40432,7 @@ function renderNotationKeyboard(wrap, ex) {
   wrap.classList.add("is-notation");
   const firstWhite = 59; // H3 / B3 als halbe linke Rahmentaste
   const lastWhite = 72;  // C5 als halbe rechte Rahmentaste
-  const showBlackLabels = Boolean(ex?.allowAccidentals);
+  const showBlackLabels = Boolean(ex?.allowAccidentals || (ex?.keySignatureId && ex.keySignatureId !== "none"));
   const useIntl = typeof state !== "undefined" && state?.profile?.notation === "intl";
   const blackLabelMap = useIntl ? NOTATION_BLACK_LABELS_INTL : NOTATION_BLACK_LABELS_DE;
 
@@ -39912,6 +40863,7 @@ function renderUI() {
   // - Produktionsmodi: kein BPM-Tempo (stattdessen EQ-/Stufen-Badge)
   // - Alle übrigen Modi: Tempo (Lila) im oberen Modul
   const moduleKeyBtn = document.getElementById("moduleKeyBtn");
+  const moduleNotationKeyBtn = document.getElementById("moduleNotationKeyBtn");
   const moduleTimeSigBtn = document.getElementById("moduleTimeSigBtn");
   const melodyPulseBtn = document.getElementById("melodyPulseBtn");
   const moduleBpmBtn = document.getElementById("moduleBpmBtn");
@@ -39919,6 +40871,10 @@ function renderUI() {
   if (moduleKeyBtn) {
     moduleKeyBtn.classList.toggle("hidden", !isCadence);
     moduleKeyBtn.textContent = ex.keyName;
+  }
+
+  if (moduleNotationKeyBtn) {
+    moduleNotationKeyBtn.classList.toggle("hidden", !isNotation);
   }
 
   if (moduleTimeSigBtn) {
@@ -39952,6 +40908,10 @@ function renderUI() {
     document.getElementById("inlineTimeSigPopover")?.classList.add("hidden");
     moduleKeyBtn?.classList.remove("chip-open");
     moduleTimeSigBtn?.classList.remove("chip-open");
+  }
+  if (!isNotation) {
+    document.getElementById("inlineNotationKeyPopover")?.classList.add("hidden");
+    moduleNotationKeyBtn?.classList.remove("chip-open");
   }
   if (isProd || isModes || isNotation) {
     document.getElementById("inlineBpmPopover")?.classList.add("hidden");
@@ -41135,11 +42095,105 @@ async function handleMelodyKeyClick(clickedKeyDef, keyBtn) {
 
 function getNotationLedgerLevelTag(ex) {
   const lvlCfg = NOTATION_LEVELS[ex?.level] || NOTATION_LEVELS[1];
+  const hasKeySig = ex?.keySignatureId && ex.keySignatureId !== "none";
   if (lvlCfg.maxLedgers === 0) return tr("Stammlinien", "5-Line Staff");
   if (lvlCfg.maxLedgers <= 2) return tr("±2 Hilfslinien", "±2 Ledger Lines");
-  return ex?.allowAccidentals
-    ? tr("±3 Hilfsl. + ♯/♭", "±3 Ledger + ♯/♭")
+  return ex?.level >= 4
+    ? (hasKeySig ? tr("±3 + ♮/♯/♭", "±3 + ♮/♯/♭") : tr("±3 Hilfsl. + ♯/♭", "±3 Ledger + ♯/♭"))
     : tr("±3 Hilfslinien", "±3 Ledger Lines");
+}
+
+function getNotationActiveKeyChipLabel(ex) {
+  if (!ex) return getLocalizedNotationKeySigName("none", true);
+  const sigId = normalizeNotationKeySigId(ex.keySignatureId || "none");
+  if (sigId === "none") return getLocalizedNotationKeySigName("none", true);
+  const name = getLocalizedNotationKeySigName(sigId, true);
+  const badge = getLocalizedNotationKeySigBadge(sigId, false);
+  const progress = isNotationKeyPoolMode(ex.notationKeyMode) && !state.exam?.active
+    ? ` • ${(ex.keySignaturePhraseProgress || 0) + 1}/${ex.keySignaturePhraseLength || NOTATION_KEY_PHRASE_LEN}`
+    : "";
+  return `${name} (${badge})${progress}`;
+}
+
+function renderInlineNotationKeyPopover() {
+  const pop = document.getElementById("inlineNotationKeyPopover");
+  if (!pop) return;
+  const activeKeyMode = normalizeNotationKeyMode(state.settings.notationKeyMode);
+  const ex = state.currentExercise;
+  const activeSig = ex && isNotationMode(ex.type) ? normalizeNotationKeySigId(ex.keySignatureId || "none") : "none";
+  const showNextKeyBtn = Boolean(ex && isNotationMode(ex.type) && isNotationKeyPoolMode(activeKeyMode) && !state.exam?.active);
+
+  const poolBtns = [
+    { id: "none",   label: tr("Ohne (C-Dur)", "None (C)") },
+    { id: "easy",   label: tr("1–2 ♯/♭", "1–2 ♯/♭") },
+    { id: "medium", label: tr("3–4 ♯/♭", "3–4 ♯/♭") },
+    { id: "hard",   label: tr("5–6 ♯/♭", "5–6 ♯/♭") },
+    { id: "all",    label: tr("Alle 12", "All 12") }
+  ].map(item => `
+    <button type="button" class="popover-pill-btn${activeKeyMode === item.id ? " active" : ""}" data-inline-notation-key="${item.id}">
+      ${escapeHtml(item.label)}
+    </button>
+  `).join("");
+
+  const renderSigPopBtn = (sigId) => {
+    const badge = getLocalizedNotationKeySigBadge(sigId, false);
+    const shortName = getLocalizedNotationKeySigName(sigId, true).replace(/-Dur$| Major$| majeur$| мажор$/i, "");
+    const isSel = activeKeyMode === sigId || (isNotationKeyPoolMode(activeKeyMode) && activeSig === sigId);
+    return `
+      <button type="button" class="popover-pill-btn${isSel ? " active" : ""}" data-inline-notation-key="${sigId}">
+        ${escapeHtml(shortName)} ${escapeHtml(badge)}
+      </button>
+    `;
+  };
+
+  pop.innerHTML = `
+    <div class="notation-key-pop-head">
+      <span class="popover-label">${escapeHtml(tr("Tonart (Vorzeichen):", "Key Signature:"))}</span>
+      ${showNextKeyBtn ? `
+        <button type="button" class="popover-pill-btn" data-inline-notation-rotate="1">
+          ${escapeHtml(tr("↻ Nächste Tonart", "↻ Next Key"))}
+        </button>
+      ` : ""}
+    </div>
+    <div class="popover-pills-row">${poolBtns}</div>
+    <div class="notation-key-pop-grid">
+      ${NOTATION_SHARP_KEY_ORDER.map(renderSigPopBtn).join("")}
+      ${NOTATION_FLAT_KEY_ORDER.map(renderSigPopBtn).join("")}
+    </div>
+  `;
+
+  pop.querySelectorAll("[data-inline-notation-key]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      applyInlineNotationKeyMode(btn.dataset.inlineNotationKey);
+    });
+  });
+  pop.querySelector("[data-inline-notation-rotate]")?.addEventListener("click", () => {
+    rotateNotationExerciseKeyNow();
+  });
+}
+
+function applyInlineNotationKeyMode(nextKeyMode) {
+  if (state.exam?.active) return;
+  const normalized = normalizeNotationKeyMode(nextKeyMode);
+  state.setNotationKeyMode(normalized);
+  cancelListenOnlyTimers();
+  stopPlayback();
+  generateExercise();
+  if (state.listenOnly?.active) {
+    startListenOnlyCycle();
+  }
+}
+
+function rotateNotationExerciseKeyNow() {
+  const ex = state.currentExercise;
+  if (!ex || !isNotationMode(ex.type) || state.exam?.active) return;
+  const nextSig = resolveNotationKeySignatureId(ex.notationKeyMode, ex.keySignatureId);
+  ex.keySignatureId = nextSig;
+  ex.keySignaturePhraseProgress = 0;
+  ex.allowAccidentals = Boolean((NOTATION_LEVELS[ex.level] || NOTATION_LEVELS[1]).allowAccidentals || nextSig !== "none");
+  populateNotationExerciseQueue(ex);
+  ex.notationPanelState = "";
+  renderUI();
 }
 
 function syncNotationHeaderUI(ex = state.currentExercise) {
@@ -41147,6 +42201,7 @@ function syncNotationHeaderUI(ex = state.currentExercise) {
   const targetClefId = ex.targetItem?.clefId || ex.baseClefId || "treble";
   const targetClefName = getLocalizedNotationClefName(targetClefId);
   const moduleTitleEl = document.getElementById("moduleTitleText");
+  const moduleNotationKeyBtn = document.getElementById("moduleNotationKeyBtn");
   const targetBadgeEl = document.getElementById("targetBarBadge");
   const tonicRefRow = document.getElementById("tonicRefRow");
   const tonicRefBtn = document.getElementById("tonicRefBtn");
@@ -41157,6 +42212,10 @@ function syncNotationHeaderUI(ex = state.currentExercise) {
       ? tf("Schlüssel-Mix • {clef}", "Clef Mix • {clef}", { clef: targetClefName })
       : targetClefName;
   }
+  if (moduleNotationKeyBtn) {
+    moduleNotationKeyBtn.textContent = getNotationActiveKeyChipLabel(ex);
+  }
+  renderInlineNotationKeyPopover();
   if (targetBadgeEl) {
     targetBadgeEl.textContent = tf("Stufe {lvl} • {tag}", "Level {lvl} • {tag}", {
       lvl: ex.level || 1,
@@ -41166,7 +42225,9 @@ function syncNotationHeaderUI(ex = state.currentExercise) {
   tonicRefRow?.classList.add("hidden");
   tonicRefBtn?.classList.add("hidden");
   if (inputPromptText) {
-    inputPromptText.textContent = tr("Note links wählen:", "Play left note:");
+    inputPromptText.textContent = ex.keySignatureId && ex.keySignatureId !== "none"
+      ? tr("Note links (mit Vorzeichen) wählen:", "Play left note (mind key sig.):")
+      : tr("Note links wählen:", "Play left note:");
   }
 }
 
@@ -41174,11 +42235,22 @@ function renderNotationStaffPanel(ex, didShift = false, targetGrid = document.ge
   if (!ex || !targetGrid) return;
   const target = ex.targetItem || ex.notationQueue?.[0];
   const clefId = target?.clefId || ex.baseClefId || "treble";
+  const keySigId = normalizeNotationKeySigId(ex.keySignatureId || target?.keySignatureId || "none");
   const clefName = getLocalizedNotationClefName(clefId);
   const rightHint = state.exam?.active
     ? getLocalizedNotationClefAnchorHint(clefId)
     : (target?.ledgerDesc || getNotationLedgerDescription(target?.staffStep ?? 4));
   const showClefPill = Boolean(ex.isMixedClef && !state.exam?.active);
+  const showKeySigPill = keySigId !== "none";
+  const hasLeftPill = showClefPill || showKeySigPill;
+
+  const keySigPillText = showKeySigPill
+    ? `${getLocalizedNotationKeySigName(keySigId, true)} • ${getLocalizedNotationKeySigBadge(keySigId, true)}${
+        isNotationKeyPoolMode(ex.notationKeyMode) && !state.exam?.active
+          ? ` (${(ex.keySignaturePhraseProgress || 0) + 1}/${ex.keySignaturePhraseLength || NOTATION_KEY_PHRASE_LEN})`
+          : ""
+      }`
+    : "";
 
   const panel = document.createElement("div");
   panel.className = `notation-staff-panel${ex.notationPanelState ? " " + ex.notationPanelState : ""}`;
@@ -41186,6 +42258,7 @@ function renderNotationStaffPanel(ex, didShift = false, targetGrid = document.ge
 
   const svg = buildNotationStaffSVG(ex.notationQueue, {
     clefId: clefId,
+    keySignatureId: keySigId,
     level: ex.level || 1,
     highlightFirst: true,
     showChangeClefs: showClefPill,
@@ -41193,8 +42266,13 @@ function renderNotationStaffPanel(ex, didShift = false, targetGrid = document.ge
   });
 
   panel.innerHTML = `
-    <div class="notation-queue-strip${showClefPill ? "" : " is-single-clef"}">
-      ${showClefPill ? `<span class="notation-clef-pill">${escapeHtml(clefName)}</span>` : ""}
+    <div class="notation-queue-strip${hasLeftPill ? "" : " is-single-clef"}">
+      ${hasLeftPill ? `
+        <span class="notation-queue-pills" style="display:inline-flex;flex-wrap:wrap;gap:0.28rem;align-items:center;">
+          ${showClefPill ? `<span class="notation-clef-pill">${escapeHtml(clefName)}</span>` : ""}
+          ${showKeySigPill ? `<span class="notation-keysig-pill">${escapeHtml(keySigPillText)}</span>` : ""}
+        </span>
+      ` : ""}
       <span class="notation-ledger-hint">${escapeHtml(rightHint)}</span>
     </div>
     ${svg}
@@ -41204,14 +42282,31 @@ function renderNotationStaffPanel(ex, didShift = false, targetGrid = document.ge
   targetGrid.appendChild(panel);
 }
 
+function advanceNotationPhraseKeyIfNeeded(ex) {
+  if (!ex || !isNotationKeyPoolMode(ex.notationKeyMode) || state.exam?.active) return null;
+  const len = ex.keySignaturePhraseLength || NOTATION_KEY_PHRASE_LEN;
+  ex.keySignaturePhraseProgress = (ex.keySignaturePhraseProgress || 0) + 1;
+  if (ex.keySignaturePhraseProgress < len) return null;
+
+  const nextKeySig = resolveNotationKeySignatureId(ex.notationKeyMode, ex.keySignatureId);
+  ex.keySignatureId = nextKeySig;
+  ex.keySignaturePhraseProgress = 0;
+  ex.allowAccidentals = Boolean((NOTATION_LEVELS[ex.level] || NOTATION_LEVELS[1]).allowAccidentals || nextKeySig !== "none");
+  populateNotationExerciseQueue(ex);
+  return nextKeySig;
+}
+
 function shiftAndAdvanceNotationQueue(ex, feedbackKind, stageSub, stageMain, stageDesc, keyBtn) {
   if (!ex) return;
-  const queue = Array.isArray(ex.notationQueue) ? ex.notationQueue.slice(1) : [];
-  const lastNote = queue[queue.length - 1] || ex.targetItem || null;
-  queue.push(buildNextNotationQueueNote(ex, lastNote));
-  ex.notationQueue = queue;
-  ex.targetItem = queue[0] || null;
-  ex.keyName = getLocalizedNotationClefName(ex.targetItem?.clefId || ex.baseClefId || "treble");
+  const rotatedKeySig = advanceNotationPhraseKeyIfNeeded(ex);
+  if (!rotatedKeySig) {
+    const queue = Array.isArray(ex.notationQueue) ? ex.notationQueue.slice(1) : [];
+    const lastNote = queue[queue.length - 1] || ex.targetItem || null;
+    queue.push(buildNextNotationQueueNote(ex, lastNote));
+    ex.notationQueue = queue;
+    ex.targetItem = queue[0] || null;
+    ex.keyName = getLocalizedNotationClefName(ex.targetItem?.clefId || ex.baseClefId || "treble");
+  }
   ex.notationPanelState = feedbackKind === "correct" ? "is-correct" : "";
 
   document.querySelectorAll("#solfegeKeyboardWrap .piano-white-key, #solfegeKeyboardWrap .piano-black-key").forEach(el => {
@@ -41233,12 +42328,19 @@ function shiftAndAdvanceNotationQueue(ex, feedbackKind, stageSub, stageMain, sta
     }, 240);
   }
 
+  const finalDesc = rotatedKeySig
+    ? tf("Neue Tonart: {key} ({acc})!", "New key: {key} ({acc})!", {
+        key: getLocalizedNotationKeySigName(rotatedKeySig, true),
+        acc: getLocalizedNotationKeySigBadge(rotatedKeySig, true)
+      })
+    : stageDesc;
+
   if (document.getElementById("centralStageCard")) {
     setCentralStageMode(feedbackKind === "correct" ? "stage-playing" : "stage-target");
     updateStageMascot(feedbackKind === "correct" ? "happy" : "idle");
     document.getElementById("stageSubtext").textContent = stageSub;
     document.getElementById("stageMainText").textContent = stageMain;
-    document.getElementById("stageFunctionText").textContent = stageDesc;
+    document.getElementById("stageFunctionText").textContent = finalDesc;
     renderStageStreakUI();
   }
 }
@@ -41279,13 +42381,17 @@ async function handleNotationKeyClick(clickedKeyDef, keyBtn, options = {}) {
       const pickedLbl = clickedKeyDef?.noteLabel
         ? String(clickedKeyDef.noteLabel).replace(/\s*\n\s*/g, " / ")
         : "?";
+      const activeKeySig = normalizeNotationKeySigId(ex.keySignatureId || "none");
       document.getElementById("stageSubtext").textContent = tr("NOCH NICHT GANZ", "NOT QUITE");
       document.getElementById("stageMainText").textContent = tf("{note}? Nein", "{note}? No", { note: pickedLbl });
-      document.getElementById("stageFunctionText").textContent = tf(
-        "Schau genau in den {clef} — oder tippe „Überspringen“.",
-        "Check the {clef} carefully — or tap “Skip”.",
-        { clef: getLocalizedNotationClefName(target.clefId) }
-      );
+      document.getElementById("stageFunctionText").textContent = activeKeySig !== "none"
+        ? tf("Tonart {key} ({acc}) beachten – oder „Überspringen“.", "Watch {key} ({acc}) — or tap “Skip”.", {
+            key: getLocalizedNotationKeySigName(activeKeySig, true),
+            acc: getLocalizedNotationKeySigBadge(activeKeySig, true)
+          })
+        : tf("Schau genau in den {clef} — oder tippe „Überspringen“.", "Check the {clef} carefully — or tap “Skip”.", {
+            clef: getLocalizedNotationClefName(target.clefId)
+          });
     }
     return;
   }
@@ -43954,8 +45060,10 @@ function getLevelDisplayForMix(mode, level) {
 function formatMixSubtitle(mix) {
   const modeLabel = getLocalizedMixModeLabel(mix.mode);
   const lvlText = getLevelDisplayForMix(mix.mode, mix.level);
+  const notKeyMode = isNotationMode(mix.mode) ? normalizeNotationKeyMode(mix.notationKeyMode) : "none";
+  const notKeyText = notKeyMode !== "none" ? ` • ${getLocalizedNotationKeyModeLabel(notKeyMode, true)}` : "";
   const bpmText = !mix.mode.startsWith("prod-") && !mix.mode.startsWith("modes-") && !isNotationMode(mix.mode) && mix.bpm > 0 ? ` • ${mix.bpm} BPM` : "";
-  return `${modeLabel} • ${lvlText}${bpmText}`;
+  return `${modeLabel} • ${lvlText}${notKeyText}${bpmText}`;
 }
 
 function applyModeAndLevelFromConfig(cfg) {
@@ -43970,7 +45078,7 @@ function applyModeAndLevelFromConfig(cfg) {
   } else if (mode === "solfege") {
     state.setSolfegeDifficulty(cfg.level || 1);
   } else if (isNotationMode(mode)) {
-    state.setNotationLevel(cfg.level || 1);
+    state.setNotationLevel(mode, cfg.level || 1, cfg.notationKeyMode || "none");
   } else if (mode === "melody") {
     state.setMelodyConfig(
       cfg.melodyRange || cfg.level || "do-fa",
@@ -44041,6 +45149,7 @@ function captureCurrentExerciseAsMix(customTitle = "") {
     melodyOctaveMode: state.settings.melodyOctaveMode,
     melodyStyle: state.settings.melodyStyle,
     melodyPulse: state.settings.melodyPulse,
+    notationKeyMode: isNotationMode(mode) ? normalizeNotationKeyMode(state.settings.notationKeyMode) : "none",
     bpm: !mode.startsWith("prod-") && !mode.startsWith("modes-") && !isNotationMode(mode) && state.hasManualExerciseBpm ? state.activeBpm : 0
   });
   if (!mix) return null;
@@ -45921,17 +47030,20 @@ document.addEventListener("DOMContentLoaded", () => {
   // Direkt im oberen Aufgabenmodul ausklappbare Steuerungen (Tempo-Schieberegler, Tonart, Taktart)
   const moduleBpmBtn = document.getElementById("moduleBpmBtn");
   const moduleKeyBtn = document.getElementById("moduleKeyBtn");
+  const moduleNotationKeyBtn = document.getElementById("moduleNotationKeyBtn");
   const moduleTimeSigBtn = document.getElementById("moduleTimeSigBtn");
   const melodyPulseBtn = document.getElementById("melodyPulseBtn");
 
   const inlineBpmPopover = document.getElementById("inlineBpmPopover");
   const inlineKeyPopover = document.getElementById("inlineKeyPopover");
+  const inlineNotationKeyPopover = document.getElementById("inlineNotationKeyPopover");
   const inlineTimeSigPopover = document.getElementById("inlineTimeSigPopover");
 
   function closeAllInlinePopovers(exceptPopover = null) {
     [
       [inlineBpmPopover, moduleBpmBtn],
       [inlineKeyPopover, moduleKeyBtn],
+      [inlineNotationKeyPopover, moduleNotationKeyBtn],
       [inlineTimeSigPopover, moduleTimeSigBtn]
     ].forEach(([pop, btn]) => {
       if (pop && pop !== exceptPopover) {
@@ -45970,6 +47082,15 @@ document.addEventListener("DOMContentLoaded", () => {
     moduleKeyBtn.classList.toggle("chip-open", !isHidden);
   });
 
+  moduleNotationKeyBtn?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (state.exam?.active) return;
+    closeAllInlinePopovers(inlineNotationKeyPopover);
+    renderInlineNotationKeyPopover();
+    const isHidden = inlineNotationKeyPopover.classList.toggle("hidden");
+    moduleNotationKeyBtn.classList.toggle("chip-open", !isHidden);
+  });
+
   moduleTimeSigBtn?.addEventListener("click", (e) => {
     e.stopPropagation();
     closeAllInlinePopovers(inlineTimeSigPopover);
@@ -45977,7 +47098,7 @@ document.addEventListener("DOMContentLoaded", () => {
     moduleTimeSigBtn.classList.toggle("chip-open", !isHidden);
   });
 
-  [inlineBpmPopover, inlineKeyPopover, inlineTimeSigPopover].forEach(pop => {
+  [inlineBpmPopover, inlineKeyPopover, inlineNotationKeyPopover, inlineTimeSigPopover].forEach(pop => {
     pop?.addEventListener("click", (e) => e.stopPropagation());
   });
 
@@ -49065,6 +50186,7 @@ function syncExamExerciseControls() {
   const listenBtn = document.getElementById("listenOnlyBtn");
   const loopBtn = document.getElementById("loopToggleBtn");
   const keyBtn = document.getElementById("moduleKeyBtn");
+  const notationKeyBtn = document.getElementById("moduleNotationKeyBtn");
   const timeBtn = document.getElementById("moduleTimeSigBtn");
   const bpmBtn = document.getElementById("moduleBpmBtn");
   const melodyPulseBtn = document.getElementById("melodyPulseBtn");
@@ -49079,7 +50201,7 @@ function syncExamExerciseControls() {
   if (listenBtn) listenBtn.classList.toggle("hidden", isExam);
   if (loopBtn) loopBtn.classList.toggle("hidden", isExam);
 
-  [keyBtn, timeBtn, bpmBtn, melodyPulseBtn].forEach(btn => {
+  [keyBtn, notationKeyBtn, timeBtn, bpmBtn, melodyPulseBtn].forEach(btn => {
     if (!btn) return;
     btn.classList.toggle("exam-locked", isExam);
     btn.disabled = isExam;
@@ -49562,6 +50684,11 @@ function handleExamNotationAnswer(ex, clickedKeyDef, keyBtn) {
     ? target.noteName
     : (Number.isFinite(Number(clickedKeyDef?.midi)) ? midiToNote(clickedKeyDef.midi) : null);
 
+  const sigId = normalizeNotationKeySigId(target.keySignatureId || ex.keySignatureId || "none");
+  const detailText = sigId !== "none"
+    ? `${getLocalizedNotationClefName(target.clefId)} • ${getLocalizedNotationKeySigName(sigId, true)} (${getLocalizedNotationKeySigBadge(sigId, false)})`
+    : getLocalizedNotationClefName(target.clefId);
+
   recordExamQuestionEntry({
     mode: ex.type,
     status: isCorrect ? "correct" : "wrong",
@@ -49570,12 +50697,14 @@ function handleExamNotationAnswer(ex, clickedKeyDef, keyBtn) {
     targetKey: target.displayName,
     chosenLabel: chosenDisplay,
     targetLabel: target.displayName,
-    detailNote: getLocalizedNotationClefName(target.clefId),
+    detailNote: detailText,
     audioSnapshot: {
       type: ex.type,
       clefId: target.clefId,
       staffStep: target.staffStep,
       accidental: target.accidental,
+      keySignatureId: sigId,
+      shownAccidental: target.shownAccidental !== undefined ? target.shownAccidental : target.accidental,
       targetNoteName: target.noteName,
       chosenNoteName: chosenNoteName
     }
@@ -50139,11 +51268,14 @@ function skipCurrentExamQuestion() {
     };
   } else if (isNotationMode(curMode) && ex?.targetItem) {
     targetLabel = ex.targetItem.displayName;
+    const sigId = normalizeNotationKeySigId(ex.targetItem.keySignatureId || ex.keySignatureId || "none");
     snapshot = {
       type: curMode,
       clefId: ex.targetItem.clefId,
       staffStep: ex.targetItem.staffStep,
       accidental: ex.targetItem.accidental,
+      keySignatureId: sigId,
+      shownAccidental: ex.targetItem.shownAccidental !== undefined ? ex.targetItem.shownAccidental : ex.targetItem.accidental,
       targetNoteName: ex.targetItem.noteName,
       chosenNoteName: null
     };
