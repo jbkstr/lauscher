@@ -3560,7 +3560,7 @@ html, body {
   overflow-y: auto;
   opacity: 1;
   transform: scale(1) translateY(0);
-  transition: opacity 0.44s ease, transform 0.44s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 0.62s ease, transform 0.62s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .welcome-onboarding.hidden {
@@ -3587,7 +3587,7 @@ html, body {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  transition: opacity 0.18s ease, transform 0.2s ease;
+  transition: opacity 0.26s ease, transform 0.28s ease;
 }
 
 .welcome-step.hidden {
@@ -3601,7 +3601,7 @@ html, body {
 }
 
 .welcome-step-greet {
-  animation: welcomeGreetIn 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: welcomeGreetIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .welcome-mascot-stage {
@@ -3783,7 +3783,7 @@ html, body {
 }
 
 .welcome-auto-fill.is-counting {
-  animation: welcomeAutoProgress 3.4s linear forwards;
+  animation: welcomeAutoProgress 9s linear forwards;
 }
 
 .welcome-redirect-hint {
@@ -3794,7 +3794,7 @@ html, body {
 }
 
 #viewHome.home-welcome-enter {
-  animation: homeWelcomeEnter 0.48s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: homeWelcomeEnter 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @keyframes welcomeItemIn {
@@ -3829,7 +3829,7 @@ html, body {
     animation: none !important;
   }
   .welcome-auto-fill.is-counting {
-    animation-duration: 2.2s !important;
+    animation-duration: 9s !important;
   }
 }
 
@@ -46282,7 +46282,7 @@ function completeWelcomeOnboarding() {
     overlay.classList.add("welcome-out");
   }
 
-  const exitDuration = prefersReduced ? 160 : 440;
+  const exitDuration = prefersReduced ? 160 : 620;
   _welcomeOnboardingState.exitTimer = setTimeout(() => {
     if (overlay) {
       overlay.classList.add("hidden");
@@ -46352,11 +46352,11 @@ function selectWelcomeLanguage(lang, clickedBtn) {
     if (autoFill) {
       autoFill.classList.add("is-counting");
     }
-    const stayMs = prefersReduced ? 2200 : 3400;
+    const stayMs = 9000;
     _welcomeOnboardingState.autoTimer = setTimeout(() => {
       completeWelcomeOnboarding();
     }, stayMs);
-  }, prefersReduced ? 80 : 180);
+  }, prefersReduced ? 90 : 260);
 }
 
 function openFirstRunOnboarding() {
