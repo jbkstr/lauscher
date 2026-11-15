@@ -627,6 +627,7 @@ html, body {
 .knowledge-tab-btn,
 .category-help-btn,
 .tonic-btn,
+.answer-sound-btn,
 .listen-only-btn,
 .warmup-phase-pill,
 .warmup-kb-white,
@@ -2552,40 +2553,78 @@ html, body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 0.45rem;
+  flex-wrap: wrap;
+  gap: 0.34rem 0.45rem;
   padding: 0.08rem 0.22rem;
 }
 
 .input-prompt {
-  font-size: 0.84rem;
+  font-size: 0.82rem;
   color: var(--raccoon-mid);
   font-weight: 700;
-  min-width: 0;
-  flex: 1;
+  min-width: 112px;
+  flex: 1 1 112px;
   line-height: 1.24;
 }
 
+.input-header-actions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.32rem;
+  margin-left: auto;
+  flex-shrink: 0;
+  max-width: 100%;
+}
+
+.answer-sound-btn,
 .listen-only-btn {
   background-color: var(--surface-white);
   color: var(--raccoon-mid);
   border: 1.5px solid var(--border-strong);
-  padding: 0.24rem 0.62rem;
+  padding: 0.24rem 0.56rem;
   border-radius: var(--radius-pill);
-  font-size: 0.7rem;
+  font-size: 0.69rem;
   font-weight: 800;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 0.3rem;
+  gap: 0.28rem;
   flex-shrink: 0;
   white-space: nowrap;
   box-shadow: var(--shadow-card);
 }
 
+.answer-sound-btn svg,
 .listen-only-btn svg {
   width: 13px;
   height: 13px;
   flex-shrink: 0;
+}
+
+.answer-sound-btn .answer-sound-icon {
+  color: var(--sage-strong);
+}
+
+.answer-sound-btn .sound-mute-slash {
+  display: none;
+}
+
+.answer-sound-btn.is-muted {
+  background-color: var(--surface-warm);
+  color: var(--raccoon-muted);
+}
+
+.answer-sound-btn.is-muted .answer-sound-icon {
+  color: var(--raccoon-muted);
+}
+
+.answer-sound-btn.is-muted .sound-wave-arc {
+  display: none;
+}
+
+.answer-sound-btn.is-muted .sound-mute-slash {
+  display: inline;
 }
 
 .listen-only-dot {
@@ -2597,6 +2636,7 @@ html, body {
   transition: background-color 0.15s, transform 0.15s;
 }
 
+.answer-sound-btn:active,
 .listen-only-btn:active {
   transform: scale(0.96);
   background-color: var(--surface-warm);
@@ -8333,14 +8373,25 @@ body,
 
         <div class="input-header">
           <span id="inputPromptText" class="input-prompt">Tippe Stufe für Takt 4:</span>
-          <button id="listenOnlyBtn" type="button" class="listen-only-btn" aria-pressed="false" title="Nur-Hören-Modus ein-/ausschalten" data-i18n-title="ex.listenOnlyTitle" data-i18n-aria="ex.listenOnlyAria">
-            <span class="listen-only-dot" aria-hidden="true"></span>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
-              <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
-            </svg>
-            <span id="listenOnlyBtnLabel" data-i18n="ex.listenOnly">Nur Hören</span>
-          </button>
+          <div class="input-header-actions">
+            <button id="answerSoundToggleBtn" type="button" class="answer-sound-btn" aria-pressed="true" title="Abspielen der richtigen Antwort ein-/ausschalten (Aus = direkt zur nächsten Aufgabe)" data-i18n-title="ex.answerSoundTitle" data-i18n-aria="ex.answerSoundAria">
+              <svg class="answer-sound-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                <path class="sound-wave-arc" d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                <line class="sound-mute-slash" x1="22" y1="9" x2="16" y2="15"/>
+                <line class="sound-mute-slash" x1="16" y1="9" x2="22" y2="15"/>
+              </svg>
+              <span id="answerSoundBtnLabel" data-i18n="ex.answerSoundOn">Lösungston: An</span>
+            </button>
+            <button id="listenOnlyBtn" type="button" class="listen-only-btn" aria-pressed="false" title="Nur-Hören-Modus ein-/ausschalten" data-i18n-title="ex.listenOnlyTitle" data-i18n-aria="ex.listenOnlyAria">
+              <span class="listen-only-dot" aria-hidden="true"></span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+                <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+              </svg>
+              <span id="listenOnlyBtnLabel" data-i18n="ex.listenOnly">Nur Hören</span>
+            </button>
+          </div>
         </div>
         <div id="degreeButtonsGrid" class="degrees-grid"></div>
         <div id="melodyRhythmPicker" class="melody-rhythm-picker hidden"></div>
@@ -10428,6 +10479,9 @@ const I18N_STATIC = {
   "ex.tonicRefDefault": { de: "Tonika (I)", en: "Tonic (I)" },
   "ex.repeatToneTitle": { de: "Gerade abgefragten Ton nochmal abspielen", en: "Replay target note" },
   "ex.repeatTone": { de: "Ton nochmal", en: "Replay Tone" },
+  "ex.answerSoundOn": { de: "Lösungston: An", en: "Answer Audio: On" },
+  "ex.answerSoundTitle": { de: "Abspielen der richtigen Antwort ein-/ausschalten (Aus = direkt weiter)", en: "Toggle correct-answer audio (Off = jump straight to next)" },
+  "ex.answerSoundAria": { de: "Lösungston ein-/ausschalten", en: "Toggle correct-answer audio" },
   "ex.listenOnly": { de: "Nur Hören", en: "Listen Only" },
   "ex.listenOnlyTitle": { de: "Nur-Hören-Modus ein-/ausschalten", en: "Toggle Listen-Only Mode" },
   "ex.listenOnlyAria": { de: "Nur-Hören-Modus", en: "Listen-Only Mode" },
@@ -11378,6 +11432,9 @@ const I18N_STATIC_FR = {
   "ex.tonicRefDefault": "Tonique (I)",
   "ex.repeatToneTitle": "Réécouter la note cible",
   "ex.repeatTone": "Réécouter",
+  "ex.answerSoundOn": "Son réponse : Oui",
+  "ex.answerSoundTitle": "Activer/désactiver le son de bonne réponse (Non = passer directement)",
+  "ex.answerSoundAria": "Activer ou couper le son de réponse",
   "ex.listenOnly": "Écoute seule",
   "ex.listenOnlyTitle": "Activer/désactiver le mode Écoute seule",
   "ex.listenOnlyAria": "Mode Écoute seule",
@@ -12870,6 +12927,9 @@ Object.assign(TR_FR, {
   "ÜBERSPRUNGEN • DAS WAR:": "PASSÉ • C’ÉTAIT :",
   "NUR HÖREN • NOTENLESEN": "ÉCOUTE SEULE • LECTURE",
   "Lies zuerst die erste Note links…": "Lisez d’abord la première note à gauche…",
+  "Lösungston: An": "Son réponse : Oui",
+  "Lösungston: Aus": "Son réponse : Non",
+  "Abspielen der richtigen Antwort ein-/ausschalten (Aus = direkt weiter)": "Activer/désactiver le son de bonne réponse (Non = passer directement)",
   "▶ Ankerton": "▶ Repère",
   "▶ Ton anhören": "▶ Écouter la note",
   "NICHT GANZ": "PAS TOUT À FAIT",
@@ -13094,6 +13154,9 @@ const I18N_STATIC_UK = {
   "ex.tonicRefDefault": "Тоніка (I)",
   "ex.repeatToneTitle": "Повторити цільову ноту",
   "ex.repeatTone": "Ще раз ноту",
+  "ex.answerSoundOn": "Звук відп.: Так",
+  "ex.answerSoundTitle": "Увімк./вимк. звук правильної відповіді (Ні = одразу далі)",
+  "ex.answerSoundAria": "Звук правильної відповіді",
   "ex.listenOnly": "Лише слухати",
   "ex.listenOnlyTitle": "Увімкнути або вимкнути режим «Лише слухати»",
   "ex.listenOnlyAria": "Режим «Лише слухати»",
@@ -14632,6 +14695,9 @@ Object.assign(TR_UK, {
   "ÜBERSPRUNGEN • DAS WAR:": "ПРОПУЩЕНО • ЦЕ БУЛА:",
   "NUR HÖREN • NOTENLESEN": "ЛИШЕ СЛУХАТИ • НОТИ",
   "Lies zuerst die erste Note links…": "Спершу прочитай першу ноту зліва…",
+  "Lösungston: An": "Звук відп.: Так",
+  "Lösungston: Aus": "Звук відп.: Ні",
+  "Abspielen der richtigen Antwort ein-/ausschalten (Aus = direkt weiter)": "Увімк./вимк. звук правильної відповіді (Ні = одразу далі)",
   "▶ Ankerton": "▶ Опорний звук",
   "▶ Ton anhören": "▶ Послухати ноту",
   "NICHT GANZ": "НЕ ЗОВСІМ",
@@ -30618,19 +30684,20 @@ const THEME_PALETTE_META = {
 function loadVisualPrefs() {
   try {
     if (typeof localStorage === "undefined") {
-      return { appearance: "light", theme: "waldlichtung", language: "de", autoNextAfterCorrect: true };
+      return { appearance: "light", theme: "waldlichtung", language: "de", autoNextAfterCorrect: true, playCorrectAnswerAudio: true };
     }
     const raw = localStorage.getItem(VISUAL_PREFS_STORAGE_KEY);
-    if (!raw) return { appearance: "light", theme: "waldlichtung", language: "de", autoNextAfterCorrect: true };
+    if (!raw) return { appearance: "light", theme: "waldlichtung", language: "de", autoNextAfterCorrect: true, playCorrectAnswerAudio: true };
     const parsed = JSON.parse(raw);
     return {
       appearance: VALID_APPEARANCES.includes(parsed?.appearance) ? parsed.appearance : "light",
       theme: ALL_VALID_THEMES.includes(parsed?.theme) ? parsed.theme : "waldlichtung",
       language: typeof normalizeAppLanguage === "function" ? normalizeAppLanguage(parsed?.language) : (parsed?.language === "en" ? "en" : "de"),
-      autoNextAfterCorrect: parsed?.autoNextAfterCorrect !== false
+      autoNextAfterCorrect: parsed?.autoNextAfterCorrect !== false,
+      playCorrectAnswerAudio: parsed?.playCorrectAnswerAudio !== false
     };
   } catch (_err) {
-    return { appearance: "light", theme: "waldlichtung", language: "de", autoNextAfterCorrect: true };
+    return { appearance: "light", theme: "waldlichtung", language: "de", autoNextAfterCorrect: true, playCorrectAnswerAudio: true };
   }
 }
 
@@ -30638,15 +30705,23 @@ function saveVisualPrefs(
   appearance,
   theme,
   language = (typeof state !== "undefined" ? state?.settings?.language : null),
-  autoNextAfterCorrect = (typeof state !== "undefined" ? state?.settings?.autoNextAfterCorrect : true)
+  autoNextAfterCorrect = (typeof state !== "undefined" ? state?.settings?.autoNextAfterCorrect : true),
+  playCorrectAnswerAudio = (typeof state !== "undefined" ? state?.settings?.playCorrectAnswerAudio : true)
 ) {
   try {
     if (typeof localStorage === "undefined") return;
     const validLang = typeof normalizeAppLanguage === "function" ? normalizeAppLanguage(language) : (language === "en" ? "en" : "de");
     const validAutoNext = autoNextAfterCorrect !== false;
+    const validAnswerAudio = playCorrectAnswerAudio !== false;
     localStorage.setItem(
       VISUAL_PREFS_STORAGE_KEY,
-      JSON.stringify({ appearance, theme, language: validLang, autoNextAfterCorrect: validAutoNext })
+      JSON.stringify({
+        appearance,
+        theme,
+        language: validLang,
+        autoNextAfterCorrect: validAutoNext,
+        playCorrectAnswerAudio: validAnswerAudio
+      })
     );
   } catch (_err) {
     // Auf eingeschränkten content:// oder privaten WebViews ignorieren
@@ -31496,6 +31571,7 @@ class AppState {
       randomBpm: false,
       loop: false,
       autoNextAfterCorrect: initialVisual.autoNextAfterCorrect,
+      playCorrectAnswerAudio: initialVisual.playCorrectAnswerAudio !== false,
       solfegeAutoNext: initialVisual.autoNextAfterCorrect,
       melodyAutoNext: initialVisual.autoNextAfterCorrect,
       appearance: initialVisual.appearance,
@@ -32118,6 +32194,7 @@ function setLanguagePreference(nextLang) {
     applyStaticDomLanguage(lang);
   }
   syncLanguageControls(lang);
+  syncAnswerSoundToggleUI();
   applyThemeAndAppearance();
 
   const muteBtn = document.getElementById("masterMuteToggle");
@@ -32196,6 +32273,42 @@ function syncAutoNextControls() {
       loopBtn.classList.toggle("btn-active", Boolean(state.settings.loop));
     }
   }
+}
+
+function shouldPlayCorrectAnswerAudio() {
+  return state?.settings?.playCorrectAnswerAudio !== false;
+}
+
+function syncAnswerSoundToggleUI() {
+  const btn = document.getElementById("answerSoundToggleBtn");
+  const lbl = document.getElementById("answerSoundBtnLabel");
+  const enabled = shouldPlayCorrectAnswerAudio();
+  if (btn) {
+    btn.classList.toggle("is-muted", !enabled);
+    btn.setAttribute("aria-pressed", enabled ? "true" : "false");
+    btn.title = tr(
+      "Abspielen der richtigen Antwort ein-/ausschalten (Aus = direkt weiter)",
+      "Toggle correct-answer audio (Off = jump straight to next)"
+    );
+  }
+  if (lbl) {
+    lbl.textContent = enabled
+      ? tr("Lösungston: An", "Answer Audio: On")
+      : tr("Lösungston: Aus", "Answer Audio: Off");
+  }
+}
+
+function setPlayCorrectAnswerAudioPreference(nextEnabled) {
+  const enabled = nextEnabled !== false && nextEnabled !== "off";
+  state.settings.playCorrectAnswerAudio = enabled;
+  saveVisualPrefs(
+    state.settings.appearance,
+    state.settings.theme,
+    state.settings.language,
+    state.settings.autoNextAfterCorrect,
+    enabled
+  );
+  syncAnswerSoundToggleUI();
 }
 
 function setAutoNextPreference(nextEnabled) {
@@ -38987,7 +39100,7 @@ function completeMelodyFreeSlot(ex, currentSlotIdx, triggerEl) {
     if (state.settings.melodyAutoNext) {
       playSequence();
     }
-  }, 1150);
+  }, shouldPlayCorrectAnswerAudio() ? 1150 : 240);
 }
 
 /**
@@ -39112,7 +39225,7 @@ async function handleMelodyKeyClick(clickedKeyDef, keyBtn) {
   keyBtn.classList.add("key-correct");
 
   const isLast = currentSlotIdx >= tot - 1;
-  if (!state.isPlaying) {
+  if (!state.isPlaying && shouldPlayCorrectAnswerAudio()) {
     const beatSec = 60 / (state.activeBpm || 90);
     const rawDur = Math.max(0.22, Math.min(0.95, (slot.durationBeats || 1) * beatSec * 0.86));
     audioEngine.playStep([slot.noteName], isLast ? Math.max(rawDur, 0.55) : rawDur, null, "interval");
@@ -39297,7 +39410,9 @@ async function handleNotationKeyClick(clickedKeyDef, keyBtn, options = {}) {
   audioEngine.stopPlayback();
   state.isPlaying = false;
   updatePlayButtonUI(false);
-  audioEngine.playStep([target.noteName], 0.85, null, "interval");
+  if (isListenOnly || shouldPlayCorrectAnswerAudio()) {
+    audioEngine.playStep([target.noteName], 0.85, null, "interval");
+  }
 
   const streakRes = isListenOnly
     ? { count: state.streakState?.count || 0, isMilestone: false }
@@ -39332,11 +39447,13 @@ function skipNotationNote() {
   ex.notationSkippedCount = (ex.notationSkippedCount || 0) + 1;
   resetExerciseStreakOnAttempt(ex);
 
-  ensureAudioReady().then(() => {
-    if (state.currentView === "exercise" && state.currentExercise === ex && !state.exam?.active) {
-      audioEngine.playStep([target.noteName], 0.72, null, "interval");
-    }
-  }).catch(() => {});
+  if (shouldPlayCorrectAnswerAudio()) {
+    ensureAudioReady().then(() => {
+      if (state.currentView === "exercise" && state.currentExercise === ex && !state.exam?.active) {
+        audioEngine.playStep([target.noteName], 0.72, null, "interval");
+      }
+    }).catch(() => {});
+  }
 
   shiftAndAdvanceNotationQueue(
     ex,
@@ -39442,26 +39559,30 @@ async function handleSolfegeKeyClick(clickedKeyDef, keyBtn, options = {}) {
 
   updatePlayButtonUI(false);
 
-  // Auflösung zur Tonika abspielen (takt-technisch gestaffelt & gekoppelt an state.activeBpm)
-  const resolutionSchedule = buildSolfegeResolutionSchedule(keyboardResolveSeq.length, state.activeBpm);
+  // Auflösung zur Tonika abspielen (falls Lösungston aktiv) oder direkt zur nächsten Note springen
+  const playResolutionAudio = isListenOnly || shouldPlayCorrectAnswerAudio();
+  let autoNextDelayMs = 240;
 
-  keyboardResolveSeq.forEach((kbMidi, idx) => {
-    const soundMidi = audioResolveSeq[idx] !== undefined ? audioResolveSeq[idx] : kbMidi;
-    const step = resolutionSchedule.steps[idx];
-    audioEngine.registerTimer(() => {
-      if (audioEngine.playbackId !== currentId) return;
+  if (playResolutionAudio) {
+    const resolutionSchedule = buildSolfegeResolutionSchedule(keyboardResolveSeq.length, state.activeBpm);
 
-      document.querySelectorAll("#solfegeKeyboardWrap .piano-white-key, #solfegeKeyboardWrap .piano-black-key").forEach(el => {
-        el.classList.toggle("key-correct", parseInt(el.dataset.midi, 10) === kbMidi);
-      });
+    keyboardResolveSeq.forEach((kbMidi, idx) => {
+      const soundMidi = audioResolveSeq[idx] !== undefined ? audioResolveSeq[idx] : kbMidi;
+      const step = resolutionSchedule.steps[idx];
+      audioEngine.registerTimer(() => {
+        if (audioEngine.playbackId !== currentId) return;
 
-      audioEngine.playStep([midiToNote(soundMidi)], step.durationSec, null, "interval");
-    }, step.delayMs);
-  });
+        document.querySelectorAll("#solfegeKeyboardWrap .piano-white-key, #solfegeKeyboardWrap .piano-black-key").forEach(el => {
+          el.classList.toggle("key-correct", parseInt(el.dataset.midi, 10) === kbMidi);
+        });
 
-  // Falls Auto-Weiter oder der Nur-Hören-Modus aktiv ist:
-  // Nach dem Ausklingen der Auflösung automatisch die nächste Abfrage starten!
-  const autoNextDelayMs = resolutionSchedule.totalEndMs + 320;
+        audioEngine.playStep([midiToNote(soundMidi)], step.durationSec, null, "interval");
+      }, step.delayMs);
+    });
+
+    autoNextDelayMs = resolutionSchedule.totalEndMs + 320;
+  }
+
   audioEngine.registerTimer(() => {
     if (audioEngine.playbackId !== currentId) return;
     if ((state.settings.solfegeAutoNext || isListenOnly) && state.currentView === "exercise" && state.settings.mode === "solfege") {
@@ -39608,6 +39729,7 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
       }
     };
 
+    const playRevealAudio = isListenOnly || shouldPlayCorrectAnswerAudio();
     const chordNotes = (ex.type === "interval-chords" || ex.type === "chord-inversions") && Array.isArray(ex.targetItem?.notes)
       ? ex.targetItem.notes
       : null;
@@ -39615,7 +39737,13 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
       ? ex.targetItem.notes
       : null;
 
-    if (chordNotes && chordNotes.length > 0) {
+    if (!playRevealAudio) {
+      const quickPlaybackId = audioEngine.playbackId;
+      audioEngine.registerTimer(() => {
+        if (audioEngine.playbackId !== quickPlaybackId) return;
+        advanceToNextExercise();
+      }, 240);
+    } else if (chordNotes && chordNotes.length > 0) {
       const { stepMs, noteDurSec, lastNoteDurSec, nextExerciseDelayMs } = getChordArpeggioTiming(
         chordNotes.length,
         state.activeBpm
@@ -39759,7 +39887,7 @@ async function handleRhythmDictationChoice(cellKey, btnElement) {
   }
 
   const isLast = currentIdx >= ex.rhythmSlots.length - 1;
-  if (!state.isPlaying && slot.cell.offsets.length > 0) {
+  if (!state.isPlaying && shouldPlayCorrectAnswerAudio() && slot.cell.offsets.length > 0) {
     const beatMs = 60000 / (state.activeBpm || 90);
     const beatEvents = slot.cell.offsets.map(off => [Math.round(off * beatMs), "clave", 0.92]);
     audioEngine.playRhythmSequence(beatEvents);
@@ -39832,7 +39960,7 @@ async function handleRhythmDictationChoice(cellKey, btnElement) {
     if (state.settings.rhythmDictationAutoNext) {
       playSequence();
     }
-  }, 1150);
+  }, shouldPlayCorrectAnswerAudio() ? 1150 : 240);
 }
 
 /**
@@ -40208,7 +40336,7 @@ function finishRhythmTapRound() {
       if (state.currentView !== "exercise" || state.settings.mode !== "rhythm-tap") return;
       generateExercise();
       playSequence();
-    }, 1350);
+    }, shouldPlayCorrectAnswerAudio() ? 1350 : 320);
   }
 
   return res;
@@ -40609,6 +40737,7 @@ function syncListenOnlyUI() {
   if (lbl) {
     lbl.textContent = tr("Nur Hören", "Listen Only");
   }
+  syncAnswerSoundToggleUI();
   updatePlayButtonUI(state.isPlaying);
 }
 
@@ -43532,6 +43661,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Transport-Steuerung in der Übung
+  syncAnswerSoundToggleUI();
+  document.getElementById("answerSoundToggleBtn")?.addEventListener("click", () => {
+    if (state.exam?.active) return;
+    setPlayCorrectAnswerAudioPreference(!(state.settings.playCorrectAnswerAudio !== false));
+  });
   document.getElementById("listenOnlyBtn")?.addEventListener("click", () => {
     if (state.exam?.active) return;
     setListenOnlyMode(!state.listenOnly.active);
@@ -44296,7 +44430,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("click", (e) => {
     const tile = typeof e.target?.closest === "function"
       ? e.target.closest(
-          ".category-nav-card, .subpage-node-btn, .warmup-range-btn, .ref-hub-card, .degree-btn, .opt-btn:not(:disabled), .theme-preview-item, .popover-pill-btn, .k-filter-pill, .knowledge-tab-btn, .tonic-btn, .listen-only-btn, .warmup-phase-pill, .overtone-btn, .category-help-btn, .btn-primary-action, .btn-secondary-action, .module-chip-btn, .btn-tool"
+          ".category-nav-card, .subpage-node-btn, .warmup-range-btn, .ref-hub-card, .degree-btn, .opt-btn:not(:disabled), .theme-preview-item, .popover-pill-btn, .k-filter-pill, .knowledge-tab-btn, .tonic-btn, .answer-sound-btn, .listen-only-btn, .warmup-phase-pill, .overtone-btn, .category-help-btn, .btn-primary-action, .btn-secondary-action, .module-chip-btn, .btn-tool"
         )
       : null;
     if (tile) triggerTilePulse(tile);
@@ -45914,6 +46048,7 @@ function syncExamExerciseControls() {
   const statusEl = document.getElementById("examStatusBar");
   const abortBanner = document.getElementById("examAbortConfirmBanner");
   const postAnswerBar = document.getElementById("examPostAnswerBar");
+  const answerSoundBtn = document.getElementById("answerSoundToggleBtn");
   const listenBtn = document.getElementById("listenOnlyBtn");
   const loopBtn = document.getElementById("loopToggleBtn");
   const keyBtn = document.getElementById("moduleKeyBtn");
@@ -45927,6 +46062,7 @@ function syncExamExerciseControls() {
     postAnswerBar?.classList.add("hidden");
   }
 
+  if (answerSoundBtn) answerSoundBtn.classList.toggle("hidden", isExam);
   if (listenBtn) listenBtn.classList.toggle("hidden", isExam);
   if (loopBtn) loopBtn.classList.toggle("hidden", isExam);
 
