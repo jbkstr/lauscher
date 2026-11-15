@@ -6972,38 +6972,9 @@ body,
   opacity: 0.9;
 }
 
-.notation-target-band {
-  fill: var(--peach-soft);
-  stroke: var(--peach-strong);
-  stroke-width: 1.25;
-  stroke-dasharray: 3 3;
-  opacity: 0.9;
-}
-
-.notation-staff-panel.is-wrong .notation-target-band {
-  fill: rgba(217, 83, 79, 0.14);
-  stroke: var(--status-err);
-}
-
-.notation-staff-panel.is-correct .notation-target-band {
-  fill: var(--sage-soft);
-  stroke: var(--sage-strong);
-}
-
-.notation-target-pointer {
-  fill: var(--peach-strong);
-}
-
-.notation-staff-panel.is-wrong .notation-target-pointer {
-  fill: var(--status-err);
-}
-
-.notation-staff-panel.is-correct .notation-target-pointer {
-  fill: var(--sage-strong);
-}
-
 .notation-note-group.is-target {
-  color: var(--peach-strong);
+  color: var(--raccoon-dark);
+  transition: color 0.16s ease, opacity 0.16s ease;
 }
 
 .notation-staff-panel.is-wrong .notation-note-group.is-target {
@@ -7033,38 +7004,49 @@ body,
   animation: notationQueueShift 0.22s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Kompakte mittlere Bühne in Notation, damit oben viel Raum für Hilfslinien bleibt */
+/* Kompakte, zentrierte mittlere Bühne in Notation ohne Totraum rechts */
 .central-stage.is-notation {
-  width: 100%;
-  max-width: 100%;
-  padding: 0.4rem 0.72rem;
+  width: fit-content;
+  min-width: 184px;
+  max-width: min(84%, 272px);
+  margin: 0 auto;
+  padding: 0.36rem 0.84rem;
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-columns: auto auto;
   grid-template-rows: auto auto auto;
+  justify-content: center;
   align-items: center;
   text-align: left;
-  gap: 0.04rem 0.62rem;
-  min-height: 60px;
+  gap: 0.02rem 0.56rem;
+  min-height: 54px;
+}
+
+.central-stage.is-notation .stage-streak-pill {
+  top: 0.28rem;
+  right: 0.38rem;
+  font-size: 0.54rem;
+  padding: 0.1rem 0.36rem;
 }
 
 .central-stage.is-notation .stage-mascot {
   grid-column: 1;
   grid-row: 1 / 4;
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   margin: 0;
 }
 
 .central-stage.is-notation .stage-sub {
   grid-column: 2;
   grid-row: 1;
-  font-size: 0.56rem;
+  font-size: 0.54rem;
+  padding-right: 1.9rem;
 }
 
 .central-stage.is-notation .stage-main {
   grid-column: 2;
   grid-row: 2;
-  font-size: 1.18rem;
+  font-size: 1.14rem;
   line-height: 1.15;
   margin: 0;
 }
@@ -7072,12 +7054,14 @@ body,
 .central-stage.is-notation .stage-desc {
   grid-column: 2;
   grid-row: 3;
-  font-size: 0.66rem;
-  line-height: 1.25;
+  font-size: 0.64rem;
+  line-height: 1.24;
 }
 
 .central-stage.is-notation .stage-streak-notice {
   grid-column: 1 / -1;
+  justify-self: center;
+  text-align: center;
   margin-top: 0.14rem;
 }
 
@@ -12874,18 +12858,18 @@ Object.assign(TR_FR, {
   "Überspringen": "Passer",
   "NOTENLESEN": "LECTURE DE NOTES",
   "Lies die Note im System und wähle die Taste unten.": "Lisez la note sur la portée et touchez la touche correspondante.",
-  "Wähle die links markierte Note auf der Klaviatur — oder „Überspringen“.": "Touchez la note surlignée à gauche sur le clavier — ou « Passer ».",
+  "Lies die erste Note links — oder tippe „Überspringen“.": "Lisez la première note à gauche — ou touchez « Passer ».",
   "Stammlinien": "5 lignes",
   "Schlüssel-Mix • {clef}": "Mix de clés • {clef}",
   "Stufe {lvl} • {tag}": "Niveau {lvl} • {tag}",
-  "Wähle die links markierte Note auf der Klaviatur:": "Touchez la note surlignée à gauche sur le clavier :",
+  "Wähle die erste Note links auf der Klaviatur:": "Jouez la première note à gauche sur le clavier :",
   "{note}? Nein": "{note} ? Non",
   "Schau genau in den {clef} — oder tippe „Überspringen“.": "Observez bien la {clef} — ou touchez « Passer ».",
   "RICHTIG GELESEN!": "BIEN LU !",
   "{clef} • {ledger}": "{clef} • {ledger}",
   "ÜBERSPRUNGEN • DAS WAR:": "PASSÉ • C’ÉTAIT :",
   "NUR HÖREN • NOTENLESEN": "ÉCOUTE SEULE • LECTURE",
-  "Lies zuerst die markierte Note links…": "Lisez d’abord la note surlignée à gauche…",
+  "Lies zuerst die erste Note links…": "Lisez d’abord la première note à gauche…",
   "▶ Ankerton": "▶ Repère",
   "▶ Ton anhören": "▶ Écouter la note",
   "NICHT GANZ": "PAS TOUT À FAIT",
@@ -14636,18 +14620,18 @@ Object.assign(TR_UK, {
   "Überspringen": "Пропустити",
   "NOTENLESEN": "ЧИТАННЯ НОТ",
   "Lies die Note im System und wähle die Taste unten.": "Прочитай ноту на стані та натисни клавішу внизу.",
-  "Wähle die links markierte Note auf der Klaviatur — oder „Überspringen“.": "Натисни виділену зліва ноту на клавіатурі — або «Пропустити».",
+  "Lies die erste Note links — oder tippe „Überspringen“.": "Прочитай першу ноту зліва — або натисни «Пропустити».",
   "Stammlinien": "5 лінійок",
   "Schlüssel-Mix • {clef}": "Мікс ключів • {clef}",
   "Stufe {lvl} • {tag}": "Рівень {lvl} • {tag}",
-  "Wähle die links markierte Note auf der Klaviatur:": "Натисни виділену зліва ноту на клавіатурі:",
+  "Wähle die erste Note links auf der Klaviatur:": "Натисни першу ноту зліва на клавіатурі:",
   "{note}? Nein": "{note}? Ні",
   "Schau genau in den {clef} — oder tippe „Überspringen“.": "Перевір {clef} уважніше — або натисни «Пропустити».",
   "RICHTIG GELESEN!": "ПРОЧИТАНО ВІРНО!",
   "{clef} • {ledger}": "{clef} • {ledger}",
   "ÜBERSPRUNGEN • DAS WAR:": "ПРОПУЩЕНО • ЦЕ БУЛА:",
   "NUR HÖREN • NOTENLESEN": "ЛИШЕ СЛУХАТИ • НОТИ",
-  "Lies zuerst die markierte Note links…": "Спершу прочитай виділену зліва ноту…",
+  "Lies zuerst die erste Note links…": "Спершу прочитай першу ноту зліва…",
   "▶ Ankerton": "▶ Опорний звук",
   "▶ Ton anhören": "▶ Послухати ноту",
   "NICHT GANZ": "НЕ ЗОВСІМ",
@@ -32584,7 +32568,6 @@ function buildNotationStaffSVG(notes, options = {}) {
   const endX = width - 10;
   const highlightFirst = options.highlightFirst !== false;
   const highlightAll = Boolean(options.highlightAll);
-  const showTargetBand = options.showTargetBand !== false && highlightFirst;
   const showChangeClefs = options.showChangeClefs !== false;
   const didShift = Boolean(options.didShift);
   const clsName = options.className || "notation-staff-svg";
@@ -32615,15 +32598,6 @@ function buildNotationStaffSVG(notes, options = {}) {
     }
   }
 
-  let targetBandHtml = "";
-  if (showTargetBand && positions.length > 0) {
-    const tx = positions[0];
-    targetBandHtml = `
-      <rect class="notation-target-band" x="${tx - 19}" y="15" width="38" height="146" rx="11"/>
-      <polygon class="notation-target-pointer" points="${tx - 5},6 ${tx + 5},6 ${tx},13"/>
-    `;
-  }
-
   const notesHtml = list.map((item, idx) => {
     if (!item) return "";
     const nx = positions[idx] || (startX + 86 + idx * 46);
@@ -32650,7 +32624,8 @@ function buildNotationStaffSVG(notes, options = {}) {
     const stemY1 = ny + (stemDown ? 1 : -1);
     const stemY2 = ny + (stemDown ? 28 : -28);
 
-    const fadeOp = isTarget ? 1 : Math.max(0.7, 0.96 - idx * 0.045);
+    // Realistische Notenschrift ohne Einrahmung: aktive Note vorn leicht klarer (1.0), Folge-Noten minimal ruhiger
+    const fadeOp = isTarget ? 1 : Math.max(0.64, 0.78 - idx * 0.028);
     const grpClass = `notation-note-group ${isTarget ? "is-target" : "is-upcoming"}`;
 
     return `${changeClefHtml}
@@ -32666,7 +32641,6 @@ function buildNotationStaffSVG(notes, options = {}) {
   return `<svg class="${clsName}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${escapeHtml(options.ariaLabel || tr("Notensystem", "Musical staff"))}">
     ${staffLinesHtml}
     ${anchorHighlightHtml}
-    ${targetBandHtml}
     ${clefMarkup}
     <g class="notation-notes-layer${didShift ? " did-shift" : ""}">
       ${notesHtml}
@@ -32687,7 +32661,6 @@ function buildNotationMiniStaffSVG(snapshot) {
     height: 176,
     firstNoteX: 132,
     highlightFirst: true,
-    showTargetBand: false,
     showChangeClefs: false,
     className: "notation-mini-staff-svg"
   });
@@ -32710,7 +32683,6 @@ function buildNotationKnowledgeStaffSVG(clefId, stepsOrSpecs, options = {}) {
     highlightFirst: false,
     highlightAll: Boolean(options.highlightAll),
     highlightAnchorLine: Boolean(options.highlightAnchorLine),
-    showTargetBand: false,
     showLabels: options.showLabels !== false,
     labelShort: Boolean(options.labelShort),
     className: options.className || "notation-knowledge-svg"
@@ -38800,7 +38772,7 @@ function resetCentralStage() {
     document.getElementById("stageMainText").textContent = clefName;
     document.getElementById("stageFunctionText").textContent = state.exam?.active
       ? tr("Lies die Note im System und wähle die Taste unten.", "Read the note on the staff and tap the key below.")
-      : tr("Wähle die links markierte Note auf der Klaviatur — oder „Überspringen“.", "Tap the highlighted left note on the keyboard — or “Skip”.");
+      : tr("Lies die erste Note links — oder tippe „Überspringen“.", "Read the leftmost note — or tap “Skip”.");
     renderStageStreakUI();
     return;
   }
@@ -39200,7 +39172,7 @@ function syncNotationHeaderUI(ex = state.currentExercise) {
     tonicRefLabel.textContent = anchorMap[targetClefId] || anchorMap.treble;
   }
   if (inputPromptText) {
-    inputPromptText.textContent = tr("Wähle die links markierte Note auf der Klaviatur:", "Tap the highlighted left note on the keyboard:");
+    inputPromptText.textContent = tr("Wähle die erste Note links auf der Klaviatur:", "Play the leftmost note on the keyboard:");
   }
 }
 
@@ -39220,7 +39192,6 @@ function renderNotationStaffPanel(ex, didShift = false, targetGrid = document.ge
   const svg = buildNotationStaffSVG(ex.notationQueue, {
     clefId: clefId,
     highlightFirst: true,
-    showTargetBand: true,
     showChangeClefs: Boolean(ex.isMixedClef && !state.exam?.active),
     didShift: Boolean(didShift)
   });
@@ -40940,7 +40911,7 @@ async function playSequence(options = {}) {
       updateStageMascot("question");
       document.getElementById("stageSubtext").textContent = tr("NUR HÖREN • NOTENLESEN", "LISTEN ONLY • SIGHT-READ");
       document.getElementById("stageMainText").textContent = getLocalizedNotationClefName(clefId);
-      document.getElementById("stageFunctionText").textContent = tr("Lies zuerst die markierte Note links…", "Read the highlighted left note first…");
+      document.getElementById("stageFunctionText").textContent = tr("Lies zuerst die erste Note links…", "Read the leftmost note first…");
       audioEngine.registerTimer(() => {
         if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
         state.isPlaying = false;
