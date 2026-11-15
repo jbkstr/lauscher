@@ -6649,6 +6649,232 @@ body,
   justify-content: center;
 }
 
+/* ==========================================
+   MELODIE: RHYTHMISCHE PHRASEN & KOMBI-DIKTAT
+   ========================================== */
+.bars-grid.cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.bars-grid.cols-5 {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.28rem;
+}
+
+.bars-grid.cols-5 .bar-card {
+  padding: 0.34rem 0.14rem;
+}
+
+.bars-grid.cols-5 .bar-roman {
+  font-size: 0.96rem;
+}
+
+.melody-card-head {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3px;
+  padding: 0 2px;
+}
+
+.melody-rhythm-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 1px 5px;
+  border-radius: 999px;
+  background: var(--surface-card);
+  border: 1px solid var(--border-soft);
+  color: var(--raccoon-dark);
+  font-size: 0.6rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.melody-rhythm-chip.is-mystery {
+  color: var(--lilac-strong);
+  background: var(--lilac-soft);
+  border-color: var(--lilac-mid);
+}
+
+.melody-rhythm-chip.is-partial-ok {
+  color: var(--status-ok);
+  background: var(--sage-soft);
+  border-color: var(--sage-strong);
+}
+
+.melody-rest-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 0.56rem;
+  font-weight: 800;
+  color: var(--peach-strong);
+  background: var(--peach-soft);
+  border: 1px solid var(--peach-mid);
+  border-radius: 999px;
+  padding: 0 4px;
+}
+
+.melody-note-svg {
+  display: block;
+  color: inherit;
+  flex-shrink: 0;
+}
+
+.melody-bar-divider {
+  border-left: 2px dashed var(--lilac-mid) !important;
+}
+
+.melody-rhythm-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 10px;
+  margin-bottom: 6px;
+  border-radius: var(--radius-md);
+  background: var(--surface-warm);
+  border: 1.5px solid var(--border-soft);
+}
+
+.melody-rhythm-picker-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--raccoon-mid);
+}
+
+.melody-rhythm-picker-state {
+  color: var(--lilac-strong);
+  font-weight: 800;
+}
+
+.melody-rhythm-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.melody-rhythm-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 6px 4px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-strong);
+  background: var(--surface-card);
+  color: var(--raccoon-dark);
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: 0 2px 0 var(--tactile-edge);
+  transition: transform 0.08s ease, border-color 0.14s ease, background-color 0.14s ease;
+}
+
+.melody-rhythm-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 var(--tactile-edge);
+}
+
+.melody-rhythm-btn-lbl {
+  font-size: 0.67rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.melody-rhythm-btn.is-selected {
+  border-color: var(--lilac-strong);
+  background: var(--lilac-soft);
+  color: var(--lilac-strong);
+}
+
+.melody-rhythm-btn.is-correct {
+  border-color: var(--status-ok);
+  background: var(--sage-soft);
+  color: var(--status-ok);
+}
+
+.melody-rhythm-btn.is-wrong {
+  border-color: var(--status-err);
+  background: var(--key-wrong-bg);
+  color: var(--status-err);
+}
+
+.melody-rhythm-btn.is-recorded {
+  border-color: var(--peach-strong);
+  background: var(--peach-soft);
+  color: var(--peach-strong);
+}
+
+.piano-white-key.key-pending-pair,
+.piano-black-key.key-pending-pair {
+  outline: 2.5px solid var(--lilac-strong);
+  outline-offset: -2px;
+}
+
+.melody-style-card {
+  background: var(--surface-card);
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  padding: 12px 14px;
+  margin-bottom: 14px;
+}
+
+.melody-style-card-title {
+  margin: 0 0 6px 0;
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+}
+
+.melody-style-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.melody-style-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2px;
+  padding: 8px 6px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-soft);
+  background: var(--surface-warm);
+  color: var(--raccoon-mid);
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.14s ease;
+}
+
+.melody-style-tab strong {
+  font-size: 0.77rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+}
+
+.melody-style-tab span {
+  font-size: 0.65rem;
+  line-height: 1.25;
+}
+
+.melody-style-tab.active {
+  border-color: var(--lilac-strong);
+  background: var(--lilac-soft);
+  color: var(--lilac-strong);
+}
+
+.melody-style-tab.active strong {
+  color: var(--lilac-strong);
+}
+
 .hidden, .modal-hidden {
   display: none !important;
 }
@@ -7723,6 +7949,7 @@ body,
             <div class="module-inline-controls">
               <button id="moduleKeyBtn" class="module-chip-btn chip-sage hidden" title="Tonart-Modus wählen" data-i18n-title="ex.keyBtnTitle">C-Dur</button>
               <button id="moduleTimeSigBtn" class="module-chip-btn chip-peach hidden" title="Taktart wählen" data-i18n-title="ex.timeSigBtnTitle">4/4</button>
+              <button id="melodyPulseBtn" class="module-chip-btn chip-sage hidden" type="button" title="Metrum-Puls während der Melodie ein-/ausschalten" data-i18n-title="ex.melodyPulseTitle">Puls: An</button>
               <button id="moduleBpmBtn" class="module-chip-btn chip-lilac" title="Tempo-Schieberegler öffnen" data-i18n-title="ex.bpmBtnTitle">90 BPM</button>
             </div>
           </div>
@@ -7815,6 +8042,7 @@ body,
           </button>
         </div>
         <div id="degreeButtonsGrid" class="degrees-grid"></div>
+        <div id="melodyRhythmPicker" class="melody-rhythm-picker hidden"></div>
         <div id="solfegeKeyboardWrap" class="solfege-keyboard-wrap hidden"></div>
         <div id="rhythmTapPadWrap" class="rhythm-tap-wrap hidden"></div>
 
@@ -9325,13 +9553,18 @@ class AudioEngine {
    * Spielt einen Schritt über alle aktiven Mixer-Kanäle (Klavier, Gitarre, Streicher,
    * Bläser, Stimme sowie Bass bei übergebenem bassNote) gemäß den aktuellen Mixer-Reglern ab.
    */
-  playStep(notes, durationSec = 1.2, bassNote = null, _mode = "cadence") {
+  playStep(notes, durationSec = 1.2, bassNote = null, _mode = "cadence", timingOpts = null) {
     if (!this.isInitialized) return;
     const now = Tone.now();
-    const dur = Math.max(0.2, durationSec);
+    const rawCtxNow = this.piano?.rawCtx?.currentTime ?? Tone.context?.rawContext?.currentTime ?? now;
+    const requestedAt = Number.isFinite(timingOpts?.atTime) ? timingOpts.atTime : now;
+    const at = Math.max(now, rawCtxNow, requestedAt);
+    const velScale = Number.isFinite(timingOpts?.velocity) ? Math.max(0.08, Math.min(1, timingOpts.velocity)) : 1;
+    const minDur = timingOpts ? 0.14 : 0.2;
+    const dur = Math.max(minDur, durationSec);
     const hasNotes = Array.isArray(notes) && notes.length > 0;
     const uniqNotes = hasNotes ? [...new Set(notes)] : [];
-    const chordVel = uniqNotes.length > 0 ? Math.min(1, 1.05 / Math.sqrt(uniqNotes.length)) : undefined;
+    const chordVel = uniqNotes.length > 0 ? Math.min(1, 1.05 / Math.sqrt(uniqNotes.length)) * velScale : velScale;
 
     // Bei zweistimmigen harmonischen Intervallen (z. B. Oktave vs. Prime) verhindert ein minimaler
     // Onset-Versatz mit klarer Oberstimmen-Betonung die Oberton-Verschmelzung am selben Einschwingmoment.
@@ -9342,10 +9575,10 @@ class AudioEngine {
       );
       const rawNow = this.piano?.rawCtx?.currentTime ?? Tone.context?.rawContext?.currentTime ?? 0;
       const onsetGapSec = 0.022;
-      const baseAt = Math.max(now, rawNow + 0.024);
+      const baseAt = Math.max(at, rawNow + 0.024);
       harmonicVoices = [
-        { note: sorted[0], dur, at: baseAt, vel: 0.50 },
-        { note: sorted[1], dur: Math.max(0.2, dur - onsetGapSec), at: baseAt + onsetGapSec, vel: 1.0 }
+        { note: sorted[0], dur, at: baseAt, vel: 0.50 * velScale },
+        { note: sorted[1], dur: Math.max(0.2, dur - onsetGapSec), at: baseAt + onsetGapSec, vel: 1.0 * velScale }
       ];
     }
 
@@ -9357,9 +9590,11 @@ class AudioEngine {
       if (harmonicVoices) {
         harmonicVoices.forEach(v => inst.triggerAttackRelease([v.note], v.dur, v.at, v.vel));
       } else if (isSampled) {
-        inst.triggerAttackRelease(uniqNotes, dur, now, chordVel);
+        inst.triggerAttackRelease(uniqNotes, dur, at, chordVel);
+      } else if (timingOpts?.velocity !== undefined) {
+        inst.triggerAttackRelease(notes, dur, at, velScale);
       } else {
-        inst.triggerAttackRelease(notes, dur, now);
+        inst.triggerAttackRelease(notes, dur, at);
       }
     };
 
@@ -9369,9 +9604,11 @@ class AudioEngine {
 
     if (bassNote && this.bass) {
       if (this.sampledStems.bass) {
-        this.bass.triggerAttackRelease(bassNote, dur, now, 0.95);
+        this.bass.triggerAttackRelease(bassNote, dur, at, 0.95 * velScale);
+      } else if (timingOpts?.velocity !== undefined) {
+        this.bass.triggerAttackRelease(bassNote, dur, at, velScale);
       } else {
-        this.bass.triggerAttackRelease(bassNote, dur, now);
+        this.bass.triggerAttackRelease(bassNote, dur, at);
       }
     }
   }
@@ -9868,6 +10105,7 @@ const I18N_STATIC = {
 
   "ex.keyBtnTitle": { de: "Tonart-Modus wählen", en: "Choose key mode" },
   "ex.timeSigBtnTitle": { de: "Taktart wählen", en: "Choose time signature" },
+  "ex.melodyPulseTitle": { de: "Metrum-Puls während der Melodie ein-/ausschalten", en: "Toggle beat pulse during the melody" },
   "ex.bpmBtnTitle": { de: "Tempo-Schieberegler öffnen", en: "Open tempo slider" },
   "ex.tempoLabel": { de: "Tempo:", en: "Tempo:" },
   "ex.random": { de: "Zufall", en: "Random" },
@@ -10251,7 +10489,7 @@ const MIX_MODES_EN = {
   "interval-chords":       "Chords (Simultaneous)",
   "chord-inversions":      "Chord Inversions",
   "solfege":               "Solfège",
-  "melody":                "4-Note Melody",
+  "melody":                "Melody Phrases",
   "rhythm-meter":          "Rhythm • Time Signature",
   "rhythm-dictation":      "Rhythm • Dictation",
   "rhythm-tap":            "Rhythm • Rhythm Tap",
@@ -10807,6 +11045,7 @@ const I18N_STATIC_FR = {
   "space.examHistoryClear": "Effacer l’historique",
   "ex.keyBtnTitle": "Choisir le mode de tonalité",
   "ex.timeSigBtnTitle": "Choisir la mesure",
+  "ex.melodyPulseTitle": "Activer ou couper la pulsation pendant la mélodie",
   "ex.bpmBtnTitle": "Ouvrir le curseur de tempo",
   "ex.tempoLabel": "Tempo :",
   "ex.random": "Aléatoire",
@@ -11017,7 +11256,7 @@ const MIX_MODES_FR = {
   "interval-chords":       "Accords (Simultanés)",
   "chord-inversions":      "Renversements d’accords",
   "solfege":               "Solfège",
-  "melody":                "Mélodie à 4 notes",
+  "melody":                "Phrases mélodiques",
   "rhythm-meter":          "Rythme • Chiffrage de mesure",
   "rhythm-dictation":      "Rythme • Dictée",
   "rhythm-tap":            "Rythme • Reproduire au pad",
@@ -11565,7 +11804,80 @@ const TR_FR = {
   "Blindflug-Stufe: Während deiner Eingabe ist der Hilfs-Klick deaktiviert": "Mode aveugle : le clic d’aide est coupé pendant votre frappe",
   "Klick: An": "Clic : Activé",
   "Klick: Aus": "Clic : Coupé",
-  "Hilfs-Klick in der Nachklopf-Phase ein- oder ausschalten": "Activer ou couper le clic d’aide pendant la reproduction"
+  "Hilfs-Klick in der Nachklopf-Phase ein- oder ausschalten": "Activer ou couper le clic d’aide pendant la reproduction",
+  "Melodien (4–6 Töne)": "Mélodies (4–6 notes)",
+  "Auswertung am Ende (Blind)": "Évaluation finale (en aveugle)",
+  "Hinweis: Dauerhafter Browser-Speicher ist hier eingeschränkt – deine 3 Themes gelten für diese Sitzung (über .json unten sicherbar).": "Remarque : le stockage persistant du navigateur est limité ici — vos 3 thèmes restent actifs pour cette session (exportables en .json ci-dessous).",
+  "4 gleichlange Halbe": "4 blanches régulières",
+  "4–5 Töne (Do–Fa): Erkenne Tonstufe UND Notenlänge (♪, ♩, ♩., 𝅗𝅥)": "4–5 notes (Do–Fa) : trouvez le degré ET la durée (♪, ♩, ♩., 𝅗𝅥)",
+  "4–6 Töne (Sol–Do): Rhythmus und Tonhöhe gemeinsam im Puls erfassen": "4–6 notes (Sol–Do) : saisissez rythme et hauteur ensemble dans la pulsation",
+  "4–6 Töne über die ganze Tonart – vollständiges Melodiediktat": "4–6 notes sur toute la gamme — dictée mélodique complète",
+  "4–6 Töne • Rhythmus sichtbar": "4–6 notes • Rythme visible",
+  "Achtel": "Croche",
+  "Alle Töne erfasst ✓": "Toutes les notes enregistrées ✓",
+  "Alle Töne, wechselnde Tonarten, Oktavlagen & echte Phrasen-Rhythmik": "Toutes les notes, tonalités aléatoires, registres d’octaves et vraie rythmique de phrase",
+  "Alle {tot} Fragezeichen gelöst – weiter geht’s!": "Les {tot} points d’interrogation résolus — on continue !",
+  "Ausdrucksstarke 4–6-Ton-Melodien über alle Stufen (Do bis Do)": "Mélodies expressives de 4–6 notes sur tous les degrés (de Do à Do)",
+  "EINZÄHLER • {meter}": "DÉCOMPTE • {meter}",
+  "Fühle den Puls… gleich startet die Melodie": "Sentez la pulsation… la mélodie démarre sur le 1",
+  "Gleichmäßig": "Régulier",
+  "Gleichmäßig (Basis)": "Régulier (Bases)",
+  "Halbe": "Blanche",
+  "Hör mit dem Puls genau hin oder probiere „Ton nochmal“!": "Écoutez attentivement avec la pulsation ou essayez « Répéter la note » !",
+  "Höre Tonhöhe & Länge relativ zum Puls!": "Écoutez la hauteur et la durée par rapport à la pulsation !",
+  "Jetzt gesucht: Ton {n} von {tot}": "Recherchée maintenant : note {n} sur {tot}",
+  "Jetzt noch den passenden Notenwert darüber wählen!": "Choisissez maintenant la valeur rythmique correspondante au-dessus !",
+  "Jetzt noch die Tonhöhe unten auf der Klaviatur tippen!": "Touchez maintenant la hauteur sur le clavier ci-dessous !",
+  "Kombi-Diktat": "Dictée combinée",
+  "MELODIE GELÖST! ({tot}/{tot})": "MÉLODIE RÉSOLUE ! ({tot}/{tot})",
+  "MELODIE • TON {n}/{tot}": "MÉLODIE • NOTE {n}/{tot}",
+  "Melodie-Modus wählen": "Choisir le style mélodique",
+  "Melodie-Phrase": "Phrase mélodique",
+  "Melodiediktat": "Dictée mélodique",
+  "Melodiediktat ({bpm} BPM) • Höre Tonhöhe & Länge": "Dictée mélodique ({bpm} BPM) • Hauteur & durée",
+  "Musikalische 4–5-Ton-Phrasen aus Do, Re, Mi und Fa (4/4 & 3/4)": "Phrases musicales de 4–5 notes sur Do, Re, Mi et Fa (4/4 & 3/4)",
+  "Notenwert stimmt schon — wähle noch die Tonhöhe auf der Klaviatur!": "La durée est déjà bonne — choisissez encore la hauteur au clavier !",
+  "Notenwert wählen:": "Choisir la valeur :",
+  "Notenwert ✓ ({val}) — jetzt Tonhöhe": "Durée ✓ ({val}) — puis la hauteur",
+  "Notenwert: {val} — jetzt Tonhöhe wählen": "Valeur : {val} — choisir la hauteur",
+  "Nächste Melodie nach Lösung automatisch abspielen": "Jouer automatiquement la mélodie suivante après résolution",
+  "Pause davor": "Silence avant",
+  "Puls: An": "Pulsation : Oui",
+  "Puls: Aus": "Pulsation : Non",
+  "Punkt. Viertel": "Noire pointée",
+  "Rhythmisch": "Rythmique",
+  "Rhythmische 4–5-Ton-Melodien im unteren Tetrachord (1 Oktave, C-Dur)": "Mélodies rythmées de 4–5 notes dans le tétracorde inférieur (1 octave, Do majeur)",
+  "Rhythmische 4–6-Ton-Melodien im oberen Tetrachord inkl. Leitton Ti": "Mélodies rythmées de 4–6 notes dans le tétracorde supérieur (avec sensible Ti)",
+  "Rhythmische 4–6-Ton-Phrasen Do–Do mit wechselnden Tonarten (1 Oktave)": "Phrases rythmées de 4–6 notes Do–Do dans des tonalités aléatoires (1 octave)",
+  "Rhythmische 4–6-Ton-Phrasen im oberen Raum (Sol, La, Ti, Do)": "Phrases rythmées de 4–6 notes dans l’espace supérieur (Sol, La, Ti, Do)",
+  "Rhythmische Melodie": "Mélodie rythmée",
+  "Rhythmus- & Trainingsart": "Style rythmique & mode",
+  "Stufe 5 • Kombi-Melodiediktat": "Niveau 5 • Dictée mélodique complète",
+  "TON {n} VON {tot} (EINZELN)": "NOTE {n} SUR {tot} (ISOLÉE)",
+  "TON {n} VON {tot} • DEIN TIPP": "NOTE {n} SUR {tot} • VOTRE CHOIX",
+  "TON {n} VON {tot} • NOCH NICHT": "NOTE {n} SUR {tot} • PAS ENCORE",
+  "TON {n} VON {tot} • NOTENWERT NOCH NICHT": "NOTE {n} SUR {tot} • MAUVAISE DURÉE",
+  "TON {n} VON {tot} • NOTENWERT RICHTIG": "NOTE {n} SUR {tot} • DURÉE CORRECTE",
+  "TON {n} VON {tot} • TONHÖHE RICHTIG": "NOTE {n} SUR {tot} • HAUTEUR CORRECTE",
+  "Tippe Ton {step} von {tot} auf der Klaviatur:": "Touchez la note {step} sur {tot} sur le clavier :",
+  "Ton {n} / {tot}: Reihenfolge egal": "Note {n} / {tot} : ordre libre",
+  "Ton {n} / {tot}: Tonhöhe + Notenwert": "Note {n} / {tot} : hauteur + durée",
+  "Ton {step} / {tot}": "Note {step} / {tot}",
+  "Ton ✓ • Wert?": "Note ✓ • Durée ?",
+  "Ton: {syl} — jetzt Notenwert wählen": "Note : {syl} — choisir la valeur",
+  "Tonhöhe & Rhythmus gemeinsam heraushören (4–6 Töne, Do–Do)": "Reconnaître hauteur & rythme ensemble (4–6 notes, Do–Do)",
+  "Tonhöhe + Notenlänge hören": "Hauteur + durée ensemble",
+  "Tonhöhe stimmt schon — wähle noch den Notenwert darüber!": "La hauteur est déjà bonne — choisissez encore la durée au-dessus !",
+  "Tonhöhe ✓ ({syl}) — jetzt Notenwert": "Hauteur ✓ ({syl}) — puis la valeur",
+  "Viertel": "Noire",
+  "Wert ✓ • Ton?": "Durée ✓ • Note ?",
+  "Wie klingt Ton {n} und wie lang ist er? Wähle Tonhöhe & Notenwert.": "Quelle est la hauteur et la durée de la note {n} ? Choisissez les deux.",
+  "Wähle Tonhöhe & Notenwert für Ton {step} von {tot}:": "Choisissez hauteur & valeur pour la note {step} sur {tot} :",
+  "{meter} • Ton {step} / {tot}": "{meter} • Note {step} / {tot}",
+  "{pts}/{tot} Pkt. ({hits} komplett)": "{pts}/{tot} pts ({hits} exactes)",
+  "{rhythm} ({bpm} BPM) • Höre genau hin": "{rhythm} ({bpm} BPM) • Écoutez attentivement",
+  "{tot} / {tot} ERFASST": "{tot} / {tot} ENREGISTRÉES",
+  "{tot} / {tot} gelöst ✓": "{tot} / {tot} résolues ✓"
 };
 
 Object.assign(TR_FR, {
@@ -12368,6 +12680,7 @@ const I18N_STATIC_UK = {
   "space.examHistoryClear": "Очистити історію",
   "ex.keyBtnTitle": "Обрати режим тональності",
   "ex.timeSigBtnTitle": "Обрати музичний розмір",
+  "ex.melodyPulseTitle": "Увімкнути або вимкнути пульс під час мелодії",
   "ex.bpmBtnTitle": "Відкрити повзунок темпу",
   "ex.tempoLabel": "Темп:",
   "ex.random": "Випадкова",
@@ -12581,7 +12894,7 @@ const MIX_MODES_UK = {
   "interval-chords": "Акорди (Одночасні)",
   "chord-inversions": "Обернення акордів",
   "solfege": "Сольфеджіо",
-  "melody": "4-нотні мелодії",
+  "melody": "Мелодичні фрази",
   "rhythm-meter": "Ритм • Розмір",
   "rhythm-dictation": "Ритм • Диктант",
   "rhythm-tap": "Ритм • Повтор на педі",
@@ -13614,7 +13927,78 @@ const TR_UK = {
   "Modulation anhören": "Почути модуляцію",
   "Alle 12 Tonarten im Detail:": "Усі 12 тональностей докладно:",
   "Alle Generalvorzeichen, Dreiklänge & Moll-Varianten auf einen Blick.": "Ключові знаки, тризвуки та три види мінору на одному екрані.",
-  "Tonarten &amp; Vorzeichen →": "Тональності й знаки →"
+  "Tonarten &amp; Vorzeichen →": "Тональності й знаки →",
+  "Melodien (4–6 Töne)": "Мелодії (4–6 нот)",
+  "4 gleichlange Halbe": "4 рівні половинні",
+  "4–5 Töne (Do–Fa): Erkenne Tonstufe UND Notenlänge (♪, ♩, ♩., 𝅗𝅥)": "4–5 нот (Do–Fa): визнач ступінь І тривалість (♪, ♩, ♩., 𝅗𝅥)",
+  "4–6 Töne (Sol–Do): Rhythmus und Tonhöhe gemeinsam im Puls erfassen": "4–6 нот (Sol–Do): сприймай ритм і висоту разом у пульсі",
+  "4–6 Töne über die ganze Tonart – vollständiges Melodiediktat": "4–6 нот по всій тональності — повний мелодичний диктант",
+  "4–6 Töne • Rhythmus sichtbar": "4–6 нот • Ритм видно",
+  "Achtel": "Восьма",
+  "Alle Töne erfasst ✓": "Усі ноти зафіксовано ✓",
+  "Alle Töne, wechselnde Tonarten, Oktavlagen & echte Phrasen-Rhythmik": "Усі ноти, змінні тональності, октавні регістри й жива ритміка фраз",
+  "Alle {tot} Fragezeichen gelöst – weiter geht’s!": "Усі {tot} нот розгадано — рухаємося далі!",
+  "Ausdrucksstarke 4–6-Ton-Melodien über alle Stufen (Do bis Do)": "Виразні мелодії з 4–6 нот по всіх ступенях (Do–Do)",
+  "EINZÄHLER • {meter}": "ВІДЛІК • {meter}",
+  "Fühle den Puls… gleich startet die Melodie": "Відчуй пульс… зараз стартує мелодія",
+  "Gleichmäßig": "Рівномірно",
+  "Gleichmäßig (Basis)": "Рівномірно (База)",
+  "Halbe": "Половинна",
+  "Hör mit dem Puls genau hin oder probiere „Ton nochmal“!": "Прислухайся до пульсу або натисни «Ще раз ноту»!",
+  "Höre Tonhöhe & Länge relativ zum Puls!": "Слухай висоту та тривалість відносно пульсу!",
+  "Jetzt gesucht: Ton {n} von {tot}": "Тепер шукаємо: нота {n} з {tot}",
+  "Jetzt noch den passenden Notenwert darüber wählen!": "Тепер обери відповідну тривалість ноти вгорі!",
+  "Jetzt noch die Tonhöhe unten auf der Klaviatur tippen!": "Тепер натисни висоту звуку на клавіатурі нижче!",
+  "Kombi-Diktat": "Комбо-диктант",
+  "MELODIE GELÖST! ({tot}/{tot})": "МЕЛОДІЮ РОЗГАДАНО! ({tot}/{tot})",
+  "MELODIE • TON {n}/{tot}": "МЕЛОДІЯ • НОТА {n}/{tot}",
+  "Melodie-Modus wählen": "Обрати режим мелодії",
+  "Melodie-Phrase": "Мелодична фраза",
+  "Melodiediktat": "Мелодичний диктант",
+  "Melodiediktat ({bpm} BPM) • Höre Tonhöhe & Länge": "Мелодичний диктант ({bpm} BPM) • Висота й тривалість",
+  "Musikalische 4–5-Ton-Phrasen aus Do, Re, Mi und Fa (4/4 & 3/4)": "Музичні фрази з 4–5 нот із Do, Re, Mi та Fa (4/4 і 3/4)",
+  "Notenwert stimmt schon — wähle noch die Tonhöhe auf der Klaviatur!": "Тривалість вже правильна — обери висоту на клавіатурі!",
+  "Notenwert wählen:": "Обрати тривалість:",
+  "Notenwert ✓ ({val}) — jetzt Tonhöhe": "Тривалість ✓ ({val}) — далі висота",
+  "Notenwert: {val} — jetzt Tonhöhe wählen": "Тривалість: {val} — обери висоту",
+  "Nächste Melodie nach Lösung automatisch abspielen": "Автоматично вмикати наступну мелодію після розв’язання",
+  "Pause davor": "Пауза перед нотою",
+  "Puls: An": "Пульс: Увімк.",
+  "Puls: Aus": "Пульс: Вимк.",
+  "Punkt. Viertel": "Чверть з кр.",
+  "Rhythmisch": "Ритмічно",
+  "Rhythmische 4–5-Ton-Melodien im unteren Tetrachord (1 Oktave, C-Dur)": "Ритмічні мелодії з 4–5 нот у нижньому тетрахорді (1 октава, До мажор)",
+  "Rhythmische 4–6-Ton-Melodien im oberen Tetrachord inkl. Leitton Ti": "Ритмічні мелодії з 4–6 нот у верхньому тетрахорді зі ввідним Ti",
+  "Rhythmische 4–6-Ton-Phrasen Do–Do mit wechselnden Tonarten (1 Oktave)": "Ритмічні фрази з 4–6 нот Do–Do у змінних тональностях (1 октава)",
+  "Rhythmische 4–6-Ton-Phrasen im oberen Raum (Sol, La, Ti, Do)": "Ритмічні фрази з 4–6 нот у верхньому діапазоні (Sol, La, Ti, Do)",
+  "Rhythmische Melodie": "Ритмічна мелодія",
+  "Rhythmus- & Trainingsart": "Стиль ритму та тренування",
+  "Stufe 5 • Kombi-Melodiediktat": "Рівень 5 • Комбінований диктант",
+  "TON {n} VON {tot} (EINZELN)": "НОТА {n} З {tot} (ОКРЕМО)",
+  "TON {n} VON {tot} • DEIN TIPP": "НОТА {n} З {tot} • ТВІЙ ВАРІАНТ",
+  "TON {n} VON {tot} • NOCH NICHT": "НОТА {n} З {tot} • ЩЕ НІ",
+  "TON {n} VON {tot} • NOTENWERT NOCH NICHT": "НОТА {n} З {tot} • НЕ ТА ТРИВАЛІСТЬ",
+  "TON {n} VON {tot} • NOTENWERT RICHTIG": "НОТА {n} З {tot} • ТРИВАЛІСТЬ ПРАВИЛЬНА",
+  "TON {n} VON {tot} • TONHÖHE RICHTIG": "НОТА {n} З {tot} • ВИСОТА ПРАВИЛЬНА",
+  "Tippe Ton {step} von {tot} auf der Klaviatur:": "Натисни ноту {step} з {tot} на клавіатурі:",
+  "Ton {n} / {tot}: Reihenfolge egal": "Нота {n} / {tot}: довільний порядок",
+  "Ton {n} / {tot}: Tonhöhe + Notenwert": "Нота {n} / {tot}: висота + тривалість",
+  "Ton {step} / {tot}": "Нота {step} / {tot}",
+  "Ton ✓ • Wert?": "Висота ✓ • Трив.?",
+  "Ton: {syl} — jetzt Notenwert wählen": "Нота: {syl} — обери тривалість",
+  "Tonhöhe & Rhythmus gemeinsam heraushören (4–6 Töne, Do–Do)": "Визначай висоту і ритм разом (4–6 нот, Do–Do)",
+  "Tonhöhe + Notenlänge hören": "Висота + тривалість разом",
+  "Tonhöhe stimmt schon — wähle noch den Notenwert darüber!": "Висота вже правильна — обери тривалість ноти вгорі!",
+  "Tonhöhe ✓ ({syl}) — jetzt Notenwert": "Висота ✓ ({syl}) — далі тривалість",
+  "Viertel": "Чверть",
+  "Wert ✓ • Ton?": "Трив. ✓ • Висота?",
+  "Wie klingt Ton {n} und wie lang ist er? Wähle Tonhöhe & Notenwert.": "Яка висота й тривалість ноти {n}? Обери обидва параметри.",
+  "Wähle Tonhöhe & Notenwert für Ton {step} von {tot}:": "Обери висоту й тривалість для ноти {step} з {tot}:",
+  "{meter} • Ton {step} / {tot}": "{meter} • Нота {step} / {tot}",
+  "{pts}/{tot} Pkt. ({hits} komplett)": "{pts}/{tot} б. ({hits} повних)",
+  "{rhythm} ({bpm} BPM) • Höre genau hin": "{rhythm} ({bpm} BPM) • Слухай уважно",
+  "{tot} / {tot} ERFASST": "{tot} / {tot} ЗАФІКСОВАНО",
+  "{tot} / {tot} gelöst ✓": "{tot} / {tot} розгадано ✓"
 };
 
 Object.assign(TR_UK, {
@@ -15317,23 +15701,23 @@ const CATEGORY_HELP_GUIDES_EN = {
   melody: {
     tagClass: "tag-lilac",
     tag: "How It Works • Melodies",
-    title: "How Melody Dictation Works",
-    lead: "Turn your Solfège intuition into flowing 4-note phrases: absorb the context cadence, lock in four half notes, and uncover all four question marks step by step.",
+    title: "How Melody Training Works",
+    lead: "Combine your Solfège ear with real musical phrasing and pulse: a steady 4-chord context cadence leads through a 1-bar count-in straight into a 4–6 note melody.",
     sections: `
       <h3>Step-by-Step Round Flow</h3>
       <ul class="article-steps-list">
-        <li><strong>1. Context Cadence &amp; 4 Half Notes:</strong> A quick cadence (<code>I – vi – IV – V</code>) locks your ear into the key, followed right away by four half notes in the melody.</li>
-        <li><strong>2. Solve Question Marks One by One:</strong> Four slots (<code>?</code>) represent Tone 1 through Tone 4. Whenever you hit the matching degree on the 1-octave keyboard, the slot flips into its <strong>Solfège name</strong> (e.g., <code>Do</code>, <code>Mi</code>, <code>Fa</code>) and moves automatically to the next note.</li>
-        <li><strong>3. Replay Without Losing Progress:</strong> Tap <strong>▶ Play</strong> anytime to hear the entire sequence again while already-solved notes remain revealed. Use <strong>Repeat Tone</strong> to isolate only the single tone you are currently solving; ⏭ skips straight to a fresh melody.</li>
-        <li><strong>4. Automatic Advance:</strong> Once all four notes are solved, the next melody loads seamlessly after a brief pause.</li>
+        <li><strong>1. 4-Chord Cadence, Count-In &amp; Beat Pulse:</strong> A fixed 4-chord progression (<code>I – vi – IV – V</code>) grounds your ear in the key, followed by a 1-bar count-in in <code>4/4</code> or <code>3/4</code> before 4–6 musical notes play with eighths, quarters, dotted quarters, half notes, and rests. Use <strong>Pulse: On/Off</strong> to toggle the steady beat click.</li>
+        <li><strong>2. Three Melody Styles:</strong> Choose between <strong>In Time</strong> (note values are shown above the cards while you solve pitch), <strong>Combined Dictation</strong> (solve both pitch <em>and</em> note value — <code>1/8</code>, <code>1/4</code>, <code>1/4.</code>, <code>1/2</code> — in either order), and <strong>Basics (Half Notes)</strong> (4 even half notes for gentle onboarding).</li>
+        <li><strong>3. Step-by-Step Discovery:</strong> As each slot is solved, its <strong>Solfège name</strong> (e.g., <code>Do</code>, <code>Mi</code>, <code>Fa</code>) and note letter appear and focus moves cleanly to the next tone.</li>
+        <li><strong>4. Replay Without Losing Progress:</strong> Tap <strong>▶ Play</strong> anytime to re-hear the full phrase while solved slots stay revealed. Use <strong>Replay Tone</strong> to isolate the active note along with a beat reference click.</li>
       </ul>
 
       <h3>Levels, Key Modes &amp; Octave Span</h3>
       <ul class="article-steps-list">
-        <li><strong>Level 1 – Do–Fa:</strong> Melodies drawn from the lower tetrachord (<code>Do, Re, Mi, Fa</code>).</li>
-        <li><strong>Level 2 – Sol–Do:</strong> Melodies focused on the upper tension half of the scale (<code>Sol, La, Ti, Do</code>).</li>
-        <li><strong>Level 3 – Full Key:</strong> All seven Solfège degrees (<code>Do</code> through <code>Do</code>).</li>
-        <li><strong>C Major vs. Changing Keys &amp; Octaves:</strong> Train each range fixed in <code>C Major</code> or across random keys, and either within 1 octave or with wide octave leaps — while the keyboard itself always stays uncluttered and one-octave friendly.</li>
+        <li><strong>Level 1 – Do–Fa:</strong> 4–5 note phrases drawn from the lower tetrachord (<code>Do, Re, Mi, Fa</code>).</li>
+        <li><strong>Level 2 – Sol–Do:</strong> 4–6 note phrases focused on the upper tension space (<code>Sol, La, Ti, Do</code>).</li>
+        <li><strong>Level 3 – Full Key:</strong> All seven Solfège degrees (<code>Do</code> through <code>Do</code>) across 4–6 notes.</li>
+        <li><strong>C Major vs. Changing Keys &amp; Octaves:</strong> Train fixed in <code>C Major</code> or across changing random keys, and either within 1 octave or with musical register shifts — while the keyboard stays compact and one-octave friendly.</li>
       </ul>
     `
   },
@@ -18679,23 +19063,23 @@ const CATEGORY_HELP_GUIDES_FR = {
   melody: {
     tagClass: "tag-lilac",
     tag: "Mode d’emploi • Mélodies",
-    title: "Comment fonctionne la dictée mélodique",
-    lead: "Transformez votre intuition du solfège en phrases fluides de 4 notes : imprégnez-vous de la cadence de contexte, mémorisez les quatre blanches et dévoilez chaque point d’interrogation pas à pas.",
+    title: "Comment fonctionne l’entraînement mélodique",
+    lead: "Associez votre oreille de solfège au sens du rythme : une cadence fixe de 4 accords enchaîne sur 1 mesure de décompte puis sur une phrase musicale de 4 à 6 notes.",
     sections: `
       <h3>Déroulement d’une manche</h3>
       <ul class="article-steps-list">
-        <li><strong>1. Cadence de contexte &amp; 4 blanches :</strong> Une brève cadence (<code>I – vi – IV – V</code>) installe la tonalité dans votre oreille, immédiatement suivie des quatre blanches de la mélodie.</li>
-        <li><strong>2. Résoudre les points d’interrogation un par un :</strong> Quatre emplacements (<code>?</code>) représentent les notes 1 à 4. À chaque fois que vous jouez le bon degré sur le clavier d’une octave, l’emplacement se retourne sur son <strong>nom de solfège</strong> (ex. <code>Do</code>, <code>Mi</code>, <code>Fa</code>) et avance automatiquement vers la note suivante.</li>
-        <li><strong>3. Réécouter sans perdre votre progression :</strong> Touchez <strong>▶ Écouter</strong> à tout moment pour réentendre toute la phrase tout en gardant les notes déjà trouvées révélées. Utilisez <strong>Répéter la note</strong> pour n’isoler que la note actuellement recherchée ; ⏭ passe à une nouvelle mélodie.</li>
-        <li><strong>4. Enchaînement fluide :</strong> Dès que les quatre notes sont trouvées, la mélodie suivante démarre après une courte pause.</li>
+        <li><strong>1. Cadence à 4 accords, décompte &amp; pulsation :</strong> Une progression d’ancrage (<code>I – vi – IV – V</code>) fixe la tonalité, suivie d’une mesure de décompte en <code>4/4</code> ou <code>3/4</code> avant 4 à 6 notes mêlant croches, noires, noires pointées, blanches et silences. Le bouton <strong>Pulsation : Oui/Non</strong> contrôle le clic rythmique.</li>
+        <li><strong>2. Trois styles au choix :</strong> Choisissez entre <strong>En mesure</strong> (les valeurs rythmiques restent affichées pour se concentrer sur la hauteur), <strong>Dictée combinée</strong> (trouver la hauteur <em>et</em> la durée — <code>1/8</code>, <code>1/4</code>, <code>1/4.</code>, <code>1/2</code> — dans l’ordre de votre choix) et <strong>Bases (blanches)</strong> (4 blanches régulières pour démarrer).</li>
+        <li><strong>3. Résolution pas à pas :</strong> Dès qu’une carte est validée, son <strong>nom de solfège</strong> (<code>Do</code>, <code>Mi</code>, <code>Fa</code>…) et sa note apparaissent avant de passer à la note suivante.</li>
+        <li><strong>4. Réécouter sans rien perdre :</strong> Touchez <strong>▶ Écouter</strong> à tout moment pour réentendre la phrase complète tout en conservant les notes trouvées. <strong>Répéter la note</strong> isole la note en cours avec un clic de tempo de référence.</li>
       </ul>
 
       <h3>Niveaux, tonalités &amp; amplitude d’octave</h3>
       <ul class="article-steps-list">
-        <li><strong>Niveau 1 – Do–Fa :</strong> Mélodies issues du tétracorde inférieur (<code>Do, Re, Mi, Fa</code>).</li>
-        <li><strong>Niveau 2 – Sol–Do :</strong> Mélodies axées sur la moitié supérieure pleine d’élan (<code>Sol, La, Ti, Do</code>).</li>
-        <li><strong>Niveau 3 – Tonalité complète :</strong> Les sept degrés du solfège (de <code>Do</code> à <code>Do</code>).</li>
-        <li><strong>Do majeur vs Tonalités changeantes &amp; Octaves :</strong> Entraînez chaque registre en <code>Do majeur</code> fixe ou dans des tonalités aléatoires, soit sur 1 octave, soit avec de larges sauts d’octaves — tandis que le clavier reste toujours lisible sur une seule octave.</li>
+        <li><strong>Niveau 1 – Do–Fa :</strong> Phrases de 4 à 5 notes issues du tétracorde inférieur (<code>Do, Re, Mi, Fa</code>).</li>
+        <li><strong>Niveau 2 – Sol–Do :</strong> Phrases de 4 à 6 notes sur la moitié supérieure (<code>Sol, La, Ti, Do</code>).</li>
+        <li><strong>Niveau 3 – Tonalité complète :</strong> Les sept degrés du solfège (<code>Do</code> à <code>Do</code>) sur 4 à 6 notes.</li>
+        <li><strong>Do majeur vs Tonalités changeantes &amp; Octaves :</strong> Entraînez-vous en <code>Do majeur</code> fixe ou dans des tonalités aléatoires, sur 1 octave ou avec des changements de registre musicaux.</li>
       </ul>
     `
   },
@@ -22100,22 +22484,22 @@ const CATEGORY_HELP_GUIDES = {
     tagClass: "tag-lilac",
     tag: "Anleitung • Melodien",
     title: "So funktioniert das Melodie-Training",
-    lead: "Hier überträgst du dein Solfège-Gehör auf fließende 4-Ton-Melodien: Höre zuerst die Kontext-Kadenz, präge dir die vier halben Noten ein und enthülle Schritt für Schritt alle vier Fragezeichen.",
+    lead: "Hier verbindest du dein Solfège-Gehör mit echtem Taktgefühl: Auf die feste 4-Akkord-Kadenz folgt ein 1-taktiger Einzähler und eine musikalische Phrase aus 4–6 Tönen.",
     sections: `
       <h3>Ablauf jeder Aufgabe</h3>
       <ul class="article-steps-list">
-        <li><strong>1. Kontext-Kadenz &amp; 4 Halbe Noten:</strong> Zu Beginn richtet eine Kadenz (<code>I – vi – IV – V</code>) dein Ohr auf die Tonart ein. Direkt danach erklingen im gewählten Tempo vier halbe Noten nacheinander.</li>
-        <li><strong>2. Fragezeichen Schritt für Schritt lösen:</strong> Oben stehen vier Felder (<code>?</code>) für Ton 1 bis Ton 4. Sobald du den gesuchten Ton auf der 1-Oktav-Klaviatur richtig triffst, verwandelt sich das Fragezeichen in seinen <strong>Solfège-Namen</strong> (z. B. <code>Do</code>, <code>Mi</code>, <code>Fa</code>) und die Abfrage springt automatisch zum nächsten Ton.</li>
-        <li><strong>3. Wiederholen ohne Fortschrittsverlust:</strong> Mit <strong>▶ Abspielen</strong> hörst du die komplette Aufgabe jederzeit noch einmal, während bereits gelöste Töne sichtbar bleiben. Mit <strong>Ton nochmal</strong> wiederholst du gezielt nur den gerade gesuchten Einzelton; ⏭ springt sofort zur nächsten Aufgabe.</li>
-        <li><strong>4. Automatisch weiter:</strong> Sobald alle vier Fragezeichen richtig benannt sind, geht es nach einem kurzen Moment automatisch zur nächsten Melodie.</li>
+        <li><strong>1. 4-Akkord-Kadenz, Einzähler &amp; Puls:</strong> Zuerst richtet eine Kadenz (<code>I – vi – IV – V</code>) dein Ohr auf die Tonart ein. Direkt danach gibt dir 1 Takt Einzähler den Groove im <code>4/4</code>- oder <code>3/4</code>-Takt vor, bevor die 4–6 Töne mit Achteln, Vierteln, punktierten Vierteln, Halben und Pausen erklingen. Mit <strong>Puls: An/Aus</strong> steuerst du den begleitenden Metrum-Klick.</li>
+        <li><strong>2. Drei wählbare Melodie-Stile:</strong> Auf der Kategorie-Seite wählst du zwischen <strong>Im Takt</strong> (Notenwerte als Hilfsgerüst sichtbar, Fokus auf Tonhöhe), <strong>Kombi-Diktat</strong> (Tonhöhe <em>und</em> Notenwert in beliebiger Reihenfolge lösen) und <strong>Basis (Halbe)</strong> (4 gleichmäßige halbe Noten zum ruhigen Einstieg).</li>
+        <li><strong>3. Ton &amp; Rhythmus Schritt für Schritt lösen:</strong> Sobald ein Feld komplett gelöst ist, erscheinen Solfège-Silbe (z. B. <code>Do</code>, <code>Mi</code>, <code>Fa</code>) und Tonname, und die Abfrage springt automatisch zum nächsten Ton weiter.</li>
+        <li><strong>4. Wiederholen ohne Fortschrittsverlust:</strong> Mit <strong>▶ Abspielen</strong> hörst du die ganze Phrase jederzeit neu; bereits gelöste Felder bleiben erhalten. Mit <strong>Ton nochmal</strong> hörst du gezielt nur den aktuellen Ton samt kurzem Vorpuls für die Längenkontrolle.</li>
       </ul>
 
       <h3>Schwierigkeitsstufen, Tonarten &amp; Oktaven</h3>
       <ul class="article-steps-list">
-        <li><strong>Stufe 1 – Do–Fa:</strong> Melodien aus dem unteren Tetrachord (<code>Do, Re, Mi, Fa</code>).</li>
-        <li><strong>Stufe 2 – Sol–Do:</strong> Melodien aus dem oberen Raum bis zur Oktave (<code>Sol, La, Ti, Do</code>).</li>
-        <li><strong>Stufe 3 – Ganze Tonart:</strong> Alle sieben Solfège-Stufen (<code>Do</code> bis <code>Do</code>).</li>
-        <li><strong>C-Dur vs. Zufallstonarten &amp; Oktaven:</strong> Jede Stufe lässt sich fest in <code>C-Dur</code> oder mit wechselnden Zufallstonarten sowie innerhalb einer Oktave oder mit Oktavsprüngen trainieren – die Klaviatur bleibt dabei immer übersichtlich auf eine Oktave begrenzt.</li>
+        <li><strong>Stufe 1 – Do–Fa:</strong> 4–5-tönige Phrasen aus dem unteren Tetrachord (<code>Do, Re, Mi, Fa</code>).</li>
+        <li><strong>Stufe 2 – Sol–Do:</strong> 4–6-tönige Phrasen aus dem oberen Raum bis zur Oktave (<code>Sol, La, Ti, Do</code>).</li>
+        <li><strong>Stufe 3 – Ganze Tonart:</strong> Alle sieben Solfège-Stufen (<code>Do</code> bis <code>Do</code>) über 4–6 Töne.</li>
+        <li><strong>C-Dur vs. Zufallstonarten &amp; Oktaven:</strong> Jede Stufe lässt sich fest in <code>C-Dur</code> oder mit wechselnden Zufallstonarten sowie innerhalb einer Oktave oder mit zusammenhängenden Registerwechseln trainieren.</li>
       </ul>
     `
   },
@@ -26406,23 +26790,23 @@ const CATEGORY_HELP_GUIDES_UK = {
   melody: {
     tagClass: "tag-lilac",
     tag: "Як це працює • Мелодії",
-    title: "Як працює мелодичний диктант",
-    lead: "Перетвори інтуїцію сольфеджіо на впевнене записування фраз із 4 нот: влові тональність через контекстний каданс, запам’ятай чотири половинні ноти й крок за кроком відкрий усі знаки питання.",
+    title: "Як працює мелодичне тренування",
+    lead: "Поєднай ладовий слух із живим ритмічним диханням: фіксований 4-акордовий каданс переходить в 1-тактовий відлік і музичну фразу з 4–6 нот.",
     sections: `
       <h3>Покроковий перебіг раунду</h3>
       <ul class="article-steps-list">
-        <li><strong>1. Контекстний каданс і 4 половинні ноти:</strong> Короткий каданс (<code>I – vi – IV – V</code>) налаштовує вухо на тональність, після чого одразу звучить мелодія з чотирьох нот.</li>
-        <li><strong>2. Розкривай знаки питання один за одним:</strong> Чотири комірки (<code>?</code>) позначають тони від 1-го до 4-го. Щойно ти натискаєш правильний ступінь на однооктавній клавіатурі, комірка перетворюється на назву <strong>сольфеджіо</strong> (напр. <code>Do</code>, <code>Mi</code>, <code>Fa</code>) й автоматично переходить до наступної ноти.</li>
-        <li><strong>3. Переслуховуй без втрати прогресу:</strong> Натисни <strong>▶ Слухати</strong> будь-коли, щоб знову почути всю фразу, не стираючи вже відгадані ноти. Кнопка <strong>Ще раз ноту</strong> ізолює лише поточну шукану ноту; ⏭ переходить до нової мелодії.</li>
-        <li><strong>4. Автоматичний перехід:</strong> Коли всі чотири ноти розкрито, наступна мелодія стартує автоматично після короткої паузи.</li>
+        <li><strong>1. 4-акордовий каданс, відлік і пульс:</strong> Послідовність <code>I – vi – IV – V</code> фіксує тональність, далі йде 1 такт відліку в розмірі <code>4/4</code> або <code>3/4</code>, а потім 4–6 нот із восьмими, чвертями, чвертями з крапкою, половинними та паузами. Кнопка <strong>Пульс: Увімк./Вимк.</strong> керує метрономним кліком.</li>
+        <li><strong>2. Три стилі мелодій:</strong> На сторінці категорії обирай <strong>У ритмі</strong> (тривалості показані вгорі як опора для фокусу на висоті), <strong>Комбо-диктант</strong> (визначай і висоту, і тривалість — <code>1/8</code>, <code>1/4</code>, <code>1/4.</code>, <code>1/2</code> — у будь-якому порядку) або <strong>База (половинні)</strong> (4 рівні половинні ноти для легкого старту).</li>
+        <li><strong>3. Послідовне розкриття:</strong> Щойно нота повністю розгадана, картка показує назву <strong>сольфеджіо</strong> (<code>Do</code>, <code>Mi</code>, <code>Fa</code> тощо) й фокус переходить далі.</li>
+        <li><strong>4. Переслуховування без втрат:</strong> Натискай <strong>▶ Слухати</strong> будь-коли, щоб почути всю фразу знову без скидання прогресу. <strong>Ще раз ноту</strong> ізолює поточний звук разом із коротким орієнтиром пульсу.</li>
       </ul>
 
       <h3>Рівні, тональності та октавний розмах</h3>
       <ul class="article-steps-list">
-        <li><strong>Рівень 1 — Do–Fa:</strong> Мелодії з нижнього тетрахорду (<code>Do, Re, Mi, Fa</code>).</li>
-        <li><strong>Рівень 2 — Sol–Do:</strong> Мелодії у верхній, більш тяжіючій половині гами (<code>Sol, La, Ti, Do</code>).</li>
-        <li><strong>Рівень 3 — Уся тональність:</strong> Усі сім ступенів сольфеджіо (від <code>Do</code> до <code>Do</code>).</li>
-        <li><strong>Фіксована чи змінна тональність та октави:</strong> Кожен діапазон можна тренувати у фіксованому <code>до мажорі</code> або зі зміною тональностей, в межах 1 октави або зі стрибками між октавами — при цьому сама клавіатура лишається компактною в межах однієї октави.</li>
+        <li><strong>Рівень 1 — Do–Fa:</strong> Фрази з 4–5 нот у нижньому тетрахорді (<code>Do, Re, Mi, Fa</code>).</li>
+        <li><strong>Рівень 2 — Sol–Do:</strong> Фрази з 4–6 нот у верхньому діапазоні (<code>Sol, La, Ti, Do</code>).</li>
+        <li><strong>Рівень 3 — Уся тональність:</strong> Усі сім ступенів сольфеджіо (від <code>Do</code> до <code>Do</code>) у фразах з 4–6 нот.</li>
+        <li><strong>Фіксована чи змінна тональність та октави:</strong> Тренуй кожен діапазон у <code>до мажорі</code> або в різних тональностях, в одній октаві чи зі змінами регістру.</li>
       </ul>
     `
   },
@@ -29197,7 +29581,7 @@ const MIX_MODE_CATALOG = {
   "interval-chords":       { label: "Akkorde (Gleichz.)",           levels: [1, 2, 3, 4] },
   "chord-inversions":      { label: "Akkordumkehrungen",            levels: [1, 2, 3] },
   "solfege":               { label: "Solfège",                      levels: [1, 2, 3, 4, 5, 6] },
-  "melody":                { label: "4-Ton-Melodie",                levels: ["do-fa", "sol-do", "full"] },
+  "melody":                { label: "Melodie-Phrasen",              levels: ["do-fa", "sol-do", "full"] },
   "rhythm-meter":          { label: "Rhythmus • Taktart",           levels: [1, 2, 3] },
   "rhythm-dictation":      { label: "Rhythmus • Diktat",            levels: [1, 2, 3, 4] },
   "rhythm-tap":            { label: "Rhythmus • Nachklopfen",       levels: [1, 2, 3, 4] },
@@ -29471,44 +29855,55 @@ const EXAM_CATEGORY_LEVELS = {
         levelNumber: 1,
         title: { de: "Stufe 1 • Do–Fa (C-Dur)", en: "Level 1 • Do–Fa (C Major)" },
         desc: {
-          de: "4-Ton-Melodien im unteren Tetrachord (1 Oktave, C-Dur)",
-          en: "4-note melodies in the lower tetrachord (single octave, C Major)"
+          de: "Rhythmische 4–5-Ton-Melodien im unteren Tetrachord (1 Oktave, C-Dur)",
+          en: "Rhythmic 4–5 note melodies in the lower tetrachord (single octave, C Major)"
         },
         modes: ["melody"],
-        apply: { melodyRange: "do-fa", melodyKeyMode: "fixed", melodyOctaveMode: "single" }
+        apply: { melodyRange: "do-fa", melodyKeyMode: "fixed", melodyOctaveMode: "single", melodyStyle: "rhythmic", melodyPulse: true }
       },
       {
         id: "melody_l2",
         levelNumber: 2,
         title: { de: "Stufe 2 • Sol–Do (C-Dur)", en: "Level 2 • Sol–Do (C Major)" },
         desc: {
-          de: "4-Ton-Melodien im oberen Tetrachord inkl. Leitton Ti",
-          en: "4-note melodies in the upper tetrachord incl. leading tone Ti"
+          de: "Rhythmische 4–6-Ton-Melodien im oberen Tetrachord inkl. Leitton Ti",
+          en: "Rhythmic 4–6 note melodies in the upper tetrachord incl. leading tone Ti"
         },
         modes: ["melody"],
-        apply: { melodyRange: "sol-do", melodyKeyMode: "fixed", melodyOctaveMode: "single" }
+        apply: { melodyRange: "sol-do", melodyKeyMode: "fixed", melodyOctaveMode: "single", melodyStyle: "rhythmic", melodyPulse: true }
       },
       {
         id: "melody_l3",
         levelNumber: 3,
         title: { de: "Stufe 3 • Ganze Tonart (Zufallstonarten)", en: "Level 3 • Full Scale (Random Keys)" },
         desc: {
-          de: "Voller Umfang Do–Do mit wechselnden Tonarten (1 Oktave)",
-          en: "Full Do–Do octave across randomized keys (single octave)"
+          de: "Rhythmische 4–6-Ton-Phrasen Do–Do mit wechselnden Tonarten (1 Oktave)",
+          en: "Rhythmic 4–6 note phrases Do–Do across randomized keys (single octave)"
         },
         modes: ["melody"],
-        apply: { melodyRange: "full", melodyKeyMode: "random", melodyOctaveMode: "single" }
+        apply: { melodyRange: "full", melodyKeyMode: "random", melodyOctaveMode: "single", melodyStyle: "rhythmic", melodyPulse: true }
       },
       {
         id: "melody_l4",
         levelNumber: 4,
         title: { de: "Stufe 4 • Meister (Mehrere Oktaven)", en: "Level 4 • Master (Multi-Octave)" },
         desc: {
-          de: "Alle Töne, alle Tonarten & Sprünge über mehrere Oktavlagen",
-          en: "Full scale, random keys & octave leaps across registers"
+          de: "Alle Töne, wechselnde Tonarten, Oktavlagen & echte Phrasen-Rhythmik",
+          en: "Full scale, random keys, octave registers & expressive phrase rhythms"
         },
         modes: ["melody"],
-        apply: { melodyRange: "full", melodyKeyMode: "random", melodyOctaveMode: "multi" }
+        apply: { melodyRange: "full", melodyKeyMode: "random", melodyOctaveMode: "multi", melodyStyle: "rhythmic", melodyPulse: true }
+      },
+      {
+        id: "melody_l5",
+        levelNumber: 5,
+        title: { de: "Stufe 5 • Kombi-Melodiediktat", en: "Level 5 • Full Melody Dictation" },
+        desc: {
+          de: "Tonhöhe & Rhythmus gemeinsam heraushören (4–6 Töne, Do–Do)",
+          en: "Identify both pitch & note values together (4–6 notes, Do–Do)"
+        },
+        modes: ["melody"],
+        apply: { melodyRange: "full", melodyKeyMode: "random", melodyOctaveMode: "single", melodyStyle: "dictation", melodyPulse: true }
       }
     ]
   },
@@ -29622,8 +30017,8 @@ function sanitizeExamReviewItem(raw, idx = 0) {
     score: score,
     chosenKey: raw.chosenKey !== undefined && raw.chosenKey !== null ? String(raw.chosenKey).slice(0, 40) : null,
     targetKey: raw.targetKey !== undefined && raw.targetKey !== null ? String(raw.targetKey).slice(0, 40) : null,
-    chosenLabel: String(raw.chosenLabel || "").slice(0, 80),
-    targetLabel: String(raw.targetLabel || "").slice(0, 80),
+    chosenLabel: String(raw.chosenLabel || "").slice(0, 140),
+    targetLabel: String(raw.targetLabel || "").slice(0, 140),
     detailNote: String(raw.detailNote || "").slice(0, 120),
     audioSnapshot: audioSnapshot
   };
@@ -29728,6 +30123,8 @@ function sanitizeMixEntry(raw, fallbackIdx = 0) {
     melodyRange: mode === "melody" ? level : "do-fa",
     melodyKeyMode: raw.melodyKeyMode === "random" ? "random" : "fixed",
     melodyOctaveMode: raw.melodyOctaveMode === "multi" ? "multi" : "single",
+    melodyStyle: ["steady", "rhythmic", "dictation"].includes(raw.melodyStyle) ? raw.melodyStyle : "rhythmic",
+    melodyPulse: raw.melodyPulse === false ? false : true,
     bpm: (bpmNum >= 55 && bpmNum <= 160) ? bpmNum : 0
   };
 }
@@ -29920,6 +30317,8 @@ class AppState {
       melodyRange: "do-fa",      // 'do-fa' | 'sol-do' | 'full'
       melodyKeyMode: "fixed",    // 'fixed' (C-Dur) | 'random' (Zufallstonarten)
       melodyOctaveMode: "single",// 'single' (1 Oktave) | 'multi' (Mehrere Oktaven)
+      melodyStyle: "rhythmic",   // 'steady' (4 gleichlang) | 'rhythmic' (4–6 Töne phrasiert) | 'dictation' (Ton + Rhythmus)
+      melodyPulse: true,         // Dezenter Takt-Puls beim Melodie-Abspielen
       rhythmMeterDifficulty: 1,
       rhythmDictationDifficulty: 1,
       rhythmTapDifficulty: 1,
@@ -30097,10 +30496,16 @@ class AppState {
     this.updateQuickStartLabel();
   }
 
-  setMelodyConfig(range, keyMode, octaveMode) {
+  setMelodyConfig(range, keyMode, octaveMode, style = null, pulse = null) {
     this.settings.melodyRange = MELODY_RANGE_CONFIG[range] ? range : "do-fa";
     this.settings.melodyKeyMode = keyMode === "random" ? "random" : "fixed";
     this.settings.melodyOctaveMode = octaveMode === "multi" ? "multi" : "single";
+    if (["steady", "rhythmic", "dictation"].includes(style)) {
+      this.settings.melodyStyle = style;
+    }
+    if (typeof pulse === "boolean") {
+      this.settings.melodyPulse = pulse;
+    }
     this.updateHeaderSubtext();
     this.updateQuickStartLabel();
   }
@@ -30157,9 +30562,13 @@ class AppState {
       const rangeInfo = getLocalizedMelodyRange(this.settings.melodyRange || "do-fa");
       const keyLabel = this.settings.melodyKeyMode === "random" ? tr("Zufallstonart", "Random Keys") : getKeyDisplayName("C");
       const octLabel = this.settings.melodyOctaveMode === "multi" ? tr("Mehrere Okt.", "Multi-Octave") : tr("1 Oktave", "1 Octave");
+      const mStyle = this.settings.melodyStyle || "rhythmic";
+      const styleTag = mStyle === "dictation"
+        ? tr("Kombi-Diktat", "Full Dictation")
+        : (mStyle === "steady" ? tr("Gleichmäßig", "Steady") : tr("Rhythmisch", "Rhythmic"));
       return includeCategory
-        ? `${tr("Melodien", "Melodies")} • ${rangeInfo.label} (${keyLabel}, ${octLabel})`
-        : `${rangeInfo.label} • ${keyLabel}, ${octLabel}`;
+        ? `${tr("Melodien", "Melodies")} • ${styleTag} • ${rangeInfo.label} (${keyLabel}, ${octLabel})`
+        : `${styleTag} • ${rangeInfo.label} • ${keyLabel}, ${octLabel}`;
     }
     if (this.settings.mode === "solfege") {
       const solfNames = {
@@ -30718,6 +31127,285 @@ const MELODY_RANGE_CONFIG = {
   "sol-do": { label: "Sol–Do",       semitones: [7, 9, 11, 12],             badge: "Sol–Do" },
   "full":   { label: "Ganze Tonart", semitones: [0, 2, 4, 5, 7, 9, 11, 12], badge: "Do–Do" }
 };
+
+const MELODY_RHYTHM_VALUES = {
+  eighth:        { key: "eighth",        beats: 0.5, short: "1/8",  symbol: "♪",  de: "Achtel",         en: "Eighth" },
+  quarter:       { key: "quarter",       beats: 1.0, short: "1/4",  symbol: "♩",  de: "Viertel",        en: "Quarter" },
+  dottedQuarter: { key: "dottedQuarter", beats: 1.5, short: "1/4.", symbol: "♩.", de: "Punkt. Viertel", en: "Dotted 1/4" },
+  half:          { key: "half",          beats: 2.0, short: "1/2",  symbol: "𝅗𝅥",  de: "Halbe",          en: "Half" }
+};
+
+const MELODY_RHYTHM_ORDER = ["eighth", "quarter", "dottedQuarter", "half"];
+
+function getLocalizedMelodyRhythmValue(key) {
+  const def = MELODY_RHYTHM_VALUES[key] || MELODY_RHYTHM_VALUES.quarter;
+  return { ...def, label: tr(def.de, def.en) };
+}
+
+function getMelodyNoteValueSVG(rhythmKey, width = 18, height = 18) {
+  let body = "";
+  const filledHead = `<ellipse cx="8" cy="14" rx="3.4" ry="2.3" transform="rotate(-18 8 14)" fill="currentColor"/>`;
+  const hollowHead = `<ellipse cx="8" cy="14" rx="3.4" ry="2.3" transform="rotate(-18 8 14)" fill="none" stroke="currentColor" stroke-width="1.8"/>`;
+  const stem = `<line x1="11" y1="13.5" x2="11" y2="2.5" stroke="currentColor" stroke-width="1.85" stroke-linecap="round"/>`;
+  if (rhythmKey === "eighth") {
+    body = filledHead + stem + `<path d="M11 2.5 C15 4.2 16 7.5 14 10" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" fill="none"/>`;
+  } else if (rhythmKey === "dottedQuarter") {
+    body = filledHead + stem + `<circle cx="14.5" cy="14.2" r="1.55" fill="currentColor"/>`;
+  } else if (rhythmKey === "half") {
+    body = hollowHead + stem;
+  } else {
+    body = filledHead + stem;
+  }
+  return `<svg class="melody-note-svg" width="${width}" height="${height}" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">${body}</svg>`;
+}
+
+function getMelodyRestSVG(width = 11, height = 14) {
+  return `<svg class="melody-note-svg" width="${width}" height="${height}" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M5 3 L9 7 L5 10.5 L9 14.5 C6 14.5 4.5 16 6.5 17.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>`;
+}
+
+const MELODY_PHRASE_TEMPLATES = [
+  // 4-Ton-Phrasen (ohne Pause, sowohl für Rhythmic als auch Dictation)
+  { id: "p4_44_song1", meter: "4/4", beatsPerBar: 4, totalBeats: 4, hasRest: false, steps: [
+    { offset: 0.0, beats: 1.5, rhythm: "dottedQuarter" },
+    { offset: 1.5, beats: 0.5, rhythm: "eighth" },
+    { offset: 2.0, beats: 1.0, rhythm: "quarter" },
+    { offset: 3.0, beats: 1.0, rhythm: "quarter" }
+  ] },
+  { id: "p4_44_run1", meter: "4/4", beatsPerBar: 4, totalBeats: 4, hasRest: false, steps: [
+    { offset: 0.0, beats: 1.0, rhythm: "quarter" },
+    { offset: 1.0, beats: 0.5, rhythm: "eighth" },
+    { offset: 1.5, beats: 0.5, rhythm: "eighth" },
+    { offset: 2.0, beats: 2.0, rhythm: "half" }
+  ] },
+  { id: "p4_44_lift1", meter: "4/4", beatsPerBar: 4, totalBeats: 4, hasRest: false, steps: [
+    { offset: 0.0, beats: 0.5, rhythm: "eighth" },
+    { offset: 0.5, beats: 0.5, rhythm: "eighth" },
+    { offset: 1.0, beats: 1.0, rhythm: "quarter" },
+    { offset: 2.0, beats: 2.0, rhythm: "half" }
+  ] },
+  { id: "p4_44_sync1", meter: "4/4", beatsPerBar: 4, totalBeats: 4, hasRest: false, steps: [
+    { offset: 0.0, beats: 0.5, rhythm: "eighth" },
+    { offset: 0.5, beats: 1.0, rhythm: "quarter" },
+    { offset: 1.5, beats: 0.5, rhythm: "eighth" },
+    { offset: 2.0, beats: 2.0, rhythm: "half" }
+  ] },
+  { id: "p4_44_breath1", meter: "4/4", beatsPerBar: 4, totalBeats: 8, hasRest: true, steps: [
+    { offset: 0.0, beats: 1.0, rhythm: "quarter" },
+    { offset: 1.0, beats: 2.0, rhythm: "half" },
+    { offset: 4.0, beats: 2.0, rhythm: "half", restBefore: 1.0 },
+    { offset: 6.0, beats: 2.0, rhythm: "half" }
+  ] },
+  { id: "p4_34_sarabande", meter: "3/4", beatsPerBar: 3, totalBeats: 6, hasRest: false, steps: [
+    { offset: 0.0, beats: 2.0, rhythm: "half" },
+    { offset: 2.0, beats: 1.0, rhythm: "quarter" },
+    { offset: 3.0, beats: 1.0, rhythm: "quarter" },
+    { offset: 4.0, beats: 2.0, rhythm: "half" }
+  ] },
+
+  // 5-Ton-Phrasen
+  { id: "p5_44_flow1", meter: "4/4", beatsPerBar: 4, totalBeats: 4, hasRest: false, steps: [
+    { offset: 0.0, beats: 1.0, rhythm: "quarter" },
+    { offset: 1.0, beats: 0.5, rhythm: "eighth" },
+    { offset: 1.5, beats: 0.5, rhythm: "eighth" },
+    { offset: 2.0, beats: 1.0, rhythm: "quarter" },
+    { offset: 3.0, beats: 1.0, rhythm: "quarter" }
+  ] },
+  { id: "p5_44_drive", meter: "4/4", beatsPerBar: 4, totalBeats: 4, hasRest: false, steps: [
+    { offset: 0.0, beats: 0.5, rhythm: "eighth" },
+    { offset: 0.5, beats: 0.5, rhythm: "eighth" },
+    { offset: 1.0, beats: 0.5, rhythm: "eighth" },
+    { offset: 1.5, beats: 0.5, rhythm: "eighth" },
+    { offset: 2.0, beats: 2.0, rhythm: "half" }
+  ] },
+  { id: "p5_44_arc", meter: "4/4", beatsPerBar: 4, totalBeats: 8, hasRest: false, steps: [
+    { offset: 0.0, beats: 1.5, rhythm: "dottedQuarter" },
+    { offset: 1.5, beats: 0.5, rhythm: "eighth" },
+    { offset: 2.0, beats: 2.0, rhythm: "half" },
+    { offset: 4.0, beats: 2.0, rhythm: "half" },
+    { offset: 6.0, beats: 2.0, rhythm: "half" }
+  ] },
+  { id: "p5_44_pausePhrase", meter: "4/4", beatsPerBar: 4, totalBeats: 8, hasRest: true, steps: [
+    { offset: 0.0, beats: 1.5, rhythm: "dottedQuarter" },
+    { offset: 1.5, beats: 0.5, rhythm: "eighth" },
+    { offset: 2.0, beats: 1.0, rhythm: "quarter" },
+    { offset: 4.0, beats: 2.0, rhythm: "half", restBefore: 1.0 },
+    { offset: 6.0, beats: 2.0, rhythm: "half" }
+  ] },
+  { id: "p5_34_waltz", meter: "3/4", beatsPerBar: 3, totalBeats: 6, hasRest: false, steps: [
+    { offset: 0.0, beats: 1.5, rhythm: "dottedQuarter" },
+    { offset: 1.5, beats: 0.5, rhythm: "eighth" },
+    { offset: 2.0, beats: 1.0, rhythm: "quarter" },
+    { offset: 3.0, beats: 1.0, rhythm: "quarter" },
+    { offset: 4.0, beats: 2.0, rhythm: "half" }
+  ] },
+
+  // 6-Ton-Phrasen
+  { id: "p6_44_qa", meter: "4/4", beatsPerBar: 4, totalBeats: 8, hasRest: false, steps: [
+    { offset: 0.0, beats: 1.0, rhythm: "quarter" },
+    { offset: 1.0, beats: 0.5, rhythm: "eighth" },
+    { offset: 1.5, beats: 0.5, rhythm: "eighth" },
+    { offset: 2.0, beats: 2.0, rhythm: "half" },
+    { offset: 4.0, beats: 2.0, rhythm: "half" },
+    { offset: 6.0, beats: 2.0, rhythm: "half" }
+  ] },
+  { id: "p6_44_chant", meter: "4/4", beatsPerBar: 4, totalBeats: 8, hasRest: true, steps: [
+    { offset: 0.0, beats: 1.0, rhythm: "quarter" },
+    { offset: 1.0, beats: 1.0, rhythm: "quarter" },
+    { offset: 2.0, beats: 1.0, rhythm: "quarter" },
+    { offset: 4.0, beats: 1.5, rhythm: "dottedQuarter", restBefore: 1.0 },
+    { offset: 5.5, beats: 0.5, rhythm: "eighth" },
+    { offset: 6.0, beats: 2.0, rhythm: "half" }
+  ] },
+  { id: "p6_44_eighths", meter: "4/4", beatsPerBar: 4, totalBeats: 4, hasRest: false, steps: [
+    { offset: 0.0, beats: 1.0, rhythm: "quarter" },
+    { offset: 1.0, beats: 0.5, rhythm: "eighth" },
+    { offset: 1.5, beats: 0.5, rhythm: "eighth" },
+    { offset: 2.0, beats: 0.5, rhythm: "eighth" },
+    { offset: 2.5, beats: 0.5, rhythm: "eighth" },
+    { offset: 3.0, beats: 1.0, rhythm: "quarter" }
+  ] },
+  { id: "p6_34_song", meter: "3/4", beatsPerBar: 3, totalBeats: 6, hasRest: false, steps: [
+    { offset: 0.0, beats: 1.5, rhythm: "dottedQuarter" },
+    { offset: 1.5, beats: 0.5, rhythm: "eighth" },
+    { offset: 2.0, beats: 1.0, rhythm: "quarter" },
+    { offset: 3.0, beats: 0.5, rhythm: "eighth" },
+    { offset: 3.5, beats: 0.5, rhythm: "eighth" },
+    { offset: 4.0, beats: 2.0, rhythm: "half" }
+  ] }
+];
+
+function pickMelodyPhraseTemplate(range, style) {
+  if (style === "steady") {
+    return {
+      id: "steady_4_half",
+      meter: "4/4",
+      beatsPerBar: 4,
+      totalBeats: 8,
+      hasRest: false,
+      steps: [
+        { offset: 0, beats: 2, rhythm: "half" },
+        { offset: 2, beats: 2, rhythm: "half" },
+        { offset: 4, beats: 2, rhythm: "half" },
+        { offset: 6, beats: 2, rhythm: "half" }
+      ]
+    };
+  }
+  const allowedCounts = range === "do-fa" ? [4, 5] : [4, 5, 6];
+  const allowRests = style !== "dictation";
+  const candidates = MELODY_PHRASE_TEMPLATES.filter(t =>
+    allowedCounts.includes(t.steps.length) && (allowRests || !t.hasRest)
+  );
+  const pool = candidates.length > 0 ? candidates : MELODY_PHRASE_TEMPLATES;
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+
+function generateMusicalMelodySteps(pool, template, isMultiOctave, rootMidi) {
+  const count = template.steps.length;
+  const maxIdx = pool.length - 1;
+  const pickWeightedIdx = (items) => {
+    const totalW = items.reduce((s, x) => s + x.w, 0);
+    let r = Math.random() * totalW;
+    for (let i = 0; i < items.length; i++) {
+      r -= items[i].w;
+      if (r <= 0) return items[i].idx;
+    }
+    return items[items.length - 1].idx;
+  };
+
+  // Startton: stabiler Ruheton im Tonvorrat (Do, Mi, Sol, Do2) bevorzugt
+  const anchorKeys = new Set(["Do", "Mi", "Sol", "Do2"]);
+  const startCandidates = pool.map((st, idx) => ({
+    idx,
+    w: anchorKeys.has(st.key) ? 3.2 : 1.0
+  }));
+  const indices = [pickWeightedIdx(startCandidates)];
+  let lastMove = 0;
+
+  for (let i = 1; i < count; i++) {
+    const prevIdx = indices[i - 1];
+    const stepTiming = template.steps[i];
+    const isLast = i === count - 1;
+    const isFast = stepTiming.beats <= 0.5;
+    const candidates = [];
+
+    for (let cIdx = 0; cIdx <= maxIdx; cIdx++) {
+      const diff = cIdx - prevIdx;
+      const absDiff = Math.abs(diff);
+      let w = 0.3;
+
+      if (absDiff === 0) {
+        // Tonwiederholungen besonders auf schnellen Achteln musikalisch natürlich, sonst sparsam
+        w = isFast && i < count - 1 ? 1.8 : 0.45;
+      } else if (absDiff === 1) {
+        // Stufenweise Sekund-Bewegung bildet das Rückgrat singbarer Melodien
+        w = 4.6;
+        if (Math.abs(lastMove) >= 2 && Math.sign(diff) !== Math.sign(lastMove)) {
+          w *= 1.85; // Gegenbewegung nach Sprung
+        }
+      } else if (absDiff === 2) {
+        // Terzsprung
+        w = 2.1;
+        if (Math.abs(lastMove) >= 2 && Math.sign(diff) === Math.sign(lastMove)) {
+          w *= 0.45;
+        }
+      } else if (absDiff === 3) {
+        w = 0.9;
+      } else {
+        w = 0.35;
+      }
+
+      // Phrasenschluss: ruhende Endung (Do, Mi, Sol) oder offener Halbschluss (Re, Sol) bevorzugen
+      if (isLast) {
+        const key = pool[cIdx].key;
+        if (key === "Do" || key === "Do2" || key === "Sol") w *= 2.4;
+        else if (key === "Mi" || key === "Re") w *= 1.5;
+        if (absDiff === 0 && stepTiming.beats >= 1.5) w *= 0.35;
+      }
+
+      candidates.push({ idx: cIdx, w });
+    }
+
+    const pickedIdx = pickWeightedIdx(candidates);
+    lastMove = pickedIdx - prevIdx;
+    indices.push(pickedIdx);
+  }
+
+  // Sicherstellen, dass nicht alle Töne identisch sind
+  if (pool.length > 1 && indices.every(idx => idx === indices[0])) {
+    indices[count - 1] = indices[0] > 0 ? indices[0] - 1 : 1;
+  }
+
+  // Mehr-Oktav-Modus: zusammenhängende Register-Abschnitte statt wildem Zickzack
+  const octaveShifts = new Array(count).fill(0);
+  if (isMultiOctave) {
+    const regChoices = [-12, 0, 12];
+    let curShift = regChoices[Math.floor(Math.random() * regChoices.length)];
+    for (let i = 0; i < count; i++) {
+      const valid = getValidOctaveShifts(rootMidi + pool[indices[i]].semitones);
+      if (!valid.includes(curShift)) {
+        curShift = valid.includes(0) ? 0 : valid[0];
+      }
+      // Optionale Register-Verlagerung an einer Phrasenmitte / Auftaktstelle
+      if (i === Math.floor(count / 2) && Math.random() < 0.72) {
+        const alt = valid.filter(s => s !== curShift);
+        if (alt.length > 0) curShift = alt[Math.floor(Math.random() * alt.length)];
+      }
+      octaveShifts[i] = curShift;
+    }
+    if (octaveShifts.every(s => s === 0)) {
+      const idx = Math.floor(Math.random() * count);
+      const nonZero = getValidOctaveShifts(rootMidi + pool[indices[idx]].semitones).filter(s => s !== 0);
+      if (nonZero.length > 0) {
+        octaveShifts[idx] = nonZero[Math.floor(Math.random() * nonZero.length)];
+      }
+    }
+  }
+
+  return indices.map((poolIdx, i) => ({
+    step: pool[poolIdx],
+    octaveShift: octaveShifts[i]
+  }));
+}
 
 function buildContextCadenceBars(rootMidi) {
   return ["I", "vi", "IV", "V"].map(degKey => {
@@ -33341,22 +34029,47 @@ function openCategoryPage(categoryKey, options = {}) {
     });
 
   } else if (categoryKey === "melody") {
-    const MELODY_SECTIONS = [
+    const activeStyle = ["steady", "rhythmic", "dictation"].includes(state.settings.melodyStyle)
+      ? state.settings.melodyStyle
+      : "rhythmic";
+    const styleDefs = [
       {
-        range: "do-fa",
-        title: tr("Stufe 1: Do – Fa", "Level 1: Do – Fa"),
-        desc: tr("4 halbe Noten aus Do, Re, Mi und Fa – ideal für den Einstieg", "4 half notes from Do, Re, Mi, and Fa — ideal for getting started")
+        id: "rhythmic",
+        title: tr("Rhythmische Melodie", "Rhythmic Melody"),
+        sub: tr("4–6 Töne • Rhythmus sichtbar", "4–6 notes • Rhythm visible")
       },
       {
-        range: "sol-do",
-        title: tr("Stufe 2: Sol – Do", "Level 2: Sol – Do"),
-        desc: tr("4 halbe Noten im oberen Spannungsraum (Sol, La, Ti, Do)", "4 half notes in the upper tetrachord (Sol, La, Ti, Do)")
+        id: "dictation",
+        title: tr("Kombi-Diktat", "Full Dictation"),
+        sub: tr("Tonhöhe + Notenlänge hören", "Pitch + note length together")
       },
       {
-        range: "full",
-        title: tr("Stufe 3: Ganze Tonart", "Level 3: Full Key"),
-        desc: tr("4 halbe Noten über alle sieben Solfège-Stufen (Do bis Do)", "4 half notes across all seven Solfège degrees (Do to Do)")
+        id: "steady",
+        title: tr("Gleichmäßig (Basis)", "Steady (Basics)"),
+        sub: tr("4 gleichlange Halbe", "4 steady half notes")
       }
+    ];
+
+    const getMelodyRangeDesc = (range, style) => {
+      if (style === "steady") {
+        if (range === "do-fa") return tr("4 halbe Noten aus Do, Re, Mi und Fa – ideal für den Einstieg", "4 half notes from Do, Re, Mi, and Fa — ideal for getting started");
+        if (range === "sol-do") return tr("4 halbe Noten im oberen Spannungsraum (Sol, La, Ti, Do)", "4 half notes in the upper tetrachord (Sol, La, Ti, Do)");
+        return tr("4 halbe Noten über alle sieben Solfège-Stufen (Do bis Do)", "4 half notes across all seven Solfège degrees (Do to Do)");
+      }
+      if (style === "dictation") {
+        if (range === "do-fa") return tr("4–5 Töne (Do–Fa): Erkenne Tonstufe UND Notenlänge (♪, ♩, ♩., 𝅗𝅥)", "4–5 notes (Do–Fa): identify pitch AND note duration (♪, ♩, ♩., 𝅗𝅥)");
+        if (range === "sol-do") return tr("4–6 Töne (Sol–Do): Rhythmus und Tonhöhe gemeinsam im Puls erfassen", "4–6 notes (Sol–Do): capture rhythm and pitch together in pulse");
+        return tr("4–6 Töne über die ganze Tonart – vollständiges Melodiediktat", "4–6 notes across the full scale — complete melody dictation");
+      }
+      if (range === "do-fa") return tr("Musikalische 4–5-Ton-Phrasen aus Do, Re, Mi und Fa (4/4 & 3/4)", "Musical 4–5 note phrases from Do, Re, Mi, and Fa (4/4 & 3/4)");
+      if (range === "sol-do") return tr("Rhythmische 4–6-Ton-Phrasen im oberen Raum (Sol, La, Ti, Do)", "Rhythmic 4–6 note phrases in the upper tetrachord (Sol, La, Ti, Do)");
+      return tr("Ausdrucksstarke 4–6-Ton-Melodien über alle Stufen (Do bis Do)", "Expressive 4–6 note melodies across all scale degrees (Do to Do)");
+    };
+
+    const MELODY_SECTIONS = [
+      { range: "do-fa",  title: tr("Stufe 1: Do – Fa", "Level 1: Do – Fa") },
+      { range: "sol-do", title: tr("Stufe 2: Sol – Do", "Level 2: Sol – Do") },
+      { range: "full",   title: tr("Stufe 3: Ganze Tonart", "Level 3: Full Key") }
     ];
 
     const MELODY_VARIANTS = [
@@ -33366,24 +34079,53 @@ function openCategoryPage(categoryKey, options = {}) {
       { keyMode: "random", octave: "multi",  circle: "circle-lilac", badge: "? • ∞", title: tr("Zufallstonarten (Mehrere Okt.)", "Random Keys (Multi-Octave)"), sub: tr("Wechselnde Tonarten & Oktaven", "Changing keys & octaves") }
     ];
 
-    container.innerHTML = MELODY_SECTIONS.map(sec => `
-      <div class="subpage-section">
-        <h3 class="subpage-section-title">${sec.title}</h3>
-        <p class="subpage-section-desc">${sec.desc}</p>
-        <div class="subpage-nodes-grid">
-          ${MELODY_VARIANTS.map(v => `
-            <button class="subpage-node-btn"
-              data-launch-melody="${sec.range}"
-              data-melody-key="${v.keyMode}"
-              data-melody-octave="${v.octave}">
-              <div class="node-circle ${v.circle}">${v.badge}</div>
-              <span class="node-title">${v.title}</span>
-              <span class="node-sub">${v.sub}</span>
+    const renderMelodyBody = (selectedStyle) => `
+      <div class="melody-style-card">
+        <p class="melody-style-card-title">${tr("Rhythmus- & Trainingsart", "Rhythm & Exercise Mode")}</p>
+        <div class="melody-style-tabs" role="tablist" aria-label="${escapeHtml(tr("Melodie-Modus wählen", "Select melody mode"))}">
+          ${styleDefs.map(sd => `
+            <button type="button" class="melody-style-tab ${selectedStyle === sd.id ? "active" : ""}" data-melody-style-pick="${sd.id}">
+              <strong>${sd.title}</strong>
+              <span>${sd.sub}</span>
             </button>
           `).join("")}
         </div>
       </div>
-    `).join("");
+      ${MELODY_SECTIONS.map(sec => `
+        <div class="subpage-section">
+          <h3 class="subpage-section-title">${sec.title}</h3>
+          <p class="subpage-section-desc" data-melody-sec-desc="${sec.range}">${getMelodyRangeDesc(sec.range, selectedStyle)}</p>
+          <div class="subpage-nodes-grid">
+            ${MELODY_VARIANTS.map(v => `
+              <button class="subpage-node-btn"
+                data-launch-melody="${sec.range}"
+                data-melody-key="${v.keyMode}"
+                data-melody-octave="${v.octave}">
+                <div class="node-circle ${v.circle}">${v.badge}</div>
+                <span class="node-title">${v.title}</span>
+                <span class="node-sub">${v.sub}</span>
+              </button>
+            `).join("")}
+          </div>
+        </div>
+      `).join("")}
+    `;
+
+    container.innerHTML = renderMelodyBody(activeStyle);
+
+    container.querySelectorAll("[data-melody-style-pick]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const nextStyle = btn.dataset.melodyStylePick;
+        state.settings.melodyStyle = ["steady", "rhythmic", "dictation"].includes(nextStyle) ? nextStyle : "rhythmic";
+        container.querySelectorAll("[data-melody-style-pick]").forEach(b => {
+          b.classList.toggle("active", b === btn);
+        });
+        MELODY_SECTIONS.forEach(sec => {
+          const pEl = container.querySelector(`[data-melody-sec-desc="${sec.range}"]`);
+          if (pEl) pEl.textContent = getMelodyRangeDesc(sec.range, state.settings.melodyStyle);
+        });
+      });
+    });
 
     container.querySelectorAll("[data-launch-melody]").forEach(btn => {
       btn.addEventListener("click", () => {
@@ -33391,7 +34133,8 @@ function openCategoryPage(categoryKey, options = {}) {
         state.setMelodyConfig(
           btn.dataset.launchMelody,
           btn.dataset.melodyKey,
-          btn.dataset.melodyOctave
+          btn.dataset.melodyOctave,
+          state.settings.melodyStyle
         );
         state.exerciseReturnView = "category";
         switchView("exercise");
@@ -34616,6 +35359,7 @@ function generateSolfegeExercise(rootMidi) {
  * - Oben stehen 4 Fragezeichen (?), die Schritt für Schritt durch die erkannten Solfège-Namen ersetzt werden
  */
 function generateMelodyExercise(rootMidi) {
+  const melodyStyle = state.settings.melodyStyle || "rhythmic";
   const range = state.settings.melodyRange || "do-fa";
   const rangeCfg = getLocalizedMelodyRange(range) || getLocalizedMelodyRange("do-fa");
   const isMultiOctave = state.settings.melodyOctaveMode === "multi";
@@ -34623,30 +35367,29 @@ function generateMelodyExercise(rootMidi) {
   const allowedSemitones = new Set(rangeCfg.semitones);
   const pool = SOLFEGE_SCALE_STEPS.filter(step => allowedSemitones.has(step.semitones));
 
-  const pickedSteps = Array.from({ length: 4 }, () => pool[Math.floor(Math.random() * pool.length)]);
-  if (pool.length > 1 && pickedSteps.every(s => s.key === pickedSteps[0].key)) {
-    const others = pool.filter(s => s.key !== pickedSteps[0].key);
-    pickedSteps[3] = others[Math.floor(Math.random() * others.length)];
-  }
+  const template = pickMelodyPhraseTemplate(range, melodyStyle);
+  const generatedSteps = generateMusicalMelodySteps(pool, template, isMultiOctave, rootMidi);
 
   const preferFlat = FLAT_KEYS.has(state.currentKey);
-  const octaveShifts = pickedSteps.map(step => {
-    if (!isMultiOctave) return 0;
-    const valid = getValidOctaveShifts(rootMidi + step.semitones);
-    return valid[Math.floor(Math.random() * valid.length)] ?? 0;
-  });
+  const beatsPerBar = template.beatsPerBar || 4;
 
-  if (isMultiOctave && octaveShifts.every(s => s === 0)) {
-    const idx = Math.floor(Math.random() * 4);
-    const nonZero = getValidOctaveShifts(rootMidi + pickedSteps[idx].semitones).filter(s => s !== 0);
-    if (nonZero.length) {
-      octaveShifts[idx] = nonZero[Math.floor(Math.random() * nonZero.length)];
-    }
-  }
+  const melodySlots = generatedSteps.map((entry, idx) => {
+    const step = entry.step;
+    const stepTiming = template.steps[idx] || { offset: idx * 2, beats: 2, rhythm: "half" };
+    const beatOffset = Number(stepTiming.offset) || 0;
+    const durationBeats = Number(stepTiming.beats) || 2;
+    const rhythmKey = stepTiming.rhythm || "half";
+    const barIndex = Math.floor((beatOffset + 0.0001) / beatsPerBar);
+    const prevBarIndex = idx > 0
+      ? Math.floor(((template.steps[idx - 1]?.offset || 0) + 0.0001) / beatsPerBar)
+      : 0;
+    const beatInBar = beatOffset - barIndex * beatsPerBar;
+    const isDownbeat = Math.abs(beatInBar) < 0.01;
+    const isOnBeat = Math.abs(beatInBar - Math.round(beatInBar)) < 0.05;
+    const velocity = isDownbeat ? 0.96 : (isOnBeat ? 0.84 : 0.72);
 
-  const melodySlots = pickedSteps.map((step, idx) => {
     const keyboardMidi = rootMidi + step.semitones;
-    const playedMidi = keyboardMidi + octaveShifts[idx];
+    const playedMidi = keyboardMidi + (entry.octaveShift || 0);
     return {
       index: idx,
       key: step.key,
@@ -34656,6 +35399,16 @@ function generateMelodyExercise(rootMidi) {
       playedMidi: playedMidi,
       noteName: midiToNote(playedMidi),
       germanNote: midiToGermanNote(playedMidi, preferFlat).replace(/[0-9]/g, ""),
+      beatOffset: beatOffset,
+      durationBeats: durationBeats,
+      rhythmKey: rhythmKey,
+      restBeforeBeats: Number(stepTiming.restBefore) || 0,
+      barIndex: barIndex,
+      barDivider: idx > 0 && barIndex > prevBarIndex,
+      isDownbeat: isDownbeat,
+      velocity: velocity,
+      pitchSolved: false,
+      rhythmSolved: melodyStyle !== "dictation",
       solved: false
     };
   });
@@ -34668,6 +35421,12 @@ function generateMelodyExercise(rootMidi) {
 
   state.currentExercise = {
     type: "melody",
+    melodyStyle: melodyStyle,
+    templateId: template.id,
+    meterKey: template.meter || "4/4",
+    beatsPerBar: beatsPerBar,
+    totalMelodyBeats: Number(template.totalBeats) || 8,
+    totalSlots: melodySlots.length,
     rootMidi: rootMidi,
     keyCode: state.currentKey,
     range: range,
@@ -35078,6 +35837,174 @@ function renderSolfegeKeyboard() {
   wrap.appendChild(kb);
 }
 
+function buildMelodySlotRhythmHTML(slot, ex) {
+  if (!slot || ex?.melodyStyle === "steady") return "";
+  const isDictation = ex.melodyStyle === "dictation";
+  const showValue = !isDictation || Boolean(slot.rhythmSolved || slot.solved);
+  const restChip = (!isDictation && slot.restBeforeBeats > 0)
+    ? `<span class="melody-rest-chip" title="${escapeHtml(tr("Pause davor", "Rest before"))}">${getMelodyRestSVG(10, 12)}</span>`
+    : "";
+  if (!showValue) {
+    return `${restChip}<span class="melody-rhythm-chip is-mystery">⏱ ?</span>`;
+  }
+  const rDef = getLocalizedMelodyRhythmValue(slot.rhythmKey);
+  const partialCls = isDictation && slot.rhythmSolved && !slot.solved ? " is-partial-ok" : "";
+  return `${restChip}<span class="melody-rhythm-chip${partialCls}" title="${escapeHtml(rDef.label)}">${getMelodyNoteValueSVG(slot.rhythmKey, 14, 14)}<span>${rDef.short}</span></span>`;
+}
+
+function syncMelodyHeaderAndPromptUI(ex = state.currentExercise) {
+  if (!ex || ex.type !== "melody") return;
+  const slots = ex.melodySlots || [];
+  const tot = slots.length || 4;
+  const isDictation = ex.melodyStyle === "dictation";
+  const isSteady = ex.melodyStyle === "steady";
+  const stepIdx = Math.min(ex.melodyStep || 0, tot - 1);
+  const curStep = stepIdx + 1;
+
+  const moduleTitleEl = document.getElementById("moduleTitleText");
+  if (moduleTitleEl) {
+    moduleTitleEl.textContent = isDictation
+      ? tr("Melodiediktat", "Melody Dictation")
+      : (isSteady ? tr("4-Ton-Folge", "4-Note Phrase") : tr("Melodie-Phrase", "Melody Phrase"));
+  }
+
+  const targetBadgeEl = document.getElementById("targetBarBadge");
+  if (targetBadgeEl) {
+    if (state.melodyCompleted) {
+      targetBadgeEl.textContent = tf("{tot} / {tot} gelöst ✓", "{tot} / {tot} solved ✓", { tot });
+    } else if (!isSteady && ex.meterKey) {
+      targetBadgeEl.textContent = tf("{meter} • Ton {step} / {tot}", "{meter} • Note {step} / {tot}", { meter: ex.meterKey, step: curStep, tot });
+    } else {
+      targetBadgeEl.textContent = tf("Ton {step} / {tot}", "Note {step} / {tot}", { step: curStep, tot });
+    }
+  }
+
+  const promptEl = document.getElementById("inputPromptText");
+  if (promptEl) {
+    if (state.melodyCompleted) {
+      promptEl.textContent = tf("Alle {tot} Fragezeichen gelöst – weiter geht’s!", "All {tot} notes solved — moving on!", { tot });
+    } else if (isDictation) {
+      promptEl.textContent = tf("Wähle Tonhöhe & Notenwert für Ton {step} von {tot}:", "Pick pitch & note value for note {step} of {tot}:", { step: curStep, tot });
+    } else {
+      promptEl.textContent = tf("Tippe Ton {step} von {tot} auf der Klaviatur:", "Tap note {step} of {tot} on the keyboard:", { step: curStep, tot });
+    }
+  }
+}
+
+function syncMelodySlotCardUI(ex, idx) {
+  const slot = ex?.melodySlots?.[idx];
+  const card = document.getElementById(`barCard_${idx}`);
+  if (!slot || !card) return;
+  const isCurrentTarget = !state.melodyCompleted && idx === ex.melodyStep;
+  const isDictation = ex.melodyStyle === "dictation";
+
+  card.classList.remove("bar-target", "melody-slot-solved", "melody-slot-pending");
+  card.classList.add(slot.solved ? "melody-slot-solved" : (isCurrentTarget ? "bar-target" : "melody-slot-pending"));
+  card.classList.toggle("melody-bar-divider", Boolean(slot.barDivider));
+
+  const chipsEl = card.querySelector(".melody-card-chips");
+  if (chipsEl) {
+    chipsEl.innerHTML = buildMelodySlotRhythmHTML(slot, ex);
+  }
+
+  const romanEl = card.querySelector(".bar-roman");
+  if (romanEl) {
+    romanEl.textContent = (slot.pitchSolved || slot.solved) ? getSolfegeDisplayLabel(slot.syllable) : "?";
+  }
+
+  const lblEl = card.querySelector(".bar-label");
+  if (lblEl) {
+    if (slot.solved) {
+      lblEl.textContent = `✓ ${slot.germanNote}`;
+    } else if (isDictation && slot.pitchSolved) {
+      lblEl.textContent = tr("Ton ✓ • Wert?", "Pitch ✓ • Value?");
+    } else if (isDictation && slot.rhythmSolved) {
+      lblEl.textContent = tr("Wert ✓ • Ton?", "Value ✓ • Pitch?");
+    } else {
+      lblEl.textContent = isCurrentTarget ? tr("Gesucht", "Target") : tr("Offen", "Pending");
+    }
+  }
+}
+
+function renderMelodyRhythmPicker(ex = state.currentExercise) {
+  const wrap = document.getElementById("melodyRhythmPicker");
+  if (!wrap) return;
+  if (!ex || ex.type !== "melody" || ex.melodyStyle !== "dictation") {
+    wrap.classList.add("hidden");
+    wrap.innerHTML = "";
+    return;
+  }
+
+  wrap.classList.remove("hidden");
+  const slots = ex.melodySlots || [];
+  const tot = slots.length || 4;
+  const idx = Math.min(ex.melodyStep || 0, tot - 1);
+  const slot = slots[idx];
+  const isExam = Boolean(state.exam?.active);
+  const examLocked = isExam && Boolean(state.exam?.answered);
+  const solvedAll = Boolean(state.melodyCompleted) || examLocked;
+
+  let statusText = tf("Ton {n} / {tot}: Reihenfolge egal", "Note {n} / {tot}: Either order", { n: idx + 1, tot });
+  if (solvedAll) {
+    statusText = tr("Alle Töne erfasst ✓", "All notes recorded ✓");
+  } else if (isExam && slot) {
+    if (slot.examPendingRhythm) {
+      const rDef = getLocalizedMelodyRhythmValue(slot.examPendingRhythm);
+      statusText = tf("Notenwert: {val} — jetzt Tonhöhe wählen", "Note value: {val} — now pick pitch", { val: rDef.short });
+    } else if (slot.examPendingSyllable) {
+      statusText = tf("Ton: {syl} — jetzt Notenwert wählen", "Pitch: {syl} — now pick note value", { syl: getSolfegeDisplayLabel(slot.examPendingSyllable) });
+    } else {
+      statusText = tf("Ton {n} / {tot}: Tonhöhe + Notenwert", "Note {n} / {tot}: Pitch + Note value", { n: idx + 1, tot });
+    }
+  } else if (slot) {
+    if (slot.rhythmSolved && !slot.solved) {
+      const rDef = getLocalizedMelodyRhythmValue(slot.rhythmKey);
+      statusText = tf("Notenwert ✓ ({val}) — jetzt Tonhöhe", "Note value ✓ ({val}) — now pick pitch", { val: rDef.short });
+    } else if (slot.pitchSolved && !slot.solved) {
+      statusText = tf("Tonhöhe ✓ ({syl}) — jetzt Notenwert", "Pitch ✓ ({syl}) — now pick note value", { syl: getSolfegeDisplayLabel(slot.syllable) });
+    }
+  }
+
+  const wrongSet = slot?.wrongRhythms instanceof Set ? slot.wrongRhythms : null;
+
+  wrap.innerHTML = "";
+  const head = document.createElement("div");
+  head.className = "melody-rhythm-picker-head";
+  const headLbl = document.createElement("span");
+  headLbl.textContent = tr("Notenwert wählen:", "Choose note value:");
+  const stateEl = document.createElement("span");
+  stateEl.id = "melodyRhythmPickerState";
+  stateEl.className = "melody-rhythm-picker-state";
+  stateEl.textContent = statusText;
+  head.appendChild(headLbl);
+  head.appendChild(stateEl);
+
+  const grid = document.createElement("div");
+  grid.className = "melody-rhythm-grid";
+
+  MELODY_RHYTHM_ORDER.forEach(key => {
+    const def = getLocalizedMelodyRhythmValue(key);
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.id = `melodyRhythmBtn_${key}`;
+    btn.dataset.rhythmKey = key;
+    btn.className = "melody-rhythm-btn";
+    btn.setAttribute("aria-label", `${def.label} (${def.short})`);
+
+    if (!solvedAll && isExam && slot?.examPendingRhythm === key) btn.classList.add("is-selected");
+    if (!solvedAll && !isExam && slot?.rhythmSolved && slot.rhythmKey === key) btn.classList.add("is-correct");
+    if (!solvedAll && !isExam && wrongSet?.has(key)) btn.classList.add("is-wrong");
+    if (solvedAll) btn.disabled = true;
+
+    btn.innerHTML = `${getMelodyNoteValueSVG(key, 18, 18)}<strong style="font-size:0.73rem;line-height:1">${escapeHtml(def.short)}</strong><span class="melody-rhythm-btn-lbl">${escapeHtml(def.label)}</span>`;
+    btn.addEventListener("click", () => handleMelodyRhythmClick(key, btn));
+    grid.appendChild(btn);
+  });
+
+  wrap.appendChild(head);
+  wrap.appendChild(grid);
+}
+
 function renderUI() {
   const ex = state.currentExercise;
   if (!ex) return;
@@ -35106,6 +36033,7 @@ function renderUI() {
   // - Alle übrigen Modi: Tempo (Lila) im oberen Modul
   const moduleKeyBtn = document.getElementById("moduleKeyBtn");
   const moduleTimeSigBtn = document.getElementById("moduleTimeSigBtn");
+  const melodyPulseBtn = document.getElementById("melodyPulseBtn");
   const moduleBpmBtn = document.getElementById("moduleBpmBtn");
 
   if (moduleKeyBtn) {
@@ -35116,6 +36044,16 @@ function renderUI() {
   if (moduleTimeSigBtn) {
     moduleTimeSigBtn.classList.toggle("hidden", !isCadence);
     moduleTimeSigBtn.textContent = state.activeTimeSig === "odd" ? "5/4" : state.activeTimeSig;
+  }
+
+  if (melodyPulseBtn) {
+    melodyPulseBtn.classList.toggle("hidden", !isMelody);
+    if (isMelody) {
+      const pulseOn = Boolean(state.settings.melodyPulse);
+      melodyPulseBtn.textContent = pulseOn ? tr("Puls: An", "Pulse: On") : tr("Puls: Aus", "Pulse: Off");
+      melodyPulseBtn.classList.toggle("btn-active", pulseOn);
+      melodyPulseBtn.classList.toggle("click-muted", !pulseOn);
+    }
   }
 
   if (moduleBpmBtn) {
@@ -35232,7 +36170,7 @@ function renderUI() {
   if (loopBtn) {
     if (isMelody) {
       loopBtn.innerHTML = ICON_AUTO_NEXT_SVG;
-      loopBtn.title = tr("Nächste 4-Ton-Melodie nach 4/4 Lösung automatisch abspielen", "Automatically play the next 4-note melody after 4/4 solved");
+      loopBtn.title = tr("Nächste Melodie nach Lösung automatisch abspielen", "Automatically play the next melody after solving");
       loopBtn.setAttribute("aria-label", tr("Nächste Melodie automatisch abspielen", "Auto-play next melody"));
       loopBtn.classList.remove("btn-active-green");
       loopBtn.classList.toggle("btn-active", state.settings.melodyAutoNext);
@@ -35289,14 +36227,10 @@ function renderUI() {
     }
     document.getElementById("inputPromptText").textContent = tr("Tippe die gehörte Stufe auf der Klaviatur:", "Tap the heard scale degree on the keyboard:");
   } else if (ex.type === "melody") {
-    if (moduleTitleEl) moduleTitleEl.textContent = tr("4-Ton-Folge", "4-Note Phrase");
-    if (targetBadgeEl) {
-      targetBadgeEl.textContent = state.melodyCompleted
-        ? tr("4 / 4 gelöst ✓", "4 / 4 solved ✓")
-        : tf("Ton {step} / 4", "Note {step} / 4", { step: ex.melodyStep + 1 });
-    }
-    document.getElementById("inputPromptText").textContent =
-      tf("Tippe Ton {step} von 4 auf der Klaviatur:", "Tap note {step} of 4 on the keyboard:", { step: Math.min(ex.melodyStep + 1, 4) });
+    const totSlots = ex.melodySlots?.length || 4;
+    if (totSlots === 5) barsGrid.classList.add("cols-5");
+    else if (totSlots >= 6) barsGrid.classList.add("cols-3");
+    syncMelodyHeaderAndPromptUI(ex);
   } else if (isRhythmMeter) {
     barsGrid.classList.add("cols-2");
     if (moduleTitleEl) moduleTitleEl.textContent = tr("2-Takt-Puls", "2-Bar Pulse");
@@ -35406,33 +36340,45 @@ function renderUI() {
   barsGrid.innerHTML = "";
   if (isMelody) {
     ex.melodySlots.forEach((slot, idx) => {
-      const isCurrentTarget = !state.melodyCompleted && idx === ex.melodyStep;
       const card = document.createElement("div");
-      card.className = `bar-card ${slot.solved ? "melody-slot-solved" : (isCurrentTarget ? "bar-target" : "melody-slot-pending")}`;
+      card.className = "bar-card";
       card.id = `barCard_${idx}`;
       card.dataset.melodySlot = String(idx);
+
+      const head = document.createElement("div");
+      head.className = "melody-card-head";
 
       const tag = document.createElement("span");
       tag.className = "bar-tag";
       tag.textContent = tf("Ton {n}", "Note {n}", { n: idx + 1 });
 
+      const chipsEl = document.createElement("span");
+      chipsEl.className = "melody-card-chips";
+      chipsEl.style.display = "inline-flex";
+      chipsEl.style.alignItems = "center";
+      chipsEl.style.gap = "3px";
+
+      head.appendChild(tag);
+      head.appendChild(chipsEl);
+
       const mainText = document.createElement("div");
       mainText.className = "bar-roman";
-      mainText.textContent = slot.solved ? getSolfegeDisplayLabel(slot.syllable) : "?";
 
       const lbl = document.createElement("span");
       lbl.className = "bar-label";
-      lbl.textContent = slot.solved ? `✓ ${slot.germanNote}` : (isCurrentTarget ? tr("Gesucht", "Target") : tr("Offen", "Pending"));
 
-      card.appendChild(tag);
+      card.appendChild(head);
       card.appendChild(mainText);
       card.appendChild(lbl);
+      barsGrid.appendChild(card);
+
+      syncMelodySlotCardUI(ex, idx);
+
       card.addEventListener("click", () => {
         if (slot.solved || idx === ex.melodyStep) {
           repeatMelodySlotTone(idx);
         }
       });
-      barsGrid.appendChild(card);
     });
   } else if (isRhythmDict) {
     ex.rhythmSlots.forEach((slot, idx) => {
@@ -35592,20 +36538,36 @@ function renderUI() {
   }
 
   const btnGrid = document.getElementById("degreeButtonsGrid");
+  const melodyRhythmPicker = document.getElementById("melodyRhythmPicker");
   const solfegeWrap = document.getElementById("solfegeKeyboardWrap");
   const tapPadWrap = document.getElementById("rhythmTapPadWrap");
 
   if (isKeyboardMode) {
     btnGrid.classList.add("hidden");
     tapPadWrap?.classList.add("hidden");
+    if (melodyRhythmPicker) {
+      const showPicker = isMelody && ex.melodyStyle === "dictation";
+      melodyRhythmPicker.classList.toggle("hidden", !showPicker);
+      if (showPicker) renderMelodyRhythmPicker(ex);
+    }
     solfegeWrap.classList.remove("hidden");
     renderSolfegeKeyboard();
+    if (isMelody && ex.melodyStyle === "dictation" && !state.melodyCompleted) {
+      const curSlot = ex.melodySlots?.[ex.melodyStep];
+      if (state.exam?.active && !state.exam?.currentAnswered && curSlot?.examPendingMidi) {
+        document.getElementById(`solfegeKey_${curSlot.examPendingMidi}`)?.classList.add("key-pending-pair");
+      } else if (!state.exam?.active && curSlot?.pitchSolved && !curSlot?.solved && curSlot?.midi) {
+        document.getElementById(`solfegeKey_${curSlot.midi}`)?.classList.add("key-correct", "key-pending-pair");
+      }
+    }
   } else if (isRhythmTap) {
     btnGrid.classList.add("hidden");
+    melodyRhythmPicker?.classList.add("hidden");
     solfegeWrap.classList.add("hidden");
     tapPadWrap?.classList.remove("hidden");
     renderRhythmTapPad();
   } else {
+    melodyRhythmPicker?.classList.add("hidden");
     solfegeWrap.classList.add("hidden");
     tapPadWrap?.classList.add("hidden");
     btnGrid.classList.remove("hidden");
@@ -35926,7 +36888,11 @@ function getAwaitingStageHint(ex) {
     return tr("Wo sitzt dieser Ton in der Tonleiter? Tippe auf die Taste.", "Where does that pitch sit? Tap the matching key.");
   }
   if (type === "melody") {
-    return tf("Welche Silbe war Ton {n}? Tippe auf die Tasten (oder „Ton nochmal“).", "Which syllable was Note {n}? Tap the keys (or “Replay Tone”).", { n: (ex.melodyStep || 0) + 1 });
+    const curStep = (ex.melodyStep || 0) + 1;
+    if (ex.melodyStyle === "dictation") {
+      return tf("Wie klingt Ton {n} und wie lang ist er? Wähle Tonhöhe & Notenwert.", "Which pitch and note value did Note {n} have? Pick both below.", { n: curStep });
+    }
+    return tf("Welche Silbe war Ton {n}? Tippe auf die Tasten (oder „Ton nochmal“).", "Which syllable was Note {n}? Tap the keys (or “Replay Tone”).", { n: curStep });
   }
   if (type === "rhythm-dictation") {
     return tf("Welches Muster lag auf Schlag {n}? Wähle unten (oder „Schlag nochmal“).", "Which pattern landed on Beat {n}? Pick below (or “Replay Beat”).", { n: (ex.rhythmStep || 0) + 1 });
@@ -35958,7 +36924,8 @@ function showAwaitingAnswerStage(ex = state.currentExercise) {
 
   let subtext = tr("DEIN TIPP", "YOUR PICK");
   if (ex.type === "melody") {
-    subtext = tf("TON {n} VON 4 • DEIN TIPP", "NOTE {n} OF 4 • YOUR PICK", { n: (ex.melodyStep || 0) + 1 });
+    const tot = ex.melodySlots?.length || 4;
+    subtext = tf("TON {n} VON {tot} • DEIN TIPP", "NOTE {n} OF {tot} • YOUR PICK", { n: (ex.melodyStep || 0) + 1, tot });
   } else if (ex.type === "rhythm-dictation") {
     subtext = tf("SCHLAG {n} VON 4 • DEIN TIPP", "BEAT {n} OF 4 • YOUR PICK", { n: (ex.rhythmStep || 0) + 1 });
   }
@@ -36014,10 +36981,160 @@ function buildSolfegeResolutionSchedule(noteCount, bpm) {
 }
 
 /**
- * Verarbeitet das Antippen einer Taste in der 4-Ton-Melodieübung:
- * - Falsch: Taste wird rot, Fortschritt bleibt erhalten, kein Störton erklingt.
- * - Richtig: Das aktive Fragezeichen im oberen Modul wird zum Solfège-Namen (Do–Ti),
- *   die Eingabe springt zum nächsten Ton und nach dem 4. Ton automatisch zur nächsten Aufgabe.
+ * Schließt einen gelösten Melodie-Slot im freien Training ab (bei 1-stufiger Eingabe
+ * direkt über die Klaviatur oder bei Melodiediktat sobald Tonhöhe & Notenwert stimmen).
+ */
+function completeMelodyFreeSlot(ex, currentSlotIdx, triggerEl) {
+  const slots = ex.melodySlots || [];
+  const slot = slots[currentSlotIdx];
+  const tot = slots.length || 4;
+  if (!slot) return;
+
+  slot.pitchSolved = true;
+  slot.rhythmSolved = true;
+  slot.solved = true;
+
+  document.querySelectorAll("#solfegeKeyboardWrap .piano-white-key, #solfegeKeyboardWrap .piano-black-key").forEach(el => {
+    el.classList.remove("key-wrong", "key-correct", "key-pending-pair");
+  });
+  const isKeyBtn = Boolean(triggerEl && (triggerEl.classList?.contains("piano-white-key") || triggerEl.classList?.contains("piano-black-key")));
+  const keyToMark = isKeyBtn ? triggerEl : document.getElementById(`solfegeKey_${slot.midi}`);
+  keyToMark?.classList.add("key-correct");
+
+  syncMelodySlotCardUI(ex, currentSlotIdx);
+  document.getElementById(`barCard_${currentSlotIdx}`)?.classList.add("tile-selected-pulse");
+
+  const isLast = currentSlotIdx >= tot - 1;
+  if (!isLast) {
+    spawnJuiceBurst(triggerEl || keyToMark, { intensity: "micro", originY: "20%" });
+    ex.melodyStep = currentSlotIdx + 1;
+    const nextIdx = ex.melodyStep;
+    syncMelodySlotCardUI(ex, nextIdx);
+    syncMelodyHeaderAndPromptUI(ex);
+    if (ex.melodyStyle === "dictation") {
+      renderMelodyRhythmPicker(ex);
+    }
+
+    if (!state.isPlaying) {
+      setCentralStageMode("stage-playing");
+      updateStageMascot("happy");
+      triggerMascotHappyHop();
+      document.getElementById("stageSubtext").textContent = tf("TON {n} RICHTIG", "NOTE {n} CORRECT", { n: currentSlotIdx + 1 });
+      const solvedMain = ex.melodyStyle === "dictation"
+        ? `${getSolfegeDisplayLabel(slot.syllable)} · ${getLocalizedMelodyRhythmValue(slot.rhythmKey).short}`
+        : getSolfegeDisplayLabel(slot.syllable);
+      document.getElementById("stageMainText").textContent = solvedMain;
+      document.getElementById("stageFunctionText").textContent = tf("Jetzt gesucht: Ton {n} von {tot}", "Next target: Note {n} of {tot}", { n: nextIdx + 1, tot });
+    }
+
+    const clearId = audioEngine.playbackId;
+    audioEngine.registerTimer(() => {
+      if (audioEngine.playbackId === clearId && !state.melodyCompleted) {
+        keyToMark?.classList.remove("key-correct");
+      }
+    }, 380);
+    return;
+  }
+
+  // Alle Töne gelöst -> nächste Abfrage automatisch starten
+  state.melodyCompleted = true;
+  state.exerciseSolved = true;
+  ex.isSolved = true;
+  audioEngine.stopPlayback();
+  state.isPlaying = false;
+  updatePlayButtonUI(false);
+
+  syncMelodyHeaderAndPromptUI(ex);
+  const streakRes = recordExerciseStreakSuccess(ex);
+  setCentralStageMode("stage-playing");
+  updateStageMascot("happy");
+  triggerCelebrationFeedback(triggerEl || keyToMark, { isMilestone: streakRes.isMilestone });
+  if (ex.melodyStyle === "dictation") {
+    renderMelodyRhythmPicker(ex);
+  }
+  document.getElementById("stageSubtext").textContent = tf("MELODIE GELÖST! ({tot}/{tot})", "MELODY SOLVED! ({tot}/{tot})", { tot });
+  document.getElementById("stageMainText").textContent = ex.melodySlots.map(s => getSolfegeDisplayLabel(s.syllable)).join(" – ");
+  document.getElementById("stageFunctionText").textContent = tr("Nächste Aufgabe wird geladen…", "Loading next exercise…");
+
+  const completionPlaybackId = audioEngine.playbackId;
+  audioEngine.registerTimer(() => {
+    if (audioEngine.playbackId !== completionPlaybackId) return;
+    if (state.currentView !== "exercise" || state.settings.mode !== "melody") return;
+    generateExercise();
+    if (state.settings.melodyAutoNext) {
+      playSequence();
+    }
+  }, 1150);
+}
+
+/**
+ * Verarbeitet das Wählen eines Notenwerts im Melodiediktat (beliebige Reihenfolge zu Klaviatur).
+ */
+async function handleMelodyRhythmClick(rhythmKey, btn) {
+  const ex = state.currentExercise;
+  if (!ex || ex.type !== "melody" || ex.melodyStyle !== "dictation" || state.melodyCompleted) return;
+  if (state.listenOnly?.active) {
+    setListenOnlyMode(false, { keepPlayback: true });
+  }
+
+  await ensureAudioReady();
+
+  if (state.exam?.active) {
+    handleExamMelodyRhythmChoice(ex, rhythmKey, btn);
+    return;
+  }
+
+  const currentSlotIdx = ex.melodyStep || 0;
+  const slots = ex.melodySlots || [];
+  const tot = slots.length || 4;
+  const slot = slots[currentSlotIdx];
+  if (!slot) return;
+
+  if (slot.rhythmSolved) {
+    document.getElementById("stageFunctionText").textContent = tr(
+      "Notenwert stimmt schon — wähle noch die Tonhöhe auf der Klaviatur!",
+      "Note value already matches — now pick the pitch on the keyboard!"
+    );
+    return;
+  }
+
+  const rDef = getLocalizedMelodyRhythmValue(rhythmKey);
+  if (rhythmKey !== slot.rhythmKey) {
+    resetExerciseStreakOnAttempt(ex);
+    if (!(slot.wrongRhythms instanceof Set)) slot.wrongRhythms = new Set();
+    slot.wrongRhythms.add(rhythmKey);
+    btn?.classList.add("is-wrong");
+    setCentralStageMode("stage-wrong");
+    updateStageMascot("thinking");
+    document.getElementById("stageSubtext").textContent = tf("TON {n} VON {tot} • NOTENWERT NOCH NICHT", "NOTE {n} OF {tot} • WRONG VALUE", { n: currentSlotIdx + 1, tot });
+    document.getElementById("stageMainText").textContent = `${rDef.short} (${rDef.label})? ${tr("Nein", "No")}`;
+    document.getElementById("stageFunctionText").textContent = tr("Hör mit dem Puls genau hin oder probiere „Ton nochmal“!", "Listen closely with the pulse or tap “Replay Tone”!");
+    return;
+  }
+
+  slot.rhythmSolved = true;
+  if (!state.isPlaying && audioEngine.isInitialized) {
+    audioEngine.triggerPercussion("accent", undefined, 0.45);
+  }
+
+  if (slot.pitchSolved) {
+    completeMelodyFreeSlot(ex, currentSlotIdx, btn);
+    return;
+  }
+
+  syncMelodySlotCardUI(ex, currentSlotIdx);
+  renderMelodyRhythmPicker(ex);
+  setCentralStageMode("stage-playing");
+  updateStageMascot("happy");
+  document.getElementById("stageSubtext").textContent = tf("TON {n} VON {tot} • NOTENWERT RICHTIG", "NOTE {n} OF {tot} • VALUE CORRECT", { n: currentSlotIdx + 1, tot });
+  document.getElementById("stageMainText").textContent = `${rDef.short} • ${rDef.label}`;
+  document.getElementById("stageFunctionText").textContent = tr("Jetzt noch die Tonhöhe unten auf der Klaviatur tippen!", "Now tap the matching pitch on the keyboard below!");
+}
+
+/**
+ * Verarbeitet das Antippen einer Taste in der Melodieübung (4–6 Töne):
+ * - Im Takt- & Basismodus reicht die richtige Silbe pro Position.
+ * - Im Melodiediktat müssen Tonhöhe und Notenwert in beliebiger Reihenfolge stimmen.
  */
 async function handleMelodyKeyClick(clickedKeyDef, keyBtn) {
   const ex = state.currentExercise;
@@ -36033,9 +37150,24 @@ async function handleMelodyKeyClick(clickedKeyDef, keyBtn) {
     return;
   }
 
-  const currentSlotIdx = ex.melodyStep;
-  const slot = ex.melodySlots[currentSlotIdx];
+  const currentSlotIdx = ex.melodyStep || 0;
+  const slots = ex.melodySlots || [];
+  const tot = slots.length || 4;
+  const slot = slots[currentSlotIdx];
   if (!slot) return;
+
+  if (ex.melodyStyle === "dictation" && slot.pitchSolved) {
+    if (!state.isPlaying && clickedKeyDef.syllable === slot.syllable) {
+      const beatSec = 60 / (state.activeBpm || 90);
+      const rawDur = Math.max(0.22, Math.min(0.95, (slot.durationBeats || 1) * beatSec * 0.86));
+      audioEngine.playStep([slot.noteName], rawDur, null, "interval");
+    }
+    document.getElementById("stageFunctionText").textContent = tr(
+      "Tonhöhe stimmt schon — wähle noch den Notenwert darüber!",
+      "Pitch already matches — now choose the note value above!"
+    );
+    return;
+  }
 
   const isCorrect = clickedKeyDef.syllable === slot.syllable;
 
@@ -36044,98 +37176,39 @@ async function handleMelodyKeyClick(clickedKeyDef, keyBtn) {
     keyBtn.classList.add("key-wrong");
     setCentralStageMode("stage-wrong");
     updateStageMascot("thinking");
-    document.getElementById("stageSubtext").textContent = tf("TON {n} VON 4 • NOCH NICHT", "NOTE {n} OF 4 • NOT QUITE", { n: currentSlotIdx + 1 });
+    document.getElementById("stageSubtext").textContent = tf("TON {n} VON {tot} • NOCH NICHT", "NOTE {n} OF {tot} • NOT QUITE", { n: currentSlotIdx + 1, tot });
     document.getElementById("stageMainText").textContent = `${getSolfegeDisplayLabel(clickedKeyDef.syllable)}? ${tr("Nein", "No")}`;
     document.getElementById("stageFunctionText").textContent = tr("Tippe weiter oder nutze „Ton nochmal“!", "Keep trying or tap “Replay Tone”!");
     return;
   }
 
-  slot.solved = true;
+  slot.pitchSolved = true;
   document.querySelectorAll("#solfegeKeyboardWrap .piano-white-key, #solfegeKeyboardWrap .piano-black-key").forEach(el => {
-    el.classList.remove("key-wrong", "key-correct");
+    el.classList.remove("key-wrong", "key-correct", "key-pending-pair");
   });
-
   keyBtn.classList.add("key-correct");
 
-  const card = document.getElementById(`barCard_${currentSlotIdx}`);
-  if (card) {
-    card.className = "bar-card melody-slot-solved tile-selected-pulse";
-    const romanEl = card.querySelector(".bar-roman");
-    const lblEl = card.querySelector(".bar-label");
-    if (romanEl) romanEl.textContent = getSolfegeDisplayLabel(slot.syllable);
-    if (lblEl) lblEl.textContent = `✓ ${slot.germanNote}`;
-  }
-
-  const isLast = currentSlotIdx >= ex.melodySlots.length - 1;
+  const isLast = currentSlotIdx >= tot - 1;
   if (!state.isPlaying) {
-    audioEngine.playStep([slot.noteName], isLast ? 0.65 : 0.42, null, "interval");
+    const beatSec = 60 / (state.activeBpm || 90);
+    const rawDur = Math.max(0.22, Math.min(0.95, (slot.durationBeats || 1) * beatSec * 0.86));
+    audioEngine.playStep([slot.noteName], isLast ? Math.max(rawDur, 0.55) : rawDur, null, "interval");
   }
 
-  if (!isLast) {
-    spawnJuiceBurst(keyBtn, { intensity: "micro", originY: "20%" });
-    ex.melodyStep = currentSlotIdx + 1;
-    const nextIdx = ex.melodyStep;
-    const nextCard = document.getElementById(`barCard_${nextIdx}`);
-    if (nextCard) {
-      nextCard.classList.remove("melody-slot-pending");
-      nextCard.classList.add("bar-target");
-      const nextLbl = nextCard.querySelector(".bar-label");
-      if (nextLbl) nextLbl.textContent = tr("Gesucht", "Target");
-    }
-
-    const badge = document.getElementById("targetBarBadge");
-    if (badge) badge.textContent = tf("Ton {n} / 4", "Note {n} / 4", { n: nextIdx + 1 });
-    const promptEl = document.getElementById("inputPromptText");
-    if (promptEl) promptEl.textContent = tf("Tippe Ton {n} von 4 auf der Klaviatur:", "Tap note {n} of 4 on the keyboard:", { n: nextIdx + 1 });
-
-    if (!state.isPlaying) {
-      setCentralStageMode("stage-playing");
-      updateStageMascot("happy");
-      triggerMascotHappyHop();
-      document.getElementById("stageSubtext").textContent = tf("TON {n} RICHTIG", "NOTE {n} CORRECT", { n: currentSlotIdx + 1 });
-      document.getElementById("stageMainText").textContent = getSolfegeDisplayLabel(slot.syllable);
-      document.getElementById("stageFunctionText").textContent = tf("Jetzt gesucht: Ton {n} von 4", "Next target: Note {n} of 4", { n: nextIdx + 1 });
-    }
-
-    const clearId = audioEngine.playbackId;
-    audioEngine.registerTimer(() => {
-      if (audioEngine.playbackId === clearId && !state.melodyCompleted) {
-        keyBtn.classList.remove("key-correct");
-      }
-    }, 380);
+  if (slot.rhythmSolved || ex.melodyStyle !== "dictation") {
+    completeMelodyFreeSlot(ex, currentSlotIdx, keyBtn);
     return;
   }
 
-  // Alle 4 Töne gelöst -> nächste Abfrage automatisch starten
-  state.melodyCompleted = true;
-  state.exerciseSolved = true;
-  ex.isSolved = true;
-  audioEngine.stopPlayback();
-  state.isPlaying = false;
-  updatePlayButtonUI(false);
-
-  const badge = document.getElementById("targetBarBadge");
-  if (badge) badge.textContent = tr("4 / 4 gelöst ✓", "4 / 4 solved ✓");
-  const promptEl = document.getElementById("inputPromptText");
-  if (promptEl) promptEl.textContent = tr("Alle 4 Fragezeichen gelöst – weiter geht’s!", "All 4 notes solved — moving on!");
-
-  const streakRes = recordExerciseStreakSuccess(ex);
+  // Im Melodiediktat wurde zuerst die Tonhöhe gelöst -> auf Notenwert warten
+  keyBtn.classList.add("key-pending-pair");
+  syncMelodySlotCardUI(ex, currentSlotIdx);
+  renderMelodyRhythmPicker(ex);
   setCentralStageMode("stage-playing");
   updateStageMascot("happy");
-  triggerCelebrationFeedback(keyBtn, { isMilestone: streakRes.isMilestone });
-  document.getElementById("stageSubtext").textContent = tr("MELODIE GELÖST! (4/4)", "MELODY SOLVED! (4/4)");
-  document.getElementById("stageMainText").textContent = ex.melodySlots.map(s => getSolfegeDisplayLabel(s.syllable)).join(" – ");
-  document.getElementById("stageFunctionText").textContent = tr("Nächste Aufgabe wird geladen…", "Loading next exercise…");
-
-  const completionPlaybackId = audioEngine.playbackId;
-  audioEngine.registerTimer(() => {
-    if (audioEngine.playbackId !== completionPlaybackId) return;
-    if (state.currentView !== "exercise" || state.settings.mode !== "melody") return;
-    generateExercise();
-    if (state.settings.melodyAutoNext) {
-      playSequence();
-    }
-  }, 1150);
+  document.getElementById("stageSubtext").textContent = tf("TON {n} VON {tot} • TONHÖHE RICHTIG", "NOTE {n} OF {tot} • PITCH CORRECT", { n: currentSlotIdx + 1, tot });
+  document.getElementById("stageMainText").textContent = getSolfegeDisplayLabel(slot.syllable);
+  document.getElementById("stageFunctionText").textContent = tr("Jetzt noch den passenden Notenwert darüber wählen!", "Now pick the matching note value above!");
 }
 
 /**
@@ -37022,8 +38095,10 @@ async function repeatMelodySlotTone(slotIdx = null) {
   if (state.listenOnly?.active) {
     setListenOnlyMode(false, { keepPlayback: true });
   }
+  const slots = ex.melodySlots || [];
+  const tot = slots.length || 4;
   const idx = typeof slotIdx === "number" ? slotIdx : ex.melodyStep;
-  const slot = ex.melodySlots[idx];
+  const slot = slots[idx];
   if (!slot) return;
 
   await ensureAudioReady();
@@ -37031,30 +38106,67 @@ async function repeatMelodySlotTone(slotIdx = null) {
   state.isPlaying = false;
   updatePlayButtonUI(false);
 
-  ex.melodySlots.forEach((_, i) => {
+  slots.forEach((_, i) => {
     document.getElementById(`barCard_${i}`)?.classList.toggle("bar-active", i === idx);
   });
 
   if (document.getElementById("centralStageCard")) {
     setCentralStageMode(slot.solved ? "stage-playing" : "stage-target");
     updateStageMascot(slot.solved ? "happy" : "question");
-    document.getElementById("stageSubtext").textContent = tf("TON {n} VON 4 (EINZELN)", "NOTE {n} OF 4 (ISOLATED)", { n: idx + 1 });
-    document.getElementById("stageMainText").textContent = slot.solved ? getSolfegeDisplayLabel(slot.syllable) : "?";
+    document.getElementById("stageSubtext").textContent = tf("TON {n} VON {tot} (EINZELN)", "NOTE {n} OF {tot} (ISOLATED)", { n: idx + 1, tot });
+    document.getElementById("stageMainText").textContent = (slot.pitchSolved || slot.solved)
+      ? getSolfegeDisplayLabel(slot.syllable)
+      : "?";
     document.getElementById("stageFunctionText").textContent = slot.solved
       ? tf("Gelöster Ton ({note})", "Solved note ({note})", { note: slot.germanNote })
-      : tr("Welche Solfège-Stufe hörst du hier?", "Which Solfège degree do you hear here?");
+      : (ex.melodyStyle === "dictation"
+          ? tr("Höre Tonhöhe & Länge relativ zum Puls!", "Listen to pitch & duration against the beat!")
+          : tr("Welche Solfège-Stufe hörst du hier?", "Which Solfège degree do you hear here?"));
   }
 
-  audioEngine.playStep([slot.noteName], 0.95, null, "interval");
-
+  const beatSec = 60 / (state.activeBpm || 90);
+  const beatMs = Math.round(beatSec * 1000);
+  const durBeats = Number(slot.durationBeats) || 2;
+  const playDurSec = Math.max(0.18, durBeats * beatSec * 0.88);
+  const usePulseCue = ex.melodyStyle !== "steady" && (Boolean(state.settings.melodyPulse) || ex.melodyStyle === "dictation");
   const singlePlaybackId = audioEngine.playbackId;
-  audioEngine.registerTimer(() => {
-    if (audioEngine.playbackId !== singlePlaybackId) return;
-    document.getElementById(`barCard_${idx}`)?.classList.remove("bar-active");
-    if (!slot.solved && !state.melodyCompleted && !state.isPlaying && !state.listenOnly?.active) {
-      showAwaitingAnswerStage(ex);
-    }
-  }, 950);
+
+  if (usePulseCue) {
+    const baseClock = getAudioClockSec() + 0.04;
+    const cueClicks = [
+      [0, "accent", 0.56],
+      [beatMs, "tick", 0.44]
+    ];
+    if (durBeats >= 1.5) cueClicks.push([beatMs * 2, "tick", 0.36]);
+    audioEngine.playRhythmSequence(cueClicks, baseClock);
+
+    audioEngine.registerTimer(() => {
+      if (audioEngine.playbackId !== singlePlaybackId) return;
+      audioEngine.playStep([slot.noteName], playDurSec, null, "melody-note", {
+        atTime: baseClock + beatSec,
+        velocity: slot.velocity || 0.9
+      });
+    }, Math.max(0, beatMs - 85));
+
+    const totalWaitMs = Math.max(820, Math.round((1 + durBeats) * beatMs + 160));
+    audioEngine.registerTimer(() => {
+      if (audioEngine.playbackId !== singlePlaybackId) return;
+      document.getElementById(`barCard_${idx}`)?.classList.remove("bar-active");
+      if (!slot.solved && !state.melodyCompleted && !state.isPlaying && !state.listenOnly?.active) {
+        showAwaitingAnswerStage(ex);
+      }
+    }, totalWaitMs);
+  } else {
+    audioEngine.playStep([slot.noteName], Math.max(0.32, playDurSec), null, "interval");
+    const waitMs = Math.max(680, Math.round(durBeats * beatMs + 120));
+    audioEngine.registerTimer(() => {
+      if (audioEngine.playbackId !== singlePlaybackId) return;
+      document.getElementById(`barCard_${idx}`)?.classList.remove("bar-active");
+      if (!slot.solved && !state.melodyCompleted && !state.isPlaying && !state.listenOnly?.active) {
+        showAwaitingAnswerStage(ex);
+      }
+    }, waitMs);
+  }
 }
 
 /**
@@ -37378,34 +38490,33 @@ function revealMelodyListenOnly(ex, token) {
   state.isPlaying = false;
 
   document.querySelectorAll("#solfegeKeyboardWrap .piano-white-key, #solfegeKeyboardWrap .piano-black-key").forEach(el => {
-    el.classList.remove("key-wrong", "key-correct");
+    el.classList.remove("key-wrong", "key-correct", "key-pending-pair");
   });
 
-  ex.melodySlots.forEach((slot, idx) => {
+  const slots = ex.melodySlots || [];
+  const tot = slots.length || 4;
+
+  slots.forEach((slot, idx) => {
+    slot.pitchSolved = true;
+    slot.rhythmSolved = true;
     slot.solved = true;
-    const card = document.getElementById(`barCard_${idx}`);
-    if (card) {
-      card.className = "bar-card melody-slot-solved tile-selected-pulse";
-      const romanEl = card.querySelector(".bar-roman");
-      const lblEl = card.querySelector(".bar-label");
-      if (romanEl) romanEl.textContent = getSolfegeDisplayLabel(slot.syllable);
-      if (lblEl) lblEl.textContent = `✓ ${slot.germanNote}`;
-    }
+    syncMelodySlotCardUI(ex, idx);
+    document.getElementById(`barCard_${idx}`)?.classList.add("tile-selected-pulse");
     const keyEl = document.getElementById(`solfegeKey_${slot.midi}`) ||
       document.getElementById(`solfegeKey_${slot.playedMidi}`) ||
       document.querySelector(`#solfegeKeyboardWrap [data-syllable="${slot.syllable}"]`);
     keyEl?.classList.add("key-correct");
   });
 
-  const badge = document.getElementById("targetBarBadge");
-  if (badge) badge.textContent = tr("4 / 4 gelöst ✓", "4 / 4 solved ✓");
-  const promptEl = document.getElementById("inputPromptText");
-  if (promptEl) promptEl.textContent = tr("Alle 4 Fragezeichen gelöst – weiter geht’s!", "All 4 notes solved — moving on!");
+  syncMelodyHeaderAndPromptUI(ex);
+  if (ex.melodyStyle === "dictation") {
+    renderMelodyRhythmPicker(ex);
+  }
 
   setCentralStageMode("stage-playing");
   updateStageMascot("happy");
-  document.getElementById("stageSubtext").textContent = tr("MELODIE GELÖST! (4/4)", "MELODY SOLVED! (4/4)");
-  document.getElementById("stageMainText").textContent = ex.melodySlots.map(s => getSolfegeDisplayLabel(s.syllable)).join(" – ");
+  document.getElementById("stageSubtext").textContent = tf("MELODIE GELÖST! ({tot}/{tot})", "MELODY SOLVED! ({tot}/{tot})", { tot });
+  document.getElementById("stageMainText").textContent = slots.map(s => getSolfegeDisplayLabel(s.syllable)).join(" – ");
   document.getElementById("stageFunctionText").textContent = tr("Nächste Aufgabe wird geladen…", "Loading next exercise…");
   updatePlayButtonUI(false);
 
@@ -38055,16 +39166,23 @@ async function playSequence(options = {}) {
     return;
   }
 
-  // Spezieller Ablauf für 4-Ton-Melodien (tempoabhängig, Fortschritt bleibt bei Wiederholung erhalten):
-  // 1. Kontext-Kadenz (I - vi - IV - V) -> 2. Deutliche Pause -> 3. 4 halbe Noten aus der Solfège-Auswahl
+  // Spezieller Ablauf für Melodieübungen (4-Akkord-Kadenz bleibt stabil, danach je nach Stil):
+  // 1. Kontext-Kadenz (I - vi - IV - V)
+  // 2. Im Basis-Stil: Pause + 4 halbe Noten; im Takt-/Diktat-Stil: 1 Takt Einzähler + samplegenaue rhythmische Phrasen-Noten
   if (ex.type === "melody") {
-    const beatSec = 60 / state.activeBpm;
+    const bpm = state.activeBpm || 90;
+    const beatSec = 60 / bpm;
+    const beatMs = Math.round(beatSec * 1000);
     const chordSec = beatSec * 1.45;
     const chordMs = Math.round(chordSec * 1000);
-    const pauseAfterCadenceMs = Math.round(beatSec * 1.35 * 1000);
     const totalChords = ex.cadenceBars.length;
+    const slots = ex.melodySlots || [];
+    const tot = slots.length || 4;
+    const isSteady = ex.melodyStyle === "steady";
+    const isDictation = ex.melodyStyle === "dictation";
+    const pulseEnabled = Boolean(state.settings.melodyPulse);
 
-    ex.cadenceBars.forEach((_, i) => {
+    slots.forEach((_, i) => {
       document.getElementById(`barCard_${i}`)?.classList.remove("bar-active");
     });
 
@@ -38082,35 +39200,139 @@ async function playSequence(options = {}) {
       }, index * chordMs);
     });
 
-    const melodyStartMs = totalChords * chordMs + pauseAfterCadenceMs;
-    const halfNoteSec = 2 * beatSec;
-    const halfNoteMs = Math.round(halfNoteSec * 1000);
-    const halfPlaySec = Math.max(0.32, halfNoteSec * 0.88);
+    if (isSteady) {
+      const pauseAfterCadenceMs = Math.round(beatSec * 1.35 * 1000);
+      const melodyStartMs = totalChords * chordMs + pauseAfterCadenceMs;
+      const halfNoteSec = 2 * beatSec;
+      const halfNoteMs = Math.round(halfNoteSec * 1000);
+      const halfPlaySec = Math.max(0.32, halfNoteSec * 0.88);
 
-    ex.melodySlots.forEach((slot, idx) => {
+      if (pulseEnabled) {
+        const steadyClicks = [];
+        for (let b = 0; b < tot * 2; b++) {
+          steadyClicks.push([
+            melodyStartMs + b * beatMs,
+            b % 4 === 0 ? "accent" : "tick",
+            b % 4 === 0 ? 0.52 : 0.34
+          ]);
+        }
+        audioEngine.playRhythmSequence(steadyClicks, getAudioClockSec() + 0.04);
+      }
+
+      slots.forEach((slot, idx) => {
+        audioEngine.registerTimer(() => {
+          if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
+
+          for (let i = 0; i < slots.length; i++) {
+            document.getElementById(`barCard_${i}`)?.classList.toggle("bar-active", i === idx);
+          }
+
+          setCentralStageMode(slot.solved ? "stage-playing" : "stage-target");
+          updateStageMascot(slot.solved ? "listening" : "question");
+          document.getElementById("stageSubtext").textContent = tf("MELODIE • TON {n}/{tot}", "MELODY • NOTE {n}/{tot}", { n: idx + 1, tot });
+          document.getElementById("stageMainText").textContent = slot.solved ? getSolfegeDisplayLabel(slot.syllable) : "?";
+          document.getElementById("stageFunctionText").textContent = slot.solved
+            ? tf("Bereits gelöst ({note})", "Already solved ({note})", { note: slot.germanNote })
+            : tf("Halbe Note ({bpm} BPM) • Höre genau hin", "Half note ({bpm} BPM) • Listen closely", { bpm });
+
+          audioEngine.playStep([slot.noteName], halfPlaySec, null, "interval");
+        }, melodyStartMs + idx * halfNoteMs);
+      });
+
+      const melodyEndMs = melodyStartMs + slots.length * halfNoteMs;
       audioEngine.registerTimer(() => {
         if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
+        for (let i = 0; i < slots.length; i++) {
+          document.getElementById(`barCard_${i}`)?.classList.remove("bar-active");
+        }
+        state.isPlaying = false;
+        updatePlayButtonUI(false);
 
-        for (let i = 0; i < ex.melodySlots.length; i++) {
+        if (state.listenOnly?.active) {
+          handleListenOnlyPromptEnded(ex);
+        } else if (!state.melodyCompleted) {
+          showAwaitingAnswerStage(ex);
+        }
+      }, melodyEndMs);
+
+      return;
+    }
+
+    // Rhythmische Phrase oder Melodiediktat: 1 Takt Einzähler + samplegenaue WebAudio-Planung
+    const beatsPerBar = ex.beatsPerBar || 4;
+    const totalMelodyBeats = ex.totalMelodyBeats || 4;
+    const pauseAfterCadenceMs = Math.round(beatSec * 0.9 * 1000);
+    const countInStartMs = totalChords * chordMs + pauseAfterCadenceMs;
+    const melodyStartMs = countInStartMs + beatsPerBar * beatMs;
+    const baseAudioTime = getAudioClockSec() + 0.04;
+    const lookaheadMs = 95;
+
+    const pulseEvents = [];
+    for (let b = 0; b < beatsPerBar; b++) {
+      const clickDelayMs = countInStartMs + b * beatMs;
+      pulseEvents.push([clickDelayMs, b === 0 ? "accent" : "tick", b === 0 ? 0.68 : 0.44]);
+      audioEngine.registerTimer(() => {
+        if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
+        setCentralStageMode("stage-playing");
+        updateStageMascot("listening");
+        document.getElementById("stageSubtext").textContent = tf("EINZÄHLER • {meter}", "COUNT-IN • {meter}", { meter: ex.meterKey || "4/4" });
+        document.getElementById("stageMainText").textContent = String(b + 1);
+        document.getElementById("stageFunctionText").textContent = tr("Fühle den Puls… gleich startet die Melodie", "Feel the pulse… melody enters on 1");
+      }, clickDelayMs);
+    }
+
+    if (pulseEnabled) {
+      const totalClicks = Math.ceil(totalMelodyBeats);
+      for (let b = 0; b < totalClicks; b++) {
+        pulseEvents.push([
+          melodyStartMs + b * beatMs,
+          b % beatsPerBar === 0 ? "accent" : "tick",
+          b % beatsPerBar === 0 ? 0.56 : 0.36
+        ]);
+      }
+    }
+
+    audioEngine.playRhythmSequence(pulseEvents, baseAudioTime);
+
+    slots.forEach((slot, idx) => {
+      const offsetMs = Math.round((Number(slot.beatOffset) || 0) * beatMs);
+      const noteDelayMs = melodyStartMs + offsetMs;
+      const timerAudioDelayMs = Math.max(0, noteDelayMs - lookaheadMs);
+      const targetAudioTime = baseAudioTime + noteDelayMs / 1000;
+      const durSec = Math.max(0.16, (Number(slot.durationBeats) || 1) * beatSec * 0.86);
+      const rDef = getLocalizedMelodyRhythmValue(slot.rhythmKey);
+
+      audioEngine.registerTimer(() => {
+        if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
+        audioEngine.playStep([slot.noteName], durSec, null, "melody-note", {
+          atTime: targetAudioTime,
+          velocity: slot.velocity || 0.88
+        });
+      }, timerAudioDelayMs);
+
+      audioEngine.registerTimer(() => {
+        if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
+        for (let i = 0; i < slots.length; i++) {
           document.getElementById(`barCard_${i}`)?.classList.toggle("bar-active", i === idx);
         }
-
         setCentralStageMode(slot.solved ? "stage-playing" : "stage-target");
         updateStageMascot(slot.solved ? "listening" : "question");
-        document.getElementById("stageSubtext").textContent = tf("MELODIE • TON {n}/4", "MELODY • NOTE {n}/4", { n: idx + 1 });
-        document.getElementById("stageMainText").textContent = slot.solved ? getSolfegeDisplayLabel(slot.syllable) : "?";
+        document.getElementById("stageSubtext").textContent = tf("MELODIE • TON {n}/{tot}", "MELODY • NOTE {n}/{tot}", { n: idx + 1, tot });
+        document.getElementById("stageMainText").textContent = (slot.pitchSolved || slot.solved)
+          ? getSolfegeDisplayLabel(slot.syllable)
+          : "?";
         document.getElementById("stageFunctionText").textContent = slot.solved
           ? tf("Bereits gelöst ({note})", "Already solved ({note})", { note: slot.germanNote })
-          : tf("Halbe Note ({bpm} BPM) • Höre genau hin", "Half note ({bpm} BPM) • Listen closely", { bpm: state.activeBpm });
-
-        audioEngine.playStep([slot.noteName], halfPlaySec, null, "interval");
-      }, melodyStartMs + idx * halfNoteMs);
+          : (isDictation
+              ? tf("Melodiediktat ({bpm} BPM) • Höre Tonhöhe & Länge", "Melody Dictation ({bpm} BPM) • Hear pitch & length", { bpm })
+              : tf("{rhythm} ({bpm} BPM) • Höre genau hin", "{rhythm} ({bpm} BPM) • Listen closely", { rhythm: rDef.label, bpm }));
+      }, noteDelayMs);
     });
 
-    const melodyEndMs = melodyStartMs + ex.melodySlots.length * halfNoteMs;
+    const melodyEndMs = melodyStartMs + Math.round(totalMelodyBeats * beatMs + 140);
     audioEngine.registerTimer(() => {
       if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
-      for (let i = 0; i < ex.melodySlots.length; i++) {
+      for (let i = 0; i < slots.length; i++) {
         document.getElementById(`barCard_${i}`)?.classList.remove("bar-active");
       }
       state.isPlaying = false;
@@ -38543,7 +39765,9 @@ function applyModeAndLevelFromConfig(cfg) {
     state.setMelodyConfig(
       cfg.melodyRange || cfg.level || "do-fa",
       cfg.melodyKeyMode || "fixed",
-      cfg.melodyOctaveMode || "single"
+      cfg.melodyOctaveMode || "single",
+      cfg.melodyStyle || null,
+      typeof cfg.melodyPulse === "boolean" ? cfg.melodyPulse : null
     );
   } else if (mode.startsWith("rhythm-")) {
     state.setRhythmLevel(mode, cfg.level || 1);
@@ -38604,6 +39828,8 @@ function captureCurrentExerciseAsMix(customTitle = "") {
     melodyRange: state.settings.melodyRange,
     melodyKeyMode: state.settings.melodyKeyMode,
     melodyOctaveMode: state.settings.melodyOctaveMode,
+    melodyStyle: state.settings.melodyStyle,
+    melodyPulse: state.settings.melodyPulse,
     bpm: !mode.startsWith("prod-") && !mode.startsWith("modes-") && state.hasManualExerciseBpm ? state.activeBpm : 0
   });
   if (!mix) return null;
@@ -40366,6 +41592,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const moduleBpmBtn = document.getElementById("moduleBpmBtn");
   const moduleKeyBtn = document.getElementById("moduleKeyBtn");
   const moduleTimeSigBtn = document.getElementById("moduleTimeSigBtn");
+  const melodyPulseBtn = document.getElementById("melodyPulseBtn");
 
   const inlineBpmPopover = document.getElementById("inlineBpmPopover");
   const inlineKeyPopover = document.getElementById("inlineKeyPopover");
@@ -40389,6 +41616,21 @@ document.addEventListener("DOMContentLoaded", () => {
     closeAllInlinePopovers(inlineBpmPopover);
     const isHidden = inlineBpmPopover.classList.toggle("hidden");
     moduleBpmBtn.classList.toggle("chip-open", !isHidden);
+  });
+
+  melodyPulseBtn?.addEventListener("click", (e) => {
+    e?.stopPropagation?.();
+    if (state.exam?.active) return;
+    closeAllInlinePopovers();
+    state.settings.melodyPulse = !state.settings.melodyPulse;
+    const pulseOn = Boolean(state.settings.melodyPulse);
+    melodyPulseBtn.textContent = pulseOn ? tr("Puls: An", "Pulse: On") : tr("Puls: Aus", "Pulse: Off");
+    melodyPulseBtn.classList.toggle("btn-active", pulseOn);
+    melodyPulseBtn.classList.toggle("click-muted", !pulseOn);
+    if (pulseOn && audioEngine.isInitialized) {
+      audioEngine.triggerPercussion("accent", undefined, 0.45);
+    }
+    state.updateQuickStartLabel();
   });
 
   moduleKeyBtn?.addEventListener("click", (e) => {
@@ -42107,7 +43349,7 @@ function getLocalizedExamModeName(mode) {
     "interval-chords": tr("Akkordtypen (Gleichzeitig)", "Chord Qualities (Block)"),
     "chord-inversions": tr("Akkord-Umkehrungen", "Chord Inversions"),
     solfege: "Solfège",
-    melody: tr("Melodien (4 Töne)", "Melodies (4 Notes)"),
+    melody: tr("Melodien (4–6 Töne)", "Melodies (4–6 Notes)"),
     "modes-scale": tr("Kirchentonarten (Tonleiter)", "Modes (Scale)"),
     "modes-char": tr("Charakterton (Modi)", "Modal Color Tone"),
     "modes-cadence": tr("Modaler Vamp", "Modal Vamp"),
@@ -42449,6 +43691,7 @@ function syncExamExerciseControls() {
   const keyBtn = document.getElementById("moduleKeyBtn");
   const timeBtn = document.getElementById("moduleTimeSigBtn");
   const bpmBtn = document.getElementById("moduleBpmBtn");
+  const melodyPulseBtn = document.getElementById("melodyPulseBtn");
 
   statusEl?.classList.toggle("hidden", !isExam);
   if (!isExam) {
@@ -42459,7 +43702,7 @@ function syncExamExerciseControls() {
   if (listenBtn) listenBtn.classList.toggle("hidden", isExam);
   if (loopBtn) loopBtn.classList.toggle("hidden", isExam);
 
-  [keyBtn, timeBtn, bpmBtn].forEach(btn => {
+  [keyBtn, timeBtn, bpmBtn, melodyPulseBtn].forEach(btn => {
     if (!btn) return;
     btn.classList.toggle("exam-locked", isExam);
     btn.disabled = isExam;
@@ -42922,28 +44165,49 @@ function handleExamSolfegeAnswer(ex, clickedKeyDef, keyBtn) {
   showExamPostAnswerNextBar();
 }
 
-function handleExamMelodyAnswer(ex, clickedKeyDef, keyBtn) {
+function finalizeExamMelodySlot(ex, idx) {
   const exam = state?.exam;
-  if (!exam || !exam.active || exam.currentAnswered || state.melodyCompleted) return;
+  const slots = ex?.melodySlots || [];
+  const slot = slots[idx];
+  const totalSlots = slots.length || 4;
+  if (!exam || !slot) return;
 
-  const idx = ex.melodyStep;
-  const slot = ex.melodySlots?.[idx];
-  if (!slot) return;
+  const isDictation = ex.melodyStyle === "dictation";
+  const chosenSyl = slot.examPendingSyllable;
+  const chosenNoteName = slot.examPendingNoteName || (slot.examPendingMidi ? midiToNote(slot.examPendingMidi) : slot.noteName);
+  const chosenRhythm = slot.examPendingRhythm || slot.rhythmKey || "quarter";
+  const pitchOk = chosenSyl === slot.syllable;
+  const rhythmOk = isDictation ? (chosenRhythm === slot.rhythmKey) : true;
 
-  const slotCorrect = clickedKeyDef.syllable === slot.syllable;
   slot.examAnswered = true;
-  slot.examChosenSyllable = clickedKeyDef.syllable;
-  slot.examChosenNoteName = midiToNote(clickedKeyDef.midi);
-  slot.examCorrect = slotCorrect;
+  slot.examChosenSyllable = chosenSyl;
+  slot.examChosenNoteName = chosenNoteName;
+  slot.examChosenRhythm = chosenRhythm;
+  slot.examPitchCorrect = pitchOk;
+  slot.examRhythmCorrect = rhythmOk;
+  slot.examCorrect = pitchOk && rhythmOk;
+  slot.examSlotScore = isDictation ? ((pitchOk ? 0.5 : 0) + (rhythmOk ? 0.5 : 0)) : (pitchOk ? 1 : 0);
 
+  document.querySelectorAll("#solfegeKeyboardWrap .piano-white-key, #solfegeKeyboardWrap .piano-black-key").forEach(el => {
+    el.classList.remove("key-pending-pair");
+  });
+
+  const keyBtn = slot.examPendingMidi ? document.getElementById(`solfegeKey_${slot.examPendingMidi}`) : null;
   const card = document.getElementById(`barCard_${idx}`);
+  const divCls = slot.barDivider ? " melody-bar-divider" : "";
+
   if (exam.feedbackMode === "blind") {
     if (card) {
-      card.className = "bar-card exam-slot-neutral tile-selected-pulse";
+      card.className = `bar-card exam-slot-neutral tile-selected-pulse${divCls}`;
       const rEl = card.querySelector(".bar-roman");
       const lEl = card.querySelector(".bar-label");
-      if (rEl) rEl.textContent = getSolfegeDisplayLabel(clickedKeyDef.syllable);
-      if (lEl) lEl.textContent = tr("Erfasst", "Recorded");
+      const chipsEl = card.querySelector(".melody-card-chips");
+      if (rEl) rEl.textContent = getSolfegeDisplayLabel(chosenSyl);
+      if (lEl) lEl.textContent = isDictation ? getLocalizedMelodyRhythmValue(chosenRhythm).short : tr("Erfasst", "Recorded");
+      if (chipsEl && isDictation) {
+        const cDef = getLocalizedMelodyRhythmValue(chosenRhythm);
+        chipsEl.innerHTML = `<span class="melody-rhythm-chip">${getMelodyNoteValueSVG(chosenRhythm, 14, 14)}<span>${cDef.short}</span></span>`;
+      }
     }
     keyBtn?.classList.add("key-exam-recorded");
     const cId = audioEngine.playbackId;
@@ -42951,18 +44215,30 @@ function handleExamMelodyAnswer(ex, clickedKeyDef, keyBtn) {
       if (audioEngine.playbackId === cId) keyBtn?.classList.remove("key-exam-recorded");
     }, 240);
   } else {
-    if (slotCorrect) slot.solved = true;
-    keyBtn?.classList.add(slotCorrect ? "key-correct" : "key-wrong");
+    if (slot.examCorrect) slot.solved = true;
+    keyBtn?.classList.add(pitchOk ? "key-correct" : "key-wrong");
     if (card) {
-      card.className = `bar-card ${slotCorrect ? "melody-slot-solved" : "bar-target"} tile-selected-pulse`;
+      card.className = `bar-card ${slot.examCorrect ? "melody-slot-solved" : "bar-target"} tile-selected-pulse${divCls}`;
       const rEl = card.querySelector(".bar-roman");
       const lEl = card.querySelector(".bar-label");
-      if (rEl) rEl.textContent = slotCorrect ? getSolfegeDisplayLabel(slot.syllable) : `${getSolfegeDisplayLabel(clickedKeyDef.syllable)} → ${getSolfegeDisplayLabel(slot.syllable)}`;
-      if (lEl) lEl.textContent = slotCorrect ? `✓ ${slot.germanNote}` : `✗ ${slot.germanNote}`;
+      const chipsEl = card.querySelector(".melody-card-chips");
+      if (rEl) rEl.textContent = pitchOk ? getSolfegeDisplayLabel(slot.syllable) : `${getSolfegeDisplayLabel(chosenSyl)} → ${getSolfegeDisplayLabel(slot.syllable)}`;
+      if (lEl) {
+        lEl.textContent = slot.examCorrect
+          ? `✓ ${slot.germanNote}`
+          : (slot.examSlotScore > 0 ? `~ ${slot.germanNote}` : `✗ ${slot.germanNote}`);
+      }
+      if (chipsEl && isDictation) {
+        const tDef = getLocalizedMelodyRhythmValue(slot.rhythmKey);
+        const cDef = getLocalizedMelodyRhythmValue(chosenRhythm);
+        chipsEl.innerHTML = rhythmOk
+          ? `<span class="melody-rhythm-chip is-partial-ok">${getMelodyNoteValueSVG(slot.rhythmKey, 14, 14)}<span>✓ ${tDef.short}</span></span>`
+          : `<span class="melody-rhythm-chip">${getMelodyNoteValueSVG(slot.rhythmKey, 14, 14)}<span>${cDef.short}→${tDef.short}</span></span>`;
+      }
     }
   }
 
-  if (idx < ex.melodySlots.length - 1) {
+  if (idx < totalSlots - 1) {
     ex.melodyStep = idx + 1;
     const nextIdx = ex.melodyStep;
     const nextCard = document.getElementById(`barCard_${nextIdx}`);
@@ -42972,14 +44248,14 @@ function handleExamMelodyAnswer(ex, clickedKeyDef, keyBtn) {
       const nl = nextCard.querySelector(".bar-label");
       if (nl) nl.textContent = tr("Gesucht", "Target");
     }
-    const badge = document.getElementById("targetBarBadge");
-    if (badge) badge.textContent = tf("Ton {n} / 4", "Note {n} / 4", { n: nextIdx + 1 });
-    const promptEl = document.getElementById("inputPromptText");
-    if (promptEl) promptEl.textContent = tf("Tippe Ton {n} von 4 auf der Klaviatur:", "Tap note {n} of 4 on the keyboard:", { n: nextIdx + 1 });
+    syncMelodyHeaderAndPromptUI(ex);
+    if (isDictation) {
+      renderMelodyRhythmPicker(ex);
+    }
     return;
   }
 
-  // Alle 4 Töne eingegeben -> Teilpunkte berechnen
+  // Alle Töne eingegeben -> Teilpunkte berechnen
   exam.currentAnswered = true;
   state.melodyCompleted = true;
   state.exerciseSolved = true;
@@ -42988,13 +44264,25 @@ function handleExamMelodyAnswer(ex, clickedKeyDef, keyBtn) {
   state.isPlaying = false;
   updatePlayButtonUI(false);
 
-  const correctSlots = ex.melodySlots.filter(s => s.examCorrect).length;
-  const totalSlots = ex.melodySlots.length || 4;
-  const score = Math.round((correctSlots / totalSlots) * 100) / 100;
-  const status = correctSlots === totalSlots ? "correct" : (correctSlots > 0 ? "partial" : "wrong");
+  syncMelodyHeaderAndPromptUI(ex);
+  if (isDictation) {
+    renderMelodyRhythmPicker(ex);
+  }
 
-  const chosenSeqLabel = ex.melodySlots.map(s => getSolfegeDisplayLabel(s.examChosenSyllable || "?")).join(" – ");
-  const targetSeqLabel = ex.melodySlots.map(s => getSolfegeDisplayLabel(s.syllable)).join(" – ");
+  const totalScoreSum = slots.reduce((sum, s) => sum + (Number(s.examSlotScore) || 0), 0);
+  const fullHits = slots.filter(s => s.examCorrect).length;
+  const score = Math.round((totalScoreSum / totalSlots) * 100) / 100;
+  const status = totalScoreSum >= totalSlots - 0.001 ? "correct" : (totalScoreSum > 0 ? "partial" : "wrong");
+
+  const formatExamSeq = (isTarget) => slots.map(s => {
+    const syl = getSolfegeDisplayLabel(isTarget ? s.syllable : (s.examChosenSyllable || "?"));
+    if (!isDictation) return syl;
+    const rk = isTarget ? s.rhythmKey : (s.examChosenRhythm || s.rhythmKey);
+    return `${syl} (${getLocalizedMelodyRhythmValue(rk).short})`;
+  }).join(" – ");
+
+  const chosenSeqLabel = formatExamSeq(false);
+  const targetSeqLabel = formatExamSeq(true);
 
   recordExamQuestionEntry({
     mode: "melody",
@@ -43004,31 +44292,116 @@ function handleExamMelodyAnswer(ex, clickedKeyDef, keyBtn) {
     targetKey: targetSeqLabel,
     chosenLabel: chosenSeqLabel,
     targetLabel: targetSeqLabel,
-    detailNote: tf("{hit}/{tot} Töne richtig", "{hit}/{tot} notes right", { hit: correctSlots, tot: totalSlots }),
+    detailNote: isDictation
+      ? tf("{pts}/{tot} Pkt. ({hits} komplett)", "{pts}/{tot} pts ({hits} exact)", { pts: Number(totalScoreSum.toFixed(1)), tot: totalSlots, hits: fullHits })
+      : tf("{hit}/{tot} Töne richtig", "{hit}/{tot} notes right", { hit: fullHits, tot: totalSlots }),
     audioSnapshot: {
       type: "melody",
       activeBpm: state.activeBpm || 90,
-      targetSlots: ex.melodySlots.map(s => ({ syllable: s.syllable, noteName: s.noteName })),
-      chosenSlots: ex.melodySlots.map(s => ({ syllable: s.examChosenSyllable || s.syllable, noteName: s.examChosenNoteName || s.noteName }))
+      melodyStyle: ex.melodyStyle || "rhythmic",
+      melodyPulse: Boolean(state.settings.melodyPulse),
+      beatsPerBar: ex.beatsPerBar || 4,
+      totalMelodyBeats: ex.totalMelodyBeats || 8,
+      targetSlots: slots.map(s => ({
+        syllable: s.syllable,
+        noteName: s.noteName,
+        beatOffset: s.beatOffset,
+        durationBeats: s.durationBeats,
+        rhythmKey: s.rhythmKey,
+        velocity: s.velocity
+      })),
+      chosenSlots: slots.map(s => {
+        const cRhythm = s.examChosenRhythm || s.rhythmKey;
+        const cDur = MELODY_RHYTHM_VALUES[cRhythm]?.beats || s.durationBeats || 1;
+        return {
+          syllable: s.examChosenSyllable || s.syllable,
+          noteName: s.examChosenNoteName || s.noteName,
+          beatOffset: s.beatOffset,
+          durationBeats: isDictation ? cDur : (s.durationBeats || 1),
+          rhythmKey: cRhythm,
+          velocity: s.velocity
+        };
+      })
     }
   });
 
   if (exam.feedbackMode === "blind") {
     setCentralStageMode("stage-playing");
     updateStageMascot("listening");
-    document.getElementById("stageSubtext").textContent = tr("4 / 4 ERFASST", "4 / 4 RECORDED");
+    document.getElementById("stageSubtext").textContent = tf("{tot} / {tot} ERFASST", "{tot} / {tot} RECORDED", { tot: totalSlots });
     document.getElementById("stageMainText").textContent = "✓";
     document.getElementById("stageFunctionText").textContent = tr("Weiter zur nächsten Frage…", "Moving to the next question…");
     scheduleExamAutoAdvance(280);
     return;
   }
 
-  setCentralStageMode(correctSlots === totalSlots ? "stage-playing" : "stage-wrong");
-  updateStageMascot(correctSlots === totalSlots ? "happy" : "thinking");
-  document.getElementById("stageSubtext").textContent = tf("ERGEBNIS: {hit} / {tot}", "RESULT: {hit} / {tot}", { hit: correctSlots, tot: totalSlots });
+  setCentralStageMode(totalScoreSum >= totalSlots - 0.001 ? "stage-playing" : "stage-wrong");
+  updateStageMascot(totalScoreSum >= totalSlots - 0.001 ? "happy" : "thinking");
+  document.getElementById("stageSubtext").textContent = tf("ERGEBNIS: {hit} / {tot}", "RESULT: {hit} / {tot}", { hit: Number(totalScoreSum.toFixed(1)), tot: totalSlots });
   document.getElementById("stageMainText").textContent = targetSeqLabel;
   document.getElementById("stageFunctionText").textContent = tf("Deine Eingabe: {ch}", "Your entry: {ch}", { ch: chosenSeqLabel });
   showExamPostAnswerNextBar();
+}
+
+function handleExamMelodyRhythmChoice(ex, rhythmKey, btn) {
+  const exam = state?.exam;
+  if (!exam || !exam.active || exam.currentAnswered || state.melodyCompleted) return;
+  if (!ex || ex.type !== "melody" || ex.melodyStyle !== "dictation") return;
+
+  const idx = ex.melodyStep || 0;
+  const slot = ex.melodySlots?.[idx];
+  if (!slot) return;
+
+  slot.examPendingRhythm = rhythmKey;
+  if (slot.examPendingSyllable) {
+    finalizeExamMelodySlot(ex, idx);
+    return;
+  }
+
+  renderMelodyRhythmPicker(ex);
+  const card = document.getElementById(`barCard_${idx}`);
+  if (card) {
+    const lEl = card.querySelector(".bar-label");
+    if (lEl) lEl.textContent = tr("Wert ✓ • Ton?", "Value ✓ • Pitch?");
+  }
+}
+
+function handleExamMelodyAnswer(ex, clickedKeyDef, keyBtn) {
+  const exam = state?.exam;
+  if (!exam || !exam.active || exam.currentAnswered || state.melodyCompleted) return;
+
+  const idx = ex.melodyStep || 0;
+  const slot = ex.melodySlots?.[idx];
+  if (!slot) return;
+
+  slot.examPendingSyllable = clickedKeyDef.syllable;
+  slot.examPendingMidi = clickedKeyDef.midi;
+  slot.examPendingNoteName = midiToNote(clickedKeyDef.midi);
+
+  if (ex.melodyStyle !== "dictation") {
+    slot.examPendingRhythm = slot.rhythmKey || "half";
+    finalizeExamMelodySlot(ex, idx);
+    return;
+  }
+
+  if (slot.examPendingRhythm) {
+    finalizeExamMelodySlot(ex, idx);
+    return;
+  }
+
+  document.querySelectorAll("#solfegeKeyboardWrap .piano-white-key, #solfegeKeyboardWrap .piano-black-key").forEach(el => {
+    el.classList.remove("key-pending-pair");
+  });
+  keyBtn?.classList.add("key-pending-pair");
+
+  const card = document.getElementById(`barCard_${idx}`);
+  if (card) {
+    const rEl = card.querySelector(".bar-roman");
+    const lEl = card.querySelector(".bar-label");
+    if (rEl) rEl.textContent = getSolfegeDisplayLabel(clickedKeyDef.syllable);
+    if (lEl) lEl.textContent = tr("Ton ✓ • Wert?", "Pitch ✓ • Value?");
+  }
+  renderMelodyRhythmPicker(ex);
 }
 
 function handleExamRhythmDictationAnswer(ex, cellKey, btnElement) {
@@ -43258,11 +44631,26 @@ function skipCurrentExamQuestion() {
       chosenSyllable: null
     };
   } else if (curMode === "melody" && ex?.melodySlots) {
-    targetLabel = ex.melodySlots.map(s => getSolfegeDisplayLabel(s.syllable)).join(" – ");
+    const isDictation = ex.melodyStyle === "dictation";
+    targetLabel = ex.melodySlots.map(s => {
+      const syl = getSolfegeDisplayLabel(s.syllable);
+      return isDictation ? `${syl} (${getLocalizedMelodyRhythmValue(s.rhythmKey).short})` : syl;
+    }).join(" – ");
     snapshot = {
       type: "melody",
       activeBpm: state.activeBpm || 90,
-      targetSlots: ex.melodySlots.map(s => ({ syllable: s.syllable, noteName: s.noteName })),
+      melodyStyle: ex.melodyStyle || "rhythmic",
+      melodyPulse: Boolean(state.settings.melodyPulse),
+      beatsPerBar: ex.beatsPerBar || 4,
+      totalMelodyBeats: ex.totalMelodyBeats || 8,
+      targetSlots: ex.melodySlots.map(s => ({
+        syllable: s.syllable,
+        noteName: s.noteName,
+        beatOffset: s.beatOffset,
+        durationBeats: s.durationBeats,
+        rhythmKey: s.rhythmKey,
+        velocity: s.velocity
+      })),
       chosenSlots: null
     };
   } else if (curMode === "rhythm-dictation" && ex?.rhythmSlots) {
@@ -43716,17 +45104,63 @@ function playSingleExamReviewSnapshot(snap, side) {
   }
 
   if (type === "melody") {
-    const slots = side === "chosen" && Array.isArray(snap.chosenSlots) ? snap.chosenSlots : (snap.targetSlots || []);
-    const beatSec = 60 / (snap.activeBpm || 90);
-    const stepMs = Math.round(2 * beatSec * 1000);
-    const durSec = Math.max(0.32, 2 * beatSec * 0.85);
-    slots.forEach((s, idx) => {
+    const rawSlots = side === "chosen" && Array.isArray(snap.chosenSlots) ? snap.chosenSlots : (snap.targetSlots || []);
+    const bpm = snap.activeBpm || 90;
+    const beatSec = 60 / bpm;
+    const beatMs = beatSec * 1000;
+    const isSteady = snap.melodyStyle === "steady" || !snap.melodyStyle;
+    const isDictation = snap.melodyStyle === "dictation";
+    const beatsPerBar = snap.beatsPerBar || 4;
+
+    let accBeats = 0;
+    const items = rawSlots.map((s, idx) => {
+      const durBeats = Number(s.durationBeats) || (isSteady ? 2 : 1);
+      const beatOffset = (side === "chosen" && isDictation)
+        ? accBeats
+        : (Number.isFinite(Number(s.beatOffset)) ? Number(s.beatOffset) : idx * 2);
+      accBeats = beatOffset + durBeats;
+      return {
+        noteName: s.noteName,
+        beatOffset: beatOffset,
+        durationBeats: durBeats,
+        velocity: s.velocity || 0.88
+      };
+    });
+
+    const totalBeats = items.length > 0
+      ? Math.max(snap.totalMelodyBeats || 0, ...items.map(it => it.beatOffset + it.durationBeats))
+      : 4;
+    const baseAudioTime = getAudioClockSec() + 0.04;
+    const lookaheadMs = 95;
+
+    if (!isSteady && snap.melodyPulse) {
+      const clickEvents = [];
+      const totalClicks = Math.ceil(totalBeats);
+      for (let b = 0; b < totalClicks; b++) {
+        clickEvents.push([
+          Math.round(b * beatMs),
+          b % beatsPerBar === 0 ? "accent" : "tick",
+          b % beatsPerBar === 0 ? 0.56 : 0.36
+        ]);
+      }
+      audioEngine.playRhythmSequence(clickEvents, baseAudioTime);
+    }
+
+    items.forEach(it => {
+      const delayMs = Math.round(it.beatOffset * beatMs);
+      const timerDelay = Math.max(0, delayMs - lookaheadMs);
+      const durSec = Math.max(0.16, it.durationBeats * beatSec * 0.86);
+      const targetAt = baseAudioTime + delayMs / 1000;
       audioEngine.registerTimer(() => {
         if (audioEngine.playbackId !== currentId) return;
-        audioEngine.playStep([s.noteName], durSec, null, "interval");
-      }, idx * stepMs);
+        audioEngine.playStep([it.noteName], durSec, null, "melody-note", {
+          atTime: targetAt,
+          velocity: it.velocity
+        });
+      }, timerDelay);
     });
-    return slots.length * stepMs + 150;
+
+    return Math.round(totalBeats * beatMs) + 180;
   }
 
   if (type === "rhythm-meter") {
