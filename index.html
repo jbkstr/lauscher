@@ -5855,6 +5855,800 @@ body,
   }
 }
 
+/* =====================================================
+   PRÜFUNGSMODUS (#viewExamSetup, #examStatusBar, #viewExamResult, #spaceExamHistoryCard)
+   ===================================================== */
+
+.category-exam-entry-card {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 12px;
+  padding: 14px 16px;
+  border-radius: var(--radius-lg);
+  background: var(--surface-white);
+  border: 1.5px solid var(--border-strong);
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  text-align: left;
+  color: var(--raccoon-dark);
+  transition: transform 0.14s ease, box-shadow 0.14s ease, background 0.14s ease, border-color 0.14s ease;
+}
+
+.category-exam-entry-card:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-float);
+}
+
+.category-exam-entry-card.accent-peach {
+  background: linear-gradient(135deg, var(--surface-white) 0%, var(--peach-soft) 100%);
+  border-color: var(--peach);
+}
+
+.category-exam-entry-card.accent-sage {
+  background: linear-gradient(135deg, var(--surface-white) 0%, var(--sage-soft) 100%);
+  border-color: var(--sage);
+}
+
+.category-exam-entry-card.accent-lilac {
+  background: linear-gradient(135deg, var(--surface-white) 0%, var(--lilac-soft) 100%);
+  border-color: var(--lilac);
+}
+
+.category-exam-entry-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.category-exam-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  background: var(--surface-warm);
+  border: 1px solid var(--border-soft);
+}
+
+.category-exam-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.category-exam-title {
+  font-size: 0.96rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+}
+
+.category-exam-sub {
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: var(--raccoon-mid);
+}
+
+.category-exam-best {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--sage-strong);
+  margin-top: 2px;
+}
+
+.category-exam-cta {
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 6px 11px;
+  border-radius: var(--radius-pill);
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Prüfungs-Setup (#viewExamSetup) */
+.exam-setup-hero {
+  background: var(--surface-white);
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 12px;
+}
+
+.exam-setup-hero-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.exam-setup-hero-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+  margin: 0;
+}
+
+.exam-setup-hero-desc {
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--raccoon-mid);
+  margin: 0;
+}
+
+.exam-config-panel {
+  background: var(--surface-white);
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  padding: 13px 15px;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.exam-config-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.exam-config-label {
+  font-size: 0.73rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--raccoon-mid);
+}
+
+.exam-level-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.exam-level-card {
+  background: var(--surface-white);
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.exam-level-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.exam-level-badges {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.exam-level-pill {
+  font-size: 0.69rem;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+  background: var(--lilac-soft);
+  color: var(--lilac-strong);
+  border: 1px solid var(--lilac);
+}
+
+.exam-best-pill {
+  font-size: 0.69rem;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+  background: var(--sage-soft);
+  color: var(--sage-strong);
+  border: 1px solid var(--sage);
+}
+
+.exam-level-title {
+  font-size: 0.96rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+  margin: 0 0 3px;
+}
+
+.exam-level-desc {
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--raccoon-mid);
+  margin: 0;
+}
+
+.exam-level-modes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.exam-mode-chip {
+  font-size: 0.69rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-warm);
+  color: var(--raccoon-mid);
+  border: 1px solid var(--border-soft);
+}
+
+.exam-level-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.exam-start-btn {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 0.88rem;
+}
+
+/* Statusleiste & Abbruch-Banner in #viewExercise */
+.exam-status-bar {
+  background: var(--surface-white);
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  padding: 8px 11px;
+  margin-bottom: 8px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.exam-status-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.exam-status-pills {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  min-width: 0;
+}
+
+.exam-status-pill {
+  font-size: 0.71rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-warm);
+  color: var(--raccoon-dark);
+  border: 1px solid var(--border-soft);
+  white-space: nowrap;
+}
+
+.exam-status-pill.is-accent {
+  background: var(--lilac-soft);
+  color: var(--lilac-strong);
+  border-color: var(--lilac);
+}
+
+.exam-status-pill.is-warn {
+  background: var(--peach-soft);
+  color: var(--peach-strong);
+  border-color: var(--peach);
+}
+
+.exam-status-pill.is-exhausted {
+  background: var(--mute-bg);
+  color: var(--status-err);
+  border-color: var(--mute-border);
+}
+
+.exam-abort-btn {
+  padding: 4px 10px;
+  font-size: 0.73rem;
+  flex-shrink: 0;
+}
+
+.exam-progress-track {
+  width: 100%;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-warm);
+  overflow: hidden;
+  border: 1px solid var(--border-soft);
+}
+
+.exam-progress-fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, var(--sage-strong), var(--status-ok));
+  transition: width 0.25s ease;
+}
+
+.exam-abort-banner {
+  background: var(--surface-white);
+  border: 1.5px solid var(--status-warn);
+  border-radius: var(--radius-md);
+  padding: 11px 13px;
+  margin-bottom: 8px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.exam-abort-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.81rem;
+  color: var(--raccoon-dark);
+}
+
+.exam-abort-copy span {
+  font-size: 0.76rem;
+  color: var(--raccoon-mid);
+}
+
+.exam-abort-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.exam-post-answer-bar {
+  margin-bottom: 8px;
+}
+
+.exam-next-btn {
+  width: 100%;
+  padding: 11px 16px;
+  font-size: 0.92rem;
+}
+
+.module-chip-btn.exam-locked {
+  opacity: 0.78;
+  cursor: default;
+  pointer-events: none;
+}
+
+.bar-card.exam-slot-neutral {
+  background: var(--lilac-soft);
+  border-color: var(--lilac);
+  color: var(--lilac-strong);
+}
+
+.degree-btn.exam-choice-recorded {
+  background: var(--lilac-soft);
+  border-color: var(--lilac-strong);
+  color: var(--lilac-strong);
+}
+
+.key-exam-recorded {
+  background: var(--lilac-soft) !important;
+  color: var(--lilac-strong) !important;
+}
+
+/* Prüfungsauswertung (#viewExamResult) */
+.exam-result-content {
+  max-width: 560px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 18px;
+}
+
+.exam-result-hero {
+  background: var(--surface-white);
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  padding: 18px 16px;
+  box-shadow: var(--shadow-card);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.exam-result-hero.tier-master {
+  border-color: var(--status-ok);
+  background: linear-gradient(180deg, var(--sage-soft) 0%, var(--surface-white) 56%);
+}
+
+.exam-result-hero.tier-good {
+  border-color: var(--sage);
+  background: linear-gradient(180deg, var(--surface-warm) 0%, var(--surface-white) 56%);
+}
+
+.exam-result-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.exam-badge-pill {
+  font-size: 0.76rem;
+  font-weight: 800;
+  padding: 4px 11px;
+  border-radius: var(--radius-pill);
+  background: var(--sage-soft);
+  color: var(--sage-strong);
+  border: 1px solid var(--sage);
+}
+
+.exam-new-best-pill {
+  font-size: 0.74rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--peach-soft);
+  color: var(--peach-strong);
+  border: 1px solid var(--peach);
+}
+
+.exam-result-score {
+  font-size: 2.35rem;
+  font-weight: 900;
+  line-height: 1.05;
+  color: var(--raccoon-dark);
+}
+
+.exam-result-title {
+  margin: 0;
+  font-size: 1.06rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+}
+
+.exam-result-sub {
+  margin: 0;
+  font-size: 0.81rem;
+  line-height: 1.4;
+  color: var(--raccoon-mid);
+}
+
+.exam-metrics-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.exam-metric-box {
+  background: var(--surface-warm);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  padding: 8px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.exam-metric-val {
+  font-size: 0.94rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+}
+
+.exam-metric-lbl {
+  font-size: 0.69rem;
+  font-weight: 700;
+  color: var(--raccoon-mid);
+}
+
+.exam-result-card {
+  background: var(--surface-white);
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  padding: 14px 15px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.exam-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.exam-section-head h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+}
+
+.exam-breakdown-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.exam-breakdown-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.exam-breakdown-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.81rem;
+  font-weight: 700;
+  color: var(--raccoon-dark);
+}
+
+.exam-breakdown-bar {
+  width: 100%;
+  height: 7px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-warm);
+  overflow: hidden;
+  border: 1px solid var(--border-soft);
+}
+
+.exam-breakdown-fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--status-ok);
+}
+
+.exam-breakdown-fill.is-mid {
+  background: var(--status-warn);
+}
+
+.exam-breakdown-fill.is-low {
+  background: var(--status-err);
+}
+
+.exam-result-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.exam-result-actions-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.exam-review-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.exam-review-list {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.exam-review-item {
+  border-radius: var(--radius-md);
+  padding: 11px 12px;
+  background: var(--surface-warm);
+  border: 1.5px solid var(--border-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.exam-review-item.is-wrong {
+  border-color: var(--status-err);
+}
+
+.exam-review-item.is-partial {
+  border-color: var(--status-warn);
+}
+
+.exam-review-item.is-correct {
+  border-color: var(--status-ok);
+}
+
+.exam-review-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.exam-review-q {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+}
+
+.exam-review-status {
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-white);
+  border: 1px solid var(--border-soft);
+}
+
+.exam-review-status.is-ok {
+  color: var(--status-ok);
+}
+
+.exam-review-status.is-warn {
+  color: var(--status-warn);
+}
+
+.exam-review-status.is-err {
+  color: var(--status-err);
+}
+
+.exam-review-answers {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.8rem;
+  color: var(--raccoon-dark);
+}
+
+.exam-review-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: baseline;
+}
+
+.exam-review-lbl {
+  font-weight: 800;
+  color: var(--raccoon-mid);
+  font-size: 0.75rem;
+}
+
+.exam-review-audio {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Prüfungsverlauf im Konto (#spaceExamHistoryCard) */
+.exam-history-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.exam-history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.exam-history-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  background: var(--surface-warm);
+  border: 1.5px solid var(--border-soft);
+  cursor: pointer;
+  text-align: left;
+  color: var(--raccoon-dark);
+  transition: transform 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+}
+
+.exam-history-row:hover {
+  transform: translateY(-1px);
+  border-color: var(--border-strong);
+  background: var(--surface-hover);
+}
+
+.exam-history-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.exam-history-title {
+  font-size: 0.86rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.exam-history-meta {
+  font-size: 0.74rem;
+  color: var(--raccoon-mid);
+}
+
+.exam-history-score {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.exam-history-pct {
+  font-size: 0.96rem;
+  font-weight: 900;
+  color: var(--raccoon-dark);
+}
+
+.exam-history-pct.is-ok {
+  color: var(--status-ok);
+}
+
+.exam-history-pct.is-mid {
+  color: var(--status-warn);
+}
+
+.exam-history-pct.is-low {
+  color: var(--status-err);
+}
+
+.exam-history-open-hint {
+  font-size: 0.69rem;
+  font-weight: 700;
+  color: var(--raccoon-mid);
+}
+
+.exam-history-empty {
+  padding: 12px;
+  border-radius: var(--radius-md);
+  background: var(--surface-warm);
+  border: 1px dashed var(--border-strong);
+  font-size: 0.81rem;
+  line-height: 1.45;
+  color: var(--raccoon-mid);
+}
+
+.exam-history-footer {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
 .hidden, .modal-hidden {
   display: none !important;
 }
@@ -6250,6 +7044,13 @@ body,
     </main>
 
     <!-- =====================================================
+         ANSICHT 1d: PRÜFUNGS-AUSWAHL JE KATEGORIE (#viewExamSetup)
+         ===================================================== -->
+    <main id="viewExamSetup" class="view-container hidden">
+      <div id="examSetupContent" class="category-page-content"></div>
+    </main>
+
+    <!-- =====================================================
          ANSICHT 2: WISSEN HUB (#viewKnowledge) – Aufgeräumt!
          ===================================================== -->
     <main id="viewKnowledge" class="view-container hidden">
@@ -6562,49 +7363,20 @@ body,
         </div>
       </section>
 
-      <!-- 2. Achtsamer Session-Timer mit automatischer Inaktivitäts-Abschaltung -->
-      <section class="account-card" id="spaceTimerCard">
+      <!-- 2. Prüfungsverlauf & Bestwerte -->
+      <section class="account-card" id="spaceExamHistoryCard">
         <div class="account-card-head">
           <div>
-            <h3 data-i18n="space.timerTitle">Achtsamer Session-Timer</h3>
-            <p class="account-card-sub" data-i18n="space.timerSub">Schaltet sich bei Nicht-Nutzung automatisch wieder aus – zählt keine Lernhistorie.</p>
+            <h3 data-i18n="space.examHistoryTitle">Prüfungsverlauf</h3>
+            <p class="account-card-sub" data-i18n="space.examHistorySub">Deine abgeschlossenen Kategorie-Prüfungen &amp; Bestwerte (lokal auf deinem Gerät).</p>
           </div>
-          <span id="spaceTimerStatusBadge" class="k-ratio-chip">Bereit</span>
+          <button type="button" class="btn-tool exam-history-clear-btn hidden" id="clearExamHistoryBtn" data-i18n="space.examHistoryClear">Verlauf löschen</button>
         </div>
 
-        <div class="timer-display-box">
-          <div id="spaceTimerDisplay" class="timer-digits">10:00</div>
-          <p id="spaceTimerNote" class="timer-note">Bereit für eine entspannte Session.</p>
-          <p id="spaceTimerConfigSummary" class="timer-config-summary">10 Min • Auto-Stopp 3 Min</p>
-        </div>
-
-        <details class="account-disclosure" id="timerSettingsDisclosure">
-          <summary data-i18n="space.timerCustomize">Dauer &amp; Auto-Stopp anpassen</summary>
-          <div class="account-disclosure-body">
-            <div class="account-field">
-              <span class="account-label" data-i18n="space.timerDuration">Wunschdauer</span>
-              <div id="timerDurationGroup" class="account-chip-group">
-                <button type="button" class="k-filter-pill" data-timer-mins="5" data-i18n="space.timerMin5">5 Min</button>
-                <button type="button" class="k-filter-pill active" data-timer-mins="10" data-i18n="space.timerMin10">10 Min</button>
-                <button type="button" class="k-filter-pill" data-timer-mins="15" data-i18n="space.timerMin15">15 Min</button>
-                <button type="button" class="k-filter-pill" data-timer-mins="20" data-i18n="space.timerMin20">20 Min</button>
-              </div>
-            </div>
-
-            <div class="account-field">
-              <span class="account-label" data-i18n="space.timerIdleLabel">Auto-Stopp bei Pause / Inaktivität</span>
-              <div id="timerIdleGroup" class="account-chip-group">
-                <button type="button" class="k-filter-pill" data-timer-idle="2" data-i18n="space.timerIdle2">nach 2 Min</button>
-                <button type="button" class="k-filter-pill active" data-timer-idle="3" data-i18n="space.timerIdle3">nach 3 Min</button>
-                <button type="button" class="k-filter-pill" data-timer-idle="5" data-i18n="space.timerIdle5">nach 5 Min</button>
-              </div>
-            </div>
-          </div>
-        </details>
-
-        <div class="account-btn-row">
-          <button id="timerToggleBtn" type="button" class="btn-primary-action account-action-main">▶ Session starten</button>
-          <button id="timerResetBtn" type="button" class="btn-tool" data-i18n="space.timerReset">Zurücksetzen</button>
+        <div id="spaceExamHistorySummary" class="exam-history-summary"></div>
+        <div id="spaceExamHistoryList" class="exam-history-list"></div>
+        <div id="spaceExamHistoryFooter" class="exam-history-footer hidden">
+          <button type="button" class="btn-tool" id="toggleAllExamHistoryBtn"></button>
         </div>
       </section>
 
@@ -6843,12 +7615,58 @@ body,
         </div>
       </section>
 
-      <!-- 5. Lokal-Konto & Datensicherung (kompakt einklappbar) -->
+      <!-- 5. Achtsamer Session-Timer mit automatischer Inaktivitäts-Abschaltung -->
+      <section class="account-card" id="spaceTimerCard">
+        <div class="account-card-head">
+          <div>
+            <h3 data-i18n="space.timerTitle">Achtsamer Session-Timer</h3>
+            <p class="account-card-sub" data-i18n="space.timerSub">Schaltet sich bei Nicht-Nutzung automatisch wieder aus – zählt keine Lernhistorie.</p>
+          </div>
+          <span id="spaceTimerStatusBadge" class="k-ratio-chip">Bereit</span>
+        </div>
+
+        <div class="timer-display-box">
+          <div id="spaceTimerDisplay" class="timer-digits">10:00</div>
+          <p id="spaceTimerNote" class="timer-note">Bereit für eine entspannte Session.</p>
+          <p id="spaceTimerConfigSummary" class="timer-config-summary">10 Min • Auto-Stopp 3 Min</p>
+        </div>
+
+        <details class="account-disclosure" id="timerSettingsDisclosure">
+          <summary data-i18n="space.timerCustomize">Dauer &amp; Auto-Stopp anpassen</summary>
+          <div class="account-disclosure-body">
+            <div class="account-field">
+              <span class="account-label" data-i18n="space.timerDuration">Wunschdauer</span>
+              <div id="timerDurationGroup" class="account-chip-group">
+                <button type="button" class="k-filter-pill" data-timer-mins="5" data-i18n="space.timerMin5">5 Min</button>
+                <button type="button" class="k-filter-pill active" data-timer-mins="10" data-i18n="space.timerMin10">10 Min</button>
+                <button type="button" class="k-filter-pill" data-timer-mins="15" data-i18n="space.timerMin15">15 Min</button>
+                <button type="button" class="k-filter-pill" data-timer-mins="20" data-i18n="space.timerMin20">20 Min</button>
+              </div>
+            </div>
+
+            <div class="account-field">
+              <span class="account-label" data-i18n="space.timerIdleLabel">Auto-Stopp bei Pause / Inaktivität</span>
+              <div id="timerIdleGroup" class="account-chip-group">
+                <button type="button" class="k-filter-pill" data-timer-idle="2" data-i18n="space.timerIdle2">nach 2 Min</button>
+                <button type="button" class="k-filter-pill active" data-timer-idle="3" data-i18n="space.timerIdle3">nach 3 Min</button>
+                <button type="button" class="k-filter-pill" data-timer-idle="5" data-i18n="space.timerIdle5">nach 5 Min</button>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <div class="account-btn-row">
+          <button id="timerToggleBtn" type="button" class="btn-primary-action account-action-main">▶ Session starten</button>
+          <button id="timerResetBtn" type="button" class="btn-tool" data-i18n="space.timerReset">Zurücksetzen</button>
+        </div>
+      </section>
+
+      <!-- 6. Lokal-Konto & Datensicherung (kompakt einklappbar) -->
       <section class="account-card">
         <div class="account-card-head">
           <div>
             <h3 data-i18n="space.backupTitle">Lokal &amp; Privat</h3>
-            <p class="account-card-sub" data-i18n="space.backupSub">Kein Server, kein Tracking, keine Lernhistorie – du kannst deine Vorlieben jederzeit als Datei sichern.</p>
+            <p class="account-card-sub" data-i18n="space.backupSub">Kein Server, kein Tracking – deine Vorlieben &amp; Prüfungen bleiben lokal und lassen sich als Datei sichern.</p>
           </div>
         </div>
 
@@ -6872,6 +7690,31 @@ body,
          ANSICHT 4: AKTIVE ÜBUNGS-BÜHNE (#viewExercise)
          ===================================================== -->
     <main id="viewExercise" class="view-exercise-container hidden">
+
+      <div id="examStatusBar" class="exam-status-bar hidden">
+        <div class="exam-status-top">
+          <div class="exam-status-pills">
+            <span id="examModePill" class="exam-status-pill is-accent">Prüfung</span>
+            <span id="examCounterPill" class="exam-status-pill">Frage 1 / 10</span>
+            <span id="examReplayPill" class="exam-status-pill">Noch 2× anhören</span>
+          </div>
+          <button id="examAbortBtn" type="button" class="btn-tool exam-abort-btn" data-i18n="ex.examAbortBtn">Abbrechen</button>
+        </div>
+        <div class="exam-progress-track" aria-hidden="true">
+          <div id="examProgressFill" class="exam-progress-fill" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <div id="examAbortConfirmBanner" class="exam-abort-banner hidden" role="dialog" aria-modal="false">
+        <div class="exam-abort-copy">
+          <strong data-i18n="ex.examAbortTitle">Prüfung wirklich abbrechen?</strong>
+          <span data-i18n="ex.examAbortSub">Der aktuelle Prüfdurchlauf wird nicht im Verlauf gespeichert.</span>
+        </div>
+        <div class="exam-abort-actions">
+          <button id="examContinueBtn" type="button" class="btn-tool" data-i18n="ex.examContinueBtn">Weiterprüfen</button>
+          <button id="examConfirmAbortBtn" type="button" class="btn-tool account-btn-danger" data-i18n="ex.examConfirmAbortBtn">Prüfung beenden</button>
+        </div>
+      </div>
 
       <section id="exerciseModuleCard" class="module-card">
         <div class="module-header">
@@ -6975,6 +7818,10 @@ body,
         <div id="solfegeKeyboardWrap" class="solfege-keyboard-wrap hidden"></div>
         <div id="rhythmTapPadWrap" class="rhythm-tap-wrap hidden"></div>
 
+        <div id="examPostAnswerBar" class="exam-post-answer-bar hidden">
+          <button id="examNextQuestionBtn" type="button" class="btn-primary-action exam-next-btn">Nächste Frage →</button>
+        </div>
+
         <div class="dock-bar">
           <button id="loopToggleBtn" class="dock-icon-btn" title="Endlosschleife umschalten" aria-label="Loop" data-i18n-title="ex.loopTitle" data-i18n-aria="ex.loopAria">
             <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -6991,6 +7838,13 @@ body,
         </div>
 
       </div>
+    </main>
+
+    <!-- =====================================================
+         ANSICHT 4b: PRÜFUNGSAUSWERTUNG (#viewExamResult)
+         ===================================================== -->
+    <main id="viewExamResult" class="view-container hidden">
+      <div id="examResultContent" class="exam-result-content"></div>
     </main>
 
     <!-- =====================================================
@@ -8999,12 +9853,18 @@ const I18N_STATIC = {
   "space.backupTitle": { de: "Lokal & Privat", en: "Local & Private" },
   "space.backupDisclosureSummary": { de: "Datensicherung & Konto zurücksetzen", en: "Backup & Reset Account" },
   "space.backupSub": {
-    de: "Kein Server, kein Tracking, keine Lernhistorie – du kannst deine Vorlieben jederzeit als Datei sichern.",
-    en: "No server, no tracking, no learning stats — back up your preferences locally anytime."
+    de: "Kein Server, kein Tracking – deine Vorlieben & Prüfungen bleiben lokal und lassen sich als Datei sichern.",
+    en: "No server, no tracking — your preferences & exam history stay local and can be backed up as a file."
   },
   "space.exportBtn": { de: "Profil sichern (.json)", en: "Export Profile (.json)" },
   "space.importBtn": { de: "Profil laden", en: "Import Profile" },
   "space.resetBtn": { de: "Konto zurücksetzen", en: "Reset Account" },
+  "space.examHistoryTitle": { de: "Prüfungsverlauf", en: "Exam History" },
+  "space.examHistorySub": {
+    de: "Deine abgeschlossenen Kategorie-Prüfungen & Bestwerte (lokal auf deinem Gerät).",
+    en: "Your completed category exams & personal bests (stored locally on your device)."
+  },
+  "space.examHistoryClear": { de: "Verlauf löschen", en: "Clear History" },
 
   "ex.keyBtnTitle": { de: "Tonart-Modus wählen", en: "Choose key mode" },
   "ex.timeSigBtnTitle": { de: "Taktart wählen", en: "Choose time signature" },
@@ -9031,6 +9891,11 @@ const I18N_STATIC = {
   "ex.loopAria": { de: "Endlosschleife", en: "Loop" },
   "ex.playBtn": { de: "▶ Abspielen", en: "▶ Play" },
   "ex.skipTitle": { de: "Nächste Abfrage", en: "Next exercise" },
+  "ex.examAbortBtn": { de: "Abbrechen", en: "Cancel" },
+  "ex.examAbortTitle": { de: "Prüfung wirklich abbrechen?", en: "Abort exam?" },
+  "ex.examAbortSub": { de: "Der aktuelle Prüfdurchlauf wird nicht im Verlauf gespeichert.", en: "Your current exam progress won’t be saved in history." },
+  "ex.examContinueBtn": { de: "Weiterprüfen", en: "Keep Going" },
+  "ex.examConfirmAbortBtn": { de: "Prüfung beenden", en: "End Exam" },
 
   "warmup.defaultTitle": { de: "5-Minuten Einsingen", en: "5-Min Vocal Warmup" },
   "warmup.voiceBtnTitle": { de: "Tonumfang wählen", en: "Choose vocal range" },
@@ -9933,10 +10798,13 @@ const I18N_STATIC_FR = {
   "space.solfegeNumbers": "Chiffres des degrés (1 – 7)",
   "space.backupTitle": "Local & Privé",
   "space.backupDisclosureSummary": "Sauvegarde & réinitialisation du compte",
-  "space.backupSub": "Aucun serveur, aucun pistage, aucun historique – sauvegardez vos préférences en fichier à tout moment.",
+  "space.backupSub": "Aucun serveur, aucun pistage – vos préférences et examens restent en local et peuvent être sauvegardés.",
   "space.exportBtn": "Exporter le profil (.json)",
   "space.importBtn": "Importer un profil",
   "space.resetBtn": "Réinitialiser le compte",
+  "space.examHistoryTitle": "Historique des examens",
+  "space.examHistorySub": "Vos examens par catégorie terminés et vos records (stockés localement sur cet appareil).",
+  "space.examHistoryClear": "Effacer l’historique",
   "ex.keyBtnTitle": "Choisir le mode de tonalité",
   "ex.timeSigBtnTitle": "Choisir la mesure",
   "ex.bpmBtnTitle": "Ouvrir le curseur de tempo",
@@ -9962,6 +10830,11 @@ const I18N_STATIC_FR = {
   "ex.loopAria": "Boucle continue",
   "ex.playBtn": "▶ Écouter",
   "ex.skipTitle": "Exercice suivant",
+  "ex.examAbortBtn": "Annuler",
+  "ex.examAbortTitle": "Abandonner l’examen ?",
+  "ex.examAbortSub": "La tentative d’examen en cours ne sera pas enregistrée dans l’historique.",
+  "ex.examContinueBtn": "Continuer l’examen",
+  "ex.examConfirmAbortBtn": "Quitter l’examen",
   "warmup.defaultTitle": "Échauffement vocal 5 min",
   "warmup.voiceBtnTitle": "Choisir la tessiture",
   "warmup.soundBtnTitle": "Choisir le son d’accompagnement",
@@ -11134,6 +12007,177 @@ Object.assign(TR_FR, {
   "4. Sopran: Strahlende Terz!": "4. Soprano : tierce lumineuse !"
 });
 
+Object.assign(TR_FR, {
+  "1 Versuch pro Frage – prüfungsfest ohne Hilfsschleifen. Am Ende warten Lauschebär-Bewertung, Modul-Aufschlüsselung und direkter Hör-Vergleich.": "1 tentative par question – sans boucle d’aide. À la fin : évaluation Lauschebär, détail par module et comparaison audio directe.",
+  "1 Versuch pro Frage • verschiedene Stufen & Hör-Auswertung": "1 tentative par question • niveaux variés & bilan audio",
+  "1× Start + {left}× nachhören": "1× départ + {left}× réécoute",
+  "4 / 4 ERFASST": "4 / 4 SAISIES",
+  "4-Ton-Melodien im oberen Tetrachord inkl. Leitton Ti": "Mélodies de 4 notes dans le tétracorde supérieur (avec sensible Ti)",
+  "4-Ton-Melodien im unteren Tetrachord (1 Oktave, C-Dur)": "Mélodies de 4 notes dans le tétracorde inférieur (1 octave, Do majeur)",
+  "7 Stufen inkl. V7 & V/V mit wechselndem Ziel-Takt (1–4)": "7 degrés incl. V7 & V/V avec mesure cible aléatoire (1–4)",
+  "ANTWORT ERFASST": "RÉPONSE ENREGISTRÉE",
+  "Akkord-Arpeggio (Abwärts)": "Accords (Arpège ↘)",
+  "Akkord-Arpeggio (Aufwärts)": "Accords (Arpège ↗)",
+  "Akkord-Umkehrungen": "Renversements d’accords",
+  "Akkordtypen (Gleichzeitig)": "Types d’accords (Simultané)",
+  "Alle ({tot})": "Toutes ({tot})",
+  "Alle 12 Halbtöne (Di, Ra, Fi, Si, Te …) in C-Dur": "Les 12 demi-tons (Di, Ra, Fi, Si, Te …) en Do majeur",
+  "Alle 12 Töne in einer transponierten Referenztonart": "Les 12 notes dans une tonalité de référence transposée",
+  "Alle Akkordtypen & Umkehrungen in allen 12 Tonarten": "Tous les types d’accords & renversements dans les 12 tonalités",
+  "Alle Stufen inkl. bII7 (Neapolitaner), zufälliger Takt & alle 12 Tonarten": "Tous les degrés incl. ♭II7 (napolitain), mesure aléatoire & 12 tonalités",
+  "Alle Töne, alle Tonarten & Sprünge über mehrere Oktavlagen": "Toutes notes, toutes tonalités & sauts sur plusieurs octaves",
+  "Alle diatonischen Dur-Intervalle gemischt über leichte Tonarten": "Tous les intervalles diatoniques majeurs sur tonalités simples",
+  "Alle {n} Prüfungen anzeigen": "Afficher les {n} examens",
+  "Aufschlüsselung nach Modulen": "Détail par module",
+  "Auswertung am Ende (Blind)" : "Bilan en fin d’épreuve (aveugle)",
+  "Auswertung ansehen →": "Voir les résultats →",
+  "Auswertung →": "Résultats →",
+  "Chirurgisches Mixing: 13 Frequenzen mit schmalem Q 4,5 (+3 dB)": "Mixage chirurgical : 13 fréquences avec Q étroit 4,5 (+3 dB)",
+  "Klassische 8 Studio-Bänder mit mittlerem EQ-Boost (+4 dB • Q 2,8)": "8 bandes studio classiques avec boost EQ moyen (+4 dB • Q 2,8)",
+  "Live-Vorschau": "Aperçu en direct",
+  "Basis-Taktarten, Viertel/Achtel-Diktat, Nachklopfen & Groove-Stile": "Mesures simples, dictée noire/croche, frappe & styles de groove",
+  "Bass bis Brillanz (+6 dB EQ im Pink Noise & Sinustöne)": "Graves à brillance (+6 dB EQ sur bruit rose & ondes pures)",
+  "Bestwert: {pct}%": "Record : {pct}%",
+  "Charakterton (Modi)": "Note caractéristique (Modes)",
+  "Chromatisches Gesamt-Spektrum inkl. Tritonus & kl./gr. Intervalle in allen Tonarten": "Spectre chromatique complet (triton, min./maj.) dans toutes les tonalités",
+  "Dauer": "Durée",
+  "Dein Bestwert: {pct}%": "Votre record : {pct}%",
+  "Deine Eingabe: {ch}": "Votre saisie : {ch}",
+  "Deine Wahl:": "Votre choix :",
+  "Details & Audio ›": "Détails & Audio ›",
+  "Diatonisch – aber jede Frage wechselt die Tonart": "Diatonique – chaque question change de tonalité",
+  "Dranbleiben lohnt sich": "Persévérez !",
+  "Dreiklänge + Maj7 & Dom7 sowie 1./2. Umkehrung in leichten Tonarten": "Triades + Maj7 & Dom7 et 1er/2e renversements en tonalités simples",
+  "Dur, Moll, Vermindert, Übermäßig & Dreiklang-Umkehrungen (Arp ↗/↘, Akkord & Bass)": "Majeur, mineur, diminué, augmenté & renversements (Arp ↗/↘, accord & basse)",
+  "ERGEBNIS: {hit} / {tot}": "SCORE : {hit} / {tot}",
+  "Erfasst": "Enregistré",
+  "Frage {n} / {tot}": "Question {n} / {tot}",
+  "Frage {n} • {mod}": "Question {n} • {mod}",
+  "Fragen": "Questions",
+  "Fragen- & Fehler-Rückschau": "Revue des questions & erreurs",
+  "Fragenanzahl": "Nombre de questions",
+  "Gewählt: {ch} • Lösung: {tg}": "Choisi : {ch} • Solution : {tg}",
+  "Grooves & Mikro-Timing": "Grooves & Micro-timing",
+  "Gute Grundlage! Ein gezielter Übe-Fokus auf das schwächste Modul hebt dich aufs nächste Niveau.": "Bonne base ! Un entraînement ciblé sur le module le plus faible vous fera passer au niveau supérieur.",
+  "Guter Kurs": "Sur la bonne voie",
+  "Hören: Unbegrenzt": "Écoute : illimitée",
+  "I, IV, V & vi an fester Zielposition (Takt 4) in C-Dur": "I, IV, V & vi à position fixe (mesure 4) en Do majeur",
+  "I, ii, iii, IV, V & vi in leichten Tonarten": "I, ii, iii, IV, V & vi en tonalités simples",
+  "Inkl. Lokrisch & Harmonisch Moll mit freien Grundtönen": "Incl. Locrien & Mineur harmonique avec fondamentales libres",
+  "Intervalle (Abwärts)": "Intervalles (Descendant)",
+  "Intervalle (Aufwärts)": "Intervalles (Ascendant)",
+  "Intervalle (Harmonisch)": "Intervalles (Harmonique)",
+  "Ionisch, Äolisch, Dorisch & Mixolydisch (Tonleiter, Charakterton & Vamp)": "Ionien, Éolien, Dorien & Mixolydien (gamme, note caract. & vamp)",
+  "Isolierte Frequenzen": "Fréquences isolées",
+  "Jede Prüfung schärft dein Ohr – vergleiche deine Antworten jetzt direkt in der Hör-Rückschau!": "Chaque examen affine votre oreille — comparez vos réponses directement dans la revue audio !",
+  "KLOPFRUNDE ERFASST": "FRAPPE ENREGISTRÉE",
+  "Kategorie-Prüfung ablegen": "Passer l’examen de la catégorie",
+  "Kein Prüfungsergebnis gefunden.": "Aucun résultat d’examen trouvé.",
+  "Kein Replay mehr": "Plus de réécoute",
+  "Kirchentonarten (Tonleiter)": "Modes ecclésiastiques (Gamme)",
+  "Komplexe Diktate, Präzisions-Tap (±28 ms) & Mikro-Timing": "Dictées complexes, frappe précise (±28 ms) & micro-timing",
+  "Königsklasse: Alle 12 Halbtöne + neue Tonart bei jeder Frage": "Niveau maître : les 12 demi-tons + nouvelle tonalité par question",
+  "Lauschebär-Meister": "Maître Lauschebär",
+  "Max. 2× Replay": "Max 2× réécoute",
+  "Max. 2× anhören": "Max 2× réécoute",
+  "Melodien (4 Töne)": "Mélodies (4 notes)",
+  "Modaler Vamp": "Vamp modal",
+  "Neuer Bestwert!": "Nouveau record !",
+  "Noch keine Prüfung abgelegt. Öffne auf dem Startbildschirm eine Kategorie und wähle „Kategorie-Prüfung ablegen“.": "Aucun examen passé pour l’instant. Ouvrez une catégorie sur l’accueil et choisissez « Passer l’examen de la catégorie ».",
+  "Noch {left}× anhören": "Encore {left}× d’écoute",
+  "Nur Fehler ({n})": "Erreurs ({n})",
+  "Nächste Frage →": "Question suivante →",
+  "Pausen, punktierte Werte, 6/8 & 2/4 sowie Offbeat-Akzente": "Silences, valeurs pointées, 6/8 & 2/4 et accents à contretemps",
+  "Prime, gr. Terz, Quinte & Oktave (Aufwärts, Abwärts & Harmonisch)": "Unisson, 3ce maj., quinte & octave (ascendant, descendant & harmonique)",
+  "Prüfung": "Examen",
+  "Prüfung starten →": "Démarrer l’examen →",
+  "Prüfung • {cat}": "Examen • {cat}",
+  "Prüfung →": "Examen →",
+  "Prüfung: {cat}": "Examen : {cat}",
+  "Prüfungen: {n}": "Examens : {n}",
+  "Prüfungsauswertung": "Résultats de l’examen",
+  "Prüfungsoptionen": "Options d’examen",
+  "Punkte": "Points",
+  "Rhythmus nachklopfen": "Reproduire le rythme",
+  "Rhythmus-Diktat": "Dictée rythmique",
+  "Richtig:": "Solution :",
+  "Runde beendet ({hit}/{tot})": "Séquence terminée ({hit}/{tot})",
+  "Runde erfasst ✓": "Séquence enregistrée ✓",
+  "Rückmeldung": "Retour",
+  "Schwierigkeitsstufe & Optionen wählen": "Choisir la difficulté et les options",
+  "Sehr starke Trefferquote! Hör dir in der Rückschau kurz die wenigen Wackler im Vergleich an.": "Très beau score ! Réécoutez brièvement les quelques écarts dans la revue.",
+  "Sofort": "Immédiat",
+  "Sofort-Feedback": "Retour immédiat",
+  "Souveränes Gehör! Du erkennst selbst feine Details ruhig und treffsicher.": "Oreille souveraine ! Vous percevez même les nuances fines avec assurance.",
+  "Stammtöne Do bis Ti in einer konstanten Nicht-C-Dur-Tonart": "Notes Do à Ti dans une tonalité fixe autre que Do majeur",
+  "Stammtöne Do bis Ti mit fester C-Dur-Kadenz": "Notes Do à Ti avec cadence fixe en Do majeur",
+  "Starker Lauschebär": "Solide Lauschebär",
+  "Stufe 1 • 5 Hauptbänder": "Niveau 1 • 5 bandes clés",
+  "Stufe 1 • Basis-Dreiklänge & Lagen": "Niveau 1 • Triades de base & positions",
+  "Stufe 1 • Basis-Modi": "Niveau 1 • Modes de base",
+  "Stufe 1 • Diatonisch (C-Dur)": "Niveau 1 • Diatonique (Do maj.)",
+  "Stufe 1 • Do–Fa (C-Dur)": "Niveau 1 • Do–Fa (Do maj.)",
+  "Stufe 1 • Grundfunktionen": "Niveau 1 • Fonctions de base",
+  "Stufe 1 • Grundlagen": "Niveau 1 • Bases",
+  "Stufe 1 • Puls & Grundbausteine": "Niveau 1 • Pulsation & figures de base",
+  "Stufe 2 • 8 Oktavbänder": "Niveau 2 • 8 bandes d’octave",
+  "Stufe 3 • 13 ISO-Terzbänder": "Niveau 3 • 13 bandes 1/3 d’octave ISO",
+  "Stufe 2 • Diatonisch": "Niveau 2 • Diatonique",
+  "Stufe 2 • Diatonisch (Feste Tonart)": "Niveau 2 • Diatonique (tonalité fixe)",
+  "Stufe 2 • Erweiterte Diatonik": "Niveau 2 • Diatonique avancé",
+  "Stufe 2 • Erweiterte Modi": "Niveau 2 • Modes avancés",
+  "Stufe 2 • Septakkorde & Lagen": "Niveau 2 • Accords de 7e & positions",
+  "Stufe 2 • Sol–Do (C-Dur)": "Niveau 2 • Sol–Do (Do maj.)",
+  "Stufe 2 • Synkopen & Offbeats": "Niveau 2 • Syncopes & contretemps",
+  "Stufe 3 • Alle 13 Intervalle": "Niveau 3 • Les 13 intervalles",
+  "Stufe 3 • Alle 8 Kirchentonarten": "Niveau 3 • Les 8 modes",
+  "Stufe 3 • Alle Vierklänge": "Niveau 3 • Tous accords de 7e",
+  "Stufe 3 • Chromatisch (C-Dur)": "Niveau 3 • Chromatique (Do maj.)",
+  "Stufe 3 • Ganze Tonart (Zufallstonarten)": "Niveau 3 • Tonalité entière (aléatoire)",
+  "Stufe 3 • Triolen, 16tel & Pocket": "Niveau 3 • Triolets, doubles & pocket",
+  "Stufe 3 • V7 & Zwischendominante": "Niveau 3 • V7 & dominante secondaire",
+  "Stufe 4 • Chromatisch (Feste Tonart)": "Niveau 4 • Chromatique (tonalité fixe)",
+  "Stufe 4 • Meister (Mehrere Oktaven)": "Niveau 4 • Maître (plusieurs octaves)",
+  "Stufe 4 • Meister-Harmonik": "Niveau 4 • Harmonie maître",
+  "Stufe 4 • Profi & Blindflug": "Niveau 4 • Pro & Mode aveugle",
+  "Stufe 4 • Profi-Harmonik": "Niveau 4 • Harmonie pro",
+  "Stufe 5 • Wechselnde Tonarten": "Niveau 5 • Tonalités changeantes",
+  "Stufe 6 • Chromatisch Dynamisch": "Niveau 6 • Chromatique dynamique",
+  "Stufe {n}": "Niveau {n}",
+  "Taktarten & Metrum": "Mesures & Métrique",
+  "Toleranz ±{tol} ms": "Tolérance ±{tol} ms",
+  "Unbegrenzt": "Illimité",
+  "Ungerade Takte (5/4, 7/8), feinstes Mikro-Timing & Blindflug-Klopfen": "Mesures impaires (5/4, 7/8), micro-timing fin & frappe à l’aveugle",
+  "Verlauf löschen": "Effacer l’historique",
+  "Voller Umfang Do–Do mit wechselnden Tonarten (1 Oktave)": "Étendue Do–Do complète avec changements de tonalité (1 octave)",
+  "Vollständiges Akkord- & Umkehrungsspektrum (inkl. m7, m7b5 & 3. Umkehrung)": "Spectre complet d’accords & renversements (incl. m7, m7♭5 & 3e renv.)",
+  "Weiter zur nächsten Frage…": "Passage à la question suivante…",
+  "Weitere Prüfungen": "Autres examens",
+  "Weniger anzeigen": "Afficher moins",
+  "Wiederholungs-Limit": "Limite de réécoute",
+  "Wiederholungs-Limit erreicht – wähle jetzt deine Antwort.": "Limite de réécoute atteinte — sélectionnez votre réponse.",
+  "Wirklich löschen?": "Confirmer la suppression ?",
+  "Zusätzlich Lydisch & Phrygisch in leichten Tonarten": "Avec Lydien & Phrygien en tonalités simples",
+  "{cat} • Prüfung": "{cat} • Examen",
+  "{hit}/{tot} Treffer • Ø {avg} • Extra: {extra}": "{hit}/{tot} réussies • Ø {avg} • Extra : {extra}",
+  "{hit}/{tot} Töne richtig": "{hit}/{tot} notes justes",
+  "{hit}/{tot} Zählzeiten richtig": "{hit}/{tot} temps justes",
+  "{n} Fragen": "{n} questions",
+  "~ Knapp": "~ Proche",
+  "Ø {avg} • Extra: {extra}": "Ø {avg} • Extra : {extra}",
+  "Ø {pct}%": "Ø {pct}%",
+  "Übersprungen": "Ignorée",
+  "↻ Prüfung wiederholen": "↻ Refaire l’examen",
+  "⇄ A/B Vergleich": "⇄ Comparaison A/B",
+  "⏭ Übersprungen": "⏭ Ignorée",
+  "▶ Meine Wahl": "▶ Mon choix",
+  "▶ Richtige Lösung": "▶ Bonne réponse",
+  "◐ {pts} Pkt.": "◐ {pts} pt",
+  "✓ Richtig": "✓ Juste",
+  "✗ Falsch": "✗ Faux",
+  "🎯 Schwächstes Modul üben: {mod}": "🎯 Travailler le module faible : {mod}"
+});
+
 if (typeof registerLanguageBundle === "function") {
   registerLanguageBundle("fr", {
     meta: {
@@ -11315,10 +12359,13 @@ const I18N_STATIC_UK = {
   "space.solfegeNumbers": "Номери ступенів (1 – 7)",
   "space.backupTitle": "Локально й приватно",
   "space.backupDisclosureSummary": "Резервна копія та скидання профілю",
-  "space.backupSub": "Жодних серверів, трекінгу чи статистики помилок — зберігай власні налаштування у файл будь-коли.",
+  "space.backupSub": "Жодних серверів, жодного стеження — твої налаштування й іспити зберігаються локально й легко експортуються.",
   "space.exportBtn": "Експорт профілю (.json)",
   "space.importBtn": "Імпорт профілю",
   "space.resetBtn": "Скинути профіль",
+  "space.examHistoryTitle": "Історія іспитів",
+  "space.examHistorySub": "Твої завершені іспити за категоріями та рекорди (зберігаються локально на цьому пристрої).",
+  "space.examHistoryClear": "Очистити історію",
   "ex.keyBtnTitle": "Обрати режим тональності",
   "ex.timeSigBtnTitle": "Обрати музичний розмір",
   "ex.bpmBtnTitle": "Відкрити повзунок темпу",
@@ -11344,6 +12391,11 @@ const I18N_STATIC_UK = {
   "ex.loopAria": "Повтор по колу",
   "ex.playBtn": "▶ Слухати",
   "ex.skipTitle": "Наступна вправа",
+  "ex.examAbortBtn": "Скасувати",
+  "ex.examAbortTitle": "Перервати іспит?",
+  "ex.examAbortSub": "Поточний прохід іспиту не буде збережено в історії.",
+  "ex.examContinueBtn": "Продовжити",
+  "ex.examConfirmAbortBtn": "Завершити іспит",
   "warmup.defaultTitle": "5-хв розспівка",
   "warmup.voiceBtnTitle": "Обрати вокальний діапазон",
   "warmup.soundBtnTitle": "Обрати тембр супроводу",
@@ -12564,6 +13616,176 @@ const TR_UK = {
   "Alle Generalvorzeichen, Dreiklänge & Moll-Varianten auf einen Blick.": "Ключові знаки, тризвуки та три види мінору на одному екрані.",
   "Tonarten &amp; Vorzeichen →": "Тональності й знаки →"
 };
+
+Object.assign(TR_UK, {
+  "1 Versuch pro Frage – prüfungsfest ohne Hilfsschleifen. Am Ende warten Lauschebär-Bewertung, Modul-Aufschlüsselung und direkter Hör-Vergleich.": "1 спроба на питання — без підказок і зациклювань. Наприкінці: оцінка Lauschebär, розбір за модулями та аудіопорівняння.",
+  "1 Versuch pro Frage • verschiedene Stufen & Hör-Auswertung": "1 спроба на питання • різні рівні й аудіорозбір",
+  "1× Start + {left}× nachhören": "1× старт + {left}× повтор",
+  "4 / 4 ERFASST": "4 / 4 ЗАПИСАНО",
+  "4-Ton-Melodien im oberen Tetrachord inkl. Leitton Ti": "4-нотні мелодії у верхньому тетрахорді включно зі ввідним Ti",
+  "4-Ton-Melodien im unteren Tetrachord (1 Oktave, C-Dur)": "4-нотні мелодії в нижньому тетрахорді (1 октава, До мажор)",
+  "7 Stufen inkl. V7 & V/V mit wechselndem Ziel-Takt (1–4)": "7 ступенів включно з V7 і V/V зі змінною позицією цілі (1–4)",
+  "ANTWORT ERFASST": "ВІДПОВІДЬ ЗАПИСАНО",
+  "Akkord-Arpeggio (Abwärts)": "Арпеджіо акорду (Униз)",
+  "Akkord-Arpeggio (Aufwärts)": "Арпеджіо акорду (Угору)",
+  "Akkord-Umkehrungen": "Обернення акордів",
+  "Akkordtypen (Gleichzeitig)": "Типи акордів (Одночасно)",
+  "Alle ({tot})": "Усі ({tot})",
+  "Alle 12 Halbtöne (Di, Ra, Fi, Si, Te …) in C-Dur": "Усі 12 півтонів (Di, Ra, Fi, Si, Te …) у До мажорі",
+  "Alle 12 Töne in einer transponierten Referenztonart": "Усі 12 тонів у транспонованій опорній тональності",
+  "Alle Akkordtypen & Umkehrungen in allen 12 Tonarten": "Усі типи акордів та обернень у всіх 12 тональностях",
+  "Alle Stufen inkl. bII7 (Neapolitaner), zufälliger Takt & alle 12 Tonarten": "Усі ступені включно з bII7 (неаполітанський), випадковий такт і 12 тональностей",
+  "Alle Töne, alle Tonarten & Sprünge über mehrere Oktavlagen": "Усі ноти, усі тональності та стрибки через кілька октав",
+  "Alle diatonischen Dur-Intervalle gemischt über leichte Tonarten": "Усі діатонічні мажорні інтервали у простих тональностях",
+  "Alle {n} Prüfungen anzeigen": "Показати всі {n} іспитів",
+  "Aufschlüsselung nach Modulen": "Розбір за модулями",
+  "Auswertung am Ende (Blind)": "Підсумок наприкінці (сліпий)",
+  "Auswertung ansehen →": "Переглянути підсумок →",
+  "Auswertung →": "Підсумок →",
+  "Chirurgisches Mixing: 13 Frequenzen mit schmalem Q 4,5 (+3 dB)": "Хірургічний мікс: 13 частот із вузьким Q 4,5 (+3 дБ)",
+  "Klassische 8 Studio-Bänder mit mittlerem EQ-Boost (+4 dB • Q 2,8)": "Класичні 8 студійних смуг із середнім бустом EQ (+4 дБ • Q 2,8)",
+  "Basis-Taktarten, Viertel/Achtel-Diktat, Nachklopfen & Groove-Stile": "Базові розміри, диктант чверті/восьмі, відстукування та ґрув-стилі",
+  "Bass bis Brillanz (+6 dB EQ im Pink Noise & Sinustöne)": "Від баса до блиску (+6 дБ EQ у рожевому шумі та чисті тони)",
+  "Bestwert: {pct}%": "Рекорд: {pct}%",
+  "Charakterton (Modi)": "Характерний тон (Лади)",
+  "Chromatisches Gesamt-Spektrum inkl. Tritonus & kl./gr. Intervalle in allen Tonarten": "Повний хроматичний спектр (тритон, м./в. інтервали) у всіх тональностях",
+  "Dauer": "Тривалість",
+  "Dein Bestwert: {pct}%": "Твій рекорд: {pct}%",
+  "Deine Eingabe: {ch}": "Твій вибір: {ch}",
+  "Deine Wahl:": "Твій вибір:",
+  "Details & Audio ›": "Деталі й аудіо ›",
+  "Diatonisch – aber jede Frage wechselt die Tonart": "Діатоніка — але кожне питання змінює тональність",
+  "Dranbleiben lohnt sich": "Варто продовжувати",
+  "Dreiklänge + Maj7 & Dom7 sowie 1./2. Umkehrung in leichten Tonarten": "Тризвуки + Maj7 і Dom7, 1-ше/2-ге обернення в простих тональностях",
+  "Dur, Moll, Vermindert, Übermäßig & Dreiklang-Umkehrungen (Arp ↗/↘, Akkord & Bass)": "Мажор, мінор, зменшений, збільшений та обернення тризвуків (арп. ↗/↘, акорд і бас)",
+  "ERGEBNIS: {hit} / {tot}": "РЕЗУЛЬТАТ: {hit} / {tot}",
+  "Erfasst": "Записано",
+  "Frage {n} / {tot}": "Питання {n} / {tot}",
+  "Frage {n} • {mod}": "Питання {n} • {mod}",
+  "Fragen": "Питань",
+  "Fragen- & Fehler-Rückschau": "Огляд питань і помилок",
+  "Fragenanzahl": "Кількість питань",
+  "Gewählt: {ch} • Lösung: {tg}": "Обрано: {ch} • Відповідь: {tg}",
+  "Grooves & Mikro-Timing": "Ґруви та мікротаймінг",
+  "Gute Grundlage! Ein gezielter Übe-Fokus auf das schwächste Modul hebt dich aufs nächste Niveau.": "Хороша база! Прицільне тренування найслабшого модуля підніме тебе на новий рівень.",
+  "Guter Kurs": "Хороший курс",
+  "Hören: Unbegrenzt": "Прослуховувань: без ліміту",
+  "I, IV, V & vi an fester Zielposition (Takt 4) in C-Dur": "I, IV, V і vi у фіксованій позиції (такт 4) у До мажорі",
+  "I, ii, iii, IV, V & vi in leichten Tonarten": "I, ii, iii, IV, V і vi у простих тональностях",
+  "Inkl. Lokrisch & Harmonisch Moll mit freien Grundtönen": "Включно з локрійським і гармонічним мінором від будь-якої ноти",
+  "Intervalle (Abwärts)": "Інтервали (Низхідні)",
+  "Intervalle (Aufwärts)": "Інтервали (Висхідні)",
+  "Intervalle (Harmonisch)": "Інтервали (Гармонічні)",
+  "Ionisch, Äolisch, Dorisch & Mixolydisch (Tonleiter, Charakterton & Vamp)": "Іонійський, еолійський, дорійський і міксолідійський (гама, тон і вамп)",
+  "Isolierte Frequenzen": "Ізольовані частоти",
+  "Jede Prüfung schärft dein Ohr – vergleiche deine Antworten jetzt direkt in der Hör-Rückschau!": "Кожен іспит загострює слух — порівняй свої відповіді просто зараз в аудіорозборі!",
+  "KLOPFRUNDE ERFASST": "РАУНД ЗАПИСАНО",
+  "Kategorie-Prüfung ablegen": "Скласти іспит за категорією",
+  "Kein Prüfungsergebnis gefunden.": "Результат іспиту не знайдено.",
+  "Kein Replay mehr": "Повторів не лишилося",
+  "Kirchentonarten (Tonleiter)": "Лади (Гама)",
+  "Komplexe Diktate, Präzisions-Tap (±28 ms) & Mikro-Timing": "Складні диктанти, точне відстукування (±28 мс) і мікротаймінг",
+  "Königsklasse: Alle 12 Halbtöne + neue Tonart bei jeder Frage": "Вищий клас: усі 12 півтонів + нова тональність у кожному питанні",
+  "Lauschebär-Meister": "Майстер Lauschebär",
+  "Max. 2× Replay": "Макс. 2× повтор",
+  "Max. 2× anhören": "Макс. 2× повтор",
+  "Melodien (4 Töne)": "Мелодії (4 ноти)",
+  "Modaler Vamp": "Модальний вамп",
+  "Neuer Bestwert!": "Новий рекорд!",
+  "Noch keine Prüfung abgelegt. Öffne auf dem Startbildschirm eine Kategorie und wähle „Kategorie-Prüfung ablegen“.": "Іспитів ще немає. Відкрий категорію на головному екрані й обери «Скласти іспит за категорією».",
+  "Noch {left}× anhören": "Ще {left}× прослухати",
+  "Nur Fehler ({n})": "Лише помилки ({n})",
+  "Nächste Frage →": "Наступне питання →",
+  "Pausen, punktierte Werte, 6/8 & 2/4 sowie Offbeat-Akzente": "Паузи, ноти з крапкою, 6/8 і 2/4 та акценти на слабких долях",
+  "Prime, gr. Terz, Quinte & Oktave (Aufwärts, Abwärts & Harmonisch)": "Прима, в. терція, квінта й октава (висхідні, низхідні й гармонічні)",
+  "Prüfung": "Іспит",
+  "Prüfung starten →": "Почати іспит →",
+  "Prüfung • {cat}": "Іспит • {cat}",
+  "Prüfung →": "Іспит →",
+  "Prüfung: {cat}": "Іспит: {cat}",
+  "Prüfungen: {n}": "Іспитів: {n}",
+  "Prüfungsauswertung": "Результати іспиту",
+  "Prüfungsoptionen": "Параметри іспиту",
+  "Punkte": "Бали",
+  "Rhythmus nachklopfen": "Відстукати ритм",
+  "Rhythmus-Diktat": "Ритмічний диктант",
+  "Richtig:": "Правильно:",
+  "Runde beendet ({hit}/{tot})": "Раунд завершено ({hit}/{tot})",
+  "Runde erfasst ✓": "Раунд записано ✓",
+  "Rückmeldung": "Відгук",
+  "Schwierigkeitsstufe & Optionen wählen": "Обери рівень складності та параметри",
+  "Sehr starke Trefferquote! Hör dir in der Rückschau kurz die wenigen Wackler im Vergleich an.": "Дуже висока точність! Переслухай у розборі кілька неточностей для порівняння.",
+  "Sofort": "Одразу",
+  "Sofort-Feedback": "Миттєвий відгук",
+  "Souveränes Gehör! Du erkennst selbst feine Details ruhig und treffsicher.": "Впевнений слух! Ти спокійно й точно розпізнаєш навіть найтонші деталі.",
+  "Stammtöne Do bis Ti in einer konstanten Nicht-C-Dur-Tonart": "Ступені від Do до Ti у сталій тональності (не До мажор)",
+  "Stammtöne Do bis Ti mit fester C-Dur-Kadenz": "Ступені від Do до Ti зі сталою каденцією в До мажорі",
+  "Starker Lauschebär": "Сильний слухач",
+  "Stufe 1 • 5 Hauptbänder": "Рівень 1 • 5 основних смуг",
+  "Stufe 1 • Basis-Dreiklänge & Lagen": "Рівень 1 • Базові тризвуки й позиції",
+  "Stufe 1 • Basis-Modi": "Рівень 1 • Базові лади",
+  "Stufe 1 • Diatonisch (C-Dur)": "Рівень 1 • Діатоніка (До мажор)",
+  "Stufe 1 • Do–Fa (C-Dur)": "Рівень 1 • До–Фа (До мажор)",
+  "Stufe 1 • Grundfunktionen": "Рівень 1 • Основні функції",
+  "Stufe 1 • Grundlagen": "Рівень 1 • Основи",
+  "Stufe 1 • Puls & Grundbausteine": "Рівень 1 • Пульс і базові фігури",
+  "Stufe 2 • 8 Oktavbänder": "Рівень 2 • 8 октавних смуг",
+  "Stufe 3 • 13 ISO-Terzbänder": "Рівень 3 • 13 смуг ISO (1/3 октави)",
+  "Stufe 2 • Diatonisch": "Рівень 2 • Діатоніка",
+  "Stufe 2 • Diatonisch (Feste Tonart)": "Рівень 2 • Діатоніка (Стала тональність)",
+  "Stufe 2 • Erweiterte Diatonik": "Рівень 2 • Розширена діатоніка",
+  "Stufe 2 • Erweiterte Modi": "Рівень 2 • Розширені лади",
+  "Stufe 2 • Septakkorde & Lagen": "Рівень 2 • Септакорди й обернення",
+  "Stufe 2 • Sol–Do (C-Dur)": "Рівень 2 • Соль–До (До мажор)",
+  "Stufe 2 • Synkopen & Offbeats": "Рівень 2 • Синкопи й офбіти",
+  "Stufe 3 • Alle 13 Intervalle": "Рівень 3 • Усі 13 інтервалів",
+  "Stufe 3 • Alle 8 Kirchentonarten": "Рівень 3 • Усі 8 ладів",
+  "Stufe 3 • Alle Vierklänge": "Рівень 3 • Усі чотиризвуки",
+  "Stufe 3 • Chromatisch (C-Dur)": "Рівень 3 • Хроматика (До мажор)",
+  "Stufe 3 • Ganze Tonart (Zufallstonarten)": "Рівень 3 • Уся гама (Випадкові тональності)",
+  "Stufe 3 • Triolen, 16tel & Pocket": "Рівень 3 • Тріолі, шістнадцяті й покет",
+  "Stufe 3 • V7 & Zwischendominante": "Рівень 3 • V7 і побічна домінанта",
+  "Stufe 4 • Chromatisch (Feste Tonart)": "Рівень 4 • Хроматика (Стала тональність)",
+  "Stufe 4 • Meister (Mehrere Oktaven)": "Рівень 4 • Майстер (Кілька октав)",
+  "Stufe 4 • Meister-Harmonik": "Рівень 4 • Гармонія майстра",
+  "Stufe 4 • Profi & Blindflug": "Рівень 4 • Профі й сліпий режим",
+  "Stufe 4 • Profi-Harmonik": "Рівень 4 • Профі-гармонія",
+  "Stufe 5 • Wechselnde Tonarten": "Рівень 5 • Змінні тональності",
+  "Stufe 6 • Chromatisch Dynamisch": "Рівень 6 • Хроматична динаміка",
+  "Stufe {n}": "Рівень {n}",
+  "Taktarten & Metrum": "Розміри та метр",
+  "Toleranz ±{tol} ms": "Допуск ±{tol} мс",
+  "Unbegrenzt": "Без ліміту",
+  "Ungerade Takte (5/4, 7/8), feinstes Mikro-Timing & Blindflug-Klopfen": "Непарні розміри (5/4, 7/8), тонкий мікротаймінг і стук наосліп",
+  "Verlauf löschen": "Очистити історію",
+  "Voller Umfang Do–Do mit wechselnden Tonarten (1 Oktave)": "Повний діапазон Do–Do зі зміною тональностей (1 октава)",
+  "Vollständiges Akkord- & Umkehrungsspektrum (inkl. m7, m7b5 & 3. Umkehrung)": "Повний спектр акордів і обернень (включно з m7, m7b5 та 3-м оберненням)",
+  "Weiter zur nächsten Frage…": "Перехід до наступного питання…",
+  "Weitere Prüfungen": "Інші іспити",
+  "Weniger anzeigen": "Показати менше",
+  "Wiederholungs-Limit": "Ліміт повторів",
+  "Wiederholungs-Limit erreicht – wähle jetzt deine Antwort.": "Ліміт повторів вичерпано — обери свою відповідь.",
+  "Wirklich löschen?": "Точно видалити?",
+  "Zusätzlich Lydisch & Phrygisch in leichten Tonarten": "Додатково лідійський і фригійський у простих тональностях",
+  "{cat} • Prüfung": "{cat} • Іспит",
+  "{hit}/{tot} Treffer • Ø {avg} • Extra: {extra}": "{hit}/{tot} влучань • Ø {avg} • Дод.: {extra}",
+  "{hit}/{tot} Töne richtig": "{hit}/{tot} нот правильно",
+  "{hit}/{tot} Zählzeiten richtig": "{hit}/{tot} долей правильно",
+  "{n} Fragen": "{n} питань",
+  "~ Knapp": "~ Близько",
+  "Ø {avg} • Extra: {extra}": "Ø {avg} • Дод.: {extra}",
+  "Ø {pct}%": "Ø {pct}%",
+  "Übersprungen": "Пропущено",
+  "↻ Prüfung wiederholen": "↻ Повторити іспит",
+  "⇄ A/B Vergleich": "⇄ Порівняння A/B",
+  "⏭ Übersprungen": "⏭ Пропущено",
+  "▶ Meine Wahl": "▶ Мій вибір",
+  "▶ Richtige Lösung": "▶ Правильна відповідь",
+  "◐ {pts} Pkt.": "◐ {pts} б.",
+  "✓ Richtig": "✓ Правильно",
+  "✗ Falsch": "✗ Неправильно",
+  "🎯 Schwächstes Modul üben: {mod}": "🎯 Тренувати найслабший модуль: {mod}"
+});
 
 if (typeof registerLanguageBundle === "function") {
   registerLanguageBundle("uk", {
@@ -27995,6 +29217,477 @@ function createDefaultMixes() {
   ];
 }
 
+const EXAM_CATEGORY_LEVELS = {
+  interval: {
+    accent: "peach",
+    presets: [
+      {
+        id: "interval_l1",
+        levelNumber: 1,
+        title: { de: "Stufe 1 • Grundlagen", en: "Level 1 • Foundations" },
+        desc: {
+          de: "Prime, gr. Terz, Quinte & Oktave (Aufwärts, Abwärts & Harmonisch)",
+          en: "Unison, Maj 3rd, 5th & Octave (Ascending, Descending & Harmonic)"
+        },
+        modes: ["interval-melodic", "interval-melodic-down", "interval-harmonic"],
+        apply: { intervalDifficulty: 1, keyMode: "fixed" }
+      },
+      {
+        id: "interval_l2",
+        levelNumber: 2,
+        title: { de: "Stufe 2 • Diatonisch", en: "Level 2 • Diatonic" },
+        desc: {
+          de: "Alle diatonischen Dur-Intervalle gemischt über leichte Tonarten",
+          en: "All diatonic major intervals mixed across easy keys"
+        },
+        modes: ["interval-melodic", "interval-melodic-down", "interval-harmonic"],
+        apply: { intervalDifficulty: 2, keyMode: "easy" }
+      },
+      {
+        id: "interval_l3",
+        levelNumber: 3,
+        title: { de: "Stufe 3 • Alle 13 Intervalle", en: "Level 3 • All 13 Intervals" },
+        desc: {
+          de: "Chromatisches Gesamt-Spektrum inkl. Tritonus & kl./gr. Intervalle in allen Tonarten",
+          en: "Full chromatic spectrum incl. tritone & minor/major intervals in all keys"
+        },
+        modes: ["interval-melodic", "interval-melodic-down", "interval-harmonic"],
+        apply: { intervalDifficulty: 3, keyMode: "all" }
+      }
+    ]
+  },
+  chords: {
+    accent: "sage",
+    presets: [
+      {
+        id: "chords_l1",
+        levelNumber: 1,
+        title: { de: "Stufe 1 • Basis-Dreiklänge & Lagen", en: "Level 1 • Basic Triads & Inversions" },
+        desc: {
+          de: "Dur, Moll, Vermindert, Übermäßig & Dreiklang-Umkehrungen (Arp ↗/↘, Akkord & Bass)",
+          en: "Major, Minor, Diminished, Augmented & Triad Inversions (Arp ↗/↘, Block & Bass)"
+        },
+        modes: ["chord-arp-up", "chord-arp-down", "interval-chords", "chord-inversions"],
+        apply: { chordDifficulty: 1, chordInversionDifficulty: 1, keyMode: "fixed" }
+      },
+      {
+        id: "chords_l2",
+        levelNumber: 2,
+        title: { de: "Stufe 2 • Septakkorde & Lagen", en: "Level 2 • Seventh Chords & Inversions" },
+        desc: {
+          de: "Dreiklänge + Maj7 & Dom7 sowie 1./2. Umkehrung in leichten Tonarten",
+          en: "Triads + Maj7 & Dom7 plus 1st/2nd inversions in easy keys"
+        },
+        modes: ["chord-arp-up", "chord-arp-down", "interval-chords", "chord-inversions"],
+        apply: { chordDifficulty: 2, chordInversionDifficulty: 2, keyMode: "easy" }
+      },
+      {
+        id: "chords_l3",
+        levelNumber: 3,
+        title: { de: "Stufe 3 • Alle Vierklänge", en: "Level 3 • All Seventh Chords" },
+        desc: {
+          de: "Vollständiges Akkord- & Umkehrungsspektrum (inkl. m7, m7b5 & 3. Umkehrung)",
+          en: "Full chord quality & inversion spectrum (incl. m7, m7b5 & 3rd inversion)"
+        },
+        modes: ["chord-arp-up", "chord-arp-down", "interval-chords", "chord-inversions"],
+        apply: { chordDifficulty: 3, chordInversionDifficulty: 3, keyMode: "easy" }
+      },
+      {
+        id: "chords_l4",
+        levelNumber: 4,
+        title: { de: "Stufe 4 • Profi-Harmonik", en: "Level 4 • Pro Harmony" },
+        desc: {
+          de: "Alle Akkordtypen & Umkehrungen in allen 12 Tonarten",
+          en: "All chord types & inversions modulated across all 12 keys"
+        },
+        modes: ["chord-arp-up", "chord-arp-down", "interval-chords", "chord-inversions"],
+        apply: { chordDifficulty: 3, chordInversionDifficulty: 3, keyMode: "all" }
+      }
+    ]
+  },
+  cadence: {
+    accent: "lilac",
+    presets: [
+      {
+        id: "cadence_l1",
+        levelNumber: 1,
+        title: { de: "Stufe 1 • Grundfunktionen", en: "Level 1 • Primary Functions" },
+        desc: {
+          de: "I, IV, V & vi an fester Zielposition (Takt 4) in C-Dur",
+          en: "I, IV, V & vi on fixed target bar 4 in C Major"
+        },
+        modes: ["cadence"],
+        apply: { difficulty: 1, cadencePos: "last", keyMode: "fixed" }
+      },
+      {
+        id: "cadence_l2",
+        levelNumber: 2,
+        title: { de: "Stufe 2 • Erweiterte Diatonik", en: "Level 2 • Extended Diatonic" },
+        desc: {
+          de: "I, ii, iii, IV, V & vi in leichten Tonarten",
+          en: "I, ii, iii, IV, V & vi across easy keys"
+        },
+        modes: ["cadence"],
+        apply: { difficulty: 2, cadencePos: "last", keyMode: "easy" }
+      },
+      {
+        id: "cadence_l3",
+        levelNumber: 3,
+        title: { de: "Stufe 3 • V7 & Zwischendominante", en: "Level 3 • V7 & Secondary Dominant" },
+        desc: {
+          de: "7 Stufen inkl. V7 & V/V mit wechselndem Ziel-Takt (1–4)",
+          en: "7 degrees incl. V7 & V/V with randomized target bar (1–4)"
+        },
+        modes: ["cadence"],
+        apply: { difficulty: 3, cadencePos: "random", keyMode: "easy" }
+      },
+      {
+        id: "cadence_l4",
+        levelNumber: 4,
+        title: { de: "Stufe 4 • Meister-Harmonik", en: "Level 4 • Master Harmony" },
+        desc: {
+          de: "Alle Stufen inkl. bII7 (Neapolitaner), zufälliger Takt & alle 12 Tonarten",
+          en: "All degrees incl. bII7 (Neapolitan), random bar & all 12 keys"
+        },
+        modes: ["cadence"],
+        apply: { difficulty: 4, cadencePos: "random", keyMode: "all" }
+      }
+    ]
+  },
+  solfege: {
+    accent: "peach",
+    presets: [
+      {
+        id: "solfege_l1",
+        levelNumber: 1,
+        title: { de: "Stufe 1 • Diatonisch (C-Dur)", en: "Level 1 • Diatonic (C Major)" },
+        desc: {
+          de: "Stammtöne Do bis Ti mit fester C-Dur-Kadenz",
+          en: "Diatonic Do to Ti anchored in C Major"
+        },
+        modes: ["solfege"],
+        apply: { solfegeDifficulty: 1 }
+      },
+      {
+        id: "solfege_l2",
+        levelNumber: 2,
+        title: { de: "Stufe 2 • Diatonisch (Feste Tonart)", en: "Level 2 • Diatonic (Session Key)" },
+        desc: {
+          de: "Stammtöne Do bis Ti in einer konstanten Nicht-C-Dur-Tonart",
+          en: "Diatonic Do to Ti in a transposed key held steady"
+        },
+        modes: ["solfege"],
+        apply: { solfegeDifficulty: 2 }
+      },
+      {
+        id: "solfege_l3",
+        levelNumber: 3,
+        title: { de: "Stufe 3 • Chromatisch (C-Dur)", en: "Level 3 • Chromatic (C Major)" },
+        desc: {
+          de: "Alle 12 Halbtöne (Di, Ra, Fi, Si, Te …) in C-Dur",
+          en: "All 12 chromatic syllables anchored in C Major"
+        },
+        modes: ["solfege"],
+        apply: { solfegeDifficulty: 3 }
+      },
+      {
+        id: "solfege_l4",
+        levelNumber: 4,
+        title: { de: "Stufe 4 • Chromatisch (Feste Tonart)", en: "Level 4 • Chromatic (Session Key)" },
+        desc: {
+          de: "Alle 12 Töne in einer transponierten Referenztonart",
+          en: "All 12 tones in a steady transposed reference key"
+        },
+        modes: ["solfege"],
+        apply: { solfegeDifficulty: 4 }
+      },
+      {
+        id: "solfege_l5",
+        levelNumber: 5,
+        title: { de: "Stufe 5 • Wechselnde Tonarten", en: "Level 5 • Rotating Keys" },
+        desc: {
+          de: "Diatonisch – aber jede Frage wechselt die Tonart",
+          en: "Diatonic degrees — every question shifts to a new key"
+        },
+        modes: ["solfege"],
+        apply: { solfegeDifficulty: 5 }
+      },
+      {
+        id: "solfege_l6",
+        levelNumber: 6,
+        title: { de: "Stufe 6 • Chromatisch Dynamisch", en: "Level 6 • Chromatic Dynamic" },
+        desc: {
+          de: "Königsklasse: Alle 12 Halbtöne + neue Tonart bei jeder Frage",
+          en: "Top tier: all 12 chromatic tones + new key on every question"
+        },
+        modes: ["solfege"],
+        apply: { solfegeDifficulty: 6 }
+      }
+    ]
+  },
+  modes: {
+    accent: "sage",
+    presets: [
+      {
+        id: "modes_l1",
+        levelNumber: 1,
+        title: { de: "Stufe 1 • Basis-Modi", en: "Level 1 • Core Modes" },
+        desc: {
+          de: "Ionisch, Äolisch, Dorisch & Mixolydisch (Tonleiter, Charakterton & Vamp)",
+          en: "Ionian, Aeolian, Dorian & Mixolydian (Scale, Color Tone & Vamp)"
+        },
+        modes: ["modes-scale", "modes-char", "modes-cadence"],
+        apply: { modesScaleDifficulty: 1, modesCharDifficulty: 1, modesCadenceDifficulty: 1 }
+      },
+      {
+        id: "modes_l2",
+        levelNumber: 2,
+        title: { de: "Stufe 2 • Erweiterte Modi", en: "Level 2 • Extended Modes" },
+        desc: {
+          de: "Zusätzlich Lydisch & Phrygisch in leichten Tonarten",
+          en: "Adds Lydian & Phrygian across easy root pitches"
+        },
+        modes: ["modes-scale", "modes-char", "modes-cadence"],
+        apply: { modesScaleDifficulty: 2, modesCharDifficulty: 2, modesCadenceDifficulty: 2 }
+      },
+      {
+        id: "modes_l3",
+        levelNumber: 3,
+        title: { de: "Stufe 3 • Alle 8 Kirchentonarten", en: "Level 3 • All 8 Modes" },
+        desc: {
+          de: "Inkl. Lokrisch & Harmonisch Moll mit freien Grundtönen",
+          en: "Includes Locrian & Harmonic Minor over rotating root notes"
+        },
+        modes: ["modes-scale", "modes-char", "modes-cadence"],
+        apply: { modesScaleDifficulty: 3, modesCharDifficulty: 3, modesCadenceDifficulty: 2, keyMode: "random" }
+      }
+    ]
+  },
+  melody: {
+    accent: "lilac",
+    presets: [
+      {
+        id: "melody_l1",
+        levelNumber: 1,
+        title: { de: "Stufe 1 • Do–Fa (C-Dur)", en: "Level 1 • Do–Fa (C Major)" },
+        desc: {
+          de: "4-Ton-Melodien im unteren Tetrachord (1 Oktave, C-Dur)",
+          en: "4-note melodies in the lower tetrachord (single octave, C Major)"
+        },
+        modes: ["melody"],
+        apply: { melodyRange: "do-fa", melodyKeyMode: "fixed", melodyOctaveMode: "single" }
+      },
+      {
+        id: "melody_l2",
+        levelNumber: 2,
+        title: { de: "Stufe 2 • Sol–Do (C-Dur)", en: "Level 2 • Sol–Do (C Major)" },
+        desc: {
+          de: "4-Ton-Melodien im oberen Tetrachord inkl. Leitton Ti",
+          en: "4-note melodies in the upper tetrachord incl. leading tone Ti"
+        },
+        modes: ["melody"],
+        apply: { melodyRange: "sol-do", melodyKeyMode: "fixed", melodyOctaveMode: "single" }
+      },
+      {
+        id: "melody_l3",
+        levelNumber: 3,
+        title: { de: "Stufe 3 • Ganze Tonart (Zufallstonarten)", en: "Level 3 • Full Scale (Random Keys)" },
+        desc: {
+          de: "Voller Umfang Do–Do mit wechselnden Tonarten (1 Oktave)",
+          en: "Full Do–Do octave across randomized keys (single octave)"
+        },
+        modes: ["melody"],
+        apply: { melodyRange: "full", melodyKeyMode: "random", melodyOctaveMode: "single" }
+      },
+      {
+        id: "melody_l4",
+        levelNumber: 4,
+        title: { de: "Stufe 4 • Meister (Mehrere Oktaven)", en: "Level 4 • Master (Multi-Octave)" },
+        desc: {
+          de: "Alle Töne, alle Tonarten & Sprünge über mehrere Oktavlagen",
+          en: "Full scale, random keys & octave leaps across registers"
+        },
+        modes: ["melody"],
+        apply: { melodyRange: "full", melodyKeyMode: "random", melodyOctaveMode: "multi" }
+      }
+    ]
+  },
+  rhythm: {
+    accent: "peach",
+    presets: [
+      {
+        id: "rhythm_l1",
+        levelNumber: 1,
+        title: { de: "Stufe 1 • Puls & Grundbausteine", en: "Level 1 • Pulse & Basics" },
+        desc: {
+          de: "Basis-Taktarten, Viertel/Achtel-Diktat, Nachklopfen & Groove-Stile",
+          en: "Core meters, quarter/eighth dictation, tap-back & groove styles"
+        },
+        modes: ["rhythm-meter", "rhythm-dictation", "rhythm-tap", "rhythm-groove"],
+        apply: { rhythmMeterDifficulty: 1, rhythmDictationDifficulty: 1, rhythmTapDifficulty: 1, rhythmGrooveDifficulty: 1 }
+      },
+      {
+        id: "rhythm_l2",
+        levelNumber: 2,
+        title: { de: "Stufe 2 • Synkopen & Offbeats", en: "Level 2 • Syncopation & Offbeats" },
+        desc: {
+          de: "Pausen, punktierte Werte, 6/8 & 2/4 sowie Offbeat-Akzente",
+          en: "Rests, dotted rhythms, 6/8 & 2/4 meters plus offbeat accents"
+        },
+        modes: ["rhythm-meter", "rhythm-dictation", "rhythm-tap", "rhythm-groove"],
+        apply: { rhythmMeterDifficulty: 2, rhythmDictationDifficulty: 2, rhythmTapDifficulty: 2, rhythmGrooveDifficulty: 2 }
+      },
+      {
+        id: "rhythm_l3",
+        levelNumber: 3,
+        title: { de: "Stufe 3 • Triolen, 16tel & Pocket", en: "Level 3 • Triplets, 16ths & Pocket" },
+        desc: {
+          de: "Komplexe Diktate, Präzisions-Tap (±28 ms) & Mikro-Timing",
+          en: "Complex dictation, precision tap (±28 ms) & micro-timing"
+        },
+        modes: ["rhythm-meter", "rhythm-dictation", "rhythm-tap", "rhythm-groove"],
+        apply: { rhythmMeterDifficulty: 3, rhythmDictationDifficulty: 3, rhythmTapDifficulty: 3, rhythmGrooveDifficulty: 3 }
+      },
+      {
+        id: "rhythm_l4",
+        levelNumber: 4,
+        title: { de: "Stufe 4 • Profi & Blindflug", en: "Level 4 • Pro & Blind Mode" },
+        desc: {
+          de: "Ungerade Takte (5/4, 7/8), feinstes Mikro-Timing & Blindflug-Klopfen",
+          en: "Odd meters (5/4, 7/8), fine micro-timing & blind-mode tapping"
+        },
+        modes: ["rhythm-meter", "rhythm-dictation", "rhythm-tap", "rhythm-groove"],
+        apply: { rhythmMeterDifficulty: 3, rhythmDictationDifficulty: 3, rhythmTapDifficulty: 4, rhythmGrooveDifficulty: 4 }
+      }
+    ]
+  },
+  production: {
+    accent: "sage",
+    presets: [
+      {
+        id: "prod_l1",
+        levelNumber: 1,
+        title: { de: "Stufe 1 • 5 Hauptbänder", en: "Level 1 • 5 Main Bands" },
+        desc: {
+          de: "Bass bis Brillanz (+6 dB EQ im Pink Noise & Sinustöne)",
+          en: "Bass to brilliance (+6 dB EQ in pink noise & sine tones)"
+        },
+        modes: ["prod-tone", "prod-eq-noise"],
+        apply: { prodToneDifficulty: 1, prodEqNoiseDifficulty: 1 }
+      },
+      {
+        id: "prod_l2",
+        levelNumber: 2,
+        title: { de: "Stufe 2 • 8 Oktavbänder", en: "Level 2 • 8 Octave Bands" },
+        desc: {
+          de: "Klassische 8 Studio-Bänder mit mittlerem EQ-Boost (+4 dB • Q 2,8)",
+          en: "Classic 8 studio octave bands with moderate boost (+4 dB • Q 2.8)"
+        },
+        modes: ["prod-tone", "prod-eq-noise"],
+        apply: { prodToneDifficulty: 2, prodEqNoiseDifficulty: 2 }
+      },
+      {
+        id: "prod_l3",
+        levelNumber: 3,
+        title: { de: "Stufe 3 • 13 ISO-Terzbänder", en: "Level 3 • 13 ISO Third-Octaves" },
+        desc: {
+          de: "Chirurgisches Mixing: 13 Frequenzen mit schmalem Q 4,5 (+3 dB)",
+          en: "Surgical mixing: 13 ISO frequencies with narrow Q 4.5 (+3 dB)"
+        },
+        modes: ["prod-tone", "prod-eq-noise"],
+        apply: { prodToneDifficulty: 3, prodEqNoiseDifficulty: 3 }
+      }
+    ]
+  }
+};
+
+function sanitizeExamReviewItem(raw, idx = 0) {
+  if (!raw || typeof raw !== "object") return null;
+  const mode = String(raw.mode || "cadence").slice(0, 36);
+  const status = ["correct", "partial", "wrong", "skipped"].includes(raw.status) ? raw.status : "wrong";
+  const scoreNum = Number(raw.score);
+  const score = Number.isFinite(scoreNum) ? Math.max(0, Math.min(1, Math.round(scoreNum * 100) / 100)) : 0;
+  let audioSnapshot = null;
+  if (raw.audioSnapshot && typeof raw.audioSnapshot === "object") {
+    try {
+      audioSnapshot = JSON.parse(JSON.stringify(raw.audioSnapshot));
+    } catch (e) {
+      audioSnapshot = null;
+    }
+  }
+  return {
+    qIndex: Math.max(1, parseInt(raw.qIndex, 10) || (idx + 1)),
+    mode: mode,
+    status: status,
+    score: score,
+    chosenKey: raw.chosenKey !== undefined && raw.chosenKey !== null ? String(raw.chosenKey).slice(0, 40) : null,
+    targetKey: raw.targetKey !== undefined && raw.targetKey !== null ? String(raw.targetKey).slice(0, 40) : null,
+    chosenLabel: String(raw.chosenLabel || "").slice(0, 80),
+    targetLabel: String(raw.targetLabel || "").slice(0, 80),
+    detailNote: String(raw.detailNote || "").slice(0, 120),
+    audioSnapshot: audioSnapshot
+  };
+}
+
+function sanitizeExamHistoryEntry(raw, idx = 0) {
+  if (!raw || typeof raw !== "object") return null;
+  const categoryKey = Object.prototype.hasOwnProperty.call(EXAM_CATEGORY_LEVELS, raw.categoryKey)
+    ? raw.categoryKey
+    : null;
+  if (!categoryKey) return null;
+  const presets = EXAM_CATEGORY_LEVELS[categoryKey].presets;
+  const preset = presets.find(p => p.id === raw.levelId) || presets[0];
+  const totalQuestions = Math.max(1, Math.min(30, parseInt(raw.totalQuestions, 10) || 10));
+  const earnedNum = Number(raw.earnedScore);
+  const earnedScore = Number.isFinite(earnedNum)
+    ? Math.max(0, Math.min(totalQuestions, Math.round(earnedNum * 100) / 100))
+    : 0;
+  const percent = Math.max(0, Math.min(100, Math.round(Number.isFinite(Number(raw.percent)) ? Number(raw.percent) : (earnedScore / totalQuestions) * 100)));
+  const breakdown = Array.isArray(raw.moduleBreakdown)
+    ? raw.moduleBreakdown.map(b => {
+        if (!b || typeof b !== "object" || !b.mode) return null;
+        const tot = Math.max(1, parseInt(b.total, 10) || 1);
+        const er = Math.max(0, Math.min(tot, Math.round((Number(b.earned) || 0) * 100) / 100));
+        return {
+          mode: String(b.mode).slice(0, 36),
+          total: tot,
+          earned: er,
+          correct: Math.max(0, Math.min(tot, parseInt(b.correct, 10) || 0))
+        };
+      }).filter(Boolean).slice(0, 10)
+    : [];
+  const reviewItems = Array.isArray(raw.reviewItems)
+    ? raw.reviewItems.map((it, i) => sanitizeExamReviewItem(it, i)).filter(Boolean).slice(0, 30)
+    : [];
+  const completedAtNum = Number(raw.completedAt);
+  const completedAt = Number.isFinite(completedAtNum) && completedAtNum > 0
+    ? Math.round(completedAtNum)
+    : (Date.parse(raw.completedAt) || Date.now());
+  return {
+    id: String(raw.id || `exam_${completedAt}_${idx}`).replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 48),
+    categoryKey: categoryKey,
+    levelId: preset.id,
+    levelNumber: preset.levelNumber,
+    totalQuestions: totalQuestions,
+    earnedScore: earnedScore,
+    correctCount: Math.max(0, Math.min(totalQuestions, parseInt(raw.correctCount, 10) || 0)),
+    partialCount: Math.max(0, Math.min(totalQuestions, parseInt(raw.partialCount, 10) || 0)),
+    wrongCount: Math.max(0, Math.min(totalQuestions, parseInt(raw.wrongCount, 10) || 0)),
+    percent: percent,
+    durationSec: Math.max(0, Math.min(7200, Math.round(Number(raw.durationSec) || 0))),
+    feedbackMode: raw.feedbackMode === "instant" ? "instant" : "blind",
+    maxReplays: raw.maxReplays === 0 ? 0 : 2,
+    completedAt: completedAt,
+    moduleBreakdown: breakdown,
+    reviewItems: reviewItems
+  };
+}
+
+function sanitizeExamHistoryArray(arr) {
+  if (!Array.isArray(arr)) return [];
+  return arr.map((e, i) => sanitizeExamHistoryEntry(e, i)).filter(Boolean).slice(0, 25);
+}
+
 function createDefaultProfile() {
   return {
     name: "",
@@ -28009,7 +29702,8 @@ function createDefaultProfile() {
     sessionMinutes: 10,
     inactivityMinutes: 3,
     mixes: createDefaultMixes(),
-    customThemes: [null, null, null]
+    customThemes: [null, null, null],
+    examHistory: []
   };
 }
 
@@ -28058,6 +29752,10 @@ function sanitizeUserProfile(raw) {
     ? sanitizeCustomThemesArray(raw.customThemes)
     : def.customThemes;
 
+  const examHistory = Array.isArray(raw.examHistory)
+    ? sanitizeExamHistoryArray(raw.examHistory)
+    : [];
+
   return {
     name: String(raw.name || "").trim().slice(0, 24),
     instruments: validInstruments,
@@ -28071,7 +29769,8 @@ function sanitizeUserProfile(raw) {
     sessionMinutes: sessMins,
     inactivityMinutes: idleMins,
     mixes: mixes,
-    customThemes: customThemes
+    customThemes: customThemes,
+    examHistory: examHistory
   };
 }
 
@@ -28340,6 +30039,16 @@ class AppState {
       statusNote: tr("Bereit für eine entspannte Session.", "Ready for a calm session.")
     };
     this.resetConfirmArmed = false;
+
+    this.examSetupCategory = "interval";
+    this.examResultReturnView = "exam-setup";
+    this.activeExamResultId = null;
+    this.activeExamResultObj = null;
+    this.examResultReviewFilter = "all";
+    this.examHistoryShowAll = false;
+    this.examHistoryClearArmed = false;
+    this.examConfig = { count: 10, feedbackMode: "blind", maxReplays: 2 };
+    this.exam = null;
   }
 
   setMode(mode) {
@@ -28616,6 +30325,15 @@ class AppState {
         : (this.activeCategory === "warmup"
             ? tr("Wähle Programm & Tonumfang", "Choose routine & vocal range")
             : tr("Wähle Modus & Schwierigkeitsgrad", "Choose a mode & difficulty"));
+    } else if (this.currentView === "exam-setup") {
+      mainTitle.textContent = tf("{cat} • Prüfung", "{cat} • Exam", {
+        cat: getCategoryTitle(this.examSetupCategory || this.activeCategory)
+      });
+      el.textContent = tr("Schwierigkeitsstufe & Optionen wählen", "Choose level & exam options");
+    } else if (this.currentView === "exam-result") {
+      const resCat = this.activeExamResultObj?.categoryKey || this.examSetupCategory || this.activeCategory;
+      mainTitle.textContent = tr("Prüfungsauswertung", "Exam Results");
+      el.textContent = getCategoryTitle(resCat);
     } else if (this.currentView === "warmup") {
       const preset = typeof getLocalizedWarmupPreset === "function"
         ? getLocalizedWarmupPreset(this.warmup?.presetId || "full-5min")
@@ -28625,6 +30343,12 @@ class AppState {
         : null;
       mainTitle.textContent = tr("Einsing-Helfer", "Vocal Warmup");
       el.textContent = `${preset ? preset.title : tr("5-Minuten Einsingen", "5-Min Warmup")} • ${range ? range.label : tr("Chor-Mitte", "Choir Mid")}`;
+    } else if (this.currentView === "exercise" && this.exam?.active) {
+      const curQ = Math.min((this.exam.currentIdx || 0) + 1, this.exam.totalQuestions || 1);
+      const presetMeta = typeof getExamPresetById === "function" ? getExamPresetById(this.exam.categoryKey, this.exam.levelId) : null;
+      const levelLbl = presetMeta ? (tr(presetMeta.title.de, presetMeta.title.en)) : "";
+      mainTitle.textContent = tf("Prüfung: {cat}", "Exam: {cat}", { cat: getCategoryTitle(this.exam.categoryKey) });
+      el.textContent = `${levelLbl ? `${levelLbl} • ` : ""}${tf("Frage {n} / {tot}", "Question {n} / {tot}", { n: curQ, tot: this.exam.totalQuestions })}`;
     } else {
       mainTitle.textContent = getCategoryTitle(getCategoryForMode(this.settings.mode));
       el.textContent = this.getModeSummaryText(false);
@@ -28819,6 +30543,10 @@ function setLanguagePreference(nextLang) {
     openCategoryPage(state.activeCategory, { refreshOnly: true });
   } else if (state.currentView === "category-help") {
     openCategoryHelpPage(state.activeCategory, { refreshOnly: true });
+  } else if (state.currentView === "exam-setup") {
+    openExamSetupPage(state.examSetupCategory, { refreshOnly: true });
+  } else if (state.currentView === "exam-result") {
+    renderExamResultView();
   } else if (state.currentView === "knowledge-detail" && state.activeKnowledgeDetail) {
     if (state.activeKnowledgeDetail.kind === "article") {
       openKnowledgeArticle(state.activeKnowledgeDetail.id, { refreshOnly: true });
@@ -28835,6 +30563,10 @@ function setLanguagePreference(nextLang) {
   } else {
     updatePlayButtonUI(state.isPlaying);
     if (typeof renderStageStreakUI === "function") renderStageStreakUI();
+  }
+
+  if (state.exam?.active && state.currentView === "exercise") {
+    renderExamStatusBar();
   }
 
   if (typeof renderWarmupView === "function" && state.currentView === "warmup") {
@@ -29762,6 +31494,9 @@ function captureHistorySnapshot(modalName = getOpenModalName()) {
     idx: appHistoryState.idx,
     view: state.currentView,
     activeCategory: state.activeCategory,
+    examSetupCategory: state.examSetupCategory,
+    examResultReturnView: state.examResultReturnView,
+    activeExamResultId: state.activeExamResultId,
     knowledgeTab: state.activeKnowledgeTab,
     knowledgeDetail: state.activeKnowledgeDetail ? { ...state.activeKnowledgeDetail } : null,
     exerciseReturnView: state.exerciseReturnView,
@@ -29806,6 +31541,15 @@ function applyHistorySnapshot(snapshot) {
     if (snapshot.activeCategory) {
       state.activeCategory = snapshot.activeCategory;
     }
+    if (snapshot.examSetupCategory) {
+      state.examSetupCategory = snapshot.examSetupCategory;
+    }
+    if (snapshot.examResultReturnView) {
+      state.examResultReturnView = snapshot.examResultReturnView;
+    }
+    if (snapshot.activeExamResultId !== undefined) {
+      state.activeExamResultId = snapshot.activeExamResultId;
+    }
     if (snapshot.knowledgeTab) {
       setKnowledgeTab(snapshot.knowledgeTab);
     }
@@ -29823,6 +31567,10 @@ function applyHistorySnapshot(snapshot) {
         openCategoryPage(snapshot.activeCategory);
       } else if (targetView === "category-help" && snapshot.activeCategory) {
         openCategoryHelpPage(snapshot.activeCategory);
+      } else if (targetView === "exam-setup" && (snapshot.examSetupCategory || snapshot.activeCategory)) {
+        openExamSetupPage(snapshot.examSetupCategory || snapshot.activeCategory, { fromHistory: true });
+      } else if (targetView === "exam-result") {
+        openExamResultView(snapshot.activeExamResultId, { fromHistory: true, returnView: snapshot.examResultReturnView });
       } else if (targetView === "knowledge-detail" && snapshot.knowledgeDetail) {
         if (snapshot.knowledgeDetail.kind === "article") {
           openKnowledgeArticle(snapshot.knowledgeDetail.id);
@@ -29855,6 +31603,10 @@ function navigateBackFromUI() {
     closeActiveModal();
     return;
   }
+  if (state.currentView === "exercise" && state.exam?.active) {
+    requestExamAbort();
+    return;
+  }
   if (canUseHistory() && appHistoryState.idx > 0 && window.history.state?.idx === appHistoryState.idx) {
     window.history.back();
     return;
@@ -29863,6 +31615,10 @@ function navigateBackFromUI() {
     switchView(state.exerciseReturnView || "home", { skipHistoryPush: true });
   } else if (state.currentView === "warmup") {
     switchView(state.warmupReturnView || "category", { skipHistoryPush: true });
+  } else if (state.currentView === "exam-result") {
+    switchView(state.examResultReturnView || "exam-setup", { skipHistoryPush: true });
+  } else if (state.currentView === "exam-setup") {
+    switchView("category", { skipHistoryPush: true });
   } else if (state.currentView === "knowledge-detail") {
     switchView("knowledge", { skipHistoryPush: true });
   } else if (state.currentView === "category-help") {
@@ -29885,7 +31641,8 @@ function prefersReducedMotion() {
 }
 
 function getTabForView(view) {
-  if (view === "home" || view === "category" || view === "category-help") return "home";
+  if (view === "home" || view === "category" || view === "category-help" || view === "exam-setup") return "home";
+  if (view === "exam-result") return state.examResultReturnView === "space" ? "space" : "home";
   if (view === "knowledge" || view === "knowledge-detail") return "knowledge";
   if (view === "space") return "space";
   return null;
@@ -29896,8 +31653,9 @@ function getViewOrderInfo(view) {
   const tabIdx = MAIN_TAB_ORDER.indexOf(tab);
   let depth = 0;
   if (view === "category" || view === "knowledge-detail") depth = 1;
-  else if (view === "category-help") depth = 2;
+  else if (view === "category-help" || view === "exam-setup") depth = 2;
   else if (view === "exercise" || view === "warmup") depth = 3;
+  else if (view === "exam-result") depth = 4;
   return { tabIdx, depth };
 }
 
@@ -30153,6 +31911,9 @@ function switchView(targetView, options = {}) {
   if (typeof state.listenOnly === "object" && state.listenOnly.active && (targetView !== "exercise" || prevView !== "exercise")) {
     setListenOnlyMode(false, { keepPlayback: true });
   }
+  if (prevView === "exercise" && targetView !== "exercise" && state.exam?.active) {
+    cleanupActiveExamState({ restoreSettings: !options.examCompletedTransition });
+  }
   if (prevView === "warmup" && targetView !== "warmup" && typeof pauseWarmupSession === "function") {
     pauseWarmupSession({ keepPlayback: true });
   }
@@ -30178,6 +31939,8 @@ function switchView(targetView, options = {}) {
     home: document.getElementById("viewHome"),
     category: document.getElementById("viewCategory"),
     "category-help": document.getElementById("viewCategoryHelp"),
+    "exam-setup": document.getElementById("viewExamSetup"),
+    "exam-result": document.getElementById("viewExamResult"),
     knowledge: document.getElementById("viewKnowledge"),
     "knowledge-detail": document.getElementById("viewKnowledgeDetail"),
     space: document.getElementById("viewSpace"),
@@ -30250,12 +32013,16 @@ function switchView(targetView, options = {}) {
     renderHomeQuickMixBar();
   } else if (targetView === "space") {
     renderProfileAccountView();
+  } else if (targetView === "exam-result" && typeof renderExamResultView === "function") {
+    renderExamResultView();
   } else if (targetView === "warmup" && typeof renderWarmupView === "function") {
     renderWarmupView();
   }
 
   if (targetView === "exercise") {
-    if (!options.fromHistory || !state.currentExercise) {
+    if (state.exam?.active && !options.skipExamLoad) {
+      loadCurrentExamQuestion();
+    } else if (!options.fromHistory || !state.currentExercise) {
       generateExercise();
     } else if (state.profileDisplayDirty) {
       renderUI();
@@ -31977,6 +33744,31 @@ function openCategoryPage(categoryKey, options = {}) {
       btn.addEventListener("click", () => {
         openWarmupView(btn.dataset.launchWarmup, { returnView: "category" });
       });
+    });
+  }
+
+  // Prüfungs-Einstieg auf jeder Übungskategorie-Unterseite (nicht beim Einsing-Helfer)
+  if (categoryKey !== "warmup" && EXAM_CATEGORY_LEVELS[categoryKey]) {
+    const examCfg = EXAM_CATEGORY_LEVELS[categoryKey];
+    const catBest = getCategoryBestExamPercent(categoryKey);
+    const catBestHtml = catBest !== null
+      ? `<span class="category-exam-best">${escapeHtml(tf("Dein Bestwert: {pct}%", "Personal Best: {pct}%", { pct: catBest }))}</span>`
+      : "";
+    container.insertAdjacentHTML("beforeend", `
+      <button id="openCategoryExamBtn" class="category-exam-entry-card accent-${examCfg.accent || "sage"}" type="button">
+        <span class="category-exam-entry-left">
+          <span class="category-exam-icon" aria-hidden="true">🎓</span>
+          <span class="category-exam-copy">
+            <span class="category-exam-title">${escapeHtml(tr("Kategorie-Prüfung ablegen", "Take Category Exam"))}</span>
+            <span class="category-exam-sub">${escapeHtml(tr("1 Versuch pro Frage • verschiedene Stufen & Hör-Auswertung", "1 try per question • selectable levels & audio review"))}</span>
+            ${catBestHtml}
+          </span>
+        </span>
+        <span class="category-exam-cta">${escapeHtml(tr("Prüfung →", "Exam →"))}</span>
+      </button>
+    `);
+    document.getElementById("openCategoryExamBtn")?.addEventListener("click", () => {
+      openExamSetupPage(categoryKey);
     });
   }
 
@@ -33782,6 +35574,10 @@ function renderUI() {
 
       if (isProdEqNoise) {
         card.addEventListener("click", () => {
+          if (state.exam?.active && idx === 1 && !state.isPlaying) {
+            triggerExamPlayAction();
+            return;
+          }
           triggerProdEqNoiseComparison(idx === 0);
         });
       } else if (isModes && idx === 0) {
@@ -33857,6 +35653,7 @@ function renderUI() {
   updatePlayButtonUI(false);
   syncListenOnlyUI();
   document.getElementById("feedbackContainer").classList.add("hidden");
+  syncExamExerciseControls();
 }
 
 const STREAK_MILESTONES = new Set([3, 5, 8, 10, 15, 20, 25, 30, 40, 50, 75, 100]);
@@ -33876,9 +35673,10 @@ function getStreakMilestoneText(count) {
 }
 
 function renderStageStreakUI() {
+  const isExam = Boolean(state?.exam?.active);
   const st = state?.streakState || { count: 0, activeNoticeMilestone: 0 };
-  const count = Number(st.count) || 0;
-  const milestone = Number(st.activeNoticeMilestone) || 0;
+  const count = isExam ? 0 : (Number(st.count) || 0);
+  const milestone = isExam ? 0 : (Number(st.activeNoticeMilestone) || 0);
 
   const pillEl = document.getElementById("stageStreakPill");
   if (pillEl) {
@@ -34230,6 +36028,11 @@ async function handleMelodyKeyClick(clickedKeyDef, keyBtn) {
 
   await ensureAudioReady();
 
+  if (state.exam?.active) {
+    handleExamMelodyAnswer(ex, clickedKeyDef, keyBtn);
+    return;
+  }
+
   const currentSlotIdx = ex.melodyStep;
   const slot = ex.melodySlots[currentSlotIdx];
   if (!slot) return;
@@ -34355,6 +36158,11 @@ async function handleSolfegeKeyClick(clickedKeyDef, keyBtn, options = {}) {
     return;
   }
 
+  if (state.exam?.active) {
+    handleExamSolfegeAnswer(ex, clickedKeyDef, keyBtn);
+    return;
+  }
+
   const target = ex.targetItem;
   // Prüfe, ob die richtige Taste (oder bei Do eine der beiden Do-Tasten) getroffen wurde
   const isCorrect = clickedKeyDef.midi === target.midi ||
@@ -34477,6 +36285,10 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
 
   if (ex.type === "rhythm-dictation") {
     return handleRhythmDictationChoice(selectedKey, btnElement);
+  }
+  if (state.exam?.active) {
+    handleExamChoiceAnswer(ex, selectedKey, btnElement);
+    return;
   }
   if (ex.isSolved) return;
 
@@ -34683,6 +36495,11 @@ async function handleRhythmDictationChoice(cellKey, btnElement) {
 
   await ensureAudioReady();
 
+  if (state.exam?.active) {
+    handleExamRhythmDictationAnswer(ex, cellKey, btnElement);
+    return;
+  }
+
   const currentIdx = ex.rhythmStep;
   const slot = ex.rhythmSlots[currentIdx];
   if (!slot) return;
@@ -34800,6 +36617,7 @@ async function handleRhythmDictationChoice(cellKey, btnElement) {
 async function repeatRhythmDictationBeat(slotIdx = null) {
   const ex = state.currentExercise;
   if (!ex || ex.type !== "rhythm-dictation") return;
+  if (state.exam?.active && !tryConsumeExamReplay()) return;
   if (state.listenOnly?.active) {
     setListenOnlyMode(false, { keepPlayback: true });
   }
@@ -34910,6 +36728,11 @@ function renderRhythmTapPad() {
     if (state.listenOnly?.active) {
       setListenOnlyMode(false, { keepPlayback: true });
     }
+    if (state.exam?.active) {
+      if (state.exam.currentAnswered) return;
+      triggerExamPlayAction();
+      return;
+    }
     playSequence();
   });
 }
@@ -34917,6 +36740,7 @@ function renderRhythmTapPad() {
 async function playRhythmTapDemoOnly(options = {}) {
   const ex = state.currentExercise;
   if (!ex || ex.type !== "rhythm-tap") return;
+  if (state.exam?.active && !options.fromListenOnly && !tryConsumeExamReplay()) return;
 
   await ensureAudioReady();
   if (options.fromListenOnly && (!state.listenOnly?.active || state.listenOnly.token !== options.token || state.currentView !== "exercise" || state.currentExercise !== ex)) {
@@ -35056,6 +36880,11 @@ function finishRhythmTapRound() {
   state.exerciseSolved = true;
   ex.isSolved = true;
 
+  if (state.exam?.active) {
+    handleExamRhythmTapFinished(ex, session, res);
+    return res;
+  }
+
   const padBtn = document.getElementById("rhythmTapPadBtn");
   padBtn?.classList.remove("is-counting", "is-ready", "is-hit");
 
@@ -35189,6 +37018,7 @@ async function ensureAudioReady() {
 async function repeatMelodySlotTone(slotIdx = null) {
   const ex = state.currentExercise;
   if (!ex || ex.type !== "melody") return;
+  if (state.exam?.active && !tryConsumeExamReplay()) return;
   if (state.listenOnly?.active) {
     setListenOnlyMode(false, { keepPlayback: true });
   }
@@ -35382,6 +37212,7 @@ async function startSolfegeTargetLoop(playImmediately = true) {
 async function repeatCadenceTargetChord() {
   const ex = state.currentExercise;
   if (!ex || ex.type !== "cadence" || !ex.targetItem) return;
+  if (state.exam?.active && !tryConsumeExamReplay()) return;
   if (!audioEngine.isInitialized) await ensureAudioReady();
   audioEngine.stopPlayback();
   state.isPlaying = false;
@@ -35431,6 +37262,7 @@ async function repeatSolfegeTargetTone() {
     return;
   }
   if (ex.type !== "solfege") return;
+  if (state.exam?.active && !tryConsumeExamReplay()) return;
   await ensureAudioReady();
   if (state.settings.loop && !state.solfegeAnswered) {
     await startSolfegeTargetLoop(true);
@@ -35780,7 +37612,10 @@ function setListenOnlyMode(enabled, options = {}) {
   startListenOnlyCycle();
 }
 
-async function playSequence() {
+async function playSequence(options = {}) {
+  if (state.exam?.active && !tryConsumeExamReplay({ isInitialAuto: Boolean(options.examAutoStart) })) {
+    return;
+  }
   const listenOnlyCycleToken = state.listenOnly?.active ? state.listenOnly.token : null;
   await ensureAudioReady();
   if (listenOnlyCycleToken !== null && (!state.listenOnly?.active || state.listenOnly.token !== listenOnlyCycleToken || state.currentView !== "exercise")) {
@@ -36579,6 +38414,12 @@ function stopPlayback(options = {}) {
 function updatePlayButtonUI(isPlaying) {
   const btn = document.getElementById("playBtn");
   if (!btn) return;
+  if (state.exam?.active && state.exam.currentAnswered && state.exam.feedbackMode === "instant") {
+    const isLast = state.exam.currentIdx >= state.exam.totalQuestions - 1;
+    btn.innerHTML = isLast ? tr("Auswertung →", "Results →") : tr("Nächste Frage →", "Next Question →");
+    btn.classList.remove("btn-stop");
+    return;
+  }
   if (state.listenOnly?.active && state.currentView === "exercise") {
     btn.innerHTML = tr("■ Stopp", "■ Stop");
     btn.classList.add("btn-stop");
@@ -37270,6 +39111,7 @@ function renderProfileAccountView() {
   });
   syncLanguageControls(state.settings.language);
 
+  renderExamHistoryCard();
   renderSessionTimerUI();
   renderProfileMixes();
   renderCustomThemeSection();
@@ -37847,6 +39689,7 @@ function resetUserProfile() {
     saveVisualPrefs(state.settings.appearance, state.settings.theme, state.settings.language);
   }
   state.resetConfirmArmed = false;
+  state.examHistoryClearArmed = false;
   state.streakState = { count: 0, activeNoticeMilestone: 0 };
   if (typeof renderStageStreakUI === "function") renderStageStreakUI();
   stopSessionTimer("idle", null, "idle");
@@ -38251,10 +40094,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Transport-Steuerung in der Übung
   document.getElementById("listenOnlyBtn")?.addEventListener("click", () => {
+    if (state.exam?.active) return;
     setListenOnlyMode(!state.listenOnly.active);
   });
 
   document.getElementById("playBtn")?.addEventListener("click", () => {
+    if (state.exam?.active) {
+      if (state.exam.currentAnswered && state.exam.feedbackMode === "instant") {
+        advanceExamQuestion();
+        return;
+      }
+      if (state.isPlaying) stopPlayback();
+      else triggerExamPlayAction();
+      return;
+    }
     if (state.listenOnly.active) {
       setListenOnlyMode(false);
       return;
@@ -38269,6 +40122,14 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.getElementById("skipBtn")?.addEventListener("click", () => {
+    if (state.exam?.active) {
+      if (state.exam.currentAnswered) {
+        advanceExamQuestion();
+      } else {
+        skipCurrentExamQuestion();
+      }
+      return;
+    }
     if (state.listenOnly.active) {
       cancelListenOnlyTimers();
       stopPlayback();
@@ -38290,8 +40151,29 @@ document.addEventListener("DOMContentLoaded", () => {
     repeatSolfegeTargetTone();
   });
 
+  document.getElementById("examNextQuestionBtn")?.addEventListener("click", () => {
+    if (state.exam?.active) advanceExamQuestion();
+  });
+  document.getElementById("examAbortBtn")?.addEventListener("click", () => {
+    requestExamAbort();
+  });
+  document.getElementById("examContinueBtn")?.addEventListener("click", () => {
+    cancelExamAbort();
+  });
+  document.getElementById("examConfirmAbortBtn")?.addEventListener("click", () => {
+    abortCategoryExam();
+  });
+  document.getElementById("clearExamHistoryBtn")?.addEventListener("click", () => {
+    handleClearExamHistoryClick();
+  });
+  document.getElementById("toggleAllExamHistoryBtn")?.addEventListener("click", () => {
+    state.examHistoryShowAll = !state.examHistoryShowAll;
+    renderExamHistoryCard();
+  });
+
   const loopBtn = document.getElementById("loopToggleBtn");
   loopBtn?.addEventListener("click", () => {
+    if (state.exam?.active) return;
     if (state.settings.mode === "melody") {
       state.settings.melodyAutoNext = !state.settings.melodyAutoNext;
       loopBtn.classList.toggle("btn-active", state.settings.melodyAutoNext);
@@ -39029,7 +40911,11 @@ document.addEventListener("DOMContentLoaded", () => {
         handleRhythmTapInput();
       }
     } else if (!state.isPlaying) {
-      playSequence();
+      if (state.exam?.active) {
+        if (!state.exam.currentAnswered) triggerExamPlayAction();
+      } else {
+        playSequence();
+      }
     }
   });
 });
@@ -40186,6 +42072,1863 @@ function initStartupSplash() {
 
   splash.addEventListener("click", dismissSplash);
   autoTimer = setTimeout(dismissSplash, prefersReduced ? 450 : 1200);
+}
+
+// =====================================================
+// KATEGORIE-PRÜFUNGSMODUS, AUSWERTUNG & VERLAUF
+// =====================================================
+
+function getExamPresetById(categoryKey, levelId = null) {
+  const cat = EXAM_CATEGORY_LEVELS[categoryKey];
+  if (!cat || !Array.isArray(cat.presets) || cat.presets.length === 0) return null;
+  if (!levelId) return cat.presets[0];
+  return cat.presets.find(p => p.id === levelId) || cat.presets[0];
+}
+
+function getExamPresetTitle(categoryKey, levelId) {
+  const preset = getExamPresetById(categoryKey, levelId);
+  if (!preset) return tr("Prüfung", "Exam");
+  return tr(preset.title.de, preset.title.en);
+}
+
+function getExamPresetDesc(preset) {
+  if (!preset) return "";
+  return tr(preset.desc.de, preset.desc.en);
+}
+
+function getLocalizedExamModeName(mode) {
+  const names = {
+    cadence: tr("Kadenzen", "Cadences"),
+    "interval-melodic": tr("Intervalle (Aufwärts)", "Intervals (Ascending)"),
+    "interval-melodic-down": tr("Intervalle (Abwärts)", "Intervals (Descending)"),
+    "interval-harmonic": tr("Intervalle (Harmonisch)", "Intervals (Harmonic)"),
+    "chord-arp-up": tr("Akkord-Arpeggio (Aufwärts)", "Chord Arpeggio (Up)"),
+    "chord-arp-down": tr("Akkord-Arpeggio (Abwärts)", "Chord Arpeggio (Down)"),
+    "interval-chords": tr("Akkordtypen (Gleichzeitig)", "Chord Qualities (Block)"),
+    "chord-inversions": tr("Akkord-Umkehrungen", "Chord Inversions"),
+    solfege: "Solfège",
+    melody: tr("Melodien (4 Töne)", "Melodies (4 Notes)"),
+    "modes-scale": tr("Kirchentonarten (Tonleiter)", "Modes (Scale)"),
+    "modes-char": tr("Charakterton (Modi)", "Modal Color Tone"),
+    "modes-cadence": tr("Modaler Vamp", "Modal Vamp"),
+    "rhythm-meter": tr("Taktarten & Metrum", "Meters & Time Sigs"),
+    "rhythm-dictation": tr("Rhythmus-Diktat", "Rhythm Dictation"),
+    "rhythm-tap": tr("Rhythmus nachklopfen", "Rhythm Tap-Back"),
+    "rhythm-groove": tr("Grooves & Mikro-Timing", "Grooves & Micro-Timing"),
+    "prod-tone": tr("Isolierte Frequenzen", "Isolated Frequencies"),
+    "prod-eq-noise": tr("EQ-Boost im Pink Noise", "EQ Boost in Pink Noise")
+  };
+  return names[mode] || mode;
+}
+
+function getCategoryBestExamPercent(categoryKey, levelId = null) {
+  const list = Array.isArray(state?.profile?.examHistory) ? state.profile.examHistory : [];
+  let best = null;
+  list.forEach(entry => {
+    if (!entry || entry.categoryKey !== categoryKey) return;
+    if (levelId && entry.levelId !== levelId) return;
+    const pct = Number(entry.percent);
+    if (Number.isFinite(pct) && (best === null || pct > best)) {
+      best = pct;
+    }
+  });
+  return best;
+}
+
+function formatExamDuration(sec) {
+  const clean = Math.max(0, Math.round(Number(sec) || 0));
+  const mins = Math.floor(clean / 60);
+  const secs = clean % 60;
+  return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
+}
+
+function formatExamDate(ts) {
+  const d = new Date(Number(ts) || Date.now());
+  const dd = String(d.getDate()).padStart(2, "0");
+  const mm = String(d.getMonth() + 1).padStart(2, "0");
+  const yyyy = d.getFullYear();
+  const hh = String(d.getHours()).padStart(2, "0");
+  const min = String(d.getMinutes()).padStart(2, "0");
+  return `${dd}.${mm}.${yyyy} • ${hh}:${min}`;
+}
+
+function formatExamScoreVal(val) {
+  const rounded = Math.round((Number(val) || 0) * 100) / 100;
+  return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(2).replace(/0$/, "");
+}
+
+function getLauschebaerExamBadge(percent) {
+  const p = Number(percent) || 0;
+  if (p >= 90) {
+    return {
+      tierCls: "tier-master",
+      icon: "🏆",
+      title: tr("Lauschebär-Meister", "Lauschebär Master"),
+      sub: tr(
+        "Souveränes Gehör! Du erkennst selbst feine Details ruhig und treffsicher.",
+        "Commanding ear! You recognize even subtle details calmly and accurately."
+      )
+    };
+  }
+  if (p >= 75) {
+    return {
+      tierCls: "tier-good",
+      icon: "✨",
+      title: tr("Starker Lauschebär", "Sharp Listener"),
+      sub: tr(
+        "Sehr starke Trefferquote! Hör dir in der Rückschau kurz die wenigen Wackler im Vergleich an.",
+        "Very strong accuracy! Review the few tricky spots side-by-side below."
+      )
+    };
+  }
+  if (p >= 50) {
+    return {
+      tierCls: "tier-good",
+      icon: "🌿",
+      title: tr("Guter Kurs", "Solid Progress"),
+      sub: tr(
+        "Gute Grundlage! Ein gezielter Übe-Fokus auf das schwächste Modul hebt dich aufs nächste Niveau.",
+        "Solid foundation! A quick focus session on your weakest module will level you right up."
+      )
+    };
+  }
+  return {
+    tierCls: "",
+    icon: "🎧",
+    title: tr("Dranbleiben lohnt sich", "Keep Listening"),
+    sub: tr(
+      "Jede Prüfung schärft dein Ohr – vergleiche deine Antworten jetzt direkt in der Hör-Rückschau!",
+      "Every exam sharpens your ear — compare your choices directly in the audio review below!"
+    )
+  };
+}
+
+function openExamSetupPage(categoryKey = state.activeCategory, options = {}) {
+  if (!categoryKey || !EXAM_CATEGORY_LEVELS[categoryKey]) return;
+  state.activeCategory = categoryKey;
+  state.examSetupCategory = categoryKey;
+
+  const container = document.getElementById("examSetupContent");
+  if (!container) return;
+
+  const catCfg = EXAM_CATEGORY_LEVELS[categoryKey];
+  const cfg = state.examConfig || { count: 10, feedbackMode: "blind", maxReplays: 2 };
+  const catBest = getCategoryBestExamPercent(categoryKey);
+  const catBestPill = catBest !== null
+    ? `<span class="exam-best-pill">★ ${escapeHtml(tf("Bestwert: {pct}%", "Best: {pct}%", { pct: catBest }))}</span>`
+    : "";
+
+  const levelsHtml = catCfg.presets.map(preset => {
+    const levelBest = getCategoryBestExamPercent(categoryKey, preset.id);
+    const bestHtml = levelBest !== null
+      ? `<span class="exam-best-pill">${escapeHtml(tf("Bestwert: {pct}%", "Best: {pct}%", { pct: levelBest }))}</span>`
+      : "";
+    const modeChipsHtml = preset.modes.map(m =>
+      `<span class="exam-mode-chip">${escapeHtml(getLocalizedExamModeName(m))}</span>`
+    ).join("");
+
+    return `
+      <article class="exam-level-card" data-exam-level-card="${escapeHtml(preset.id)}">
+        <div class="exam-level-top">
+          <div>
+            <div class="exam-level-badges">
+              <span class="exam-level-pill">${escapeHtml(tf("Stufe {n}", "Level {n}", { n: preset.levelNumber }))}</span>
+              ${bestHtml}
+            </div>
+            <h3 class="exam-level-title">${escapeHtml(tr(preset.title.de, preset.title.en))}</h3>
+            <p class="exam-level-desc">${escapeHtml(tr(preset.desc.de, preset.desc.en))}</p>
+          </div>
+        </div>
+        <div class="exam-level-modes">${modeChipsHtml}</div>
+        <div class="exam-level-footer">
+          <button type="button" class="btn-primary-action exam-start-btn" data-start-exam-level="${escapeHtml(preset.id)}">
+            ${escapeHtml(tr("Prüfung starten →", "Start Exam →"))}
+          </button>
+        </div>
+      </article>
+    `;
+  }).join("");
+
+  container.innerHTML = `
+    <div class="exam-setup-hero">
+      <div class="exam-setup-hero-head">
+        <h2 class="exam-setup-hero-title">${escapeHtml(tf("Prüfung • {cat}", "Exam • {cat}", { cat: getCategoryTitle(categoryKey) }))}</h2>
+        ${catBestPill}
+      </div>
+      <p class="exam-setup-hero-desc">
+        ${escapeHtml(tr(
+          "1 Versuch pro Frage – prüfungsfest ohne Hilfsschleifen. Am Ende warten Lauschebär-Bewertung, Modul-Aufschlüsselung und direkter Hör-Vergleich.",
+          "1 try per question under exam conditions — no unlimited retries. Afterwards you’ll get a Lauschebär summary, module breakdown, and instant audio comparison."
+        ))}
+      </p>
+    </div>
+
+    <section class="exam-config-panel" aria-label="${escapeHtml(tr("Prüfungsoptionen", "Exam options"))}">
+      <div class="exam-config-row">
+        <span class="exam-config-label">${escapeHtml(tr("Fragenanzahl", "Questions"))}</span>
+        <div class="account-chip-group">
+          ${[5, 10, 15].map(n => `
+            <button type="button" class="k-filter-pill ${cfg.count === n ? "active" : ""}" data-exam-count="${n}">
+              ${escapeHtml(tf("{n} Fragen", "{n} Questions", { n }))}
+            </button>
+          `).join("")}
+        </div>
+      </div>
+
+      <div class="exam-config-row">
+        <span class="exam-config-label">${escapeHtml(tr("Rückmeldung", "Feedback Mode"))}</span>
+        <div class="account-chip-group">
+          <button type="button" class="k-filter-pill ${cfg.feedbackMode === "blind" ? "active" : ""}" data-exam-feedback="blind">
+            ${escapeHtml(tr("Auswertung am Ende (Blind)", "Evaluate at End (Blind)"))}
+          </button>
+          <button type="button" class="k-filter-pill ${cfg.feedbackMode === "instant" ? "active" : ""}" data-exam-feedback="instant">
+            ${escapeHtml(tr("Sofort-Feedback", "Instant Feedback"))}
+          </button>
+        </div>
+      </div>
+
+      <div class="exam-config-row">
+        <span class="exam-config-label">${escapeHtml(tr("Wiederholungs-Limit", "Replay Limit"))}</span>
+        <div class="account-chip-group">
+          <button type="button" class="k-filter-pill ${cfg.maxReplays === 2 ? "active" : ""}" data-exam-replays="2">
+            ${escapeHtml(tr("Max. 2× anhören", "Max 2 Replays"))}
+          </button>
+          <button type="button" class="k-filter-pill ${cfg.maxReplays === 0 ? "active" : ""}" data-exam-replays="0">
+            ${escapeHtml(tr("Unbegrenzt", "Unlimited"))}
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <div class="exam-level-grid">${levelsHtml}</div>
+  `;
+
+  container.querySelectorAll("[data-exam-count]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const val = parseInt(btn.dataset.examCount, 10);
+      if ([5, 10, 15].includes(val)) {
+        state.examConfig.count = val;
+        container.querySelectorAll("[data-exam-count]").forEach(b => b.classList.toggle("active", b === btn));
+      }
+    });
+  });
+
+  container.querySelectorAll("[data-exam-feedback]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      state.examConfig.feedbackMode = btn.dataset.examFeedback === "instant" ? "instant" : "blind";
+      container.querySelectorAll("[data-exam-feedback]").forEach(b => b.classList.toggle("active", b === btn));
+    });
+  });
+
+  container.querySelectorAll("[data-exam-replays]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      state.examConfig.maxReplays = btn.dataset.examReplays === "0" ? 0 : 2;
+      container.querySelectorAll("[data-exam-replays]").forEach(b => b.classList.toggle("active", b === btn));
+    });
+  });
+
+  container.querySelectorAll("[data-start-exam-level]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      startCategoryExam(categoryKey, btn.dataset.startExamLevel);
+    });
+  });
+
+  if (!options.refreshOnly) {
+    switchView("exam-setup", { skipHistoryPush: Boolean(options.fromHistory) });
+  }
+}
+
+function buildExamQuestionPlan(modes, count) {
+  const pool = Array.isArray(modes) && modes.length > 0 ? modes : ["cadence"];
+  const total = Math.max(1, Math.min(30, parseInt(count, 10) || 10));
+  const plan = [];
+  for (let i = 0; i < total; i++) {
+    plan.push(pool[i % pool.length]);
+  }
+  for (let i = plan.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const tmp = plan[i];
+    plan[i] = plan[j];
+    plan[j] = tmp;
+  }
+  return plan;
+}
+
+function applyExamLevelSettings(preset, targetMode) {
+  if (!state?.settings || !preset) return;
+  state.settings.mode = targetMode;
+  Object.assign(state.settings, preset.apply || {});
+  state.settings.loop = false;
+  state.settings.autoNextAfterCorrect = false;
+  state.settings.solfegeAutoNext = false;
+  state.settings.melodyAutoNext = false;
+  state.settings.rhythmDictationAutoNext = false;
+  state.settings.rhythmTapAutoNext = false;
+  state.settings.randomBpm = false;
+  const stdBpm = getDefaultExerciseBpm(targetMode);
+  state.settings.bpm = stdBpm;
+  state.activeBpm = stdBpm;
+}
+
+function clearExamTimers(examObj = state.exam) {
+  if (!examObj) return;
+  if (examObj.advanceTimerId !== null && examObj.advanceTimerId !== undefined) {
+    clearTimeout(examObj.advanceTimerId);
+    examObj.advanceTimerId = null;
+  }
+  if (examObj.autoPlayTimerId !== null && examObj.autoPlayTimerId !== undefined) {
+    clearTimeout(examObj.autoPlayTimerId);
+    examObj.autoPlayTimerId = null;
+  }
+}
+
+function cleanupActiveExamState(options = {}) {
+  const prevExam = state.exam;
+  if (prevExam) {
+    clearExamTimers(prevExam);
+    if (options.restoreSettings !== false && prevExam.prevSettings) {
+      state.settings = { ...prevExam.prevSettings };
+      state.activeBpm = state.settings.bpm || getDefaultExerciseBpm(state.settings.mode);
+      state.hasManualExerciseBpm = Boolean(prevExam.prevHasManualBpm);
+      syncAutoNextControls();
+      state.updateQuickStartLabel();
+    }
+  }
+  state.exam = null;
+  syncExamExerciseControls();
+}
+
+function startCategoryExam(categoryKey, levelId) {
+  const preset = getExamPresetById(categoryKey, levelId);
+  if (!preset) return;
+
+  if (state.exam) {
+    cleanupActiveExamState({ restoreSettings: true });
+  }
+
+  const cfg = state.examConfig || { count: 10, feedbackMode: "blind", maxReplays: 2 };
+  const total = [5, 10, 15].includes(cfg.count) ? cfg.count : 10;
+  const plan = buildExamQuestionPlan(preset.modes, total);
+
+  state.activeCategory = categoryKey;
+  state.examSetupCategory = categoryKey;
+  state.exerciseReturnView = "exam-setup";
+
+  state.exam = {
+    active: true,
+    categoryKey: categoryKey,
+    levelId: preset.id,
+    levelNumber: preset.levelNumber,
+    feedbackMode: cfg.feedbackMode === "instant" ? "instant" : "blind",
+    maxReplays: cfg.maxReplays === 0 ? 0 : 2,
+    totalQuestions: total,
+    currentIdx: 0,
+    plan: plan,
+    questions: [],
+    currentAnswered: false,
+    currentPromptPlayedOnce: false,
+    currentReplaysUsed: 0,
+    startedWallMs: Date.now(),
+    advanceTimerId: null,
+    autoPlayTimerId: null,
+    prevSettings: { ...state.settings },
+    prevHasManualBpm: Boolean(state.hasManualExerciseBpm)
+  };
+
+  applyExamLevelSettings(preset, plan[0]);
+  switchView("exercise", { preserveBpm: true });
+}
+
+function syncExamExerciseControls() {
+  const isExam = Boolean(state?.exam?.active);
+  const statusEl = document.getElementById("examStatusBar");
+  const abortBanner = document.getElementById("examAbortConfirmBanner");
+  const postAnswerBar = document.getElementById("examPostAnswerBar");
+  const listenBtn = document.getElementById("listenOnlyBtn");
+  const loopBtn = document.getElementById("loopToggleBtn");
+  const keyBtn = document.getElementById("moduleKeyBtn");
+  const timeBtn = document.getElementById("moduleTimeSigBtn");
+  const bpmBtn = document.getElementById("moduleBpmBtn");
+
+  statusEl?.classList.toggle("hidden", !isExam);
+  if (!isExam) {
+    abortBanner?.classList.add("hidden");
+    postAnswerBar?.classList.add("hidden");
+  }
+
+  if (listenBtn) listenBtn.classList.toggle("hidden", isExam);
+  if (loopBtn) loopBtn.classList.toggle("hidden", isExam);
+
+  [keyBtn, timeBtn, bpmBtn].forEach(btn => {
+    if (!btn) return;
+    btn.classList.toggle("exam-locked", isExam);
+    btn.disabled = isExam;
+  });
+
+  if (isExam) {
+    closeTransientPopovers();
+    renderExamStatusBar();
+  }
+  renderStageStreakUI();
+}
+
+function renderExamStatusBar() {
+  const exam = state?.exam;
+  if (!exam || !exam.active) return;
+
+  const modePill = document.getElementById("examModePill");
+  const counterPill = document.getElementById("examCounterPill");
+  const replayPill = document.getElementById("examReplayPill");
+  const fillEl = document.getElementById("examProgressFill");
+
+  const curNum = Math.min(exam.currentIdx + 1, exam.totalQuestions);
+  const curMode = exam.plan[exam.currentIdx] || state.settings.mode;
+  if (modePill) {
+    modePill.textContent = getLocalizedExamModeName(curMode);
+  }
+  if (counterPill) {
+    counterPill.textContent = tf("Frage {n} / {tot}", "Question {n} / {tot}", {
+      n: curNum,
+      tot: exam.totalQuestions
+    });
+  }
+  if (replayPill) {
+    replayPill.classList.remove("is-warn", "is-exhausted");
+    if (exam.maxReplays === 0) {
+      replayPill.textContent = tr("Hören: Unbegrenzt", "Audio: Unlimited");
+    } else if (!exam.currentPromptPlayedOnce) {
+      replayPill.textContent = tf("1× Start + {left}× nachhören", "1× Start + {left}× replay", { left: exam.maxReplays });
+    } else {
+      const left = Math.max(0, exam.maxReplays - exam.currentReplaysUsed);
+      if (left === 0) {
+        replayPill.textContent = tr("Kein Replay mehr", "No replays left");
+        replayPill.classList.add("is-exhausted");
+      } else {
+        replayPill.textContent = tf("Noch {left}× anhören", "{left}× replay left", { left });
+        if (left === 1) replayPill.classList.add("is-warn");
+      }
+    }
+  }
+  if (fillEl) {
+    const done = exam.questions.length;
+    const pct = Math.max(0, Math.min(100, Math.round((done / Math.max(1, exam.totalQuestions)) * 100)));
+    fillEl.style.width = `${pct}%`;
+  }
+}
+
+function tryConsumeExamReplay(options = {}) {
+  const exam = state?.exam;
+  if (!exam || !exam.active) return true;
+
+  if (exam.currentAnswered && !options.isInitialAuto) {
+    return false;
+  }
+
+  if (!exam.currentPromptPlayedOnce) {
+    exam.currentPromptPlayedOnce = true;
+    renderExamStatusBar();
+    return true;
+  }
+
+  if (exam.maxReplays === 0) {
+    exam.currentReplaysUsed += 1;
+    renderExamStatusBar();
+    return true;
+  }
+
+  if (exam.currentReplaysUsed >= exam.maxReplays) {
+    renderExamStatusBar();
+    const fnEl = document.getElementById("stageFunctionText");
+    if (fnEl && !exam.currentAnswered) {
+      fnEl.textContent = tr(
+        "Wiederholungs-Limit erreicht – wähle jetzt deine Antwort.",
+        "Replay limit reached — please choose your answer now."
+      );
+    }
+    return false;
+  }
+
+  exam.currentReplaysUsed += 1;
+  renderExamStatusBar();
+  return true;
+}
+
+function triggerExamPlayAction() {
+  const exam = state?.exam;
+  if (!exam || !exam.active) {
+    playSequence();
+    return;
+  }
+  if (exam.currentAnswered) return;
+  playSequence();
+}
+
+function loadCurrentExamQuestion() {
+  const exam = state?.exam;
+  if (!exam || !exam.active) return;
+
+  clearExamTimers(exam);
+  stopPlayback();
+  document.getElementById("examAbortConfirmBanner")?.classList.add("hidden");
+  document.getElementById("examPostAnswerBar")?.classList.add("hidden");
+
+  const preset = getExamPresetById(exam.categoryKey, exam.levelId);
+  const planMode = exam.plan[exam.currentIdx] || preset?.modes?.[0] || "cadence";
+  applyExamLevelSettings(preset, planMode);
+
+  exam.currentAnswered = false;
+  exam.currentPromptPlayedOnce = false;
+  exam.currentReplaysUsed = 0;
+
+  generateExercise();
+  state.updateHeaderSubtext();
+  syncExamExerciseControls();
+
+  // Rhythmus-Nachklopfen wartet auf bewussten Start (Play / Pad / Leertaste); Hör-Modi starten sauber automatisch
+  if (planMode !== "rhythm-tap") {
+    exam.autoPlayTimerId = setTimeout(() => {
+      if (!state.exam || state.exam !== exam || !exam.active || state.currentView !== "exercise") return;
+      if (exam.currentAnswered || exam.currentPromptPlayedOnce) return;
+      playSequence({ examAutoStart: true });
+    }, 150);
+  }
+}
+
+function buildExamChoiceSnapshot(ex, chosenKey) {
+  if (!ex) return null;
+  const targetKey = ex.targetItem?.key || null;
+  const type = ex.type;
+
+  if (type === "cadence") {
+    return {
+      type: "cadence",
+      rootMidi: ex.targetItem?.rootMidi || HARMONIC_DATA.roots[state.currentKey]?.midi || 60,
+      currentKey: state.currentKey,
+      activeBpm: state.activeBpm,
+      activeTimeSig: state.activeTimeSig,
+      targetIndex: ex.targetIndex,
+      bars: (ex.bars || []).map(b => ({ symbol: b.symbol, notes: b.notes, bass: b.bass })),
+      chosenKey: chosenKey,
+      targetKey: targetKey
+    };
+  }
+  if (type.startsWith("interval-")) {
+    return {
+      type: type,
+      rootMidi: ex.effectiveRootMidi ?? ex.targetItem?.rootMidi ?? 60,
+      directionSign: ex.isMelodicDown ? -1 : 1,
+      refNote: ex.targetItem?.refNote || midiToNote(ex.effectiveRootMidi || 60),
+      targetNote: ex.targetItem?.targetNote || ex.targetItem?.notes?.[1] || midiToNote(67),
+      activeBpm: state.activeBpm,
+      chosenKey: chosenKey,
+      targetKey: targetKey
+    };
+  }
+  if (isChordQualityMode(type)) {
+    return {
+      type: type,
+      rootMidi: ex.targetItem?.rootMidi || 60,
+      targetNotes: Array.isArray(ex.targetItem?.notes) ? [...ex.targetItem.notes] : [],
+      activeBpm: state.activeBpm,
+      chosenKey: chosenKey,
+      targetKey: targetKey
+    };
+  }
+  if (type === "chord-inversions") {
+    return {
+      type: "chord-inversions",
+      rootMidi: ex.targetItem?.rootMidi || 60,
+      chordKey: ex.chordKey || ex.targetItem?.chordKey || "maj",
+      currentKey: ex.rootKey || state.currentKey || "C",
+      targetNotes: Array.isArray(ex.targetItem?.notes) ? [...ex.targetItem.notes] : [],
+      chosenKey: chosenKey,
+      targetKey: targetKey
+    };
+  }
+  if (type.startsWith("modes-")) {
+    return {
+      type: type,
+      rootMidi: ex.rootMidi || 60,
+      anchorBass: ex.anchorBass || midiToNote((ex.rootMidi || 60) - 12),
+      anchorNotes: Array.isArray(ex.anchorNotes) ? [...ex.anchorNotes] : [],
+      chosenKey: chosenKey,
+      targetKey: targetKey
+    };
+  }
+  if (type === "rhythm-meter") {
+    return {
+      type: "rhythm-meter",
+      activeBpm: state.activeBpm || 90,
+      chosenKey: chosenKey,
+      targetKey: targetKey
+    };
+  }
+  if (type === "rhythm-groove") {
+    return {
+      type: "rhythm-groove",
+      activeBpm: state.activeBpm || 90,
+      grooveKind: ex.grooveKind || "style",
+      bars: ex.bars || [],
+      chosenKey: chosenKey,
+      targetKey: targetKey
+    };
+  }
+  if (type === "prod-tone") {
+    const chosenDef = chosenKey ? getChoiceItem("prod-tone", chosenKey) : null;
+    return {
+      type: "prod-tone",
+      targetFreqHz: ex.targetItem?.freqHz || 1000,
+      chosenFreqHz: chosenDef?.freqHz || null,
+      chosenKey: chosenKey,
+      targetKey: targetKey
+    };
+  }
+  if (type === "prod-eq-noise") {
+    const chosenDef = chosenKey ? getChoiceItem("prod-eq-noise", chosenKey) : null;
+    return {
+      type: "prod-eq-noise",
+      targetFreqHz: ex.targetItem?.freqHz || 1000,
+      chosenFreqHz: chosenDef?.freqHz || null,
+      q: ex.q || 2.8,
+      boostDb: ex.boostDb || 4,
+      chosenKey: chosenKey,
+      targetKey: targetKey
+    };
+  }
+  return null;
+}
+
+function getExamChoiceDisplayText(mode, key) {
+  if (!key) return tr("Übersprungen", "Skipped");
+  const item = getChoiceItem(mode, key);
+  if (!item) return String(key);
+  const sym = item.roman || item.symbol;
+  return sym && item.label && sym !== item.label ? `${sym} • ${item.label}` : (item.label || sym || String(key));
+}
+
+function showExamPostAnswerNextBar() {
+  const exam = state?.exam;
+  const bar = document.getElementById("examPostAnswerBar");
+  const nextBtn = document.getElementById("examNextQuestionBtn");
+  if (!exam || !exam.active || !bar || !nextBtn) return;
+  const isLast = exam.currentIdx >= exam.totalQuestions - 1;
+  nextBtn.textContent = isLast ? tr("Auswertung ansehen →", "View Results →") : tr("Nächste Frage →", "Next Question →");
+  bar.classList.remove("hidden");
+  updatePlayButtonUI(false);
+}
+
+function scheduleExamAutoAdvance(delayMs = 260) {
+  const exam = state?.exam;
+  if (!exam || !exam.active) return;
+  clearExamTimers(exam);
+  exam.advanceTimerId = setTimeout(() => {
+    if (!state.exam || state.exam !== exam || !exam.active || state.currentView !== "exercise") return;
+    advanceExamQuestion();
+  }, Math.max(80, delayMs));
+}
+
+function recordExamQuestionEntry(entry) {
+  const exam = state?.exam;
+  if (!exam || !exam.active) return;
+  const idx = exam.questions.length;
+  exam.questions.push({
+    qIndex: idx + 1,
+    mode: entry.mode,
+    status: entry.status,
+    score: Math.max(0, Math.min(1, Number(entry.score) || 0)),
+    chosenKey: entry.chosenKey ?? null,
+    targetKey: entry.targetKey ?? null,
+    chosenLabel: entry.chosenLabel || "",
+    targetLabel: entry.targetLabel || "",
+    detailNote: entry.detailNote || "",
+    audioSnapshot: entry.audioSnapshot || null
+  });
+  renderExamStatusBar();
+}
+
+function handleExamChoiceAnswer(ex, selectedKey, btnElement) {
+  const exam = state?.exam;
+  if (!exam || !exam.active || exam.currentAnswered) return;
+
+  exam.currentAnswered = true;
+  ex.isSolved = true;
+  state.exerciseSolved = true;
+  audioEngine.stopPlayback();
+  state.isPlaying = false;
+  updatePlayButtonUI(false);
+
+  const isCorrect = selectedKey === ex.targetItem?.key;
+  const targetKey = ex.targetItem?.key || "";
+  const chosenDef = getChoiceItem(ex.type, selectedKey);
+  const snapshot = buildExamChoiceSnapshot(ex, selectedKey);
+
+  recordExamQuestionEntry({
+    mode: ex.type,
+    status: isCorrect ? "correct" : "wrong",
+    score: isCorrect ? 1 : 0,
+    chosenKey: selectedKey,
+    targetKey: targetKey,
+    chosenLabel: getExamChoiceDisplayText(ex.type, selectedKey),
+    targetLabel: getExamChoiceDisplayText(ex.type, targetKey),
+    audioSnapshot: snapshot
+  });
+
+  if (exam.feedbackMode === "blind") {
+    btnElement?.classList.add("exam-choice-recorded");
+    if (document.getElementById("centralStageCard")) {
+      setCentralStageMode("stage-playing");
+      updateStageMascot("listening");
+      document.getElementById("stageSubtext").textContent = tr("ANTWORT ERFASST", "ANSWER RECORDED");
+      document.getElementById("stageMainText").textContent = "✓";
+      document.getElementById("stageFunctionText").textContent = tr("Weiter zur nächsten Frage…", "Moving to the next question…");
+    }
+    scheduleExamAutoAdvance(260);
+    return;
+  }
+
+  // Sofort-Feedback innerhalb der Prüfung (1 Versuch!)
+  if (isCorrect) {
+    btnElement?.classList.add("btn-correct");
+    setCentralStageMode("stage-playing");
+    updateStageMascot("happy");
+    document.getElementById("stageSubtext").textContent = tr("RICHTIG!", "CORRECT!");
+  } else {
+    btnElement?.classList.add("btn-wrong");
+    document.querySelectorAll("#degreeButtonsGrid .degree-btn").forEach(el => {
+      if (el.dataset.choice === targetKey) el.classList.add("btn-correct");
+    });
+    state.lastAnswerWasWrong = true;
+    state.wrongAnswerData = { chosen: chosenDef, target: ex.targetItem };
+    setCentralStageMode("stage-wrong");
+    updateStageMascot("thinking");
+    document.getElementById("stageSubtext").textContent = tr("KNAPP DANEBEN", "NOT QUITE");
+  }
+
+  document.getElementById("stageMainText").textContent = ex.targetItem.roman || ex.targetItem.symbol;
+  document.getElementById("stageFunctionText").textContent = ex.targetItem.label;
+
+  const revealAllNonRef = ex.type === "rhythm-meter" || (ex.type === "rhythm-groove" && ex.grooveKind === "style");
+  ex.bars.forEach((bar, i) => {
+    if (i === ex.targetIndex || (revealAllNonRef && bar.key !== "ref")) {
+      const card = document.getElementById(`barCard_${i}`);
+      if (card) {
+        card.querySelector(".bar-roman").textContent = ex.targetItem.displayMain || ex.targetItem.roman || ex.targetItem.symbol;
+        card.querySelector(".bar-label").textContent = ex.type === "chord-inversions" ? (bar.short || ex.targetItem.short) : ex.targetItem.short;
+        card.classList.remove("bar-target");
+        card.classList.add("bar-active");
+      }
+    }
+  });
+
+  if (!isCorrect) {
+    const fb = document.getElementById("feedbackContainer");
+    const isRhythmWrong = ex.type.startsWith("rhythm-");
+    const isModesWrong = ex.type.startsWith("modes-");
+    const diagBassBtn = document.getElementById("btnDiagBass");
+    if (diagBassBtn) {
+      diagBassBtn.textContent = isRhythmWrong
+        ? tr("Puls / Eins hören", "Hear Pulse / One")
+        : (ex.type === "prod-eq-noise"
+            ? tr("Flat → Ziel-EQ", "Flat → Target EQ")
+            : (ex.type === "prod-tone"
+                ? tr("Ref: 1 kHz", "Ref: 1 kHz")
+                : (isModesWrong
+                    ? tr("Anker-Quinte", "Anchor Fifth")
+                    : (ex.type === "chord-inversions" ? tr("Basston hören", "Hear Bass Note") : tr("Bass / Grundton", "Bass / Root")))));
+    }
+    if (fb) {
+      fb.classList.remove("hidden");
+      document.getElementById("feedbackText").textContent = tf(
+        "Gewählt: {sym} ({lbl}).",
+        "Selected: {sym} ({lbl}).",
+        { sym: chosenDef?.roman || chosenDef?.symbol || selectedKey, lbl: chosenDef?.label || selectedKey }
+      );
+    }
+  }
+
+  showExamPostAnswerNextBar();
+}
+
+function handleExamSolfegeAnswer(ex, clickedKeyDef, keyBtn) {
+  const exam = state?.exam;
+  if (!exam || !exam.active || exam.currentAnswered || state.solfegeAnswered) return;
+
+  exam.currentAnswered = true;
+  state.solfegeAnswered = true;
+  state.exerciseSolved = true;
+  ex.isSolved = true;
+  audioEngine.stopPlayback();
+  state.isPlaying = false;
+  updatePlayButtonUI(false);
+
+  const target = ex.targetItem;
+  const isCorrect = clickedKeyDef.midi === target.midi ||
+    (target.syllable === "Do" && clickedKeyDef.syllable === "Do");
+  const chosenNoteName = midiToNote(clickedKeyDef.midi);
+
+  recordExamQuestionEntry({
+    mode: "solfege",
+    status: isCorrect ? "correct" : "wrong",
+    score: isCorrect ? 1 : 0,
+    chosenKey: clickedKeyDef.syllable,
+    targetKey: target.syllable,
+    chosenLabel: `${getSolfegeDisplayLabel(clickedKeyDef.syllable)} (${midiToGermanNote(clickedKeyDef.midi)})`,
+    targetLabel: `${getSolfegeDisplayLabel(target.syllable)} (${target.germanNote || midiToGermanNote(target.midi)})`,
+    audioSnapshot: {
+      type: "solfege",
+      rootMidi: HARMONIC_DATA.roots[state.currentKey]?.midi || 60,
+      targetNoteName: target.noteName,
+      targetSyllable: target.syllable,
+      chosenNoteName: chosenNoteName,
+      chosenSyllable: clickedKeyDef.syllable
+    }
+  });
+
+  if (exam.feedbackMode === "blind") {
+    keyBtn?.classList.add("key-exam-recorded");
+    if (document.getElementById("centralStageCard")) {
+      setCentralStageMode("stage-playing");
+      updateStageMascot("listening");
+      document.getElementById("stageSubtext").textContent = tr("ANTWORT ERFASST", "ANSWER RECORDED");
+      document.getElementById("stageMainText").textContent = getSolfegeDisplayLabel(clickedKeyDef.syllable);
+      document.getElementById("stageFunctionText").textContent = tr("Weiter zur nächsten Frage…", "Moving to the next question…");
+    }
+    scheduleExamAutoAdvance(260);
+    return;
+  }
+
+  document.querySelectorAll("#solfegeKeyboardWrap .piano-white-key, #solfegeKeyboardWrap .piano-black-key").forEach(el => {
+    el.classList.remove("key-wrong", "key-correct");
+  });
+  const targetEl = document.getElementById(`solfegeKey_${target.midi}`);
+  if (isCorrect) {
+    (targetEl || keyBtn)?.classList.add("key-correct");
+    setCentralStageMode("stage-playing");
+    updateStageMascot("happy");
+    document.getElementById("stageSubtext").textContent = tr("RICHTIG!", "CORRECT!");
+  } else {
+    keyBtn?.classList.add("key-wrong");
+    targetEl?.classList.add("key-correct");
+    setCentralStageMode("stage-wrong");
+    updateStageMascot("thinking");
+    document.getElementById("stageSubtext").textContent = tr("KNAPP DANEBEN", "NOT QUITE");
+  }
+  document.getElementById("stageMainText").textContent = getSolfegeDisplayLabel(target.syllable);
+  document.getElementById("stageFunctionText").textContent = tf(
+    "Gewählt: {ch} • Lösung: {tg}",
+    "Picked: {ch} • Target: {tg}",
+    { ch: getSolfegeDisplayLabel(clickedKeyDef.syllable), tg: getSolfegeDisplayLabel(target.syllable) }
+  );
+  showExamPostAnswerNextBar();
+}
+
+function handleExamMelodyAnswer(ex, clickedKeyDef, keyBtn) {
+  const exam = state?.exam;
+  if (!exam || !exam.active || exam.currentAnswered || state.melodyCompleted) return;
+
+  const idx = ex.melodyStep;
+  const slot = ex.melodySlots?.[idx];
+  if (!slot) return;
+
+  const slotCorrect = clickedKeyDef.syllable === slot.syllable;
+  slot.examAnswered = true;
+  slot.examChosenSyllable = clickedKeyDef.syllable;
+  slot.examChosenNoteName = midiToNote(clickedKeyDef.midi);
+  slot.examCorrect = slotCorrect;
+
+  const card = document.getElementById(`barCard_${idx}`);
+  if (exam.feedbackMode === "blind") {
+    if (card) {
+      card.className = "bar-card exam-slot-neutral tile-selected-pulse";
+      const rEl = card.querySelector(".bar-roman");
+      const lEl = card.querySelector(".bar-label");
+      if (rEl) rEl.textContent = getSolfegeDisplayLabel(clickedKeyDef.syllable);
+      if (lEl) lEl.textContent = tr("Erfasst", "Recorded");
+    }
+    keyBtn?.classList.add("key-exam-recorded");
+    const cId = audioEngine.playbackId;
+    setTimeout(() => {
+      if (audioEngine.playbackId === cId) keyBtn?.classList.remove("key-exam-recorded");
+    }, 240);
+  } else {
+    if (slotCorrect) slot.solved = true;
+    keyBtn?.classList.add(slotCorrect ? "key-correct" : "key-wrong");
+    if (card) {
+      card.className = `bar-card ${slotCorrect ? "melody-slot-solved" : "bar-target"} tile-selected-pulse`;
+      const rEl = card.querySelector(".bar-roman");
+      const lEl = card.querySelector(".bar-label");
+      if (rEl) rEl.textContent = slotCorrect ? getSolfegeDisplayLabel(slot.syllable) : `${getSolfegeDisplayLabel(clickedKeyDef.syllable)} → ${getSolfegeDisplayLabel(slot.syllable)}`;
+      if (lEl) lEl.textContent = slotCorrect ? `✓ ${slot.germanNote}` : `✗ ${slot.germanNote}`;
+    }
+  }
+
+  if (idx < ex.melodySlots.length - 1) {
+    ex.melodyStep = idx + 1;
+    const nextIdx = ex.melodyStep;
+    const nextCard = document.getElementById(`barCard_${nextIdx}`);
+    if (nextCard) {
+      nextCard.classList.remove("melody-slot-pending");
+      nextCard.classList.add("bar-target");
+      const nl = nextCard.querySelector(".bar-label");
+      if (nl) nl.textContent = tr("Gesucht", "Target");
+    }
+    const badge = document.getElementById("targetBarBadge");
+    if (badge) badge.textContent = tf("Ton {n} / 4", "Note {n} / 4", { n: nextIdx + 1 });
+    const promptEl = document.getElementById("inputPromptText");
+    if (promptEl) promptEl.textContent = tf("Tippe Ton {n} von 4 auf der Klaviatur:", "Tap note {n} of 4 on the keyboard:", { n: nextIdx + 1 });
+    return;
+  }
+
+  // Alle 4 Töne eingegeben -> Teilpunkte berechnen
+  exam.currentAnswered = true;
+  state.melodyCompleted = true;
+  state.exerciseSolved = true;
+  ex.isSolved = true;
+  audioEngine.stopPlayback();
+  state.isPlaying = false;
+  updatePlayButtonUI(false);
+
+  const correctSlots = ex.melodySlots.filter(s => s.examCorrect).length;
+  const totalSlots = ex.melodySlots.length || 4;
+  const score = Math.round((correctSlots / totalSlots) * 100) / 100;
+  const status = correctSlots === totalSlots ? "correct" : (correctSlots > 0 ? "partial" : "wrong");
+
+  const chosenSeqLabel = ex.melodySlots.map(s => getSolfegeDisplayLabel(s.examChosenSyllable || "?")).join(" – ");
+  const targetSeqLabel = ex.melodySlots.map(s => getSolfegeDisplayLabel(s.syllable)).join(" – ");
+
+  recordExamQuestionEntry({
+    mode: "melody",
+    status: status,
+    score: score,
+    chosenKey: chosenSeqLabel,
+    targetKey: targetSeqLabel,
+    chosenLabel: chosenSeqLabel,
+    targetLabel: targetSeqLabel,
+    detailNote: tf("{hit}/{tot} Töne richtig", "{hit}/{tot} notes right", { hit: correctSlots, tot: totalSlots }),
+    audioSnapshot: {
+      type: "melody",
+      activeBpm: state.activeBpm || 90,
+      targetSlots: ex.melodySlots.map(s => ({ syllable: s.syllable, noteName: s.noteName })),
+      chosenSlots: ex.melodySlots.map(s => ({ syllable: s.examChosenSyllable || s.syllable, noteName: s.examChosenNoteName || s.noteName }))
+    }
+  });
+
+  if (exam.feedbackMode === "blind") {
+    setCentralStageMode("stage-playing");
+    updateStageMascot("listening");
+    document.getElementById("stageSubtext").textContent = tr("4 / 4 ERFASST", "4 / 4 RECORDED");
+    document.getElementById("stageMainText").textContent = "✓";
+    document.getElementById("stageFunctionText").textContent = tr("Weiter zur nächsten Frage…", "Moving to the next question…");
+    scheduleExamAutoAdvance(280);
+    return;
+  }
+
+  setCentralStageMode(correctSlots === totalSlots ? "stage-playing" : "stage-wrong");
+  updateStageMascot(correctSlots === totalSlots ? "happy" : "thinking");
+  document.getElementById("stageSubtext").textContent = tf("ERGEBNIS: {hit} / {tot}", "RESULT: {hit} / {tot}", { hit: correctSlots, tot: totalSlots });
+  document.getElementById("stageMainText").textContent = targetSeqLabel;
+  document.getElementById("stageFunctionText").textContent = tf("Deine Eingabe: {ch}", "Your entry: {ch}", { ch: chosenSeqLabel });
+  showExamPostAnswerNextBar();
+}
+
+function handleExamRhythmDictationAnswer(ex, cellKey, btnElement) {
+  const exam = state?.exam;
+  if (!exam || !exam.active || exam.currentAnswered || state.rhythmDictationCompleted) return;
+
+  const idx = ex.rhythmStep;
+  const slot = ex.rhythmSlots?.[idx];
+  if (!slot) return;
+
+  const slotCorrect = cellKey === slot.cellKey;
+  slot.examAnswered = true;
+  slot.examChosenCellKey = cellKey;
+  slot.examCorrect = slotCorrect;
+
+  const chosenCell = getChoiceItem("rhythm-dictation", cellKey);
+  const card = document.getElementById(`barCard_${idx}`);
+
+  if (exam.feedbackMode === "blind") {
+    if (card) {
+      card.className = "bar-card exam-slot-neutral tile-selected-pulse";
+      const rEl = card.querySelector(".bar-roman");
+      const lEl = card.querySelector(".bar-label");
+      if (rEl) rEl.innerHTML = getRhythmCellSVG(cellKey, 40, 22);
+      if (lEl) lEl.textContent = tr("Erfasst", "Recorded");
+    }
+    btnElement?.classList.add("exam-choice-recorded");
+    setTimeout(() => btnElement?.classList.remove("exam-choice-recorded"), 220);
+  } else {
+    if (slotCorrect) slot.solved = true;
+    if (card) {
+      card.className = `bar-card ${slotCorrect ? "melody-slot-solved" : "bar-target"} tile-selected-pulse`;
+      const rEl = card.querySelector(".bar-roman");
+      const lEl = card.querySelector(".bar-label");
+      if (rEl) rEl.innerHTML = getRhythmCellSVG(slot.cellKey, 40, 22);
+      if (lEl) lEl.textContent = slotCorrect ? `✓ ${slot.cell.short}` : `✗ ${chosenCell?.short || cellKey} → ${slot.cell.short}`;
+    }
+  }
+
+  if (idx < ex.rhythmSlots.length - 1) {
+    ex.rhythmStep = idx + 1;
+    ex.targetIndex = ex.rhythmStep;
+    ex.targetItem = ex.rhythmSlots[ex.rhythmStep].cell;
+    const nextIdx = ex.rhythmStep;
+    const nextCard = document.getElementById(`barCard_${nextIdx}`);
+    if (nextCard) {
+      nextCard.classList.remove("melody-slot-pending");
+      nextCard.classList.add("bar-target", "rhythm-slot-clickable");
+      const nl = nextCard.querySelector(".bar-label");
+      if (nl) nl.textContent = tr("Gesucht", "Target");
+    }
+    const badge = document.getElementById("targetBarBadge");
+    if (badge) badge.textContent = tf("Schlag {n} / 4", "Beat {n} / 4", { n: nextIdx + 1 });
+    const promptEl = document.getElementById("inputPromptText");
+    if (promptEl) promptEl.textContent = tf("Tippe das Muster für Schlag {n} von 4:", "Select the pattern for Beat {n} of 4:", { n: nextIdx + 1 });
+    return;
+  }
+
+  exam.currentAnswered = true;
+  state.rhythmDictationCompleted = true;
+  state.exerciseSolved = true;
+  ex.isSolved = true;
+  audioEngine.stopPlayback();
+  state.isPlaying = false;
+  updatePlayButtonUI(false);
+
+  const correctBeats = ex.rhythmSlots.filter(s => s.examCorrect).length;
+  const totalBeats = ex.rhythmSlots.length || 4;
+  const score = Math.round((correctBeats / totalBeats) * 100) / 100;
+  const status = correctBeats === totalBeats ? "correct" : (correctBeats > 0 ? "partial" : "wrong");
+
+  const chosenStr = ex.rhythmSlots.map(s => getChoiceItem("rhythm-dictation", s.examChosenCellKey || s.cellKey)?.short || "?").join(" • ");
+  const targetStr = ex.rhythmSlots.map(s => s.cell.short).join(" • ");
+
+  recordExamQuestionEntry({
+    mode: "rhythm-dictation",
+    status: status,
+    score: score,
+    chosenKey: ex.rhythmSlots.map(s => s.examChosenCellKey || "").join(","),
+    targetKey: ex.rhythmSlots.map(s => s.cellKey).join(","),
+    chosenLabel: chosenStr,
+    targetLabel: targetStr,
+    detailNote: tf("{hit}/{tot} Zählzeiten richtig", "{hit}/{tot} beats right", { hit: correctBeats, tot: totalBeats }),
+    audioSnapshot: {
+      type: "rhythm-dictation",
+      activeBpm: state.activeBpm || 90,
+      targetCellKeys: ex.rhythmSlots.map(s => s.cellKey),
+      chosenCellKeys: ex.rhythmSlots.map(s => s.examChosenCellKey || s.cellKey)
+    }
+  });
+
+  if (exam.feedbackMode === "blind") {
+    setCentralStageMode("stage-playing");
+    updateStageMascot("listening");
+    document.getElementById("stageSubtext").textContent = tr("4 / 4 ERFASST", "4 / 4 RECORDED");
+    document.getElementById("stageMainText").textContent = "✓";
+    document.getElementById("stageFunctionText").textContent = tr("Weiter zur nächsten Frage…", "Moving to the next question…");
+    scheduleExamAutoAdvance(280);
+    return;
+  }
+
+  setCentralStageMode(correctBeats === totalBeats ? "stage-playing" : "stage-wrong");
+  updateStageMascot(correctBeats === totalBeats ? "happy" : "thinking");
+  document.getElementById("stageSubtext").textContent = tf("ERGEBNIS: {hit} / {tot}", "RESULT: {hit} / {tot}", { hit: correctBeats, tot: totalBeats });
+  document.getElementById("stageMainText").textContent = targetStr;
+  document.getElementById("stageFunctionText").textContent = tf("Deine Eingabe: {ch}", "Your entry: {ch}", { ch: chosenStr });
+  showExamPostAnswerNextBar();
+}
+
+function handleExamRhythmTapFinished(ex, session, res) {
+  const exam = state?.exam;
+  if (!exam || !exam.active || exam.currentAnswered) return;
+
+  exam.currentAnswered = true;
+  const totalExpected = Math.max(1, session.expectedEvents.length);
+  const rawScore = (res.exactCount + 0.65 * res.closeCount - 0.25 * res.extraCount) / totalExpected;
+  const score = Math.max(0, Math.min(1, Math.round(rawScore * 100) / 100));
+  const status = (res.passed && score >= 0.85) ? "correct" : (score >= 0.35 ? "partial" : "wrong");
+
+  const padBtn = document.getElementById("rhythmTapPadBtn");
+  padBtn?.classList.remove("is-counting", "is-ready", "is-hit");
+
+  const patternShort = (ex.tapSlots || []).map(s => s.cell.short).join(" • ");
+  const avgStr = res.avgDiffMs !== null ? `${res.avgDiffMs > 0 ? "+" : ""}${res.avgDiffMs} ms` : "–";
+
+  recordExamQuestionEntry({
+    mode: "rhythm-tap",
+    status: status,
+    score: score,
+    chosenKey: `${res.exactCount + res.closeCount}/${totalExpected}`,
+    targetKey: ex.meterKey || "4/4",
+    chosenLabel: tf("{hit}/{tot} Treffer • Ø {avg} • Extra: {extra}", "{hit}/{tot} hits • Avg {avg} • Extra: {extra}", {
+      hit: res.exactCount + res.closeCount,
+      tot: totalExpected,
+      avg: avgStr,
+      extra: res.extraCount
+    }),
+    targetLabel: `${ex.meterKey} • ${patternShort}`,
+    detailNote: tf("Toleranz ±{tol} ms", "Tolerance ±{tol} ms", { tol: ex.toleranceMs }),
+    audioSnapshot: {
+      type: "rhythm-tap",
+      activeBpm: state.activeBpm || 90,
+      beatsPerBar: ex.beatsPerBar || 4,
+      expectedOffsets: session.expectedEvents.map(ev => ev.relMs),
+      tapsMs: (session.tapsMs || []).slice(0, 24)
+    }
+  });
+
+  if (exam.feedbackMode === "blind") {
+    for (let i = 0; i < ex.beatsPerBar; i++) {
+      const c = document.getElementById(`barCard_${i}`);
+      if (c) {
+        c.className = "bar-card exam-slot-neutral";
+        const l = c.querySelector(".bar-label");
+        if (l) l.textContent = tr("Erfasst", "Recorded");
+      }
+    }
+    if (document.getElementById("centralStageCard")) {
+      setCentralStageMode("stage-playing");
+      updateStageMascot("listening");
+      document.getElementById("stageSubtext").textContent = tr("KLOPFRUNDE ERFASST", "TAP ROUND RECORDED");
+      document.getElementById("stageMainText").textContent = "✓";
+      document.getElementById("stageFunctionText").textContent = tr("Weiter zur nächsten Frage…", "Moving to the next question…");
+    }
+    const titleEl = document.getElementById("rhythmPadTitle");
+    if (titleEl) titleEl.textContent = tr("Runde erfasst ✓", "Round recorded ✓");
+    updatePlayButtonUI(false);
+    scheduleExamAutoAdvance(320);
+    return;
+  }
+
+  for (let i = 0; i < ex.beatsPerBar; i++) {
+    const card = document.getElementById(`barCard_${i}`);
+    if (!card) continue;
+    card.classList.remove("bar-active", "rhythm-blind", "melody-slot-pending", "rhythm-tap-exact", "rhythm-tap-close", "rhythm-tap-missed");
+    const lblEl = card.querySelector(".bar-label");
+    const beatEvents = res.expResults.filter(r => r.beatIdx === i);
+    if (beatEvents.length === 0) {
+      const hitRest = res.extraTapsMs.some(t => t >= i * session.beatMs - 60 && t < (i + 1) * session.beatMs - 60);
+      card.classList.add(hitRest ? "rhythm-tap-missed" : "rhythm-tap-exact");
+      if (lblEl) lblEl.textContent = hitRest ? tr("Stille!", "Rest!") : tr("✓ Pause", "✓ Rest");
+    } else if (beatEvents.some(r => r.status === "missed")) {
+      card.classList.add("rhythm-tap-missed");
+      if (lblEl) lblEl.textContent = tr("Daneben", "Missed");
+    } else if (beatEvents.some(r => r.status === "close")) {
+      card.classList.add("rhythm-tap-close");
+      if (lblEl) lblEl.textContent = tr("~ Knapp", "~ Close");
+    } else {
+      card.classList.add("rhythm-tap-exact");
+      if (lblEl) lblEl.textContent = tr("✓ Exakt", "✓ Exact");
+    }
+  }
+
+  if (document.getElementById("centralStageCard")) {
+    setCentralStageMode(res.passed ? "stage-playing" : "stage-wrong");
+    updateStageMascot(res.passed ? "happy" : "thinking");
+    document.getElementById("stageSubtext").textContent = res.passed ? tr("SAUBER IM TAKT!", "SOLID TIMING!") : tr("KNAPP DANEBEN", "NOT QUITE");
+    document.getElementById("stageMainText").textContent = `${res.exactCount + res.closeCount}/${totalExpected}`;
+    document.getElementById("stageFunctionText").textContent = tf("Ø {avg} • Extra: {extra}", "Avg {avg} • Extra: {extra}", { avg: avgStr, extra: res.extraCount });
+  }
+  const titleEl = document.getElementById("rhythmPadTitle");
+  if (titleEl) titleEl.textContent = tf("Runde beendet ({hit}/{tot})", "Round complete ({hit}/{tot})", { hit: res.exactCount + res.closeCount, tot: totalExpected });
+  showExamPostAnswerNextBar();
+}
+
+function skipCurrentExamQuestion() {
+  const exam = state?.exam;
+  const ex = state?.currentExercise;
+  if (!exam || !exam.active || exam.currentAnswered) return;
+
+  exam.currentAnswered = true;
+  clearExamTimers(exam);
+  stopPlayback();
+
+  const curMode = ex?.type || exam.plan[exam.currentIdx] || "cadence";
+  let targetLabel = "";
+  let snapshot = null;
+
+  if (curMode === "solfege" && ex?.targetItem) {
+    targetLabel = `${getSolfegeDisplayLabel(ex.targetItem.syllable)} (${ex.targetItem.germanNote || ""})`;
+    snapshot = {
+      type: "solfege",
+      rootMidi: HARMONIC_DATA.roots[state.currentKey]?.midi || 60,
+      targetNoteName: ex.targetItem.noteName,
+      targetSyllable: ex.targetItem.syllable,
+      chosenNoteName: null,
+      chosenSyllable: null
+    };
+  } else if (curMode === "melody" && ex?.melodySlots) {
+    targetLabel = ex.melodySlots.map(s => getSolfegeDisplayLabel(s.syllable)).join(" – ");
+    snapshot = {
+      type: "melody",
+      activeBpm: state.activeBpm || 90,
+      targetSlots: ex.melodySlots.map(s => ({ syllable: s.syllable, noteName: s.noteName })),
+      chosenSlots: null
+    };
+  } else if (curMode === "rhythm-dictation" && ex?.rhythmSlots) {
+    targetLabel = ex.rhythmSlots.map(s => s.cell.short).join(" • ");
+    snapshot = {
+      type: "rhythm-dictation",
+      activeBpm: state.activeBpm || 90,
+      targetCellKeys: ex.rhythmSlots.map(s => s.cellKey),
+      chosenCellKeys: null
+    };
+  } else if (curMode === "rhythm-tap" && ex?.tapSlots) {
+    const beatMs = 60000 / (state.activeBpm || 90);
+    const exp = [];
+    ex.tapSlots.forEach((slot, beatIdx) => {
+      slot.cell.offsets.forEach(off => exp.push(Math.round((beatIdx + off) * beatMs)));
+    });
+    targetLabel = `${ex.meterKey} • ${ex.tapSlots.map(s => s.cell.short).join(" • ")}`;
+    snapshot = {
+      type: "rhythm-tap",
+      activeBpm: state.activeBpm || 90,
+      beatsPerBar: ex.beatsPerBar || 4,
+      expectedOffsets: exp,
+      tapsMs: null
+    };
+  } else if (ex) {
+    targetLabel = getExamChoiceDisplayText(curMode, ex.targetItem?.key);
+    snapshot = buildExamChoiceSnapshot(ex, null);
+  }
+
+  recordExamQuestionEntry({
+    mode: curMode,
+    status: "skipped",
+    score: 0,
+    chosenKey: null,
+    targetKey: ex?.targetItem?.key || null,
+    chosenLabel: tr("Übersprungen", "Skipped"),
+    targetLabel: targetLabel,
+    audioSnapshot: snapshot
+  });
+
+  advanceExamQuestion();
+}
+
+function advanceExamQuestion() {
+  const exam = state?.exam;
+  if (!exam || !exam.active) return;
+  clearExamTimers(exam);
+  stopPlayback();
+
+  if (exam.currentIdx + 1 >= exam.totalQuestions) {
+    completeCategoryExam();
+    return;
+  }
+
+  exam.currentIdx += 1;
+  loadCurrentExamQuestion();
+}
+
+function requestExamAbort() {
+  if (!state?.exam?.active) return;
+  const banner = document.getElementById("examAbortConfirmBanner");
+  banner?.classList.remove("hidden");
+}
+
+function cancelExamAbort() {
+  document.getElementById("examAbortConfirmBanner")?.classList.add("hidden");
+}
+
+function abortCategoryExam() {
+  if (!state?.exam?.active) return;
+  const cat = state.exam.categoryKey || state.examSetupCategory || "interval";
+  stopPlayback();
+  cleanupActiveExamState({ restoreSettings: true });
+  openExamSetupPage(cat, { skipHistoryPush: true });
+}
+
+function completeCategoryExam() {
+  const exam = state?.exam;
+  if (!exam || !exam.active) return;
+
+  clearExamTimers(exam);
+  stopPlayback();
+
+  const totalQuestions = Math.max(1, exam.questions.length || exam.totalQuestions);
+  const earnedScore = Math.round(exam.questions.reduce((sum, q) => sum + (Number(q.score) || 0), 0) * 100) / 100;
+  const percent = Math.max(0, Math.min(100, Math.round((earnedScore / totalQuestions) * 100)));
+  const correctCount = exam.questions.filter(q => q.status === "correct").length;
+  const partialCount = exam.questions.filter(q => q.status === "partial").length;
+  const wrongCount = exam.questions.filter(q => q.status === "wrong" || q.status === "skipped").length;
+  const durationSec = Math.max(1, Math.round((Date.now() - (exam.startedWallMs || Date.now())) / 1000));
+
+  const byMode = new Map();
+  exam.questions.forEach(q => {
+    if (!byMode.has(q.mode)) {
+      byMode.set(q.mode, { mode: q.mode, total: 0, earned: 0, correct: 0 });
+    }
+    const row = byMode.get(q.mode);
+    row.total += 1;
+    row.earned = Math.round((row.earned + (Number(q.score) || 0)) * 100) / 100;
+    if (q.status === "correct") row.correct += 1;
+  });
+
+  const prevBest = getCategoryBestExamPercent(exam.categoryKey, exam.levelId);
+  const isNewBest = prevBest === null || percent > prevBest;
+
+  const entry = sanitizeExamHistoryEntry({
+    id: `exam_${Date.now()}_${Math.floor(Math.random() * 1000)}`,
+    categoryKey: exam.categoryKey,
+    levelId: exam.levelId,
+    levelNumber: exam.levelNumber,
+    totalQuestions: totalQuestions,
+    earnedScore: earnedScore,
+    correctCount: correctCount,
+    partialCount: partialCount,
+    wrongCount: wrongCount,
+    percent: percent,
+    durationSec: durationSec,
+    feedbackMode: exam.feedbackMode,
+    maxReplays: exam.maxReplays,
+    completedAt: Date.now(),
+    moduleBreakdown: Array.from(byMode.values()),
+    reviewItems: exam.questions
+  });
+
+  if (entry) {
+    if (!Array.isArray(state.profile.examHistory)) state.profile.examHistory = [];
+    state.profile.examHistory.unshift(entry);
+    state.profile.examHistory = state.profile.examHistory.slice(0, 25);
+    saveUserProfile(state.profile);
+  }
+
+  cleanupActiveExamState({ restoreSettings: true });
+  openExamResultView(entry?.id || null, {
+    entryObj: entry,
+    isNewBest: isNewBest,
+    returnView: "exam-setup"
+  });
+}
+
+function openExamResultView(examId, options = {}) {
+  const historyList = Array.isArray(state?.profile?.examHistory) ? state.profile.examHistory : [];
+  const entry = options.entryObj || historyList.find(e => e.id === examId) || historyList[0] || null;
+  if (!entry) return;
+
+  state.activeExamResultId = entry.id;
+  state.activeExamResultObj = entry;
+  state.examSetupCategory = entry.categoryKey;
+  state.examResultReturnView = options.returnView || state.examResultReturnView || "exam-setup";
+  state.examResultReviewFilter = "all";
+  state.activeExamIsNewBest = Boolean(options.isNewBest);
+
+  renderExamResultView();
+  switchView("exam-result", {
+    skipHistoryPush: Boolean(options.fromHistory),
+    fromHistory: Boolean(options.fromHistory),
+    examCompletedTransition: true
+  });
+}
+
+function renderExamResultView() {
+  const container = document.getElementById("examResultContent");
+  const entry = state.activeExamResultObj ||
+    (Array.isArray(state.profile?.examHistory) ? state.profile.examHistory.find(e => e.id === state.activeExamResultId) : null);
+  if (!container) return;
+
+  if (!entry) {
+    container.innerHTML = `<div class="exam-history-empty">${escapeHtml(tr("Kein Prüfungsergebnis gefunden.", "No exam result found."))}</div>`;
+    return;
+  }
+
+  const badge = getLauschebaerExamBadge(entry.percent);
+  const preset = getExamPresetById(entry.categoryKey, entry.levelId);
+  const levelTitle = preset ? tr(preset.title.de, preset.title.en) : tf("Stufe {n}", "Level {n}", { n: entry.levelNumber });
+
+  // Schwächstes Modul ermitteln
+  let weakest = null;
+  const breakdownRows = (entry.moduleBreakdown || []).map(b => {
+    const pct = Math.max(0, Math.min(100, Math.round((b.earned / Math.max(1, b.total)) * 100)));
+    if (!weakest || pct < weakest.pct) {
+      weakest = { mode: b.mode, pct: pct };
+    }
+    const barCls = pct >= 80 ? "" : (pct >= 50 ? "is-mid" : "is-low");
+    return `
+      <div class="exam-breakdown-row">
+        <div class="exam-breakdown-meta">
+          <span>${escapeHtml(getLocalizedExamModeName(b.mode))}</span>
+          <span>${escapeHtml(`${formatExamScoreVal(b.earned)} / ${b.total} (${pct}%)`)}</span>
+        </div>
+        <div class="exam-breakdown-bar">
+          <div class="exam-breakdown-fill ${barCls}" style="width:${pct}%;"></div>
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  const hasImprovableWeakest = Boolean(weakest && entry.percent < 100);
+  const errItemsCount = (entry.reviewItems || []).filter(r => r.status !== "correct").length;
+  const filterMode = state.examResultReviewFilter === "wrong" && errItemsCount > 0 ? "wrong" : "all";
+  const visibleReviewItems = filterMode === "wrong"
+    ? (entry.reviewItems || []).filter(r => r.status !== "correct")
+    : (entry.reviewItems || []);
+
+  const reviewHtml = visibleReviewItems.map((item, visiblePos) => {
+    const itemIdx = (entry.reviewItems || []).indexOf(item);
+    const snap = item.audioSnapshot;
+    const isOk = item.status === "correct";
+    const isPartial = item.status === "partial";
+    const cardCls = isOk ? "is-correct" : (isPartial ? "is-partial" : "is-wrong");
+    const statusCls = isOk ? "is-ok" : (isPartial ? "is-warn" : "is-err");
+    const statusText = isOk
+      ? tr("✓ Richtig", "✓ Correct")
+      : (isPartial
+          ? tf("◐ {pts} Pkt.", "◐ {pts} pts", { pts: formatExamScoreVal(item.score) })
+          : (item.status === "skipped" ? tr("⏭ Übersprungen", "⏭ Skipped") : tr("✗ Falsch", "✗ Wrong")));
+
+    const targetDisplay = item.targetLabel || getExamChoiceDisplayText(item.mode, item.targetKey);
+    const chosenDisplay = item.status === "skipped"
+      ? tr("Übersprungen", "Skipped")
+      : (item.chosenLabel || getExamChoiceDisplayText(item.mode, item.chosenKey));
+
+    const canPlayTarget = Boolean(snap);
+    const canPlayChosen = Boolean(
+      snap && item.status !== "skipped" && (
+        snap.chosenKey || snap.chosenNoteName || snap.chosenFreqHz ||
+        (Array.isArray(snap.chosenSlots) && snap.chosenSlots.length > 0) ||
+        (Array.isArray(snap.chosenCellKeys) && snap.chosenCellKeys.length > 0) ||
+        Array.isArray(snap.tapsMs)
+      )
+    );
+    const canCompareAB = Boolean(
+      !isOk && canPlayChosen && canPlayTarget &&
+      !["melody", "rhythm-dictation", "rhythm-tap"].includes(item.mode)
+    );
+
+    return `
+      <article class="exam-review-item ${cardCls}" data-review-idx="${itemIdx}">
+        <div class="exam-review-head">
+          <span class="exam-review-q">${escapeHtml(tf("Frage {n} • {mod}", "Question {n} • {mod}", { n: item.qIndex || (visiblePos + 1), mod: getLocalizedExamModeName(item.mode) }))}</span>
+          <span class="exam-review-status ${statusCls}">${escapeHtml(statusText)}</span>
+        </div>
+        <div class="exam-review-answers">
+          <div class="exam-review-line">
+            <span class="exam-review-lbl">${escapeHtml(tr("Deine Wahl:", "Your pick:"))}</span>
+            <span>${escapeHtml(chosenDisplay)}${item.detailNote ? ` (${escapeHtml(item.detailNote)})` : ""}</span>
+          </div>
+          ${!isOk ? `
+            <div class="exam-review-line">
+              <span class="exam-review-lbl">${escapeHtml(tr("Richtig:", "Target:"))}</span>
+              <span>${escapeHtml(targetDisplay)}</span>
+            </div>
+          ` : ""}
+        </div>
+        ${canPlayTarget ? `
+          <div class="exam-review-audio">
+            ${canPlayChosen ? `<button type="button" class="btn-tool" data-review-play="${itemIdx}:chosen">${escapeHtml(tr("▶ Meine Wahl", "▶ My Choice"))}</button>` : ""}
+            <button type="button" class="btn-tool" data-review-play="${itemIdx}:target">${escapeHtml(tr("▶ Richtige Lösung", "▶ Target Sound"))}</button>
+            ${canCompareAB ? `<button type="button" class="btn-tool" data-review-play="${itemIdx}:compare">${escapeHtml(tr("⇄ A/B Vergleich", "⇄ A/B Compare"))}</button>` : ""}
+          </div>
+        ` : ""}
+      </article>
+    `;
+  }).join("");
+
+  const newBestBadge = state.activeExamIsNewBest
+    ? `<span class="exam-new-best-pill">★ ${escapeHtml(tr("Neuer Bestwert!", "New Best!"))}</span>`
+    : "";
+
+  container.innerHTML = `
+    <section class="exam-result-hero ${badge.tierCls}">
+      <div class="exam-result-badge-row">
+        <span class="exam-badge-pill">${badge.icon} ${escapeHtml(badge.title)}</span>
+        ${newBestBadge}
+      </div>
+      <div class="exam-result-score">${entry.percent}%</div>
+      <h2 class="exam-result-title">${escapeHtml(`${getCategoryTitle(entry.categoryKey)} • ${levelTitle}`)}</h2>
+      <p class="exam-result-sub">${escapeHtml(badge.sub)}</p>
+      <div class="exam-metrics-row">
+        <div class="exam-metric-box">
+          <span class="exam-metric-val">${escapeHtml(`${formatExamScoreVal(entry.earnedScore)} / ${entry.totalQuestions}`)}</span>
+          <span class="exam-metric-lbl">${escapeHtml(tr("Punkte", "Points"))}</span>
+        </div>
+        <div class="exam-metric-box">
+          <span class="exam-metric-val">${escapeHtml(formatExamDuration(entry.durationSec))}</span>
+          <span class="exam-metric-lbl">${escapeHtml(tr("Dauer", "Duration"))}</span>
+        </div>
+        <div class="exam-metric-box">
+          <span class="exam-metric-val">${escapeHtml(entry.feedbackMode === "instant" ? tr("Sofort", "Instant") : tr("Blind", "Blind"))}</span>
+          <span class="exam-metric-lbl">${escapeHtml(entry.maxReplays === 0 ? tr("Unbegrenzt", "Unlimited") : tr("Max. 2× Replay", "Max 2× Replay"))}</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="exam-result-actions">
+      ${hasImprovableWeakest ? `
+        <button id="examPracticeWeakestBtn" type="button" class="btn-primary-action">
+          ${escapeHtml(tf("🎯 Schwächstes Modul üben: {mod}", "🎯 Practice Weakest: {mod}", { mod: getLocalizedExamModeName(weakest.mode) }))}
+        </button>
+      ` : ""}
+      <div class="exam-result-actions-row">
+        <button id="examRetryBtn" type="button" class="btn-secondary-action">${escapeHtml(tr("↻ Prüfung wiederholen", "↻ Retry Exam"))}</button>
+        <button id="examMoreExamsBtn" type="button" class="btn-secondary-action">${escapeHtml(tr("Weitere Prüfungen", "More Exams"))}</button>
+      </div>
+    </section>
+
+    ${breakdownRows ? `
+      <section class="exam-result-card">
+        <div class="exam-section-head">
+          <h3>${escapeHtml(tr("Aufschlüsselung nach Modulen", "Module Breakdown"))}</h3>
+        </div>
+        <div class="exam-breakdown-list">${breakdownRows}</div>
+      </section>
+    ` : ""}
+
+    <section class="exam-result-card">
+      <div class="exam-section-head">
+        <h3>${escapeHtml(tr("Fragen- & Fehler-Rückschau", "Question & Error Audio Review"))}</h3>
+      </div>
+      <div class="exam-review-filter-row">
+        <button type="button" class="k-filter-pill ${filterMode === "all" ? "active" : ""}" data-review-filter="all">
+          ${escapeHtml(tf("Alle ({tot})", "All ({tot})", { tot: (entry.reviewItems || []).length }))}
+        </button>
+        ${errItemsCount > 0 ? `
+          <button type="button" class="k-filter-pill ${filterMode === "wrong" ? "active" : ""}" data-review-filter="wrong">
+            ${escapeHtml(tf("Nur Fehler ({n})", "Errors Only ({n})", { n: errItemsCount }))}
+          </button>
+        ` : ""}
+      </div>
+      <div class="exam-review-list">${reviewHtml}</div>
+    </section>
+  `;
+
+  document.getElementById("examPracticeWeakestBtn")?.addEventListener("click", () => {
+    if (weakest) launchWeakestExamModule(entry, weakest.mode);
+  });
+  document.getElementById("examRetryBtn")?.addEventListener("click", () => {
+    startCategoryExam(entry.categoryKey, entry.levelId);
+  });
+  document.getElementById("examMoreExamsBtn")?.addEventListener("click", () => {
+    openExamSetupPage(entry.categoryKey);
+  });
+
+  container.querySelectorAll("[data-review-filter]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      state.examResultReviewFilter = btn.dataset.reviewFilter === "wrong" ? "wrong" : "all";
+      renderExamResultView();
+    });
+  });
+
+  container.querySelectorAll("[data-review-play]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const [idxStr, side] = String(btn.dataset.reviewPlay || "").split(":");
+      const idx = parseInt(idxStr, 10);
+      if (Number.isInteger(idx)) {
+        playExamReviewAudio(entry, idx, side || "target");
+      }
+    });
+  });
+}
+
+function launchWeakestExamModule(entry, weakestMode) {
+  if (!entry || !weakestMode) return;
+  const preset = getExamPresetById(entry.categoryKey, entry.levelId);
+  if (preset && preset.apply) {
+    Object.assign(state.settings, preset.apply);
+  }
+  state.setMode(weakestMode);
+  state.exerciseReturnView = "exam-result";
+  switchView("exercise");
+}
+
+function playSingleExamReviewSnapshot(snap, side) {
+  if (!snap) return 0;
+  const key = side === "chosen" ? snap.chosenKey : snap.targetKey;
+  const currentId = audioEngine.playbackId;
+  const type = snap.type;
+
+  if (type === "cadence") {
+    const bpm = snap.activeBpm || 120;
+    const timing = getCadenceStepTiming(bpm, snap.activeTimeSig || "4/4");
+    const bars = Array.isArray(snap.bars) ? [...snap.bars] : [];
+    if (side === "chosen" && key && HARMONIC_DATA.degrees[key] && Number.isInteger(snap.targetIndex) && bars[snap.targetIndex]) {
+      const ch = buildChordNotes(snap.rootMidi || 60, HARMONIC_DATA.degrees[key]);
+      bars[snap.targetIndex] = { notes: ch.chordNotes, bass: ch.bassNote };
+    }
+    bars.forEach((b, idx) => {
+      const delay = idx * timing.stepMs;
+      const dur = idx === bars.length - 1 ? timing.finalDurSec : timing.stepDurSec;
+      audioEngine.registerTimer(() => {
+        if (audioEngine.playbackId !== currentId) return;
+        audioEngine.playStep(b.notes, dur, b.bass, "cadence");
+      }, delay);
+    });
+    return Math.max(0, bars.length - 1) * timing.stepMs + timing.finalHoldMs;
+  }
+
+  if (type && type.startsWith("interval-")) {
+    const def = key ? getLocalizedIntervalDef(key) : null;
+    const semi = def ? def.semitones : 0;
+    const targetMidi = (snap.rootMidi || 60) + (snap.directionSign || 1) * semi;
+    const secondNote = side === "chosen" ? midiToNote(targetMidi) : snap.targetNote;
+    const refNote = snap.refNote || midiToNote(snap.rootMidi || 60);
+    if (type === "interval-harmonic") {
+      audioEngine.playStep([refNote, secondNote], 1.15, null, "interval-harmonic");
+      return 1200;
+    }
+    const { stepMs, note1DurSec, note2DurSec } = getMelodicIntervalTiming(snap.activeBpm || 90);
+    audioEngine.playStep([refNote], note1DurSec, null, "cadence");
+    audioEngine.registerTimer(() => {
+      if (audioEngine.playbackId !== currentId) return;
+      audioEngine.playStep([secondNote], note2DurSec, null, "cadence");
+    }, stepMs);
+    return stepMs + Math.round(note2DurSec * 1000) + 120;
+  }
+
+  if (isChordQualityMode(type)) {
+    const def = key ? getLocalizedChordDef(key) : null;
+    const rawNotes = side === "chosen" && def
+      ? def.offsets.map(s => midiToNote((snap.rootMidi || 60) + s))
+      : (Array.isArray(snap.targetNotes) ? snap.targetNotes : []);
+    if (isChordArpeggioMode(type)) {
+      const seqNotes = type === "chord-arp-down" ? [...rawNotes].reverse() : rawNotes;
+      const { stepMs, noteDurSec, lastNoteDurSec, cycleMs } = getChordArpeggioPromptTiming(seqNotes.length, snap.activeBpm || 90);
+      seqNotes.forEach((n, idx) => {
+        audioEngine.registerTimer(() => {
+          if (audioEngine.playbackId !== currentId) return;
+          audioEngine.playStep([n], idx === seqNotes.length - 1 ? lastNoteDurSec : noteDurSec, null, "cadence");
+        }, idx * stepMs);
+      });
+      return cycleMs;
+    }
+    audioEngine.playStep(rawNotes, 1.2, null, "cadence");
+    return 1250;
+  }
+
+  if (type === "chord-inversions") {
+    let notes = snap.targetNotes || [];
+    if (side === "chosen" && key) {
+      const invDef = getLocalizedChordInversionDef(key);
+      if (invDef) {
+        notes = buildChordInversionNotes(snap.rootMidi || 60, snap.chordKey || "maj", invDef.stepIndex, snap.currentKey || "C").notes;
+      }
+    }
+    audioEngine.playStep(notes, 1.2, null, "cadence");
+    return 1250;
+  }
+
+  if (type === "solfege") {
+    const noteName = side === "chosen" ? snap.chosenNoteName : snap.targetNoteName;
+    if (noteName) audioEngine.playStep([noteName], 1.05, null, "interval");
+    return 1100;
+  }
+
+  if (type === "melody") {
+    const slots = side === "chosen" && Array.isArray(snap.chosenSlots) ? snap.chosenSlots : (snap.targetSlots || []);
+    const beatSec = 60 / (snap.activeBpm || 90);
+    const stepMs = Math.round(2 * beatSec * 1000);
+    const durSec = Math.max(0.32, 2 * beatSec * 0.85);
+    slots.forEach((s, idx) => {
+      audioEngine.registerTimer(() => {
+        if (audioEngine.playbackId !== currentId) return;
+        audioEngine.playStep([s.noteName], durSec, null, "interval");
+      }, idx * stepMs);
+    });
+    return slots.length * stepMs + 150;
+  }
+
+  if (type === "rhythm-meter") {
+    const res = buildRhythmMeterEvents(key || "4/4", snap.activeBpm || 90, 1, false);
+    audioEngine.playRhythmSequence(res.events, getAudioClockSec() + 0.04);
+    return Math.round(res.totalMs) + 120;
+  }
+
+  if (type === "rhythm-dictation") {
+    const keys = side === "chosen" && Array.isArray(snap.chosenCellKeys) ? snap.chosenCellKeys : (snap.targetCellKeys || []);
+    const beatMs = 60000 / (snap.activeBpm || 90);
+    const events = [];
+    for (let b = 0; b < 4; b++) {
+      events.push([Math.round(b * beatMs), b === 0 ? "accent" : "tick", b === 0 ? 0.52 : 0.36]);
+      const cell = getChoiceItem("rhythm-dictation", keys[b]);
+      if (cell && Array.isArray(cell.offsets)) {
+        cell.offsets.forEach(off => events.push([Math.round((b + off) * beatMs), "clave", 0.96]));
+      }
+    }
+    audioEngine.playRhythmSequence(events, getAudioClockSec() + 0.04);
+    return Math.round(4 * beatMs) + 150;
+  }
+
+  if (type === "rhythm-tap") {
+    const beatMs = 60000 / (snap.activeBpm || 90);
+    const beatsPerBar = snap.beatsPerBar || 4;
+    const events = [];
+    for (let b = 0; b < beatsPerBar; b++) {
+      events.push([Math.round(b * beatMs), b === 0 ? "accent" : "tick", b === 0 ? 0.56 : 0.38]);
+    }
+    if (side === "chosen" && Array.isArray(snap.tapsMs)) {
+      snap.tapsMs.forEach(t => {
+        events.push([Math.max(0, Math.round(t)), "clave", 0.96]);
+      });
+    } else if (Array.isArray(snap.expectedOffsets)) {
+      snap.expectedOffsets.forEach(t => {
+        events.push([Math.max(0, Math.round(t)), "clave", 0.96]);
+      });
+    }
+    audioEngine.playRhythmSequence(events, getAudioClockSec() + 0.04);
+    return Math.round(beatsPerBar * beatMs) + 220;
+  }
+
+  if (type === "rhythm-groove") {
+    const res = buildRhythmGrooveEvents(
+      { grooveKind: snap.grooveKind || "style", bars: snap.bars || [], targetItem: { key: key || "backbeat" } },
+      key || "backbeat",
+      snap.activeBpm || 90
+    );
+    audioEngine.playRhythmSequence(res.events, getAudioClockSec() + 0.04);
+    return Math.round(res.totalMs) + 150;
+  }
+
+  if (type === "prod-tone") {
+    const hz = side === "chosen" && snap.chosenFreqHz ? snap.chosenFreqHz : snap.targetFreqHz;
+    if (hz) audioEngine.playProductionTone(hz, 1.1);
+    return 1150;
+  }
+
+  if (type === "prod-eq-noise") {
+    const hz = side === "chosen" && snap.chosenFreqHz ? snap.chosenFreqHz : snap.targetFreqHz;
+    if (hz) {
+      audioEngine.playProductionNoiseEQ({
+        mode: "boost-only",
+        freqHz: hz,
+        q: snap.q || 2.8,
+        gainDb: snap.boostDb || 4,
+        durationSec: 1.15
+      });
+    }
+    return 1220;
+  }
+
+  if (type && type.startsWith("modes-")) {
+    const modeDef = key ? getLocalizedModeDef(key) : null;
+    if (modeDef) {
+      return playModeExercisePattern({ type: type, rootMidi: snap.rootMidi || 60, anchorBass: snap.anchorBass }, modeDef, 0);
+    }
+  }
+  return 0;
+}
+
+async function playExamReviewAudio(entry, itemIdx, side = "target") {
+  const item = entry?.reviewItems?.[itemIdx];
+  const snap = item?.audioSnapshot;
+  if (!snap) return;
+
+  await ensureAudioReady();
+  stopPlayback();
+  const playId = audioEngine.playbackId;
+
+  if (side === "compare") {
+    const firstMs = playSingleExamReviewSnapshot(snap, "chosen");
+    audioEngine.registerTimer(() => {
+      if (audioEngine.playbackId !== playId) return;
+      playSingleExamReviewSnapshot(snap, "target");
+    }, Math.max(450, firstMs + 280));
+    return;
+  }
+
+  playSingleExamReviewSnapshot(snap, side === "chosen" ? "chosen" : "target");
+}
+
+function renderExamHistoryCard() {
+  const summaryEl = document.getElementById("spaceExamHistorySummary");
+  const listEl = document.getElementById("spaceExamHistoryList");
+  const footerEl = document.getElementById("spaceExamHistoryFooter");
+  const toggleBtn = document.getElementById("toggleAllExamHistoryBtn");
+  const clearBtn = document.getElementById("clearExamHistoryBtn");
+  if (!listEl) return;
+
+  const history = Array.isArray(state?.profile?.examHistory) ? state.profile.examHistory : [];
+  if (clearBtn) {
+    clearBtn.classList.toggle("hidden", history.length === 0);
+    if (!state.examHistoryClearArmed) {
+      clearBtn.textContent = tr("Verlauf löschen", "Clear History");
+    }
+  }
+
+  if (history.length === 0) {
+    if (summaryEl) summaryEl.innerHTML = "";
+    footerEl?.classList.add("hidden");
+    listEl.innerHTML = `
+      <div class="exam-history-empty">
+        ${escapeHtml(tr(
+          "Noch keine Prüfung abgelegt. Öffne auf dem Startbildschirm eine Kategorie und wähle „Kategorie-Prüfung ablegen“.",
+          "No exams completed yet. Open any category on Home and tap “Take Category Exam”."
+        ))}
+      </div>
+    `;
+    return;
+  }
+
+  const avgPct = Math.round(history.reduce((s, e) => s + (Number(e.percent) || 0), 0) / history.length);
+  const bestPct = Math.max(...history.map(e => Number(e.percent) || 0));
+
+  if (summaryEl) {
+    summaryEl.innerHTML = `
+      <span class="k-ratio-chip">${escapeHtml(tf("Prüfungen: {n}", "Exams: {n}", { n: history.length }))}</span>
+      <span class="k-ratio-chip">${escapeHtml(tf("Ø {pct}%", "Avg {pct}%", { pct: avgPct }))}</span>
+      <span class="k-ratio-chip">${escapeHtml(tf("Bestwert: {pct}%", "Best: {pct}%", { pct: bestPct }))}</span>
+    `;
+  }
+
+  const showAll = Boolean(state.examHistoryShowAll);
+  const visible = showAll ? history : history.slice(0, 5);
+
+  listEl.innerHTML = visible.map(entry => {
+    const preset = getExamPresetById(entry.categoryKey, entry.levelId);
+    const levelShort = preset ? tr(preset.title.de, preset.title.en) : tf("Stufe {n}", "Level {n}", { n: entry.levelNumber });
+    const badge = getLauschebaerExamBadge(entry.percent);
+    const pctCls = entry.percent >= 80 ? "is-ok" : (entry.percent >= 50 ? "is-mid" : "is-low");
+    return `
+      <button type="button" class="exam-history-row" data-open-exam-result="${escapeHtml(entry.id)}">
+        <span class="exam-history-main">
+          <span class="exam-history-title">${escapeHtml(`${getCategoryTitle(entry.categoryKey)} • ${levelShort}`)}</span>
+          <span class="exam-history-meta">${escapeHtml(`${formatExamDate(entry.completedAt)} • ${entry.totalQuestions} ${tr("Fragen", "Questions")} • ${formatExamDuration(entry.durationSec)} • ${badge.icon}`)}</span>
+        </span>
+        <span class="exam-history-score">
+          <span class="exam-history-pct ${pctCls}">${entry.percent}%</span>
+          <span class="exam-history-open-hint">${escapeHtml(tr("Details & Audio ›", "Details & Audio ›"))}</span>
+        </span>
+      </button>
+    `;
+  }).join("");
+
+  listEl.querySelectorAll("[data-open-exam-result]").forEach(rowBtn => {
+    rowBtn.addEventListener("click", () => {
+      openExamResultView(rowBtn.dataset.openExamResult, { returnView: "space" });
+    });
+  });
+
+  if (footerEl && toggleBtn) {
+    if (history.length > 5) {
+      footerEl.classList.remove("hidden");
+      toggleBtn.textContent = showAll
+        ? tr("Weniger anzeigen", "Show less")
+        : tf("Alle {n} Prüfungen anzeigen", "Show all {n} exams", { n: history.length });
+    } else {
+      footerEl.classList.add("hidden");
+    }
+  }
+}
+
+function handleClearExamHistoryClick() {
+  const clearBtn = document.getElementById("clearExamHistoryBtn");
+  if (!state.examHistoryClearArmed) {
+    state.examHistoryClearArmed = true;
+    if (clearBtn) clearBtn.textContent = tr("Wirklich löschen?", "Confirm clear?");
+    setTimeout(() => {
+      state.examHistoryClearArmed = false;
+      renderExamHistoryCard();
+    }, 4000);
+    return;
+  }
+  state.examHistoryClearArmed = false;
+  state.examHistoryShowAll = false;
+  if (state.profile) {
+    state.profile.examHistory = [];
+    saveUserProfile(state.profile);
+  }
+  renderExamHistoryCard();
 }
 
 </script>
