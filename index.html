@@ -692,7 +692,6 @@ html, body {
   .warmup-breath-orb,
   .warmup-progress-fill,
   .metro-tap-circle,
-  .metro-tap-ring,
   .metro-pendulum-orb,
   .metro-beat-tile,
   .btn-correct,
@@ -7630,15 +7629,28 @@ body,
   padding: 0.18rem 0.6rem;
 }
 
+/* Fester Container + reine Vektor-Größenanimation (verhindert GPU-Tile-Linien im Kreis auf Mobilgeräten) */
+.metro-tap-wrap {
+  width: 114px;
+  height: 114px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  contain: layout style;
+}
+
 .metro-tap-circle {
   position: relative;
-  width: 108px;
-  height: 108px;
+  width: 106px;
+  height: 106px;
   flex-shrink: 0;
   border-radius: 50%;
   border: 2.5px solid var(--sage-strong);
-  background: radial-gradient(circle at 32% 28%, var(--surface-white) 0%, var(--sage-soft) 100%);
-  box-shadow: 0 6px 18px rgba(61, 64, 91, 0.11), inset 0 -3px 8px rgba(61, 64, 91, 0.06);
+  background: var(--sage-soft);
+  box-shadow: none;
+  outline: none;
+  transform: none;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7651,20 +7663,20 @@ body,
   user-select: none;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
-  transition: transform 110ms cubic-bezier(0.22, 1, 0.36, 1), border-color 140ms ease, box-shadow 140ms ease, background 140ms ease;
+  transition: width 110ms ease-out, height 110ms ease-out, border-color 140ms ease, background-color 140ms ease, opacity 140ms ease;
 }
 
-.metro-tap-circle:active {
-  transform: scale(0.93);
+.metro-tap-circle:focus,
+.metro-tap-circle:focus-visible {
+  outline: none;
+  border-width: 3px;
 }
 
-.metro-tap-ring {
-  position: absolute;
-  inset: -6px;
-  border-radius: 50%;
-  border: 2px solid var(--sage-strong);
-  opacity: 0;
-  pointer-events: none;
+.metro-tap-circle:active,
+.metro-tap-circle.is-tap-pulse {
+  width: 98px;
+  height: 98px;
+  background-color: var(--sage);
 }
 
 .metro-tap-label {
@@ -7673,6 +7685,9 @@ body,
   letter-spacing: 0.08em;
   color: var(--sage-strong);
   line-height: 1.05;
+  background: transparent;
+  border: none;
+  pointer-events: none;
 }
 
 .metro-tap-sub {
@@ -7680,33 +7695,17 @@ body,
   font-weight: 700;
   color: var(--raccoon-mid);
   line-height: 1.15;
-  max-width: 84px;
-}
-
-@keyframes metroTapRipple {
-  0% {
-    opacity: 0.72;
-    transform: scale(0.92);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1.24);
-  }
-}
-
-.metro-tap-circle.is-tap-pulse {
-  transform: scale(0.96);
-  box-shadow: 0 0 0 4px var(--sage-soft), 0 8px 20px rgba(61, 64, 91, 0.14);
-}
-
-.metro-tap-circle.is-tap-pulse .metro-tap-ring {
-  animation: metroTapRipple 340ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  max-width: 82px;
+  background: transparent;
+  border: none;
+  pointer-events: none;
 }
 
 .metro-tap-circle.is-beat-accent {
+  width: 112px;
+  height: 112px;
   border-color: var(--peach-strong);
-  background: radial-gradient(circle at 32% 28%, var(--surface-white) 0%, var(--peach-soft) 100%);
-  box-shadow: 0 0 0 5px var(--peach-soft), 0 8px 22px rgba(61, 64, 91, 0.15);
+  background-color: var(--peach-soft);
 }
 
 .metro-tap-circle.is-beat-accent .metro-tap-label {
@@ -7714,12 +7713,16 @@ body,
 }
 
 .metro-tap-circle.is-beat-normal {
-  box-shadow: 0 0 0 4px var(--sage-soft), 0 7px 18px rgba(61, 64, 91, 0.13);
+  width: 110px;
+  height: 110px;
+  border-color: var(--sage-strong);
+  background-color: var(--sage);
 }
 
 .metro-tap-circle.is-beat-muted {
-  border-style: dashed;
-  opacity: 0.86;
+  border-color: var(--border-strong);
+  background-color: var(--surface-warm);
+  opacity: 0.78;
 }
 
 .metro-slider-row {
@@ -8276,9 +8279,23 @@ body,
   .metro-bpm-number {
     font-size: 2.3rem;
   }
+  .metro-tap-wrap {
+    width: 102px;
+    height: 102px;
+  }
   .metro-tap-circle {
     width: 96px;
     height: 96px;
+  }
+  .metro-tap-circle:active,
+  .metro-tap-circle.is-tap-pulse {
+    width: 88px;
+    height: 88px;
+  }
+  .metro-tap-circle.is-beat-accent,
+  .metro-tap-circle.is-beat-normal {
+    width: 100px;
+    height: 100px;
   }
   .metro-step-btn {
     min-width: 31px;
@@ -9731,11 +9748,12 @@ body,
             <span id="metroTempoName" class="metro-tempo-name">Allegretto</span>
           </div>
 
-          <button id="metroTapCircle" class="metro-tap-circle" type="button" title="Tippen für Live-Tempo (Tap-Tempo)" aria-label="Tap-Tempo" data-i18n-title="metro.tapTitle" data-i18n-aria="metro.tapAria">
-            <span class="metro-tap-ring" aria-hidden="true"></span>
-            <span class="metro-tap-label" data-i18n="metro.tapLabel">TAP</span>
-            <span id="metroTapSub" class="metro-tap-sub" data-i18n="metro.tapHint">Tempo tippen</span>
-          </button>
+          <div class="metro-tap-wrap">
+            <button id="metroTapCircle" class="metro-tap-circle" type="button" title="Tippen für Live-Tempo (Tap-Tempo)" aria-label="Tap-Tempo" data-i18n-title="metro.tapTitle" data-i18n-aria="metro.tapAria">
+              <span class="metro-tap-label" data-i18n="metro.tapLabel">TAP</span>
+              <span id="metroTapSub" class="metro-tap-sub" data-i18n="metro.tapHint">Tempo tippen</span>
+            </button>
+          </div>
         </div>
 
         <div class="metro-slider-row">
@@ -47498,7 +47516,8 @@ const _metroRuntime = {
   activeBeatIndex: -1,
   swingLeft: false,
   tapTimestamps: [],
-  lastTapPointerMs: 0,
+  awaitingPointerClick: false,
+  lastPointerUpMs: 0,
   tapPulseTimer: null,
   tapResetTimer: null,
   hitClearTimer: null,
@@ -47798,11 +47817,23 @@ function renderMetronomeBpmUI() {
   }
 }
 
-function setMetronomeBpm(nextBpm) {
+function setMetronomeBpm(nextBpm, options = {}) {
   const clamped = clampMetronomeBpm(nextBpm);
   state.metronome.bpm = clamped;
   renderMetronomeBpmUI();
-  renderMetronomeProfiles();
+
+  // Wenn das Metronom bereits läuft, das nächste geplante Intervall direkt an das neue Tempo anpassen
+  if (state.metronome?.running) {
+    const nowAudio = (typeof Tone !== "undefined" && typeof Tone.now === "function") ? Tone.now() : 0;
+    const sub = METRONOME_VALID_SUBDIVISIONS.includes(state.metronome.subdivision) ? state.metronome.subdivision : 1;
+    const secPerStep = (60 / clamped) / sub;
+    if (_metroRuntime.nextNoteTime > nowAudio + secPerStep) {
+      _metroRuntime.nextNoteTime = nowAudio + secPerStep;
+    }
+    if (options.reschedule) {
+      scheduleMetronomeLoop();
+    }
+  }
   return clamped;
 }
 
@@ -47811,10 +47842,20 @@ function adjustMetronomeBpm(delta) {
   return setMetronomeBpm((state.metronome?.bpm || METRONOME_DEFAULT_BPM) + step);
 }
 
+function getCurrentMetronomeClockMs() {
+  if (typeof performance !== "undefined" && typeof performance.now === "function") {
+    return performance.now();
+  }
+  return Date.now();
+}
+
 function handleMetronomeTap(customNowMs = null) {
-  const nowMs = Number.isFinite(Number(customNowMs))
-    ? Number(customNowMs)
-    : (typeof performance !== "undefined" && typeof performance.now === "function" ? performance.now() : Date.now());
+  const hasExplicitNow =
+    customNowMs !== null &&
+    customNowMs !== undefined &&
+    typeof customNowMs !== "boolean" &&
+    Number.isFinite(Number(customNowMs));
+  const nowMs = hasExplicitNow ? Number(customNowMs) : getCurrentMetronomeClockMs();
   const res = computeTapTempoFromHistory(_metroRuntime.tapTimestamps, nowMs);
   if (res.ignoredBounce) return null;
 
@@ -47831,7 +47872,7 @@ function handleMetronomeTap(customNowMs = null) {
   }
 
   if (res.bpm !== null) {
-    setMetronomeBpm(res.bpm);
+    setMetronomeBpm(res.bpm, { reschedule: true });
   }
 
   const tapSub = document.getElementById("metroTapSub");
@@ -48151,12 +48192,22 @@ function initMetronomeEventListeners() {
   const tapCircle = document.getElementById("metroTapCircle");
   if (tapCircle && !tapCircle._metroBound) {
     tapCircle._metroBound = true;
-    tapCircle.addEventListener("pointerdown", () => {
-      _metroRuntime.lastTapPointerMs = Date.now();
+    tapCircle.addEventListener("pointerdown", (e) => {
+      if (e?.button !== undefined && e.button !== 0) return;
+      _metroRuntime.awaitingPointerClick = true;
       handleMetronomeTap();
     });
+    tapCircle.addEventListener("pointerup", () => {
+      _metroRuntime.lastPointerUpMs = Date.now();
+    });
+    tapCircle.addEventListener("pointercancel", () => {
+      _metroRuntime.awaitingPointerClick = false;
+    });
     tapCircle.addEventListener("click", () => {
-      if (Date.now() - _metroRuntime.lastTapPointerMs < 350) return;
+      if (_metroRuntime.awaitingPointerClick) {
+        _metroRuntime.awaitingPointerClick = false;
+        if (Date.now() - _metroRuntime.lastPointerUpMs < 400) return;
+      }
       handleMetronomeTap();
     });
   }
