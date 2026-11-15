@@ -691,6 +691,10 @@ html, body {
   .listen-only-btn.btn-active .listen-only-dot,
   .warmup-breath-orb,
   .warmup-progress-fill,
+  .metro-tap-circle,
+  .metro-tap-ring,
+  .metro-pendulum-orb,
+  .metro-beat-tile,
   .btn-correct,
   .btn-wrong,
   .bar-card.bar-active,
@@ -7518,6 +7522,770 @@ body,
   margin-bottom: 0.35rem;
 }
 
+/* =====================================================
+   METRONOM: HOMESCREEN-KACHEL (HALBE BREITE, ZENTRIERT)
+   ===================================================== */
+.home-metronome-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.62rem;
+}
+
+.home-metronome-card {
+  position: relative;
+  width: calc(50% - 0.29rem);
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.52rem;
+  padding: 0.78rem 0.82rem;
+  min-height: 112px;
+}
+
+.home-metronome-card .cat-icon-box {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+}
+
+.home-metronome-card .cat-icon-box .icon-svg-large {
+  width: 22px;
+  height: 22px;
+}
+
+.home-metronome-card .cat-text-box h3 {
+  font-size: 0.9rem;
+  line-height: 1.2;
+}
+
+.home-metronome-card .cat-text-box p {
+  font-size: 0.72rem;
+  line-height: 1.32;
+  margin-top: 0.16rem;
+}
+
+.home-metronome-card .cat-chevron {
+  position: absolute;
+  top: 0.72rem;
+  right: 0.82rem;
+  font-size: 1.12rem;
+  opacity: 0.65;
+}
+
+/* =====================================================
+   METRONOM-ANSICHT (#viewMetronome)
+   ===================================================== */
+.metro-hero-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.metro-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem;
+}
+
+.metro-bpm-block {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.metro-bpm-readout {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.metro-bpm-number {
+  font-size: 2.75rem;
+  line-height: 1;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+  color: var(--raccoon-dark);
+}
+
+.metro-bpm-unit {
+  font-size: 0.86rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--sage-strong);
+}
+
+.metro-tempo-name {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--raccoon-mid);
+  background: var(--surface-warm);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-pill);
+  padding: 0.18rem 0.6rem;
+}
+
+.metro-tap-circle {
+  position: relative;
+  width: 108px;
+  height: 108px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 2.5px solid var(--sage-strong);
+  background: radial-gradient(circle at 32% 28%, var(--surface-white) 0%, var(--sage-soft) 100%);
+  box-shadow: 0 6px 18px rgba(61, 64, 91, 0.11), inset 0 -3px 8px rgba(61, 64, 91, 0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.14rem;
+  cursor: pointer;
+  color: var(--raccoon-dark);
+  padding: 0.4rem;
+  text-align: center;
+  user-select: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 110ms cubic-bezier(0.22, 1, 0.36, 1), border-color 140ms ease, box-shadow 140ms ease, background 140ms ease;
+}
+
+.metro-tap-circle:active {
+  transform: scale(0.93);
+}
+
+.metro-tap-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid var(--sage-strong);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.metro-tap-label {
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: var(--sage-strong);
+  line-height: 1.05;
+}
+
+.metro-tap-sub {
+  font-size: 0.64rem;
+  font-weight: 700;
+  color: var(--raccoon-mid);
+  line-height: 1.15;
+  max-width: 84px;
+}
+
+@keyframes metroTapRipple {
+  0% {
+    opacity: 0.72;
+    transform: scale(0.92);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.24);
+  }
+}
+
+.metro-tap-circle.is-tap-pulse {
+  transform: scale(0.96);
+  box-shadow: 0 0 0 4px var(--sage-soft), 0 8px 20px rgba(61, 64, 91, 0.14);
+}
+
+.metro-tap-circle.is-tap-pulse .metro-tap-ring {
+  animation: metroTapRipple 340ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.metro-tap-circle.is-beat-accent {
+  border-color: var(--peach-strong);
+  background: radial-gradient(circle at 32% 28%, var(--surface-white) 0%, var(--peach-soft) 100%);
+  box-shadow: 0 0 0 5px var(--peach-soft), 0 8px 22px rgba(61, 64, 91, 0.15);
+}
+
+.metro-tap-circle.is-beat-accent .metro-tap-label {
+  color: var(--peach-strong);
+}
+
+.metro-tap-circle.is-beat-normal {
+  box-shadow: 0 0 0 4px var(--sage-soft), 0 7px 18px rgba(61, 64, 91, 0.13);
+}
+
+.metro-tap-circle.is-beat-muted {
+  border-style: dashed;
+  opacity: 0.86;
+}
+
+.metro-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 0.42rem;
+}
+
+.metro-step-btn,
+.metro-mini-btn {
+  min-width: 36px;
+  height: 34px;
+  padding: 0 0.48rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  background: var(--surface-warm);
+  color: var(--raccoon-dark);
+  font-weight: 800;
+  font-size: 0.78rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  touch-action: manipulation;
+  transition: transform 110ms ease, background-color 140ms ease;
+}
+
+.metro-step-btn:active,
+.metro-mini-btn:active {
+  transform: scale(0.94);
+  background: var(--surface-hover);
+}
+
+.metro-bpm-slider {
+  flex: 1;
+  min-width: 0;
+  accent-color: var(--sage-strong);
+  cursor: pointer;
+}
+
+.metro-pendulum-track {
+  position: relative;
+  height: 12px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-warm);
+  border: 1px solid var(--border-soft);
+  overflow: hidden;
+}
+
+.metro-pendulum-orb {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 24px;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: var(--sage-strong);
+  transform: translate(-50%, -50%);
+  opacity: 0.35;
+  transition: left 240ms cubic-bezier(0.32, 0.08, 0.24, 1), background-color 120ms ease, opacity 120ms ease, transform 120ms ease;
+}
+
+.metro-pendulum-track.is-running .metro-pendulum-orb {
+  opacity: 0.96;
+}
+
+.metro-pendulum-track.swing-left .metro-pendulum-orb {
+  left: 14%;
+}
+
+.metro-pendulum-track.swing-right .metro-pendulum-orb {
+  left: 86%;
+}
+
+.metro-pendulum-track.is-accent-hit .metro-pendulum-orb {
+  background: var(--peach-strong);
+  transform: translate(-50%, -50%) scale(1.18, 1.15);
+}
+
+.metro-pendulum-track.is-muted-hit .metro-pendulum-orb {
+  background: var(--raccoon-muted);
+  opacity: 0.42;
+}
+
+.metro-transport-row {
+  display: flex;
+  justify-content: center;
+}
+
+.metro-play-btn {
+  width: 100%;
+  min-height: 46px;
+  font-size: 0.95rem;
+}
+
+.dock-action-btn.metro-play-btn.is-playing {
+  background-color: var(--peach);
+  color: var(--raccoon-dark);
+  border: 1.5px solid var(--peach-strong);
+}
+
+.metro-beats-card,
+.metro-profiles-card,
+.metro-sound-placeholder-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.68rem;
+}
+
+.metro-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.metro-section-title {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+}
+
+.metro-count-stepper {
+  display: flex;
+  align-items: center;
+  gap: 0.42rem;
+}
+
+.metro-count-val {
+  min-width: 24px;
+  text-align: center;
+  font-weight: 900;
+  font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--raccoon-dark);
+}
+
+.metro-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.36rem;
+}
+
+.metro-chip {
+  padding: 0.28rem 0.64rem;
+  font-size: 0.78rem;
+}
+
+.metro-beat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(56px, 1fr));
+  gap: 0.46rem;
+}
+
+.metro-beat-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.24rem;
+  min-height: 70px;
+  padding: 0.44rem 0.28rem;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-strong);
+  background: var(--surface-white);
+  color: var(--raccoon-dark);
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 140ms cubic-bezier(0.22, 1, 0.36, 1), background-color 140ms ease, border-color 140ms ease, box-shadow 140ms ease, opacity 140ms ease;
+}
+
+.metro-beat-tile:active {
+  transform: scale(0.95);
+}
+
+.metro-beat-num {
+  font-size: 0.94rem;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.metro-beat-indicator {
+  width: 26px;
+  height: 22px;
+  border-radius: var(--radius-pill);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.76rem;
+  font-weight: 900;
+}
+
+.metro-beat-state-lbl {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+/* Zählzeit: Normal */
+.metro-beat-tile.state-normal {
+  border-color: var(--sage);
+  background: var(--surface-white);
+}
+
+.metro-beat-tile.state-normal .metro-beat-indicator {
+  background: var(--sage-soft);
+  color: var(--sage-strong);
+}
+
+.metro-beat-tile.state-normal .metro-beat-state-lbl {
+  color: var(--sage-strong);
+}
+
+/* Zählzeit: Akzentuiert (eigenes warm-kräftiges Design + Krone/Pfeil) */
+.metro-beat-tile.state-accent {
+  border: 2px solid var(--peach-strong);
+  background: linear-gradient(180deg, var(--peach-soft) 0%, var(--surface-white) 100%);
+  box-shadow: 0 3px 10px rgba(154, 91, 47, 0.14);
+}
+
+.metro-beat-tile.state-accent::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 16%;
+  right: 16%;
+  height: 3px;
+  border-radius: 0 0 4px 4px;
+  background: var(--peach-strong);
+}
+
+.metro-beat-tile.state-accent .metro-beat-indicator {
+  background: var(--peach);
+  color: var(--peach-strong);
+}
+
+.metro-beat-tile.state-accent .metro-beat-state-lbl {
+  color: var(--peach-strong);
+  font-weight: 800;
+}
+
+/* Zählzeit: Stumm geschaltet (deutlich gestrichelt, gedimmt & Stumm-Symbol) */
+.metro-beat-tile.state-muted {
+  border: 2px dashed var(--border-strong);
+  background: var(--surface-warm);
+  color: var(--raccoon-muted);
+  opacity: 0.74;
+}
+
+.metro-beat-tile.state-muted .metro-beat-indicator {
+  background: transparent;
+  border: 1px dashed var(--raccoon-muted);
+  color: var(--raccoon-muted);
+}
+
+.metro-beat-tile.state-muted .metro-beat-state-lbl {
+  color: var(--raccoon-muted);
+}
+
+@keyframes metroBeatPopNormal {
+  0% { transform: scale(1) translateY(0); }
+  35% { transform: scale(1.07) translateY(-3px); }
+  100% { transform: scale(1.03) translateY(-1px); }
+}
+
+@keyframes metroBeatPopAccent {
+  0% { transform: scale(1) translateY(0); }
+  35% { transform: scale(1.12) translateY(-5px); }
+  100% { transform: scale(1.05) translateY(-2px); }
+}
+
+@keyframes metroBeatMutedSweep {
+  0% { transform: scale(0.97); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+/* Live-Animation je Status beim Erreichen der Zählzeit */
+.metro-beat-tile.is-current.state-normal {
+  background: var(--sage);
+  border-color: var(--sage-strong);
+  box-shadow: 0 0 0 3px var(--sage-soft), 0 6px 14px rgba(61, 64, 91, 0.14);
+}
+
+.metro-beat-tile.is-beat-hit.state-normal {
+  animation: metroBeatPopNormal 200ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.metro-beat-tile.is-current.state-accent {
+  background: var(--peach);
+  border-color: var(--peach-strong);
+  box-shadow: 0 0 0 4px var(--peach-soft), 0 8px 18px rgba(154, 91, 47, 0.25);
+}
+
+.metro-beat-tile.is-beat-hit.state-accent {
+  animation: metroBeatPopAccent 230ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.metro-beat-tile.is-current.state-muted {
+  opacity: 0.96;
+  border-color: var(--raccoon-mid);
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--surface-warm),
+    var(--surface-warm) 6px,
+    var(--surface-hover) 6px,
+    var(--surface-hover) 12px
+  );
+  box-shadow: inset 0 0 0 2px var(--border-strong);
+}
+
+.metro-beat-tile.is-beat-hit.state-muted {
+  animation: metroBeatMutedSweep 200ms ease-out forwards;
+}
+
+.metro-beats-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding-top: 0.25rem;
+  border-top: 1px solid var(--border-soft);
+}
+
+.metro-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.72rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--raccoon-mid);
+}
+
+.metro-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.metro-legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.metro-legend-item.is-accent .metro-legend-dot {
+  background: var(--peach-strong);
+}
+
+.metro-legend-item.is-normal .metro-legend-dot {
+  background: var(--sage-strong);
+}
+
+.metro-legend-item.is-muted .metro-legend-dot {
+  background: transparent;
+  border: 1.5px dashed var(--raccoon-muted);
+}
+
+.metro-subdiv-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.metro-subdiv-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--raccoon-mid);
+}
+
+.metro-subdiv-pills {
+  display: flex;
+  gap: 0.32rem;
+}
+
+.metro-sub-btn {
+  padding: 0.24rem 0.58rem;
+  font-size: 0.76rem;
+}
+
+.metro-count-badge,
+.metro-placeholder-badge {
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 0.16rem 0.54rem;
+  border-radius: var(--radius-pill);
+  background: var(--lilac-soft);
+  color: var(--lilac-strong);
+  border: 1px solid var(--border-soft);
+}
+
+.metro-profile-form {
+  display: flex;
+  gap: 0.45rem;
+  align-items: center;
+}
+
+.metro-profile-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.metro-save-btn {
+  flex-shrink: 0;
+}
+
+.metro-profile-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.metro-profile-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.52rem 0.65rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-soft);
+  background: var(--surface-warm);
+}
+
+.metro-profile-row.is-active {
+  border-color: var(--sage-strong);
+  background: var(--sage-soft);
+}
+
+.metro-profile-load-btn {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+  color: var(--raccoon-dark);
+}
+
+.metro-profile-name {
+  font-size: 0.85rem;
+  font-weight: 800;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.metro-profile-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.38rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--raccoon-mid);
+}
+
+.metro-profile-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.metro-pdot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.metro-pdot.is-accent {
+  background: var(--peach-strong);
+  transform: scale(1.2);
+}
+
+.metro-pdot.is-normal {
+  background: var(--sage-strong);
+}
+
+.metro-pdot.is-muted {
+  background: transparent;
+  border: 1.5px dashed var(--raccoon-muted);
+}
+
+.metro-profile-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.28rem;
+  flex-shrink: 0;
+}
+
+.metro-profile-icon-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-soft);
+  background: var(--surface-white);
+  color: var(--raccoon-dark);
+  font-weight: 800;
+  font-size: 0.78rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.metro-profile-icon-btn.is-delete:hover {
+  color: var(--status-err);
+  border-color: var(--status-err);
+}
+
+.metro-sound-desc {
+  font-size: 0.78rem;
+  color: var(--raccoon-mid);
+  line-height: 1.38;
+}
+
+.metro-sound-chip-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.metro-sound-chip {
+  font-size: 0.76rem;
+  padding: 0.3rem 0.66rem;
+}
+
+.metro-sound-chip.is-placeholder {
+  opacity: 0.62;
+  border-style: dashed;
+}
+
+.metro-sound-notice {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--lilac-strong);
+  background: var(--lilac-soft);
+  border-radius: var(--radius-sm);
+  padding: 0.36rem 0.58rem;
+}
+
+@media (max-width: 380px) {
+  .metro-top-row {
+    gap: 0.58rem;
+  }
+  .metro-bpm-number {
+    font-size: 2.3rem;
+  }
+  .metro-tap-circle {
+    width: 96px;
+    height: 96px;
+  }
+  .metro-step-btn {
+    min-width: 31px;
+    padding: 0 0.34rem;
+  }
+}
+
 .hidden, .modal-hidden {
   display: none !important;
 }
@@ -7969,6 +8737,24 @@ body,
           <div class="cat-text-box">
             <h3 data-i18n="home.catProduction">Produktion</h3>
             <p data-i18n="home.catProductionDesc">Frequenzen &amp; EQ-Anhebungen im Noise heraushören</p>
+          </div>
+          <span class="cat-chevron">›</span>
+        </button>
+      </div>
+
+      <div class="home-metronome-row">
+        <button id="openMetronomeBtn" class="category-nav-card card-accent-sage home-metronome-card" type="button" data-open-tool="metronome">
+          <div class="cat-icon-box badge-sage">
+            <svg class="icon-svg-large" width="24" height="24" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M8.5 23L12.2 6h3.6L19.5 23H8.5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              <line x1="14" y1="20" x2="19.5" y2="9" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
+              <circle cx="18.3" cy="11.3" r="1.9" fill="currentColor"/>
+              <line x1="7" y1="23" x2="21" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="cat-text-box">
+            <h3 data-i18n="home.toolMetronome">Metronom</h3>
+            <p data-i18n="home.toolMetronomeDesc">Tap-Tempo, Zählzeiten &amp; Profile</p>
           </div>
           <span class="cat-chevron">›</span>
         </button>
@@ -8927,6 +9713,116 @@ body,
           </button>
         </div>
       </div>
+
+    </main>
+
+    <!-- =====================================================
+         ANSICHT 6: METRONOM (#viewMetronome)
+         ===================================================== -->
+    <main id="viewMetronome" class="view-exercise-container hidden">
+
+      <section class="module-card metro-hero-card">
+        <div class="metro-top-row">
+          <div class="metro-bpm-block">
+            <div class="metro-bpm-readout">
+              <span id="metroBpmValue" class="metro-bpm-number">120</span>
+              <span class="metro-bpm-unit">BPM</span>
+            </div>
+            <span id="metroTempoName" class="metro-tempo-name">Allegretto</span>
+          </div>
+
+          <button id="metroTapCircle" class="metro-tap-circle" type="button" title="Tippen für Live-Tempo (Tap-Tempo)" aria-label="Tap-Tempo" data-i18n-title="metro.tapTitle" data-i18n-aria="metro.tapAria">
+            <span class="metro-tap-ring" aria-hidden="true"></span>
+            <span class="metro-tap-label" data-i18n="metro.tapLabel">TAP</span>
+            <span id="metroTapSub" class="metro-tap-sub" data-i18n="metro.tapHint">Tempo tippen</span>
+          </button>
+        </div>
+
+        <div class="metro-slider-row">
+          <button id="metroBpmMinus5Btn" class="metro-step-btn" type="button" data-metro-step="-5" aria-label="-5 BPM">−5</button>
+          <button id="metroBpmMinusBtn" class="metro-step-btn" type="button" data-metro-step="-1" aria-label="-1 BPM">−1</button>
+          <input type="range" id="metroBpmSlider" class="metro-bpm-slider" min="30" max="240" step="1" value="120" aria-label="Tempo in BPM" data-i18n-aria="metro.sliderAria">
+          <button id="metroBpmPlusBtn" class="metro-step-btn" type="button" data-metro-step="1" aria-label="+1 BPM">+1</button>
+          <button id="metroBpmPlus5Btn" class="metro-step-btn" type="button" data-metro-step="5" aria-label="+5 BPM">+5</button>
+        </div>
+
+        <div id="metroPendulumTrack" class="metro-pendulum-track" aria-hidden="true">
+          <span id="metroPendulumOrb" class="metro-pendulum-orb"></span>
+        </div>
+
+        <div class="metro-transport-row">
+          <button id="metroPlayStopBtn" class="dock-action-btn metro-play-btn" type="button" data-i18n="metro.startBtn">▶ Metronom starten</button>
+        </div>
+      </section>
+
+      <section class="module-card metro-beats-card">
+        <div class="metro-section-head">
+          <h3 class="metro-section-title" data-i18n="metro.beatsHeading">Zählzeiten &amp; Betonung</h3>
+          <div class="metro-count-stepper">
+            <button id="metroBeatDecBtn" class="metro-mini-btn" type="button" title="Zählzeit entfernen" aria-label="Zählzeit entfernen" data-i18n-title="metro.beatRemoveTitle" data-i18n-aria="metro.beatRemoveTitle">−</button>
+            <span id="metroBeatCountVal" class="metro-count-val">4</span>
+            <button id="metroBeatIncBtn" class="metro-mini-btn" type="button" title="Zählzeit hinzufügen" aria-label="Zählzeit hinzufügen" data-i18n-title="metro.beatAddTitle" data-i18n-aria="metro.beatAddTitle">+</button>
+          </div>
+        </div>
+
+        <div id="metroPresetRow" class="metro-chip-row" aria-label="Takt-Vorlagen" data-i18n-aria="metro.presetsAria">
+          <button class="opt-btn metro-chip" type="button" data-metro-meter="2">2/4</button>
+          <button class="opt-btn metro-chip" type="button" data-metro-meter="3">3/4</button>
+          <button class="opt-btn metro-chip active" type="button" data-metro-meter="4">4/4</button>
+          <button class="opt-btn metro-chip" type="button" data-metro-meter="5">5/4</button>
+          <button class="opt-btn metro-chip" type="button" data-metro-meter="6">6/8</button>
+          <button class="opt-btn metro-chip" type="button" data-metro-meter="7">7/8</button>
+        </div>
+
+        <div id="metroBeatGrid" class="metro-beat-grid" role="group" aria-label="Zählzeiten" data-i18n-aria="metro.beatsAria"></div>
+
+        <div class="metro-beats-footer">
+          <div class="metro-legend" aria-hidden="true">
+            <span class="metro-legend-item is-accent"><span class="metro-legend-dot"></span><span data-i18n="metro.stateAccent">Akzent</span></span>
+            <span class="metro-legend-item is-normal"><span class="metro-legend-dot"></span><span data-i18n="metro.stateNormal">Normal</span></span>
+            <span class="metro-legend-item is-muted"><span class="metro-legend-dot"></span><span data-i18n="metro.stateMuted">Stumm</span></span>
+          </div>
+
+          <div class="metro-subdiv-row">
+            <span class="metro-subdiv-label" data-i18n="metro.subdivLabel">Unterteilung:</span>
+            <div class="metro-subdiv-pills">
+              <button class="opt-btn metro-sub-btn active" type="button" data-metro-subdiv="1" data-i18n="metro.sub1">1×</button>
+              <button class="opt-btn metro-sub-btn" type="button" data-metro-subdiv="2" data-i18n="metro.sub2">2×</button>
+              <button class="opt-btn metro-sub-btn" type="button" data-metro-subdiv="3" data-i18n="metro.sub3">3×</button>
+              <button class="opt-btn metro-sub-btn" type="button" data-metro-subdiv="4" data-i18n="metro.sub4">4×</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="module-card metro-profiles-card">
+        <div class="metro-section-head">
+          <h3 class="metro-section-title" data-i18n="metro.profilesHeading">Metronom-Profile</h3>
+          <span id="metroProfilesCount" class="metro-count-badge">3</span>
+        </div>
+
+        <form id="metroProfileSaveForm" class="metro-profile-form">
+          <input id="metroProfileNameInput" class="profile-text-input metro-profile-input" type="text" maxlength="32" placeholder="Profilname (z. B. 7/8 Funk · 116 BPM)" data-i18n-placeholder="metro.profileNamePlaceholder" data-i18n-aria="metro.profileNameAria" aria-label="Metronom-Profilname">
+          <button id="metroSaveProfileBtn" class="btn-tool metro-save-btn" type="button" data-i18n="metro.saveProfileBtn">Speichern</button>
+        </form>
+
+        <div id="metroProfileList" class="metro-profile-list"></div>
+      </section>
+
+      <section id="metroSoundPlaceholderCard" class="module-card metro-sound-placeholder-card">
+        <div class="metro-section-head">
+          <h3 class="metro-section-title" data-i18n="metro.soundHeading">Klick-Sounds</h3>
+          <span class="metro-placeholder-badge" data-i18n="metro.soundPlaceholderBadge">Platzhalter</span>
+        </div>
+        <p class="metro-sound-desc" data-i18n="metro.soundDesc">Wähle künftig aus verschiedenen Klick- und Percussion-Stimmen (im Masterplan vorgemerkt). Aktuell aktiv: Standard-Klick.</p>
+        <div class="metro-sound-chip-grid">
+          <button type="button" class="opt-btn metro-sound-chip active" data-metro-sound-slot="standard" data-i18n="metro.soundStandard">Standard-Klick</button>
+          <button type="button" class="opt-btn metro-sound-chip is-placeholder" data-metro-sound-slot="woodblock" aria-disabled="true" data-i18n="metro.soundWoodblock">Woodblock (bald)</button>
+          <button type="button" class="opt-btn metro-sound-chip is-placeholder" data-metro-sound-slot="cowbell" aria-disabled="true" data-i18n="metro.soundCowbell">Cowbell (bald)</button>
+          <button type="button" class="opt-btn metro-sound-chip is-placeholder" data-metro-sound-slot="rimshot" aria-disabled="true" data-i18n="metro.soundRimshot">Rimshot (bald)</button>
+        </div>
+        <p id="metroSoundNotice" class="metro-sound-notice hidden"></p>
+      </section>
 
     </main>
 
@@ -10736,6 +11632,8 @@ const I18N_STATIC = {
   "home.catNotationDesc": { de: "Noten lesen im Violin-, Bass- & Altschlüssel mit Hilfslinien", en: "Read notes across Treble, Bass & Alto clefs with ledger lines" },
   "home.catProduction": { de: "Produktion", en: "Production" },
   "home.catProductionDesc": { de: "Frequenzen & EQ-Anhebungen im Noise heraushören", en: "Identify frequencies & EQ boosts in pink noise" },
+  "home.toolMetronome": { de: "Metronom", en: "Metronome" },
+  "home.toolMetronomeDesc": { de: "Tap-Tempo, Zählzeiten & Profile", en: "Tap tempo, custom beats & profiles" },
   "home.voiceHeading": { de: "Stimme & Chor", en: "Voice & Choir" },
   "home.catWarmup": { de: "Einsing-Helfer", en: "Vocal Warmup" },
   "home.catWarmupDesc": { de: "5-Minuten-Warmup: Atem, Summen, Arpeggios & Chorklang", en: "5-min routine: breath, humming, arpeggios & choir blend" },
@@ -11045,7 +11943,41 @@ const I18N_STATIC = {
   "space.tplCoastLight": { de: "Morgentau • Hell", en: "Morning Dew • Light" },
   "space.tplCoastDark": { de: "Morgentau • Dunkel", en: "Morning Dew • Dark" },
   "space.tplDuskLight": { de: "Abenddämmerung • Hell", en: "Evening Dusk • Light" },
-  "space.tplDuskDark": { de: "Abenddämmerung • Dunkel", en: "Evening Dusk • Dark" }
+  "space.tplDuskDark": { de: "Abenddämmerung • Dunkel", en: "Evening Dusk • Dark" },
+
+  "metro.tapTitle": { de: "Tippen für Live-Tempo (Tap-Tempo)", en: "Tap for live tempo (Tap Tempo)" },
+  "metro.tapAria": { de: "Tap-Tempo", en: "Tap Tempo" },
+  "metro.tapLabel": { de: "TAP", en: "TAP" },
+  "metro.tapHint": { de: "Tempo tippen", en: "Tap tempo" },
+  "metro.sliderAria": { de: "Tempo in BPM", en: "Tempo in BPM" },
+  "metro.startBtn": { de: "▶ Metronom starten", en: "▶ Start Metronome" },
+  "metro.beatsHeading": { de: "Zählzeiten & Betonung", en: "Beats & Accents" },
+  "metro.beatRemoveTitle": { de: "Zählzeit entfernen", en: "Remove beat" },
+  "metro.beatAddTitle": { de: "Zählzeit hinzufügen", en: "Add beat" },
+  "metro.presetsAria": { de: "Takt-Vorlagen", en: "Meter presets" },
+  "metro.beatsAria": { de: "Zählzeiten", en: "Beats" },
+  "metro.stateAccent": { de: "Akzent", en: "Accent" },
+  "metro.stateNormal": { de: "Normal", en: "Normal" },
+  "metro.stateMuted": { de: "Stumm", en: "Mute" },
+  "metro.subdivLabel": { de: "Unterteilung:", en: "Subdivision:" },
+  "metro.sub1": { de: "1×", en: "1×" },
+  "metro.sub2": { de: "2×", en: "2×" },
+  "metro.sub3": { de: "3×", en: "3×" },
+  "metro.sub4": { de: "4×", en: "4×" },
+  "metro.profilesHeading": { de: "Metronom-Profile", en: "Metronome Profiles" },
+  "metro.profileNamePlaceholder": { de: "Profilname (z. B. 7/8 Funk · 116 BPM)", en: "Profile name (e.g. 7/8 Funk · 116 BPM)" },
+  "metro.profileNameAria": { de: "Metronom-Profilname", en: "Metronome profile name" },
+  "metro.saveProfileBtn": { de: "Speichern", en: "Save" },
+  "metro.soundHeading": { de: "Klick-Sounds", en: "Click Sounds" },
+  "metro.soundPlaceholderBadge": { de: "Platzhalter", en: "Placeholder" },
+  "metro.soundDesc": {
+    de: "Wähle künftig aus verschiedenen Klick- und Percussion-Stimmen (im Masterplan vorgemerkt). Aktuell aktiv: Standard-Klick.",
+    en: "Custom click and percussion voices coming soon (planned on the Masterplan). Currently active: Standard Click."
+  },
+  "metro.soundStandard": { de: "Standard-Klick", en: "Standard Click" },
+  "metro.soundWoodblock": { de: "Woodblock (bald)", en: "Woodblock (soon)" },
+  "metro.soundCowbell": { de: "Cowbell (bald)", en: "Cowbell (soon)" },
+  "metro.soundRimshot": { de: "Rimshot (bald)", en: "Rimshot (soon)" }
 };
 
 function setElementLocalizedText(el, text) {
@@ -11741,6 +12673,8 @@ const I18N_STATIC_FR = {
   "home.catNotationDesc": "Lire en clés de Sol, Fa & Ut 3 avec lignes supplémentaires",
   "home.catProduction": "Production",
   "home.catProductionDesc": "Identifier les fréquences & boosts d’égalisation dans du bruit rose",
+  "home.toolMetronome": "Métronome",
+  "home.toolMetronomeDesc": "Tap Tempo, temps & profils",
   "home.voiceHeading": "Voix & Chœur",
   "home.catWarmup": "Échauffement vocal",
   "home.catWarmupDesc": "Routine 5 min : souffle, bouche fermée, arpèges & fondu choral",
@@ -11982,7 +12916,37 @@ const I18N_STATIC_FR = {
   "space.tplCoastLight": "Rosée • Clair",
   "space.tplCoastDark": "Rosée • Sombre",
   "space.tplDuskLight": "Crépuscule • Clair",
-  "space.tplDuskDark": "Crépuscule • Sombre"
+  "space.tplDuskDark": "Crépuscule • Sombre",
+  "metro.tapTitle": "Toucher pour régler le tempo en direct (Tap Tempo)",
+  "metro.tapAria": "Tap Tempo",
+  "metro.tapLabel": "TAP",
+  "metro.tapHint": "Taper le tempo",
+  "metro.sliderAria": "Tempo en BPM",
+  "metro.startBtn": "▶ Lancer le métronome",
+  "metro.beatsHeading": "Temps & Accentuations",
+  "metro.beatRemoveTitle": "Retirer un temps",
+  "metro.beatAddTitle": "Ajouter un temps",
+  "metro.presetsAria": "Modèles de mesure",
+  "metro.beatsAria": "Temps",
+  "metro.stateAccent": "Accent",
+  "metro.stateNormal": "Normal",
+  "metro.stateMuted": "Muet",
+  "metro.subdivLabel": "Subdivision :",
+  "metro.sub1": "1×",
+  "metro.sub2": "2×",
+  "metro.sub3": "3×",
+  "metro.sub4": "4×",
+  "metro.profilesHeading": "Profils de métronome",
+  "metro.profileNamePlaceholder": "Nom du profil (ex. 7/8 Funk · 116 BPM)",
+  "metro.profileNameAria": "Nom du profil de métronome",
+  "metro.saveProfileBtn": "Enregistrer",
+  "metro.soundHeading": "Sons de clic",
+  "metro.soundPlaceholderBadge": "À venir",
+  "metro.soundDesc": "Choisissez bientôt parmi plusieurs sons de clic et de percussion (prévu au Masterplan). Actif : Clic standard.",
+  "metro.soundStandard": "Clic standard",
+  "metro.soundWoodblock": "Woodblock (bientôt)",
+  "metro.soundCowbell": "Cloche (bientôt)",
+  "metro.soundRimshot": "Rimshot (bientôt)"
 };
 
 const LAUSCHEBAER_QUOTES_FR = [
@@ -13396,7 +14360,37 @@ Object.assign(TR_FR, {
   "Alle 3 Schlüssel, bis 3 Hilfslinien beidseitig & Vorzeichen (♯/♭)": "3 clés, jusqu’à 3 lignes suppl. des deux côtés & altérations (♯/♭)",
   "App-Reset": "Réinitialiser l’app",
   "App-Reset bestätigen?": "Confirmer la réinit. ?",
-  "Tippe erneut auf „App-Reset bestätigen?“, um alle lokalen Daten zu löschen und das Willkommens-Intro neu zu starten.": "Touchez encore « Confirmer la réinit. ? » pour effacer les données locales et relancer l’écran de bienvenue."
+  "Tippe erneut auf „App-Reset bestätigen?“, um alle lokalen Daten zu löschen und das Willkommens-Intro neu zu starten.": "Touchez encore « Confirmer la réinit. ? » pour effacer les données locales et relancer l’écran de bienvenue.",
+  "4/4 Standard": "4/4 Standard",
+  "3/4 Walzer": "3/4 Valse",
+  "4/4 Gap (3 stumm)": "4/4 Gap (3 muet)",
+  "Metronom": "Métronome",
+  "{bpm} BPM • {n} Zählzeiten": "{bpm} BPM • {n} temps",
+  "Largo (Sehr breit)": "Largo (Très large)",
+  "Adagio (Ruhig)": "Adagio (Calme)",
+  "Andante (Gehend)": "Andante (Allant)",
+  "Moderato (Mäßig)": "Moderato (Modéré)",
+  "Allegretto (Beschwingt)": "Allegretto (Assez animé)",
+  "Allegro (Lebhaft)": "Allegro (Vif)",
+  "Vivace (Sehr lebhaft)": "Vivace (Très vif)",
+  "Presto (Sehr schnell)": "Presto (Très rapide)",
+  "■ Metronom stoppen": "■ Arrêter le métronome",
+  "▶ Metronom starten": "▶ Lancer le métronome",
+  "{n} Taps · {bpm}": "{n} taps · {bpm}",
+  "Weiter tippen …": "Continuez à taper…",
+  "Tempo tippen": "Taper le tempo",
+  "Normal": "Normal",
+  "Akzent": "Accent",
+  "Akzentuiert": "Accentué",
+  "Stumm geschaltet": "Rendu muet",
+  "Zählzeit {n}: {state}": "Temps {n} : {state}",
+  "Zählzeit {n}: {state} (tippen zum Ändern)": "Temps {n} : {state} (toucher pour changer)",
+  "Noch keine Profile gespeichert. Lege oben ein eigenes Metronom-Preset ab!": "Aucun profil enregistré. Créez votre préréglage de métronome ci-dessus !",
+  "{n} Zählzeiten": "{n} temps",
+  "Aktuelle Werte in diesem Profil speichern": "Enregistrer les réglages actuels dans ce profil",
+  "Profil aktualisieren": "Mettre à jour le profil",
+  "Profil löschen": "Supprimer le profil",
+  "Eigene Klick- & Percussion-Sounds folgen in einem kommenden Update (im Masterplan vorgemerkt). Aktuell aktiv: Standard-Klick.": "Des sons de clic et de percussion personnalisés arriveront dans une prochaine mise à jour (prévus au Masterplan). Actif : Clic standard."
 });
 
 if (typeof registerLanguageBundle === "function") {
@@ -13487,6 +14481,8 @@ const I18N_STATIC_UK = {
   "home.catNotationDesc": "Читання нот у скрипковому, басовому й альтовому ключах",
   "home.catProduction": "Продакшн",
   "home.catProductionDesc": "Розпізнавай частоти та підсилення еквалайзера в рожевому шумі",
+  "home.toolMetronome": "Метроном",
+  "home.toolMetronomeDesc": "Tap-темп, долі та профілі",
   "home.voiceHeading": "Голос і хор",
   "home.catWarmup": "Розспівка",
   "home.catWarmupDesc": "5-хв програма: дихання, гудіння, арпеджіо та хорове злиття",
@@ -13728,7 +14724,37 @@ const I18N_STATIC_UK = {
   "space.tplCoastLight": "Ранкова роса • Світла",
   "space.tplCoastDark": "Ранкова роса • Темна",
   "space.tplDuskLight": "Теплі сутінки • Світла",
-  "space.tplDuskDark": "Теплі сутінки • Темна"
+  "space.tplDuskDark": "Теплі сутінки • Темна",
+  "metro.tapTitle": "Натискай для визначення темпу наживо (Tap Tempo)",
+  "metro.tapAria": "Tap-темп",
+  "metro.tapLabel": "TAP",
+  "metro.tapHint": "Відбити темп",
+  "metro.sliderAria": "Темп у BPM",
+  "metro.startBtn": "▶ Запустити метроном",
+  "metro.beatsHeading": "Долі такту й акценти",
+  "metro.beatRemoveTitle": "Прибрати долю",
+  "metro.beatAddTitle": "Додати долю",
+  "metro.presetsAria": "Шаблони розмірів",
+  "metro.beatsAria": "Долі такту",
+  "metro.stateAccent": "Акцент",
+  "metro.stateNormal": "Звичайна",
+  "metro.stateMuted": "Тиша",
+  "metro.subdivLabel": "Дроблення:",
+  "metro.sub1": "1×",
+  "metro.sub2": "2×",
+  "metro.sub3": "3×",
+  "metro.sub4": "4×",
+  "metro.profilesHeading": "Профілі метронома",
+  "metro.profileNamePlaceholder": "Назва профілю (напр. 7/8 Фанк · 116 BPM)",
+  "metro.profileNameAria": "Назва профілю метронома",
+  "metro.saveProfileBtn": "Зберегти",
+  "metro.soundHeading": "Звуки кліку",
+  "metro.soundPlaceholderBadge": "Плейсхолдер",
+  "metro.soundDesc": "Незабаром можна буде обирати різні кліки та перкусію (заплановано в майстер-плані). Зараз активний: Стандартний клік.",
+  "metro.soundStandard": "Стандартний клік",
+  "metro.soundWoodblock": "Вудблок (скоро)",
+  "metro.soundCowbell": "Ковбел (скоро)",
+  "metro.soundRimshot": "Рімшот (скоро)"
 };
 
 const LAUSCHEBAER_QUOTES_UK = [
@@ -15188,7 +16214,37 @@ Object.assign(TR_UK, {
   "Alle 3 Schlüssel, bis 3 Hilfslinien beidseitig & Vorzeichen (♯/♭)": "Усі 3 ключі, до 3 дод. лінійок в обидва боки й альтерація (♯/♭)",
   "App-Reset": "Скинути додаток",
   "App-Reset bestätigen?": "Підтвердити скидання?",
-  "Tippe erneut auf „App-Reset bestätigen?“, um alle lokalen Daten zu löschen und das Willkommens-Intro neu zu starten.": "Натисни «Підтвердити скидання?» ще раз, щоб стерти локальні дані й перезапустити вітальне інтро."
+  "Tippe erneut auf „App-Reset bestätigen?“, um alle lokalen Daten zu löschen und das Willkommens-Intro neu zu starten.": "Натисни «Підтвердити скидання?» ще раз, щоб стерти локальні дані й перезапустити вітальне інтро.",
+  "4/4 Standard": "4/4 Стандарт",
+  "3/4 Walzer": "3/4 Вальс",
+  "4/4 Gap (3 stumm)": "4/4 Пауза (3 тиха)",
+  "Metronom": "Метроном",
+  "{bpm} BPM • {n} Zählzeiten": "{bpm} BPM • {n} доль",
+  "Largo (Sehr breit)": "Largo (Дуже широко)",
+  "Adagio (Ruhig)": "Adagio (Повільно)",
+  "Andante (Gehend)": "Andante (Помірно спокійно)",
+  "Moderato (Mäßig)": "Moderato (Помірно)",
+  "Allegretto (Beschwingt)": "Allegretto (Пожвавлено)",
+  "Allegro (Lebhaft)": "Allegro (Швидко)",
+  "Vivace (Sehr lebhaft)": "Vivace (Жваво)",
+  "Presto (Sehr schnell)": "Presto (Дуже швидко)",
+  "■ Metronom stoppen": "■ Зупинити метроном",
+  "▶ Metronom starten": "▶ Запустити метроном",
+  "{n} Taps · {bpm}": "{n} тапів · {bpm}",
+  "Weiter tippen …": "Продовжуй натискати…",
+  "Tempo tippen": "Відбити темп",
+  "Normal": "Звичайна",
+  "Akzent": "Акцент",
+  "Akzentuiert": "Акцентована",
+  "Stumm geschaltet": "Вимкнена (тиша)",
+  "Zählzeit {n}: {state}": "Доля {n}: {state}",
+  "Zählzeit {n}: {state} (tippen zum Ändern)": "Доля {n}: {state} (натисни для зміни)",
+  "Noch keine Profile gespeichert. Lege oben ein eigenes Metronom-Preset ab!": "Ще немає збережених профілів. Створи власний пресет метронома вище!",
+  "{n} Zählzeiten": "{n} доль",
+  "Aktuelle Werte in diesem Profil speichern": "Оновити профіль поточними параметрами",
+  "Profil aktualisieren": "Оновити профіль",
+  "Profil löschen": "Видалити профіль",
+  "Eigene Klick- & Percussion-Sounds folgen in einem kommenden Update (im Masterplan vorgemerkt). Aktuell aktiv: Standard-Klick.": "Вибір власних звуків кліку й перкусії з’явиться в наступному оновленні (додано в майстер-план). Зараз активний: Стандартний клік."
 });
 
 if (typeof registerLanguageBundle === "function") {
@@ -31833,6 +32889,85 @@ function sanitizeExamHistoryArray(arr) {
   return arr.map((e, i) => sanitizeExamHistoryEntry(e, i)).filter(Boolean).slice(0, 25);
 }
 
+const METRONOME_MIN_BPM = 30;
+const METRONOME_MAX_BPM = 240;
+const METRONOME_DEFAULT_BPM = 120;
+const METRONOME_MIN_BEATS = 1;
+const METRONOME_MAX_BEATS = 16;
+const METRONOME_BEAT_STATES = ["normal", "accent", "muted"];
+const METRONOME_VALID_SUBDIVISIONS = [1, 2, 3, 4];
+
+function clampMetronomeBpm(bpm) {
+  const num = Math.round(Number(bpm) || METRONOME_DEFAULT_BPM);
+  return Math.max(METRONOME_MIN_BPM, Math.min(METRONOME_MAX_BPM, num));
+}
+
+function getDefaultMeterBeats(beatCount) {
+  const n = Math.max(METRONOME_MIN_BEATS, Math.min(METRONOME_MAX_BEATS, parseInt(beatCount, 10) || 4));
+  const out = [];
+  for (let i = 0; i < n; i++) {
+    if (i === 0) out.push("accent");
+    else if (n === 5 && i === 3) out.push("accent");
+    else if (n === 6 && i === 3) out.push("accent");
+    else if (n === 7 && (i === 2 || i === 4)) out.push("accent");
+    else out.push("normal");
+  }
+  return out;
+}
+
+function sanitizeMetronomeBeatsArray(rawBeats) {
+  if (!Array.isArray(rawBeats) || rawBeats.length === 0) {
+    return getDefaultMeterBeats(4);
+  }
+  return rawBeats
+    .slice(0, METRONOME_MAX_BEATS)
+    .map(v => (METRONOME_BEAT_STATES.includes(v) ? v : "normal"));
+}
+
+function createDefaultMetronomeProfiles() {
+  const t = typeof tr === "function" ? tr : ((de) => de);
+  return [
+    {
+      id: "metro_default_4_4",
+      name: t("4/4 Standard", "4/4 Standard"),
+      bpm: 120,
+      beats: ["accent", "normal", "normal", "normal"],
+      subdivision: 1
+    },
+    {
+      id: "metro_default_3_4",
+      name: t("3/4 Walzer", "3/4 Waltz"),
+      bpm: 104,
+      beats: ["accent", "normal", "normal"],
+      subdivision: 1
+    },
+    {
+      id: "metro_default_gap_4_4",
+      name: t("4/4 Gap (3 stumm)", "4/4 Gap (Beat 3 mute)"),
+      bpm: 96,
+      beats: ["accent", "normal", "muted", "normal"],
+      subdivision: 1
+    }
+  ];
+}
+
+function sanitizeMetronomeProfileEntry(raw, fallbackIdx = 0) {
+  if (!raw || typeof raw !== "object") return null;
+  const beats = sanitizeMetronomeBeatsArray(raw.beats);
+  const bpm = clampMetronomeBpm(raw.bpm);
+  const subRaw = parseInt(raw.subdivision, 10);
+  const subdivision = METRONOME_VALID_SUBDIVISIONS.includes(subRaw) ? subRaw : 1;
+  const fallbackName = `${beats.length}/4 · ${bpm} BPM`;
+  const name = String(raw.name || "").trim().slice(0, 32) || fallbackName;
+  return {
+    id: String(raw.id || `metro_${Date.now()}_${fallbackIdx}`).replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 48) || `metro_${fallbackIdx}`,
+    name,
+    bpm,
+    beats,
+    subdivision
+  };
+}
+
 function createDefaultProfile() {
   return {
     name: "",
@@ -31847,6 +32982,7 @@ function createDefaultProfile() {
     sessionMinutes: 10,
     inactivityMinutes: 3,
     mixes: createDefaultMixes(),
+    metronomeProfiles: createDefaultMetronomeProfiles(),
     customThemes: [null, null, null],
     examHistory: []
   };
@@ -31895,6 +33031,14 @@ function sanitizeUserProfile(raw) {
     mixes = raw.mixes.map((m, idx) => sanitizeMixEntry(m, idx)).filter(Boolean).slice(0, 16);
   }
 
+  let metronomeProfiles = def.metronomeProfiles;
+  if (Array.isArray(raw.metronomeProfiles)) {
+    metronomeProfiles = raw.metronomeProfiles
+      .map((mp, idx) => sanitizeMetronomeProfileEntry(mp, idx))
+      .filter(Boolean)
+      .slice(0, 16);
+  }
+
   const customThemes = Array.isArray(raw.customThemes)
     ? sanitizeCustomThemesArray(raw.customThemes)
     : def.customThemes;
@@ -31916,6 +33060,7 @@ function sanitizeUserProfile(raw) {
     sessionMinutes: sessMins,
     inactivityMinutes: idleMins,
     mixes: mixes,
+    metronomeProfiles: metronomeProfiles,
     customThemes: customThemes,
     examHistory: examHistory
   };
@@ -32158,6 +33303,14 @@ class AppState {
       breathCueText: "",
       vowelLabel: "",
       hintText: ""
+    };
+    this.metronomeReturnView = "home";
+    this.metronome = {
+      bpm: METRONOME_DEFAULT_BPM,
+      beats: getDefaultMeterBeats(4),
+      subdivision: 1,
+      running: false,
+      activeProfileId: "metro_default_4_4"
     };
     this.lastAnswerWasWrong = false;
     this.wrongAnswerData = null;
@@ -32544,6 +33697,14 @@ class AppState {
         : null;
       mainTitle.textContent = tr("Einsing-Helfer", "Vocal Warmup");
       el.textContent = `${preset ? preset.title : tr("5-Minuten Einsingen", "5-Min Warmup")} • ${range ? range.label : tr("Chor-Mitte", "Choir Mid")}`;
+    } else if (this.currentView === "metronome") {
+      const metro = this.metronome || {};
+      const beatLen = Array.isArray(metro.beats) ? metro.beats.length : 4;
+      mainTitle.textContent = tr("Metronom", "Metronome");
+      el.textContent = tf("{bpm} BPM • {n} Zählzeiten", "{bpm} BPM • {n} Beats", {
+        bpm: metro.bpm || METRONOME_DEFAULT_BPM,
+        n: beatLen
+      });
     } else if (this.currentView === "exercise" && this.exam?.active) {
       const curQ = Math.min((this.exam.currentIdx || 0) + 1, this.exam.totalQuestions || 1);
       const presetMeta = typeof getExamPresetById === "function" ? getExamPresetById(this.exam.categoryKey, this.exam.levelId) : null;
@@ -32773,6 +33934,9 @@ function setLanguagePreference(nextLang) {
 
   if (typeof renderWarmupView === "function" && state.currentView === "warmup") {
     renderWarmupView();
+  }
+  if (typeof renderMetronomeView === "function" && state.currentView === "metronome") {
+    renderMetronomeView();
   }
 
   state.updateHeaderSubtext();
@@ -34441,6 +35605,7 @@ function captureHistorySnapshot(modalName = getOpenModalName()) {
     knowledgeDetail: state.activeKnowledgeDetail ? { ...state.activeKnowledgeDetail } : null,
     exerciseReturnView: state.exerciseReturnView,
     warmupReturnView: state.warmupReturnView,
+    metronomeReturnView: state.metronomeReturnView,
     modal: modalName
   };
 }
@@ -34477,6 +35642,9 @@ function applyHistorySnapshot(snapshot) {
     }
     if (snapshot.warmupReturnView) {
       state.warmupReturnView = snapshot.warmupReturnView;
+    }
+    if (snapshot.metronomeReturnView) {
+      state.metronomeReturnView = snapshot.metronomeReturnView;
     }
     if (snapshot.activeCategory) {
       state.activeCategory = snapshot.activeCategory;
@@ -34555,6 +35723,8 @@ function navigateBackFromUI() {
     switchView(state.exerciseReturnView || "home", { skipHistoryPush: true });
   } else if (state.currentView === "warmup") {
     switchView(state.warmupReturnView || "category", { skipHistoryPush: true });
+  } else if (state.currentView === "metronome") {
+    switchView(state.metronomeReturnView || "home", { skipHistoryPush: true });
   } else if (state.currentView === "exam-result") {
     switchView(state.examResultReturnView || "exam-setup", { skipHistoryPush: true });
   } else if (state.currentView === "exam-setup") {
@@ -34592,7 +35762,7 @@ function getViewOrderInfo(view) {
   const tab = getTabForView(view) || "home";
   const tabIdx = MAIN_TAB_ORDER.indexOf(tab);
   let depth = 0;
-  if (view === "category" || view === "knowledge-detail") depth = 1;
+  if (view === "category" || view === "knowledge-detail" || view === "metronome") depth = 1;
   else if (view === "category-help" || view === "exam-setup") depth = 2;
   else if (view === "exercise" || view === "warmup") depth = 3;
   else if (view === "exam-result") depth = 4;
@@ -34770,7 +35940,7 @@ function initTabSwipeNavigation() {
       tracker = null;
       return;
     }
-    if (state.currentView === "exercise" || getOpenModalName() !== null) {
+    if (state.currentView === "exercise" || state.currentView === "metronome" || getOpenModalName() !== null) {
       tracker = null;
       return;
     }
@@ -34864,6 +36034,9 @@ function switchView(targetView, options = {}) {
   if (prevView === "warmup" && targetView !== "warmup" && typeof pauseWarmupSession === "function") {
     pauseWarmupSession({ keepPlayback: true });
   }
+  if (prevView === "metronome" && targetView !== "metronome" && typeof stopMetronome === "function") {
+    stopMetronome();
+  }
   stopPlayback();
   stopWaveAnimation();
   closeTransientPopovers();
@@ -34892,7 +36065,8 @@ function switchView(targetView, options = {}) {
     "knowledge-detail": document.getElementById("viewKnowledgeDetail"),
     space: document.getElementById("viewSpace"),
     exercise: document.getElementById("viewExercise"),
-    warmup: document.getElementById("viewWarmup")
+    warmup: document.getElementById("viewWarmup"),
+    metronome: document.getElementById("viewMetronome")
   };
 
   finishActiveViewLeave();
@@ -34944,7 +36118,7 @@ function switchView(targetView, options = {}) {
 
   const isMainTabView = targetView === "home" || targetView === "knowledge" || targetView === "space";
   const activeTab = getTabForView(targetView);
-  const showBottomNav = targetView !== "exercise" && targetView !== "warmup";
+  const showBottomNav = targetView !== "exercise" && targetView !== "warmup" && targetView !== "metronome";
   document.getElementById("bottomNav")?.classList.toggle("hidden", !showBottomNav);
   document.getElementById("backBtn")?.classList.toggle("hidden", isMainTabView);
   document.getElementById("brandLogoWrap")?.classList.toggle("hidden", !isMainTabView);
@@ -34964,6 +36138,8 @@ function switchView(targetView, options = {}) {
     renderExamResultView();
   } else if (targetView === "warmup" && typeof renderWarmupView === "function") {
     renderWarmupView();
+  } else if (targetView === "metronome" && typeof renderMetronomeView === "function") {
+    renderMetronomeView();
   }
 
   if (targetView === "exercise") {
@@ -43784,6 +44960,7 @@ function importUserProfileJSON(rawText) {
     applyProfileDisplayChanges();
     renderProfileAccountView();
     renderHomeProfileGreeting();
+    if (typeof renderMetronomeProfiles === "function") renderMetronomeProfiles();
     setSpaceBackupStatus(tr("Profil erfolgreich geladen!", "Profile loaded successfully!"));
     return { ok: true };
   } catch (_err) {
@@ -43814,6 +44991,7 @@ function resetUserProfile() {
   state.streakState = { count: 0, activeNoticeMilestone: 0 };
   if (typeof renderStageStreakUI === "function") renderStageStreakUI();
   stopSessionTimer("idle", null, "idle");
+  if (typeof resetMetronomeStateToDefault === "function") resetMetronomeStateToDefault();
   applyThemeAndAppearance();
   applyProfileDisplayChanges();
   renderProfileAccountView();
@@ -43826,6 +45004,7 @@ function resetUserProfile() {
 }
 
 function performFullAppReset() {
+  if (typeof stopMetronome === "function") stopMetronome();
   audioEngine?.stopPlayback?.();
   state.isPlaying = false;
   updatePlayButtonUI?.(false);
@@ -43888,12 +45067,14 @@ function performFullAppReset() {
   renderProfileAccountView();
   renderHomeProfileGreeting();
   renderHomeQuickMixBar();
+  if (typeof resetMetronomeStateToDefault === "function") resetMetronomeStateToDefault();
   state.updateQuickStartLabel();
   renderKnowledgeHub();
   pickRandomQuote();
   generateExercise();
 
   switchView("home", { animate: false, skipHistoryPush: true });
+  replaceAppHistory(null);
   openFirstRunOnboarding();
 }
 
@@ -44239,6 +45420,12 @@ document.addEventListener("DOMContentLoaded", () => {
       openCategoryPage(card.dataset.openCategory);
     });
   });
+
+  // Startseite: Metronom-Kachel öffnet das Praxis-Metronom
+  document.getElementById("openMetronomeBtn")?.addEventListener("click", () => {
+    openMetronomeView("home");
+  });
+  initMetronomeEventListeners();
 
   // Wissens-Hub: Reiter (Theorie & Artikel / Instrumentenkunde) & Kacheln
   document.querySelectorAll("[data-ktab]").forEach(btn => {
@@ -45139,6 +46326,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (state.currentView === "warmup") {
       e.preventDefault();
       toggleWarmupPlayPause();
+      return;
+    }
+
+    if (state.currentView === "metronome") {
+      e.preventDefault();
+      toggleMetronomePlayback();
       return;
     }
 
@@ -46286,6 +47479,749 @@ function openWarmupView(presetId = "full-5min", options = {}) {
   state.warmup.vowelLabel = "";
   state.warmup.hintText = "";
   switchView("warmup");
+}
+
+// =====================================================
+// PRAXIS-METRONOM (#viewMetronome)
+// =====================================================
+
+const METRONOME_TAP_TIMEOUT_MS = 2200;
+const METRONOME_TAP_MIN_INTERVAL_MS = 110;
+const METRONOME_TAP_MAX_TIMESTAMPS = 9;
+
+const _metroRuntime = {
+  runToken: 0,
+  intervalId: null,
+  nextNoteTime: 0,
+  currentBeatIndex: 0,
+  currentSubIndex: 0,
+  activeBeatIndex: -1,
+  swingLeft: false,
+  tapTimestamps: [],
+  lastTapPointerMs: 0,
+  tapPulseTimer: null,
+  tapResetTimer: null,
+  hitClearTimer: null,
+  visualTimers: []
+};
+
+function getMetronomeTempoMarking(bpm) {
+  const safe = clampMetronomeBpm(bpm);
+  if (safe < 52) return tr("Largo (Sehr breit)", "Largo (Very slow)");
+  if (safe < 68) return tr("Adagio (Ruhig)", "Adagio (Slow & expressive)");
+  if (safe < 88) return tr("Andante (Gehend)", "Andante (Walking pace)");
+  if (safe < 112) return tr("Moderato (Mäßig)", "Moderato (Moderate)");
+  if (safe < 132) return tr("Allegretto (Beschwingt)", "Allegretto (Moderately fast)");
+  if (safe < 164) return tr("Allegro (Lebhaft)", "Allegro (Fast & bright)");
+  if (safe < 192) return tr("Vivace (Sehr lebhaft)", "Vivace (Lively)");
+  return tr("Presto (Sehr schnell)", "Presto (Very fast)");
+}
+
+function cycleMetronomeBeatState(curState) {
+  if (curState === "normal") return "accent";
+  if (curState === "accent") return "muted";
+  return "normal";
+}
+
+/**
+ * Berechnet aus einer Zeitstempel-Historie ein geglättetes Tap-Tempo in BPM.
+ * Reine Funktion für UI-Taps und automatisierte Tests.
+ */
+function computeTapTempoFromHistory(timestamps, nowMs) {
+  const prev = Array.isArray(timestamps) ? timestamps : [];
+  const tNow = Number.isFinite(Number(nowMs)) ? Number(nowMs) : Date.now();
+  const last = prev.length > 0 ? prev[prev.length - 1] : null;
+
+  if (last !== null && tNow - last < METRONOME_TAP_MIN_INTERVAL_MS) {
+    return { timestamps: prev.slice(), bpm: null, tapCount: prev.length, ignoredBounce: true };
+  }
+
+  const base = (last !== null && tNow - last > METRONOME_TAP_TIMEOUT_MS) ? [] : prev.slice();
+  base.push(tNow);
+  const trimmed = base.slice(-METRONOME_TAP_MAX_TIMESTAMPS);
+
+  if (trimmed.length < 2) {
+    return { timestamps: trimmed, bpm: null, tapCount: trimmed.length, ignoredBounce: false };
+  }
+
+  const intervals = [];
+  for (let i = 1; i < trimmed.length; i++) {
+    const dt = trimmed[i] - trimmed[i - 1];
+    if (dt >= METRONOME_TAP_MIN_INTERVAL_MS && dt <= METRONOME_TAP_TIMEOUT_MS) {
+      intervals.push(dt);
+    }
+  }
+  if (intervals.length === 0) {
+    return { timestamps: [tNow], bpm: null, tapCount: 1, ignoredBounce: false };
+  }
+
+  // Bei 4+ Intervallen sanfte Ausreißer-Bereinigung (Min/Max verwerfen), sonst gerader Mittelwert
+  const used = intervals.length >= 4
+    ? intervals.slice().sort((a, b) => a - b).slice(1, -1)
+    : intervals;
+  const avgMs = used.reduce((sum, v) => sum + v, 0) / used.length;
+  const bpm = clampMetronomeBpm(60000 / avgMs);
+  return { timestamps: trimmed, bpm, tapCount: trimmed.length, ignoredBounce: false };
+}
+
+function resetMetronomeStateToDefault() {
+  stopMetronome();
+  state.metronome = {
+    bpm: METRONOME_DEFAULT_BPM,
+    beats: getDefaultMeterBeats(4),
+    subdivision: 1,
+    running: false,
+    activeProfileId: "metro_default_4_4"
+  };
+  _metroRuntime.tapTimestamps = [];
+  _metroRuntime.activeBeatIndex = -1;
+  renderMetronomeView();
+}
+
+function syncMetronomeTransportUI() {
+  const playBtn = document.getElementById("metroPlayStopBtn");
+  const running = Boolean(state.metronome?.running);
+  if (playBtn) {
+    playBtn.textContent = running
+      ? tr("■ Metronom stoppen", "■ Stop Metronome")
+      : tr("▶ Metronom starten", "▶ Start Metronome");
+    playBtn.classList.toggle("is-playing", running);
+    playBtn.classList.toggle("btn-stop", running);
+  }
+  const track = document.getElementById("metroPendulumTrack");
+  if (track) {
+    track.classList.toggle("is-running", running);
+    if (!running) {
+      track.classList.remove("swing-left", "swing-right", "is-accent-hit", "is-muted-hit");
+    }
+  }
+}
+
+function clearMetronomeVisualPulseClasses() {
+  if (_metroRuntime.hitClearTimer) {
+    clearTimeout(_metroRuntime.hitClearTimer);
+    _metroRuntime.hitClearTimer = null;
+  }
+  const grid = document.getElementById("metroBeatGrid");
+  if (grid && Array.isArray(grid.children)) {
+    grid.children.forEach(tile => {
+      tile.classList?.remove?.("is-current", "is-beat-hit");
+    });
+  }
+  const tapBtn = document.getElementById("metroTapCircle");
+  tapBtn?.classList?.remove?.("is-beat-accent", "is-beat-normal", "is-beat-muted");
+  const track = document.getElementById("metroPendulumTrack");
+  track?.classList?.remove?.("swing-left", "swing-right", "is-accent-hit", "is-muted-hit");
+}
+
+function triggerMetronomeBeatVisual(beatIdx, beatState) {
+  const beats = state.metronome?.beats || [];
+  if (!state.metronome?.running || beatIdx < 0 || beatIdx >= beats.length) return;
+
+  _metroRuntime.activeBeatIndex = beatIdx;
+  const grid = document.getElementById("metroBeatGrid");
+  if (grid && Array.isArray(grid.children)) {
+    grid.children.forEach((tile, idx) => {
+      if (!tile?.classList) return;
+      tile.classList.toggle("is-current", idx === beatIdx);
+      tile.classList.remove("is-beat-hit");
+      if (idx === beatIdx) {
+        tile.classList.add("is-beat-hit");
+      }
+    });
+  }
+
+  _metroRuntime.swingLeft = !_metroRuntime.swingLeft;
+  const track = document.getElementById("metroPendulumTrack");
+  if (track?.classList) {
+    track.classList.add("is-running");
+    track.classList.toggle("swing-left", _metroRuntime.swingLeft);
+    track.classList.toggle("swing-right", !_metroRuntime.swingLeft);
+    track.classList.toggle("is-accent-hit", beatState === "accent");
+    track.classList.toggle("is-muted-hit", beatState === "muted");
+  }
+
+  const tapCircle = document.getElementById("metroTapCircle");
+  if (tapCircle?.classList) {
+    tapCircle.classList.toggle("is-beat-accent", beatState === "accent");
+    tapCircle.classList.toggle("is-beat-normal", beatState === "normal");
+    tapCircle.classList.toggle("is-beat-muted", beatState === "muted");
+  }
+
+  if (_metroRuntime.hitClearTimer) clearTimeout(_metroRuntime.hitClearTimer);
+  const pulseMs = Math.max(90, Math.min(260, Math.round((60000 / clampMetronomeBpm(state.metronome.bpm)) * 0.45)));
+  _metroRuntime.hitClearTimer = setTimeout(() => {
+    _metroRuntime.hitClearTimer = null;
+    if (grid && Array.isArray(grid.children)) {
+      grid.children.forEach(tile => tile?.classList?.remove?.("is-beat-hit"));
+    }
+    tapCircle?.classList?.remove?.("is-beat-accent", "is-beat-normal", "is-beat-muted");
+  }, pulseMs);
+}
+
+function clearPendingMetronomeVisualTimers() {
+  if (Array.isArray(_metroRuntime.visualTimers)) {
+    _metroRuntime.visualTimers.forEach(id => clearTimeout(id));
+  }
+  _metroRuntime.visualTimers = [];
+}
+
+function advanceMetronomePointer() {
+  const beats = state.metronome.beats || ["accent", "normal", "normal", "normal"];
+  const beatCount = Math.max(1, beats.length);
+  const sub = METRONOME_VALID_SUBDIVISIONS.includes(state.metronome.subdivision) ? state.metronome.subdivision : 1;
+  const secPerStep = (60 / clampMetronomeBpm(state.metronome.bpm)) / sub;
+
+  _metroRuntime.nextNoteTime += secPerStep;
+  _metroRuntime.currentSubIndex += 1;
+  if (_metroRuntime.currentSubIndex >= sub) {
+    _metroRuntime.currentSubIndex = 0;
+    _metroRuntime.currentBeatIndex = (_metroRuntime.currentBeatIndex + 1) % beatCount;
+  }
+}
+
+function scheduleSingleMetronomeStep(beatIdx, subIdx, whenSec, nowAudioSec, runToken) {
+  const beats = state.metronome.beats || ["accent", "normal", "normal", "normal"];
+  const beatCount = Math.max(1, beats.length);
+  const safeIdx = ((beatIdx % beatCount) + beatCount) % beatCount;
+  const beatState = beats[safeIdx] || "normal";
+
+  if (beatState !== "muted" && audioEngine?.isInitialized) {
+    if (subIdx === 0) {
+      const kind = beatState === "accent" ? "accent" : "tick";
+      const vel = beatState === "accent" ? 1.0 : 0.8;
+      audioEngine.triggerPercussion(kind, whenSec, vel);
+    } else {
+      audioEngine.triggerPercussion("tick", whenSec, 0.3);
+    }
+  }
+
+  if (subIdx === 0) {
+    const delayMs = Math.max(0, Math.round((whenSec - nowAudioSec) * 1000));
+    if (delayMs <= 6) {
+      if (state.metronome.running && _metroRuntime.runToken === runToken) {
+        triggerMetronomeBeatVisual(safeIdx, beatState);
+      }
+    } else {
+      const vtId = setTimeout(() => {
+        _metroRuntime.visualTimers = _metroRuntime.visualTimers.filter(t => t !== vtId);
+        if (state.metronome.running && _metroRuntime.runToken === runToken) {
+          triggerMetronomeBeatVisual(safeIdx, beatState);
+        }
+      }, delayMs);
+      _metroRuntime.visualTimers.push(vtId);
+    }
+  }
+}
+
+function scheduleMetronomeLoop() {
+  if (!state.metronome?.running) return;
+  const runToken = _metroRuntime.runToken;
+  const nowAudio = (typeof Tone !== "undefined" && typeof Tone.now === "function") ? Tone.now() : 0;
+  const lookaheadSec = 0.11;
+
+  if (_metroRuntime.nextNoteTime < nowAudio - 0.5) {
+    _metroRuntime.nextNoteTime = nowAudio + 0.02;
+  }
+
+  let guard = 0;
+  while (state.metronome.running && _metroRuntime.nextNoteTime < nowAudio + lookaheadSec && guard < 16) {
+    guard += 1;
+    scheduleSingleMetronomeStep(_metroRuntime.currentBeatIndex, _metroRuntime.currentSubIndex, _metroRuntime.nextNoteTime, nowAudio, runToken);
+    advanceMetronomePointer();
+  }
+}
+
+async function startMetronome() {
+  unlockWebAudioSync();
+  stopPlayback();
+  _metroRuntime.runToken += 1;
+  const token = _metroRuntime.runToken;
+  state.metronome.running = true;
+  syncMetronomeTransportUI();
+
+  await ensureAudioReady();
+  if (!state.metronome.running || _metroRuntime.runToken !== token) return;
+
+  if (_metroRuntime.intervalId) {
+    clearInterval(_metroRuntime.intervalId);
+    _metroRuntime.intervalId = null;
+  }
+  clearPendingMetronomeVisualTimers();
+
+  const nowAudio = (typeof Tone !== "undefined" && typeof Tone.now === "function") ? Tone.now() : 0;
+  _metroRuntime.nextNoteTime = nowAudio + 0.04;
+  _metroRuntime.currentBeatIndex = 0;
+  _metroRuntime.currentSubIndex = 0;
+  _metroRuntime.activeBeatIndex = -1;
+  _metroRuntime.swingLeft = false;
+
+  scheduleMetronomeLoop();
+  _metroRuntime.intervalId = setInterval(() => {
+    scheduleMetronomeLoop();
+  }, 25);
+}
+
+function stopMetronome() {
+  _metroRuntime.runToken += 1;
+  if (_metroRuntime.intervalId) {
+    clearInterval(_metroRuntime.intervalId);
+    _metroRuntime.intervalId = null;
+  }
+  clearPendingMetronomeVisualTimers();
+  _metroRuntime.activeBeatIndex = -1;
+  if (state?.metronome) {
+    state.metronome.running = false;
+  }
+  clearMetronomeVisualPulseClasses();
+  syncMetronomeTransportUI();
+}
+
+function toggleMetronomePlayback() {
+  if (state.metronome?.running) {
+    stopMetronome();
+    return Promise.resolve(false);
+  }
+  return startMetronome().then(() => Boolean(state.metronome?.running));
+}
+
+function renderMetronomeBpmUI() {
+  const bpm = clampMetronomeBpm(state.metronome?.bpm);
+  const valEl = document.getElementById("metroBpmValue");
+  if (valEl) valEl.textContent = String(bpm);
+  const sliderEl = document.getElementById("metroBpmSlider");
+  if (sliderEl) sliderEl.value = String(bpm);
+  const nameEl = document.getElementById("metroTempoName");
+  if (nameEl) nameEl.textContent = getMetronomeTempoMarking(bpm);
+  if (state.currentView === "metronome") {
+    state.updateHeaderSubtext();
+  }
+}
+
+function setMetronomeBpm(nextBpm) {
+  const clamped = clampMetronomeBpm(nextBpm);
+  state.metronome.bpm = clamped;
+  renderMetronomeBpmUI();
+  renderMetronomeProfiles();
+  return clamped;
+}
+
+function adjustMetronomeBpm(delta) {
+  const step = parseInt(delta, 10) || 0;
+  return setMetronomeBpm((state.metronome?.bpm || METRONOME_DEFAULT_BPM) + step);
+}
+
+function handleMetronomeTap(customNowMs = null) {
+  const nowMs = Number.isFinite(Number(customNowMs))
+    ? Number(customNowMs)
+    : (typeof performance !== "undefined" && typeof performance.now === "function" ? performance.now() : Date.now());
+  const res = computeTapTempoFromHistory(_metroRuntime.tapTimestamps, nowMs);
+  if (res.ignoredBounce) return null;
+
+  _metroRuntime.tapTimestamps = res.timestamps;
+  const tapBtn = document.getElementById("metroTapCircle");
+  if (tapBtn?.classList) {
+    tapBtn.classList.remove("is-tap-pulse");
+    tapBtn.classList.add("is-tap-pulse");
+    if (_metroRuntime.tapPulseTimer) clearTimeout(_metroRuntime.tapPulseTimer);
+    _metroRuntime.tapPulseTimer = setTimeout(() => {
+      _metroRuntime.tapPulseTimer = null;
+      tapBtn.classList.remove("is-tap-pulse");
+    }, 240);
+  }
+
+  if (res.bpm !== null) {
+    setMetronomeBpm(res.bpm);
+  }
+
+  const tapSub = document.getElementById("metroTapSub");
+  if (tapSub) {
+    tapSub.textContent = res.bpm !== null
+      ? tf("{n} Taps · {bpm}", "{n} taps · {bpm}", { n: res.tapCount, bpm: res.bpm })
+      : tr("Weiter tippen …", "Keep tapping …");
+  }
+
+  if (_metroRuntime.tapResetTimer) clearTimeout(_metroRuntime.tapResetTimer);
+  _metroRuntime.tapResetTimer = setTimeout(() => {
+    _metroRuntime.tapResetTimer = null;
+    _metroRuntime.tapTimestamps = [];
+    const sub = document.getElementById("metroTapSub");
+    if (sub) sub.textContent = tr("Tempo tippen", "Tap tempo");
+  }, METRONOME_TAP_TIMEOUT_MS + 150);
+
+  return res.bpm;
+}
+
+function syncMetronomeBeatTileAppearance(tile, beatIdx, beatState) {
+  if (!tile) return;
+  const stateClass = `state-${beatState}`;
+  tile.classList.remove("state-normal", "state-accent", "state-muted");
+  tile.classList.add(stateClass);
+  tile.dataset.beatState = beatState;
+
+  const getLabel = (key, deFallback, enFallback) =>
+    (typeof getStaticI18nText === "function" && getStaticI18nText(key)) || tr(deFallback, enFallback);
+  const num = beatIdx + 1;
+  let glyphHtml = "●";
+  let badgeText = getLabel("metro.stateNormal", "Normal", "Normal");
+  let stateDesc = tr("Normal", "Normal");
+  if (beatState === "accent") {
+    glyphHtml = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 17l2-9 6 4 6-4 2 9H4z"/></svg>`;
+    badgeText = getLabel("metro.stateAccent", "Akzent", "Accent");
+    stateDesc = tr("Akzentuiert", "Accented");
+  } else if (beatState === "muted") {
+    glyphHtml = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="22" y1="9" x2="16" y2="15"/><line x1="16" y1="9" x2="22" y2="15"/></svg>`;
+    badgeText = getLabel("metro.stateMuted", "Stumm", "Mute");
+    stateDesc = tr("Stumm geschaltet", "Muted");
+  }
+
+  tile.setAttribute?.("aria-label", tf("Zählzeit {n}: {state}", "Beat {n}: {state}", { n: num, state: stateDesc }));
+  tile.setAttribute?.("title", tf("Zählzeit {n}: {state} (tippen zum Ändern)", "Beat {n}: {state} (tap to cycle)", { n: num, state: stateDesc }));
+  tile.innerHTML = `<span class="metro-beat-num">${num}</span><span class="metro-beat-indicator">${glyphHtml}</span><span class="metro-beat-state-lbl">${escapeHtml(badgeText)}</span>`;
+}
+
+function renderMetronomeBeatGrid() {
+  const beats = sanitizeMetronomeBeatsArray(state.metronome?.beats);
+  state.metronome.beats = beats;
+  const sub = METRONOME_VALID_SUBDIVISIONS.includes(state.metronome.subdivision) ? state.metronome.subdivision : 1;
+
+  const countEl = document.getElementById("metroBeatCountVal");
+  if (countEl) countEl.textContent = String(beats.length);
+
+  document.querySelectorAll("[data-metro-meter]").forEach(btn => {
+    const m = parseInt(btn.dataset.metroMeter, 10);
+    btn.classList.toggle("active", m === beats.length);
+  });
+
+  document.querySelectorAll("[data-metro-subdiv]").forEach(btn => {
+    const s = parseInt(btn.dataset.metroSubdiv, 10);
+    btn.classList.toggle("active", s === sub);
+  });
+
+  const grid = document.getElementById("metroBeatGrid");
+  if (!grid || typeof document.createElement !== "function") return;
+  grid.innerHTML = "";
+
+  beats.forEach((beatState, idx) => {
+    const tile = document.createElement("button");
+    tile.type = "button";
+    tile.className = "metro-beat-tile";
+    tile.dataset.metroBeat = String(idx);
+    syncMetronomeBeatTileAppearance(tile, idx, beatState);
+    if (state.metronome.running && _metroRuntime.activeBeatIndex === idx) {
+      tile.classList.add("is-current");
+    }
+    tile.addEventListener("click", () => {
+      toggleMetronomeBeatState(idx);
+    });
+    grid.appendChild(tile);
+  });
+
+  if (state.currentView === "metronome") {
+    state.updateHeaderSubtext();
+  }
+}
+
+function toggleMetronomeBeatState(index) {
+  const beats = sanitizeMetronomeBeatsArray(state.metronome?.beats);
+  if (index < 0 || index >= beats.length) return null;
+  const nextState = cycleMetronomeBeatState(beats[index]);
+  beats[index] = nextState;
+  state.metronome.beats = beats;
+  state.metronome.activeProfileId = null;
+
+  const grid = document.getElementById("metroBeatGrid");
+  const tile = grid && Array.isArray(grid.children) ? grid.children[index] : null;
+  if (tile) {
+    syncMetronomeBeatTileAppearance(tile, index, nextState);
+  } else {
+    renderMetronomeBeatGrid();
+  }
+  renderMetronomeProfiles();
+  return nextState;
+}
+
+function setMetronomeBeatCount(nextCount) {
+  const targetCount = Math.max(METRONOME_MIN_BEATS, Math.min(METRONOME_MAX_BEATS, parseInt(nextCount, 10) || 4));
+  const cur = sanitizeMetronomeBeatsArray(state.metronome?.beats);
+  if (targetCount > cur.length) {
+    while (cur.length < targetCount) cur.push("normal");
+  } else if (targetCount < cur.length) {
+    cur.length = targetCount;
+  }
+  state.metronome.beats = cur;
+  state.metronome.activeProfileId = null;
+  if (_metroRuntime.currentBeatIndex >= targetCount) _metroRuntime.currentBeatIndex = 0;
+  if (_metroRuntime.activeBeatIndex >= targetCount) _metroRuntime.activeBeatIndex = 0;
+  renderMetronomeBeatGrid();
+  renderMetronomeProfiles();
+  return cur.length;
+}
+
+function applyMetronomeMeterPreset(beatCount) {
+  const n = Math.max(METRONOME_MIN_BEATS, Math.min(METRONOME_MAX_BEATS, parseInt(beatCount, 10) || 4));
+  state.metronome.beats = getDefaultMeterBeats(n);
+  state.metronome.activeProfileId = null;
+  _metroRuntime.currentBeatIndex = 0;
+  _metroRuntime.activeBeatIndex = -1;
+  renderMetronomeBeatGrid();
+  renderMetronomeProfiles();
+  return state.metronome.beats.slice();
+}
+
+function setMetronomeSubdivision(sub) {
+  const num = parseInt(sub, 10);
+  const valid = METRONOME_VALID_SUBDIVISIONS.includes(num) ? num : 1;
+  state.metronome.subdivision = valid;
+  _metroRuntime.currentSubIndex = 0;
+  renderMetronomeBeatGrid();
+  renderMetronomeProfiles();
+  return valid;
+}
+
+function renderMetronomeProfiles() {
+  const listEl = document.getElementById("metroProfileList");
+  const countEl = document.getElementById("metroProfilesCount");
+  const profiles = Array.isArray(state.profile?.metronomeProfiles) ? state.profile.metronomeProfiles : [];
+  if (countEl) countEl.textContent = String(profiles.length);
+  if (!listEl || typeof document.createElement !== "function") return;
+  listEl.innerHTML = "";
+
+  if (profiles.length === 0) {
+    const empty = document.createElement("p");
+    empty.className = "metro-sound-desc";
+    empty.textContent = tr(
+      "Noch keine Profile gespeichert. Lege oben ein eigenes Metronom-Preset ab!",
+      "No profiles saved yet. Store your current metronome setup above!"
+    );
+    listEl.appendChild(empty);
+    return;
+  }
+
+  profiles.forEach(prof => {
+    const row = document.createElement("div");
+    row.className = "metro-profile-row";
+    const isActive = state.metronome?.activeProfileId === prof.id;
+    row.classList.toggle("is-active", isActive);
+    row.dataset.metroProfileId = prof.id;
+
+    const loadBtn = document.createElement("button");
+    loadBtn.type = "button";
+    loadBtn.className = "metro-profile-load-btn";
+    const dotsHtml = (prof.beats || []).map(st => `<span class="metro-pdot is-${st}"></span>`).join("");
+    const subTag = prof.subdivision > 1 ? ` · ${prof.subdivision}×` : "";
+    loadBtn.innerHTML = `
+      <span class="metro-profile-name">${escapeHtml(prof.name)}</span>
+      <span class="metro-profile-meta">
+        <span>${prof.bpm} BPM</span>
+        <span>·</span>
+        <span>${tf("{n} Zählzeiten", "{n} beats", { n: (prof.beats || []).length })}${subTag}</span>
+        <span class="metro-profile-dots" aria-hidden="true">${dotsHtml}</span>
+      </span>
+    `;
+    loadBtn.addEventListener("click", () => {
+      loadMetronomeProfile(prof.id);
+    });
+
+    const actions = document.createElement("div");
+    actions.className = "metro-profile-actions";
+
+    const updateBtn = document.createElement("button");
+    updateBtn.type = "button";
+    updateBtn.className = "metro-profile-icon-btn";
+    updateBtn.textContent = "↻";
+    updateBtn.title = tr("Aktuelle Werte in diesem Profil speichern", "Update profile with current settings");
+    updateBtn.setAttribute?.("aria-label", tr("Profil aktualisieren", "Update profile"));
+    updateBtn.addEventListener("click", () => {
+      overwriteMetronomeProfile(prof.id);
+    });
+
+    const delBtn = document.createElement("button");
+    delBtn.type = "button";
+    delBtn.className = "metro-profile-icon-btn is-delete";
+    delBtn.textContent = "✕";
+    delBtn.title = tr("Profil löschen", "Delete profile");
+    delBtn.setAttribute?.("aria-label", tr("Profil löschen", "Delete profile"));
+    delBtn.addEventListener("click", () => {
+      deleteMetronomeProfile(prof.id);
+    });
+
+    actions.appendChild(updateBtn);
+    actions.appendChild(delBtn);
+    row.appendChild(loadBtn);
+    row.appendChild(actions);
+    listEl.appendChild(row);
+  });
+}
+
+function saveCurrentMetronomeProfile(nameOverride = null) {
+  if (!state.profile) return null;
+  if (!Array.isArray(state.profile.metronomeProfiles)) {
+    state.profile.metronomeProfiles = [];
+  }
+  const inputEl = document.getElementById("metroProfileNameInput");
+  const rawName = nameOverride !== null && nameOverride !== undefined
+    ? String(nameOverride)
+    : String(inputEl?.value || "");
+  const beats = sanitizeMetronomeBeatsArray(state.metronome?.beats);
+  const bpm = clampMetronomeBpm(state.metronome?.bpm);
+  const sub = METRONOME_VALID_SUBDIVISIONS.includes(state.metronome?.subdivision) ? state.metronome.subdivision : 1;
+  const cleanName = rawName.trim().slice(0, 32) || `${beats.length}/4 · ${bpm} BPM`;
+
+  const newEntry = sanitizeMetronomeProfileEntry({
+    id: `metro_${Date.now()}_${Math.floor(Math.random() * 1000)}`,
+    name: cleanName,
+    bpm,
+    beats,
+    subdivision: sub
+  }, state.profile.metronomeProfiles.length);
+
+  state.profile.metronomeProfiles = [newEntry, ...state.profile.metronomeProfiles].slice(0, 16);
+  state.metronome.activeProfileId = newEntry.id;
+  if (inputEl && nameOverride === null) inputEl.value = "";
+  saveUserProfile(state.profile);
+  renderMetronomeProfiles();
+  return newEntry;
+}
+
+function loadMetronomeProfile(profileId) {
+  const list = state.profile?.metronomeProfiles || [];
+  const found = list.find(p => p.id === profileId);
+  if (!found) return false;
+  state.metronome.bpm = clampMetronomeBpm(found.bpm);
+  state.metronome.beats = sanitizeMetronomeBeatsArray(found.beats);
+  state.metronome.subdivision = METRONOME_VALID_SUBDIVISIONS.includes(found.subdivision) ? found.subdivision : 1;
+  state.metronome.activeProfileId = found.id;
+  _metroRuntime.currentBeatIndex = 0;
+  _metroRuntime.currentSubIndex = 0;
+  renderMetronomeView();
+  return true;
+}
+
+function overwriteMetronomeProfile(profileId) {
+  const list = state.profile?.metronomeProfiles || [];
+  const idx = list.findIndex(p => p.id === profileId);
+  if (idx === -1) return false;
+  const existing = list[idx];
+  list[idx] = sanitizeMetronomeProfileEntry({
+    ...existing,
+    bpm: clampMetronomeBpm(state.metronome?.bpm),
+    beats: sanitizeMetronomeBeatsArray(state.metronome?.beats),
+    subdivision: state.metronome?.subdivision || 1
+  }, idx);
+  state.metronome.activeProfileId = list[idx].id;
+  saveUserProfile(state.profile);
+  renderMetronomeProfiles();
+  return true;
+}
+
+function deleteMetronomeProfile(profileId) {
+  if (!state.profile || !Array.isArray(state.profile.metronomeProfiles)) return false;
+  const before = state.profile.metronomeProfiles.length;
+  state.profile.metronomeProfiles = state.profile.metronomeProfiles.filter(p => p.id !== profileId);
+  if (state.metronome.activeProfileId === profileId) {
+    state.metronome.activeProfileId = null;
+  }
+  saveUserProfile(state.profile);
+  renderMetronomeProfiles();
+  return state.profile.metronomeProfiles.length < before;
+}
+
+function renderMetronomeView() {
+  renderMetronomeBpmUI();
+  renderMetronomeBeatGrid();
+  renderMetronomeProfiles();
+  syncMetronomeTransportUI();
+}
+
+function openMetronomeView(returnView = "home") {
+  state.metronomeReturnView = returnView;
+  _metroRuntime.tapTimestamps = [];
+  const tapSub = document.getElementById("metroTapSub");
+  if (tapSub) tapSub.textContent = tr("Tempo tippen", "Tap tempo");
+  const noticeEl = document.getElementById("metroSoundNotice");
+  if (noticeEl) {
+    noticeEl.textContent = "";
+    noticeEl.classList.add("hidden");
+  }
+  switchView("metronome");
+}
+
+function initMetronomeEventListeners() {
+  const tapCircle = document.getElementById("metroTapCircle");
+  if (tapCircle && !tapCircle._metroBound) {
+    tapCircle._metroBound = true;
+    tapCircle.addEventListener("pointerdown", () => {
+      _metroRuntime.lastTapPointerMs = Date.now();
+      handleMetronomeTap();
+    });
+    tapCircle.addEventListener("click", () => {
+      if (Date.now() - _metroRuntime.lastTapPointerMs < 350) return;
+      handleMetronomeTap();
+    });
+  }
+
+  document.getElementById("metroBpmSlider")?.addEventListener("input", (e) => {
+    setMetronomeBpm(parseInt(e.target?.value, 10) || METRONOME_DEFAULT_BPM);
+  });
+
+  [
+    ["metroBpmMinus5Btn", -5],
+    ["metroBpmMinusBtn", -1],
+    ["metroBpmPlusBtn", 1],
+    ["metroBpmPlus5Btn", 5]
+  ].forEach(([id, delta]) => {
+    document.getElementById(id)?.addEventListener("click", () => adjustMetronomeBpm(delta));
+  });
+
+  document.getElementById("metroPlayStopBtn")?.addEventListener("click", () => {
+    toggleMetronomePlayback();
+  });
+
+  document.getElementById("metroBeatDecBtn")?.addEventListener("click", () => {
+    setMetronomeBeatCount((state.metronome?.beats?.length || 4) - 1);
+  });
+  document.getElementById("metroBeatIncBtn")?.addEventListener("click", () => {
+    setMetronomeBeatCount((state.metronome?.beats?.length || 4) + 1);
+  });
+
+  document.querySelectorAll("[data-metro-meter]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      applyMetronomeMeterPreset(parseInt(btn.dataset.metroMeter, 10));
+    });
+  });
+
+  document.querySelectorAll("[data-metro-subdiv]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      setMetronomeSubdivision(parseInt(btn.dataset.metroSubdiv, 10));
+    });
+  });
+
+  document.getElementById("metroProfileSaveForm")?.addEventListener("submit", (e) => {
+    e?.preventDefault?.();
+    saveCurrentMetronomeProfile();
+  });
+  document.getElementById("metroSaveProfileBtn")?.addEventListener("click", () => {
+    saveCurrentMetronomeProfile();
+  });
+
+  document.querySelectorAll("[data-metro-sound-slot]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const slot = btn.dataset.metroSoundSlot;
+      const noticeEl = document.getElementById("metroSoundNotice");
+      if (!noticeEl) return;
+      if (slot === "standard") {
+        noticeEl.textContent = "";
+        noticeEl.classList.add("hidden");
+      } else {
+        noticeEl.textContent = tr(
+          "Eigene Klick- & Percussion-Sounds folgen in einem kommenden Update (im Masterplan vorgemerkt). Aktuell aktiv: Standard-Klick.",
+          "Custom click & percussion sounds will follow in a future update (planned on the Masterplan). Currently active: Standard Click."
+        );
+        noticeEl.classList.remove("hidden");
+      }
+    });
+  });
 }
 
 const _welcomeOnboardingState = {
