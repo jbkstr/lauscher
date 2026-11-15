@@ -74,6 +74,8 @@
 
   --shadow-card: 0 4px 16px rgba(61, 64, 91, 0.06);
   --shadow-float: 0 10px 28px rgba(61, 64, 91, 0.14);
+  --tactile-edge: rgba(61, 64, 91, 0.14);
+  --tactile-edge-solid: rgba(24, 26, 40, 0.24);
   color-scheme: light;
 }
 
@@ -204,6 +206,8 @@
 
   --shadow-card: 0 4px 16px rgba(10, 12, 16, 0.28);
   --shadow-float: 0 12px 30px rgba(8, 10, 14, 0.42);
+  --tactile-edge: rgba(8, 10, 14, 0.42);
+  --tactile-edge-solid: rgba(8, 10, 14, 0.46);
   color-scheme: dark;
 }
 
@@ -5508,6 +5512,284 @@ body,
   }
 }
 
+/* ==========================================
+   TAKTILES 3D-GEFÜHL, SOFORT-JUICE & STREAK-HINWEISE
+   ========================================== */
+.degree-btn,
+.opt-btn,
+.tonic-btn,
+.popover-pill-btn,
+.k-filter-pill,
+.btn-primary-action,
+.btn-secondary-action,
+.dock-action-btn,
+.btn-tool,
+.category-nav-card,
+.rhythm-tap-pad {
+  transition: transform 95ms cubic-bezier(0.22, 1, 0.36, 1),
+              background-color 150ms ease,
+              border-color 150ms ease,
+              box-shadow 95ms ease,
+              color 150ms ease,
+              opacity 140ms ease;
+}
+
+.degree-btn {
+  position: relative;
+  box-shadow: 0 2.5px 0 var(--tactile-edge), var(--shadow-card);
+}
+
+.degree-btn:active {
+  transform: translateY(2px) scale(0.988);
+  box-shadow: 0 0.5px 0 var(--tactile-edge), 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.degree-btn.btn-correct {
+  box-shadow: 0 2.5px 0 var(--sage-strong), 0 6px 14px rgba(46, 111, 78, 0.14);
+}
+
+.opt-btn,
+.popover-pill-btn,
+.k-filter-pill,
+.tonic-btn {
+  box-shadow: 0 2px 0 var(--tactile-edge);
+}
+
+.opt-btn:active,
+.popover-pill-btn:active,
+.k-filter-pill:active,
+.tonic-btn:active {
+  transform: translateY(1.5px) scale(0.985);
+  box-shadow: 0 0.5px 0 var(--tactile-edge);
+}
+
+.btn-primary-action,
+.btn-secondary-action,
+.dock-action-btn,
+.btn-tool {
+  box-shadow: 0 2.5px 0 var(--tactile-edge-solid), var(--shadow-card);
+}
+
+.btn-primary-action:active,
+.btn-secondary-action:active,
+.dock-action-btn:active,
+.btn-tool:active {
+  transform: translateY(2px) scale(0.988);
+  box-shadow: 0 0.5px 0 var(--tactile-edge-solid);
+  opacity: 0.96;
+}
+
+.dock-action-btn.btn-stop {
+  box-shadow: 0 2.5px 0 var(--tactile-edge), var(--shadow-card);
+}
+
+.category-nav-card {
+  box-shadow: 0 2px 0 var(--tactile-edge), var(--shadow-card);
+}
+
+.category-nav-card:active {
+  transform: translateY(1.5px) scale(0.992);
+  box-shadow: 0 0.5px 0 var(--tactile-edge);
+}
+
+.rhythm-tap-pad {
+  box-shadow: 0 3px 0 var(--tactile-edge), var(--shadow-card);
+}
+
+.rhythm-tap-pad.is-ready {
+  box-shadow: 0 3px 0 var(--sage-strong), 0 6px 20px rgba(46, 111, 78, 0.16);
+}
+
+.rhythm-tap-pad:active,
+.rhythm-tap-pad.is-hit {
+  transform: translateY(2.5px) scale(0.986);
+  box-shadow: 0 0.5px 0 var(--tactile-edge);
+}
+
+.piano-white-key:not(.piano-key-frame):not(.piano-key-inactive) {
+  box-shadow: inset 0 -3px 0 rgba(61, 64, 91, 0.11);
+}
+
+.piano-white-key:not(.piano-key-frame):not(.piano-key-inactive):active {
+  transform: translateY(2px);
+  box-shadow: inset 0 -1px 0 rgba(61, 64, 91, 0.08);
+}
+
+.piano-black-key.key-in-scale {
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.28), inset 0 -2px 0 rgba(255, 255, 255, 0.09);
+}
+
+.piano-black-key.key-in-scale:active {
+  transform: translate(-50%, 2px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.central-stage {
+  position: relative;
+}
+
+.central-stage.stage-celebrate {
+  animation: stageCelebrateGlow 560ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.stage-mascot.mascot-happy-hop {
+  animation: mascotHappyHop 480ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.stage-streak-pill {
+  position: absolute;
+  top: 0.44rem;
+  right: 0.54rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.22rem;
+  padding: 0.15rem 0.48rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--peach-soft);
+  border: 1px solid var(--peach);
+  color: var(--peach-strong);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.stage-streak-pill.is-high {
+  background-color: var(--sage-soft);
+  border-color: var(--sage-strong);
+  color: var(--sage-strong);
+}
+
+.stage-streak-notice {
+  margin-top: 0.32rem;
+  padding: 0.18rem 0.62rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--peach-soft);
+  border: 1px solid var(--peach);
+  color: var(--peach-strong);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  animation: streakNoticeIn 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.stage-streak-notice.is-high {
+  background-color: var(--sage-soft);
+  border-color: var(--sage-strong);
+  color: var(--sage-strong);
+}
+
+.central-stage.is-solfege .stage-streak-pill {
+  top: 0.34rem;
+  right: 0.42rem;
+  font-size: 0.56rem;
+  padding: 0.12rem 0.42rem;
+}
+
+.central-stage.is-solfege .stage-streak-notice {
+  font-size: 0.63rem;
+  padding: 0.14rem 0.52rem;
+  margin-top: 0.24rem;
+}
+
+.stage-burst-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 8;
+}
+
+.juice-particle {
+  position: absolute;
+  left: var(--jx0, 50%);
+  top: var(--jy0, 34%);
+  pointer-events: none;
+  font-weight: 900;
+  line-height: 1;
+  z-index: 12;
+  opacity: 0;
+  animation: juiceFloat var(--jd, 620ms) cubic-bezier(0.16, 1, 0.3, 1) var(--jdelay, 0ms) forwards;
+}
+
+.juice-particle.is-symbol {
+  width: var(--jsize, 16px);
+  height: var(--jsize, 16px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.juice-particle.is-symbol svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+@keyframes stageCelebrateGlow {
+  0% { transform: scale(1); }
+  38% {
+    transform: scale(1.02);
+    box-shadow: 0 0 0 6px var(--sage-soft), var(--shadow-float);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: var(--shadow-card);
+  }
+}
+
+@keyframes mascotHappyHop {
+  0% { transform: translateY(0) scale(1.02) rotate(0deg); }
+  36% { transform: translateY(-6px) scale(1.15) rotate(-3.5deg); }
+  70% { transform: translateY(1.5px) scale(1.06) rotate(2deg); }
+  100% { transform: translateY(0) scale(1.06) rotate(0deg); }
+}
+
+@keyframes streakNoticeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes juiceFloat {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.55) rotate(0deg);
+  }
+  22% {
+    opacity: 0.94;
+    transform: translate(
+      calc(-50% + var(--jx, 0px) * 0.35),
+      calc(-50% + var(--jy, -29px) * 0.35)
+    ) scale(1.18) rotate(calc(var(--jr, 0deg) * 0.4));
+  }
+  100% {
+    opacity: 0;
+    transform: translate(
+      calc(-50% + var(--jx, 0px)),
+      calc(-50% + var(--jy, -34px))
+    ) scale(0.84) rotate(var(--jr, 0deg));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .central-stage.stage-celebrate,
+  .stage-mascot.mascot-happy-hop,
+  .stage-streak-notice {
+    animation: none !important;
+  }
+  .juice-particle {
+    display: none !important;
+  }
+}
+
 .hidden, .modal-hidden {
   display: none !important;
 }
@@ -6554,10 +6836,13 @@ body,
 
       <div class="stage-wrapper">
         <div id="centralStageCard" class="central-stage stage-idle">
+          <div id="stageStreakPill" class="stage-streak-pill hidden" aria-live="polite"></div>
+          <div id="stageBurstLayer" class="stage-burst-layer" aria-hidden="true"></div>
           <div id="stageMascotWrap" class="stage-mascot"></div>
           <span id="stageSubtext" class="stage-sub">STATUS</span>
           <div id="stageMainText" class="stage-main">Bereit</div>
           <span id="stageFunctionText" class="stage-desc">Drücke unten auf Abspielen</span>
+          <div id="stageStreakNotice" class="stage-streak-notice hidden" aria-live="polite"></div>
         </div>
       </div>
 
@@ -8883,8 +9168,8 @@ const INTERVALS_EN = {
 };
 
 const CHORDS_EN = {
-  "maj":   { symbol: "Maj",     label: "Major Triad (1–3–5)",            short: "Major" },
-  "min":   { symbol: "Min",     label: "Minor Triad (1–♭3–5)",           short: "Minor" },
+  "maj":   { symbol: "maj",     label: "Major Triad (1–3–5)",            short: "Major" },
+  "min":   { symbol: "m",       label: "Minor Triad (1–♭3–5)",           short: "Minor" },
   "dim":   { symbol: "dim",     label: "Diminished Triad (1–♭3–♭5)",     short: "Diminished" },
   "aug":   { symbol: "aug",     label: "Augmented Triad (1–3–♯5)",       short: "Augmented" },
   "sus4":  { symbol: "sus4",    label: "Suspended 4th (1–4–5)",          short: "Sus 4" },
@@ -10585,7 +10870,7 @@ const CATEGORY_HELP_GUIDES_EN = {
 
       <h3>Chord Difficulty (4 Levels)</h3>
       <ul class="article-steps-list">
-        <li><strong>Level 1 – Basic Triads:</strong> The four core triads: <code>Major</code>, <code>Minor</code>, Diminished (<code>dim</code>), and Augmented (<code>aug</code>).</li>
+        <li><strong>Level 1 – Basic Triads:</strong> The four core triads: Major (<code>maj</code>), Minor (<code>m</code>), Diminished (<code>dim</code>), and Augmented (<code>aug</code>).</li>
         <li><strong>Level 2 – 7ths &amp; Sus:</strong> Adds Suspended 4th (<code>sus4</code>), Dominant 7th (<code>7</code>), Major 7th (<code>maj7</code>), and Minor 7th (<code>m7</code>).</li>
         <li><strong>Level 3 – Extended 7ths:</strong> Adds <code>sus2</code>, Half-Diminished (<code>m7♭5</code>), Fully Diminished (<code>°7</code>), and Minor-Major 7th (<code>m(maj7)</code>).</li>
         <li><strong>Level 4 – Jazz &amp; Tensions:</strong> All 15 chord colors including lush jazz extensions like <code>maj9</code>, <code>7♭9</code>, and <code>7♯9</code>.</li>
@@ -13937,7 +14222,7 @@ const CATEGORY_HELP_GUIDES = {
 
       <h3>Schwierigkeitsstufen: Akkordtypen (4 Stufen)</h3>
       <ul class="article-steps-list">
-        <li><strong>Stufe 1 – Einfache Dreiklänge:</strong> Die vier Grundfarben <code>Dur</code>, <code>Moll</code>, Vermindert (<code>dim</code>) und Übermäßig (<code>aug</code>).</li>
+        <li><strong>Stufe 1 – Einfache Dreiklänge:</strong> Die vier Grundfarben Dur (<code>maj</code>), Moll (<code>m</code>), Vermindert (<code>dim</code>) und Übermäßig (<code>aug</code>).</li>
         <li><strong>Stufe 2 – Sept &amp; Sus:</strong> Zusätzlich Quartvorhalt (<code>sus4</code>), Dominantseptakkord (<code>7</code>), Großer Septakkord (<code>maj7</code>) und Moll-Septakkord (<code>m7</code>).</li>
         <li><strong>Stufe 3 – Erweiterte Vierklänge:</strong> Mit <code>sus2</code>, Halbvermindert (<code>m7♭5</code>), Vollvermindert (<code>°7</code>) und Moll-Major-7 (<code>m(maj7)</code>).</li>
         <li><strong>Stufe 4 – Jazz &amp; Optionstöne:</strong> Alle 15 Akkordtypen bis hin zu farbigen Jazz-Spannungen wie <code>maj9</code>, <code>7♭9</code> und <code>7♯9</code>.</li>
@@ -16628,13 +16913,14 @@ const LAUSCHEBAER_QUOTES = [
 function getMascotSVG(mood = "idle", showAccessory = false) {
   const earLeftRotate = mood === "question"
     ? "rotate(-14 14 18)"
-    : (mood === "listening" ? "rotate(-6 14 18)" : (mood === "awaiting" ? "rotate(-11 14 18)" : ""));
+    : (mood === "listening" || mood === "happy" ? "rotate(-6 14 18)" : (mood === "awaiting" ? "rotate(-11 14 18)" : ""));
   const earRightRotate = mood === "listening"
     ? "rotate(10 50 18)"
-    : (mood === "awaiting" ? "rotate(6 50 18)" : "");
+    : (mood === "awaiting" || mood === "happy" ? "rotate(6 50 18)" : "");
   const accessory = showAccessory && typeof state !== "undefined" && state?.profile
     ? (state.profile.companionAccessory || "none")
     : "none";
+  const highStreak = !showAccessory && typeof state !== "undefined" && (state?.streakState?.count || 0) >= 5;
 
   let eyesMarkup = `
     <circle cx="23" cy="34" r="2.8" fill="#FFFFFF"/>
@@ -16679,10 +16965,21 @@ function getMascotSVG(mood = "idle", showAccessory = false) {
       <circle cx="57.5" cy="8.25" r="1.3" fill="var(--peach-strong)"/>
     `;
   } else if (mood === "happy" && accessory !== "notes") {
-    extraBadge = `
-      <text x="49" y="16" fill="var(--sage-strong)" font-size="15" font-weight="900">♪</text>
-    `;
+    extraBadge = highStreak
+      ? `
+        <text x="49" y="16" fill="var(--sage-strong)" font-size="14" font-weight="900">♪</text>
+        <text x="5.5" y="15" fill="var(--lilac-strong)" font-size="10.5" font-weight="900">✦</text>
+      `
+      : `
+        <text x="49" y="16" fill="var(--sage-strong)" font-size="15" font-weight="900">♪</text>
+      `;
   }
+
+  const happyPoseMarkup = mood === "happy" ? `
+    <ellipse cx="17.5" cy="40.8" rx="3.1" ry="1.85" fill="var(--peach)" opacity="0.72"/>
+    <ellipse cx="46.5" cy="40.8" rx="3.1" ry="1.85" fill="var(--peach)" opacity="0.72"/>
+    <path d="M28.6 44.3 Q32 47.0 35.4 44.3" stroke="#3D405B" stroke-width="1.65" stroke-linecap="round" fill="none"/>
+  ` : "";
 
   const awaitingPoseMarkup = mood === "awaiting" ? `
     <path d="M29.4 45.3 Q32.5 47.1 35.7 45.1" stroke="#3D405B" stroke-width="1.6" stroke-linecap="round" fill="none"/>
@@ -16734,6 +17031,7 @@ function getMascotSVG(mood = "idle", showAccessory = false) {
       <ellipse cx="32" cy="42.5" rx="7" ry="5.5" fill="#FFFFFF"/>
       <ellipse cx="32" cy="40" rx="3.2" ry="2.3" fill="#3D405B"/>
       ${awaitingPoseMarkup}
+      ${happyPoseMarkup}
       ${accessoryMarkup}
       ${extraBadge}
     </svg>
@@ -17607,6 +17905,7 @@ class AppState {
     };
     this.lastAnswerWasWrong = false;
     this.wrongAnswerData = null;
+    this.streakState = { count: 0, activeNoticeMilestone: 0 };
     this.currentQuoteIndex = -1;
     this.waveAnimFrame = null;
     this.circleOfFifthsState = { idx: 0, ringMode: "major", tab: "chords" };
@@ -18080,6 +18379,7 @@ function setLanguagePreference(nextLang) {
     }
   } else {
     updatePlayButtonUI(state.isPlaying);
+    if (typeof renderStageStreakUI === "function") renderStageStreakUI();
   }
 
   if (typeof renderWarmupView === "function" && state.currentView === "warmup") {
@@ -18328,8 +18628,8 @@ const HARMONIC_DATA = {
   },
 
   chords: {
-    "maj":   { symbol: "Dur",     label: "Dur-Dreiklang (1–3–5)",         short: "Dur",        offsets: [0, 4, 7] },
-    "min":   { symbol: "Moll",    label: "Moll-Dreiklang (1–♭3–5)",       short: "Moll",       offsets: [0, 3, 7] },
+    "maj":   { symbol: "maj",     label: "Dur-Dreiklang (1–3–5)",         short: "Dur",        offsets: [0, 4, 7] },
+    "min":   { symbol: "m",       label: "Moll-Dreiklang (1–♭3–5)",       short: "Moll",       offsets: [0, 3, 7] },
     "dim":   { symbol: "dim",     label: "Verminderter Dreiklang (1–♭3–♭5)", short: "Vermindert", offsets: [0, 3, 6] },
     "aug":   { symbol: "aug",     label: "Übermäßiger Dreiklang (1–3–♯5)", short: "Übermäßig", offsets: [0, 4, 8] },
     "sus4":  { symbol: "sus4",    label: "Quartvorhalt (1–4–5)",          short: "Vorhalt",    offsets: [0, 5, 7] },
@@ -21263,6 +21563,9 @@ function generateExercise() {
   state.exerciseSolved = false;
   state.lastAnswerWasWrong = false;
   state.wrongAnswerData = null;
+  if (state.streakState) {
+    state.streakState.activeNoticeMilestone = 0;
+  }
   renderUI();
 }
 
@@ -21956,6 +22259,7 @@ function generateMelodyExercise(rootMidi) {
 }
 
 function refreshExerciseLocalization(ex) {
+  if (typeof renderStageStreakUI === "function") renderStageStreakUI();
   if (!ex) return;
 
   if (ex.type === "cadence") {
@@ -22875,9 +23179,221 @@ function renderUI() {
   document.getElementById("feedbackContainer").classList.add("hidden");
 }
 
+const STREAK_MILESTONES = new Set([3, 5, 8, 10, 15, 20, 25, 30, 40, 50, 75, 100]);
+
+function isStreakMilestone(count) {
+  return STREAK_MILESTONES.has(count) || (count > 100 && count % 25 === 0);
+}
+
+function getStreakMilestoneText(count) {
+  if (count === 3) return tr("3 in Folge – schöner Flow!", "3 in a row — nice flow!");
+  if (count === 5) return tr("5 in Folge – dein Ohr ist voll da!", "5 in a row — your ear is dialed in!");
+  if (count === 8) return tr("8 in Folge – eine ganze Oktave!", "8 in a row — a full octave!");
+  if (count === 10) return tr("10 in Folge – beeindruckend sicher!", "10 in a row — remarkably sharp!");
+  if (count === 15) return tr("15 in Folge – echtes Musiker-Gehör!", "15 in a row — true musician’s ear!");
+  if (count === 20) return tr("20 in Folge – absolut souverän!", "20 in a row — effortless precision!");
+  return tf("{n} in Folge – starker Fokus!", "{n} in a row — razor-sharp focus!", { n: count });
+}
+
+function renderStageStreakUI() {
+  const st = state?.streakState || { count: 0, activeNoticeMilestone: 0 };
+  const count = Number(st.count) || 0;
+  const milestone = Number(st.activeNoticeMilestone) || 0;
+
+  const pillEl = document.getElementById("stageStreakPill");
+  if (pillEl) {
+    if (count >= 3) {
+      pillEl.textContent = tf("✦ {n} in Folge", "✦ {n} in a row", { n: count });
+      pillEl.classList.remove("hidden");
+      pillEl.classList.toggle("is-high", count >= 8);
+    } else {
+      pillEl.textContent = "";
+      pillEl.classList.add("hidden");
+      pillEl.classList.remove("is-high");
+    }
+  }
+
+  const noticeEl = document.getElementById("stageStreakNotice");
+  if (noticeEl) {
+    if (milestone >= 3) {
+      noticeEl.textContent = `✦ ${getStreakMilestoneText(milestone)}`;
+      noticeEl.classList.remove("hidden");
+      noticeEl.classList.toggle("is-high", milestone >= 8);
+    } else {
+      noticeEl.textContent = "";
+      noticeEl.classList.add("hidden");
+      noticeEl.classList.remove("is-high");
+    }
+  }
+}
+
+function resetExerciseStreakOnAttempt(ex) {
+  if (ex) ex.hadWrongAttempt = true;
+  if (!state.streakState) state.streakState = { count: 0, activeNoticeMilestone: 0 };
+  state.streakState.count = 0;
+  state.streakState.activeNoticeMilestone = 0;
+  renderStageStreakUI();
+}
+
+function recordExerciseStreakSuccess(ex) {
+  if (!state.streakState) state.streakState = { count: 0, activeNoticeMilestone: 0 };
+  if (!ex || ex.streakCounted) {
+    return {
+      count: state.streakState.count,
+      isMilestone: state.streakState.activeNoticeMilestone > 0
+    };
+  }
+  ex.streakCounted = true;
+  if (ex.hadWrongAttempt) {
+    state.streakState.count = 0;
+    state.streakState.activeNoticeMilestone = 0;
+  } else {
+    state.streakState.count += 1;
+    state.streakState.activeNoticeMilestone = isStreakMilestone(state.streakState.count)
+      ? state.streakState.count
+      : 0;
+  }
+  renderStageStreakUI();
+  return {
+    count: state.streakState.count,
+    isMilestone: state.streakState.activeNoticeMilestone > 0
+  };
+}
+
+const MUSIC_JUICE_SVGS = {
+  // Violinschlüssel (G-Schlüssel)
+  treble: `<svg viewBox="0 0 28 36" fill="none" aria-hidden="true"><path d="M15.8 25.5 C19.5 25.2 21.5 22.4 21 19 C20.4 15.5 17.2 14.3 14.3 15.4 C11.5 16.5 10.6 19.5 12.2 21.6 C13.2 22.9 14.9 23.2 16.1 22.4" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.8 25.5 C10.4 25.6 7.5 22.3 7.8 17.9 C8.2 13.2 13.5 10.5 16.6 7 C18.1 5.3 18.2 3.3 16.5 3.1 C14.8 2.9 14 4.8 14.2 7.5 L15.1 29.2 C15.2 31.6 13.6 33.2 11.4 33 C10.2 32.9 9.5 32.2 9.4 31.2" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10.2" cy="30.8" r="2.1" fill="currentColor"/></svg>`,
+  // Bassschlüssel (F-Schlüssel)
+  bass: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="6.6" cy="9.2" r="2.4" fill="currentColor"/><path d="M6.8 9.2 C6.5 5.4 10.2 4 13.4 4.8 C16.8 5.6 17.8 9.5 15.8 13.2 C13.9 16.6 9.8 18.6 5.8 19.8" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"/><circle cx="19.8" cy="7.6" r="1.5" fill="currentColor"/><circle cx="19.8" cy="12.6" r="1.5" fill="currentColor"/></svg>`,
+  // C-Schlüssel (Alt-/Tenorschlüssel)
+  alto: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><line x1="5.2" y1="3.8" x2="5.2" y2="20.2" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><line x1="8.6" y1="3.8" x2="8.6" y2="20.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M9.6 4.8 C15 4.3 18.2 6.6 17.4 9.3 C16.7 11.1 13.2 11.8 10.4 12 C13.2 12.2 16.7 12.9 17.4 14.7 C18.2 17.4 15 19.7 9.6 19.2" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/><circle cx="14.6" cy="7.6" r="1.15" fill="currentColor"/><circle cx="14.6" cy="16.4" r="1.15" fill="currentColor"/></svg>`,
+  // Viertelnote
+  quarter: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><ellipse cx="9.4" cy="18.2" rx="4.2" ry="2.9" transform="rotate(-22 9.4 18.2)" fill="currentColor"/><line x1="12.9" y1="17.2" x2="12.9" y2="4.2" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"/></svg>`,
+  // Halbe Note
+  half: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><ellipse cx="9.4" cy="18.2" rx="4.1" ry="2.8" transform="rotate(-22 9.4 18.2)" stroke="currentColor" stroke-width="2.2"/><line x1="13" y1="17.2" x2="13" y2="4.2" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>`,
+  // Achtelnote
+  eighth: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><ellipse cx="8.5" cy="18.2" rx="4" ry="2.8" transform="rotate(-22 8.5 18.2)" fill="currentColor"/><line x1="11.9" y1="17.2" x2="11.9" y2="4.2" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M11.9 4.2 C16.5 6.6 18.6 9.8 16.6 13.8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>`,
+  // Balken-Achtelpaar
+  beamed: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><ellipse cx="6.2" cy="18.6" rx="3.4" ry="2.4" transform="rotate(-20 6.2 18.6)" fill="currentColor"/><line x1="9.1" y1="18" x2="9.1" y2="6.2" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/><ellipse cx="16.8" cy="16.6" rx="3.4" ry="2.4" transform="rotate(-20 16.8 16.6)" fill="currentColor"/><line x1="19.7" y1="16" x2="19.7" y2="4.2" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/><line x1="9.1" y1="6.2" x2="19.7" y2="4.2" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>`,
+  // Sechzehntelnote
+  sixteenth: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><ellipse cx="8.5" cy="18.5" rx="3.9" ry="2.7" transform="rotate(-22 8.5 18.5)" fill="currentColor"/><line x1="11.8" y1="17.6" x2="11.8" y2="3.8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M11.8 3.8 C16.3 5.8 18.2 8.3 16.4 11.4" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/><path d="M11.8 8.3 C16.3 10.3 18.2 12.8 16.4 15.8" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/></svg>`
+};
+
+const JUICE_SYMBOL_ROTATION = ["treble", "beamed", "bass", "quarter", "alto", "eighth", "sixteenth", "half"];
+const JUICE_THEME_COLORS = ["var(--sage-strong)", "var(--lilac-strong)", "var(--status-ok)", "var(--raccoon-dark)"];
+
+const JUICE_PARTICLE_PRESETS = {
+  micro: [
+    { x: -15, y: -24, rot: -12, delay: 0,  size: 13 },
+    { x: 0,   y: -29, rot: 0,   delay: 35, size: 15 },
+    { x: 16,  y: -23, rot: 12,  delay: 65, size: 13 }
+  ],
+  standard: [
+    { x: -22, y: -29, rot: -14, delay: 0,  size: 15 },
+    { x: -9,  y: -36, rot: -8,  delay: 30, size: 17 },
+    { x: 11,  y: -35, rot: 10,  delay: 50, size: 16 },
+    { x: 24,  y: -26, rot: 14,  delay: 75, size: 15 },
+    { x: 2,   y: -25, rot: 4,   delay: 95, size: 14 }
+  ],
+  stage: [
+    { x: -41, y: -24, rot: -14, delay: 0,  size: 16 },
+    { x: -19, y: -38, rot: -10, delay: 35, size: 18 },
+    { x: 0,   y: -41, rot: 2,   delay: 55, size: 17 },
+    { x: 22,  y: -37, rot: 12,  delay: 75, size: 18 },
+    { x: 42,  y: -23, rot: 15,  delay: 95, size: 16 }
+  ]
+};
+
+let juiceBurstSeq = 0;
+
+function shouldAnimateJuice() {
+  if (typeof window !== "undefined" && typeof window.matchMedia === "function") {
+    try {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return false;
+    } catch (_e) {}
+  }
+  return true;
+}
+
+function spawnJuiceBurst(hostEl, options = {}) {
+  if (!hostEl || typeof hostEl.appendChild !== "function" || typeof document?.createElement !== "function") return;
+  if (!shouldAnimateJuice()) return;
+  if (typeof hostEl.querySelectorAll === "function") {
+    hostEl.querySelectorAll(".juice-particle").forEach(prev => {
+      if (typeof prev.remove === "function") prev.remove();
+      else if (prev.parentNode?.removeChild) prev.parentNode.removeChild(prev);
+    });
+  }
+  const specs = JUICE_PARTICLE_PRESETS[options.intensity || "standard"] || JUICE_PARTICLE_PRESETS.standard;
+  const originX = options.originX || "50%";
+  const originY = options.originY || "26%";
+  const seqOffset = juiceBurstSeq;
+  juiceBurstSeq = (juiceBurstSeq + 1) % JUICE_SYMBOL_ROTATION.length;
+
+  specs.forEach((spec, idx) => {
+    const symbolKey = JUICE_SYMBOL_ROTATION[(seqOffset + idx) % JUICE_SYMBOL_ROTATION.length];
+    const color = JUICE_THEME_COLORS[(seqOffset + idx) % JUICE_THEME_COLORS.length];
+    const p = document.createElement("span");
+    p.className = "juice-particle is-symbol";
+    p.dataset.musicSymbol = symbolKey;
+    p.innerHTML = MUSIC_JUICE_SVGS[symbolKey];
+    p.setAttribute("aria-hidden", "true");
+    p.style.setProperty("--jx0", originX);
+    p.style.setProperty("--jy0", originY);
+    p.style.setProperty("--jx", `${spec.x}px`);
+    p.style.setProperty("--jy", `${spec.y}px`);
+    p.style.setProperty("--jr", `${spec.rot}deg`);
+    p.style.setProperty("--jdelay", `${spec.delay}ms`);
+    p.style.setProperty("--jsize", `${spec.size}px`);
+    p.style.color = color;
+    p.addEventListener?.("animationend", () => {
+      if (typeof p.remove === "function") p.remove();
+      else if (p.parentNode?.removeChild) p.parentNode.removeChild(p);
+    });
+    hostEl.appendChild(p);
+  });
+}
+
+function triggerMascotHappyHop() {
+  if (!shouldAnimateJuice()) return;
+  const wrap = document.getElementById("stageMascotWrap");
+  if (!wrap) return;
+  if (!wrap._hopAnimBound) {
+    wrap._hopAnimBound = true;
+    wrap.addEventListener?.("animationend", () => wrap.classList.remove("mascot-happy-hop"));
+  }
+  wrap.classList.remove("mascot-happy-hop");
+  void wrap.offsetWidth;
+  wrap.classList.add("mascot-happy-hop");
+}
+
+function triggerCelebrationFeedback(anchorEl, options = {}) {
+  if (!shouldAnimateJuice()) return;
+  const stage = document.getElementById("centralStageCard");
+  if (stage) {
+    if (!stage._celebrateAnimBound) {
+      stage._celebrateAnimBound = true;
+      stage.addEventListener?.("animationend", () => stage.classList.remove("stage-celebrate"));
+    }
+    stage.classList.remove("stage-celebrate");
+    void stage.offsetWidth;
+    stage.classList.add("stage-celebrate");
+  }
+  triggerMascotHappyHop();
+  if (anchorEl && !options.skipAnchorBurst) {
+    spawnJuiceBurst(anchorEl, { intensity: "standard", originY: "24%" });
+  }
+  if (options.isMilestone || options.stageBurst || !anchorEl) {
+    const burstLayer = document.getElementById("stageBurstLayer");
+    spawnJuiceBurst(burstLayer, { intensity: "stage", originX: "50%", originY: "28%" });
+  }
+}
+
 function updateStageMascot(mood) {
   const wrap = document.getElementById("stageMascotWrap");
-  if (wrap) wrap.innerHTML = getMascotSVG(mood);
+  if (!wrap) return;
+  if (mood !== "happy") wrap.classList.remove("mascot-happy-hop");
+  wrap.innerHTML = getMascotSVG(mood);
 }
 
 function setCentralStageMode(stageStateClass) {
@@ -22892,6 +23408,8 @@ function setCentralStageMode(stageStateClass) {
 
 function resetCentralStage() {
   if (!document.getElementById("centralStageCard")) return;
+  const burstLayer = document.getElementById("stageBurstLayer");
+  if (burstLayer) burstLayer.innerHTML = "";
   setCentralStageMode("stage-idle");
   updateStageMascot("idle");
   const mode = state.currentExercise?.type;
@@ -22901,6 +23419,7 @@ function resetCentralStage() {
     mode === "rhythm-tap"
       ? tr("Starte unten die Runde und klopfe danach im Takt mit!", "Press Play below and tap along in time!")
       : tr("Drücke unten auf Abspielen", "Press Play below to listen");
+  renderStageStreakUI();
 }
 
 const AWAITING_STAGE_HEADLINES = [
@@ -23035,6 +23554,7 @@ async function handleMelodyKeyClick(clickedKeyDef, keyBtn) {
   const isCorrect = clickedKeyDef.syllable === slot.syllable;
 
   if (!isCorrect) {
+    resetExerciseStreakOnAttempt(ex);
     keyBtn.classList.add("key-wrong");
     setCentralStageMode("stage-wrong");
     updateStageMascot("thinking");
@@ -23066,6 +23586,7 @@ async function handleMelodyKeyClick(clickedKeyDef, keyBtn) {
   }
 
   if (!isLast) {
+    spawnJuiceBurst(keyBtn, { intensity: "micro", originY: "20%" });
     ex.melodyStep = currentSlotIdx + 1;
     const nextIdx = ex.melodyStep;
     const nextCard = document.getElementById(`barCard_${nextIdx}`);
@@ -23084,6 +23605,7 @@ async function handleMelodyKeyClick(clickedKeyDef, keyBtn) {
     if (!state.isPlaying) {
       setCentralStageMode("stage-playing");
       updateStageMascot("happy");
+      triggerMascotHappyHop();
       document.getElementById("stageSubtext").textContent = tf("TON {n} RICHTIG", "NOTE {n} CORRECT", { n: currentSlotIdx + 1 });
       document.getElementById("stageMainText").textContent = getSolfegeDisplayLabel(slot.syllable);
       document.getElementById("stageFunctionText").textContent = tf("Jetzt gesucht: Ton {n} von 4", "Next target: Note {n} of 4", { n: nextIdx + 1 });
@@ -23111,8 +23633,10 @@ async function handleMelodyKeyClick(clickedKeyDef, keyBtn) {
   const promptEl = document.getElementById("inputPromptText");
   if (promptEl) promptEl.textContent = tr("Alle 4 Fragezeichen gelöst – weiter geht’s!", "All 4 notes solved — moving on!");
 
+  const streakRes = recordExerciseStreakSuccess(ex);
   setCentralStageMode("stage-playing");
   updateStageMascot("happy");
+  triggerCelebrationFeedback(keyBtn, { isMilestone: streakRes.isMilestone });
   document.getElementById("stageSubtext").textContent = tr("MELODIE GELÖST! (4/4)", "MELODY SOLVED! (4/4)");
   document.getElementById("stageMainText").textContent = ex.melodySlots.map(s => getSolfegeDisplayLabel(s.syllable)).join(" – ");
   document.getElementById("stageFunctionText").textContent = tr("Nächste Aufgabe wird geladen…", "Loading next exercise…");
@@ -23155,6 +23679,7 @@ async function handleSolfegeKeyClick(clickedKeyDef, keyBtn, options = {}) {
 
   if (!isCorrect) {
     // Falsche Antwort: Taste nur rot färben (KEIN Ton erklingt, damit der gehörte Zielton im Ohr bleibt)
+    if (!isListenOnly) resetExerciseStreakOnAttempt(ex);
     keyBtn?.classList.add("key-wrong");
 
     setCentralStageMode("stage-wrong");
@@ -23187,8 +23712,14 @@ async function handleSolfegeKeyClick(clickedKeyDef, keyBtn, options = {}) {
   const initialGreenEl = document.getElementById(`solfegeKey_${target.midi}`) || keyBtn;
   initialGreenEl?.classList.add("key-correct");
 
+  const streakRes = isListenOnly
+    ? { count: state.streakState?.count || 0, isMilestone: false }
+    : recordExerciseStreakSuccess(ex);
   setCentralStageMode("stage-playing");
   updateStageMascot("happy");
+  if (!isListenOnly) {
+    triggerCelebrationFeedback(initialGreenEl || keyBtn, { isMilestone: streakRes.isMilestone });
+  }
   document.getElementById("stageSubtext").textContent = tr("RICHTIG! AUFLÖSUNG ZUR TONIKA", "CORRECT! RESOLVING TO TONIC");
   document.getElementById("stageMainText").textContent = getSolfegeDisplayLabel(target.syllable);
   document.getElementById("stageFunctionText").textContent = target.label;
@@ -23275,8 +23806,14 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
     updatePlayButtonUI(false);
 
     btnElement?.classList.add("btn-correct");
+    const streakRes = isListenOnly
+      ? { count: state.streakState?.count || 0, isMilestone: false }
+      : recordExerciseStreakSuccess(ex);
     setCentralStageMode("stage-playing");
     updateStageMascot("happy");
+    if (!isListenOnly) {
+      triggerCelebrationFeedback(btnElement, { isMilestone: streakRes.isMilestone });
+    }
     document.getElementById("stageSubtext").textContent = tr("RICHTIG!", "CORRECT!");
     document.getElementById("stageMainText").textContent = ex.targetItem.roman || ex.targetItem.symbol;
     document.getElementById("stageFunctionText").textContent = ex.targetItem.label;
@@ -23369,6 +23906,7 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
     }
 
   } else {
+    if (!isListenOnly) resetExerciseStreakOnAttempt(ex);
     btnElement.classList.add("btn-wrong");
     state.lastAnswerWasWrong = true;
     const chosenDef = getChoiceItem(ex.type, selectedKey);
@@ -23426,6 +23964,7 @@ async function handleRhythmDictationChoice(cellKey, btnElement) {
 
   const isCorrect = cellKey === slot.cellKey;
   if (!isCorrect) {
+    resetExerciseStreakOnAttempt(ex);
     btnElement?.classList.add("btn-wrong");
     const chosenCell = getChoiceItem("rhythm-dictation", cellKey);
     setCentralStageMode("stage-wrong");
@@ -23460,6 +23999,7 @@ async function handleRhythmDictationChoice(cellKey, btnElement) {
   }
 
   if (!isLast) {
+    spawnJuiceBurst(btnElement, { intensity: "micro" });
     ex.rhythmStep = currentIdx + 1;
     ex.targetIndex = ex.rhythmStep;
     ex.targetItem = ex.rhythmSlots[ex.rhythmStep].cell;
@@ -23481,6 +24021,7 @@ async function handleRhythmDictationChoice(cellKey, btnElement) {
     if (!state.isPlaying) {
       setCentralStageMode("stage-playing");
       updateStageMascot("happy");
+      triggerMascotHappyHop();
       document.getElementById("stageSubtext").textContent = tf("SCHLAG {n} RICHTIG", "BEAT {n} CORRECT", { n: currentIdx + 1 });
       document.getElementById("stageMainText").textContent = slot.cell.short;
       document.getElementById("stageFunctionText").textContent = tf("Jetzt gesucht: Schlag {n} von 4", "Next target: Beat {n} of 4", { n: nextIdx + 1 });
@@ -23508,8 +24049,10 @@ async function handleRhythmDictationChoice(cellKey, btnElement) {
   const promptEl = document.getElementById("inputPromptText");
   if (promptEl) promptEl.textContent = tr("Alle 4 Zählzeiten gelöst – weiter geht’s!", "All 4 beats solved — moving on!");
 
+  const streakRes = recordExerciseStreakSuccess(ex);
   setCentralStageMode("stage-playing");
   updateStageMascot("happy");
+  triggerCelebrationFeedback(btnElement, { isMilestone: streakRes.isMilestone });
   document.getElementById("stageSubtext").textContent = tr("RHYTHMUS GELÖST! (4/4)", "RHYTHM SOLVED! (4/4)");
   document.getElementById("stageMainText").textContent = ex.rhythmSlots.map(s => s.cell.short).join(" • ");
   document.getElementById("stageFunctionText").textContent = tr("Nächste Aufgabe wird geladen…", "Loading next exercise…");
@@ -23809,10 +24352,15 @@ function finishRhythmTapRound() {
   const badge = document.getElementById("targetBarBadge");
   if (badge) badge.textContent = res.passed ? tr("Treffer ✓", "Hit ✓") : tr("Nochmal!", "Try Again!");
 
+  const streakRes = res.passed
+    ? recordExerciseStreakSuccess(ex)
+    : (resetExerciseStreakOnAttempt(ex), { count: 0, isMilestone: false });
+
   if (document.getElementById("centralStageCard")) {
     if (res.passed && res.closeCount === 0 && res.extraCount === 0) {
       setCentralStageMode("stage-playing");
       updateStageMascot("happy");
+      triggerCelebrationFeedback(null, { isMilestone: streakRes.isMilestone, stageBurst: true });
       document.getElementById("stageSubtext").textContent = tr("PERFEKT GETROFFEN!", "NAILED IT!");
       document.getElementById("stageMainText").textContent = `${res.exactCount}/${totalExpected}`;
       document.getElementById("stageFunctionText").textContent =
@@ -23823,6 +24371,7 @@ function finishRhythmTapRound() {
     } else if (res.passed) {
       setCentralStageMode("stage-playing");
       updateStageMascot("happy");
+      triggerCelebrationFeedback(null, { isMilestone: streakRes.isMilestone, stageBurst: true });
       document.getElementById("stageSubtext").textContent = tr("SAUBER IM TAKT!", "SOLID TIMING!");
       document.getElementById("stageMainText").textContent = `${hitCount}/${totalExpected}`;
       document.getElementById("stageFunctionText").textContent =
@@ -26484,6 +27033,8 @@ function resetUserProfile() {
     saveVisualPrefs(state.settings.appearance, state.settings.theme, state.settings.language);
   }
   state.resetConfirmArmed = false;
+  state.streakState = { count: 0, activeNoticeMilestone: 0 };
+  if (typeof renderStageStreakUI === "function") renderStageStreakUI();
   stopSessionTimer("idle", null, "idle");
   applyThemeAndAppearance();
   applyProfileDisplayChanges();
