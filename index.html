@@ -347,6 +347,7 @@ html, body {
 .back-btn {
   width: 38px;
   height: 38px;
+  flex: 0 0 38px;
   border-radius: var(--radius-pill);
   border: 1px solid var(--border-soft);
   background-color: var(--surface-white);
@@ -372,7 +373,7 @@ html, body {
   min-width: 0;
 }
 
-.app-brand > div {
+.app-brand > div:not(.brand-icon) {
   min-width: 0;
   flex: 1 1 auto;
 }
@@ -380,6 +381,7 @@ html, body {
 .brand-icon {
   width: 38px;
   height: 38px;
+  flex: 0 0 38px;
   background-color: var(--sage);
   border: 1px solid rgba(61, 64, 91, 0.12);
   display: flex;
@@ -387,7 +389,6 @@ html, body {
   justify-content: center;
   border-radius: var(--radius-pill);
   box-shadow: var(--shadow-card);
-  flex-shrink: 0;
 }
 
 .brand-title-wrap {
@@ -10402,6 +10403,23 @@ const TR_FR = {
   "Intervalle Melodisch (Abwärts)": "Intervalles mélodiques (Descendants)",
   "Intervalle Harmonisch": "Intervalles harmoniques",
   "Intervalle": "Intervalles",
+  "Takt 4": "Mesure 4",
+  "Zufallstakt": "Mesure aléatoire",
+  "Taktart": "Mesure",
+  "Diktat": "Dictée",
+  "Nachklopfen": "Reproduction",
+  "Groove & Timing": "Groove & Timing",
+  "Frequenzen": "Fréquences",
+  "EQ im Noise": "EQ bruit rose",
+  "Tonleitern": "Gammes",
+  "Kadenzen & Vamps": "Vamps modaux",
+  "Arpeggio (Aufwärts ↗)": "Arpège (Ascendant ↗)",
+  "Arpeggio (Abwärts ↘)": "Arpège (Descendant ↘)",
+  "Gleichzeitiger Klang": "Simultané",
+  "Umkehrungen": "Renversements",
+  "Melodisch (Aufwärts)": "Mélodique (Ascendant)",
+  "Melodisch (Abwärts)": "Mélodique (Descendant)",
+  "Harmonisch": "Harmonique",
   "Hören · Verstehen · Musizieren": "Écouter · Comprendre · Pratiquer",
   "Gehörtraining": "Formation de l’oreille",
   "Wissen": "Savoir",
@@ -10762,6 +10780,23 @@ Object.assign(TR_FR, {
   "Tonleiter / Modus • {lbl}": "Gamme / Mode • {lbl}",
   "Welche Kirchentonart erklingt aufwärts?": "Quel mode écoutez-vous en montant ?",
   "Harmonisches Intervall (Gleichzeitig)": "Intervalle harmonique (Simultané)",
+  "4-Ton-Folge": "Phrase de 4 notes",
+  "2-Takt-Puls": "Pulsation sur 2 mesures",
+  "4-Schlag-Raster": "Grille à 4 temps",
+  "Klopf-Raster": "Grille de frappe",
+  "Pattern-Analyse": "Analyse du pattern",
+  "2-Takt-Groove": "Groove sur 2 mesures",
+  "Snare-Timing (2 & 4)": "Caisse claire (2 & 4)",
+  "Sinus-Spektrum": "Spectre sinusoïdal",
+  "A/B-Referenz (Noise)": "Comparaison A/B (Bruit)",
+  "Tonfolge (2 Töne)": "Suite de 2 notes",
+  "Tonpaar (Gleichzeitig)": "Accord de 2 notes",
+  "Akkord-Töne": "Notes de l’accord",
+  "Akkord-Klang": "Structure d’accord",
+  "Basston-Analyse": "Note à la basse",
+  "Quinte → Tonfarbe": "Quinte → Couleur",
+  "Quinte → Akkordfolge": "Quinte → Enchaînement",
+  "Quinte → Klangfolge": "Quinte → Séquence",
   "Zusammenklang": "Dyade",
   "Welches Intervall erklingt?": "Quel intervalle harmonique entendez-vous ?",
   "Ton {n}": "Note {n}",
@@ -23114,6 +23149,53 @@ const SOLFEGE_DEFAULT_BPM = 120;
 const WARMUP_DEFAULT_BPM = 80;
 const SOLFEGE_LOOP_INTERVAL_MS = 3000;
 
+const MODE_CATEGORY_MAP = {
+  "cadence":               "cadence",
+  "interval-melodic":      "interval",
+  "interval-melodic-down": "interval",
+  "interval-harmonic":     "interval",
+  "chord-arp-up":          "chords",
+  "chord-arp-down":        "chords",
+  "interval-chords":       "chords",
+  "chord-inversions":      "chords",
+  "melody":                "melody",
+  "solfege":               "solfege",
+  "rhythm-meter":          "rhythm",
+  "rhythm-dictation":      "rhythm",
+  "rhythm-tap":            "rhythm",
+  "rhythm-groove":         "rhythm",
+  "prod-tone":             "production",
+  "prod-eq-noise":         "production",
+  "modes-scale":           "modes",
+  "modes-char":            "modes",
+  "modes-cadence":         "modes"
+};
+
+/**
+ * Liefert den Kategorie-Schlüssel (z. B. "interval", "chords") für einen Übungsmodus.
+ */
+function getCategoryForMode(mode) {
+  return MODE_CATEGORY_MAP[mode] || "cadence";
+}
+
+/**
+ * Liefert den lokalisierten Überbegriff einer Kategorie für Top-Bar und Navigation.
+ */
+function getCategoryTitle(categoryKey) {
+  const catNames = {
+    cadence: tr("Kadenzen", "Cadences"),
+    interval: tr("Intervalle", "Intervals"),
+    chords: tr("Akkorde", "Chords"),
+    melody: tr("Melodien", "Melodies"),
+    solfege: "Solfège",
+    rhythm: tr("Rhythmus", "Rhythm"),
+    production: tr("Produktion", "Production"),
+    modes: tr("Tonleitern & Modi", "Scales & Modes"),
+    warmup: tr("Stimme & Chor", "Voice & Choir")
+  };
+  return catNames[categoryKey] || tr("Übungen", "Exercises");
+}
+
 class AppState {
   constructor() {
     this.currentView = "home"; // 'home' | 'category' | 'knowledge' | 'knowledge-detail' | 'space' | 'exercise'
@@ -23343,7 +23425,7 @@ class AppState {
     this.updateQuickStartLabel();
   }
 
-  getModeSummaryText() {
+  getModeSummaryText(includeCategory = true) {
     const lvlWord = tr("Stufe", "Level");
     if (this.settings.mode === "cadence") {
       const diffNames = {
@@ -23352,16 +23434,21 @@ class AppState {
         3: tr("Doppeldom.", "Sec. Dom."),
         4: tr("Jazz & Tritone", "Jazz & Tritone")
       };
-      const posLabel = this.settings.cadencePos === "random"
-        ? tr(" • Zufallstakt", " • Random Bar")
-        : tr(" • Takt 4", " • Bar 4");
-      return `${tr("Kadenzen", "Cadences")} • ${lvlWord} ${this.settings.difficulty} (${diffNames[this.settings.difficulty] || tr("Basis", "Basics")})${posLabel}`;
+      const posShort = this.settings.cadencePos === "random"
+        ? tr("Zufallstakt", "Random Bar")
+        : tr("Takt 4", "Bar 4");
+      const diffText = `${lvlWord} ${this.settings.difficulty} (${diffNames[this.settings.difficulty] || tr("Basis", "Basics")})`;
+      return includeCategory
+        ? `${tr("Kadenzen", "Cadences")} • ${diffText} • ${posShort}`
+        : `${posShort} • ${diffText}`;
     }
     if (this.settings.mode === "melody") {
       const rangeInfo = getLocalizedMelodyRange(this.settings.melodyRange || "do-fa");
       const keyLabel = this.settings.melodyKeyMode === "random" ? tr("Zufallstonart", "Random Keys") : getKeyDisplayName("C");
       const octLabel = this.settings.melodyOctaveMode === "multi" ? tr("Mehrere Okt.", "Multi-Octave") : tr("1 Oktave", "1 Octave");
-      return `${tr("Melodien", "Melodies")} • ${rangeInfo.label} (${keyLabel}, ${octLabel})`;
+      return includeCategory
+        ? `${tr("Melodien", "Melodies")} • ${rangeInfo.label} (${keyLabel}, ${octLabel})`
+        : `${rangeInfo.label} • ${keyLabel}, ${octLabel}`;
     }
     if (this.settings.mode === "solfege") {
       const solfNames = {
@@ -23373,7 +23460,8 @@ class AppState {
         6: tr("Tonartwechsel, mehrere Okt.", "Changing Keys, Multi-Oct.")
       };
       const lvl = this.settings.solfegeDifficulty || 1;
-      return `Solfège • ${lvlWord} ${lvl} (${solfNames[lvl] || getKeyDisplayName("C")})`;
+      const lvlText = `${lvlWord} ${lvl} (${solfNames[lvl] || getKeyDisplayName("C")})`;
+      return includeCategory ? `Solfège • ${lvlText}` : lvlText;
     }
     if (this.settings.mode === "rhythm-meter") {
       const names = {
@@ -23382,7 +23470,8 @@ class AppState {
         3: tr("Ungerade Takte", "Odd Meters")
       };
       const lvl = this.settings.rhythmMeterDifficulty || 1;
-      return `${tr("Rhythmus: Taktart", "Rhythm: Meter")} • ${lvlWord} ${lvl} (${names[lvl] || tr("Basis", "Basics")})`;
+      const prefix = includeCategory ? tr("Rhythmus: Taktart", "Rhythm: Meter") : tr("Taktart", "Meter");
+      return `${prefix} • ${lvlWord} ${lvl} (${names[lvl] || tr("Basis", "Basics")})`;
     }
     if (this.settings.mode === "rhythm-dictation") {
       const names = {
@@ -23392,12 +23481,14 @@ class AppState {
         4: tr("Punkt. & Synkopen", "Dotted & Syncopation")
       };
       const lvl = this.settings.rhythmDictationDifficulty || 1;
-      return `${tr("Rhythmus: Diktat", "Rhythm: Dictation")} • ${lvlWord} ${lvl} (${names[lvl] || tr("Basis", "Basics")})`;
+      const prefix = includeCategory ? tr("Rhythmus: Diktat", "Rhythm: Dictation") : tr("Diktat", "Dictation");
+      return `${prefix} • ${lvlWord} ${lvl} (${names[lvl] || tr("Basis", "Basics")})`;
     }
     if (this.settings.mode === "rhythm-tap") {
       const lvl = this.settings.rhythmTapDifficulty || 1;
       const lvlObj = getLocalizedRhythmTapLevel(lvl);
-      return `${tr("Rhythmus: Nachklopfen", "Rhythm: Rhythm Tap")} • ${lvlWord} ${lvl} (${lvlObj?.label || tr("Puls-Anker", "Pulse Anchor")})`;
+      const prefix = includeCategory ? tr("Rhythmus: Nachklopfen", "Rhythm: Rhythm Tap") : tr("Nachklopfen", "Rhythm Tap");
+      return `${prefix} • ${lvlWord} ${lvl} (${lvlObj?.label || tr("Puls-Anker", "Pulse Anchor")})`;
     }
     if (this.settings.mode === "rhythm-groove") {
       const names = {
@@ -23407,11 +23498,13 @@ class AppState {
         4: tr("Mikro-Timing (Profi)", "Micro-Timing (Pro)")
       };
       const lvl = this.settings.rhythmGrooveDifficulty || 1;
-      return `${tr("Rhythmus: Groove & Timing", "Rhythm: Groove & Timing")} • ${lvlWord} ${lvl} (${names[lvl] || tr("Basis", "Basics")})`;
+      const prefix = includeCategory ? tr("Rhythmus: Groove & Timing", "Rhythm: Groove & Timing") : tr("Groove & Timing", "Groove & Timing");
+      return `${prefix} • ${lvlWord} ${lvl} (${names[lvl] || tr("Basis", "Basics")})`;
     }
     if (this.settings.mode === "prod-tone") {
       const lvl = this.settings.prodToneDifficulty || 1;
-      return `${tr("Produktion: Frequenzen", "Production: Frequencies")} • ${lvlWord} ${lvl} (${getLocalizedProdLevelLabel("tone", lvl)})`;
+      const prefix = includeCategory ? tr("Produktion: Frequenzen", "Production: Frequencies") : tr("Frequenzen", "Frequencies");
+      return `${prefix} • ${lvlWord} ${lvl} (${getLocalizedProdLevelLabel("tone", lvl)})`;
     }
     if (this.settings.mode === "prod-eq-noise") {
       const names = {
@@ -23420,19 +23513,23 @@ class AppState {
         3: tr("Chirurgisch (+7 dB)", "Surgical (+7 dB)")
       };
       const lvl = this.settings.prodEqNoiseDifficulty || 1;
-      return `${tr("Produktion: EQ im Noise", "Production: Pink Noise EQ")} • ${lvlWord} ${lvl} (${names[lvl] || tr("Breiter EQ", "Wide EQ")})`;
+      const prefix = includeCategory ? tr("Produktion: EQ im Noise", "Production: Pink Noise EQ") : tr("EQ im Noise", "Pink Noise EQ");
+      return `${prefix} • ${lvlWord} ${lvl} (${names[lvl] || tr("Breiter EQ", "Wide EQ")})`;
     }
     if (this.settings.mode === "modes-scale") {
       const lvl = this.settings.modesScaleDifficulty || 1;
-      return `${tr("Modi: Tonleitern", "Modes: Scales")} • ${lvlWord} ${lvl} (${getLocalizedModeLevelLabel("scale", lvl)})`;
+      const prefix = includeCategory ? tr("Modi: Tonleitern", "Modes: Scales") : tr("Tonleitern", "Scales");
+      return `${prefix} • ${lvlWord} ${lvl} (${getLocalizedModeLevelLabel("scale", lvl)})`;
     }
     if (this.settings.mode === "modes-char") {
       const lvl = this.settings.modesCharDifficulty || 1;
-      return `${tr("Modi: Charakterton", "Modes: Color Note")} • ${lvlWord} ${lvl} (${getLocalizedModeLevelLabel("char", lvl)})`;
+      const prefix = includeCategory ? tr("Modi: Charakterton", "Modes: Color Note") : tr("Charakterton", "Color Note");
+      return `${prefix} • ${lvlWord} ${lvl} (${getLocalizedModeLevelLabel("char", lvl)})`;
     }
     if (this.settings.mode === "modes-cadence") {
       const lvl = this.settings.modesCadenceDifficulty || 1;
-      return `${tr("Modi: Kadenzen", "Modes: Vamps")} • ${lvlWord} ${lvl} (${getLocalizedModeLevelLabel("cadence", lvl)})`;
+      const prefix = includeCategory ? tr("Modi: Kadenzen", "Modes: Vamps") : tr("Kadenzen & Vamps", "Modal Vamps");
+      return `${prefix} • ${lvlWord} ${lvl} (${getLocalizedModeLevelLabel("cadence", lvl)})`;
     }
     if (isChordQualityMode(this.settings.mode)) {
       const chordDiffNames = {
@@ -23441,11 +23538,17 @@ class AppState {
         3: tr("Erweitert", "Extended"),
         4: tr("Jazz & Optionstöne", "Jazz Tensions")
       };
-      const chordTypeLabels = {
-        "chord-arp-up":   tr("Akkord-Arpeggio (Aufwärts ↗)", "Chords (Arpeggio ↗)"),
-        "chord-arp-down": tr("Akkord-Arpeggio (Abwärts ↘)", "Chords (Arpeggio ↘)"),
-        "interval-chords": tr("Akkorde (Gleichzeitig)", "Chords (Simultaneous)")
-      };
+      const chordTypeLabels = includeCategory
+        ? {
+            "chord-arp-up":   tr("Akkord-Arpeggio (Aufwärts ↗)", "Chords (Arpeggio ↗)"),
+            "chord-arp-down": tr("Akkord-Arpeggio (Abwärts ↘)", "Chords (Arpeggio ↘)"),
+            "interval-chords": tr("Akkorde (Gleichzeitig)", "Chords (Simultaneous)")
+          }
+        : {
+            "chord-arp-up":   tr("Arpeggio (Aufwärts ↗)", "Arpeggio (Ascending ↗)"),
+            "chord-arp-down": tr("Arpeggio (Abwärts ↘)", "Arpeggio (Descending ↘)"),
+            "interval-chords": tr("Gleichzeitiger Klang", "Simultaneous")
+          };
       const lvl = this.settings.chordDifficulty || 1;
       return `${chordTypeLabels[this.settings.mode] || tr("Akkorde", "Chords")} • ${lvlWord} ${lvl} (${chordDiffNames[lvl] || tr("Dreiklänge", "Triads")})`;
     }
@@ -23456,18 +23559,25 @@ class AppState {
         3: tr("Septakkorde (4)", "7th Chords (4)")
       };
       const lvl = this.settings.chordInversionDifficulty || 1;
-      return `${tr("Akkordumkehrungen", "Chord Inversions")} • ${lvlWord} ${lvl} (${invDiffNames[lvl] || tr("Dur-Dreiklang", "Major Triad")})`;
+      const prefix = includeCategory ? tr("Akkordumkehrungen", "Chord Inversions") : tr("Umkehrungen", "Inversions");
+      return `${prefix} • ${lvlWord} ${lvl} (${invDiffNames[lvl] || tr("Dur-Dreiklang", "Major Triad")})`;
     }
     const intDiffNames = {
       1: tr("Einsteiger", "Beginner"),
       2: tr("Dur-Tonleiter", "Major Scale"),
       3: tr("Alle Intervalle", "All Intervals")
     };
-    const typeLabels = {
-      "interval-melodic": tr("Intervalle Melodisch (Aufwärts)", "Melodic Intervals (Ascending)"),
-      "interval-melodic-down": tr("Intervalle Melodisch (Abwärts)", "Melodic Intervals (Descending)"),
-      "interval-harmonic": tr("Intervalle Harmonisch", "Harmonic Intervals")
-    };
+    const typeLabels = includeCategory
+      ? {
+          "interval-melodic": tr("Intervalle Melodisch (Aufwärts)", "Melodic Intervals (Ascending)"),
+          "interval-melodic-down": tr("Intervalle Melodisch (Abwärts)", "Melodic Intervals (Descending)"),
+          "interval-harmonic": tr("Intervalle Harmonisch", "Harmonic Intervals")
+        }
+      : {
+          "interval-melodic": tr("Melodisch (Aufwärts)", "Melodic (Ascending)"),
+          "interval-melodic-down": tr("Melodisch (Abwärts)", "Melodic (Descending)"),
+          "interval-harmonic": tr("Harmonisch", "Harmonic")
+        };
     const typeLabel = typeLabels[this.settings.mode] || tr("Intervalle", "Intervals");
     return `${typeLabel} • ${lvlWord} ${this.settings.intervalDifficulty} (${intDiffNames[this.settings.intervalDifficulty]})`;
   }
@@ -23498,18 +23608,7 @@ class AppState {
       mainTitle.textContent = tr("Mein Konto", "My Account");
       el.textContent = tr("Profil, Timer & Vorlieben", "Profile, Timer & Preferences");
     } else if (this.currentView === "category" || this.currentView === "category-help") {
-      const catNames = {
-        cadence: tr("Kadenzen", "Cadences"),
-        interval: tr("Intervalle", "Intervals"),
-        chords: tr("Akkorde", "Chords"),
-        melody: tr("Melodien", "Melodies"),
-        solfege: "Solfège",
-        rhythm: tr("Rhythmus", "Rhythm"),
-        production: tr("Produktion", "Production"),
-        modes: tr("Tonleitern & Modi", "Scales & Modes"),
-        warmup: tr("Stimme & Chor", "Voice & Choir")
-      };
-      mainTitle.textContent = catNames[this.activeCategory] || tr("Übungen", "Exercises");
+      mainTitle.textContent = getCategoryTitle(this.activeCategory);
       el.textContent = this.currentView === "category-help"
         ? tr("So funktioniert’s • Anleitung & Aufgaben", "How It Works • Guide & Levels")
         : (this.activeCategory === "warmup"
@@ -23525,8 +23624,8 @@ class AppState {
       mainTitle.textContent = tr("Einsing-Helfer", "Vocal Warmup");
       el.textContent = `${preset ? preset.title : tr("5-Minuten Einsingen", "5-Min Warmup")} • ${range ? range.label : tr("Chor-Mitte", "Choir Mid")}`;
     } else {
-      mainTitle.textContent = "Lauschebär";
-      el.textContent = this.getModeSummaryText();
+      mainTitle.textContent = getCategoryTitle(getCategoryForMode(this.settings.mode));
+      el.textContent = this.getModeSummaryText(false);
     }
 
     if (
@@ -28399,7 +28498,7 @@ function renderUI() {
     }
     document.getElementById("inputPromptText").textContent = tr("Tippe die gehörte Stufe auf der Klaviatur:", "Tap the heard scale degree on the keyboard:");
   } else if (ex.type === "melody") {
-    if (moduleTitleEl) moduleTitleEl.textContent = tf("Melodie • {range}", "Melody • {range}", { range: ex.rangeLabel });
+    if (moduleTitleEl) moduleTitleEl.textContent = tr("4-Ton-Folge", "4-Note Phrase");
     if (targetBadgeEl) {
       targetBadgeEl.textContent = state.melodyCompleted
         ? tr("4 / 4 gelöst ✓", "4 / 4 solved ✓")
@@ -28409,11 +28508,11 @@ function renderUI() {
       tf("Tippe Ton {step} von 4 auf der Klaviatur:", "Tap note {step} of 4 on the keyboard:", { step: Math.min(ex.melodyStep + 1, 4) });
   } else if (isRhythmMeter) {
     barsGrid.classList.add("cols-2");
-    if (moduleTitleEl) moduleTitleEl.textContent = tr("Taktart & Metrum", "Time Signature & Meter");
+    if (moduleTitleEl) moduleTitleEl.textContent = tr("2-Takt-Puls", "2-Bar Pulse");
     if (targetBadgeEl) targetBadgeEl.textContent = tf("Stufe {lvl}", "Level {lvl}", { lvl: ex.level });
     document.getElementById("inputPromptText").textContent = tr("Welche Taktart hörst du?", "Which meter do you hear?");
   } else if (isRhythmDict) {
-    if (moduleTitleEl) moduleTitleEl.textContent = tf("Rhythmus-Diktat • Stufe {lvl}", "Rhythm Dictation • Level {lvl}", { lvl: ex.level });
+    if (moduleTitleEl) moduleTitleEl.textContent = tr("4-Schlag-Raster", "4-Beat Grid");
     if (targetBadgeEl) {
       targetBadgeEl.textContent = state.rhythmDictationCompleted
         ? tr("4 / 4 gelöst ✓", "4 / 4 solved ✓")
@@ -28425,7 +28524,7 @@ function renderUI() {
     if (ex.beatsPerBar === 3) {
       barsGrid.style.gridTemplateColumns = "repeat(3, minmax(0, 1fr))";
     }
-    if (moduleTitleEl) moduleTitleEl.textContent = tf("Nachklopfen • {lvl}", "Tap-Back • {lvl}", { lvl: ex.levelLabel });
+    if (moduleTitleEl) moduleTitleEl.textContent = tr("Klopf-Raster", "Tap Grid");
     if (targetBadgeEl) {
       targetBadgeEl.textContent = ex.tapEvaluated
         ? (ex.lastEvaluation?.passed ? tr("Treffer ✓", "Hit ✓") : tr("Nochmal!", "Try Again!"))
@@ -28439,76 +28538,76 @@ function renderUI() {
     else if (ex.bars.length === 2) barsGrid.classList.add("cols-2");
 
     if (ex.grooveKind === "style") {
-      if (moduleTitleEl) moduleTitleEl.textContent = tr("Groove & Feel", "Groove & Feel");
+      if (moduleTitleEl) moduleTitleEl.textContent = tr("Pattern-Analyse", "Pattern Check");
       if (targetBadgeEl) targetBadgeEl.textContent = tr("4/4 Groove", "4/4 Groove");
       document.getElementById("inputPromptText").textContent = tr("Welchen Groove hörst du?", "Which groove do you hear?");
     } else if (ex.grooveKind === "offbeat") {
-      if (moduleTitleEl) moduleTitleEl.textContent = tr("Offbeat-Spürsinn", "Offbeat Radar");
+      if (moduleTitleEl) moduleTitleEl.textContent = tr("2-Takt-Groove", "2-Bar Groove");
       if (targetBadgeEl) targetBadgeEl.textContent = tr("Ziel: Takt 2", "Target: Bar 2");
       document.getElementById("inputPromptText").textContent = tr("Auf welchem Schlag liegt der Cowbell-Akzent?", "Which beat holds the cowbell accent?");
     } else {
-      if (moduleTitleEl) moduleTitleEl.textContent = tr("Mikro-Timing (Snare 2 & 4)", "Micro-Timing (Snare 2 & 4)");
+      if (moduleTitleEl) moduleTitleEl.textContent = tr("Snare-Timing (2 & 4)", "Snare Timing (2 & 4)");
       if (targetBadgeEl) targetBadgeEl.textContent = ex.keyName;
       document.getElementById("inputPromptText").textContent = tr("Liegt die Snare zu früh, exakt oder zu spät?", "Is the snare early, in the pocket, or late?");
     }
   } else if (isProdTone) {
     barsGrid.classList.add("cols-1");
-    if (moduleTitleEl) moduleTitleEl.textContent = tr("Frequenz erkennen (Sinuston)", "Frequency Recognition (Sine Wave)");
+    if (moduleTitleEl) moduleTitleEl.textContent = tr("Sinus-Spektrum", "Sine Spectrum");
     if (targetBadgeEl) targetBadgeEl.textContent = tf("Stufe {lvl} • {lbl}", "Level {lvl} • {lbl}", { lvl: ex.level, lbl: ex.levelLabel });
     document.getElementById("inputPromptText").textContent = tr("Welcher Frequenzbereich erklingt?", "Which frequency band is playing?");
   } else if (isProdEqNoise) {
     barsGrid.classList.add("cols-2");
-    if (moduleTitleEl) moduleTitleEl.textContent = tr("EQ-Boost im Pink Noise", "EQ Boost in Pink Noise");
+    if (moduleTitleEl) moduleTitleEl.textContent = tr("A/B-Referenz (Noise)", "A/B Reference (Noise)");
     if (targetBadgeEl) targetBadgeEl.textContent = ex.keyName;
     document.getElementById("inputPromptText").textContent = tr("Welche Frequenz wird per EQ angehoben?", "Which frequency is boosted by the EQ?");
   } else if (ex.type === "interval-melodic") {
     barsGrid.classList.add("cols-2");
-    if (moduleTitleEl) moduleTitleEl.textContent = tr("Melodisches Intervall (Aufwärts)", "Melodic Interval (Ascending)");
+    if (moduleTitleEl) moduleTitleEl.textContent = tr("Tonfolge (2 Töne)", "2-Note Sequence");
     if (targetBadgeEl) targetBadgeEl.textContent = tr("Ziel: Ton 2 ↗", "Target: Note 2 ↗");
     document.getElementById("inputPromptText").textContent = tr("Welches Intervall erklingt aufwärts?", "Which ascending interval do you hear?");
   } else if (ex.type === "interval-melodic-down") {
     barsGrid.classList.add("cols-2");
-    if (moduleTitleEl) moduleTitleEl.textContent = tr("Melodisches Intervall (Abwärts)", "Melodic Interval (Descending)");
+    if (moduleTitleEl) moduleTitleEl.textContent = tr("Tonfolge (2 Töne)", "2-Note Sequence");
     if (targetBadgeEl) targetBadgeEl.textContent = tr("Ziel: Ton 2 ↘", "Target: Note 2 ↘");
     document.getElementById("inputPromptText").textContent = tr("Welches Intervall erklingt abwärts?", "Which descending interval do you hear?");
   } else if (ex.type === "chord-arp-up") {
     barsGrid.classList.add("cols-1");
-    if (moduleTitleEl) moduleTitleEl.textContent = tr("Akkord-Arpeggio (Aufwärts ↗)", "Chord Arpeggio (Ascending ↗)");
+    if (moduleTitleEl) moduleTitleEl.textContent = tr("Akkord-Töne", "Chord Notes");
     if (targetBadgeEl) targetBadgeEl.textContent = tr("Arpeggio ↗", "Arpeggio ↗");
     document.getElementById("inputPromptText").textContent = tr("Welcher Akkord erklingt?", "Which chord quality do you hear?");
   } else if (ex.type === "chord-arp-down") {
     barsGrid.classList.add("cols-1");
-    if (moduleTitleEl) moduleTitleEl.textContent = tr("Akkord-Arpeggio (Abwärts ↘)", "Chord Arpeggio (Descending ↘)");
+    if (moduleTitleEl) moduleTitleEl.textContent = tr("Akkord-Töne", "Chord Notes");
     if (targetBadgeEl) targetBadgeEl.textContent = tr("Arpeggio ↘", "Arpeggio ↘");
     document.getElementById("inputPromptText").textContent = tr("Welcher Akkord erklingt?", "Which chord quality do you hear?");
   } else if (ex.type === "interval-chords") {
     barsGrid.classList.add("cols-1");
-    if (moduleTitleEl) moduleTitleEl.textContent = tr("Akkorde (Gleichzeitig)", "Chords (Simultaneous)");
+    if (moduleTitleEl) moduleTitleEl.textContent = tr("Akkord-Klang", "Chord Voicing");
     if (targetBadgeEl) targetBadgeEl.textContent = tr("Mehrklang", "Chord");
     document.getElementById("inputPromptText").textContent = tr("Welcher Akkord erklingt?", "Which chord quality do you hear?");
   } else if (ex.type === "chord-inversions") {
     barsGrid.classList.add("cols-1");
-    if (moduleTitleEl) moduleTitleEl.textContent = tr("Akkordumkehrung erkennen", "Chord Inversion Recognition");
+    if (moduleTitleEl) moduleTitleEl.textContent = tr("Basston-Analyse", "Bass Note Check");
     if (targetBadgeEl) targetBadgeEl.textContent = tr("Umkehrung", "Inversion");
     document.getElementById("inputPromptText").textContent = tr("Welcher Akkordton liegt ganz unten im Bass?", "Which chord tone sits lowest in the bass?");
   } else if (isModes) {
     barsGrid.classList.add("cols-2");
     if (ex.type === "modes-char") {
-      if (moduleTitleEl) moduleTitleEl.textContent = tf("Charakterton • {lbl}", "Color Tone • {lbl}", { lbl: ex.levelLabel });
+      if (moduleTitleEl) moduleTitleEl.textContent = tr("Quinte → Tonfarbe", "Fifth → Color");
       if (targetBadgeEl) targetBadgeEl.textContent = tf("Grundton {root}", "Root {root}", { root: ex.rootLabel });
       document.getElementById("inputPromptText").textContent = tr("Welcher Modus steckt in diesem Charakterton?", "Which mode matches this characteristic tone?");
     } else if (ex.type === "modes-cadence") {
-      if (moduleTitleEl) moduleTitleEl.textContent = tf("Modale Kadenz • {lbl}", "Modal Vamp • {lbl}", { lbl: ex.levelLabel });
+      if (moduleTitleEl) moduleTitleEl.textContent = tr("Quinte → Akkordfolge", "Fifth → Progression");
       if (targetBadgeEl) targetBadgeEl.textContent = tf("Grundton {root}", "Root {root}", { root: ex.rootLabel });
       document.getElementById("inputPromptText").textContent = tr("Welcher Modus prägt diese Akkordfolge?", "Which mode shapes this chord vamp?");
     } else {
-      if (moduleTitleEl) moduleTitleEl.textContent = tf("Tonleiter / Modus • {lbl}", "Scale / Mode • {lbl}", { lbl: ex.levelLabel });
+      if (moduleTitleEl) moduleTitleEl.textContent = tr("Quinte → Klangfolge", "Fifth → Sequence");
       if (targetBadgeEl) targetBadgeEl.textContent = tf("Grundton {root}", "Root {root}", { root: ex.rootLabel });
       document.getElementById("inputPromptText").textContent = tr("Welche Kirchentonart erklingt aufwärts?", "Which ascending mode do you hear?");
     }
   } else {
     barsGrid.classList.add("cols-1");
-    if (moduleTitleEl) moduleTitleEl.textContent = tr("Harmonisches Intervall (Gleichzeitig)", "Harmonic Interval (Simultaneous)");
+    if (moduleTitleEl) moduleTitleEl.textContent = tr("Tonpaar (Gleichzeitig)", "2-Note Dyad");
     if (targetBadgeEl) targetBadgeEl.textContent = tr("Zusammenklang", "Dyad");
     document.getElementById("inputPromptText").textContent = tr("Welches Intervall erklingt?", "Which harmonic interval do you hear?");
   }
