@@ -4961,14 +4961,31 @@ body,
 /* =====================================================
    EINSING-HELFER / VOCAL WARMUP (#viewWarmup)
    ===================================================== */
+#viewWarmup {
+  justify-content: flex-start;
+  gap: 0.42rem;
+  padding-bottom: 0.12rem;
+}
+
 .warmup-header-card {
-  gap: 0.45rem;
+  flex: 0 0 auto;
+  padding: 0.56rem 0.72rem;
+  gap: 0.34rem;
+}
+
+.warmup-header-card .module-header {
+  margin-bottom: 0.08rem;
+}
+
+.warmup-header-card .module-inline-popover {
+  margin-bottom: 0.08rem;
+  padding: 0.42rem 0.6rem;
 }
 
 .warmup-phase-pills {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.34rem;
+  gap: 0.3rem;
 }
 
 .warmup-phase-pill {
@@ -4976,8 +4993,8 @@ body,
   background: var(--surface-soft);
   color: var(--raccoon-mid);
   border-radius: 10px;
-  padding: 0.28rem 0.28rem;
-  font-size: 0.68rem;
+  padding: 0.22rem 0.22rem;
+  font-size: 0.65rem;
   font-weight: 800;
   cursor: pointer;
   text-align: center;
@@ -5001,12 +5018,12 @@ body,
 .warmup-progress-row {
   display: flex;
   align-items: center;
-  gap: 0.55rem;
+  gap: 0.5rem;
 }
 
 .warmup-progress-track {
   flex: 1;
-  height: 7px;
+  height: 6px;
   border-radius: var(--radius-pill);
   background: var(--surface-soft);
   border: 1px solid var(--border-soft);
@@ -5022,7 +5039,7 @@ body,
 }
 
 .warmup-step-counter {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 800;
   color: var(--raccoon-muted);
   white-space: nowrap;
@@ -5030,16 +5047,24 @@ body,
 }
 
 .warmup-stage-wrapper {
-  flex: 1 1 auto;
+  flex: 1 0 auto;
+  min-height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0;
 }
 
 .warmup-stage-card {
-  width: 100%;
-  padding: 0.95rem 1rem;
-  gap: 0.42rem;
+  width: 90%;
+  max-width: 368px;
+  flex-shrink: 0;
+  padding: 0.58rem 0.8rem;
+  gap: 0.26rem;
+}
+
+.warmup-stage-card.is-breath-step .warmup-mascot {
+  display: none;
 }
 
 .warmup-stage-card.phase-breath {
@@ -5062,106 +5087,154 @@ body,
   background: linear-gradient(160deg, var(--surface-white) 0%, var(--sage-soft) 100%);
 }
 
+.warmup-mascot {
+  width: 36px;
+  height: 34px;
+  margin-bottom: 0;
+}
+
 .warmup-mascot svg {
-  width: 48px;
-  height: 44px;
+  width: 36px;
+  height: 34px;
+}
+
+.warmup-stage-card .stage-sub {
+  font-size: 0.56rem;
 }
 
 .warmup-step-title {
   margin: 0;
-  font-size: 1.02rem;
+  font-size: 0.9rem;
   font-weight: 800;
   color: var(--raccoon-dark);
-  line-height: 1.25;
-}
-
-.warmup-syllable-main {
-  font-size: 1.55rem;
-  font-weight: 900;
-  color: var(--raccoon-dark);
-  letter-spacing: 0.02em;
   line-height: 1.2;
 }
 
+.warmup-syllable-main {
+  font-size: 1.22rem;
+  font-weight: 900;
+  color: var(--raccoon-dark);
+  letter-spacing: 0.015em;
+  line-height: 1.15;
+}
+
+.warmup-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.32rem;
+  margin: 0.04rem 0;
+}
+
 .warmup-pattern-degrees {
-  font-size: 0.85rem;
+  font-size: 0.74rem;
   font-weight: 800;
   color: var(--raccoon-mid);
   background: var(--surface-soft);
   border: 1px solid var(--border-soft);
-  padding: 0.22rem 0.68rem;
+  padding: 0.16rem 0.56rem;
   border-radius: var(--radius-pill);
 }
 
 .warmup-key-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  font-size: 0.82rem;
+  gap: 0.3rem;
+  font-size: 0.74rem;
   font-weight: 800;
   color: var(--sage-strong);
   background: var(--sage-soft);
   border: 1.5px solid var(--sage);
-  padding: 0.2rem 0.72rem;
+  padding: 0.15rem 0.56rem;
   border-radius: var(--radius-pill);
 }
 
 .warmup-stage-hint {
-  max-width: 34ch;
+  font-size: 0.7rem;
+  line-height: 1.25;
+  max-width: 38ch;
 }
 
+/* Fester Container + Vektor-Größenanimation (verhindert GPU-Tile-Kreuzlinien auf Mobilgeräten) */
 .warmup-breath-orb-wrap {
+  width: 88px;
+  height: 88px;
+  margin: 0.08rem auto;
+  padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.35rem 0;
+  flex-shrink: 0;
+  contain: layout style;
 }
 
 .warmup-breath-orb {
-  width: 108px;
-  height: 108px;
+  width: 66px;
+  height: 66px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 0.6rem;
-  background: radial-gradient(circle at 35% 30%, var(--surface-white) 0%, var(--sage) 92%);
-  border: 2.5px solid var(--sage-strong);
-  box-shadow: 0 6px 18px rgba(46, 111, 78, 0.16);
-  transform: scale(0.84);
-  transition: transform 3.6s ease-in-out, box-shadow 0.4s ease, border-color 0.4s ease;
+  padding: 0.25rem;
+  background-color: var(--sage-soft);
+  border: 2px solid var(--sage-strong);
+  box-shadow: none;
+  outline: none;
+  transform: none;
+  transition: width 0.32s ease-out, height 0.32s ease-out, background-color 0.28s ease, border-color 0.28s ease;
 }
 
 .warmup-breath-orb.is-inhale {
-  transform: scale(1.08);
-  transition-duration: 3.8s;
-  box-shadow: 0 10px 26px rgba(46, 111, 78, 0.26);
+  width: 86px;
+  height: 86px;
+  background-color: var(--sage);
+  transition-duration: 3.8s, 3.8s, 0.4s, 0.4s;
+  transition-timing-function: ease-in-out, ease-in-out, ease, ease;
 }
 
 .warmup-breath-orb.is-hold {
-  transform: scale(1.08);
-  transition-duration: 0.4s;
+  width: 86px;
+  height: 86px;
+  background-color: var(--lilac-soft);
   border-color: var(--lilac-strong);
+  transition-duration: 0.4s;
 }
 
 .warmup-breath-orb.is-exhale {
-  transform: scale(0.8);
-  transition-duration: 4.8s;
-  box-shadow: 0 4px 12px rgba(46, 111, 78, 0.12);
+  width: 60px;
+  height: 60px;
+  background-color: var(--sage-soft);
+  border-color: var(--sage-strong);
+  transition-duration: 4.8s, 4.8s, 0.4s, 0.4s;
+  transition-timing-function: ease-in-out, ease-in-out, ease, ease;
+}
+
+.warmup-breath-orb.is-rest {
+  width: 66px;
+  height: 66px;
+  background-color: var(--sage-soft);
+  border-color: var(--sage);
+  transition-duration: 1.0s;
 }
 
 .warmup-breath-orb.is-pulse {
-  transform: scale(1.04);
-  transition-duration: 0.12s;
+  width: 82px;
+  height: 82px;
+  background-color: var(--peach);
   border-color: var(--peach-strong);
+  transition-duration: 0.12s, 0.12s, 0.18s, 0.18s;
 }
 
 .warmup-breath-cue {
-  font-size: 0.84rem;
-  font-weight: 900;
+  font-size: 0.7rem;
+  font-weight: 800;
   color: var(--raccoon-dark);
-  line-height: 1.2;
+  line-height: 1.12;
+  background: transparent;
+  border: none;
+  pointer-events: none;
 }
 
 .warmup-keyboard-wrap {
@@ -5169,7 +5242,7 @@ body,
   border-radius: var(--radius-md);
   background: var(--surface-white);
   border: 1.5px solid var(--border-strong);
-  padding: 0.42rem;
+  padding: 0.32rem;
   box-shadow: var(--shadow-card);
 }
 
@@ -5177,7 +5250,7 @@ body,
   position: relative;
   display: flex;
   width: 100%;
-  height: 78px;
+  height: 64px;
   user-select: none;
 }
 
@@ -5248,25 +5321,75 @@ body,
 
 .warmup-manual-row {
   justify-content: center;
-  gap: 0.42rem;
+  gap: 0.36rem;
 }
 
 .warmup-shift-btn,
 .warmup-replay-btn {
-  padding: 0.34rem 0.72rem;
-  font-size: 0.75rem;
+  padding: 0.28rem 0.64rem;
+  font-size: 0.72rem;
 }
 
 .warmup-bottom-dock {
-  gap: 0.5rem;
+  flex: 0 0 auto;
+  gap: 0.36rem;
 }
 
-@media (max-width: 390px) {
+@media (max-width: 420px), (max-height: 740px) {
+  #viewWarmup {
+    gap: 0.34rem;
+  }
+  .warmup-header-card {
+    padding: 0.48rem 0.64rem;
+    gap: 0.28rem;
+  }
+  .warmup-stage-card {
+    width: 94%;
+    padding: 0.5rem 0.72rem;
+    gap: 0.22rem;
+  }
+  .warmup-mascot,
+  .warmup-mascot svg {
+    width: 30px;
+    height: 28px;
+  }
+  .warmup-step-title {
+    font-size: 0.85rem;
+  }
   .warmup-syllable-main {
-    font-size: 1.32rem;
+    font-size: 1.12rem;
+  }
+  .warmup-stage-hint {
+    font-size: 0.66rem;
+    line-height: 1.22;
+  }
+  .warmup-breath-orb-wrap {
+    width: 78px;
+    height: 78px;
+  }
+  .warmup-breath-orb,
+  .warmup-breath-orb.is-rest {
+    width: 60px;
+    height: 60px;
+  }
+  .warmup-breath-orb.is-inhale,
+  .warmup-breath-orb.is-hold {
+    width: 76px;
+    height: 76px;
+  }
+  .warmup-breath-orb.is-exhale {
+    width: 56px;
+    height: 56px;
+  }
+  .warmup-breath-orb.is-pulse {
+    width: 74px;
+    height: 74px;
+  }
+  .warmup-breath-cue {
+    font-size: 0.68rem;
   }
   .warmup-kb {
-    height: 68px;
+    height: 56px;
   }
 }
 
@@ -6452,8 +6575,10 @@ body,
 
           <h2 id="warmupStepTitle" class="warmup-step-title">Bauchatmung auf „ffff / ssss“</h2>
           <div id="warmupSyllableMain" class="warmup-syllable-main">ffff · ssss</div>
-          <div id="warmupPatternDegrees" class="warmup-pattern-degrees hidden">1 – 2 – 3 – 2 – 1</div>
-          <div id="warmupKeyNoteBadge" class="warmup-key-pill hidden">C-Dur • C4</div>
+          <div id="warmupMetaRow" class="warmup-meta-row hidden">
+            <div id="warmupPatternDegrees" class="warmup-pattern-degrees hidden">1 – 2 – 3 – 2 – 1</div>
+            <div id="warmupKeyNoteBadge" class="warmup-key-pill hidden">C-Dur • C4</div>
+          </div>
           <span id="warmupStageHint" class="stage-desc warmup-stage-hint">Schultern locker lassen und tief in den Bauch atmen.</span>
         </div>
       </div>
@@ -26575,10 +26700,10 @@ const WARMUP_STEP_CATALOG = {
     hintEn: "Keep shoulders relaxed — breathe low into the belly and exhale steadily on ffff/ssss.",
     cycles: 4,
     cyclePhases: [
-      { cue: "inhale", sec: 4.0, cueNoteOffset: 0, de: "Tief einatmen…",         en: "Inhale deeply…" },
-      { cue: "hold",   sec: 1.5, cueNoteOffset: null, de: "Kurz weich halten",  en: "Hold gently" },
-      { cue: "exhale", sec: 5.5, cueNoteOffset: 7, de: "Ausströmen: ffff / ssss", en: "Exhale: ffff / ssss" },
-      { cue: "rest",   sec: 1.5, cueNoteOffset: null, de: "Lösen & nachspüren", en: "Release & soften" }
+      { cue: "inhale", sec: 4.0, cueNoteOffset: 0,    de: "Einatmen", en: "Inhale",  detailDe: "Tief in den Bauch einatmen…",         detailEn: "Inhale deeply into the belly…" },
+      { cue: "hold",   sec: 1.5, cueNoteOffset: null, de: "Halten",   en: "Hold",    detailDe: "Kurz weich und offen halten",         detailEn: "Hold gently without tension" },
+      { cue: "exhale", sec: 5.5, cueNoteOffset: 7,    de: "Ausatmen", en: "Exhale",  detailDe: "Gleichmäßig ausströmen: ffff / ssss", detailEn: "Exhale steadily: ffff / ssss" },
+      { cue: "rest",   sec: 1.5, cueNoteOffset: null, de: "Lösen",    en: "Release", detailDe: "Bauchdecke lösen & nachspüren",       detailEn: "Release & soften between cycles" }
     ]
   },
   "diaphragm-pulse": {
@@ -27119,9 +27244,10 @@ function renderWarmupView() {
       : `${safeIdx + 1} / ${steps.length}`;
   }
 
+  const isBreath = step.kind === "breath-orb" || step.kind === "breath-pulse";
   const stageCard = document.getElementById("warmupStageCard");
   if (stageCard) {
-    stageCard.className = `central-stage warmup-stage-card ${phaseInfo.cls}`;
+    stageCard.className = `central-stage warmup-stage-card ${phaseInfo.cls}${isBreath && w.status !== "completed" ? " is-breath-step" : ""}`;
   }
 
   const mascotEl = document.getElementById("warmupMascotWrap");
@@ -27137,7 +27263,6 @@ function renderWarmupView() {
       : phaseInfo.label;
   }
 
-  const isBreath = step.kind === "breath-orb" || step.kind === "breath-pulse";
   const orbWrap = document.getElementById("warmupBreathOrbWrap");
   const orb = document.getElementById("warmupBreathOrb");
   const orbCue = document.getElementById("warmupBreathCue");
@@ -27147,6 +27272,7 @@ function renderWarmupView() {
     if (w.breathCueKey === "inhale") orb.classList.add("is-inhale");
     else if (w.breathCueKey === "hold") orb.classList.add("is-hold");
     else if (w.breathCueKey === "exhale") orb.classList.add("is-exhale");
+    else if (w.breathCueKey === "rest") orb.classList.add("is-rest");
     else if (w.breathCueKey === "pulse") orb.classList.add("is-pulse");
     orbCue.textContent = w.breathCueText || tr("Bereit", "Ready");
   }
@@ -27166,8 +27292,8 @@ function renderWarmupView() {
   }
 
   const degEl = document.getElementById("warmupPatternDegrees");
+  const showDeg = !isBreath && w.status !== "completed" && Boolean(step.degreesText);
   if (degEl) {
-    const showDeg = !isBreath && w.status !== "completed" && Boolean(step.degreesText);
     degEl.classList.toggle("hidden", !showDeg);
     if (showDeg) degEl.textContent = step.degreesText;
   }
@@ -27175,13 +27301,17 @@ function renderWarmupView() {
   const keyInfo = getWarmupKeyNameFromMidi(tonicMidi);
   const noteText = midiToGermanNote(tonicMidi, keyInfo.preferFlat);
   const keyBadgeEl = document.getElementById("warmupKeyNoteBadge");
+  const roundTotal = getWarmupStepRoundCount(step);
+  const showKeyBadge = !isBreath && w.status !== "completed";
   if (keyBadgeEl) {
-    const roundTotal = getWarmupStepRoundCount(step);
-    const showKeyBadge = !isBreath && w.status !== "completed";
     keyBadgeEl.classList.toggle("hidden", !showKeyBadge);
     if (showKeyBadge) {
       keyBadgeEl.textContent = `${keyInfo.keyName} (${noteText}) • ${w.keyOffsetIndex + 1}/${roundTotal}`;
     }
+  }
+  const metaRow = document.getElementById("warmupMetaRow");
+  if (metaRow) {
+    metaRow.classList.toggle("hidden", !showDeg && !showKeyBadge);
   }
 
   const hintEl = document.getElementById("warmupStageHint");
@@ -27200,7 +27330,7 @@ function renderWarmupView() {
 
   const manualBar = document.getElementById("warmupManualBar");
   const kbWrap = document.getElementById("warmupKeyboardWrap");
-  const hideTonalTools = isBreath && step.kind === "breath-orb";
+  const hideTonalTools = isBreath;
   if (manualBar) manualBar.classList.toggle("hidden", isBreath || w.status === "completed");
   if (kbWrap) {
     kbWrap.classList.toggle("hidden", hideTonalTools || w.status === "completed");
@@ -27305,7 +27435,7 @@ function runCurrentWarmupRound() {
           if (state.warmup.token !== token || state.warmup.status !== "running") return;
           w.breathCueKey = p.cue;
           w.breathCueText = tr(p.de, p.en);
-          w.hintText = `${cycleLabel} • ${tr(step.hintDe, step.hintEn)}`;
+          w.hintText = `${cycleLabel} • ${tr(p.detailDe || step.hintDe, p.detailEn || step.hintEn)}`;
           const orb = document.getElementById("warmupBreathOrb");
           const cueEl = document.getElementById("warmupBreathCue");
           const hintEl = document.getElementById("warmupStageHint");
@@ -27332,7 +27462,7 @@ function runCurrentWarmupRound() {
         if (state.warmup.token !== token || state.warmup.status !== "running") return;
         audioEngine.triggerPercussion(i === 0 ? "accent" : "clave", null, i === 0 ? 0.92 : 0.78);
         w.breathCueKey = "pulse";
-        w.breathCueText = `${tr("Impuls", "Pulse")} ${i + 1} / ${pulses}`;
+        w.breathCueText = `${tr("Impuls", "Pulse")} ${i + 1}/${pulses}`;
         const orb = document.getElementById("warmupBreathOrb");
         const cueEl = document.getElementById("warmupBreathCue");
         if (orb) {
@@ -27345,7 +27475,7 @@ function runCurrentWarmupRound() {
     audioEngine.registerTimer(() => {
       if (state.warmup.token !== token || state.warmup.status !== "running") return;
       w.breathCueKey = "inhale";
-      w.breathCueText = tr("Locker einatmen…", "Breathe in gently…");
+      w.breathCueText = tr("Einatmen", "Breathe in");
       const cueEl = document.getElementById("warmupBreathCue");
       const orb = document.getElementById("warmupBreathOrb");
       if (orb) orb.className = "warmup-breath-orb is-inhale";
