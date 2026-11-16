@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Lauschebär • Hören · Verstehen · Musizieren</title>
+  <title>Lauscher • Hören · Verstehen · Musizieren</title>
   <meta name="theme-color" id="metaThemeColor" content="#FAF7F2">
   <style>
 :root {
@@ -9555,11 +9555,11 @@ body,
         document.documentElement.lang = lang;
         document.documentElement.dir = lang === "ur" ? "rtl" : "ltr";
         document.documentElement.setAttribute("data-lang", lang);
-        if (lang === "en") document.title = "Lauschebär • Listen · Understand · Play";
-        else if (lang === "fr") document.title = "Lauschebär • Écouter · Comprendre · Pratiquer";
-        else if (lang === "pl") document.title = "Lauschebär • Słuchaj · Rozumiej · Graj";
-        else if (lang === "uk") document.title = "Lauschebär • Слухай · Розумій · Грай";
-        else if (lang === "ur") document.title = "Lauschebär • سنو · سمجھو · بجاؤ";
+        if (lang === "en") document.title = "Lauscher • Listen · Understand · Play";
+        else if (lang === "fr") document.title = "Lauscher • Écouter · Comprendre · Pratiquer";
+        else if (lang === "pl") document.title = "Lauscher • Słuchaj · Rozumiej · Graj";
+        else if (lang === "uk") document.title = "Lauscher • Слухай · Розумій · Грай";
+        else if (lang === "ur") document.title = "Lauscher • سنو · سمجھو · بجاؤ";
         var appearance = (prefs.appearance === "light" || prefs.appearance === "dark" || prefs.appearance === "system") ? prefs.appearance : "light";
         var isBuiltInTheme = (prefs.theme === "waldlichtung" || prefs.theme === "morgentau" || prefs.theme === "abenddaemmerung" || prefs.theme === "metal");
         var isCustomTheme = (prefs.theme === "custom_1" || prefs.theme === "custom_2" || prefs.theme === "custom_3");
@@ -9617,7 +9617,7 @@ body,
 </head>
 <body>
 
-  <!-- Kurze Startup-Animation mit dem Lauschebär-Logo -->
+  <!-- Kurze Startup-Animation mit dem Lauscher-Logo -->
   <div id="startupSplash" class="startup-splash" aria-hidden="true">
     <div class="splash-center">
       <div class="splash-logo-stage">
@@ -9648,7 +9648,7 @@ body,
           </svg>
         </div>
       </div>
-      <div class="splash-title">Lauschebär</div>
+      <div class="splash-title">Lauscher</div>
       <div class="splash-sub" data-i18n="app.tagline">Hören · Verstehen · Musizieren</div>
     </div>
   </div>
@@ -9689,7 +9689,7 @@ body,
             </svg>
           </div>
         </div>
-        <h1 id="welcomeLangTitle" class="welcome-brand-title">Lauschebär</h1>
+        <h1 id="welcomeLangTitle" class="welcome-brand-title">Lauscher</h1>
         <p class="welcome-lang-sub">Sprache wählen · Language · Langue · Мова</p>
         <div id="welcomeLangList" class="welcome-lang-list" role="list"></div>
       </div>
@@ -9799,7 +9799,7 @@ body,
       <!-- Seite 4: Eigenes Musiker-Profil -->
       <div id="welcomeStepProfile" class="welcome-step hidden">
         <h2 id="welcomeProfileTitle" class="welcome-step-title" data-i18n="welcome.profileTitle">Dein Musiker-Profil</h2>
-        <p id="welcomeProfileSub" class="welcome-step-sub" data-i18n="welcome.profileSub">Wie darf dich der Lauschebär begrüßen und welche Instrumente spielst du?</p>
+        <p id="welcomeProfileSub" class="welcome-step-sub" data-i18n="welcome.profileSub">Wie darf dich der Lauscher begrüßen und welche Instrumente spielst du?</p>
 
         <div class="welcome-panel">
           <div class="welcome-field">
@@ -9870,7 +9870,7 @@ body,
         </button>
 
         <div class="app-brand">
-          <div id="brandLogoWrap" class="brand-icon" role="button" tabindex="0" title="Über Lauschebär" aria-label="Über Lauschebär" data-i18n-title="about.title" data-i18n-aria="about.title">
+          <div id="brandLogoWrap" class="brand-icon" role="button" tabindex="0" title="Über Lauscher" aria-label="Über Lauscher" data-i18n-title="about.title" data-i18n-aria="about.title">
             <svg width="24" height="24" viewBox="0 0 64 64" fill="none">
               <circle cx="15" cy="18" r="9" fill="#5C5F77"/>
               <circle cx="15" cy="18" r="5" fill="#FFD6BA"/>
@@ -9887,7 +9887,7 @@ body,
           </div>
           <div>
             <div class="brand-title-wrap">
-              <span id="headerMainTitle" class="brand-name">Lauschebär</span>
+              <span id="headerMainTitle" class="brand-name">Lauscher</span>
               <span id="audioStatusDot" class="status-dot dot-idle" title="Audio-Status" data-i18n-title="header.audioStatusTitle"></span>
             </div>
             <span id="subHeaderInfo" class="brand-sub" data-i18n="app.tagline">Hören · Verstehen · Musizieren</span>
@@ -10540,7 +10540,7 @@ body,
         </div>
 
         <div class="account-field">
-          <span class="account-label" data-i18n="space.accessoryLabel">Lauschebär-Look</span>
+          <span class="account-label" data-i18n="space.accessoryLabel">Lauscher-Look</span>
           <div id="profileAccessoryGroup" class="profile-multi-dropdown-host"></div>
         </div>
       </section>
@@ -11664,7 +11664,7 @@ body,
 
         <div class="settings-section settings-about-section">
           <h4 data-i18n="settings.aboutHeading">Über die App</h4>
-          <button type="button" class="btn-tool settings-about-btn" id="openAboutFromSettingsBtn" data-i18n="settings.openAboutBtn">ℹ️ Über Lauschebär →</button>
+          <button type="button" class="btn-tool settings-about-btn" id="openAboutFromSettingsBtn" data-i18n="settings.openAboutBtn">ℹ️ Über Lauscher →</button>
         </div>
 
       </div>
@@ -11688,20 +11688,20 @@ body,
     </div>
   </div>
 
-  <!-- Eigenständiges Modal: Über Lauschebär -->
+  <!-- Eigenständiges Modal: Über Lauscher -->
   <div id="aboutBackdrop" class="modal-backdrop modal-hidden" role="dialog" aria-modal="true" aria-labelledby="aboutModalTitle">
     <div class="modal-dialog about-modal-dialog">
       <div class="modal-header">
-        <h3 id="aboutModalTitle" data-i18n="about.title">Über Lauschebär</h3>
+        <h3 id="aboutModalTitle" data-i18n="about.title">Über Lauscher</h3>
         <button id="closeAboutBtn" class="modal-close-btn" type="button" aria-label="Schließen">✕</button>
       </div>
       <div class="modal-body about-modal-body">
         <div class="about-hero">
           <div id="aboutMascotBadge" class="about-mascot-badge" aria-hidden="true"></div>
-          <h2 class="about-app-name">Lauschebär</h2>
+          <h2 class="about-app-name">Lauscher</h2>
           <span class="about-app-tagline" data-i18n="app.tagline">Hören · Verstehen · Musizieren</span>
           <span id="aboutVersionBadge" class="about-version-badge" data-i18n="about.version">Version 0.9.0-beta</span>
-          <p class="about-app-desc" data-i18n="about.description">Lauschebär ist dein ruhiger, werbe- und trackingfreier Begleiter für musikalisches Gehörtraining, Notenlesen, Musiktheorie, Einsingen und Studio-Hören – komplett lokal auf deinem Gerät und ohne Punktedruck.</p>
+          <p class="about-app-desc" data-i18n="about.description">Lauscher ist dein ruhiger, werbe- und trackingfreier Begleiter für musikalisches Gehörtraining, Notenlesen, Musiktheorie, Einsingen und Studio-Hören – komplett lokal auf deinem Gerät und ohne Punktedruck.</p>
         </div>
 
         <div class="settings-section about-links-section">
@@ -11738,7 +11738,7 @@ body,
                   <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
                 </svg>
               </span>
-              <span class="about-link-label" data-i18n="about.linkShare">Lauschebär teilen</span>
+              <span class="about-link-label" data-i18n="about.linkShare">Lauscher teilen</span>
               <span class="about-link-chevron" aria-hidden="true">›</span>
             </button>
 
@@ -13425,7 +13425,7 @@ const audioEngine = new AudioEngine();
 </script>
 <script>
 /**
- * Lauschebär • Mehrsprachigkeit (i18n) – Sprachsteuerung & erweiterbare Sprach-Bundles
+ * Lauscher • Mehrsprachigkeit (i18n) – Sprachsteuerung & erweiterbare Sprach-Bundles
  * Standardsprache bleibt Deutsch ("de"); weitere Sprachen (z. B. "en", "fr") werden über
  * `APP_LANGUAGES` und `registerLanguageBundle(...)` angebunden.
  */
@@ -13588,7 +13588,7 @@ function tf(deTemplate, enTemplate, vars = {}, extraMap = null) {
 }
 
 const I18N_STATIC = {
-  "app.title": { de: "Lauschebär • Hören · Verstehen · Musizieren", en: "Lauschebär • Listen · Understand · Play" },
+  "app.title": { de: "Lauscher • Hören · Verstehen · Musizieren", en: "Lauscher • Listen · Understand · Play" },
   "app.tagline": { de: "Hören · Verstehen · Musizieren", en: "Listen · Understand · Play" },
   "welcome.stepProgress": {
     de: "Schritt {n} von {total}",
@@ -13625,8 +13625,8 @@ const I18N_STATIC = {
   },
   "welcome.profileTitle": { de: "Dein Musiker-Profil", en: "Your Musician Profile" },
   "welcome.profileSub": {
-    de: "Wie darf dich der Lauschebär begrüßen und welche Instrumente spielst du?",
-    en: "How may Lauschebär greet you, and which instruments do you play?"
+    de: "Wie darf dich der Lauscher begrüßen und welche Instrumente spielst du?",
+    en: "How may Lauscher greet you, and which instruments do you play?"
   },
   "welcome.focusTitle": { de: "Dein Lernschwerpunkt", en: "Your Learning Focus" },
   "welcome.focusSub": {
@@ -13635,15 +13635,15 @@ const I18N_STATIC = {
   },
   "welcome.greetTitle": {
     de: "Hallo! Schön, dass du da bist.",
-    en: "Hello! Welcome to Lauschebär."
+    en: "Hello! Welcome to Lauscher."
   },
   "welcome.greetNamedTitle": {
     de: "Hallo, {name}! Schön, dass du da bist.",
-    en: "Hi, {name}! Welcome to Lauschebär."
+    en: "Hi, {name}! Welcome to Lauscher."
   },
   "welcome.greetBody": {
-    de: "Ich bin der Lauschebär und freue mich darauf, mit dir zu hören, Noten zu entdecken und Musik zu verstehen. Viel Freude und Erfolg beim Lernen!",
-    en: "I’m Lauschebär, excited to explore ear training, sight-reading, and music theory together with you. Take your time and have lots of fun learning!"
+    de: "Ich bin der Lauscher und freue mich darauf, mit dir zu hören, Noten zu entdecken und Musik zu verstehen. Viel Freude und Erfolg beim Lernen!",
+    en: "I’m Lauscher, excited to explore ear training, sight-reading, and music theory together with you. Take your time and have lots of fun learning!"
   },
   "welcome.continueBtn": {
     de: "Los geht’s →",
@@ -13763,7 +13763,7 @@ const I18N_STATIC = {
   "space.namePlaceholder": { de: "z. B. Dein Name (optional)", en: "e.g. Your name (optional)" },
   "space.instrumentsLabel": { de: "Deine Instrumente / Rollen", en: "Your instruments / roles" },
   "space.focusLabel": { de: "Trainings-Schwerpunkte", en: "Practice focus areas" },
-  "space.accessoryLabel": { de: "Lauschebär-Look", en: "Lauschebär style" },
+  "space.accessoryLabel": { de: "Lauscher-Look", en: "Lauscher style" },
   "space.timerTitle": { de: "Achtsamer Session-Timer", en: "Mindful Session Timer" },
   "space.timerSub": {
     de: "Schaltet sich bei Nicht-Nutzung automatisch wieder aus – zählt keine Lernhistorie.",
@@ -14100,17 +14100,17 @@ const I18N_STATIC = {
   "metro.volNormal": { de: "Normale Zählzeiten", en: "Normal beats" },
   "metro.volNormalAria": { de: "Lautstärke der normalen Zählzeiten anpassen", en: "Adjust normal beat volume" },
   "settings.aboutHeading": { de: "Über die App", en: "About the App" },
-  "settings.openAboutBtn": { de: "ℹ️ Über Lauschebär →", en: "ℹ️ About Lauschebär →" },
-  "about.title": { de: "Über Lauschebär", en: "About Lauschebär" },
+  "settings.openAboutBtn": { de: "ℹ️ Über Lauscher →", en: "ℹ️ About Lauscher →" },
+  "about.title": { de: "Über Lauscher", en: "About Lauscher" },
   "about.version": { de: "Version 0.9.0-beta", en: "Version 0.9.0-beta" },
   "about.description": {
-    de: "Lauschebär ist dein ruhiger, werbe- und trackingfreier Begleiter für musikalisches Gehörtraining, Notenlesen, Musiktheorie, Einsingen und Studio-Hören – komplett lokal auf deinem Gerät und ohne Punktedruck.",
-    en: "Lauschebär is your calm, ad-free, and tracker-free companion for musical ear training, sight-reading, music theory, vocal warmup, and studio listening — running 100% locally on your device without score pressure."
+    de: "Lauscher ist dein ruhiger, werbe- und trackingfreier Begleiter für musikalisches Gehörtraining, Notenlesen, Musiktheorie, Einsingen und Studio-Hören – komplett lokal auf deinem Gerät und ohne Punktedruck.",
+    en: "Lauscher is your calm, ad-free, and tracker-free companion for musical ear training, sight-reading, music theory, vocal warmup, and studio listening — running 100% locally on your device without score pressure."
   },
   "about.linksHeading": { de: "Kontakt, Unterstützung & Rechtliches", en: "Contact, Support & Legal" },
   "about.linkContact": { de: "Nachricht an den Entwickler / Kontakt", en: "Message the Developer / Contact" },
   "about.linkRate": { de: "App bewerten", en: "Rate the App" },
-  "about.linkShare": { de: "Lauschebär teilen", en: "Share Lauschebär" },
+  "about.linkShare": { de: "Lauscher teilen", en: "Share Lauscher" },
   "about.linkDonate": { de: "Spenden", en: "Donate" },
   "about.linkPrivacy": { de: "Datenschutz", en: "Privacy Policy" },
   "about.linkTerms": { de: "Nutzungsbedingungen", en: "Terms of Use" },
@@ -14302,7 +14302,7 @@ const LAUSCHEBAER_QUOTES_EN = [
   { cat: "Tip", text: "“In ‘Production • Pink Noise EQ’, use a mixing engineer’s habit: toggle ‘Flat Bypass’ back and forth until the boosted band pops right out!”" },
   { cat: "Tip", text: "“Spin the interactive Circle of Fifths inside Knowledge: neighboring keys share six of seven notes, making key changes glide smoothly!”" },
   { cat: "Tip", text: "“In ‘Scales & Modes’, you don’t need to inspect all seven notes — hunt for the single signature color tone, like the bright #4 in Lydian!”" },
-  { cat: "Tip", text: "“Want Lauschebär in your signature palette? Open Color Studio under Account to blend up to three custom color themes down to RGBA!”" },
+  { cat: "Tip", text: "“Want Lauscher in your signature palette? Open Color Studio under Account to blend up to three custom color themes down to RGBA!”" },
 
   // Category 4: Did You Know? (Music & Physics)
   { cat: "Did You Know?", text: "“Roughly half of modern pop hits rely on the same four chords: I – V – vi – IV.”" },
@@ -14777,12 +14777,12 @@ function getLocalizedModeLevelLabel(kind, lvl) {
 </script>
 <script>
 /**
- * Lauschebär • Localisation française ("fr")
- * Interface complète, terminologie musicale idiomatique et citations de Lauschebär en français.
+ * Lauscher • Localisation française ("fr")
+ * Interface complète, terminologie musicale idiomatique et citations de Lauscher en français.
  */
 
 const I18N_STATIC_FR = {
-  "app.title": "Lauschebär • Écouter · Comprendre · Pratiquer",
+  "app.title": "Lauscher • Écouter · Comprendre · Pratiquer",
   "app.tagline": "Écouter · Comprendre · Pratiquer",
   "welcome.stepProgress": "Étape {n} sur {total}",
   "welcome.backBtn": "← Retour",
@@ -14797,12 +14797,12 @@ const I18N_STATIC_FR = {
   "welcome.autoNextOffTitle": "Lecture manuelle",
   "welcome.autoNextOffDesc": "Met en pause après chaque solution jusqu’à ce que vous relanciez l’écoute.",
   "welcome.profileTitle": "Votre profil musicien",
-  "welcome.profileSub": "Comment Lauschebär doit-il vous saluer et quels instruments pratiquez-vous ?",
+  "welcome.profileSub": "Comment Lauscher doit-il vous saluer et quels instruments pratiquez-vous ?",
   "welcome.focusTitle": "Votre objectif prioritaire",
   "welcome.focusSub": "Sur quel domaine souhaitez-vous concentrer vos premiers entraînements ?",
-  "welcome.greetTitle": "Bonjour ! Bienvenue sur Lauschebär.",
-  "welcome.greetNamedTitle": "Bonjour {name} ! Bienvenue sur Lauschebär.",
-  "welcome.greetBody": "Je suis Lauschebär, ravi de vous accompagner pour entraîner votre oreille, lire les notes et explorer la musique. Prenez plaisir à apprendre !",
+  "welcome.greetTitle": "Bonjour ! Bienvenue sur Lauscher.",
+  "welcome.greetNamedTitle": "Bonjour {name} ! Bienvenue sur Lauscher.",
+  "welcome.greetBody": "Je suis Lauscher, ravi de vous accompagner pour entraîner votre oreille, lire les notes et explorer la musique. Prenez plaisir à apprendre !",
   "welcome.continueBtn": "C’est parti →",
   "welcome.redirectHint": "Redirection vers l’accueil…",
   "nav.backTitle": "Retour",
@@ -14903,7 +14903,7 @@ const I18N_STATIC_FR = {
   "space.namePlaceholder": "ex. Votre prénom (facultatif)",
   "space.instrumentsLabel": "Vos instruments / rôles",
   "space.focusLabel": "Axes d’entraînement",
-  "space.accessoryLabel": "Style de Lauschebär",
+  "space.accessoryLabel": "Style de Lauscher",
   "space.timerTitle": "Minuteur de session attentif",
   "space.timerSub": "Se met automatiquement en pause en cas d’inactivité – ne conserve aucun historique.",
   "space.timerDuration": "Durée souhaitée",
@@ -15161,14 +15161,14 @@ const I18N_STATIC_FR = {
   "metro.volNormal": "Temps normaux",
   "metro.volNormalAria": "Régler le volume des temps normaux",
   "settings.aboutHeading": "À propos de l'application",
-  "settings.openAboutBtn": "ℹ️ À propos de Lauschebär →",
-  "about.title": "À propos de Lauschebär",
+  "settings.openAboutBtn": "ℹ️ À propos de Lauscher →",
+  "about.title": "À propos de Lauscher",
   "about.version": "Version 0.9.0-beta",
-  "about.description": "Lauschebär est votre compagnon calme, sans publicité ni pistage, pour l'entraînement de l'oreille, la lecture de notes, la théorie musicale, l'échauffement vocal et l'écoute studio — 100 % en local sur votre appareil, sans pression de score.",
+  "about.description": "Lauscher est votre compagnon calme, sans publicité ni pistage, pour l'entraînement de l'oreille, la lecture de notes, la théorie musicale, l'échauffement vocal et l'écoute studio — 100 % en local sur votre appareil, sans pression de score.",
   "about.linksHeading": "Contact, soutien et mentions légales",
   "about.linkContact": "Message au développeur / Contact",
   "about.linkRate": "Évaluer l'application",
-  "about.linkShare": "Partager Lauschebär",
+  "about.linkShare": "Partager Lauscher",
   "about.linkDonate": "Faire un don",
   "about.linkPrivacy": "Confidentialité",
   "about.linkTerms": "Conditions d'utilisation",
@@ -16361,7 +16361,7 @@ Object.assign(TR_FR, {
 });
 
 Object.assign(TR_FR, {
-  "1 Versuch pro Frage – prüfungsfest ohne Hilfsschleifen. Am Ende warten Lauschebär-Bewertung, Modul-Aufschlüsselung und direkter Hör-Vergleich.": "1 tentative par question – sans boucle d’aide. À la fin : évaluation Lauschebär, détail par module et comparaison audio directe.",
+  "1 Versuch pro Frage – prüfungsfest ohne Hilfsschleifen. Am Ende warten Lauscher-Bewertung, Modul-Aufschlüsselung und direkter Hör-Vergleich.": "1 tentative par question – sans boucle d’aide. À la fin : évaluation Lauscher, détail par module et comparaison audio directe.",
   "1 Versuch pro Frage • verschiedene Stufen & Hör-Auswertung": "1 tentative par question • niveaux variés & bilan audio",
   "1× Start + {left}× nachhören": "1× départ + {left}× réécoute",
   "4 / 4 ERFASST": "4 / 4 SAISIES",
@@ -16430,7 +16430,7 @@ Object.assign(TR_FR, {
   "Kirchentonarten (Tonleiter)": "Modes ecclésiastiques (Gamme)",
   "Komplexe Diktate, Präzisions-Tap (±28 ms) & Mikro-Timing": "Dictées complexes, frappe précise (±28 ms) & micro-timing",
   "Königsklasse: Alle 12 Halbtöne + neue Tonart bei jeder Frage": "Niveau maître : les 12 demi-tons + nouvelle tonalité par question",
-  "Lauschebär-Meister": "Maître Lauschebär",
+  "Lauscher-Meister": "Maître Lauscher",
   "Max. 2× Replay": "Max 2× réécoute",
   "Max. 2× anhören": "Max 2× réécoute",
   "Melodien (4 Töne)": "Mélodies (4 notes)",
@@ -16464,7 +16464,7 @@ Object.assign(TR_FR, {
   "Souveränes Gehör! Du erkennst selbst feine Details ruhig und treffsicher.": "Oreille souveraine ! Vous percevez même les nuances fines avec assurance.",
   "Stammtöne Do bis Ti in einer konstanten Nicht-C-Dur-Tonart": "Notes Do à Ti dans une tonalité fixe autre que Do majeur",
   "Stammtöne Do bis Ti mit fester C-Dur-Kadenz": "Notes Do à Ti avec cadence fixe en Do majeur",
-  "Starker Lauschebär": "Solide Lauschebär",
+  "Starker Lauscher": "Solide Lauscher",
   "Stufe 1 • 5 Hauptbänder": "Niveau 1 • 5 bandes clés",
   "Stufe 1 • Basis-Dreiklänge & Lagen": "Niveau 1 • Triades de base & positions",
   "Stufe 1 • Basis-Modi": "Niveau 1 • Modes de base",
@@ -16722,12 +16722,12 @@ if (typeof registerLanguageBundle === "function") {
 </script>
 <script>
 /**
- * Lauschebär • Polska lokalizacja (pl)
+ * Lauscher • Polska lokalizacja (pl)
  * Pełny pakiet interfejsu, cytatów, słowników, teorii i fraz ćwiczeń.
  */
 
 const I18N_STATIC_PL = {
-  "app.title": "Lauschebär • Słuchaj · Rozumiej · Graj",
+  "app.title": "Lauscher • Słuchaj · Rozumiej · Graj",
   "app.tagline": "Słuchaj · Rozumiej · Graj",
   "welcome.stepProgress": "Krok {n} z {total}",
   "welcome.backBtn": "← Wstecz",
@@ -16742,12 +16742,12 @@ const I18N_STATIC_PL = {
   "welcome.autoNextOffTitle": "Odtwarzanie ręczne",
   "welcome.autoNextOffDesc": "Po rozwiązaniu czeka spokojnie, aż samodzielnie klikniesz „Odtwórz”.",
   "welcome.profileTitle": "Twój profil muzyka",
-  "welcome.profileSub": "Jak Lauschebär ma się z Tobą witać i na jakich instrumentach grasz?",
+  "welcome.profileSub": "Jak Lauscher ma się z Tobą witać i na jakich instrumentach grasz?",
   "welcome.focusTitle": "Twój główny cel nauki",
   "welcome.focusSub": "Od czego chcesz zacząć swoją przygodę?",
-  "welcome.greetTitle": "Cześć! Miło Cię widzieć w Lauschebär.",
-  "welcome.greetNamedTitle": "Cześć, {name}! Miło Cię widzieć w Lauschebär.",
-  "welcome.greetBody": "Jestem Lauschebär i z radością pomogę Ci ćwiczyć słuch muzyczny, czytać nuty oraz odkrywać harmonię. Ucz się we własnym tempie — dużo radości i sukcesów!",
+  "welcome.greetTitle": "Cześć! Miło Cię widzieć w Lauscher.",
+  "welcome.greetNamedTitle": "Cześć, {name}! Miło Cię widzieć w Lauscher.",
+  "welcome.greetBody": "Jestem Lauscher i z radością pomogę Ci ćwiczyć słuch muzyczny, czytać nuty oraz odkrywać harmonię. Ucz się we własnym tempie — dużo radości i sukcesów!",
   "welcome.continueBtn": "Zaczynajmy →",
   "welcome.redirectHint": "Za chwilę przejdziemy do ekranu głównego…",
   "nav.backTitle": "Wstecz",
@@ -16848,7 +16848,7 @@ const I18N_STATIC_PL = {
   "space.namePlaceholder": "np. Twoje imię (opcjonalnie)",
   "space.instrumentsLabel": "Twoje instrumenty / role",
   "space.focusLabel": "Obszary ćwiczeń",
-  "space.accessoryLabel": "Styl Lauschebär",
+  "space.accessoryLabel": "Styl Lauscher",
   "space.timerTitle": "Uważny minutnik sesji",
   "space.timerSub": "Zatrzymuje się automatycznie przy bezczynności — bez śledzenia ani statystyk.",
   "space.timerDuration": "Czas trwania sesji",
@@ -17106,14 +17106,14 @@ const I18N_STATIC_PL = {
   "metro.volNormal": "Zwykłe miary",
   "metro.volNormalAria": "Dostosuj głośność zwykłych miar",
   "settings.aboutHeading": "O aplikacji",
-  "settings.openAboutBtn": "ℹ️ O aplikacji Lauschebär →",
-  "about.title": "O aplikacji Lauschebär",
+  "settings.openAboutBtn": "ℹ️ O aplikacji Lauscher →",
+  "about.title": "O aplikacji Lauscher",
   "about.version": "Wersja 0.9.0-beta",
-  "about.description": "Lauschebär to Twój spokojny, wolny od reklam i śledzenia towarzysz do kształcenia słuchu, czytania nut, teorii muzyki, rozśpiewki i słuchania studyjnego — w 100% lokalnie na Twoim urządzeniu i bez presji punktów.",
+  "about.description": "Lauscher to Twój spokojny, wolny od reklam i śledzenia towarzysz do kształcenia słuchu, czytania nut, teorii muzyki, rozśpiewki i słuchania studyjnego — w 100% lokalnie na Twoim urządzeniu i bez presji punktów.",
   "about.linksHeading": "Kontakt, wsparcie i informacje prawne",
   "about.linkContact": "Wiadomość do twórcy / Kontakt",
   "about.linkRate": "Oceń aplikację",
-  "about.linkShare": "Udostępnij Lauschebär",
+  "about.linkShare": "Udostępnij Lauscher",
   "about.linkDonate": "Wesprzyj (Darowizna)",
   "about.linkPrivacy": "Polityka prywatności",
   "about.linkTerms": "Warunki korzystania",
@@ -18352,7 +18352,7 @@ const TR_PL = {
 };
 
 Object.assign(TR_PL, {
-  "1 Versuch pro Frage – prüfungsfest ohne Hilfsschleifen. Am Ende warten Lauschebär-Bewertung, Modul-Aufschlüsselung und direkter Hör-Vergleich.": "1 próba na pytanie — bez pętli podpowiedzi. Na końcu czeka ocena Lauschebär, podział na moduły i bezpośrednie odsłuchy porównawcze.",
+  "1 Versuch pro Frage – prüfungsfest ohne Hilfsschleifen. Am Ende warten Lauscher-Bewertung, Modul-Aufschlüsselung und direkter Hör-Vergleich.": "1 próba na pytanie — bez pętli podpowiedzi. Na końcu czeka ocena Lauscher, podział na moduły i bezpośrednie odsłuchy porównawcze.",
   "1 Versuch pro Frage • verschiedene Stufen & Hör-Auswertung": "1 próba na pytanie • różne poziomy i podsumowanie audio",
   "1× Start + {left}× nachhören": "1× start + {left}× powtórz",
   "4 / 4 ERFASST": "4 / 4 ZAPISANO",
@@ -18420,7 +18420,7 @@ Object.assign(TR_PL, {
   "Kirchentonarten (Tonleiter)": "Skale kościelne (Skala)",
   "Komplexe Diktate, Präzisions-Tap (±28 ms) & Mikro-Timing": "Złożone dyktanda, precyzyjne stukanie (±28 ms) i mikrotiming",
   "Königsklasse: Alle 12 Halbtöne + neue Tonart bei jeder Frage": "Poziom mistrzowski: wszystkie 12 półtonów + nowa tonacja w każdym pytaniu",
-  "Lauschebär-Meister": "Mistrz Lauschebär",
+  "Lauscher-Meister": "Mistrz Lauscher",
   "Max. 2× Replay": "Maks. 2× odsłuch",
   "Max. 2× anhören": "Maks. 2× posłuchaj",
   "Melodien (4 Töne)": "Melodie (4 nuty)",
@@ -18454,7 +18454,7 @@ Object.assign(TR_PL, {
   "Souveränes Gehör! Du erkennst selbst feine Details ruhig und treffsicher.": "Pewny i wyrobiony słuch! Bez trudu wyłapujesz nawet subtelne detale.",
   "Stammtöne Do bis Ti in einer konstanten Nicht-C-Dur-Tonart": "Stopnie od Do do Ti w stałej tonacji innej niż C-dur",
   "Stammtöne Do bis Ti mit fester C-Dur-Kadenz": "Stopnie od Do do Ti ze stałą kadencją C-dur",
-  "Starker Lauschebär": "Silny Lauschebär",
+  "Starker Lauscher": "Silny Lauscher",
   "Stufe 1 • 5 Hauptbänder": "Poziom 1 • 5 głównych pasm",
   "Stufe 1 • Basis-Dreiklänge & Lagen": "Poziom 1 • Podstawowe trójdźwięki",
   "Stufe 1 • Basis-Modi": "Poziom 1 • Podstawowe skale",
@@ -18713,12 +18713,12 @@ if (typeof registerLanguageBundle === "function") {
 </script>
 <script>
 /**
- * Lauschebär • Українська локалізація (uk)
+ * Lauscher • Українська локалізація (uk)
  * Повний пакет інтерфейсу, цитат, довідників та фраз вправ.
  */
 
 const I18N_STATIC_UK = {
-  "app.title": "Lauschebär • Слухай · Розумій · Грай",
+  "app.title": "Lauscher • Слухай · Розумій · Грай",
   "app.tagline": "Слухай · Розумій · Грай",
   "welcome.stepProgress": "Крок {n} із {total}",
   "welcome.backBtn": "← Назад",
@@ -18736,8 +18736,8 @@ const I18N_STATIC_UK = {
   "welcome.profileSub": "Як Лаушебер може до тебе звертатися та на яких інструментах ти граєш?",
   "welcome.focusTitle": "Твій навчальний фокус",
   "welcome.focusSub": "На чому хочеш зосередитися насамперед?",
-  "welcome.greetTitle": "Привіт! Радий вітати тебе в Lauschebär.",
-  "welcome.greetNamedTitle": "Привіт, {name}! Радий вітати тебе в Lauschebär.",
+  "welcome.greetTitle": "Привіт! Радий вітати тебе в Lauscher.",
+  "welcome.greetNamedTitle": "Привіт, {name}! Радий вітати тебе в Lauscher.",
   "welcome.greetBody": "Я — Лаушебер, і з радістю допоможу тобі тренувати слух, читати ноти та пізнавати музику. Займайся у своєму темпі — гарного настрою та задоволення від навчання!",
   "welcome.continueBtn": "Починаймо →",
   "welcome.redirectHint": "Зараз перейдемо на головний екран…",
@@ -18839,7 +18839,7 @@ const I18N_STATIC_UK = {
   "space.namePlaceholder": "напр. Твоє ім’я (необов’язково)",
   "space.instrumentsLabel": "Твої інструменти / ролі",
   "space.focusLabel": "Фокуси занять",
-  "space.accessoryLabel": "Стиль Lauschebär",
+  "space.accessoryLabel": "Стиль Lauscher",
   "space.timerTitle": "Уважний таймер сесії",
   "space.timerSub": "Автоматично стає на паузу під час простою — не зберігає жодної історії відстеження.",
   "space.timerDuration": "Тривалість сесії",
@@ -19097,14 +19097,14 @@ const I18N_STATIC_UK = {
   "metro.volNormal": "Звичайні долі",
   "metro.volNormalAria": "Налаштувати гучність звичайних долей",
   "settings.aboutHeading": "Про застосунок",
-  "settings.openAboutBtn": "ℹ️ Про Lauschebär →",
-  "about.title": "Про Lauschebär",
+  "settings.openAboutBtn": "ℹ️ Про Lauscher →",
+  "about.title": "Про Lauscher",
   "about.version": "Версія 0.9.0-beta",
-  "about.description": "Lauschebär — ваш спокійний супутник без реклами та відстеження для розвитку музичного слуху, читання нот, теорії музики, розспівування та студійного слухання — повністю локально на вашому пристрої та без тиску балів.",
+  "about.description": "Lauscher — ваш спокійний супутник без реклами та відстеження для розвитку музичного слуху, читання нот, теорії музики, розспівування та студійного слухання — повністю локально на вашому пристрої та без тиску балів.",
   "about.linksHeading": "Контакти, підтримка та правова інформація",
   "about.linkContact": "Повідомлення розробнику / Контакт",
   "about.linkRate": "Оцінити застосунок",
-  "about.linkShare": "Поділитися Lauschebär",
+  "about.linkShare": "Поділитися Lauscher",
   "about.linkDonate": "Підтримати проєкт (Донат)",
   "about.linkPrivacy": "Конфіденційність",
   "about.linkTerms": "Умови використання",
@@ -19162,7 +19162,7 @@ const LAUSCHEBAER_QUOTES_UK = [
   { cat: "Порада", text: "«У «Підсиленні EQ у рожевому шумі» скористайся звичкою звукорежисера: клацай «Байпас Flat» туди-сюди, доки потрібна смуга не стане очевидною!»" },
   { cat: "Порада", text: "«Покрути інтерактивне Кварто-квінтове коло в Знаннях: сусідні тональності мають шість спільних нот із семи, тому модуляції звучать так м’яко!»" },
   { cat: "Порада", text: "«У «Гамах та ладах» не обов’язково звіряти всі сім звуків — упіймай один характерний тон, наприклад сяючий #4 у лідійському!»" },
-  { cat: "Порада", text: "«Хочеш власну палітру для Lauschebär? У «Студії кольорів» у профілі можна змішати до трьох авторських тем із точним підбором RGBA!»" },
+  { cat: "Порада", text: "«Хочеш власну палітру для Lauscher? У «Студії кольорів» у профілі можна змішати до трьох авторських тем із точним підбором RGBA!»" },
 
   { cat: "Цікавий факт", text: "«Приблизно половина сучасних поп-хітів тримається на тих самих чотирьох акордах: I – V – vi – IV.»" },
   { cat: "Цікавий факт", text: "«У чистій октаві верхня нота коливається рівно вдвічі швидше за нижню (співвідношення 2:1).»" },
@@ -20344,7 +20344,7 @@ const TR_UK = {
 };
 
 Object.assign(TR_UK, {
-  "1 Versuch pro Frage – prüfungsfest ohne Hilfsschleifen. Am Ende warten Lauschebär-Bewertung, Modul-Aufschlüsselung und direkter Hör-Vergleich.": "1 спроба на питання — без підказок і зациклювань. Наприкінці: оцінка Lauschebär, розбір за модулями та аудіопорівняння.",
+  "1 Versuch pro Frage – prüfungsfest ohne Hilfsschleifen. Am Ende warten Lauscher-Bewertung, Modul-Aufschlüsselung und direkter Hör-Vergleich.": "1 спроба на питання — без підказок і зациклювань. Наприкінці: оцінка Lauscher, розбір за модулями та аудіопорівняння.",
   "1 Versuch pro Frage • verschiedene Stufen & Hör-Auswertung": "1 спроба на питання • різні рівні й аудіорозбір",
   "1× Start + {left}× nachhören": "1× старт + {left}× повтор",
   "4 / 4 ERFASST": "4 / 4 ЗАПИСАНО",
@@ -20412,7 +20412,7 @@ Object.assign(TR_UK, {
   "Kirchentonarten (Tonleiter)": "Лади (Гама)",
   "Komplexe Diktate, Präzisions-Tap (±28 ms) & Mikro-Timing": "Складні диктанти, точне відстукування (±28 мс) і мікротаймінг",
   "Königsklasse: Alle 12 Halbtöne + neue Tonart bei jeder Frage": "Вищий клас: усі 12 півтонів + нова тональність у кожному питанні",
-  "Lauschebär-Meister": "Майстер Lauschebär",
+  "Lauscher-Meister": "Майстер Lauscher",
   "Max. 2× Replay": "Макс. 2× повтор",
   "Max. 2× anhören": "Макс. 2× повтор",
   "Melodien (4 Töne)": "Мелодії (4 ноти)",
@@ -20446,7 +20446,7 @@ Object.assign(TR_UK, {
   "Souveränes Gehör! Du erkennst selbst feine Details ruhig und treffsicher.": "Впевнений слух! Ти спокійно й точно розпізнаєш навіть найтонші деталі.",
   "Stammtöne Do bis Ti in einer konstanten Nicht-C-Dur-Tonart": "Ступені від Do до Ti у сталій тональності (не До мажор)",
   "Stammtöne Do bis Ti mit fester C-Dur-Kadenz": "Ступені від Do до Ti зі сталою каденцією в До мажорі",
-  "Starker Lauschebär": "Сильний слухач",
+  "Starker Lauscher": "Сильний слухач",
   "Stufe 1 • 5 Hauptbänder": "Рівень 1 • 5 основних смуг",
   "Stufe 1 • Basis-Dreiklänge & Lagen": "Рівень 1 • Базові тризвуки й позиції",
   "Stufe 1 • Basis-Modi": "Рівень 1 • Базові лади",
@@ -20705,12 +20705,12 @@ if (typeof registerLanguageBundle === "function") {
 </script>
 <script>
 /**
- * Lauschebär • اردو لوکلائزیشن (ur)
+ * Lauscher • اردو لوکلائزیشن (ur)
  * انٹرفیس، اقوال، حوالہ جات، جدولیں اور مشقوں کا مکمل اردو پیکج (RTL)۔
  */
 
 const I18N_STATIC_UR = {
-  "app.title": "Lauschebär • سنو · سمجھو · بجاؤ",
+  "app.title": "Lauscher • سنو · سمجھو · بجاؤ",
   "app.tagline": "سنو · سمجھو · بجاؤ",
   "welcome.stepProgress": "مرحلہ {n} از {total}",
   "welcome.backBtn": "→ واپس",
@@ -20728,8 +20728,8 @@ const I18N_STATIC_UR = {
   "welcome.profileSub": "لوشے بیئر آپ کو کس نام سے پکارے اور آپ کون سے ساز بجاتے ہیں؟",
   "welcome.focusTitle": "آپ کا تعلیمی ہدف",
   "welcome.focusSub": "آپ سب سے پہلے کس چیز پر توجہ دینا چاہتے ہیں؟",
-  "welcome.greetTitle": "خوش آمدید! Lauschebär میں آپ کا آنا بہت اچھا لگا۔",
-  "welcome.greetNamedTitle": "خوش آمدید، {name}! Lauschebär میں آپ کا آنا بہت اچھا لگا۔",
+  "welcome.greetTitle": "خوش آمدید! Lauscher میں آپ کا آنا بہت اچھا لگا۔",
+  "welcome.greetNamedTitle": "خوش آمدید، {name}! Lauscher میں آپ کا آنا بہت اچھا لگا۔",
   "welcome.greetBody": "میں لوشے بیئر ہوں، اور آپ کے ساتھ کان کی تربیت، نوٹیشن پڑھنا اور موسیقی کا نظریہ سیکھنے کے لیے پُرجوش ہوں۔ آرام سے اپنے انداز میں مشق کریں اور سیکھنے کا لطف اٹھائیں!",
   "welcome.continueBtn": "چلو شروع کریں ←",
   "welcome.redirectHint": "آپ کو ہوم اسکرین پر لے جایا جا رہا ہے…",
@@ -20831,7 +20831,7 @@ const I18N_STATIC_UR = {
   "space.namePlaceholder": "مثلاً آپ کا نام (اختیاری)",
   "space.instrumentsLabel": "آپ کے ساز / کردار",
   "space.focusLabel": "مشق کے مراکز",
-  "space.accessoryLabel": "Lauschebär انداز",
+  "space.accessoryLabel": "Lauscher انداز",
   "space.timerTitle": "توجہ بھرا سیشن ٹائمر",
   "space.timerSub": "استعمال نہ ہونے پر خودکار رک جاتا ہے — کوئی تعلیمی ہسٹری محفوظ نہیں کرتا۔",
   "space.timerDuration": "سیشن کی مدت",
@@ -21089,14 +21089,14 @@ const I18N_STATIC_UR = {
   "metro.volNormal": "عام بیٹس",
   "metro.volNormalAria": "عام بیٹس کا والیوم ترتیب دیں",
   "settings.aboutHeading": "ایپ کے بارے میں",
-  "settings.openAboutBtn": "ℹ️ Lauschebär کے بارے میں →",
-  "about.title": "Lauschebär کے بارے میں",
+  "settings.openAboutBtn": "ℹ️ Lauscher کے بارے میں →",
+  "about.title": "Lauscher کے بارے میں",
   "about.version": "ورژن 0.9.0-beta",
-  "about.description": "Lauschebär موسیقی کی سماعت کی تربیت، نوٹ پڑھنے، میوزک تھیوری، ووکل وارم اپ اور اسٹوڈیو سننے کے لیے آپ کا پرسکون، اشتہارات اور ٹریکنگ سے پاک ساتھی ہے — بغیر کسی اسکور کے دباؤ کے مکمل طور پر آپ کے آلے پر۔",
+  "about.description": "Lauscher موسیقی کی سماعت کی تربیت، نوٹ پڑھنے، میوزک تھیوری، ووکل وارم اپ اور اسٹوڈیو سننے کے لیے آپ کا پرسکون، اشتہارات اور ٹریکنگ سے پاک ساتھی ہے — بغیر کسی اسکور کے دباؤ کے مکمل طور پر آپ کے آلے پر۔",
   "about.linksHeading": "رابطہ، تعاون اور قانونی معلومات",
   "about.linkContact": "ڈویلپر کو پیغام / رابطہ",
   "about.linkRate": "ایپ کی درجہ بندی کریں",
-  "about.linkShare": "Lauschebär شیئر کریں",
+  "about.linkShare": "Lauscher شیئر کریں",
   "about.linkDonate": "عطیہ کریں",
   "about.linkPrivacy": "رازداری کی پالیسی",
   "about.linkTerms": "استعمال کی شرائط",
@@ -21152,7 +21152,7 @@ const LAUSCHEBAER_QUOTES_UR = [
   { cat: "مشورہ", text: "«‹پروڈکشن • پنک نوائز EQ› میں آڈیو انجینئرز والی عادت اپنائیں: ‹فلیٹ بائی پاس› بار بار پلٹیں جب تک ابھرا ہوا بینڈ چمک نہ اٹھے!»" },
   { cat: "مشورہ", text: "«علم کے حصے میں انٹرایکٹو سرکل آف ففتھس گھمائیں: پڑوسی کلیدوں میں سات میں سے چھ نوٹ مشترک ہوتے ہیں، اسی لیے تبدیلی ہموار لگتی ہے!»" },
   { cat: "مشورہ", text: "«‹اسکیلز اور موڈز› میں ساتوں نوٹس کا جائزہ لینا ضروری نہیں — بس وہ ایک خاص رنگدار سُر پکڑیں، جیسے لڈین کا روشن #4!»" },
-  { cat: "مشورہ", text: "«اپنے پسندیدہ رنگوں میں Lauschebär چاہتے ہیں؟ اکاؤنٹ کے کلر اسٹوڈیو میں جا کر RGBA تک 3 ذاتی تھیمز بنائیں!»" },
+  { cat: "مشورہ", text: "«اپنے پسندیدہ رنگوں میں Lauscher چاہتے ہیں؟ اکاؤنٹ کے کلر اسٹوڈیو میں جا کر RGBA تک 3 ذاتی تھیمز بنائیں!»" },
   { cat: "کیا آپ جانتے ہیں؟", text: "«جدید پاپ کے تقریباً آدھے ہٹ گانے ایک ہی چار کارڈز پر چلتے ہیں: I – V – vi – IV۔»" },
   { cat: "کیا آپ جانتے ہیں؟", text: "«خالص آکٹیو میں اوپر والا سُر نیچے والے سے ٹھیک دگنی تیزی سے تھرتھراتا ہے (2:1 کی نسبت)۔»" },
   { cat: "کیا آپ جانتے ہیں؟", text: "«جنگل میں کوئل کی کوکو عموماً اترتا ہوا مائنر یا میجر تھرڈ ہوتی ہے!»" },
@@ -22360,7 +22360,7 @@ const TR_UR = Object.assign(Object.create(null), {
   "{rhythm} ({bpm} BPM) • Höre genau hin": "{rhythm} ({bpm} BPM) • غور سے سنیں",
   "{tot} / {tot} ERFASST": "{tot} / {tot} درج ہو گئے",
   "{tot} / {tot} gelöst ✓": "{tot} / {tot} حل ہو گئے ✓",
-  "1 Versuch pro Frage – prüfungsfest ohne Hilfsschleifen. Am Ende warten Lauschebär-Bewertung, Modul-Aufschlüsselung und direkter Hör-Vergleich.": "امتحانی حالات میں ہر سوال پر 1 کوشش — لامحدود مدد کے بغیر۔ آخر میں Lauschebär تجزیہ، ماڈیول تفصیل اور فوری آڈیو موازنہ ملے گا۔",
+  "1 Versuch pro Frage – prüfungsfest ohne Hilfsschleifen. Am Ende warten Lauscher-Bewertung, Modul-Aufschlüsselung und direkter Hör-Vergleich.": "امتحانی حالات میں ہر سوال پر 1 کوشش — لامحدود مدد کے بغیر۔ آخر میں Lauscher تجزیہ، ماڈیول تفصیل اور فوری آڈیو موازنہ ملے گا۔",
   "1 Versuch pro Frage • verschiedene Stufen & Hör-Auswertung": "ہر سوال پر 1 کوشش • منتخب لیولز اور آڈیو جائزہ",
   "1× Start + {left}× nachhören": "1× ابتدا + {left}× دوبارہ سننا",
   "4 / 4 ERFASST": "4 / 4 درج ہو گئے",
@@ -22428,7 +22428,7 @@ const TR_UR = Object.assign(Object.create(null), {
   "Kirchentonarten (Tonleiter)": "موڈز (اسکیل)",
   "Komplexe Diktate, Präzisions-Tap (±28 ms) & Mikro-Timing": "پیچیدہ ڈکٹیشن، باریک ٹیپ (±28 ms) اور مائیکرو ٹائمنگ",
   "Königsklasse: Alle 12 Halbtöne + neue Tonart bei jeder Frage": "ماسٹر لیول: تمام 12 سیمی ٹونز + ہر سوال پر نئی کلید",
-  "Lauschebär-Meister": "ماہرِ Lauschebär",
+  "Lauscher-Meister": "ماہرِ Lauscher",
   "Max. 2× Replay": "زیادہ سے زیادہ 2× ری پلے",
   "Max. 2× anhören": "زیادہ سے زیادہ 2 بار سنیں",
   "Melodien (4 Töne)": "دھنیں (4 نوٹس)",
@@ -22462,7 +22462,7 @@ const TR_UR = Object.assign(Object.create(null), {
   "Souveränes Gehör! Du erkennst selbst feine Details ruhig und treffsicher.": "شاندار سماعت! آپ باریک ترین تفصیلات بھی اطمینان اور درستگی سے پہچان لیتے ہیں۔",
   "Stammtöne Do bis Ti in einer konstanten Nicht-C-Dur-Tonart": "ایک مقررہ غیر C کلید میں بنیادی سُر Do تا Ti",
   "Stammtöne Do bis Ti mit fester C-Dur-Kadenz": "مقررہ C میجر کیڈینس کے ساتھ بنیادی سُر Do تا Ti",
-  "Starker Lauschebär": "تیز سامع",
+  "Starker Lauscher": "تیز سامع",
   "Stufe 1 • 5 Hauptbänder": "لیول 1 • 5 مرکزی بینڈز",
   "Stufe 1 • Basis-Dreiklänge & Lagen": "لیول 1 • بنیادی ٹرائڈز اور اُلٹاؤ",
   "Stufe 1 • Basis-Modi": "لیول 1 • بنیادی موڈز",
@@ -22722,7 +22722,7 @@ if (typeof registerLanguageBundle === "function") {
 </script>
 <script>
 /**
- * Lauschebär • English Knowledge Base, Interactive Reference Pages & Articles
+ * Lauscher • English Knowledge Base, Interactive Reference Pages & Articles
  * Context-appropriate, idiomatic English music theory, acoustics & instrument guides.
  */
 
@@ -23900,7 +23900,7 @@ const KNOWLEDGE_ARTICLES_EN = [
         </div>
 
         <p>
-          That’s why Lauschebär builds <strong>functional (relative) listening</strong>: once your ear recognizes what <em>role</em> a pitch or chord plays inside a key, you can transpose that fluency instantly into all 12 keys!
+          That’s why Lauscher builds <strong>functional (relative) listening</strong>: once your ear recognizes what <em>role</em> a pitch or chord plays inside a key, you can transpose that fluency instantly into all 12 keys!
         </p>
       </div>
     `
@@ -24067,7 +24067,7 @@ const KNOWLEDGE_ARTICLES_EN = [
         </div>
 
         <div class="k-song-ref">
-          <strong>What does your ear gain from this?</strong> Each tradition trains a distinct musical superpower: Western harmony sharpens chord-function &amp; modulation listening; Maqam and Raga tune your <strong>microtonal radar</strong> and vocal/string intonation; Gamelan and African polyrhythm break rigid barline counting and anchor groove in your whole body. Whenever you train intervals in Lauschebär, you are listening for <em>relationships rather than rigid labels</em> — and that curiosity unlocks every musical culture on earth.
+          <strong>What does your ear gain from this?</strong> Each tradition trains a distinct musical superpower: Western harmony sharpens chord-function &amp; modulation listening; Maqam and Raga tune your <strong>microtonal radar</strong> and vocal/string intonation; Gamelan and African polyrhythm break rigid barline counting and anchor groove in your whole body. Whenever you train intervals in Lauscher, you are listening for <em>relationships rather than rigid labels</em> — and that curiosity unlocks every musical culture on earth.
         </div>
       </div>
     `
@@ -24437,7 +24437,7 @@ const CATEGORY_HELP_GUIDES_EN = {
       <ul class="article-steps-list">
         <li><strong>1. Time Signature &amp; Meter:</strong> Listen to two bars of percussion (with an accented Beat <code>1</code>) and distinguish <code>4/4</code>, <code>3/4</code>, <code>2/4</code>, <code>6/8</code>, and odd meters (<code>5/4</code> / <code>7/8</code>).</li>
         <li><strong>2. Rhythm Dictation (4 Beats):</strong> After one count-in bar, a four-beat pattern plays on clave. Fill in all four question marks step by step with matching rhythm blocks (from quarters &amp; rests up to triplets, 16ths, and syncopations).</li>
-        <li><strong>3. Rhythm Tap (Live Pad):</strong> Lauschebär counts in, demonstrates one bar, and hands it straight to you — tap the rhythm accurately on the big <strong>Tap Pad</strong> (or press <code>Space</code>), ending in <em>Blind Mode</em> with zero click!</li>
+        <li><strong>3. Rhythm Tap (Live Pad):</strong> Lauscher counts in, demonstrates one bar, and hands it straight to you — tap the rhythm accurately on the big <strong>Tap Pad</strong> (or press <code>Space</code>), ending in <em>Blind Mode</em> with zero click!</li>
         <li><strong>4. Groove, Offbeats &amp; Micro-Timing:</strong> Spot groove styles (march, backbeat, syncopation, swing, 3-against-2), locate upbeat cowbell accents, and train ultra-fine pocket feel (<em>rushing / early</em>, <em>dead in the pocket</em>, or <em>laid-back</em>).</li>
       </ul>
 
@@ -26132,7 +26132,7 @@ function renderSingAndPlayReferenceHTML_EN() {
           Stumbles often strike right between lines rather than mid-bar! Reserve one intentional quarter-beat inhale before launching the chorus while your instrument coasts steadily underneath.
         </div>
       </div>
-      <p class="k-tip"><strong>Lauschebär Bonus Tip:</strong> Inside Lauschebär’s <strong>Solfège</strong> and <strong>Melodies</strong> drills, try singing the target note out loud <em>before</em> tapping the key — wiring your ear, voice, and hands into one connected reflex.</p>
+      <p class="k-tip"><strong>Lauscher Bonus Tip:</strong> Inside Lauscher’s <strong>Solfège</strong> and <strong>Melodies</strong> drills, try singing the target note out loud <em>before</em> tapping the key — wiring your ear, voice, and hands into one connected reflex.</p>
     </article>
   `;
 }
@@ -26603,7 +26603,7 @@ function renderArrangingReferenceHTML_EN() {
 </script>
 <script>
 /**
- * Lauschebär • Base de connaissances, guides interactifs & articles en français ("fr")
+ * Lauscher • Base de connaissances, guides interactifs & articles en français ("fr")
  * Théorie musicale, acoustique et organologie rédigées en français idiomatique.
  */
 
@@ -27781,7 +27781,7 @@ const KNOWLEDGE_ARTICLES_FR = [
         </div>
 
         <p>
-          C’est pourquoi Lauschebär développe <strong>l’écoute fonctionnelle (relative)</strong> : dès que votre oreille identifie le <em>rôle</em> d’une note ou d’un accord dans une tonalité, vous pouvez transposer cette aisance dans les 12 tonalités instantanément !
+          C’est pourquoi Lauscher développe <strong>l’écoute fonctionnelle (relative)</strong> : dès que votre oreille identifie le <em>rôle</em> d’une note ou d’un accord dans une tonalité, vous pouvez transposer cette aisance dans les 12 tonalités instantanément !
         </p>
       </div>
     `
@@ -27948,7 +27948,7 @@ const KNOWLEDGE_ARTICLES_FR = [
         </div>
 
         <div class="k-song-ref">
-          <strong>Ce que votre écoute y gagne :</strong> Chaque culture cultive un super-pouvoir auditif distinct. L’harmonie occidentale aiguise l’écoute des fonctions d’accords ; Maqâm et Râga affinent votre <strong>radar microtonal</strong> et votre justesse au chant ou sur instrument non fretté ; Gamelan et polyrythmie africaine libèrent du comptage rigide et ancrent le rythme dans tout le corps. Dans Lauschebär, entraîner les intervalles signifie écouter des <em>relations vivantes plutôt que de simples étiquettes</em> — la clé universelle de toutes les musiques du monde.
+          <strong>Ce que votre écoute y gagne :</strong> Chaque culture cultive un super-pouvoir auditif distinct. L’harmonie occidentale aiguise l’écoute des fonctions d’accords ; Maqâm et Râga affinent votre <strong>radar microtonal</strong> et votre justesse au chant ou sur instrument non fretté ; Gamelan et polyrythmie africaine libèrent du comptage rigide et ancrent le rythme dans tout le corps. Dans Lauscher, entraîner les intervalles signifie écouter des <em>relations vivantes plutôt que de simples étiquettes</em> — la clé universelle de toutes les musiques du monde.
         </div>
       </div>
     `
@@ -28319,7 +28319,7 @@ const CATEGORY_HELP_GUIDES_FR = {
       <ul class="article-steps-list">
         <li><strong>1. Mesure &amp; Chiffrage :</strong> Écoutez deux mesures de percussion (avec un Temps <code>1</code> accentué) et distinguez <code>4/4</code>, <code>3/4</code>, <code>2/4</code>, <code>6/8</code> ainsi que les mesures asymétriques (<code>5/4</code> / <code>7/8</code>).</li>
         <li><strong>2. Dictée rythmique (4 temps) :</strong> Après une mesure de décompte, un motif sur quatre temps joue au clave. Complétez les quatre points d’interrogation avec les blocs rythmiques correspondants (des noires et soupirs jusqu’aux triolets, doubles croches et syncopes).</li>
-        <li><strong>3. Reproduire au pad (Frappe en direct) :</strong> Lauschebär fait le décompte, montre une mesure puis vous passe la main — frappez exactement le rythme sur le grand <strong>Pad de frappe</strong> (ou avec la barre <code>Espace</code>), jusqu’au <em>Mode aveugle</em> sans aucun clic !</li>
+        <li><strong>3. Reproduire au pad (Frappe en direct) :</strong> Lauscher fait le décompte, montre une mesure puis vous passe la main — frappez exactement le rythme sur le grand <strong>Pad de frappe</strong> (ou avec la barre <code>Espace</code>), jusqu’au <em>Mode aveugle</em> sans aucun clic !</li>
         <li><strong>4. Groove, Contretemps &amp; Micro-Timing :</strong> Reconnaissez les styles de groove (marche, backbeat, syncope, swing, 3 pour 2), repérez les accents de cloche sur le contretemps et affinez votre placement (<em>en avance / rushé</em>, <em>pile dans le pocket</em> ou <em>au fond du temps / laid-back</em>).</li>
       </ul>
 
@@ -30003,7 +30003,7 @@ function renderSingAndPlayReferenceHTML_FR() {
           Les accrocs surviennent souvent entre deux phrases plutôt qu’en milieu de mesure ! Réservez consciemment une respiration sur un quart de temps avant le refrain pendant que l’instrument déroule tranquillement.
         </div>
       </div>
-      <p class="k-tip"><strong>Astuce bonus Lauschebär :</strong> Dans les modules <strong>Solfège</strong> et <strong>Mélodies</strong> de Lauschebär, essayez de chanter à voix haute la note cherchée <em>avant</em> d’appuyer sur la touche — vous reliez ainsi oreille, voix et doigts en un seul réflexe.</p>
+      <p class="k-tip"><strong>Astuce bonus Lauscher :</strong> Dans les modules <strong>Solfège</strong> et <strong>Mélodies</strong> de Lauscher, essayez de chanter à voix haute la note cherchée <em>avant</em> d’appuyer sur la touche — vous reliez ainsi oreille, voix et doigts en un seul réflexe.</p>
     </article>
   `;
 }
@@ -30445,7 +30445,7 @@ function renderArrangingReferenceHTML_FR() {
 </script>
 <script>
 /**
- * Lauschebär • Wissens-Datenbank, Interaktive Referenzseiten & Artikel
+ * Lauscher • Wissens-Datenbank, Interaktive Referenzseiten & Artikel
  * Kombiniert Musiktheorie, Popmusik-Referenzen, Akustik/Physik und direkte Hörbeispiele.
  */
 
@@ -31841,7 +31841,7 @@ const KNOWLEDGE_ARTICLES = [
         </div>
 
         <div class="k-song-ref">
-          <strong>Was nimmt dein Gehör daraus mit?</strong> Jede Musiktradition schärft eine bestimmte Wahrnehmungs-Superkraft: Das westliche System trainiert Akkordfunktionen und Modulation; Maqam und Raga schulen deinen <strong>Mikroton-Radar</strong> und feinste Tonhöhen-Intonation beim Singen oder auf Streichinstrumenten; Gamelan und afrikanische Polyrhythmik lösen starres Zählen auf und verankern dein Rhythmusgefühl tief im Körper. Wenn du in Lauschebär Intervalle hörst, bist du immer auf der Suche nach <em>Beziehungen statt bloßen Etiketten</em> – und genau diese Neugier öffnet dir jede Klangkultur dieser Welt.
+          <strong>Was nimmt dein Gehör daraus mit?</strong> Jede Musiktradition schärft eine bestimmte Wahrnehmungs-Superkraft: Das westliche System trainiert Akkordfunktionen und Modulation; Maqam und Raga schulen deinen <strong>Mikroton-Radar</strong> und feinste Tonhöhen-Intonation beim Singen oder auf Streichinstrumenten; Gamelan und afrikanische Polyrhythmik lösen starres Zählen auf und verankern dein Rhythmusgefühl tief im Körper. Wenn du in Lauscher Intervalle hörst, bist du immer auf der Suche nach <em>Beziehungen statt bloßen Etiketten</em> – und genau diese Neugier öffnet dir jede Klangkultur dieser Welt.
         </div>
       </div>
     `
@@ -32228,7 +32228,7 @@ const CATEGORY_HELP_GUIDES = {
       <ul class="article-steps-list">
         <li><strong>1. Taktart &amp; Metrum erkennen:</strong> Höre zwei Takte Percussion (mit betonter <code>1</code>) und bestimme, ob du einen <code>4/4</code>-, <code>3/4</code>-, <code>2/4</code>-, <code>6/8</code>- oder ungeraden Takt (<code>5/4</code> / <code>7/8</code>) hörst.</li>
         <li><strong>2. Rhythmus-Diktat (4 Zählzeiten):</strong> Nach einem Takt Vorzähler erklingt ein Muster aus vier Zählzeiten auf der Clave. Enthülle wie bei den Melodien Schritt für Schritt alle vier Fragezeichen durch passende Notenwert-Bausteine (von Vierteln &amp; Pausen bis zu Triolen, Sechzehnteln und Synkopen).</li>
-        <li><strong>3. Rhythmus nachklopfen (Tap-Pad):</strong> Der Lauschebär zählt vor und spielt ein kurzes Muster. Im direkten Takt danach klopfst du auf das große <strong>Tap-Pad</strong> (oder die <code>Leertaste</code>) exakt nach – inklusive <em>Blindflug</em>-Stufe ohne Klick!</li>
+        <li><strong>3. Rhythmus nachklopfen (Tap-Pad):</strong> Der Lauscher zählt vor und spielt ein kurzes Muster. Im direkten Takt danach klopfst du auf das große <strong>Tap-Pad</strong> (oder die <code>Leertaste</code>) exakt nach – inklusive <em>Blindflug</em>-Stufe ohne Klick!</li>
         <li><strong>4. Groove, Akzente &amp; Mikro-Timing:</strong> Unterscheide Groove-Stile (Marsch, Backbeat, Synkope, Swing, 3 gegen 2), finde Offbeat-Akzente oder trainiere feinstes Mikro-Timing (<em>zu früh</em>, <em>exakt</em> oder <em>laid-back</em>).</li>
       </ul>
 
@@ -34100,7 +34100,7 @@ function renderSingAndPlayReferenceHTML() {
           Oft stolpert man nicht am Takt <em>in</em> einer Zeile, sondern vor dem Einsatz der nächsten. Plane eine bewusste Viertel-Atmungs-Pause vor dem Refrain ein, während das Instrument sicher weiterträgt.
         </div>
       </div>
-      <p class="k-tip"><strong>Lauschebär-Tipp für zwischendurch:</strong> Kombiniere in Lauschebär das Modul <strong>Solfège</strong> oder <strong>Melodien</strong> bewusst damit, den gesuchten Zielton zuerst laut zu singen, bevor du tippst – so verknüpfen Ohr, Stimme und Griff direkt im Alltag.</p>
+      <p class="k-tip"><strong>Lauscher-Tipp für zwischendurch:</strong> Kombiniere in Lauscher das Modul <strong>Solfège</strong> oder <strong>Melodien</strong> bewusst damit, den gesuchten Zielton zuerst laut zu singen, bevor du tippst – so verknüpfen Ohr, Stimme und Griff direkt im Alltag.</p>
     </article>
   `;
 }
@@ -35356,7 +35356,7 @@ function renderArrangingReferenceHTML() {
 </script>
 <script>
 /**
- * Lauschebär • Baza wiedzy, interaktywne przewodniki i artykuły (po polsku)
+ * Lauscher • Baza wiedzy, interaktywne przewodniki i artykuły (po polsku)
  */
 
 const INTERVAL_ENCYCLOPEDIA_PL = [
@@ -36533,7 +36533,7 @@ const KNOWLEDGE_ARTICLES_PL = [
         </div>
 
         <p>
-          Dlatego Lauschebär rozwija <strong>słuch funkcyjny (relatywny)</strong>: gdy tylko Twoje ucho zacznie rozpoznawać <em>rolę</em> każdego stopnia lub akordu w skali, od razu przeniesiesz tę umiejętność na wszystkie 12 tonacji!
+          Dlatego Lauscher rozwija <strong>słuch funkcyjny (relatywny)</strong>: gdy tylko Twoje ucho zacznie rozpoznawać <em>rolę</em> każdego stopnia lub akordu w skali, od razu przeniesiesz tę umiejętność na wszystkie 12 tonacji!
         </p>
       </div>
     `
@@ -36700,7 +36700,7 @@ const KNOWLEDGE_ARTICLES_PL = [
         </div>
 
         <div class="k-song-ref">
-          <strong>Co zyskuje na tym Twoje ucho?</strong> Każda tradycja muzyczna kształci inną supermoc: zachodni system rozwija słuchanie funkcji akordowych i modulacji; Maqam oraz Raga wyostrzają Twój <strong>mikrotonalny radar</strong> i czystość intonacji w śpiewie lub grze na smyczkach; Gamelan i afrykańska polirytmia uwalniają od sztywnego liczenia taktów i osadzają rytm w całym ciele. Ćwicząc interwały w Lauschebär, uczysz się słyszeć <em>relacje zamiast sztywnych etykiet</em> — a to otwiera drzwi do muzyki z każdego zakątka Ziemi.
+          <strong>Co zyskuje na tym Twoje ucho?</strong> Każda tradycja muzyczna kształci inną supermoc: zachodni system rozwija słuchanie funkcji akordowych i modulacji; Maqam oraz Raga wyostrzają Twój <strong>mikrotonalny radar</strong> i czystość intonacji w śpiewie lub grze na smyczkach; Gamelan i afrykańska polirytmia uwalniają od sztywnego liczenia taktów i osadzają rytm w całym ciele. Ćwicząc interwały w Lauscher, uczysz się słyszeć <em>relacje zamiast sztywnych etykiet</em> — a to otwiera drzwi do muzyki z każdego zakątka Ziemi.
         </div>
       </div>
     `
@@ -37074,7 +37074,7 @@ const CATEGORY_HELP_GUIDES_PL = {
       <ul class="article-steps-list">
         <li><strong>1. Metrum i takt:</strong> Posłuchaj dwóch taktów perkusji (z akcentem na <code>1</code>) i rozróżniaj <code>4/4</code>, <code>3/4</code>, <code>2/4</code>, <code>6/8</code> oraz metra nieregularne (<code>5/4</code> / <code>7/8</code>).</li>
         <li><strong>2. Dyktando rytmiczne (4 miary):</strong> Po jednym takcie odliczania clave wybija wzór na 4 miary. Uzupełniaj kolejno wszystkie cztery pola figurami rytmicznymi (od ćwierćnut i pauz po triole, szesnastki i synkopy).</li>
-        <li><strong>3. Stukanie rytmu (Pad na żywo):</strong> Lauschebär odlicza i gra wzór, po czym oddaje głos Tobie — wystukaj rytm na dużym <strong>Padzie rytmicznym</strong> (lub klawiszem <code>Spacja</code>), aż po <em>Tryb ślepy</em> całkowicie bez metronomu!</li>
+        <li><strong>3. Stukanie rytmu (Pad na żywo):</strong> Lauscher odlicza i gra wzór, po czym oddaje głos Tobie — wystukaj rytm na dużym <strong>Padzie rytmicznym</strong> (lub klawiszem <code>Spacja</code>), aż po <em>Tryb ślepy</em> całkowicie bez metronomu!</li>
         <li><strong>4. Groove, offbeaty i mikrotiming:</strong> Rozpoznawaj style groovu (marsz, backbeat, synkopa, swing, polirytmia 3 na 2), wskazuj akcenty cowbella na słabych częściach taktu i ćwicz wyczucie „pocket” (<em>przed klikiem</em>, <em>idealnie w punkt</em> lub <em>za klikiem / laid-back</em>).</li>
       </ul>
 
@@ -38749,7 +38749,7 @@ function renderSingAndPlayReferenceHTML_PL() {
           Potknięcia zdarzają się najczęściej nie w środku frazy, lecz między zwrotką a refrenem! Zarezerwuj jedną pauzę ćwierćnutową na spokojny wdech przed refrenem, gdy instrument równo gra dalej.
         </div>
       </div>
-      <p class="k-tip"><strong>Bonus od Lauschebär:</strong> W modułach <strong>Solfeż</strong> i <strong>Melodie</strong> spróbuj najpierw cicho zaśpiewać szukaną nutę na głos <em>zanim</em> naciśniesz klawisz — połączysz słuch, krtań i palce w jeden odruch.</p>
+      <p class="k-tip"><strong>Bonus od Lauscher:</strong> W modułach <strong>Solfeż</strong> i <strong>Melodie</strong> spróbuj najpierw cicho zaśpiewać szukaną nutę na głos <em>zanim</em> naciśniesz klawisz — połączysz słuch, krtań i palce w jeden odruch.</p>
     </article>
   `;
 }
@@ -39357,7 +39357,7 @@ if (typeof registerKnowledgeBundle === "function") {
 </script>
 <script>
 /**
- * Lauschebär • База знань, інтерактивні довідники та статті (українською)
+ * Lauscher • База знань, інтерактивні довідники та статті (українською)
  */
 
 const INTERVAL_ENCYCLOPEDIA_UK = [
@@ -40534,7 +40534,7 @@ const KNOWLEDGE_ARTICLES_UK = [
         </div>
 
         <p>
-          Саме тому Lauschebär розвиває <strong>функціональний (відносний) слух</strong>: щойно твоє вухо починає впізнавати <em>роль</em> кожного звуку чи акорду всередині ладу, ти зможеш миттєво переносити це відчуття в усі 12 тональностей!
+          Саме тому Lauscher розвиває <strong>функціональний (відносний) слух</strong>: щойно твоє вухо починає впізнавати <em>роль</em> кожного звуку чи акорду всередині ладу, ти зможеш миттєво переносити це відчуття в усі 12 тональностей!
         </p>
       </div>
     `
@@ -40701,7 +40701,7 @@ const KNOWLEDGE_ARTICLES_UK = [
         </div>
 
         <div class="k-song-ref">
-          <strong>Що це дає твоєму слуху?</strong> Кожна традиція гартує власну суперсилу сприйняття: західна система тренує чуття функцій акордів і модуляцій; Макам і Раґа налагоджують твій <strong>мікротональний радар</strong> та точність інтонації у співі чи на струнних; Гамелан і африканська поліритмія звільняють від сухого підрахунку тактів і заземлюють ритм у тілі. Слухаючи інтервали в Lauschebär, ти вчишся чути <em>живі зв’язки замість жорстких ярликів</em> — а ця цікавість відчиняє двері до будь-якої музичної культури світу.
+          <strong>Що це дає твоєму слуху?</strong> Кожна традиція гартує власну суперсилу сприйняття: західна система тренує чуття функцій акордів і модуляцій; Макам і Раґа налагоджують твій <strong>мікротональний радар</strong> та точність інтонації у співі чи на струнних; Гамелан і африканська поліритмія звільняють від сухого підрахунку тактів і заземлюють ритм у тілі. Слухаючи інтервали в Lauscher, ти вчишся чути <em>живі зв’язки замість жорстких ярликів</em> — а ця цікавість відчиняє двері до будь-якої музичної культури світу.
         </div>
       </div>
     `
@@ -41075,7 +41075,7 @@ const CATEGORY_HELP_GUIDES_UK = {
       <ul class="article-steps-list">
         <li><strong>1. Музичний розмір і метр:</strong> Слухай два такти перкусії (з акцентом на долі <code>1</code>) і розрізняй <code>4/4</code>, <code>3/4</code>, <code>2/4</code>, <code>6/8</code> та непарні розміри (<code>5/4</code> / <code>7/8</code>).</li>
         <li><strong>2. Ритмічний диктант (4 долі):</strong> Після одного такту відліку клавес відбиває малюнок на 4 долі. Заповни всі чотири знаки питання крок за кроком ритмічними блоками (від чвертей і пауз до тріолей, шістнадцятих і синкоп).</li>
-        <li><strong>3. Ритм-тап (живий пед):</strong> Lauschebär рахує вступ, показує один такт і передає естафету тобі — відстукай малюнок на великому <strong>Тап-педі</strong> (або клавішею <code>Пробіл</code>), аж до <em>Сліпого режиму</em> взагалі без метронома!</li>
+        <li><strong>3. Ритм-тап (живий пед):</strong> Lauscher рахує вступ, показує один такт і передає естафету тобі — відстукай малюнок на великому <strong>Тап-педі</strong> (або клавішею <code>Пробіл</code>), аж до <em>Сліпого режиму</em> взагалі без метронома!</li>
         <li><strong>4. Ґрув, офбіти й мікротаймінг:</strong> Визначай стилі ґруву (марш, бекбіт, синкопа, свінг, поліритмія 3 проти 2), лови акценти ковбела на слабких долях і тренуй надточне відчуття кишені (<em>поспіх / раніше</em>, <em>прямо в пульс</em> або <em>відтяжка / laid-back</em>).</li>
       </ul>
 
@@ -42749,7 +42749,7 @@ function renderSingAndPlayReferenceHTML_UK() {
           Збої найчастіше трапляються не посеред фрази, а на переході між рядками! Забронюй одну чвертну паузу для спокійного вдиху перед приспівом, доки інструмент рівно веде вперед.
         </div>
       </div>
-      <p class="k-tip"><strong>Бонус-порада від Lauschebär:</strong> У модулях <strong>Сольфеджіо</strong> та <strong>Мелодії</strong> спробуй спершу тихо проспівати цільову ноту вголос <em>перед тим</em>, як натиснути клавішу — це з’єднує слух, голос і пальці в єдиний рефлекс.</p>
+      <p class="k-tip"><strong>Бонус-порада від Lauscher:</strong> У модулях <strong>Сольфеджіо</strong> та <strong>Мелодії</strong> спробуй спершу тихо проспівати цільову ноту вголос <em>перед тим</em>, як натиснути клавішу — це з’єднує слух, голос і пальці в єдиний рефлекс.</p>
     </article>
   `;
 }
@@ -43357,7 +43357,7 @@ if (typeof registerKnowledgeBundle === "function") {
 </script>
 <script>
 /**
- * Lauschebär • اردو علمِ موسیقی و ہدایات (ur)
+ * Lauscher • اردو علمِ موسیقی و ہدایات (ur)
  * انسائیکلوپیڈیا، مضامین، سازوں کے ماڈیولز، فزکس لیب اور انٹرایکٹو سرکل آف ففتھس۔
  */
 
@@ -44525,7 +44525,7 @@ const KNOWLEDGE_ARTICLES_UR = [
         </div>
 
         <p>
-          اسی لیے Lauschebär <strong>نسبتی/عملی سماعت</strong> تعمیر کرتا ہے: جب کان یہ پہچان لے کہ کوئی سُر یا کارڈ کلید میں کیا <em>کردار</em> ادا کر رہا ہے، تو آپ تمام 12 کلیدوں میں فوراً مہارت حاصل کر لیتے ہیں!
+          اسی لیے Lauscher <strong>نسبتی/عملی سماعت</strong> تعمیر کرتا ہے: جب کان یہ پہچان لے کہ کوئی سُر یا کارڈ کلید میں کیا <em>کردار</em> ادا کر رہا ہے، تو آپ تمام 12 کلیدوں میں فوراً مہارت حاصل کر لیتے ہیں!
         </p>
       </div>
     `
@@ -44692,7 +44692,7 @@ const KNOWLEDGE_ARTICLES_UR = [
         </div>
 
         <div class="k-song-ref">
-          <strong>اس سے آپ کی سماعت کو کیا حاصل ہوتا ہے؟</strong> ہر روایت ایک خاص سمعی طاقت نکھارتی ہے: مغربی نظام کارڈز کے کردار اور کلید تبدیلی سکھاتا ہے؛ مقام اور راگ آپ کے <strong>مائیکروٹونل ریڈار</strong> اور گانے یا ساز کی باریک درستگی کو تیز کرتے ہیں؛ گیملان اور افریقی پولی ردم مشینی گنتی سے آزاد کر کے تال کو پورے وجود میں اتار دیتے ہیں۔ Lauschebär میں وقفے سننے کی مشق دراصل <em>لیبل رٹنے کے بجائے سُروں کے زندہ رشتے پہچاننے</em> کا فن ہے — اور یہی تجسس دنیا کی ہر موسیقی کے دروازے کھول دیتا ہے۔
+          <strong>اس سے آپ کی سماعت کو کیا حاصل ہوتا ہے؟</strong> ہر روایت ایک خاص سمعی طاقت نکھارتی ہے: مغربی نظام کارڈز کے کردار اور کلید تبدیلی سکھاتا ہے؛ مقام اور راگ آپ کے <strong>مائیکروٹونل ریڈار</strong> اور گانے یا ساز کی باریک درستگی کو تیز کرتے ہیں؛ گیملان اور افریقی پولی ردم مشینی گنتی سے آزاد کر کے تال کو پورے وجود میں اتار دیتے ہیں۔ Lauscher میں وقفے سننے کی مشق دراصل <em>لیبل رٹنے کے بجائے سُروں کے زندہ رشتے پہچاننے</em> کا فن ہے — اور یہی تجسس دنیا کی ہر موسیقی کے دروازے کھول دیتا ہے۔
         </div>
       </div>
     `
@@ -45060,7 +45060,7 @@ const CATEGORY_HELP_GUIDES_UR = {
       <ul class="article-steps-list">
         <li><strong>1. ٹائم سگنیچر اور تال:</strong> دو بار پرکشن سنیں (پہلی زوردار بیٹ <code>1</code> پر توجہ کے ساتھ) اور <code>4/4</code>، <code>3/4</code>، <code>2/4</code>، <code>6/8</code> نیز طاق تال (<code>5/4</code> / <code>7/8</code>) پہچانیں۔</li>
         <li><strong>2. ردھم ڈکٹیشن (4 بیٹس):</strong> گنتی کے ایک بار کے بعد کلاوے پر چار بیٹ کا پیٹرن بجتا ہے۔ سوالیہ نشان کے خانوں کو درست ردھم بلاکس سے پُر کریں۔</li>
-        <li><strong>3. ردھم ٹیپ (لائیو پیڈ):</strong> Lauschebär گنتی کر کے نمونہ بجاتا ہے اور باری آپ کو دیتا ہے — بڑے <strong>ٹیپ پیڈ</strong> (یا <code>Spacebar</code>) پر عین وقت پر بجائیں، آخری لیول <em>بلائنڈ موڈ</em> بغیر کلک کے ہے!</li>
+        <li><strong>3. ردھم ٹیپ (لائیو پیڈ):</strong> Lauscher گنتی کر کے نمونہ بجاتا ہے اور باری آپ کو دیتا ہے — بڑے <strong>ٹیپ پیڈ</strong> (یا <code>Spacebar</code>) پر عین وقت پر بجائیں، آخری لیول <em>بلائنڈ موڈ</em> بغیر کلک کے ہے!</li>
         <li><strong>4. گروو، آف بیٹس اور مائیکرو ٹائمنگ:</strong> مارچ، بیک بیٹ، سنکوپیشن، سوئنگ، 3-بمقابلہ-2 پہچانیں، کاؤ بیل آف بیٹ کا پتہ لگائیں اور پاکٹ ٹائمنگ (<em>جلدی</em>، <em>پاکٹ</em> یا <em>دیر</em>) پرکھیں۔</li>
       </ul>
 
@@ -46592,7 +46592,7 @@ function renderSingAndPlayReferenceHTML_UR() {
           اکثر مصرعوں کے بیچ رکاوٹ آتی ہے! کورس شروع کرنے سے عین پہلے ایک مختصر سانس کی جگہ مقرر رکھیں۔
         </div>
       </div>
-      <p class="k-tip"><strong>Lauschebär بونس مشورہ:</strong> <strong>سولفیج</strong> اور <strong>دھنوں</strong> میں کنجی دبانے سے پہلے مطلوبہ سُر بلند آواز میں گا کر دیکھیں — یوں کان، آواز اور ہاتھ ایک جڑواں ردِعمل بن جاتے ہیں۔</p>
+      <p class="k-tip"><strong>Lauscher بونس مشورہ:</strong> <strong>سولفیج</strong> اور <strong>دھنوں</strong> میں کنجی دبانے سے پہلے مطلوبہ سُر بلند آواز میں گا کر دیکھیں — یوں کان، آواز اور ہاتھ ایک جڑواں ردِعمل بن جاتے ہیں۔</p>
     </article>
   `;
 }
@@ -47200,7 +47200,7 @@ if (typeof registerKnowledgeBundle === "function") {
 </script>
 <script>
 /**
- * Lauschebär • AppState, Spruch-Datenbank & Controller
+ * Lauscher • AppState, Spruch-Datenbank & Controller
  */
 
 const LAUSCHEBAER_QUOTES = [
@@ -49668,7 +49668,7 @@ class AppState {
     if (!el || !mainTitle) return;
 
     if (this.currentView === "home") {
-      mainTitle.textContent = "Lauschebär";
+      mainTitle.textContent = "Lauscher";
       el.textContent = typeof getStaticI18nText === "function"
         ? (getStaticI18nText("app.tagline") || tr("Hören · Verstehen · Musizieren", "Listen · Understand · Play"))
         : tr("Hören · Verstehen · Musizieren", "Listen · Understand · Play");
@@ -66389,7 +66389,7 @@ function renderWelcomeGreetStep() {
       : getWelcomeText("welcome.greetTitle", "Hallo! Schön, dass du da bist.");
   }
   if (greetBody) {
-    greetBody.textContent = getWelcomeText("welcome.greetBody", "Ich bin der Lauschebär und freue mich darauf, mit dir zu hören, Noten zu entdecken und Musik zu verstehen. Viel Freude und Erfolg beim Lernen!");
+    greetBody.textContent = getWelcomeText("welcome.greetBody", "Ich bin der Lauscher und freue mich darauf, mit dir zu hören, Noten zu entdecken und Musik zu verstehen. Viel Freude und Erfolg beim Lernen!");
   }
   if (continueBtn) {
     continueBtn.textContent = getWelcomeText("welcome.continueBtn", "Los geht’s →");
@@ -66733,7 +66733,7 @@ function getLauschebaerExamBadge(percent) {
     return {
       tierCls: "tier-master",
       icon: "🏆",
-      title: tr("Lauschebär-Meister", "Lauschebär Master"),
+      title: tr("Lauscher-Meister", "Lauscher Master"),
       sub: tr(
         "Souveränes Gehör! Du erkennst selbst feine Details ruhig und treffsicher.",
         "Commanding ear! You recognize even subtle details calmly and accurately."
@@ -66744,7 +66744,7 @@ function getLauschebaerExamBadge(percent) {
     return {
       tierCls: "tier-good",
       icon: "✨",
-      title: tr("Starker Lauschebär", "Sharp Listener"),
+      title: tr("Starker Lauscher", "Sharp Listener"),
       sub: tr(
         "Sehr starke Trefferquote! Hör dir in der Rückschau kurz die wenigen Wackler im Vergleich an.",
         "Very strong accuracy! Review the few tricky spots side-by-side below."
@@ -66827,8 +66827,8 @@ function openExamSetupPage(categoryKey = state.activeCategory, options = {}) {
       </div>
       <p class="exam-setup-hero-desc">
         ${escapeHtml(tr(
-          "1 Versuch pro Frage – prüfungsfest ohne Hilfsschleifen. Am Ende warten Lauschebär-Bewertung, Modul-Aufschlüsselung und direkter Hör-Vergleich.",
-          "1 try per question under exam conditions — no unlimited retries. Afterwards you’ll get a Lauschebär summary, module breakdown, and instant audio comparison."
+          "1 Versuch pro Frage – prüfungsfest ohne Hilfsschleifen. Am Ende warten Lauscher-Bewertung, Modul-Aufschlüsselung und direkter Hör-Vergleich.",
+          "1 try per question under exam conditions — no unlimited retries. Afterwards you’ll get a Lauscher summary, module breakdown, and instant audio comparison."
         ))}
       </p>
     </div>

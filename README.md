@@ -1,6 +1,6 @@
-# Lauschebär • Ear Training, Music Theory & Studio Listening
+# Lauscher • Ear Training, Music Theory & Studio Listening
 
-**Lauschebär** (*Listen · Understand · Play*) is an interactive, ad-free, and tracker-free web application for musical ear training, music theory, sight-reading, vocal warmup, and studio mixing ear training — running directly in the browser with no backend server, no login, and no score pressure.
+**Lauscher** (*Listen · Understand · Play*) is an interactive, ad-free, and tracker-free web application for musical ear training, music theory, sight-reading, vocal warmup, and studio mixing ear training — running directly in the browser with no backend server, no login, and no score pressure.
 
 ---
 
@@ -54,6 +54,7 @@ Every training area includes graded difficulty levels, listening aids (A/B compa
 
 - **Vocal Warmup (`5-Minute Warmup`):** 4 guided phases (*1 Breath & Body*, *2 Resonance & Tone*, *3 Arpeggios & Range*, *4 Vowels & Choir Blend*) with SATB / Mixed Choir range presets, Piano / Voice / Piano+Voice accompaniment, BPM slider (`65–135 BPM`), and localized vowel drills across all languages.
 - **Metronome:** Built-in precision metronome with **Tap Tempo**, `30–240 BPM` slider, visual pendulum orb, `1–16` customizable beats (accent, normal, mute), meter chips (`2/4`, `3/4`, `4/4`, `5/4`, `6/8`, `7/8`), master volume control, and savable meter/BPM profiles.
+- **Tuner (Coming Soon):** Homescreen placeholder card right next to the Metronome for the upcoming chromatic tuner and pitch meter.
 
 ---
 
@@ -61,7 +62,7 @@ Every training area includes graded difficulty levels, listening aids (A/B compa
 
 Inside the **Knowledge** (`Wissen`) tab, interactive audio examples accompany every topic across three sections:
 
-- **Theory & Tools (11 interactive modules):** Intervals, Cadences, Physics & Sound, Solfège & Degrees, Rhythm & Meters, Singing & Voice, Modes & Scales, Keys & Signatures, **Interactive Circle of Fifths**, Sing & Play, and Notation & Clefs.
+- **Theory & Tools (12 interactive modules):** Intervals, Cadences, Physics & Sound, Solfège & Degrees, Rhythm & Meters, Singing & Voice, Modes & Scales, Keys & Signatures, **Interactive Circle of Fifths**, Sing & Play, Notation & Clefs, and Arranging.
 - **Articles (9 deep-dive guides):** Ear training fundamentals, communicating about music, the 4-chord progression, harmonic gravity, minor plagal cadences, acoustic physics & waves, songwriting tricks, functional harmony, and world music traditions.
 - **Instruments (8 families):** Strings, Woodwinds, Brass, Keyboards, Plucked Instruments, Rhythm & Percussion, Electronic Instruments, and Ensembles & Orchestras.
 
@@ -86,7 +87,7 @@ Inside the **Knowledge** (`Wissen`) tab, interactive audio examples accompany ev
   - **Metal** — a sleek, dark obsidian black theme (`#090A0D`) built for a clean, adult look with dual accents (**Cold Steel Blue** & **Crimson Red**).
   - **Custom Theme Studio:** 3 persistent user slots with live RGBA/color-pad customization per UI color token starting from any built-in template.
 - **Account (`Konto`), Mascot Looks & Mindful Timers:**
-  - Multi-select dropdown menus with tag pills for **Your Instruments** and **Training Focus**, plus **8 Lauschebär Mascot Looks** (`headphones`, `sunglasses`, `beret`, `bowtie`, `mic`, `coffee`, `notes`, `sparkles`).
+  - Multi-select dropdown menus with tag pills for **Your Instruments** and **Training Focus**, plus **8 Lauscher Mascot Looks** (`headphones`, `sunglasses`, `beret`, `bowtie`, `mic`, `coffee`, `notes`, `sparkles`).
   - **Background Break Reminder (`1–60 min`):** Silent background exercise timer (default `20 min`, quick presets `10 / 15 / 20 min`) that gently prompts for an ear break without showing a distracting countdown during practice.
   - **Mindful Session Timer:** Configurable session pacing (`5–20 min`) with automatic inactivity pause (`2–5 min`).
 - **100% Local Privacy (`localStorage`):** No accounts, analytics, or external storage. Export, restore, or reset your complete profile, mixes, custom themes, and exam history anytime via **`lauschebaer-profil.json`**.
