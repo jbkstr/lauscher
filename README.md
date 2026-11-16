@@ -1,116 +1,135 @@
-[README.md](https://github.com/user-attachments/files/34909010/README.md)
-# Lauschebär • Gehörtraining
+# Lauschebär • Ear Training, Music Theory & Studio Listening
 
-**Lauschebär** ist eine interaktive, werbe- und trackingfreie Web-App für musikalisches Gehörtraining, Musiktheorie und Studio-/Mixing-Hören – direkt im Browser nutzbar, ohne Backend-Server und ohne Punktedruck.
-
----
-
-## Inhaltsverzeichnis
-
-- [Funktionen im Überblick](#funktionen-im-überblick)
-- [Wissens-Hub & Nachschlagewerk](#wissens-hub--nachschlagewerk)
-- [Audio-Engine & Mixer](#audio-engine--mixer)
-- [Mein Konto, Themes & Datenschutz](#mein-konto-themes--datenschutz)
-- [Projektstruktur](#projektstruktur)
-- [Lokal starten & auf Mobilgeräten testen](#lokal-starten--auf-mobilgeräten-testen)
-- [Hinweis für GitHub & GitHub Pages](#hinweis-für-github--github-pages)
+**Lauschebär** (*Listen · Understand · Play*) is an interactive, ad-free, and tracker-free web application for musical ear training, music theory, sight-reading, vocal warmup, and studio mixing ear training — running directly in the browser with no backend server, no login, and no score pressure.
 
 ---
 
-## Funktionen im Überblick
+## Table of Contents
 
-Die App bietet **7 Übungsbereiche** mit mehreren Schwierigkeitsstufen, Hilfestellungen (A/B-Vergleich, Bass-/Grundton-Anzeige, Tonika-Referenz) und direkter Tempo-Steuerung:
+- [Features Overview](#features-overview)
+- [Knowledge Hub & Interactive Reference](#knowledge-hub--interactive-reference)
+- [Audio Engine & Two-Tab Mixer](#audio-engine--two-tab-mixer)
+- [Onboarding, Languages, Themes & Account](#onboarding-languages-themes--account)
+- [Project Structure](#project-structure)
+- [Run Locally & Test on Mobile](#run-locally--test-on-mobile)
+- [GitHub & GitHub Pages Notes](#github--github-pages-notes)
 
-1. **Intervalle & Akkorde**
-   - Melodische Intervalle **aufwärts** und **abwärts** sowie **harmonische Intervalle** (3 Stufen: Einsteiger, Dur-Tonleiter, Chromatisch bis zur None / 15 Intervalle)
-   - **Akkordtypen erkennen** (4 Stufen: von Dreiklängen bis zu Jazz-Voicings und Optionstönen wie `maj9`, `7♭9`, `7♯9`)
-2. **Kadenzen**
-   - Harmonien und Akkordfolgen in 4 Stufen hören (`I–IV–V–vi` über alle diatonischen Stufen und Sekundärdominanten bis zur Tritonussubstitution `♭II7`)
-   - Wahlweise mit Ziel **Takt 4** oder **Zufälliger Takt (1–4)** sowie wählbarer Tonart und Taktart (`4/4`, `3/4`, `6/8`, `5/4`, Zufall)
+---
+
+## Features Overview
+
+### 9 Core Training & Exam Modules
+
+Every training area includes graded difficulty levels, listening aids (A/B comparison, root/bass reveal, tonic cadence context), **Listen-Only Mode**, and live tempo control:
+
+1. **Intervals & Chords**
+   - Melodic intervals (**ascending** and **descending**), **harmonic intervals**, and **root-pad drone** training across 3 levels (Foundations, Diatonic Major, All 13 Chromatic Intervals / up to the 9th).
+   - **Chord quality & inversion recognition** across 4 levels — from basic triads and root-position/inverted voicings up to seventh chords, jazz extensions (`maj9`, `7♭9`, `7♯9`), ascending/descending arpeggios, and block chords in all 12 keys.
+2. **Cadences**
+   - Identify harmonic functions and chord progressions across 4 levels (`I–IV–V–vi` through diatonic degrees, secondary dominants, and tritone substitution `♭II7`).
+   - Selectable target position (**Bar 4** or **Random Bar 1–4**), key mode, and meter (`4/4`, `3/4`, `6/8`, `5/4`, or random).
 3. **Solfège**
-   - Erkennen der 7 Tonstufen (`Do–Ti` bzw. `1–7`) auf einer interaktiven Klaviatur im Kontext einer `I–vi–IV–V`-Kadenz
-   - 6 Stufen von C-Dur in 1 Oktave bis zu wechselnden Tonarten und mehreren Oktaven nach jeder Antwort
-4. **Tonleitern & Modi**
-   - **Modus / Tonleiter erkennen:** Ionisch, Dorisch, Phrygisch, Lydisch, Mixolydisch, Äolisch, Lokrisch (inkl. transponierter Stufe)
-   - **Charakterton & Klangfarbe:** Unterscheiden anhand typischer Reibungs- und Farbtöne (`#4`, `b7`, `♮6`, `b2`, `b5`, `#7`) inkl. Harmonisch Moll
-   - **Modale Kadenzen & Vamps:** Erkennen typischer Pendel-Akkordfolgen (z. B. `i–IV`, `I–bVII`, `I–II`, `i–bII`)
-5. **Melodien**
-   - 4-töniges Melodie-Diktat Baustein für Baustein lösen (Bereiche `Do–Fa`, `Sol–Do` und ganze Tonart; feste oder wechselnde Tonarten in 1 oder mehreren Oktaven)
-6. **Rhythmus**
-   - **Taktart & Metrum:** `4/4`, `3/4`, `2/4`, `6/8`, `5/4`, `7/8`
-   - **Rhythmus-Diktat (4 Zählzeiten):** Viertel, Achtel, Pausen, Offbeats, Triolen, Sechzehntel, Punktierungen und Synkopen
-   - **Rhythmus nachklopfen (Tap-Pad):** Direktes Einklopfen inklusive **Blindflug-Stufe**, bei der der Klick während der eigenen Runde verstummt
-   - **Groove, Akzente & Mikro-Timing:** Groove-Stile, Offbeat-Akzent-Suche sowie Timing-Abweichungen bis `±28 ms`
-7. **Produktion (Studio & Mixing)**
-   - **Frequenzen erkennen (Sinus):** Von `63 Hz` (Subbass) bis `12 kHz` (Air-Band) in 3 Rasterstufen
-   - **EQ-Boost im Pink Noise:** Schmalbandige und breite Peaking-EQ-Anhebungen heraushören – abgesichert durch einen integrierten **-14 dBFS Schutz-Limiter** und Lautheitsausgleich
+   - Identify all 7 scale degrees (`Do–Ti` / `1–7`) on an interactive keyboard inside a `I–vi–IV–V` harmonic context across 6 levels (from fixed C Major single-octave up to rotating keys and multi-octave spans after every answer).
+4. **Scales & Modes**
+   - **Mode recognition:** Ionian, Dorian, Phrygian, Lydian, Mixolydian, Aeolian, Locrian, and Harmonic Minor (including transposed tonal centers).
+   - **Characteristic color tones:** Hear defining modal intervals (`♯4`, `♭7`, `♮6`, `♭2`, `♭5`, `♯7`).
+   - **Modal cadences & vamps:** Recognize iconic modal loops (`i–IV`, `I–♭VII`, `I–II`, `i–♭II`, etc.).
+5. **Melodies**
+   - 5 progressive levels from single-octave `Do–Fa` and `Sol–Do` tetrachords (`4–6` notes) to full-scale randomized keys, multi-octave expressive phrases, and **Level 5 Combined Melody Dictation** (identifying both pitch and rhythmic note durations together).
+6. **Rhythm**
+   - **Meter & Time Signatures:** `4/4`, `3/4`, `2/4`, `6/8`, `5/4`, `7/8`.
+   - **4-Beat Rhythm Dictation:** Quarter notes, eighths, rests, offbeats, triplets, sixteenths, dotted values, and syncopation.
+   - **Tap-Back Pad:** Tap phrases back live, including **Blind Mode** where the click mutes during your turn.
+   - **Groove, Accents & Micro-Timing:** Groove feel, offbeat accent detection, and timing offsets down to `±28 ms`.
+7. **Notation & Sight-Reading**
+   - 6 progressive levels spanning **Treble**, **Bass**, and **Alto** clefs — from notes inside the 5-line staff up to `±3` ledger lines, accidentals (`♯/♭`), **all 12 key signatures**, natural signs (`♮`), an interactive keyboard, Skip button, and a 6-note scrolling queue.
+8. **Production (Studio & Mixing)**
+   - **Pure Sine Frequency Recognition:** From `63 Hz` (sub-bass) up to `12 kHz` (air band) across 5, 8, or 13 bands.
+   - **Pink Noise EQ Boost:** Hear broad and narrow peaking EQ boosts (up to **13 ISO third-octave bands** with `Q 4.5` at `+3 dB`), complete with loudness matching, live A/B bypass, and a built-in **-14 dBFS safety limiter**.
+9. **Category Exam Mode**
+   - Dedicated graded exams for all **9 training categories** with selectable **10, 20, or 50 questions**.
+   - Supports **Instant Feedback** or **Blind Exam Mode**, configurable replay limits, partial-credit scoring (including split pitch/rhythm evaluation for combined melody dictation), post-exam **Audio Review**, and saved results in your local Exam History.
+
+### Practice Tools
+
+- **Vocal Warmup (`5-Minute Warmup`):** 4 guided phases (*1 Breath & Body*, *2 Resonance & Tone*, *3 Arpeggios & Range*, *4 Vowels & Choir Blend*) with SATB / Mixed Choir range presets, Piano / Voice / Piano+Voice accompaniment, BPM slider (`65–135 BPM`), and localized vowel drills across all languages.
+- **Metronome:** Built-in precision metronome with **Tap Tempo**, `30–240 BPM` slider, visual pendulum orb, `1–16` customizable beats (accent, normal, mute), meter chips (`2/4`, `3/4`, `4/4`, `5/4`, `6/8`, `7/8`), master volume control, and savable meter/BPM profiles.
 
 ---
 
-## Wissens-Hub & Nachschlagewerk
+## Knowledge Hub & Interactive Reference
 
-Im Reiter **Wissen** stehen drei Bereiche mit interaktiven Klangbeispielen bereit:
+Inside the **Knowledge** (`Wissen`) tab, interactive audio examples accompany every topic across three sections:
 
-- **Theorie & Tools (10 Module):** Intervalle, Kadenzen, Physik & Klang, Solfège & Stufen, Rhythmus & Takte, Gesang & Stimme, Modi & Tonleitern, Tonarten & Vorzeichen, **interaktiver Quintenzirkel** sowie Singen & Spielen
-- **Artikel (7 vertiefende Texte):** Hintergründe zu Gehörbildung, Harmonielehre, Songwriting-Tricks und Akustik mit direkten Hörbeispielen
-- **Instrumente (8 Familien):** Streich-, Holzblas-, Blechblas-, Tasten-, Zupf-, Rhythmus-Instrumente, Moderne/Elektronik sowie Orchester & Bands
-
----
-
-## Audio-Engine & Mixer
-
-- **Eigene Sample-Engine ([audio.js](audio.js)):** Auf Basis von **Tone.js** nutzt `EarLabSampledInstrument` native WebAudio-Buffer aus eingebetteten DAW-Stems (6 Instrumenten-Packs: Klavier, Gitarre, Streicher, Bläser, Stimme, Bass sowie 7 Percussion-Samples) inklusive automatischem Synth-Fallback.
-- **Echtzeit-Mixer:** Alle 6 Instrumentenspuren lassen sich jederzeit live mischen oder über Presets (*Duo*, *Ensemble*, *Orchester*, *Solo Klavier*, *Benutzerdefiniert*) schalten.
-- **Quick-Mixe:** Favoriten-Setups können direkt von der Startseite aus gestartet werden.
+- **Theory & Tools (11 interactive modules):** Intervals, Cadences, Physics & Sound, Solfège & Degrees, Rhythm & Meters, Singing & Voice, Modes & Scales, Keys & Signatures, **Interactive Circle of Fifths**, Sing & Play, and Notation & Clefs.
+- **Articles (9 deep-dive guides):** Ear training fundamentals, communicating about music, the 4-chord progression, harmonic gravity, minor plagal cadences, acoustic physics & waves, songwriting tricks, functional harmony, and world music traditions.
+- **Instruments (8 families):** Strings, Woodwinds, Brass, Keyboards, Plucked Instruments, Rhythm & Percussion, Electronic Instruments, and Ensembles & Orchestras.
 
 ---
 
-## Mein Konto, Themes & Datenschutz
+## Audio Engine & Two-Tab Mixer
 
-- **100 % lokal (`localStorage`):** Keine Registrierung, keine Server-Übertragung, keine Lern- oder Leistungsbewertung. Alle Vorlieben lassen sich als **`lauschebaer-profil.json`** exportieren, wieder importieren oder komplett zurücksetzen.
-- **Personalisierung & Routinen:** Rufname, eigene Instrumente/Rollen, Trainings-Schwerpunkt, **Lauschebär-Look** (Accessoires) sowie ein **achtsamer Session-Timer** (5–20 Min) mit automatischem Inaktivitäts-Stopp (2–5 Min).
-- **Zweisprachig & flexible Notation:** Sofortiges Umschalten zwischen **Deutsch** und **English** in den Einstellungen; Tonnamen separat zwischen deutscher (`H / B / Cis`) und internationaler (`B / Bb / C#`) Schreibweise wählbar.
-- **Themes & Farbdesigner:** 3 integrierte duale Themes (*Waldlichtung & Salbei*, *Morgentau & Küste*, *Abenddämmerung*) für Hell-/Dunkel-/Systemmodus sowie **3 eigene speicherbare Theme-Plätze** mit RGBA- & Farbpad-Editor pro Farbrolle.
+- **Custom Sample Engine ([`audio.js`](audio.js)):** Powered by **Tone.js (`14.8.49`)** and `EarLabSampledInstrument` using WebAudio buffers decoded from **96 embedded DAW studio samples** (`89` across 6 melodic instrument packs: `piano`, `guitar`, `strings`, `brass`, `voice`, `bass`, plus `7` percussion samples), with automatic WebAudio synth fallback.
+- **Two-Tab Mixer (`Levels` & `Room Reverb`):**
+  - **Levels Tab:** Live faders for all 6 instrument tracks plus instant mix presets (*Duo (Piano & Guitar)*, *Ensemble*, *Orchestra*, *Solo Piano*, *Custom*).
+  - **Room Reverb Tab:** Switch global room ambience between **Dry (`0%`)**, **Natural (`24%` piano default)**, and **Concert Hall (`48%` piano default)**, or fine-tune reverb individually per instrument (`Piano`, `Guitar`, `Strings`, `Brass`, `Voice`, `Bass`) with inline sound-preview (`▶`) buttons.
+- **Home Quick-Mixes:** Launch saved favorite mix setups directly from the home quick-mix bar.
 
 ---
 
-## Projektstruktur
+## Onboarding, Languages, Themes & Account
 
-| Datei / Ordner | Zweck |
+- **6-Step Guided Onboarding:** First launch walks new users step by step (`1 of 6` to `6 of 6`) through **Language**, **Theme / Look** (with a note that custom themes can be created anytime), **Auto-Advance after correct answers**, **Musician Profile**, **Training Focus**, and a personalized welcome screen.
+- **6 Languages & Full RTL Support:** Instant live UI and knowledge-hub switching between **Deutsch (`de`)**, **English (`en`)**, **Français (`fr`)**, **Polski (`pl`)**, **Українська (`uk`)**, and **اردو (`ur`, full RTL layout including mirrored swipe direction)** — plus automatic or manual switching between German (`H / B / Cis`) and International (`B / Bb / C#`) note naming.
+- **4 Built-In Themes + 3 Custom RGBA Theme Slots:**
+  - *Waldlichtung & Salbei*, *Morgentau & Küste*, and *Abenddämmerung* — each with dedicated **Light**, **Dark**, and **System** appearance modes.
+  - **Metal** — a sleek, dark obsidian black theme (`#090A0D`) built for a clean, adult look with dual accents (**Cold Steel Blue** & **Crimson Red**).
+  - **Custom Theme Studio:** 3 persistent user slots with live RGBA/color-pad customization per UI color token starting from any built-in template.
+- **Account (`Konto`), Mascot Looks & Mindful Timers:**
+  - Multi-select dropdown menus with tag pills for **Your Instruments** and **Training Focus**, plus **8 Lauschebär Mascot Looks** (`headphones`, `sunglasses`, `beret`, `bowtie`, `mic`, `coffee`, `notes`, `sparkles`).
+  - **Background Break Reminder (`1–60 min`):** Silent background exercise timer (default `20 min`, quick presets `10 / 15 / 20 min`) that gently prompts for an ear break without showing a distracting countdown during practice.
+  - **Mindful Session Timer:** Configurable session pacing (`5–20 min`) with automatic inactivity pause (`2–5 min`).
+- **100% Local Privacy (`localStorage`):** No accounts, analytics, or external storage. Export, restore, or reset your complete profile, mixes, custom themes, and exam history anytime via **`lauschebaer-profil.json`**.
+
+---
+
+## Project Structure
+
+| File / Folder | Purpose |
 | :--- | :--- |
-| `index.html` | Haupt-HTML-Struktur der App (Ansichten, Modals, Navigation) |
-| `styles.css` | Komplettes Design, Themes (Light/Dark + Custom CSS-Variablen) & Responsive-Layout |
-| `app.js` | Anwendungslogik, Übungsgeneratoren, History-/Swipe-Navigation & Konto/Theme-Editor |
-| `audio.js` | `AudioEngine`, `EarLabSampledInstrument`, Limiter, Pink-Noise-EQ & Percussion |
-| `i18n.js` | Zweisprachige Texte & Musikbegriffe (Deutsch / Englisch) |
-| `knowledge.js` & `knowledge-en.js` | Inhalte für Wissensmodule, Artikel, Instrumentenkunde & Quintenzirkel |
-| `samples/` | Komprimierte Base64-JS-Instrumenten-Bundles (`*-bundle.js`) für sofortiges Audio ohne CORS-Probleme |
-| `lauschebaer-mobile.html` | Gebündelte Einzeldatei-Version (CSS, Samples und App-Skripte inline) für einfache mobile Tests |
-| `daw-sampling/` | Quellmaterial für DAW-Stems (`exports/*.wav`, MIDI-Vorlagen, `process_samples.py`) – **wird im Browser nicht benötigt** |
+| [`index.html`](index.html) | Main HTML structure (views, onboarding wizard, modals, navigation) |
+| [`styles.css`](styles.css) | Complete UI styling, responsive layout, RTL support, and all Light/Dark/Metal/Custom theme tokens |
+| [`app.js`](app.js) | Core app logic, exercise & exam generators, history/swipe navigation, mixer, onboarding, and Account/Theme studio |
+| [`audio.js`](audio.js) | `AudioEngine`, `EarLabSampledInstrument`, per-instrument reverb sends, limiter, pink-noise EQ & percussion |
+| [`i18n.js`](i18n.js), [`i18n-fr.js`](i18n-fr.js), [`i18n-pl.js`](i18n-pl.js), [`i18n-uk.js`](i18n-uk.js), [`i18n-ur.js`](i18n-ur.js) | Multilingual UI strings, musical terminology, and RTL localization (`DE / EN / FR / PL / UK / UR`) |
+| [`knowledge.js`](knowledge.js), [`knowledge-en.js`](knowledge-en.js), [`knowledge-fr.js`](knowledge-fr.js), [`knowledge-pl.js`](knowledge-pl.js), [`knowledge-uk.js`](knowledge-uk.js), [`knowledge-ur.js`](knowledge-ur.js) | Localized knowledge modules, articles, instrument guides & Circle of Fifths content across all 6 languages |
+| [`samples/`](samples/) | Pre-processed Base64 JS instrument & percussion bundles (`*-bundle.js`) for instant browser audio without CORS errors |
+| [`lauschebaer-mobile.html`](lauschebaer-mobile.html) | Self-contained single-file bundle (CSS, JS samples & app code inline) for quick mobile/offline device testing |
+| `daw-sampling/` | Raw DAW stem source material (`exports/*.wav`, MIDI templates, `process_samples.py`) — **not needed by the browser** |
 
 ---
 
-## Lokal starten & auf Mobilgeräten testen
+## Run Locally & Test on Mobile
 
-Da alle Samples als JS-Bundles vorliegen, genügt ein beliebiger statischer Webserver (kein Node-/npm-Build nötig):
+Because all studio samples ship as JS bundles, any static HTTP server works out of the box (no Node.js/npm build step required):
 
 ```bash
 python3 -m http.server 8000
 ```
 
-Anschließend im Browser `http://localhost:8000` öffnen.
+Then open `http://localhost:8000` in your browser.
 
-- **Einzeldatei für mobile Tests:** `lauschebaer-mobile.html` enthält Styles, Samples und App-Logik in einer Datei. *(Hinweis: `Tone.js` wird per CDN von `cdnjs.cloudflare.com` nachgeladen, daher ist beim Laden eine Internetverbindung erforderlich. Unter iOS sollten `.html`-Dateien nicht in QuickLook, sondern über **Safari** per Web-Link oder eine lokale WebView-App geöffnet werden.)*
+- **Single-file bundle for mobile testing:** [`lauschebaer-mobile.html`](lauschebaer-mobile.html) inlines all CSS, sample bundles, and app scripts into a single HTML file. *(Note: `Tone.js` loads from `cdnjs.cloudflare.com`, so an internet connection is needed on load. On iOS, open the HTML file via **Safari** over an HTTPS/local web server URL or a WebView wrapper rather than iOS QuickLook.)*
 
 ---
 
-## Hinweis für GitHub & GitHub Pages
+## GitHub & GitHub Pages Notes
 
-Für den Betrieb über **GitHub Pages** werden die großen Roh-Audiodateien in `daw-sampling/` (ca. 199 MB) **nicht** benötigt. Vor dem Hochladen empfiehlt sich eine `.gitignore`-Datei mit folgendem Inhalt:
+For deploying via **GitHub Pages**, the large raw audio source files in `daw-sampling/` (~199 MB) are **not** required. Before pushing, add a `.gitignore` file with:
 
 ```gitignore
 daw-sampling/
 .DS_Store
 ```
 
-Danach genügt in GitHub unter **Settings → Pages** die Auswahl **Deploy from a branch (`main` / `root`)**, um die App direkt per HTTPS-Link auf Desktop, Android und iOS testen zu können.
+Then enable **Settings → Pages → Deploy from a branch (`main` / `root`)** in your GitHub repository to launch the app directly over HTTPS on desktop, Android, and iOS.
