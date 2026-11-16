@@ -49312,7 +49312,8 @@ function pickRandomNotationNoteItem(clefId, level = 1, prevItem = null, keySigna
 function getNotationClefGlyphSVG(clefId = "treble", x = 22, scale = 1, opacity = 1) {
   const opAttr = opacity < 1 ? ` opacity="${opacity}"` : "";
   if (clefId === "bass") {
-    return `<g transform="translate(${(x - 22).toFixed(1)}, 0) scale(${scale})"${opAttr}>
+    const by = scale === 1 ? "0" : (76 * (1 - scale)).toFixed(1);
+    return `<g transform="translate(${(x - 22).toFixed(1)}, ${by}) scale(${scale})"${opAttr}>
       <circle cx="25" cy="76" r="4.1" fill="currentColor"/>
       <path d="M24.5 76 C23 67.5, 31 63.2, 37.5 66.2 C43.8 69.2, 43.2 84.5, 34 95 C28 102, 21.5 106, 17.5 108.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
       <circle cx="48" cy="70" r="2.4" fill="currentColor"/>
@@ -49321,19 +49322,21 @@ function getNotationClefGlyphSVG(clefId = "treble", x = 22, scale = 1, opacity =
   }
   if (clefId === "alto" || clefId === "tenor") {
     const centerY = clefId === "tenor" ? 76 : 88;
+    const cy = scale === 1 ? "0" : (centerY * (1 - scale)).toFixed(1);
     const topY = centerY - 24;
     const botY = centerY + 24;
-    return `<g transform="translate(${(x - 20).toFixed(1)}, 0) scale(${scale})"${opAttr}>
+    return `<g transform="translate(${(x - 20).toFixed(1)}, ${cy}) scale(${scale})"${opAttr}>
       <rect x="20" y="${topY}" width="4.4" height="48" rx="1" fill="currentColor"/>
       <line x1="27.5" y1="${topY}" x2="27.5" y2="${botY}" stroke="currentColor" stroke-width="1.7"/>
       <path d="M29 ${centerY} C32 ${centerY - 7}, 42.5 ${centerY - 6.5}, 43.5 ${centerY - 14.5} C44.5 ${centerY - 21}, 39 ${centerY - 24}, 33 ${centerY - 22.5} C30.5 ${centerY - 21.8}, 30 ${centerY - 19}, 32.5 ${centerY - 17.5}" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
       <path d="M29 ${centerY} C32 ${centerY + 7}, 42.5 ${centerY + 6.5}, 43.5 ${centerY + 14.5} C44.5 ${centerY + 21}, 39 ${centerY + 24}, 33 ${centerY + 22.5} C30.5 ${centerY + 21.8}, 30 ${centerY + 19}, 32.5 ${centerY + 17.5}" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
     </g>`;
   }
-  // Violinschlüssel (G-Schlüssel auf 2. Linie y = 100)
-  return `<g transform="translate(${x.toFixed(1)}, 42) scale(${scale})"${opAttr} fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M13 84 C12 91, 6 93, 4 89 C2.5 86, 5 82.5, 8 83.5 C10.5 84.5, 11.2 87.5, 13.5 82 L14.8 11 C15 3.5, 10.5 2, 8.5 7 C7 11, 14 21, 19.5 31 C24.5 40, 23 55, 13.5 60 C5 64, 1.5 55, 4.5 47 C7.5 39, 17.5 37, 21.5 44 C24.5 49.5, 22 57.5, 16.5 58 C12.5 58.2, 10.5 55, 11.5 51.5" stroke-width="2.55"/>
-    <circle cx="13" cy="58" r="2.1" fill="currentColor" stroke="none"/>
+  // Violinschlüssel (G-Schlüssel: Spirale um 2. Linie G4 y = 100 / localY = 58, Bauch auf 1. Linie y = 112 / localY = 70, Bogendach an 3. Linie y = 88 / localY = 46, Kreuzung an 4. Linie y = 76 / localY = 34)
+  const ty = scale === 1 ? "42" : (100 - 58 * scale).toFixed(1);
+  return `<g transform="translate(${x.toFixed(1)}, ${ty}) scale(${scale})"${opAttr} fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M17.6 59.2 C15.6 62.2, 12.0 61.8, 10.2 58.6 C8.0 54.2, 9.2 48.0, 13.6 46.8 C18.2 45.6, 23.2 49.2, 23.8 56.8 C24.4 64.2, 20.8 70.0, 14.4 70.0 C7.5 70.0, 2.9 63.2, 3.4 54.0 C3.8 44.2, 14.6 35.8, 18.8 21.0 C20.6 14.2, 20.0 4.8, 16.5 4.4 C13.7 4.0, 12.6 9.5, 12.8 17.5 L13.6 79.8 C13.8 86.0, 10.8 88.6, 7.8 88.0 C5.8 87.6, 4.8 85.6, 5.2 83.4" stroke-width="2.4"/>
+    <circle cx="6.0" cy="82.8" r="2.35" fill="currentColor" stroke="none"/>
   </g>`;
 }
 
