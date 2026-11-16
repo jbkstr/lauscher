@@ -2299,6 +2299,21 @@ html, body {
   text-align: end;
 }
 
+.notation-pace-popover {
+  gap: 0.45rem;
+}
+
+.notation-pace-edge-lbl {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--raccoon-muted);
+  white-space: nowrap;
+}
+
+.notation-pace-popover .popover-val {
+  min-width: 78px;
+}
+
 .popover-pills-row {
   display: flex;
   align-items: center;
@@ -10695,6 +10710,7 @@ body,
             <div class="module-inline-controls">
               <button id="moduleKeyBtn" class="module-chip-btn chip-sage hidden" title="Tonart-Modus wählen" data-i18n-title="ex.keyBtnTitle">C-Dur</button>
               <button id="moduleNotationKeyBtn" type="button" class="module-chip-btn chip-sage hidden" title="Tonart &amp; Generalvorzeichen fürs Notenlesen wählen" data-i18n-title="ex.notationKeyBtnTitle">Ohne (C-Dur)</button>
+              <button id="moduleNotationPaceBtn" type="button" class="module-chip-btn chip-lilac hidden" title="Tempo für den Nur-Hören-Modus wählen" data-i18n-title="ex.notationPaceBtnTitle">Tempo: Mittel</button>
               <button id="moduleTimeSigBtn" class="module-chip-btn chip-peach hidden" title="Taktart wählen" data-i18n-title="ex.timeSigBtnTitle">4/4</button>
               <button id="melodyPulseBtn" class="module-chip-btn chip-sage hidden" type="button" title="Metrum-Puls während der Melodie ein-/ausschalten" data-i18n-title="ex.melodyPulseTitle">Puls: An</button>
               <button id="moduleBpmBtn" class="module-chip-btn chip-lilac" title="Tempo-Schieberegler öffnen" data-i18n-title="ex.bpmBtnTitle">90 BPM</button>
@@ -10735,6 +10751,15 @@ body,
 
         <!-- Direkt ausklappbare Tonart-Auswahl (Generalvorzeichen beim Notenlesen) -->
         <div id="inlineNotationKeyPopover" class="module-inline-popover notation-key-popover hidden"></div>
+
+        <!-- Direkt ausklappbarer Tempo-Schieberegler (Langsam bis Schnell für Notenlesen im Nur-Hören-Modus) -->
+        <div id="inlineNotationPacePopover" class="module-inline-popover notation-pace-popover hidden">
+          <span class="popover-label" data-i18n="ex.tempoLabel">Tempo:</span>
+          <span class="notation-pace-edge-lbl" data-i18n="ex.paceSlowEdge">Langsam</span>
+          <input type="range" id="inlineNotationPaceSlider" min="0" max="100" step="5" value="50" aria-label="Tempo von langsam bis schnell" data-i18n-aria="ex.notationPaceSliderAria">
+          <span class="notation-pace-edge-lbl" data-i18n="ex.paceFastEdge">Schnell</span>
+          <span id="inlineNotationPaceVal" class="popover-val">Mittel</span>
+        </div>
 
         <div id="barsGrid" class="bars-grid"></div>
 
@@ -13484,6 +13509,10 @@ const I18N_STATIC = {
 
   "ex.keyBtnTitle": { de: "Tonart-Modus wählen", en: "Choose key mode" },
   "ex.notationKeyBtnTitle": { de: "Tonart & Generalvorzeichen fürs Notenlesen wählen", en: "Choose key signature for sight-reading" },
+  "ex.notationPaceBtnTitle": { de: "Tempo für den Nur-Hören-Modus wählen", en: "Choose pace for Listen-Only mode" },
+  "ex.paceSlowEdge": { de: "Langsam", en: "Slow" },
+  "ex.paceFastEdge": { de: "Schnell", en: "Fast" },
+  "ex.notationPaceSliderAria": { de: "Tempo von langsam bis schnell", en: "Pace from slow to fast" },
   "ex.timeSigBtnTitle": { de: "Taktart wählen", en: "Choose time signature" },
   "ex.melodyPulseTitle": { de: "Metrum-Puls während der Melodie ein-/ausschalten", en: "Toggle beat pulse during the melody" },
   "ex.bpmBtnTitle": { de: "Tempo-Schieberegler öffnen", en: "Open tempo slider" },
@@ -14580,6 +14609,10 @@ const I18N_STATIC_FR = {
   "space.examHistoryClear": "Effacer l’historique",
   "ex.keyBtnTitle": "Choisir le mode de tonalité",
   "ex.notationKeyBtnTitle": "Choisir la tonalité et l'armure pour la lecture",
+  "ex.notationPaceBtnTitle": "Choisir la vitesse pour le mode écoute seule",
+  "ex.paceSlowEdge": "Lent",
+  "ex.paceFastEdge": "Rapide",
+  "ex.notationPaceSliderAria": "Vitesse de lent à rapide",
   "ex.timeSigBtnTitle": "Choisir la mesure",
   "ex.melodyPulseTitle": "Activer ou couper la pulsation pendant la mélodie",
   "ex.bpmBtnTitle": "Ouvrir le curseur de tempo",
@@ -16503,6 +16536,10 @@ const I18N_STATIC_PL = {
   "space.examHistoryClear": "Wyczyść historię",
   "ex.keyBtnTitle": "Wybierz tryb tonacji",
   "ex.notationKeyBtnTitle": "Wybierz tonację i znaki przykluczowe do czytania nut",
+  "ex.notationPaceBtnTitle": "Wybierz tempo dla trybu samego słuchania",
+  "ex.paceSlowEdge": "Wolno",
+  "ex.paceFastEdge": "Szybko",
+  "ex.notationPaceSliderAria": "Tempo od wolnego do szybkiego",
   "ex.timeSigBtnTitle": "Wybierz metrum",
   "ex.melodyPulseTitle": "Włącz lub wyłącz puls podczas melodii",
   "ex.bpmBtnTitle": "Otwórz suwak tempa",
@@ -18472,6 +18509,10 @@ const I18N_STATIC_UK = {
   "space.examHistoryClear": "Очистити історію",
   "ex.keyBtnTitle": "Обрати режим тональності",
   "ex.notationKeyBtnTitle": "Обрати тональність і ключові знаки для читання з аркуша",
+  "ex.notationPaceBtnTitle": "Обрати темп для режиму лише слухання",
+  "ex.paceSlowEdge": "Повільно",
+  "ex.paceFastEdge": "Швидко",
+  "ex.notationPaceSliderAria": "Темп від повільного до швидкого",
   "ex.timeSigBtnTitle": "Обрати музичний розмір",
   "ex.melodyPulseTitle": "Увімкнути або вимкнути пульс під час мелодії",
   "ex.bpmBtnTitle": "Відкрити повзунок темпу",
@@ -20442,6 +20483,10 @@ const I18N_STATIC_UR = {
   "space.examHistoryClear": "ریکارڈ صاف کریں",
   "ex.keyBtnTitle": "کلید کا موڈ منتخب کریں",
   "ex.notationKeyBtnTitle": "اسٹاف ریڈنگ کے لیے کلید اور کی سگنیچر منتخب کریں",
+  "ex.notationPaceBtnTitle": "صرف سنیں موڈ کے لیے رفتار منتخب کریں",
+  "ex.paceSlowEdge": "آہستہ",
+  "ex.paceFastEdge": "تیز",
+  "ex.notationPaceSliderAria": "آہستہ سے تیز تک رفتار",
   "ex.timeSigBtnTitle": "ٹائم سگنیچر (تال) منتخب کریں",
   "ex.melodyPulseTitle": "دھن کے دوران نبض (Pulse) آن/آف کریں",
   "ex.bpmBtnTitle": "ٹیمپو سلائیڈر کھولیں",
@@ -47900,6 +47945,7 @@ class AppState {
       notationKeyMode: "none",
       notationKeyTrainerClef: "notation-treble",
       notationKeyTrainerLevel: 2,
+      notationListenOnlyPace: 50,
       keyMode: "fixed",
       timeSig: "4/4",
       defaultBpm: 90,
@@ -50666,6 +50712,7 @@ function closeTransientPopovers() {
     ["inlineBpmPopover", "moduleBpmBtn"],
     ["inlineKeyPopover", "moduleKeyBtn"],
     ["inlineNotationKeyPopover", "moduleNotationKeyBtn"],
+    ["inlineNotationPacePopover", "moduleNotationPaceBtn"],
     ["inlineTimeSigPopover", "moduleTimeSigBtn"],
     ["warmupVoicePopover", "warmupVoiceBtn"],
     ["warmupSoundPopover", "warmupSoundBtn"],
@@ -55285,6 +55332,7 @@ function renderUI() {
   // - Alle übrigen Modi: Tempo (Lila) im oberen Modul
   const moduleKeyBtn = document.getElementById("moduleKeyBtn");
   const moduleNotationKeyBtn = document.getElementById("moduleNotationKeyBtn");
+  const moduleNotationPaceBtn = document.getElementById("moduleNotationPaceBtn");
   const moduleTimeSigBtn = document.getElementById("moduleTimeSigBtn");
   const melodyPulseBtn = document.getElementById("melodyPulseBtn");
   const moduleBpmBtn = document.getElementById("moduleBpmBtn");
@@ -55296,6 +55344,13 @@ function renderUI() {
 
   if (moduleNotationKeyBtn) {
     moduleNotationKeyBtn.classList.toggle("hidden", !isNotation);
+  }
+
+  if (moduleNotationPaceBtn) {
+    moduleNotationPaceBtn.classList.toggle("hidden", !isNotation);
+  }
+  if (isNotation) {
+    syncNotationPaceUI();
   }
 
   if (moduleTimeSigBtn) {
@@ -55333,6 +55388,8 @@ function renderUI() {
   if (!isNotation) {
     document.getElementById("inlineNotationKeyPopover")?.classList.add("hidden");
     moduleNotationKeyBtn?.classList.remove("chip-open");
+    document.getElementById("inlineNotationPacePopover")?.classList.add("hidden");
+    moduleNotationPaceBtn?.classList.remove("chip-open");
   }
   if (isProd || isModes || isNotation) {
     document.getElementById("inlineBpmPopover")?.classList.add("hidden");
@@ -56637,8 +56694,72 @@ function rotateNotationExerciseKeyNow() {
   renderUI();
 }
 
+const DEFAULT_NOTATION_LISTEN_PACE = 50;
+
+function clampNotationListenPace(val) {
+  const num = Number(val);
+  if (!Number.isFinite(num)) return DEFAULT_NOTATION_LISTEN_PACE;
+  return Math.max(0, Math.min(100, Math.round(num)));
+}
+
+function getLocalizedNotationPaceLabel(paceVal = state?.settings?.notationListenOnlyPace) {
+  const p = clampNotationListenPace(paceVal);
+  if (p <= 19) return tr("Sehr langsam", "Very slow", { fr: "Très lent", pl: "Bardzo wolno", uk: "Дуже повільно", ur: "بہت آہستہ" });
+  if (p <= 39) return tr("Langsam", "Slow", { fr: "Lent", pl: "Wolno", uk: "Повільно", ur: "آہستہ" });
+  if (p <= 60) return tr("Mittel", "Medium", { fr: "Moyen", pl: "Średnio", uk: "Середньо", ur: "درمیانہ" });
+  if (p <= 80) return tr("Schnell", "Fast", { fr: "Rapide", pl: "Szybko", uk: "Швидко", ur: "تیز" });
+  return tr("Sehr schnell", "Very fast", { fr: "Très rapide", pl: "Bardzo szybko", uk: "Дуже швидко", ur: "بہت تیز" });
+}
+
+function getNotationListenOnlyKeyRevealDelayMs(paceVal = state?.settings?.notationListenOnlyPace) {
+  const p = clampNotationListenPace(paceVal);
+  if (p <= 50) {
+    return Math.round(1900 + (LISTEN_ONLY_NOTATION_KEY_REVEAL_DELAY_MS - 1900) * (p / 50));
+  }
+  return Math.round(LISTEN_ONLY_NOTATION_KEY_REVEAL_DELAY_MS + (380 - LISTEN_ONLY_NOTATION_KEY_REVEAL_DELAY_MS) * ((p - 50) / 50));
+}
+
+function getNotationListenOnlyAdvanceDelayMs(paceVal = state?.settings?.notationListenOnlyPace) {
+  const p = clampNotationListenPace(paceVal);
+  if (p <= 50) {
+    return Math.round(2100 + (LISTEN_ONLY_NOTATION_ADVANCE_DELAY_MS - 2100) * (p / 50));
+  }
+  return Math.round(LISTEN_ONLY_NOTATION_ADVANCE_DELAY_MS + (480 - LISTEN_ONLY_NOTATION_ADVANCE_DELAY_MS) * ((p - 50) / 50));
+}
+
+function getNotationListenOnlyToneDurationSec(paceVal = state?.settings?.notationListenOnlyPace) {
+  const p = clampNotationListenPace(paceVal);
+  return Number((1.15 - (p / 100) * 0.4).toFixed(2));
+}
+
+function syncNotationPaceUI() {
+  const p = clampNotationListenPace(state?.settings?.notationListenOnlyPace);
+  const paceLabel = getLocalizedNotationPaceLabel(p);
+  const paceBtn = document.getElementById("moduleNotationPaceBtn");
+  const paceSlider = document.getElementById("inlineNotationPaceSlider");
+  const paceVal = document.getElementById("inlineNotationPaceVal");
+  if (paceBtn) {
+    paceBtn.textContent = tf("Tempo: {p}", "Pace: {p}", { p: paceLabel });
+  }
+  if (paceSlider && String(paceSlider.value) !== String(p)) {
+    paceSlider.value = String(p);
+  }
+  if (paceVal) {
+    paceVal.textContent = paceLabel;
+  }
+}
+
+function setNotationListenOnlyPace(nextVal) {
+  const clamped = clampNotationListenPace(nextVal);
+  if (state?.settings) {
+    state.settings.notationListenOnlyPace = clamped;
+  }
+  syncNotationPaceUI();
+}
+
 function syncNotationHeaderUI(ex = state.currentExercise) {
   if (!ex || !isNotationMode(ex.type)) return;
+  syncNotationPaceUI();
   const targetClefId = ex.targetItem?.clefId || ex.baseClefId || "treble";
   const targetClefName = getLocalizedNotationClefName(targetClefId);
   const moduleTitleEl = document.getElementById("moduleTitleText");
@@ -56943,7 +57064,7 @@ function revealNotationListenOnly(ex, token) {
       null
     );
     startListenOnlyCycle();
-  }, LISTEN_ONLY_NOTATION_ADVANCE_DELAY_MS, token);
+  }, getNotationListenOnlyAdvanceDelayMs(), token);
 }
 
 /**
@@ -58474,6 +58595,8 @@ function setListenOnlyMode(enabled, options = {}) {
   if (!nextActive || state.currentView !== "exercise") {
     state.listenOnly.active = false;
     clearTransientExerciseWrongMarks();
+    document.getElementById("inlineNotationPacePopover")?.classList.add("hidden");
+    document.getElementById("moduleNotationPaceBtn")?.classList.remove("chip-open");
     syncListenOnlyUI();
     if (!options.keepPlayback) {
       stopPlayback();
@@ -58482,6 +58605,13 @@ function setListenOnlyMode(enabled, options = {}) {
   }
 
   state.listenOnly.active = true;
+  if (isNotationMode(state.currentExercise?.type)) {
+    syncNotationPaceUI();
+    document.getElementById("inlineNotationKeyPopover")?.classList.add("hidden");
+    document.getElementById("moduleNotationKeyBtn")?.classList.remove("chip-open");
+    document.getElementById("inlineNotationPacePopover")?.classList.remove("hidden");
+    document.getElementById("moduleNotationPaceBtn")?.classList.add("chip-open");
+  }
   if (state.settings.loop && !LISTEN_ONLY_LOOP_MODE_EXCLUSIONS.has(state.settings.mode)) {
     state.settings.loop = false;
     document.getElementById("loopToggleBtn")?.classList.remove("btn-active");
@@ -58522,7 +58652,7 @@ async function playSequence(options = {}) {
       document.getElementById("stageSubtext").textContent = tr("NUR HÖREN • NOTENLESEN", "LISTEN ONLY • SIGHT-READ");
       document.getElementById("stageMainText").textContent = getLocalizedNotationClefName(clefId);
       document.getElementById("stageFunctionText").textContent = tr("Höre den Ton & schau auf die erste Note links…", "Hear the tone & read the leftmost note…");
-      audioEngine.playStep([targetNoteName], 0.95, null, "interval");
+      audioEngine.playStep([targetNoteName], getNotationListenOnlyToneDurationSec(), null, "interval");
       audioEngine.registerTimer(() => {
         if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
         state.isPlaying = false;
@@ -58531,7 +58661,7 @@ async function playSequence(options = {}) {
           return;
         }
         revealNotationListenOnly(ex, listenOnlyCycleToken);
-      }, LISTEN_ONLY_NOTATION_KEY_REVEAL_DELAY_MS);
+      }, getNotationListenOnlyKeyRevealDelayMs());
       return;
     }
 
@@ -62035,12 +62165,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const moduleBpmBtn = document.getElementById("moduleBpmBtn");
   const moduleKeyBtn = document.getElementById("moduleKeyBtn");
   const moduleNotationKeyBtn = document.getElementById("moduleNotationKeyBtn");
+  const moduleNotationPaceBtn = document.getElementById("moduleNotationPaceBtn");
   const moduleTimeSigBtn = document.getElementById("moduleTimeSigBtn");
   const melodyPulseBtn = document.getElementById("melodyPulseBtn");
 
   const inlineBpmPopover = document.getElementById("inlineBpmPopover");
   const inlineKeyPopover = document.getElementById("inlineKeyPopover");
   const inlineNotationKeyPopover = document.getElementById("inlineNotationKeyPopover");
+  const inlineNotationPacePopover = document.getElementById("inlineNotationPacePopover");
+  const inlineNotationPaceSlider = document.getElementById("inlineNotationPaceSlider");
   const inlineTimeSigPopover = document.getElementById("inlineTimeSigPopover");
 
   function closeAllInlinePopovers(exceptPopover = null) {
@@ -62048,6 +62181,7 @@ document.addEventListener("DOMContentLoaded", () => {
       [inlineBpmPopover, moduleBpmBtn],
       [inlineKeyPopover, moduleKeyBtn],
       [inlineNotationKeyPopover, moduleNotationKeyBtn],
+      [inlineNotationPacePopover, moduleNotationPaceBtn],
       [inlineTimeSigPopover, moduleTimeSigBtn]
     ].forEach(([pop, btn]) => {
       if (pop && pop !== exceptPopover) {
@@ -62095,6 +62229,19 @@ document.addEventListener("DOMContentLoaded", () => {
     moduleNotationKeyBtn.classList.toggle("chip-open", !isHidden);
   });
 
+  moduleNotationPaceBtn?.addEventListener("click", (e) => {
+    e?.stopPropagation?.();
+    if (state.exam?.active) return;
+    closeAllInlinePopovers(inlineNotationPacePopover);
+    syncNotationPaceUI();
+    const isHidden = inlineNotationPacePopover.classList.toggle("hidden");
+    moduleNotationPaceBtn.classList.toggle("chip-open", !isHidden);
+  });
+
+  inlineNotationPaceSlider?.addEventListener("input", (e) => {
+    setNotationListenOnlyPace(e.target.value);
+  });
+
   moduleTimeSigBtn?.addEventListener("click", (e) => {
     e.stopPropagation();
     closeAllInlinePopovers(inlineTimeSigPopover);
@@ -62102,11 +62249,14 @@ document.addEventListener("DOMContentLoaded", () => {
     moduleTimeSigBtn.classList.toggle("chip-open", !isHidden);
   });
 
-  [inlineBpmPopover, inlineKeyPopover, inlineNotationKeyPopover, inlineTimeSigPopover].forEach(pop => {
+  [inlineBpmPopover, inlineKeyPopover, inlineNotationKeyPopover, inlineNotationPacePopover, inlineTimeSigPopover].forEach(pop => {
     pop?.addEventListener("click", (e) => e.stopPropagation());
   });
 
-  document.addEventListener("click", () => {
+  document.addEventListener("click", (e) => {
+    if (typeof e?.target?.closest === "function" && e.target.closest("#listenOnlyBtn")) {
+      return;
+    }
     closeAllInlinePopovers();
   });
 
@@ -65429,6 +65579,7 @@ function syncExamExerciseControls() {
   const loopBtn = document.getElementById("loopToggleBtn");
   const keyBtn = document.getElementById("moduleKeyBtn");
   const notationKeyBtn = document.getElementById("moduleNotationKeyBtn");
+  const notationPaceBtn = document.getElementById("moduleNotationPaceBtn");
   const timeBtn = document.getElementById("moduleTimeSigBtn");
   const bpmBtn = document.getElementById("moduleBpmBtn");
   const melodyPulseBtn = document.getElementById("melodyPulseBtn");
@@ -65443,7 +65594,7 @@ function syncExamExerciseControls() {
   if (listenBtn) listenBtn.classList.toggle("hidden", isExam);
   if (loopBtn) loopBtn.classList.toggle("hidden", isExam);
 
-  [keyBtn, notationKeyBtn, timeBtn, bpmBtn, melodyPulseBtn].forEach(btn => {
+  [keyBtn, notationKeyBtn, notationPaceBtn, timeBtn, bpmBtn, melodyPulseBtn].forEach(btn => {
     if (!btn) return;
     btn.classList.toggle("exam-locked", isExam);
     btn.disabled = isExam;
