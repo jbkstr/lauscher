@@ -3579,10 +3579,173 @@ html, body {
 
 .welcome-shell {
   width: 100%;
-  max-width: 390px;
+  max-width: 400px;
+  margin: auto 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 0.9rem;
+}
+
+.welcome-progress-header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.36rem;
+}
+
+.welcome-progress-text {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--raccoon-muted);
+}
+
+.welcome-progress-track {
+  width: 100%;
+  max-width: 240px;
+  height: 5px;
+  border-radius: 99px;
+  background-color: var(--tint-subtle);
+  overflow: hidden;
+}
+
+.welcome-progress-fill {
+  height: 100%;
+  width: 16.67%;
+  border-radius: 99px;
+  background-color: var(--sage-strong);
+  transition: width 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.welcome-step-title {
+  margin: 0 0 0.28rem;
+  font-size: 1.28rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+  letter-spacing: -0.015em;
+  line-height: 1.22;
+}
+
+.welcome-step-sub {
+  margin: 0 0 0.85rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--raccoon-mid);
+  line-height: 1.44;
+  max-width: 36ch;
+}
+
+.welcome-panel {
+  width: 100%;
+  background-color: var(--surface-white);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  padding: 0.92rem;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  text-align: start;
+}
+
+.welcome-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.42rem;
+}
+
+.welcome-pills-wrap {
+  justify-content: flex-start;
+}
+
+.welcome-hint-note {
+  margin: 0;
+  padding: 0.62rem 0.78rem;
+  border-radius: var(--radius-md);
+  background-color: var(--lilac-soft, var(--tint-subtle));
+  border: 1px solid var(--border-soft);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--raccoon-mid);
+  line-height: 1.44;
+  text-align: start;
+}
+
+.welcome-choice-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.56rem;
+  width: 100%;
+}
+
+.welcome-choice-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.22rem;
+  padding: 0.82rem 0.92rem;
+  border-radius: var(--radius-md);
+  background-color: var(--surface-warm);
+  border: 1.5px solid var(--border-soft);
+  cursor: pointer;
+  text-align: start;
+  transition: border-color 0.16s ease, background-color 0.16s ease, transform 0.12s ease;
+}
+
+.welcome-choice-card strong {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+}
+
+.welcome-choice-card span {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--raccoon-mid);
+  line-height: 1.4;
+}
+
+.welcome-choice-card.active {
+  border-color: var(--sage-strong);
+  background-color: var(--sage-soft);
+}
+
+.welcome-focus-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.44rem;
+  width: 100%;
+}
+
+.welcome-focus-card {
+  padding: 0.66rem 0.84rem;
+}
+
+.welcome-nav-row {
+  width: 100%;
+  margin-top: 0.92rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.welcome-back-btn {
+  padding: 0.68rem 1rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border-radius: var(--radius-pill);
+}
+
+.welcome-next-btn {
+  flex: 1;
+  padding: 0.74rem 1.15rem;
+  font-size: 0.9rem;
+  font-weight: 800;
+  border-radius: var(--radius-pill);
 }
 
 .welcome-step {
@@ -8650,7 +8813,8 @@ body,
   padding-bottom: 0.36rem;
 }
 
-[dir="rtl"] .cat-chevron {
+[dir="rtl"] .cat-chevron,
+[dir="rtl"] .welcome-lang-arrow {
   display: inline-block;
   transform: scaleX(-1);
 }
@@ -8802,9 +8966,17 @@ body,
     </div>
   </div>
 
-  <!-- Erststart-Willkommen: Sprachauswahl & Begrüßung durch den Lauschebär -->
+  <!-- Erststart-Einrichtung: Schritt-für-Schritt-Assistent (Sprache, Look, Auto-Weiter, Profil, Schwerpunkt & Begrüßung) -->
   <div id="welcomeOnboarding" class="welcome-onboarding hidden" role="dialog" aria-modal="true" aria-labelledby="welcomeLangTitle">
     <div class="welcome-shell">
+      <div id="welcomeProgressHeader" class="welcome-progress-header">
+        <span id="welcomeProgressText" class="welcome-progress-text">Schritt 1 von 6</span>
+        <div class="welcome-progress-track" aria-hidden="true">
+          <div id="welcomeProgressFill" class="welcome-progress-fill" style="width: 16.67%;"></div>
+        </div>
+      </div>
+
+      <!-- Seite 1: Sprachauswahl -->
       <div id="welcomeStepLang" class="welcome-step">
         <div class="welcome-mascot-stage">
           <div id="welcomeLangMascot" class="welcome-mascot-badge">
@@ -8835,6 +9007,134 @@ body,
         <div id="welcomeLangList" class="welcome-lang-list" role="list"></div>
       </div>
 
+      <!-- Seite 2: Look (Erscheinungsbild & Theme + Hinweis zu eigenen Themes) -->
+      <div id="welcomeStepLook" class="welcome-step hidden">
+        <h2 id="welcomeLookTitle" class="welcome-step-title" data-i18n="welcome.lookTitle">Wähle deinen Look</h2>
+        <p id="welcomeLookSub" class="welcome-step-sub" data-i18n="welcome.lookSub">Erscheinungsbild und Farbschema für entspanntes Üben.</p>
+
+        <div class="welcome-panel">
+          <div class="welcome-field">
+            <span class="account-label" data-i18n="settings.appearanceHeading">Erscheinungsbild</span>
+            <div class="btn-group btn-group-3" id="welcomeAppearanceGroup" role="group" aria-label="Erscheinungsbild" data-i18n-aria="settings.appearanceAria">
+              <button class="opt-btn active" type="button" data-welcome-appearance="light" data-i18n="settings.appearanceLight">Hell</button>
+              <button class="opt-btn" type="button" data-welcome-appearance="dark" data-i18n="settings.appearanceDark">Dunkel</button>
+              <button class="opt-btn" type="button" data-welcome-appearance="system" data-i18n="settings.appearanceSystem">System</button>
+            </div>
+          </div>
+
+          <div class="welcome-field">
+            <span class="account-label" data-i18n="settings.themeHeading">Farbschema / Themes</span>
+            <div class="theme-preview-list space-builtin-theme-list" id="welcomeThemeList">
+              <button class="theme-preview-item active" type="button" data-welcome-theme="waldlichtung">
+                <div class="theme-info">
+                  <span class="theme-name" data-i18n="settings.themeForest">Waldlichtung &amp; Salbei</span>
+                  <span class="theme-status" data-welcome-theme-status>Aktiv</span>
+                </div>
+                <div class="theme-swatches">
+                  <span class="swatch-dot" style="background:#FAF7F2;"></span>
+                  <span class="swatch-dot" style="background:#B8E0C8;"></span>
+                  <span class="swatch-dot" style="background:#FFD6BA;"></span>
+                  <span class="swatch-dot" style="background:#DCD3FF;"></span>
+                </div>
+              </button>
+              <button class="theme-preview-item" type="button" data-welcome-theme="morgentau">
+                <div class="theme-info">
+                  <span class="theme-name" data-i18n="settings.themeCoast">Morgentau &amp; Küste</span>
+                  <span class="theme-status" data-welcome-theme-status>Auswählen</span>
+                </div>
+                <div class="theme-swatches">
+                  <span class="swatch-dot" style="background:#F3F8FA;"></span>
+                  <span class="swatch-dot" style="background:#B5DCE8;"></span>
+                  <span class="swatch-dot" style="background:#F9DFC6;"></span>
+                  <span class="swatch-dot" style="background:#C8D3F5;"></span>
+                </div>
+              </button>
+              <button class="theme-preview-item" type="button" data-welcome-theme="abenddaemmerung">
+                <div class="theme-info">
+                  <span class="theme-name" data-i18n="settings.themeDusk">Abenddämmerung</span>
+                  <span class="theme-status" data-welcome-theme-status>Auswählen</span>
+                </div>
+                <div class="theme-swatches">
+                  <span class="swatch-dot" style="background:#F7F4F8;"></span>
+                  <span class="swatch-dot" style="background:#BFE0D4;"></span>
+                  <span class="swatch-dot" style="background:#F5CDC4;"></span>
+                  <span class="swatch-dot" style="background:#D8C7F5;"></span>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <p id="welcomeLookCustomHint" class="welcome-hint-note" data-i18n="welcome.lookCustomHint">Tipp: Später kannst du unter ‚Mein Konto → Themes &amp; Farbdesigner‘ jederzeit bis zu 3 ganz eigene Themes gestalten!</p>
+        </div>
+
+        <div class="welcome-nav-row">
+          <button type="button" id="welcomeLookBackBtn" class="btn-tool welcome-back-btn" data-welcome-nav="prev" data-i18n="welcome.backBtn">← Zurück</button>
+          <button type="button" id="welcomeLookNextBtn" class="btn-primary-action welcome-next-btn" data-welcome-nav="next" data-i18n="welcome.nextBtn">Weiter →</button>
+        </div>
+      </div>
+
+      <!-- Seite 3: Nach Abfragung automatisch weiterspielen -->
+      <div id="welcomeStepAutoNext" class="welcome-step hidden">
+        <h2 id="welcomeAutoNextTitle" class="welcome-step-title" data-i18n="welcome.autoNextTitle">Nach richtiger Lösung weiter?</h2>
+        <p id="welcomeAutoNextSub" class="welcome-step-sub" data-i18n="welcome.autoNextSub">Bestimme, ob automatisch die nächste Aufgabe abgespielt wird.</p>
+
+        <div class="welcome-panel">
+          <div id="welcomeAutoNextGroup" class="welcome-choice-stack" role="radiogroup" aria-label="Nächste Abfragung automatisch abspielen" data-i18n-aria="settings.autoNextAria">
+            <button type="button" class="welcome-choice-card active" data-welcome-autonext="on" aria-pressed="true">
+              <strong data-i18n="welcome.autoNextOnTitle">Automatisch weiterspielen (Empfohlen)</strong>
+              <span data-i18n="welcome.autoNextOnDesc">Startet nach einer richtigen Antwort sofort die nächste Aufgabe für flüssigen Spielfluss.</span>
+            </button>
+            <button type="button" class="welcome-choice-card" data-welcome-autonext="off" aria-pressed="false">
+              <strong data-i18n="welcome.autoNextOffTitle">Manuell abspielen</strong>
+              <span data-i18n="welcome.autoNextOffDesc">Wartet nach jeder Lösung, bis du bewusst selbst den nächsten Ton abspielst.</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="welcome-nav-row">
+          <button type="button" id="welcomeAutoNextBackBtn" class="btn-tool welcome-back-btn" data-welcome-nav="prev" data-i18n="welcome.backBtn">← Zurück</button>
+          <button type="button" id="welcomeAutoNextNextBtn" class="btn-primary-action welcome-next-btn" data-welcome-nav="next" data-i18n="welcome.nextBtn">Weiter →</button>
+        </div>
+      </div>
+
+      <!-- Seite 4: Eigenes Musiker-Profil -->
+      <div id="welcomeStepProfile" class="welcome-step hidden">
+        <h2 id="welcomeProfileTitle" class="welcome-step-title" data-i18n="welcome.profileTitle">Dein Musiker-Profil</h2>
+        <p id="welcomeProfileSub" class="welcome-step-sub" data-i18n="welcome.profileSub">Wie darf dich der Lauschebär begrüßen und welche Instrumente spielst du?</p>
+
+        <div class="welcome-panel">
+          <div class="welcome-field">
+            <label class="account-label" for="welcomeProfileNameInput" data-i18n="space.nameLabel">Dein Name (optional)</label>
+            <input type="text" id="welcomeProfileNameInput" class="account-input" maxlength="24" placeholder="z. B. Alex" data-i18n-placeholder="space.namePlaceholder">
+          </div>
+          <div class="welcome-field">
+            <span class="account-label" data-i18n="space.instrumentsLabel">Deine Instrumente</span>
+            <div id="welcomeInstrumentsGroup" class="profile-pills-wrap welcome-pills-wrap"></div>
+          </div>
+        </div>
+
+        <div class="welcome-nav-row">
+          <button type="button" id="welcomeProfileBackBtn" class="btn-tool welcome-back-btn" data-welcome-nav="prev" data-i18n="welcome.backBtn">← Zurück</button>
+          <button type="button" id="welcomeProfileNextBtn" class="btn-primary-action welcome-next-btn" data-welcome-nav="next" data-i18n="welcome.nextBtn">Weiter →</button>
+        </div>
+      </div>
+
+      <!-- Seite 5: Lernschwerpunkt -->
+      <div id="welcomeStepFocus" class="welcome-step hidden">
+        <h2 id="welcomeFocusTitle" class="welcome-step-title" data-i18n="welcome.focusTitle">Dein Lernschwerpunkt</h2>
+        <p id="welcomeFocusSub" class="welcome-step-sub" data-i18n="welcome.focusSub">Worauf möchtest du dich zuerst konzentrieren?</p>
+
+        <div class="welcome-panel">
+          <div id="welcomeFocusList" class="welcome-focus-grid" role="radiogroup"></div>
+        </div>
+
+        <div class="welcome-nav-row">
+          <button type="button" id="welcomeFocusBackBtn" class="btn-tool welcome-back-btn" data-welcome-nav="prev" data-i18n="welcome.backBtn">← Zurück</button>
+          <button type="button" id="welcomeFocusNextBtn" class="btn-primary-action welcome-next-btn" data-welcome-nav="next" data-i18n="welcome.nextBtn">Weiter →</button>
+        </div>
+      </div>
+
+      <!-- Seite 6: Begrüßung & Start -->
       <div id="welcomeStepGreet" class="welcome-step welcome-step-greet hidden" aria-live="polite">
         <div class="welcome-mascot-stage is-greet">
           <span class="splash-ring splash-ring-1" aria-hidden="true"></span>
@@ -8845,6 +9145,7 @@ body,
         <p id="welcomeGreetBody" class="welcome-greet-body"></p>
         <div class="welcome-greet-actions">
           <button id="welcomeContinueBtn" type="button" class="btn-primary-action welcome-continue-btn"></button>
+          <button type="button" id="welcomeGreetBackBtn" class="btn-tool welcome-back-btn" data-welcome-nav="prev" data-i18n="welcome.backBtn">← Zurück</button>
           <div class="welcome-auto-progress" aria-hidden="true">
             <div id="welcomeAutoFill" class="welcome-auto-fill"></div>
           </div>
@@ -12260,9 +12561,56 @@ function tf(deTemplate, enTemplate, vars = {}, extraMap = null) {
 const I18N_STATIC = {
   "app.title": { de: "Lauschebär • Hören · Verstehen · Musizieren", en: "Lauschebär • Listen · Understand · Play" },
   "app.tagline": { de: "Hören · Verstehen · Musizieren", en: "Listen · Understand · Play" },
+  "welcome.stepProgress": {
+    de: "Schritt {n} von {total}",
+    en: "Step {n} of {total}"
+  },
+  "welcome.backBtn": { de: "← Zurück", en: "← Back" },
+  "welcome.nextBtn": { de: "Weiter →", en: "Next →" },
+  "welcome.lookTitle": { de: "Wähle deinen Look", en: "Choose Your Look" },
+  "welcome.lookSub": {
+    de: "Erscheinungsbild und Farbschema für entspanntes Üben.",
+    en: "Pick the appearance and color palette that feels best for your eyes."
+  },
+  "welcome.lookCustomHint": {
+    de: "Tipp: Später kannst du unter ‚Mein Konto → Themes & Farbdesigner‘ jederzeit bis zu 3 ganz eigene Themes gestalten!",
+    en: "Tip: Later you can create up to 3 completely custom color themes anytime in ‘My Account → Themes & Color Studio’!"
+  },
+  "welcome.autoNextTitle": { de: "Nach richtiger Lösung weiter?", en: "Auto-Play Next Prompt?" },
+  "welcome.autoNextSub": {
+    de: "Bestimme, ob automatisch die nächste Aufgabe abgespielt wird.",
+    en: "Choose whether the next exercise plays automatically right after a correct answer."
+  },
+  "welcome.autoNextOnTitle": {
+    de: "Automatisch weiterspielen (Empfohlen)",
+    en: "Auto-Play Next (Recommended)"
+  },
+  "welcome.autoNextOnDesc": {
+    de: "Startet nach einer richtigen Antwort sofort die nächste Aufgabe für flüssigen Spielfluss.",
+    en: "Starts the next prompt right away after solving for smooth, uninterrupted practice."
+  },
+  "welcome.autoNextOffTitle": { de: "Manuell abspielen", en: "Manual Playback" },
+  "welcome.autoNextOffDesc": {
+    de: "Wartet nach jeder Lösung, bis du bewusst selbst den nächsten Ton abspielst.",
+    en: "Waits after each solution until you explicitly press Play for the next exercise."
+  },
+  "welcome.profileTitle": { de: "Dein Musiker-Profil", en: "Your Musician Profile" },
+  "welcome.profileSub": {
+    de: "Wie darf dich der Lauschebär begrüßen und welche Instrumente spielst du?",
+    en: "How may Lauschebär greet you, and which instruments do you play?"
+  },
+  "welcome.focusTitle": { de: "Dein Lernschwerpunkt", en: "Your Learning Focus" },
+  "welcome.focusSub": {
+    de: "Worauf möchtest du dich zuerst konzentrieren?",
+    en: "What would you like to prioritize first?"
+  },
   "welcome.greetTitle": {
     de: "Hallo! Schön, dass du da bist.",
     en: "Hello! Welcome to Lauschebär."
+  },
+  "welcome.greetNamedTitle": {
+    de: "Hallo, {name}! Schön, dass du da bist.",
+    en: "Hi, {name}! Welcome to Lauschebär."
   },
   "welcome.greetBody": {
     de: "Ich bin der Lauschebär und freue mich darauf, mit dir zu hören, Noten zu entdecken und Musik zu verstehen. Viel Freude und Erfolg beim Lernen!",
@@ -13342,7 +13690,24 @@ function getLocalizedModeLevelLabel(kind, lvl) {
 const I18N_STATIC_FR = {
   "app.title": "Lauschebär • Écouter · Comprendre · Pratiquer",
   "app.tagline": "Écouter · Comprendre · Pratiquer",
+  "welcome.stepProgress": "Étape {n} sur {total}",
+  "welcome.backBtn": "← Retour",
+  "welcome.nextBtn": "Suivant →",
+  "welcome.lookTitle": "Choisissez votre style",
+  "welcome.lookSub": "Réglez l’apparence et la palette de couleurs pour un confort visuel optimal.",
+  "welcome.lookCustomHint": "Astuce : plus tard, vous pourrez créer jusqu’à 3 thèmes entièrement personnalisés dans « Mon compte → Thèmes & Studio » !",
+  "welcome.autoNextTitle": "Enchaîner après une bonne réponse ?",
+  "welcome.autoNextSub": "Décidez si la question suivante démarre automatiquement ou sur votre clic.",
+  "welcome.autoNextOnTitle": "Lecture automatique (Recommandé)",
+  "welcome.autoNextOnDesc": "Lance immédiatement l’exercice suivant après chaque bonne réponse pour un entraînement fluide.",
+  "welcome.autoNextOffTitle": "Lecture manuelle",
+  "welcome.autoNextOffDesc": "Met en pause après chaque solution jusqu’à ce que vous relanciez l’écoute.",
+  "welcome.profileTitle": "Votre profil musicien",
+  "welcome.profileSub": "Comment Lauschebär doit-il vous saluer et quels instruments pratiquez-vous ?",
+  "welcome.focusTitle": "Votre objectif prioritaire",
+  "welcome.focusSub": "Sur quel domaine souhaitez-vous concentrer vos premiers entraînements ?",
   "welcome.greetTitle": "Bonjour ! Bienvenue sur Lauschebär.",
+  "welcome.greetNamedTitle": "Bonjour {name} ! Bienvenue sur Lauschebär.",
   "welcome.greetBody": "Je suis Lauschebär, ravi de vous accompagner pour entraîner votre oreille, lire les notes et explorer la musique. Prenez plaisir à apprendre !",
   "welcome.continueBtn": "C’est parti →",
   "welcome.redirectHint": "Redirection vers l’accueil…",
@@ -15218,7 +15583,24 @@ if (typeof registerLanguageBundle === "function") {
 const I18N_STATIC_PL = {
   "app.title": "Lauschebär • Słuchaj · Rozumiej · Graj",
   "app.tagline": "Słuchaj · Rozumiej · Graj",
+  "welcome.stepProgress": "Krok {n} z {total}",
+  "welcome.backBtn": "← Wstecz",
+  "welcome.nextBtn": "Dalej →",
+  "welcome.lookTitle": "Wybierz swój styl",
+  "welcome.lookSub": "Dopasuj tryb wyświetlania i paletę barw dla wygodnego ćwiczenia.",
+  "welcome.lookCustomHint": "Wskazówka: później w dziale „Mój profil → Motywy i studio kolorów” możesz stworzyć aż 3 własne motywy!",
+  "welcome.autoNextTitle": "Odtwarzać kolejne zadanie?",
+  "welcome.autoNextSub": "Zdecyduj, czy po trafnej odpowiedzi od razu ruszy następne pytanie.",
+  "welcome.autoNextOnTitle": "Odtwarzaj automatycznie (Polecane)",
+  "welcome.autoNextOnDesc": "Po poprawnej odpowiedzi od razu uruchamia kolejne zadanie, utrzymując płynny rytm nauki.",
+  "welcome.autoNextOffTitle": "Odtwarzanie ręczne",
+  "welcome.autoNextOffDesc": "Po rozwiązaniu czeka spokojnie, aż samodzielnie klikniesz „Odtwórz”.",
+  "welcome.profileTitle": "Twój profil muzyka",
+  "welcome.profileSub": "Jak Lauschebär ma się z Tobą witać i na jakich instrumentach grasz?",
+  "welcome.focusTitle": "Twój główny cel nauki",
+  "welcome.focusSub": "Od czego chcesz zacząć swoją przygodę?",
   "welcome.greetTitle": "Cześć! Miło Cię widzieć w Lauschebär.",
+  "welcome.greetNamedTitle": "Cześć, {name}! Miło Cię widzieć w Lauschebär.",
   "welcome.greetBody": "Jestem Lauschebär i z radością pomogę Ci ćwiczyć słuch muzyczny, czytać nuty oraz odkrywać harmonię. Ucz się we własnym tempie — dużo radości i sukcesów!",
   "welcome.continueBtn": "Zaczynajmy →",
   "welcome.redirectHint": "Za chwilę przejdziemy do ekranu głównego…",
@@ -17140,7 +17522,24 @@ if (typeof registerLanguageBundle === "function") {
 const I18N_STATIC_UK = {
   "app.title": "Lauschebär • Слухай · Розумій · Грай",
   "app.tagline": "Слухай · Розумій · Грай",
+  "welcome.stepProgress": "Крок {n} із {total}",
+  "welcome.backBtn": "← Назад",
+  "welcome.nextBtn": "Далі →",
+  "welcome.lookTitle": "Обери свій вигляд",
+  "welcome.lookSub": "Налаштуй режим оформлення та палітру кольорів для комфортного навчання.",
+  "welcome.lookCustomHint": "Підказка: згодом у розділі «Мій профіль → Теми та кольори» ти зможеш створити до 3 власних палітр!",
+  "welcome.autoNextTitle": "Продовжувати автоматично?",
+  "welcome.autoNextSub": "Виріши, чи запускати наступне завдання одразу після правильної відповіді.",
+  "welcome.autoNextOnTitle": "Автоматичний запуск (Рекомендовано)",
+  "welcome.autoNextOnDesc": "Одразу програє наступне запитання після вірної відповіді для плавного темпу занять.",
+  "welcome.autoNextOffTitle": "Ручний запуск",
+  "welcome.autoNextOffDesc": "Зупиняється після розв’язку, доки ти сам не натиснеш кнопку відтворення.",
+  "welcome.profileTitle": "Твій профіль музиканта",
+  "welcome.profileSub": "Як Лаушебер може до тебе звертатися та на яких інструментах ти граєш?",
+  "welcome.focusTitle": "Твій навчальний фокус",
+  "welcome.focusSub": "На чому хочеш зосередитися насамперед?",
   "welcome.greetTitle": "Привіт! Радий вітати тебе в Lauschebär.",
+  "welcome.greetNamedTitle": "Привіт, {name}! Радий вітати тебе в Lauschebär.",
   "welcome.greetBody": "Я — Лаушебер, і з радістю допоможу тобі тренувати слух, читати ноти та пізнавати музику. Займайся у своєму темпі — гарного настрою та задоволення від навчання!",
   "welcome.continueBtn": "Починаймо →",
   "welcome.redirectHint": "Зараз перейдемо на головний екран…",
@@ -19063,7 +19462,24 @@ if (typeof registerLanguageBundle === "function") {
 const I18N_STATIC_UR = {
   "app.title": "Lauschebär • سنو · سمجھو · بجاؤ",
   "app.tagline": "سنو · سمجھو · بجاؤ",
+  "welcome.stepProgress": "مرحلہ {n} از {total}",
+  "welcome.backBtn": "→ واپس",
+  "welcome.nextBtn": "اگلا ←",
+  "welcome.lookTitle": "اپنا انداز منتخب کریں",
+  "welcome.lookSub": "آنکھوں کے سکون کے لیے ظاہری شکل اور رنگوں کا تھیم منتخب کریں۔",
+  "welcome.lookCustomHint": "مشورہ: بعد میں آپ کسی بھی وقت «میرا اکاؤنٹ ← تھیمز اور کلر اسٹوڈیو» میں 3 تک ذاتی نوعیت کے تھیم خود بنا سکتے ہیں!",
+  "welcome.autoNextTitle": "صحیح جواب کے بعد خودکار آگے بڑھیں؟",
+  "welcome.autoNextSub": "طے کریں کہ اگلا سوال خود بخود چلے یا آپ کے کلک کا انتظار کرے۔",
+  "welcome.autoNextOnTitle": "خودکار اگلا سوال (تجویز کردہ)",
+  "welcome.autoNextOnDesc": "ہر صحیح جواب کے فوراً بعد اگلی مشق چلاتا ہے تاکہ تسلسل برقرار رہے۔",
+  "welcome.autoNextOffTitle": "خود پلے کریں",
+  "welcome.autoNextOffDesc": "ہر حل کے بعد رکتا ہے تاکہ آپ اطمینان سے سنیں اور خود اگلا سُر چلائیں۔",
+  "welcome.profileTitle": "آپ کا موسیقار پروفائل",
+  "welcome.profileSub": "لوشے بیئر آپ کو کس نام سے پکارے اور آپ کون سے ساز بجاتے ہیں؟",
+  "welcome.focusTitle": "آپ کا تعلیمی ہدف",
+  "welcome.focusSub": "آپ سب سے پہلے کس چیز پر توجہ دینا چاہتے ہیں؟",
   "welcome.greetTitle": "خوش آمدید! Lauschebär میں آپ کا آنا بہت اچھا لگا۔",
+  "welcome.greetNamedTitle": "خوش آمدید، {name}! Lauschebär میں آپ کا آنا بہت اچھا لگا۔",
   "welcome.greetBody": "میں لوشے بیئر ہوں، اور آپ کے ساتھ کان کی تربیت، نوٹیشن پڑھنا اور موسیقی کا نظریہ سیکھنے کے لیے پُرجوش ہوں۔ آرام سے اپنے انداز میں مشق کریں اور سیکھنے کا لطف اٹھائیں!",
   "welcome.continueBtn": "چلو شروع کریں ←",
   "welcome.redirectHint": "آپ کو ہوم اسکرین پر لے جایا جا رہا ہے…",
@@ -47009,15 +47425,16 @@ function applyThemeAndAppearance() {
   }
 
   if (typeof document !== "undefined" && typeof document.querySelectorAll === "function") {
-    document.querySelectorAll("[data-appearance]").forEach(btn => {
-      const isSelected = btn.dataset?.appearance === appearance;
+    document.querySelectorAll("[data-appearance], [data-welcome-appearance]").forEach(btn => {
+      const btnVal = btn.dataset?.appearance || btn.dataset?.welcomeAppearance;
+      const isSelected = btnVal === appearance;
       btn.classList?.toggle("active", isSelected);
       btn.setAttribute?.("aria-pressed", String(isSelected));
     });
 
     const builtInEffective = resolveEffectiveAppearance(appearance);
-    document.querySelectorAll("[data-theme-choice]").forEach(card => {
-      const cardTheme = card.dataset?.themeChoice;
+    document.querySelectorAll("[data-theme-choice], [data-welcome-theme]").forEach(card => {
+      const cardTheme = card.dataset?.themeChoice || card.dataset?.welcomeTheme;
       const isSelected = cardTheme === theme;
       card.classList?.toggle("active", isSelected);
       card.setAttribute?.("aria-pressed", String(isSelected));
@@ -47169,10 +47586,11 @@ function setLanguagePreference(nextLang) {
 
 function syncAutoNextControls() {
   const enabled = state.settings.autoNextAfterCorrect !== false;
-  document.querySelectorAll("[data-auto-next]").forEach(btn => {
-    const isMatch = (btn.dataset.autoNext !== "off") === enabled;
-    btn.classList.toggle("active", isMatch);
-    btn.setAttribute("aria-pressed", String(isMatch));
+  document.querySelectorAll("[data-auto-next], [data-welcome-autonext]").forEach(btn => {
+    const rawVal = btn.dataset?.autoNext !== undefined ? btn.dataset.autoNext : btn.dataset?.welcomeAutonext;
+    const isMatch = (rawVal !== "off") === enabled;
+    btn.classList?.toggle("active", isMatch);
+    btn.setAttribute?.("aria-pressed", String(isMatch));
   });
   const loopBtn = document.getElementById("loopToggleBtn");
   if (loopBtn) {
@@ -62585,7 +63003,17 @@ function initMetronomeEventListeners() {
   });
 }
 
+const WELCOME_WIZARD_STEPS = [
+  "welcomeStepLang",
+  "welcomeStepLook",
+  "welcomeStepAutoNext",
+  "welcomeStepProfile",
+  "welcomeStepFocus",
+  "welcomeStepGreet"
+];
+
 const _welcomeOnboardingState = {
+  currentStep: 0,
   selecting: false,
   exiting: false,
   stepTimer: null,
@@ -62605,6 +63033,26 @@ function clearWelcomeOnboardingTimers() {
   if (_welcomeOnboardingState.exitTimer) {
     clearTimeout(_welcomeOnboardingState.exitTimer);
     _welcomeOnboardingState.exitTimer = null;
+  }
+}
+
+function getWelcomeText(key, fallback) {
+  const lang = state?.settings?.language || "de";
+  return (typeof getStaticI18nText === "function" && getStaticI18nText(key, lang)) || fallback;
+}
+
+function renderWelcomeProgress(stepIdx = _welcomeOnboardingState.currentStep) {
+  const total = WELCOME_WIZARD_STEPS.length;
+  const idx = Math.max(0, Math.min(total - 1, Number(stepIdx) || 0));
+  const textEl = document.getElementById("welcomeProgressText");
+  const fillEl = document.getElementById("welcomeProgressFill");
+  if (textEl) {
+    textEl.textContent = getWelcomeText("welcome.stepProgress", "Schritt {n} von {total}")
+      .replace("{n}", String(idx + 1))
+      .replace("{total}", String(total));
+  }
+  if (fillEl?.style) {
+    fillEl.style.width = `${Math.round(((idx + 1) / total) * 100)}%`;
   }
 }
 
@@ -62630,6 +63078,190 @@ function renderWelcomeLanguageList() {
     btn.addEventListener("click", () => selectWelcomeLanguage(code, btn));
     listEl.appendChild(btn);
   });
+}
+
+function renderWelcomeProfileStep() {
+  const p = state.profile || createDefaultProfile();
+  const nameInput = document.getElementById("welcomeProfileNameInput");
+  if (nameInput && nameInput.value !== (p.name || "")) {
+    nameInput.value = p.name || "";
+  }
+  const instWrap = document.getElementById("welcomeInstrumentsGroup");
+  if (!instWrap || typeof document.createElement !== "function") return;
+  instWrap.innerHTML = "";
+  PROFILE_INSTRUMENT_OPTIONS.forEach(inst => {
+    const active = (p.instruments || []).includes(inst);
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = `k-filter-pill${active ? " active" : ""}`;
+    btn.dataset.welcomeInst = inst;
+    btn.setAttribute?.("aria-pressed", String(active));
+    btn.textContent = getLocalizedProfileInstrumentLabel(inst);
+    btn.addEventListener("click", () => {
+      if (!state.profile) state.profile = createDefaultProfile();
+      const set = new Set(state.profile.instruments || []);
+      if (set.has(inst)) set.delete(inst);
+      else set.add(inst);
+      state.profile.instruments = PROFILE_INSTRUMENT_OPTIONS.filter(i => set.has(i));
+      saveUserProfile(state.profile);
+      renderProfileAccountView();
+      renderHomeProfileGreeting();
+      renderWelcomeProfileStep();
+    });
+    instWrap.appendChild(btn);
+  });
+}
+
+function renderWelcomeFocusStep() {
+  const p = state.profile || createDefaultProfile();
+  const listEl = document.getElementById("welcomeFocusList");
+  if (!listEl || typeof document.createElement !== "function") return;
+  listEl.innerHTML = "";
+  Object.values(PROFILE_FOCUS_OPTIONS).forEach(opt => {
+    const def = getLocalizedProfileFocus(opt.key);
+    const isActive = p.focus === opt.key;
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = `welcome-choice-card welcome-focus-card${isActive ? " active" : ""}`;
+    btn.dataset.welcomeFocus = opt.key;
+    btn.setAttribute?.("aria-pressed", String(isActive));
+    btn.innerHTML = `<strong>${escapeHtml(def.label)}</strong><span>${escapeHtml(def.hint)}</span>`;
+    btn.addEventListener("click", () => {
+      if (!state.profile) state.profile = createDefaultProfile();
+      state.profile.focus = opt.key;
+      saveUserProfile(state.profile);
+      renderProfileAccountView();
+      renderHomeProfileGreeting();
+      renderWelcomeFocusStep();
+    });
+    listEl.appendChild(btn);
+  });
+}
+
+function renderWelcomeGreetStep() {
+  const greetMascot = document.getElementById("welcomeGreetMascot");
+  const greetTitle = document.getElementById("welcomeGreetTitle");
+  const greetBody = document.getElementById("welcomeGreetBody");
+  const continueBtn = document.getElementById("welcomeContinueBtn");
+  const redirectHint = document.getElementById("welcomeRedirectHint");
+
+  if (greetMascot) {
+    greetMascot.innerHTML = getMascotSVG("happy");
+    greetMascot.classList.add("mascot-happy-hop");
+  }
+  const userName = String(state.profile?.name || "").trim();
+  if (greetTitle) {
+    greetTitle.textContent = userName
+      ? getWelcomeText("welcome.greetNamedTitle", "Hallo, {name}! Schön, dass du da bist.").replace("{name}", userName)
+      : getWelcomeText("welcome.greetTitle", "Hallo! Schön, dass du da bist.");
+  }
+  if (greetBody) {
+    greetBody.textContent = getWelcomeText("welcome.greetBody", "Ich bin der Lauschebär und freue mich darauf, mit dir zu hören, Noten zu entdecken und Musik zu verstehen. Viel Freude und Erfolg beim Lernen!");
+  }
+  if (continueBtn) {
+    continueBtn.textContent = getWelcomeText("welcome.continueBtn", "Los geht’s →");
+  }
+  if (redirectHint) {
+    redirectHint.textContent = getWelcomeText("welcome.redirectHint", "Du wirst gleich zum Homescreen weitergeleitet …");
+  }
+}
+
+function bindWelcomeOnboardingControls() {
+  const overlay = document.getElementById("welcomeOnboarding");
+  if (!overlay || overlay._welcomeWizardBound) return;
+  overlay._welcomeWizardBound = true;
+
+  document.querySelectorAll("[data-welcome-appearance]").forEach(btn => {
+    btn.addEventListener("click", () => setAppearancePreference(btn.dataset.welcomeAppearance));
+  });
+  document.querySelectorAll("[data-welcome-theme]").forEach(btn => {
+    btn.addEventListener("click", () => setThemePreference(btn.dataset.welcomeTheme));
+  });
+  document.querySelectorAll("[data-welcome-autonext]").forEach(btn => {
+    btn.addEventListener("click", () => setAutoNextPreference(btn.dataset.welcomeAutonext));
+  });
+
+  const nameInput = document.getElementById("welcomeProfileNameInput");
+  if (nameInput) {
+    nameInput.addEventListener("input", () => {
+      if (!state.profile) state.profile = createDefaultProfile();
+      state.profile.name = String(nameInput.value || "").trim().slice(0, 24);
+      saveUserProfile(state.profile);
+      renderProfileAccountView();
+      renderHomeProfileGreeting();
+    });
+  }
+
+  document.getElementById("welcomeContinueBtn")?.addEventListener("click", () => {
+    completeWelcomeOnboarding();
+  });
+
+  [
+    "welcomeLookBackBtn", "welcomeLookNextBtn",
+    "welcomeAutoNextBackBtn", "welcomeAutoNextNextBtn",
+    "welcomeProfileBackBtn", "welcomeProfileNextBtn",
+    "welcomeFocusBackBtn", "welcomeFocusNextBtn",
+    "welcomeGreetBackBtn"
+  ].forEach(btnId => {
+    const btn = document.getElementById(btnId);
+    if (!btn) return;
+    btn.addEventListener("click", () => {
+      const dir = btn.dataset?.welcomeNav === "prev" ? -1 : 1;
+      goToWelcomeStep(_welcomeOnboardingState.currentStep + dir);
+    });
+  });
+}
+
+function goToWelcomeStep(targetIdx, options = {}) {
+  if (_welcomeOnboardingState.exiting) return;
+  const total = WELCOME_WIZARD_STEPS.length;
+  const nextIdx = Math.max(0, Math.min(total - 1, Number(targetIdx) || 0));
+  const prevIdx = _welcomeOnboardingState.currentStep;
+
+  clearWelcomeOnboardingTimers();
+  _welcomeOnboardingState.currentStep = nextIdx;
+  _welcomeOnboardingState.selecting = false;
+
+  const autoFill = document.getElementById("welcomeAutoFill");
+  autoFill?.classList.remove("is-counting");
+
+  renderWelcomeProgress(nextIdx);
+  if (nextIdx === 1) applyThemeAndAppearance();
+  if (nextIdx === 2) syncAutoNextControls();
+  if (nextIdx === 3) renderWelcomeProfileStep();
+  if (nextIdx === 4) renderWelcomeFocusStep();
+  if (nextIdx === 5) renderWelcomeGreetStep();
+
+  const applyStepVisibility = () => {
+    WELCOME_WIZARD_STEPS.forEach((stepId, idx) => {
+      const el = document.getElementById(stepId);
+      if (!el) return;
+      el.classList.remove("is-step-exiting");
+      el.classList.toggle("hidden", idx !== nextIdx);
+    });
+    if (nextIdx === 5) {
+      if (autoFill) autoFill.classList.add("is-counting");
+      _welcomeOnboardingState.autoTimer = setTimeout(() => {
+        completeWelcomeOnboarding();
+      }, 9000);
+    }
+  };
+
+  const prevEl = prevIdx !== nextIdx ? document.getElementById(WELCOME_WIZARD_STEPS[prevIdx]) : null;
+  if (options.immediate || !prevEl) {
+    applyStepVisibility();
+    return;
+  }
+
+  const prefersReduced =
+    typeof window !== "undefined" &&
+    typeof window.matchMedia === "function" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  prevEl.classList.add("is-step-exiting");
+  _welcomeOnboardingState.stepTimer = setTimeout(() => {
+    _welcomeOnboardingState.stepTimer = null;
+    applyStepVisibility();
+  }, prefersReduced ? 80 : 210);
 }
 
 function completeWelcomeOnboarding() {
@@ -62691,80 +63323,31 @@ function selectWelcomeLanguage(lang, clickedBtn) {
   if (clickedBtn?.classList) clickedBtn.classList.add("is-selected");
   state.settings.onboardingDone = false;
   setLanguagePreference(lang);
-  const activeLang = state.settings.language;
-
-  const stepLang = document.getElementById("welcomeStepLang");
-  const stepGreet = document.getElementById("welcomeStepGreet");
-  const greetMascot = document.getElementById("welcomeGreetMascot");
-  const greetTitle = document.getElementById("welcomeGreetTitle");
-  const greetBody = document.getElementById("welcomeGreetBody");
-  const continueBtn = document.getElementById("welcomeContinueBtn");
-  const redirectHint = document.getElementById("welcomeRedirectHint");
-  const autoFill = document.getElementById("welcomeAutoFill");
-
-  if (greetMascot) {
-    greetMascot.innerHTML = getMascotSVG("happy");
-    greetMascot.classList.add("mascot-happy-hop");
-  }
-  const getText = (key, fallback) =>
-    (typeof getStaticI18nText === "function" && getStaticI18nText(key, activeLang)) || fallback;
-  if (greetTitle) greetTitle.textContent = getText("welcome.greetTitle", "Hallo! Schön, dass du da bist.");
-  if (greetBody) greetBody.textContent = getText("welcome.greetBody", "Ich bin der Lauschebär und freue mich darauf, mit dir zu hören, Noten zu entdecken und Musik zu verstehen. Viel Freude und Erfolg beim Lernen!");
-  if (continueBtn) {
-    continueBtn.textContent = getText("welcome.continueBtn", "Los geht’s →");
-    if (!continueBtn._welcomeBound) {
-      continueBtn._welcomeBound = true;
-      continueBtn.addEventListener("click", () => completeWelcomeOnboarding());
-    }
-  }
-  if (redirectHint) redirectHint.textContent = getText("welcome.redirectHint", "Du wirst gleich zum Homescreen weitergeleitet …");
-  if (autoFill) autoFill.classList.remove("is-counting");
-
-  const prefersReduced =
-    typeof window !== "undefined" &&
-    typeof window.matchMedia === "function" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  if (stepLang) stepLang.classList.add("is-step-exiting");
-  _welcomeOnboardingState.stepTimer = setTimeout(() => {
-    _welcomeOnboardingState.stepTimer = null;
-    if (stepLang) {
-      stepLang.classList.add("hidden");
-      stepLang.classList.remove("is-step-exiting");
-    }
-    if (stepGreet) {
-      stepGreet.classList.remove("hidden");
-    }
-    if (autoFill) {
-      autoFill.classList.add("is-counting");
-    }
-    const stayMs = 9000;
-    _welcomeOnboardingState.autoTimer = setTimeout(() => {
-      completeWelcomeOnboarding();
-    }, stayMs);
-  }, prefersReduced ? 90 : 260);
+  renderWelcomeProfileStep();
+  renderWelcomeFocusStep();
+  goToWelcomeStep(1);
 }
 
 function openFirstRunOnboarding() {
   const overlay = document.getElementById("welcomeOnboarding");
   if (!overlay) return false;
   clearWelcomeOnboardingTimers();
+  _welcomeOnboardingState.currentStep = 0;
   _welcomeOnboardingState.selecting = false;
   _welcomeOnboardingState.exiting = false;
 
   if (typeof document !== "undefined" && document.documentElement?.setAttribute) {
     document.documentElement.setAttribute("data-first-run", "1");
   }
+  bindWelcomeOnboardingControls();
   const langMascot = document.getElementById("welcomeLangMascot");
   if (langMascot) langMascot.innerHTML = getMascotSVG("idle");
   renderWelcomeLanguageList();
-
-  const stepLang = document.getElementById("welcomeStepLang");
-  const stepGreet = document.getElementById("welcomeStepGreet");
-  const autoFill = document.getElementById("welcomeAutoFill");
-  stepLang?.classList.remove("hidden", "is-step-exiting");
-  stepGreet?.classList.add("hidden");
-  autoFill?.classList.remove("is-counting");
+  applyThemeAndAppearance();
+  syncAutoNextControls();
+  renderWelcomeProfileStep();
+  renderWelcomeFocusStep();
+  goToWelcomeStep(0, { immediate: true });
 
   overlay.classList.remove("hidden", "welcome-out");
   return true;
