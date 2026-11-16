@@ -8452,23 +8452,44 @@ body,
 }
 
 /* =====================================================
-   METRONOM: HOMESCREEN-KACHEL (HALBE BREITE, ZENTRIERT)
+   METRONOM & TUNER: HOMESCREEN-KACHELN (2 SPALTEN)
    ===================================================== */
 .home-metronome-row {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  gap: 0.58rem;
   margin-top: 0.62rem;
 }
 
 .home-metronome-card {
   position: relative;
   width: calc(50% - 0.29rem);
+  flex: 1 1 calc(50% - 0.29rem);
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
   gap: 0.52rem;
   padding: 0.78rem 0.82rem;
   min-height: 112px;
+}
+
+.home-tool-placeholder {
+  opacity: 0.78;
+  cursor: default;
+}
+
+.home-tool-placeholder:hover {
+  transform: none;
+}
+
+@media (max-width: 335px) {
+  .home-metronome-row {
+    flex-direction: column;
+  }
+  .home-metronome-card {
+    width: 100%;
+    flex-basis: 100%;
+  }
 }
 
 .home-metronome-card .cat-icon-box {
@@ -10140,6 +10161,23 @@ body,
           <div class="cat-text-box">
             <h3 data-i18n="home.toolMetronome">Metronom</h3>
             <p data-i18n="home.toolMetronomeDesc">Tap-Tempo, Zählzeiten &amp; Profile</p>
+          </div>
+          <span class="cat-chevron">›</span>
+        </button>
+
+        <button id="openTunerBtn" class="category-nav-card card-accent-lilac home-metronome-card home-tool-placeholder" type="button" data-open-tool="tuner" aria-disabled="true">
+          <div class="cat-icon-box badge-lilac">
+            <svg class="icon-svg-large" width="24" height="24" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M9.5 4.5V12C9.5 14.4853 11.5147 16.5 14 16.5C16.4853 16.5 18.5 14.4853 18.5 12V4.5" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+              <line x1="14" y1="16.5" x2="14" y2="23.5" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
+              <circle cx="14" cy="23.5" r="1.6" fill="currentColor"/>
+              <path d="M5.8 6.8C4.6 8.3 4.6 10.7 5.8 12.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.72"/>
+              <path d="M22.2 6.8C23.4 8.3 23.4 10.7 22.2 12.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.72"/>
+            </svg>
+          </div>
+          <div class="cat-text-box">
+            <h3 data-i18n="home.toolTuner">Tuner (folgt bald)</h3>
+            <p data-i18n="home.toolTunerDesc">Stimmgerät &amp; Tonhöhen-Anzeige</p>
           </div>
           <span class="cat-chevron">›</span>
         </button>
@@ -13653,6 +13691,8 @@ const I18N_STATIC = {
   "home.catProductionDesc": { de: "Frequenzen & EQ-Anhebungen im Noise heraushören", en: "Identify frequencies & EQ boosts in pink noise" },
   "home.toolMetronome": { de: "Metronom", en: "Metronome" },
   "home.toolMetronomeDesc": { de: "Tap-Tempo, Zählzeiten & Profile", en: "Tap tempo, custom beats & profiles" },
+  "home.toolTuner": { de: "Tuner (folgt bald)", en: "Tuner (coming soon)" },
+  "home.toolTunerDesc": { de: "Stimmgerät & Tonhöhen-Anzeige", en: "Chromatic tuner & pitch meter" },
   "home.voiceHeading": { de: "Stimme & Chor", en: "Voice & Choir" },
   "home.catWarmup": { de: "Einsing-Helfer", en: "Vocal Warmup" },
   "home.catWarmupDesc": { de: "5-Minuten-Warmup: Atem, Summen, Arpeggios & Chorklang", en: "5-min routine: breath, humming, arpeggios & choir blend" },
@@ -14802,6 +14842,8 @@ const I18N_STATIC_FR = {
   "home.catProductionDesc": "Identifier les fréquences & boosts d’égalisation dans du bruit rose",
   "home.toolMetronome": "Métronome",
   "home.toolMetronomeDesc": "Tap Tempo, temps & profils",
+  "home.toolTuner": "Accordeur (bientôt)",
+  "home.toolTunerDesc": "Accordeur chromatique & diapason",
   "home.voiceHeading": "Voix & Chœur",
   "home.catWarmup": "Échauffement vocal",
   "home.catWarmupDesc": "Routine 5 min : souffle, bouche fermée, arpèges & fondu choral",
@@ -16745,6 +16787,8 @@ const I18N_STATIC_PL = {
   "home.catProductionDesc": "Rozpoznawaj częstotliwości oraz podbicia EQ w szumie różowym",
   "home.toolMetronome": "Metronom",
   "home.toolMetronomeDesc": "Tap Tempo, akcenty miar i profile",
+  "home.toolTuner": "Tuner (wkrótce)",
+  "home.toolTunerDesc": "Stroik chromatyczny i ton wzorcowy",
   "home.voiceHeading": "Głos i chór",
   "home.catWarmup": "Rozgrzewka głosowa",
   "home.catWarmupDesc": "5-min trening: oddech, mormorando, arpeggia i brzmienie chóru",
@@ -18734,6 +18778,8 @@ const I18N_STATIC_UK = {
   "home.catProductionDesc": "Розпізнавай частоти та підсилення еквалайзера в рожевому шумі",
   "home.toolMetronome": "Метроном",
   "home.toolMetronomeDesc": "Tap-темп, долі та профілі",
+  "home.toolTuner": "Тюнер (незабаром)",
+  "home.toolTunerDesc": "Хроматичний тюнер і камертон",
   "home.voiceHeading": "Голос і хор",
   "home.catWarmup": "Розспівка",
   "home.catWarmupDesc": "5-хв програма: дихання, гудіння, арпеджіо та хорове злиття",
@@ -20724,6 +20770,8 @@ const I18N_STATIC_UR = {
   "home.catProductionDesc": "فریکوئنسیز اور پنک نوائز میں EQ بوسٹ پہچانیں",
   "home.toolMetronome": "میٹرونوم",
   "home.toolMetronomeDesc": "ٹیپ ٹیمپو، بیٹس اور پروفائلز",
+  "home.toolTuner": "ٹیونر (جلد آ رہا ہے)",
+  "home.toolTunerDesc": "کرومیٹک ٹیونر اور حوالہ جاتی سُر",
   "home.voiceHeading": "آواز اور کورس",
   "home.catWarmup": "ووکل وارم اپ",
   "home.catWarmupDesc": "5 منٹ کا معمول: سانس، گنگنانا، آرپیجیو اور کورس بلینڈ",
