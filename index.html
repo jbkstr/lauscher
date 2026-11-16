@@ -1221,9 +1221,196 @@ html, body {
   gap: 0.36rem;
 }
 
+.profile-multi-dropdown-host {
+  display: flex;
+  flex-direction: column;
+  gap: 0.48rem;
+  position: relative;
+}
+
+.multi-dropdown-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.multi-dropdown-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.55rem;
+  min-height: 44px;
+  cursor: pointer;
+  text-align: start;
+}
+
+.multi-dropdown-trigger.is-open {
+  border-color: var(--sage-strong);
+  box-shadow: 0 0 0 3px var(--sage-soft);
+}
+
+.multi-dropdown-summary {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 700;
+  color: var(--raccoon-dark);
+}
+
+.multi-dropdown-summary.is-placeholder {
+  color: var(--raccoon-mid);
+  font-weight: 600;
+}
+
+.multi-dropdown-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  flex-shrink: 0;
+}
+
+.multi-dropdown-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.35rem;
+  padding: 0.08rem 0.42rem;
+  border-radius: 999px;
+  background-color: var(--sage-soft);
+  color: var(--sage-strong);
+  font-size: 0.7rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.multi-dropdown-caret {
+  color: var(--raccoon-mid);
+  transition: transform 0.16s ease;
+  flex-shrink: 0;
+}
+
+.multi-dropdown-trigger.is-open .multi-dropdown-caret {
+  transform: rotate(180deg);
+}
+
+.multi-dropdown-menu {
+  margin-top: 0.32rem;
+  background-color: var(--surface-white);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 10px 24px rgba(45, 48, 71, 0.12);
+  max-height: 248px;
+  overflow-y: auto;
+  padding: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+}
+
+.multi-dropdown-option {
+  display: flex;
+  align-items: center;
+  gap: 0.56rem;
+  width: 100%;
+  padding: 0.48rem 0.58rem;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--raccoon-dark);
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: start;
+  transition: background-color 0.14s ease, color 0.14s ease;
+}
+
+.multi-dropdown-option:hover {
+  background-color: var(--surface-warm);
+}
+
+.multi-dropdown-option.is-selected {
+  background-color: var(--sage-soft);
+  color: var(--sage-strong);
+  font-weight: 700;
+}
+
+.multi-dropdown-option-divider {
+  border-bottom: 1px dashed var(--border-soft);
+  margin-bottom: 0.12rem;
+  padding-bottom: 0.52rem;
+}
+
+.multi-dropdown-check {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1.6px solid var(--border-strong);
+  background-color: var(--bg-base);
+  color: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 900;
+  flex-shrink: 0;
+  transition: background-color 0.14s ease, border-color 0.14s ease, color 0.14s ease;
+}
+
+.multi-dropdown-option.is-selected .multi-dropdown-check {
+  background-color: var(--sage-strong);
+  border-color: var(--sage-strong);
+  color: #FFFFFF;
+}
+
+.multi-dropdown-opt-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+  gap: 0.08rem;
+}
+
+.multi-dropdown-opt-hint {
+  font-size: 0.71rem;
+  font-weight: 500;
+  color: var(--raccoon-mid);
+  line-height: 1.25;
+}
+
+.multi-selected-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.36rem;
+  align-items: center;
+}
+
+.multi-selected-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.36rem;
+  padding-inline-end: 0.56rem;
+}
+
+.multi-selected-remove {
+  font-size: 0.9rem;
+  line-height: 1;
+  font-weight: 900;
+  opacity: 0.8;
+}
+
+.multi-empty-note {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--raccoon-mid);
+  padding: 0.12rem 0.1rem;
+}
+
 .account-focus-suggestion {
   margin-top: 0.22rem;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
@@ -1234,6 +1421,13 @@ html, body {
   font-size: 0.74rem;
   font-weight: 600;
   color: var(--raccoon-dark);
+}
+
+.account-focus-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: center;
 }
 
 .timer-display-box {
@@ -4035,6 +4229,18 @@ body,
   background-color: var(--btn-primary-bg);
   color: var(--btn-primary-fg);
   border-color: var(--btn-primary-bg);
+}
+
+[data-appearance="dark"] .multi-dropdown-menu {
+  box-shadow: 0 12px 28px rgba(8, 10, 14, 0.48);
+}
+
+[data-appearance="dark"] .multi-dropdown-option.is-selected {
+  color: var(--raccoon-dark);
+}
+
+[data-appearance="dark"] .multi-dropdown-option.is-selected .multi-dropdown-check {
+  color: var(--bg-base);
 }
 
 [data-appearance="dark"] .top-bar {
@@ -9800,18 +10006,18 @@ body,
 
         <div class="account-field">
           <span class="account-label" data-i18n="space.instrumentsLabel">Deine Instrumente / Rollen</span>
-          <div id="profileInstrumentsGroup" class="account-chip-group"></div>
+          <div id="profileInstrumentsGroup" class="profile-multi-dropdown-host"></div>
         </div>
 
         <div class="account-field">
-          <span class="account-label" data-i18n="space.focusLabel">Trainings-Schwerpunkt</span>
-          <div id="profileFocusGroup" class="account-chip-group"></div>
+          <span class="account-label" data-i18n="space.focusLabel">Trainings-Schwerpunkte</span>
+          <div id="profileFocusGroup" class="profile-multi-dropdown-host"></div>
           <div id="spaceFocusSuggestionRow" class="account-focus-suggestion hidden"></div>
         </div>
 
         <div class="account-field">
           <span class="account-label" data-i18n="space.accessoryLabel">Lauschebär-Look</span>
-          <div id="profileAccessoryGroup" class="account-chip-group"></div>
+          <div id="profileAccessoryGroup" class="profile-multi-dropdown-host"></div>
         </div>
       </section>
 
@@ -12729,7 +12935,7 @@ const I18N_STATIC = {
   "space.nameLabel": { de: "Rufname für die Begrüßung", en: "Display name for greeting" },
   "space.namePlaceholder": { de: "z. B. Dein Name (optional)", en: "e.g. Your name (optional)" },
   "space.instrumentsLabel": { de: "Deine Instrumente / Rollen", en: "Your instruments / roles" },
-  "space.focusLabel": { de: "Trainings-Schwerpunkt", en: "Practice focus" },
+  "space.focusLabel": { de: "Trainings-Schwerpunkte", en: "Practice focus areas" },
   "space.accessoryLabel": { de: "Lauschebär-Look", en: "Lauschebär style" },
   "space.timerTitle": { de: "Achtsamer Session-Timer", en: "Mindful Session Timer" },
   "space.timerSub": {
@@ -13255,8 +13461,13 @@ const PROFILE_FOCUS_EN = {
 
 const PROFILE_ACCESSORIES_EN = {
   headphones: "Headphones",
-  notes:      "Music Notes",
+  sunglasses: "Sunglasses",
+  beret:      "Jazz Beret",
+  bowtie:     "Concert Bow Tie",
+  mic:        "Studio Mic",
   coffee:     "Coffee Break",
+  notes:      "Music Notes",
+  sparkles:   "Starlight",
   none:       "Classic"
 };
 
@@ -13804,7 +14015,7 @@ const I18N_STATIC_FR = {
   "space.nameLabel": "Prénom ou pseudo d’accueil",
   "space.namePlaceholder": "ex. Votre prénom (facultatif)",
   "space.instrumentsLabel": "Vos instruments / rôles",
-  "space.focusLabel": "Axe d’entraînement",
+  "space.focusLabel": "Axes d’entraînement",
   "space.accessoryLabel": "Style de Lauschebär",
   "space.timerTitle": "Minuteur de session attentif",
   "space.timerSub": "Se met automatiquement en pause en cas d’inactivité – ne conserve aucun historique.",
@@ -14131,8 +14342,13 @@ const PROFILE_FOCUS_FR = {
 
 const PROFILE_ACCESSORIES_FR = {
   headphones: "Casque audio",
-  notes:      "Notes de musique",
+  sunglasses: "Lunettes de soleil",
+  beret:      "Béret jazz",
+  bowtie:     "Nœud papillon",
+  mic:        "Micro de studio",
   coffee:     "Pause café",
+  notes:      "Notes de musique",
+  sparkles:   "Éclat d’étoiles",
   none:       "Classique"
 };
 
@@ -15085,6 +15301,11 @@ Object.assign(TR_FR, {
   "Hallo, {name}!": "Bonjour, {name} !",
   "Dein Musiker-Profil": "Votre profil de musicien",
   "Kein Instrument gewählt": "Aucun instrument choisi",
+  "Auswählen …": "Choisir …",
+  "{n} ausgewählt": "{n} sélectionné(s)",
+  "Klassisch (ohne Extras)": "Classique (sans accessoire)",
+  "Ohne Extras (Klassisch)": "Sans accessoire (Classique)",
+  "{item} entfernen": "Retirer {item}",
   "Empfehlung: {hint}": "Suggestion : {hint}",
   "Jetzt üben ▶": "S’entraîner ▶",
   "Platz {n}": "Empl. {n}",
@@ -15697,7 +15918,7 @@ const I18N_STATIC_PL = {
   "space.nameLabel": "Imię lub pseudonim do powitania",
   "space.namePlaceholder": "np. Twoje imię (opcjonalnie)",
   "space.instrumentsLabel": "Twoje instrumenty / role",
-  "space.focusLabel": "Cel ćwiczeń",
+  "space.focusLabel": "Obszary ćwiczeń",
   "space.accessoryLabel": "Styl Lauschebär",
   "space.timerTitle": "Uważny minutnik sesji",
   "space.timerSub": "Zatrzymuje się automatycznie przy bezczynności — bez śledzenia ani statystyk.",
@@ -16027,8 +16248,13 @@ const PROFILE_FOCUS_PL = {
 
 const PROFILE_ACCESSORIES_PL = {
   headphones: "Słuchawki",
-  notes: "Zeszyt nutowy",
+  sunglasses: "Okulary przeciwsłoneczne",
+  beret: "Beret jazzowy",
+  bowtie: "Muszka koncertowa",
+  mic: "Mikrofon studyjny",
   coffee: "Przerwa na kawę",
+  notes: "Zeszyt nutowy",
+  sparkles: "Gwiezdny blask",
   none: "Klasyczny"
 };
 
@@ -16568,6 +16794,11 @@ const TR_PL = {
   "Kadenzen & Vamps": "Kadencje modalne",
   "Karten & Felder": "Karty i panele",
   "Kein Instrument gewählt": "Nie wybrano instrumentu",
+  "Auswählen …": "Wybierz …",
+  "{n} ausgewählt": "Wybrano: {n}",
+  "Klassisch (ohne Extras)": "Klasyczny (bez dodatków)",
+  "Ohne Extras (Klassisch)": "Bez dodatków (Klasyczny)",
+  "{item} entfernen": "Usuń: {item}",
   "Kein Klick, keine Anzeige – zähle im Kopf weiter!": "Bez kliku i podpowiedzi — licz w myślach!",
   "Kirchentonarten, Charaktertöne & musikalische Funktion": "Skale kościelne, tony charakterystyczne i funkcje muzyczne",
   "Klavier": "Fortepian",
@@ -17636,7 +17867,7 @@ const I18N_STATIC_UK = {
   "space.nameLabel": "Ім’я або нікнейм для привітання",
   "space.namePlaceholder": "напр. Твоє ім’я (необов’язково)",
   "space.instrumentsLabel": "Твої інструменти / ролі",
-  "space.focusLabel": "Фокус занять",
+  "space.focusLabel": "Фокуси занять",
   "space.accessoryLabel": "Стиль Lauschebär",
   "space.timerTitle": "Уважний таймер сесії",
   "space.timerSub": "Автоматично стає на паузу під час простою — не зберігає жодної історії відстеження.",
@@ -17966,8 +18197,13 @@ const PROFILE_FOCUS_UK = {
 
 const PROFILE_ACCESSORIES_UK = {
   headphones: "Навушники",
-  notes: "Ноти поруч",
+  sunglasses: "Сонцезахисні окуляри",
+  beret: "Джазовий берет",
+  bowtie: "Концертний метелик",
+  mic: "Студійний мікрофон",
   coffee: "Кавова пауза",
+  notes: "Ноти поруч",
+  sparkles: "Зоряне сяйво",
   none: "Класичний"
 };
 
@@ -18507,6 +18743,11 @@ const TR_UK = {
   "Kadenzen & Vamps": "Модальні звороти",
   "Karten & Felder": "Картки й панелі",
   "Kein Instrument gewählt": "Інструмент не обрано",
+  "Auswählen …": "Обрати …",
+  "{n} ausgewählt": "Обрано: {n}",
+  "Klassisch (ohne Extras)": "Класичний (без аксесуарів)",
+  "Ohne Extras (Klassisch)": "Без аксесуарів (Класичний)",
+  "{item} entfernen": "Прибрати: {item}",
   "Kein Klick, keine Anzeige – zähle im Kopf weiter!": "Без кліка й підказок — рахуй про себе!",
   "Kirchentonarten, Charaktertöne & musikalische Funktion": "Натуральні лади, характерні ступені та музичні функції",
   "Klavier": "Фортепіано",
@@ -19576,7 +19817,7 @@ const I18N_STATIC_UR = {
   "space.nameLabel": "خوش آمدید کے لیے نام",
   "space.namePlaceholder": "مثلاً آپ کا نام (اختیاری)",
   "space.instrumentsLabel": "آپ کے ساز / کردار",
-  "space.focusLabel": "مشق کا مرکز",
+  "space.focusLabel": "مشق کے مراکز",
   "space.accessoryLabel": "Lauschebär انداز",
   "space.timerTitle": "توجہ بھرا سیشن ٹائمر",
   "space.timerSub": "استعمال نہ ہونے پر خودکار رک جاتا ہے — کوئی تعلیمی ہسٹری محفوظ نہیں کرتا۔",
@@ -19924,8 +20165,13 @@ const PROFILE_FOCUS_UR = {
 
 const PROFILE_ACCESSORIES_UR = {
   headphones: "ہیڈفونز",
-  notes: "موسیقی کے نوٹس",
+  sunglasses: "دھوپ کا چشمہ",
+  beret: "جیز بیریٹ ٹوپی",
+  bowtie: "کنسرٹ بو ٹائی",
+  mic: "اسٹوڈیو مائیک",
   coffee: "چائے / کافی وقفہ",
+  notes: "موسیقی کے نوٹس",
+  sparkles: "ستاروں کی چمک",
   none: "کلاسک"
 };
 
@@ -20476,6 +20722,11 @@ const TR_UR = Object.assign(Object.create(null), {
   "Kadenzen & Vamps": "موڈل ویمپس",
   "Karten & Felder": "کارڈز اور خانے",
   "Kein Instrument gewählt": "کوئی ساز منتخب نہیں",
+  "Auswählen …": "منتخب کریں …",
+  "{n} ausgewählt": "{n} منتخب",
+  "Klassisch (ohne Extras)": "کلاسک (بغیر اضافی چیز کے)",
+  "Ohne Extras (Klassisch)": "بغیر اضافی چیز (کلاسک)",
+  "{item} entfernen": "{item} ہٹائیں",
   "Kein Klick, keine Anzeige – zähle im Kopf weiter!": "نہ کلک نہ اشارہ — ذہن ہی میں گنتی جاری رکھیں!",
   "Kirchentonarten, Charaktertöne & musikalische Funktion": "چرچ موڈز، امتیازی سُر اور موسیقی کردار",
   "Klavier": "پیانو",
@@ -45123,9 +45374,10 @@ function getMascotSVG(mood = "idle", showAccessory = false) {
   const earRightRotate = mood === "listening"
     ? "rotate(10 50 18)"
     : (mood === "awaiting" || mood === "happy" ? "rotate(6 50 18)" : "");
-  const accessory = showAccessory && typeof state !== "undefined" && state?.profile
-    ? (state.profile.companionAccessory || "none")
-    : "none";
+  const activeAccessories = showAccessory && typeof state !== "undefined" && state?.profile
+    ? getResolvedProfileAccessories(state.profile)
+    : [];
+  const hasAcc = (key) => activeAccessories.includes(key);
   const highStreak = !showAccessory && typeof state !== "undefined" && (state?.streakState?.count || 0) >= 5;
 
   let eyesMarkup = `
@@ -45170,7 +45422,7 @@ function getMascotSVG(mood = "idle", showAccessory = false) {
       <circle cx="53.5" cy="8.25" r="1.3" fill="var(--peach-strong)"/>
       <circle cx="57.5" cy="8.25" r="1.3" fill="var(--peach-strong)"/>
     `;
-  } else if (mood === "happy" && accessory !== "notes") {
+  } else if (mood === "happy" && !hasAcc("notes")) {
     extraBadge = highStreak
       ? `
         <text x="49" y="16" fill="var(--sage-strong)" font-size="14" font-weight="900">♪</text>
@@ -45199,23 +45451,73 @@ function getMascotSVG(mood = "idle", showAccessory = false) {
   ` : "";
 
   let accessoryMarkup = "";
-  if (accessory === "headphones") {
-    accessoryMarkup = `
+  if (hasAcc("headphones")) {
+    accessoryMarkup += `
       <path d="M10 31 C10 11, 54 11, 54 31" stroke="var(--sage-strong)" stroke-width="3" stroke-linecap="round" fill="none"/>
       <rect x="6" y="25" width="6.5" height="12" rx="3" fill="var(--sage-strong)"/>
       <rect x="51.5" y="25" width="6.5" height="12" rx="3" fill="var(--sage-strong)"/>
     `;
-  } else if (accessory === "notes") {
-    accessoryMarkup = `
+  }
+  if (hasAcc("beret")) {
+    accessoryMarkup += `
+      <g transform="rotate(-10 31 16)">
+        <path d="M29 10.5 Q31 7.2 33 10.2" stroke="#3D405B" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+        <path d="M18 19 C17 12.5, 24 9.5, 32.5 10 C40.5 10.4, 46 13.5, 44.5 18.8 C40 17.4, 24.5 17.6, 18 19 Z" fill="var(--lilac-strong)" stroke="#3D405B" stroke-width="1.35" stroke-linejoin="round"/>
+        <path d="M19.5 18.8 Q31.5 17.0 43.2 18.6" stroke="var(--lilac)" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+      </g>
+    `;
+  }
+  if (hasAcc("sunglasses")) {
+    accessoryMarkup += `
+      <g>
+        <path d="M13 33 L16 32.5 M48 32.5 L51 33" stroke="#2B2E45" stroke-width="1.7" stroke-linecap="round"/>
+        <rect x="15.5" y="29.8" width="13.5" height="8.5" rx="3.4" fill="#23263A" stroke="#F4A261" stroke-width="1.45"/>
+        <rect x="35" y="29.8" width="13.5" height="8.5" rx="3.4" fill="#23263A" stroke="#F4A261" stroke-width="1.45"/>
+        <path d="M29 32.8 Q32 31.2 35 32.8" stroke="#F4A261" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+        <path d="M18 32 L21.5 36.2 M37.5 32 L41 36.2" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
+      </g>
+    `;
+  }
+  if (hasAcc("bowtie")) {
+    accessoryMarkup += `
+      <g>
+        <path d="M23.5 50.5 L31.2 54 L23.5 57.5 Q21.8 54 23.5 50.5 Z" fill="var(--peach-strong)" stroke="#3D405B" stroke-width="1.2" stroke-linejoin="round"/>
+        <path d="M40.5 50.5 L32.8 54 L40.5 57.5 Q42.2 54 40.5 50.5 Z" fill="var(--peach-strong)" stroke="#3D405B" stroke-width="1.2" stroke-linejoin="round"/>
+        <rect x="30" y="51.6" width="4" height="4.8" rx="1.6" fill="var(--peach)" stroke="#3D405B" stroke-width="1.2"/>
+      </g>
+    `;
+  }
+  if (hasAcc("mic")) {
+    accessoryMarkup += `
+      <g>
+        <rect x="7" y="39.5" width="7" height="10" rx="3.5" fill="#D8DCE6" stroke="#3D405B" stroke-width="1.35"/>
+        <path d="M7.8 43.2 H13.2 M7.8 46.2 H13.2" stroke="#5C5F77" stroke-width="1.15" stroke-linecap="round"/>
+        <path d="M5.5 46 C5.5 50.5, 15.5 50.5, 15.5 46" stroke="#3D405B" stroke-width="1.35" stroke-linecap="round" fill="none"/>
+        <path d="M10.5 49.5 V57.5 M7.2 57.5 H13.8" stroke="#3D405B" stroke-width="1.6" stroke-linecap="round"/>
+      </g>
+    `;
+  }
+  if (hasAcc("coffee")) {
+    accessoryMarkup += `
+      <path d="M46 47 H56 V54 C56 56.5 54 58 51 58 C48 58 46 56.5 46 54 Z" fill="var(--peach)" stroke="var(--peach-strong)" stroke-width="1.5"/>
+      <path d="M56 49 C59 49 59 54 56 54" stroke="var(--peach-strong)" stroke-width="1.5" fill="none"/>
+      <path d="M49 44 Q48 41 50 39 M53 44 Q52 41 54 39" stroke="var(--raccoon-mid)" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+    `;
+  }
+  if (hasAcc("notes")) {
+    accessoryMarkup += `
       <circle cx="51" cy="14" r="2.4" fill="var(--lilac-strong)"/>
       <circle cx="58" cy="12" r="2.4" fill="var(--lilac-strong)"/>
       <path d="M53.2 14 V5.5 L60.2 3.8 V12" stroke="var(--lilac-strong)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
     `;
-  } else if (accessory === "coffee") {
-    accessoryMarkup = `
-      <path d="M46 47 H56 V54 C56 56.5 54 58 51 58 C48 58 46 56.5 46 54 Z" fill="var(--peach)" stroke="var(--peach-strong)" stroke-width="1.5"/>
-      <path d="M56 49 C59 49 59 54 56 54" stroke="var(--peach-strong)" stroke-width="1.5" fill="none"/>
-      <path d="M49 44 Q48 41 50 39 M53 44 Q52 41 54 39" stroke="var(--raccoon-mid)" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+  }
+  if (hasAcc("sparkles")) {
+    accessoryMarkup += `
+      <g>
+        <path d="M8.5 5.5 L9.7 9 L13.2 10.2 L9.7 11.4 L8.5 14.9 L7.3 11.4 L3.8 10.2 L7.3 9 Z" fill="#F2B705"/>
+        <path d="M15.5 3.5 L16.2 5.4 L18.1 6.1 L16.2 6.8 L15.5 8.7 L14.8 6.8 L12.9 6.1 L14.8 5.4 Z" fill="var(--peach-strong)"/>
+        <path d="M57.5 20.5 L58.4 23 L60.9 23.9 L58.4 24.8 L57.5 27.3 L56.6 24.8 L54.1 23.9 L56.6 23 Z" fill="#F2B705"/>
+      </g>
     `;
   }
 
@@ -45851,10 +46153,94 @@ const PROFILE_FOCUS_OPTIONS = {
 };
 const PROFILE_ACCESSORY_OPTIONS = [
   { key: "headphones", label: "Kopfhörer" },
-  { key: "notes",      label: "Noten-Flair" },
+  { key: "sunglasses", label: "Sonnenbrille" },
+  { key: "beret",      label: "Jazz-Barett" },
+  { key: "bowtie",     label: "Konzert-Fliege" },
+  { key: "mic",        label: "Studio-Mikro" },
   { key: "coffee",     label: "Kaffeepause" },
-  { key: "none",       label: "Klassisch" }
+  { key: "notes",      label: "Noten-Flair" },
+  { key: "sparkles",   label: "Sternen-Glanz" }
 ];
+const PROFILE_ACCESSORY_NONE_KEY = "none";
+
+function normalizeProfileFocuses(rawFocuses, fallbackFocus) {
+  const validKeys = Object.keys(PROFILE_FOCUS_OPTIONS);
+  const src = Array.isArray(rawFocuses)
+    ? rawFocuses
+    : (typeof rawFocuses === "string" ? [rawFocuses] : []);
+  const set = new Set(src.filter(k => Object.prototype.hasOwnProperty.call(PROFILE_FOCUS_OPTIONS, k)));
+  if (set.size === 0 && Object.prototype.hasOwnProperty.call(PROFILE_FOCUS_OPTIONS, fallbackFocus)) {
+    set.add(fallbackFocus);
+  }
+  const specific = validKeys.filter(k => k !== "allround" && set.has(k));
+  return specific.length > 0 ? specific : ["allround"];
+}
+
+function getResolvedProfileFocuses(profile = state?.profile) {
+  if (!profile) return ["allround"];
+  const arr = Array.isArray(profile.focuses) ? normalizeProfileFocuses(profile.focuses) : null;
+  if (!arr) return normalizeProfileFocuses(null, profile.focus);
+  const singlePrimary = arr[0] || "allround";
+  if (arr.length <= 1 && typeof profile.focus === "string" && Object.prototype.hasOwnProperty.call(PROFILE_FOCUS_OPTIONS, profile.focus) && profile.focus !== singlePrimary) {
+    return [profile.focus];
+  }
+  return arr;
+}
+
+function toggleProfileFocusValue(currentList, nextKey) {
+  const validKeys = Object.keys(PROFILE_FOCUS_OPTIONS);
+  if (nextKey === "allround" || !Object.prototype.hasOwnProperty.call(PROFILE_FOCUS_OPTIONS, nextKey)) {
+    return ["allround"];
+  }
+  const set = new Set((currentList || []).filter(k => k !== "allround" && Object.prototype.hasOwnProperty.call(PROFILE_FOCUS_OPTIONS, k)));
+  if (set.has(nextKey)) set.delete(nextKey);
+  else set.add(nextKey);
+  const next = validKeys.filter(k => k !== "allround" && set.has(k));
+  return next.length > 0 ? next : ["allround"];
+}
+
+function normalizeProfileAccessories(rawAccessories, fallbackAccessory) {
+  const validOrder = PROFILE_ACCESSORY_OPTIONS.map(a => a.key);
+  if (Array.isArray(rawAccessories)) {
+    const set = new Set(rawAccessories.filter(k => validOrder.includes(k)));
+    return validOrder.filter(k => set.has(k));
+  }
+  if (fallbackAccessory === PROFILE_ACCESSORY_NONE_KEY) {
+    return [];
+  }
+  if (typeof fallbackAccessory === "string" && validOrder.includes(fallbackAccessory)) {
+    return [fallbackAccessory];
+  }
+  return ["headphones"];
+}
+
+function getResolvedProfileAccessories(profile = state?.profile) {
+  if (!profile) return [];
+  const validOrder = PROFILE_ACCESSORY_OPTIONS.map(a => a.key);
+  const arr = Array.isArray(profile.companionAccessories)
+    ? validOrder.filter(k => profile.companionAccessories.includes(k))
+    : null;
+  if (!arr) {
+    return normalizeProfileAccessories(null, profile.companionAccessory);
+  }
+  const singlePrimary = arr[0] || PROFILE_ACCESSORY_NONE_KEY;
+  if (arr.length <= 1 && typeof profile.companionAccessory === "string" && profile.companionAccessory !== singlePrimary) {
+    if (profile.companionAccessory === PROFILE_ACCESSORY_NONE_KEY) return [];
+    if (validOrder.includes(profile.companionAccessory)) return [profile.companionAccessory];
+  }
+  return arr;
+}
+
+function toggleProfileAccessoryValue(currentList, nextKey) {
+  const validOrder = PROFILE_ACCESSORY_OPTIONS.map(a => a.key);
+  if (nextKey === PROFILE_ACCESSORY_NONE_KEY || !validOrder.includes(nextKey)) {
+    return nextKey === PROFILE_ACCESSORY_NONE_KEY ? [] : validOrder.filter(k => (currentList || []).includes(k));
+  }
+  const set = new Set((currentList || []).filter(k => validOrder.includes(k)));
+  if (set.has(nextKey)) set.delete(nextKey);
+  else set.add(nextKey);
+  return validOrder.filter(k => set.has(k));
+}
 const MIX_MODE_CATALOG = {
   "cadence":               { label: "Kadenzen",                     levels: [1, 2, 3, 4] },
   "interval-melodic":      { label: "Intervalle (Aufwärts)",          levels: [1, 2, 3] },
@@ -46392,7 +46778,7 @@ function sanitizeExamHistoryEntry(raw, idx = 0) {
   if (!categoryKey) return null;
   const presets = EXAM_CATEGORY_LEVELS[categoryKey].presets;
   const preset = presets.find(p => p.id === raw.levelId) || presets[0];
-  const totalQuestions = Math.max(1, Math.min(30, parseInt(raw.totalQuestions, 10) || 10));
+  const totalQuestions = Math.max(1, Math.min(50, parseInt(raw.totalQuestions, 10) || 10));
   const earnedNum = Number(raw.earnedScore);
   const earnedScore = Number.isFinite(earnedNum)
     ? Math.max(0, Math.min(totalQuestions, Math.round(earnedNum * 100) / 100))
@@ -46412,7 +46798,7 @@ function sanitizeExamHistoryEntry(raw, idx = 0) {
       }).filter(Boolean).slice(0, 10)
     : [];
   const reviewItems = Array.isArray(raw.reviewItems)
-    ? raw.reviewItems.map((it, i) => sanitizeExamReviewItem(it, i)).filter(Boolean).slice(0, 30)
+    ? raw.reviewItems.map((it, i) => sanitizeExamReviewItem(it, i)).filter(Boolean).slice(0, 50)
     : [];
   const completedAtNum = Number(raw.completedAt);
   const completedAt = Number.isFinite(completedAtNum) && completedAtNum > 0
@@ -46582,7 +46968,9 @@ function createDefaultProfile() {
     name: "",
     instruments: ["Klavier"],
     focus: "allround",
+    focuses: ["allround"],
     companionAccessory: "headphones",
+    companionAccessories: ["headphones"],
     notation: "de",
     notationManual: false,
     intervalNotation: "de",
@@ -46637,7 +47025,8 @@ function sanitizeUserProfile(raw) {
   const validInstruments = Array.isArray(raw.instruments)
     ? raw.instruments.filter(i => PROFILE_INSTRUMENT_OPTIONS.includes(i)).slice(0, 7)
     : def.instruments;
-  const validAccessories = PROFILE_ACCESSORY_OPTIONS.map(a => a.key);
+  const focuses = normalizeProfileFocuses(raw.focuses, raw.focus);
+  const companionAccessories = normalizeProfileAccessories(raw.companionAccessories, raw.companionAccessory);
   const sessMins = [5, 10, 15, 20].includes(parseInt(raw.sessionMinutes, 10)) ? parseInt(raw.sessionMinutes, 10) : 10;
   const idleMins = [2, 3, 5].includes(parseInt(raw.inactivityMinutes, 10)) ? parseInt(raw.inactivityMinutes, 10) : 3;
 
@@ -46665,8 +47054,10 @@ function sanitizeUserProfile(raw) {
   return {
     name: String(raw.name || "").trim().slice(0, 24),
     instruments: validInstruments,
-    focus: Object.prototype.hasOwnProperty.call(PROFILE_FOCUS_OPTIONS, raw.focus) ? raw.focus : "allround",
-    companionAccessory: validAccessories.includes(raw.companionAccessory) ? raw.companionAccessory : "headphones",
+    focus: focuses[0] || "allround",
+    focuses: focuses,
+    companionAccessory: companionAccessories[0] || PROFILE_ACCESSORY_NONE_KEY,
+    companionAccessories: companionAccessories,
     notation: raw.notation === "intl" ? "intl" : "de",
     notationManual: Boolean(raw.notationManual),
     intervalNotation: raw.intervalNotation === "intl" ? "intl" : "de",
@@ -58573,8 +58964,9 @@ function renderHomeProfileGreeting() {
 
   const p = state.profile || createDefaultProfile();
   const hasName = Boolean(p.name && p.name.length > 0);
-  const focusDef = getLocalizedProfileFocus(p.focus);
-  const showBar = hasName || p.focus !== "allround";
+  const focusKeys = getResolvedProfileFocuses(p);
+  const focusDefs = focusKeys.map(getLocalizedProfileFocus);
+  const showBar = hasName || focusKeys.some(k => k !== "allround");
 
   if (!showBar) {
     bar.classList.add("hidden");
@@ -58586,12 +58978,15 @@ function renderHomeProfileGreeting() {
   bar.classList.remove("hidden");
   const instLabels = (p.instruments || []).slice(0, 2).map(getLocalizedProfileInstrumentLabel);
   const instList = instLabels.length > 0 ? ` • ${instLabels.join(", ")}` : "";
+  const focusPrimary = focusDefs[0] || getLocalizedProfileFocus("allround");
   const greetingText = hasName
     ? tf("Hallo {name}!{inst}", "Hi {name}!{inst}", { name: p.name, inst: instList })
-    : tf("Fokus: {focus}{inst}", "Focus: {focus}{inst}", { focus: focusDef.label, inst: instList });
+    : tf("Fokus: {focus}{inst}", "Focus: {focus}{inst}", { focus: focusDefs.map(d => d.label).join(", "), inst: instList });
+  const badgesHtml = focusDefs.slice(0, 2).map(d => `<span class="home-profile-badge">${escapeHtml(d.label)}</span>`).join("")
+    + (focusDefs.length > 2 ? `<span class="home-profile-badge">+${focusDefs.length - 2}</span>` : "");
   bar.innerHTML = `
     <span class="home-profile-text">${escapeHtml(greetingText)}</span>
-    <span class="home-profile-badge">${escapeHtml(focusDef.label)}</span>
+    ${badgesHtml}
   `;
   renderHomeQuickMixBar();
 }
@@ -58915,6 +59310,160 @@ function applyProfileDisplayChanges() {
   }
 }
 
+let _openProfileDropdownKey = null;
+let _profileDropdownOutsideBound = false;
+
+function bindProfileDropdownOutsideCloser() {
+  if (_profileDropdownOutsideBound || typeof document === "undefined" || typeof document.addEventListener !== "function") {
+    return;
+  }
+  _profileDropdownOutsideBound = true;
+  document.addEventListener("click", (e) => {
+    if (!_openProfileDropdownKey) return;
+    const host = typeof e?.target?.closest === "function"
+      ? e.target.closest("[data-profile-dropdown-host]")
+      : null;
+    if (!host || host.dataset?.profileDropdownHost !== _openProfileDropdownKey) {
+      _openProfileDropdownKey = null;
+      renderProfileAccountView();
+    }
+  });
+}
+
+function buildDropdownChevronSVG() {
+  return `<svg class="multi-dropdown-caret" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>`;
+}
+
+function formatMultiDropdownSummary(selectedItems, placeholderText) {
+  if (!selectedItems || selectedItems.length === 0) {
+    return { text: placeholderText, isPlaceholder: true };
+  }
+  if (selectedItems.length <= 2) {
+    return { text: selectedItems.map(it => it.label).join(", "), isPlaceholder: false };
+  }
+  return {
+    text: `${selectedItems[0].label}, ${selectedItems[1].label} (+${selectedItems.length - 2})`,
+    isPlaceholder: false
+  };
+}
+
+function renderProfileMultiDropdown({
+  containerEl,
+  key,
+  options,
+  selectedKeys,
+  placeholderText,
+  emptyTagsText,
+  resetOption = null,
+  onToggle,
+  onReset = null
+}) {
+  if (!containerEl || typeof document === "undefined") return;
+  bindProfileDropdownOutsideCloser();
+  containerEl.dataset.profileDropdownHost = key;
+  containerEl.innerHTML = "";
+
+  const isOpen = _openProfileDropdownKey === key;
+  const selectedSet = new Set(selectedKeys || []);
+  const selectedOptions = options.filter(opt => selectedSet.has(opt.key));
+  const summaryInfo = formatMultiDropdownSummary(selectedOptions, placeholderText);
+
+  if (typeof document.createElement !== "function") return;
+
+  const wrap = document.createElement("div");
+  wrap.className = "multi-dropdown-wrap";
+
+  const trigger = document.createElement("button");
+  trigger.type = "button";
+  trigger.className = `account-select multi-dropdown-trigger${isOpen ? " is-open" : ""}`;
+  trigger.dataset.dropdownTrigger = key;
+  trigger.setAttribute?.("aria-haspopup", "listbox");
+  trigger.setAttribute?.("aria-expanded", String(isOpen));
+  const badgeHtml = selectedOptions.length > 0
+    ? `<span class="multi-dropdown-count" title="${escapeHtml(tf("{n} ausgewählt", "{n} selected", { n: selectedOptions.length }))}">${selectedOptions.length}</span>`
+    : "";
+  trigger.innerHTML = `<span class="multi-dropdown-summary${summaryInfo.isPlaceholder ? " is-placeholder" : ""}">${escapeHtml(summaryInfo.text)}</span><span class="multi-dropdown-meta">${badgeHtml}${buildDropdownChevronSVG()}</span>`;
+  trigger.addEventListener("click", (e) => {
+    e?.stopPropagation?.();
+    _openProfileDropdownKey = isOpen ? null : key;
+    renderProfileAccountView();
+  });
+  wrap.appendChild(trigger);
+
+  const menu = document.createElement("div");
+  menu.className = `multi-dropdown-menu${isOpen ? "" : " hidden"}`;
+  menu.setAttribute?.("role", "listbox");
+  menu.setAttribute?.("aria-multiselectable", "true");
+
+  if (resetOption && typeof onReset === "function") {
+    const isResetActive = Boolean(resetOption.isActive);
+    const resetBtn = document.createElement("button");
+    resetBtn.type = "button";
+    resetBtn.className = `multi-dropdown-option multi-dropdown-option-divider${isResetActive ? " is-selected" : ""}`;
+    resetBtn.dataset.dropdownOption = resetOption.key;
+    resetBtn.setAttribute?.("role", "option");
+    resetBtn.setAttribute?.("aria-selected", String(isResetActive));
+    resetBtn.innerHTML = `<span class="multi-dropdown-check" aria-hidden="true">${isResetActive ? "✓" : ""}</span><span class="multi-dropdown-opt-text"><span>${escapeHtml(resetOption.label)}</span></span>`;
+    resetBtn.addEventListener("click", (e) => {
+      e?.stopPropagation?.();
+      onReset();
+    });
+    menu.appendChild(resetBtn);
+  }
+
+  options.forEach(opt => {
+    const isSel = selectedSet.has(opt.key);
+    const optBtn = document.createElement("button");
+    optBtn.type = "button";
+    optBtn.className = `multi-dropdown-option${isSel ? " is-selected" : ""}`;
+    optBtn.dataset.dropdownOption = opt.key;
+    optBtn.setAttribute?.("role", "option");
+    optBtn.setAttribute?.("aria-selected", String(isSel));
+    const hintHtml = opt.hint ? `<span class="multi-dropdown-opt-hint">${escapeHtml(opt.hint)}</span>` : "";
+    optBtn.innerHTML = `<span class="multi-dropdown-check" aria-hidden="true">${isSel ? "✓" : ""}</span><span class="multi-dropdown-opt-text"><span>${escapeHtml(opt.label)}</span>${hintHtml}</span>`;
+    optBtn.addEventListener("click", (e) => {
+      e?.stopPropagation?.();
+      onToggle(opt.key);
+    });
+    menu.appendChild(optBtn);
+  });
+
+  wrap.appendChild(menu);
+  containerEl.appendChild(wrap);
+
+  const tagsRow = document.createElement("div");
+  tagsRow.className = "multi-selected-tags";
+  if (selectedOptions.length === 0) {
+    const emptyEl = document.createElement("span");
+    emptyEl.className = "multi-empty-note";
+    emptyEl.textContent = emptyTagsText;
+    tagsRow.appendChild(emptyEl);
+  } else {
+    selectedOptions.forEach(opt => {
+      if (opt.fixed) {
+        const fixedEl = document.createElement("span");
+        fixedEl.className = "k-filter-pill active";
+        fixedEl.dataset.selectedBadge = opt.key;
+        fixedEl.textContent = opt.label;
+        tagsRow.appendChild(fixedEl);
+        return;
+      }
+      const chipBtn = document.createElement("button");
+      chipBtn.type = "button";
+      chipBtn.className = "k-filter-pill active multi-selected-tag";
+      chipBtn.dataset.dropdownRemove = opt.key;
+      chipBtn.setAttribute?.("aria-label", tf("{item} entfernen", "Remove {item}", { item: opt.label }));
+      chipBtn.innerHTML = `<span>${escapeHtml(opt.label)}</span><span class="multi-selected-remove" aria-hidden="true">×</span>`;
+      chipBtn.addEventListener("click", (e) => {
+        e?.stopPropagation?.();
+        onToggle(opt.key);
+      });
+      tagsRow.appendChild(chipBtn);
+    });
+  }
+  containerEl.appendChild(tagsRow);
+}
+
 function renderProfileAccountView() {
   const p = state.profile || createDefaultProfile();
   const spaceSvg = document.getElementById("spaceMascotSvg");
@@ -58922,7 +59471,8 @@ function renderProfileAccountView() {
 
   const titleEl = document.getElementById("spaceGreetingTitle");
   const subEl = document.getElementById("spaceGreetingSub");
-  const focusDef = getLocalizedProfileFocus(p.focus);
+  const focusKeys = getResolvedProfileFocuses(p);
+  const focusDefs = focusKeys.map(getLocalizedProfileFocus);
 
   if (titleEl) {
     titleEl.textContent = p.name
@@ -58933,7 +59483,10 @@ function renderProfileAccountView() {
     const instText = p.instruments && p.instruments.length > 0
       ? p.instruments.map(getLocalizedProfileInstrumentLabel).join(" • ")
       : tr("Kein Instrument gewählt", "No instrument selected");
-    subEl.textContent = `${instText} — ${focusDef.hint}`;
+    const focusSummary = focusDefs.length === 1
+      ? focusDefs[0].hint
+      : focusDefs.map(d => d.label).join(" • ");
+    subEl.textContent = `${instText} — ${focusSummary}`;
   }
 
   const nameInput = document.getElementById("profileNameInput");
@@ -58943,13 +59496,18 @@ function renderProfileAccountView() {
 
   const instWrap = document.getElementById("profileInstrumentsGroup");
   if (instWrap) {
-    instWrap.innerHTML = PROFILE_INSTRUMENT_OPTIONS.map(inst => {
-      const active = (p.instruments || []).includes(inst);
-      return `<button type="button" class="k-filter-pill ${active ? "active" : ""}" data-profile-inst="${escapeHtml(inst)}">${escapeHtml(getLocalizedProfileInstrumentLabel(inst))}</button>`;
-    }).join("");
-    instWrap.querySelectorAll("[data-profile-inst]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const inst = btn.dataset.profileInst;
+    const instOptions = PROFILE_INSTRUMENT_OPTIONS.map(inst => ({
+      key: inst,
+      label: getLocalizedProfileInstrumentLabel(inst)
+    }));
+    renderProfileMultiDropdown({
+      containerEl: instWrap,
+      key: "instruments",
+      options: instOptions,
+      selectedKeys: p.instruments || [],
+      placeholderText: tr("Auswählen …", "Choose …"),
+      emptyTagsText: tr("Kein Instrument gewählt", "No instrument selected"),
+      onToggle: (inst) => {
         const set = new Set(state.profile.instruments || []);
         if (set.has(inst)) set.delete(inst);
         else set.add(inst);
@@ -58957,39 +59515,63 @@ function renderProfileAccountView() {
         saveUserProfile(state.profile);
         renderProfileAccountView();
         renderHomeProfileGreeting();
-      });
+      }
     });
   }
 
   const focusWrap = document.getElementById("profileFocusGroup");
   const focusSuggRow = document.getElementById("spaceFocusSuggestionRow");
   if (focusWrap) {
-    focusWrap.innerHTML = Object.values(PROFILE_FOCUS_OPTIONS).map(opt => `
-      <button type="button" class="k-filter-pill ${p.focus === opt.key ? "active" : ""}" data-profile-focus="${opt.key}">${escapeHtml(getLocalizedProfileFocus(opt.key).label)}</button>
-    `).join("");
-    focusWrap.querySelectorAll("[data-profile-focus]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const nextFocus = btn.dataset.profileFocus;
-        if (Object.prototype.hasOwnProperty.call(PROFILE_FOCUS_OPTIONS, nextFocus)) {
-          state.profile.focus = nextFocus;
-          saveUserProfile(state.profile);
-          renderProfileAccountView();
-          renderHomeProfileGreeting();
-        }
-      });
+    const focusOptions = Object.values(PROFILE_FOCUS_OPTIONS).map(opt => {
+      const def = getLocalizedProfileFocus(opt.key);
+      return {
+        key: opt.key,
+        label: def.label,
+        hint: def.hint,
+        fixed: opt.key === "allround"
+      };
+    });
+    renderProfileMultiDropdown({
+      containerEl: focusWrap,
+      key: "focus",
+      options: focusOptions,
+      selectedKeys: focusKeys,
+      placeholderText: tr("Auswählen …", "Choose …"),
+      emptyTagsText: getLocalizedProfileFocus("allround").label,
+      onToggle: (focusKey) => {
+        const nextList = toggleProfileFocusValue(getResolvedProfileFocuses(state.profile), focusKey);
+        state.profile.focuses = nextList;
+        state.profile.focus = nextList[0] || "allround";
+        saveUserProfile(state.profile);
+        renderProfileAccountView();
+        renderHomeProfileGreeting();
+      }
     });
   }
   if (focusSuggRow) {
-    if (p.focus !== "allround") {
+    const specificDefs = focusKeys.filter(k => k !== "allround").map(getLocalizedProfileFocus);
+    if (specificDefs.length > 0) {
       focusSuggRow.classList.remove("hidden");
+      const primaryDef = specificDefs[0];
+      const hintSummary = specificDefs.length === 1
+        ? primaryDef.hint
+        : specificDefs.map(d => d.label).join(" • ");
       focusSuggRow.innerHTML = `
-        <span>${tf("Empfehlung: {hint}", "Suggested: {hint}", { hint: focusDef.hint })}</span>
-        <button type="button" id="launchFocusSuggestionBtn" class="btn-tool">${tr("Jetzt üben ▶", "Practice Now ▶")}</button>
+        <span>${tf("Empfehlung: {hint}", "Suggested: {hint}", { hint: hintSummary })}</span>
+        <div class="account-focus-actions">
+          ${specificDefs.map((def, idx) => `
+            <button type="button" ${idx === 0 ? 'id="launchFocusSuggestionBtn"' : ""} class="btn-tool" data-launch-focus-mode="${escapeHtml(def.mode)}">
+              ${escapeHtml(specificDefs.length > 1 ? `${def.label} ▶` : tr("Jetzt üben ▶", "Practice Now ▶"))}
+            </button>
+          `).join("")}
+        </div>
       `;
-      document.getElementById("launchFocusSuggestionBtn")?.addEventListener("click", () => {
-        applyModeAndLevelFromConfig({ mode: focusDef.mode, level: 1, melodyRange: "do-fa" });
-        state.exerciseReturnView = "space";
-        switchView("exercise");
+      focusSuggRow.querySelectorAll("[data-launch-focus-mode]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          applyModeAndLevelFromConfig({ mode: btn.dataset.launchFocusMode, level: 1, melodyRange: "do-fa" });
+          state.exerciseReturnView = "space";
+          switchView("exercise");
+        });
       });
     } else {
       focusSuggRow.classList.add("hidden");
@@ -58999,16 +59581,38 @@ function renderProfileAccountView() {
 
   const accWrap = document.getElementById("profileAccessoryGroup");
   if (accWrap) {
-    accWrap.innerHTML = PROFILE_ACCESSORY_OPTIONS.map(opt => `
-      <button type="button" class="k-filter-pill ${p.companionAccessory === opt.key ? "active" : ""}" data-profile-acc="${opt.key}">${escapeHtml(getLocalizedProfileAccessoryLabel(opt))}</button>
-    `).join("");
-    accWrap.querySelectorAll("[data-profile-acc]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        state.profile.companionAccessory = btn.dataset.profileAcc;
+    const activeAccs = getResolvedProfileAccessories(p);
+    const accOptions = PROFILE_ACCESSORY_OPTIONS.map(opt => ({
+      key: opt.key,
+      label: getLocalizedProfileAccessoryLabel(opt)
+    }));
+    renderProfileMultiDropdown({
+      containerEl: accWrap,
+      key: "accessory",
+      options: accOptions,
+      selectedKeys: activeAccs,
+      placeholderText: tr("Klassisch (ohne Extras)", "Classic (no extras)"),
+      emptyTagsText: tr("Klassisch (ohne Extras)", "Classic (no extras)"),
+      resetOption: {
+        key: PROFILE_ACCESSORY_NONE_KEY,
+        label: tr("Ohne Extras (Klassisch)", "No extras (Classic)"),
+        isActive: activeAccs.length === 0
+      },
+      onReset: () => {
+        state.profile.companionAccessories = [];
+        state.profile.companionAccessory = PROFILE_ACCESSORY_NONE_KEY;
         saveUserProfile(state.profile);
         renderProfileAccountView();
         renderHomeProfileGreeting();
-      });
+      },
+      onToggle: (accKey) => {
+        const nextAccs = toggleProfileAccessoryValue(getResolvedProfileAccessories(state.profile), accKey);
+        state.profile.companionAccessories = nextAccs;
+        state.profile.companionAccessory = nextAccs[0] || PROFILE_ACCESSORY_NONE_KEY;
+        saveUserProfile(state.profile);
+        renderProfileAccountView();
+        renderHomeProfileGreeting();
+      }
     });
   }
 
@@ -63116,10 +63720,11 @@ function renderWelcomeFocusStep() {
   const p = state.profile || createDefaultProfile();
   const listEl = document.getElementById("welcomeFocusList");
   if (!listEl || typeof document.createElement !== "function") return;
+  const activeFocuses = getResolvedProfileFocuses(p);
   listEl.innerHTML = "";
   Object.values(PROFILE_FOCUS_OPTIONS).forEach(opt => {
     const def = getLocalizedProfileFocus(opt.key);
-    const isActive = p.focus === opt.key;
+    const isActive = activeFocuses.includes(opt.key);
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = `welcome-choice-card welcome-focus-card${isActive ? " active" : ""}`;
@@ -63128,7 +63733,9 @@ function renderWelcomeFocusStep() {
     btn.innerHTML = `<strong>${escapeHtml(def.label)}</strong><span>${escapeHtml(def.hint)}</span>`;
     btn.addEventListener("click", () => {
       if (!state.profile) state.profile = createDefaultProfile();
-      state.profile.focus = opt.key;
+      const nextList = toggleProfileFocusValue(getResolvedProfileFocuses(state.profile), opt.key);
+      state.profile.focuses = nextList;
+      state.profile.focus = nextList[0] || "allround";
       saveUserProfile(state.profile);
       renderProfileAccountView();
       renderHomeProfileGreeting();
@@ -63604,7 +64211,7 @@ function openExamSetupPage(categoryKey = state.activeCategory, options = {}) {
       <div class="exam-config-row">
         <span class="exam-config-label">${escapeHtml(tr("Fragenanzahl", "Questions"))}</span>
         <div class="account-chip-group">
-          ${[5, 10, 15].map(n => `
+          ${[10, 20, 50].map(n => `
             <button type="button" class="k-filter-pill ${cfg.count === n ? "active" : ""}" data-exam-count="${n}">
               ${escapeHtml(tf("{n} Fragen", "{n} Questions", { n }))}
             </button>
@@ -63643,7 +64250,7 @@ function openExamSetupPage(categoryKey = state.activeCategory, options = {}) {
   container.querySelectorAll("[data-exam-count]").forEach(btn => {
     btn.addEventListener("click", () => {
       const val = parseInt(btn.dataset.examCount, 10);
-      if ([5, 10, 15].includes(val)) {
+      if ([10, 20, 50].includes(val)) {
         state.examConfig.count = val;
         container.querySelectorAll("[data-exam-count]").forEach(b => b.classList.toggle("active", b === btn));
       }
@@ -63677,7 +64284,7 @@ function openExamSetupPage(categoryKey = state.activeCategory, options = {}) {
 
 function buildExamQuestionPlan(modes, count) {
   const pool = Array.isArray(modes) && modes.length > 0 ? modes : ["cadence"];
-  const total = Math.max(1, Math.min(30, parseInt(count, 10) || 10));
+  const total = Math.max(1, Math.min(50, parseInt(count, 10) || 10));
   const plan = [];
   for (let i = 0; i < total; i++) {
     plan.push(pool[i % pool.length]);
@@ -63744,7 +64351,7 @@ function startCategoryExam(categoryKey, levelId) {
   }
 
   const cfg = state.examConfig || { count: 10, feedbackMode: "blind", maxReplays: 2 };
-  const total = [5, 10, 15].includes(cfg.count) ? cfg.count : 10;
+  const total = [10, 20, 50].includes(cfg.count) ? cfg.count : 10;
   const plan = buildExamQuestionPlan(preset.modes, total);
 
   state.activeCategory = categoryKey;
