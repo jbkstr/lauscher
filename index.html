@@ -281,6 +281,85 @@
   --status-err: #E67984;
 }
 
+/* Theme 4 (Schwarz & Erwachsen): Metal */
+:root[data-theme="metal"],
+:root[data-theme="metal"][data-appearance="dark"] {
+  --bg-base: #090A0D;
+  --surface-white: #121419;
+  --surface-card: var(--surface-white);
+  --surface-warm: #191C22;
+  --surface-soft: var(--surface-warm);
+  --surface-hover: #232730;
+
+  --sage: #1D3B54;
+  --sage-soft: #10202E;
+  --sage-strong: #6BB4EA;
+
+  --peach: #4D1922;
+  --peach-soft: #261015;
+  --peach-strong: #EB6A78;
+
+  --lilac: #232733;
+  --lilac-soft: #161922;
+  --lilac-strong: #A6B0C2;
+
+  --icon-ink: #F2F4F8;
+  --raccoon-dark: #ECEFF4;
+  --raccoon-mid: #A3ABB8;
+  --raccoon-muted: #6C7482;
+  --border-soft: rgba(255, 255, 255, 0.10);
+  --border-strong: rgba(255, 255, 255, 0.24);
+  --tint-subtle: rgba(255, 255, 255, 0.08);
+  --tint-subtle-soft: rgba(255, 255, 255, 0.05);
+
+  --btn-primary-bg: #ECEFF4;
+  --btn-primary-fg: #090A0D;
+  --on-strong-accent: #090A0D;
+  --mute-bg: #3D141B;
+  --mute-border: rgba(235, 106, 120, 0.45);
+  --dot-idle-bg: #343944;
+  --piano-key-inactive-bg: #262A33;
+  --piano-key-inactive-border: #3B404D;
+  --piano-key-inactive-text: #7A8291;
+  --piano-white-active-bg: #E4E8EE;
+  --piano-white-active-ink: #0D0F13;
+  --piano-black-bg-top: #181B22;
+  --piano-black-bg-bottom: #0B0D10;
+  --piano-black-border: #050608;
+  --piano-black-out-bg: #3B404C;
+  --piano-black-out-border: #1C1F26;
+  --piano-black-solfege-bg: #1F232B;
+  --piano-black-solfege-ink: #ECEFF4;
+  --key-wrong-bg: #581A22;
+  --key-wrong-ink: #FFD6DA;
+  --backdrop-scrim: rgba(4, 5, 7, 0.78);
+
+  --status-ok: #46B884;
+  --status-warn: #E58C45;
+  --status-err: #E65A68;
+
+  --radius-sm: 5px;
+  --radius-md: 7px;
+  --radius-lg: 10px;
+  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.55);
+  --shadow-float: 0 14px 34px rgba(0, 0, 0, 0.75);
+  --tactile-edge: rgba(0, 0, 0, 0.65);
+  --tactile-edge-solid: rgba(0, 0, 0, 0.75);
+  color-scheme: dark;
+}
+
+:root[data-theme="metal"] .account-card,
+:root[data-theme="metal"] .category-nav-card,
+:root[data-theme="metal"] .modal-dialog {
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+:root[data-theme="metal"] .stage-mascot svg,
+:root[data-theme="metal"] .hero-mascot svg,
+:root[data-theme="metal"] .account-avatar-box svg {
+  filter: saturate(0.45) contrast(1.08);
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -3128,6 +3207,8 @@ html, body {
 
 .modal-body {
   padding: 1.15rem;
+  flex: 1 1 auto;
+  min-height: 0;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -5268,11 +5349,22 @@ body,
   flex-shrink: 0;
 }
 
+.mixer-tab-panel .settings-section .btn-group {
+  margin-bottom: 0;
+  padding-bottom: 0.15rem;
+}
+
 .btn-group + .settings-hint,
 .mixer-list + .settings-hint,
 .settings-sub-field + .settings-hint {
-  margin-top: 0.65rem;
+  margin-top: 1rem;
   margin-bottom: 0;
+}
+
+.mixer-tab-panel .settings-section .settings-hint.mixer-preset-hint {
+  display: block;
+  margin-top: 1.15rem;
+  margin-bottom: 0.15rem;
 }
 
 .mixer-reverb-row {
@@ -9257,11 +9349,12 @@ body,
         else if (lang === "uk") document.title = "Lauschebär • Слухай · Розумій · Грай";
         else if (lang === "ur") document.title = "Lauschebär • سنو · سمجھو · بجاؤ";
         var appearance = (prefs.appearance === "light" || prefs.appearance === "dark" || prefs.appearance === "system") ? prefs.appearance : "light";
-        var isBuiltInTheme = (prefs.theme === "waldlichtung" || prefs.theme === "morgentau" || prefs.theme === "abenddaemmerung");
+        var isBuiltInTheme = (prefs.theme === "waldlichtung" || prefs.theme === "morgentau" || prefs.theme === "abenddaemmerung" || prefs.theme === "metal");
         var isCustomTheme = (prefs.theme === "custom_1" || prefs.theme === "custom_2" || prefs.theme === "custom_3");
         var theme = (isBuiltInTheme || isCustomTheme) ? prefs.theme : "waldlichtung";
         var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
         var effective = appearance === "system" ? (prefersDark ? "dark" : "light") : appearance;
+        if (theme === "metal") effective = "dark";
         var appliedCustomBg = "";
         if (isCustomTheme) {
           try {
@@ -9295,7 +9388,8 @@ body,
           var metaColors = {
             waldlichtung: { light: "#FAF7F2", dark: "#212329" },
             morgentau: { light: "#F3F8FA", dark: "#1E232A" },
-            abenddaemmerung: { light: "#F7F4F8", dark: "#22202A" }
+            abenddaemmerung: { light: "#F7F4F8", dark: "#22202A" },
+            metal: { light: "#090A0D", dark: "#090A0D" }
           };
           meta.setAttribute("content", appliedCustomBg || (metaColors[theme] && metaColors[theme][effective]) || "#FAF7F2");
         }
@@ -9440,6 +9534,18 @@ body,
                   <span class="swatch-dot" style="background:#BFE0D4;"></span>
                   <span class="swatch-dot" style="background:#F5CDC4;"></span>
                   <span class="swatch-dot" style="background:#D8C7F5;"></span>
+                </div>
+              </button>
+              <button class="theme-preview-item" type="button" data-welcome-theme="metal">
+                <div class="theme-info">
+                  <span class="theme-name" data-i18n="settings.themeMetal">Metal</span>
+                  <span class="theme-status" data-welcome-theme-status>Auswählen</span>
+                </div>
+                <div class="theme-swatches">
+                  <span class="swatch-dot" style="background:#090A0D;"></span>
+                  <span class="swatch-dot" style="background:#2D6394;"></span>
+                  <span class="swatch-dot" style="background:#B52B3B;"></span>
+                  <span class="swatch-dot" style="background:#9EA6B4;"></span>
                 </div>
               </button>
             </div>
@@ -10323,6 +10429,19 @@ body,
                 <span class="swatch-dot" data-swatch="3" style="background:#D8C7F5;"></span>
               </div>
             </button>
+
+            <button class="theme-preview-item" type="button" data-theme-choice="metal">
+              <div class="theme-info">
+                <span class="theme-name" data-i18n="settings.themeMetal">Metal</span>
+                <span class="theme-status">Auswählen</span>
+              </div>
+              <div class="theme-swatches">
+                <span class="swatch-dot" data-swatch="0" style="background:#090A0D;"></span>
+                <span class="swatch-dot" data-swatch="1" style="background:#2D6394;"></span>
+                <span class="swatch-dot" data-swatch="2" style="background:#B52B3B;"></span>
+                <span class="swatch-dot" data-swatch="3" style="background:#9EA6B4;"></span>
+              </div>
+            </button>
           </div>
         </div>
 
@@ -10361,6 +10480,7 @@ body,
                   <option value="morgentau-dark" data-i18n="space.tplCoastDark">Morgentau • Dunkel</option>
                   <option value="abenddaemmerung-light" data-i18n="space.tplDuskLight">Abenddämmerung • Hell</option>
                   <option value="abenddaemmerung-dark" data-i18n="space.tplDuskDark">Abenddämmerung • Dunkel</option>
+                  <option value="metal-dark" data-i18n="space.tplMetal">Metal • Schwarz</option>
                 </select>
                 <button id="customThemeLoadTemplateBtn" type="button" class="btn-tool" data-i18n="space.loadTemplateBtn">Laden</button>
               </div>
@@ -11052,7 +11172,7 @@ body,
               <button class="opt-btn active" data-preset="piano" data-i18n="mixer.presetPiano">Solo Klavier (Standard)</button>
               <button class="opt-btn opt-btn-wide" data-preset="custom" data-i18n="mixer.presetCustom">Benutzerdefiniert</button>
             </div>
-            <p class="settings-hint" data-i18n="mixer.presetHint">Jede manuelle Änderung an den Reglern aktiviert automatisch „Benutzerdefiniert“.</p>
+            <p class="settings-hint mixer-preset-hint" data-i18n="mixer.presetHint">Jede manuelle Änderung an den Reglern aktiviert automatisch „Benutzerdefiniert“.</p>
           </div>
         </div>
 
@@ -11269,6 +11389,19 @@ body,
                 <span class="swatch-dot" data-swatch="1" style="background:#BFE0D4;"></span>
                 <span class="swatch-dot" data-swatch="2" style="background:#F5CDC4;"></span>
                 <span class="swatch-dot" data-swatch="3" style="background:#D8C7F5;"></span>
+              </div>
+            </button>
+
+            <button class="theme-preview-item" type="button" data-theme-choice="metal">
+              <div class="theme-info">
+                <span class="theme-name" data-i18n="settings.themeMetal">Metal</span>
+                <span class="theme-status">Auswählen</span>
+              </div>
+              <div class="theme-swatches">
+                <span class="swatch-dot" data-swatch="0" style="background:#090A0D;"></span>
+                <span class="swatch-dot" data-swatch="1" style="background:#2D6394;"></span>
+                <span class="swatch-dot" data-swatch="2" style="background:#B52B3B;"></span>
+                <span class="swatch-dot" data-swatch="3" style="background:#9EA6B4;"></span>
               </div>
             </button>
           </div>
@@ -13517,6 +13650,7 @@ const I18N_STATIC = {
   "settings.themeForest": { de: "Waldlichtung & Salbei", en: "Forest Glade & Sage" },
   "settings.themeCoast": { de: "Morgentau & Küste", en: "Morning Dew & Coast" },
   "settings.themeDusk": { de: "Abenddämmerung", en: "Evening Dusk" },
+  "settings.themeMetal": { de: "Metal", en: "Metal" },
   "settings.themeActive": { de: "Aktiv", en: "Active" },
   "settings.themeSelect": { de: "Auswählen", en: "Select" },
   "settings.customizeThemesBtn": { de: "🎨 Eigenes Theme im Konto gestalten →", en: "🎨 Design Custom Theme in Account →" },
@@ -13552,6 +13686,7 @@ const I18N_STATIC = {
   "space.tplCoastDark": { de: "Morgentau • Dunkel", en: "Morning Dew • Dark" },
   "space.tplDuskLight": { de: "Abenddämmerung • Hell", en: "Evening Dusk • Light" },
   "space.tplDuskDark": { de: "Abenddämmerung • Dunkel", en: "Evening Dusk • Dark" },
+  "space.tplMetal": { de: "Metal • Schwarz", en: "Metal • Black" },
 
   "metro.tapTitle": { de: "Tippen für Live-Tempo (Tap-Tempo)", en: "Tap for live tempo (Tap Tempo)" },
   "metro.tapAria": { de: "Tap-Tempo", en: "Tap Tempo" },
@@ -14562,6 +14697,7 @@ const I18N_STATIC_FR = {
   "settings.themeForest": "Clairière & Sauge",
   "settings.themeCoast": "Rosée du matin & Côte",
   "settings.themeDusk": "Crépuscule doux",
+  "settings.themeMetal": "Métal",
   "settings.themeActive": "Actif",
   "settings.themeSelect": "Choisir",
   "settings.customizeThemesBtn": "🎨 Créer un thème perso dans Mon compte →",
@@ -14587,6 +14723,7 @@ const I18N_STATIC_FR = {
   "space.tplCoastDark": "Rosée • Sombre",
   "space.tplDuskLight": "Crépuscule • Clair",
   "space.tplDuskDark": "Crépuscule • Sombre",
+  "space.tplMetal": "Métal • Noir",
   "metro.tapTitle": "Toucher pour régler le tempo en direct (Tap Tempo)",
   "metro.tapAria": "Tap Tempo",
   "metro.tapLabel": "TAP",
@@ -16483,6 +16620,7 @@ const I18N_STATIC_PL = {
   "settings.themeForest": "Leśna polana i szałwia",
   "settings.themeCoast": "Poranna rosa i wybrzeże",
   "settings.themeDusk": "Wieczorny zmierzch",
+  "settings.themeMetal": "Metal",
   "settings.themeActive": "Aktywny",
   "settings.themeSelect": "Wybierz",
   "settings.customizeThemesBtn": "🎨 Zaprojektuj własny motyw w Profilu →",
@@ -16508,6 +16646,7 @@ const I18N_STATIC_PL = {
   "space.tplCoastDark": "Poranna rosa • Ciemny",
   "space.tplDuskLight": "Wieczorny zmierzch • Jasny",
   "space.tplDuskDark": "Wieczorny zmierzch • Ciemny",
+  "space.tplMetal": "Metal • Czerń",
   "metro.tapTitle": "Stukaj równomiernie, aby wyznaczyć tempo na żywo (Tap Tempo)",
   "metro.tapAria": "Tap Tempo",
   "metro.tapLabel": "TAP",
@@ -18450,6 +18589,7 @@ const I18N_STATIC_UK = {
   "settings.themeForest": "Лісова галявина й шавлія",
   "settings.themeCoast": "Ранкова роса й узбережжя",
   "settings.themeDusk": "Теплі сутінки",
+  "settings.themeMetal": "Метал",
   "settings.themeActive": "Активна",
   "settings.themeSelect": "Обрати",
   "settings.customizeThemesBtn": "🎨 Створити власну тему в профілі →",
@@ -18475,6 +18615,7 @@ const I18N_STATIC_UK = {
   "space.tplCoastDark": "Ранкова роса • Темна",
   "space.tplDuskLight": "Теплі сутінки • Світла",
   "space.tplDuskDark": "Теплі сутінки • Темна",
+  "space.tplMetal": "Метал • Чорна",
   "metro.tapTitle": "Натискай для визначення темпу наживо (Tap Tempo)",
   "metro.tapAria": "Tap-темп",
   "metro.tapLabel": "TAP",
@@ -20418,6 +20559,7 @@ const I18N_STATIC_UR = {
   "settings.themeForest": "جنگل کی روشنی اور سیج",
   "settings.themeCoast": "صبح کی شبنم اور ساحل",
   "settings.themeDusk": "شام کا شفق",
+  "settings.themeMetal": "میٹل",
   "settings.themeActive": "فعال",
   "settings.themeSelect": "منتخب کریں",
   "settings.customizeThemesBtn": "🎨 اکاؤنٹ میں اپنا تھیم بنائیں ←",
@@ -20443,6 +20585,7 @@ const I18N_STATIC_UR = {
   "space.tplCoastDark": "صبح کی شبنم • تاریک",
   "space.tplDuskLight": "شام کا شفق • روشن",
   "space.tplDuskDark": "شام کا شفق • تاریک",
+  "space.tplMetal": "میٹل • سیاہ",
   "metro.tapTitle": "لائیو رفتار جاننے کے لیے ٹیپ کریں (Tap Tempo)",
   "metro.tapAria": "ٹیپ ٹیمپو",
   "metro.tapLabel": "TAP",
@@ -45978,7 +46121,7 @@ function getMascotSVG(mood = "idle", showAccessory = false) {
 const VISUAL_PREFS_STORAGE_KEY = "lauschebaer_visual_prefs_v1";
 const CUSTOM_THEMES_STORAGE_KEY = "lauschebaer_custom_themes_v1";
 const VALID_APPEARANCES = ["light", "dark", "system"];
-const VALID_THEMES = ["waldlichtung", "morgentau", "abenddaemmerung"];
+const VALID_THEMES = ["waldlichtung", "morgentau", "abenddaemmerung", "metal"];
 const CUSTOM_THEME_SLOT_IDS = ["custom_1", "custom_2", "custom_3"];
 const ALL_VALID_THEMES = [...VALID_THEMES, ...CUSTOM_THEME_SLOT_IDS];
 
@@ -46073,6 +46216,15 @@ const CUSTOM_THEME_TEMPLATES = {
     lilac: "#4E3E73", lilacStrong: "#CDB8FF",
     statusOk: "#5EC09B", statusWarn: "#ED8D69", statusErr: "#E67984",
     borderStrong: "rgba(236, 233, 244, 0.22)"
+  },
+  "metal-dark": {
+    bgBase: "#090A0D", surfaceWhite: "#121419", surfaceWarm: "#191C22", surfaceHover: "#232730",
+    raccoonDark: "#ECEFF4", raccoonMid: "#A3ABB8",
+    sage: "#1D3B54", sageStrong: "#6BB4EA",
+    peach: "#4D1922", peachStrong: "#EB6A78",
+    lilac: "#232733", lilacStrong: "#A6B0C2",
+    statusOk: "#46B884", statusWarn: "#E58C45", statusErr: "#E65A68",
+    borderStrong: "rgba(255, 255, 255, 0.24)"
   }
 };
 
@@ -46495,6 +46647,32 @@ const THEME_PALETTE_META = {
       wave1: "#5EC09B",
       wave2: "#ED8D69",
       wave3: "#CDB8FF"
+    }
+  },
+  metal: {
+    light: {
+      bg: "#090A0D",
+      swatches: ["#090A0D", "#2D6394", "#B52B3B", "#9EA6B4"],
+      grid: "rgba(236, 239, 244, 0.22)",
+      zeroLine: "rgba(236, 239, 244, 0.12)",
+      track1Label: "#6BB4EA",
+      track2Label: "#EB6A78",
+      track3Label: "#ECEFF4",
+      wave1: "#58A6E6",
+      wave2: "#EB6A78",
+      wave3: "#9EA6B4"
+    },
+    dark: {
+      bg: "#090A0D",
+      swatches: ["#090A0D", "#2D6394", "#B52B3B", "#9EA6B4"],
+      grid: "rgba(236, 239, 244, 0.22)",
+      zeroLine: "rgba(236, 239, 244, 0.12)",
+      track1Label: "#6BB4EA",
+      track2Label: "#EB6A78",
+      track3Label: "#ECEFF4",
+      wave1: "#58A6E6",
+      wave2: "#EB6A78",
+      wave3: "#9EA6B4"
     }
   }
 };
@@ -48245,7 +48423,7 @@ function getActivePaletteMeta() {
   if (customEntry?.paletteMeta) {
     return customEntry.paletteMeta;
   }
-  const effective = resolveEffectiveAppearance(state.settings.appearance);
+  const effective = theme === "metal" ? "dark" : resolveEffectiveAppearance(state.settings.appearance);
   const entry = THEME_PALETTE_META[theme] || THEME_PALETTE_META.waldlichtung;
   return entry[effective] || entry.light;
 }
@@ -48260,7 +48438,7 @@ function applyThemeAndAppearance() {
   }
   const effective = customEntry
     ? (customEntry.isDark ? "dark" : "light")
-    : resolveEffectiveAppearance(appearance);
+    : (theme === "metal" ? "dark" : resolveEffectiveAppearance(appearance));
 
   state.settings.appearance = appearance;
   state.settings.theme = theme;
@@ -48303,7 +48481,7 @@ function applyThemeAndAppearance() {
       }
 
       const customCard = getCustomThemeEntry(cardTheme);
-      const cardPalette = customCard?.paletteMeta || (THEME_PALETTE_META[cardTheme] || THEME_PALETTE_META.waldlichtung)[builtInEffective];
+      const cardPalette = customCard?.paletteMeta || (THEME_PALETTE_META[cardTheme] || THEME_PALETTE_META.waldlichtung)[cardTheme === "metal" ? "dark" : builtInEffective];
       if (cardPalette && typeof card.querySelectorAll === "function") {
         card.querySelectorAll("[data-swatch]").forEach(dot => {
           const idx = parseInt(dot.dataset?.swatch, 10);
@@ -60729,9 +60907,11 @@ function selectCustomThemeEditorSlot(slotIndex) {
     ed.colors = sanitizeCustomThemeColors(existing.colors);
   } else {
     ed.name = tf("Eigenes Theme {n}", "Custom Theme {n}", { n: idx + 1 });
-    const tplKey = state.settings.theme === "morgentau"
-      ? "morgentau-light"
-      : (state.settings.theme === "abenddaemmerung" ? "abenddaemmerung-light" : "waldlichtung-light");
+    const tplKey = state.settings.theme === "metal"
+      ? "metal-dark"
+      : (state.settings.theme === "morgentau"
+          ? "morgentau-light"
+          : (state.settings.theme === "abenddaemmerung" ? "abenddaemmerung-light" : "waldlichtung-light"));
     ed.colors = getThemeEditorTemplateColors(tplKey);
   }
   const activeRgba = parseCssColorToRgba(ed.colors.bgBase);
