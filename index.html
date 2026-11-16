@@ -5216,6 +5216,91 @@ body,
   margin-top: 0.48rem;
 }
 
+.settings-sub-field.is-disabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.break-preset-row {
+  margin-top: 0.45rem;
+}
+
+/* Ruhige Pausen-Erinnerung (Modal während Übungen) */
+.break-reminder-dialog {
+  max-width: 390px;
+  padding: 1.35rem 1.25rem 1.15rem;
+  text-align: center;
+}
+
+.break-reminder-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.52rem;
+}
+
+.break-reminder-mascot {
+  width: 68px;
+  height: 68px;
+  border-radius: 22px;
+  background-color: var(--peach-soft);
+  border: 1.5px solid var(--peach);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.15rem;
+}
+
+.break-reminder-mascot svg {
+  width: 56px;
+  height: 56px;
+}
+
+.break-reminder-title {
+  margin: 0.1rem 0 0;
+  font-size: 1.12rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+}
+
+.break-reminder-body {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.48;
+  color: var(--raccoon-mid);
+  max-width: 30ch;
+}
+
+.break-reminder-actions {
+  margin-top: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.52rem;
+}
+
+.break-reminder-actions .btn-primary-action,
+.break-reminder-actions .btn-tool {
+  width: 100%;
+  justify-content: center;
+}
+
+.break-disable-link {
+  margin-top: 0.12rem;
+  background: none;
+  border: none;
+  color: var(--raccoon-mid);
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0.3rem;
+}
+
+.break-disable-link:hover {
+  color: var(--raccoon-dark);
+}
+
 /* Grundton-Fläche (interval-drone): Lautstärke-Regler für Fläche & Intervallton direkt in der Übung */
 .drone-mix-strip {
   display: grid;
@@ -10925,6 +11010,29 @@ body,
         </div>
 
         <div class="settings-section">
+          <h4 data-i18n="settings.breakReminderHeading">Pausen-Erinnerung bei Übungen</h4>
+          <p class="settings-hint" data-i18n="settings.breakReminderHint">Läuft leise und unsichtbar im Hintergrund, während du übst, und erinnert dich nach der gewählten Zeit freundlich an eine Pause.</p>
+          <div id="breakReminderGroup" class="btn-group" role="group" aria-label="Pausen-Erinnerung bei Übungen" data-i18n-aria="settings.breakReminderAria">
+            <button type="button" class="opt-btn active" data-break-enabled="on" aria-pressed="true" data-i18n="settings.autoNextOn">Ein</button>
+            <button type="button" class="opt-btn" data-break-enabled="off" aria-pressed="false" data-i18n="settings.autoNextOff">Aus</button>
+          </div>
+          <div id="breakReminderDurationRow" class="settings-sub-field">
+            <span class="account-label" data-i18n="settings.breakReminderIntervalLabel">Erinnerung nach</span>
+            <div class="tempo-control-row">
+              <input type="range" id="breakReminderSlider" min="1" max="60" step="1" value="20" aria-label="Pausen-Erinnerung nach Minuten" data-i18n-aria="settings.breakReminderSliderAria">
+              <span id="breakReminderVal" class="tempo-val">20 Min</span>
+            </div>
+            <div id="breakReminderPresets" class="account-chip-group break-preset-row">
+              <button type="button" class="k-filter-pill" data-break-preset="10">10 Min</button>
+              <button type="button" class="k-filter-pill" data-break-preset="15">15 Min</button>
+              <button type="button" class="k-filter-pill active" data-break-preset="20">20 Min</button>
+              <button type="button" class="k-filter-pill" data-break-preset="30">30 Min</button>
+              <button type="button" class="k-filter-pill" data-break-preset="45">45 Min</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-section">
           <h4 data-i18n="settings.quickMixHeading">Quick-Mixe (Startseite)</h4>
           <p class="settings-hint" data-i18n="settings.quickMixHint">Passe deine Schnellstart-Mixe jederzeit in ‚Mein Konto‘ an oder lege neue Favoriten an.</p>
           <button id="settingsManageMixesBtn" class="btn-tool" type="button" data-i18n="settings.manageMixesBtn">Quick-Mixe anpassen →</button>
@@ -11035,6 +11143,23 @@ body,
           <button type="button" class="btn-tool settings-sub-field" id="settingsCustomizeThemesBtn" data-i18n="settings.customizeThemesBtn">🎨 Eigenes Theme im Konto gestalten →</button>
         </div>
 
+      </div>
+    </div>
+  </div>
+
+  <!-- Ruhiges Modal: Pausen-Erinnerung während Übungen -->
+  <div id="breakReminderBackdrop" class="modal-backdrop modal-hidden" role="dialog" aria-modal="true" aria-labelledby="breakReminderTitle">
+    <div class="modal-dialog break-reminder-dialog">
+      <div class="break-reminder-hero">
+        <div id="breakReminderMascot" class="break-reminder-mascot" aria-hidden="true"></div>
+        <span class="k-card-tag tag-peach" data-i18n="break.tag">Kurze Übe-Pause</span>
+        <h3 id="breakReminderTitle" class="break-reminder-title" data-i18n="break.title">Zeit für eine kurze Pause</h3>
+        <p id="breakReminderBody" class="break-reminder-body"></p>
+      </div>
+      <div class="break-reminder-actions">
+        <button id="breakTakePauseBtn" type="button" class="btn-primary-action" data-i18n="break.takePauseBtn">Pause einlegen</button>
+        <button id="breakContinueBtn" type="button" class="btn-tool" data-i18n="break.continueBtn">Weiterüben</button>
+        <button id="breakDisableBtn" type="button" class="break-disable-link" data-i18n="break.disableBtn">Erinnerung ausschalten</button>
       </div>
     </div>
   </div>
@@ -13127,6 +13252,31 @@ const I18N_STATIC = {
   },
   "settings.autoNextOn": { de: "Ein", en: "On" },
   "settings.autoNextOff": { de: "Aus", en: "Off" },
+  "settings.breakReminderHeading": {
+    de: "Pausen-Erinnerung bei Übungen",
+    en: "Exercise Break Reminder"
+  },
+  "settings.breakReminderHint": {
+    de: "Läuft leise und unsichtbar im Hintergrund, während du übst, und erinnert dich nach der gewählten Zeit freundlich an eine Pause.",
+    en: "Runs quietly and invisibly in the background while you practice and gently reminds you to take a break."
+  },
+  "settings.breakReminderAria": {
+    de: "Pausen-Erinnerung bei Übungen",
+    en: "Exercise break reminder"
+  },
+  "settings.breakReminderIntervalLabel": {
+    de: "Erinnerung nach",
+    en: "Remind after"
+  },
+  "settings.breakReminderSliderAria": {
+    de: "Pausen-Erinnerung nach Minuten",
+    en: "Break reminder interval in minutes"
+  },
+  "break.tag": { de: "Kurze Übe-Pause", en: "Short Practice Break" },
+  "break.title": { de: "Zeit für eine kurze Pause", en: "Time for a Short Break" },
+  "break.takePauseBtn": { de: "Pause einlegen", en: "Take a Break" },
+  "break.continueBtn": { de: "Weiterüben", en: "Keep Practicing" },
+  "break.disableBtn": { de: "Erinnerung ausschalten", en: "Turn Off Reminder" },
   "settings.quickMixHeading": { de: "Quick-Mixe (Startseite)", en: "Quick Mixes (Home)" },
   "settings.quickMixHint": {
     de: "Passe deine Schnellstart-Mixe jederzeit in ‚Mein Konto‘ an oder lege neue Favoriten an.",
@@ -14169,6 +14319,16 @@ const I18N_STATIC_FR = {
   "settings.autoNextAria": "Lancer automatiquement la question suivante",
   "settings.autoNextOn": "Oui",
   "settings.autoNextOff": "Non",
+  "settings.breakReminderHeading": "Rappel de pause en exercice",
+  "settings.breakReminderHint": "Tourne discrètement en arrière-plan pendant vos exercices et vous invite gentiment à faire une pause après la durée choisie.",
+  "settings.breakReminderAria": "Rappel de pause en exercice",
+  "settings.breakReminderIntervalLabel": "Rappeler après",
+  "settings.breakReminderSliderAria": "Durée avant le rappel de pause en minutes",
+  "break.tag": "Courte pause",
+  "break.title": "L’heure d’une petite pause",
+  "break.takePauseBtn": "Faire une pause",
+  "break.continueBtn": "Continuer",
+  "break.disableBtn": "Désactiver le rappel",
   "settings.quickMixHeading": "Quick-Mix (Écran d’accueil)",
   "settings.quickMixHint": "Personnalisez vos mix de démarrage rapide dans « Mon compte » ou ajoutez vos favoris.",
   "settings.manageMixesBtn": "Gérer les Quick-Mix →",
@@ -15306,6 +15466,9 @@ Object.assign(TR_FR, {
   "Klassisch (ohne Extras)": "Classique (sans accessoire)",
   "Ohne Extras (Klassisch)": "Sans accessoire (Classique)",
   "{item} entfernen": "Retirer {item}",
+  "{mins} Min": "{mins} min",
+  "Du übst schon seit {mins} Minuten am Stück. Eine kurze Verschnaufpause von 2–3 Minuten hält deine Ohren frisch!": "Vous vous entraînez déjà depuis {mins} minutes d’affilée. Une petite pause de 2 à 3 minutes garde vos oreilles fraîches !",
+  "Weiterüben (+{mins} Min)": "Continuer (+{mins} min)",
   "Empfehlung: {hint}": "Suggestion : {hint}",
   "Jetzt üben ▶": "S’entraîner ▶",
   "Platz {n}": "Empl. {n}",
@@ -16072,6 +16235,16 @@ const I18N_STATIC_PL = {
   "settings.autoNextAria": "Automatyczne następne pytanie",
   "settings.autoNextOn": "Wł.",
   "settings.autoNextOff": "Wył.",
+  "settings.breakReminderHeading": "Przypomnienie o przerwie w ćwiczeniach",
+  "settings.breakReminderHint": "Działa dyskretnie w tle bez wyświetlania zegara podczas ćwiczeń i po wybranym czasie przypomina o odpoczynku.",
+  "settings.breakReminderAria": "Przypomnienie o przerwie w ćwiczeniach",
+  "settings.breakReminderIntervalLabel": "Przypomnij po",
+  "settings.breakReminderSliderAria": "Czas do przypomnienia o przerwie w minutach",
+  "break.tag": "Chwila wytchnienia",
+  "break.title": "Czas na krótką przerwę",
+  "break.takePauseBtn": "Zrób przerwę",
+  "break.continueBtn": "Ćwicz dalej",
+  "break.disableBtn": "Wyłącz przypomnienie",
   "settings.quickMixHeading": "Szybkie miksy (Ekran startowy)",
   "settings.quickMixHint": "Zarządzaj ulubionymi miksami na ekranie głównym w dowolnej chwili w dziale „Mój profil”.",
   "settings.manageMixesBtn": "Skonfiguruj szybkie miksy →",
@@ -16799,6 +16972,9 @@ const TR_PL = {
   "Klassisch (ohne Extras)": "Klasyczny (bez dodatków)",
   "Ohne Extras (Klassisch)": "Bez dodatków (Klasyczny)",
   "{item} entfernen": "Usuń: {item}",
+  "{mins} Min": "{mins} min",
+  "Du übst schon seit {mins} Minuten am Stück. Eine kurze Verschnaufpause von 2–3 Minuten hält deine Ohren frisch!": "Ćwiczysz już bez przerwy od {mins} minut. Krótki odpoczynek przez 2–3 minuty przywróci świeżość słuchu!",
+  "Weiterüben (+{mins} Min)": "Ćwicz dalej (+{mins} min)",
   "Kein Klick, keine Anzeige – zähle im Kopf weiter!": "Bez kliku i podpowiedzi — licz w myślach!",
   "Kirchentonarten, Charaktertöne & musikalische Funktion": "Skale kościelne, tony charakterystyczne i funkcje muzyczne",
   "Klavier": "Fortepian",
@@ -18021,6 +18197,16 @@ const I18N_STATIC_UK = {
   "settings.autoNextAria": "Автозапуск наступного завдання",
   "settings.autoNextOn": "Увімк.",
   "settings.autoNextOff": "Вимк.",
+  "settings.breakReminderHeading": "Нагадування про перерву у вправах",
+  "settings.breakReminderHint": "Непомітно рахує час у фоні під час вправ і м’яко нагадує про відпочинок після обраного інтервалу.",
+  "settings.breakReminderAria": "Нагадування про перерву у вправах",
+  "settings.breakReminderIntervalLabel": "Нагадувати через",
+  "settings.breakReminderSliderAria": "Інтервал нагадування про перерву в хвилинах",
+  "break.tag": "Коротка перерва",
+  "break.title": "Час зробити невелику паузу",
+  "break.takePauseBtn": "Зробити перерву",
+  "break.continueBtn": "Продовжити вправи",
+  "break.disableBtn": "Вимкнути нагадування",
   "settings.quickMixHeading": "Швидкі мікси (Головна)",
   "settings.quickMixHint": "Змінюй мікси швидкого старту на головному екрані будь-коли в розділі «Мій профіль» або додавай улюблені.",
   "settings.manageMixesBtn": "Налаштувати швидкі мікси →",
@@ -18748,6 +18934,9 @@ const TR_UK = {
   "Klassisch (ohne Extras)": "Класичний (без аксесуарів)",
   "Ohne Extras (Klassisch)": "Без аксесуарів (Класичний)",
   "{item} entfernen": "Прибрати: {item}",
+  "{mins} Min": "{mins} хв",
+  "Du übst schon seit {mins} Minuten am Stück. Eine kurze Verschnaufpause von 2–3 Minuten hält deine Ohren frisch!": "Ти вже займаєшся {mins} хвилин поспіль. Коротка пауза на 2–3 хвилини збереже свіжість слуху!",
+  "Weiterüben (+{mins} Min)": "Продовжити (+{mins} хв)",
   "Kein Klick, keine Anzeige – zähle im Kopf weiter!": "Без кліка й підказок — рахуй про себе!",
   "Kirchentonarten, Charaktertöne & musikalische Funktion": "Натуральні лади, характерні ступені та музичні функції",
   "Klavier": "Фортепіано",
@@ -19971,6 +20160,16 @@ const I18N_STATIC_UR = {
   "settings.autoNextAria": "اگلا سوال خودکار چلائیں",
   "settings.autoNextOn": "آن",
   "settings.autoNextOff": "آف",
+  "settings.breakReminderHeading": "مشق کے دوران وقفے کی یاد دہانی",
+  "settings.breakReminderHint": "آپ کے مشق کرتے وقت پس منظر میں خاموشی سے چلتی ہے اور مقررہ وقت کے بعد آرام کا پیغام دیتی ہے۔",
+  "settings.breakReminderAria": "مشق کے دوران وقفے کی یاد دہانی",
+  "settings.breakReminderIntervalLabel": "یاد دہانی کا وقت",
+  "settings.breakReminderSliderAria": "منٹوں میں وقفے کی یاد دہانی",
+  "break.tag": "مختصر وقفہ",
+  "break.title": "تھوڑے آرام کا وقت ہو گیا ہے",
+  "break.takePauseBtn": "وقفہ کریں",
+  "break.continueBtn": "مشق جاری رکھیں",
+  "break.disableBtn": "یاد دہانی بند کریں",
   "settings.quickMixHeading": "کوئیک مکسز (ہوم اسکرین)",
   "settings.quickMixHint": "کسی بھی وقت «میرا اکاؤنٹ» میں جا کر اپنے فوری مکسز بدلیں یا نئے پسندیدہ بنائیں۔",
   "settings.manageMixesBtn": "کوئیک مکسز ترتیب دیں ←",
@@ -20727,6 +20926,9 @@ const TR_UR = Object.assign(Object.create(null), {
   "Klassisch (ohne Extras)": "کلاسک (بغیر اضافی چیز کے)",
   "Ohne Extras (Klassisch)": "بغیر اضافی چیز (کلاسک)",
   "{item} entfernen": "{item} ہٹائیں",
+  "{mins} Min": "{mins} منٹ",
+  "Du übst schon seit {mins} Minuten am Stück. Eine kurze Verschnaufpause von 2–3 Minuten hält deine Ohren frisch!": "آپ مسلسل {mins} منٹ سے مشق کر رہے ہیں۔ 2 سے 3 منٹ کا مختصر وقفہ آپ کی سماعت کو تروتازہ رکھے گا!",
+  "Weiterüben (+{mins} Min)": "مشق جاری رکھیں (+{mins} منٹ)",
   "Kein Klick, keine Anzeige – zähle im Kopf weiter!": "نہ کلک نہ اشارہ — ذہن ہی میں گنتی جاری رکھیں!",
   "Kirchentonarten, Charaktertöne & musikalische Funktion": "چرچ موڈز، امتیازی سُر اور موسیقی کردار",
   "Klavier": "پیانو",
@@ -46942,6 +47144,14 @@ const DEFAULT_DRONE_MIX = Object.freeze({
   pad: 0.70,
   tone: 1.00
 });
+const DEFAULT_BREAK_REMINDER_ENABLED = true;
+const DEFAULT_BREAK_REMINDER_MINUTES = 20;
+
+function sanitizeBreakReminderMinutes(val) {
+  const num = parseInt(val, 10);
+  if (!Number.isFinite(num)) return DEFAULT_BREAK_REMINDER_MINUTES;
+  return Math.max(1, Math.min(60, num));
+}
 
 function sanitizePianoSound(raw) {
   const src = (raw && typeof raw === "object") ? raw : {};
@@ -46978,6 +47188,8 @@ function createDefaultProfile() {
     solfegeLabels: "syllables",
     sessionMinutes: 10,
     inactivityMinutes: 3,
+    breakReminderEnabled: DEFAULT_BREAK_REMINDER_ENABLED,
+    breakReminderMinutes: DEFAULT_BREAK_REMINDER_MINUTES,
     mixes: createDefaultMixes(),
     metronomeProfiles: createDefaultMetronomeProfiles(),
     metronomeMix: sanitizeMetronomeMix(DEFAULT_METRONOME_MIX),
@@ -47029,6 +47241,8 @@ function sanitizeUserProfile(raw) {
   const companionAccessories = normalizeProfileAccessories(raw.companionAccessories, raw.companionAccessory);
   const sessMins = [5, 10, 15, 20].includes(parseInt(raw.sessionMinutes, 10)) ? parseInt(raw.sessionMinutes, 10) : 10;
   const idleMins = [2, 3, 5].includes(parseInt(raw.inactivityMinutes, 10)) ? parseInt(raw.inactivityMinutes, 10) : 3;
+  const breakEnabled = raw.breakReminderEnabled === undefined ? DEFAULT_BREAK_REMINDER_ENABLED : Boolean(raw.breakReminderEnabled);
+  const breakMinutes = sanitizeBreakReminderMinutes(raw.breakReminderMinutes);
 
   let mixes = def.mixes;
   if (Array.isArray(raw.mixes)) {
@@ -47065,6 +47279,8 @@ function sanitizeUserProfile(raw) {
     solfegeLabels: raw.solfegeLabels === "numbers" ? "numbers" : "syllables",
     sessionMinutes: sessMins,
     inactivityMinutes: idleMins,
+    breakReminderEnabled: breakEnabled,
+    breakReminderMinutes: breakMinutes,
     mixes: mixes,
     metronomeProfiles: metronomeProfiles,
     metronomeMix: sanitizeMetronomeMix(raw.metronomeMix),
@@ -47362,6 +47578,14 @@ class AppState {
       intervalId: null,
       noteKind: "idle",
       statusNote: tr("Bereit für eine entspannte Session.", "Ready for a calm session.")
+    };
+    this.breakReminder = {
+      elapsedSec: 0,
+      intervalId: null,
+      lastActivityWallMs: Date.now(),
+      hiddenSinceWallMs: null,
+      promptOpen: false,
+      pausedOnBreak: false
     };
     this.resetConfirmArmed = false;
     this.appResetConfirmArmed = false;
@@ -47914,6 +48138,7 @@ function setLanguagePreference(nextLang) {
   }
   syncLanguageControls(lang);
   syncAnswerSoundToggleUI();
+  syncBreakReminderControls();
   applyThemeAndAppearance();
 
   const muteBtn = document.getElementById("masterMuteToggle");
@@ -49902,12 +50127,25 @@ function getOpenModalName() {
   if (mixer && !mixer.classList.contains("modal-hidden")) return "mixer";
   const settings = document.getElementById("settingsBackdrop");
   if (settings && !settings.classList.contains("modal-hidden")) return "settings";
+  const breakModal = document.getElementById("breakReminderBackdrop");
+  if (breakModal && !breakModal.classList.contains("modal-hidden")) return "break";
   return null;
 }
 
 function setModalVisibility(modalName) {
   document.getElementById("mixerBackdrop")?.classList.toggle("modal-hidden", modalName !== "mixer");
   document.getElementById("settingsBackdrop")?.classList.toggle("modal-hidden", modalName !== "settings");
+  const breakModal = document.getElementById("breakReminderBackdrop");
+  const wasBreakOpen = breakModal && !breakModal.classList.contains("modal-hidden");
+  breakModal?.classList.toggle("modal-hidden", modalName !== "break");
+  if (wasBreakOpen && modalName !== "break" && state?.breakReminder?.promptOpen) {
+    state.breakReminder.promptOpen = false;
+    state.breakReminder.elapsedSec = 0;
+    if (!state.breakReminder.pausedOnBreak && state.profile?.breakReminderEnabled && state.currentView === "exercise") {
+      state.breakReminder.lastActivityWallMs = Date.now();
+      startBreakReminderTicker();
+    }
+  }
 }
 
 function closeTransientPopovers() {
@@ -50493,6 +50731,13 @@ function switchView(targetView, options = {}) {
       renderUI();
     }
     state.profileDisplayDirty = false;
+    if (state.breakReminder) {
+      state.breakReminder.pausedOnBreak = false;
+      state.breakReminder.lastActivityWallMs = Date.now();
+      startBreakReminderTicker();
+    }
+  } else {
+    stopBreakReminderTicker();
   }
 
   if (!options.skipHistoryPush && !appHistoryState.isApplying && targetView !== prevView) {
@@ -58737,9 +58982,19 @@ function syncMixerSliders() {
  * Markiert Nutzeraktivität für die automatische Inaktivitäts-Abschaltung des Session-Timers.
  */
 function markSessionActivity() {
-  if (typeof state === "undefined" || !state?.sessionTimer) return;
-  state.sessionTimer.lastActivityWallMs = Date.now();
-  state.sessionTimer.hiddenSinceWallMs = null;
+  if (typeof state === "undefined") return;
+  const now = Date.now();
+  if (state.sessionTimer) {
+    state.sessionTimer.lastActivityWallMs = now;
+    state.sessionTimer.hiddenSinceWallMs = null;
+  }
+  if (state.breakReminder) {
+    state.breakReminder.lastActivityWallMs = now;
+    if (state.currentView === "exercise" && !state.breakReminder.promptOpen && state.breakReminder.pausedOnBreak) {
+      state.breakReminder.pausedOnBreak = false;
+      startBreakReminderTicker();
+    }
+  }
 }
 
 function getLevelDisplayForMix(mode, level) {
@@ -59197,6 +59452,188 @@ function setSessionIdleMinutes(mins) {
     state.sessionTimer.statusNote = getSessionTimerLocalizedNote(state.sessionTimer);
   }
   renderSessionTimerUI();
+}
+
+function getBreakReminderMinutes() {
+  const raw = state?.profile?.breakReminderMinutes;
+  return sanitizeBreakReminderMinutes(raw);
+}
+
+function syncBreakReminderControls() {
+  const enabled = state?.profile?.breakReminderEnabled !== false;
+  const mins = getBreakReminderMinutes();
+
+  if (typeof document !== "undefined" && typeof document.querySelectorAll === "function") {
+    document.querySelectorAll("[data-break-enabled]").forEach(btn => {
+      const isOnBtn = btn.dataset?.breakEnabled !== "off";
+      const active = isOnBtn === enabled;
+      btn.classList?.toggle("active", active);
+      btn.setAttribute?.("aria-pressed", String(active));
+    });
+    document.querySelectorAll("[data-break-preset]").forEach(btn => {
+      const val = parseInt(btn.dataset?.breakPreset, 10);
+      btn.classList?.toggle("active", val === mins);
+      if (Number.isFinite(val)) {
+        btn.textContent = tf("{mins} Min", "{mins} min", { mins: val });
+      }
+    });
+  }
+
+  const sliderEl = document.getElementById("breakReminderSlider");
+  if (sliderEl) sliderEl.value = String(mins);
+  const valEl = document.getElementById("breakReminderVal");
+  if (valEl) valEl.textContent = tf("{mins} Min", "{mins} min", { mins });
+  const rowEl = document.getElementById("breakReminderDurationRow");
+  if (rowEl) rowEl.classList.toggle("is-disabled", !enabled);
+
+  if (state?.breakReminder?.promptOpen) {
+    renderBreakReminderModalContent();
+  }
+}
+
+function renderBreakReminderModalContent() {
+  const mins = getBreakReminderMinutes();
+  const mascotEl = document.getElementById("breakReminderMascot");
+  if (mascotEl) mascotEl.innerHTML = getMascotSVG("happy", true);
+  const bodyEl = document.getElementById("breakReminderBody");
+  if (bodyEl) {
+    bodyEl.textContent = tf(
+      "Du übst schon seit {mins} Minuten am Stück. Eine kurze Verschnaufpause von 2–3 Minuten hält deine Ohren frisch!",
+      "You’ve been practicing for {mins} minutes straight. A short 2–3 minute breather keeps your ears fresh!",
+      { mins }
+    );
+  }
+  const contEl = document.getElementById("breakContinueBtn");
+  if (contEl) {
+    contEl.textContent = tf("Weiterüben (+{mins} Min)", "Keep Practicing (+{mins} min)", { mins });
+  }
+}
+
+function stopBreakReminderTicker() {
+  const br = state?.breakReminder;
+  if (!br) return;
+  if (br.intervalId !== null) {
+    clearInterval(br.intervalId);
+    br.intervalId = null;
+  }
+}
+
+function startBreakReminderTicker() {
+  const br = state?.breakReminder;
+  if (!br || !state?.profile?.breakReminderEnabled) return;
+  if (state.currentView !== "exercise" || br.promptOpen) return;
+  if (br.intervalId === null) {
+    br.intervalId = setInterval(() => tickBreakReminder(), 1000);
+  }
+}
+
+function resetBreakReminderTimer(options = {}) {
+  const br = state?.breakReminder;
+  if (!br) return;
+  stopBreakReminderTicker();
+  br.elapsedSec = 0;
+  br.hiddenSinceWallMs = null;
+  br.lastActivityWallMs = Date.now();
+  br.promptOpen = false;
+  br.pausedOnBreak = Boolean(options.pausedOnBreak);
+  if (options.restartTicker !== false && !br.pausedOnBreak && state.currentView === "exercise" && state.profile?.breakReminderEnabled) {
+    startBreakReminderTicker();
+  }
+}
+
+function setBreakReminderEnabled(enabled) {
+  if (!state.profile) state.profile = createDefaultProfile();
+  state.profile.breakReminderEnabled = Boolean(enabled);
+  saveUserProfile(state.profile);
+  if (!state.profile.breakReminderEnabled) {
+    resetBreakReminderTimer();
+  } else {
+    state.breakReminder.pausedOnBreak = false;
+    state.breakReminder.lastActivityWallMs = Date.now();
+    if (state.currentView === "exercise") startBreakReminderTicker();
+  }
+  syncBreakReminderControls();
+}
+
+function setBreakReminderMinutes(mins) {
+  if (!state.profile) state.profile = createDefaultProfile();
+  const parsed = sanitizeBreakReminderMinutes(mins);
+  state.profile.breakReminderMinutes = parsed;
+  saveUserProfile(state.profile);
+  if (state.breakReminder) {
+    const targetSec = parsed * 60;
+    if (state.breakReminder.elapsedSec >= targetSec) {
+      state.breakReminder.elapsedSec = 0;
+    }
+  }
+  syncBreakReminderControls();
+}
+
+function openBreakReminderModal() {
+  const br = state?.breakReminder;
+  if (!br || br.promptOpen) return;
+  br.promptOpen = true;
+  stopBreakReminderTicker();
+  stopPlayback();
+  renderBreakReminderModalContent();
+  if (typeof audioEngine !== "undefined" && audioEngine.isInitialized && !state.master?.muted) {
+    audioEngine.playStep(["E5"], 0.36, null, "interval");
+    setTimeout(() => audioEngine.playStep(["G5"], 0.65, null, "interval"), 200);
+  }
+  setModalVisibility("break");
+  pushAppHistory("break");
+}
+
+function dismissBreakReminder(action = "continue") {
+  const br = state?.breakReminder;
+  if (!br) return;
+  if (action === "disable") {
+    setBreakReminderEnabled(false);
+    setModalVisibility(null);
+    return;
+  }
+  if (action === "pause") {
+    resetBreakReminderTimer({ pausedOnBreak: true, restartTicker: false });
+    setModalVisibility(null);
+    if (state.currentView === "exercise") {
+      switchView("home");
+    }
+    return;
+  }
+  resetBreakReminderTimer({ pausedOnBreak: false, restartTicker: true });
+  setModalVisibility(null);
+}
+
+/**
+ * Zählt aktive Übezeit im Hintergrund ohne sichtbare Daueranzeige und meldet sich nach X Minuten.
+ */
+function tickBreakReminder(nowWallMs = Date.now()) {
+  const br = state?.breakReminder;
+  if (!br || !state?.profile?.breakReminderEnabled) {
+    stopBreakReminderTicker();
+    return;
+  }
+  if (state.currentView !== "exercise") {
+    stopBreakReminderTicker();
+    return;
+  }
+  if (br.promptOpen || br.pausedOnBreak) return;
+  if (typeof document !== "undefined" && document.hidden) return;
+
+  if (state.isPlaying) {
+    br.lastActivityWallMs = nowWallMs;
+  }
+  const idleMs = nowWallMs - (br.lastActivityWallMs || nowWallMs);
+  if (!state.isPlaying && idleMs >= 120000) {
+    return;
+  }
+
+  br.elapsedSec += 1;
+  const targetSec = getBreakReminderMinutes() * 60;
+  if (br.elapsedSec >= targetSec) {
+    if (state.exam?.active) return;
+    openBreakReminderModal();
+  }
 }
 
 function renderProfileMixes() {
@@ -60186,6 +60623,8 @@ function importUserProfileJSON(rawText) {
     if (typeof syncMetronomeVolumeUI === "function") syncMetronomeVolumeUI();
     syncPianoSoundControls();
     syncDroneMixControls();
+    resetBreakReminderTimer();
+    syncBreakReminderControls();
     if (typeof renderMetronomeProfiles === "function") renderMetronomeProfiles();
     setSpaceBackupStatus(tr("Profil erfolgreich geladen!", "Profile loaded successfully!"));
     return { ok: true };
@@ -60217,6 +60656,8 @@ function resetUserProfile() {
   state.streakState = { count: 0, activeNoticeMilestone: 0 };
   if (typeof renderStageStreakUI === "function") renderStageStreakUI();
   stopSessionTimer("idle", null, "idle");
+  resetBreakReminderTimer();
+  syncBreakReminderControls();
   if (typeof resetMetronomeStateToDefault === "function") resetMetronomeStateToDefault();
   syncPianoSoundControls();
   syncDroneMixControls();
@@ -60335,16 +60776,23 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("scroll", onAnyUserActivity);
   document.addEventListener("visibilitychange", () => {
     const st = state.sessionTimer;
-    if (!st || st.status !== "running") return;
+    const br = state.breakReminder;
     if (document.hidden) {
-      st.hiddenSinceWallMs = Date.now();
-    } else if (st.hiddenSinceWallMs !== null) {
-      const idleLimitMs = (state.profile.inactivityMinutes || 3) * 60 * 1000;
-      if (Date.now() - st.hiddenSinceWallMs >= idleLimitMs) {
-        stopSessionTimer("auto-stopped", null, "auto-stopped-pause");
-      } else {
-        st.hiddenSinceWallMs = null;
-        markSessionActivity();
+      if (st && st.status === "running") st.hiddenSinceWallMs = Date.now();
+      if (br) br.hiddenSinceWallMs = Date.now();
+    } else {
+      if (br) {
+        br.hiddenSinceWallMs = null;
+        br.lastActivityWallMs = Date.now();
+      }
+      if (st && st.status === "running" && st.hiddenSinceWallMs !== null) {
+        const idleLimitMs = (state.profile.inactivityMinutes || 3) * 60 * 1000;
+        if (Date.now() - st.hiddenSinceWallMs >= idleLimitMs) {
+          stopSessionTimer("auto-stopped", null, "auto-stopped-pause");
+        } else {
+          st.hiddenSinceWallMs = null;
+          markSessionActivity();
+        }
       }
     }
   });
@@ -60962,6 +61410,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Modals öffnen & schließen
   const mixerModal = document.getElementById("mixerBackdrop");
   const settingsModal = document.getElementById("settingsBackdrop");
+  const breakModal = document.getElementById("breakReminderBackdrop");
 
   document.getElementById("openMixerBtn")?.addEventListener("click", () => {
     if (getOpenModalName() === "mixer") return;
@@ -60997,7 +61446,32 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 60);
   });
 
-  [mixerModal, settingsModal].forEach(backdrop => {
+  // Pausen-Erinnerung bei Übungen: Einstellungen & Dialog-Aktionen
+  document.querySelectorAll("[data-break-enabled]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      setBreakReminderEnabled(btn.dataset.breakEnabled !== "off");
+    });
+  });
+  document.getElementById("breakReminderSlider")?.addEventListener("input", (e) => {
+    setBreakReminderMinutes(e.target.value);
+  });
+  document.querySelectorAll("[data-break-preset]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      setBreakReminderMinutes(btn.dataset.breakPreset);
+    });
+  });
+  document.getElementById("breakTakePauseBtn")?.addEventListener("click", () => {
+    dismissBreakReminder("pause");
+  });
+  document.getElementById("breakContinueBtn")?.addEventListener("click", () => {
+    dismissBreakReminder("continue");
+  });
+  document.getElementById("breakDisableBtn")?.addEventListener("click", () => {
+    dismissBreakReminder("disable");
+  });
+  syncBreakReminderControls();
+
+  [mixerModal, settingsModal, breakModal].forEach(backdrop => {
     backdrop?.addEventListener("click", (e) => {
       if (e.target === backdrop) closeActiveModal();
     });
@@ -61612,7 +62086,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.repeat) return;
     const tag = e.target?.tagName;
     if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
-    const openModal = ["mixerBackdrop", "settingsBackdrop"].some(
+    const openModal = ["mixerBackdrop", "settingsBackdrop", "breakReminderBackdrop"].some(
       id => {
         const el = document.getElementById(id);
         return el && !el.classList.contains("modal-hidden") && !el.classList.contains("hidden");
