@@ -4025,6 +4025,98 @@ html, body {
   padding: 0.66rem 0.84rem;
 }
 
+.welcome-beginner-optin-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.46rem;
+  padding: 0.78rem 0.84rem;
+  border-radius: var(--radius-md);
+  background-color: var(--surface-warm);
+  border: 1.5px solid var(--border-soft);
+}
+
+.welcome-beginner-optin-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.welcome-beginner-optin-head strong {
+  font-size: 0.86rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+}
+
+.welcome-beginner-optin-desc {
+  margin: 0;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--raccoon-mid);
+  line-height: 1.4;
+}
+
+.welcome-beginner-optin-group .opt-btn {
+  font-size: 0.75rem;
+  padding: 0.5rem 0.64rem;
+}
+
+.welcome-beginner-step-pill {
+  margin-bottom: 0.45rem;
+}
+
+.welcome-beginner-panel {
+  gap: 0.6rem;
+}
+
+.welcome-beginner-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.24rem;
+  padding: 0.72rem 0.84rem;
+  border-radius: var(--radius-md);
+  background-color: var(--surface-warm);
+  border: 1.5px solid var(--border-soft);
+}
+
+.welcome-beginner-card strong {
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+  line-height: 1.28;
+}
+
+.welcome-beginner-card p {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--raccoon-mid);
+  line-height: 1.44;
+}
+
+.welcome-beginner-encourage-card {
+  border-color: var(--sage-strong);
+  background-color: var(--sage-soft);
+}
+
+.welcome-beginner-preset-btn {
+  width: 100%;
+  justify-content: center;
+  font-size: 0.78rem;
+}
+
+.welcome-beginner-preset-btn.is-applied {
+  border-color: var(--sage-strong);
+  background-color: var(--sage-soft);
+  color: var(--sage-strong);
+}
+
+.welcome-greet-beginner-btn {
+  width: 100%;
+  justify-content: center;
+  font-size: 0.78rem;
+}
+
 .welcome-nav-row {
   width: 100%;
   margin-top: 0.92rem;
@@ -9848,11 +9940,109 @@ body,
 
         <div class="welcome-panel">
           <div id="welcomeFocusList" class="welcome-focus-grid" role="radiogroup"></div>
+
+          <div id="welcomeBeginnerOptInCard" class="welcome-beginner-optin-card">
+            <div class="welcome-beginner-optin-head">
+              <span class="k-card-tag tag-sage" data-i18n="welcome.beginnerOptInBadge">🌱 Einsteiger-Tour (Opt-In)</span>
+              <strong data-i18n="welcome.beginnerOptInTitle">Komplett neu in der Musikwelt?</strong>
+            </div>
+            <p class="welcome-beginner-optin-desc" data-i18n="welcome.beginnerOptInDesc">Möchtest du vor dem Start in 3 kurzen Schritten erfahren, was Intervalle, Akkorde &amp; Kadenzen sind und womit du am besten anfängst?</p>
+            <div class="btn-group welcome-beginner-optin-group" role="group" aria-label="Einsteiger-Einführung" data-i18n-aria="welcome.beginnerOptInBadge">
+              <button type="button" id="welcomeBeginnerOptInNoBtn" class="opt-btn active" data-welcome-beginner-optin="no" aria-pressed="true" data-i18n="welcome.beginnerOptInNo">Direkt starten</button>
+              <button type="button" id="welcomeBeginnerOptInYesBtn" class="opt-btn" data-welcome-beginner-optin="yes" aria-pressed="false" data-i18n="welcome.beginnerOptInYes">🌱 Ja, Einführung starten</button>
+            </div>
+          </div>
         </div>
 
         <div class="welcome-nav-row">
           <button type="button" id="welcomeFocusBackBtn" class="btn-tool welcome-back-btn" data-welcome-nav="prev" data-i18n="welcome.backBtn">← Zurück</button>
           <button type="button" id="welcomeFocusNextBtn" class="btn-primary-action welcome-next-btn" data-welcome-nav="next" data-i18n="welcome.nextBtn">Weiter →</button>
+        </div>
+      </div>
+
+      <!-- Optionaler Einsteiger-Step 1: Grundbegriffe der Musik -->
+      <div id="welcomeStepBeginner1" class="welcome-step hidden">
+        <span class="k-card-tag tag-sage welcome-beginner-step-pill" data-i18n="welcome.begStep1Tag">Einsteiger-Einführung • 1 / 3</span>
+        <h2 id="welcomeBeginner1Title" class="welcome-step-title" data-i18n="welcome.begStep1Title">Die Bausteine der Musik – leicht erklärt</h2>
+        <p id="welcomeBeginner1Sub" class="welcome-step-sub" data-i18n="welcome.begStep1Sub">Was für Musiker selbstverständlich klingt, besteht aus vier einfachen Grundideen:</p>
+
+        <div class="welcome-panel welcome-beginner-panel">
+          <div class="welcome-beginner-card">
+            <strong data-i18n="welcome.begTermIntervalsTitle">🎵 Intervalle (Ton-Abstände)</strong>
+            <p data-i18n="welcome.begTermIntervalsDesc">Ein Intervall ist einfach der Abstand zwischen zwei Tönen – wie zwei Treppenstufen. Liegen sie nah beieinander, klingt es nach einem kleinen Schritt; liegen sie weit auseinander, nach einem großen Sprung. Aus solchen Sprüngen entsteht jede Melodie.</p>
+          </div>
+          <div class="welcome-beginner-card">
+            <strong data-i18n="welcome.begTermChordsTitle">🎹 Akkorde (Zusammenklänge)</strong>
+            <p data-i18n="welcome.begTermChordsDesc">Wenn drei oder mehr Töne gleichzeitig erklingen, nennt man das einen Akkord. Die beiden wichtigsten Klangfarben sind Dur (wirkt oft hell, offen, strahlend) und Moll (wirkt oft weich, nachdenklich, warm).</p>
+          </div>
+          <div class="welcome-beginner-card">
+            <strong data-i18n="welcome.begTermCadencesTitle">🧭 Kadenzen (Harmonische Wegweiser)</strong>
+            <p data-i18n="welcome.begTermCadencesDesc">Eine Kadenz ist eine kurze Folge von Akkorden – wie Satzzeichen in einer Geschichte. Manche Akkorde bauen Spannung auf (wie ein Fragezeichen), andere führen wieder entspannt nach Hause zum Grundton (wie ein Punkt am Satzende).</p>
+          </div>
+          <div class="welcome-beginner-card">
+            <strong data-i18n="welcome.begTermScalesTitle">🪜 Tonleitern, Solfège &amp; Rhythmus</strong>
+            <p data-i18n="welcome.begTermScalesDesc">Eine Tonleiter ist der Ton-Vorrat eines Liedes. Mit Solfège (Do–Re–Mi) bekommt jede Stufe einen festen Rufnamen im Ohr, und der Rhythmus gibt der Musik ihren Puls, zu dem man automatisch mitwippt.</p>
+          </div>
+        </div>
+
+        <div class="welcome-nav-row">
+          <button type="button" id="welcomeBeginner1BackBtn" class="btn-tool welcome-back-btn" data-welcome-nav="prev" data-i18n="welcome.backBtn">← Zurück</button>
+          <button type="button" id="welcomeBeginner1NextBtn" class="btn-primary-action welcome-next-btn" data-welcome-nav="next" data-i18n="welcome.nextBtn">Weiter →</button>
+        </div>
+      </div>
+
+      <!-- Optionaler Einsteiger-Step 2: Sinnvolle Übungen für den Anfang -->
+      <div id="welcomeStepBeginner2" class="welcome-step hidden">
+        <span class="k-card-tag tag-peach welcome-beginner-step-pill" data-i18n="welcome.begStep2Tag">Einsteiger-Einführung • 2 / 3</span>
+        <h2 id="welcomeBeginner2Title" class="welcome-step-title" data-i18n="welcome.begStep2Title">Was ist am Anfang sinnvoll zu üben?</h2>
+        <p id="welcomeBeginner2Sub" class="welcome-step-sub" data-i18n="welcome.begStep2Sub">Du musst nicht alles auf einmal ausprobieren. Mit diesen 3 Schritten gelingt der Einstieg ganz entspannt:</p>
+
+        <div class="welcome-panel welcome-beginner-panel">
+          <div class="welcome-beginner-card">
+            <strong data-i18n="welcome.begTip1Title">🥇 1. Intervalle (Stufe 1) &amp; der „Nur hören“-Modus</strong>
+            <p data-i18n="welcome.begTip1Desc">Starte mit „Intervalle • Stufe 1 (Grundlagen)“. Dort gibt es nur wenige, gut unterscheidbare Tonabstände. Tipp: Schalte oben im Modul ruhig zuerst den „Nur hören“-Modus ein, um den Klängen ohne Abfrage-Druck zu lauschen.</p>
+          </div>
+          <div class="welcome-beginner-card">
+            <strong data-i18n="welcome.begTip2Title">🥈 2. Akkorde (Dur vs. Moll) &amp; Rhythmus-Puls</strong>
+            <p data-i18n="welcome.begTip2Desc">Achte bei „Akkorde • Stufe 1“ nur auf dein Bauchgefühl: Klingt der Akkord eher hell (Dur) oder weich und nachdenklich (Moll)? Im Modul „Rhythmus“ kannst du außerdem einfache Takte auf dem Tap-Pad nachklopfen.</p>
+          </div>
+          <div class="welcome-beginner-card">
+            <strong data-i18n="welcome.begTip3Title">🥉 3. Kurze Melodien (Do – Fa) &amp; der Wissens-Hub</strong>
+            <p data-i18n="welcome.begTip3Desc">In „Melodien • Stufe 1“ baust du kleine Tonfolgen aus nur 4 Tönen nach. Und wann immer dir ein Begriff neu ist, tippe unten in der Leiste auf das Buch-Symbol (Wissen) – dort ist alles mit Klangbeispielen zum Antippen erklärt.</p>
+          </div>
+          <button type="button" id="welcomeApplyBeginnerSetupBtn" class="btn-tool welcome-beginner-preset-btn" data-i18n="welcome.begApplyPresetBtn">✨ Empfohlenen Startpunkt (Intervalle • Stufe 1) auswählen</button>
+        </div>
+
+        <div class="welcome-nav-row">
+          <button type="button" id="welcomeBeginner2BackBtn" class="btn-tool welcome-back-btn" data-welcome-nav="prev" data-i18n="welcome.backBtn">← Zurück</button>
+          <button type="button" id="welcomeBeginner2NextBtn" class="btn-primary-action welcome-next-btn" data-welcome-nav="next" data-i18n="welcome.nextBtn">Weiter →</button>
+        </div>
+      </div>
+
+      <!-- Optionaler Einsteiger-Step 3: Ermutigung & Dranbleiben -->
+      <div id="welcomeStepBeginner3" class="welcome-step hidden">
+        <span class="k-card-tag tag-lilac welcome-beginner-step-pill" data-i18n="welcome.begStep3Tag">Einsteiger-Einführung • 3 / 3</span>
+        <h2 id="welcomeBeginner3Title" class="welcome-step-title" data-i18n="welcome.begStep3Title">Lass dich am Anfang nicht erschlagen!</h2>
+        <p id="welcomeBeginner3Sub" class="welcome-step-sub" data-i18n="welcome.begStep3Sub">Ein ehrlicher Hinweis, bevor du deinen ersten Ton abspielst:</p>
+
+        <div class="welcome-panel welcome-beginner-panel">
+          <div class="welcome-beginner-card welcome-beginner-encourage-card">
+            <strong data-i18n="welcome.begEncourage1Title">💛 Es ist völlig normal, sich anfangs überwältigt zu fühlen</strong>
+            <p data-i18n="welcome.begEncourage1Desc">Begriffe wie „Quinte“, „Kadenz“, „Solfège“ oder „Notenschlüssel“ wirken am Anfang oft wie eine riesige Flut an Informationen. Wenn du dich davon erst einmal erschlagen fühlst oder oft danebenliegst, ist das vollkommen normal – und bedeutet niemals, dass du „unmusikalisch“ bist!</p>
+          </div>
+          <div class="welcome-beginner-card">
+            <strong data-i18n="welcome.begEncourage2Title">🌱 Das Geheimnis ist einfach, entspannt am Ball zu bleiben</strong>
+            <p data-i18n="welcome.begEncourage2Desc">Musikalisches Gehör wächst wie eine Sprache durch kleine, regelmäßige Gewohnheiten. Schon 5 ruhige Minuten alle paar Tage reichen aus. In Lauscher gibt es keinen Punktedruck: Jeder falsche Tipp ist einfach ein kostenloser Hör-Vergleich für dein Ohr.</p>
+          </div>
+          <div class="welcome-beginner-card">
+            <strong data-i18n="welcome.begEncourage3Title">🎧 Nimm dir Zeit &amp; nutze alle Hörhilfen</strong>
+            <p data-i18n="welcome.begEncourage3Desc">Nutze jederzeit „Grundton hören“, „Ton nochmal“ oder die A/B-Vergleiche. Mach eine Pause, sobald dein Kopf voll ist, und bleib einfach neugierig dran – schon nach kurzer Zeit wirst du staunen, was dein Ohr plötzlich wie von selbst erkennt!</p>
+          </div>
+        </div>
+
+        <div class="welcome-nav-row">
+          <button type="button" id="welcomeBeginner3BackBtn" class="btn-tool welcome-back-btn" data-welcome-nav="prev" data-i18n="welcome.backBtn">← Zurück</button>
+          <button type="button" id="welcomeBeginner3NextBtn" class="btn-primary-action welcome-next-btn" data-welcome-nav="next" data-i18n="welcome.nextBtn">Weiter →</button>
         </div>
       </div>
 
@@ -9866,6 +10056,7 @@ body,
         <h2 id="welcomeGreetTitle" class="welcome-greet-title"></h2>
         <p id="welcomeGreetBody" class="welcome-greet-body"></p>
         <div class="welcome-greet-actions">
+          <button type="button" id="welcomeGreetBeginnerBtn" class="btn-tool welcome-greet-beginner-btn" data-i18n="welcome.greetBeginnerBtn">🌱 Komplett neu in der Musik? Kurze Einführung starten</button>
           <div class="welcome-nav-row welcome-greet-nav-row">
             <button type="button" id="welcomeGreetBackBtn" class="btn-tool welcome-back-btn" data-welcome-nav="prev" data-i18n="welcome.backBtn">← Zurück</button>
             <button id="welcomeContinueBtn" type="button" class="btn-primary-action welcome-next-btn welcome-continue-btn"></button>
@@ -13662,6 +13853,139 @@ const I18N_STATIC = {
     de: "Worauf möchtest du dich zuerst konzentrieren?",
     en: "What would you like to prioritize first?"
   },
+  "welcome.beginnerOptInBadge": {
+    de: "🌱 Einsteiger-Tour (Opt-In)",
+    en: "🌱 Beginner Tour (Opt-In)"
+  },
+  "welcome.beginnerOptInTitle": {
+    de: "Komplett neu in der Musikwelt?",
+    en: "Brand new to the world of music?"
+  },
+  "welcome.beginnerOptInDesc": {
+    de: "Möchtest du vor dem Start in 3 kurzen Schritten erfahren, was Intervalle, Akkorde & Kadenzen sind und womit du am besten anfängst?",
+    en: "Would you like a short 3-step introduction before starting that explains intervals, chords & cadences and what to practice first?"
+  },
+  "welcome.beginnerOptInNo": { de: "Direkt starten", en: "Start directly" },
+  "welcome.beginnerOptInYes": { de: "🌱 Ja, Einführung starten", en: "🌱 Yes, start intro" },
+  "welcome.begStep1Tag": { de: "Einsteiger-Einführung • 1 / 3", en: "Beginner Intro • 1 / 3" },
+  "welcome.begStep1Title": {
+    de: "Die Bausteine der Musik – leicht erklärt",
+    en: "The Building Blocks of Music — Made Simple"
+  },
+  "welcome.begStep1Sub": {
+    de: "Was für Musiker selbstverständlich klingt, besteht aus vier einfachen Grundideen:",
+    en: "Terms that musicians take for granted come down to four simple ideas:"
+  },
+  "welcome.begTermIntervalsTitle": {
+    de: "🎵 Intervalle (Ton-Abstände)",
+    en: "🎵 Intervals (Distances Between Notes)"
+  },
+  "welcome.begTermIntervalsDesc": {
+    de: "Ein Intervall ist einfach der Abstand zwischen zwei Tönen – wie zwei Treppenstufen. Liegen sie nah beieinander, klingt es nach einem kleinen Schritt; liegen sie weit auseinander, nach einem großen Sprung. Aus solchen Sprüngen entsteht jede Melodie.",
+    en: "An interval is simply the distance between two notes — like steps on a staircase. Close notes sound like a small step; distant notes sound like a wide leap. Every melody is built from these steps and leaps."
+  },
+  "welcome.begTermChordsTitle": {
+    de: "🎹 Akkorde (Zusammenklänge)",
+    en: "🎹 Chords (Notes Sounding Together)"
+  },
+  "welcome.begTermChordsDesc": {
+    de: "Wenn drei oder mehr Töne gleichzeitig erklingen, nennt man das einen Akkord. Die beiden wichtigsten Klangfarben sind Dur (wirkt oft hell, offen, strahlend) und Moll (wirkt oft weich, nachdenklich, warm).",
+    en: "When three or more notes ring out at the same time, they form a chord. The two most important colors are Major (often bright, open, sunny) and Minor (often soft, reflective, warm)."
+  },
+  "welcome.begTermCadencesTitle": {
+    de: "🧭 Kadenzen (Harmonische Wegweiser)",
+    en: "🧭 Cadences (Harmonic Signposts)"
+  },
+  "welcome.begTermCadencesDesc": {
+    de: "Eine Kadenz ist eine kurze Folge von Akkorden – wie Satzzeichen in einer Geschichte. Manche Akkorde bauen Spannung auf (wie ein Fragezeichen), andere führen wieder entspannt nach Hause zum Grundton (wie ein Punkt am Satzende).",
+    en: "A cadence is a short sequence of chords — like punctuation in a story. Some chords build tension (like a question mark), while others resolve calmly back home to the tonic (like a period at the end of a sentence)."
+  },
+  "welcome.begTermScalesTitle": {
+    de: "🪜 Tonleitern, Solfège & Rhythmus",
+    en: "🪜 Scales, Solfège & Rhythm"
+  },
+  "welcome.begTermScalesDesc": {
+    de: "Eine Tonleiter ist der Ton-Vorrat eines Liedes. Mit Solfège (Do–Re–Mi) bekommt jede Stufe einen festen Rufnamen im Ohr, und der Rhythmus gibt der Musik ihren Puls, zu dem man automatisch mitwippt.",
+    en: "A scale is the pool of notes a song uses. Solfège (Do–Re–Mi) gives each scale step a familiar name in your ear, while rhythm provides the steady pulse you tap your foot to."
+  },
+  "welcome.begStep2Tag": { de: "Einsteiger-Einführung • 2 / 3", en: "Beginner Intro • 2 / 3" },
+  "welcome.begStep2Title": {
+    de: "Was ist am Anfang sinnvoll zu üben?",
+    en: "What Makes Sense to Practice First?"
+  },
+  "welcome.begStep2Sub": {
+    de: "Du musst nicht alles auf einmal ausprobieren. Mit diesen 3 Schritten gelingt der Einstieg ganz entspannt:",
+    en: "You don’t need to try everything at once. These 3 gentle steps are the ideal way to start:"
+  },
+  "welcome.begTip1Title": {
+    de: "🥇 1. Intervalle (Stufe 1) & der „Nur hören“-Modus",
+    en: "🥇 1. Intervals (Level 1) & Listen-Only Mode"
+  },
+  "welcome.begTip1Desc": {
+    de: "Starte mit „Intervalle • Stufe 1 (Grundlagen)“. Dort gibt es nur wenige, gut unterscheidbare Tonabstände. Tipp: Schalte oben im Modul ruhig zuerst den „Nur hören“-Modus ein, um den Klängen ohne Abfrage-Druck zu lauschen.",
+    en: "Start with ‘Intervals • Level 1 (Foundations)’, which uses only a few distinct note distances. Tip: Turn on ‘Listen-Only’ mode at the top of the module first so you can simply absorb the sounds without quiz pressure."
+  },
+  "welcome.begTip2Title": {
+    de: "🥈 2. Akkorde (Dur vs. Moll) & Rhythmus-Puls",
+    en: "🥈 2. Chords (Major vs. Minor) & Rhythm Pulse"
+  },
+  "welcome.begTip2Desc": {
+    de: "Achte bei „Akkorde • Stufe 1“ nur auf dein Bauchgefühl: Klingt der Akkord eher hell (Dur) oder weich und nachdenklich (Moll)? Im Modul „Rhythmus“ kannst du außerdem einfache Takte auf dem Tap-Pad nachklopfen.",
+    en: "In ‘Chords • Level 1’, just trust your gut feeling: does the chord sound bright (Major) or soft and reflective (Minor)? In the ‘Rhythm’ module, you can also tap simple bars back on the live pad."
+  },
+  "welcome.begTip3Title": {
+    de: "🥉 3. Kurze Melodien (Do – Fa) & der Wissens-Hub",
+    en: "🥉 3. Short Melodies (Do – Fa) & the Knowledge Hub"
+  },
+  "welcome.begTip3Desc": {
+    de: "In „Melodien • Stufe 1“ baust du kleine Tonfolgen aus nur 4 Tönen nach. Und wann immer dir ein Begriff neu ist, tippe unten in der Leiste auf das Buch-Symbol (Wissen) – dort ist alles mit Klangbeispielen zum Antippen erklärt.",
+    en: "In ‘Melodies • Level 1’, you rebuild short phrases using just 4 notes. Whenever a term feels unfamiliar, tap the book icon (Knowledge) in the bottom bar to explore interactive audio explanations."
+  },
+  "welcome.begApplyPresetBtn": {
+    de: "✨ Empfohlenen Startpunkt (Intervalle • Stufe 1) auswählen",
+    en: "✨ Select recommended starting point (Intervals • Level 1)"
+  },
+  "welcome.begApplyPresetDone": {
+    de: "✓ Empfohlener Startpunkt (Intervalle • Stufe 1) ausgewählt",
+    en: "✓ Recommended starting point (Intervals • Level 1) selected"
+  },
+  "welcome.begStep3Tag": { de: "Einsteiger-Einführung • 3 / 3", en: "Beginner Intro • 3 / 3" },
+  "welcome.begStep3Title": {
+    de: "Lass dich am Anfang nicht erschlagen!",
+    en: "Don’t Feel Overwhelmed at the Start!"
+  },
+  "welcome.begStep3Sub": {
+    de: "Ein ehrlicher Hinweis, bevor du deinen ersten Ton abspielst:",
+    en: "An honest note of encouragement before you play your first note:"
+  },
+  "welcome.begEncourage1Title": {
+    de: "💛 Es ist völlig normal, sich anfangs überwältigt zu fühlen",
+    en: "💛 It’s completely normal to feel overwhelmed at first"
+  },
+  "welcome.begEncourage1Desc": {
+    de: "Begriffe wie „Quinte“, „Kadenz“, „Solfège“ oder „Notenschlüssel“ wirken am Anfang oft wie eine riesige Flut an Informationen. Wenn du dich davon erst einmal erschlagen fühlst oder oft danebenliegst, ist das vollkommen normal – und bedeutet niemals, dass du „unmusikalisch“ bist!",
+    en: "Terms like ‘fifth’, ‘cadence’, ‘solfège’, or ‘clef’ can feel like a huge wave of information on day one. If it feels like a lot at first or you miss many answers early on, that is completely normal — and never means you’re ‘unmusical’!"
+  },
+  "welcome.begEncourage2Title": {
+    de: "🌱 Das Geheimnis ist einfach, entspannt am Ball zu bleiben",
+    en: "🌱 The secret is simply staying with it at your own pace"
+  },
+  "welcome.begEncourage2Desc": {
+    de: "Musikalisches Gehör wächst wie eine Sprache durch kleine, regelmäßige Gewohnheiten. Schon 5 ruhige Minuten alle paar Tage reichen aus. In Lauscher gibt es keinen Punktedruck: Jeder falsche Tipp ist einfach ein kostenloser Hör-Vergleich für dein Ohr.",
+    en: "Your musical ear grows just like learning a language — through small, steady habits. Even 5 calm minutes every few days is enough. There is zero score pressure in Lauscher: every wrong guess is simply a free listening comparison for your ear."
+  },
+  "welcome.begEncourage3Title": {
+    de: "🎧 Nimm dir Zeit & nutze alle Hörhilfen",
+    en: "🎧 Take your time & use the listening aids"
+  },
+  "welcome.begEncourage3Desc": {
+    de: "Nutze jederzeit „Grundton hören“, „Ton nochmal“ oder die A/B-Vergleiche. Mach eine Pause, sobald dein Kopf voll ist, und bleib einfach neugierig dran – schon nach kurzer Zeit wirst du staunen, was dein Ohr plötzlich wie von selbst erkennt!",
+    en: "Use ‘Hear Root’, ‘Replay Note’, or the A/B comparisons anytime. Take a break whenever your head feels full, and just keep going with curiosity — before long, you’ll be amazed by what your ear suddenly recognizes naturally!"
+  },
+  "welcome.greetBeginnerBtn": {
+    de: "🌱 Komplett neu in der Musik? Kurze Einführung starten",
+    en: "🌱 Brand new to music? Start short beginner intro"
+  },
   "welcome.greetTitle": {
     de: "Hallo! Schön, dass du da bist.",
     en: "Hello! Welcome to Lauscher."
@@ -14834,6 +15158,43 @@ const I18N_STATIC_FR = {
   "welcome.profileSub": "Comment Lauscher doit-il vous saluer et quels instruments pratiquez-vous ?",
   "welcome.focusTitle": "Votre objectif prioritaire",
   "welcome.focusSub": "Sur quel domaine souhaitez-vous concentrer vos premiers entraînements ?",
+  "welcome.beginnerOptInBadge": "🌱 Parcours débutant (Opt-In)",
+  "welcome.beginnerOptInTitle": "Tout nouveau dans le monde de la musique ?",
+  "welcome.beginnerOptInDesc": "Souhaitez-vous une courte introduction en 3 étapes avant de commencer (intervalles, accords, cadences et par quoi débuter) ?",
+  "welcome.beginnerOptInNo": "Démarrer directement",
+  "welcome.beginnerOptInYes": "🌱 Oui, lancer l’introduction",
+  "welcome.begStep1Tag": "Introduction débutant • 1 / 3",
+  "welcome.begStep1Title": "Les bases de la musique — expliquées simplement",
+  "welcome.begStep1Sub": "Ce qui semble évident aux musiciens repose sur quatre idées toutes simples :",
+  "welcome.begTermIntervalsTitle": "🎵 Intervalles (écart entre les notes)",
+  "welcome.begTermIntervalsDesc": "Un intervalle est simplement la distance entre deux notes — comme deux marches d’escalier. Proches, elles forment un petit pas ; éloignées, un grand saut. Toutes les mélodies naissent de ces pas et sauts.",
+  "welcome.begTermChordsTitle": "🎹 Accords (notes jouées ensemble)",
+  "welcome.begTermChordsDesc": "Lorsque trois notes ou plus résonnent en même temps, elles forment un accord. Les deux couleurs principales sont Majeur (souvent lumineux, ouvert) et Mineur (souvent doux, pensif, chaleureux).",
+  "welcome.begTermCadencesTitle": "🧭 Cadences (repères harmoniques)",
+  "welcome.begTermCadencesDesc": "Une cadence est une courte suite d’accords — comme la ponctuation d’une phrase. Certains accords créent du suspense (comme un point d’interrogation), d’autres ramènent au calme sur la note de repos (comme un point final).",
+  "welcome.begTermScalesTitle": "🪜 Gammes, Solfège & Rythme",
+  "welcome.begTermScalesDesc": "Une gamme est la réserve de notes d’un morceau. Le solfège (Do–Ré–Mi) donne un prénom familier à chaque degré, et le rythme apporte la pulsation régulière.",
+  "welcome.begStep2Tag": "Introduction débutant • 2 / 3",
+  "welcome.begStep2Title": "Par quoi commencer au début ?",
+  "welcome.begStep2Sub": "Inutile de tout essayer d’un coup. Ces 3 étapes douces sont idéales pour débuter :",
+  "welcome.begTip1Title": "🥇 1. Intervalles (Niveau 1) & mode « Écoute seule »",
+  "welcome.begTip1Desc": "Commencez par « Intervalles • Niveau 1 (Bases) » avec très peu d’écarts bien distincts. Astuce : activez d’abord le mode « Écoute seule » en haut du module pour écouter sans pression.",
+  "welcome.begTip2Title": "🥈 2. Accords (Majeur vs Mineur) & pulsation rythmique",
+  "welcome.begTip2Desc": "Dans « Accords • Niveau 1 », écoutez simplement votre ressenti : l’accord sonne-t-il lumineux (Majeur) ou doux et mélancolique (Mineur) ? Dans « Rythme », frappez des mesures simples sur le pad.",
+  "welcome.begTip3Title": "🥉 3. Courtes mélodies (Do – Fa) & l’espace Savoir",
+  "welcome.begTip3Desc": "Dans « Mélodies • Niveau 1 », reconstruisez de petites phrases sur 4 notes. Et si un terme vous est inconnu, touchez l’icône livre (Savoir) en bas pour écouter des exemples interactifs.",
+  "welcome.begApplyPresetBtn": "✨ Sélectionner le point de départ conseillé (Intervalles • Niveau 1)",
+  "welcome.begApplyPresetDone": "✓ Point de départ conseillé (Intervalles • Niveau 1) sélectionné",
+  "welcome.begStep3Tag": "Introduction débutant • 3 / 3",
+  "welcome.begStep3Title": "Ne vous laissez pas submerger au début !",
+  "welcome.begStep3Sub": "Un mot d’encouragement sincère avant de jouer votre première note :",
+  "welcome.begEncourage1Title": "💛 Il est tout à fait normal de se sentir dépassé au départ",
+  "welcome.begEncourage1Desc": "Des mots comme « quinte », « cadence », « solfège » ou « clé » peuvent donner le vertige le premier jour. Si cela semble beaucoup ou si vous vous trompez souvent au début, c’est 100 % normal — cela ne veut jamais dire que vous n’avez pas l’oreille musicale !",
+  "welcome.begEncourage2Title": "🌱 Le secret est simplement la régularité sans stress",
+  "welcome.begEncourage2Desc": "L’oreille musicale se développe comme une langue, par petites touches régulières. 5 minutes calmes tous les quelques jours suffisent. Dans Lauscher, il n’y a aucune pression de score : chaque erreur est une comparaison audio gratuite pour votre oreille.",
+  "welcome.begEncourage3Title": "🎧 Prenez votre temps & utilisez les aides d’écoute",
+  "welcome.begEncourage3Desc": "Utilisez à tout moment « Écouter la fondamentale », « Rejouer la note » ou les comparaisons A/B. Faites une pause dès que nécessaire et restez simplement curieux — vous serez vite surpris par vos progrès !",
+  "welcome.greetBeginnerBtn": "🌱 Nouveau en musique ? Lancer la courte introduction",
   "welcome.greetTitle": "Bonjour ! Bienvenue sur Lauscher.",
   "welcome.greetNamedTitle": "Bonjour {name} ! Bienvenue sur Lauscher.",
   "welcome.greetBody": "Je suis Lauscher, ravi de vous accompagner pour entraîner votre oreille, lire les notes et explorer la musique. Prenez plaisir à apprendre !",
@@ -16781,6 +17142,43 @@ const I18N_STATIC_PL = {
   "welcome.profileSub": "Jak Lauscher ma się z Tobą witać i na jakich instrumentach grasz?",
   "welcome.focusTitle": "Twój główny cel nauki",
   "welcome.focusSub": "Od czego chcesz zacząć swoją przygodę?",
+  "welcome.beginnerOptInBadge": "🌱 Wprowadzenie dla początkujących (Opt-In)",
+  "welcome.beginnerOptInTitle": "Stawiasz pierwsze kroki w świecie muzyki?",
+  "welcome.beginnerOptInDesc": "Czy przed startem chcesz zobaczyć krótkie, 3-etapowe wprowadzenie wyjaśniające interwały, akordy i kadencje oraz od czego najlepiej zacząć?",
+  "welcome.beginnerOptInNo": "Zacznij od razu",
+  "welcome.beginnerOptInYes": "🌱 Tak, uruchom wprowadzenie",
+  "welcome.begStep1Tag": "Wprowadzenie • 1 / 3",
+  "welcome.begStep1Title": "Cegiełki muzyki — prosto i przystępnie",
+  "welcome.begStep1Sub": "To, co dla muzyków brzmi oczywiście, opiera się na czterech prostych ideach:",
+  "welcome.begTermIntervalsTitle": "🎵 Interwały (odległości między dźwiękami)",
+  "welcome.begTermIntervalsDesc": "Interwał to po prostu odległość między dwoma dźwiękami — jak stopnie na schodach. Bliskie dźwięki brzmią jak mały krok, a odległe jak duży skok. Z takich kroków i skoków powstaje każda melodia.",
+  "welcome.begTermChordsTitle": "🎹 Akordy (współbrzmienia)",
+  "welcome.begTermChordsDesc": "Gdy trzy lub więcej dźwięków brzmi jednocześnie, tworzą akord. Dwa najważniejsze kolory to Dur (często jasny, otwarty, pogodny) oraz Moll (często miękki, refleksyjny, ciepły).",
+  "welcome.begTermCadencesTitle": "🧭 Kadencje (harmoniczne drogowskazy)",
+  "welcome.begTermCadencesDesc": "Kadencja to krótki ciąg akordów — jak znaki przestankowe w opowieści. Jedne akordy budują napięcie (jak znak zapytania), inne spokojnie wracają do dźwięku podstawowego (jak kropka na końcu zdania).",
+  "welcome.begTermScalesTitle": "🪜 Skale, Solfeż i Rytm",
+  "welcome.begTermScalesDesc": "Skala to zestaw dźwięków utworu. Solfeż (Do–Re–Mi) nadaje każdemu stopniowi stałe imię w uchu, a rytm daje muzyce puls, do którego noga sama tupie.",
+  "welcome.begStep2Tag": "Wprowadzenie • 2 / 3",
+  "welcome.begStep2Title": "Co warto ćwiczyć na samym początku?",
+  "welcome.begStep2Sub": "Nie musisz próbować wszystkiego naraz. Te 3 spokojne kroki to idealny start:",
+  "welcome.begTip1Title": "🥇 1. Interwały (Poziom 1) i tryb „Tylko słuchanie”",
+  "welcome.begTip1Desc": "Zacznij od „Interwały • Poziom 1 (Podstawy)” z kilkoma wyraźnymi odległościami. Wskazówka: włącz najpierw na górze tryb „Tylko słuchanie”, by spokojnie osłuchać się z brzmieniem bez presji zgadywania.",
+  "welcome.begTip2Title": "🥈 2. Akordy (Dur vs Moll) i puls rytmiczny",
+  "welcome.begTip2Desc": "W „Akordy • Poziom 1” zaufaj intuicji: czy akord brzmi jasno (Dur), czy miękko i zadumanie (Moll)? W module „Rytm” możesz też wystukiwać proste takty na żywym padzie.",
+  "welcome.begTip3Title": "🥉 3. Krótkie melodie (Do – Fa) i dział Wiedza",
+  "welcome.begTip3Desc": "W „Melodie • Poziom 1” układasz krótkie motywy z zaledwie 4 dźwięków. A gdy jakieś pojęcie jest nowe, dotknij ikony książki (Wiedza) na dole — wszystko ma tam przykłady dźwiękowe.",
+  "welcome.begApplyPresetBtn": "✨ Wybierz polecany punkt startowy (Interwały • Poziom 1)",
+  "welcome.begApplyPresetDone": "✓ Wybrano polecany punkt startowy (Interwały • Poziom 1)",
+  "welcome.begStep3Tag": "Wprowadzenie • 3 / 3",
+  "welcome.begStep3Title": "Nie daj się przytłoczyć na starcie!",
+  "welcome.begStep3Sub": "Szczera myśl na zachętę, zanim zagrasz pierwszy dźwięk:",
+  "welcome.begEncourage1Title": "💛 To zupełnie normalne, że na początku jest tego dużo",
+  "welcome.begEncourage1Desc": "Słowa takie jak „kwinta”, „kadencja”, „solfeż” czy „klucz” mogą pierwszego dnia przytłaczać. Jeśli czujesz nadmiar informacji albo często się mylisz, to w 100% normalne — i nigdy nie oznacza braku słuchu muzycznego!",
+  "welcome.begEncourage2Title": "🌱 Sekretem jest po prostu spokojna regularność",
+  "welcome.begEncourage2Desc": "Słuch muzyczny rozwija się jak nowy język — małymi krokami. Wystarczy 5 spokojnych minut co kilka dni. W Lauscher nie ma presji punktów: każda pomyłka to po prostu darmowe porównanie dźwięków dla Twojego ucha.",
+  "welcome.begEncourage3Title": "🎧 Daj sobie czas i korzystaj z podpowiedzi audio",
+  "welcome.begEncourage3Desc": "Używaj śmiało przycisków „Posłuchaj prymy”, „Powtórz dźwięk” i porównań A/B. Zrób przerwę, gdy głowa jest pełna, i po prostu bądź ciekawy — szybko zaskoczy Cię, jak wiele Twoje ucho zacznie samo rozpoznawać!",
+  "welcome.greetBeginnerBtn": "🌱 Nowy w muzyce? Uruchom krótkie wprowadzenie",
   "welcome.greetTitle": "Cześć! Miło Cię widzieć w Lauscher.",
   "welcome.greetNamedTitle": "Cześć, {name}! Miło Cię widzieć w Lauscher.",
   "welcome.greetBody": "Jestem Lauscher i z radością pomogę Ci ćwiczyć słuch muzyczny, czytać nuty oraz odkrywać harmonię. Ucz się we własnym tempie — dużo radości i sukcesów!",
@@ -18771,12 +19169,49 @@ const I18N_STATIC_UK = {
   "welcome.autoNextOffTitle": "Ручний запуск",
   "welcome.autoNextOffDesc": "Зупиняється після розв’язку, доки ти сам не натиснеш кнопку відтворення.",
   "welcome.profileTitle": "Твій профіль музиканта",
-  "welcome.profileSub": "Як Лаушебер може до тебе звертатися та на яких інструментах ти граєш?",
+  "welcome.profileSub": "Як Lauscher може до тебе звертатися та на яких інструментах ти граєш?",
   "welcome.focusTitle": "Твій навчальний фокус",
   "welcome.focusSub": "На чому хочеш зосередитися насамперед?",
+  "welcome.beginnerOptInBadge": "🌱 Вступ для новачків (Opt-In)",
+  "welcome.beginnerOptInTitle": "Зовсім нові у світі музики?",
+  "welcome.beginnerOptInDesc": "Бажаєте перед стартом переглянути короткий вступ із 3 кроків (що таке інтервали, акорди, каденції та з чого найкраще почати)?",
+  "welcome.beginnerOptInNo": "Почати одразу",
+  "welcome.beginnerOptInYes": "🌱 Так, відкрити вступ",
+  "welcome.begStep1Tag": "Вступ для новачків • 1 / 3",
+  "welcome.begStep1Title": "Цеглинки музики — простою мовою",
+  "welcome.begStep1Sub": "Те, що для музикантів звучить звично, складається з чотирьох простих ідей:",
+  "welcome.begTermIntervalsTitle": "🎵 Інтервали (відстані між нотами)",
+  "welcome.begTermIntervalsDesc": "Інтервал — це просто відстань між двома звуками, наче сходинки. Близькі ноти звучать як малий крок, далекі — як широкий стрибок. Із таких кроків і стрибків будується кожна мелодія.",
+  "welcome.begTermChordsTitle": "🎹 Акорди (співзвуччя)",
+  "welcome.begTermChordsDesc": "Коли три або більше звуків лунають одночасно, це акорд. Дві головні барви — Мажор (світлий, відкритий, сонячний) та Мінор (м’який, задумливий, теплий).",
+  "welcome.begTermCadencesTitle": "🧭 Каденції (гармонічні орієнтири)",
+  "welcome.begTermCadencesDesc": "Каденція — це коротка послідовність акордів, мов розділові знаки в історії. Одні акорди створюють напругу (як знак питання), інші спокійно повертають додому до тоніки (як крапка в кінці речення).",
+  "welcome.begTermScalesTitle": "🪜 Гами, Сольфеджіо та Ритм",
+  "welcome.begTermScalesDesc": "Гама — це набір нот пісні. Сольфеджіо (До–Ре–Мі) дає кожному ступеню власне ім’я для слуху, а ритм задає пульс, під який хочеться рухатися.",
+  "welcome.begStep2Tag": "Вступ для новачків • 2 / 3",
+  "welcome.begStep2Title": "З чого найрозумніше почати?",
+  "welcome.begStep2Sub": "Не потрібно охоплювати все одразу. Ось 3 легкі кроки для комфортного старту:",
+  "welcome.begTip1Title": "🥇 1. Інтервали (Рівень 1) і режим «Тільки слухати»",
+  "welcome.begTip1Desc": "Почніть із «Інтервали • Рівень 1 (Основи)» з кількома виразними відстанями. Порада: спершу увімкніть угорі режим «Тільки слухати», щоб спокійно познайомитися зі звучанням без перевірок.",
+  "welcome.begTip2Title": "🥈 2. Акорди (Мажор vs Мінор) і пульс ритму",
+  "welcome.begTip2Desc": "В «Акорди • Рівень 1» довіряйте відчуттям: акорд звучить світло (Мажор) чи м’яко й задумливо (Мінор)? А в модулі «Ритм» відстукуйте прості такти на педі.",
+  "welcome.begTip3Title": "🥉 3. Короткі мелодії (До – Фа) та розділ «Знання»",
+  "welcome.begTip3Desc": "У «Мелодії • Рівень 1» ви складаєте короткі фрази всього з 4 нот. А якщо якийсь термін незнайомий, натисніть іконку книги (Знання) внизу — там усе пояснено з аудіоприкладами.",
+  "welcome.begApplyPresetBtn": "✨ Обрати рекомендований старт (Інтервали • Рівень 1)",
+  "welcome.begApplyPresetDone": "✓ Рекомендований старт (Інтервали • Рівень 1) обрано",
+  "welcome.begStep3Tag": "Вступ для новачків • 3 / 3",
+  "welcome.begStep3Title": "Не лякайтеся обсягу інформації на старті!",
+  "welcome.begStep3Sub": "Щира підтримка перед тим, як пролунає ваша перша нота:",
+  "welcome.begEncourage1Title": "💛 Відчувати перевантаження на початку — це цілком нормально",
+  "welcome.begEncourage1Desc": "Слова на кшталт «квінта», «каденція», «сольфеджіо» чи «ключ» у перший день можуть здаватися лавиною інформації. Якщо спочатку важко або ви часто помиляєтеся — це абсолютно нормально і ніколи не означає, що у вас «немає слуху»!",
+  "welcome.begEncourage2Title": "🌱 Секрет успіху — просто спокійно залишатися в тонусі",
+  "welcome.begEncourage2Desc": "Музичний слух розвивається як мова — маленькими регулярними кроками. Навіть 5 спокійних хвилин раз на кілька днів достатньо. У Lauscher немає тиску балів: кожна помилка — це просто безкоштовне порівняння для вашого вуха.",
+  "welcome.begEncourage3Title": "🎧 Не поспішайте й користуйтеся підказками",
+  "welcome.begEncourage3Desc": "Сміливо вмикайте «Слухати тоніку», «Повторити ноту» або A/B-порівняння. Робіть паузу, коли голова втомлюється, і просто зберігайте цікавість — дуже скоро ви здивуєтеся, як багато ваше вухо почне впізнавати самостійно!",
+  "welcome.greetBeginnerBtn": "🌱 Новачок у музиці? Відкрити короткий вступ",
   "welcome.greetTitle": "Привіт! Радий вітати тебе в Lauscher.",
   "welcome.greetNamedTitle": "Привіт, {name}! Радий вітати тебе в Lauscher.",
-  "welcome.greetBody": "Я — Лаушебер, і з радістю допоможу тобі тренувати слух, читати ноти та пізнавати музику. Займайся у своєму темпі — гарного настрою та задоволення від навчання!",
+  "welcome.greetBody": "Я — Lauscher, і з радістю допоможу тобі тренувати слух, читати ноти та пізнавати музику. Займайся у своєму темпі — гарного настрою та задоволення від навчання!",
   "welcome.continueBtn": "Починаймо →",
   "welcome.redirectHint": "Зараз перейдемо на головний екран…",
   "nav.backTitle": "Назад",
@@ -20765,12 +21200,49 @@ const I18N_STATIC_UR = {
   "welcome.autoNextOffTitle": "خود پلے کریں",
   "welcome.autoNextOffDesc": "ہر حل کے بعد رکتا ہے تاکہ آپ اطمینان سے سنیں اور خود اگلا سُر چلائیں۔",
   "welcome.profileTitle": "آپ کا موسیقار پروفائل",
-  "welcome.profileSub": "لوشے بیئر آپ کو کس نام سے پکارے اور آپ کون سے ساز بجاتے ہیں؟",
+  "welcome.profileSub": "Lauscher آپ کو کس نام سے پکارے اور آپ کون سے ساز بجاتے ہیں؟",
   "welcome.focusTitle": "آپ کا تعلیمی ہدف",
   "welcome.focusSub": "آپ سب سے پہلے کس چیز پر توجہ دینا چاہتے ہیں؟",
+  "welcome.beginnerOptInBadge": "🌱 نئے سیکھنے والوں کے لیے تعارف (Opt-In)",
+  "welcome.beginnerOptInTitle": "موسیقی کی دنیا میں بالکل نئے ہیں؟",
+  "welcome.beginnerOptInDesc": "کیا آپ شروع کرنے سے پہلے 3 مختصر مراحل میں جاننا چاہیں گے کہ انٹرولز، کارڈز اور کیڈینسز کیا ہیں اور آغاز کہاں سے کرنا بہتر ہے؟",
+  "welcome.beginnerOptInNo": "براہِ راست شروع کریں",
+  "welcome.beginnerOptInYes": "🌱 جی ہاں، تعارف شروع کریں",
+  "welcome.begStep1Tag": "بنیادی تعارف • 1 / 3",
+  "welcome.begStep1Title": "موسیقی کی بنیادی اینٹیں — آسان الفاظ میں",
+  "welcome.begStep1Sub": "جو اصطلاحات موسیقاروں کے لیے عام ہیں وہ دراصل چار سادہ تصورات پر مشتمل ہیں:",
+  "welcome.begTermIntervalsTitle": "🎵 انٹرولز (سُروں کا درمیانی فاصلہ)",
+  "welcome.begTermIntervalsDesc": "انٹرول صرف دو سُروں کے درمیان فاصلے کا نام ہے — جیسے سیڑھی کے دو قدم۔ قریبی سُر چھوٹے قدم جیسے اور دور کے سُر بڑی چھلانگ جیسے لگتے ہیں۔ ہر دھن انہیں سے بنتی ہے۔",
+  "welcome.begTermChordsTitle": "🎹 کارڈز (اکٹھے بجنے والے سُر)",
+  "welcome.begTermChordsDesc": "جب تین یا زیادہ سُر ایک ساتھ گونجتے ہیں تو کارڈ بنتا ہے۔ دو اہم ترین رنگ میجر (روشن اور کھلا) اور مائنر (نرم، گہرا اور پُرسکون) ہیں۔",
+  "welcome.begTermCadencesTitle": "🧭 کیڈینسز (ہم آہنگی کے اشارے)",
+  "welcome.begTermCadencesDesc": "کیڈینس کارڈز کا ایک چھوٹا سلسلہ ہے — جیسے کہانی میں رموزِ اوقاف۔ کچھ کارڈز تجسس پیدا کرتے ہیں (جیسے سوالیہ نشان) اور کچھ واپس بنیادی سُر پر سکون دیتے ہیں (جیسے جملے کے آخر میں فل اسٹاپ)۔",
+  "welcome.begTermScalesTitle": "🪜 اسکیلز، سولفیج اور ردھم",
+  "welcome.begTermScalesDesc": "اسکیل کسی گیت کے سُروں کا مجموعہ ہے۔ سولفیج (Do–Re–Mi) ہر درجے کو کان میں ایک پہچان دیتا ہے، اور ردھم موسیقی کو وہ نبض دیتا ہے جس پر قدم خود بخود تھپتھپاتے ہیں۔",
+  "welcome.begStep2Tag": "بنیادی تعارف • 2 / 3",
+  "welcome.begStep2Title": "شروع میں کس چیز کی مشق سب سے مفید ہے؟",
+  "welcome.begStep2Sub": "سب کچھ ایک ساتھ کرنے کی ضرورت نہیں۔ آغاز کے لیے یہ 3 آسان قدم بہترین ہیں:",
+  "welcome.begTip1Title": "🥇 1. انٹرولز (لیول 1) اور ’صرف سنیں‘ موڈ",
+  "welcome.begTip1Desc": "’انٹرولز • لیول 1 (بنیادی)‘ سے شروع کریں جہاں صرف چند واضح فاصلے ہوتے ہیں۔ مشورہ: پہلے اوپر ’صرف سنیں‘ موڈ آن کریں تاکہ بغیر کسی دباؤ کے آوازوں کو محسوس کر سکیں۔",
+  "welcome.begTip2Title": "🥈 2. کارڈز (میجر بمقابلہ مائنر) اور ردھم کی نبض",
+  "welcome.begTip2Desc": "’کارڈز • لیول 1‘ میں صرف اپنے احساس پر بھروسہ کریں: کیا آواز روشن ہے (میجر) یا نرم اور سنجیدہ (مائنر)؟ ’ردھم‘ ماڈیول میں آپ سادہ تال پیڈ پر بجا سکتے ہیں۔",
+  "welcome.begTip3Title": "🥉 3. مختصر دھنیں (Do – Fa) اور علم (Knowledge) حب",
+  "welcome.begTip3Desc": "’دھنیں • لیول 1‘ میں صرف 4 سُروں سے چھوٹے جملے بنائیں۔ اور جب کوئی لفظ نیا لگے تو نیچے کتاب کے آئیکن (علم) کو دبائیں جہاں ہر موضوع صوتی مثالوں کے ساتھ موجود ہے۔",
+  "welcome.begApplyPresetBtn": "✨ تجویز کردہ آغاز (انٹرولز • لیول 1) منتخب کریں",
+  "welcome.begApplyPresetDone": "✓ تجویز کردہ آغاز (انٹرولز • لیول 1) منتخب ہو گیا",
+  "welcome.begStep3Tag": "بنیادی تعارف • 3 / 3",
+  "welcome.begStep3Title": "شروع میں معلومات کی کثرت سے بالکل نہ گھبرائیں!",
+  "welcome.begStep3Sub": "پہلا سُر بجانے سے پہلے ایک مخلصانہ حوصلہ افزائی:",
+  "welcome.begEncourage1Title": "💛 شروع میں الجھن یا بوجھ محسوس ہونا بالکل فطری ہے",
+  "welcome.begEncourage1Desc": "’ففتھ‘، ’کیڈینس‘، ’سولفیج‘ یا ’کلیف‘ جیسے الفاظ پہلے دن بہت زیادہ لگ سکتے ہیں۔ اگر شروع میں یہ سب بھاری لگے یا کئی جوابات غلط ہوں تو یہ بالکل نارمل ہے — اس کا ہرگز یہ مطلب نہیں کہ آپ میں موسیقی کی صلاحیت نہیں!",
+  "welcome.begEncourage2Title": "🌱 اصل راز صرف مستقل مزاجی اور سکون سے جڑے رہنا ہے",
+  "welcome.begEncourage2Desc": "موسیقی کی سماعت کسی نئی زبان کی طرح چھوٹے، مستقل قدموں سے نکھرتی ہے۔ چند دنوں میں صرف 5 پرسکون منٹ بھی کافی ہیں۔ Lauscher میں اسکور کا کوئی دباؤ نہیں: ہر غلط اندازہ آپ کے کان کے لیے ایک مفت تقابلی سبق ہے۔",
+  "welcome.begEncourage3Title": "🎧 اپنا وقت لیں اور تمام صوتی مدد استعمال کریں",
+  "welcome.begEncourage3Desc": "جب چاہیں ’بنیادی سُر سنیں‘، ’سُر دہرائیں‘ یا A/B موازنہ استعمال کریں۔ جب ذہن تھک جائے تو وقفہ لیں اور بس شوق سے جڑے رہیں — جلد ہی آپ حیران رہ جائیں گے کہ آپ کا کان خود بخود کتنی باریکیاں پہچاننے لگا ہے!",
+  "welcome.greetBeginnerBtn": "🌱 موسیقی میں نئے ہیں؟ مختصر تعارف شروع کریں",
   "welcome.greetTitle": "خوش آمدید! Lauscher میں آپ کا آنا بہت اچھا لگا۔",
   "welcome.greetNamedTitle": "خوش آمدید، {name}! Lauscher میں آپ کا آنا بہت اچھا لگا۔",
-  "welcome.greetBody": "میں لوشے بیئر ہوں، اور آپ کے ساتھ کان کی تربیت، نوٹیشن پڑھنا اور موسیقی کا نظریہ سیکھنے کے لیے پُرجوش ہوں۔ آرام سے اپنے انداز میں مشق کریں اور سیکھنے کا لطف اٹھائیں!",
+  "welcome.greetBody": "میں Lauscher ہوں، اور آپ کے ساتھ کان کی تربیت، نوٹیشن پڑھنا اور موسیقی کا نظریہ سیکھنے کے لیے پُرجوش ہوں۔ آرام سے اپنے انداز میں مشق کریں اور سیکھنے کا لطف اٹھائیں!",
   "welcome.continueBtn": "چلو شروع کریں ←",
   "welcome.redirectHint": "آپ کو ہوم اسکرین پر لے جایا جا رہا ہے…",
   "nav.backTitle": "واپس",
@@ -66320,14 +66792,34 @@ const WELCOME_WIZARD_STEPS = [
   "welcomeStepGreet"
 ];
 
+const BEGINNER_WELCOME_WIZARD_STEPS = [
+  "welcomeStepLang",
+  "welcomeStepLook",
+  "welcomeStepAutoNext",
+  "welcomeStepProfile",
+  "welcomeStepFocus",
+  "welcomeStepBeginner1",
+  "welcomeStepBeginner2",
+  "welcomeStepBeginner3",
+  "welcomeStepGreet"
+];
+
 const _welcomeOnboardingState = {
   currentStep: 0,
+  beginnerIntroOptIn: false,
+  beginnerPresetApplied: false,
   selecting: false,
   exiting: false,
   stepTimer: null,
   autoTimer: null,
   exitTimer: null
 };
+
+function getActiveWelcomeWizardSteps() {
+  return _welcomeOnboardingState.beginnerIntroOptIn
+    ? BEGINNER_WELCOME_WIZARD_STEPS
+    : WELCOME_WIZARD_STEPS;
+}
 
 function clearWelcomeOnboardingTimers() {
   if (_welcomeOnboardingState.stepTimer) {
@@ -66349,8 +66841,57 @@ function getWelcomeText(key, fallback) {
   return (typeof getStaticI18nText === "function" && getStaticI18nText(key, lang)) || fallback;
 }
 
+function syncWelcomeBeginnerOptInUI() {
+  const optIn = Boolean(_welcomeOnboardingState.beginnerIntroOptIn);
+  const noBtn = document.getElementById("welcomeBeginnerOptInNoBtn");
+  const yesBtn = document.getElementById("welcomeBeginnerOptInYesBtn");
+  if (noBtn) {
+    noBtn.classList.toggle("active", !optIn);
+    noBtn.setAttribute?.("aria-pressed", String(!optIn));
+  }
+  if (yesBtn) {
+    yesBtn.classList.toggle("active", optIn);
+    yesBtn.setAttribute?.("aria-pressed", String(optIn));
+  }
+  const presetBtn = document.getElementById("welcomeApplyBeginnerSetupBtn");
+  if (presetBtn) {
+    const applied = Boolean(_welcomeOnboardingState.beginnerPresetApplied);
+    presetBtn.classList.toggle("is-applied", applied);
+    presetBtn.textContent = applied
+      ? getWelcomeText("welcome.begApplyPresetDone", "✓ Empfohlener Startpunkt (Intervalle • Stufe 1) ausgewählt")
+      : getWelcomeText("welcome.begApplyPresetBtn", "✨ Empfohlenen Startpunkt (Intervalle • Stufe 1) auswählen");
+  }
+  const greetBegBtn = document.getElementById("welcomeGreetBeginnerBtn");
+  if (greetBegBtn) {
+    greetBegBtn.classList.toggle("hidden", optIn);
+  }
+}
+
+function setWelcomeBeginnerIntroOptIn(enabled) {
+  _welcomeOnboardingState.beginnerIntroOptIn = Boolean(enabled);
+  syncWelcomeBeginnerOptInUI();
+  renderWelcomeProgress(_welcomeOnboardingState.currentStep);
+}
+
+function applyWelcomeBeginnerPreset() {
+  _welcomeOnboardingState.beginnerPresetApplied = true;
+  if (state?.settings) {
+    state.settings.mode = "interval";
+    state.settings.intervalDifficulty = 1;
+  }
+  if (!state.profile) state.profile = createDefaultProfile();
+  state.profile.focus = "intervals";
+  state.profile.focuses = ["intervals"];
+  saveUserProfile(state.profile);
+  renderProfileAccountView();
+  renderHomeProfileGreeting();
+  state.updateQuickStartLabel?.();
+  syncWelcomeBeginnerOptInUI();
+}
+
 function renderWelcomeProgress(stepIdx = _welcomeOnboardingState.currentStep) {
-  const total = WELCOME_WIZARD_STEPS.length;
+  const activeSteps = getActiveWelcomeWizardSteps();
+  const total = activeSteps.length;
   const idx = Math.max(0, Math.min(total - 1, Number(stepIdx) || 0));
   const textEl = document.getElementById("welcomeProgressText");
   const fillEl = document.getElementById("welcomeProgressFill");
@@ -66475,6 +67016,7 @@ function renderWelcomeGreetStep() {
   if (redirectHint) {
     redirectHint.textContent = getWelcomeText("welcome.redirectHint", "Du wirst gleich zum Homescreen weitergeleitet …");
   }
+  syncWelcomeBeginnerOptInUI();
 }
 
 function bindWelcomeOnboardingControls() {
@@ -66490,6 +67032,19 @@ function bindWelcomeOnboardingControls() {
   });
   document.querySelectorAll("[data-welcome-autonext]").forEach(btn => {
     btn.addEventListener("click", () => setAutoNextPreference(btn.dataset.welcomeAutonext));
+  });
+  document.getElementById("welcomeBeginnerOptInNoBtn")?.addEventListener("click", () => {
+    setWelcomeBeginnerIntroOptIn(false);
+  });
+  document.getElementById("welcomeBeginnerOptInYesBtn")?.addEventListener("click", () => {
+    setWelcomeBeginnerIntroOptIn(true);
+  });
+  document.getElementById("welcomeApplyBeginnerSetupBtn")?.addEventListener("click", () => {
+    applyWelcomeBeginnerPreset();
+  });
+  document.getElementById("welcomeGreetBeginnerBtn")?.addEventListener("click", () => {
+    setWelcomeBeginnerIntroOptIn(true);
+    goToWelcomeStep(5);
   });
 
   const nameInput = document.getElementById("welcomeProfileNameInput");
@@ -66512,12 +67067,15 @@ function bindWelcomeOnboardingControls() {
     "welcomeAutoNextBackBtn", "welcomeAutoNextNextBtn",
     "welcomeProfileBackBtn", "welcomeProfileNextBtn",
     "welcomeFocusBackBtn", "welcomeFocusNextBtn",
+    "welcomeBeginner1BackBtn", "welcomeBeginner1NextBtn",
+    "welcomeBeginner2BackBtn", "welcomeBeginner2NextBtn",
+    "welcomeBeginner3BackBtn", "welcomeBeginner3NextBtn",
     "welcomeGreetBackBtn"
   ].forEach(btnId => {
     const btn = document.getElementById(btnId);
     if (!btn) return;
     btn.addEventListener("click", () => {
-      const dir = btn.dataset?.welcomeNav === "prev" ? -1 : 1;
+      const dir = (btn.dataset?.welcomeNav === "prev" || btnId.endsWith("BackBtn")) ? -1 : 1;
       goToWelcomeStep(_welcomeOnboardingState.currentStep + dir);
     });
   });
@@ -66525,9 +67083,12 @@ function bindWelcomeOnboardingControls() {
 
 function goToWelcomeStep(targetIdx, options = {}) {
   if (_welcomeOnboardingState.exiting) return;
-  const total = WELCOME_WIZARD_STEPS.length;
+  const activeSteps = getActiveWelcomeWizardSteps();
+  const total = activeSteps.length;
   const nextIdx = Math.max(0, Math.min(total - 1, Number(targetIdx) || 0));
   const prevIdx = _welcomeOnboardingState.currentStep;
+  const prevStepId = activeSteps[prevIdx] || WELCOME_WIZARD_STEPS[prevIdx];
+  const nextStepId = activeSteps[nextIdx];
 
   clearWelcomeOnboardingTimers();
   _welcomeOnboardingState.currentStep = nextIdx;
@@ -66537,20 +67098,24 @@ function goToWelcomeStep(targetIdx, options = {}) {
   autoFill?.classList.remove("is-counting");
 
   renderWelcomeProgress(nextIdx);
-  if (nextIdx === 1) applyThemeAndAppearance();
-  if (nextIdx === 2) syncAutoNextControls();
-  if (nextIdx === 3) renderWelcomeProfileStep();
-  if (nextIdx === 4) renderWelcomeFocusStep();
-  if (nextIdx === 5) renderWelcomeGreetStep();
+  if (nextStepId === "welcomeStepLook") applyThemeAndAppearance();
+  if (nextStepId === "welcomeStepAutoNext") syncAutoNextControls();
+  if (nextStepId === "welcomeStepProfile") renderWelcomeProfileStep();
+  if (nextStepId === "welcomeStepFocus") {
+    renderWelcomeFocusStep();
+    syncWelcomeBeginnerOptInUI();
+  }
+  if (nextStepId === "welcomeStepBeginner2") syncWelcomeBeginnerOptInUI();
+  if (nextStepId === "welcomeStepGreet") renderWelcomeGreetStep();
 
   const applyStepVisibility = () => {
-    WELCOME_WIZARD_STEPS.forEach((stepId, idx) => {
+    BEGINNER_WELCOME_WIZARD_STEPS.forEach((stepId) => {
       const el = document.getElementById(stepId);
       if (!el) return;
       el.classList.remove("is-step-exiting");
-      el.classList.toggle("hidden", idx !== nextIdx);
+      el.classList.toggle("hidden", stepId !== nextStepId);
     });
-    if (nextIdx === 5) {
+    if (nextStepId === "welcomeStepGreet") {
       if (autoFill) autoFill.classList.add("is-counting");
       _welcomeOnboardingState.autoTimer = setTimeout(() => {
         completeWelcomeOnboarding();
@@ -66558,7 +67123,7 @@ function goToWelcomeStep(targetIdx, options = {}) {
     }
   };
 
-  const prevEl = prevIdx !== nextIdx ? document.getElementById(WELCOME_WIZARD_STEPS[prevIdx]) : null;
+  const prevEl = prevStepId && prevStepId !== nextStepId ? document.getElementById(prevStepId) : null;
   if (options.immediate || !prevEl) {
     applyStepVisibility();
     return;
@@ -66644,6 +67209,8 @@ function openFirstRunOnboarding() {
   if (!overlay) return false;
   clearWelcomeOnboardingTimers();
   _welcomeOnboardingState.currentStep = 0;
+  _welcomeOnboardingState.beginnerIntroOptIn = false;
+  _welcomeOnboardingState.beginnerPresetApplied = false;
   _welcomeOnboardingState.selecting = false;
   _welcomeOnboardingState.exiting = false;
 
