@@ -5216,6 +5216,22 @@ body,
   margin-top: 0.48rem;
 }
 
+.reverb-inst-pills {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.34rem;
+  margin-bottom: 0.56rem;
+}
+
+.reverb-inst-pills .k-filter-pill {
+  padding: 0.36rem 0.35rem;
+  font-size: 0.72rem;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .settings-sub-field.is-disabled {
   opacity: 0.45;
   pointer-events: none;
@@ -10960,17 +10976,25 @@ body,
         </div>
 
         <div class="settings-section">
-          <h4 data-i18n="settings.pianoSoundHeading">Klavier-Klang &amp; Raumhall</h4>
-          <p class="settings-hint" data-i18n="settings.pianoSoundHint">Wähle zwischen direktem Studio-Klang oder wärmerem Akustik-Klavier mit Raumhall und weicherem Ausklang.</p>
-          <div id="pianoCharacterGroup" class="btn-group btn-group-3" role="group" aria-label="Klavier-Klangcharakter" data-i18n-aria="settings.pianoCharAria">
+          <h4 data-i18n="settings.pianoSoundHeading">Raumklang &amp; Hall</h4>
+          <p class="settings-hint" data-i18n="settings.pianoSoundHint">Wähle einen Raumcharakter für den gesamten Mix und passe den Hall-Anteil pro Instrument an.</p>
+          <div id="pianoCharacterGroup" class="btn-group btn-group-3" role="group" aria-label="Raumcharakter" data-i18n-aria="settings.pianoCharAria">
             <button type="button" class="opt-btn" data-piano-char="dry" aria-pressed="false" data-i18n="settings.pianoCharDry">Trocken</button>
             <button type="button" class="opt-btn active" data-piano-char="natural" aria-pressed="true" data-i18n="settings.pianoCharNatural">Natürlich</button>
             <button type="button" class="opt-btn" data-piano-char="concert" aria-pressed="false" data-i18n="settings.pianoCharConcert">Konzertsaal</button>
           </div>
           <div class="settings-sub-field">
+            <div id="reverbInstrumentTabs" class="reverb-inst-pills" role="tablist" aria-label="Instrument für Hall-Einstellung" data-i18n-aria="settings.reverbInstAria">
+              <button type="button" class="k-filter-pill active" data-reverb-inst="piano" role="tab" aria-selected="true">Klavier · 24%</button>
+              <button type="button" class="k-filter-pill" data-reverb-inst="guitar" role="tab" aria-selected="false">Gitarre · 22%</button>
+              <button type="button" class="k-filter-pill" data-reverb-inst="strings" role="tab" aria-selected="false">Streicher · 34%</button>
+              <button type="button" class="k-filter-pill" data-reverb-inst="brass" role="tab" aria-selected="false">Bläser · 26%</button>
+              <button type="button" class="k-filter-pill" data-reverb-inst="voice" role="tab" aria-selected="false">Stimme · 30%</button>
+              <button type="button" class="k-filter-pill" data-reverb-inst="bass" role="tab" aria-selected="false">Bass · 6%</button>
+            </div>
             <div class="tempo-control-row">
               <span class="mixer-name" data-i18n="settings.pianoReverbLabel">Raumhall</span>
-              <input type="range" id="pianoReverbSlider" min="0" max="100" step="2" value="24" aria-label="Klavier-Raumhall" data-i18n-aria="settings.pianoReverbAria">
+              <input type="range" id="pianoReverbSlider" min="0" max="100" step="2" value="24" aria-label="Instrumenten-Raumhall" data-i18n-aria="settings.pianoReverbAria">
               <span id="pianoReverbDisplay" class="tempo-val">24%</span>
             </div>
             <button id="testPianoSoundBtn" class="btn-tool settings-test-sound-btn" type="button" data-i18n="settings.pianoTestBtn">▶ Klang testen</button>
@@ -11233,6 +11257,12 @@ const PIANO_CHARACTER_PROFILES = {
   concert: { filterHz: 5000,  reverbDampHz: 5600, roomSize: 0.86, defaultReverb: 0.48, releaseSec: 1.05, holdDecayFloor: 0.62, attackSec: 0.0042, spreadMs: 13, humanize: true  }
 };
 
+const STEM_REVERB_BY_CHAR = {
+  dry:     { piano: 0.00, guitar: 0.00, strings: 0.00, brass: 0.00, voice: 0.00, bass: 0.00 },
+  natural: { piano: 0.24, guitar: 0.22, strings: 0.34, brass: 0.26, voice: 0.30, bass: 0.06 },
+  concert: { piano: 0.48, guitar: 0.42, strings: 0.56, brass: 0.46, voice: 0.52, bass: 0.16 }
+};
+
 /**
  * Schlanker nativer WebAudio-Sampler für Studio-Samples.
  * Vermeidet komplexe Tone.Sampler/ToneBufferSource-Wrapper-Allokationen pro Note
@@ -11432,10 +11462,13 @@ class AudioEngine {
     this.pianoReverbReturn = null;
     this.pianoReverbDamp = null;
     this.pianoReverbSend = null;
+    this.stemReverbSends = {};
+    this.demoReverbSends = {};
     this.pianoToneFilter = null;
     this.demoPianoToneFilter = null;
     this.pianoCharacter = "natural";
     this.pianoReverbMix = PIANO_CHARACTER_PROFILES.natural.defaultReverb;
+    this.instrumentReverbMix = { ...STEM_REVERB_BY_CHAR.natural };
     this.dronePadGainScale = 0.70;
     this.droneToneGainScale = 1.00;
 
@@ -11536,10 +11569,13 @@ class AudioEngine {
         }
 
         const initPianoProf = PIANO_CHARACTER_PROFILES[this.pianoCharacter] || PIANO_CHARACTER_PROFILES.natural;
-        const initPianoMix = Number.isFinite(this.pianoReverbMix) ? Math.max(0, Math.min(1, this.pianoReverbMix)) : initPianoProf.defaultReverb;
+        const initPianoMix = Number.isFinite(this.instrumentReverbMix?.piano)
+          ? Math.max(0, Math.min(1, this.instrumentReverbMix.piano))
+          : (Number.isFinite(this.pianoReverbMix) ? Math.max(0, Math.min(1, this.pianoReverbMix)) : initPianoProf.defaultReverb);
         this.pianoReverbReturn = new Tone.Gain(1.0).connect(this.masterGain);
         this.pianoReverbDamp = new Tone.Filter(initPianoProf.reverbDampHz, "lowpass");
         this.pianoReverbSend = new Tone.Gain(initPianoMix * 1.15).connect(this.pianoReverbDamp);
+        this.stemReverbSends = { piano: this.pianoReverbSend };
 
         // Sofortige Stereo-Erstreflexionen + synchrones Raum-Tank-Netzwerk (unabhängig von OfflineAudioContext)
         if (typeof Tone?.Delay === "function" && typeof Tone?.Panner === "function") {
@@ -11583,6 +11619,15 @@ class AudioEngine {
           bass: 0.00
         };
 
+        const wireStemReverbSend = (stemKey, gainNode) => {
+          const stemMix = Number.isFinite(this.instrumentReverbMix?.[stemKey])
+            ? Math.max(0, Math.min(1, this.instrumentReverbMix[stemKey]))
+            : initPianoMix;
+          const sendNode = new Tone.Gain(stemMix * 1.15).connect(this.pianoReverbDamp);
+          this.stemReverbSends[stemKey] = sendNode;
+          gainNode.connect(sendNode);
+        };
+
         // 1. Klavier (Synth als Fallback, wird bei geladenem DAW-Pack durch nativen EarLabSampledInstrument ersetzt)
         this.pianoGain = new Tone.Gain(levels.piano * this.stemGainMultipliers.piano).connect(this.masterGain);
         this.pianoGain.connect(this.pianoReverbSend);
@@ -11595,7 +11640,7 @@ class AudioEngine {
 
         // 2. Gitarre
         this.guitarGain = new Tone.Gain(levels.guitar * this.stemGainMultipliers.guitar).connect(this.masterGain);
-        this.guitarGain.connect(this.reverb);
+        wireStemReverbSend("guitar", this.guitarGain);
         this.guitarFallbackSynth = new Tone.PolySynth(Tone.Synth, {
           oscillator: { type: "triangle" },
           envelope: { attack: 0.015, decay: 0.95, sustain: 0.22, release: 1.0 }
@@ -11604,7 +11649,7 @@ class AudioEngine {
 
         // 3. Streicher
         this.stringsGain = new Tone.Gain(levels.strings * this.stemGainMultipliers.strings).connect(this.masterGain);
-        this.stringsGain.connect(this.reverb);
+        wireStemReverbSend("strings", this.stringsGain);
         this.stringsFallbackSynth = new Tone.PolySynth(Tone.AMSynth, {
           harmonicity: 1.25,
           envelope: { attack: 0.30, decay: 0.45, sustain: 0.85, release: 1.5 }
@@ -11613,23 +11658,25 @@ class AudioEngine {
 
         // 4. Bläser
         this.brassGain = new Tone.Gain(levels.brass * this.stemGainMultipliers.brass).connect(this.masterGain);
+        wireStemReverbSend("brass", this.brassGain);
         this.brassFallbackSynth = new Tone.PolySynth(Tone.Synth, {
           oscillator: { type: "sawtooth" },
           envelope: { attack: 0.07, decay: 0.35, sustain: 0.65, release: 0.8 }
         }).connect(this.brassGain);
         this.brass = this.brassFallbackSynth;
 
-        // 5. Stimme (Chor; mit Raumklang-Send)
+        // 5. Stimme (Chor; mit regelbarem Raumklang-Send)
         this.voiceGain = new Tone.Gain((levels.voice || 0) * this.stemGainMultipliers.voice).connect(this.masterGain);
-        this.voiceGain.connect(this.reverb);
+        wireStemReverbSend("voice", this.voiceGain);
         this.voiceFallbackSynth = new Tone.PolySynth(Tone.Synth, {
           oscillator: { type: "triangle8" },
           envelope: { attack: 0.14, decay: 0.25, sustain: 0.82, release: 0.65 }
         }).connect(this.voiceGain);
         this.voice = this.voiceFallbackSynth;
 
-        // 6. Bass (trocken; Fallback-Synth über 380-Hz-Tiefpass, gesampelter E-Bass mit vollem Klangspektrum)
+        // 6. Bass (mit eigenem Send; Standardwert niedrig für definiertes Fundament)
         this.bassGain = new Tone.Gain(levels.bass * this.stemGainMultipliers.bass).connect(this.masterGain);
+        wireStemReverbSend("bass", this.bassGain);
         const bassFallbackFilter = new Tone.Filter(380, "lowpass").connect(this.bassGain);
         this.bassFallbackSynth = new Tone.MonoSynth({
           oscillator: { type: "triangle" },
@@ -11645,7 +11692,7 @@ class AudioEngine {
           this.loadSampledPacks(levels)
         ]);
 
-        this.setPianoSoundProfile(this.pianoCharacter, this.pianoReverbMix);
+        this.setPianoSoundProfile(this.pianoCharacter, this.instrumentReverbMix);
         this.samplesLoaded = true;
         this.updateStatusDot("ready");
         return true;
@@ -11854,10 +11901,6 @@ class AudioEngine {
       });
       if (!decoded) return;
 
-      if (cfg.useReverb && stemKey === "brass" && this.reverb) {
-        gainNode.connect(this.reverb);
-      }
-
       this[stemKey] = decoded.sampler;
       this.sampledStems[stemKey] = true;
       this.stemGainMultipliers[stemKey] = cfg.sampledMult;
@@ -11868,8 +11911,11 @@ class AudioEngine {
 
       // Separater Demo-Bus für Instrumentenkunde/Theorie-Beispiele (teilt dieselben AudioBuffer im RAM)
       const demoGain = new Tone.Gain(cfg.demoGain).connect(this.masterGain);
-      if (isPiano && this.pianoReverbSend) {
-        demoGain.connect(this.pianoReverbSend);
+      const initDemoReverbMix = this.instrumentReverbMix?.[stemKey] ?? (isPiano ? this.pianoReverbMix : 0.22);
+      if (this.pianoReverbDamp) {
+        const demoSend = new Tone.Gain(initDemoReverbMix * 1.15).connect(this.pianoReverbDamp);
+        this.demoReverbSends[stemKey] = demoSend;
+        demoGain.connect(demoSend);
       } else if (cfg.useReverb && this.reverb) {
         demoGain.connect(this.reverb);
       }
@@ -11972,35 +12018,82 @@ class AudioEngine {
     this.masterGain.gain.rampTo(target, 0.04);
   }
 
-  setPianoSoundProfile(character = "natural", reverbMix = null) {
+  updateSendGainNode(sendNode, targetSend, rampSec = 0.045) {
+    if (!sendNode?.gain) return;
+    const rawState = (typeof Tone?.getContext === "function" ? Tone.getContext()?.rawContext?.state : Tone?.context?.rawContext?.state)
+      || Tone?.context?.state;
+    const now = Tone?.now?.() || 0;
+    try {
+      sendNode.gain.cancelScheduledValues?.(now);
+      if (rawState === "running" && typeof sendNode.gain.rampTo === "function") {
+        sendNode.gain.rampTo(targetSend, rampSec);
+      } else {
+        sendNode.gain.setValueAtTime?.(targetSend, now);
+        sendNode.gain.value = targetSend;
+      }
+    } catch (_) {
+      sendNode.gain.value = targetSend;
+    }
+  }
+
+  setInstrumentReverb(instrumentKey = "piano", reverbMix = null) {
+    const validKeys = Object.keys(SAMPLED_STEM_CONFIG);
+    const key = validKeys.includes(instrumentKey) ? instrumentKey : "piano";
+    const charProf = STEM_REVERB_BY_CHAR[this.pianoCharacter] || STEM_REVERB_BY_CHAR.natural;
+    const rawNum = Number(reverbMix);
+    const mix = Number.isFinite(rawNum)
+      ? Math.max(0, Math.min(1, rawNum))
+      : (charProf[key] ?? 0.24);
+    this.instrumentReverbMix[key] = mix;
+    if (key === "piano") this.pianoReverbMix = mix;
+
+    if (!this.isInitialized && !this.graphBuilt) return;
+    const targetSend = mix * 1.15;
+    this.updateSendGainNode(this.stemReverbSends?.[key], targetSend);
+    this.updateSendGainNode(this.demoReverbSends?.[key], targetSend);
+  }
+
+  setAllInstrumentReverbs(reverbMap = null) {
+    const src = (reverbMap && typeof reverbMap === "object")
+      ? reverbMap
+      : (STEM_REVERB_BY_CHAR[this.pianoCharacter] || STEM_REVERB_BY_CHAR.natural);
+    Object.keys(SAMPLED_STEM_CONFIG).forEach(stemKey => {
+      if (Object.prototype.hasOwnProperty.call(src, stemKey)) {
+        this.setInstrumentReverb(stemKey, src[stemKey]);
+      }
+    });
+  }
+
+  setPianoSoundProfile(character = "natural", reverbMixOrMap = null) {
     const charKey = Object.prototype.hasOwnProperty.call(PIANO_CHARACTER_PROFILES, character)
       ? character
       : "natural";
     const prof = PIANO_CHARACTER_PROFILES[charKey];
-    const mix = Number.isFinite(Number(reverbMix))
-      ? Math.max(0, Math.min(1, Number(reverbMix)))
-      : prof.defaultReverb;
+    const presetMap = STEM_REVERB_BY_CHAR[charKey] || STEM_REVERB_BY_CHAR.natural;
     this.pianoCharacter = charKey;
-    this.pianoReverbMix = mix;
+
+    if (reverbMixOrMap && typeof reverbMixOrMap === "object") {
+      Object.keys(SAMPLED_STEM_CONFIG).forEach(stemKey => {
+        const val = Number(reverbMixOrMap[stemKey]);
+        this.instrumentReverbMix[stemKey] = Number.isFinite(val)
+          ? Math.max(0, Math.min(1, val))
+          : (presetMap[stemKey] ?? prof.defaultReverb);
+      });
+      this.pianoReverbMix = this.instrumentReverbMix.piano;
+    } else if (reverbMixOrMap !== null && reverbMixOrMap !== undefined && Number.isFinite(Number(reverbMixOrMap))) {
+      const pianoMix = Math.max(0, Math.min(1, Number(reverbMixOrMap)));
+      this.instrumentReverbMix.piano = pianoMix;
+      this.pianoReverbMix = pianoMix;
+    } else {
+      Object.keys(SAMPLED_STEM_CONFIG).forEach(stemKey => {
+        this.instrumentReverbMix[stemKey] = presetMap[stemKey] ?? prof.defaultReverb;
+      });
+      this.pianoReverbMix = this.instrumentReverbMix.piano;
+    }
 
     if ((!this.isInitialized && !this.graphBuilt)) return;
-    const rawState = (typeof Tone?.getContext === "function" ? Tone.getContext()?.rawContext?.state : Tone?.context?.rawContext?.state)
-      || Tone?.context?.state;
     const now = Tone?.now?.() || 0;
-    if (this.pianoReverbSend?.gain) {
-      const targetSend = mix * 1.15;
-      try {
-        this.pianoReverbSend.gain.cancelScheduledValues?.(now);
-        if (rawState === "running" && typeof this.pianoReverbSend.gain.rampTo === "function") {
-          this.pianoReverbSend.gain.rampTo(targetSend, 0.045);
-        } else {
-          this.pianoReverbSend.gain.setValueAtTime?.(targetSend, now);
-          this.pianoReverbSend.gain.value = targetSend;
-        }
-      } catch (_) {
-        this.pianoReverbSend.gain.value = targetSend;
-      }
-    }
+    this.setAllInstrumentReverbs(this.instrumentReverbMix);
     if (this.pianoFreeverb) {
       try {
         if (this.pianoFreeverb.roomSize && typeof this.pianoFreeverb.roomSize === "object") {
@@ -13226,17 +13319,18 @@ const I18N_STATIC = {
     de: "Wird beim Start einer Übung übernommen, bis du das Tempo im Modul manuell anpasst.",
     en: "Applied when opening an exercise until you change the tempo inside the module."
   },
-  "settings.pianoSoundHeading": { de: "Klavier-Klang & Raumhall", en: "Piano Sound & Room Reverb" },
+  "settings.pianoSoundHeading": { de: "Raumklang & Hall", en: "Room Sound & Reverb" },
   "settings.pianoSoundHint": {
-    de: "Wähle zwischen direktem Studio-Klang oder wärmerem Akustik-Klavier mit Raumhall und weicherem Ausklang.",
-    en: "Choose between crisp dry studio precision or a warmer acoustic piano with room reverb and natural decay."
+    de: "Wähle einen Raumcharakter für den gesamten Mix und passe den Hall-Anteil pro Instrument an.",
+    en: "Choose a room character for the mix and fine-tune reverb for each instrument individually."
   },
-  "settings.pianoCharAria": { de: "Klavier-Klangcharakter", en: "Piano sound character" },
+  "settings.pianoCharAria": { de: "Raumcharakter", en: "Room character" },
   "settings.pianoCharDry": { de: "Trocken", en: "Studio / Dry" },
   "settings.pianoCharNatural": { de: "Natürlich", en: "Natural" },
   "settings.pianoCharConcert": { de: "Konzertsaal", en: "Concert Hall" },
+  "settings.reverbInstAria": { de: "Instrument für Hall-Einstellung", en: "Instrument for reverb adjustment" },
   "settings.pianoReverbLabel": { de: "Raumhall", en: "Reverb" },
-  "settings.pianoReverbAria": { de: "Klavier-Raumhall", en: "Piano room reverb" },
+  "settings.pianoReverbAria": { de: "Instrumenten-Raumhall", en: "Instrument room reverb" },
   "settings.pianoTestBtn": { de: "▶ Klang testen", en: "▶ Preview Sound" },
   "settings.autoNextHeading": {
     de: "Nächste Abfragung automatisch abspielen",
@@ -14305,14 +14399,15 @@ const I18N_STATIC_FR = {
   "settings.groupAppearance": "Apparence & Thèmes",
   "settings.defaultTempoHeading": "Tempo par défaut (BPM de départ)",
   "settings.defaultTempoHint": "Appliqué à l’ouverture d’un exercice tant que vous ne modifiez pas le tempo dans le module.",
-  "settings.pianoSoundHeading": "Son du piano & Réverbération",
-  "settings.pianoSoundHint": "Choisissez entre un son studio sec ou un piano acoustique plus chaleureux avec réverbération de salle.",
-  "settings.pianoCharAria": "Caractère sonore du piano",
+  "settings.pianoSoundHeading": "Ambiance & Réverbération",
+  "settings.pianoSoundHint": "Choisissez un caractère de salle pour tout le mix et ajustez la réverbération par instrument.",
+  "settings.pianoCharAria": "Caractère de salle",
   "settings.pianoCharDry": "Studio / Sec",
   "settings.pianoCharNatural": "Naturel",
   "settings.pianoCharConcert": "Salle de concert",
+  "settings.reverbInstAria": "Instrument pour la réverbération",
   "settings.pianoReverbLabel": "Réverbération",
-  "settings.pianoReverbAria": "Niveau de réverbération du piano",
+  "settings.pianoReverbAria": "Niveau de réverbération de l’instrument",
   "settings.pianoTestBtn": "▶ Tester le son",
   "settings.autoNextHeading": "Lancer automatiquement la question suivante",
   "settings.autoNextHint": "Joue automatiquement l’exercice suivant après une bonne réponse.",
@@ -16221,14 +16316,15 @@ const I18N_STATIC_PL = {
   "settings.groupAppearance": "Wygląd i motywy",
   "settings.defaultTempoHeading": "Domyślne tempo (startowy BPM w ćwiczeniach)",
   "settings.defaultTempoHint": "Obowiązuje przy otwarciu modułu, dopóki nie zmienisz tempa bezpośrednio w ćwiczeniu.",
-  "settings.pianoSoundHeading": "Brzmienie fortepianu i pogłos",
-  "settings.pianoSoundHint": "Wybierz bezpośrednie brzmienie studyjne albo cieplejszy fortepian akustyczny z pogłosem sali i miękkim wybrzmieniem.",
-  "settings.pianoCharAria": "Charakter brzmienia fortepianu",
+  "settings.pianoSoundHeading": "Przestrzeń i pogłos",
+  "settings.pianoSoundHint": "Wybierz charakter sali dla całego miksu i dopasuj poziom pogłosu dla każdego instrumentu.",
+  "settings.pianoCharAria": "Charakter przestrzeni",
   "settings.pianoCharDry": "Studio / Suchy",
   "settings.pianoCharNatural": "Naturalny",
   "settings.pianoCharConcert": "Sala koncertowa",
+  "settings.reverbInstAria": "Instrument do regulacji pogłosu",
   "settings.pianoReverbLabel": "Pogłos",
-  "settings.pianoReverbAria": "Poziom pogłosu fortepianu",
+  "settings.pianoReverbAria": "Poziom pogłosu instrumentu",
   "settings.pianoTestBtn": "▶ Przetestuj brzmienie",
   "settings.autoNextHeading": "Automatyczne następne pytanie",
   "settings.autoNextHint": "Po trafnej odpowiedzi automatycznie odtwarza kolejne zadanie.",
@@ -18183,14 +18279,15 @@ const I18N_STATIC_UK = {
   "settings.groupAppearance": "Вигляд і теми",
   "settings.defaultTempoHeading": "Типовий темп (початковий BPM у вправах)",
   "settings.defaultTempoHint": "Застосовується при відкритті вправи, доки ти не зміниш темп всередині модуля.",
-  "settings.pianoSoundHeading": "Звучання фортепіано та реверберація",
-  "settings.pianoSoundHint": "Обирай між прямим студійним звучанням або теплішим акустичним роялем із об’ємною реверберацією.",
-  "settings.pianoCharAria": "Характер звучання фортепіано",
+  "settings.pianoSoundHeading": "Простір і реверберація",
+  "settings.pianoSoundHint": "Обирай характер приміщення для всього міксу й налаштовуй реверберацію для кожного інструмента окремо.",
+  "settings.pianoCharAria": "Характер простору",
   "settings.pianoCharDry": "Студія / Сухий",
   "settings.pianoCharNatural": "Природний",
   "settings.pianoCharConcert": "Концертний зал",
+  "settings.reverbInstAria": "Інструмент для налаштування реверберації",
   "settings.pianoReverbLabel": "Реверберація",
-  "settings.pianoReverbAria": "Рівень реверберації фортепіано",
+  "settings.pianoReverbAria": "Рівень реверберації інструмента",
   "settings.pianoTestBtn": "▶ Прослухати звук",
   "settings.autoNextHeading": "Автозапуск наступного завдання",
   "settings.autoNextHint": "Автоматично програє наступне завдання після правильної відповіді.",
@@ -20146,14 +20243,15 @@ const I18N_STATIC_UR = {
   "settings.groupAppearance": "ظاہری شکل اور تھیمز",
   "settings.defaultTempoHeading": "طے شدہ ٹیمپو (تمام مشقوں کی ابتدائی BPM)",
   "settings.defaultTempoHint": "جب تک آپ ماڈیول کے اندر ٹیمپو نہیں بدلتے، ہر مشق اس رفتار سے شروع ہوگی۔",
-  "settings.pianoSoundHeading": "پیانو کا آواز اور ہال گونج",
-  "settings.pianoSoundHint": "براہِ راست اسٹوڈیو آواز یا کمرے کی گونج اور قدرتی گونج دار اختتام والے گرم صوتی پیانو میں سے انتخاب کریں۔",
-  "settings.pianoCharAria": "پیانو کی آواز کا مزاج",
+  "settings.pianoSoundHeading": "کمرے کی گونج اور آواز",
+  "settings.pianoSoundHint": "پورے مکس کے لیے کمرے کا مزاج چنیں اور ہر ساز کے لیے الگ ہال گونج سیٹ کریں۔",
+  "settings.pianoCharAria": "کمرے کی گونج کا مزاج",
   "settings.pianoCharDry": "خشک / اسٹوڈیو",
   "settings.pianoCharNatural": "قدرتی",
   "settings.pianoCharConcert": "کنسرٹ ہال",
+  "settings.reverbInstAria": "گونج کے لیے ساز منتخب کریں",
   "settings.pianoReverbLabel": "ہال گونج",
-  "settings.pianoReverbAria": "پیانو کی ہال گونج",
+  "settings.pianoReverbAria": "ساز کی ہال گونج",
   "settings.pianoTestBtn": "▶ آواز ٹیسٹ کریں",
   "settings.autoNextHeading": "اگلا سوال خودکار چلائیں",
   "settings.autoNextHint": "صحیح جواب کے بعد اگلی مشق خود بخود چل پڑے گی۔",
@@ -47131,9 +47229,16 @@ function sanitizeMetronomeMix(raw) {
   };
 }
 
+const REVERB_INSTRUMENT_KEYS = ["piano", "guitar", "strings", "brass", "voice", "bass"];
+const STEM_REVERB_PRESETS = Object.freeze({
+  dry:     Object.freeze({ piano: 0.00, guitar: 0.00, strings: 0.00, brass: 0.00, voice: 0.00, bass: 0.00 }),
+  natural: Object.freeze({ piano: 0.24, guitar: 0.22, strings: 0.34, brass: 0.26, voice: 0.30, bass: 0.06 }),
+  concert: Object.freeze({ piano: 0.48, guitar: 0.42, strings: 0.56, brass: 0.46, voice: 0.52, bass: 0.16 })
+});
 const DEFAULT_PIANO_SOUND = Object.freeze({
   character: "natural",
-  reverb: 0.24
+  reverb: 0.24,
+  instruments: { ...STEM_REVERB_PRESETS.natural }
 });
 const PIANO_REVERB_BY_CHAR = Object.freeze({
   dry: 0.0,
@@ -47158,10 +47263,19 @@ function sanitizePianoSound(raw) {
   const charKey = Object.prototype.hasOwnProperty.call(PIANO_REVERB_BY_CHAR, src.character)
     ? src.character
     : DEFAULT_PIANO_SOUND.character;
-  const fallbackMix = PIANO_REVERB_BY_CHAR[charKey] ?? DEFAULT_PIANO_SOUND.reverb;
+  const presetMap = STEM_REVERB_PRESETS[charKey] || STEM_REVERB_PRESETS.natural;
+  const rawInstMap = (src.instruments && typeof src.instruments === "object") ? src.instruments : {};
+  const instruments = {};
+  REVERB_INSTRUMENT_KEYS.forEach(stemKey => {
+    const rawVal = Object.prototype.hasOwnProperty.call(rawInstMap, stemKey)
+      ? rawInstMap[stemKey]
+      : (stemKey === "piano" ? src.reverb : undefined);
+    instruments[stemKey] = sanitizeMetronomeMixValue(rawVal, presetMap[stemKey] ?? DEFAULT_PIANO_SOUND.reverb);
+  });
   return {
     character: charKey,
-    reverb: sanitizeMetronomeMixValue(src.reverb, fallbackMix)
+    reverb: instruments.piano,
+    instruments: instruments
   };
 }
 
@@ -48139,6 +48253,7 @@ function setLanguagePreference(nextLang) {
   syncLanguageControls(lang);
   syncAnswerSoundToggleUI();
   syncBreakReminderControls();
+  syncPianoSoundControls();
   applyThemeAndAppearance();
 
   const muteBtn = document.getElementById("masterMuteToggle");
@@ -48280,47 +48395,102 @@ function setAutoNextPreference(nextEnabled) {
   }
 }
 
+let _selectedReverbInstrument = "piano";
+
+const REVERB_PREVIEW_PROBES = Object.freeze({
+  piano:   { style: "piano",   notes: ["C3", "G3", "D4", "E4", "B4"], dur: 1.55, gain: 0.95 },
+  guitar:  { style: "guitar",  notes: ["C3", "G3", "D4", "E4"],       dur: 1.45, gain: 0.92 },
+  strings: { style: "strings", notes: ["C3", "G3", "D4", "B4"],       dur: 1.85, gain: 0.90 },
+  brass:   { style: "brass",   notes: ["C3", "G3", "C4", "E4"],       dur: 1.45, gain: 0.90 },
+  voice:   { style: "choir",   notes: ["C4", "E4", "G4"],             dur: 1.65, gain: 0.90 },
+  bass:    { style: "ebass",   notes: ["C2", "G2", "C3"],             dur: 1.15, gain: 0.95 }
+});
+
+function getLocalizedReverbInstrumentName(instKey) {
+  const fallbacks = {
+    piano: "Klavier",
+    guitar: "Gitarre",
+    strings: "Streicher",
+    brass: "Bläser",
+    voice: "Stimme",
+    bass: "Bass"
+  };
+  const lang = typeof getAppLanguage === "function" ? getAppLanguage() : (state?.settings?.language || "de");
+  const txt = typeof getStaticI18nText === "function" ? getStaticI18nText(`mixer.${instKey}`, lang) : "";
+  return txt || fallbacks[instKey] || instKey;
+}
+
 function getActivePianoSoundSettings() {
   return sanitizePianoSound(state?.profile?.pianoSound);
 }
 
+function selectReverbInstrument(instKey) {
+  _selectedReverbInstrument = REVERB_INSTRUMENT_KEYS.includes(instKey) ? instKey : "piano";
+  syncPianoSoundControls();
+}
+
 function syncPianoSoundControls() {
-  const { character, reverb } = getActivePianoSoundSettings();
+  const { character, reverb, instruments } = getActivePianoSoundSettings();
+  const activeInst = REVERB_INSTRUMENT_KEYS.includes(_selectedReverbInstrument) ? _selectedReverbInstrument : "piano";
+  _selectedReverbInstrument = activeInst;
+
   document.querySelectorAll("[data-piano-char]").forEach(btn => {
     const isMatch = btn.dataset.pianoChar === character;
     btn.classList.toggle("active", isMatch);
     btn.setAttribute("aria-pressed", String(isMatch));
   });
-  const pct = Math.round(reverb * 100);
+
+  document.querySelectorAll("[data-reverb-inst]").forEach(btn => {
+    const k = btn.dataset.reverbInst;
+    const isMatch = k === activeInst;
+    const stemPct = Math.round((instruments?.[k] ?? reverb) * 100);
+    btn.classList.toggle("active", isMatch);
+    btn.setAttribute("aria-selected", String(isMatch));
+    btn.textContent = `${getLocalizedReverbInstrumentName(k)} · ${stemPct}%`;
+  });
+
+  const activePct = Math.round((instruments?.[activeInst] ?? reverb) * 100);
   const slider = document.getElementById("pianoReverbSlider");
   const display = document.getElementById("pianoReverbDisplay");
-  if (slider) slider.value = String(pct);
-  if (display) display.textContent = `${pct}%`;
-  audioEngine?.setPianoSoundProfile?.(character, reverb);
+  if (slider) slider.value = String(activePct);
+  if (display) display.textContent = `${activePct}%`;
+  audioEngine?.setPianoSoundProfile?.(character, instruments);
 }
 
 function setPianoCharacterPreference(character) {
   const validChar = Object.prototype.hasOwnProperty.call(PIANO_REVERB_BY_CHAR, character)
     ? character
     : DEFAULT_PIANO_SOUND.character;
+  const presetMap = STEM_REVERB_PRESETS[validChar] || STEM_REVERB_PRESETS.natural;
   if (!state.profile) state.profile = createDefaultProfile();
   state.profile.pianoSound = {
     character: validChar,
-    reverb: PIANO_REVERB_BY_CHAR[validChar]
+    reverb: presetMap.piano,
+    instruments: { ...presetMap }
+  };
+  saveUserProfile(state.profile);
+  syncPianoSoundControls();
+}
+
+function setInstrumentReverbPreference(instrumentKey, mixNormalized) {
+  const key = REVERB_INSTRUMENT_KEYS.includes(instrumentKey) ? instrumentKey : "piano";
+  const cur = getActivePianoSoundSettings();
+  const nextInstruments = {
+    ...cur.instruments,
+    [key]: sanitizeMetronomeMixValue(mixNormalized, cur.instruments[key] ?? cur.reverb)
+  };
+  if (!state.profile) state.profile = createDefaultProfile();
+  state.profile.pianoSound = {
+    character: cur.character,
+    reverb: nextInstruments.piano,
+    instruments: nextInstruments
   };
   saveUserProfile(state.profile);
   syncPianoSoundControls();
 }
 
 function setPianoReverbPreference(mixNormalized) {
-  const cur = getActivePianoSoundSettings();
-  if (!state.profile) state.profile = createDefaultProfile();
-  state.profile.pianoSound = {
-    character: cur.character,
-    reverb: sanitizeMetronomeMixValue(mixNormalized, cur.reverb)
-  };
-  saveUserProfile(state.profile);
-  syncPianoSoundControls();
+  setInstrumentReverbPreference("piano", mixNormalized);
 }
 
 function getActiveDroneMixSettings() {
@@ -60659,6 +60829,7 @@ function resetUserProfile() {
   resetBreakReminderTimer();
   syncBreakReminderControls();
   if (typeof resetMetronomeStateToDefault === "function") resetMetronomeStateToDefault();
+  _selectedReverbInstrument = "piano";
   syncPianoSoundControls();
   syncDroneMixControls();
   applyThemeAndAppearance();
@@ -61968,17 +62139,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  document.querySelectorAll("[data-reverb-inst]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      selectReverbInstrument(btn.dataset.reverbInst);
+    });
+  });
+
   document.getElementById("pianoReverbSlider")?.addEventListener("input", (e) => {
     const pct = parseFloat(e.target.value);
     if (Number.isFinite(pct)) {
-      setPianoReverbPreference(pct / 100);
+      setInstrumentReverbPreference(_selectedReverbInstrument, pct / 100);
     }
   });
 
   document.getElementById("testPianoSoundBtn")?.addEventListener("click", async () => {
     await ensureAudioReady();
     audioEngine.stopPlayback();
-    audioEngine.playInstrumentSample("piano", ["C3", "G3", "D4", "E4", "B4"], 1.55, 0, 0.95);
+    const probe = REVERB_PREVIEW_PROBES[_selectedReverbInstrument] || REVERB_PREVIEW_PROBES.piano;
+    audioEngine.playInstrumentSample(probe.style, probe.notes, probe.dur, 0, probe.gain);
   });
 
   const languageSelectEl = document.getElementById("languageSelect");
