@@ -10378,8 +10378,8 @@ body,
           <div class="settings-sub-field">
             <div class="tempo-control-row">
               <span class="mixer-name" data-i18n="settings.pianoReverbLabel">Raumhall</span>
-              <input type="range" id="pianoReverbSlider" min="0" max="100" step="2" value="42" aria-label="Klavier-Raumhall" data-i18n-aria="settings.pianoReverbAria">
-              <span id="pianoReverbDisplay" class="tempo-val">42%</span>
+              <input type="range" id="pianoReverbSlider" min="0" max="100" step="2" value="24" aria-label="Klavier-Raumhall" data-i18n-aria="settings.pianoReverbAria">
+              <span id="pianoReverbDisplay" class="tempo-val">24%</span>
             </div>
             <button id="testPianoSoundBtn" class="btn-tool settings-test-sound-btn" type="button" data-i18n="settings.pianoTestBtn">▶ Klang testen</button>
           </div>
@@ -10597,8 +10597,8 @@ const SAMPLED_STEM_CONFIG = {
 
 const PIANO_CHARACTER_PROFILES = {
   dry:     { filterHz: 18000, reverbDampHz: 5200, roomSize: 0.58, defaultReverb: 0.00, releaseSec: 0.55, holdDecayFloor: 1.00, attackSec: 0.0025, spreadMs: 0,  humanize: false },
-  natural: { filterHz: 5800,  reverbDampHz: 4800, roomSize: 0.72, defaultReverb: 0.42, releaseSec: 0.78, holdDecayFloor: 0.68, attackSec: 0.0035, spreadMs: 9,  humanize: true  },
-  concert: { filterHz: 5000,  reverbDampHz: 5600, roomSize: 0.86, defaultReverb: 0.78, releaseSec: 1.05, holdDecayFloor: 0.62, attackSec: 0.0042, spreadMs: 13, humanize: true  }
+  natural: { filterHz: 5800,  reverbDampHz: 4800, roomSize: 0.72, defaultReverb: 0.24, releaseSec: 0.78, holdDecayFloor: 0.68, attackSec: 0.0035, spreadMs: 9,  humanize: true  },
+  concert: { filterHz: 5000,  reverbDampHz: 5600, roomSize: 0.86, defaultReverb: 0.48, releaseSec: 1.05, holdDecayFloor: 0.62, attackSec: 0.0042, spreadMs: 13, humanize: true  }
 };
 
 /**
@@ -46129,12 +46129,12 @@ function sanitizeMetronomeMix(raw) {
 
 const DEFAULT_PIANO_SOUND = Object.freeze({
   character: "natural",
-  reverb: 0.42
+  reverb: 0.24
 });
 const PIANO_REVERB_BY_CHAR = Object.freeze({
   dry: 0.0,
-  natural: 0.42,
-  concert: 0.78
+  natural: 0.24,
+  concert: 0.48
 });
 const DEFAULT_DRONE_MIX = Object.freeze({
   pad: 0.70,
