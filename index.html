@@ -10319,6 +10319,18 @@ body,
             <span class="ref-hub-title" data-i18n="knowledge.refNotation">Notenschrift &amp; Schlüssel</span>
             <span class="ref-hub-sub" data-i18n="knowledge.refNotationSub">Violin-, Bass- &amp; Altschlüssel, Hilfslinien &amp; Vorzeichen</span>
           </button>
+
+          <button class="ref-hub-card card-top-sage" data-open-ref="arranging">
+            <div class="ref-hub-icon badge-sage">
+              <svg class="icon-svg-large" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="4" rx="1.2"/>
+                <rect x="3" y="10" width="12" height="4" rx="1.2"/>
+                <rect x="9" y="16" width="12" height="4" rx="1.2"/>
+              </svg>
+            </div>
+            <span class="ref-hub-title" data-i18n="knowledge.refArranging">Arrangieren</span>
+            <span class="ref-hub-sub" data-i18n="knowledge.refArrangingSub">Stimmenverteilung, Spannungsbogen &amp; Klangfarben</span>
+          </button>
         </div>
       </div>
 
@@ -13672,6 +13684,8 @@ const I18N_STATIC = {
   "knowledge.refSingPlaySub": { de: "Koordination, Groove & Praxis-Übungen", en: "Coordination, flow & practical drills" },
   "knowledge.refNotation": { de: "Notenschrift & Schlüssel", en: "Notation & Clefs" },
   "knowledge.refNotationSub": { de: "Violin-, Bass- & Altschlüssel, Hilfslinien & Vorzeichen", en: "Treble, Bass & Alto clefs, ledger lines & accidentals" },
+  "knowledge.refArranging": { de: "Arrangieren", en: "Arranging" },
+  "knowledge.refArrangingSub": { de: "Stimmenverteilung, Spannungsbogen & Klangfarben", en: "Voicings, form arc, layers & instrumentation" },
   "knowledge.articlesHeading": { de: "Artikel & Entdeckungen", en: "Articles & Insights" },
   "knowledge.articlesIntro": {
     de: "Vertiefende Hintergründe zu Geschichte, Psychologie, Gehirn und Improvisation – mit direkten Hörbeispielen.",
@@ -14818,6 +14832,8 @@ const I18N_STATIC_FR = {
   "knowledge.refSingPlaySub": "Coordination, indépendance & exercices pratiques",
   "knowledge.refNotation": "Notation & Clés",
   "knowledge.refNotationSub": "Clés de Sol, Fa & Ut 3, lignes suppl. & altérations",
+  "knowledge.refArranging": "Arrangement",
+  "knowledge.refArrangingSub": "Répartition des voix, dramaturgie & timbres",
   "knowledge.articlesHeading": "Articles & Découvertes",
   "knowledge.articlesIntro": "Essais approfondis sur l’histoire, la psychologie musicale, les neurosciences et l’improvisation – avec exemples audio intégrés.",
   "knowledge.instHeading": "Familles d’instruments & Son moderne",
@@ -16759,6 +16775,8 @@ const I18N_STATIC_PL = {
   "knowledge.refSingPlaySub": "Koordynacja, swoboda i ćwiczenia praktyczne",
   "knowledge.refNotation": "Notacja i klucze",
   "knowledge.refNotationSub": "Klucz wiolinowy, basowy, altowy, linie dodane i znaki",
+  "knowledge.refArranging": "Aranżacja",
+  "knowledge.refArrangingSub": "Rozkład głosów, dramaturgia, warstwy i barwy",
   "knowledge.articlesHeading": "Artykuły i odkrycia",
   "knowledge.articlesIntro": "Przystępne opracowania o historii, psychologii muzyki i słuchu — z przykładami dźwiękowymi w treści.",
   "knowledge.instHeading": "Rodziny instrumentów i nowoczesny dźwięk",
@@ -18746,6 +18764,8 @@ const I18N_STATIC_UK = {
   "knowledge.refSingPlaySub": "Координація, свобода та практичні вправи",
   "knowledge.refNotation": "Нотопис і ключі",
   "knowledge.refNotationSub": "Скрипковий, басовий, альтовий, додаткові лінійки й альтерація",
+  "knowledge.refArranging": "Аранжування",
+  "knowledge.refArrangingSub": "Розподіл голосів, драматургія, шари й тембри",
   "knowledge.articlesHeading": "Статті та відкриття",
   "knowledge.articlesIntro": "Ґрунтовні матеріали про історію, музичну психологію, нейронауку та імпровізацію — з аудіоприкладами прямо в тексті.",
   "knowledge.instHeading": "Родини інструментів і сучасний звук",
@@ -20734,6 +20754,8 @@ const I18N_STATIC_UR = {
   "knowledge.refSingPlaySub": "ہم آہنگی، فلو اور عملی مشقیں",
   "knowledge.refNotation": "نوٹیشن اور کلیفس",
   "knowledge.refNotationSub": "ٹریبل، باس اور آلٹو کلیف، لیجر لائنز اور علامتیں",
+  "knowledge.refArranging": "ارینجنگ (ترتیبِ موسیقی)",
+  "knowledge.refArrangingSub": "آوازوں کی تقسیم، ساخت، پرتیں اور سازوں کا انتخاب",
   "knowledge.articlesHeading": "مضامین اور انکشافات",
   "knowledge.articlesIntro": "موسیقی کی تاریخ، نفسیات، دماغ اور امپرووائزیشن پر گہرے مضامین — فوری آڈیو مثالوں کے ساتھ۔",
   "knowledge.instHeading": "سازوں کے خاندان اور جدید آوازیں",
@@ -26368,6 +26390,168 @@ function renderNotationReferenceHTML_EN() {
   `;
 }
 
+function renderArrangingReferenceHTML_EN() {
+  return `
+    <!-- 1. What Is Arranging? -->
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-sage">1. What Is Arranging?</span>
+        <span class="k-ratio-chip">Sketch → Full Score</span>
+      </div>
+      <h4>The Art of Turning a Musical Idea into a Living Soundscape</h4>
+      <p>
+        If <strong>composition</strong> is the blueprint of a song (its core melody, basic chords, and lyrics), <strong>arranging</strong> is the entire architecture, lighting, color palette, and staging: <em>Who plays what, when, in which octave, with what rhythm, dynamics, and tone color?</em>
+      </p>
+      <div class="physics-fact-grid">
+        <div class="physics-fact-item">
+          <strong>Instrumentation &amp; Timbre</strong>
+          Choosing which instruments or voices carry the lead melody, bassline, harmonic pad, and rhythmic pulse — and how their tone colors blend.
+        </div>
+        <div class="physics-fact-item">
+          <strong>Form &amp; Dramatic Arc</strong>
+          Shaping the emotional journey from an intimate intro through verses and pre-choruses up to the climax, bridge, and outro.
+        </div>
+        <div class="physics-fact-item">
+          <strong>Register &amp; Voicing</strong>
+          Spreading notes across low bass, warm midrange, and shimmering highs so every instrument has room to breathe without muddiness.
+        </div>
+        <div class="physics-fact-item">
+          <strong>Texture, Dialogue &amp; Space</strong>
+          Deciding when everyone plays together (<em>tutti</em>), when a single instrument answers in vocal pauses, and when silence creates goosebumps.
+        </div>
+      </div>
+    </article>
+
+    <!-- 2. Purpose & Applications -->
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-peach">2. Purpose &amp; Real-World Uses</span>
+        <span class="k-ratio-chip">Why We Arrange</span>
+      </div>
+      <h4>What Is Arranging Used For — and Why Does It Matter So Much?</h4>
+      <p>
+        The exact same song with the same four chords can sound like an <strong>intimate piano ballad</strong>, a <strong>driving funk groove</strong>, a <strong>four-part a cappella choir piece</strong>, or an <strong>epic orchestral film cue</strong>. The arrangement defines the genre, emotional weight, and clarity:
+      </p>
+      <ul class="article-steps-list">
+        <li>
+          <strong>1. Guiding Listener Focus:</strong> The human ear can consciously track at most <strong>2 to 3 simultaneous musical elements</strong>. Great arranging clears space in the midrange for the lead vocal or solo melody instead of burying it under competing tracks.
+        </li>
+        <li>
+          <strong>2. Translating Emotion &amp; Style:</strong> Sustained string pads create warmth and vastness, tight brass stabs inject energy, and a lone fingerpicked guitar creates closeness and vulnerability.
+        </li>
+        <li>
+          <strong>3. Preventing Ear Fatigue (The Layering Principle):</strong> If every instrument plays nonstop from bar 1, the listener’s ear tunes out after 30 seconds. By adding and stripping back layers section by section, each chorus and verse feels fresh.
+        </li>
+        <li>
+          <strong>4. Adapting Music to Real Ensembles:</strong> Whether you are writing for a school band, string quartet, SATB choir, jazz big band, or solo piano, arranging tailors a piece to the exact instruments, ranges, and players available.
+        </li>
+        <li>
+          <strong>5. Building Transitions &amp; “Musical Glue”:</strong> Pickup notes, drum fills, bass walks, crescendos, and sudden stops (<em>breaks</em>) connect sections so every transition feels inevitable.
+        </li>
+      </ul>
+    </article>
+
+    <!-- 3. The 4 Musical Layers -->
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-lilac">3. The 4-Layer Framework</span>
+        <span class="k-ratio-chip">Musical Roles</span>
+      </div>
+      <h4>The 4 Essential Roles Inside Almost Every Arrangement</h4>
+      <p>
+        Whether in pop production, jazz ensembles, or orchestral scores, clear arrangements divide instruments into <strong>four distinct functional roles</strong>:
+      </p>
+      <ul class="k-physics-list">
+        <li><strong>1. Lead / Focus (Foreground):</strong> The lead vocal or solo instrument carrying the primary melody and story. Everything else supports this line.</li>
+        <li><strong>2. Foundation (Bass &amp; Groove):</strong> Bass (electric bass, upright bass, tuba, left-hand piano) and drums/percussion lock together to anchor the harmonic root and rhythmic pocket.</li>
+        <li><strong>3. Harmonic Pad &amp; Comping (Middle Ground):</strong> Strings, choir pads, organ/synth beds, or rhythmic guitar/piano chords supply harmonic color and warmth.</li>
+        <li><strong>4. Countermelody, Fills &amp; “Ear Candy”:</strong> Short melodic answers, counter-lines, or high sparkles placed specifically in the gaps where the lead melody takes a breath.</li>
+      </ul>
+      <div class="k-btn-row" style="margin-top:0.5rem;">
+        <button type="button" class="btn-tool" data-play-custom="arr-sketch">▶ 1. Bare Sketch (melody &amp; root only)</button>
+        <button type="button" class="btn-tool" data-play-custom="arr-full-layers">▶ 2. Full 4-Layer Arrangement (groove + pad + fill)</button>
+      </div>
+    </article>
+
+    <!-- 4. Register, Voicings & Frequency Separation -->
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-sage">4. Register &amp; Voicings</span>
+        <span class="k-ratio-chip">Clarity vs. Mud</span>
+      </div>
+      <h4>Why Some Arrangements Sound Crystal Clear — and Others Sound Muddy</h4>
+      <p>
+        The most common arranging pitfall is having piano, guitar, and strings all play dense chords in the exact same middle octave (<code>C3–C4</code>), masking one another and crowding the lead vocal.
+      </p>
+      <ul class="k-physics-list">
+        <li><strong>The Overtone Rule (Wide Down Low, Close Up High):</strong> Below <code>C3</code>, natural overtones crowd closely together. Tight thirds or seconds in the bass sound muddy and rumble (<em>Low-Interval Limit</em>). Keep the low register anchored with <strong>roots, octaves, and fifths</strong>, and place thirds, sevenths, and color extensions (<code>9, 11, 13</code>) in the middle and upper registers!</li>
+        <li><strong>Close Voicing vs. Open / Drop-2 Voicing:</strong> Taking the second-highest note of a close four-note chord and dropping it down an octave (<em>Drop-2</em>) instantly opens up a lush, wide, cinematic sound for strings, horns, or choir.</li>
+        <li><strong>Rhythmic Complementarity:</strong> If two instruments share a similar register, give them contrasting rhythms — e.g., sustained whole-note string pads paired with crisp sixteenth-note acoustic guitar strums.</li>
+      </ul>
+      <div class="k-btn-row" style="margin-top:0.5rem;">
+        <button type="button" class="btn-tool" data-play-custom="arr-voicing-muddy">▶ Muddy: Tight thirds clustered in the bass</button>
+        <button type="button" class="btn-tool" data-play-custom="arr-voicing-open">▶ Clear: Open studio voicing (wide low, colorful high)</button>
+      </div>
+    </article>
+
+    <!-- 5. Tension Over Time: Call & Response, Counterpoint & Drops -->
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-peach">5. Dynamics &amp; Dialogue</span>
+        <span class="k-ratio-chip">Call &amp; Response • The Drop</span>
+      </div>
+      <h4>Keeping a 4-Minute Piece Engaging from Start to Finish</h4>
+      <ul class="article-steps-list">
+        <li>
+          <strong>Call &amp; Response:</strong> When the lead vocal finishes a phrase and rests for two beats, a horn lick, guitar motif, or piano fill answers right inside that open space — turning accompaniment into a conversation.
+        </li>
+        <li>
+          <strong>Contrary Motion &amp; Countermelody:</strong> A strong countermelody moves in the <em>opposite direction</em> of the main melody (rising when the lead falls) or moves when the lead holds a long note.
+        </li>
+        <li>
+          <strong>Power Through Subtraction (“The Drop”):</strong> Often the biggest emotional impact comes not from adding five more tracks, but from <strong>suddenly stripping away</strong> almost everything (leaving just vocal and bass or kick drum for a bar) before bringing the full ensemble back in.
+        </li>
+        <li>
+          <strong>Octave Expansion in the Chorus:</strong> Doubling the melody an octave higher while letting the bass drop an octave lower opens the frequency curtain both upward and downward.
+        </li>
+      </ul>
+      <div class="k-btn-row" style="margin-top:0.5rem;">
+        <button type="button" class="btn-tool" data-play-custom="arr-call-response">▶ Call &amp; Response (melody calls, accompaniment answers)</button>
+        <button type="button" class="btn-tool" data-play-custom="arr-counterpoint">▶ Contrary Counterpoint (voices opening outward)</button>
+      </div>
+    </article>
+
+    <!-- 6. Reharmonization & 5-Point Checklist -->
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-lilac">6. Reharmonization &amp; Checklist</span>
+        <span class="k-ratio-chip">New Light on Same Notes</span>
+      </div>
+      <h4>Changing the Emotional Meaning Without Changing a Single Melody Note</h4>
+      <p>
+        One of the most expressive arranging tools is <strong>reharmonization</strong>: keeping the melody 100% identical while swapping the chords underneath — for example, replacing a plain <code>C Major (I)</code> with a warm <code>Fmaj7 (IVmaj7)</code>, a bittersweet <code>Fm6 (iv6)</code>, or a lush <code>Am9 (vi9)</code>.
+      </p>
+      <div class="k-btn-row" style="margin-top:0.45rem;margin-bottom:0.65rem;">
+        <button type="button" class="btn-tool" data-play-custom="arr-reharm-plain">▶ Melody (E–D–C) over plain triads (I–V–I)</button>
+        <button type="button" class="btn-tool" data-play-custom="arr-reharm-cinema">▶ Exact same melody cinematically reharmonized</button>
+      </div>
+      <div class="k-meta-box">
+        <div>✅ <strong>The 5-Question Checklist for Your Own Arrangements:</strong></div>
+        <div>1. <strong>Who has the spotlight right now?</strong> Only one element should demand primary focus at any given moment.</div>
+        <div>2. <strong>Where are the breathing spaces?</strong> Place fills and counter-lines inside the rests of the main melody.</div>
+        <div>3. <strong>Is the low end clean?</strong> Avoid tight thirds below <code>C3</code> — anchor the bass with roots, fifths, and octaves.</div>
+        <div>4. <strong>Can you immediately hear the difference between verse and chorus?</strong> Contrast register width, rhythmic density, and instrument count.</div>
+        <div>5. <strong>The Mute Test:</strong> Mute a track for a moment. If the song doesn’t miss it, either give that part a distinct role or boldly leave it out!</div>
+      </div>
+      <div class="k-btn-row" style="margin-top:0.55rem;">
+        <button type="button" class="btn-tool" data-jump-ref="ensembles">🎻 To Ensembles &amp; Orchestras →</button>
+        <button type="button" class="btn-tool" data-jump-ref="cadences">🎹 To Cadences &amp; Harmony →</button>
+        <button type="button" class="btn-tool" data-jump-ref="physics">🌊 To Physics &amp; Overtones →</button>
+      </div>
+    </article>
+  `;
+}
+
 </script>
 <script>
 /**
@@ -30075,6 +30259,137 @@ function renderNotationReferenceHTML_FR() {
           <h5>Tonalités à bémols (Ordre : Si – Mi – La – Ré – Sol – Do)</h5>
           <p>En <strong>Mi♭ majeur (3♭)</strong>, <code>Si♭</code>, <code>Mi♭</code> et <code>La♭</code> gouvernent toute la portée dès le début jusqu’à l’apparition éventuelle d’un bécarre (<code>♮</code>).</p>
         </div>
+      </div>
+    </article>
+  `;
+}
+
+function renderArrangingReferenceHTML_FR() {
+  return `
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-sage">1. Qu’est-ce que l’arrangement ?</span>
+        <span class="k-ratio-chip">Esquisse → Œuvre complète</span>
+      </div>
+      <h4>L’art de transformer une idée musicale en univers sonore vivant</h4>
+      <p>
+        Si la <strong>composition</strong> est le plan d’une chanson (mélodie, accords de base et paroles), l’<strong>arrangement</strong> en est toute l’architecture, la mise en lumière et la palette de couleurs : <em>Qui joue quoi, à quel moment, dans quelle octave, avec quel rythme, quelle dynamique et quel timbre ?</em>
+      </p>
+      <div class="physics-fact-grid">
+        <div class="physics-fact-item">
+          <strong>Instrumentation &amp; Timbres</strong>
+          Choisir quels instruments ou voix portent la mélodie, la basse, le tapis harmonique et le rythme — et comment leurs timbres se marient.
+        </div>
+        <div class="physics-fact-item">
+          <strong>Forme &amp; Dramaturgie</strong>
+          Construire l’arc émotionnel depuis une intro intime jusqu’au refrain, au pont et au final.
+        </div>
+        <div class="physics-fact-item">
+          <strong>Registres &amp; Voicings</strong>
+          Répartir les notes du grave profond aux aigus cristallins pour que chaque instrument respire sans brouiller l’ensemble.
+        </div>
+        <div class="physics-fact-item">
+          <strong>Dialogue, Texture &amp; Silences</strong>
+          Décider quand tout le monde joue (<em>tutti</em>), quand un instrument répond dans les silences du chant et quand le vide crée le frisson.
+        </div>
+      </div>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-peach">2. Rôle &amp; Utilisations</span>
+        <span class="k-ratio-chip">Pourquoi arranger ?</span>
+      </div>
+      <h4>À quoi sert un arrangement — et quand l’utilise-t-on ?</h4>
+      <p>
+        Une même chanson aux quatre mêmes accords peut devenir une <strong>ballade piano intimiste</strong>, un <strong>morceau funk entraînant</strong>, un <strong>chœur a cappella à quatre voix</strong> ou une <strong>fresque orchestrale de film</strong> :
+      </p>
+      <ul class="article-steps-list">
+        <li><strong>1. Guider l’attention de l’oreille :</strong> L’oreille humaine ne suit consciemment que <strong>2 à 3 plans sonores simultanés</strong>. Un bon arrangement dégage le registre médium pour la voix ou la mélodie principale.</li>
+        <li><strong>2. Traduire l’émotion et le style :</strong> Des nappes de cordes apportent chaleur et ampleur, des cuivres brefs donnent de l’impact, une guitare acoustique crée la proximité.</li>
+        <li><strong>3. Éviter la fatigue auditive :</strong> Si tous les instruments jouent dès la première mesure, l’oreille sature vite. Ajouter et retirer des couches garde chaque couplet et refrain captivant.</li>
+        <li><strong>4. Adapter la musique à un ensemble réel :</strong> Groupe, quatuor à cordes, chœur SATB, big band ou piano solo — l’arrangement ajuste l’écriture aux tessitures et aux musiciens présents.</li>
+        <li><strong>5. Soigner les transitions :</strong> Relances de batterie, marches de basse, crescendos et pauses franches (<em>breaks</em>) relient les parties avec fluidité.</li>
+      </ul>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-lilac">3. Les 4 plans sonores</span>
+        <span class="k-ratio-chip">Répartition des rôles</span>
+      </div>
+      <h4>Les 4 couches fondamentales d’un arrangement limpide</h4>
+      <ul class="k-physics-list">
+        <li><strong>1. Premier plan (Lead / Mélodie) :</strong> Voix ou instrument soliste qui raconte l’histoire principale.</li>
+        <li><strong>2. Fondation (Basse &amp; Groove) :</strong> La basse pose la fondamentale harmonique tandis que la batterie et les percussions ancrent la pulsation.</li>
+        <li><strong>3. Tapis harmonique (Pad &amp; Comping) :</strong> Cordes tenues, chœurs, orgue ou accords rythmiques de guitare/piano au centre du spectre.</li>
+        <li><strong>4. Contre-chant &amp; Ornements (Fills) :</strong> Petites réponses mélodiques placées précisément lorsque la mélodie principale reprend son souffle.</li>
+      </ul>
+      <div class="k-btn-row" style="margin-top:0.5rem;">
+        <button type="button" class="btn-tool" data-play-custom="arr-sketch">▶ 1. Esquisse nue (mélodie &amp; basse)</button>
+        <button type="button" class="btn-tool" data-play-custom="arr-full-layers">▶ 2. Arrangement complet à 4 couches</button>
+      </div>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-sage">4. Registres &amp; Voicings</span>
+        <span class="k-ratio-chip">Clarté vs Boue sonore</span>
+      </div>
+      <h4>Pourquoi certains arrangements sonnent limpides — et d’autres confus</h4>
+      <ul class="k-physics-list">
+        <li><strong>La loi des harmoniques (Large en bas, serré en haut) :</strong> Sous <code>Do3 (C3)</code>, les tierces serrées brouillent le grave (<em>Low-Interval Limit</em>). Réservez le grave aux fondamentales, quintes et octaves, et placez tierces, septièmes et extensions dans le médium et l’aigu.</li>
+        <li><strong>Position serrée vs Position ouverte (Drop-2) :</strong> Baisser d’une octave la deuxième note depuis le haut d’un accord serré ouvre immédiatement l’espace sonore.</li>
+        <li><strong>Complémentarité rythmique :</strong> Associez des valeurs longues (nappes) à des motifs courts et précis pour éviter le masquage.</li>
+      </ul>
+      <div class="k-btn-row" style="margin-top:0.5rem;">
+        <button type="button" class="btn-tool" data-play-custom="arr-voicing-muddy">▶ Confus : Tierces serrées dans le grave</button>
+        <button type="button" class="btn-tool" data-play-custom="arr-voicing-open">▶ Limpide : Voicing ouvert bien étagé</button>
+      </div>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-peach">5. Dynamique &amp; Dialogue</span>
+        <span class="k-ratio-chip">Call &amp; Response • Drop</span>
+      </div>
+      <h4>Maintenir l’intérêt d’un bout à l’autre du morceau</h4>
+      <ul class="article-steps-list">
+        <li><strong>Call &amp; Response (Question / Réponse) :</strong> L’accompagnement répond dans les silences de la voix principale.</li>
+        <li><strong>Mouvement contraire &amp; Contre-chant :</strong> Une seconde ligne mélodique descend quand la mélodie monte, ou bouge pendant une note tenue.</li>
+        <li><strong>La force du retrait (Le « Drop ») :</strong> Retirer soudainement presque tous les instruments pendant une mesure crée souvent plus d’impact que d’en ajouter.</li>
+      </ul>
+      <div class="k-btn-row" style="margin-top:0.5rem;">
+        <button type="button" class="btn-tool" data-play-custom="arr-call-response">▶ Call &amp; Response (question / réponse)</button>
+        <button type="button" class="btn-tool" data-play-custom="arr-counterpoint">▶ Contrepoint en mouvement contraire</button>
+      </div>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-lilac">6. Réharmonisation &amp; Liste de contrôle</span>
+        <span class="k-ratio-chip">Mêmes notes, autre couleur</span>
+      </div>
+      <h4>Changer toute l’émotion sans modifier une seule note de la mélodie</h4>
+      <p>
+        La <strong>réharmonisation</strong> conserve la mélodie intacte tout en remplaçant les accords sous-jacents (par ex. <code>Fmaj7 – Fm6 – Am9</code> au lieu d’un simple <code>Do – Sol – Do</code>).
+      </p>
+      <div class="k-btn-row" style="margin-top:0.45rem;margin-bottom:0.65rem;">
+        <button type="button" class="btn-tool" data-play-custom="arr-reharm-plain">▶ Mélodie sur accords simples (I–V–I)</button>
+        <button type="button" class="btn-tool" data-play-custom="arr-reharm-cinema">▶ Même mélodie réharmonisée façon cinéma</button>
+      </div>
+      <div class="k-meta-box">
+        <div>✅ <strong>5 questions clés pour vos arrangements :</strong></div>
+        <div>1. <strong>Qui a la parole ?</strong> Un seul élément principal à la fois au premier plan.</div>
+        <div>2. <strong>Où sont les respirations ?</strong> Placez les réponses dans les pauses du chant.</div>
+        <div>3. <strong>Le grave est-il aéré ?</strong> Pas de tierces serrées sous <code>Do3 (C3)</code>.</div>
+        <div>4. <strong>Couplet et refrain contrastent-ils vraiment ?</strong> Jouez sur l’étendue des octaves et la densité.</div>
+        <div>5. <strong>Le test du bouton Mute :</strong> Si couper une piste ne retire rien au morceau, donnez-lui un vrai rôle ou supprimez-la !</div>
+      </div>
+      <div class="k-btn-row" style="margin-top:0.55rem;">
+        <button type="button" class="btn-tool" data-jump-ref="ensembles">🎻 Vers Orchestres &amp; Groupes →</button>
+        <button type="button" class="btn-tool" data-jump-ref="cadences">🎹 Vers Cadences &amp; Harmonie →</button>
+        <button type="button" class="btn-tool" data-jump-ref="physics">🌊 Vers Physique &amp; Harmoniques →</button>
       </div>
     </article>
   `;
@@ -34821,6 +35136,175 @@ function renderNotationReferenceHTML() {
   `;
 }
 
+function renderArrangingReferenceHTML() {
+  const localized = resolveRegisteredKnowledgeRender(
+    "arranging",
+    typeof renderArrangingReferenceHTML_EN === "function" ? renderArrangingReferenceHTML_EN : null,
+    typeof renderArrangingReferenceHTML_FR === "function" ? renderArrangingReferenceHTML_FR : null
+  );
+  if (localized !== null) return localized;
+
+  return `
+    <!-- 1. Was ist Arrangieren? -->
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-sage">1. Was ist Arrangieren?</span>
+        <span class="k-ratio-chip">Skizze → Gesamtwerk</span>
+      </div>
+      <h4>Die Kunst, aus einer Idee ein klangvolles Erlebnis zu bauen</h4>
+      <p>
+        Wenn die <strong>Komposition</strong> der Grundriss eines Songs ist (also Melodie, Grundakkorde und Text auf einem einfachen Blatt), dann ist das <strong>Arrangement</strong> die gesamte Architektur, Raumgestaltung, Beleuchtung und Farbgebung: <em>Wer spielt wann was, in welcher Oktave, mit welcher Rhythmik, Dynamik und Klangfarbe?</em>
+      </p>
+      <div class="physics-fact-grid">
+        <div class="physics-fact-item">
+          <strong>Besetzung &amp; Instrumentation</strong>
+          Welche Instrumente oder Stimmen übernehmen Melodie, Bass, Harmonie-Polster und Rhythmus – und wie kombinieren sich ihre Klangfarben (Timbres)?
+        </div>
+        <div class="physics-fact-item">
+          <strong>Form &amp; Spannungsbogen</strong>
+          Wie wächst ein Stück vom intimen Intro über Strophe und Pre-Chorus bis zum großen Refrain, zur Bridge und zum Schluss?
+        </div>
+        <div class="physics-fact-item">
+          <strong>Register &amp; Voicing</strong>
+          Wie verteilt man Töne vom tiefen Bass bis in die glitzernden Höhen über das Frequenzspektrum, damit jedes Instrument Luft zum Atmen hat?
+        </div>
+        <div class="physics-fact-item">
+          <strong>Dialog, Textur &amp; Pausen</strong>
+          Wann spielen alle gemeinsam (<em>Tutti</em>), wann antwortet ein einzelnes Instrument in den Gesangspausen, und wann erzeugt Stille Gänsehaut?
+        </div>
+      </div>
+    </article>
+
+    <!-- 2. Wozu dient ein Arrangement – und wofür benutzt man es? -->
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-peach">2. Zweck &amp; Einsatzgebiete</span>
+        <span class="k-ratio-chip">Warum man arrangiert</span>
+      </div>
+      <h4>Wozu dient ein Arrangement – und wofür benutzt man es in der Musik?</h4>
+      <p>
+        Ein und dasselbe Lied mit exakt denselben vier Akkorden kann als <strong>zerbrechliche Klavier-Ballade</strong>, als <strong>treibender Funk-Track</strong>, als <strong>vierstimmiger A-cappella-Chorsatz</strong> oder als <strong>episches Filmmusik-Orchester</strong> erklingen. Erst das Arrangement entscheidet über Stil, Emotion und Wirkung:
+      </p>
+      <ul class="article-steps-list">
+        <li>
+          <strong>1. Fokus lenken &amp; Platz für die Hauptbotschaft schaffen:</strong> Das menschliche Gehör kann maximal <strong>2 bis 3 gleichzeitige musikalische Ebenen</strong> bewusst verfolgen. Ein gutes Arrangement räumt der Hauptmelodie (oder dem Gesang) den Platz in der Mitte frei, statt sie unter zehn konkurrierenden Spuren zu begraben.
+        </li>
+        <li>
+          <strong>2. Emotionen &amp; Genre-Charakter übersetzen:</strong> Warme Streicher-Flächen schaffen Weite und Sehnsucht, kurze Bläser-Einwürfe (<em>Brass Stabs</em>) sorgen für Punch, gezupfte Akustikgitarre für intime Nähe.
+        </li>
+        <li>
+          <strong>3. Hör-Ermüdung verhindern (Das „Zwiebel-Prinzip“):</strong> Würden alle Instrumente von Sekunde 1 bis zum Ende durchgehend spielen, wäre das Ohr nach 30 Sekunden satt. Arrangieren heißt: Schichten gezielt auf- und wieder abbauen, damit Strophe 2 oder der letzte Refrain noch überraschen können.
+        </li>
+        <li>
+          <strong>4. Musik auf konkrete Besetzungen maßschneidern:</strong> Ob Schulband, Streichquartett, Chor (SATB), Big Band, Orchester oder Solo-Gitarre – beim Arrangieren überträgt man einen Song genau auf die vorhandenen Instrumente, ihre Tonumfänge und die Stärken der Mitspielenden.
+        </li>
+        <li>
+          <strong>5. Übergänge &amp; musikalischen „Klebstoff“ gestalten:</strong> Auftakte, Drum-Fills, Bass-Aufgänge, Steigerungen (<em>Crescendo / Swells</em>) oder plötzliche Stopps (<em>Breaks</em>) verbinden Strophe und Refrain so organisch, dass jeder Wechsel zwingend wirkt.
+        </li>
+      </ul>
+    </article>
+
+    <!-- 3. Die 4 musikalischen Rollen (Schichten-Modell) -->
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-lilac">3. Das 4-Schichten-Modell</span>
+        <span class="k-ratio-chip">Rollenverteilung</span>
+      </div>
+      <h4>Die 4 Bausteine jedes durchsichtigen Arrangements</h4>
+      <p>
+        Egal ob Pop-Produktion, Jazz-Combo oder Sinfonieorchester – fast jedes gelungene Arrangement verteilt seine Instrumente auf <strong>vier klar getrennte Aufgabenbereiche</strong>:
+      </p>
+      <ul class="k-physics-list">
+        <li><strong>1. Lead / Fokus (Vordergrund):</strong> Gesang oder Soloinstrument. Trägt die Melodie und die emotionale Führung. Alles andere dient dieser Linie.</li>
+        <li><strong>2. Fundament (Bass &amp; Groove):</strong> Bass (E-Bass, Kontrabass, Tuba, linke Klavierhand) und Schlagzeug/Percussion verschmelzen zum rhythmischen und harmonischen Boden. Der Bass bestimmt dabei über den tiefsten Ton, wie wir den gesamten Akkord darüber wahrnehmen!</li>
+        <li><strong>3. Harmonie-Polster (Pad &amp; Comping):</strong> Gehaltene Streicher, Chöre, Orgel/Synth-Pads oder rhythmisches Gitarren-/Klavier-Comping füllen die harmonische Wärme in der Mittellage.</li>
+        <li><strong>4. Gegenmelodie, Schmuck &amp; „Ear Candy“ (Fills &amp; Counterpoint):</strong> Kleine Melodie-Antworten, hohe Glanzpunkte oder Einwürfe – fast immer genau dort platziert, wo die Hauptmelodie gerade Luft holt.</li>
+      </ul>
+      <div class="k-btn-row" style="margin-top:0.5rem;">
+        <button type="button" class="btn-tool" data-play-custom="arr-sketch">▶ 1. Nackte Skizze (nur Melodie &amp; Grundton)</button>
+        <button type="button" class="btn-tool" data-play-custom="arr-full-layers">▶ 2. Ausarrangiert (Groove + Bass + Polster + Fill)</button>
+      </div>
+    </article>
+
+    <!-- 4. Register, Voicing & Frequenz-Architektur -->
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-sage">4. Register &amp; Voicings</span>
+        <span class="k-ratio-chip">Klarheit statt Matsch</span>
+      </div>
+      <h4>Warum manche Arrangements glasklar klingen – und andere „matschig“</h4>
+      <p>
+        Der häufigste Anfängerfehler beim Arrangieren: Klavier, Gitarre und Streicher spielen alle gleichzeitig volle Akkorde in exakt derselben mittleren Oktave (<code>C3–C4</code>). Die Obertöne überlagern sich und verdecken die Stimme.
+      </p>
+      <ul class="k-physics-list">
+        <li><strong>Die Oberton-Regel (Unten weit, oben eng):</strong> Im tiefen Register unterhalb von <code>C3</code> liegen die natürlichen Obertöne extrem dicht beieinander. Enge Terzen oder Sekunden im Bass klingen sofort trüb und dröhnend (<em>Low-Interval-Limit</em>). Deshalb gehören in den Keller nur <strong>Grundtöne, Oktaven und Quinten</strong> – während Terzen, Septimen und Optionstöne (<code>9, 11, 13</code>) in der Mittellage und Höhe strahlen!</li>
+        <li><strong>Enge Lage (Close Voicing) vs. Weite Lage (Open / Drop-2 Voicing):</strong> Setzt man bei einem engen Vierklang den zweithöchsten Ton eine Oktave tiefer (<em>Drop-2</em>), öffnet sich der Akkord sofort breit, warm und durchsichtig für Bläser-, Streicher- oder Chorsätze.</li>
+        <li><strong>Rhythmische Arbeitsteilung:</strong> Spielen zwei Instrumente im ähnlichen Register, sollten sie sich rhythmisch ergänzen – z. B. hält das Streicher-Pad ruhige ganze Noten, während die Akustikgitarre kurze Sechzehntel-Akzente setzt.</li>
+      </ul>
+      <div class="k-btn-row" style="margin-top:0.5rem;">
+        <button type="button" class="btn-tool" data-play-custom="arr-voicing-muddy">▶ Matschig: Enge Terzen tief im Bass</button>
+        <button type="button" class="btn-tool" data-play-custom="arr-voicing-open">▶ Glasklar: Offenes Studio-Voicing (unten weit, oben farbig)</button>
+      </div>
+    </article>
+
+    <!-- 5. Dramaturgie, Dialog & Kontrapunkt -->
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-peach">5. Spannung &amp; Dialog</span>
+        <span class="k-ratio-chip">Call &amp; Response • Drop</span>
+      </div>
+      <h4>Wie man einen Song über 3–4 Minuten lebendig hält</h4>
+      <ul class="article-steps-list">
+        <li>
+          <strong>Call &amp; Response (Frage &amp; Antwort):</strong> Wenn der Gesang am Ende einer Zeile zwei Schläge Pause hat, antwortet genau in dieser Lücke ein kleines Bläser-, Gitarren- oder Klavier-Motiv. Statt gegeneinander anzuspielen, führen die Instrumente ein Gespräch.
+        </li>
+        <li>
+          <strong>Gegenläufige Stimmführung (Kontrapunkt / Countermelody):</strong> Eine gute Nebenstimme läuft nicht stur parallel zur Hauptmelodie, sondern bewegt sich <em>entgegengesetzt</em> (steigt die Melodie, sinkt die Gegenstimme) oder hält ruhige Töne, während die Melodie springt.
+        </li>
+        <li>
+          <strong>Kraft durch Weglassen (Das „Drop“-Prinzip):</strong> Der wirkungsvollste Moment eines Arrangements entsteht oft nicht durch <em>mehr</em> Instrumente, sondern durch plötzliches <strong>Ausdünnen</strong> – etwa wenn zu Beginn von Strophe 2 oder vor dem letzten Refrain plötzlich nur noch Bass und Gesang übrig bleiben, bevor die Band wieder voll einsteigt.
+        </li>
+        <li>
+          <strong>Register-Öffnung im Refrain:</strong> Wenn im Refrain der Bass eine Oktave tiefer geht und gleichzeitig eine hohe Oktav-Stimme oder helle Becken hinzukommen, weitet sich das Klangbild wie ein Panorama.
+        </li>
+      </ul>
+      <div class="k-btn-row" style="margin-top:0.5rem;">
+        <button type="button" class="btn-tool" data-play-custom="arr-call-response">▶ Call &amp; Response (Melodie ruft, Begleitung antwortet)</button>
+        <button type="button" class="btn-tool" data-play-custom="arr-counterpoint">▶ Gegenläufiger Kontrapunkt (Stimmen öffnen sich)</button>
+      </div>
+    </article>
+
+    <!-- 6. Reharmonisation & 5-Punkte-Praxischeck -->
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-lilac">6. Reharmonisation &amp; Praxis-Check</span>
+        <span class="k-ratio-chip">Neues Licht auf gleiche Töne</span>
+      </div>
+      <h4>Dieselbe Melodie in völlig neuem harmonischem Kleid</h4>
+      <p>
+        Eines der mächtigsten Werkzeuge beim Arrangieren ist die <strong>Reharmonisation</strong>: Die Melodie bleibt Ton für Ton identisch, aber man tauscht die Akkorde darunter aus – z. B. ersetzt man ein schlichtes <code>C-Dur (I)</code> durch ein warmes <code>Fmaj7 (IVmaj7)</code>, ein wehmütiges <code>f-Moll6 (iv6)</code> oder <code>a-Moll9 (vi9)</code>. Sofort erzählt dieselbe Melodie eine andere emotionale Geschichte.
+      </p>
+      <div class="k-btn-row" style="margin-top:0.45rem;margin-bottom:0.65rem;">
+        <button type="button" class="btn-tool" data-play-custom="arr-reharm-plain">▶ Melodie (E–D–C) über schlichtem Dur (I–V–I)</button>
+        <button type="button" class="btn-tool" data-play-custom="arr-reharm-cinema">▶ Exakt gleiche Melodie cineastisch reharmonisiert</button>
+      </div>
+      <div class="k-meta-box">
+        <div>✅ <strong>Die 5-Fragen-Checkliste für jedes eigene Arrangement:</strong></div>
+        <div>1. <strong>Wer hat gerade das Wort?</strong> Zu jedem Zeitpunkt sollte maximal <em>ein</em> Element im vollen Rampenlicht stehen.</div>
+        <div>2. <strong>Wo sind die Atemlöcher?</strong> Platziere Fills und Gegenmelodien gezielt in die Pausen der Hauptmelodie.</div>
+        <div>3. <strong>Ist der Tieftonbereich sauber?</strong> Unter <code>C3</code> keine engen Terzen schichten – dort regieren Grundton, Quinte und Oktave.</div>
+        <div>4. <strong>Hört man den Unterschied zwischen Strophe und Refrain sofort?</strong> Nutze Kontraste in Registerhöhe, Rhythmik und Instrumentenanzahl.</div>
+        <div>5. <strong>Der Stummschalt-Test (Mute-Test):</strong> Schalte eine Spur probeweise stumm. Fehlt dem Song nichts, war sie nur Füllmaterial – gib ihr eine klare Aufgabe oder lass sie mutig weg!</div>
+      </div>
+      <div class="k-btn-row" style="margin-top:0.55rem;">
+        <button type="button" class="btn-tool" data-jump-ref="ensembles">🎻 Zu Orchester &amp; Bands →</button>
+        <button type="button" class="btn-tool" data-jump-ref="cadences">🎹 Zu Kadenzen &amp; Harmonien →</button>
+        <button type="button" class="btn-tool" data-jump-ref="physics">🌊 Zu Physik &amp; Obertönen →</button>
+      </div>
+    </article>
+  `;
+}
+
 </script>
 <script>
 /**
@@ -38657,6 +39141,137 @@ function renderNotationReferenceHTML_PL() {
   `;
 }
 
+function renderArrangingReferenceHTML_PL() {
+  return `
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-sage">1. Czym jest aranżacja?</span>
+        <span class="k-ratio-chip">Szkic → Pełne brzmienie</span>
+      </div>
+      <h4>Sztuka zmieniania pomysłu muzycznego w żywą opowieść</h4>
+      <p>
+        Jeśli <strong>kompozycja</strong> to fundament i plan utworu (melodia, podstawowe akordy i tekst), to <strong>aranżacja</strong> jest całą architekturą wnętrza, oświetleniem i doborem barw: <em>Kto gra co, w którym momencie, w jakiej oktawie, z jakim rytmem, dynamiką i barwą?</em>
+      </p>
+      <div class="physics-fact-grid">
+        <div class="physics-fact-item">
+          <strong>Obsada i instrumentacja</strong>
+          Wybór instrumentów lub głosów prowadzących melodię, bas, tło harmoniczne i puls rytmiczny oraz łączenie ich barw.
+        </div>
+        <div class="physics-fact-item">
+          <strong>Forma i dramaturgia</strong>
+          Budowanie napięcia od kameralnego wstępu przez zwrotkę aż po punkt kulminacyjny w refrenie i finał.
+        </div>
+        <div class="physics-fact-item">
+          <strong>Rejestry i voicing</strong>
+          Rozmieszczenie dźwięków od głębokiego basu po jasne góry tak, by każdy instrument miał własną przestrzeń.
+        </div>
+        <div class="physics-fact-item">
+          <strong>Dialog, faktura i pauzy</strong>
+          Decydowanie, kiedy grają wszyscy (<em>tutti</em>), kiedy pojedynczy instrument odpowiada w przerwach wokalu i kiedy cisza buduje emocje.
+        </div>
+      </div>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-peach">2. Cel i zastosowanie</span>
+        <span class="k-ratio-chip">Po co aranżujemy?</span>
+      </div>
+      <h4>Do czego służy aranżacja i kiedy się ją stosuje?</h4>
+      <p>
+        Ta sama piosenka oparta na czterech akordach może zabrzmieć jako <strong>intymna ballada fortepianowa</strong>, <strong>energetyczny funk</strong>, <strong>czterogłosowy chór a cappella</strong> albo <strong>epicka muzyka filmowa</strong>:
+      </p>
+      <ul class="article-steps-list">
+        <li><strong>1. Kierowanie uwagi słuchacza:</strong> Ludzkie ucho potrafi świadomie śledzić maksymalnie <strong>2–3 jednoczesne plany muzyczne</strong>. Dobra aranżacja robi miejsce w środkowym paśmie dla głównej melodii.</li>
+        <li><strong>2. Przekładanie emocji i stylu:</strong> Smyczki dają ciepło i przestrzeń, krótkie akcenty dęte (<em>brass stabs</em>) dodają energii, a gitara akustyczna tworzy bliskość.</li>
+        <li><strong>3. Chronienie ucha przed znużeniem:</strong> Gdy wszystkie instrumenty grają bez przerwy od pierwszego taktu, słuchacz szybko się męczy. Stopniowe dokładanie i odejmowanie warstw utrzymuje świeżość.</li>
+        <li><strong>4. Dopasowanie do konkretnego składu:</strong> Zespół szkolny, kwartet smyczkowy, chór SATB, big-band czy solo na gitarze — aranżacja dostosowuje utwór do dostępnych wykonawców.</li>
+        <li><strong>5. Klej muzyczny i przejścia:</strong> Przedtakty, przejścia perkusyjne, pochody basu, crescenda i zatrzymania (<em>breaks</em>) spajają części utworu w jedną całość.</li>
+      </ul>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-lilac">3. Model 4 warstw</span>
+        <span class="k-ratio-chip">Podział ról</span>
+      </div>
+      <h4>4 filary przejrzystej aranżacji</h4>
+      <ul class="k-physics-list">
+        <li><strong>1. Plan pierwszy (Lead / Melodia):</strong> Wokal lub instrument solowy niosący główny temat.</li>
+        <li><strong>2. Fundament (Bas i Groove):</strong> Bas określa prymę harmonii, a perkusja buduje puls rytmiczny.</li>
+        <li><strong>3. Poduszka harmoniczna (Pad i Comping):</strong> Długie nuty smyczków, chóru lub rytmiczny akompaniament gitary/pianina w średnicy.</li>
+        <li><strong>4. Kontrapunkt i dopowiedzenia (Fills / Ear Candy):</strong> Krótkie motywy pojawiające się dokładnie tam, gdzie główna melodia bierze oddech.</li>
+      </ul>
+      <div class="k-btn-row" style="margin-top:0.5rem;">
+        <button type="button" class="btn-tool" data-play-custom="arr-sketch">▶ 1. Surowy szkic (melodia i bas)</button>
+        <button type="button" class="btn-tool" data-play-custom="arr-full-layers">▶ 2. Pełna aranżacja 4-warstwowa</button>
+      </div>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-sage">4. Rejestry i voicing</span>
+        <span class="k-ratio-chip">Przejrzystość zamiast mułu</span>
+      </div>
+      <h4>Dlaczego jedne aranżacje brzmią krystalicznie, a inne „muliście”?</h4>
+      <ul class="k-physics-list">
+        <li><strong>Zasada alikwotów (Na dole szeroko, u góry gęsto):</strong> Poniżej <code>C3</code> ciasne tercje brzmią ciężko i mętnie (<em>Low-Interval Limit</em>). W dole zostaw prymy, kwinty i oktawy, a tercje, septymy i rozszerzenia umieść wyżej.</li>
+        <li><strong>Układ skupiony vs rozległy (Drop-2):</strong> Przeniesienie drugiego dźwięku od góry o oktawę w dół natychmiast otwiera przestrzeń akordu.</li>
+        <li><strong>Podział rytmiczny:</strong> Instrumenty w podobnym rejestrze powinny grać różnymi wartościami rytmicznymi (np. długie tło smyczków + krótkie szesnastki gitary).</li>
+      </ul>
+      <div class="k-btn-row" style="margin-top:0.5rem;">
+        <button type="button" class="btn-tool" data-play-custom="arr-voicing-muddy">▶ Muliście: Ciasne tercje nisko w basie</button>
+        <button type="button" class="btn-tool" data-play-custom="arr-voicing-open">▶ Przejrzyście: Otwarty voicing studyjny</button>
+      </div>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-peach">5. Napięcie i dialog</span>
+        <span class="k-ratio-chip">Call &amp; Response • Drop</span>
+      </div>
+      <h4>Jak utrzymać uwagę słuchacza przez cały utwór</h4>
+      <ul class="article-steps-list">
+        <li><strong>Call &amp; Response (Zawołanie i odpowiedź):</strong> Instrument odpowiada w pauzach na końcu frazy wokalnej.</li>
+        <li><strong>Ruch przeciwny i kontramelodia:</strong> Drugi głos opada, gdy główna melodia wznosi się, albo porusza się podczas długiej nuty wokalu.</li>
+        <li><strong>Siła odejmowania („The Drop”):</strong> Nagłe wyciszenie większości ścieżek na jeden takt często daje większe wrażenie niż dodanie kolejnych instrumentów.</li>
+      </ul>
+      <div class="k-btn-row" style="margin-top:0.5rem;">
+        <button type="button" class="btn-tool" data-play-custom="arr-call-response">▶ Call &amp; Response (dialog w pauzie)</button>
+        <button type="button" class="btn-tool" data-play-custom="arr-counterpoint">▶ Kontrapunkt w ruchu przeciwnym</button>
+      </div>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-lilac">6. Reharmonizacja i lista kontrolna</span>
+        <span class="k-ratio-chip">Te same nuty, nowy klimat</span>
+      </div>
+      <h4>Ta sama melodia w zupełnie nowej szacie harmonicznej</h4>
+      <p>
+        <strong>Reharmonizacja</strong> pozostawia melodię bez zmian, ale wymienia akordy pod spodem (np. <code>Fmaj7 – Fm6 – Am9</code> zamiast prostego <code>C – G – C</code>).
+      </p>
+      <div class="k-btn-row" style="margin-top:0.45rem;margin-bottom:0.65rem;">
+        <button type="button" class="btn-tool" data-play-custom="arr-reharm-plain">▶ Melodia na prostych trójdźwiękach (I–V–I)</button>
+        <button type="button" class="btn-tool" data-play-custom="arr-reharm-cinema">▶ Ta sama melodia z filmową reharmonizacją</button>
+      </div>
+      <div class="k-meta-box">
+        <div>✅ <strong>5 pytań kontrolnych do własnej aranżacji:</strong></div>
+        <div>1. <strong>Kto ma teraz głos?</strong> W każdej chwili tylko jeden element powinien być na pierwszym planie.</div>
+        <div>2. <strong>Gdzie są oddechy?</strong> Umieszczaj dopowiedzenia w pauzach głównej melodii.</div>
+        <div>3. <strong>Czy dół pasma jest czysty?</strong> Unikaj ciasnych tercji poniżej <code>C3</code>.</div>
+        <div>4. <strong>Czy zwrotka i refren wyraźnie się różnią?</strong> Różnicuj szerokość rejestrów i gęstość rytmu.</div>
+        <div>5. <strong>Test wyciszenia (Mute Test):</strong> Jeśli po wyciszeniu ścieżki niczego nie brakuje, nadaj jej wyraźną funkcję lub odważnie ją usuń!</div>
+      </div>
+      <div class="k-btn-row" style="margin-top:0.55rem;">
+        <button type="button" class="btn-tool" data-jump-ref="ensembles">🎻 Do Orkiestr i Zespołów →</button>
+        <button type="button" class="btn-tool" data-jump-ref="cadences">🎹 Do Kadencji i Harmonii →</button>
+        <button type="button" class="btn-tool" data-jump-ref="physics">🌊 Do Fizyki i Alikwotów →</button>
+      </div>
+    </article>
+  `;
+}
+
 if (typeof registerKnowledgeBundle === "function") {
   registerKnowledgeBundle("pl", {
     data: {
@@ -38682,6 +39297,7 @@ if (typeof registerKnowledgeBundle === "function") {
       keys: renderKeysReferenceHTML_PL,
       singAndPlay: renderSingAndPlayReferenceHTML_PL,
       notation: renderNotationReferenceHTML_PL,
+      arranging: renderArrangingReferenceHTML_PL,
       intervalNamingGuide: getIntervalNamingGuideHTML_PL,
       circleOfFifthsTheory: renderCircleOfFifthsTheoryHTML_PL
     },
@@ -42525,6 +43141,137 @@ function renderNotationReferenceHTML_UK() {
   `;
 }
 
+function renderArrangingReferenceHTML_UK() {
+  return `
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-sage">1. Що таке аранжування?</span>
+        <span class="k-ratio-chip">Ескіз → Повне звучання</span>
+      </div>
+      <h4>Мистецтво перетворювати музичну ідею на живий звуковий простір</h4>
+      <p>
+        Якщо <strong>композиція</strong> — це креслення пісні (мелодія, базові акорди й текст), то <strong>аранжування</strong> — це вся архітектура, освітлення та палітра барв: <em>Хто, що й коли грає, у якій октаві, з яким ритмом, динамікою та тембром?</em>
+      </p>
+      <div class="physics-fact-grid">
+        <div class="physics-fact-item">
+          <strong>Інструментовка й тембри</strong>
+          Вибір інструментів або голосів для мелодії, баса, гармонічної подушки й ритму та поєднання їхніх барв.
+        </div>
+        <div class="physics-fact-item">
+          <strong>Форма і драматургія</strong>
+          Побудова емоційної дуги від камерного вступу через куплет до кульмінації у приспіві та фіналу.
+        </div>
+        <div class="physics-fact-item">
+          <strong>Регістри й войсинг</strong>
+          Розподіл нот від глибокого баса до прозорих верхів, щоб кожен інструмент мав власний простір без гудіння.
+        </div>
+        <div class="physics-fact-item">
+          <strong>Діалог, фактура і паузи</strong>
+          Коли звучать усі разом (<em>tutti</em>), коли один інструмент відповідає в паузах вокалу, а коли тиша викликає мурашки.
+        </div>
+      </div>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-peach">2. Призначення та сфери застосування</span>
+        <span class="k-ratio-chip">Навіщо аранжувати?</span>
+      </div>
+      <h4>Для чого потрібне аранжування і де воно використовується?</h4>
+      <p>
+        Одна й та сама пісня з тими самими чотирма акордами може прозвучати як <strong>ніжна фортепіанна балада</strong>, <strong>драйвовий фанк</strong>, <strong>чотириголосний хор a cappella</strong> або <strong>епічний саундтрек</strong>:
+      </p>
+      <ul class="article-steps-list">
+        <li><strong>1. Керування увагою слухача:</strong> Вухо людини свідомо відстежує щонайбільше <strong>2–3 одночасні музичні плани</strong>. Гарне аранжування звільняє середній регістр для головної мелодії чи голосу.</li>
+        <li><strong>2. Передача емоцій і стилю:</strong> Струнні педи дають тепло й простір, короткі духові акценти (<em>brass stabs</em>) — енергію, а акустична гітара — камерну близькість.</li>
+        <li><strong>3. Захист від втоми вуха:</strong> Якщо всі інструменти грають без зупинки з першого такту, слух швидко втомлюється. Пошарове додавання і зняття партій тримає інтерес до останньої ноти.</li>
+        <li><strong>4. Адаптація під реальний склад:</strong> Шкільний гурт, струнний квартет, хор SATB, біг-бенд чи соло-фортепіано — аранжування підлаштовує твір під конкретних виконавців та їхні діапазони.</li>
+        <li><strong>5. Музичний «клей» і переходи:</strong> Затакти, барабанні брейки, басові ходи та наростання органічно з’єднують частини пісні.</li>
+      </ul>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-lilac">3. Модель 4 шарів</span>
+        <span class="k-ratio-chip">Розподіл ролей</span>
+      </div>
+      <h4>4 будівельні блоки прозорого аранжування</h4>
+      <ul class="k-physics-list">
+        <li><strong>1. Передній план (Lead / Мелодія):</strong> Вокал або сольний інструмент, що веде головну лінію.</li>
+        <li><strong>2. Фундамент (Бас і Грув):</strong> Бас задає основний тон гармонії, а ударні тримають ритмічну пульсацію.</li>
+        <li><strong>3. Гармонічна подушка (Pad &amp; Comping):</strong> Струнні, хор, орган або ритмічний акомпанемент гітари/клавішних у середині спектра.</li>
+        <li><strong>4. Контрапункт і підголоски (Fills / Ear Candy):</strong> Короткі мелодійні відповіді саме там, де головна мелодія бере подих.</li>
+      </ul>
+      <div class="k-btn-row" style="margin-top:0.5rem;">
+        <button type="button" class="btn-tool" data-play-custom="arr-sketch">▶ 1. Простий ескіз (лише мелодія і бас)</button>
+        <button type="button" class="btn-tool" data-play-custom="arr-full-layers">▶ 2. Повне 4-шарове аранжування</button>
+      </div>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-sage">4. Регістри та войсинг</span>
+        <span class="k-ratio-chip">Прозорість замість каші</span>
+      </div>
+      <h4>Чому одні аранжування звучать кришталево чисто, а інші — «кашоподібно»</h4>
+      <ul class="k-physics-list">
+        <li><strong>Правило обертонів (Унизу широко, угорі щільно):</strong> Нижче <code>C3</code> тісні терції звучать глухо й важко (<em>Low-Interval Limit</em>). Залишайте в басу основні тони, квінти й октави, а терції, септими й надбудови розміщуйте вище.</li>
+        <li><strong>Тісне vs широке розташування (Drop-2):</strong> Перенесення другого зверху звука акорду на октаву вниз миттєво відкриває широкий кінематографічний простір.</li>
+        <li><strong>Ритмічний розподіл:</strong> Інструменти в сусідніх регістрах мають доповнювати один одного ритмічно (довгі педи + короткі шістнадцяті).</li>
+      </ul>
+      <div class="k-btn-row" style="margin-top:0.5rem;">
+        <button type="button" class="btn-tool" data-play-custom="arr-voicing-muddy">▶ Каша: Тісні терції низько в басу</button>
+        <button type="button" class="btn-tool" data-play-custom="arr-voicing-open">▶ Чисто: Відкритий студійний войсинг</button>
+      </div>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-peach">5. Динаміка і діалог</span>
+        <span class="k-ratio-chip">Call &amp; Response • Drop</span>
+      </div>
+      <h4>Як втримати увагу слухача протягом усього твору</h4>
+      <ul class="article-steps-list">
+        <li><strong>Call &amp; Response (Поклик і відповідь):</strong> Інструмент відповідає у паузі після вокальної фрази.</li>
+        <li><strong>Протилежний рух і контрамелодія:</strong> Другий голос рухається назустріч мелодії або оживає, поки мелодія тримає довгу ноту.</li>
+        <li><strong>Сила віднімання («The Drop»):</strong> Раптове розрідження фактури на один-два такти часто створює сильніший ефект, ніж додавання нових доріжок.</li>
+      </ul>
+      <div class="k-btn-row" style="margin-top:0.5rem;">
+        <button type="button" class="btn-tool" data-play-custom="arr-call-response">▶ Call &amp; Response (діалог у паузі)</button>
+        <button type="button" class="btn-tool" data-play-custom="arr-counterpoint">▶ Контрапункт у протилежному русі</button>
+      </div>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-lilac">6. Регармонізація та чек-лист</span>
+        <span class="k-ratio-chip">Ті самі ноти, нове світло</span>
+      </div>
+      <h4>Та сама мелодія в абсолютно новому гармонічному вбранні</h4>
+      <p>
+        <strong>Регармонізація</strong> залишає мелодію незмінною, але оновлює акорди під нею (наприклад, <code>Fmaj7 – Fm6 – Am9</code> замість простого <code>C – G – C</code>).
+      </p>
+      <div class="k-btn-row" style="margin-top:0.45rem;margin-bottom:0.65rem;">
+        <button type="button" class="btn-tool" data-play-custom="arr-reharm-plain">▶ Мелодія на простих тризвуках (I–V–I)</button>
+        <button type="button" class="btn-tool" data-play-custom="arr-reharm-cinema">▶ Та сама мелодія з кінематографічною гармонією</button>
+      </div>
+      <div class="k-meta-box">
+        <div>✅ <strong>5 контрольних запитань для власного аранжування:</strong></div>
+        <div>1. <strong>Хто зараз головний?</strong> У кожен момент часу лише один елемент має бути у центрі уваги.</div>
+        <div>2. <strong>Де місця для подиху?</strong> Розміщуйте підголоски в паузах головної мелодії.</div>
+        <div>3. <strong>Чи чистий низький регістр?</strong> Уникайте тісних терцій нижче <code>C3</code>.</div>
+        <div>4. <strong>Чи відчувається контраст між куплетом і приспівом?</strong> Змінюйте ширину регістру та щільність ритму.</div>
+        <div>5. <strong>Тест кнопки Mute:</strong> Якщо після вимкнення доріжки пісня нічого не втратила — дайте їй чітку роль або сміливо приберіть!</div>
+      </div>
+      <div class="k-btn-row" style="margin-top:0.55rem;">
+        <button type="button" class="btn-tool" data-jump-ref="ensembles">🎻 До Оркестрів і Гуртів →</button>
+        <button type="button" class="btn-tool" data-jump-ref="cadences">🎹 До Каденцій і Гармонії →</button>
+        <button type="button" class="btn-tool" data-jump-ref="physics">🌊 До Фізики й Обертонів →</button>
+      </div>
+    </article>
+  `;
+}
+
 if (typeof registerKnowledgeBundle === "function") {
   registerKnowledgeBundle("uk", {
     data: {
@@ -42550,6 +43297,7 @@ if (typeof registerKnowledgeBundle === "function") {
       keys: renderKeysReferenceHTML_UK,
       singAndPlay: renderSingAndPlayReferenceHTML_UK,
       notation: renderNotationReferenceHTML_UK,
+      arranging: renderArrangingReferenceHTML_UK,
       intervalNamingGuide: getIntervalNamingGuideHTML_UK,
       circleOfFifthsTheory: renderCircleOfFifthsTheoryHTML_UK
     },
@@ -46236,6 +46984,137 @@ function renderNotationReferenceHTML_UR() {
   `;
 }
 
+function renderArrangingReferenceHTML_UR() {
+  return `
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-sage">1. ارینجنگ (ترتیبِ موسیقی) کیا ہے؟</span>
+        <span class="k-ratio-chip">خاکہ ← مکمل شاہکار</span>
+      </div>
+      <h4>ایک سادہ دھن کو جاندار موسیقی کے منظرنامے میں بدلنے کا فن</h4>
+      <p>
+        اگر <strong>کمپوزیشن</strong> کسی گیت کا بنیادی نقشہ ہے (یعنی دھن، بنیادی کارڈز اور بول)، تو <strong>ارینجنگ (Arrangement)</strong> اس کی مکمل عمارت، روشنی اور رنگوں کی ترتیب ہے: <em>کون سا ساز کب، کس آکٹیو میں، کس ردھم، نرمی یا طاقت اور کس رنگ کے ساتھ بجے گا؟</em>
+      </p>
+      <div class="physics-fact-grid">
+        <div class="physics-fact-item">
+          <strong>سازوں کا انتخاب (Instrumentation)</strong>
+          یہ طے کرنا کہ کون سے ساز یا آوازیں مرکزی دھن، باس، ہارمونی اور ردھم سنبھالیں گی۔
+        </div>
+        <div class="physics-fact-item">
+          <strong>ساخت اور جذباتی سفر (Form &amp; Arc)</strong>
+          پرسکون آغاز (Intro) سے لے کر مصرعے، کورس (Chorus) اور اختتام تک جوش و جذبے کا سفر بنانا۔
+        </div>
+        <div class="physics-fact-item">
+          <strong>رجسٹر اور وائسنگ (Voicing)</strong>
+          گہرے باس سے لے کر چمکتی ہوئی اونچی تانوں تک سُروں کو اس طرح پھیلانا کہ ہر ساز صاف سنائی دے۔
+        </div>
+        <div class="physics-fact-item">
+          <strong>مکالمہ اور وقفے (Dialogue &amp; Space)</strong>
+          کب سب ایک ساتھ بجیں (<em>Tutti</em>)، کب گلوکار کے وقفے میں کوئی ساز جواب دے اور کب خاموشی اثر پیدا کرے۔
+        </div>
+      </div>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-peach">2. مقصد اور استعمال</span>
+        <span class="k-ratio-chip">ارینجنگ کیوں کی جاتی ہے؟</span>
+      </div>
+      <h4>ارینجنگ کس کام آتی ہے اور اسے موسیقی میں کہاں استعمال کیا جاتا ہے؟</h4>
+      <p>
+        ایک ہی گیت اپنے انہی چار کارڈز کے ساتھ <strong>پیانو بیلڈ</strong>، <strong>فنک گروو</strong>، <strong>چار آوازوں کا کوائر</strong> یا <strong>فلمی آرکسٹرا</strong> بن سکتا ہے:
+      </p>
+      <ul class="article-steps-list">
+        <li><strong>1. سننے والے کی توجہ مرکوز رکھنا:</strong> انسانی کان بیک وقت صرف <strong>2 سے 3 موسیقی کی تہوں</strong> پر شعوری توجہ دے سکتا ہے۔ اچھی ارینجنگ مرکزی دھن کے لیے جگہ صاف رکھتی ہے۔</li>
+        <li><strong>2. جذبات اور انداز کو اجاگر کرنا:</strong> اسٹرنگز کے لمبے سُر وسعت اور نرمی دیتے ہیں، براس (Brass) توانائی بھرتے ہیں اور اکیلا گٹار قربت کا احساس دیتا ہے۔</li>
+        <li><strong>3. کانوں کی تھکن روکنا:</strong> اگر تمام ساز پہلے سیکنڈ سے آخر تک مسلسل بجتے رہیں تو کان جلد تھک جاتے ہیں۔ تہوں کو مرحلہ وار جوڑنا اور کم کرنا دلچسپی برقرار رکھتا ہے۔</li>
+        <li><strong>4. دستیاب سازوں کے مطابق ڈھالنا:</strong> چاہے اسکول بینڈ ہو، اسٹرنگ کوارٹیٹ، کوائر (SATB) یا سولو پیانو — ارینجنگ موسیقی کو موجودہ سازوں کی رینج کے مطابق ڈھالتی ہے۔</li>
+        <li><strong>5. حصوں کو جوڑنا (Transitions):</strong> ڈرم فلز، باس لائنز اور وقفے گیت کے حصوں کو فطری طور پر جوڑتے ہیں۔</li>
+      </ul>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-lilac">3. چار تہوں کا ماڈل</span>
+        <span class="k-ratio-chip">کرداروں کی تقسیم</span>
+      </div>
+      <h4>ہر شفاف ارینجنگ کے 4 بنیادی ستون</h4>
+      <ul class="k-physics-list">
+        <li><strong>1. مرکزی آواز (Lead / Focus):</strong> گلوکار یا سولو ساز جو اصل کہانی سناتا ہے۔</li>
+        <li><strong>2. بنیاد (Bass &amp; Groove):</strong> باس ہارمونی کی جڑ فراہم کرتا ہے اور ڈرمز/پرکشن نبض سنبھالتے ہیں۔</li>
+        <li><strong>3. ہارمونی کی تہہ (Pad &amp; Comping):</strong> اسٹرنگز، کوائر یا گٹار/پیانو کے کارڈز جو درمیانی حصے میں گرمائش بھرتے ہیں۔</li>
+        <li><strong>4. جوابی نغمے اور سجاوٹ (Countermelody &amp; Fills):</strong> چھوٹے خوبصورت جملے جو اس وقت آتے ہیں جب مرکزی دھن سانس لیتی ہے۔</li>
+      </ul>
+      <div class="k-btn-row" style="margin-top:0.5rem;">
+        <button type="button" class="btn-tool" data-play-custom="arr-sketch">▶ 1. سادہ خاکہ (صرف دھن اور باس)</button>
+        <button type="button" class="btn-tool" data-play-custom="arr-full-layers">▶ 2. مکمل 4 تہوں والی ارینجنگ</button>
+      </div>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-sage">4. رجسٹر اور وائسنگ</span>
+        <span class="k-ratio-chip">صفائی بمقابلہ گدلا پن</span>
+      </div>
+      <h4>کچھ ارینجمنٹس شیشے کی طرح صاف اور کچھ گدلی کیوں لگتی ہیں؟</h4>
+      <ul class="k-physics-list">
+        <li><strong>اوورٹونز کا اصول (نیچے کشادہ، اوپر قریب):</strong> <code>C3</code> سے نیچے تنگ تھرڈز (Thirds) آواز کو بھاری اور گدلا کر دیتے ہیں (<em>Low-Interval Limit</em>)۔ نچلے حصے میں صرف روٹ، ففتھ اور آکٹیو رکھیں اور رنگین سُروں کو اوپر رکھیں۔</li>
+        <li><strong>تنگ بمقابلہ کھلی وائسنگ (Drop-2):</strong> اوپر سے دوسرے سُر کو ایک آکٹیو نیچے لانے سے کارڈ فوراً کشادہ اور خوبصورت ہو جاتا ہے۔</li>
+        <li><strong>ردھم کا توازن:</strong> ایک ہی رجسٹر کے دو سازوں کو مختلف ردھم دیں (مثلاً لمبے اسٹرنگ نوٹس + گٹار کی مختصر ضربیں)۔</li>
+      </ul>
+      <div class="k-btn-row" style="margin-top:0.5rem;">
+        <button type="button" class="btn-tool" data-play-custom="arr-voicing-muddy">▶ گدلی آواز: باس میں تنگ سُر</button>
+        <button type="button" class="btn-tool" data-play-custom="arr-voicing-open">▶ شفاف آواز: کھلی اسٹوڈیو وائسنگ</button>
+      </div>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-peach">5. ڈائنامکس اور مکالمہ</span>
+        <span class="k-ratio-chip">Call &amp; Response • Drop</span>
+      </div>
+      <h4>پورے گیت میں کشش کیسے برقرار رکھی جائے؟</h4>
+      <ul class="article-steps-list">
+        <li><strong>سوال و جواب (Call &amp; Response):</strong> جب مرکزی دھن رکتی ہے تو ساز اس خلا میں جواب دیتا ہے۔</li>
+        <li><strong>مخالف سمت کی حرکت (Counterpoint):</strong> جب مرکزی دھن اوپر جائے تو ذیلی دھن نیچے آتی ہے تاکہ دونوں الگ سنائی دیں۔</li>
+        <li><strong>خاموشی کی طاقت (“The Drop”):</strong> اچانک ایک بار کے لیے اکثر ساز ہٹا دینا پانچ نئے ساز جوڑنے سے زیادہ اثر چھوڑتا ہے۔</li>
+      </ul>
+      <div class="k-btn-row" style="margin-top:0.5rem;">
+        <button type="button" class="btn-tool" data-play-custom="arr-call-response">▶ Call &amp; Response (سوال و جواب)</button>
+        <button type="button" class="btn-tool" data-play-custom="arr-counterpoint">▶ مخالف سمت کی کاؤنٹرپوائنٹ</button>
+      </div>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-lilac">6. ری ہارمونائزیشن اور چیک لسٹ</span>
+        <span class="k-ratio-chip">وہی سُر، نیا رنگ</span>
+      </div>
+      <h4>دھن بدلے بغیر پورا جذباتی ماحول بدلنا</h4>
+      <p>
+        <strong>ری ہارمونائزیشن (Reharmonization)</strong> میں دھن وہی رہتی ہے مگر نیچے کے کارڈز بدل دیے جاتے ہیں (مثلاً سادہ <code>C – G – C</code> کی جگہ <code>Fmaj7 – Fm6 – Am9</code>)۔
+      </p>
+      <div class="k-btn-row" style="margin-top:0.45rem;margin-bottom:0.65rem;">
+        <button type="button" class="btn-tool" data-play-custom="arr-reharm-plain">▶ سادہ کارڈز پر دھن (I–V–I)</button>
+        <button type="button" class="btn-tool" data-play-custom="arr-reharm-cinema">▶ وہی دھن سنیمائی ہارمونی کے ساتھ</button>
+      </div>
+      <div class="k-meta-box">
+        <div>✅ <strong>اپنی ارینجنگ کے لیے 5 سوالات کی چیک لسٹ:</strong></div>
+        <div>1. <strong>اس وقت مرکزِ نگاہ کون ہے؟</strong> ہر لمحے صرف ایک عنصر نمایاں ہونا چاہیے۔</div>
+        <div>2. <strong>سانس لینے کی جگہیں کہاں ہیں؟</strong> فلز (Fills) کو مرکزی دھن کے وقفوں میں رکھیں۔</div>
+        <div>3. <strong>کیا نچلی فریکوئنسی صاف ہے؟</strong> <code>C3</code> سے نیچے تنگ تھرڈز سے بچیں۔</div>
+        <div>4. <strong>کیا مصرعے اور کورس کا فرق فوراً محسوس ہوتا ہے؟</strong> آکٹیو اور کثافت میں فرق رکھیں۔</div>
+        <div>5. <strong>میوٹ ٹیسٹ (Mute Test):</strong> کسی ٹریک کو بند کر کے دیکھیں؛ اگر کمی محسوس نہ ہو تو اسے واضح کردار دیں یا ہٹا دیں!</div>
+      </div>
+      <div class="k-btn-row" style="margin-top:0.55rem;">
+        <button type="button" class="btn-tool" data-jump-ref="ensembles">🎻 آرکسٹرا اور بینڈز کی طرف →</button>
+        <button type="button" class="btn-tool" data-jump-ref="cadences">🎹 کیڈنسز اور ہارمونی کی طرف →</button>
+        <button type="button" class="btn-tool" data-jump-ref="physics">🌊 فزکس اور اوورٹونز کی طرف →</button>
+      </div>
+    </article>
+  `;
+}
+
 if (typeof registerKnowledgeBundle === "function") {
   registerKnowledgeBundle("ur", {
     data: {
@@ -46261,6 +47140,7 @@ if (typeof registerKnowledgeBundle === "function") {
       keys: renderKeysReferenceHTML_UR,
       singAndPlay: renderSingAndPlayReferenceHTML_UR,
       notation: renderNotationReferenceHTML_UR,
+      arranging: renderArrangingReferenceHTML_UR,
       intervalNamingGuide: getIntervalNamingGuideHTML_UR,
       circleOfFifthsTheory: renderCircleOfFifthsTheoryHTML_UR
     },
@@ -52127,6 +53007,28 @@ function openKnowledgeRef(refKey, options = {}) {
     container.innerHTML = `<div class="knowledge-list">${html}</div>`;
     bindKnowledgeAudioButtons(container);
 
+  } else if (refKey === "arranging") {
+    state.knowledgeTitle = tr("Arrangieren", "Arranging", {
+      fr: "Arrangement",
+      pl: "Aranżacja",
+      uk: "Аранжування",
+      ur: "ارینجنگ (ترتیبِ موسیقی)"
+    });
+    state.knowledgeSub = tr(
+      "Wie aus einer Skizze ein lebendiges Gesamtwerk für Band, Chor oder Orchester wird",
+      "How a simple sketch turns into a living piece for band, choir, or orchestra",
+      {
+        fr: "Comment transformer une esquisse en œuvre vivante pour groupe, chœur ou orchestre",
+        pl: "Jak zamienić prosty szkic w żywe brzmienie dla zespołu, chóru lub orkiestry",
+        uk: "Як перетворити простий ескіз на живе звучання для гурту, хору чи оркестру",
+        ur: "ایک سادہ خاکے کو بینڈ، کوائر یا آرکسٹرا کے لیے جاندار موسیقی میں کیسے بدلا جائے"
+      }
+    );
+
+    const html = typeof renderArrangingReferenceHTML === "function" ? renderArrangingReferenceHTML() : "";
+    container.innerHTML = `<div class="knowledge-list">${html}</div>`;
+    bindKnowledgeAudioButtons(container);
+
   } else if (typeof getLocalizedInstrumentModule === "function" && getLocalizedInstrumentModule(refKey)) {
     const mod = getLocalizedInstrumentModule(refKey);
     state.knowledgeTitle = mod.title;
@@ -52632,6 +53534,81 @@ function bindKnowledgeAudioButtons(rootEl) {
         audioEngine.registerTimer(() => {
           audioEngine.playStep(["C4", "G4", "D5"], 1.95, null, "cadence");
         }, 1250);
+      } else if (type === "arr-sketch") {
+        // Nackte Skizze: nur einzelne Melodie + trockener Grundton
+        const steps = [
+          { ms: 0,    notes: ["E4"], bass: "C2", dur: 0.75 },
+          { ms: 850,  notes: ["G4"], bass: null, dur: 0.75 },
+          { ms: 1700, notes: ["A4"], bass: "F2", dur: 0.75 },
+          { ms: 2550, notes: ["G4"], bass: "G2", dur: 1.15 }
+        ];
+        steps.forEach(s => {
+          audioEngine.registerTimer(() => audioEngine.playStep(s.notes, s.dur, s.bass, "interval"), s.ms);
+        });
+      } else if (type === "arr-full-layers") {
+        // Volles 4-Schichten-Arrangement: Groove + Bass + Harmonie-Polster + Melodie & Antwort-Fill
+        const grooveEvts = [
+          [0, "kick", 0.85], [425, "hat", 0.45], [850, "snare", 0.78], [1275, "hat", 0.45],
+          [1700, "kick", 0.85], [2125, "hat", 0.45], [2550, "snare", 0.8], [2975, "hat", 0.5]
+        ];
+        audioEngine.playRhythmSequence(grooveEvts);
+        const steps = [
+          { ms: 0,    notes: ["G3", "C4", "E4", "E5"], bass: "C2", dur: 0.82 },
+          { ms: 850,  notes: ["G3", "B3", "D4", "G5"], bass: "E2", dur: 0.82 },
+          { ms: 1700, notes: ["A3", "C4", "F4", "A5"], bass: "F2", dur: 0.82 },
+          { ms: 2550, notes: ["G3", "C4", "D4", "G5"], bass: "G2", dur: 0.52 },
+          { ms: 3000, notes: ["G3", "B3", "D4", "F5"], bass: null, dur: 0.65 }
+        ];
+        steps.forEach(s => {
+          audioEngine.registerTimer(() => audioEngine.playStep(s.notes, s.dur, s.bass, "cadence"), s.ms);
+        });
+      } else if (type === "arr-voicing-muddy") {
+        // Matschiges Voicing: enge Terzen tief im Bassregister (C2-E2-G2-B2-C3)
+        audioEngine.playStep(["C2", "E2", "G2", "B2", "C3"], 1.9, "C2", "cadence");
+      } else if (type === "arr-voicing-open") {
+        // Offenes Studio-Voicing: Oktave/Quinte unten, warme Terz & Septime luftig oben (C2-G2-E3-B3-D4-G4)
+        audioEngine.playStep(["G3", "E4", "B4", "D5", "G5"], 2.1, "C2", "cadence");
+      } else if (type === "arr-call-response") {
+        // Call & Response: Melodie ruft (Takt 1), Begleit-Lick antwortet in der Gesangspause (Takt 2)
+        [
+          { ms: 0,    notes: ["E5"], bass: "C3", dur: 0.42 },
+          { ms: 440,  notes: ["G5"], bass: null, dur: 0.42 },
+          { ms: 880,  notes: ["A5"], bass: "F2", dur: 0.85 },
+          // Antwort-Lick in der tieferen Lage während die Hauptstimme pausiert:
+          { ms: 1850, notes: ["C4", "E4"], bass: null, dur: 0.32 },
+          { ms: 2200, notes: ["D4", "F4"], bass: null, dur: 0.32 },
+          { ms: 2550, notes: ["E4", "G4"], bass: "C3", dur: 0.95 }
+        ].forEach(s => {
+          audioEngine.registerTimer(() => audioEngine.playStep(s.notes, s.dur, s.bass, "cadence"), s.ms);
+        });
+      } else if (type === "arr-counterpoint") {
+        // Gegenläufiger Kontrapunkt: Obere Melodie steigt (C5 -> D5 -> E5 -> G5), untere Gegenstimme fällt (E4 -> D4 -> C4 -> B3)
+        [
+          { ms: 0,    notes: ["E4", "C5"], bass: "C3", dur: 0.72 },
+          { ms: 780,  notes: ["D4", "D5"], bass: "B2", dur: 0.72 },
+          { ms: 1560, notes: ["C4", "E5"], bass: "A2", dur: 0.72 },
+          { ms: 2340, notes: ["B3", "G5"], bass: "G2", dur: 1.15 }
+        ].forEach(s => {
+          audioEngine.registerTimer(() => audioEngine.playStep(s.notes, s.dur, s.bass, "cadence"), s.ms);
+        });
+      } else if (type === "arr-reharm-plain") {
+        // Dieselbe Melodie (E5 - D5 - C5) über schlichten Grunddreiklängen (C - G - C)
+        [
+          { ms: 0,    notes: ["G3", "C4", "E5"], bass: "C3", dur: 0.9 },
+          { ms: 980,  notes: ["G3", "B3", "D5"], bass: "G2", dur: 0.9 },
+          { ms: 1960, notes: ["E3", "G3", "C5"], bass: "C3", dur: 1.35 }
+        ].forEach(s => {
+          audioEngine.registerTimer(() => audioEngine.playStep(s.notes, s.dur, s.bass, "cadence"), s.ms);
+        });
+      } else if (type === "arr-reharm-cinema") {
+        // Exakt dieselbe Melodie (E5 - D5 - C5) über cineastischer Reharmonisation (Fmaj7 - Fm6 - Am9)
+        [
+          { ms: 0,    notes: ["A3", "C4", "E4", "E5"], bass: "F2", dur: 0.95 },
+          { ms: 1020, notes: ["Ab3", "C4", "D4", "D5"], bass: "F2", dur: 0.95 },
+          { ms: 2040, notes: ["G3", "B3", "E4", "C5"], bass: "A2", dur: 1.45 }
+        ].forEach(s => {
+          audioEngine.registerTimer(() => audioEngine.playStep(s.notes, s.dur, s.bass, "cadence"), s.ms);
+        });
       } else if (type.startsWith("culture-")) {
         const playMicroSteps = (steps, oscType = "triangle", lvl = 0.24) => {
           steps.forEach(s => {
