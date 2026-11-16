@@ -3134,6 +3134,10 @@ html, body {
   gap: 1.15rem;
 }
 
+.modal-body > * {
+  flex-shrink: 0;
+}
+
 .settings-section h4 {
   font-size: 0.72rem;
   text-transform: uppercase;
@@ -5255,10 +5259,19 @@ body,
 .mixer-tab-panel {
   display: flex;
   flex-direction: column;
-  gap: 0.9rem;
+  gap: 0.95rem;
+  flex-shrink: 0;
 }
 
 .mixer-tab-panel .settings-section {
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
+
+.btn-group + .settings-hint,
+.mixer-list + .settings-hint,
+.settings-sub-field + .settings-hint {
+  margin-top: 0.65rem;
   margin-bottom: 0;
 }
 
