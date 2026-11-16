@@ -10040,7 +10040,7 @@ body,
             <input type="text" id="welcomeProfileNameInput" class="account-input" maxlength="24" placeholder="z. B. Alex" data-i18n-placeholder="space.namePlaceholder">
           </div>
           <div class="welcome-field">
-            <span class="account-label" data-i18n="space.instrumentsLabel">Deine Instrumente</span>
+            <span class="account-label" data-i18n="space.instrumentsLabel">Deine Instrumente / Rollen</span>
             <div id="welcomeInstrumentsGroup" class="profile-pills-wrap welcome-pills-wrap"></div>
           </div>
         </div>
@@ -16804,6 +16804,7 @@ Object.assign(TR_FR, {
   "Mix entfernen": "Supprimer le mix",
   "Hallo, {name}!": "Bonjour, {name} !",
   "Dein Musiker-Profil": "Votre profil de musicien",
+  "Kein Instrument": "Aucun instrument",
   "Kein Instrument gewählt": "Aucun instrument choisi",
   "Auswählen …": "Choisir …",
   "{n} ausgewählt": "{n} sélectionné(s)",
@@ -18381,6 +18382,7 @@ const TR_PL = {
   "Kadenzen & Harmonien": "Kadencje i harmonia",
   "Kadenzen & Vamps": "Kadencje modalne",
   "Karten & Felder": "Karty i panele",
+  "Kein Instrument": "Brak instrumentu",
   "Kein Instrument gewählt": "Nie wybrano instrumentu",
   "Auswählen …": "Wybierz …",
   "{n} ausgewählt": "Wybrano: {n}",
@@ -20414,6 +20416,7 @@ const TR_UK = {
   "Kadenzen & Harmonien": "Каданси та гармонія",
   "Kadenzen & Vamps": "Модальні звороти",
   "Karten & Felder": "Картки й панелі",
+  "Kein Instrument": "Без інструмента",
   "Kein Instrument gewählt": "Інструмент не обрано",
   "Auswählen …": "Обрати …",
   "{n} ausgewählt": "Обрано: {n}",
@@ -22477,6 +22480,7 @@ const TR_UR = Object.assign(Object.create(null), {
   "Kadenzen & Harmonien": "کیڈینسز اور ہارمونیز",
   "Kadenzen & Vamps": "موڈل ویمپس",
   "Karten & Felder": "کارڈز اور خانے",
+  "Kein Instrument": "کوئی ساز نہیں",
   "Kein Instrument gewählt": "کوئی ساز منتخب نہیں",
   "Auswählen …": "منتخب کریں …",
   "{n} ausgewählt": "{n} منتخب",
@@ -48890,7 +48894,7 @@ function normalizeProfileAccessories(rawAccessories, fallbackAccessory) {
   if (typeof fallbackAccessory === "string" && validOrder.includes(fallbackAccessory)) {
     return [fallbackAccessory];
   }
-  return ["headphones"];
+  return [];
 }
 
 function getResolvedProfileAccessories(profile = state?.profile) {
@@ -49672,8 +49676,8 @@ function createDefaultProfile() {
     instruments: ["Klavier"],
     focus: "allround",
     focuses: ["allround"],
-    companionAccessory: "headphones",
-    companionAccessories: ["headphones"],
+    companionAccessory: PROFILE_ACCESSORY_NONE_KEY,
+    companionAccessories: [],
     notation: "de",
     notationManual: false,
     intervalNotation: "de",
@@ -62865,6 +62869,7 @@ function renderProfileAccountView() {
 
   const instWrap = document.getElementById("profileInstrumentsGroup");
   if (instWrap) {
+    const activeInsts = p.instruments || [];
     const instOptions = PROFILE_INSTRUMENT_OPTIONS.map(inst => ({
       key: inst,
       label: getLocalizedProfileInstrumentLabel(inst)
@@ -62873,9 +62878,21 @@ function renderProfileAccountView() {
       containerEl: instWrap,
       key: "instruments",
       options: instOptions,
-      selectedKeys: p.instruments || [],
-      placeholderText: tr("Auswählen …", "Choose …"),
+      selectedKeys: activeInsts,
+      placeholderText: tr("Kein Instrument", "No instrument"),
       emptyTagsText: tr("Kein Instrument gewählt", "No instrument selected"),
+      resetOption: {
+        key: "none",
+        label: tr("Kein Instrument", "No instrument"),
+        isActive: activeInsts.length === 0
+      },
+      onReset: () => {
+        state.profile.instruments = [];
+        saveUserProfile(state.profile);
+        renderProfileAccountView();
+        renderHomeProfileGreeting();
+        renderWelcomeProfileStep();
+      },
       onToggle: (inst) => {
         const set = new Set(state.profile.instruments || []);
         if (set.has(inst)) set.delete(inst);
@@ -62884,6 +62901,7 @@ function renderProfileAccountView() {
         saveUserProfile(state.profile);
         renderProfileAccountView();
         renderHomeProfileGreeting();
+        renderWelcomeProfileStep();
       }
     });
   }
@@ -67345,6 +67363,23 @@ function renderWelcomeProfileStep() {
     });
     instWrap.appendChild(btn);
   });
+
+  const hasNone = (p.instruments || []).length === 0;
+  const noneBtn = document.createElement("button");
+  noneBtn.type = "button";
+  noneBtn.className = `k-filter-pill${hasNone ? " active" : ""}`;
+  noneBtn.dataset.welcomeInst = "none";
+  noneBtn.setAttribute?.("aria-pressed", String(hasNone));
+  noneBtn.textContent = tr("Kein Instrument", "No instrument");
+  noneBtn.addEventListener("click", () => {
+    if (!state.profile) state.profile = createDefaultProfile();
+    state.profile.instruments = [];
+    saveUserProfile(state.profile);
+    renderProfileAccountView();
+    renderHomeProfileGreeting();
+    renderWelcomeProfileStep();
+  });
+  instWrap.appendChild(noneBtn);
 }
 
 function renderWelcomeFocusStep() {
