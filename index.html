@@ -4630,6 +4630,7 @@ body,
 }
 
 .rhythm-tap-pad {
+  position: relative;
   width: 100%;
   min-height: 142px;
   border-radius: var(--radius-lg);
@@ -7949,6 +7950,7 @@ body,
 }
 
 .melody-rhythm-btn {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10457,13 +10459,13 @@ body,
       <div class="category-nav-list">
         <button class="category-nav-card card-accent-lilac category-card-wide" data-open-category="warmup">
           <div class="cat-icon-box badge-lilac">
-            <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="10.6" cy="12.8" r="3.7"/>
-              <line x1="7.51" y1="10.77" x2="12.63" y2="15.89" stroke-width="1.6"/>
-              <path d="M 7.03 13.76 L 3.42 18.63 Q 3.46 19.94 4.77 19.98 L 9.64 16.37"/>
-              <ellipse cx="17.2" cy="20.4" rx="2.3" ry="1.65" transform="rotate(-18 17.2 20.4)" fill="currentColor" stroke="none"/>
-              <ellipse cx="22.8" cy="14.2" rx="2.3" ry="1.65" transform="rotate(-18 22.8 14.2)" fill="currentColor" stroke="none"/>
-              <path d="M19.2 19.8 V10.2 L24.8 4.8 V13.6"/>
+            <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="10.0" cy="12.6" r="4.15"/>
+              <line x1="6.53" y1="10.33" x2="12.27" y2="16.07" stroke-width="1.7"/>
+              <path d="M 6.0 13.7 L 2.05 19.07 Q 2.08 20.52 3.53 20.55 L 8.9 16.6"/>
+              <ellipse cx="17.5" cy="21.4" rx="2.55" ry="1.85" transform="rotate(-18 17.5 21.4)" fill="currentColor" stroke="none"/>
+              <ellipse cx="23.6" cy="14.5" rx="2.55" ry="1.85" transform="rotate(-18 23.6 14.5)" fill="currentColor" stroke="none"/>
+              <path d="M19.7 20.7 V9.9 L25.8 3.9 V13.8"/>
             </svg>
           </div>
           <div class="cat-text-box">
@@ -57078,7 +57080,7 @@ function renderNotationKeyboard(wrap, ex) {
       box.className = "solfege-key-box notation-key-box-white";
       box.textContent = wk.noteLabel;
       keyBtn.appendChild(box);
-      keyBtn.addEventListener("click", () => handleNotationKeyClick(wk, keyBtn));
+      keyBtn.addEventListener("click", (e) => handleNotationKeyClick(wk, keyBtn, { inputEvent: e }));
     } else {
       const hint = document.createElement("span");
       hint.className = "piano-note-hint";
@@ -57118,7 +57120,7 @@ function renderNotationKeyboard(wrap, ex) {
       box.textContent = bk.noteLabel;
       blackEl.appendChild(box);
     }
-    blackEl.addEventListener("click", () => handleNotationKeyClick(bk, blackEl));
+    blackEl.addEventListener("click", (e) => handleNotationKeyClick(bk, blackEl, { inputEvent: e }));
     kb.appendChild(blackEl);
   });
 
@@ -57218,7 +57220,7 @@ function renderSolfegeKeyboard() {
     keyBtn.appendChild(hint);
 
     if (wk.inScale) {
-      keyBtn.addEventListener("click", () => onKeyboardKeyClick(wk, keyBtn));
+      keyBtn.addEventListener("click", (e) => onKeyboardKeyClick(wk, keyBtn, { inputEvent: e }));
     } else {
       keyBtn.tabIndex = -1;
       keyBtn.setAttribute("aria-disabled", "true");
@@ -57256,7 +57258,7 @@ function renderSolfegeKeyboard() {
       box.className = "solfege-key-box solfege-key-box-black";
       box.textContent = getSolfegeDisplayLabel(bk.syllable);
       blackEl.appendChild(box);
-      blackEl.addEventListener("click", () => onKeyboardKeyClick(bk, blackEl));
+      blackEl.addEventListener("click", (e) => onKeyboardKeyClick(bk, blackEl, { inputEvent: e }));
     }
 
     kb.appendChild(blackEl);
@@ -57426,7 +57428,7 @@ function renderMelodyRhythmPicker(ex = state.currentExercise) {
     if (solvedAll) btn.disabled = true;
 
     btn.innerHTML = `${getMelodyNoteValueSVG(key, 18, 18)}<strong style="font-size:0.73rem;line-height:1">${escapeHtml(def.short)}</strong><span class="melody-rhythm-btn-lbl">${escapeHtml(def.label)}</span>`;
-    btn.addEventListener("click", () => handleMelodyRhythmClick(key, btn));
+    btn.addEventListener("click", (e) => handleMelodyRhythmClick(key, btn, { inputEvent: e }));
     grid.appendChild(btn);
   });
 
@@ -58101,7 +58103,7 @@ function renderUI() {
 
         btn.appendChild(sym);
         btn.appendChild(l);
-        btn.addEventListener("click", () => handleAnswer(choiceKey, btn));
+        btn.addEventListener("click", (e) => handleAnswer(choiceKey, btn, { inputEvent: e }));
         rowEl.appendChild(btn);
       });
 
@@ -58243,6 +58245,93 @@ const JUICE_PARTICLE_PRESETS = {
 };
 
 let juiceBurstSeq = 0;
+let lastPointerInputPoint = null;
+let globalPointerTrackerBound = false;
+
+function extractEventInputPoint(ev) {
+  if (!ev || typeof ev !== "object") return null;
+  if (ev.changedTouches && ev.changedTouches.length > 0) {
+    const t = ev.changedTouches[0];
+    if (Number.isFinite(t.clientX) && Number.isFinite(t.clientY) && (t.clientX !== 0 || t.clientY !== 0)) {
+      return { x: t.clientX, y: t.clientY, atMs: Date.now() };
+    }
+  }
+  if (ev.touches && ev.touches.length > 0) {
+    const t = ev.touches[0];
+    if (Number.isFinite(t.clientX) && Number.isFinite(t.clientY) && (t.clientX !== 0 || t.clientY !== 0)) {
+      return { x: t.clientX, y: t.clientY, atMs: Date.now() };
+    }
+  }
+  if (Number.isFinite(ev.clientX) && Number.isFinite(ev.clientY) && (ev.clientX !== 0 || ev.clientY !== 0)) {
+    return { x: ev.clientX, y: ev.clientY, atMs: Date.now() };
+  }
+  return null;
+}
+
+function getFreshPointerInputPoint(maxAgeMs = 1800) {
+  if (!lastPointerInputPoint) return null;
+  if (Date.now() - lastPointerInputPoint.atMs > maxAgeMs) return null;
+  return lastPointerInputPoint;
+}
+
+function resolveInputPointFromOptions(options = {}) {
+  const fromOpt = options.inputPoint && Number.isFinite(options.inputPoint.x) && Number.isFinite(options.inputPoint.y)
+    ? options.inputPoint
+    : null;
+  return fromOpt || extractEventInputPoint(options.inputEvent) || getFreshPointerInputPoint();
+}
+
+function bindGlobalPointerInputTracker() {
+  if (globalPointerTrackerBound || typeof document === "undefined" || typeof document.addEventListener !== "function") return;
+  globalPointerTrackerBound = true;
+  const capturePoint = (ev) => {
+    const pt = extractEventInputPoint(ev);
+    if (pt) lastPointerInputPoint = pt;
+  };
+  document.addEventListener("pointerdown", capturePoint, { capture: true, passive: true });
+  document.addEventListener("touchstart", capturePoint, { capture: true, passive: true });
+  document.addEventListener("click", (ev) => {
+    // Tastatur-Aktivierung (Enter/Space) sendet detail===0 & (0,0) — nur echte Zeiger-/Touch-Klicks übernehmen
+    if (ev && ev.detail === 0 && ev.clientX === 0 && ev.clientY === 0) {
+      if (!lastPointerInputPoint || (Date.now() - lastPointerInputPoint.atMs > 450)) {
+        lastPointerInputPoint = null;
+      }
+      return;
+    }
+    capturePoint(ev);
+  }, { capture: true, passive: true });
+  document.addEventListener("keydown", () => {
+    lastPointerInputPoint = null;
+  }, { capture: true, passive: true });
+}
+
+function resolveJuiceOrigin(hostEl, options = {}) {
+  const fallbackX = options.originX || "50%";
+  const fallbackY = options.originY || "26%";
+  const pt = resolveInputPointFromOptions(options);
+  if (!pt || !hostEl || typeof hostEl.getBoundingClientRect !== "function") {
+    return { originX: fallbackX, originY: fallbackY };
+  }
+  const rect = hostEl.getBoundingClientRect();
+  if (!rect || !(rect.width > 0) || !(rect.height > 0)) {
+    return { originX: fallbackX, originY: fallbackY };
+  }
+  const tol = options.containTolerancePx ?? 16;
+  const inBounds =
+    pt.x >= rect.left - tol &&
+    pt.x <= rect.right + tol &&
+    pt.y >= rect.top - tol &&
+    pt.y <= rect.bottom + tol;
+  if (!inBounds && !options.allowOutsideHost) {
+    return { originX: fallbackX, originY: fallbackY };
+  }
+  const relX = Math.max(0, Math.min(rect.width, pt.x - rect.left));
+  const relY = Math.max(0, Math.min(rect.height, pt.y - rect.top));
+  return {
+    originX: `${relX.toFixed(1)}px`,
+    originY: `${relY.toFixed(1)}px`
+  };
+}
 
 function shouldAnimateJuice() {
   if (typeof window !== "undefined" && typeof window.matchMedia === "function") {
@@ -58254,6 +58343,7 @@ function shouldAnimateJuice() {
 }
 
 function spawnJuiceBurst(hostEl, options = {}) {
+  bindGlobalPointerInputTracker();
   if (!hostEl || typeof hostEl.appendChild !== "function" || typeof document?.createElement !== "function") return;
   if (!shouldAnimateJuice()) return;
   if (typeof hostEl.querySelectorAll === "function") {
@@ -58263,8 +58353,7 @@ function spawnJuiceBurst(hostEl, options = {}) {
     });
   }
   const specs = JUICE_PARTICLE_PRESETS[options.intensity || "standard"] || JUICE_PARTICLE_PRESETS.standard;
-  const originX = options.originX || "50%";
-  const originY = options.originY || "26%";
+  const { originX, originY } = resolveJuiceOrigin(hostEl, options);
   const seqOffset = juiceBurstSeq;
   juiceBurstSeq = (juiceBurstSeq + 1) % JUICE_SYMBOL_ROTATION.length;
 
@@ -58307,6 +58396,7 @@ function triggerMascotHappyHop() {
 
 function triggerCelebrationFeedback(anchorEl, options = {}) {
   if (!shouldAnimateJuice()) return;
+  const resolvedPoint = resolveInputPointFromOptions(options);
   const stage = document.getElementById("centralStageCard");
   if (stage) {
     if (!stage._celebrateAnimBound) {
@@ -58319,11 +58409,11 @@ function triggerCelebrationFeedback(anchorEl, options = {}) {
   }
   triggerMascotHappyHop();
   if (anchorEl && !options.skipAnchorBurst) {
-    spawnJuiceBurst(anchorEl, { intensity: "standard", originY: "24%" });
+    spawnJuiceBurst(anchorEl, { intensity: "standard", originY: "24%", inputPoint: resolvedPoint });
   }
   if (options.isMilestone || options.stageBurst || !anchorEl) {
     const burstLayer = document.getElementById("stageBurstLayer");
-    spawnJuiceBurst(burstLayer, { intensity: "stage", originX: "50%", originY: "28%" });
+    spawnJuiceBurst(burstLayer, { intensity: "stage", originX: "50%", originY: "28%", inputPoint: resolvedPoint });
   }
 }
 
@@ -58497,11 +58587,12 @@ function buildSolfegeResolutionSchedule(noteCount, bpm) {
  * Schließt einen gelösten Melodie-Slot im freien Training ab (bei 1-stufiger Eingabe
  * direkt über die Klaviatur oder bei Melodiediktat sobald Tonhöhe & Notenwert stimmen).
  */
-function completeMelodyFreeSlot(ex, currentSlotIdx, triggerEl) {
+function completeMelodyFreeSlot(ex, currentSlotIdx, triggerEl, options = {}) {
   const slots = ex.melodySlots || [];
   const slot = slots[currentSlotIdx];
   const tot = slots.length || 4;
   if (!slot) return;
+  const resolvedPoint = resolveInputPointFromOptions(options);
 
   slot.pitchSolved = true;
   slot.rhythmSolved = true;
@@ -58519,7 +58610,7 @@ function completeMelodyFreeSlot(ex, currentSlotIdx, triggerEl) {
 
   const isLast = currentSlotIdx >= tot - 1;
   if (!isLast) {
-    spawnJuiceBurst(triggerEl || keyToMark, { intensity: "micro", originY: "20%" });
+    spawnJuiceBurst(triggerEl || keyToMark, { intensity: "micro", originY: "20%", inputPoint: resolvedPoint });
     ex.melodyStep = currentSlotIdx + 1;
     const nextIdx = ex.melodyStep;
     syncMelodySlotCardUI(ex, nextIdx);
@@ -58561,7 +58652,7 @@ function completeMelodyFreeSlot(ex, currentSlotIdx, triggerEl) {
   const streakRes = recordExerciseStreakSuccess(ex);
   setCentralStageMode("stage-playing");
   updateStageMascot("happy");
-  triggerCelebrationFeedback(triggerEl || keyToMark, { isMilestone: streakRes.isMilestone });
+  triggerCelebrationFeedback(triggerEl || keyToMark, { isMilestone: streakRes.isMilestone, inputPoint: resolvedPoint });
   if (ex.melodyStyle === "dictation") {
     renderMelodyRhythmPicker(ex);
   }
@@ -58583,9 +58674,10 @@ function completeMelodyFreeSlot(ex, currentSlotIdx, triggerEl) {
 /**
  * Verarbeitet das Wählen eines Notenwerts im Melodiediktat (beliebige Reihenfolge zu Klaviatur).
  */
-async function handleMelodyRhythmClick(rhythmKey, btn) {
+async function handleMelodyRhythmClick(rhythmKey, btn, options = {}) {
   const ex = state.currentExercise;
   if (!ex || ex.type !== "melody" || ex.melodyStyle !== "dictation" || state.melodyCompleted) return;
+  const capturedInputPoint = resolveInputPointFromOptions(options);
   if (state.listenOnly?.active) {
     setListenOnlyMode(false, { keepPlayback: true });
   }
@@ -58631,7 +58723,7 @@ async function handleMelodyRhythmClick(rhythmKey, btn) {
   }
 
   if (slot.pitchSolved) {
-    completeMelodyFreeSlot(ex, currentSlotIdx, btn);
+    completeMelodyFreeSlot(ex, currentSlotIdx, btn, { inputPoint: capturedInputPoint });
     return;
   }
 
@@ -58649,9 +58741,10 @@ async function handleMelodyRhythmClick(rhythmKey, btn) {
  * - Im Takt- & Basismodus reicht die richtige Silbe pro Position.
  * - Im Melodiediktat müssen Tonhöhe und Notenwert in beliebiger Reihenfolge stimmen.
  */
-async function handleMelodyKeyClick(clickedKeyDef, keyBtn) {
+async function handleMelodyKeyClick(clickedKeyDef, keyBtn, options = {}) {
   const ex = state.currentExercise;
   if (!ex || ex.type !== "melody" || state.melodyCompleted) return;
+  const capturedInputPoint = resolveInputPointFromOptions(options);
   if (state.listenOnly?.active) {
     setListenOnlyMode(false, { keepPlayback: true });
   }
@@ -58709,7 +58802,7 @@ async function handleMelodyKeyClick(clickedKeyDef, keyBtn) {
   }
 
   if (slot.rhythmSolved || ex.melodyStyle !== "dictation") {
-    completeMelodyFreeSlot(ex, currentSlotIdx, keyBtn);
+    completeMelodyFreeSlot(ex, currentSlotIdx, keyBtn, { inputPoint: capturedInputPoint });
     return;
   }
 
@@ -59047,6 +59140,7 @@ function shiftAndAdvanceNotationQueue(ex, feedbackKind, stageSub, stageMain, sta
 async function handleNotationKeyClick(clickedKeyDef, keyBtn, options = {}) {
   const ex = state.currentExercise;
   if (!ex || !isNotationMode(ex.type) || !ex.targetItem) return;
+  const capturedInputPoint = resolveInputPointFromOptions(options);
   const isListenOnly = Boolean(options.fromListenOnly && state.listenOnly?.active);
   const listenOnlyToken = isListenOnly ? state.listenOnly.token : null;
   if (!options.fromListenOnly && state.listenOnly?.active) {
@@ -59108,7 +59202,7 @@ async function handleNotationKeyClick(clickedKeyDef, keyBtn, options = {}) {
   ex.notationSolvedCount = (ex.notationSolvedCount || 0) + 1;
 
   if (!isListenOnly) {
-    triggerCelebrationFeedback(keyBtn, { isMilestone: streakRes.isMilestone });
+    triggerCelebrationFeedback(keyBtn, { isMilestone: streakRes.isMilestone, inputPoint: capturedInputPoint });
   }
 
   shiftAndAdvanceNotationQueue(
@@ -59213,6 +59307,7 @@ function revealNotationListenOnly(ex, token) {
 async function handleSolfegeKeyClick(clickedKeyDef, keyBtn, options = {}) {
   const ex = state.currentExercise;
   if (!ex || ex.type !== "solfege" || state.solfegeAnswered) return;
+  const capturedInputPoint = resolveInputPointFromOptions(options);
   const isListenOnly = Boolean(options.fromListenOnly && state.listenOnly?.active);
   const listenOnlyToken = isListenOnly ? state.listenOnly.token : null;
   if (!options.fromListenOnly && state.listenOnly?.active) {
@@ -59275,7 +59370,7 @@ async function handleSolfegeKeyClick(clickedKeyDef, keyBtn, options = {}) {
   setCentralStageMode("stage-playing");
   updateStageMascot("happy");
   if (!isListenOnly) {
-    triggerCelebrationFeedback(initialGreenEl || keyBtn, { isMilestone: streakRes.isMilestone });
+    triggerCelebrationFeedback(keyBtn || initialGreenEl, { isMilestone: streakRes.isMilestone, inputPoint: capturedInputPoint });
   }
   document.getElementById("stageSubtext").textContent = tr("RICHTIG! AUFLÖSUNG ZUR TONIKA", "CORRECT! RESOLVING TO TONIC");
   document.getElementById("stageMainText").textContent = getSolfegeDisplayLabel(target.syllable);
@@ -59348,9 +59443,10 @@ function getChordArpeggioPromptTiming(noteCount, bpm = state.activeBpm) {
 function handleAnswer(selectedKey, btnElement, options = {}) {
   const ex = state.currentExercise;
   if (!ex) return;
+  const capturedInputPoint = resolveInputPointFromOptions(options);
 
   if (ex.type === "rhythm-dictation") {
-    return handleRhythmDictationChoice(selectedKey, btnElement);
+    return handleRhythmDictationChoice(selectedKey, btnElement, { ...options, inputPoint: capturedInputPoint });
   }
   if (state.exam?.active) {
     handleExamChoiceAnswer(ex, selectedKey, btnElement);
@@ -59385,7 +59481,7 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
     setCentralStageMode("stage-playing");
     updateStageMascot("happy");
     if (!isListenOnly) {
-      triggerCelebrationFeedback(btnElement, { isMilestone: streakRes.isMilestone });
+      triggerCelebrationFeedback(btnElement, { isMilestone: streakRes.isMilestone, inputPoint: capturedInputPoint });
     }
     document.getElementById("stageSubtext").textContent = tr("RICHTIG!", "CORRECT!");
     document.getElementById("stageMainText").textContent = ex.targetItem.roman || ex.targetItem.symbol;
@@ -59554,9 +59650,10 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
  * Verarbeitet die Auswahl eines Rhythmus-Bausteins im 4-Zählzeiten-Diktat.
  * Bereits gelöste Fragezeichen bleiben erhalten.
  */
-async function handleRhythmDictationChoice(cellKey, btnElement) {
+async function handleRhythmDictationChoice(cellKey, btnElement, options = {}) {
   const ex = state.currentExercise;
   if (!ex || ex.type !== "rhythm-dictation" || state.rhythmDictationCompleted) return;
+  const capturedInputPoint = resolveInputPointFromOptions(options);
   if (state.listenOnly?.active) {
     setListenOnlyMode(false, { keepPlayback: true });
   }
@@ -59609,7 +59706,7 @@ async function handleRhythmDictationChoice(cellKey, btnElement) {
   }
 
   if (!isLast) {
-    spawnJuiceBurst(btnElement, { intensity: "micro" });
+    spawnJuiceBurst(btnElement, { intensity: "micro", inputPoint: capturedInputPoint });
     ex.rhythmStep = currentIdx + 1;
     ex.targetIndex = ex.rhythmStep;
     ex.targetItem = ex.rhythmSlots[ex.rhythmStep].cell;
@@ -59662,7 +59759,7 @@ async function handleRhythmDictationChoice(cellKey, btnElement) {
   const streakRes = recordExerciseStreakSuccess(ex);
   setCentralStageMode("stage-playing");
   updateStageMascot("happy");
-  triggerCelebrationFeedback(btnElement, { isMilestone: streakRes.isMilestone });
+  triggerCelebrationFeedback(btnElement, { isMilestone: streakRes.isMilestone, inputPoint: capturedInputPoint });
   document.getElementById("stageSubtext").textContent = tr("RHYTHMUS GELÖST! (4/4)", "RHYTHM SOLVED! (4/4)");
   document.getElementById("stageMainText").textContent = ex.rhythmSlots.map(s => s.cell.short).join(" • ");
   document.getElementById("stageFunctionText").textContent = tr("Nächste Aufgabe wird geladen…", "Loading next exercise…");
@@ -59773,7 +59870,7 @@ function renderRhythmTapPad() {
     lastPointerDownWallMs = Date.now();
     if (session.phase === "listen") {
       e.preventDefault();
-      handleRhythmTapInput();
+      handleRhythmTapInput(null, extractEventInputPoint(e));
     } else if (session.phase === "counting" || session.phase === "demo") {
       e.preventDefault();
       const subEl = document.getElementById("rhythmPadSub");
@@ -59781,12 +59878,12 @@ function renderRhythmTapPad() {
     }
   });
 
-  padBtn.addEventListener("click", () => {
+  padBtn.addEventListener("click", (e) => {
     if (Date.now() - lastPointerDownWallMs < 350) return;
     const session = state.rhythmTapSession;
     if (session && !session.ended) {
       if (session.phase === "listen") {
-        handleRhythmTapInput();
+        handleRhythmTapInput(null, extractEventInputPoint(e));
       } else {
         const subEl = document.getElementById("rhythmPadSub");
         if (subEl) subEl.textContent = tr("Noch einen Moment – erst zu Ende hören!", "Hold on — listen to the whole demo first!");
@@ -59878,12 +59975,16 @@ async function playRhythmTapDemoOnly(options = {}) {
   }, 50 + Math.round(2 * barMs + 140));
 }
 
-function handleRhythmTapInput(overrideRelMs = null) {
+function handleRhythmTapInput(overrideRelMs = null, inputPoint = null) {
   const session = state.rhythmTapSession;
   const ex = state.currentExercise;
   if (!session || session.ended || session.phase !== "listen" || !ex || ex.type !== "rhythm-tap") {
     return null;
   }
+  const tapPoint = (inputPoint && Number.isFinite(inputPoint.x) && Number.isFinite(inputPoint.y))
+    ? inputPoint
+    : (typeof overrideRelMs === "number" ? null : getFreshPointerInputPoint());
+  session.lastTapClientPoint = tapPoint || null;
 
   let relMs;
   if (typeof overrideRelMs === "number" && Number.isFinite(overrideRelMs)) {
@@ -60006,10 +60107,16 @@ function finishRhythmTapRound() {
     : (resetExerciseStreakOnAttempt(ex), { count: 0, isMilestone: false });
 
   if (document.getElementById("centralStageCard")) {
+    const tapPadBtn = document.getElementById("rhythmTapPadBtn");
+    const tapCelebratePoint = session.lastTapClientPoint || null;
     if (res.passed && res.closeCount === 0 && res.extraCount === 0) {
       setCentralStageMode("stage-playing");
       updateStageMascot("happy");
-      triggerCelebrationFeedback(null, { isMilestone: streakRes.isMilestone, stageBurst: true });
+      triggerCelebrationFeedback(tapPadBtn, {
+        isMilestone: streakRes.isMilestone,
+        stageBurst: !tapPadBtn,
+        inputPoint: tapCelebratePoint
+      });
       document.getElementById("stageSubtext").textContent = tr("PERFEKT GETROFFEN!", "NAILED IT!");
       document.getElementById("stageMainText").textContent = `${res.exactCount}/${totalExpected}`;
       document.getElementById("stageFunctionText").textContent =
@@ -60020,7 +60127,11 @@ function finishRhythmTapRound() {
     } else if (res.passed) {
       setCentralStageMode("stage-playing");
       updateStageMascot("happy");
-      triggerCelebrationFeedback(null, { isMilestone: streakRes.isMilestone, stageBurst: true });
+      triggerCelebrationFeedback(tapPadBtn, {
+        isMilestone: streakRes.isMilestone,
+        stageBurst: !tapPadBtn,
+        inputPoint: tapCelebratePoint
+      });
       document.getElementById("stageSubtext").textContent = tr("SAUBER IM TAKT!", "SOLID TIMING!");
       document.getElementById("stageMainText").textContent = `${hitCount}/${totalExpected}`;
       document.getElementById("stageFunctionText").textContent =
@@ -63596,6 +63707,7 @@ function performFullAppReset() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  bindGlobalPointerInputTracker();
   hydrateMascotStaticSlots();
   if (typeof applyStaticDomLanguage === "function") {
     applyStaticDomLanguage(state.settings.language);
