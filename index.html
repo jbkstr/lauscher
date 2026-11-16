@@ -461,12 +461,13 @@ html, body {
   width: 38px;
   height: 38px;
   flex: 0 0 38px;
-  background-color: var(--sage);
+  background-color: #F6F3EC;
   border: 1px solid rgba(61, 64, 91, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-pill);
+  overflow: hidden;
   box-shadow: var(--shadow-card);
 }
 
@@ -9739,27 +9740,50 @@ body,
         <span class="splash-ring splash-ring-1"></span>
         <span class="splash-ring splash-ring-2"></span>
         <div class="splash-badge">
-          <svg class="splash-mascot-svg" width="68" height="68" viewBox="-1 0 68 64" fill="none">
+          <svg class="splash-mascot-svg" width="70" height="70" viewBox="-1 0 68 64" fill="none">
+            <path d="M17.5 64 C17.5 50.5, 22 44, 32 44 C42 44, 46.5 50.5, 46.5 64 Z" fill="#BAC6BE"/>
+            <path d="M22.8 64 C22.8 54, 26.8 49.2, 32 49.2 C37.2 49.2, 41.2 54, 41.2 64 Z" fill="#F6F4EE"/>
+            <path d="M20.5 45.8 Q32 49.2 43.5 45.8" stroke="#95A69B" stroke-width="2.3" stroke-linecap="round" fill="none"/>
             <g class="splash-ear-left">
-              <circle cx="15" cy="18" r="9" fill="#5C5F77"/>
-              <circle cx="15" cy="18" r="5" fill="#FFD6BA"/>
+              <path d="M10.5 20.5 C7.5 14.5, 11.2 8.2, 17.5 8.8 C21.5 9.2, 24.5 12.2, 24.2 16.5 Z" fill="#41495E"/>
+              <circle cx="16.4" cy="15.4" r="5.1" fill="#E88B6A"/>
+              <circle cx="16.4" cy="15.6" r="4.1" fill="#FFAA84"/>
             </g>
             <g class="splash-ear-right">
-              <circle cx="49" cy="18" r="9" fill="#5C5F77"/>
-              <circle cx="49" cy="18" r="5" fill="#FFD6BA"/>
+              <path d="M39.8 16.5 C39.5 12.2, 42.5 9.2, 46.5 8.8 C52.8 8.2, 56.5 14.5, 53.5 20.5 Z" fill="#41495E"/>
+              <circle cx="47.6" cy="15.4" r="5.1" fill="#E88B6A"/>
+              <circle cx="47.6" cy="15.6" r="4.1" fill="#FFAA84"/>
             </g>
-            <ellipse cx="32" cy="36" rx="22" ry="18" fill="#E6E4E0"/>
-            <path d="M32 18 L29 25 L35 25 Z" fill="#5C5F77" opacity="0.45"/>
-            <ellipse cx="22" cy="35" rx="8" ry="6" transform="rotate(-8 22 35)" fill="#3D405B"/>
-            <ellipse cx="42" cy="35" rx="8" ry="6" transform="rotate(8 42 35)" fill="#3D405B"/>
+            <path d="M32 13.5 C42.5 13.5, 50.8 20.2, 51.2 28.5 L53.4 30.8 L50.8 32.8 L52.4 35.2 C49.5 41.8, 41.8 45.5, 32 45.5 C22.2 45.5, 14.5 41.8, 11.6 35.2 L13.2 32.8 L10.6 30.8 L12.8 28.5 C13.2 20.2, 21.5 13.5, 32 13.5 Z" fill="#BAC6BE"/>
+            <path d="M29.4 14.2 L31.2 11.2 L32.8 13.5 L34.9 11.7 L35.2 14.6 Z" fill="#BAC6BE"/>
+            <path d="M15.2 27.6 C16.4 22.0, 23.6 20.6, 28.4 25.0 C27.2 28.2, 19.6 29.4, 15.2 27.6 Z" fill="#F6F4EE"/>
+            <path d="M48.8 27.6 C47.6 22.0, 40.4 20.6, 35.6 25.0 C36.8 28.2, 44.4 29.4, 48.8 27.6 Z" fill="#F6F4EE"/>
+            <ellipse cx="22.4" cy="30.6" rx="7.2" ry="5.5" transform="rotate(-10 22.4 30.6)" fill="#41495E"/>
+            <ellipse cx="41.6" cy="30.6" rx="7.2" ry="5.5" transform="rotate(10 41.6 30.6)" fill="#41495E"/>
             <g class="splash-eyes">
-              <circle cx="23" cy="34" r="2.6" fill="#FFFFFF"/>
-              <circle cx="41" cy="34" r="2.6" fill="#FFFFFF"/>
+              <circle cx="23.5" cy="30.5" r="3.4" fill="#FFFFFF"/>
+              <circle cx="23.8" cy="30.5" r="2.25" fill="#1E2536"/>
+              <circle cx="24.7" cy="29.5" r="0.85" fill="#FFFFFF"/>
+              <circle cx="40.5" cy="30.5" r="3.4" fill="#FFFFFF"/>
+              <circle cx="40.2" cy="30.5" r="2.25" fill="#1E2536"/>
+              <circle cx="41.1" cy="29.5" r="0.85" fill="#FFFFFF"/>
             </g>
-            <ellipse cx="32" cy="42" rx="6.5" ry="5" fill="#FFFFFF"/>
-            <ellipse cx="32" cy="40" rx="3" ry="2.2" fill="#3D405B"/>
-            <path class="splash-wave splash-wave-1" d="M55 11 C58.5 14.5 58.5 20.5 55 24" stroke="#2E6F4E" stroke-width="2.3" stroke-linecap="round"/>
-            <path class="splash-wave splash-wave-2" d="M59 8 C63.5 13 63.5 22 59 27" stroke="#2E6F4E" stroke-width="1.9" stroke-linecap="round"/>
+            <ellipse cx="18.2" cy="36.2" rx="3.2" ry="2.0" fill="#FF8E72"/>
+            <ellipse cx="45.8" cy="36.2" rx="3.2" ry="2.0" fill="#FF8E72"/>
+            <ellipse cx="32" cy="37.4" rx="6.4" ry="5.0" fill="#F6F4EE"/>
+            <ellipse cx="32" cy="34.6" rx="2.7" ry="1.95" fill="#1E2536"/>
+            <path d="M32 36.2 V38.1" stroke="#1E2536" stroke-width="1.55" stroke-linecap="round"/>
+            <path d="M29.2 38.0 Q32 40.3 34.8 38.0" stroke="#1E2536" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+            <path d="M43.8 49 C50.5 45.5, 53.5 36.5, 51.8 26.8" stroke="#BAC6BE" stroke-width="5.2" stroke-linecap="round" fill="none"/>
+            <g transform="translate(51.4 24.4) rotate(12) scale(0.9)">
+              <circle cx="0" cy="0.6" r="3.3" fill="#41495E"/>
+              <circle cx="-2.7" cy="-2.2" r="1.05" fill="#41495E"/>
+              <circle cx="-0.9" cy="-3.2" r="1.1" fill="#41495E"/>
+              <circle cx="1.0" cy="-3.2" r="1.1" fill="#41495E"/>
+              <circle cx="2.7" cy="-2.1" r="1.05" fill="#41495E"/>
+            </g>
+            <path class="splash-wave splash-wave-1" d="M56.5 11.5 C60.2 15.2 60.2 21.8 56.5 25.5" stroke="#2E6F4E" stroke-width="2.3" stroke-linecap="round"/>
+            <path class="splash-wave splash-wave-2" d="M60.2 8.8 C64.8 14.2 64.8 22.8 60.2 28.2" stroke="#2E6F4E" stroke-width="1.9" stroke-linecap="round"/>
           </svg>
         </div>
       </div>
@@ -9782,25 +9806,31 @@ body,
       <div id="welcomeStepLang" class="welcome-step">
         <div class="welcome-mascot-stage">
           <div id="welcomeLangMascot" class="welcome-mascot-badge">
-            <svg class="splash-mascot-svg" width="60" height="60" viewBox="-1 0 68 64" fill="none">
-              <g class="splash-ear-left">
-                <circle cx="15" cy="18" r="9" fill="#5C5F77"/>
-                <circle cx="15" cy="18" r="5" fill="#FFD6BA"/>
-              </g>
-              <g class="splash-ear-right">
-                <circle cx="49" cy="18" r="9" fill="#5C5F77"/>
-                <circle cx="49" cy="18" r="5" fill="#FFD6BA"/>
-              </g>
-              <ellipse cx="32" cy="36" rx="22" ry="18" fill="#E6E4E0"/>
-              <path d="M32 18 L29 25 L35 25 Z" fill="#5C5F77" opacity="0.45"/>
-              <ellipse cx="22" cy="35" rx="8" ry="6" transform="rotate(-8 22 35)" fill="#3D405B"/>
-              <ellipse cx="42" cy="35" rx="8" ry="6" transform="rotate(8 42 35)" fill="#3D405B"/>
-              <g class="splash-eyes">
-                <circle cx="23" cy="34" r="2.6" fill="#FFFFFF"/>
-                <circle cx="41" cy="34" r="2.6" fill="#FFFFFF"/>
-              </g>
-              <ellipse cx="32" cy="42" rx="6.5" ry="5" fill="#FFFFFF"/>
-              <ellipse cx="32" cy="40" rx="3" ry="2.2" fill="#3D405B"/>
+            <svg class="splash-mascot-svg" width="60" height="60" viewBox="0 0 64 64" fill="none">
+              <path d="M17.5 64 C17.5 50.5, 22 44, 32 44 C42 44, 46.5 50.5, 46.5 64 Z" fill="#BAC6BE"/>
+              <path d="M22.8 64 C22.8 54, 26.8 49.2, 32 49.2 C37.2 49.2, 41.2 54, 41.2 64 Z" fill="#F6F4EE"/>
+              <path d="M10.5 20.5 C7.5 14.5, 11.2 8.2, 17.5 8.8 C21.5 9.2, 24.5 12.2, 24.2 16.5 Z" fill="#41495E"/>
+              <circle cx="16.4" cy="15.6" r="4.3" fill="#FFAA84"/>
+              <path d="M39.8 16.5 C39.5 12.2, 42.5 9.2, 46.5 8.8 C52.8 8.2, 56.5 14.5, 53.5 20.5 Z" fill="#41495E"/>
+              <circle cx="47.6" cy="15.6" r="4.3" fill="#FFAA84"/>
+              <path d="M32 13.5 C42.5 13.5, 50.8 20.2, 51.2 28.5 L53.4 30.8 L50.8 32.8 L52.4 35.2 C49.5 41.8, 41.8 45.5, 32 45.5 C22.2 45.5, 14.5 41.8, 11.6 35.2 L13.2 32.8 L10.6 30.8 L12.8 28.5 C13.2 20.2, 21.5 13.5, 32 13.5 Z" fill="#BAC6BE"/>
+              <path d="M29.4 14.2 L31.2 11.2 L32.8 13.5 L34.9 11.7 L35.2 14.6 Z" fill="#BAC6BE"/>
+              <path d="M15.2 27.6 C16.4 22.0, 23.6 20.6, 28.4 25.0 C27.2 28.2, 19.6 29.4, 15.2 27.6 Z" fill="#F6F4EE"/>
+              <path d="M48.8 27.6 C47.6 22.0, 40.4 20.6, 35.6 25.0 C36.8 28.2, 44.4 29.4, 48.8 27.6 Z" fill="#F6F4EE"/>
+              <ellipse cx="22.4" cy="30.6" rx="7.2" ry="5.5" transform="rotate(-10 22.4 30.6)" fill="#41495E"/>
+              <ellipse cx="41.6" cy="30.6" rx="7.2" ry="5.5" transform="rotate(10 41.6 30.6)" fill="#41495E"/>
+              <circle cx="23.5" cy="30.5" r="3.4" fill="#FFFFFF"/>
+              <circle cx="23.8" cy="30.5" r="2.25" fill="#1E2536"/>
+              <circle cx="24.7" cy="29.5" r="0.85" fill="#FFFFFF"/>
+              <circle cx="40.5" cy="30.5" r="3.4" fill="#FFFFFF"/>
+              <circle cx="40.2" cy="30.5" r="2.25" fill="#1E2536"/>
+              <circle cx="41.1" cy="29.5" r="0.85" fill="#FFFFFF"/>
+              <ellipse cx="18.2" cy="36.2" rx="3.2" ry="2.0" fill="#FF8E72"/>
+              <ellipse cx="45.8" cy="36.2" rx="3.2" ry="2.0" fill="#FF8E72"/>
+              <ellipse cx="32" cy="37.4" rx="6.4" ry="5.0" fill="#F6F4EE"/>
+              <ellipse cx="32" cy="34.6" rx="2.7" ry="1.95" fill="#1E2536"/>
+              <path d="M32 36.2 V38.1" stroke="#1E2536" stroke-width="1.55" stroke-linecap="round"/>
+              <path d="M29.2 38.0 Q32 40.3 34.8 38.0" stroke="#1E2536" stroke-width="1.6" stroke-linecap="round" fill="none"/>
             </svg>
           </div>
         </div>
@@ -10085,18 +10115,37 @@ body,
 
         <div class="app-brand">
           <div id="brandLogoWrap" class="brand-icon" role="button" tabindex="0" title="Über Lauscher" aria-label="Über Lauscher" data-i18n-title="about.title" data-i18n-aria="about.title">
-            <svg width="24" height="24" viewBox="0 0 64 64" fill="none">
-              <circle cx="15" cy="18" r="9" fill="#5C5F77"/>
-              <circle cx="15" cy="18" r="5" fill="#FFD6BA"/>
-              <circle cx="49" cy="18" r="9" fill="#5C5F77"/>
-              <circle cx="49" cy="18" r="5" fill="#FFD6BA"/>
-              <ellipse cx="32" cy="36" rx="22" ry="18" fill="#E6E4E0"/>
-              <ellipse cx="22" cy="35" rx="8" ry="6" transform="rotate(-8 22 35)" fill="#3D405B"/>
-              <ellipse cx="42" cy="35" rx="8" ry="6" transform="rotate(8 42 35)" fill="#3D405B"/>
-              <circle cx="23" cy="34" r="2.6" fill="#FFFFFF"/>
-              <circle cx="41" cy="34" r="2.6" fill="#FFFFFF"/>
-              <ellipse cx="32" cy="42" rx="6.5" ry="5" fill="#FFFFFF"/>
-              <ellipse cx="32" cy="40" rx="3" ry="2.2" fill="#3D405B"/>
+            <svg width="36" height="36" viewBox="0 0 64 64" fill="none">
+              <circle cx="32" cy="32" r="30.5" fill="#F6F3EC"/>
+              <circle cx="32" cy="32" r="28.5" stroke="#94AA9C" stroke-width="2.4" fill="none"/>
+              <path d="M17.5 60 C18.5 49, 23 44, 32 44 C41 44, 45.5 49, 46.5 60 Z" fill="#BAC6BE"/>
+              <path d="M23.5 60 C24 53, 27.5 49.5, 32 49.5 C36.5 49.5, 40 53, 40.5 60 Z" fill="#F6F4EE"/>
+              <path d="M11.5 22.5 C8.8 17, 12.2 11.2, 18.2 11.8 C21.8 12.2, 24.5 14.8, 24.2 18.8 Z" fill="#41495E"/>
+              <circle cx="17.1" cy="17.8" r="3.9" fill="#FFAA84"/>
+              <path d="M39.8 18.8 C39.5 14.8, 42.2 12.2, 45.8 11.8 C51.8 11.2, 55.2 17, 52.5 22.5 Z" fill="#41495E"/>
+              <circle cx="46.9" cy="17.8" r="3.9" fill="#FFAA84"/>
+              <path d="M32 15.8 C41.8 15.8, 49.4 22, 49.8 29.8 L51.6 31.8 L49.4 33.6 L50.8 35.8 C48.2 41.8, 41 45.2, 32 45.2 C23 45.2, 15.8 41.8, 13.2 35.8 L14.6 33.6 L12.4 31.8 L14.2 29.8 C14.6 22, 22.2 15.8, 32 15.8 Z" fill="#BAC6BE"/>
+              <path d="M29.6 16.4 L31.2 13.8 L32.8 15.8 L34.6 14.2 L34.9 16.8 Z" fill="#BAC6BE"/>
+              <path d="M16.5 28.8 C17.6 23.8, 24.2 22.5, 28.6 26.4 C27.4 29.4, 20.4 30.5, 16.5 28.8 Z" fill="#F6F4EE"/>
+              <path d="M47.5 28.8 C46.4 23.8, 39.8 22.5, 35.4 26.4 C36.6 29.4, 43.6 30.5, 47.5 28.8 Z" fill="#F6F4EE"/>
+              <ellipse cx="23" cy="31.5" rx="6.6" ry="5.1" transform="rotate(-10 23 31.5)" fill="#41495E"/>
+              <ellipse cx="41" cy="31.5" rx="6.6" ry="5.1" transform="rotate(10 41 31.5)" fill="#41495E"/>
+              <path d="M19.8 32.2 Q23 28.8 26.2 32.2" stroke="#1E2536" stroke-width="2.1" stroke-linecap="round" fill="none"/>
+              <path d="M37.8 32.2 Q41 28.8 44.2 32.2" stroke="#1E2536" stroke-width="2.1" stroke-linecap="round" fill="none"/>
+              <ellipse cx="19.2" cy="36.8" rx="2.9" ry="1.8" fill="#FF8E72"/>
+              <ellipse cx="44.8" cy="36.8" rx="2.9" ry="1.8" fill="#FF8E72"/>
+              <ellipse cx="32" cy="37.8" rx="5.8" ry="4.6" fill="#F6F4EE"/>
+              <ellipse cx="32" cy="35.3" rx="2.4" ry="1.7" fill="#1E2536"/>
+              <path d="M32 36.7 V38.4" stroke="#1E2536" stroke-width="1.45" stroke-linecap="round"/>
+              <path d="M29.4 38.2 Q32 40.3 34.6 38.2" stroke="#1E2536" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M43.2 48.5 C49.2 45.2, 52 37.2, 50.6 28.4" stroke="#BAC6BE" stroke-width="4.6" stroke-linecap="round" fill="none"/>
+              <g transform="translate(50.2 26.2) rotate(12) scale(0.84)">
+                <circle cx="0" cy="0.6" r="3.2" fill="#41495E"/>
+                <circle cx="-2.6" cy="-2.1" r="1.0" fill="#41495E"/>
+                <circle cx="-0.9" cy="-3.1" r="1.05" fill="#41495E"/>
+                <circle cx="1.0" cy="-3.1" r="1.05" fill="#41495E"/>
+                <circle cx="2.6" cy="-2.0" r="1.0" fill="#41495E"/>
+              </g>
             </svg>
           </div>
           <div>
@@ -47792,11 +47841,11 @@ const LAUSCHEBAER_QUOTES = [
 
 function getMascotSVG(mood = "idle", showAccessory = false) {
   const earLeftRotate = mood === "question"
-    ? "rotate(-14 14 18)"
-    : (mood === "listening" || mood === "happy" ? "rotate(-6 14 18)" : (mood === "awaiting" ? "rotate(-11 14 18)" : ""));
+    ? "rotate(-10 16.5 16)"
+    : (mood === "listening" || mood === "happy" ? "rotate(-5 16.5 16)" : (mood === "awaiting" ? "rotate(-8 16.5 16)" : ""));
   const earRightRotate = mood === "listening"
-    ? "rotate(10 50 18)"
-    : (mood === "awaiting" || mood === "happy" ? "rotate(6 50 18)" : "");
+    ? "rotate(9 47.5 16)"
+    : (mood === "awaiting" || mood === "happy" ? "rotate(5 47.5 16)" : "");
   const activeAccessories = showAccessory && typeof state !== "undefined" && state?.profile
     ? getResolvedProfileAccessories(state.profile)
     : [];
@@ -47804,37 +47853,135 @@ function getMascotSVG(mood = "idle", showAccessory = false) {
   const highStreak = !showAccessory && typeof state !== "undefined" && (state?.streakState?.count || 0) >= 5;
 
   let eyesMarkup = `
-    <circle cx="23" cy="34" r="2.8" fill="#FFFFFF"/>
-    <circle cx="41" cy="34" r="2.8" fill="#FFFFFF"/>
+    <circle cx="23.5" cy="30.5" r="3.4" fill="#FFFFFF"/>
+    <circle cx="23.8" cy="30.5" r="2.25" fill="#1E2536"/>
+    <circle cx="24.7" cy="29.5" r="0.85" fill="#FFFFFF"/>
+    <circle cx="40.5" cy="30.5" r="3.4" fill="#FFFFFF"/>
+    <circle cx="40.2" cy="30.5" r="2.25" fill="#1E2536"/>
+    <circle cx="41.1" cy="29.5" r="0.85" fill="#FFFFFF"/>
   `;
-  if (mood === "happy") {
+  if (mood === "happy" || mood === "logo") {
     eyesMarkup = `
-      <path d="M19 34 Q23 30 27 34" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-      <path d="M37 34 Q41 30 45 34" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      <path d="M19.8 31.4 Q23.5 27.6 27.2 31.4" stroke="#1E2536" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+      <path d="M36.8 31.4 Q40.5 27.6 44.2 31.4" stroke="#1E2536" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+    `;
+  } else if (mood === "break") {
+    eyesMarkup = `
+      <path d="M19.8 30.2 Q23.5 33.4 27.2 30.2" stroke="#1E2536" stroke-width="2.1" stroke-linecap="round" fill="none"/>
+      <path d="M36.8 30.2 Q40.5 33.4 44.2 30.2" stroke="#1E2536" stroke-width="2.1" stroke-linecap="round" fill="none"/>
     `;
   } else if (mood === "thinking") {
     eyesMarkup = `
-      <circle cx="23" cy="33" r="2.6" fill="#FFFFFF"/>
-      <path d="M38 34 L44 34" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M19.2 23.8 Q23 21.8 26.8 23.6" stroke="#1E2536" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      <path d="M37.2 23.6 Q41 21.8 44.8 23.8" stroke="#1E2536" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      <circle cx="23.5" cy="30.4" r="3.4" fill="#FFFFFF"/>
+      <circle cx="23.9" cy="29.8" r="2.25" fill="#1E2536"/>
+      <circle cx="24.8" cy="28.9" r="0.85" fill="#FFFFFF"/>
+      <circle cx="40.5" cy="30.4" r="3.4" fill="#FFFFFF"/>
+      <circle cx="40.1" cy="29.8" r="2.25" fill="#1E2536"/>
+      <circle cx="41.0" cy="28.9" r="0.85" fill="#FFFFFF"/>
     `;
   } else if (mood === "awaiting") {
     eyesMarkup = `
-      <path d="M16.5 27.2 Q22 24.8 27 27.6" stroke="#5C5F77" stroke-width="1.9" stroke-linecap="round" fill="none"/>
-      <path d="M37.5 27.8 Q42.5 25.4 47.5 27.6" stroke="#5C5F77" stroke-width="1.9" stroke-linecap="round" fill="none"/>
-      <circle cx="23.2" cy="35.3" r="2.8" fill="#FFFFFF"/>
-      <circle cx="41.2" cy="35.3" r="2.8" fill="#FFFFFF"/>
+      <circle cx="23.5" cy="30.5" r="3.45" fill="#FFFFFF"/>
+      <circle cx="23.8" cy="30.4" r="2.3" fill="#1E2536"/>
+      <circle cx="24.7" cy="29.4" r="0.88" fill="#FFFFFF"/>
+      <circle cx="40.5" cy="30.5" r="3.45" fill="#FFFFFF"/>
+      <circle cx="40.2" cy="30.4" r="2.3" fill="#1E2536"/>
+      <circle cx="41.1" cy="29.4" r="0.88" fill="#FFFFFF"/>
+    `;
+  }
+
+  let mouthMarkup = `
+    <path d="M32 36.2 V38.1" stroke="#1E2536" stroke-width="1.55" stroke-linecap="round"/>
+    <path d="M29.2 38.0 Q32 40.3 34.8 38.0" stroke="#1E2536" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+  `;
+  if (mood === "thinking") {
+    mouthMarkup = `
+      <path d="M30.2 38.7 Q32.2 37.3 34.1 38.7" stroke="#1E2536" stroke-width="1.55" stroke-linecap="round" fill="none"/>
+    `;
+  } else if (mood === "break") {
+    mouthMarkup = `
+      <path d="M32 36.0 V37.1" stroke="#1E2536" stroke-width="1.5" stroke-linecap="round"/>
+      <ellipse cx="32" cy="39.1" rx="2.3" ry="2.7" fill="#1E2536"/>
+      <ellipse cx="32" cy="40.4" rx="1.45" ry="1.05" fill="#FF8E72"/>
+    `;
+  } else if (mood === "happy") {
+    mouthMarkup = `
+      <path d="M32 36.1 V38.1" stroke="#1E2536" stroke-width="1.55" stroke-linecap="round"/>
+      <path d="M28.6 37.7 Q32 40.8 35.4 37.7" stroke="#1E2536" stroke-width="1.7" stroke-linecap="round" fill="none"/>
+    `;
+  }
+
+  const drawPaw = (cx, cy, rot = 0, scale = 1) => `
+    <g transform="translate(${cx} ${cy}) rotate(${rot}) scale(${scale})">
+      <circle cx="0" cy="0.6" r="3.3" fill="#41495E"/>
+      <circle cx="-2.7" cy="-2.2" r="1.05" fill="#41495E"/>
+      <circle cx="-0.9" cy="-3.2" r="1.1" fill="#41495E"/>
+      <circle cx="1.0" cy="-3.2" r="1.1" fill="#41495E"/>
+      <circle cx="2.7" cy="-2.1" r="1.05" fill="#41495E"/>
+      <circle cx="0" cy="0.8" r="1.7" fill="#5A637A" opacity="0.72"/>
+    </g>
+  `;
+
+  let armsMarkup = `
+    <path d="M19.5 47.5 C16.5 52, 16.5 58, 17.8 63" stroke="#BAC6BE" stroke-width="5.2" stroke-linecap="round" fill="none"/>
+    <path d="M44.5 47.5 C47.5 52, 47.5 58, 46.2 63" stroke="#BAC6BE" stroke-width="5.2" stroke-linecap="round" fill="none"/>
+  `;
+  if (mood === "happy") {
+    armsMarkup = `
+      <path d="M20.2 49.5 C13.5 44.5, 10.2 37.5, 9.2 30.2" stroke="#BAC6BE" stroke-width="5.4" stroke-linecap="round" fill="none"/>
+      <path d="M43.8 49.5 C50.5 44.5, 53.8 37.5, 54.8 30.2" stroke="#BAC6BE" stroke-width="5.4" stroke-linecap="round" fill="none"/>
+      ${drawPaw(9.0, 27.4, -18, 0.96)}
+      ${drawPaw(55.0, 27.4, 18, 0.96)}
+    `;
+  } else if (mood === "listening" || mood === "logo") {
+    armsMarkup = `
+      <path d="M19.5 48 C16.5 53, 16.8 58.5, 18 63" stroke="#BAC6BE" stroke-width="5.2" stroke-linecap="round" fill="none"/>
+      <path d="M43.8 49 C50.5 45.5, 53.5 36.5, 51.8 26.8" stroke="#BAC6BE" stroke-width="5.2" stroke-linecap="round" fill="none"/>
+      ${drawPaw(51.4, 24.4, 12, 0.9)}
+    `;
+  } else if (mood === "question") {
+    armsMarkup = `
+      <path d="M19.5 48 C16.5 53, 16.8 58.5, 18 63" stroke="#BAC6BE" stroke-width="5.2" stroke-linecap="round" fill="none"/>
+      <path d="M43.8 49 C50.5 46, 53.8 38.5, 54.2 31.8" stroke="#BAC6BE" stroke-width="5.3" stroke-linecap="round" fill="none"/>
+      ${drawPaw(54.3, 29.0, 14, 0.95)}
+    `;
+  } else if (mood === "awaiting") {
+    armsMarkup = `
+      <path d="M19.5 48.5 C15.2 54.5, 17.5 60.2, 25.5 59.5" stroke="#BAC6BE" stroke-width="5.2" stroke-linecap="round" fill="none"/>
+      ${drawPaw(26.5, 59.2, 82, 0.85)}
+      <path d="M44.2 49.5 C46.8 55.2, 43.2 58.2, 41.2 44.5" stroke="#BAC6BE" stroke-width="4.9" stroke-linecap="round" fill="none"/>
+      ${drawPaw(40.8, 42.6, -24, 0.85)}
+    `;
+  } else if (mood === "thinking") {
+    armsMarkup = `
+      <path d="M19.5 48.5 C15.2 54.5, 17.5 60.2, 25.5 59.5" stroke="#BAC6BE" stroke-width="5.2" stroke-linecap="round" fill="none"/>
+      ${drawPaw(26.5, 59.2, 82, 0.85)}
+      <path d="M44.2 49.5 C46.8 55.2, 41.5 57.5, 34.5 45.2" stroke="#BAC6BE" stroke-width="4.9" stroke-linecap="round" fill="none"/>
+      <g transform="translate(32.8 43.8) rotate(-22)">
+        <circle cx="0" cy="0" r="3.1" fill="#41495E"/>
+        <path d="M-2.2 -1.6 L-5.2 -3.2" stroke="#41495E" stroke-width="2.1" stroke-linecap="round"/>
+        <path d="M0.4 -2.2 L1.6 -4.6" stroke="#41495E" stroke-width="1.9" stroke-linecap="round"/>
+      </g>
+    `;
+  } else if (mood === "break") {
+    armsMarkup = `
+      <path d="M44.5 47.5 C47.5 52, 47.5 58, 46.2 63" stroke="#BAC6BE" stroke-width="5.2" stroke-linecap="round" fill="none"/>
+      <path d="M19.5 49.5 C15.5 54.8, 18.8 56.5, 25.8 43.2" stroke="#BAC6BE" stroke-width="5.1" stroke-linecap="round" fill="none"/>
+      ${drawPaw(27.0, 40.8, 25, 0.88)}
     `;
   }
 
   let extraBadge = "";
   if (mood === "listening") {
     extraBadge = `
-      <path d="M55 10 C59 14 59 21 55 25" stroke="var(--sage-strong)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-      <path d="M59 7 C64 13 64 22 59 28" stroke="var(--sage-strong)" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6"/>
+      <path d="M56.5 11.5 C60.2 15.2 60.2 21.8 56.5 25.5" stroke="var(--sage-strong)" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+      <path d="M60.2 8.8 C64.8 14.2 64.8 22.8 60.2 28.2" stroke="var(--sage-strong)" stroke-width="1.9" stroke-linecap="round" fill="none" opacity="0.6"/>
     `;
   } else if (mood === "question") {
     extraBadge = `
-      <text x="50" y="17" fill="var(--peach-strong)" font-size="16" font-weight="900" font-family="sans-serif">?</text>
+      <text x="51" y="15.5" fill="var(--peach-strong)" font-size="15.5" font-weight="900" font-family="sans-serif">?</text>
     `;
   } else if (mood === "awaiting") {
     extraBadge = `
@@ -47845,78 +47992,65 @@ function getMascotSVG(mood = "idle", showAccessory = false) {
       <circle cx="53.5" cy="8.25" r="1.3" fill="var(--peach-strong)"/>
       <circle cx="57.5" cy="8.25" r="1.3" fill="var(--peach-strong)"/>
     `;
-  } else if (mood === "happy" && !hasAcc("notes")) {
+  } else if (mood === "happy" && !hasAcc("notes") && !hasAcc("sparkles")) {
     extraBadge = highStreak
       ? `
-        <text x="49" y="16" fill="var(--sage-strong)" font-size="14" font-weight="900">♪</text>
-        <text x="5.5" y="15" fill="var(--lilac-strong)" font-size="10.5" font-weight="900">✦</text>
+        <path d="M32 3.2 L32.9 5.5 L35.2 6.4 L32.9 7.3 L32 9.6 L31.1 7.3 L28.8 6.4 L31.1 5.5 Z" fill="#FCE075"/>
+        <text x="8.5" y="16" fill="var(--lilac-strong)" font-size="11" font-weight="900">✦</text>
+        <text x="49.5" y="14.5" fill="var(--sage-strong)" font-size="13.5" font-weight="900">♪</text>
       `
       : `
-        <text x="49" y="16" fill="var(--sage-strong)" font-size="15" font-weight="900">♪</text>
+        <path d="M26.5 4.2 L27.3 6.1 L29.2 6.9 L27.3 7.7 L26.5 9.6 L25.7 7.7 L23.8 6.9 L25.7 6.1 Z" fill="#FFA580"/>
+        <path d="M38.5 5.4 L39.2 7.1 L40.9 7.8 L39.2 8.5 L38.5 10.2 L37.8 8.5 L36.1 7.8 L37.8 7.1 Z" fill="#FCE075"/>
+        <path d="M10.5 16.5 L11.2 18.2 L12.9 18.9 L11.2 19.6 L10.5 21.3 L9.8 19.6 L8.1 18.9 L9.8 18.2 Z" fill="#FCE075"/>
+        <path d="M53.5 16.5 L54.2 18.2 L55.9 18.9 L54.2 19.6 L53.5 21.3 L52.8 19.6 L51.1 18.9 L52.8 18.2 Z" fill="#FCE075"/>
       `;
   }
-
-  const happyPoseMarkup = mood === "happy" ? `
-    <ellipse cx="17.5" cy="40.8" rx="3.1" ry="1.85" fill="var(--peach)" opacity="0.72"/>
-    <ellipse cx="46.5" cy="40.8" rx="3.1" ry="1.85" fill="var(--peach)" opacity="0.72"/>
-    <path d="M28.6 44.3 Q32 47.0 35.4 44.3" stroke="#3D405B" stroke-width="1.65" stroke-linecap="round" fill="none"/>
-  ` : "";
-
-  const awaitingPoseMarkup = mood === "awaiting" ? `
-    <path d="M29.4 45.3 Q32.5 47.1 35.7 45.1" stroke="#3D405B" stroke-width="1.6" stroke-linecap="round" fill="none"/>
-    <g transform="translate(42.5 51.5) rotate(-18)">
-      <ellipse cx="0" cy="0" rx="6.6" ry="4.7" fill="#5C5F77" stroke="#3D405B" stroke-width="1.2"/>
-      <ellipse cx="-2.2" cy="-1.2" rx="1.25" ry="1.6" fill="#E4E1DA"/>
-      <ellipse cx="0.6" cy="-1.8" rx="1.2" ry="1.55" fill="#E4E1DA"/>
-      <ellipse cx="3.1" cy="-0.8" rx="1.15" ry="1.45" fill="#E4E1DA"/>
-      <ellipse cx="0.2" cy="1.8" rx="2.5" ry="1.5" fill="#FFD6BA" opacity="0.85"/>
-    </g>
-  ` : "";
 
   let accessoryMarkup = "";
   if (hasAcc("headphones")) {
     accessoryMarkup += `
       <path d="M10 31 C10 11, 54 11, 54 31" stroke="var(--sage-strong)" stroke-width="3" stroke-linecap="round" fill="none"/>
-      <rect x="6" y="25" width="6.5" height="12" rx="3" fill="var(--sage-strong)"/>
-      <rect x="51.5" y="25" width="6.5" height="12" rx="3" fill="var(--sage-strong)"/>
+      <rect x="6" y="24.5" width="6.5" height="12" rx="3" fill="var(--sage-strong)"/>
+      <rect x="51.5" y="24.5" width="6.5" height="12" rx="3" fill="var(--sage-strong)"/>
     `;
   }
   if (hasAcc("beret")) {
     accessoryMarkup += `
       <g transform="rotate(-10 31 16)">
-        <path d="M29 10.5 Q31 7.2 33 10.2" stroke="#3D405B" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-        <path d="M18 19 C17 12.5, 24 9.5, 32.5 10 C40.5 10.4, 46 13.5, 44.5 18.8 C40 17.4, 24.5 17.6, 18 19 Z" fill="var(--lilac-strong)" stroke="#3D405B" stroke-width="1.35" stroke-linejoin="round"/>
-        <path d="M19.5 18.8 Q31.5 17.0 43.2 18.6" stroke="var(--lilac)" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+        <path d="M29 9.5 Q31 6.2 33 9.2" stroke="#1E2536" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+        <path d="M18 17.5 C17 11, 24 8, 32.5 8.5 C40.5 8.9, 46 12, 44.5 17.3 C40 15.9, 24.5 16.1, 18 17.5 Z" fill="var(--lilac-strong)" stroke="#1E2536" stroke-width="1.35" stroke-linejoin="round"/>
+        <path d="M19.5 17.3 Q31.5 15.5 43.2 17.1" stroke="var(--lilac)" stroke-width="1.6" stroke-linecap="round" fill="none"/>
       </g>
     `;
   }
   if (hasAcc("sunglasses")) {
     accessoryMarkup += `
       <g>
-        <path d="M13 33 L16 32.5 M48 32.5 L51 33" stroke="#2B2E45" stroke-width="1.7" stroke-linecap="round"/>
-        <rect x="15.5" y="29.8" width="13.5" height="8.5" rx="3.4" fill="#23263A" stroke="#F4A261" stroke-width="1.45"/>
-        <rect x="35" y="29.8" width="13.5" height="8.5" rx="3.4" fill="#23263A" stroke="#F4A261" stroke-width="1.45"/>
-        <path d="M29 32.8 Q32 31.2 35 32.8" stroke="#F4A261" stroke-width="1.6" stroke-linecap="round" fill="none"/>
-        <path d="M18 32 L21.5 36.2 M37.5 32 L41 36.2" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
+        <path d="M13 30.5 L16 30 M48 30 L51 30.5" stroke="#1E2536" stroke-width="1.7" stroke-linecap="round"/>
+        <rect x="16" y="26.8" width="13.2" height="8.2" rx="3.4" fill="#23263A" stroke="#F4A261" stroke-width="1.45"/>
+        <rect x="34.8" y="26.8" width="13.2" height="8.2" rx="3.4" fill="#23263A" stroke="#F4A261" stroke-width="1.45"/>
+        <path d="M29.2 29.8 Q32 28.2 34.8 29.8" stroke="#F4A261" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+        <path d="M18.5 29 L22 33.2 M37.3 29 L40.8 33.2" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
       </g>
     `;
   }
   if (hasAcc("bowtie")) {
     accessoryMarkup += `
       <g>
-        <path d="M23.5 50.5 L31.2 54 L23.5 57.5 Q21.8 54 23.5 50.5 Z" fill="var(--peach-strong)" stroke="#3D405B" stroke-width="1.2" stroke-linejoin="round"/>
-        <path d="M40.5 50.5 L32.8 54 L40.5 57.5 Q42.2 54 40.5 50.5 Z" fill="var(--peach-strong)" stroke="#3D405B" stroke-width="1.2" stroke-linejoin="round"/>
-        <rect x="30" y="51.6" width="4" height="4.8" rx="1.6" fill="var(--peach)" stroke="#3D405B" stroke-width="1.2"/>
+        <path d="M23.5 50.5 L31.2 54 L23.5 57.5 Q21.8 54 23.5 50.5 Z" fill="var(--peach-strong)" stroke="#1E2536" stroke-width="1.2" stroke-linejoin="round"/>
+        <path d="M40.5 50.5 L32.8 54 L40.5 57.5 Q42.2 54 40.5 50.5 Z" fill="var(--peach-strong)" stroke="#1E2536" stroke-width="1.2" stroke-linejoin="round"/>
+        <rect x="30" y="51.6" width="4" height="4.8" rx="1.6" fill="var(--peach)" stroke="#1E2536" stroke-width="1.2"/>
       </g>
     `;
   }
   if (hasAcc("mic")) {
     accessoryMarkup += `
       <g>
-        <rect x="7" y="39.5" width="7" height="10" rx="3.5" fill="#D8DCE6" stroke="#3D405B" stroke-width="1.35"/>
-        <path d="M7.8 43.2 H13.2 M7.8 46.2 H13.2" stroke="#5C5F77" stroke-width="1.15" stroke-linecap="round"/>
-        <path d="M5.5 46 C5.5 50.5, 15.5 50.5, 15.5 46" stroke="#3D405B" stroke-width="1.35" stroke-linecap="round" fill="none"/>
-        <path d="M10.5 49.5 V57.5 M7.2 57.5 H13.8" stroke="#3D405B" stroke-width="1.6" stroke-linecap="round"/>
+        <rect x="7" y="39.5" width="7" height="10" rx="3.5" fill="#D8DCE6" stroke="#1E2536" stroke-width="1.35"/>
+        <path d="M7.8 43.2 H13.2 M7.8 46.2 H13.2" stroke="#41495E" stroke-width="1.15" stroke-linecap="round"/>
+        <path d="M5.5 46 C5.5 50.5, 15.5 50.5, 15.5 46" stroke="#1E2536" stroke-width="1.35" stroke-linecap="round" fill="none"/>
+        <path d="M10.5 49.5 V57.5 M7.2 57.5 H13.8" stroke="#1E2536" stroke-width="1.6" stroke-linecap="round"/>
       </g>
     `;
   }
@@ -47946,23 +48080,47 @@ function getMascotSVG(mood = "idle", showAccessory = false) {
 
   return `
     <svg width="54" height="54" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Körper & cremefarbener Bauch -->
+      <path d="M17.5 64 C17.5 50.5, 22 44, 32 44 C42 44, 46.5 50.5, 46.5 64 Z" fill="#BAC6BE"/>
+      <path d="M22.8 64 C22.8 54, 26.8 49.2, 32 49.2 C37.2 49.2, 41.2 54, 41.2 64 Z" fill="#F6F4EE"/>
+      <path d="M38.5 53.5 L40.8 52.6 L39.8 55.2" fill="#F6F4EE"/>
+      <path d="M20.5 45.8 Q32 49.2 43.5 45.8" stroke="#95A69B" stroke-width="2.3" stroke-linecap="round" fill="none"/>
+
+      <!-- Fluffige Ohren -->
       <g transform="${earLeftRotate}">
-        <circle cx="15" cy="18" r="9.5" fill="#5C5F77"/>
-        <circle cx="15" cy="18" r="5.2" fill="#FFD6BA"/>
+        <path d="M10.5 20.5 C7.5 14.5, 11.2 8.2, 17.5 8.8 C21.5 9.2, 24.5 12.2, 24.2 16.5 Z" fill="#41495E"/>
+        <circle cx="16.4" cy="15.4" r="5.1" fill="#E88B6A"/>
+        <circle cx="16.4" cy="15.6" r="4.1" fill="#FFAA84"/>
       </g>
       <g transform="${earRightRotate}">
-        <circle cx="49" cy="18" r="9.5" fill="#5C5F77"/>
-        <circle cx="49" cy="18" r="5.2" fill="#FFD6BA"/>
+        <path d="M39.8 16.5 C39.5 12.2, 42.5 9.2, 46.5 8.8 C52.8 8.2, 56.5 14.5, 53.5 20.5 Z" fill="#41495E"/>
+        <circle cx="47.6" cy="15.4" r="5.1" fill="#E88B6A"/>
+        <circle cx="47.6" cy="15.6" r="4.1" fill="#FFAA84"/>
       </g>
-      <ellipse cx="32" cy="36" rx="22" ry="18.5" fill="#E4E1DA"/>
-      <path d="M32 17 L29 25 L35 25 Z" fill="#5C5F77" opacity="0.45"/>
-      <ellipse cx="22" cy="35" rx="8.5" ry="6.2" transform="rotate(-8 22 35)" fill="#3D405B"/>
-      <ellipse cx="42" cy="35" rx="8.5" ry="6.2" transform="rotate(8 42 35)" fill="#3D405B"/>
+
+      <!-- Fluffiger Kopf mit Wangen- & Scheitelfell -->
+      <path d="M32 13.5 C42.5 13.5, 50.8 20.2, 51.2 28.5 L53.4 30.8 L50.8 32.8 L52.4 35.2 C49.5 41.8, 41.8 45.5, 32 45.5 C22.2 45.5, 14.5 41.8, 11.6 35.2 L13.2 32.8 L10.6 30.8 L12.8 28.5 C13.2 20.2, 21.5 13.5, 32 13.5 Z" fill="#BAC6BE"/>
+      <path d="M29.4 14.2 L31.2 11.2 L32.8 13.5 L34.9 11.7 L35.2 14.6 Z" fill="#BAC6BE"/>
+
+      <!-- Cremefarbene Brauenbögen & Schiefer-Maske -->
+      <path d="M15.2 27.6 C16.4 22.0, 23.6 20.6, 28.4 25.0 C27.2 28.2, 19.6 29.4, 15.2 27.6 Z" fill="#F6F4EE"/>
+      <path d="M48.8 27.6 C47.6 22.0, 40.4 20.6, 35.6 25.0 C36.8 28.2, 44.4 29.4, 48.8 27.6 Z" fill="#F6F4EE"/>
+      <ellipse cx="22.4" cy="30.6" rx="7.2" ry="5.5" transform="rotate(-10 22.4 30.6)" fill="#41495E"/>
+      <ellipse cx="41.6" cy="30.6" rx="7.2" ry="5.5" transform="rotate(10 41.6 30.6)" fill="#41495E"/>
+
       ${eyesMarkup}
-      <ellipse cx="32" cy="42.5" rx="7" ry="5.5" fill="#FFFFFF"/>
-      <ellipse cx="32" cy="40" rx="3.2" ry="2.3" fill="#3D405B"/>
-      ${awaitingPoseMarkup}
-      ${happyPoseMarkup}
+
+      <!-- Rosa Wangen -->
+      <ellipse cx="18.2" cy="36.2" rx="3.2" ry="2.0" fill="#FF8E72"/>
+      <ellipse cx="45.8" cy="36.2" rx="3.2" ry="2.0" fill="#FF8E72"/>
+
+      <!-- Schnauze & Nase -->
+      <ellipse cx="32" cy="37.4" rx="6.4" ry="5.0" fill="#F6F4EE"/>
+      <ellipse cx="32" cy="34.6" rx="2.7" ry="1.95" fill="#1E2536"/>
+      <ellipse cx="31.3" cy="34.0" rx="0.85" ry="0.45" fill="#5A637A"/>
+      ${mouthMarkup}
+
+      ${armsMarkup}
       ${accessoryMarkup}
       ${extraBadge}
     </svg>
@@ -62096,7 +62254,7 @@ function syncBreakReminderControls() {
 function renderBreakReminderModalContent() {
   const mins = getBreakReminderMinutes();
   const mascotEl = document.getElementById("breakReminderMascot");
-  if (mascotEl) mascotEl.innerHTML = getMascotSVG("happy", true);
+  if (mascotEl) mascotEl.innerHTML = getMascotSVG("break", true);
   const bodyEl = document.getElementById("breakReminderBody");
   if (bodyEl) {
     bodyEl.textContent = tf(
