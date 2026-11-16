@@ -8671,7 +8671,7 @@ body,
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.5rem;
 }
 
 .metro-bpm-readout {
@@ -8693,7 +8693,8 @@ body,
   background-color: var(--surface-warm);
   border: 1.5px solid var(--border-soft);
   border-radius: var(--radius-md);
-  padding: 0.14rem 0.54rem;
+  line-height: 0.76;
+  padding: 0.19em calc(0.54rem + 0.03em) 0.025em 0.46rem;
   font-family: inherit;
   cursor: pointer;
   box-shadow: 0 2px 0 var(--tactile-edge);
@@ -8725,7 +8726,7 @@ body,
   background-color: var(--surface-warm);
   border: 2px solid var(--sage-strong);
   border-radius: var(--radius-md);
-  padding: 0.12rem 0.46rem;
+  padding: 0.12rem 0.44rem 0;
   text-align: center;
   appearance: textfield;
   -moz-appearance: textfield;
@@ -9461,8 +9462,12 @@ body,
   .metro-top-row {
     gap: 0.58rem;
   }
-  .metro-bpm-number {
+  .metro-bpm-number,
+  .metro-bpm-input {
     font-size: 2.3rem;
+  }
+  .metro-bpm-input {
+    min-width: 82px;
   }
   .metro-tap-wrap {
     width: 102px;
@@ -15080,7 +15085,9 @@ registerLanguageBundle("en", {
     profileFocus: PROFILE_FOCUS_EN,
     profileAccessories: PROFILE_ACCESSORIES_EN,
     mixModes: MIX_MODES_EN,
-    defaultMixTitles: DEFAULT_MIX_TITLES_EN,
+    defaultMixTitles: Object.fromEntries(
+      Object.entries(DEFAULT_MIX_TITLES_EN).map(([k, v]) => [k, v.en])
+    ),
     keyNames: KEY_NAMES_EN,
     degrees: DEGREES_EN,
     intervals: INTERVALS_EN,
@@ -15165,11 +15172,13 @@ function getLocalizedMixTitle(mix) {
     const knownTitles = new Set([enKnown.de, enKnown.en]);
     VALID_LANGUAGES.forEach(code => {
       const t = LOCALIZED_TABLES_BY_LANG[code]?.defaultMixTitles?.[mix.id];
-      if (t) knownTitles.add(t);
+      if (typeof t === "string" && t) knownTitles.add(t);
     });
     if (knownTitles.has(mix.title)) {
       if (lang === "de") return enKnown.de;
-      return LOCALIZED_TABLES_BY_LANG[lang]?.defaultMixTitles?.[mix.id] || enKnown.en;
+      if (lang === "en") return enKnown.en;
+      const localized = LOCALIZED_TABLES_BY_LANG[lang]?.defaultMixTitles?.[mix.id];
+      return (typeof localized === "string" && localized) ? localized : enKnown.en;
     }
   }
   return mix.title;
