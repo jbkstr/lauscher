@@ -1,3 +1,4 @@
+[README.md](https://github.com/user-attachments/files/34909010/README.md)
 # Lauschebär • Gehörtraining
 
 **Lauschebär** ist eine interaktive, werbe- und trackingfreie Web-App für musikalisches Gehörtraining, Musiktheorie und Studio-/Mixing-Hören – direkt im Browser nutzbar, ohne Backend-Server und ohne Punktedruck.
