@@ -120,7 +120,7 @@ python3 -m http.server 8000
 
 Then open `http://localhost:8000` in your browser.
 
-- **Single-file bundle for mobile testing:** [`lauschebaer-mobile.html`](lauschebaer-mobile.html) inlines all CSS, sample bundles, and app scripts into a single HTML file. *(Note: `Tone.js` loads from `cdnjs.cloudflare.com`, so an internet connection is needed on load. On iOS, open the HTML file via **Safari** over an HTTPS/local web server URL or a WebView wrapper rather than iOS QuickLook.)*
+- **Single-file bundle for mobile testing:** [`lauschebaer-mobile.html`](lauschebaer-mobile.html) inlines all CSS, sample bundles, and app scripts into a single HTML file and loads `Tone.js` locally from [`tone.js`](tone.js) (keep `tone.js` next to `lauschebaer-mobile.html`). *(On iOS, open the HTML file via **Safari** over an HTTPS/local web server URL or a WebView wrapper rather than iOS QuickLook.)*
 
 ---
 
