@@ -461,7 +461,6 @@ class AudioEngine {
 
         this.setPianoSoundProfile(this.pianoCharacter, this.instrumentReverbMix);
         this.samplesLoaded = true;
-        this.updateStatusDot("ready");
         return true;
       } catch (err) {
         this.preparePromise = null;
@@ -492,7 +491,6 @@ class AudioEngine {
       await Promise.all([startPromise, this.preparePromise]);
       this.setMasterVolume(initialMaster, initialMuted);
       if (initialMixer) this.setMixerGains(initialMixer);
-      this.updateStatusDot("ready");
       return true;
     }
 
@@ -517,11 +515,9 @@ class AudioEngine {
         if (initialMixer) this.setMixerGains(initialMixer);
 
         this.isInitialized = true;
-        this.updateStatusDot("ready");
         return true;
       } catch (err) {
         this.initPromise = null;
-        this.updateStatusDot("warning");
         throw err;
       }
     })();
@@ -768,15 +764,6 @@ class AudioEngine {
     } catch (err) {
       console.warn("Sample-Packs konnten nicht geladen werden, nutze Synth-Fallback:", err);
     }
-  }
-
-  updateStatusDot(state) {
-    const dot = document.getElementById("audioStatusDot");
-    if (!dot) return;
-    dot.className = "status-dot";
-    if (state === "ready") dot.classList.add("dot-ready");
-    else if (state === "warning") dot.classList.add("dot-warning");
-    else dot.classList.add("dot-idle");
   }
 
   setMasterVolume(val, isMuted) {

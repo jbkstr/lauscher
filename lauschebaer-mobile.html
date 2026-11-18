@@ -452,23 +452,9 @@ html, body {
   min-width: 0;
 }
 
-.app-brand > div:not(.brand-icon) {
+.app-brand > div {
   min-width: 0;
   flex: 1 1 auto;
-}
-
-.brand-icon {
-  width: 38px;
-  height: 38px;
-  flex: 0 0 38px;
-  background-color: transparent;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-pill);
-  overflow: hidden;
-  box-shadow: var(--shadow-card);
 }
 
 .brand-title-wrap {
@@ -492,18 +478,6 @@ html, body {
   display: block;
   overflow-wrap: break-word;
 }
-
-.status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  display: inline-block;
-  transition: background-color 0.3s ease;
-}
-
-.dot-idle { background-color: #D2CEC4; }
-.dot-ready { background-color: var(--status-ok); box-shadow: 0 0 6px rgba(72, 168, 120, 0.5); }
-.dot-warning { background-color: var(--status-warn); }
 
 .header-actions {
   display: flex;
@@ -1133,6 +1107,19 @@ html, body {
   font-weight: 600;
   color: var(--raccoon-muted);
   line-height: 1.25;
+}
+
+/* Einsteiger-Markierung auf Übungskacheln */
+.node-beginner-badge {
+  margin-top: auto;
+  font-size: 0.6rem;
+  font-weight: 800;
+  padding: 0.14rem 0.55rem;
+  border-radius: var(--radius-pill);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background-color: var(--sage);
+  color: var(--raccoon-dark);
 }
 
 .category-help-footer {
@@ -4429,10 +4416,6 @@ body,
 .bottom-nav,
 .modal-card {
   transition: background-color 0.22s ease, color 0.18s ease, border-color 0.18s ease;
-}
-
-.dot-idle {
-  background-color: var(--dot-idle-bg);
 }
 
 .mute-btn.muted {
@@ -9584,21 +9567,8 @@ body,
 }
 
 /* =====================================================
-   ÜBER LAUSCHEBÄR MODAL (#aboutBackdrop) & HEADER-ICON
+   ÜBER LAUSCHEBÄR MODAL (#aboutBackdrop)
    ===================================================== */
-#brandLogoWrap {
-  cursor: pointer;
-  transition: transform 0.16s ease, box-shadow 0.16s ease;
-}
-
-#brandLogoWrap:hover {
-  transform: translateY(-1px) scale(1.04);
-}
-
-#brandLogoWrap:active {
-  transform: translateY(1px) scale(0.96);
-}
-
 .settings-reset-section {
   padding-top: 0.2rem;
   border-top: 1px solid var(--border-soft);
@@ -10221,44 +10191,9 @@ body,
         </button>
 
         <div class="app-brand">
-          <div id="brandLogoWrap" class="brand-icon" role="button" tabindex="0" title="Über Lauscher" aria-label="Über Lauscher" data-i18n-title="about.title" data-i18n-aria="about.title">
-            <svg width="36" height="36" viewBox="0 0 64 64" fill="none">
-              <circle cx="32" cy="32" r="30.5" fill="#F6F3EC"/>
-              <circle cx="32" cy="32" r="28.5" stroke="#94AA9C" stroke-width="2.4" fill="none"/>
-              <path d="M17.5 60 C18.5 49, 23 44, 32 44 C41 44, 45.5 49, 46.5 60 Z" fill="#BAC6BE"/>
-              <path d="M23.5 60 C24 53, 27.5 49.5, 32 49.5 C36.5 49.5, 40 53, 40.5 60 Z" fill="#F6F4EE"/>
-              <path d="M11.5 22.5 C8.8 17, 12.2 11.2, 18.2 11.8 C21.8 12.2, 24.5 14.8, 24.2 18.8 Z" fill="#41495E"/>
-              <circle cx="17.1" cy="17.8" r="3.9" fill="#FFAA84"/>
-              <path d="M39.8 18.8 C39.5 14.8, 42.2 12.2, 45.8 11.8 C51.8 11.2, 55.2 17, 52.5 22.5 Z" fill="#41495E"/>
-              <circle cx="46.9" cy="17.8" r="3.9" fill="#FFAA84"/>
-              <path d="M32 15.8 C41.8 15.8, 49.4 22, 49.8 29.8 L51.6 31.8 L49.4 33.6 L50.8 35.8 C48.2 41.8, 41 45.2, 32 45.2 C23 45.2, 15.8 41.8, 13.2 35.8 L14.6 33.6 L12.4 31.8 L14.2 29.8 C14.6 22, 22.2 15.8, 32 15.8 Z" fill="#BAC6BE"/>
-              <path d="M29.6 16.4 L31.2 13.8 L32.8 15.8 L34.6 14.2 L34.9 16.8 Z" fill="#BAC6BE"/>
-              <path d="M16.5 28.8 C17.6 23.8, 24.2 22.5, 28.6 26.4 C27.4 29.4, 20.4 30.5, 16.5 28.8 Z" fill="#F6F4EE"/>
-              <path d="M47.5 28.8 C46.4 23.8, 39.8 22.5, 35.4 26.4 C36.6 29.4, 43.6 30.5, 47.5 28.8 Z" fill="#F6F4EE"/>
-              <ellipse cx="23" cy="31.5" rx="6.6" ry="5.1" transform="rotate(-10 23 31.5)" fill="#41495E"/>
-              <ellipse cx="41" cy="31.5" rx="6.6" ry="5.1" transform="rotate(10 41 31.5)" fill="#41495E"/>
-              <path d="M19.8 32.2 Q23 28.8 26.2 32.2" stroke="#1E2536" stroke-width="2.1" stroke-linecap="round" fill="none"/>
-              <path d="M37.8 32.2 Q41 28.8 44.2 32.2" stroke="#1E2536" stroke-width="2.1" stroke-linecap="round" fill="none"/>
-              <ellipse cx="19.2" cy="36.8" rx="2.9" ry="1.8" fill="#FF8E72"/>
-              <ellipse cx="44.8" cy="36.8" rx="2.9" ry="1.8" fill="#FF8E72"/>
-              <ellipse cx="32" cy="37.8" rx="5.8" ry="4.6" fill="#F6F4EE"/>
-              <ellipse cx="32" cy="35.3" rx="2.4" ry="1.7" fill="#1E2536"/>
-              <path d="M32 36.7 V38.4" stroke="#1E2536" stroke-width="1.45" stroke-linecap="round"/>
-              <path d="M29.4 38.2 Q32 40.3 34.6 38.2" stroke="#1E2536" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-              <path d="M43.2 48.5 C49.2 45.2, 52 37.2, 50.6 28.4" stroke="#BAC6BE" stroke-width="4.6" stroke-linecap="round" fill="none"/>
-              <g transform="translate(50.2 26.2) rotate(12) scale(0.84)">
-                <circle cx="0" cy="0.6" r="3.2" fill="#41495E"/>
-                <circle cx="-2.6" cy="-2.1" r="1.0" fill="#41495E"/>
-                <circle cx="-0.9" cy="-3.1" r="1.05" fill="#41495E"/>
-                <circle cx="1.0" cy="-3.1" r="1.05" fill="#41495E"/>
-                <circle cx="2.6" cy="-2.0" r="1.0" fill="#41495E"/>
-              </g>
-            </svg>
-          </div>
           <div>
             <div class="brand-title-wrap">
-              <span id="headerMainTitle" class="brand-name">Lauscher</span>
-              <span id="audioStatusDot" class="status-dot dot-idle" title="Audio-Status" data-i18n-title="header.audioStatusTitle"></span>
+              <span id="headerMainTitle" class="brand-name">Home</span>
             </div>
             <span id="subHeaderInfo" class="brand-sub" data-i18n="app.tagline">Hören · Verstehen · Musizieren</span>
           </div>
@@ -10323,7 +10258,7 @@ body,
         </div>
         <div class="hero-actions">
           <button id="quickStartBtn" class="btn-primary-action">
-            <span data-i18n="home.continue">▶ Weiterüben</span>
+            <span id="quickStartLabel" data-i18n="home.continue">▶ Weiterüben</span>
             <small id="quickStartSub">Kadenzen • Stufe 1</small>
           </button>
           <button id="surpriseStartBtn" class="btn-secondary-action" title="Zufällige Übung starten" data-i18n-title="home.surpriseTitle">
@@ -10960,6 +10895,14 @@ body,
           <div>
             <h3 data-i18n="space.mixesTitle">Meine Übe-Mixe</h3>
             <p class="account-card-sub" data-i18n="space.mixesSub">Persönliche Favoriten-Konfigurationen – direkt startbar, ganz ohne Bewertung.</p>
+          </div>
+        </div>
+
+        <div class="settings-sub-field account-home-mixes-toggle">
+          <span class="account-label" data-i18n="space.mixesHomeToggleLabel">Schnellstart auf der Startseite anzeigen</span>
+          <div id="homeQuickMixToggleGroup" class="btn-group" role="group" aria-label="Schnellstart auf der Startseite anzeigen" data-i18n-aria="space.mixesHomeToggleLabel">
+            <button type="button" class="opt-btn" data-home-mixes="on" aria-pressed="false" data-i18n="settings.autoNextOn">Ein</button>
+            <button type="button" class="opt-btn active" data-home-mixes="off" aria-pressed="true" data-i18n="settings.autoNextOff">Aus</button>
           </div>
         </div>
 
@@ -12713,7 +12656,6 @@ class AudioEngine {
 
         this.setPianoSoundProfile(this.pianoCharacter, this.instrumentReverbMix);
         this.samplesLoaded = true;
-        this.updateStatusDot("ready");
         return true;
       } catch (err) {
         this.preparePromise = null;
@@ -12744,7 +12686,6 @@ class AudioEngine {
       await Promise.all([startPromise, this.preparePromise]);
       this.setMasterVolume(initialMaster, initialMuted);
       if (initialMixer) this.setMixerGains(initialMixer);
-      this.updateStatusDot("ready");
       return true;
     }
 
@@ -12769,11 +12710,9 @@ class AudioEngine {
         if (initialMixer) this.setMixerGains(initialMixer);
 
         this.isInitialized = true;
-        this.updateStatusDot("ready");
         return true;
       } catch (err) {
         this.initPromise = null;
-        this.updateStatusDot("warning");
         throw err;
       }
     })();
@@ -13020,15 +12959,6 @@ class AudioEngine {
     } catch (err) {
       console.warn("Sample-Packs konnten nicht geladen werden, nutze Synth-Fallback:", err);
     }
-  }
-
-  updateStatusDot(state) {
-    const dot = document.getElementById("audioStatusDot");
-    if (!dot) return;
-    dot.className = "status-dot";
-    if (state === "ready") dot.classList.add("dot-ready");
-    else if (state === "warning") dot.classList.add("dot-warning");
-    else dot.classList.add("dot-idle");
   }
 
   setMasterVolume(val, isMuted) {
@@ -14201,7 +14131,6 @@ const I18N_STATIC = {
     en: "Taking you to the home screen…"
   },
   "nav.backTitle": { de: "Zurück", en: "Back" },
-  "header.audioStatusTitle": { de: "Audio-Status", en: "Audio Status" },
   "header.masterVolTitle": { de: "Master-Lautstärke", en: "Master Volume" },
   "header.muteTitle": { de: "Stummschalten", en: "Mute Audio" },
   "header.unmuteTitle": { de: "Ton einschalten", en: "Unmute Audio" },
@@ -14214,6 +14143,8 @@ const I18N_STATIC = {
   "home.refreshQuoteTitle": { de: "Tippe für einen neuen Gedanken", en: "Tap for a new tip" },
   "home.newQuote": { de: "Neu ↻", en: "New ↻" },
   "home.continue": { de: "▶ Weiterüben", en: "▶ Continue" },
+  "home.startHere": { de: "▶ Beginne hier", en: "▶ Start Here" },
+  "space.mixesHomeToggleLabel": { de: "Schnellstart auf der Startseite anzeigen", en: "Show quick start on home screen" },
   "home.surpriseTitle": { de: "Zufällige Übung starten", en: "Start a random exercise" },
   "home.surprise": { de: "Zufall", en: "Surprise" },
   "home.exercisesHeading": { de: "Gehörtraining & Musik", en: "Ear Training & Music" },
@@ -15402,7 +15333,6 @@ const I18N_STATIC_FR = {
   "welcome.continueBtn": "C’est parti →",
   "welcome.redirectHint": "Redirection vers l’accueil…",
   "nav.backTitle": "Retour",
-  "header.audioStatusTitle": "État audio",
   "header.masterVolTitle": "Volume général",
   "header.muteTitle": "Couper le son",
   "header.unmuteTitle": "Activer le son",
@@ -15414,6 +15344,8 @@ const I18N_STATIC_FR = {
   "home.refreshQuoteTitle": "Touchez pour une nouvelle pensée",
   "home.newQuote": "Nouveau ↻",
   "home.continue": "▶ Continuer",
+  "home.startHere": "▶ Commencez ici",
+  "space.mixesHomeToggleLabel": "Afficher le démarrage rapide sur l’accueil",
   "home.surpriseTitle": "Lancer un exercice aléatoire",
   "home.surprise": "Aléatoire",
   "home.exercisesHeading": "Oreille musicale & Théorie",
@@ -16514,6 +16446,27 @@ const TR_FR = {
   "{tot} / {tot} gelöst ✓": "{tot} / {tot} résolues ✓"
 };
 
+// Header-Titel „Home“, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
+Object.assign(TR_FR, {
+  "Home": "Accueil",
+  "Intervalle über Grundton-Fläche": "Intervalles sur nappe de fondamentale",
+  "Grundton-Fläche": "Nappe de fondamentale",
+  "Eine warme Streicher-Fläche hält den Grundton – nach kurzer Verzögerung erklingt der gesuchte Intervallton auf dem Klavier darüber": "Une chaude nappe de cordes tient la fondamentale – après un court délai, le piano joue l’intervalle recherché par-dessus",
+  "8 diatonische Intervalle auf Teppich": "8 intervalles diatoniques sur nappe",
+  "Grundton (Streicher-Fläche)": "Fondamentale (nappe de cordes)",
+  "Streicher-Fläche": "Nappe de cordes",
+  "Fläche + Intervall": "Nappe + intervalle",
+  "Streicher ➔ Klavier": "Cordes ➔ Piano",
+  "Welches Intervall hörst du über der Fläche?": "Quel intervalle entendez-vous sur la nappe ?",
+  "Klavier-Intervall": "Intervalle au piano",
+  "Höre den Ton & schau auf die erste Note links…": "Écoutez le son et lisez la première note à gauche…",
+  "Fläche hören": "Écouter la nappe",
+  "Streicher-Fläche hält den Grundton – gleich folgt das Klavier…": "La nappe de cordes tient la fondamentale – le piano arrive…",
+  "KLAVIER • GESUCHT": "PIANO • CIBLE",
+  "Welches Intervall erklingt über der Grundton-Fläche?": "Quel intervalle sonne sur la nappe de fondamentale ?",
+  "Intervalle (Grundton-Fläche)": "Intervalles (nappe de fondamentale)"
+});
+
 Object.assign(TR_FR, {
   "Groove-Puls": "Pulsation groove",
   "1 Takt neutralen 4/4-Puls anhören": "Écouter 1 mesure de pulsation 4/4 neutre",
@@ -17390,7 +17343,6 @@ const I18N_STATIC_PL = {
   "welcome.continueBtn": "Zaczynajmy →",
   "welcome.redirectHint": "Za chwilę przejdziemy do ekranu głównego…",
   "nav.backTitle": "Wstecz",
-  "header.audioStatusTitle": "Status audio",
   "header.masterVolTitle": "Głośność główna",
   "header.muteTitle": "Wycisz dźwięk",
   "header.unmuteTitle": "Włącz dźwięk",
@@ -17402,6 +17354,8 @@ const I18N_STATIC_PL = {
   "home.refreshQuoteTitle": "Dotknij, aby zobaczyć nową myśl",
   "home.newQuote": "Nowa ↻",
   "home.continue": "▶ Kontynuuj",
+  "home.startHere": "▶ Zacznij tutaj",
+  "space.mixesHomeToggleLabel": "Pokaż szybki start na ekranie głównym",
   "home.surpriseTitle": "Uruchom losowe ćwiczenie",
   "home.surprise": "Losuj",
   "home.exercisesHeading": "Kształcenie słuchu i muzyka",
@@ -18996,6 +18950,27 @@ const TR_PL = {
   "{tot} / {tot} gelöst ✓": "{tot} / {tot} odgadnięte ✓"
 };
 
+// Header-Titel „Home“, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
+Object.assign(TR_PL, {
+  "Home": "Start",
+  "Intervalle über Grundton-Fläche": "Interwały nad plamą dźwięku podstawowego",
+  "Grundton-Fläche": "Plama dźwięku podstawowego",
+  "Eine warme Streicher-Fläche hält den Grundton – nach kurzer Verzögerung erklingt der gesuchte Intervallton auf dem Klavier darüber": "Ciepła plama smyczków trzyma dźwięk podstawowy – po krótkiej chwili fortepian gra nad nią szukany interwał",
+  "8 diatonische Intervalle auf Teppich": "8 interwałów diatonicznych nad plamą",
+  "Grundton (Streicher-Fläche)": "Dźwięk podstawowy (plama smyczków)",
+  "Streicher-Fläche": "Plama smyczków",
+  "Fläche + Intervall": "Plama + interwał",
+  "Streicher ➔ Klavier": "Smyczki ➔ Fortepian",
+  "Welches Intervall hörst du über der Fläche?": "Jaki interwał słyszysz nad plamą?",
+  "Klavier-Intervall": "Interwał fortepianu",
+  "Höre den Ton & schau auf die erste Note links…": "Posłuchaj dźwięku i spójrz na pierwszą nutę z lewej…",
+  "Fläche hören": "Posłuchaj plamy",
+  "Streicher-Fläche hält den Grundton – gleich folgt das Klavier…": "Plama smyczków trzyma dźwięk podstawowy – zaraz wejdzie fortepian…",
+  "KLAVIER • GESUCHT": "FORTEPIAN • SZUKANY",
+  "Welches Intervall erklingt über der Grundton-Fläche?": "Jaki interwał brzmi nad plamą dźwięku podstawowego?",
+  "Intervalle (Grundton-Fläche)": "Interwały (plama dźwięku podstawowego)"
+});
+
 Object.assign(TR_PL, {
   "1 Versuch pro Frage – prüfungsfest ohne Hilfsschleifen. Am Ende warten Lauscher-Bewertung, Modul-Aufschlüsselung und direkter Hör-Vergleich.": "1 próba na pytanie — bez pętli podpowiedzi. Na końcu czeka ocena Lauscher, podział na moduły i bezpośrednie odsłuchy porównawcze.",
   "1 Versuch pro Frage • verschiedene Stufen & Hör-Auswertung": "1 próba na pytanie • różne poziomy i podsumowanie audio",
@@ -19424,7 +19399,6 @@ const I18N_STATIC_UK = {
   "welcome.continueBtn": "Починаймо →",
   "welcome.redirectHint": "Зараз перейдемо на головний екран…",
   "nav.backTitle": "Назад",
-  "header.audioStatusTitle": "Стан аудіо",
   "header.masterVolTitle": "Загальна гучність",
   "header.muteTitle": "Вимкнути звук",
   "header.unmuteTitle": "Увімкнути звук",
@@ -19436,6 +19410,8 @@ const I18N_STATIC_UK = {
   "home.refreshQuoteTitle": "Натисни для нової поради",
   "home.newQuote": "Нова ↻",
   "home.continue": "▶ Продовжити",
+  "home.startHere": "▶ Почни тут",
+  "space.mixesHomeToggleLabel": "Показувати швидкий старт на головній",
   "home.surpriseTitle": "Запустити випадкову вправу",
   "home.surprise": "Випадкова",
   "home.exercisesHeading": "Слух і музична теорія",
@@ -21031,6 +21007,27 @@ const TR_UK = {
   "{tot} / {tot} gelöst ✓": "{tot} / {tot} розгадано ✓"
 };
 
+// Header-Titel „Home“, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
+Object.assign(TR_UK, {
+  "Home": "Головна",
+  "Intervalle über Grundton-Fläche": "Інтервали над підкладкою основного тону",
+  "Grundton-Fläche": "Підкладка основного тону",
+  "Eine warme Streicher-Fläche hält den Grundton – nach kurzer Verzögerung erklingt der gesuchte Intervallton auf dem Klavier darüber": "Тепла струнна підкладка тримає основний тон – після короткої паузи фортепіано грає над нею шуканий інтервал",
+  "8 diatonische Intervalle auf Teppich": "8 діатонічних інтервалів над підкладкою",
+  "Grundton (Streicher-Fläche)": "Основний тон (струнна підкладка)",
+  "Streicher-Fläche": "Струнна підкладка",
+  "Fläche + Intervall": "Підкладка + інтервал",
+  "Streicher ➔ Klavier": "Струнні ➔ Фортепіано",
+  "Welches Intervall hörst du über der Fläche?": "Який інтервал ти чуєш над підкладкою?",
+  "Klavier-Intervall": "Інтервал фортепіано",
+  "Höre den Ton & schau auf die erste Note links…": "Послухай звук і подивись на першу ноту зліва…",
+  "Fläche hören": "Слухати підкладку",
+  "Streicher-Fläche hält den Grundton – gleich folgt das Klavier…": "Струнна підкладка тримає основний тон – зараз вступить фортепіано…",
+  "KLAVIER • GESUCHT": "ФОРТЕПІАНО • ШУКАНИЙ",
+  "Welches Intervall erklingt über der Grundton-Fläche?": "Який інтервал звучить над підкладкою основного тону?",
+  "Intervalle (Grundton-Fläche)": "Інтервали (підкладка основного тону)"
+});
+
 Object.assign(TR_UK, {
   "1 Versuch pro Frage – prüfungsfest ohne Hilfsschleifen. Am Ende warten Lauscher-Bewertung, Modul-Aufschlüsselung und direkter Hör-Vergleich.": "1 спроба на питання — без підказок і зациклювань. Наприкінці: оцінка Lauscher, розбір за модулями та аудіопорівняння.",
   "1 Versuch pro Frage • verschiedene Stufen & Hör-Auswertung": "1 спроба на питання • різні рівні й аудіорозбір",
@@ -21459,7 +21456,6 @@ const I18N_STATIC_UR = {
   "welcome.continueBtn": "چلو شروع کریں ←",
   "welcome.redirectHint": "آپ کو ہوم اسکرین پر لے جایا جا رہا ہے…",
   "nav.backTitle": "واپس",
-  "header.audioStatusTitle": "آڈیو کی کیفیت",
   "header.masterVolTitle": "ماسٹر والیوم",
   "header.muteTitle": "آواز بند کریں",
   "header.unmuteTitle": "آواز آن کریں",
@@ -21471,6 +21467,8 @@ const I18N_STATIC_UR = {
   "home.refreshQuoteTitle": "نئی بات یا مشورے کے لیے ٹیپ کریں",
   "home.newQuote": "نیا ↻",
   "home.continue": "▶ مشق جاری رکھیں",
+  "home.startHere": "▶ یہاں سے شروع کریں",
+  "space.mixesHomeToggleLabel": "ہوم اسکرین پر فوری آغاز دکھائیں",
   "home.surpriseTitle": "بے ترتیب مشق شروع کریں",
   "home.surprise": "سرپرائز",
   "home.exercisesHeading": "سماعت اور موسیقی کا نظریہ",
@@ -23407,6 +23405,27 @@ const TR_UR = Object.assign(Object.create(null), {
   "G-, D-, F- & B-Dur im Notensystem (±2 Hilfslinien) mit vorgegebenen Vorzeichen": "اسٹاف پر G, D, F اور Bb میجر کی سگنیچر (±2 لیجر لائنز)",
   "Stufe 6 • Alle Tonarten + ♮ (1–6 ♯/♭)": "لیول 6 • تمام کلیدیں + ♮ (1–6 ♯/♭)",
   "Alle 12 Vorzeichen-Tonarten (±3 Hilfslinien) inklusive Auflösungszeichen (♮)": "تمام 12 کی سگنیچرز (±3 لیجر لائنز) بشمول نیچرل علامتیں (♮)"
+});
+
+// Header-Titel „Home“, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
+Object.assign(TR_UR, {
+  "Home": "ہوم",
+  "Intervalle über Grundton-Fläche": "بنیادی سُر کے پیڈ پر انٹرولز",
+  "Grundton-Fläche": "بنیادی سُر کا پیڈ",
+  "Eine warme Streicher-Fläche hält den Grundton – nach kurzer Verzögerung erklingt der gesuchte Intervallton auf dem Klavier darüber": "اسٹرنگز کا گرم پیڈ بنیادی سُر کو تھامے رکھتا ہے – تھوڑی دیر بعد پیانو اس کے اوپر مطلوبہ انٹرول بجاتا ہے",
+  "8 diatonische Intervalle auf Teppich": "پیڈ پر 8 ڈایاٹونک انٹرولز",
+  "Grundton (Streicher-Fläche)": "بنیادی سُر (اسٹرنگز پیڈ)",
+  "Streicher-Fläche": "اسٹرنگز پیڈ",
+  "Fläche + Intervall": "پیڈ + انٹرول",
+  "Streicher ➔ Klavier": "اسٹرنگز ➔ پیانو",
+  "Welches Intervall hörst du über der Fläche?": "پیڈ کے اوپر آپ کون سا انٹرول سن رہے ہیں؟",
+  "Klavier-Intervall": "پیانو انٹرول",
+  "Höre den Ton & schau auf die erste Note links…": "سُر سنیں اور بائیں جانب پہلے نوٹ کو دیکھیں…",
+  "Fläche hören": "پیڈ سنیں",
+  "Streicher-Fläche hält den Grundton – gleich folgt das Klavier…": "اسٹرنگز پیڈ بنیادی سُر کو تھامے ہوئے ہے – پیانو آنے والا ہے…",
+  "KLAVIER • GESUCHT": "پیانو • مطلوبہ",
+  "Welches Intervall erklingt über der Grundton-Fläche?": "بنیادی سُر کے پیڈ پر کون سا انٹرول بج رہا ہے؟",
+  "Intervalle (Grundton-Fläche)": "انٹرولز (بنیادی سُر کا پیڈ)"
 });
 
 if (typeof registerLanguageBundle === "function") {
@@ -48109,23 +48128,7 @@ function getMascotAccessorySVG(activeAccessories = []) {
   return accessoryMarkup;
 }
 
-function getMascotLogoSVG(size = 38) {
-  const logoUri = getMascotAssetUri("logo");
-  if (logoUri) {
-    return `
-      <svg width="${size}" height="${size}" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <image href="${logoUri}" x="0" y="0" width="64" height="64" preserveAspectRatio="xMidYMid meet"/>
-      </svg>
-    `;
-  }
-  return getMascotSVG("logo", false);
-}
-
 function hydrateMascotStaticSlots() {
-  const brandWrap = document.getElementById("brandLogoWrap");
-  if (brandWrap && getMascotAssetUri("logo")) {
-    brandWrap.innerHTML = getMascotLogoSVG(38);
-  }
   const splashBadge = document.querySelector("#startupSplash .splash-badge");
   const listenUri = getMascotAssetUri("listening");
   if (splashBadge && listenUri) {
@@ -49712,7 +49715,9 @@ function createDefaultProfile() {
     pianoSound: sanitizePianoSound(DEFAULT_PIANO_SOUND),
     droneMix: sanitizeDroneMix(DEFAULT_DRONE_MIX),
     customThemes: [null, null, null],
-    examHistory: []
+    examHistory: [],
+    hasPracticed: false,
+    showHomeQuickMixes: false
   };
 }
 
@@ -49803,7 +49808,10 @@ function sanitizeUserProfile(raw) {
     pianoSound: sanitizePianoSound(raw.pianoSound),
     droneMix: sanitizeDroneMix(raw.droneMix),
     customThemes: customThemes,
-    examHistory: examHistory
+    examHistory: examHistory,
+    // Ältere Profile (vor Einführung des Felds) gelten als „schon geübt“
+    hasPracticed: raw.hasPracticed === undefined ? true : Boolean(raw.hasPracticed),
+    showHomeQuickMixes: Boolean(raw.showHomeQuickMixes)
   };
 }
 
@@ -50426,7 +50434,7 @@ class AppState {
     if (!el || !mainTitle) return;
 
     if (this.currentView === "home") {
-      mainTitle.textContent = "Lauscher";
+      mainTitle.textContent = tr("Home", "Home");
       el.textContent = typeof getStaticI18nText === "function"
         ? (getStaticI18nText("app.tagline") || tr("Hören · Verstehen · Musizieren", "Listen · Understand · Play"))
         : tr("Hören · Verstehen · Musizieren", "Listen · Understand · Play");
@@ -50501,6 +50509,14 @@ class AppState {
   updateQuickStartLabel() {
     const sub = document.getElementById("quickStartSub");
     if (sub) sub.textContent = this.getModeSummaryText();
+    const label = document.getElementById("quickStartLabel");
+    if (label) {
+      // Vor der ersten gestarteten Übung „Beginne hier“, danach „Weiterüben“
+      const key = this.profile?.hasPracticed === false ? "home.startHere" : "home.continue";
+      label.setAttribute("data-i18n", key);
+      const text = typeof getStaticI18nText === "function" ? getStaticI18nText(key) : null;
+      if (text) label.textContent = text;
+    }
   }
 }
 
@@ -53235,6 +53251,9 @@ function switchView(targetView, options = {}) {
   stopWaveAnimation();
   closeTransientPopovers();
   state.currentView = targetView;
+  if (targetView === "exercise" || targetView === "warmup") {
+    markPracticeStarted();
+  }
 
   // Beim Starten eines Übungsmoduls wird zunächst das modulspezifische Standardtempo übernommen
   // (Kadenz & Solfège: 120 BPM, übrige Module: defaultBpm), bis der Nutzer im Modul manuell anpasst (außer bei Mix-Direktstart mit eigenem BPM).
@@ -53317,7 +53336,6 @@ function switchView(targetView, options = {}) {
   const showBottomNav = targetView !== "exercise" && targetView !== "warmup" && targetView !== "metronome";
   document.getElementById("bottomNav")?.classList.toggle("hidden", !showBottomNav);
   document.getElementById("backBtn")?.classList.toggle("hidden", isMainTabView);
-  document.getElementById("brandLogoWrap")?.classList.toggle("hidden", !isMainTabView);
 
   document.querySelectorAll(".nav-tab").forEach(tab => {
     tab.classList.toggle("active", Boolean(activeTab && tab.dataset.nav === activeTab));
@@ -54683,6 +54701,49 @@ function bindKnowledgeAudioButtons(rootEl) {
 /**
  * Baut die Auswahl-Unterseite (#viewCategory) für den gewählten Übungstyp auf
  */
+// Einsteiger-Übungen (zentral gepflegt): Schlüssel siehe getExerciseNodeKey()
+const BEGINNER_EXERCISES = new Set([
+  "cadence:1:last",
+  "interval-melodic:1",
+  "interval-melodic-down:1",
+  "interval-harmonic:1",
+  "interval-drone:1",
+  "chord-arp-up:1",
+  "chord-arp-down:1",
+  "interval-chords:1",
+  "melody:do-fa:fixed:single",
+  "solfege:1",
+  "rhythm-meter:1",
+  "rhythm-dictation:1",
+  "rhythm-tap:1",
+  "notation-treble:1"
+]);
+
+function getExerciseNodeKey(btn) {
+  const d = btn?.dataset || {};
+  if (d.launchCadence) return `cadence:${d.launchCadence}:${d.cadencePos}`;
+  if (d.launchInt) return `${d.launchInt}:${d.intLvl}`;
+  if (d.launchChord) return `${d.launchChord}:${d.chordLvl}`;
+  if (d.launchMelody) return `melody:${d.launchMelody}:${d.melodyKey}:${d.melodyOctave}`;
+  if (d.launchSolfege) return `solfege:${d.launchSolfege}`;
+  if (d.launchRhythm) return `${d.launchRhythm}:${d.rhythmLvl}`;
+  if (d.launchProd) return `${d.launchProd}:${d.prodLvl}`;
+  if (d.launchModes) return `${d.launchModes}:${d.modesLvl}`;
+  if (d.launchNotation) return `${d.launchNotation}:${d.notationLvl}`;
+  return null;
+}
+
+function markBeginnerExerciseNodes(container) {
+  if (!container) return;
+  const label = escapeHtml(tr("Einsteiger", "Beginner"));
+  container.querySelectorAll(".subpage-node-btn").forEach(btn => {
+    if (!BEGINNER_EXERCISES.has(getExerciseNodeKey(btn))) return;
+    if (btn.querySelector(".node-beginner-badge")) return;
+    btn.classList.add("is-beginner");
+    btn.insertAdjacentHTML("beforeend", `<span class="node-beginner-badge">${label}</span>`);
+  });
+}
+
 function openCategoryPage(categoryKey, options = {}) {
   state.activeCategory = categoryKey;
   const container = document.getElementById("categoryPageContent");
@@ -55719,6 +55780,8 @@ function openCategoryPage(categoryKey, options = {}) {
       openExamSetupPage(categoryKey);
     });
   }
+
+  markBeginnerExerciseNodes(container);
 
   // Mittiger Erklär-Button ganz unten auf jeder Übungs-Auswahlseite
   container.insertAdjacentHTML("beforeend", `
@@ -62138,7 +62201,7 @@ function renderHomeQuickMixBar() {
   if (!wrap) return;
 
   const mixes = state.profile?.mixes || [];
-  if (mixes.length === 0) {
+  if (mixes.length === 0 || !state.profile?.showHomeQuickMixes) {
     wrap.classList.add("hidden");
     wrap.innerHTML = "";
     return;
@@ -62162,7 +62225,32 @@ function renderHomeQuickMixBar() {
   });
 }
 
+function markPracticeStarted() {
+  if (!state.profile || state.profile.hasPracticed !== false) return;
+  state.profile.hasPracticed = true;
+  saveUserProfile(state.profile);
+  state.updateQuickStartLabel();
+}
+
+function syncHomeQuickMixToggle() {
+  const enabled = Boolean(state.profile?.showHomeQuickMixes);
+  document.querySelectorAll("[data-home-mixes]").forEach(btn => {
+    const active = (btn.dataset.homeMixes === "on") === enabled;
+    btn.classList.toggle("active", active);
+    btn.setAttribute("aria-pressed", String(active));
+  });
+}
+
+function setHomeQuickMixesEnabled(enabled) {
+  if (!state.profile) state.profile = createDefaultProfile();
+  state.profile.showHomeQuickMixes = Boolean(enabled);
+  saveUserProfile(state.profile);
+  syncHomeQuickMixToggle();
+  renderHomeQuickMixBar();
+}
+
 function renderHomeProfileGreeting() {
+  state.updateQuickStartLabel();
   const heroSvg = document.getElementById("heroMascotSvg");
   if (heroSvg) heroSvg.innerHTML = getMascotSVG("idle", true);
 
@@ -62592,6 +62680,7 @@ function tickBreakReminder(nowWallMs = Date.now()) {
 }
 
 function renderProfileMixes() {
+  syncHomeQuickMixToggle();
   const listEl = document.getElementById("spaceMixList");
   if (!listEl) {
     renderHomeQuickMixBar();
@@ -64422,16 +64511,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const aboutModal = document.getElementById("aboutBackdrop");
   const breakModal = document.getElementById("breakReminderBackdrop");
 
-  const brandLogoWrap = document.getElementById("brandLogoWrap");
-  brandLogoWrap?.addEventListener("click", () => {
-    openAboutModal();
-  });
-  brandLogoWrap?.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      openAboutModal();
-    }
-  });
   document.getElementById("openAboutFromSettingsBtn")?.addEventListener("click", () => {
     openAboutModal();
   });
@@ -64474,6 +64553,13 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       document.getElementById("spaceThemesCard")?.scrollIntoView?.({ behavior: "smooth", block: "start" });
     }, 60);
+  });
+
+  // Schnellstart-Mixe auf der Startseite ein-/ausblenden
+  document.querySelectorAll("[data-home-mixes]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      setHomeQuickMixesEnabled(btn.dataset.homeMixes === "on");
+    });
   });
 
   // Pausen-Erinnerung bei Übungen: Einstellungen & Dialog-Aktionen
@@ -67299,12 +67385,12 @@ function setWelcomeBeginnerIntroOptIn(enabled) {
 function applyWelcomeBeginnerPreset() {
   _welcomeOnboardingState.beginnerPresetApplied = true;
   if (state?.settings) {
-    state.settings.mode = "interval";
+    // Empfohlener Startpunkt: Intervalle melodisch aufwärts, Stufe 1
+    state.settings.mode = "interval-melodic";
     state.settings.intervalDifficulty = 1;
   }
   if (!state.profile) state.profile = createDefaultProfile();
-  state.profile.focus = "intervals";
-  state.profile.focuses = ["intervals"];
+  // Lernschwerpunkt bleibt unverändert (es gibt keinen eigenen Intervall-Schwerpunkt)
   saveUserProfile(state.profile);
   renderProfileAccountView();
   renderHomeProfileGreeting();

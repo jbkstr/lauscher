@@ -65,7 +65,6 @@ const I18N_STATIC_FR = {
   "welcome.continueBtn": "C’est parti →",
   "welcome.redirectHint": "Redirection vers l’accueil…",
   "nav.backTitle": "Retour",
-  "header.audioStatusTitle": "État audio",
   "header.masterVolTitle": "Volume général",
   "header.muteTitle": "Couper le son",
   "header.unmuteTitle": "Activer le son",
@@ -77,6 +76,8 @@ const I18N_STATIC_FR = {
   "home.refreshQuoteTitle": "Touchez pour une nouvelle pensée",
   "home.newQuote": "Nouveau ↻",
   "home.continue": "▶ Continuer",
+  "home.startHere": "▶ Commencez ici",
+  "space.mixesHomeToggleLabel": "Afficher le démarrage rapide sur l’accueil",
   "home.surpriseTitle": "Lancer un exercice aléatoire",
   "home.surprise": "Aléatoire",
   "home.exercisesHeading": "Oreille musicale & Théorie",
@@ -1176,6 +1177,27 @@ const TR_FR = {
   "{tot} / {tot} ERFASST": "{tot} / {tot} ENREGISTRÉES",
   "{tot} / {tot} gelöst ✓": "{tot} / {tot} résolues ✓"
 };
+
+// Header-Titel „Home“, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
+Object.assign(TR_FR, {
+  "Home": "Accueil",
+  "Intervalle über Grundton-Fläche": "Intervalles sur nappe de fondamentale",
+  "Grundton-Fläche": "Nappe de fondamentale",
+  "Eine warme Streicher-Fläche hält den Grundton – nach kurzer Verzögerung erklingt der gesuchte Intervallton auf dem Klavier darüber": "Une chaude nappe de cordes tient la fondamentale – après un court délai, le piano joue l’intervalle recherché par-dessus",
+  "8 diatonische Intervalle auf Teppich": "8 intervalles diatoniques sur nappe",
+  "Grundton (Streicher-Fläche)": "Fondamentale (nappe de cordes)",
+  "Streicher-Fläche": "Nappe de cordes",
+  "Fläche + Intervall": "Nappe + intervalle",
+  "Streicher ➔ Klavier": "Cordes ➔ Piano",
+  "Welches Intervall hörst du über der Fläche?": "Quel intervalle entendez-vous sur la nappe ?",
+  "Klavier-Intervall": "Intervalle au piano",
+  "Höre den Ton & schau auf die erste Note links…": "Écoutez le son et lisez la première note à gauche…",
+  "Fläche hören": "Écouter la nappe",
+  "Streicher-Fläche hält den Grundton – gleich folgt das Klavier…": "La nappe de cordes tient la fondamentale – le piano arrive…",
+  "KLAVIER • GESUCHT": "PIANO • CIBLE",
+  "Welches Intervall erklingt über der Grundton-Fläche?": "Quel intervalle sonne sur la nappe de fondamentale ?",
+  "Intervalle (Grundton-Fläche)": "Intervalles (nappe de fondamentale)"
+});
 
 Object.assign(TR_FR, {
   "Groove-Puls": "Pulsation groove",
