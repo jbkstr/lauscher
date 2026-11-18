@@ -89,6 +89,8 @@ if [ -f "$REPO_ROOT/fonts/Andika/OFL.txt" ]; then
   cp "$REPO_ROOT/fonts/Andika/OFL.txt" "$WWW_DIR/fonts/Andika/"
 fi
 cp "$REPO_ROOT"/samples/*-bundle.js "$WWW_DIR/samples/"
+mkdir -p "$WWW_DIR/icons"
+cp "$REPO_ROOT"/icons/*.jpg "$WWW_DIR/icons/"
 
 echo "3/4 • Prüfe Capacitor & @capacitor/app in $TARGET_DIR …"
 cd "$TARGET_DIR"
