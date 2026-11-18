@@ -65,7 +65,6 @@ const I18N_STATIC_UK = {
   "welcome.continueBtn": "Починаймо →",
   "welcome.redirectHint": "Зараз перейдемо на головний екран…",
   "nav.backTitle": "Назад",
-  "header.audioStatusTitle": "Стан аудіо",
   "header.masterVolTitle": "Загальна гучність",
   "header.muteTitle": "Вимкнути звук",
   "header.unmuteTitle": "Увімкнути звук",
@@ -77,6 +76,8 @@ const I18N_STATIC_UK = {
   "home.refreshQuoteTitle": "Натисни для нової поради",
   "home.newQuote": "Нова ↻",
   "home.continue": "▶ Продовжити",
+  "home.startHere": "▶ Почни тут",
+  "space.mixesHomeToggleLabel": "Показувати швидкий старт на головній",
   "home.surpriseTitle": "Запустити випадкову вправу",
   "home.surprise": "Випадкова",
   "home.exercisesHeading": "Слух і музична теорія",
@@ -1671,6 +1672,27 @@ const TR_UK = {
   "{tot} / {tot} ERFASST": "{tot} / {tot} ЗАФІКСОВАНО",
   "{tot} / {tot} gelöst ✓": "{tot} / {tot} розгадано ✓"
 };
+
+// Header-Titel „Home“, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
+Object.assign(TR_UK, {
+  "Home": "Головна",
+  "Intervalle über Grundton-Fläche": "Інтервали над підкладкою основного тону",
+  "Grundton-Fläche": "Підкладка основного тону",
+  "Eine warme Streicher-Fläche hält den Grundton – nach kurzer Verzögerung erklingt der gesuchte Intervallton auf dem Klavier darüber": "Тепла струнна підкладка тримає основний тон – після короткої паузи фортепіано грає над нею шуканий інтервал",
+  "8 diatonische Intervalle auf Teppich": "8 діатонічних інтервалів над підкладкою",
+  "Grundton (Streicher-Fläche)": "Основний тон (струнна підкладка)",
+  "Streicher-Fläche": "Струнна підкладка",
+  "Fläche + Intervall": "Підкладка + інтервал",
+  "Streicher ➔ Klavier": "Струнні ➔ Фортепіано",
+  "Welches Intervall hörst du über der Fläche?": "Який інтервал ти чуєш над підкладкою?",
+  "Klavier-Intervall": "Інтервал фортепіано",
+  "Höre den Ton & schau auf die erste Note links…": "Послухай звук і подивись на першу ноту зліва…",
+  "Fläche hören": "Слухати підкладку",
+  "Streicher-Fläche hält den Grundton – gleich folgt das Klavier…": "Струнна підкладка тримає основний тон – зараз вступить фортепіано…",
+  "KLAVIER • GESUCHT": "ФОРТЕПІАНО • ШУКАНИЙ",
+  "Welches Intervall erklingt über der Grundton-Fläche?": "Який інтервал звучить над підкладкою основного тону?",
+  "Intervalle (Grundton-Fläche)": "Інтервали (підкладка основного тону)"
+});
 
 Object.assign(TR_UK, {
   "1 Versuch pro Frage – prüfungsfest ohne Hilfsschleifen. Am Ende warten Lauscher-Bewertung, Modul-Aufschlüsselung und direkter Hör-Vergleich.": "1 спроба на питання — без підказок і зациклювань. Наприкінці: оцінка Lauscher, розбір за модулями та аудіопорівняння.",

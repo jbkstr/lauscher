@@ -463,44 +463,9 @@
         </button>
 
         <div class="app-brand">
-          <div id="brandLogoWrap" class="brand-icon" role="button" tabindex="0" title="Über Lauscher" aria-label="Über Lauscher" data-i18n-title="about.title" data-i18n-aria="about.title">
-            <svg width="36" height="36" viewBox="0 0 64 64" fill="none">
-              <circle cx="32" cy="32" r="30.5" fill="#F6F3EC"/>
-              <circle cx="32" cy="32" r="28.5" stroke="#94AA9C" stroke-width="2.4" fill="none"/>
-              <path d="M17.5 60 C18.5 49, 23 44, 32 44 C41 44, 45.5 49, 46.5 60 Z" fill="#BAC6BE"/>
-              <path d="M23.5 60 C24 53, 27.5 49.5, 32 49.5 C36.5 49.5, 40 53, 40.5 60 Z" fill="#F6F4EE"/>
-              <path d="M11.5 22.5 C8.8 17, 12.2 11.2, 18.2 11.8 C21.8 12.2, 24.5 14.8, 24.2 18.8 Z" fill="#41495E"/>
-              <circle cx="17.1" cy="17.8" r="3.9" fill="#FFAA84"/>
-              <path d="M39.8 18.8 C39.5 14.8, 42.2 12.2, 45.8 11.8 C51.8 11.2, 55.2 17, 52.5 22.5 Z" fill="#41495E"/>
-              <circle cx="46.9" cy="17.8" r="3.9" fill="#FFAA84"/>
-              <path d="M32 15.8 C41.8 15.8, 49.4 22, 49.8 29.8 L51.6 31.8 L49.4 33.6 L50.8 35.8 C48.2 41.8, 41 45.2, 32 45.2 C23 45.2, 15.8 41.8, 13.2 35.8 L14.6 33.6 L12.4 31.8 L14.2 29.8 C14.6 22, 22.2 15.8, 32 15.8 Z" fill="#BAC6BE"/>
-              <path d="M29.6 16.4 L31.2 13.8 L32.8 15.8 L34.6 14.2 L34.9 16.8 Z" fill="#BAC6BE"/>
-              <path d="M16.5 28.8 C17.6 23.8, 24.2 22.5, 28.6 26.4 C27.4 29.4, 20.4 30.5, 16.5 28.8 Z" fill="#F6F4EE"/>
-              <path d="M47.5 28.8 C46.4 23.8, 39.8 22.5, 35.4 26.4 C36.6 29.4, 43.6 30.5, 47.5 28.8 Z" fill="#F6F4EE"/>
-              <ellipse cx="23" cy="31.5" rx="6.6" ry="5.1" transform="rotate(-10 23 31.5)" fill="#41495E"/>
-              <ellipse cx="41" cy="31.5" rx="6.6" ry="5.1" transform="rotate(10 41 31.5)" fill="#41495E"/>
-              <path d="M19.8 32.2 Q23 28.8 26.2 32.2" stroke="#1E2536" stroke-width="2.1" stroke-linecap="round" fill="none"/>
-              <path d="M37.8 32.2 Q41 28.8 44.2 32.2" stroke="#1E2536" stroke-width="2.1" stroke-linecap="round" fill="none"/>
-              <ellipse cx="19.2" cy="36.8" rx="2.9" ry="1.8" fill="#FF8E72"/>
-              <ellipse cx="44.8" cy="36.8" rx="2.9" ry="1.8" fill="#FF8E72"/>
-              <ellipse cx="32" cy="37.8" rx="5.8" ry="4.6" fill="#F6F4EE"/>
-              <ellipse cx="32" cy="35.3" rx="2.4" ry="1.7" fill="#1E2536"/>
-              <path d="M32 36.7 V38.4" stroke="#1E2536" stroke-width="1.45" stroke-linecap="round"/>
-              <path d="M29.4 38.2 Q32 40.3 34.6 38.2" stroke="#1E2536" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-              <path d="M43.2 48.5 C49.2 45.2, 52 37.2, 50.6 28.4" stroke="#BAC6BE" stroke-width="4.6" stroke-linecap="round" fill="none"/>
-              <g transform="translate(50.2 26.2) rotate(12) scale(0.84)">
-                <circle cx="0" cy="0.6" r="3.2" fill="#41495E"/>
-                <circle cx="-2.6" cy="-2.1" r="1.0" fill="#41495E"/>
-                <circle cx="-0.9" cy="-3.1" r="1.05" fill="#41495E"/>
-                <circle cx="1.0" cy="-3.1" r="1.05" fill="#41495E"/>
-                <circle cx="2.6" cy="-2.0" r="1.0" fill="#41495E"/>
-              </g>
-            </svg>
-          </div>
           <div>
             <div class="brand-title-wrap">
-              <span id="headerMainTitle" class="brand-name">Lauscher</span>
-              <span id="audioStatusDot" class="status-dot dot-idle" title="Audio-Status" data-i18n-title="header.audioStatusTitle"></span>
+              <span id="headerMainTitle" class="brand-name">Home</span>
             </div>
             <span id="subHeaderInfo" class="brand-sub" data-i18n="app.tagline">Hören · Verstehen · Musizieren</span>
           </div>
@@ -565,7 +530,7 @@
         </div>
         <div class="hero-actions">
           <button id="quickStartBtn" class="btn-primary-action">
-            <span data-i18n="home.continue">▶ Weiterüben</span>
+            <span id="quickStartLabel" data-i18n="home.continue">▶ Weiterüben</span>
             <small id="quickStartSub">Kadenzen • Stufe 1</small>
           </button>
           <button id="surpriseStartBtn" class="btn-secondary-action" title="Zufällige Übung starten" data-i18n-title="home.surpriseTitle">
@@ -1202,6 +1167,14 @@
           <div>
             <h3 data-i18n="space.mixesTitle">Meine Übe-Mixe</h3>
             <p class="account-card-sub" data-i18n="space.mixesSub">Persönliche Favoriten-Konfigurationen – direkt startbar, ganz ohne Bewertung.</p>
+          </div>
+        </div>
+
+        <div class="settings-sub-field account-home-mixes-toggle">
+          <span class="account-label" data-i18n="space.mixesHomeToggleLabel">Schnellstart auf der Startseite anzeigen</span>
+          <div id="homeQuickMixToggleGroup" class="btn-group" role="group" aria-label="Schnellstart auf der Startseite anzeigen" data-i18n-aria="space.mixesHomeToggleLabel">
+            <button type="button" class="opt-btn" data-home-mixes="on" aria-pressed="false" data-i18n="settings.autoNextOn">Ein</button>
+            <button type="button" class="opt-btn active" data-home-mixes="off" aria-pressed="true" data-i18n="settings.autoNextOff">Aus</button>
           </div>
         </div>
 

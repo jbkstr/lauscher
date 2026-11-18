@@ -177,23 +177,7 @@ function getMascotAccessorySVG(activeAccessories = []) {
   return accessoryMarkup;
 }
 
-function getMascotLogoSVG(size = 38) {
-  const logoUri = getMascotAssetUri("logo");
-  if (logoUri) {
-    return `
-      <svg width="${size}" height="${size}" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <image href="${logoUri}" x="0" y="0" width="64" height="64" preserveAspectRatio="xMidYMid meet"/>
-      </svg>
-    `;
-  }
-  return getMascotSVG("logo", false);
-}
-
 function hydrateMascotStaticSlots() {
-  const brandWrap = document.getElementById("brandLogoWrap");
-  if (brandWrap && getMascotAssetUri("logo")) {
-    brandWrap.innerHTML = getMascotLogoSVG(38);
-  }
   const splashBadge = document.querySelector("#startupSplash .splash-badge");
   const listenUri = getMascotAssetUri("listening");
   if (splashBadge && listenUri) {
@@ -1780,7 +1764,9 @@ function createDefaultProfile() {
     pianoSound: sanitizePianoSound(DEFAULT_PIANO_SOUND),
     droneMix: sanitizeDroneMix(DEFAULT_DRONE_MIX),
     customThemes: [null, null, null],
-    examHistory: []
+    examHistory: [],
+    hasPracticed: false,
+    showHomeQuickMixes: false
   };
 }
 
@@ -1871,7 +1857,10 @@ function sanitizeUserProfile(raw) {
     pianoSound: sanitizePianoSound(raw.pianoSound),
     droneMix: sanitizeDroneMix(raw.droneMix),
     customThemes: customThemes,
-    examHistory: examHistory
+    examHistory: examHistory,
+    // Ältere Profile (vor Einführung des Felds) gelten als „schon geübt“
+    hasPracticed: raw.hasPracticed === undefined ? true : Boolean(raw.hasPracticed),
+    showHomeQuickMixes: Boolean(raw.showHomeQuickMixes)
   };
 }
 
@@ -2494,7 +2483,7 @@ class AppState {
     if (!el || !mainTitle) return;
 
     if (this.currentView === "home") {
-      mainTitle.textContent = "Lauscher";
+      mainTitle.textContent = tr("Home", "Home");
       el.textContent = typeof getStaticI18nText === "function"
         ? (getStaticI18nText("app.tagline") || tr("Hören · Verstehen · Musizieren", "Listen · Understand · Play"))
         : tr("Hören · Verstehen · Musizieren", "Listen · Understand · Play");
@@ -2569,6 +2558,14 @@ class AppState {
   updateQuickStartLabel() {
     const sub = document.getElementById("quickStartSub");
     if (sub) sub.textContent = this.getModeSummaryText();
+    const label = document.getElementById("quickStartLabel");
+    if (label) {
+      // Vor der ersten gestarteten Übung „Beginne hier“, danach „Weiterüben“
+      const key = this.profile?.hasPracticed === false ? "home.startHere" : "home.continue";
+      label.setAttribute("data-i18n", key);
+      const text = typeof getStaticI18nText === "function" ? getStaticI18nText(key) : null;
+      if (text) label.textContent = text;
+    }
   }
 }
 
@@ -5303,6 +5300,9 @@ function switchView(targetView, options = {}) {
   stopWaveAnimation();
   closeTransientPopovers();
   state.currentView = targetView;
+  if (targetView === "exercise" || targetView === "warmup") {
+    markPracticeStarted();
+  }
 
   // Beim Starten eines Übungsmoduls wird zunächst das modulspezifische Standardtempo übernommen
   // (Kadenz & Solfège: 120 BPM, übrige Module: defaultBpm), bis der Nutzer im Modul manuell anpasst (außer bei Mix-Direktstart mit eigenem BPM).
@@ -5385,7 +5385,6 @@ function switchView(targetView, options = {}) {
   const showBottomNav = targetView !== "exercise" && targetView !== "warmup" && targetView !== "metronome";
   document.getElementById("bottomNav")?.classList.toggle("hidden", !showBottomNav);
   document.getElementById("backBtn")?.classList.toggle("hidden", isMainTabView);
-  document.getElementById("brandLogoWrap")?.classList.toggle("hidden", !isMainTabView);
 
   document.querySelectorAll(".nav-tab").forEach(tab => {
     tab.classList.toggle("active", Boolean(activeTab && tab.dataset.nav === activeTab));
@@ -6751,6 +6750,49 @@ function bindKnowledgeAudioButtons(rootEl) {
 /**
  * Baut die Auswahl-Unterseite (#viewCategory) für den gewählten Übungstyp auf
  */
+// Einsteiger-Übungen (zentral gepflegt): Schlüssel siehe getExerciseNodeKey()
+const BEGINNER_EXERCISES = new Set([
+  "cadence:1:last",
+  "interval-melodic:1",
+  "interval-melodic-down:1",
+  "interval-harmonic:1",
+  "interval-drone:1",
+  "chord-arp-up:1",
+  "chord-arp-down:1",
+  "interval-chords:1",
+  "melody:do-fa:fixed:single",
+  "solfege:1",
+  "rhythm-meter:1",
+  "rhythm-dictation:1",
+  "rhythm-tap:1",
+  "notation-treble:1"
+]);
+
+function getExerciseNodeKey(btn) {
+  const d = btn?.dataset || {};
+  if (d.launchCadence) return `cadence:${d.launchCadence}:${d.cadencePos}`;
+  if (d.launchInt) return `${d.launchInt}:${d.intLvl}`;
+  if (d.launchChord) return `${d.launchChord}:${d.chordLvl}`;
+  if (d.launchMelody) return `melody:${d.launchMelody}:${d.melodyKey}:${d.melodyOctave}`;
+  if (d.launchSolfege) return `solfege:${d.launchSolfege}`;
+  if (d.launchRhythm) return `${d.launchRhythm}:${d.rhythmLvl}`;
+  if (d.launchProd) return `${d.launchProd}:${d.prodLvl}`;
+  if (d.launchModes) return `${d.launchModes}:${d.modesLvl}`;
+  if (d.launchNotation) return `${d.launchNotation}:${d.notationLvl}`;
+  return null;
+}
+
+function markBeginnerExerciseNodes(container) {
+  if (!container) return;
+  const label = escapeHtml(tr("Einsteiger", "Beginner"));
+  container.querySelectorAll(".subpage-node-btn").forEach(btn => {
+    if (!BEGINNER_EXERCISES.has(getExerciseNodeKey(btn))) return;
+    if (btn.querySelector(".node-beginner-badge")) return;
+    btn.classList.add("is-beginner");
+    btn.insertAdjacentHTML("beforeend", `<span class="node-beginner-badge">${label}</span>`);
+  });
+}
+
 function openCategoryPage(categoryKey, options = {}) {
   state.activeCategory = categoryKey;
   const container = document.getElementById("categoryPageContent");
@@ -7787,6 +7829,8 @@ function openCategoryPage(categoryKey, options = {}) {
       openExamSetupPage(categoryKey);
     });
   }
+
+  markBeginnerExerciseNodes(container);
 
   // Mittiger Erklär-Button ganz unten auf jeder Übungs-Auswahlseite
   container.insertAdjacentHTML("beforeend", `
@@ -14206,7 +14250,7 @@ function renderHomeQuickMixBar() {
   if (!wrap) return;
 
   const mixes = state.profile?.mixes || [];
-  if (mixes.length === 0) {
+  if (mixes.length === 0 || !state.profile?.showHomeQuickMixes) {
     wrap.classList.add("hidden");
     wrap.innerHTML = "";
     return;
@@ -14230,7 +14274,32 @@ function renderHomeQuickMixBar() {
   });
 }
 
+function markPracticeStarted() {
+  if (!state.profile || state.profile.hasPracticed !== false) return;
+  state.profile.hasPracticed = true;
+  saveUserProfile(state.profile);
+  state.updateQuickStartLabel();
+}
+
+function syncHomeQuickMixToggle() {
+  const enabled = Boolean(state.profile?.showHomeQuickMixes);
+  document.querySelectorAll("[data-home-mixes]").forEach(btn => {
+    const active = (btn.dataset.homeMixes === "on") === enabled;
+    btn.classList.toggle("active", active);
+    btn.setAttribute("aria-pressed", String(active));
+  });
+}
+
+function setHomeQuickMixesEnabled(enabled) {
+  if (!state.profile) state.profile = createDefaultProfile();
+  state.profile.showHomeQuickMixes = Boolean(enabled);
+  saveUserProfile(state.profile);
+  syncHomeQuickMixToggle();
+  renderHomeQuickMixBar();
+}
+
 function renderHomeProfileGreeting() {
+  state.updateQuickStartLabel();
   const heroSvg = document.getElementById("heroMascotSvg");
   if (heroSvg) heroSvg.innerHTML = getMascotSVG("idle", true);
 
@@ -14660,6 +14729,7 @@ function tickBreakReminder(nowWallMs = Date.now()) {
 }
 
 function renderProfileMixes() {
+  syncHomeQuickMixToggle();
   const listEl = document.getElementById("spaceMixList");
   if (!listEl) {
     renderHomeQuickMixBar();
@@ -16490,16 +16560,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const aboutModal = document.getElementById("aboutBackdrop");
   const breakModal = document.getElementById("breakReminderBackdrop");
 
-  const brandLogoWrap = document.getElementById("brandLogoWrap");
-  brandLogoWrap?.addEventListener("click", () => {
-    openAboutModal();
-  });
-  brandLogoWrap?.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      openAboutModal();
-    }
-  });
   document.getElementById("openAboutFromSettingsBtn")?.addEventListener("click", () => {
     openAboutModal();
   });
@@ -16542,6 +16602,13 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       document.getElementById("spaceThemesCard")?.scrollIntoView?.({ behavior: "smooth", block: "start" });
     }, 60);
+  });
+
+  // Schnellstart-Mixe auf der Startseite ein-/ausblenden
+  document.querySelectorAll("[data-home-mixes]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      setHomeQuickMixesEnabled(btn.dataset.homeMixes === "on");
+    });
   });
 
   // Pausen-Erinnerung bei Übungen: Einstellungen & Dialog-Aktionen
@@ -19367,12 +19434,12 @@ function setWelcomeBeginnerIntroOptIn(enabled) {
 function applyWelcomeBeginnerPreset() {
   _welcomeOnboardingState.beginnerPresetApplied = true;
   if (state?.settings) {
-    state.settings.mode = "interval";
+    // Empfohlener Startpunkt: Intervalle melodisch aufwärts, Stufe 1
+    state.settings.mode = "interval-melodic";
     state.settings.intervalDifficulty = 1;
   }
   if (!state.profile) state.profile = createDefaultProfile();
-  state.profile.focus = "intervals";
-  state.profile.focuses = ["intervals"];
+  // Lernschwerpunkt bleibt unverändert (es gibt keinen eigenen Intervall-Schwerpunkt)
   saveUserProfile(state.profile);
   renderProfileAccountView();
   renderHomeProfileGreeting();

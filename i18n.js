@@ -361,7 +361,6 @@ const I18N_STATIC = {
     en: "Taking you to the home screen…"
   },
   "nav.backTitle": { de: "Zurück", en: "Back" },
-  "header.audioStatusTitle": { de: "Audio-Status", en: "Audio Status" },
   "header.masterVolTitle": { de: "Master-Lautstärke", en: "Master Volume" },
   "header.muteTitle": { de: "Stummschalten", en: "Mute Audio" },
   "header.unmuteTitle": { de: "Ton einschalten", en: "Unmute Audio" },
@@ -374,6 +373,8 @@ const I18N_STATIC = {
   "home.refreshQuoteTitle": { de: "Tippe für einen neuen Gedanken", en: "Tap for a new tip" },
   "home.newQuote": { de: "Neu ↻", en: "New ↻" },
   "home.continue": { de: "▶ Weiterüben", en: "▶ Continue" },
+  "home.startHere": { de: "▶ Beginne hier", en: "▶ Start Here" },
+  "space.mixesHomeToggleLabel": { de: "Schnellstart auf der Startseite anzeigen", en: "Show quick start on home screen" },
   "home.surpriseTitle": { de: "Zufällige Übung starten", en: "Start a random exercise" },
   "home.surprise": { de: "Zufall", en: "Surprise" },
   "home.exercisesHeading": { de: "Gehörtraining & Musik", en: "Ear Training & Music" },

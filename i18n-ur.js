@@ -65,7 +65,6 @@ const I18N_STATIC_UR = {
   "welcome.continueBtn": "چلو شروع کریں ←",
   "welcome.redirectHint": "آپ کو ہوم اسکرین پر لے جایا جا رہا ہے…",
   "nav.backTitle": "واپس",
-  "header.audioStatusTitle": "آڈیو کی کیفیت",
   "header.masterVolTitle": "ماسٹر والیوم",
   "header.muteTitle": "آواز بند کریں",
   "header.unmuteTitle": "آواز آن کریں",
@@ -77,6 +76,8 @@ const I18N_STATIC_UR = {
   "home.refreshQuoteTitle": "نئی بات یا مشورے کے لیے ٹیپ کریں",
   "home.newQuote": "نیا ↻",
   "home.continue": "▶ مشق جاری رکھیں",
+  "home.startHere": "▶ یہاں سے شروع کریں",
+  "space.mixesHomeToggleLabel": "ہوم اسکرین پر فوری آغاز دکھائیں",
   "home.surpriseTitle": "بے ترتیب مشق شروع کریں",
   "home.surprise": "سرپرائز",
   "home.exercisesHeading": "سماعت اور موسیقی کا نظریہ",
@@ -2013,6 +2014,27 @@ const TR_UR = Object.assign(Object.create(null), {
   "G-, D-, F- & B-Dur im Notensystem (±2 Hilfslinien) mit vorgegebenen Vorzeichen": "اسٹاف پر G, D, F اور Bb میجر کی سگنیچر (±2 لیجر لائنز)",
   "Stufe 6 • Alle Tonarten + ♮ (1–6 ♯/♭)": "لیول 6 • تمام کلیدیں + ♮ (1–6 ♯/♭)",
   "Alle 12 Vorzeichen-Tonarten (±3 Hilfslinien) inklusive Auflösungszeichen (♮)": "تمام 12 کی سگنیچرز (±3 لیجر لائنز) بشمول نیچرل علامتیں (♮)"
+});
+
+// Header-Titel „Home“, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
+Object.assign(TR_UR, {
+  "Home": "ہوم",
+  "Intervalle über Grundton-Fläche": "بنیادی سُر کے پیڈ پر انٹرولز",
+  "Grundton-Fläche": "بنیادی سُر کا پیڈ",
+  "Eine warme Streicher-Fläche hält den Grundton – nach kurzer Verzögerung erklingt der gesuchte Intervallton auf dem Klavier darüber": "اسٹرنگز کا گرم پیڈ بنیادی سُر کو تھامے رکھتا ہے – تھوڑی دیر بعد پیانو اس کے اوپر مطلوبہ انٹرول بجاتا ہے",
+  "8 diatonische Intervalle auf Teppich": "پیڈ پر 8 ڈایاٹونک انٹرولز",
+  "Grundton (Streicher-Fläche)": "بنیادی سُر (اسٹرنگز پیڈ)",
+  "Streicher-Fläche": "اسٹرنگز پیڈ",
+  "Fläche + Intervall": "پیڈ + انٹرول",
+  "Streicher ➔ Klavier": "اسٹرنگز ➔ پیانو",
+  "Welches Intervall hörst du über der Fläche?": "پیڈ کے اوپر آپ کون سا انٹرول سن رہے ہیں؟",
+  "Klavier-Intervall": "پیانو انٹرول",
+  "Höre den Ton & schau auf die erste Note links…": "سُر سنیں اور بائیں جانب پہلے نوٹ کو دیکھیں…",
+  "Fläche hören": "پیڈ سنیں",
+  "Streicher-Fläche hält den Grundton – gleich folgt das Klavier…": "اسٹرنگز پیڈ بنیادی سُر کو تھامے ہوئے ہے – پیانو آنے والا ہے…",
+  "KLAVIER • GESUCHT": "پیانو • مطلوبہ",
+  "Welches Intervall erklingt über der Grundton-Fläche?": "بنیادی سُر کے پیڈ پر کون سا انٹرول بج رہا ہے؟",
+  "Intervalle (Grundton-Fläche)": "انٹرولز (بنیادی سُر کا پیڈ)"
 });
 
 if (typeof registerLanguageBundle === "function") {

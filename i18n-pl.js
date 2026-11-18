@@ -65,7 +65,6 @@ const I18N_STATIC_PL = {
   "welcome.continueBtn": "Zaczynajmy →",
   "welcome.redirectHint": "Za chwilę przejdziemy do ekranu głównego…",
   "nav.backTitle": "Wstecz",
-  "header.audioStatusTitle": "Status audio",
   "header.masterVolTitle": "Głośność główna",
   "header.muteTitle": "Wycisz dźwięk",
   "header.unmuteTitle": "Włącz dźwięk",
@@ -77,6 +76,8 @@ const I18N_STATIC_PL = {
   "home.refreshQuoteTitle": "Dotknij, aby zobaczyć nową myśl",
   "home.newQuote": "Nowa ↻",
   "home.continue": "▶ Kontynuuj",
+  "home.startHere": "▶ Zacznij tutaj",
+  "space.mixesHomeToggleLabel": "Pokaż szybki start na ekranie głównym",
   "home.surpriseTitle": "Uruchom losowe ćwiczenie",
   "home.surprise": "Losuj",
   "home.exercisesHeading": "Kształcenie słuchu i muzyka",
@@ -1670,6 +1671,27 @@ const TR_PL = {
   "{tot} / {tot} ERFASST": "{tot} / {tot} ZAPISANO",
   "{tot} / {tot} gelöst ✓": "{tot} / {tot} odgadnięte ✓"
 };
+
+// Header-Titel „Home“, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
+Object.assign(TR_PL, {
+  "Home": "Start",
+  "Intervalle über Grundton-Fläche": "Interwały nad plamą dźwięku podstawowego",
+  "Grundton-Fläche": "Plama dźwięku podstawowego",
+  "Eine warme Streicher-Fläche hält den Grundton – nach kurzer Verzögerung erklingt der gesuchte Intervallton auf dem Klavier darüber": "Ciepła plama smyczków trzyma dźwięk podstawowy – po krótkiej chwili fortepian gra nad nią szukany interwał",
+  "8 diatonische Intervalle auf Teppich": "8 interwałów diatonicznych nad plamą",
+  "Grundton (Streicher-Fläche)": "Dźwięk podstawowy (plama smyczków)",
+  "Streicher-Fläche": "Plama smyczków",
+  "Fläche + Intervall": "Plama + interwał",
+  "Streicher ➔ Klavier": "Smyczki ➔ Fortepian",
+  "Welches Intervall hörst du über der Fläche?": "Jaki interwał słyszysz nad plamą?",
+  "Klavier-Intervall": "Interwał fortepianu",
+  "Höre den Ton & schau auf die erste Note links…": "Posłuchaj dźwięku i spójrz na pierwszą nutę z lewej…",
+  "Fläche hören": "Posłuchaj plamy",
+  "Streicher-Fläche hält den Grundton – gleich folgt das Klavier…": "Plama smyczków trzyma dźwięk podstawowy – zaraz wejdzie fortepian…",
+  "KLAVIER • GESUCHT": "FORTEPIAN • SZUKANY",
+  "Welches Intervall erklingt über der Grundton-Fläche?": "Jaki interwał brzmi nad plamą dźwięku podstawowego?",
+  "Intervalle (Grundton-Fläche)": "Interwały (plama dźwięku podstawowego)"
+});
 
 Object.assign(TR_PL, {
   "1 Versuch pro Frage – prüfungsfest ohne Hilfsschleifen. Am Ende warten Lauscher-Bewertung, Modul-Aufschlüsselung und direkter Hör-Vergleich.": "1 próba na pytanie — bez pętli podpowiedzi. Na końcu czeka ocena Lauscher, podział na moduły i bezpośrednie odsłuchy porównawcze.",
