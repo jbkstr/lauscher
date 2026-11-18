@@ -380,6 +380,11 @@
   border-color: rgba(255, 255, 255, 0.14);
 }
 
+:root[data-theme="metal"] .tools-launcher-card {
+  border-inline-color: rgba(255, 255, 255, 0.14);
+  border-bottom-color: rgba(255, 255, 255, 0.14);
+}
+
 :root[data-theme="metal"] .stage-mascot svg,
 :root[data-theme="metal"] .hero-mascot svg,
 :root[data-theme="metal"] .account-avatar-box svg {
@@ -712,6 +717,7 @@ html, body {
 .category-nav-card,
 .subpage-node-btn,
 .ref-hub-card,
+.tools-launcher-card,
 .degree-btn,
 .opt-btn,
 .k-filter-pill,
@@ -3178,7 +3184,7 @@ html, body {
 }
 
 /* ==========================================
-   FESTE UNTERE REITER-LEISTE (3 Icons, kein Text)
+   FESTE UNTERE REITER-LEISTE (4 Icons, kein Text)
    ========================================== */
 .bottom-nav {
   flex-shrink: 0;
@@ -3187,7 +3193,7 @@ html, body {
   border-radius: var(--radius-pill);
   padding: 0.3rem 0.5rem;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   align-items: center;
   box-shadow: var(--shadow-card);
   margin-top: 0.35rem;
@@ -8894,74 +8900,158 @@ body.is-hum-pause #solfegeKeyboardWrap {
 }
 
 /* =====================================================
-   METRONOM & TUNER: HOMESCREEN-KACHELN (2 SPALTEN)
+   PRAXIS-TOOLS (#viewTools) & TOOL-VORSCHAUEN (#viewTuner / #viewFreeplay)
    ===================================================== */
-.home-metronome-row {
+.tools-intro-desc {
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--raccoon-muted);
+  padding: 0 0.15rem;
+  margin-top: -0.45rem;
+}
+
+.tools-launcher-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.62rem;
+  width: 100%;
+}
+
+.tools-launcher-card {
+  background-color: var(--surface-white);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  padding: 0.95rem 0.5rem 0.85rem;
+  box-shadow: var(--shadow-card);
   display: flex;
-  justify-content: space-between;
-  gap: 0.58rem;
-  margin-top: 0.62rem;
-}
-
-.home-metronome-card {
-  position: relative;
-  width: calc(50% - 0.29rem);
-  flex: 1 1 calc(50% - 0.29rem);
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 0.52rem;
-  padding: 0.78rem 0.82rem;
-  min-height: 112px;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  gap: 0.45rem;
+  cursor: pointer;
+  min-width: 0;
+  width: 100%;
+  overflow: hidden;
 }
 
-.home-tool-placeholder {
-  opacity: 0.78;
-  cursor: default;
+.tools-launcher-card:active {
+  transform: scale(0.97);
+  background-color: var(--surface-warm);
 }
 
-.home-tool-placeholder:hover {
-  transform: none;
+.tools-launcher-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--icon-ink);
+  flex-shrink: 0;
 }
 
-@media (max-width: 335px) {
-  .home-metronome-row {
-    flex-direction: column;
+.tools-launcher-title {
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+  line-height: 1.22;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  max-width: 100%;
+}
+
+.tools-launcher-sub {
+  font-size: 0.68rem;
+  line-height: 1.25;
+  color: var(--raccoon-muted);
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+.tools-launcher-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.14rem 0.5rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.64rem;
+  font-weight: 800;
+  color: var(--raccoon-muted);
+  background-color: var(--surface-warm);
+  border: 1px solid var(--border-soft);
+}
+
+@media (max-width: 360px) {
+  .tools-launcher-grid {
+    gap: 0.44rem;
   }
-  .home-metronome-card {
-    width: 100%;
-    flex-basis: 100%;
+  .tools-launcher-card {
+    padding: 0.82rem 0.35rem 0.72rem;
+    gap: 0.38rem;
+  }
+  .tools-launcher-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
   }
 }
 
-.home-metronome-card .cat-icon-box {
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
+.tool-preview-view {
+  justify-content: center;
+  align-items: center;
 }
 
-.home-metronome-card .cat-icon-box .icon-svg-large {
-  width: 22px;
-  height: 22px;
+.tool-preview-card {
+  width: 100%;
+  max-width: 460px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.65rem;
+  padding: 1.45rem 1.2rem;
 }
 
-.home-metronome-card .cat-text-box h3 {
-  font-size: 0.9rem;
-  line-height: 1.2;
+.tool-preview-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
 }
 
-.home-metronome-card .cat-text-box p {
-  font-size: 0.72rem;
-  line-height: 1.32;
-  margin-top: 0.16rem;
-}
-
-.home-metronome-card .cat-chevron {
-  position: absolute;
-  top: 0.72rem;
-  inset-inline-end: 0.82rem;
+.tool-preview-title {
   font-size: 1.12rem;
-  opacity: 0.65;
+  font-weight: 900;
+  color: var(--raccoon-dark);
+  line-height: 1.25;
+}
+
+.tool-preview-desc {
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: var(--raccoon-muted);
+  max-width: 38ch;
+}
+
+.tool-env-notice {
+  font-size: 0.76rem;
+  line-height: 1.4;
+  color: var(--raccoon-mid);
+  background-color: var(--surface-warm);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  padding: 0.58rem 0.78rem;
+  max-width: 40ch;
+}
+
+.tool-env-notice.is-warning {
+  background-color: var(--peach-soft);
+  border-color: var(--peach-strong);
+  color: var(--raccoon-dark);
+}
+
+.tool-preview-back-btn {
+  margin-top: 0.25rem;
 }
 
 /* =====================================================

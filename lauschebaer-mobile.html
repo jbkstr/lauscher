@@ -388,6 +388,11 @@
   border-color: rgba(255, 255, 255, 0.14);
 }
 
+:root[data-theme="metal"] .tools-launcher-card {
+  border-inline-color: rgba(255, 255, 255, 0.14);
+  border-bottom-color: rgba(255, 255, 255, 0.14);
+}
+
 :root[data-theme="metal"] .stage-mascot svg,
 :root[data-theme="metal"] .hero-mascot svg,
 :root[data-theme="metal"] .account-avatar-box svg {
@@ -720,6 +725,7 @@ html, body {
 .category-nav-card,
 .subpage-node-btn,
 .ref-hub-card,
+.tools-launcher-card,
 .degree-btn,
 .opt-btn,
 .k-filter-pill,
@@ -3186,7 +3192,7 @@ html, body {
 }
 
 /* ==========================================
-   FESTE UNTERE REITER-LEISTE (3 Icons, kein Text)
+   FESTE UNTERE REITER-LEISTE (4 Icons, kein Text)
    ========================================== */
 .bottom-nav {
   flex-shrink: 0;
@@ -3195,7 +3201,7 @@ html, body {
   border-radius: var(--radius-pill);
   padding: 0.3rem 0.5rem;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   align-items: center;
   box-shadow: var(--shadow-card);
   margin-top: 0.35rem;
@@ -8902,74 +8908,158 @@ body.is-hum-pause #solfegeKeyboardWrap {
 }
 
 /* =====================================================
-   METRONOM & TUNER: HOMESCREEN-KACHELN (2 SPALTEN)
+   PRAXIS-TOOLS (#viewTools) & TOOL-VORSCHAUEN (#viewTuner / #viewFreeplay)
    ===================================================== */
-.home-metronome-row {
+.tools-intro-desc {
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--raccoon-muted);
+  padding: 0 0.15rem;
+  margin-top: -0.45rem;
+}
+
+.tools-launcher-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.62rem;
+  width: 100%;
+}
+
+.tools-launcher-card {
+  background-color: var(--surface-white);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  padding: 0.95rem 0.5rem 0.85rem;
+  box-shadow: var(--shadow-card);
   display: flex;
-  justify-content: space-between;
-  gap: 0.58rem;
-  margin-top: 0.62rem;
-}
-
-.home-metronome-card {
-  position: relative;
-  width: calc(50% - 0.29rem);
-  flex: 1 1 calc(50% - 0.29rem);
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 0.52rem;
-  padding: 0.78rem 0.82rem;
-  min-height: 112px;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  gap: 0.45rem;
+  cursor: pointer;
+  min-width: 0;
+  width: 100%;
+  overflow: hidden;
 }
 
-.home-tool-placeholder {
-  opacity: 0.78;
-  cursor: default;
+.tools-launcher-card:active {
+  transform: scale(0.97);
+  background-color: var(--surface-warm);
 }
 
-.home-tool-placeholder:hover {
-  transform: none;
+.tools-launcher-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--icon-ink);
+  flex-shrink: 0;
 }
 
-@media (max-width: 335px) {
-  .home-metronome-row {
-    flex-direction: column;
+.tools-launcher-title {
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+  line-height: 1.22;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  max-width: 100%;
+}
+
+.tools-launcher-sub {
+  font-size: 0.68rem;
+  line-height: 1.25;
+  color: var(--raccoon-muted);
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+.tools-launcher-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.14rem 0.5rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.64rem;
+  font-weight: 800;
+  color: var(--raccoon-muted);
+  background-color: var(--surface-warm);
+  border: 1px solid var(--border-soft);
+}
+
+@media (max-width: 360px) {
+  .tools-launcher-grid {
+    gap: 0.44rem;
   }
-  .home-metronome-card {
-    width: 100%;
-    flex-basis: 100%;
+  .tools-launcher-card {
+    padding: 0.82rem 0.35rem 0.72rem;
+    gap: 0.38rem;
+  }
+  .tools-launcher-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
   }
 }
 
-.home-metronome-card .cat-icon-box {
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
+.tool-preview-view {
+  justify-content: center;
+  align-items: center;
 }
 
-.home-metronome-card .cat-icon-box .icon-svg-large {
-  width: 22px;
-  height: 22px;
+.tool-preview-card {
+  width: 100%;
+  max-width: 460px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.65rem;
+  padding: 1.45rem 1.2rem;
 }
 
-.home-metronome-card .cat-text-box h3 {
-  font-size: 0.9rem;
-  line-height: 1.2;
+.tool-preview-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
 }
 
-.home-metronome-card .cat-text-box p {
-  font-size: 0.72rem;
-  line-height: 1.32;
-  margin-top: 0.16rem;
-}
-
-.home-metronome-card .cat-chevron {
-  position: absolute;
-  top: 0.72rem;
-  inset-inline-end: 0.82rem;
+.tool-preview-title {
   font-size: 1.12rem;
-  opacity: 0.65;
+  font-weight: 900;
+  color: var(--raccoon-dark);
+  line-height: 1.25;
+}
+
+.tool-preview-desc {
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: var(--raccoon-muted);
+  max-width: 38ch;
+}
+
+.tool-env-notice {
+  font-size: 0.76rem;
+  line-height: 1.4;
+  color: var(--raccoon-mid);
+  background-color: var(--surface-warm);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  padding: 0.58rem 0.78rem;
+  max-width: 40ch;
+}
+
+.tool-env-notice.is-warning {
+  background-color: var(--peach-soft);
+  border-color: var(--peach-strong);
+  color: var(--raccoon-dark);
+}
+
+.tool-preview-back-btn {
+  margin-top: 0.25rem;
 }
 
 /* =====================================================
@@ -11228,41 +11318,6 @@ body.is-hum-pause #solfegeKeyboardWrap {
           <span class="cat-chevron">›</span>
         </button>
       </div>
-
-      <div class="home-metronome-row">
-        <button id="openMetronomeBtn" class="category-nav-card card-accent-sage home-metronome-card" type="button" data-open-tool="metronome">
-          <div class="cat-icon-box badge-sage">
-            <svg class="icon-svg-large" width="24" height="24" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M8.5 23L12.2 6h3.6L19.5 23H8.5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-              <line x1="14" y1="20" x2="19.5" y2="9" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
-              <circle cx="18.3" cy="11.3" r="1.9" fill="currentColor"/>
-              <line x1="7" y1="23" x2="21" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div class="cat-text-box">
-            <h3 data-i18n="home.toolMetronome">Metronom</h3>
-            <p data-i18n="home.toolMetronomeDesc">Tap-Tempo, Zählzeiten &amp; Profile</p>
-          </div>
-          <span class="cat-chevron">›</span>
-        </button>
-
-        <button id="openTunerBtn" class="category-nav-card card-accent-lilac home-metronome-card home-tool-placeholder" type="button" data-open-tool="tuner" aria-disabled="true">
-          <div class="cat-icon-box badge-lilac">
-            <svg class="icon-svg-large" width="24" height="24" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M9.5 4.5V12C9.5 14.4853 11.5147 16.5 14 16.5C16.4853 16.5 18.5 14.4853 18.5 12V4.5" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
-              <line x1="14" y1="16.5" x2="14" y2="23.5" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
-              <circle cx="14" cy="23.5" r="1.6" fill="currentColor"/>
-              <path d="M5.8 6.8C4.6 8.3 4.6 10.7 5.8 12.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.72"/>
-              <path d="M22.2 6.8C23.4 8.3 23.4 10.7 22.2 12.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.72"/>
-            </svg>
-          </div>
-          <div class="cat-text-box">
-            <h3 data-i18n="home.toolTuner">Tuner (folgt bald)</h3>
-            <p data-i18n="home.toolTunerDesc">Stimmgerät &amp; Tonhöhen-Anzeige</p>
-          </div>
-          <span class="cat-chevron">›</span>
-        </button>
-      </div>
     </main>
 
     <!-- =====================================================
@@ -11287,12 +11342,65 @@ body.is-hum-pause #solfegeKeyboardWrap {
     </main>
 
     <!-- =====================================================
+         ANSICHT 1e: PRAXIS-TOOLS (#viewTools)
+         ===================================================== -->
+    <main id="viewTools" class="view-container hidden">
+      <div class="section-heading-row">
+        <h2 class="section-heading" data-i18n="tools.heading">Werkzeuge</h2>
+      </div>
+      <p class="tools-intro-desc" data-i18n="tools.intro">Eigenständige Praxis-Werkzeuge neben den Gehör-Übungen.</p>
+
+      <div class="tools-launcher-grid">
+        <button id="openMetronomeBtn" class="tools-launcher-card card-top-sage" type="button" data-open-tool="metronome">
+          <div class="tools-launcher-icon badge-sage">
+            <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M8.5 23L12.2 6h3.6L19.5 23H8.5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              <line x1="14" y1="20" x2="19.5" y2="9" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
+              <circle cx="18.3" cy="11.3" r="1.9" fill="currentColor"/>
+              <line x1="7" y1="23" x2="21" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span class="tools-launcher-title" data-i18n="tools.metronomeTitle">Metronom</span>
+          <span class="tools-launcher-sub" data-i18n="tools.metronomeSub">Puls &amp; Tap-Tempo</span>
+        </button>
+
+        <button id="openTunerBtn" class="tools-launcher-card card-top-lilac" type="button" data-open-tool="tuner">
+          <div class="tools-launcher-icon badge-lilac">
+            <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M9.5 4.5V12C9.5 14.4853 11.5147 16.5 14 16.5C16.4853 16.5 18.5 14.4853 18.5 12V4.5" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+              <line x1="14" y1="16.5" x2="14" y2="23.5" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
+              <circle cx="14" cy="23.5" r="1.6" fill="currentColor"/>
+              <path d="M5.8 6.8C4.6 8.3 4.6 10.7 5.8 12.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.72"/>
+              <path d="M22.2 6.8C23.4 8.3 23.4 10.7 22.2 12.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.72"/>
+            </svg>
+          </div>
+          <span class="tools-launcher-title" data-i18n="tools.tunerTitle">Tuner</span>
+          <span class="tools-launcher-badge" data-i18n="tools.soonBadge">Bald</span>
+        </button>
+
+        <button id="openFreeplayBtn" class="tools-launcher-card card-top-peach" type="button" data-open-tool="freeplay">
+          <div class="tools-launcher-icon badge-peach">
+            <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="4" y="6" width="20" height="16" rx="2.5" stroke="currentColor" stroke-width="2"/>
+              <line x1="10.67" y1="6" x2="10.67" y2="22" stroke="currentColor" stroke-width="1.6"/>
+              <line x1="17.33" y1="6" x2="17.33" y2="22" stroke="currentColor" stroke-width="1.6"/>
+              <rect x="8.7" y="6" width="3.9" height="9.5" rx="1" fill="currentColor"/>
+              <rect x="15.4" y="6" width="3.9" height="9.5" rx="1" fill="currentColor"/>
+            </svg>
+          </div>
+          <span class="tools-launcher-title" data-i18n="tools.freeplayTitle">Freies Spiel</span>
+          <span class="tools-launcher-badge" data-i18n="tools.soonBadge">Bald</span>
+        </button>
+      </div>
+    </main>
+
+    <!-- =====================================================
          ANSICHT 2: WISSEN HUB (#viewKnowledge) – Aufgeräumt!
          ===================================================== -->
     <main id="viewKnowledge" class="view-container hidden">
 
       <div class="knowledge-tabs" role="tablist" aria-label="Wissensbereiche" data-i18n-aria="knowledge.tabsAria">
-        <button class="knowledge-tab-btn active" id="ktabTheoryBtn" data-ktab="theory" role="tab" aria-selected="true" data-i18n="knowledge.tabTheory">Theorie &amp; Tools</button>
+        <button class="knowledge-tab-btn active" id="ktabTheoryBtn" data-ktab="theory" role="tab" aria-selected="true" data-i18n="knowledge.tabTheory">Theorie</button>
         <button class="knowledge-tab-btn" id="ktabArticlesBtn" data-ktab="articles" role="tab" aria-selected="false" data-i18n="knowledge.tabArticles">Artikel</button>
         <button class="knowledge-tab-btn" id="ktabInstrumentsBtn" data-ktab="instruments" role="tab" aria-selected="false" data-i18n="knowledge.tabInstruments">Instrumente</button>
       </div>
@@ -12463,10 +12571,53 @@ body.is-hum-pause #solfegeKeyboardWrap {
 
     </main>
 
+    <!-- =====================================================
+         ANSICHT 7: TUNER (#viewTuner) – Vorbereitung
+         ===================================================== -->
+    <main id="viewTuner" class="view-container tool-preview-view hidden">
+      <section class="module-card tool-preview-card">
+        <div class="tools-launcher-icon badge-lilac tool-preview-icon">
+          <svg class="icon-svg-large" width="32" height="32" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M9.5 4.5V12C9.5 14.4853 11.5147 16.5 14 16.5C16.4853 16.5 18.5 14.4853 18.5 12V4.5" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="14" y1="16.5" x2="14" y2="23.5" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
+            <circle cx="14" cy="23.5" r="1.6" fill="currentColor"/>
+            <path d="M5.8 6.8C4.6 8.3 4.6 10.7 5.8 12.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.72"/>
+            <path d="M22.2 6.8C23.4 8.3 23.4 10.7 22.2 12.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.72"/>
+          </svg>
+        </div>
+        <span class="tools-launcher-badge" data-i18n="tools.previewBadge">Bald verfügbar</span>
+        <h2 class="tool-preview-title" data-i18n="tools.tunerPageTitle">Chromatischer Tuner</h2>
+        <p class="tool-preview-desc" data-i18n="tools.tunerPageDesc">Live-Tonhöhenerkennung und Kammerton-Referenz direkt über das Mikrofon deines Geräts.</p>
+        <p id="tunerSecureContextNotice" class="tool-env-notice hidden"></p>
+        <button id="tunerBackBtn" type="button" class="btn-tool tool-preview-back-btn" data-i18n="tools.backBtn">← Zurück zu Tools</button>
+      </section>
+    </main>
+
+    <!-- =====================================================
+         ANSICHT 8: FREIES SPIEL (#viewFreeplay) – Vorbereitung
+         ===================================================== -->
+    <main id="viewFreeplay" class="view-container tool-preview-view hidden">
+      <section class="module-card tool-preview-card">
+        <div class="tools-launcher-icon badge-peach tool-preview-icon">
+          <svg class="icon-svg-large" width="32" height="32" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="4" y="6" width="20" height="16" rx="2.5" stroke="currentColor" stroke-width="2"/>
+            <line x1="10.67" y1="6" x2="10.67" y2="22" stroke="currentColor" stroke-width="1.6"/>
+            <line x1="17.33" y1="6" x2="17.33" y2="22" stroke="currentColor" stroke-width="1.6"/>
+            <rect x="8.7" y="6" width="3.9" height="9.5" rx="1" fill="currentColor"/>
+            <rect x="15.4" y="6" width="3.9" height="9.5" rx="1" fill="currentColor"/>
+          </svg>
+        </div>
+        <span class="tools-launcher-badge" data-i18n="tools.previewBadge">Bald verfügbar</span>
+        <h2 class="tool-preview-title" data-i18n="tools.freeplayPageTitle">Freies Spiel</h2>
+        <p class="tool-preview-desc" data-i18n="tools.freeplayPageDesc">Freie Klaviatur und Akkord-Flächen zum Ausprobieren, Improvisieren und Nachspielen mit deinen Mixer-Instrumenten.</p>
+        <button id="freeplayBackBtn" type="button" class="btn-tool tool-preview-back-btn" data-i18n="tools.backBtn">← Zurück zu Tools</button>
+      </section>
+    </main>
+
     </div><!-- /.views-stage -->
 
     <!-- =====================================================
-         FESTE UNTERE REITER-LEISTE (3 Icons, kein Text)
+         FESTE UNTERE REITER-LEISTE (4 Icons, kein Text)
          ===================================================== -->
     <nav id="bottomNav" class="bottom-nav" aria-label="Hauptnavigation" data-i18n-aria="nav.mainAria">
       <button class="nav-tab active" data-nav="home" title="Startseite" aria-label="Startseite" data-i18n-title="nav.home" data-i18n-aria="nav.home">
@@ -12474,6 +12625,14 @@ body.is-hum-pause #solfegeKeyboardWrap {
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M3 9.5L12 3l9 6.5V20a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 20V9.5z"/>
             <polyline points="9 21.5 9 13 15 13 15 21.5"/>
+          </svg>
+        </span>
+      </button>
+
+      <button class="nav-tab" data-nav="tools" title="Tools" aria-label="Tools" data-i18n-title="nav.tools" data-i18n-aria="nav.tools">
+        <span class="nav-icon-pill">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
           </svg>
         </span>
       </button>
@@ -15125,16 +15284,26 @@ const I18N_STATIC = {
   "home.catNotationDesc": { de: "Noten lesen im Violin-, Bass- & Altschlüssel mit Hilfslinien", en: "Read notes across Treble, Bass & Alto clefs with ledger lines" },
   "home.catProduction": { de: "Produktion", en: "Production" },
   "home.catProductionDesc": { de: "Frequenzen & EQ-Anhebungen im Noise heraushören", en: "Identify frequencies & EQ boosts in pink noise" },
-  "home.toolMetronome": { de: "Metronom", en: "Metronome" },
-  "home.toolMetronomeDesc": { de: "Tap-Tempo, Zählzeiten & Profile", en: "Tap tempo, custom beats & profiles" },
-  "home.toolTuner": { de: "Tuner (folgt bald)", en: "Tuner (coming soon)" },
-  "home.toolTunerDesc": { de: "Stimmgerät & Tonhöhen-Anzeige", en: "Chromatic tuner & pitch meter" },
   "home.voiceHeading": { de: "Stimme & Chor", en: "Voice & Choir" },
   "home.catWarmup": { de: "Einsing-Helfer", en: "Vocal Warmup" },
   "home.catWarmupDesc": { de: "5-Minuten-Warmup: Atem, Summen, Arpeggios & Chorklang", en: "5-min routine: breath, humming, arpeggios & choir blend" },
 
+  "tools.heading": { de: "Werkzeuge", en: "Tools" },
+  "tools.intro": { de: "Eigenständige Praxis-Werkzeuge neben den Gehör-Übungen.", en: "Standalone practice tools alongside ear training." },
+  "tools.metronomeTitle": { de: "Metronom", en: "Metronome" },
+  "tools.metronomeSub": { de: "Puls & Tap-Tempo", en: "Pulse & Tap Tempo" },
+  "tools.tunerTitle": { de: "Tuner", en: "Tuner" },
+  "tools.freeplayTitle": { de: "Freies Spiel", en: "Free Play" },
+  "tools.soonBadge": { de: "Bald", en: "Soon" },
+  "tools.previewBadge": { de: "Bald verfügbar", en: "Coming soon" },
+  "tools.tunerPageTitle": { de: "Chromatischer Tuner", en: "Chromatic Tuner" },
+  "tools.tunerPageDesc": { de: "Live-Tonhöhenerkennung und Kammerton-Referenz direkt über das Mikrofon deines Geräts.", en: "Live pitch detection and tuning reference directly via your device microphone." },
+  "tools.freeplayPageTitle": { de: "Freies Spiel", en: "Free Play" },
+  "tools.freeplayPageDesc": { de: "Freie Klaviatur und Akkord-Flächen zum Ausprobieren, Improvisieren und Nachspielen mit deinen Mixer-Instrumenten.", en: "Free keyboard and chord pads for improvising, exploring sounds, and playing along with your mixer instruments." },
+  "tools.backBtn": { de: "← Zurück zu Tools", en: "← Back to Tools" },
+
   "knowledge.tabsAria": { de: "Wissensbereiche", en: "Knowledge sections" },
-  "knowledge.tabTheory": { de: "Theorie & Tools", en: "Theory & Tools" },
+  "knowledge.tabTheory": { de: "Theorie", en: "Theory" },
   "knowledge.tabArticles": { de: "Artikel", en: "Articles" },
   "knowledge.tabInstruments": { de: "Instrumente", en: "Instruments" },
   "knowledge.refHeading": { de: "Referenzmaterialien", en: "Reference Guides" },
@@ -15337,6 +15506,7 @@ const I18N_STATIC = {
 
   "nav.mainAria": { de: "Hauptnavigation", en: "Main navigation" },
   "nav.home": { de: "Startseite", en: "Home" },
+  "nav.tools": { de: "Tools", en: "Tools" },
   "nav.knowledge": { de: "Wissen", en: "Knowledge" },
   "nav.space": { de: "Mein Konto", en: "My Account" },
 
@@ -16382,15 +16552,24 @@ const I18N_STATIC_FR = {
   "home.catNotationDesc": "Lire en clés de Sol, Fa & Ut 3 avec lignes supplémentaires",
   "home.catProduction": "Production",
   "home.catProductionDesc": "Identifier les fréquences & boosts d’égalisation dans du bruit rose",
-  "home.toolMetronome": "Métronome",
-  "home.toolMetronomeDesc": "Tap Tempo, temps & profils",
-  "home.toolTuner": "Accordeur (bientôt)",
-  "home.toolTunerDesc": "Accordeur chromatique & diapason",
   "home.voiceHeading": "Voix & Chœur",
   "home.catWarmup": "Échauffement vocal",
   "home.catWarmupDesc": "Routine 5 min : souffle, bouche fermée, arpèges & fondu choral",
+  "tools.heading": "Outils",
+  "tools.intro": "Des outils pratiques autonomes en complément des exercices.",
+  "tools.metronomeTitle": "Métronome",
+  "tools.metronomeSub": "Pulsation & Tap Tempo",
+  "tools.tunerTitle": "Accordeur",
+  "tools.freeplayTitle": "Jeu libre",
+  "tools.soonBadge": "Bientôt",
+  "tools.previewBadge": "Bientôt disponible",
+  "tools.tunerPageTitle": "Accordeur chromatique",
+  "tools.tunerPageDesc": "Détection de hauteur en direct et diapason de référence via le microphone de votre appareil.",
+  "tools.freeplayPageTitle": "Jeu libre",
+  "tools.freeplayPageDesc": "Clavier libre et nappes d’accords pour improviser, explorer les timbres et jouer avec vos instruments du mixeur.",
+  "tools.backBtn": "← Retour aux outils",
   "knowledge.tabsAria": "Sections de connaissances",
-  "knowledge.tabTheory": "Théorie & Outils",
+  "knowledge.tabTheory": "Théorie",
   "knowledge.tabArticles": "Articles",
   "knowledge.tabInstruments": "Instruments",
   "knowledge.refHeading": "Guides de référence",
@@ -16565,6 +16744,7 @@ const I18N_STATIC_FR = {
   "warmup.nextTitle": "Exercice suivant",
   "nav.mainAria": "Navigation principale",
   "nav.home": "Accueil",
+  "nav.tools": "Outils",
   "nav.knowledge": "Savoir",
   "nav.space": "Mon compte",
   "mixer.title": "Console",
@@ -18370,7 +18550,15 @@ Object.assign(TR_FR, {
   "Stufe 5 • Blattspiel Tonarten (1–2 ♯/♭)": "Niveau 5 • Armures (1–2 ♯/♭)",
   "G-, D-, F- & B-Dur im Notensystem (±2 Hilfslinien) mit vorgegebenen Vorzeichen": "Sol, Ré, Fa & Si♭ majeur à la clé (±2 lignes suppl.)",
   "Stufe 6 • Alle Tonarten + ♮ (1–6 ♯/♭)": "Niveau 6 • Toutes armures + ♮ (1–6 ♯/♭)",
-  "Alle 12 Vorzeichen-Tonarten (±3 Hilfslinien) inklusive Auflösungszeichen (♮)": "Les 12 armures (±3 lignes suppl.) incluant les bécarres (♮)"
+  "Alle 12 Vorzeichen-Tonarten (±3 Hilfslinien) inklusive Auflösungszeichen (♮)": "Les 12 armures (±3 lignes suppl.) incluant les bécarres (♮)",
+  "Tools": "Outils",
+  "Metronom, Tuner & Freies Spiel": "Métronome, accordeur & jeu libre",
+  "Tuner": "Accordeur",
+  "Stimmgerät & Tonhöhen-Anzeige": "Accordeur chromatique & diapason",
+  "Freies Spiel": "Jeu libre",
+  "Freies Ausprobieren mit Klaviatur & Klängen": "Explorer librement notes, accords & timbres",
+  "Mikrofonzugriff bereit (HTTPS / localhost aktiv).": "Accès au microphone prêt (HTTPS / localhost actif).",
+  "Hinweis: Für den Tuner ist später HTTPS oder http://localhost erforderlich – auf file:// oder unverschlüsseltem LAN-HTTP blockieren Browser das Mikrofon.": "Remarque : l’accordeur nécessitera HTTPS ou http://localhost — les navigateurs bloquent le microphone sur file:// ou HTTP local non chiffré."
 });
 
 if (typeof registerLanguageBundle === "function") {
@@ -18521,15 +18709,24 @@ const I18N_STATIC_PL = {
   "home.catNotationDesc": "Czytaj nuty w kluczu wiolinowym, basowym i altowym z liniami dodanymi",
   "home.catProduction": "Produkcja",
   "home.catProductionDesc": "Rozpoznawaj częstotliwości oraz podbicia EQ w szumie różowym",
-  "home.toolMetronome": "Metronom",
-  "home.toolMetronomeDesc": "Tap Tempo, akcenty miar i profile",
-  "home.toolTuner": "Tuner (wkrótce)",
-  "home.toolTunerDesc": "Stroik chromatyczny i ton wzorcowy",
   "home.voiceHeading": "Głos i chór",
   "home.catWarmup": "Rozgrzewka głosowa",
   "home.catWarmupDesc": "5-min trening: oddech, mormorando, arpeggia i brzmienie chóru",
+  "tools.heading": "Narzędzia",
+  "tools.intro": "Niezależne narzędzia do ćwiczeń obok treningu słuchu.",
+  "tools.metronomeTitle": "Metronom",
+  "tools.metronomeSub": "Puls i Tap Tempo",
+  "tools.tunerTitle": "Stroik",
+  "tools.freeplayTitle": "Swobodna gra",
+  "tools.soonBadge": "Wkrótce",
+  "tools.previewBadge": "Wkrótce dostępne",
+  "tools.tunerPageTitle": "Stroik chromatyczny",
+  "tools.tunerPageDesc": "Wykrywanie wysokości dźwięku na żywo i ton wzorcowy przez mikrofon urządzenia.",
+  "tools.freeplayPageTitle": "Swobodna gra",
+  "tools.freeplayPageDesc": "Swobodna klawiatura i pady akordów do improwizacji oraz grania z instrumentami z miksera.",
+  "tools.backBtn": "← Powrót do narzędzi",
   "knowledge.tabsAria": "Działy wiedzy",
-  "knowledge.tabTheory": "Teoria i narzędzia",
+  "knowledge.tabTheory": "Teoria",
   "knowledge.tabArticles": "Artykuły",
   "knowledge.tabInstruments": "Instrumenty",
   "knowledge.refHeading": "Materiały referencyjne",
@@ -18704,6 +18901,7 @@ const I18N_STATIC_PL = {
   "warmup.nextTitle": "Następny krok",
   "nav.mainAria": "Nawigacja główna",
   "nav.home": "Start",
+  "nav.tools": "Narzędzia",
   "nav.knowledge": "Wiedza",
   "nav.space": "Mój profil",
   "mixer.title": "Mikser",
@@ -20554,7 +20752,15 @@ Object.assign(TR_PL, {
   "Stufe 5 • Blattspiel Tonarten (1–2 ♯/♭)": "Poziom 5 • Tonacje a vista (1–2 ♯/♭)",
   "G-, D-, F- & B-Dur im Notensystem (±2 Hilfslinien) mit vorgegebenen Vorzeichen": "G-, D-, F- i B-dur na pięciolinii (±2 linie dodane) ze znakami przykluczowymi",
   "Stufe 6 • Alle Tonarten + ♮ (1–6 ♯/♭)": "Poziom 6 • Wszystkie tonacje + ♮ (1–6 ♯/♭)",
-  "Alle 12 Vorzeichen-Tonarten (±3 Hilfslinien) inklusive Auflösungszeichen (♮)": "Wszystkie 12 tonacji ze znakami przykluczowymi (±3 linie dodane) wraz z kasownikami (♮)"
+  "Alle 12 Vorzeichen-Tonarten (±3 Hilfslinien) inklusive Auflösungszeichen (♮)": "Wszystkie 12 tonacji ze znakami przykluczowymi (±3 linie dodane) wraz z kasownikami (♮)",
+  "Tools": "Narzędzia",
+  "Metronom, Tuner & Freies Spiel": "Metronom, stroik i swobodna gra",
+  "Tuner": "Stroik",
+  "Stimmgerät & Tonhöhen-Anzeige": "Stroik chromatyczny i ton wzorcowy",
+  "Freies Spiel": "Swobodna gra",
+  "Freies Ausprobieren mit Klaviatur & Klängen": "Swobodne odkrywanie dźwięków i klawiatury",
+  "Mikrofonzugriff bereit (HTTPS / localhost aktiv).": "Dostęp do mikrofonu gotowy (aktywne HTTPS / localhost).",
+  "Hinweis: Für den Tuner ist später HTTPS oder http://localhost erforderlich – auf file:// oder unverschlüsseltem LAN-HTTP blockieren Browser das Mikrofon.": "Uwaga: stroik będzie wymagał HTTPS lub http://localhost — przeglądarki blokują mikrofon w trybie file:// lub nieszyfrowanego HTTP w sieci lokalnej."
 });
 
 if (typeof registerLanguageBundle === "function") {
@@ -20706,15 +20912,24 @@ const I18N_STATIC_UK = {
   "home.catNotationDesc": "Читання нот у скрипковому, басовому й альтовому ключах",
   "home.catProduction": "Продакшн",
   "home.catProductionDesc": "Розпізнавай частоти та підсилення еквалайзера в рожевому шумі",
-  "home.toolMetronome": "Метроном",
-  "home.toolMetronomeDesc": "Tap-темп, долі та профілі",
-  "home.toolTuner": "Тюнер (незабаром)",
-  "home.toolTunerDesc": "Хроматичний тюнер і камертон",
   "home.voiceHeading": "Голос і хор",
   "home.catWarmup": "Розспівка",
   "home.catWarmupDesc": "5-хв програма: дихання, гудіння, арпеджіо та хорове злиття",
+  "tools.heading": "Інструменти",
+  "tools.intro": "Окремі практичні інструменти поруч із вправами для слуху.",
+  "tools.metronomeTitle": "Метроном",
+  "tools.metronomeSub": "Пульс і Tap-темп",
+  "tools.tunerTitle": "Тюнер",
+  "tools.freeplayTitle": "Вільна гра",
+  "tools.soonBadge": "Незабаром",
+  "tools.previewBadge": "Незабаром",
+  "tools.tunerPageTitle": "Хроматичний тюнер",
+  "tools.tunerPageDesc": "Розпізнавання висоти звуку наживо та камертон через мікрофон пристрою.",
+  "tools.freeplayPageTitle": "Вільна гра",
+  "tools.freeplayPageDesc": "Вільна клавіатура та акордові педи для імпровізації й гри з інструментами мікшера.",
+  "tools.backBtn": "← Назад до інструментів",
   "knowledge.tabsAria": "Розділи знань",
-  "knowledge.tabTheory": "Теорія та інструменти",
+  "knowledge.tabTheory": "Теорія",
   "knowledge.tabArticles": "Статті",
   "knowledge.tabInstruments": "Інструменти",
   "knowledge.refHeading": "Довідники",
@@ -20889,6 +21104,7 @@ const I18N_STATIC_UK = {
   "warmup.nextTitle": "Наступний крок",
   "nav.mainAria": "Головна навігація",
   "nav.home": "Головна",
+  "nav.tools": "Інструменти",
   "nav.knowledge": "Знання",
   "nav.space": "Мій профіль",
   "mixer.title": "Мікшер",
@@ -22740,7 +22956,15 @@ Object.assign(TR_UK, {
   "Stufe 5 • Blattspiel Tonarten (1–2 ♯/♭)": "Рівень 5 • Тональності (1–2 ♯/♭)",
   "G-, D-, F- & B-Dur im Notensystem (±2 Hilfslinien) mit vorgegebenen Vorzeichen": "Соль, Ре, Фа та Сі♭ мажор при ключі (±2 дод. лінійки)",
   "Stufe 6 • Alle Tonarten + ♮ (1–6 ♯/♭)": "Рівень 6 • Усі тональності + ♮ (1–6 ♯/♭)",
-  "Alle 12 Vorzeichen-Tonarten (±3 Hilfslinien) inklusive Auflösungszeichen (♮)": "Усі 12 тональностей при ключі (±3 дод. лінійки) включно з бекарами (♮)"
+  "Alle 12 Vorzeichen-Tonarten (±3 Hilfslinien) inklusive Auflösungszeichen (♮)": "Усі 12 тональностей при ключі (±3 дод. лінійки) включно з бекарами (♮)",
+  "Tools": "Інструменти",
+  "Metronom, Tuner & Freies Spiel": "Метроном, тюнер і вільна гра",
+  "Tuner": "Тюнер",
+  "Stimmgerät & Tonhöhen-Anzeige": "Хроматичний тюнер і камертон",
+  "Freies Spiel": "Вільна гра",
+  "Freies Ausprobieren mit Klaviatur & Klängen": "Вільне дослідження нот, акордів і тембрів",
+  "Mikrofonzugriff bereit (HTTPS / localhost aktiv).": "Доступ до мікрофона готовий (HTTPS / localhost активні).",
+  "Hinweis: Für den Tuner ist später HTTPS oder http://localhost erforderlich – auf file:// oder unverschlüsseltem LAN-HTTP blockieren Browser das Mikrofon.": "Примітка: для тюнера потрібен HTTPS або http://localhost — браузери блокують мікрофон на file:// чи незашифрованому LAN-HTTP."
 });
 
 if (typeof registerLanguageBundle === "function") {
@@ -22892,15 +23116,24 @@ const I18N_STATIC_UR = {
   "home.catNotationDesc": "ٹریبل، باس اور آلٹو کلیف میں لیجر لائنز کے ساتھ نوٹ پڑھیں",
   "home.catProduction": "پروڈکشن",
   "home.catProductionDesc": "فریکوئنسیز اور پنک نوائز میں EQ بوسٹ پہچانیں",
-  "home.toolMetronome": "میٹرونوم",
-  "home.toolMetronomeDesc": "ٹیپ ٹیمپو، بیٹس اور پروفائلز",
-  "home.toolTuner": "ٹیونر (جلد آ رہا ہے)",
-  "home.toolTunerDesc": "کرومیٹک ٹیونر اور حوالہ جاتی سُر",
   "home.voiceHeading": "آواز اور کورس",
   "home.catWarmup": "ووکل وارم اپ",
   "home.catWarmupDesc": "5 منٹ کا معمول: سانس، گنگنانا، آرپیجیو اور کورس بلینڈ",
+  "tools.heading": "اوزار",
+  "tools.intro": "کان کی مشقوں کے ساتھ الگ عملی اوزار۔",
+  "tools.metronomeTitle": "میٹرونوم",
+  "tools.metronomeSub": "نبض اور ٹیپ ٹیمپو",
+  "tools.tunerTitle": "ٹیونر",
+  "tools.freeplayTitle": "آزاد مشق",
+  "tools.soonBadge": "جلد",
+  "tools.previewBadge": "جلد دستیاب",
+  "tools.tunerPageTitle": "کرومیٹک ٹیونر",
+  "tools.tunerPageDesc": "آپ کے آلے کے مائیکروفون کے ذریعے براہِ راست سُر کی شناخت اور حوالہ جاتی سُر۔",
+  "tools.freeplayPageTitle": "آزاد مشق",
+  "tools.freeplayPageDesc": "مکسر کے سازوں کے ساتھ آزادانہ بجانے، تجربہ کرنے اور کورڈ پیڈز کے لیے مفت کی بورڈ۔",
+  "tools.backBtn": "اوزار پر واپس جائیں ←",
   "knowledge.tabsAria": "علم کے شعبے",
-  "knowledge.tabTheory": "نظریہ اور اوزار",
+  "knowledge.tabTheory": "نظریہ",
   "knowledge.tabArticles": "مضامین",
   "knowledge.tabInstruments": "ساز (Instruments)",
   "knowledge.refHeading": "حوالہ جاتی گائیڈز",
@@ -23075,6 +23308,7 @@ const I18N_STATIC_UR = {
   "warmup.nextTitle": "اگلی مشق",
   "nav.mainAria": "مرکزی نیویگیشن",
   "nav.home": "ہوم",
+  "nav.tools": "اوزار",
   "nav.knowledge": "علم و معلومات",
   "nav.space": "میرا اکاؤنٹ",
   "mixer.title": "مِکسر",
@@ -24950,7 +25184,15 @@ Object.assign(TR_UR, {
   "Streicher-Fläche hält den Grundton – gleich folgt das Klavier…": "اسٹرنگز پیڈ بنیادی سُر کو تھامے ہوئے ہے – پیانو آنے والا ہے…",
   "KLAVIER • GESUCHT": "پیانو • مطلوبہ",
   "Welches Intervall erklingt über der Grundton-Fläche?": "بنیادی سُر کے پیڈ پر کون سا انٹرول بج رہا ہے؟",
-  "Intervalle (Grundton-Fläche)": "انٹرولز (بنیادی سُر کا پیڈ)"
+  "Intervalle (Grundton-Fläche)": "انٹرولز (بنیادی سُر کا پیڈ)",
+  "Tools": "اوزار",
+  "Metronom, Tuner & Freies Spiel": "میٹرونوم، ٹیونر اور آزاد مشق",
+  "Tuner": "ٹیونر",
+  "Stimmgerät & Tonhöhen-Anzeige": "کرومیٹک ٹیونر اور حوالہ جاتی سُر",
+  "Freies Spiel": "آزاد مشق",
+  "Freies Ausprobieren mit Klaviatur & Klängen": "سُروں، کورڈز اور آوازوں کا آزادانہ تجربہ",
+  "Mikrofonzugriff bereit (HTTPS / localhost aktiv).": "مائیکروفون تک رسائی تیار ہے (HTTPS / localhost فعال ہے)۔",
+  "Hinweis: Für den Tuner ist später HTTPS oder http://localhost erforderlich – auf file:// oder unverschlüsseltem LAN-HTTP blockieren Browser das Mikrofon.": "نوٹ: ٹیونر کے لیے HTTPS یا http://localhost درکار ہوگا — براؤزر file:// یا غیر خفیہ کردہ مقامی HTTP پر مائیکروفون کو بلاک کر دیتے ہیں۔"
 });
 
 if (typeof registerLanguageBundle === "function") {
@@ -51682,7 +51924,10 @@ class AppState {
       vowelLabel: "",
       hintText: ""
     };
-    this.metronomeReturnView = "home";
+    this.metronomeReturnView = "tools";
+    this.tunerReturnView = "tools";
+    this.freeplayReturnView = "tools";
+    this.tunerStream = null;
     this.metronome = {
       bpm: METRONOME_DEFAULT_BPM,
       beats: getDefaultMeterBeats(4),
@@ -52070,6 +52315,9 @@ class AppState {
       el.textContent = typeof getStaticI18nText === "function"
         ? (getStaticI18nText("app.tagline") || tr("Hören · Verstehen · Musizieren", "Listen · Understand · Play"))
         : tr("Hören · Verstehen · Musizieren", "Listen · Understand · Play");
+    } else if (this.currentView === "tools") {
+      mainTitle.textContent = tr("Tools", "Tools");
+      el.textContent = tr("Metronom, Tuner & Freies Spiel", "Metronome, Tuner & Free Play");
     } else if (this.currentView === "knowledge") {
       mainTitle.textContent = tr("Wissen", "Knowledge");
       if (this.activeKnowledgeTab === "instruments") {
@@ -52118,6 +52366,12 @@ class AppState {
         bpm: metro.bpm || METRONOME_DEFAULT_BPM,
         n: beatLen
       });
+    } else if (this.currentView === "tuner") {
+      mainTitle.textContent = tr("Tuner", "Tuner");
+      el.textContent = tr("Stimmgerät & Tonhöhen-Anzeige", "Chromatic tuner & pitch meter");
+    } else if (this.currentView === "freeplay") {
+      mainTitle.textContent = tr("Freies Spiel", "Free Play");
+      el.textContent = tr("Freies Ausprobieren mit Klaviatur & Klängen", "Explore notes & sounds freely");
     } else if (this.currentView === "exercise" && this.exam?.active) {
       const curQ = Math.min((this.exam.currentIdx || 0) + 1, this.exam.totalQuestions || 1);
       const presetMeta = typeof getExamPresetById === "function" ? getExamPresetById(this.exam.categoryKey, this.exam.levelId) : null;
@@ -52364,6 +52618,9 @@ function setLanguagePreference(nextLang) {
   }
   if (typeof renderMetronomeView === "function" && state.currentView === "metronome") {
     renderMetronomeView();
+  }
+  if (typeof renderTunerPreviewView === "function" && state.currentView === "tuner") {
+    renderTunerPreviewView();
   }
 
   state.updateHeaderSubtext();
@@ -54612,6 +54869,8 @@ function captureHistorySnapshot(modalName = getOpenModalName()) {
     exerciseReturnView: state.exerciseReturnView,
     warmupReturnView: state.warmupReturnView,
     metronomeReturnView: state.metronomeReturnView,
+    tunerReturnView: state.tunerReturnView,
+    freeplayReturnView: state.freeplayReturnView,
     modal: modalName
   };
 }
@@ -54651,6 +54910,12 @@ function applyHistorySnapshot(snapshot) {
     }
     if (snapshot.metronomeReturnView) {
       state.metronomeReturnView = snapshot.metronomeReturnView;
+    }
+    if (snapshot.tunerReturnView) {
+      state.tunerReturnView = snapshot.tunerReturnView;
+    }
+    if (snapshot.freeplayReturnView) {
+      state.freeplayReturnView = snapshot.freeplayReturnView;
     }
     if (snapshot.activeCategory) {
       state.activeCategory = snapshot.activeCategory;
@@ -54730,7 +54995,11 @@ function navigateBackFromUI() {
   } else if (state.currentView === "warmup") {
     switchView(state.warmupReturnView || "category", { skipHistoryPush: true });
   } else if (state.currentView === "metronome") {
-    switchView(state.metronomeReturnView || "home", { skipHistoryPush: true });
+    switchView(state.metronomeReturnView || "tools", { skipHistoryPush: true });
+  } else if (state.currentView === "tuner") {
+    switchView(state.tunerReturnView || "tools", { skipHistoryPush: true });
+  } else if (state.currentView === "freeplay") {
+    switchView(state.freeplayReturnView || "tools", { skipHistoryPush: true });
   } else if (state.currentView === "exam-result") {
     switchView(state.examResultReturnView || "exam-setup", { skipHistoryPush: true });
   } else if (state.currentView === "exam-setup") {
@@ -54744,7 +55013,7 @@ function navigateBackFromUI() {
   }
 }
 
-const MAIN_TAB_ORDER = ["home", "knowledge", "space"];
+const MAIN_TAB_ORDER = ["home", "tools", "knowledge", "space"];
 let pendingSwipeDir = null;
 let activeViewLeaveState = null;
 
@@ -54758,6 +55027,7 @@ function prefersReducedMotion() {
 
 function getTabForView(view) {
   if (view === "home" || view === "category" || view === "category-help" || view === "exam-setup") return "home";
+  if (view === "tools" || view === "metronome" || view === "tuner" || view === "freeplay") return "tools";
   if (view === "exam-result") return state.examResultReturnView === "space" ? "space" : "home";
   if (view === "knowledge" || view === "knowledge-detail") return "knowledge";
   if (view === "space") return "space";
@@ -54768,7 +55038,7 @@ function getViewOrderInfo(view) {
   const tab = getTabForView(view) || "home";
   const tabIdx = MAIN_TAB_ORDER.indexOf(tab);
   let depth = 0;
-  if (view === "category" || view === "knowledge-detail" || view === "metronome") depth = 1;
+  if (view === "category" || view === "knowledge-detail" || view === "metronome" || view === "tuner" || view === "freeplay") depth = 1;
   else if (view === "category-help" || view === "exam-setup") depth = 2;
   else if (view === "exercise" || view === "warmup") depth = 3;
   else if (view === "exam-result") depth = 4;
@@ -54841,10 +55111,22 @@ function navigateToMainTab(targetTab, swipeDir = null) {
 
   if (
     targetTab === "home" &&
-    (state.currentView === "knowledge" || state.currentView === "space" || state.currentView === "category") &&
+    (state.currentView === "tools" || state.currentView === "knowledge" || state.currentView === "space" || state.currentView === "category") &&
     canHistory &&
     appHistoryState.idx === 1 &&
     window.history.state?.idx === 1
+  ) {
+    pendingSwipeDir = swipeDir;
+    window.history.back();
+    return true;
+  }
+
+  if (
+    targetTab === "tools" &&
+    (state.currentView === "metronome" || state.currentView === "tuner" || state.currentView === "freeplay") &&
+    canHistory &&
+    appHistoryState.idx >= 1 &&
+    window.history.state?.idx >= 1
   ) {
     pendingSwipeDir = swipeDir;
     window.history.back();
@@ -54897,8 +55179,12 @@ function hasHorizontalScrollableAncestor(target) {
   return false;
 }
 
+function isTabSwipeBlockedView(view) {
+  return view === "exercise" || view === "warmup" || view === "metronome" || view === "tuner" || view === "freeplay";
+}
+
 function handleHorizontalTabSwipe({ startX, startY, endX, endY, durationMs, viewportWidth, target }) {
-  if (state.currentView === "exercise") return false;
+  if (isTabSwipeBlockedView(state.currentView)) return false;
   if (getOpenModalName() !== null) return false;
 
   const splash = document.getElementById("startupSplash");
@@ -54949,7 +55235,7 @@ function initTabSwipeNavigation() {
       tracker = null;
       return;
     }
-    if (state.currentView === "exercise" || state.currentView === "metronome" || getOpenModalName() !== null) {
+    if (isTabSwipeBlockedView(state.currentView) || getOpenModalName() !== null) {
       tracker = null;
       return;
     }
@@ -55046,6 +55332,12 @@ function switchView(targetView, options = {}) {
   if (prevView === "metronome" && targetView !== "metronome" && typeof stopMetronome === "function") {
     stopMetronome();
   }
+  if (prevView === "tuner" && targetView !== "tuner" && typeof stopTunerSession === "function") {
+    stopTunerSession();
+  }
+  if (prevView === "freeplay" && targetView !== "freeplay" && typeof stopFreeplaySession === "function") {
+    stopFreeplaySession();
+  }
   stopPlayback();
   stopWaveAnimation();
   closeTransientPopovers();
@@ -55070,6 +55362,7 @@ function switchView(targetView, options = {}) {
 
   const views = {
     home: document.getElementById("viewHome"),
+    tools: document.getElementById("viewTools"),
     category: document.getElementById("viewCategory"),
     "category-help": document.getElementById("viewCategoryHelp"),
     "exam-setup": document.getElementById("viewExamSetup"),
@@ -55079,7 +55372,9 @@ function switchView(targetView, options = {}) {
     space: document.getElementById("viewSpace"),
     exercise: document.getElementById("viewExercise"),
     warmup: document.getElementById("viewWarmup"),
-    metronome: document.getElementById("viewMetronome")
+    metronome: document.getElementById("viewMetronome"),
+    tuner: document.getElementById("viewTuner"),
+    freeplay: document.getElementById("viewFreeplay")
   };
 
   finishActiveViewLeave();
@@ -55131,9 +55426,9 @@ function switchView(targetView, options = {}) {
     triggerTabEnterAnimation(nextEl, animDir);
   }
 
-  const isMainTabView = targetView === "home" || targetView === "knowledge" || targetView === "space";
+  const isMainTabView = targetView === "home" || targetView === "tools" || targetView === "knowledge" || targetView === "space";
   const activeTab = getTabForView(targetView);
-  const showBottomNav = targetView !== "exercise" && targetView !== "warmup" && targetView !== "metronome";
+  const showBottomNav = !isTabSwipeBlockedView(targetView);
   document.getElementById("bottomNav")?.classList.toggle("hidden", !showBottomNav);
   document.getElementById("backBtn")?.classList.toggle("hidden", isMainTabView);
 
@@ -55154,6 +55449,8 @@ function switchView(targetView, options = {}) {
     renderWarmupView();
   } else if (targetView === "metronome" && typeof renderMetronomeView === "function") {
     renderMetronomeView();
+  } else if (targetView === "tuner" && typeof renderTunerPreviewView === "function") {
+    renderTunerPreviewView();
   }
 
   if (targetView === "exercise") {
@@ -55175,9 +55472,11 @@ function switchView(targetView, options = {}) {
   }
 
   if (!options.skipHistoryPush && !appHistoryState.isApplying && targetView !== prevView) {
+    const secondaryMainTabs = new Set(["tools", "knowledge", "space"]);
     const isMainSwitchBetweenTabs =
-      (prevView === "knowledge" && targetView === "space") ||
-      (prevView === "space" && targetView === "knowledge");
+      secondaryMainTabs.has(prevView) &&
+      secondaryMainTabs.has(targetView) &&
+      prevView !== targetView;
 
     if (isMainSwitchBetweenTabs) {
       replaceAppHistory(null);
@@ -67281,7 +67580,7 @@ document.addEventListener("DOMContentLoaded", () => {
     pickRandomQuote();
   });
 
-  // Untere 3-Icon Reiter-Navigation
+  // Untere 4-Icon Reiter-Navigation
   document.querySelectorAll(".nav-tab").forEach(tab => {
     tab.addEventListener("click", () => {
       const target = tab.dataset.nav;
@@ -67301,9 +67600,21 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Startseite: Metronom-Kachel öffnet das Praxis-Metronom
+  // Tools-Tab: Metronom, Tuner & Freies Spiel
   document.getElementById("openMetronomeBtn")?.addEventListener("click", () => {
-    openMetronomeView("home");
+    openMetronomeView("tools");
+  });
+  document.getElementById("openTunerBtn")?.addEventListener("click", () => {
+    openTunerView("tools");
+  });
+  document.getElementById("openFreeplayBtn")?.addEventListener("click", () => {
+    openFreeplayView("tools");
+  });
+  document.getElementById("tunerBackBtn")?.addEventListener("click", () => {
+    navigateBackFromUI();
+  });
+  document.getElementById("freeplayBackBtn")?.addEventListener("click", () => {
+    navigateBackFromUI();
   });
   initMetronomeEventListeners();
 
@@ -70316,7 +70627,7 @@ function renderMetronomeView() {
   syncMetronomeTransportUI();
 }
 
-function openMetronomeView(returnView = "home") {
+function openMetronomeView(returnView = "tools") {
   state.metronomeReturnView = returnView;
   _metroRuntime.tapTimestamps = [];
   const tapSub = document.getElementById("metroTapSub");
@@ -70327,6 +70638,55 @@ function openMetronomeView(returnView = "home") {
     noticeEl.classList.add("hidden");
   }
   switchView("metronome");
+}
+
+function releaseTunerMicStream() {
+  const stream = state.tunerStream;
+  if (!stream) return;
+  try {
+    stream.getTracks?.().forEach(track => {
+      try { track.stop(); } catch (_) {}
+    });
+  } catch (_) {}
+  state.tunerStream = null;
+}
+
+function stopTunerSession() {
+  releaseTunerMicStream();
+}
+
+function stopFreeplaySession() {
+  stopPlayback();
+}
+
+function renderTunerPreviewView() {
+  const noticeEl = document.getElementById("tunerSecureContextNotice");
+  if (!noticeEl) return;
+  const hasMediaDevices = typeof navigator !== "undefined" && Boolean(navigator.mediaDevices?.getUserMedia);
+  const isSecure = typeof window === "undefined" || window.isSecureContext !== false;
+  noticeEl.classList.remove("hidden", "is-warning");
+  if (isSecure && hasMediaDevices) {
+    noticeEl.textContent = tr(
+      "Mikrofonzugriff bereit (HTTPS / localhost aktiv).",
+      "Microphone access ready (HTTPS / localhost active)."
+    );
+  } else {
+    noticeEl.classList.add("is-warning");
+    noticeEl.textContent = tr(
+      "Hinweis: Für den Tuner ist später HTTPS oder http://localhost erforderlich – auf file:// oder unverschlüsseltem LAN-HTTP blockieren Browser das Mikrofon.",
+      "Note: The tuner will require HTTPS or http://localhost — browsers block microphone access on file:// or unencrypted LAN HTTP."
+    );
+  }
+}
+
+function openTunerView(returnView = "tools") {
+  state.tunerReturnView = returnView;
+  switchView("tuner");
+}
+
+function openFreeplayView(returnView = "tools") {
+  state.freeplayReturnView = returnView;
+  switchView("freeplay");
 }
 
 function initMetronomeEventListeners() {
