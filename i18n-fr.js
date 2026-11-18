@@ -289,7 +289,7 @@ const I18N_STATIC_FR = {
   "mixer.tabsAria": "Choisir la vue de la console",
   "mixer.tabLevels": "Volumes",
   "mixer.tabReverb": "Réverbération",
-  "mixer.levelsHeading": "Volumes",
+  "mixer.levelsHeading": "Instruments",
   "mixer.piano": "Piano",
   "mixer.guitar": "Guitare",
   "mixer.strings": "Cordes",
