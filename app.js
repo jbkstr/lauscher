@@ -2715,7 +2715,7 @@ class AppState {
       const tInst = tp ? TUNER_INSTRUMENTS[tp.instrument] : null;
       const tTun = tInst?.tunings ? tInst.tunings[tp.tuning] : null;
       el.textContent = tInst
-        ? `${tr(tInst.de, tInst.en)}${tTun ? ` • ${tr(tTun.de, tTun.en)}` : ""} • A = ${tp.a4} Hz`
+        ? `${tr(tInst.de, tInst.en)}${tTun ? ` • ${tr(tTun.de, tTun.en)}` : ""}`
         : tr("Stimmgerät & Tonhöhen-Anzeige", "Chromatic tuner & pitch meter");
     } else if (this.currentView === "freeplay") {
       mainTitle.textContent = tr("Freies Spiel", "Free Play");
@@ -22128,15 +22128,18 @@ function renderTunerReadout(info) {
   const prefs = getTunerPrefs();
 
   if (targetEl) {
-    if (prefs.mode === "single") {
+    // Einzelton: Ziel in der Messzeile („Ziel: E4 • +3 ¢ • 330 Hz“); automatisch ohne Zusatz
+    const isSingle = prefs.mode === "single";
+    if (isSingle) {
       const t = getTunerTargetMidi(prefs);
-      const strings = getTunerStrings(prefs);
-      const flat = strings.some(st => st.flat);
+      const flat = getTunerStrings(prefs).some(st => st.flat);
       const tn = formatTunerNote(t, flat);
       targetEl.textContent = tf("Ziel: {note}", "Target: {note}", { note: `${tn.name}${tn.octave}` });
     } else {
-      targetEl.textContent = tr("Automatisch", "Automatic");
+      targetEl.textContent = "";
     }
+    targetEl.classList.toggle("hidden", !isSingle);
+    document.getElementById("tunerTargetDot")?.classList.toggle("hidden", !isSingle);
   }
 
   if (!info) {
