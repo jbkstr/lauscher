@@ -13807,6 +13807,40 @@ function getChordArpeggioPromptTiming(noteCount, bpm = state.activeBpm) {
   return { stepMs, noteDurSec, lastNoteDurSec, cycleMs };
 }
 
+/** Liefert die kontextabhängige Beschriftung des zweiten Diagnose-Buttons bei Fehlern. */
+function getDiagBassButtonLabel(ex) {
+  const type = ex?.type || "";
+  if (type.startsWith("rhythm-")) return tr("Puls / Eins hören", "Hear Pulse / One");
+  if (type === "prod-eq-noise") return tr("Flat → Ziel-EQ", "Flat → Target EQ");
+  if (type === "prod-tone") return tr("Ref: 1 kHz", "Ref: 1 kHz");
+  if (type.startsWith("modes-")) return tr("Anker-Quinte", "Anchor Fifth");
+  if (type === "chord-inversions") return tr("Basston hören", "Hear Bass Note");
+  if (type === "interval-drone") return tr("Fläche hören", "Hear Root Pad");
+  return tr("Bass / Grundton", "Bass / Root");
+}
+
+/** Aktualisiert Text, Werkzeug-Button, Sichtbarkeit und Fit-Layout der „Gewählt“-Feedbackkarte. */
+function renderWrongChoiceFeedbackCard(ex, chosenDef, fallbackKey = "?", showCard = true) {
+  const diagBassBtn = document.getElementById("btnDiagBass");
+  if (diagBassBtn) {
+    diagBassBtn.textContent = getDiagBassButtonLabel(ex);
+  }
+  const fbText = document.getElementById("feedbackText");
+  if (fbText && chosenDef) {
+    fbText.textContent = tf("Gewählt: {sym} ({lbl}).", "Selected: {sym} ({lbl}).", {
+      sym: chosenDef.roman || chosenDef.symbol || fallbackKey,
+      lbl: chosenDef.label || fallbackKey
+    });
+  }
+  const fb = document.getElementById("feedbackContainer");
+  if (fb && showCard) {
+    fb.classList.remove("hidden");
+  }
+  if (typeof fitExerciseLayout === "function") {
+    fitExerciseLayout(false);
+  }
+}
+
 function handleAnswer(selectedKey, btnElement, options = {}) {
   const ex = state.currentExercise;
   if (!ex) return;
@@ -13996,27 +14030,7 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
               ? tr("Vergleiche beide Modi über demselben Grundton:", "Compare both modes over the same root:")
               : tr("Hör dir beide Klänge direkt nacheinander an:", "Hear both sounds back-to-back:")));
 
-    const diagBassBtn = document.getElementById("btnDiagBass");
-    if (diagBassBtn) {
-      diagBassBtn.textContent = isRhythmWrong
-        ? tr("Puls / Eins hören", "Hear Pulse / One")
-        : (ex.type === "prod-eq-noise"
-            ? tr("Flat → Ziel-EQ", "Flat → Target EQ")
-            : (ex.type === "prod-tone"
-                ? tr("Ref: 1 kHz", "Ref: 1 kHz")
-                : (isModesWrong
-                    ? tr("Anker-Quinte", "Anchor Fifth")
-                    : (ex.type === "chord-inversions"
-                        ? tr("Basston hören", "Hear Bass Note")
-                        : (ex.type === "interval-drone"
-                            ? tr("Fläche hören", "Hear Root Pad")
-                            : tr("Bass / Grundton", "Bass / Root"))))));
-    }
-
-    const fb = document.getElementById("feedbackContainer");
-    fb.classList.remove("hidden");
-    document.getElementById("feedbackText").textContent =
-      tf("Gewählt: {sym} ({lbl}).", "Selected: {sym} ({lbl}).", { sym: chosenDef.roman || chosenDef.symbol, lbl: chosenDef.label });
+    renderWrongChoiceFeedbackCard(ex, chosenDef, selectedKey, true);
   }
 }
 
@@ -17121,13 +17135,7 @@ function applyProfileDisplayChanges() {
       }
       if (state.lastAnswerWasWrong && state.wrongAnswerData?.chosen) {
         const chosenDef = state.wrongAnswerData.chosen;
-        const fbText = document.getElementById("feedbackText");
-        if (fbText) {
-          fbText.textContent = tf("Gewählt: {sym} ({lbl}).", "Selected: {sym} ({lbl}).", {
-            sym: chosenDef.roman || chosenDef.symbol,
-            lbl: chosenDef.label
-          });
-        }
+        renderWrongChoiceFeedbackCard(ex, chosenDef, chosenDef.key || "?", false);
       }
       state.profileDisplayDirty = false;
     }
@@ -23144,29 +23152,7 @@ function handleExamChoiceAnswer(ex, selectedKey, btnElement) {
   });
 
   if (!isCorrect) {
-    const fb = document.getElementById("feedbackContainer");
-    const isRhythmWrong = ex.type.startsWith("rhythm-");
-    const isModesWrong = ex.type.startsWith("modes-");
-    const diagBassBtn = document.getElementById("btnDiagBass");
-    if (diagBassBtn) {
-      diagBassBtn.textContent = isRhythmWrong
-        ? tr("Puls / Eins hören", "Hear Pulse / One")
-        : (ex.type === "prod-eq-noise"
-            ? tr("Flat → Ziel-EQ", "Flat → Target EQ")
-            : (ex.type === "prod-tone"
-                ? tr("Ref: 1 kHz", "Ref: 1 kHz")
-                : (isModesWrong
-                    ? tr("Anker-Quinte", "Anchor Fifth")
-                    : (ex.type === "chord-inversions" ? tr("Basston hören", "Hear Bass Note") : tr("Bass / Grundton", "Bass / Root")))));
-    }
-    if (fb) {
-      fb.classList.remove("hidden");
-      document.getElementById("feedbackText").textContent = tf(
-        "Gewählt: {sym} ({lbl}).",
-        "Selected: {sym} ({lbl}).",
-        { sym: chosenDef?.roman || chosenDef?.symbol || selectedKey, lbl: chosenDef?.label || selectedKey }
-      );
-    }
+    renderWrongChoiceFeedbackCard(ex, chosenDef, selectedKey, true);
   }
 
   showExamPostAnswerNextBar();
