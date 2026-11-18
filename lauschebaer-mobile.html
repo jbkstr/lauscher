@@ -901,6 +901,17 @@ html, body {
   gap: 0.5rem;
 }
 
+.home-fab-anchor {
+  position: sticky;
+  bottom: -0.25rem;
+  z-index: 24;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: auto;
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
 .btn-primary-action {
   flex: 1;
   background-color: var(--raccoon-dark);
@@ -915,6 +926,38 @@ html, body {
   justify-content: center;
   box-shadow: var(--shadow-card);
   transition: transform 0.12s, opacity 0.15s;
+}
+
+.btn-primary-action.home-continue-fab,
+[data-appearance="dark"] .btn-primary-action.home-continue-fab {
+  pointer-events: auto;
+  flex: 0 0 auto;
+  margin-left: auto;
+  width: 140px;
+  background-color: var(--sage);
+  color: var(--raccoon-dark);
+  border: 1.5px solid var(--sage-strong);
+  border-radius: var(--radius-pill);
+  padding: 0.56rem 0.9rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
+  box-shadow: 0 2.5px 0 var(--tactile-edge), var(--shadow-float);
+}
+
+html[lang="de"] .btn-primary-action.home-continue-fab { width: 140px; }
+html[lang="en"] .btn-primary-action.home-continue-fab { width: 122px; }
+html[lang="fr"] .btn-primary-action.home-continue-fab { width: 128px; }
+html[lang="pl"] .btn-primary-action.home-continue-fab { width: 128px; }
+html[lang="uk"] .btn-primary-action.home-continue-fab { width: 148px; }
+html[lang="ur"] .btn-primary-action.home-continue-fab { width: 156px; }
+
+.btn-primary-action.home-continue-fab span {
+  font-size: 0.84rem;
+  font-weight: 800;
+  line-height: 1.2;
 }
 
 .btn-primary-action span {
@@ -5547,7 +5590,7 @@ body,
 
 /* UX-Struktur: Home Quick-Mix-Bar, kompaktes 2er-Kategorie-Raster, Account-Disclosures, Sub-Tabs & Wissen-Akkordeons */
 .home-quick-mix-bar {
-  margin-top: 0.7rem;
+  margin-top: 0.05rem;
   padding-top: 0.65rem;
   border-top: 1px solid var(--border-soft);
   display: flex;
@@ -11486,6 +11529,11 @@ body.is-hum-pause #solfegeKeyboardWrap {
 .node-circle.node-circle-compact {
   font-size: 0.9rem;
 }
+.node-circle.node-circle-nowrap {
+  font-size: 0.8rem;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
 
 /* Über-Fenster: App-Icon als Squircle (Superellipse per SVG-clipPath #lauscherSquircle) */
 .about-app-icon-wrap {
@@ -12019,7 +12067,6 @@ body.is-hum-pause #solfegeKeyboardWrap {
     <main id="viewHome" class="view-container">
       
       <section class="hero-card">
-        <div id="homeProfileGreeting" class="home-profile-bar hidden"></div>
         <div class="hero-top">
           <button id="refreshQuoteBtn" class="hero-mascot-btn" title="Tippe für einen neuen Gedanken" data-i18n-title="home.refreshQuoteTitle">
             <div class="hero-mascot-avatar" id="heroMascotSvg"></div>
@@ -12031,22 +12078,6 @@ body.is-hum-pause #solfegeKeyboardWrap {
               „Schön, dass du da bist! Heute entdecken wir, wie Musik Geschichten erzählt.“
             </p>
           </div>
-        </div>
-        <div class="hero-actions">
-          <button id="quickStartBtn" class="btn-primary-action">
-            <span id="quickStartLabel" data-i18n="home.continue">▶ Weiterüben</span>
-            <small id="quickStartSub">Kadenzen • Stufe 1</small>
-          </button>
-          <button id="surpriseStartBtn" class="btn-secondary-action" title="Zufällige Übung starten" data-i18n-title="home.surpriseTitle">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px; margin-right:3px;">
-              <rect x="3" y="3" width="18" height="18" rx="3" ry="3"/>
-              <circle cx="8.5" cy="8.5" r="1.2" fill="currentColor" stroke="none"/>
-              <circle cx="15.5" cy="8.5" r="1.2" fill="currentColor" stroke="none"/>
-              <circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/>
-              <circle cx="8.5" cy="15.5" r="1.2" fill="currentColor" stroke="none"/>
-              <circle cx="15.5" cy="15.5" r="1.2" fill="currentColor" stroke="none"/>
-            </svg><span data-i18n="home.surprise">Zufall</span>
-          </button>
         </div>
 
         <div id="homeQuickMixBar" class="home-quick-mix-bar hidden"></div>
@@ -12227,6 +12258,12 @@ body.is-hum-pause #solfegeKeyboardWrap {
             <p data-i18n="home.catProductionDesc">Frequenzen &amp; EQ-Anhebungen im Noise heraushören</p>
           </div>
           <span class="cat-chevron">›</span>
+        </button>
+      </div>
+
+      <div class="home-fab-anchor">
+        <button id="quickStartBtn" type="button" class="btn-primary-action home-continue-fab">
+          <span id="quickStartLabel" data-i18n="home.continue">▶ Weiterüben</span>
         </button>
       </div>
     </main>
@@ -19653,7 +19690,35 @@ Object.assign(TR_FR, {
   "Mikrofonzugriff bereit (HTTPS / localhost aktiv).": "Accès au microphone prêt (HTTPS / localhost actif).",
   "Hinweis: Für den Tuner ist später HTTPS oder http://localhost erforderlich – auf file:// oder unverschlüsseltem LAN-HTTP blockieren Browser das Mikrofon.": "Remarque : l’accordeur nécessitera HTTPS ou http://localhost — les navigateurs bloquent le microphone sur file:// ou HTTP local non chiffré.",
   "Nur Hören: Unbearbeitetes Rosa Rauschen – gleich folgt der EQ-Boost…": "Écoute seule : bruit rose neutre — le boost EQ arrive…",
-  "Nur Hören: EQ-Boost aktiv – welches Band tritt hervor?": "Écoute seule : boost EQ actif — quelle bande ressort ?"
+  "Nur Hören: EQ-Boost aktiv – welches Band tritt hervor?": "Écoute seule : boost EQ actif — quelle bande ressort ?",
+  "{name}, wusstest du schon?": "{name}, le savais-tu ?",
+  "Tipp für dich, {name}:": "Astuce pour toi, {name} :",
+  "{name}, denk dran:": "{name}, garde en tête :",
+  "Für dein Ohr, {name}:": "Pour ton oreille, {name} :",
+  "Hey {name}:": "Salut {name} :",
+  "3 in Folge, {name} – schöner Flow!": "3 à la suite, {name} — beau flow !",
+  "8 in Folge, {name} – eine ganze Oktave!": "8 à la suite, {name} — toute une octave !",
+  "15 in Folge, {name} – echtes Musiker-Gehör!": "15 à la suite, {name} — une vraie oreille de musicien !",
+  "{n} in Folge, {name} – starker Fokus!": "{n} à la suite, {name} — concentration au sommet !",
+  "Bereit, {name}?": "Prêt, {name} ?",
+  "Was meinst du, {name}?": "Qu’entends-tu, {name} ?",
+  "Na, was war’s, {name}?": "Alors, c’était quoi, {name} ?",
+  "Ganz Ohr, {name}!": "Tout ouïe, {name} !",
+  "Dein Tipp, {name}?": "Ton avis, {name} ?",
+  "RICHTIG, {name}!": "EXACT, {name} !",
+  "STARK GEHÖRT, {name}!": "BIEN ENTENDU, {name} !",
+  "TREFFER, {name}!": "DANS LE MILLE, {name} !",
+  "SAUBER, {name}!": "BIEN JOUÉ, {name} !",
+  "Vergleichen hilft, {name}": "Comparer aide, {name}",
+  "{name}, welche Stufe schwingt noch nach? Tippe sie unten an.": "{name}, quel degré résonne encore ? Touche-le ci-dessous.",
+  "{name}, welche Akkordfarbe ist hängengeblieben? Wähle unten aus.": "{name}, quelle couleur d’accord t’est restée ? Choisis ci-dessous.",
+  "{name}, welcher Akkordton saß ganz unten im Bass?": "{name}, quelle note de l’accord était tout en bas à la basse ?",
+  "{name}, wie weit fühlte sich der Abstand an? Wähle das Intervall.": "{name}, quelle amplitude avait ce saut ? Choisis l’intervalle.",
+  "{name}, wo sitzt dieser Ton in der Tonleiter? Tippe auf die Taste.": "{name}, où se place cette note dans la gamme ? Touche la touche.",
+  "{name}, wo lag die betonte Eins? Wähle die passende Taktart.": "{name}, où tombait le temps fort ? Choisis la mesure.",
+  "{name}, wie hat der Groove für dich geatmet? Wähle unten aus.": "{name}, comment ce groove respirait-il ? Choisis ci-dessous.",
+  "{name}, in welchem Band lag der Schwerpunkt? Tippe es unten an.": "{name}, quelle bande portait l’accent ? Touche-la ci-dessous.",
+  "{name}, welche Klangfarbe schwang da mit? Wähle den Modus.": "{name}, quelle couleur modale ressortait ? Choisis le mode."
 });
 
 if (typeof registerLanguageBundle === "function") {
@@ -21937,7 +22002,35 @@ Object.assign(TR_PL, {
   "Mikrofonzugriff bereit (HTTPS / localhost aktiv).": "Dostęp do mikrofonu gotowy (aktywne HTTPS / localhost).",
   "Hinweis: Für den Tuner ist später HTTPS oder http://localhost erforderlich – auf file:// oder unverschlüsseltem LAN-HTTP blockieren Browser das Mikrofon.": "Uwaga: stroik będzie wymagał HTTPS lub http://localhost — przeglądarki blokują mikrofon w trybie file:// lub nieszyfrowanego HTTP w sieci lokalnej.",
   "Nur Hören: Unbearbeitetes Rosa Rauschen – gleich folgt der EQ-Boost…": "Tylko słuchanie: czysty szum różowy — zaraz włączy się podbicie EQ…",
-  "Nur Hören: EQ-Boost aktiv – welches Band tritt hervor?": "Tylko słuchanie: podbicie EQ aktywne — które pasmo się wybija?"
+  "Nur Hören: EQ-Boost aktiv – welches Band tritt hervor?": "Tylko słuchanie: podbicie EQ aktywne — które pasmo się wybija?",
+  "{name}, wusstest du schon?": "{name}, czy wiesz, że…",
+  "Tipp für dich, {name}:": "Wskazówka dla Ciebie, {name}:",
+  "{name}, denk dran:": "{name}, pamiętaj:",
+  "Für dein Ohr, {name}:": "Dla Twojego ucha, {name}:",
+  "Hey {name}:": "Hej {name}:",
+  "3 in Folge, {name} – schöner Flow!": "3 z rzędu, {name} – świetny rytm!",
+  "8 in Folge, {name} – eine ganze Oktave!": "8 z rzędu, {name} – cała oktawa!",
+  "15 in Folge, {name} – echtes Musiker-Gehör!": "15 z rzędu, {name} – prawdziwe ucho muzyka!",
+  "{n} in Folge, {name} – starker Fokus!": "{n} z rzędu, {name} – mocne skupienie!",
+  "Bereit, {name}?": "Gotowy, {name}?",
+  "Was meinst du, {name}?": "Co słyszysz, {name}?",
+  "Na, was war’s, {name}?": "No i co to było, {name}?",
+  "Ganz Ohr, {name}!": "Zamieniam się w słuch, {name}!",
+  "Dein Tipp, {name}?": "Twój typ, {name}?",
+  "RICHTIG, {name}!": "DOBRZE, {name}!",
+  "STARK GEHÖRT, {name}!": "ŚWIETNY SŁUCH, {name}!",
+  "TREFFER, {name}!": "W PUNKT, {name}!",
+  "SAUBER, {name}!": "BRAWO, {name}!",
+  "Vergleichen hilft, {name}": "Porównanie pomaga, {name}",
+  "{name}, welche Stufe schwingt noch nach? Tippe sie unten an.": "{name}, który stopień jeszcze wybrzmiewa? Wybierz poniżej.",
+  "{name}, welche Akkordfarbe ist hängengeblieben? Wähle unten aus.": "{name}, jaka barwa akordu została w uchu? Wybierz poniżej.",
+  "{name}, welcher Akkordton saß ganz unten im Bass?": "{name}, który dźwięk akordu leżał najniżej w basie?",
+  "{name}, wie weit fühlte sich der Abstand an? Wähle das Intervall.": "{name}, jak szeroki był ten skok? Wybierz interwał.",
+  "{name}, wo sitzt dieser Ton in der Tonleiter? Tippe auf die Taste.": "{name}, gdzie w skali leży ten dźwięk? Naciśnij klawisz.",
+  "{name}, wo lag die betonte Eins? Wähle die passende Taktart.": "{name}, gdzie wypadła mocna raz? Wybierz metrum.",
+  "{name}, wie hat der Groove für dich geatmet? Wähle unten aus.": "{name}, jak kołysał ten groove? Wybierz poniżej.",
+  "{name}, in welchem Band lag der Schwerpunkt? Tippe es unten an.": "{name}, w którym paśmie leżał akcent? Wybierz poniżej.",
+  "{name}, welche Klangfarbe schwang da mit? Wähle den Modus.": "{name}, jaka barwa modalna tu wybrzmiała? Wybierz tryb."
 });
 
 if (typeof registerLanguageBundle === "function") {
@@ -24223,7 +24316,35 @@ Object.assign(TR_UK, {
   "Mikrofonzugriff bereit (HTTPS / localhost aktiv).": "Доступ до мікрофона готовий (HTTPS / localhost активні).",
   "Hinweis: Für den Tuner ist später HTTPS oder http://localhost erforderlich – auf file:// oder unverschlüsseltem LAN-HTTP blockieren Browser das Mikrofon.": "Примітка: для тюнера потрібен HTTPS або http://localhost — браузери блокують мікрофон на file:// чи незашифрованому LAN-HTTP.",
   "Nur Hören: Unbearbeitetes Rosa Rauschen – gleich folgt der EQ-Boost…": "Лише слухання: чистий рожевий шум — зараз увімкнеться підсилення EQ…",
-  "Nur Hören: EQ-Boost aktiv – welches Band tritt hervor?": "Лише слухання: підсилення EQ активне — яка смуга виділяється?"
+  "Nur Hören: EQ-Boost aktiv – welches Band tritt hervor?": "Лише слухання: підсилення EQ активне — яка смуга виділяється?",
+  "{name}, wusstest du schon?": "{name}, а ти знаєш?",
+  "Tipp für dich, {name}:": "Порада для тебе, {name}:",
+  "{name}, denk dran:": "{name}, пам’ятай:",
+  "Für dein Ohr, {name}:": "Для твого слуху, {name}:",
+  "Hey {name}:": "Привіт, {name}:",
+  "3 in Folge, {name} – schöner Flow!": "3 поспіль, {name} — чудовий темп!",
+  "8 in Folge, {name} – eine ganze Oktave!": "8 поспіль, {name} — ціла октава!",
+  "15 in Folge, {name} – echtes Musiker-Gehör!": "15 поспіль, {name} — справжній слух музиканта!",
+  "{n} in Folge, {name} – starker Fokus!": "{n} поспіль, {name} — потужна концентрація!",
+  "Bereit, {name}?": "Готовий, {name}?",
+  "Was meinst du, {name}?": "Що чуєш, {name}?",
+  "Na, was war’s, {name}?": "Ну, що це було, {name}?",
+  "Ganz Ohr, {name}!": "Уважно слухаю, {name}!",
+  "Dein Tipp, {name}?": "Твій варіант, {name}?",
+  "RICHTIG, {name}!": "ПРАВИЛЬНО, {name}!",
+  "STARK GEHÖRT, {name}!": "ЧУДОВИЙ СЛУХ, {name}!",
+  "TREFFER, {name}!": "ВЛУЧНО, {name}!",
+  "SAUBER, {name}!": "ЧИСТО, {name}!",
+  "Vergleichen hilft, {name}": "Порівняння допомагає, {name}",
+  "{name}, welche Stufe schwingt noch nach? Tippe sie unten an.": "{name}, який ступінь ще звучить у пам’яті? Обери нижче.",
+  "{name}, welche Akkordfarbe ist hängengeblieben? Wähle unten aus.": "{name}, яке забарвлення акорду запам’яталося? Обери нижче.",
+  "{name}, welcher Akkordton saß ganz unten im Bass?": "{name}, який тон акорду звучав найнижче в басу?",
+  "{name}, wie weit fühlte sich der Abstand an? Wähle das Intervall.": "{name}, наскільки широким здався стрибок? Обери інтервал.",
+  "{name}, wo sitzt dieser Ton in der Tonleiter? Tippe auf die Taste.": "{name}, де цей звук розташований у гамі? Натисни клавішу.",
+  "{name}, wo lag die betonte Eins? Wähle die passende Taktart.": "{name}, де була сильна частка? Обери розмір.",
+  "{name}, wie hat der Groove für dich geatmet? Wähle unten aus.": "{name}, як дихав цей грув? Обери відповідь нижче.",
+  "{name}, in welchem Band lag der Schwerpunkt? Tippe es unten an.": "{name}, у якій смузі був акцент? Обери нижче.",
+  "{name}, welche Klangfarbe schwang da mit? Wähle den Modus.": "{name}, який ладовий відтінок прозвучав? Обери лад."
 });
 
 if (typeof registerLanguageBundle === "function") {
@@ -26535,7 +26656,35 @@ Object.assign(TR_UR, {
   "Mikrofonzugriff bereit (HTTPS / localhost aktiv).": "مائیکروفون تک رسائی تیار ہے (HTTPS / localhost فعال ہے)۔",
   "Hinweis: Für den Tuner ist später HTTPS oder http://localhost erforderlich – auf file:// oder unverschlüsseltem LAN-HTTP blockieren Browser das Mikrofon.": "نوٹ: ٹیونر کے لیے HTTPS یا http://localhost درکار ہوگا — براؤزر file:// یا غیر خفیہ کردہ مقامی HTTP پر مائیکروفون کو بلاک کر دیتے ہیں۔",
   "Nur Hören: Unbearbeitetes Rosa Rauschen – gleich folgt der EQ-Boost…": "صرف سنیں: اصل پنک نوائز چل رہا ہے — ابھی EQ بوسٹ آئے گا…",
-  "Nur Hören: EQ-Boost aktiv – welches Band tritt hervor?": "صرف سنیں: EQ بوسٹ فعال ہے — کون سا بینڈ نمایاں ہے؟"
+  "Nur Hören: EQ-Boost aktiv – welches Band tritt hervor?": "صرف سنیں: EQ بوسٹ فعال ہے — کون سا بینڈ نمایاں ہے؟",
+  "{name}, wusstest du schon?": "{name}، کیا آپ جانتے ہیں؟",
+  "Tipp für dich, {name}:": "{name}، آپ کے لیے ایک مشورہ:",
+  "{name}, denk dran:": "{name}، یاد رکھیں:",
+  "Für dein Ohr, {name}:": "{name}، آپ کے کانوں کے لیے:",
+  "Hey {name}:": "سلام {name}:",
+  "3 in Folge, {name} – schöner Flow!": "لگاتار 3، {name} — بہترین تسلسل!",
+  "8 in Folge, {name} – eine ganze Oktave!": "لگاتار 8، {name} — پورا ایک آکٹیو!",
+  "15 in Folge, {name} – echtes Musiker-Gehör!": "لگاتار 15، {name} — سچے موسیقار کا کان!",
+  "{n} in Folge, {name} – starker Fokus!": "لگاتار {n}، {name} — زبردست توجہ!",
+  "Bereit, {name}?": "تیار ہیں، {name}؟",
+  "Was meinst du, {name}?": "{name}، آپ نے کیا سنا؟",
+  "Na, was war’s, {name}?": "تو یہ کیا تھا، {name}؟",
+  "Ganz Ohr, {name}!": "ہمہ تن گوش، {name}!",
+  "Dein Tipp, {name}?": "{name}، آپ کا اندازہ؟",
+  "RICHTIG, {name}!": "بالکل درست، {name}!",
+  "STARK GEHÖRT, {name}!": "شاندار سماعت، {name}!",
+  "TREFFER, {name}!": "عین نشانے پر، {name}!",
+  "SAUBER, {name}!": "بہت خوب، {name}!",
+  "Vergleichen hilft, {name}": "موازنہ مدد دیتا ہے، {name}",
+  "{name}, welche Stufe schwingt noch nach? Tippe sie unten an.": "{name}، کون سا درجہ اب بھی گونج رہا ہے؟ نیچے منتخب کریں۔",
+  "{name}, welche Akkordfarbe ist hängengeblieben? Wähle unten aus.": "{name}، کورڈ کا کون سا رنگ ذہن میں رہا؟ نیچے منتخب کریں۔",
+  "{name}, welcher Akkordton saß ganz unten im Bass?": "{name}، بیس میں سب سے نیچے کون سا سُر تھا؟",
+  "{name}, wie weit fühlte sich der Abstand an? Wähle das Intervall.": "{name}، سُروں کا فاصلہ کتنا لگا؟ نیچے وقفہ منتخب کریں۔",
+  "{name}, wo sitzt dieser Ton in der Tonleiter? Tippe auf die Taste.": "{name}، یہ سُر اسکیل میں کہاں ہے؟ متعلقہ کلید دبائیں۔",
+  "{name}, wo lag die betonte Eins? Wähle die passende Taktart.": "{name}، مضبوط پہلی ضرب کہاں تھی؟ نیچے تال منتخب کریں۔",
+  "{name}, wie hat der Groove für dich geatmet? Wähle unten aus.": "{name}، اس گروو کا انداز کیسا لگا؟ نیچے منتخب کریں۔",
+  "{name}, in welchem Band lag der Schwerpunkt? Tippe es unten an.": "{name}، کس فریکوئنسی بینڈ پر زور تھا؟ نیچے منتخب کریں۔",
+  "{name}, welche Klangfarbe schwang da mit? Wähle den Modus.": "{name}، کون سا موڈل رنگ نمایاں تھا؟ نیچے موڈ منتخب کریں۔"
 });
 
 if (typeof registerLanguageBundle === "function") {
@@ -52172,7 +52321,7 @@ function buildDerivedCustomThemeVars(rawColors) {
     "--tint-subtle-soft": `rgba(${c.raccoonDark.r}, ${c.raccoonDark.g}, ${c.raccoonDark.b}, 0.06)`,
     "--btn-primary-bg": colors.raccoonDark,
     "--btn-primary-fg": primaryLum > 0.52 ? "#1C1E26" : "#FFFFFF",
-    "--on-strong-accent": isDark ? "#1B1E24" : "#FFFFFF",
+    "--on-strong-accent": relativeLuminance(c.sageStrong) > 0.45 ? "#1B1E24" : "#FFFFFF",
     "--mute-bg": `rgba(${c.statusErr.r}, ${c.statusErr.g}, ${c.statusErr.b}, 0.16)`,
     "--mute-border": `rgba(${c.statusErr.r}, ${c.statusErr.g}, ${c.statusErr.b}, 0.36)`,
     "--dot-idle-bg": rgbaToCssString(dotIdleRgba),
@@ -54362,12 +54511,9 @@ class AppState {
   }
 
   updateQuickStartLabel() {
-    const sub = document.getElementById("quickStartSub");
-    if (sub) sub.textContent = this.getModeSummaryText();
     const label = document.getElementById("quickStartLabel");
     if (label) {
-      // Vor der ersten gestarteten Übung „Beginne hier“, danach „Weiterüben“
-      const key = this.profile?.hasPracticed === false ? "home.startHere" : "home.continue";
+      const key = "home.continue";
       label.setAttribute("data-i18n", key);
       const text = typeof getStaticI18nText === "function" ? getStaticI18nText(key) : null;
       if (text) label.textContent = text;
@@ -60148,6 +60294,42 @@ function openCategoryHelpPage(categoryKey, options = {}) {
   }
 }
 
+function getProfileUserName(shortForStage = false) {
+  const raw = String(state.profile?.name || "").trim();
+  if (!raw) return "";
+  if (shortForStage && raw.length > 16) {
+    const firstWord = raw.split(/\s+/)[0] || raw;
+    return firstWord.slice(0, 16);
+  }
+  return raw;
+}
+
+function formatHeroQuoteWithProfileName(quoteText, quoteIndex) {
+  const text = String(quoteText || "");
+  const name = getProfileUserName(true);
+  if (!text || !name || !(quoteIndex >= 0)) return text;
+  const step = Number(state.quotePersonalizeStep || 0);
+  // Hin und wieder (etwa jeder zweite bis dritte Spruch) den Nutzer direkt mit Namen ansprechen
+  const shouldPersonalize = step > 0 ? (step % 2 === 1) : (quoteIndex % 2 === 0);
+  if (!shouldPersonalize) return text;
+
+  const rawQuote = LAUSCHEBAER_QUOTES[quoteIndex];
+  const rawCat = rawQuote?.cat || "";
+  if (rawCat === "Wusstest du?") {
+    return `${tf("{name}, wusstest du schon?", "{name}, did you know?", { name })} ${text}`;
+  }
+  if (rawCat === "Praxis-Tipp") {
+    return `${tf("Tipp für dich, {name}:", "Tip for you, {name}:", { name })} ${text}`;
+  }
+  if (rawCat === "Mutmacher") {
+    return `${tf("{name}, denk dran:", "{name}, remember:", { name })} ${text}`;
+  }
+  if (quoteIndex % 3 === 0) {
+    return `${tf("Für dein Ohr, {name}:", "For your ear, {name}:", { name })} ${text}`;
+  }
+  return `${tf("Hey {name}:", "Hey {name}:", { name })} ${text}`;
+}
+
 function refreshCurrentQuoteLocalization() {
   const quotes = getLocalizedQuotes();
   if (!quotes.length || state.currentQuoteIndex < 0 || !quotes[state.currentQuoteIndex]) return;
@@ -60155,7 +60337,7 @@ function refreshCurrentQuoteLocalization() {
   const badgeEl = document.getElementById("quoteCategoryBadge");
   const textEl = document.getElementById("heroQuoteText");
   if (badgeEl) badgeEl.textContent = item.cat;
-  if (textEl) textEl.textContent = item.text;
+  if (textEl) textEl.textContent = formatHeroQuoteWithProfileName(item.text, state.currentQuoteIndex);
 }
 
 function pickRandomQuote() {
@@ -60166,6 +60348,7 @@ function pickRandomQuote() {
     nextIdx = (nextIdx + 1) % quotes.length;
   }
   state.currentQuoteIndex = nextIdx;
+  state.quotePersonalizeStep = Number(state.quotePersonalizeStep || 0) + 1;
   refreshCurrentQuoteLocalization();
 }
 
@@ -63886,13 +64069,28 @@ function isStreakMilestone(count) {
 }
 
 function getStreakMilestoneText(count) {
-  if (count === 3) return tr("3 in Folge – schöner Flow!", "3 in a row — nice flow!");
+  const name = getProfileUserName(true);
+  if (count === 3) {
+    return name
+      ? tf("3 in Folge, {name} – schöner Flow!", "3 in a row, {name} — nice flow!", { name })
+      : tr("3 in Folge – schöner Flow!", "3 in a row — nice flow!");
+  }
   if (count === 5) return tr("5 in Folge – dein Ohr ist voll da!", "5 in a row — your ear is dialed in!");
-  if (count === 8) return tr("8 in Folge – eine ganze Oktave!", "8 in a row — a full octave!");
+  if (count === 8) {
+    return name
+      ? tf("8 in Folge, {name} – eine ganze Oktave!", "8 in a row, {name} — a full octave!", { name })
+      : tr("8 in Folge – eine ganze Oktave!", "8 in a row — a full octave!");
+  }
   if (count === 10) return tr("10 in Folge – beeindruckend sicher!", "10 in a row — remarkably sharp!");
-  if (count === 15) return tr("15 in Folge – echtes Musiker-Gehör!", "15 in a row — true musician’s ear!");
+  if (count === 15) {
+    return name
+      ? tf("15 in Folge, {name} – echtes Musiker-Gehör!", "15 in a row, {name} — true musician’s ear!", { name })
+      : tr("15 in Folge – echtes Musiker-Gehör!", "15 in a row — true musician’s ear!");
+  }
   if (count === 20) return tr("20 in Folge – absolut souverän!", "20 in a row — effortless precision!");
-  return tf("{n} in Folge – starker Fokus!", "{n} in a row — razor-sharp focus!", { n: count });
+  return name
+    ? tf("{n} in Folge, {name} – starker Fokus!", "{n} in a row, {name} — razor-sharp focus!", { n: count, name })
+    : tf("{n} in Folge – starker Fokus!", "{n} in a row — razor-sharp focus!", { n: count });
 }
 
 function renderStageStreakUI() {
@@ -64224,8 +64422,12 @@ function resetCentralStage() {
     renderStageStreakUI();
     return;
   }
+  const readyName = getProfileUserName(true);
+  const useNamedReady = Boolean(readyName) && ((readyStagePromptCounter++ % 2) === 0);
   document.getElementById("stageSubtext").textContent = tr("STATUS", "STATUS");
-  document.getElementById("stageMainText").textContent = tr("Bereit", "Ready");
+  document.getElementById("stageMainText").textContent = useNamedReady
+    ? tf("Bereit, {name}?", "Ready, {name}?", { name: readyName })
+    : tr("Bereit", "Ready");
   document.getElementById("stageFunctionText").textContent =
     mode === "rhythm-tap"
       ? tr("Starte unten die Runde und klopfe danach im Takt mit!", "Press Play below and tap along in time!")
@@ -64239,28 +64441,69 @@ const AWAITING_STAGE_HEADLINES = [
   { de: "Was meinst du?", en: "What do you hear?" },
   { de: "Und …?",         en: "Your hunch?" }
 ];
+const AWAITING_STAGE_NAMED_HEADLINES = [
+  { de: "Was meinst du, {name}?", en: "What do you hear, {name}?" },
+  { de: "Na, was war’s, {name}?", en: "What’s your call, {name}?" },
+  { de: "Ganz Ohr, {name}!",      en: "I’m all ears, {name}!" },
+  { de: "Dein Tipp, {name}?",     en: "Your pick, {name}?" }
+];
+const NAMED_CORRECT_STAGE_SUBTEXTS = [
+  { de: "RICHTIG, {name}!",        en: "CORRECT, {name}!" },
+  { de: "STARK GEHÖRT, {name}!",   en: "GREAT EAR, {name}!" },
+  { de: "TREFFER, {name}!",        en: "SPOT ON, {name}!" },
+  { de: "SAUBER, {name}!",         en: "NICE ONE, {name}!" }
+];
+let readyStagePromptCounter = 0;
 let awaitingPromptCounter = 0;
+let correctStagePersonalizeCounter = 0;
+let wrongStagePersonalizeCounter = 0;
 
-function getAwaitingStageHint(ex) {
+function getPersonalizedCorrectStageSubtext(fallbackText) {
+  const name = getProfileUserName(true);
+  const idx = correctStagePersonalizeCounter++;
+  if (!name || state.exam?.active || (idx % 2 !== 0)) return fallbackText;
+  const item = NAMED_CORRECT_STAGE_SUBTEXTS[Math.floor(idx / 2) % NAMED_CORRECT_STAGE_SUBTEXTS.length];
+  return tf(item.de, item.en, { name: name.toUpperCase() });
+}
+
+function getPersonalizedWrongStageMainText(fallbackText) {
+  const name = getProfileUserName(true);
+  const idx = wrongStagePersonalizeCounter++;
+  if (!name || state.exam?.active || (idx % 2 !== 0)) return fallbackText;
+  return tf("Vergleichen hilft, {name}", "Compare both, {name}", { name });
+}
+
+function getAwaitingStageHint(ex, personalizeHint = false) {
   const type = ex?.type || "";
+  const name = personalizeHint ? getProfileUserName(true) : "";
   if (isSingAlongTipsEnabled() && !state.exam?.active && isSingAlongExerciseType(type)) {
     const singPrompt = getSingAlongShortPrompt(type);
     if (singPrompt) return singPrompt;
   }
   if (type === "cadence") {
-    return tr("Welche Stufe schwingt noch nach? Tippe sie unten an.", "Which chord degree lingers? Tap it below.");
+    return name
+      ? tf("{name}, welche Stufe schwingt noch nach? Tippe sie unten an.", "{name}, which chord degree lingers? Tap it below.", { name })
+      : tr("Welche Stufe schwingt noch nach? Tippe sie unten an.", "Which chord degree lingers? Tap it below.");
   }
   if (isChordQualityMode(type)) {
-    return tr("Welche Akkordfarbe ist hängengeblieben? Wähle unten aus.", "Which chord color stayed with you? Pick below.");
+    return name
+      ? tf("{name}, welche Akkordfarbe ist hängengeblieben? Wähle unten aus.", "{name}, which chord color stayed with you? Pick below.", { name })
+      : tr("Welche Akkordfarbe ist hängengeblieben? Wähle unten aus.", "Which chord color stayed with you? Pick below.");
   }
   if (type === "chord-inversions") {
-    return tr("Welcher Akkordton saß ganz unten im Bass? Wähle die Umkehrung.", "Which chord tone sat lowest in the bass? Pick the inversion below.");
+    return name
+      ? tf("{name}, welcher Akkordton saß ganz unten im Bass?", "{name}, which chord tone sat lowest in the bass?", { name })
+      : tr("Welcher Akkordton saß ganz unten im Bass? Wähle die Umkehrung.", "Which chord tone sat lowest in the bass? Pick the inversion below.");
   }
   if (type.startsWith("interval")) {
-    return tr("Wie weit fühlte sich der Abstand an? Wähle das Intervall.", "How wide did that leap feel? Pick the interval below.");
+    return name
+      ? tf("{name}, wie weit fühlte sich der Abstand an? Wähle das Intervall.", "{name}, how wide did that leap feel? Pick the interval below.", { name })
+      : tr("Wie weit fühlte sich der Abstand an? Wähle das Intervall.", "How wide did that leap feel? Pick the interval below.");
   }
   if (type === "solfege") {
-    return tr("Wo sitzt dieser Ton in der Tonleiter? Tippe auf die Taste.", "Where does that pitch sit? Tap the matching key.");
+    return name
+      ? tf("{name}, wo sitzt dieser Ton in der Tonleiter? Tippe auf die Taste.", "{name}, where does that pitch sit? Tap the matching key.", { name })
+      : tr("Wo sitzt dieser Ton in der Tonleiter? Tippe auf die Taste.", "Where does that pitch sit? Tap the matching key.");
   }
   if (type === "melody") {
     const curStep = (ex.melodyStep || 0) + 1;
@@ -64273,16 +64516,24 @@ function getAwaitingStageHint(ex) {
     return tf("Welches Muster lag auf Schlag {n}? Wähle unten (oder „Schlag nochmal“).", "Which pattern landed on Beat {n}? Pick below (or “Replay Beat”).", { n: (ex.rhythmStep || 0) + 1 });
   }
   if (type === "rhythm-meter") {
-    return tr("Wo lag die betonte Eins? Wähle die passende Taktart.", "Where did the heavy beat land? Pick the meter below.");
+    return name
+      ? tf("{name}, wo lag die betonte Eins? Wähle die passende Taktart.", "{name}, where did the heavy beat land? Pick the meter below.", { name })
+      : tr("Wo lag die betonte Eins? Wähle die passende Taktart.", "Where did the heavy beat land? Pick the meter below.");
   }
   if (type === "rhythm-groove") {
-    return tr("Wie hat der Groove für dich geatmet? Wähle unten aus.", "How did that groove feel? Pick your answer below.");
+    return name
+      ? tf("{name}, wie hat der Groove für dich geatmet? Wähle unten aus.", "{name}, how did that groove feel? Pick your answer below.", { name })
+      : tr("Wie hat der Groove für dich geatmet? Wähle unten aus.", "How did that groove feel? Pick your answer below.");
   }
   if (type === "prod-tone" || type === "prod-eq-noise") {
-    return tr("In welchem Band lag der Schwerpunkt? Tippe es unten an.", "Which band carried the focus? Tap it below.");
+    return name
+      ? tf("{name}, in welchem Band lag der Schwerpunkt? Tippe es unten an.", "{name}, which band carried the focus? Tap it below.", { name })
+      : tr("In welchem Band lag der Schwerpunkt? Tippe es unten an.", "Which band carried the focus? Tap it below.");
   }
   if (type.startsWith("modes-")) {
-    return tr("Welche Klangfarbe schwang da mit? Wähle den Modus.", "Which modal color shone through? Pick the mode below.");
+    return name
+      ? tf("{name}, welche Klangfarbe schwang da mit? Wähle den Modus.", "{name}, which modal color shone through? Pick the mode below.", { name })
+      : tr("Welche Klangfarbe schwang da mit? Wähle den Modus.", "Which modal color shone through? Pick the mode below.");
   }
   return tr("Wähle unten deine Antwort – oder hör’s dir noch einmal an.", "Pick your answer below — or replay anytime.");
 }
@@ -64291,8 +64542,13 @@ function showAwaitingAnswerStage(ex = state.currentExercise) {
   if (!document.getElementById("centralStageCard")) return;
   if (!ex || isCurrentExerciseSolved(ex)) return;
 
-  const headline = AWAITING_STAGE_HEADLINES[awaitingPromptCounter % AWAITING_STAGE_HEADLINES.length];
+  const promptIdx = awaitingPromptCounter;
+  const headline = AWAITING_STAGE_HEADLINES[promptIdx % AWAITING_STAGE_HEADLINES.length];
   awaitingPromptCounter += 1;
+  const name = getProfileUserName(true);
+  const useNamedHeadline = Boolean(name) && !state.exam?.active && (promptIdx % 2 === 0);
+  const useNamedHint = Boolean(name) && !state.exam?.active && !useNamedHeadline && (promptIdx % 4 === 1);
+  const namedHeadline = AWAITING_STAGE_NAMED_HEADLINES[Math.floor(promptIdx / 2) % AWAITING_STAGE_NAMED_HEADLINES.length];
 
   setCentralStageMode("stage-awaiting");
   updateStageMascot("awaiting");
@@ -64306,8 +64562,10 @@ function showAwaitingAnswerStage(ex = state.currentExercise) {
   }
 
   document.getElementById("stageSubtext").textContent = subtext;
-  document.getElementById("stageMainText").textContent = tr(headline.de, headline.en);
-  document.getElementById("stageFunctionText").textContent = getAwaitingStageHint(ex);
+  document.getElementById("stageMainText").textContent = useNamedHeadline
+    ? tf(namedHeadline.de, namedHeadline.en, { name })
+    : tr(headline.de, headline.en);
+  document.getElementById("stageFunctionText").textContent = getAwaitingStageHint(ex, useNamedHint);
 }
 
 function completePromptPlayback(ex = state.currentExercise) {
@@ -64946,7 +65204,9 @@ function shiftAndAdvanceNotationQueue(ex, feedbackKind, stageSub, stageMain, sta
   if (document.getElementById("centralStageCard")) {
     setCentralStageMode(feedbackKind === "correct" ? "stage-playing" : "stage-target");
     updateStageMascot(feedbackKind === "correct" ? "happy" : "idle");
-    document.getElementById("stageSubtext").textContent = stageSub;
+    document.getElementById("stageSubtext").textContent = feedbackKind === "correct"
+      ? getPersonalizedCorrectStageSubtext(stageSub)
+      : stageSub;
     document.getElementById("stageMainText").textContent = stageMain;
     document.getElementById("stageFunctionText").textContent = finalDesc;
     renderStageStreakUI();
@@ -65517,7 +65777,7 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
     if (!isListenOnly) {
       triggerCelebrationFeedback(btnElement, { isMilestone: streakRes.isMilestone, inputPoint: capturedInputPoint });
     }
-    document.getElementById("stageSubtext").textContent = tr("RICHTIG!", "CORRECT!");
+    document.getElementById("stageSubtext").textContent = getPersonalizedCorrectStageSubtext(tr("RICHTIG!", "CORRECT!"));
     document.getElementById("stageMainText").textContent = ex.targetItem.roman || ex.targetItem.symbol;
     document.getElementById("stageFunctionText").textContent = ex.targetItem.label;
 
@@ -65647,7 +65907,7 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
     setCentralStageMode("stage-wrong");
     updateStageMascot("thinking");
     document.getElementById("stageSubtext").textContent = tr("KNAPP DANEBEN", "NOT QUITE");
-    document.getElementById("stageMainText").textContent = tr("Vergleichen hilft", "Compare Both");
+    document.getElementById("stageMainText").textContent = getPersonalizedWrongStageMainText(tr("Vergleichen hilft", "Compare Both"));
     const isRhythmWrong = ex.type.startsWith("rhythm-");
     const isProdWrong = ex.type.startsWith("prod-");
     const isModesWrong = ex.type.startsWith("modes-");
@@ -68249,24 +68509,12 @@ function renderHomeProfileGreeting() {
   if (heroSvg) heroSvg.innerHTML = getMascotSVG("idle", true);
 
   const bar = document.getElementById("homeProfileGreeting");
-  if (!bar) {
-    renderHomeQuickMixBar();
-    return;
-  }
-
-  // Instrumente & Trainingsschwerpunkte bleiben im Konto; auf dem Übungen-Reiter nur eine schlichte Begrüßung
-  const p = state.profile || createDefaultProfile();
-  const hasName = Boolean(p.name && p.name.length > 0);
-  if (!hasName) {
+  if (bar) {
     bar.classList.add("hidden");
     bar.innerHTML = "";
-    renderHomeQuickMixBar();
-    return;
   }
 
-  bar.classList.remove("hidden");
-  const greetingText = tf("Hallo {name}!{inst}", "Hi {name}!{inst}", { name: p.name, inst: "" });
-  bar.innerHTML = `<span class="home-profile-text">${escapeHtml(greetingText)}</span>`;
+  refreshCurrentQuoteLocalization();
   renderHomeQuickMixBar();
 }
 
@@ -70280,53 +70528,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Hero-Karte: Weiterüben & Zufall
+  // Floating-Button auf der Übungen-Seite: Weiterüben
   document.getElementById("quickStartBtn")?.addEventListener("click", () => {
-    state.exerciseReturnView = "home";
-    switchView("exercise");
-  });
-
-  document.getElementById("surpriseStartBtn")?.addEventListener("click", () => {
-    const modes = [
-      "cadence", "cadence-minor", "interval-melodic", "interval-melodic-down", "interval-harmonic", "interval-drone",
-      "chord-arp-up", "chord-arp-down", "interval-chords", "chord-inversions",
-      "solfege", "melody",
-      "rhythm-meter", "rhythm-dictation", "rhythm-tap", "rhythm-groove",
-      "prod-tone", "prod-eq-noise",
-      "modes-scale", "modes-char", "modes-cadence",
-      "notation-treble", "notation-bass", "notation-alto", "notation-mixed", "notation-grand", "notation-chords"
-    ];
-    const randomMode = modes[Math.floor(Math.random() * modes.length)];
-    state.setMode(randomMode);
-    if (isCadenceMode(randomMode)) {
-      state.setDifficulty(Math.floor(Math.random() * 4) + 1);
-      state.setCadencePos(Math.random() < 0.5 ? "last" : "random");
-    } else if (isChordQualityMode(randomMode)) {
-      state.setChordDifficulty(Math.floor(Math.random() * 4) + 1);
-    } else if (randomMode === "chord-inversions") {
-      state.setChordInversionDifficulty(Math.floor(Math.random() * 3) + 1);
-    } else if (randomMode === "melody") {
-      const ranges = ["do-fa", "sol-do", "full"];
-      state.setMelodyConfig(
-        ranges[Math.floor(Math.random() * ranges.length)],
-        Math.random() < 0.5 ? "fixed" : "random",
-        Math.random() < 0.5 ? "single" : "multi"
-      );
-    } else if (randomMode === "rhythm-meter") {
-      state.setRhythmLevel("rhythm-meter", Math.floor(Math.random() * 3) + 1);
-    } else if (randomMode.startsWith("rhythm-")) {
-      state.setRhythmLevel(randomMode, Math.floor(Math.random() * 4) + 1);
-    } else if (randomMode.startsWith("prod-")) {
-      state.setProdLevel(randomMode, Math.floor(Math.random() * 3) + 1);
-    } else if (randomMode === "modes-cadence") {
-      state.setModesLevel(randomMode, Math.floor(Math.random() * 2) + 1);
-    } else if (randomMode.startsWith("modes-")) {
-      state.setModesLevel(randomMode, Math.floor(Math.random() * 3) + 1);
-    } else if (isNotationMode(randomMode)) {
-      state.setNotationLevel(Math.floor(Math.random() * 4) + 1);
-    } else if (randomMode !== "solfege") {
-      state.setIntervalDifficulty(Math.floor(Math.random() * 3) + 1);
-    }
     state.exerciseReturnView = "home";
     switchView("exercise");
   });
@@ -71611,7 +71814,7 @@ const WARMUP_PRESETS = [
   {
     id: "arpeggio-focus",
     badge: "1–3–5–8",
-    circle: "circle-peach",
+    circle: "circle-peach node-circle-compact node-circle-nowrap",
     titleDe: "Arpeggio & Register-Training",
     titleEn: "Arpeggio & Register Drill",
     descDe: "Fokus auf Beweglichkeit, Staccato-Oktaven und sanften Lagen-Ausgleich",

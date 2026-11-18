@@ -593,7 +593,7 @@ function buildDerivedCustomThemeVars(rawColors) {
     "--tint-subtle-soft": `rgba(${c.raccoonDark.r}, ${c.raccoonDark.g}, ${c.raccoonDark.b}, 0.06)`,
     "--btn-primary-bg": colors.raccoonDark,
     "--btn-primary-fg": primaryLum > 0.52 ? "#1C1E26" : "#FFFFFF",
-    "--on-strong-accent": isDark ? "#1B1E24" : "#FFFFFF",
+    "--on-strong-accent": relativeLuminance(c.sageStrong) > 0.45 ? "#1B1E24" : "#FFFFFF",
     "--mute-bg": `rgba(${c.statusErr.r}, ${c.statusErr.g}, ${c.statusErr.b}, 0.16)`,
     "--mute-border": `rgba(${c.statusErr.r}, ${c.statusErr.g}, ${c.statusErr.b}, 0.36)`,
     "--dot-idle-bg": rgbaToCssString(dotIdleRgba),
@@ -2783,12 +2783,9 @@ class AppState {
   }
 
   updateQuickStartLabel() {
-    const sub = document.getElementById("quickStartSub");
-    if (sub) sub.textContent = this.getModeSummaryText();
     const label = document.getElementById("quickStartLabel");
     if (label) {
-      // Vor der ersten gestarteten Übung „Beginne hier“, danach „Weiterüben“
-      const key = this.profile?.hasPracticed === false ? "home.startHere" : "home.continue";
+      const key = "home.continue";
       label.setAttribute("data-i18n", key);
       const text = typeof getStaticI18nText === "function" ? getStaticI18nText(key) : null;
       if (text) label.textContent = text;
@@ -8569,6 +8566,42 @@ function openCategoryHelpPage(categoryKey, options = {}) {
   }
 }
 
+function getProfileUserName(shortForStage = false) {
+  const raw = String(state.profile?.name || "").trim();
+  if (!raw) return "";
+  if (shortForStage && raw.length > 16) {
+    const firstWord = raw.split(/\s+/)[0] || raw;
+    return firstWord.slice(0, 16);
+  }
+  return raw;
+}
+
+function formatHeroQuoteWithProfileName(quoteText, quoteIndex) {
+  const text = String(quoteText || "");
+  const name = getProfileUserName(true);
+  if (!text || !name || !(quoteIndex >= 0)) return text;
+  const step = Number(state.quotePersonalizeStep || 0);
+  // Hin und wieder (etwa jeder zweite bis dritte Spruch) den Nutzer direkt mit Namen ansprechen
+  const shouldPersonalize = step > 0 ? (step % 2 === 1) : (quoteIndex % 2 === 0);
+  if (!shouldPersonalize) return text;
+
+  const rawQuote = LAUSCHEBAER_QUOTES[quoteIndex];
+  const rawCat = rawQuote?.cat || "";
+  if (rawCat === "Wusstest du?") {
+    return `${tf("{name}, wusstest du schon?", "{name}, did you know?", { name })} ${text}`;
+  }
+  if (rawCat === "Praxis-Tipp") {
+    return `${tf("Tipp für dich, {name}:", "Tip for you, {name}:", { name })} ${text}`;
+  }
+  if (rawCat === "Mutmacher") {
+    return `${tf("{name}, denk dran:", "{name}, remember:", { name })} ${text}`;
+  }
+  if (quoteIndex % 3 === 0) {
+    return `${tf("Für dein Ohr, {name}:", "For your ear, {name}:", { name })} ${text}`;
+  }
+  return `${tf("Hey {name}:", "Hey {name}:", { name })} ${text}`;
+}
+
 function refreshCurrentQuoteLocalization() {
   const quotes = getLocalizedQuotes();
   if (!quotes.length || state.currentQuoteIndex < 0 || !quotes[state.currentQuoteIndex]) return;
@@ -8576,7 +8609,7 @@ function refreshCurrentQuoteLocalization() {
   const badgeEl = document.getElementById("quoteCategoryBadge");
   const textEl = document.getElementById("heroQuoteText");
   if (badgeEl) badgeEl.textContent = item.cat;
-  if (textEl) textEl.textContent = item.text;
+  if (textEl) textEl.textContent = formatHeroQuoteWithProfileName(item.text, state.currentQuoteIndex);
 }
 
 function pickRandomQuote() {
@@ -8587,6 +8620,7 @@ function pickRandomQuote() {
     nextIdx = (nextIdx + 1) % quotes.length;
   }
   state.currentQuoteIndex = nextIdx;
+  state.quotePersonalizeStep = Number(state.quotePersonalizeStep || 0) + 1;
   refreshCurrentQuoteLocalization();
 }
 
@@ -12307,13 +12341,28 @@ function isStreakMilestone(count) {
 }
 
 function getStreakMilestoneText(count) {
-  if (count === 3) return tr("3 in Folge – schöner Flow!", "3 in a row — nice flow!");
+  const name = getProfileUserName(true);
+  if (count === 3) {
+    return name
+      ? tf("3 in Folge, {name} – schöner Flow!", "3 in a row, {name} — nice flow!", { name })
+      : tr("3 in Folge – schöner Flow!", "3 in a row — nice flow!");
+  }
   if (count === 5) return tr("5 in Folge – dein Ohr ist voll da!", "5 in a row — your ear is dialed in!");
-  if (count === 8) return tr("8 in Folge – eine ganze Oktave!", "8 in a row — a full octave!");
+  if (count === 8) {
+    return name
+      ? tf("8 in Folge, {name} – eine ganze Oktave!", "8 in a row, {name} — a full octave!", { name })
+      : tr("8 in Folge – eine ganze Oktave!", "8 in a row — a full octave!");
+  }
   if (count === 10) return tr("10 in Folge – beeindruckend sicher!", "10 in a row — remarkably sharp!");
-  if (count === 15) return tr("15 in Folge – echtes Musiker-Gehör!", "15 in a row — true musician’s ear!");
+  if (count === 15) {
+    return name
+      ? tf("15 in Folge, {name} – echtes Musiker-Gehör!", "15 in a row, {name} — true musician’s ear!", { name })
+      : tr("15 in Folge – echtes Musiker-Gehör!", "15 in a row — true musician’s ear!");
+  }
   if (count === 20) return tr("20 in Folge – absolut souverän!", "20 in a row — effortless precision!");
-  return tf("{n} in Folge – starker Fokus!", "{n} in a row — razor-sharp focus!", { n: count });
+  return name
+    ? tf("{n} in Folge, {name} – starker Fokus!", "{n} in a row, {name} — razor-sharp focus!", { n: count, name })
+    : tf("{n} in Folge – starker Fokus!", "{n} in a row — razor-sharp focus!", { n: count });
 }
 
 function renderStageStreakUI() {
@@ -12645,8 +12694,12 @@ function resetCentralStage() {
     renderStageStreakUI();
     return;
   }
+  const readyName = getProfileUserName(true);
+  const useNamedReady = Boolean(readyName) && ((readyStagePromptCounter++ % 2) === 0);
   document.getElementById("stageSubtext").textContent = tr("STATUS", "STATUS");
-  document.getElementById("stageMainText").textContent = tr("Bereit", "Ready");
+  document.getElementById("stageMainText").textContent = useNamedReady
+    ? tf("Bereit, {name}?", "Ready, {name}?", { name: readyName })
+    : tr("Bereit", "Ready");
   document.getElementById("stageFunctionText").textContent =
     mode === "rhythm-tap"
       ? tr("Starte unten die Runde und klopfe danach im Takt mit!", "Press Play below and tap along in time!")
@@ -12660,28 +12713,69 @@ const AWAITING_STAGE_HEADLINES = [
   { de: "Was meinst du?", en: "What do you hear?" },
   { de: "Und …?",         en: "Your hunch?" }
 ];
+const AWAITING_STAGE_NAMED_HEADLINES = [
+  { de: "Was meinst du, {name}?", en: "What do you hear, {name}?" },
+  { de: "Na, was war’s, {name}?", en: "What’s your call, {name}?" },
+  { de: "Ganz Ohr, {name}!",      en: "I’m all ears, {name}!" },
+  { de: "Dein Tipp, {name}?",     en: "Your pick, {name}?" }
+];
+const NAMED_CORRECT_STAGE_SUBTEXTS = [
+  { de: "RICHTIG, {name}!",        en: "CORRECT, {name}!" },
+  { de: "STARK GEHÖRT, {name}!",   en: "GREAT EAR, {name}!" },
+  { de: "TREFFER, {name}!",        en: "SPOT ON, {name}!" },
+  { de: "SAUBER, {name}!",         en: "NICE ONE, {name}!" }
+];
+let readyStagePromptCounter = 0;
 let awaitingPromptCounter = 0;
+let correctStagePersonalizeCounter = 0;
+let wrongStagePersonalizeCounter = 0;
 
-function getAwaitingStageHint(ex) {
+function getPersonalizedCorrectStageSubtext(fallbackText) {
+  const name = getProfileUserName(true);
+  const idx = correctStagePersonalizeCounter++;
+  if (!name || state.exam?.active || (idx % 2 !== 0)) return fallbackText;
+  const item = NAMED_CORRECT_STAGE_SUBTEXTS[Math.floor(idx / 2) % NAMED_CORRECT_STAGE_SUBTEXTS.length];
+  return tf(item.de, item.en, { name: name.toUpperCase() });
+}
+
+function getPersonalizedWrongStageMainText(fallbackText) {
+  const name = getProfileUserName(true);
+  const idx = wrongStagePersonalizeCounter++;
+  if (!name || state.exam?.active || (idx % 2 !== 0)) return fallbackText;
+  return tf("Vergleichen hilft, {name}", "Compare both, {name}", { name });
+}
+
+function getAwaitingStageHint(ex, personalizeHint = false) {
   const type = ex?.type || "";
+  const name = personalizeHint ? getProfileUserName(true) : "";
   if (isSingAlongTipsEnabled() && !state.exam?.active && isSingAlongExerciseType(type)) {
     const singPrompt = getSingAlongShortPrompt(type);
     if (singPrompt) return singPrompt;
   }
   if (type === "cadence") {
-    return tr("Welche Stufe schwingt noch nach? Tippe sie unten an.", "Which chord degree lingers? Tap it below.");
+    return name
+      ? tf("{name}, welche Stufe schwingt noch nach? Tippe sie unten an.", "{name}, which chord degree lingers? Tap it below.", { name })
+      : tr("Welche Stufe schwingt noch nach? Tippe sie unten an.", "Which chord degree lingers? Tap it below.");
   }
   if (isChordQualityMode(type)) {
-    return tr("Welche Akkordfarbe ist hängengeblieben? Wähle unten aus.", "Which chord color stayed with you? Pick below.");
+    return name
+      ? tf("{name}, welche Akkordfarbe ist hängengeblieben? Wähle unten aus.", "{name}, which chord color stayed with you? Pick below.", { name })
+      : tr("Welche Akkordfarbe ist hängengeblieben? Wähle unten aus.", "Which chord color stayed with you? Pick below.");
   }
   if (type === "chord-inversions") {
-    return tr("Welcher Akkordton saß ganz unten im Bass? Wähle die Umkehrung.", "Which chord tone sat lowest in the bass? Pick the inversion below.");
+    return name
+      ? tf("{name}, welcher Akkordton saß ganz unten im Bass?", "{name}, which chord tone sat lowest in the bass?", { name })
+      : tr("Welcher Akkordton saß ganz unten im Bass? Wähle die Umkehrung.", "Which chord tone sat lowest in the bass? Pick the inversion below.");
   }
   if (type.startsWith("interval")) {
-    return tr("Wie weit fühlte sich der Abstand an? Wähle das Intervall.", "How wide did that leap feel? Pick the interval below.");
+    return name
+      ? tf("{name}, wie weit fühlte sich der Abstand an? Wähle das Intervall.", "{name}, how wide did that leap feel? Pick the interval below.", { name })
+      : tr("Wie weit fühlte sich der Abstand an? Wähle das Intervall.", "How wide did that leap feel? Pick the interval below.");
   }
   if (type === "solfege") {
-    return tr("Wo sitzt dieser Ton in der Tonleiter? Tippe auf die Taste.", "Where does that pitch sit? Tap the matching key.");
+    return name
+      ? tf("{name}, wo sitzt dieser Ton in der Tonleiter? Tippe auf die Taste.", "{name}, where does that pitch sit? Tap the matching key.", { name })
+      : tr("Wo sitzt dieser Ton in der Tonleiter? Tippe auf die Taste.", "Where does that pitch sit? Tap the matching key.");
   }
   if (type === "melody") {
     const curStep = (ex.melodyStep || 0) + 1;
@@ -12694,16 +12788,24 @@ function getAwaitingStageHint(ex) {
     return tf("Welches Muster lag auf Schlag {n}? Wähle unten (oder „Schlag nochmal“).", "Which pattern landed on Beat {n}? Pick below (or “Replay Beat”).", { n: (ex.rhythmStep || 0) + 1 });
   }
   if (type === "rhythm-meter") {
-    return tr("Wo lag die betonte Eins? Wähle die passende Taktart.", "Where did the heavy beat land? Pick the meter below.");
+    return name
+      ? tf("{name}, wo lag die betonte Eins? Wähle die passende Taktart.", "{name}, where did the heavy beat land? Pick the meter below.", { name })
+      : tr("Wo lag die betonte Eins? Wähle die passende Taktart.", "Where did the heavy beat land? Pick the meter below.");
   }
   if (type === "rhythm-groove") {
-    return tr("Wie hat der Groove für dich geatmet? Wähle unten aus.", "How did that groove feel? Pick your answer below.");
+    return name
+      ? tf("{name}, wie hat der Groove für dich geatmet? Wähle unten aus.", "{name}, how did that groove feel? Pick your answer below.", { name })
+      : tr("Wie hat der Groove für dich geatmet? Wähle unten aus.", "How did that groove feel? Pick your answer below.");
   }
   if (type === "prod-tone" || type === "prod-eq-noise") {
-    return tr("In welchem Band lag der Schwerpunkt? Tippe es unten an.", "Which band carried the focus? Tap it below.");
+    return name
+      ? tf("{name}, in welchem Band lag der Schwerpunkt? Tippe es unten an.", "{name}, which band carried the focus? Tap it below.", { name })
+      : tr("In welchem Band lag der Schwerpunkt? Tippe es unten an.", "Which band carried the focus? Tap it below.");
   }
   if (type.startsWith("modes-")) {
-    return tr("Welche Klangfarbe schwang da mit? Wähle den Modus.", "Which modal color shone through? Pick the mode below.");
+    return name
+      ? tf("{name}, welche Klangfarbe schwang da mit? Wähle den Modus.", "{name}, which modal color shone through? Pick the mode below.", { name })
+      : tr("Welche Klangfarbe schwang da mit? Wähle den Modus.", "Which modal color shone through? Pick the mode below.");
   }
   return tr("Wähle unten deine Antwort – oder hör’s dir noch einmal an.", "Pick your answer below — or replay anytime.");
 }
@@ -12712,8 +12814,13 @@ function showAwaitingAnswerStage(ex = state.currentExercise) {
   if (!document.getElementById("centralStageCard")) return;
   if (!ex || isCurrentExerciseSolved(ex)) return;
 
-  const headline = AWAITING_STAGE_HEADLINES[awaitingPromptCounter % AWAITING_STAGE_HEADLINES.length];
+  const promptIdx = awaitingPromptCounter;
+  const headline = AWAITING_STAGE_HEADLINES[promptIdx % AWAITING_STAGE_HEADLINES.length];
   awaitingPromptCounter += 1;
+  const name = getProfileUserName(true);
+  const useNamedHeadline = Boolean(name) && !state.exam?.active && (promptIdx % 2 === 0);
+  const useNamedHint = Boolean(name) && !state.exam?.active && !useNamedHeadline && (promptIdx % 4 === 1);
+  const namedHeadline = AWAITING_STAGE_NAMED_HEADLINES[Math.floor(promptIdx / 2) % AWAITING_STAGE_NAMED_HEADLINES.length];
 
   setCentralStageMode("stage-awaiting");
   updateStageMascot("awaiting");
@@ -12727,8 +12834,10 @@ function showAwaitingAnswerStage(ex = state.currentExercise) {
   }
 
   document.getElementById("stageSubtext").textContent = subtext;
-  document.getElementById("stageMainText").textContent = tr(headline.de, headline.en);
-  document.getElementById("stageFunctionText").textContent = getAwaitingStageHint(ex);
+  document.getElementById("stageMainText").textContent = useNamedHeadline
+    ? tf(namedHeadline.de, namedHeadline.en, { name })
+    : tr(headline.de, headline.en);
+  document.getElementById("stageFunctionText").textContent = getAwaitingStageHint(ex, useNamedHint);
 }
 
 function completePromptPlayback(ex = state.currentExercise) {
@@ -13367,7 +13476,9 @@ function shiftAndAdvanceNotationQueue(ex, feedbackKind, stageSub, stageMain, sta
   if (document.getElementById("centralStageCard")) {
     setCentralStageMode(feedbackKind === "correct" ? "stage-playing" : "stage-target");
     updateStageMascot(feedbackKind === "correct" ? "happy" : "idle");
-    document.getElementById("stageSubtext").textContent = stageSub;
+    document.getElementById("stageSubtext").textContent = feedbackKind === "correct"
+      ? getPersonalizedCorrectStageSubtext(stageSub)
+      : stageSub;
     document.getElementById("stageMainText").textContent = stageMain;
     document.getElementById("stageFunctionText").textContent = finalDesc;
     renderStageStreakUI();
@@ -13938,7 +14049,7 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
     if (!isListenOnly) {
       triggerCelebrationFeedback(btnElement, { isMilestone: streakRes.isMilestone, inputPoint: capturedInputPoint });
     }
-    document.getElementById("stageSubtext").textContent = tr("RICHTIG!", "CORRECT!");
+    document.getElementById("stageSubtext").textContent = getPersonalizedCorrectStageSubtext(tr("RICHTIG!", "CORRECT!"));
     document.getElementById("stageMainText").textContent = ex.targetItem.roman || ex.targetItem.symbol;
     document.getElementById("stageFunctionText").textContent = ex.targetItem.label;
 
@@ -14068,7 +14179,7 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
     setCentralStageMode("stage-wrong");
     updateStageMascot("thinking");
     document.getElementById("stageSubtext").textContent = tr("KNAPP DANEBEN", "NOT QUITE");
-    document.getElementById("stageMainText").textContent = tr("Vergleichen hilft", "Compare Both");
+    document.getElementById("stageMainText").textContent = getPersonalizedWrongStageMainText(tr("Vergleichen hilft", "Compare Both"));
     const isRhythmWrong = ex.type.startsWith("rhythm-");
     const isProdWrong = ex.type.startsWith("prod-");
     const isModesWrong = ex.type.startsWith("modes-");
@@ -16670,24 +16781,12 @@ function renderHomeProfileGreeting() {
   if (heroSvg) heroSvg.innerHTML = getMascotSVG("idle", true);
 
   const bar = document.getElementById("homeProfileGreeting");
-  if (!bar) {
-    renderHomeQuickMixBar();
-    return;
-  }
-
-  // Instrumente & Trainingsschwerpunkte bleiben im Konto; auf dem Übungen-Reiter nur eine schlichte Begrüßung
-  const p = state.profile || createDefaultProfile();
-  const hasName = Boolean(p.name && p.name.length > 0);
-  if (!hasName) {
+  if (bar) {
     bar.classList.add("hidden");
     bar.innerHTML = "";
-    renderHomeQuickMixBar();
-    return;
   }
 
-  bar.classList.remove("hidden");
-  const greetingText = tf("Hallo {name}!{inst}", "Hi {name}!{inst}", { name: p.name, inst: "" });
-  bar.innerHTML = `<span class="home-profile-text">${escapeHtml(greetingText)}</span>`;
+  refreshCurrentQuoteLocalization();
   renderHomeQuickMixBar();
 }
 
@@ -18701,53 +18800,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Hero-Karte: Weiterüben & Zufall
+  // Floating-Button auf der Übungen-Seite: Weiterüben
   document.getElementById("quickStartBtn")?.addEventListener("click", () => {
-    state.exerciseReturnView = "home";
-    switchView("exercise");
-  });
-
-  document.getElementById("surpriseStartBtn")?.addEventListener("click", () => {
-    const modes = [
-      "cadence", "cadence-minor", "interval-melodic", "interval-melodic-down", "interval-harmonic", "interval-drone",
-      "chord-arp-up", "chord-arp-down", "interval-chords", "chord-inversions",
-      "solfege", "melody",
-      "rhythm-meter", "rhythm-dictation", "rhythm-tap", "rhythm-groove",
-      "prod-tone", "prod-eq-noise",
-      "modes-scale", "modes-char", "modes-cadence",
-      "notation-treble", "notation-bass", "notation-alto", "notation-mixed", "notation-grand", "notation-chords"
-    ];
-    const randomMode = modes[Math.floor(Math.random() * modes.length)];
-    state.setMode(randomMode);
-    if (isCadenceMode(randomMode)) {
-      state.setDifficulty(Math.floor(Math.random() * 4) + 1);
-      state.setCadencePos(Math.random() < 0.5 ? "last" : "random");
-    } else if (isChordQualityMode(randomMode)) {
-      state.setChordDifficulty(Math.floor(Math.random() * 4) + 1);
-    } else if (randomMode === "chord-inversions") {
-      state.setChordInversionDifficulty(Math.floor(Math.random() * 3) + 1);
-    } else if (randomMode === "melody") {
-      const ranges = ["do-fa", "sol-do", "full"];
-      state.setMelodyConfig(
-        ranges[Math.floor(Math.random() * ranges.length)],
-        Math.random() < 0.5 ? "fixed" : "random",
-        Math.random() < 0.5 ? "single" : "multi"
-      );
-    } else if (randomMode === "rhythm-meter") {
-      state.setRhythmLevel("rhythm-meter", Math.floor(Math.random() * 3) + 1);
-    } else if (randomMode.startsWith("rhythm-")) {
-      state.setRhythmLevel(randomMode, Math.floor(Math.random() * 4) + 1);
-    } else if (randomMode.startsWith("prod-")) {
-      state.setProdLevel(randomMode, Math.floor(Math.random() * 3) + 1);
-    } else if (randomMode === "modes-cadence") {
-      state.setModesLevel(randomMode, Math.floor(Math.random() * 2) + 1);
-    } else if (randomMode.startsWith("modes-")) {
-      state.setModesLevel(randomMode, Math.floor(Math.random() * 3) + 1);
-    } else if (isNotationMode(randomMode)) {
-      state.setNotationLevel(Math.floor(Math.random() * 4) + 1);
-    } else if (randomMode !== "solfege") {
-      state.setIntervalDifficulty(Math.floor(Math.random() * 3) + 1);
-    }
     state.exerciseReturnView = "home";
     switchView("exercise");
   });
@@ -20032,7 +20086,7 @@ const WARMUP_PRESETS = [
   {
     id: "arpeggio-focus",
     badge: "1–3–5–8",
-    circle: "circle-peach",
+    circle: "circle-peach node-circle-compact node-circle-nowrap",
     titleDe: "Arpeggio & Register-Training",
     titleEn: "Arpeggio & Register Drill",
     descDe: "Fokus auf Beweglichkeit, Staccato-Oktaven und sanften Lagen-Ausgleich",

@@ -893,6 +893,17 @@ html, body {
   gap: 0.5rem;
 }
 
+.home-fab-anchor {
+  position: sticky;
+  bottom: -0.25rem;
+  z-index: 24;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: auto;
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
 .btn-primary-action {
   flex: 1;
   background-color: var(--raccoon-dark);
@@ -907,6 +918,38 @@ html, body {
   justify-content: center;
   box-shadow: var(--shadow-card);
   transition: transform 0.12s, opacity 0.15s;
+}
+
+.btn-primary-action.home-continue-fab,
+[data-appearance="dark"] .btn-primary-action.home-continue-fab {
+  pointer-events: auto;
+  flex: 0 0 auto;
+  margin-left: auto;
+  width: 140px;
+  background-color: var(--sage);
+  color: var(--raccoon-dark);
+  border: 1.5px solid var(--sage-strong);
+  border-radius: var(--radius-pill);
+  padding: 0.56rem 0.9rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
+  box-shadow: 0 2.5px 0 var(--tactile-edge), var(--shadow-float);
+}
+
+html[lang="de"] .btn-primary-action.home-continue-fab { width: 140px; }
+html[lang="en"] .btn-primary-action.home-continue-fab { width: 122px; }
+html[lang="fr"] .btn-primary-action.home-continue-fab { width: 128px; }
+html[lang="pl"] .btn-primary-action.home-continue-fab { width: 128px; }
+html[lang="uk"] .btn-primary-action.home-continue-fab { width: 148px; }
+html[lang="ur"] .btn-primary-action.home-continue-fab { width: 156px; }
+
+.btn-primary-action.home-continue-fab span {
+  font-size: 0.84rem;
+  font-weight: 800;
+  line-height: 1.2;
 }
 
 .btn-primary-action span {
@@ -5539,7 +5582,7 @@ body,
 
 /* UX-Struktur: Home Quick-Mix-Bar, kompaktes 2er-Kategorie-Raster, Account-Disclosures, Sub-Tabs & Wissen-Akkordeons */
 .home-quick-mix-bar {
-  margin-top: 0.7rem;
+  margin-top: 0.05rem;
   padding-top: 0.65rem;
   border-top: 1px solid var(--border-soft);
   display: flex;
@@ -11477,6 +11520,11 @@ body.is-hum-pause #solfegeKeyboardWrap {
 }
 .node-circle.node-circle-compact {
   font-size: 0.9rem;
+}
+.node-circle.node-circle-nowrap {
+  font-size: 0.8rem;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
 }
 
 /* Über-Fenster: App-Icon als Squircle (Superellipse per SVG-clipPath #lauscherSquircle) */

@@ -518,7 +518,6 @@
     <main id="viewHome" class="view-container">
       
       <section class="hero-card">
-        <div id="homeProfileGreeting" class="home-profile-bar hidden"></div>
         <div class="hero-top">
           <button id="refreshQuoteBtn" class="hero-mascot-btn" title="Tippe für einen neuen Gedanken" data-i18n-title="home.refreshQuoteTitle">
             <div class="hero-mascot-avatar" id="heroMascotSvg"></div>
@@ -530,22 +529,6 @@
               „Schön, dass du da bist! Heute entdecken wir, wie Musik Geschichten erzählt.“
             </p>
           </div>
-        </div>
-        <div class="hero-actions">
-          <button id="quickStartBtn" class="btn-primary-action">
-            <span id="quickStartLabel" data-i18n="home.continue">▶ Weiterüben</span>
-            <small id="quickStartSub">Kadenzen • Stufe 1</small>
-          </button>
-          <button id="surpriseStartBtn" class="btn-secondary-action" title="Zufällige Übung starten" data-i18n-title="home.surpriseTitle">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px; margin-right:3px;">
-              <rect x="3" y="3" width="18" height="18" rx="3" ry="3"/>
-              <circle cx="8.5" cy="8.5" r="1.2" fill="currentColor" stroke="none"/>
-              <circle cx="15.5" cy="8.5" r="1.2" fill="currentColor" stroke="none"/>
-              <circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/>
-              <circle cx="8.5" cy="15.5" r="1.2" fill="currentColor" stroke="none"/>
-              <circle cx="15.5" cy="15.5" r="1.2" fill="currentColor" stroke="none"/>
-            </svg><span data-i18n="home.surprise">Zufall</span>
-          </button>
         </div>
 
         <div id="homeQuickMixBar" class="home-quick-mix-bar hidden"></div>
@@ -726,6 +709,12 @@
             <p data-i18n="home.catProductionDesc">Frequenzen &amp; EQ-Anhebungen im Noise heraushören</p>
           </div>
           <span class="cat-chevron">›</span>
+        </button>
+      </div>
+
+      <div class="home-fab-anchor">
+        <button id="quickStartBtn" type="button" class="btn-primary-action home-continue-fab">
+          <span id="quickStartLabel" data-i18n="home.continue">▶ Weiterüben</span>
         </button>
       </div>
     </main>
