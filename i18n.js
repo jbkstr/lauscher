@@ -1081,6 +1081,7 @@ const PROFILE_ACCESSORIES_EN = {
 
 const MIX_MODES_EN = {
   "cadence":               "Cadences",
+  "cadence-minor":         "Cadences (Minor)",
   "interval-melodic":      "Intervals (Ascending)",
   "interval-melodic-down": "Intervals (Descending)",
   "interval-harmonic":     "Intervals (Harmonic)",
@@ -1135,7 +1136,30 @@ const DEGREES_EN = {
   "bVI":   { label: "Modal Borrowed bVI",     short: "bVI" },
   "bVII":  { label: "Subtonic bVII",          short: "bVII" },
   "V/V":   { label: "Secondary Dominant",     short: "V/V" },
-  "bII7":  { label: "Tritone Substitution",   short: "bII7 (Sub)" }
+  "bII7":  { label: "Tritone Substitution",   short: "bII7 (Sub)" },
+  "i": { label: "Minor Tonic", short: "Tonic" },
+  "iio": { label: "Diminished ii", short: "ii° (dim)" },
+  "ii7b5": { label: "Half-Diminished ii", short: "iiø7" },
+  "III": { label: "Relative Major", short: "Rel. Major" },
+  "v": { label: "Minor Dominant", short: "v (Min)" },
+  "VI": { label: "Submediant VI (Major)", short: "VI" },
+  "VII": { label: "Subtonic VII (Major)", short: "VII" },
+  "N6": { label: "Neapolitan (♭II⁶)", short: "N6" }
+};
+
+const KEY_NAMES_MINOR_EN = {
+  "C": "C minor",
+  "G": "G minor",
+  "D": "D minor",
+  "F": "F minor",
+  "Bb": "Bb minor",
+  "Eb": "Eb minor",
+  "Ab": "G# minor",
+  "A": "A minor",
+  "E": "E minor",
+  "B": "B minor",
+  "F#": "F# minor",
+  "Db": "C# minor"
 };
 
 const INTERVALS_EN = {
@@ -1302,6 +1326,7 @@ registerLanguageBundle("en", {
       Object.entries(DEFAULT_MIX_TITLES_EN).map(([k, v]) => [k, v.en])
     ),
     keyNames: KEY_NAMES_EN,
+    minorKeyNames: KEY_NAMES_MINOR_EN,
     degrees: DEGREES_EN,
     intervals: INTERVALS_EN,
     chords: CHORDS_EN,

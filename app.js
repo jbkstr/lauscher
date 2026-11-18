@@ -1001,6 +1001,7 @@ function toggleProfileAccessoryValue(currentList, nextKey) {
 }
 const MIX_MODE_CATALOG = {
   "cadence":               { label: "Kadenzen",                     levels: [1, 2, 3, 4] },
+  "cadence-minor":         { label: "Kadenzen (Moll)",              levels: [1, 2, 3, 4] },
   "interval-melodic":      { label: "Intervalle (Aufwärts)",          levels: [1, 2, 3] },
   "interval-melodic-down": { label: "Intervalle (Abwärts)",           levels: [1, 2, 3] },
   "interval-harmonic":     { label: "Intervalle (Gleichz.)",          levels: [1, 2, 3] },
@@ -1167,6 +1168,50 @@ const EXAM_CATEGORY_LEVELS = {
           en: "All degrees incl. bII7 (Neapolitan), random bar & all 12 keys"
         },
         modes: ["cadence"],
+        apply: { difficulty: 4, cadencePos: "random", keyMode: "all" }
+      },
+      {
+        id: "cadence_minor_l1",
+        levelNumber: 1,
+        title: { de: "Moll • Grundfunktionen", en: "Minor • Primary Functions" },
+        desc: {
+          de: "i, iv, V & VI an fester Zielposition (Takt 4) in c-Moll",
+          en: "i, iv, V & VI on fixed target bar 4 in C minor"
+        },
+        modes: ["cadence-minor"],
+        apply: { difficulty: 1, cadencePos: "last", keyMode: "fixed" }
+      },
+      {
+        id: "cadence_minor_l2",
+        levelNumber: 2,
+        title: { de: "Moll • Erweiterte Diatonik", en: "Minor • Extended Diatonic" },
+        desc: {
+          de: "Alle leitereigenen Moll-Stufen inkl. v & V in leichten Tonarten",
+          en: "All diatonic minor degrees incl. v & V across easy keys"
+        },
+        modes: ["cadence-minor"],
+        apply: { difficulty: 2, cadencePos: "last", keyMode: "easy" }
+      },
+      {
+        id: "cadence_minor_l3",
+        levelNumber: 3,
+        title: { de: "Moll • V7, V/V & Neapolitaner", en: "Minor • V7, V/V & Neapolitan" },
+        desc: {
+          de: "8 Stufen inkl. V7, V/V & N6 mit wechselndem Ziel-Takt (1–4)",
+          en: "8 degrees incl. V7, V/V & N6 with randomized target bar (1–4)"
+        },
+        modes: ["cadence-minor"],
+        apply: { difficulty: 3, cadencePos: "random", keyMode: "easy" }
+      },
+      {
+        id: "cadence_minor_l4",
+        levelNumber: 4,
+        title: { de: "Moll • Meister-Harmonik", en: "Minor • Master Harmony" },
+        desc: {
+          de: "Moll-ii–V (iiø7), bII7, zufälliger Takt & alle 12 Tonarten",
+          en: "Minor ii–V (iiø7), bII7, random bar & all 12 keys"
+        },
+        modes: ["cadence-minor"],
         apply: { difficulty: 4, cadencePos: "random", keyMode: "all" }
       }
     ]
@@ -1946,6 +1991,7 @@ const SOLFEGE_LOOP_INTERVAL_MS = 3000;
 
 const MODE_CATEGORY_MAP = {
   "cadence":               "cadence",
+  "cadence-minor":         "cadence",
   "interval-melodic":      "interval",
   "interval-melodic-down": "interval",
   "interval-harmonic":     "interval",
@@ -2300,7 +2346,8 @@ class AppState {
 
   getModeSummaryText(includeCategory = true) {
     const lvlWord = tr("Stufe", "Level");
-    if (this.settings.mode === "cadence") {
+    if (isCadenceMode(this.settings.mode)) {
+      const minorTag = isMinorCadenceMode(this.settings.mode) ? ` • ${tr("Moll", "Minor")}` : "";
       const diffNames = {
         1: tr("Basis", "Basics"),
         2: tr("Diatonisch", "Diatonic"),
@@ -2312,8 +2359,8 @@ class AppState {
         : tr("Takt 4", "Bar 4");
       const diffText = `${lvlWord} ${this.settings.difficulty} (${diffNames[this.settings.difficulty] || tr("Basis", "Basics")})`;
       return includeCategory
-        ? `${tr("Kadenzen", "Cadences")} • ${diffText} • ${posShort}`
-        : `${posShort} • ${diffText}`;
+        ? `${tr("Kadenzen", "Cadences")}${minorTag} • ${diffText} • ${posShort}`
+        : `${posShort} • ${diffText}${minorTag}`;
     }
     if (this.settings.mode === "melody") {
       const rangeInfo = getLocalizedMelodyRange(this.settings.melodyRange || "do-fa");
@@ -3020,7 +3067,25 @@ function getWhiteNoteLabel(pc) {
   return (useIntl ? INTL_WHITE_LABELS[norm] : GERMAN_WHITE_LABELS[norm]) || "";
 }
 
-function getKeyDisplayName(keyCode) {
+// Moll-Tonartnamen (gleicher Grundton wie die Dur-Tonart; übliche enharmonische Schreibweise)
+const MINOR_KEY_NAMES_DE = {
+  "C": "c-Moll", "G": "g-Moll", "D": "d-Moll", "F": "f-Moll", "Bb": "b-Moll", "Eb": "es-Moll",
+  "Ab": "gis-Moll", "A": "a-Moll", "E": "e-Moll", "B": "h-Moll", "F#": "fis-Moll", "Db": "cis-Moll"
+};
+const MINOR_KEY_NAMES_INTL = {
+  "C": "C-Moll", "G": "G-Moll", "D": "D-Moll", "F": "F-Moll", "Bb": "Bb-Moll", "Eb": "Eb-Moll",
+  "Ab": "G#-Moll", "A": "A-Moll", "E": "E-Moll", "B": "B-Moll", "F#": "F#-Moll", "Db": "C#-Moll"
+};
+
+function getKeyDisplayName(keyCode, tonality = "major") {
+  if (tonality === "minor") {
+    if (typeof getLocalizedTableEntry === "function") {
+      const localized = getLocalizedTableEntry("minorKeyNames", keyCode);
+      if (localized) return localized;
+    }
+    const useIntlMinor = typeof state !== "undefined" && state?.profile?.notation === "intl";
+    return (useIntlMinor ? MINOR_KEY_NAMES_INTL[keyCode] : MINOR_KEY_NAMES_DE[keyCode]) || `${keyCode}-Moll`;
+  }
   if (typeof getLocalizedKeyName === "function") {
     const localized = getLocalizedKeyName(keyCode);
     if (localized) return localized;
@@ -4117,7 +4182,17 @@ const HARMONIC_DATA = {
     "bVI":   { roman: "bVI",   label: "Modal-bVI",        short: "bVI",        semitones: 8,  type: "maj",  bassOffset: 8 },
     "bVII":  { roman: "bVII",  label: "Modal-bVII",       short: "bVII",       semitones: 10, type: "maj",  bassOffset: 10 },
     "V/V":   { roman: "V/V",   label: "Doppeldom.",       short: "V/V",        semitones: 2,  type: "maj",  bassOffset: 2 },
-    "bII7":  { roman: "bII7",  label: "Tritonussub.",     short: "bII7 (Sub)", semitones: 1,  type: "dom7", bassOffset: 1 }
+    "bII7":  { roman: "bII7",  label: "Tritonussub.",     short: "bII7 (Sub)", semitones: 1,  type: "dom7", bassOffset: 1 },
+
+    // Stufen für Moll-Kadenzen (Funktionsbezeichnungen bezogen auf die Moll-Tonika)
+    "i":     { roman: "i",     label: "Moll-Tonika",      short: "Tonika",     semitones: 0,  type: "min",  bassOffset: 0 },
+    "iio":   { roman: "ii°",   label: "Verminderte II",   short: "ii° (verm.)", semitones: 2, type: "dim",  bassOffset: 2 },
+    "ii7b5": { roman: "iiø7",  label: "Halbverminderte II", short: "iiø7",     semitones: 2,  type: "m7b5", bassOffset: 2 },
+    "III":   { roman: "III",   label: "Dur-Parallele",    short: "Dur-Par.",   semitones: 3,  type: "maj",  bassOffset: 3 },
+    "v":     { roman: "v",     label: "Moll-Dominante",   short: "v (Moll)",   semitones: 7,  type: "min",  bassOffset: 7 },
+    "VI":    { roman: "VI",    label: "VI. Stufe (Dur)",  short: "VI",         semitones: 8,  type: "maj",  bassOffset: 8 },
+    "VII":   { roman: "VII",   label: "VII. Stufe (Dur)", short: "VII",        semitones: 10, type: "maj",  bassOffset: 10 },
+    "N6":    { roman: "N6",    label: "Neapolitaner (♭II⁶)", short: "N6",      semitones: 1,  type: "maj",  bassOffset: 5 }
   },
 
   intervals: {
@@ -4184,6 +4259,7 @@ function buildChordNotes(rootMidi, degreeDef) {
   if (degreeDef.type === "maj7") offsets = [0, 4, 7, 11];
   if (degreeDef.type === "sus4") offsets = [0, 5, 7];
   if (degreeDef.type === "dim") offsets = [0, 3, 6];
+  if (degreeDef.type === "m7b5") offsets = [0, 3, 6, 10];
 
   const chordNotes = offsets.map(s => midiToNote(rootNote + s));
   const bassNote = midiToNote(rootMidi - 12 + degreeDef.bassOffset);
@@ -5281,7 +5357,7 @@ function initTabSwipeNavigation() {
 function getDefaultExerciseBpm(mode = state?.settings?.mode) {
   const globalDefault = Number(state?.settings?.defaultBpm) || 90;
   // Kadenz- und Solfège-Übungen starten standardmäßig mit 120 BPM
-  if (mode === "cadence") return CADENCE_DEFAULT_BPM;
+  if (isCadenceMode(mode)) return CADENCE_DEFAULT_BPM;
   if (mode === "solfege") return SOLFEGE_DEFAULT_BPM;
   return globalDefault;
 }
@@ -6774,7 +6850,7 @@ const BEGINNER_EXERCISES = new Set([
 
 function getExerciseNodeKey(btn) {
   const d = btn?.dataset || {};
-  if (d.launchCadence) return `cadence:${d.launchCadence}:${d.cadencePos}`;
+  if (d.launchCadence) return `${d.cadenceTonality === "minor" ? "cadence-minor" : "cadence"}:${d.launchCadence}:${d.cadencePos}`;
   if (d.launchInt) return `${d.launchInt}:${d.intLvl}`;
   if (d.launchChord) return `${d.launchChord}:${d.chordLvl}`;
   if (d.launchMelody) return `melody:${d.launchMelody}:${d.melodyKey}:${d.melodyOctave}`;
@@ -6810,13 +6886,20 @@ function openCategoryPage(categoryKey, options = {}) {
       { level: 4, circle: "circle-lilac", badge: "bII7",  title: tr("Stufe 4: Jazz & Tritone", "Level 4: Jazz & Tritone"), sub: tr("Inklusive Tritonussubstitution", "Including tritone substitution") }
     ];
 
-    const renderCadenceSection = (posMode, title, desc) => `
+    const MINOR_CADENCE_LEVELS = [
+      { level: 1, circle: "circle-sage",  badge: "i–V",   title: tr("Stufe 1: Basis", "Level 1: Basics"),              sub: tr("i, iv, V und VI", "i, iv, V & VI") },
+      { level: 2, circle: "circle-sage",  badge: "ii°–VII", title: tr("Stufe 2: Diatonisch", "Level 2: Diatonic"),     sub: tr("Alle leitereigenen Stufen inkl. v und V", "All diatonic degrees incl. v & V") },
+      { level: 3, circle: "circle-peach", badge: "N6",    title: tr("Stufe 3: Erweitert", "Level 3: Extended"),        sub: tr("Mit V7, V/V & Neapolitaner", "With V7, V/V & Neapolitan") },
+      { level: 4, circle: "circle-lilac", badge: "iiø7",  title: tr("Stufe 4: Jazz & Tritone", "Level 4: Jazz & Tritone"), sub: tr("Moll-ii–V & Tritonussubstitution", "Minor ii–V & tritone substitution") }
+    ];
+
+    const renderCadenceSection = (posMode, title, desc, tonality = "major") => `
       <div class="subpage-section">
         <h3 class="subpage-section-title">${title}</h3>
         <p class="subpage-section-desc">${desc}</p>
         <div class="subpage-nodes-grid">
-          ${CADENCE_LEVELS.map(lv => `
-            <button class="subpage-node-btn" data-launch-cadence="${lv.level}" data-cadence-pos="${posMode}">
+          ${(tonality === "minor" ? MINOR_CADENCE_LEVELS : CADENCE_LEVELS).map(lv => `
+            <button class="subpage-node-btn" data-launch-cadence="${lv.level}" data-cadence-pos="${posMode}" data-cadence-tonality="${tonality}">
               <div class="node-circle ${lv.circle}">
                 ${lv.badge}
                 ${posMode === "random" ? `<span class="node-random-badge" title="${tr("Zufälliger Takt", "Random Measure")}">?</span>` : ""}
@@ -6839,11 +6922,23 @@ function openCategoryPage(categoryKey, options = {}) {
         "random",
         tr("Übungen zu Kadenzen • Zufälliger Takt", "Cadence Exercises • Random Bar"),
         tr("Die fehlende Stufe steht an einer zufälligen Stelle (Takt 1–4)", "The missing chord appears in a random position (Bars 1–4)")
+      ) +
+      renderCadenceSection(
+        "last",
+        tr("Moll-Kadenzen • Ziel: Takt 4", "Minor Cadences • Target: Bar 4"),
+        tr("Dieselben Übungen in Moll-Tonarten: Höre drei Takte Kontext und bestimme die gesuchte 4. Stufe", "The same exercises in minor keys: listen to three bars of context and identify the missing 4th chord"),
+        "minor"
+      ) +
+      renderCadenceSection(
+        "random",
+        tr("Moll-Kadenzen • Zufälliger Takt", "Minor Cadences • Random Bar"),
+        tr("Die fehlende Moll-Stufe steht an einer zufälligen Stelle (Takt 1–4)", "The missing minor-key chord appears in a random position (Bars 1–4)"),
+        "minor"
       );
 
     container.querySelectorAll("[data-launch-cadence]").forEach(btn => {
       btn.addEventListener("click", () => {
-        state.setMode("cadence");
+        state.setMode(btn.dataset.cadenceTonality === "minor" ? "cadence-minor" : "cadence");
         state.setDifficulty(btn.dataset.launchCadence);
         state.setCadencePos(btn.dataset.cadencePos);
         state.exerciseReturnView = "category";
@@ -7959,8 +8054,8 @@ function generateExercise() {
 
   const rootMidi = HARMONIC_DATA.roots[state.currentKey].midi;
 
-  if (state.settings.mode === "cadence") {
-    generateCadenceExercise(rootMidi);
+  if (isCadenceMode(state.settings.mode)) {
+    generateCadenceExercise(rootMidi, isMinorCadenceMode(state.settings.mode) ? "minor" : "major");
   } else if (state.settings.mode === "solfege") {
     generateSolfegeExercise(rootMidi);
   } else if (state.settings.mode === "melody") {
@@ -8006,11 +8101,40 @@ function generateExercise() {
   renderUI();
 }
 
-function generateCadenceExercise(rootMidi) {
+// Moll-Kadenzen: gleiche Stufen-Logik wie Dur, Stufen bezogen auf die Moll-Tonika.
+// V/V7 = harmonisches Moll (Leitton), v = natürliches Moll.
+const MINOR_CADENCE_POOLS = {
+  1: ["i", "iv", "V", "VI"],
+  2: ["i", "iio", "III", "iv", "v", "V", "VI", "VII"],
+  3: ["i", "iio", "iv", "V", "V7", "VI", "V/V", "N6"],
+  4: ["i", "ii7b5", "III", "iv", "V7", "VI", "VII", "V/V", "bII7"]
+};
+// Übersetzung der Dur-Grundmuster (Stufe 1) in ihre Moll-Entsprechung
+const MAJOR_TO_MINOR_L1 = { "I": "i", "IV": "iv", "V": "V", "vi": "VI" };
+
+function isCadenceMode(mode) {
+  return mode === "cadence" || mode === "cadence-minor";
+}
+
+function isMinorCadenceMode(mode) {
+  return mode === "cadence-minor";
+}
+
+function getCadenceTonicKey(tonality = "major") {
+  return tonality === "minor" ? "i" : "I";
+}
+
+function generateCadenceExercise(rootMidi, tonality = "major") {
+  const isMinor = tonality === "minor";
+  const tonic = getCadenceTonicKey(tonality);
   let available = ["I", "IV", "V", "vi"];
   if (state.settings.difficulty === 2) available = ["I", "ii", "iii", "IV", "V", "vi"];
   if (state.settings.difficulty === 3) available = ["I", "ii", "IV", "V", "V7", "vi", "V/V"];
   if (state.settings.difficulty >= 4) available = ["I", "ii", "iii", "IV", "V", "V7", "vi", "V/V", "bII7"];
+  if (isMinor) {
+    const lvl = Math.max(1, Math.min(4, Number(state.settings.difficulty) || 1));
+    available = MINOR_CADENCE_POOLS[lvl];
+  }
 
   const isRandomPos = state.settings.cadencePos === "random";
   const targetIndex = isRandomPos ? Math.floor(Math.random() * 4) : 3;
@@ -8036,28 +8160,32 @@ function generateCadenceExercise(rootMidi) {
     ["V", "vi", "IV", "I"]
   ];
 
+  const toTonality = (pattern) => (isMinor ? pattern.map(k => MAJOR_TO_MINOR_L1[k] || k) : pattern);
+  const l1Patterns = cadencesL1.map(toTonality);
+  const l1RandomPool = cadencesL1RandomPool.map(toTonality);
+
   let raw;
   if (state.settings.difficulty === 1) {
     if (!isRandomPos) {
-      raw = cadencesL1[Math.floor(Math.random() * cadencesL1.length)];
+      raw = l1Patterns[Math.floor(Math.random() * l1Patterns.length)];
     } else {
       const wantedChord = available[Math.floor(Math.random() * available.length)];
-      const matches = cadencesL1RandomPool.filter(p =>
-        p[targetIndex] === wantedChord && (targetIndex > 0 || p.slice(1).includes("I"))
+      const matches = l1RandomPool.filter(p =>
+        p[targetIndex] === wantedChord && (targetIndex > 0 || p.slice(1).includes(tonic))
       );
       raw = matches.length
         ? matches[Math.floor(Math.random() * matches.length)]
-        : cadencesL1RandomPool[Math.floor(Math.random() * cadencesL1RandomPool.length)];
+        : l1RandomPool[Math.floor(Math.random() * l1RandomPool.length)];
     }
   } else if (!isRandomPos) {
-    raw = ["I", ...Array.from({ length: 3 }, () => available[Math.floor(Math.random() * available.length)])];
+    raw = [tonic, ...Array.from({ length: 3 }, () => available[Math.floor(Math.random() * available.length)])];
   } else {
     raw = Array.from({ length: 4 }, () => available[Math.floor(Math.random() * available.length)]);
     if (targetIndex > 0) {
-      raw[0] = "I";
-    } else if (![1, 2, 3].some(i => raw[i] === "I")) {
-      // Wenn Takt 1 gesucht ist, sorgt mindestens eine sichtbare Tonika (I) in Takt 2–4 für klaren Kontext
-      raw[1 + Math.floor(Math.random() * 3)] = "I";
+      raw[0] = tonic;
+    } else if (![1, 2, 3].some(i => raw[i] === tonic)) {
+      // Wenn Takt 1 gesucht ist, sorgt mindestens eine sichtbare Tonika in Takt 2–4 für klaren Kontext
+      raw[1 + Math.floor(Math.random() * 3)] = tonic;
     }
   }
 
@@ -8076,7 +8204,8 @@ function generateCadenceExercise(rootMidi) {
 
   state.currentExercise = {
     type: "cadence",
-    keyName: getKeyDisplayName(state.currentKey),
+    tonality: isMinor ? "minor" : "major",
+    keyName: getKeyDisplayName(state.currentKey, isMinor ? "minor" : "major"),
     targetIndex: targetIndex,
     targetItem: bars[targetIndex],
     bars: bars,
@@ -8883,7 +9012,7 @@ function refreshExerciseLocalization(ex) {
   if (!ex) return;
 
   if (ex.type === "cadence") {
-    ex.keyName = getKeyDisplayName(state.currentKey);
+    ex.keyName = getKeyDisplayName(state.currentKey, ex.tonality || "major");
     (ex.bars || []).forEach(bar => {
       const def = getLocalizedDegreeDef(bar.key);
       if (def) {
@@ -9780,7 +9909,7 @@ function renderUI() {
     if (tonicRefLabel) {
       tonicRefLabel.textContent =
         isCadence
-          ? tr("Tonika (I)", "Tonic (I)")
+          ? (ex.tonality === "minor" ? tr("Tonika (i)", "Tonic (i)") : tr("Tonika (I)", "Tonic (I)"))
           : (isChordMode(ex.type)
               ? tr("Grundton", "Chord Root")
               : (ex.type.startsWith("interval") ? tr("Ausgangston", "Root Note") : tr("Tonika (Do)", "Tonic (Do)")));
@@ -14193,7 +14322,7 @@ function formatMixSubtitle(mix) {
 function applyModeAndLevelFromConfig(cfg) {
   const mode = cfg.mode;
   state.setMode(mode);
-  if (mode === "cadence") {
+  if (isCadenceMode(mode)) {
     state.setDifficulty(cfg.level || 1);
   } else if (isChordQualityMode(mode)) {
     state.setChordDifficulty(cfg.level || 1);
@@ -14246,7 +14375,7 @@ function launchProfileMix(mixId, returnView = state.currentView === "home" ? "ho
 function captureCurrentExerciseAsMix(customTitle = "") {
   const mode = state.settings.mode;
   let level = 1;
-  if (mode === "cadence") level = state.settings.difficulty;
+  if (isCadenceMode(mode)) level = state.settings.difficulty;
   else if (isChordQualityMode(mode)) level = state.settings.chordDifficulty;
   else if (mode === "chord-inversions") level = state.settings.chordInversionDifficulty;
   else if (mode === "solfege") level = state.settings.solfegeDifficulty;
@@ -16392,7 +16521,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("surpriseStartBtn")?.addEventListener("click", () => {
     const modes = [
-      "cadence", "interval-melodic", "interval-melodic-down", "interval-harmonic", "interval-drone",
+      "cadence", "cadence-minor", "interval-melodic", "interval-melodic-down", "interval-harmonic", "interval-drone",
       "chord-arp-up", "chord-arp-down", "interval-chords", "chord-inversions",
       "solfege", "melody",
       "rhythm-meter", "rhythm-dictation", "rhythm-tap", "rhythm-groove",
@@ -16402,7 +16531,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
     const randomMode = modes[Math.floor(Math.random() * modes.length)];
     state.setMode(randomMode);
-    if (randomMode === "cadence") {
+    if (isCadenceMode(randomMode)) {
       state.setDifficulty(Math.floor(Math.random() * 4) + 1);
       state.setCadencePos(Math.random() < 0.5 ? "last" : "random");
     } else if (isChordQualityMode(randomMode)) {
@@ -16617,8 +16746,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const rootMidi = HARMONIC_DATA.roots[state.currentKey].midi;
-    if (mode === "cadence") {
-      const tonicNotes = buildChordNotes(rootMidi, HARMONIC_DATA.degrees["I"]);
+    if (isCadenceMode(mode)) {
+      const tonicNotes = buildChordNotes(rootMidi, HARMONIC_DATA.degrees[getCadenceTonicKey(ex?.tonality)]);
       audioEngine.playStep(tonicNotes.chordNotes, 1.2, tonicNotes.bassNote, "cadence");
     } else if ((mode.startsWith("interval") || isChordMode(mode)) && ex?.targetItem?.refNote) {
       audioEngine.playStep([ex.targetItem.refNote], 1.1, null, "cadence");
@@ -20003,6 +20132,7 @@ function getExamPresetDesc(preset) {
 function getLocalizedExamModeName(mode) {
   const names = {
     cadence: tr("Kadenzen", "Cadences"),
+    "cadence-minor": tr("Kadenzen (Moll)", "Cadences (Minor)"),
     "interval-melodic": tr("Intervalle (Aufwärts)", "Intervals (Ascending)"),
     "interval-melodic-down": tr("Intervalle (Abwärts)", "Intervals (Descending)"),
     "interval-harmonic": tr("Intervalle (Harmonisch)", "Intervals (Harmonic)"),

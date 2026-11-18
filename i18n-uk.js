@@ -544,6 +544,7 @@ const PROFILE_ACCESSORIES_UK = {
 
 const MIX_MODES_UK = {
   "cadence": "Каданси",
+  "cadence-minor": "Каданси (мінор)",
   "interval-melodic": "Інтервали (Висхідні)",
   "interval-melodic-down": "Інтервали (Низхідні)",
   "interval-harmonic": "Інтервали (Гармонічні)",
@@ -590,7 +591,30 @@ const KEY_NAMES_UK = {
   "Db": "Ре♭ мажор"
 };
 
+const KEY_NAMES_MINOR_UK = {
+  "C": "До мінор",
+  "G": "Соль мінор",
+  "D": "Ре мінор",
+  "F": "Фа мінор",
+  "Bb": "Сі♭ мінор",
+  "Eb": "Мі♭ мінор",
+  "Ab": "Соль♯ мінор",
+  "A": "Ля мінор",
+  "E": "Мі мінор",
+  "B": "Сі мінор",
+  "F#": "Фа♯ мінор",
+  "Db": "До♯ мінор"
+};
+
 const DEGREES_UK = {
+  "i": { label: "Мінорна тоніка", short: "Тоніка" },
+  "iio": { label: "Зменшений ii", short: "ii° (зм.)" },
+  "ii7b5": { label: "Напівзменшений ii", short: "iiø7" },
+  "III": { label: "Паралельний мажор", short: "Пар. мажор" },
+  "v": { label: "Мінорна домінанта", short: "v (мін.)" },
+  "VI": { label: "VI ступінь (мажор)", short: "VI" },
+  "VII": { label: "VII ступінь (мажор)", short: "VII" },
+  "N6": { label: "Неаполітанський (♭II⁶)", short: "N6" },
   "I":     { label: "Тоніка",               short: "Тоніка" },
   "I7":    { label: "Тоніка з мал. 7",      short: "I7" },
   "Imaj7": { label: "Тонічний майор-7",     short: "Imaj7" },
@@ -1673,8 +1697,27 @@ const TR_UK = {
   "{tot} / {tot} gelöst ✓": "{tot} / {tot} розгадано ✓"
 };
 
-// Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
+// Moll-Kadenzen, Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_UK, {
+  "Moll": "Мінор",
+  "i, iv, V und VI": "i, iv, V і VI",
+  "Alle leitereigenen Stufen inkl. v und V": "Усі діатонічні ступені, зокрема v і V",
+  "Mit V7, V/V & Neapolitaner": "З V7, V/V і неаполітанським акордом",
+  "Moll-ii–V & Tritonussubstitution": "Мінорне ii–V і тритонова заміна",
+  "Moll-Kadenzen • Ziel: Takt 4": "Мінорні каданси • Ціль: такт 4",
+  "Dieselben Übungen in Moll-Tonarten: Höre drei Takte Kontext und bestimme die gesuchte 4. Stufe": "Ті самі вправи в мінорних тональностях: прослухай три такти контексту й визнач пропущений 4-й акорд",
+  "Moll-Kadenzen • Zufälliger Takt": "Мінорні каданси • Випадковий такт",
+  "Die fehlende Moll-Stufe steht an einer zufälligen Stelle (Takt 1–4)": "Пропущений ступінь у мінорі стоїть у випадковому місці (такти 1–4)",
+  "Tonika (i)": "Тоніка (i)",
+  "Kadenzen (Moll)": "Каданси (мінор)",
+  "Moll • Grundfunktionen": "Мінор • Основні функції",
+  "Moll • Erweiterte Diatonik": "Мінор • Розширена діатоніка",
+  "Moll • V7, V/V & Neapolitaner": "Мінор • V7, V/V і неаполітанський",
+  "Moll • Meister-Harmonik": "Мінор • Майстерна гармонія",
+  "i, iv, V & VI an fester Zielposition (Takt 4) in c-Moll": "i, iv, V і VI у фіксованій позиції (такт 4) у До мінорі",
+  "Alle leitereigenen Moll-Stufen inkl. v & V in leichten Tonarten": "Усі діатонічні мінорні ступені, зокрема v і V, у легких тональностях",
+  "8 Stufen inkl. V7, V/V & N6 mit wechselndem Ziel-Takt (1–4)": "8 ступенів, зокрема V7, V/V і N6, зі змінним цільовим тактом (1–4)",
+  "Moll-ii–V (iiø7), bII7, zufälliger Takt & alle 12 Tonarten": "Мінорне ii–V (iiø7), bII7, випадковий такт і всі 12 тональностей",
   "Sing mit!": "Співай разом!",
   "Summ beide Töne nach, bevor du antwortest – deine Stimme spürt den Abstand oft schneller als der Kopf.": "Наспівай обидва звуки, перш ніж відповісти, – твій голос часто відчуває відстань швидше, ніж голова.",
   "Sing beide Töne abwärts nach – stell dir dabei eine Treppe nach unten vor.": "Заспівай обидва звуки вниз – уяви сходи, що ведуть донизу.",
@@ -2040,6 +2083,7 @@ if (typeof registerLanguageBundle === "function") {
       mixModes: MIX_MODES_UK,
       defaultMixTitles: DEFAULT_MIX_TITLES_UK,
       keyNames: KEY_NAMES_UK,
+      minorKeyNames: KEY_NAMES_MINOR_UK,
       degrees: DEGREES_UK,
       intervals: INTERVALS_UK,
       chords: CHORDS_UK,
