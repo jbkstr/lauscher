@@ -785,7 +785,6 @@
           <div class="cat-text-box">
             <div class="tool-card-title-row">
               <h3 data-i18n="tools.tunerTitle">Tuner</h3>
-              <span class="tools-launcher-badge" data-i18n="tools.soonBadge">Bald</span>
             </div>
             <p data-i18n="tools.tunerSub">Stimmgerät &amp; präzise Tonhöhen-Anzeige per Mikrofon</p>
           </div>
@@ -1993,23 +1992,80 @@
     <!-- =====================================================
          ANSICHT 7: TUNER (#viewTuner) – Vorbereitung
          ===================================================== -->
-    <main id="viewTuner" class="view-container tool-preview-view hidden">
-      <section class="module-card tool-preview-card">
-        <div class="tools-launcher-icon badge-lilac tool-preview-icon">
-          <svg class="icon-svg-large" width="32" height="32" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M9.5 4.5V12C9.5 14.4853 11.5147 16.5 14 16.5C16.4853 16.5 18.5 14.4853 18.5 12V4.5" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
-            <line x1="14" y1="16.5" x2="14" y2="23.5" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
-            <circle cx="14" cy="23.5" r="1.6" fill="currentColor"/>
-            <path d="M5.8 6.8C4.6 8.3 4.6 10.7 5.8 12.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.72"/>
-            <path d="M22.2 6.8C23.4 8.3 23.4 10.7 22.2 12.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.72"/>
+    <main id="viewTuner" class="view-container tuner-view hidden">
+
+      <section class="module-card tuner-main-card">
+        <div id="tunerDisplay" class="tuner-display is-idle">
+          <svg id="tunerGauge" class="tuner-gauge" viewBox="0 0 300 118" aria-hidden="true">
+            <path id="tunerGaugeZone" class="tuner-gauge-zone" d=""/>
+            <g id="tunerGaugeTicks"></g>
+            <g id="tunerNeedle" class="tuner-needle">
+              <line x1="150" y1="168" x2="150" y2="26" stroke-linecap="round"/>
+              <circle cx="150" cy="26" r="4.2"/>
+            </g>
           </svg>
+          <div class="tuner-readout">
+            <span id="tunerTargetLabel" class="tuner-target-label">&nbsp;</span>
+            <div id="tunerNoteBubble" class="tuner-note-bubble">
+              <span id="tunerNoteName" class="tuner-note-name">–</span><span id="tunerNoteOctave" class="tuner-note-octave"></span>
+            </div>
+            <div class="tuner-meta-row">
+              <span id="tunerCents" class="tuner-cents">± 0 ¢</span>
+              <span class="tuner-meta-dot" aria-hidden="true">•</span>
+              <span id="tunerFreq" class="tuner-freq">– Hz</span>
+            </div>
+          </div>
         </div>
-        <span class="tools-launcher-badge" data-i18n="tools.previewBadge">Bald verfügbar</span>
-        <h2 class="tool-preview-title" data-i18n="tools.tunerPageTitle">Chromatischer Tuner</h2>
-        <p class="tool-preview-desc" data-i18n="tools.tunerPageDesc">Live-Tonhöhenerkennung und Kammerton-Referenz direkt über das Mikrofon deines Geräts.</p>
-        <p id="tunerSecureContextNotice" class="tool-env-notice hidden"></p>
-        <button id="tunerBackBtn" type="button" class="btn-tool tool-preview-back-btn" data-i18n="tools.backBtn">← Zurück zu Werkzeuge</button>
+
+        <div class="tuner-spectrum-wrap">
+          <canvas id="tunerSpectrum" class="tuner-spectrum" aria-label="Live-Frequenzspektrum" data-i18n-aria="tuner.spectrumAria"></canvas>
+        </div>
+
+        <p id="tunerStatus" class="tuner-status" aria-live="polite"></p>
+
+        <button id="tunerStartBtn" class="dock-action-btn tuner-start-btn" type="button">Tuner starten</button>
       </section>
+
+      <section class="module-card tuner-setup-card">
+        <div class="tuner-select-row">
+          <label class="tuner-select-field">
+            <span class="tuner-select-label" data-i18n="tuner.instrumentLabel">Instrument</span>
+            <select id="tunerInstrumentSelect" class="tuner-select"></select>
+          </label>
+          <label id="tunerTuningField" class="tuner-select-field">
+            <span class="tuner-select-label" data-i18n="tuner.tuningLabel">Stimmung</span>
+            <select id="tunerTuningSelect" class="tuner-select"></select>
+          </label>
+        </div>
+
+        <div class="tuner-mode-toggle" role="radiogroup" aria-label="Erkennung" data-i18n-aria="tuner.modeAria">
+          <button id="tunerModeAutoBtn" class="opt-btn tuner-mode-btn active" type="button" role="radio" aria-checked="true" data-tuner-mode="auto" data-i18n="tuner.modeAuto">Automatisch</button>
+          <button id="tunerModeSingleBtn" class="opt-btn tuner-mode-btn" type="button" role="radio" aria-checked="false" data-tuner-mode="single" data-i18n="tuner.modeSingle">Einzelton</button>
+        </div>
+
+        <div id="tunerStringsRow" class="tuner-strings-row"></div>
+
+        <div id="tunerNoteStepper" class="tuner-note-stepper hidden">
+          <button id="tunerNoteDownBtn" class="metro-mini-btn" type="button" aria-label="Halbton tiefer" data-i18n-aria="tuner.noteDownAria">−</button>
+          <span id="tunerStepperNote" class="tuner-stepper-note">A4</span>
+          <button id="tunerNoteUpBtn" class="metro-mini-btn" type="button" aria-label="Halbton höher" data-i18n-aria="tuner.noteUpAria">+</button>
+        </div>
+
+        <div class="tuner-tools-row">
+          <button id="tunerRefBtn" class="tonic-btn tuner-ref-btn" type="button">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+            <span id="tunerRefBtnLabel" data-i18n="tuner.referenceBtn">Referenzton</span>
+          </button>
+          <div class="tuner-a4-stepper">
+            <span class="tuner-a4-label" data-i18n="tuner.a4Label">Kammerton</span>
+            <button id="tunerA4DownBtn" class="metro-mini-btn" type="button" aria-label="Kammerton tiefer" data-i18n-aria="tuner.a4DownAria">−</button>
+            <span id="tunerA4Value" class="tuner-a4-value">A = 440 Hz</span>
+            <button id="tunerA4UpBtn" class="metro-mini-btn" type="button" aria-label="Kammerton höher" data-i18n-aria="tuner.a4UpAria">+</button>
+          </div>
+        </div>
+      </section>
+
+      <p id="tunerSecureContextNotice" class="tool-env-notice hidden"></p>
     </main>
 
     <!-- =====================================================

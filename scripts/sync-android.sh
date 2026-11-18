@@ -144,6 +144,25 @@ if [ ! -d "$TARGET_DIR/android" ]; then
   npx cap add android
 fi
 
+# Mikrofon für den Tuner: Capacitor fragt die Laufzeit-Berechtigung automatisch ab,
+# sobald die WebView getUserMedia nutzt – dafür muss sie im Manifest stehen.
+MANIFEST="$TARGET_DIR/android/app/src/main/AndroidManifest.xml"
+if [ -f "$MANIFEST" ]; then
+  for perm in RECORD_AUDIO MODIFY_AUDIO_SETTINGS; do
+    if ! grep -q "android.permission.$perm" "$MANIFEST"; then
+      python3 - "$MANIFEST" "$perm" <<'PYEOF'
+import sys
+path, perm = sys.argv[1], sys.argv[2]
+s = open(path, encoding="utf-8").read()
+line = f'    <uses-permission android:name="android.permission.{perm}" />\n'
+s = s.replace("</manifest>", line + "</manifest>", 1)
+open(path, "w", encoding="utf-8").write(s)
+PYEOF
+      echo "  → Berechtigung $perm im AndroidManifest ergänzt"
+    fi
+  done
+fi
+
 echo "4/4 • Synchronisiere Capacitor → Android …"
 npx cap sync android
 
