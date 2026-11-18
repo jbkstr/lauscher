@@ -884,8 +884,6 @@ const TR_UK = {
   "Alle Intervalle": "Усі інтервали",
   "Alle Signale laufen über einen integrierten -14 dBFS Schutz-Limiter mit Lautheits-Ausgleich (insbesondere bei 2–4 kHz) und weichen Ein- und Ausblenden. Übe dennoch bei moderater Abhörlautstärke.": "Усі сигнали проходять через вбудований захисний лімітер -14 dBFS із корекцією рівної гучності (особливо на 2–4 кГц) та м’яким фейдом. Проте завжди займайся на помірній гучності.",
   "Alle leitereigenen Stufen": "Усі діатонічні ступені",
-  "Alle ↗": "Усі ↗",
-  "Alle ↘": "Усі ↘",
   "Alt": "Альт",
   "An": "Увімк.",
   "Anatomie, Register, Stimmfächer & Chorsatz": "Анатомія голосу, регістри, співочі голоси та хор SATB",
@@ -967,8 +965,6 @@ const TR_UK = {
   "Dur": "Маж.",
   "Dur & Hell": "Мажорні та світлі",
   "Dur & Moll": "Мажор і мінор",
-  "Dur ↗": "Маж ↗",
-  "Dur ↘": "Маж ↘",
   "Dur, Moll, Vermindert &amp; Übermäßig": "Мажор, мінор, зменшений і збільшений",
   "Dur-Dreiklang": "Мажорний тризвук",
   "Dur-Tonleiter": "Мажорна гама",
@@ -1705,7 +1701,7 @@ const TR_UK = {
 
 // Notenlesen (Akkorde/Doppelsystem), Rhythmus vom Blatt, Modi-Fläche, Moll-Kadenzen, Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_UK, {
-  "🎤 Mitsingen": "🎤 Співай",
+  "Mitsingen": "Співай",
   "Mitsing-Tipp ein- oder ausklappen": "Показати або сховати підказку для співу",
   "Summ-Pause: An": "Пауза для наспівування: увімк.",
   "Summ-Pause: Aus": "Пауза для наспівування: вимк.",

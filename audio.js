@@ -296,7 +296,7 @@ class AudioEngine {
     this.percTone = null;
   }
 
-  async prepareAudioGraph(initialMaster = 0.85, initialMuted = false, initialMixer = null) {
+  async prepareAudioGraph(initialMaster = 0.67, initialMuted = false, initialMixer = null) {
     if (this.preparePromise) return this.preparePromise;
 
     this.preparePromise = (async () => {
@@ -475,11 +475,11 @@ class AudioEngine {
   /**
    * Startet Audiopuffer- und Impuls-Vorladen direkt beim App-Start ohne auf den ersten Klick zu warten.
    */
-  preload(initialMaster = 0.85, initialMuted = false, initialMixer = null) {
+  preload(initialMaster = 0.67, initialMuted = false, initialMixer = null) {
     return this.prepareAudioGraph(initialMaster, initialMuted, initialMixer).catch(() => false);
   }
 
-  async init(initialMaster = 0.85, initialMuted = false, initialMixer = null) {
+  async init(initialMaster = 0.67, initialMuted = false, initialMixer = null) {
     // User-Geste synchron vor jeglichem await erfassen (essentiell für iOS Safari AudioContext.resume)
     const rawCtx = typeof Tone?.getContext === "function" ? Tone.getContext()?.rawContext : Tone?.context?.rawContext;
     if (rawCtx && typeof rawCtx.resume === "function") {
