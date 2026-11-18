@@ -12921,7 +12921,7 @@ body.is-hum-pause #solfegeKeyboardWrap {
         <div class="settings-group-label" data-i18n="settings.groupAudio">Audio &amp; Tempo</div>
 
         <div class="settings-section">
-          <h4 data-i18n="settings.defaultTempoHeading">Standardtempo (Startwert für alle Übungen)</h4>
+          <h4 data-i18n="settings.defaultTempoHeading">Standardtempo</h4>
           <p class="settings-hint" data-i18n="settings.defaultTempoHint">Wird beim Start einer Übung übernommen, bis du das Tempo im Modul manuell anpasst.</p>
           <div class="tempo-control-row">
             <input type="range" id="defaultBpmSlider" min="55" max="160" step="5" value="90">
@@ -12965,15 +12965,15 @@ body.is-hum-pause #solfegeKeyboardWrap {
           <div id="breakReminderDurationRow" class="settings-sub-field">
             <span class="account-label" data-i18n="settings.breakReminderIntervalLabel">Erinnerung nach</span>
             <div class="tempo-control-row">
-              <input type="range" id="breakReminderSlider" min="1" max="60" step="1" value="20" aria-label="Pausen-Erinnerung nach Minuten" data-i18n-aria="settings.breakReminderSliderAria">
-              <span id="breakReminderVal" class="tempo-val">20 Min</span>
+              <input type="range" id="breakReminderSlider" min="5" max="30" step="1" value="15" aria-label="Pausen-Erinnerung nach Minuten" data-i18n-aria="settings.breakReminderSliderAria">
+              <span id="breakReminderVal" class="tempo-val">15 Min</span>
             </div>
             <div id="breakReminderPresets" class="account-chip-group break-preset-row">
+              <button type="button" class="k-filter-pill" data-break-preset="5">5 Min</button>
               <button type="button" class="k-filter-pill" data-break-preset="10">10 Min</button>
-              <button type="button" class="k-filter-pill" data-break-preset="15">15 Min</button>
-              <button type="button" class="k-filter-pill active" data-break-preset="20">20 Min</button>
-              <button type="button" class="k-filter-pill" data-break-preset="30">30 Min</button>
-              <button type="button" class="k-filter-pill" data-break-preset="45">45 Min</button>
+              <button type="button" class="k-filter-pill active" data-break-preset="15">15 Min</button>
+              <button type="button" class="k-filter-pill" data-break-preset="20">20 Min</button>
+              <button type="button" class="k-filter-pill" data-break-preset="25">25 Min</button>
             </div>
           </div>
         </div>
@@ -15690,7 +15690,7 @@ const I18N_STATIC = {
   "settings.groupAudio": { de: "Audio & Tempo", en: "Audio & Tempo" },
   "settings.groupLanguageNotation": { de: "Sprache & Schreibweise", en: "Language & Notation" },
   "settings.groupAppearance": { de: "Optik & Farbschema", en: "Appearance & Themes" },
-  "settings.defaultTempoHeading": { de: "Standardtempo (Startwert für alle Übungen)", en: "Default Tempo (Starting BPM for Exercises)" },
+  "settings.defaultTempoHeading": { de: "Standardtempo", en: "Default Tempo" },
   "settings.defaultTempoHint": {
     de: "Wird beim Start einer Übung übernommen, bis du das Tempo im Modul manuell anpasst.",
     en: "Applied when opening an exercise until you change the tempo inside the module."
@@ -16922,7 +16922,7 @@ const I18N_STATIC_FR = {
   "settings.groupAudio": "Audio & Tempo",
   "settings.groupLanguageNotation": "Langue & Notation",
   "settings.groupAppearance": "Apparence & Thèmes",
-  "settings.defaultTempoHeading": "Tempo par défaut (BPM de départ)",
+  "settings.defaultTempoHeading": "Tempo par défaut",
   "settings.defaultTempoHint": "Appliqué à l’ouverture d’un exercice tant que vous ne modifiez pas le tempo dans le module.",
   "settings.pianoSoundHeading": "Ambiance & Réverbération",
   "settings.pianoSoundHint": "Choisissez un caractère de salle pour tout le mix et ajustez la réverbération par instrument.",
@@ -19098,7 +19098,7 @@ const I18N_STATIC_PL = {
   "settings.groupAudio": "Dźwięk i tempo",
   "settings.groupLanguageNotation": "Język i notacja",
   "settings.groupAppearance": "Wygląd i motywy",
-  "settings.defaultTempoHeading": "Domyślne tempo (startowy BPM w ćwiczeniach)",
+  "settings.defaultTempoHeading": "Domyślne tempo",
   "settings.defaultTempoHint": "Obowiązuje przy otwarciu modułu, dopóki nie zmienisz tempa bezpośrednio w ćwiczeniu.",
   "settings.pianoSoundHeading": "Przestrzeń i pogłos",
   "settings.pianoSoundHint": "Wybierz charakter sali dla całego miksu i dopasuj poziom pogłosu dla każdego instrumentu.",
@@ -21320,7 +21320,7 @@ const I18N_STATIC_UK = {
   "settings.groupAudio": "Звук і темп",
   "settings.groupLanguageNotation": "Мова та нотація",
   "settings.groupAppearance": "Вигляд і теми",
-  "settings.defaultTempoHeading": "Типовий темп (початковий BPM у вправах)",
+  "settings.defaultTempoHeading": "Типовий темп",
   "settings.defaultTempoHint": "Застосовується при відкритті вправи, доки ти не зміниш темп всередині модуля.",
   "settings.pianoSoundHeading": "Простір і реверберація",
   "settings.pianoSoundHint": "Обирай характер приміщення для всього міксу й налаштовуй реверберацію для кожного інструмента окремо.",
@@ -23543,7 +23543,7 @@ const I18N_STATIC_UR = {
   "settings.groupAudio": "آڈیو اور ٹیمپو",
   "settings.groupLanguageNotation": "زبان اور تحریر",
   "settings.groupAppearance": "ظاہری شکل اور تھیمز",
-  "settings.defaultTempoHeading": "طے شدہ ٹیمپو (تمام مشقوں کی ابتدائی BPM)",
+  "settings.defaultTempoHeading": "طے شدہ ٹیمپو",
   "settings.defaultTempoHint": "جب تک آپ ماڈیول کے اندر ٹیمپو نہیں بدلتے، ہر مشق اس رفتار سے شروع ہوگی۔",
   "settings.pianoSoundHeading": "کمرے کی گونج اور آواز",
   "settings.pianoSoundHint": "پورے مکس کے لیے کمرے کا مزاج چنیں اور ہر ساز کے لیے الگ ہال گونج سیٹ کریں۔",
@@ -52260,12 +52260,14 @@ const DEFAULT_DRONE_MIX = Object.freeze({
   tone: 1.00
 });
 const DEFAULT_BREAK_REMINDER_ENABLED = true;
-const DEFAULT_BREAK_REMINDER_MINUTES = 20;
+const DEFAULT_BREAK_REMINDER_MINUTES = 15;
+const BREAK_REMINDER_MIN_MINUTES = 5;
+const BREAK_REMINDER_MAX_MINUTES = 30;
 
 function sanitizeBreakReminderMinutes(val) {
   const num = parseInt(val, 10);
   if (!Number.isFinite(num)) return DEFAULT_BREAK_REMINDER_MINUTES;
-  return Math.max(1, Math.min(60, num));
+  return Math.max(BREAK_REMINDER_MIN_MINUTES, Math.min(BREAK_REMINDER_MAX_MINUTES, num));
 }
 
 function sanitizePianoSound(raw) {

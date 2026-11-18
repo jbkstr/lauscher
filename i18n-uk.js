@@ -321,7 +321,7 @@ const I18N_STATIC_UK = {
   "settings.groupAudio": "Звук і темп",
   "settings.groupLanguageNotation": "Мова та нотація",
   "settings.groupAppearance": "Вигляд і теми",
-  "settings.defaultTempoHeading": "Типовий темп (початковий BPM у вправах)",
+  "settings.defaultTempoHeading": "Типовий темп",
   "settings.defaultTempoHint": "Застосовується при відкритті вправи, доки ти не зміниш темп всередині модуля.",
   "settings.pianoSoundHeading": "Простір і реверберація",
   "settings.pianoSoundHint": "Обирай характер приміщення для всього міксу й налаштовуй реверберацію для кожного інструмента окремо.",
