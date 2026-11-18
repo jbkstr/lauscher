@@ -9416,7 +9416,7 @@ body.is-hum-pause #solfegeKeyboardWrap {
 .metro-beats-card,
 .metro-mix-card,
 .metro-profiles-card,
-.metro-sound-placeholder-card {
+.metro-sound-card {
   display: flex;
   flex-direction: column;
   gap: 0.68rem;
@@ -9752,8 +9752,7 @@ body.is-hum-pause #solfegeKeyboardWrap {
   font-size: 0.76rem;
 }
 
-.metro-count-badge,
-.metro-placeholder-badge {
+.metro-count-badge {
   font-size: 0.7rem;
   font-weight: 800;
   padding: 0.16rem 0.54rem;
@@ -9901,20 +9900,6 @@ body.is-hum-pause #solfegeKeyboardWrap {
 .metro-sound-chip {
   font-size: 0.76rem;
   padding: 0.3rem 0.66rem;
-}
-
-.metro-sound-chip.is-placeholder {
-  opacity: 0.62;
-  border-style: dashed;
-}
-
-.metro-sound-notice {
-  font-size: 0.74rem;
-  font-weight: 700;
-  color: var(--lilac-strong);
-  background: var(--lilac-soft);
-  border-radius: var(--radius-sm);
-  padding: 0.36rem 0.58rem;
 }
 
 @media (max-width: 380px) {

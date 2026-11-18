@@ -1636,14 +1636,23 @@ class AudioEngine {
 
     if (this.percUsingSamples) {
       const sampleTable = {
-        kick:    { key: "kick",    gain: 0.92, rate: 1.0 },
-        snare:   { key: "snare",   gain: 0.88, rate: 1.0 },
-        tick:    { key: "tick",    gain: 0.72, rate: 1.0 },
-        accent:  { key: "tick",    gain: 0.95, rate: 1.335 },
-        hat:     { key: "hat",     gain: 0.78, rate: 1.0 },
-        clave:   { key: "clave",   gain: 0.84, rate: 1.0 },
-        shaker:  { key: "shaker",  gain: 0.75, rate: 1.0 },
-        cowbell: { key: "cowbell", gain: 0.82, rate: 1.0 }
+        kick:           { key: "kick",    gain: 0.92, rate: 1.0 },
+        snare:          { key: "snare",   gain: 0.88, rate: 1.0 },
+        tick:           { key: "tick",    gain: 0.72, rate: 1.0 },
+        accent:         { key: "tick",    gain: 0.95, rate: 1.335 },
+        wood_accent:    { key: "clave",   gain: 0.96, rate: 1.28 },
+        wood_tick:      { key: "clave",   gain: 0.78, rate: 0.96 },
+        wood_sub:       { key: "clave",   gain: 0.62, rate: 1.48 },
+        cowbell_accent: { key: "cowbell", gain: 0.94, rate: 1.22 },
+        cowbell_tick:   { key: "cowbell", gain: 0.78, rate: 0.96 },
+        cowbell_sub:    { key: "cowbell", gain: 0.58, rate: 1.42 },
+        rimshot_accent: { key: "snare",   gain: 0.96, rate: 1.45 },
+        rimshot_tick:   { key: "snare",   gain: 0.78, rate: 1.15 },
+        rimshot_sub:    { key: "hat",     gain: 0.68, rate: 1.2 },
+        hat:            { key: "hat",     gain: 0.78, rate: 1.0 },
+        clave:          { key: "clave",   gain: 0.84, rate: 1.0 },
+        shaker:         { key: "shaker",  gain: 0.75, rate: 1.0 },
+        cowbell:        { key: "cowbell", gain: 0.82, rate: 1.0 }
       };
       const spec = sampleTable[kind];
       const sampleBuf = spec ? this.percSamples[spec.key] : null;
@@ -1665,11 +1674,25 @@ class AudioEngine {
       accent: { note: "C6", dur: 0.05 },
       tick: { note: "G5", dur: 0.04 },
       clave: { note: "E6", dur: 0.035 },
-      cowbell: { note: "G#5", dur: 0.11 }
+      wood_accent: { note: "G6", dur: 0.04 },
+      wood_tick: { note: "D6", dur: 0.035 },
+      wood_sub: { note: "A6", dur: 0.025 },
+      cowbell: { note: "G#5", dur: 0.11 },
+      cowbell_accent: { note: "B5", dur: 0.11 },
+      cowbell_tick: { note: "G#5", dur: 0.095 },
+      cowbell_sub: { note: "E6", dur: 0.045 }
     };
 
     if (membraneMap[kind]) {
       this.percMembrane?.triggerAttackRelease(membraneMap[kind], 0.16, when, vel);
+    } else if (kind === "rimshot_accent") {
+      this.percTone?.triggerAttackRelease("F5", 0.03, when, vel);
+      this.percSnare?.triggerAttackRelease("32n", when, vel * 0.85);
+    } else if (kind === "rimshot_tick") {
+      this.percTone?.triggerAttackRelease("C5", 0.025, when, vel * 0.75);
+      this.percSnare?.triggerAttackRelease("64n", when, vel * 0.55);
+    } else if (kind === "rimshot_sub") {
+      this.percHat?.triggerAttackRelease("32n", when, vel * 0.85);
     } else if (kind === "snare") {
       this.percSnare?.triggerAttackRelease("16n", when, vel);
     } else if (kind === "hat") {

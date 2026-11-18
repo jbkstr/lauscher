@@ -1974,19 +1974,18 @@
         <div id="metroProfileList" class="metro-profile-list"></div>
       </section>
 
-      <section id="metroSoundPlaceholderCard" class="module-card metro-sound-placeholder-card">
+      <section id="metroSoundCard" class="module-card metro-sound-card">
         <div class="metro-section-head">
           <h3 class="metro-section-title" data-i18n="metro.soundHeading">Klick-Sounds</h3>
-          <span class="metro-placeholder-badge" data-i18n="metro.soundPlaceholderBadge">Platzhalter</span>
+          <span id="metroActiveSoundBadge" class="metro-count-badge">Standard-Klick</span>
         </div>
-        <p class="metro-sound-desc" data-i18n="metro.soundDesc">Wähle künftig aus verschiedenen Klick- und Percussion-Stimmen (im Masterplan vorgemerkt). Aktuell aktiv: Standard-Klick.</p>
+        <p class="metro-sound-desc" data-i18n="metro.soundDesc">Wähle aus verschiedenen Klick- und Percussion-Stimmen für dein Metronom.</p>
         <div class="metro-sound-chip-grid">
-          <button type="button" class="opt-btn metro-sound-chip active" data-metro-sound-slot="standard" data-i18n="metro.soundStandard">Standard-Klick</button>
-          <button type="button" class="opt-btn metro-sound-chip is-placeholder" data-metro-sound-slot="woodblock" aria-disabled="true" data-i18n="metro.soundWoodblock">Woodblock (bald)</button>
-          <button type="button" class="opt-btn metro-sound-chip is-placeholder" data-metro-sound-slot="cowbell" aria-disabled="true" data-i18n="metro.soundCowbell">Cowbell (bald)</button>
-          <button type="button" class="opt-btn metro-sound-chip is-placeholder" data-metro-sound-slot="rimshot" aria-disabled="true" data-i18n="metro.soundRimshot">Rimshot (bald)</button>
+          <button type="button" class="opt-btn metro-sound-chip active" data-metro-sound-slot="standard" aria-pressed="true" data-i18n="metro.soundStandard">Standard-Klick</button>
+          <button type="button" class="opt-btn metro-sound-chip" data-metro-sound-slot="woodblock" aria-pressed="false" data-i18n="metro.soundWoodblock">Woodblock</button>
+          <button type="button" class="opt-btn metro-sound-chip" data-metro-sound-slot="cowbell" aria-pressed="false" data-i18n="metro.soundCowbell">Cowbell</button>
+          <button type="button" class="opt-btn metro-sound-chip" data-metro-sound-slot="rimshot" aria-pressed="false" data-i18n="metro.soundRimshot">Rimshot</button>
         </div>
-        <p id="metroSoundNotice" class="metro-sound-notice hidden"></p>
       </section>
 
     </main>
