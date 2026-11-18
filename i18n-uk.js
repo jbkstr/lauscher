@@ -2156,7 +2156,9 @@ Object.assign(TR_UK, {
   "Freies Spiel": "Вільна гра",
   "Freies Ausprobieren mit Klaviatur & Klängen": "Вільне дослідження нот, акордів і тембрів",
   "Mikrofonzugriff bereit (HTTPS / localhost aktiv).": "Доступ до мікрофона готовий (HTTPS / localhost активні).",
-  "Hinweis: Für den Tuner ist später HTTPS oder http://localhost erforderlich – auf file:// oder unverschlüsseltem LAN-HTTP blockieren Browser das Mikrofon.": "Примітка: для тюнера потрібен HTTPS або http://localhost — браузери блокують мікрофон на file:// чи незашифрованому LAN-HTTP."
+  "Hinweis: Für den Tuner ist später HTTPS oder http://localhost erforderlich – auf file:// oder unverschlüsseltem LAN-HTTP blockieren Browser das Mikrofon.": "Примітка: для тюнера потрібен HTTPS або http://localhost — браузери блокують мікрофон на file:// чи незашифрованому LAN-HTTP.",
+  "Nur Hören: Unbearbeitetes Rosa Rauschen – gleich folgt der EQ-Boost…": "Лише слухання: чистий рожевий шум — зараз увімкнеться підсилення EQ…",
+  "Nur Hören: EQ-Boost aktiv – welches Band tritt hervor?": "Лише слухання: підсилення EQ активне — яка смуга виділяється?"
 });
 
 if (typeof registerLanguageBundle === "function") {

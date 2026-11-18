@@ -13204,9 +13204,12 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
       });
     };
 
+    const isProdReveal = ex.type === "prod-eq-noise" || ex.type === "prod-tone";
+    const listenOnlyPostRevealMs = isProdReveal ? LISTEN_ONLY_PROD_POST_REVEAL_MS : LISTEN_ONLY_POST_REVEAL_MS;
+
     const scheduleSimpleRevealAdvance = (delayPlaybackId, delayMs = 1050) => {
       if (isListenOnly) {
-        scheduleListenOnlyStep(advanceToNextExercise, LISTEN_ONLY_POST_REVEAL_MS, listenOnlyToken);
+        scheduleListenOnlyStep(advanceToNextExercise, listenOnlyPostRevealMs, listenOnlyToken);
       } else {
         audioEngine.registerTimer(() => {
           if (audioEngine.playbackId !== delayPlaybackId) return;
@@ -13265,7 +13268,7 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
         () => scheduleSimpleRevealAdvance(confirmPlaybackId, 1050)
       );
     } else if (isListenOnly) {
-      scheduleListenOnlyStep(advanceToNextExercise, LISTEN_ONLY_POST_REVEAL_MS, listenOnlyToken);
+      scheduleListenOnlyStep(advanceToNextExercise, listenOnlyPostRevealMs, listenOnlyToken);
     } else {
       setTimeout(advanceToNextExercise, 1050);
     }
@@ -13984,21 +13987,31 @@ function applyProdEqNoiseComparisonUI(ex, isBypassed) {
   if (refLbl) refLbl.textContent = bypass ? tr("Flat: AN", "Flat: ON") : tr("Flat-Bypass", "Flat Bypass");
 
   if (document.getElementById("centralStageCard")) {
+    const isListenOnlyProd = Boolean(state.listenOnly?.active);
     setCentralStageMode(bypass ? "stage-playing" : "stage-target");
     updateStageMascot(bypass ? "listening" : "question");
     document.getElementById("stageSubtext").textContent = bypass
       ? tr("FLAT / BYPASS (ORIGINAL)", "FLAT / BYPASS (ORIGINAL)")
       : tf("EQ-BOOST AKTIV ({info})", "EQ BOOST ACTIVE ({info})", { info: ex.keyName });
     document.getElementById("stageMainText").textContent = bypass ? "Flat" : "?";
-    document.getElementById("stageFunctionText").textContent = bypass
-      ? tr("Unbearbeitetes Rosa Rauschen – schalte zurück auf Ziel-EQ für den Kontrast", "Unprocessed pink noise — switch back to Target EQ to compare")
-      : tr("Dauerbetrieb: Höre das angehobene Band heraus oder tippe „Flat-Bypass“", "Continuous playback: spot the boosted band or toggle “Flat Bypass”");
+    if (isListenOnlyProd) {
+      document.getElementById("stageFunctionText").textContent = bypass
+        ? tr("Nur Hören: Unbearbeitetes Rosa Rauschen – gleich folgt der EQ-Boost…", "Listen Only: Unprocessed pink noise — EQ boost coming up…")
+        : tr("Nur Hören: EQ-Boost aktiv – welches Band tritt hervor?", "Listen Only: EQ boost active — which band stands out?");
+    } else {
+      document.getElementById("stageFunctionText").textContent = bypass
+        ? tr("Unbearbeitetes Rosa Rauschen – schalte zurück auf Ziel-EQ für den Kontrast", "Unprocessed pink noise — switch back to Target EQ to compare")
+        : tr("Dauerbetrieb: Höre das angehobene Band heraus oder tippe „Flat-Bypass“", "Continuous playback: spot the boosted band or toggle “Flat Bypass”");
+    }
   }
 }
 
 async function triggerProdEqNoiseComparison(forceBypass = null) {
   const ex = state.currentExercise;
   if (!ex || ex.type !== "prod-eq-noise") return;
+  if (state.listenOnly?.active) {
+    setListenOnlyMode(false, { keepPlayback: true });
+  }
   await ensureAudioReady();
 
   if (state.isPlaying && audioEngine.activeNoiseSession) {
@@ -14203,7 +14216,10 @@ async function repeatSolfegeTargetTone() {
 const LISTEN_ONLY_REVEAL_DELAY_MS = 2000;
 const LISTEN_ONLY_POST_REVEAL_MS = 1350;
 const LISTEN_ONLY_MULTI_POST_REVEAL_MS = 1800;
-const LISTEN_ONLY_EQ_NOISE_LISTEN_MS = 1600;
+const LISTEN_ONLY_EQ_FLAT_MS = 2400;
+const LISTEN_ONLY_EQ_BOOST_MS = 2800;
+const LISTEN_ONLY_PROD_REVEAL_DELAY_MS = 2500;
+const LISTEN_ONLY_PROD_POST_REVEAL_MS = 2200;
 const LISTEN_ONLY_NOTATION_KEY_REVEAL_DELAY_MS = 950;
 const LISTEN_ONLY_NOTATION_ADVANCE_DELAY_MS = 1150;
 const LISTEN_ONLY_LOOP_MODE_EXCLUSIONS = new Set(["melody", "rhythm-dictation", "rhythm-tap"]);
@@ -14414,7 +14430,10 @@ function revealListenOnlyAnswer(token) {
     return;
   }
   if (isCurrentExerciseSolved(ex)) {
-    scheduleNextListenOnlyExercise(LISTEN_ONLY_POST_REVEAL_MS, token);
+    const postRevealMs = (ex.type === "prod-eq-noise" || ex.type === "prod-tone")
+      ? LISTEN_ONLY_PROD_POST_REVEAL_MS
+      : LISTEN_ONLY_POST_REVEAL_MS;
+    scheduleNextListenOnlyExercise(postRevealMs, token);
     return;
   }
 
@@ -14471,10 +14490,13 @@ function handleListenOnlyPromptEnded(expectedEx) {
         : tr("Lösung wird gleich angezeigt…", "Showing answer shortly…");
   }
 
+  const revealDelayMs = (expectedEx.type === "prod-eq-noise" || expectedEx.type === "prod-tone")
+    ? LISTEN_ONLY_PROD_REVEAL_DELAY_MS
+    : LISTEN_ONLY_REVEAL_DELAY_MS;
   scheduleListenOnlyStep(() => {
     if (state.currentExercise !== expectedEx) return;
     revealListenOnlyAnswer(token);
-  }, LISTEN_ONLY_REVEAL_DELAY_MS, token);
+  }, revealDelayMs, token);
 }
 
 async function startListenOnlyCycle() {
@@ -14602,6 +14624,9 @@ async function playSequence(options = {}) {
 
   // Produktion 1: Isolierte Sinus-Frequenz erkennen
   if (ex.type === "prod-tone") {
+    const isListenOnlyProd = Boolean(state.listenOnly?.active);
+    const toneDurSec = isListenOnlyProd ? 1.95 : 1.45;
+    const toneWaitMs = isListenOnlyProd ? 2020 : 1520;
     function runProdToneLoopCycle() {
       if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
 
@@ -14613,7 +14638,7 @@ async function playSequence(options = {}) {
       document.getElementById("stageFunctionText").textContent =
         tr("Höre genau hin – zu welchem Frequenzband gehört dieser Ton?", "Listen closely — which frequency band does this tone belong to?");
 
-      audioEngine.playProductionTone(ex.targetItem.freqHz, 1.45);
+      audioEngine.playProductionTone(ex.targetItem.freqHz, toneDurSec);
 
       audioEngine.registerTimer(() => {
         if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
@@ -14626,21 +14651,22 @@ async function playSequence(options = {}) {
         } else {
           completePromptPlayback(ex);
         }
-      }, 1520);
+      }, toneWaitMs);
     }
 
     runProdToneLoopCycle();
     return;
   }
 
-  // Produktion 2: EQ-Boost im Pink Noise (läuft konstant bis zur richtigen Antwort oder Stopp; fließender Live-Bypass)
+  // Produktion 2: EQ-Boost im Pink Noise (im Nur-Hören-Modus zuerst Flat, dann länger EQ-Boost)
   if (ex.type === "prod-eq-noise") {
-    applyProdEqNoiseComparisonUI(ex, false);
+    const isListenOnlyProd = Boolean(state.listenOnly?.active);
+    applyProdEqNoiseComparisonUI(ex, isListenOnlyProd);
     audioEngine.startProductionNoiseContinuous({
       freqHz: ex.targetItem.freqHz,
       q: ex.q,
       gainDb: ex.boostDb,
-      startBypassed: false,
+      startBypassed: isListenOnlyProd,
       maxDurationSec: 120,
       onAutoStop: () => {
         if (state.isPlaying && state.currentExercise?.type === "prod-eq-noise") {
@@ -14652,11 +14678,19 @@ async function playSequence(options = {}) {
         }
       }
     });
-    if (state.listenOnly?.active) {
+    if (isListenOnlyProd) {
       audioEngine.registerTimer(() => {
         if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
+        if (!state.listenOnly?.active || state.listenOnly.token !== listenOnlyCycleToken || state.currentExercise !== ex) return;
+        audioEngine.setProductionNoiseBypass(false);
+        applyProdEqNoiseComparisonUI(ex, false);
+      }, LISTEN_ONLY_EQ_FLAT_MS);
+
+      audioEngine.registerTimer(() => {
+        if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
+        if (!state.listenOnly?.active || state.listenOnly.token !== listenOnlyCycleToken || state.currentExercise !== ex) return;
         handleListenOnlyPromptEnded(ex);
-      }, LISTEN_ONLY_EQ_NOISE_LISTEN_MS);
+      }, LISTEN_ONLY_EQ_FLAT_MS + LISTEN_ONLY_EQ_BOOST_MS);
     }
     return;
   }

@@ -2110,7 +2110,9 @@ Object.assign(TR_FR, {
   "Freies Spiel": "Jeu libre",
   "Freies Ausprobieren mit Klaviatur & Klängen": "Explorer librement notes, accords & timbres",
   "Mikrofonzugriff bereit (HTTPS / localhost aktiv).": "Accès au microphone prêt (HTTPS / localhost actif).",
-  "Hinweis: Für den Tuner ist später HTTPS oder http://localhost erforderlich – auf file:// oder unverschlüsseltem LAN-HTTP blockieren Browser das Mikrofon.": "Remarque : l’accordeur nécessitera HTTPS ou http://localhost — les navigateurs bloquent le microphone sur file:// ou HTTP local non chiffré."
+  "Hinweis: Für den Tuner ist später HTTPS oder http://localhost erforderlich – auf file:// oder unverschlüsseltem LAN-HTTP blockieren Browser das Mikrofon.": "Remarque : l’accordeur nécessitera HTTPS ou http://localhost — les navigateurs bloquent le microphone sur file:// ou HTTP local non chiffré.",
+  "Nur Hören: Unbearbeitetes Rosa Rauschen – gleich folgt der EQ-Boost…": "Écoute seule : bruit rose neutre — le boost EQ arrive…",
+  "Nur Hören: EQ-Boost aktiv – welches Band tritt hervor?": "Écoute seule : boost EQ actif — quelle bande ressort ?"
 });
 
 if (typeof registerLanguageBundle === "function") {
