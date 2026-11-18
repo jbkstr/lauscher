@@ -5703,6 +5703,55 @@ body,
   cursor: pointer;
 }
 
+/* Einladung zum Mitsingen/-summen (Intervall- & Solfège-Übungen) */
+.sing-along-hint {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-top: 0.62rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--radius-lg);
+  background-color: var(--sage);
+  color: var(--raccoon-dark);
+}
+
+.sing-along-hint.hidden {
+  display: none;
+}
+
+.sing-along-icon {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--surface-white);
+  color: var(--raccoon-dark);
+  box-shadow: var(--shadow-card);
+}
+
+.sing-along-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.12rem;
+  min-width: 0;
+}
+
+.sing-along-title {
+  font-size: 0.86rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.sing-along-text {
+  font-size: 0.76rem;
+  font-weight: 600;
+  line-height: 1.35;
+  overflow-wrap: break-word;
+}
+
 @media (max-width: 350px) {
   .drone-mix-strip {
     grid-template-columns: 1fr;

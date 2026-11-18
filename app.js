@@ -9575,6 +9575,35 @@ function renderMelodyRhythmPicker(ex = state.currentExercise) {
   wrap.appendChild(grid);
 }
 
+/**
+ * Einladung zum Mitsingen/-summen für Intervall- und Solfège-Übungen.
+ * Liefert null für alle anderen Übungstypen (Hinweis bleibt dann ausgeblendet).
+ */
+function getSingAlongHintText(type) {
+  switch (type) {
+    case "interval-melodic":
+      return tr("Summ beide Töne nach, bevor du antwortest – deine Stimme spürt den Abstand oft schneller als der Kopf.",
+        "Hum both notes back before you answer — your voice often feels the distance faster than your head.");
+    case "interval-melodic-down":
+      return tr("Sing beide Töne abwärts nach – stell dir dabei eine Treppe nach unten vor.",
+        "Sing both notes back going down — picture yourself walking down a staircase.");
+    case "interval-harmonic":
+      return tr("Summ erst den tiefen, dann den hohen Ton heraus – so wird aus dem Zusammenklang ein Schritt, den du singen kannst.",
+        "Hum the low note first, then the high one — that turns the chord into a step you can sing.");
+    case "interval-drone":
+      return tr("Summ den Grundton der Fläche mit und sing dann den Klavierton darüber – spür, wie weit deine Stimme springen muss.",
+        "Hum along with the pad’s root, then sing the piano note above it — feel how far your voice has to leap.");
+    case "solfege":
+      return state?.profile?.solfegeLabels === "numbers"
+        ? tr("Sing jeden Ton mit seiner Stufenzahl mit (1, 2, 3 …) – so verankert sich jede Stufe fest in deinem Ohr.",
+          "Sing each note with its degree number (1, 2, 3 …) — that anchors every degree firmly in your ear.")
+        : tr("Sing jeden Ton mit seinem Namen mit (Do, Re, Mi …) – so verankert sich jede Stufe fest in deinem Ohr.",
+          "Sing each note with its name (Do, Re, Mi …) — that anchors every degree firmly in your ear.");
+    default:
+      return null;
+  }
+}
+
 function renderUI() {
   const ex = state.currentExercise;
   if (!ex) return;
@@ -9675,6 +9704,18 @@ function renderUI() {
     const isDroneEx = ex.type === "interval-drone";
     droneMixStrip.classList.toggle("hidden", !isDroneEx);
     if (isDroneEx) syncDroneMixControls();
+  }
+
+  const singAlongHint = document.getElementById("singAlongHint");
+  if (singAlongHint) {
+    const singText = getSingAlongHintText(ex.type);
+    singAlongHint.classList.toggle("hidden", !singText);
+    if (singText) {
+      const titleEl = document.getElementById("singAlongTitle");
+      const textEl = document.getElementById("singAlongText");
+      if (titleEl) titleEl.textContent = tr("Sing mit!", "Sing along!");
+      if (textEl) textEl.textContent = singText;
+    }
   }
 
   const solfegeKeyBtn = document.getElementById("solfegeKeyBtn");

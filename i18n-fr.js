@@ -1178,8 +1178,15 @@ const TR_FR = {
   "{tot} / {tot} gelöst ✓": "{tot} / {tot} résolues ✓"
 };
 
-// Header-Titel „Home“, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
+// Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_FR, {
+  "Sing mit!": "Chantez avec nous !",
+  "Summ beide Töne nach, bevor du antwortest – deine Stimme spürt den Abstand oft schneller als der Kopf.": "Fredonnez les deux notes avant de répondre – votre voix sent souvent l’écart plus vite que votre tête.",
+  "Sing beide Töne abwärts nach – stell dir dabei eine Treppe nach unten vor.": "Chantez les deux notes en descendant – imaginez un escalier qui descend.",
+  "Summ erst den tiefen, dann den hohen Ton heraus – so wird aus dem Zusammenklang ein Schritt, den du singen kannst.": "Fredonnez d’abord la note grave, puis la note aiguë – l’accord devient ainsi un pas que vous pouvez chanter.",
+  "Summ den Grundton der Fläche mit und sing dann den Klavierton darüber – spür, wie weit deine Stimme springen muss.": "Fredonnez la fondamentale de la nappe, puis chantez la note du piano par-dessus – sentez jusqu’où votre voix doit sauter.",
+  "Sing jeden Ton mit seiner Stufenzahl mit (1, 2, 3 …) – so verankert sich jede Stufe fest in deinem Ohr.": "Chantez chaque note avec son numéro de degré (1, 2, 3 …) – chaque degré s’ancre ainsi solidement dans votre oreille.",
+  "Sing jeden Ton mit seinem Namen mit (Do, Re, Mi …) – so verankert sich jede Stufe fest in deinem Ohr.": "Chantez chaque note avec son nom (Do, Ré, Mi …) – chaque degré s’ancre ainsi solidement dans votre oreille.",
   "Übungen": "Accueil",
   "Intervalle über Grundton-Fläche": "Intervalles sur nappe de fondamentale",
   "Grundton-Fläche": "Nappe de fondamentale",

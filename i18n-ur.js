@@ -2016,8 +2016,15 @@ const TR_UR = Object.assign(Object.create(null), {
   "Alle 12 Vorzeichen-Tonarten (±3 Hilfslinien) inklusive Auflösungszeichen (♮)": "تمام 12 کی سگنیچرز (±3 لیجر لائنز) بشمول نیچرل علامتیں (♮)"
 });
 
-// Header-Titel „Home“, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
+// Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_UR, {
+  "Sing mit!": "ساتھ گائیں!",
+  "Summ beide Töne nach, bevor du antwortest – deine Stimme spürt den Abstand oft schneller als der Kopf.": "جواب دینے سے پہلے دونوں سُر گنگنائیں – آپ کی آواز اکثر دماغ سے پہلے فاصلہ محسوس کر لیتی ہے۔",
+  "Sing beide Töne abwärts nach – stell dir dabei eine Treppe nach unten vor.": "دونوں سُر نیچے کی طرف گائیں – تصور کریں کہ آپ سیڑھیاں اتر رہے ہیں۔",
+  "Summ erst den tiefen, dann den hohen Ton heraus – so wird aus dem Zusammenklang ein Schritt, den du singen kannst.": "پہلے نیچا، پھر اونچا سُر گنگنائیں – یوں ہم آہنگ آواز ایک ایسا قدم بن جاتی ہے جسے آپ گا سکتے ہیں۔",
+  "Summ den Grundton der Fläche mit und sing dann den Klavierton darüber – spür, wie weit deine Stimme springen muss.": "پیڈ کے بنیادی سُر کے ساتھ گنگنائیں، پھر اس کے اوپر پیانو کا سُر گائیں – محسوس کریں کہ آپ کی آواز کو کتنی چھلانگ لگانی ہے۔",
+  "Sing jeden Ton mit seiner Stufenzahl mit (1, 2, 3 …) – so verankert sich jede Stufe fest in deinem Ohr.": "ہر سُر کو اس کے درجے کے نمبر (1, 2, 3 …) کے ساتھ گائیں – یوں ہر درجہ آپ کے کان میں مضبوطی سے بیٹھ جاتا ہے۔",
+  "Sing jeden Ton mit seinem Namen mit (Do, Re, Mi …) – so verankert sich jede Stufe fest in deinem Ohr.": "ہر سُر کو اس کے نام (Do, Re, Mi …) کے ساتھ گائیں – یوں ہر درجہ آپ کے کان میں مضبوطی سے بیٹھ جاتا ہے۔",
   "Übungen": "ہوم",
   "Intervalle über Grundton-Fläche": "بنیادی سُر کے پیڈ پر انٹرولز",
   "Grundton-Fläche": "بنیادی سُر کا پیڈ",

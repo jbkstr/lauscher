@@ -1672,8 +1672,15 @@ const TR_PL = {
   "{tot} / {tot} gelöst ✓": "{tot} / {tot} odgadnięte ✓"
 };
 
-// Header-Titel „Home“, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
+// Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_PL, {
+  "Sing mit!": "Śpiewaj z nami!",
+  "Summ beide Töne nach, bevor du antwortest – deine Stimme spürt den Abstand oft schneller als der Kopf.": "Zanuć oba dźwięki, zanim odpowiesz – twój głos często wyczuwa odległość szybciej niż głowa.",
+  "Sing beide Töne abwärts nach – stell dir dabei eine Treppe nach unten vor.": "Zaśpiewaj oba dźwięki w dół – wyobraź sobie schody prowadzące w dół.",
+  "Summ erst den tiefen, dann den hohen Ton heraus – so wird aus dem Zusammenklang ein Schritt, den du singen kannst.": "Zanuć najpierw niższy, potem wyższy dźwięk – tak współbrzmienie zmienia się w krok, który możesz zaśpiewać.",
+  "Summ den Grundton der Fläche mit und sing dann den Klavierton darüber – spür, wie weit deine Stimme springen muss.": "Nuć dźwięk podstawowy plamy, a potem zaśpiewaj nad nim dźwięk fortepianu – poczuj, jak daleko musi skoczyć twój głos.",
+  "Sing jeden Ton mit seiner Stufenzahl mit (1, 2, 3 …) – so verankert sich jede Stufe fest in deinem Ohr.": "Śpiewaj każdy dźwięk z numerem stopnia (1, 2, 3 …) – tak każdy stopień mocno zakotwiczy się w twoim uchu.",
+  "Sing jeden Ton mit seinem Namen mit (Do, Re, Mi …) – so verankert sich jede Stufe fest in deinem Ohr.": "Śpiewaj każdy dźwięk z jego nazwą (Do, Re, Mi …) – tak każdy stopień mocno zakotwiczy się w twoim uchu.",
   "Übungen": "Start",
   "Intervalle über Grundton-Fläche": "Interwały nad plamą dźwięku podstawowego",
   "Grundton-Fläche": "Plama dźwięku podstawowego",
