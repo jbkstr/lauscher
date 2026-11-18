@@ -1673,8 +1673,15 @@ const TR_UK = {
   "{tot} / {tot} gelöst ✓": "{tot} / {tot} розгадано ✓"
 };
 
-// Header-Titel „Home“, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
+// Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_UK, {
+  "Sing mit!": "Співай разом!",
+  "Summ beide Töne nach, bevor du antwortest – deine Stimme spürt den Abstand oft schneller als der Kopf.": "Наспівай обидва звуки, перш ніж відповісти, – твій голос часто відчуває відстань швидше, ніж голова.",
+  "Sing beide Töne abwärts nach – stell dir dabei eine Treppe nach unten vor.": "Заспівай обидва звуки вниз – уяви сходи, що ведуть донизу.",
+  "Summ erst den tiefen, dann den hohen Ton heraus – so wird aus dem Zusammenklang ein Schritt, den du singen kannst.": "Наспівай спершу нижчий, а потім вищий звук – так співзвуччя перетвориться на крок, який можна заспівати.",
+  "Summ den Grundton der Fläche mit und sing dann den Klavierton darüber – spür, wie weit deine Stimme springen muss.": "Наспівуй основний тон підкладки, а потім заспівай над ним звук фортепіано – відчуй, наскільки далеко має стрибнути твій голос.",
+  "Sing jeden Ton mit seiner Stufenzahl mit (1, 2, 3 …) – so verankert sich jede Stufe fest in deinem Ohr.": "Співай кожен звук із номером ступеня (1, 2, 3 …) – так кожен ступінь міцно закріпиться у твоєму слуху.",
+  "Sing jeden Ton mit seinem Namen mit (Do, Re, Mi …) – so verankert sich jede Stufe fest in deinem Ohr.": "Співай кожен звук із його назвою (Do, Re, Mi …) – так кожен ступінь міцно закріпиться у твоєму слуху.",
   "Übungen": "Головна",
   "Intervalle über Grundton-Fläche": "Інтервали над підкладкою основного тону",
   "Grundton-Fläche": "Підкладка основного тону",

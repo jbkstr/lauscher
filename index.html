@@ -1595,6 +1595,22 @@
             <input type="range" id="droneToneVolSlider" min="0" max="100" step="2" value="100" aria-label="Lautstärke des Intervalltons" data-i18n-aria="ex.droneToneVolAria">
           </label>
         </div>
+
+        <!-- Einladung zum Mitsingen/-summen (Intervall- & Solfège-Übungen) -->
+        <div id="singAlongHint" class="sing-along-hint hidden" role="note">
+          <span class="sing-along-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="2.5" width="6" height="12" rx="3"/>
+              <path d="M5.5 11a6.5 6.5 0 0 0 13 0"/>
+              <line x1="12" y1="17.5" x2="12" y2="21.5"/>
+              <line x1="8.5" y1="21.5" x2="15.5" y2="21.5"/>
+            </svg>
+          </span>
+          <div class="sing-along-copy">
+            <strong id="singAlongTitle" class="sing-along-title">Sing mit!</strong>
+            <span id="singAlongText" class="sing-along-text"></span>
+          </div>
+        </div>
       </section>
 
       <div class="stage-wrapper">
