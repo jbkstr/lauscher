@@ -321,7 +321,7 @@ const I18N_STATIC_PL = {
   "settings.groupAudio": "Dźwięk i tempo",
   "settings.groupLanguageNotation": "Język i notacja",
   "settings.groupAppearance": "Wygląd i motywy",
-  "settings.defaultTempoHeading": "Domyślne tempo (startowy BPM w ćwiczeniach)",
+  "settings.defaultTempoHeading": "Domyślne tempo",
   "settings.defaultTempoHint": "Obowiązuje przy otwarciu modułu, dopóki nie zmienisz tempa bezpośrednio w ćwiczeniu.",
   "settings.pianoSoundHeading": "Przestrzeń i pogłos",
   "settings.pianoSoundHint": "Wybierz charakter sali dla całego miksu i dopasuj poziom pogłosu dla każdego instrumentu.",

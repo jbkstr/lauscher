@@ -2209,7 +2209,7 @@
         <div class="settings-group-label" data-i18n="settings.groupAudio">Audio &amp; Tempo</div>
 
         <div class="settings-section">
-          <h4 data-i18n="settings.defaultTempoHeading">Standardtempo (Startwert für alle Übungen)</h4>
+          <h4 data-i18n="settings.defaultTempoHeading">Standardtempo</h4>
           <p class="settings-hint" data-i18n="settings.defaultTempoHint">Wird beim Start einer Übung übernommen, bis du das Tempo im Modul manuell anpasst.</p>
           <div class="tempo-control-row">
             <input type="range" id="defaultBpmSlider" min="55" max="160" step="5" value="90">
@@ -2253,15 +2253,15 @@
           <div id="breakReminderDurationRow" class="settings-sub-field">
             <span class="account-label" data-i18n="settings.breakReminderIntervalLabel">Erinnerung nach</span>
             <div class="tempo-control-row">
-              <input type="range" id="breakReminderSlider" min="1" max="60" step="1" value="20" aria-label="Pausen-Erinnerung nach Minuten" data-i18n-aria="settings.breakReminderSliderAria">
-              <span id="breakReminderVal" class="tempo-val">20 Min</span>
+              <input type="range" id="breakReminderSlider" min="5" max="30" step="1" value="15" aria-label="Pausen-Erinnerung nach Minuten" data-i18n-aria="settings.breakReminderSliderAria">
+              <span id="breakReminderVal" class="tempo-val">15 Min</span>
             </div>
             <div id="breakReminderPresets" class="account-chip-group break-preset-row">
+              <button type="button" class="k-filter-pill" data-break-preset="5">5 Min</button>
               <button type="button" class="k-filter-pill" data-break-preset="10">10 Min</button>
-              <button type="button" class="k-filter-pill" data-break-preset="15">15 Min</button>
-              <button type="button" class="k-filter-pill active" data-break-preset="20">20 Min</button>
-              <button type="button" class="k-filter-pill" data-break-preset="30">30 Min</button>
-              <button type="button" class="k-filter-pill" data-break-preset="45">45 Min</button>
+              <button type="button" class="k-filter-pill active" data-break-preset="15">15 Min</button>
+              <button type="button" class="k-filter-pill" data-break-preset="20">20 Min</button>
+              <button type="button" class="k-filter-pill" data-break-preset="25">25 Min</button>
             </div>
           </div>
         </div>

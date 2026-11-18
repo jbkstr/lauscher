@@ -321,7 +321,7 @@ const I18N_STATIC_UR = {
   "settings.groupAudio": "آڈیو اور ٹیمپو",
   "settings.groupLanguageNotation": "زبان اور تحریر",
   "settings.groupAppearance": "ظاہری شکل اور تھیمز",
-  "settings.defaultTempoHeading": "طے شدہ ٹیمپو (تمام مشقوں کی ابتدائی BPM)",
+  "settings.defaultTempoHeading": "طے شدہ ٹیمپو",
   "settings.defaultTempoHint": "جب تک آپ ماڈیول کے اندر ٹیمپو نہیں بدلتے، ہر مشق اس رفتار سے شروع ہوگی۔",
   "settings.pianoSoundHeading": "کمرے کی گونج اور آواز",
   "settings.pianoSoundHint": "پورے مکس کے لیے کمرے کا مزاج چنیں اور ہر ساز کے لیے الگ ہال گونج سیٹ کریں۔",

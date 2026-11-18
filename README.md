@@ -95,7 +95,7 @@ Inside the **Knowledge** (`Wissen`) tab, interactive audio examples accompany ev
   - **Custom Theme Studio:** 3 persistent user slots with live RGBA/color-pad customization per UI color token starting from any built-in template.
 - **Account (`Konto`) & Mindful Timers:**
   - Multi-select dropdown menus with tag pills for **Your Instruments** and **Training Focus**. *(Lauscher mascot looks are temporarily hidden — see [`docs/ideen.md`](docs/ideen.md).)*
-  - **Background Break Reminder (`1–60 min`):** Silent background exercise timer (default `20 min`, quick presets `10 / 15 / 20 min`) that gently prompts for an ear break without showing a distracting countdown during practice.
+  - **Background Break Reminder (`5–30 min`):** Silent background exercise timer (default `15 min`, quick presets `5 / 10 / 15 / 20 / 25 min`) that gently prompts for an ear break without showing a distracting countdown during practice.
   - **Mindful Session Timer:** Configurable session pacing (`5–20 min`) with automatic inactivity pause (`2–5 min`).
 - **100% Local Privacy (`localStorage`):** No accounts, analytics, or external storage. Export, restore, or reset your complete profile, mixes, custom themes, and exam history anytime via **`lauschebaer-profil.json`**.
 

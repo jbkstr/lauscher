@@ -321,7 +321,7 @@ const I18N_STATIC_FR = {
   "settings.groupAudio": "Audio & Tempo",
   "settings.groupLanguageNotation": "Langue & Notation",
   "settings.groupAppearance": "Apparence & Thèmes",
-  "settings.defaultTempoHeading": "Tempo par défaut (BPM de départ)",
+  "settings.defaultTempoHeading": "Tempo par défaut",
   "settings.defaultTempoHint": "Appliqué à l’ouverture d’un exercice tant que vous ne modifiez pas le tempo dans le module.",
   "settings.pianoSoundHeading": "Ambiance & Réverbération",
   "settings.pianoSoundHint": "Choisissez un caractère de salle pour tout le mix et ajustez la réverbération par instrument.",

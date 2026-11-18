@@ -649,7 +649,7 @@ const I18N_STATIC = {
   "settings.groupAudio": { de: "Audio & Tempo", en: "Audio & Tempo" },
   "settings.groupLanguageNotation": { de: "Sprache & Schreibweise", en: "Language & Notation" },
   "settings.groupAppearance": { de: "Optik & Farbschema", en: "Appearance & Themes" },
-  "settings.defaultTempoHeading": { de: "Standardtempo (Startwert für alle Übungen)", en: "Default Tempo (Starting BPM for Exercises)" },
+  "settings.defaultTempoHeading": { de: "Standardtempo", en: "Default Tempo" },
   "settings.defaultTempoHint": {
     de: "Wird beim Start einer Übung übernommen, bis du das Tempo im Modul manuell anpasst.",
     en: "Applied when opening an exercise until you change the tempo inside the module."

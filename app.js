@@ -1825,12 +1825,14 @@ const DEFAULT_DRONE_MIX = Object.freeze({
   tone: 1.00
 });
 const DEFAULT_BREAK_REMINDER_ENABLED = true;
-const DEFAULT_BREAK_REMINDER_MINUTES = 20;
+const DEFAULT_BREAK_REMINDER_MINUTES = 15;
+const BREAK_REMINDER_MIN_MINUTES = 5;
+const BREAK_REMINDER_MAX_MINUTES = 30;
 
 function sanitizeBreakReminderMinutes(val) {
   const num = parseInt(val, 10);
   if (!Number.isFinite(num)) return DEFAULT_BREAK_REMINDER_MINUTES;
-  return Math.max(1, Math.min(60, num));
+  return Math.max(BREAK_REMINDER_MIN_MINUTES, Math.min(BREAK_REMINDER_MAX_MINUTES, num));
 }
 
 function sanitizePianoSound(raw) {
