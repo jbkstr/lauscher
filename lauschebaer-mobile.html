@@ -2318,30 +2318,8 @@ html, body {
 }
 
 .module-card.is-solfege .module-header {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
   margin-bottom: 0.4rem;
   gap: 0.28rem 0.42rem;
-}
-
-.module-card.is-solfege .module-header-left {
-  display: contents;
-}
-
-.module-card.is-solfege .module-title {
-  order: 1;
-}
-
-.module-card.is-solfege .module-badge {
-  order: 2;
-}
-
-.module-card.is-solfege .module-inline-controls {
-  order: 3;
-  flex: 1 0 100%;
-  min-width: 0;
 }
 
 .module-card.is-solfege .bars-grid {
@@ -2378,6 +2356,37 @@ html, body {
   align-items: center;
   gap: 0.48rem;
   flex-wrap: wrap;
+}
+
+#exerciseModuleCard .module-header {
+  flex-wrap: wrap;
+  gap: 0.3rem 0.38rem;
+}
+
+#exerciseModuleCard .module-header-left {
+  display: contents;
+}
+
+#exerciseModuleCard .module-title {
+  order: 1;
+  min-width: 0;
+  font-size: clamp(0.78rem, 3.6vw, 0.84rem);
+}
+
+#exerciseModuleCard .module-badge {
+  order: 2;
+  font-size: clamp(0.66rem, 3vw, 0.72rem);
+  padding: 0.18rem 0.52rem;
+}
+
+#exerciseModuleCard .module-inline-controls {
+  order: 3;
+  flex: 1 0 100%;
+  min-width: 0;
+}
+
+#exerciseModuleCard .module-inline-controls:not(:has(> button:not(.hidden))) {
+  display: none;
 }
 
 .module-title {
