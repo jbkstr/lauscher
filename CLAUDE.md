@@ -60,6 +60,7 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 ## Android-App (Capacitor)
 
 - Die Android-App ist ein **separates Capacitor-Projekt außerhalb des Repos** (`~/Documents/lauscher-android`, App-ID `de.jbkstr.lauscher`). Es wird nicht hier gepflegt, sondern per [scripts/sync-android.sh](scripts/sync-android.sh) bzw. Doppelklick auf [Android-Studio-starten.command](Android-Studio-starten.command) befüllt: Syntax-Check, Bundle-Build, Kopie der Web-Dateien nach `www/`, `npx cap sync android`, Android Studio öffnen.
+- **Nach jeder Änderung an Web-Dateien (index.html, CSS, JS, Fonts, Samples) den Android-Sync mitlaufen lassen** – auf Wunsch des Nutzers immer, ohne Nachfrage: `./scripts/sync-android.sh --no-open` (Android Studio öffnet der Nutzer selbst). Ändert nichts im Repo.
 - ⚠️ Das Skript kopiert eine **feste Dateiliste** (`RUNTIME_FILES`). Kommt eine neue JS-/CSS-Datei hinzu, muss sie dort zusätzlich zu `index.html` eingetragen werden.
 - In app.js: `initCapacitorNativeBridge()` fängt die Android-Zurück-Taste ab (`handleNativeBackButton`: Onboarding → Modal → Popover → Prüfungs-Abbruch → zurück navigieren → App beenden) und stoppt Audio, wenn die App in den Hintergrund geht. **Neue Popovers** in `hasOpenTransientPopover()` eintragen, damit „Zurück“ sie schließt. Ohne Capacitor (Browser) ist die Brücke inaktiv.
 - Mikrofon (Tuner): Das Sync-Skript trägt `RECORD_AUDIO` und `MODIFY_AUDIO_SETTINGS` ins `AndroidManifest.xml` ein; Capacitor fragt die Berechtigung dann beim ersten `getUserMedia` selbst ab.
