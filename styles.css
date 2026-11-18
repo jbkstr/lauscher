@@ -10408,3 +10408,94 @@ body.is-hum-pause #solfegeKeyboardWrap {
 .node-dir-word.is-long {
   font-size: 0.74rem;
 }
+
+/* ==========================================
+   MELODIE IM NOTENSYSTEM
+   ========================================== */
+.melody-staff-panel {
+  padding: 0.12rem 0.3rem 0.08rem;
+}
+.melody-staff-svg {
+  max-height: 128px;
+}
+.melody-staff-note {
+  cursor: pointer;
+  transition: color 0.18s ease, opacity 0.18s ease;
+}
+.melody-staff-note.is-pending {
+  opacity: 0.42;
+}
+.melody-staff-note.is-current {
+  color: var(--peach-strong);
+}
+.melody-staff-note.is-solved {
+  color: var(--raccoon-dark);
+}
+.melody-staff-note.is-wrong {
+  color: var(--status-err, #D9534F);
+}
+.melody-staff-note.is-recorded {
+  color: var(--lilac-strong);
+}
+.melody-staff-note.bar-active {
+  color: var(--lilac-strong);
+  opacity: 1;
+}
+.melody-staff-label {
+  fill: var(--sage-strong);
+}
+.melody-staff-label.is-wrong {
+  fill: var(--status-err, #D9534F);
+}
+.melody-staff-label.is-recorded,
+.melody-staff-label.is-current,
+.melody-staff-label.is-pending {
+  fill: var(--lilac-strong);
+}
+.melody-staff-note.tile-selected-pulse {
+  animation: melodyNotePop 360ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@keyframes melodyNotePop {
+  0% { transform: scale(0.82); }
+  60% { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .melody-staff-note.tile-selected-pulse {
+    animation: none;
+  }
+}
+#viewExercise.fit-1 .melody-staff-svg {
+  max-height: 112px;
+}
+#viewExercise.fit-2 .melody-staff-svg {
+  max-height: 98px;
+}
+#viewExercise.fit-3 .melody-staff-svg {
+  max-height: 86px;
+}
+
+/* Notenwert-Auswahl im Melodiediktat bei Platzmangel verdichten */
+#viewExercise.fit-1 .melody-rhythm-picker,
+#viewExercise.fit-2 .melody-rhythm-picker,
+#viewExercise.fit-3 .melody-rhythm-picker {
+  padding: 6px 8px;
+  gap: 4px;
+  margin-bottom: 0;
+}
+#viewExercise.fit-1 .melody-rhythm-btn-lbl,
+#viewExercise.fit-2 .melody-rhythm-btn-lbl,
+#viewExercise.fit-3 .melody-rhythm-btn-lbl {
+  display: none;
+}
+#viewExercise.fit-2 .melody-rhythm-btn,
+#viewExercise.fit-3 .melody-rhythm-btn {
+  flex-direction: row;
+  gap: 4px;
+  padding: 5px 4px;
+}
+#viewExercise.fit-3 .melody-rhythm-picker-head {
+  display: none;
+}

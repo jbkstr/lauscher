@@ -37,7 +37,7 @@ Every training area includes graded difficulty levels, listening aids (A/B compa
    - **Characteristic color tones:** Hear defining modal intervals (`♯4`, `♭7`, `♮6`, `♭2`, `♭5`, `♯7`).
    - **Modal cadences & vamps:** Recognize iconic modal loops (`i–IV`, `I–♭VII`, `I–II`, `i–♭II`, etc.).
 5. **Melodies**
-   - 5 progressive levels from single-octave `Do–Fa` and `Sol–Do` tetrachords (`4–6` notes) to full-scale randomized keys, multi-octave expressive phrases, and **Level 5 Combined Melody Dictation** (identifying both pitch and rhythmic note durations together).
+   - 5 progressive levels from single-octave `Do–Fa` and `Sol–Do` tetrachords (`4–6` notes) to full-scale randomized keys, multi-octave expressive phrases, and **Level 5 Combined Melody Dictation** (identifying both pitch and rhythmic note durations together). The phrase is shown on a real staff (clef, key signature, meter, bar lines): unsolved notes appear as rhythm slashes on the middle line — in dictation even without stems — so no pitch is given away before you answer.
 6. **Rhythm**
    - **Meter & Time Signatures:** `4/4`, `3/4`, `2/4`, `6/8`, `5/4`, `7/8`.
    - **4-Beat Rhythm Dictation:** Quarter notes, eighths, rests, offbeats, triplets, sixteenths, dotted values, and syncopation.
