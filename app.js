@@ -8228,6 +8228,191 @@ function pickRandomQuote() {
   refreshCurrentQuoteLocalization();
 }
 
+// ---------- SITZUNGS-GEDÄCHTNIS ----------
+// Verwechselte Intervalle, Akkorde, Modi, Solfège-Stufen und Noten kommen in den nächsten
+// 2–5 Aufgaben gezielt wieder dran, bis sie zweimal auf Anhieb sitzen – nie direkt hintereinander.
+// Nur im Arbeitsspeicher: keine Anzeige, keine Punkte, nichts wird gespeichert.
+const SESSION_REVIEW_HITS_NEEDED = 2;
+const SESSION_REVIEW_MAX_PER_SCOPE = 4;
+const SESSION_REVIEW_PICK_CHANCE = 0.6;   // Chance, ein fälliges Element einzustreuen
+const SESSION_REVIEW_OVERDUE = -2;         // so viele Aufgaben „überfällig“ → wird sicher eingestreut
+const sessionReviewMemory = new Map();     // scope -> Map(key -> entry)
+
+function randomSessionReviewWait(entry = null) {
+  // Notenlesen: Die Warteschlange (Platz 3–5) sorgt schon für den Abstand
+  if (entry?.queueBased) return 0;
+  return 2 + Math.floor(Math.random() * 2); // frühestens in der 2. oder 3. Aufgabe danach
+}
+
+function getSessionReviewBucket(scope, create = false) {
+  if (!scope) return null;
+  let bucket = sessionReviewMemory.get(scope);
+  if (!bucket && create) {
+    bucket = new Map();
+    sessionReviewMemory.set(scope, bucket);
+  }
+  return bucket || null;
+}
+
+function rememberSessionMistake(scope, key, payload = null, queueBased = false) {
+  if (!scope || key == null || state.exam?.active) return;
+  const bucket = getSessionReviewBucket(scope, true);
+  const entry = bucket.get(key) || { key: key, payload: null };
+  entry.queueBased = Boolean(queueBased);
+  entry.hits = 0;
+  entry.wait = randomSessionReviewWait(entry);
+  entry.pending = false;
+  entry.missedAt = Date.now();
+  if (payload) entry.payload = payload;
+  bucket.delete(key);
+  bucket.set(key, entry);
+  while (bucket.size > SESSION_REVIEW_MAX_PER_SCOPE) {
+    bucket.delete(bucket.keys().next().value); // ältesten Fehler vergessen
+  }
+}
+
+function recordSessionReviewSuccess(scope, key) {
+  const bucket = getSessionReviewBucket(scope);
+  const entry = bucket?.get(key);
+  if (!entry) return;
+  entry.hits += 1;
+  entry.pending = false;
+  if (entry.hits >= SESSION_REVIEW_HITS_NEEDED) {
+    bucket.delete(key);
+    if (bucket.size === 0) sessionReviewMemory.delete(scope);
+  } else {
+    entry.wait = randomSessionReviewWait(entry);
+  }
+}
+
+// Eine neue Aufgabe beginnt: Wartezeiten herunterzählen, liegengebliebene Einstreuungen freigeben
+function tickSessionReview(scope, isStillQueued = null) {
+  const bucket = getSessionReviewBucket(scope);
+  if (!bucket) return;
+  bucket.forEach(entry => {
+    if (entry.pending) {
+      if (isStillQueued && isStillQueued(entry)) return;
+      entry.pending = false; // gezeigt, aber nicht beantwortet (z. B. Nur-Hören) → bald erneut
+      entry.wait = 1;
+    }
+    entry.wait -= 1;
+  });
+}
+
+function pickDueSessionReviewEntry(scope, isAllowed = null) {
+  if (state.exam?.active) return null;
+  const bucket = getSessionReviewBucket(scope);
+  if (!bucket) return null;
+  const due = [...bucket.values()].filter(e => !e.pending && e.wait <= 0 && (!isAllowed || isAllowed(e)));
+  if (!due.length) return null;
+  const overdue = due.filter(e => e.queueBased || e.wait <= SESSION_REVIEW_OVERDUE);
+  if (!overdue.length && Math.random() >= SESSION_REVIEW_PICK_CHANCE) return null;
+  const pool = overdue.length ? overdue : due;
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+
+// Auswahl für Übungen mit festem Antwort-Pool: liefert den Schlüssel oder null (= normal zufällig)
+function pickSessionReviewKey(scope, pool, lastKey = null) {
+  if (!Array.isArray(pool) || pool.length < 2) return null;
+  tickSessionReview(scope);
+  const entry = pickDueSessionReviewEntry(scope, e => pool.includes(e.key) && e.key !== lastKey);
+  if (!entry) return null;
+  entry.pending = true;
+  return entry.key;
+}
+
+// Während der Wartezeit soll ein verwechseltes Element nicht zufällig sofort wieder kommen
+function filterCoolingSessionReviewKeys(scope, pool, lastKey = null) {
+  const bucket = getSessionReviewBucket(scope);
+  if (!bucket || state.exam?.active) return pool;
+  const free = pool.filter(k => !bucket.has(k) || (bucket.get(k).wait <= 0 && k !== lastKey));
+  return free.length ? free : pool;
+}
+
+function pickTargetKeyWithSessionReview(scope, pool, lastKey = null) {
+  const reviewKey = pickSessionReviewKey(scope, pool, lastKey);
+  if (reviewKey != null) return reviewKey;
+  const free = filterCoolingSessionReviewKeys(scope, pool, lastKey);
+  return free[Math.floor(Math.random() * free.length)];
+}
+
+function getLastTargetKeyForType(type) {
+  const prev = state.currentExercise;
+  return prev && prev.type === type ? (prev.reviewKey ?? prev.targetItem?.key ?? null) : null;
+}
+
+// Antwort-Ergebnis für Übungen mit reviewScope/reviewKey (einmal pro Aufgabe zählt der erste Versuch)
+function noteSessionReviewAnswer(ex, isCorrect) {
+  if (!ex?.reviewScope || ex.reviewKey == null || state.exam?.active) return;
+  if (!isCorrect) {
+    if (!ex.reviewMissed) {
+      ex.reviewMissed = true;
+      rememberSessionMistake(ex.reviewScope, ex.reviewKey);
+    }
+    return;
+  }
+  if (!ex.reviewMissed && !ex.reviewCounted) {
+    ex.reviewCounted = true;
+    recordSessionReviewSuccess(ex.reviewScope, ex.reviewKey);
+  }
+}
+
+// Notenlesen: Noten/Akkorde aus der Warteschlange
+function getNotationReviewScope(ex) {
+  return ex ? `${ex.type}|L${ex.level || 1}` : null;
+}
+
+function getNotationReviewKey(item) {
+  if (!item) return null;
+  if (item.isChord) return `chord|${item.clefId}|${item.staffStep}|${item.chordSymbol}|${item.inversion}`;
+  return `${item.clefId}|${item.staffStep}|${item.accidental}|${item.keySignatureId || "none"}`;
+}
+
+function noteNotationReviewAnswer(ex, item, isCorrect) {
+  if (!ex || !item || state.exam?.active) return;
+  const scope = getNotationReviewScope(ex);
+  const key = getNotationReviewKey(item);
+  if (!isCorrect) {
+    if (!item.reviewMissed) {
+      item.reviewMissed = true;
+      const { reviewMissed, ...clean } = item;
+      rememberSessionMistake(scope, key, clean, true);
+    }
+    return;
+  }
+  if (!item.reviewMissed) recordSessionReviewSuccess(scope, key);
+}
+
+// Nach dem Weiterrücken: ein fälliges Element an Platz 3–5 der kommenden Noten einsetzen
+function injectNotationSessionReview(ex) {
+  if (!ex || !Array.isArray(ex.notationQueue) || state.exam?.active) return;
+  const scope = getNotationReviewScope(ex);
+  const queueKeys = ex.notationQueue.map(getNotationReviewKey);
+  tickSessionReview(scope, entry => queueKeys.includes(entry.key));
+  const keySig = normalizeNotationKeySigId(ex.keySignatureId || "none");
+  const slots = [2, 3, 4].filter(i => i < ex.notationQueue.length);
+  const fitsSlot = (entry, i) => {
+    if (!entry.payload) return false;
+    return queueKeys[i - 1] !== entry.key && queueKeys[i + 1] !== entry.key;
+  };
+  const entry = pickDueSessionReviewEntry(scope, e => {
+    const p = e.payload;
+    if (!p || queueKeys.includes(e.key)) return false;
+    if (!p.isChord && (p.keySignatureId || "none") !== keySig) return false;
+    return slots.some(i => fitsSlot(e, i));
+  });
+  if (!entry) return;
+  let okSlots = slots.filter(i => fitsSlot(entry, i));
+  // Schlüssel-Mix: möglichst einen Platz im passenden Schlüssel-Block wählen
+  if (ex.isMixedClef) {
+    const sameClef = okSlots.filter(i => ex.notationQueue[i]?.clefId === entry.payload.clefId);
+    if (sameClef.length) okSlots = sameClef;
+  }
+  const idx = okSlots[Math.floor(Math.random() * okSlots.length)];
+  ex.notationQueue[idx] = { ...entry.payload };
+  entry.pending = true;
+}
+
 function generateExercise() {
   if (state.settings.mode === "solfege") {
     const sLvl = state.settings.solfegeDifficulty || 1;
@@ -8504,7 +8689,7 @@ function generateIntervalExercise(rootMidi, intervalMode) {
     pool = Object.keys(HARMONIC_DATA.intervals);
   }
 
-  const chosenKey = pool[Math.floor(Math.random() * pool.length)];
+  const chosenKey = pickTargetKeyWithSessionReview(intervalMode, pool, getLastTargetKeyForType(intervalMode));
   const targetDef = getLocalizedIntervalDef(chosenKey);
 
   const isMelodicUp = intervalMode === "interval-melodic";
@@ -8604,14 +8789,16 @@ function generateIntervalExercise(rootMidi, intervalMode) {
       notes: [refNoteName, targetNoteName]
     },
     bars: bars,
-    choices: pool
+    choices: pool,
+    reviewScope: intervalMode,
+    reviewKey: chosenKey
   };
 }
 
 function generateChordExercise(rootMidi, chordMode = "interval-chords") {
   const lvl = state.settings.chordDifficulty || 1;
   const pool = CHORD_LEVEL_POOLS[lvl] || CHORD_LEVEL_POOLS[1];
-  const chosenKey = pool[Math.floor(Math.random() * pool.length)];
+  const chosenKey = pickTargetKeyWithSessionReview(chordMode, pool, getLastTargetKeyForType(chordMode));
   const targetDef = getLocalizedChordDef(chosenKey);
 
   const chordNotes = targetDef.offsets.map(s => midiToNote(rootMidi + s));
@@ -8646,7 +8833,9 @@ function generateChordExercise(rootMidi, chordMode = "interval-chords") {
       notes: chordNotes
     },
     bars: bars,
-    choices: pool
+    choices: pool,
+    reviewScope: chordMode,
+    reviewKey: chosenKey
   };
 }
 
@@ -8654,7 +8843,7 @@ function generateChordInversionExercise(rootMidi) {
   const lvl = state.settings.chordInversionDifficulty || 1;
   const cfg = CHORD_INVERSION_LEVELS[lvl] || CHORD_INVERSION_LEVELS[1];
   const chordKey = cfg.chordKeys[Math.floor(Math.random() * cfg.chordKeys.length)];
-  const chosenInvKey = cfg.choices[Math.floor(Math.random() * cfg.choices.length)];
+  const chosenInvKey = pickTargetKeyWithSessionReview("chord-inversions", cfg.choices, getLastTargetKeyForType("chord-inversions"));
   const invDef = getLocalizedChordInversionDef(chosenInvKey);
   const chordDef = getLocalizedChordDef(chordKey);
   const invData = buildChordInversionNotes(rootMidi, chordKey, invDef.stepIndex, state.currentKey);
@@ -8695,7 +8884,9 @@ function generateChordInversionExercise(rootMidi) {
       midis: invData.midis
     },
     bars: bars,
-    choices: cfg.choices
+    choices: cfg.choices,
+    reviewScope: "chord-inversions",
+    reviewKey: chosenInvKey
   };
 }
 
@@ -8779,7 +8970,9 @@ function buildModesExercise(exType, level, levelCfg) {
   const candidates = levelCfg.choices.length > 1
     ? levelCfg.choices.filter(k => k !== prevKey)
     : levelCfg.choices;
-  const chosenKey = candidates[Math.floor(Math.random() * candidates.length)] || levelCfg.choices[0];
+  const reviewKey = pickSessionReviewKey(exType, levelCfg.choices, prevKey);
+  const freeCandidates = filterCoolingSessionReviewKeys(exType, candidates, prevKey);
+  const chosenKey = reviewKey ?? (freeCandidates[Math.floor(Math.random() * freeCandidates.length)] || levelCfg.choices[0]);
   const targetDef = getLocalizedModeDef(chosenKey) || getLocalizedModeDef("ionian");
 
   const useRandomRoot = Boolean(levelCfg.randomRoot || state.settings.keyMode === "random");
@@ -8802,6 +8995,8 @@ function buildModesExercise(exType, level, levelCfg) {
     level: level,
     modeKind: modeKind,
     chosenKey: chosenKey,
+    reviewScope: exType,
+    reviewKey: chosenKey,
     levelLabel: getLocalizedModeLevelLabel(modeKind, level),
     rootMidi: rootMidi,
     rootLabel: rootLabel,
@@ -9030,7 +9225,11 @@ function generateSolfegeExercise(rootMidi) {
   const sLvl = state.settings.solfegeDifficulty || 1;
   const isMultiOctave = sLvl === 3 || sLvl === 4 || sLvl === 6;
 
-  const chosenStep = SOLFEGE_SCALE_STEPS[Math.floor(Math.random() * SOLFEGE_SCALE_STEPS.length)];
+  const solfegeLastKey = getLastTargetKeyForType("solfege");
+  const solfegeReviewKey = pickSessionReviewKey("solfege", SOLFEGE_SCALE_STEPS.map(st => st.key), solfegeLastKey);
+  const solfegeFreeKeys = filterCoolingSessionReviewKeys("solfege", SOLFEGE_SCALE_STEPS.map(st => st.key), solfegeLastKey);
+  const solfegeKey = solfegeReviewKey ?? solfegeFreeKeys[Math.floor(Math.random() * solfegeFreeKeys.length)];
+  const chosenStep = SOLFEGE_SCALE_STEPS.find(st => st.key === solfegeKey) || SOLFEGE_SCALE_STEPS[0];
   const keyboardMidi = rootMidi + chosenStep.semitones;
 
   // Bei „Mehrere Oktaven“ (Stufe 3, 4, 6) wird der abgefragte Ton in einer willkürlichen Oktavlage
@@ -9059,6 +9258,8 @@ function generateSolfegeExercise(rootMidi) {
     keyName: `${keyBaseName} (${leftFrameName}–${rightFrameName})`,
     isMultiOctave: isMultiOctave,
     targetIndex: 4,
+    reviewScope: "solfege",
+    reviewKey: chosenStep.key,
     targetItem: {
       ...chosenStep,
       label: getLocalizedSolfegeStepLabel(chosenStep.key, chosenStep.label),
@@ -12106,6 +12307,7 @@ function shiftAndAdvanceNotationQueue(ex, feedbackKind, stageSub, stageMain, sta
     const lastNote = queue[queue.length - 1] || ex.targetItem || null;
     queue.push(buildNextNotationQueueNote(ex, lastNote));
     ex.notationQueue = queue;
+    injectNotationSessionReview(ex);
     ex.targetItem = queue[0] || null;
     ex.keyName = getLocalizedNotationClefName(ex.targetItem?.clefId || ex.baseClefId || "treble");
   }
@@ -12203,7 +12405,10 @@ async function handleNotationKeyClick(clickedKeyDef, keyBtn, options = {}) {
   }
 
   if (!isCorrect) {
-    if (!isListenOnly) resetExerciseStreakOnAttempt(ex);
+    if (!isListenOnly) {
+      resetExerciseStreakOnAttempt(ex);
+      noteNotationReviewAnswer(ex, target, false);
+    }
     ex.notationPanelState = "is-wrong";
     keyBtn?.classList.add("key-wrong");
     const panelEl = document.getElementById("notationStaffPanel");
@@ -12241,6 +12446,7 @@ async function handleNotationKeyClick(clickedKeyDef, keyBtn, options = {}) {
   const streakRes = isListenOnly
     ? { count: state.streakState?.count || 0, isMilestone: false }
     : recordExerciseStreakSuccess(ex);
+  if (!isListenOnly) noteNotationReviewAnswer(ex, target, true);
   ex.notationSolvedCount = (ex.notationSolvedCount || 0) + 1;
 
   if (!isListenOnly) {
@@ -12270,6 +12476,7 @@ function skipNotationNote() {
   }
   ex.notationSkippedCount = (ex.notationSkippedCount || 0) + 1;
   resetExerciseStreakOnAttempt(ex);
+  noteNotationReviewAnswer(ex, target, false);
 
   if (shouldPlayCorrectAnswerAudio()) {
     ensureAudioReady().then(() => {
@@ -12376,6 +12583,8 @@ async function handleSolfegeKeyClick(clickedKeyDef, keyBtn, options = {}) {
   // Prüfe, ob die richtige Taste (oder bei Do eine der beiden Do-Tasten) getroffen wurde
   const isCorrect = clickedKeyDef.midi === target.midi ||
     (target.syllable === "Do" && clickedKeyDef.syllable === "Do");
+
+  if (!isListenOnly) noteSessionReviewAnswer(ex, isCorrect);
 
   if (!isCorrect) {
     // Falsche Antwort: Taste nur rot färben (KEIN Ton erklingt, damit der gehörte Zielton im Ohr bleibt)
@@ -12509,6 +12718,7 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
   }
 
   const isCorrect = selectedKey === ex.targetItem.key;
+  if (!isListenOnly) noteSessionReviewAnswer(ex, isCorrect);
 
   if (isCorrect) {
     ex.isSolved = true;
