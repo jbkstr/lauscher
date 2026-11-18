@@ -388,11 +388,6 @@
   border-color: rgba(255, 255, 255, 0.14);
 }
 
-:root[data-theme="metal"] .tools-launcher-card {
-  border-inline-color: rgba(255, 255, 255, 0.14);
-  border-bottom-color: rgba(255, 255, 255, 0.14);
-}
-
 :root[data-theme="metal"] .stage-mascot svg,
 :root[data-theme="metal"] .hero-mascot svg,
 :root[data-theme="metal"] .account-avatar-box svg {
@@ -725,7 +720,6 @@ html, body {
 .category-nav-card,
 .subpage-node-btn,
 .ref-hub-card,
-.tools-launcher-card,
 .degree-btn,
 .opt-btn,
 .k-filter-pill,
@@ -8908,44 +8902,22 @@ body.is-hum-pause #solfegeKeyboardWrap {
 }
 
 /* =====================================================
-   PRAXIS-TOOLS (#viewTools) & TOOL-VORSCHAUEN (#viewTuner / #viewFreeplay)
+   WERKZEUGE (#viewTools) & TOOL-VORSCHAUEN (#viewTuner / #viewFreeplay)
    ===================================================== */
-.tools-intro-desc {
-  font-size: 0.8rem;
-  line-height: 1.4;
-  color: var(--raccoon-muted);
-  padding: 0 0.15rem;
-  margin-top: -0.45rem;
+.tools-card-list {
+  gap: 0.68rem;
 }
 
-.tools-launcher-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.62rem;
-  width: 100%;
-}
-
-.tools-launcher-card {
-  background-color: var(--surface-white);
-  border: 1px solid var(--border-soft);
-  border-radius: var(--radius-lg);
-  padding: 0.95rem 0.5rem 0.85rem;
-  box-shadow: var(--shadow-card);
+.tool-card-title-row {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  text-align: center;
   gap: 0.45rem;
-  cursor: pointer;
-  min-width: 0;
-  width: 100%;
-  overflow: hidden;
+  flex-wrap: wrap;
+  margin-bottom: 0.12rem;
 }
 
-.tools-launcher-card:active {
-  transform: scale(0.97);
-  background-color: var(--surface-warm);
+.tool-card-title-row h3 {
+  margin-bottom: 0;
 }
 
 .tools-launcher-icon {
@@ -8959,50 +8931,17 @@ body.is-hum-pause #solfegeKeyboardWrap {
   flex-shrink: 0;
 }
 
-.tools-launcher-title {
-  font-size: 0.84rem;
-  font-weight: 800;
-  color: var(--raccoon-dark);
-  line-height: 1.22;
-  overflow-wrap: break-word;
-  hyphens: auto;
-  max-width: 100%;
-}
-
-.tools-launcher-sub {
-  font-size: 0.68rem;
-  line-height: 1.25;
-  color: var(--raccoon-muted);
-  overflow-wrap: break-word;
-  max-width: 100%;
-}
-
 .tools-launcher-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.14rem 0.5rem;
+  padding: 0.12rem 0.5rem;
   border-radius: var(--radius-pill);
   font-size: 0.64rem;
   font-weight: 800;
   color: var(--raccoon-muted);
   background-color: var(--surface-warm);
   border: 1px solid var(--border-soft);
-}
-
-@media (max-width: 360px) {
-  .tools-launcher-grid {
-    gap: 0.44rem;
-  }
-  .tools-launcher-card {
-    padding: 0.82rem 0.35rem 0.72rem;
-    gap: 0.38rem;
-  }
-  .tools-launcher-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
-  }
 }
 
 .tool-preview-view {
@@ -11342,17 +11281,12 @@ body.is-hum-pause #solfegeKeyboardWrap {
     </main>
 
     <!-- =====================================================
-         ANSICHT 1e: PRAXIS-TOOLS (#viewTools)
+         ANSICHT 1e: WERKZEUGE (#viewTools)
          ===================================================== -->
     <main id="viewTools" class="view-container hidden">
-      <div class="section-heading-row">
-        <h2 class="section-heading" data-i18n="tools.heading">Werkzeuge</h2>
-      </div>
-      <p class="tools-intro-desc" data-i18n="tools.intro">Eigenständige Praxis-Werkzeuge neben den Gehör-Übungen.</p>
-
-      <div class="tools-launcher-grid">
-        <button id="openMetronomeBtn" class="tools-launcher-card card-top-sage" type="button" data-open-tool="metronome">
-          <div class="tools-launcher-icon badge-sage">
+      <div class="category-nav-list tools-card-list">
+        <button id="openMetronomeBtn" class="category-nav-card card-accent-sage category-card-wide" type="button" data-open-tool="metronome">
+          <div class="cat-icon-box badge-sage">
             <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path d="M8.5 23L12.2 6h3.6L19.5 23H8.5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
               <line x1="14" y1="20" x2="19.5" y2="9" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
@@ -11360,12 +11294,15 @@ body.is-hum-pause #solfegeKeyboardWrap {
               <line x1="7" y1="23" x2="21" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             </svg>
           </div>
-          <span class="tools-launcher-title" data-i18n="tools.metronomeTitle">Metronom</span>
-          <span class="tools-launcher-sub" data-i18n="tools.metronomeSub">Puls &amp; Tap-Tempo</span>
+          <div class="cat-text-box">
+            <h3 data-i18n="tools.metronomeTitle">Metronom</h3>
+            <p data-i18n="tools.metronomeSub">Tap-Tempo, Zählzeiten, Unterteilungen &amp; Profile</p>
+          </div>
+          <span class="cat-chevron">›</span>
         </button>
 
-        <button id="openTunerBtn" class="tools-launcher-card card-top-lilac" type="button" data-open-tool="tuner">
-          <div class="tools-launcher-icon badge-lilac">
+        <button id="openTunerBtn" class="category-nav-card card-accent-lilac category-card-wide" type="button" data-open-tool="tuner">
+          <div class="cat-icon-box badge-lilac">
             <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path d="M9.5 4.5V12C9.5 14.4853 11.5147 16.5 14 16.5C16.4853 16.5 18.5 14.4853 18.5 12V4.5" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
               <line x1="14" y1="16.5" x2="14" y2="23.5" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
@@ -11374,12 +11311,18 @@ body.is-hum-pause #solfegeKeyboardWrap {
               <path d="M22.2 6.8C23.4 8.3 23.4 10.7 22.2 12.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.72"/>
             </svg>
           </div>
-          <span class="tools-launcher-title" data-i18n="tools.tunerTitle">Tuner</span>
-          <span class="tools-launcher-badge" data-i18n="tools.soonBadge">Bald</span>
+          <div class="cat-text-box">
+            <div class="tool-card-title-row">
+              <h3 data-i18n="tools.tunerTitle">Tuner</h3>
+              <span class="tools-launcher-badge" data-i18n="tools.soonBadge">Bald</span>
+            </div>
+            <p data-i18n="tools.tunerSub">Stimmgerät &amp; präzise Tonhöhen-Anzeige per Mikrofon</p>
+          </div>
+          <span class="cat-chevron">›</span>
         </button>
 
-        <button id="openFreeplayBtn" class="tools-launcher-card card-top-peach" type="button" data-open-tool="freeplay">
-          <div class="tools-launcher-icon badge-peach">
+        <button id="openFreeplayBtn" class="category-nav-card card-accent-peach category-card-wide" type="button" data-open-tool="freeplay">
+          <div class="cat-icon-box badge-peach">
             <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <rect x="4" y="6" width="20" height="16" rx="2.5" stroke="currentColor" stroke-width="2"/>
               <line x1="10.67" y1="6" x2="10.67" y2="22" stroke="currentColor" stroke-width="1.6"/>
@@ -11388,8 +11331,14 @@ body.is-hum-pause #solfegeKeyboardWrap {
               <rect x="15.4" y="6" width="3.9" height="9.5" rx="1" fill="currentColor"/>
             </svg>
           </div>
-          <span class="tools-launcher-title" data-i18n="tools.freeplayTitle">Freies Spiel</span>
-          <span class="tools-launcher-badge" data-i18n="tools.soonBadge">Bald</span>
+          <div class="cat-text-box">
+            <div class="tool-card-title-row">
+              <h3 data-i18n="tools.freeplayTitle">Freies Spiel</h3>
+              <span class="tools-launcher-badge" data-i18n="tools.soonBadge">Bald</span>
+            </div>
+            <p data-i18n="tools.freeplaySub">Freie Klaviatur &amp; Akkord-Flächen mit allen Mixer-Klängen</p>
+          </div>
+          <span class="cat-chevron">›</span>
         </button>
       </div>
     </main>
@@ -12589,7 +12538,7 @@ body.is-hum-pause #solfegeKeyboardWrap {
         <h2 class="tool-preview-title" data-i18n="tools.tunerPageTitle">Chromatischer Tuner</h2>
         <p class="tool-preview-desc" data-i18n="tools.tunerPageDesc">Live-Tonhöhenerkennung und Kammerton-Referenz direkt über das Mikrofon deines Geräts.</p>
         <p id="tunerSecureContextNotice" class="tool-env-notice hidden"></p>
-        <button id="tunerBackBtn" type="button" class="btn-tool tool-preview-back-btn" data-i18n="tools.backBtn">← Zurück zu Tools</button>
+        <button id="tunerBackBtn" type="button" class="btn-tool tool-preview-back-btn" data-i18n="tools.backBtn">← Zurück zu Werkzeuge</button>
       </section>
     </main>
 
@@ -12610,7 +12559,7 @@ body.is-hum-pause #solfegeKeyboardWrap {
         <span class="tools-launcher-badge" data-i18n="tools.previewBadge">Bald verfügbar</span>
         <h2 class="tool-preview-title" data-i18n="tools.freeplayPageTitle">Freies Spiel</h2>
         <p class="tool-preview-desc" data-i18n="tools.freeplayPageDesc">Freie Klaviatur und Akkord-Flächen zum Ausprobieren, Improvisieren und Nachspielen mit deinen Mixer-Instrumenten.</p>
-        <button id="freeplayBackBtn" type="button" class="btn-tool tool-preview-back-btn" data-i18n="tools.backBtn">← Zurück zu Tools</button>
+        <button id="freeplayBackBtn" type="button" class="btn-tool tool-preview-back-btn" data-i18n="tools.backBtn">← Zurück zu Werkzeuge</button>
       </section>
     </main>
 
@@ -12629,7 +12578,7 @@ body.is-hum-pause #solfegeKeyboardWrap {
         </span>
       </button>
 
-      <button class="nav-tab" data-nav="tools" title="Tools" aria-label="Tools" data-i18n-title="nav.tools" data-i18n-aria="nav.tools">
+      <button class="nav-tab" data-nav="tools" title="Werkzeuge" aria-label="Werkzeuge" data-i18n-title="nav.tools" data-i18n-aria="nav.tools">
         <span class="nav-icon-pill">
           <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
             <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
@@ -15288,19 +15237,19 @@ const I18N_STATIC = {
   "home.catWarmup": { de: "Einsing-Helfer", en: "Vocal Warmup" },
   "home.catWarmupDesc": { de: "5-Minuten-Warmup: Atem, Summen, Arpeggios & Chorklang", en: "5-min routine: breath, humming, arpeggios & choir blend" },
 
-  "tools.heading": { de: "Werkzeuge", en: "Tools" },
-  "tools.intro": { de: "Eigenständige Praxis-Werkzeuge neben den Gehör-Übungen.", en: "Standalone practice tools alongside ear training." },
   "tools.metronomeTitle": { de: "Metronom", en: "Metronome" },
-  "tools.metronomeSub": { de: "Puls & Tap-Tempo", en: "Pulse & Tap Tempo" },
+  "tools.metronomeSub": { de: "Tap-Tempo, Zählzeiten, Unterteilungen & Profile", en: "Tap tempo, custom beats, subdivisions & profiles" },
   "tools.tunerTitle": { de: "Tuner", en: "Tuner" },
+  "tools.tunerSub": { de: "Stimmgerät & präzise Tonhöhen-Anzeige per Mikrofon", en: "Chromatic tuner & live pitch detection via microphone" },
   "tools.freeplayTitle": { de: "Freies Spiel", en: "Free Play" },
+  "tools.freeplaySub": { de: "Freie Klaviatur & Akkord-Flächen mit allen Mixer-Klängen", en: "Free keyboard & chord pads with all mixer instruments" },
   "tools.soonBadge": { de: "Bald", en: "Soon" },
   "tools.previewBadge": { de: "Bald verfügbar", en: "Coming soon" },
   "tools.tunerPageTitle": { de: "Chromatischer Tuner", en: "Chromatic Tuner" },
   "tools.tunerPageDesc": { de: "Live-Tonhöhenerkennung und Kammerton-Referenz direkt über das Mikrofon deines Geräts.", en: "Live pitch detection and tuning reference directly via your device microphone." },
   "tools.freeplayPageTitle": { de: "Freies Spiel", en: "Free Play" },
   "tools.freeplayPageDesc": { de: "Freie Klaviatur und Akkord-Flächen zum Ausprobieren, Improvisieren und Nachspielen mit deinen Mixer-Instrumenten.", en: "Free keyboard and chord pads for improvising, exploring sounds, and playing along with your mixer instruments." },
-  "tools.backBtn": { de: "← Zurück zu Tools", en: "← Back to Tools" },
+  "tools.backBtn": { de: "← Zurück zu Werkzeuge", en: "← Back to Tools" },
 
   "knowledge.tabsAria": { de: "Wissensbereiche", en: "Knowledge sections" },
   "knowledge.tabTheory": { de: "Theorie", en: "Theory" },
@@ -15506,7 +15455,7 @@ const I18N_STATIC = {
 
   "nav.mainAria": { de: "Hauptnavigation", en: "Main navigation" },
   "nav.home": { de: "Startseite", en: "Home" },
-  "nav.tools": { de: "Tools", en: "Tools" },
+  "nav.tools": { de: "Werkzeuge", en: "Tools" },
   "nav.knowledge": { de: "Wissen", en: "Knowledge" },
   "nav.space": { de: "Mein Konto", en: "My Account" },
 
@@ -16555,12 +16504,12 @@ const I18N_STATIC_FR = {
   "home.voiceHeading": "Voix & Chœur",
   "home.catWarmup": "Échauffement vocal",
   "home.catWarmupDesc": "Routine 5 min : souffle, bouche fermée, arpèges & fondu choral",
-  "tools.heading": "Outils",
-  "tools.intro": "Des outils pratiques autonomes en complément des exercices.",
   "tools.metronomeTitle": "Métronome",
-  "tools.metronomeSub": "Pulsation & Tap Tempo",
+  "tools.metronomeSub": "Tap Tempo, temps, subdivisions & profils",
   "tools.tunerTitle": "Accordeur",
+  "tools.tunerSub": "Accordeur chromatique & détection de hauteur au micro",
   "tools.freeplayTitle": "Jeu libre",
+  "tools.freeplaySub": "Clavier libre & nappes d’accords avec tous les sons du mixeur",
   "tools.soonBadge": "Bientôt",
   "tools.previewBadge": "Bientôt disponible",
   "tools.tunerPageTitle": "Accordeur chromatique",
@@ -18551,7 +18500,7 @@ Object.assign(TR_FR, {
   "G-, D-, F- & B-Dur im Notensystem (±2 Hilfslinien) mit vorgegebenen Vorzeichen": "Sol, Ré, Fa & Si♭ majeur à la clé (±2 lignes suppl.)",
   "Stufe 6 • Alle Tonarten + ♮ (1–6 ♯/♭)": "Niveau 6 • Toutes armures + ♮ (1–6 ♯/♭)",
   "Alle 12 Vorzeichen-Tonarten (±3 Hilfslinien) inklusive Auflösungszeichen (♮)": "Les 12 armures (±3 lignes suppl.) incluant les bécarres (♮)",
-  "Tools": "Outils",
+  "Werkzeuge": "Outils",
   "Metronom, Tuner & Freies Spiel": "Métronome, accordeur & jeu libre",
   "Tuner": "Accordeur",
   "Stimmgerät & Tonhöhen-Anzeige": "Accordeur chromatique & diapason",
@@ -18712,12 +18661,12 @@ const I18N_STATIC_PL = {
   "home.voiceHeading": "Głos i chór",
   "home.catWarmup": "Rozgrzewka głosowa",
   "home.catWarmupDesc": "5-min trening: oddech, mormorando, arpeggia i brzmienie chóru",
-  "tools.heading": "Narzędzia",
-  "tools.intro": "Niezależne narzędzia do ćwiczeń obok treningu słuchu.",
   "tools.metronomeTitle": "Metronom",
-  "tools.metronomeSub": "Puls i Tap Tempo",
+  "tools.metronomeSub": "Tap Tempo, akcenty miar, podziały i profile",
   "tools.tunerTitle": "Stroik",
+  "tools.tunerSub": "Stroik chromatyczny i pomiar wysokości przez mikrofon",
   "tools.freeplayTitle": "Swobodna gra",
+  "tools.freeplaySub": "Swobodna klawiatura i pady akordów z brzmieniami miksera",
   "tools.soonBadge": "Wkrótce",
   "tools.previewBadge": "Wkrótce dostępne",
   "tools.tunerPageTitle": "Stroik chromatyczny",
@@ -20753,7 +20702,7 @@ Object.assign(TR_PL, {
   "G-, D-, F- & B-Dur im Notensystem (±2 Hilfslinien) mit vorgegebenen Vorzeichen": "G-, D-, F- i B-dur na pięciolinii (±2 linie dodane) ze znakami przykluczowymi",
   "Stufe 6 • Alle Tonarten + ♮ (1–6 ♯/♭)": "Poziom 6 • Wszystkie tonacje + ♮ (1–6 ♯/♭)",
   "Alle 12 Vorzeichen-Tonarten (±3 Hilfslinien) inklusive Auflösungszeichen (♮)": "Wszystkie 12 tonacji ze znakami przykluczowymi (±3 linie dodane) wraz z kasownikami (♮)",
-  "Tools": "Narzędzia",
+  "Werkzeuge": "Narzędzia",
   "Metronom, Tuner & Freies Spiel": "Metronom, stroik i swobodna gra",
   "Tuner": "Stroik",
   "Stimmgerät & Tonhöhen-Anzeige": "Stroik chromatyczny i ton wzorcowy",
@@ -20915,12 +20864,12 @@ const I18N_STATIC_UK = {
   "home.voiceHeading": "Голос і хор",
   "home.catWarmup": "Розспівка",
   "home.catWarmupDesc": "5-хв програма: дихання, гудіння, арпеджіо та хорове злиття",
-  "tools.heading": "Інструменти",
-  "tools.intro": "Окремі практичні інструменти поруч із вправами для слуху.",
   "tools.metronomeTitle": "Метроном",
-  "tools.metronomeSub": "Пульс і Tap-темп",
+  "tools.metronomeSub": "Tap-темп, долі, поділки та профілі",
   "tools.tunerTitle": "Тюнер",
+  "tools.tunerSub": "Хроматичний тюнер і точне визначення висоти через мікрофон",
   "tools.freeplayTitle": "Вільна гра",
+  "tools.freeplaySub": "Вільна клавіатура й акордові педи з усіма тембрами мікшера",
   "tools.soonBadge": "Незабаром",
   "tools.previewBadge": "Незабаром",
   "tools.tunerPageTitle": "Хроматичний тюнер",
@@ -22957,7 +22906,7 @@ Object.assign(TR_UK, {
   "G-, D-, F- & B-Dur im Notensystem (±2 Hilfslinien) mit vorgegebenen Vorzeichen": "Соль, Ре, Фа та Сі♭ мажор при ключі (±2 дод. лінійки)",
   "Stufe 6 • Alle Tonarten + ♮ (1–6 ♯/♭)": "Рівень 6 • Усі тональності + ♮ (1–6 ♯/♭)",
   "Alle 12 Vorzeichen-Tonarten (±3 Hilfslinien) inklusive Auflösungszeichen (♮)": "Усі 12 тональностей при ключі (±3 дод. лінійки) включно з бекарами (♮)",
-  "Tools": "Інструменти",
+  "Werkzeuge": "Інструменти",
   "Metronom, Tuner & Freies Spiel": "Метроном, тюнер і вільна гра",
   "Tuner": "Тюнер",
   "Stimmgerät & Tonhöhen-Anzeige": "Хроматичний тюнер і камертон",
@@ -23119,12 +23068,12 @@ const I18N_STATIC_UR = {
   "home.voiceHeading": "آواز اور کورس",
   "home.catWarmup": "ووکل وارم اپ",
   "home.catWarmupDesc": "5 منٹ کا معمول: سانس، گنگنانا، آرپیجیو اور کورس بلینڈ",
-  "tools.heading": "اوزار",
-  "tools.intro": "کان کی مشقوں کے ساتھ الگ عملی اوزار۔",
   "tools.metronomeTitle": "میٹرونوم",
-  "tools.metronomeSub": "نبض اور ٹیپ ٹیمپو",
+  "tools.metronomeSub": "ٹیپ ٹیمپو، بیٹس، ذیلی تقسیمیں اور پروفائلز",
   "tools.tunerTitle": "ٹیونر",
+  "tools.tunerSub": "مائیکروفون کے ذریعے کرومیٹک ٹیونر اور درست سُر کی شناخت",
   "tools.freeplayTitle": "آزاد مشق",
+  "tools.freeplaySub": "مکسر کے تمام سازوں کے ساتھ آزاد کی بورڈ اور کورڈ پیڈز",
   "tools.soonBadge": "جلد",
   "tools.previewBadge": "جلد دستیاب",
   "tools.tunerPageTitle": "کرومیٹک ٹیونر",
@@ -25185,7 +25134,7 @@ Object.assign(TR_UR, {
   "KLAVIER • GESUCHT": "پیانو • مطلوبہ",
   "Welches Intervall erklingt über der Grundton-Fläche?": "بنیادی سُر کے پیڈ پر کون سا انٹرول بج رہا ہے؟",
   "Intervalle (Grundton-Fläche)": "انٹرولز (بنیادی سُر کا پیڈ)",
-  "Tools": "اوزار",
+  "Werkzeuge": "اوزار",
   "Metronom, Tuner & Freies Spiel": "میٹرونوم، ٹیونر اور آزاد مشق",
   "Tuner": "ٹیونر",
   "Stimmgerät & Tonhöhen-Anzeige": "کرومیٹک ٹیونر اور حوالہ جاتی سُر",
@@ -52316,7 +52265,7 @@ class AppState {
         ? (getStaticI18nText("app.tagline") || tr("Hören · Verstehen · Musizieren", "Listen · Understand · Play"))
         : tr("Hören · Verstehen · Musizieren", "Listen · Understand · Play");
     } else if (this.currentView === "tools") {
-      mainTitle.textContent = tr("Tools", "Tools");
+      mainTitle.textContent = tr("Werkzeuge", "Tools");
       el.textContent = tr("Metronom, Tuner & Freies Spiel", "Metronome, Tuner & Free Play");
     } else if (this.currentView === "knowledge") {
       mainTitle.textContent = tr("Wissen", "Knowledge");
@@ -70293,7 +70242,7 @@ function handleMetronomeTap(customNowMs = null) {
   const tapSub = document.getElementById("metroTapSub");
   if (tapSub) {
     tapSub.textContent = res.bpm !== null
-      ? `${res.bpm} BPM`
+      ? tr("Tempo tippen", "Tap tempo")
       : tr("Weiter tippen …", "Keep tapping …");
   }
 

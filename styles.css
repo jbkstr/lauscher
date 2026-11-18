@@ -380,11 +380,6 @@
   border-color: rgba(255, 255, 255, 0.14);
 }
 
-:root[data-theme="metal"] .tools-launcher-card {
-  border-inline-color: rgba(255, 255, 255, 0.14);
-  border-bottom-color: rgba(255, 255, 255, 0.14);
-}
-
 :root[data-theme="metal"] .stage-mascot svg,
 :root[data-theme="metal"] .hero-mascot svg,
 :root[data-theme="metal"] .account-avatar-box svg {
@@ -717,7 +712,6 @@ html, body {
 .category-nav-card,
 .subpage-node-btn,
 .ref-hub-card,
-.tools-launcher-card,
 .degree-btn,
 .opt-btn,
 .k-filter-pill,
@@ -8900,44 +8894,22 @@ body.is-hum-pause #solfegeKeyboardWrap {
 }
 
 /* =====================================================
-   PRAXIS-TOOLS (#viewTools) & TOOL-VORSCHAUEN (#viewTuner / #viewFreeplay)
+   WERKZEUGE (#viewTools) & TOOL-VORSCHAUEN (#viewTuner / #viewFreeplay)
    ===================================================== */
-.tools-intro-desc {
-  font-size: 0.8rem;
-  line-height: 1.4;
-  color: var(--raccoon-muted);
-  padding: 0 0.15rem;
-  margin-top: -0.45rem;
+.tools-card-list {
+  gap: 0.68rem;
 }
 
-.tools-launcher-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.62rem;
-  width: 100%;
-}
-
-.tools-launcher-card {
-  background-color: var(--surface-white);
-  border: 1px solid var(--border-soft);
-  border-radius: var(--radius-lg);
-  padding: 0.95rem 0.5rem 0.85rem;
-  box-shadow: var(--shadow-card);
+.tool-card-title-row {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  text-align: center;
   gap: 0.45rem;
-  cursor: pointer;
-  min-width: 0;
-  width: 100%;
-  overflow: hidden;
+  flex-wrap: wrap;
+  margin-bottom: 0.12rem;
 }
 
-.tools-launcher-card:active {
-  transform: scale(0.97);
-  background-color: var(--surface-warm);
+.tool-card-title-row h3 {
+  margin-bottom: 0;
 }
 
 .tools-launcher-icon {
@@ -8951,50 +8923,17 @@ body.is-hum-pause #solfegeKeyboardWrap {
   flex-shrink: 0;
 }
 
-.tools-launcher-title {
-  font-size: 0.84rem;
-  font-weight: 800;
-  color: var(--raccoon-dark);
-  line-height: 1.22;
-  overflow-wrap: break-word;
-  hyphens: auto;
-  max-width: 100%;
-}
-
-.tools-launcher-sub {
-  font-size: 0.68rem;
-  line-height: 1.25;
-  color: var(--raccoon-muted);
-  overflow-wrap: break-word;
-  max-width: 100%;
-}
-
 .tools-launcher-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.14rem 0.5rem;
+  padding: 0.12rem 0.5rem;
   border-radius: var(--radius-pill);
   font-size: 0.64rem;
   font-weight: 800;
   color: var(--raccoon-muted);
   background-color: var(--surface-warm);
   border: 1px solid var(--border-soft);
-}
-
-@media (max-width: 360px) {
-  .tools-launcher-grid {
-    gap: 0.44rem;
-  }
-  .tools-launcher-card {
-    padding: 0.82rem 0.35rem 0.72rem;
-    gap: 0.38rem;
-  }
-  .tools-launcher-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
-  }
 }
 
 .tool-preview-view {
