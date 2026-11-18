@@ -109,9 +109,30 @@ if [ ! -f "$TARGET_DIR/capacitor.config.json" ] && [ ! -f "$TARGET_DIR/capacitor
 {
   "appId": "de.jbkstr.lauscher",
   "appName": "Lauscher",
-  "webDir": "www"
+  "webDir": "www",
+  "plugins": {
+    "SystemBars": {
+      "style": "LIGHT",
+      "insetsHandling": "css",
+      "initialViewportFitValueHint": "cover"
+    }
+  }
 }
 EOF
+elif [ -f "$TARGET_DIR/capacitor.config.json" ]; then
+  node -e '
+    const fs = require("fs");
+    const p = process.argv[1];
+    const cfg = JSON.parse(fs.readFileSync(p, "utf8"));
+    cfg.plugins = cfg.plugins || {};
+    cfg.plugins.SystemBars = {
+      style: "LIGHT",
+      insetsHandling: "css",
+      initialViewportFitValueHint: "cover",
+      ...(cfg.plugins.SystemBars || {})
+    };
+    fs.writeFileSync(p, JSON.stringify(cfg, null, 2) + "\n");
+  ' "$TARGET_DIR/capacitor.config.json"
 fi
 
 if [ "$FRESH_ANDROID" -eq 1 ] && [ -d "$TARGET_DIR/android" ]; then

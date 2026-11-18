@@ -2790,6 +2790,9 @@ function applyThemeAndAppearance() {
   if (metaEl && activeMeta) {
     metaEl.setAttribute("content", activeMeta.bg);
   }
+  if (typeof syncNativeSystemBars === "function") {
+    syncNativeSystemBars(effective);
+  }
 
   if (typeof document !== "undefined" && typeof document.querySelectorAll === "function") {
     document.querySelectorAll("[data-appearance], [data-welcome-appearance]").forEach(btn => {
@@ -5201,9 +5204,6 @@ function closeTransientPopovers() {
     ["warmupSoundPopover", "warmupSoundBtn"],
     ["warmupBpmPopover", "warmupBpmBtn"]
   ].forEach(([popId, btnId]) => {
-    if (popId === "inlineNotationPacePopover" && state?.listenOnly?.active && isNotationMode(state?.currentExercise?.type)) {
-      return;
-    }
     if (document.getElementById(popId)?.classList.contains("is-pinned")) return;
     document.getElementById(popId)?.classList.add("hidden");
     document.getElementById(btnId)?.classList.remove("chip-open");
@@ -5433,7 +5433,19 @@ function handleNativeBackButton() {
   return false;
 }
 
+function syncNativeSystemBars(effectiveAppearance = null) {
+  const sysBars = typeof window !== "undefined" ? window.Capacitor?.Plugins?.SystemBars : null;
+  if (!sysBars || typeof sysBars.setStyle !== "function") return;
+  const resolved = effectiveAppearance
+    || (typeof document !== "undefined" ? document.documentElement?.getAttribute("data-appearance") : null)
+    || "light";
+  // Capacitor SystemBars: "LIGHT" = helle App-Oberfläche (dunkle Indikatoren), "DARK" = dunkle App (helle Indikatoren)
+  const targetStyle = resolved === "dark" ? "DARK" : "LIGHT";
+  Promise.resolve(sysBars.setStyle({ style: targetStyle })).catch(() => {});
+}
+
 function initCapacitorNativeBridge() {
+  syncNativeSystemBars();
   const capApp = typeof window !== "undefined" ? window.Capacitor?.Plugins?.App : null;
   if (!capApp || typeof capApp.addListener !== "function") return;
   if (initCapacitorNativeBridge._bound) return;
@@ -5444,7 +5456,7 @@ function initCapacitorNativeBridge() {
     handleNativeBackButton();
   });
 
-  // Laufende Audio-Sessions beim Wechseln der App pausieren/stoppen
+  // Laufende Audio-Sessions beim Wechseln der App pausieren/stoppen und Systemleiste abgleichen
   capApp.addListener("appStateChange", ({ isActive } = {}) => {
     if (isActive === false) {
       stopPlayback();
@@ -5453,8 +5465,9 @@ function initCapacitorNativeBridge() {
       if (typeof stopTunerSession === "function") stopTunerSession();
       if (typeof stopFreeplaySession === "function") stopFreeplaySession();
       stopBreakReminderTicker();
-    } else if (isActive === true && state?.currentView === "exercise") {
-      if (state.breakReminder?.pausedOnBreak === false && state.profile?.breakReminderEnabled) {
+    } else if (isActive === true) {
+      syncNativeSystemBars();
+      if (state?.currentView === "exercise" && state.breakReminder?.pausedOnBreak === false && state.profile?.breakReminderEnabled) {
         state.breakReminder.lastActivityWallMs = Date.now();
         startBreakReminderTicker();
       }
@@ -13096,10 +13109,6 @@ function syncNotationPaceUI() {
   if (paceVal) {
     paceVal.textContent = paceLabel;
   }
-  if (state?.listenOnly?.active && isNotationMode(state?.currentExercise?.type)) {
-    document.getElementById("inlineNotationPacePopover")?.classList.remove("hidden");
-    paceBtn?.classList.add("chip-open");
-  }
 }
 
 function setNotationListenOnlyPace(nextVal) {
@@ -15235,8 +15244,6 @@ function setListenOnlyMode(enabled, options = {}) {
     syncNotationPaceUI();
     document.getElementById("inlineNotationKeyPopover")?.classList.add("hidden");
     document.getElementById("moduleNotationKeyBtn")?.classList.remove("chip-open");
-    document.getElementById("inlineNotationPacePopover")?.classList.remove("hidden");
-    document.getElementById("moduleNotationPaceBtn")?.classList.add("chip-open");
   }
   if (state.settings.loop && !LISTEN_ONLY_LOOP_MODE_EXCLUSIONS.has(state.settings.mode)) {
     state.settings.loop = false;
@@ -19036,11 +19043,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const inlineTimeSigPopover = document.getElementById("inlineTimeSigPopover");
 
   function closeAllInlinePopovers(exceptPopover = null) {
-    const keepNotationPaceOpen = Boolean(
-      isNotationMode(state?.currentExercise?.type) &&
-      !state?.exam?.active &&
-      exceptPopover !== inlineNotationKeyPopover
-    );
     [
       [inlineBpmPopover, moduleBpmBtn],
       [inlineKeyPopover, moduleKeyBtn],
@@ -19048,9 +19050,6 @@ document.addEventListener("DOMContentLoaded", () => {
       [inlineNotationPacePopover, moduleNotationPaceBtn],
       [inlineTimeSigPopover, moduleTimeSigBtn]
     ].forEach(([pop, btn]) => {
-      if (pop === inlineNotationPacePopover && keepNotationPaceOpen) {
-        return;
-      }
       if (pop?.classList.contains("is-pinned")) return;
       if (pop && pop !== exceptPopover) {
         pop.classList.add("hidden");
@@ -19144,11 +19143,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (state.exam?.active) return;
     closeAllInlinePopovers(inlineNotationPacePopover);
     syncNotationPaceUI();
-    if (state.listenOnly?.active && isNotationMode(state.currentExercise?.type)) {
-      inlineNotationPacePopover?.classList.remove("hidden");
-      moduleNotationPaceBtn.classList.add("chip-open");
-      return;
-    }
     const isHidden = inlineNotationPacePopover.classList.toggle("hidden");
     moduleNotationPaceBtn.classList.toggle("chip-open", !isHidden);
   });
@@ -19168,10 +19162,7 @@ document.addEventListener("DOMContentLoaded", () => {
     pop?.addEventListener("click", (e) => e.stopPropagation());
   });
 
-  document.addEventListener("click", (e) => {
-    if (typeof e?.target?.closest === "function" && e.target.closest("#listenOnlyBtn")) {
-      return;
-    }
+  document.addEventListener("click", () => {
     closeAllInlinePopovers();
   });
 

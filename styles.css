@@ -1850,13 +1850,16 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 0.48rem;
+  min-width: 0;
+  overflow-wrap: break-word;
 }
 
 .k-card-top-row {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.35rem 0.5rem;
 }
 
 .k-ratio-chip {
@@ -1869,6 +1872,8 @@ html, body {
   padding: 0.16rem 0.55rem;
   border-radius: var(--radius-pill);
   border: 1px solid var(--border-soft);
+  max-width: 100%;
+  overflow-wrap: break-word;
 }
 
 .k-ratio-btn {
@@ -3547,11 +3552,13 @@ html, body {
 /* Vertiefte Wissensmodule: Physik & Konsonanz/Dissonanz */
 .physics-fact-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.45rem;
 }
 
-.physics-fact-chip {
+.physics-fact-chip,
+.physics-fact-item {
+  min-width: 0;
   background-color: var(--bg-base);
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-sm);
@@ -3559,14 +3566,22 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 0.16rem;
+  font-size: 0.72rem;
+  color: var(--raccoon-mid);
+  line-height: 1.38;
+  overflow-wrap: break-word;
 }
 
-.physics-fact-chip strong {
+.physics-fact-chip strong,
+.physics-fact-item strong {
   font-size: 0.78rem;
+  font-weight: 800;
   color: var(--raccoon-dark);
+  line-height: 1.28;
 }
 
-.physics-fact-chip span {
+.physics-fact-chip span,
+.physics-fact-item span {
   font-size: 0.71rem;
   color: var(--raccoon-mid);
   line-height: 1.35;
@@ -3679,7 +3694,7 @@ html, body {
 @media (max-width: 440px) {
   .physics-fact-grid,
   .k-compare-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
@@ -3852,6 +3867,8 @@ html, body {
   color: var(--raccoon-dark);
   font-size: 0.74rem;
   font-weight: 700;
+  max-width: 100%;
+  overflow-wrap: break-word;
 }
 
 /* ==========================================
