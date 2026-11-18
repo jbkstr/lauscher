@@ -163,6 +163,20 @@ PYEOF
       echo "  → Berechtigung $perm im AndroidManifest ergänzt"
     fi
   done
+
+  # App auf Hochformat (Portrait) festlegen
+  python3 - "$MANIFEST" <<'PYEOF'
+import re, sys
+path = sys.argv[1]
+s = open(path, encoding="utf-8").read()
+if 'android:screenOrientation=' in s:
+    s_new = re.sub(r'android:screenOrientation="[^"]*"', 'android:screenOrientation="portrait"', s)
+else:
+    s_new = re.sub(r'(<activity\b)', r'\1\n            android:screenOrientation="portrait"', s, count=1)
+if s_new != s:
+    open(path, "w", encoding="utf-8").write(s_new)
+    print("  → android:screenOrientation=\"portrait\" im AndroidManifest gesetzt")
+PYEOF
 fi
 
 echo "4/4 • Synchronisiere Capacitor → Android …"

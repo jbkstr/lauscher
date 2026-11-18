@@ -77,6 +77,8 @@ const I18N_STATIC_FR = {
   "home.newQuote": "Nouveau ↻",
   "home.continue": "▶ Continuer",
   "home.startHere": "▶ Commencez ici",
+  "app.portraitOnlyTitle": "Utilise le mode portrait",
+  "app.portraitOnlySub": "Tourne ton téléphone à la verticale (mode portrait) pour continuer à t’entraîner.",
   "space.mixesHomeToggleLabel": "Afficher le démarrage rapide sur l’accueil",
   "settings.singHeading": "Chanter avec",
   "settings.singHint": "Invitations à chanter et fredonner dans les exercices d’intervalles et de solfège.",
@@ -535,7 +537,8 @@ const LAUSCHEBAER_QUOTES_FR = [
   { cat: "Encouragement", text: "« Les notes ou accords confondus reviennent discrètement dans ta session — et après 15 minutes actives, Lauscher te suggère tout en douceur une petite pause pour tes oreilles. »" },
   { cat: "Astuce", text: "« Besoin d’un métronome fiable ? L’onglet « Outils » propose divisions, shuffle, temps muets, profils enregistrables et quatre sons de clic (Standard, Woodblock, Cloche & Rimshot) ! »" },
   { cat: "Astuce", text: "« En « Lecture d’accords » dans la section Notation, identifie des accords empilés directement sur des tuiles — des triades majeures et mineures jusqu’aux accords E7, Esus4 et renversements ! »" },
-  { cat: "Le saviez-vous ?", text: "« Qu’est-ce qui distingue une onde sinusoïdale pure d’un vrai piano chaleureux ? Dans « Physique & Son », écoute et observe le spectre fréquentiel révéler comment les harmoniques sculptent chaque timbre ! »" }
+  { cat: "Le saviez-vous ?", text: "« Qu’est-ce qui distingue une onde sinusoïdale pure d’un vrai piano chaleureux ? Dans « Physique & Son », écoute et observe le spectre fréquentiel révéler comment les harmoniques sculptent chaque timbre ! »" },
+  { cat: "Astuce", text: "« Si certaines notes, intervalles ou accords te posent encore problème, Lauscher repère tes points faibles en arrière-plan et te réinterroge dessus de lui-même jusqu’à ce qu’ils soient acquis ! »" }
 ];
 
 const PROFILE_INSTRUMENTS_FR = {

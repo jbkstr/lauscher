@@ -78,7 +78,8 @@ const LAUSCHEBAER_QUOTES = [
   { cat: "Mutmacher", text: "„Verwechselte Töne oder Akkorde tauchen still und gezielt noch einmal auf – und nach 15 Minuten am Stück erinnert dich Lauscher sanft an eine kurze Ohren-Pause.“" },
   { cat: "Tipp", text: "„Festes Tempo gesucht? Im Reiter ‚Werkzeuge‘ wartet das Metronom mit Unterteilungen, Shuffle, Gap-Klick, speicherbaren Profilen und vier Klick-Sounds (Standard, Woodblock, Cowbell & Rimshot)!“" },
   { cat: "Tipp", text: "„Beim ‚Akkorde lesen‘ im Notenbereich erkennst du gestapelte Akkorde direkt als Kacheln – von Dur und Moll bis zu E7, Esus4 und ihren Umkehrungen!“" },
-  { cat: "Wusstest du?", text: "„Was unterscheidet eine reine Sinuskurve vom warmen Klavier? Im Modul ‚Physik & Klang‘ hörst und siehst du im Frequenzspektrum, wie Obertöne jede Klangfarbe prägen!“" }
+  { cat: "Wusstest du?", text: "„Was unterscheidet eine reine Sinuskurve vom warmen Klavier? Im Modul ‚Physik & Klang‘ hörst und siehst du im Frequenzspektrum, wie Obertöne jede Klangfarbe prägen!“" },
+  { cat: "Tipp", text: "„Zeigst du bei bestimmten Tönen, Intervallen oder Akkorden noch Unsicherheiten, merkt sich Lauscher das im Hintergrund und fragt sie ganz von selbst gezielt wieder ab, bis sie sicher sitzen!“" }
 ];
 
 function getMascotAssetUri(mood = "idle") {
@@ -12573,8 +12574,8 @@ function shouldAnimateJuice() {
   return true;
 }
 
-// Gesamtgröße der Erfolgs-Animation (Symbolgröße & Flugweite), 1 = ursprüngliche Presets
-const JUICE_BURST_SCALE = 1.2;
+// Gesamtgröße der Erfolgs-Animation (Symbolgröße & Flugweite), 1 = ursprüngliche Presets (+15 % gegenüber 1.2)
+const JUICE_BURST_SCALE = 1.38;
 
 function spawnJuiceBurst(hostEl, options = {}) {
   bindGlobalPointerInputTracker();
@@ -18746,6 +18747,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     performFullAppReset();
   });
+
+  try {
+    window.screen?.orientation?.lock?.("portrait")?.catch?.(() => {});
+  } catch (_e) {}
 
   document.getElementById("refreshQuoteBtn")?.addEventListener("click", () => {
     pickRandomQuote();

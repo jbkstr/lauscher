@@ -77,6 +77,8 @@ const I18N_STATIC_PL = {
   "home.newQuote": "Nowa ↻",
   "home.continue": "▶ Kontynuuj",
   "home.startHere": "▶ Zacznij tutaj",
+  "app.portraitOnlyTitle": "Używaj w orientacji pionowej",
+  "app.portraitOnlySub": "Obróć telefon pionowo (tryb portretowy), aby kontynuować ćwiczenie.",
   "space.mixesHomeToggleLabel": "Pokaż szybki start na ekranie głównym",
   "settings.singHeading": "Śpiewanie",
   "settings.singHint": "Zachęty do śpiewania i nucenia w ćwiczeniach z interwałów i solfeżu.",
@@ -538,7 +540,8 @@ const LAUSCHEBAER_QUOTES_PL = [
   { cat: "Motywacja", text: "„Pomylone dźwięki lub akordy dyskretnie wracają jeszcze w tej samej sesji — a po 15 minutach aktywnego ćwiczenia Lauscher łagodnie przypomni o krótkiej przerwie dla uszu.”" },
   { cat: "Wskazówka", text: "„Szukasz pewnego metronomu? W zakładce «Narzędzia» czekają podziały, shuffle, wyciszane takty, własne profile oraz cztery brzmienia kliku (Standardowy klik, Woodblock, Cowbell i Rimshot)!”" },
   { cat: "Wskazówka", text: "„W trybie «Czytanie akordów» w dziale Notacja rozpoznajesz spiętrzone akordy na kafelkach wyboru — od trójdźwięków durowych i molowych po E7, Esus4 i przewroty!”" },
-  { cat: "Czy wiesz, że…", text: "„Co odróżnia czystą sinusoidę od ciepłego brzmienia fortepianu? W dziale «Fizyka i dźwięk» usłyszysz i zobaczysz w widmie częstotliwości, jak alikwoty kształtują każdą barwę!”" }
+  { cat: "Czy wiesz, że…", text: "„Co odróżnia czystą sinusoidę od ciepłego brzmienia fortepianu? W dziale «Fizyka i dźwięk» usłyszysz i zobaczysz w widmie częstotliwości, jak alikwoty kształtują każdą barwę!”" },
+  { cat: "Wskazówka", text: "„Gdy przy niektórych dźwiękach, interwałach lub akordach pojawia się niepewność, Lauscher sam to zapamiętuje i automatycznie odpytuje Cię z tych słabszych punktów, aż pewnie wejdą w ucho!”" }
 ];
 
 const PROFILE_INSTRUMENTS_PL = {

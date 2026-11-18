@@ -933,29 +933,29 @@ html, body {
   pointer-events: auto;
   flex: 0 0 auto;
   margin-left: auto;
-  width: 140px;
+  width: 168px;
   background-color: var(--sage);
   color: var(--raccoon-dark);
   border: 1.5px solid var(--sage-strong);
   border-radius: var(--radius-pill);
-  padding: 0.56rem 0.9rem;
+  padding: 0.68rem 1.08rem;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   text-align: center;
   white-space: nowrap;
-  box-shadow: 0 2.5px 0 var(--tactile-edge), var(--shadow-float);
+  box-shadow: 0 3px 0 var(--tactile-edge), var(--shadow-float);
 }
 
-html[lang="de"] .btn-primary-action.home-continue-fab { width: 140px; }
-html[lang="en"] .btn-primary-action.home-continue-fab { width: 122px; }
-html[lang="fr"] .btn-primary-action.home-continue-fab { width: 128px; }
-html[lang="pl"] .btn-primary-action.home-continue-fab { width: 128px; }
-html[lang="uk"] .btn-primary-action.home-continue-fab { width: 148px; }
-html[lang="ur"] .btn-primary-action.home-continue-fab { width: 156px; }
+html[lang="de"] .btn-primary-action.home-continue-fab { width: 168px; }
+html[lang="en"] .btn-primary-action.home-continue-fab { width: 146px; }
+html[lang="fr"] .btn-primary-action.home-continue-fab { width: 154px; }
+html[lang="pl"] .btn-primary-action.home-continue-fab { width: 154px; }
+html[lang="uk"] .btn-primary-action.home-continue-fab { width: 178px; }
+html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
 
 .btn-primary-action.home-continue-fab span {
-  font-size: 0.84rem;
+  font-size: 1rem;
   font-weight: 800;
   line-height: 1.2;
 }
@@ -1282,31 +1282,45 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 156px; }
 .account-card {
   background-color: var(--surface-white);
   border: 1px solid var(--border-soft);
+  border-inline-start: 5px solid var(--sage);
   border-radius: var(--radius-lg);
-  padding: 1rem;
-  margin-bottom: 0.85rem;
-  box-shadow: var(--shadow-card);
+  padding: 0.85rem 0.95rem;
+  margin-bottom: 0;
+  box-shadow: 0 2px 0 var(--tactile-edge), var(--shadow-card);
   display: flex;
   flex-direction: column;
-  gap: 0.78rem;
+  gap: 0.65rem;
+}
+
+#spaceExamHistoryCard,
+#spaceTimerCard {
+  border-inline-start-color: var(--peach);
+}
+
+#spaceThemesCard {
+  border-inline-start-color: var(--lilac);
 }
 
 .account-hero-card {
-  background: linear-gradient(155deg, var(--surface-white) 0%, var(--surface-warm) 100%);
+  background: linear-gradient(145deg, var(--surface-white) 0%, var(--sage-soft) 100%);
+  border: 1px solid rgba(46, 111, 78, 0.16);
+  padding: 0.9rem;
+  box-shadow: var(--shadow-card);
 }
 
 .account-hero-head {
   display: flex;
   align-items: center;
-  gap: 0.85rem;
+  gap: 0.8rem;
 }
 
 .account-avatar-box {
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  background-color: var(--sage-soft);
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  background-color: var(--surface-white);
   border: 2px solid var(--sage);
+  box-shadow: var(--shadow-card);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1315,8 +1329,8 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 156px; }
 }
 
 .account-avatar-box svg {
-  width: 66px;
-  height: 66px;
+  width: 52px;
+  height: 52px;
   display: block;
 }
 
@@ -1325,45 +1339,63 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 156px; }
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.2rem;
+  gap: 0.22rem;
+}
+
+.account-hero-copy .k-card-tag {
+  font-size: 0.63rem;
+  font-weight: 800;
+  padding: 0.14rem 0.55rem;
+  border-radius: var(--radius-pill);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .account-hero-copy h2 {
-  font-size: 1.08rem;
+  font-size: 0.94rem;
   font-weight: 800;
   color: var(--raccoon-dark);
-  line-height: 1.25;
+  line-height: 1.22;
+}
+
+.account-hero-copy p {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--raccoon-mid);
+  line-height: 1.32;
 }
 
 .account-card-head {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 0.6rem;
+  gap: 0.55rem;
 }
 
 .account-card-head h3 {
-  font-size: 0.96rem;
+  font-size: 0.94rem;
   font-weight: 800;
   color: var(--raccoon-dark);
+  line-height: 1.22;
 }
 
 .account-card-sub {
-  font-size: 0.76rem;
+  font-size: 0.75rem;
   color: var(--raccoon-mid);
-  line-height: 1.42;
-  margin-top: 0.14rem;
+  line-height: 1.32;
+  margin-top: 0.12rem;
 }
 
-.account-field {
+.account-field,
+.account-home-mixes-toggle {
   display: flex;
   flex-direction: column;
-  gap: 0.36rem;
+  gap: 0.32rem;
 }
 
 .account-label {
-  font-size: 0.74rem;
-  font-weight: 700;
+  font-size: 0.73rem;
+  font-weight: 800;
   color: var(--raccoon-mid);
 }
 
@@ -1371,13 +1403,14 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 156px; }
 .account-select {
   width: 100%;
   font-family: inherit;
-  font-size: 0.86rem;
-  font-weight: 600;
+  font-size: 0.8rem;
+  font-weight: 700;
   color: var(--raccoon-dark);
   background-color: var(--bg-base);
-  border: 1.5px solid var(--border-strong);
-  border-radius: var(--radius-sm);
-  padding: 0.54rem 0.72rem;
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  padding: 0.48rem 0.72rem;
+  min-height: 38px;
   transition: border-color 0.16s ease, background-color 0.16s ease;
 }
 
@@ -1389,7 +1422,7 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 156px; }
 
 .settings-language-select {
   margin-top: 0.15rem;
-  min-height: 44px;
+  min-height: 40px;
   cursor: pointer;
 }
 
@@ -1402,7 +1435,7 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 156px; }
 .profile-multi-dropdown-host {
   display: flex;
   flex-direction: column;
-  gap: 0.48rem;
+  gap: 0.42rem;
   position: relative;
 }
 
@@ -1415,8 +1448,8 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 156px; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.55rem;
-  min-height: 44px;
+  gap: 0.5rem;
+  min-height: 38px;
   cursor: pointer;
   text-align: start;
 }
@@ -1612,12 +1645,12 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 156px; }
   background-color: var(--surface-warm);
   border: 1.5px solid var(--border-soft);
   border-radius: var(--radius-md);
-  padding: 0.8rem 0.9rem;
+  padding: 0.62rem 0.8rem;
   text-align: center;
 }
 
 .timer-digits {
-  font-size: 2.05rem;
+  font-size: 1.65rem;
   font-weight: 900;
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.03em;
@@ -1626,9 +1659,9 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 156px; }
 }
 
 .timer-note {
-  font-size: 0.74rem;
+  font-size: 0.73rem;
   color: var(--raccoon-mid);
-  margin-top: 0.28rem;
+  margin-top: 0.22rem;
 }
 
 .account-btn-row {
@@ -1639,25 +1672,50 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 156px; }
 }
 
 .account-action-main {
-  flex: 1 1 170px;
-  padding: 0.6rem 0.9rem;
+  flex: 1 1 160px;
+  padding: 0.52rem 0.85rem;
+  align-items: center;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+#viewSpace .btn-tool,
+[data-appearance="dark"] #viewSpace .btn-tool {
+  background-color: var(--surface-warm);
+  color: var(--raccoon-dark);
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  padding: 0.46rem 0.78rem;
+  font-size: 0.76rem;
+  font-weight: 800;
+  box-shadow: 0 2px 0 var(--tactile-edge);
+}
+
+#viewSpace .btn-tool:active {
+  background-color: var(--surface-hover);
+}
+
+#viewSpace .btn-tool.account-btn-danger {
+  color: var(--status-err);
+  border-color: rgba(217, 107, 107, 0.4);
 }
 
 .account-mix-list {
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
+  gap: 0.42rem;
 }
 
 .account-mix-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.55rem;
-  padding: 0.62rem 0.75rem;
+  gap: 0.5rem;
+  padding: 0.54rem 0.72rem;
   border-radius: var(--radius-md);
   background-color: var(--surface-warm);
-  border: 1px solid var(--border-soft);
+  border: 1.5px solid var(--border-soft);
 }
 
 .account-mix-info {
@@ -1666,7 +1724,7 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 156px; }
 }
 
 .account-mix-title {
-  font-size: 0.86rem;
+  font-size: 0.82rem;
   font-weight: 800;
   color: var(--raccoon-dark);
   white-space: nowrap;
@@ -1678,7 +1736,7 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 156px; }
   font-size: 0.72rem;
   font-weight: 600;
   color: var(--raccoon-mid);
-  margin-top: 0.1rem;
+  margin-top: 0.08rem;
 }
 
 .account-mix-actions {
@@ -6287,8 +6345,8 @@ body.is-hum-pause #solfegeKeyboardWrap {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.55rem;
-  padding: 0.6rem 0.75rem;
+  gap: 0.5rem;
+  padding: 0.54rem 0.72rem;
   border-radius: var(--radius-md);
   background-color: var(--surface-warm);
   border: 1.5px solid var(--border-soft);
@@ -6335,7 +6393,7 @@ body.is-hum-pause #solfegeKeyboardWrap {
 }
 
 .custom-theme-slot-name {
-  font-size: 0.84rem;
+  font-size: 0.82rem;
   font-weight: 800;
   color: var(--raccoon-dark);
   white-space: nowrap;
@@ -8353,8 +8411,8 @@ body.is-hum-pause #solfegeKeyboardWrap {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
-  padding: 10px 12px;
+  gap: 0.55rem;
+  padding: 0.54rem 0.72rem;
   border-radius: var(--radius-md);
   background: var(--surface-warm);
   border: 1.5px solid var(--border-soft);
@@ -8379,7 +8437,7 @@ body.is-hum-pause #solfegeKeyboardWrap {
 }
 
 .exam-history-title {
-  font-size: 0.86rem;
+  font-size: 0.82rem;
   font-weight: 800;
   color: var(--raccoon-dark);
   overflow: hidden;
@@ -8388,7 +8446,7 @@ body.is-hum-pause #solfegeKeyboardWrap {
 }
 
 .exam-history-meta {
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   color: var(--raccoon-mid);
 }
 
@@ -8401,7 +8459,7 @@ body.is-hum-pause #solfegeKeyboardWrap {
 }
 
 .exam-history-pct {
-  font-size: 0.96rem;
+  font-size: 0.88rem;
   font-weight: 900;
   color: var(--raccoon-dark);
 }
@@ -11535,6 +11593,64 @@ body.is-hum-pause #solfegeKeyboardWrap {
   white-space: nowrap;
 }
 
+/* Hochformat-Sperre auf Smartphones im Querformat */
+.portrait-lock-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: var(--bg-base);
+  color: var(--raccoon-dark);
+  padding: 1.25rem;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.portrait-lock-card {
+  max-width: 340px;
+  background-color: var(--surface-white);
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  padding: 1.2rem 1.35rem;
+  box-shadow: var(--shadow-float);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.portrait-lock-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  background-color: var(--sage);
+  color: var(--raccoon-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.15rem;
+}
+
+.portrait-lock-title {
+  font-size: 0.96rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+}
+
+.portrait-lock-sub {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--raccoon-mid);
+  line-height: 1.35;
+}
+
+@media screen and (orientation: landscape) and (max-height: 500px) and (pointer: coarse) {
+  .portrait-lock-overlay {
+    display: flex;
+  }
+}
+
 /* Über-Fenster: App-Icon als Squircle (Superellipse per SVG-clipPath #lauscherSquircle) */
 .about-app-icon-wrap {
   position: relative;
@@ -14121,6 +14237,19 @@ body.is-hum-pause #solfegeKeyboardWrap {
     </div>
   </div>
 
+  <div id="portraitLockOverlay" class="portrait-lock-overlay" aria-live="polite">
+    <div class="portrait-lock-card">
+      <div class="portrait-lock-icon" aria-hidden="true">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="6" y="2" width="12" height="20" rx="2.5" ry="2.5"/>
+          <line x1="12" y1="18" x2="12.01" y2="18"/>
+        </svg>
+      </div>
+      <h2 class="portrait-lock-title" data-i18n="app.portraitOnlyTitle">Bitte im Hochformat nutzen</h2>
+      <p class="portrait-lock-sub" data-i18n="app.portraitOnlySub">Drehe dein Smartphone ins Hochformat (Portrait-Modus), um weiterzuüben.</p>
+    </div>
+  </div>
+
 <script>
 // Automatisch generiert aus daw-sampling/exports/ durch daw-sampling/process_samples.py
 window.EARLAB_SAMPLE_PACKS = window.EARLAB_SAMPLE_PACKS || {};
@@ -16086,6 +16215,11 @@ function tf(deTemplate, enTemplate, vars = {}, extraMap = null) {
 const I18N_STATIC = {
   "app.title": { de: "Lauscher • Hören · Verstehen · Musizieren", en: "Lauscher • Listen · Understand · Play" },
   "app.tagline": { de: "Hören · Verstehen · Musizieren", en: "Listen · Understand · Play" },
+  "app.portraitOnlyTitle": { de: "Bitte im Hochformat nutzen", en: "Please Use Portrait Mode" },
+  "app.portraitOnlySub": {
+    de: "Drehe dein Smartphone ins Hochformat (Portrait-Modus), um weiterzuüben.",
+    en: "Rotate your phone to portrait orientation to continue practicing."
+  },
   "welcome.stepProgress": {
     de: "Schritt {n} von {total}",
     en: "Step {n} of {total}"
@@ -16998,7 +17132,8 @@ const LAUSCHEBAER_QUOTES_EN = [
   { cat: "Encouragement", text: "“Any tricky notes or chords gently circle back while you practice — and after 15 active minutes, Lauscher quietly reminds you to give your ears a short breather.”" },
   { cat: "Tip", text: "“Need a steady groove companion? Open the ‘Tools’ tab for the practice metronome with subdivisions, shuffle, gap clicks, saved profiles, and four click voices (Standard, Woodblock, Cowbell & Rimshot)!”" },
   { cat: "Tip", text: "“In ‘Chord Reading’ under Notation, compare stacked chords right on multiple-choice tiles — from major and minor triads all the way to E7, Esus4, and inversions!”" },
-  { cat: "Did You Know?", text: "“What sets a smooth sine wave apart from a warm piano note? Inside ‘Physics & Sound’, hear and watch the frequency spectrum show how overtones sculpt every timbre!”" }
+  { cat: "Did You Know?", text: "“What sets a smooth sine wave apart from a warm piano note? Inside ‘Physics & Sound’, hear and watch the frequency spectrum show how overtones sculpt every timbre!”" },
+  { cat: "Tip", text: "“Whenever certain notes, intervals, or chords trip you up, Lauscher quietly remembers your weak spots and automatically weaves them back in until they feel rock-solid!”" }
 ];
 
 const PROFILE_INSTRUMENTS_EN = {
@@ -17575,6 +17710,8 @@ const I18N_STATIC_FR = {
   "home.newQuote": "Nouveau ↻",
   "home.continue": "▶ Continuer",
   "home.startHere": "▶ Commencez ici",
+  "app.portraitOnlyTitle": "Utilise le mode portrait",
+  "app.portraitOnlySub": "Tourne ton téléphone à la verticale (mode portrait) pour continuer à t’entraîner.",
   "space.mixesHomeToggleLabel": "Afficher le démarrage rapide sur l’accueil",
   "settings.singHeading": "Chanter avec",
   "settings.singHint": "Invitations à chanter et fredonner dans les exercices d’intervalles et de solfège.",
@@ -18033,7 +18170,8 @@ const LAUSCHEBAER_QUOTES_FR = [
   { cat: "Encouragement", text: "« Les notes ou accords confondus reviennent discrètement dans ta session — et après 15 minutes actives, Lauscher te suggère tout en douceur une petite pause pour tes oreilles. »" },
   { cat: "Astuce", text: "« Besoin d’un métronome fiable ? L’onglet « Outils » propose divisions, shuffle, temps muets, profils enregistrables et quatre sons de clic (Standard, Woodblock, Cloche & Rimshot) ! »" },
   { cat: "Astuce", text: "« En « Lecture d’accords » dans la section Notation, identifie des accords empilés directement sur des tuiles — des triades majeures et mineures jusqu’aux accords E7, Esus4 et renversements ! »" },
-  { cat: "Le saviez-vous ?", text: "« Qu’est-ce qui distingue une onde sinusoïdale pure d’un vrai piano chaleureux ? Dans « Physique & Son », écoute et observe le spectre fréquentiel révéler comment les harmoniques sculptent chaque timbre ! »" }
+  { cat: "Le saviez-vous ?", text: "« Qu’est-ce qui distingue une onde sinusoïdale pure d’un vrai piano chaleureux ? Dans « Physique & Son », écoute et observe le spectre fréquentiel révéler comment les harmoniques sculptent chaque timbre ! »" },
+  { cat: "Astuce", text: "« Si certaines notes, intervalles ou accords te posent encore problème, Lauscher repère tes points faibles en arrière-plan et te réinterroge dessus de lui-même jusqu’à ce qu’ils soient acquis ! »" }
 ];
 
 const PROFILE_INSTRUMENTS_FR = {
@@ -19842,6 +19980,8 @@ const I18N_STATIC_PL = {
   "home.newQuote": "Nowa ↻",
   "home.continue": "▶ Kontynuuj",
   "home.startHere": "▶ Zacznij tutaj",
+  "app.portraitOnlyTitle": "Używaj w orientacji pionowej",
+  "app.portraitOnlySub": "Obróć telefon pionowo (tryb portretowy), aby kontynuować ćwiczenie.",
   "space.mixesHomeToggleLabel": "Pokaż szybki start na ekranie głównym",
   "settings.singHeading": "Śpiewanie",
   "settings.singHint": "Zachęty do śpiewania i nucenia w ćwiczeniach z interwałów i solfeżu.",
@@ -20303,7 +20443,8 @@ const LAUSCHEBAER_QUOTES_PL = [
   { cat: "Motywacja", text: "„Pomylone dźwięki lub akordy dyskretnie wracają jeszcze w tej samej sesji — a po 15 minutach aktywnego ćwiczenia Lauscher łagodnie przypomni o krótkiej przerwie dla uszu.”" },
   { cat: "Wskazówka", text: "„Szukasz pewnego metronomu? W zakładce «Narzędzia» czekają podziały, shuffle, wyciszane takty, własne profile oraz cztery brzmienia kliku (Standardowy klik, Woodblock, Cowbell i Rimshot)!”" },
   { cat: "Wskazówka", text: "„W trybie «Czytanie akordów» w dziale Notacja rozpoznajesz spiętrzone akordy na kafelkach wyboru — od trójdźwięków durowych i molowych po E7, Esus4 i przewroty!”" },
-  { cat: "Czy wiesz, że…", text: "„Co odróżnia czystą sinusoidę od ciepłego brzmienia fortepianu? W dziale «Fizyka i dźwięk» usłyszysz i zobaczysz w widmie częstotliwości, jak alikwoty kształtują każdą barwę!”" }
+  { cat: "Czy wiesz, że…", text: "„Co odróżnia czystą sinusoidę od ciepłego brzmienia fortepianu? W dziale «Fizyka i dźwięk» usłyszysz i zobaczysz w widmie częstotliwości, jak alikwoty kształtują każdą barwę!”" },
+  { cat: "Wskazówka", text: "„Gdy przy niektórych dźwiękach, interwałach lub akordach pojawia się niepewność, Lauscher sam to zapamiętuje i automatycznie odpytuje Cię z tych słabszych punktów, aż pewnie wejdą w ucho!”" }
 ];
 
 const PROFILE_INSTRUMENTS_PL = {
@@ -22155,6 +22296,8 @@ const I18N_STATIC_UK = {
   "home.newQuote": "Нова ↻",
   "home.continue": "▶ Продовжити",
   "home.startHere": "▶ Почни тут",
+  "app.portraitOnlyTitle": "Будь ласка, використовуй портретний режим",
+  "app.portraitOnlySub": "Поверни смартфон вертикально (портретний режим), щоб продовжити заняття.",
   "space.mixesHomeToggleLabel": "Показувати швидкий старт на головній",
   "settings.singHeading": "Спів разом",
   "settings.singHint": "Запрошення співати й наспівувати у вправах з інтервалів і сольфеджіо.",
@@ -22616,7 +22759,8 @@ const LAUSCHEBAER_QUOTES_UK = [
   { cat: "Підбадьорення", text: "«Переплутані ноти чи акорди непомітно повертаються знову в межах сесії — а через 15 хвилин активної практики Lauscher м’яко нагадає дати вухам короткий перепочинок.»" },
   { cat: "Порада", text: "«Потрібен точний пульс? У вкладці «Інструменти» є метроном із поділами, шафлом, пропуском долей, збереженими профілями й чотирма звуками кліку (Стандартний, Вудблок, Ковбел і Рімшот)!»" },
   { cat: "Порада", text: "«У вправі «Читання акордів» у розділі Нотної грамоти розпізнавай накладені акорди на картках вибору — від мажору й мінору до E7, Esus4 та обернень!»" },
-  { cat: "Цікавий факт", text: "«Чим чиста синусоїда відрізняється від теплого звучання фортепіано? У модулі «Фізика і звук» почуєш і побачиш у частотному спектрі, як обертони формують кожен тембр!»" }
+  { cat: "Цікавий факт", text: "«Чим чиста синусоїда відрізняється від теплого звучання фортепіано? У модулі «Фізика і звук» почуєш і побачиш у частотному спектрі, як обертони формують кожен тембр!»" },
+  { cat: "Порада", text: "«Якщо певні ноти, інтервали чи акорди ще викликають труднощі, Lauscher сам помічає слабкі місця й автоматично запитує їх знову, доки вони не закріпляться впевнено!»" }
 ];
 
 const PROFILE_INSTRUMENTS_UK = {
@@ -24469,6 +24613,8 @@ const I18N_STATIC_UR = {
   "home.newQuote": "نیا ↻",
   "home.continue": "▶ مشق جاری رکھیں",
   "home.startHere": "▶ یہاں سے شروع کریں",
+  "app.portraitOnlyTitle": "براہِ کرم پورٹریٹ موڈ استعمال کریں",
+  "app.portraitOnlySub": "مشق جاری رکھنے کے لیے اپنے فون کو سیدھا (پورٹریٹ موڈ میں) رکھیں۔",
   "space.mixesHomeToggleLabel": "ہوم اسکرین پر فوری آغاز دکھائیں",
   "settings.singHeading": "ساتھ گانا",
   "settings.singHint": "انٹرول اور سولفیج مشقوں میں ساتھ گانے اور گنگنانے کی دعوت۔",
@@ -24927,7 +25073,8 @@ const LAUSCHEBAER_QUOTES_UR = [
   { cat: "حوصلہ افزائی", text: "«مشق کے دوران جو سُر یا کارڈز آپس میں گڈمڈ ہوں وہ خاموشی سے دوبارہ آتے ہیں — اور 15 منٹ کی فعال مشق کے بعد Lauscher نرمی سے کانوں کو آرام دینے کی یاد دلاتا ہے۔»" },
   { cat: "مشورہ", text: "«مضبوط تال کی ضرورت ہے؟ ‹اوزار› ٹیب میں سب ڈویژنز، شفل، گیپ کلک، محفوظ ہونے والے پروفائلز اور چار کلک آوازوں (معیاری، ووڈ بلاک، کاؤ بیل اور رِم شاٹ) والا میٹرونوم موجود ہے!»" },
   { cat: "مشورہ", text: "«نوٹیشن کے ‹کارڈز پڑھنا› حصے میں اسٹاف پر تہہ دار کارڈز کو سیدھا آپشن ٹائلز پر پہچانیں — میجر اور مائنر سے لے کر E7، Esus4 اور انورژنز تک!»" },
-  { cat: "کیا آپ جانتے ہیں؟", text: "«ہموار سائن ویو اور گرم پیانو کے سُر میں کیا فرق ہے؟ ‹فزکس اور آواز› میں سنیں اور فریکوئنسی اسپیکٹرم میں دیکھیں کہ اوورٹونز ہر ساز کا رنگ کیسے بناتے ہیں!»" }
+  { cat: "کیا آپ جانتے ہیں؟", text: "«ہموار سائن ویو اور گرم پیانو کے سُر میں کیا فرق ہے؟ ‹فزکس اور آواز› میں سنیں اور فریکوئنسی اسپیکٹرم میں دیکھیں کہ اوورٹونز ہر ساز کا رنگ کیسے بناتے ہیں!»" },
+  { cat: "مشورہ", text: "«جہاں کسی سُر، وقفے یا کارڈ میں آپ کو مشکل پیش آئے، Lauscher خود بخود ان کمزور پہلوؤں کو یاد رکھتا ہے اور ازخود دوبارہ پوچھتا ہے جب تک وہ پختہ نہ ہو جائیں!»" }
 ];
 
 const PROFILE_INSTRUMENTS_UR = {
@@ -51806,7 +51953,8 @@ const LAUSCHEBAER_QUOTES = [
   { cat: "Mutmacher", text: "„Verwechselte Töne oder Akkorde tauchen still und gezielt noch einmal auf – und nach 15 Minuten am Stück erinnert dich Lauscher sanft an eine kurze Ohren-Pause.“" },
   { cat: "Tipp", text: "„Festes Tempo gesucht? Im Reiter ‚Werkzeuge‘ wartet das Metronom mit Unterteilungen, Shuffle, Gap-Klick, speicherbaren Profilen und vier Klick-Sounds (Standard, Woodblock, Cowbell & Rimshot)!“" },
   { cat: "Tipp", text: "„Beim ‚Akkorde lesen‘ im Notenbereich erkennst du gestapelte Akkorde direkt als Kacheln – von Dur und Moll bis zu E7, Esus4 und ihren Umkehrungen!“" },
-  { cat: "Wusstest du?", text: "„Was unterscheidet eine reine Sinuskurve vom warmen Klavier? Im Modul ‚Physik & Klang‘ hörst und siehst du im Frequenzspektrum, wie Obertöne jede Klangfarbe prägen!“" }
+  { cat: "Wusstest du?", text: "„Was unterscheidet eine reine Sinuskurve vom warmen Klavier? Im Modul ‚Physik & Klang‘ hörst und siehst du im Frequenzspektrum, wie Obertöne jede Klangfarbe prägen!“" },
+  { cat: "Tipp", text: "„Zeigst du bei bestimmten Tönen, Intervallen oder Akkorden noch Unsicherheiten, merkt sich Lauscher das im Hintergrund und fragt sie ganz von selbst gezielt wieder ab, bis sie sicher sitzen!“" }
 ];
 
 function getMascotAssetUri(mood = "idle") {
@@ -64301,8 +64449,8 @@ function shouldAnimateJuice() {
   return true;
 }
 
-// Gesamtgröße der Erfolgs-Animation (Symbolgröße & Flugweite), 1 = ursprüngliche Presets
-const JUICE_BURST_SCALE = 1.2;
+// Gesamtgröße der Erfolgs-Animation (Symbolgröße & Flugweite), 1 = ursprüngliche Presets (+15 % gegenüber 1.2)
+const JUICE_BURST_SCALE = 1.38;
 
 function spawnJuiceBurst(hostEl, options = {}) {
   bindGlobalPointerInputTracker();
@@ -70474,6 +70622,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     performFullAppReset();
   });
+
+  try {
+    window.screen?.orientation?.lock?.("portrait")?.catch?.(() => {});
+  } catch (_e) {}
 
   document.getElementById("refreshQuoteBtn")?.addEventListener("click", () => {
     pickRandomQuote();

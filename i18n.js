@@ -164,6 +164,11 @@ function tf(deTemplate, enTemplate, vars = {}, extraMap = null) {
 const I18N_STATIC = {
   "app.title": { de: "Lauscher • Hören · Verstehen · Musizieren", en: "Lauscher • Listen · Understand · Play" },
   "app.tagline": { de: "Hören · Verstehen · Musizieren", en: "Listen · Understand · Play" },
+  "app.portraitOnlyTitle": { de: "Bitte im Hochformat nutzen", en: "Please Use Portrait Mode" },
+  "app.portraitOnlySub": {
+    de: "Drehe dein Smartphone ins Hochformat (Portrait-Modus), um weiterzuüben.",
+    en: "Rotate your phone to portrait orientation to continue practicing."
+  },
   "welcome.stepProgress": {
     de: "Schritt {n} von {total}",
     en: "Step {n} of {total}"
@@ -1076,7 +1081,8 @@ const LAUSCHEBAER_QUOTES_EN = [
   { cat: "Encouragement", text: "“Any tricky notes or chords gently circle back while you practice — and after 15 active minutes, Lauscher quietly reminds you to give your ears a short breather.”" },
   { cat: "Tip", text: "“Need a steady groove companion? Open the ‘Tools’ tab for the practice metronome with subdivisions, shuffle, gap clicks, saved profiles, and four click voices (Standard, Woodblock, Cowbell & Rimshot)!”" },
   { cat: "Tip", text: "“In ‘Chord Reading’ under Notation, compare stacked chords right on multiple-choice tiles — from major and minor triads all the way to E7, Esus4, and inversions!”" },
-  { cat: "Did You Know?", text: "“What sets a smooth sine wave apart from a warm piano note? Inside ‘Physics & Sound’, hear and watch the frequency spectrum show how overtones sculpt every timbre!”" }
+  { cat: "Did You Know?", text: "“What sets a smooth sine wave apart from a warm piano note? Inside ‘Physics & Sound’, hear and watch the frequency spectrum show how overtones sculpt every timbre!”" },
+  { cat: "Tip", text: "“Whenever certain notes, intervals, or chords trip you up, Lauscher quietly remembers your weak spots and automatically weaves them back in until they feel rock-solid!”" }
 ];
 
 const PROFILE_INSTRUMENTS_EN = {
