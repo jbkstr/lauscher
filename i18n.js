@@ -1104,7 +1104,9 @@ const MIX_MODES_EN = {
   "notation-treble":       "Notation • Treble Clef",
   "notation-bass":         "Notation • Bass Clef",
   "notation-alto":         "Notation • Alto Clef",
-  "notation-mixed":        "Notation • Clef Mix"
+  "notation-mixed":        "Notation • Clef Mix",
+  "notation-grand": "Notation • Grand Staff",
+  "notation-chords": "Notation • Chord Reading"
 };
 
 const DEFAULT_MIX_TITLES_EN = {
