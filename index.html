@@ -793,7 +793,6 @@
           <div class="cat-text-box">
             <div class="tool-card-title-row">
               <h3 data-i18n="tools.freeplayTitle">Freies Spiel</h3>
-              <span class="tools-launcher-badge" data-i18n="tools.soonBadge">Bald</span>
             </div>
             <p data-i18n="tools.freeplaySub">Freie Klaviatur &amp; Akkord-Flächen mit allen Mixer-Klängen</p>
           </div>
@@ -2054,24 +2053,97 @@
     </main>
 
     <!-- =====================================================
-         ANSICHT 8: FREIES SPIEL (#viewFreeplay) – Vorbereitung
+         ANSICHT 8: FREIES SPIEL (#viewFreeplay) – Klang-Labor
          ===================================================== -->
-    <main id="viewFreeplay" class="view-container tool-preview-view hidden">
-      <section class="module-card tool-preview-card">
-        <div class="tools-launcher-icon badge-peach tool-preview-icon">
-          <svg class="icon-svg-large" width="32" height="32" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <rect x="4" y="6" width="20" height="16" rx="2.5" stroke="currentColor" stroke-width="2"/>
-            <line x1="10.67" y1="6" x2="10.67" y2="22" stroke="currentColor" stroke-width="1.6"/>
-            <line x1="17.33" y1="6" x2="17.33" y2="22" stroke="currentColor" stroke-width="1.6"/>
-            <rect x="8.7" y="6" width="3.9" height="9.5" rx="1" fill="currentColor"/>
-            <rect x="15.4" y="6" width="3.9" height="9.5" rx="1" fill="currentColor"/>
-          </svg>
+    <main id="viewFreeplay" class="view-container freeplay-view hidden">
+
+      <!-- 1. Akkord-, Intervall- & Noten-Analyzer -->
+      <section class="module-card freeplay-stage-card">
+        <div class="freeplay-stage-top">
+          <div class="freeplay-stage-copy">
+            <span id="freeplayTypeBadge" class="k-card-tag tag-sage">Klang-Labor</span>
+            <h2 id="freeplayMainTitle" class="freeplay-main-title">Tippe auf Tasten</h2>
+            <p id="freeplaySubInfo" class="freeplay-sub-info">Greife Töne oder baue Akkorde – hier siehst du Name, Töne und Umkehrung.</p>
+          </div>
+          <div id="freeplayStaffBox" class="freeplay-staff-box" aria-hidden="true"></div>
         </div>
-        <span class="tools-launcher-badge" data-i18n="tools.previewBadge">Bald verfügbar</span>
-        <h2 class="tool-preview-title" data-i18n="tools.freeplayPageTitle">Freies Spiel</h2>
-        <p class="tool-preview-desc" data-i18n="tools.freeplayPageDesc">Freie Klaviatur und Akkord-Flächen zum Ausprobieren, Improvisieren und Nachspielen mit deinen Mixer-Instrumenten.</p>
-        <button id="freeplayBackBtn" type="button" class="btn-tool tool-preview-back-btn" data-i18n="tools.backBtn">← Zurück zu Werkzeuge</button>
+
+        <div id="freeplayNotesRow" class="freeplay-notes-row"></div>
+
+        <div class="freeplay-stage-actions">
+          <button id="freeplayPlayChordBtn" type="button" class="btn-tool freeplay-action-btn" disabled>
+            <span data-i18n="freeplay.playChord">▶ Akkord</span>
+          </button>
+          <button id="freeplayPlayArpBtn" type="button" class="btn-tool freeplay-action-btn" disabled>
+            <span data-i18n="freeplay.playArp">↗ Arpeggio</span>
+          </button>
+          <button id="freeplayClearBtn" type="button" class="btn-tool freeplay-clear-btn" disabled>
+            <span data-i18n="freeplay.clear">✕ Leeren</span>
+          </button>
+        </div>
       </section>
+
+      <!-- 2. Interaktive Spiel-Klaviatur + Steuerung -->
+      <section class="module-card freeplay-kb-card">
+        <div class="freeplay-kb-toolbar">
+          <div class="freeplay-mode-group" role="radiogroup" aria-label="Spielmodus" data-i18n-aria="freeplay.modeAria">
+            <button id="freeplayModeLiveBtn" type="button" class="opt-btn freeplay-mode-btn active" role="radio" aria-checked="true" data-freeplay-mode="live" data-i18n="freeplay.modeLive">Frei</button>
+            <button id="freeplayModeHoldBtn" type="button" class="opt-btn freeplay-mode-btn" role="radio" aria-checked="false" data-freeplay-mode="hold" data-i18n="freeplay.modeHold">Akkord bauen</button>
+          </div>
+
+          <div class="freeplay-oct-controls">
+            <button id="freeplayOctDownBtn" type="button" class="metro-mini-btn" aria-label="Oktave tiefer" data-i18n-aria="freeplay.octDownAria">−</button>
+            <span id="freeplayOctLabel" class="freeplay-oct-label">C4–E5</span>
+            <button id="freeplayOctUpBtn" type="button" class="metro-mini-btn" aria-label="Oktave höher" data-i18n-aria="freeplay.octUpAria">+</button>
+          </div>
+
+          <button id="freeplayLabelsBtn" type="button" class="k-filter-pill active freeplay-labels-btn" aria-pressed="true" data-i18n="freeplay.labelsBtn">Noten</button>
+        </div>
+
+        <div id="freeplayKeyboardWrap" class="freeplay-keyboard-wrap"></div>
+      </section>
+
+      <!-- 3. Die 6 Mixer-Instrumente -->
+      <section class="module-card freeplay-mixer-card">
+        <div class="freeplay-section-head">
+          <div>
+            <h3 class="freeplay-section-title" data-i18n="freeplay.instrumentsTitle">6 Mixer-Instrumente</h3>
+            <p class="freeplay-section-sub" data-i18n="freeplay.instrumentsSub">Tippe zum Zuschalten oder Mischen – dein Klang gilt live</p>
+          </div>
+          <button id="freeplayOpenMixerBtn" type="button" class="k-filter-pill freeplay-mixer-more-btn" data-i18n="freeplay.openMixerBtn">Regler &amp; Hall</button>
+        </div>
+
+        <div id="freeplayInstrumentGrid" class="freeplay-instrument-grid"></div>
+
+        <div id="freeplayPresetRow" class="freeplay-preset-row">
+          <button type="button" class="k-filter-pill" data-freeplay-preset="piano" data-i18n="freeplay.presetSolo">Solo Klavier</button>
+          <button type="button" class="k-filter-pill" data-freeplay-preset="duo" data-i18n="freeplay.presetDuo">Duo</button>
+          <button type="button" class="k-filter-pill" data-freeplay-preset="ensemble" data-i18n="freeplay.presetEnsemble">Ensemble</button>
+          <button type="button" class="k-filter-pill" data-freeplay-preset="orchestra" data-i18n="freeplay.presetOrchestra">Orchester</button>
+        </div>
+      </section>
+
+      <!-- 4. Akkord-Flächen & Direkt-Einstieg in Übungen -->
+      <section class="module-card freeplay-pads-card">
+        <div class="freeplay-section-head">
+          <div>
+            <h3 class="freeplay-section-title" data-i18n="freeplay.padsTitle">Akkord-Flächen &amp; Impulse</h3>
+            <p class="freeplay-section-sub" data-i18n="freeplay.padsSub">Tippe einen Akkord an und verändere einzelne Tasten oben</p>
+          </div>
+        </div>
+
+        <div id="freeplayChordPads" class="freeplay-chord-pads"></div>
+
+        <div class="freeplay-bridge-box">
+          <span id="freeplayBridgeLabel" class="freeplay-bridge-label" data-i18n="freeplay.bridgeLabel">Direkt weiterüben:</span>
+          <div class="freeplay-bridge-actions">
+            <button type="button" class="k-filter-pill freeplay-bridge-btn" data-freeplay-jump="chords" data-i18n="freeplay.jumpChords">Akkorde →</button>
+            <button type="button" class="k-filter-pill freeplay-bridge-btn" data-freeplay-jump="interval" data-i18n="freeplay.jumpIntervals">Intervalle →</button>
+            <button type="button" class="k-filter-pill freeplay-bridge-btn" data-freeplay-jump="cadence" data-i18n="freeplay.jumpCadences">Kadenzen →</button>
+          </div>
+        </div>
+      </section>
+
     </main>
 
     </div><!-- /.views-stage -->

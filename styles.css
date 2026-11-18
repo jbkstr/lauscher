@@ -11670,3 +11670,544 @@ body.is-hum-pause #solfegeKeyboardWrap {
   height: 0;
   overflow: hidden;
 }
+
+/* =====================================================
+   FREIES SPIEL / KLANG-LABOR (#viewFreeplay)
+   ===================================================== */
+.freeplay-view {
+  gap: 0.72rem;
+}
+
+.freeplay-stage-card {
+  background: linear-gradient(145deg, var(--surface-white) 0%, var(--sage-soft) 100%);
+  border: 1px solid rgba(46, 111, 78, 0.16);
+  padding: 0.82rem 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.56rem;
+}
+
+.freeplay-stage-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+}
+
+.freeplay-stage-copy {
+  min-width: 0;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.18rem;
+}
+
+.freeplay-main-title {
+  font-size: 1.32rem;
+  font-weight: 900;
+  color: var(--raccoon-dark);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  overflow-wrap: anywhere;
+}
+
+.freeplay-sub-info {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--raccoon-mid);
+  line-height: 1.32;
+}
+
+.freeplay-staff-box {
+  flex: 0 0 104px;
+  height: 76px;
+  border-radius: var(--radius-md);
+  background-color: var(--surface-white);
+  border: 1.5px solid var(--border-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+.freeplay-staff-box svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.freeplay-notes-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.34rem;
+  min-height: 1.65rem;
+  align-items: center;
+}
+
+.freeplay-note-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.24rem;
+  padding: 0.18rem 0.54rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--surface-white);
+  border: 1.5px solid var(--border-soft);
+  color: var(--raccoon-dark);
+  font-size: 0.74rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.12s ease, border-color 0.14s ease, background-color 0.14s ease;
+}
+
+.freeplay-note-pill:active {
+  transform: scale(0.95);
+}
+
+.freeplay-note-pill.is-root {
+  background-color: var(--sage);
+  border-color: var(--sage-strong);
+  color: var(--raccoon-dark);
+}
+
+.freeplay-note-pill-role {
+  font-size: 0.65rem;
+  font-weight: 800;
+  opacity: 0.78;
+}
+
+.freeplay-notes-placeholder {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--raccoon-muted);
+}
+
+.freeplay-stage-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.42rem;
+  flex-wrap: wrap;
+}
+
+.freeplay-action-btn {
+  flex: 1 1 0;
+  min-width: 96px;
+  text-align: center;
+  justify-content: center;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.46rem 0.72rem;
+  border-radius: var(--radius-md);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+#freeplayPlayChordBtn,
+[data-appearance="dark"] #freeplayPlayChordBtn {
+  background-color: var(--sage);
+  color: var(--raccoon-dark);
+  border: 1.5px solid var(--sage-strong);
+  box-shadow: 0 2px 0 var(--tactile-edge);
+}
+
+#freeplayPlayArpBtn,
+#freeplayClearBtn,
+[data-appearance="dark"] #freeplayPlayArpBtn,
+[data-appearance="dark"] #freeplayClearBtn {
+  background-color: var(--surface-white);
+  color: var(--raccoon-dark);
+  border: 1.5px solid var(--border-soft);
+  box-shadow: 0 2px 0 var(--tactile-edge);
+}
+
+.freeplay-clear-btn {
+  flex: 0 0 auto;
+  padding: 0.46rem 0.74rem;
+  border-radius: var(--radius-md);
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.freeplay-stage-actions button:disabled {
+  opacity: 0.45;
+  cursor: default;
+  transform: none !important;
+}
+
+/* Klaviatur-Karte */
+.freeplay-kb-card {
+  padding: 0.78rem 0.82rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.freeplay-kb-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.42rem;
+  flex-wrap: wrap;
+}
+
+.freeplay-mode-group {
+  display: inline-grid;
+  grid-template-columns: auto auto;
+  gap: 0.28rem;
+  flex: 1 1 auto;
+  min-width: 158px;
+}
+
+.freeplay-mode-btn {
+  padding: 0.36rem 0.62rem;
+  font-size: 0.74rem;
+  white-space: nowrap;
+}
+
+.freeplay-oct-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+  flex-shrink: 0;
+}
+
+.freeplay-oct-label {
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+  min-width: 3.6rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.freeplay-labels-btn {
+  padding: 0.34rem 0.62rem;
+  font-size: 0.72rem;
+  flex-shrink: 0;
+}
+
+.freeplay-keyboard-wrap {
+  width: 100%;
+  direction: ltr;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.freeplay-kb {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 142px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1.5px solid var(--border-strong);
+  background-color: var(--surface-warm);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.08);
+  direction: ltr;
+}
+
+.freeplay-kb-white {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  height: 100%;
+  background: linear-gradient(180deg, var(--piano-white-active-bg) 0%, var(--surface-white) 85%, var(--surface-warm) 100%);
+  color: var(--piano-white-active-ink);
+  border: none;
+  border-right: 1px solid var(--border-soft);
+  padding: 0 0 0.42rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background 0.08s ease, transform 0.06s ease, box-shadow 0.08s ease;
+}
+
+.freeplay-kb-white:last-of-type {
+  border-right: none;
+}
+
+.freeplay-kb-white.is-c-key {
+  background: linear-gradient(180deg, var(--surface-white) 0%, var(--sage-soft) 100%);
+}
+
+.freeplay-kb-white.is-active,
+.freeplay-kb-white.is-pressed {
+  background: linear-gradient(180deg, var(--sage) 0%, var(--sage-soft) 100%);
+  box-shadow: inset 0 3px 6px rgba(46, 111, 78, 0.24);
+  transform: translateY(1.5px);
+}
+
+.freeplay-kb-white.is-root-key {
+  background: linear-gradient(180deg, var(--peach) 0%, var(--peach-soft) 100%);
+  box-shadow: inset 0 3px 6px rgba(156, 74, 26, 0.24);
+}
+
+.freeplay-kb-white-label {
+  font-size: 0.68rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--piano-white-active-ink);
+  pointer-events: none;
+}
+
+.freeplay-kb-white.is-c-key .freeplay-kb-white-label {
+  color: var(--sage-strong);
+}
+
+.freeplay-kb-white.is-root-key .freeplay-kb-white-label {
+  color: var(--peach-strong);
+}
+
+.freeplay-kb-black {
+  position: absolute;
+  top: 0;
+  height: 60%;
+  transform: translateX(-50%);
+  z-index: 4;
+  background: linear-gradient(180deg, var(--piano-black-bg-top) 0%, var(--piano-black-bg-bottom) 100%);
+  color: #FFFFFF;
+  border: 1px solid var(--piano-black-border);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+  padding: 0 0 0.34rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  cursor: pointer;
+  touch-action: manipulation;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.28);
+  transition: background 0.08s ease, transform 0.06s ease, box-shadow 0.08s ease;
+}
+
+.freeplay-kb-black.is-active,
+.freeplay-kb-black.is-pressed {
+  background: linear-gradient(180deg, var(--sage-strong) 0%, var(--sage) 100%);
+  color: var(--on-strong-accent);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22);
+  transform: translateX(-50%) translateY(1.5px);
+}
+
+.freeplay-kb-black.is-root-key {
+  background: linear-gradient(180deg, var(--peach-strong) 0%, var(--peach) 100%);
+  color: var(--on-strong-accent);
+}
+
+.freeplay-kb-black-label {
+  font-size: 0.54rem;
+  font-weight: 800;
+  line-height: 1;
+  pointer-events: none;
+  opacity: 0.92;
+}
+
+.freeplay-kb.labels-hidden .freeplay-kb-white-label,
+.freeplay-kb.labels-hidden .freeplay-kb-black-label {
+  display: none;
+}
+
+/* 6 Mixer-Instrumente */
+.freeplay-mixer-card,
+.freeplay-pads-card {
+  padding: 0.82rem 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.58rem;
+}
+
+.freeplay-section-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.freeplay-section-title {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+  line-height: 1.2;
+}
+
+.freeplay-section-sub {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--raccoon-mid);
+  line-height: 1.3;
+  margin-top: 0.08rem;
+}
+
+.freeplay-mixer-more-btn {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.freeplay-instrument-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.42rem;
+}
+
+.freeplay-inst-chip {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.16rem;
+  padding: 0.48rem 0.56rem 0.56rem;
+  border-radius: var(--radius-md);
+  background-color: var(--surface-warm);
+  border: 1.5px solid var(--border-soft);
+  color: var(--raccoon-mid);
+  cursor: pointer;
+  text-align: start;
+  transition: transform 0.12s ease, background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.freeplay-inst-chip:active {
+  transform: scale(0.96);
+}
+
+.freeplay-inst-chip.is-on {
+  background-color: var(--sage-soft);
+  border-color: var(--sage-strong);
+  color: var(--raccoon-dark);
+}
+
+.freeplay-inst-top {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.24rem;
+}
+
+.freeplay-inst-name {
+  font-size: 0.76rem;
+  font-weight: 800;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.freeplay-inst-pct {
+  font-size: 0.66rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.82;
+}
+
+.freeplay-inst-bar {
+  width: 100%;
+  height: 4px;
+  border-radius: 999px;
+  background-color: var(--tint-subtle);
+  overflow: hidden;
+  margin-top: 0.1rem;
+}
+
+.freeplay-inst-bar-fill {
+  height: 100%;
+  border-radius: inherit;
+  background-color: var(--sage-strong);
+  transition: width 0.18s ease;
+}
+
+.freeplay-preset-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.34rem;
+}
+
+/* Akkord-Flächen & Einstieg in Übungen */
+.freeplay-chord-pads {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.42rem;
+}
+
+.freeplay-pad-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.08rem;
+  padding: 0.5rem 0.25rem;
+  border-radius: var(--radius-md);
+  background-color: var(--surface-warm);
+  border: 1.5px solid var(--border-soft);
+  color: var(--raccoon-dark);
+  cursor: pointer;
+  box-shadow: 0 2px 0 var(--tactile-edge);
+  transition: transform 0.1s ease, background-color 0.14s ease, border-color 0.14s ease;
+}
+
+.freeplay-pad-btn:active {
+  transform: translateY(1.5px) scale(0.97);
+}
+
+.freeplay-pad-btn.is-active {
+  background-color: var(--peach-soft);
+  border-color: var(--peach-strong);
+}
+
+.freeplay-pad-sym {
+  font-size: 0.86rem;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.freeplay-pad-sub {
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--raccoon-mid);
+  line-height: 1.1;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.freeplay-bridge-box {
+  margin-top: 0.1rem;
+  padding-top: 0.56rem;
+  border-top: 1px solid var(--border-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 0.36rem;
+}
+
+.freeplay-bridge-label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--raccoon-muted);
+}
+
+.freeplay-bridge-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.36rem;
+}
+
+.freeplay-bridge-btn {
+  font-weight: 800;
+}
+
+@media (max-width: 350px) {
+  .freeplay-instrument-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .freeplay-chord-pads {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .freeplay-staff-box {
+    flex-basis: 86px;
+    height: 68px;
+  }
+}
