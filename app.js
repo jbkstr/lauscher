@@ -2068,6 +2068,8 @@ class AppState {
       melodyOctaveMode: "single",// 'single' (1 Oktave) | 'multi' (Mehrere Oktaven)
       melodyStyle: "rhythmic",   // 'steady' (4 gleichlang) | 'rhythmic' (4–6 Töne phrasiert) | 'dictation' (Ton + Rhythmus)
       melodyPulse: true,         // Dezenter Takt-Puls beim Melodie-Abspielen
+      modesRootPad: false,       // Modi: Bezugsgrundton als Streicher-Fläche unterlegen
+      rhythmTapReadMode: false,  // Rhythmus vom Blatt: Notenbild lesen & zum Metronom tappen (statt nachklopfen)
       rhythmMeterDifficulty: 1,
       rhythmDictationDifficulty: 1,
       rhythmTapDifficulty: 1,
@@ -4715,49 +4717,49 @@ const PROD_EQ_NOISE_LEVELS = {
 
 const MODES_TRAINING_DATA = {
   "ionian": {
-    key: "ionian", roman: "Ionisch", short: "Dur (1 2 3 4 5 6 7)",
+    key: "ionian", degree: 1, roman: "Ionisch", short: "Dur (1 2 3 4 5 6 7)",
     label: "Ionisch (Dur-Tonleiter)",
     intervals: [0, 2, 4, 5, 7, 9, 11, 12],
     charTurn: [0, 4, 5, 7, 11, 12],
     vampOffsets: [[0, 4, 7], [5, 9, 12], [7, 11, 14], [0, 4, 7]]
   },
   "dorian": {
-    key: "dorian", roman: "Dorisch", short: "Moll mit ♮6",
+    key: "dorian", degree: 2, roman: "Dorisch", short: "Moll mit ♮6",
     label: "Dorisch (1 2 b3 4 5 6 b7)",
     intervals: [0, 2, 3, 5, 7, 9, 10, 12],
     charTurn: [0, 3, 7, 9, 10, 7],
     vampOffsets: [[0, 3, 7, 10], [5, 9, 12]]
   },
   "phrygian": {
-    key: "phrygian", roman: "Phrygisch", short: "Moll mit b2",
+    key: "phrygian", degree: 3, roman: "Phrygisch", short: "Moll mit b2",
     label: "Phrygisch (1 b2 b3 4 5 b6 b7)",
     intervals: [0, 1, 3, 5, 7, 8, 10, 12],
     charTurn: [0, 3, 7, 8, 1, 0],
     vampOffsets: [[0, 3, 7], [1, 5, 8]]
   },
   "lydian": {
-    key: "lydian", roman: "Lydisch", short: "Dur mit #4",
+    key: "lydian", degree: 4, roman: "Lydisch", short: "Dur mit #4",
     label: "Lydisch (1 2 3 #4 5 6 7)",
     intervals: [0, 2, 4, 6, 7, 9, 11, 12],
     charTurn: [0, 4, 7, 6, 7, 11],
     vampOffsets: [[0, 4, 7, 11], [2, 6, 9]]
   },
   "mixolydian": {
-    key: "mixolydian", roman: "Mixolydisch", short: "Dur mit b7",
+    key: "mixolydian", degree: 5, roman: "Mixolydisch", short: "Dur mit b7",
     label: "Mixolydisch (1 2 3 4 5 6 b7)",
     intervals: [0, 2, 4, 5, 7, 9, 10, 12],
     charTurn: [0, 4, 7, 10, 9, 7],
     vampOffsets: [[0, 4, 7], [-2, 2, 5]]
   },
   "aeolian": {
-    key: "aeolian", roman: "Äolisch", short: "Natürliches Moll (b6, b7)",
+    key: "aeolian", degree: 6, roman: "Äolisch", short: "Natürliches Moll (b6, b7)",
     label: "Äolisch (1 2 b3 4 5 b6 b7)",
     intervals: [0, 2, 3, 5, 7, 8, 10, 12],
     charTurn: [0, 3, 7, 8, 7, 10],
     vampOffsets: [[0, 3, 7], [-4, 0, 3]]
   },
   "locrian": {
-    key: "locrian", roman: "Lokrisch", short: "Moll mit b2 & b5",
+    key: "locrian", degree: 7, roman: "Lokrisch", short: "Moll mit b2 & b5",
     label: "Lokrisch (1 b2 b3 4 b5 b6 b7)",
     intervals: [0, 1, 3, 5, 6, 8, 10, 12],
     charTurn: [0, 3, 6, 1, 0],
@@ -9734,6 +9736,92 @@ function getSingAlongHintText(type) {
   }
 }
 
+function syncModesPadButton(btn) {
+  if (!btn) return;
+  const padOn = Boolean(state.settings.modesRootPad);
+  btn.textContent = padOn ? tr("Grundton-Fläche: An", "Root Pad: On") : tr("Grundton-Fläche: Aus", "Root Pad: Off");
+  btn.classList.toggle("btn-active", padOn);
+  btn.classList.toggle("click-muted", !padOn);
+  btn.setAttribute("aria-pressed", String(padOn));
+  btn.title = tr("Grundton des Modus als Streicher-Fläche unterlegen", "Play the mode's root as a sustained strings pad");
+}
+
+/**
+ * Rhythmus-Diktat & Tap: Die Schlag-Kacheln werden als Einlinien-Notensystem dargestellt
+ * (Schlagzeug-Schlüssel + Taktangabe vorne, durchgehende Linie, Schlusstaktstrich).
+ */
+function applyRhythmStaffLayout(grid, ex) {
+  if (!grid || !ex) return;
+  const beats = ex.type === "rhythm-tap" ? (ex.beatsPerBar || ex.tapSlots?.length || 4) : (ex.rhythmSlots?.length || 4);
+  const meter = ex.type === "rhythm-tap" ? (ex.meterKey || `${beats}/4`) : "4/4";
+  const [num, den] = String(meter).split("/");
+  grid.classList.add("rhythm-staff-grid");
+  grid.style.gridTemplateColumns = `auto repeat(${beats}, minmax(0, 1fr))`;
+  const head = document.createElement("div");
+  head.className = "rhythm-staff-head";
+  head.setAttribute("aria-hidden", "true");
+  head.innerHTML = `
+    <svg class="rhythm-staff-clef" viewBox="0 0 14 30" width="14" height="30"><rect x="2" y="4" width="3.2" height="22" fill="currentColor"/><rect x="8.8" y="4" width="3.2" height="22" fill="currentColor"/></svg>
+    <span class="rhythm-staff-meter"><span>${escapeHtml(num || "4")}</span><span>${escapeHtml(den || "4")}</span></span>`;
+  grid.insertBefore(head, grid.firstChild);
+  const cards = grid.querySelectorAll(".bar-card");
+  if (cards.length) cards[cards.length - 1].dataset.lastBeat = "1";
+  if (ex.type === "rhythm-tap" && ex.tapEvaluated && ex.lastEvaluation) {
+    renderRhythmTapTimeline(ex, ex.lastEvaluation, 60000 / (state.activeBpm || 90));
+  }
+}
+
+/**
+ * Zeitstrahl unter dem Rhythmus: Soll-Noten (●) farbig nach Ergebnis, eigene Extra-Taps als ×.
+ * grün = exakt, orange = knapp (früh/spät), rot = verpasst / zu viel.
+ */
+function renderRhythmTapTimeline(ex, res, beatMs) {
+  const grid = document.getElementById("barsGrid");
+  if (!grid || !ex || !res) return;
+  document.getElementById("rhythmTapTimeline")?.remove();
+  const beats = ex.beatsPerBar || 4;
+  const barMs = beats * (beatMs || 666);
+  const W = 300;
+  const x0 = 10;
+  const span = W - 20;
+  const xOf = (ms) => (x0 + Math.max(-0.04, Math.min(1.04, ms / barMs)) * span).toFixed(1);
+  const colorOf = (st) => st === "exact" ? "var(--sage-strong)" : (st === "close" ? "var(--peach-strong)" : "var(--status-err)");
+
+  let marks = "";
+  for (let b = 0; b <= beats; b++) {
+    const x = (x0 + (b / beats) * span).toFixed(1);
+    marks += `<line x1="${x}" y1="${b === 0 || b === beats ? 9 : 12}" x2="${x}" y2="${b === 0 || b === beats ? 27 : 24}" stroke="currentColor" stroke-width="${b === 0 || b === beats ? 1.4 : 0.9}" opacity="0.45"/>`;
+    if (b < beats) marks += `<text x="${(x0 + ((b + 0.5) / beats) * span).toFixed(1)}" y="38" text-anchor="middle" font-size="8" font-weight="800" fill="currentColor" opacity="0.55">${b + 1}</text>`;
+  }
+  res.expResults.forEach(r => {
+    marks += `<circle cx="${xOf(r.relMs)}" cy="18" r="4.4" fill="${r.status === "missed" ? "none" : colorOf(r.status)}" stroke="${colorOf(r.status)}" stroke-width="1.8"/>`;
+    if (r.status === "close" && r.diffMs !== null) {
+      marks += `<line x1="${xOf(r.relMs)}" y1="18" x2="${xOf(r.relMs + r.diffMs)}" y2="18" stroke="${colorOf("close")}" stroke-width="2"/>`;
+    }
+  });
+  (res.extraTapsMs || []).forEach(t => {
+    const x = Number(xOf(t));
+    marks += `<path d="M ${x - 4} 14 L ${x + 4} 22 M ${x + 4} 14 L ${x - 4} 22" stroke="var(--status-err)" stroke-width="2.2" stroke-linecap="round"/>`;
+  });
+
+  const legend = `
+    <span style="color:var(--sage-strong)">● ${escapeHtml(tr("exakt", "exact"))}</span>
+    <span style="color:var(--peach-strong)">● ${escapeHtml(tr("knapp", "close"))}</span>
+    <span style="color:var(--status-err)">○ ${escapeHtml(tr("verpasst", "missed"))}</span>
+    <span style="color:var(--status-err)">× ${escapeHtml(tr("zu viel", "extra"))}</span>
+    <span>• ${escapeHtml(tf("Toleranz ±{tol} ms", "Tolerance ±{tol} ms", { tol: ex.toleranceMs }))}</span>`;
+  const row = document.createElement("div");
+  row.id = "rhythmTapTimeline";
+  row.className = "rhythm-tap-timeline";
+  row.innerHTML = `
+    <svg viewBox="0 0 ${W} 42" preserveAspectRatio="none" role="img" aria-label="${escapeHtml(tr("Zeitstrahl deiner Taps", "Timeline of your taps"))}">
+      <line x1="${x0}" y1="18" x2="${x0 + span}" y2="18" stroke="currentColor" stroke-width="1" opacity="0.35"/>
+      ${marks}
+    </svg>
+    <span class="rhythm-tap-timeline-legend">${legend}</span>`;
+  grid.appendChild(row);
+}
+
 function renderUI() {
   const ex = state.currentExercise;
   if (!ex) return;
@@ -9789,6 +9877,13 @@ function renderUI() {
   if (moduleTimeSigBtn) {
     moduleTimeSigBtn.classList.toggle("hidden", !isCadence);
     moduleTimeSigBtn.textContent = state.activeTimeSig === "odd" ? "5/4" : state.activeTimeSig;
+  }
+
+  const modesPadBtn = document.getElementById("modesPadBtn");
+  if (modesPadBtn) {
+    const showPadBtn = isModes && !state.exam?.active;
+    modesPadBtn.classList.toggle("hidden", !showPadBtn);
+    if (showPadBtn) syncModesPadButton(modesPadBtn);
   }
 
   if (melodyPulseBtn) {
@@ -13345,6 +13440,14 @@ async function playSequence(options = {}) {
 
       const patternDurMs = playModeExercisePattern(ex, ex.targetItem, phase2DelayMs);
       const cycleEndMs = phase2DelayMs + patternDurMs + 220;
+
+      // Optional: Bezugsgrundton (Grundton des Modus) als Fläche unter dem ganzen Durchlauf
+      if (state.settings.modesRootPad && !state.exam?.active) {
+        audioEngine.playRootPad(
+          [midiToNote(ex.rootMidi - 12), midiToNote(ex.rootMidi)],
+          (cycleEndMs + 300) / 1000
+        );
+      }
 
       audioEngine.registerTimer(() => {
         if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
@@ -16947,6 +17050,19 @@ document.addEventListener("DOMContentLoaded", () => {
     closeAllInlinePopovers(inlineBpmPopover);
     const isHidden = inlineBpmPopover.classList.toggle("hidden");
     moduleBpmBtn.classList.toggle("chip-open", !isHidden);
+  });
+
+  document.getElementById("modesPadBtn")?.addEventListener("click", (e) => {
+    e?.stopPropagation?.();
+    if (state.exam?.active) return;
+    closeAllInlinePopovers();
+    state.settings.modesRootPad = !state.settings.modesRootPad;
+    syncModesPadButton(e.currentTarget);
+    const ex = state.currentExercise;
+    // Kurze Hörprobe beim Einschalten (nur wenn gerade nichts läuft)
+    if (state.settings.modesRootPad && audioEngine.isInitialized && !state.isPlaying && ex?.rootMidi) {
+      audioEngine.playRootPad([midiToNote(ex.rootMidi - 12), midiToNote(ex.rootMidi)], 1.6);
+    }
   });
 
   melodyPulseBtn?.addEventListener("click", (e) => {

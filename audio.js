@@ -1352,6 +1352,18 @@ class AudioEngine {
   }
 
   /**
+   * Spielt eine weiche Streicher-Fläche auf dem Bezugsgrundton (z. B. unter Modi-Übungen).
+   */
+  playRootPad(padNotes, durSec, options = {}) {
+    if (!this.isInitialized || !Array.isArray(padNotes) || padNotes.length === 0) return;
+    const gainScale = Number.isFinite(options.gainScale) ? options.gainScale : this.dronePadGainScale * 0.75;
+    this.playInstrumentSample("strings", padNotes, Math.max(1.0, Number(durSec) || 3), 0, gainScale, {
+      attackSec: 0.3,
+      releaseSec: 1.0
+    });
+  }
+
+  /**
    * Spielt einen Schritt über alle aktiven Mixer-Kanäle (Klavier, Gitarre, Streicher,
    * Bläser, Stimme sowie Bass bei übergebenem bassNote) gemäß den aktuellen Mixer-Reglern ab.
    */
