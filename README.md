@@ -59,9 +59,9 @@ Every training area includes graded difficulty levels, listening aids (A/B compa
 ### Practice Tools
 
 - **Vocal Warmup (`5-Minute Warmup`):** 4 guided phases (*1 Breath & Body*, *2 Resonance & Tone*, *3 Arpeggios & Range*, *4 Vowels & Choir Blend*) with SATB / Mixed Choir range presets, Piano / Voice / Piano+Voice accompaniment, BPM slider (`65–135 BPM`), and localized vowel drills across all languages.
+- **Dedicated Tools Tab (`Tools`):** Houses standalone practice utilities separated from the exercises — **Metronome**, plus prepared views for **Tuner (Coming Soon)** and **Free Play (Coming Soon)**.
 - **Metronome:** Built-in precision metronome with **Tap Tempo**, `30–240 BPM` slider, visual pendulum orb, `1–16` customizable beats (accent, normal, mute), subdivisions (`1×–4×` plus **Shuffle** with a swung triplet feel), meter chips (`2/4`, `3/4`, `4/4`, `5/4`, `6/8`, `7/8`), master volume control, and savable meter/BPM profiles.
 - **Invisible Session Memory:** Mixed-up intervals, chords, inversions, modes, solfège degrees, and notes are quietly worked back into the next 2–5 exercises (never back to back) until you get them right on the first try twice. It lives only in memory for the current session: no score, no display, nothing stored.
-- **Tuner (Coming Soon):** Homescreen placeholder card right next to the Metronome for the upcoming chromatic tuner and pitch meter.
 
 ---
 
@@ -69,7 +69,7 @@ Every training area includes graded difficulty levels, listening aids (A/B compa
 
 Inside the **Knowledge** (`Wissen`) tab, interactive audio examples accompany every topic across three sections:
 
-- **Theory & Tools (12 interactive modules):** Intervals, Cadences, Physics & Sound, Solfège & Degrees, Rhythm & Meters, Singing & Voice, Modes & Scales, Keys & Signatures, **Interactive Circle of Fifths**, Sing & Play, Notation & Clefs, and Arranging.
+- **Theory (12 interactive modules):** Intervals, Cadences, Physics & Sound, Solfège & Degrees, Rhythm & Meters, Singing & Voice, Modes & Scales, Keys & Signatures, **Interactive Circle of Fifths**, Sing & Play, Notation & Clefs, and Arranging.
 - **Articles (9 deep-dive guides):** Ear training fundamentals, communicating about music, the 4-chord progression, harmonic gravity, minor plagal cadences, acoustic physics & waves, songwriting tricks, functional harmony, and world music traditions.
 - **Instruments (8 families):** Strings, Woodwinds, Brass, Keyboards, Plucked Instruments, Rhythm & Percussion, Electronic Instruments, and Ensembles & Orchestras.
 

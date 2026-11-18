@@ -2205,7 +2205,10 @@ class AppState {
       vowelLabel: "",
       hintText: ""
     };
-    this.metronomeReturnView = "home";
+    this.metronomeReturnView = "tools";
+    this.tunerReturnView = "tools";
+    this.freeplayReturnView = "tools";
+    this.tunerStream = null;
     this.metronome = {
       bpm: METRONOME_DEFAULT_BPM,
       beats: getDefaultMeterBeats(4),
@@ -2593,6 +2596,9 @@ class AppState {
       el.textContent = typeof getStaticI18nText === "function"
         ? (getStaticI18nText("app.tagline") || tr("Hören · Verstehen · Musizieren", "Listen · Understand · Play"))
         : tr("Hören · Verstehen · Musizieren", "Listen · Understand · Play");
+    } else if (this.currentView === "tools") {
+      mainTitle.textContent = tr("Tools", "Tools");
+      el.textContent = tr("Metronom, Tuner & Freies Spiel", "Metronome, Tuner & Free Play");
     } else if (this.currentView === "knowledge") {
       mainTitle.textContent = tr("Wissen", "Knowledge");
       if (this.activeKnowledgeTab === "instruments") {
@@ -2641,6 +2647,12 @@ class AppState {
         bpm: metro.bpm || METRONOME_DEFAULT_BPM,
         n: beatLen
       });
+    } else if (this.currentView === "tuner") {
+      mainTitle.textContent = tr("Tuner", "Tuner");
+      el.textContent = tr("Stimmgerät & Tonhöhen-Anzeige", "Chromatic tuner & pitch meter");
+    } else if (this.currentView === "freeplay") {
+      mainTitle.textContent = tr("Freies Spiel", "Free Play");
+      el.textContent = tr("Freies Ausprobieren mit Klaviatur & Klängen", "Explore notes & sounds freely");
     } else if (this.currentView === "exercise" && this.exam?.active) {
       const curQ = Math.min((this.exam.currentIdx || 0) + 1, this.exam.totalQuestions || 1);
       const presetMeta = typeof getExamPresetById === "function" ? getExamPresetById(this.exam.categoryKey, this.exam.levelId) : null;
@@ -2887,6 +2899,9 @@ function setLanguagePreference(nextLang) {
   }
   if (typeof renderMetronomeView === "function" && state.currentView === "metronome") {
     renderMetronomeView();
+  }
+  if (typeof renderTunerPreviewView === "function" && state.currentView === "tuner") {
+    renderTunerPreviewView();
   }
 
   state.updateHeaderSubtext();
@@ -5135,6 +5150,8 @@ function captureHistorySnapshot(modalName = getOpenModalName()) {
     exerciseReturnView: state.exerciseReturnView,
     warmupReturnView: state.warmupReturnView,
     metronomeReturnView: state.metronomeReturnView,
+    tunerReturnView: state.tunerReturnView,
+    freeplayReturnView: state.freeplayReturnView,
     modal: modalName
   };
 }
@@ -5174,6 +5191,12 @@ function applyHistorySnapshot(snapshot) {
     }
     if (snapshot.metronomeReturnView) {
       state.metronomeReturnView = snapshot.metronomeReturnView;
+    }
+    if (snapshot.tunerReturnView) {
+      state.tunerReturnView = snapshot.tunerReturnView;
+    }
+    if (snapshot.freeplayReturnView) {
+      state.freeplayReturnView = snapshot.freeplayReturnView;
     }
     if (snapshot.activeCategory) {
       state.activeCategory = snapshot.activeCategory;
@@ -5253,7 +5276,11 @@ function navigateBackFromUI() {
   } else if (state.currentView === "warmup") {
     switchView(state.warmupReturnView || "category", { skipHistoryPush: true });
   } else if (state.currentView === "metronome") {
-    switchView(state.metronomeReturnView || "home", { skipHistoryPush: true });
+    switchView(state.metronomeReturnView || "tools", { skipHistoryPush: true });
+  } else if (state.currentView === "tuner") {
+    switchView(state.tunerReturnView || "tools", { skipHistoryPush: true });
+  } else if (state.currentView === "freeplay") {
+    switchView(state.freeplayReturnView || "tools", { skipHistoryPush: true });
   } else if (state.currentView === "exam-result") {
     switchView(state.examResultReturnView || "exam-setup", { skipHistoryPush: true });
   } else if (state.currentView === "exam-setup") {
@@ -5267,7 +5294,7 @@ function navigateBackFromUI() {
   }
 }
 
-const MAIN_TAB_ORDER = ["home", "knowledge", "space"];
+const MAIN_TAB_ORDER = ["home", "tools", "knowledge", "space"];
 let pendingSwipeDir = null;
 let activeViewLeaveState = null;
 
@@ -5281,6 +5308,7 @@ function prefersReducedMotion() {
 
 function getTabForView(view) {
   if (view === "home" || view === "category" || view === "category-help" || view === "exam-setup") return "home";
+  if (view === "tools" || view === "metronome" || view === "tuner" || view === "freeplay") return "tools";
   if (view === "exam-result") return state.examResultReturnView === "space" ? "space" : "home";
   if (view === "knowledge" || view === "knowledge-detail") return "knowledge";
   if (view === "space") return "space";
@@ -5291,7 +5319,7 @@ function getViewOrderInfo(view) {
   const tab = getTabForView(view) || "home";
   const tabIdx = MAIN_TAB_ORDER.indexOf(tab);
   let depth = 0;
-  if (view === "category" || view === "knowledge-detail" || view === "metronome") depth = 1;
+  if (view === "category" || view === "knowledge-detail" || view === "metronome" || view === "tuner" || view === "freeplay") depth = 1;
   else if (view === "category-help" || view === "exam-setup") depth = 2;
   else if (view === "exercise" || view === "warmup") depth = 3;
   else if (view === "exam-result") depth = 4;
@@ -5364,10 +5392,22 @@ function navigateToMainTab(targetTab, swipeDir = null) {
 
   if (
     targetTab === "home" &&
-    (state.currentView === "knowledge" || state.currentView === "space" || state.currentView === "category") &&
+    (state.currentView === "tools" || state.currentView === "knowledge" || state.currentView === "space" || state.currentView === "category") &&
     canHistory &&
     appHistoryState.idx === 1 &&
     window.history.state?.idx === 1
+  ) {
+    pendingSwipeDir = swipeDir;
+    window.history.back();
+    return true;
+  }
+
+  if (
+    targetTab === "tools" &&
+    (state.currentView === "metronome" || state.currentView === "tuner" || state.currentView === "freeplay") &&
+    canHistory &&
+    appHistoryState.idx >= 1 &&
+    window.history.state?.idx >= 1
   ) {
     pendingSwipeDir = swipeDir;
     window.history.back();
@@ -5420,8 +5460,12 @@ function hasHorizontalScrollableAncestor(target) {
   return false;
 }
 
+function isTabSwipeBlockedView(view) {
+  return view === "exercise" || view === "warmup" || view === "metronome" || view === "tuner" || view === "freeplay";
+}
+
 function handleHorizontalTabSwipe({ startX, startY, endX, endY, durationMs, viewportWidth, target }) {
-  if (state.currentView === "exercise") return false;
+  if (isTabSwipeBlockedView(state.currentView)) return false;
   if (getOpenModalName() !== null) return false;
 
   const splash = document.getElementById("startupSplash");
@@ -5472,7 +5516,7 @@ function initTabSwipeNavigation() {
       tracker = null;
       return;
     }
-    if (state.currentView === "exercise" || state.currentView === "metronome" || getOpenModalName() !== null) {
+    if (isTabSwipeBlockedView(state.currentView) || getOpenModalName() !== null) {
       tracker = null;
       return;
     }
@@ -5569,6 +5613,12 @@ function switchView(targetView, options = {}) {
   if (prevView === "metronome" && targetView !== "metronome" && typeof stopMetronome === "function") {
     stopMetronome();
   }
+  if (prevView === "tuner" && targetView !== "tuner" && typeof stopTunerSession === "function") {
+    stopTunerSession();
+  }
+  if (prevView === "freeplay" && targetView !== "freeplay" && typeof stopFreeplaySession === "function") {
+    stopFreeplaySession();
+  }
   stopPlayback();
   stopWaveAnimation();
   closeTransientPopovers();
@@ -5593,6 +5643,7 @@ function switchView(targetView, options = {}) {
 
   const views = {
     home: document.getElementById("viewHome"),
+    tools: document.getElementById("viewTools"),
     category: document.getElementById("viewCategory"),
     "category-help": document.getElementById("viewCategoryHelp"),
     "exam-setup": document.getElementById("viewExamSetup"),
@@ -5602,7 +5653,9 @@ function switchView(targetView, options = {}) {
     space: document.getElementById("viewSpace"),
     exercise: document.getElementById("viewExercise"),
     warmup: document.getElementById("viewWarmup"),
-    metronome: document.getElementById("viewMetronome")
+    metronome: document.getElementById("viewMetronome"),
+    tuner: document.getElementById("viewTuner"),
+    freeplay: document.getElementById("viewFreeplay")
   };
 
   finishActiveViewLeave();
@@ -5654,9 +5707,9 @@ function switchView(targetView, options = {}) {
     triggerTabEnterAnimation(nextEl, animDir);
   }
 
-  const isMainTabView = targetView === "home" || targetView === "knowledge" || targetView === "space";
+  const isMainTabView = targetView === "home" || targetView === "tools" || targetView === "knowledge" || targetView === "space";
   const activeTab = getTabForView(targetView);
-  const showBottomNav = targetView !== "exercise" && targetView !== "warmup" && targetView !== "metronome";
+  const showBottomNav = !isTabSwipeBlockedView(targetView);
   document.getElementById("bottomNav")?.classList.toggle("hidden", !showBottomNav);
   document.getElementById("backBtn")?.classList.toggle("hidden", isMainTabView);
 
@@ -5677,6 +5730,8 @@ function switchView(targetView, options = {}) {
     renderWarmupView();
   } else if (targetView === "metronome" && typeof renderMetronomeView === "function") {
     renderMetronomeView();
+  } else if (targetView === "tuner" && typeof renderTunerPreviewView === "function") {
+    renderTunerPreviewView();
   }
 
   if (targetView === "exercise") {
@@ -5698,9 +5753,11 @@ function switchView(targetView, options = {}) {
   }
 
   if (!options.skipHistoryPush && !appHistoryState.isApplying && targetView !== prevView) {
+    const secondaryMainTabs = new Set(["tools", "knowledge", "space"]);
     const isMainSwitchBetweenTabs =
-      (prevView === "knowledge" && targetView === "space") ||
-      (prevView === "space" && targetView === "knowledge");
+      secondaryMainTabs.has(prevView) &&
+      secondaryMainTabs.has(targetView) &&
+      prevView !== targetView;
 
     if (isMainSwitchBetweenTabs) {
       replaceAppHistory(null);
@@ -17804,7 +17861,7 @@ document.addEventListener("DOMContentLoaded", () => {
     pickRandomQuote();
   });
 
-  // Untere 3-Icon Reiter-Navigation
+  // Untere 4-Icon Reiter-Navigation
   document.querySelectorAll(".nav-tab").forEach(tab => {
     tab.addEventListener("click", () => {
       const target = tab.dataset.nav;
@@ -17824,9 +17881,21 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Startseite: Metronom-Kachel öffnet das Praxis-Metronom
+  // Tools-Tab: Metronom, Tuner & Freies Spiel
   document.getElementById("openMetronomeBtn")?.addEventListener("click", () => {
-    openMetronomeView("home");
+    openMetronomeView("tools");
+  });
+  document.getElementById("openTunerBtn")?.addEventListener("click", () => {
+    openTunerView("tools");
+  });
+  document.getElementById("openFreeplayBtn")?.addEventListener("click", () => {
+    openFreeplayView("tools");
+  });
+  document.getElementById("tunerBackBtn")?.addEventListener("click", () => {
+    navigateBackFromUI();
+  });
+  document.getElementById("freeplayBackBtn")?.addEventListener("click", () => {
+    navigateBackFromUI();
   });
   initMetronomeEventListeners();
 
@@ -20839,7 +20908,7 @@ function renderMetronomeView() {
   syncMetronomeTransportUI();
 }
 
-function openMetronomeView(returnView = "home") {
+function openMetronomeView(returnView = "tools") {
   state.metronomeReturnView = returnView;
   _metroRuntime.tapTimestamps = [];
   const tapSub = document.getElementById("metroTapSub");
@@ -20850,6 +20919,55 @@ function openMetronomeView(returnView = "home") {
     noticeEl.classList.add("hidden");
   }
   switchView("metronome");
+}
+
+function releaseTunerMicStream() {
+  const stream = state.tunerStream;
+  if (!stream) return;
+  try {
+    stream.getTracks?.().forEach(track => {
+      try { track.stop(); } catch (_) {}
+    });
+  } catch (_) {}
+  state.tunerStream = null;
+}
+
+function stopTunerSession() {
+  releaseTunerMicStream();
+}
+
+function stopFreeplaySession() {
+  stopPlayback();
+}
+
+function renderTunerPreviewView() {
+  const noticeEl = document.getElementById("tunerSecureContextNotice");
+  if (!noticeEl) return;
+  const hasMediaDevices = typeof navigator !== "undefined" && Boolean(navigator.mediaDevices?.getUserMedia);
+  const isSecure = typeof window === "undefined" || window.isSecureContext !== false;
+  noticeEl.classList.remove("hidden", "is-warning");
+  if (isSecure && hasMediaDevices) {
+    noticeEl.textContent = tr(
+      "Mikrofonzugriff bereit (HTTPS / localhost aktiv).",
+      "Microphone access ready (HTTPS / localhost active)."
+    );
+  } else {
+    noticeEl.classList.add("is-warning");
+    noticeEl.textContent = tr(
+      "Hinweis: Für den Tuner ist später HTTPS oder http://localhost erforderlich – auf file:// oder unverschlüsseltem LAN-HTTP blockieren Browser das Mikrofon.",
+      "Note: The tuner will require HTTPS or http://localhost — browsers block microphone access on file:// or unencrypted LAN HTTP."
+    );
+  }
+}
+
+function openTunerView(returnView = "tools") {
+  state.tunerReturnView = returnView;
+  switchView("tuner");
+}
+
+function openFreeplayView(returnView = "tools") {
+  state.freeplayReturnView = returnView;
+  switchView("freeplay");
 }
 
 function initMetronomeEventListeners() {
