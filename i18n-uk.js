@@ -1022,7 +1022,6 @@ const TR_UK = {
   "Flieder (Fläche)": "Бузок (фон)",
   "Flieder (Schrift)": "Бузок (текст)",
   "Fokus auf Beweglichkeit, Staccato-Oktaven und sanften Lagen-Ausgleich": "Гнучкість голосу, легке стакато по октавах і плавне вирівнювання регістрів",
-  "Fokus: {focus}{inst}": "Фокус: {focus}{inst}",
   "Freier Speicherplatz": "Вільний слот",
   "Frequenz": "Частота",
   "Frequenz ?": "Частота ?",

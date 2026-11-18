@@ -16625,13 +16625,10 @@ function renderHomeProfileGreeting() {
     return;
   }
 
+  // Instrumente & Trainingsschwerpunkte bleiben im Konto; auf dem Übungen-Reiter nur eine schlichte Begrüßung
   const p = state.profile || createDefaultProfile();
   const hasName = Boolean(p.name && p.name.length > 0);
-  const focusKeys = getResolvedProfileFocuses(p);
-  const focusDefs = focusKeys.map(getLocalizedProfileFocus);
-  const showBar = hasName || focusKeys.some(k => k !== "allround");
-
-  if (!showBar) {
+  if (!hasName) {
     bar.classList.add("hidden");
     bar.innerHTML = "";
     renderHomeQuickMixBar();
@@ -16639,18 +16636,8 @@ function renderHomeProfileGreeting() {
   }
 
   bar.classList.remove("hidden");
-  const instLabels = (p.instruments || []).slice(0, 2).map(getLocalizedProfileInstrumentLabel);
-  const instList = instLabels.length > 0 ? ` • ${instLabels.join(", ")}` : "";
-  const focusPrimary = focusDefs[0] || getLocalizedProfileFocus("allround");
-  const greetingText = hasName
-    ? tf("Hallo {name}!{inst}", "Hi {name}!{inst}", { name: p.name, inst: instList })
-    : tf("Fokus: {focus}{inst}", "Focus: {focus}{inst}", { focus: focusDefs.map(d => d.label).join(", "), inst: instList });
-  const badgesHtml = focusDefs.slice(0, 2).map(d => `<span class="home-profile-badge">${escapeHtml(d.label)}</span>`).join("")
-    + (focusDefs.length > 2 ? `<span class="home-profile-badge">+${focusDefs.length - 2}</span>` : "");
-  bar.innerHTML = `
-    <span class="home-profile-text">${escapeHtml(greetingText)}</span>
-    ${badgesHtml}
-  `;
+  const greetingText = tf("Hallo {name}!{inst}", "Hi {name}!{inst}", { name: p.name, inst: "" });
+  bar.innerHTML = `<span class="home-profile-text">${escapeHtml(greetingText)}</span>`;
   renderHomeQuickMixBar();
 }
 

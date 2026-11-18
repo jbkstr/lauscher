@@ -1649,7 +1649,6 @@ Object.assign(TR_FR, {
   "Mein Mix": "Mon mix",
   "Schnellstart • Deine Mixe": "Démarrage rapide • Vos mix",
   "Hallo {name}!{inst}": "Bonjour {name} !{inst}",
-  "Fokus: {focus}{inst}": "Objectif : {focus}{inst}",
   "Läuft (stoppt automatisch nach {mins} Min Inaktivität).": "En cours (arrêt auto après {mins} min d’inactivité).",
   "Pausiert – tippe auf „Fortsetzen“, wenn es weitergeht.": "En pause — touchez « Reprendre » quand vous êtes prêt.",
   "Session geschafft! Gönn deinen Ohren eine kurze Pause – hier wird nichts gezählt.": "Session terminée ! Offrez une pause à vos oreilles — rien n’est comptabilisé ici.",
