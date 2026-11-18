@@ -71,8 +71,8 @@ Inside the **Knowledge** (`Wissen`) tab, interactive audio examples accompany ev
 ## Audio Engine & Two-Tab Mixer
 
 - **Custom Sample Engine ([`audio.js`](audio.js)):** Powered by **Tone.js (`14.8.49`)** and `EarLabSampledInstrument` using WebAudio buffers decoded from **96 embedded DAW studio samples** (`89` across 6 melodic instrument packs: `piano`, `guitar`, `strings`, `brass`, `voice`, `bass`, plus `7` percussion samples), with automatic WebAudio synth fallback.
-- **Two-Tab Mixer (`Levels` & `Room Reverb`):**
-  - **Levels Tab:** Live faders for all 6 instrument tracks plus instant mix presets (*Duo (Piano & Guitar)*, *Ensemble*, *Orchestra*, *Solo Piano*, *Custom*).
+- **Two-Tab Mixer (`Volumes` & `Room Reverb`):**
+  - **Volumes Tab:** Live faders for all 6 instrument tracks plus instant mix presets (*Duo (Piano & Guitar)*, *Ensemble*, *Orchestra*, *Solo Piano*, *Custom*).
   - **Room Reverb Tab:** Switch global room ambience between **Dry (`0%`)**, **Natural (`24%` piano default)**, and **Concert Hall (`48%` piano default)**, or fine-tune reverb individually per instrument (`Piano`, `Guitar`, `Strings`, `Brass`, `Voice`, `Bass`) with inline sound-preview (`▶`) buttons.
 - **Home Quick-Mixes:** Launch saved favorite mix setups directly from the home quick-mix bar.
 

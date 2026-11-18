@@ -2487,7 +2487,7 @@ class AppState {
     if (!el || !mainTitle) return;
 
     if (this.currentView === "home") {
-      mainTitle.textContent = tr("Home", "Home");
+      mainTitle.textContent = tr("Übungen", "Home");
       el.textContent = typeof getStaticI18nText === "function"
         ? (getStaticI18nText("app.tagline") || tr("Hören · Verstehen · Musizieren", "Listen · Understand · Play"))
         : tr("Hören · Verstehen · Musizieren", "Listen · Understand · Play");

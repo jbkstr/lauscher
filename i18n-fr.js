@@ -287,9 +287,9 @@ const I18N_STATIC_FR = {
   "nav.space": "Mon compte",
   "mixer.title": "Console",
   "mixer.tabsAria": "Choisir la vue de la console",
-  "mixer.tabLevels": "Niveaux",
+  "mixer.tabLevels": "Volumes",
   "mixer.tabReverb": "Réverbération",
-  "mixer.levelsHeading": "Niveaux des instruments (Temps réel)",
+  "mixer.levelsHeading": "Volumes",
   "mixer.piano": "Piano",
   "mixer.guitar": "Guitare",
   "mixer.strings": "Cordes",
@@ -1180,7 +1180,7 @@ const TR_FR = {
 
 // Header-Titel „Home“, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_FR, {
-  "Home": "Accueil",
+  "Übungen": "Accueil",
   "Intervalle über Grundton-Fläche": "Intervalles sur nappe de fondamentale",
   "Grundton-Fläche": "Nappe de fondamentale",
   "Eine warme Streicher-Fläche hält den Grundton – nach kurzer Verzögerung erklingt der gesuchte Intervallton auf dem Klavier darüber": "Une chaude nappe de cordes tient la fondamentale – après un court délai, le piano joue l’intervalle recherché par-dessus",

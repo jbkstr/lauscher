@@ -287,9 +287,9 @@ const I18N_STATIC_PL = {
   "nav.space": "Mój profil",
   "mixer.title": "Mikser",
   "mixer.tabsAria": "Wybierz widok miksera",
-  "mixer.tabLevels": "Poziomy",
+  "mixer.tabLevels": "Głośność",
   "mixer.tabReverb": "Pogłos",
-  "mixer.levelsHeading": "Głośność instrumentów (na żywo)",
+  "mixer.levelsHeading": "Głośność",
   "mixer.piano": "Fortepian",
   "mixer.guitar": "Gitara",
   "mixer.strings": "Smyczki",
@@ -1674,7 +1674,7 @@ const TR_PL = {
 
 // Header-Titel „Home“, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_PL, {
-  "Home": "Start",
+  "Übungen": "Start",
   "Intervalle über Grundton-Fläche": "Interwały nad plamą dźwięku podstawowego",
   "Grundton-Fläche": "Plama dźwięku podstawowego",
   "Eine warme Streicher-Fläche hält den Grundton – nach kurzer Verzögerung erklingt der gesuchte Intervallton auf dem Klavier darüber": "Ciepła plama smyczków trzyma dźwięk podstawowy – po krótkiej chwili fortepian gra nad nią szukany interwał",

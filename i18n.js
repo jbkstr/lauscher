@@ -614,9 +614,9 @@ const I18N_STATIC = {
 
   "mixer.title": { de: "Mixer", en: "Mixer" },
   "mixer.tabsAria": { de: "Mixer-Bereich wählen", en: "Choose mixer section" },
-  "mixer.tabLevels": { de: "Pegel", en: "Levels" },
+  "mixer.tabLevels": { de: "Lautstärken", en: "Volumes" },
   "mixer.tabReverb": { de: "Raumhall", en: "Reverb" },
-  "mixer.levelsHeading": { de: "Instrumenten-Pegel (Echtzeit)", en: "Instrument Levels (Live)" },
+  "mixer.levelsHeading": { de: "Lautstärken", en: "Volumes" },
   "mixer.piano": { de: "Klavier", en: "Piano" },
   "mixer.guitar": { de: "Gitarre", en: "Guitar" },
   "mixer.strings": { de: "Streicher", en: "Strings" },
