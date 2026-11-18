@@ -10766,3 +10766,408 @@ body.is-hum-pause #solfegeKeyboardWrap {
 #viewExercise.fit-3 .melody-rhythm-picker-head {
   display: none;
 }
+
+/* =====================================================
+   CHROMATISCHER TUNER (#viewTuner)
+   ===================================================== */
+.tuner-view {
+  gap: 0.7rem;
+}
+
+.tuner-main-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.8rem 0.85rem 0.85rem;
+}
+
+.tuner-display {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tuner-gauge {
+  width: 100%;
+  max-width: 340px;
+  height: auto;
+  display: block;
+  overflow: hidden;
+}
+
+.tuner-tick {
+  stroke: var(--raccoon-muted);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  opacity: 0.55;
+}
+.tuner-tick.is-major {
+  stroke-width: 2.2;
+  opacity: 0.85;
+}
+.tuner-tick.is-center {
+  stroke: var(--sage-strong);
+  stroke-width: 3;
+  opacity: 1;
+}
+.tuner-tick-label {
+  fill: var(--raccoon-muted);
+  font-size: 10px;
+  font-weight: 700;
+}
+.tuner-gauge-zone {
+  fill: none;
+  stroke: var(--sage);
+  stroke-width: 16;
+  stroke-linecap: round;
+  opacity: 0.7;
+}
+.tuner-display.is-in-tune .tuner-gauge-zone {
+  stroke: var(--sage-strong);
+  opacity: 0.45;
+}
+
+.tuner-needle {
+  transform-box: view-box;
+  transform-origin: 150px 168px;
+  transition: transform 110ms linear;
+}
+.tuner-needle line {
+  stroke: var(--raccoon-dark);
+  stroke-width: 3.2;
+}
+.tuner-needle circle {
+  fill: var(--raccoon-dark);
+}
+.tuner-display.is-sharp .tuner-needle line,
+.tuner-display.is-flat .tuner-needle line {
+  stroke: var(--peach-strong);
+}
+.tuner-display.is-sharp .tuner-needle circle,
+.tuner-display.is-flat .tuner-needle circle {
+  fill: var(--peach-strong);
+}
+.tuner-display.is-in-tune .tuner-needle line {
+  stroke: var(--sage-strong);
+}
+.tuner-display.is-in-tune .tuner-needle circle {
+  fill: var(--sage-strong);
+}
+
+.tuner-readout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.18rem;
+  margin-top: -0.15rem;
+  transition: opacity 0.25s ease;
+}
+.tuner-display.is-idle .tuner-readout,
+.tuner-display.is-quiet .tuner-readout {
+  opacity: 0.45;
+}
+
+.tuner-target-label {
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--raccoon-muted);
+}
+
+.tuner-note-bubble {
+  position: relative;
+  min-width: 104px;
+  padding: 0.18rem 1.05rem 0.24rem;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--border-soft);
+  background: var(--surface-warm);
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.1rem;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.tuner-note-name {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.05;
+  color: var(--raccoon-dark);
+}
+.tuner-note-octave {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--raccoon-muted);
+}
+
+.tuner-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--raccoon-mid);
+  font-variant-numeric: tabular-nums;
+}
+.tuner-cents {
+  min-width: 4.2em;
+  text-align: end;
+}
+.tuner-meta-dot {
+  color: var(--raccoon-muted);
+}
+
+/* Sauber gestimmt: Notenblase leuchtet, Ring breitet sich aus */
+.tuner-display.is-in-tune .tuner-note-bubble {
+  background: var(--sage-soft, var(--sage));
+  border-color: var(--sage-strong);
+  transform: scale(1.04);
+}
+.tuner-note-bubble::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  border: 2px solid var(--sage-strong);
+  opacity: 0;
+  pointer-events: none;
+}
+.tuner-display.is-in-tune .tuner-note-bubble::after {
+  animation: tunerInTuneRing 900ms cubic-bezier(0.22, 1, 0.36, 1) 1;
+}
+@keyframes tunerInTuneRing {
+  0% { opacity: 0.85; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.45, 1.9); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tuner-display.is-in-tune .tuner-note-bubble {
+    transform: none;
+  }
+  .tuner-display.is-in-tune .tuner-note-bubble::after {
+    animation: none;
+  }
+  .tuner-needle {
+    transition: none;
+  }
+}
+
+.tuner-spectrum-wrap {
+  width: 100%;
+  border-radius: var(--radius-md);
+  background: var(--surface-warm);
+  border: 1.5px solid var(--border-soft);
+  padding: 0.3rem 0.4rem 0.2rem;
+}
+.tuner-spectrum {
+  display: block;
+  width: 100%;
+  height: 74px;
+}
+
+.tuner-status {
+  min-height: 1.3em;
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+  color: var(--raccoon-mid);
+}
+.tuner-status[data-kind="ok"] {
+  color: var(--sage-strong);
+}
+.tuner-status[data-kind="low"],
+.tuner-status[data-kind="high"],
+.tuner-status[data-kind="far"],
+.tuner-status[data-kind="warn"] {
+  color: var(--peach-strong);
+}
+
+.tuner-start-btn {
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.tuner-setup-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0.75rem 0.85rem;
+}
+
+.tuner-select-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.5rem;
+}
+.tuner-select-field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+.tuner-select-field.hidden {
+  display: none;
+}
+.tuner-select-label {
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--raccoon-muted);
+}
+.tuner-select-field::after {
+  content: "▾";
+  position: absolute;
+  inset-inline-end: 0.7rem;
+  bottom: 0.52rem;
+  font-size: 0.8rem;
+  color: var(--raccoon-mid);
+  pointer-events: none;
+}
+.tuner-select {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  min-width: 0;
+  padding: 0.5rem 1.8rem 0.5rem 0.7rem;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-soft);
+  background: var(--surface-white);
+  color: var(--raccoon-dark);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+[dir="rtl"] .tuner-select {
+  padding: 0.5rem 0.7rem 0.5rem 1.8rem;
+}
+
+.tuner-mode-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem;
+}
+
+.tuner-strings-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem;
+}
+.tuner-strings-row.hidden {
+  display: none;
+}
+.tuner-string-chip {
+  position: relative;
+  min-width: 46px;
+  height: 46px;
+  padding: 0 0.5rem;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--border-strong);
+  background: var(--surface-white);
+  color: var(--raccoon-dark);
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.05rem;
+  padding-top: 0.7rem;
+  cursor: pointer;
+  box-shadow: 0 2px 0 var(--tactile-edge);
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+  touch-action: manipulation;
+}
+.tuner-string-chip:active {
+  transform: translateY(1px);
+}
+.tuner-string-name {
+  font-size: 1rem;
+  font-weight: 800;
+}
+.tuner-string-oct {
+  font-size: 0.66rem;
+  font-weight: 800;
+  color: var(--raccoon-muted);
+}
+.tuner-string-chip.is-sounding {
+  border-color: var(--lilac-strong);
+  box-shadow: 0 0 0 2px var(--lilac);
+}
+.tuner-string-chip.is-target {
+  background: var(--peach-soft);
+  border-color: var(--peach-strong);
+}
+.tuner-string-chip.is-tuned::after {
+  content: "✓";
+  position: absolute;
+  top: -5px;
+  inset-inline-end: -4px;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: var(--sage-strong);
+  color: #FFFFFF;
+  font-size: 0.62rem;
+  font-weight: 900;
+  line-height: 17px;
+  text-align: center;
+}
+
+.tuner-note-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+}
+.tuner-note-stepper.hidden {
+  display: none;
+}
+.tuner-stepper-note {
+  min-width: 4ch;
+  text-align: center;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+}
+
+.tuner-tools-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.tuner-ref-btn {
+  padding: 0.42rem 0.85rem;
+  font-size: 0.76rem;
+}
+.tuner-ref-btn.is-playing {
+  background-color: var(--sage);
+  color: var(--raccoon-dark);
+}
+.tuner-a4-stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.tuner-a4-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--raccoon-muted);
+}
+.tuner-a4-value {
+  min-width: 6.4em;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+  font-variant-numeric: tabular-nums;
+}
+.tuner-a4-stepper .metro-mini-btn {
+  min-width: 32px;
+  height: 30px;
+}

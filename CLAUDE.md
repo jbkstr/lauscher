@@ -10,12 +10,12 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
   - Konstanten/Kataloge am Anfang (Themes, Profil, Mixer, Prüfungslevels, Metronom, Notation)
   - Übungs-Generatoren, `openCategoryPage`, `renderUI`, `handleAnswer`, `playSequence`
   - `DOMContentLoaded`-Init etwa ab Zeile 18300
-  - Einsing-Helfer (`// EINSING-HELFER`), Metronom (`// PRAXIS-METRONOM`), Prüfungsmodus (`// KATEGORIE-PRÜFUNGSMODUS`)
+  - Einsing-Helfer (`// EINSING-HELFER`), Metronom (`// PRAXIS-METRONOM`), Tuner (`// CHROMATISCHER TUNER`), Prüfungsmodus (`// KATEGORIE-PRÜFUNGSMODUS`)
 - **[audio.js](audio.js)**: `AudioEngine`, `EarLabSampledInstrument`, Hall-Sends, Limiter, Pink-Noise-EQ, Percussion. Samples kommen aus `window.EARLAB_SAMPLE_PACKS`, das die Bundles befüllen. Fehlt ein Sample, springt ein Synth als Fallback ein.
 - **[styles.css](styles.css)**: Alle Themes laufen über CSS-Variablen und `data-theme` / `data-appearance` / `data-lang` auf `<html>`. RTL (Urdu) läuft über `dir="rtl"`.
 - **Schrift: Andika** (SIL Open Font License, [fonts/Andika/](fonts/Andika/)). Eingebunden per `@font-face` ganz oben in styles.css. Andika hat nur Regular und Bold: Stärke 100–549 nutzt Regular, 550–1000 Bold. Für Urdu bleibt die arabische Schrift-Kette (Andika hat keine arabischen Zeichen). Keine eigenen `font-family`-Werte (auch kein Monospace) setzen. Ausnahmen sind SVG-`<text>` mit `font-family`-Attribut und Canvas (`ctx.font`): Dort muss „Andika“ explizit genannt werden. index.html lädt die Fonts per `<link rel="preload">` vor; das Build-Skript entfernt diese Links im Bundle.
 - **Markenname „Lauscher“ wird immer fett und kursiv dargestellt.** Ein `MutationObserver` in app.js (`startBrandWordStyling`) umschließt jedes sichtbare „Lauscher“ automatisch mit `<span class="brand-word">`. In Texten und Übersetzungen deshalb **nie** von Hand formatieren. Wer Text-Knoten direkt manipuliert, muss `.brand-word`-Spans berücksichtigen (siehe `setElementLocalizedText` in i18n.js).
-- **Navigation:** untere Leiste `#bottomNav` mit 4 Reitern: Übungen (`home`) | Werkzeuge (`tools`, `#viewTools` mit Metronom, Tuner und Freiem Spiel; Tuner/Freies Spiel sind noch Vorschau-Ansichten `#viewTuner`/`#viewFreeplay`) | Wissen (`knowledge`, erster Reiter heißt „Theorie“) | Konto (`space`).
+- **Navigation:** untere Leiste `#bottomNav` mit 4 Reitern: Übungen (`home`) | Werkzeuge (`tools`, `#viewTools` mit Metronom, chromatischem Tuner `#viewTuner` und Freiem Spiel; Freies Spiel ist noch eine Vorschau-Ansicht `#viewFreeplay`) | Wissen (`knowledge`, erster Reiter heißt „Theorie“) | Konto (`space`).
 - **Inline-Skript im `<head>` von index.html** setzt Theme, Sprache und `data-first-run` vor dem ersten Rendern. Kommen Themes oder Sprachen dazu, muss es mit angepasst werden.
 
 ## Layout-Regel: Übungen haben eine feste Höhe
@@ -62,6 +62,7 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 - Die Android-App ist ein **separates Capacitor-Projekt außerhalb des Repos** (`~/Documents/lauscher-android`, App-ID `de.jbkstr.lauscher`). Es wird nicht hier gepflegt, sondern per [scripts/sync-android.sh](scripts/sync-android.sh) bzw. Doppelklick auf [Android-Studio-starten.command](Android-Studio-starten.command) befüllt: Syntax-Check, Bundle-Build, Kopie der Web-Dateien nach `www/`, `npx cap sync android`, Android Studio öffnen.
 - ⚠️ Das Skript kopiert eine **feste Dateiliste** (`RUNTIME_FILES`). Kommt eine neue JS-/CSS-Datei hinzu, muss sie dort zusätzlich zu `index.html` eingetragen werden.
 - In app.js: `initCapacitorNativeBridge()` fängt die Android-Zurück-Taste ab (`handleNativeBackButton`: Onboarding → Modal → Popover → Prüfungs-Abbruch → zurück navigieren → App beenden) und stoppt Audio, wenn die App in den Hintergrund geht. **Neue Popovers** in `hasOpenTransientPopover()` eintragen, damit „Zurück“ sie schließt. Ohne Capacitor (Browser) ist die Brücke inaktiv.
+- Mikrofon (Tuner): Das Sync-Skript trägt `RECORD_AUDIO` und `MODIFY_AUDIO_SETTINGS` ins `AndroidManifest.xml` ein; Capacitor fragt die Berechtigung dann beim ersten `getUserMedia` selbst ab.
 - Safe-Areas: `viewport-fit=cover` in index.html, Abstände über `env(safe-area-inset-*)` bzw. `--safe-area-inset-*` (z. B. `.app-shell`). Neue randnahe Vollbild-Elemente ebenso absichern.
 
 ## Lokal starten & testen

@@ -10775,6 +10775,411 @@ body.is-hum-pause #solfegeKeyboardWrap {
   display: none;
 }
 
+/* =====================================================
+   CHROMATISCHER TUNER (#viewTuner)
+   ===================================================== */
+.tuner-view {
+  gap: 0.7rem;
+}
+
+.tuner-main-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.8rem 0.85rem 0.85rem;
+}
+
+.tuner-display {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tuner-gauge {
+  width: 100%;
+  max-width: 340px;
+  height: auto;
+  display: block;
+  overflow: hidden;
+}
+
+.tuner-tick {
+  stroke: var(--raccoon-muted);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  opacity: 0.55;
+}
+.tuner-tick.is-major {
+  stroke-width: 2.2;
+  opacity: 0.85;
+}
+.tuner-tick.is-center {
+  stroke: var(--sage-strong);
+  stroke-width: 3;
+  opacity: 1;
+}
+.tuner-tick-label {
+  fill: var(--raccoon-muted);
+  font-size: 10px;
+  font-weight: 700;
+}
+.tuner-gauge-zone {
+  fill: none;
+  stroke: var(--sage);
+  stroke-width: 16;
+  stroke-linecap: round;
+  opacity: 0.7;
+}
+.tuner-display.is-in-tune .tuner-gauge-zone {
+  stroke: var(--sage-strong);
+  opacity: 0.45;
+}
+
+.tuner-needle {
+  transform-box: view-box;
+  transform-origin: 150px 168px;
+  transition: transform 110ms linear;
+}
+.tuner-needle line {
+  stroke: var(--raccoon-dark);
+  stroke-width: 3.2;
+}
+.tuner-needle circle {
+  fill: var(--raccoon-dark);
+}
+.tuner-display.is-sharp .tuner-needle line,
+.tuner-display.is-flat .tuner-needle line {
+  stroke: var(--peach-strong);
+}
+.tuner-display.is-sharp .tuner-needle circle,
+.tuner-display.is-flat .tuner-needle circle {
+  fill: var(--peach-strong);
+}
+.tuner-display.is-in-tune .tuner-needle line {
+  stroke: var(--sage-strong);
+}
+.tuner-display.is-in-tune .tuner-needle circle {
+  fill: var(--sage-strong);
+}
+
+.tuner-readout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.18rem;
+  margin-top: -0.15rem;
+  transition: opacity 0.25s ease;
+}
+.tuner-display.is-idle .tuner-readout,
+.tuner-display.is-quiet .tuner-readout {
+  opacity: 0.45;
+}
+
+.tuner-target-label {
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--raccoon-muted);
+}
+
+.tuner-note-bubble {
+  position: relative;
+  min-width: 104px;
+  padding: 0.18rem 1.05rem 0.24rem;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--border-soft);
+  background: var(--surface-warm);
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.1rem;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.tuner-note-name {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.05;
+  color: var(--raccoon-dark);
+}
+.tuner-note-octave {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--raccoon-muted);
+}
+
+.tuner-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--raccoon-mid);
+  font-variant-numeric: tabular-nums;
+}
+.tuner-cents {
+  min-width: 4.2em;
+  text-align: end;
+}
+.tuner-meta-dot {
+  color: var(--raccoon-muted);
+}
+
+/* Sauber gestimmt: Notenblase leuchtet, Ring breitet sich aus */
+.tuner-display.is-in-tune .tuner-note-bubble {
+  background: var(--sage-soft, var(--sage));
+  border-color: var(--sage-strong);
+  transform: scale(1.04);
+}
+.tuner-note-bubble::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  border: 2px solid var(--sage-strong);
+  opacity: 0;
+  pointer-events: none;
+}
+.tuner-display.is-in-tune .tuner-note-bubble::after {
+  animation: tunerInTuneRing 900ms cubic-bezier(0.22, 1, 0.36, 1) 1;
+}
+@keyframes tunerInTuneRing {
+  0% { opacity: 0.85; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.45, 1.9); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tuner-display.is-in-tune .tuner-note-bubble {
+    transform: none;
+  }
+  .tuner-display.is-in-tune .tuner-note-bubble::after {
+    animation: none;
+  }
+  .tuner-needle {
+    transition: none;
+  }
+}
+
+.tuner-spectrum-wrap {
+  width: 100%;
+  border-radius: var(--radius-md);
+  background: var(--surface-warm);
+  border: 1.5px solid var(--border-soft);
+  padding: 0.3rem 0.4rem 0.2rem;
+}
+.tuner-spectrum {
+  display: block;
+  width: 100%;
+  height: 74px;
+}
+
+.tuner-status {
+  min-height: 1.3em;
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+  color: var(--raccoon-mid);
+}
+.tuner-status[data-kind="ok"] {
+  color: var(--sage-strong);
+}
+.tuner-status[data-kind="low"],
+.tuner-status[data-kind="high"],
+.tuner-status[data-kind="far"],
+.tuner-status[data-kind="warn"] {
+  color: var(--peach-strong);
+}
+
+.tuner-start-btn {
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.tuner-setup-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0.75rem 0.85rem;
+}
+
+.tuner-select-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.5rem;
+}
+.tuner-select-field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+.tuner-select-field.hidden {
+  display: none;
+}
+.tuner-select-label {
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--raccoon-muted);
+}
+.tuner-select-field::after {
+  content: "▾";
+  position: absolute;
+  inset-inline-end: 0.7rem;
+  bottom: 0.52rem;
+  font-size: 0.8rem;
+  color: var(--raccoon-mid);
+  pointer-events: none;
+}
+.tuner-select {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  min-width: 0;
+  padding: 0.5rem 1.8rem 0.5rem 0.7rem;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-soft);
+  background: var(--surface-white);
+  color: var(--raccoon-dark);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+[dir="rtl"] .tuner-select {
+  padding: 0.5rem 0.7rem 0.5rem 1.8rem;
+}
+
+.tuner-mode-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem;
+}
+
+.tuner-strings-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem;
+}
+.tuner-strings-row.hidden {
+  display: none;
+}
+.tuner-string-chip {
+  position: relative;
+  min-width: 46px;
+  height: 46px;
+  padding: 0 0.5rem;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--border-strong);
+  background: var(--surface-white);
+  color: var(--raccoon-dark);
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.05rem;
+  padding-top: 0.7rem;
+  cursor: pointer;
+  box-shadow: 0 2px 0 var(--tactile-edge);
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+  touch-action: manipulation;
+}
+.tuner-string-chip:active {
+  transform: translateY(1px);
+}
+.tuner-string-name {
+  font-size: 1rem;
+  font-weight: 800;
+}
+.tuner-string-oct {
+  font-size: 0.66rem;
+  font-weight: 800;
+  color: var(--raccoon-muted);
+}
+.tuner-string-chip.is-sounding {
+  border-color: var(--lilac-strong);
+  box-shadow: 0 0 0 2px var(--lilac);
+}
+.tuner-string-chip.is-target {
+  background: var(--peach-soft);
+  border-color: var(--peach-strong);
+}
+.tuner-string-chip.is-tuned::after {
+  content: "✓";
+  position: absolute;
+  top: -5px;
+  inset-inline-end: -4px;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: var(--sage-strong);
+  color: #FFFFFF;
+  font-size: 0.62rem;
+  font-weight: 900;
+  line-height: 17px;
+  text-align: center;
+}
+
+.tuner-note-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+}
+.tuner-note-stepper.hidden {
+  display: none;
+}
+.tuner-stepper-note {
+  min-width: 4ch;
+  text-align: center;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+}
+
+.tuner-tools-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.tuner-ref-btn {
+  padding: 0.42rem 0.85rem;
+  font-size: 0.76rem;
+}
+.tuner-ref-btn.is-playing {
+  background-color: var(--sage);
+  color: var(--raccoon-dark);
+}
+.tuner-a4-stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.tuner-a4-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--raccoon-muted);
+}
+.tuner-a4-value {
+  min-width: 6.4em;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+  font-variant-numeric: tabular-nums;
+}
+.tuner-a4-stepper .metro-mini-btn {
+  min-width: 32px;
+  height: 30px;
+}
+
 </style>
   <script>
     (function () {
@@ -11552,7 +11957,6 @@ body.is-hum-pause #solfegeKeyboardWrap {
           <div class="cat-text-box">
             <div class="tool-card-title-row">
               <h3 data-i18n="tools.tunerTitle">Tuner</h3>
-              <span class="tools-launcher-badge" data-i18n="tools.soonBadge">Bald</span>
             </div>
             <p data-i18n="tools.tunerSub">Stimmgerät &amp; präzise Tonhöhen-Anzeige per Mikrofon</p>
           </div>
@@ -12760,23 +13164,80 @@ body.is-hum-pause #solfegeKeyboardWrap {
     <!-- =====================================================
          ANSICHT 7: TUNER (#viewTuner) – Vorbereitung
          ===================================================== -->
-    <main id="viewTuner" class="view-container tool-preview-view hidden">
-      <section class="module-card tool-preview-card">
-        <div class="tools-launcher-icon badge-lilac tool-preview-icon">
-          <svg class="icon-svg-large" width="32" height="32" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M9.5 4.5V12C9.5 14.4853 11.5147 16.5 14 16.5C16.4853 16.5 18.5 14.4853 18.5 12V4.5" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
-            <line x1="14" y1="16.5" x2="14" y2="23.5" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
-            <circle cx="14" cy="23.5" r="1.6" fill="currentColor"/>
-            <path d="M5.8 6.8C4.6 8.3 4.6 10.7 5.8 12.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.72"/>
-            <path d="M22.2 6.8C23.4 8.3 23.4 10.7 22.2 12.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.72"/>
+    <main id="viewTuner" class="view-container tuner-view hidden">
+
+      <section class="module-card tuner-main-card">
+        <div id="tunerDisplay" class="tuner-display is-idle">
+          <svg id="tunerGauge" class="tuner-gauge" viewBox="0 0 300 118" aria-hidden="true">
+            <path id="tunerGaugeZone" class="tuner-gauge-zone" d=""/>
+            <g id="tunerGaugeTicks"></g>
+            <g id="tunerNeedle" class="tuner-needle">
+              <line x1="150" y1="168" x2="150" y2="26" stroke-linecap="round"/>
+              <circle cx="150" cy="26" r="4.2"/>
+            </g>
           </svg>
+          <div class="tuner-readout">
+            <span id="tunerTargetLabel" class="tuner-target-label">&nbsp;</span>
+            <div id="tunerNoteBubble" class="tuner-note-bubble">
+              <span id="tunerNoteName" class="tuner-note-name">–</span><span id="tunerNoteOctave" class="tuner-note-octave"></span>
+            </div>
+            <div class="tuner-meta-row">
+              <span id="tunerCents" class="tuner-cents">± 0 ¢</span>
+              <span class="tuner-meta-dot" aria-hidden="true">•</span>
+              <span id="tunerFreq" class="tuner-freq">– Hz</span>
+            </div>
+          </div>
         </div>
-        <span class="tools-launcher-badge" data-i18n="tools.previewBadge">Bald verfügbar</span>
-        <h2 class="tool-preview-title" data-i18n="tools.tunerPageTitle">Chromatischer Tuner</h2>
-        <p class="tool-preview-desc" data-i18n="tools.tunerPageDesc">Live-Tonhöhenerkennung und Kammerton-Referenz direkt über das Mikrofon deines Geräts.</p>
-        <p id="tunerSecureContextNotice" class="tool-env-notice hidden"></p>
-        <button id="tunerBackBtn" type="button" class="btn-tool tool-preview-back-btn" data-i18n="tools.backBtn">← Zurück zu Werkzeuge</button>
+
+        <div class="tuner-spectrum-wrap">
+          <canvas id="tunerSpectrum" class="tuner-spectrum" aria-label="Live-Frequenzspektrum" data-i18n-aria="tuner.spectrumAria"></canvas>
+        </div>
+
+        <p id="tunerStatus" class="tuner-status" aria-live="polite"></p>
+
+        <button id="tunerStartBtn" class="dock-action-btn tuner-start-btn" type="button">Tuner starten</button>
       </section>
+
+      <section class="module-card tuner-setup-card">
+        <div class="tuner-select-row">
+          <label class="tuner-select-field">
+            <span class="tuner-select-label" data-i18n="tuner.instrumentLabel">Instrument</span>
+            <select id="tunerInstrumentSelect" class="tuner-select"></select>
+          </label>
+          <label id="tunerTuningField" class="tuner-select-field">
+            <span class="tuner-select-label" data-i18n="tuner.tuningLabel">Stimmung</span>
+            <select id="tunerTuningSelect" class="tuner-select"></select>
+          </label>
+        </div>
+
+        <div class="tuner-mode-toggle" role="radiogroup" aria-label="Erkennung" data-i18n-aria="tuner.modeAria">
+          <button id="tunerModeAutoBtn" class="opt-btn tuner-mode-btn active" type="button" role="radio" aria-checked="true" data-tuner-mode="auto" data-i18n="tuner.modeAuto">Automatisch</button>
+          <button id="tunerModeSingleBtn" class="opt-btn tuner-mode-btn" type="button" role="radio" aria-checked="false" data-tuner-mode="single" data-i18n="tuner.modeSingle">Einzelton</button>
+        </div>
+
+        <div id="tunerStringsRow" class="tuner-strings-row"></div>
+
+        <div id="tunerNoteStepper" class="tuner-note-stepper hidden">
+          <button id="tunerNoteDownBtn" class="metro-mini-btn" type="button" aria-label="Halbton tiefer" data-i18n-aria="tuner.noteDownAria">−</button>
+          <span id="tunerStepperNote" class="tuner-stepper-note">A4</span>
+          <button id="tunerNoteUpBtn" class="metro-mini-btn" type="button" aria-label="Halbton höher" data-i18n-aria="tuner.noteUpAria">+</button>
+        </div>
+
+        <div class="tuner-tools-row">
+          <button id="tunerRefBtn" class="tonic-btn tuner-ref-btn" type="button">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+            <span id="tunerRefBtnLabel" data-i18n="tuner.referenceBtn">Referenzton</span>
+          </button>
+          <div class="tuner-a4-stepper">
+            <span class="tuner-a4-label" data-i18n="tuner.a4Label">Kammerton</span>
+            <button id="tunerA4DownBtn" class="metro-mini-btn" type="button" aria-label="Kammerton tiefer" data-i18n-aria="tuner.a4DownAria">−</button>
+            <span id="tunerA4Value" class="tuner-a4-value">A = 440 Hz</span>
+            <button id="tunerA4UpBtn" class="metro-mini-btn" type="button" aria-label="Kammerton höher" data-i18n-aria="tuner.a4UpAria">+</button>
+          </div>
+        </div>
+      </section>
+
+      <p id="tunerSecureContextNotice" class="tool-env-notice hidden"></p>
     </main>
 
     <!-- =====================================================
@@ -15507,6 +15968,18 @@ const I18N_STATIC = {
   "tools.previewBadge": { de: "Bald verfügbar", en: "Coming soon" },
   "tools.tunerPageTitle": { de: "Chromatischer Tuner", en: "Chromatic Tuner" },
   "tools.tunerPageDesc": { de: "Live-Tonhöhenerkennung und Kammerton-Referenz direkt über das Mikrofon deines Geräts.", en: "Live pitch detection and tuning reference directly via your device microphone." },
+  "tuner.instrumentLabel": { de: "Instrument", en: "Instrument" },
+  "tuner.tuningLabel": { de: "Stimmung", en: "Tuning" },
+  "tuner.modeAuto": { de: "Automatisch", en: "Automatic" },
+  "tuner.modeSingle": { de: "Einzelton", en: "Single note" },
+  "tuner.modeAria": { de: "Erkennung", en: "Detection" },
+  "tuner.referenceBtn": { de: "Referenzton", en: "Reference tone" },
+  "tuner.a4Label": { de: "Kammerton", en: "Concert pitch" },
+  "tuner.a4DownAria": { de: "Kammerton tiefer", en: "Lower concert pitch" },
+  "tuner.a4UpAria": { de: "Kammerton höher", en: "Raise concert pitch" },
+  "tuner.noteDownAria": { de: "Halbton tiefer", en: "Semitone down" },
+  "tuner.noteUpAria": { de: "Halbton höher", en: "Semitone up" },
+  "tuner.spectrumAria": { de: "Live-Frequenzspektrum", en: "Live frequency spectrum" },
   "tools.freeplayPageTitle": { de: "Freies Spiel", en: "Free Play" },
   "tools.freeplayPageDesc": { de: "Freie Klaviatur und Akkord-Flächen zum Ausprobieren, Improvisieren und Nachspielen mit deinen Mixer-Instrumenten.", en: "Free keyboard and chord pads for improvising, exploring sounds, and playing along with your mixer instruments." },
   "tools.backBtn": { de: "← Zurück zu Werkzeuge", en: "← Back to Tools" },
@@ -16779,6 +17252,18 @@ const I18N_STATIC_FR = {
   "tools.previewBadge": "Bientôt disponible",
   "tools.tunerPageTitle": "Accordeur chromatique",
   "tools.tunerPageDesc": "Détection de hauteur en direct et diapason de référence via le microphone de votre appareil.",
+  "tuner.instrumentLabel": "Instrument",
+  "tuner.tuningLabel": "Accordage",
+  "tuner.modeAuto": "Automatique",
+  "tuner.modeSingle": "Note unique",
+  "tuner.modeAria": "Détection",
+  "tuner.referenceBtn": "Note de référence",
+  "tuner.a4Label": "Diapason",
+  "tuner.a4DownAria": "Diapason plus bas",
+  "tuner.a4UpAria": "Diapason plus haut",
+  "tuner.noteDownAria": "Demi-ton plus bas",
+  "tuner.noteUpAria": "Demi-ton plus haut",
+  "tuner.spectrumAria": "Spectre de fréquences en direct",
   "tools.freeplayPageTitle": "Jeu libre",
   "tools.freeplayPageDesc": "Clavier libre et nappes d’accords pour improviser, explorer les timbres et jouer avec vos instruments du mixeur.",
   "tools.backBtn": "← Retour aux outils",
@@ -18469,6 +18954,50 @@ Object.assign(TR_FR, {
 });
 
 Object.assign(TR_FR, {
+  "Melodie im Notensystem": "Mélodie sur la portée",
+  "Automatisch": "Automatique",
+  "Tuner stoppen": "Arrêter l’accordeur",
+  "Tuner starten": "Démarrer l’accordeur",
+  "Das Mikrofon ist nur über HTTPS oder localhost verfügbar.": "Le micro n’est disponible que via HTTPS ou localhost.",
+  "Mikrofon wird gestartet …": "Démarrage du micro …",
+  "Spiel oder sing einen Ton …": "Jouez ou chantez une note …",
+  "Mikrofon-Zugriff verweigert – bitte in den Browser- bzw. App-Einstellungen erlauben.": "Accès au micro refusé – autorisez-le dans les réglages du navigateur ou de l’app.",
+  "Kein Mikrofon gefunden.": "Aucun micro trouvé.",
+  "Das Mikrofon konnte nicht gestartet werden.": "Impossible de démarrer le micro.",
+  "Tuner pausiert.": "Accordeur en pause.",
+  "Referenzton …": "Note de référence …",
+  "Sauber gestimmt!": "Parfaitement accordé !",
+  "Zu tief – etwas höher stimmen": "Trop bas – accordez un peu plus haut",
+  "Zu hoch – etwas tiefer stimmen": "Trop haut – accordez un peu plus bas",
+  "Fast da – Ton ruhig halten …": "Presque – tenez la note …",
+  "Hinweis: Das Mikrofon funktioniert nur über HTTPS oder http://localhost – auf file:// oder unverschlüsseltem LAN-HTTP blockieren Browser den Zugriff.": "Remarque : le micro ne fonctionne que via HTTPS ou http://localhost – sur file:// ou en HTTP non chiffré sur le réseau local, les navigateurs bloquent l’accès.",
+  "Tippe auf „Tuner starten“ – beim ersten Mal fragt dein Gerät nach dem Mikrofon.": "Touchez « Démarrer l’accordeur » – la première fois, votre appareil demande l’accès au micro.",
+  "Ziel: {note}": "Cible : {note}",
+  "Saite {n}: {note}": "Corde {n} : {note}",
+  "Etwa {n} Halbtöne zu tief": "Environ {n} demi-tons trop bas",
+  "Etwa {n} Halbtöne zu hoch": "Environ {n} demi-tons trop haut",
+  "Chromatisch": "Chromatique",
+  "E-Gitarre": "Guitare électrique",
+  "E-Bass": "Basse électrique",
+  "Mandoline": "Mandoline",
+  "Banjo": "Banjo",
+  "Violine": "Violon",
+  "Viola": "Alto",
+  "Cello": "Violoncelle",
+  "Kontrabass": "Contrebasse",
+  "Standard": "Standard",
+  "Halbton tiefer": "Un demi-ton plus bas",
+  "Drop D": "Drop D",
+  "Drop C": "Drop C",
+  "DADGAD": "DADGAD",
+  "Open G": "Open G",
+  "Open D": "Open D",
+  "Double C": "Double C",
+  "7-saitig": "7 cordes",
+  "4-saitig": "4 cordes",
+  "5-saitig": "5 cordes",
+  "Orchester": "Orchestre",
+  "Solo": "Solo",
   "Shuffle": "Shuffle",
   "{n}. Stufe": "Degré {n}",
   "1 Versuch pro Frage – prüfungsfest ohne Hilfsschleifen. Am Ende warten Lauscher-Bewertung, Modul-Aufschlüsselung und direkter Hör-Vergleich.": "1 tentative par question – sans boucle d’aide. À la fin : évaluation Lauscher, détail par module et comparaison audio directe.",
@@ -18960,6 +19489,18 @@ const I18N_STATIC_PL = {
   "tools.previewBadge": "Wkrótce dostępne",
   "tools.tunerPageTitle": "Stroik chromatyczny",
   "tools.tunerPageDesc": "Wykrywanie wysokości dźwięku na żywo i ton wzorcowy przez mikrofon urządzenia.",
+  "tuner.instrumentLabel": "Instrument",
+  "tuner.tuningLabel": "Strój",
+  "tuner.modeAuto": "Automatycznie",
+  "tuner.modeSingle": "Pojedynczy dźwięk",
+  "tuner.modeAria": "Rozpoznawanie",
+  "tuner.referenceBtn": "Dźwięk wzorcowy",
+  "tuner.a4Label": "Kamerton",
+  "tuner.a4DownAria": "Niższy kamerton",
+  "tuner.a4UpAria": "Wyższy kamerton",
+  "tuner.noteDownAria": "Półton niżej",
+  "tuner.noteUpAria": "Półton wyżej",
+  "tuner.spectrumAria": "Widmo częstotliwości na żywo",
   "tools.freeplayPageTitle": "Swobodna gra",
   "tools.freeplayPageDesc": "Swobodna klawiatura i pady akordów do improwizacji oraz grania z instrumentami z miksera.",
   "tools.backBtn": "← Powrót do narzędzi",
@@ -20696,6 +21237,50 @@ Object.assign(TR_PL, {
 });
 
 Object.assign(TR_PL, {
+  "Melodie im Notensystem": "Melodia na pięciolinii",
+  "Automatisch": "Automatycznie",
+  "Tuner stoppen": "Zatrzymaj stroik",
+  "Tuner starten": "Uruchom stroik",
+  "Das Mikrofon ist nur über HTTPS oder localhost verfügbar.": "Mikrofon działa tylko przez HTTPS lub localhost.",
+  "Mikrofon wird gestartet …": "Uruchamianie mikrofonu …",
+  "Spiel oder sing einen Ton …": "Zagraj lub zaśpiewaj dźwięk …",
+  "Mikrofon-Zugriff verweigert – bitte in den Browser- bzw. App-Einstellungen erlauben.": "Odmówiono dostępu do mikrofonu – zezwól w ustawieniach przeglądarki lub aplikacji.",
+  "Kein Mikrofon gefunden.": "Nie znaleziono mikrofonu.",
+  "Das Mikrofon konnte nicht gestartet werden.": "Nie udało się uruchomić mikrofonu.",
+  "Tuner pausiert.": "Stroik wstrzymany.",
+  "Referenzton …": "Dźwięk wzorcowy …",
+  "Sauber gestimmt!": "Czysto nastrojone!",
+  "Zu tief – etwas höher stimmen": "Za nisko – podciągnij odrobinę",
+  "Zu hoch – etwas tiefer stimmen": "Za wysoko – opuść odrobinę",
+  "Fast da – Ton ruhig halten …": "Prawie – trzymaj dźwięk równo …",
+  "Hinweis: Das Mikrofon funktioniert nur über HTTPS oder http://localhost – auf file:// oder unverschlüsseltem LAN-HTTP blockieren Browser den Zugriff.": "Uwaga: mikrofon działa tylko przez HTTPS lub http://localhost – na file:// lub niezaszyfrowanym HTTP w sieci lokalnej przeglądarki blokują dostęp.",
+  "Tippe auf „Tuner starten“ – beim ersten Mal fragt dein Gerät nach dem Mikrofon.": "Dotknij „Uruchom stroik” – za pierwszym razem urządzenie zapyta o mikrofon.",
+  "Ziel: {note}": "Cel: {note}",
+  "Saite {n}: {note}": "Struna {n}: {note}",
+  "Etwa {n} Halbtöne zu tief": "Około {n} półtonów za nisko",
+  "Etwa {n} Halbtöne zu hoch": "Około {n} półtonów za wysoko",
+  "Chromatisch": "Chromatyczny",
+  "E-Gitarre": "Gitara elektryczna",
+  "E-Bass": "Gitara basowa",
+  "Mandoline": "Mandolina",
+  "Banjo": "Banjo",
+  "Violine": "Skrzypce",
+  "Viola": "Altówka",
+  "Cello": "Wiolonczela",
+  "Kontrabass": "Kontrabas",
+  "Standard": "Standardowy",
+  "Halbton tiefer": "Półton niżej",
+  "Drop D": "Drop D",
+  "Drop C": "Drop C",
+  "DADGAD": "DADGAD",
+  "Open G": "Open G",
+  "Open D": "Open D",
+  "Double C": "Double C",
+  "7-saitig": "7-strunowa",
+  "4-saitig": "4-strunowy",
+  "5-saitig": "5-strunowy",
+  "Orchester": "Orkiestrowy",
+  "Solo": "Solowy",
   "Shuffle": "Shuffle",
   "{n}. Stufe": "Stopień {n}",
   "1 Versuch pro Frage – prüfungsfest ohne Hilfsschleifen. Am Ende warten Lauscher-Bewertung, Modul-Aufschlüsselung und direkter Hör-Vergleich.": "1 próba na pytanie — bez pętli podpowiedzi. Na końcu czeka ocena Lauscher, podział na moduły i bezpośrednie odsłuchy porównawcze.",
@@ -21187,6 +21772,18 @@ const I18N_STATIC_UK = {
   "tools.previewBadge": "Незабаром",
   "tools.tunerPageTitle": "Хроматичний тюнер",
   "tools.tunerPageDesc": "Розпізнавання висоти звуку наживо та камертон через мікрофон пристрою.",
+  "tuner.instrumentLabel": "Інструмент",
+  "tuner.tuningLabel": "Стрій",
+  "tuner.modeAuto": "Автоматично",
+  "tuner.modeSingle": "Окрема нота",
+  "tuner.modeAria": "Розпізнавання",
+  "tuner.referenceBtn": "Еталонний тон",
+  "tuner.a4Label": "Камертон",
+  "tuner.a4DownAria": "Нижчий камертон",
+  "tuner.a4UpAria": "Вищий камертон",
+  "tuner.noteDownAria": "Півтон нижче",
+  "tuner.noteUpAria": "Півтон вище",
+  "tuner.spectrumAria": "Спектр частот наживо",
   "tools.freeplayPageTitle": "Вільна гра",
   "tools.freeplayPageDesc": "Вільна клавіатура та акордові педи для імпровізації й гри з інструментами мікшера.",
   "tools.backBtn": "← Назад до інструментів",
@@ -22924,6 +23521,50 @@ Object.assign(TR_UK, {
 });
 
 Object.assign(TR_UK, {
+  "Melodie im Notensystem": "Мелодія на нотному стані",
+  "Automatisch": "Автоматично",
+  "Tuner stoppen": "Зупинити тюнер",
+  "Tuner starten": "Запустити тюнер",
+  "Das Mikrofon ist nur über HTTPS oder localhost verfügbar.": "Мікрофон доступний лише через HTTPS або localhost.",
+  "Mikrofon wird gestartet …": "Запуск мікрофона …",
+  "Spiel oder sing einen Ton …": "Зіграй або заспівай ноту …",
+  "Mikrofon-Zugriff verweigert – bitte in den Browser- bzw. App-Einstellungen erlauben.": "Доступ до мікрофона заборонено – дозволь його в налаштуваннях браузера або застосунку.",
+  "Kein Mikrofon gefunden.": "Мікрофон не знайдено.",
+  "Das Mikrofon konnte nicht gestartet werden.": "Не вдалося запустити мікрофон.",
+  "Tuner pausiert.": "Тюнер призупинено.",
+  "Referenzton …": "Еталонний тон …",
+  "Sauber gestimmt!": "Чисто налаштовано!",
+  "Zu tief – etwas höher stimmen": "Занизько – підтягни трохи вище",
+  "Zu hoch – etwas tiefer stimmen": "Зависоко – опусти трохи нижче",
+  "Fast da – Ton ruhig halten …": "Майже – тримай ноту рівно …",
+  "Hinweis: Das Mikrofon funktioniert nur über HTTPS oder http://localhost – auf file:// oder unverschlüsseltem LAN-HTTP blockieren Browser den Zugriff.": "Примітка: мікрофон працює лише через HTTPS або http://localhost – на file:// чи незашифрованому HTTP у локальній мережі браузери блокують доступ.",
+  "Tippe auf „Tuner starten“ – beim ersten Mal fragt dein Gerät nach dem Mikrofon.": "Натисни «Запустити тюнер» – першого разу пристрій попросить доступ до мікрофона.",
+  "Ziel: {note}": "Ціль: {note}",
+  "Saite {n}: {note}": "Струна {n}: {note}",
+  "Etwa {n} Halbtöne zu tief": "Приблизно на {n} півтонів занизько",
+  "Etwa {n} Halbtöne zu hoch": "Приблизно на {n} півтонів зависоко",
+  "Chromatisch": "Хроматичний",
+  "E-Gitarre": "Електрогітара",
+  "E-Bass": "Бас-гітара",
+  "Mandoline": "Мандоліна",
+  "Banjo": "Банджо",
+  "Violine": "Скрипка",
+  "Viola": "Альт",
+  "Cello": "Віолончель",
+  "Kontrabass": "Контрабас",
+  "Standard": "Стандартний",
+  "Halbton tiefer": "На півтон нижче",
+  "Drop D": "Drop D",
+  "Drop C": "Drop C",
+  "DADGAD": "DADGAD",
+  "Open G": "Open G",
+  "Open D": "Open D",
+  "Double C": "Double C",
+  "7-saitig": "7-струнна",
+  "4-saitig": "4-струнна",
+  "5-saitig": "5-струнна",
+  "Orchester": "Оркестровий",
+  "Solo": "Сольний",
   "Shuffle": "Шафл",
   "{n}. Stufe": "Ступінь {n}",
   "1 Versuch pro Frage – prüfungsfest ohne Hilfsschleifen. Am Ende warten Lauscher-Bewertung, Modul-Aufschlüsselung und direkter Hör-Vergleich.": "1 спроба на питання — без підказок і зациклювань. Наприкінці: оцінка Lauscher, розбір за модулями та аудіопорівняння.",
@@ -23415,6 +24056,18 @@ const I18N_STATIC_UR = {
   "tools.previewBadge": "جلد دستیاب",
   "tools.tunerPageTitle": "کرومیٹک ٹیونر",
   "tools.tunerPageDesc": "آپ کے آلے کے مائیکروفون کے ذریعے براہِ راست سُر کی شناخت اور حوالہ جاتی سُر۔",
+  "tuner.instrumentLabel": "ساز",
+  "tuner.tuningLabel": "ٹیوننگ",
+  "tuner.modeAuto": "خودکار",
+  "tuner.modeSingle": "ایک سُر",
+  "tuner.modeAria": "شناخت",
+  "tuner.referenceBtn": "حوالہ سُر",
+  "tuner.a4Label": "معیاری سُر",
+  "tuner.a4DownAria": "معیاری سُر نیچا",
+  "tuner.a4UpAria": "معیاری سُر اونچا",
+  "tuner.noteDownAria": "نیم سُر نیچے",
+  "tuner.noteUpAria": "نیم سُر اوپر",
+  "tuner.spectrumAria": "لائیو فریکوئنسی اسپیکٹرم",
   "tools.freeplayPageTitle": "آزاد مشق",
   "tools.freeplayPageDesc": "مکسر کے سازوں کے ساتھ آزادانہ بجانے، تجربہ کرنے اور کورڈ پیڈز کے لیے مفت کی بورڈ۔",
   "tools.backBtn": "اوزار پر واپس جائیں ←",
@@ -25357,6 +26010,52 @@ const TR_UR = Object.assign(Object.create(null), {
 
 // Notenlesen (Akkorde/Doppelsystem), Rhythmus vom Blatt, Modi-Fläche, Moll-Kadenzen, Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_UR, {
+  "Melodie im Notensystem": "اسٹاف پر دُھن",
+  "Automatisch": "خودکار",
+  "Tuner stoppen": "ٹیونر روکیں",
+  "Tuner starten": "ٹیونر شروع کریں",
+  "Das Mikrofon ist nur über HTTPS oder localhost verfügbar.": "مائیکروفون صرف HTTPS یا localhost پر دستیاب ہے۔",
+  "Mikrofon wird gestartet …": "مائیکروفون شروع ہو رہا ہے …",
+  "Spiel oder sing einen Ton …": "کوئی سُر بجائیں یا گائیں …",
+  "Mikrofon-Zugriff verweigert – bitte in den Browser- bzw. App-Einstellungen erlauben.": "مائیکروفون کی رسائی مسترد – براہ کرم براؤزر یا ایپ کی ترتیبات میں اجازت دیں۔",
+  "Kein Mikrofon gefunden.": "کوئی مائیکروفون نہیں ملا۔",
+  "Das Mikrofon konnte nicht gestartet werden.": "مائیکروفون شروع نہیں ہو سکا۔",
+  "Tuner pausiert.": "ٹیونر رُکا ہوا ہے۔",
+  "Referenzton …": "حوالہ سُر …",
+  "Sauber gestimmt!": "بالکل درست ٹیون!",
+  "Zu tief – etwas höher stimmen": "بہت نیچا – تھوڑا اونچا کریں",
+  "Zu hoch – etwas tiefer stimmen": "بہت اونچا – تھوڑا نیچا کریں",
+  "Fast da – Ton ruhig halten …": "تقریباً – سُر کو ٹھہرائے رکھیں …",
+  "Hinweis: Das Mikrofon funktioniert nur über HTTPS oder http://localhost – auf file:// oder unverschlüsseltem LAN-HTTP blockieren Browser den Zugriff.": "نوٹ: مائیکروفون صرف HTTPS یا http://localhost پر کام کرتا ہے – file:// یا غیر محفوظ LAN-HTTP پر براؤزر رسائی روک دیتے ہیں۔",
+  "Tippe auf „Tuner starten“ – beim ersten Mal fragt dein Gerät nach dem Mikrofon.": "„ٹیونر شروع کریں“ پر ٹیپ کریں – پہلی بار آپ کا آلہ مائیکروفون کی اجازت مانگے گا۔",
+  "Ziel: {note}": "ہدف: {note}",
+  "Saite {n}: {note}": "تار {n}: {note}",
+  "Etwa {n} Halbtöne zu tief": "تقریباً {n} نیم سُر نیچا",
+  "Etwa {n} Halbtöne zu hoch": "تقریباً {n} نیم سُر اونچا",
+  "Chromatisch": "کرومیٹک",
+  "Gitarre": "گٹار",
+  "E-Gitarre": "الیکٹرک گٹار",
+  "E-Bass": "الیکٹرک باس",
+  "Mandoline": "مینڈولن",
+  "Banjo": "بینجو",
+  "Violine": "وائلن",
+  "Viola": "وایولا",
+  "Cello": "چیلو",
+  "Kontrabass": "ڈبل باس",
+  "Gesang": "گائیکی",
+  "Standard": "معیاری",
+  "Halbton tiefer": "نیم سُر نیچے",
+  "Drop D": "Drop D",
+  "Drop C": "Drop C",
+  "DADGAD": "DADGAD",
+  "Open G": "Open G",
+  "Open D": "Open D",
+  "Double C": "Double C",
+  "7-saitig": "7 تار",
+  "4-saitig": "4 تار",
+  "5-saitig": "5 تار",
+  "Orchester": "آرکسٹرا",
+  "Solo": "سولو",
   "Shuffle": "شفل",
   "{n}. Stufe": "درجہ {n}",
   "Mitsingen": "ساتھ گائیں",
@@ -52446,7 +53145,8 @@ function createDefaultProfile() {
     singAlongTips: true,
     singAlongPause: false,
     singAlongIntroCounts: {},
-    singAlongIntroDone: false
+    singAlongIntroDone: false,
+    tuner: {}
   };
 }
 
@@ -52549,7 +53249,8 @@ function sanitizeUserProfile(raw) {
           .filter(([k, v]) => /^[a-z-]{3,32}$/.test(k) && Number.isFinite(Number(v)))
           .map(([k, v]) => [k, Math.max(0, Math.min(99, Math.round(Number(v))))]))
       : {},
-    singAlongIntroDone: Boolean(raw.singAlongIntroDone)
+    singAlongIntroDone: Boolean(raw.singAlongIntroDone),
+    tuner: sanitizeTunerPrefs(raw.tuner)
   };
 }
 
@@ -53255,7 +53956,12 @@ class AppState {
       });
     } else if (this.currentView === "tuner") {
       mainTitle.textContent = tr("Tuner", "Tuner");
-      el.textContent = tr("Stimmgerät & Tonhöhen-Anzeige", "Chromatic tuner & pitch meter");
+      const tp = typeof getTunerPrefs === "function" ? getTunerPrefs() : null;
+      const tInst = tp ? TUNER_INSTRUMENTS[tp.instrument] : null;
+      const tTun = tInst?.tunings ? tInst.tunings[tp.tuning] : null;
+      el.textContent = tInst
+        ? `${tr(tInst.de, tInst.en)}${tTun ? ` • ${tr(tTun.de, tTun.en)}` : ""} • A = ${tp.a4} Hz`
+        : tr("Stimmgerät & Tonhöhen-Anzeige", "Chromatic tuner & pitch meter");
     } else if (this.currentView === "freeplay") {
       mainTitle.textContent = tr("Freies Spiel", "Free Play");
       el.textContent = tr("Freies Ausprobieren mit Klaviatur & Klängen", "Explore notes & sounds freely");
@@ -69178,9 +69884,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("openFreeplayBtn")?.addEventListener("click", () => {
     openFreeplayView("tools");
   });
-  document.getElementById("tunerBackBtn")?.addEventListener("click", () => {
-    navigateBackFromUI();
-  });
   document.getElementById("freeplayBackBtn")?.addEventListener("click", () => {
     navigateBackFromUI();
   });
@@ -72252,43 +72955,929 @@ function openMetronomeView(returnView = "tools") {
   switchView("metronome");
 }
 
-function releaseTunerMicStream() {
-  const stream = state.tunerStream;
-  if (!stream) return;
+// =====================================================
+// CHROMATISCHER TUNER (#viewTuner)
+// Mikrofon → AnalyserNode → Tonhöhe per McLeod-Verfahren (NSDF) → Zeiger, Spektrum & Saiten.
+// Alles läuft lokal im Browser; der Mikrofon-Stream wird beim Verlassen sofort freigegeben.
+// =====================================================
+const TUNER_A4_DEFAULT = 440;
+const TUNER_A4_MIN = 430;
+const TUNER_A4_MAX = 450;
+const TUNER_IN_TUNE_HOLD_MS = 450;
+const TUNER_SILENCE_MS = 420;
+const TUNER_CENTS_RANGE = 50;       // Zeigerausschlag ±50 Cent
+const TUNER_GAUGE_DEG = 58;         // Winkel bei ±50 Cent
+
+// Instrumente & Stimmungen (Noten in internationaler Schreibweise, tiefste Saite zuerst)
+const TUNER_INSTRUMENTS = {
+  chromatic: { de: "Chromatisch", en: "Chromatic", range: [30, 1800], tolerance: 4, tunings: null },
+  guitar: { de: "Gitarre", en: "Guitar", tolerance: 4, tunings: {
+    standard: { de: "Standard", en: "Standard", notes: ["E2", "A2", "D3", "G3", "B3", "E4"] },
+    halfDown: { de: "Halbton tiefer", en: "Half step down", notes: ["Eb2", "Ab2", "Db3", "Gb3", "Bb3", "Eb4"], flat: true },
+    dropD: { de: "Drop D", en: "Drop D", notes: ["D2", "A2", "D3", "G3", "B3", "E4"] },
+    dadgad: { de: "DADGAD", en: "DADGAD", notes: ["D2", "A2", "D3", "G3", "A3", "D4"] },
+    openG: { de: "Open G", en: "Open G", notes: ["D2", "G2", "D3", "G3", "B3", "D4"] },
+    openD: { de: "Open D", en: "Open D", notes: ["D2", "A2", "D3", "F#3", "A3", "D4"] }
+  } },
+  eguitar: { de: "E-Gitarre", en: "Electric guitar", tolerance: 4, tunings: {
+    standard: { de: "Standard", en: "Standard", notes: ["E2", "A2", "D3", "G3", "B3", "E4"] },
+    halfDown: { de: "Halbton tiefer", en: "Half step down", notes: ["Eb2", "Ab2", "Db3", "Gb3", "Bb3", "Eb4"], flat: true },
+    dropD: { de: "Drop D", en: "Drop D", notes: ["D2", "A2", "D3", "G3", "B3", "E4"] },
+    dropC: { de: "Drop C", en: "Drop C", notes: ["C2", "G2", "C3", "F3", "A3", "D4"] },
+    sevenString: { de: "7-saitig", en: "7-string", notes: ["B1", "E2", "A2", "D3", "G3", "B3", "E4"] }
+  } },
+  ebass: { de: "E-Bass", en: "Electric bass", tolerance: 4, tunings: {
+    four: { de: "4-saitig", en: "4-string", notes: ["E1", "A1", "D2", "G2"] },
+    five: { de: "5-saitig", en: "5-string", notes: ["B0", "E1", "A1", "D2", "G2"] },
+    dropD: { de: "Drop D", en: "Drop D", notes: ["D1", "A1", "D2", "G2"] },
+    halfDown: { de: "Halbton tiefer", en: "Half step down", notes: ["Eb1", "Ab1", "Db2", "Gb2"], flat: true }
+  } },
+  mandolin: { de: "Mandoline", en: "Mandolin", tolerance: 4, tunings: {
+    standard: { de: "Standard", en: "Standard", notes: ["G3", "D4", "A4", "E5"] }
+  } },
+  banjo: { de: "Banjo", en: "Banjo", tolerance: 4, tunings: {
+    openG: { de: "Open G", en: "Open G", notes: ["G4", "D3", "G3", "B3", "D4"] },
+    doubleC: { de: "Double C", en: "Double C", notes: ["G4", "C3", "G3", "C4", "D4"] }
+  } },
+  violin: { de: "Violine", en: "Violin", tolerance: 4, tunings: {
+    standard: { de: "Standard", en: "Standard", notes: ["G3", "D4", "A4", "E5"] }
+  } },
+  viola: { de: "Viola", en: "Viola", tolerance: 4, tunings: {
+    standard: { de: "Standard", en: "Standard", notes: ["C3", "G3", "D4", "A4"] }
+  } },
+  cello: { de: "Cello", en: "Cello", tolerance: 4, tunings: {
+    standard: { de: "Standard", en: "Standard", notes: ["C2", "G2", "D3", "A3"] }
+  } },
+  doublebass: { de: "Kontrabass", en: "Double bass", tolerance: 4, tunings: {
+    orchestra: { de: "Orchester", en: "Orchestral", notes: ["E1", "A1", "D2", "G2"] },
+    solo: { de: "Solo", en: "Solo", notes: ["F#1", "B1", "E2", "A2"] }
+  } },
+  voice: { de: "Gesang", en: "Voice", range: [65, 1300], tolerance: 10, smooth: true, tunings: null }
+};
+
+const TUNER_NOTE_LETTER_PC = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
+
+function tunerNoteToMidi(name) {
+  const m = /^([A-G])([#b]?)(-?\d)$/.exec(String(name || ""));
+  if (!m) return 69;
+  const acc = m[2] === "#" ? 1 : (m[2] === "b" ? -1 : 0);
+  return (parseInt(m[3], 10) + 1) * 12 + TUNER_NOTE_LETTER_PC[m[1]] + acc;
+}
+
+function getTunerPrefs() {
+  const raw = state.profile?.tuner || {};
+  let instrument = TUNER_INSTRUMENTS[raw.instrument] ? raw.instrument : null;
+  if (!instrument) {
+    // Erstes Öffnen: Instrument aus dem Musiker-Profil ableiten
+    const insts = state.profile?.instruments || [];
+    instrument = insts.includes("Gitarre") ? "guitar"
+      : (insts.includes("Bass") ? "ebass" : (insts.includes("Gesang") ? "voice" : "chromatic"));
+  }
+  const tunings = TUNER_INSTRUMENTS[instrument].tunings;
+  const tuning = tunings ? (tunings[raw.tuning] ? raw.tuning : Object.keys(tunings)[0]) : "";
+  const a4 = Math.max(TUNER_A4_MIN, Math.min(TUNER_A4_MAX, Math.round(Number(raw.a4) || TUNER_A4_DEFAULT)));
+  const mode = raw.mode === "single" ? "single" : "auto";
+  const targetMidi = Number.isFinite(Number(raw.targetMidi)) ? Math.max(24, Math.min(96, Math.round(Number(raw.targetMidi)))) : 69;
+  return { instrument, tuning, a4, mode, targetMidi };
+}
+
+// Läuft schon beim Laden des Profils (vor den Tuner-Konstanten) → nur Literale verwenden
+function sanitizeTunerPrefs(raw) {
+  if (!raw || typeof raw !== "object") return {};
+  const out = {};
+  const instrumentKeys = ["chromatic", "guitar", "eguitar", "ebass", "mandolin", "banjo", "violin", "viola", "cello", "doublebass", "voice"];
+  if (instrumentKeys.includes(raw.instrument)) out.instrument = raw.instrument;
+  if (typeof raw.tuning === "string" && /^[A-Za-z]{1,24}$/.test(raw.tuning)) out.tuning = raw.tuning;
+  if (Number.isFinite(Number(raw.a4))) out.a4 = Math.max(430, Math.min(450, Math.round(Number(raw.a4))));
+  out.mode = raw.mode === "single" ? "single" : "auto";
+  if (Number.isFinite(Number(raw.targetMidi))) out.targetMidi = Math.max(24, Math.min(96, Math.round(Number(raw.targetMidi))));
+  return out;
+}
+
+function setTunerPrefs(patch) {
+  if (!state.profile) return;
+  state.profile.tuner = { ...getTunerPrefs(), ...patch };
+  saveUserProfile(state.profile);
+}
+
+// Aktive Saiten (oder leer bei Chromatisch/Gesang)
+function getTunerStrings(prefs = getTunerPrefs()) {
+  const inst = TUNER_INSTRUMENTS[prefs.instrument];
+  const tuning = inst.tunings ? inst.tunings[prefs.tuning] : null;
+  if (!tuning) return [];
+  return tuning.notes.map((n, i) => ({ index: i, name: n, midi: tunerNoteToMidi(n), flat: Boolean(tuning.flat) }));
+}
+
+function getTunerRange(prefs = getTunerPrefs()) {
+  const inst = TUNER_INSTRUMENTS[prefs.instrument];
+  const strings = getTunerStrings(prefs);
+  if (strings.length) {
+    const lo = Math.min(...strings.map(st => st.midi));
+    const hi = Math.max(...strings.map(st => st.midi));
+    return [tunerMidiToFreq(lo, prefs.a4) / 1.45, tunerMidiToFreq(hi, prefs.a4) * 1.6];
+  }
+  return inst.range || [30, 1800];
+}
+
+function tunerMidiToFreq(midi, a4 = TUNER_A4_DEFAULT) {
+  return a4 * Math.pow(2, (midi - 69) / 12);
+}
+
+function tunerFreqToMidiFloat(freq, a4 = TUNER_A4_DEFAULT) {
+  return 69 + 12 * Math.log2(freq / a4);
+}
+
+function formatTunerNote(midi, preferFlat = false) {
+  const full = midiToGermanNote(midi, preferFlat);
+  const m = /^(.*?)(-?\d+)$/.exec(full);
+  return m ? { name: m[1], octave: m[2] } : { name: full, octave: "" };
+}
+
+const _tuner = {
+  ctx: null, stream: null, source: null, analyser: null, sink: null,
+  running: false, starting: false, rafId: 0, frame: 0,
+  timeBuf: null, freqBuf: null, work: null, nsdf: null,
+  history: [], smoothCents: null, displayMidi: null, lastFreq: 0, lastClarity: 0,
+  lastPitchAt: 0, inTuneSince: 0, inTune: false, tunedStrings: new Set(),
+  refUntil: 0, refNodes: null, wakeLock: null, colors: null, gaugeBuilt: false
+};
+
+/**
+ * McLeod Pitch Method: normierte Autokorrelation (NSDF) mit Spitzenwahl & Parabel-Interpolation.
+ * Liefert { freq, clarity, rms }. Das Signal wird auf ~24 kHz heruntergemischt (spart Rechenzeit).
+ */
+function detectTunerPitch(input, sampleRate, minFreq, maxFreq) {
+  const dec = sampleRate > 30000 ? 2 : 1;
+  const n = Math.floor(input.length / dec);
+  if (!_tuner.work || _tuner.work.length !== n) _tuner.work = new Float32Array(n);
+  const x = _tuner.work;
+  let mean = 0;
+  for (let i = 0; i < n; i++) {
+    const v = dec === 2 ? (input[2 * i] + input[2 * i + 1]) * 0.5 : input[i];
+    x[i] = v;
+    mean += v;
+  }
+  mean /= n;
+  let energy = 0;
+  for (let i = 0; i < n; i++) {
+    x[i] -= mean;
+    energy += x[i] * x[i];
+  }
+  const rms = Math.sqrt(energy / n);
+  if (rms < 0.006) return { freq: 0, clarity: 0, rms };
+
+  const sr = sampleRate / dec;
+  const minLag = Math.max(2, Math.floor(sr / maxFreq));
+  const maxLag = Math.min(Math.floor(n / 2), Math.ceil(sr / minFreq));
+  if (!_tuner.nsdf || _tuner.nsdf.length < maxLag + 2) _tuner.nsdf = new Float32Array(maxLag + 2);
+  const nsdf = _tuner.nsdf;
+  nsdf.fill(0);
+
+  // m(τ) inkrementell: Summe der Quadrate beider Fensterteile
+  let m = 2 * energy;
+  for (let tau = 1; tau <= maxLag + 1; tau++) {
+    m -= x[tau - 1] * x[tau - 1] + x[n - tau] * x[n - tau];
+    if (tau < minLag - 1) continue;
+    let acf = 0;
+    const lim = n - tau;
+    for (let j = 0; j < lim; j++) acf += x[j] * x[j + tau];
+    nsdf[tau] = m > 1e-9 ? (2 * acf) / m : 0;
+  }
+
+  // Positive Bereiche nach dem ersten Nulldurchgang: jeweils höchste Spitze merken
+  const peaks = [];
+  let tau = Math.max(1, minLag - 1);
+  while (tau <= maxLag && nsdf[tau] > 0) tau++;
+  let bestInRegion = -1;
+  for (; tau <= maxLag; tau++) {
+    const v = nsdf[tau];
+    if (v > 0) {
+      if (bestInRegion < 0 || v > nsdf[bestInRegion]) bestInRegion = tau;
+    } else if (bestInRegion >= 0) {
+      peaks.push(bestInRegion);
+      bestInRegion = -1;
+    }
+  }
+  if (bestInRegion >= 0 && bestInRegion < maxLag) peaks.push(bestInRegion);
+  if (!peaks.length) return { freq: 0, clarity: 0, rms };
+
+  const maxPeak = Math.max(...peaks.map(p => nsdf[p]));
+  const chosen = peaks.find(p => nsdf[p] >= 0.9 * maxPeak) || peaks[0];
+  const a = nsdf[chosen - 1] || 0;
+  const b = nsdf[chosen];
+  const c = nsdf[chosen + 1] || 0;
+  const denom = a - 2 * b + c;
+  const shift = Math.abs(denom) > 1e-9 ? (a - c) / (2 * denom) : 0;
+  const lag = chosen + Math.max(-1, Math.min(1, shift));
+  const clarity = Math.min(1, b - 0.25 * (a - c) * shift);
+  const freq = sr / lag;
+  if (!Number.isFinite(freq) || freq < minFreq * 0.9 || freq > maxFreq * 1.1) return { freq: 0, clarity: 0, rms };
+  return { freq, clarity, rms };
+}
+
+function readTunerColors() {
+  const cs = getComputedStyle(document.documentElement);
+  const v = (name, fb) => (cs.getPropertyValue(name) || "").trim() || fb;
+  _tuner.colors = {
+    ink: v("--raccoon-dark", "#1F3342"),
+    muted: v("--raccoon-muted", "#7A8A94"),
+    border: v("--border-soft", "#DDE3E0"),
+    lilac: v("--lilac-strong", "#7B6FB3"),
+    peach: v("--peach-strong", "#E0704F"),
+    sage: v("--sage-strong", "#2E6F4E")
+  };
+}
+
+// ---------- Zeigerinstrument ----------
+function buildTunerGauge() {
+  const ticks = document.getElementById("tunerGaugeTicks");
+  const zone = document.getElementById("tunerGaugeZone");
+  if (!ticks || !zone) return;
+  const cx = 150;
+  const cy = 168;
+  const polar = (deg, r) => {
+    const rad = (deg - 90) * Math.PI / 180;
+    return [cx + r * Math.cos(rad), cy + r * Math.sin(rad)];
+  };
+  let html = "";
+  for (let c = -TUNER_CENTS_RANGE; c <= TUNER_CENTS_RANGE; c += 5) {
+    const deg = (c / TUNER_CENTS_RANGE) * TUNER_GAUGE_DEG;
+    const major = c % 25 === 0;
+    const [x1, y1] = polar(deg, major ? 128 : 134);
+    const [x2, y2] = polar(deg, 142);
+    html += `<line class="tuner-tick${major ? " is-major" : ""}${c === 0 ? " is-center" : ""}" x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"/>`;
+  }
+  [[-50, "−50"], [0, "0"], [50, "+50"]].forEach(([c, lbl]) => {
+    const [tx, ty] = polar((c / TUNER_CENTS_RANGE) * TUNER_GAUGE_DEG, 116);
+    html += `<text class="tuner-tick-label" x="${tx.toFixed(1)}" y="${(ty + 4).toFixed(1)}" text-anchor="middle" font-family="Andika, sans-serif">${lbl}</text>`;
+  });
+  ticks.innerHTML = html;
+  _tuner.gaugeBuilt = true;
+  updateTunerGaugeZone();
+}
+
+function updateTunerGaugeZone() {
+  const zone = document.getElementById("tunerGaugeZone");
+  if (!zone) return;
+  const tol = TUNER_INSTRUMENTS[getTunerPrefs().instrument].tolerance || 4;
+  const cx = 150;
+  const cy = 168;
+  const r = 136;
+  const a = (Math.max(3, tol) / TUNER_CENTS_RANGE) * TUNER_GAUGE_DEG;
+  const pt = (deg) => {
+    const rad = (deg - 90) * Math.PI / 180;
+    return `${(cx + r * Math.cos(rad)).toFixed(1)} ${(cy + r * Math.sin(rad)).toFixed(1)}`;
+  };
+  zone.setAttribute("d", `M ${pt(-a)} A ${r} ${r} 0 0 1 ${pt(a)}`);
+}
+
+function setTunerNeedle(cents) {
+  const needle = document.getElementById("tunerNeedle");
+  if (!needle) return;
+  const clamped = Math.max(-TUNER_CENTS_RANGE - 4, Math.min(TUNER_CENTS_RANGE + 4, cents || 0));
+  needle.style.transform = `rotate(${((clamped / TUNER_CENTS_RANGE) * TUNER_GAUGE_DEG).toFixed(2)}deg)`;
+}
+
+// ---------- Spektrum ----------
+function drawTunerSpectrum(detectFreq, targetFreq, inTune) {
+  const canvas = document.getElementById("tunerSpectrum");
+  if (!canvas || !canvas.getContext) return;
+  const dpr = Math.min(2, window.devicePixelRatio || 1);
+  const w = Math.max(10, Math.round(canvas.clientWidth * dpr));
+  const h = Math.max(10, Math.round(canvas.clientHeight * dpr));
+  if (canvas.width !== w || canvas.height !== h) {
+    canvas.width = w;
+    canvas.height = h;
+  }
+  const g = canvas.getContext("2d");
+  g.clearRect(0, 0, w, h);
+  if (!_tuner.colors) readTunerColors();
+  const col = _tuner.colors;
+  const prefs = getTunerPrefs();
+  const [rLo, rHi] = getTunerRange(prefs);
+  const fLo = Math.max(25, rLo);
+  const fHi = Math.min(4000, rHi * 2.4);
+  const logLo = Math.log(fLo);
+  const logSpan = Math.log(fHi) - logLo;
+  const xOf = (f) => ((Math.log(f) - logLo) / logSpan) * w;
+  const labelH = 13 * dpr;
+  const plotH = h - labelH;
+
+  // Raster: Saiten bzw. alle C
+  g.font = `700 ${Math.round(9.5 * dpr)}px Andika, sans-serif`;
+  g.textAlign = "center";
+  g.textBaseline = "bottom";
+  const strings = getTunerStrings(prefs);
+  const marks = strings.length
+    ? strings.map(st => ({ f: tunerMidiToFreq(st.midi, prefs.a4), label: formatTunerNote(st.midi, st.flat).name, idx: st.index }))
+    : [];
+  if (!strings.length) {
+    for (let midi = 12; midi <= 120; midi += 12) {
+      const f = tunerMidiToFreq(midi, prefs.a4);
+      if (f >= fLo && f <= fHi) marks.push({ f, label: formatTunerNote(midi).name + formatTunerNote(midi).octave });
+    }
+  }
+  marks.forEach(mk => {
+    const x = xOf(mk.f);
+    if (x < 0 || x > w) return;
+    g.strokeStyle = col.border;
+    g.lineWidth = dpr;
+    g.setLineDash([2 * dpr, 3 * dpr]);
+    g.beginPath();
+    g.moveTo(x, 0);
+    g.lineTo(x, plotH);
+    g.stroke();
+    g.setLineDash([]);
+    g.fillStyle = _tuner.tunedStrings.has(mk.idx) ? col.sage : col.muted;
+    g.fillText(mk.label, x, h);
+  });
+
+  // Live-Spektrum (Analyser, dB)
+  if (_tuner.running && _tuner.analyser && _tuner.freqBuf) {
+    _tuner.analyser.getFloatFrequencyData(_tuner.freqBuf);
+    const binHz = _tuner.ctx.sampleRate / _tuner.analyser.fftSize;
+    g.beginPath();
+    g.moveTo(0, plotH);
+    for (let px = 0; px <= w; px += 2 * dpr) {
+      const f = Math.exp(logLo + (px / w) * logSpan);
+      const bin = f / binHz;
+      const i0 = Math.floor(bin);
+      const frac = bin - i0;
+      const v0 = _tuner.freqBuf[i0] ?? -140;
+      const v1 = _tuner.freqBuf[i0 + 1] ?? v0;
+      const db = v0 + (v1 - v0) * frac;
+      const norm = Math.max(0, Math.min(1, (db + 100) / 72));
+      g.lineTo(px, plotH - norm * (plotH - 2 * dpr));
+    }
+    g.lineTo(w, plotH);
+    g.closePath();
+    g.fillStyle = col.lilac;
+    g.globalAlpha = 0.22;
+    g.fill();
+    g.globalAlpha = 0.85;
+    g.strokeStyle = col.lilac;
+    g.lineWidth = 1.4 * dpr;
+    g.stroke();
+    g.globalAlpha = 1;
+  }
+
+  // Zielton (Einzelton)
+  if (targetFreq) {
+    const tx = xOf(targetFreq);
+    g.strokeStyle = col.sage;
+    g.lineWidth = 1.6 * dpr;
+    g.setLineDash([4 * dpr, 3 * dpr]);
+    g.beginPath();
+    g.moveTo(tx, 0);
+    g.lineTo(tx, plotH);
+    g.stroke();
+    g.setLineDash([]);
+  }
+
+  // Zeiger an der erkannten Grundfrequenz
+  if (detectFreq) {
+    const px = xOf(detectFreq);
+    const c = inTune ? col.sage : col.peach;
+    g.strokeStyle = c;
+    g.fillStyle = c;
+    g.lineWidth = 2.2 * dpr;
+    g.beginPath();
+    g.moveTo(px, 5 * dpr);
+    g.lineTo(px, plotH);
+    g.stroke();
+    g.beginPath();
+    g.moveTo(px - 5 * dpr, 0);
+    g.lineTo(px + 5 * dpr, 0);
+    g.lineTo(px, 6 * dpr);
+    g.closePath();
+    g.fill();
+  }
+}
+
+// ---------- Anzeige ----------
+function setTunerStatus(text, kind = "") {
+  const el = document.getElementById("tunerStatus");
+  if (!el) return;
+  el.textContent = text;
+  el.dataset.kind = kind;
+}
+
+function renderTunerReadout(info) {
+  const display = document.getElementById("tunerDisplay");
+  const nameEl = document.getElementById("tunerNoteName");
+  const octEl = document.getElementById("tunerNoteOctave");
+  const centsEl = document.getElementById("tunerCents");
+  const freqEl = document.getElementById("tunerFreq");
+  const targetEl = document.getElementById("tunerTargetLabel");
+  if (!display) return;
+  const prefs = getTunerPrefs();
+
+  if (targetEl) {
+    if (prefs.mode === "single") {
+      const t = getTunerTargetMidi(prefs);
+      const strings = getTunerStrings(prefs);
+      const flat = strings.some(st => st.flat);
+      const tn = formatTunerNote(t, flat);
+      targetEl.textContent = tf("Ziel: {note}", "Target: {note}", { note: `${tn.name}${tn.octave}` });
+    } else {
+      targetEl.textContent = tr("Automatisch", "Automatic");
+    }
+  }
+
+  if (!info) {
+    display.classList.toggle("is-quiet", _tuner.running);
+    return;
+  }
+  display.classList.remove("is-quiet", "is-idle");
+  const note = formatTunerNote(info.midi, info.flat);
+  if (nameEl) nameEl.textContent = note.name;
+  if (octEl) octEl.textContent = note.octave;
+  const rounded = Math.round(info.cents);
+  if (centsEl) centsEl.textContent = `${rounded > 0 ? "+" : (rounded < 0 ? "−" : "±")} ${Math.abs(rounded)} ¢`;
+  if (freqEl) freqEl.textContent = `${info.freq.toFixed(1)} Hz`;
+  display.classList.toggle("is-sharp", rounded > (info.tol || 4));
+  display.classList.toggle("is-flat", rounded < -(info.tol || 4));
+}
+
+function getTunerTargetMidi(prefs = getTunerPrefs()) {
+  const strings = getTunerStrings(prefs);
+  if (strings.length) {
+    const hit = strings.find(st => st.midi === prefs.targetMidi);
+    return hit ? hit.midi : strings[0].midi;
+  }
+  return prefs.targetMidi || 69;
+}
+
+function renderTunerStrings() {
+  const row = document.getElementById("tunerStringsRow");
+  const stepper = document.getElementById("tunerNoteStepper");
+  const stepNote = document.getElementById("tunerStepperNote");
+  if (!row) return;
+  const prefs = getTunerPrefs();
+  const strings = getTunerStrings(prefs);
+  row.classList.toggle("hidden", strings.length === 0);
+  stepper?.classList.toggle("hidden", strings.length > 0 || prefs.mode !== "single");
+  if (stepNote) {
+    const tn = formatTunerNote(prefs.targetMidi || 69);
+    stepNote.textContent = `${tn.name}${tn.octave}`;
+  }
+  const target = getTunerTargetMidi(prefs);
+  row.innerHTML = strings.map(st => {
+    const n = formatTunerNote(st.midi, st.flat);
+    const isTarget = prefs.mode === "single" && st.midi === target;
+    const tuned = _tuner.tunedStrings.has(st.index);
+    return `<button class="tuner-string-chip${isTarget ? " is-target" : ""}${tuned ? " is-tuned" : ""}" type="button" data-tuner-string="${st.index}" aria-pressed="${isTarget}" aria-label="${escapeHtml(tf("Saite {n}: {note}", "String {n}: {note}", { n: strings.length - st.index, note: n.name + n.octave }))}">
+      <span class="tuner-string-name">${escapeHtml(n.name)}</span><span class="tuner-string-oct">${escapeHtml(n.octave)}</span>
+    </button>`;
+  }).join("");
+}
+
+function syncTunerSetupUI() {
+  const prefs = getTunerPrefs();
+  const instSel = document.getElementById("tunerInstrumentSelect");
+  const tunSel = document.getElementById("tunerTuningSelect");
+  const tunField = document.getElementById("tunerTuningField");
+  if (instSel) {
+    instSel.innerHTML = Object.entries(TUNER_INSTRUMENTS)
+      .map(([key, def]) => `<option value="${key}"${key === prefs.instrument ? " selected" : ""}>${escapeHtml(tr(def.de, def.en))}</option>`)
+      .join("");
+  }
+  const tunings = TUNER_INSTRUMENTS[prefs.instrument].tunings;
+  tunField?.classList.toggle("hidden", !tunings || Object.keys(tunings).length < 2);
+  if (tunSel) {
+    tunSel.innerHTML = tunings
+      ? Object.entries(tunings).map(([key, def]) => {
+          const notes = def.notes.map(n => formatTunerNote(tunerNoteToMidi(n), def.flat).name).join(" ");
+          return `<option value="${key}"${key === prefs.tuning ? " selected" : ""}>${escapeHtml(`${tr(def.de, def.en)} (${notes})`)}</option>`;
+        }).join("")
+      : "";
+  }
+  document.querySelectorAll("[data-tuner-mode]").forEach(btn => {
+    const on = btn.dataset.tunerMode === prefs.mode;
+    btn.classList.toggle("active", on);
+    btn.setAttribute("aria-checked", String(on));
+  });
+  const a4El = document.getElementById("tunerA4Value");
+  if (a4El) a4El.textContent = `A = ${prefs.a4} Hz`;
+  renderTunerStrings();
+  updateTunerGaugeZone();
+  renderTunerReadout(null);
+  if (state.currentView === "tuner") state.updateHeaderSubtext();
+}
+
+function syncTunerStartButton() {
+  const btn = document.getElementById("tunerStartBtn");
+  if (!btn) return;
+  btn.textContent = _tuner.running ? tr("Tuner stoppen", "Stop tuner") : tr("Tuner starten", "Start tuner");
+  btn.classList.toggle("btn-stop", _tuner.running);
+  btn.disabled = _tuner.starting;
+}
+
+// ---------- Mikrofon ----------
+async function startTunerSession() {
+  if (_tuner.running || _tuner.starting) return;
+  const hasMedia = typeof navigator !== "undefined" && Boolean(navigator.mediaDevices?.getUserMedia);
+  if (!hasMedia || window.isSecureContext === false) {
+    setTunerStatus(tr("Das Mikrofon ist nur über HTTPS oder localhost verfügbar.", "The microphone is only available via HTTPS or localhost."), "warn");
+    return;
+  }
+  _tuner.starting = true;
+  syncTunerStartButton();
+  setTunerStatus(tr("Mikrofon wird gestartet …", "Starting microphone …"));
   try {
-    stream.getTracks?.().forEach(track => {
-      try { track.stop(); } catch (_) {}
+    stopPlayback();
+    const stream = await navigator.mediaDevices.getUserMedia({
+      audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false }
     });
-  } catch (_) {}
+    if (state.currentView !== "tuner") {
+      stream.getTracks().forEach(t => t.stop());
+      return;
+    }
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    const ctx = _tuner.ctx && _tuner.ctx.state !== "closed" ? _tuner.ctx : new Ctx();
+    if (ctx.state === "suspended") await ctx.resume();
+    const source = ctx.createMediaStreamSource(stream);
+    const analyser = ctx.createAnalyser();
+    analyser.fftSize = 4096;
+    analyser.smoothingTimeConstant = 0.55;
+    // Stummer Abzweig zum Ausgang hält die Kette in allen Browsern (Safari) aktiv – ohne Rückkopplung
+    const sink = ctx.createGain();
+    sink.gain.value = 0;
+    source.connect(analyser);
+    analyser.connect(sink);
+    sink.connect(ctx.destination);
+
+    Object.assign(_tuner, {
+      ctx, stream, source, analyser, sink,
+      timeBuf: new Float32Array(analyser.fftSize),
+      freqBuf: new Float32Array(analyser.frequencyBinCount),
+      running: true, history: [], smoothCents: null, displayMidi: null,
+      lastPitchAt: 0, inTuneSince: 0, inTune: false
+    });
+    state.tunerStream = stream;
+    readTunerColors();
+    requestTunerWakeLock();
+    setTunerStatus(tr("Spiel oder sing einen Ton …", "Play or sing a note …"));
+    document.getElementById("tunerDisplay")?.classList.remove("is-idle");
+    _tuner.rafId = requestAnimationFrame(tunerLoop);
+  } catch (err) {
+    const name = err?.name || "";
+    if (name === "NotAllowedError" || name === "SecurityError") {
+      setTunerStatus(tr("Mikrofon-Zugriff verweigert – bitte in den Browser- bzw. App-Einstellungen erlauben.", "Microphone access denied — please allow it in your browser or app settings."), "warn");
+    } else if (name === "NotFoundError" || name === "OverconstrainedError") {
+      setTunerStatus(tr("Kein Mikrofon gefunden.", "No microphone found."), "warn");
+    } else {
+      setTunerStatus(tr("Das Mikrofon konnte nicht gestartet werden.", "The microphone could not be started."), "warn");
+    }
+  } finally {
+    _tuner.starting = false;
+    syncTunerStartButton();
+  }
+}
+
+function releaseTunerMicStream() {
+  const stream = _tuner.stream || state.tunerStream;
+  if (stream) {
+    try {
+      stream.getTracks?.().forEach(track => {
+        try { track.stop(); } catch (_) {}
+      });
+    } catch (_) {}
+  }
+  try { _tuner.source?.disconnect(); } catch (_) {}
+  try { _tuner.analyser?.disconnect(); } catch (_) {}
+  try { _tuner.sink?.disconnect(); } catch (_) {}
+  _tuner.stream = null;
+  _tuner.source = null;
+  _tuner.analyser = null;
+  _tuner.sink = null;
   state.tunerStream = null;
 }
 
 function stopTunerSession() {
+  if (_tuner.rafId) cancelAnimationFrame(_tuner.rafId);
+  _tuner.rafId = 0;
+  const wasRunning = _tuner.running;
+  _tuner.running = false;
   releaseTunerMicStream();
+  stopTunerReference();
+  releaseTunerWakeLock();
+  if (_tuner.ctx && _tuner.ctx.state !== "closed") {
+    const ctx = _tuner.ctx;
+    _tuner.ctx = null;
+    try { ctx.close(); } catch (_) {}
+  }
+  const display = document.getElementById("tunerDisplay");
+  display?.classList.remove("is-in-tune", "is-sharp", "is-flat", "is-quiet");
+  display?.classList.add("is-idle");
+  setTunerNeedle(0);
+  syncTunerStartButton();
+  if (wasRunning) {
+    setTunerStatus(tr("Tuner pausiert.", "Tuner paused."));
+  }
+  if (document.getElementById("tunerSpectrum")) drawTunerSpectrum(0, null, false);
+}
+
+async function requestTunerWakeLock() {
+  try {
+    if (navigator.wakeLock?.request) _tuner.wakeLock = await navigator.wakeLock.request("screen");
+  } catch (_) {
+    _tuner.wakeLock = null;
+  }
+}
+
+function releaseTunerWakeLock() {
+  try { _tuner.wakeLock?.release?.(); } catch (_) {}
+  _tuner.wakeLock = null;
+}
+
+// ---------- Messschleife ----------
+function tunerLoop() {
+  if (!_tuner.running || !_tuner.analyser) return;
+  _tuner.rafId = requestAnimationFrame(tunerLoop);
+  _tuner.frame += 1;
+  const now = performance.now();
+  const prefs = getTunerPrefs();
+  const inst = TUNER_INSTRUMENTS[prefs.instrument];
+  const tol = inst.tolerance || 4;
+  const strings = getTunerStrings(prefs);
+  const flat = strings.some(st => st.flat);
+  const isSingle = prefs.mode === "single";
+  const targetMidi = isSingle ? getTunerTargetMidi(prefs) : null;
+
+  // Tonhöhe nur jeden zweiten Frame (~30×/s) – schont Akku & Prozessor
+  if (_tuner.frame % 2 === 0) {
+    if (now < _tuner.refUntil) {
+      setTunerStatus(tr("Referenzton …", "Reference tone …"));
+    } else {
+      const [minF, maxF] = getTunerRange(prefs);
+      _tuner.analyser.getFloatTimeDomainData(_tuner.timeBuf);
+      const res = detectTunerPitch(_tuner.timeBuf, _tuner.ctx.sampleRate, minF, maxF);
+      if (res.freq && res.clarity >= 0.8) {
+        _tuner.history.push(res.freq);
+        const histLen = inst.smooth ? 7 : 5;
+        while (_tuner.history.length > histLen) _tuner.history.shift();
+        const sorted = [..._tuner.history].sort((p, q) => p - q);
+        const median = sorted[Math.floor(sorted.length / 2)];
+        _tuner.lastFreq = median;
+        _tuner.lastClarity = res.clarity;
+        _tuner.lastPitchAt = now;
+        updateTunerReading(median, res.clarity, { prefs, tol, strings, flat, isSingle, targetMidi, now });
+      } else if (now - _tuner.lastPitchAt > TUNER_SILENCE_MS) {
+        _tuner.history = [];
+        _tuner.smoothCents = null;
+        if (_tuner.inTune || _tuner.inTuneSince) {
+          _tuner.inTune = false;
+          _tuner.inTuneSince = 0;
+          document.getElementById("tunerDisplay")?.classList.remove("is-in-tune");
+        }
+        renderTunerReadout(null);
+        setTunerNeedle(0);
+        setTunerStatus(tr("Spiel oder sing einen Ton …", "Play or sing a note …"));
+      }
+    }
+  }
+
+  const showFreq = now - _tuner.lastPitchAt <= TUNER_SILENCE_MS ? _tuner.lastFreq : 0;
+  drawTunerSpectrum(showFreq, targetMidi !== null ? tunerMidiToFreq(targetMidi, prefs.a4) : null, _tuner.inTune);
+}
+
+function updateTunerReading(freq, clarity, ctx) {
+  const { prefs, tol, strings, flat, isSingle, targetMidi, now } = ctx;
+  const midiFloat = tunerFreqToMidiFloat(freq, prefs.a4);
+  const refMidi = isSingle ? targetMidi : Math.round(midiFloat);
+  const rawCents = (midiFloat - refMidi) * 100;
+
+  if (_tuner.displayMidi !== refMidi || _tuner.smoothCents === null || Math.abs(rawCents - _tuner.smoothCents) > 50) {
+    // Neuer Ton oder großer Sprung: sofort folgen statt langsam hinüberzugleiten
+    _tuner.displayMidi = refMidi;
+    _tuner.smoothCents = rawCents;
+    _tuner.inTuneSince = 0;
+  } else {
+    const alpha = TUNER_INSTRUMENTS[prefs.instrument].smooth ? 0.18 : 0.32;
+    _tuner.smoothCents += alpha * (rawCents - _tuner.smoothCents);
+  }
+  const cents = _tuner.smoothCents;
+  setTunerNeedle(cents);
+  renderTunerReadout({ midi: refMidi, cents, freq, flat, tol });
+
+  // Saite, die gerade klingt (±60 Cent)
+  const matchString = strings.find(st => Math.abs(midiFloat - st.midi) * 100 <= 60);
+  document.querySelectorAll(".tuner-string-chip").forEach(chip => {
+    chip.classList.toggle("is-sounding", Boolean(matchString) && Number(chip.dataset.tunerString) === matchString.index);
+  });
+
+  // Sauber gestimmt? Kurz halten, dann feiern
+  const display = document.getElementById("tunerDisplay");
+  const inZone = Math.abs(cents) <= tol && clarity >= 0.88;
+  if (inZone) {
+    if (!_tuner.inTuneSince) _tuner.inTuneSince = now;
+    if (!_tuner.inTune && now - _tuner.inTuneSince >= TUNER_IN_TUNE_HOLD_MS) {
+      _tuner.inTune = true;
+      if (display) {
+        display.classList.remove("is-in-tune");
+        void display.offsetWidth;
+        display.classList.add("is-in-tune");
+      }
+      try { navigator.vibrate?.(28); } catch (_) {}
+      const tunedString = isSingle ? strings.find(st => st.midi === targetMidi) : matchString;
+      if (tunedString && !_tuner.tunedStrings.has(tunedString.index)) {
+        _tuner.tunedStrings.add(tunedString.index);
+        renderTunerStrings();
+      }
+    }
+  } else if (Math.abs(cents) > tol * 1.6 || clarity < 0.8) {
+    _tuner.inTuneSince = 0;
+    if (_tuner.inTune) {
+      _tuner.inTune = false;
+      display?.classList.remove("is-in-tune");
+    }
+  }
+
+  if (_tuner.inTune) {
+    setTunerStatus(tr("Sauber gestimmt!", "Nicely in tune!"), "ok");
+  } else if (Math.abs(cents) >= 100) {
+    const semis = Math.round(Math.abs(cents) / 100);
+    setTunerStatus(cents < 0
+      ? tf("Etwa {n} Halbtöne zu tief", "About {n} semitones too low", { n: semis })
+      : tf("Etwa {n} Halbtöne zu hoch", "About {n} semitones too high", { n: semis }), "far");
+  } else if (cents < -tol) {
+    setTunerStatus(tr("Zu tief – etwas höher stimmen", "Too low — tune up a little"), "low");
+  } else if (cents > tol) {
+    setTunerStatus(tr("Zu hoch – etwas tiefer stimmen", "Too high — tune down a little"), "high");
+  } else {
+    setTunerStatus(tr("Fast da – Ton ruhig halten …", "Almost there — hold the note steady …"), "near");
+  }
+}
+
+// ---------- Referenzton ----------
+function stopTunerReference() {
+  const nodes = _tuner.refNodes;
+  _tuner.refNodes = null;
+  _tuner.refUntil = 0;
+  if (!nodes) return;
+  try {
+    const t = nodes.ctx.currentTime;
+    nodes.gain.gain.cancelScheduledValues(t);
+    nodes.gain.gain.setTargetAtTime(0, t, 0.03);
+    nodes.oscs.forEach(o => { try { o.stop(t + 0.2); } catch (_) {} });
+    if (nodes.ownCtx) setTimeout(() => { try { nodes.ctx.close(); } catch (_) {} }, 400);
+  } catch (_) {}
+}
+
+async function playTunerReference(midi) {
+  stopTunerReference();
+  const prefs = getTunerPrefs();
+  const freq = tunerMidiToFreq(midi, prefs.a4);
+  const Ctx = window.AudioContext || window.webkitAudioContext;
+  if (!Ctx) return;
+  const ownCtx = !(_tuner.ctx && _tuner.ctx.state !== "closed");
+  const ctx = ownCtx ? new Ctx() : _tuner.ctx;
+  try { if (ctx.state === "suspended") await ctx.resume(); } catch (_) {}
+  const dur = 2.2;
+  const t0 = ctx.currentTime + 0.02;
+  const gain = ctx.createGain();
+  const vol = state.master?.muted ? 0 : Math.max(0.05, Math.min(1, state.master?.volume ?? 0.67)) * 0.34;
+  gain.gain.setValueAtTime(0.0001, t0);
+  gain.gain.exponentialRampToValueAtTime(vol, t0 + 0.04);
+  gain.gain.setTargetAtTime(vol * 0.72, t0 + 0.25, 0.4);
+  gain.gain.setTargetAtTime(0.0001, t0 + dur - 0.35, 0.12);
+  gain.connect(ctx.destination);
+  // Warmer, klar ortbarer Ton: Grundton + leise Obertöne
+  const oscs = [[1, 1], [2, 0.28], [3, 0.1]].map(([mult, amp]) => {
+    const o = ctx.createOscillator();
+    const og = ctx.createGain();
+    o.type = "sine";
+    o.frequency.value = freq * mult;
+    og.gain.value = amp;
+    o.connect(og);
+    og.connect(gain);
+    o.start(t0);
+    o.stop(t0 + dur + 0.1);
+    return o;
+  });
+  _tuner.refNodes = { ctx, gain, oscs, ownCtx };
+  _tuner.refUntil = performance.now() + (dur + 0.25) * 1000;
+  const btn = document.getElementById("tunerRefBtn");
+  btn?.classList.add("is-playing");
+  setTimeout(() => {
+    btn?.classList.remove("is-playing");
+    if (_tuner.refNodes?.oscs === oscs) {
+      _tuner.refNodes = null;
+      if (ownCtx) { try { ctx.close(); } catch (_) {} }
+    }
+  }, (dur + 0.2) * 1000);
+}
+
+function getTunerReferenceMidi() {
+  const prefs = getTunerPrefs();
+  if (prefs.mode === "single") return getTunerTargetMidi(prefs);
+  if (_tuner.displayMidi !== null && _tuner.running && performance.now() - _tuner.lastPitchAt < 4000) return _tuner.displayMidi;
+  const strings = getTunerStrings(prefs);
+  return strings.length ? strings[0].midi : 69;
+}
+
+// ---------- Ansicht & Bedienung ----------
+function renderTunerPreviewView() {
+  renderTunerView();
+}
+
+function renderTunerView() {
+  if (!_tuner.gaugeBuilt) buildTunerGauge();
+  bindTunerControls();
+  syncTunerSetupUI();
+  syncTunerStartButton();
+  readTunerColors();
+  const noticeEl = document.getElementById("tunerSecureContextNotice");
+  const hasMedia = typeof navigator !== "undefined" && Boolean(navigator.mediaDevices?.getUserMedia);
+  const isSecure = typeof window === "undefined" || window.isSecureContext !== false;
+  if (noticeEl) {
+    noticeEl.classList.toggle("hidden", isSecure && hasMedia);
+    noticeEl.classList.add("is-warning");
+    noticeEl.textContent = tr(
+      "Hinweis: Das Mikrofon funktioniert nur über HTTPS oder http://localhost – auf file:// oder unverschlüsseltem LAN-HTTP blockieren Browser den Zugriff.",
+      "Note: The microphone only works via HTTPS or http://localhost — browsers block access on file:// or unencrypted LAN HTTP."
+    );
+  }
+  if (!_tuner.running) {
+    setTunerStatus(tr("Tippe auf „Tuner starten“ – beim ersten Mal fragt dein Gerät nach dem Mikrofon.", "Tap “Start tuner” — your device asks for microphone access the first time."));
+    drawTunerSpectrum(0, null, false);
+  }
+}
+
+function bindTunerControls() {
+  const root = document.getElementById("viewTuner");
+  if (!root || root._tunerBound) return;
+  root._tunerBound = true;
+
+  document.getElementById("tunerStartBtn")?.addEventListener("click", () => {
+    if (_tuner.running) stopTunerSession();
+    else startTunerSession();
+  });
+  document.getElementById("tunerInstrumentSelect")?.addEventListener("change", (e) => {
+    const instrument = e.target.value;
+    const tunings = TUNER_INSTRUMENTS[instrument]?.tunings;
+    _tuner.tunedStrings.clear();
+    const firstTuning = tunings ? Object.keys(tunings)[0] : "";
+    const firstNote = tunings ? tunerNoteToMidi(tunings[firstTuning].notes[0]) : getTunerPrefs().targetMidi;
+    setTunerPrefs({ instrument, tuning: firstTuning, targetMidi: firstNote });
+    syncTunerSetupUI();
+  });
+  document.getElementById("tunerTuningSelect")?.addEventListener("change", (e) => {
+    _tuner.tunedStrings.clear();
+    const prefs = getTunerPrefs();
+    const tuning = TUNER_INSTRUMENTS[prefs.instrument].tunings?.[e.target.value];
+    setTunerPrefs({ tuning: e.target.value, targetMidi: tuning ? tunerNoteToMidi(tuning.notes[0]) : prefs.targetMidi });
+    syncTunerSetupUI();
+  });
+  document.querySelectorAll("[data-tuner-mode]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      setTunerPrefs({ mode: btn.dataset.tunerMode === "single" ? "single" : "auto" });
+      _tuner.displayMidi = null;
+      syncTunerSetupUI();
+    });
+  });
+  document.getElementById("tunerStringsRow")?.addEventListener("click", (e) => {
+    const chip = e.target.closest?.("[data-tuner-string]");
+    if (!chip) return;
+    const st = getTunerStrings()[Number(chip.dataset.tunerString)];
+    if (!st) return;
+    // Saite antippen = gezielt diese Saite stimmen
+    setTunerPrefs({ mode: "single", targetMidi: st.midi });
+    _tuner.displayMidi = null;
+    syncTunerSetupUI();
+  });
+  const stepTarget = (delta) => {
+    const prefs = getTunerPrefs();
+    setTunerPrefs({ targetMidi: Math.max(24, Math.min(96, (prefs.targetMidi || 69) + delta)) });
+    _tuner.displayMidi = null;
+    syncTunerSetupUI();
+  };
+  document.getElementById("tunerNoteDownBtn")?.addEventListener("click", () => stepTarget(-1));
+  document.getElementById("tunerNoteUpBtn")?.addEventListener("click", () => stepTarget(1));
+  const stepA4 = (delta) => {
+    const prefs = getTunerPrefs();
+    setTunerPrefs({ a4: Math.max(TUNER_A4_MIN, Math.min(TUNER_A4_MAX, prefs.a4 + delta)) });
+    syncTunerSetupUI();
+  };
+  document.getElementById("tunerA4DownBtn")?.addEventListener("click", () => stepA4(-1));
+  document.getElementById("tunerA4UpBtn")?.addEventListener("click", () => stepA4(1));
+  document.getElementById("tunerRefBtn")?.addEventListener("click", () => {
+    if (_tuner.refNodes) {
+      stopTunerReference();
+      document.getElementById("tunerRefBtn")?.classList.remove("is-playing");
+      return;
+    }
+    playTunerReference(getTunerReferenceMidi());
+  });
+  // Mobile Browser: beim Wechsel in den Hintergrund Mikrofon freigeben
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden && _tuner.running) stopTunerSession();
+  });
 }
 
 function stopFreeplaySession() {
   stopPlayback();
-}
-
-function renderTunerPreviewView() {
-  const noticeEl = document.getElementById("tunerSecureContextNotice");
-  if (!noticeEl) return;
-  const hasMediaDevices = typeof navigator !== "undefined" && Boolean(navigator.mediaDevices?.getUserMedia);
-  const isSecure = typeof window === "undefined" || window.isSecureContext !== false;
-  noticeEl.classList.remove("hidden", "is-warning");
-  if (isSecure && hasMediaDevices) {
-    noticeEl.textContent = tr(
-      "Mikrofonzugriff bereit (HTTPS / localhost aktiv).",
-      "Microphone access ready (HTTPS / localhost active)."
-    );
-  } else {
-    noticeEl.classList.add("is-warning");
-    noticeEl.textContent = tr(
-      "Hinweis: Für den Tuner ist später HTTPS oder http://localhost erforderlich – auf file:// oder unverschlüsseltem LAN-HTTP blockieren Browser das Mikrofon.",
-      "Note: The tuner will require HTTPS or http://localhost — browsers block microphone access on file:// or unencrypted LAN HTTP."
-    );
-  }
 }
 
 function openTunerView(returnView = "tools") {
