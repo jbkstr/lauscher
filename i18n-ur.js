@@ -2048,6 +2048,7 @@ const TR_UR = Object.assign(Object.create(null), {
 
 // Notenlesen (Akkorde/Doppelsystem), Rhythmus vom Blatt, Modi-Fläche, Moll-Kadenzen, Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_UR, {
+  "{n}. Stufe": "درجہ {n}",
   "🎤 Mitsingen": "🎤 ساتھ گائیں",
   "Mitsing-Tipp ein- oder ausklappen": "ساتھ گانے کی تجویز دکھائیں یا چھپائیں",
   "Summ-Pause: An": "گنگنانے کا وقفہ: آن",

@@ -3092,6 +3092,15 @@ html, body {
   max-width: 100%;
 }
 
+.degree-step {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--raccoon-muted);
+  line-height: 1.2;
+  margin-top: 0.1rem;
+  white-space: nowrap;
+}
+
 .degrees-grid.grid-intervals .degree-label {
   font-size: 0.75rem;
 }
@@ -15657,7 +15666,13 @@ function getLocalizedModeDef(key) {
   // Kirchentonarten tragen ihre Stufe der Dur-Tonleiter im Namen, z. B. „Dorisch (2)“
   const degree = MODES_TRAINING_DATA[key]?.degree;
   if (!entry || !degree) return entry;
-  return { ...entry, roman: `${entry.roman} (${degree})` };
+  // baseRoman/degreeTag: Antwort-Kacheln zeigen die Stufe als eigene Zeile unter dem Namen
+  return {
+    ...entry,
+    baseRoman: entry.roman,
+    degreeTag: tf("{n}. Stufe", "Degree {n}", { n: degree }),
+    roman: `${entry.roman} (${degree})`
+  };
 }
 
 function getLocalizedModeLevelLabel(kind, lvl) {
@@ -17449,6 +17464,7 @@ Object.assign(TR_FR, {
 });
 
 Object.assign(TR_FR, {
+  "{n}. Stufe": "Degré {n}",
   "1 Versuch pro Frage – prüfungsfest ohne Hilfsschleifen. Am Ende warten Lauscher-Bewertung, Modul-Aufschlüsselung und direkter Hör-Vergleich.": "1 tentative par question – sans boucle d’aide. À la fin : évaluation Lauscher, détail par module et comparaison audio directe.",
   "1 Versuch pro Frage • verschiedene Stufen & Hör-Auswertung": "1 tentative par question • niveaux variés & bilan audio",
   "1× Start + {left}× nachhören": "1× départ + {left}× réécoute",
@@ -19635,6 +19651,7 @@ Object.assign(TR_PL, {
 });
 
 Object.assign(TR_PL, {
+  "{n}. Stufe": "Stopień {n}",
   "1 Versuch pro Frage – prüfungsfest ohne Hilfsschleifen. Am Ende warten Lauscher-Bewertung, Modul-Aufschlüsselung und direkter Hör-Vergleich.": "1 próba na pytanie — bez pętli podpowiedzi. Na końcu czeka ocena Lauscher, podział na moduły i bezpośrednie odsłuchy porównawcze.",
   "1 Versuch pro Frage • verschiedene Stufen & Hör-Auswertung": "1 próba na pytanie • różne poziomy i podsumowanie audio",
   "1× Start + {left}× nachhören": "1× start + {left}× powtórz",
@@ -21822,6 +21839,7 @@ Object.assign(TR_UK, {
 });
 
 Object.assign(TR_UK, {
+  "{n}. Stufe": "Ступінь {n}",
   "1 Versuch pro Frage – prüfungsfest ohne Hilfsschleifen. Am Ende warten Lauscher-Bewertung, Modul-Aufschlüsselung und direkter Hör-Vergleich.": "1 спроба на питання — без підказок і зациклювань. Наприкінці: оцінка Lauscher, розбір за модулями та аудіопорівняння.",
   "1 Versuch pro Frage • verschiedene Stufen & Hör-Auswertung": "1 спроба на питання • різні рівні й аудіорозбір",
   "1× Start + {left}× nachhören": "1× старт + {left}× повтор",
@@ -24233,6 +24251,7 @@ const TR_UR = Object.assign(Object.create(null), {
 
 // Notenlesen (Akkorde/Doppelsystem), Rhythmus vom Blatt, Modi-Fläche, Moll-Kadenzen, Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_UR, {
+  "{n}. Stufe": "درجہ {n}",
   "🎤 Mitsingen": "🎤 ساتھ گائیں",
   "Mitsing-Tipp ein- oder ausklappen": "ساتھ گانے کی تجویز دکھائیں یا چھپائیں",
   "Summ-Pause: An": "گنگنانے کا وقفہ: آن",
@@ -59913,7 +59932,7 @@ function renderUI() {
         if (isRhythmDict) {
           sym.innerHTML = getRhythmCellSVG(item.key, 42, 24);
         } else {
-          sym.textContent = item.roman || item.symbol;
+          sym.textContent = item.degreeTag ? item.baseRoman : (item.roman || item.symbol);
         }
 
         const l = document.createElement("span");
@@ -59921,6 +59940,13 @@ function renderUI() {
         l.textContent = item.short;
 
         btn.appendChild(sym);
+        if (item.degreeTag) {
+          // Modi: Stufe als eigene Zeile, damit lange Namen die Kachel nicht sprengen
+          const step = document.createElement("span");
+          step.className = "degree-step";
+          step.textContent = item.degreeTag;
+          btn.appendChild(step);
+        }
         btn.appendChild(l);
         btn.addEventListener("click", (e) => handleAnswer(choiceKey, btn, { inputEvent: e }));
         rowEl.appendChild(btn);
@@ -59928,6 +59954,7 @@ function renderUI() {
 
       btnGrid.appendChild(rowEl);
     });
+    if (isModes) fitChoiceNamesToTiles(btnGrid);
   }
 
   resetCentralStage();
@@ -59936,6 +59963,27 @@ function renderUI() {
   document.getElementById("feedbackContainer").classList.add("hidden");
   syncExamExerciseControls();
 }
+
+// Lange Namen (z. B. Modi auf Ukrainisch) einheitlich verkleinern, statt über den Kachelrand zu laufen
+function fitChoiceNamesToTiles(grid) {
+  if (!grid) return;
+  const names = [...grid.querySelectorAll(".degree-btn .degree-roman")];
+  names.forEach(name => { name.style.fontSize = ""; });
+  let scale = 1;
+  names.forEach(name => {
+    const avail = name.closest(".degree-btn").clientWidth - 6;
+    if (avail > 0 && name.scrollWidth > avail) scale = Math.min(scale, avail / name.scrollWidth);
+  });
+  if (scale >= 1 || !names.length) return;
+  const base = parseFloat(getComputedStyle(names[0]).fontSize) || 14;
+  const size = `${Math.max(9, Math.floor(base * scale * 10) / 10)}px`;
+  names.forEach(name => { name.style.fontSize = size; });
+}
+
+window.addEventListener("resize", () => {
+  const grid = document.getElementById("degreeButtonsGrid");
+  if (grid && !grid.classList.contains("hidden") && grid.querySelector(".degree-step")) fitChoiceNamesToTiles(grid);
+});
 
 const STREAK_MILESTONES = new Set([3, 5, 8, 10, 15, 20, 25, 30, 40, 50, 75, 100]);
 

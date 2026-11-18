@@ -1823,6 +1823,7 @@ Object.assign(TR_PL, {
 });
 
 Object.assign(TR_PL, {
+  "{n}. Stufe": "Stopień {n}",
   "1 Versuch pro Frage – prüfungsfest ohne Hilfsschleifen. Am Ende warten Lauscher-Bewertung, Modul-Aufschlüsselung und direkter Hör-Vergleich.": "1 próba na pytanie — bez pętli podpowiedzi. Na końcu czeka ocena Lauscher, podział na moduły i bezpośrednie odsłuchy porównawcze.",
   "1 Versuch pro Frage • verschiedene Stufen & Hör-Auswertung": "1 próba na pytanie • różne poziomy i podsumowanie audio",
   "1× Start + {left}× nachhören": "1× start + {left}× powtórz",
