@@ -11477,3 +11477,24 @@ body.is-hum-pause #solfegeKeyboardWrap {
     min-height: 0;
   }
 }
+
+/* Rhythmus-Stufensymbole: gezeichnete Noten & Taktangaben, mittig und kreisfüllend */
+.node-circle.node-circle-icon {
+  padding: 0;
+}
+.node-rhythm-icon {
+  display: block;
+  width: 46px;
+  height: 46px;
+  overflow: visible;
+}
+/* Groove-Feinheiten (±55 ms): Zahl größer, Einheit darunter */
+.node-circle.node-circle-stack {
+  font-size: 1.12rem;
+}
+.node-circle-stack .node-stack-sub {
+  font-size: 0.74rem;
+}
+.node-circle.node-circle-compact {
+  font-size: 0.9rem;
+}
