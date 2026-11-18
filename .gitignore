@@ -1,0 +1,16 @@
+# macOS
+.DS_Store
+._*
+
+# Rohes Sample-Quellmaterial (für den Browser nicht nötig)
+daw-sampling/
+
+# Editoren & Tools
+.vscode/
+.idea/
+*.swp
+.claude/settings.local.json
+
+# Python
+__pycache__/
+*.pyc
