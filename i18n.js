@@ -1082,7 +1082,8 @@ const LAUSCHEBAER_QUOTES_EN = [
   { cat: "Tip", text: "“Need a steady groove companion? Open the ‘Tools’ tab for the practice metronome with subdivisions, shuffle, gap clicks, saved profiles, and four click voices (Standard, Woodblock, Cowbell & Rimshot)!”" },
   { cat: "Tip", text: "“In ‘Chord Reading’ under Notation, compare stacked chords right on multiple-choice tiles — from major and minor triads all the way to E7, Esus4, and inversions!”" },
   { cat: "Did You Know?", text: "“What sets a smooth sine wave apart from a warm piano note? Inside ‘Physics & Sound’, hear and watch the frequency spectrum show how overtones sculpt every timbre!”" },
-  { cat: "Tip", text: "“Whenever certain notes, intervals, or chords trip you up, Lauscher quietly remembers your weak spots and automatically weaves them back in until they feel rock-solid!”" }
+  { cat: "Tip", text: "“Whenever certain notes, intervals, or chords trip you up, Lauscher quietly remembers your weak spots and automatically weaves them back in until they feel rock-solid!”" },
+  { cat: "Encouragement", text: "“Do you already feel a difference when listening to your favorite music — noticing bass lines, chord colors, or small intervals with completely new clarity?”" }
 ];
 
 const PROFILE_INSTRUMENTS_EN = {

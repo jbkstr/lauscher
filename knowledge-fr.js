@@ -1348,6 +1348,152 @@ const KNOWLEDGE_ARTICLES_FR = [
         </div>
       </div>
     `
+  },
+  {
+    id: "art-mnemonics",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1.1 2h5.8c.1-.8.5-1.5 1.1-2A7 7 0 0 0 12 2z"/></svg>`,
+    badgeClass: "badge-peach",
+    title: "Moyens mnémotechniques en musique",
+    subtitle: "Les formules classiques du solfège pour l’armure, les clés, les cordes, les intervalles & le rythme",
+    tag: "Astuces & Mémoire",
+    render: () => `
+      <div class="article-body">
+        <span class="k-card-tag tag-peach">Astuces &amp; Mémoire</span>
+        <h2>Moyens mnémotechniques : retenir le solfège sans effort</h2>
+        <p class="article-lead">
+          Pourquoi retient-on une comptine ou une image amusante en dix secondes, alors qu’une liste abstraite s’efface en cinq minutes ? Notre mémoire adore <strong>le rythme verbal, les histoires et les repères visuels</strong>. Voici les formules mnémotechniques incontournables de la formation musicale francophone.
+        </p>
+
+        <h3>1. Ordre des dièses, des bémols et lecture instantanée de l’armure</h3>
+        <p>
+          En solfège francophone, l’ordre des sept dièses et celui des sept bémols s’apprennent comme deux vers rythmés exactement inverses l’un de l’autre :
+        </p>
+        <div class="k-compare-grid">
+          <div class="k-compare-box is-sage">
+            <h5>Ordre des 7 dièses (♯) : Fa – Do – Sol – Ré – La – Mi – Si</h5>
+            <p>
+              Se récite en deux groupes rythmiques :<br>
+              <strong>« Fa – Do – Sol / Ré – La – Mi – Si »</strong><br>
+              Tonalités majeures dans le sens horaire à partir de Do (0) : <strong>Sol</strong> (1♯), <strong>Ré</strong> (2♯), <strong>La</strong> (3♯), <strong>Mi</strong> (4♯), <strong>Si</strong> (5♯), <strong>Fa♯</strong> (6♯).
+            </p>
+          </div>
+          <div class="k-compare-box is-peach">
+            <h5>Ordre des 7 bémols (♭) : Si – Mi – La – Ré – Sol – Do – Fa</h5>
+            <p>
+              C’est l’ordre des dièses lu <strong>à l’envers</strong> :<br>
+              <strong>« Si – Mi – La – Ré / Sol – Do – Fa »</strong><br>
+              (Phrase classique : <em>« <strong>Si</strong> <strong>Mi</strong>rabeau <strong>La</strong>vait <strong>Ré</strong>gulièrement <strong>Sol</strong>, <strong>Do</strong>, <strong>Fa</strong> »</em>).<br>
+              Tonalités majeures : <strong>Fa</strong> (1♭), <strong>Si♭</strong> (2♭), <strong>Mi♭</strong> (3♭), <strong>La♭</strong> (4♭), <strong>Ré♭</strong> (5♭), <strong>Sol♭</strong> (6♭).
+            </p>
+          </div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>Deux astuces infaillibles pour trouver la tonalité majeure à la clé</h4>
+          <ul class="article-steps-list">
+            <li><strong>Avec des dièses (♯) :</strong> Le <em>dernier dièse</em> est toujours la <strong>sensible (7e degré)</strong>. Monte simplement d’<strong>un demi-ton</strong> pour obtenir la tonalité majeure ! (Exemple : dernier dièse = <em>Do♯</em> → un demi-ton plus haut = <strong>Ré majeur</strong>).</li>
+            <li><strong>Avec des bémols (♭) :</strong> L’<em>avant-dernier bémol</em> porte directement le nom de la tonalité majeure ! (Exemple : 3 bémols = Si♭, <strong>Mi♭</strong>, La♭ → <strong>Mi♭ majeur</strong>. Seul 1♭ = <strong>Fa majeur</strong> est à retenir à part).</li>
+            <li><strong>Trouver la relative mineure :</strong> Descends d’<strong>une tierce mineure (3 demi-tons)</strong> sous la tonique majeure (Do majeur → La mineur, Sol majeur → Mi mineur).</li>
+          </ul>
+          <button class="btn-tool" data-jump-ref="circle-of-fifths">→ Ouvrir le cycle des quintes interactif</button>
+        </div>
+
+        <h3>2. Repères sur la portée : clé de Sol, clé de Fa et clé d’Ut</h3>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row">
+            <div>
+              <strong>Clé de Sol (2e ligne) • Interlignes et lignes</strong>
+              <span>• La boucle centrale entoure la 2e ligne : <strong>Sol4</strong>.<br>• Les 4 interlignes de bas en haut : <strong>Fa – La – Do – Mi</strong> (soit le mot <strong>« FACE »</strong> en notation internationale F–A–C–E).<br>• Les 5 lignes en tierces montantes : <strong>Mi – Sol – Si – Ré – Fa</strong>.</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Clé de Fa (4e ligne) • L’astuce du décalage d’une tierce</strong>
+              <span>• Les deux points encadrent la 4e ligne : <strong>Fa3</strong>.<br>• <strong>Raccourci de lecture :</strong> Toute note écrite en clé de Fa se lit <strong>deux noms de notes (une tierce) plus haut</strong> que si elle était en clé de Sol (ex. la position d’un <em>Do</em> en clé de Sol devient un <em>Mi</em> en clé de Fa !).</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Clé d’Ut 3 (Clé d’alto) • Le Do central au milieu</strong>
+              <span>La pointe centrale de la clé indique exactement la 3e ligne (ligne du milieu) = le <strong>Do4 (Do serrure)</strong>.</span>
+            </div>
+          </div>
+        </div>
+
+        <h3>3. Cordes à vide : Guitare, Basse, Violon, Alto, Violoncelle &amp; Ukulélé</h3>
+        <p>
+          De la corde la plus grave (la plus épaisse) à la plus aiguë (la plus fine) :
+        </p>
+        <ul class="article-steps-list">
+          <li><strong>Guitare (6 cordes : Mi – La – Ré – Sol – Si – Mi / E – A – D – G – B – E) :</strong> <em>« <strong>M</strong>on <strong>L</strong>apin <strong>R</strong>egarde <strong>S</strong>ouvent <strong>S</strong>a <strong>M</strong>ontre »</em> (ou en lettres internationales : <em>« <strong>E</strong>lle <strong>A</strong> <strong>D</strong>u <strong>G</strong>rand <strong>B</strong>onheur <strong>E</strong>nfin »</em>).</li>
+          <li><strong>Basse &amp; Contrebasse (4 cordes : Mi – La – Ré – Sol) :</strong> Les quatre cordes graves de la guitare, accordées en quartes justes.</li>
+          <li><strong>Violon (4 cordes : Sol – Ré – La – Mi) :</strong> Quatre quintes justes montantes (comme le début de l’ordre des dièses après Fa et Do !).</li>
+          <li><strong>Alto &amp; Violoncelle (4 cordes : Do – Sol – Ré – La) :</strong> Quatre quintes justes montantes à partir de Do.</li>
+          <li><strong>Ukulélé (Sol – Do – Mi – La / G – C – E – A) :</strong> Accord standard en Do avec la 4e corde (Sol) aiguë.</li>
+        </ul>
+
+        <h3>4. Chansons-repères pour reconnaître les intervalles à l’oreille</h3>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row">
+            <div>
+              <strong>Seconde mineure (1 DT) &amp; Seconde majeure (2 DT)</strong>
+              <span>• <strong>2de mineure :</strong> <em>Les Dents de la mer (Jaws)</em> en montant / <em>La Lettre à Élise</em> en descendant.<br>• <strong>2de majeure :</strong> <em>Frère Jacques</em> (les deux premières notes : Do–Ré) ou <em>Joyeux Anniversaire</em>.</span>
+            </div>
+            <button class="btn-tool" data-play-int-asc="1">▶ 2de min.</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Tierce mineure (3 DT) &amp; Tierce majeure (4 DT)</strong>
+              <span>• <strong>3ce mineure :</strong> <em>Greensleeves</em> ou <em>Berceuse de Brahms</em> en montant / <em>Le coucou</em> ou <em>Hey Jude</em> en descendant.<br>• <strong>3ce majeure :</strong> <em>Oh When the Saints</em> en montant / <em>Summertime</em> en descendant.</span>
+            </div>
+            <button class="btn-tool" data-play-int-asc="4">▶ 3ce maj.</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Quarte juste (5 DT) &amp; Triton (6 DT)</strong>
+              <span>• <strong>Quarte juste :</strong> <em>La Marseillaise (« Allons en-fants »)</em> ou la <em>Marche nuptiale</em>.<br>• <strong>Triton (4te aug. / 5te dim.) :</strong> <em>Les Simpson</em> ou <em>Maria (West Side Story)</em>.</span>
+            </div>
+            <button class="btn-tool" data-play-int-asc="6">▶ Triton</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Quinte juste (7 DT), Sixte majeure (9 DT) &amp; Octave (12 DT)</strong>
+              <span>• <strong>Quinte juste :</strong> <em>Star Wars</em> ou <em>Ah ! vous dirai-je, maman (Do → Sol)</em>.<br>• <strong>Sixte majeure :</strong> <em>My Bonnie Lies Over the Ocean</em>.<br>• <strong>Octave :</strong> <em>Somewhere Over the Rainbow</em>.</span>
+            </div>
+            <button class="btn-tool" data-play-int-asc="7">▶ Quinte</button>
+          </div>
+        </div>
+
+        <h3>5. Modes, triades &amp; onomatopées rythmiques</h3>
+        <div class="k-compare-grid">
+          <div class="k-compare-box is-lilac">
+            <h5>Les 7 modes et leur note caractéristique</h5>
+            <p>
+              Sur les touches blanches de <strong>Do à Si</strong> :<br>
+              <strong>Ionien (Do) – Dorien (Ré) – Phrygien (Mi) – Lydien (Fa) – Mixolydien (Sol) – Éolien (La) – Locrien (Si)</strong>.<br>
+              <strong>Repères auditifs immédiats :</strong><br>
+              • Majeur + <strong>#4</strong> lumineuse = <strong>Lydien</strong><br>
+              • Majeur + <strong>b7</strong> blues/rock = <strong>Mixolydien</strong><br>
+              • Mineur + <strong>♮6</strong> claire = <strong>Dorien</strong><br>
+              • Mineur + <strong>b2</strong> espagnole = <strong>Phrygien</strong>
+            </p>
+          </div>
+          <div class="k-compare-box is-sage">
+            <h5>Mots rythmiques &amp; formules des accords</h5>
+            <p>
+              <strong>Parler le rythme avant de le compter :</strong><br>
+              • Noire (♩) : <em>« Pas »</em> / <em>« Noir »</em><br>
+              • Deux croches (♪♪) : <em>« Ca-fé »</em> / <em>« Cour-ir »</em><br>
+              • Triolet (3 par temps) : <em>« A-na-nas »</em> / <em>« Tri-o-let »</em><br>
+              • Quatre doubles (4 par temps) : <em>« Cho-co-la-te »</em><br>
+              <strong>Recette des triades (demi-tons) :</strong><br>
+              • <strong>Majeur = 4 + 3</strong> • <strong>Mineur = 3 + 4</strong><br>
+              • <strong>Diminué = 3 + 3</strong> • <strong>Augmenté = 4 + 4</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    `
   }
 ];
 

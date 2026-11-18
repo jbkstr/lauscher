@@ -1399,6 +1399,171 @@ const KNOWLEDGE_ARTICLES = [
         </div>
       </div>
     `
+  },
+  {
+    id: "art-mnemonics",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1.1 2h5.8c.1-.8.5-1.5 1.1-2A7 7 0 0 0 12 2z"/></svg>`,
+    badgeClass: "badge-peach",
+    title: "Eselsbrücken beim Lernen",
+    subtitle: "Die besten Merksprüche für Quintenzirkel, Notenschlüssel, Saiten, Intervalle & Rhythmus",
+    tag: "Merkhilfen & Praxis",
+    render: () => `
+      <div class="article-body">
+        <span class="k-card-tag tag-peach">Merkhilfen &amp; Praxis</span>
+        <h2>Eselsbrücken beim Lernen: Musikwissen, das sofort hängenbleibt</h2>
+        <p class="article-lead">
+          Warum merken wir uns einen lustigen Satz über alte Esel oder frische Brötchen in zehn Sekunden – während trockene Buchstabenreihen nach fünf Minuten wieder verschwinden? Unser Gehirn liebt <strong>Bilder, Geschichten, Reime und Rhythmus</strong>. Hier findest du die bekanntesten und nützlichsten Eselsbrücken der deutschen Musikausbildung auf einen Blick.
+        </p>
+
+        <h3>1. Quintenzirkel &amp; Vorzeichen der Tonarten</h3>
+        <p>
+          Im Quintenzirkel wandern die Tonarten im Uhrzeigersinn in reinen Quinten nach oben (jeder Schritt bekommt ein <strong>♯</strong> dazu) und gegen den Uhrzeigersinn in Quinten nach unten (jeder Schritt bekommt ein <strong>♭</strong> dazu):
+        </p>
+        <div class="k-compare-grid">
+          <div class="k-compare-box is-sage">
+            <h5>Kreuz-Tonarten (1♯ bis 6♯): G – D – A – E – H – Fis</h5>
+            <p>
+              <strong>„<u>G</u>eh <u>D</u>u <u>A</u>lter <u>E</u>sel <u>H</u>ole <u>Fis</u>che“</strong><br>
+              <em>Alternative:</em> „<strong>G</strong>ib <strong>D</strong>em <strong>A</strong>lten <strong>E</strong>sel <strong>H</strong>eute <strong>Fis</strong>ch“.<br>
+              Start bei C-Dur (0 Vorzeichen) → 1♯ = G-Dur, 2♯ = D-Dur, 3♯ = A-Dur, 4♯ = E-Dur, 5♯ = H-Dur, 6♯ = Fis-Dur.
+            </p>
+          </div>
+          <div class="k-compare-box is-peach">
+            <h5>B-Tonarten (1♭ bis 6♭): F – B – Es – As – Des – Ges</h5>
+            <p>
+              <strong>„<u>F</u>rische <u>B</u>rötchen <u>Es</u>sen <u>As</u>se <u>Des</u> <u>Ges</u>angs“</strong><br>
+              <em>Alternative:</em> „<strong>F</strong>rische <strong>B</strong>rezeln <strong>Es</strong>sen <strong>As</strong>se <strong>Des</strong> <strong>Ges</strong>angs“.<br>
+              1♭ = F-Dur, 2♭ = B-Dur, 3♭ = Es-Dur, 4♭ = As-Dur, 5♭ = Des-Dur, 6♭ = Ges-Dur.
+            </p>
+          </div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>Zwei Profi-Kurztricks zum Ablesen der Tonart am Notenanfang</h4>
+          <ul class="article-steps-list">
+            <li><strong>Bei Kreuzen (♯):</strong> Das <em>allerletzte Kreuz</em> rechts in der Vorzeichnung ist immer der <strong>Leitton (7. Stufe)</strong>. Geh von dort einfach <strong>einen Halbton höher</strong> – schon hast du die Dur-Tonart! (Beispiel: Letztes Kreuz auf <em>Cis</em> → ein Halbton höher = <strong>D-Dur</strong>).</li>
+            <li><strong>Bei Bs (♭):</strong> Das <em>vorletzte ♭</em> verrät direkt den Namen der Dur-Tonart! (Beispiel: 3 Bs = B, <strong>Es</strong>, As → <strong>Es-Dur</strong>. Nur 1♭ = <strong>F-Dur</strong> merkst du dir separat).</li>
+            <li><strong>Parallele Moll-Tonart finden:</strong> Rechne vom Dur-Grundton einfach <strong>3 Halbtöne (eine kleine Terz) abwärts</strong> (oder lies auf der 6. Stufe ab: C-Dur → a-Moll, G-Dur → e-Moll).</li>
+          </ul>
+          <button class="btn-tool" data-jump-ref="circle-of-fifths">→ Direkt zum interaktiven Quintenzirkel</button>
+        </div>
+
+        <h3>2. Notenlinien &amp; Zwischenräume im Violin-, Bass- und Altschlüssel</h3>
+        <p>
+          Beim Notenlesen brauchst du nicht jede Linie einzeln abzuzählen – mit diesen Sprüchen (immer <strong>von unten nach oben</strong> gelesen) hast du sofort ein festes Raster:
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row">
+            <div>
+              <strong>Violinschlüssel • 4 Zwischenräume: F – A – C – E</strong>
+              <span>Ergibt von unten nach oben gelesen das englische Wort <strong>„FACE“</strong> (Gesicht) – oder den Spruch: <em>„<strong>F</strong>ritz <strong>A</strong>ß <strong>C</strong>itronen-<strong>E</strong>is“</em>.</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Violinschlüssel • 5 Linien: E – G – H – D – F</strong>
+              <span><em>„<strong>E</strong>s <strong>G</strong>eht <strong>H</strong>urtig <strong>D</strong>urch <strong>F</strong>leiß“</em> oder kindgerecht: <em>„<strong>E</strong>ine <strong>G</strong>ans <strong>H</strong>at <strong>D</strong>icke <strong>F</strong>üße“</em>.</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Bassschlüssel • 5 Linien: G – H – D – F – A</strong>
+              <span><em>„<strong>G</strong>ustav <strong>H</strong>at <strong>D</strong>rei <strong>F</strong>linke <strong>A</strong>ffen“</em> oder <em>„<strong>G</strong>ute <strong>H</strong>unde <strong>D</strong>ürfen <strong>F</strong>rei <strong>A</strong>uslaufen“</em>.</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Bassschlüssel • 4 Zwischenräume: A – C – E – G</strong>
+              <span><em>„<strong>A</strong>lle <strong>C</strong>lowns <strong>E</strong>ssen <strong>G</strong>emüse“</em> (oder <em>„<strong>A</strong>lle <strong>C</strong>ellos <strong>E</strong>rklingen <strong>G</strong>ut“</em>).</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Die 3 Schlüssel-Ankerpunkte (G-, F- und C-Schlüssel)</strong>
+              <span>• <strong>Violinschlüssel = G-Schlüssel:</strong> Die Schnecke kreist um die 2. Linie (<strong>g'</strong>).<br>• <strong>Bassschlüssel = F-Schlüssel:</strong> Die zwei Punkte rahmen die 4. Linie (<strong>f</strong>) ein. <em>Umrechen-Trick:</em> Jede Note im Bassschlüssel liegt genau <strong>zwei Töne (eine Terz) tiefer im Namen / zwei Stufen verschoben</strong> als im Violinschlüssel!<br>• <strong>Altschlüssel = C-Schlüssel:</strong> Die Einbuchtung in der Mitte zeigt exakt auf die 3. Linie = das <strong>Schlüsselloch-C (c')</strong>!</span>
+            </div>
+          </div>
+        </div>
+
+        <h3>3. Leere Saiten auf Gitarre, Bass, Streichern &amp; Ukulele</h3>
+        <p>
+          Alle Saitensprüche werden standardmäßig <strong>von der tiefsten (dicksten) zur höchsten (dünnsten) Saite</strong> gesprochen:
+        </p>
+        <ul class="article-steps-list">
+          <li><strong>Gitarre (6 Saiten: E – A – D – G – H – E):</strong> <em>„<strong>E</strong>ine <strong>A</strong>lte <strong>D</strong>ame <strong>G</strong>eht <strong>H</strong>eute <strong>E</strong>inkaufen“</em> (oder <em>„<strong>E</strong>in <strong>A</strong>nfänger <strong>D</strong>er <strong>G</strong>itarre <strong>H</strong>at <strong>E</strong>ifer“</em>).</li>
+          <li><strong>E-Bass &amp; Kontrabass (4 Saiten: E – A – D – G):</strong> <em>„<strong>E</strong>in <strong>A</strong>nfänger <strong>D</strong>er <strong>G</strong>itarre“</em> – identisch mit den vier tiefen Gitarrensaiten (alles reine Quarten aufwärts).</li>
+          <li><strong>Violine / Geige (4 Saiten: G – D – A – E):</strong> <em>„<strong>G</strong>eh <strong>D</strong>u <strong>A</strong>lter <strong>E</strong>sel“</em> – exakt die ersten vier Schritte des Quintenzirkels in reinen Quinten aufwärts!</li>
+          <li><strong>Viola (Bratsche) &amp; Violoncello (4 Saiten: C – G – D – A):</strong> <em>„<strong>C</strong>äsar <strong>G</strong>ing <strong>D</strong>urch <strong>A</strong>frika“</em> (oder <em>„<strong>C</strong>lowns <strong>G</strong>ehen <strong>D</strong>urch <strong>A</strong>frika“</em> – ebenfalls reine Quinten aufwärts ab C).</li>
+          <li><strong>Ukulele (4 Saiten in C-Stimmung: G – C – E – A):</strong> <em>„<strong>G</strong>ute <strong>C</strong>lowns <strong>E</strong>ssen <strong>A</strong>pfelmus“</em> – und klanglich passen die vier leeren Saiten exakt auf die Melodie <em>„Meine Oma fährt im Hühnerstall Motorrad“</em>!</li>
+        </ul>
+
+        <h3>4. Intervalle sofort an Liedanfängen erkennen</h3>
+        <p>
+          Die stärkste Eselsbrücke für dein Gehör sind bekannte Melodien, deren erste zwei Töne genau das gesuchte Intervall bilden. Tippe auf ein Intervall, um die Brücke direkt zu hören:
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row">
+            <div>
+              <strong>Kleine Sekunde (1 HT) &amp; Große Sekunde (2 HT)</strong>
+              <span>• <strong>Kl. Sekunde:</strong> <em>Der weiße Hai (Jaws)</em> aufwärts / <em>Für Elise</em> abwärts.<br>• <strong>Gr. Sekunde:</strong> <em>Alle meine Entchen</em> (Ton 1→2) oder <em>Happy Birthday</em> (nach der Tonwiederholung).</span>
+            </div>
+            <button class="btn-tool" data-play-int-asc="1">▶ kl. 2</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Kleine Terz (3 HT) &amp; Große Terz (4 HT)</strong>
+              <span>• <strong>Kl. Terz:</strong> <em>Greensleeves</em> aufwärts / <em>Kuckucksruf</em> oder <em>Hey Jude</em> abwärts.<br>• <strong>Gr. Terz:</strong> <em>Oh When the Saints</em> oder <em>Morning Has Broken</em> (aufwärts), <em>Summertime</em> (abwärts).</span>
+            </div>
+            <button class="btn-tool" data-play-int-asc="4">▶ gr. 3</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Reine Quarte (5 HT) &amp; Tritonus (6 HT)</strong>
+              <span>• <strong>Quarte:</strong> <em>Hochzeitsmarsch („Here Comes the Bride“)</em> oder <em>Amazing Grace</em>.<br>• <strong>Tritonus (überm. 4 / verm. 5):</strong> <em>The Simpsons („The Simp-sons“)</em> oder <em>Maria (West Side Story)</em>.</span>
+            </div>
+            <button class="btn-tool" data-play-int-asc="6">▶ Tritonus</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Reine Quinte (7 HT) &amp; Oktave (12 HT)</strong>
+              <span>• <strong>Quinte:</strong> <em>Star Wars (Hauptthema)</em> oder <em>Morgen kommt der Weihnachtsmann (Twinkle, Twinkle)</em>.<br>• <strong>Große Sexte (9 HT):</strong> <em>My Bonnie Lies Over the Ocean</em>.<br>• <strong>Oktave (12 HT):</strong> <em>Somewhere Over the Rainbow</em>.</span>
+            </div>
+            <button class="btn-tool" data-play-int-asc="7">▶ Quinte</button>
+          </div>
+        </div>
+
+        <h3>5. Kirchentonarten, Dreiklänge &amp; Rhythmus-Sprechsilben</h3>
+        <div class="k-compare-grid">
+          <div class="k-compare-box is-lilac">
+            <h5>Die 7 Kirchentonarten (Modi) in der richtigen Reihenfolge</h5>
+            <p>
+              Von den weißen Klaviertasten <strong>C – D – E – F – G – A – H</strong> abgeleitet:<br>
+              <strong><u>I</u>onisch – <u>D</u>orisch – <u>P</u>hrygisch – <u>L</u>ydisch – <u>M</u>ixolydisch – <u>Ä</u>olisch – <u>L</u>okrisch</strong><br>
+              Merkspruch: <em>„<strong>I</strong>n <strong>D</strong>eutschland <strong>P</strong>assieren <strong>L</strong>eider <strong>M</strong>anchmal <strong>Ä</strong>rgerliche <strong>L</strong>ügen“</em>.<br>
+              <strong>Hör-Abkürzung über den Charakterton:</strong><br>
+              • Dur + hohe <strong>#4</strong> (schwebend) = <strong>Lydisch</strong><br>
+              • Dur + tiefe <strong>b7</strong> (bluesig-rockig) = <strong>Mixolydisch</strong><br>
+              • Moll + helle <strong>♮6</strong> = <strong>Dorisch</strong><br>
+              • Moll + dunkle <strong>b2</strong> (Flamenco) = <strong>Phrygisch</strong>
+            </p>
+          </div>
+          <div class="k-compare-box is-sage">
+            <h5>Rhythmus-Wortanker &amp; Dreiklangs-Formel</h5>
+            <p>
+              <strong>Rhythmen sprechen statt rechnen:</strong><br>
+              • Viertel (♩): <em>„Schritt“</em> / <em>„Tee“</em><br>
+              • Achtelpaar (♪♪): <em>„Kaf-fee“</em> / <em>„Lau-fen“</em><br>
+              • Achteltriole (3 auf 1 Schlag): <em>„A-na-nas“</em> / <em>„Erd-bee-re“</em><br>
+              • Vier Sechzehntel (4 auf 1 Schlag): <em>„Scho-ko-la-de“</em> / <em>„A-pfel-ku-chen“</em><br>
+              <strong>Dreiklangs-Abstände (Halbtöne):</strong><br>
+              • <strong>Dur = 4 + 3</strong> (erst große Terz, dann kleine Terz)<br>
+              • <strong>Moll = 3 + 4</strong> (erst kleine Terz, dann große Terz)<br>
+              • <strong>Vermindert = 3 + 3</strong> • <strong>Übermäßig = 4 + 4</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    `
   }
 ];
 
