@@ -4924,6 +4924,7 @@ function closeTransientPopovers() {
     if (popId === "inlineNotationPacePopover" && state?.listenOnly?.active && isNotationMode(state?.currentExercise?.type)) {
       return;
     }
+    if (document.getElementById(popId)?.classList.contains("is-pinned")) return;
     document.getElementById(popId)?.classList.add("hidden");
     document.getElementById(btnId)?.classList.remove("chip-open");
   });
@@ -9800,9 +9801,22 @@ function renderUI() {
     }
   }
 
+  // Akkordübungen: statt BPM-Knopf ein dauerhaft sichtbarer Tempo-Schieberegler (außer in Prüfungen)
+  const isChordTempoPinned = isChordMode(ex.type) && !state.exam?.active;
   if (moduleBpmBtn) {
-    moduleBpmBtn.classList.toggle("hidden", isProd || isModes || isNotation);
+    moduleBpmBtn.classList.toggle("hidden", isProd || isModes || isNotation || isChordTempoPinned);
     moduleBpmBtn.textContent = `${state.activeBpm} BPM`;
+    if (isChordTempoPinned) moduleBpmBtn.classList.remove("chip-open");
+  }
+  const pinnedBpmPopover = document.getElementById("inlineBpmPopover");
+  if (pinnedBpmPopover) {
+    if (isChordTempoPinned) {
+      pinnedBpmPopover.classList.add("is-pinned");
+      pinnedBpmPopover.classList.remove("hidden");
+    } else if (pinnedBpmPopover.classList.contains("is-pinned")) {
+      pinnedBpmPopover.classList.remove("is-pinned");
+      pinnedBpmPopover.classList.add("hidden");
+    }
   }
 
   const inlineBpmVal = document.getElementById("inlineBpmVal");
@@ -16920,6 +16934,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (pop === inlineNotationPacePopover && keepNotationPaceOpen) {
         return;
       }
+      if (pop?.classList.contains("is-pinned")) return;
       if (pop && pop !== exceptPopover) {
         pop.classList.add("hidden");
         btn?.classList.remove("chip-open");

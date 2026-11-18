@@ -2320,6 +2320,18 @@ html, body {
   animation: fadeSlideDown 0.14s ease-out;
 }
 
+/* Dauerhaft sichtbarer Tempo-Regler (Akkordübungen) */
+.module-inline-popover.is-pinned {
+  margin-top: 0.1rem;
+  box-shadow: none;
+  animation: none;
+}
+
+.module-inline-popover.is-pinned input[type="range"] {
+  flex: 1 1 140px;
+  min-width: 0;
+}
+
 @keyframes fadeSlideDown {
   from { opacity: 0; transform: translateY(-4px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -5707,7 +5719,7 @@ body,
 /* Einladung zum Mitsingen/-summen (Intervall- & Solfège-Übungen) */
 .sing-along-hint {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 0.6rem;
   margin-top: 0.62rem;
   padding: 0.6rem 0.75rem;
