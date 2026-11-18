@@ -3840,8 +3840,9 @@ function buildNotationStaffSVG(notes, options = {}) {
   const keySigItems = getNotationKeySignatureSteps(firstClef, keySigId);
   const keySigCount = keySigItems.length;
   const isExerciseStaff = options.level != null;
+  const isChordStaff = Boolean(options.isChordStaff || (list.length > 0 && list.some(it => it?.isChord)));
   const defaultWidth = isExerciseStaff
-    ? (320 + (keySigCount > 0 ? Math.min(52, keySigCount * 8 + 4) : 0))
+    ? ((isChordStaff && list.length > 1 ? 356 : 320) + (keySigCount > 0 ? Math.min(52, keySigCount * 8 + 4) : 0))
     : 360;
   const width = Number(options.width) || defaultWidth;
   const height = Number(options.height) || 176;
@@ -3900,10 +3901,13 @@ function buildNotationStaffSVG(notes, options = {}) {
       const baseSingleX = Number(options.firstNoteX) || Math.round(width * 0.56);
       positions = [Math.min(endX - 18, Math.max(baseSingleX, minSingleX))];
     } else {
-      const minMultiX = keySigCount > 0 ? Math.round(keySigRightEdge + 20) : (startX + (isExerciseStaff ? 68 : 86));
-      const firstNoteX = Math.max(Number(options.firstNoteX) || (startX + (isExerciseStaff ? 68 : 86)), minMultiX);
+      const chordPad = isChordStaff ? 14 : 0;
+      const minMultiX = keySigCount > 0 ? Math.round(keySigRightEdge + 20 + (isChordStaff ? 8 : 0)) : (startX + (isExerciseStaff ? 68 + chordPad : 86));
+      const firstNoteX = Math.max(Number(options.firstNoteX) || (startX + (isExerciseStaff ? 68 + chordPad : 86)), minMultiX);
+      const maxSpace = isChordStaff ? 60 : 46;
+      const minSpace = isChordStaff ? 42 : 30;
       const spacing = Number(options.noteSpacing) || (isExerciseStaff
-        ? Math.min(46, Math.max(30, Math.floor((endX - firstNoteX - 14) / Math.max(1, list.length - 1))))
+        ? Math.min(maxSpace, Math.max(minSpace, Math.floor((endX - firstNoteX - 18) / Math.max(1, list.length - 1))))
         : Math.min(48, Math.max(34, Math.floor((endX - firstNoteX - 18) / Math.max(1, list.length - 1)))));
       positions = list.map((_, i) => firstNoteX + i * spacing);
     }
@@ -3968,13 +3972,28 @@ function buildNotationStaffSVG(notes, options = {}) {
 function buildNotationMiniStaffSVG(snapshot) {
   if (!snapshot) return "";
   const snapKeySig = normalizeNotationKeySigId(snapshot.keySignatureId || "none");
-  const item = getNotationNoteFromStaffStep(
-    snapshot.clefId || "treble",
-    Number.isFinite(Number(snapshot.staffStep)) ? Number(snapshot.staffStep) : 4,
-    Number(snapshot.accidental) || 0,
-    snapKeySig,
-    snapshot.shownAccidental
-  );
+  const clefId = snapshot.clefId || "treble";
+  let item = null;
+  if (snapshot.isChord && Array.isArray(snapshot.chordTonesSpec) && snapshot.chordTonesSpec.length > 0) {
+    const tones = snapshot.chordTonesSpec.map(sp =>
+      getNotationNoteFromStaffStep(
+        clefId,
+        Number.isFinite(Number(sp.step)) ? Number(sp.step) : 4,
+        Number(sp.acc) || 0,
+        snapKeySig,
+        sp.shownAcc
+      )
+    );
+    item = { ...tones[0], isChord: true, chordTones: tones };
+  } else {
+    item = getNotationNoteFromStaffStep(
+      clefId,
+      Number.isFinite(Number(snapshot.staffStep)) ? Number(snapshot.staffStep) : 4,
+      Number(snapshot.accidental) || 0,
+      snapKeySig,
+      snapshot.shownAccidental
+    );
+  }
   return buildNotationStaffSVG([item], {
     clefId: item.clefId,
     keySignatureId: snapKeySig,
@@ -3983,6 +4002,7 @@ function buildNotationMiniStaffSVG(snapshot) {
     firstNoteX: 132,
     highlightFirst: true,
     showChangeClefs: false,
+    isChordStaff: Boolean(item.isChord),
     className: "notation-mini-staff-svg"
   });
 }
@@ -4998,6 +5018,7 @@ const MODE_CADENCE_LEVELS = {
 
 function getChoiceItem(exType, choiceKey) {
   if (exType === "cadence") return getLocalizedDegreeDef(choiceKey);
+  if (isNotationChordMode(exType)) return getNotationChordChoiceItem(choiceKey);
   if (isChordQualityMode(exType)) return getLocalizedChordDef(choiceKey);
   if (exType === "chord-inversions") return getLocalizedChordInversionDef(choiceKey);
   if (exType === "rhythm-meter") return getLocalizedRhythmMeter(choiceKey);
@@ -5623,6 +5644,9 @@ function switchView(targetView, options = {}) {
   stopWaveAnimation();
   closeTransientPopovers();
   cancelHumPause();
+  if (typeof cancelNotationChordAdvance === "function" && state.currentExercise?.isChordReading) {
+    cancelNotationChordAdvance(state.currentExercise);
+  }
   state.currentView = targetView;
   if (targetView === "exercise" || targetView === "warmup") {
     markPracticeStarted();
@@ -7906,14 +7930,14 @@ function openCategoryPage(categoryKey, options = {}) {
         circleClass: "circle-lilac",
         title: tr("Akkorde lesen", "Chord Reading"),
         desc: tr(
-          "Mehrere Noten übereinander: Tippe alle Akkordtöne auf der Klaviatur an – die Reihenfolge ist egal. Gefundene Töne färben sich grün.",
-          "Stacked notes: tap every chord tone on the keyboard — in any order. Found notes turn green."
+          "Mehrere Noten übereinander: Lies Grundton und Akkordaufbau im Notensystem und wähle das passende Akkordsymbol (z. B. E, Em, E7, Esus4).",
+          "Stacked notes: read root and chord structure on the staff and pick the matching chord symbol (e.g. E, Em, E7, Esus4)."
         ),
         levels: [
-          { lvl: 1, badge: "C–E–G", title: tr("Stufe 1: Dreiklänge (Violin)", "Level 1: Triads (Treble)"), sub: tr("Grundstellung im Violinschlüssel", "Root position, treble clef") },
-          { lvl: 2, badge: "𝄢 3",   title: tr("Stufe 2: Dreiklänge (Bass)", "Level 2: Triads (Bass)"),     sub: tr("Grundstellung im Bassschlüssel", "Root position, bass clef") },
-          { lvl: 3, badge: "6 / 64", title: tr("Stufe 3: Umkehrungen", "Level 3: Inversions"),             sub: tr("Dreiklänge in allen Lagen, beide Schlüssel", "Triads in all inversions, both clefs") },
-          { lvl: 4, badge: "7",     title: tr("Stufe 4: Septakkorde", "Level 4: 7th Chords"),              sub: tr("Vierklänge & Umkehrungen, ±1 Hilfslinie", "Four-note chords & inversions, ±1 ledger") }
+          { lvl: 1, badge: "E / Em",  title: tr("Stufe 1: Dreiklänge (Violin)", "Level 1: Triads (Treble)"), sub: tr("Dur, Moll, Vermindert, Übermäßig & Sus", "Major, minor, dim, aug & sus (root pos.)") },
+          { lvl: 2, badge: "𝄢 Em",   title: tr("Stufe 2: Dreiklänge (Bass)", "Level 2: Triads (Bass)"),     sub: tr("Alle Grundtypen im Bassschlüssel", "Basic chord types in bass clef") },
+          { lvl: 3, badge: "6 / 64", title: tr("Stufe 3: Umkehrungen", "Level 3: Inversions"),             sub: tr("Dreiklänge & Sus in allen Lagen, beide Schlüssel", "Triads & sus in all inversions, both clefs") },
+          { lvl: 4, badge: "E7",     title: tr("Stufe 4: Alle Typen & Septakkorde", "Level 4: All Types & 7th Chords"), sub: tr("E, Em, E7, Emaj7, Esus4 u. v. m. inkl. Umkehrungen", "E, Em, E7, Emaj7, Esus4 & more + inversions") }
         ]
       }
     ];
@@ -9499,30 +9523,147 @@ function getNotationPlayNotes(item) {
   return item?.noteName ? [item.noteName] : [];
 }
 
-// Akkorde lesen: Stufe 1 Violinschlüssel, 2 Bassschlüssel, 3 + Umkehrungen, 4 + Septakkorde
+// Akkorde lesen (Multiple Choice): Stufe 1 Violin, 2 Bass, 3 + Umkehrungen, 4 Alle Typen & Septakkorde
 const NOTATION_CHORD_LEVELS = {
-  1: { clefs: ["treble"],         inversions: false, sevenths: false, minStep: -1, maxStep: 9 },
-  2: { clefs: ["bass"],           inversions: false, sevenths: false, minStep: -1, maxStep: 9 },
-  3: { clefs: ["treble", "bass"], inversions: true,  sevenths: false, minStep: -2, maxStep: 10 },
-  4: { clefs: ["treble", "bass"], inversions: true,  sevenths: true,  minStep: -3, maxStep: 11 }
+  1: {
+    clefs: ["treble"],
+    inversions: false,
+    sevenths: false,
+    minStep: -2,
+    maxStep: 10,
+    qualities: ["maj", "min", "dim", "aug", "sus4", "sus2"]
+  },
+  2: {
+    clefs: ["bass"],
+    inversions: false,
+    sevenths: false,
+    minStep: -2,
+    maxStep: 10,
+    qualities: ["maj", "min", "dim", "aug", "sus4", "sus2"]
+  },
+  3: {
+    clefs: ["treble", "bass"],
+    inversions: true,
+    sevenths: false,
+    minStep: -2,
+    maxStep: 10,
+    qualities: ["maj", "min", "dim", "aug", "sus4", "sus2"]
+  },
+  4: {
+    clefs: ["treble", "bass"],
+    inversions: true,
+    sevenths: true,
+    minStep: -3,
+    maxStep: 11,
+    qualities: ["maj", "min", "dim", "aug", "sus4", "sus2", "7", "maj7", "m7", "m7b5", "dim7", "mMaj7"]
+  }
 };
 
-function getNotationChordSymbol(rootTone, pcs) {
-  const rel = pcs.map(pc => ((pc - rootTone.pc) % 12 + 12) % 12);
-  const has = (n) => rel.includes(n);
-  let suffix = "";
-  if (pcs.length >= 4) {
-    if (has(4) && has(7) && has(10)) suffix = "7";
-    else if (has(4) && has(7) && has(11)) suffix = "maj7";
-    else if (has(3) && has(7) && has(10)) suffix = "m7";
-    else if (has(3) && has(6) && has(10)) suffix = "ø7";
-    else if (has(3) && has(6) && has(9)) suffix = "°7";
-    else suffix = "7";
-  } else if (has(3) && has(6)) suffix = "°";
-  else if (has(4) && has(8)) suffix = "+";
-  else if (has(3)) suffix = "m";
-  const rootName = formatSpelledNotationNote(rootTone.letter, rootTone.accidental, rootTone.octave, false);
+const NOTATION_CHORD_SPECS = {
+  maj:   { suffix: "",        steps: [[0, 0], [2, 4], [4, 7]],         isSeventh: false },
+  min:   { suffix: "m",       steps: [[0, 0], [2, 3], [4, 7]],         isSeventh: false },
+  dim:   { suffix: "°",       steps: [[0, 0], [2, 3], [4, 6]],         isSeventh: false },
+  aug:   { suffix: "+",       steps: [[0, 0], [2, 4], [4, 8]],         isSeventh: false },
+  sus4:  { suffix: "sus4",    steps: [[0, 0], [3, 5], [4, 7]],         isSeventh: false },
+  sus2:  { suffix: "sus2",    steps: [[0, 0], [1, 2], [4, 7]],         isSeventh: false },
+  "7":   { suffix: "7",       steps: [[0, 0], [2, 4], [4, 7], [6, 10]], isSeventh: true },
+  maj7:  { suffix: "maj7",    steps: [[0, 0], [2, 4], [4, 7], [6, 11]], isSeventh: true },
+  m7:    { suffix: "m7",      steps: [[0, 0], [2, 3], [4, 7], [6, 10]], isSeventh: true },
+  m7b5:  { suffix: "m7♭5",    steps: [[0, 0], [2, 3], [4, 6], [6, 10]], isSeventh: true },
+  dim7:  { suffix: "°7",      steps: [[0, 0], [2, 3], [4, 6], [6, 9]],  isSeventh: true },
+  mMaj7: { suffix: "m(maj7)", steps: [[0, 0], [2, 3], [4, 7], [6, 11]], isSeventh: true }
+};
+
+const NOTATION_CHORD_QUALITY_ORDER = [
+  "maj", "min", "dim", "aug", "sus4", "sus2", "7", "maj7", "m7", "m7b5", "dim7", "mMaj7"
+];
+
+const NOTATION_CHORD_FAMILIES_TRIAD = {
+  maj:  [["maj", "min", "dim", "sus4"], ["maj", "min", "aug", "sus4"], ["maj", "min", "sus4", "sus2"]],
+  min:  [["maj", "min", "dim", "sus4"], ["maj", "min", "dim", "sus2"], ["maj", "min", "aug", "sus4"]],
+  dim:  [["maj", "min", "dim", "sus4"], ["min", "dim", "aug", "sus2"]],
+  aug:  [["maj", "min", "aug", "sus4"], ["maj", "dim", "aug", "sus2"]],
+  sus4: [["maj", "min", "sus4", "sus2"], ["maj", "min", "dim", "sus4"]],
+  sus2: [["maj", "min", "sus4", "sus2"], ["maj", "min", "aug", "sus2"]]
+};
+
+const NOTATION_CHORD_FAMILIES_FULL = {
+  maj:   [["maj", "min", "7", "sus4"], ["maj", "min", "maj7", "sus4"], ["maj", "7", "maj7", "m7"]],
+  min:   [["maj", "min", "7", "sus4"], ["min", "m7", "m7b5", "mMaj7"], ["maj", "min", "m7", "7"]],
+  dim:   [["maj", "min", "dim", "7"], ["min", "dim", "m7b5", "dim7"]],
+  aug:   [["maj", "min", "aug", "7"], ["maj", "aug", "maj7", "7"]],
+  sus4:  [["maj", "min", "7", "sus4"], ["maj", "sus4", "sus2", "7"]],
+  sus2:  [["maj", "min", "sus4", "sus2"], ["maj", "sus2", "sus4", "7"]],
+  "7":   [["maj", "min", "7", "sus4"], ["7", "maj7", "m7", "sus4"], ["maj", "7", "maj7", "m7"]],
+  maj7:  [["maj", "7", "maj7", "m7"], ["maj", "maj7", "m7", "mMaj7"]],
+  m7:    [["maj", "min", "7", "m7"], ["min", "m7", "m7b5", "dim7"], ["7", "maj7", "m7", "sus4"]],
+  m7b5:  [["min", "m7", "m7b5", "dim7"], ["dim", "m7", "m7b5", "7"]],
+  dim7:  [["dim", "m7", "m7b5", "dim7"], ["min", "dim", "m7b5", "dim7"]],
+  mMaj7: [["min", "m7", "maj7", "mMaj7"], ["maj", "min", "maj7", "mMaj7"]]
+};
+
+function makeNotationChordChoiceKey(letter = "C", acc = 0, qualityKey = "maj") {
+  const safeLetter = NOTATION_LETTER_PC[letter] !== undefined ? letter : "C";
+  const safeAcc = acc > 0 ? 1 : (acc < 0 ? -1 : 0);
+  const safeQual = NOTATION_CHORD_SPECS[qualityKey] ? qualityKey : "maj";
+  return `${safeLetter}:${safeAcc}|${safeQual}`;
+}
+
+function parseNotationChordChoiceKey(choiceKey) {
+  const raw = String(choiceKey || "C:0|maj");
+  const [rootPart, qualPart] = raw.split("|");
+  const [rawLetter, rawAcc] = (rootPart || "C:0").split(":");
+  const letter = NOTATION_LETTER_PC[rawLetter] !== undefined ? rawLetter : "C";
+  const accNum = parseInt(rawAcc, 10);
+  const acc = accNum > 0 ? 1 : (accNum < 0 ? -1 : 0);
+  const qualityKey = NOTATION_CHORD_SPECS[qualPart] ? qualPart : "maj";
+  return { letter, acc, qualityKey };
+}
+
+function formatNotationChordSymbol(letter = "C", acc = 0, qualityKey = "maj") {
+  const rootName = formatSpelledNotationNote(letter, acc, 4, false);
+  const suffix = NOTATION_CHORD_SPECS[qualityKey]?.suffix ?? "";
   return `${rootName}${suffix}`;
+}
+
+function getNotationChordChoiceItem(choiceKey) {
+  const { letter, acc, qualityKey } = parseNotationChordChoiceKey(choiceKey);
+  const symbol = formatNotationChordSymbol(letter, acc, qualityKey);
+  const def = getLocalizedChordDef(qualityKey);
+  const spelled = spellNotationChord(letter, acc, qualityKey);
+  const midiNotes = spelled
+    ? spelled.toneSpecs.map((ts, idx) => 60 + ((ts.pc - spelled.rootPc + 12) % 12) + (idx > 0 && ts.deg >= 7 ? 12 : 0))
+    : [60, 64, 67];
+  return {
+    key: makeNotationChordChoiceKey(letter, acc, qualityKey),
+    symbol: symbol,
+    roman: symbol,
+    short: def.short || symbol,
+    label: `${symbol} • ${def.label || def.short}`,
+    rootLetter: letter,
+    rootAcc: acc,
+    rootPc: ((NOTATION_LETTER_PC[letter] + acc) % 12 + 12) % 12,
+    qualityKey: qualityKey,
+    notes: midiNotes.map(m => midiToNote(m))
+  };
+}
+
+function spellNotationChord(letter, acc, qualityKey) {
+  const spec = NOTATION_CHORD_SPECS[qualityKey];
+  if (!spec || NOTATION_LETTER_PC[letter] === undefined) return null;
+  const safeAcc = acc > 0 ? 1 : (acc < 0 ? -1 : 0);
+  const rootPc = ((NOTATION_LETTER_PC[letter] + safeAcc) % 12 + 12) % 12;
+  const rootIdx = NOTATION_LETTERS.indexOf(letter);
+  const toneSpecs = [];
+  for (const [degOff, semiOff] of spec.steps) {
+    const tIdx = (rootIdx + degOff) % 7;
+    const tLetter = NOTATION_LETTERS[tIdx];
+    const targetPc = (rootPc + semiOff) % 12;
+    const toneAcc = ((targetPc - NOTATION_LETTER_PC[tLetter] + 18) % 12) - 6;
+    if (Math.abs(toneAcc) > 1) return null;
+    toneSpecs.push({ deg: degOff, letterIdx: tIdx, letter: tLetter, acc: toneAcc, pc: targetPc });
+  }
+  return { letter, acc: safeAcc, rootPc, qualityKey, toneSpecs };
 }
 
 function getNotationInversionLabel(inversion) {
@@ -9532,23 +9673,130 @@ function getNotationInversionLabel(inversion) {
   return tr("Grundstellung", "Root position");
 }
 
+function pickNotationChordQualityFamily(level, targetQualityKey, rootLetter, rootAcc) {
+  const cfg = NOTATION_CHORD_LEVELS[level] || NOTATION_CHORD_LEVELS[1];
+  const validInPool = cfg.qualities.filter(q => Boolean(spellNotationChord(rootLetter, rootAcc, q)));
+  const familyMap = cfg.sevenths ? NOTATION_CHORD_FAMILIES_FULL : NOTATION_CHORD_FAMILIES_TRIAD;
+  const templates = familyMap[targetQualityKey] || [];
+  const validTemplates = templates.filter(tpl => tpl.every(q => validInPool.includes(q)));
+  let group = validTemplates.length > 0
+    ? [...validTemplates[Math.floor(Math.random() * validTemplates.length)]]
+    : [targetQualityKey];
+
+  for (const q of validInPool) {
+    if (group.length >= 4) break;
+    if (!group.includes(q)) group.push(q);
+  }
+  group = group.slice(0, 4);
+  group.sort((a, b) => NOTATION_CHORD_QUALITY_ORDER.indexOf(a) - NOTATION_CHORD_QUALITY_ORDER.indexOf(b));
+  return group;
+}
+
+function pickNotationChordDistractorRoot(rootLetter, rootAcc, qualityGroup, keySig, lowestTone, inversion) {
+  const rootPc = ((NOTATION_LETTER_PC[rootLetter] + rootAcc) % 12 + 12) % 12;
+  const rootIdx = NOTATION_LETTERS.indexOf(rootLetter);
+  const candidates = [];
+  const seen = new Set([`${rootLetter}:${rootAcc}`]);
+  const pushCandidate = (letter, acc) => {
+    const k = `${letter}:${acc}`;
+    if (seen.has(k) || NOTATION_LETTER_PC[letter] === undefined) return;
+    const candPc = ((NOTATION_LETTER_PC[letter] + acc) % 12 + 12) % 12;
+    if (candPc === rootPc) return;
+    seen.add(k);
+    candidates.push({ letter, acc });
+  };
+
+  // Bei Umkehrungen zuerst den Basston als verlockenden Alternativ-Grundton anbieten
+  if (inversion > 0 && lowestTone && lowestTone.letter) {
+    pushCandidate(lowestTone.letter, lowestTone.accidental || 0);
+    if (keySig !== "none") {
+      pushCandidate(lowestTone.letter, getKeySignatureAccidentalForLetter(keySig, lowestTone.letter));
+    }
+  }
+
+  // Nachbartöne (+1/-1) und Terz-/Schlüssel-Sprünge (+2/-2)
+  const stepDeltas = [1, -1, 2, -2, 3, -3, 4, -4];
+  // Reihenfolge leicht durchmischen, damit nicht immer derselbe Abstand gewinnt
+  for (let i = stepDeltas.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [stepDeltas[i], stepDeltas[j]] = [stepDeltas[j], stepDeltas[i]];
+  }
+  for (const d of stepDeltas) {
+    const l = NOTATION_LETTERS[(rootIdx + d + 7) % 7];
+    const sigAcc = keySig !== "none" ? getKeySignatureAccidentalForLetter(keySig, l) : 0;
+    pushCandidate(l, sigAcc);
+    if (sigAcc !== 0) pushCandidate(l, 0);
+  }
+  // Rückfall auf Stammtöne
+  NOTATION_LETTERS.forEach(l => pushCandidate(l, 0));
+
+  for (const cand of candidates) {
+    if (qualityGroup.every(q => Boolean(spellNotationChord(cand.letter, cand.acc, q)))) {
+      return cand;
+    }
+  }
+  return null;
+}
+
 function buildNotationChordItem(ex, prevItem = null) {
   const lvl = Math.max(1, Math.min(4, parseInt(ex.level, 10) || 1));
-  const cfg = NOTATION_CHORD_LEVELS[lvl];
+  const cfg = NOTATION_CHORD_LEVELS[lvl] || NOTATION_CHORD_LEVELS[1];
   const keySig = normalizeNotationKeySigId(ex.keySignatureId || "none");
+  const extraRoots = [
+    { letter: "F", acc: 1 },
+    { letter: "B", acc: -1 },
+    { letter: "E", acc: -1 },
+    { letter: "A", acc: -1 },
+    { letter: "C", acc: 1 }
+  ];
 
-  for (let attempt = 0; attempt < 40; attempt++) {
+  for (let attempt = 0; attempt < 60; attempt++) {
     const clefId = cfg.clefs[Math.floor(Math.random() * cfg.clefs.length)];
-    const size = cfg.sevenths && Math.random() < 0.5 ? 4 : 3;
-    const inversion = cfg.inversions ? Math.floor(Math.random() * size) : 0;
-    const rootLetterIdx = Math.floor(Math.random() * 7);
-    const letters = Array.from({ length: size }, (_, i) => (rootLetterIdx + 2 * i) % 7);
-    const voiced = letters.slice(inversion).concat(letters.slice(0, inversion));
+    let qualityKey = cfg.qualities[Math.floor(Math.random() * cfg.qualities.length)];
+    // Gewichtung: gebräuchliche Typen (Dur, Moll, Dom.7, Maj7, Moll7, Sus4) etwas häufiger
+    if (lvl === 4 && Math.random() < 0.45) {
+      const coreL4 = ["maj", "min", "7", "sus4", "m7", "maj7"];
+      qualityKey = coreL4[Math.floor(Math.random() * coreL4.length)];
+    } else if (lvl <= 3 && Math.random() < 0.35) {
+      const coreTriad = ["maj", "min", "sus4", "dim"];
+      qualityKey = coreTriad[Math.floor(Math.random() * coreTriad.length)];
+    }
 
-    // Stufenabstände im System (Terz = 2, Quarte = 3 …), immer aufwärts geschichtet
+    let rootLetter = NOTATION_LETTERS[Math.floor(Math.random() * 7)];
+    let rootAcc = 0;
+    if (keySig !== "none") {
+      rootAcc = Math.random() < 0.8
+        ? getKeySignatureAccidentalForLetter(keySig, rootLetter)
+        : 0;
+    } else if ((lvl >= 3 && Math.random() < 0.24) || (lvl === 2 && Math.random() < 0.14)) {
+      const pick = extraRoots[Math.floor(Math.random() * extraRoots.length)];
+      rootLetter = pick.letter;
+      rootAcc = pick.acc;
+    }
+
+    // Eindeutige Standard-Grundtöne bevorzugen (keine theoretischen Eis/His/Ces/Fes-Grundtöne)
+    if (
+      (rootAcc === 1 && (rootLetter === "E" || rootLetter === "B")) ||
+      (rootAcc === -1 && (rootLetter === "C" || rootLetter === "F"))
+    ) {
+      rootAcc = 0;
+    }
+
+    const spelled = spellNotationChord(rootLetter, rootAcc, qualityKey);
+    if (!spelled) continue;
+
+    const qualityGroup = pickNotationChordQualityFamily(lvl, qualityKey, rootLetter, rootAcc);
+    if (qualityGroup.length < 4) continue;
+
+    const size = spelled.toneSpecs.length;
+    const inversion = cfg.inversions && Math.random() < 0.65
+      ? Math.floor(Math.random() * size)
+      : 0;
+    const voiced = spelled.toneSpecs.slice(inversion).concat(spelled.toneSpecs.slice(0, inversion));
+
     const offsets = [0];
     for (let i = 1; i < voiced.length; i++) {
-      let d = (voiced[i] - voiced[i - 1] + 7) % 7;
+      let d = (voiced[i].letterIdx - voiced[i - 1].letterIdx + 7) % 7;
       if (d === 0) d = 7;
       offsets.push(offsets[i - 1] + d);
     }
@@ -9556,44 +9804,85 @@ function buildNotationChordItem(ex, prevItem = null) {
     const lowSteps = [];
     for (let s = cfg.minStep; s + span <= cfg.maxStep; s++) {
       const probe = getNotationNoteFromStaffStep(clefId, s, 0);
-      if (NOTATION_LETTERS.indexOf(probe.letter) === voiced[0]) lowSteps.push(s);
+      if (NOTATION_LETTERS.indexOf(probe.letter) === voiced[0].letterIdx) lowSteps.push(s);
     }
     if (lowSteps.length === 0) continue;
     const baseStep = lowSteps[Math.floor(Math.random() * lowSteps.length)];
 
-    const tones = offsets.map(o => {
-      const probe = getNotationNoteFromStaffStep(clefId, baseStep + o, 0);
-      const acc = getKeySignatureAccidentalForLetter(keySig, probe.letter);
-      return getNotationNoteFromStaffStep(clefId, baseStep + o, acc, keySig);
-    });
-    const rootTone = tones[(size - inversion) % size];
-    const pcs = [...new Set(tones.map(t => t.pc))];
-    const symbol = getNotationChordSymbol(rootTone, pcs);
-    if (prevItem?.isChord && prevItem.chordSymbol === symbol && prevItem.staffStep === baseStep && attempt < 30) continue;
+    const tones = offsets.map((o, idx) =>
+      getNotationNoteFromStaffStep(clefId, baseStep + o, voiced[idx].acc, keySig)
+    );
+    const symbol = formatNotationChordSymbol(rootLetter, rootAcc, qualityKey);
+    const targetChoiceKey = makeNotationChordChoiceKey(rootLetter, rootAcc, qualityKey);
+
+    if (prevItem?.isChord && prevItem.key === targetChoiceKey && prevItem.staffStep === baseStep && attempt < 45) {
+      continue;
+    }
+
+    const distractorRoot = pickNotationChordDistractorRoot(rootLetter, rootAcc, qualityGroup, keySig, tones[0], inversion);
+    if (!distractorRoot) continue;
+
+    const groupA = qualityGroup.map(q => makeNotationChordChoiceKey(rootLetter, rootAcc, q));
+    const groupB = qualityGroup.map(q => makeNotationChordChoiceKey(distractorRoot.letter, distractorRoot.acc, q));
+    const choices = Math.random() < 0.5 ? [...groupA, ...groupB] : [...groupB, ...groupA];
 
     const toneNames = tones.map(t => t.shortName).join(" – ");
+    const invDesc = getNotationInversionLabel(inversion);
     return {
       ...tones[0],
       isChord: true,
+      key: targetChoiceKey,
+      qualityKey: qualityKey,
+      rootLetter: rootLetter,
+      rootAcc: rootAcc,
+      rootPc: spelled.rootPc,
       chordTones: tones,
-      pcs: pcs,
+      pcs: [...new Set(tones.map(t => t.pc))],
       playNotes: tones.map(t => t.noteName),
       chordSymbol: symbol,
       inversion: inversion,
+      inversionDesc: invDesc,
       chordSize: size,
+      choices: choices,
       displayName: symbol,
       shortName: symbol,
       toneNames: toneNames,
-      ledgerDesc: getNotationInversionLabel(inversion)
+      ledgerDesc: getNotationLedgerDescription(tones[0].staffStep)
     };
   }
-  // Rückfall: C-Dur-Dreiklang im Violinschlüssel
-  const fbTones = [0, 2, 4].map(s => getNotationNoteFromStaffStep("treble", s - 2, 0));
+
+  // Rückfall: E-Dur im Violinschlüssel gegen D-Dur-Familie
+  const fbTones = [
+    getNotationNoteFromStaffStep("treble", 0, 0, keySig),
+    getNotationNoteFromStaffStep("treble", 2, 1, keySig),
+    getNotationNoteFromStaffStep("treble", 4, 0, keySig)
+  ];
+  const fbKey = makeNotationChordChoiceKey("E", 0, "maj");
+  const fbGroup = ["maj", "min", "dim", "sus4"];
+  const fbSymbol = formatNotationChordSymbol("E", 0, "maj");
   return {
-    ...fbTones[0], isChord: true, chordTones: fbTones, pcs: fbTones.map(t => t.pc),
-    playNotes: fbTones.map(t => t.noteName), chordSymbol: "C", inversion: 0, chordSize: 3,
-    displayName: "C", shortName: "C", toneNames: fbTones.map(t => t.shortName).join(" – "),
-    ledgerDesc: getNotationInversionLabel(0)
+    ...fbTones[0],
+    isChord: true,
+    key: fbKey,
+    qualityKey: "maj",
+    rootLetter: "E",
+    rootAcc: 0,
+    rootPc: 4,
+    chordTones: fbTones,
+    pcs: fbTones.map(t => t.pc),
+    playNotes: fbTones.map(t => t.noteName),
+    chordSymbol: fbSymbol,
+    inversion: 0,
+    inversionDesc: getNotationInversionLabel(0),
+    chordSize: 3,
+    choices: [
+      ...fbGroup.map(q => makeNotationChordChoiceKey("E", 0, q)),
+      ...fbGroup.map(q => makeNotationChordChoiceKey("G", 0, q))
+    ],
+    displayName: fbSymbol,
+    shortName: fbSymbol,
+    toneNames: fbTones.map(t => t.shortName).join(" – "),
+    ledgerDesc: getNotationLedgerDescription(fbTones[0].staffStep)
   };
 }
 
@@ -9629,7 +9918,7 @@ function buildNextNotationQueueNote(ex, prevNote = null) {
 
 function populateNotationExerciseQueue(ex) {
   if (!ex) return;
-  const queueLen = state.exam?.active ? 1 : NOTATION_QUEUE_SIZE;
+  const queueLen = state.exam?.active ? 1 : (ex.isChordReading ? 5 : NOTATION_QUEUE_SIZE);
   ex.notationQueue = [];
   ex.mixedCounter = 0;
   for (let i = 0; i < queueLen; i++) {
@@ -9637,10 +9926,14 @@ function populateNotationExerciseQueue(ex) {
     ex.notationQueue.push(buildNextNotationQueueNote(ex, prev));
   }
   ex.targetItem = ex.notationQueue[0] || null;
+  ex.choices = ex.isChordReading && Array.isArray(ex.targetItem?.choices) ? [...ex.targetItem.choices] : [];
   ex.keyName = getLocalizedNotationClefName(ex.targetItem?.clefId || ex.baseClefId || "treble");
 }
 
 function generateNotationExercise(modeOverride = state.settings.mode) {
+  if (state.currentExercise?.isChordReading) {
+    cancelNotationChordAdvance(state.currentExercise);
+  }
   const mode = isNotationMode(modeOverride) ? modeOverride : "notation-treble";
   const lvl = Math.max(1, Math.min(4, parseInt(state.settings.notationDifficulty, 10) || 1));
   const keyMode = normalizeNotationKeyMode(state.settings.notationKeyMode);
@@ -9663,6 +9956,10 @@ function generateNotationExercise(modeOverride = state.settings.mode) {
     isGrandStaff: isNotationGrandMode(mode),
     isChordReading: isNotationChordMode(mode),
     chordFoundPcs: [],
+    chordAdvanceLock: false,
+    chordAdvanceToken: 0,
+    chordAdvanceTimerId: null,
+    choices: [],
     grandClefHistory: [],
     baseClefId: initialClef,
     mixedClefCursor: Math.max(0, NOTATION_ACTIVE_CLEFS.indexOf(initialClef)),
@@ -9685,10 +9982,41 @@ function generateNotationExercise(modeOverride = state.settings.mode) {
 function refreshNotationQueueLocalization(ex) {
   if (!ex || !Array.isArray(ex.notationQueue)) return;
   const exSig = normalizeNotationKeySigId(ex.keySignatureId || "none");
-  ex.notationQueue = ex.notationQueue.map(n =>
-    getNotationNoteFromStaffStep(n.clefId, n.staffStep, n.accidental, n.keySignatureId || exSig, n.shownAccidental)
-  );
+  ex.notationQueue = ex.notationQueue.map(n => {
+    if (n?.isChord && Array.isArray(n.chordTones)) {
+      const sig = n.keySignatureId || exSig;
+      const tones = n.chordTones.map(t =>
+        getNotationNoteFromStaffStep(t.clefId, t.staffStep, t.accidental, sig, t.shownAccidental)
+      );
+      const symbol = formatNotationChordSymbol(n.rootLetter || "C", n.rootAcc || 0, n.qualityKey || "maj");
+      return {
+        ...tones[0],
+        isChord: true,
+        key: n.key,
+        qualityKey: n.qualityKey,
+        rootLetter: n.rootLetter,
+        rootAcc: n.rootAcc,
+        rootPc: n.rootPc,
+        chordTones: tones,
+        pcs: [...new Set(tones.map(t => t.pc))],
+        playNotes: tones.map(t => t.noteName),
+        chordSymbol: symbol,
+        inversion: n.inversion || 0,
+        inversionDesc: getNotationInversionLabel(n.inversion || 0),
+        chordSize: tones.length,
+        choices: Array.isArray(n.choices) ? [...n.choices] : [],
+        displayName: symbol,
+        shortName: symbol,
+        toneNames: tones.map(t => t.shortName).join(" – "),
+        ledgerDesc: getNotationLedgerDescription(tones[0].staffStep)
+      };
+    }
+    return getNotationNoteFromStaffStep(n.clefId, n.staffStep, n.accidental, n.keySignatureId || exSig, n.shownAccidental);
+  });
   ex.targetItem = ex.notationQueue[0] || null;
+  if (ex.isChordReading && ex.targetItem) {
+    ex.choices = Array.isArray(ex.targetItem.choices) ? [...ex.targetItem.choices] : [];
+  }
   if (ex.targetItem) {
     ex.keyName = getLocalizedNotationClefName(ex.targetItem.clefId);
   }
@@ -10980,7 +11308,8 @@ function renderUI() {
   const isSolfege = ex.type === "solfege";
   const isMelody = ex.type === "melody";
   const isNotation = isNotationMode(ex.type);
-  const isKeyboardMode = isSolfege || isMelody || isNotation;
+  const isNotationChordChoice = isNotationChordMode(ex.type);
+  const isKeyboardMode = isSolfege || isMelody || (isNotation && !isNotationChordChoice);
   const isRhythmMeter = ex.type === "rhythm-meter";
   const isRhythmDict = ex.type === "rhythm-dictation";
   const isRhythmTap = ex.type === "rhythm-tap";
@@ -11194,7 +11523,9 @@ function renderUI() {
   if (skipBtn) {
     skipBtn.classList.remove("is-labeled");
     const skipHint = isNotation && !state.exam?.active
-      ? tr("Aktuelle Note überspringen", "Skip current note")
+      ? (ex?.isChordReading
+          ? tr("Aktuellen Akkord überspringen", "Skip current chord")
+          : tr("Aktuelle Note überspringen", "Skip current note"))
       : tr("Nächste Abfrage", "Next Prompt");
     skipBtn.title = skipHint;
     skipBtn.setAttribute("aria-label", skipHint);
@@ -11592,53 +11923,7 @@ function renderUI() {
     melodyRhythmPicker?.classList.add("hidden");
     solfegeWrap.classList.add("hidden");
     tapPadWrap?.classList.add("hidden");
-    btnGrid.classList.remove("hidden");
-    btnGrid.innerHTML = "";
-    const isInterval = !isCadence;
-    btnGrid.classList.toggle("grid-intervals", isInterval);
-    btnGrid.classList.toggle("grid-chords", isChordMode(ex.type) || isRhythmGroove || isProd || isModes);
-
-    const layout = computeBalancedRows(ex.choices);
-    btnGrid.style.setProperty("--max-cols", layout.maxCols);
-
-    layout.rows.forEach(rowChoices => {
-      const rowEl = document.createElement("div");
-      rowEl.className = "degree-row";
-
-      rowChoices.forEach(choiceKey => {
-        const item = getChoiceItem(ex.type, choiceKey);
-        const btn = document.createElement("button");
-        btn.className = "degree-btn";
-        btn.dataset.choice = choiceKey;
-
-        const sym = document.createElement("div");
-        sym.className = "degree-roman";
-        if (isRhythmDict) {
-          sym.innerHTML = getRhythmCellSVG(item.key, 42, 24);
-        } else {
-          sym.textContent = item.degreeTag ? item.baseRoman : (item.roman || item.symbol);
-        }
-
-        const l = document.createElement("span");
-        l.className = "degree-label";
-        l.textContent = item.short;
-
-        btn.appendChild(sym);
-        if (item.degreeTag) {
-          // Modi: Stufe als eigene Zeile, damit lange Namen die Kachel nicht sprengen
-          const step = document.createElement("span");
-          step.className = "degree-step";
-          step.textContent = item.degreeTag;
-          btn.appendChild(step);
-        }
-        btn.appendChild(l);
-        btn.addEventListener("click", (e) => handleAnswer(choiceKey, btn, { inputEvent: e }));
-        rowEl.appendChild(btn);
-      });
-
-      btnGrid.appendChild(rowEl);
-    });
-    if (isModes) fitChoiceNamesToTiles(btnGrid);
+    renderExerciseChoiceButtonsGrid(ex, btnGrid);
   }
 
   resetCentralStage();
@@ -11649,7 +11934,67 @@ function renderUI() {
   fitExerciseLayout();
 }
 
-// Lange Namen (z. B. Modi auf Ukrainisch) einheitlich verkleinern, statt über den Kachelrand zu laufen
+function renderExerciseChoiceButtonsGrid(ex, btnGrid = document.getElementById("degreeButtonsGrid")) {
+  if (!ex || !btnGrid) return;
+  const isCadence = ex.type === "cadence";
+  const isRhythmDict = ex.type === "rhythm-dictation";
+  const isRhythmGroove = ex.type === "rhythm-groove";
+  const isProd = ex.type === "prod-tone" || ex.type === "prod-eq-noise";
+  const isModes = ex.type.startsWith("modes-");
+  const isNotationChordChoice = isNotationChordMode(ex.type);
+  const useCompactNames = isModes || isNotationChordChoice;
+
+  btnGrid.classList.remove("hidden");
+  btnGrid.innerHTML = "";
+  const isInterval = !isCadence;
+  btnGrid.classList.toggle("grid-intervals", isInterval);
+  btnGrid.classList.toggle("grid-chords", isChordMode(ex.type) || isNotationChordChoice || isRhythmGroove || isProd || isModes);
+
+  const choices = Array.isArray(ex.choices) ? ex.choices : [];
+  const layout = computeBalancedRows(choices);
+  btnGrid.style.setProperty("--max-cols", layout.maxCols);
+
+  layout.rows.forEach(rowChoices => {
+    const rowEl = document.createElement("div");
+    rowEl.className = "degree-row";
+
+    rowChoices.forEach(choiceKey => {
+      const item = getChoiceItem(ex.type, choiceKey);
+      const btn = document.createElement("button");
+      btn.className = "degree-btn";
+      btn.dataset.choice = choiceKey;
+
+      const sym = document.createElement("div");
+      sym.className = "degree-roman";
+      if (isRhythmDict) {
+        sym.innerHTML = getRhythmCellSVG(item.key, 42, 24);
+      } else {
+        sym.textContent = item.degreeTag ? item.baseRoman : (item.roman || item.symbol);
+      }
+
+      const l = document.createElement("span");
+      l.className = "degree-label";
+      l.textContent = item.short;
+
+      btn.appendChild(sym);
+      if (item.degreeTag) {
+        // Modi: Stufe als eigene Zeile, damit lange Namen die Kachel nicht sprengen
+        const step = document.createElement("span");
+        step.className = "degree-step";
+        step.textContent = item.degreeTag;
+        btn.appendChild(step);
+      }
+      btn.appendChild(l);
+      btn.addEventListener("click", (e) => handleAnswer(choiceKey, btn, { inputEvent: e }));
+      rowEl.appendChild(btn);
+    });
+
+    btnGrid.appendChild(rowEl);
+  });
+  if (useCompactNames) fitChoiceNamesToTiles(btnGrid);
+}
+
+// Lange Namen (z. B. Modi auf Ukrainisch oder Akkordsymbole) einheitlich verkleinern
 function fitChoiceNamesToTiles(grid) {
   if (!grid) return;
   const names = [...grid.querySelectorAll(".degree-btn .degree-roman")];
@@ -11667,7 +12012,7 @@ function fitChoiceNamesToTiles(grid) {
 
 window.addEventListener("resize", () => {
   const grid = document.getElementById("degreeButtonsGrid");
-  if (grid && !grid.classList.contains("hidden") && grid.querySelector(".degree-step")) fitChoiceNamesToTiles(grid);
+  if (grid && !grid.classList.contains("hidden") && (grid.querySelector(".degree-step") || grid.classList.contains("grid-chords"))) fitChoiceNamesToTiles(grid);
 });
 
 // ---------- FESTE ÜBUNGSHÖHE ----------
@@ -11711,7 +12056,7 @@ function fitExerciseLayout(reset = true) {
   if (view.scrollHeight > view.clientHeight + 1) view.classList.add("fit-overflow");
   view.dataset.fitLevel = String(level);
   const grid = document.getElementById("degreeButtonsGrid");
-  if (grid && grid.querySelector(".degree-step")) fitChoiceNamesToTiles(grid);
+  if (grid && (grid.querySelector(".degree-step") || grid.classList.contains("grid-chords"))) fitChoiceNamesToTiles(grid);
 }
 
 let exerciseFitQueued = null;
@@ -12073,9 +12418,11 @@ function resetCentralStage() {
     document.getElementById("stageSubtext").textContent = tr("NOTENLESEN", "SIGHT-READING");
     document.getElementById("stageMainText").textContent = clefName;
     document.getElementById("stageFunctionText").textContent = state.exam?.active
-      ? tr("Lies die Note im System und wähle die Taste unten.", "Read the note on the staff and tap the key below.")
+      ? (ex?.isChordReading
+          ? tr("Lies den Akkord im System und wähle unten das passende Symbol.", "Read the chord on the staff and pick its symbol below.")
+          : tr("Lies die Note im System und wähle die Taste unten.", "Read the note on the staff and tap the key below."))
       : (ex?.isChordReading
-          ? tr("Lies den ersten Akkord links und tippe alle seine Töne — oder „Überspringen“.", "Read the leftmost chord and tap all its notes — or tap “Skip”.")
+          ? tr("Lies den ersten Akkord links und wähle das Symbol unten — oder „Überspringen“.", "Read the leftmost chord and pick its symbol below — or tap “Skip”.")
           : tr("Lies die erste Note links — oder tippe „Überspringen“.", "Read the leftmost note — or tap “Skip”."));
     renderStageStreakUI();
     return;
@@ -12653,11 +13000,9 @@ function syncNotationHeaderUI(ex = state.currentExercise) {
   tonicRefBtn?.classList.add("hidden");
   if (inputPromptText) {
     if (ex.isChordReading && ex.targetItem?.isChord) {
-      inputPromptText.textContent = tf(
-        "Alle Akkordtöne antippen ({found}/{total}):",
-        "Tap all chord notes ({found}/{total}):",
-        { found: (ex.chordFoundPcs || []).length, total: ex.targetItem.pcs.length }
-      );
+      inputPromptText.textContent = ex.keySignatureId && ex.keySignatureId !== "none"
+        ? tr("Akkord links (mit Vorzeichen) wählen:", "Pick the left chord (mind key sig.):")
+        : tr("Akkord links wählen:", "Pick the left chord:");
     } else {
       inputPromptText.textContent = ex.keySignatureId && ex.keySignatureId !== "none"
         ? tr("Note links (mit Vorzeichen) wählen:", "Play left note (mind key sig.):")
@@ -12671,7 +13016,17 @@ function getNotationChordLevelTag(level) {
   if (lvl === 1) return tr("Dreiklänge • Violinschlüssel", "Triads • Treble");
   if (lvl === 2) return tr("Dreiklänge • Bassschlüssel", "Triads • Bass");
   if (lvl === 3) return tr("Umkehrungen", "Inversions");
-  return tr("Septakkorde & Umkehrungen", "7th Chords & Inversions");
+  return tr("Alle Typen & Septakkorde", "All Types & 7th Chords");
+}
+
+function cancelNotationChordAdvance(ex = state.currentExercise) {
+  if (!ex) return;
+  ex.chordAdvanceToken = (ex.chordAdvanceToken || 0) + 1;
+  ex.chordAdvanceLock = false;
+  if (ex.chordAdvanceTimerId) {
+    clearTimeout(ex.chordAdvanceTimerId);
+    ex.chordAdvanceTimerId = null;
+  }
 }
 
 function renderNotationStaffPanel(ex, didShift = false, targetGrid = document.getElementById("barsGrid")) {
@@ -12711,7 +13066,8 @@ function renderNotationStaffPanel(ex, didShift = false, targetGrid = document.ge
         level: ex.level || 1,
         highlightFirst: true,
         showChangeClefs: Boolean(ex.isMixedClef && !state.exam?.active),
-        foundPcs: ex.isChordReading ? ex.chordFoundPcs : null,
+        foundPcs: null,
+        isChordStaff: Boolean(ex.isChordReading),
         didShift: Boolean(didShift)
       });
 
@@ -12748,6 +13104,7 @@ function advanceNotationPhraseKeyIfNeeded(ex) {
 
 function shiftAndAdvanceNotationQueue(ex, feedbackKind, stageSub, stageMain, stageDesc, keyBtn) {
   if (!ex) return;
+  cancelNotationChordAdvance(ex);
   ex.chordFoundPcs = [];
   const rotatedKeySig = advanceNotationPhraseKeyIfNeeded(ex);
   if (!rotatedKeySig) {
@@ -12757,20 +13114,26 @@ function shiftAndAdvanceNotationQueue(ex, feedbackKind, stageSub, stageMain, sta
     ex.notationQueue = queue;
     injectNotationSessionReview(ex);
     ex.targetItem = queue[0] || null;
+    ex.choices = ex.isChordReading && Array.isArray(ex.targetItem?.choices) ? [...ex.targetItem.choices] : [];
     ex.keyName = getLocalizedNotationClefName(ex.targetItem?.clefId || ex.baseClefId || "treble");
   }
   ex.notationPanelState = feedbackKind === "correct" ? "is-correct" : "";
 
-  document.querySelectorAll("#solfegeKeyboardWrap .piano-white-key, #solfegeKeyboardWrap .piano-black-key").forEach(el => {
-    el.classList.remove("key-wrong", "key-correct");
-  });
-  if (feedbackKind === "correct" && keyBtn) {
-    keyBtn.classList.add("key-correct");
-    setTimeout(() => keyBtn.classList.remove("key-correct"), 230);
+  if (ex.isChordReading) {
+    renderExerciseChoiceButtonsGrid(ex);
+  } else {
+    document.querySelectorAll("#solfegeKeyboardWrap .piano-white-key, #solfegeKeyboardWrap .piano-black-key").forEach(el => {
+      el.classList.remove("key-wrong", "key-correct");
+    });
+    if (feedbackKind === "correct" && keyBtn) {
+      keyBtn.classList.add("key-correct");
+      setTimeout(() => keyBtn.classList.remove("key-correct"), 230);
+    }
   }
 
   renderNotationStaffPanel(ex, true);
   syncNotationHeaderUI(ex);
+  queueFitExerciseLayout(false);
 
   if (feedbackKind === "correct") {
     const panelEl = document.getElementById("notationStaffPanel");
@@ -12795,6 +13158,134 @@ function shiftAndAdvanceNotationQueue(ex, feedbackKind, stageSub, stageMain, sta
     document.getElementById("stageFunctionText").textContent = finalDesc;
     renderStageStreakUI();
   }
+}
+
+async function handleNotationChordChoice(selectedKey, btnElement, options = {}) {
+  const ex = state.currentExercise;
+  if (!ex || !ex.isChordReading || !ex.targetItem || ex.chordAdvanceLock) return;
+  const capturedInputPoint = resolveInputPointFromOptions(options);
+  const isListenOnly = Boolean(options.fromListenOnly && state.listenOnly?.active);
+  const listenOnlyToken = isListenOnly ? state.listenOnly.token : null;
+  if (!options.fromListenOnly && state.listenOnly?.active) {
+    setListenOnlyMode(false, { keepPlayback: true });
+  }
+
+  await ensureAudioReady();
+  if (isListenOnly && (!state.listenOnly?.active || state.listenOnly.token !== listenOnlyToken || state.currentView !== "exercise" || state.currentExercise !== ex)) {
+    return;
+  }
+  if (ex.chordAdvanceLock) return;
+
+  if (state.exam?.active) {
+    handleExamNotationChordAnswer(ex, selectedKey, btnElement);
+    return;
+  }
+
+  const target = ex.targetItem;
+  const isCorrect = selectedKey === target.key;
+
+  if (!isCorrect) {
+    if (!isListenOnly) {
+      resetExerciseStreakOnAttempt(ex);
+      noteNotationReviewAnswer(ex, target, false);
+    }
+    ex.notationPanelState = "is-wrong";
+    btnElement?.classList.add("btn-wrong");
+    const panelEl = document.getElementById("notationStaffPanel");
+    panelEl?.classList.remove("is-correct");
+    panelEl?.classList.add("is-wrong");
+
+    if (document.getElementById("centralStageCard")) {
+      setCentralStageMode("stage-wrong");
+      updateStageMascot("thinking");
+      const chosen = getNotationChordChoiceItem(selectedKey);
+      const pickedSym = chosen?.symbol || selectedKey || "?";
+      const sameRoot = Number(chosen?.rootPc) === Number(target.rootPc);
+      const activeKeySig = normalizeNotationKeySigId(ex.keySignatureId || "none");
+      document.getElementById("stageSubtext").textContent = tr("NOCH NICHT GANZ", "NOT QUITE");
+      document.getElementById("stageMainText").textContent = tf("{sym}? Nein", "{sym}? No", { sym: pickedSym });
+      if (sameRoot) {
+        document.getElementById("stageFunctionText").textContent = tr(
+          "Grundton stimmt! Prüfe Vorzeichen, Terz & Zusatztöne genau.",
+          "Right root! Check accidentals, the 3rd, and extensions closely."
+        );
+      } else if (target.inversion > 0) {
+        document.getElementById("stageFunctionText").textContent = tr(
+          "Achte auf den echten Grundton (Umkehrung!) und den Schlüssel.",
+          "Watch for the true root (inversion!) and check the clef."
+        );
+      } else if (activeKeySig !== "none") {
+        document.getElementById("stageFunctionText").textContent = tf(
+          "Tonart {key} ({acc}) beachten – oder „Überspringen“.",
+          "Watch {key} ({acc}) — or tap “Skip”.",
+          {
+            key: getLocalizedNotationKeySigName(activeKeySig, true),
+            acc: getLocalizedNotationKeySigBadge(activeKeySig, true)
+          }
+        );
+      } else {
+        document.getElementById("stageFunctionText").textContent = tf(
+          "Lies zuerst den Grundton im {clef} – oder tippe „Überspringen“.",
+          "Check the root note in {clef} — or tap “Skip”.",
+          { clef: getLocalizedNotationClefName(target.clefId) }
+        );
+      }
+    }
+    return;
+  }
+
+  ex.chordAdvanceLock = true;
+  const advanceToken = (ex.chordAdvanceToken || 0) + 1;
+  ex.chordAdvanceToken = advanceToken;
+
+  audioEngine.stopPlayback();
+  state.isPlaying = false;
+  updatePlayButtonUI(false);
+  if (isListenOnly || shouldPlayCorrectAnswerAudio()) {
+    audioEngine.playStep(getNotationPlayNotes(target), 1.1, null, "interval");
+  }
+
+  btnElement?.classList.remove("btn-wrong");
+  btnElement?.classList.add("btn-correct");
+  ex.notationPanelState = "is-correct";
+  const panelEl = document.getElementById("notationStaffPanel");
+  panelEl?.classList.remove("is-wrong");
+  panelEl?.classList.add("is-correct");
+
+  const streakRes = isListenOnly
+    ? { count: state.streakState?.count || 0, isMilestone: false }
+    : recordExerciseStreakSuccess(ex);
+  if (!isListenOnly) noteNotationReviewAnswer(ex, target, true);
+  ex.notationSolvedCount = (ex.notationSolvedCount || 0) + 1;
+
+  if (!isListenOnly) {
+    triggerCelebrationFeedback(btnElement, { isMilestone: streakRes.isMilestone, inputPoint: capturedInputPoint });
+  }
+
+  const stageSub = tr("RICHTIG GELESEN!", "READ CORRECTLY!");
+  const stageMain = target.displayName;
+  const stageDesc = tf("{clef} • {ledger}", "{clef} • {ledger}", {
+    clef: getLocalizedNotationClefName(target.clefId),
+    ledger: `${target.inversionDesc || target.ledgerDesc} • ${target.toneNames}`
+  });
+
+  if (document.getElementById("centralStageCard")) {
+    setCentralStageMode("stage-playing");
+    updateStageMascot("happy");
+    document.getElementById("stageSubtext").textContent = stageSub;
+    document.getElementById("stageMainText").textContent = stageMain;
+    document.getElementById("stageFunctionText").textContent = stageDesc;
+    renderStageStreakUI();
+  }
+
+  ex.chordAdvanceTimerId = setTimeout(() => {
+    ex.chordAdvanceTimerId = null;
+    if (state.currentView !== "exercise" || state.currentExercise !== ex || ex.chordAdvanceToken !== advanceToken || state.exam?.active) {
+      return;
+    }
+    ex.chordAdvanceLock = false;
+    shiftAndAdvanceNotationQueue(ex, "correct", stageSub, stageMain, stageDesc, btnElement);
+  }, 260);
 }
 
 async function handleNotationKeyClick(clickedKeyDef, keyBtn, options = {}) {
@@ -12917,6 +13408,7 @@ async function handleNotationKeyClick(clickedKeyDef, keyBtn, options = {}) {
 function skipNotationNote() {
   const ex = state.currentExercise;
   if (!ex || !isNotationMode(ex.type) || state.exam?.active || !ex.targetItem) return;
+  cancelNotationChordAdvance(ex);
   const target = ex.targetItem;
   stopPlayback();
   if (state.listenOnly?.active) {
@@ -12929,11 +13421,14 @@ function skipNotationNote() {
   if (shouldPlayCorrectAnswerAudio()) {
     ensureAudioReady().then(() => {
       if (state.currentView === "exercise" && state.currentExercise === ex && !state.exam?.active) {
-        audioEngine.playStep(getNotationPlayNotes(target), 0.72, null, "interval");
+        audioEngine.playStep(getNotationPlayNotes(target), target.isChord ? 1.0 : 0.72, null, "interval");
       }
     }).catch(() => {});
   }
 
+  const detailDesc = target.isChord
+    ? `${target.inversionDesc || target.ledgerDesc} • ${target.toneNames}`
+    : target.ledgerDesc;
   shiftAndAdvanceNotationQueue(
     ex,
     "skip",
@@ -12941,7 +13436,7 @@ function skipNotationNote() {
     target.displayName,
     tf("{clef} • {ledger}", "{clef} • {ledger}", {
       clef: getLocalizedNotationClefName(target.clefId),
-      ledger: target.isChord ? `${target.ledgerDesc} • ${target.toneNames}` : target.ledgerDesc
+      ledger: detailDesc
     }),
     null
   );
@@ -12952,20 +13447,21 @@ function revealNotationListenOnly(ex, token) {
     return;
   }
   const target = ex.targetItem;
-  const keyBtn = document.getElementById(`solfegeKey_${60 + Number(target.pc)}`) ||
-    Array.from(document.querySelectorAll("#solfegeKeyboardWrap .piano-white-key:not(.piano-key-frame), #solfegeKeyboardWrap .piano-black-key"))
-      .find(el => parseInt(el.dataset.pc, 10) === Number(target.pc)) || null;
   state.listenOnly.phase = "reveal";
 
-  document.querySelectorAll("#solfegeKeyboardWrap .piano-white-key, #solfegeKeyboardWrap .piano-black-key").forEach(el => {
-    el.classList.remove("key-wrong", "key-correct");
-  });
-  keyBtn?.classList.add("key-correct");
-  if (target.isChord && Array.isArray(target.pcs)) {
-    document.querySelectorAll("#solfegeKeyboardWrap .piano-white-key:not(.piano-key-frame), #solfegeKeyboardWrap .piano-black-key").forEach(el => {
-      if (target.pcs.includes(parseInt(el.dataset.pc, 10))) el.classList.add("key-correct");
+  if (ex.isChordReading) {
+    document.querySelectorAll("#degreeButtonsGrid .degree-btn").forEach(el => {
+      el.classList.remove("btn-wrong");
+      el.classList.toggle("btn-correct", el.dataset.choice === target.key);
     });
-    ex.chordFoundPcs = [...target.pcs];
+  } else {
+    const keyBtn = document.getElementById(`solfegeKey_${60 + Number(target.pc)}`) ||
+      Array.from(document.querySelectorAll("#solfegeKeyboardWrap .piano-white-key:not(.piano-key-frame), #solfegeKeyboardWrap .piano-black-key"))
+        .find(el => parseInt(el.dataset.pc, 10) === Number(target.pc)) || null;
+    document.querySelectorAll("#solfegeKeyboardWrap .piano-white-key, #solfegeKeyboardWrap .piano-black-key").forEach(el => {
+      el.classList.remove("key-wrong", "key-correct");
+    });
+    keyBtn?.classList.add("key-correct");
   }
 
   ex.notationPanelState = "is-correct";
@@ -12980,7 +13476,7 @@ function revealNotationListenOnly(ex, token) {
     document.getElementById("stageMainText").textContent = target.displayName;
     document.getElementById("stageFunctionText").textContent = tf("{clef} • {ledger}", "{clef} • {ledger}", {
       clef: getLocalizedNotationClefName(target.clefId),
-      ledger: target.ledgerDesc
+      ledger: target.isChord ? `${target.inversionDesc || target.ledgerDesc} • ${target.toneNames}` : target.ledgerDesc
     });
   }
 
@@ -12994,7 +13490,9 @@ function revealNotationListenOnly(ex, token) {
       "listen-advance",
       tr("NUR HÖREN • NOTENLESEN", "LISTEN ONLY • SIGHT-READ"),
       getLocalizedNotationClefName(ex.targetItem?.clefId || ex.baseClefId || "treble"),
-      tr("Höre den Ton & schau auf die erste Note links…", "Hear the tone & read the leftmost note…"),
+      ex.isChordReading
+        ? tr("Höre den Akkord & schau auf den ersten Akkord links…", "Hear the chord & read the leftmost chord…")
+        : tr("Höre den Ton & schau auf die erste Note links…", "Hear the tone & read the leftmost note…"),
       null
     );
     startListenOnlyCycle();
@@ -13152,6 +13650,9 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
 
   if (ex.type === "rhythm-dictation") {
     return handleRhythmDictationChoice(selectedKey, btnElement, { ...options, inputPoint: capturedInputPoint });
+  }
+  if (ex.isChordReading) {
+    return handleNotationChordChoice(selectedKey, btnElement, { ...options, inputPoint: capturedInputPoint });
   }
   if (state.exam?.active) {
     handleExamChoiceAnswer(ex, selectedKey, btnElement);
@@ -14284,7 +14785,7 @@ function isCurrentExerciseSolved(ex = state.currentExercise) {
 
 function clearTransientExerciseWrongMarks() {
   document.querySelectorAll("#degreeButtonsGrid .degree-btn").forEach(el => {
-    el.classList.remove("btn-wrong");
+    el.classList.remove("btn-wrong", "btn-correct");
   });
   document.querySelectorAll("#solfegeKeyboardWrap .piano-white-key, #solfegeKeyboardWrap .piano-black-key").forEach(el => {
     el.classList.remove("key-wrong", "key-correct");
@@ -14625,14 +15126,21 @@ async function playSequence(options = {}) {
     const target = ex.targetItem;
     const clefId = target?.clefId || ex.baseClefId || "treble";
     if (state.listenOnly?.active) {
-      const targetNoteName = target?.noteName || "C4";
+      const targetNotes = getNotationPlayNotes(target);
       setCentralStageMode("stage-target");
       updateStageMascot("listening");
       document.getElementById("stageSubtext").textContent = tr("NUR HÖREN • NOTENLESEN", "LISTEN ONLY • SIGHT-READ");
       document.getElementById("stageMainText").textContent = getLocalizedNotationClefName(clefId);
-      document.getElementById("stageFunctionText").textContent = tr("Höre den Ton & schau auf die erste Note links…", "Hear the tone & read the leftmost note…");
+      document.getElementById("stageFunctionText").textContent = ex.isChordReading
+        ? tr("Höre den Akkord & schau auf den ersten Akkord links…", "Hear the chord & read the leftmost chord…")
+        : tr("Höre den Ton & schau auf die erste Note links…", "Hear the tone & read the leftmost note…");
       if (shouldPlayCorrectAnswerAudio()) {
-        audioEngine.playStep([targetNoteName], getNotationListenOnlyToneDurationSec(), null, "interval");
+        audioEngine.playStep(
+          targetNotes,
+          ex.isChordReading ? Math.max(1.05, getNotationListenOnlyToneDurationSec()) : getNotationListenOnlyToneDurationSec(),
+          null,
+          "interval"
+        );
       }
       audioEngine.registerTimer(() => {
         if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
@@ -14646,15 +15154,15 @@ async function playSequence(options = {}) {
       return;
     }
 
-    const previewNote = state.exam?.active
-      ? (NOTATION_CLEFS[clefId]?.anchorNote || "G4")
-      : (target?.noteName || "C4");
-    audioEngine.playStep([previewNote], 0.95, null, "interval");
+    const previewNotes = state.exam?.active
+      ? [NOTATION_CLEFS[clefId]?.anchorNote || "G4"]
+      : getNotationPlayNotes(target);
+    audioEngine.playStep(previewNotes, target?.isChord ? 1.15 : 0.95, null, "interval");
     audioEngine.registerTimer(() => {
       if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
       state.isPlaying = false;
       updatePlayButtonUI(false);
-    }, 980);
+    }, target?.isChord ? 1150 : 980);
     return;
   }
 
@@ -15656,7 +16164,9 @@ function updatePlayButtonUI(isPlaying) {
   } else if (isNotationMode(state.currentExercise?.type)) {
     btn.innerHTML = state.exam?.active
       ? tr("▶ Ankerton", "▶ Anchor Pitch")
-      : tr("▶ Ton anhören", "▶ Hear Note");
+      : (isNotationChordMode(state.currentExercise?.type)
+          ? tr("▶ Akkord anhören", "▶ Hear Chord")
+          : tr("▶ Ton anhören", "▶ Hear Note"));
     btn.classList.remove("btn-stop");
   } else {
     btn.innerHTML = tr("▶ Abspielen", "▶ Play");
@@ -22629,6 +23139,96 @@ function handleExamNotationAnswer(ex, clickedKeyDef, keyBtn) {
   showExamPostAnswerNextBar();
 }
 
+function handleExamNotationChordAnswer(ex, selectedKey, btnElement) {
+  const exam = state?.exam;
+  if (!exam || !exam.active || exam.currentAnswered || !ex?.targetItem) return;
+
+  exam.currentAnswered = true;
+  clearExamTimers(exam);
+  stopPlayback();
+  state.exerciseSolved = true;
+  ex.isSolved = true;
+
+  const target = ex.targetItem;
+  const isCorrect = selectedKey === target.key;
+  const chosenDef = getNotationChordChoiceItem(selectedKey);
+  const chosenDisplay = chosenDef?.symbol || selectedKey || "?";
+  const sigId = normalizeNotationKeySigId(target.keySignatureId || ex.keySignatureId || "none");
+  const baseDetail = `${getLocalizedNotationClefName(target.clefId)}${target.inversionDesc ? ` • ${target.inversionDesc}` : ""}`;
+  const detailText = sigId !== "none"
+    ? `${baseDetail} • ${getLocalizedNotationKeySigName(sigId, true)} (${getLocalizedNotationKeySigBadge(sigId, false)})`
+    : baseDetail;
+
+  recordExamQuestionEntry({
+    mode: ex.type,
+    status: isCorrect ? "correct" : "wrong",
+    score: isCorrect ? 1 : 0,
+    chosenKey: selectedKey,
+    targetKey: target.key,
+    chosenLabel: chosenDisplay,
+    targetLabel: target.displayName,
+    detailNote: detailText,
+    audioSnapshot: {
+      type: ex.type,
+      clefId: target.clefId,
+      staffStep: target.staffStep,
+      accidental: target.accidental,
+      keySignatureId: sigId,
+      isChord: true,
+      chordTonesSpec: (target.chordTones || []).map(t => ({
+        step: t.staffStep,
+        acc: t.accidental,
+        shownAcc: t.shownAccidental !== undefined ? t.shownAccidental : t.accidental
+      })),
+      targetNotes: getNotationPlayNotes(target),
+      chosenNotes: chosenDef?.notes || null
+    }
+  });
+
+  if (exam.feedbackMode === "blind") {
+    btnElement?.classList.add("exam-choice-recorded");
+    if (document.getElementById("centralStageCard")) {
+      setCentralStageMode("stage-playing");
+      updateStageMascot("listening");
+      document.getElementById("stageSubtext").textContent = tr("ANTWORT ERFASST", "ANSWER RECORDED");
+      document.getElementById("stageMainText").textContent = chosenDisplay;
+      document.getElementById("stageFunctionText").textContent = tr("Weiter zur nächsten Frage…", "Moving to the next question…");
+    }
+    scheduleExamAutoAdvance(260);
+    return;
+  }
+
+  document.querySelectorAll("#degreeButtonsGrid .degree-btn").forEach(el => {
+    el.classList.remove("btn-wrong", "btn-correct");
+    if (el.dataset.choice === target.key) el.classList.add("btn-correct");
+  });
+  const panelEl = document.getElementById("notationStaffPanel");
+  panelEl?.classList.remove("is-wrong", "is-correct");
+
+  if (isCorrect) {
+    btnElement?.classList.add("btn-correct");
+    panelEl?.classList.add("is-correct");
+    audioEngine.playStep(getNotationPlayNotes(target), 1.15, null, "interval");
+    setCentralStageMode("stage-playing");
+    updateStageMascot("happy");
+    document.getElementById("stageSubtext").textContent = tr("RICHTIG GELESEN!", "READ CORRECTLY!");
+  } else {
+    btnElement?.classList.add("btn-wrong");
+    panelEl?.classList.add("is-wrong");
+    audioEngine.playStep(getNotationPlayNotes(target), 1.15, null, "interval");
+    setCentralStageMode("stage-wrong");
+    updateStageMascot("thinking");
+    document.getElementById("stageSubtext").textContent = tr("NICHT GANZ", "NOT QUITE");
+  }
+  document.getElementById("stageMainText").textContent = target.displayName;
+  document.getElementById("stageFunctionText").textContent = tf(
+    "Gewählt: {ch} • Lösung: {tg}",
+    "Picked: {ch} • Target: {tg}",
+    { ch: chosenDisplay, tg: target.displayName }
+  );
+  showExamPostAnswerNextBar();
+}
+
 function finalizeExamMelodySlot(ex, idx) {
   const exam = state?.exam;
   const slots = ex?.melodySlots || [];
@@ -23134,6 +23734,15 @@ function skipCurrentExamQuestion() {
       accidental: ex.targetItem.accidental,
       keySignatureId: sigId,
       shownAccidental: ex.targetItem.shownAccidental !== undefined ? ex.targetItem.shownAccidental : ex.targetItem.accidental,
+      isChord: Boolean(ex.targetItem.isChord),
+      chordTonesSpec: ex.targetItem.isChord && Array.isArray(ex.targetItem.chordTones)
+        ? ex.targetItem.chordTones.map(t => ({
+            step: t.staffStep,
+            acc: t.accidental,
+            shownAcc: t.shownAccidental !== undefined ? t.shownAccidental : t.accidental
+          }))
+        : undefined,
+      targetNotes: ex.targetItem.isChord ? getNotationPlayNotes(ex.targetItem) : undefined,
       targetNoteName: ex.targetItem.noteName,
       chosenNoteName: null
     };
@@ -23337,6 +23946,7 @@ function renderExamResultView() {
     const canPlayChosen = Boolean(
       snap && item.status !== "skipped" && (
         snap.chosenKey || snap.chosenNoteName || snap.chosenFreqHz ||
+        (Array.isArray(snap.chosenNotes) && snap.chosenNotes.length > 0) ||
         (Array.isArray(snap.chosenSlots) && snap.chosenSlots.length > 0) ||
         (Array.isArray(snap.chosenCellKeys) && snap.chosenCellKeys.length > 0) ||
         Array.isArray(snap.tapsMs)
@@ -23571,6 +24181,13 @@ function playSingleExamReviewSnapshot(snap, side) {
   }
 
   if (type === "solfege" || isNotationMode(type)) {
+    if (snap.isChord) {
+      const notes = side === "chosen" ? snap.chosenNotes : snap.targetNotes;
+      if (Array.isArray(notes) && notes.length > 0) {
+        audioEngine.playStep(notes, 1.15, null, "interval");
+        return 1200;
+      }
+    }
     const noteName = side === "chosen" ? snap.chosenNoteName : snap.targetNoteName;
     if (noteName) audioEngine.playStep([noteName], 1.05, null, "interval");
     return 1100;
