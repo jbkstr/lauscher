@@ -10175,26 +10175,6 @@ body.is-hum-pause #solfegeKeyboardWrap {
   padding: 0.35rem 0.25rem 0.2rem;
 }
 
-.about-mascot-badge {
-  width: 88px;
-  height: 88px;
-  border-radius: 50%;
-  background: linear-gradient(145deg, var(--surface-white) 0%, var(--sage-soft) 100%);
-  border: 2px solid var(--sage);
-  box-shadow: var(--shadow-card);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  margin-bottom: 0.65rem;
-}
-
-.about-mascot-badge svg {
-  width: 76px;
-  height: 76px;
-  display: block;
-}
-
 .about-app-name {
   font-size: 1.55rem;
   font-weight: 800;
@@ -11497,4 +11477,26 @@ body.is-hum-pause #solfegeKeyboardWrap {
 }
 .node-circle.node-circle-compact {
   font-size: 0.9rem;
+}
+
+/* Über-Fenster: App-Icon als Squircle (Superellipse per SVG-clipPath #lauscherSquircle) */
+.about-app-icon-wrap {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  margin-bottom: 0.7rem;
+  filter: drop-shadow(0 6px 14px rgba(31, 51, 66, 0.18));
+}
+.about-app-icon {
+  width: 100%;
+  height: 100%;
+  background: #B8CBBB url("icons/app-icon.jpg") center / cover no-repeat;
+  border-radius: 23%;
+  clip-path: url(#lauscherSquircle);
+}
+.about-squircle-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
 }

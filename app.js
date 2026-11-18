@@ -5206,10 +5206,7 @@ function getOpenModalName() {
 }
 
 function renderAboutModalContent() {
-  const mascotEl = document.getElementById("aboutMascotBadge");
-  if (mascotEl && typeof getMascotSVG === "function") {
-    mascotEl.innerHTML = getMascotSVG("happy", true);
-  }
+  // Kopf zeigt das App-Icon (Squircle, reines CSS) – nichts zu rendern
   document.getElementById("aboutPlaceholderNotice")?.classList.add("hidden");
 }
 
