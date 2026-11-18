@@ -2029,14 +2029,8 @@
 
       <section class="module-card tuner-setup-card">
         <div class="tuner-select-row">
-          <label class="tuner-select-field">
-            <span class="tuner-select-label" data-i18n="tuner.instrumentLabel">Instrument</span>
-            <select id="tunerInstrumentSelect" class="tuner-select"></select>
-          </label>
-          <label id="tunerTuningField" class="tuner-select-field">
-            <span class="tuner-select-label" data-i18n="tuner.tuningLabel">Stimmung</span>
-            <select id="tunerTuningSelect" class="tuner-select"></select>
-          </label>
+          <div id="tunerInstrumentHost" class="tuner-dropdown-host" data-tuner-dropdown="instrument"></div>
+          <div id="tunerTuningField" class="tuner-dropdown-host is-end" data-tuner-dropdown="tuning"></div>
         </div>
 
         <div class="tuner-mode-toggle" role="radiogroup" aria-label="Erkennung" data-i18n-aria="tuner.modeAria">

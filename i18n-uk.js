@@ -117,8 +117,6 @@ const I18N_STATIC_UK = {
   "tools.previewBadge": "Незабаром",
   "tools.tunerPageTitle": "Хроматичний тюнер",
   "tools.tunerPageDesc": "Розпізнавання висоти звуку наживо та камертон через мікрофон пристрою.",
-  "tuner.instrumentLabel": "Інструмент",
-  "tuner.tuningLabel": "Стрій",
   "tuner.modeAuto": "Автоматично",
   "tuner.modeSingle": "Окрема нота",
   "tuner.modeAria": "Розпізнавання",
@@ -1866,6 +1864,10 @@ Object.assign(TR_UK, {
 });
 
 Object.assign(TR_UK, {
+  "Instrument": "Інструмент",
+  "Stimmung": "Стрій",
+  "Alle Töne, ruhige Anzeige": "Усі ноти, спокійне відображення",
+  "Alle Töne": "Усі ноти",
   "Melodie im Notensystem": "Мелодія на нотному стані",
   "Automatisch": "Автоматично",
   "Tuner stoppen": "Зупинити тюнер",

@@ -117,8 +117,6 @@ const I18N_STATIC_FR = {
   "tools.previewBadge": "Bientôt disponible",
   "tools.tunerPageTitle": "Accordeur chromatique",
   "tools.tunerPageDesc": "Détection de hauteur en direct et diapason de référence via le microphone de votre appareil.",
-  "tuner.instrumentLabel": "Instrument",
-  "tuner.tuningLabel": "Accordage",
   "tuner.modeAuto": "Automatique",
   "tuner.modeSingle": "Note unique",
   "tuner.modeAria": "Détection",
@@ -1819,6 +1817,10 @@ Object.assign(TR_FR, {
 });
 
 Object.assign(TR_FR, {
+  "Instrument": "Instrument",
+  "Stimmung": "Accordage",
+  "Alle Töne, ruhige Anzeige": "Toutes les notes, affichage calme",
+  "Alle Töne": "Toutes les notes",
   "Melodie im Notensystem": "Mélodie sur la portée",
   "Automatisch": "Automatique",
   "Tuner stoppen": "Arrêter l’accordeur",
