@@ -21987,6 +21987,19 @@ function updateTunerGaugeZone() {
   zone.setAttribute("d", `M ${pt(-a)} A ${r} ${r} 0 0 1 ${pt(a)}`);
 }
 
+// Sichtbarer Ausschnitt des Zeigerinstruments passt sich der verfügbaren Höhe an: immer volle Breite,
+// bei viel Höhe mit Drehpunkt (bis 180 Einheiten), bei wenig nur der Skalenbogen (ab 118 Einheiten)
+function updateTunerGaugeViewBox() {
+  const svg = document.getElementById("tunerGauge");
+  if (!svg || !svg.clientWidth) return;
+  // Erst das ganze Instrument anbieten, dann messen, wie viel Höhe das Layout tatsächlich hergibt
+  svg.setAttribute("viewBox", "0 0 300 180");
+  if (!svg.clientHeight) return;
+  const vbH = Math.max(118, Math.min(180, Math.round((svg.clientHeight / svg.clientWidth) * 300)));
+  const next = `0 0 300 ${vbH}`;
+  if (svg.getAttribute("viewBox") !== next) svg.setAttribute("viewBox", next);
+}
+
 function setTunerNeedle(cents) {
   const needle = document.getElementById("tunerNeedle");
   if (!needle) return;
@@ -22621,6 +22634,7 @@ function renderTunerPreviewView() {
 
 function renderTunerView() {
   if (!_tuner.gaugeBuilt) buildTunerGauge();
+  updateTunerGaugeViewBox();
   bindTunerControls();
   syncTunerSetupUI();
   syncTunerStartButton();
@@ -22700,6 +22714,13 @@ function bindTunerControls() {
     }
     playTunerReference(getTunerReferenceMidi());
   });
+  // Zeigerinstrument bei Größenänderung neu zuschneiden
+  if (typeof ResizeObserver === "function") {
+    const gauge = document.getElementById("tunerGauge");
+    if (gauge) new ResizeObserver(() => updateTunerGaugeViewBox()).observe(gauge);
+  } else {
+    window.addEventListener("resize", updateTunerGaugeViewBox);
+  }
   // Mobile Browser: beim Wechsel in den Hintergrund Mikrofon freigeben
   document.addEventListener("visibilitychange", () => {
     if (document.hidden && _tuner.running) stopTunerSession();

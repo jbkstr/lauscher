@@ -1996,13 +1996,14 @@
 
       <section class="module-card tuner-main-card">
         <div id="tunerDisplay" class="tuner-display is-idle">
-          <svg id="tunerGauge" class="tuner-gauge" viewBox="0 0 300 118" aria-hidden="true">
+          <svg id="tunerGauge" class="tuner-gauge" viewBox="0 0 300 180" preserveAspectRatio="xMidYMin meet" aria-hidden="true">
             <path id="tunerGaugeZone" class="tuner-gauge-zone" d=""/>
             <g id="tunerGaugeTicks"></g>
             <g id="tunerNeedle" class="tuner-needle">
               <line x1="150" y1="168" x2="150" y2="26" stroke-linecap="round"/>
               <circle cx="150" cy="26" r="4.2"/>
             </g>
+            <circle class="tuner-needle-hub" cx="150" cy="168" r="8"/>
           </svg>
           <div class="tuner-readout">
             <div id="tunerNoteBubble" class="tuner-note-bubble">
