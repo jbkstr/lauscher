@@ -1024,7 +1024,9 @@ const MIX_MODE_CATALOG = {
   "notation-treble":       { label: "Notation • Violinschlüssel",   levels: [1, 2, 3, 4] },
   "notation-bass":         { label: "Notation • Bassschlüssel",     levels: [1, 2, 3, 4] },
   "notation-alto":         { label: "Notation • Altschlüssel",      levels: [1, 2, 3, 4] },
-  "notation-mixed":        { label: "Notation • Schlüssel-Mix",     levels: [1, 2, 3, 4] }
+  "notation-mixed":        { label: "Notation • Schlüssel-Mix",     levels: [1, 2, 3, 4] },
+  "notation-grand":        { label: "Notation • Doppelsystem",      levels: [1, 2, 3, 4] },
+  "notation-chords":       { label: "Notation • Akkorde lesen",     levels: [1, 2, 3, 4] }
 };
 
 function createDefaultMixes() {
@@ -2014,7 +2016,9 @@ const MODE_CATEGORY_MAP = {
   "notation-treble":       "notation",
   "notation-bass":         "notation",
   "notation-alto":         "notation",
-  "notation-mixed":        "notation"
+  "notation-mixed":        "notation",
+  "notation-grand":        "notation",
+  "notation-chords":       "notation"
 };
 
 /**
@@ -2463,7 +2467,9 @@ class AppState {
         "notation-treble": tr("Violinschlüssel", "Treble Clef"),
         "notation-bass":   tr("Bassschlüssel", "Bass Clef"),
         "notation-alto":   tr("Altschlüssel", "Alto Clef"),
-        "notation-mixed":  tr("Schlüssel-Mix", "Mixed Clefs")
+        "notation-mixed":  tr("Schlüssel-Mix", "Mixed Clefs"),
+        "notation-grand":  tr("Doppelsystem", "Grand Staff"),
+        "notation-chords": tr("Akkorde lesen", "Chord Reading")
       };
       const lvlNames = {
         1: tr("5 Linien", "On Staff"),
@@ -2475,7 +2481,8 @@ class AppState {
       const prefix = includeCategory ? `${tr("Notation", "Notation")}: ${clefText}` : clefText;
       const keyMode = normalizeNotationKeyMode(this.settings.notationKeyMode);
       const keyTag = keyMode !== "none" ? ` • ${getLocalizedNotationKeyModeLabel(keyMode, true)}` : "";
-      return `${prefix} • ${lvlWord} ${lvl} (${lvlNames[lvl]})${keyTag}`;
+      const lvlText = this.settings.mode === "notation-chords" ? getNotationChordLevelTag(lvl) : lvlNames[lvl];
+      return `${prefix} • ${lvlWord} ${lvl} (${lvlText})${keyTag}`;
     }
     if (isChordQualityMode(this.settings.mode)) {
       const chordDiffNames = {
@@ -3609,6 +3616,162 @@ function notationStepToY(staffStep) {
 /**
  * Gemeinsamer Notensystem-SVG-Renderer für Übungs-Warteschlange, Prüfungs-Rückschau und Wissensmodul.
  */
+/**
+ * Zeichnet einen Einzelton oder einen Akkord (item.chordTones) an Position nx.
+ * Koordinaten im Einzelsystem (Linien y=64…112). Liefert Markup und Tinten-Grenzen.
+ */
+function buildNotationNoteGlyph(item, nx, opts = {}) {
+  const tones = item?.isChord && Array.isArray(item.chordTones) && item.chordTones.length
+    ? [...item.chordTones].sort((a, b) => a.staffStep - b.staffStep)
+    : [item];
+  const found = new Set((opts.foundPcs || []).map(Number));
+  let minY = Infinity;
+  let maxY = -Infinity;
+
+  // Hilfslinien (Vereinigung aller Töne)
+  const ledgerSteps = new Set();
+  tones.forEach(t => getLedgerLinesForStep(t.staffStep).forEach(ls => ledgerSteps.add(ls)));
+
+  // Sekunden im Akkord: oberen Notenkopf seitlich versetzen
+  const headX = [];
+  tones.forEach((t, i) => {
+    const prev = i > 0 ? tones[i - 1] : null;
+    const shifted = prev && (t.staffStep - prev.staffStep === 1) && headX[i - 1] === nx;
+    headX.push(shifted ? nx + 12.6 : nx);
+  });
+  const hasShift = headX.some(x => x !== nx);
+  const ledgerHalf = hasShift ? 19 : 12.5;
+  const ledgerHtml = [...ledgerSteps].map(ls => {
+    const ly = notationStepToY(ls);
+    return `<line class="notation-ledger-line" x1="${nx - 12.5}" y1="${ly}" x2="${nx + ledgerHalf}" y2="${ly}"/>`;
+  }).join("");
+
+  // Vorzeichen: von oben nach unten, bei engem Abstand nach links gestaffelt
+  let accHtml = "";
+  let lastAccStep = null;
+  let accCol = 0;
+  [...tones].reverse().forEach(t => {
+    const drawnAcc = t.shownAccidental !== undefined ? t.shownAccidental : t.accidental;
+    if (!drawnAcc) return;
+    const col = (lastAccStep !== null && lastAccStep - t.staffStep < 6) ? accCol + 1 : 0;
+    const ty = notationStepToY(t.staffStep);
+    accHtml += getNotationAccidentalGlyphSVG(drawnAcc, nx - 14.5 - col * 9, ty);
+    const accTopY = drawnAcc === -1 ? (ty - 15) : (ty - 11);
+    const accBotY = drawnAcc === -1 ? (ty + 7) : (ty + 11);
+    minY = Math.min(minY, accTopY);
+    maxY = Math.max(maxY, accBotY);
+    lastAccStep = t.staffStep;
+    accCol = col;
+  });
+
+  // Hals: Richtung nach mittlerer Lage; am äußeren Notenkopf angesetzt
+  const lowY = notationStepToY(tones[0].staffStep);
+  const highY = notationStepToY(tones[tones.length - 1].staffStep);
+  const avgStep = tones.reduce((s, t) => s + t.staffStep, 0) / tones.length;
+  const stemDown = avgStep >= 4;
+  const stemX = stemDown ? (nx - 6.3) : (nx + 6.3);
+  const stemY1 = stemDown ? (highY + 1) : (lowY - 1);
+  const stemY2 = stemDown ? (lowY + 28) : (highY - 28);
+
+  const headsHtml = tones.map((t, i) => {
+    const ty = notationStepToY(t.staffStep);
+    const hx = headX[i];
+    minY = Math.min(minY, ty - 7);
+    maxY = Math.max(maxY, ty + 7);
+    const isFound = item?.isChord && found.has(Number(t.pc));
+    const fill = isFound ? "var(--sage-strong, #2E6F4E)" : "currentColor";
+    return `<ellipse${isFound ? ' class="notation-chord-found"' : ""} cx="${hx.toFixed(1)}" cy="${ty.toFixed(1)}" rx="7.0" ry="5.1" transform="rotate(-18 ${hx.toFixed(1)} ${ty.toFixed(1)})" fill="${fill}"/>`;
+  }).join("");
+
+  minY = Math.min(minY, stemDown ? stemY1 : stemY2 - 1);
+  maxY = Math.max(maxY, stemDown ? stemY2 + 1 : stemY1);
+
+  const html = `${ledgerHtml}
+        ${accHtml}
+        <line x1="${stemX.toFixed(1)}" y1="${stemY1.toFixed(1)}" x2="${stemX.toFixed(1)}" y2="${stemY2.toFixed(1)}" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+        ${headsHtml}`;
+  return { html, minY, maxY };
+}
+
+const NOTATION_GRAND_STAFF_OFFSET = 96; // vertikaler Abstand Violin- → Bass-System (SVG-Einheiten)
+
+/**
+ * Doppelsystem (Klaviersystem): Violinschlüssel oben, Bassschlüssel unten, mit Klammer.
+ * Noten tragen ihr clefId ("treble" | "bass") und werden im passenden System gezeichnet.
+ */
+function buildNotationGrandStaffSVG(notes, options = {}) {
+  const list = Array.isArray(notes) ? notes : [notes].filter(Boolean);
+  const off = NOTATION_GRAND_STAFF_OFFSET;
+  const keySigId = normalizeNotationKeySigId(options.keySignatureId || "none");
+  const trebleSig = getNotationKeySignatureSteps("treble", keySigId);
+  const bassSig = getNotationKeySignatureSteps("bass", keySigId);
+  const keySigCount = Math.max(trebleSig.length, bassSig.length);
+  const width = Number(options.width) || (340 + (keySigCount > 0 ? Math.min(52, keySigCount * 8 + 4) : 0));
+  const startX = 18;
+  const endX = width - 8;
+  const highlightFirst = options.highlightFirst !== false;
+
+  const staffLines = (dy) => [0, 2, 4, 6, 8].map(st => {
+    const ly = notationStepToY(st) + dy;
+    return `<line class="notation-staff-line" x1="${startX}" y1="${ly}" x2="${endX}" y2="${ly}"/>`;
+  }).join("");
+
+  const topY = notationStepToY(8);
+  const bottomY = notationStepToY(0) + off;
+  const braceX = startX - 7;
+  const midY = (topY + bottomY) / 2;
+  const braceHtml = `
+    <line x1="${startX}" y1="${topY}" x2="${startX}" y2="${bottomY}" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M ${braceX + 4} ${topY} C ${braceX - 3} ${topY + 18}, ${braceX + 3} ${midY - 18}, ${braceX - 3} ${midY} C ${braceX + 3} ${midY + 18}, ${braceX - 3} ${bottomY - 18}, ${braceX + 4} ${bottomY}" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>`;
+
+  const clefX = startX + 10;
+  const clefHtml = `${getNotationClefGlyphSVG("treble", clefX, 1, 1)}
+    <g transform="translate(0 ${off})">${getNotationClefGlyphSVG("bass", clefX, 1, 1)}</g>`;
+
+  const keySigPitch = keySigCount > 4 ? 9.5 : 10.5;
+  const keySigStartX = startX + 46;
+  const sigMarkup = (items) => items.map((ks, idx) =>
+    getNotationAccidentalGlyphSVG(ks.accidental, keySigStartX + idx * keySigPitch, notationStepToY(ks.staffStep), 0.88)
+  ).join("");
+  const keySigHtml = keySigCount > 0
+    ? `<g class="notation-keysig-layer">${sigMarkup(trebleSig)}<g transform="translate(0 ${off})">${sigMarkup(bassSig)}</g></g>`
+    : "";
+  const keySigRightEdge = keySigCount > 0 ? (keySigStartX + (keySigCount - 1) * keySigPitch + 8) : (startX + 46);
+
+  let inkMinY = topY - 22;
+  let inkMaxY = bottomY + 10;
+
+  const firstNoteX = Math.max(startX + 74, Math.round(keySigRightEdge + 22));
+  const spacing = list.length > 1
+    ? Math.min(46, Math.max(30, Math.floor((endX - firstNoteX - 16) / Math.max(1, list.length - 1))))
+    : 0;
+
+  const notesHtml = list.map((item, idx) => {
+    if (!item) return "";
+    const nx = firstNoteX + idx * spacing;
+    const dy = item.clefId === "bass" ? off : 0;
+    const isTarget = highlightFirst && idx === 0;
+    const glyph = buildNotationNoteGlyph(item, nx, { foundPcs: isTarget ? options.foundPcs : null });
+    inkMinY = Math.min(inkMinY, glyph.minY + dy);
+    inkMaxY = Math.max(inkMaxY, glyph.maxY + dy);
+    const fadeOp = isTarget ? 1 : Math.max(0.64, 0.78 - idx * 0.028);
+    return `<g class="notation-note-group ${isTarget ? "is-target" : "is-upcoming"}" opacity="${fadeOp.toFixed(2)}" transform="translate(0 ${dy})">${glyph.html}</g>`;
+  }).join("");
+
+  const vbTop = Math.floor(inkMinY - 4);
+  const vbHeight = Math.ceil(inkMaxY + 4) - vbTop;
+  return `<svg class="${options.className || "notation-staff-svg"} is-grand-staff" viewBox="0 ${vbTop} ${width} ${vbHeight}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${escapeHtml(options.ariaLabel || tr("Doppelsystem (Violin- und Bassschlüssel)", "Grand staff (treble and bass clef)"))}">
+    ${staffLines(0)}
+    ${staffLines(off)}
+    ${braceHtml}
+    ${clefHtml}
+    ${keySigHtml}
+    <g class="notation-notes-layer${options.didShift ? " did-shift" : ""}">
+      ${notesHtml}
+    </g>
+  </svg>`;
+}
+
 function buildNotationStaffSVG(notes, options = {}) {
   const list = Array.isArray(notes) ? notes : [notes].filter(Boolean);
   const firstClef = options.clefId || list[0]?.clefId || "treble";
@@ -3702,25 +3865,9 @@ function buildNotationStaffSVG(notes, options = {}) {
       inkMaxY = Math.max(inkMaxY, cMax);
     }
 
-    const ledgerHtml = getLedgerLinesForStep(item.staffStep).map(ls => {
-      const ly = notationStepToY(ls);
-      return `<line class="notation-ledger-line" x1="${nx - 12.5}" y1="${ly}" x2="${nx + 12.5}" y2="${ly}"/>`;
-    }).join("");
-
-    const drawnAcc = item.shownAccidental !== undefined ? item.shownAccidental : item.accidental;
-    const accHtml = drawnAcc
-      ? getNotationAccidentalGlyphSVG(drawnAcc, nx - 14.5, ny)
-      : "";
-
-    const stemDown = item.staffStep >= 4;
-    const stemX = stemDown ? (nx - 6.3) : (nx + 6.3);
-    const stemY1 = ny + (stemDown ? 1 : -1);
-    const stemY2 = ny + (stemDown ? 28 : -28);
-
-    const accTopY = drawnAcc === -1 ? (ny - 15) : (drawnAcc === 1 || drawnAcc === "nat" || drawnAcc === 2) ? (ny - 11) : (ny - 7);
-    const accBotY = (drawnAcc === 1 || drawnAcc === "nat" || drawnAcc === 2) ? (ny + 11) : (ny + 7);
-    inkMinY = Math.min(inkMinY, ny - 7, accTopY, stemDown ? stemY1 : stemY2 - 1);
-    inkMaxY = Math.max(inkMaxY, ny + 7, accBotY, stemDown ? stemY2 + 1 : stemY1);
+    const glyph = buildNotationNoteGlyph(item, nx, { foundPcs: isTarget ? options.foundPcs : null });
+    inkMinY = Math.min(inkMinY, glyph.minY, ny - 7);
+    inkMaxY = Math.max(inkMaxY, glyph.maxY, ny + 7);
 
     // Realistische Notenschrift ohne Einrahmung: aktive Note vorn leicht klarer (1.0), Folge-Noten minimal ruhiger
     const fadeOp = isTarget ? 1 : Math.max(0.64, 0.78 - idx * 0.028);
@@ -3728,10 +3875,7 @@ function buildNotationStaffSVG(notes, options = {}) {
 
     return `${changeClefHtml}
       <g class="${grpClass}" opacity="${fadeOp.toFixed(2)}">
-        ${ledgerHtml}
-        ${accHtml}
-        <line x1="${stemX.toFixed(1)}" y1="${stemY1.toFixed(1)}" x2="${stemX.toFixed(1)}" y2="${stemY2.toFixed(1)}" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
-        <ellipse cx="${nx.toFixed(1)}" cy="${ny.toFixed(1)}" rx="7.0" ry="5.1" transform="rotate(-18 ${nx.toFixed(1)} ${ny.toFixed(1)})" fill="currentColor"/>
+        ${glyph.html}
         ${options.showLabels ? `<text x="${nx.toFixed(1)}" y="170" text-anchor="middle" font-size="10.5" font-weight="800" fill="currentColor">${escapeHtml(options.labelShort ? item.shortName : item.displayName)}</text>` : ""}
       </g>`;
   }).join("");
@@ -7580,6 +7724,30 @@ function openCategoryPage(categoryKey, options = {}) {
           "Wechselt in der Notenzeile flexibel zwischen Violin-, Bass- und Altschlüssel – ideal für flüssiges Blattlesen und Partituren.",
           "Alternates across Treble, Bass &amp; Alto clefs — great practice for agile sight-reading across systems."
         )
+      },
+      {
+        mode: "notation-grand",
+        circleClass: "circle-sage",
+        title: tr("Doppelsystem (Violin- &amp; Bassschlüssel)", "Grand Staff (Treble &amp; Bass)"),
+        desc: tr(
+          "Klaviersystem mit beiden Schlüsseln gleichzeitig: Die Noten springen zwischen oberem und unterem System – wie beim Klavierspielen mit zwei Händen.",
+          "Piano-style grand staff with both clefs at once: notes jump between the upper and lower staff — just like reading for two hands."
+        )
+      },
+      {
+        mode: "notation-chords",
+        circleClass: "circle-lilac",
+        title: tr("Akkorde lesen", "Chord Reading"),
+        desc: tr(
+          "Mehrere Noten übereinander: Tippe alle Akkordtöne auf der Klaviatur an – die Reihenfolge ist egal. Gefundene Töne färben sich grün.",
+          "Stacked notes: tap every chord tone on the keyboard — in any order. Found notes turn green."
+        ),
+        levels: [
+          { lvl: 1, badge: "C–E–G", title: tr("Stufe 1: Dreiklänge (Violin)", "Level 1: Triads (Treble)"), sub: tr("Grundstellung im Violinschlüssel", "Root position, treble clef") },
+          { lvl: 2, badge: "𝄢 3",   title: tr("Stufe 2: Dreiklänge (Bass)", "Level 2: Triads (Bass)"),     sub: tr("Grundstellung im Bassschlüssel", "Root position, bass clef") },
+          { lvl: 3, badge: "6 / 64", title: tr("Stufe 3: Umkehrungen", "Level 3: Inversions"),             sub: tr("Dreiklänge in allen Lagen, beide Schlüssel", "Triads in all inversions, both clefs") },
+          { lvl: 4, badge: "7",     title: tr("Stufe 4: Septakkorde", "Level 4: 7th Chords"),              sub: tr("Vierklänge & Umkehrungen, ±1 Hilfslinie", "Four-note chords & inversions, ±1 ledger") }
+        ]
       }
     ];
 
@@ -7595,7 +7763,8 @@ function openCategoryPage(categoryKey, options = {}) {
       { mode: "notation-treble", label: tr("Violinschlüssel", "Treble") },
       { mode: "notation-bass",   label: tr("Bassschlüssel", "Bass") },
       { mode: "notation-alto",   label: tr("Altschlüssel", "Alto") },
-      { mode: "notation-mixed",  label: tr("Schlüssel-Mix", "Mixed") }
+      { mode: "notation-mixed",  label: tr("Schlüssel-Mix", "Mixed") },
+      { mode: "notation-grand",  label: tr("Doppelsystem", "Grand Staff") }
     ];
 
     const TRAINER_RANGES = [
@@ -7611,15 +7780,17 @@ function openCategoryPage(categoryKey, options = {}) {
         ? state.settings.notationKeyTrainerClef
         : "notation-treble";
       const trainerRangeLvl = Math.max(1, Math.min(3, parseInt(state.settings.notationKeyTrainerLevel, 10) || 2));
-      const previewClefId = trainerClefMode === "notation-mixed" ? "treble" : getNotationClefFromMode(trainerClefMode);
+      const previewClefId = (trainerClefMode === "notation-mixed" || trainerClefMode === "notation-grand") ? "treble" : getNotationClefFromMode(trainerClefMode);
 
       const previewKeySigId = isNotationKeyPoolMode(selectedKeyMode)
         ? (selectedKeyMode === "easy" ? "D" : selectedKeyMode === "medium" ? "Eb" : selectedKeyMode === "hard" ? "B" : "A")
         : selectedKeyMode;
+      // Breite passend zur Zahl der Vorzeichen, damit kein leerer Linienrest übrig bleibt
+      const previewSigCount = getNotationKeySignatureSteps(previewClefId, normalizeNotationKeySigId(previewKeySigId)).length;
       const previewSvg = buildNotationStaffSVG([], {
         clefId: previewClefId,
         keySignatureId: previewKeySigId,
-        width: 210,
+        width: Math.max(140, 118 + previewSigCount * 10),
         compact: true
       });
       const previewTitle = isNotationKeyPoolMode(selectedKeyMode)
@@ -7803,7 +7974,7 @@ function openCategoryPage(categoryKey, options = {}) {
             </div>
             <p class="subpage-section-desc">${sec.desc}</p>
             <div class="subpage-nodes-grid">
-              ${NOTATION_DIFFICULTY_CARDS.map(lv => `
+              ${(sec.levels || NOTATION_DIFFICULTY_CARDS).map(lv => `
                 <button class="subpage-node-btn" data-launch-notation="${sec.mode}" data-notation-lvl="${lv.lvl}">
                   <div class="node-circle ${sec.circleClass}">${lv.badge}</div>
                   <span class="node-title">${lv.title}</span>
@@ -8932,7 +9103,133 @@ function generateMelodyExercise(rootMidi) {
     };
   }
 
+function isNotationGrandMode(mode) {
+  return mode === "notation-grand";
+}
+
+function isNotationChordMode(mode) {
+  return mode === "notation-chords";
+}
+
+function getNotationPlayNotes(item) {
+  if (Array.isArray(item?.playNotes) && item.playNotes.length > 0) return item.playNotes;
+  return item?.noteName ? [item.noteName] : [];
+}
+
+// Akkorde lesen: Stufe 1 Violinschlüssel, 2 Bassschlüssel, 3 + Umkehrungen, 4 + Septakkorde
+const NOTATION_CHORD_LEVELS = {
+  1: { clefs: ["treble"],         inversions: false, sevenths: false, minStep: -1, maxStep: 9 },
+  2: { clefs: ["bass"],           inversions: false, sevenths: false, minStep: -1, maxStep: 9 },
+  3: { clefs: ["treble", "bass"], inversions: true,  sevenths: false, minStep: -2, maxStep: 10 },
+  4: { clefs: ["treble", "bass"], inversions: true,  sevenths: true,  minStep: -3, maxStep: 11 }
+};
+
+function getNotationChordSymbol(rootTone, pcs) {
+  const rel = pcs.map(pc => ((pc - rootTone.pc) % 12 + 12) % 12);
+  const has = (n) => rel.includes(n);
+  let suffix = "";
+  if (pcs.length >= 4) {
+    if (has(4) && has(7) && has(10)) suffix = "7";
+    else if (has(4) && has(7) && has(11)) suffix = "maj7";
+    else if (has(3) && has(7) && has(10)) suffix = "m7";
+    else if (has(3) && has(6) && has(10)) suffix = "ø7";
+    else if (has(3) && has(6) && has(9)) suffix = "°7";
+    else suffix = "7";
+  } else if (has(3) && has(6)) suffix = "°";
+  else if (has(4) && has(8)) suffix = "+";
+  else if (has(3)) suffix = "m";
+  const rootName = formatSpelledNotationNote(rootTone.letter, rootTone.accidental, rootTone.octave, false);
+  return `${rootName}${suffix}`;
+}
+
+function getNotationInversionLabel(inversion) {
+  if (inversion === 1) return tr("1. Umkehrung", "1st inversion");
+  if (inversion === 2) return tr("2. Umkehrung", "2nd inversion");
+  if (inversion === 3) return tr("3. Umkehrung", "3rd inversion");
+  return tr("Grundstellung", "Root position");
+}
+
+function buildNotationChordItem(ex, prevItem = null) {
+  const lvl = Math.max(1, Math.min(4, parseInt(ex.level, 10) || 1));
+  const cfg = NOTATION_CHORD_LEVELS[lvl];
+  const keySig = normalizeNotationKeySigId(ex.keySignatureId || "none");
+
+  for (let attempt = 0; attempt < 40; attempt++) {
+    const clefId = cfg.clefs[Math.floor(Math.random() * cfg.clefs.length)];
+    const size = cfg.sevenths && Math.random() < 0.5 ? 4 : 3;
+    const inversion = cfg.inversions ? Math.floor(Math.random() * size) : 0;
+    const rootLetterIdx = Math.floor(Math.random() * 7);
+    const letters = Array.from({ length: size }, (_, i) => (rootLetterIdx + 2 * i) % 7);
+    const voiced = letters.slice(inversion).concat(letters.slice(0, inversion));
+
+    // Stufenabstände im System (Terz = 2, Quarte = 3 …), immer aufwärts geschichtet
+    const offsets = [0];
+    for (let i = 1; i < voiced.length; i++) {
+      let d = (voiced[i] - voiced[i - 1] + 7) % 7;
+      if (d === 0) d = 7;
+      offsets.push(offsets[i - 1] + d);
+    }
+    const span = offsets[offsets.length - 1];
+    const lowSteps = [];
+    for (let s = cfg.minStep; s + span <= cfg.maxStep; s++) {
+      const probe = getNotationNoteFromStaffStep(clefId, s, 0);
+      if (NOTATION_LETTERS.indexOf(probe.letter) === voiced[0]) lowSteps.push(s);
+    }
+    if (lowSteps.length === 0) continue;
+    const baseStep = lowSteps[Math.floor(Math.random() * lowSteps.length)];
+
+    const tones = offsets.map(o => {
+      const probe = getNotationNoteFromStaffStep(clefId, baseStep + o, 0);
+      const acc = getKeySignatureAccidentalForLetter(keySig, probe.letter);
+      return getNotationNoteFromStaffStep(clefId, baseStep + o, acc, keySig);
+    });
+    const rootTone = tones[(size - inversion) % size];
+    const pcs = [...new Set(tones.map(t => t.pc))];
+    const symbol = getNotationChordSymbol(rootTone, pcs);
+    if (prevItem?.isChord && prevItem.chordSymbol === symbol && prevItem.staffStep === baseStep && attempt < 30) continue;
+
+    const toneNames = tones.map(t => t.shortName).join(" – ");
+    return {
+      ...tones[0],
+      isChord: true,
+      chordTones: tones,
+      pcs: pcs,
+      playNotes: tones.map(t => t.noteName),
+      chordSymbol: symbol,
+      inversion: inversion,
+      chordSize: size,
+      displayName: symbol,
+      shortName: symbol,
+      toneNames: toneNames,
+      ledgerDesc: getNotationInversionLabel(inversion)
+    };
+  }
+  // Rückfall: C-Dur-Dreiklang im Violinschlüssel
+  const fbTones = [0, 2, 4].map(s => getNotationNoteFromStaffStep("treble", s - 2, 0));
+  return {
+    ...fbTones[0], isChord: true, chordTones: fbTones, pcs: fbTones.map(t => t.pc),
+    playNotes: fbTones.map(t => t.noteName), chordSymbol: "C", inversion: 0, chordSize: 3,
+    displayName: "C", shortName: "C", toneNames: fbTones.map(t => t.shortName).join(" – "),
+    ledgerDesc: getNotationInversionLabel(0)
+  };
+}
+
+function pickNotationGrandClef(ex) {
+  const hist = Array.isArray(ex.grandClefHistory) ? ex.grandClefHistory : [];
+  let clefId = Math.random() < 0.5 ? "treble" : "bass";
+  // Höchstens zwei Noten hintereinander im selben System
+  if (hist.length >= 2 && hist[hist.length - 1] === hist[hist.length - 2]) {
+    clefId = hist[hist.length - 1] === "treble" ? "bass" : "treble";
+  }
+  ex.grandClefHistory = [...hist.slice(-3), clefId];
+  return clefId;
+}
+
 function buildNextNotationQueueNote(ex, prevNote = null) {
+  if (isNotationChordMode(ex.type)) return buildNotationChordItem(ex, prevNote);
+  if (isNotationGrandMode(ex.type)) {
+    return pickRandomNotationNoteItem(pickNotationGrandClef(ex), ex.level, prevNote, ex.keySignatureId || "none");
+  }
   let clefId = ex.baseClefId || "treble";
   if (ex.isMixedClef && !state.exam?.active) {
     // Im Schlüssel-Mix alle 3 Noten geordnet den Schlüssel wechseln (mit kleinem Wechsel-Schlüssel)
@@ -8968,7 +9265,7 @@ function generateNotationExercise(modeOverride = state.settings.mode) {
   const isMixed = mode === "notation-mixed";
   const initialClef = isMixed
     ? NOTATION_ACTIVE_CLEFS[Math.floor(Math.random() * NOTATION_ACTIVE_CLEFS.length)]
-    : getNotationClefFromMode(mode);
+    : (isNotationChordMode(mode) ? (NOTATION_CHORD_LEVELS[lvl]?.clefs?.[0] || "treble") : getNotationClefFromMode(mode));
   const lvlCfg = NOTATION_LEVELS[lvl] || NOTATION_LEVELS[1];
 
   const ex = {
@@ -8980,6 +9277,10 @@ function generateNotationExercise(modeOverride = state.settings.mode) {
     keySignaturePhraseLength: NOTATION_KEY_PHRASE_LEN,
     allowAccidentals: Boolean(lvlCfg.allowAccidentals || initialKeySig !== "none"),
     isMixedClef: isMixed,
+    isGrandStaff: isNotationGrandMode(mode),
+    isChordReading: isNotationChordMode(mode),
+    chordFoundPcs: [],
+    grandClefHistory: [],
     baseClefId: initialClef,
     mixedClefCursor: Math.max(0, NOTATION_ACTIVE_CLEFS.indexOf(initialClef)),
     mixedCounter: 0,
@@ -10870,7 +11171,9 @@ function resetCentralStage() {
     document.getElementById("stageMainText").textContent = clefName;
     document.getElementById("stageFunctionText").textContent = state.exam?.active
       ? tr("Lies die Note im System und wähle die Taste unten.", "Read the note on the staff and tap the key below.")
-      : tr("Lies die erste Note links — oder tippe „Überspringen“.", "Read the leftmost note — or tap “Skip”.");
+      : (ex?.isChordReading
+          ? tr("Lies den ersten Akkord links und tippe alle seine Töne — oder „Überspringen“.", "Read the leftmost chord and tap all its notes — or tap “Skip”.")
+          : tr("Lies die erste Note links — oder tippe „Überspringen“.", "Read the leftmost note — or tap “Skip”."));
     renderStageStreakUI();
     return;
   }
@@ -11418,9 +11721,15 @@ function syncNotationHeaderUI(ex = state.currentExercise) {
   const inputPromptText = document.getElementById("inputPromptText");
 
   if (moduleTitleEl) {
-    moduleTitleEl.textContent = ex.isMixedClef && !state.exam?.active
-      ? tf("Schlüssel-Mix • {clef}", "Clef Mix • {clef}", { clef: targetClefName })
-      : targetClefName;
+    if (ex.isChordReading) {
+      moduleTitleEl.textContent = tf("Akkorde • {clef}", "Chords • {clef}", { clef: targetClefName });
+    } else if (ex.isGrandStaff) {
+      moduleTitleEl.textContent = tr("Doppelsystem", "Grand Staff");
+    } else {
+      moduleTitleEl.textContent = ex.isMixedClef && !state.exam?.active
+        ? tf("Schlüssel-Mix • {clef}", "Clef Mix • {clef}", { clef: targetClefName })
+        : targetClefName;
+    }
   }
   if (moduleNotationKeyBtn) {
     moduleNotationKeyBtn.textContent = getNotationActiveKeyChipLabel(ex);
@@ -11429,16 +11738,32 @@ function syncNotationHeaderUI(ex = state.currentExercise) {
   if (targetBadgeEl) {
     targetBadgeEl.textContent = tf("Stufe {lvl} • {tag}", "Level {lvl} • {tag}", {
       lvl: ex.level || 1,
-      tag: getNotationLedgerLevelTag(ex)
+      tag: ex.isChordReading ? getNotationChordLevelTag(ex.level) : getNotationLedgerLevelTag(ex)
     });
   }
   tonicRefRow?.classList.add("hidden");
   tonicRefBtn?.classList.add("hidden");
   if (inputPromptText) {
-    inputPromptText.textContent = ex.keySignatureId && ex.keySignatureId !== "none"
-      ? tr("Note links (mit Vorzeichen) wählen:", "Play left note (mind key sig.):")
-      : tr("Note links wählen:", "Play left note:");
+    if (ex.isChordReading && ex.targetItem?.isChord) {
+      inputPromptText.textContent = tf(
+        "Alle Akkordtöne antippen ({found}/{total}):",
+        "Tap all chord notes ({found}/{total}):",
+        { found: (ex.chordFoundPcs || []).length, total: ex.targetItem.pcs.length }
+      );
+    } else {
+      inputPromptText.textContent = ex.keySignatureId && ex.keySignatureId !== "none"
+        ? tr("Note links (mit Vorzeichen) wählen:", "Play left note (mind key sig.):")
+        : tr("Note links wählen:", "Play left note:");
+    }
   }
+}
+
+function getNotationChordLevelTag(level) {
+  const lvl = Math.max(1, Math.min(4, parseInt(level, 10) || 1));
+  if (lvl === 1) return tr("Dreiklänge • Violinschlüssel", "Triads • Treble");
+  if (lvl === 2) return tr("Dreiklänge • Bassschlüssel", "Triads • Bass");
+  if (lvl === 3) return tr("Umkehrungen", "Inversions");
+  return tr("Septakkorde & Umkehrungen", "7th Chords & Inversions");
 }
 
 function renderNotationStaffPanel(ex, didShift = false, targetGrid = document.getElementById("barsGrid")) {
@@ -11450,7 +11775,7 @@ function renderNotationStaffPanel(ex, didShift = false, targetGrid = document.ge
   const rightHint = state.exam?.active
     ? getLocalizedNotationClefAnchorHint(clefId)
     : (target?.ledgerDesc || getNotationLedgerDescription(target?.staffStep ?? 4));
-  const showClefPill = Boolean(ex.isMixedClef && !state.exam?.active);
+  const showClefPill = Boolean((ex.isMixedClef || ex.isGrandStaff) && !state.exam?.active);
   const showKeySigPill = keySigId !== "none";
   const hasLeftPill = showClefPill || showKeySigPill;
 
@@ -11466,14 +11791,21 @@ function renderNotationStaffPanel(ex, didShift = false, targetGrid = document.ge
   panel.className = `notation-staff-panel${ex.notationPanelState ? " " + ex.notationPanelState : ""}`;
   panel.id = "notationStaffPanel";
 
-  const svg = buildNotationStaffSVG(ex.notationQueue, {
-    clefId: clefId,
-    keySignatureId: keySigId,
-    level: ex.level || 1,
-    highlightFirst: true,
-    showChangeClefs: showClefPill,
-    didShift: Boolean(didShift)
-  });
+  const svg = ex.isGrandStaff
+    ? buildNotationGrandStaffSVG(ex.notationQueue, {
+        keySignatureId: keySigId,
+        highlightFirst: true,
+        didShift: Boolean(didShift)
+      })
+    : buildNotationStaffSVG(ex.notationQueue, {
+        clefId: clefId,
+        keySignatureId: keySigId,
+        level: ex.level || 1,
+        highlightFirst: true,
+        showChangeClefs: Boolean(ex.isMixedClef && !state.exam?.active),
+        foundPcs: ex.isChordReading ? ex.chordFoundPcs : null,
+        didShift: Boolean(didShift)
+      });
 
   panel.innerHTML = `
     <div class="notation-queue-strip${hasLeftPill ? "" : " is-single-clef"}">
@@ -11508,6 +11840,7 @@ function advanceNotationPhraseKeyIfNeeded(ex) {
 
 function shiftAndAdvanceNotationQueue(ex, feedbackKind, stageSub, stageMain, stageDesc, keyBtn) {
   if (!ex) return;
+  ex.chordFoundPcs = [];
   const rotatedKeySig = advanceNotationPhraseKeyIfNeeded(ex);
   if (!rotatedKeySig) {
     const queue = Array.isArray(ex.notationQueue) ? ex.notationQueue.slice(1) : [];
@@ -11576,7 +11909,39 @@ async function handleNotationKeyClick(clickedKeyDef, keyBtn, options = {}) {
   }
 
   const target = ex.targetItem;
-  const isCorrect = Boolean(clickedKeyDef && Number(clickedKeyDef.pc) === Number(target.pc));
+  let isCorrect = Boolean(clickedKeyDef && Number(clickedKeyDef.pc) === Number(target.pc));
+
+  // Akkorde lesen: jeder richtige Akkordton wird markiert; fertig, wenn alle gefunden sind
+  if (target.isChord && Array.isArray(target.pcs)) {
+    const clickedPc = Number(clickedKeyDef?.pc);
+    isCorrect = Boolean(clickedKeyDef) && target.pcs.includes(clickedPc);
+    if (isCorrect) {
+      ex.chordFoundPcs = Array.isArray(ex.chordFoundPcs) ? ex.chordFoundPcs : [];
+      if (!ex.chordFoundPcs.includes(clickedPc)) ex.chordFoundPcs.push(clickedPc);
+      if (ex.chordFoundPcs.length < target.pcs.length) {
+        keyBtn?.classList.remove("key-wrong");
+        keyBtn?.classList.add("key-correct");
+        const tone = target.chordTones.find(t => Number(t.pc) === clickedPc);
+        if (tone && (isListenOnly || shouldPlayCorrectAnswerAudio())) {
+          audioEngine.playStep([tone.noteName], 0.6, null, "interval");
+        }
+        ex.notationPanelState = "";
+        renderNotationStaffPanel(ex, false);
+        syncNotationHeaderUI(ex);
+        if (document.getElementById("centralStageCard")) {
+          setCentralStageMode("stage-playing");
+          updateStageMascot("listening");
+          document.getElementById("stageSubtext").textContent = tf("AKKORDTON {found}/{total}", "CHORD TONE {found}/{total}", {
+            found: ex.chordFoundPcs.length,
+            total: target.pcs.length
+          });
+          document.getElementById("stageMainText").textContent = tone ? tone.shortName : "✓";
+          document.getElementById("stageFunctionText").textContent = tr("Weiter so – welche Töne fehlen noch?", "Keep going — which notes are still missing?");
+        }
+        return;
+      }
+    }
+  }
 
   if (!isCorrect) {
     if (!isListenOnly) resetExerciseStreakOnAttempt(ex);
@@ -11611,7 +11976,7 @@ async function handleNotationKeyClick(clickedKeyDef, keyBtn, options = {}) {
   state.isPlaying = false;
   updatePlayButtonUI(false);
   if (isListenOnly || shouldPlayCorrectAnswerAudio()) {
-    audioEngine.playStep([target.noteName], 0.85, null, "interval");
+    audioEngine.playStep(getNotationPlayNotes(target), target.isChord ? 1.1 : 0.85, null, "interval");
   }
 
   const streakRes = isListenOnly
@@ -11630,7 +11995,7 @@ async function handleNotationKeyClick(clickedKeyDef, keyBtn, options = {}) {
     target.displayName,
     tf("{clef} • {ledger}", "{clef} • {ledger}", {
       clef: getLocalizedNotationClefName(target.clefId),
-      ledger: target.ledgerDesc
+      ledger: target.isChord ? `${target.ledgerDesc} • ${target.toneNames}` : target.ledgerDesc
     }),
     keyBtn
   );
@@ -11650,7 +12015,7 @@ function skipNotationNote() {
   if (shouldPlayCorrectAnswerAudio()) {
     ensureAudioReady().then(() => {
       if (state.currentView === "exercise" && state.currentExercise === ex && !state.exam?.active) {
-        audioEngine.playStep([target.noteName], 0.72, null, "interval");
+        audioEngine.playStep(getNotationPlayNotes(target), 0.72, null, "interval");
       }
     }).catch(() => {});
   }
@@ -11662,7 +12027,7 @@ function skipNotationNote() {
     target.displayName,
     tf("{clef} • {ledger}", "{clef} • {ledger}", {
       clef: getLocalizedNotationClefName(target.clefId),
-      ledger: target.ledgerDesc
+      ledger: target.isChord ? `${target.ledgerDesc} • ${target.toneNames}` : target.ledgerDesc
     }),
     null
   );
@@ -11682,6 +12047,12 @@ function revealNotationListenOnly(ex, token) {
     el.classList.remove("key-wrong", "key-correct");
   });
   keyBtn?.classList.add("key-correct");
+  if (target.isChord && Array.isArray(target.pcs)) {
+    document.querySelectorAll("#solfegeKeyboardWrap .piano-white-key:not(.piano-key-frame), #solfegeKeyboardWrap .piano-black-key").forEach(el => {
+      if (target.pcs.includes(parseInt(el.dataset.pc, 10))) el.classList.add("key-correct");
+    });
+    ex.chordFoundPcs = [...target.pcs];
+  }
 
   ex.notationPanelState = "is-correct";
   const panelEl = document.getElementById("notationStaffPanel");
@@ -12833,7 +13204,7 @@ function scheduleSolfegeTargetLoopTick(expectedEx, expectedPlaybackId, delayMs =
     ) {
       return;
     }
-    audioEngine.playStep([expectedEx.targetItem.noteName], 1.1, null, "interval");
+    audioEngine.playStep(getNotationPlayNotes(expectedEx.targetItem), 1.1, null, "interval");
     scheduleSolfegeTargetLoopTick(expectedEx, expectedPlaybackId, SOLFEGE_LOOP_INTERVAL_MS);
   }, delayMs);
 }
@@ -12857,7 +13228,7 @@ async function startSolfegeTargetLoop(playImmediately = true) {
 
   const currentId = audioEngine.playbackId;
   if (playImmediately) {
-    audioEngine.playStep([ex.targetItem.noteName], 1.1, null, "interval");
+    audioEngine.playStep(getNotationPlayNotes(ex.targetItem), 1.1, null, "interval");
   }
   scheduleSolfegeTargetLoopTick(ex, currentId, SOLFEGE_LOOP_INTERVAL_MS);
 }
@@ -12937,7 +13308,7 @@ async function repeatSolfegeTargetTone() {
   }
 
   const playId = audioEngine.playbackId;
-  audioEngine.playStep([ex.targetItem.noteName], 0.95, null, "interval");
+  audioEngine.playStep(getNotationPlayNotes(ex.targetItem), 0.95, null, "interval");
   audioEngine.registerTimer(() => {
     if (audioEngine.playbackId !== playId) return;
     if (!state.solfegeAnswered && !state.isPlaying && !state.listenOnly?.active) {
@@ -14006,7 +14377,7 @@ async function playSequence(options = {}) {
       document.getElementById("stageMainText").textContent = "?";
       document.getElementById("stageFunctionText").textContent = tr("Tippe die Stufe auf der Klaviatur an!", "Tap the scale degree on the keyboard!");
 
-      audioEngine.playStep([ex.targetItem.noteName], 1.1, null, "interval");
+      audioEngine.playStep(getNotationPlayNotes(ex.targetItem), 1.1, null, "interval");
 
       if (keepPromptLooping() && !state.solfegeAnswered) {
         scheduleSolfegeTargetLoopTick(ex, currentId, SOLFEGE_LOOP_INTERVAL_MS);
@@ -16644,7 +17015,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "rhythm-meter", "rhythm-dictation", "rhythm-tap", "rhythm-groove",
       "prod-tone", "prod-eq-noise",
       "modes-scale", "modes-char", "modes-cadence",
-      "notation-treble", "notation-bass", "notation-alto", "notation-mixed"
+      "notation-treble", "notation-bass", "notation-alto", "notation-mixed", "notation-grand", "notation-chords"
     ];
     const randomMode = modes[Math.floor(Math.random() * modes.length)];
     state.setMode(randomMode);
@@ -20286,7 +20657,9 @@ function getLocalizedExamModeName(mode) {
     "notation-treble": tr("Violinschlüssel", "Treble Clef"),
     "notation-bass": tr("Bassschlüssel", "Bass Clef"),
     "notation-alto": tr("Altschlüssel", "Alto Clef"),
-    "notation-mixed": tr("Schlüssel-Mix", "Clef Mix")
+    "notation-mixed": tr("Schlüssel-Mix", "Clef Mix"),
+    "notation-grand": tr("Doppelsystem", "Grand Staff"),
+    "notation-chords": tr("Akkorde lesen", "Chord Reading")
   };
   return names[mode] || mode;
 }

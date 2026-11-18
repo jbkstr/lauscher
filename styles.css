@@ -8224,6 +8224,17 @@ body,
   }
 }
 
+/* Doppelsystem ist rund doppelt so hoch wie ein Einzelsystem */
+.notation-staff-svg.is-grand-staff {
+  max-height: 250px;
+}
+
+@media (min-width: 640px) {
+  .notation-staff-svg.is-grand-staff {
+    max-height: 290px;
+  }
+}
+
 .notation-queue-strip {
   display: flex;
   justify-content: space-between;
@@ -8580,43 +8591,41 @@ body,
 .notation-key-preview-box {
   display: flex;
   align-items: center;
-  gap: 0.56rem;
-  padding: 0.26rem 0.48rem;
+  gap: 0.9rem;
+  padding: 0.5rem 0.75rem;
   border-radius: var(--radius-sm);
   background: var(--surface-card);
   border: 1px dashed var(--border-soft);
 }
 
+/* Notensystem-Vorschau groß genug für gute Lesbarkeit (Linienabstand ≈ 14 px) */
 .notation-key-preview-svg {
-  width: 168px;
   flex: 0 0 auto;
   max-width: 100%;
 }
 
 .notation-key-preview-svg svg {
   display: block;
-  width: 100%;
-  height: auto;
-  max-height: 54px;
+  height: 104px;
+  width: auto;
+  max-width: 100%;
   color: var(--raccoon-dark);
 }
 
 @media (max-width: 440px) {
   .notation-key-preview-box {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 0.16rem;
-    padding: 0.24rem 0.42rem;
-  }
-
-  .notation-key-preview-svg {
-    width: 164px;
-    height: auto;
-    flex: 0 0 auto;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.5rem 0.6rem;
   }
 
   .notation-key-preview-svg svg {
-    max-height: 48px;
+    height: 96px;
+  }
+
+  .notation-key-preview-copy {
+    text-align: center;
   }
 }
 
