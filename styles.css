@@ -1856,7 +1856,8 @@ html, body {
 .k-ratio-chip {
   background-color: var(--surface-warm);
   color: var(--raccoon-dark);
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: inherit;
+  font-variant-numeric: tabular-nums;
   font-size: 0.7rem;
   font-weight: 800;
   padding: 0.16rem 0.55rem;
@@ -5964,7 +5965,8 @@ body,
 
 .theme-role-val {
   font-size: 0.68rem;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: inherit;
+  font-variant-numeric: tabular-nums;
   color: var(--raccoon-muted);
   white-space: nowrap;
   flex-shrink: 0;
@@ -6071,7 +6073,8 @@ body,
 .cp-code {
   font-size: 0.69rem;
   font-weight: 700;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: inherit;
+  font-variant-numeric: tabular-nums;
   padding: 0.14rem 0.42rem;
   border-radius: 6px;
   background: var(--surface-white);
@@ -6254,7 +6257,8 @@ body,
 
 .cp-num-input {
   width: 100%;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: inherit;
+  font-variant-numeric: tabular-nums;
   font-size: 0.76rem;
   font-weight: 700;
   text-align: center;

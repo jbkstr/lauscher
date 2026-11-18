@@ -1864,7 +1864,8 @@ html, body {
 .k-ratio-chip {
   background-color: var(--surface-warm);
   color: var(--raccoon-dark);
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: inherit;
+  font-variant-numeric: tabular-nums;
   font-size: 0.7rem;
   font-weight: 800;
   padding: 0.16rem 0.55rem;
@@ -5711,6 +5712,55 @@ body,
   cursor: pointer;
 }
 
+/* Einladung zum Mitsingen/-summen (Intervall- & Solfège-Übungen) */
+.sing-along-hint {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-top: 0.62rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--radius-lg);
+  background-color: var(--sage);
+  color: var(--raccoon-dark);
+}
+
+.sing-along-hint.hidden {
+  display: none;
+}
+
+.sing-along-icon {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--surface-white);
+  color: var(--raccoon-dark);
+  box-shadow: var(--shadow-card);
+}
+
+.sing-along-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.12rem;
+  min-width: 0;
+}
+
+.sing-along-title {
+  font-size: 0.86rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.sing-along-text {
+  font-size: 0.76rem;
+  font-weight: 600;
+  line-height: 1.35;
+  overflow-wrap: break-word;
+}
+
 @media (max-width: 350px) {
   .drone-mix-strip {
     grid-template-columns: 1fr;
@@ -5923,7 +5973,8 @@ body,
 
 .theme-role-val {
   font-size: 0.68rem;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: inherit;
+  font-variant-numeric: tabular-nums;
   color: var(--raccoon-muted);
   white-space: nowrap;
   flex-shrink: 0;
@@ -6030,7 +6081,8 @@ body,
 .cp-code {
   font-size: 0.69rem;
   font-weight: 700;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: inherit;
+  font-variant-numeric: tabular-nums;
   padding: 0.14rem 0.42rem;
   border-radius: 6px;
   background: var(--surface-white);
@@ -6213,7 +6265,8 @@ body,
 
 .cp-num-input {
   width: 100%;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: inherit;
+  font-variant-numeric: tabular-nums;
   font-size: 0.76rem;
   font-weight: 700;
   text-align: center;
@@ -11369,6 +11422,22 @@ body,
             <input type="range" id="droneToneVolSlider" min="0" max="100" step="2" value="100" aria-label="Lautstärke des Intervalltons" data-i18n-aria="ex.droneToneVolAria">
           </label>
         </div>
+
+        <!-- Einladung zum Mitsingen/-summen (Intervall- & Solfège-Übungen) -->
+        <div id="singAlongHint" class="sing-along-hint hidden" role="note">
+          <span class="sing-along-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="2.5" width="6" height="12" rx="3"/>
+              <path d="M5.5 11a6.5 6.5 0 0 0 13 0"/>
+              <line x1="12" y1="17.5" x2="12" y2="21.5"/>
+              <line x1="8.5" y1="21.5" x2="15.5" y2="21.5"/>
+            </svg>
+          </span>
+          <div class="sing-along-copy">
+            <strong id="singAlongTitle" class="sing-along-title">Sing mit!</strong>
+            <span id="singAlongText" class="sing-along-text"></span>
+          </div>
+        </div>
       </section>
 
       <div class="stage-wrapper">
@@ -11762,7 +11831,7 @@ body,
 
         <div id="mixerTabLevels" class="mixer-tab-panel" role="tabpanel">
           <div class="settings-section">
-            <h4 data-i18n="mixer.levelsHeading">Lautstärken</h4>
+            <h4 data-i18n="mixer.levelsHeading">Instrumente</h4>
             <div class="mixer-list">
               <div class="mixer-row">
                 <span class="mixer-name" data-i18n="mixer.piano">Klavier</span>
@@ -14432,7 +14501,7 @@ const I18N_STATIC = {
   "mixer.tabsAria": { de: "Mixer-Bereich wählen", en: "Choose mixer section" },
   "mixer.tabLevels": { de: "Lautstärken", en: "Volumes" },
   "mixer.tabReverb": { de: "Raumhall", en: "Reverb" },
-  "mixer.levelsHeading": { de: "Lautstärken", en: "Volumes" },
+  "mixer.levelsHeading": { de: "Instrumente", en: "Instruments" },
   "mixer.piano": { de: "Klavier", en: "Piano" },
   "mixer.guitar": { de: "Gitarre", en: "Guitar" },
   "mixer.strings": { de: "Streicher", en: "Strings" },
@@ -15612,7 +15681,7 @@ const I18N_STATIC_FR = {
   "mixer.tabsAria": "Choisir la vue de la console",
   "mixer.tabLevels": "Volumes",
   "mixer.tabReverb": "Réverbération",
-  "mixer.levelsHeading": "Volumes",
+  "mixer.levelsHeading": "Instruments",
   "mixer.piano": "Piano",
   "mixer.guitar": "Guitare",
   "mixer.strings": "Cordes",
@@ -16501,8 +16570,15 @@ const TR_FR = {
   "{tot} / {tot} gelöst ✓": "{tot} / {tot} résolues ✓"
 };
 
-// Header-Titel „Home“, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
+// Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_FR, {
+  "Sing mit!": "Chantez avec nous !",
+  "Summ beide Töne nach, bevor du antwortest – deine Stimme spürt den Abstand oft schneller als der Kopf.": "Fredonnez les deux notes avant de répondre – votre voix sent souvent l’écart plus vite que votre tête.",
+  "Sing beide Töne abwärts nach – stell dir dabei eine Treppe nach unten vor.": "Chantez les deux notes en descendant – imaginez un escalier qui descend.",
+  "Summ erst den tiefen, dann den hohen Ton heraus – so wird aus dem Zusammenklang ein Schritt, den du singen kannst.": "Fredonnez d’abord la note grave, puis la note aiguë – l’accord devient ainsi un pas que vous pouvez chanter.",
+  "Summ den Grundton der Fläche mit und sing dann den Klavierton darüber – spür, wie weit deine Stimme springen muss.": "Fredonnez la fondamentale de la nappe, puis chantez la note du piano par-dessus – sentez jusqu’où votre voix doit sauter.",
+  "Sing jeden Ton mit seiner Stufenzahl mit (1, 2, 3 …) – so verankert sich jede Stufe fest in deinem Ohr.": "Chantez chaque note avec son numéro de degré (1, 2, 3 …) – chaque degré s’ancre ainsi solidement dans votre oreille.",
+  "Sing jeden Ton mit seinem Namen mit (Do, Re, Mi …) – so verankert sich jede Stufe fest in deinem Ohr.": "Chantez chaque note avec son nom (Do, Ré, Mi …) – chaque degré s’ancre ainsi solidement dans votre oreille.",
   "Übungen": "Accueil",
   "Intervalle über Grundton-Fläche": "Intervalles sur nappe de fondamentale",
   "Grundton-Fläche": "Nappe de fondamentale",
@@ -17622,7 +17698,7 @@ const I18N_STATIC_PL = {
   "mixer.tabsAria": "Wybierz widok miksera",
   "mixer.tabLevels": "Głośność",
   "mixer.tabReverb": "Pogłos",
-  "mixer.levelsHeading": "Głośność",
+  "mixer.levelsHeading": "Instrumenty",
   "mixer.piano": "Fortepian",
   "mixer.guitar": "Gitara",
   "mixer.strings": "Smyczki",
@@ -19005,8 +19081,15 @@ const TR_PL = {
   "{tot} / {tot} gelöst ✓": "{tot} / {tot} odgadnięte ✓"
 };
 
-// Header-Titel „Home“, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
+// Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_PL, {
+  "Sing mit!": "Śpiewaj z nami!",
+  "Summ beide Töne nach, bevor du antwortest – deine Stimme spürt den Abstand oft schneller als der Kopf.": "Zanuć oba dźwięki, zanim odpowiesz – twój głos często wyczuwa odległość szybciej niż głowa.",
+  "Sing beide Töne abwärts nach – stell dir dabei eine Treppe nach unten vor.": "Zaśpiewaj oba dźwięki w dół – wyobraź sobie schody prowadzące w dół.",
+  "Summ erst den tiefen, dann den hohen Ton heraus – so wird aus dem Zusammenklang ein Schritt, den du singen kannst.": "Zanuć najpierw niższy, potem wyższy dźwięk – tak współbrzmienie zmienia się w krok, który możesz zaśpiewać.",
+  "Summ den Grundton der Fläche mit und sing dann den Klavierton darüber – spür, wie weit deine Stimme springen muss.": "Nuć dźwięk podstawowy plamy, a potem zaśpiewaj nad nim dźwięk fortepianu – poczuj, jak daleko musi skoczyć twój głos.",
+  "Sing jeden Ton mit seiner Stufenzahl mit (1, 2, 3 …) – so verankert sich jede Stufe fest in deinem Ohr.": "Śpiewaj każdy dźwięk z numerem stopnia (1, 2, 3 …) – tak każdy stopień mocno zakotwiczy się w twoim uchu.",
+  "Sing jeden Ton mit seinem Namen mit (Do, Re, Mi …) – so verankert sich jede Stufe fest in deinem Ohr.": "Śpiewaj każdy dźwięk z jego nazwą (Do, Re, Mi …) – tak każdy stopień mocno zakotwiczy się w twoim uchu.",
   "Übungen": "Start",
   "Intervalle über Grundton-Fläche": "Interwały nad plamą dźwięku podstawowego",
   "Grundton-Fläche": "Plama dźwięku podstawowego",
@@ -19678,7 +19761,7 @@ const I18N_STATIC_UK = {
   "mixer.tabsAria": "Обрати вкладку мікшера",
   "mixer.tabLevels": "Гучність",
   "mixer.tabReverb": "Реверберація",
-  "mixer.levelsHeading": "Гучність",
+  "mixer.levelsHeading": "Інструменти",
   "mixer.piano": "Фортепіано",
   "mixer.guitar": "Гітара",
   "mixer.strings": "Струнні",
@@ -21062,8 +21145,15 @@ const TR_UK = {
   "{tot} / {tot} gelöst ✓": "{tot} / {tot} розгадано ✓"
 };
 
-// Header-Titel „Home“, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
+// Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_UK, {
+  "Sing mit!": "Співай разом!",
+  "Summ beide Töne nach, bevor du antwortest – deine Stimme spürt den Abstand oft schneller als der Kopf.": "Наспівай обидва звуки, перш ніж відповісти, – твій голос часто відчуває відстань швидше, ніж голова.",
+  "Sing beide Töne abwärts nach – stell dir dabei eine Treppe nach unten vor.": "Заспівай обидва звуки вниз – уяви сходи, що ведуть донизу.",
+  "Summ erst den tiefen, dann den hohen Ton heraus – so wird aus dem Zusammenklang ein Schritt, den du singen kannst.": "Наспівай спершу нижчий, а потім вищий звук – так співзвуччя перетвориться на крок, який можна заспівати.",
+  "Summ den Grundton der Fläche mit und sing dann den Klavierton darüber – spür, wie weit deine Stimme springen muss.": "Наспівуй основний тон підкладки, а потім заспівай над ним звук фортепіано – відчуй, наскільки далеко має стрибнути твій голос.",
+  "Sing jeden Ton mit seiner Stufenzahl mit (1, 2, 3 …) – so verankert sich jede Stufe fest in deinem Ohr.": "Співай кожен звук із номером ступеня (1, 2, 3 …) – так кожен ступінь міцно закріпиться у твоєму слуху.",
+  "Sing jeden Ton mit seinem Namen mit (Do, Re, Mi …) – so verankert sich jede Stufe fest in deinem Ohr.": "Співай кожен звук із його назвою (Do, Re, Mi …) – так кожен ступінь міцно закріпиться у твоєму слуху.",
   "Übungen": "Головна",
   "Intervalle über Grundton-Fläche": "Інтервали над підкладкою основного тону",
   "Grundton-Fläche": "Підкладка основного тону",
@@ -21735,7 +21825,7 @@ const I18N_STATIC_UR = {
   "mixer.tabsAria": "مکسر کا منظر منتخب کریں",
   "mixer.tabLevels": "والیوم",
   "mixer.tabReverb": "ہال گونج",
-  "mixer.levelsHeading": "والیوم",
+  "mixer.levelsHeading": "ساز",
   "mixer.piano": "پیانو",
   "mixer.guitar": "گٹار",
   "mixer.strings": "اسٹرنگز",
@@ -23462,8 +23552,15 @@ const TR_UR = Object.assign(Object.create(null), {
   "Alle 12 Vorzeichen-Tonarten (±3 Hilfslinien) inklusive Auflösungszeichen (♮)": "تمام 12 کی سگنیچرز (±3 لیجر لائنز) بشمول نیچرل علامتیں (♮)"
 });
 
-// Header-Titel „Home“, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
+// Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_UR, {
+  "Sing mit!": "ساتھ گائیں!",
+  "Summ beide Töne nach, bevor du antwortest – deine Stimme spürt den Abstand oft schneller als der Kopf.": "جواب دینے سے پہلے دونوں سُر گنگنائیں – آپ کی آواز اکثر دماغ سے پہلے فاصلہ محسوس کر لیتی ہے۔",
+  "Sing beide Töne abwärts nach – stell dir dabei eine Treppe nach unten vor.": "دونوں سُر نیچے کی طرف گائیں – تصور کریں کہ آپ سیڑھیاں اتر رہے ہیں۔",
+  "Summ erst den tiefen, dann den hohen Ton heraus – so wird aus dem Zusammenklang ein Schritt, den du singen kannst.": "پہلے نیچا، پھر اونچا سُر گنگنائیں – یوں ہم آہنگ آواز ایک ایسا قدم بن جاتی ہے جسے آپ گا سکتے ہیں۔",
+  "Summ den Grundton der Fläche mit und sing dann den Klavierton darüber – spür, wie weit deine Stimme springen muss.": "پیڈ کے بنیادی سُر کے ساتھ گنگنائیں، پھر اس کے اوپر پیانو کا سُر گائیں – محسوس کریں کہ آپ کی آواز کو کتنی چھلانگ لگانی ہے۔",
+  "Sing jeden Ton mit seiner Stufenzahl mit (1, 2, 3 …) – so verankert sich jede Stufe fest in deinem Ohr.": "ہر سُر کو اس کے درجے کے نمبر (1, 2, 3 …) کے ساتھ گائیں – یوں ہر درجہ آپ کے کان میں مضبوطی سے بیٹھ جاتا ہے۔",
+  "Sing jeden Ton mit seinem Namen mit (Do, Re, Mi …) – so verankert sich jede Stufe fest in deinem Ohr.": "ہر سُر کو اس کے نام (Do, Re, Mi …) کے ساتھ گائیں – یوں ہر درجہ آپ کے کان میں مضبوطی سے بیٹھ جاتا ہے۔",
   "Übungen": "ہوم",
   "Intervalle über Grundton-Fläche": "بنیادی سُر کے پیڈ پر انٹرولز",
   "Grundton-Fläche": "بنیادی سُر کا پیڈ",
@@ -48218,7 +48315,7 @@ function getMascotSVG(mood = "idle", showAccessory = false) {
     `;
   } else if (mood === "question") {
     extraBadge = `
-      <text x="53.5" y="18" fill="var(--peach-strong)" font-size="16" font-weight="900" font-family="sans-serif">?</text>
+      <text x="53.5" y="18" fill="var(--peach-strong)" font-size="16" font-weight="900" font-family="Andika, sans-serif">?</text>
     `;
   } else if (mood === "awaiting") {
     extraBadge = `
@@ -52398,7 +52495,7 @@ function getRhythmCellSVG(cellKey, width = 44, height = 26) {
         `<path d="M32.9 5.5 C36.5 7.5 37.5 10.5 35.5 13.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>`;
       break;
     case "triplet":
-      body = `<text x="24" y="7.5" text-anchor="middle" fill="currentColor" font-size="8.5" font-weight="900" font-family="sans-serif">3</text>` +
+      body = `<text x="24" y="7.5" text-anchor="middle" fill="currentColor" font-size="8.5" font-weight="900" font-family="Andika, sans-serif">3</text>` +
         head(10, 22) + stem(12.6, 21.5, 10) +
         head(22, 22) + stem(24.6, 21.5, 10) +
         head(34, 22) + stem(36.6, 21.5, 10) +
@@ -54004,7 +54101,7 @@ function initWaveVisualizer(num, den) {
     });
 
     // Spur-Beschriftungen oben links in jeder Spur
-    ctx.font = "bold 11px -apple-system, sans-serif";
+    ctx.font = "bold 11px Andika, -apple-system, sans-serif";
     ctx.fillStyle = palette.track1Label;
     ctx.fillText(tr("1. Grundton (2 lange Wellen)", "1. Root note (2 wave cycles)"), padLeft + 4, yTrack1 - 20);
 
@@ -57581,6 +57678,35 @@ function renderMelodyRhythmPicker(ex = state.currentExercise) {
   wrap.appendChild(grid);
 }
 
+/**
+ * Einladung zum Mitsingen/-summen für Intervall- und Solfège-Übungen.
+ * Liefert null für alle anderen Übungstypen (Hinweis bleibt dann ausgeblendet).
+ */
+function getSingAlongHintText(type) {
+  switch (type) {
+    case "interval-melodic":
+      return tr("Summ beide Töne nach, bevor du antwortest – deine Stimme spürt den Abstand oft schneller als der Kopf.",
+        "Hum both notes back before you answer — your voice often feels the distance faster than your head.");
+    case "interval-melodic-down":
+      return tr("Sing beide Töne abwärts nach – stell dir dabei eine Treppe nach unten vor.",
+        "Sing both notes back going down — picture yourself walking down a staircase.");
+    case "interval-harmonic":
+      return tr("Summ erst den tiefen, dann den hohen Ton heraus – so wird aus dem Zusammenklang ein Schritt, den du singen kannst.",
+        "Hum the low note first, then the high one — that turns the chord into a step you can sing.");
+    case "interval-drone":
+      return tr("Summ den Grundton der Fläche mit und sing dann den Klavierton darüber – spür, wie weit deine Stimme springen muss.",
+        "Hum along with the pad’s root, then sing the piano note above it — feel how far your voice has to leap.");
+    case "solfege":
+      return state?.profile?.solfegeLabels === "numbers"
+        ? tr("Sing jeden Ton mit seiner Stufenzahl mit (1, 2, 3 …) – so verankert sich jede Stufe fest in deinem Ohr.",
+          "Sing each note with its degree number (1, 2, 3 …) — that anchors every degree firmly in your ear.")
+        : tr("Sing jeden Ton mit seinem Namen mit (Do, Re, Mi …) – so verankert sich jede Stufe fest in deinem Ohr.",
+          "Sing each note with its name (Do, Re, Mi …) — that anchors every degree firmly in your ear.");
+    default:
+      return null;
+  }
+}
+
 function renderUI() {
   const ex = state.currentExercise;
   if (!ex) return;
@@ -57681,6 +57807,18 @@ function renderUI() {
     const isDroneEx = ex.type === "interval-drone";
     droneMixStrip.classList.toggle("hidden", !isDroneEx);
     if (isDroneEx) syncDroneMixControls();
+  }
+
+  const singAlongHint = document.getElementById("singAlongHint");
+  if (singAlongHint) {
+    const singText = getSingAlongHintText(ex.type);
+    singAlongHint.classList.toggle("hidden", !singText);
+    if (singText) {
+      const titleEl = document.getElementById("singAlongTitle");
+      const textEl = document.getElementById("singAlongText");
+      if (titleEl) titleEl.textContent = tr("Sing mit!", "Sing along!");
+      if (textEl) textEl.textContent = singText;
+    }
   }
 
   const solfegeKeyBtn = document.getElementById("solfegeKeyBtn");
