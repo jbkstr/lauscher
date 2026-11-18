@@ -1352,14 +1352,14 @@ const KNOWLEDGE_ARTICLES_EN = [
 ];
 
 const PHYSICS_WAVE_EXPLANATIONS_EN = {
-  "2,1": "<strong>Octave (2 : 1):</strong> Two long green root waves fit exactly <strong>4 half-length orange waves</strong>. In Track 3, the combined wave repeats identically at every dashed vertical mark.",
-  "3,2": "<strong>Perfect 5th (3 : 2):</strong> While the root completes 2 long green waves, the upper tone draws exactly <strong>3 orange waves</strong>. At the start, midpoint, and end they lock straight back together.",
-  "4,3": "<strong>Perfect 4th (4 : 3):</strong> Ratio 1.33 : 1 — tight acoustic kinship forming a steady, repeating composite shape every 3 green = 4 orange cycles.",
-  "5,4": "<strong>Major 3rd (5 : 4):</strong> Ratio 1.25 : 1. Track 3 keeps a smooth, warm rolling contour — the acoustic bedrock of major triads.",
-  "6,5": "<strong>Minor 3rd (6 : 5):</strong> Ratio 1.20 : 1. Slightly tighter cycle overlap than the Major 3rd, shaping minor harmony’s soulful warmth.",
-  "5,3": "<strong>Major 6th (5 : 3):</strong> Ratio 1.67 : 1 — the inversion of the Minor 3rd. Open, vocal, and warmly resonant.",
-  "45,32": "<strong>Tritone (45 : 32):</strong> The orange wave crests refuse to line up cleanly with the green reference grid — watch Track 3 turn jagged and restless!",
-  "16,15": "<strong>Minor 2nd (16 : 15):</strong> Both waves have nearly equal length (1.07×), drifting gradually in and out of phase — creating those pulsing beat swells in Track 3."
+  "2,1": "<strong>Octave (2 : 1):</strong> Two long green root waves fit exactly <strong>4 half-length orange waves</strong>. In Track 3, the combined shape repeats identically at every dashed vertical mark — that’s why octaves almost fuse into one note.",
+  "3,2": "<strong>Perfect 5th (3 : 2):</strong> While the root completes 2 long green waves, the upper tone draws exactly <strong>3 orange waves</strong>. They lock cleanly together again every 2 cycles — steady, open, and full of power.",
+  "4,3": "<strong>Perfect 4th (4 : 3):</strong> 3 green cycles line up neatly with 4 orange cycles, then the whole pattern restarts in sync.",
+  "5,4": "<strong>Major 3rd (5 : 4):</strong> 4 green cycles meet 5 orange cycles. Track 3 draws a smooth, rolling wave — the warm sound behind major chords.",
+  "6,5": "<strong>Minor 3rd (6 : 5):</strong> 5 green cycles against 6 orange cycles — slightly tighter overlap than the Major 3rd, giving minor harmony its soulful color.",
+  "5,3": "<strong>Major 6th (5 : 3):</strong> Ratio 1.67 : 1 — the inversion of the Minor 3rd. Wide, singing, and nicely settled.",
+  "45,32": "<strong>Tritone (45 : 32):</strong> The orange wave crests refuse to line up cleanly with the green grid — watch Track 3 turn spiky and restless with tension!",
+  "16,15": "<strong>Minor 2nd (16 : 15):</strong> Both waves move at nearly the same speed, drifting slowly in and out of sync — creating those pulsing thick-and-thin swells in Track 3 (beating)."
 };
 
 const PHYSICS_OVERTONES_EN = [
@@ -1381,52 +1381,133 @@ function renderPhysicsReferenceHTML_EN() {
   return `
     <article class="knowledge-card">
       <div class="k-card-top-row">
-        <span class="k-card-tag tag-sage">1. Basics of Sound</span>
+        <span class="k-card-tag tag-sage">1. How Sound &amp; Tones Happen</span>
         <span class="k-ratio-chip">approx. 343 m/s</span>
       </div>
-      <h4>Frequency (Hertz), True Wavelength &amp; Timbre</h4>
+      <h4>From Vibrating Air to a Sine Curve</h4>
       <p>
-        Sound happens when an object rhythmically compresses and releases air molecules. How many pressure waves pass per second is measured in <strong>Hertz (Hz)</strong>. Sound travels through room air at roughly <strong>343 meters per second</strong> (1,125 ft/s) — which means bass notes are physically meters long!
+        Pluck a guitar string or start humming, and something wiggles back and forth fast. Those tiny vibrations bump nearby air molecules — sending a pressure ripple across the room at roughly <strong>343 meters per second</strong> (1,125 ft/s). When that ripple hits your ear, your eardrum wiggles in the exact same rhythm and your brain turns it into music.
       </p>
+      <p>
+        Picture a playground swing gliding smoothly back and forth with zero jerks: if you plot that gentle up-and-down motion over time, you get a <strong>sine wave</strong> (<em>sine curve</em>). It is nature’s purest building block — just <strong>one single frequency</strong> with zero extras. Real instruments, though, wobble in bumpier shapes because they blend lots of extra waves together at once.
+      </p>
+
+      <div class="wave-compare-visual">
+        <div class="wave-compare-card">
+          <strong>Pure Sine Wave (1 frequency)</strong>
+          <svg class="wave-compare-svg" viewBox="0 0 220 58" aria-hidden="true">
+            <line x1="6" y1="29" x2="214" y2="29" stroke="var(--border-soft)" stroke-width="1" stroke-dasharray="3 3" />
+            <path d="M6.0 29.0 L9.5 25.0 L12.9 21.3 L16.4 17.8 L19.9 14.9 L23.3 12.5 L26.8 10.9 L30.3 10.1 L33.7 10.1 L37.2 10.9 L40.7 12.5 L44.1 14.9 L47.6 17.8 L51.1 21.3 L54.5 25.0 L58.0 29.0 L61.5 33.0 L64.9 36.7 L68.4 40.2 L71.9 43.1 L75.3 45.5 L78.8 47.1 L82.3 47.9 L85.7 47.9 L89.2 47.1 L92.7 45.5 L96.1 43.1 L99.6 40.2 L103.1 36.7 L106.5 33.0 L110.0 29.0 L113.5 25.0 L116.9 21.3 L120.4 17.8 L123.9 14.9 L127.3 12.5 L130.8 10.9 L134.3 10.1 L137.7 10.1 L141.2 10.9 L144.7 12.5 L148.1 14.9 L151.6 17.8 L155.1 21.3 L158.5 25.0 L162.0 29.0 L165.5 33.0 L168.9 36.7 L172.4 40.2 L175.9 43.1 L179.3 45.5 L182.8 47.1 L186.3 47.9 L189.7 47.9 L193.2 47.1 L196.7 45.5 L200.1 43.1 L203.6 40.2 L207.1 36.7 L210.5 33.0 L214.0 29.0" fill="none" stroke="var(--sage-strong)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span>Smooth S-curve with zero sharp corners — sounds clean and neutral, like a tuning fork or a soft whistle.</span>
+        </div>
+        <div class="wave-compare-card">
+          <strong>Real Tone (Root + Overtones)</strong>
+          <svg class="wave-compare-svg" viewBox="0 0 220 58" aria-hidden="true">
+            <line x1="6" y1="29" x2="214" y2="29" stroke="var(--border-soft)" stroke-width="1" stroke-dasharray="3 3" />
+            <path d="M6.0 26.9 L9.5 17.6 L12.9 11.3 L16.4 9.3 L19.9 11.2 L23.3 15.4 L26.8 19.5 L30.3 22.3 L33.7 23.3 L37.2 23.3 L40.7 23.4 L44.1 23.9 L47.6 24.9 L51.1 25.9 L54.5 26.5 L58.0 26.9 L61.5 27.7 L64.9 29.3 L68.4 31.8 L71.9 34.5 L75.3 36.8 L78.8 38.1 L82.3 38.8 L85.7 39.9 L89.2 41.9 L92.7 44.7 L96.1 47.2 L99.6 47.4 L103.1 43.9 L106.5 36.5 L110.0 26.9 L113.5 17.6 L116.9 11.3 L120.4 9.3 L123.9 11.2 L127.3 15.4 L130.8 19.5 L134.3 22.3 L137.7 23.3 L141.2 23.3 L144.7 23.4 L148.1 23.9 L151.6 24.9 L155.1 25.9 L158.5 26.5 L162.0 26.9 L165.5 27.7 L168.9 29.3 L172.4 31.8 L175.9 34.5 L179.3 36.8 L182.8 38.1 L186.3 38.8 L189.7 39.9 L193.2 41.9 L196.7 44.7 L200.1 47.2 L203.6 47.4 L207.1 43.9 L210.5 36.5 L214.0 26.9" fill="none" stroke="var(--peach-strong)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span>Multiple sine waves stack together. Those peaks and dips are what give each instrument its signature voice.</span>
+        </div>
+      </div>
 
       <div class="physics-fact-grid">
         <div class="physics-fact-chip">
-          <strong>Low vs. High (Wavelength)</strong>
-          <span>A low <code>C2</code> (65.4 Hz) forms an actual air wave <strong>5.24 meters (17 ft)</strong> long. High concert <code>A4</code> (440 Hz) measures just <strong>78 centimeters (2.5 ft)</strong>!</span>
+          <strong>Hertz (Hz) = Speed</strong>
+          <span><code>65 Hz</code> (low <code>C2</code>) shakes 65 times per second — a physical <strong>5.24 meter (17 ft)</strong> air wave! <code>440 Hz</code> (<code>A4</code>) shrinks to just <strong>78 cm (2.5 ft)</strong>.</span>
         </div>
         <div class="physics-fact-chip">
-          <strong>The Octave Law (Logarithmic Hearing)</strong>
-          <span>Your ear hears ratios, not equal Hz gaps: jumping <code>220 Hz → 440 Hz</code> (+220 Hz) and <code>440 Hz → 880 Hz</code> (+440 Hz) sounds like the exact same musical leap — an Octave (2:1)!</span>
+          <strong>Octave = Double Speed</strong>
+          <span>Your ear tracks ratios, not raw Hz: jumping <code>220 → 440 Hz</code> (+220 Hz) and <code>440 → 880 Hz</code> (+440 Hz) feels like the exact same step — 2:1!</span>
         </div>
         <div class="physics-fact-chip">
-          <strong>Amplitude = Loudness</strong>
-          <span>How <em>far</em> the wave swings determines volume (measured in decibels, dB). Amplitude never changes pitch — cycles per second remain fixed.</span>
+          <strong>Amplitude = Volume</strong>
+          <span>How hard the wave pushes back and forth (decibels, dB) controls loudness without changing pitch at all.</span>
         </div>
         <div class="physics-fact-chip">
-          <strong>Waveform = Tone Color (Timbre)</strong>
-          <span>Why does a flute playing <code>C4</code> sound nothing like a violin on <code>C4</code>? The wave’s <em>shape</em> encodes how strongly different overtones chime alongside the fundamental.</span>
+          <strong>Wave Shape = Tone Color</strong>
+          <span>Smooth wave = soft and flute-like. Jagged wave = edgy and bright like a trumpet or distorted guitar.</span>
         </div>
       </div>
 
       <div class="k-meta-box">
-        <strong>Hear It Yourself – Octave Doubling &amp; Waveforms on C4 (261.6 Hz):</strong>
+        <strong>Listen in – Octave Jumps &amp; Wave Shapes on C4 (261.6 Hz):</strong>
         <div class="k-btn-row" style="margin-top:0.35rem;">
           <button class="btn-tool" data-play-freqs="220,440,880" data-seq-step="650" data-osc="triangle" data-dur="0.75">▶ 220 → 440 → 880 Hz</button>
-          <button class="btn-tool" data-play-freqs="261.63" data-osc="sine" data-dur="1.4">▶ Sine (Pure / Flute)</button>
-          <button class="btn-tool" data-play-freqs="261.63" data-osc="triangle" data-dur="1.4">▶ Triangle (Warm / Wood)</button>
-          <button class="btn-tool" data-play-freqs="261.63" data-osc="sawtooth" data-dur="1.4">▶ Sawtooth (Bright / Strings)</button>
+          <button class="btn-tool" data-play-freqs="261.63" data-osc="sine" data-dur="1.4">▶ Pure Sine Wave</button>
+          <button class="btn-tool" data-play-freqs="261.63" data-osc="triangle" data-dur="1.4">▶ Triangle (Softer)</button>
+          <button class="btn-tool" data-play-freqs="261.63" data-osc="sawtooth" data-dur="1.4">▶ Sawtooth (Edgy)</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-peach">2. The Frequency Spectrum</span>
+        <span class="k-ratio-chip">20 Hz – 20 kHz</span>
+      </div>
+      <h4>Sonic Fingerprint: What’s Actually Inside a Note?</h4>
+      <p>
+        If a piano and a guitar both play the exact same <code>C4</code>, you can tell them apart in a split second — even though the main pitch is identical! The secret is their <strong>frequency spectrum</strong>: every real-world tone is a whole crew of sine waves sounding together at once.
+      </p>
+      <p>
+        Think of a spectrum (like an EQ visualizer in your music app) as an X-ray of sound: on the far left sits the fundamental note (<code>1×</code>), and stretching to the right are its faster overtones (<code>2×</code> to <code>10×</code>). Pick a sound below to see and hear its recipe:
+      </p>
+
+      <div class="freq-spec-box">
+        <div class="k-btn-row">
+          <button class="k-filter-pill active" data-spec-preset="sine" data-play-freqs="261.63" data-osc="sine" data-dur="1.4" data-spec-desc="<strong>Pure Sine Tone:</strong> Just one lonely bar at 1× — zero overtones. Sounds ultra-clean, almost sterile, with no higher frequencies coloring the tone.">▶ Sine Wave (C4)</button>
+          <button class="k-filter-pill" data-spec-preset="piano" data-play-inst data-style="piano" data-notes="C4" data-dur="1.5" data-spec-desc="<strong>Piano (Sample):</strong> Strong fundamental backed by round lower overtones that taper off gently higher up — giving piano its full, warm body.">▶ Piano Sample (C4)</button>
+          <button class="k-filter-pill" data-spec-preset="guitar" data-play-inst data-style="guitar" data-notes="C4" data-dur="1.5" data-spec-desc="<strong>Guitar (Sample):</strong> Plucked strings pack noticeably more energy into the mid and upper bars — that’s where the bright snap and pluck attack live.">▶ Guitar Sample (C4)</button>
+          <button class="k-filter-pill" data-spec-preset="strings" data-play-inst data-style="strings" data-notes="C4" data-dur="1.6" data-spec-desc="<strong>Strings (Sample):</strong> The bow keeps even high overtones (6×–10×) energized continuously — creating silky shimmer that cuts effortlessly through a mix.">▶ Strings Sample (C4)</button>
+        </div>
+
+        <div class="freq-spec-bars">
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill" data-spec-bar style="height:100%"></div></div><span class="freq-spec-label">1×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">2×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">3×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">4×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">5×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">6×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">7×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">8×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">9×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">10×</span></div>
+        </div>
+
+        <div id="freqSpecCaption" class="freq-spec-caption">
+          <strong>Pure Sine Tone:</strong> Just one lonely bar at 1× — zero overtones. Sounds ultra-clean, almost sterile, with no higher frequencies coloring the tone.
+        </div>
+      </div>
+
+      <div class="physics-fact-grid">
+        <div class="physics-fact-chip">
+          <strong>Sub &amp; Bass (20 – 250 Hz)</strong>
+          <span>Kick drums, basslines, low foundation. Long waves you often feel in your chest before you even analyze them.</span>
+        </div>
+        <div class="physics-fact-chip">
+          <strong>Mids &amp; Warmth (250 Hz – 2 kHz)</strong>
+          <span>Vocals, piano body, guitar chords. This zone builds fullness — push too much and things turn boxy.</span>
+        </div>
+        <div class="physics-fact-chip">
+          <strong>Presence &amp; Bite (2 – 6 kHz)</strong>
+          <span>Consonants (“S”, “T”), pick clicks, snare snap. Human ears are extra sensitive right here.</span>
+        </div>
+        <div class="physics-fact-chip">
+          <strong>Air &amp; Shimmer (6 – 20 kHz)</strong>
+          <span>Cymbal sizzle, vocal breath, fine upper sparkle stretching to the top limit of human hearing.</span>
         </div>
       </div>
     </article>
 
     <div class="wave-lab-card">
       <div class="k-card-top-row">
-        <span class="k-card-tag tag-sage">2. Interactive 3-Track Wave Lab</span>
+        <span class="k-card-tag tag-sage">3. Interactive Wave Lab</span>
         <button id="toggleWavePauseBtn" class="k-ratio-btn">⏸ Pause Wave</button>
       </div>
-      <h4>Wavelengths &amp; Interference Side by Side</h4>
+      <h4>Watch Two Waves Combine Live</h4>
       <p style="font-size:0.78rem; color:var(--raccoon-mid); line-height:1.4;">
-        Dashed lines mark <strong>1 full cycle of the root note (green)</strong>. Below it sits the <strong>2nd note (orange)</strong>, and at bottom Track 3 reveals the true <strong>superposition (interference wave)</strong> hitting your eardrum.
+        Dashed lines mark <strong>1 full cycle of the root note (green)</strong>. Underneath is the <strong>2nd note (orange)</strong> — and Track 3 at bottom draws their real-time <strong>combined wave</strong> right as it reaches your eardrum.
       </p>
       <div class="wave-canvas-wrap">
         <canvas id="waveCanvas" class="wave-canvas" width="540" height="195"></canvas>
@@ -1448,15 +1529,15 @@ function renderPhysicsReferenceHTML_EN() {
 
     <article class="knowledge-card">
       <div class="k-card-top-row">
-        <span class="k-card-tag tag-peach">3. Nature’s Hidden Harmony</span>
-        <span class="k-ratio-chip">f · n (n = 1…12)</span>
+        <span class="k-card-tag tag-peach">4. Nature’s Built-In Scale</span>
+        <span class="k-ratio-chip">1× to 12× Root</span>
       </div>
       <h4>Standing Waves &amp; the Harmonic Overtone Series (1st–12th)</h4>
       <p>
-        Pluck a string fixed at both ends (or blow a natural valveless horn), and the pinned ends only allow <strong>standing wave nodes</strong>. So the string vibrates simultaneously as a whole, in halves (2×), thirds (3×), quarters (4×)… Inside a single note lives a whole choir of hidden overtones!
+        Hold down a guitar string at both ends and pluck it: the ends have to stay still, so the string naturally vibrates as one whole arch AND splits into halves (2× faster), thirds (3× faster), quarters (4×)… That means one single note secretly contains an entire ladder of overtones!
       </p>
       <p>
-        Notice the purple-highlighted partials <strong>7</strong> and <strong>11</strong> (the classic “Alphorn Fa”): they sit right <em>between</em> fixed piano keys — pure natural overtones unfiltered by equal temperament!
+        Tap the tiles below! Notice the purple-highlighted tones <strong>7</strong> and <strong>11</strong> (the classic “Alphorn Fa”): they sit right <em>in the cracks between</em> piano keys — raw, natural harmonics.
       </p>
       <div class="overtone-grid">
         ${PHYSICS_OVERTONES_EN.map(ot => `
@@ -1468,7 +1549,7 @@ function renderPhysicsReferenceHTML_EN() {
         `).join("")}
       </div>
       <div class="k-meta-box">
-        <strong>Why Major Sits in the Foundation:</strong> Harmonics <strong>4 : 5 : 6</strong> naturally form a radiant major triad right near the bottom. A pure minor triad hides much higher up at <strong>10 : 12 : 15</strong>!
+        <strong>Why Major Feels So Grounded:</strong> Harmonics <strong>4 : 5 : 6</strong> automatically spell out a bright major chord near the bottom. A pure minor chord hides way higher up at <strong>10 : 12 : 15</strong>!
       </div>
       <div class="k-btn-row">
         <button class="btn-tool" data-play-freqs="${PHYSICS_OVERTONES_EN.map(o => o.freq).join(",")}" data-seq-step="380" data-osc="triangle" data-dur="0.65">▶ Full Series (1–12)</button>
@@ -1479,45 +1560,45 @@ function renderPhysicsReferenceHTML_EN() {
 
     <article class="knowledge-card">
       <div class="k-card-top-row">
-        <span class="k-card-tag tag-lilac">4. Acoustic Beating</span>
-        <span class="k-ratio-chip">f_beat = |f₁ − f₂|</span>
+        <span class="k-card-tag tag-lilac">5. Acoustic Beating</span>
+        <span class="k-ratio-chip">Gap in Hz = Pulses/s</span>
       </div>
-      <h4>Breathing Waves: How Musicians Tune Strings by Ear</h4>
+      <h4>Wobbling Waves: Tuning Strings by Ear</h4>
       <p>
-        When two almost-identical pitches sound together, their peaks periodically reinforce to double amplitude and cancel back down. How many times per second you hear that “wah-wah-wah” pulse equals the exact <strong>Hz difference</strong> between both tones! Above ~15–20 Hz, slow beating blurs into gritty roughness.
+        Play two strings tuned almost the same, and their wave peaks briefly line up (twice as loud), then collide upside-down (momentarily quieter). That slow “wah-wah-wah” pulse is called <strong>beating</strong>. How many pulses you hear per second equals the exact <strong>Hz difference</strong> between the notes — once they lock into tune, the wobble vanishes!
       </p>
       <div class="k-btn-row">
-        <button class="btn-tool" data-play-freqs="440,440" data-osc="sine" data-dur="2.4">▶ 0 Hz (440+440 · Pure)</button>
-        <button class="btn-tool" data-play-freqs="440,442" data-osc="sine" data-dur="2.6">▶ 2 Hz (440+442 · 2 beats/s)</button>
-        <button class="btn-tool" data-play-freqs="440,446" data-osc="sine" data-dur="2.4">▶ 6 Hz (440+446 · Shimmer)</button>
-        <button class="btn-tool" data-play-freqs="440,466" data-osc="sine" data-dur="2.2">▶ 26 Hz (440+466 · Roughness)</button>
+        <button class="btn-tool" data-play-freqs="440,440" data-osc="sine" data-dur="2.4">▶ 0 Hz (440+440 · Rock Steady)</button>
+        <button class="btn-tool" data-play-freqs="440,442" data-osc="sine" data-dur="2.6">▶ 2 Hz (440+442 · 2 pulses/s)</button>
+        <button class="btn-tool" data-play-freqs="440,446" data-osc="sine" data-dur="2.4">▶ 6 Hz (440+446 · Fast Flutter)</button>
+        <button class="btn-tool" data-play-freqs="440,466" data-osc="sine" data-dur="2.2">▶ 26 Hz (440+466 · Gritty Friction)</button>
       </div>
     </article>
 
     <article class="knowledge-card">
       <div class="k-card-top-row">
-        <span class="k-card-tag tag-peach">5. Just Intonation vs. Equal Temperament</span>
-        <span class="k-ratio-chip">+23.5 Cent Comma</span>
+        <span class="k-card-tag tag-peach">6. Tuning &amp; The Piano Compromise</span>
+        <span class="k-ratio-chip">+23.5 Cent Gap</span>
       </div>
-      <h4>Why No Piano on Earth Is “Perfectly In Tune”</h4>
+      <h4>Why No Piano on Earth Is “Completely Pure”</h4>
       <p>
-        Here is nature’s mathematical puzzle: stack 12 pure 5ths (3:2) end-to-end and you land at <code>(3/2)¹² ≈ 129.75</code> — yet 7 pure octaves only reach <code>2⁷ = 128</code>! A stubborn gap of about <strong>23.5 cents</strong> (the <em>Pythagorean Comma</em>) remains. If you tuned a piano strictly pure in C Major, distant keys like F# Major would howl out of tune.
+        A weird quirk of math: stack 12 mathematically pure 5ths (3:2) in a row and you overshoot 7 pure octaves by about <strong>23.5 cents</strong>! Tune a piano strictly pure for C Major, and distant keys like F# Major sound painfully out of tune.
       </p>
       <p>
-        Our modern compromise (made famous by Bach) is <strong>12-tone Equal Temperament (12-TET)</strong>: every semitone scales identically by <code>2^(1/12)</code>. Now every key works smoothly — at the tiny cost that a piano’s Major 3rd sits <strong>14 cents sharper</strong> than pure 5:4 Just Intonation, giving chords a faint shimmer!
+        The clever fix behind modern music is <strong>Equal Temperament</strong>: the octave is split into 12 completely equal mini-steps. Every song now works in any key — though a piano’s Major 3rd (C–E) sits <strong>14 cents sharper</strong> than pure nature. Compare theoretical Just Intonation against real studio piano samples:
       </p>
       <div class="k-compare-grid">
         <div class="k-compare-box is-sage">
-          <h5>Just Intonation (Pure 5:4)</h5>
-          <p>Zero beating — glassy fusion, though locked to a single home key:</p>
-          <button class="btn-tool" data-play-freqs="261.63,327.04" data-osc="triangle" data-dur="2.3">▶ Pure 3rd (261.6 + 327.0 Hz)</button>
-          <button class="btn-tool" data-play-freqs="261.63,327.04,392.45" data-osc="triangle" data-dur="2.3">▶ Pure C Major Chord</button>
+          <h5>Pure Just Intonation (5:4)</h5>
+          <p>Zero beating — melts smoothly together, but doesn’t work cleanly across all keys:</p>
+          <button class="btn-tool" data-play-freqs="261.63,327.04" data-osc="triangle" data-dur="2.3">▶ Pure 3rd (5:4 · Steady)</button>
+          <button class="btn-tool" data-play-freqs="261.63,327.04,392.45" data-osc="triangle" data-dur="2.3">▶ Pure C Major Triad</button>
         </div>
         <div class="k-compare-box is-lilac">
           <h5>Piano / Equal Temperament (+14 ct)</h5>
-          <p>Listen closely: a subtle living shimmer — playable cleanly in all 12 keys:</p>
-          <button class="btn-tool" data-play-freqs="261.63,329.63" data-osc="triangle" data-dur="2.3">▶ Piano 3rd (261.6 + 329.6 Hz)</button>
-          <button class="btn-tool" data-play-freqs="261.63,329.63,392.00" data-osc="triangle" data-dur="2.3">▶ Piano C Major Chord</button>
+          <p>Real studio piano samples: gentle shimmer — playable cleanly in all 12 keys:</p>
+          <button class="btn-tool" data-play-inst data-style="piano" data-notes="C4,E4" data-dur="2.3">▶ Piano 3rd (Sample C4 + E4)</button>
+          <button class="btn-tool" data-play-inst data-style="piano" data-notes="C4,E4,G4" data-dur="2.3">▶ Piano C Major (Sample)</button>
         </div>
       </div>
     </article>

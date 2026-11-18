@@ -5994,6 +5994,7 @@ function openKnowledgeRef(refKey, options = {}) {
     container.innerHTML = renderPhysicsReferenceHTML();
 
     bindKnowledgeAudioButtons(container);
+    initPhysicsSpectrumExplorer(container);
     state.wavePaused = false;
     initWaveVisualizer(2, 1);
 
@@ -6389,6 +6390,41 @@ function initWaveVisualizer(num, den) {
   }
 
   draw();
+}
+
+const PHYSICS_SPECTRUM_PROFILES = {
+  sine:    [100, 0,  0,  0,  0,  0,  0,  0,  0,  0],
+  piano:   [100, 58, 38, 28, 22, 14, 9,  6,  4,  2],
+  guitar:  [86,  82, 68, 45, 36, 32, 24, 18, 12, 8],
+  strings: [92,  72, 64, 54, 46, 40, 34, 28, 22, 18]
+};
+
+function initPhysicsSpectrumExplorer(rootEl) {
+  if (!rootEl) return;
+  const bars = Array.from(rootEl.querySelectorAll("[data-spec-bar]"));
+  const captionEl = rootEl.querySelector("#freqSpecCaption");
+  const btns = Array.from(rootEl.querySelectorAll("[data-spec-preset]"));
+  if (!bars.length || !btns.length) return;
+
+  const applyPreset = (btn) => {
+    const key = btn.dataset.specPreset || "sine";
+    const profile = PHYSICS_SPECTRUM_PROFILES[key] || PHYSICS_SPECTRUM_PROFILES.sine;
+    btns.forEach(b => b.classList.toggle("active", b === btn));
+    bars.forEach((bar, idx) => {
+      const pct = Math.max(0, Math.min(100, profile[idx] ?? 0));
+      bar.style.height = `${Math.max(3, pct)}%`;
+      bar.classList.toggle("is-zero", pct === 0);
+    });
+    if (captionEl && btn.dataset.specDesc) {
+      captionEl.innerHTML = btn.dataset.specDesc;
+    }
+  };
+
+  btns.forEach(btn => {
+    btn.addEventListener("click", () => applyPreset(btn));
+  });
+  const initialBtn = btns.find(b => b.classList.contains("active")) || btns[0];
+  if (initialBtn) applyPreset(initialBtn);
 }
 
 /**

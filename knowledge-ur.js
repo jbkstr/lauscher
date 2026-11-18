@@ -1342,14 +1342,14 @@ const KNOWLEDGE_ARTICLES_UR = [
 ];
 
 const PHYSICS_WAVE_EXPLANATIONS_UR = {
-  "2,1": "<strong>آکٹیو (2 : 1):</strong> جڑ کی دو لمبی سبز موجوں میں عین <strong>4 نصف لمبائی کی نارنجی موجیں</strong> سما جاتی ہیں۔ ٹریک 3 میں مشترکہ موج ہر ڈیش نشان پر بالکل ایک جیسی دہرائی جاتی ہے۔",
-  "3,2": "<strong>پرفیکٹ ففتھ (3 : 2):</strong> جب جڑ 2 لمبی سبز موجیں مکمل کرتی ہے تو اوپر والا سُر عین <strong>3 نارنجی موجیں</strong> بناتا ہے۔ آغاز، درمیان اور آخر پر دونوں ٹھیک مل جاتے ہیں۔",
-  "4,3": "<strong>پرفیکٹ فورتھ (4 : 3):</strong> نسبت 1.33 : 1 — گہری صوتی رشتہ داری جو ہر 3 سبز = 4 نارنجی چکروں پر مستحکم شکل دہراتی ہے۔",
-  "5,4": "<strong>میجر تھرڈ (5 : 4):</strong> نسبت 1.25 : 1۔ ٹریک 3 ہموار اور گرم لہر برقرار رکھتا ہے — میجر ٹرائڈز کی صوتی بنیاد۔",
-  "6,5": "<strong>مائنر تھرڈ (6 : 5):</strong> نسبت 1.20 : 1۔ میجر تھرڈ سے ذرا قریب چکر، جو مائنر ہارمونی کی گہری اور روح پرور گرمائش تشکیل دیتا ہے۔",
-  "5,3": "<strong>میجر سکستھ (5 : 3):</strong> نسبت 1.67 : 1 — مائنر تھرڈ کا عکس۔ کشادہ، غنائی اور پُراثر گونج۔",
-  "45,32": "<strong>ٹرائی ٹون (45 : 32):</strong> نارنجی چوٹیاں سبز حوالہ گرِڈ سے میل نہیں کھاتیں — دیکھیں ٹریک 3 کیسا بے چین اور نوکیلا ہو جاتا ہے!",
-  "16,15": "<strong>مائنر سیکنڈ (16 : 15):</strong> دونوں موجوں کی لمبائی تقریباً برابر (1.07×) ہے، اس لیے وہ آہستہ آہستہ فیز سے باہر نکلتیں اور ملتی ہیں — ٹریک 3 میں دھڑکن کی لہریں دیکھیں۔"
+  "2,1": "<strong>آکٹیو (2 : 1):</strong> بنیادی سُر کی 2 لمبی سبز موجوں میں عین <strong>4 آدھی لمبائی کی نارنجی موجیں</strong> سما جاتی ہیں۔ ٹریک 3 میں مجموعی تصویر ہر ڈیش لائن پر بالکل ویسی ہی دہرائی جاتی ہے — اسی لیے دونوں سُر تقریباً ایک لگتے ہیں۔",
+  "3,2": "<strong>پرفیکٹ ففتھ (3 : 2):</strong> جب بنیادی سُر 2 لمبی سبز موجیں مکمل کرتا ہے تو اوپر والا سُر عین <strong>3 نارنجی موجیں</strong> بناتا ہے۔ ہر 2 چکروں پر دونوں صاف ملتے ہیں — مضبوط، کھلا اور بھرا ہوا۔",
+  "4,3": "<strong>پرفیکٹ فورتھ (4 : 3):</strong> 3 سبز چکروں کا میل ٹھیک 4 نارنجی چکروں سے ہوتا ہے، پھر پورا نمونہ ایک ساتھ دوبارہ شروع ہو جاتا ہے۔",
+  "5,4": "<strong>میجر تھرڈ (5 : 4):</strong> 4 سبز اور 5 نارنجی چکر۔ ٹریک 3 میں نرم اور گول موج بنتی ہے — یہی میجر کارڈز کی گرم آواز ہے۔",
+  "6,5": "<strong>مائنر تھرڈ (6 : 5):</strong> 5 سبز موجیں بمقابلہ 6 نارنجی: میجر تھرڈ سے ذرا قریب گُتھی ہوئی حرکت، جو مائنر کو جذباتی رنگ دیتی ہے۔",
+  "5,3": "<strong>میجر سکستھ (5 : 3):</strong> نسبت 1.67 : 1 — مائنر تھرڈ کا الٹ۔ کشادہ، غنائی اور متوازن۔",
+  "45,32": "<strong>ٹرائی ٹون (45 : 32):</strong> نارنجی چوٹیاں سبز گرِڈ پر کہیں فٹ نہیں بیٹھتیں — ٹریک 3 دیکھیں: تناؤ سے بھری نوکیلی اور بے چین لہر!",
+  "16,15": "<strong>مائنر سیکنڈ (16 : 15):</strong> دونوں موجوں کی رفتار تقریباً ایک جیسی ہے مگر وہ آہستہ آہستہ سرکتی ہیں — اسی سے ٹریک 3 میں موٹے اور پتلے ابھار (دھڑکن) بنتے ہیں۔"
 };
 
 const PHYSICS_OVERTONES_UR = [
@@ -1371,52 +1371,133 @@ function renderPhysicsReferenceHTML_UR() {
   return `
     <article class="knowledge-card">
       <div class="k-card-top-row">
-        <span class="k-card-tag tag-sage">1. آواز کی بنیادیات</span>
+        <span class="k-card-tag tag-sage">1. آواز اور موجیں کیسے بنتی ہیں</span>
         <span class="k-ratio-chip">تقریباً 343 m/s</span>
       </div>
-      <h4>فریکوئنسی (ہرٹز)، حقیقی طولِ موج اور رنگت (Timbre)</h4>
+      <h4>ہوا کے ارتعاش سے سائن ویو (Sine Curve) تک</h4>
       <p>
-        آواز تب پیدا ہوتی ہے جب کوئی شے ہوا کے ذرات کو بار بار دباتی اور چھوڑتی ہے۔ فی سیکنڈ گزرنے والی دباؤ کی موجیں <strong>ہرٹز (Hz)</strong> میں ناپی جاتی ہیں۔ ہوا میں آواز تقریباً <strong>343 میٹر فی سیکنڈ</strong> کی رفتار سے سفر کرتی ہے — یعنی باس کے سُر جسمانی طور پر کئی میٹر لمبے ہوتے ہیں!
+        جب آپ گٹار کا تار چھیڑتے ہیں یا گنگنانے لگتے ہیں تو کوئی چیز بڑی تیزی سے آگے پیچھے لرزتی ہے۔ یہ لرزش پاس کے ہوائی ذرات کو دھکیلتی ہے — بالکل پانی کی لہروں کی طرح تقریباً <strong>343 میٹر فی سیکنڈ</strong> کی رفتار سے دباؤ کی لہر کمرے میں پھیلتی ہے۔ جب یہ لہر کان تک پہنچتی ہے تو کان کا پردہ اسی تال پر ہلتا ہے اور دماغ اسے موسیقی بنا دیتا ہے۔
       </p>
+      <p>
+        تصور کریں ایک جھولا جو بنا کسی جھٹکے کے نہایت ہموار آگے پیچھے جھول رہا ہو: اگر وقت کے ساتھ اس نرم حرکت کا گراف بنائیں تو <strong>سائن ویو (Sine Curve)</strong> بنتی ہے۔ یہ آواز کا سب سے خالص اور بنیادی حصہ ہے — اس میں بس <strong>ایک ہی فریکوئنسی</strong> ہوتی ہے۔ اصلی ساز البتہ کہیں زیادہ اُبھری ہوئی لہر بناتے ہیں کیونکہ وہ کئی اضافی لہروں کو آپس میں ملاتے ہیں۔
+      </p>
+
+      <div class="wave-compare-visual">
+        <div class="wave-compare-card">
+          <strong>خالص سائن ویو (صرف 1 فریکوئنسی)</strong>
+          <svg class="wave-compare-svg" viewBox="0 0 220 58" aria-hidden="true">
+            <line x1="6" y1="29" x2="214" y2="29" stroke="var(--border-soft)" stroke-width="1" stroke-dasharray="3 3" />
+            <path d="M6.0 29.0 L9.5 25.0 L12.9 21.3 L16.4 17.8 L19.9 14.9 L23.3 12.5 L26.8 10.9 L30.3 10.1 L33.7 10.1 L37.2 10.9 L40.7 12.5 L44.1 14.9 L47.6 17.8 L51.1 21.3 L54.5 25.0 L58.0 29.0 L61.5 33.0 L64.9 36.7 L68.4 40.2 L71.9 43.1 L75.3 45.5 L78.8 47.1 L82.3 47.9 L85.7 47.9 L89.2 47.1 L92.7 45.5 L96.1 43.1 L99.6 40.2 L103.1 36.7 L106.5 33.0 L110.0 29.0 L113.5 25.0 L116.9 21.3 L120.4 17.8 L123.9 14.9 L127.3 12.5 L130.8 10.9 L134.3 10.1 L137.7 10.1 L141.2 10.9 L144.7 12.5 L148.1 14.9 L151.6 17.8 L155.1 21.3 L158.5 25.0 L162.0 29.0 L165.5 33.0 L168.9 36.7 L172.4 40.2 L175.9 43.1 L179.3 45.5 L182.8 47.1 L186.3 47.9 L189.7 47.9 L193.2 47.1 L196.7 45.5 L200.1 43.1 L203.6 40.2 L207.1 36.7 L210.5 33.0 L214.0 29.0" fill="none" stroke="var(--sage-strong)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span>بغیر کسی نوک کے گول S-شکل — بالکل صاف اور سادہ سنائی دیتی ہے، جیسے ٹیوننگ فورک یا ہلکی سیٹی۔</span>
+        </div>
+        <div class="wave-compare-card">
+          <strong>اصلی آواز (بنیادی سُر + اوورٹونز)</strong>
+          <svg class="wave-compare-svg" viewBox="0 0 220 58" aria-hidden="true">
+            <line x1="6" y1="29" x2="214" y2="29" stroke="var(--border-soft)" stroke-width="1" stroke-dasharray="3 3" />
+            <path d="M6.0 26.9 L9.5 17.6 L12.9 11.3 L16.4 9.3 L19.9 11.2 L23.3 15.4 L26.8 19.5 L30.3 22.3 L33.7 23.3 L37.2 23.3 L40.7 23.4 L44.1 23.9 L47.6 24.9 L51.1 25.9 L54.5 26.5 L58.0 26.9 L61.5 27.7 L64.9 29.3 L68.4 31.8 L71.9 34.5 L75.3 36.8 L78.8 38.1 L82.3 38.8 L85.7 39.9 L89.2 41.9 L92.7 44.7 L96.1 47.2 L99.6 47.4 L103.1 43.9 L106.5 36.5 L110.0 26.9 L113.5 17.6 L116.9 11.3 L120.4 9.3 L123.9 11.2 L127.3 15.4 L130.8 19.5 L134.3 22.3 L137.7 23.3 L141.2 23.3 L144.7 23.4 L148.1 23.9 L151.6 24.9 L155.1 25.9 L158.5 26.5 L162.0 26.9 L165.5 27.7 L168.9 29.3 L172.4 31.8 L175.9 34.5 L179.3 36.8 L182.8 38.1 L186.3 38.8 L189.7 39.9 L193.2 41.9 L196.7 44.7 L200.1 47.2 L203.6 47.4 L207.1 43.9 L210.5 36.5 L214.0 26.9" fill="none" stroke="var(--peach-strong)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span>کئی سائن ویوز اوپر نیچے جڑ جاتی ہیں۔ یہی اُتار چڑھاؤ ہر ساز کو اس کا خاص انداز دیتے ہیں۔</span>
+        </div>
+      </div>
 
       <div class="physics-fact-grid">
         <div class="physics-fact-chip">
-          <strong>نیچا بمقابلہ اونچا (طولِ موج)</strong>
-          <span>ایک نیچا <code>C2</code> (65.4 Hz) ہوا میں <strong>5.24 میٹر (17 فٹ)</strong> لمبی موج بناتا ہے، جبکہ کنسرٹ <code>A4</code> (440 Hz) محض <strong>78 سینٹی میٹر</strong> لمبا ہوتا ہے!</span>
+          <strong>ہرٹز (Hz) = لرزنے کی رفتار</strong>
+          <span><code>65 Hz</code> (نیچا <code>C2</code>) فی سیکنڈ 65 بار لرزتا ہے — کمرے میں <strong>5.24 میٹر</strong> لمبی لہر! <code>440 Hz</code> (<code>A4</code>) صرف <strong>78 سینٹی میٹر</strong> رہ جاتی ہے۔</span>
         </div>
         <div class="physics-fact-chip">
-          <strong>آکٹیو کا قانون (لوگاریتھم سماعت)</strong>
-          <span>آپ کا کان برابر Hz فرق نہیں بلکہ نسبتیں سنتا ہے: <code>220 → 440 Hz</code> (+220 Hz) اور <code>440 → 880 Hz</code> (+440 Hz) بالکل یکساں چھلانگ — یعنی ایک آکٹیو (2:1) سنائی دیتے ہیں!</span>
+          <strong>آکٹیو = دوگنی رفتار</strong>
+          <span>آپ کا کان نسبتیں محسوس کرتا ہے: <code>220 → 440 Hz</code> (+220 Hz) اور <code>440 → 880 Hz</code> (+440 Hz) بالکل یکساں فاصلہ محسوس ہوتے ہیں — 2:1!</span>
         </div>
         <div class="physics-fact-chip">
-          <strong>ایمپلی ٹیوڈ = آواز کی بلندی</strong>
-          <span>موج کتنی <em>گہری یا اونچی</em> حرکت کرتی ہے وہ والیوم طے کرتی ہے (dB میں)۔ ایمپلی ٹیوڈ سُر (Pitch) کبھی نہیں بدلتا۔</span>
+          <strong>ایمپلی ٹیوڈ = آواز کا والیوم</strong>
+          <span>لہر کتنا زیادہ آگے پیچھے ہلتی ہے (dB میں) وہ آواز کو تیز یا ہلکا کرتی ہے، مگر سُر (Pitch) کبھی نہیں بدلتا۔</span>
         </div>
         <div class="physics-fact-chip">
-          <strong>موج کی شکل = ساز کا رنگ</strong>
-          <span><code>C4</code> پر بانسری کی آواز وائلن سے بالکل مختلف کیوں لگتی ہے؟ موج کی <em>شکل</em> ظاہر کرتی ہے کہ بنیادی سُر کے ساتھ کون سے اوورٹونز کتنی قوت سے بج رہے ہیں۔</span>
+          <strong>لہر کی شکل = رنگت (Timbre)</strong>
+          <span>نرم گول لہر = بانسری جیسی ملائم آواز۔ نوکیلی لہر = ترہی یا اوورڈرائیو گٹار جیسی چمکدار اور تیز آواز۔</span>
         </div>
       </div>
 
       <div class="k-meta-box">
-        <strong>خود سنیں – آکٹیو دگنا ہونا اور C4 (261.6 Hz) پر موجوں کی شکلیں:</strong>
+        <strong>خود سنیں – آکٹیو کی چھلانگ اور C4 (261.6 Hz) پر موجوں کی شکلیں:</strong>
         <div class="k-btn-row" style="margin-top:0.35rem;">
           <button class="btn-tool" data-play-freqs="220,440,880" data-seq-step="650" data-osc="triangle" data-dur="0.75">▶ 220 → 440 → 880 Hz</button>
-          <button class="btn-tool" data-play-freqs="261.63" data-osc="sine" data-dur="1.4">▶ سائن (خالص / بانسری)</button>
-          <button class="btn-tool" data-play-freqs="261.63" data-osc="triangle" data-dur="1.4">▶ مثلث (گرم / لکڑی)</button>
-          <button class="btn-tool" data-play-freqs="261.63" data-osc="sawtooth" data-dur="1.4">▶ آرا دندانہ (روشن / اسٹرنگز)</button>
+          <button class="btn-tool" data-play-freqs="261.63" data-osc="sine" data-dur="1.4">▶ خالص سائن ویو</button>
+          <button class="btn-tool" data-play-freqs="261.63" data-osc="triangle" data-dur="1.4">▶ مثلث (زیادہ نرم)</button>
+          <button class="btn-tool" data-play-freqs="261.63" data-osc="sawtooth" data-dur="1.4">▶ آرا دندانہ (تیز / بھرپور)</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-peach">2. فریکوئنسی اسپیکٹرم (Spectrum)</span>
+        <span class="k-ratio-chip">20 Hz – 20 kHz</span>
+      </div>
+      <h4>آواز کا فنگر پرنٹ: ایک سُر کے اندر کیا کیا چھپا ہے؟</h4>
+      <p>
+        اگر پیانو اور گٹار دونوں بالکل ایک ہی سُر <code>C4</code> بجائیں، تب بھی آپ فوراً پہچان لیتے ہیں کہ کون سا ساز ہے — حالانکہ اصل سُر ایک جیسا ہے! راز <strong>فریکوئنسی اسپیکٹرم</strong> میں ہے: ہر اصلی سُر دراصل کئی سائن ویوز کی ایک پوری ٹیم ہوتا ہے جو ساتھ ساتھ بجتی ہیں۔
+      </p>
+      <p>
+        اسپیکٹرم (میوزک پلیئر کے ایکوالائزر گراف جیسا) آواز کا ایکس رے دکھاتا ہے: بائیں طرف بنیادی سُر (<code>1×</code>) ہوتا ہے اور دائیں طرف اس کے تیز اوورٹونز (<code>2×</code> تا <code>10×</code>)۔ نیچے کوئی آواز چُن کر فرق دیکھیں اور سنیں:
+      </p>
+
+      <div class="freq-spec-box">
+        <div class="k-btn-row">
+          <button class="k-filter-pill active" data-spec-preset="sine" data-play-freqs="261.63" data-osc="sine" data-dur="1.4" data-spec-desc="<strong>خالص سائن ٹون:</strong> صرف 1× پر ایک اکیلی بار — کوئی اوورٹون نہیں۔ بالکل صاف اور سادہ لگتا ہے کیونکہ اوپر کی فریکوئنسیاں شامل نہیں ہوتیں۔">▶ سائن ویو (C4)</button>
+          <button class="k-filter-pill" data-spec-preset="piano" data-play-inst data-style="piano" data-notes="C4" data-dur="1.5" data-spec-desc="<strong>پیانو (سیمپل):</strong> مضبوط بنیادی سُر اور گول نچلے اوورٹونز جو اوپر جا کر آہستہ آہستہ گھٹتے ہیں — اسی لیے پیانو بھرا ہوا اور گرم لگتا ہے۔">▶ پیانو سیمپل (C4)</button>
+          <button class="k-filter-pill" data-spec-preset="guitar" data-play-inst data-style="guitar" data-notes="C4" data-dur="1.5" data-spec-desc="<strong>گٹار (سیمپل):</strong> چھیڑا ہوا تار درمیانی اور بالائی بارز میں زیادہ توانائی بھرتا ہے — یہی چیز چمک اور تار چھیڑنے کی واضح جھنکار دیتی ہے۔">▶ گٹار سیمپل (C4)</button>
+          <button class="k-filter-pill" data-spec-preset="strings" data-play-inst data-style="strings" data-notes="C4" data-dur="1.6" data-spec-desc="<strong>اسٹرنگز (سیمپل):</strong> گز (Bow) اونچے اوورٹونز (6×–10×) کو بھی مسلسل زندہ رکھتا ہے — اس لیے اسٹرنگز ریشمی لگتے ہیں اور مِکس میں نمایاں رہتے ہیں۔">▶ اسٹرنگز سیمپل (C4)</button>
+        </div>
+
+        <div class="freq-spec-bars" dir="ltr">
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill" data-spec-bar style="height:100%"></div></div><span class="freq-spec-label">1×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">2×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">3×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">4×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">5×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">6×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">7×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">8×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">9×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">10×</span></div>
+        </div>
+
+        <div id="freqSpecCaption" class="freq-spec-caption">
+          <strong>خالص سائن ٹون:</strong> صرف 1× پر ایک اکیلی بار — کوئی اوورٹون نہیں۔ بالکل صاف اور سادہ لگتا ہے کیونکہ اوپر کی فریکوئنسیاں شامل نہیں ہوتیں۔
+        </div>
+      </div>
+
+      <div class="physics-fact-grid">
+        <div class="physics-fact-chip">
+          <strong>سب اور باس (20 – 250 Hz)</strong>
+          <span>کِک ڈرم، باس اور بنیاد۔ یہ لمبی موجیں آپ اکثر سمجھنے سے پہلے سینے میں محسوس کرتے ہیں۔</span>
+        </div>
+        <div class="physics-fact-chip">
+          <strong>مِڈز اور گرمائش (250 Hz – 2 kHz)</strong>
+          <span>آواز، پیانو کی گہرائی اور گٹار کارڈز۔ اس حصے میں بہت زیادہ بھیڑ آواز کو «ڈبے جیسا» بنا دیتی ہے۔</span>
+        </div>
+        <div class="physics-fact-chip">
+          <strong>وضاحت اور کاٹ (2 – 6 kHz)</strong>
+          <span>حروفِ صحیح («S»، «T»)، پِک کا کلک اور صفائی۔ انسانی کان اس حصے کے لیے خاصا حساس ہے۔</span>
+        </div>
+        <div class="physics-fact-chip">
+          <strong>ہوا اور چمک (6 – 20 kHz)</strong>
+          <span>سمبلز کی جھنکار، سانس کی ہلکی ہوا اور سماعت کی آخری حد تک باریک ریشمی چمک۔</span>
         </div>
       </div>
     </article>
 
     <div class="wave-lab-card">
       <div class="k-card-top-row">
-        <span class="k-card-tag tag-sage">2. انٹرایکٹو 3-ٹریک ویو لیب</span>
+        <span class="k-card-tag tag-sage">3. انٹرایکٹو ویو لیب</span>
         <button id="toggleWavePauseBtn" class="k-ratio-btn">⏸ موج روکیں</button>
       </div>
-      <h4>طولِ موج اور تداخل آمنے سامنے</h4>
+      <h4>دو موجوں کو براہِ راست جُڑتے ہوئے دیکھیں</h4>
       <p style="font-size:0.78rem; color:var(--raccoon-mid); line-height:1.4;">
-        ڈیش لائنیں <strong>بنیادی سُر (سبز) کا 1 پورا چکر</strong> دکھاتی ہیں۔ نیچے <strong>دوسرا سُر (نارنجی)</strong> ہے، اور سب سے نیچے ٹریک 3 آپ کے کان کے پردے تک پہنچنے والی اصل <strong>مشترکہ موج</strong> دکھاتا ہے۔
+        ڈیش لائنیں <strong>بنیادی سُر (سبز) کا 1 پورا چکر</strong> دکھاتی ہیں۔ نیچے <strong>دوسرا سُر (نارنجی)</strong> ہے — اور سب سے نیچے ٹریک 3 آپ کے کان کے پردے تک پہنچنے والی اصل <strong>مشترکہ موج</strong> دکھاتا ہے۔
       </p>
       <div class="wave-canvas-wrap">
         <canvas id="waveCanvas" class="wave-canvas" width="540" height="195"></canvas>
@@ -1438,15 +1519,15 @@ function renderPhysicsReferenceHTML_UR() {
 
     <article class="knowledge-card">
       <div class="k-card-top-row">
-        <span class="k-card-tag tag-peach">3. فطرت کی چھپی ہارمونی</span>
-        <span class="k-ratio-chip">f · n (n = 1…12)</span>
+        <span class="k-card-tag tag-peach">4. فطرت کا چھپا ہوا سرگم</span>
+        <span class="k-ratio-chip">1× تا 12× بنیادی سُر</span>
       </div>
       <h4>ساکت موجیں اور ہارمونک اوورٹون سلسلہ (1–12)</h4>
       <p>
-        دونوں سروں سے بندھے تار کو چھیڑیں تو اس کے کنارے صرف <strong>ساکت موجوں کے گرہ نقاط</strong> بناتے ہیں۔ چنانچہ تار ایک ساتھ پورے طول، نصف (2×)، تہائی (3×) اور چوتھائی (4×) میں بھی تھرتھراتا ہے… ایک سُر کے اندر اوورٹونز کا پورا کورس آباد ہوتا ہے!
+        گٹار کے تار کو دونوں سروں سے تھام کر چھیڑیں: کیونکہ دونوں کنارے ہل نہیں سکتے، تار ایک ساتھ پوری کمان کی طرح بھی تھرتھراتا ہے اور آدھے (2× تیز)، تہائی (3×) اور چوتھائی (4×) حصوں میں بھی بٹ جاتا ہے… یعنی ایک ہی سُر کے اندر اوورٹونز کی پوری سیڑھی چھپی ہوتی ہے!
       </p>
       <p>
-        جامنی رنگ والے اجزاء <strong>7</strong> اور <strong>11</strong> دیکھیں: یہ پیانو کی مقررہ کنجیوں کے عین <em>درمیان</em> بیٹھتے ہیں — برابر تقسیم سے آزاد خالص قدرتی سُر!
+        نیچے ٹائلز دبائیں! جامنی رنگ کے اجزاء <strong>7</strong> اور <strong>11</strong> دیکھیں: یہ پیانو کی کنجیوں کے عین <em>درمیان</em> بیٹھتے ہیں — بالکل خالص قدرتی سُر۔
       </p>
       <div class="overtone-grid">
         ${PHYSICS_OVERTONES_UR.map(ot => `
@@ -1458,7 +1539,7 @@ function renderPhysicsReferenceHTML_UR() {
         `).join("")}
       </div>
       <div class="k-meta-box">
-        <strong>میجر بنیاد میں کیوں ہے:</strong> اجزاء <strong>4 : 5 : 6</strong> نیچے ہی قدرتی طور پر روشن میجر ٹرائڈ بناتے ہیں۔ خالص مائنر ٹرائڈ بہت اوپر جا کر <strong>10 : 12 : 15</strong> پر چھپا ہے!
+        <strong>میجر اتنا فطری کیوں لگتا ہے:</strong> اجزاء <strong>4 : 5 : 6</strong> نیچے ہی خود بخود ایک روشن میجر کارڈ بنا دیتے ہیں، جبکہ خالص مائنر کارڈ بہت اوپر <strong>10 : 12 : 15</strong> پر ملتا ہے!
       </div>
       <div class="k-btn-row">
         <button class="btn-tool" data-play-freqs="${PHYSICS_OVERTONES_UR.map(o => o.freq).join(",")}" data-seq-step="380" data-osc="triangle" data-dur="0.65">▶ مکمل سلسلہ (1–12)</button>
@@ -1469,45 +1550,45 @@ function renderPhysicsReferenceHTML_UR() {
 
     <article class="knowledge-card">
       <div class="k-card-top-row">
-        <span class="k-card-tag tag-lilac">4. صوتی دھڑکن (Beating)</span>
-        <span class="k-ratio-chip">f_beat = |f₁ − f₂|</span>
+        <span class="k-card-tag tag-lilac">5. صوتی دھڑکن (Beating)</span>
+        <span class="k-ratio-chip">Hz کا فرق = دھڑکن/س</span>
       </div>
-      <h4>سانس لیتی موجیں: موسیقار کان سے تار کیسے مِلاتے (Tune) ہیں</h4>
+      <h4>لہر کی دھڑکن: کان سے تار مِلانا (Tune کرنا)</h4>
       <p>
-        جب تقریباً ایک جیسے دو سُر ساتھ بجیں تو ان کی چوٹیاں کبھی جڑ کر دوگنی اور کبھی کٹ کر مدھم ہوتی ہیں۔ فی سیکنڈ یہ «واہ-واہ-واہ» دھڑکن دونوں آوازوں کے ٹھیک <strong>Hz فرق</strong> کے برابر ہوتی ہے! ~15–20 Hz سے اوپر یہ کھردرے پن میں بدل جاتی ہے۔
+        تقریباً ایک جیسے سُر پر بجتے دو تار ساتھ چلائیں تو ان کی چوٹیاں کبھی جُڑ کر دوگنی اور کبھی ایک دوسرے کو کاٹ کر دھیمی ہو جاتی ہیں۔ یہ «واہ-واہ-واہ» لرزش <strong>بیٹنگ (Beating)</strong> کہلاتی ہے۔ فی سیکنڈ دھڑکنوں کی تعداد عین <strong>Hz کے فرق</strong> کے برابر ہوتی ہے — سُر ملتے ہی لرزش غائب ہو جاتی ہے!
       </p>
       <div class="k-btn-row">
-        <button class="btn-tool" data-play-freqs="440,440" data-osc="sine" data-dur="2.4">▶ 0 Hz (440+440 · خالص)</button>
+        <button class="btn-tool" data-play-freqs="440,440" data-osc="sine" data-dur="2.4">▶ 0 Hz (440+440 · بالکل پُرسکون)</button>
         <button class="btn-tool" data-play-freqs="440,442" data-osc="sine" data-dur="2.6">▶ 2 Hz (440+442 · 2 دھڑکن/س)</button>
-        <button class="btn-tool" data-play-freqs="440,446" data-osc="sine" data-dur="2.4">▶ 6 Hz (440+446 · جھلملاہٹ)</button>
+        <button class="btn-tool" data-play-freqs="440,446" data-osc="sine" data-dur="2.4">▶ 6 Hz (440+446 · تیز جھلملاہٹ)</button>
         <button class="btn-tool" data-play-freqs="440,466" data-osc="sine" data-dur="2.2">▶ 26 Hz (440+466 · کھردرا پن)</button>
       </div>
     </article>
 
     <article class="knowledge-card">
       <div class="k-card-top-row">
-        <span class="k-card-tag tag-peach">5. خالص سرگم بمقابلہ مساوی تقسیم (12-TET)</span>
-        <span class="k-ratio-chip">+23.5 سینٹ کوما</span>
+        <span class="k-card-tag tag-peach">6. ٹیوننگ اور پیانو کا سمجھوتہ</span>
+        <span class="k-ratio-chip">+23.5 سینٹ فرق</span>
       </div>
-      <h4>دنیا کا کوئی پیانو «سو فیصد خالص» کیوں نہیں ہو سکتا</h4>
+      <h4>دنیا کا کوئی پیانو «سو فیصد خالص» کیوں نہیں ہوتا</h4>
       <p>
-        فطرت کی ریاضیاتی پہیلی دیکھیں: 12 خالص ففتھس (3:2) جوڑیں تو آپ <code>(3/2)¹² ≈ 129.75</code> پر پہنچتے ہیں — مگر 7 خالص آکٹیو صرف <code>2⁷ = 128</code> تک جاتے ہیں! تقریباً <strong>23.5 سینٹ</strong> (<em>Pythagorean Comma</em>) کا فرق بچ رہتا ہے۔ اگر پیانو کو صرف C میجر کے لیے خالص ٹیون کیا جائے تو دور کی کلیدیں مثلاً F# میجر بے حد بے سُری لگیں گی۔
+        ریاضی کی ایک دلچسپ گتھی: 12 خالص ففتھس (3:2) اوپر تلے جوڑیں تو آپ 7 خالص آکٹیوز سے تقریباً <strong>23.5 سینٹ</strong> اوپر نکل جاتے ہیں! اگر پیانو کو صرف C میجر کے لیے بالکل خالص ٹیون کر دیں تو F# میجر جیسی کلیدیں بے حد بے سُری لگیں گی۔
       </p>
       <p>
-        ہمارا جدید سمجھوتا (باخ کی بدولت مشہور) <strong>12-ٹون مساوی تقسیم (12-TET)</strong> ہے: ہر سیمی ٹون ٹھیک <code>2^(1/12)</code> پر تقسیم ہوتا ہے۔ اب ہر کلید کام کرتی ہے — بس پیانو کا میجر تھرڈ خالص 5:4 سے <strong>14 سینٹ تیز</strong> رہتا ہے!
+        جدید موسیقی کا ہوشیار حل <strong>مساوی تقسیم (Equal Temperament)</strong> ہے: آکٹیو کو بالکل برابر 12 چھوٹے حصوں میں بانٹ دیا جاتا ہے۔ اب ہر گانا ہر کلید میں بجتا ہے — بس پیانو کا میجر تھرڈ (C–E) خالص فطرت سے <strong>14 سینٹ تیز</strong> ہوتا ہے۔ خالص نسبت اور اصلی اسٹوڈیو پیانو سیمپلز کا فرق سنیں:
       </p>
       <div class="k-compare-grid">
         <div class="k-compare-box is-sage">
-          <h5>خالص نسبت (Just Intonation 5:4)</h5>
-          <p>صفر دھڑکن — شیشے جیسا ملاپ، مگر صرف ایک گھر کلید تک محدود:</p>
-          <button class="btn-tool" data-play-freqs="261.63,327.04" data-osc="triangle" data-dur="2.3">▶ خالص 3rd (261.6 + 327.0 Hz)</button>
-          <button class="btn-tool" data-play-freqs="261.63,327.04,392.45" data-osc="triangle" data-dur="2.3">▶ خالص C میجر کارڈ</button>
+          <h5>خالص قدرتی نسبت (5:4)</h5>
+          <p>صفر دھڑکن — ہموار ملاپ، مگر سب کلیدوں میں کام نہیں کرتی:</p>
+          <button class="btn-tool" data-play-freqs="261.63,327.04" data-osc="triangle" data-dur="2.3">▶ خالص 3rd (5:4 · ہموار)</button>
+          <button class="btn-tool" data-play-freqs="261.63,327.04,392.45" data-osc="triangle" data-dur="2.3">▶ خالص C میجر ٹرائڈ</button>
         </div>
         <div class="k-compare-box is-lilac">
           <h5>پیانو / مساوی تقسیم (+14 ct)</h5>
-          <p>غور سے سنیں: ہلکی سی زندہ لرزش — تمام 12 کلیدوں میں بجنے کے قابل:</p>
-          <button class="btn-tool" data-play-freqs="261.63,329.63" data-osc="triangle" data-dur="2.3">▶ پیانو 3rd (261.6 + 329.6 Hz)</button>
-          <button class="btn-tool" data-play-freqs="261.63,329.63,392.00" data-osc="triangle" data-dur="2.3">▶ پیانو C میجر کارڈ</button>
+          <p>اصلی اسٹوڈیو پیانو سیمپلز: ہلکی سی چمک — تمام 12 کلیدوں میں بجنے کے قابل:</p>
+          <button class="btn-tool" data-play-inst data-style="piano" data-notes="C4,E4" data-dur="2.3">▶ پیانو 3rd (سیمپل C4 + E4)</button>
+          <button class="btn-tool" data-play-inst data-style="piano" data-notes="C4,E4,G4" data-dur="2.3">▶ پیانو C میجر (سیمپل)</button>
         </div>
       </div>
     </article>

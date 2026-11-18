@@ -1351,14 +1351,14 @@ const KNOWLEDGE_ARTICLES_UK = [
 ];
 
 const PHYSICS_WAVE_EXPLANATIONS_UK = {
-  "2,1": "<strong>Октава (2 : 1):</strong> На дві довгі зелені хвилі основного тону припадають рівно <strong>4 вдвічі коротші оранжеві хвилі</strong>. На 3-й доріжці сумарна хвиля повторюється точно на кожній пунктирній межі.",
-  "3,2": "<strong>Чиста квінта (3 : 2):</strong> Поки основний тон робить 2 довгі зелені хвилі, верхній звук описує рівно <strong>3 оранжеві хвилі</strong>. На старті, всередині й у кінці вони знову збігаються.",
-  "4,3": "<strong>Чиста кварта (4 : 3):</strong> Відношення 1,33 : 1 — тісна акустична спорідненість, що утворює стійку циклічну форму кожні 3 зелені = 4 оранжеві хвилі.",
-  "5,4": "<strong>Велика терція (5 : 4):</strong> Відношення 1,25 : 1. На 3-й доріжці сумарна хвиля тримає м’який, рівномірний рельєф — акустичний фундамент мажорних тризвуків.",
-  "6,5": "<strong>Мала терція (6 : 5):</strong> Відношення 1,20 : 1. Трохи тісніше перекриття циклів, ніж у великої терції, що надає мінору його глибокої теплоти.",
-  "5,3": "<strong>Велика секста (5 : 3):</strong> Відношення 1,67 : 1 — обернення малої терції. Відкрита, співоча й благородна за звучанням.",
-  "45,32": "<strong>Тритон (45 : 32):</strong> Гребені оранжевої хвилі не хочуть узгоджуватися із зеленою сіткою — подивись, як 3-тя доріжка стає рваною та неспокійною!",
-  "16,15": "<strong>Мала секунда (16 : 15):</strong> Обидві хвилі майже однакової довжини (1,07×), поступово розходяться по фазі й викликають виразне пульсуюче биття на 3-й доріжці."
+  "2,1": "<strong>Октава (2 : 1):</strong> На 2 довгі зелені хвилі основного тону лягають рівно <strong>4 вдвічі коротші оранжеві хвилі</strong>. На 3-й доріжці загальний малюнок повторюється один в один на кожному пунктирі — тому обидва тони майже зливаються в один.",
+  "3,2": "<strong>Чиста квінта (3 : 2):</strong> Поки основний тон робить 2 довгі зелені хвилі, верхній звук описує рівно <strong>3 оранжеві хвилі</strong>. Кожні два цикли вони чисто сходяться — стабільно, відкрито і потужно.",
+  "4,3": "<strong>Чиста кварта (4 : 3):</strong> 3 зелені хвилі точно сходяться з 4 оранжевими, і далі весь візерунок стартує синхронно з нуля.",
+  "5,4": "<strong>Велика терція (5 : 4):</strong> 4 зелені на 5 оранжевих циклів. На 3-й доріжці виходить м’яка, плавна хвиля — саме так звучать теплі мажорні акорди.",
+  "6,5": "<strong>Мала терція (6 : 5):</strong> 5 зелених хвиль проти 6 оранжевих: трохи щільніше перекриття, ніж у великій терції — саме цей рух надає мінору його чуттєвого відтінку.",
+  "5,3": "<strong>Велика секста (5 : 3):</strong> Співвідношення 1,67 : 1 — обернення малої терції. Широка, співуча й приємно врівноважена.",
+  "45,32": "<strong>Тритон (45 : 32):</strong> Оранжеві гребені майже ніде не потрапляють у зелену сітку — подивись на 3-тю доріжку: хвиля стає колючою і напруженою!",
+  "16,15": "<strong>Мала секунда (16 : 15):</strong> Обидві хвилі майже однаково швидкі, але крок за кроком розходяться — так на 3-й доріжці з’являються товсті й тонкі «животики» (биття)."
 };
 
 const PHYSICS_OVERTONES_UK = [
@@ -1384,52 +1384,133 @@ function renderPhysicsReferenceHTML_UK() {
   return `
     <article class="knowledge-card">
       <div class="k-card-top-row">
-        <span class="k-card-tag tag-sage">1. Основи звуку</span>
+        <span class="k-card-tag tag-sage">1. Як народжується звук і хвиля</span>
         <span class="k-ratio-chip">прибл. 343 м/с</span>
       </div>
-      <h4>Частота (герци), довжина хвилі та тембр</h4>
+      <h4>Від тремтіння повітря до синусоїди</h4>
       <p>
-        Звук народжується, коли тіло ритмічно стискає та розріджує молекули повітря. Кількість таких хвиль тиску за секунду вимірюють у <strong>герцах (Гц)</strong>. У кімнатному повітрі звук летить приблизно зі швидкістю <strong>343 метри за секунду</strong> — тож басові ноти фізично мають довжину в кілька метрів!
+        Коли ти смикаєш гітарну струну або починаєш мугикати, щось дуже швидко тремтить туди-сюди. Це тремтіння штовхає сусідні молекули повітря — наче кола по воді, кімнатою біжить хвиля тиску зі швидкістю близько <strong>343 метрів за секунду</strong> (понад 1200 км/год!). Коли вона долітає до вуха, барабанна перетинка вібрує в тому ж ритмі, а мозок перетворює це на музику.
       </p>
+      <p>
+        Уяви гойдалку, що плавно рухається вперед-назад без жодних ривків: якщо намалювати цей рух у часі, вийде <strong>синусоїда</strong> (<em>синусна крива</em>). Це найчистіша цеглинка звуку — лише <strong>одна-єдина частота</strong> без жодних домішок. Живі інструменти коливаються куди «горбистіше», бо змішують багато хвиль одразу.
+      </p>
+
+      <div class="wave-compare-visual">
+        <div class="wave-compare-card">
+          <strong>Чиста синусоїда (1 частота)</strong>
+          <svg class="wave-compare-svg" viewBox="0 0 220 58" aria-hidden="true">
+            <line x1="6" y1="29" x2="214" y2="29" stroke="var(--border-soft)" stroke-width="1" stroke-dasharray="3 3" />
+            <path d="M6.0 29.0 L9.5 25.0 L12.9 21.3 L16.4 17.8 L19.9 14.9 L23.3 12.5 L26.8 10.9 L30.3 10.1 L33.7 10.1 L37.2 10.9 L40.7 12.5 L44.1 14.9 L47.6 17.8 L51.1 21.3 L54.5 25.0 L58.0 29.0 L61.5 33.0 L64.9 36.7 L68.4 40.2 L71.9 43.1 L75.3 45.5 L78.8 47.1 L82.3 47.9 L85.7 47.9 L89.2 47.1 L92.7 45.5 L96.1 43.1 L99.6 40.2 L103.1 36.7 L106.5 33.0 L110.0 29.0 L113.5 25.0 L116.9 21.3 L120.4 17.8 L123.9 14.9 L127.3 12.5 L130.8 10.9 L134.3 10.1 L137.7 10.1 L141.2 10.9 L144.7 12.5 L148.1 14.9 L151.6 17.8 L155.1 21.3 L158.5 25.0 L162.0 29.0 L165.5 33.0 L168.9 36.7 L172.4 40.2 L175.9 43.1 L179.3 45.5 L182.8 47.1 L186.3 47.9 L189.7 47.9 L193.2 47.1 L196.7 45.5 L200.1 43.1 L203.6 40.2 L207.1 36.7 L210.5 33.0 L214.0 29.0" fill="none" stroke="var(--sage-strong)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span>Гладенька S-крива без гострих кутів — звучить рівно й нейтрально, як камертон або тихий свист.</span>
+        </div>
+        <div class="wave-compare-card">
+          <strong>Живий звук (Основа + Обертони)</strong>
+          <svg class="wave-compare-svg" viewBox="0 0 220 58" aria-hidden="true">
+            <line x1="6" y1="29" x2="214" y2="29" stroke="var(--border-soft)" stroke-width="1" stroke-dasharray="3 3" />
+            <path d="M6.0 26.9 L9.5 17.6 L12.9 11.3 L16.4 9.3 L19.9 11.2 L23.3 15.4 L26.8 19.5 L30.3 22.3 L33.7 23.3 L37.2 23.3 L40.7 23.4 L44.1 23.9 L47.6 24.9 L51.1 25.9 L54.5 26.5 L58.0 26.9 L61.5 27.7 L64.9 29.3 L68.4 31.8 L71.9 34.5 L75.3 36.8 L78.8 38.1 L82.3 38.8 L85.7 39.9 L89.2 41.9 L92.7 44.7 L96.1 47.2 L99.6 47.4 L103.1 43.9 L106.5 36.5 L110.0 26.9 L113.5 17.6 L116.9 11.3 L120.4 9.3 L123.9 11.2 L127.3 15.4 L130.8 19.5 L134.3 22.3 L137.7 23.3 L141.2 23.3 L144.7 23.4 L148.1 23.9 L151.6 24.9 L155.1 25.9 L158.5 26.5 L162.0 26.9 L165.5 27.7 L168.9 29.3 L172.4 31.8 L175.9 34.5 L179.3 36.8 L182.8 38.1 L186.3 38.8 L189.7 39.9 L193.2 41.9 L196.7 44.7 L200.1 47.2 L203.6 47.4 L207.1 43.9 L210.5 36.5 L214.0 26.9" fill="none" stroke="var(--peach-strong)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span>Кілька синусоїд накладаються разом. Саме ці зубці й вигини надають кожному інструменту власний голос.</span>
+        </div>
+      </div>
 
       <div class="physics-fact-grid">
         <div class="physics-fact-chip">
-          <strong>Низький vs. високий (Довжина хвилі)</strong>
-          <span>Низьке <code>C2</code> (65,4 Гц) формує повітряну хвилю завдовжки <strong>5,24 метра</strong>. Концертне <code>A4</code> (440 Гц) має лише <strong>78 сантиметрів</strong>!</span>
+          <strong>Герци (Гц) = Темп коливань</strong>
+          <span><code>65 Гц</code> (низьке <code>C2</code>) коливається 65 разів за секунду — це хвиля завдовжки <strong>5,24 метра</strong> в кімнаті! <code>440 Гц</code> (<code>A4</code>) має вже лише <strong>78 см</strong>.</span>
         </div>
         <div class="physics-fact-chip">
-          <strong>Закон октави (Логарифмічний слух)</strong>
-          <span>Вухо чує пропорції, а не рівну різницю в Гц: стрибки <code>220 Гц → 440 Гц</code> (+220 Гц) і <code>440 Гц → 880 Гц</code> (+440 Гц) звучать як абсолютно однаковий крок — октава (2:1)!</span>
+          <strong>Октава = Подвійний темп</strong>
+          <span>Вухо мислить пропорціями: стрибки <code>220 → 440 Гц</code> (+220 Гц) і <code>440 → 880 Гц</code> (+440 Гц) здаються абсолютно однаковим кроком — 2:1!</span>
         </div>
         <div class="physics-fact-chip">
           <strong>Амплітуда = Гучність</strong>
-          <span>Розмах коливань визначає гучність (у децибелах, дБ). Амплітуда ніколи не змінює висоту тону — кількість циклів за секунду незмінна.</span>
+          <span>Розмах хвилі (у децибелах, дБ) робить звук голоснішим або тихішим, але ніколи не змінює висоту тону.</span>
         </div>
         <div class="physics-fact-chip">
           <strong>Форма хвилі = Тембр</strong>
-          <span>Чому флейта на <code>C4</code> звучить зовсім інакше за скрипку на <code>C4</code>? <em>Форма</em> хвилі кодує набір і силу обертонів над основним тоном.</span>
+          <span>Плавна хвиля = м’яка, як флейта. Гостра й зубчаста = пробивна, як труба чи перевантажена електрогітара.</span>
         </div>
       </div>
 
       <div class="k-meta-box">
-        <strong>Почуй на власні вуха — подвоєння октав та форми хвилі на C4 (261,6 Гц):</strong>
+        <strong>Послухай сам — стрибок на октаву та форми хвиль на C4 (261,6 Гц):</strong>
         <div class="k-btn-row" style="margin-top:0.35rem;">
           <button class="btn-tool" data-play-freqs="220,440,880" data-seq-step="650" data-osc="triangle" data-dur="0.75">▶ 220 → 440 → 880 Гц</button>
-          <button class="btn-tool" data-play-freqs="261.63" data-osc="sine" data-dur="1.4">▶ Синус (чистий / флейта)</button>
-          <button class="btn-tool" data-play-freqs="261.63" data-osc="triangle" data-dur="1.4">▶ Трикутник (теплий / дерево)</button>
-          <button class="btn-tool" data-play-freqs="261.63" data-osc="sawtooth" data-dur="1.4">▶ Пила (яскрава / струнні)</button>
+          <button class="btn-tool" data-play-freqs="261.63" data-osc="sine" data-dur="1.4">▶ Чиста синусоїда</button>
+          <button class="btn-tool" data-play-freqs="261.63" data-osc="triangle" data-dur="1.4">▶ Трикутник (м’якший)</button>
+          <button class="btn-tool" data-play-freqs="261.63" data-osc="sawtooth" data-dur="1.4">▶ Пила (кусача)</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-peach">2. Частотний спектр</span>
+        <span class="k-ratio-chip">20 Гц – 20 кГц</span>
+      </div>
+      <h4>Звуковий відбиток пальця: що ховається всередині ноти?</h4>
+      <p>
+        Якщо фортепіано й гітара зіграють одну й ту саму ноту <code>C4</code>, ти миттєво їх розрізниш — хоча головна частота однакова! Секрет криється у <strong>частотному спектрі</strong>: кожен реальний звук — це ціла команда синусоїд, що звучать разом.
+      </p>
+      <p>
+        Спектр (як стовпчики в еквалайзері плеєра) працює немов рентген звуку: зліва стоїть основний тон (<code>1×</code>), а праворуч світяться його швидші обертони (<code>2×</code> до <code>10×</code>). Обери тембр і послухай різницю:
+      </p>
+
+      <div class="freq-spec-box">
+        <div class="k-btn-row">
+          <button class="k-filter-pill active" data-spec-preset="sine" data-play-freqs="261.63" data-osc="sine" data-dur="1.4" data-spec-desc="<strong>Чистий синус:</strong> Лише один стовпчик на 1× — нуль обертонів. Звучить гладко й стерильно, бо немає вищих частот для забарвлення.">▶ Синусоїда (C4)</button>
+          <button class="k-filter-pill" data-spec-preset="piano" data-play-inst data-style="piano" data-notes="C4" data-dur="1.5" data-spec-desc="<strong>Фортепіано (Семпл):</strong> Сильний основний тон і теплі нижні обертони, що плавно згасають угору — саме тому рояль звучить об’ємно.">▶ Семпл фортепіано (C4)</button>
+          <button class="k-filter-pill" data-spec-preset="guitar" data-play-inst data-style="guitar" data-notes="C4" data-dur="1.5" data-spec-desc="<strong>Гітара (Семпл):</strong> Щипок струни додає набагато більше енергії в середні й верхні стовпчики — звідси виразна атака та яскравість.">▶ Семпл гітари (C4)</button>
+          <button class="k-filter-pill" data-spec-preset="strings" data-play-inst data-style="strings" data-notes="C4" data-dur="1.6" data-spec-desc="<strong>Струнні (Семпл):</strong> Смичок постійно підживлює навіть високі обертони (6×–10×). Тому струнні шовковисто мерехтять і прорізають мікс.">▶ Семпл струнних (C4)</button>
+        </div>
+
+        <div class="freq-spec-bars">
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill" data-spec-bar style="height:100%"></div></div><span class="freq-spec-label">1×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">2×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">3×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">4×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">5×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">6×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">7×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">8×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">9×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">10×</span></div>
+        </div>
+
+        <div id="freqSpecCaption" class="freq-spec-caption">
+          <strong>Чистий синус:</strong> Лише один стовпчик на 1× — нуль обертонів. Звучить гладко й стерильно, бо немає вищих частот для забарвлення.
+        </div>
+      </div>
+
+      <div class="physics-fact-grid">
+        <div class="physics-fact-chip">
+          <strong>Саб і Бас (20 – 250 Гц)</strong>
+          <span>Бочка, бас-гітара, опора. Довгі хвилі, які часто відчуваєш грудьми ще до того, як розбереш ноту.</span>
+        </div>
+        <div class="physics-fact-chip">
+          <strong>Середина і Тіло (250 Гц – 2 кГц)</strong>
+          <span>Вокал, корпус піаніно, акорди гітари. Надлишок тут швидко звучить глухо і «коробково».</span>
+        </div>
+        <div class="physics-fact-chip">
+          <strong>Присутність і Чіткість (2 – 6 кГц)</strong>
+          <span>Приголосні («С», «Т»), клацання медіатора. У цій зоні людське вухо найчутливіше.</span>
+        </div>
+        <div class="physics-fact-chip">
+          <strong>Повітря і Блиск (6 – 20 кГц)</strong>
+          <span>Дзвін тарілок, подих і шовковий верхній пил обертонів аж до межі слуху.</span>
         </div>
       </div>
     </article>
 
     <div class="wave-lab-card">
       <div class="k-card-top-row">
-        <span class="k-card-tag tag-sage">2. Інтерактивна 3-доріжкова лабораторія хвиль</span>
+        <span class="k-card-tag tag-sage">3. Інтерактивна лабораторія хвиль</span>
         <button id="toggleWavePauseBtn" class="k-ratio-btn">⏸ Пауза хвилі</button>
       </div>
-      <h4>Довжини хвиль та інтерференція поруч</h4>
+      <h4>Спостерігай наживо, як зливаються дві хвилі</h4>
       <p style="font-size:0.78rem; color:var(--raccoon-mid); line-height:1.4;">
-        Пунктир позначає <strong>1 повний цикл основного тону (зелений)</strong>. Під ним — <strong>2-й тон (оранжевий)</strong>, а знизу 3-тя доріжка показує реальну <strong>суперпозицію (інтерференційну хвилю)</strong>, яка вдаряє в твою барабанну перетинку.
+        Пунктир позначає <strong>1 повний цикл основного тону (зелений)</strong>. Під ним біжить <strong>2-й тон (оранжевий)</strong>, а найнижче 3-тя доріжка малює справжню <strong>змішану хвилю</strong>, що доходить до барабанної перетинки.
       </p>
       <div class="wave-canvas-wrap">
         <canvas id="waveCanvas" class="wave-canvas" width="540" height="195"></canvas>
@@ -1451,15 +1532,15 @@ function renderPhysicsReferenceHTML_UK() {
 
     <article class="knowledge-card">
       <div class="k-card-top-row">
-        <span class="k-card-tag tag-peach">3. Прихована гармонія природи</span>
-        <span class="k-ratio-chip">f · n (n = 1…12)</span>
+        <span class="k-card-tag tag-peach">4. Вбудований звукоряд природи</span>
+        <span class="k-ratio-chip">1× до 12× Основа</span>
       </div>
       <h4>Стоячі хвилі та натуральний звукоряд обертонів (1–12)</h4>
       <p>
-        Смикни струну, закріплену з обох країв (або подуй у натуральний ріг без вентилів), і вузли стоячої хвилі розділять її на половинки (2×), третини (3×), чверті (4×)… Усередині одного звуку звучить цілий прихований хор обертонів!
+        Затисни струну з обох кінців і смикни: краї стоять нерухомо, тож струна вібрує цілком І водночас ділиться навпіл (2× швидше), на третини (3×), чверті (4×)… Тому одна нота приховує цілу драбину обертонів!
       </p>
       <p>
-        Зверни увагу на бузкові часткові тони <strong>7</strong> і <strong>11</strong> (знамените «альпійське фа»): вони лежать точно <em>між</em> клавішами рояля — чисті природні обертони поза рівномірною темперацією!
+        Натискай на плитки! Бузкові тони <strong>7</strong> і <strong>11</strong> («альпійське фа») лягають точно <em>між</em> клавішами рояля — це чиста природа без підлаштування.
       </p>
       <div class="overtone-grid">
         ${PHYSICS_OVERTONES_UK.map(o => `
@@ -1471,7 +1552,7 @@ function renderPhysicsReferenceHTML_UK() {
         `).join("")}
       </div>
       <div class="k-meta-box">
-        <strong>Чому мажор закладено в самій основі:</strong> Обертони <strong>4 : 5 : 6</strong> природно складають осяйний мажорний тризвук унизу ряду, тоді як чистий мінор ховається значно вище на <strong>10 : 12 : 15</strong>!
+        <strong>Чому мажор звучить так природно:</strong> Обертони <strong>4 : 5 : 6</strong> самі по собі дають яскравий мажорний акорд внизу, а чистий мінор ховається значно вище на <strong>10 : 12 : 15</strong>!
       </div>
       <div class="k-btn-row">
         <button class="btn-tool" data-play-freqs="65.41,130.82,196.23,261.64,327.05,392.46,457.87,523.28,588.69,654.1,719.51,784.92" data-seq-step="380" data-osc="triangle" data-dur="0.65">▶ Весь звукоряд (1–12)</button>
@@ -1482,45 +1563,45 @@ function renderPhysicsReferenceHTML_UK() {
 
     <article class="knowledge-card">
       <div class="k-card-top-row">
-        <span class="k-card-tag tag-lilac">4. Акустичне биття</span>
-        <span class="k-ratio-chip">f_биття = |f₁ − f₂|</span>
+        <span class="k-card-tag tag-lilac">5. Акустичне биття</span>
+        <span class="k-ratio-chip">Різниця Гц = Пульс/с</span>
       </div>
-      <h4>Хвилі, що дихають: як музиканти настроюють струни на слух</h4>
+      <h4>Коли хвилі «качають»: налаштування на слух</h4>
       <p>
-        Коли два майже однакові тони звучать разом, їхні піки періодично підсилюються вдвічі й взаємно гасяться. Кількість таких пульсацій «вау-вау» за секунду дорівнює точній <strong>різниці в Гц</strong> між тонами! Вище за ~15–20 Гц повільне биття зливається в жорстку шорсткість.
+        Зіграй дві майже однакові струни — їхні гребені то збігаються (вдвічі голосніше), то гасять одне одного (короткий спад). Це «вау-вау-вау» називають <strong>биттям</strong>. Число пульсацій на секунду дорівнює <strong>різниці в Гц</strong> — коли стрій ідеальний, хвилювання повністю стихає!
       </p>
       <div class="k-btn-row">
-        <button class="btn-tool" data-play-freqs="440,440" data-osc="sine" data-dur="2.4">▶ 0 Гц (440+440 · чисто)</button>
-        <button class="btn-tool" data-play-freqs="440,442" data-osc="sine" data-dur="2.6">▶ 2 Гц (440+442 · 2 биття/с)</button>
-        <button class="btn-tool" data-play-freqs="440,446" data-osc="sine" data-dur="2.4">▶ 6 Гц (440+446 · мерехтіння)</button>
-        <button class="btn-tool" data-play-freqs="440,466" data-osc="sine" data-dur="2.2">▶ 26 Гц (440+466 · шорсткість)</button>
+        <button class="btn-tool" data-play-freqs="440,440" data-osc="sine" data-dur="2.4">▶ 0 Гц (440+440 · ідеально рівно)</button>
+        <button class="btn-tool" data-play-freqs="440,442" data-osc="sine" data-dur="2.6">▶ 2 Гц (440+442 · 2 пульс./с)</button>
+        <button class="btn-tool" data-play-freqs="440,446" data-osc="sine" data-dur="2.4">▶ 6 Гц (440+446 · швидке тремтіння)</button>
+        <button class="btn-tool" data-play-freqs="440,466" data-osc="sine" data-dur="2.2">▶ 26 Гц (440+466 · шорстке тертя)</button>
       </div>
     </article>
 
     <article class="knowledge-card">
       <div class="k-card-top-row">
-        <span class="k-card-tag tag-peach">5. Чистий стрій vs. рівномірна темперація</span>
-        <span class="k-ratio-chip">Кома +23,5 цента</span>
+        <span class="k-card-tag tag-peach">6. Стрій та компроміс фортепіано</span>
+        <span class="k-ratio-chip">Розрив +23,5 цента</span>
       </div>
-      <h4>Чому жодне фортепіано у світі не настроєне «абсолютно чисто»</h4>
+      <h4>Чому жодне фортепіано у світі не настроєне «на 100% чисто»</h4>
       <p>
-        Ось математична загадка природи: склади поспіль 12 чистих квінт (3:2), і ти отримаєш <code>(3/2)¹² ≈ 129,75</code> — але 7 чистих октав дають лише <code>2⁷ = 128</code>! Лишається впертий розрив приблизно в <strong>23,5 цента</strong> (<em>піфагорова кома</em>). Якби рояль настроїли суворо чисто в до мажорі, далекі тональності на кшталт Фа♯ мажору фальшивили б нестерпно.
+        Дивний жарт математики: склади 12 ідеальних квінт (3:2) одна за одною — і вийде трошки вище за 7 чистих октав, приблизно на <strong>23,5 цента</strong>! Якби майстер настроїв рояль абсолютно чисто під до мажор, далекі тональності на кшталт Фа♯ мажору різали б вухо.
       </p>
       <p>
-        Сучасний компроміс (уславлений Бахом) — <strong>12-ступенева рівномірна темперація (12-TET)</strong>: кожен півтон множиться рівно на <code>2^(1/12)</code>. Тепер будь-яка тональність звучить чисто й вільно — ціною того, що велика терція на фортепіано на <strong>14 центів ширша</strong> за чисту 5:4, додаючи акордам легкого срібного биття!
+        Мудрий компроміс сучасної музики — <strong>рівномірна темперація</strong>: октаву просто ділять на 12 однакових міні-кроків. Тепер кожна пісня звучить вільно в усіх тональностях — зате велика терція (C–E) на фортепіано на <strong>14 центів вища</strong> за чисту природу. Порівняй чистий стрій і справжні семпли фортепіано:
       </p>
       <div class="k-compare-grid">
         <div class="k-compare-box is-sage">
-          <h5>Чистий стрій (пропорція 5:4)</h5>
-          <p>Жодного биття — кришталеве злиття, проте прив’язане до однієї тональності:</p>
-          <button class="btn-tool" data-play-freqs="261.63,327.04" data-osc="triangle" data-dur="2.3">▶ Чиста терція (261,6 + 327,0 Гц)</button>
+          <h5>Чистий стрій (5:4)</h5>
+          <p>Нуль биття — гладке злиття, але працює не в усіх тональностях:</p>
+          <button class="btn-tool" data-play-freqs="261.63,327.04" data-osc="triangle" data-dur="2.3">▶ Чиста терція (5:4 · гладко)</button>
           <button class="btn-tool" data-play-freqs="261.63,327.04,392.45" data-osc="triangle" data-dur="2.3">▶ Чистий тризвук C</button>
         </div>
         <div class="k-compare-box is-lilac">
           <h5>Фортепіано / Рівномірна (+14 ц.)</h5>
-          <p>Прислухайся: живе легке мерехтіння — але грай чисто в усіх 12 тональностях:</p>
-          <button class="btn-tool" data-play-freqs="261.63,329.63" data-osc="triangle" data-dur="2.3">▶ Фортепіанна терція (261,6 + 329,6 Гц)</button>
-          <button class="btn-tool" data-play-freqs="261.63,329.63,392.00" data-osc="triangle" data-dur="2.3">▶ Фортепіанний тризвук C</button>
+          <p>Справжні студійні семпли фортепіано: легке мерехтіння — грай у всіх 12 тональностях:</p>
+          <button class="btn-tool" data-play-inst data-style="piano" data-notes="C4,E4" data-dur="2.3">▶ Фортепіанна терція (Семпл C4 + E4)</button>
+          <button class="btn-tool" data-play-inst data-style="piano" data-notes="C4,E4,G4" data-dur="2.3">▶ C-мажор фортепіано (Семпл)</button>
         </div>
       </div>
     </article>
