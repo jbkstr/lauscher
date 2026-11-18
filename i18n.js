@@ -1006,8 +1006,8 @@ const LAUSCHEBAER_QUOTES_EN = [
   { cat: "Welcome", text: "“Softly on headphones or out loud in your living room — five minutes of focused listening works wonders.”" },
   { cat: "Welcome", text: "“Ready to warm up your voice? Vocal Warmup guides your range in five minutes from gentle humming right up to choir blend!”" },
   { cat: "Welcome", text: "“Hands busy? Flip on ‘Listen Only’ and let exercises play seamlessly while you train your ear mentally!”" },
-  { cat: "Welcome", text: "“Curious how music terms sound abroad? Open Settings to switch live anytime between Deutsch, English, Français, and Українська!”" },
-  { cat: "Welcome", text: "“Up for a friendly check-in? Every category now offers its own Exam — no countdown clock, with your personal best saved in Account!”" },
+  { cat: "Welcome", text: "“Curious how music terms sound abroad? Open Settings to switch live anytime between Deutsch, English, Français, Polski, Українська, and اردو!”" },
+  { cat: "Welcome", text: "“Up for a friendly check-in? Every exercise category offers its own Exam — no countdown clock, with your personal best saved in Account!”" },
 
   // Category 2: Encouragement & Practice Tips
   { cat: "Encouragement", text: "“Trust your gut! Before you even analyze it, you can usually feel whether a chord has arrived home.”" },
@@ -1035,12 +1035,12 @@ const LAUSCHEBAER_QUOTES_EN = [
   { cat: "Tip", text: "“During Melodies you can replay the whole phrase anytime — any notes you already solved stay right in place.”" },
   { cat: "Tip", text: "“Check out the Instruments guide under Knowledge — audition strings, brass, woodwinds, and synths up close!”" },
   { cat: "Tip", text: "“Give the ‘Orchestra’ mixer preset a spin whenever you want cadences to swell like a concert hall.”" },
-  { cat: "Tip", text: "“Practicing late at night? Tap the gear icon at top right for Dark mode and three soothing color themes.”" },
-  { cat: "Tip", text: "“You can customize your Quick Mixes on the home screen anytime in Settings (or directly in ‘My Account’) and add your own favorites!”" },
+  { cat: "Tip", text: "“Practicing late at night? Tap the gear icon at top right for Dark mode and four built-in themes including Metal.”" },
+  { cat: "Tip", text: "“You manage your home-screen Quick Mixes anytime inside ‘My Account’ — and add your own favorites right there!”" },
   { cat: "Tip", text: "“Sight-reading secret: while your finger plays the left note, let your eyes peek ahead to the next note sliding in from the right!”" },
   { cat: "Tip", text: "“Want pure silent sight-reading flow? Toggle ‘Note Audio: Off’ inside Notation and jump straight to the next note instantly!”" },
   { cat: "Tip", text: "“In Melodies, switch freely anytime between ‘Rhythmic Melody’, ‘Full Dictation’ (pitch + note length), and steady half notes!”" },
-  { cat: "Tip", text: "“In ‘Production • Pink Noise EQ’, use a mixing engineer’s habit: toggle ‘Flat Bypass’ back and forth until the boosted band pops right out!”" },
+  { cat: "Tip", text: "“In ‘Production • Pink Noise EQ’, use a mixing engineer’s habit: toggle ‘Flat Bypass’ back and forth until the boosted band pops right out by contrast!”" },
   { cat: "Tip", text: "“Spin the interactive Circle of Fifths inside Knowledge: neighboring keys share six of seven notes, making key changes glide smoothly!”" },
   { cat: "Tip", text: "“In ‘Scales & Modes’, you don’t need to inspect all seven notes — hunt for the single signature color tone, like the bright #4 in Lydian!”" },
   { cat: "Tip", text: "“Want Lauscher in your signature palette? Open Color Studio under Account to blend up to three custom color themes down to RGBA!”" },
@@ -1060,7 +1060,13 @@ const LAUSCHEBAER_QUOTES_EN = [
   { cat: "Did You Know?", text: "“Why does the Alto clef lock Middle C onto the exact center line? It keeps viola melodies neatly inside the five-line staff without endless ledgers!”" },
   { cat: "Did You Know?", text: "“Pink noise drops gently by 3 dB per octave toward the treble — matching human hearing so every octave packs equal perceived energy!”" },
   { cat: "Did You Know?", text: "“Just ten milliseconds transforms a groove’s feel: nudging ahead of the beat sounds urgent and driving, while sitting behind feels laid-back!”" },
-  { cat: "Did You Know?", text: "“Why does Dorian sound mysterious yet hopeful at the same time? Right inside a minor scale, it sneaks in a luminous Major 6th!”" }
+  { cat: "Did You Know?", text: "“Why does Dorian sound mysterious yet hopeful at the same time? Right inside a minor scale, it sneaks in a luminous Major 6th!”" },
+  { cat: "Tip", text: "“Switching devices or backing up? In ‘My Account → Data Backup’, save your full profile — including mixes, custom themes, and metronome profiles — as a JSON file and reload it anytime!”" },
+  { cat: "Welcome", text: "“Everything stays right on your device: zero ads, no account sign-in, and every instrument sound works completely offline — even on the go!”" },
+  { cat: "Encouragement", text: "“Any tricky notes or chords gently circle back while you practice — and after 15 active minutes, Lauscher quietly reminds you to give your ears a short breather.”" },
+  { cat: "Tip", text: "“Need a steady groove companion? Open the ‘Tools’ tab for the practice metronome with subdivisions, shuffle, gap clicks, saved profiles, and four click voices (Standard, Woodblock, Cowbell & Rimshot)!”" },
+  { cat: "Tip", text: "“In ‘Chord Reading’ under Notation, compare stacked chords right on multiple-choice tiles — from major and minor triads all the way to E7, Esus4, and inversions!”" },
+  { cat: "Did You Know?", text: "“What sets a smooth sine wave apart from a warm piano note? Inside ‘Physics & Sound’, hear and watch the frequency spectrum show how overtones sculpt every timbre!”" }
 ];
 
 const PROFILE_INSTRUMENTS_EN = {
