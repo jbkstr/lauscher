@@ -752,17 +752,12 @@
     </main>
 
     <!-- =====================================================
-         ANSICHT 1e: PRAXIS-TOOLS (#viewTools)
+         ANSICHT 1e: WERKZEUGE (#viewTools)
          ===================================================== -->
     <main id="viewTools" class="view-container hidden">
-      <div class="section-heading-row">
-        <h2 class="section-heading" data-i18n="tools.heading">Werkzeuge</h2>
-      </div>
-      <p class="tools-intro-desc" data-i18n="tools.intro">Eigenständige Praxis-Werkzeuge neben den Gehör-Übungen.</p>
-
-      <div class="tools-launcher-grid">
-        <button id="openMetronomeBtn" class="tools-launcher-card card-top-sage" type="button" data-open-tool="metronome">
-          <div class="tools-launcher-icon badge-sage">
+      <div class="category-nav-list tools-card-list">
+        <button id="openMetronomeBtn" class="category-nav-card card-accent-sage category-card-wide" type="button" data-open-tool="metronome">
+          <div class="cat-icon-box badge-sage">
             <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path d="M8.5 23L12.2 6h3.6L19.5 23H8.5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
               <line x1="14" y1="20" x2="19.5" y2="9" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
@@ -770,12 +765,15 @@
               <line x1="7" y1="23" x2="21" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             </svg>
           </div>
-          <span class="tools-launcher-title" data-i18n="tools.metronomeTitle">Metronom</span>
-          <span class="tools-launcher-sub" data-i18n="tools.metronomeSub">Puls &amp; Tap-Tempo</span>
+          <div class="cat-text-box">
+            <h3 data-i18n="tools.metronomeTitle">Metronom</h3>
+            <p data-i18n="tools.metronomeSub">Tap-Tempo, Zählzeiten, Unterteilungen &amp; Profile</p>
+          </div>
+          <span class="cat-chevron">›</span>
         </button>
 
-        <button id="openTunerBtn" class="tools-launcher-card card-top-lilac" type="button" data-open-tool="tuner">
-          <div class="tools-launcher-icon badge-lilac">
+        <button id="openTunerBtn" class="category-nav-card card-accent-lilac category-card-wide" type="button" data-open-tool="tuner">
+          <div class="cat-icon-box badge-lilac">
             <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path d="M9.5 4.5V12C9.5 14.4853 11.5147 16.5 14 16.5C16.4853 16.5 18.5 14.4853 18.5 12V4.5" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
               <line x1="14" y1="16.5" x2="14" y2="23.5" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
@@ -784,12 +782,18 @@
               <path d="M22.2 6.8C23.4 8.3 23.4 10.7 22.2 12.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.72"/>
             </svg>
           </div>
-          <span class="tools-launcher-title" data-i18n="tools.tunerTitle">Tuner</span>
-          <span class="tools-launcher-badge" data-i18n="tools.soonBadge">Bald</span>
+          <div class="cat-text-box">
+            <div class="tool-card-title-row">
+              <h3 data-i18n="tools.tunerTitle">Tuner</h3>
+              <span class="tools-launcher-badge" data-i18n="tools.soonBadge">Bald</span>
+            </div>
+            <p data-i18n="tools.tunerSub">Stimmgerät &amp; präzise Tonhöhen-Anzeige per Mikrofon</p>
+          </div>
+          <span class="cat-chevron">›</span>
         </button>
 
-        <button id="openFreeplayBtn" class="tools-launcher-card card-top-peach" type="button" data-open-tool="freeplay">
-          <div class="tools-launcher-icon badge-peach">
+        <button id="openFreeplayBtn" class="category-nav-card card-accent-peach category-card-wide" type="button" data-open-tool="freeplay">
+          <div class="cat-icon-box badge-peach">
             <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <rect x="4" y="6" width="20" height="16" rx="2.5" stroke="currentColor" stroke-width="2"/>
               <line x1="10.67" y1="6" x2="10.67" y2="22" stroke="currentColor" stroke-width="1.6"/>
@@ -798,8 +802,14 @@
               <rect x="15.4" y="6" width="3.9" height="9.5" rx="1" fill="currentColor"/>
             </svg>
           </div>
-          <span class="tools-launcher-title" data-i18n="tools.freeplayTitle">Freies Spiel</span>
-          <span class="tools-launcher-badge" data-i18n="tools.soonBadge">Bald</span>
+          <div class="cat-text-box">
+            <div class="tool-card-title-row">
+              <h3 data-i18n="tools.freeplayTitle">Freies Spiel</h3>
+              <span class="tools-launcher-badge" data-i18n="tools.soonBadge">Bald</span>
+            </div>
+            <p data-i18n="tools.freeplaySub">Freie Klaviatur &amp; Akkord-Flächen mit allen Mixer-Klängen</p>
+          </div>
+          <span class="cat-chevron">›</span>
         </button>
       </div>
     </main>
@@ -1999,7 +2009,7 @@
         <h2 class="tool-preview-title" data-i18n="tools.tunerPageTitle">Chromatischer Tuner</h2>
         <p class="tool-preview-desc" data-i18n="tools.tunerPageDesc">Live-Tonhöhenerkennung und Kammerton-Referenz direkt über das Mikrofon deines Geräts.</p>
         <p id="tunerSecureContextNotice" class="tool-env-notice hidden"></p>
-        <button id="tunerBackBtn" type="button" class="btn-tool tool-preview-back-btn" data-i18n="tools.backBtn">← Zurück zu Tools</button>
+        <button id="tunerBackBtn" type="button" class="btn-tool tool-preview-back-btn" data-i18n="tools.backBtn">← Zurück zu Werkzeuge</button>
       </section>
     </main>
 
@@ -2020,7 +2030,7 @@
         <span class="tools-launcher-badge" data-i18n="tools.previewBadge">Bald verfügbar</span>
         <h2 class="tool-preview-title" data-i18n="tools.freeplayPageTitle">Freies Spiel</h2>
         <p class="tool-preview-desc" data-i18n="tools.freeplayPageDesc">Freie Klaviatur und Akkord-Flächen zum Ausprobieren, Improvisieren und Nachspielen mit deinen Mixer-Instrumenten.</p>
-        <button id="freeplayBackBtn" type="button" class="btn-tool tool-preview-back-btn" data-i18n="tools.backBtn">← Zurück zu Tools</button>
+        <button id="freeplayBackBtn" type="button" class="btn-tool tool-preview-back-btn" data-i18n="tools.backBtn">← Zurück zu Werkzeuge</button>
       </section>
     </main>
 
@@ -2039,7 +2049,7 @@
         </span>
       </button>
 
-      <button class="nav-tab" data-nav="tools" title="Tools" aria-label="Tools" data-i18n-title="nav.tools" data-i18n-aria="nav.tools">
+      <button class="nav-tab" data-nav="tools" title="Werkzeuge" aria-label="Werkzeuge" data-i18n-title="nav.tools" data-i18n-aria="nav.tools">
         <span class="nav-icon-pill">
           <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
             <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>

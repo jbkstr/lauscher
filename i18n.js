@@ -401,19 +401,19 @@ const I18N_STATIC = {
   "home.catWarmup": { de: "Einsing-Helfer", en: "Vocal Warmup" },
   "home.catWarmupDesc": { de: "5-Minuten-Warmup: Atem, Summen, Arpeggios & Chorklang", en: "5-min routine: breath, humming, arpeggios & choir blend" },
 
-  "tools.heading": { de: "Werkzeuge", en: "Tools" },
-  "tools.intro": { de: "Eigenständige Praxis-Werkzeuge neben den Gehör-Übungen.", en: "Standalone practice tools alongside ear training." },
   "tools.metronomeTitle": { de: "Metronom", en: "Metronome" },
-  "tools.metronomeSub": { de: "Puls & Tap-Tempo", en: "Pulse & Tap Tempo" },
+  "tools.metronomeSub": { de: "Tap-Tempo, Zählzeiten, Unterteilungen & Profile", en: "Tap tempo, custom beats, subdivisions & profiles" },
   "tools.tunerTitle": { de: "Tuner", en: "Tuner" },
+  "tools.tunerSub": { de: "Stimmgerät & präzise Tonhöhen-Anzeige per Mikrofon", en: "Chromatic tuner & live pitch detection via microphone" },
   "tools.freeplayTitle": { de: "Freies Spiel", en: "Free Play" },
+  "tools.freeplaySub": { de: "Freie Klaviatur & Akkord-Flächen mit allen Mixer-Klängen", en: "Free keyboard & chord pads with all mixer instruments" },
   "tools.soonBadge": { de: "Bald", en: "Soon" },
   "tools.previewBadge": { de: "Bald verfügbar", en: "Coming soon" },
   "tools.tunerPageTitle": { de: "Chromatischer Tuner", en: "Chromatic Tuner" },
   "tools.tunerPageDesc": { de: "Live-Tonhöhenerkennung und Kammerton-Referenz direkt über das Mikrofon deines Geräts.", en: "Live pitch detection and tuning reference directly via your device microphone." },
   "tools.freeplayPageTitle": { de: "Freies Spiel", en: "Free Play" },
   "tools.freeplayPageDesc": { de: "Freie Klaviatur und Akkord-Flächen zum Ausprobieren, Improvisieren und Nachspielen mit deinen Mixer-Instrumenten.", en: "Free keyboard and chord pads for improvising, exploring sounds, and playing along with your mixer instruments." },
-  "tools.backBtn": { de: "← Zurück zu Tools", en: "← Back to Tools" },
+  "tools.backBtn": { de: "← Zurück zu Werkzeuge", en: "← Back to Tools" },
 
   "knowledge.tabsAria": { de: "Wissensbereiche", en: "Knowledge sections" },
   "knowledge.tabTheory": { de: "Theorie", en: "Theory" },
@@ -619,7 +619,7 @@ const I18N_STATIC = {
 
   "nav.mainAria": { de: "Hauptnavigation", en: "Main navigation" },
   "nav.home": { de: "Startseite", en: "Home" },
-  "nav.tools": { de: "Tools", en: "Tools" },
+  "nav.tools": { de: "Werkzeuge", en: "Tools" },
   "nav.knowledge": { de: "Wissen", en: "Knowledge" },
   "nav.space": { de: "Mein Konto", en: "My Account" },
 

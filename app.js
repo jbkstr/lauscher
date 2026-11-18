@@ -2597,7 +2597,7 @@ class AppState {
         ? (getStaticI18nText("app.tagline") || tr("Hören · Verstehen · Musizieren", "Listen · Understand · Play"))
         : tr("Hören · Verstehen · Musizieren", "Listen · Understand · Play");
     } else if (this.currentView === "tools") {
-      mainTitle.textContent = tr("Tools", "Tools");
+      mainTitle.textContent = tr("Werkzeuge", "Tools");
       el.textContent = tr("Metronom, Tuner & Freies Spiel", "Metronome, Tuner & Free Play");
     } else if (this.currentView === "knowledge") {
       mainTitle.textContent = tr("Wissen", "Knowledge");
@@ -20574,7 +20574,7 @@ function handleMetronomeTap(customNowMs = null) {
   const tapSub = document.getElementById("metroTapSub");
   if (tapSub) {
     tapSub.textContent = res.bpm !== null
-      ? `${res.bpm} BPM`
+      ? tr("Tempo tippen", "Tap tempo")
       : tr("Weiter tippen …", "Keep tapping …");
   }
 
