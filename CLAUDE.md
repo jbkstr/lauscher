@@ -56,7 +56,7 @@ python3 -m http.server 8000
 
 Danach `http://localhost:8000` öffnen. Für den Nutzer gibt es die Doppelklick-Startdatei [Lauscher-starten.command](Lauscher-starten.command), die das Gleiche tut. **`index.html` nicht direkt per `file://` öffnen:** Chrome blockiert dort die Schriftdateien. Automatische Tests gibt es nicht.
 - Syntax-Check nach Änderungen: `node --check app.js` (bzw. die geänderte Datei).
-- In der Claude-Desktop-App kann der eingebaute Browser weder den Projektordner (unter `~/Documents`, macOS-Zugriffsschutz) noch `file://`-URLs öffnen. Browser-Tests müssen deshalb vom Nutzer selbst gemacht werden, oder der Zugriff muss vorher freigegeben sein.
+- **Browser-Test in der Claude-Desktop-App:** `file://` und ein per `preview_start`/`launch.json` gestarteter Server funktionieren nicht (macOS-Zugriffsschutz auf `~/Documents`). Was funktioniert: Server per Bash im Hintergrund starten (`python3 -m http.server 8811 --bind 127.0.0.1` im Projektordner, `run_in_background`), dann `preview_start` mit `url: http://localhost:8811/` aufrufen. Danach Server wieder stoppen.
 - Änderungen im Browser prüfen und dabei die Konsole auf Fehler achten. Wenn relevant, auch die Mobilbreite, ein dunkles Theme und eine weitere Sprache prüfen.
 
 ## Konventionen

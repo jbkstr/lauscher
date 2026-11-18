@@ -562,6 +562,7 @@ const PROFILE_ACCESSORIES_UR = {
 
 const MIX_MODES_UR = {
   cadence: "کیڈینسز",
+  "cadence-minor": "کیڈینسز (مائنر)",
   "interval-melodic": "انٹرولز (چڑھتے)",
   "interval-melodic-down": "انٹرولز (اترتے)",
   "interval-harmonic": "انٹرولز (ہارمونک)",
@@ -608,7 +609,30 @@ const KEY_NAMES_UR = {
   Db: "D♭ میجر"
 };
 
+const KEY_NAMES_MINOR_UR = {
+  "C": "C مائنر",
+  "G": "G مائنر",
+  "D": "D مائنر",
+  "F": "F مائنر",
+  "Bb": "B♭ مائنر",
+  "Eb": "E♭ مائنر",
+  "Ab": "G♯ مائنر",
+  "A": "A مائنر",
+  "E": "E مائنر",
+  "B": "B مائنر",
+  "F#": "F♯ مائنر",
+  "Db": "C♯ مائنر"
+};
+
 const DEGREES_UR = {
+  "i": { label: "مائنر ٹانک", short: "ٹانک" },
+  "iio": { label: "ڈمنشڈ ii", short: "ii° (ڈمنشڈ)" },
+  "ii7b5": { label: "ہاف ڈمنشڈ ii", short: "iiø7" },
+  "III": { label: "ریلیٹو میجر", short: "ریلیٹو میجر" },
+  "v": { label: "مائنر ڈومیننٹ", short: "v (مائنر)" },
+  "VI": { label: "درجہ VI (میجر)", short: "VI" },
+  "VII": { label: "درجہ VII (میجر)", short: "VII" },
+  "N6": { label: "نیپولیٹن (♭II⁶)", short: "N6" },
   I: { label: "ٹانک (I)", short: "ٹانک" },
   I7: { label: "ٹانک ڈومیننٹ سیونتھ", short: "I7" },
   Imaj7: { label: "ٹانک میجر سیونتھ", short: "Imaj7" },
@@ -2016,8 +2040,27 @@ const TR_UR = Object.assign(Object.create(null), {
   "Alle 12 Vorzeichen-Tonarten (±3 Hilfslinien) inklusive Auflösungszeichen (♮)": "تمام 12 کی سگنیچرز (±3 لیجر لائنز) بشمول نیچرل علامتیں (♮)"
 });
 
-// Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
+// Moll-Kadenzen, Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_UR, {
+  "Moll": "مائنر",
+  "i, iv, V und VI": "i, iv, V اور VI",
+  "Alle leitereigenen Stufen inkl. v und V": "تمام ڈایاٹونک درجات، بشمول v اور V",
+  "Mit V7, V/V & Neapolitaner": "V7، V/V اور نیپولیٹن کے ساتھ",
+  "Moll-ii–V & Tritonussubstitution": "مائنر ii–V اور ٹرائیٹون سبسٹی ٹیوشن",
+  "Moll-Kadenzen • Ziel: Takt 4": "مائنر کیڈینسز • ہدف: بار 4",
+  "Dieselben Übungen in Moll-Tonarten: Höre drei Takte Kontext und bestimme die gesuchte 4. Stufe": "یہی مشقیں مائنر اسکیلز میں: تین بار سیاق و سباق سنیں اور غائب چوتھا کارڈ پہچانیں",
+  "Moll-Kadenzen • Zufälliger Takt": "مائنر کیڈینسز • بے ترتیب بار",
+  "Die fehlende Moll-Stufe steht an einer zufälligen Stelle (Takt 1–4)": "غائب مائنر درجہ کسی بھی بے ترتیب جگہ (بار 1–4) پر ہوتا ہے",
+  "Tonika (i)": "ٹانک (i)",
+  "Kadenzen (Moll)": "کیڈینسز (مائنر)",
+  "Moll • Grundfunktionen": "مائنر • بنیادی درجات",
+  "Moll • Erweiterte Diatonik": "مائنر • وسیع ڈایاٹونک",
+  "Moll • V7, V/V & Neapolitaner": "مائنر • V7، V/V اور نیپولیٹن",
+  "Moll • Meister-Harmonik": "مائنر • ماہرانہ ہارمنی",
+  "i, iv, V & VI an fester Zielposition (Takt 4) in c-Moll": "C مائنر میں مقررہ جگہ (بار 4) پر i, iv, V اور VI",
+  "Alle leitereigenen Moll-Stufen inkl. v & V in leichten Tonarten": "آسان اسکیلز میں تمام ڈایاٹونک مائنر درجات، بشمول v اور V",
+  "8 Stufen inkl. V7, V/V & N6 mit wechselndem Ziel-Takt (1–4)": "V7، V/V اور N6 سمیت 8 درجات، بدلتے ہدف بار (1–4) کے ساتھ",
+  "Moll-ii–V (iiø7), bII7, zufälliger Takt & alle 12 Tonarten": "مائنر ii–V (iiø7)، bII7، بے ترتیب بار اور تمام 12 اسکیلز",
   "Sing mit!": "ساتھ گائیں!",
   "Summ beide Töne nach, bevor du antwortest – deine Stimme spürt den Abstand oft schneller als der Kopf.": "جواب دینے سے پہلے دونوں سُر گنگنائیں – آپ کی آواز اکثر دماغ سے پہلے فاصلہ محسوس کر لیتی ہے۔",
   "Sing beide Töne abwärts nach – stell dir dabei eine Treppe nach unten vor.": "دونوں سُر نیچے کی طرف گائیں – تصور کریں کہ آپ سیڑھیاں اتر رہے ہیں۔",
@@ -2065,6 +2108,7 @@ if (typeof registerLanguageBundle === "function") {
       mixModes: MIX_MODES_UR,
       defaultMixTitles: DEFAULT_MIX_TITLES_UR,
       keyNames: KEY_NAMES_UR,
+      minorKeyNames: KEY_NAMES_MINOR_UR,
       degrees: DEGREES_UR,
       intervals: INTERVALS_UR,
       chords: CHORDS_UR,

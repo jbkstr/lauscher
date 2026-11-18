@@ -28,6 +28,7 @@ Every training area includes graded difficulty levels, listening aids (A/B compa
 2. **Cadences**
    - Identify harmonic functions and chord progressions across 4 levels (`I–IV–V–vi` through diatonic degrees, secondary dominants, and tritone substitution `♭II7`).
    - Selectable target position (**Bar 4** or **Random Bar 1–4**), key mode, and meter (`4/4`, `3/4`, `6/8`, `5/4`, or random).
+   - **Minor cadences** (`cadence-minor`): the same exercises in minor keys across 4 levels (`i–iv–V–VI` through natural vs. harmonic dominant `v`/`V`, `ii°`, `III`, `VII`, Neapolitan `N6`, minor ii–V `iiø7` and `♭II7`), with matching exam levels.
 3. **Solfège**
    - Identify all 7 scale degrees (`Do–Ti` / `1–7`) on an interactive keyboard inside a `I–vi–IV–V` harmonic context across 6 levels (from fixed C Major single-octave up to rotating keys and multi-octave spans after every answer).
 4. **Scales & Modes**

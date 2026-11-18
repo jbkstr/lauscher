@@ -541,6 +541,7 @@ const PROFILE_ACCESSORIES_FR = {
 
 const MIX_MODES_FR = {
   "cadence":               "Cadences",
+  "cadence-minor": "Cadences (mineur)",
   "interval-melodic":      "Intervalles (Ascendants)",
   "interval-melodic-down": "Intervalles (Descendants)",
   "interval-harmonic":     "Intervalles (Harmoniques)",
@@ -578,7 +579,30 @@ const KEY_NAMES_FR = {
   "E": "Mi majeur", "B": "Si majeur", "F#": "Fa♯ majeur", "Db": "Ré♭ majeur"
 };
 
+const KEY_NAMES_MINOR_FR = {
+  "C": "Do mineur",
+  "G": "Sol mineur",
+  "D": "Ré mineur",
+  "F": "Fa mineur",
+  "Bb": "Si♭ mineur",
+  "Eb": "Mi♭ mineur",
+  "Ab": "Sol♯ mineur",
+  "A": "La mineur",
+  "E": "Mi mineur",
+  "B": "Si mineur",
+  "F#": "Fa♯ mineur",
+  "Db": "Do♯ mineur"
+};
+
 const DEGREES_FR = {
+  "i": { label: "Tonique mineure", short: "Tonique" },
+  "iio": { label: "ii diminué", short: "ii° (dim.)" },
+  "ii7b5": { label: "ii demi-diminué", short: "iiø7" },
+  "III": { label: "Relatif majeur", short: "Rel. maj." },
+  "v": { label: "Dominante mineure", short: "v (min.)" },
+  "VI": { label: "Degré VI (majeur)", short: "VI" },
+  "VII": { label: "Degré VII (majeur)", short: "VII" },
+  "N6": { label: "Napolitaine (♭II⁶)", short: "N6" },
   "I":     { label: "Tonique",               short: "Tonique" },
   "I7":    { label: "Tonique 7e de dom.",    short: "I7" },
   "Imaj7": { label: "Tonique maj. 7",        short: "Imaj7" },
@@ -1178,8 +1202,27 @@ const TR_FR = {
   "{tot} / {tot} gelöst ✓": "{tot} / {tot} résolues ✓"
 };
 
-// Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
+// Moll-Kadenzen, Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_FR, {
+  "Moll": "Mineur",
+  "i, iv, V und VI": "i, iv, V et VI",
+  "Alle leitereigenen Stufen inkl. v und V": "Tous les degrés diatoniques, v et V inclus",
+  "Mit V7, V/V & Neapolitaner": "Avec V7, V/V et napolitaine",
+  "Moll-ii–V & Tritonussubstitution": "ii–V mineur et substitution tritonique",
+  "Moll-Kadenzen • Ziel: Takt 4": "Cadences mineures • Cible : mesure 4",
+  "Dieselben Übungen in Moll-Tonarten: Höre drei Takte Kontext und bestimme die gesuchte 4. Stufe": "Les mêmes exercices en tonalités mineures : écoutez trois mesures de contexte et identifiez le 4e accord",
+  "Moll-Kadenzen • Zufälliger Takt": "Cadences mineures • Mesure aléatoire",
+  "Die fehlende Moll-Stufe steht an einer zufälligen Stelle (Takt 1–4)": "L’accord mineur manquant se trouve à une position aléatoire (mesures 1–4)",
+  "Tonika (i)": "Tonique (i)",
+  "Kadenzen (Moll)": "Cadences (mineur)",
+  "Moll • Grundfunktionen": "Mineur • Fonctions de base",
+  "Moll • Erweiterte Diatonik": "Mineur • Diatonique étendue",
+  "Moll • V7, V/V & Neapolitaner": "Mineur • V7, V/V et napolitaine",
+  "Moll • Meister-Harmonik": "Mineur • Harmonie avancée",
+  "i, iv, V & VI an fester Zielposition (Takt 4) in c-Moll": "i, iv, V & VI à position fixe (mesure 4) en Do mineur",
+  "Alle leitereigenen Moll-Stufen inkl. v & V in leichten Tonarten": "Tous les degrés diatoniques mineurs, v et V inclus, dans des tonalités faciles",
+  "8 Stufen inkl. V7, V/V & N6 mit wechselndem Ziel-Takt (1–4)": "8 degrés dont V7, V/V et N6 avec mesure cible variable (1–4)",
+  "Moll-ii–V (iiø7), bII7, zufälliger Takt & alle 12 Tonarten": "ii–V mineur (iiø7), bII7, mesure aléatoire et les 12 tonalités",
   "Sing mit!": "Chantez avec nous !",
   "Summ beide Töne nach, bevor du antwortest – deine Stimme spürt den Abstand oft schneller als der Kopf.": "Fredonnez les deux notes avant de répondre – votre voix sent souvent l’écart plus vite que votre tête.",
   "Sing beide Töne abwärts nach – stell dir dabei eine Treppe nach unten vor.": "Chantez les deux notes en descendant – imaginez un escalier qui descend.",
@@ -1993,6 +2036,7 @@ if (typeof registerLanguageBundle === "function") {
       mixModes: MIX_MODES_FR,
       defaultMixTitles: DEFAULT_MIX_TITLES_FR,
       keyNames: KEY_NAMES_FR,
+      minorKeyNames: KEY_NAMES_MINOR_FR,
       degrees: DEGREES_FR,
       intervals: INTERVALS_FR,
       chords: CHORDS_FR,

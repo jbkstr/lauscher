@@ -544,6 +544,7 @@ const PROFILE_ACCESSORIES_PL = {
 
 const MIX_MODES_PL = {
   "cadence": "Kadencje",
+  "cadence-minor": "Kadencje (moll)",
   "interval-melodic": "Interwały (W górę)",
   "interval-melodic-down": "Interwały (W dół)",
   "interval-harmonic": "Interwały (Harmoniczne)",
@@ -590,7 +591,30 @@ const KEY_NAMES_PL = {
   "Db": "Des-dur"
 };
 
+const KEY_NAMES_MINOR_PL = {
+  "C": "c-moll",
+  "G": "g-moll",
+  "D": "d-moll",
+  "F": "f-moll",
+  "Bb": "b-moll",
+  "Eb": "es-moll",
+  "Ab": "gis-moll",
+  "A": "a-moll",
+  "E": "e-moll",
+  "B": "h-moll",
+  "F#": "fis-moll",
+  "Db": "cis-moll"
+};
+
 const DEGREES_PL = {
+  "i": { label: "Tonika molowa", short: "Tonika" },
+  "iio": { label: "Zmniejszony ii", short: "ii° (zmn.)" },
+  "ii7b5": { label: "Półzmniejszony ii", short: "iiø7" },
+  "III": { label: "Równoległa durowa", short: "Równol. dur" },
+  "v": { label: "Dominanta molowa", short: "v (mol)" },
+  "VI": { label: "Stopień VI (dur)", short: "VI" },
+  "VII": { label: "Stopień VII (dur)", short: "VII" },
+  "N6": { label: "Neapolitański (♭II⁶)", short: "N6" },
   "I":     { label: "Tonika",                 short: "Tonika" },
   "I7":    { label: "Tonika z septyma m.",    short: "I7" },
   "Imaj7": { label: "Tonika maj7",            short: "Imaj7" },
@@ -1672,8 +1696,27 @@ const TR_PL = {
   "{tot} / {tot} gelöst ✓": "{tot} / {tot} odgadnięte ✓"
 };
 
-// Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
+// Moll-Kadenzen, Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_PL, {
+  "Moll": "Moll",
+  "i, iv, V und VI": "i, iv, V i VI",
+  "Alle leitereigenen Stufen inkl. v und V": "Wszystkie stopnie diatoniczne, w tym v i V",
+  "Mit V7, V/V & Neapolitaner": "Z V7, V/V i akordem neapolitańskim",
+  "Moll-ii–V & Tritonussubstitution": "Molowe ii–V i substytucja trytonowa",
+  "Moll-Kadenzen • Ziel: Takt 4": "Kadencje molowe • Cel: takt 4",
+  "Dieselben Übungen in Moll-Tonarten: Höre drei Takte Kontext und bestimme die gesuchte 4. Stufe": "Te same ćwiczenia w tonacjach molowych: posłuchaj trzech taktów kontekstu i rozpoznaj brakujący 4. akord",
+  "Moll-Kadenzen • Zufälliger Takt": "Kadencje molowe • Losowy takt",
+  "Die fehlende Moll-Stufe steht an einer zufälligen Stelle (Takt 1–4)": "Brakujący stopień w molu pojawia się w losowym miejscu (takty 1–4)",
+  "Tonika (i)": "Tonika (i)",
+  "Kadenzen (Moll)": "Kadencje (moll)",
+  "Moll • Grundfunktionen": "Moll • Główne funkcje",
+  "Moll • Erweiterte Diatonik": "Moll • Rozszerzona diatonika",
+  "Moll • V7, V/V & Neapolitaner": "Moll • V7, V/V i neapolitański",
+  "Moll • Meister-Harmonik": "Moll • Mistrzowska harmonia",
+  "i, iv, V & VI an fester Zielposition (Takt 4) in c-Moll": "i, iv, V i VI w stałym takcie docelowym (takt 4) w c-moll",
+  "Alle leitereigenen Moll-Stufen inkl. v & V in leichten Tonarten": "Wszystkie diatoniczne stopnie molowe, w tym v i V, w łatwych tonacjach",
+  "8 Stufen inkl. V7, V/V & N6 mit wechselndem Ziel-Takt (1–4)": "8 stopni, w tym V7, V/V i N6, ze zmiennym taktem docelowym (1–4)",
+  "Moll-ii–V (iiø7), bII7, zufälliger Takt & alle 12 Tonarten": "Molowe ii–V (iiø7), bII7, losowy takt i wszystkie 12 tonacji",
   "Sing mit!": "Śpiewaj z nami!",
   "Summ beide Töne nach, bevor du antwortest – deine Stimme spürt den Abstand oft schneller als der Kopf.": "Zanuć oba dźwięki, zanim odpowiesz – twój głos często wyczuwa odległość szybciej niż głowa.",
   "Sing beide Töne abwärts nach – stell dir dabei eine Treppe nach unten vor.": "Zaśpiewaj oba dźwięki w dół – wyobraź sobie schody prowadzące w dół.",
@@ -2039,6 +2082,7 @@ if (typeof registerLanguageBundle === "function") {
       mixModes: MIX_MODES_PL,
       defaultMixTitles: DEFAULT_MIX_TITLES_PL,
       keyNames: KEY_NAMES_PL,
+      minorKeyNames: KEY_NAMES_MINOR_PL,
       degrees: DEGREES_PL,
       intervals: INTERVALS_PL,
       chords: CHORDS_PL,
