@@ -212,7 +212,7 @@ function getMascotSVG(mood = "idle", showAccessory = false) {
     `;
   } else if (mood === "question") {
     extraBadge = `
-      <text x="53.5" y="18" fill="var(--peach-strong)" font-size="16" font-weight="900" font-family="sans-serif">?</text>
+      <text x="53.5" y="18" fill="var(--peach-strong)" font-size="16" font-weight="900" font-family="Andika, sans-serif">?</text>
     `;
   } else if (mood === "awaiting") {
     extraBadge = `
@@ -4392,7 +4392,7 @@ function getRhythmCellSVG(cellKey, width = 44, height = 26) {
         `<path d="M32.9 5.5 C36.5 7.5 37.5 10.5 35.5 13.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>`;
       break;
     case "triplet":
-      body = `<text x="24" y="7.5" text-anchor="middle" fill="currentColor" font-size="8.5" font-weight="900" font-family="sans-serif">3</text>` +
+      body = `<text x="24" y="7.5" text-anchor="middle" fill="currentColor" font-size="8.5" font-weight="900" font-family="Andika, sans-serif">3</text>` +
         head(10, 22) + stem(12.6, 21.5, 10) +
         head(22, 22) + stem(24.6, 21.5, 10) +
         head(34, 22) + stem(36.6, 21.5, 10) +
@@ -5998,7 +5998,7 @@ function initWaveVisualizer(num, den) {
     });
 
     // Spur-Beschriftungen oben links in jeder Spur
-    ctx.font = "bold 11px -apple-system, sans-serif";
+    ctx.font = "bold 11px Andika, -apple-system, sans-serif";
     ctx.fillStyle = palette.track1Label;
     ctx.fillText(tr("1. Grundton (2 lange Wellen)", "1. Root note (2 wave cycles)"), padLeft + 4, yTrack1 - 20);
 

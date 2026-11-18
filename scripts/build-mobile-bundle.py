@@ -37,6 +37,7 @@ DATA_URI_MIME = {
     ".svg": "image/svg+xml",
 }
 
+PRELOAD_FONT_RE = re.compile(r'^[ \t]*<link rel="preload" href="[^"]+" as="font"[^>]*>[ \t]*\n', re.M)
 STYLESHEET_RE = re.compile(r'^([ \t]*)<link rel="stylesheet" href="([^"]+)">[ \t]*$', re.M)
 SCRIPT_RE = re.compile(r'^([ \t]*)<script src="([^"]+)"></script>[ \t]*$', re.M)
 
@@ -89,6 +90,7 @@ def build(root: Path) -> str:
         inlined.append(src)
         return f"<script>\n{js}\n</script>"
 
+    html = PRELOAD_FONT_RE.sub("", html)  # Fonts sind im Bundle per data:-URI eingebettet
     html = STYLESHEET_RE.sub(inline_style, html)
     html = SCRIPT_RE.sub(inline_script, html)
 

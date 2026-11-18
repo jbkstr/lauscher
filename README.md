@@ -115,6 +115,10 @@ Inside the **Knowledge** (`Wissen`) tab, interactive audio examples accompany ev
 
 ## Run Locally & Test on Mobile
 
+**Easiest on macOS:** double-click [`Lauscher-starten.command`](Lauscher-starten.command). It starts a small local web server and opens the app in your browser (close the Terminal window to stop it).
+
+> Don't open `index.html` directly via double-click (`file://`): browsers such as Chrome block loading the app font (Andika) from local files.
+
 Because all studio samples ship as JS bundles, any static HTTP server works out of the box (no Node.js/npm build step required):
 
 ```bash
