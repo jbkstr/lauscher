@@ -38,7 +38,13 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 ## Mobile-Bundle
 
 - [lauschebaer-mobile.html](lauschebaer-mobile.html) (~8,5 MB) ist eine Einzeldatei mit allen CSS-, JS- und Sample-Inhalten inline. Nur `tone.js` wird extern daneben geladen.
-- Das Bundle wird **nicht automatisch erzeugt**. Nach Änderungen an Quelldateien ist es veraltet. Diese Datei nicht direkt bearbeiten und nicht lesen (zu groß). Nach Änderungen den Nutzer darauf hinweisen, dass sie neu gebaut werden muss.
+- Die Datei wird von [scripts/build-mobile-bundle.py](scripts/build-mobile-bundle.py) aus `index.html` erzeugt: `styles.css` und alle `<script src>` außer `tone.js` werden inline eingesetzt. Diese Datei nie direkt bearbeiten und nicht lesen (zu groß).
+- **Nach jeder Änderung an index.html, styles.css oder einer JS-Datei das Bundle neu bauen und mitcommitten:**
+  ```bash
+  python3 scripts/build-mobile-bundle.py          # neu bauen
+  python3 scripts/build-mobile-bundle.py --check  # prüfen, ob aktuell (Exit-Code 1 = veraltet)
+  ```
+- Kommt eine neue Skript- oder CSS-Datei hinzu, reicht es, sie in `index.html` einzubinden; das Skript übernimmt sie automatisch.
 
 ## Lokal starten & testen
 
@@ -48,6 +54,7 @@ python3 -m http.server 8000
 
 Danach `http://localhost:8000` öffnen. Automatische Tests gibt es nicht.
 - Syntax-Check nach Änderungen: `node --check app.js` (bzw. die geänderte Datei).
+- In der Claude-Desktop-App kann der eingebaute Browser weder den Projektordner (unter `~/Documents`, macOS-Zugriffsschutz) noch `file://`-URLs öffnen. Browser-Tests müssen deshalb vom Nutzer selbst gemacht werden, oder der Zugriff muss vorher freigegeben sein.
 - Änderungen im Browser prüfen und dabei die Konsole auf Fehler achten. Wenn relevant, auch die Mobilbreite, ein dunkles Theme und eine weitere Sprache prüfen.
 
 ## Konventionen

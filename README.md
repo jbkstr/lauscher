@@ -105,7 +105,8 @@ Inside the **Knowledge** (`Wissen`) tab, interactive audio examples accompany ev
 | [`i18n.js`](i18n.js), [`i18n-fr.js`](i18n-fr.js), [`i18n-pl.js`](i18n-pl.js), [`i18n-uk.js`](i18n-uk.js), [`i18n-ur.js`](i18n-ur.js) | Multilingual UI strings, musical terminology, and RTL localization (`DE / EN / FR / PL / UK / UR`) |
 | [`knowledge.js`](knowledge.js), [`knowledge-en.js`](knowledge-en.js), [`knowledge-fr.js`](knowledge-fr.js), [`knowledge-pl.js`](knowledge-pl.js), [`knowledge-uk.js`](knowledge-uk.js), [`knowledge-ur.js`](knowledge-ur.js) | Localized knowledge modules, articles, instrument guides & Circle of Fifths content across all 6 languages |
 | [`samples/`](samples/) | Pre-processed Base64 JS instrument & percussion bundles (`*-bundle.js`) for instant browser audio without CORS errors |
-| [`lauschebaer-mobile.html`](lauschebaer-mobile.html) | Self-contained single-file bundle (CSS, JS samples & app code inline) for quick mobile/offline device testing |
+| [`lauschebaer-mobile.html`](lauschebaer-mobile.html) | Self-contained single-file bundle (CSS, JS samples & app code inline) for quick mobile/offline device testing — **generated, do not edit by hand** |
+| [`scripts/build-mobile-bundle.py`](scripts/build-mobile-bundle.py) | Rebuilds `lauschebaer-mobile.html` from `index.html` and all source files (Python standard library only) |
 | `daw-sampling/` | Raw DAW stem source material (`exports/*.wav`, MIDI templates, `process_samples.py`) — **not needed by the browser** |
 
 ---
@@ -121,12 +122,19 @@ python3 -m http.server 8000
 Then open `http://localhost:8000` in your browser.
 
 - **Single-file bundle for mobile testing:** [`lauschebaer-mobile.html`](lauschebaer-mobile.html) inlines all CSS, sample bundles, and app scripts into a single HTML file and loads `Tone.js` locally from [`tone.js`](tone.js) (keep `tone.js` next to `lauschebaer-mobile.html`). *(On iOS, open the HTML file via **Safari** over an HTTPS/local web server URL or a WebView wrapper rather than iOS QuickLook.)*
+- **Rebuild the bundle after every change** to `index.html`, `styles.css`, or any `.js` file:
+
+```bash
+python3 scripts/build-mobile-bundle.py
+```
+
+  Use `python3 scripts/build-mobile-bundle.py --check` to verify the bundle is up to date (exit code `1` if it is outdated).
 
 ---
 
 ## GitHub & GitHub Pages Notes
 
-For deploying via **GitHub Pages**, the large raw audio source files in `daw-sampling/` (~199 MB) are **not** required. Before pushing, add a `.gitignore` file with:
+For deploying via **GitHub Pages**, the large raw audio source files in `daw-sampling/` (~199 MB) are **not** required. The repository's `.gitignore` already excludes them:
 
 ```gitignore
 daw-sampling/
