@@ -1351,14 +1351,14 @@ const KNOWLEDGE_ARTICLES_PL = [
 ];
 
 const PHYSICS_WAVE_EXPLANATIONS_PL = {
-  "2,1": "<strong>Oktawa (2 : 1):</strong> Na dwie długie zielone fale dźwięku podstawowego przypadają dokładnie <strong>4 o połowę krótsze fale pomarańczowe</strong>. Na 3. ścieżce fala sumaryczna powtarza swój wzór co do punktu na każdej linii przerywanej.",
-  "3,2": "<strong>Kwinta czysta (3 : 2):</strong> Gdy dźwięk bazowy robi 2 długie zielone fale, górny zatacza dokładnie <strong>3 fale pomarańczowe</strong>. Na starcie, w środku i na końcu schodzą się idealnie.",
-  "4,3": "<strong>Kwarta czysta (4 : 3):</strong> Stosunek 1,33 : 1 — bliskie pokrewieństwo akustyczne dające wyraźny powtarzalny cykl co 3 zielone = 4 pomarańczowe fale.",
-  "5,4": "<strong>Tercja wielka (5 : 4):</strong> Stosunek 1,25 : 1. Na 3. ścieżce fala sumaryczna tworzy łagodny, regularny wzór — akustyczny fundament akordów durowych.",
-  "6,5": "<strong>Tercja mała (6 : 5):</strong> Stosunek 1,20 : 1. Nieco ciaśniejsze nakładanie cykli niż w tercji wielkiej, co nadaje trybowi molowemu jego ciepłą głębię.",
-  "5,3": "<strong>Seksta wielka (5 : 3):</strong> Stosunek 1,67 : 1 — przewrót tercji małej. Otwarta, śpiewna i szlachetna w brzmieniu.",
-  "45,32": "<strong>Tryton (45 : 32):</strong> Grzbiety pomarańczowej fali nie chcą zgrać się z zieloną siatką — zobacz, jak 3. ścieżka staje się poszarpana i pełna napięcia!",
-  "16,15": "<strong>Sekunda mała (16 : 15):</strong> Obie fale są niemal równej długości (1,07×), stopniowo rozchodzą się w fazie i wywołują wyraźne pulsowanie (dudnienie) na 3. ścieżce."
+  "2,1": "<strong>Oktawa (2 : 1):</strong> Na 2 długie zielone fale dźwięku bazowego przypada dokładnie <strong>4 o połowę krótsze fale pomarańczowe</strong>. Na 3. ścieżce kształt fali powtarza się identycznie na każdej przerywanej linii — dlatego oba tony brzmią niemal jak jeden.",
+  "3,2": "<strong>Kwinta czysta (3 : 2):</strong> Gdy dźwięk bazowy robi 2 długie zielone fale, górny zatacza dokładnie <strong>3 fale pomarańczowe</strong>. Co dwa cykle spotykają się idealnie — brzmienie jest stabilne, otwarte i pełne mocy.",
+  "4,3": "<strong>Kwarta czysta (4 : 3):</strong> 3 zielone fale schodzą się dokładnie z 4 pomarańczowymi, po czym cały wzór startuje od nowa równo w rytmie.",
+  "5,4": "<strong>Tercja wielka (5 : 4):</strong> 4 zielone cykle na 5 pomarańczowych. Na 3. ścieżce fala tworzy miękką, gładką linię — to ciepło akordów durowych.",
+  "6,5": "<strong>Tercja mała (6 : 5):</strong> 5 zielonych fal wobec 6 pomarańczowych: nieco ciaśniejsze nakładanie niż w tercji wielkiej, co daje trybowi molowemu jego emocjonalny charakter.",
+  "5,3": "<strong>Seksta wielka (5 : 3):</strong> Stosunek 1,67 : 1 — przewrót tercji małej. Szeroka, śpiewna i przyjemnie zrównoważona.",
+  "45,32": "<strong>Tryton (45 : 32):</strong> Pomarańczowe szczyty prawie nigdzie nie pasują do zielonej siatki — spójrz na 3. ścieżkę: robi się poszarpana i pełna napięcia!",
+  "16,15": "<strong>Sekunda mała (16 : 15):</strong> Obie fale mają niemal identyczne tempo, ale powoli rozjeżdżają się względem siebie — tworząc grube i chude „brzuchy” na 3. ścieżce (dudnienie)."
 };
 
 const PHYSICS_OVERTONES_PL = [
@@ -1384,52 +1384,133 @@ function renderPhysicsReferenceHTML_PL() {
   return `
     <article class="knowledge-card">
       <div class="k-card-top-row">
-        <span class="k-card-tag tag-sage">1. Podstawy dźwięku</span>
+        <span class="k-card-tag tag-sage">1. Jak powstaje dźwięk i fala</span>
         <span class="k-ratio-chip">ok. 343 m/s</span>
       </div>
-      <h4>Częstotliwość (herce), długość fali i barwa</h4>
+      <h4>Od drgającego powietrza do krzywej sinusoidalnej</h4>
       <p>
-        Dźwięk powstaje, gdy źródło rytmicznie ściska i rozrzedza cząsteczki powietrza. Liczbę takich cykli ciśnienia na sekundę mierzymy w <strong>hercach (Hz)</strong>. W powietrzu o temperaturze pokojowej dźwięk pędzi około <strong>343 metrów na sekundę</strong> — niskie dźwięki mają więc fizycznie po kilka metrów długości!
+        Kiedy szarpniesz strunę gitary albo zaczniesz nucić, coś bardzo szybko drga tam i z powrotem. Te drgania popychają cząsteczki powietrza obok — i jak zmarszczki na wodzie wysyłają falę ciśnienia z prędkością ok. <strong>343 metrów na sekundę</strong> (ponad 1200 km/h!). Gdy dotrze do ucha, Twoja błona bębenkowa drga w tym samym rytmie, a mózg zamienia to w muzykę.
       </p>
+      <p>
+        Wyobraź sobie huśtawkę płynnie bujającą się bez żadnych szarpnięć: jeśli rozrysujesz ten ruch w czasie, wyjdzie <strong>krzywa sinusoidalna</strong>. To najprostsza cegiełka każdego brzmienia — ma dokładnie <strong>jedną częstotliwość</strong> i nic poza tym. Prawdziwe instrumenty rysują falę znacznie bardziej „pofalowaną”, bo mieszają mnóstwo dodatkowych drgań naraz.
+      </p>
+
+      <div class="wave-compare-visual">
+        <div class="wave-compare-card">
+          <strong>Czysta sinusoida (1 częstotliwość)</strong>
+          <svg class="wave-compare-svg" viewBox="0 0 220 58" aria-hidden="true">
+            <line x1="6" y1="29" x2="214" y2="29" stroke="var(--border-soft)" stroke-width="1" stroke-dasharray="3 3" />
+            <path d="M6.0 29.0 L9.5 25.0 L12.9 21.3 L16.4 17.8 L19.9 14.9 L23.3 12.5 L26.8 10.9 L30.3 10.1 L33.7 10.1 L37.2 10.9 L40.7 12.5 L44.1 14.9 L47.6 17.8 L51.1 21.3 L54.5 25.0 L58.0 29.0 L61.5 33.0 L64.9 36.7 L68.4 40.2 L71.9 43.1 L75.3 45.5 L78.8 47.1 L82.3 47.9 L85.7 47.9 L89.2 47.1 L92.7 45.5 L96.1 43.1 L99.6 40.2 L103.1 36.7 L106.5 33.0 L110.0 29.0 L113.5 25.0 L116.9 21.3 L120.4 17.8 L123.9 14.9 L127.3 12.5 L130.8 10.9 L134.3 10.1 L137.7 10.1 L141.2 10.9 L144.7 12.5 L148.1 14.9 L151.6 17.8 L155.1 21.3 L158.5 25.0 L162.0 29.0 L165.5 33.0 L168.9 36.7 L172.4 40.2 L175.9 43.1 L179.3 45.5 L182.8 47.1 L186.3 47.9 L189.7 47.9 L193.2 47.1 L196.7 45.5 L200.1 43.1 L203.6 40.2 L207.1 36.7 L210.5 33.0 L214.0 29.0" fill="none" stroke="var(--sage-strong)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span>Gładka litera S bez ostrych zagięć — brzmi czysto i neutralnie, jak kamerton albo ciche gwizdanie.</span>
+        </div>
+        <div class="wave-compare-card">
+          <strong>Prawdziwy dźwięk (Podstawa + Alikwoty)</strong>
+          <svg class="wave-compare-svg" viewBox="0 0 220 58" aria-hidden="true">
+            <line x1="6" y1="29" x2="214" y2="29" stroke="var(--border-soft)" stroke-width="1" stroke-dasharray="3 3" />
+            <path d="M6.0 26.9 L9.5 17.6 L12.9 11.3 L16.4 9.3 L19.9 11.2 L23.3 15.4 L26.8 19.5 L30.3 22.3 L33.7 23.3 L37.2 23.3 L40.7 23.4 L44.1 23.9 L47.6 24.9 L51.1 25.9 L54.5 26.5 L58.0 26.9 L61.5 27.7 L64.9 29.3 L68.4 31.8 L71.9 34.5 L75.3 36.8 L78.8 38.1 L82.3 38.8 L85.7 39.9 L89.2 41.9 L92.7 44.7 L96.1 47.2 L99.6 47.4 L103.1 43.9 L106.5 36.5 L110.0 26.9 L113.5 17.6 L116.9 11.3 L120.4 9.3 L123.9 11.2 L127.3 15.4 L130.8 19.5 L134.3 22.3 L137.7 23.3 L141.2 23.3 L144.7 23.4 L148.1 23.9 L151.6 24.9 L155.1 25.9 L158.5 26.5 L162.0 26.9 L165.5 27.7 L168.9 29.3 L172.4 31.8 L175.9 34.5 L179.3 36.8 L182.8 38.1 L186.3 38.8 L189.7 39.9 L193.2 41.9 L196.7 44.7 L200.1 47.2 L203.6 47.4 L207.1 43.9 L210.5 36.5 L214.0 26.9" fill="none" stroke="var(--peach-strong)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span>Wiele sinusoid nakłada się na siebie. Te garby i ząbki nadają instrumentom własny głos.</span>
+        </div>
+      </div>
 
       <div class="physics-fact-grid">
         <div class="physics-fact-chip">
-          <strong>Niski vs. wysoki (Długość fali)</strong>
-          <span>Niskie <code>C</code> (65,4 Hz) wytwarza falę powietrzną o długości <strong>5,24 metra</strong>. Dźwięk stroju <code>a¹</code> (440 Hz) ma zaledwie <strong>78 centymetrów</strong>!</span>
+          <strong>Herce (Hz) = Tempo drgań</strong>
+          <span><code>65 Hz</code> (niskie <code>C</code>) drga 65 razy na sekundę — to fala o długości <strong>5,24 metra</strong> w pokoju! <code>440 Hz</code> (<code>a¹</code>) ma już tylko <strong>78 cm</strong>.</span>
         </div>
         <div class="physics-fact-chip">
-          <strong>Prawo oktawy (Słuch logarytmiczny)</strong>
-          <span>Ucho słyszy proporcje, nie równe różnice w Hz: skoki <code>220 Hz → 440 Hz</code> (+220 Hz) i <code>440 Hz → 880 Hz</code> (+440 Hz) odbieramy jako ten sam interwał — oktawę (2:1)!</span>
+          <strong>Oktawa = Podwójne tempo</strong>
+          <span>Ucho ocenia proporcje: skok <code>220 → 440 Hz</code> (+220 Hz) i <code>440 → 880 Hz</code> (+440 Hz) brzmi tak samo — oba to 2:1!</span>
         </div>
         <div class="physics-fact-chip">
           <strong>Amplituda = Głośność</strong>
-          <span>Wielkość wychylenia fali decyduje o głośności (w decybelach, dB). Amplituda nigdy nie zmienia wysokości tonu — liczba drgań na sekundę zostaje bez zmian.</span>
+          <span>Siła wychylenia fali (decybele, dB) zmienia głośność, ale nigdy nie zmienia wysokości dźwięku.</span>
         </div>
         <div class="physics-fact-chip">
           <strong>Kształt fali = Barwa</strong>
-          <span>Dlaczego flet na <code>c¹</code> brzmi zupełnie inaczej niż skrzypce na <code>c¹</code>? <em>Kształt</em> fali koduje zestaw i proporcje alikwotów nad tonem podstawowym.</span>
+          <span>Gładka fala = miękki dźwięk jak flet. Ostra i kanciasta = zadziorna jak trąbka czy przesterowana gitara.</span>
         </div>
       </div>
 
       <div class="k-meta-box">
-        <strong>Usłysz sam — podwajanie oktaw oraz kształty fal na c¹ (261,6 Hz):</strong>
+        <strong>Posłuchaj na żywo — skoki oktaw i kształty fal na c¹ (261,6 Hz):</strong>
         <div class="k-btn-row" style="margin-top:0.35rem;">
           <button class="btn-tool" data-play-freqs="220,440,880" data-seq-step="650" data-osc="triangle" data-dur="0.75">▶ 220 → 440 → 880 Hz</button>
-          <button class="btn-tool" data-play-freqs="261.63" data-osc="sine" data-dur="1.4">▶ Sinus (czysty / flet)</button>
-          <button class="btn-tool" data-play-freqs="261.63" data-osc="triangle" data-dur="1.4">▶ Trójkąt (ciepły / drewno)</button>
-          <button class="btn-tool" data-play-freqs="261.63" data-osc="sawtooth" data-dur="1.4">▶ Piła (jasna / smyczki)</button>
+          <button class="btn-tool" data-play-freqs="261.63" data-osc="sine" data-dur="1.4">▶ Czysta sinusoida</button>
+          <button class="btn-tool" data-play-freqs="261.63" data-osc="triangle" data-dur="1.4">▶ Trójkąt (miększy)</button>
+          <button class="btn-tool" data-play-freqs="261.63" data-osc="sawtooth" data-dur="1.4">▶ Piła (zadziorna)</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-peach">2. Widmo częstotliwości</span>
+        <span class="k-ratio-chip">20 Hz – 20 kHz</span>
+      </div>
+      <h4>Odcisk palca dźwięku: co kryje się w jednej nucie?</h4>
+      <p>
+        Jeśli fortepian i gitara zagrają dokładnie to samo <code>c¹</code>, od razu je odróżnisz — mimo że główna wysokość dźwięku jest identyczna! Sekret tkwi w <strong>widmie częstotliwości</strong>: każdy naturalny dźwięk to cała drużyna sinusoid grających naraz.
+      </p>
+      <p>
+        Widmo (jak słupki w odtwarzaczu czy korektorze EQ) działa jak zdjęcie rentgenowskie brzmienia: z lewej stoi ton główny (<code>1×</code>), a dalej w prawo jego szybsze alikwoty (<code>2×</code> do <code>10×</code>). Wybierz brzmienie i sprawdź różnicę:
+      </p>
+
+      <div class="freq-spec-box">
+        <div class="k-btn-row">
+          <button class="k-filter-pill active" data-spec-preset="sine" data-play-freqs="261.63" data-osc="sine" data-dur="1.4" data-spec-desc="<strong>Czysty ton sinusoidalny:</strong> Tylko jeden słupek na 1× — zero alikwotów. Brzmi gładko i sterylnie, bo nie barwią go wyższe częstotliwości.">▶ Sinusoida (c¹)</button>
+          <button class="k-filter-pill" data-spec-preset="piano" data-play-inst data-style="piano" data-notes="C4" data-dur="1.5" data-spec-desc="<strong>Fortepian (Sample):</strong> Mocny ton bazowy i pełne dolne alikwoty, które łagodnie cichną w górę — stąd ciepłe, okrągłe brzmienie.">▶ Fortepian Sample (c¹)</button>
+          <button class="k-filter-pill" data-spec-preset="guitar" data-play-inst data-style="guitar" data-notes="C4" data-dur="1.5" data-spec-desc="<strong>Gitara (Sample):</strong> Szarpnięta struna wrzuca znacznie więcej energii w środkowe i górne słupki — to daje wyraźny atak i blask.">▶ Gitara Sample (c¹)</button>
+          <button class="k-filter-pill" data-spec-preset="strings" data-play-inst data-style="strings" data-notes="C4" data-dur="1.6" data-spec-desc="<strong>Smyczki (Sample):</strong> Smyczek stale podtrzymuje nawet wysokie alikwoty (6×–10×). Dlatego smyczki lśnią jedwabiście i przebijają się w miksie.">▶ Smyczki Sample (c¹)</button>
+        </div>
+
+        <div class="freq-spec-bars">
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill" data-spec-bar style="height:100%"></div></div><span class="freq-spec-label">1×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">2×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">3×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">4×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">5×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">6×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">7×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">8×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">9×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">10×</span></div>
+        </div>
+
+        <div id="freqSpecCaption" class="freq-spec-caption">
+          <strong>Czysty ton sinusoidalny:</strong> Tylko jeden słupek na 1× — zero alikwotów. Brzmi gładko i sterylnie, bo nie barwią go wyższe częstotliwości.
+        </div>
+      </div>
+
+      <div class="physics-fact-grid">
+        <div class="physics-fact-chip">
+          <strong>Sub i Bas (20 – 250 Hz)</strong>
+          <span>Stopa perkusyjna, bas, fundament. Długie fale, które często czujesz w klatce piersiowej szybciej niż analizujesz słuchem.</span>
+        </div>
+        <div class="physics-fact-chip">
+          <strong>Środek i Ciało (250 Hz – 2 kHz)</strong>
+          <span>Wokal, korpus fortepianu i akordy gitary. Za dużo w tym paśmie brzmi szybko „pudełkowato”.</span>
+        </div>
+        <div class="physics-fact-chip">
+          <strong>Prezencja i Atak (2 – 6 kHz)</strong>
+          <span>Spółgłoski („S”, „T”), klik kostki i wyrazistość. W tym zakresie ludzkie ucho jest wyjątkowo wyczulone.</span>
+        </div>
+        <div class="physics-fact-chip">
+          <strong>Powietrze i Blask (6 – 20 kHz)</strong>
+          <span>Szelest talerzy, oddech i drobny pył najwyższych alikwotów aż po granicę ludzkiego słuchu.</span>
         </div>
       </div>
     </article>
 
     <div class="wave-lab-card">
       <div class="k-card-top-row">
-        <span class="k-card-tag tag-sage">2. Interaktywne 3-ścieżkowe laboratorium fal</span>
+        <span class="k-card-tag tag-sage">3. Interaktywne laboratorium fal</span>
         <button id="toggleWavePauseBtn" class="k-ratio-btn">⏸ Wstrzymaj falę</button>
       </div>
-      <h4>Długości fal i nakładanie na żywo</h4>
+      <h4>Zobacz, jak łączą się dwie fale na żywo</h4>
       <p style="font-size:0.78rem; color:var(--raccoon-mid); line-height:1.4;">
-        Linia przerywana wyznacza <strong>1 pełny cykl dźwięku podstawowego (zielony)</strong>. Pod spodem biegnie <strong>2. ton (pomarańczowy)</strong>, a najniżej 3. ścieżka pokazuje prawdziwą <strong>superpozycję (falę wypadkową)</strong> docierającą do błony bębenkowej.
+        Przerywane linie wyznaczają <strong>1 pełny cykl dźwięku bazowego (zielony)</strong>. Pod spodem drga <strong>2. ton (pomarańczowy)</strong>, a najniżej 3. ścieżka pokazuje prawdziwą <strong>falę mieszaną</strong>, która trafia prosto do Twojego bębenka.
       </p>
       <div class="wave-canvas-wrap">
         <canvas id="waveCanvas" class="wave-canvas" width="540" height="195"></canvas>
@@ -1451,15 +1532,15 @@ function renderPhysicsReferenceHTML_PL() {
 
     <article class="knowledge-card">
       <div class="k-card-top-row">
-        <span class="k-card-tag tag-peach">3. Ukryta harmonia natury</span>
-        <span class="k-ratio-chip">f · n (n = 1…12)</span>
+        <span class="k-card-tag tag-peach">4. Wbudowana skala natury</span>
+        <span class="k-ratio-chip">1× do 12× Podstawa</span>
       </div>
       <h4>Fale stojące i naturalny szereg alikwotowy (1–12)</h4>
       <p>
-        Szarpnij strunę napiętą na dwóch końcach (lub zadmij w naturalny róg bez wentyli), a węzły fali stojącej podzielą ją na połówki (2×), trzecie części (3×), ćwiartki (4×)… W jednym dźwięku wybrzmiewa cały ukryty chór składowych harmonicznych!
+        Złap strunę za oba końce i ją szarpnij: ponieważ końce nie mogą się ruszać, struna drga jako całość ORAZ jednocześnie dzieli się na połówki (2× szybciej), trzecie części (3×), ćwiartki (4×)… W jednej pojedynczej nucie kryje się cała drabina ukrytych dźwięków!
       </p>
       <p>
-        Zwróć uwagę na fioletowe składowe <strong>7</strong> i <strong>11</strong> (słynne „fa alpejskie”): leżą dokładnie <em>między</em> klawiszami fortepianu — czyste tony natury spoza stroju równomiernie temperowanego!
+        Klikaj kafelki! Fioletowe tony <strong>7</strong> i <strong>11</strong> („alpejskie F”) wypadają dokładnie <em>między</em> klawiszami fortepianu — to czysta natura bez korekt stroju.
       </p>
       <div class="overtone-grid">
         ${PHYSICS_OVERTONES_PL.map(o => `
@@ -1471,7 +1552,7 @@ function renderPhysicsReferenceHTML_PL() {
         `).join("")}
       </div>
       <div class="k-meta-box">
-        <strong>Dlaczego tryb durowy leży u samych podstaw:</strong> Alikwoty <strong>4 : 5 : 6</strong> tworzą naturalnie lśniący trójdźwięk durowy już u dołu szeregu, podczas gdy czyste moll chowa się dopiero wysoko na <strong>10 : 12 : 15</strong>!
+        <strong>Dlaczego dur brzmi tak naturalnie:</strong> Alikwoty <strong>4 : 5 : 6</strong> same z siebie tworzą pogodny akord durowy u podstawy. Czyste moll chowa się znacznie wyżej na <strong>10 : 12 : 15</strong>!
       </div>
       <div class="k-btn-row">
         <button class="btn-tool" data-play-freqs="65.41,130.82,196.23,261.64,327.05,392.46,457.87,523.28,588.69,654.1,719.51,784.92" data-seq-step="380" data-osc="triangle" data-dur="0.65">▶ Cały szereg (1–12)</button>
@@ -1482,45 +1563,45 @@ function renderPhysicsReferenceHTML_PL() {
 
     <article class="knowledge-card">
       <div class="k-card-top-row">
-        <span class="k-card-tag tag-lilac">4. Dudnienia akustyczne</span>
-        <span class="k-ratio-chip">f_dudn = |f₁ − f₂|</span>
+        <span class="k-card-tag tag-lilac">5. Dudnienia akustyczne</span>
+        <span class="k-ratio-chip">Różnica Hz = Puls/s</span>
       </div>
-      <h4>Fale, które oddychają: jak muzycy stroją struny ze słuchu</h4>
+      <h4>Gdy fale „pompują”: strojenie ze słuchu</h4>
       <p>
-        Gdy dwa niemal identyczne dźwięki grają razem, ich szczyty okresowo wzmacniają się i wygaszają. Liczba takich pulsacji „łau-łau” na sekundę równa się dokładnej <strong>różnicy w Hz</strong> między tonami! Powyżej ~15–20 Hz wolne dudnienie zlewa się w ostrą szorstkość.
+        Zagraj dwie struny niemal tak samo wysoko, a ich grzbiety na chwilę się dodadzą (dwa razy głośniej) i zaraz zniosą (krótki spadek). To słyszalne falowanie („łau-łau-łau”) to <strong>dudnienie</strong>. Liczba pulsów na sekundę równa się dokładnej <strong>różnicy w Hz</strong> — gdy struny są dobrze nastrojone, falowanie całkiem cichnie!
       </p>
       <div class="k-btn-row">
-        <button class="btn-tool" data-play-freqs="440,440" data-osc="sine" data-dur="2.4">▶ 0 Hz (440+440 · czysto)</button>
-        <button class="btn-tool" data-play-freqs="440,442" data-osc="sine" data-dur="2.6">▶ 2 Hz (440+442 · 2 dudn./s)</button>
-        <button class="btn-tool" data-play-freqs="440,446" data-osc="sine" data-dur="2.4">▶ 6 Hz (440+446 · migotanie)</button>
-        <button class="btn-tool" data-play-freqs="440,466" data-osc="sine" data-dur="2.2">▶ 26 Hz (440+466 · szorstko)</button>
+        <button class="btn-tool" data-play-freqs="440,440" data-osc="sine" data-dur="2.4">▶ 0 Hz (440+440 · idealnie równo)</button>
+        <button class="btn-tool" data-play-freqs="440,442" data-osc="sine" data-dur="2.6">▶ 2 Hz (440+442 · 2 pulsy/s)</button>
+        <button class="btn-tool" data-play-freqs="440,446" data-osc="sine" data-dur="2.4">▶ 6 Hz (440+446 · szybkie drżenie)</button>
+        <button class="btn-tool" data-play-freqs="440,466" data-osc="sine" data-dur="2.2">▶ 26 Hz (440+466 · szorstkie tarcie)</button>
       </div>
     </article>
 
     <article class="knowledge-card">
       <div class="k-card-top-row">
-        <span class="k-card-tag tag-peach">5. Strój czysty vs. równomiernie temperowany</span>
-        <span class="k-ratio-chip">Komat +23,5 centa</span>
+        <span class="k-card-tag tag-peach">6. Strój a kompromis fortepianu</span>
+        <span class="k-ratio-chip">Luka +23,5 centa</span>
       </div>
-      <h4>Dlaczego żaden fortepian na świecie nie jest nastrojony „absolutnie czysto”</h4>
+      <h4>Dlaczego żaden fortepian na świecie nie jest „absolutnie czysty”</h4>
       <p>
-        Matematyczna zagadka natury: dodaj kolejno 12 czystych kwint (3:2), a otrzymasz <code>(3/2)¹² ≈ 129,75</code> — tymczasem 7 czystych oktaw daje dokładnie <code>2⁷ = 128</code>! Zostaje uparta różnica około <strong>23,5 centa</strong> (<em>komat pitagorejski</em>). Gdyby nastroić fortepian idealnie czysto w C-dur, odległe tonacje jak Fis-dur brzmiałyby fałszywie.
+        Dziwny kaprys matematyki: ułóż 12 idealnych kwint (3:2) jedna na drugiej, a wylądujesz ciut za wysoko — o około <strong>23,5 centa</strong> powyżej 7 dokładnych oktaw! Gdyby stroiciel ustawił fortepian zupełnie czysto dla C-dur, odległe tonacje jak Fis-dur brzmiałyby okropnie fałszywie.
       </p>
       <p>
-        Współczesny kompromis (rozsławiony przez Bacha) to <strong>12-stopniowy strój równomiernie temperowany (12-TET)</strong>: każdy półton mnoży częstotliwość dokładnie przez <code>2^(1/12)</code>. Teraz każda tonacja brzmi równie czysto — kosztem tego, że tercja wielka na fortepianie jest o <strong>14 centów szersza</strong> niż czyste 5:4, zyskując subtelny srebrzysty blask!
+        Sprytny kompromis współczesnej muzyki to <strong>strój równomiernie temperowany</strong>: oktawę dzieli się na 12 idealnie równych kroczków. Teraz każdy utwór działa w dowolnej tonacji — ale w zamian tercja wielka (C–E) na fortepianie brzmi o <strong>14 centów wyżej</strong> niż czysta natura. Porównaj czyste proporcje i prawdziwe sample fortepianu:
       </p>
       <div class="k-compare-grid">
         <div class="k-compare-box is-sage">
-          <h5>Strój czysty (proporcja 5:4)</h5>
-          <p>Zero dudnień — kryształowe zlanie fal, lecz przywiązane do jednej tonacji:</p>
-          <button class="btn-tool" data-play-freqs="261.63,327.04" data-osc="triangle" data-dur="2.3">▶ Czysta tercja (261,6 + 327,0 Hz)</button>
+          <h5>Strój czysty (5:4)</h5>
+          <p>Zero dudnień — gładkie zlanie, ale nie działa we wszystkich tonacjach:</p>
+          <button class="btn-tool" data-play-freqs="261.63,327.04" data-osc="triangle" data-dur="2.3">▶ Czysta tercja (5:4 · gładko)</button>
           <button class="btn-tool" data-play-freqs="261.63,327.04,392.45" data-osc="triangle" data-dur="2.3">▶ Czysty trójdźwięk C</button>
         </div>
         <div class="k-compare-box is-lilac">
           <h5>Fortepian / Temperowany (+14 c.)</h5>
-          <p>Wsłuchaj się: żywe lekkie drżenie — ale grasz czysto we wszystkich 12 tonacjach:</p>
-          <button class="btn-tool" data-play-freqs="261.63,329.63" data-osc="triangle" data-dur="2.3">▶ Tercja fortepianu (261,6 + 329,6 Hz)</button>
-          <button class="btn-tool" data-play-freqs="261.63,329.63,392.00" data-osc="triangle" data-dur="2.3">▶ Fortepianowy trójdźwięk C</button>
+          <p>Prawdziwe studyjne sample fortepianu: lekkie migotanie — grasz w każdych 12 tonacjach:</p>
+          <button class="btn-tool" data-play-inst data-style="piano" data-notes="C4,E4" data-dur="2.3">▶ Tercja fortepianu (Sample C4 + E4)</button>
+          <button class="btn-tool" data-play-inst data-style="piano" data-notes="C4,E4,G4" data-dur="2.3">▶ C-dur fortepianu (Sample)</button>
         </div>
       </div>
     </article>

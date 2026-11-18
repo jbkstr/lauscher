@@ -1406,14 +1406,14 @@ const KNOWLEDGE_ARTICLES = [
  * Erklärtexte und Teilton-Daten für das vertiefte Modul „Physik & Klang“
  */
 const PHYSICS_WAVE_EXPLANATIONS = {
-  "2,1": "<strong>Oktave (2 : 1):</strong> Auf 2 lange grüne Wellen passen exakt <strong>4 halb so lange orange Wellen</strong>. In Spur 3 wiederholt sich die Summenwelle an jeder gestrichelten Linie völlig identisch.",
-  "3,2": "<strong>Reine Quinte (3 : 2):</strong> Während der Grundton 2 lange grüne Wellen schwingt, macht der höhere Ton exakt <strong>3 orange Wellen</strong>. Am Start, in der Mitte (Ende einer Periodengruppe) und am Ende treffen sie sauber zusammen.",
-  "4,3": "<strong>Reine Quarte (4 : 3):</strong> Verhältnis 1,33 : 1 – sehr enge Verwandtschaft und klares Muster, das nach 3 grünen = 4 orangen Wellen komplett synchron von vorn beginnt.",
-  "5,4": "<strong>Große Terz (5 : 4):</strong> Verhältnis 1,25 : 1. Spur 3 bleibt weich geschwungen und warm – der Klang unserer Dur-Akkorde.",
-  "6,5": "<strong>Kleine Terz (6 : 5):</strong> Verhältnis 1,20 : 1. Etwas dichter gedrängt als die große Terz, genau diese feine Wellenüberlagerung gibt Moll seinen sanften, nachdenklichen Charakter.",
-  "5,3": "<strong>Große Sexte (5 : 3):</strong> Verhältnis 1,67 : 1 – die Umkehrung der kleinen Terz. Offen, kantabel und harmonisch weit.",
-  "45,32": "<strong>Tritonus (45 : 32):</strong> Die Wellenberge der orangen Spur passen nirgends ins einfache Raster der grünen Welle – schau auf die zackige, unruhig schwankende Summenwelle in Spur 3!",
-  "16,15": "<strong>Kleine Sekunde (16 : 15):</strong> Beide Wellen sind fast gleich lang (1,07x), driften aber Millimeter für Millimeter auseinander – das erzeugt die hörbaren Schwebungsbäuche in Spur 3."
+  "2,1": "<strong>Oktave (2 : 1):</strong> Auf 2 lange grüne Wellen passen exakt <strong>4 halb so lange orange Wellen</strong>. In Spur 3 wiederholt sich das Gesamtbild an jeder gestrichelten Linie deckungsgleich – deshalb verschmelzen beide Töne fast zu einem.",
+  "3,2": "<strong>Reine Quinte (3 : 2):</strong> Während der Grundton 2 lange grüne Wellen macht, schafft der höhere Ton exakt <strong>3 orange Wellen</strong>. Am Start und nach jedem 2er-Block treffen sie sauber zusammen – stabil, offen und voller Power.",
+  "4,3": "<strong>Reine Quarte (4 : 3):</strong> 3 grüne Wellen treffen genau auf 4 orange Wellen. Danach läuft das ganze Muster komplett synchron wieder von vorn.",
+  "5,4": "<strong>Große Terz (5 : 4):</strong> 4 grüne auf 5 orange Wellen. In Spur 3 entsteht eine weiche, runde Mischwelle – genau das ist der warme Sound unserer Dur-Akkorde.",
+  "6,5": "<strong>Kleine Terz (6 : 5):</strong> 5 grüne auf 6 orange Wellen: etwas dichter gepackt als die große Terz – genau diese feine Wellenbewegung gibt Moll seine gefühlvolle Farbe.",
+  "5,3": "<strong>Große Sexte (5 : 3):</strong> Verhältnis 1,67 : 1 – die Umkehrung der kleinen Terz. Klingt weit, gesanglich und angenehm aufgeräumt.",
+  "45,32": "<strong>Tritonus (45 : 32):</strong> Die orangen Wellenberge passen fast nirgends ins Raster der grünen Welle – schau auf Spur 3: eine zackige, unruhig kippende Welle voller Spannung.",
+  "16,15": "<strong>Kleine Sekunde (16 : 15):</strong> Beide Wellen sind fast gleich schnell, driften aber Stück für Stück auseinander – das erzeugt die dicken und dünnen „Bäuche“ in Spur 3 (Schwebung)."
 };
 
 const PHYSICS_OVERTONES = [
@@ -1439,56 +1439,138 @@ function renderPhysicsReferenceHTML() {
   );
   if (localized !== null) return localized;
   return `
-    <!-- 1. Was ist Schall? Frequenz, Wellenlänge & Timbre -->
+    <!-- 1. Wie Schall entsteht & was Sinuskurven sind -->
     <article class="knowledge-card">
       <div class="k-card-top-row">
-        <span class="k-card-tag tag-sage">1. Grundlagen des Schalls</span>
+        <span class="k-card-tag tag-sage">1. Wie Schall &amp; Klänge entstehen</span>
         <span class="k-ratio-chip">ca. 343 m/s</span>
       </div>
-      <h4>Frequenz (Hertz), echte Wellenlänge &amp; Klangfarbe</h4>
+      <h4>Vom Luftwackeln bis zur Sinuskurve</h4>
       <p>
-        Schall entsteht, wenn ein Gegenstand Luftmoleküle rhythmisch zusammendrückt und wieder entspannt. Wie oft diese Druckwelle pro Sekunde schwingt, misst man in <strong>Hertz (Hz)</strong>. Gleichzeitig bewegt sich der Schall mit rund <strong>343 Metern pro Sekunde</strong> durch den Raum – tiefe Töne sind also physikalisch wirklich meterlang!
+        Zupfst du eine Gitarrensaite an oder summst los, wackelt etwas ganz schnell hin und her. Dieses Zittern schubst winzige Luftteilchen an – genau wie Wellen auf dem Wasser breitet sich eine Druckwelle mit rund <strong>343 Metern pro Sekunde</strong> aus. Kommt sie bei dir an, wackelt dein Trommelfell exakt im gleichen Takt mit, und dein Gehirn macht daraus Musik.
       </p>
+      <p>
+        Stell dir eine Schaukel vor, die völlig ruckfrei und gleichmäßig vor- und zurückschwingt: Zeichnest du diese sanfte Bewegung über die Zeit auf, entsteht eine <strong>Sinuskurve</strong>. Sie ist der Ur-Baustein jedes Klangs und hat genau <strong>eine einzige Frequenz</strong> ohne Extras. Echte Instrumente schwingen dagegen viel „knubbeliger“, weil sie viele Zusatzwellen gleichzeitig mischen.
+      </p>
+
+      <div class="wave-compare-visual">
+        <div class="wave-compare-card">
+          <strong>Reine Sinuskurve (1 Frequenz)</strong>
+          <svg class="wave-compare-svg" viewBox="0 0 220 58" aria-hidden="true">
+            <line x1="6" y1="29" x2="214" y2="29" stroke="var(--border-soft)" stroke-width="1" stroke-dasharray="3 3" />
+            <path d="M6.0 29.0 L9.5 25.0 L12.9 21.3 L16.4 17.8 L19.9 14.9 L23.3 12.5 L26.8 10.9 L30.3 10.1 L33.7 10.1 L37.2 10.9 L40.7 12.5 L44.1 14.9 L47.6 17.8 L51.1 21.3 L54.5 25.0 L58.0 29.0 L61.5 33.0 L64.9 36.7 L68.4 40.2 L71.9 43.1 L75.3 45.5 L78.8 47.1 L82.3 47.9 L85.7 47.9 L89.2 47.1 L92.7 45.5 L96.1 43.1 L99.6 40.2 L103.1 36.7 L106.5 33.0 L110.0 29.0 L113.5 25.0 L116.9 21.3 L120.4 17.8 L123.9 14.9 L127.3 12.5 L130.8 10.9 L134.3 10.1 L137.7 10.1 L141.2 10.9 L144.7 12.5 L148.1 14.9 L151.6 17.8 L155.1 21.3 L158.5 25.0 L162.0 29.0 L165.5 33.0 L168.9 36.7 L172.4 40.2 L175.9 43.1 L179.3 45.5 L182.8 47.1 L186.3 47.9 L189.7 47.9 L193.2 47.1 L196.7 45.5 L200.1 43.1 L203.6 40.2 L207.1 36.7 L210.5 33.0 L214.0 29.0" fill="none" stroke="var(--sage-strong)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span>Super runde S-Kurve ohne Zacken – klingt glatt und neutral, wie eine Stimmgabel oder leises Pfeifen.</span>
+        </div>
+        <div class="wave-compare-card">
+          <strong>Echter Klang (Grundton + Obertöne)</strong>
+          <svg class="wave-compare-svg" viewBox="0 0 220 58" aria-hidden="true">
+            <line x1="6" y1="29" x2="214" y2="29" stroke="var(--border-soft)" stroke-width="1" stroke-dasharray="3 3" />
+            <path d="M6.0 26.9 L9.5 17.6 L12.9 11.3 L16.4 9.3 L19.9 11.2 L23.3 15.4 L26.8 19.5 L30.3 22.3 L33.7 23.3 L37.2 23.3 L40.7 23.4 L44.1 23.9 L47.6 24.9 L51.1 25.9 L54.5 26.5 L58.0 26.9 L61.5 27.7 L64.9 29.3 L68.4 31.8 L71.9 34.5 L75.3 36.8 L78.8 38.1 L82.3 38.8 L85.7 39.9 L89.2 41.9 L92.7 44.7 L96.1 47.2 L99.6 47.4 L103.1 43.9 L106.5 36.5 L110.0 26.9 L113.5 17.6 L116.9 11.3 L120.4 9.3 L123.9 11.2 L127.3 15.4 L130.8 19.5 L134.3 22.3 L137.7 23.3 L141.2 23.3 L144.7 23.4 L148.1 23.9 L151.6 24.9 L155.1 25.9 L158.5 26.5 L162.0 26.9 L165.5 27.7 L168.9 29.3 L172.4 31.8 L175.9 34.5 L179.3 36.8 L182.8 38.1 L186.3 38.8 L189.7 39.9 L193.2 41.9 L196.7 44.7 L200.1 47.2 L203.6 47.4 L207.1 43.9 L210.5 36.5 L214.0 26.9" fill="none" stroke="var(--peach-strong)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span>Viele Sinuskurven legen sich übereinander. Diese Zacken und Dellen verleihen jedem Instrument seinen Charakter.</span>
+        </div>
+      </div>
 
       <div class="physics-fact-grid">
         <div class="physics-fact-chip">
-          <strong>Tiefe vs. Höhe (Wellenlänge)</strong>
-          <span>Ein tiefes <code>C2</code> (65,4 Hz) bildet in der Luft eine echte Welle von <strong>5,24 Metern</strong> Länge. Das hohe <code>A4</code> (440 Hz) misst nur noch <strong>78 Zentimeter</strong>!</span>
+          <strong>Hertz (Hz) = Schwing-Tempo</strong>
+          <span><code>65 Hz</code> (tiefes <code>C2</code>) schwingt 65-mal pro Sekunde – eine echte <strong>5,24 Meter</strong> lange Welle im Raum! <code>440 Hz</code> (<code>A4</code>) misst nur noch <strong>78 cm</strong>.</span>
         </div>
         <div class="physics-fact-chip">
-          <strong>Oktav-Gesetz (Logarithmus)</strong>
-          <span>Unser Ohr hört Verhältnisse, keine gleichen Abstände: Von <code>220 Hz → 440 Hz</code> (+220 Hz) und <code>440 Hz → 880 Hz</code> (+440 Hz) klingt der Sprung identisch – beides ist genau eine Oktave (2:1)!</span>
+          <strong>Oktave = Doppeltes Tempo</strong>
+          <span>Unser Ohr denkt in Verhältnissen: Von <code>220 → 440 Hz</code> (+220 Hz) und <code>440 → 880 Hz</code> (+440 Hz) klingt der Sprung exakt gleich – beides ist 2:1!</span>
         </div>
         <div class="physics-fact-chip">
           <strong>Amplitude = Lautstärke</strong>
-          <span>Wie <em>weit</em> die Luftwelle ausschlägt, bestimmt die Lautstärke (gemessen in Dezibel, dB). Sie verändert die Tonhöhe nicht – der Takt pro Sekunde bleibt gleich.</span>
+          <span>Wie stark die Welle ausschlägt (gemessen in Dezibel, dB), macht den Ton lauter oder leiser. Das Tempo (die Tonhöhe) bleibt davon unberührt.</span>
         </div>
         <div class="physics-fact-chip">
-          <strong>Wellenform = Klangfarbe (Timbre)</strong>
-          <span>Warum klingt eine Flöte auf demselben <code>C4</code> anders als eine Geige? Weil die <em>Form</em> der Welle verrät, wie stark zusätzliche Obertöne mitschwingen.</span>
+          <strong>Wellenform = Klangfarbe</strong>
+          <span>Glatte Welle = weich wie eine Flöte. Zackige Welle = bissig und obertonreich wie eine verzerrte E-Gitarre oder Trompete.</span>
         </div>
       </div>
 
       <div class="k-meta-box">
-        <strong>Selbst testen – Oktav-Verdopplung &amp; Wellenformen auf C4 (261,6 Hz):</strong>
+        <strong>Direkt reinhören – Oktavsprung &amp; verschiedene Wellenformen auf C4 (261,6 Hz):</strong>
         <div class="k-btn-row" style="margin-top:0.35rem;">
           <button class="btn-tool" data-play-freqs="220,440,880" data-seq-step="650" data-osc="triangle" data-dur="0.75">▶ 220 → 440 → 880 Hz</button>
-          <button class="btn-tool" data-play-freqs="261.63" data-osc="sine" data-dur="1.4">▶ Sinus (rein / Flöte)</button>
-          <button class="btn-tool" data-play-freqs="261.63" data-osc="triangle" data-dur="1.4">▶ Dreieck (weich / Holz)</button>
-          <button class="btn-tool" data-play-freqs="261.63" data-osc="sawtooth" data-dur="1.4">▶ Sägezahn (scharf / Geige)</button>
+          <button class="btn-tool" data-play-freqs="261.63" data-osc="sine" data-dur="1.4">▶ Reine Sinuskurve</button>
+          <button class="btn-tool" data-play-freqs="261.63" data-osc="triangle" data-dur="1.4">▶ Dreieck (weicher)</button>
+          <button class="btn-tool" data-play-freqs="261.63" data-osc="sawtooth" data-dur="1.4">▶ Sägezahn (bissig)</button>
         </div>
       </div>
     </article>
 
-    <!-- 2. Interaktives 3-Spur-Wellenlabor -->
+    <!-- 2. Das Frequenzspektrum -->
+    <article class="knowledge-card">
+      <div class="k-card-top-row">
+        <span class="k-card-tag tag-peach">2. Das Frequenzspektrum</span>
+        <span class="k-ratio-chip">20 Hz – 20 kHz</span>
+      </div>
+      <h4>Der Klang-Fingerabdruck: Was steckt in einem Ton?</h4>
+      <p>
+        Spielen ein Klavier und eine Gitarre genau denselben Ton <code>C4</code>, erkennst du sofort den Unterschied – obwohl die Hauptfrequenz identisch ist! Das Geheimnis liegt im <strong>Frequenzspektrum</strong>: Jeder natürliche Ton ist eigentlich ein ganzes Team aus vielen Sinuskurven gleichzeitig.
+      </p>
+      <p>
+        Ein Spektrum (oder ein Visualizer im Musik-Player) zeigt wie ein Röntgenbild an, welche Frequenzen wie laut mitmischen: Ganz links steht der Grundton (<code>1×</code>), rechts daneben leuchten seine schnelleren Geschwister (Obertöne <code>2×</code> bis <code>10×</code>). Wähle einen Klang und hör sofort den Unterschied:
+      </p>
+
+      <div class="freq-spec-box">
+        <div class="k-btn-row">
+          <button class="k-filter-pill active" data-spec-preset="sine" data-play-freqs="261.63" data-osc="sine" data-dur="1.4" data-spec-desc="<strong>Reiner Sinuston:</strong> Nur ein einziger Balken bei 1× – null Obertöne. Klingt sehr glatt, fast steril, weil keine höheren Frequenzen mitfärben.">▶ Sinuston (C4)</button>
+          <button class="k-filter-pill" data-spec-preset="piano" data-play-inst data-style="piano" data-notes="C4" data-dur="1.5" data-spec-desc="<strong>Klavier (Sample):</strong> Kräftiger Grundton, dazu runde untere Obertöne, die nach oben sanft ausfaden – deshalb klingt das Piano voll und warm.">▶ Klavier-Sample (C4)</button>
+          <button class="k-filter-pill" data-spec-preset="guitar" data-play-inst data-style="guitar" data-notes="C4" data-dur="1.5" data-spec-desc="<strong>Gitarre (Sample):</strong> Die gezupfte Saite packt deutlich mehr Energie in die mittleren und oberen Balken – daher kommen Brillanz und Anschlags-„Pluck“.">▶ Gitarre-Sample (C4)</button>
+          <button class="k-filter-pill" data-spec-preset="strings" data-play-inst data-style="strings" data-notes="C4" data-dur="1.6" data-spec-desc="<strong>Streicher (Sample):</strong> Der Bogen regt selbst hohe Obertöne (6×–10×) dauerhaft an. Darum schimmern Streicher seidig und setzen sich im Mix gut durch.">▶ Streicher-Sample (C4)</button>
+        </div>
+
+        <div class="freq-spec-bars">
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill" data-spec-bar style="height:100%"></div></div><span class="freq-spec-label">1×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">2×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">3×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">4×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">5×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">6×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">7×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">8×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">9×</span></div>
+          <div class="freq-spec-col"><div class="freq-spec-track"><div class="freq-spec-fill is-zero" data-spec-bar style="height:3%"></div></div><span class="freq-spec-label">10×</span></div>
+        </div>
+
+        <div id="freqSpecCaption" class="freq-spec-caption">
+          <strong>Reiner Sinuston:</strong> Nur ein einziger Balken bei 1× – null Obertöne. Klingt sehr glatt, fast steril, weil keine höheren Frequenzen mitfärben.
+        </div>
+      </div>
+
+      <div class="physics-fact-grid">
+        <div class="physics-fact-chip">
+          <strong>Sub &amp; Bass (20 – 250 Hz)</strong>
+          <span>Kickdrum, E-Bass und Fundament. Diese langen Wellen spürst du oft zuerst in der Magengrube.</span>
+        </div>
+        <div class="physics-fact-chip">
+          <strong>Mitten &amp; Wärme (250 Hz – 2 kHz)</strong>
+          <span>Hier leben Gesang, Klavierkörper und Gitarrenakkorde. Zu viel davon klingt schnell „topfig“.</span>
+        </div>
+        <div class="physics-fact-chip">
+          <strong>Präsenz &amp; Biss (2 – 6 kHz)</strong>
+          <span>Konsonanten („S“, „T“), Plektrum-Klick und Klarheit. Unser Ohr ist hier besonders sensibel.</span>
+        </div>
+        <div class="physics-fact-chip">
+          <strong>Luft &amp; Glanz (6 – 20 kHz)</strong>
+          <span>Becken-Schimmer, feines Atmen und seidiger Raumklang bis hoch zur menschlichen Hörgrenze.</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 3. Interaktives 3-Spur-Wellenlabor -->
     <div class="wave-lab-card">
       <div class="k-card-top-row">
-        <span class="k-card-tag tag-sage">2. Interaktives Wellen-Labor</span>
+        <span class="k-card-tag tag-sage">3. Interaktives Wellen-Labor</span>
         <button id="toggleWavePauseBtn" class="k-ratio-btn">⏸ Welle anhalten</button>
       </div>
-      <h4>Wellenlängen &amp; Interferenz im direkten Vergleich</h4>
+      <h4>Wellenlängen &amp; Mischwellen live beobachten</h4>
       <p style="font-size:0.78rem; color:var(--raccoon-mid); line-height:1.4;">
-        Die gestrichelten Linien markieren je <strong>1 volle Welle des Grundtons (grün)</strong>. Darunter siehst du den <strong>2. Ton (orange)</strong> und ganz unten in Spur 3 die echte <strong>Überlagerung (Interferenz)</strong>, die an deinem Trommelfell ankommt.
+        Die gestrichelten Linien markieren je <strong>1 volle Welle des Grundtons (grün)</strong>. Darunter schwingt der <strong>2. Ton (orange)</strong> – und ganz unten in Spur 3 siehst du die echte <strong>Summe beider Wellen</strong>, genau so wie sie an dein Trommelfell drückt.
       </p>
       <div class="wave-canvas-wrap">
         <canvas id="waveCanvas" class="wave-canvas" width="540" height="195"></canvas>
@@ -1508,18 +1590,18 @@ function renderPhysicsReferenceHTML() {
       </div>
     </div>
 
-    <!-- 3. Stehende Wellen & erweiterte Obertonreihe (1-12) -->
+    <!-- 4. Stehende Wellen & erweiterte Obertonreihe (1-12) -->
     <article class="knowledge-card">
       <div class="k-card-top-row">
-        <span class="k-card-tag tag-peach">3. Das Naturgesetz der Musik</span>
-        <span class="k-ratio-chip">f · n (n = 1…12)</span>
+        <span class="k-card-tag tag-peach">4. Das Naturgesetz der Musik</span>
+        <span class="k-ratio-chip">1× bis 12× Grundton</span>
       </div>
       <h4>Stehende Wellen &amp; die Obertonreihe (1. bis 12. Teilton)</h4>
       <p>
-        Zupfst du eine an beiden Enden befestigte Saite (oder bläst eine Trompete ohne Ventile an), können an den festen Enden nur <strong>Schwingungsknoten</strong> entstehen. Deshalb schwingt die Saite gleichzeitig als Ganzes, in Hälften (2x), Dritteln (3x), Vierteln (4x)… In jedem einzelnen Ton steckt also eine ganze Familie versteckter Teiltöne!
+        Zupfst du eine Saite an, die links und rechts festgespannt ist, bleibt sie an den Enden still stehen. Deshalb schwingt sie gleichzeitig als Ganzes, in Hälften (doppelt so schnell), in Dritteln (dreimal so schnell), Vierteln… So entsteht in jedem einzigen Ton von Natur aus eine ganze Leiter an versteckten Obertönen!
       </p>
       <p>
-        Besonders spannend sind die lila markierten Teiltöne <strong>7</strong> und <strong>11</strong> (das berühmte „Alphorn-Fa“): Sie liegen <em>zwischen</em> den festen Tasten eines Klaviers – hier hörst du echte Natur-Obertöne statt Klavier-Tasten!
+        Tipp auf die Kacheln! Besonders spannend sind die lila markierten Töne <strong>7</strong> und <strong>11</strong> (das „Alphorn-Fa“): Sie liegen genau <em>zwischen</em> zwei Klaviertasten – unverfälschte Natur pur.
       </p>
       <div class="overtone-grid">
         ${PHYSICS_OVERTONES.map(ot => `
@@ -1531,7 +1613,7 @@ function renderPhysicsReferenceHTML() {
         `).join("")}
       </div>
       <div class="k-meta-box">
-        <strong>Warum Dur im Fundament wohnt:</strong> Die Teiltöne <strong>4 : 5 : 6</strong> ergeben sofort einen strahlenden Dur-Dreiklang. Ein reiner Moll-Dreiklang versteckt sich viel höher erst bei <strong>10 : 12 : 15</strong>!
+        <strong>Warum Dur so selbstverständlich klingt:</strong> Die Teiltöne <strong>4 : 5 : 6</strong> ergeben automatisch einen strahlenden Dur-Dreiklang. Ein reiner Moll-Dreiklang taucht viel weiter oben erst bei <strong>10 : 12 : 15</strong> auf!
       </div>
       <div class="k-btn-row">
         <button class="btn-tool" data-play-freqs="${PHYSICS_OVERTONES.map(o => o.freq).join(",")}" data-seq-step="380" data-osc="triangle" data-dur="0.65">▶ Ganze Reihe (1–12)</button>
@@ -1540,49 +1622,49 @@ function renderPhysicsReferenceHTML() {
       </div>
     </article>
 
-    <!-- 4. Schwebung (Beats) -->
+    <!-- 5. Schwebung (Beats) -->
     <article class="knowledge-card">
       <div class="k-card-top-row">
-        <span class="k-card-tag tag-lilac">4. Akustische Schwebung</span>
-        <span class="k-ratio-chip">f_Schwebung = |f₁ − f₂|</span>
+        <span class="k-card-tag tag-lilac">5. Akustische Schwebung</span>
+        <span class="k-ratio-chip">Abstand in Hz = Puls/Sek.</span>
       </div>
-      <h4>Wenn Wellen atmen: Das Geheimnis beim Gitarrestimmen</h4>
+      <h4>Wenn Wellen „pumpen“: Stimmen nach Gehör</h4>
       <p>
-        Klingen zwei fast gleiche Töne gleichzeitig, addieren sich ihre Wellenberge mal zu doppelter Lautstärke und löschen sich kurz darauf wieder gegenseitig aus. Wie oft der Klang pro Sekunde anschwillt („wau-wau-wau“), entspricht exakt der <strong>Hertz-Differenz</strong> zwischen beiden Tönen! Ab etwa 15–20 Hz Abstand verschwimmt das Pulsieren im Ohr zu rauer Reibung.
+        Klingen zwei Saiten fast gleich hoch, laufen ihre Wellenberge mal zusammen (doppelt laut) und kurz darauf genau gegeneinander (kurz leise). Dieses hörbare Wabern („wau-wau-wau“) heißt <strong>Schwebung</strong>. Wie oft es pro Sekunde pulsiert, verrät exakt die <strong>Hertz-Differenz</strong>! Sind beide Saiten perfekt gestimmt, wird das Wabern komplett ruhig.
       </p>
       <div class="k-btn-row">
-        <button class="btn-tool" data-play-freqs="440,440" data-osc="sine" data-dur="2.4">▶ 0 Hz (440+440 · glatt)</button>
+        <button class="btn-tool" data-play-freqs="440,440" data-osc="sine" data-dur="2.4">▶ 0 Hz (440+440 · perfekt ruhig)</button>
         <button class="btn-tool" data-play-freqs="440,442" data-osc="sine" data-dur="2.6">▶ 2 Hz (440+442 · 2x/Sek.)</button>
-        <button class="btn-tool" data-play-freqs="440,446" data-osc="sine" data-dur="2.4">▶ 6 Hz (440+446 · Flirren)</button>
-        <button class="btn-tool" data-play-freqs="440,466" data-osc="sine" data-dur="2.2">▶ 26 Hz (440+466 · Rauigkeit)</button>
+        <button class="btn-tool" data-play-freqs="440,446" data-osc="sine" data-dur="2.4">▶ 6 Hz (440+446 · schnelles Flirren)</button>
+        <button class="btn-tool" data-play-freqs="440,466" data-osc="sine" data-dur="2.2">▶ 26 Hz (440+466 · rauer Reibungsklang)</button>
       </div>
     </article>
 
-    <!-- 5. Reine Stimmung vs. Gleichstufige Stimmung -->
+    <!-- 6. Reine Stimmung vs. Gleichstufige Klavier-Stimmung -->
     <article class="knowledge-card">
       <div class="k-card-top-row">
-        <span class="k-card-tag tag-peach">5. Stimmung &amp; Pythagoräisches Komma</span>
+        <span class="k-card-tag tag-peach">6. Stimmung &amp; Klavier-Kompromiss</span>
         <span class="k-ratio-chip">+23,5 Cent Lücke</span>
       </div>
       <h4>Warum kein Klavier der Welt „komplett rein“ gestimmt ist</h4>
       <p>
-        Ein mathematisches Naturrätsel: Stapelt man 12 reine Quinten (Verhältnis 3:2) übereinander, landet man bei <code>(3/2)¹² ≈ 129,75</code> – doch 7 reine Oktaven erreichen nur <code>2⁷ = 128</code>! Es bleibt ein kleiner Überschuss von rund <strong>23,5 Cent</strong> (das <em>Pythagoräische Komma</em>). Würde man ein Klavier auf C-Dur exakt rein stimmen, klängen weiter entfernte Tonarten wie Fis-Dur grauenhaft verstimmt.
+        Eine schräge Laune der Physik: Stapelt man 12 perfekte Quinten (3:2) übereinander, landet man ganz knapp zu hoch – um rund <strong>23,5 Cent</strong> höher als 7 exakte Oktaven! Würde ein Klavierbauer C-Dur absolut rein stimmen, klängen entfernte Tonarten wie Fis-Dur grauenhaft schief.
       </p>
       <p>
-        Die geniale Lösung unserer modernen Musik heißt <strong>gleichstufige Stimmung</strong> (seit Bach berühmt): Jeder der 12 Halbtöne teilt die Oktave in exakt gleiche Faktoren (<code>2^(1/12)</code>). Dadurch funktioniert jede Tonart gleich gut – der Preis ist, dass die Große Terz auf dem Klavier um <strong>14 Cent höher</strong> gestimmt ist als die reine Natur-Terz (5:4) und leicht schimmert!
+        Der clevere Kompromiss unserer modernen Musik heißt <strong>gleichstufige Stimmung</strong>: Die Oktave wird schlicht in 12 exakt gleich große Mini-Schritte geteilt. Jetzt funktioniert zwar jeder Song in jeder Tonart – aber dafür schwingt unsere große Terz (C–E) auf jedem Klavier um <strong>14 Cent höher</strong> als die reine Natur-Terz. Hör den Unterschied zwischen theoretischer Naturstimmung und einem echten Klavier-Sample:
       </p>
       <div class="k-compare-grid">
         <div class="k-compare-box is-sage">
           <h5>Reine Naturstimmung (5:4)</h5>
-          <p>Keine Schwebung – glasklar verschmolzen, funktioniert aber nur in einer Tonart:</p>
-          <button class="btn-tool" data-play-freqs="261.63,327.04" data-osc="triangle" data-dur="2.3">▶ Reine Terz (261,6 + 327,0 Hz)</button>
-          <button class="btn-tool" data-play-freqs="261.63,327.04,392.45" data-osc="triangle" data-dur="2.3">▶ Reiner C-Dur-Akkord</button>
+          <p>Null Schwebung – schmilzt glatt zusammen, funktioniert aber nicht in allen Tonarten:</p>
+          <button class="btn-tool" data-play-freqs="261.63,327.04" data-osc="triangle" data-dur="2.3">▶ Reine Terz (5:4 · glatt)</button>
+          <button class="btn-tool" data-play-freqs="261.63,327.04,392.45" data-osc="triangle" data-dur="2.3">▶ Reiner C-Dur-Dreiklang</button>
         </div>
         <div class="k-compare-box is-lilac">
           <h5>Klavier / Gleichstufig (+14 ct)</h5>
-          <p>Höre genau hin: ein leichtes, lebendiges Pulsieren – dafür spielbar in allen 12 Tonarten:</p>
-          <button class="btn-tool" data-play-freqs="261.63,329.63" data-osc="triangle" data-dur="2.3">▶ Klavier-Terz (261,6 + 329,6 Hz)</button>
-          <button class="btn-tool" data-play-freqs="261.63,329.63,392.00" data-osc="triangle" data-dur="2.3">▶ Klavier C-Dur-Akkord</button>
+          <p>Echte Studio-Klaviersamples: leichtes Schimmern – dafür in allen 12 Tonarten spielbar:</p>
+          <button class="btn-tool" data-play-inst data-style="piano" data-notes="C4,E4" data-dur="2.3">▶ Klavier-Terz (Sample C4 + E4)</button>
+          <button class="btn-tool" data-play-inst data-style="piano" data-notes="C4,E4,G4" data-dur="2.3">▶ Klavier C-Dur (Sample)</button>
         </div>
       </div>
     </article>
