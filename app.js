@@ -2291,9 +2291,10 @@ class AppState {
     this.updateQuickStartLabel();
   }
 
-  setRhythmLevel(subMode, level) {
+  setRhythmLevel(subMode, level, readMode = false) {
     const lvl = parseInt(level, 10) || 1;
     this.settings.mode = subMode;
+    this.settings.rhythmTapReadMode = subMode === "rhythm-tap" && Boolean(readMode);
     if (subMode === "rhythm-meter") this.settings.rhythmMeterDifficulty = lvl;
     else if (subMode === "rhythm-dictation") this.settings.rhythmDictationDifficulty = lvl;
     else if (subMode === "rhythm-tap") this.settings.rhythmTapDifficulty = lvl;
@@ -2417,7 +2418,10 @@ class AppState {
     if (this.settings.mode === "rhythm-tap") {
       const lvl = this.settings.rhythmTapDifficulty || 1;
       const lvlObj = getLocalizedRhythmTapLevel(lvl);
-      const prefix = includeCategory ? tr("Rhythmus: Nachklopfen", "Rhythm: Rhythm Tap") : tr("Nachklopfen", "Rhythm Tap");
+      const isRead = Boolean(this.settings.rhythmTapReadMode);
+      const prefix = isRead
+        ? (includeCategory ? tr("Rhythmus: Vom Blatt tappen", "Rhythm: Tap from Notation") : tr("Vom Blatt tappen", "Tap from Notation"))
+        : (includeCategory ? tr("Rhythmus: Nachklopfen", "Rhythm: Rhythm Tap") : tr("Nachklopfen", "Rhythm Tap"));
       return `${prefix} • ${lvlWord} ${lvl} (${lvlObj?.label || tr("Puls-Anker", "Pulse Anchor")})`;
     }
     if (this.settings.mode === "rhythm-groove") {
@@ -7002,7 +7006,7 @@ function getExerciseNodeKey(btn) {
   if (d.launchChord) return `${d.launchChord}:${d.chordLvl}`;
   if (d.launchMelody) return `melody:${d.launchMelody}:${d.melodyKey}:${d.melodyOctave}`;
   if (d.launchSolfege) return `solfege:${d.launchSolfege}`;
-  if (d.launchRhythm) return `${d.launchRhythm}:${d.rhythmLvl}`;
+  if (d.launchRhythm) return `${d.launchRhythm}${d.rhythmRead === "1" ? "-read" : ""}:${d.rhythmLvl}`;
   if (d.launchProd) return `${d.launchProd}:${d.prodLvl}`;
   if (d.launchModes) return `${d.launchModes}:${d.modesLvl}`;
   if (d.launchNotation) return `${d.launchNotation}:${d.notationLvl}`;
@@ -7521,6 +7525,33 @@ function openCategoryPage(categoryKey, options = {}) {
       </div>
 
       <div class="subpage-section">
+        <h3 class="subpage-section-title">${tr("Rhythmus vom Blatt tappen", "Tap Rhythms from Notation")}</h3>
+        <p class="subpage-section-desc">${tr("Der Rhythmus steht im Notensystem – ohne Vorspielen. Nach 1 Takt Vorzähler tippst du ihn zum Metronom auf das Pad.", "The rhythm is written on the staff — no demo. After a 1-bar count-in, tap it on the pad along with the metronome.")}</p>
+        <div class="subpage-nodes-grid">
+          <button class="subpage-node-btn" data-launch-rhythm="rhythm-tap" data-rhythm-read="1" data-rhythm-lvl="1">
+            <div class="node-circle circle-sage">♩ 𝄽</div>
+            <span class="node-title">${tr("Stufe 1: Viertel &amp; Pausen", "Level 1: Quarters &amp; Rests")}</span>
+            <span class="node-sub">${tr("Vom Blatt im 4/4-Takt", "Sight-read in 4/4 time")}</span>
+          </button>
+          <button class="subpage-node-btn" data-launch-rhythm="rhythm-tap" data-rhythm-read="1" data-rhythm-lvl="2">
+            <div class="node-circle circle-sage">3/4 · ♫</div>
+            <span class="node-title">${tr("Stufe 2: Achtel &amp; 3/4", "Level 2: Eighths &amp; 3/4")}</span>
+            <span class="node-sub">${tr("Achtelpaare im 4/4 &amp; 3/4", "Eighth pairs in 4/4 &amp; 3/4")}</span>
+          </button>
+          <button class="subpage-node-btn" data-launch-rhythm="rhythm-tap" data-rhythm-read="1" data-rhythm-lvl="3">
+            <div class="node-circle circle-sage">3× · Off</div>
+            <span class="node-title">${tr("Stufe 3: Synkopen &amp; Triolen", "Level 3: Syncopation &amp; Triplets")}</span>
+            <span class="node-sub">${tr("Offbeats &amp; Triolen lesen und tappen", "Read and tap offbeats &amp; triplets")}</span>
+          </button>
+          <button class="subpage-node-btn" data-launch-rhythm="rhythm-tap" data-rhythm-read="1" data-rhythm-lvl="4">
+            <div class="node-circle circle-sage">${tr("Blind", "Blind")}</div>
+            <span class="node-title">${tr("Stufe 4: Ohne Metronom", "Level 4: No Metronome")}</span>
+            <span class="node-sub">${tr("Nach dem Vorzähler hältst du das Tempo allein", "After the count-in you keep the tempo yourself")}</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="subpage-section">
         <h3 class="subpage-section-title">${tr("Groove, Akzente &amp; Mikro-Timing", "Groove, Accents &amp; Micro-Timing")}</h3>
         <p class="subpage-section-desc">${tr("Spüre Groove-Stile, Offbeat-Akzente und feinste Verschiebungen im Band-Kontext", "Feel groove styles, offbeat accents, and subtle timing shifts in a band context")}</p>
         <div class="subpage-nodes-grid">
@@ -7550,7 +7581,7 @@ function openCategoryPage(categoryKey, options = {}) {
 
     container.querySelectorAll("[data-launch-rhythm]").forEach(btn => {
       btn.addEventListener("click", () => {
-        state.setRhythmLevel(btn.dataset.launchRhythm, btn.dataset.rhythmLvl);
+        state.setRhythmLevel(btn.dataset.launchRhythm, btn.dataset.rhythmLvl, btn.dataset.rhythmRead === "1");
         state.exerciseReturnView = "category";
         switchView("exercise");
       });
@@ -8872,13 +8903,26 @@ function generateRhythmTapExercise() {
     cell: getLocalizedRhythmCell(cellKey)
   }));
 
+  // Vom Blatt: Toleranz nie größer als 35 % des kleinsten Notenabstands, damit jeder Tap eindeutig einer Note zugeordnet wird
+  const readMode = Boolean(state.settings.rhythmTapReadMode);
+  let toleranceMs = cfg.toleranceMs;
+  if (readMode) {
+    const beatMsNow = 60000 / (state.activeBpm || state.settings.bpm || 90);
+    const onsets = [];
+    pickedKeys.forEach((k, beatIdx) => RHYTHM_DICTATION_CELLS[k].offsets.forEach(off => onsets.push((beatIdx + off) * beatMsNow)));
+    let minGap = Infinity;
+    for (let i = 1; i < onsets.length; i++) minGap = Math.min(minGap, onsets[i] - onsets[i - 1]);
+    if (Number.isFinite(minGap)) toleranceMs = Math.max(45, Math.min(cfg.toleranceMs, Math.round(minGap * 0.35)));
+  }
+
   state.currentExercise = {
     type: "rhythm-tap",
     level: lvl,
+    readMode: readMode,
     levelLabel: getLocalizedRhythmTapLevel(lvl).label,
     meterKey: meterKey,
     beatsPerBar: beatsPerBar,
-    toleranceMs: cfg.toleranceMs,
+    toleranceMs: toleranceMs,
     blind: cfg.blind,
     tapSlots: tapSlots,
     tapEvaluated: false,
@@ -10452,15 +10496,19 @@ function renderUI() {
     if (ex.beatsPerBar === 3) {
       barsGrid.style.gridTemplateColumns = "repeat(3, minmax(0, 1fr))";
     }
-    if (moduleTitleEl) moduleTitleEl.textContent = tr("Klopf-Raster", "Tap Grid");
+    if (moduleTitleEl) moduleTitleEl.textContent = ex.readMode ? tr("Vom Blatt tappen", "Tap from Notation") : tr("Klopf-Raster", "Tap Grid");
     if (targetBadgeEl) {
       targetBadgeEl.textContent = ex.tapEvaluated
         ? (ex.lastEvaluation?.passed ? tr("Treffer ✓", "Hit ✓") : tr("Nochmal!", "Try Again!"))
         : `${ex.meterKey} • ±${ex.toleranceMs} ms`;
     }
-    document.getElementById("inputPromptText").textContent = ex.blind
-      ? tr("Blindflug: Vorzähler → Demo → Klopfe im Kopf weiter!", "Blind mode: Count-in → Demo → Keep the pulse in your head!")
-      : tr("Vorzähler → Demo → Klopfe den Rhythmus direkt nach:", "Count-in → Demo → Tap the rhythm back directly:");
+    document.getElementById("inputPromptText").textContent = ex.readMode
+      ? (ex.blind
+          ? tr("Vorzähler → Rhythmus vom Blatt tappen (ohne Metronom):", "Count-in → tap the written rhythm (no metronome):")
+          : tr("Vorzähler → Rhythmus vom Blatt zum Metronom tappen:", "Count-in → tap the written rhythm with the metronome:"))
+      : (ex.blind
+          ? tr("Blindflug: Vorzähler → Demo → Klopfe im Kopf weiter!", "Blind mode: Count-in → Demo → Keep the pulse in your head!")
+          : tr("Vorzähler → Demo → Klopfe den Rhythmus direkt nach:", "Count-in → Demo → Tap the rhythm back directly:"));
   } else if (isRhythmGroove) {
     if (ex.bars.length === 1) barsGrid.classList.add("cols-1");
     else if (ex.bars.length === 2) barsGrid.classList.add("cols-2");
@@ -10625,6 +10673,7 @@ function renderUI() {
       });
       barsGrid.appendChild(card);
     });
+    applyRhythmStaffLayout(barsGrid, ex);
   } else if (isRhythmTap) {
     const beatMs = 60000 / (state.activeBpm || 90);
     ex.tapSlots.forEach((slot, idx) => {
@@ -10647,7 +10696,7 @@ function renderUI() {
             statusClass = "rhythm-tap-missed";
             statusLabel = tr("Daneben", "Missed");
           } else if (hasClose) {
-            const firstDiff = beatEvents.find(r => r.diffMs !== null)?.diffMs ?? 0;
+            const firstDiff = (beatEvents.find(r => r.status === "close") || beatEvents.find(r => r.diffMs !== null))?.diffMs ?? 0;
             statusClass = "rhythm-tap-close";
             statusLabel = `~ ${firstDiff > 0 ? "+" : ""}${firstDiff}ms`;
           } else {
@@ -10677,6 +10726,7 @@ function renderUI() {
       card.appendChild(lbl);
       barsGrid.appendChild(card);
     });
+    applyRhythmStaffLayout(barsGrid, ex);
   } else {
     const hideAllNonRef = isRhythmMeter ||
       (isRhythmGroove && (ex.grooveKind === "style" || ex.grooveKind === "micro"));
@@ -12878,13 +12928,15 @@ function finishRhythmTapRound() {
       if (lblEl) lblEl.textContent = tr("Daneben", "Missed");
     } else if (beatEvents.some(r => r.status === "close")) {
       card.classList.add("rhythm-tap-close");
-      const firstDiff = beatEvents.find(r => r.diffMs !== null)?.diffMs ?? 0;
+      const firstDiff = (beatEvents.find(r => r.status === "close") || beatEvents.find(r => r.diffMs !== null))?.diffMs ?? 0;
       if (lblEl) lblEl.textContent = `~ ${firstDiff > 0 ? "+" : ""}${firstDiff}ms`;
     } else {
       card.classList.add("rhythm-tap-exact");
       if (lblEl) lblEl.textContent = tr("✓ Exakt", "✓ Exact");
     }
   }
+
+  renderRhythmTapTimeline(ex, res, session.beatMs);
 
   const totalExpected = session.expectedEvents.length;
   const hitCount = res.exactCount + res.closeCount;
@@ -13954,10 +14006,13 @@ async function playSequence(options = {}) {
     }
     ex.tapEvaluated = false;
     ex.lastEvaluation = null;
+    document.getElementById("rhythmTapTimeline")?.remove();
 
     const beatMs = 60000 / (state.activeBpm || 90);
     const beatsPerBar = ex.beatsPerBar;
     const barMs = beatsPerBar * beatMs;
+    const isReadMode = Boolean(ex.readMode);
+    const playerBarIdx = isReadMode ? 1 : 2; // Vom Blatt: kein Demo-Takt
     const badge = document.getElementById("targetBarBadge");
     if (badge) badge.textContent = `${ex.meterKey} • ±${ex.toleranceMs} ms`;
 
@@ -13975,22 +14030,24 @@ async function playSequence(options = {}) {
     for (let b = 0; b < beatsPerBar; b++) {
       events.push([Math.round(b * beatMs), b === 0 ? "accent" : "tick", b === 0 ? 0.94 : 0.72]);
     }
-    // Takt 2: Demo (leiser Referenz-Puls + Clave-Muster)
-    for (let b = 0; b < beatsPerBar; b++) {
-      events.push([Math.round(barMs + b * beatMs), b === 0 ? "accent" : "tick", b === 0 ? 0.55 : 0.36]);
+    // Takt 2: Demo (leiser Referenz-Puls + Clave-Muster) – entfällt beim Lesen vom Blatt
+    if (!isReadMode) {
+      for (let b = 0; b < beatsPerBar; b++) {
+        events.push([Math.round(barMs + b * beatMs), b === 0 ? "accent" : "tick", b === 0 ? 0.55 : 0.36]);
+      }
     }
     const expectedEvents = [];
     ex.tapSlots.forEach((slot, beatIdx) => {
       slot.cell.offsets.forEach(off => {
         const relMs = Math.round((beatIdx + off) * beatMs);
         expectedEvents.push({ relMs, beatIdx, offset: off, cellKey: slot.cellKey });
-        events.push([Math.round(barMs + relMs), "clave", 0.96]);
+        if (!isReadMode) events.push([Math.round(barMs + relMs), "clave", 0.96]);
       });
     });
-    // Takt 3: Eingabe-Phase (Klick nur wenn aktiviert und NICHT Blindflug)
+    // Eingabe-Takt: Metronom-Klick (nur wenn aktiviert und NICHT Blindflug)
     if (!ex.blind && state.settings.rhythmTapClick) {
       for (let b = 0; b < beatsPerBar; b++) {
-        events.push([Math.round(2 * barMs + b * beatMs), b === 0 ? "accent" : "tick", b === 0 ? 0.65 : 0.48]);
+        events.push([Math.round(playerBarIdx * barMs + b * beatMs), b === 0 ? "accent" : "tick", b === 0 ? 0.65 : 0.48]);
       }
     }
 
@@ -14003,8 +14060,8 @@ async function playSequence(options = {}) {
       phase: "counting",
       audioEpochSec: audioEpochSec,
       baseAudioSec: baseAudioSec,
-      playerBarAudioStartSec: baseAudioSec + (2 * barMs) / 1000,
-      playerBarWallStartMs: wallEpochMs + Math.round(50 + 2 * barMs),
+      playerBarAudioStartSec: baseAudioSec + (playerBarIdx * barMs) / 1000,
+      playerBarWallStartMs: wallEpochMs + Math.round(50 + playerBarIdx * barMs),
       barMs: barMs,
       beatMs: beatMs,
       beatsPerBar: beatsPerBar,
@@ -14028,11 +14085,16 @@ async function playSequence(options = {}) {
         updateStageMascot("listening");
         document.getElementById("stageSubtext").textContent = tf("VORZÄHLER • {m}", "COUNT-IN • {m}", { m: ex.meterKey });
         document.getElementById("stageMainText").textContent = `${b + 1}`;
-        document.getElementById("stageFunctionText").textContent = tr("Merke dir den Puls – gleich folgt die Demo", "Lock into the pulse — demo coming up next");
+        document.getElementById("stageFunctionText").textContent = isReadMode
+          ? tr("Lies den Rhythmus mit – nach dem Vorzähler tippst du ihn zum Metronom", "Read along — after the count-in, tap it with the metronome")
+          : tr("Merke dir den Puls – gleich folgt die Demo", "Lock into the pulse — demo coming up next");
         if (padTitle) padTitle.textContent = tf("Vorzähler: {n}", "Count-in: {n}", { n: b + 1 });
-        if (padSub) padSub.textContent = tr("Noch warten – erst zuhören", "Wait — listen first");
+        if (padSub) padSub.textContent = isReadMode
+          ? tr("Gleich geht's los – Einsatz auf der Eins!", "Get ready — come in on beat one!")
+          : tr("Noch warten – erst zuhören", "Wait — listen first");
       }, 50 + Math.round(b * beatMs));
 
+      if (isReadMode) continue;
       audioEngine.registerTimer(() => {
         if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
         if (state.rhythmTapSession?.playbackId === currentId) {
@@ -14049,8 +14111,8 @@ async function playSequence(options = {}) {
       }, 50 + Math.round(barMs + b * beatMs));
     }
 
-    // Leicht vorgezogener Start der „listen“-Phase (-140 ms vor Takt 3), damit minimal verfrühte Schläge auf die 1 zählen
-    const listenGateDelayMs = Math.max(20, 50 + Math.round(2 * barMs - 140));
+    // Leicht vorgezogener Start der „listen“-Phase (-140 ms vor dem Eingabe-Takt), damit minimal verfrühte Schläge auf die 1 zählen
+    const listenGateDelayMs = Math.max(20, 50 + Math.round(playerBarIdx * barMs - 140));
     audioEngine.registerTimer(() => {
       if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
       if (state.rhythmTapSession?.playbackId === currentId) {
@@ -14058,7 +14120,9 @@ async function playSequence(options = {}) {
       }
       padBtn?.classList.remove("is-counting");
       padBtn?.classList.add("is-ready");
-      if (padTitle) padTitle.textContent = ex.blind ? tr("Blindflug: Jetzt klopfen!", "Blind Mode: Tap Now!") : tr("Jetzt nachklopfen!", "Tap It Back Now!");
+      if (padTitle) padTitle.textContent = isReadMode
+        ? (ex.blind ? tr("Blindflug: Jetzt vom Blatt tappen!", "Blind Mode: Tap from the page!") : tr("Jetzt vom Blatt tappen!", "Tap what you read!"))
+        : (ex.blind ? tr("Blindflug: Jetzt klopfen!", "Blind Mode: Tap Now!") : tr("Jetzt nachklopfen!", "Tap It Back Now!"));
       if (padSub) padSub.textContent = tr("Tippe auf das Pad oder die Leertaste", "Tap the pad or press Spacebar");
 
       setCentralStageMode("stage-target");
@@ -14067,9 +14131,11 @@ async function playSequence(options = {}) {
       document.getElementById("stageMainText").textContent = tr("Klopfen!", "Tap!");
       document.getElementById("stageFunctionText").textContent = ex.blind
         ? tr("Kein Klick, keine Anzeige – zähle im Kopf weiter!", "No click, no display — keep counting silently!")
-        : tf("Klopfe das Muster im {m}-Takt nach.", "Tap the pattern back in {m} time.", { m: ex.meterKey });
+        : (isReadMode
+            ? tf("Tippe den notierten Rhythmus im {m}-Takt zum Metronom.", "Tap the written rhythm in {m} time with the metronome.", { m: ex.meterKey })
+            : tf("Klopfe das Muster im {m}-Takt nach.", "Tap the pattern back in {m} time.", { m: ex.meterKey }));
 
-      if (ex.blind) {
+      if (ex.blind && !isReadMode) {
         for (let i = 0; i < beatsPerBar; i++) {
           const card = document.getElementById(`barCard_${i}`);
           card?.classList.remove("bar-active");
@@ -14085,11 +14151,11 @@ async function playSequence(options = {}) {
           for (let i = 0; i < beatsPerBar; i++) {
             document.getElementById(`barCard_${i}`)?.classList.toggle("bar-active", i === b);
           }
-        }, 50 + Math.round(2 * barMs + b * beatMs));
+        }, 50 + Math.round(playerBarIdx * barMs + b * beatMs));
       }
     }
 
-    const roundEndMs = 50 + Math.round(3 * barMs + ex.toleranceMs * 1.45);
+    const roundEndMs = 50 + Math.round((playerBarIdx + 1) * barMs + ex.toleranceMs * 1.45);
     audioEngine.registerTimer(() => {
       if (audioEngine.playbackId !== currentId) return;
       finishRhythmTapRound();
@@ -20900,6 +20966,7 @@ function buildExamQuestionPlan(modes, count) {
 function applyExamLevelSettings(preset, targetMode) {
   if (!state?.settings || !preset) return;
   state.settings.mode = targetMode;
+  state.settings.rhythmTapReadMode = false;
   Object.assign(state.settings, preset.apply || {});
   state.settings.loop = false;
   state.settings.autoNextAfterCorrect = false;
