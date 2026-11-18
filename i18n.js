@@ -669,6 +669,10 @@ const I18N_STATIC = {
     de: "Nächste Abfragung automatisch abspielen",
     en: "Auto-play next prompt"
   },
+  "settings.singHeading": { de: "Mitsingen", en: "Sing Along" },
+  "settings.singHint": { de: "Einladungen zum Mitsingen und Mitsummen bei Intervall- und Solfège-Übungen.", en: "Invitations to sing and hum along in interval and solfège exercises." },
+  "settings.singTipsLabel": { de: "Mitsing-Tipps", en: "Sing-along tips" },
+  "settings.singPauseLabel": { de: "Summ-Pause nach dem Abspielen (3 Sek.)", en: "Hum pause after playback (3 sec.)" },
   "settings.autoNextOn": { de: "Ein", en: "On" },
   "settings.autoNextOff": { de: "Aus", en: "Off" },
   "settings.breakReminderHeading": {

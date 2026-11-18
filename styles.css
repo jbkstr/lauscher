@@ -5887,6 +5887,66 @@ body,
   line-height: 1.2;
 }
 
+.sing-along-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.4rem;
+}
+
+.sing-along-action {
+  font: inherit;
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 0.22rem 0.6rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(61, 64, 91, 0.18);
+  background: var(--surface-white);
+  color: var(--raccoon-dark);
+  cursor: pointer;
+}
+
+.sing-along-action.is-primary {
+  background: var(--raccoon-dark);
+  color: var(--surface-white);
+  border-color: transparent;
+}
+
+.sing-along-action.is-on {
+  border-color: var(--sage-strong);
+  color: var(--sage-strong);
+}
+
+/* Optionale Summ-Pause: Antworten kurz gesperrt, Fortschrittsbalken im Tipp-Bereich */
+body.is-hum-pause #degreeButtonsGrid,
+body.is-hum-pause #solfegeKeyboardWrap {
+  pointer-events: none;
+  opacity: 0.5;
+  transition: opacity 0.2s ease;
+}
+
+.hum-pause-bar {
+  height: 5px;
+  margin-top: 0.55rem;
+  border-radius: var(--radius-pill);
+  background: var(--surface-warm);
+  overflow: hidden;
+  width: 100%;
+}
+
+.hum-pause-bar span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--sage-strong);
+  animation: humPauseFill var(--hum-ms, 3000ms) linear forwards;
+}
+
+@keyframes humPauseFill {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
 .sing-along-text {
   font-size: 0.76rem;
   font-weight: 600;
