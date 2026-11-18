@@ -33,6 +33,7 @@ Every training area includes graded difficulty levels, listening aids (A/B compa
    - Identify all 7 scale degrees (`Do–Ti` / `1–7`) on an interactive keyboard inside a `I–vi–IV–V` harmonic context across 6 levels (from fixed C Major single-octave up to rotating keys and multi-octave spans after every answer).
 4. **Scales & Modes**
    - **Mode recognition:** Ionian, Dorian, Phrygian, Lydian, Mixolydian, Aeolian, Locrian, and Harmonic Minor (including transposed tonal centers).
+   - Mode names include their degree of the major scale (e.g. *Dorian (2)*); an optional **Root Pad** chip plays the mode's root as a sustained strings pad underneath.
    - **Characteristic color tones:** Hear defining modal intervals (`♯4`, `♭7`, `♮6`, `♭2`, `♭5`, `♯7`).
    - **Modal cadences & vamps:** Recognize iconic modal loops (`i–IV`, `I–♭VII`, `I–II`, `i–♭II`, etc.).
 5. **Melodies**
@@ -41,9 +42,13 @@ Every training area includes graded difficulty levels, listening aids (A/B compa
    - **Meter & Time Signatures:** `4/4`, `3/4`, `2/4`, `6/8`, `5/4`, `7/8`.
    - **4-Beat Rhythm Dictation:** Quarter notes, eighths, rests, offbeats, triplets, sixteenths, dotted values, and syncopation.
    - **Tap-Back Pad:** Tap phrases back live, including **Blind Mode** where the click mutes during your turn.
+   - **Tap from Notation:** the rhythm is written on a one-line staff (no demo); after a 1-bar count-in you tap it along with the metronome (Level 4 without metronome). A timeline shows exact / close / missed notes and extra taps; tolerance is capped at 35 % of the shortest note gap.
+   - Rhythm dictation and tap exercises are displayed on a one-line percussion staff instead of tiles.
    - **Groove, Accents & Micro-Timing:** Groove feel, offbeat accent detection, and timing offsets down to `±28 ms`.
 7. **Notation & Sight-Reading**
    - 6 progressive levels spanning **Treble**, **Bass**, and **Alto** clefs — from notes inside the 5-line staff up to `±3` ledger lines, accidentals (`♯/♭`), **all 12 key signatures**, natural signs (`♮`), an interactive keyboard, Skip button, and a 6-note scrolling queue.
+   - **Chord Reading:** stacked triads and seventh chords (root position & inversions, treble/bass) — tap all chord tones in any order.
+   - **Grand Staff:** treble and bass clef at once; notes jump between both staves.
 8. **Production (Studio & Mixing)**
    - **Pure Sine Frequency Recognition:** From `63 Hz` (sub-bass) up to `12 kHz` (air band) across 5, 8, or 13 bands.
    - **Pink Noise EQ Boost:** Hear broad and narrow peaking EQ boosts (up to **13 ISO third-octave bands** with `Q 4.5` at `+3 dB`), complete with loudness matching, live A/B bypass, and a built-in **-14 dBFS safety limiter**.

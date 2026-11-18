@@ -4619,6 +4619,135 @@ body,
   cursor: pointer;
 }
 
+/* ---------- Rhythmus als Einlinien-Notensystem ---------- */
+.bars-grid.rhythm-staff-grid {
+  gap: 0;
+  align-items: stretch;
+  position: relative;
+}
+
+.rhythm-staff-head {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0 0.45rem 0 0.15rem;
+  color: var(--raccoon-dark);
+  position: relative;
+}
+
+.rhythm-staff-head::after,
+.rhythm-staff-grid .bar-card .bar-roman::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1.6px;
+  background: currentColor;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.rhythm-staff-head::after {
+  top: 50%;
+  color: var(--raccoon-dark);
+}
+
+.rhythm-staff-meter {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 900;
+  font-size: 1.05rem;
+  line-height: 0.95;
+  position: relative;
+  z-index: 1;
+  background: var(--surface-white);
+  padding: 0 0.1rem;
+}
+
+.rhythm-staff-clef {
+  position: relative;
+  z-index: 1;
+}
+
+.rhythm-staff-grid .bar-card {
+  border-radius: 0;
+  border-width: 0 0 0 1px;
+  border-style: dashed;
+  border-color: var(--border-soft);
+  box-shadow: none;
+  background: transparent;
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
+  position: relative;
+}
+
+.rhythm-staff-grid .bar-card[data-last-beat="1"] {
+  border-right: 3px solid var(--raccoon-dark);
+}
+
+.rhythm-staff-grid .bar-card.bar-target {
+  background: var(--peach-soft);
+}
+
+.rhythm-staff-grid .bar-card.bar-active {
+  background: var(--sage-soft);
+}
+
+.rhythm-staff-grid .bar-card .bar-roman {
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.45rem;
+}
+
+.rhythm-staff-grid .bar-card .bar-roman::before {
+  top: 58%;
+  left: calc(-0.2rem - 1px);
+  right: -0.2rem;
+  color: var(--raccoon-dark);
+}
+
+.rhythm-staff-grid .bar-card .rhythm-glyph-svg {
+  width: 100%;
+  max-width: 66px;
+  height: auto;
+  position: relative;
+  z-index: 1;
+  transform: translateY(-2px);
+}
+
+.rhythm-tap-timeline {
+  grid-column: 1 / -1;
+  margin-top: 0.5rem;
+  padding: 0.35rem 0.45rem 0.3rem;
+  border-radius: var(--radius-sm);
+  background: var(--surface-warm);
+  color: var(--raccoon-dark);
+}
+
+.rhythm-tap-timeline svg {
+  display: block;
+  width: 100%;
+  height: 46px;
+}
+
+.rhythm-tap-timeline-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.15rem 0.6rem;
+  font-size: 0.66rem;
+  font-weight: 700;
+  color: var(--raccoon-muted);
+  text-align: center;
+  margin-top: 0.1rem;
+}
+
 .bar-card.rhythm-blind {
   opacity: 0.72;
 }
