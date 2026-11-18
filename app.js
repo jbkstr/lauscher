@@ -7876,7 +7876,7 @@ function openCategoryPage(categoryKey, options = {}) {
         <p class="subpage-section-desc">${tr("Spüre Groove-Stile, Offbeat-Akzente und feinste Verschiebungen im Band-Kontext", "Feel groove styles, offbeat accents, and subtle timing shifts in a band context")}</p>
         <div class="subpage-nodes-grid">
           <button class="subpage-node-btn" data-launch-rhythm="rhythm-groove" data-rhythm-lvl="1">
-            <div class="node-circle circle-peach">Groove</div>
+            <div class="node-circle circle-peach node-circle-compact">Groove</div>
             <span class="node-title">${tr("Stufe 1: Groove-Stile", "Level 1: Groove Styles")}</span>
             <span class="node-sub">${tr("Marsch, Backbeat, Swing &amp; 3 gegen 2", "March, Backbeat, Swing &amp; 3-against-2")}</span>
           </button>
@@ -7886,12 +7886,12 @@ function openCategoryPage(categoryKey, options = {}) {
             <span class="node-sub">${tr("Exakten Cowbell-Akzent lokalisieren", "Pinpoint the exact cowbell accent")}</span>
           </button>
           <button class="subpage-node-btn" data-launch-rhythm="rhythm-groove" data-rhythm-lvl="3">
-            <div class="node-circle circle-peach">±55 ms</div>
+            <div class="node-circle circle-peach node-circle-stack"><span>±55</span><span class="node-stack-sub">ms</span></div>
             <span class="node-title">${tr("Stufe 3: Mikro-Timing", "Level 3: Micro-Timing")}</span>
             <span class="node-sub">${tr("Zu früh, exakt („Pocket“) oder zu spät?", "Ahead, in the pocket, or laid back?")}</span>
           </button>
           <button class="subpage-node-btn" data-launch-rhythm="rhythm-groove" data-rhythm-lvl="4">
-            <div class="node-circle circle-peach">±28 ms</div>
+            <div class="node-circle circle-peach node-circle-stack"><span>±28</span><span class="node-stack-sub">ms</span></div>
             <span class="node-title">${tr("Stufe 4: Profi-Timing", "Level 4: Pro Timing")}</span>
             <span class="node-sub">${tr("Feinste Abweichungen sicher heraushören", "Hear the tiniest timing shifts cleanly")}</span>
           </button>
@@ -7983,7 +7983,7 @@ function openCategoryPage(categoryKey, options = {}) {
             <span class="node-sub">${tr("Alle 7 Modi (+ Lydisch, Phrygisch, Lokrisch)", "All 7 modes (+ Lydian, Phrygian, Locrian)")}</span>
           </button>
           <button class="subpage-node-btn" data-launch-modes="modes-scale" data-modes-lvl="3">
-            <div class="node-circle circle-peach node-circle-compact">7× Transp</div>
+            <div class="node-circle circle-peach node-circle-stack"><span>7×</span><span class="node-stack-sub">Transp.</span></div>
             <span class="node-title">${tr("Stufe 3: Transponiert", "Level 3: Transposed")}</span>
             <span class="node-sub">${tr("Alle 7 Modi über wechselnde Grundtöne", "All 7 modes across changing roots")}</span>
           </button>
@@ -8017,12 +8017,12 @@ function openCategoryPage(categoryKey, options = {}) {
         <p class="subpage-section-desc">${tr("Typische Pendel-Akkorde (z. B. i–IV, I–bVII, I–II oder i–bII) am Klang erkennen", "Identify signature modal chord vamps (e.g. i–IV, I–bVII, I–II, or i–bII) by ear")}</p>
         <div class="subpage-nodes-grid">
           <button class="subpage-node-btn" data-launch-modes="modes-cadence" data-modes-lvl="1">
-            <div class="node-circle circle-lilac">4× Vamp</div>
+            <div class="node-circle circle-lilac node-circle-stack"><span>4×</span><span class="node-stack-sub">Vamp</span></div>
             <span class="node-title">${tr("Stufe 1: Standard-Vamps", "Level 1: Standard Vamps")}</span>
             <span class="node-sub">${tr("Ionisch, Dorisch, Mixolydisch &amp; Äolisch", "Ionian, Dorian, Mixolydian &amp; Aeolian")}</span>
           </button>
           <button class="subpage-node-btn" data-launch-modes="modes-cadence" data-modes-lvl="2">
-            <div class="node-circle circle-lilac">6× Vamp</div>
+            <div class="node-circle circle-lilac node-circle-stack"><span>6×</span><span class="node-stack-sub">Vamp</span></div>
             <span class="node-title">${tr("Stufe 2: Alle 6 Modal-Vamps", "Level 2: All 6 Modal Vamps")}</span>
             <span class="node-sub">${tr("Inkl. Lydisch (I–II) &amp; Phrygisch (i–bII)", "Incl. Lydian (I–II) &amp; Phrygian (i–bII)")}</span>
           </button>

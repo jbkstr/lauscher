@@ -1110,6 +1110,9 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0 4px;
+  text-align: center;
+  overflow: hidden;
   font-size: 1.15rem;
   font-weight: 800;
   color: var(--raccoon-dark);
@@ -5062,8 +5065,23 @@ body,
 }
 
 .node-circle.node-circle-compact {
-  font-size: 0.94rem;
+  font-size: 0.82rem;
   letter-spacing: -0.02em;
+  line-height: 1.08;
+}
+
+.node-circle.node-circle-stack {
+  flex-direction: column;
+  gap: 0.04rem;
+  font-size: 0.96rem;
+  line-height: 1;
+}
+
+.node-circle-stack .node-stack-sub {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
 }
 
 .prod-safety-banner {
@@ -5567,6 +5585,11 @@ body,
   height: 22px;
 }
 
+.category-grid-home .cat-icon-box .icon-svg-large.melody-clef-icon {
+  width: 28px;
+  height: 28px;
+}
+
 .category-grid-home .cat-icon-box .icon-text-glyph {
   font-size: 0.96rem;
 }
@@ -5618,6 +5641,11 @@ body,
 .category-grid-home .category-nav-card.category-grid-wide .cat-icon-box .icon-svg-large {
   width: 28px;
   height: 28px;
+}
+
+.category-grid-home .category-nav-card.category-grid-wide .cat-icon-box .icon-svg-large.melody-clef-icon {
+  width: 34px;
+  height: 34px;
 }
 
 .category-grid-home .category-nav-card.category-grid-wide .cat-text-box p {
