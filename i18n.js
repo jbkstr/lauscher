@@ -811,15 +811,14 @@ const I18N_STATIC = {
   "metro.profileNameAria": { de: "Metronom-Profilname", en: "Metronome profile name" },
   "metro.saveProfileBtn": { de: "Speichern", en: "Save" },
   "metro.soundHeading": { de: "Klick-Sounds", en: "Click Sounds" },
-  "metro.soundPlaceholderBadge": { de: "Platzhalter", en: "Placeholder" },
   "metro.soundDesc": {
-    de: "Wähle künftig aus verschiedenen Klick- und Percussion-Stimmen (im Masterplan vorgemerkt). Aktuell aktiv: Standard-Klick.",
-    en: "Custom click and percussion voices coming soon (planned on the Masterplan). Currently active: Standard Click."
+    de: "Wähle aus verschiedenen Klick- und Percussion-Stimmen für dein Metronom.",
+    en: "Choose from different click and percussion voices for your metronome."
   },
   "metro.soundStandard": { de: "Standard-Klick", en: "Standard Click" },
-  "metro.soundWoodblock": { de: "Woodblock (bald)", en: "Woodblock (soon)" },
-  "metro.soundCowbell": { de: "Cowbell (bald)", en: "Cowbell (soon)" },
-  "metro.soundRimshot": { de: "Rimshot (bald)", en: "Rimshot (soon)" },
+  "metro.soundWoodblock": { de: "Woodblock", en: "Woodblock" },
+  "metro.soundCowbell": { de: "Cowbell", en: "Cowbell" },
+  "metro.soundRimshot": { de: "Rimshot", en: "Rimshot" },
   "metro.mixHeading": { de: "Lautstärke", en: "Volume" },
   "metro.volMaster": { de: "Gesamtlautstärke", en: "Master volume" },
   "metro.volMasterAria": { de: "Gesamtlautstärke des Metronoms anpassen", en: "Adjust metronome master volume" },

@@ -1719,11 +1719,58 @@ function createDefaultMetronomeProfiles() {
   ];
 }
 
+const METRONOME_SOUND_PROFILES = Object.freeze(["standard", "woodblock", "cowbell", "rimshot"]);
+const DEFAULT_METRONOME_SOUND = "standard";
+
+const METRONOME_SOUND_PERCUSSION_MAP = Object.freeze({
+  standard:  Object.freeze({ accent: "accent",         normal: "tick",         sub: "tick" }),
+  woodblock: Object.freeze({ accent: "wood_accent",    normal: "wood_tick",    sub: "wood_sub" }),
+  cowbell:   Object.freeze({ accent: "cowbell_accent", normal: "cowbell_tick", sub: "cowbell_sub" }),
+  rimshot:   Object.freeze({ accent: "rimshot_accent", normal: "rimshot_tick", sub: "rimshot_sub" })
+});
+
+const METRONOME_SOUND_I18N_KEYS = Object.freeze({
+  standard:  "metro.soundStandard",
+  woodblock: "metro.soundWoodblock",
+  cowbell:   "metro.soundCowbell",
+  rimshot:   "metro.soundRimshot"
+});
+
+const METRONOME_SOUND_FALLBACK_LABELS = Object.freeze({
+  standard:  { de: "Standard-Klick", en: "Standard Click" },
+  woodblock: { de: "Woodblock",      en: "Woodblock" },
+  cowbell:   { de: "Cowbell",        en: "Cowbell" },
+  rimshot:   { de: "Rimshot",        en: "Rimshot" }
+});
+
+function normalizeMetronomeSoundProfile(raw) {
+  return METRONOME_SOUND_PROFILES.includes(raw) ? raw : DEFAULT_METRONOME_SOUND;
+}
+
+function getMetronomeSoundLabel(soundKey) {
+  const key = normalizeMetronomeSoundProfile(soundKey);
+  const i18nKey = METRONOME_SOUND_I18N_KEYS[key];
+  if (typeof getStaticI18nText === "function" && i18nKey) {
+    const localized = getStaticI18nText(i18nKey);
+    if (localized) return localized;
+  }
+  const fb = METRONOME_SOUND_FALLBACK_LABELS[key] || METRONOME_SOUND_FALLBACK_LABELS.standard;
+  return typeof tr === "function" ? tr(fb.de, fb.en) : fb.de;
+}
+
+function resolveMetronomePercussionKind(soundProfile, beatState, subIdx = 0) {
+  const key = normalizeMetronomeSoundProfile(soundProfile);
+  const map = METRONOME_SOUND_PERCUSSION_MAP[key] || METRONOME_SOUND_PERCUSSION_MAP.standard;
+  if (subIdx > 0) return map.sub;
+  return beatState === "accent" ? map.accent : map.normal;
+}
+
 function sanitizeMetronomeProfileEntry(raw, fallbackIdx = 0) {
   if (!raw || typeof raw !== "object") return null;
   const beats = sanitizeMetronomeBeatsArray(raw.beats);
   const bpm = clampMetronomeBpm(raw.bpm);
   const subdivision = normalizeMetronomeSubdivision(raw.subdivision);
+  const sound = METRONOME_SOUND_PROFILES.includes(raw.sound) ? raw.sound : null;
   const fallbackName = `${beats.length}/4 · ${bpm} BPM`;
   const name = String(raw.name || "").trim().slice(0, 32) || fallbackName;
   return {
@@ -1731,7 +1778,8 @@ function sanitizeMetronomeProfileEntry(raw, fallbackIdx = 0) {
     name,
     bpm,
     beats,
-    subdivision
+    subdivision,
+    sound
   };
 }
 
@@ -1834,6 +1882,7 @@ function createDefaultProfile() {
     mixes: createDefaultMixes(),
     metronomeProfiles: createDefaultMetronomeProfiles(),
     metronomeMix: sanitizeMetronomeMix(DEFAULT_METRONOME_MIX),
+    metronomeSound: DEFAULT_METRONOME_SOUND,
     pianoSound: sanitizePianoSound(DEFAULT_PIANO_SOUND),
     droneMix: sanitizeDroneMix(DEFAULT_DRONE_MIX),
     customThemes: [null, null, null],
@@ -1931,6 +1980,7 @@ function sanitizeUserProfile(raw) {
     mixes: mixes,
     metronomeProfiles: metronomeProfiles,
     metronomeMix: sanitizeMetronomeMix(raw.metronomeMix),
+    metronomeSound: normalizeMetronomeSoundProfile(raw.metronomeSound),
     pianoSound: sanitizePianoSound(raw.pianoSound),
     droneMix: sanitizeDroneMix(raw.droneMix),
     customThemes: customThemes,
@@ -2215,7 +2265,8 @@ class AppState {
       subdivision: 1,
       running: false,
       activeProfileId: "metro_default_4_4",
-      mix: sanitizeMetronomeMix(DEFAULT_METRONOME_MIX)
+      mix: sanitizeMetronomeMix(DEFAULT_METRONOME_MIX),
+      sound: DEFAULT_METRONOME_SOUND
     };
     this.lastAnswerWasWrong = false;
     this.wrongAnswerData = null;
@@ -2227,6 +2278,7 @@ class AppState {
 
     this.profile = loadUserProfile();
     this.metronome.mix = sanitizeMetronomeMix(this.profile.metronomeMix);
+    this.metronome.sound = normalizeMetronomeSoundProfile(this.profile.metronomeSound);
     const initLangCfg = typeof getLanguageConfig === "function" ? getLanguageConfig(this.settings.language) : null;
     if (!this.profile.notationManual) {
       this.profile.notation = initLangCfg ? initLangCfg.defaultNotation : (this.settings.language === "en" ? "intl" : "de");
@@ -17880,7 +17932,11 @@ function importUserProfileJSON(rawText) {
     if (typeof sanitizeMetronomeMix === "function" && state.metronome) {
       state.metronome.mix = sanitizeMetronomeMix(state.profile.metronomeMix);
     }
+    if (typeof normalizeMetronomeSoundProfile === "function" && state.metronome) {
+      state.metronome.sound = normalizeMetronomeSoundProfile(state.profile.metronomeSound);
+    }
     if (typeof syncMetronomeVolumeUI === "function") syncMetronomeVolumeUI();
+    if (typeof syncMetronomeSoundUI === "function") syncMetronomeSoundUI();
     syncPianoSoundControls();
     syncDroneMixControls();
     resetBreakReminderTimer();
@@ -20829,7 +20885,9 @@ function resetMetronomeStateToDefault() {
     beats: getDefaultMeterBeats(4),
     subdivision: 1,
     running: false,
-    activeProfileId: "metro_default_4_4"
+    activeProfileId: "metro_default_4_4",
+    mix: sanitizeMetronomeMix(state.profile?.metronomeMix),
+    sound: normalizeMetronomeSoundProfile(state.profile?.metronomeSound)
   };
   _metroRuntime.tapTimestamps = [];
   _metroRuntime.activeBeatIndex = -1;
@@ -20953,7 +21011,7 @@ function scheduleSingleMetronomeStep(beatIdx, subIdx, whenSec, nowAudioSec, runT
       ? masterVel * sanitizeMetronomeMixValue(beatState === "accent" ? mix.accent : mix.normal, beatState === "accent" ? DEFAULT_METRONOME_MIX.accent : DEFAULT_METRONOME_MIX.normal)
       : masterVel * sanitizeMetronomeMixValue(mix.normal, DEFAULT_METRONOME_MIX.normal) * 0.38;
     if (vel > 0.001) {
-      const kind = subIdx === 0 && beatState === "accent" ? "accent" : "tick";
+      const kind = resolveMetronomePercussionKind(getMetronomeSoundProfile(), beatState, subIdx);
       audioEngine.triggerPercussion(kind, whenSec, Math.min(1, vel));
     }
   }
@@ -21327,12 +21385,13 @@ function renderMetronomeProfiles() {
     const subTag = prof.subdivision === METRONOME_SHUFFLE
       ? ` · ${tr("Shuffle", "Shuffle")}`
       : (prof.subdivision > 1 ? ` · ${prof.subdivision}×` : "");
+    const soundTag = prof.sound ? ` · ${escapeHtml(getMetronomeSoundLabel(prof.sound))}` : "";
     loadBtn.innerHTML = `
       <span class="metro-profile-name">${escapeHtml(prof.name)}</span>
       <span class="metro-profile-meta">
         <span>${prof.bpm} BPM</span>
         <span>·</span>
-        <span>${tf("{n} Zählzeiten", "{n} beats", { n: (prof.beats || []).length })}${subTag}</span>
+        <span>${tf("{n} Zählzeiten", "{n} beats", { n: (prof.beats || []).length })}${subTag}${soundTag}</span>
         <span class="metro-profile-dots" aria-hidden="true">${dotsHtml}</span>
       </span>
     `;
@@ -21390,7 +21449,8 @@ function saveCurrentMetronomeProfile(nameOverride = null) {
     name: cleanName,
     bpm,
     beats,
-    subdivision: sub
+    subdivision: sub,
+    sound: getMetronomeSoundProfile()
   }, state.profile.metronomeProfiles.length);
 
   state.profile.metronomeProfiles = [newEntry, ...state.profile.metronomeProfiles].slice(0, 16);
@@ -21409,6 +21469,13 @@ function loadMetronomeProfile(profileId) {
   state.metronome.beats = sanitizeMetronomeBeatsArray(found.beats);
   state.metronome.subdivision = normalizeMetronomeSubdivision(found.subdivision);
   state.metronome.activeProfileId = found.id;
+  if (found.sound && METRONOME_SOUND_PROFILES.includes(found.sound)) {
+    state.metronome.sound = found.sound;
+    if (state.profile) {
+      state.profile.metronomeSound = found.sound;
+      saveUserProfile(state.profile);
+    }
+  }
   _metroRuntime.currentBeatIndex = 0;
   _metroRuntime.currentSubIndex = 0;
   renderMetronomeView();
@@ -21424,7 +21491,8 @@ function overwriteMetronomeProfile(profileId) {
     ...existing,
     bpm: clampMetronomeBpm(state.metronome?.bpm),
     beats: sanitizeMetronomeBeatsArray(state.metronome?.beats),
-    subdivision: state.metronome?.subdivision || 1
+    subdivision: state.metronome?.subdivision || 1,
+    sound: getMetronomeSoundProfile()
   }, idx);
   state.metronome.activeProfileId = list[idx].id;
   saveUserProfile(state.profile);
@@ -21480,11 +21548,63 @@ function setMetronomeMixValue(key, rawValue) {
   syncMetronomeVolumeUI();
 }
 
+function getMetronomeSoundProfile() {
+  if (!state.metronome?.sound) {
+    state.metronome.sound = normalizeMetronomeSoundProfile(state.profile?.metronomeSound);
+  }
+  return normalizeMetronomeSoundProfile(state.metronome.sound);
+}
+
+function syncMetronomeSoundUI() {
+  const active = getMetronomeSoundProfile();
+  const badgeEl = document.getElementById("metroActiveSoundBadge");
+  if (badgeEl) {
+    badgeEl.textContent = getMetronomeSoundLabel(active);
+  }
+  document.querySelectorAll("[data-metro-sound-slot]").forEach(btn => {
+    const isMatch = btn.dataset?.metroSoundSlot === active;
+    btn.classList?.toggle("active", isMatch);
+    btn.setAttribute?.("aria-pressed", isMatch ? "true" : "false");
+  });
+}
+
+function previewMetronomeSound(soundProfile) {
+  if (state.metronome?.running) return;
+  if (typeof unlockWebAudioSync === "function") unlockWebAudioSync();
+  if (typeof ensureAudioReady !== "function") return;
+  const targetSound = normalizeMetronomeSoundProfile(soundProfile);
+  ensureAudioReady().then(() => {
+    if (state.metronome?.running || !audioEngine?.isInitialized) return;
+    const mix = getMetronomeMix();
+    const vel = sanitizeMetronomeMixValue(mix.master, DEFAULT_METRONOME_MIX.master)
+      * sanitizeMetronomeMixValue(mix.accent, DEFAULT_METRONOME_MIX.accent);
+    if (vel > 0.001) {
+      const kind = resolveMetronomePercussionKind(targetSound, "accent", 0);
+      audioEngine.triggerPercussion(kind, null, Math.min(1, vel));
+    }
+  }).catch(() => {});
+}
+
+function setMetronomeSoundProfile(soundKey, options = {}) {
+  const valid = normalizeMetronomeSoundProfile(soundKey);
+  state.metronome.sound = valid;
+  if (options.save !== false && state.profile) {
+    state.profile.metronomeSound = valid;
+    saveUserProfile(state.profile);
+  }
+  syncMetronomeSoundUI();
+  if (options.preview) {
+    previewMetronomeSound(valid);
+  }
+  return valid;
+}
+
 function renderMetronomeView() {
   renderMetronomeBpmUI();
   renderMetronomeBeatGrid();
   syncMetronomeVolumeUI();
   renderMetronomeProfiles();
+  syncMetronomeSoundUI();
   syncMetronomeTransportUI();
 }
 
@@ -21493,11 +21613,6 @@ function openMetronomeView(returnView = "tools") {
   _metroRuntime.tapTimestamps = [];
   const tapSub = document.getElementById("metroTapSub");
   if (tapSub) tapSub.textContent = tr("Tempo tippen", "Tap tempo");
-  const noticeEl = document.getElementById("metroSoundNotice");
-  if (noticeEl) {
-    noticeEl.textContent = "";
-    noticeEl.classList.add("hidden");
-  }
   switchView("metronome");
 }
 
@@ -21648,19 +21763,7 @@ function initMetronomeEventListeners() {
 
   document.querySelectorAll("[data-metro-sound-slot]").forEach(btn => {
     btn.addEventListener("click", () => {
-      const slot = btn.dataset.metroSoundSlot;
-      const noticeEl = document.getElementById("metroSoundNotice");
-      if (!noticeEl) return;
-      if (slot === "standard") {
-        noticeEl.textContent = "";
-        noticeEl.classList.add("hidden");
-      } else {
-        noticeEl.textContent = tr(
-          "Eigene Klick- & Percussion-Sounds folgen in einem kommenden Update (im Masterplan vorgemerkt). Aktuell aktiv: Standard-Klick.",
-          "Custom click & percussion sounds will follow in a future update (planned on the Masterplan). Currently active: Standard Click."
-        );
-        noticeEl.classList.remove("hidden");
-      }
+      setMetronomeSoundProfile(btn.dataset.metroSoundSlot, { save: true, preview: true });
     });
   });
 }
