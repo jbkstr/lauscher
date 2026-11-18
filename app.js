@@ -18,8 +18,8 @@ const LAUSCHEBAER_QUOTES = [
   { cat: "Willkommen", text: "„Ob leise mit Kopfhörern oder laut im Wohnzimmer – fünf Minuten Lauschen tun deinen Ohren richtig gut.“" },
   { cat: "Willkommen", text: "„Stimme schon aufgewärmt? Im ‚Einsing-Helfer‘ begleitest du deine Stimmlage in fünf Minuten vom lockeren Brummen bis zum Chorklang!“" },
   { cat: "Willkommen", text: "„Keine Hand frei zum Tippen? Schalte einfach ‚Nur Hören‘ ein und lass dir die Übungen entspannt zum Mitdenken vorspielen!“" },
-  { cat: "Willkommen", text: "„Neugierig auf Fachbegriffe in einer anderen Sprache? Unter den Einstellungen wechselst du live zwischen Deutsch, English, Français und Українська!“" },
-  { cat: "Willkommen", text: "„Bereit für eine kleine Herausforderung? Jede Kategorie hat jetzt ihre eigene Prüfung – ganz ohne Zeitdruck und mit Bestwert im Konto!“" },
+  { cat: "Willkommen", text: "„Neugierig auf Fachbegriffe in einer anderen Sprache? Unter den Einstellungen wechselst du live zwischen Deutsch, English, Français, Polski, Українська und اردو!“" },
+  { cat: "Willkommen", text: "„Bereit für eine kleine Herausforderung? Jede Übungskategorie bietet ihre eigene Prüfung – ganz ohne Zeitdruck und mit Bestwert im Konto!“" },
 
   // Kategorie 2: Mutmacher & Praxis-Tipps
   { cat: "Mutmacher", text: "„Vertrau deinem Bauchgefühl! Oft spürt man schon vor dem Nachdenken, ob ein Akkord ‚zu Hause‘ ist.“" },
@@ -47,12 +47,12 @@ const LAUSCHEBAER_QUOTES = [
   { cat: "Tipp", text: "„Bei den Melodien kannst du die gesamte Folge jederzeit wiederholen – deine erkannten Töne bleiben dabei stehen.“" },
   { cat: "Tipp", text: "„Entdecke unter ‚Wissen‘ die Instrumentenkunde – dort kannst du Streicher, Bläser oder Synthies einzeln anhören!“" },
   { cat: "Tipp", text: "„Im Mixer wartet auch das Preset ‚Orchester‘ auf dich – ideal, wenn Kadenzen mal nach großem Konzertsaal klingen sollen.“" },
-  { cat: "Tipp", text: "„Zu hell am Abend? Über das Zahnrad oben rechts schaltest du jederzeit auf ‚Dunkel‘ und drei Farbpaletten um.“" },
-  { cat: "Tipp", text: "„Deine Quick-Mixe auf der Startseite kannst du jederzeit in den Einstellungen (oder unter ‚Mein Konto‘) individuell anpassen und neue Favoriten anlegen!“" },
+  { cat: "Tipp", text: "„Zu hell am Abend? Über das Zahnrad oben rechts schaltest du jederzeit auf ‚Dunkel‘ und vier Farbdesigns inklusive Metal um.“" },
+  { cat: "Tipp", text: "„Deine Quick-Mixe auf der Startseite verwaltest du jederzeit unter ‚Mein Konto‘ – dort legst du auch eigene Favoriten an!“" },
   { cat: "Tipp", text: "„Profi-Geheimnis beim Notenlesen: Während dein Finger links die aktuelle Taste sucht, wandert dein Blick schon zur nächsten Note rechts!“" },
   { cat: "Tipp", text: "„Möchtest du Noten ganz stumm wie vom Blatt lesen? Stell in der Notation ‚Notenton: Aus‘ ein – dann geht’s blitzschnell weiter!“" },
   { cat: "Tipp", text: "„Bei den Melodien kannst du zwischen ‚Rhythmische Melodie‘, ‚Kombi-Diktat‘ (Ton + Notenlänge) und gleichmäßigen Halben frei umschalten!“" },
-  { cat: "Tipp", text: "„In ‚Produktion • EQ im Noise‘ hilft ein Trick aus dem Tonstudio: Schalte immer wieder auf ‚Flat-Bypass‘, bis das geboostete Band aufleuchtet!“" },
+  { cat: "Tipp", text: "„In ‚Produktion • EQ im Noise‘ hilft ein Trick aus dem Tonstudio: Schalte immer wieder auf ‚Flat-Bypass‘, bis das geboostete Band im Vergleich sofort hervorsticht!“" },
   { cat: "Tipp", text: "„Dreh im Bereich ‚Wissen‘ am interaktiven Quintenzirkel: Nachbar-Tonarten teilen sechs von sieben Tönen und klingen beim Modulieren samtweich!“" },
   { cat: "Tipp", text: "„Bei ‚Tonleitern & Modi‘ musst du nicht alle sieben Töne prüfen – such zuerst nur nach dem einen Charakterton wie der #4 bei Lydisch!“" },
   { cat: "Tipp", text: "„Lust auf deinen ganz persönlichen Look? Im Farbdesigner unter deinem Konto mischst du bis zu drei eigene Farbthemes inklusive Wunsch-Akzenten!“" },
@@ -72,7 +72,13 @@ const LAUSCHEBAER_QUOTES = [
   { cat: "Wusstest du?", text: "„Warum sitzt der Altschlüssel genau auf der Mittellinie? Damit Bratschen-Melodien weder oben noch unten in unzählige Hilfslinien abwandern!“" },
   { cat: "Wusstest du?", text: "„Rosa Rauschen (Pink Noise) fällt zu den Höhen sanft um 3 dB pro Oktave ab – dadurch besitzt jede Oktave für unser Ohr dieselbe Energie!“" },
   { cat: "Wusstest du?", text: "„Schon zehn Millisekunden formen einen Groove: Minimal vor dem Click klingt drängend und wach, knapp dahinter herrlich ‚laid-back‘!“" },
-  { cat: "Wusstest du?", text: "„Warum klingt Dorisch oft gleichzeitig verträumt und hoffnungsvoll? Weil über einer Moll-Leiter plötzlich eine strahlende große Sexte aufleuchtet!“" }
+  { cat: "Wusstest du?", text: "„Warum klingt Dorisch oft gleichzeitig verträumt und hoffnungsvoll? Weil über einer Moll-Leiter plötzlich eine strahlende große Sexte aufleuchtet!“" },
+  { cat: "Tipp", text: "„Gerätewechsel oder Backup? Unter ‚Mein Konto → Datensicherung‘ speicherst du dein gesamtes Profil inklusive Mixe, Themes und Metronom-Profilen als JSON-Datei – und lädst es jederzeit wieder!“" },
+  { cat: "Willkommen", text: "„Alles bleibt direkt auf deinem Gerät: keine Werbung, kein Login-Zwang und alle Klänge funktionieren komplett offline – ideal auch unterwegs!“" },
+  { cat: "Mutmacher", text: "„Verwechselte Töne oder Akkorde tauchen still und gezielt noch einmal auf – und nach 15 Minuten am Stück erinnert dich Lauscher sanft an eine kurze Ohren-Pause.“" },
+  { cat: "Tipp", text: "„Festes Tempo gesucht? Im Reiter ‚Werkzeuge‘ wartet das Metronom mit Unterteilungen, Shuffle, Gap-Klick, speicherbaren Profilen und vier Klick-Sounds (Standard, Woodblock, Cowbell & Rimshot)!“" },
+  { cat: "Tipp", text: "„Beim ‚Akkorde lesen‘ im Notenbereich erkennst du gestapelte Akkorde direkt als Kacheln – von Dur und Moll bis zu E7, Esus4 und ihren Umkehrungen!“" },
+  { cat: "Wusstest du?", text: "„Was unterscheidet eine reine Sinuskurve vom warmen Klavier? Im Modul ‚Physik & Klang‘ hörst und siehst du im Frequenzspektrum, wie Obertöne jede Klangfarbe prägen!“" }
 ];
 
 function getMascotAssetUri(mood = "idle") {

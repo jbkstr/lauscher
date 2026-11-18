@@ -471,8 +471,8 @@ const LAUSCHEBAER_QUOTES_PL = [
   { cat: "Powitanie", text: "„W słuchawkach czy głośno w pokoju — pięć minut uważnego słuchania potrafi zdziałać cuda.”" },
   { cat: "Powitanie", text: "„Głos już rozgrzany? W „Rozgrzewce głosowej” w pięć minut przejdziesz od spokojnego oddechu do pełnego chóru!”" },
   { cat: "Powitanie", text: "„Masz zajęte ręce? Włącz „Tylko słuchaj” i ćwicz uważnie w myślach bez klikania klawiszy!”" },
-  { cat: "Powitanie", text: "„Ciekawi Cię, jak terminy muzyczne brzmią w innych językach? W Ustawieniach przełączysz natychmiast między Polski, Deutsch, English, Français i Українська!”" },
-  { cat: "Powitanie", text: "„Chcesz sprawdzić formę? Każda kategoria ma własny egzamin bez limitu czasu — a rekordy zapisują się w Twoim profilu!”" },
+  { cat: "Powitanie", text: "„Ciekawi Cię, jak terminy muzyczne brzmią w innych językach? W Ustawieniach przełączysz natychmiast między Polski, Deutsch, English, Français, Українська i اردو!”" },
+  { cat: "Powitanie", text: "„Chcesz sprawdzić formę? Każda kategoria ćwiczeń ma własny egzamin bez limitu czasu — a rekordy zapisują się w Twoim profilu!”" },
 
   { cat: "Motywacja", text: "„Zaufaj pierwszym odczuciom! Zanim przeanalizujesz dźwięki, zazwyczaj już czujesz, czy akord wrócił do domu.”" },
   { cat: "Motywacja", text: "„Prosty trik: zanuć po cichu dźwięk podstawowy — własny głos jest najlepszym kompasem muzyka.”" },
@@ -498,8 +498,8 @@ const LAUSCHEBAER_QUOTES_PL = [
   { cat: "Wskazówka", text: "„W Melodiach możesz w dowolnej chwili odsłuchać całą frazę ponownie — odgadnięte nuty zostaną odkryte.”" },
   { cat: "Wskazówka", text: "„Zajrzyj do działu „Instrumenty” w Wiedzy — usłyszysz z bliska brzmienie smyczków, dętych i syntezatorów!”" },
   { cat: "Wskazówka", text: "„Włącz preset „Orkiestra”, kiedy zechcesz poczuć rozmach kadencji jak z dużej sali koncertowej.”" },
-  { cat: "Wskazówka", text: "„Ćwiczysz wieczorem? Kliknij koło zębate u góry, aby przełączyć na tryb ciemny i przyjazne dla oka barwy.”" },
-  { cat: "Wskazówka", text: "„W Ustawieniach oraz w Profilu możesz dowolnie modyfikować swoje szybkie miksy na ekranie głównym!”" },
+  { cat: "Wskazówka", text: "„Ćwiczysz wieczorem? Kliknij koło zębate u góry, aby włączyć tryb ciemny i cztery motywy kolorystyczne, w tym Metal.”" },
+  { cat: "Wskazówka", text: "„W zakładce «Mój profil» możesz w dowolnej chwili edytować swoje szybkie miksy z ekranu głównego i dodawać własne ulubione!”" },
   { cat: "Wskazówka", text: "„Sekret czytania nut z arkusza (a vista): gdy palec naciska nutę po lewej, wzrok już wybiega na kolejną w prawo!”" },
   { cat: "Wskazówka", text: "„Chcesz czytać nuty zupełnie bez dźwięku jak z papieru? Wyłącz „Dźwięk nuty” i nabierz tempa!”" },
   { cat: "Wskazówka", text: "„W Melodiach przełączaj płynnie między „Melodią rytmiczną”, „Dyktandem kombi” (wysokość + rytm) i prostymi półnutami!”" },
@@ -522,7 +522,13 @@ const LAUSCHEBAER_QUOTES_PL = [
   { cat: "Czy wiesz, że…", text: "„Dlaczego klucz altowy stawia centralne C1 dokładnie na trzeciej linii? Aby altówka mieściła niemal cały rejestr bez lasu linii dodanych!”" },
   { cat: "Czy wiesz, że…", text: "„Szum różowy opada o 3 dB na oktawę ku górze — dzięki temu ludzkie ucho odbiera każdą oktawę z równą głośnością!”" },
   { cat: "Czy wiesz, że…", text: "„Zaledwie dziesięć milisekund zmienia charakter groovu: uderzenie minimalnie przed klikiem brzmi napędzająco, a odrobinę za nim — luźno i „laid-back”!”" },
-  { cat: "Czy wiesz, że…", text: "„Dlaczego skala dorycka brzmi jednocześnie nastrojowo i optymistycznie? Nad molową podstawą rozbłyska tam nieoczekiwanie wielka seksta!”" }
+  { cat: "Czy wiesz, że…", text: "„Dlaczego skala dorycka brzmi jednocześnie nastrojowo i optymistycznie? Nad molową podstawą rozbłyska tam nieoczekiwanie wielka seksta!”" },
+  { cat: "Wskazówka", text: "„Zmiana urządzenia lub kopia zapasowa? W zakładce «Mój profil → Kopia zapasowa» zapiszesz cały profil — z miksami, motywami i profilami metronomu — jako plik JSON i wczytasz go w dowolnej chwili!”" },
+  { cat: "Powitanie", text: "„Wszystko zostaje na Twoim urządzeniu: bez reklam, bez logowania, a wszystkie brzmienia działają w pełni offline — także w podróży!”" },
+  { cat: "Motywacja", text: "„Pomylone dźwięki lub akordy dyskretnie wracają jeszcze w tej samej sesji — a po 15 minutach aktywnego ćwiczenia Lauscher łagodnie przypomni o krótkiej przerwie dla uszu.”" },
+  { cat: "Wskazówka", text: "„Szukasz pewnego metronomu? W zakładce «Narzędzia» czekają podziały, shuffle, wyciszane takty, własne profile oraz cztery brzmienia kliku (Standardowy klik, Woodblock, Cowbell i Rimshot)!”" },
+  { cat: "Wskazówka", text: "„W trybie «Czytanie akordów» w dziale Notacja rozpoznajesz spiętrzone akordy na kafelkach wyboru — od trójdźwięków durowych i molowych po E7, Esus4 i przewroty!”" },
+  { cat: "Czy wiesz, że…", text: "„Co odróżnia czystą sinusoidę od ciepłego brzmienia fortepianu? W dziale «Fizyka i dźwięk» usłyszysz i zobaczysz w widmie częstotliwości, jak alikwoty kształtują każdą barwę!”" }
 ];
 
 const PROFILE_INSTRUMENTS_PL = {

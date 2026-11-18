@@ -471,8 +471,8 @@ const LAUSCHEBAER_QUOTES_FR = [
   { cat: "Bienvenue", text: "« Au casque tout doucement ou au salon — cinq minutes d’écoute attentive font des merveilles. »" },
   { cat: "Bienvenue", text: "« Envie d’échauffer ta voix ? L’Échauffement vocal t’accompagne en cinq minutes du souffle doux jusqu’aux accords de chœur ! »" },
   { cat: "Bienvenue", text: "« Pas les mains libres pour toucher l’écran ? Active « Écoute seule » et laisse les exercices défiler calmement pour ton oreille ! »" },
-  { cat: "Bienvenue", text: "« Curieux de découvrir les termes musicaux ailleurs ? Dans les Paramètres, passe en direct du français à l’allemand, l’anglais ou l’ukrainien ! »" },
-  { cat: "Bienvenue", text: "« Prêt pour un petit bilan ? Chaque catégorie propose désormais son propre examen — sans chrono stressant et avec record sauvegardé ! »" },
+  { cat: "Bienvenue", text: "« Curieux de découvrir les termes musicaux ailleurs ? Dans les Paramètres, passe en direct entre français, allemand, anglais, polonais, ukrainien et ourdou ! »" },
+  { cat: "Bienvenue", text: "« Prêt pour un petit bilan ? Chaque catégorie d’exercices propose son propre examen — sans chrono stressant et avec record sauvegardé ! »" },
   { cat: "Encouragement", text: "« Fais confiance à ton ressenti ! Avant d’analyser, tu sens souvent si l’accord est rentré à la maison. »" },
   { cat: "Encouragement", text: "« Petite astuce : fredonne tout bas la fondamentale — ta propre voix est la meilleure boussole. »" },
   { cat: "Encouragement", text: "« Quand deux accords semblent proches, descends ton attention tout en bas, vers la note de basse ! »" },
@@ -496,8 +496,8 @@ const LAUSCHEBAER_QUOTES_FR = [
   { cat: "Astuce", text: "« Dans Mélodies, tu peux rejouer toute la phrase : les notes déjà trouvées restent bien en place. »" },
   { cat: "Astuce", text: "« Découvre l’onglet Instruments dans Savoir : écoute cordes, cuivres, bois et synthés de près ! »" },
   { cat: "Astuce", text: "« Essaie le préréglage « Orchestre » pour entendre tes cadences avec l’ampleur d’une grande salle. »" },
-  { cat: "Astuce", text: "« Tu pratiques tard le soir ? Ouvre la roue dentée pour le mode Sombre et les thèmes apaisants. »" },
-  { cat: "Astuce", text: "« Tu peux personnaliser tes Quick-Mix de l’accueil dans Paramètres ou Mon compte quand tu veux ! »" },
+  { cat: "Astuce", text: "« Tu pratiques tard le soir ? Ouvre la roue dentée pour le mode Sombre et quatre thèmes dont Metal. »" },
+  { cat: "Astuce", text: "« Tu gères tes Quick-Mix de l’accueil quand tu veux dans « Mon compte » — et tu peux y créer tes propres favoris ! »" },
   { cat: "Astuce", text: "« Secret de déchiffrage : pendant que ton doigt joue la note de gauche, tes yeux anticipent déjà la note suivante qui arrive à droite ! »" },
   { cat: "Astuce", text: "« Envie de lire en silence comme sur une vraie partition ? Passe sur « Son note : Non » en Lecture de notes pour enchaîner sans pause ! »" },
   { cat: "Astuce", text: "« Dans Mélodies, alterne librement entre « Mélodie rythmée », « Dictée combinée » (hauteur + durée) et blanches régulières ! »" },
@@ -519,7 +519,13 @@ const LAUSCHEBAER_QUOTES_FR = [
   { cat: "Le saviez-vous ?", text: "« Pourquoi la clé d’Ut 3 place-t-elle le Do central sur la ligne du milieu ? Pour garder les mélodies d’alto bien à l’aise dans les cinq lignes ! »" },
   { cat: "Le saviez-vous ?", text: "« Le bruit rose diminue doucement de 3 dB par octave vers les aigus : pour l’oreille humaine, chaque octave y porte exactement la même énergie ! »" },
   { cat: "Le saviez-vous ?", text: "« Dix millisecondes suffisent à changer l’âme d’un groove : un poil avant le clic paraît pressant et vif, un poil après devient délicieusement « laid-back » ! »" },
-  { cat: "Le saviez-vous ?", text: "« Pourquoi le mode dorien paraît-il à la fois rêveur et lumineux ? Au cœur d’une gamme mineure, il cache une radieuse Sixte majeure ! »" }
+  { cat: "Le saviez-vous ?", text: "« Pourquoi le mode dorien paraît-il à la fois rêveur et lumineux ? Au cœur d’une gamme mineure, il cache une radieuse Sixte majeure ! »" },
+  { cat: "Astuce", text: "« Changement d’appareil ou sauvegarde ? Dans « Mon compte → Sauvegarde », exporte tout ton profil (mix, thèmes, profils de métronome) en fichier JSON et recharge-le à tout moment ! »" },
+  { cat: "Bienvenue", text: "« Tout reste directement sur ton appareil : sans pub, sans inscription obligatoire, et tous les sons fonctionnent 100 % hors ligne — même en déplacement ! »" },
+  { cat: "Encouragement", text: "« Les notes ou accords confondus reviennent discrètement dans ta session — et après 15 minutes actives, Lauscher te suggère tout en douceur une petite pause pour tes oreilles. »" },
+  { cat: "Astuce", text: "« Besoin d’un métronome fiable ? L’onglet « Outils » propose divisions, shuffle, temps muets, profils enregistrables et quatre sons de clic (Standard, Woodblock, Cloche & Rimshot) ! »" },
+  { cat: "Astuce", text: "« En « Lecture d’accords » dans la section Notation, identifie des accords empilés directement sur des tuiles — des triades majeures et mineures jusqu’aux accords E7, Esus4 et renversements ! »" },
+  { cat: "Le saviez-vous ?", text: "« Qu’est-ce qui distingue une onde sinusoïdale pure d’un vrai piano chaleureux ? Dans « Physique & Son », écoute et observe le spectre fréquentiel révéler comment les harmoniques sculptent chaque timbre ! »" }
 ];
 
 const PROFILE_INSTRUMENTS_FR = {
