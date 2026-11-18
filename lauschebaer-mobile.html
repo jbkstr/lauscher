@@ -938,7 +938,8 @@ html, body {
   color: var(--raccoon-dark);
   border: 1.5px solid var(--sage-strong);
   border-radius: var(--radius-pill);
-  padding: 0.68rem 1.08rem;
+  padding: 0.68rem 0;
+  display: inline-flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -955,6 +956,11 @@ html[lang="uk"] .btn-primary-action.home-continue-fab { width: 178px; }
 html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
 
 .btn-primary-action.home-continue-fab span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
   font-size: 1rem;
   font-weight: 800;
   line-height: 1.2;
@@ -1282,7 +1288,7 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
 .account-card {
   background-color: var(--surface-white);
   border: 1px solid var(--border-soft);
-  border-inline-start: 5px solid var(--sage);
+  border-inline-end: 5px solid var(--sage);
   border-radius: var(--radius-lg);
   padding: 0.85rem 0.95rem;
   margin-bottom: 0;
@@ -1294,16 +1300,17 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
 
 #spaceExamHistoryCard,
 #spaceTimerCard {
-  border-inline-start-color: var(--peach);
+  border-inline-end-color: var(--peach);
 }
 
 #spaceThemesCard {
-  border-inline-start-color: var(--lilac);
+  border-inline-end-color: var(--lilac);
 }
 
 .account-hero-card {
   background: linear-gradient(145deg, var(--surface-white) 0%, var(--sage-soft) 100%);
   border: 1px solid rgba(46, 111, 78, 0.16);
+  border-inline-end: 5px solid var(--sage);
   padding: 0.9rem;
   box-shadow: var(--shadow-card);
 }
