@@ -1610,31 +1610,39 @@ const CATEGORY_HELP_GUIDES_EN = {
     tagClass: "tag-sage",
     tag: "How It Works • Cadences",
     title: "How Cadence Training Works",
-    lead: "Instead of guessing chords out of context, you hear a full four-bar progression that grounds your ear — and identify the missing harmonic function at the question mark.",
+    lead: "Instead of guessing chords in isolation, you hear a complete four-bar progression in context — in both <strong>Major</strong> and <strong>Minor</strong> — and identify the missing harmonic function at the question mark.",
     sections: `
-      <h3>The Two Exercise Groups</h3>
+      <h3>The Four Exercise Groups (Major &amp; Minor)</h3>
       <div class="k-compare-grid">
         <div class="k-compare-box is-sage">
-          <h5>Target: Bar 4 (Classic)</h5>
-          <p>Bars 1–3 are shown to establish the key. Listen to all four chords and choose the missing harmony for <strong>Bar 4</strong>.</p>
+          <h5>Major • Target: Bar 4</h5>
+          <p>Bars 1–3 are shown to establish the Major key. Listen to all four bars and pick the missing chord for <strong>Bar 4</strong>.</p>
         </div>
         <div class="k-compare-box is-lilac">
-          <h5>Random Bar (1–4)</h5>
-          <p>The question mark moves unpredictably across Bars 1, 2, 3, or 4. Even when Bar 1 is hidden, a visible Tonic (<strong>I</strong>) anchor stays on screen to orient your ear.</p>
+          <h5>Major • Random Bar (1–4)</h5>
+          <p>The question mark moves unpredictably across Bars 1–4. Even when Bar 1 is hidden, a visible Tonic (<strong>I</strong>) remains to ground your ear.</p>
+        </div>
+        <div class="k-compare-box is-peach">
+          <h5>Minor • Target: Bar 4</h5>
+          <p>The same contextual drills in true Minor keys (e.g. <code>i–iv–V</code>): hear three bars of setup and choose the missing Minor chord in <strong>Bar 4</strong>.</p>
+        </div>
+        <div class="k-compare-box is-lilac">
+          <h5>Minor • Random Bar (1–4)</h5>
+          <p>The hidden bar shifts anywhere across Bars 1–4; at least one visible Minor Tonic (<strong>i</strong>) stays on screen for clear orientation.</p>
         </div>
       </div>
 
-      <h3>The 4 Difficulty Levels</h3>
+      <h3>The 4 Difficulty Levels (Major &amp; Minor)</h3>
       <ul class="article-steps-list">
-        <li><strong>Level 1 – Core Pillars (I–V):</strong> The four cornerstones <code>I</code>, <code>IV</code>, <code>V</code>, and <code>vi</code> — essential for countless folk and pop songs.</li>
-        <li><strong>Level 2 – Diatonic (ii–vi):</strong> All six main diatonic chords in Major (adding <code>ii</code> and <code>iii</code>).</li>
-        <li><strong>Level 3 – Extended (V/V):</strong> Adds the Dominant 7th (<code>V7</code>) and secondary dominant <code>V/V</code>.</li>
-        <li><strong>Level 4 – Jazz &amp; Tritone Sub (bII7):</strong> Full chromatic vocabulary all the way up to the tritone substitution <code>bII7</code>.</li>
+        <li><strong>Level 1 – Basics (I–V / i–V):</strong> The four core pillars: <code>I, IV, V, vi</code> in Major, or <code>i, iv, V, VI</code> in Minor.</li>
+        <li><strong>Level 2 – Diatonic (ii–vi / ii°–VII):</strong> All diatonic scale degrees (Major adds <code>ii</code> &amp; <code>iii</code>; Minor includes <code>ii°, III, v, V, VII</code>).</li>
+        <li><strong>Level 3 – Extended (V/V / N6):</strong> Adds Dominant 7th (<code>V7</code>) and secondary dominant <code>V/V</code>, plus the Neapolitan chord <code>N6</code> in Minor.</li>
+        <li><strong>Level 4 – Jazz &amp; Tritone (bII7 / iiø7):</strong> Full harmonic palette up to tritone substitution <code>bII7</code> and Minor <code>ii–V</code> (<code>iiø7</code>).</li>
       </ul>
 
       <div class="article-highlight-box">
-        <h4>Controls While Practicing</h4>
-        <p>Use the chips above the stage to adjust <strong>Key</strong>, <strong>Time Signature</strong>, and <strong>Tempo (BPM)</strong>. Below, <strong>Tonic (I)</strong> grounds your ear anytime, <strong>Replay Chord</strong> lets you hear the queried degree in isolation, the <strong>Loop toggle</strong> repeats the progression seamlessly, and after a miss <strong>A/B Compare</strong> and <strong>Hear Bass</strong> let you contrast your guess directly with the solution.</p>
+        <h4>Controls, Listen Only &amp; Exam</h4>
+        <p>Above the stage, adjust <strong>Key</strong>, <strong>Time Signature</strong>, and <strong>Tempo (BPM)</strong> anytime. Below, <strong>Tonic (I)</strong> / <strong>Tonic (i)</strong> and <strong>Replay Chord</strong> anchor your ear; at the bottom, <strong>Loop</strong> repeats continuously and <strong>Listen Only</strong> plays and reveals solutions automatically. After a miss, <strong>A/B Compare</strong> and <strong>Bass / Root</strong> contrast your choice with the answer — and the <strong>Category Exam</strong> tests Major and Minor under exam conditions.</p>
       </div>
     `
   },
@@ -1642,7 +1650,7 @@ const CATEGORY_HELP_GUIDES_EN = {
     tagClass: "tag-peach",
     tag: "How It Works • Intervals",
     title: "How Interval Training Works",
-    lead: "Train your ear on pure two-note distances — melodic ascending, melodic descending, and simultaneous dyads. In melodic intervals, the starting pitch shifts randomly on every question across a clear mid-piano register. (Looking for full chords &amp; inversions? They now live in the dedicated <strong>Chords</strong> module!)",
+    lead: "Train your ear on pure two-note distances — melodic ascending, melodic descending, simultaneous dyads, and tones above a sustained strings pad. For melodic and root-pad drills, the starting pitch shifts every round within a clear mid-piano register. (Looking for full chords &amp; inversions? They have their own dedicated <strong>Chords</strong> module!)",
     sections: `
       <h3>The 4 Exercise Types</h3>
       <div class="k-compare-grid">
@@ -1683,8 +1691,8 @@ const CATEGORY_HELP_GUIDES_EN = {
       <p><em>Switch Notation:</em> You can toggle between <strong>International (P / M / m)</strong> and <strong>German (P / G / k)</strong> anytime under <strong>App Settings → Musical Notation → Interval Naming</strong>.</p>
 
       <div class="article-highlight-box">
-        <h4>Practice Tips</h4>
-        <p>Tap <strong>Root Note</strong> anytime to hear the starting pitch on its own. After a miss, <strong>A/B Compare</strong> replays your guess from the exact same starting pitch and in the same direction (up or down) right against the true answer; toggle <strong>Auto-Next</strong> to keep drills flowing effortlessly.</p>
+        <h4>Sing Along, A/B Compare &amp; Exam</h4>
+        <p>The top <strong>Sing along</strong> chip (with optional hum pause) invites your voice to feel the distance. Below, <strong>Root Note</strong> replays the starting pitch anytime; after a miss, <strong>A/B Compare</strong> plays your guess from the exact same starting pitch and direction right against the solution. Use <strong>Loop</strong> to repeat continuously (enable <strong>Auto-Next</strong> in Settings to jump straight to the next question on a hit), try <strong>Listen Only</strong> for passive review, or take the 3-level <strong>Category Exam</strong> across all 4 interval types.</p>
       </div>
     `
   },
@@ -1731,7 +1739,7 @@ const CATEGORY_HELP_GUIDES_EN = {
 
       <div class="article-highlight-box">
         <h4>Practice Tips</h4>
-        <p>In chord quality drills, <strong>Root Note</strong> replays the chord root; in inversions, the bass hint isolates the lowest sounding bass tone. After a miss, <strong>A/B Compare</strong> plays your chosen chord or inversion on the same root right before the true answer!</p>
+        <p><strong>Chord Root</strong> replays the chord root pitch anytime; after a miss, <strong>A/B Compare</strong> plays your pick on the exact same root right before the true answer, and in inversions <strong>Hear Bass Note</strong> isolates the lowest voice cleanly. You can also toggle <strong>Loop</strong>, <strong>Listen Only</strong>, and the 4-level <strong>Category Exam</strong>.</p>
       </div>
     `
   },
@@ -1739,22 +1747,22 @@ const CATEGORY_HELP_GUIDES_EN = {
     tagClass: "tag-lilac",
     tag: "How It Works • Melodies",
     title: "How Melody Training Works",
-    lead: "Combine your Solfège ear with real musical phrasing and pulse: a steady 4-chord context cadence leads through a 1-bar count-in straight into a 4–6 note melody.",
+    lead: "Combine your Solfège ear with real musical phrasing directly on a 5-line musical staff: a 4-chord context cadence leads through a 1-bar count-in straight into a 4–6 note phrase.",
     sections: `
       <h3>Step-by-Step Round Flow</h3>
       <ul class="article-steps-list">
-        <li><strong>1. 4-Chord Cadence, Count-In &amp; Beat Pulse:</strong> A fixed 4-chord progression (<code>I – vi – IV – V</code>) grounds your ear in the key, followed by a 1-bar count-in in <code>4/4</code> or <code>3/4</code> before 4–6 musical notes play with eighths, quarters, dotted quarters, half notes, and rests. Use <strong>Pulse: On/Off</strong> to toggle the steady beat click.</li>
-        <li><strong>2. Three Melody Styles:</strong> Choose between <strong>In Time</strong> (note values are shown above the cards while you solve pitch), <strong>Combined Dictation</strong> (solve both pitch <em>and</em> note value — <code>1/8</code>, <code>1/4</code>, <code>1/4.</code>, <code>1/2</code> — in either order), and <strong>Basics (Half Notes)</strong> (4 even half notes for gentle onboarding).</li>
-        <li><strong>3. Step-by-Step Discovery:</strong> As each slot is solved, its <strong>Solfège name</strong> (e.g., <code>Do</code>, <code>Mi</code>, <code>Fa</code>) and note letter appear and focus moves cleanly to the next tone.</li>
-        <li><strong>4. Replay Without Losing Progress:</strong> Tap <strong>▶ Play</strong> anytime to re-hear the full phrase while solved slots stay revealed. Use <strong>Replay Tone</strong> to isolate the active note along with a beat reference click.</li>
+        <li><strong>1. Cadence, Count-In &amp; Musical Staff:</strong> A fixed 4-chord progression (<code>I – vi – IV – V</code>) grounds your ear in the key, followed by a 1-bar count-in in <code>4/4</code> or <code>3/4</code> before 4–6 musical notes play with eighths, quarters, dotted quarters, half notes, and rests shown right on the staff.</li>
+        <li><strong>2. Three Selectable Styles:</strong> On the category screen, pick <strong>Rhythmic Melody</strong> (note durations appear directly on the staff while you solve pitch), <strong>Full Dictation</strong> (solve both pitch on the keyboard <em>and</em> note value — <code>1/8</code>, <code>1/4</code>, <code>1/4.</code>, <code>1/2</code> — below in either order), or <strong>Steady (Basics)</strong> (4 even half notes for gentle onboarding).</li>
+        <li><strong>3. Step-by-Step Staff Discovery:</strong> Once a note is fully solved, its <strong>Solfège name</strong> (or degree number <code>1–7</code>) appears below the staff and focus moves cleanly to the next question mark.</li>
+        <li><strong>4. Replay &amp; Tap Notes Directly:</strong> Tap <strong>▶ Play</strong> anytime to re-hear the full phrase while solved notes stay visible. <strong>Replay Tone</strong> (or tapping a solved/current note right on the staff) isolates just that note with a short pulse reference.</li>
       </ul>
 
-      <h3>Levels, Key Modes &amp; Octave Span</h3>
+      <h3>Levels, Keys &amp; Controls</h3>
       <ul class="article-steps-list">
         <li><strong>Level 1 – Do–Fa:</strong> 4–5 note phrases drawn from the lower tetrachord (<code>Do, Re, Mi, Fa</code>).</li>
         <li><strong>Level 2 – Sol–Do:</strong> 4–6 note phrases focused on the upper tension space (<code>Sol, La, Ti, Do</code>).</li>
         <li><strong>Level 3 – Full Key:</strong> All seven Solfège degrees (<code>Do</code> through <code>Do</code>) across 4–6 notes.</li>
-        <li><strong>C Major vs. Changing Keys &amp; Octaves:</strong> Train fixed in <code>C Major</code> or across changing random keys, and either within 1 octave or with musical register shifts — while the keyboard stays compact and one-octave friendly.</li>
+        <li><strong>Key Modes, Octaves &amp; Helpers:</strong> Train in fixed <code>C Major</code> or random keys, and within 1 octave or across multiple registers. Above the staff, control <strong>Key</strong>, <strong>Pulse: On/Off</strong>, and <strong>Tempo (BPM)</strong>; below sit <strong>Tonic (Do)</strong>, <strong>Auto-Next</strong> (bottom left), <strong>Listen Only</strong>, plus a 5-level <strong>Category Exam</strong>.</li>
       </ul>
     `
   },
@@ -1762,13 +1770,13 @@ const CATEGORY_HELP_GUIDES_EN = {
     tagClass: "tag-sage",
     tag: "How It Works • Solfège",
     title: "How Functional Solfège Works",
-    lead: "Movable-Do Solfège builds relative pitch: you learn to recognize each of the 7 scale degrees (Do–Ti) by its signature tension and pull inside a key.",
+    lead: "Movable-Do Solfège builds relative pitch: you learn to recognize each of the 7 scale degrees (Do–Ti or 1–7) by its signature tension and pull inside a key.",
     sections: `
       <h3>Every Round Follows 4 Clear Steps</h3>
       <ul class="article-steps-list">
         <li><strong>1. Context Cadence:</strong> A short reference progression (<code>I – vi – IV – V</code>) tunes your ear cleanly into the tonal center.</li>
         <li><strong>2. Target Degree:</strong> After a brief pause, you hear one isolated degree from that key.</li>
-        <li><strong>3. Play It on the Keyboard:</strong> Only active scale notes carry syllable boxes (<em>Do–Re–Mi–Fa–Sol–La–Ti–Do</em>), framed neatly with one border key on each side; non-diatonic keys stay dimmed.</li>
+        <li><strong>3. Play It on the Keyboard:</strong> Only active scale notes carry labels (<em>Do–Re–Mi–Fa–Sol–La–Ti–Do</em> or optional <em>Scale Degrees 1–7</em>), framed neatly with one border key on each side; non-diatonic keys stay dimmed.</li>
         <li><strong>4. Silent Misses &amp; Natural Resolution:</strong> Wrong keys flash soft red silently so your tonal memory stays clean. Landing the right key highlights green and plays its functional resolution back home (<code>Do–Fa</code> downward, <code>Sol–Ti</code> upward).</li>
       </ul>
 
@@ -1780,8 +1788,8 @@ const CATEGORY_HELP_GUIDES_EN = {
       </ul>
 
       <div class="article-highlight-box">
-        <h4>On-Screen Helpers</h4>
-        <p>Above the keyboard sit the <strong>Key Badge</strong> (tap to hear the tonic chord), <strong>Tonic (Do)</strong>, and <strong>Repeat Tone</strong>. In the bottom dock, the purple <strong>Loop button</strong> repeats the target note slowly every 3 seconds; whether the next round starts automatically after the resolution is configured in <strong>App Settings</strong>.</p>
+        <h4>Helpers, Sing Along &amp; Labels</h4>
+        <p>At the top, the <strong>Sing along</strong> chip (with optional hum pause) invites you to sing back to Do / 1, while <strong>BPM</strong> sits right beside it. Above the keyboard sit the <strong>Key Badge</strong> (tap for the tonic triad), <strong>Tonic (Do)</strong>, and <strong>Replay Tone</strong>. Below, the purple <strong>Loop button</strong> repeats the target note every 3 seconds, and <strong>Listen Only</strong> reveals and resolves automatically. Switch between <strong>Syllables (Do–Ti)</strong> and <strong>Numbers (1–7)</strong> or <strong>Auto-Next</strong> anytime in <strong>App Settings</strong>.</p>
       </div>
     `
   },
@@ -1789,19 +1797,19 @@ const CATEGORY_HELP_GUIDES_EN = {
     tagClass: "tag-sage",
     tag: "How It Works • Rhythm",
     title: "How Rhythm Training Works",
-    lead: "Four varied modules sharpen your internal clock, notation reading, live tapping accuracy, and band-level pocket feel — all adjustable in real time by tempo (BPM).",
+    lead: "Four varied modules sharpen meter sensing, rhythmic dictation, ear tap-back &amp; sight-tapping, and pocket groove feel — cleanly drawn on a single-line percussion staff and adjustable in real time by tempo (BPM).",
     sections: `
       <h3>The 4 Rhythm Modules</h3>
       <ul class="article-steps-list">
-        <li><strong>1. Time Signature &amp; Meter:</strong> Listen to two bars of percussion (with an accented Beat <code>1</code>) and distinguish <code>4/4</code>, <code>3/4</code>, <code>2/4</code>, <code>6/8</code>, and odd meters (<code>5/4</code> / <code>7/8</code>).</li>
-        <li><strong>2. Rhythm Dictation (4 Beats):</strong> After one count-in bar, a four-beat pattern plays on clave. Fill in all four question marks step by step with matching rhythm blocks (from quarters &amp; rests up to triplets, 16ths, and syncopations).</li>
-        <li><strong>3. Rhythm Tap (Live Pad):</strong> Lauscher counts in, demonstrates one bar, and hands it straight to you — tap the rhythm accurately on the big <strong>Tap Pad</strong> (or press <code>Space</code>), ending in <em>Blind Mode</em> with zero click!</li>
-        <li><strong>4. Groove, Offbeats &amp; Micro-Timing:</strong> Spot groove styles (march, backbeat, syncopation, swing, 3-against-2), locate upbeat cowbell accents, and train ultra-fine pocket feel (<em>rushing / early</em>, <em>dead in the pocket</em>, or <em>laid-back</em>).</li>
+        <li><strong>1. Time Signature &amp; Meter (3 Levels):</strong> Listen to two bars of percussion (with an accented Beat <code>1</code>) and distinguish <code>4/4</code> &amp; <code>3/4</code> (Level 1), <code>2/4</code> &amp; <code>6/8</code> (Level 2), and odd meters <code>5/4</code> &amp; <code>7/8</code> (Level 3). Use <strong>Quarter Pulse</strong> anytime as a neutral reference.</li>
+        <li><strong>2. Rhythm Dictation (4 Beats, 4 Levels):</strong> After one count-in bar, a four-beat pattern plays on clave over the single-line staff. Fill in all four beats step by step (from quarters &amp; rests through offbeats &amp; triplets to 16th notes and dotted syncopations) using <strong>Metronome (1–4)</strong>, <strong>Replay Beat</strong> (or tapping a beat), and <strong>Auto-Next</strong>.</li>
+        <li><strong>3. Rhythm Tap: Tap-Back &amp; Tap from Notation (4 Levels each):</strong> In <strong>Tap-Back</strong>, Lauscher counts in, demonstrates one bar, and hands it straight to you on the <strong>Tap Pad</strong> (or <code>Spacebar</code>) — including <strong>Click: On/Off</strong>, <strong>Listen Only</strong> preview, and Level 4 <em>Blind Mode</em>. In <strong>Tap from Notation</strong>, there is no audio demo: read the pattern straight off the staff and tap to the metronome after 1 bar of count-in (Level 4: <em>No Metronome</em>). Afterward, a visual <strong>timeline</strong> scores every hit as <code>exact</code>, <code>close (±ms)</code>, <code>missed</code>, or <code>extra</code>.</li>
+        <li><strong>4. Groove, Offbeats &amp; Micro-Timing (4 Levels):</strong> Level 1 spots <em>Groove Styles</em> (march, backbeat, syncopation, swing, 3-against-2), Level 2 finds the <em>Offbeat Cowbell Accent</em> (<code>1</code>–<code>4+</code>), Level 3 trains <em>Micro-Timing (±55 ms)</em> and Level 4 <em>Pro Timing (±28 ms)</em> (rushing / early, in the pocket, or laid-back).</li>
       </ul>
 
       <div class="article-highlight-box">
-        <h4>Practice Tips</h4>
-        <p>Begin <strong>Rhythm Tap</strong> with the <strong>Click helper ON</strong> around 80–95 BPM. Once comfortable, turn the click off or tackle <strong>Blind Mode</strong> to forge a rock-solid internal metronome.</p>
+        <h4>Practice Tips &amp; Category Exam</h4>
+        <p>Start <strong>Rhythm Tap</strong> with the <strong>Click helper ON</strong> around 80–95 BPM and toggle <strong>Auto-Next</strong> bottom-left if desired. Once your clock feels solid, tackle <strong>Blind Mode</strong>, <strong>Tap from Notation without Metronome</strong>, <strong>Listen Only</strong>, or the 4-level <strong>Category Exam</strong>.</p>
       </div>
     `
   },
@@ -1809,17 +1817,17 @@ const CATEGORY_HELP_GUIDES_EN = {
     tagClass: "tag-lilac",
     tag: "How It Works • Production & Mixing",
     title: "How Frequency & EQ Training Works",
-    lead: "Calibrate your mixing ears across standard ISO third-octave bands — starting with pure sine tones and advancing to console-style EQ boosts carved inside pink noise.",
+    lead: "Calibrate your mixing ears across standard studio frequency bands — starting with isolated sine waves across 5 to 12 bands and advancing to live parametric EQ boosts inside pink noise.",
     sections: `
       <h3>The 2 Production Modules</h3>
       <ul class="article-steps-list">
-        <li><strong>1. Pure Frequency Recognition (Sine):</strong> Hear a level-matched sine tone from Sub-Bass (<code>63 Hz</code>) to Air highs (<code>12 kHz</code>) and pinpoint its band. Tap <strong>“Ref: 1 kHz”</strong> anytime to recalibrate your ear.</li>
-        <li><strong>2. Pink Noise EQ Boost (Pro):</strong> First you hear neutral, unprocessed <em>Pink Noise</em> (“Flat”), then a parametric peaking EQ boosts just one target band. Toggle <strong>“Flat Bypass”</strong> freely to audition raw vs. boosted noise side by side.</li>
+        <li><strong>1. Frequency Recognition (Sine Wave, 3 Levels):</strong> Hear a level-matched sine tone from Sub-Bass (<code>63 Hz</code>) to Air highs (<code>12 kHz</code>) across <strong>5 Main Bands</strong>, <strong>8 Octave Bands</strong>, or <strong>12 Bands</strong>. Tap <strong>“Ref: 1 kHz”</strong> anytime to recalibrate your ear.</li>
+        <li><strong>2. Pink Noise EQ Boost (3 Levels):</strong> In <strong>free practice</strong>, continuous pink noise starts straightaway <strong>with the active EQ boost</strong> (Level 1: Wide EQ <code>+10 dB / Q 1.6</code>, Level 2: Octave EQ <code>+8.5 dB / Q 2.6</code>, Level 3: Surgical <code>+7 dB / Q 4.2</code>). Toggle between boosted and raw sound smoothly anytime via the upper <strong>Flat card</strong> or the <strong>“Flat Bypass”</strong> button (<code>Flat: ON</code>). In <strong>Listen Only</strong> mode, the app plays neutral <em>Flat</em> noise first, then switches to the longer <em>EQ boost</em> before automatically revealing the band.</li>
       </ul>
 
       <div class="article-highlight-box">
-        <h4>Hearing Safety &amp; Mixing Note</h4>
-        <p>Pink noise drops 3 dB per octave so energy feels balanced from bass to treble. A built-in -14 dBFS safety limiter, equal-loudness weighting around 2–4 kHz, and smooth fade envelopes protect your ears from harsh spikes. Still, always monitor at a comfortable low-to-moderate volume!</p>
+        <h4>Hearing Safety, Comparison &amp; Exam</h4>
+        <p>Pink noise drops 3 dB per octave so energy feels balanced from bass to treble. A built-in -14 dBFS safety limiter, equal-loudness compensation around 2–4 kHz, and smooth fades protect your ears. After a miss, <strong>A/B Compare</strong> and <strong>Flat → Target EQ</strong> isolate the difference cleanly — and all 3 levels are available in the <strong>Category Exam</strong>.</p>
       </div>
     `
   },
@@ -1827,38 +1835,38 @@ const CATEGORY_HELP_GUIDES_EN = {
     tagClass: "tag-peach",
     tag: "How It Works • Scales & Modes",
     title: "How Scales & Modes Training Works",
-    lead: "Skip dry fingerboard memorization: hear every church mode in live musical color — either anchored over the same root or transposed across different keys.",
+    lead: "Skip dry fingerboard memorization: hear every church mode in live musical color — anchored over one root or transposed across keys, with an optional sustained strings root pad underneath.",
     sections: `
       <h3>The 3 Mode Modules</h3>
       <ul class="article-steps-list">
-        <li><strong>1. Identify Scale / Mode:</strong> First a neutral <strong>Anchor Fifth</strong> rings out (root + 5th, intentionally without a 3rd), followed by the ascending 8-note scale. Begin in <em>Level 1</em> with four distinct core modes (<code>Ionian</code>, <code>Aeolian</code>, <code>Dorian</code>, <code>Mixolydian</code>), unlock all 7 diatonic modes in <em>Level 2</em>, and transpose across keys in <em>Level 3</em>.</li>
-        <li><strong>2. Characteristic Note &amp; Color:</strong> After the neutral 5th, a short melodic turn highlights the signature degree that defines the mode (<code>#4</code> in Lydian, <code>b7</code> in Mixolydian, <code>♮6</code> in Dorian, <code>b2</code> in Phrygian, or the leading <code>#7</code> in Harmonic Minor).</li>
-        <li><strong>3. Modal Cadences &amp; Vamps:</strong> Hear classic two-chord modal vamps (<code>i – IV</code> for Dorian, <code>I – bVII</code> for Mixolydian, <code>I – II</code> for Lydian, <code>i – bII</code> for Phrygian) and identify the modal mood immediately.</li>
+        <li><strong>1. Identify Scale / Mode (3 Levels):</strong> A neutral <strong>Anchor Fifth</strong> rings out first (root + 5th, intentionally without a 3rd), followed by the ascending 8-note scale: Level 1 teaches 4 core modes (<code>Ionian, Aeolian, Dorian, Mixolydian</code>), Level 2 covers all 7 in <code>C</code>, and Level 3 rotates root pitches.</li>
+        <li><strong>2. Characteristic Note &amp; Color (3 Levels):</strong> After the anchor fifth, a melodic turn highlights each mode’s signature tone (<code>#4</code> Lydian, <code>b7</code> Mixolydian, <code>♮6</code> Dorian, <code>b2</code> Phrygian, or leading <code>#7</code> in <strong>Harmonic Minor</strong>) across Major modes (Level 1), Minor modes (Level 2), and All 7 + Harmonic Minor on random roots (Level 3).</li>
+        <li><strong>3. Modal Cadences &amp; Vamps (2 Levels):</strong> Hear signature two-chord modal vamps (<code>i – IV</code> Dorian, <code>I – bVII</code> Mixolydian, <code>I – II</code> Lydian, <code>i – bII</code> Phrygian) — starting with 4 standard vamps in <code>C</code> (Level 1) up to all 6 transposed modal vamps (Level 2).</li>
       </ul>
 
       <div class="article-highlight-box">
-        <h4>Pro Listening Trick: Think Parallel, Not Relative!</h4>
-        <p>At first, compare every mode starting from the <strong>same root</strong> (e.g., <strong>C Ionian</strong> vs. <strong>C Mixolydian</strong> vs. <strong>C Dorian</strong>). Tap <em>“Anchor 5th”</em> or the A/B diagnostic compare button after a miss to hear the exact color tone shift.</p>
+        <h4>Root Pad, Anchor Fifth &amp; A/B Compare</h4>
+        <p>Think parallel, not relative: compare modes starting on the <strong>same root</strong> (e.g., <strong>C Ionian</strong> vs. <strong>C Mixolydian</strong>). Toggle <strong>“Root Pad: On/Off”</strong> at the top of the stage to sustain a warm strings drone under any task; tap <strong>“Anchor Fifth”</strong> (or the left card) anytime, and after a miss use <strong>A/B Compare</strong> over that exact root. <strong>Loop</strong>, <strong>Listen Only</strong>, and a 3-level <strong>Category Exam</strong> are ready too.</p>
       </div>
     `
   },
   warmup: {
     tagClass: "tag-sage",
     tag: "How It Works • Vocal Warmup",
-    title: "How the 5-Minute Vocal Warmup Works",
-    lead: "Built for choir rehearsals, voice lessons, and focused home practice: a guided arc from relaxed diaphragmatic breathing and humming resonance through modulated arpeggios into balanced choral chords.",
+    title: "How the Guided Vocal Warmup Works",
+    lead: "Built for choir rehearsals, voice lessons, and home practice: choose one of 5 vocal ranges (SATB) and launch any of 4 structured routines — complete with pacing breath orb, live keyboard, and instant key control.",
     sections: `
-      <h3>The 4 Warmup Phases</h3>
+      <h3>4 Selectable Routines &amp; 4 Warmup Phases</h3>
       <ul class="article-steps-list">
+        <li><strong>4 Programs to Choose From:</strong> Pick the <strong>5-Min Complete Vocal Warmup</strong> (all 4 phases, 9 steps), <strong>Compact Warmup (~3 Min.)</strong> for a fast lesson opener, <strong>Arpeggio &amp; Register Drill</strong> for agility, or <strong>Choir Breath &amp; Intonation</strong>.</li>
         <li><strong>Phase 1 – Breath &amp; Body:</strong> A pacing breath orb on <code>ffff / ssss</code> and gentle rhythmic articulation pulses (<code>P – T – K</code>) wake up breath support without pressing the throat.</li>
         <li><strong>Phase 2 – Resonance &amp; Placement:</strong> Easy humming / lip trills (<code>Mmm / Brrr</code>) and descending 5th sighs (<code>5–4–3–2–1</code>) blend chest and head resonance gently.</li>
-        <li><strong>Phase 3 – Agility &amp; Arpeggios:</strong> Ascending triad and octave arpeggios (<code>1–3–5–3–1</code> and <code>1–3–5–8–5–3–1</code>) automatically modulate by semitone in your chosen <strong>Choir Mid, Soprano, Alto, Tenor, or Bass</strong> tessitura — then gently cool down.</li>
-        <li><strong>Phase 4 – Vowels &amp; Choral Blend:</strong> Vowel morphing (<code>Oo → Oh → Ah → Eh → Ee</code>) and a layered SATB closing chord lock in unified tuning.</li>
+        <li><strong>Phase 3 &amp; 4 – Arpeggios, Vowels &amp; Choral Blend:</strong> Triad and octave arpeggios automatically modulate by semitone in your chosen <strong>Choir Mid, Soprano, Alto, Tenor, or Bass</strong> range, followed by vowel morphing (<code>Oo → Oh → Ah → Eh → Ee</code>) and a layered SATB closing chord.</li>
       </ul>
 
       <div class="article-highlight-box">
-        <h4>Live Teaching Controls</h4>
-        <p>Use the chips at the top anytime to switch <strong>Vocal Range (SATB)</strong>, <strong>Accompaniment Sound</strong> (Piano, Piano + Voice, or Voice), and <strong>Tempo</strong>. Tap <strong>“−1 / +1 Semitone”</strong> or <strong>“↻ Replay”</strong> mid-exercise to tailor the key to your students or choir.</p>
+        <h4>Live Teaching Controls &amp; Keyboard</h4>
+        <p>Use the top chips anytime to switch <strong>Vocal Range (SATB)</strong>, <strong>Sound</strong> (Piano, Piano + Voice, or Voice), and <strong>Tempo</strong>, or jump straight between sections using the <strong>phase pills</strong>. Tap <strong>“−1 / +1 Semitone”</strong> and <strong>“↻ Replay”</strong> mid-exercise, or play single reference tones directly on the <strong>live keyboard</strong> below.</p>
       </div>
     `
   },
@@ -1866,27 +1874,24 @@ const CATEGORY_HELP_GUIDES_EN = {
     tagClass: "tag-sage",
     tag: "How It Works • Notation & Sight-Reading",
     title: "How Sight-Reading Training Works",
-    lead: "Build effortless sight-reading across Treble, Bass, and Alto clefs — from the 5 core staff lines out to ±3 ledger lines in both directions plus sharps and flats (♯/♭).",
+    lead: "Build effortless sight-reading across 6 modes: Treble, Bass, and Alto clefs, Clef Mix, two-staff piano Grand Staff, and Chord Reading (including inversions &amp; 7th chords).",
     sections: `
-      <h3>How the Exercise Screen Works</h3>
+      <h3>All 6 Exercise Modes &amp; Input</h3>
       <ul class="article-steps-list">
-        <li><strong>1. Tall Upper Staff (6-Note Flow):</strong> The leftmost highlighted target band always marks the current note to read. Behind it, the next 5 notes sit ready in view so your eyes naturally learn to read ahead.</li>
-        <li><strong>2. Lower Keyboard Input:</strong> Tap the key matching the leftmost highlighted note. On a hit, you hear the pitch in its true staff octave, the compact stage clearly names the note, and every note shifts smoothly one step left while a fresh note enters on the right.</li>
-        <li><strong>3. Wrong Picks &amp; Skip:</strong> Wrong keys light up red and pause the queue without jumping ahead so you can inspect the staff position calmly. Stuck on a note? Tap <strong>Skip</strong> anytime to reveal its name on stage and move onward.</li>
+        <li><strong>1. Single-Note Clefs (6-Note Flow):</strong> In <strong>Treble</strong>, <strong>Bass</strong>, <strong>Alto</strong>, <strong>Mixed Clefs</strong> (switches every 3 notes with a small clef preview), and two-line <strong>Grand Staff</strong> (Treble + Bass joined by a piano brace), the leftmost band marks the target note. Play it on the keyboard below to hear its true octave and advance the flow.</li>
+        <li><strong>2. Chord Reading (5 Chords, Multiple Choice):</strong> Stacked triads and seventh chords appear on the staff. Instead of individual keys, pick matching <strong>chord symbol tiles</strong> (e.g., <code>E, Em, E7, Esus4</code>) across <strong>4 levels</strong>: Level 1 (Triads in Treble), Level 2 (Triads in Bass), Level 3 (Inversions in both clefs), and Level 4 (All Types &amp; 7th Chords).</li>
+        <li><strong>3. Wrong Picks &amp; Skip:</strong> Wrong keys or chord tiles highlight red and pause the row so you can inspect the staff position, clef, or inversion calmly. Tap <strong>Skip</strong> anytime to reveal the answer on stage and continue.</li>
       </ul>
 
       <h3>Difficulty Levels &amp; Key Signatures</h3>
       <ul class="article-steps-list">
-        <li><strong>Level 1 – 5-Line Staff (Beginner):</strong> Core natural notes sitting across the 5 lines and 4 spaces with zero ledger lines.</li>
-        <li><strong>Level 2 – ±2 Ledger Lines:</strong> Expanded range extending up to 2 ledger lines above and below the staff.</li>
-        <li><strong>Level 3 – ±3 Ledger Lines (Full Compass):</strong> Complete reading compass reaching 3 ledger lines above and below the staff.</li>
-        <li><strong>Level 4 – ±3 Ledger Lines + ♯/♭/♮:</strong> Adds local sharps (<code>♯</code>) and flats (<code>♭</code>) in C Major, or <strong>natural cancellations (<code>♮</code>)</strong> plus chromatic accidentals when a key signature is active — seamlessly in International (<code>B / B♭ / F♯</code>) or German spelling (<code>H / B / Fis</code>).</li>
-        <li><strong>Key Signature Sight-Reading (1–6 ♯/♭):</strong> Choose any individual key or a rotating pool on the Notation page or via the live <strong>Key</strong> chip in the exercise header. Sharps and flats appear only at the clef like real sheet music, so you must read them off the key signature.</li>
+        <li><strong>Single-Note Levels 1–4:</strong> Level 1 (5 staff lines &amp; 4 spaces), Level 2 (<code>±2 Ledger Lines</code>), Level 3 (<code>±3 Ledger Lines</code>), and Level 4 with local sharps/flats (<code>♯</code>/<code>♭</code>) or <strong>natural cancellations (<code>♮</code>)</strong> when a key signature is active — in International (<code>B / B♭ / F♯</code>) or German spelling (<code>H / B / Fis</code>).</li>
+        <li><strong>Key Signature Sight-Reading (1–6 ♯/♭):</strong> Pick any individual key or rotating pool (Easy, Medium, All 12) on the Notation page or via the live <strong>Key</strong> chip in the header. Sharps and flats appear only at the clef like real sheet music.</li>
       </ul>
 
       <div class="article-highlight-box">
-        <h4>Clef Mix &amp; Anchor Pitch Help</h4>
-        <p>In <strong>Clef Mix</strong>, the staff rotates between Treble, Bass, and Alto clefs every few notes with a clean inline clef sign ahead of the switch. Tap <strong>Anchor Pitch</strong> at the bottom left anytime to hear the clef’s open landmark tone (<code>G4</code> in Treble, <code>F3</code> in Bass, <code>C4</code> in Alto).</p>
+        <h4>Audio Controls, Listen Only &amp; Exam</h4>
+        <p>Above the input area, <strong>Note Audio: On/Off</strong> lets you mute playback completely for silent sheet-reading practice. Below, <strong>▶ Hear Note</strong> / <strong>▶ Hear Chord</strong> gives an optional audio hint in free practice — while inside the 6-level <strong>Category Exam</strong> it switches to <strong>▶ Anchor Pitch</strong> (<code>G4</code> / <code>F3</code> / <code>C4</code>) so answers aren’t given away. On the right, <strong>Listen Only</strong> drives automatic sight-reading at your chosen <strong>Pace</strong> (<em>Very slow</em> to <em>Very fast</em>).</p>
       </div>
     `
   }
