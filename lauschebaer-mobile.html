@@ -11180,6 +11180,142 @@ body.is-hum-pause #solfegeKeyboardWrap {
   height: 30px;
 }
 
+/* Tuner passt ohne Scrollen auf eine Seite: Zeigerinstrument nimmt den Restplatz */
+#viewTuner {
+  overflow-y: hidden;
+  gap: 0.55rem;
+  padding-bottom: 0.25rem;
+}
+#viewTuner .tuner-main-card {
+  flex: 1 1 auto;
+  min-height: 0;
+  gap: 0.4rem;
+  padding: 0.6rem 0.75rem 0.7rem;
+}
+#viewTuner .tuner-display {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+#viewTuner .tuner-gauge {
+  flex: 1 1 0;
+  min-height: 52px;
+  max-height: 150px;
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+}
+#viewTuner .tuner-readout {
+  flex: 0 0 auto;
+  gap: 0.14rem;
+}
+#viewTuner .tuner-note-name {
+  font-size: clamp(1.75rem, 5.6vh, 2.5rem);
+}
+#viewTuner .tuner-note-bubble {
+  min-width: 92px;
+  padding: 0.08rem 0.95rem 0.14rem;
+}
+#viewTuner .tuner-spectrum-wrap {
+  flex: 0 0 auto;
+  padding: 0.22rem 0.35rem 0.14rem;
+}
+#viewTuner .tuner-spectrum {
+  height: clamp(44px, 9vh, 74px);
+}
+#viewTuner .tuner-status {
+  flex: 0 0 auto;
+  min-height: 1.25em;
+  font-size: 0.78rem;
+}
+#viewTuner .tuner-start-btn {
+  flex: 0 0 auto;
+}
+#viewTuner .tuner-setup-card {
+  flex: 0 0 auto;
+  gap: 0.45rem;
+  padding: 0.6rem 0.75rem;
+}
+#viewTuner .tuner-select-row {
+  grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+  gap: 0.4rem;
+}
+/* Beschriftung der Auswahllisten nur für Screenreader – die Listen sprechen für sich */
+#viewTuner .tuner-select-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+#viewTuner .tuner-select-field::after {
+  bottom: 0.48rem;
+}
+#viewTuner .tuner-select {
+  padding-top: 0.44rem;
+  padding-bottom: 0.44rem;
+}
+#viewTuner .tuner-mode-btn {
+  padding: 0.42rem;
+}
+#viewTuner .tuner-string-chip {
+  min-width: 42px;
+  height: 42px;
+  padding-top: 0.6rem;
+}
+#viewTuner .tuner-tools-row {
+  flex-wrap: nowrap;
+  gap: 0.4rem;
+}
+#viewTuner .tuner-ref-btn {
+  flex: 0 1 auto;
+  min-width: 0;
+  white-space: nowrap;
+}
+#viewTuner .tuner-a4-value {
+  min-width: 5.6em;
+  font-size: 0.76rem;
+}
+#viewTuner .tuner-target-label {
+  font-size: inherit;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--raccoon-dark);
+}
+#viewTuner .tuner-target-label.hidden,
+#viewTuner .tuner-meta-dot.hidden {
+  display: none;
+}
+@media (max-width: 420px) {
+  #viewTuner .tuner-a4-label {
+    display: none;
+  }
+}
+/* Sehr flache Bildschirme: weitere Reserve */
+@media (max-height: 600px) {
+  #viewTuner .tuner-spectrum {
+    height: 40px;
+  }
+  #viewTuner .tuner-string-chip {
+    height: 38px;
+    min-width: 38px;
+    padding-top: 0.5rem;
+  }
+  #viewTuner .tuner-start-btn {
+    height: 38px;
+  }
+}
+/* Saiten immer in einer Zeile (auch 7-Saiter): Chips werden bei Bedarf schmaler */
+#viewTuner .tuner-strings-row {
+  flex-wrap: nowrap;
+}
+#viewTuner .tuner-string-chip {
+  flex: 0 1 46px;
+  min-width: 34px;
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
+}
+
 </style>
   <script>
     (function () {
@@ -13177,11 +13313,12 @@ body.is-hum-pause #solfegeKeyboardWrap {
             </g>
           </svg>
           <div class="tuner-readout">
-            <span id="tunerTargetLabel" class="tuner-target-label">&nbsp;</span>
             <div id="tunerNoteBubble" class="tuner-note-bubble">
               <span id="tunerNoteName" class="tuner-note-name">–</span><span id="tunerNoteOctave" class="tuner-note-octave"></span>
             </div>
             <div class="tuner-meta-row">
+              <span id="tunerTargetLabel" class="tuner-target-label hidden"></span>
+              <span id="tunerTargetDot" class="tuner-meta-dot hidden" aria-hidden="true">•</span>
               <span id="tunerCents" class="tuner-cents">± 0 ¢</span>
               <span class="tuner-meta-dot" aria-hidden="true">•</span>
               <span id="tunerFreq" class="tuner-freq">– Hz</span>
@@ -53960,7 +54097,7 @@ class AppState {
       const tInst = tp ? TUNER_INSTRUMENTS[tp.instrument] : null;
       const tTun = tInst?.tunings ? tInst.tunings[tp.tuning] : null;
       el.textContent = tInst
-        ? `${tr(tInst.de, tInst.en)}${tTun ? ` • ${tr(tTun.de, tTun.en)}` : ""} • A = ${tp.a4} Hz`
+        ? `${tr(tInst.de, tInst.en)}${tTun ? ` • ${tr(tTun.de, tTun.en)}` : ""}`
         : tr("Stimmgerät & Tonhöhen-Anzeige", "Chromatic tuner & pitch meter");
     } else if (this.currentView === "freeplay") {
       mainTitle.textContent = tr("Freies Spiel", "Free Play");
@@ -73373,15 +73510,18 @@ function renderTunerReadout(info) {
   const prefs = getTunerPrefs();
 
   if (targetEl) {
-    if (prefs.mode === "single") {
+    // Einzelton: Ziel in der Messzeile („Ziel: E4 • +3 ¢ • 330 Hz“); automatisch ohne Zusatz
+    const isSingle = prefs.mode === "single";
+    if (isSingle) {
       const t = getTunerTargetMidi(prefs);
-      const strings = getTunerStrings(prefs);
-      const flat = strings.some(st => st.flat);
+      const flat = getTunerStrings(prefs).some(st => st.flat);
       const tn = formatTunerNote(t, flat);
       targetEl.textContent = tf("Ziel: {note}", "Target: {note}", { note: `${tn.name}${tn.octave}` });
     } else {
-      targetEl.textContent = tr("Automatisch", "Automatic");
+      targetEl.textContent = "";
     }
+    targetEl.classList.toggle("hidden", !isSingle);
+    document.getElementById("tunerTargetDot")?.classList.toggle("hidden", !isSingle);
   }
 
   if (!info) {
