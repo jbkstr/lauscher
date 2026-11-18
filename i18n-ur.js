@@ -409,6 +409,8 @@ const I18N_STATIC_UR = {
   "metro.sub2": "2×",
   "metro.sub3": "3×",
   "metro.sub4": "4×",
+  "metro.subShuffle": "شفل",
+  "metro.subShuffleTitle": "شفل: ٹرپلٹ احساس کے ساتھ آٹھویں (لمبا – چھوٹا)",
   "metro.profilesHeading": "میٹرونوم پروفائلز",
   "metro.profileNamePlaceholder": "پروفائل کا نام (مثلاً 7/8 Funk · 116 BPM)",
   "metro.profileNameAria": "میٹرونوم پروفائل کا نام",
@@ -1979,7 +1981,6 @@ const TR_UR = Object.assign(Object.create(null), {
   "Presto (Sehr schnell)": "Presto (نہایت تیز)",
   "■ Metronom stoppen": "■ میٹرونوم روکیں",
   "▶ Metronom starten": "▶ میٹرونوم شروع کریں",
-  "{n} Taps · {bpm}": "{n} ٹیپس · {bpm}",
   "Weiter tippen …": "ٹیپ کرتے رہیں …",
   "Tempo tippen": "ٹیمپو ٹیپ کریں",
   "Normal": "نارمل",
@@ -2044,6 +2045,7 @@ const TR_UR = Object.assign(Object.create(null), {
 
 // Notenlesen (Akkorde/Doppelsystem), Rhythmus vom Blatt, Modi-Fläche, Moll-Kadenzen, Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_UR, {
+  "Shuffle": "شفل",
   "{n}. Stufe": "درجہ {n}",
   "Mitsingen": "ساتھ گائیں",
   "Mitsing-Tipp ein- oder ausklappen": "ساتھ گانے کی تجویز دکھائیں یا چھپائیں",

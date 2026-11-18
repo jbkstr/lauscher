@@ -409,6 +409,8 @@ const I18N_STATIC_FR = {
   "metro.sub2": "2×",
   "metro.sub3": "3×",
   "metro.sub4": "4×",
+  "metro.subShuffle": "Shuffle",
+  "metro.subShuffleTitle": "Shuffle : croches en feeling de triolet (longue – courte)",
   "metro.profilesHeading": "Profils de métronome",
   "metro.profileNamePlaceholder": "Nom du profil (ex. 7/8 Funk · 116 BPM)",
   "metro.profileNameAria": "Nom du profil de métronome",
@@ -1773,6 +1775,7 @@ Object.assign(TR_FR, {
 });
 
 Object.assign(TR_FR, {
+  "Shuffle": "Shuffle",
   "{n}. Stufe": "Degré {n}",
   "1 Versuch pro Frage – prüfungsfest ohne Hilfsschleifen. Am Ende warten Lauscher-Bewertung, Modul-Aufschlüsselung und direkter Hör-Vergleich.": "1 tentative par question – sans boucle d’aide. À la fin : évaluation Lauscher, détail par module et comparaison audio directe.",
   "1 Versuch pro Frage • verschiedene Stufen & Hör-Auswertung": "1 tentative par question • niveaux variés & bilan audio",
@@ -2030,7 +2033,6 @@ Object.assign(TR_FR, {
   "Presto (Sehr schnell)": "Presto (Très rapide)",
   "■ Metronom stoppen": "■ Arrêter le métronome",
   "▶ Metronom starten": "▶ Lancer le métronome",
-  "{n} Taps · {bpm}": "{n} taps · {bpm}",
   "Weiter tippen …": "Continuez à taper…",
   "Tempo tippen": "Taper le tempo",
   "Normal": "Normal",

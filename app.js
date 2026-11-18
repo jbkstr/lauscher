@@ -1640,7 +1640,30 @@ const METRONOME_DEFAULT_BPM = 120;
 const METRONOME_MIN_BEATS = 1;
 const METRONOME_MAX_BEATS = 16;
 const METRONOME_BEAT_STATES = ["normal", "accent", "muted"];
-const METRONOME_VALID_SUBDIVISIONS = [1, 2, 3, 4];
+const METRONOME_SHUFFLE = "shuffle";
+const METRONOME_VALID_SUBDIVISIONS = [1, 2, 3, 4, METRONOME_SHUFFLE];
+
+// Unterteilung aus Profil/Knopf lesen: 1–4 Klicks pro Schlag oder „shuffle“
+function normalizeMetronomeSubdivision(raw) {
+  if (raw === METRONOME_SHUFFLE) return METRONOME_SHUFFLE;
+  const num = parseInt(raw, 10);
+  return METRONOME_VALID_SUBDIVISIONS.includes(num) ? num : 1;
+}
+
+// Klick-Zeitpunkte innerhalb eines Schlags (Anteil 0–1).
+// Shuffle = geswingte Achtel im Triolen-Feeling: lang–kurz (1. und 3. Triolen-Achtel)
+function getMetronomeSubOffsets(sub) {
+  if (sub === METRONOME_SHUFFLE) return [0, 2 / 3];
+  const n = normalizeMetronomeSubdivision(sub);
+  return Array.from({ length: n }, (_, i) => i / n);
+}
+
+function getMetronomeShortestStepSec(sub, bpm) {
+  const offsets = getMetronomeSubOffsets(sub).concat([1]);
+  let minGap = 1;
+  for (let i = 1; i < offsets.length; i++) minGap = Math.min(minGap, offsets[i] - offsets[i - 1]);
+  return (60 / clampMetronomeBpm(bpm)) * minGap;
+}
 
 function clampMetronomeBpm(bpm) {
   const num = Math.round(Number(bpm) || METRONOME_DEFAULT_BPM);
@@ -1700,8 +1723,7 @@ function sanitizeMetronomeProfileEntry(raw, fallbackIdx = 0) {
   if (!raw || typeof raw !== "object") return null;
   const beats = sanitizeMetronomeBeatsArray(raw.beats);
   const bpm = clampMetronomeBpm(raw.bpm);
-  const subRaw = parseInt(raw.subdivision, 10);
-  const subdivision = METRONOME_VALID_SUBDIVISIONS.includes(subRaw) ? subRaw : 1;
+  const subdivision = normalizeMetronomeSubdivision(raw.subdivision);
   const fallbackName = `${beats.length}/4 · ${bpm} BPM`;
   const name = String(raw.name || "").trim().slice(0, 32) || fallbackName;
   return {
@@ -19998,12 +20020,14 @@ function clearPendingMetronomeVisualTimers() {
 function advanceMetronomePointer() {
   const beats = state.metronome.beats || ["accent", "normal", "normal", "normal"];
   const beatCount = Math.max(1, beats.length);
-  const sub = METRONOME_VALID_SUBDIVISIONS.includes(state.metronome.subdivision) ? state.metronome.subdivision : 1;
-  const secPerStep = (60 / clampMetronomeBpm(state.metronome.bpm)) / sub;
+  const offsets = getMetronomeSubOffsets(normalizeMetronomeSubdivision(state.metronome.subdivision));
+  const secPerBeat = 60 / clampMetronomeBpm(state.metronome.bpm);
+  const curIdx = Math.min(_metroRuntime.currentSubIndex, offsets.length - 1);
+  const nextOffset = curIdx + 1 < offsets.length ? offsets[curIdx + 1] : 1;
 
-  _metroRuntime.nextNoteTime += secPerStep;
-  _metroRuntime.currentSubIndex += 1;
-  if (_metroRuntime.currentSubIndex >= sub) {
+  _metroRuntime.nextNoteTime += (nextOffset - offsets[curIdx]) * secPerBeat;
+  _metroRuntime.currentSubIndex = curIdx + 1;
+  if (_metroRuntime.currentSubIndex >= offsets.length) {
     _metroRuntime.currentSubIndex = 0;
     _metroRuntime.currentBeatIndex = (_metroRuntime.currentBeatIndex + 1) % beatCount;
   }
@@ -20171,8 +20195,7 @@ function setMetronomeBpm(nextBpm, options = {}) {
   // Wenn das Metronom bereits läuft, das nächste geplante Intervall direkt an das neue Tempo anpassen
   if (state.metronome?.running) {
     const nowAudio = (typeof Tone !== "undefined" && typeof Tone.now === "function") ? Tone.now() : 0;
-    const sub = METRONOME_VALID_SUBDIVISIONS.includes(state.metronome.subdivision) ? state.metronome.subdivision : 1;
-    const secPerStep = (60 / clamped) / sub;
+    const secPerStep = getMetronomeShortestStepSec(normalizeMetronomeSubdivision(state.metronome.subdivision), clamped);
     if (_metroRuntime.nextNoteTime > nowAudio + secPerStep) {
       _metroRuntime.nextNoteTime = nowAudio + secPerStep;
     }
@@ -20224,7 +20247,7 @@ function handleMetronomeTap(customNowMs = null) {
   const tapSub = document.getElementById("metroTapSub");
   if (tapSub) {
     tapSub.textContent = res.bpm !== null
-      ? tf("{n} Taps · {bpm}", "{n} taps · {bpm}", { n: res.tapCount, bpm: res.bpm })
+      ? `${res.bpm} BPM`
       : tr("Weiter tippen …", "Keep tapping …");
   }
 
@@ -20270,7 +20293,7 @@ function syncMetronomeBeatTileAppearance(tile, beatIdx, beatState) {
 function renderMetronomeBeatGrid() {
   const beats = sanitizeMetronomeBeatsArray(state.metronome?.beats);
   state.metronome.beats = beats;
-  const sub = METRONOME_VALID_SUBDIVISIONS.includes(state.metronome.subdivision) ? state.metronome.subdivision : 1;
+  const sub = normalizeMetronomeSubdivision(state.metronome.subdivision);
 
   const countEl = document.getElementById("metroBeatCountVal");
   if (countEl) countEl.textContent = String(beats.length);
@@ -20281,8 +20304,7 @@ function renderMetronomeBeatGrid() {
   });
 
   document.querySelectorAll("[data-metro-subdiv]").forEach(btn => {
-    const s = parseInt(btn.dataset.metroSubdiv, 10);
-    btn.classList.toggle("active", s === sub);
+    btn.classList.toggle("active", normalizeMetronomeSubdivision(btn.dataset.metroSubdiv) === sub);
   });
 
   const grid = document.getElementById("metroBeatGrid");
@@ -20357,8 +20379,7 @@ function applyMetronomeMeterPreset(beatCount) {
 }
 
 function setMetronomeSubdivision(sub) {
-  const num = parseInt(sub, 10);
-  const valid = METRONOME_VALID_SUBDIVISIONS.includes(num) ? num : 1;
+  const valid = normalizeMetronomeSubdivision(sub);
   state.metronome.subdivision = valid;
   _metroRuntime.currentSubIndex = 0;
   renderMetronomeBeatGrid();
@@ -20396,7 +20417,9 @@ function renderMetronomeProfiles() {
     loadBtn.type = "button";
     loadBtn.className = "metro-profile-load-btn";
     const dotsHtml = (prof.beats || []).map(st => `<span class="metro-pdot is-${st}"></span>`).join("");
-    const subTag = prof.subdivision > 1 ? ` · ${prof.subdivision}×` : "";
+    const subTag = prof.subdivision === METRONOME_SHUFFLE
+      ? ` · ${tr("Shuffle", "Shuffle")}`
+      : (prof.subdivision > 1 ? ` · ${prof.subdivision}×` : "");
     loadBtn.innerHTML = `
       <span class="metro-profile-name">${escapeHtml(prof.name)}</span>
       <span class="metro-profile-meta">
@@ -20452,7 +20475,7 @@ function saveCurrentMetronomeProfile(nameOverride = null) {
     : String(inputEl?.value || "");
   const beats = sanitizeMetronomeBeatsArray(state.metronome?.beats);
   const bpm = clampMetronomeBpm(state.metronome?.bpm);
-  const sub = METRONOME_VALID_SUBDIVISIONS.includes(state.metronome?.subdivision) ? state.metronome.subdivision : 1;
+  const sub = normalizeMetronomeSubdivision(state.metronome?.subdivision);
   const cleanName = rawName.trim().slice(0, 32) || `${beats.length}/4 · ${bpm} BPM`;
 
   const newEntry = sanitizeMetronomeProfileEntry({
@@ -20477,7 +20500,7 @@ function loadMetronomeProfile(profileId) {
   if (!found) return false;
   state.metronome.bpm = clampMetronomeBpm(found.bpm);
   state.metronome.beats = sanitizeMetronomeBeatsArray(found.beats);
-  state.metronome.subdivision = METRONOME_VALID_SUBDIVISIONS.includes(found.subdivision) ? found.subdivision : 1;
+  state.metronome.subdivision = normalizeMetronomeSubdivision(found.subdivision);
   state.metronome.activeProfileId = found.id;
   _metroRuntime.currentBeatIndex = 0;
   _metroRuntime.currentSubIndex = 0;
@@ -20647,7 +20670,7 @@ function initMetronomeEventListeners() {
 
   document.querySelectorAll("[data-metro-subdiv]").forEach(btn => {
     btn.addEventListener("click", () => {
-      setMetronomeSubdivision(parseInt(btn.dataset.metroSubdiv, 10));
+      setMetronomeSubdivision(btn.dataset.metroSubdiv);
     });
   });
 

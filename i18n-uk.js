@@ -409,6 +409,8 @@ const I18N_STATIC_UK = {
   "metro.sub2": "2×",
   "metro.sub3": "3×",
   "metro.sub4": "4×",
+  "metro.subShuffle": "Шафл",
+  "metro.subShuffleTitle": "Шафл: восьмі з тріольним відчуттям (довга – коротка)",
   "metro.profilesHeading": "Профілі метронома",
   "metro.profileNamePlaceholder": "Назва профілю (напр. 7/8 Фанк · 116 BPM)",
   "metro.profileNameAria": "Назва профілю метронома",
@@ -1820,6 +1822,7 @@ Object.assign(TR_UK, {
 });
 
 Object.assign(TR_UK, {
+  "Shuffle": "Шафл",
   "{n}. Stufe": "Ступінь {n}",
   "1 Versuch pro Frage – prüfungsfest ohne Hilfsschleifen. Am Ende warten Lauscher-Bewertung, Modul-Aufschlüsselung und direkter Hör-Vergleich.": "1 спроба на питання — без підказок і зациклювань. Наприкінці: оцінка Lauscher, розбір за модулями та аудіопорівняння.",
   "1 Versuch pro Frage • verschiedene Stufen & Hör-Auswertung": "1 спроба на питання • різні рівні й аудіорозбір",
@@ -2076,7 +2079,6 @@ Object.assign(TR_UK, {
   "Presto (Sehr schnell)": "Presto (Дуже швидко)",
   "■ Metronom stoppen": "■ Зупинити метроном",
   "▶ Metronom starten": "▶ Запустити метроном",
-  "{n} Taps · {bpm}": "{n} тапів · {bpm}",
   "Weiter tippen …": "Продовжуй натискати…",
   "Tempo tippen": "Відбити темп",
   "Normal": "Звичайна",

@@ -793,6 +793,8 @@ const I18N_STATIC = {
   "metro.sub2": { de: "2×", en: "2×" },
   "metro.sub3": { de: "3×", en: "3×" },
   "metro.sub4": { de: "4×", en: "4×" },
+  "metro.subShuffle": { de: "Shuffle", en: "Shuffle" },
+  "metro.subShuffleTitle": { de: "Shuffle: Achtel im Triolen-Feeling (lang – kurz)", en: "Shuffle: eighth notes with a triplet feel (long – short)" },
   "metro.profilesHeading": { de: "Metronom-Profile", en: "Metronome Profiles" },
   "metro.profileNamePlaceholder": { de: "Profilname (z. B. 7/8 Funk · 116 BPM)", en: "Profile name (e.g. 7/8 Funk · 116 BPM)" },
   "metro.profileNameAria": { de: "Metronom-Profilname", en: "Metronome profile name" },
