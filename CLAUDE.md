@@ -63,3 +63,5 @@ Danach `http://localhost:8000` öffnen. Automatische Tests gibt es nicht.
 - `localStorage`-Zugriffe immer in `try/catch` (wie im bestehenden Code).
 - Keine neuen Abhängigkeiten, CDNs, Analytics oder Netzwerkaufrufe einbauen. Datenschutz ist ein Kernversprechen der App.
 - Deployment über GitHub Pages (Branch `main`, Root-Ordner).
+- **Ideen für später** stehen in [docs/ideen.md](docs/ideen.md). Wünscht der Nutzer etwas „für später“, dort eintragen. Vor Arbeiten an betroffenen Bereichen (z. B. Maskottchen, Visual-Update) dort nachsehen.
+- Abgeschaltete, aber aufbewahrte Features laufen über Schalter-Konstanten (z. B. `MASCOT_LOOKS_ENABLED` in app.js) statt über gelöschten Code.

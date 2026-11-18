@@ -86,8 +86,8 @@ Inside the **Knowledge** (`Wissen`) tab, interactive audio examples accompany ev
   - *Waldlichtung & Salbei*, *Morgentau & Küste*, and *Abenddämmerung* — each with dedicated **Light**, **Dark**, and **System** appearance modes.
   - **Metal** — a sleek, dark obsidian black theme (`#090A0D`) built for a clean, adult look with dual accents (**Cold Steel Blue** & **Crimson Red**).
   - **Custom Theme Studio:** 3 persistent user slots with live RGBA/color-pad customization per UI color token starting from any built-in template.
-- **Account (`Konto`), Mascot Looks & Mindful Timers:**
-  - Multi-select dropdown menus with tag pills for **Your Instruments** and **Training Focus**, plus **8 Lauscher Mascot Looks** (`headphones`, `sunglasses`, `beret`, `bowtie`, `mic`, `coffee`, `notes`, `sparkles`).
+- **Account (`Konto`) & Mindful Timers:**
+  - Multi-select dropdown menus with tag pills for **Your Instruments** and **Training Focus**. *(Lauscher mascot looks are temporarily hidden — see [`docs/ideen.md`](docs/ideen.md).)*
   - **Background Break Reminder (`1–60 min`):** Silent background exercise timer (default `20 min`, quick presets `10 / 15 / 20 min`) that gently prompts for an ear break without showing a distracting countdown during practice.
   - **Mindful Session Timer:** Configurable session pacing (`5–20 min`) with automatic inactivity pause (`2–5 min`).
 - **100% Local Privacy (`localStorage`):** No accounts, analytics, or external storage. Export, restore, or reset your complete profile, mixes, custom themes, and exam history anytime via **`lauschebaer-profil.json`**.
@@ -105,6 +105,7 @@ Inside the **Knowledge** (`Wissen`) tab, interactive audio examples accompany ev
 | [`i18n.js`](i18n.js), [`i18n-fr.js`](i18n-fr.js), [`i18n-pl.js`](i18n-pl.js), [`i18n-uk.js`](i18n-uk.js), [`i18n-ur.js`](i18n-ur.js) | Multilingual UI strings, musical terminology, and RTL localization (`DE / EN / FR / PL / UK / UR`) |
 | [`knowledge.js`](knowledge.js), [`knowledge-en.js`](knowledge-en.js), [`knowledge-fr.js`](knowledge-fr.js), [`knowledge-pl.js`](knowledge-pl.js), [`knowledge-uk.js`](knowledge-uk.js), [`knowledge-ur.js`](knowledge-ur.js) | Localized knowledge modules, articles, instrument guides & Circle of Fifths content across all 6 languages |
 | [`samples/`](samples/) | Pre-processed Base64 JS instrument & percussion bundles (`*-bundle.js`) for instant browser audio without CORS errors |
+| [`docs/ideen.md`](docs/ideen.md) | Deferred ideas & planned features (German) |
 | [`lauschebaer-mobile.html`](lauschebaer-mobile.html) | Self-contained single-file bundle (CSS, JS samples & app code inline) for quick mobile/offline device testing — **generated, do not edit by hand** |
 | [`scripts/build-mobile-bundle.py`](scripts/build-mobile-bundle.py) | Rebuilds `lauschebaer-mobile.html` from `index.html` and all source files (Python standard library only) |
 | `daw-sampling/` | Raw DAW stem source material (`exports/*.wav`, MIDI templates, `process_samples.py`) — **not needed by the browser** |
