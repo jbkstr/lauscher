@@ -60,6 +60,7 @@ Every training area includes graded difficulty levels, listening aids (A/B compa
 
 - **Vocal Warmup (`5-Minute Warmup`):** 4 guided phases (*1 Breath & Body*, *2 Resonance & Tone*, *3 Arpeggios & Range*, *4 Vowels & Choir Blend*) with SATB / Mixed Choir range presets, Piano / Voice / Piano+Voice accompaniment, BPM slider (`65–135 BPM`), and localized vowel drills across all languages.
 - **Metronome:** Built-in precision metronome with **Tap Tempo**, `30–240 BPM` slider, visual pendulum orb, `1–16` customizable beats (accent, normal, mute), meter chips (`2/4`, `3/4`, `4/4`, `5/4`, `6/8`, `7/8`), master volume control, and savable meter/BPM profiles.
+- **Invisible Session Memory:** Mixed-up intervals, chords, inversions, modes, solfège degrees, and notes are quietly worked back into the next 2–5 exercises (never back to back) until you get them right on the first try twice. It lives only in memory for the current session: no score, no display, nothing stored.
 - **Tuner (Coming Soon):** Homescreen placeholder card right next to the Metronome for the upcoming chromatic tuner and pitch meter.
 
 ---
