@@ -1051,7 +1051,6 @@ const TR_UR = Object.assign(Object.create(null), {
   "Flieder (Fläche)": "لیلاک (سطح)",
   "Flieder (Schrift)": "لیلاک (تحریر)",
   "Fokus auf Beweglichkeit, Staccato-Oktaven und sanften Lagen-Ausgleich": "لچک، اسٹاکاٹو آکٹیو اور رجسٹرز کے نرم توازن پر توجہ",
-  "Fokus: {focus}{inst}": "مرکز: {focus}{inst}",
   "Freier Speicherplatz": "خالی جگہ",
   "Frequenz": "نسبت",
   "Frequenz ?": "فریکوئنسی ؟",

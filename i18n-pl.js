@@ -1022,7 +1022,6 @@ const TR_PL = {
   "Flieder (Fläche)": "Liliowy (tło)",
   "Flieder (Schrift)": "Liliowy (tekst)",
   "Fokus auf Beweglichkeit, Staccato-Oktaven und sanften Lagen-Ausgleich": "Zwinność głosu, sprężyste oktawy staccato i płynne wyrównanie rejestrów",
-  "Fokus: {focus}{inst}": "Cel: {focus}{inst}",
   "Freier Speicherplatz": "Wolne miejsce",
   "Frequenz": "Częstotliwość",
   "Frequenz ?": "Częstotliwość ?",
