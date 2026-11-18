@@ -913,8 +913,6 @@ const TR_UR = Object.assign(Object.create(null), {
   "Alle Intervalle": "تمام انٹرولز",
   "Alle Signale laufen über einen integrierten -14 dBFS Schutz-Limiter mit Lautheits-Ausgleich (insbesondere bei 2–4 kHz) und weichen Ein- und Ausblenden. Übe dennoch bei moderater Abhörlautstärke.": "تمام آوازیں بلٹ ان -14 dBFS حفاظتی لِمٹر اور مساوی آواز متوازن فلٹر (خاص طور پر 2–4 kHz پر) سے گزرتی ہیں۔ پھر بھی معتدل والیوم پر مشق کریں۔",
   "Alle leitereigenen Stufen": "تمام اسکیل درجات",
-  "Alle ↗": "سب ↗",
-  "Alle ↘": "سب ↘",
   "Alt": "آلٹو",
   "An": "آن",
   "Anatomie, Register, Stimmfächer & Chorsatz": "اناٹومی، ووکل رجسٹرز، آواز کی اقسام اور SATB کورس",
@@ -996,8 +994,6 @@ const TR_UR = Object.assign(Object.create(null), {
   "Dur": "میجر",
   "Dur & Hell": "میجر اور روشن",
   "Dur & Moll": "میجر اور مائنر",
-  "Dur ↗": "میجر ↗",
-  "Dur ↘": "میجر ↘",
   "Dur, Moll, Vermindert &amp; Übermäßig": "میجر، مائنر، ڈِمنشڈ اور آگمینٹڈ",
   "Dur-Dreiklang": "میجر ٹرائڈ",
   "Dur-Tonleiter": "میجر اسکیل",
@@ -2049,7 +2045,7 @@ const TR_UR = Object.assign(Object.create(null), {
 // Notenlesen (Akkorde/Doppelsystem), Rhythmus vom Blatt, Modi-Fläche, Moll-Kadenzen, Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_UR, {
   "{n}. Stufe": "درجہ {n}",
-  "🎤 Mitsingen": "🎤 ساتھ گائیں",
+  "Mitsingen": "ساتھ گائیں",
   "Mitsing-Tipp ein- oder ausklappen": "ساتھ گانے کی تجویز دکھائیں یا چھپائیں",
   "Summ-Pause: An": "گنگنانے کا وقفہ: آن",
   "Summ-Pause: Aus": "گنگنانے کا وقفہ: آف",

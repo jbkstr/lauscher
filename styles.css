@@ -10383,3 +10383,28 @@ body.is-hum-pause #solfegeKeyboardWrap {
 #viewExercise.fit-overflow {
   overflow-y: auto;
 }
+
+/* Stufen-Symbole mit Richtungspfeil (melodische Intervalle): Pfeil mittig über bzw. unter dem Wort */
+.node-circle.node-circle-dir {
+  flex-direction: column;
+  gap: 0;
+  line-height: 1;
+}
+.node-dir-arrow {
+  font-size: 1.02rem;
+  line-height: 1;
+}
+.node-circle-dir.is-up .node-dir-arrow {
+  margin-bottom: 0.08rem;
+}
+.node-circle-dir.is-down .node-dir-arrow {
+  margin-top: 0.1rem;
+}
+.node-dir-word {
+  font-size: 1.04rem;
+  line-height: 1.05;
+  max-width: 60px;
+}
+.node-dir-word.is-long {
+  font-size: 0.74rem;
+}

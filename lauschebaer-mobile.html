@@ -10392,6 +10392,31 @@ body.is-hum-pause #solfegeKeyboardWrap {
   overflow-y: auto;
 }
 
+/* Stufen-Symbole mit Richtungspfeil (melodische Intervalle): Pfeil mittig über bzw. unter dem Wort */
+.node-circle.node-circle-dir {
+  flex-direction: column;
+  gap: 0;
+  line-height: 1;
+}
+.node-dir-arrow {
+  font-size: 1.02rem;
+  line-height: 1;
+}
+.node-circle-dir.is-up .node-dir-arrow {
+  margin-bottom: 0.08rem;
+}
+.node-circle-dir.is-down .node-dir-arrow {
+  margin-top: 0.1rem;
+}
+.node-dir-word {
+  font-size: 1.04rem;
+  line-height: 1.05;
+  max-width: 60px;
+}
+.node-dir-word.is-long {
+  font-size: 0.74rem;
+}
+
 </style>
   <script>
     (function () {
@@ -10869,8 +10894,8 @@ body.is-hum-pause #solfegeKeyboardWrap {
           </button>
           <div id="masterVolPopover" class="master-vol-popover hidden">
             <button id="masterMuteToggle" class="mute-btn" title="Stummschalten" data-i18n-title="header.muteTitle">An</button>
-            <input type="range" id="masterVolSlider" min="0" max="1" step="0.01" value="0.85">
-            <span id="masterVolVal" class="vol-percent">85%</span>
+            <input type="range" id="masterVolSlider" min="0" max="1" step="0.01" value="0.67">
+            <span id="masterVolVal" class="vol-percent">67%</span>
           </div>
         </div>
 
@@ -11917,7 +11942,7 @@ body.is-hum-pause #solfegeKeyboardWrap {
               <button id="moduleTimeSigBtn" class="module-chip-btn chip-peach hidden" title="Taktart wählen" data-i18n-title="ex.timeSigBtnTitle">4/4</button>
               <button id="modesPadBtn" class="module-chip-btn chip-sage hidden" type="button" aria-pressed="false">Grundton-Fläche: Aus</button>
             <button id="melodyPulseBtn" class="module-chip-btn chip-sage hidden" type="button" title="Metrum-Puls während der Melodie ein-/ausschalten" data-i18n-title="ex.melodyPulseTitle">Puls: An</button>
-              <button id="singAlongChipBtn" type="button" class="module-chip-btn chip-sage hidden" aria-expanded="false" aria-controls="singAlongHint">🎤 Mitsingen</button>
+              <button id="singAlongChipBtn" type="button" class="module-chip-btn chip-sage hidden" aria-expanded="false" aria-controls="singAlongHint">Mitsingen</button>
               <button id="moduleBpmBtn" class="module-chip-btn chip-lilac" title="Tempo-Schieberegler öffnen" data-i18n-title="ex.bpmBtnTitle">90 BPM</button>
             </div>
           </div>
@@ -13189,7 +13214,7 @@ class AudioEngine {
     this.percTone = null;
   }
 
-  async prepareAudioGraph(initialMaster = 0.85, initialMuted = false, initialMixer = null) {
+  async prepareAudioGraph(initialMaster = 0.67, initialMuted = false, initialMixer = null) {
     if (this.preparePromise) return this.preparePromise;
 
     this.preparePromise = (async () => {
@@ -13368,11 +13393,11 @@ class AudioEngine {
   /**
    * Startet Audiopuffer- und Impuls-Vorladen direkt beim App-Start ohne auf den ersten Klick zu warten.
    */
-  preload(initialMaster = 0.85, initialMuted = false, initialMixer = null) {
+  preload(initialMaster = 0.67, initialMuted = false, initialMixer = null) {
     return this.prepareAudioGraph(initialMaster, initialMuted, initialMixer).catch(() => false);
   }
 
-  async init(initialMaster = 0.85, initialMuted = false, initialMixer = null) {
+  async init(initialMaster = 0.67, initialMuted = false, initialMixer = null) {
     // User-Geste synchron vor jeglichem await erfassen (essentiell für iOS Safari AudioContext.resume)
     const rawCtx = typeof Tone?.getContext === "function" ? Tone.getContext()?.rawContext : Tone?.context?.rawContext;
     if (rawCtx && typeof rawCtx.resume === "function") {
@@ -16989,17 +17014,13 @@ const TR_FR = {
   "Zwei Töne erklingen nacheinander vom zufälligen Ausgangston nach oben": "Deux notes jouées successivement vers le haut depuis une note aléatoire",
   "Stufe 1: Einsteiger": "Niveau 1 : Débutant",
   "Prime, gr. Terz, Quinte, Oktave": "Unisson, 3ce maj., Quinte & Octave",
-  "Dur ↗": "Maj ↗",
   "Stufe 2: Dur-Tonleiter": "Niveau 2 : Gamme majeure",
   "8 diatonische Intervalle": "8 intervalles diatoniques",
-  "Alle ↗": "Tous ↗",
   "Stufe 3: Chromatisch": "Niveau 3 : Chromatique",
   "Alle 15 Intervalle bis zur None": "Les 15 intervalles jusqu’à la neuvième",
   "Melodische Intervalle (Abwärts)": "Intervalles mélodiques (Descendants)",
   "Zwei Töne erklingen nacheinander vom zufälligen Ausgangston nach unten": "Deux notes jouées successivement vers le bas depuis une note aléatoire",
-  "Dur ↘": "Maj ↘",
   "8 diatonische Intervalle abwärts": "8 intervalles diatoniques descendants",
-  "Alle ↘": "Tous ↘",
   "Harmonische Intervalle": "Intervalles harmoniques",
   "Beide Töne erklingen gleichzeitig als Zusammenklang": "Les deux notes résonnent simultanément en harmonie",
   "Dur": "Maj",
@@ -17238,7 +17259,7 @@ const TR_FR = {
 
 // Notenlesen (Akkorde/Doppelsystem), Rhythmus vom Blatt, Modi-Fläche, Moll-Kadenzen, Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_FR, {
-  "🎤 Mitsingen": "🎤 Chanter",
+  "Mitsingen": "Chanter",
   "Mitsing-Tipp ein- oder ausklappen": "Afficher ou masquer le conseil pour chanter",
   "Summ-Pause: An": "Pause fredonnée : oui",
   "Summ-Pause: Aus": "Pause fredonnée : non",
@@ -19053,8 +19074,6 @@ const TR_PL = {
   "Alle Intervalle": "Wszystkie interwały",
   "Alle Signale laufen über einen integrierten -14 dBFS Schutz-Limiter mit Lautheits-Ausgleich (insbesondere bei 2–4 kHz) und weichen Ein- und Ausblenden. Übe dennoch bei moderater Abhörlautstärke.": "Wszystkie sygnały przechodzą przez wbudowany limiter ochronny -14 dBFS z kompensacją głośności (zwłaszcza 2–4 kHz) oraz łagodnymi przejściami. Mimo to zawsze ćwicz przy umiarkowanym poziomie dźwięku.",
   "Alle leitereigenen Stufen": "Wszystkie stopnie diatoniczne",
-  "Alle ↗": "Wszystkie ↗",
-  "Alle ↘": "Wszystkie ↘",
   "Alt": "Alt",
   "An": "Wł.",
   "Anatomie, Register, Stimmfächer & Chorsatz": "Anatomia głosu, rejestry, typy głosów i chór SATB",
@@ -19136,8 +19155,6 @@ const TR_PL = {
   "Dur": "Dur",
   "Dur & Hell": "Durowe i jasne",
   "Dur & Moll": "Dur i Moll",
-  "Dur ↗": "Dur ↗",
-  "Dur ↘": "Dur ↘",
   "Dur, Moll, Vermindert &amp; Übermäßig": "Durowe, molowe, zmniejszone i zwiększone",
   "Dur-Dreiklang": "Trójdźwięk durowy",
   "Dur-Tonleiter": "Skala durowa",
@@ -19873,7 +19890,7 @@ const TR_PL = {
 
 // Notenlesen (Akkorde/Doppelsystem), Rhythmus vom Blatt, Modi-Fläche, Moll-Kadenzen, Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_PL, {
-  "🎤 Mitsingen": "🎤 Śpiewaj",
+  "Mitsingen": "Śpiewaj",
   "Mitsing-Tipp ein- oder ausklappen": "Pokaż lub ukryj wskazówkę do śpiewania",
   "Summ-Pause: An": "Pauza na nucenie: wł.",
   "Summ-Pause: Aus": "Pauza na nucenie: wył.",
@@ -21240,8 +21257,6 @@ const TR_UK = {
   "Alle Intervalle": "Усі інтервали",
   "Alle Signale laufen über einen integrierten -14 dBFS Schutz-Limiter mit Lautheits-Ausgleich (insbesondere bei 2–4 kHz) und weichen Ein- und Ausblenden. Übe dennoch bei moderater Abhörlautstärke.": "Усі сигнали проходять через вбудований захисний лімітер -14 dBFS із корекцією рівної гучності (особливо на 2–4 кГц) та м’яким фейдом. Проте завжди займайся на помірній гучності.",
   "Alle leitereigenen Stufen": "Усі діатонічні ступені",
-  "Alle ↗": "Усі ↗",
-  "Alle ↘": "Усі ↘",
   "Alt": "Альт",
   "An": "Увімк.",
   "Anatomie, Register, Stimmfächer & Chorsatz": "Анатомія голосу, регістри, співочі голоси та хор SATB",
@@ -21323,8 +21338,6 @@ const TR_UK = {
   "Dur": "Маж.",
   "Dur & Hell": "Мажорні та світлі",
   "Dur & Moll": "Мажор і мінор",
-  "Dur ↗": "Маж ↗",
-  "Dur ↘": "Маж ↘",
   "Dur, Moll, Vermindert &amp; Übermäßig": "Мажор, мінор, зменшений і збільшений",
   "Dur-Dreiklang": "Мажорний тризвук",
   "Dur-Tonleiter": "Мажорна гама",
@@ -22061,7 +22074,7 @@ const TR_UK = {
 
 // Notenlesen (Akkorde/Doppelsystem), Rhythmus vom Blatt, Modi-Fläche, Moll-Kadenzen, Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_UK, {
-  "🎤 Mitsingen": "🎤 Співай",
+  "Mitsingen": "Співай",
   "Mitsing-Tipp ein- oder ausklappen": "Показати або сховати підказку для співу",
   "Summ-Pause: An": "Пауза для наспівування: увімк.",
   "Summ-Pause: Aus": "Пауза для наспівування: вимк.",
@@ -23457,8 +23470,6 @@ const TR_UR = Object.assign(Object.create(null), {
   "Alle Intervalle": "تمام انٹرولز",
   "Alle Signale laufen über einen integrierten -14 dBFS Schutz-Limiter mit Lautheits-Ausgleich (insbesondere bei 2–4 kHz) und weichen Ein- und Ausblenden. Übe dennoch bei moderater Abhörlautstärke.": "تمام آوازیں بلٹ ان -14 dBFS حفاظتی لِمٹر اور مساوی آواز متوازن فلٹر (خاص طور پر 2–4 kHz پر) سے گزرتی ہیں۔ پھر بھی معتدل والیوم پر مشق کریں۔",
   "Alle leitereigenen Stufen": "تمام اسکیل درجات",
-  "Alle ↗": "سب ↗",
-  "Alle ↘": "سب ↘",
   "Alt": "آلٹو",
   "An": "آن",
   "Anatomie, Register, Stimmfächer & Chorsatz": "اناٹومی، ووکل رجسٹرز، آواز کی اقسام اور SATB کورس",
@@ -23540,8 +23551,6 @@ const TR_UR = Object.assign(Object.create(null), {
   "Dur": "میجر",
   "Dur & Hell": "میجر اور روشن",
   "Dur & Moll": "میجر اور مائنر",
-  "Dur ↗": "میجر ↗",
-  "Dur ↘": "میجر ↘",
   "Dur, Moll, Vermindert &amp; Übermäßig": "میجر، مائنر، ڈِمنشڈ اور آگمینٹڈ",
   "Dur-Dreiklang": "میجر ٹرائڈ",
   "Dur-Tonleiter": "میجر اسکیل",
@@ -24593,7 +24602,7 @@ const TR_UR = Object.assign(Object.create(null), {
 // Notenlesen (Akkorde/Doppelsystem), Rhythmus vom Blatt, Modi-Fläche, Moll-Kadenzen, Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_UR, {
   "{n}. Stufe": "درجہ {n}",
-  "🎤 Mitsingen": "🎤 ساتھ گائیں",
+  "Mitsingen": "ساتھ گائیں",
   "Mitsing-Tipp ein- oder ausklappen": "ساتھ گانے کی تجویز دکھائیں یا چھپائیں",
   "Summ-Pause: An": "گنگنانے کا وقفہ: آن",
   "Summ-Pause: Aus": "گنگنانے کا وقفہ: آف",
@@ -51271,6 +51280,14 @@ const MODE_CATEGORY_MAP = {
 /**
  * Liefert den Kategorie-Schlüssel (z. B. "interval", "chords") für einen Übungsmodus.
  */
+// Stufen-Symbol mit Richtungspfeil: aufwärts steht der Pfeil über dem Wort, abwärts darunter
+function renderDirectionNodeCircle(word, direction = "up", colorClass = "circle-peach") {
+  const isUp = direction !== "down";
+  const arrow = `<span class="node-dir-arrow" aria-hidden="true">${isUp ? "↗" : "↘"}</span>`;
+  const label = `<span class="node-dir-word${String(word).length > 5 ? " is-long" : ""}">${escapeHtml(word)}</span>`;
+  return `<div class="node-circle ${colorClass} node-circle-dir ${isUp ? "is-up" : "is-down"}">${isUp ? arrow + label : label + arrow}</div>`;
+}
+
 function getCategoryForMode(mode) {
   return MODE_CATEGORY_MAP[mode] || "cadence";
 }
@@ -51355,7 +51372,7 @@ class AppState {
     };
 
     this.master = {
-      volume: 0.85,
+      volume: 0.67,
       muted: false
     };
 
@@ -56357,12 +56374,12 @@ function openCategoryPage(categoryKey, options = {}) {
             <span class="node-sub">${tr("Prime, gr. Terz, Quinte, Oktave", "Unison, Maj 3rd, 5th & Octave")}</span>
           </button>
           <button class="subpage-node-btn" data-launch-int="interval-melodic" data-int-lvl="2">
-            <div class="node-circle circle-peach">${tr("Dur ↗", "Maj ↗")}</div>
+            ${renderDirectionNodeCircle(tr("Dur", "Maj"), "up")}
             <span class="node-title">${tr("Stufe 2: Dur-Tonleiter", "Level 2: Major Scale")}</span>
             <span class="node-sub">${tr("8 diatonische Intervalle", "8 diatonic intervals")}</span>
           </button>
           <button class="subpage-node-btn" data-launch-int="interval-melodic" data-int-lvl="3">
-            <div class="node-circle circle-peach">${tr("Alle ↗", "All ↗")}</div>
+            ${renderDirectionNodeCircle(tr("Alle", "All"), "up")}
             <span class="node-title">${tr("Stufe 3: Chromatisch", "Level 3: Chromatic")}</span>
             <span class="node-sub">${tr("Alle 15 Intervalle bis zur None", "All 15 intervals up to a 9th")}</span>
           </button>
@@ -56379,12 +56396,12 @@ function openCategoryPage(categoryKey, options = {}) {
             <span class="node-sub">${tr("Prime, gr. Terz, Quinte, Oktave", "Unison, Maj 3rd, 5th & Octave")}</span>
           </button>
           <button class="subpage-node-btn" data-launch-int="interval-melodic-down" data-int-lvl="2">
-            <div class="node-circle circle-peach">${tr("Dur ↘", "Maj ↘")}</div>
+            ${renderDirectionNodeCircle(tr("Dur", "Maj"), "down")}
             <span class="node-title">${tr("Stufe 2: Dur-Tonleiter", "Level 2: Major Scale")}</span>
             <span class="node-sub">${tr("8 diatonische Intervalle abwärts", "8 descending diatonic intervals")}</span>
           </button>
           <button class="subpage-node-btn" data-launch-int="interval-melodic-down" data-int-lvl="3">
-            <div class="node-circle circle-peach">${tr("Alle ↘", "All ↘")}</div>
+            ${renderDirectionNodeCircle(tr("Alle", "All"), "down")}
             <span class="node-title">${tr("Stufe 3: Chromatisch", "Level 3: Chromatic")}</span>
             <span class="node-sub">${tr("Alle 15 Intervalle bis zur None", "All 15 intervals up to a 9th")}</span>
           </button>
@@ -59695,7 +59712,7 @@ function syncSingAlongUI(ex = state.currentExercise) {
     chip.classList.toggle("hidden", !available);
     chip.classList.toggle("chip-open", showCard);
     chip.setAttribute("aria-expanded", String(showCard));
-    chip.textContent = tr("🎤 Mitsingen", "🎤 Sing along");
+    chip.textContent = tr("Mitsingen", "Sing along");
     chip.title = tr("Mitsing-Tipp ein- oder ausklappen", "Show or hide the sing-along tip");
   }
   if (!card) return;

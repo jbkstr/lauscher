@@ -884,8 +884,6 @@ const TR_PL = {
   "Alle Intervalle": "Wszystkie interwały",
   "Alle Signale laufen über einen integrierten -14 dBFS Schutz-Limiter mit Lautheits-Ausgleich (insbesondere bei 2–4 kHz) und weichen Ein- und Ausblenden. Übe dennoch bei moderater Abhörlautstärke.": "Wszystkie sygnały przechodzą przez wbudowany limiter ochronny -14 dBFS z kompensacją głośności (zwłaszcza 2–4 kHz) oraz łagodnymi przejściami. Mimo to zawsze ćwicz przy umiarkowanym poziomie dźwięku.",
   "Alle leitereigenen Stufen": "Wszystkie stopnie diatoniczne",
-  "Alle ↗": "Wszystkie ↗",
-  "Alle ↘": "Wszystkie ↘",
   "Alt": "Alt",
   "An": "Wł.",
   "Anatomie, Register, Stimmfächer & Chorsatz": "Anatomia głosu, rejestry, typy głosów i chór SATB",
@@ -967,8 +965,6 @@ const TR_PL = {
   "Dur": "Dur",
   "Dur & Hell": "Durowe i jasne",
   "Dur & Moll": "Dur i Moll",
-  "Dur ↗": "Dur ↗",
-  "Dur ↘": "Dur ↘",
   "Dur, Moll, Vermindert &amp; Übermäßig": "Durowe, molowe, zmniejszone i zwiększone",
   "Dur-Dreiklang": "Trójdźwięk durowy",
   "Dur-Tonleiter": "Skala durowa",
@@ -1704,7 +1700,7 @@ const TR_PL = {
 
 // Notenlesen (Akkorde/Doppelsystem), Rhythmus vom Blatt, Modi-Fläche, Moll-Kadenzen, Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_PL, {
-  "🎤 Mitsingen": "🎤 Śpiewaj",
+  "Mitsingen": "Śpiewaj",
   "Mitsing-Tipp ein- oder ausklappen": "Pokaż lub ukryj wskazówkę do śpiewania",
   "Summ-Pause: An": "Pauza na nucenie: wł.",
   "Summ-Pause: Aus": "Pauza na nucenie: wył.",

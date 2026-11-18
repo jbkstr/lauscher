@@ -961,17 +961,13 @@ const TR_FR = {
   "Zwei Töne erklingen nacheinander vom zufälligen Ausgangston nach oben": "Deux notes jouées successivement vers le haut depuis une note aléatoire",
   "Stufe 1: Einsteiger": "Niveau 1 : Débutant",
   "Prime, gr. Terz, Quinte, Oktave": "Unisson, 3ce maj., Quinte & Octave",
-  "Dur ↗": "Maj ↗",
   "Stufe 2: Dur-Tonleiter": "Niveau 2 : Gamme majeure",
   "8 diatonische Intervalle": "8 intervalles diatoniques",
-  "Alle ↗": "Tous ↗",
   "Stufe 3: Chromatisch": "Niveau 3 : Chromatique",
   "Alle 15 Intervalle bis zur None": "Les 15 intervalles jusqu’à la neuvième",
   "Melodische Intervalle (Abwärts)": "Intervalles mélodiques (Descendants)",
   "Zwei Töne erklingen nacheinander vom zufälligen Ausgangston nach unten": "Deux notes jouées successivement vers le bas depuis une note aléatoire",
-  "Dur ↘": "Maj ↘",
   "8 diatonische Intervalle abwärts": "8 intervalles diatoniques descendants",
-  "Alle ↘": "Tous ↘",
   "Harmonische Intervalle": "Intervalles harmoniques",
   "Beide Töne erklingen gleichzeitig als Zusammenklang": "Les deux notes résonnent simultanément en harmonie",
   "Dur": "Maj",
@@ -1210,7 +1206,7 @@ const TR_FR = {
 
 // Notenlesen (Akkorde/Doppelsystem), Rhythmus vom Blatt, Modi-Fläche, Moll-Kadenzen, Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_FR, {
-  "🎤 Mitsingen": "🎤 Chanter",
+  "Mitsingen": "Chanter",
   "Mitsing-Tipp ein- oder ausklappen": "Afficher ou masquer le conseil pour chanter",
   "Summ-Pause: An": "Pause fredonnée : oui",
   "Summ-Pause: Aus": "Pause fredonnée : non",

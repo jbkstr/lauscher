@@ -2036,6 +2036,14 @@ const MODE_CATEGORY_MAP = {
 /**
  * Liefert den Kategorie-Schlüssel (z. B. "interval", "chords") für einen Übungsmodus.
  */
+// Stufen-Symbol mit Richtungspfeil: aufwärts steht der Pfeil über dem Wort, abwärts darunter
+function renderDirectionNodeCircle(word, direction = "up", colorClass = "circle-peach") {
+  const isUp = direction !== "down";
+  const arrow = `<span class="node-dir-arrow" aria-hidden="true">${isUp ? "↗" : "↘"}</span>`;
+  const label = `<span class="node-dir-word${String(word).length > 5 ? " is-long" : ""}">${escapeHtml(word)}</span>`;
+  return `<div class="node-circle ${colorClass} node-circle-dir ${isUp ? "is-up" : "is-down"}">${isUp ? arrow + label : label + arrow}</div>`;
+}
+
 function getCategoryForMode(mode) {
   return MODE_CATEGORY_MAP[mode] || "cadence";
 }
@@ -2120,7 +2128,7 @@ class AppState {
     };
 
     this.master = {
-      volume: 0.85,
+      volume: 0.67,
       muted: false
     };
 
@@ -7122,12 +7130,12 @@ function openCategoryPage(categoryKey, options = {}) {
             <span class="node-sub">${tr("Prime, gr. Terz, Quinte, Oktave", "Unison, Maj 3rd, 5th & Octave")}</span>
           </button>
           <button class="subpage-node-btn" data-launch-int="interval-melodic" data-int-lvl="2">
-            <div class="node-circle circle-peach">${tr("Dur ↗", "Maj ↗")}</div>
+            ${renderDirectionNodeCircle(tr("Dur", "Maj"), "up")}
             <span class="node-title">${tr("Stufe 2: Dur-Tonleiter", "Level 2: Major Scale")}</span>
             <span class="node-sub">${tr("8 diatonische Intervalle", "8 diatonic intervals")}</span>
           </button>
           <button class="subpage-node-btn" data-launch-int="interval-melodic" data-int-lvl="3">
-            <div class="node-circle circle-peach">${tr("Alle ↗", "All ↗")}</div>
+            ${renderDirectionNodeCircle(tr("Alle", "All"), "up")}
             <span class="node-title">${tr("Stufe 3: Chromatisch", "Level 3: Chromatic")}</span>
             <span class="node-sub">${tr("Alle 15 Intervalle bis zur None", "All 15 intervals up to a 9th")}</span>
           </button>
@@ -7144,12 +7152,12 @@ function openCategoryPage(categoryKey, options = {}) {
             <span class="node-sub">${tr("Prime, gr. Terz, Quinte, Oktave", "Unison, Maj 3rd, 5th & Octave")}</span>
           </button>
           <button class="subpage-node-btn" data-launch-int="interval-melodic-down" data-int-lvl="2">
-            <div class="node-circle circle-peach">${tr("Dur ↘", "Maj ↘")}</div>
+            ${renderDirectionNodeCircle(tr("Dur", "Maj"), "down")}
             <span class="node-title">${tr("Stufe 2: Dur-Tonleiter", "Level 2: Major Scale")}</span>
             <span class="node-sub">${tr("8 diatonische Intervalle abwärts", "8 descending diatonic intervals")}</span>
           </button>
           <button class="subpage-node-btn" data-launch-int="interval-melodic-down" data-int-lvl="3">
-            <div class="node-circle circle-peach">${tr("Alle ↘", "All ↘")}</div>
+            ${renderDirectionNodeCircle(tr("Alle", "All"), "down")}
             <span class="node-title">${tr("Stufe 3: Chromatisch", "Level 3: Chromatic")}</span>
             <span class="node-sub">${tr("Alle 15 Intervalle bis zur None", "All 15 intervals up to a 9th")}</span>
           </button>
@@ -10460,7 +10468,7 @@ function syncSingAlongUI(ex = state.currentExercise) {
     chip.classList.toggle("hidden", !available);
     chip.classList.toggle("chip-open", showCard);
     chip.setAttribute("aria-expanded", String(showCard));
-    chip.textContent = tr("🎤 Mitsingen", "🎤 Sing along");
+    chip.textContent = tr("Mitsingen", "Sing along");
     chip.title = tr("Mitsing-Tipp ein- oder ausklappen", "Show or hide the sing-along tip");
   }
   if (!card) return;
