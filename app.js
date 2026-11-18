@@ -10184,38 +10184,335 @@ function syncMelodyHeaderAndPromptUI(ex = state.currentExercise) {
   }
 }
 
-function syncMelodySlotCardUI(ex, idx) {
-  const slot = ex?.melodySlots?.[idx];
-  const card = document.getElementById(`barCard_${idx}`);
-  if (!slot || !card) return;
-  const isCurrentTarget = !state.melodyCompleted && idx === ex.melodyStep;
-  const isDictation = ex.melodyStyle === "dictation";
+// ---------- MELODIE IM NOTENSYSTEM ----------
+// Die Aufgabe steht als echtes Notensystem (Schlüssel, Tonart, Taktart, Taktstriche) im oberen Modul.
+// Ungelöste Töne verraten keine Tonhöhe: Sie stehen als Rhythmus-Notenköpfe (Schrägstrich) auf der
+// Mittellinie – im Diktat sogar ohne Hals, bis der Notenwert gelöst ist. Erst gelöste Töne rücken an
+// ihre echte Position, darunter erscheint die Solfège-Silbe.
+const MELODY_DEGREE_INDEX = { Do_low: 0, Re: 1, Mi: 2, Fa: 3, Sol: 4, La: 5, Ti: 6, Do_high: 7 };
+const MELODY_SYLLABLE_DEGREE = { Do: 0, Re: 1, Mi: 2, Fa: 3, Sol: 4, So: 4, La: 5, Ti: 6, Si: 6 };
+const MELODY_STAFF_WIDTH = 360;
 
-  card.classList.remove("bar-target", "melody-slot-solved", "melody-slot-pending");
-  card.classList.add(slot.solved ? "melody-slot-solved" : (isCurrentTarget ? "bar-target" : "melody-slot-pending"));
-  card.classList.toggle("melody-bar-divider", Boolean(slot.barDivider));
-
-  const chipsEl = card.querySelector(".melody-card-chips");
-  if (chipsEl) {
-    chipsEl.innerHTML = buildMelodySlotRhythmHTML(slot, ex);
-  }
-
-  const romanEl = card.querySelector(".bar-roman");
-  if (romanEl) {
-    romanEl.textContent = (slot.pitchSolved || slot.solved) ? getSolfegeDisplayLabel(slot.syllable) : "?";
-  }
-
-  const lblEl = card.querySelector(".bar-label");
-  if (lblEl) {
-    if (slot.solved) {
-      lblEl.textContent = `✓ ${slot.germanNote}`;
-    } else if (isDictation && slot.pitchSolved) {
-      lblEl.textContent = tr("Ton ✓ • Wert?", "Pitch ✓ • Value?");
-    } else if (isDictation && slot.rhythmSolved) {
-      lblEl.textContent = tr("Wert ✓ • Ton?", "Value ✓ • Pitch?");
+// Tonhöhe tonartgerecht buchstabieren (Stufe → Notenname) und im gewählten Schlüssel verorten
+function spellMelodyPitch(midi, degreeIdx, keyCode, clefId = "treble") {
+  const keySig = normalizeNotationKeySigId(keyCode || "C");
+  const tonicLetter = String(keyCode || "C").charAt(0).toUpperCase();
+  let letter;
+  let acc;
+  if (Number.isFinite(degreeIdx) && NOTATION_LETTERS.includes(tonicLetter)) {
+    letter = NOTATION_LETTERS[(NOTATION_LETTERS.indexOf(tonicLetter) + degreeIdx) % 7];
+    acc = getKeySignatureAccidentalForLetter(keySig, letter);
+  } else {
+    const pc = ((midi % 12) + 12) % 12;
+    const natural = NOTATION_LETTERS.find(l => NOTATION_LETTER_PC[l] === pc);
+    if (natural) {
+      letter = natural;
+      acc = 0;
     } else {
-      lblEl.textContent = isCurrentTarget ? tr("Gesucht", "Target") : tr("Offen", "Pending");
+      const flatKey = getKeySignatureDef(keySig).type === "flat";
+      letter = NOTATION_LETTERS.find(l => NOTATION_LETTER_PC[l] === (flatKey ? (pc + 1) % 12 : (pc + 11) % 12));
+      acc = flatKey ? -1 : 1;
     }
+  }
+  const octave = Math.round((midi - acc - NOTATION_LETTER_PC[letter]) / 12) - 1;
+  const clef = NOTATION_CLEFS[clefId] || NOTATION_CLEFS.treble;
+  const diatonicIndex = octave * 7 + NOTATION_LETTERS.indexOf(letter);
+  const staffStep = clef.anchorStep + (diatonicIndex - clef.anchorDiatonicIndex);
+  return getNotationNoteFromStaffStep(clef.id, staffStep, acc, keySig);
+}
+
+// Violin- oder Bassschlüssel – je nachdem, wo die Melodie mit weniger Hilfslinien auskommt
+function pickMelodyClef(ex) {
+  const slots = ex?.melodySlots || [];
+  if (!slots.length) return "treble";
+  const worst = (clefId) => Math.max(...slots.map(sl => {
+    const it = spellMelodyPitch(sl.playedMidi, MELODY_DEGREE_INDEX[sl.key], ex.keyCode, clefId);
+    const rawStep = it.staffStep;
+    return it.ledgerCount + ((rawStep <= -7 || rawStep >= 15) ? 9 : 0);
+  }));
+  return worst("bass") < worst("treble") ? "bass" : "treble";
+}
+
+// Was zeigt ein Ton gerade? (Übung, Prüfung blind/mit Feedback)
+function getMelodySlotView(ex, slot, idx) {
+  const isDictation = ex.melodyStyle === "dictation";
+  const exam = state.exam?.active ? state.exam : null;
+  const isCurrent = !state.melodyCompleted && idx === (ex.melodyStep || 0);
+  const octaveShift = (Number(slot.playedMidi) || 0) - (Number(slot.midi) || 0);
+  const view = { midi: null, degree: null, rhythmKey: null, tone: "pending", label: "" };
+
+  if (exam) {
+    const chosenDegree = MELODY_SYLLABLE_DEGREE[slot.examChosenSyllable || slot.examPendingSyllable];
+    if (slot.examAnswered && exam.feedbackMode === "blind") {
+      if (Number.isFinite(slot.examPendingMidi)) {
+        view.midi = slot.examPendingMidi + octaveShift;
+        view.degree = chosenDegree;
+      }
+      view.rhythmKey = slot.examChosenRhythm || slot.rhythmKey;
+      view.tone = "recorded";
+      view.label = getSolfegeDisplayLabel(slot.examChosenSyllable || "?");
+    } else if (slot.examAnswered) {
+      view.midi = slot.playedMidi;
+      view.degree = MELODY_DEGREE_INDEX[slot.key];
+      view.rhythmKey = slot.rhythmKey;
+      view.tone = slot.examCorrect ? "solved" : "wrong";
+      view.label = getSolfegeDisplayLabel(slot.syllable);
+    } else {
+      if (Number.isFinite(slot.examPendingMidi)) {
+        view.midi = slot.examPendingMidi + octaveShift;
+        view.degree = chosenDegree;
+        view.label = getSolfegeDisplayLabel(slot.examPendingSyllable);
+      }
+      view.rhythmKey = isDictation ? (slot.examPendingRhythm || null) : slot.rhythmKey;
+      view.tone = isCurrent ? "current" : "pending";
+    }
+    return view;
+  }
+
+  if (slot.pitchSolved || slot.solved) {
+    view.midi = slot.playedMidi;
+    view.degree = MELODY_DEGREE_INDEX[slot.key];
+    view.label = getSolfegeDisplayLabel(slot.syllable);
+  }
+  if (!isDictation || slot.rhythmSolved || slot.solved) view.rhythmKey = slot.rhythmKey;
+  view.tone = slot.solved ? "solved" : (isCurrent ? "current" : "pending");
+  return view;
+}
+
+function buildMelodyRestGlyphSVG(beats, x) {
+  if (beats >= 2) {
+    return `<rect x="${(x - 7).toFixed(1)}" y="82" width="14" height="6" fill="currentColor"/>`;
+  }
+  if (beats <= 0.5) {
+    return `<g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <circle cx="${(x - 3).toFixed(1)}" cy="82" r="2.4" fill="currentColor" stroke="none"/>
+      <path d="M${(x - 3).toFixed(1)} 83.5 C${(x + 0.5).toFixed(1)} 84.5, ${(x + 3).toFixed(1)} 83, ${(x + 4).toFixed(1)} 80 L${(x - 1).toFixed(1)} 99"/>
+    </g>`;
+  }
+  return `<path d="M${(x - 2.5).toFixed(1)} 74 L${(x + 3.5).toFixed(1)} 81.5 L${(x - 2).toFixed(1)} 88 L${(x + 3.5).toFixed(1)} 95 C${(x - 2.5).toFixed(1)} 93.5, ${(x - 4).toFixed(1)} 98.5, ${(x + 0.5).toFixed(1)} 102.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>`;
+}
+
+// Ein Ton: Notenkopf (oval an echter Höhe oder Schrägstrich auf der Mittellinie), Hals, Fähnchen, Punkt
+function buildMelodyNoteGlyphSVG(view, x, clefId, keyCode, opts = {}) {
+  const pitchKnown = Number.isFinite(view.midi);
+  const item = pitchKnown ? spellMelodyPitch(view.midi, view.degree, keyCode, clefId) : null;
+  const step = item ? item.staffStep : 4;
+  const y = notationStepToY(step);
+  const rk = view.rhythmKey;
+  const hollow = rk === "half";
+  let html = "";
+  let minY = y - 7;
+  let maxY = y + 7;
+
+  if (item) {
+    getLedgerLinesForStep(step).forEach(ls => {
+      const ly = notationStepToY(ls);
+      html += `<line class="notation-ledger-line" x1="${(x - 12).toFixed(1)}" y1="${ly}" x2="${(x + 12).toFixed(1)}" y2="${ly}"/>`;
+    });
+    if (item.shownAccidental) {
+      html += getNotationAccidentalGlyphSVG(item.shownAccidental, x - 14.5, y);
+    }
+    html += hollow
+      ? `<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="6.6" ry="4.6" transform="rotate(-18 ${x.toFixed(1)} ${y.toFixed(1)})" fill="none" stroke="currentColor" stroke-width="2.1"/>`
+      : `<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="7.0" ry="5.1" transform="rotate(-18 ${x.toFixed(1)} ${y.toFixed(1)})" fill="currentColor"/>`;
+  } else if (hollow) {
+    html += `<path d="M${(x - 8).toFixed(1)} ${y + 3.5} L${(x + 2.5).toFixed(1)} ${y - 7} L${(x + 8).toFixed(1)} ${y - 3.5} L${(x - 2.5).toFixed(1)} ${y + 7} Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>`;
+  } else {
+    html += `<path d="M${(x - 8).toFixed(1)} ${y + 3.5} L${(x + 2.5).toFixed(1)} ${y - 7} L${(x + 8).toFixed(1)} ${y - 3.5} L${(x - 2.5).toFixed(1)} ${y + 7} Z" fill="currentColor"${rk ? "" : ' opacity="0.55"'}/>`;
+  }
+
+  if (rk) {
+    const stemUp = opts.stemUp !== undefined ? opts.stemUp : (!item || step < 4);
+    const stemX = stemUp ? x + (item ? 6.3 : 7.4) : x - 6.3;
+    const tipY = opts.tipY !== undefined ? opts.tipY : (stemUp ? y - 28 : y + 28);
+    html += `<line x1="${stemX.toFixed(1)}" y1="${(stemUp ? y - 1 : y + 1).toFixed(1)}" x2="${stemX.toFixed(1)}" y2="${tipY.toFixed(1)}" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>`;
+    minY = Math.min(minY, tipY - 1);
+    maxY = Math.max(maxY, tipY + 1);
+    if (rk === "eighth" && !opts.beamed) {
+      html += stemUp
+        ? `<path d="M${stemX.toFixed(1)} ${tipY.toFixed(1)} C${(stemX + 1).toFixed(1)} ${(tipY + 7).toFixed(1)}, ${(stemX + 10).toFixed(1)} ${(tipY + 9).toFixed(1)}, ${(stemX + 6).toFixed(1)} ${(tipY + 19).toFixed(1)}" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>`
+        : `<path d="M${stemX.toFixed(1)} ${tipY.toFixed(1)} C${(stemX + 1).toFixed(1)} ${(tipY - 7).toFixed(1)}, ${(stemX + 10).toFixed(1)} ${(tipY - 9).toFixed(1)}, ${(stemX + 6).toFixed(1)} ${(tipY - 19).toFixed(1)}" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>`;
+    }
+    if (rk === "dottedQuarter") {
+      const dotY = step % 2 === 0 ? y - 3 : y;
+      html += `<circle cx="${(x + 11.5).toFixed(1)}" cy="${dotY.toFixed(1)}" r="2.1" fill="currentColor"/>`;
+    }
+  }
+  return { html, minY, maxY, y, step, stemX: rk ? (opts.stemUp !== undefined ? (opts.stemUp ? x + 6.3 : x - 6.3) : null) : null };
+}
+
+function buildMelodyStaffSVG(ex) {
+  const slots = ex.melodySlots || [];
+  const clefId = ex.melodyClef || (ex.melodyClef = pickMelodyClef(ex));
+  const keyCode = ex.keyCode || "C";
+  const keySig = normalizeNotationKeySigId(keyCode);
+  const bpb = ex.beatsPerBar || 4;
+  const [meterTop, meterBottom] = String(ex.meterKey || "4/4").split("/");
+  const width = MELODY_STAFF_WIDTH;
+  const startX = 6;
+  const endX = width - 6;
+
+  const sigItems = getNotationKeySignatureSteps(clefId, keySig);
+  const sigPitch = sigItems.length > 4 ? 9.5 : 10.5;
+  const sigStartX = startX + 44;
+  const sigHtml = sigItems.map((ks, i) =>
+    getNotationAccidentalGlyphSVG(ks.accidental, sigStartX + i * sigPitch, notationStepToY(ks.staffStep), 0.88)
+  ).join("");
+  const sigRight = sigItems.length ? sigStartX + (sigItems.length - 1) * sigPitch + 8 : startX + 40;
+  const timeX = sigRight + 11;
+  const timeHtml = `<g class="melody-time-sig" font-family="Andika, sans-serif" font-weight="700" font-size="21" text-anchor="middle" fill="currentColor">
+      <text x="${timeX}" y="83.5">${escapeHtml(meterTop || "4")}</text>
+      <text x="${timeX}" y="107.5">${escapeHtml(meterBottom || "4")}</text>
+    </g>`;
+
+  // Ereignisfolge: Pausen, Noten, Taktstriche
+  const items = [];
+  let curBar = 0;
+  slots.forEach((slot, idx) => {
+    const view = getMelodySlotView(ex, slot, idx);
+    const restBeats = Number(slot.restBeforeBeats) || 0;
+    const events = [];
+    if (restBeats > 0 && view.rhythmKey) {
+      events.push({ type: "rest", beats: restBeats, offset: (Number(slot.beatOffset) || 0) - restBeats });
+    }
+    events.push({ type: "note", idx, slot, view, offset: Number(slot.beatOffset) || 0 });
+    events.forEach(ev => {
+      const bar = Math.floor((ev.offset + 0.001) / bpb);
+      if (bar > curBar) {
+        items.push({ type: "bar" });
+        curBar = bar;
+      }
+      items.push(ev);
+    });
+  });
+
+  const weight = { note: 1, rest: 0.72, bar: 0.42 };
+  const contentStart = timeX + 18;
+  const contentEnd = endX - 14;
+  const totalW = items.reduce((sum, it) => sum + weight[it.type], 0) || 1;
+  const unit = (contentEnd - contentStart) / totalW;
+  let cursor = contentStart;
+  items.forEach(it => {
+    it.x = cursor + (unit * weight[it.type]) / 2;
+    cursor += unit * weight[it.type];
+  });
+
+  // Achtelpaare innerhalb eines Schlags balken (nur wenn beide Notenwerte bekannt sind)
+  const beamPairs = new Map();
+  for (let i = 0; i < items.length - 1; i++) {
+    const a = items[i];
+    const b = items[i + 1];
+    if (a.type !== "note" || b.type !== "note") continue;
+    if (a.view.rhythmKey !== "eighth" || b.view.rhythmKey !== "eighth") continue;
+    if (Math.abs(a.offset - Math.round(a.offset)) > 0.01 || Math.abs(b.offset - a.offset - 0.5) > 0.01) continue;
+    if (beamPairs.has(a.idx) || beamPairs.has(b.idx)) continue;
+    beamPairs.set(a.idx, b);
+    beamPairs.set(b.idx, a);
+  }
+
+  let inkMinY = 60;
+  let inkMaxY = 116;
+  const labelEntries = [];
+  let labelBaseline = 132;
+  const noteHtml = items.map(it => {
+    if (it.type === "bar") {
+      return `<line class="melody-barline" x1="${it.x.toFixed(1)}" y1="64" x2="${it.x.toFixed(1)}" y2="112" stroke="currentColor" stroke-width="1.4"/>`;
+    }
+    if (it.type === "rest") {
+      return `<g class="melody-staff-rest">${buildMelodyRestGlyphSVG(it.beats, it.x)}</g>`;
+    }
+    const partner = beamPairs.get(it.idx);
+    let opts = {};
+    let beamHtml = "";
+    if (partner) {
+      const first = partner.idx > it.idx ? it : partner;
+      const second = first === it ? partner : it;
+      const stepOf = (n) => Number.isFinite(n.view.midi)
+        ? spellMelodyPitch(n.view.midi, n.view.degree, keyCode, clefId).staffStep
+        : 4;
+      const s1 = stepOf(first);
+      const s2 = stepOf(second);
+      const bothSlash = !Number.isFinite(first.view.midi) && !Number.isFinite(second.view.midi);
+      const stemUp = bothSlash || (s1 + s2) / 2 < 4;
+      const y1 = notationStepToY(s1);
+      const y2 = notationStepToY(s2);
+      const tipY = stemUp ? Math.min(y1, y2) - 27 : Math.max(y1, y2) + 27;
+      opts = { stemUp, tipY, beamed: true };
+      if (it === first) {
+        const stemOff = (n) => (stemUp ? (Number.isFinite(n.view.midi) ? 6.3 : 7.4) : -6.3);
+        const x1 = first.x + stemOff(first);
+        const x2 = second.x + stemOff(second);
+        beamHtml = `<line class="melody-beam" x1="${x1.toFixed(1)}" y1="${tipY.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${tipY.toFixed(1)}" stroke="currentColor" stroke-width="4.6" stroke-linecap="butt" data-beam="${first.idx}-${second.idx}"/>`;
+      }
+    }
+    const glyph = buildMelodyNoteGlyphSVG(it.view, it.x, clefId, keyCode, opts);
+    inkMinY = Math.min(inkMinY, glyph.minY);
+    inkMaxY = Math.max(inkMaxY, glyph.maxY);
+    let extra = beamHtml;
+    if (it.view.tone === "current") {
+      extra += `<text class="melody-staff-question" x="${it.x.toFixed(1)}" y="${Math.min(52, glyph.minY - 6).toFixed(1)}" text-anchor="middle" font-family="Andika, sans-serif" font-weight="700" font-size="16" fill="currentColor">?</text>`;
+      inkMinY = Math.min(inkMinY, Math.min(52, glyph.minY - 6) - 14);
+    }
+    if (it.view.label) {
+      labelEntries.push({ x: it.x, tone: it.view.tone, text: it.view.label });
+      labelBaseline = Math.max(labelBaseline, glyph.maxY + 13);
+    }
+    return `<g id="barCard_${it.idx}" class="melody-staff-note is-${it.view.tone}" data-melody-slot="${it.idx}">
+        <rect class="melody-staff-hit" x="${(it.x - 15).toFixed(1)}" y="40" width="30" height="100" fill="transparent"/>
+        ${glyph.html}${extra}
+      </g>`;
+  }).join("");
+
+  // Silben unter den Noten auf einer gemeinsamen Grundlinie
+  const labelsHtml = labelEntries.map(l =>
+    `<text class="melody-staff-label is-${l.tone}" x="${l.x.toFixed(1)}" y="${labelBaseline.toFixed(1)}" text-anchor="middle" font-family="Andika, sans-serif" font-weight="700" font-size="11">${escapeHtml(l.text)}</text>`
+  ).join("");
+  if (labelEntries.length) inkMaxY = Math.max(inkMaxY, labelBaseline + 3);
+
+  // Balken liegen in der Gruppe des ersten Achtels und übernehmen dessen Farbe
+  const staffLines = [0, 2, 4, 6, 8].map(st => {
+    const ly = notationStepToY(st);
+    return `<line class="notation-staff-line" x1="${startX}" y1="${ly}" x2="${endX}" y2="${ly}"/>`;
+  }).join("");
+  const finalBar = `<line x1="${endX - 5}" y1="64" x2="${endX - 5}" y2="112" stroke="currentColor" stroke-width="1.3"/>
+    <line x1="${endX - 1.5}" y1="64" x2="${endX - 1.5}" y2="112" stroke="currentColor" stroke-width="3.4"/>`;
+
+  const vbTop = Math.floor(Math.min(inkMinY, 42) - 3);
+  const vbBottom = Math.ceil(Math.max(inkMaxY, 118) + 3);
+  return `<svg class="notation-staff-svg melody-staff-svg" viewBox="0 ${vbTop} ${width} ${vbBottom - vbTop}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${escapeHtml(tr("Melodie im Notensystem", "Melody on the staff"))}">
+    ${staffLines}
+    ${getNotationClefGlyphSVG(clefId, startX + 8, 1, 1)}
+    ${sigHtml ? `<g class="notation-keysig-layer">${sigHtml}</g>` : ""}
+    ${timeHtml}
+    ${finalBar}
+    ${noteHtml}
+    <g class="melody-label-layer">${labelsHtml}</g>
+  </svg>`;
+}
+
+function renderMelodyStaffPanel(ex = state.currentExercise, targetGrid = document.getElementById("barsGrid")) {
+  if (!ex || ex.type !== "melody" || !targetGrid) return;
+  targetGrid.classList.remove("cols-2", "cols-3", "cols-4", "cols-5");
+  targetGrid.classList.add("cols-1", "is-melody-staff");
+  const panel = document.createElement("div");
+  panel.className = "notation-staff-panel melody-staff-panel";
+  panel.id = "melodyStaffPanel";
+  panel.innerHTML = buildMelodyStaffSVG(ex);
+  panel.addEventListener("click", (e) => {
+    const g = e.target.closest?.("[data-melody-slot]");
+    if (!g) return;
+    const idx = parseInt(g.dataset.melodySlot, 10);
+    const slot = ex.melodySlots?.[idx];
+    if (slot && (slot.solved || idx === ex.melodyStep)) repeatMelodySlotTone(idx);
+  });
+  targetGrid.innerHTML = "";
+  targetGrid.appendChild(panel);
+}
+
+function syncMelodySlotCardUI(ex, idx) {
+  // Melodien stehen im Notensystem: bei jeder Änderung neu zeichnen (idx bleibt für Aufrufer kompatibel)
+  if (ex && ex.type === "melody" && document.getElementById("melodyStaffPanel")) {
+    renderMelodyStaffPanel(ex);
   }
 }
 
@@ -10877,9 +11174,6 @@ function renderUI() {
     }
     document.getElementById("inputPromptText").textContent = tr("Tippe die gehörte Stufe auf der Klaviatur:", "Tap the heard scale degree on the keyboard:");
   } else if (ex.type === "melody") {
-    const totSlots = ex.melodySlots?.length || 4;
-    if (totSlots === 5) barsGrid.classList.add("cols-5");
-    else if (totSlots >= 6) barsGrid.classList.add("cols-3");
     syncMelodyHeaderAndPromptUI(ex);
   } else if (isNotation) {
     barsGrid.classList.add("is-notation");
@@ -11004,47 +11298,7 @@ function renderUI() {
     renderNotationStaffPanel(ex, Boolean(ex.notationDidShift), barsGrid);
     ex.notationDidShift = false;
   } else if (isMelody) {
-    ex.melodySlots.forEach((slot, idx) => {
-      const card = document.createElement("div");
-      card.className = "bar-card";
-      card.id = `barCard_${idx}`;
-      card.dataset.melodySlot = String(idx);
-
-      const head = document.createElement("div");
-      head.className = "melody-card-head";
-
-      const tag = document.createElement("span");
-      tag.className = "bar-tag";
-      tag.textContent = tf("Ton {n}", "Note {n}", { n: idx + 1 });
-
-      const chipsEl = document.createElement("span");
-      chipsEl.className = "melody-card-chips";
-      chipsEl.style.display = "inline-flex";
-      chipsEl.style.alignItems = "center";
-      chipsEl.style.gap = "3px";
-
-      head.appendChild(tag);
-      head.appendChild(chipsEl);
-
-      const mainText = document.createElement("div");
-      mainText.className = "bar-roman";
-
-      const lbl = document.createElement("span");
-      lbl.className = "bar-label";
-
-      card.appendChild(head);
-      card.appendChild(mainText);
-      card.appendChild(lbl);
-      barsGrid.appendChild(card);
-
-      syncMelodySlotCardUI(ex, idx);
-
-      card.addEventListener("click", () => {
-        if (slot.solved || idx === ex.melodyStep) {
-          repeatMelodySlotTone(idx);
-        }
-      });
-    });
+    renderMelodyStaffPanel(ex, barsGrid);
   } else if (isRhythmDict) {
     ex.rhythmSlots.forEach((slot, idx) => {
       const isCurrentTarget = !state.rhythmDictationCompleted && idx === ex.rhythmStep;
@@ -22211,7 +22465,7 @@ function finalizeExamMelodySlot(ex, idx) {
   });
 
   const keyBtn = slot.examPendingMidi ? document.getElementById(`solfegeKey_${slot.examPendingMidi}`) : null;
-  const card = document.getElementById(`barCard_${idx}`);
+  const card = null; // Melodie steht im Notensystem → unten per renderMelodyStaffPanel neu zeichnen
   const divCls = slot.barDivider ? " melody-bar-divider" : "";
 
   if (exam.feedbackMode === "blind") {
@@ -22258,14 +22512,8 @@ function finalizeExamMelodySlot(ex, idx) {
 
   if (idx < totalSlots - 1) {
     ex.melodyStep = idx + 1;
-    const nextIdx = ex.melodyStep;
-    const nextCard = document.getElementById(`barCard_${nextIdx}`);
-    if (nextCard) {
-      nextCard.classList.remove("melody-slot-pending");
-      nextCard.classList.add("bar-target");
-      const nl = nextCard.querySelector(".bar-label");
-      if (nl) nl.textContent = tr("Gesucht", "Target");
-    }
+    renderMelodyStaffPanel(ex);
+    document.getElementById(`barCard_${idx}`)?.classList.add("tile-selected-pulse");
     syncMelodyHeaderAndPromptUI(ex);
     if (isDictation) {
       renderMelodyRhythmPicker(ex);
@@ -22282,6 +22530,7 @@ function finalizeExamMelodySlot(ex, idx) {
   state.isPlaying = false;
   updatePlayButtonUI(false);
 
+  renderMelodyStaffPanel(ex);
   syncMelodyHeaderAndPromptUI(ex);
   if (isDictation) {
     renderMelodyRhythmPicker(ex);
@@ -22377,11 +22626,7 @@ function handleExamMelodyRhythmChoice(ex, rhythmKey, btn) {
   }
 
   renderMelodyRhythmPicker(ex);
-  const card = document.getElementById(`barCard_${idx}`);
-  if (card) {
-    const lEl = card.querySelector(".bar-label");
-    if (lEl) lEl.textContent = tr("Wert ✓ • Ton?", "Value ✓ • Pitch?");
-  }
+  renderMelodyStaffPanel(ex);
 }
 
 function handleExamMelodyAnswer(ex, clickedKeyDef, keyBtn) {
@@ -22412,13 +22657,7 @@ function handleExamMelodyAnswer(ex, clickedKeyDef, keyBtn) {
   });
   keyBtn?.classList.add("key-pending-pair");
 
-  const card = document.getElementById(`barCard_${idx}`);
-  if (card) {
-    const rEl = card.querySelector(".bar-roman");
-    const lEl = card.querySelector(".bar-label");
-    if (rEl) rEl.textContent = getSolfegeDisplayLabel(clickedKeyDef.syllable);
-    if (lEl) lEl.textContent = tr("Ton ✓ • Wert?", "Pitch ✓ • Value?");
-  }
+  renderMelodyStaffPanel(ex);
   renderMelodyRhythmPicker(ex);
 }
 
