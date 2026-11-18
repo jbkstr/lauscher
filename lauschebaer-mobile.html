@@ -5895,6 +5895,66 @@ body,
   line-height: 1.2;
 }
 
+.sing-along-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.4rem;
+}
+
+.sing-along-action {
+  font: inherit;
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 0.22rem 0.6rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(61, 64, 91, 0.18);
+  background: var(--surface-white);
+  color: var(--raccoon-dark);
+  cursor: pointer;
+}
+
+.sing-along-action.is-primary {
+  background: var(--raccoon-dark);
+  color: var(--surface-white);
+  border-color: transparent;
+}
+
+.sing-along-action.is-on {
+  border-color: var(--sage-strong);
+  color: var(--sage-strong);
+}
+
+/* Optionale Summ-Pause: Antworten kurz gesperrt, Fortschrittsbalken im Tipp-Bereich */
+body.is-hum-pause #degreeButtonsGrid,
+body.is-hum-pause #solfegeKeyboardWrap {
+  pointer-events: none;
+  opacity: 0.5;
+  transition: opacity 0.2s ease;
+}
+
+.hum-pause-bar {
+  height: 5px;
+  margin-top: 0.55rem;
+  border-radius: var(--radius-pill);
+  background: var(--surface-warm);
+  overflow: hidden;
+  width: 100%;
+}
+
+.hum-pause-bar span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--sage-strong);
+  animation: humPauseFill var(--hum-ms, 3000ms) linear forwards;
+}
+
+@keyframes humPauseFill {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
 .sing-along-text {
   font-size: 0.76rem;
   font-weight: 600;
@@ -11507,6 +11567,7 @@ body,
               <button id="moduleTimeSigBtn" class="module-chip-btn chip-peach hidden" title="Taktart wählen" data-i18n-title="ex.timeSigBtnTitle">4/4</button>
               <button id="modesPadBtn" class="module-chip-btn chip-sage hidden" type="button" aria-pressed="false">Grundton-Fläche: Aus</button>
             <button id="melodyPulseBtn" class="module-chip-btn chip-sage hidden" type="button" title="Metrum-Puls während der Melodie ein-/ausschalten" data-i18n-title="ex.melodyPulseTitle">Puls: An</button>
+              <button id="singAlongChipBtn" type="button" class="module-chip-btn chip-sage hidden" aria-expanded="false" aria-controls="singAlongHint">🎤 Mitsingen</button>
               <button id="moduleBpmBtn" class="module-chip-btn chip-lilac" title="Tempo-Schieberegler öffnen" data-i18n-title="ex.bpmBtnTitle">90 BPM</button>
             </div>
           </div>
@@ -11587,6 +11648,10 @@ body,
           <div class="sing-along-copy">
             <strong id="singAlongTitle" class="sing-along-title">Sing mit!</strong>
             <span id="singAlongText" class="sing-along-text"></span>
+            <div class="sing-along-actions">
+              <button type="button" id="singAlongPauseToggle" class="sing-along-action" aria-pressed="false">Summ-Pause: Aus</button>
+              <button type="button" id="singAlongDismissBtn" class="sing-along-action is-primary">Verstanden</button>
+            </div>
           </div>
         </div>
       </section>
@@ -12104,6 +12169,23 @@ body,
           <div class="tempo-control-row">
             <input type="range" id="defaultBpmSlider" min="55" max="160" step="5" value="90">
             <span id="defaultBpmDisplay" class="tempo-val">90 BPM</span>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <h4 data-i18n="settings.singHeading">Mitsingen</h4>
+          <p class="settings-hint" data-i18n="settings.singHint">Einladungen zum Mitsingen und Mitsummen bei Intervall- und Solfège-Übungen.</p>
+          <span class="account-label" data-i18n="settings.singTipsLabel">Mitsing-Tipps</span>
+          <div id="singTipsGroup" class="btn-group" role="group" aria-label="Mitsing-Tipps" data-i18n-aria="settings.singTipsLabel">
+            <button type="button" class="opt-btn active" data-sing-tips="on" aria-pressed="true" data-i18n="settings.autoNextOn">Ein</button>
+            <button type="button" class="opt-btn" data-sing-tips="off" aria-pressed="false" data-i18n="settings.autoNextOff">Aus</button>
+          </div>
+          <div class="settings-sub-field">
+            <span class="account-label" data-i18n="settings.singPauseLabel">Summ-Pause nach dem Abspielen (3 Sek.)</span>
+            <div id="singPauseGroup" class="btn-group" role="group" aria-label="Summ-Pause" data-i18n-aria="settings.singPauseLabel">
+              <button type="button" class="opt-btn" data-sing-pause="on" aria-pressed="false" data-i18n="settings.autoNextOn">Ein</button>
+              <button type="button" class="opt-btn active" data-sing-pause="off" aria-pressed="true" data-i18n="settings.autoNextOff">Aus</button>
+            </div>
           </div>
         </div>
 
@@ -14717,6 +14799,10 @@ const I18N_STATIC = {
     de: "Nächste Abfragung automatisch abspielen",
     en: "Auto-play next prompt"
   },
+  "settings.singHeading": { de: "Mitsingen", en: "Sing Along" },
+  "settings.singHint": { de: "Einladungen zum Mitsingen und Mitsummen bei Intervall- und Solfège-Übungen.", en: "Invitations to sing and hum along in interval and solfège exercises." },
+  "settings.singTipsLabel": { de: "Mitsing-Tipps", en: "Sing-along tips" },
+  "settings.singPauseLabel": { de: "Summ-Pause nach dem Abspielen (3 Sek.)", en: "Hum pause after playback (3 sec.)" },
   "settings.autoNextOn": { de: "Ein", en: "On" },
   "settings.autoNextOff": { de: "Aus", en: "Off" },
   "settings.breakReminderHeading": {
@@ -15664,6 +15750,10 @@ const I18N_STATIC_FR = {
   "home.continue": "▶ Continuer",
   "home.startHere": "▶ Commencez ici",
   "space.mixesHomeToggleLabel": "Afficher le démarrage rapide sur l’accueil",
+  "settings.singHeading": "Chanter avec",
+  "settings.singHint": "Invitations à chanter et fredonner dans les exercices d’intervalles et de solfège.",
+  "settings.singTipsLabel": "Conseils pour chanter",
+  "settings.singPauseLabel": "Pause pour fredonner après l’écoute (3 s)",
   "home.surpriseTitle": "Lancer un exercice aléatoire",
   "home.surprise": "Aléatoire",
   "home.exercisesHeading": "Oreille musicale & Théorie",
@@ -16792,6 +16882,26 @@ const TR_FR = {
 
 // Notenlesen (Akkorde/Doppelsystem), Rhythmus vom Blatt, Modi-Fläche, Moll-Kadenzen, Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_FR, {
+  "🎤 Mitsingen": "🎤 Chanter",
+  "Mitsing-Tipp ein- oder ausklappen": "Afficher ou masquer le conseil pour chanter",
+  "Summ-Pause: An": "Pause fredonnée : oui",
+  "Summ-Pause: Aus": "Pause fredonnée : non",
+  "Verstanden": "Compris",
+  "Schließen": "Fermer",
+  "SUMM-PAUSE": "PAUSE FREDONNÉE",
+  "🎤 Jetzt summen…": "🎤 Fredonnez maintenant…",
+  "🎤 Summ beide Töne nach – dann tippen.": "🎤 Fredonnez les deux notes – puis touchez.",
+  "🎤 Sing die Töne nach: Wie weit springt deine Stimme?": "🎤 Chantez les notes : jusqu’où saute votre voix ?",
+  "🎤 Sing beide Töne abwärts nach – dann tippen.": "🎤 Chantez les deux notes en descendant – puis touchez.",
+  "🎤 Summ den Abstieg nach: kleiner Schritt oder großer Sprung?": "🎤 Fredonnez la descente : petit pas ou grand saut ?",
+  "🎤 Summ erst den tiefen, dann den hohen Ton.": "🎤 Fredonnez d’abord la note grave, puis l’aiguë.",
+  "🎤 Zerleg den Klang: unten summen, dann oben.": "🎤 Décomposez le son : fredonnez le bas, puis le haut.",
+  "🎤 Summ den Grundton mit, dann den Klavierton.": "🎤 Fredonnez la fondamentale, puis la note du piano.",
+  "🎤 Halte den Grundton mit der Stimme – wie weit liegt der Klavierton darüber?": "🎤 Tenez la fondamentale avec la voix – à quelle distance est la note du piano ?",
+  "🎤 Sing den Ton mit seiner Stufenzahl (1, 2, 3 …).": "🎤 Chantez la note avec son numéro de degré (1, 2, 3 …).",
+  "🎤 Sing vom Ton zurück zur 1 – welche Stufe war’s?": "🎤 Chantez de la note jusqu’au 1 – quel degré était-ce ?",
+  "🎤 Sing den Ton mit seinem Namen (Do, Re, Mi …).": "🎤 Chantez la note avec son nom (Do, Ré, Mi …).",
+  "🎤 Sing vom Ton zurück zum Do – welche Stufe war’s?": "🎤 Chantez de la note jusqu’au Do – quel degré était-ce ?",
   "Vorzähler → Rhythmus vom Blatt tappen (ohne Metronom):": "Décompte → tapez le rythme écrit (sans métronome) :",
   "Vorzähler → Rhythmus vom Blatt zum Metronom tappen:": "Décompte → tapez le rythme écrit avec le métronome :",
   "Rhythmus: Vom Blatt tappen": "Rythme : taper à vue",
@@ -17780,6 +17890,10 @@ const I18N_STATIC_PL = {
   "home.continue": "▶ Kontynuuj",
   "home.startHere": "▶ Zacznij tutaj",
   "space.mixesHomeToggleLabel": "Pokaż szybki start na ekranie głównym",
+  "settings.singHeading": "Śpiewanie",
+  "settings.singHint": "Zachęty do śpiewania i nucenia w ćwiczeniach z interwałów i solfeżu.",
+  "settings.singTipsLabel": "Wskazówki do śpiewania",
+  "settings.singPauseLabel": "Pauza na nucenie po odtworzeniu (3 s)",
   "home.surpriseTitle": "Uruchom losowe ćwiczenie",
   "home.surprise": "Losuj",
   "home.exercisesHeading": "Kształcenie słuchu i muzyka",
@@ -19402,6 +19516,26 @@ const TR_PL = {
 
 // Notenlesen (Akkorde/Doppelsystem), Rhythmus vom Blatt, Modi-Fläche, Moll-Kadenzen, Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_PL, {
+  "🎤 Mitsingen": "🎤 Śpiewaj",
+  "Mitsing-Tipp ein- oder ausklappen": "Pokaż lub ukryj wskazówkę do śpiewania",
+  "Summ-Pause: An": "Pauza na nucenie: wł.",
+  "Summ-Pause: Aus": "Pauza na nucenie: wył.",
+  "Verstanden": "Rozumiem",
+  "Schließen": "Zamknij",
+  "SUMM-PAUSE": "PAUZA NA NUCENIE",
+  "🎤 Jetzt summen…": "🎤 Teraz zanuć…",
+  "🎤 Summ beide Töne nach – dann tippen.": "🎤 Zanuć oba dźwięki – potem dotknij.",
+  "🎤 Sing die Töne nach: Wie weit springt deine Stimme?": "🎤 Zaśpiewaj dźwięki: jak daleko skacze twój głos?",
+  "🎤 Sing beide Töne abwärts nach – dann tippen.": "🎤 Zaśpiewaj oba dźwięki w dół – potem dotknij.",
+  "🎤 Summ den Abstieg nach: kleiner Schritt oder großer Sprung?": "🎤 Zanuć zejście: mały krok czy duży skok?",
+  "🎤 Summ erst den tiefen, dann den hohen Ton.": "🎤 Zanuć najpierw niższy, potem wyższy dźwięk.",
+  "🎤 Zerleg den Klang: unten summen, dann oben.": "🎤 Rozłóż brzmienie: zanuć dół, potem górę.",
+  "🎤 Summ den Grundton mit, dann den Klavierton.": "🎤 Zanuć dźwięk podstawowy, potem dźwięk fortepianu.",
+  "🎤 Halte den Grundton mit der Stimme – wie weit liegt der Klavierton darüber?": "🎤 Trzymaj dźwięk podstawowy głosem – jak wysoko nad nim jest fortepian?",
+  "🎤 Sing den Ton mit seiner Stufenzahl (1, 2, 3 …).": "🎤 Zaśpiewaj dźwięk z numerem stopnia (1, 2, 3 …).",
+  "🎤 Sing vom Ton zurück zur 1 – welche Stufe war’s?": "🎤 Zaśpiewaj od dźwięku do 1 – który to był stopień?",
+  "🎤 Sing den Ton mit seinem Namen (Do, Re, Mi …).": "🎤 Zaśpiewaj dźwięk z jego nazwą (Do, Re, Mi …).",
+  "🎤 Sing vom Ton zurück zum Do – welche Stufe war’s?": "🎤 Zaśpiewaj od dźwięku do Do – który to był stopień?",
   "Vorzähler → Rhythmus vom Blatt tappen (ohne Metronom):": "Odliczanie → wystukaj zapisany rytm (bez metronomu):",
   "Vorzähler → Rhythmus vom Blatt zum Metronom tappen:": "Odliczanie → wystukaj zapisany rytm z metronomem:",
   "Rhythmus: Vom Blatt tappen": "Rytm: wystukaj z nut",
@@ -19942,6 +20076,10 @@ const I18N_STATIC_UK = {
   "home.continue": "▶ Продовжити",
   "home.startHere": "▶ Почни тут",
   "space.mixesHomeToggleLabel": "Показувати швидкий старт на головній",
+  "settings.singHeading": "Спів разом",
+  "settings.singHint": "Запрошення співати й наспівувати у вправах з інтервалів і сольфеджіо.",
+  "settings.singTipsLabel": "Підказки для співу",
+  "settings.singPauseLabel": "Пауза для наспівування після відтворення (3 с)",
   "home.surpriseTitle": "Запустити випадкову вправу",
   "home.surprise": "Випадкова",
   "home.exercisesHeading": "Слух і музична теорія",
@@ -21565,6 +21703,26 @@ const TR_UK = {
 
 // Notenlesen (Akkorde/Doppelsystem), Rhythmus vom Blatt, Modi-Fläche, Moll-Kadenzen, Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_UK, {
+  "🎤 Mitsingen": "🎤 Співай",
+  "Mitsing-Tipp ein- oder ausklappen": "Показати або сховати підказку для співу",
+  "Summ-Pause: An": "Пауза для наспівування: увімк.",
+  "Summ-Pause: Aus": "Пауза для наспівування: вимк.",
+  "Verstanden": "Зрозуміло",
+  "Schließen": "Закрити",
+  "SUMM-PAUSE": "ПАУЗА ДЛЯ НАСПІВУВАННЯ",
+  "🎤 Jetzt summen…": "🎤 Тепер наспівуй…",
+  "🎤 Summ beide Töne nach – dann tippen.": "🎤 Наспівай обидва звуки – потім натисни.",
+  "🎤 Sing die Töne nach: Wie weit springt deine Stimme?": "🎤 Заспівай звуки: наскільки стрибає твій голос?",
+  "🎤 Sing beide Töne abwärts nach – dann tippen.": "🎤 Заспівай обидва звуки вниз – потім натисни.",
+  "🎤 Summ den Abstieg nach: kleiner Schritt oder großer Sprung?": "🎤 Наспівай спуск: малий крок чи великий стрибок?",
+  "🎤 Summ erst den tiefen, dann den hohen Ton.": "🎤 Наспівай спершу нижчий, потім вищий звук.",
+  "🎤 Zerleg den Klang: unten summen, dann oben.": "🎤 Розклади звучання: наспівай низ, потім верх.",
+  "🎤 Summ den Grundton mit, dann den Klavierton.": "🎤 Наспівай основний тон, потім звук фортепіано.",
+  "🎤 Halte den Grundton mit der Stimme – wie weit liegt der Klavierton darüber?": "🎤 Тримай основний тон голосом – наскільки вище звук фортепіано?",
+  "🎤 Sing den Ton mit seiner Stufenzahl (1, 2, 3 …).": "🎤 Заспівай звук із номером ступеня (1, 2, 3 …).",
+  "🎤 Sing vom Ton zurück zur 1 – welche Stufe war’s?": "🎤 Заспівай від звуку до 1 – який це був ступінь?",
+  "🎤 Sing den Ton mit seinem Namen (Do, Re, Mi …).": "🎤 Заспівай звук із його назвою (Do, Re, Mi …).",
+  "🎤 Sing vom Ton zurück zum Do – welche Stufe war’s?": "🎤 Заспівай від звуку до Do – який це був ступінь?",
   "Vorzähler → Rhythmus vom Blatt tappen (ohne Metronom):": "Відлік → вистукай записаний ритм (без метронома):",
   "Vorzähler → Rhythmus vom Blatt zum Metronom tappen:": "Відлік → вистукай записаний ритм із метрономом:",
   "Rhythmus: Vom Blatt tappen": "Ритм: вистукай з нот",
@@ -22105,6 +22263,10 @@ const I18N_STATIC_UR = {
   "home.continue": "▶ مشق جاری رکھیں",
   "home.startHere": "▶ یہاں سے شروع کریں",
   "space.mixesHomeToggleLabel": "ہوم اسکرین پر فوری آغاز دکھائیں",
+  "settings.singHeading": "ساتھ گانا",
+  "settings.singHint": "انٹرول اور سولفیج مشقوں میں ساتھ گانے اور گنگنانے کی دعوت۔",
+  "settings.singTipsLabel": "ساتھ گانے کی تجاویز",
+  "settings.singPauseLabel": "سننے کے بعد گنگنانے کا وقفہ (3 سیکنڈ)",
   "home.surpriseTitle": "بے ترتیب مشق شروع کریں",
   "home.surprise": "سرپرائز",
   "home.exercisesHeading": "سماعت اور موسیقی کا نظریہ",
@@ -24071,6 +24233,26 @@ const TR_UR = Object.assign(Object.create(null), {
 
 // Notenlesen (Akkorde/Doppelsystem), Rhythmus vom Blatt, Modi-Fläche, Moll-Kadenzen, Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_UR, {
+  "🎤 Mitsingen": "🎤 ساتھ گائیں",
+  "Mitsing-Tipp ein- oder ausklappen": "ساتھ گانے کی تجویز دکھائیں یا چھپائیں",
+  "Summ-Pause: An": "گنگنانے کا وقفہ: آن",
+  "Summ-Pause: Aus": "گنگنانے کا وقفہ: آف",
+  "Verstanden": "سمجھ گیا",
+  "Schließen": "بند کریں",
+  "SUMM-PAUSE": "گنگنانے کا وقفہ",
+  "🎤 Jetzt summen…": "🎤 اب گنگنائیں…",
+  "🎤 Summ beide Töne nach – dann tippen.": "🎤 دونوں سُر گنگنائیں – پھر ٹیپ کریں۔",
+  "🎤 Sing die Töne nach: Wie weit springt deine Stimme?": "🎤 سُر گائیں: آپ کی آواز کتنی چھلانگ لگاتی ہے؟",
+  "🎤 Sing beide Töne abwärts nach – dann tippen.": "🎤 دونوں سُر نیچے کی طرف گائیں – پھر ٹیپ کریں۔",
+  "🎤 Summ den Abstieg nach: kleiner Schritt oder großer Sprung?": "🎤 اترتے سُر گنگنائیں: چھوٹا قدم یا بڑی چھلانگ؟",
+  "🎤 Summ erst den tiefen, dann den hohen Ton.": "🎤 پہلے نیچا، پھر اونچا سُر گنگنائیں۔",
+  "🎤 Zerleg den Klang: unten summen, dann oben.": "🎤 آواز کو الگ کریں: پہلے نیچے، پھر اوپر گنگنائیں۔",
+  "🎤 Summ den Grundton mit, dann den Klavierton.": "🎤 بنیادی سُر گنگنائیں، پھر پیانو کا سُر۔",
+  "🎤 Halte den Grundton mit der Stimme – wie weit liegt der Klavierton darüber?": "🎤 بنیادی سُر آواز سے تھامیں – پیانو کا سُر کتنا اوپر ہے؟",
+  "🎤 Sing den Ton mit seiner Stufenzahl (1, 2, 3 …).": "🎤 سُر کو اس کے درجے کے نمبر (1, 2, 3 …) کے ساتھ گائیں۔",
+  "🎤 Sing vom Ton zurück zur 1 – welche Stufe war’s?": "🎤 سُر سے 1 تک واپس گائیں – کون سا درجہ تھا؟",
+  "🎤 Sing den Ton mit seinem Namen (Do, Re, Mi …).": "🎤 سُر کو اس کے نام (Do, Re, Mi …) کے ساتھ گائیں۔",
+  "🎤 Sing vom Ton zurück zum Do – welche Stufe war’s?": "🎤 سُر سے Do تک واپس گائیں – کون سا درجہ تھا؟",
   "Vorzähler → Rhythmus vom Blatt tappen (ohne Metronom):": "گنتی → لکھا ہوا ردھم ٹیپ کریں (بغیر میٹرونوم):",
   "Vorzähler → Rhythmus vom Blatt zum Metronom tappen:": "گنتی → لکھا ہوا ردھم میٹرونوم کے ساتھ ٹیپ کریں:",
   "Rhythmus: Vom Blatt tappen": "ردھم: نوٹیشن سے ٹیپ کریں",
@@ -50510,7 +50692,11 @@ function createDefaultProfile() {
     customThemes: [null, null, null],
     examHistory: [],
     hasPracticed: false,
-    showHomeQuickMixes: false
+    showHomeQuickMixes: false,
+    singAlongTips: true,
+    singAlongPause: false,
+    singAlongIntroCounts: {},
+    singAlongIntroDone: false
   };
 }
 
@@ -50604,7 +50790,15 @@ function sanitizeUserProfile(raw) {
     examHistory: examHistory,
     // Ältere Profile (vor Einführung des Felds) gelten als „schon geübt“
     hasPracticed: raw.hasPracticed === undefined ? true : Boolean(raw.hasPracticed),
-    showHomeQuickMixes: Boolean(raw.showHomeQuickMixes)
+    showHomeQuickMixes: Boolean(raw.showHomeQuickMixes),
+    singAlongTips: raw.singAlongTips !== false,
+    singAlongPause: Boolean(raw.singAlongPause),
+    singAlongIntroCounts: (raw.singAlongIntroCounts && typeof raw.singAlongIntroCounts === "object")
+      ? Object.fromEntries(Object.entries(raw.singAlongIntroCounts)
+          .filter(([k, v]) => /^[a-z-]{3,32}$/.test(k) && Number.isFinite(Number(v)))
+          .map(([k, v]) => [k, Math.max(0, Math.min(99, Math.round(Number(v))))]))
+      : {},
+    singAlongIntroDone: Boolean(raw.singAlongIntroDone)
   };
 }
 
@@ -54223,6 +54417,7 @@ function switchView(targetView, options = {}) {
   stopPlayback();
   stopWaveAnimation();
   closeTransientPopovers();
+  cancelHumPause();
   state.currentView = targetView;
   if (targetView === "exercise" || targetView === "warmup") {
     markPracticeStarted();
@@ -56996,6 +57191,8 @@ function generateExercise() {
   if (state.streakState) {
     state.streakState.activeNoticeMilestone = 0;
   }
+  cancelHumPause();
+  markSingAlongIntroForExercise(state.currentExercise);
   renderUI();
 }
 
@@ -58860,6 +59057,176 @@ function renderRhythmTapTimeline(ex, res, beatMs) {
   grid.appendChild(row);
 }
 
+// ---------- Mitsingen: Einführungskarte, Chip, Tipp im richtigen Moment & Summ-Pause ----------
+const SING_ALONG_INTRO_LIMIT = 2;   // ausführliche Karte pro Übungsart höchstens 2× automatisch
+const HUM_PAUSE_MS = 3000;          // Dauer der optionalen Summ-Pause
+let singAlongPromptCounter = 0;
+let humPauseTimer = null;
+
+function isSingAlongTipsEnabled() {
+  return state?.profile?.singAlongTips !== false;
+}
+
+function isSingAlongExerciseType(type) {
+  return Boolean(getSingAlongHintText(type));
+}
+
+/** Kurze, wechselnde Mitsing-Aufforderung für den Tipp-Bereich nach dem Abspielen. */
+function getSingAlongShortPrompt(type) {
+  const nums = state?.profile?.solfegeLabels === "numbers";
+  const variants = {
+    "interval-melodic": [
+      tr("🎤 Summ beide Töne nach – dann tippen.", "🎤 Hum both notes back — then tap."),
+      tr("🎤 Sing die Töne nach: Wie weit springt deine Stimme?", "🎤 Sing the notes back: how far does your voice jump?")
+    ],
+    "interval-melodic-down": [
+      tr("🎤 Sing beide Töne abwärts nach – dann tippen.", "🎤 Sing both notes back going down — then tap."),
+      tr("🎤 Summ den Abstieg nach: kleiner Schritt oder großer Sprung?", "🎤 Hum the descent: small step or big leap?")
+    ],
+    "interval-harmonic": [
+      tr("🎤 Summ erst den tiefen, dann den hohen Ton.", "🎤 Hum the low note first, then the high one."),
+      tr("🎤 Zerleg den Klang: unten summen, dann oben.", "🎤 Split the sound: hum the bottom, then the top.")
+    ],
+    "interval-drone": [
+      tr("🎤 Summ den Grundton mit, dann den Klavierton.", "🎤 Hum the root, then the piano note."),
+      tr("🎤 Halte den Grundton mit der Stimme – wie weit liegt der Klavierton darüber?", "🎤 Hold the root with your voice — how far above is the piano note?")
+    ],
+    "solfege": nums
+      ? [
+          tr("🎤 Sing den Ton mit seiner Stufenzahl (1, 2, 3 …).", "🎤 Sing the note with its degree number (1, 2, 3 …)."),
+          tr("🎤 Sing vom Ton zurück zur 1 – welche Stufe war’s?", "🎤 Sing from the note back to 1 — which degree was it?")
+        ]
+      : [
+          tr("🎤 Sing den Ton mit seinem Namen (Do, Re, Mi …).", "🎤 Sing the note with its name (Do, Re, Mi …)."),
+          tr("🎤 Sing vom Ton zurück zum Do – welche Stufe war’s?", "🎤 Sing from the note back to Do — which degree was it?")
+        ]
+  };
+  const list = variants[type];
+  if (!list) return null;
+  const text = list[singAlongPromptCounter % list.length];
+  singAlongPromptCounter += 1;
+  return text;
+}
+
+/** Nach dem Erzeugen einer Übung: Einführungskarte nur bei den ersten Durchgängen einer Übungsart zeigen. */
+function markSingAlongIntroForExercise(ex) {
+  if (!ex || state.exam?.active || !isSingAlongTipsEnabled() || !isSingAlongExerciseType(ex.type)) return;
+  const p = state.profile;
+  if (!p || p.singAlongIntroDone) return;
+  if (!p.singAlongIntroCounts || typeof p.singAlongIntroCounts !== "object") p.singAlongIntroCounts = {};
+  const seen = Number(p.singAlongIntroCounts[ex.type]) || 0;
+  if (seen >= SING_ALONG_INTRO_LIMIT) return;
+  p.singAlongIntroCounts[ex.type] = seen + 1;
+  ex.singIntroShown = true;
+  saveUserProfile(p);
+}
+
+/** Karte, Chip und Summ-Pause-Schalter im Übungskopf synchronisieren. */
+function syncSingAlongUI(ex = state.currentExercise) {
+  const card = document.getElementById("singAlongHint");
+  const chip = document.getElementById("singAlongChipBtn");
+  const singText = ex ? getSingAlongHintText(ex.type) : null;
+  const available = Boolean(singText) && isSingAlongTipsEnabled() && !state.exam?.active;
+  const expanded = available && Boolean(state.singAlongExpanded);
+  const showCard = available && (expanded || Boolean(ex?.singIntroShown));
+
+  if (chip) {
+    chip.classList.toggle("hidden", !available);
+    chip.classList.toggle("chip-open", showCard);
+    chip.setAttribute("aria-expanded", String(showCard));
+    chip.textContent = tr("🎤 Mitsingen", "🎤 Sing along");
+    chip.title = tr("Mitsing-Tipp ein- oder ausklappen", "Show or hide the sing-along tip");
+  }
+  if (!card) return;
+  card.classList.toggle("hidden", !showCard);
+  if (!showCard) return;
+  const titleEl = document.getElementById("singAlongTitle");
+  const textEl = document.getElementById("singAlongText");
+  if (titleEl) titleEl.textContent = tr("Sing mit!", "Sing along!");
+  if (textEl) textEl.textContent = singText;
+  const pauseBtn = document.getElementById("singAlongPauseToggle");
+  if (pauseBtn) {
+    const pauseOn = Boolean(state.profile?.singAlongPause);
+    pauseBtn.textContent = pauseOn ? tr("Summ-Pause: An", "Hum pause: On") : tr("Summ-Pause: Aus", "Hum pause: Off");
+    pauseBtn.classList.toggle("is-on", pauseOn);
+    pauseBtn.setAttribute("aria-pressed", String(pauseOn));
+  }
+  const dismissBtn = document.getElementById("singAlongDismissBtn");
+  if (dismissBtn) {
+    dismissBtn.textContent = (ex?.singIntroShown && !expanded) ? tr("Verstanden", "Got it") : tr("Schließen", "Close");
+  }
+}
+
+function syncSingAlongSettingsControls() {
+  const tipsOn = isSingAlongTipsEnabled();
+  const pauseOn = Boolean(state?.profile?.singAlongPause);
+  document.querySelectorAll("[data-sing-tips]").forEach(btn => {
+    const active = (btn.dataset.singTips === "on") === tipsOn;
+    btn.classList.toggle("active", active);
+    btn.setAttribute("aria-pressed", String(active));
+  });
+  document.querySelectorAll("[data-sing-pause]").forEach(btn => {
+    const active = (btn.dataset.singPause === "on") === pauseOn;
+    btn.classList.toggle("active", active);
+    btn.setAttribute("aria-pressed", String(active));
+  });
+}
+
+function setSingAlongPreference(key, value) {
+  if (!state.profile) state.profile = createDefaultProfile();
+  state.profile[key] = Boolean(value);
+  saveUserProfile(state.profile);
+  syncSingAlongSettingsControls();
+  syncSingAlongUI();
+  if (key === "singAlongPause" && !value) cancelHumPause(true);
+}
+
+function shouldRunHumPause(ex) {
+  return Boolean(ex && state.profile?.singAlongPause && isSingAlongTipsEnabled()
+    && isSingAlongExerciseType(ex.type) && !state.exam?.active && !state.listenOnly?.active);
+}
+
+function cancelHumPause(showAwaiting = false) {
+  const wasActive = Boolean(humPauseTimer);
+  if (humPauseTimer) {
+    clearTimeout(humPauseTimer);
+    humPauseTimer = null;
+  }
+  document.body?.classList.remove("is-hum-pause");
+  document.getElementById("humPauseBar")?.remove();
+  if (wasActive && showAwaiting) showAwaitingAnswerStage(state.currentExercise);
+}
+
+/** Optionale Summ-Pause: kurze Phase nach dem Abspielen, in der erst gesummt und dann geantwortet wird. */
+function startHumPause(ex) {
+  cancelHumPause();
+  const stageCard = document.getElementById("centralStageCard");
+  if (!stageCard) {
+    showAwaitingAnswerStage(ex);
+    return;
+  }
+  setCentralStageMode("stage-awaiting");
+  updateStageMascot("listening");
+  document.getElementById("stageSubtext").textContent = tr("SUMM-PAUSE", "HUM PAUSE");
+  document.getElementById("stageMainText").textContent = tr("🎤 Jetzt summen…", "🎤 Hum it now…");
+  document.getElementById("stageFunctionText").textContent = getSingAlongShortPrompt(ex.type) || "";
+  document.body.classList.add("is-hum-pause");
+  const bar = document.createElement("div");
+  bar.id = "humPauseBar";
+  bar.className = "hum-pause-bar";
+  bar.style.setProperty("--hum-ms", `${HUM_PAUSE_MS}ms`);
+  bar.innerHTML = "<span></span>";
+  stageCard.appendChild(bar);
+  humPauseTimer = setTimeout(() => {
+    humPauseTimer = null;
+    document.body.classList.remove("is-hum-pause");
+    bar.remove();
+    if (state.currentView === "exercise" && state.currentExercise === ex && !isCurrentExerciseSolved(ex)) {
+      showAwaitingAnswerStage(ex);
+    }
+  }, HUM_PAUSE_MS);
+}
+
 function renderUI() {
   const ex = state.currentExercise;
   if (!ex) return;
@@ -58982,17 +59349,7 @@ function renderUI() {
     if (isDroneEx) syncDroneMixControls();
   }
 
-  const singAlongHint = document.getElementById("singAlongHint");
-  if (singAlongHint) {
-    const singText = getSingAlongHintText(ex.type);
-    singAlongHint.classList.toggle("hidden", !singText);
-    if (singText) {
-      const titleEl = document.getElementById("singAlongTitle");
-      const textEl = document.getElementById("singAlongText");
-      if (titleEl) titleEl.textContent = tr("Sing mit!", "Sing along!");
-      if (textEl) textEl.textContent = singText;
-    }
-  }
+  syncSingAlongUI(ex);
 
   const solfegeKeyBtn = document.getElementById("solfegeKeyBtn");
   const solfegeKeyBtnLabel = document.getElementById("solfegeKeyBtnLabel");
@@ -59939,6 +60296,10 @@ let awaitingPromptCounter = 0;
 
 function getAwaitingStageHint(ex) {
   const type = ex?.type || "";
+  if (isSingAlongTipsEnabled() && !state.exam?.active && isSingAlongExerciseType(type)) {
+    const singPrompt = getSingAlongShortPrompt(type);
+    if (singPrompt) return singPrompt;
+  }
   if (type === "cadence") {
     return tr("Welche Stufe schwingt noch nach? Tippe sie unten an.", "Which chord degree lingers? Tap it below.");
   }
@@ -60007,7 +60368,8 @@ function completePromptPlayback(ex = state.currentExercise) {
   if (state.listenOnly?.active) {
     handleListenOnlyPromptEnded(ex);
   } else if (ex && state.currentExercise === ex && !isCurrentExerciseSolved(ex)) {
-    showAwaitingAnswerStage(ex);
+    if (shouldRunHumPause(ex)) startHumPause(ex);
+    else showAwaitingAnswerStage(ex);
   }
 }
 
@@ -62403,6 +62765,7 @@ function setListenOnlyMode(enabled, options = {}) {
 }
 
 async function playSequence(options = {}) {
+  cancelHumPause();
   if (state.exam?.active && !tryConsumeExamReplay({ isInitialAuto: Boolean(options.examAutoStart) })) {
     return;
   }
@@ -63973,6 +64336,7 @@ function getBreakReminderMinutes() {
 }
 
 function syncBreakReminderControls() {
+  syncSingAlongSettingsControls();
   const enabled = state?.profile?.breakReminderEnabled !== false;
   const mins = getBreakReminderMinutes();
 
@@ -66180,6 +66544,35 @@ document.addEventListener("DOMContentLoaded", () => {
     closeAllInlinePopovers(inlineBpmPopover);
     const isHidden = inlineBpmPopover.classList.toggle("hidden");
     moduleBpmBtn.classList.toggle("chip-open", !isHidden);
+  });
+
+  document.getElementById("singAlongChipBtn")?.addEventListener("click", (e) => {
+    e?.stopPropagation?.();
+    closeAllInlinePopovers();
+    const ex = state.currentExercise;
+    const isOpen = !document.getElementById("singAlongHint")?.classList.contains("hidden");
+    state.singAlongExpanded = !isOpen;
+    if (isOpen && ex) ex.singIntroShown = false;
+    syncSingAlongUI(ex);
+  });
+  document.getElementById("singAlongDismissBtn")?.addEventListener("click", () => {
+    const ex = state.currentExercise;
+    if (ex?.singIntroShown && !state.singAlongExpanded && state.profile) {
+      state.profile.singAlongIntroDone = true;
+      saveUserProfile(state.profile);
+    }
+    if (ex) ex.singIntroShown = false;
+    state.singAlongExpanded = false;
+    syncSingAlongUI(ex);
+  });
+  document.getElementById("singAlongPauseToggle")?.addEventListener("click", () => {
+    setSingAlongPreference("singAlongPause", !state.profile?.singAlongPause);
+  });
+  document.querySelectorAll("[data-sing-tips]").forEach(btn => {
+    btn.addEventListener("click", () => setSingAlongPreference("singAlongTips", btn.dataset.singTips === "on"));
+  });
+  document.querySelectorAll("[data-sing-pause]").forEach(btn => {
+    btn.addEventListener("click", () => setSingAlongPreference("singAlongPause", btn.dataset.singPause === "on"));
   });
 
   document.getElementById("modesPadBtn")?.addEventListener("click", (e) => {

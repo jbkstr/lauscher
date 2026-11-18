@@ -1817,7 +1817,11 @@ function createDefaultProfile() {
     customThemes: [null, null, null],
     examHistory: [],
     hasPracticed: false,
-    showHomeQuickMixes: false
+    showHomeQuickMixes: false,
+    singAlongTips: true,
+    singAlongPause: false,
+    singAlongIntroCounts: {},
+    singAlongIntroDone: false
   };
 }
 
@@ -1911,7 +1915,15 @@ function sanitizeUserProfile(raw) {
     examHistory: examHistory,
     // Ältere Profile (vor Einführung des Felds) gelten als „schon geübt“
     hasPracticed: raw.hasPracticed === undefined ? true : Boolean(raw.hasPracticed),
-    showHomeQuickMixes: Boolean(raw.showHomeQuickMixes)
+    showHomeQuickMixes: Boolean(raw.showHomeQuickMixes),
+    singAlongTips: raw.singAlongTips !== false,
+    singAlongPause: Boolean(raw.singAlongPause),
+    singAlongIntroCounts: (raw.singAlongIntroCounts && typeof raw.singAlongIntroCounts === "object")
+      ? Object.fromEntries(Object.entries(raw.singAlongIntroCounts)
+          .filter(([k, v]) => /^[a-z-]{3,32}$/.test(k) && Number.isFinite(Number(v)))
+          .map(([k, v]) => [k, Math.max(0, Math.min(99, Math.round(Number(v))))]))
+      : {},
+    singAlongIntroDone: Boolean(raw.singAlongIntroDone)
   };
 }
 
@@ -5530,6 +5542,7 @@ function switchView(targetView, options = {}) {
   stopPlayback();
   stopWaveAnimation();
   closeTransientPopovers();
+  cancelHumPause();
   state.currentView = targetView;
   if (targetView === "exercise" || targetView === "warmup") {
     markPracticeStarted();
@@ -8303,6 +8316,8 @@ function generateExercise() {
   if (state.streakState) {
     state.streakState.activeNoticeMilestone = 0;
   }
+  cancelHumPause();
+  markSingAlongIntroForExercise(state.currentExercise);
   renderUI();
 }
 
@@ -10167,6 +10182,176 @@ function renderRhythmTapTimeline(ex, res, beatMs) {
   grid.appendChild(row);
 }
 
+// ---------- Mitsingen: Einführungskarte, Chip, Tipp im richtigen Moment & Summ-Pause ----------
+const SING_ALONG_INTRO_LIMIT = 2;   // ausführliche Karte pro Übungsart höchstens 2× automatisch
+const HUM_PAUSE_MS = 3000;          // Dauer der optionalen Summ-Pause
+let singAlongPromptCounter = 0;
+let humPauseTimer = null;
+
+function isSingAlongTipsEnabled() {
+  return state?.profile?.singAlongTips !== false;
+}
+
+function isSingAlongExerciseType(type) {
+  return Boolean(getSingAlongHintText(type));
+}
+
+/** Kurze, wechselnde Mitsing-Aufforderung für den Tipp-Bereich nach dem Abspielen. */
+function getSingAlongShortPrompt(type) {
+  const nums = state?.profile?.solfegeLabels === "numbers";
+  const variants = {
+    "interval-melodic": [
+      tr("🎤 Summ beide Töne nach – dann tippen.", "🎤 Hum both notes back — then tap."),
+      tr("🎤 Sing die Töne nach: Wie weit springt deine Stimme?", "🎤 Sing the notes back: how far does your voice jump?")
+    ],
+    "interval-melodic-down": [
+      tr("🎤 Sing beide Töne abwärts nach – dann tippen.", "🎤 Sing both notes back going down — then tap."),
+      tr("🎤 Summ den Abstieg nach: kleiner Schritt oder großer Sprung?", "🎤 Hum the descent: small step or big leap?")
+    ],
+    "interval-harmonic": [
+      tr("🎤 Summ erst den tiefen, dann den hohen Ton.", "🎤 Hum the low note first, then the high one."),
+      tr("🎤 Zerleg den Klang: unten summen, dann oben.", "🎤 Split the sound: hum the bottom, then the top.")
+    ],
+    "interval-drone": [
+      tr("🎤 Summ den Grundton mit, dann den Klavierton.", "🎤 Hum the root, then the piano note."),
+      tr("🎤 Halte den Grundton mit der Stimme – wie weit liegt der Klavierton darüber?", "🎤 Hold the root with your voice — how far above is the piano note?")
+    ],
+    "solfege": nums
+      ? [
+          tr("🎤 Sing den Ton mit seiner Stufenzahl (1, 2, 3 …).", "🎤 Sing the note with its degree number (1, 2, 3 …)."),
+          tr("🎤 Sing vom Ton zurück zur 1 – welche Stufe war’s?", "🎤 Sing from the note back to 1 — which degree was it?")
+        ]
+      : [
+          tr("🎤 Sing den Ton mit seinem Namen (Do, Re, Mi …).", "🎤 Sing the note with its name (Do, Re, Mi …)."),
+          tr("🎤 Sing vom Ton zurück zum Do – welche Stufe war’s?", "🎤 Sing from the note back to Do — which degree was it?")
+        ]
+  };
+  const list = variants[type];
+  if (!list) return null;
+  const text = list[singAlongPromptCounter % list.length];
+  singAlongPromptCounter += 1;
+  return text;
+}
+
+/** Nach dem Erzeugen einer Übung: Einführungskarte nur bei den ersten Durchgängen einer Übungsart zeigen. */
+function markSingAlongIntroForExercise(ex) {
+  if (!ex || state.exam?.active || !isSingAlongTipsEnabled() || !isSingAlongExerciseType(ex.type)) return;
+  const p = state.profile;
+  if (!p || p.singAlongIntroDone) return;
+  if (!p.singAlongIntroCounts || typeof p.singAlongIntroCounts !== "object") p.singAlongIntroCounts = {};
+  const seen = Number(p.singAlongIntroCounts[ex.type]) || 0;
+  if (seen >= SING_ALONG_INTRO_LIMIT) return;
+  p.singAlongIntroCounts[ex.type] = seen + 1;
+  ex.singIntroShown = true;
+  saveUserProfile(p);
+}
+
+/** Karte, Chip und Summ-Pause-Schalter im Übungskopf synchronisieren. */
+function syncSingAlongUI(ex = state.currentExercise) {
+  const card = document.getElementById("singAlongHint");
+  const chip = document.getElementById("singAlongChipBtn");
+  const singText = ex ? getSingAlongHintText(ex.type) : null;
+  const available = Boolean(singText) && isSingAlongTipsEnabled() && !state.exam?.active;
+  const expanded = available && Boolean(state.singAlongExpanded);
+  const showCard = available && (expanded || Boolean(ex?.singIntroShown));
+
+  if (chip) {
+    chip.classList.toggle("hidden", !available);
+    chip.classList.toggle("chip-open", showCard);
+    chip.setAttribute("aria-expanded", String(showCard));
+    chip.textContent = tr("🎤 Mitsingen", "🎤 Sing along");
+    chip.title = tr("Mitsing-Tipp ein- oder ausklappen", "Show or hide the sing-along tip");
+  }
+  if (!card) return;
+  card.classList.toggle("hidden", !showCard);
+  if (!showCard) return;
+  const titleEl = document.getElementById("singAlongTitle");
+  const textEl = document.getElementById("singAlongText");
+  if (titleEl) titleEl.textContent = tr("Sing mit!", "Sing along!");
+  if (textEl) textEl.textContent = singText;
+  const pauseBtn = document.getElementById("singAlongPauseToggle");
+  if (pauseBtn) {
+    const pauseOn = Boolean(state.profile?.singAlongPause);
+    pauseBtn.textContent = pauseOn ? tr("Summ-Pause: An", "Hum pause: On") : tr("Summ-Pause: Aus", "Hum pause: Off");
+    pauseBtn.classList.toggle("is-on", pauseOn);
+    pauseBtn.setAttribute("aria-pressed", String(pauseOn));
+  }
+  const dismissBtn = document.getElementById("singAlongDismissBtn");
+  if (dismissBtn) {
+    dismissBtn.textContent = (ex?.singIntroShown && !expanded) ? tr("Verstanden", "Got it") : tr("Schließen", "Close");
+  }
+}
+
+function syncSingAlongSettingsControls() {
+  const tipsOn = isSingAlongTipsEnabled();
+  const pauseOn = Boolean(state?.profile?.singAlongPause);
+  document.querySelectorAll("[data-sing-tips]").forEach(btn => {
+    const active = (btn.dataset.singTips === "on") === tipsOn;
+    btn.classList.toggle("active", active);
+    btn.setAttribute("aria-pressed", String(active));
+  });
+  document.querySelectorAll("[data-sing-pause]").forEach(btn => {
+    const active = (btn.dataset.singPause === "on") === pauseOn;
+    btn.classList.toggle("active", active);
+    btn.setAttribute("aria-pressed", String(active));
+  });
+}
+
+function setSingAlongPreference(key, value) {
+  if (!state.profile) state.profile = createDefaultProfile();
+  state.profile[key] = Boolean(value);
+  saveUserProfile(state.profile);
+  syncSingAlongSettingsControls();
+  syncSingAlongUI();
+  if (key === "singAlongPause" && !value) cancelHumPause(true);
+}
+
+function shouldRunHumPause(ex) {
+  return Boolean(ex && state.profile?.singAlongPause && isSingAlongTipsEnabled()
+    && isSingAlongExerciseType(ex.type) && !state.exam?.active && !state.listenOnly?.active);
+}
+
+function cancelHumPause(showAwaiting = false) {
+  const wasActive = Boolean(humPauseTimer);
+  if (humPauseTimer) {
+    clearTimeout(humPauseTimer);
+    humPauseTimer = null;
+  }
+  document.body?.classList.remove("is-hum-pause");
+  document.getElementById("humPauseBar")?.remove();
+  if (wasActive && showAwaiting) showAwaitingAnswerStage(state.currentExercise);
+}
+
+/** Optionale Summ-Pause: kurze Phase nach dem Abspielen, in der erst gesummt und dann geantwortet wird. */
+function startHumPause(ex) {
+  cancelHumPause();
+  const stageCard = document.getElementById("centralStageCard");
+  if (!stageCard) {
+    showAwaitingAnswerStage(ex);
+    return;
+  }
+  setCentralStageMode("stage-awaiting");
+  updateStageMascot("listening");
+  document.getElementById("stageSubtext").textContent = tr("SUMM-PAUSE", "HUM PAUSE");
+  document.getElementById("stageMainText").textContent = tr("🎤 Jetzt summen…", "🎤 Hum it now…");
+  document.getElementById("stageFunctionText").textContent = getSingAlongShortPrompt(ex.type) || "";
+  document.body.classList.add("is-hum-pause");
+  const bar = document.createElement("div");
+  bar.id = "humPauseBar";
+  bar.className = "hum-pause-bar";
+  bar.style.setProperty("--hum-ms", `${HUM_PAUSE_MS}ms`);
+  bar.innerHTML = "<span></span>";
+  stageCard.appendChild(bar);
+  humPauseTimer = setTimeout(() => {
+    humPauseTimer = null;
+    document.body.classList.remove("is-hum-pause");
+    bar.remove();
+    if (state.currentView === "exercise" && state.currentExercise === ex && !isCurrentExerciseSolved(ex)) {
+      showAwaitingAnswerStage(ex);
+    }
+  }, HUM_PAUSE_MS);
+}
+
 function renderUI() {
   const ex = state.currentExercise;
   if (!ex) return;
@@ -10289,17 +10474,7 @@ function renderUI() {
     if (isDroneEx) syncDroneMixControls();
   }
 
-  const singAlongHint = document.getElementById("singAlongHint");
-  if (singAlongHint) {
-    const singText = getSingAlongHintText(ex.type);
-    singAlongHint.classList.toggle("hidden", !singText);
-    if (singText) {
-      const titleEl = document.getElementById("singAlongTitle");
-      const textEl = document.getElementById("singAlongText");
-      if (titleEl) titleEl.textContent = tr("Sing mit!", "Sing along!");
-      if (textEl) textEl.textContent = singText;
-    }
-  }
+  syncSingAlongUI(ex);
 
   const solfegeKeyBtn = document.getElementById("solfegeKeyBtn");
   const solfegeKeyBtnLabel = document.getElementById("solfegeKeyBtnLabel");
@@ -11246,6 +11421,10 @@ let awaitingPromptCounter = 0;
 
 function getAwaitingStageHint(ex) {
   const type = ex?.type || "";
+  if (isSingAlongTipsEnabled() && !state.exam?.active && isSingAlongExerciseType(type)) {
+    const singPrompt = getSingAlongShortPrompt(type);
+    if (singPrompt) return singPrompt;
+  }
   if (type === "cadence") {
     return tr("Welche Stufe schwingt noch nach? Tippe sie unten an.", "Which chord degree lingers? Tap it below.");
   }
@@ -11314,7 +11493,8 @@ function completePromptPlayback(ex = state.currentExercise) {
   if (state.listenOnly?.active) {
     handleListenOnlyPromptEnded(ex);
   } else if (ex && state.currentExercise === ex && !isCurrentExerciseSolved(ex)) {
-    showAwaitingAnswerStage(ex);
+    if (shouldRunHumPause(ex)) startHumPause(ex);
+    else showAwaitingAnswerStage(ex);
   }
 }
 
@@ -13710,6 +13890,7 @@ function setListenOnlyMode(enabled, options = {}) {
 }
 
 async function playSequence(options = {}) {
+  cancelHumPause();
   if (state.exam?.active && !tryConsumeExamReplay({ isInitialAuto: Boolean(options.examAutoStart) })) {
     return;
   }
@@ -15280,6 +15461,7 @@ function getBreakReminderMinutes() {
 }
 
 function syncBreakReminderControls() {
+  syncSingAlongSettingsControls();
   const enabled = state?.profile?.breakReminderEnabled !== false;
   const mins = getBreakReminderMinutes();
 
@@ -17487,6 +17669,35 @@ document.addEventListener("DOMContentLoaded", () => {
     closeAllInlinePopovers(inlineBpmPopover);
     const isHidden = inlineBpmPopover.classList.toggle("hidden");
     moduleBpmBtn.classList.toggle("chip-open", !isHidden);
+  });
+
+  document.getElementById("singAlongChipBtn")?.addEventListener("click", (e) => {
+    e?.stopPropagation?.();
+    closeAllInlinePopovers();
+    const ex = state.currentExercise;
+    const isOpen = !document.getElementById("singAlongHint")?.classList.contains("hidden");
+    state.singAlongExpanded = !isOpen;
+    if (isOpen && ex) ex.singIntroShown = false;
+    syncSingAlongUI(ex);
+  });
+  document.getElementById("singAlongDismissBtn")?.addEventListener("click", () => {
+    const ex = state.currentExercise;
+    if (ex?.singIntroShown && !state.singAlongExpanded && state.profile) {
+      state.profile.singAlongIntroDone = true;
+      saveUserProfile(state.profile);
+    }
+    if (ex) ex.singIntroShown = false;
+    state.singAlongExpanded = false;
+    syncSingAlongUI(ex);
+  });
+  document.getElementById("singAlongPauseToggle")?.addEventListener("click", () => {
+    setSingAlongPreference("singAlongPause", !state.profile?.singAlongPause);
+  });
+  document.querySelectorAll("[data-sing-tips]").forEach(btn => {
+    btn.addEventListener("click", () => setSingAlongPreference("singAlongTips", btn.dataset.singTips === "on"));
+  });
+  document.querySelectorAll("[data-sing-pause]").forEach(btn => {
+    btn.addEventListener("click", () => setSingAlongPreference("singAlongPause", btn.dataset.singPause === "on"));
   });
 
   document.getElementById("modesPadBtn")?.addEventListener("click", (e) => {

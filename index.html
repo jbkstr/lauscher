@@ -1533,6 +1533,7 @@
               <button id="moduleTimeSigBtn" class="module-chip-btn chip-peach hidden" title="Taktart wählen" data-i18n-title="ex.timeSigBtnTitle">4/4</button>
               <button id="modesPadBtn" class="module-chip-btn chip-sage hidden" type="button" aria-pressed="false">Grundton-Fläche: Aus</button>
             <button id="melodyPulseBtn" class="module-chip-btn chip-sage hidden" type="button" title="Metrum-Puls während der Melodie ein-/ausschalten" data-i18n-title="ex.melodyPulseTitle">Puls: An</button>
+              <button id="singAlongChipBtn" type="button" class="module-chip-btn chip-sage hidden" aria-expanded="false" aria-controls="singAlongHint">🎤 Mitsingen</button>
               <button id="moduleBpmBtn" class="module-chip-btn chip-lilac" title="Tempo-Schieberegler öffnen" data-i18n-title="ex.bpmBtnTitle">90 BPM</button>
             </div>
           </div>
@@ -1613,6 +1614,10 @@
           <div class="sing-along-copy">
             <strong id="singAlongTitle" class="sing-along-title">Sing mit!</strong>
             <span id="singAlongText" class="sing-along-text"></span>
+            <div class="sing-along-actions">
+              <button type="button" id="singAlongPauseToggle" class="sing-along-action" aria-pressed="false">Summ-Pause: Aus</button>
+              <button type="button" id="singAlongDismissBtn" class="sing-along-action is-primary">Verstanden</button>
+            </div>
           </div>
         </div>
       </section>
@@ -2130,6 +2135,23 @@
           <div class="tempo-control-row">
             <input type="range" id="defaultBpmSlider" min="55" max="160" step="5" value="90">
             <span id="defaultBpmDisplay" class="tempo-val">90 BPM</span>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <h4 data-i18n="settings.singHeading">Mitsingen</h4>
+          <p class="settings-hint" data-i18n="settings.singHint">Einladungen zum Mitsingen und Mitsummen bei Intervall- und Solfège-Übungen.</p>
+          <span class="account-label" data-i18n="settings.singTipsLabel">Mitsing-Tipps</span>
+          <div id="singTipsGroup" class="btn-group" role="group" aria-label="Mitsing-Tipps" data-i18n-aria="settings.singTipsLabel">
+            <button type="button" class="opt-btn active" data-sing-tips="on" aria-pressed="true" data-i18n="settings.autoNextOn">Ein</button>
+            <button type="button" class="opt-btn" data-sing-tips="off" aria-pressed="false" data-i18n="settings.autoNextOff">Aus</button>
+          </div>
+          <div class="settings-sub-field">
+            <span class="account-label" data-i18n="settings.singPauseLabel">Summ-Pause nach dem Abspielen (3 Sek.)</span>
+            <div id="singPauseGroup" class="btn-group" role="group" aria-label="Summ-Pause" data-i18n-aria="settings.singPauseLabel">
+              <button type="button" class="opt-btn" data-sing-pause="on" aria-pressed="false" data-i18n="settings.autoNextOn">Ein</button>
+              <button type="button" class="opt-btn active" data-sing-pause="off" aria-pressed="true" data-i18n="settings.autoNextOff">Aus</button>
+            </div>
           </div>
         </div>
 
