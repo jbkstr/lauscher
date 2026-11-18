@@ -287,9 +287,9 @@ const I18N_STATIC_UR = {
   "nav.space": "میرا اکاؤنٹ",
   "mixer.title": "مِکسر",
   "mixer.tabsAria": "مکسر کا منظر منتخب کریں",
-  "mixer.tabLevels": "لیولز",
+  "mixer.tabLevels": "والیوم",
   "mixer.tabReverb": "ہال گونج",
-  "mixer.levelsHeading": "سازوں کی سطح (لائیو)",
+  "mixer.levelsHeading": "والیوم",
   "mixer.piano": "پیانو",
   "mixer.guitar": "گٹار",
   "mixer.strings": "اسٹرنگز",
@@ -2018,7 +2018,7 @@ const TR_UR = Object.assign(Object.create(null), {
 
 // Header-Titel „Home“, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_UR, {
-  "Home": "ہوم",
+  "Übungen": "ہوم",
   "Intervalle über Grundton-Fläche": "بنیادی سُر کے پیڈ پر انٹرولز",
   "Grundton-Fläche": "بنیادی سُر کا پیڈ",
   "Eine warme Streicher-Fläche hält den Grundton – nach kurzer Verzögerung erklingt der gesuchte Intervallton auf dem Klavier darüber": "اسٹرنگز کا گرم پیڈ بنیادی سُر کو تھامے رکھتا ہے – تھوڑی دیر بعد پیانو اس کے اوپر مطلوبہ انٹرول بجاتا ہے",

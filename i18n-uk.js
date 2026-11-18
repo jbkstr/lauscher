@@ -287,9 +287,9 @@ const I18N_STATIC_UK = {
   "nav.space": "Мій профіль",
   "mixer.title": "Мікшер",
   "mixer.tabsAria": "Обрати вкладку мікшера",
-  "mixer.tabLevels": "Рівні",
+  "mixer.tabLevels": "Гучність",
   "mixer.tabReverb": "Реверберація",
-  "mixer.levelsHeading": "Гучність інструментів (наживо)",
+  "mixer.levelsHeading": "Гучність",
   "mixer.piano": "Фортепіано",
   "mixer.guitar": "Гітара",
   "mixer.strings": "Струнні",
@@ -1675,7 +1675,7 @@ const TR_UK = {
 
 // Header-Titel „Home“, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_UK, {
-  "Home": "Головна",
+  "Übungen": "Головна",
   "Intervalle über Grundton-Fläche": "Інтервали над підкладкою основного тону",
   "Grundton-Fläche": "Підкладка основного тону",
   "Eine warme Streicher-Fläche hält den Grundton – nach kurzer Verzögerung erklingt der gesuchte Intervallton auf dem Klavier darüber": "Тепла струнна підкладка тримає основний тон – після короткої паузи фортепіано грає над нею шуканий інтервал",
