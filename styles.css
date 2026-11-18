@@ -11390,3 +11390,90 @@ body.is-hum-pause #solfegeKeyboardWrap {
   flex: 1 1 0;
   max-height: 250px;
 }
+/* Zeigerinstrument als Fokus: klassisches Messinstrument mit Drehpunkt, Spektrum als schmaler Streifen */
+.tuner-needle-hub {
+  fill: var(--raccoon-dark);
+  stroke: var(--surface-white);
+  stroke-width: 2.5;
+}
+.tuner-display.is-sharp .tuner-needle-hub,
+.tuner-display.is-flat .tuner-needle-hub {
+  fill: var(--peach-strong);
+}
+.tuner-display.is-in-tune .tuner-needle-hub {
+  fill: var(--sage-strong);
+}
+#viewTuner .tuner-display {
+  flex: 1 1 auto;
+  min-height: 0;
+  justify-content: center;
+}
+#viewTuner .tuner-gauge {
+  flex: 0 1 auto;
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  aspect-ratio: 300 / 180;
+  min-height: 70px;
+  max-height: 250px;
+}
+#viewTuner .tuner-note-name {
+  font-size: clamp(1.75rem, 6vh, 3rem);
+}
+#viewTuner .tuner-spectrum-wrap {
+  flex: 0 0 auto;
+  min-height: 0;
+  max-height: none;
+}
+#viewTuner .tuner-spectrum {
+  flex: 1 1 auto;
+  height: clamp(40px, 8vh, 72px);
+}
+#viewTuner .tuner-display {
+  flex: 0 1 auto;
+}
+/* Übrigen Platz gleichmäßig zwischen Zeiger, Spektrum, Hinweis und Start verteilen */
+#viewTuner .tuner-main-card {
+  justify-content: space-evenly;
+}
+/* Zeigerinstrument: volle Breite, Höhe zwischen Skalenbogen (300:118) und ganzem Instrument (300:180).
+   app.js (updateTunerGaugeViewBox) passt den sichtbaren Ausschnitt an. */
+#viewTuner .tuner-main-card {
+  container-type: inline-size;
+}
+#viewTuner .tuner-display {
+  flex: 1 1 auto;
+  min-height: 0;
+  justify-content: flex-start;
+}
+#viewTuner .tuner-gauge {
+  flex: 1 1 auto;
+  width: 100%;
+  max-width: none;
+  aspect-ratio: auto;
+  height: auto;
+  min-height: min(38cqw, 120px);
+  max-height: min(57cqw, 250px);
+}
+@media (max-height: 600px) {
+  #viewTuner .tuner-gauge {
+    min-height: 56px;
+  }
+  #viewTuner .tuner-main-card {
+    justify-content: flex-start;
+  }
+}
+#viewTuner .tuner-display {
+  flex: 0 1 auto;
+}
+#viewTuner .tuner-gauge {
+  flex: 0 1 auto;
+}
+@media (max-height: 600px) {
+  #viewTuner .tuner-spectrum {
+    height: 30px;
+  }
+  #viewTuner .tuner-spectrum-wrap {
+    min-height: 0;
+  }
+}
