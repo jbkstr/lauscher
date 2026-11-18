@@ -2180,7 +2180,9 @@ Object.assign(TR_UR, {
   "Freies Spiel": "آزاد مشق",
   "Freies Ausprobieren mit Klaviatur & Klängen": "سُروں، کورڈز اور آوازوں کا آزادانہ تجربہ",
   "Mikrofonzugriff bereit (HTTPS / localhost aktiv).": "مائیکروفون تک رسائی تیار ہے (HTTPS / localhost فعال ہے)۔",
-  "Hinweis: Für den Tuner ist später HTTPS oder http://localhost erforderlich – auf file:// oder unverschlüsseltem LAN-HTTP blockieren Browser das Mikrofon.": "نوٹ: ٹیونر کے لیے HTTPS یا http://localhost درکار ہوگا — براؤزر file:// یا غیر خفیہ کردہ مقامی HTTP پر مائیکروفون کو بلاک کر دیتے ہیں۔"
+  "Hinweis: Für den Tuner ist später HTTPS oder http://localhost erforderlich – auf file:// oder unverschlüsseltem LAN-HTTP blockieren Browser das Mikrofon.": "نوٹ: ٹیونر کے لیے HTTPS یا http://localhost درکار ہوگا — براؤزر file:// یا غیر خفیہ کردہ مقامی HTTP پر مائیکروفون کو بلاک کر دیتے ہیں۔",
+  "Nur Hören: Unbearbeitetes Rosa Rauschen – gleich folgt der EQ-Boost…": "صرف سنیں: اصل پنک نوائز چل رہا ہے — ابھی EQ بوسٹ آئے گا…",
+  "Nur Hören: EQ-Boost aktiv – welches Band tritt hervor?": "صرف سنیں: EQ بوسٹ فعال ہے — کون سا بینڈ نمایاں ہے؟"
 });
 
 if (typeof registerLanguageBundle === "function") {

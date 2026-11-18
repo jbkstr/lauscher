@@ -2155,7 +2155,9 @@ Object.assign(TR_PL, {
   "Freies Spiel": "Swobodna gra",
   "Freies Ausprobieren mit Klaviatur & Klängen": "Swobodne odkrywanie dźwięków i klawiatury",
   "Mikrofonzugriff bereit (HTTPS / localhost aktiv).": "Dostęp do mikrofonu gotowy (aktywne HTTPS / localhost).",
-  "Hinweis: Für den Tuner ist später HTTPS oder http://localhost erforderlich – auf file:// oder unverschlüsseltem LAN-HTTP blockieren Browser das Mikrofon.": "Uwaga: stroik będzie wymagał HTTPS lub http://localhost — przeglądarki blokują mikrofon w trybie file:// lub nieszyfrowanego HTTP w sieci lokalnej."
+  "Hinweis: Für den Tuner ist später HTTPS oder http://localhost erforderlich – auf file:// oder unverschlüsseltem LAN-HTTP blockieren Browser das Mikrofon.": "Uwaga: stroik będzie wymagał HTTPS lub http://localhost — przeglądarki blokują mikrofon w trybie file:// lub nieszyfrowanego HTTP w sieci lokalnej.",
+  "Nur Hören: Unbearbeitetes Rosa Rauschen – gleich folgt der EQ-Boost…": "Tylko słuchanie: czysty szum różowy — zaraz włączy się podbicie EQ…",
+  "Nur Hören: EQ-Boost aktiv – welches Band tritt hervor?": "Tylko słuchanie: podbicie EQ aktywne — które pasmo się wybija?"
 });
 
 if (typeof registerLanguageBundle === "function") {
