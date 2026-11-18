@@ -5,6 +5,7 @@ Lauscher • Baut lauschebaer-mobile.html aus den Quelldateien.
 Nimmt index.html und setzt direkt in die Datei ein:
   - <link rel="stylesheet" href="styles.css">  ->  <style>…</style>
   - <script src="…"></script>                   ->  <script>…</script>
+  - url("…") im CSS auf lokale Dateien (z. B. Fonts) ->  data:-URI (Base64)
 
 tone.js bleibt bewusst extern (muss neben lauschebaer-mobile.html liegen).
 
@@ -16,12 +17,25 @@ Nur Python-Standardbibliothek, keine Abhängigkeiten.
 """
 
 import argparse
+import base64
 import re
 import sys
 from pathlib import Path
 
 EXTERNAL_SCRIPTS = {"tone.js"}
 OUTPUT_NAME = "lauschebaer-mobile.html"
+
+CSS_URL_RE = re.compile(r'url\(\s*(["\']?)([^"\')]+)\1\s*\)')
+DATA_URI_MIME = {
+    ".ttf": "font/ttf",
+    ".otf": "font/otf",
+    ".woff": "font/woff",
+    ".woff2": "font/woff2",
+    ".png": "image/png",
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".svg": "image/svg+xml",
+}
 
 STYLESHEET_RE = re.compile(r'^([ \t]*)<link rel="stylesheet" href="([^"]+)">[ \t]*$', re.M)
 SCRIPT_RE = re.compile(r'^([ \t]*)<script src="([^"]+)"></script>[ \t]*$', re.M)
@@ -33,13 +47,33 @@ def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8")
 
 
+def inline_css_urls(css: str, css_dir: Path, root: Path) -> str:
+    """Ersetzt url(...) auf lokale Dateien durch data:-URIs (externe/data-URLs bleiben unverändert)."""
+    def repl(m: re.Match) -> str:
+        ref = m.group(2).strip()
+        if re.match(r"^(data:|https?:|//|#)", ref, re.I):
+            return m.group(0)
+        path = (css_dir / ref.split("?")[0].split("#")[0]).resolve()
+        mime = DATA_URI_MIME.get(path.suffix.lower())
+        if mime is None:
+            return m.group(0)
+        if not path.is_file():
+            sys.exit(f"Fehler: Im CSS referenzierte Datei nicht gefunden: {ref}")
+        if root not in path.parents:
+            sys.exit(f"Fehler: Im CSS referenzierte Datei liegt außerhalb des Projekts: {ref}")
+        data = base64.b64encode(path.read_bytes()).decode("ascii")
+        return f'url("data:{mime};base64,{data}")'
+    return CSS_URL_RE.sub(repl, css)
+
+
 def build(root: Path) -> str:
     html = read_text(root / "index.html")
     inlined = []
 
     def inline_style(m: re.Match) -> str:
         indent, href = m.group(1), m.group(2)
-        css = read_text(root / href)
+        css_path = root / href
+        css = inline_css_urls(read_text(css_path), css_path.parent.resolve(), root.resolve())
         if re.search(r"</style", css, re.I):
             sys.exit(f"Fehler: {href} enthält '</style' und kann nicht inline eingebettet werden.")
         inlined.append(href)

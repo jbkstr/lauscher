@@ -839,6 +839,15 @@ const I18N_STATIC = {
 
 function setElementLocalizedText(el, text) {
   if (!el || typeof text !== "string") return;
+  // Automatisch formatierte Markennamen (<span class="brand-word">, siehe app.js) vorher
+  // wieder zu reinem Text machen, damit der Text unten sauber ersetzt wird.
+  if (typeof el.querySelectorAll === "function") {
+    const brandSpans = el.querySelectorAll(".brand-word");
+    if (brandSpans.length > 0) {
+      brandSpans.forEach(span => span.replaceWith(document.createTextNode(span.textContent)));
+      el.normalize?.();
+    }
+  }
   if (!el.children || el.children.length === 0) {
     el.textContent = text;
     return;

@@ -104,6 +104,7 @@ Inside the **Knowledge** (`Wissen`) tab, interactive audio examples accompany ev
 | [`audio.js`](audio.js) | `AudioEngine`, `EarLabSampledInstrument`, per-instrument reverb sends, limiter, pink-noise EQ & percussion |
 | [`i18n.js`](i18n.js), [`i18n-fr.js`](i18n-fr.js), [`i18n-pl.js`](i18n-pl.js), [`i18n-uk.js`](i18n-uk.js), [`i18n-ur.js`](i18n-ur.js) | Multilingual UI strings, musical terminology, and RTL localization (`DE / EN / FR / PL / UK / UR`) |
 | [`knowledge.js`](knowledge.js), [`knowledge-en.js`](knowledge-en.js), [`knowledge-fr.js`](knowledge-fr.js), [`knowledge-pl.js`](knowledge-pl.js), [`knowledge-uk.js`](knowledge-uk.js), [`knowledge-ur.js`](knowledge-ur.js) | Localized knowledge modules, articles, instrument guides & Circle of Fifths content across all 6 languages |
+| [`fonts/Andika/`](fonts/Andika/) | App font **Andika** by SIL International (SIL Open Font License, see `OFL.txt`) |
 | [`samples/`](samples/) | Pre-processed Base64 JS instrument & percussion bundles (`*-bundle.js`) for instant browser audio without CORS errors |
 | [`docs/ideen.md`](docs/ideen.md) | Deferred ideas & planned features (German) |
 | [`lauschebaer-mobile.html`](lauschebaer-mobile.html) | Self-contained single-file bundle (CSS, JS samples & app code inline) for quick mobile/offline device testing — **generated, do not edit by hand** |
@@ -123,7 +124,7 @@ python3 -m http.server 8000
 Then open `http://localhost:8000` in your browser.
 
 - **Single-file bundle for mobile testing:** [`lauschebaer-mobile.html`](lauschebaer-mobile.html) inlines all CSS, sample bundles, and app scripts into a single HTML file and loads `Tone.js` locally from [`tone.js`](tone.js) (keep `tone.js` next to `lauschebaer-mobile.html`). *(On iOS, open the HTML file via **Safari** over an HTTPS/local web server URL or a WebView wrapper rather than iOS QuickLook.)*
-- **Rebuild the bundle after every change** to `index.html`, `styles.css`, or any `.js` file:
+- **Rebuild the bundle after every change** to `index.html`, `styles.css`, any `.js` file, or the fonts (fonts referenced in `styles.css` are embedded as Base64):
 
 ```bash
 python3 scripts/build-mobile-bundle.py
