@@ -11486,6 +11486,27 @@ body.is-hum-pause #solfegeKeyboardWrap {
   }
 }
 
+/* Rhythmus-Stufensymbole: gezeichnete Noten & Taktangaben, mittig und kreisfüllend */
+.node-circle.node-circle-icon {
+  padding: 0;
+}
+.node-rhythm-icon {
+  display: block;
+  width: 46px;
+  height: 46px;
+  overflow: visible;
+}
+/* Groove-Feinheiten (±55 ms): Zahl größer, Einheit darunter */
+.node-circle.node-circle-stack {
+  font-size: 1.12rem;
+}
+.node-circle-stack .node-stack-sub {
+  font-size: 0.74rem;
+}
+.node-circle.node-circle-compact {
+  font-size: 0.9rem;
+}
+
 </style>
   <script>
     (function () {
@@ -53671,6 +53692,48 @@ const MODE_CATEGORY_MAP = {
 /**
  * Liefert den Kategorie-Schlüssel (z. B. "interval", "chords") für einen Übungsmodus.
  */
+// Stufen-Symbole im Rhythmus-Modul: einheitlich gezeichnete Noten & Taktangaben statt Schriftzeichen
+// (♩ ♫ ♬ 𝄽 sehen je nach Gerät/Schrift unterschiedlich aus und füllen den Kreis kaum)
+function getRhythmNodeIconSVG(kind) {
+  const head = (x, y = 36) => `<ellipse cx="${x}" cy="${y}" rx="4.7" ry="3.5" transform="rotate(-20 ${x} ${y})" fill="currentColor"/>`;
+  const stem = (x, top = 13, y = 36) => `<line x1="${x + 4.2}" y1="${y - 1}" x2="${x + 4.2}" y2="${top}" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>`;
+  const beam = (x1, x2, y = 13) => `<line x1="${x1 + 4.2}" y1="${y}" x2="${x2 + 4.2}" y2="${y}" stroke="currentColor" stroke-width="3.8" stroke-linecap="butt"/>`;
+  const flag = (x, top = 13) => `<path d="M${x + 4.2} ${top} C${x + 5} ${top + 6}, ${x + 12} ${top + 7}, ${x + 9.5} ${top + 15}" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>`;
+  const note = (x, top = 13) => head(x) + stem(x, top);
+  const rest = (x) => `<path d="M${x - 2.5} 13 L${x + 3.5} 20.5 L${x - 2} 27 L${x + 3.5} 34 C${x - 2.5} 32.5, ${x - 4} 37.5, ${x + 0.5} 41.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>`;
+  const sig = (x, top, bottom, size = 17, y1 = 22, y2 = 40) =>
+    `<text x="${x}" y="${y1}" text-anchor="middle" font-family="Andika, sans-serif" font-weight="700" font-size="${size}" fill="currentColor">${top}</text>` +
+    `<text x="${x}" y="${y2}" text-anchor="middle" font-family="Andika, sans-serif" font-weight="700" font-size="${size}" fill="currentColor">${bottom}</text>`;
+  const divider = `<line x1="24" y1="9" x2="24" y2="40" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity="0.4"/>`;
+  const triplet = () => note(10) + note(20) + note(30) + beam(10, 30) +
+    `<text x="24.2" y="8.5" text-anchor="middle" font-family="Andika, sans-serif" font-weight="700" font-size="10" fill="currentColor">3</text>`;
+
+  let body = "";
+  switch (kind) {
+    case "meter-34-44": body = sig(12.5, "3", "4", 20, 22, 42) + divider + sig(35.5, "4", "4", 20, 22, 42); break;
+    case "meter-68": body = sig(24, "6", "8", 22, 23, 44); break;
+    case "meter-54-78": body = sig(12.5, "5", "4", 20, 22, 42) + divider + sig(35.5, "7", "8", 20, 22, 42); break;
+    case "quarter-eighths": body = note(6) + note(22) + note(34) + beam(22, 34); break;
+    case "triplet": body = triplet(); break;
+    case "sixteenths": body = note(5) + note(15) + note(25) + note(35) + beam(5, 35, 13) + beam(5, 35, 18.5); break;
+    case "syncopation": body = note(8) + `<circle cx="18" cy="35" r="2" fill="currentColor"/>` + note(30) + flag(30); break;
+    case "quarter-rest": body = note(10) + rest(32); break;
+    case "meter-eighths": body = sig(10, "3", "4", 15, 23, 40) + note(22) + note(34) + beam(22, 34); break;
+    case "tap":
+      body = `<circle cx="24" cy="28" r="6.5" fill="currentColor"/>
+        <path d="M14.5 21.5 A12 12 0 0 1 33.5 21.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" opacity="0.75"/>
+        <path d="M9 15.5 A19 19 0 0 1 39 15.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" opacity="0.45"/>`;
+      break;
+    case "blind":
+      body = `<path d="M5 25 C11 15, 18 11.5, 24 11.5 C30 11.5, 37 15, 43 25 C37 35, 30 38.5, 24 38.5 C18 38.5, 11 35, 5 25 Z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/>
+        <circle cx="24" cy="25" r="5.5" fill="currentColor"/>
+        <line x1="9" y1="40" x2="39" y2="10" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>`;
+      break;
+    default: return "";
+  }
+  return `<svg class="node-rhythm-icon" width="46" height="46" viewBox="0 0 48 48" aria-hidden="true">${body}</svg>`;
+}
+
 // Stufen-Symbol mit Richtungspfeil: aufwärts steht der Pfeil über dem Wort, abwärts darunter
 function renderDirectionNodeCircle(word, direction = "up", colorClass = "circle-peach") {
   const isUp = direction !== "down";
@@ -59342,17 +59405,17 @@ function openCategoryPage(categoryKey, options = {}) {
         <p class="subpage-section-desc">${tr("Höre zwei Takte Percussion und erkenne den Grundschlag sowie die Takt-Betonung", "Hear two bars of percussion and identify the pulse and barline accent")}</p>
         <div class="subpage-nodes-grid">
           <button class="subpage-node-btn" data-launch-rhythm="rhythm-meter" data-rhythm-lvl="1">
-            <div class="node-circle circle-peach">3/4 · 4/4</div>
+            <div class="node-circle circle-peach node-circle-icon">${getRhythmNodeIconSVG("meter-34-44")}</div>
             <span class="node-title">${tr("Stufe 1: Basis", "Level 1: Basics")}</span>
             <span class="node-sub">${tr("4/4-Takt vs. 3/4-Walzer", "4/4 Common Time vs. 3/4 Waltz")}</span>
           </button>
           <button class="subpage-node-btn" data-launch-rhythm="rhythm-meter" data-rhythm-lvl="2">
-            <div class="node-circle circle-peach">6/8</div>
+            <div class="node-circle circle-peach node-circle-icon">${getRhythmNodeIconSVG("meter-68")}</div>
             <span class="node-title">${tr("Stufe 2: Unterteilung", "Level 2: Subdivisions")}</span>
             <span class="node-sub">${tr("2/4, 3/4, 4/4 &amp; 6/8-Wiegetakt", "2/4, 3/4, 4/4 &amp; compound 6/8")}</span>
           </button>
           <button class="subpage-node-btn" data-launch-rhythm="rhythm-meter" data-rhythm-lvl="3">
-            <div class="node-circle circle-peach">5/4 · 7/8</div>
+            <div class="node-circle circle-peach node-circle-icon">${getRhythmNodeIconSVG("meter-54-78")}</div>
             <span class="node-title">${tr("Stufe 3: Ungerade Takte", "Level 3: Odd Meters")}</span>
             <span class="node-sub">${tr("Inklusive 5/4 (3+2) &amp; 7/8", "Including 5/4 (3+2) &amp; 7/8")}</span>
           </button>
@@ -59364,22 +59427,22 @@ function openCategoryPage(categoryKey, options = {}) {
         <p class="subpage-section-desc">${tr("Wie bei den Melodien: Alle 4 Fragezeichen nach Gehör Baustein für Baustein lösen", "Just like melodies: solve all 4 question marks beat by beat by ear")}</p>
         <div class="subpage-nodes-grid">
           <button class="subpage-node-btn" data-launch-rhythm="rhythm-dictation" data-rhythm-lvl="1">
-            <div class="node-circle circle-sage">♩ · ♫</div>
+            <div class="node-circle circle-sage node-circle-icon">${getRhythmNodeIconSVG("quarter-eighths")}</div>
             <span class="node-title">${tr("Stufe 1: Puls &amp; Pausen", "Level 1: Pulse &amp; Rests")}</span>
             <span class="node-sub">${tr("Viertel, Achtelpaar &amp; Pause", "Quarters, eighth-note pairs &amp; rests")}</span>
           </button>
           <button class="subpage-node-btn" data-launch-rhythm="rhythm-dictation" data-rhythm-lvl="2">
-            <div class="node-circle circle-sage">♪ · 3×</div>
+            <div class="node-circle circle-sage node-circle-icon">${getRhythmNodeIconSVG("triplet")}</div>
             <span class="node-title">${tr("Stufe 2: Offbeat &amp; Triolen", "Level 2: Offbeats &amp; Triplets")}</span>
             <span class="node-sub">${tr("+ „und“-Offbeat &amp; Achteltriole", "+ “and” offbeats &amp; eighth triplets")}</span>
           </button>
           <button class="subpage-node-btn" data-launch-rhythm="rhythm-dictation" data-rhythm-lvl="3">
-            <div class="node-circle circle-sage">♬</div>
+            <div class="node-circle circle-sage node-circle-icon">${getRhythmNodeIconSVG("sixteenths")}</div>
             <span class="node-title">${tr("Stufe 3: Sechzehntel", "Level 3: Sixteenth Notes")}</span>
             <span class="node-sub">${tr("Vierer-, Achtel- &amp; 16tel-Kombis", "Four-16ths, 8th &amp; 16th combinations")}</span>
           </button>
           <button class="subpage-node-btn" data-launch-rhythm="rhythm-dictation" data-rhythm-lvl="4">
-            <div class="node-circle circle-sage">♩. · Off</div>
+            <div class="node-circle circle-sage node-circle-icon">${getRhythmNodeIconSVG("syncopation")}</div>
             <span class="node-title">${tr("Stufe 4: Punkt. &amp; Synkopen", "Level 4: Dotted &amp; Syncopation")}</span>
             <span class="node-sub">${tr("Punktierte Achtel &amp; 16tel-Synkopen", "Dotted eighths &amp; 16th syncopations")}</span>
           </button>
@@ -59391,22 +59454,22 @@ function openCategoryPage(categoryKey, options = {}) {
         <p class="subpage-section-desc">${tr("1 Takt Vorzähler, 1 Takt Vorgabe – dann klopfst du den Rhythmus direkt auf dem Pad nach", "1 bar count-in, 1 bar prompt — then tap the rhythm back directly on the pad")}</p>
         <div class="subpage-nodes-grid">
           <button class="subpage-node-btn" data-launch-rhythm="rhythm-tap" data-rhythm-lvl="1">
-            <div class="node-circle circle-lilac">Tap 1</div>
+            <div class="node-circle circle-lilac node-circle-icon">${getRhythmNodeIconSVG("tap")}</div>
             <span class="node-title">${tr("Stufe 1: Puls-Anker", "Level 1: Pulse Anchor")}</span>
             <span class="node-sub">${tr("Viertel &amp; Pausen im 4/4-Takt", "Quarter notes &amp; rests in 4/4 time")}</span>
           </button>
           <button class="subpage-node-btn" data-launch-rhythm="rhythm-tap" data-rhythm-lvl="2">
-            <div class="node-circle circle-lilac">3/4 · ♫</div>
+            <div class="node-circle circle-lilac node-circle-icon">${getRhythmNodeIconSVG("meter-eighths")}</div>
             <span class="node-title">${tr("Stufe 2: Achtel &amp; 3/4", "Level 2: Eighths &amp; 3/4")}</span>
             <span class="node-sub">${tr("Achtelpaare im 4/4 &amp; 3/4-Walzer", "Eighth pairs in 4/4 &amp; 3/4 waltz")}</span>
           </button>
           <button class="subpage-node-btn" data-launch-rhythm="rhythm-tap" data-rhythm-lvl="3">
-            <div class="node-circle circle-lilac">3× · Off</div>
+            <div class="node-circle circle-lilac node-circle-icon">${getRhythmNodeIconSVG("triplet")}</div>
             <span class="node-title">${tr("Stufe 3: Synkopen &amp; Triolen", "Level 3: Syncopation &amp; Triplets")}</span>
             <span class="node-sub">${tr("Präzises Timing mit Offbeats &amp; Triolen", "Tight timing with offbeats &amp; triplets")}</span>
           </button>
           <button class="subpage-node-btn" data-launch-rhythm="rhythm-tap" data-rhythm-lvl="4">
-            <div class="node-circle circle-lilac">${tr("Blind", "Blind")}</div>
+            <div class="node-circle circle-lilac node-circle-icon">${getRhythmNodeIconSVG("blind")}</div>
             <span class="node-title">${tr("Stufe 4: Blindflug", "Level 4: Blind Mode")}</span>
             <span class="node-sub">${tr("Klick verstummt während deiner Runde", "Metronome drops out during your turn")}</span>
           </button>
@@ -59418,22 +59481,22 @@ function openCategoryPage(categoryKey, options = {}) {
         <p class="subpage-section-desc">${tr("Der Rhythmus steht im Notensystem – ohne Vorspielen. Nach 1 Takt Vorzähler tippst du ihn zum Metronom auf das Pad.", "The rhythm is written on the staff — no demo. After a 1-bar count-in, tap it on the pad along with the metronome.")}</p>
         <div class="subpage-nodes-grid">
           <button class="subpage-node-btn" data-launch-rhythm="rhythm-tap" data-rhythm-read="1" data-rhythm-lvl="1">
-            <div class="node-circle circle-sage">♩ 𝄽</div>
+            <div class="node-circle circle-sage node-circle-icon">${getRhythmNodeIconSVG("quarter-rest")}</div>
             <span class="node-title">${tr("Stufe 1: Viertel &amp; Pausen", "Level 1: Quarters &amp; Rests")}</span>
             <span class="node-sub">${tr("Vom Blatt im 4/4-Takt", "Sight-read in 4/4 time")}</span>
           </button>
           <button class="subpage-node-btn" data-launch-rhythm="rhythm-tap" data-rhythm-read="1" data-rhythm-lvl="2">
-            <div class="node-circle circle-sage">3/4 · ♫</div>
+            <div class="node-circle circle-sage node-circle-icon">${getRhythmNodeIconSVG("meter-eighths")}</div>
             <span class="node-title">${tr("Stufe 2: Achtel &amp; 3/4", "Level 2: Eighths &amp; 3/4")}</span>
             <span class="node-sub">${tr("Achtelpaare im 4/4 &amp; 3/4", "Eighth pairs in 4/4 &amp; 3/4")}</span>
           </button>
           <button class="subpage-node-btn" data-launch-rhythm="rhythm-tap" data-rhythm-read="1" data-rhythm-lvl="3">
-            <div class="node-circle circle-sage">3× · Off</div>
+            <div class="node-circle circle-sage node-circle-icon">${getRhythmNodeIconSVG("triplet")}</div>
             <span class="node-title">${tr("Stufe 3: Synkopen &amp; Triolen", "Level 3: Syncopation &amp; Triplets")}</span>
             <span class="node-sub">${tr("Offbeats &amp; Triolen lesen und tappen", "Read and tap offbeats &amp; triplets")}</span>
           </button>
           <button class="subpage-node-btn" data-launch-rhythm="rhythm-tap" data-rhythm-read="1" data-rhythm-lvl="4">
-            <div class="node-circle circle-sage">${tr("Blind", "Blind")}</div>
+            <div class="node-circle circle-sage node-circle-icon">${getRhythmNodeIconSVG("blind")}</div>
             <span class="node-title">${tr("Stufe 4: Ohne Metronom", "Level 4: No Metronome")}</span>
             <span class="node-sub">${tr("Nach dem Vorzähler hältst du das Tempo allein", "After the count-in you keep the tempo yourself")}</span>
           </button>
