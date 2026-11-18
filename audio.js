@@ -920,6 +920,33 @@ class AudioEngine {
     } catch (_) {}
   }
 
+  stopBreathEntryNow(entry) {
+    const v = entry?.breathVoice;
+    if (!v || v.stopped) return;
+    v.stopped = true;
+    if (v.cleanupTimer) {
+      clearTimeout(v.cleanupTimer);
+      v.cleanupTimer = null;
+    }
+    try {
+      const now = v.rawCtx?.currentTime || 0;
+      const p = v.envGain?.gain;
+      if (p) {
+        if (typeof p.cancelAndHoldAtTime === "function") {
+          p.cancelAndHoldAtTime(now);
+        } else {
+          p.cancelScheduledValues(now);
+          p.setValueAtTime(Math.max(0.0001, Number(p.value) || 0.0001), now);
+        }
+        p.linearRampToValueAtTime(0, now + 0.045);
+      }
+      setTimeout(() => {
+        v.stopNodes.forEach(osc => { try { osc.stop(); } catch (_) {} });
+        v.cleanupNodes.forEach(node => { try { node.disconnect(); } catch (_) {} });
+      }, 65);
+    } catch (_) {}
+  }
+
   stopPlayback() {
     this.playbackId++;
     this.activeTimers.forEach(timer => clearTimeout(timer));
@@ -934,6 +961,10 @@ class AudioEngine {
       try {
         if (entry.noise) {
           this.stopNoiseEntryNow(entry);
+          return;
+        }
+        if (entry.breathVoice) {
+          this.stopBreathEntryNow(entry);
           return;
         }
         if (entry.demoSampler) {
@@ -1322,6 +1353,106 @@ class AudioEngine {
     if (mode === "piano-voice" && (!isChordCue || layerChoirOnChord)) {
       this.playInstrumentSample("choir", notes, Math.max(0.32, dur * 1.04), 0, isChordCue ? 0.44 : 0.56);
     }
+  }
+
+  /**
+   * Spielt einen ruhigen, tiefen Bass-Klangteppich für die Atemübung im Einsing-Helfer ab,
+   * der sich über die exakte Dauer des jeweiligen Atemfensters weich ein- und ausblendet.
+   */
+  playWarmupBreathTone(noteOrMidi, durationSec = 4.0, options = {}) {
+    if (!this.isInitialized || !this.masterGain) return;
+    const midi = EarLabSampledInstrument.noteToMidi(noteOrMidi);
+    if (midi === null) return;
+
+    const rawCtx = this.piano?.rawCtx
+      ?? (typeof Tone !== "undefined" && typeof Tone.getContext === "function" ? Tone.getContext()?.rawContext : Tone?.context?.rawContext);
+    if (!rawCtx || typeof rawCtx.createOscillator !== "function") return;
+
+    const freq = 440 * Math.pow(2, (midi - 69) / 12);
+    const dur = Math.max(0.4, Number(durationSec) || 4.0);
+    const phase = options.phase || "inhale";
+    const now = rawCtx.currentTime || 0;
+    const startAt = now + 0.022;
+    const endAt = startAt + dur;
+    const attackSec = Math.min(0.85, Math.max(0.18, dur * 0.22));
+    const releaseSec = Math.min(1.10, Math.max(0.24, dur * 0.27));
+    const sustainEndAt = Math.max(startAt + attackSec + 0.02, endAt - releaseSec);
+
+    const filter = rawCtx.createBiquadFilter();
+    filter.type = "lowpass";
+    filter.Q.value = 0.65;
+    const lowCutoff = Math.max(155, Math.min(360, freq * 2.45));
+    const highCutoff = Math.max(250, Math.min(520, freq * 4.10));
+    if (phase === "inhale") {
+      filter.frequency.setValueAtTime(lowCutoff, startAt);
+      filter.frequency.exponentialRampToValueAtTime(highCutoff, startAt + dur * 0.72);
+      filter.frequency.exponentialRampToValueAtTime(lowCutoff * 1.18, endAt);
+    } else {
+      filter.frequency.setValueAtTime(highCutoff * 0.90, startAt);
+      filter.frequency.exponentialRampToValueAtTime(lowCutoff * 0.92, endAt);
+    }
+
+    const envGain = rawCtx.createGain();
+    const freqBoost = freq < 110 ? Math.min(1.18, 1 + ((110 - freq) / 50) * 0.16) : 1.0;
+    const peakGain = Math.min(0.40, 0.33 * freqBoost);
+    envGain.gain.setValueAtTime(0.0001, startAt);
+    envGain.gain.linearRampToValueAtTime(peakGain * 0.32, startAt + attackSec * 0.35);
+    envGain.gain.linearRampToValueAtTime(peakGain, startAt + attackSec);
+    envGain.gain.linearRampToValueAtTime(phase === "exhale" ? peakGain * 0.80 : peakGain * 0.94, sustainEndAt);
+    envGain.gain.linearRampToValueAtTime(0.0001, Math.max(sustainEndAt + 0.02, endAt - 0.012));
+    envGain.gain.linearRampToValueAtTime(0, endAt);
+
+    filter.connect(envGain);
+    connectAudioNodeToTarget(envGain, this.masterGain);
+
+    let reverbSendGain = null;
+    const wetMix = Number.isFinite(this.instrumentReverbMix?.strings)
+      ? Math.max(0, Math.min(0.28, this.instrumentReverbMix.strings * 0.65))
+      : 0.20;
+    if (this.pianoReverbDamp && wetMix > 0.005) {
+      reverbSendGain = rawCtx.createGain();
+      reverbSendGain.gain.value = wetMix;
+      envGain.connect(reverbSendGain);
+      connectAudioNodeToTarget(reverbSendGain, this.pianoReverbDamp);
+    }
+
+    const oscSpecs = [
+      { type: "sine", freq, gain: 0.58 },
+      { type: "triangle", freq: freq * 0.9988, gain: 0.22 },
+      { type: "triangle", freq: freq * 1.0012, gain: 0.22 },
+      { type: "sine", freq: freq * 2, gain: 0.20 }
+    ];
+    const stopNodes = [];
+    const cleanupNodes = [filter, envGain];
+    if (reverbSendGain) cleanupNodes.push(reverbSendGain);
+
+    oscSpecs.forEach(spec => {
+      const osc = rawCtx.createOscillator();
+      osc.type = spec.type;
+      osc.frequency.setValueAtTime(spec.freq, startAt);
+      const layerGain = rawCtx.createGain();
+      layerGain.gain.value = spec.gain;
+      osc.connect(layerGain);
+      layerGain.connect(filter);
+      stopNodes.push(osc);
+      cleanupNodes.push(osc, layerGain);
+    });
+
+    const breathVoice = { rawCtx, envGain, stopNodes, cleanupNodes, stopped: false, cleanupTimer: null };
+    const entry = { breathVoice };
+    this.activeDemoNodes.push(entry);
+
+    stopNodes.forEach(osc => {
+      osc.start(startAt);
+      osc.stop(endAt + 0.04);
+    });
+
+    breathVoice.cleanupTimer = setTimeout(() => {
+      if (breathVoice.stopped) return;
+      breathVoice.stopped = true;
+      cleanupNodes.forEach(node => { try { node.disconnect(); } catch (_) {} });
+      this.activeDemoNodes = this.activeDemoNodes.filter(item => item !== entry);
+    }, (dur + 0.35) * 1000);
   }
 
   /**

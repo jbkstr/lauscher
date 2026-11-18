@@ -18992,9 +18992,9 @@ const WARMUP_STEP_CATALOG = {
     hintEn: "Keep shoulders relaxed — breathe low into the belly and exhale steadily on ffff/ssss.",
     cycles: 4,
     cyclePhases: [
-      { cue: "inhale", sec: 4.0, cueNoteOffset: 0,    de: "Einatmen", en: "Inhale",  detailDe: "Tief in den Bauch einatmen…",         detailEn: "Inhale deeply into the belly…" },
+      { cue: "inhale", sec: 4.0, cueNoteOffset: 7,    de: "Einatmen", en: "Inhale",  detailDe: "Tief in den Bauch einatmen…",         detailEn: "Inhale deeply into the belly…" },
       { cue: "hold",   sec: 1.5, cueNoteOffset: null, de: "Halten",   en: "Hold",    detailDe: "Kurz weich und offen halten",         detailEn: "Hold gently without tension" },
-      { cue: "exhale", sec: 5.5, cueNoteOffset: 7,    de: "Ausatmen", en: "Exhale",  detailDe: "Gleichmäßig ausströmen: ffff / ssss", detailEn: "Exhale steadily: ffff / ssss" },
+      { cue: "exhale", sec: 5.5, cueNoteOffset: 0,    de: "Ausatmen", en: "Exhale",  detailDe: "Gleichmäßig ausströmen: ffff / ssss", detailEn: "Exhale steadily: ffff / ssss" },
       { cue: "rest",   sec: 1.5, cueNoteOffset: null, de: "Lösen",    en: "Release", detailDe: "Bauchdecke lösen & nachspüren",       detailEn: "Release & soften between cycles" }
     ]
   },
@@ -19721,6 +19721,10 @@ function runCurrentWarmupRound() {
   if (step.kind === "breath-orb") {
     const cycles = step.cycles || 3;
     const oneCycleMs = (step.cyclePhases || []).reduce((sum, p) => sum + p.sec * 1000, 0);
+    // Tiefes, erdendes Bass-Register (C2–H2 als Grundton) für ruhige Atemführung
+    let breathBaseMidi = tonicMidi;
+    while (breathBaseMidi > 47) breathBaseMidi -= 12;
+    while (breathBaseMidi < 36) breathBaseMidi += 12;
     let cursorMs = 0;
     for (let c = 0; c < cycles; c++) {
       step.cyclePhases.forEach(p => {
@@ -19742,7 +19746,7 @@ function runCurrentWarmupRound() {
           if (cueEl) cueEl.textContent = w.breathCueText;
           if (hintEl) hintEl.textContent = w.hintText;
           if (p.cueNoteOffset !== null && p.cueNoteOffset !== undefined) {
-            audioEngine.playWarmupNotes("piano", [midiToNote(tonicMidi + p.cueNoteOffset)], 0.55, true);
+            audioEngine.playWarmupBreathTone(breathBaseMidi + p.cueNoteOffset, p.sec, { phase: p.cue });
           }
         }, atMs);
       });
