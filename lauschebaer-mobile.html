@@ -1118,6 +1118,9 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0 4px;
+  text-align: center;
+  overflow: hidden;
   font-size: 1.15rem;
   font-weight: 800;
   color: var(--raccoon-dark);
@@ -5070,8 +5073,23 @@ body,
 }
 
 .node-circle.node-circle-compact {
-  font-size: 0.94rem;
+  font-size: 0.82rem;
   letter-spacing: -0.02em;
+  line-height: 1.08;
+}
+
+.node-circle.node-circle-stack {
+  flex-direction: column;
+  gap: 0.04rem;
+  font-size: 0.96rem;
+  line-height: 1;
+}
+
+.node-circle-stack .node-stack-sub {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
 }
 
 .prod-safety-banner {
@@ -5575,6 +5593,11 @@ body,
   height: 22px;
 }
 
+.category-grid-home .cat-icon-box .icon-svg-large.melody-clef-icon {
+  width: 28px;
+  height: 28px;
+}
+
 .category-grid-home .cat-icon-box .icon-text-glyph {
   font-size: 0.96rem;
 }
@@ -5626,6 +5649,11 @@ body,
 .category-grid-home .category-nav-card.category-grid-wide .cat-icon-box .icon-svg-large {
   width: 28px;
   height: 28px;
+}
+
+.category-grid-home .category-nav-card.category-grid-wide .cat-icon-box .icon-svg-large.melody-clef-icon {
+  width: 34px;
+  height: 34px;
 }
 
 .category-grid-home .category-nav-card.category-grid-wide .cat-text-box p {
@@ -11315,10 +11343,10 @@ body.is-hum-pause #solfegeKeyboardWrap {
 
         <button class="category-nav-card card-accent-lilac" data-open-category="melody">
           <div class="cat-icon-box badge-lilac">
-            <svg class="icon-svg-large" width="24" height="30" viewBox="0 0 28 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M15.8 25.5 C19.5 25.2 21.5 22.4 21 19 C20.4 15.5 17.2 14.3 14.3 15.4 C11.5 16.5 10.6 19.5 12.2 21.6 C13.2 22.9 14.9 23.2 16.1 22.4" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M15.8 25.5 C10.4 25.6 7.5 22.3 7.8 17.9 C8.2 13.2 13.5 10.5 16.6 7 C18.1 5.3 18.2 3.3 16.5 3.1 C14.8 2.9 14 4.8 14.2 7.5 L15.1 29.2 C15.2 31.6 13.6 33.2 11.4 33 C10.2 32.9 9.5 32.2 9.4 31.2" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
-              <circle cx="10.2" cy="30.8" r="1.9" fill="currentColor"/>
+            <svg class="icon-svg-large melody-clef-icon" width="28" height="28" viewBox="4.5 1.5 19.5 33" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M15.8 25.5 C19.5 25.2 21.5 22.4 21 19 C20.4 15.5 17.2 14.3 14.3 15.4 C11.5 16.5 10.6 19.5 12.2 21.6 C13.2 22.9 14.9 23.2 16.1 22.4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M15.8 25.5 C10.4 25.6 7.5 22.3 7.8 17.9 C8.2 13.2 13.5 10.5 16.6 7 C18.1 5.3 18.2 3.3 16.5 3.1 C14.8 2.9 14 4.8 14.2 7.5 L15.1 29.2 C15.2 31.6 13.6 33.2 11.4 33 C10.2 32.9 9.5 32.2 9.4 31.2" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="10.2" cy="30.8" r="2" fill="currentColor"/>
             </svg>
           </div>
           <div class="cat-text-box">
@@ -58283,7 +58311,7 @@ function openCategoryPage(categoryKey, options = {}) {
         <p class="subpage-section-desc">${tr("Spüre Groove-Stile, Offbeat-Akzente und feinste Verschiebungen im Band-Kontext", "Feel groove styles, offbeat accents, and subtle timing shifts in a band context")}</p>
         <div class="subpage-nodes-grid">
           <button class="subpage-node-btn" data-launch-rhythm="rhythm-groove" data-rhythm-lvl="1">
-            <div class="node-circle circle-peach">Groove</div>
+            <div class="node-circle circle-peach node-circle-compact">Groove</div>
             <span class="node-title">${tr("Stufe 1: Groove-Stile", "Level 1: Groove Styles")}</span>
             <span class="node-sub">${tr("Marsch, Backbeat, Swing &amp; 3 gegen 2", "March, Backbeat, Swing &amp; 3-against-2")}</span>
           </button>
@@ -58293,12 +58321,12 @@ function openCategoryPage(categoryKey, options = {}) {
             <span class="node-sub">${tr("Exakten Cowbell-Akzent lokalisieren", "Pinpoint the exact cowbell accent")}</span>
           </button>
           <button class="subpage-node-btn" data-launch-rhythm="rhythm-groove" data-rhythm-lvl="3">
-            <div class="node-circle circle-peach">±55 ms</div>
+            <div class="node-circle circle-peach node-circle-stack"><span>±55</span><span class="node-stack-sub">ms</span></div>
             <span class="node-title">${tr("Stufe 3: Mikro-Timing", "Level 3: Micro-Timing")}</span>
             <span class="node-sub">${tr("Zu früh, exakt („Pocket“) oder zu spät?", "Ahead, in the pocket, or laid back?")}</span>
           </button>
           <button class="subpage-node-btn" data-launch-rhythm="rhythm-groove" data-rhythm-lvl="4">
-            <div class="node-circle circle-peach">±28 ms</div>
+            <div class="node-circle circle-peach node-circle-stack"><span>±28</span><span class="node-stack-sub">ms</span></div>
             <span class="node-title">${tr("Stufe 4: Profi-Timing", "Level 4: Pro Timing")}</span>
             <span class="node-sub">${tr("Feinste Abweichungen sicher heraushören", "Hear the tiniest timing shifts cleanly")}</span>
           </button>
@@ -58390,7 +58418,7 @@ function openCategoryPage(categoryKey, options = {}) {
             <span class="node-sub">${tr("Alle 7 Modi (+ Lydisch, Phrygisch, Lokrisch)", "All 7 modes (+ Lydian, Phrygian, Locrian)")}</span>
           </button>
           <button class="subpage-node-btn" data-launch-modes="modes-scale" data-modes-lvl="3">
-            <div class="node-circle circle-peach node-circle-compact">7× Transp</div>
+            <div class="node-circle circle-peach node-circle-stack"><span>7×</span><span class="node-stack-sub">Transp.</span></div>
             <span class="node-title">${tr("Stufe 3: Transponiert", "Level 3: Transposed")}</span>
             <span class="node-sub">${tr("Alle 7 Modi über wechselnde Grundtöne", "All 7 modes across changing roots")}</span>
           </button>
@@ -58424,12 +58452,12 @@ function openCategoryPage(categoryKey, options = {}) {
         <p class="subpage-section-desc">${tr("Typische Pendel-Akkorde (z. B. i–IV, I–bVII, I–II oder i–bII) am Klang erkennen", "Identify signature modal chord vamps (e.g. i–IV, I–bVII, I–II, or i–bII) by ear")}</p>
         <div class="subpage-nodes-grid">
           <button class="subpage-node-btn" data-launch-modes="modes-cadence" data-modes-lvl="1">
-            <div class="node-circle circle-lilac">4× Vamp</div>
+            <div class="node-circle circle-lilac node-circle-stack"><span>4×</span><span class="node-stack-sub">Vamp</span></div>
             <span class="node-title">${tr("Stufe 1: Standard-Vamps", "Level 1: Standard Vamps")}</span>
             <span class="node-sub">${tr("Ionisch, Dorisch, Mixolydisch &amp; Äolisch", "Ionian, Dorian, Mixolydian &amp; Aeolian")}</span>
           </button>
           <button class="subpage-node-btn" data-launch-modes="modes-cadence" data-modes-lvl="2">
-            <div class="node-circle circle-lilac">6× Vamp</div>
+            <div class="node-circle circle-lilac node-circle-stack"><span>6×</span><span class="node-stack-sub">Vamp</span></div>
             <span class="node-title">${tr("Stufe 2: Alle 6 Modal-Vamps", "Level 2: All 6 Modal Vamps")}</span>
             <span class="node-sub">${tr("Inkl. Lydisch (I–II) &amp; Phrygisch (i–bII)", "Incl. Lydian (I–II) &amp; Phrygian (i–bII)")}</span>
           </button>
