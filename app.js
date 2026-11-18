@@ -88,6 +88,10 @@ function getMascotAssetUri(mood = "idle") {
   return map.idle || map.question || "";
 }
 
+// Lauscher-Looks (Accessoires) sind vorerst ausgeblendet. Code, Optionen und die im Profil
+// gespeicherte Auswahl (companionAccessories) bleiben erhalten – Pläne siehe docs/ideen.md.
+const MASCOT_LOOKS_ENABLED = false;
+
 function getMascotAccessorySVG(activeAccessories = []) {
   const hasAcc = (key) => activeAccessories.includes(key);
   let accessoryMarkup = "";
@@ -192,7 +196,7 @@ function hydrateMascotStaticSlots() {
 }
 
 function getMascotSVG(mood = "idle", showAccessory = false) {
-  const activeAccessories = showAccessory && typeof state !== "undefined" && state?.profile
+  const activeAccessories = MASCOT_LOOKS_ENABLED && showAccessory && typeof state !== "undefined" && state?.profile
     ? getResolvedProfileAccessories(state.profile)
     : [];
   const hasAcc = (key) => activeAccessories.includes(key);
@@ -15123,7 +15127,9 @@ function renderProfileAccountView() {
     }
   }
 
-  const accWrap = document.getElementById("profileAccessoryGroup");
+  const accField = document.getElementById("profileAccessoryField");
+  if (accField) accField.classList.toggle("hidden", !MASCOT_LOOKS_ENABLED);
+  const accWrap = MASCOT_LOOKS_ENABLED ? document.getElementById("profileAccessoryGroup") : null;
   if (accWrap) {
     const activeAccs = getResolvedProfileAccessories(p);
     const accOptions = PROFILE_ACCESSORY_OPTIONS.map(opt => ({
