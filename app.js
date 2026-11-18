@@ -11269,6 +11269,7 @@ function renderUI() {
   syncListenOnlyUI();
   document.getElementById("feedbackContainer").classList.add("hidden");
   syncExamExerciseControls();
+  fitExerciseLayout();
 }
 
 // Lange Namen (z. B. Modi auf Ukrainisch) einheitlich verkleinern, statt über den Kachelrand zu laufen
@@ -11291,6 +11292,76 @@ window.addEventListener("resize", () => {
   const grid = document.getElementById("degreeButtonsGrid");
   if (grid && !grid.classList.contains("hidden") && grid.querySelector(".degree-step")) fitChoiceNamesToTiles(grid);
 });
+
+// ---------- FESTE ÜBUNGSHÖHE ----------
+// Die Übung scrollt nie. Bleibt für die mittlere Bühne zu wenig Platz, wird stufenweise verdichtet
+// (#viewExercise.fit-1 … fit-3 in styles.css). Die Bühne selbst passt sich per Container-Query an.
+const EXERCISE_FIT_LEVELS = 3;
+const EXERCISE_MIN_STAGE_PX = 70;
+
+// reset = neue Aufgabe oder neue Fenstergröße. Sonst (Feedback-Karte o. Ä. erscheint) wird innerhalb
+// derselben Aufgabe nur weiter verdichtet, nie zurück – damit die Antwortknöpfe nicht springen.
+function fitExerciseLayout(reset = true) {
+  const view = document.getElementById("viewExercise");
+  if (!view) return;
+  if (view.classList.contains("hidden") || view.clientHeight <= 0) {
+    if (reset) view.dataset.fitLevel = "0"; // beim Einblenden misst der ResizeObserver neu
+    return;
+  }
+  const stageWrap = view.querySelector(".stage-wrapper");
+  const fits = () => view.scrollHeight <= view.clientHeight + 1 &&
+    (!stageWrap || stageWrap.clientHeight >= EXERCISE_MIN_STAGE_PX);
+  const floor = reset ? 0 : (parseInt(view.dataset.fitLevel, 10) || 0);
+  view.classList.remove("sing-hint-float", "fit-overflow");
+  const runLevels = () => {
+    for (let i = 1; i <= EXERCISE_FIT_LEVELS; i++) view.classList.remove(`fit-${i}`);
+    let lvl = floor;
+    if (lvl > 0) view.classList.add(`fit-${lvl}`);
+    while (lvl < EXERCISE_FIT_LEVELS && !fits()) {
+      if (lvl > 0) view.classList.remove(`fit-${lvl}`);
+      lvl += 1;
+      view.classList.add(`fit-${lvl}`);
+    }
+    return lvl;
+  };
+  let level = runLevels();
+  // Mitsing-Einführung passt nicht mehr hinein → schwebend über der Bühne zeigen
+  const singHint = document.getElementById("singAlongHint");
+  if (!fits() && singHint && !singHint.classList.contains("hidden")) {
+    view.classList.add("sing-hint-float");
+    level = runLevels();
+  }
+  if (view.scrollHeight > view.clientHeight + 1) view.classList.add("fit-overflow");
+  view.dataset.fitLevel = String(level);
+  const grid = document.getElementById("degreeButtonsGrid");
+  if (grid && grid.querySelector(".degree-step")) fitChoiceNamesToTiles(grid);
+}
+
+let exerciseFitQueued = null;
+function queueFitExerciseLayout(reset = false) {
+  if (exerciseFitQueued !== null) {
+    exerciseFitQueued = exerciseFitQueued || reset;
+    return;
+  }
+  exerciseFitQueued = reset;
+  setTimeout(() => {
+    const doReset = exerciseFitQueued;
+    exerciseFitQueued = null;
+    fitExerciseLayout(doReset);
+  }, 0);
+}
+
+function initExerciseFitObserver() {
+  window.addEventListener("resize", () => queueFitExerciseLayout(true));
+  if (typeof ResizeObserver !== "function") return;
+  const ro = new ResizeObserver(() => queueFitExerciseLayout(false));
+  ["viewExercise", "exerciseModuleCard"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) ro.observe(el);
+  });
+  const dock = document.querySelector("#viewExercise .bottom-dock");
+  if (dock) ro.observe(dock);
+}
 
 const STREAK_MILESTONES = new Set([3, 5, 8, 10, 15, 20, 25, 30, 40, 50, 75, 100]);
 
@@ -17104,6 +17175,7 @@ function startBrandWordStyling() {
 
 document.addEventListener("DOMContentLoaded", () => {
   startBrandWordStyling();
+  initExerciseFitObserver();
   bindGlobalPointerInputTracker();
   hydrateMascotStaticSlots();
   if (typeof applyStaticDomLanguage === "function") {

@@ -17,6 +17,13 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 - **Markenname „Lauscher“ wird immer fett und kursiv dargestellt.** Ein `MutationObserver` in app.js (`startBrandWordStyling`) umschließt jedes sichtbare „Lauscher“ automatisch mit `<span class="brand-word">`. In Texten und Übersetzungen deshalb **nie** von Hand formatieren. Wer Text-Knoten direkt manipuliert, muss `.brand-word`-Spans berücksichtigen (siehe `setElementLocalizedText` in i18n.js).
 - **Inline-Skript im `<head>` von index.html** setzt Theme, Sprache und `data-first-run` vor dem ersten Rendern. Kommen Themes oder Sprachen dazu, muss es mit angepasst werden.
 
+## Layout-Regel: Übungen haben eine feste Höhe
+
+- **Die Übungsansicht (`#viewExercise`) scrollt nie**, vor allem nicht mobil. Untere Leiste (Abspielen usw.) und Antwortmöglichkeiten müssen immer sichtbar und nutzbar sein.
+- Aufbau: oberes Modul (`#exerciseModuleCard`) und Antwortbereich (`.bottom-dock`) behalten ihre Höhe; die **mittlere Bühne** (`.stage-wrapper`) nimmt nur den Restplatz und verdichtet sich per Container-Query (`@container exstage`) bis zur Querform bzw. reinen Textzeile.
+- Reicht das nicht, setzt `fitExerciseLayout()` in app.js stufenweise `.fit-1` … `.fit-3` auf `#viewExercise` (Regeln am Ende von styles.css). Ein `ResizeObserver` misst neu, wenn z. B. die Vergleichskarte erscheint; innerhalb einer Aufgabe wird nur weiter verdichtet, nie zurück. Die Mitsing-Einführung schwebt bei Platzmangel über der Bühne (`.sing-hint-float`).
+- Neue Elemente in Übungen müssen in dieses System passen: bei neuen Blöcken im oberen Modul oder Antwortbereich auch `.fit-*`-Varianten ergänzen. Prüfen auf 375×667 und 360×640 mit allen Übungsarten und höchster Stufe (Messung: `view.scrollHeight <= view.clientHeight` und Bühne ≥ `EXERCISE_MIN_STAGE_PX`).
+
 ## Mehrsprachigkeit (de, en, fr, pl, uk, ur)
 
 - Deutsch ist die Standard- und Quellsprache.

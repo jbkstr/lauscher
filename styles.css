@@ -10042,3 +10042,344 @@ body.is-hum-pause #solfegeKeyboardWrap {
 .hidden, .modal-hidden {
   display: none !important;
 }
+
+/* ==========================================
+   FESTE ÜBUNGSHÖHE (vor allem mobil)
+   Die Übung scrollt nie: Oberes Modul und Antwortbereich behalten ihre Höhe,
+   die mittlere Bühne nimmt nur den Restplatz und verdichtet sich per Container-Query.
+   Reicht das nicht, setzt app.js (fitExerciseLayout) stufenweise .fit-1 … .fit-3.
+   ========================================== */
+.view-exercise-container {
+  overflow: hidden;
+}
+
+.stage-wrapper {
+  flex: 1 1 0;
+  min-height: 0;
+  container-type: size;
+  container-name: exstage;
+  overflow: hidden;
+}
+
+.central-stage {
+  max-height: 100%;
+  overflow: hidden;
+}
+
+/* Etwas weniger Platz: kleineres Maskottchen, kleinere Schrift */
+@container exstage (max-height: 175px) {
+  .central-stage:not(.is-notation) {
+    padding: 0.42rem 0.9rem;
+  }
+  .central-stage:not(.is-notation) .stage-mascot {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 0.1rem;
+  }
+  .central-stage:not(.is-notation) .stage-main {
+    font-size: 1.45rem;
+  }
+  .stage-streak-notice {
+    margin-top: 0.18rem;
+    font-size: 0.64rem;
+  }
+}
+
+/* Wenig Platz: quer wie im Notenlesen – Maskottchen links, Text rechts */
+@container exstage (max-height: 122px) {
+  .central-stage,
+  .central-stage.is-solfege {
+    width: fit-content;
+    min-width: 184px;
+    max-width: 92%;
+    padding: 0.32rem 0.84rem;
+    display: grid;
+    grid-template-columns: auto minmax(0, auto);
+    grid-template-rows: auto auto auto;
+    justify-content: center;
+    align-items: center;
+    text-align: start;
+    gap: 0.02rem 0.56rem;
+  }
+  .central-stage .stage-mascot,
+  .central-stage.is-solfege .stage-mascot {
+    grid-column: 1;
+    grid-row: 1 / 4;
+    width: 36px;
+    height: 36px;
+    margin: 0;
+  }
+  .central-stage .stage-sub {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 0.54rem;
+    padding-inline-end: 1.9rem;
+  }
+  .central-stage .stage-main,
+  .central-stage.is-solfege .stage-main {
+    grid-column: 2;
+    grid-row: 2;
+    font-size: 1.14rem;
+    line-height: 1.15;
+    margin: 0;
+  }
+  .central-stage .stage-desc,
+  .central-stage.is-solfege .stage-desc {
+    grid-column: 2;
+    grid-row: 3;
+    font-size: 0.64rem;
+    line-height: 1.24;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .central-stage .stage-streak-pill {
+    top: 0.26rem;
+    inset-inline-end: 0.36rem;
+    font-size: 0.54rem;
+    padding: 0.1rem 0.36rem;
+  }
+  .central-stage .stage-streak-notice {
+    grid-column: 1 / -1;
+    justify-self: center;
+    margin-top: 0.1rem;
+    font-size: 0.6rem;
+    padding: 0.1rem 0.5rem;
+  }
+}
+
+/* Knapp: Beschreibung nur noch einzeilig */
+@container exstage (max-height: 96px) {
+  .central-stage .stage-desc {
+    -webkit-line-clamp: 1;
+  }
+  .central-stage .stage-streak-notice {
+    display: none;
+  }
+}
+
+/* Sehr wenig Platz: nur Status und Hauptzeile */
+@container exstage (max-height: 62px) {
+  .central-stage,
+  .central-stage.is-solfege,
+  .central-stage.is-notation {
+    padding: 0.2rem 0.8rem;
+    min-height: 0;
+  }
+  .central-stage .stage-mascot,
+  .central-stage .stage-desc,
+  .central-stage .stage-streak-notice {
+    display: none;
+  }
+  .central-stage .stage-sub,
+  .central-stage .stage-main {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Stufe 1: Abstände und Kacheln straffen */
+#viewExercise.fit-1 .module-card,
+#viewExercise.fit-2 .module-card,
+#viewExercise.fit-3 .module-card {
+  padding: 0.54rem 0.62rem;
+}
+#viewExercise.fit-1 .module-header,
+#viewExercise.fit-2 .module-header,
+#viewExercise.fit-3 .module-header {
+  margin-bottom: 0.38rem;
+}
+#viewExercise.fit-1 .bars-grid,
+#viewExercise.fit-2 .bars-grid,
+#viewExercise.fit-3 .bars-grid {
+  gap: 0.34rem;
+}
+#viewExercise.fit-1 .bar-card {
+  min-height: 58px;
+  padding: 0.34rem 0.2rem;
+}
+#viewExercise.fit-1 .bar-roman,
+#viewExercise.fit-2 .bar-roman,
+#viewExercise.fit-3 .bar-roman {
+  font-size: 1.02rem;
+}
+#viewExercise.fit-1 .drone-mix-strip,
+#viewExercise.fit-2 .drone-mix-strip,
+#viewExercise.fit-3 .drone-mix-strip {
+  margin-top: 0.38rem;
+  padding-top: 0.34rem;
+  gap: 0.5rem;
+}
+#viewExercise.fit-1 .bottom-dock,
+#viewExercise.fit-2 .bottom-dock,
+#viewExercise.fit-3 .bottom-dock {
+  gap: 0.3rem;
+}
+#viewExercise.fit-1 .degrees-grid,
+#viewExercise.fit-1 .degree-row,
+#viewExercise.fit-2 .degrees-grid,
+#viewExercise.fit-2 .degree-row,
+#viewExercise.fit-3 .degrees-grid,
+#viewExercise.fit-3 .degree-row {
+  gap: 0.36rem;
+}
+#viewExercise.fit-1 .degree-btn,
+#viewExercise.fit-2 .degree-btn,
+#viewExercise.fit-3 .degree-btn {
+  width: calc((100% - (var(--max-cols, 4) - 1) * 0.36rem) / var(--max-cols, 4));
+}
+#viewExercise.fit-1 .degree-btn {
+  min-height: 58px;
+  padding: 0.38rem 0.26rem;
+}
+#viewExercise.fit-1 .degrees-grid.grid-intervals .degree-btn {
+  min-height: 50px;
+  padding: 0.3rem 0.2rem;
+}
+#viewExercise.fit-1 .notation-staff-svg {
+  max-height: 116px;
+}
+#viewExercise.fit-1 .notation-staff-svg.is-grand-staff {
+  max-height: 210px;
+}
+#viewExercise.fit-1 .piano-keyboard {
+  height: 150px;
+}
+#viewExercise.fit-1 .input-prompt,
+#viewExercise.fit-2 .input-prompt,
+#viewExercise.fit-3 .input-prompt {
+  font-size: 0.76rem;
+}
+
+/* Stufe 2: Kacheln und Tasten deutlich flacher */
+#viewExercise.fit-2 .bar-card,
+#viewExercise.fit-3 .bar-card {
+  min-height: 46px;
+  padding: 0.26rem 0.2rem;
+}
+#viewExercise.fit-2 .bar-tag,
+#viewExercise.fit-3 .bar-tag {
+  display: none;
+}
+#viewExercise.fit-2 .degree-btn {
+  min-height: 50px;
+  padding: 0.3rem 0.24rem;
+}
+#viewExercise.fit-2 .degrees-grid.grid-intervals .degree-btn {
+  min-height: 44px;
+  padding: 0.24rem 0.2rem;
+}
+#viewExercise.fit-2 .degree-roman,
+#viewExercise.fit-3 .degree-roman {
+  font-size: 1.12rem;
+}
+#viewExercise.fit-2 .degrees-grid.grid-intervals .degree-roman,
+#viewExercise.fit-3 .degrees-grid.grid-intervals .degree-roman {
+  font-size: 1rem;
+}
+#viewExercise.fit-2 .degree-label,
+#viewExercise.fit-3 .degree-label {
+  font-size: 0.66rem;
+  margin-top: 0.06rem;
+}
+#viewExercise.fit-2 .notation-staff-svg {
+  max-height: 100px;
+}
+#viewExercise.fit-2 .notation-staff-svg.is-grand-staff {
+  max-height: 180px;
+}
+#viewExercise.fit-2 .piano-keyboard {
+  height: 132px;
+}
+#viewExercise.fit-2 .tonic-ref-row,
+#viewExercise.fit-3 .tonic-ref-row {
+  margin: 0;
+}
+#viewExercise.fit-2 .tonic-btn,
+#viewExercise.fit-3 .tonic-btn {
+  padding: 0.2rem 0.62rem;
+}
+#viewExercise.fit-2 .input-header,
+#viewExercise.fit-3 .input-header {
+  padding: 0 0.18rem;
+}
+
+/* Stufe 3: letzte Reserve – Zusatzzeilen ausblenden, alles so flach wie noch gut tippbar */
+#viewExercise.fit-3 .bar-label {
+  display: none;
+}
+#viewExercise.fit-3 .degree-btn {
+  min-height: 44px;
+  padding: 0.22rem 0.2rem;
+}
+#viewExercise.fit-3 .degrees-grid.grid-intervals .degree-btn {
+  min-height: 40px;
+  padding: 0.18rem 0.18rem;
+}
+#viewExercise.fit-3 .degree-label {
+  font-size: 0.6rem;
+}
+#viewExercise.fit-3 .degree-step {
+  font-size: 0.62rem;
+}
+#viewExercise.fit-3 .notation-staff-svg {
+  max-height: 88px;
+}
+#viewExercise.fit-3 .notation-staff-svg.is-grand-staff {
+  max-height: 156px;
+}
+#viewExercise.fit-3 .piano-keyboard {
+  height: 116px;
+}
+#viewExercise.fit-3 .input-prompt {
+  font-size: 0.72rem;
+}
+
+/* Notenlesen: Titel & Stufen-Badge wiederholen nur die obere Leiste → bei Platzmangel ausblenden */
+#viewExercise.fit-2 #exerciseModuleCard.is-notation .module-title,
+#viewExercise.fit-3 #exerciseModuleCard.is-notation .module-title,
+#viewExercise.fit-2 #exerciseModuleCard.is-notation #targetBarBadge,
+#viewExercise.fit-3 #exerciseModuleCard.is-notation #targetBarBadge {
+  display: none;
+}
+#viewExercise.fit-2 #exerciseModuleCard.is-notation .module-header,
+#viewExercise.fit-3 #exerciseModuleCard.is-notation .module-header {
+  margin-bottom: 0.3rem;
+}
+#viewExercise.fit-2 #exerciseModuleCard.is-notation .module-header-left,
+#viewExercise.fit-3 #exerciseModuleCard.is-notation .module-header-left {
+  flex-direction: row;
+  align-items: center;
+}
+
+/* Mitsing-Einführung schwebt bei Platzmangel über der mittleren Bühne, statt alles zu verschieben */
+#viewExercise.sing-hint-float .sing-along-hint {
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  left: 0.3rem;
+  right: 0.3rem;
+  margin-top: 0;
+  z-index: 20;
+  box-shadow: 0 10px 28px rgba(31, 51, 66, 0.22), var(--shadow-card);
+}
+
+/* Vergleichs-Karte nach falscher Antwort bei Platzmangel kompakter */
+#viewExercise.fit-2 .feedback-card,
+#viewExercise.fit-3 .feedback-card {
+  padding: 0.36rem 0.6rem;
+}
+#viewExercise.fit-2 .feedback-text,
+#viewExercise.fit-3 .feedback-text {
+  font-size: 0.74rem;
+  line-height: 1.2;
+}
+#viewExercise.fit-2 .feedback-tools .btn-tool,
+#viewExercise.fit-3 .feedback-tools .btn-tool {
+  padding: 0.3rem 0.66rem;
+  font-size: 0.72rem;
+}
+
+/* Allerletzte Reserve (sollte praktisch nie greifen): lieber scrollen als Antworten abschneiden */
+#viewExercise.fit-overflow {
+  overflow-y: auto;
+}
