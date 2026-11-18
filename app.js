@@ -11202,29 +11202,29 @@ function getSingAlongShortPrompt(type) {
   const nums = state?.profile?.solfegeLabels === "numbers";
   const variants = {
     "interval-melodic": [
-      tr("🎤 Summ beide Töne nach – dann tippen.", "🎤 Hum both notes back — then tap."),
-      tr("🎤 Sing die Töne nach: Wie weit springt deine Stimme?", "🎤 Sing the notes back: how far does your voice jump?")
+      tr("Summ beide Töne nach – dann tippen.", "Hum both notes back — then tap."),
+      tr("Sing die Töne nach: Wie weit springt deine Stimme?", "Sing the notes back: how far does your voice jump?")
     ],
     "interval-melodic-down": [
-      tr("🎤 Sing beide Töne abwärts nach – dann tippen.", "🎤 Sing both notes back going down — then tap."),
-      tr("🎤 Summ den Abstieg nach: kleiner Schritt oder großer Sprung?", "🎤 Hum the descent: small step or big leap?")
+      tr("Sing beide Töne abwärts nach – dann tippen.", "Sing both notes back going down — then tap."),
+      tr("Summ den Abstieg nach: kleiner Schritt oder großer Sprung?", "Hum the descent: small step or big leap?")
     ],
     "interval-harmonic": [
-      tr("🎤 Summ erst den tiefen, dann den hohen Ton.", "🎤 Hum the low note first, then the high one."),
-      tr("🎤 Zerleg den Klang: unten summen, dann oben.", "🎤 Split the sound: hum the bottom, then the top.")
+      tr("Summ erst den tiefen, dann den hohen Ton.", "Hum the low note first, then the high one."),
+      tr("Zerleg den Klang: unten summen, dann oben.", "Split the sound: hum the bottom, then the top.")
     ],
     "interval-drone": [
-      tr("🎤 Summ den Grundton mit, dann den Klavierton.", "🎤 Hum the root, then the piano note."),
-      tr("🎤 Halte den Grundton mit der Stimme – wie weit liegt der Klavierton darüber?", "🎤 Hold the root with your voice — how far above is the piano note?")
+      tr("Summ den Grundton mit, dann den Klavierton.", "Hum the root, then the piano note."),
+      tr("Halte den Grundton mit der Stimme – wie weit liegt der Klavierton darüber?", "Hold the root with your voice — how far above is the piano note?")
     ],
     "solfege": nums
       ? [
-          tr("🎤 Sing den Ton mit seiner Stufenzahl (1, 2, 3 …).", "🎤 Sing the note with its degree number (1, 2, 3 …)."),
-          tr("🎤 Sing vom Ton zurück zur 1 – welche Stufe war’s?", "🎤 Sing from the note back to 1 — which degree was it?")
+          tr("Sing den Ton mit seiner Stufenzahl (1, 2, 3 …).", "Sing the note with its degree number (1, 2, 3 …)."),
+          tr("Sing vom Ton zurück zur 1 – welche Stufe war’s?", "Sing from the note back to 1 — which degree was it?")
         ]
       : [
-          tr("🎤 Sing den Ton mit seinem Namen (Do, Re, Mi …).", "🎤 Sing the note with its name (Do, Re, Mi …)."),
-          tr("🎤 Sing vom Ton zurück zum Do – welche Stufe war’s?", "🎤 Sing from the note back to Do — which degree was it?")
+          tr("Sing den Ton mit seinem Namen (Do, Re, Mi …).", "Sing the note with its name (Do, Re, Mi …)."),
+          tr("Sing vom Ton zurück zum Do – welche Stufe war’s?", "Sing from the note back to Do — which degree was it?")
         ]
   };
   const list = variants[type];
@@ -11334,7 +11334,7 @@ function startHumPause(ex) {
   setCentralStageMode("stage-awaiting");
   updateStageMascot("listening");
   document.getElementById("stageSubtext").textContent = tr("SUMM-PAUSE", "HUM PAUSE");
-  document.getElementById("stageMainText").textContent = tr("🎤 Jetzt summen…", "🎤 Hum it now…");
+  document.getElementById("stageMainText").textContent = tr("Jetzt summen…", "Hum it now…");
   document.getElementById("stageFunctionText").textContent = getSingAlongShortPrompt(ex.type) || "";
   document.body.classList.add("is-hum-pause");
   const bar = document.createElement("div");
