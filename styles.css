@@ -11350,3 +11350,43 @@ body.is-hum-pause #solfegeKeyboardWrap {
 .tuner-dropdown-host .multi-dropdown-trigger.is-open .multi-dropdown-caret {
   transform: rotate(0deg);
 }
+/* Kein Leerraum unter der Notenanzeige: Zeigerinstrument behält sein Seitenverhältnis
+   (schrumpft nur bei Platzmangel), das Spektrum füllt den restlichen Platz */
+#viewTuner .tuner-main-card {
+  justify-content: center;
+}
+#viewTuner .tuner-display {
+  flex: 0 1 auto;
+}
+#viewTuner .tuner-gauge {
+  flex: 0 1 auto;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 300 / 118;
+  min-height: 52px;
+  max-height: 150px;
+}
+#viewTuner .tuner-spectrum-wrap {
+  flex: 1 1 auto;
+  min-height: 52px;
+  max-height: 200px;
+  display: flex;
+}
+#viewTuner .tuner-spectrum {
+  flex: 1 1 auto;
+  height: auto;
+  min-height: 0;
+}
+@media (max-height: 600px) {
+  #viewTuner .tuner-spectrum-wrap {
+    min-height: 44px;
+  }
+  #viewTuner .tuner-spectrum {
+    height: auto;
+  }
+}
+/* Zeigerinstrument hat Vorrang; das Spektrum bekommt nur den verbleibenden Platz */
+#viewTuner .tuner-spectrum-wrap {
+  flex: 1 1 0;
+  max-height: 250px;
+}
