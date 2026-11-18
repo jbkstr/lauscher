@@ -6,15 +6,16 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 
 - **Vanilla JS, kein Framework, kein npm, kein Build-Schritt.** Alle Dateien sind klassische globale Skripte, die [index.html](index.html) per `<script>` in fester Reihenfolge lädt: `tone.js` → `samples/*-bundle.js` → `audio.js` → `i18n*.js` → `knowledge*.js` → `app.js`. Es gibt keine ES-Module und kein `import`/`export`, und alles teilt sich einen globalen Scope.
 - **Tone.js 14.8.49** liegt lokal in [tone.js](tone.js) (minifiziert, nicht bearbeiten). Externe CDNs oder Netzwerkaufrufe gibt es nicht, und das soll so bleiben.
-- **[app.js](app.js)** (~22.000 Zeilen) enthält die gesamte App-Logik. Datei nie komplett lesen, sondern gezielt mit `grep -n` suchen und nur die betroffenen Bereiche lesen. Grobe Gliederung:
+- **[app.js](app.js)** (~24.600 Zeilen) enthält die gesamte App-Logik. Datei nie komplett lesen, sondern gezielt mit `grep -n` suchen und nur die betroffenen Bereiche lesen. Grobe Gliederung:
   - Konstanten/Kataloge am Anfang (Themes, Profil, Mixer, Prüfungslevels, Metronom, Notation)
   - Übungs-Generatoren, `openCategoryPage`, `renderUI`, `handleAnswer`, `playSequence`
-  - `DOMContentLoaded`-Init etwa ab Zeile 15800
+  - `DOMContentLoaded`-Init etwa ab Zeile 18300
   - Einsing-Helfer (`// EINSING-HELFER`), Metronom (`// PRAXIS-METRONOM`), Prüfungsmodus (`// KATEGORIE-PRÜFUNGSMODUS`)
 - **[audio.js](audio.js)**: `AudioEngine`, `EarLabSampledInstrument`, Hall-Sends, Limiter, Pink-Noise-EQ, Percussion. Samples kommen aus `window.EARLAB_SAMPLE_PACKS`, das die Bundles befüllen. Fehlt ein Sample, springt ein Synth als Fallback ein.
 - **[styles.css](styles.css)**: Alle Themes laufen über CSS-Variablen und `data-theme` / `data-appearance` / `data-lang` auf `<html>`. RTL (Urdu) läuft über `dir="rtl"`.
 - **Schrift: Andika** (SIL Open Font License, [fonts/Andika/](fonts/Andika/)). Eingebunden per `@font-face` ganz oben in styles.css. Andika hat nur Regular und Bold: Stärke 100–549 nutzt Regular, 550–1000 Bold. Für Urdu bleibt die arabische Schrift-Kette (Andika hat keine arabischen Zeichen). Keine eigenen `font-family`-Werte (auch kein Monospace) setzen. Ausnahmen sind SVG-`<text>` mit `font-family`-Attribut und Canvas (`ctx.font`): Dort muss „Andika“ explizit genannt werden. index.html lädt die Fonts per `<link rel="preload">` vor; das Build-Skript entfernt diese Links im Bundle.
 - **Markenname „Lauscher“ wird immer fett und kursiv dargestellt.** Ein `MutationObserver` in app.js (`startBrandWordStyling`) umschließt jedes sichtbare „Lauscher“ automatisch mit `<span class="brand-word">`. In Texten und Übersetzungen deshalb **nie** von Hand formatieren. Wer Text-Knoten direkt manipuliert, muss `.brand-word`-Spans berücksichtigen (siehe `setElementLocalizedText` in i18n.js).
+- **Navigation:** untere Leiste `#bottomNav` mit 4 Reitern: Übungen (`home`) | Werkzeuge (`tools`, `#viewTools` mit Metronom, Tuner und Freiem Spiel; Tuner/Freies Spiel sind noch Vorschau-Ansichten `#viewTuner`/`#viewFreeplay`) | Wissen (`knowledge`, erster Reiter heißt „Theorie“) | Konto (`space`).
 - **Inline-Skript im `<head>` von index.html** setzt Theme, Sprache und `data-first-run` vor dem ersten Rendern. Kommen Themes oder Sprachen dazu, muss es mit angepasst werden.
 
 ## Layout-Regel: Übungen haben eine feste Höhe
@@ -22,6 +23,7 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 - **Die Übungsansicht (`#viewExercise`) scrollt nie**, vor allem nicht mobil. Untere Leiste (Abspielen usw.) und Antwortmöglichkeiten müssen immer sichtbar und nutzbar sein.
 - Aufbau: oberes Modul (`#exerciseModuleCard`) und Antwortbereich (`.bottom-dock`) behalten ihre Höhe; die **mittlere Bühne** (`.stage-wrapper`) nimmt nur den Restplatz und verdichtet sich per Container-Query (`@container exstage`) bis zur Querform bzw. reinen Textzeile.
 - Reicht das nicht, setzt `fitExerciseLayout()` in app.js stufenweise `.fit-1` … `.fit-3` auf `#viewExercise` (Regeln am Ende von styles.css). Ein `ResizeObserver` misst neu, wenn z. B. die Vergleichskarte erscheint; innerhalb einer Aufgabe wird nur weiter verdichtet, nie zurück. Die Mitsing-Einführung schwebt bei Platzmangel über der Bühne (`.sing-hint-float`).
+- Die Regel gilt nur für `#viewExercise`. Andere Ansichten (z. B. `#viewMetronome`) nutzen `.view-container` und dürfen scrollen – ihnen deshalb nicht die Klasse `.view-exercise-container` geben.
 - Neue Elemente in Übungen müssen in dieses System passen: bei neuen Blöcken im oberen Modul oder Antwortbereich auch `.fit-*`-Varianten ergänzen. Prüfen auf 375×667 und 360×640 mit allen Übungsarten und höchster Stufe (Messung: `view.scrollHeight <= view.clientHeight` und Bühne ≥ `EXERCISE_MIN_STAGE_PX`).
 
 ## Mehrsprachigkeit (de, en, fr, pl, uk, ur)
@@ -46,7 +48,7 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 
 ## Mobile-Bundle
 
-- [lauschebaer-mobile.html](lauschebaer-mobile.html) (~8,5 MB) ist eine Einzeldatei mit allen CSS-, JS- und Sample-Inhalten inline. Nur `tone.js` wird extern daneben geladen.
+- [lauschebaer-mobile.html](lauschebaer-mobile.html) (~12 MB) ist eine Einzeldatei mit allen CSS-, JS- und Sample-Inhalten inline. Nur `tone.js` wird extern daneben geladen.
 - Die Datei wird von [scripts/build-mobile-bundle.py](scripts/build-mobile-bundle.py) aus `index.html` erzeugt: `styles.css` und alle `<script src>` außer `tone.js` werden inline eingesetzt. Lokale Dateien, die im CSS per `url(...)` eingebunden sind (die Fonts), werden als Base64 eingebettet. Diese Datei nie direkt bearbeiten und nicht lesen (zu groß).
 - **Nach jeder Änderung an index.html, styles.css oder einer JS-Datei das Bundle neu bauen und mitcommitten:**
   ```bash
@@ -54,6 +56,13 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
   python3 scripts/build-mobile-bundle.py --check  # prüfen, ob aktuell (Exit-Code 1 = veraltet)
   ```
 - Kommt eine neue Skript- oder CSS-Datei hinzu, reicht es, sie in `index.html` einzubinden; das Skript übernimmt sie automatisch.
+
+## Android-App (Capacitor)
+
+- Die Android-App ist ein **separates Capacitor-Projekt außerhalb des Repos** (`~/Documents/lauscher-android`, App-ID `de.jbkstr.lauscher`). Es wird nicht hier gepflegt, sondern per [scripts/sync-android.sh](scripts/sync-android.sh) bzw. Doppelklick auf [Android-Studio-starten.command](Android-Studio-starten.command) befüllt: Syntax-Check, Bundle-Build, Kopie der Web-Dateien nach `www/`, `npx cap sync android`, Android Studio öffnen.
+- ⚠️ Das Skript kopiert eine **feste Dateiliste** (`RUNTIME_FILES`). Kommt eine neue JS-/CSS-Datei hinzu, muss sie dort zusätzlich zu `index.html` eingetragen werden.
+- In app.js: `initCapacitorNativeBridge()` fängt die Android-Zurück-Taste ab (`handleNativeBackButton`: Onboarding → Modal → Popover → Prüfungs-Abbruch → zurück navigieren → App beenden) und stoppt Audio, wenn die App in den Hintergrund geht. **Neue Popovers** in `hasOpenTransientPopover()` eintragen, damit „Zurück“ sie schließt. Ohne Capacitor (Browser) ist die Brücke inaktiv.
+- Safe-Areas: `viewport-fit=cover` in index.html, Abstände über `env(safe-area-inset-*)` bzw. `--safe-area-inset-*` (z. B. `.app-shell`). Neue randnahe Vollbild-Elemente ebenso absichern.
 
 ## Lokal starten & testen
 
