@@ -12524,6 +12524,9 @@ function shouldAnimateJuice() {
   return true;
 }
 
+// Gesamtgröße der Erfolgs-Animation (Symbolgröße & Flugweite), 1 = ursprüngliche Presets
+const JUICE_BURST_SCALE = 1.2;
+
 function spawnJuiceBurst(hostEl, options = {}) {
   bindGlobalPointerInputTracker();
   if (!hostEl || typeof hostEl.appendChild !== "function" || typeof document?.createElement !== "function") return;
@@ -12549,11 +12552,11 @@ function spawnJuiceBurst(hostEl, options = {}) {
     p.setAttribute("aria-hidden", "true");
     p.style.setProperty("--jx0", originX);
     p.style.setProperty("--jy0", originY);
-    p.style.setProperty("--jx", `${spec.x}px`);
-    p.style.setProperty("--jy", `${spec.y}px`);
+    p.style.setProperty("--jx", `${Math.round(spec.x * JUICE_BURST_SCALE)}px`);
+    p.style.setProperty("--jy", `${Math.round(spec.y * JUICE_BURST_SCALE)}px`);
     p.style.setProperty("--jr", `${spec.rot}deg`);
     p.style.setProperty("--jdelay", `${spec.delay}ms`);
-    p.style.setProperty("--jsize", `${spec.size}px`);
+    p.style.setProperty("--jsize", `${Math.round(spec.size * JUICE_BURST_SCALE)}px`);
     p.style.color = color;
     p.addEventListener?.("animationend", () => {
       if (typeof p.remove === "function") p.remove();
