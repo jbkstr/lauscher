@@ -5336,7 +5336,12 @@ function navigateBackFromUI() {
     closeActiveModal();
     return;
   }
+  const examBanner = document.getElementById("examAbortConfirmBanner");
   if (state.currentView === "exercise" && state.exam?.active) {
+    if (examBanner && !examBanner.classList.contains("hidden")) {
+      cancelExamAbort();
+      return;
+    }
     requestExamAbort();
     return;
   }
@@ -5365,6 +5370,96 @@ function navigateBackFromUI() {
   } else {
     switchView("home", { skipHistoryPush: true });
   }
+}
+
+function hasOpenTransientPopover() {
+  return [
+    "masterVolPopover",
+    "inlineBpmPopover",
+    "inlineKeyPopover",
+    "inlineNotationKeyPopover",
+    "inlineNotationPacePopover",
+    "inlineTimeSigPopover",
+    "warmupVoicePopover",
+    "warmupSoundPopover",
+    "warmupBpmPopover"
+  ].some(id => {
+    const el = document.getElementById(id);
+    return Boolean(el && !el.classList.contains("hidden") && !el.classList.contains("is-pinned"));
+  });
+}
+
+function handleNativeBackButton() {
+  const welcome = document.getElementById("welcomeOnboarding");
+  if (welcome && !welcome.classList.contains("hidden")) {
+    if (_welcomeOnboardingState.currentStep > 0) {
+      goToWelcomeStep(_welcomeOnboardingState.currentStep - 1);
+      return true;
+    }
+    const capApp = typeof window !== "undefined" ? window.Capacitor?.Plugins?.App : null;
+    if (capApp && typeof capApp.exitApp === "function") {
+      capApp.exitApp();
+      return true;
+    }
+    return false;
+  }
+
+  if (getOpenModalName()) {
+    closeActiveModal();
+    return true;
+  }
+
+  if (hasOpenTransientPopover()) {
+    closeTransientPopovers();
+    return true;
+  }
+
+  const examBanner = document.getElementById("examAbortConfirmBanner");
+  if (examBanner && !examBanner.classList.contains("hidden")) {
+    cancelExamAbort();
+    return true;
+  }
+
+  if (state.currentView !== "home") {
+    navigateBackFromUI();
+    return true;
+  }
+
+  const capApp = typeof window !== "undefined" ? window.Capacitor?.Plugins?.App : null;
+  if (capApp && typeof capApp.exitApp === "function") {
+    capApp.exitApp();
+    return true;
+  }
+  return false;
+}
+
+function initCapacitorNativeBridge() {
+  const capApp = typeof window !== "undefined" ? window.Capacitor?.Plugins?.App : null;
+  if (!capApp || typeof capApp.addListener !== "function") return;
+  if (initCapacitorNativeBridge._bound) return;
+  initCapacitorNativeBridge._bound = true;
+
+  // Android Hardware-Zurück-Button & System-Zurück-Wischgeste über @capacitor/app abfangen
+  capApp.addListener("backButton", () => {
+    handleNativeBackButton();
+  });
+
+  // Laufende Audio-Sessions beim Wechseln der App pausieren/stoppen
+  capApp.addListener("appStateChange", ({ isActive } = {}) => {
+    if (isActive === false) {
+      stopPlayback();
+      if (typeof stopMetronome === "function") stopMetronome();
+      if (typeof pauseWarmupSession === "function") pauseWarmupSession({ keepPlayback: false });
+      if (typeof stopTunerSession === "function") stopTunerSession();
+      if (typeof stopFreeplaySession === "function") stopFreeplaySession();
+      stopBreakReminderTicker();
+    } else if (isActive === true && state?.currentView === "exercise") {
+      if (state.breakReminder?.pausedOnBreak === false && state.profile?.breakReminderEnabled) {
+        state.breakReminder.lastActivityWallMs = Date.now();
+        startBreakReminderTicker();
+      }
+    }
+  });
 }
 
 const MAIN_TAB_ORDER = ["home", "tools", "knowledge", "space"];
@@ -19467,6 +19562,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("touchstart", onFirstAudioGesture, true);
   document.addEventListener("keydown", onFirstAudioGesture, true);
   initTabSwipeNavigation();
+  initCapacitorNativeBridge();
   applyThemeAndAppearance();
   syncAutoNextControls();
   syncPianoSoundControls();
