@@ -5223,6 +5223,7 @@ function closeTransientPopovers() {
     document.getElementById(popId)?.classList.add("hidden");
     document.getElementById(btnId)?.classList.remove("chip-open");
   });
+  if (typeof closeTunerDropdowns === "function") closeTunerDropdowns();
 }
 
 function captureHistorySnapshot(modalName = getOpenModalName()) {
@@ -5401,7 +5402,7 @@ function hasOpenTransientPopover() {
   ].some(id => {
     const el = document.getElementById(id);
     return Boolean(el && !el.classList.contains("hidden") && !el.classList.contains("is-pinned"));
-  });
+  }) || Boolean(typeof _tuner !== "undefined" && _tuner.openDropdown);
 }
 
 function handleNativeBackButton() {
@@ -21854,7 +21855,7 @@ const _tuner = {
   timeBuf: null, freqBuf: null, work: null, nsdf: null,
   history: [], smoothCents: null, displayMidi: null, lastFreq: 0, lastClarity: 0,
   lastPitchAt: 0, inTuneSince: 0, inTune: false, tunedStrings: new Set(),
-  refUntil: 0, refNodes: null, wakeLock: null, colors: null, gaugeBuilt: false
+  refUntil: 0, refNodes: null, wakeLock: null, colors: null, gaugeBuilt: false, openDropdown: null
 };
 
 /**
@@ -22190,25 +22191,102 @@ function renderTunerStrings() {
   }).join("");
 }
 
+// Einfachauswahl im Stil der Konto-Auswahl „Deine Instrumente / Rollen“ (Klassen .multi-dropdown-*)
+function renderTunerDropdown(host, { key, ariaLabel, options, selectedKey, onSelect }) {
+  if (!host) return;
+  const isOpen = _tuner.openDropdown === key;
+  const selected = options.find(o => o.key === selectedKey) || options[0];
+  const optionsHtml = options.map(opt => {
+    const isSel = opt.key === selected?.key;
+    const hint = opt.hint ? `<span class="multi-dropdown-opt-hint">${escapeHtml(opt.hint)}</span>` : "";
+    return `<button type="button" class="multi-dropdown-option${isSel ? " is-selected" : ""}" role="option" aria-selected="${isSel}" data-tuner-option="${escapeHtml(opt.key)}">
+        <span class="multi-dropdown-check" aria-hidden="true">${isSel ? "✓" : ""}</span>
+        <span class="multi-dropdown-opt-text"><span>${escapeHtml(opt.label)}</span>${hint}</span>
+      </button>`;
+  }).join("");
+  host.innerHTML = `<div class="multi-dropdown-wrap">
+      <button type="button" class="account-select multi-dropdown-trigger${isOpen ? " is-open" : ""}" aria-haspopup="listbox" aria-expanded="${isOpen}" aria-label="${escapeHtml(ariaLabel)}" data-tuner-trigger="${key}">
+        <span class="multi-dropdown-summary">${escapeHtml(selected ? selected.label : "")}</span>
+        <span class="multi-dropdown-meta">${selected?.badge ? `<span class="tuner-dropdown-badge">${escapeHtml(selected.badge)}</span>` : ""}${buildDropdownChevronSVG()}</span>
+      </button>
+      <div class="multi-dropdown-menu${isOpen ? "" : " hidden"}" role="listbox" aria-label="${escapeHtml(ariaLabel)}">${optionsHtml}</div>
+    </div>`;
+  host.querySelector("[data-tuner-trigger]")?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    _tuner.openDropdown = isOpen ? null : key;
+    syncTunerSetupUI();
+  });
+  host.querySelectorAll("[data-tuner-option]").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      _tuner.openDropdown = null;
+      onSelect(btn.dataset.tunerOption);
+    });
+  });
+  if (isOpen) {
+    host.querySelector(".multi-dropdown-option.is-selected")?.scrollIntoView?.({ block: "nearest" });
+  }
+}
+
+function closeTunerDropdowns() {
+  if (typeof _tuner === "undefined" || !_tuner.openDropdown) return false;
+  _tuner.openDropdown = null;
+  syncTunerSetupUI();
+  return true;
+}
+
+function selectTunerInstrument(instrument) {
+  const tunings = TUNER_INSTRUMENTS[instrument]?.tunings;
+  if (!TUNER_INSTRUMENTS[instrument]) return;
+  _tuner.tunedStrings.clear();
+  const firstTuning = tunings ? Object.keys(tunings)[0] : "";
+  const firstNote = tunings ? tunerNoteToMidi(tunings[firstTuning].notes[0]) : getTunerPrefs().targetMidi;
+  setTunerPrefs({ instrument, tuning: firstTuning, targetMidi: firstNote });
+  syncTunerSetupUI();
+}
+
+function selectTunerTuning(tuningKey) {
+  const prefs = getTunerPrefs();
+  const tuning = TUNER_INSTRUMENTS[prefs.instrument].tunings?.[tuningKey];
+  if (!tuning) return;
+  _tuner.tunedStrings.clear();
+  setTunerPrefs({ tuning: tuningKey, targetMidi: tunerNoteToMidi(tuning.notes[0]) });
+  syncTunerSetupUI();
+}
+
 function syncTunerSetupUI() {
   const prefs = getTunerPrefs();
-  const instSel = document.getElementById("tunerInstrumentSelect");
-  const tunSel = document.getElementById("tunerTuningSelect");
-  const tunField = document.getElementById("tunerTuningField");
-  if (instSel) {
-    instSel.innerHTML = Object.entries(TUNER_INSTRUMENTS)
-      .map(([key, def]) => `<option value="${key}"${key === prefs.instrument ? " selected" : ""}>${escapeHtml(tr(def.de, def.en))}</option>`)
-      .join("");
-  }
   const tunings = TUNER_INSTRUMENTS[prefs.instrument].tunings;
-  tunField?.classList.toggle("hidden", !tunings || Object.keys(tunings).length < 2);
-  if (tunSel) {
-    tunSel.innerHTML = tunings
-      ? Object.entries(tunings).map(([key, def]) => {
-          const notes = def.notes.map(n => formatTunerNote(tunerNoteToMidi(n), def.flat).name).join(" ");
-          return `<option value="${key}"${key === prefs.tuning ? " selected" : ""}>${escapeHtml(`${tr(def.de, def.en)} (${notes})`)}</option>`;
-        }).join("")
-      : "";
+  const tunField = document.getElementById("tunerTuningField");
+  const tuningNotes = (def) => def.notes.map(n => formatTunerNote(tunerNoteToMidi(n), def.flat).name).join(" ");
+
+  renderTunerDropdown(document.getElementById("tunerInstrumentHost"), {
+    key: "instrument",
+    ariaLabel: tr("Instrument", "Instrument"),
+    selectedKey: prefs.instrument,
+    options: Object.entries(TUNER_INSTRUMENTS).map(([key, def]) => {
+      const first = def.tunings ? Object.values(def.tunings)[0] : null;
+      return {
+        key,
+        label: tr(def.de, def.en),
+        hint: first ? tuningNotes(first) : (key === "voice" ? tr("Alle Töne, ruhige Anzeige", "All notes, calm display") : tr("Alle Töne", "All notes"))
+      };
+    }),
+    onSelect: selectTunerInstrument
+  });
+
+  const hasTuningChoice = Boolean(tunings) && Object.keys(tunings).length > 1;
+  tunField?.classList.toggle("hidden", !hasTuningChoice);
+  if (hasTuningChoice) {
+    renderTunerDropdown(tunField, {
+      key: "tuning",
+      ariaLabel: tr("Stimmung", "Tuning"),
+      selectedKey: prefs.tuning,
+      options: Object.entries(tunings).map(([key, def]) => ({ key, label: tr(def.de, def.en), hint: tuningNotes(def) })),
+      onSelect: selectTunerTuning
+    });
+  } else if (tunField) {
+    tunField.innerHTML = "";
   }
   document.querySelectorAll("[data-tuner-mode]").forEach(btn => {
     const on = btn.dataset.tunerMode === prefs.mode;
@@ -22313,6 +22391,7 @@ function releaseTunerMicStream() {
 }
 
 function stopTunerSession() {
+  _tuner.openDropdown = null;
   if (_tuner.rafId) cancelAnimationFrame(_tuner.rafId);
   _tuner.rafId = 0;
   const wasRunning = _tuner.running;
@@ -22572,21 +22651,14 @@ function bindTunerControls() {
     if (_tuner.running) stopTunerSession();
     else startTunerSession();
   });
-  document.getElementById("tunerInstrumentSelect")?.addEventListener("change", (e) => {
-    const instrument = e.target.value;
-    const tunings = TUNER_INSTRUMENTS[instrument]?.tunings;
-    _tuner.tunedStrings.clear();
-    const firstTuning = tunings ? Object.keys(tunings)[0] : "";
-    const firstNote = tunings ? tunerNoteToMidi(tunings[firstTuning].notes[0]) : getTunerPrefs().targetMidi;
-    setTunerPrefs({ instrument, tuning: firstTuning, targetMidi: firstNote });
-    syncTunerSetupUI();
+  // Auswahllisten schließen bei Klick daneben oder Escape
+  document.addEventListener("click", (e) => {
+    if (!_tuner.openDropdown) return;
+    if (e.target?.closest?.("[data-tuner-dropdown]")) return;
+    closeTunerDropdowns();
   });
-  document.getElementById("tunerTuningSelect")?.addEventListener("change", (e) => {
-    _tuner.tunedStrings.clear();
-    const prefs = getTunerPrefs();
-    const tuning = TUNER_INSTRUMENTS[prefs.instrument].tunings?.[e.target.value];
-    setTunerPrefs({ tuning: e.target.value, targetMidi: tuning ? tunerNoteToMidi(tuning.notes[0]) : prefs.targetMidi });
-    syncTunerSetupUI();
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && _tuner.openDropdown) closeTunerDropdowns();
   });
   document.querySelectorAll("[data-tuner-mode]").forEach(btn => {
     btn.addEventListener("click", () => {

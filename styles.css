@@ -11307,3 +11307,46 @@ body.is-hum-pause #solfegeKeyboardWrap {
   padding-left: 0.2rem;
   padding-right: 0.2rem;
 }
+
+/* Tuner: Instrument- & Stimmungsauswahl im Stil der Konto-Auswahl; Liste klappt nach oben auf
+   (die Einstellungskarte liegt unten, die Ansicht hat eine feste Höhe) */
+.tuner-dropdown-host {
+  position: relative;
+  min-width: 0;
+}
+.tuner-dropdown-host.hidden {
+  display: none;
+}
+.tuner-dropdown-host .multi-dropdown-trigger {
+  min-height: 40px;
+  padding: 0.44rem 0.62rem;
+  background-color: var(--surface-white);
+}
+.tuner-dropdown-host .multi-dropdown-summary {
+  font-size: 0.84rem;
+}
+.tuner-dropdown-host .multi-dropdown-menu {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  inset-inline-start: 0;
+  min-width: max(100%, 210px);
+  margin-top: 0;
+  max-height: min(330px, 56vh);
+  z-index: 40;
+}
+.tuner-dropdown-host.is-end .multi-dropdown-menu {
+  inset-inline-start: auto;
+  inset-inline-end: 0;
+}
+.tuner-dropdown-host .multi-dropdown-check {
+  border-radius: 50%;
+}
+.tuner-dropdown-host .multi-dropdown-trigger.is-open .multi-dropdown-caret {
+  transform: none;
+}
+.tuner-dropdown-host .multi-dropdown-caret {
+  transform: rotate(180deg);
+}
+.tuner-dropdown-host .multi-dropdown-trigger.is-open .multi-dropdown-caret {
+  transform: rotate(0deg);
+}

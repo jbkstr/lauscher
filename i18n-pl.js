@@ -117,8 +117,6 @@ const I18N_STATIC_PL = {
   "tools.previewBadge": "Wkrótce dostępne",
   "tools.tunerPageTitle": "Stroik chromatyczny",
   "tools.tunerPageDesc": "Wykrywanie wysokości dźwięku na żywo i ton wzorcowy przez mikrofon urządzenia.",
-  "tuner.instrumentLabel": "Instrument",
-  "tuner.tuningLabel": "Strój",
   "tuner.modeAuto": "Automatycznie",
   "tuner.modeSingle": "Pojedynczy dźwięk",
   "tuner.modeAria": "Rozpoznawanie",
@@ -1865,6 +1863,10 @@ Object.assign(TR_PL, {
 });
 
 Object.assign(TR_PL, {
+  "Instrument": "Instrument",
+  "Stimmung": "Strój",
+  "Alle Töne, ruhige Anzeige": "Wszystkie dźwięki, spokojny wskaźnik",
+  "Alle Töne": "Wszystkie dźwięki",
   "Melodie im Notensystem": "Melodia na pięciolinii",
   "Automatisch": "Automatycznie",
   "Tuner stoppen": "Zatrzymaj stroik",

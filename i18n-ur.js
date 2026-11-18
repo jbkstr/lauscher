@@ -117,8 +117,6 @@ const I18N_STATIC_UR = {
   "tools.previewBadge": "جلد دستیاب",
   "tools.tunerPageTitle": "کرومیٹک ٹیونر",
   "tools.tunerPageDesc": "آپ کے آلے کے مائیکروفون کے ذریعے براہِ راست سُر کی شناخت اور حوالہ جاتی سُر۔",
-  "tuner.instrumentLabel": "ساز",
-  "tuner.tuningLabel": "ٹیوننگ",
   "tuner.modeAuto": "خودکار",
   "tuner.modeSingle": "ایک سُر",
   "tuner.modeAria": "شناخت",
@@ -2071,6 +2069,10 @@ const TR_UR = Object.assign(Object.create(null), {
 
 // Notenlesen (Akkorde/Doppelsystem), Rhythmus vom Blatt, Modi-Fläche, Moll-Kadenzen, Mitsing-Einladung, Header-Titel, Intervalle über Grundton-Fläche (Root Pad) & Notations-Hinweis
 Object.assign(TR_UR, {
+  "Instrument": "ساز",
+  "Stimmung": "ٹیوننگ",
+  "Alle Töne, ruhige Anzeige": "تمام سُر، پُرسکون ڈسپلے",
+  "Alle Töne": "تمام سُر",
   "Melodie im Notensystem": "اسٹاف پر دُھن",
   "Automatisch": "خودکار",
   "Tuner stoppen": "ٹیونر روکیں",

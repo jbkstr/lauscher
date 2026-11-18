@@ -411,8 +411,6 @@ const I18N_STATIC = {
   "tools.previewBadge": { de: "Bald verfügbar", en: "Coming soon" },
   "tools.tunerPageTitle": { de: "Chromatischer Tuner", en: "Chromatic Tuner" },
   "tools.tunerPageDesc": { de: "Live-Tonhöhenerkennung und Kammerton-Referenz direkt über das Mikrofon deines Geräts.", en: "Live pitch detection and tuning reference directly via your device microphone." },
-  "tuner.instrumentLabel": { de: "Instrument", en: "Instrument" },
-  "tuner.tuningLabel": { de: "Stimmung", en: "Tuning" },
   "tuner.modeAuto": { de: "Automatisch", en: "Automatic" },
   "tuner.modeSingle": { de: "Einzelton", en: "Single note" },
   "tuner.modeAria": { de: "Erkennung", en: "Detection" },
