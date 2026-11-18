@@ -2769,26 +2769,76 @@ html, body {
   border: 1.5px solid var(--lilac);
   border-radius: var(--radius-md);
   padding: 0.52rem 0.8rem;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .feedback-content {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  gap: 0.55rem;
+  gap: 0.44rem 0.65rem;
 }
 
 .feedback-text {
+  flex: 1 1 200px;
+  min-width: 0;
   font-size: 0.82rem;
   font-weight: 600;
   color: var(--raccoon-dark);
-  line-height: 1.25;
+  line-height: 1.28;
+  overflow-wrap: break-word;
 }
 
 .feedback-tools {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.4rem;
-  flex-shrink: 0;
+  flex: 0 1 auto;
+  max-width: 100%;
+  min-width: 0;
+  justify-content: flex-end;
+}
+
+.feedback-tools .btn-tool {
+  align-self: stretch;
+  max-width: 100%;
+  white-space: normal;
+  text-align: center;
+  line-height: 1.18;
+}
+
+@media (max-width: 540px) {
+  .feedback-card {
+    padding: 0.48rem 0.66rem;
+  }
+
+  .feedback-content {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.38rem;
+  }
+
+  .feedback-text {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  .feedback-tools {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .feedback-tools .btn-tool {
+    flex: 1 1 calc(50% - 0.2rem);
+    min-width: 112px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 32px;
+    padding: 0.36rem 0.56rem;
+  }
 }
 
 .btn-tool {
@@ -10586,7 +10636,11 @@ body.is-hum-pause #solfegeKeyboardWrap {
 /* Vergleichs-Karte nach falscher Antwort bei Platzmangel kompakter */
 #viewExercise.fit-2 .feedback-card,
 #viewExercise.fit-3 .feedback-card {
-  padding: 0.36rem 0.6rem;
+  padding: 0.34rem 0.54rem;
+}
+#viewExercise.fit-2 .feedback-content,
+#viewExercise.fit-3 .feedback-content {
+  gap: 0.28rem 0.45rem;
 }
 #viewExercise.fit-2 .feedback-text,
 #viewExercise.fit-3 .feedback-text {
@@ -10595,7 +10649,8 @@ body.is-hum-pause #solfegeKeyboardWrap {
 }
 #viewExercise.fit-2 .feedback-tools .btn-tool,
 #viewExercise.fit-3 .feedback-tools .btn-tool {
-  padding: 0.3rem 0.66rem;
+  min-height: 28px;
+  padding: 0.26rem 0.5rem;
   font-size: 0.72rem;
 }
 
@@ -64302,6 +64357,40 @@ function getChordArpeggioPromptTiming(noteCount, bpm = state.activeBpm) {
   return { stepMs, noteDurSec, lastNoteDurSec, cycleMs };
 }
 
+/** Liefert die kontextabhängige Beschriftung des zweiten Diagnose-Buttons bei Fehlern. */
+function getDiagBassButtonLabel(ex) {
+  const type = ex?.type || "";
+  if (type.startsWith("rhythm-")) return tr("Puls / Eins hören", "Hear Pulse / One");
+  if (type === "prod-eq-noise") return tr("Flat → Ziel-EQ", "Flat → Target EQ");
+  if (type === "prod-tone") return tr("Ref: 1 kHz", "Ref: 1 kHz");
+  if (type.startsWith("modes-")) return tr("Anker-Quinte", "Anchor Fifth");
+  if (type === "chord-inversions") return tr("Basston hören", "Hear Bass Note");
+  if (type === "interval-drone") return tr("Fläche hören", "Hear Root Pad");
+  return tr("Bass / Grundton", "Bass / Root");
+}
+
+/** Aktualisiert Text, Werkzeug-Button, Sichtbarkeit und Fit-Layout der „Gewählt“-Feedbackkarte. */
+function renderWrongChoiceFeedbackCard(ex, chosenDef, fallbackKey = "?", showCard = true) {
+  const diagBassBtn = document.getElementById("btnDiagBass");
+  if (diagBassBtn) {
+    diagBassBtn.textContent = getDiagBassButtonLabel(ex);
+  }
+  const fbText = document.getElementById("feedbackText");
+  if (fbText && chosenDef) {
+    fbText.textContent = tf("Gewählt: {sym} ({lbl}).", "Selected: {sym} ({lbl}).", {
+      sym: chosenDef.roman || chosenDef.symbol || fallbackKey,
+      lbl: chosenDef.label || fallbackKey
+    });
+  }
+  const fb = document.getElementById("feedbackContainer");
+  if (fb && showCard) {
+    fb.classList.remove("hidden");
+  }
+  if (typeof fitExerciseLayout === "function") {
+    fitExerciseLayout(false);
+  }
+}
+
 function handleAnswer(selectedKey, btnElement, options = {}) {
   const ex = state.currentExercise;
   if (!ex) return;
@@ -64491,27 +64580,7 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
               ? tr("Vergleiche beide Modi über demselben Grundton:", "Compare both modes over the same root:")
               : tr("Hör dir beide Klänge direkt nacheinander an:", "Hear both sounds back-to-back:")));
 
-    const diagBassBtn = document.getElementById("btnDiagBass");
-    if (diagBassBtn) {
-      diagBassBtn.textContent = isRhythmWrong
-        ? tr("Puls / Eins hören", "Hear Pulse / One")
-        : (ex.type === "prod-eq-noise"
-            ? tr("Flat → Ziel-EQ", "Flat → Target EQ")
-            : (ex.type === "prod-tone"
-                ? tr("Ref: 1 kHz", "Ref: 1 kHz")
-                : (isModesWrong
-                    ? tr("Anker-Quinte", "Anchor Fifth")
-                    : (ex.type === "chord-inversions"
-                        ? tr("Basston hören", "Hear Bass Note")
-                        : (ex.type === "interval-drone"
-                            ? tr("Fläche hören", "Hear Root Pad")
-                            : tr("Bass / Grundton", "Bass / Root"))))));
-    }
-
-    const fb = document.getElementById("feedbackContainer");
-    fb.classList.remove("hidden");
-    document.getElementById("feedbackText").textContent =
-      tf("Gewählt: {sym} ({lbl}).", "Selected: {sym} ({lbl}).", { sym: chosenDef.roman || chosenDef.symbol, lbl: chosenDef.label });
+    renderWrongChoiceFeedbackCard(ex, chosenDef, selectedKey, true);
   }
 }
 
@@ -67616,13 +67685,7 @@ function applyProfileDisplayChanges() {
       }
       if (state.lastAnswerWasWrong && state.wrongAnswerData?.chosen) {
         const chosenDef = state.wrongAnswerData.chosen;
-        const fbText = document.getElementById("feedbackText");
-        if (fbText) {
-          fbText.textContent = tf("Gewählt: {sym} ({lbl}).", "Selected: {sym} ({lbl}).", {
-            sym: chosenDef.roman || chosenDef.symbol,
-            lbl: chosenDef.label
-          });
-        }
+        renderWrongChoiceFeedbackCard(ex, chosenDef, chosenDef.key || "?", false);
       }
       state.profileDisplayDirty = false;
     }
@@ -73639,29 +73702,7 @@ function handleExamChoiceAnswer(ex, selectedKey, btnElement) {
   });
 
   if (!isCorrect) {
-    const fb = document.getElementById("feedbackContainer");
-    const isRhythmWrong = ex.type.startsWith("rhythm-");
-    const isModesWrong = ex.type.startsWith("modes-");
-    const diagBassBtn = document.getElementById("btnDiagBass");
-    if (diagBassBtn) {
-      diagBassBtn.textContent = isRhythmWrong
-        ? tr("Puls / Eins hören", "Hear Pulse / One")
-        : (ex.type === "prod-eq-noise"
-            ? tr("Flat → Ziel-EQ", "Flat → Target EQ")
-            : (ex.type === "prod-tone"
-                ? tr("Ref: 1 kHz", "Ref: 1 kHz")
-                : (isModesWrong
-                    ? tr("Anker-Quinte", "Anchor Fifth")
-                    : (ex.type === "chord-inversions" ? tr("Basston hören", "Hear Bass Note") : tr("Bass / Grundton", "Bass / Root")))));
-    }
-    if (fb) {
-      fb.classList.remove("hidden");
-      document.getElementById("feedbackText").textContent = tf(
-        "Gewählt: {sym} ({lbl}).",
-        "Selected: {sym} ({lbl}).",
-        { sym: chosenDef?.roman || chosenDef?.symbol || selectedKey, lbl: chosenDef?.label || selectedKey }
-      );
-    }
+    renderWrongChoiceFeedbackCard(ex, chosenDef, selectedKey, true);
   }
 
   showExamPostAnswerNextBar();
