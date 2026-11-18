@@ -79,7 +79,8 @@ const LAUSCHEBAER_QUOTES = [
   { cat: "Tipp", text: "„Festes Tempo gesucht? Im Reiter ‚Werkzeuge‘ wartet das Metronom mit Unterteilungen, Shuffle, Gap-Klick, speicherbaren Profilen und vier Klick-Sounds (Standard, Woodblock, Cowbell & Rimshot)!“" },
   { cat: "Tipp", text: "„Beim ‚Akkorde lesen‘ im Notenbereich erkennst du gestapelte Akkorde direkt als Kacheln – von Dur und Moll bis zu E7, Esus4 und ihren Umkehrungen!“" },
   { cat: "Wusstest du?", text: "„Was unterscheidet eine reine Sinuskurve vom warmen Klavier? Im Modul ‚Physik & Klang‘ hörst und siehst du im Frequenzspektrum, wie Obertöne jede Klangfarbe prägen!“" },
-  { cat: "Tipp", text: "„Zeigst du bei bestimmten Tönen, Intervallen oder Akkorden noch Unsicherheiten, merkt sich Lauscher das im Hintergrund und fragt sie ganz von selbst gezielt wieder ab, bis sie sicher sitzen!“" }
+  { cat: "Tipp", text: "„Zeigst du bei bestimmten Tönen, Intervallen oder Akkorden noch Unsicherheiten, merkt sich Lauscher das im Hintergrund und fragt sie ganz von selbst gezielt wieder ab, bis sie sicher sitzen!“" },
+  { cat: "Mutmacher", text: "„Spürst du beim Hören deiner Lieblingsmusik schon einen Unterschied – wie du Bassläufe, Akkordfarben oder kleine Intervalle plötzlich viel bewusster wahrnimmst?“" }
 ];
 
 function getMascotAssetUri(mood = "idle") {
@@ -6489,7 +6490,12 @@ function openKnowledgeArticle(articleId, options = {}) {
   const articles = getLocalizedKnowledgeArticles();
   const art = articles.find(a => a.id === articleId);
   const container = document.getElementById("knowledgeDetailContent");
-  if (!art || !container) return;
+  if (!art || !container) {
+    if (options.refreshOnly && state.currentView === "knowledge-detail") {
+      switchView("knowledge");
+    }
+    return;
+  }
 
   state.activeKnowledgeDetail = { kind: "article", id: articleId };
   state.knowledgeTitle = art.tag;
@@ -25279,7 +25285,7 @@ function renderExamResultView() {
     <section class="exam-result-actions">
       ${hasImprovableWeakest ? `
         <button id="examPracticeWeakestBtn" type="button" class="btn-primary-action">
-          ${escapeHtml(tf("🎯 Schwächstes Modul üben: {mod}", "🎯 Practice Weakest: {mod}", { mod: getLocalizedExamModeName(weakest.mode) }))}
+          ${escapeHtml(tf("Schwächstes Modul üben: {mod}", "Practice Weakest: {mod}", { mod: getLocalizedExamModeName(weakest.mode) }))}
         </button>
       ` : ""}
       <div class="exam-result-actions-row">

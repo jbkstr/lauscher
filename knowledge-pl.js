@@ -1347,6 +1347,162 @@ const KNOWLEDGE_ARTICLES_PL = [
         </div>
       </div>
     `
+  },
+  {
+    id: "art-mnemonics",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1.1 2h5.8c.1-.8.5-1.5 1.1-2A7 7 0 0 0 12 2z"/></svg>`,
+    badgeClass: "badge-peach",
+    title: "Muzyczne mnemotechniki i wierszyki",
+    subtitle: "Najlepsze polskie wierszyki do koła kwintowego, kluczy, strun, interwałów i rytmu",
+    tag: "Wierszyki & Praktyka",
+    render: () => `
+      <div class="article-body">
+        <span class="k-card-tag tag-peach">Wierszyki &amp; Praktyka</span>
+        <h2>Muzyczne mnemotechniki: wiedza, która od razu zostaje w głowie</h2>
+        <p class="article-lead">
+          Dlaczego zabawne zdanie o czarnym gawronie albo hrabinie zapamiętujemy w dziesięć sekund, a suchy ciąg liter ulatuje po pięciu minutach? Nasz mózg uwielbia <strong>obrazy, rymy, historie i rytm</strong>. Oto najpopularniejsze mnemotechniki używane w polskiej edukacji muzycznej.
+        </p>
+
+        <h3>1. Koło kwintowe oraz kolejność krzyżyków i bemoli</h3>
+        <p>
+          W polskich szkołach muzycznych tonacje w kole kwintowym oraz kolejność znaków przykluczowych zapamiętuje się za pomocą kultowych zdań:
+        </p>
+        <div class="k-compare-grid">
+          <div class="k-compare-box is-sage">
+            <h5>Tonacje krzyżykowe (C – G – D – A – E – H – Fis – Cis)</h5>
+            <p>
+              Wersja szkolna:<br>
+              <strong>„<u>C</u>zarny <u>G</u>awron <u>D</u>ziobie <u>A</u>rbuza, <u>E</u>wka <u>H</u>oduje <u>Fis</u>tachy”</strong><br>
+              Klasyczna wersja akademicka:<br>
+              <em>„<strong>C</strong>elibat <strong>G</strong>wałci <strong>D</strong>ziś <strong>A</strong>mor, <strong>E</strong>kscelencjo <strong>H</strong>rabino (<strong>Fis</strong>, <strong>Cis</strong>)”</em>.<br>
+              0 znaków = C-dur → 1♯ = G-dur, 2♯ = D-dur, 3♯ = A-dur, 4♯ = E-dur, 5♯ = H-dur, 6♯ = Fis-dur.
+            </p>
+          </div>
+          <div class="k-compare-box is-peach">
+            <h5>Tonacje bemolowe (F – B – Es – As – Des – Ges)</h5>
+            <p>
+              <strong>„<u>F</u>ranek <u>B</u>ył <u>Es</u>kimoskim <u>As</u>em <u>Des</u>korolki (<u>Ges</u>)”</strong><br>
+              <em>Kolejność 7 krzyżyków przy kluczu:</em> <strong>Fis – Cis – Gis – Dis – Ais – Eis – His</strong>.<br>
+              <em>Kolejność 7 bemoli (dokładnie odwrotnie!):</em> <strong>B – Es – As – Des – Ges – Ces – Fes</strong>.
+            </p>
+          </div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>Dwa błyskawiczne triki do odczytywania tonacji ze znaków przy kluczu</h4>
+          <ul class="article-steps-list">
+            <li><strong>Przy krzyżykach (♯):</strong> <em>Ostatni krzyżyk z prawej strony</em> to zawsze <strong>VII stopień (dźwięk prowadzący)</strong>. Przejdź o <strong>półton wyżej</strong> — i masz nazwę gamy durowej! (Przykład: ostatni krzyżyk to <em>Cis</em> → półton wyżej = <strong>D-dur</strong>).</li>
+            <li><strong>Przy bemolach (♭):</strong> <em>Przedostatni bemol</em> wprost podaje nazwę gamy durowej! (Przykład: 3 bemole = B, <strong>Es</strong>, As → <strong>Es-dur</strong>. Tylko 1♭ = <strong>F-dur</strong> zapamiętujesz osobno).</li>
+            <li><strong>Gama molowa równoległa:</strong> Zejdź o <strong>3 półtony (tercję małą) w dół</strong> od prymy durowej (C-dur → a-moll, G-dur → e-moll).</li>
+          </ul>
+          <button class="btn-tool" data-jump-ref="circle-of-fifths">→ Otwórz interaktywne koło kwintowe</button>
+        </div>
+
+        <h3>2. Linie i pola pięciolinii (klucz wiolinowy, basowy i altowy)</h3>
+        <p>
+          Zamiast liczyć linie po kolei, użyj prostych kotwic (zawsze czytanych <strong>od dołu do góry</strong>):
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row">
+            <div>
+              <strong>Klucz wiolinowy • 4 pola: F – A – C – E</strong>
+              <span>Tworzą od dołu do góry angielskie słowo <strong>„FACE”</strong> (twarz) albo zdanie: <em>„<strong>F</strong>ajny <strong>A</strong>lbatros <strong>C</strong>zeka <strong>E</strong>kspresem”</em>.</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Klucz wiolinowy • 5 linii: E – G – H – D – F</strong>
+              <span><em>„<strong>E</strong>wa <strong>G</strong>ra <strong>H</strong>ejnał <strong>D</strong>la <strong>F</strong>ranka”</em>.</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Klucz basowy • 5 linii (G – H – D – F – A) i 4 pola (A – C – E – G)</strong>
+              <span>• Linie: <em>„<strong>G</strong>dzie <strong>H</strong>rabia <strong>D</strong>ziś <strong>F</strong>rutti <strong>A</strong>bsorbuje”</em>.<br>• Pola: <em>„<strong>A</strong>le <strong>C</strong>icho <strong>E</strong>cho <strong>G</strong>ra”</em>.</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Trzy punkty orientacyjne kluczy (G, F oraz C)</strong>
+              <span>• <strong>Klucz wiolinowy = klucz G:</strong> Ślimak oplata 2. linię (<strong>g¹</strong>).<br>• <strong>Klucz basowy = klucz F:</strong> Dwie kropki obejmują 4. linię (<strong>f</strong>). <em>Trik:</em> każdą nutę w kluczu basowym czytasz o <strong>dwa stopnie (tercję) wyżej w nazwie</strong> niż w wiolinowym!<br>• <strong>Klucz altowy = klucz C:</strong> Środkowe wcięcie wskazuje dokładnie 3. linię = <strong>c¹ (C dziurki od klucza)</strong>!</span>
+            </div>
+          </div>
+        </div>
+
+        <h3>3. Puste struny: Gitara, Bas, Skrzypce, Altówka, Wiolonczela i Ukulele</h3>
+        <p>
+          Od najniższej (najgrubszej) do najwyższej (najcieńszej) struny:
+        </p>
+        <ul class="article-steps-list">
+          <li><strong>Gitara (6 strun: E – A – D – G – H – E):</strong> <em>„<strong>E</strong>dek <strong>A</strong>lbo <strong>D</strong>arek <strong>G</strong>rają <strong>H</strong>ymn <strong>E</strong>uropy”</em>.</li>
+          <li><strong>Gitara basowa i kontrabas (4 struny: E – A – D – G):</strong> Cztery dolne struny gitary (strojone w czystych kwartach).</li>
+          <li><strong>Skrzypce (4 struny: G – D – A – E):</strong> <em>„<strong>G</strong>rają <strong>D</strong>zieci <strong>A</strong>rię <strong>E</strong>tiudy”</em> — cztery czyste kwinty w górę!</li>
+          <li><strong>Altówka i wiolonczela (4 struny: C – G – D – A):</strong> <em>„<strong>C</strong>ałe <strong>G</strong>rono <strong>D</strong>aje <strong>A</strong>plauz”</em> — czyste kwinty w górę od C.</li>
+          <li><strong>Ukulele (G – C – E – A):</strong> <em>„<strong>G</strong>ram <strong>C</strong>odziennie <strong>E</strong>tiudy <strong>A</strong>kustyczne”</em>.</li>
+        </ul>
+
+        <h3>4. Piosenki-kotwice do rozpoznawania interwałów ze słuchu</h3>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row">
+            <div>
+              <strong>Sekunda mała (1 półton) &amp; Sekunda wielka (2 półtony)</strong>
+              <span>• <strong>Sekunda mała:</strong> <em>Szczęki (Jaws)</em> w górę / <em>Dla Elizy</em> w dół.<br>• <strong>Sekunda wielka:</strong> <em>Sto lat</em> (po pierwszym skoku) lub początek gamy durowej.</span>
+            </div>
+            <button class="btn-tool" data-play-int-asc="1">▶ 2m</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Tercja mała (3 półtony) &amp; Tercja wielka (4 półtony)</strong>
+              <span>• <strong>Tercja mała:</strong> <em>Hej, sokoły!</em> lub <em>Greensleeves</em> w górę / głos kukułki lub <em>Hey Jude</em> w dół.<br>• <strong>Tercja wielka:</strong> <em>Panie Janie</em> (dwa pierwsze kroki: C–D–E) lub <em>Oh When the Saints</em>.</span>
+            </div>
+            <button class="btn-tool" data-play-int-asc="4">▶ 3w</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Kwarta czysta (5 półtonów) &amp; Tryton (6 półtonów)</strong>
+              <span>• <strong>Kwarta czysta:</strong> <em>Marsz weselny</em> lub <em>Amazing Grace</em>.<br>• <strong>Tryton (4zw / 5zm):</strong> <em>Simpsonowie („The Simp-sons”)</em> lub <em>Maria (West Side Story)</em>.</span>
+            </div>
+            <button class="btn-tool" data-play-int-asc="6">▶ Tryton</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Kwinta czysta (7 półtonów), Seksta wielka (9) &amp; Oktawa (12)</strong>
+              <span>• <strong>Kwinta czysta:</strong> <em>Gwiezdne wojny (Star Wars)</em> lub <em>Twinkle, Twinkle, Little Star</em>.<br>• <strong>Seksta wielka:</strong> <em>My Bonnie Lies Over the Ocean</em>.<br>• <strong>Oktawa:</strong> <em>Somewhere Over the Rainbow</em>.</span>
+            </div>
+            <button class="btn-tool" data-play-int-asc="7">▶ 5cz</button>
+          </div>
+        </div>
+
+        <h3>5. Skale modalne, trójdźwięki i słowa rytmiczne</h3>
+        <div class="k-compare-grid">
+          <div class="k-compare-box is-lilac">
+            <h5>7 skal kościelnych (modalnych) w kolejności od C do H</h5>
+            <p>
+              <strong><u>J</u>ońska – <u>D</u>orycka – <u>F</u>rygijska – <u>L</u>idyjska – <u>M</u>iksolidyjska – <u>E</u>olska – <u>L</u>okrycka</strong><br>
+              Zdanie: <em>„<strong>J</strong>ak <strong>D</strong>obrze <strong>F</strong>ilozofować <strong>L</strong>atem <strong>M</strong>iędzy <strong>E</strong>fektownymi <strong>L</strong>asami”</em>.<br>
+              <strong>Szybki skrót słuchowy (dźwięk charakterystyczny):</strong><br>
+              • Dur + wysoka <strong>#4</strong> = <strong>Lidyjska</strong><br>
+              • Dur + niska <strong>b7</strong> = <strong>Miksolidyjska</strong><br>
+              • Moll + jasna <strong>♮6</strong> = <strong>Dorycka</strong><br>
+              • Moll + ciemna <strong>b2</strong> = <strong>Frygijska</strong>
+            </p>
+          </div>
+          <div class="k-compare-box is-sage">
+            <h5>Słowa rytmiczne &amp; wzór na trójdźwięki</h5>
+            <p>
+              <strong>Mów rytm sylabami zamiast liczyć:</strong><br>
+              • Ćwierćnuta (♩): <em>„Krok”</em> / <em>„Bam”</em><br>
+              • Dwie ósemki (♪♪): <em>„Ka-wa”</em> / <em>„Bie-gnij”</em><br>
+              • Triola ósemkowa (3 na miarę): <em>„A-na-nas”</em><br>
+              • Cztery szesnastki (4 na miarę): <em>„Cze-ko-la-da”</em><br>
+              <strong>Budowa trójdźwięków (w półtonach):</strong><br>
+              • <strong>Dur = 4 + 3</strong> • <strong>Moll = 3 + 4</strong><br>
+              • <strong>Zmniejszony = 3 + 3</strong> • <strong>Zwiększony = 4 + 4</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    `
   }
 ];
 

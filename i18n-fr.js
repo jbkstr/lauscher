@@ -538,7 +538,8 @@ const LAUSCHEBAER_QUOTES_FR = [
   { cat: "Astuce", text: "« Besoin d’un métronome fiable ? L’onglet « Outils » propose divisions, shuffle, temps muets, profils enregistrables et quatre sons de clic (Standard, Woodblock, Cloche & Rimshot) ! »" },
   { cat: "Astuce", text: "« En « Lecture d’accords » dans la section Notation, identifie des accords empilés directement sur des tuiles — des triades majeures et mineures jusqu’aux accords E7, Esus4 et renversements ! »" },
   { cat: "Le saviez-vous ?", text: "« Qu’est-ce qui distingue une onde sinusoïdale pure d’un vrai piano chaleureux ? Dans « Physique & Son », écoute et observe le spectre fréquentiel révéler comment les harmoniques sculptent chaque timbre ! »" },
-  { cat: "Astuce", text: "« Si certaines notes, intervalles ou accords te posent encore problème, Lauscher repère tes points faibles en arrière-plan et te réinterroge dessus de lui-même jusqu’à ce qu’ils soient acquis ! »" }
+  { cat: "Astuce", text: "« Si certaines notes, intervalles ou accords te posent encore problème, Lauscher repère tes points faibles en arrière-plan et te réinterroge dessus de lui-même jusqu’à ce qu’ils soient acquis ! »" },
+  { cat: "Encouragement", text: "« Sens-tu déjà une différence en écoutant ta musique préférée — quand les lignes de basse, les couleurs d’accords ou les intervalles deviennent soudain beaucoup plus clairs ? »" }
 ];
 
 const PROFILE_INSTRUMENTS_FR = {
@@ -2037,7 +2038,7 @@ Object.assign(TR_FR, {
   "◐ {pts} Pkt.": "◐ {pts} pt",
   "✓ Richtig": "✓ Juste",
   "✗ Falsch": "✗ Faux",
-  "🎯 Schwächstes Modul üben: {mod}": "🎯 Travailler le module faible : {mod}",
+  "Schwächstes Modul üben: {mod}": "Travailler le module faible : {mod}",
   "Notation": "Notation",
   "Violinschlüssel": "Clé de Sol",
   "Bassschlüssel": "Clé de Fa",

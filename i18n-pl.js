@@ -541,7 +541,8 @@ const LAUSCHEBAER_QUOTES_PL = [
   { cat: "Wskazówka", text: "„Szukasz pewnego metronomu? W zakładce «Narzędzia» czekają podziały, shuffle, wyciszane takty, własne profile oraz cztery brzmienia kliku (Standardowy klik, Woodblock, Cowbell i Rimshot)!”" },
   { cat: "Wskazówka", text: "„W trybie «Czytanie akordów» w dziale Notacja rozpoznajesz spiętrzone akordy na kafelkach wyboru — od trójdźwięków durowych i molowych po E7, Esus4 i przewroty!”" },
   { cat: "Czy wiesz, że…", text: "„Co odróżnia czystą sinusoidę od ciepłego brzmienia fortepianu? W dziale «Fizyka i dźwięk» usłyszysz i zobaczysz w widmie częstotliwości, jak alikwoty kształtują każdą barwę!”" },
-  { cat: "Wskazówka", text: "„Gdy przy niektórych dźwiękach, interwałach lub akordach pojawia się niepewność, Lauscher sam to zapamiętuje i automatycznie odpytuje Cię z tych słabszych punktów, aż pewnie wejdą w ucho!”" }
+  { cat: "Wskazówka", text: "„Gdy przy niektórych dźwiękach, interwałach lub akordach pojawia się niepewność, Lauscher sam to zapamiętuje i automatycznie odpytuje Cię z tych słabszych punktów, aż pewnie wejdą w ucho!”" },
+  { cat: "Motywacja", text: "„Czy czujesz już różnicę, słuchając swojej ulubionej muzyki — jak linie basu, barwy akordów i drobne interwały nagle stają się o wiele bardziej wyraziste?”" }
 ];
 
 const PROFILE_INSTRUMENTS_PL = {
@@ -2082,7 +2083,7 @@ Object.assign(TR_PL, {
   "◐ {pts} Pkt.": "◐ {pts} pkt.",
   "✓ Richtig": "✓ Poprawnie",
   "✗ Falsch": "✗ Błąd",
-  "🎯 Schwächstes Modul üben: {mod}": "🎯 Ćwicz najsłabszy moduł: {mod}",
+  "Schwächstes Modul üben: {mod}": "Ćwicz najsłabszy moduł: {mod}",
   "Notation": "Czytanie nut",
   "Violinschlüssel": "Klucz wiolinowy",
   "Bassschlüssel": "Klucz basowy",

@@ -1348,6 +1348,169 @@ const KNOWLEDGE_ARTICLES_EN = [
         </div>
       </div>
     `
+  },
+  {
+    id: "art-mnemonics",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1.1 2h5.8c.1-.8.5-1.5 1.1-2A7 7 0 0 0 12 2z"/></svg>`,
+    badgeClass: "badge-peach",
+    title: "Musical Mnemonics & Memory Tricks",
+    subtitle: "Classic memory phrases for the Circle of Fifths, staff reading, open strings, intervals & rhythm",
+    tag: "Memory Aids & Practice",
+    render: () => `
+      <div class="article-body">
+        <span class="k-card-tag tag-peach">Memory Aids &amp; Practice</span>
+        <h2>Musical Mnemonics &amp; Memory Tricks That Stick for Life</h2>
+        <p class="article-lead">
+          Why can we recall a quirky sentence about cows eating grass or Father Charles in ten seconds — while raw lists of note letters fade in five minutes? The human brain is wired for <strong>vivid images, stories, rhyme, and rhythm</strong>. Here are the most popular English music-education mnemonics in one complete guide.
+        </p>
+
+        <h3>1. Circle of Fifths &amp; Order of Sharps and Flats</h3>
+        <p>
+          Sharps (<strong>♯</strong>) and flats (<strong>♭</strong>) always appear in the exact same order on the staff — and the two orders are simple mirror images of each other:
+        </p>
+        <div class="k-compare-grid">
+          <div class="k-compare-box is-sage">
+            <h5>Order of Sharps (♯): F – C – G – D – A – E – B</h5>
+            <p>
+              <strong>“<u>F</u>ather <u>C</u>harles <u>G</u>oes <u>D</u>own <u>A</u>nd <u>E</u>nds <u>B</u>attle”</strong><br>
+              <em>Alternative:</em> “<strong>F</strong>at <strong>C</strong>ats <strong>G</strong>o <strong>D</strong>own <strong>A</strong>lleys <strong>E</strong>ating <strong>B</strong>irds”.<br>
+              Clockwise major keys from C (0): <strong>G</strong> (1♯), <strong>D</strong> (2♯), <strong>A</strong> (3♯), <strong>E</strong> (4♯), <strong>B</strong> (5♯), <strong>F♯</strong> (6♯).
+            </p>
+          </div>
+          <div class="k-compare-box is-peach">
+            <h5>Order of Flats (♭): B – E – A – D – G – C – F</h5>
+            <p>
+              <strong>“<u>B</u>attle <u>E</u>nds <u>A</u>nd <u>D</u>own <u>G</u>oes <u>C</u>harles’ <u>F</u>ather”</strong><br>
+              <em>Math shortcut:</em> The word <strong><u>BEAD</u></strong> + <strong><u>G</u></strong>reatest <strong><u>C</u></strong>ommon <strong><u>F</u></strong>actor!<br>
+              Counter-clockwise major keys: <strong>F</strong> (1♭), <strong>B♭</strong> (2♭), <strong>E♭</strong> (3♭), <strong>A♭</strong> (4♭), <strong>D♭</strong> (5♭), <strong>G♭</strong> (6♭).
+            </p>
+          </div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>Two Instant Key-Signature Reading Shortcuts</h4>
+          <ul class="article-steps-list">
+            <li><strong>For Sharps (♯):</strong> The <em>last sharp on the right</em> is always the <strong>leading tone (Ti / 7th degree)</strong>. Go up <strong>one half step</strong> to name the Major key! (Example: Last sharp is <em>C♯</em> → one half step up = <strong>D Major</strong>).</li>
+            <li><strong>For Flats (♭):</strong> The <em>second-to-last flat</em> directly names the Major key! (Example: 3 flats = B♭, <strong>E♭</strong>, A♭ → <strong>E♭ Major</strong>. Only 1♭ = <strong>F Major</strong> stands alone).</li>
+            <li><strong>Relative Minor Key:</strong> Drop <strong>3 semitones (a minor 3rd) down</strong> from the Major root (C Major → A minor, G Major → E minor).</li>
+          </ul>
+          <button class="btn-tool" data-jump-ref="circle-of-fifths">→ Open the Interactive Circle of Fifths</button>
+        </div>
+
+        <h3>2. Staff Lines &amp; Spaces (Treble, Bass &amp; Alto Clefs)</h3>
+        <p>
+          Always read staff mnemonics <strong>from the bottom line/space to the top</strong>:
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row">
+            <div>
+              <strong>Treble Clef • 4 Spaces: F – A – C – E</strong>
+              <span>Spells the word <strong>“FACE”</strong> right in the spaces (“Face in the space!”).</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Treble Clef • 5 Lines: E – G – B – D – F</strong>
+              <span><em>“<strong>E</strong>very <strong>G</strong>ood <strong>B</strong>oy <strong>D</strong>oes <strong>F</strong>ine”</em> (or <em>“<strong>E</strong>very <strong>G</strong>ood <strong>B</strong>ird <strong>D</strong>eserves <strong>F</strong>udge”</em>).</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Bass Clef • 5 Lines: G – B – D – F – A</strong>
+              <span><em>“<strong>G</strong>ood <strong>B</strong>oys <strong>D</strong>o <strong>F</strong>ine <strong>A</strong>lways”</em> (or <em>“<strong>G</strong>reat <strong>B</strong>ig <strong>D</strong>ogs <strong>F</strong>ight <strong>A</strong>nimals”</em>).</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Bass Clef • 4 Spaces: A – C – E – G</strong>
+              <span><em>“<strong>A</strong>ll <strong>C</strong>ows <strong>E</strong>at <strong>G</strong>rass”</em> (or <em>“<strong>A</strong>ll <strong>C</strong>ars <strong>E</strong>at <strong>G</strong>as”</em>).</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>The 3 Clef Landmarks (G, F &amp; C Clefs)</strong>
+              <span>• <strong>Treble = G Clef:</strong> The inner spiral curls around Line 2 (<strong>G4</strong>).<br>• <strong>Bass = F Clef:</strong> The two dots straddle Line 4 (<strong>F3</strong>).<br>• <strong>Alto = C Clef:</strong> The center notch points straight at Line 3 = <strong>Middle C (C4)</strong>!</span>
+            </div>
+          </div>
+        </div>
+
+        <h3>3. Open Strings on Guitar, Bass, Strings &amp; Ukulele</h3>
+        <p>
+          All string mnemonics are read <strong>from lowest-pitched (thickest) to highest-pitched (thinnest) string</strong>:
+        </p>
+        <ul class="article-steps-list">
+          <li><strong>Guitar (6 strings: E – A – D – G – B – E):</strong> <em>“<strong>E</strong>ddy <strong>A</strong>te <strong>D</strong>ynamite, <strong>G</strong>ood <strong>B</strong>ye <strong>E</strong>ddy”</em> (or <em>“<strong>E</strong>lephants <strong>A</strong>nd <strong>D</strong>onkeys <strong>G</strong>row <strong>B</strong>ig <strong>E</strong>ars”</em>).</li>
+          <li><strong>Bass Guitar &amp; Double Bass (4 strings: E – A – D – G):</strong> <em>“<strong>E</strong>at <strong>A</strong>ll <strong>D</strong>ay <strong>G</strong>et (Big)”</em> — identical to the lowest four guitar strings, tuned in Perfect 4ths.</li>
+          <li><strong>Violin (4 strings: G – D – A – E):</strong> <em>“<strong>G</strong>ood <strong>D</strong>ogs <strong>A</strong>lways <strong>E</strong>at”</em> — tuned in ascending Perfect 5ths!</li>
+          <li><strong>Viola &amp; Cello (4 strings: C – G – D – A):</strong> <em>“<strong>C</strong>ats <strong>G</strong>o <strong>D</strong>own <strong>A</strong>lleys”</em> — ascending Perfect 5ths starting from C.</li>
+          <li><strong>Ukulele (G – C – E – A):</strong> <em>“<strong>G</strong>ood <strong>C</strong>ooks <strong>E</strong>at <strong>A</strong> Lot”</em> — traditionally checked by ear with the tune <em>“My Dog Has Fleas”</em>!</li>
+        </ul>
+
+        <h3>4. Interval Song Anchors (With Live Audio)</h3>
+        <p>
+          Link every interval leap to the opening two notes of a song you already know by heart:
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row">
+            <div>
+              <strong>Minor 2nd (1 ST) &amp; Major 2nd (2 ST)</strong>
+              <span>• <strong>Minor 2nd:</strong> <em>Jaws (Theme)</em> ascending / <em>Für Elise</em> descending.<br>• <strong>Major 2nd:</strong> <em>Happy Birthday</em> (notes 2→3) or <em>Frère Jacques</em>.</span>
+            </div>
+            <button class="btn-tool" data-play-int-asc="1">▶ m2</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Minor 3rd (3 ST) &amp; Major 3rd (4 ST)</strong>
+              <span>• <strong>Minor 3rd:</strong> <em>Greensleeves</em> ascending / <em>Hey Jude</em> descending.<br>• <strong>Major 3rd:</strong> <em>Oh When the Saints</em> ascending / <em>Summertime</em> descending.</span>
+            </div>
+            <button class="btn-tool" data-play-int-asc="4">▶ M3</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Perfect 4th (5 ST) &amp; Tritone (6 ST)</strong>
+              <span>• <strong>Perfect 4th:</strong> <em>Here Comes the Bride</em> or <em>Amazing Grace</em>.<br>• <strong>Tritone (Aug 4 / Dim 5):</strong> <em>The Simpsons (“The Simp-sons”)</em> or <em>Maria (West Side Story)</em>.</span>
+            </div>
+            <button class="btn-tool" data-play-int-asc="6">▶ Tritone</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Perfect 5th (7 ST), Major 6th (9 ST) &amp; Octave (12 ST)</strong>
+              <span>• <strong>Perfect 5th:</strong> <em>Star Wars (Main Title)</em> or <em>Twinkle, Twinkle, Little Star</em>.<br>• <strong>Major 6th:</strong> <em>My Bonnie Lies Over the Ocean</em>.<br>• <strong>Octave:</strong> <em>Somewhere Over the Rainbow</em>.</span>
+            </div>
+            <button class="btn-tool" data-play-int-asc="7">▶ P5</button>
+          </div>
+        </div>
+
+        <h3>5. Modes, Triads &amp; Rhythm Word Syllables</h3>
+        <div class="k-compare-grid">
+          <div class="k-compare-box is-lilac">
+            <h5>The 7 Modes in Order (White Keys C to B)</h5>
+            <p>
+              <strong><u>I</u>onian – <u>D</u>orian – <u>P</u>hrygian – <u>L</u>ydian – <u>M</u>ixolydian – <u>A</u>eolian – <u>L</u>ocrian</strong><br>
+              Phrase: <em>“<strong>I</strong> <strong>D</strong>on’t <strong>P</strong>articularly <strong>L</strong>ike <strong>M</strong>odes <strong>A</strong> <strong>L</strong>ot”</em>.<br>
+              <strong>Color-Note Ear Shortcuts:</strong><br>
+              • Major + bright <strong>#4</strong> = <strong>Lydian</strong><br>
+              • Major + bluesy <strong>b7</strong> = <strong>Mixolydian</strong><br>
+              • Minor + bright <strong>♮6</strong> = <strong>Dorian</strong><br>
+              • Minor + exotic <strong>b2</strong> = <strong>Phrygian</strong>
+            </p>
+          </div>
+          <div class="k-compare-box is-sage">
+            <h5>Rhythm Food Words &amp; Triad Formulas</h5>
+            <p>
+              <strong>Speak subdivisions out loud:</strong><br>
+              • Quarter note (♩): <em>“Pie”</em> / <em>“Walk”</em><br>
+              • Eighth pair (♪♪): <em>“Ap-ple”</em> / <em>“Run-ning”</em><br>
+              • Eighth triplet (3 per beat): <em>“Pi-ne-ap-ple”</em> / <em>“Tri-po-let”</em><br>
+              • Four sixteenths (4 per beat): <em>“Wa-ter-me-lon”</em> / <em>“A-vo-ca-do”</em><br>
+              <strong>Triad Semitone Recipe:</strong><br>
+              • <strong>Major = 4 + 3</strong> • <strong>Minor = 3 + 4</strong><br>
+              • <strong>Diminished = 3 + 3</strong> • <strong>Augmented = 4 + 4</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    `
   }
 ];
 

@@ -1347,6 +1347,151 @@ const KNOWLEDGE_ARTICLES_UK = [
         </div>
       </div>
     `
+  },
+  {
+    id: "art-mnemonics",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1.1 2h5.8c.1-.8.5-1.5 1.1-2A7 7 0 0 0 12 2z"/></svg>`,
+    badgeClass: "badge-peach",
+    title: "Музичні мнемоніки та підказки",
+    subtitle: "Улюблені віршики й правила для квінтового кола, ключів, струн, інтервалів і ритму",
+    tag: "Мнемоніки & Практика",
+    render: () => `
+      <div class="article-body">
+        <span class="k-card-tag tag-peach">Мнемоніки &amp; Практика</span>
+        <h2>Музичні мнемоніки: правила, що запам’ятовуються з першого разу</h2>
+        <p class="article-lead">
+          Чому кумедний віршик про кішку на таксі ми запам’ятовуємо за десять секунд, а сухий перелік знаків забуваємо за п’ять хвилин? Наш мозок обожнює <strong>образи, риму, асоціації та ритм</strong>. Тут зібрані найвідоміші мнемонічні підказки української музичної школи.
+        </p>
+
+        <h3>1. Квінтове коло та порядок дієзів і бемолів при ключі</h3>
+        <p>
+          Порядок появи семи дієзів (<strong>♯</strong>) і семи бемолів (<strong>♭</strong>) при ключі легко вивчити одним ритмічним віршиком, який читається вперед для дієзів і у зворотному напрямку для бемолів:
+        </p>
+        <div class="k-compare-grid">
+          <div class="k-compare-box is-sage">
+            <h5>Порядок 7 дієзів (♯): Фа – До – Соль – Ре – Ля – Мі – Сі</h5>
+            <p>
+              Класична рима з уроків сольфеджіо:<br>
+              <strong>«<u>Фа</u> – <u>До</u> – <u>Соль</u> – <u>Ре</u> – <u>Ля</u> – <u>Мі</u> – <u>Сі</u> — сіла кішка на таксі!»</strong><br>
+              Мажорні тональності за годинниковою стрілкою від До (0): <strong>Соль</strong> (1♯), <strong>Ре</strong> (2♯), <strong>Ля</strong> (3♯), <strong>Мі</strong> (4♯), <strong>Сі</strong> (5♯), <strong>Фа♯</strong> (6♯).
+            </p>
+          </div>
+          <div class="k-compare-box is-peach">
+            <h5>Порядок 7 бемолів (♭): Сі – Мі – Ля – Ре – Соль – До – Фа</h5>
+            <p>
+              Той самий ряд, прочитаний <strong>навпаки</strong>:<br>
+              <strong>«<u>Сі</u> – <u>Мі</u> – <u>Ля</u> – <u>Ре</u> – <u>Соль</u> – <u>До</u> – <u>Фа</u> — їде кішка з таксі назад!»</strong><br>
+              Мажорні тональності проти годинникової стрілки: <strong>Фа</strong> (1♭), <strong>Сі♭</strong> (2♭), <strong>Мі♭</strong> (3♭), <strong>Ля♭</strong> (4♭), <strong>Ре♭</strong> (5♭), <strong>Соль♭</strong> (6♭).
+            </p>
+          </div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>Два миттєві секрети визначення тональності за знаками при ключі</h4>
+          <ul class="article-steps-list">
+            <li><strong>Для дієзів (♯):</strong> <em>Останній дієз праворуч</em> — це завжди <strong>VII ступінь (увідний тон)</strong>. Піднімися від нього лише на <strong>півтону вгору</strong> — і отримаєш тоніку мажору! (Приклад: останній дієз <em>До♯</em> → півтону вище = <strong>Ре мажор</strong>).</li>
+            <li><strong>Для бемолів (♭):</strong> <em>Передостанній бемоль</em> прямо називає мажорну тональність! (Приклад: 3 бемолі = Сі♭, <strong>Мі♭</strong>, Ля♭ → <strong>Мі♭ мажор</strong>. Лише 1♭ = <strong>Фа мажор</strong> запам’ятовується окремо).</li>
+            <li><strong>Паралельний мінор:</strong> Відрахуй <strong>3 півтони (малу терцію) вниз</strong> від мажорної тоніки (До мажор → ля мінор, Соль мажор → мі мінор).</li>
+          </ul>
+          <button class="btn-tool" data-jump-ref="circle-of-fifths">→ Відкрити інтерактивне квінтове коло</button>
+        </div>
+
+        <h3>2. Орієнтири на нотному стані: скрипковий, басовий та альтовий ключі</h3>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row">
+            <div>
+              <strong>Скрипковий ключ (ключ Соль) • Лінійки та проміжки</strong>
+              <span>• Внутрішній завиток обіймає 2-гу лінійку: <strong>Соль першої октави (G4)</strong>.<br>• 4 проміжки між лінійками знизу вгору: <strong>Фа – Ля – До – Мі</strong> (у літерній нотації F–A–C–E це англійське слово <strong>«FACE»</strong> — обличчя!).<br>• 5 лінійок знизу вгору по терціях: <strong>Мі – Соль – Сі – Ре – Фа</strong>.</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Басовий ключ (ключ Фа) • Секрет зсуву на терцію</strong>
+              <span>• Дві крапки охоплюють 4-ту лінійку: <strong>Фа малої октави (F3)</strong>.<br>• <strong>Швидке читання:</strong> Кожна нота в басовому ключі читається <strong>на дві сходинки (терцію) вище за назвою</strong>, ніж якби вона стояла на тому ж місці у скрипковому ключі!</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Альтовий ключ (ключ До) • Центральне До посередині</strong>
+              <span>Середня стрілка ключа вказує точно на 3-тю (середню) лінійку = <strong>До першої октави (C4)</strong>.</span>
+            </div>
+          </div>
+        </div>
+
+        <h3>3. Відкриті струни: Гітара, Бас, Скрипка, Альт, Віолончель та Укулеле</h3>
+        <p>
+          Від найнижчої (найтовстішої) до найвищої (найтоншої) струни:
+        </p>
+        <ul class="article-steps-list">
+          <li><strong>Гітара (6 струн: Мі – Ля – Ре – Соль – Сі – Мі / E – A – D – G – B – E):</strong> Всі сусідні струни налаштовані по <strong>чистих квартах</strong>, і лише між 3-ю (Соль) та 2-ю (Сі) струнами звучить <strong>велика терція</strong>!</li>
+          <li><strong>Бас-гітара та Контрабас (4 струни: Мі – Ля – Ре – Соль / E – A – D – G):</strong> Ті самі чотири нижні струни гітари (суцільні чисті кварти вгору).</li>
+          <li><strong>Скрипка (4 струни: Соль – Ре – Ля – Мі / G – D – A – E):</strong> Чотири чисті квінти вгору (повторюють дієзний ряд після Фа й До!).</li>
+          <li><strong>Альт і Віолончель (4 струни: До – Соль – Ре – Ля / C – G – D – A):</strong> Чотири чисті квінти вгору від ноти До.</li>
+          <li><strong>Укулеле (Соль – До – Мі – Ля / G – C – E – A):</strong> Класичний стрій у До мажорі з високою 4-ю струною Соль.</li>
+        </ul>
+
+        <h3>4. Пісні-підказки для впізнавання інтервалів на слух</h3>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row">
+            <div>
+              <strong>Мала секунда (1 півтон) &amp; Велика секунда (2 півтони)</strong>
+              <span>• <strong>Мала секунда:</strong> <em>Щелепи (Jaws)</em> вгору / <em>До Елізи</em> вниз.<br>• <strong>Велика секунда:</strong> <em>Happy Birthday</em> (після повтору першого тону) або початок мажорної гами.</span>
+            </div>
+            <button class="btn-tool" data-play-int-asc="1">▶ м2</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Мала терція (3 півтони) &amp; Велика терція (4 півтони)</strong>
+              <span>• <strong>Мала терція:</strong> <em>Greensleeves</em> вгору / кування зозулі або <em>Hey Jude</em> вниз.<br>• <strong>Велика терція:</strong> <em>Oh When the Saints</em> вгору / <em>Summertime</em> вниз.</span>
+            </div>
+            <button class="btn-tool" data-play-int-asc="4">▶ в3</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Чиста кварта (5 півтонів) &amp; Тритон (6 півтонів)</strong>
+              <span>• <strong>Чиста кварта:</strong> <em>Весільний марш («Here Comes the Bride»)</em> або <em>Amazing Grace</em>.<br>• <strong>Тритон (зб. 4 / зм. 5):</strong> <em>Сімпсони («The Simp-sons»)</em> або <em>Maria (West Side Story)</em>.</span>
+            </div>
+            <button class="btn-tool" data-play-int-asc="6">▶ Тритон</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>Чиста квінта (7 півтонів), Велика секста (9) &amp; Октава (12)</strong>
+              <span>• <strong>Чиста квінта:</strong> <em>Зоряні війни (Star Wars)</em> або <em>Twinkle, Twinkle, Little Star</em>.<br>• <strong>Велика секста:</strong> <em>My Bonnie Lies Over the Ocean</em>.<br>• <strong>Октава:</strong> <em>Somewhere Over the Rainbow</em>.</span>
+            </div>
+            <button class="btn-tool" data-play-int-asc="7">▶ ч5</button>
+          </div>
+        </div>
+
+        <h3>5. Сім ладів, тризвуки та ритмічні слова</h3>
+        <div class="k-compare-grid">
+          <div class="k-compare-box is-lilac">
+            <h5>7 ладів за їхнім характерним ступенем</h5>
+            <p>
+              Від білих клавіш <strong>До – Ре – Мі – Фа – Соль – Ля – Сі</strong>:<br>
+              <strong>Іонійський – Дорійський – Фригійський – Лідійський – Міксолідійський – Еолійський – Локрійський</strong>.<br>
+              <strong>Як упізнати лад за одну секунду:</strong><br>
+              • Мажор + висока <strong>#4</strong> = <strong>Лідійський</strong><br>
+              • Мажор + низька <strong>b7</strong> = <strong>Міксолідійський</strong><br>
+              • Мінор + світла <strong>♮6</strong> = <strong>Дорійський</strong><br>
+              • Мінор + темна <strong>b2</strong> = <strong>Фригійський</strong>
+            </p>
+          </div>
+          <div class="k-compare-box is-sage">
+            <h5>Ритмічні слова &amp; формула тризвуків</h5>
+            <p>
+              <strong>Промовляй ритм складами замість рахунку:</strong><br>
+              • Чверть (♩): <em>«Крок»</em> / <em>«Чай»</em><br>
+              • Пара восьмих (♪♪): <em>«Ка-ва»</em> / <em>«Біг-ти»</em><br>
+              • Тріоль (3 на долю): <em>«А-на-нас»</em><br>
+              • Чотири шістнадцяті (4 на долю): <em>«Шо-ко-лад-ка»</em><br>
+              <strong>Формула тризвуків (у півтонах):</strong><br>
+              • <strong>Мажор = 4 + 3</strong> • <strong>Мінор = 3 + 4</strong><br>
+              • <strong>Зменшений = 3 + 3</strong> • <strong>Збільшений = 4 + 4</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    `
   }
 ];
 
