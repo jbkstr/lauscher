@@ -289,7 +289,7 @@ const I18N_STATIC_PL = {
   "mixer.tabsAria": "Wybierz widok miksera",
   "mixer.tabLevels": "Głośność",
   "mixer.tabReverb": "Pogłos",
-  "mixer.levelsHeading": "Głośność",
+  "mixer.levelsHeading": "Instrumenty",
   "mixer.piano": "Fortepian",
   "mixer.guitar": "Gitara",
   "mixer.strings": "Smyczki",

@@ -289,7 +289,7 @@ const I18N_STATIC_UK = {
   "mixer.tabsAria": "Обрати вкладку мікшера",
   "mixer.tabLevels": "Гучність",
   "mixer.tabReverb": "Реверберація",
-  "mixer.levelsHeading": "Гучність",
+  "mixer.levelsHeading": "Інструменти",
   "mixer.piano": "Фортепіано",
   "mixer.guitar": "Гітара",
   "mixer.strings": "Струнні",

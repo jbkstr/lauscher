@@ -289,7 +289,7 @@ const I18N_STATIC_UR = {
   "mixer.tabsAria": "مکسر کا منظر منتخب کریں",
   "mixer.tabLevels": "والیوم",
   "mixer.tabReverb": "ہال گونج",
-  "mixer.levelsHeading": "والیوم",
+  "mixer.levelsHeading": "ساز",
   "mixer.piano": "پیانو",
   "mixer.guitar": "گٹار",
   "mixer.strings": "اسٹرنگز",
