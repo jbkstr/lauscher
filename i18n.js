@@ -1527,7 +1527,13 @@ function getLocalizedModeDef(key) {
   // Kirchentonarten tragen ihre Stufe der Dur-Tonleiter im Namen, z. B. „Dorisch (2)“
   const degree = MODES_TRAINING_DATA[key]?.degree;
   if (!entry || !degree) return entry;
-  return { ...entry, roman: `${entry.roman} (${degree})` };
+  // baseRoman/degreeTag: Antwort-Kacheln zeigen die Stufe als eigene Zeile unter dem Namen
+  return {
+    ...entry,
+    baseRoman: entry.roman,
+    degreeTag: tf("{n}. Stufe", "Degree {n}", { n: degree }),
+    roman: `${entry.roman} (${degree})`
+  };
 }
 
 function getLocalizedModeLevelLabel(kind, lvl) {

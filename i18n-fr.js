@@ -1777,6 +1777,7 @@ Object.assign(TR_FR, {
 });
 
 Object.assign(TR_FR, {
+  "{n}. Stufe": "Degré {n}",
   "1 Versuch pro Frage – prüfungsfest ohne Hilfsschleifen. Am Ende warten Lauscher-Bewertung, Modul-Aufschlüsselung und direkter Hör-Vergleich.": "1 tentative par question – sans boucle d’aide. À la fin : évaluation Lauscher, détail par module et comparaison audio directe.",
   "1 Versuch pro Frage • verschiedene Stufen & Hör-Auswertung": "1 tentative par question • niveaux variés & bilan audio",
   "1× Start + {left}× nachhören": "1× départ + {left}× réécoute",

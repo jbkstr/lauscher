@@ -1824,6 +1824,7 @@ Object.assign(TR_UK, {
 });
 
 Object.assign(TR_UK, {
+  "{n}. Stufe": "Ступінь {n}",
   "1 Versuch pro Frage – prüfungsfest ohne Hilfsschleifen. Am Ende warten Lauscher-Bewertung, Modul-Aufschlüsselung und direkter Hör-Vergleich.": "1 спроба на питання — без підказок і зациклювань. Наприкінці: оцінка Lauscher, розбір за модулями та аудіопорівняння.",
   "1 Versuch pro Frage • verschiedene Stufen & Hör-Auswertung": "1 спроба на питання • різні рівні й аудіорозбір",
   "1× Start + {left}× nachhören": "1× старт + {left}× повтор",

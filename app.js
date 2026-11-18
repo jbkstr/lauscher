@@ -11038,7 +11038,7 @@ function renderUI() {
         if (isRhythmDict) {
           sym.innerHTML = getRhythmCellSVG(item.key, 42, 24);
         } else {
-          sym.textContent = item.roman || item.symbol;
+          sym.textContent = item.degreeTag ? item.baseRoman : (item.roman || item.symbol);
         }
 
         const l = document.createElement("span");
@@ -11046,6 +11046,13 @@ function renderUI() {
         l.textContent = item.short;
 
         btn.appendChild(sym);
+        if (item.degreeTag) {
+          // Modi: Stufe als eigene Zeile, damit lange Namen die Kachel nicht sprengen
+          const step = document.createElement("span");
+          step.className = "degree-step";
+          step.textContent = item.degreeTag;
+          btn.appendChild(step);
+        }
         btn.appendChild(l);
         btn.addEventListener("click", (e) => handleAnswer(choiceKey, btn, { inputEvent: e }));
         rowEl.appendChild(btn);
@@ -11053,6 +11060,7 @@ function renderUI() {
 
       btnGrid.appendChild(rowEl);
     });
+    if (isModes) fitChoiceNamesToTiles(btnGrid);
   }
 
   resetCentralStage();
@@ -11061,6 +11069,27 @@ function renderUI() {
   document.getElementById("feedbackContainer").classList.add("hidden");
   syncExamExerciseControls();
 }
+
+// Lange Namen (z. B. Modi auf Ukrainisch) einheitlich verkleinern, statt über den Kachelrand zu laufen
+function fitChoiceNamesToTiles(grid) {
+  if (!grid) return;
+  const names = [...grid.querySelectorAll(".degree-btn .degree-roman")];
+  names.forEach(name => { name.style.fontSize = ""; });
+  let scale = 1;
+  names.forEach(name => {
+    const avail = name.closest(".degree-btn").clientWidth - 6;
+    if (avail > 0 && name.scrollWidth > avail) scale = Math.min(scale, avail / name.scrollWidth);
+  });
+  if (scale >= 1 || !names.length) return;
+  const base = parseFloat(getComputedStyle(names[0]).fontSize) || 14;
+  const size = `${Math.max(9, Math.floor(base * scale * 10) / 10)}px`;
+  names.forEach(name => { name.style.fontSize = size; });
+}
+
+window.addEventListener("resize", () => {
+  const grid = document.getElementById("degreeButtonsGrid");
+  if (grid && !grid.classList.contains("hidden") && grid.querySelector(".degree-step")) fitChoiceNamesToTiles(grid);
+});
 
 const STREAK_MILESTONES = new Set([3, 5, 8, 10, 15, 20, 25, 30, 40, 50, 75, 100]);
 
