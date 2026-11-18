@@ -1679,31 +1679,39 @@ const CATEGORY_HELP_GUIDES = {
     tagClass: "tag-sage",
     tag: "Anleitung • Kadenzen",
     title: "So funktioniert das Kadenz-Training",
-    lead: "Statt einzelne Akkorde isoliert zu raten, hörst du hier eine komplette viertaktige Akkordfolge im Zusammenhang – und bestimmst genau den gesuchten Akkord am Fragezeichen.",
+    lead: "Statt einzelne Akkorde isoliert zu raten, hörst du hier komplette viertaktige Akkordfolgen im Zusammenhang – in <strong>Dur</strong> und in <strong>Moll</strong> – und bestimmst die gesuchte Akkordstufe am Fragezeichen.",
     sections: `
-      <h3>Die zwei Übungsgruppen auf der Auswahlseite</h3>
+      <h3>Die vier Übungsgruppen (Dur &amp; Moll)</h3>
       <div class="k-compare-grid">
         <div class="k-compare-box is-sage">
-          <h5>Ziel: Takt 4 (Klassisch)</h5>
-          <p>Die Takte 1–3 sind sichtbar und bauen das harmonische Umfeld auf. Du hörst dir die Kadenz an und wählst die fehlende Akkordstufe für <strong>Takt 4</strong>.</p>
+          <h5>Dur • Ziel: Takt 4</h5>
+          <p>Die Takte 1–3 sind sichtbar und gründen die Dur-Tonart. Du hörst alle vier Takte und bestimmst den fehlenden Akkord für <strong>Takt 4</strong>.</p>
         </div>
         <div class="k-compare-box is-lilac">
-          <h5>Zufälliger Takt (1–4)</h5>
-          <p>Das Fragezeichen wandert zufällig auf Takt 1, 2, 3 oder 4. Auch wenn Takt 1 gesucht ist, bleibt immer eine sichtbare Tonika (<strong>I</strong>) zur Orientierung erhalten.</p>
+          <h5>Dur • Zufälliger Takt (1–4)</h5>
+          <p>Das Fragezeichen wandert zufällig auf Takt 1, 2, 3 oder 4. Auch wenn Takt 1 gesucht ist, bleibt immer eine sichtbare Tonika (<strong>I</strong>) erhalten.</p>
+        </div>
+        <div class="k-compare-box is-peach">
+          <h5>Moll • Ziel: Takt 4</h5>
+          <p>Dieselben Hör-Aufgaben in echten Moll-Tonarten (z. B. <code>i–iv–V</code>): Höre drei Takte Kontext und wähle die fehlende Moll-Funktion in <strong>Takt 4</strong>.</p>
+        </div>
+        <div class="k-compare-box is-lilac">
+          <h5>Moll • Zufälliger Takt (1–4)</h5>
+          <p>Das Fragezeichen steht irgendwo in Takt 1–4; zur sicheren Orientierung bleibt stets mindestens eine sichtbare Moll-Tonika (<strong>i</strong>) im System.</p>
         </div>
       </div>
 
-      <h3>Die 4 Schwierigkeitsstufen im Überblick</h3>
+      <h3>Die 4 Schwierigkeitsstufen (Dur &amp; Moll)</h3>
       <ul class="article-steps-list">
-        <li><strong>Stufe 1 – Basis (I–V):</strong> Die vier wichtigsten Grundpfeiler <code>I</code>, <code>IV</code>, <code>V</code> und <code>vi</code>. Perfekt für den Einstieg und die häufigsten Pop- und Volkslied-Kadenzen.</li>
-        <li><strong>Stufe 2 – Diatonisch (ii–vi):</strong> Alle sechs leitereigenen Hauptstufen einer Dur-Tonart kommen hinzu (inklusive <code>ii</code> und <code>iii</code>).</li>
-        <li><strong>Stufe 3 – Erweitert (V/V):</strong> Neben dem Dominantseptakkord (<code>V7</code>) taucht die Zwischendominante <code>V/V</code> (Doppeldominante) auf.</li>
-        <li><strong>Stufe 4 – Jazz &amp; Tritone (bII7):</strong> Voller Akkordumfang bis hin zur Tritonussubstitution <code>bII7</code>.</li>
+        <li><strong>Stufe 1 – Basis (I–V / i–V):</strong> Die vier Grundpfeiler: in Dur <code>I, IV, V, vi</code>, in Moll <code>i, iv, V, VI</code>.</li>
+        <li><strong>Stufe 2 – Diatonisch (ii–vi / ii°–VII):</strong> Alle leitereigenen Hauptstufen (in Dur inkl. <code>ii</code> &amp; <code>iii</code>; in Moll inkl. <code>ii°, III, v, V, VII</code>).</li>
+        <li><strong>Stufe 3 – Erweitert (V/V / N6):</strong> Neben <code>V7</code> und Zwischendominante <code>V/V</code> taucht in Moll der Neapolitaner <code>N6</code> auf.</li>
+        <li><strong>Stufe 4 – Jazz &amp; Tritone (bII7 / iiø7):</strong> Voller Umfang bis hin zu Tritonussubstitution <code>bII7</code> sowie Moll-<code>ii–V</code> (<code>iiø7</code>).</li>
       </ul>
 
       <div class="article-highlight-box">
-        <h4>Steuerung während der Aufgabe</h4>
-        <p>Oben im Aufgabenfeld stellst du <strong>Tonart</strong>, <strong>Taktart</strong> und <strong>Tempo (BPM)</strong> direkt ein. Unten gibt dir <strong>Tonika (I)</strong> jederzeit das klangliche Zuhause, mit <strong>Stufe nochmal</strong> hörst du die gesuchte Akkordstufe isoliert, der <strong>Loop-Button</strong> aktiviert die Endlosschleife, und bei Fehlern vergleicht <strong>Vergleich</strong> bzw. <strong>Bass hören</strong> deinen Tipp mit der Lösung.</p>
+        <h4>Steuerung, Nur Hören &amp; Prüfung</h4>
+        <p>Oben im Aufgabenfeld wählst du <strong>Tonart</strong>, <strong>Taktart</strong> und <strong>Tempo (BPM)</strong>. Unten geben dir <strong>Tonika (I)</strong> / <strong>Tonika (i)</strong> und <strong>Stufe nochmal</strong> direkten Halt; links aktiviert der <strong>Loop-Button</strong> die Endlosschleife, rechts <strong>Nur Hören</strong> den automatischen Durchlauf. Nach einem Irrtum vergleichen <strong>A/B Vergleich</strong> und <strong>Bass / Grundton</strong> deinen Tipp mit der Lösung – und über die <strong>Kategorie-Prüfung</strong> testest du Dur und Moll unter Prüfungsbedingungen.</p>
       </div>
     `
   },
@@ -1711,7 +1719,7 @@ const CATEGORY_HELP_GUIDES = {
     tagClass: "tag-peach",
     tag: "Anleitung • Intervalle",
     title: "So funktioniert das Intervalltraining",
-    lead: "Hier schärfst du dein Gehör für einzelne Tonabstände zwischen zwei Tönen – aufwärts, abwärts und gleichzeitig. Bei melodischen Intervallen wechselt der Ausgangston bei jeder Aufgabe zufällig in einer gut hörbaren mittleren Klavierlage. (Für ganze Akkorde und Umkehrungen gibt es jetzt das eigene Modul <strong>Akkorde</strong>!)",
+    lead: "Hier schärfst du dein Gehör für einzelne Tonabstände zwischen zwei Tönen – aufwärts, abwärts, gleichzeitig und über eine gehaltene Streicher-Fläche. Bei melodischen Intervallen und der Fläche wechselt der Ausgangston bei jeder Aufgabe in einer gut hörbaren mittleren Lage. (Für ganze Akkorde und Umkehrungen gibt es das eigene Modul <strong>Akkorde</strong>!)",
     sections: `
       <h3>Die 4 Übungstypen</h3>
       <div class="k-compare-grid">
@@ -1752,8 +1760,8 @@ const CATEGORY_HELP_GUIDES = {
       <p><em>Schreibweise wechseln:</em> In den <strong>App-Einstellungen → Musikalische Schreibweise → Intervall-Namensgebung</strong> kannst du jederzeit zwischen <strong>Deutsch (P / G / k)</strong> und <strong>International (P / M / m)</strong> wählen.</p>
 
       <div class="article-highlight-box">
-        <h4>Tipps für deine Übungsrunde</h4>
-        <p>Mit <strong>Ausgangston</strong> hörst du jederzeit wieder den Startton der aktuellen Aufgabe. Bei einem Irrtum vergleicht <strong>A/B Vergleich</strong> deinen Tipp ab genau diesem Ausgangston und in derselben Richtung (auf- oder abwärts) direkt mit der Lösung; der <strong>Loop-Button</strong> startet nach jedem Treffer automatisch die nächste Abfrage.</p>
+        <h4>Mitsingen, A/B Vergleich &amp; Prüfung</h4>
+        <p>Der Chip <strong>Mitsingen</strong> oben (mit optionaler Summ-Pause) hilft deiner Stimme, den Abstand zu erspüren. Unten spielt <strong>Ausgangston</strong> jederzeit den Startton; nach einem Irrtum vergleicht <strong>A/B Vergleich</strong> deinen Tipp ab genau diesem Ausgangston und in derselben Richtung mit der Lösung. Mit <strong>Loop</strong> wiederholst du die Aufgabe endlos (<strong>Auto-Weiter</strong> in den Einstellungen wechselt nach Treffer direkt zur nächsten), mit <strong>Nur Hören</strong> läuft der Durchgang passiv mit Auflösung – und die <strong>Kategorie-Prüfung</strong> prüft alle 4 Intervalltypen gemischt.</p>
       </div>
     `
   },
@@ -1800,7 +1808,7 @@ const CATEGORY_HELP_GUIDES = {
 
       <div class="article-highlight-box">
         <h4>Tipps für deine Übungsrunde</h4>
-        <p>Bei den Akkordtypen spielt <strong>Ausgangston</strong> bzw. <strong>Grundton</strong> die Basis; bei Umkehrungen isoliert die <strong>Basston-Hilfe</strong> genau die tiefste Bass-Stimme. Mit <strong>A/B Vergleich</strong> hörst du nach einem Fehlversuch deinen gewählten Akkord bzw. dieselbe Umkehrung direkt vor der Lösung!</p>
+        <p>Der Button <strong>Grundton</strong> spielt jederzeit den Grundton der aktuellen Aufgabe; nach einem Fehlversuch vergleicht <strong>A/B Vergleich</strong> deine Wahl auf derselben Basis direkt mit der Lösung, und bei Umkehrungen isoliert <strong>Basston hören</strong> zusätzlich die tiefste Stimme. Nutze außerdem <strong>Loop</strong>, <strong>Nur Hören</strong> und die 4-stufige <strong>Kategorie-Prüfung</strong>.</p>
       </div>
     `
   },
@@ -1808,22 +1816,22 @@ const CATEGORY_HELP_GUIDES = {
     tagClass: "tag-lilac",
     tag: "Anleitung • Melodien",
     title: "So funktioniert das Melodie-Training",
-    lead: "Hier verbindest du dein Solfège-Gehör mit echtem Taktgefühl: Auf die feste 4-Akkord-Kadenz folgt ein 1-taktiger Einzähler und eine musikalische Phrase aus 4–6 Tönen.",
+    lead: "Hier verbindest du dein Solfège-Gehör mit echtem Taktgefühl direkt im Notensystem: Auf eine 4-Akkord-Kadenz folgt ein 1-taktiger Einzähler und eine Phrase aus 4–6 Noten.",
     sections: `
       <h3>Ablauf jeder Aufgabe</h3>
       <ul class="article-steps-list">
-        <li><strong>1. 4-Akkord-Kadenz, Einzähler &amp; Puls:</strong> Zuerst richtet eine Kadenz (<code>I – vi – IV – V</code>) dein Ohr auf die Tonart ein. Direkt danach gibt dir 1 Takt Einzähler den Groove im <code>4/4</code>- oder <code>3/4</code>-Takt vor, bevor die 4–6 Töne mit Achteln, Vierteln, punktierten Vierteln, Halben und Pausen erklingen. Mit <strong>Puls: An/Aus</strong> steuerst du den begleitenden Metrum-Klick.</li>
-        <li><strong>2. Drei wählbare Melodie-Stile:</strong> Auf der Kategorie-Seite wählst du zwischen <strong>Im Takt</strong> (Notenwerte als Hilfsgerüst sichtbar, Fokus auf Tonhöhe), <strong>Kombi-Diktat</strong> (Tonhöhe <em>und</em> Notenwert in beliebiger Reihenfolge lösen) und <strong>Basis (Halbe)</strong> (4 gleichmäßige halbe Noten zum ruhigen Einstieg).</li>
-        <li><strong>3. Ton &amp; Rhythmus Schritt für Schritt lösen:</strong> Sobald ein Feld komplett gelöst ist, erscheinen Solfège-Silbe (z. B. <code>Do</code>, <code>Mi</code>, <code>Fa</code>) und Tonname, und die Abfrage springt automatisch zum nächsten Ton weiter.</li>
-        <li><strong>4. Wiederholen ohne Fortschrittsverlust:</strong> Mit <strong>▶ Abspielen</strong> hörst du die ganze Phrase jederzeit neu; bereits gelöste Felder bleiben erhalten. Mit <strong>Ton nochmal</strong> hörst du gezielt nur den aktuellen Ton samt kurzem Vorpuls für die Längenkontrolle.</li>
+        <li><strong>1. Kadenz, Einzähler &amp; echtes Notensystem:</strong> Eine Referenzkadenz (<code>I – vi – IV – V</code>) richtet dein Ohr auf die Tonart ein. Nach 1 Takt Einzähler im <code>4/4</code>- oder <code>3/4</code>-Takt erklingen 4–6 Noten (mit Achteln, Vierteln, punktierten Vierteln, Halben &amp; Pausen), sichtbar als Notenbild im 5-Linien-System.</li>
+        <li><strong>2. Drei wählbare Melodie-Stile:</strong> Auf der Auswahlseite wählst du zwischen <strong>Rhythmische Melodie</strong> (Notenwerte stehen bereits im System, Fokus auf Tonhöhe), <strong>Kombi-Diktat</strong> (Tonhöhe auf der Klaviatur <em>und</em> Notenwert <code>1/8</code>, <code>1/4</code>, <code>1/4.</code>, <code>1/2</code> darunter in beliebiger Reihenfolge lösen) und <strong>Gleichmäßig (Basis)</strong> (4 ruhige halbe Noten zum Einstieg).</li>
+        <li><strong>3. Schritt für Schritt im Notenbild lösen:</strong> Sobald ein Ton gelöst ist, erscheint seine Solfège-Silbe (oder Stufenzahl <code>1–7</code>) direkt unter der Note, und der Fokus wandert zum nächsten Fragezeichen weiter.</li>
+        <li><strong>4. Wiederholen &amp; einzelne Töne antippen:</strong> Mit <strong>▶ Abspielen</strong> hörst du die ganze Phrase ohne Fortschrittsverlust neu. <strong>Ton nochmal</strong> (oder das Antippen einer bereits gelösten/aktiven Note im System) spielt gezielt nur diesen Ton mit kurzem Vorpuls.</li>
       </ul>
 
-      <h3>Schwierigkeitsstufen, Tonarten &amp; Oktaven</h3>
+      <h3>Stufen, Tonarten &amp; Steuerung</h3>
       <ul class="article-steps-list">
         <li><strong>Stufe 1 – Do–Fa:</strong> 4–5-tönige Phrasen aus dem unteren Tetrachord (<code>Do, Re, Mi, Fa</code>).</li>
         <li><strong>Stufe 2 – Sol–Do:</strong> 4–6-tönige Phrasen aus dem oberen Raum bis zur Oktave (<code>Sol, La, Ti, Do</code>).</li>
         <li><strong>Stufe 3 – Ganze Tonart:</strong> Alle sieben Solfège-Stufen (<code>Do</code> bis <code>Do</code>) über 4–6 Töne.</li>
-        <li><strong>C-Dur vs. Zufallstonarten &amp; Oktaven:</strong> Jede Stufe lässt sich fest in <code>C-Dur</code> oder mit wechselnden Zufallstonarten sowie innerhalb einer Oktave oder mit zusammenhängenden Registerwechseln trainieren.</li>
+        <li><strong>Tonarten, Oktaven &amp; Helfer:</strong> Trainiere fest in <code>C-Dur</code> oder in wechselnden Zufallstonarten, innerhalb 1 Oktave oder über mehrere Oktaven. Oben steuerst du <strong>Tonart</strong>, <strong>Puls: An/Aus</strong> und <strong>Tempo (BPM)</strong>; unten liegen <strong>Tonika (Do)</strong>, <strong>Auto-Weiter</strong> (links), <strong>Nur Hören</strong> sowie die 5-stufige <strong>Kategorie-Prüfung</strong>.</li>
       </ul>
     `
   },
@@ -1831,14 +1839,14 @@ const CATEGORY_HELP_GUIDES = {
     tagClass: "tag-sage",
     tag: "Anleitung • Solfège",
     title: "So funktioniert das Solfège-Training",
-    lead: "Solfège schult das relative Gehör: Du lernst, jede der 7 Tonstufen (Do bis Ti) an ihrer typischen Spannung und ihrem Auflösungsdrang innerhalb einer Tonart zu erkennen.",
+    lead: "Solfège schult das relative Gehör: Du lernst, jede der 7 Tonstufen (Do–Ti bzw. 1–7) an ihrer typischen Spannung und ihrem Auflösungsdrang innerhalb einer Tonart zu erkennen.",
     sections: `
       <h3>Ablauf jeder einzelnen Aufgabe</h3>
       <ul class="article-steps-list">
         <li><strong>1. Kontext-Kadenz:</strong> Zu Beginn erklingt im gewählten Tempo eine Referenzkadenz (<code>I – vi – IV – V</code>), damit sich dein Gehör in der Tonart einrichtet.</li>
         <li><strong>2. Gesuchter Einzelton:</strong> Nach einer deutlichen Pause hörst du genau eine Stufe der aktuellen Tonart.</li>
-        <li><strong>3. Antwort auf der Klaviatur:</strong> Nur die Töne der aktiven Tonart tragen ihre Silben-Kästchen (<em>Do–Re–Mi–Fa–Sol–La–Ti–Do</em>), eingerahmt von je einer Randtaste; tonartfremde Tasten sind abgedunkelt.</li>
-        <li><strong>4. Rückmeldung &amp; Auflösung:</strong> Eine falsche Taste wird rot markiert (ohne Störton), und du kannst weiter suchen. Bei der richtigen Taste wird sie grün und spielt automatisch die Auflösung zurück zur Tonika (<code>Do–Fa</code> abwärts, <code>Sol–Ti</code> aufwärts).</li>
+        <li><strong>3. Antwort auf der Klaviatur:</strong> Nur die Töne der aktiven Tonart tragen ihre Beschriftung (<em>Do–Re–Mi–Fa–Sol–La–Ti–Do</em> oder wahlweise <em>Stufenzahlen 1–7</em>), eingerahmt von je einer Randtaste; tonartfremde Tasten sind abgedunkelt.</li>
+        <li><strong>4. Rückmeldung &amp; Auflösung:</strong> Eine falsche Taste wird stumm rot markiert, damit deine Tonvorstellung stabil bleibt. Bei der richtigen Taste leuchtet sie grün und spielt automatisch die Auflösung zurück zur Tonika (<code>Do–Fa</code> abwärts, <code>Sol–Ti</code> aufwärts).</li>
       </ul>
 
       <h3>Die 6 Stufen auf der Auswahlseite</h3>
@@ -1849,8 +1857,8 @@ const CATEGORY_HELP_GUIDES = {
       </ul>
 
       <div class="article-highlight-box">
-        <h4>Hilfen direkt über &amp; unter der Klaviatur</h4>
-        <p>Über der Klaviatur stehen der <strong>Tonarten-Button</strong> (spielt den Tonika-Akkord an), <strong>Tonika (Do)</strong> und <strong>Ton nochmal</strong> bereit. Unten links schaltet der <strong>Loop-Button</strong> (lila) eine langsame Wiederholung des abgefragten Tons (alle 3 Sekunden) ein; ob nach der Auflösung automatisch die nächste Aufgabe startet, stellst du in den <strong>App-Einstellungen</strong> ein.</p>
+        <h4>Hilfen, Mitsingen &amp; Schreibweise</h4>
+        <p>Oben lädt <strong>Mitsingen</strong> (optional mit Summ-Pause) zum Nachsingen zurück zum Do ein; rechts daneben passt du das <strong>Tempo (BPM)</strong> an. Über der Klaviatur stehen der <strong>Tonarten-Button</strong> (spielt den Tonika-Akkord an), <strong>Tonika (Do)</strong> und <strong>Ton nochmal</strong> bereit. Unten schaltet der lila <strong>Loop-Button</strong> eine langsame Wiederholung alle 3 Sekunden ein, <strong>Nur Hören</strong> löst automatisch mit Auflösung auf. Zwischen <strong>Silben (Do–Ti)</strong> und <strong>Stufenzahlen (1–7)</strong> sowie <strong>Auto-Weiter</strong> wechselst du in den <strong>App-Einstellungen</strong>.</p>
       </div>
     `
   },
@@ -1858,19 +1866,19 @@ const CATEGORY_HELP_GUIDES = {
     tagClass: "tag-sage",
     tag: "Anleitung • Rhythmus",
     title: "So funktioniert das Rhythmus-Training",
-    lead: "Vier abwechslungsreiche Module schulen Taktgefühl, Notenwerte, Präzision beim Nachklopfen und feines Band-Timing – flexibel steuerbar über das Tempo (BPM).",
+    lead: "Vier vielseitige Bereiche schulen Taktgefühl, Rhythmus-Diktat, Nachklopfen &amp; Vom-Blatt-Tappen sowie Groove-Timing – übersichtlich notiert im Einlinien-Notensystem und per Tempo (BPM) steuerbar.",
     sections: `
       <h3>Die 4 Rhythmus-Module im Überblick</h3>
       <ul class="article-steps-list">
-        <li><strong>1. Taktart &amp; Metrum erkennen:</strong> Höre zwei Takte Percussion (mit betonter <code>1</code>) und bestimme, ob du einen <code>4/4</code>-, <code>3/4</code>-, <code>2/4</code>-, <code>6/8</code>- oder ungeraden Takt (<code>5/4</code> / <code>7/8</code>) hörst.</li>
-        <li><strong>2. Rhythmus-Diktat (4 Zählzeiten):</strong> Nach einem Takt Vorzähler erklingt ein Muster aus vier Zählzeiten auf der Clave. Enthülle wie bei den Melodien Schritt für Schritt alle vier Fragezeichen durch passende Notenwert-Bausteine (von Vierteln &amp; Pausen bis zu Triolen, Sechzehnteln und Synkopen).</li>
-        <li><strong>3. Rhythmus nachklopfen (Tap-Pad):</strong> Lauscher zählt vor und spielt ein kurzes Muster. Im direkten Takt danach klopfst du auf das große <strong>Tap-Pad</strong> (oder die <code>Leertaste</code>) exakt nach – inklusive <em>Blindflug</em>-Stufe ohne Klick!</li>
-        <li><strong>4. Groove, Akzente &amp; Mikro-Timing:</strong> Unterscheide Groove-Stile (Marsch, Backbeat, Synkope, Swing, 3 gegen 2), finde Offbeat-Akzente oder trainiere feinstes Mikro-Timing (<em>zu früh</em>, <em>exakt</em> oder <em>laid-back</em>).</li>
+        <li><strong>1. Taktart &amp; Metrum erkennen (3 Stufen):</strong> Höre zwei Takte Percussion (mit betonter <code>1</code>) und unterscheide <code>4/4</code> &amp; <code>3/4</code> (Stufe 1), <code>2/4</code> &amp; <code>6/8</code> (Stufe 2) sowie ungerade Takte <code>5/4</code> &amp; <code>7/8</code> (Stufe 3). Unten gibt <strong>Viertel-Puls</strong> jederzeit das Grundmetrum.</li>
+        <li><strong>2. Rhythmus-Diktat (4 Zählzeiten, 4 Stufen):</strong> Auf dem Einlinien-Notensystem erklingt nach 1 Takt Vorzähler ein 4-Schlag-Muster auf der Clave. Enthülle Schritt für Schritt alle vier Fragezeichen (von Vierteln, Achteln &amp; Pausen über Offbeats &amp; Triolen bis zu Sechzehnteln und 16tel-Synkopen) – mit <strong>Metronom (1–4)</strong>, <strong>Schlag nochmal</strong> (oder Antippen der Schläge) und <strong>Auto-Weiter</strong>.</li>
+        <li><strong>3. Tap-Pad: Nachklopfen &amp; Vom Blatt tappen (je 4 Stufen):</strong> Im Modus <strong>Nachklopfen</strong> hörst du Vorzähler + Demo und klopfst auf dem <strong>Tap-Pad</strong> (oder der <code>Leertaste</code>) nach – inklusive <strong>Klick: An/Aus</strong>, <strong>Nur anhören</strong> und Stufe 4 <em>Blindflug</em>. Im Modus <strong>Vom Blatt tappen</strong> entfällt das Vorspielen: Du liest den Rhythmus direkt vom Notensystem ab und tappst nach 1 Takt Vorzähler zum Metronom (Stufe 4: <em>Ohne Metronom</em>). Ein <strong>Zeitstrahl</strong> zeigt anschließend <code>exakt</code>, <code>knapp (±ms)</code>, <code>verpasst</code> und <code>zu viel</code>.</li>
+        <li><strong>4. Groove, Akzente &amp; Mikro-Timing (4 Stufen):</strong> Stufe 1 unterscheidet <em>Groove-Stile</em> (Marsch, Backbeat, Synkope, Swing, 3 vs. 2), Stufe 2 sucht den Cowbell-<em>Offbeat-Akzent</em> (<code>1</code>–<code>4+</code>), Stufe 3 trainiert <em>Mikro-Timing (±55 ms)</em> und Stufe 4 <em>Profi-Timing (±28 ms)</em> (zu früh, exakt „In the Pocket“ oder laid-back).</li>
       </ul>
 
       <div class="article-highlight-box">
-        <h4>Tipps zum Üben</h4>
-        <p>Starte beim <strong>Tap-Pad</strong> mit dem eingeschalteten <strong>Klick-Helfer</strong> und moderaten 80–95 BPM. Sobald du sicher bist, schalte den Klick aus oder wage den <strong>Blindflug</strong>, um dein inneres Metronom zu stärken.</p>
+        <h4>Tipps zum Üben &amp; Kategorie-Prüfung</h4>
+        <p>Starte beim <strong>Tap-Pad</strong> mit eingeschaltetem <strong>Klick</strong> bei 80–95 BPM und schalte links unten bei Bedarf <strong>Auto-Weiter</strong> zu. Wenn dein innerer Puls sitzt, prüfe dich im <strong>Blindflug</strong>, beim <strong>Vom-Blatt-Tappen ohne Metronom</strong>, im <strong>Nur-Hören-Modus</strong> oder in der 4-stufigen <strong>Kategorie-Prüfung</strong>.</p>
       </div>
     `
   },
@@ -1878,17 +1886,17 @@ const CATEGORY_HELP_GUIDES = {
     tagClass: "tag-lilac",
     tag: "Anleitung • Produktion & Mixing",
     title: "So funktioniert das Frequenz- & EQ-Training",
-    lead: "Schule dein Gehör auf klassische ISO-Terzbänder – zuerst mit isolierten Reintönen und danach wie am Mischpult als gezielter EQ-Boost im Rosa Rauschen.",
+    lead: "Schule dein Gehör auf klassische Studio-Frequenzbänder – zuerst mit isolierten Sinustönen über 5 bis 12 Bänder und danach wie am Mischpult als parametrischer EQ-Boost im Rosa Rauschen.",
     sections: `
       <h3>Die 2 Produktions-Module</h3>
       <ul class="article-steps-list">
-        <li><strong>1. Frequenzen erkennen (Reinton / Sinus):</strong> Höre einen ausgeglichenen Sinuston zwischen Subbass (<code>63 Hz</code>) und Air-Höhen (<code>12 kHz</code>) und ordne ihn dem passenden Frequenzband zu. Über <strong>„Ref: 1 kHz“</strong> kalibrierst du dich jederzeit neu.</li>
-        <li><strong>2. EQ-Boost im Pink Noise (Fortgeschritten):</strong> Erst erklingt kurzes unbearbeitetes <em>Pink Noise</em> („Flat“), dann hebt ein parametrischer Peaking-EQ genau die gesuchte Frequenz deutlich an. Nutze <strong>„Nur EQ-Boost“</strong>, um den Boost auch ohne direkten Flat-Vergleich zu trainieren.</li>
+        <li><strong>1. Frequenzen erkennen (Sinuston, 3 Stufen):</strong> Höre einen ausgeglichenen Sinuston zwischen Subbass (<code>63 Hz</code>) und Air-Höhen (<code>12 kHz</code>) über <strong>5 Bänder</strong>, <strong>8 Oktavbänder</strong> oder <strong>12 Bänder</strong> und ordne ihn zu. Über <strong>„Ref: 1 kHz“</strong> kalibrierst du dein Ohr jederzeit neu.</li>
+        <li><strong>2. EQ-Boost im Pink Noise (3 Stufen):</strong> Im <strong>freien Training</strong> startet das Rosa Rauschen sofort dauerhaft mit dem angehobenen Ziel-EQ (Stufe 1: Breiter EQ <code>+10 dB / Q 1,6</code>, Stufe 2: Oktav-EQ <code>+8,5 dB / Q 2,6</code>, Stufe 3: Chirurgisch <code>+7 dB / Q 4,2</code>). Über die obere <strong>Flat-Karte</strong> oder den Button <strong>„Flat-Bypass“</strong> schaltest du jederzeit fließend auf neutrales Rauschen um. Im Modus <strong>Nur Hören</strong> spielt die App erst kurz <em>Flat</em>, dann länger den <em>EQ-Boost</em> und zeigt nach kurzer Denkpause automatisch das Band.</li>
       </ul>
 
       <div class="article-highlight-box">
-        <h4>Gehörschutz &amp; Mix-Tipp</h4>
-        <p>Rosa Rauschen (-3 dB pro Oktave) verteilt die Energie gleichmäßig über jede Oktave. Ein interner Schutz-Limiter, weiche Ein-/Ausblenden und Lautheits-Ausgleich sorgen dafür, dass weder 2–4 kHz noch Rauschspitzen die Ohren ermüden. Übe trotzdem immer bei entspannter Zimmerlautstärke!</p>
+        <h4>Gehörschutz, Vergleich &amp; Prüfung</h4>
+        <p>Rosa Rauschen (-3 dB pro Oktave) verteilt die Energie gleichmäßig über alle Oktaven. Ein -14 dBFS Schutz-Limiter, Lautheits-Ausgleich rund um 2–4 kHz und weiche Blenden verhindern ermüdende Spitzen. Nach einem Fehlversuch helfen <strong>A/B Vergleich</strong> sowie <strong>Flat → Ziel-EQ</strong>, und alle 3 Stufen lassen sich auch in der <strong>Kategorie-Prüfung</strong> absolvieren.</p>
       </div>
     `
   },
@@ -1896,38 +1904,38 @@ const CATEGORY_HELP_GUIDES = {
     tagClass: "tag-peach",
     tag: "Anleitung • Tonleitern & Modi",
     title: "So funktioniert das Training für Tonleitern & Modi",
-    lead: "Statt trockener Intervall-Tabellen hörst du jede Kirchentonart in ihrer echten Klangfarbe – wahlweise über denselben Grundton oder quer durch verschiedene Tonarten.",
+    lead: "Statt trockener Intervall-Tabellen hörst du jede Kirchentonart in ihrer echten Klangfarbe – über denselben Grundton oder transponiert, auf Wunsch mit zuschaltbarer Grundton-Streicherfläche.",
     sections: `
       <h3>Die 3 Modi-Module im Überblick</h3>
       <ul class="article-steps-list">
-        <li><strong>1. Modus / Tonleiter erkennen:</strong> Du hörst zuerst eine neutrale <strong>Anker-Quinte</strong> (Grundton + Quinte, bewusst ohne Terz) und danach die 8-tönige Tonleiter aufwärts. Starte in <em>Stufe 1</em> mit vier klaren Grund-Modi (<code>Ionisch</code>, <code>Äolisch</code>, <code>Dorisch</code>, <code>Mixolydisch</code>), meistere in <em>Stufe 2</em> alle 7 Kirchentonarten und trainiere in <em>Stufe 3</em> mit wechselnden Grundtönen.</li>
-        <li><strong>2. Charakterton &amp; Klangfarbe:</strong> Nach der Anker-Quinte erklingt genau die harmonische Wendung, die den Modus einzigartig macht (z. B. <code>#4</code> im Lydischen, <code>b7</code> im Mixolydischen, <code>♮6</code> im Dorischen, <code>b2</code> im Phrygischen oder der Leitton <code>#7</code> in Harmonisch Moll).</li>
-        <li><strong>3. Modale Kadenzen &amp; Vamps:</strong> Höre zwei charakteristische Pendel-Akkorde (z. B. <code>i – IV</code> für Dorisch, <code>I – bVII</code> für Mixolydisch, <code>I – II</code> für Lydisch oder <code>i – bII</code> für Phrygisch) und ordne die harmonische Stimmung direkt zu.</li>
+        <li><strong>1. Modus / Tonleiter erkennen (3 Stufen):</strong> Nach der neutralen <strong>Anker-Quinte</strong> (Grundton + Quinte ohne Terz) erklingt die 8-tönige Tonleiter aufwärts: Stufe 1 prüft die 4 Grund-Modi (<code>Ionisch, Äolisch, Dorisch, Mixolydisch</code>), Stufe 2 alle 7 Kirchentonarten in <code>C</code> und Stufe 3 alle 7 mit wechselndem Grundton.</li>
+        <li><strong>2. Charakterton &amp; Klangfarbe (3 Stufen):</strong> Nach der Anker-Quinte fokussiert eine kurze Wendung den charakteristischen Leitton (<code>#4</code> Lydisch, <code>b7</code> Mixolydisch, <code>♮6</code> Dorisch, <code>b2</code> Phrygisch oder <code>#7</code> in <strong>Harmonisch Moll</strong>) – getrennt in Stufe 1 (Dur-Modi), Stufe 2 (Moll-Modi) und Stufe 3 (Alle 7 + Harmonisch Moll auf freien Grundtönen).</li>
+        <li><strong>3. Modale Kadenzen &amp; Vamps (2 Stufen):</strong> Zweitaktige Pendel-Akkorde (z. B. <code>i – IV</code> Dorisch, <code>I – bVII</code> Mixolydisch, <code>I – II</code> Lydisch, <code>i – bII</code> Phrygisch) erst über 4 Standard-Vamps in <code>C</code> (Stufe 1) und dann als alle 6 Modal-Vamps transponiert (Stufe 2).</li>
       </ul>
 
       <div class="article-highlight-box">
-        <h4>Hör-Trick: Parallel statt ab C denken!</h4>
-        <p>Vergleiche Modi am Anfang immer über denselben Grundton (z. B. <strong>C-Ionisch</strong> vs. <strong>C-Mixolydisch</strong> vs. <strong>C-Dorisch</strong>). Über den Button <em>„Anker-Quinte“</em> oder den A/B-Diagnosevergleich hörst du sofort, welcher einzelne Leit- oder Charakterton sich verschiebt.</p>
+        <h4>Grundton-Fläche, Anker-Quinte &amp; A/B Vergleich</h4>
+        <p>Vergleiche Modi anfangs parallel vom <strong>selben Grundton</strong> (z. B. <strong>C-Ionisch</strong> vs. <strong>C-Mixolydisch</strong>). Über den Button <strong>„Grundton-Fläche: An/Aus“</strong> unterlegst du jede Aufgabe mit einer durchgehenden Streicher-Fläche; ein Tipp auf <strong>„Anker-Quinte“</strong> (oder die linke Karte) ruft den neutralen Quintrahmen auf, und nach einem Irrtum vergleicht <strong>A/B Vergleich</strong> beide Modi direkt über demselben Grundton. Auch <strong>Loop</strong>, <strong>Nur Hören</strong> und eine 3-stufige <strong>Kategorie-Prüfung</strong> stehen bereit.</p>
       </div>
     `
   },
   warmup: {
     tagClass: "tag-sage",
     tag: "Anleitung • Einsing-Helfer",
-    title: "So funktioniert das 5-Minuten-Einsingen",
-    lead: "Ideal für Chorprobe, Einzelunterricht oder vor dem Üben: Das Programm führt dich Schritt für Schritt von ruhiger Bauchatmung über Resonanz-Summen und modulierte Arpeggios bis zum mehrstimmigen Chorklang.",
+    title: "So funktioniert das geführte Einsingen",
+    lead: "Ideal für Chorprobe, Einzelunterricht oder vor dem Üben: Wähle zunächst einen von 5 Stimmumfängen (SATB) und starte eines von 4 strukturierten Programmen – komplett mit Atem-Kugel, Live-Klaviatur und Halbton-Steuerung.",
     sections: `
-      <h3>Die 4 Warmup-Phasen</h3>
+      <h3>Die 4 Warmup-Programme &amp; 4 Phasen</h3>
       <ul class="article-steps-list">
-        <li><strong>Phase 1 – Atem &amp; Körper:</strong> Ruhiger Atemkreis auf <code>ffff / ssss</code> und leichte Zwerchfell-Impulse (<code>P – T – K</code>) wecken die Stütze, ganz ohne Druck auf den Stimmlippen.</li>
-        <li><strong>Phase 2 – Stimmsitz &amp; Resonanz:</strong> Sanftes Summen (<code>Mmm</code> / Lippenflattern) und Seufzer-Abgänge über die Quinte öffnen weich den Resonanzraum.</li>
-        <li><strong>Phase 3 – Beweglichkeit &amp; Arpeggios:</strong> Aufsteigende Dreiklangs- und Oktav-Arpeggios (<code>1–3–5–3–1</code> und <code>1–3–5–8–5–3–1</code>) modulieren automatisch in Halbtonschritten – wahlweise passend für <strong>Chor-Mitte, Sopran, Alt, Tenor oder Bass</strong> – und holen die Stimme anschließend behutsam wieder in die Mittellage zurück.</li>
-        <li><strong>Phase 4 – Vokalausgleich &amp; Chorklang:</strong> Vokal-Wandern (<code>U → O → A → E → I</code>) und ein schichtweise aufgebauter SATB-Schlussakkord festigen Mischung und reine Intonation.</li>
+        <li><strong>4 Programme zur Wahl:</strong> Starte je nach Zeit und Ziel das <strong>5-Minuten Komplett-Einsingen</strong> (alle 4 Phasen, 9 Übungen), das <strong>Kompakt-Warmup (ca. 3 Min.)</strong> für den schnellen Unterrichtsstart, das <strong>Arpeggio &amp; Register-Training</strong> oder <strong>Chor-Atem &amp; Intonation</strong>.</li>
+        <li><strong>Phase 1 – Atem &amp; Körper:</strong> Die animierte Atemkugel auf <code>ffff / ssss</code> und leichte Zwerchfell-Impulse (<code>P – T – K</code>) wecken die Stütze ohne Druck auf den Stimmlippen.</li>
+        <li><strong>Phase 2 – Stimmsitz &amp; Resonanz:</strong> Sanftes Summen / Lippenflattern (<code>Mmm / Brrr</code>) und Seufzer-Abgänge über die Quinte öffnen weich den Resonanzraum.</li>
+        <li><strong>Phase 3 &amp; 4 – Arpeggios, Vokale &amp; Chorklang:</strong> Dreiklangs- und Oktav-Arpeggios modulieren in Halbtonschritten passend für <strong>Chor-Mitte, Sopran, Alt, Tenor oder Bass</strong>, gefolgt von Vokal-Wandern (<code>U → O → A → E → I</code>) und einem schichtweisen SATB-Schlussakkord.</li>
       </ul>
 
       <div class="article-highlight-box">
-        <h4>Unterrichts-Tipp für Klavier &amp; Chor</h4>
-        <p>Über die Chips oben wechselst du jederzeit zwischen <strong>Tonumfang (SATB)</strong>, <strong>Klang</strong> (Klavier pur, Klavier + Stimme oder Stimme pur) und <strong>Tempo</strong>. Unten lassen sich laufende Muster mit <strong>„−1 / +1 Halbton“</strong> oder <strong>„↻ Nochmal“</strong> direkt an die Gruppe anpassen.</p>
+        <h4>Live-Steuerung &amp; Klaviatur</h4>
+        <p>Über die Chips oben wechselst du jederzeit zwischen <strong>Tonumfang (SATB)</strong>, <strong>Klang</strong> (Klavier, Klavier + Stimme oder Stimme) und <strong>Tempo</strong>; über die <strong>Phasen-Pills</strong> springst du gezielt zu einzelnen Abschnitten. Unten lässt sich jede Übung per <strong>„−1 / +1 Halbton“</strong> und <strong>„↻ Nochmal“</strong> direkt anpassen – oder du greifst auf der <strong>Live-Klaviatur</strong> einzelne Referenztöne direkt mit an.</p>
       </div>
     `
   },
@@ -1935,27 +1943,24 @@ const CATEGORY_HELP_GUIDES = {
     tagClass: "tag-sage",
     tag: "Anleitung • Notation & Notenlesen",
     title: "So funktioniert das Notenlesen-Training",
-    lead: "Trainiere flüssiges Vom-Blatt-Lesen im Violin-, Bass- und Altschlüssel – vom sicheren Kern der 5 Stammlinien bis zu 3 Hilfslinien nach oben und unten plus Vorzeichen (♯/♭).",
+    lead: "Trainiere flüssiges Vom-Blatt-Lesen über 6 Modi: im Violin-, Bass- und Altschlüssel, im Schlüssel-Mix, im zweizeiligen Klavier-Doppelsystem sowie beim Erkennen ganzer Akkorde (inkl. Umkehrungen &amp; Septakkorde).",
     sections: `
-      <h3>Aufbau des Übungsbildschirms</h3>
+      <h3>Alle 6 Übungsmodi &amp; Eingabe</h3>
       <ul class="article-steps-list">
-        <li><strong>1. Großes Notensystem oben (6 Noten im Fluss):</strong> Links im farbigen Zielband leuchtet immer die aktuell gesuchte Note. Dahinter siehst du bereits die nächsten 5 Noten, sodass dein Blick wie beim echten Vom-Blatt-Spielen vorauslesen kann.</li>
-        <li><strong>2. Klaviatur unten als Eingabe:</strong> Tippe die markierte Note ganz links auf der Klaviatur an. Ist dein Tipp richtig, erklingt die Note in ihrer echten Oktave, die mittlere Bühne benennt den Ton eindeutig, und alle Noten rücken flüssig einen Schritt nach links, während rechts eine neue Note erscheint.</li>
-        <li><strong>3. Falsche Antworten &amp; Überspringen:</strong> Falsche Tasten werden rot markiert und bleiben ohne Sprung stehen, damit du die Position in Ruhe prüfen kannst. Bist du unsicher, springst du mit <strong>Überspringen</strong> weiter – die richtige Note wird dir dabei direkt auf der Bühne benannt.</li>
+        <li><strong>1. Einzelnoten-Schlüssel (6 Noten im Fluss):</strong> Im <strong>Violin-</strong>, <strong>Bass-</strong>, <strong>Altschlüssel</strong> und im <strong>Schlüssel-Mix</strong> (wechselt alle 3 Noten mit kleinem Schlüsselsignal) sowie im zweizeiligen <strong>Doppelsystem</strong> (Violin- &amp; Bassschlüssel gemeinsam) leuchtet links die aktuelle Zielnote. Du tippst sie unten auf der Klaviatur an – bei Treffer rückt die Reihe flüssig weiter.</li>
+        <li><strong>2. Akkorde lesen (5 Akkorde, Multiple Choice):</strong> Gestapelte Dreiklänge &amp; Septakkorde erscheinen direkt im Notensystem. Statt Einzeltasten wählst du unten aus <strong>Akkordsymbol-Kacheln</strong> (z. B. <code>E, Em, E7, Esus4</code>): Stufe 1 im Violinschlüssel, Stufe 2 im Bassschlüssel, Stufe 3 mit Umkehrungen in beiden Schlüsseln und Stufe 4 mit allen Typen &amp; Septakkorden.</li>
+        <li><strong>3. Irrtümer &amp; Überspringen:</strong> Falsche Tasten oder Kacheln färben sich rot und stoppen die Reihe, damit du Position, Schlüssel oder Umkehrung ruhig prüfen kannst. Mit <strong>Überspringen</strong> siehst du die Lösung auf der Bühne und rückst sofort weiter.</li>
       </ul>
 
-      <h3>Die Schwierigkeitsstufen &amp; Tonarten</h3>
+      <h3>Schwierigkeitsstufen &amp; Generalvorzeichen</h3>
       <ul class="article-steps-list">
-        <li><strong>Stufe 1 – Stammlinien (Einstieg):</strong> Alle 5 Notenlinien und 4 Zwischenräume direkt im System ohne Hilfslinien.</li>
-        <li><strong>Stufe 2 – ±2 Hilfslinien:</strong> Erweiterter Umfang bis zu 2 Hilfslinien über und unter dem System (Stammtöne).</li>
-        <li><strong>Stufe 3 – ±3 Hilfslinien (Voller Bereich):</strong> Voller Lesebereich mit bis zu 3 Hilfslinien nach oben und unten.</li>
-        <li><strong>Stufe 4 – ±3 Hilfslinien + ♯/♭ (oder ♮):</strong> Ohne Generalvorzeichen mit direkten Versetzungszeichen (<code>♯</code>/<code>♭</code>); bei aktiver Tonart inklusive <strong>Auflösungszeichen (<code>♮</code>)</strong>, die das Generalvorzeichen aufheben – wahlweise in deutscher (<code>H / B / Fis</code>) oder internationaler Schreibweise (<code>B / B♭ / F♯</code>).</li>
-        <li><strong>Tonarten-Blattspiel (Generalvorzeichen 1–6 ♯/♭):</strong> Oben oder direkt über den Button <strong>Tonart</strong> in der Übung wählst du einzelne Tonarten bis 6 Kreuze/Bs oder rotierende Tonarten-Pools. Die Vorzeichen stehen wie im echten Notenheft nur am Systemanfang – alle betroffenen Stammnoten müssen automatisch auf den schwarzen Tasten gegriffen werden.</li>
+        <li><strong>Einzelnoten Stufen 1–4:</strong> Stufe 1 (5 Linien &amp; 4 Zwischenräume), Stufe 2 (<code>±2 Hilfslinien</code>), Stufe 3 (<code>±3 Hilfslinien</code>) und Stufe 4 mit Versetzungszeichen (<code>♯</code>/<code>♭</code> bzw. Auflösungszeichen <code>♮</code> bei aktiver Tonart) – in deutscher (<code>H / B / Fis</code>) oder internationaler Schreibweise (<code>B / B♭ / F♯</code>).</li>
+        <li><strong>Tonarten-Blattspiel (Generalvorzeichen 1–6 ♯/♭):</strong> Wähle oben auf der Auswahlseite oder live über den Button <strong>Tonart</strong> im Aufgabenkopf einzelne Tonarten oder rotierende Pools (Leicht, Mittel, Alle 12). Die Vorzeichen stehen wie im echten Notenheft am Systemanfang.</li>
       </ul>
 
       <div class="article-highlight-box">
-        <h4>Hilfe im Schlüssel-Mix &amp; bei Prüfungen</h4>
-        <p>Im <strong>Schlüssel-Mix</strong> wechselt das System automatisch alle paar Noten zwischen Violin-, Bass- und Altschlüssel (mit kleinem Schlüsselsignal vor dem Wechsel). Unten links spielt der Button <strong>Anker</strong> jederzeit den Referenzton des aktiven Schlüssels (<code>g'</code> im Violin-, <code>f</code> im Bass-, <code>c'</code> im Altschlüssel).</p>
+        <h4>Audio-Steuerung, Nur Hören &amp; Prüfung</h4>
+        <p>Über der Eingabe schaltet <strong>Notenton: An/Aus</strong> die Klangwiedergabe stumm, wenn du ganz lautlos vom Blatt lesen willst. Unten spielt <strong>▶ Ton anhören</strong> bzw. <strong>▶ Akkord anhören</strong> die linke Zielvorgabe als optionale Hörhilfe vor – in der 6-stufigen <strong>Kategorie-Prüfung</strong> verwandelt sich der Button in <strong>▶ Ankerton</strong> (<code>g'</code> / <code>f</code> / <code>c'</code>), um die Lösung nicht zu verraten. Rechts startet <strong>Nur Hören</strong> mit dem wählbaren <strong>Tempo</strong> (<em>Sehr langsam</em> bis <em>Sehr schnell</em>) den automatischen Lesedurchlauf.</p>
       </div>
     `
   }

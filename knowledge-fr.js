@@ -1611,31 +1611,39 @@ const CATEGORY_HELP_GUIDES_FR = {
     tagClass: "tag-sage",
     tag: "Mode d’emploi • Cadences",
     title: "Comment fonctionne l’entraînement aux cadences",
-    lead: "Au lieu de deviner des accords hors contexte, vous écoutez une progression complète sur quatre mesures qui ancre votre oreille — puis vous identifiez la fonction harmonique manquante au niveau du point d’interrogation.",
+    lead: "Au lieu de deviner des accords hors contexte, vous écoutez une progression complète sur quatre mesures — en <strong>Majeur</strong> et en <strong>Mineur</strong> — et identifiez la fonction manquante au point d’interrogation.",
     sections: `
-      <h3>Les deux groupes d’exercices</h3>
+      <h3>Les quatre groupes d’exercices (Majeur &amp; Mineur)</h3>
       <div class="k-compare-grid">
         <div class="k-compare-box is-sage">
-          <h5>Cible : Mesure 4 (Classique)</h5>
-          <p>Les mesures 1 à 3 s’affichent pour installer la tonalité. Écoutez les quatre accords et choisissez l’harmonie manquante pour la <strong>mesure 4</strong>.</p>
+          <h5>Majeur • Cible : Mesure 4</h5>
+          <p>Les mesures 1 à 3 installent la tonalité majeure. Écoutez les quatre accords et choisissez l’harmonie manquante pour la <strong>mesure 4</strong>.</p>
         </div>
         <div class="k-compare-box is-lilac">
-          <h5>Mesure aléatoire (1–4)</h5>
-          <p>Le point d’interrogation se déplace de façon imprévisible sur les mesures 1, 2, 3 ou 4. Même lorsque la mesure 1 est masquée, un repère visuel de Tonique (<strong>I</strong>) reste affiché pour orienter votre oreille.</p>
+          <h5>Majeur • Mesure aléatoire (1–4)</h5>
+          <p>Le point d’interrogation se déplace sur les mesures 1 à 4. Même si la mesure 1 est masquée, un repère visuel de Tonique (<strong>I</strong>) reste affiché.</p>
+        </div>
+        <div class="k-compare-box is-peach">
+          <h5>Mineur • Cible : Mesure 4</h5>
+          <p>Les mêmes exercices en vraies tonalités mineures (ex. <code>i–iv–V</code>) : écoutez trois mesures de contexte et identifiez la 4e fonction.</p>
+        </div>
+        <div class="k-compare-box is-lilac">
+          <h5>Mineur • Mesure aléatoire (1–4)</h5>
+          <p>La mesure cachée varie de 1 à 4 ; au moins une Tonique mineure (<strong>i</strong>) reste visible à l’écran pour orienter l’oreille.</p>
         </div>
       </div>
 
-      <h3>Les 4 niveaux de difficulté</h3>
+      <h3>Les 4 niveaux de difficulté (Majeur &amp; Mineur)</h3>
       <ul class="article-steps-list">
-        <li><strong>Niveau 1 – Piliers fondamentaux (I–V) :</strong> Les quatre accords essentiels <code>I</code>, <code>IV</code>, <code>V</code> et <code>vi</code> — la base d’innombrables chansons pop et folk.</li>
-        <li><strong>Niveau 2 – Diatonique (ii–vi) :</strong> Les six principaux accords diatoniques du mode majeur (ajout de <code>ii</code> et <code>iii</code>).</li>
-        <li><strong>Niveau 3 – Enrichi (V/V) :</strong> Introduit la septième de dominante (<code>V7</code>) et la dominante secondaire <code>V/V</code>.</li>
-        <li><strong>Niveau 4 – Jazz &amp; Substitution tritonique (bII7) :</strong> Vocabulaire chromatique complet jusqu’à la substitution tritonique <code>bII7</code>.</li>
+        <li><strong>Niveau 1 – Bases (I–V / i–V) :</strong> Les quatre piliers essentiels : <code>I, IV, V, vi</code> en majeur ou <code>i, iv, V, VI</code> en mineur.</li>
+        <li><strong>Niveau 2 – Diatonique (ii–vi / ii°–VII) :</strong> Tous les degrés diatoniques principaux (majeur avec <code>ii</code> &amp; <code>iii</code> ; mineur avec <code>ii°, III, v, V, VII</code>).</li>
+        <li><strong>Niveau 3 – Enrichi (V/V / N6) :</strong> Introduit <code>V7</code>, la dominante secondaire <code>V/V</code> ainsi que l’accord napolitain <code>N6</code> en mineur.</li>
+        <li><strong>Niveau 4 – Jazz &amp; Triton (bII7 / iiø7) :</strong> Vocabulaire complet jusqu’à la substitution tritonique <code>bII7</code> et le <code>ii–V</code> mineur (<code>iiø7</code>).</li>
       </ul>
 
       <div class="article-highlight-box">
-        <h4>Commandes pendant l’exercice</h4>
-        <p>Utilisez les pastilles au-dessus de la scène pour régler la <strong>Tonalité</strong>, la <strong>Mesure</strong> et le <strong>Tempo (BPM)</strong>. En dessous, <strong>Tonique (I)</strong> recale votre oreille à tout moment, <strong>Réécouter l’accord</strong> isole le degré recherché, le <strong>bouton Boucle</strong> répète la cadence sans interruption, et après une erreur, <strong>Comparaison A/B</strong> et <strong>Écouter la basse</strong> confrontent directement votre choix et la solution.</p>
+        <h4>Commandes, Écoute seule &amp; Examen</h4>
+        <p>En haut de la scène, réglez <strong>Tonalité</strong>, <strong>Mesure</strong> et <strong>Tempo (BPM)</strong>. En dessous, <strong>Tonique (I)</strong> / <strong>Tonique (i)</strong> et <strong>Réécouter l’accord</strong> ancrent votre oreille ; le bouton <strong>Boucle</strong> répète en continu et <strong>Écoute seule</strong> déroule les exercices avec révélation automatique. Après une erreur, <strong>Comparaison A/B</strong> et <strong>Basse / Fondamentale</strong> comparent votre choix et la solution — et l’<strong>Examen de catégorie</strong> teste majeur et mineur ensemble.</p>
       </div>
     `
   },
@@ -1643,7 +1651,7 @@ const CATEGORY_HELP_GUIDES_FR = {
     tagClass: "tag-peach",
     tag: "Mode d’emploi • Intervalles",
     title: "Comment fonctionne l’entraînement aux intervalles",
-    lead: "Affûtez votre oreille sur des écarts purs à deux notes — mélodiques ascendants, mélodiques descendants et harmoniques simultanés. Pour les intervalles mélodiques, la note de départ change aléatoirement à chaque question dans un registre clair. (Vous cherchez les accords &amp; renversements ? Ils ont désormais leur propre module <strong>Accords</strong> !)",
+    lead: "Affûtez votre oreille sur des écarts purs à deux notes — mélodiques ascendants, mélodiques descendants, harmoniques simultanés et sur nappe de cordes. Dans les modes mélodiques et sur nappe, la note de départ change à chaque question dans un registre médium clair. (Pour les accords &amp; renversements, rendez-vous dans le module <strong>Accords</strong> !)",
     sections: `
       <h3>Les 4 types d’exercices</h3>
       <div class="k-compare-grid">
@@ -1660,8 +1668,8 @@ const CATEGORY_HELP_GUIDES_FR = {
           <p>Les deux notes résonnent ensemble. Écoutez la fusion ou les battements — une fois résolues, les cartes affichent les deux hauteurs (ex. <code>Do4 + Sol4</code> / <code>C4 + G4</code>).</p>
         </div>
         <div class="k-compare-box is-peach">
-          <h5>Intervalles sur nappe tonique (Cordes ➔ Piano)</h5>
-          <p>Une chaleureuse <strong>nappe de cordes</strong> tient la fondamentale en continu. Après un bref délai, le <strong>piano</strong> joue la note cible par-dessus — idéal pour sentir la couleur de chaque degré sur une pédale.</p>
+          <h5>Intervalles sur nappe de fondamentale (Cordes ➔ Piano)</h5>
+          <p>Une chaleureuse <strong>nappe de cordes</strong> tient la fondamentale en continu. Après un bref délai, le <strong>piano</strong> joue la note cible par-dessus — idéal pour sentir la tension et la couleur de chaque degré.</p>
         </div>
       </div>
 
@@ -1684,8 +1692,8 @@ const CATEGORY_HELP_GUIDES_FR = {
       <p><em>Changer d’abréviations :</em> Vous pouvez basculer à tout moment entre <strong>International (P / M / m)</strong> et <strong>Allemand (P / G / k)</strong> dans <strong>Paramètres → Notation musicale → Noms des intervalles</strong>.</p>
 
       <div class="article-highlight-box">
-        <h4>Conseils d’entraînement</h4>
-        <p>Touchez <strong>Note de départ</strong> à tout moment pour réentendre la note initiale seule. Après une erreur, la <strong>Comparaison A/B</strong> rejoue votre réponse depuis la même note de départ et dans la même direction (montante ou descendante) juste avant la bonne solution ; activez <strong>Suivant auto</strong> pour enchaîner sans interruption.</p>
+        <h4>Chanter, Comparaison A/B &amp; Examen</h4>
+        <p>En haut, le bouton <strong>Chanter</strong> (avec <em>Pause fredonnée</em> en option) aide votre voix à ressentir l’écart. En bas, <strong>Note de départ</strong> rejoue la note initiale ; après une erreur, la <strong>Comparaison A/B</strong> rejoue votre choix depuis cette même note et dans la même direction juste avant la solution. Utilisez <strong>Boucle</strong> pour répéter sans fin (ou activez <strong>Suivant auto</strong> dans les Paramètres), <strong>Écoute seule</strong> pour réviser passivement, et passez l’<strong>Examen de la catégorie</strong> sur les 4 types d’intervalles.</p>
       </div>
     `
   },
@@ -1732,7 +1740,7 @@ const CATEGORY_HELP_GUIDES_FR = {
 
       <div class="article-highlight-box">
         <h4>Conseils d’entraînement</h4>
-        <p>Dans les exercices de nature d’accord, <strong>Fondamentale</strong> rejoue la tonique de l’accord ; dans les renversements, l’indice basse isole la note la plus grave entendue. Après une erreur, la <strong>Comparaison A/B</strong> rejoue votre proposition sur la même fondamentale juste avant la bonne réponse !</p>
+        <p><strong>Fondamentale</strong> rejoue la fondamentale de l’accord à tout moment ; après une erreur, la <strong>Comparaison A/B</strong> rejoue votre proposition sur la même fondamentale juste avant la bonne réponse, et dans les renversements <strong>Écouter la basse</strong> isole la note la plus grave. Activez aussi <strong>Boucle</strong>, <strong>Écoute seule</strong> et l’<strong>Examen</strong> à 4 niveaux.</p>
       </div>
     `
   },
@@ -1740,22 +1748,22 @@ const CATEGORY_HELP_GUIDES_FR = {
     tagClass: "tag-lilac",
     tag: "Mode d’emploi • Mélodies",
     title: "Comment fonctionne l’entraînement mélodique",
-    lead: "Associez votre oreille de solfège au sens du rythme : une cadence fixe de 4 accords enchaîne sur 1 mesure de décompte puis sur une phrase musicale de 4 à 6 notes.",
+    lead: "Associez votre oreille de solfège au sens du rythme directement sur une véritable portée à 5 lignes : une cadence de 4 accords enchaîne sur 1 mesure de décompte et une phrase de 4 à 6 notes.",
     sections: `
       <h3>Déroulement d’une manche</h3>
       <ul class="article-steps-list">
-        <li><strong>1. Cadence à 4 accords, décompte &amp; pulsation :</strong> Une progression d’ancrage (<code>I – vi – IV – V</code>) fixe la tonalité, suivie d’une mesure de décompte en <code>4/4</code> ou <code>3/4</code> avant 4 à 6 notes mêlant croches, noires, noires pointées, blanches et silences. Le bouton <strong>Pulsation : Oui/Non</strong> contrôle le clic rythmique.</li>
-        <li><strong>2. Trois styles au choix :</strong> Choisissez entre <strong>En mesure</strong> (les valeurs rythmiques restent affichées pour se concentrer sur la hauteur), <strong>Dictée combinée</strong> (trouver la hauteur <em>et</em> la durée — <code>1/8</code>, <code>1/4</code>, <code>1/4.</code>, <code>1/2</code> — dans l’ordre de votre choix) et <strong>Bases (blanches)</strong> (4 blanches régulières pour démarrer).</li>
-        <li><strong>3. Résolution pas à pas :</strong> Dès qu’une carte est validée, son <strong>nom de solfège</strong> (<code>Do</code>, <code>Mi</code>, <code>Fa</code>…) et sa note apparaissent avant de passer à la note suivante.</li>
-        <li><strong>4. Réécouter sans rien perdre :</strong> Touchez <strong>▶ Écouter</strong> à tout moment pour réentendre la phrase complète tout en conservant les notes trouvées. <strong>Répéter la note</strong> isole la note en cours avec un clic de tempo de référence.</li>
+        <li><strong>1. Cadence, décompte &amp; vraie portée musicale :</strong> Une progression d’ancrage (<code>I – vi – IV – V</code>) fixe la tonalité, suivie d’une mesure de décompte en <code>4/4</code> ou <code>3/4</code> avant 4 à 6 notes (croches, noires, noires pointées, blanches et silences) affichées directement sur la portée.</li>
+        <li><strong>2. Trois styles au choix :</strong> Sur la page de sélection, choisissez <strong>Mélodie rythmée</strong> (les durées s’affichent déjà sur la portée pour se concentrer sur la hauteur), <strong>Dictée combinée</strong> (trouvez la hauteur au clavier <em>et</em> la valeur rythmique <code>1/8</code>, <code>1/4</code>, <code>1/4.</code>, <code>1/2</code> en dessous dans n’importe quel ordre) ou <strong>Régulier (Bases)</strong> (4 blanches régulières pour démarrer).</li>
+        <li><strong>3. Résolution pas à pas sur la portée :</strong> Dès qu’une note est validée, son nom (<code>Do–Ti</code> ou chiffre de degré <code>1–7</code>) apparaît sous la portée et le curseur passe au point d’interrogation suivant.</li>
+        <li><strong>4. Réécouter &amp; toucher les notes directement :</strong> Touchez <strong>▶ Écouter</strong> pour réentendre toute la phrase sans perdre votre progression. <strong>Réécouter</strong> (ou un appui direct sur une note déjà résolue ou active sur la portée) isole cette note avec un court repère rythmique.</li>
       </ul>
 
-      <h3>Niveaux, tonalités &amp; amplitude d’octave</h3>
+      <h3>Niveaux, tonalités &amp; commandes</h3>
       <ul class="article-steps-list">
         <li><strong>Niveau 1 – Do–Fa :</strong> Phrases de 4 à 5 notes issues du tétracorde inférieur (<code>Do, Re, Mi, Fa</code>).</li>
         <li><strong>Niveau 2 – Sol–Do :</strong> Phrases de 4 à 6 notes sur la moitié supérieure (<code>Sol, La, Ti, Do</code>).</li>
-        <li><strong>Niveau 3 – Tonalité complète :</strong> Les sept degrés du solfège (<code>Do</code> à <code>Do</code>) sur 4 à 6 notes.</li>
-        <li><strong>Do majeur vs Tonalités changeantes &amp; Octaves :</strong> Entraînez-vous en <code>Do majeur</code> fixe ou dans des tonalités aléatoires, sur 1 octave ou avec des changements de registre musicaux.</li>
+        <li><strong>Niveau 3 – Tonalité complète :</strong> Les sept degrés (<code>Do</code> à <code>Do</code>) sur 4 à 6 notes.</li>
+        <li><strong>Tonalités, octaves &amp; aides :</strong> Entraînez-vous en <code>Do majeur</code> ou dans des tonalités aléatoires, sur 1 ou plusieurs octaves. En haut, réglez <strong>Tonalité</strong>, <strong>Pulsation : Oui/Non</strong> et <strong>Tempo (BPM)</strong> ; en bas se trouvent <strong>Tonique (Do)</strong>, <strong>Suivant auto</strong> (à gauche), <strong>Écoute seule</strong> ainsi que l’<strong>Examen</strong> à 5 niveaux.</li>
       </ul>
     `
   },
@@ -1763,14 +1771,14 @@ const CATEGORY_HELP_GUIDES_FR = {
     tagClass: "tag-sage",
     tag: "Mode d’emploi • Solfège",
     title: "Comment fonctionne le solfège relatif (Do mobile)",
-    lead: "Le solfège relatif (Movable-Do) forge l’oreille relative : vous apprenez à reconnaître chacun des 7 degrés (Do–Ti) grâce à sa tension caractéristique et son attirance naturelle au sein de la tonalité.",
+    lead: "Le solfège relatif (Movable-Do) forge l’oreille relative : vous apprenez à reconnaître chacun des 7 degrés (Do–Ti ou 1–7) grâce à sa tension caractéristique et son attirance au sein de la tonalité.",
     sections: `
       <h3>Chaque manche suit 4 étapes claires</h3>
       <ul class="article-steps-list">
         <li><strong>1. Cadence de contexte :</strong> Une courte progression (<code>I – vi – IV – V</code>) accorde proprement votre oreille sur le centre tonal.</li>
         <li><strong>2. Note cible :</strong> Après un instant, vous entendez un seul degré isolé issu de cette tonalité.</li>
-        <li><strong>3. Répondre au clavier :</strong> Seules les touches actives de la gamme affichent les syllabes (<em>Do–Re–Mi–Fa–Sol–La–Ti–Do</em>), encadrées d’une touche de marge de chaque côté ; les touches hors gamme restent atténuées.</li>
-        <li><strong>4. Erreurs silencieuses &amp; Résolution naturelle :</strong> Une mauvaise touche clignote discrètement en rouge sans son afin de préserver votre mémoire tonale. La bonne touche s’illumine en vert et joue sa résolution fonctionnelle vers la tonique (<code>Do–Fa</code> vers le bas, <code>Sol–Ti</code> vers le haut).</li>
+        <li><strong>3. Répondre au clavier :</strong> Seules les touches de la gamme affichent leur repère (<em>Do–Re–Mi–Fa–Sol–La–Ti–Do</em> ou les <em>chiffres 1–7</em> en option), encadrées d’une touche de marge de chaque côté ; les autres touches restent atténuées.</li>
+        <li><strong>4. Erreurs silencieuses &amp; Résolution naturelle :</strong> Une mauvaise touche clignote discrètement en rouge sans son afin de préserver votre mémoire tonale. La bonne touche s’illumine en vert et joue sa résolution vers la tonique (<code>Do–Fa</code> vers le bas, <code>Sol–Ti</code> vers le haut).</li>
       </ul>
 
       <h3>Les 6 niveaux de difficulté</h3>
@@ -1781,8 +1789,8 @@ const CATEGORY_HELP_GUIDES_FR = {
       </ul>
 
       <div class="article-highlight-box">
-        <h4>Repères à l’écran</h4>
-        <p>Au-dessus du clavier figurent le <strong>badge de tonalité</strong> (touchez-le pour entendre l’accord tonique), <strong>Tonique (Do)</strong> et <strong>Répéter la note</strong>. En bas, le bouton violet <strong>Boucle</strong> rejoue doucement la note cible toutes les 3 secondes ; le passage automatique à la manche suivante se règle dans les <strong>Paramètres</strong>.</p>
+        <h4>Aides, Chanter &amp; Étiquettes</h4>
+        <p>En haut, <strong>Chanter</strong> (avec <em>Pause fredonnée</em> en option) vous invite à chanter jusqu’au Do / 1, à côté du réglage <strong>Tempo (BPM)</strong>. Au-dessus du clavier se trouvent le <strong>badge de tonalité</strong> (joue l’accord tonique), <strong>Tonique (Do)</strong> et <strong>Réécouter</strong>. En bas, le bouton violet <strong>Boucle</strong> répète la note toutes les 3 secondes, et <strong>Écoute seule</strong> résout automatiquement. Basculez entre <strong>Syllabes (Do–Ti)</strong> et <strong>Chiffres (1–7)</strong> ou <strong>Suivant auto</strong> dans les <strong>Paramètres</strong>.</p>
       </div>
     `
   },
@@ -1790,19 +1798,19 @@ const CATEGORY_HELP_GUIDES_FR = {
     tagClass: "tag-sage",
     tag: "Mode d’emploi • Rythme",
     title: "Comment fonctionne l’entraînement rythmique",
-    lead: "Quatre modules complémentaires aiguisent votre horloge interne, la lecture rythmique, la précision de frappe en direct et le sens du pocket en groupe — le tout réglable en temps réel par le tempo (BPM).",
+    lead: "Quatre modules complémentaires travaillent chiffrage, dictée rythmique, frappe d’oreille &amp; lecture rythmique à vue, et micro-timing de groove — affichés sur une portée à une ligne et ajustables par Tempo (BPM).",
     sections: `
       <h3>Les 4 modules de rythme</h3>
       <ul class="article-steps-list">
-        <li><strong>1. Mesure &amp; Chiffrage :</strong> Écoutez deux mesures de percussion (avec un Temps <code>1</code> accentué) et distinguez <code>4/4</code>, <code>3/4</code>, <code>2/4</code>, <code>6/8</code> ainsi que les mesures asymétriques (<code>5/4</code> / <code>7/8</code>).</li>
-        <li><strong>2. Dictée rythmique (4 temps) :</strong> Après une mesure de décompte, un motif sur quatre temps joue au clave. Complétez les quatre points d’interrogation avec les blocs rythmiques correspondants (des noires et soupirs jusqu’aux triolets, doubles croches et syncopes).</li>
-        <li><strong>3. Reproduire au pad (Frappe en direct) :</strong> Lauscher fait le décompte, montre une mesure puis vous passe la main — frappez exactement le rythme sur le grand <strong>Pad de frappe</strong> (ou avec la barre <code>Espace</code>), jusqu’au <em>Mode aveugle</em> sans aucun clic !</li>
-        <li><strong>4. Groove, Contretemps &amp; Micro-Timing :</strong> Reconnaissez les styles de groove (marche, backbeat, syncope, swing, 3 pour 2), repérez les accents de cloche sur le contretemps et affinez votre placement (<em>en avance / rushé</em>, <em>pile dans le pocket</em> ou <em>au fond du temps / laid-back</em>).</li>
+        <li><strong>1. Mesure &amp; Chiffrage (3 niveaux) :</strong> Écoutez deux mesures de percussion (Temps <code>1</code> accentué) et distinguez <code>4/4</code> &amp; <code>3/4</code> (Niveau 1), <code>2/4</code> &amp; <code>6/8</code> (Niveau 2) et les mesures impaires <code>5/4</code> &amp; <code>7/8</code> (Niveau 3). <strong>Pulsation noire</strong> donne le repère neutre à tout moment.</li>
+        <li><strong>2. Dictée rythmique (4 temps, 4 niveaux) :</strong> Sur la portée à une ligne, un motif de 4 temps joue au clave après 1 mesure de décompte. Remplissez chaque temps pas à pas (noires, croches, silences, contretemps, triolets, doubles croches et syncopes) avec <strong>Métronome (1–4)</strong>, <strong>Rejouer le temps</strong> (ou appui sur une carte) et <strong>Suivant auto</strong>.</li>
+        <li><strong>3. Pad : Reproduire &amp; Taper à vue (4 niveaux chacun) :</strong> En mode <strong>Reproduire au pad</strong>, écoutez décompte + démo puis tapez sur le grand <strong>Pad de frappe</strong> (ou <code>Espace</code>) — avec <strong>Clic : Oui/Non</strong>, <strong>Écoute seule</strong> et Niveau 4 <em>Mode aveugle</em>. En mode <strong>Taper des rythmes à vue</strong>, aucune démo ne précède : lisez le motif directement sur la portée et tapez avec le métronome dès la fin du décompte (Niveau 4 : <em>sans métronome</em>). Une <strong>chronologie</strong> note ensuite chaque frappe (<code>exact</code>, <code>juste ±ms</code>, <code>manqué</code>, <code>en trop</code>).</li>
+        <li><strong>4. Groove, Contretemps &amp; Micro-Timing (4 niveaux) :</strong> Niveau 1 : <em>Styles de groove</em> (marche, backbeat, syncope, swing, 3 pour 2) ; Niveau 2 : <em>Accent de cloche</em> en contretemps (<code>1</code>–<code>4+</code>) ; Niveau 3 : <em>Micro-timing (±55 ms)</em> et Niveau 4 : <em>Micro-timing Pro (±28 ms)</em> (en avance, dans le pocket ou laid-back).</li>
       </ul>
 
       <div class="article-highlight-box">
-        <h4>Conseils de pratique</h4>
-        <p>Démarrez <strong>Reproduire au pad</strong> avec l’<strong>aide du clic ACTIVÉE</strong> autour de 80–95 BPM. Une fois à l’aise, coupez le clic ou passez au <strong>Mode aveugle</strong> pour bâtir un métronome intérieur inébranlable.</p>
+        <h4>Conseils &amp; Examen de catégorie</h4>
+        <p>Démarrez <strong>Reproduire au pad</strong> avec le <strong>Clic activé</strong> vers 80–95 BPM et activez <strong>Suivant auto</strong> en bas à gauche si souhaité. Une fois votre pulsation solide, relevez le défi du <strong>Mode aveugle</strong>, de la <strong>lecture rythmique sans métronome</strong>, de l’<strong>Écoute seule</strong> ou de l’<strong>Examen</strong> à 4 niveaux.</p>
       </div>
     `
   },
@@ -1810,17 +1818,17 @@ const CATEGORY_HELP_GUIDES_FR = {
     tagClass: "tag-lilac",
     tag: "Mode d’emploi • Production & Mixage",
     title: "Comment fonctionne l’entraînement Fréquences & Égalisation",
-    lead: "Étalonnez vos oreilles d’ingénieur du son sur les bandes ISO normalisées au tiers d’octave — en commençant par des sinusoïdes pures avant d’identifier des boosts paramétriques dans du bruit rose.",
+    lead: "Étalonnez vos oreilles de mixage sur les bandes studio normalisées — en commençant par des sinusoïdes pures sur 5 à 12 bandes jusqu’à un boost paramétrique en direct dans du bruit rose.",
     sections: `
       <h3>Les 2 modules de production</h3>
       <ul class="article-steps-list">
-        <li><strong>1. Reconnaissance de fréquences pures (Sinus) :</strong> Écoutez un son pur calibré des sub-graves (<code>63 Hz</code>) jusqu’à l’air brillant (<code>12 kHz</code>) et localisez sa bande. Touchez <strong>« Réf : 1 kHz »</strong> à tout moment pour recalibrer votre oreille.</li>
-        <li><strong>2. Égalisation sur bruit rose (Pro) :</strong> Vous entendez d’abord du <em>Bruit rose</em> neutre non traité (« Plat »), puis un filtre en cloche paramétrique amplifie une seule bande cible. Basculez librement <strong>« Bypass Plat »</strong> pour comparer instantanément le signal brut et le signal égalisé.</li>
+        <li><strong>1. Reconnaissance de fréquences pures (Sinus, 3 niveaux) :</strong> Écoutez un son pur calibré des sub-graves (<code>63 Hz</code>) aux aigus d’air (<code>12 kHz</code>) sur <strong>5 bandes</strong>, <strong>8 bandes d’octave</strong> ou <strong>12 bandes</strong>. Touchez <strong>« Réf : 1 kHz »</strong> pour recalibrer votre oreille à tout moment.</li>
+        <li><strong>2. Boost EQ sur bruit rose (3 niveaux) :</strong> En <strong>pratique libre</strong>, le bruit rose démarre directement en continu <strong>avec le boost EQ actif</strong> (Niveau 1 : EQ large <code>+10 dB / Q 1,6</code>, Niveau 2 : EQ octave <code>+8,5 dB / Q 2,6</code>, Niveau 3 : Chirurgical <code>+7 dB / Q 4,2</code>). Basculez librement vers le bruit neutre non traité via la carte <strong>Flat</strong> ou le bouton <strong>« Bypass Flat »</strong> (<code>Flat : OUI</code>). En mode <strong>Écoute seule</strong>, vous entendez d’abord du bruit <em>Flat</em>, puis plus longtemps le <em>boost EQ</em> avant que la bonne bande ne s’affiche.</li>
       </ul>
 
       <div class="article-highlight-box">
-        <h4>Protection auditive &amp; Mixage</h4>
-        <p>Le bruit rose décroît de 3 dB par octave afin que l’énergie paraisse équilibrée des graves aux aigus. Un limiteur de sécurité intégré à -14 dBFS, une pondération isosonique autour de 2–4 kHz et des enveloppes d’attaque douces protègent vos oreilles des pics agressifs. Écoutez néanmoins toujours à volume confortable, faible à modéré !</p>
+        <h4>Protection auditive, Comparaison &amp; Examen</h4>
+        <p>Le bruit rose décroît de 3 dB par octave afin d’équilibrer l’énergie perçue. Un limiteur à -14 dBFS, une pondération vers 2–4 kHz et des fondus doux protègent vos oreilles. Après une erreur, <strong>Comparaison A/B</strong> et <strong>Flat → EQ cible</strong> comparent les deux signaux — et les 3 niveaux figurent dans l’<strong>Examen de catégorie</strong>.</p>
       </div>
     `
   },
@@ -1828,66 +1836,63 @@ const CATEGORY_HELP_GUIDES_FR = {
     tagClass: "tag-peach",
     tag: "Mode d’emploi • Gammes & Modes",
     title: "Comment fonctionne l’entraînement aux gammes & modes",
-    lead: "Oubliez la mémorisation sèche de doigtés : écoutez chaque mode ecclésiastique en pleine couleur musicale — ancré sur une même fondamentale ou transposé dans différentes tonalités.",
+    lead: "Oubliez la mémorisation abstraite : écoutez chaque mode en pleine couleur musicale — sur une même fondamentale ou transposé dans d’autres tonalités, avec une nappe de cordes sur la fondamentale activable.",
     sections: `
       <h3>Les 3 modules modaux</h3>
       <ul class="article-steps-list">
-        <li><strong>1. Reconnaître la gamme / le mode :</strong> Une <strong>Quinte d’ancrage</strong> neutre résonne d’abord (fondamentale + quinte, volontairement sans tierce), suivie de la gamme ascendante de 8 notes. Commencez au <em>Niveau 1</em> avec quatre modes contrastés (<code>Ionien</code>, <code>Éolien</code>, <code>Dorien</code>, <code>Mixolydien</code>), débloquez les 7 modes diatoniques au <em>Niveau 2</em> et transposez au <em>Niveau 3</em>.</li>
-        <li><strong>2. Note caractéristique &amp; Couleur :</strong> Après la quinte neutre, une brève tournure mélodique met en lumière le degré signature du mode (<code>♯4</code> en Lydien, <code>♭7</code> en Mixolydien, <code>♮6</code> en Dorien, <code>♭2</code> en Phrygien, ou la sensible <code>♯7</code> en Mineur harmonique).</li>
-        <li><strong>3. Cadences &amp; Vamps modaux :</strong> Écoutez des vamps classiques à deux accords (<code>i – IV</code> pour Dorien, <code>I – bVII</code> pour Mixolydien, <code>I – II</code> pour Lydien, <code>i – bII</code> pour Phrygien) et saisissez immédiatement l’atmosphère du mode.</li>
+        <li><strong>1. Reconnaître la gamme / le mode (3 niveaux) :</strong> Une <strong>Quinte d’ancrage</strong> neutre résonne d’abord (sans tierce), suivie de la gamme ascendante de 8 notes : 4 modes de base au Niveau 1 (<code>Ionien, Éolien, Dorien, Mixolydien</code>), les 7 en <code>Do</code> au Niveau 2, et les 7 transposés au Niveau 3.</li>
+        <li><strong>2. Note caractéristique &amp; Couleur (3 niveaux) :</strong> Après la quinte d’ancrage, une brève tournure isole le degré signature (<code>#4</code> Lydien, <code>b7</code> Mixolydien, <code>♮6</code> Dorien, <code>b2</code> Phrygien ou sensible <code>#7</code> du <strong>Mineur harmonique</strong>) — séparé en modes majeurs (Niveau 1), mineurs (Niveau 2) et Tous + Mineur harmonique sur fondamentales variées (Niveau 3).</li>
+        <li><strong>3. Cadences &amp; Vamps modaux (2 niveaux) :</strong> Enchaînements caractéristiques à deux accords (<code>i – IV</code> Dorien, <code>I – bVII</code> Mixolydien, <code>I – II</code> Lydien, <code>i – bII</code> Phrygien) : 4 vamps standards en <code>Do</code> (Niveau 1), puis les 6 vamps modaux transposés (Niveau 2).</li>
       </ul>
 
       <div class="article-highlight-box">
-        <h4>Astuce d’écoute pro : pensez parallèle, pas relatif !</h4>
-        <p>Au début, comparez tous les modes depuis la <strong>même fondamentale</strong> (ex. <strong>Do Ionien</strong> vs <strong>Do Mixolydien</strong> vs <strong>Do Dorien</strong>). Touchez <em>« Quinte d’ancrage »</em> ou la comparaison A/B après une erreur pour entendre basculer exactement la note de couleur.</p>
+        <h4>Nappe de fondamentale, Quinte d’ancrage &amp; A/B</h4>
+        <p>Pensez parallèle plutôt que relatif : comparez chaque mode sur la <strong>même fondamentale</strong>. Le bouton <strong>« Nappe de fondamentale : oui/non »</strong> ajoute une nappe de cordes continue sous le mode ; touchez <strong>« Quinte d’ancrage »</strong> (ou la carte de gauche) à tout moment, et comparez directement deux couleurs après une erreur via <strong>Comparaison A/B</strong>. <strong>Boucle</strong>, <strong>Écoute seule</strong> et l’<strong>Examen</strong> à 3 niveaux sont inclus.</p>
       </div>
     `
   },
   warmup: {
     tagClass: "tag-sage",
     tag: "Mode d’emploi • Échauffement vocal",
-    title: "Comment fonctionne l’échauffement vocal de 5 minutes",
-    lead: "Conçu pour les répétitions chorales, cours de chant et routines quotidiennes : un parcours guidé allant de la respiration diaphragmatique et du bourdonnement résonant jusqu’aux arpèges modulants et aux accords de chœur.",
+    title: "Comment fonctionne l’échauffement vocal guidé",
+    lead: "Conçu pour les répétitions chorales, cours de chant et routines quotidiennes : choisissez parmi 5 tessitures (SATB) puis lancez l’un des 4 programmes guidés — avec sphère respiratoire, clavier interactif et transposition instantanée.",
     sections: `
-      <h3>Les 4 phases d’échauffement</h3>
+      <h3>4 programmes au choix &amp; 4 phases</h3>
       <ul class="article-steps-list">
-        <li><strong>Phase 1 – Souffle &amp; Corps :</strong> Un cercle respiratoire rythmé sur <code>ffff / ssss</code> et de douces impulsions d’articulation (<code>P – T – K</code>) réveillent le soutien abdominal sans crisper la gorge.</li>
-        <li><strong>Phase 2 – Résonance &amp; Placement :</strong> Bouche fermée / trilles de lèvres faciles (<code>Mmm / Brrr</code>) et soupirs descendants de quinte (<code>5–4–3–2–1</code>) unissent en douceur voix de poitrine et voix de tête.</li>
-        <li><strong>Phase 3 – Agilité &amp; Arpèges :</strong> Des arpèges ascendants de triade et d’octave (<code>1–3–5–3–1</code> et <code>1–3–5–8–5–3–1</code>) modulent automatiquement par demi-tons dans votre tessiture choisie (<strong>Chœur Médium, Soprano, Alto, Ténor ou Basse</strong>), puis redescendent calmement.</li>
-        <li><strong>Phase 4 – Voyelles &amp; Fondu choral :</strong> Le glissement de voyelles (<code>Ou → Ô → A → É → I</code>) et un accord SATB empilé ancrent une justesse homogène.</li>
+        <li><strong>4 programmes adaptés :</strong> Lancez selon votre temps l’<strong>Échauffement complet (5 min)</strong> (4 phases, 9 exercices), l’<strong>Échauffement express (~3 min)</strong>, <strong>Arpèges &amp; Passage des registres</strong> ou <strong>Souffle choral &amp; Justesse</strong>.</li>
+        <li><strong>Phase 1 – Souffle &amp; Corps :</strong> Une sphère respiratoire sur <code>ffff / ssss</code> et de douces impulsions (<code>P – T – K</code>) éveillent le soutien abdominal sans tension laryngée.</li>
+        <li><strong>Phase 2 – Résonance &amp; Placement :</strong> Bouche fermée / trilles de lèvres (<code>Mmm / Brrr</code>) et soupirs descendants de quinte (<code>5–4–3–2–1</code>) unissent en douceur les registres.</li>
+        <li><strong>Phases 3 &amp; 4 – Arpèges, Voyelles &amp; Chœur :</strong> Arpèges modulants par demi-tons adaptés à <strong>Chœur Médium, Soprano, Alto, Ténor ou Basse</strong>, suivis du glissement vocalique (<code>Ou → Ô → A → É → I</code>) et d’un accord SATB empilé.</li>
       </ul>
 
       <div class="article-highlight-box">
-        <h4>Contrôles pédagogiques en direct</h4>
-        <p>Utilisez les pastilles en haut à tout moment pour changer la <strong>Tessiture (SATB)</strong>, le <strong>Son d’accompagnement</strong> (Piano, Piano + Voix ou Voix) et le <strong>Tempo</strong>. Touchez <strong>« −1 / +1 demi-ton »</strong> ou <strong>« ↻ Répéter »</strong> en plein exercice pour adapter la tonalité à vos élèves ou à votre chœur.</p>
+        <h4>Contrôles en direct &amp; Clavier</h4>
+        <p>En haut, changez à tout moment <strong>Tessiture (SATB)</strong>, <strong>Son d’accompagnement</strong> (Piano, Piano + Voix ou Voix) et <strong>Tempo</strong>, ou naviguez entre étapes grâce aux <strong>pastilles de phase</strong>. En bas, ajustez avec <strong>« −1 / +1 demi-ton »</strong> et <strong>« ↻ Répéter »</strong>, ou jouez directement des notes repères sur le <strong>clavier interactif</strong>.</p>
       </div>
     `
   },
   notation: {
     tagClass: "tag-sage",
-    tag: "Mode d’emploi • Solfège & Lecture de notes",
+    tag: "Mode d’emploi • Notation & Lecture de notes",
     title: "Comment fonctionne l’entraînement à la lecture de notes",
-    lead: "Développez une lecture fluide en clés de Sol, Fa et Ut 3 (Alto) — des 5 lignes centrales jusqu’à ±3 lignes supplémentaires dans les deux sens avec altérations (♯/♭).",
+    lead: "Développez une lecture à vue fluide sur 6 modes : clés de Sol, Fa et Ut 3 (Alto), Mix de clés, Grand portée de piano à deux portées, et Lecture d’accords (avec renversements &amp; septièmes).",
     sections: `
-      <h3>Architecture de l’écran d’exercice</h3>
+      <h3>Les 6 modes &amp; la saisie</h3>
       <ul class="article-steps-list">
-        <li><strong>1. Grande portée en haut (flux de 6 notes) :</strong> Le bandeau coloré tout à gauche met toujours en évidence la note active à lire. Juste derrière, les 5 notes suivantes anticipent le mouvement comme en vraie lecture à vue.</li>
-        <li><strong>2. Clavier en bas pour répondre :</strong> Touchez la note demandée sur le clavier. Si la réponse est exacte, le son retentit à sa véritable octave, la scène centrale affiche clairement son nom et toute la file glisse d’un cran vers la gauche tandis qu’une nouvelle note apparaît à droite.</li>
-        <li><strong>3. Erreurs &amp; bouton Passer :</strong> Une touche erronée devient rouge sans faire avancer la file afin de vérifier tranquillement l’emplacement. En cas d’hésitation, touchez <strong>Passer</strong> : la bonne note s’affiche aussitôt avant de passer à la suivante.</li>
+        <li><strong>1. Lecture de notes isolées (flux de 6 notes) :</strong> En clés de <strong>Sol</strong>, <strong>Fa</strong>, <strong>Ut 3</strong>, en <strong>Mix de clés</strong> (alterne toutes les 3 notes avec annonce) ou sur la <strong>Grand portée</strong> (Sol + Fa réunies par une accolade), la bande colorée à gauche indique la note à jouer sur le clavier pour faire avancer la file.</li>
+        <li><strong>2. Lire des accords (5 accords, QCM) :</strong> Des triades et accords de septième empilés s’affichent sur la portée. Choisissez la bonne <strong>tuile de symbole</strong> (ex. <code>E, Em, E7, Esus4</code>) sur <strong>4 niveaux</strong> : Niveau 1 (triades en Sol), Niveau 2 (triades en Fa), Niveau 3 (renversements sur les deux clés) et Niveau 4 (tous types &amp; septièmes).</li>
+        <li><strong>3. Erreurs &amp; bouton Passer :</strong> Une mauvaise touche ou tuile s’allume en rouge et met la file en pause pour vérifier tranquillement clé, altération ou renversement. Touchez <strong>Passer</strong> pour voir la réponse et continuer.</li>
       </ul>
 
-      <h3>Les niveaux &amp; les armures</h3>
+      <h3>Niveaux &amp; Armures</h3>
       <ul class="article-steps-list">
-        <li><strong>Niveau 1 – 5 lignes de base :</strong> Notes naturelles situées sur les 5 lignes et 4 interlignes, sans lignes supplémentaires.</li>
-        <li><strong>Niveau 2 – ±2 lignes supplémentaires :</strong> Tessiture élargie jusqu’à 2 lignes supplémentaires au-dessus et au-dessous.</li>
-        <li><strong>Niveau 3 – ±3 lignes supplémentaires (Complet) :</strong> Tessiture complète s’étendant sur 3 lignes supplémentaires de chaque côté.</li>
-        <li><strong>Niveau 4 – ±3 lignes + ♯/♭/♮ :</strong> Ajoute les dièses (<code>♯</code>) et bémols (<code>♭</code>) en Do majeur, ou les <strong>bécarres (<code>♮</code>)</strong> et altérations accidentelles lorsqu’une armure est active, en notation internationale ou allemande.</li>
-        <li><strong>Lecture à vue avec armures (1–6 ♯/♭) :</strong> Choisissez une tonalité précise ou un ensemble rotatif depuis la page Notation ou via le bouton <strong>Tonalité</strong> en cours d’exercice. Comme sur une vraie partition, l’armure placée à la clé commande toutes les notes correspondantes sur le clavier.</li>
+        <li><strong>Notes isolées Niveaux 1–4 :</strong> Niveau 1 (5 lignes &amp; 4 interlignes), Niveau 2 (<code>±2 lignes suppl.</code>), Niveau 3 (<code>±3 lignes suppl.</code>) et Niveau 4 avec dièses/bémols (<code>♯</code>/<code>♭</code>) ou <strong>bécarres (<code>♮</code>)</strong> lorsqu’une armure est active — en notation internationale ou allemande.</li>
+        <li><strong>Lecture avec armures (1–6 ♯/♭) :</strong> Sélectionnez une tonalité précise ou un groupe tournant (Facile, Intermédiaire, Toutes) sur la page Notation ou via <strong>Tonalité</strong> en cours d’exercice.</li>
       </ul>
 
       <div class="article-highlight-box">
-        <h4>Mix de clés &amp; Note de repère</h4>
-        <p>Dans le <strong>Mix de clés</strong>, la portée alterne régulièrement entre clés de Sol, Fa et Ut 3 avec un petit repère de changement avant la note. En bas à gauche, le bouton <strong>Repère</strong> fait entendre à tout moment le son d’ancrage de la clé active (<code>Sol4</code>, <code>Fa3</code> ou <code>Do4</code>).</p>
+        <h4>Commandes audio, Écoute seule &amp; Examen</h4>
+        <p>Au-dessus des réponses, <strong>Son note : Oui/Non</strong> coupe entièrement l’audio pour lire à vue en silence. En bas, <strong>▶ Écouter la note</strong> / <strong>▶ Écouter l’accord</strong> donne un repère optionnel en jeu libre — alors que dans l’<strong>Examen de catégorie</strong> (6 niveaux), le bouton devient <strong>▶ Repère</strong> (<code>Sol4</code> / <code>Fa3</code> / <code>Do4</code>) afin de ne pas révéler la solution. À droite, <strong>Écoute seule</strong> déroule la lecture automatique selon le <strong>Tempo</strong> choisi (<em>Très lent</em> à <em>Très rapide</em>).</p>
       </div>
     `
   }

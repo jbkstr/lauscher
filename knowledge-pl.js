@@ -1613,31 +1613,39 @@ const CATEGORY_HELP_GUIDES_PL = {
     tagClass: "tag-sage",
     tag: "Instrukcja • Kadencje",
     title: "Jak działają ćwiczenia z kadencji",
-    lead: "Zamiast zgadywać pojedyncze akordy w próżni, słyszysz pełny czterotaktowy przebieg ustanawiający tonację i rozpoznajesz funkcję harmoniczną kryjącą się pod znakiem zapytania.",
+    lead: "Zamiast zgadywać pojedyncze akordy w próżni, słyszysz pełny czterotaktowy przebieg ustanawiający tonację — w <strong>dur</strong> i w <strong>moll</strong> — i rozpoznajesz funkcję pod znakiem zapytania.",
     sections: `
-      <h3>Dwie grupy ćwiczeń</h3>
+      <h3>Cztery grupy ćwiczeń (Dur i Moll)</h3>
       <div class="k-compare-grid">
         <div class="k-compare-box is-sage">
-          <h5>Cel: Takt 4 (Klasyka)</h5>
-          <p>Takty 1–3 są odkryte i osadzają tonację. Posłuchaj wszystkich czterech akordów i wskaż funkcję <strong>4. taktu</strong>.</p>
+          <h5>Dur • Cel: Takt 4</h5>
+          <p>Takty 1–3 są odkryte i osadzają tonację durową. Posłuchaj czterech taktów i wskaż brakującą funkcję w <strong>4. takcie</strong>.</p>
         </div>
         <div class="k-compare-box is-lilac">
-          <h5>Losowy takt (1–4)</h5>
-          <p>Znak zapytania ląduje w dowolnym takcie: 1, 2, 3 lub 4. Nawet gdy zakryty jest 1. takt, punkt odniesienia Toniki (<strong>I</strong>) pozostaje pod ręką.</p>
+          <h5>Dur • Losowy takt (1–4)</h5>
+          <p>Znak zapytania ląduje w dowolnym takcie 1–4. Nawet gdy zakryty jest 1. takt, widoczna Tonika (<strong>I</strong>) utrzymuje punkt odniesienia.</p>
+        </div>
+        <div class="k-compare-box is-peach">
+          <h5>Moll • Cel: Takt 4</h5>
+          <p>Takie same zadania w tonacjach molowych (np. <code>i–iv–V</code>): wysłuchaj trzech taktów kontekstu i wskaż akord dla <strong>4. taktu</strong>.</p>
+        </div>
+        <div class="k-compare-box is-lilac">
+          <h5>Moll • Losowy takt (1–4)</h5>
+          <p>Szukany takt zmienia położenie w obrębie 1–4; co najmniej jedna widoczna Tonika molowa (<strong>i</strong>) zawsze orientuje słuch.</p>
         </div>
       </div>
 
-      <h3>4 poziomy trudności</h3>
+      <h3>4 poziomy trudności (Dur i Moll)</h3>
       <ul class="article-steps-list">
-        <li><strong>Poziom 1 — Główne funkcje (I–V):</strong> Cztery filary <code>I</code>, <code>IV</code>, <code>V</code> i <code>vi</code> — podstawa tysięcy utworów ludowych i popowych.</li>
-        <li><strong>Poziom 2 — Diatonika (ii–vi):</strong> Wszystkie sześć głównych funkcji durowych (dochodzą <code>ii</code> oraz <code>iii</code>).</li>
-        <li><strong>Poziom 3 — Rozszerzony (V/V):</strong> Dochodzą dominanta septymowa (<code>V7</code>) oraz dominanta wtrącona <code>V/V</code>.</li>
-        <li><strong>Poziom 4 — Jazz i substytut trytonowy (bII7):</strong> Pełna paleta chromatyczna aż po substytut trytonowy <code>bII7</code>.</li>
+        <li><strong>Poziom 1 — Podstawy (I–V / i–V):</strong> Cztery filary: w dur <code>I, IV, V, vi</code>, w moll <code>i, iv, V, VI</code>.</li>
+        <li><strong>Poziom 2 — Diatonika (ii–vi / ii°–VII):</strong> Wszystkie główne stopnie skali (w dur także <code>ii</code> i <code>iii</code>; w moll <code>ii°, III, v, V, VII</code>).</li>
+        <li><strong>Poziom 3 — Rozszerzony (V/V / N6):</strong> Dochodzą <code>V7</code>, dominanta wtrącona <code>V/V</code> oraz w moll akord neapolitański <code>N6</code>.</li>
+        <li><strong>Poziom 4 — Jazz i tryton (bII7 / iiø7):</strong> Pełny zakres aż po substytut trytonowy <code>bII7</code> oraz molowe <code>ii–V</code> (<code>iiø7</code>).</li>
       </ul>
 
       <div class="article-highlight-box">
-        <h4>Sterowanie podczas ćwiczenia</h4>
-        <p>Pigułki u góry zmieniają <strong>Tonację</strong>, <strong>Metrum</strong> i <strong>Tempo (BPM)</strong>. Poniżej przycisk <strong>Tonika (I)</strong> przywraca oparcie, <strong>Powtórz akord</strong> izoluje szukane brzmienie, <strong>Pętla</strong> zapętla odsłuch, a po pomyłce <strong>Porównanie A/B</strong> i <strong>Bas / Tonika</strong> pozwalają porównać Twój wybór z odpowiedzią.</p>
+        <h4>Sterowanie, Tryb słuchania i Egzamin</h4>
+        <p>U góry zmienisz <strong>Tonację</strong>, <strong>Metrum</strong> i <strong>Tempo (BPM)</strong>. Poniżej przyciski <strong>Tonika (I)</strong> / <strong>Tonika (i)</strong> oraz <strong>Powtórz akord</strong> dają bezpośrednie oparcie; <strong>Pętla</strong> zapętla odsłuch, a <strong>Tylko słuchaj</strong> prowadzi serię z automatycznym odkryciem odpowiedzi. Po błędzie <strong>Porównanie A/B</strong> i <strong>Bas / Pryma</strong> porównują Twój typ z rozwiązaniem — a <strong>Egzamin kategorii</strong> sprawdza dur i moll pod presją egzaminu.</p>
       </div>
     `
   },
@@ -1645,7 +1653,7 @@ const CATEGORY_HELP_GUIDES_PL = {
     tagClass: "tag-peach",
     tag: "Instrukcja • Interwały",
     title: "Jak działają ćwiczenia z interwałów",
-    lead: "Trenuj rozpoznawanie dwudźwięków — melodycznych w górę, w dół oraz harmonicznych (jednoczesnych). W zadaniach melodycznych dźwięk startowy losuje się w wygodnym rejestrze średnim. (Szukasz akordów i przewrotów? Znajdziesz je w osobnym dziale <strong>Akordy</strong>!)",
+    lead: "Trenuj rozpoznawanie czystych dwudźwięków — melodycznych w górę, w dół, harmonicznych oraz nad utrzymywaną plamą smyczków. W zadaniach melodycznych i z plamą dźwięk startowy losuje się w wygodnym rejestrze średnim. (Akordy i przewroty mają osobny dział <strong>Akordy</strong>!)",
     sections: `
       <h3>4 rodzaje ćwiczeń</h3>
       <div class="k-compare-grid">
@@ -1662,7 +1670,7 @@ const CATEGORY_HELP_GUIDES_PL = {
           <p>Oba dźwięki brzmią jednocześnie. Słuchaj czystości stopienia lub tarcia — po odpowiedzi widzisz oba dźwięki (np. <code>C4 + G4</code>).</p>
         </div>
         <div class="k-compare-box is-peach">
-          <h5>Interwały na tle burdonu (Smyczki ➔ Fortepian)</h5>
+          <h5>Interwały nad plamą dźwięku podstawowego (Smyczki ➔ Fortepian)</h5>
           <p>Ciepła <strong>płaszczyzna smyczkowa</strong> podtrzymuje prymę jako tło. Po krótkiej pauzie <strong>fortepian</strong> gra szukany dźwięk nad nią — idealne do wyczucia barwy i napięcia interwału względem podstawy.</p>
         </div>
       </div>
@@ -1678,7 +1686,7 @@ const CATEGORY_HELP_GUIDES_PL = {
       <ul class="article-steps-list">
         <li><strong>Litera = rodzaj (barwa), cyfra = stopień (<code>1</code>–<code>9</code>):</strong> Cyfra liczy stopnie skali od dolnej nuty (<code>1</code> = pryma, <code>2</code> = sekunda, <code>3</code> = tercja … aż do <code>9</code> = nona), a litera określa dokładną rozpiętość w półtonach.</li>
         <li><strong><code>P</code> = Czysty (<em>Perfect</em>):</strong> Dotyczy prymy (<code>P1</code>), kwarty (<code>P4</code>), kwinty (<code>P5</code>) i oktawy (<code>P8</code>). Nie dzielą się na wielkie i małe — brzmią krystalicznie i otwarcie.</li>
-        <li><strong><code>G</code> i <code>k</code> (Niemieckie) lub <code>M</code> i <code>m</code> (Międzynarodowe):</strong> Dotyczą sekund (<code>2</code>), tercji (<code>3</code>), sekst (<code>6</code>), septym (<code>7</code>) i non (<code>9</code>):<br>
+        <li><strong><code>G</code> i <code>k</code> (Niemieckie) lub <code>M</code> i <code>m</code> (Międzynarodowe):</strong> Dotyczyć mogą sekund (<code>2</code>), tercji (<code>3</code>), sekst (<code>6</code>), septym (<code>7</code>) i non (<code>9</code>):<br>
           – <strong>Wielka litera <code>G</code></strong> (<em>Groß</em>, międz. <strong><code>M</code></strong> = <em>Major</em>) oznacza wariant <strong>wielki</strong> (szerszy, jaśniejszy, np. <code>G3</code> / <code>M3</code> = tercja wielka, 4 półtony).<br>
           – <strong>Mała litera <code>k</code></strong> (<em>klein</em>, międz. <strong><code>m</code></strong> = <em>minor</em>) jest o <strong>1 półton węższa</strong>, cieplejsza lub ostrzejsza (np. <code>k3</code> / <code>m3</code> = tercja mała, 3 półtony). Zwracaj uwagę na wielkość liter <code>m</code> vs. <code>M</code>!</li>
         <li><strong><code>TT</code> = Tryton:</strong> Elektryczny środek oktawy o rozpiętości 6 półtonów między <code>P4</code> i <code>P5</code>.</li>
@@ -1686,8 +1694,8 @@ const CATEGORY_HELP_GUIDES_PL = {
       <p><em>Zmiana symboli:</em> Możesz w dowolnej chwili przełączać między <strong>Niemieckimi (P / G / k)</strong> a <strong>Międzynarodowymi (P / M / m)</strong> w menu <strong>Ustawienia → Język i notacja → Zapis muzyczny → Symbole interwałów</strong>.</p>
 
       <div class="article-highlight-box">
-        <h4>Wskazówki do ćwiczeń</h4>
-        <p>Kliknij <strong>Tonika (I)</strong> (lub dźwięk bazowy), aby usłyszeć sam dźwięk początkowy. Po pomyłce <strong>Porównanie A/B</strong> gra Twój wybór od tej samej nuty i w tym samym kierunku tuż przed poprawną odpowiedzią; włącz <strong>Autonastępne</strong> dla płynnej serii.</p>
+        <h4>Śpiewanie, Porównanie A/B i Egzamin</h4>
+        <p>Przycisk <strong>Śpiewaj</strong> u góry (z opcjonalną pauzą na nucenie) pomaga poczuć odległość głosem. Poniżej <strong>Dźwięk wyjściowy</strong> odtwarza nutę startową; po pomyłce <strong>Porównanie A/B</strong> gra Twój wybór od tej samej nuty i w tym samym kierunku tuż przed poprawną odpowiedzią. Przycisk <strong>Pętla</strong> zapętla odsłuch (<strong>Autonastępne</strong> znajdziesz w Ustawieniach), <strong>Tylko słuchaj</strong> prowadzi pasywny odsłuch, a 3-poziomowy <strong>Egzamin</strong> łączy wszystkie 4 typy interwałów.</p>
       </div>
     `
   },
@@ -1734,7 +1742,7 @@ const CATEGORY_HELP_GUIDES_PL = {
 
       <div class="article-highlight-box">
         <h4>Wskazówki praktyczne</h4>
-        <p>W typach akordów przycisk <strong>Tonika / Dźwięk podstawowy</strong> podaje prymę; w przewrotach podpowiedź basu izoluje najniższą nutę. Po błędzie <strong>Porównanie A/B</strong> gra Twój typ od tego samego dźwięku tuż przed poprawną odpowiedzią!</p>
+        <p>Przycisk <strong>Dźwięk podstawowy</strong> zawsze podaje prymę akordu; po błędzie <strong>Porównanie A/B</strong> gra Twój wybór na tej samej podstawie tuż przed odpowiedzią, a w przewrotach <strong>Posłuchaj basu</strong> dodatkowo izoluje najniższy głos. Dostępne są też <strong>Pętla</strong>, <strong>Tylko słuchaj</strong> oraz 4-poziomowy <strong>Egzamin kategorii</strong>.</p>
       </div>
     `
   },
@@ -1742,22 +1750,22 @@ const CATEGORY_HELP_GUIDES_PL = {
     tagClass: "tag-lilac",
     tag: "Instrukcja • Melodie",
     title: "Jak działa trening melodyczny",
-    lead: "Połącz słyszenie stopni w tonacji z naturalnym pulsem rytmicznym: kadencja wprowadzająca przechodzi w 1-taktowe odliczanie i muzyczną frazę złożoną z 4–6 nut.",
+    lead: "Połącz słyszenie stopni w tonacji z pulsem rytmicznym wprost na 5-liniowej pięciolinii: kadencja wprowadzająca przechodzi w 1-taktowe odliczanie i frazę 4–6 nut.",
     sections: `
       <h3>Przebieg rundy krok po kroku</h3>
       <ul class="article-steps-list">
-        <li><strong>1. Kadencja, odliczanie i puls:</strong> Progresja <code>I – vi – IV – V</code> osadza tonację, po czym następuje 1 takt odliczania w <code>4/4</code> lub <code>3/4</code> i melodia 4–6 nut z ósemek, ćwierćnut, ćwierćnut z kropką, półnut oraz pauz. Przycisk <strong>Puls: Wł./Wył.</strong> włącza lub wyłącza klik.</li>
-        <li><strong>2. Trzy style melodii:</strong> Na stronie kategorii wybierz <strong>Rytmicznie</strong> (wartości rytmiczne są widoczne u góry jako pomoc przy szukaniu dźwięków), <strong>Dyktando kombi</strong> (wyznaczasz zarówno wysokość, jak i długość — <code>1/8</code>, <code>1/4</code>, <code>1/4.</code>, <code>1/2</code> — w dowolnej kolejności) albo <strong>Baza (półnuty)</strong> (4 równe półnuty na lekki start).</li>
-        <li><strong>3. Odkrywanie krok po kroku:</strong> Gdy dana nuta zostanie odgadnięta w pełni, karta wyświetla nazwę <strong>solfeżową</strong> (<code>Do</code>, <code>Mi</code>, <code>Fa</code> itd.), a podświetlenie przechodzi dalej.</li>
-        <li><strong>4. Odsłuch bez utraty postępu:</strong> Klikaj <strong>▶ Odtwórz</strong> w dowolnej chwili, aby powtórzyć całą frazę — odkryte już dźwięki zostają na ekranie. <strong>Powtórz dźwięk</strong> izoluje bieżącą nutę na tle krótkiego pulsu.</li>
+        <li><strong>1. Kadencja, odliczanie i prawdziwa pięciolinia:</strong> Progresja <code>I – vi – IV – V</code> osadza tonację, po czym następuje 1 takt odliczania w <code>4/4</code> lub <code>3/4</code> i melodia 4–6 nut (ósemki, ćwierćnuty, ćwierćnuty z kropką, półnuty i pauzy) zapisana na pięciolinii.</li>
+        <li><strong>2. Trzy style melodii:</strong> Na stronie kategorii wybierz <strong>Melodia rytmiczna</strong> (wartości nut są już widoczne na pięciolinii, skupiasz się na wysokości), <strong>Dyktando kombi</strong> (określasz wysokość na klawiaturze <em>i</em> długość <code>1/8</code>, <code>1/4</code>, <code>1/4.</code>, <code>1/2</code> poniżej w dowolnej kolejności) albo <strong>Równomiernie (Baza)</strong> (4 równe półnuty na lekki start).</li>
+        <li><strong>3. Odkrywanie krok po kroku:</strong> Po odgadnięciu nuty jej nazwa (<code>Do–Ti</code> lub cyfra stopnia <code>1–7</code>) pojawia się pod pięciolinią, a uwaga przechodzi dalej.</li>
+        <li><strong>4. Odsłuch i dotykanie nut na pięciolinii:</strong> Klikaj <strong>▶ Odtwórz</strong>, aby powtórzyć całą frazę bez utraty postępu. <strong>Powtórz dźwięk</strong> (lub dotknięcie odgadniętej albo aktywnej nuty bezpośrednio na pięciolinii) odtwarza ten jeden dźwięk z krótkim pulsem odniesienia.</li>
       </ul>
 
-      <h3>Poziomy, tonacje i rejestr</h3>
+      <h3>Poziomy, tonacje i sterowanie</h3>
       <ul class="article-steps-list">
         <li><strong>Poziom 1 — Do–Fa:</strong> Frazy 4–5-nutowe w dolnym tetrachordzie (<code>Do, Re, Mi, Fa</code>).</li>
         <li><strong>Poziom 2 — Sol–Do:</strong> Frazy 4–6-nutowe w górnym rejestrze (<code>Sol, La, Ti, Do</code>).</li>
-        <li><strong>Poziom 3 — Cała gama:</strong> Wszystkie siedem stopni solfeżu (od <code>Do</code> do <code>Do</code>) w frazach 4–6-nutowych.</li>
-        <li><strong>Tonacje i oktawy:</strong> Ćwicz dowolny zakres w stałym <code>C-dur</code> lub zmiennych tonacjach, w jednej lub wielu oktawach.</li>
+        <li><strong>Poziom 3 — Cała gama:</strong> Wszystkie siedem stopni (od <code>Do</code> do <code>Do</code>) w frazach 4–6-nutowych.</li>
+        <li><strong>Tonacje, oktawy i pomoce:</strong> Ćwicz w stałym <code>C-dur</code> lub losowych tonacjach, w jednej lub wielu oktawach. U góry ustawisz <strong>Tonację</strong>, <strong>Puls: Wł./Wył.</strong> i <strong>Tempo (BPM)</strong>; u dołu czekają <strong>Tonika (Do)</strong>, przycisk <strong>Autonastępne</strong> (po lewej), <strong>Tylko słuchaj</strong> oraz 5-poziomowy <strong>Egzamin kategorii</strong>.</li>
       </ul>
     `
   },
@@ -1765,13 +1773,13 @@ const CATEGORY_HELP_GUIDES_PL = {
     tagClass: "tag-sage",
     tag: "Instrukcja • Solfeż",
     title: "Jak działa solfeż funkcyjny",
-    lead: "Solfeż relatywny (ruchome Do) wyrabia prawdziwy słuch względny: uczysz się rozpoznawać każdy z 7 stopni gamy (Do–Ti) po jego niepowtarzalnym ciążeniu wewnątrz tonacji.",
+    lead: "Solfeż relatywny (ruchome Do) wyrabia prawdziwy słuch względny: uczysz się rozpoznawać każdy z 7 stopni gamy (Do–Ti lub 1–7) po jego niepowtarzalnym ciążeniu wewnątrz tonacji.",
     sections: `
       <h3>Każda runda ma 4 przejrzyste kroki</h3>
       <ul class="article-steps-list">
         <li><strong>1. Kadencja kontekstowa:</strong> Krótki przebieg (<code>I – vi – IV – V</code>) stabilnie zakotwicza tonację.</li>
         <li><strong>2. Szukany dźwięk:</strong> Po chwili ciszy wybrzmiewa jedna izolowana nuta tej tonacji.</li>
-        <li><strong>3. Wybór na klawiaturze:</strong> Sylaby (<em>Do–Re–Mi–Fa–Sol–La–Ti–Do</em>) oznaczają aktywne klawisze gamy w czytelnej ramce; dźwięki spoza skali są wygaszone.</li>
+        <li><strong>3. Wybór na klawiaturze:</strong> Tylko aktywne klawisze gamy noszą oznaczenia (<em>Do–Re–Mi–Fa–Sol–La–Ti–Do</em> lub opcjonalne <em>cyfry stopni 1–7</em>) w czytelnej ramce; dźwięki spoza skali są wygaszone.</li>
         <li><strong>4. Ciche błędy i naturalne rozwiązanie:</strong> Błędny klawisz podświetla się na czerwono bez dźwięku, by nie zaburzać pamięci tonacji. Trafienie świeci na zielono i gra naturalne rozwiązanie do toniki (<code>Do–Fa</code> w dół, <code>Sol–Ti</code> w górę).</li>
       </ul>
 
@@ -1783,8 +1791,8 @@ const CATEGORY_HELP_GUIDES_PL = {
       </ul>
 
       <div class="article-highlight-box">
-        <h4>Pomoce na ekranie</h4>
-        <p>Nad klawiaturą znajdziesz <strong>plakietkę tonacji</strong> (dotknij, aby usłyszeć akord toniki), przycisk <strong>Tonika (Do)</strong> oraz <strong>Powtórz dźwięk</strong>. Fioletowa <strong>Pętla</strong> powtarza szukaną nutę co 3 sekundy; automatyczne przejście do kolejnej rundy włączysz w <strong>Ustawieniach</strong>.</p>
+        <h4>Pomoce, Śpiewanie i Etykiety</h4>
+        <p>U góry <strong>Śpiewaj</strong> (opcjonalnie z <em>Pauzą na nucenie</em>) zachęca do zaśpiewania powrotu do Do / 1, tuż obok regulacji <strong>Tempo (BPM)</strong>. Nad klawiaturą znajdziesz <strong>plakietkę tonacji</strong> (gra akord toniki), <strong>Tonika (Do)</strong> oraz <strong>Powtórz dźwięk</strong>. Fioletowa <strong>Pętla</strong> powtarza szukaną nutę co 3 sekundy, a <strong>Tylko słuchaj</strong> rozwiązuje automatycznie. Przełączaj <strong>Sylaby (Do–Ti)</strong> vs. <strong>Cyfry (1–7)</strong> i <strong>Autonastępne</strong> w <strong>Ustawieniach</strong>.</p>
       </div>
     `
   },
@@ -1792,19 +1800,19 @@ const CATEGORY_HELP_GUIDES_PL = {
     tagClass: "tag-sage",
     tag: "Instrukcja • Rytm",
     title: "Jak działają ćwiczenia rytmiczne",
-    lead: "Cztery różnorodne moduły rozwijają wewnętrzny puls, czytanie wartości nutowych, precyzję stukania na żywo oraz wyczucie groovu — z regulacją tempa (BPM) na bieżąco.",
+    lead: "Cztery wszechstronne działy rozwijają wyczucie metrum, dyktando rytmiczne, stukanie ze słuchu i czytanie rytmów z nut oraz pocket groovu — przejrzyście zapisane na jednoliniowej pięciolinii i sterowane tempem (BPM).",
     sections: `
       <h3>4 moduły rytmiczne</h3>
       <ul class="article-steps-list">
-        <li><strong>1. Metrum i takt:</strong> Posłuchaj dwóch taktów perkusji (z akcentem na <code>1</code>) i rozróżniaj <code>4/4</code>, <code>3/4</code>, <code>2/4</code>, <code>6/8</code> oraz metra nieregularne (<code>5/4</code> / <code>7/8</code>).</li>
-        <li><strong>2. Dyktando rytmiczne (4 miary):</strong> Po jednym takcie odliczania clave wybija wzór na 4 miary. Uzupełniaj kolejno wszystkie cztery pola figurami rytmicznymi (od ćwierćnut i pauz po triole, szesnastki i synkopy).</li>
-        <li><strong>3. Stukanie rytmu (Pad na żywo):</strong> Lauscher odlicza i gra wzór, po czym oddaje głos Tobie — wystukaj rytm na dużym <strong>Padzie rytmicznym</strong> (lub klawiszem <code>Spacja</code>), aż po <em>Tryb ślepy</em> całkowicie bez metronomu!</li>
-        <li><strong>4. Groove, offbeaty i mikrotiming:</strong> Rozpoznawaj style groovu (marsz, backbeat, synkopa, swing, polirytmia 3 na 2), wskazuj akcenty cowbella na słabych częściach taktu i ćwicz wyczucie „pocket” (<em>przed klikiem</em>, <em>idealnie w punkt</em> lub <em>za klikiem / laid-back</em>).</li>
+        <li><strong>1. Metrum i takt (3 poziomy):</strong> Posłuchaj dwóch taktów perkusji (akcent na <code>1</code>) i rozróżniaj <code>4/4</code> &amp; <code>3/4</code> (Poziom 1), <code>2/4</code> &amp; <code>6/8</code> (Poziom 2) oraz metra nieparzyste <code>5/4</code> &amp; <code>7/8</code> (Poziom 3). <strong>Puls ćwierćnutowy</strong> daje czysty punkt odniesienia.</li>
+        <li><strong>2. Dyktando rytmiczne (4 miary, 4 poziomy):</strong> Na jednoliniowej pięciolinii po 1 takcie odliczania clave wybija wzór na 4 miary. Uzupełniaj kolejno pola (od ćwierćnut, ósemek i pauz przez offbeaty i triole po szesnastki i synkopy) używając <strong>Metronom (1–4)</strong>, <strong>Powtórz miarę</strong> (lub klikając karty) i <strong>Autonastępne</strong>.</li>
+        <li><strong>3. Pad rytmiczny: Stukanie ze słuchu i z nut (po 4 poziomy):</strong> W trybie <strong>Stukanie rytmu</strong> słuchasz odliczania i wzoru, po czym grasz na dużym <strong>Padzie rytmicznym</strong> (lub <code>Spacją</code>) — z przełącznikiem <strong>Klik: Wł./Wył.</strong>, podglądem <strong>Tylko słuchaj</strong> i Poziomem 4 <em>Tryb ślepy</em>. W trybie <strong>Wystukaj rytmy z nut</strong> brak pokazu audio: czytasz zapis bezpośrednio z pięciolinii i stukasz z metronomem po takcie odliczania (Poziom 4: <em>bez metronomu</em>). Na koniec <strong>oś czasu</strong> pokazuje trafienia <code>dokładnie</code>, <code>blisko (±ms)</code>, <code>pominięto</code> i <code>za dużo</code>.</li>
+        <li><strong>4. Groove, offbeaty i mikrotiming (4 poziomy):</strong> Poziom 1 to <em>Style groovu</em> (marsz, backbeat, synkopa, swing, 3 na 2), Poziom 2 szuka akcentu cowbella na słabych częściach (<code>1</code>–<code>4+</code>), Poziom 3 ćwiczy <em>Mikrotiming (±55 ms)</em>, a Poziom 4 <em>Pro (±28 ms)</em> (przed klikiem, w punkt lub za klikiem).</li>
       </ul>
 
       <div class="article-highlight-box">
-        <h4>Wskazówka treningowa</h4>
-        <p>Rozpocznij <strong>Stukanie rytmu</strong> z włączonym <strong>klikiem</strong> w tempie 80–95 BPM. Gdy poczujesz się pewnie, wyłącz podpowiedź kliku albo sprawdź się w <strong>Trybie ślepym</strong>, aby zbudować żelazny wewnętrzny metronom.</p>
+        <h4>Wskazówka treningowa i Egzamin</h4>
+        <p>Rozpocznij <strong>Stukanie rytmu</strong> z włączonym <strong>klikiem</strong> przy 80–95 BPM i w razie potrzeby włącz <strong>Autonastępne</strong> w lewym dolnym rogu. Gdy puls okrzepnie, zmierz się z <strong>Trybem ślepym</strong>, czytaniem <strong>z nut bez metronomu</strong>, trybem <strong>Tylko słuchaj</strong> lub 4-poziomowym <strong>Egzaminem kategorii</strong>.</p>
       </div>
     `
   },
@@ -1812,17 +1820,17 @@ const CATEGORY_HELP_GUIDES_PL = {
     tagClass: "tag-lilac",
     tag: "Instrukcja • Produkcja i miks",
     title: "Jak działają ćwiczenia z częstotliwości i EQ",
-    lead: "Wykalibruj słuch realizatora dźwięku na standardowych pasmach tercjowych ISO — od czystych fal sinusowych po studyjne podbicia korektora w szumie różowym.",
+    lead: "Wykalibruj słuch realizatora dźwięku na pasmach studyjnych — od izolowanych fal sinusowych na 5 do 12 pasmach aż po aktywne podbicia parametryczne EQ w szumie różowym.",
     sections: `
       <h3>2 moduły produkcyjne</h3>
       <ul class="article-steps-list">
-        <li><strong>1. Rozpoznawanie czystych częstotliwości (Sinus):</strong> Słyszysz wyrównany głośnościowo ton sinusowy od subbasu (<code>63 Hz</code>) po najwyższe pasmo powietrza (<code>12 kHz</code>) i wskazujesz pasmo. Przycisk <strong>„Ref: 1 kHz”</strong> w dowolnej chwili przypomina ton odniesienia.</li>
-        <li><strong>2. Podbicie EQ w szumie różowym (Pro):</strong> Najpierw gra neutralny nieprzetworzony <em>szum różowy</em> („Flat”), po czym korektor parametryczny podbija dokładnie jedną częstotliwość. Przełączaj płynnie <strong>„Bypass Flat”</strong>, porównując przed i po.</li>
+        <li><strong>1. Rozpoznawanie częstotliwości (Sinus, 3 poziomy):</strong> Słyszysz wyrównany ton sinusowy od subbasu (<code>63 Hz</code>) po pasmo powietrza (<code>12 kHz</code>) w układzie <strong>5 pasm</strong>, <strong>8 pasm oktawowych</strong> lub <strong>12 pasm</strong>. Przycisk <strong>„Ref: 1 kHz”</strong> przypomina ton odniesienia w każdej chwili.</li>
+        <li><strong>2. Podbicie EQ w szumie różowym (3 poziomy):</strong> W <strong>swobodnym treningu</strong> szum różowy startuje od razu w trybie ciągłym <strong>z aktywnym podbiciem EQ</strong> (Poziom 1: Szeroki EQ <code>+10 dB / Q 1,6</code>, Poziom 2: Oktawowy <code>+8,5 dB / Q 2,6</code>, Poziom 3: Chirurgiczny <code>+7 dB / Q 4,2</code>). Płynnie przełączaj na czysty szum poprzez górną kartę <strong>Flat</strong> lub przycisk <strong>„Bypass Flat”</strong> (<code>Flat: WŁ.</code>). W trybie <strong>Tylko słuchaj</strong> najpierw gra krótko neutralny szum <em>Flat</em>, potem dłużej <em>podbicie EQ</em> i po pauzie pojawia się odpowiedź.</li>
       </ul>
 
       <div class="article-highlight-box">
-        <h4>Ochrona słuchu i miksowanie</h4>
-        <p>Szum różowy opada o 3 dB na oktawę, dzięki czemu każda oktawa brzmi dla ucha z równą energią. Wbudowany limiter -14 dBFS, kompensacja czułości słuchu w okolicy 2–4 kHz oraz miękkie wygładzanie początku i końca chronią uszy przed skokami głośności. Mimo to zawsze odsłuchuj na umiarkowanym poziomie!</p>
+        <h4>Ochrona słuchu, porównanie i Egzamin</h4>
+        <p>Szum różowy opada o 3 dB na oktawę, równoważąc energię w całym paśmie. Limiter -14 dBFS, krzywa równej głośności w rejonie 2–4 kHz i miękkie wygładzanie chronią słuch. Po błędzie pomogą <strong>Porównanie A/B</strong> oraz <strong>Flat → Docelowe EQ</strong>, a wszystkie 3 poziomy czekają też w <strong>Egzaminie kategorii</strong>.</p>
       </div>
     `
   },
@@ -1830,38 +1838,38 @@ const CATEGORY_HELP_GUIDES_PL = {
     tagClass: "tag-peach",
     tag: "Instrukcja • Skale i tryby",
     title: "Jak działa trening skal i trybów",
-    lead: "Zapomnij o mechanicznym wkuwaniu schematów: usłysz każdą skalę kościelną po jej muzycznym charakterze — od jednego wspólnego dźwięku bazowego lub w transpozycjach.",
+    lead: "Zapomnij o mechanicznym wkuwaniu schematów: usłysz każdą skalę modalną po jej żywej barwie — od jednego wspólnego dźwięku bazowego lub w transpozycjach, z opcją stałej smyczkowej plamy podstawy.",
     sections: `
       <h3>3 moduły trybów</h3>
       <ul class="article-steps-list">
-        <li><strong>1. Rozpoznaj skalę / tryb:</strong> Najpierw brzmi neutralna <strong>Kwinta oparcia</strong> (pryma + kwinta, celowo bez tercji), a po niej 8-nutowa skala w górę. Na <em>Poziomie 1</em> startujesz od czterech głównych barw (<code>Joński</code>, <code>Eolski</code>, <code>Dorycki</code>, <code>Miksolidyjski</code>), na <em>Poziomie 2</em> poznajesz wszystkie 7 trybów, a na <em>Poziomie 3</em> wszystkie transpozycje.</li>
-        <li><strong>2. Dźwięk charakterystyczny i barwa:</strong> Po neutralnej kwincie krótki motyw podkreśla dokładnie ten stopień, który tworzy charakter trybu (<code>#4</code> w lidyjskim, <code>b7</code> w miksolidyjskim, <code>♮6</code> w doryckim, <code>b2</code> we frygijskim lub dźwięk prowadzący <code>#7</code> w molu harmonicznym).</li>
-        <li><strong>3. Kadencje modalne i progresje:</strong> Słuchaj klasycznych dwuakordowych wahadeł modalnych (<code>i – IV</code> dla doryckiej, <code>I – bVII</code> dla miksolidyjskiej, <code>I – II</code> dla lidyjskiej, <code>i – bII</code> dla frygijskiej) i od razu wskazuj nastrój.</li>
+        <li><strong>1. Rozpoznaj skalę / tryb (3 poziomy):</strong> Najpierw brzmi neutralna <strong>Kwinta oparcia</strong> (bez tercji), a po niej 8-nutowa skala w górę: Poziom 1 to 4 podstawowe barwy (<code>Joński, Eolski, Dorycki, Miksolidyjski</code>), Poziom 2 obejmuje wszystkie 7 w <code>C</code>, a Poziom 3 zmienia dźwięki bazowe.</li>
+        <li><strong>2. Dźwięk charakterystyczny i barwa (3 poziomy):</strong> Po kwincie oparcia krótki motyw akcentuje stopień tworzący charakter trybu (<code>#4</code> lidyjski, <code>b7</code> miksolidyjski, <code>♮6</code> dorycki, <code>b2</code> frygijski lub dźwięk prowadzący <code>#7</code> w <strong>Mol harmoniczny</strong>) — w podziale na tryby durowe (Poziom 1), molowe (Poziom 2) oraz Wszystkie + Mol harmoniczny od różnych podstaw (Poziom 3).</li>
+        <li><strong>3. Kadencje modalne i progresje (2 poziomy):</strong> Dwukordowe wahadła (<code>i – IV</code> dorycka, <code>I – bVII</code> miksolidyjska, <code>I – II</code> lidyjska, <code>i – bII</code> frygijska): najpierw 4 standardy w <code>C</code> (Poziom 1), potem wszystkie 6 transponowanych progresji (Poziom 2).</li>
       </ul>
 
       <div class="article-highlight-box">
-        <h4>Sekret zawodowców: słuchaj równolegle (od jednego dźwięku), nie relatywnie!</h4>
-        <p>Na początku porównuj wszystkie tryby od <strong>tej samej toniki</strong> (np. <strong>C joński</strong> kontra <strong>C miksolidyjski</strong> i <strong>C dorycki</strong>). Korzystaj z <em>„Kwinty oparcia”</em> albo z porównania A/B po pomyłce, by wyraźnie usłyszeć przesunięcie nuty charakterystycznej.</p>
+        <h4>Plama podstawy, Kwinta oparcia i porównanie A/B</h4>
+        <p>Porównuj tryby równolegle od <strong>tej samej podstawy</strong> (np. <strong>C joński</strong> vs <strong>C miksolidyjski</strong>). Przycisk <strong>„Plama podstawy: wł./wył.”</strong> podkłada ciągły smyczkowy burdon pod każde zadanie; kliknięcie <strong>„Kwinty oparcia”</strong> (lub lewej karty) przywołuje neutralną ramę, a po błędzie <strong>Porównanie A/B</strong> zestawia oba tryby na tym samym dźwięku. Dostępne są też <strong>Pętla</strong>, <strong>Tylko słuchaj</strong> i 3-poziomowy <strong>Egzamin kategorii</strong>.</p>
       </div>
     `
   },
   warmup: {
     tagClass: "tag-sage",
     tag: "Instrukcja • Rozgrzewka głosowa",
-    title: "Jak przebiega 5-minutowa rozgrzewka",
-    lead: "Stworzona z myślą o próbach chóralnych, lekcjach śpiewu i ćwiczeniu w domu: przemyślany łuk od luźnego oddechu i mormorando przez modulowane arpeggia aż po czysty wielogłosowy finał.",
+    title: "Jak przebiega prowadzona rozgrzewka głosowa",
+    lead: "Stworzona z myślą o próbach chóralnych, lekcjach śpiewu i ćwiczeniu w domu: wybierz jedną z 5 skal głosu (SATB) i uruchom jeden z 4 programów — ze sferą oddechu, żywą klawiaturą i kontrolą półtonów.",
     sections: `
-      <h3>4 etapy rozgrzewki</h3>
+      <h3>4 programy do wyboru i 4 etapy</h3>
       <ul class="article-steps-list">
+        <li><strong>4 programy rozgrzewki:</strong> Dobierz do potrzeb <strong>Pełną 5-minutową rozgrzewkę</strong> (4 etapy, 9 ćwiczeń), <strong>Krótką rozgrzewkę (ok. 3 min)</strong>, <strong>Arpeggia i wyrównanie rejestrów</strong> lub <strong>Oddech chóralny i intonację</strong>.</li>
         <li><strong>Etap 1 — Oddech i ciało:</strong> Animowana sfera oddechu na <code>ffff / ssss</code> oraz lekkie impulsy artykulacyjne (<code>P – T – K</code>) budzą podparcie bez ścisku w gardle.</li>
-        <li><strong>Etap 2 — Rezonans i osadzenie:</strong> Miękkie mormorando / wibracja warg (<code>Mmm / Brrrr</code>) i opadające westchnienia kwintowe (<code>5–4–3–2–1</code>) łagodnie łączą rejestr piersiowy z głowowym.</li>
-        <li><strong>Etap 3 — Zwinność i arpeggia:</strong> Arpeggia trójdźwiękowe i oktawowe (<code>1–3–5–3–1</code> oraz <code>1–3–5–8–5–3–1</code>) automatycznie modulują co półton w Twoim rejestrze (<strong>Chór, Sopran, Alt, Tenor lub Bas</strong>) i spokojnie opadają w dół.</li>
-        <li><strong>Etap 4 — Samogłoski i strojenie chóru:</strong> Przejście samogłosek (<code>U → O → A → E → I</code>) oraz narastający akord SATB dostrajają czysty akord zespołowy.</li>
+        <li><strong>Etap 2 — Rezonans i osadzenie:</strong> Miękkie mormorando / wibracja warg (<code>Mmm / Brrrr</code>) i opadające westchnienia kwintowe (<code>5–4–3–2–1</code>) łagodnie łączą rejestry.</li>
+        <li><strong>Etapy 3 i 4 — Arpeggia, samogłoski i chór:</strong> Arpeggia trójdźwiękowe i oktawowe modulują co półton w rejestrze (<strong>Chór, Sopran, Alt, Tenor lub Bas</strong>), po czym następują przejścia samogłosek (<code>U → O → A → E → I</code>) i akord SATB.</li>
       </ul>
 
       <div class="article-highlight-box">
-        <h4>Sterowanie na żywo podczas śpiewu</h4>
-        <p>Pigułki u góry przełączają <strong>Rejestr (SATB)</strong>, <strong>Barwę akompaniamentu</strong> (Fortepian, Fortepian + głos lub Głos) i <strong>Tempo</strong>. Przyciski <strong>„−1 / +1 półton”</strong> oraz <strong>„↻ Powtórz”</strong> działają natychmiast w trakcie ćwiczenia, dopasowując tonację do Ciebie lub chóru.</p>
+        <h4>Sterowanie na żywo i klawiatura</h4>
+        <p>U góry zmieniasz <strong>Rejestr (SATB)</strong>, <strong>Barwę akompaniamentu</strong> (Fortepian, Fortepian + głos lub Głos) i <strong>Tempo</strong>, a przez <strong>pigułki etapów</strong> przeskakujesz dowolnie między fazami. U dołu działają przyciski <strong>„−1 / +1 półton”</strong> i <strong>„↻ Powtórz”</strong> oraz <strong>interaktywna klawiatura</strong> do grania dźwięków oparcia.</p>
       </div>
     `
   },
@@ -1869,27 +1877,24 @@ const CATEGORY_HELP_GUIDES_PL = {
     tagClass: "tag-sage",
     tag: "Instrukcja • Czytanie nut",
     title: "Jak działa trening czytania nut",
-    lead: "Ćwicz płynne czytanie nut a vista w kluczu wiolinowym, basowym i altowym — od pięciu głównych linii aż po ±3 linie dodane z krzyżykami, bemolami i znakami przykluczowymi (1–6 ♯/♭).",
+    lead: "Ćwicz płynne czytanie nut a vista w 6 trybach: w kluczu wiolinowym, basowym i altowym, w Miksie kluczy, na Systemie fortepianowym (dwupięcioliniowym) oraz w trybie Czytania akordów (w tym przewroty i septymowe).",
     sections: `
-      <h3>Budowa ekranu ćwiczenia</h3>
+      <h3>Wszystkie 6 trybów i sposób odpowiedzi</h3>
       <ul class="article-steps-list">
-        <li><strong>1. Duża pięciolinia u góry (potok 6 nut):</strong> Kolorowe wyróżnienie po lewej wskazuje aktywną nutę do zagrania. Tuż za nią czekają kolejne 5 nut, dzięki czemu wzrok wyprzedza palce jak przy prawdziwej grze z nut.</li>
-        <li><strong>2. Klawiatura poniżej jako odpowiedź:</strong> Wskaż klawisz pasujący do skrajnej lewej nuty. Trafienie gra dźwięk w realnej oktawie, scena wyraźnie nazywa dźwięk, a wszystkie nuty płynnie przesuwają się w lewo, podczas gdy z prawej dopływa nowa nuta.</li>
-        <li><strong>3. Pomyłki i „Pomiń”:</strong> Błędny klawisz świeci na czerwono bez przesunięcia kolejki, by spokojnie sprawdzić położenie na pięciolinii. Wahasz się? Kliknij <strong>Pomiń</strong>, aby poznać właściwy dźwięk i przejść dalej.</li>
+        <li><strong>1. Pojedyncze nuty (potok 6 nut):</strong> W kluczu <strong>wiolinowym</strong>, <strong>basowym</strong>, <strong>altowym</strong>, w <strong>Miksie kluczy</strong> (zmiana co 3 nuty z podpowiedzią klucza) oraz na <strong>Systemie fortepianowym</strong> (klucz wiolinowy + basowy z klamrą) kolorowe wyróżnienie po lewej wskazuje nutę do zagrania na klawiaturze.</li>
+        <li><strong>2. Czytanie akordów (5 akordów, wybór wielokrotny):</strong> Trójdźwięki i czterodźwięki zapisane pionowo na pięciolinii. Zamiast klawiszy wybierasz pasujące <strong>kafelki symboli</strong> (np. <code>E, Em, E7, Esus4</code>) na <strong>4 poziomach</strong>: Poziom 1 (trójdźwięki w wiolinowym), Poziom 2 (trójdźwięki w basowym), Poziom 3 (przewroty w obu kluczach) oraz Poziom 4 (wszystkie typy i septymowe).</li>
+        <li><strong>3. Pomyłki i „Pomiń”:</strong> Błędny klawisz lub kafelek świeci na czerwono bez przesuwania kolejki, by spokojnie sprawdzić klucz, znaki lub przewrót. Kliknij <strong>Pomiń</strong>, aby odsłonić rozwiązanie i przejść dalej.</li>
       </ul>
 
       <h3>Poziomy trudności i znaki przykluczowe</h3>
       <ul class="article-steps-list">
-        <li><strong>Poziom 1 — 5 linii głównych:</strong> Dźwięki naturalne na 5 liniach i 4 polach bez linii dodanych.</li>
-        <li><strong>Poziom 2 — ±2 linie dodane:</strong> Poszerzona skala do 2 linii dodanych nad i pod pięciolinią.</li>
-        <li><strong>Poziom 3 — ±3 linie dodane (Pełny zakres):</strong> Kompletna skala czytania z 3 liniami dodanymi w obie strony.</li>
-        <li><strong>Poziom 4 — ±3 linie + ♯/♭/♮:</strong> W C-dur dodaje przygodne krzyżyki (<code>♯</code>) i bemole (<code>♭</code>), a przy aktywnej tonacji wprowadza <strong>kasowniki (<code>♮</code>)</strong> znoszące znak przykluczowy — w notacji tradycyjnej PL/DE (<code>H / B / Fis</code>) lub międzynarodowej (<code>B / B♭ / F♯</code>).</li>
-        <li><strong>Czytanie a vista ze znakami przykluczowymi (1–6 ♯/♭):</strong> Wybierz konkretną tonację albo zmienny zestaw na stronie Czytania nut lub przyciskiem <strong>Tonacja</strong> w trakcie gry. Znaki stoją przy kluczu jak w prawdziwej partyturze i obowiązują przez cały zapis.</li>
+        <li><strong>Pojedyncze nuty Poziomy 1–4:</strong> Poziom 1 (5 linii i 4 pola), Poziom 2 (<code>±2 linie dodane</code>), Poziom 3 (<code>±3 linie dodane</code>) oraz Poziom 4 z przygodnymi znakami (<code>♯</code>/<code>♭</code>) lub <strong>kasownikami (<code>♮</code>)</strong> przy aktywnej tonacji — w notacji tradycyjnej PL/DE (<code>H / B / Fis</code>) lub międzynarodowej (<code>B / B♭ / F♯</code>).</li>
+        <li><strong>Czytanie z przykluczowymi (1–6 ♯/♭):</strong> Wybierz tonację albo rotacyjny zestaw (Łatwe, Średnie, Wszystkie 12) na stronie Czytania nut lub przyciskiem <strong>Tonacja</strong> w trakcie gry.</li>
       </ul>
 
       <div class="article-highlight-box">
-        <h4>Miks kluczy i dźwięk oparcia</h4>
-        <p>W <strong>Miksie kluczy</strong> pięciolinia co kilka nut zmienia klucz między wiolinowym, basowym i altowym z małą zapowiedzią zmiany. Przycisk <strong>Dźwięk oparcia</strong> na dole po lewej przypomina nutę kotwicę aktywnego klucza (<code>g¹</code> w wiolinowym, <code>f</code> w basowym, <code>c¹</code> w altowym).</p>
+        <h4>Audio, Tylko słuchaj i Egzamin</h4>
+        <p>Nad klawiaturą przełącznik <strong>Dźwięk nuty: Wł./Wył.</strong> pozwala czytać nuty zupełnie bezgłośnie. Na dole <strong>▶ Posłuchaj nuty</strong> / <strong>▶ Posłuchaj akordu</strong> służy za opcjonalną podpowiedź w treningu — natomiast w 6-poziomowym <strong>Egzaminie kategorii</strong> zmienia się w <strong>▶ Dźwięk oparcia</strong> (<code>g¹</code> / <code>f</code> / <code>c¹</code>), by nie zdradzać odpowiedzi. Po prawej <strong>Tylko słuchaj</strong> uruchamia automatyczne czytanie w wybranym <strong>Tempie</strong> (<em>Bardzo wolno</em> do <em>Bardzo szybko</em>).</p>
       </div>
     `
   }
