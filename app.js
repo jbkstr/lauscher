@@ -15887,7 +15887,78 @@ function performFullAppReset() {
   openFirstRunOnboarding();
 }
 
+// =====================================================
+// MARKENNAME „Lauscher“: überall fett & kursiv
+// Texte werden fast überall per textContent gesetzt. Ein MutationObserver
+// umschließt deshalb jedes sichtbare „Lauscher“ automatisch mit
+// <span class="brand-word"> (Stil in styles.css).
+// =====================================================
+const BRAND_WORD = "Lauscher";
+const BRAND_WORD_SKIP_TAGS = new Set(["SCRIPT", "STYLE", "TEXTAREA", "INPUT", "SELECT", "OPTION", "TITLE", "NOSCRIPT"]);
+
+function isBrandWordSkippedNode(textNode) {
+  let el = textNode.parentElement;
+  while (el) {
+    if (el.classList?.contains("brand-word")) return true;
+    if (BRAND_WORD_SKIP_TAGS.has(el.tagName)) return true;
+    if (el.isContentEditable) return true;
+    if (el.namespaceURI === "http://www.w3.org/2000/svg") return true;
+    el = el.parentElement;
+  }
+  return false;
+}
+
+function wrapBrandWordInTextNode(textNode) {
+  const text = textNode.nodeValue;
+  if (!text || !text.includes(BRAND_WORD) || !textNode.parentNode) return;
+  if (isBrandWordSkippedNode(textNode)) return;
+  const frag = document.createDocumentFragment();
+  const parts = text.split(BRAND_WORD);
+  parts.forEach((part, idx) => {
+    if (part) frag.appendChild(document.createTextNode(part));
+    if (idx < parts.length - 1) {
+      const span = document.createElement("span");
+      span.className = "brand-word";
+      span.textContent = BRAND_WORD;
+      frag.appendChild(span);
+    }
+  });
+  textNode.parentNode.replaceChild(frag, textNode);
+}
+
+function wrapBrandWordsIn(root) {
+  if (!root) return;
+  if (root.nodeType === 3) {
+    wrapBrandWordInTextNode(root);
+    return;
+  }
+  if (root.nodeType !== 1 && root.nodeType !== 11) return;
+  if (!root.textContent || !root.textContent.includes(BRAND_WORD)) return;
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  const hits = [];
+  while (walker.nextNode()) {
+    if (walker.currentNode.nodeValue.includes(BRAND_WORD)) hits.push(walker.currentNode);
+  }
+  hits.forEach(wrapBrandWordInTextNode);
+}
+
+function startBrandWordStyling() {
+  if (typeof document === "undefined" || !document.body || typeof MutationObserver !== "function") return;
+  wrapBrandWordsIn(document.body);
+  const observer = new MutationObserver(mutations => {
+    for (const m of mutations) {
+      if (m.type === "characterData") {
+        wrapBrandWordsIn(m.target);
+      } else {
+        m.addedNodes.forEach(node => wrapBrandWordsIn(node));
+      }
+    }
+  });
+  observer.observe(document.body, { childList: true, characterData: true, subtree: true });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+  startBrandWordStyling();
   bindGlobalPointerInputTracker();
   hydrateMascotStaticSlots();
   if (typeof applyStaticDomLanguage === "function") {

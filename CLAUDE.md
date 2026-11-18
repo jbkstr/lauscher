@@ -13,6 +13,8 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
   - Einsing-Helfer (`// EINSING-HELFER`), Metronom (`// PRAXIS-METRONOM`), Prüfungsmodus (`// KATEGORIE-PRÜFUNGSMODUS`)
 - **[audio.js](audio.js)**: `AudioEngine`, `EarLabSampledInstrument`, Hall-Sends, Limiter, Pink-Noise-EQ, Percussion. Samples kommen aus `window.EARLAB_SAMPLE_PACKS`, das die Bundles befüllen. Fehlt ein Sample, springt ein Synth als Fallback ein.
 - **[styles.css](styles.css)**: Alle Themes laufen über CSS-Variablen und `data-theme` / `data-appearance` / `data-lang` auf `<html>`. RTL (Urdu) läuft über `dir="rtl"`.
+- **Schrift: Andika** (SIL Open Font License, [fonts/Andika/](fonts/Andika/)). Eingebunden per `@font-face` ganz oben in styles.css. Andika hat nur Regular und Bold: Stärke 100–549 nutzt Regular, 550–1000 Bold. Für Urdu bleibt die arabische Schrift-Kette (Andika hat keine arabischen Zeichen).
+- **Markenname „Lauscher“ wird immer fett und kursiv dargestellt.** Ein `MutationObserver` in app.js (`startBrandWordStyling`) umschließt jedes sichtbare „Lauscher“ automatisch mit `<span class="brand-word">`. In Texten und Übersetzungen deshalb **nie** von Hand formatieren. Wer Text-Knoten direkt manipuliert, muss `.brand-word`-Spans berücksichtigen (siehe `setElementLocalizedText` in i18n.js).
 - **Inline-Skript im `<head>` von index.html** setzt Theme, Sprache und `data-first-run` vor dem ersten Rendern. Kommen Themes oder Sprachen dazu, muss es mit angepasst werden.
 
 ## Mehrsprachigkeit (de, en, fr, pl, uk, ur)
@@ -38,7 +40,7 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 ## Mobile-Bundle
 
 - [lauschebaer-mobile.html](lauschebaer-mobile.html) (~8,5 MB) ist eine Einzeldatei mit allen CSS-, JS- und Sample-Inhalten inline. Nur `tone.js` wird extern daneben geladen.
-- Die Datei wird von [scripts/build-mobile-bundle.py](scripts/build-mobile-bundle.py) aus `index.html` erzeugt: `styles.css` und alle `<script src>` außer `tone.js` werden inline eingesetzt. Diese Datei nie direkt bearbeiten und nicht lesen (zu groß).
+- Die Datei wird von [scripts/build-mobile-bundle.py](scripts/build-mobile-bundle.py) aus `index.html` erzeugt: `styles.css` und alle `<script src>` außer `tone.js` werden inline eingesetzt. Lokale Dateien, die im CSS per `url(...)` eingebunden sind (die Fonts), werden als Base64 eingebettet. Diese Datei nie direkt bearbeiten und nicht lesen (zu groß).
 - **Nach jeder Änderung an index.html, styles.css oder einer JS-Datei das Bundle neu bauen und mitcommitten:**
   ```bash
   python3 scripts/build-mobile-bundle.py          # neu bauen
