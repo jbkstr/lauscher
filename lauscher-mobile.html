@@ -534,6 +534,14 @@ html, body {
   -webkit-hyphens: auto;
 }
 
+/* Hauptreiter: deutlich größerer, fetter Titel (Unterseiten bleiben kompakt) */
+.brand-name.is-main-tab-title {
+  font-size: clamp(1.1rem, 5vw, 1.36rem);
+  font-weight: 800;
+  line-height: 1.14;
+  letter-spacing: -0.018em;
+}
+
 .brand-sub {
   font-size: 0.74rem;
   line-height: 1.25;
@@ -65921,6 +65929,9 @@ class AppState {
     const el = document.getElementById("subHeaderInfo");
     const mainTitle = document.getElementById("headerMainTitle");
     if (!el || !mainTitle) return;
+    // Hauptreiter (Übungen, Werkzeuge, Wissen, Konto) bekommen einen großen Titel;
+    // Unterseiten und Übungen behalten die kompakte Größe für lange Titel.
+    mainTitle.classList.toggle("is-main-tab-title", ["home", "tools", "knowledge", "space"].includes(this.currentView));
 
     if (this.currentView === "home") {
       mainTitle.textContent = tr("Übungen", "Home");

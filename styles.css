@@ -526,6 +526,14 @@ html, body {
   -webkit-hyphens: auto;
 }
 
+/* Hauptreiter: deutlich größerer, fetter Titel (Unterseiten bleiben kompakt) */
+.brand-name.is-main-tab-title {
+  font-size: clamp(1.1rem, 5vw, 1.36rem);
+  font-weight: 800;
+  line-height: 1.14;
+  letter-spacing: -0.018em;
+}
+
 .brand-sub {
   font-size: 0.74rem;
   line-height: 1.25;

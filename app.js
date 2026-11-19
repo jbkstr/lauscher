@@ -2697,6 +2697,9 @@ class AppState {
     const el = document.getElementById("subHeaderInfo");
     const mainTitle = document.getElementById("headerMainTitle");
     if (!el || !mainTitle) return;
+    // Hauptreiter (Übungen, Werkzeuge, Wissen, Konto) bekommen einen großen Titel;
+    // Unterseiten und Übungen behalten die kompakte Größe für lange Titel.
+    mainTitle.classList.toggle("is-main-tab-title", ["home", "tools", "knowledge", "space"].includes(this.currentView));
 
     if (this.currentView === "home") {
       mainTitle.textContent = tr("Übungen", "Home");
