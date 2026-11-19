@@ -81,6 +81,7 @@ RUNTIME_FILES=(
   knowledge-uk.js
   knowledge-ur.js
   legal.js
+  version.js
 )
 
 for rel in "${RUNTIME_FILES[@]}"; do
@@ -202,6 +203,24 @@ else:
 if s_new != s:
     open(path, "w", encoding="utf-8").write(s_new)
     print("  → android:screenOrientation=\"portrait\" im AndroidManifest gesetzt")
+PYEOF
+fi
+
+# Version aus version.js → versionName / versionCode in android/app/build.gradle
+GRADLE_FILE="$TARGET_DIR/android/app/build.gradle"
+if [ -f "$GRADLE_FILE" ]; then
+  python3 - "$REPO_ROOT/version.js" "$GRADLE_FILE" <<'PYEOF'
+import re, sys
+version_js, gradle = sys.argv[1], sys.argv[2]
+v = open(version_js, encoding="utf-8").read()
+name = re.search(r'name:\s*"([^"]+)"', v).group(1)
+build = int(re.search(r'build:\s*(\d+)', v).group(1))
+s = open(gradle, encoding="utf-8").read()
+s_new = re.sub(r'versionCode\s+\d+', f'versionCode {build}', s, count=1)
+s_new = re.sub(r'versionName\s+"[^"]*"', f'versionName "{name}"', s_new, count=1)
+if s_new != s:
+    open(gradle, "w", encoding="utf-8").write(s_new)
+print(f"  → Version {name} (Build {build}) in build.gradle")
 PYEOF
 fi
 

@@ -14,3 +14,10 @@ daw-sampling/
 # Python
 __pycache__/
 *.pyc
+
+# Android-Builds & Signaturschlüssel nie committen (APK nur als GitHub-Release-Anhang)
+*.apk
+*.aab
+*.jks
+*.keystore
+keystore.properties

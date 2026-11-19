@@ -517,7 +517,7 @@ const I18N_STATIC_FR = {
   "settings.aboutHeading": "À propos de l'application",
   "settings.openAboutBtn": "À propos de Lauscher →",
   "about.title": "À propos de Lauscher",
-  "about.version": "Version 0.9.0-beta",
+  "about.version": "Version",
   "about.description": "Lauscher est votre compagnon calme, sans publicité ni pistage, pour l'entraînement de l'oreille, la lecture de notes, la théorie musicale, l'échauffement vocal et l'écoute studio — 100 % en local sur votre appareil, sans pression de score.",
   "about.linksHeading": "Contact, soutien et mentions légales",
   "about.linkContact": "Message au développeur / Contact",

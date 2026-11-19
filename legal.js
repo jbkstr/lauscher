@@ -95,8 +95,9 @@ const LAUSCHER_LEGAL_DOCS = {
 </ul>
 <p>Lauscher lädt <strong>keine</strong> externen Inhalte nach: keine Schriftarten von Drittanbietern, keine Skripte von CDNs, keine Werbung, keine Analyse. Alle Schriften, Klänge und Programmteile werden von derselben Adresse geladen bzw. sind in der App enthalten.</p>
 
-<h3>7. Android-App und Google Play</h3>
-<p>Die Android-App wird über <strong>Google Play</strong> (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland) vertrieben. Für Download, Installation und Updates gelten die Datenschutzbestimmungen von Google; darauf habe ich keinen Einfluss.</p>
+<h3>7. Android-App (GitHub und Google Play)</h3>
+<p>Die Android-App kann als Installationsdatei (APK) über die <strong>Releases-Seite auf GitHub</strong> heruntergeladen werden (GitHub B.V., siehe Abschnitt 6). Beim Download verarbeitet GitHub wie beim Aufruf der Website technisch notwendige Verbindungsdaten, insbesondere deine IP-Adresse; Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Eine so installierte App aktualisiert sich nicht automatisch und meldet sich nicht bei mir.</p>
+<p>Wird die App künftig (auch) über <strong>Google Play</strong> (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland) vertrieben, gelten für Download, Installation und Updates die Datenschutzbestimmungen von Google; darauf habe ich keinen Einfluss.</p>
 <p>Hast du in den Einstellungen deines Geräts der Übermittlung von Diagnosedaten zugestimmt, kann Google mir <strong>anonymisierte bzw. zusammengefasste</strong> Absturz- und Stabilitätsberichte in der Google Play Console bereitstellen. Daraus kann ich keine einzelnen Personen erkennen.</p>
 <p>Die Android-App fordert folgende Berechtigungen an:</p>
 <div class="legal-table-wrap"><table>
@@ -211,8 +212,9 @@ const LAUSCHER_LEGAL_DOCS = {
 </ul>
 <p>Lauscher does <strong>not</strong> load any external content: no third-party fonts, no scripts from CDNs, no ads, no analytics. All fonts, sounds and code are loaded from the same address or are included in the app.</p>
 
-<h3>7. Android app and Google Play</h3>
-<p>The Android app is distributed via <strong>Google Play</strong> (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland). Google's privacy terms apply to downloading, installing and updating the app; I have no influence on them.</p>
+<h3>7. Android app (GitHub and Google Play)</h3>
+<p>The Android app can be downloaded as an installation file (APK) from the <strong>Releases page on GitHub</strong> (GitHub B.V., see section 6). As with visits to the website, GitHub processes technically necessary connection data during the download, in particular your IP address; the legal basis is Art. 6(1)(f) GDPR. An app installed this way does not update itself automatically and does not report back to me.</p>
+<p>If the app is (also) distributed via <strong>Google Play</strong> (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland) in the future, Google's privacy terms apply to downloading, installing and updating the app; I have no influence on them.</p>
 <p>If you have allowed diagnostic data to be sent in your device settings, Google may provide me with <strong>anonymized or aggregated</strong> crash and stability reports in the Google Play Console. These do not allow me to identify individual people.</p>
 <p>The Android app requests the following permissions:</p>
 <div class="legal-table-wrap"><table>

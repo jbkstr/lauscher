@@ -517,7 +517,7 @@ const I18N_STATIC_UR = {
   "settings.aboutHeading": "ایپ کے بارے میں",
   "settings.openAboutBtn": "Lauscher کے بارے میں →",
   "about.title": "Lauscher کے بارے میں",
-  "about.version": "ورژن 0.9.0-beta",
+  "about.version": "ورژن",
   "about.description": "Lauscher موسیقی کی سماعت کی تربیت، نوٹ پڑھنے، میوزک تھیوری، ووکل وارم اپ اور اسٹوڈیو سننے کے لیے آپ کا پرسکون، اشتہارات اور ٹریکنگ سے پاک ساتھی ہے — بغیر کسی اسکور کے دباؤ کے مکمل طور پر آپ کے آلے پر۔",
   "about.linksHeading": "رابطہ، تعاون اور قانونی معلومات",
   "about.linkContact": "ڈویلپر کو پیغام / رابطہ",

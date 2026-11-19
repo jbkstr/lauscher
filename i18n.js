@@ -911,7 +911,7 @@ const I18N_STATIC = {
   "settings.aboutHeading": { de: "Über die App", en: "About the App" },
   "settings.openAboutBtn": { de: "Über Lauscher →", en: "About Lauscher →" },
   "about.title": { de: "Über Lauscher", en: "About Lauscher" },
-  "about.version": { de: "Version 0.9.0-beta", en: "Version 0.9.0-beta" },
+  "about.version": { de: "Version", en: "Version" },
   "about.description": {
     de: "Lauscher ist dein ruhiger, werbe- und trackingfreier Begleiter für musikalisches Gehörtraining, Notenlesen, Musiktheorie, Einsingen und Studio-Hören – komplett lokal auf deinem Gerät und ohne Punktedruck.",
     en: "Lauscher is your calm, ad-free, and tracker-free companion for musical ear training, sight-reading, music theory, vocal warmup, and studio listening — running 100% locally on your device without score pressure."
