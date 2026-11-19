@@ -5214,6 +5214,117 @@ function getOpenModalName() {
 function renderAboutModalContent() {
   // Kopf zeigt das App-Icon (Squircle, reines CSS) – nichts zu rendern
   document.getElementById("aboutPlaceholderNotice")?.classList.add("hidden");
+  document.getElementById("aboutContactFallback")?.classList.add("hidden");
+}
+
+// ---------- Über-Fenster: Aktionen ----------
+// Kontakt läuft über eine Weiterleitungs-Adresse (Alias), damit die private Adresse verborgen bleibt.
+const LAUSCHER_CONTACT_EMAIL = "lauscher.privacy772@passfwd.com";
+
+function handleAboutAction(action) {
+  document.getElementById("aboutPlaceholderNotice")?.classList.add("hidden");
+  document.getElementById("aboutContactFallback")?.classList.add("hidden");
+  if (action === "contact") {
+    openContactMail();
+    return;
+  }
+  // Noch nicht verknüpfte Einträge
+  document.getElementById("aboutPlaceholderNotice")?.classList.remove("hidden");
+}
+
+function getAppVersionLabel() {
+  const text = typeof getStaticI18nText === "function" ? getStaticI18nText("about.version") : "";
+  const match = String(text || document.getElementById("aboutVersionBadge")?.textContent || "").match(/\d+(?:\.\d+)+(?:-[\w.]+)?/);
+  return match ? match[0] : "";
+}
+
+function buildContactMailUrl() {
+  const subject = tr("Lauscher – Nachricht", "Lauscher – Message", {
+    fr: "Lauscher – Message",
+    es: "Lauscher – Mensaje",
+    pl: "Lauscher – Wiadomość",
+    uk: "Lauscher – Повідомлення",
+    ur: "Lauscher – پیغام"
+  });
+  const greeting = tr("Hallo,", "Hi,", { fr: "Bonjour,", es: "Hola:", pl: "Cześć,", uk: "Привіт,", ur: "السلام علیکم،" });
+  const isNativeApp = Boolean(getCapacitorNativePlugin("App"));
+  const platform = isNativeApp
+    ? tr("Android-App", "Android app", { fr: "Application Android", es: "App de Android", pl: "Aplikacja Android", uk: "Android-застосунок", ur: "اینڈرائیڈ ایپ" })
+    : tr("Browser", "Browser", { fr: "Navigateur", es: "Navegador", pl: "Przeglądarka", uk: "Браузер", ur: "براؤزر" });
+  const version = getAppVersionLabel();
+  const lang = typeof getAppLanguage === "function" ? getAppLanguage() : "de";
+  const infoLine = [version ? `Lauscher ${version}` : "Lauscher", platform, lang.toUpperCase()].join(" · ");
+  const body = `${greeting}\n\n\n\n—\n${infoLine}`;
+  return `mailto:${LAUSCHER_CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+function openContactMail() {
+  const url = buildContactMailUrl();
+  // Android-App: Capacitor leitet mailto: als Intent an das Mail-Programm weiter; Browser öffnen den Standard-Mailer.
+  const a = document.createElement("a");
+  a.href = url;
+  a.rel = "noopener";
+  document.body?.appendChild?.(a);
+  a.click?.();
+  a.remove?.();
+  showContactFallback();
+}
+
+function showContactFallback() {
+  const box = document.getElementById("aboutContactFallback");
+  if (!box) return;
+  const text = document.getElementById("aboutContactFallbackText");
+  if (text) {
+    text.textContent = tr(
+      "Falls sich kein Mail-Programm geöffnet hat, schreib einfach an:",
+      "If no mail app opened, just write to:",
+      {
+        fr: "Si aucune application de messagerie ne s’est ouverte, écris simplement à :",
+        es: "Si no se ha abierto ninguna app de correo, escribe a:",
+        pl: "Jeśli nie otworzyła się aplikacja pocztowa, napisz po prostu na:",
+        uk: "Якщо поштовий застосунок не відкрився, просто напиши на:",
+        ur: "اگر کوئی میل ایپ نہیں کھلی تو اس پتے پر لکھیں:"
+      }
+    );
+  }
+  const addr = document.getElementById("aboutContactAddress");
+  if (addr) addr.textContent = LAUSCHER_CONTACT_EMAIL;
+  const copyBtn = document.getElementById("aboutCopyContactBtn");
+  if (copyBtn) copyBtn.textContent = getCopyContactLabel(false);
+  box.classList.remove("hidden");
+}
+
+function getCopyContactLabel(copied) {
+  return copied
+    ? tr("✓ Kopiert", "✓ Copied", { fr: "✓ Copié", es: "✓ Copiado", pl: "✓ Skopiowano", uk: "✓ Скопійовано", ur: "✓ کاپی ہو گیا" })
+    : tr("Adresse kopieren", "Copy address", { fr: "Copier l’adresse", es: "Copiar dirección", pl: "Kopiuj adres", uk: "Копіювати адресу", ur: "پتہ کاپی کریں" });
+}
+
+async function copyContactAddressToClipboard() {
+  const btn = document.getElementById("aboutCopyContactBtn");
+  let ok = false;
+  try {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(LAUSCHER_CONTACT_EMAIL);
+      ok = true;
+    }
+  } catch (_e) {}
+  if (!ok) {
+    // Rückfall: Text markieren, damit er per Systemmenü kopiert werden kann
+    const addr = document.getElementById("aboutContactAddress");
+    const sel = window.getSelection?.();
+    if (addr && sel && document.createRange) {
+      const range = document.createRange();
+      range.selectNodeContents(addr);
+      sel.removeAllRanges();
+      sel.addRange(range);
+      try { ok = document.execCommand?.("copy") || false; } catch (_e) {}
+    }
+  }
+  if (btn && ok) {
+    btn.textContent = getCopyContactLabel(true);
+    setTimeout(() => { btn.textContent = getCopyContactLabel(false); }, 1800);
+  }
 }
 
 function openAboutModal() {
@@ -19652,8 +19763,11 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("closeAboutBtn")?.addEventListener("click", () => closeActiveModal());
   document.querySelectorAll("[data-about-action]").forEach(btn => {
     btn.addEventListener("click", () => {
-      document.getElementById("aboutPlaceholderNotice")?.classList.remove("hidden");
+      handleAboutAction(btn.dataset.aboutAction);
     });
+  });
+  document.getElementById("aboutCopyContactBtn")?.addEventListener("click", () => {
+    copyContactAddressToClipboard();
   });
 
   document.getElementById("openMixerBtn")?.addEventListener("click", () => {

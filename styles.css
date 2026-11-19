@@ -10681,6 +10681,38 @@ body.is-hum-pause #solfegeKeyboardWrap {
   text-align: center;
 }
 
+.about-contact-fallback {
+  margin-top: 0.65rem;
+  padding: 0.6rem 0.7rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--sage-soft);
+}
+
+.about-contact-fallback .settings-hint {
+  margin: 0 0 0.45rem;
+}
+
+.about-contact-fallback-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.about-contact-address {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-weight: 700;
+  color: var(--sage-strong);
+  overflow-wrap: anywhere;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+.about-contact-copy-btn {
+  flex: 0 0 auto;
+}
+
 .hidden, .modal-hidden {
   display: none !important;
 }
