@@ -457,6 +457,8 @@ html, body {
   gap: 0.45rem;
   flex-shrink: 0;
   margin-bottom: 0.55rem;
+  position: relative;
+  z-index: 80;
 }
 
 .top-bar-left {
@@ -582,6 +584,7 @@ html, body {
   box-shadow: var(--shadow-float);
   z-index: 90;
   width: 220px;
+  max-width: calc(100vw - 24px);
 }
 
 .mute-btn {
@@ -622,6 +625,7 @@ html, body {
   flex: 1;
   min-height: 0;
   position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   margin: -2px -6px 0 -6px;
@@ -1182,6 +1186,11 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
   box-shadow: 0 4px 10px rgba(61, 64, 91, 0.08);
 }
 
+.node-circle.has-random-badge,
+.node-circle:has(.node-random-badge) {
+  overflow: visible;
+}
+
 .node-random-badge {
   position: absolute;
   top: -4px;
@@ -1198,6 +1207,7 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
   justify-content: center;
   border: 2px solid var(--surface-white);
   box-shadow: 0 2px 6px rgba(61, 64, 91, 0.18);
+  z-index: 2;
 }
 
 .circle-sage { background-color: var(--sage); }
@@ -1831,10 +1841,104 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
   color: #FFFFFF;
 }
 
-.account-status-msg {
+.account-export-chooser {
+  margin-top: 0.55rem;
+  padding: 0.64rem 0.72rem;
+  border-radius: var(--radius-md);
+  background-color: var(--bg-base);
+  border: 1.5px solid var(--sage);
+  display: flex;
+  flex-direction: column;
+  gap: 0.48rem;
+}
+
+.account-export-chooser-hint {
   font-size: 0.75rem;
   font-weight: 700;
+  color: var(--raccoon-mid);
+  line-height: 1.3;
+}
+
+#viewSpace .btn-tool.account-export-local-btn,
+[data-appearance="dark"] #viewSpace .btn-tool.account-export-local-btn {
+  background-color: var(--sage);
+  border-color: var(--sage-strong);
+  color: var(--raccoon-dark);
+  font-weight: 800;
+}
+
+.account-status-msg {
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.38;
   color: var(--sage-strong);
+  background-color: var(--sage-soft);
+  border: 1.5px solid var(--sage);
+  border-radius: var(--radius-md);
+  padding: 0.52rem 0.74rem;
+  overflow-wrap: anywhere;
+}
+
+.account-status-msg.is-error {
+  color: var(--status-err);
+  background-color: var(--mute-bg);
+  border-color: rgba(217, 107, 107, 0.45);
+}
+
+[data-appearance="dark"] .account-status-msg.is-error {
+  background-color: rgba(217, 107, 107, 0.14);
+}
+
+/* Kompakter In-App-Hinweis (Toast) */
+.app-toast {
+  position: fixed;
+  left: 50%;
+  top: calc(70px + env(safe-area-inset-top, 0px));
+  transform: translateX(-50%) translateY(-10px);
+  z-index: 1200;
+  max-width: min(calc(100vw - 2rem), 380px);
+  padding: 0.58rem 1rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--raccoon-dark);
+  color: var(--surface-white);
+  border: 1.5px solid var(--border-strong);
+  box-shadow: var(--shadow-float);
+  font-size: 0.8rem;
+  font-weight: 800;
+  line-height: 1.3;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.app-toast.is-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.app-toast.is-success {
+  background-color: var(--sage-strong);
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+[data-appearance="dark"] .app-toast.is-success {
+  background-color: var(--sage);
+  color: var(--raccoon-dark);
+  border-color: var(--sage-strong);
+}
+
+.app-toast.is-error {
+  background-color: var(--status-err);
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+[data-appearance="dark"] .app-toast.is-error {
+  background-color: #5C2428;
+  color: #FFE8E8;
+  border-color: var(--status-err);
 }
 
 /* ==========================================

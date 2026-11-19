@@ -5606,6 +5606,9 @@ function finishActiveViewLeave() {
 
 function triggerTabEnterAnimation(viewEl, swipeDir) {
   if (!viewEl || !swipeDir) return;
+  if (viewEl._enterAnimCleanup) {
+    viewEl._enterAnimCleanup();
+  }
   viewEl.classList.remove(
     "view-enter-from-right",
     "view-enter-from-left",
@@ -5620,7 +5623,22 @@ function triggerTabEnterAnimation(viewEl, swipeDir) {
   }
   const isRtl = typeof document !== "undefined" && document.documentElement?.dir === "rtl";
   const visualDir = isRtl ? (swipeDir === "next" ? "prev" : "next") : swipeDir;
-  viewEl.classList.add(visualDir === "next" ? "view-enter-from-right" : "view-enter-from-left");
+  const enterClass = visualDir === "next" ? "view-enter-from-right" : "view-enter-from-left";
+  viewEl.classList.add(enterClass);
+  const cleanup = () => {
+    if (viewEl._enterAnimCleanup !== cleanup) return;
+    viewEl._enterAnimCleanup = null;
+    clearTimeout(fallbackTimer);
+    viewEl.removeEventListener?.("animationend", onEnd);
+    viewEl.classList.remove("view-enter-from-right", "view-enter-from-left");
+  };
+  const onEnd = (ev) => {
+    if (ev && ev.target !== viewEl) return;
+    cleanup();
+  };
+  const fallbackTimer = setTimeout(cleanup, 360);
+  viewEl._enterAnimCleanup = cleanup;
+  viewEl.addEventListener?.("animationend", onEnd);
 }
 
 function triggerTilePulse(tileEl) {
@@ -5699,6 +5717,9 @@ function hasHorizontalScrollableAncestor(target) {
     if (node.dataset?.noSwipe === "true") return true;
     const tag = (node.tagName || "").toUpperCase();
     if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || node.isContentEditable) {
+      return true;
+    }
+    if (node.id === "masterVolPopover" || node.classList?.contains("master-vol-popover")) {
       return true;
     }
     if (typeof window !== "undefined" && typeof window.getComputedStyle === "function" && node.nodeType === 1) {
@@ -7462,7 +7483,7 @@ function openCategoryPage(categoryKey, options = {}) {
         <div class="subpage-nodes-grid">
           ${(tonality === "minor" ? MINOR_CADENCE_LEVELS : CADENCE_LEVELS).map(lv => `
             <button class="subpage-node-btn" data-launch-cadence="${lv.level}" data-cadence-pos="${posMode}" data-cadence-tonality="${tonality}">
-              <div class="node-circle ${lv.circle}">
+              <div class="node-circle ${lv.circle}${posMode === "random" ? " has-random-badge" : ""}">
                 ${lv.badge}
                 ${posMode === "random" ? `<span class="node-random-badge" title="${tr("Zufälliger Takt", "Random Measure")}">?</span>` : ""}
               </div>
@@ -18333,12 +18354,42 @@ function renderCustomThemeSection() {
   }
 }
 
-function setSpaceBackupStatus(msg, isError = false) {
-  const el = document.getElementById("spaceBackupStatus");
-  if (!el) return;
+let _appToastHideTimer = null;
+let _appToastFadeTimer = null;
+
+function showAppToast(msg, variant = "success", durationMs = 3400) {
+  const el = document.getElementById("appToast");
+  if (!el || !msg) return;
+  clearTimeout(_appToastHideTimer);
+  clearTimeout(_appToastFadeTimer);
   el.textContent = msg;
-  el.style.color = isError ? "var(--status-err)" : "var(--sage-strong)";
-  el.classList.toggle("hidden", !msg);
+  el.classList.remove("hidden", "is-visible", "is-success", "is-error");
+  if (variant === "error") el.classList.add("is-error");
+  else if (variant === "success") el.classList.add("is-success");
+  void el.offsetWidth;
+  el.classList.add("is-visible");
+  _appToastFadeTimer = setTimeout(() => {
+    el.classList.remove("is-visible");
+    _appToastHideTimer = setTimeout(() => {
+      el.classList.add("hidden");
+    }, 220);
+  }, Math.max(1500, durationMs));
+}
+
+function setSpaceBackupStatus(msg, isError = false, options = null) {
+  const el = document.getElementById("spaceBackupStatus");
+  if (el) {
+    el.textContent = msg;
+    el.classList.toggle("is-error", Boolean(isError));
+    el.classList.toggle("hidden", !msg);
+    if (msg) {
+      el.scrollIntoView?.({ behavior: "smooth", block: "nearest" });
+    }
+  }
+  if (msg && options?.toast !== false) {
+    const toastText = typeof options?.toastText === "string" && options.toastText ? options.toastText : msg;
+    showAppToast(toastText, isError ? "error" : "success");
+  }
 }
 
 function setSettingsAppResetStatus(msg) {
@@ -18368,9 +18419,9 @@ function exportUserProfileJSON() {
 }
 
 // ---------- Profil-Sicherung (Export) ----------
-// Android-App: Datei in den App-Cache schreiben und über das System-Teilen-Menü weitergeben
-// (Drive, Dateien, Mail …) – Browser-Downloads funktionieren in der WebView nicht.
-// Mobile Browser: Web Share mit Datei. Sonst: klassischer Download.
+// Android-App & mobile Browser mit Web Share: Auswahl zwischen lokalem Speichern
+// (Android: Dokumente/Lauscher/…, Browser: Download) und System-Teilen-Menü.
+// Desktop: direkter lokaler Download mit In-App-Bestätigung.
 function getCapacitorNativePlugin(name) {
   if (typeof window === "undefined") return null;
   const cap = window.Capacitor;
@@ -18403,12 +18454,99 @@ function downloadProfileBackupFile(json, fileName) {
   return true;
 }
 
-async function exportUserProfileBackup() {
+function canShareProfileBackup() {
+  const fsPlugin = getCapacitorNativePlugin("Filesystem");
+  const sharePlugin = getCapacitorNativePlugin("Share");
+  if (fsPlugin && sharePlugin) return true;
+  const isTouch = typeof window !== "undefined" && window.matchMedia?.("(pointer: coarse)")?.matches;
+  if (!isTouch || typeof File === "undefined" || typeof navigator === "undefined" || typeof navigator.share !== "function") {
+    return false;
+  }
+  try {
+    if (typeof navigator.canShare === "function") {
+      const probe = new File(["{}"], "probe.json", { type: "application/json" });
+      return navigator.canShare({ files: [probe] });
+    }
+    return true;
+  } catch (_e) {
+    return false;
+  }
+}
+
+function hideProfileExportChooser() {
+  const chooser = document.getElementById("spaceBackupExportChooser");
+  chooser?.classList.add("hidden");
+  document.getElementById("exportProfileBtn")?.setAttribute("aria-expanded", "false");
+}
+
+async function saveProfileBackupLocally() {
+  hideProfileExportChooser();
+  const json = exportUserProfileJSON();
+  const fileName = getProfileBackupFileName();
+  const toastOk = `✓ ${tr("Profil lokal gespeichert", "Profile saved locally")}`;
+  const failMsg = tr("Sicherung fehlgeschlagen – bitte erneut versuchen.", "Backup failed – please try again.");
+
+  const fsPlugin = getCapacitorNativePlugin("Filesystem");
+  if (fsPlugin) {
+    try {
+      if (typeof fsPlugin.requestPermissions === "function") {
+        try { await fsPlugin.requestPermissions(); } catch (_permErr) {}
+      }
+      await fsPlugin.writeFile({
+        path: `Lauscher/${fileName}`,
+        data: json,
+        directory: "DOCUMENTS",
+        encoding: "utf8",
+        recursive: true
+      });
+      setSpaceBackupStatus(
+        `✓ ${tf("Profil gespeichert unter Dokumente/Lauscher/{file}", "Profile saved to Documents/Lauscher/{file}", { file: fileName })}`,
+        false,
+        { toastText: toastOk }
+      );
+      return;
+    } catch (_docErr) {
+      try {
+        await fsPlugin.writeFile({
+          path: `Lauscher/${fileName}`,
+          data: json,
+          directory: "EXTERNAL",
+          encoding: "utf8",
+          recursive: true
+        });
+        setSpaceBackupStatus(
+          `✓ ${tf("Profil lokal gespeichert ({file})", "Profile saved locally ({file})", { file: fileName })}`,
+          false,
+          { toastText: toastOk }
+        );
+        return;
+      } catch (_extErr) {
+        setSpaceBackupStatus(failMsg, true);
+        return;
+      }
+    }
+  }
+
+  if (downloadProfileBackupFile(json, fileName)) {
+    setSpaceBackupStatus(
+      `✓ ${tf("Profil lokal gespeichert ({file})", "Profile saved locally ({file})", { file: fileName })}`,
+      false,
+      { toastText: toastOk }
+    );
+  } else {
+    setSpaceBackupStatus(failMsg, true);
+  }
+}
+
+async function shareProfileBackup() {
+  hideProfileExportChooser();
   const json = exportUserProfileJSON();
   const fileName = getProfileBackupFileName();
   const shareTitle = tr("Lauscher-Profil sichern", "Back up Lauscher profile");
-  const savedMsg = tr("Profil-Datei erstellt (kein Fortschritt enthalten).", "Profile file created (no progress data included).");
+  const sharedMsg = `✓ ${tf("Profil-Sicherung geteilt ({file})", "Profile backup shared ({file})", { file: fileName })}`;
+  const sharedToast = `✓ ${tr("Profil-Sicherung geteilt", "Profile backup shared")}`;
   const cancelMsg = tr("Sicherung abgebrochen – es wurde nichts gespeichert.", "Backup cancelled – nothing was saved.");
+  const failMsg = tr("Sicherung fehlgeschlagen – bitte erneut versuchen.", "Backup failed – please try again.");
 
   const fsPlugin = getCapacitorNativePlugin("Filesystem");
   const sharePlugin = getCapacitorNativePlugin("Share");
@@ -18416,40 +18554,51 @@ async function exportUserProfileBackup() {
     try {
       const written = await fsPlugin.writeFile({ path: fileName, data: json, directory: "CACHE", encoding: "utf8" });
       await sharePlugin.share({ title: shareTitle, dialogTitle: shareTitle, files: [written.uri] });
-      setSpaceBackupStatus(savedMsg);
+      setSpaceBackupStatus(sharedMsg, false, { toastText: sharedToast });
     } catch (err) {
       if (isShareCancelError(err)) {
-        setSpaceBackupStatus(cancelMsg, true);
+        setSpaceBackupStatus(cancelMsg, true, { toast: false });
       } else {
-        setSpaceBackupStatus(tr("Sicherung fehlgeschlagen – bitte erneut versuchen.", "Backup failed – please try again."), true);
+        setSpaceBackupStatus(failMsg, true);
       }
     }
     return;
   }
 
-  const isTouch = typeof window !== "undefined" && window.matchMedia?.("(pointer: coarse)")?.matches;
-  if (isTouch && typeof File !== "undefined" && typeof navigator !== "undefined" && typeof navigator.share === "function") {
+  if (typeof File !== "undefined" && typeof navigator !== "undefined" && typeof navigator.share === "function") {
     try {
       const file = new File([json], fileName, { type: "application/json" });
       if (!navigator.canShare || navigator.canShare({ files: [file] })) {
         await navigator.share({ title: shareTitle, files: [file] });
-        setSpaceBackupStatus(savedMsg);
+        setSpaceBackupStatus(sharedMsg, false, { toastText: sharedToast });
         return;
       }
     } catch (err) {
       if (isShareCancelError(err)) {
-        setSpaceBackupStatus(cancelMsg, true);
+        setSpaceBackupStatus(cancelMsg, true, { toast: false });
         return;
       }
-      // Andere Fehler: auf Download zurückfallen
     }
   }
 
-  if (downloadProfileBackupFile(json, fileName)) {
-    setSpaceBackupStatus(savedMsg);
-  } else {
-    setSpaceBackupStatus(tr("Sicherung fehlgeschlagen – bitte erneut versuchen.", "Backup failed – please try again."), true);
+  await saveProfileBackupLocally();
+}
+
+async function exportUserProfileBackup() {
+  if (canShareProfileBackup()) {
+    const chooser = document.getElementById("spaceBackupExportChooser");
+    const btn = document.getElementById("exportProfileBtn");
+    if (chooser) {
+      const willOpen = chooser.classList.contains("hidden");
+      chooser.classList.toggle("hidden", !willOpen);
+      btn?.setAttribute("aria-expanded", String(willOpen));
+      if (willOpen) {
+        chooser.scrollIntoView?.({ behavior: "smooth", block: "nearest" });
+      }
+      return;
+    }
   }
+  await saveProfileBackupLocally();
 }
 
 function importUserProfileJSON(rawText) {
@@ -19048,6 +19197,15 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("exportProfileBtn")?.addEventListener("click", () => {
     exportUserProfileBackup();
   });
+  document.getElementById("exportSaveLocalBtn")?.addEventListener("click", () => {
+    saveProfileBackupLocally();
+  });
+  document.getElementById("exportShareBtn")?.addEventListener("click", () => {
+    shareProfileBackup();
+  });
+  document.getElementById("spaceBackupDisclosure")?.addEventListener("toggle", (e) => {
+    if (!e?.target?.open) hideProfileExportChooser();
+  });
   document.getElementById("importProfileBtn")?.addEventListener("click", () => {
     const input = document.getElementById("importProfileFile");
     if (!input) return;
@@ -19074,7 +19232,7 @@ document.addEventListener("DOMContentLoaded", () => {
         btn.textContent = tr("Wirklich leeren?", "Confirm reset?");
         btn.classList.add("is-confirm-armed");
       }
-      setSpaceBackupStatus(tr("Tippe erneut auf „Wirklich leeren?“, um das Konto zurückzusetzen.", "Tap “Confirm reset?” again to reset your local account."), true);
+      setSpaceBackupStatus(tr("Tippe erneut auf „Wirklich leeren?“, um das Konto zurückzusetzen.", "Tap “Confirm reset?” again to reset your local account."), true, { toast: false });
       setTimeout(() => {
         state.resetConfirmArmed = false;
         const b = document.getElementById("resetProfileBtn");

@@ -608,7 +608,10 @@ const I18N_STATIC = {
     de: "Kein Server, kein Tracking – deine Vorlieben & Prüfungen bleiben lokal und lassen sich als Datei sichern.",
     en: "No server, no tracking — your preferences & exam history stay local and can be backed up as a file."
   },
-  "space.exportBtn": { de: "Profil sichern (.json)", en: "Export Profile (.json)" },
+  "space.exportBtn": { de: "Profil sichern", en: "Back Up Profile" },
+  "space.exportChooseHint": { de: "Wie möchtest du dein Profil sichern?", en: "How would you like to back up your profile?" },
+  "space.exportSaveLocalBtn": { de: "Auf Gerät speichern", en: "Save to Device" },
+  "space.exportShareBtn": { de: "Teilen …", en: "Share …" },
   "space.importBtn": { de: "Profil laden", en: "Import Profile" },
   "space.resetBtn": { de: "Konto zurücksetzen", en: "Reset Account" },
   "space.appResetBtn": { de: "App-Reset", en: "App Reset" },
