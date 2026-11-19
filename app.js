@@ -2259,7 +2259,7 @@ class AppState {
     };
 
     this.mixer = {
-      piano: 1.00,
+      piano: 0.90,
       guitar: 0.00,
       strings: 0.00,
       brass: 0.00,
@@ -2919,11 +2919,14 @@ function syncLanguageControls(lang = state?.settings?.language || "de") {
   const active = typeof normalizeAppLanguage === "function" ? normalizeAppLanguage(lang) : "de";
   if (typeof syncLanguageSelectOptions === "function") {
     syncLanguageSelectOptions(active);
-    return;
+  } else {
+    const selectEl = document.getElementById("languageSelect");
+    if (selectEl && selectEl.value !== active) {
+      selectEl.value = active;
+    }
   }
-  const selectEl = document.getElementById("languageSelect");
-  if (selectEl && selectEl.value !== active) {
-    selectEl.value = active;
+  if (typeof renderSettingsLanguageDropdown === "function") {
+    renderSettingsLanguageDropdown(active);
   }
 }
 
@@ -5229,8 +5232,16 @@ function setModalVisibility(modalName) {
   document.getElementById("mixerBackdrop")?.classList.toggle("modal-hidden", modalName !== "mixer");
   document.getElementById("settingsBackdrop")?.classList.toggle("modal-hidden", modalName !== "settings");
   document.getElementById("aboutBackdrop")?.classList.toggle("modal-hidden", modalName !== "about");
-  if (modalName !== "settings" && state.appResetConfirmArmed && typeof disarmAppResetConfirm === "function") {
-    disarmAppResetConfirm();
+  if (modalName !== "settings") {
+    if (state.appResetConfirmArmed && typeof disarmAppResetConfirm === "function") {
+      disarmAppResetConfirm();
+    }
+    if (typeof _openProfileDropdownKey !== "undefined" && _openProfileDropdownKey === "settings-language") {
+      _openProfileDropdownKey = null;
+      if (typeof renderSettingsLanguageDropdown === "function") renderSettingsLanguageDropdown();
+    }
+  } else if (typeof renderSettingsLanguageDropdown === "function") {
+    renderSettingsLanguageDropdown();
   }
   if (modalName === "about") {
     renderAboutModalContent();
@@ -5270,9 +5281,13 @@ function closeTransientPopovers() {
   });
   if (typeof closeTunerDropdowns === "function") closeTunerDropdowns();
   if (_openProfileDropdownKey) {
+    const prevKey = _openProfileDropdownKey;
     _openProfileDropdownKey = null;
     if (typeof renderProfileAccountView === "function") renderProfileAccountView();
     if (typeof renderMixCreatorDropdowns === "function") renderMixCreatorDropdowns();
+    if (prevKey === "settings-language" && typeof renderSettingsLanguageDropdown === "function") {
+      renderSettingsLanguageDropdown();
+    }
   }
 }
 
@@ -5477,6 +5492,11 @@ function handleNativeBackButton() {
   }
 
   if (getOpenModalName()) {
+    if (getOpenModalName() === "settings" && typeof _openProfileDropdownKey !== "undefined" && _openProfileDropdownKey === "settings-language") {
+      _openProfileDropdownKey = null;
+      if (typeof renderSettingsLanguageDropdown === "function") renderSettingsLanguageDropdown();
+      return true;
+    }
     closeActiveModal();
     return true;
   }
@@ -17319,6 +17339,7 @@ function renderProfileSingleDropdown({
   options,
   selectedKey,
   ariaLabelledBy = "",
+  onToggle = null,
   onSelect
 }) {
   if (!containerEl || typeof document === "undefined" || typeof document.createElement !== "function") return;
@@ -17344,8 +17365,14 @@ function renderProfileSingleDropdown({
   trigger.addEventListener("click", (e) => {
     e?.stopPropagation?.();
     _openProfileDropdownKey = isOpen ? null : key;
-    renderProfileAccountView();
+    if (typeof onToggle === "function") {
+      onToggle(_openProfileDropdownKey === key);
+    } else {
+      renderProfileAccountView();
+    }
     if (_openProfileDropdownKey === key) {
+      const openedMenu = containerEl.querySelector(".multi-dropdown-menu");
+      openedMenu?.scrollIntoView?.({ behavior: "smooth", block: "nearest" });
       const activeEl = containerEl.querySelector(".multi-dropdown-option.is-selected");
       activeEl?.scrollIntoView?.({ block: "nearest" });
     }
@@ -17359,16 +17386,23 @@ function renderProfileSingleDropdown({
 
   options.forEach(opt => {
     const isSel = selectedOpt && String(opt.key) === String(selectedOpt.key);
+    const isDisabled = Boolean(opt.disabled);
     const optBtn = document.createElement("button");
     optBtn.type = "button";
-    optBtn.className = `multi-dropdown-option${isSel ? " is-selected" : ""}`;
+    optBtn.className = `multi-dropdown-option${isSel ? " is-selected" : ""}${isDisabled ? " is-disabled" : ""}`;
     optBtn.dataset.dropdownOption = String(opt.key);
     optBtn.setAttribute?.("role", "option");
     optBtn.setAttribute?.("aria-selected", String(Boolean(isSel)));
+    if (isDisabled) {
+      optBtn.disabled = true;
+      optBtn.setAttribute?.("aria-disabled", "true");
+    }
     const hintHtml = opt.hint ? `<span class="multi-dropdown-opt-hint">${escapeHtml(opt.hint)}</span>` : "";
-    optBtn.innerHTML = `<span class="multi-dropdown-check" aria-hidden="true">${isSel ? "✓" : ""}</span><span class="multi-dropdown-opt-text"><span>${escapeHtml(opt.label)}</span>${hintHtml}</span>`;
+    const tagHtml = opt.metaTag ? `<span class="multi-dropdown-opt-tag">${escapeHtml(opt.metaTag)}</span>` : "";
+    optBtn.innerHTML = `<span class="multi-dropdown-check" aria-hidden="true">${isSel ? "✓" : ""}</span><span class="multi-dropdown-opt-text"><span>${escapeHtml(opt.label)}</span>${hintHtml}</span>${tagHtml}`;
     optBtn.addEventListener("click", (e) => {
       e?.stopPropagation?.();
+      if (isDisabled) return;
       _openProfileDropdownKey = null;
       if (typeof onSelect === "function") onSelect(opt.key);
     });
@@ -17377,6 +17411,41 @@ function renderProfileSingleDropdown({
 
   wrap.appendChild(menu);
   containerEl.appendChild(wrap);
+}
+
+function renderSettingsLanguageDropdown(lang = state?.settings?.language || "de") {
+  const host = document.getElementById("settingsLanguageDropdown");
+  if (!host) return;
+  const active = typeof normalizeAppLanguage === "function" ? normalizeAppLanguage(lang) : "de";
+  const ordered = typeof getOrderedDropdownLanguages === "function"
+    ? getOrderedDropdownLanguages(active)
+    : [{ code: active, nativeName: active === "en" ? "English" : "Deutsch", disabled: false }];
+  const soonTag = typeof getLanguageSoonLabel === "function" ? getLanguageSoonLabel(active) : "demnächst";
+
+  const options = ordered.map(item => ({
+    key: item.code,
+    label: item.nativeName || item.label || item.code,
+    disabled: Boolean(item.disabled),
+    metaTag: item.disabled ? soonTag : ""
+  }));
+
+  renderProfileSingleDropdown({
+    containerEl: host,
+    key: "settings-language",
+    options,
+    selectedKey: active,
+    ariaLabelledBy: "settingsLanguageHeading",
+    onToggle: () => {
+      renderSettingsLanguageDropdown(state?.settings?.language || active);
+    },
+    onSelect: (nextLang) => {
+      if (typeof isLanguageAvailable === "function" && !isLanguageAvailable(nextLang)) {
+        renderSettingsLanguageDropdown(state?.settings?.language || active);
+        return;
+      }
+      setLanguagePreference(nextLang);
+    }
+  });
 }
 
 const MIX_BPM_OPTION_SPECS = [
@@ -17520,8 +17589,13 @@ function bindProfileDropdownOutsideCloser() {
       ? e.target.closest("[data-profile-dropdown-host]")
       : null;
     if (!host || host.dataset?.profileDropdownHost !== _openProfileDropdownKey) {
+      const prevKey = _openProfileDropdownKey;
       _openProfileDropdownKey = null;
-      renderProfileAccountView();
+      if (prevKey === "settings-language") {
+        if (typeof renderSettingsLanguageDropdown === "function") renderSettingsLanguageDropdown();
+      } else {
+        renderProfileAccountView();
+      }
     }
   });
 }
@@ -19819,7 +19893,7 @@ document.addEventListener("DOMContentLoaded", () => {
     duo:       { piano: 0.90, guitar: 0.85, strings: 0.00, brass: 0.00, voice: 0.00, bass: 0.00 },
     ensemble:  { piano: 0.85, guitar: 0.70, strings: 0.45, brass: 0.00, voice: 0.00, bass: 0.80 },
     orchestra: { piano: 0.35, guitar: 0.00, strings: 0.85, brass: 0.65, voice: 0.00, bass: 0.85 },
-    piano:     { piano: 1.00, guitar: 0.00, strings: 0.00, brass: 0.00, voice: 0.00, bass: 0.00 }
+    piano:     { piano: 0.90, guitar: 0.00, strings: 0.00, brass: 0.00, voice: 0.00, bass: 0.00 }
   };
 
   document.querySelectorAll("[data-preset]").forEach(btn => {
@@ -23370,7 +23444,7 @@ const FREEPLAY_PC_KEY_MAP = {
 };
 const FREEPLAY_INSTRUMENT_KEYS = ["piano", "guitar", "strings", "brass", "voice", "bass"];
 const FREEPLAY_DEFAULT_MIX_LEVELS = {
-  piano: 1.0,
+  piano: 0.90,
   guitar: 0.85,
   strings: 0.75,
   brass: 0.65,
@@ -23378,7 +23452,7 @@ const FREEPLAY_DEFAULT_MIX_LEVELS = {
   bass: 0.85
 };
 const FREEPLAY_MIX_PRESETS = {
-  piano:     { piano: 1.00, guitar: 0.00, strings: 0.00, brass: 0.00, voice: 0.00, bass: 0.00 },
+  piano:     { piano: 0.90, guitar: 0.00, strings: 0.00, brass: 0.00, voice: 0.00, bass: 0.00 },
   duo:       { piano: 0.90, guitar: 0.85, strings: 0.00, brass: 0.00, voice: 0.00, bass: 0.00 },
   ensemble:  { piano: 0.85, guitar: 0.70, strings: 0.45, brass: 0.00, voice: 0.00, bass: 0.80 },
   orchestra: { piano: 0.35, guitar: 0.00, strings: 0.85, brass: 0.65, voice: 0.00, bass: 0.85 }
@@ -23983,7 +24057,7 @@ function clearFreeplayArpTimers() {
 function ensureAtLeastOneMixerInstrument() {
   const sum = FREEPLAY_INSTRUMENT_KEYS.reduce((acc, k) => acc + (Number(state.mixer[k]) || 0), 0);
   if (sum <= 0.001) {
-    state.mixer.piano = 1.0;
+    state.mixer.piano = 0.90;
     syncMixerSliders();
     if (audioEngine?.isInitialized) audioEngine.setMixerGains(state.mixer);
   }

@@ -2420,8 +2420,8 @@
             <div class="mixer-list">
               <div class="mixer-row">
                 <span class="mixer-name" data-i18n="mixer.piano">Klavier</span>
-                <input type="range" id="mixPiano" min="0" max="1" step="0.05" value="1.00">
-                <span id="valPiano" class="mixer-val">100%</span>
+                <input type="range" id="mixPiano" min="0" max="1" step="0.05" value="0.90">
+                <span id="valPiano" class="mixer-val">90%</span>
               </div>
               <div class="mixer-row">
                 <span class="mixer-name" data-i18n="mixer.guitar">Gitarre</span>
@@ -2599,9 +2599,10 @@
         <div class="settings-group-label" data-i18n="settings.groupLanguageNotation">Sprache &amp; Schreibweise</div>
 
         <div class="settings-section">
-          <h4 data-i18n="settings.languageHeading">Anwendungssprache</h4>
+          <h4 id="settingsLanguageHeading" data-i18n="settings.languageHeading">Anwendungssprache</h4>
           <p class="settings-hint" data-i18n="settings.languageHint">Wechselt sofort zwischen den verfügbaren Sprachen. Alle Texte und Musikbegriffe passen sich an.</p>
-          <select id="languageSelect" class="account-select settings-language-select" data-i18n-aria="settings.languageSelectAria" aria-label="Anwendungssprache wählen">
+          <div id="settingsLanguageDropdown" class="profile-multi-dropdown-host mix-single-dropdown-host settings-language-dropdown-host"></div>
+          <select id="languageSelect" class="account-select settings-language-select hidden" aria-hidden="true" tabindex="-1" data-i18n-aria="settings.languageSelectAria" aria-label="Anwendungssprache wählen">
             <option value="de" selected>Deutsch</option>
             <option value="en">English</option>
             <option value="es">Español</option>

@@ -378,7 +378,7 @@ class AudioEngine {
         }
 
         const levels = initialMixer || {
-          piano: 1.00,
+          piano: 0.90,
           guitar: 0.00,
           strings: 0.00,
           brass: 0.00,

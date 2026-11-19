@@ -1581,6 +1581,44 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
   font-weight: 700;
 }
 
+.multi-dropdown-option.is-disabled {
+  opacity: 0.56;
+  cursor: not-allowed;
+}
+
+.multi-dropdown-option.is-disabled:hover {
+  background-color: transparent;
+}
+
+.multi-dropdown-option.is-disabled .multi-dropdown-check {
+  border-style: dashed;
+}
+
+.multi-dropdown-opt-tag {
+  flex-shrink: 0;
+  font-size: 0.67rem;
+  font-weight: 700;
+  padding: 0.1rem 0.45rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--surface-warm);
+  color: var(--raccoon-muted);
+  border: 1px solid var(--border-soft);
+  line-height: 1.25;
+}
+
+.settings-language-dropdown-host {
+  margin-top: 0.15rem;
+}
+
+.settings-language-dropdown-host .multi-dropdown-trigger {
+  background-color: var(--surface-white);
+  min-height: 40px;
+}
+
+.settings-language-dropdown-host .multi-dropdown-menu {
+  max-height: 264px;
+}
+
 .multi-dropdown-option-divider {
   border-bottom: 1px dashed var(--border-soft);
   margin-bottom: 0.12rem;
