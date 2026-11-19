@@ -80,6 +80,7 @@ RUNTIME_FILES=(
   knowledge-pl.js
   knowledge-uk.js
   knowledge-ur.js
+  legal.js
 )
 
 for rel in "${RUNTIME_FILES[@]}"; do
