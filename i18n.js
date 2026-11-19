@@ -832,7 +832,7 @@ const I18N_STATIC = {
     en: "Pick a built-in palette or craft up to 3 custom themes with the R/G/B/A color picker."
   },
   "space.customSlotsLabel": { de: "Deine 3 eigenen Theme-Plätze", en: "Your 3 Custom Theme Slots" },
-  "space.createCustomThemeBtn": { de: "🎨 Eigenes Theme kreieren", en: "🎨 Create Custom Theme" },
+  "space.createCustomThemeBtn": { de: "Eigenes Theme kreieren", en: "Create Custom Theme" },
   "space.editorSlotLabel": { de: "Speicherplatz (1–3)", en: "Save Slot (1–3)" },
   "space.customThemeNameLabel": { de: "Name des Themes", en: "Theme Name" },
   "space.customThemeNamePlaceholder": { de: "z. B. Studio Warm", en: "e.g. Studio Warm" },
@@ -909,7 +909,7 @@ const I18N_STATIC = {
     en: "Resets all local settings, themes, and profile data and restarts the setup intro."
   },
   "settings.aboutHeading": { de: "Über die App", en: "About the App" },
-  "settings.openAboutBtn": { de: "ℹ️ Über Lauscher →", en: "ℹ️ About Lauscher →" },
+  "settings.openAboutBtn": { de: "Über Lauscher →", en: "About Lauscher →" },
   "about.title": { de: "Über Lauscher", en: "About Lauscher" },
   "about.version": { de: "Version 0.9.0-beta", en: "Version 0.9.0-beta" },
   "about.description": {
