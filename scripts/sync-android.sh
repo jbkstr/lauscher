@@ -94,7 +94,7 @@ cp "$REPO_ROOT"/samples/*-bundle.js "$WWW_DIR/samples/"
 mkdir -p "$WWW_DIR/icons"
 cp "$REPO_ROOT"/icons/*.jpg "$WWW_DIR/icons/"
 
-echo "3/4 • Prüfe Capacitor & @capacitor/app in $TARGET_DIR …"
+echo "3/4 • Prüfe Capacitor & Plugins (app, filesystem, share) in $TARGET_DIR …"
 cd "$TARGET_DIR"
 
 if [ ! -f "$TARGET_DIR/package.json" ]; then
@@ -102,10 +102,20 @@ if [ ! -f "$TARGET_DIR/package.json" ]; then
 fi
 
 if [ ! -d "$TARGET_DIR/node_modules/@capacitor/core" ] || [ ! -d "$TARGET_DIR/node_modules/@capacitor/android" ]; then
-  npm install --no-audit --no-fund @capacitor/core @capacitor/cli @capacitor/android @capacitor/app
-elif [ ! -d "$TARGET_DIR/node_modules/@capacitor/app" ]; then
-  CAP_MAJOR="$(node -p '(() => { try { const v = require("./node_modules/@capacitor/core/package.json").version; return String(parseInt(v, 10) || 8); } catch (_) { return "8"; } })()')"
-  npm install --no-audit --no-fund "@capacitor/app@^${CAP_MAJOR}.0.0"
+  npm install --no-audit --no-fund @capacitor/core @capacitor/cli @capacitor/android @capacitor/app @capacitor/filesystem @capacitor/share
+fi
+
+# Native Plugins: App (Zurück-Taste), Filesystem + Share (Profil-Sicherung über das Teilen-Menü).
+# Version passend zur installierten Capacitor-Hauptversion nachinstallieren, falls sie fehlen.
+CAP_MAJOR="$(node -p '(() => { try { const v = require("./node_modules/@capacitor/core/package.json").version; return String(parseInt(v, 10) || 8); } catch (_) { return "8"; } })()')"
+MISSING_PLUGINS=()
+for plugin in app filesystem share; do
+  if [ ! -d "$TARGET_DIR/node_modules/@capacitor/$plugin" ]; then
+    MISSING_PLUGINS+=("@capacitor/$plugin@^${CAP_MAJOR}.0.0")
+  fi
+done
+if [ ${#MISSING_PLUGINS[@]} -gt 0 ]; then
+  npm install --no-audit --no-fund "${MISSING_PLUGINS[@]}"
 fi
 
 if [ ! -f "$TARGET_DIR/capacitor.config.json" ] && [ ! -f "$TARGET_DIR/capacitor.config.ts" ] && [ ! -f "$TARGET_DIR/capacitor.config.js" ]; then
