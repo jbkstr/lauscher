@@ -222,6 +222,31 @@ if s_new != s:
     open(gradle, "w", encoding="utf-8").write(s_new)
 print(f"  → Version {name} (Build {build}) in build.gradle")
 PYEOF
+
+  # APK-Dateiname nach Version/Build, z. B. lauscher-0.9.0-beta-build1-release.apk
+  if ! grep -q "LAUSCHER_APK_NAMING" "$GRADLE_FILE"; then
+    python3 - "$GRADLE_FILE" <<'PYEOF'
+import sys
+path = sys.argv[1]
+s = open(path, encoding="utf-8").read()
+block = """
+    // LAUSCHER_APK_NAMING: APK nach Version & Build benennen (gesetzt von scripts/sync-android.sh)
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "lauscher-${variant.versionName}-build${variant.versionCode}-${variant.buildType.name}.apk"
+        }
+    }
+"""
+marker = "\n    buildTypes {"
+idx = s.find(marker)
+if idx == -1:
+    print("  ⚠ buildTypes-Block nicht gefunden – APK-Benennung nicht eingetragen")
+else:
+    s = s[:idx] + "\n" + block.rstrip("\n") + s[idx:]
+    open(path, "w", encoding="utf-8").write(s)
+    print("  → APK-Benennung (lauscher-<version>-build<nr>-<typ>.apk) in build.gradle eingetragen")
+PYEOF
+  fi
 fi
 
 echo "4/4 • Synchronisiere Capacitor → Android …"
