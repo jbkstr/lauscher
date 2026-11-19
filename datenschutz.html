@@ -132,6 +132,21 @@
       vertical-align: top;
     }
     .legal-doc th { background: var(--head-bg); }
+    .legal-footer {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 0.9rem;
+    }
+    .legal-footer a {
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .legal-footer a:hover { text-decoration: underline; }
     noscript p { color: var(--draft-ink); font-weight: 700; }
   </style>
 </head>
@@ -152,6 +167,11 @@
       <div id="legalContent" class="legal-doc">
         <noscript><p>Bitte JavaScript aktivieren, um die Datenschutzerklärung anzuzeigen. / Please enable JavaScript to view the privacy policy.</p></noscript>
       </div>
+      <nav class="legal-footer" aria-label="Weitere Seiten">
+        <a id="legalAppLink" href="./">← Zur App</a>
+        <a id="legalSiblingLink" href="nutzungsbedingungen.html">Nutzungsbedingungen</a>
+        <a id="legalLicensesLink" href="lizenzen.html">Lizenzen</a>
+      </nav>
     </div>
   </main>
 
@@ -178,6 +198,20 @@
       document.querySelectorAll(".lang-switch a").forEach(function (a) {
         a.setAttribute("aria-current", String(a.dataset.lang === doc.lang));
       });
+      var appLink = document.getElementById("legalAppLink");
+      var siblingLink = document.getElementById("legalSiblingLink");
+      var licensesLink = document.getElementById("legalLicensesLink");
+      if (doc.lang === "en") {
+        if (appLink) appLink.textContent = "← Back to app";
+        if (siblingLink) {
+          siblingLink.textContent = "Terms of Use";
+          siblingLink.href = "nutzungsbedingungen.html?lang=en";
+        }
+        if (licensesLink) {
+          licensesLink.textContent = "Licenses";
+          licensesLink.href = "lizenzen.html?lang=en";
+        }
+      }
     })();
   </script>
 </body>

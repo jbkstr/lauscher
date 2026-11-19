@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lizenzen – Lauscher</title>
+  <meta name="description" content="Open-Source-Lizenzen und Drittanbieter-Hinweise der App Lauscher (Gehörbildung & Musiktheorie).">
+  <!-- Öffentliche Fassung der Lizenzen und Drittanbieter-Hinweise.
+       Der Text kommt aus legal.js – dieselbe Quelle wie in der App. -->
+  <style>
+    @font-face {
+      font-family: "Andika";
+      src: url("fonts/Andika/Andika-Regular.ttf") format("truetype");
+      font-weight: 100 549;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Andika";
+      src: url("fonts/Andika/Andika-Bold.ttf") format("truetype");
+      font-weight: 550 1000;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Andika";
+      src: url("fonts/Andika/Andika-BoldItalic.ttf") format("truetype");
+      font-weight: 550 1000;
+      font-style: italic;
+      font-display: swap;
+    }
+    :root {
+      --bg: #F6F4EE;
+      --card: #FFFFFF;
+      --ink: #243545;
+      --muted: #6B7280;
+      --accent: #3F6B52;
+      --border: rgba(36, 53, 69, 0.12);
+      --draft-bg: #FCE3DA;
+      --draft-ink: #A6412A;
+      --head-bg: #EEF2EE;
+      --badge-bg: #E5F4EB;
+      --badge-border: #B8E0C8;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #161B22;
+        --card: #1F2630;
+        --ink: #E6E9EE;
+        --muted: #A3ABB8;
+        --accent: #9CC9AC;
+        --border: rgba(230, 233, 238, 0.14);
+        --draft-bg: #4A2A22;
+        --draft-ink: #FFB8A3;
+        --head-bg: #263040;
+        --badge-bg: #23382E;
+        --badge-border: #3B604C;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Andika", system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 28px 16px 56px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px 22px 28px;
+    }
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-style: italic;
+      font-size: 1.15rem;
+    }
+    .brand img {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+    }
+    .lang-switch a {
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration: none;
+      padding: 4px 8px;
+      border-radius: 8px;
+    }
+    .lang-switch a[aria-current="true"] {
+      background: var(--head-bg);
+      color: var(--ink);
+    }
+    h1 { margin: 0 0 4px; font-size: 1.7rem; line-height: 1.25; }
+    .meta { margin: 0 0 14px; color: var(--muted); font-size: 0.9rem; }
+    .draft {
+      margin: 0 0 14px;
+      padding: 8px 12px;
+      border-radius: 10px;
+      background: var(--draft-bg);
+      color: var(--draft-ink);
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+    .note { margin: 0 0 14px; color: var(--muted); font-size: 0.92rem; }
+    .legal-doc h3 { margin: 1.6rem 0 0.5rem; font-size: 1.12rem; }
+    .legal-doc p, .legal-doc ul { margin: 0 0 0.75rem; }
+    .legal-doc ul { padding-inline-start: 1.3rem; }
+    .legal-doc li { margin-bottom: 0.3rem; }
+    .legal-doc a { color: var(--accent); font-weight: 700; overflow-wrap: anywhere; }
+    .legal-license-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 10px 0 18px;
+    }
+    .legal-license-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .legal-license-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .legal-license-name { font-size: 1rem; font-weight: 700; }
+    .legal-license-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 10px;
+      border-radius: 999px;
+      background: var(--badge-bg);
+      color: var(--accent);
+      border: 1px solid var(--badge-border);
+      font-size: 0.78rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .legal-license-meta {
+      margin: 0 !important;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .legal-license-copy {
+      margin: 0 !important;
+      font-size: 0.92rem;
+    }
+    .legal-license-details {
+      margin-top: 4px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+    }
+    .legal-license-details > summary {
+      cursor: pointer;
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.88rem;
+      user-select: none;
+    }
+    .legal-license-text {
+      margin-top: 10px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      max-height: 280px;
+      overflow-y: auto;
+    }
+    .legal-footer {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 0.9rem;
+    }
+    .legal-footer a {
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .legal-footer a:hover { text-decoration: underline; }
+    noscript p { color: var(--draft-ink); font-weight: 700; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="card">
+      <div class="top">
+        <div class="brand"><img src="icons/app-icon.jpg" alt="" width="40" height="40"><span>Lauscher</span></div>
+        <nav class="lang-switch" aria-label="Sprache / Language">
+          <a href="?lang=de" data-lang="de">Deutsch</a>
+          <a href="?lang=en" data-lang="en">English</a>
+        </nav>
+      </div>
+      <h1 id="legalTitle">Lizenzen</h1>
+      <p id="legalMeta" class="meta"></p>
+      <p id="legalDraft" class="draft" hidden></p>
+      <p id="legalLangNotice" class="note" hidden></p>
+      <div id="legalContent" class="legal-doc">
+        <noscript><p>Bitte JavaScript aktivieren, um die Lizenzen anzuzeigen. / Please enable JavaScript to view the licenses.</p></noscript>
+      </div>
+      <nav class="legal-footer" aria-label="Weitere Seiten">
+        <a id="legalAppLink" href="./">← Zur App</a>
+        <a id="legalPrivacyLink" href="datenschutz.html">Datenschutzerklärung</a>
+        <a id="legalTermsLink" href="nutzungsbedingungen.html">Nutzungsbedingungen</a>
+      </nav>
+    </div>
+  </main>
+
+  <script src="legal.js"></script>
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var requested = params.get("lang");
+      var browserLang = (navigator.language || "de").slice(0, 2).toLowerCase();
+      var lang = requested === "en" || requested === "de" ? requested : (browserLang === "de" ? "de" : "en");
+      var doc = getLegalDocument("licenses", lang);
+      if (!doc) return;
+      document.documentElement.lang = doc.lang;
+      document.title = doc.title + " – Lauscher";
+      document.getElementById("legalTitle").textContent = doc.title;
+      document.getElementById("legalMeta").textContent = doc.updated;
+      var draft = document.getElementById("legalDraft");
+      draft.textContent = doc.draftNotice || "";
+      draft.hidden = !doc.isDraft;
+      var langNotice = document.getElementById("legalLangNotice");
+      langNotice.textContent = doc.langNotice || "";
+      langNotice.hidden = !doc.langNotice;
+      document.getElementById("legalContent").innerHTML = doc.html;
+      document.querySelectorAll(".lang-switch a").forEach(function (a) {
+        a.setAttribute("aria-current", String(a.dataset.lang === doc.lang));
+      });
+      if (doc.lang === "en") {
+        var appLink = document.getElementById("legalAppLink");
+        var privacyLink = document.getElementById("legalPrivacyLink");
+        var termsLink = document.getElementById("legalTermsLink");
+        if (appLink) appLink.textContent = "← Back to app";
+        if (privacyLink) {
+          privacyLink.textContent = "Privacy Policy";
+          privacyLink.href = "datenschutz.html?lang=en";
+        }
+        if (termsLink) {
+          termsLink.textContent = "Terms of Use";
+          termsLink.href = "nutzungsbedingungen.html?lang=en";
+        }
+      }
+    })();
+  </script>
+</body>
+</html>

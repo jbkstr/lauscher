@@ -523,7 +523,7 @@ const I18N_STATIC_PL = {
   "about.linkContact": "Wiadomość do twórcy / Kontakt",
   "about.linkRate": "Oceń aplikację",
   "about.linkShare": "Udostępnij Lauscher",
-  "about.linkDonate": "Wesprzyj (Darowizna)",
+  "about.linkDonate": "Wesprzyj Lauscher",
   "about.linkPrivacy": "Polityka prywatności",
   "about.linkTerms": "Warunki korzystania",
   "about.linkLicenses": "Licencje",
