@@ -176,6 +176,19 @@ PYEOF
     fi
   done
 
+  # Für Android <= 10 (API 29): Schreiben lokaler Sicherungen in Dokumente/Lauscher/
+  if ! grep -q "android.permission.WRITE_EXTERNAL_STORAGE" "$MANIFEST"; then
+    python3 - "$MANIFEST" <<'PYEOF'
+import sys
+path = sys.argv[1]
+s = open(path, encoding="utf-8").read()
+line = '    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="29" />\n'
+s = s.replace("</manifest>", line + "</manifest>", 1)
+open(path, "w", encoding="utf-8").write(s)
+PYEOF
+    echo "  → Berechtigung WRITE_EXTERNAL_STORAGE (maxSdkVersion=29) im AndroidManifest ergänzt"
+  fi
+
   # App auf Hochformat (Portrait) festlegen
   python3 - "$MANIFEST" <<'PYEOF'
 import re, sys

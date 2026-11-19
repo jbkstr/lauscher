@@ -1534,14 +1534,21 @@
           <summary data-i18n="space.backupDisclosureSummary">Datensicherung &amp; Konto zurücksetzen</summary>
           <div class="account-disclosure-body">
             <div class="account-btn-row account-backup-row">
-              <button id="exportProfileBtn" type="button" class="btn-tool" data-i18n="space.exportBtn">Profil sichern (.json)</button>
+              <button id="exportProfileBtn" type="button" class="btn-tool" data-i18n="space.exportBtn">Profil sichern</button>
               <button id="importProfileBtn" type="button" class="btn-tool" data-i18n="space.importBtn">Profil laden</button>
               <button id="resetProfileBtn" type="button" class="btn-tool account-btn-danger" data-i18n="space.resetBtn">Konto zurücksetzen</button>
+            </div>
+            <div id="spaceBackupExportChooser" class="account-export-chooser hidden">
+              <span class="account-export-chooser-hint" data-i18n="space.exportChooseHint">Wie möchtest du dein Profil sichern?</span>
+              <div class="account-btn-row">
+                <button id="exportSaveLocalBtn" type="button" class="btn-tool account-export-local-btn" data-i18n="space.exportSaveLocalBtn">Auf Gerät speichern</button>
+                <button id="exportShareBtn" type="button" class="btn-tool" data-i18n="space.exportShareBtn">Teilen …</button>
+              </div>
             </div>
             <input id="importProfileFile" type="file" accept=".json,application/json" class="hidden">
           </div>
         </details>
-        <p id="spaceBackupStatus" class="account-status-msg hidden"></p>
+        <p id="spaceBackupStatus" class="account-status-msg hidden" role="status" aria-live="polite"></p>
       </section>
 
     </main>
@@ -2865,6 +2872,8 @@
       <p class="portrait-lock-sub" data-i18n="app.portraitOnlySub">Drehe dein Smartphone ins Hochformat (Portrait-Modus), um weiterzuüben.</p>
     </div>
   </div>
+
+  <div id="appToast" class="app-toast hidden" role="status" aria-live="polite"></div>
 
   <script src="samples/piano-bundle.js"></script>
   <script src="samples/guitar-bundle.js"></script>
