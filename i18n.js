@@ -213,8 +213,8 @@ const I18N_STATIC = {
     en: "What would you like to prioritize first?"
   },
   "welcome.beginnerOptInBadge": {
-    de: "🌱 Einsteiger-Tour (Opt-In)",
-    en: "🌱 Beginner Tour (Opt-In)"
+    de: "Einsteiger-Tour",
+    en: "Beginner Tour"
   },
   "welcome.beginnerOptInTitle": {
     de: "Komplett neu in der Musikwelt?",
@@ -225,7 +225,7 @@ const I18N_STATIC = {
     en: "Would you like a short 3-step introduction before starting that explains intervals, chords & cadences and what to practice first?"
   },
   "welcome.beginnerOptInNo": { de: "Direkt starten", en: "Start directly" },
-  "welcome.beginnerOptInYes": { de: "🌱 Ja, Einführung starten", en: "🌱 Yes, start intro" },
+  "welcome.beginnerOptInYes": { de: "Ja, Einführung starten", en: "Yes, start intro" },
   "welcome.begStep1Tag": { de: "Einsteiger-Einführung • 1 / 3", en: "Beginner Intro • 1 / 3" },
   "welcome.begStep1Title": {
     de: "Die Bausteine der Musik – leicht erklärt",
