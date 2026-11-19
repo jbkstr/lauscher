@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-Lauscher • Baut lauschebaer-mobile.html aus den Quelldateien.
+Lauscher • Baut lauscher-mobile.html aus den Quelldateien.
 
 Nimmt index.html und setzt direkt in die Datei ein:
   - <link rel="stylesheet" href="styles.css">  ->  <style>…</style>
   - <script src="…"></script>                   ->  <script>…</script>
   - url("…") im CSS auf lokale Dateien (z. B. Fonts) ->  data:-URI (Base64)
 
-tone.js bleibt bewusst extern (muss neben lauschebaer-mobile.html liegen).
+tone.js bleibt bewusst extern (muss neben lauscher-mobile.html liegen).
 
 Aufruf (aus dem Projektordner):
     python3 scripts/build-mobile-bundle.py            # Bundle neu bauen
@@ -23,7 +23,7 @@ import sys
 from pathlib import Path
 
 EXTERNAL_SCRIPTS = {"tone.js"}
-OUTPUT_NAME = "lauschebaer-mobile.html"
+OUTPUT_NAME = "lauscher-mobile.html"
 
 CSS_URL_RE = re.compile(r'url\(\s*(["\']?)([^"\')]+)\1\s*\)')
 DATA_URI_MIME = {
@@ -100,7 +100,7 @@ def build(root: Path) -> str:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Baut lauschebaer-mobile.html aus index.html und den Quelldateien.")
+    parser = argparse.ArgumentParser(description="Baut lauscher-mobile.html aus index.html und den Quelldateien.")
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parent.parent,
                         help="Projektordner (Standard: Elternordner von scripts/)")
     parser.add_argument("--out", type=Path, default=None,
