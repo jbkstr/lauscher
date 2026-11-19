@@ -724,27 +724,27 @@ const KNOWLEDGE_ARTICLES_PL = [
 
         <div class="k-compare-grid">
           <div class="k-compare-box is-peach">
-            <h5>❌ Ślepe uliczki i etykiety</h5>
+            <h5>Ślepe uliczki i etykiety</h5>
             <p><strong>Puste oceny:</strong> „Ładne / słabe / kiczowate / profesjonalne / niemuzykalne”. Przybijają pieczątkę, nie zdradzając, co właściwie usłyszałeś.</p>
           </div>
           <div class="k-compare-box is-sage">
-            <h5>✅ Konkret i otwartość</h5>
+            <h5>Konkret i otwartość</h5>
             <p><strong>Opisz zmianę:</strong> „Cichy wstęp od razu mnie wciągnął, ale w połowie zrobiło się dla mnie trochę zbyt nerwowo i ostro na górze”.</p>
           </div>
           <div class="k-compare-box is-peach">
-            <h5>❌ Rzucanie terminami na chybił trafił</h5>
+            <h5>Rzucanie terminami na chybił trafił</h5>
             <p>Używanie słów „fałsz”, „atonalne”, „przesterowane” czy „za dużo dynamiki”, gdy masz na myśli „trze o siebie”, „zbyt kłujące” albo „brakuje ciepła” — zawodowcy rozumieją te słowa zupełnie technicznie.</p>
           </div>
           <div class="k-compare-box is-sage">
-            <h5>✅ Uczciwe porównanie z życia</h5>
+            <h5>Uczciwe porównanie z życia</h5>
             <p>Zostań naturalny: „Nie znam nazwy z teorii, ale tutaj mam wrażenie, jakby dwa chropowate brzegi ocierały się o siebie, a za chwilę znowu miękły”.</p>
           </div>
           <div class="k-compare-box is-peach">
-            <h5>❌ Ataki na gust i stereotypy</h5>
+            <h5>Ataki na gust i stereotypy</h5>
             <p>„To nie ma duszy” albo „Typowa muzyka do windy / komercja”. Umniejszanie gatunku od razu gasi ciekawość drugiej strony.</p>
           </div>
           <div class="k-compare-box is-sage">
-            <h5>✅ Nazwij fakturę i kontrast</h5>
+            <h5>Nazwij fakturę i kontrast</h5>
             <p>„Dla mnie ten fragment płynie tak równo i gładko, aż zaczyna mi brakować jakiejś niespodzianki albo wyraźniejszej krawędzi”.</p>
           </div>
         </div>
@@ -3388,7 +3388,7 @@ function renderKeysReferenceHTML_PL(circleFilter = "all") {
     </article>
 
     <div class="k-sibling-bar">
-      <span>🧭 <strong>Odkrywaj oczami i uszami:</strong> Otwórz interaktywne Koło kwintowe z akordami i modulacjami na żywo.</span>
+      <span><strong>Odkrywaj oczami i uszami:</strong> Otwórz interaktywne Koło kwintowe z akordami i modulacjami na żywo.</span>
       <button type="button" class="btn-tool" data-jump-ref="circle-of-fifths">Otwórz Koło kwintowe →</button>
     </div>
 
@@ -3773,8 +3773,8 @@ function getIntervalNamingGuideHTML_PL() {
           <li><strong>4. Tryton (<code>TT</code>):</strong> Dzieli oktawę dokładnie na pół o <strong>6 półtonów</strong> między <code>P4</code> a <code>P5</code> (kwarta zwiększona / kwinta zmniejszona).</li>
         </ul>
         <div class="k-meta-box">
-          <div>🔎 <strong>Bieżące skróty:</strong> Sekundy: <code>${sym("m2")}</code> (1 pt) vs. <code>${sym("M2")}</code> (2 pt) · Tercje: <code>${sym("m3")}</code> (3 pt) vs. <code>${sym("M3")}</code> (4 pt)</div>
-          <div>⚙️ <strong>Przełącznik:</strong> W menu <strong>Ustawienia → Język i notacja → Zapis muzyczny → Symbole interwałów</strong> zawsze możesz zmienić między <strong>Niemieckimi (P / G / k)</strong> a <strong>Międzynarodowymi (P / M / m)</strong>.</div>
+          <div><strong>Bieżące skróty:</strong> Sekundy: <code>${sym("m2")}</code> (1 pt) vs. <code>${sym("M2")}</code> (2 pt) · Tercje: <code>${sym("m3")}</code> (3 pt) vs. <code>${sym("M3")}</code> (4 pt)</div>
+          <div><strong>Przełącznik:</strong> W menu <strong>Ustawienia → Język i notacja → Zapis muzyczny → Symbole interwałów</strong> zawsze możesz zmienić między <strong>Niemieckimi (P / G / k)</strong> a <strong>Międzynarodowymi (P / M / m)</strong>.</div>
         </div>
       </div>
     </details>
@@ -3991,8 +3991,8 @@ function renderNotationReferenceHTML_PL() {
       </div>
 
       <div class="k-meta-box">
-        <div>🔑 <strong>To samo środkowe c¹ (C4) łączy wszystkie trzy klucze:</strong> w <strong>wiolinowym</strong> siedzi na 1. linii dodanej <em>dolnej</em>, w <strong>altowym</strong> dokładnie w <em>środku (3. linia)</em>, a w <strong>basowym</strong> na 1. linii dodanej <em>górnej</em>!</div>
-        <div>🎼 <strong>Klucze specjalne (przegląd):</strong> <strong>Klucz tenorowy</strong> przesuwa ten sam klucz C na 4. linię (dla wysokich partii wiolonczeli, fagotu i puzonu), a klucze oktawowe (<code>8vb</code> / <code>8va</code>) transponują zapis gitary lub fletu piccolo bez nadmiaru linii dodanych.</div>
+        <div><strong>To samo środkowe c¹ (C4) łączy wszystkie trzy klucze:</strong> w <strong>wiolinowym</strong> siedzi na 1. linii dodanej <em>dolnej</em>, w <strong>altowym</strong> dokładnie w <em>środku (3. linia)</em>, a w <strong>basowym</strong> na 1. linii dodanej <em>górnej</em>!</div>
+        <div><strong>Klucze specjalne (przegląd):</strong> <strong>Klucz tenorowy</strong> przesuwa ten sam klucz C na 4. linię (dla wysokich partii wiolonczeli, fagotu i puzonu), a klucze oktawowe (<code>8vb</code> / <code>8va</code>) transponują zapis gitary lub fletu piccolo bez nadmiaru linii dodanych.</div>
       </div>
     </article>
 
@@ -4189,7 +4189,7 @@ function renderArrangingReferenceHTML_PL() {
         <button type="button" class="btn-tool" data-play-custom="arr-reharm-cinema">▶ Ta sama melodia z filmową reharmonizacją</button>
       </div>
       <div class="k-meta-box">
-        <div>✅ <strong>5 pytań kontrolnych do własnej aranżacji:</strong></div>
+        <div><strong>5 pytań kontrolnych do własnej aranżacji:</strong></div>
         <div>1. <strong>Kto ma teraz głos?</strong> W każdej chwili tylko jeden element powinien być na pierwszym planie.</div>
         <div>2. <strong>Gdzie są oddechy?</strong> Umieszczaj dopowiedzenia w pauzach głównej melodii.</div>
         <div>3. <strong>Czy dół pasma jest czysty?</strong> Unikaj ciasnych tercji poniżej <code>C3</code>.</div>
@@ -4197,9 +4197,9 @@ function renderArrangingReferenceHTML_PL() {
         <div>5. <strong>Test wyciszenia (Mute Test):</strong> Jeśli po wyciszeniu ścieżki niczego nie brakuje, nadaj jej wyraźną funkcję lub odważnie ją usuń!</div>
       </div>
       <div class="k-btn-row" style="margin-top:0.55rem;">
-        <button type="button" class="btn-tool" data-jump-ref="ensembles">🎻 Do Orkiestr i Zespołów →</button>
-        <button type="button" class="btn-tool" data-jump-ref="cadences">🎹 Do Kadencji i Harmonii →</button>
-        <button type="button" class="btn-tool" data-jump-ref="physics">🌊 Do Fizyki i Alikwotów →</button>
+        <button type="button" class="btn-tool" data-jump-ref="ensembles">Do Orkiestr i Zespołów →</button>
+        <button type="button" class="btn-tool" data-jump-ref="cadences">Do Kadencji i Harmonii →</button>
+        <button type="button" class="btn-tool" data-jump-ref="physics">Do Fizyki i Alikwotów →</button>
       </div>
     </article>
   `;

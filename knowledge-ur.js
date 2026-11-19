@@ -725,27 +725,27 @@ const KNOWLEDGE_ARTICLES_UR = [
 
         <div class="k-compare-grid">
           <div class="k-compare-box is-peach">
-            <h5>❌ غیر مفید اور رکاوٹ ڈالنے والا</h5>
+            <h5>غیر مفید اور رکاوٹ ڈالنے والا</h5>
             <p><strong>خالی پاس/فیل لیبلز:</strong> «اچھا / برا / سستا / پیشہ ورانہ / بے سُرا۔» یہ فیصلہ سنا دیتے ہیں مگر دوسرے سمجھ نہیں پاتے آپ نے کیا سنا۔</p>
           </div>
           <div class="k-compare-box is-sage">
-            <h5>✅ واضح اور کھلا انداز</h5>
+            <h5>واضح اور کھلا انداز</h5>
             <p><strong>تبدیلی بیان کریں:</strong> «نرم آغاز نے فوراً متوجہ کر لیا، مگر درمیان میں مجھے یہ ذرا تیز اور آنکھوں میں چبھتا محسوس ہوا۔»</p>
           </div>
           <div class="k-compare-box is-peach">
-            <h5>❌ اندازے سے تکنیکی الفاظ</h5>
+            <h5>اندازے سے تکنیکی الفاظ</h5>
             <p>«غلط»، «بے تال»، «کلپنگ» یا «بہت ڈائنامک» کہنا جب آپ کا مطلب دراصل «سخت رگڑ لگتی ہے» یا «گرمائش کم ہے» ہو — ماہرین ان الفاظ سے مخصوص تکنیکی معنی لیتے ہیں۔</p>
           </div>
           <div class="k-compare-box is-sage">
-            <h5>✅ سچی روزمرہ منظرکشی</h5>
+            <h5>سچی روزمرہ منظرکشی</h5>
             <p>فطری رہیں: «مجھے مشکل لفظ تو نہیں آتا، مگر وہاں دو کنارے آپس میں رگڑتے لگتے ہیں اور پھر نرم پڑ جاتے ہیں۔»</p>
           </div>
           <div class="k-compare-box is-peach">
-            <h5>❌ ذاتی حملے اور ٹھپے لگانا</h5>
+            <h5>ذاتی حملے اور ٹھپے لگانا</h5>
             <p>«بالکل بے حس» یا «لفٹ میوزک / سستا کمرشل لگتا ہے۔» لوگوں یا صنفوں پر ٹھپے لگانے سے تجسس فوراً مر جاتا ہے۔</p>
           </div>
           <div class="k-compare-box is-sage">
-            <h5>✅ بناوٹ اور تضاد بتائیں</h5>
+            <h5>بناوٹ اور تضاد بتائیں</h5>
             <p>«میرے لیے یہ حصہ اتنا ہموار بہتا ہے کہ دل چاہتا ہے کہیں کوئی چھوٹا سا سرپرائز یا کھردرا موڑ آئے۔»</p>
           </div>
         </div>
@@ -3099,7 +3099,7 @@ function renderKeysReferenceHTML_UR(circleFilter = "all") {
     </article>
 
     <div class="k-sibling-bar">
-      <span>🧭 <strong>بصری اور سماعتی طور پر دیکھیں:</strong> لائیو کارڈز اور ماڈیولیشن کے ساتھ انٹرایکٹو سرکل آف ففتھس کھولیں۔</span>
+      <span><strong>بصری اور سماعتی طور پر دیکھیں:</strong> لائیو کارڈز اور ماڈیولیشن کے ساتھ انٹرایکٹو سرکل آف ففتھس کھولیں۔</span>
       <button type="button" class="btn-tool" data-jump-ref="circle-of-fifths">سرکل آف ففتھس کھولیں ←</button>
     </div>
 
@@ -3459,8 +3459,8 @@ function getIntervalNamingGuideHTML_UR() {
           <li><strong>4. ٹرائی ٹون (<code>TT</code>):</strong> عین <strong>6 سیمی ٹونز</strong> پر آکٹیو کو آدھا کاٹتا ہے۔</li>
         </ul>
         <div class="k-meta-box">
-          <div>🔎 <strong>موجودہ علامتیں:</strong> سیکنڈز: <code>${sym("m2")}</code> (1 ST) بمقابلہ <code>${sym("M2")}</code> (2 ST) · تھرڈز: <code>${sym("m3")}</code> (3 ST) بمقابلہ <code>${sym("M3")}</code> (4 ST)</div>
-          <div>⚙️ <strong>تبدیلی:</strong> <strong>ایپ کی ترتیبات ← موسیقی کی تحریر ← انٹرول کے مخففات</strong> میں کسی بھی وقت بدلیں۔</div>
+          <div><strong>موجودہ علامتیں:</strong> سیکنڈز: <code>${sym("m2")}</code> (1 ST) بمقابلہ <code>${sym("M2")}</code> (2 ST) · تھرڈز: <code>${sym("m3")}</code> (3 ST) بمقابلہ <code>${sym("M3")}</code> (4 ST)</div>
+          <div><strong>تبدیلی:</strong> <strong>ایپ کی ترتیبات ← موسیقی کی تحریر ← انٹرول کے مخففات</strong> میں کسی بھی وقت بدلیں۔</div>
         </div>
       </div>
     </details>
@@ -3677,8 +3677,8 @@ function renderNotationReferenceHTML_UR() {
       </div>
 
       <div class="k-meta-box">
-        <div>🔑 <strong>ایک ہی مڈل C (C4) تینوں کلیفس کو جوڑتا ہے:</strong> <strong>ٹریبل</strong> میں یہ <em>نیچے</em> 1st لیجر لائن پر، <strong>آلٹو</strong> میں عین <em>درمیان (3rd لائن)</em> پر، اور <strong>باس</strong> میں <em>اوپر</em> 1st لیجر لائن پر ہوتا ہے!</div>
-        <div>🎼 <strong>خاص کلیفس:</strong> <strong>ٹینر کلیف</strong> C-کلیف کو 4th لائن پر لے جاتا ہے (اونچے چیلّو/ٹرامبون کے لیے)، اور آکٹیو کلیفس (<code>8vb</code> / <code>8va</code>) گٹار یا پِکولو کو بغیر اضافی لکیروں کے ایک آکٹیو منتقل کر دیتے ہیں۔</div>
+        <div><strong>ایک ہی مڈل C (C4) تینوں کلیفس کو جوڑتا ہے:</strong> <strong>ٹریبل</strong> میں یہ <em>نیچے</em> 1st لیجر لائن پر، <strong>آلٹو</strong> میں عین <em>درمیان (3rd لائن)</em> پر، اور <strong>باس</strong> میں <em>اوپر</em> 1st لیجر لائن پر ہوتا ہے!</div>
+        <div><strong>خاص کلیفس:</strong> <strong>ٹینر کلیف</strong> C-کلیف کو 4th لائن پر لے جاتا ہے (اونچے چیلّو/ٹرامبون کے لیے)، اور آکٹیو کلیفس (<code>8vb</code> / <code>8va</code>) گٹار یا پِکولو کو بغیر اضافی لکیروں کے ایک آکٹیو منتقل کر دیتے ہیں۔</div>
       </div>
     </article>
 
@@ -3875,7 +3875,7 @@ function renderArrangingReferenceHTML_UR() {
         <button type="button" class="btn-tool" data-play-custom="arr-reharm-cinema">▶ وہی دھن سنیمائی ہارمونی کے ساتھ</button>
       </div>
       <div class="k-meta-box">
-        <div>✅ <strong>اپنی ارینجنگ کے لیے 5 سوالات کی چیک لسٹ:</strong></div>
+        <div><strong>اپنی ارینجنگ کے لیے 5 سوالات کی چیک لسٹ:</strong></div>
         <div>1. <strong>اس وقت مرکزِ نگاہ کون ہے؟</strong> ہر لمحے صرف ایک عنصر نمایاں ہونا چاہیے۔</div>
         <div>2. <strong>سانس لینے کی جگہیں کہاں ہیں؟</strong> فلز (Fills) کو مرکزی دھن کے وقفوں میں رکھیں۔</div>
         <div>3. <strong>کیا نچلی فریکوئنسی صاف ہے؟</strong> <code>C3</code> سے نیچے تنگ تھرڈز سے بچیں۔</div>
@@ -3883,9 +3883,9 @@ function renderArrangingReferenceHTML_UR() {
         <div>5. <strong>میوٹ ٹیسٹ (Mute Test):</strong> کسی ٹریک کو بند کر کے دیکھیں؛ اگر کمی محسوس نہ ہو تو اسے واضح کردار دیں یا ہٹا دیں!</div>
       </div>
       <div class="k-btn-row" style="margin-top:0.55rem;">
-        <button type="button" class="btn-tool" data-jump-ref="ensembles">🎻 آرکسٹرا اور بینڈز کی طرف →</button>
-        <button type="button" class="btn-tool" data-jump-ref="cadences">🎹 کیڈنسز اور ہارمونی کی طرف →</button>
-        <button type="button" class="btn-tool" data-jump-ref="physics">🌊 فزکس اور اوورٹونز کی طرف →</button>
+        <button type="button" class="btn-tool" data-jump-ref="ensembles">آرکسٹرا اور بینڈز کی طرف →</button>
+        <button type="button" class="btn-tool" data-jump-ref="cadences">کیڈنسز اور ہارمونی کی طرف →</button>
+        <button type="button" class="btn-tool" data-jump-ref="physics">فزکس اور اوورٹونز کی طرف →</button>
       </div>
     </article>
   `;

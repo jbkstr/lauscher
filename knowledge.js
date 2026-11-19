@@ -776,27 +776,27 @@ const KNOWLEDGE_ARTICLES = [
 
         <div class="k-compare-grid">
           <div class="k-compare-box is-peach">
-            <h5>❌ Eher hinderlich &amp; unklar</h5>
+            <h5>Eher hinderlich &amp; unklar</h5>
             <p><strong>Leere Gütesiegel:</strong> „Gut / schlecht / billig / professionell / unmusikalisch.“ Sie teilen nur ein Urteil mit, lassen das Gegenüber aber völlig im Dunkeln, was dich berührt oder gestört hat.</p>
           </div>
           <div class="k-compare-box is-sage">
-            <h5>✅ Hilfreich &amp; verbindend</h5>
+            <h5>Hilfreich &amp; verbindend</h5>
             <p><strong>Konkrete Wirkung beschreiben:</strong> „Am Anfang nimmt mich die ruhige Art sofort mit – im Mittelteil wird mir die Stimmung dann zu gehetzt und grell.“</p>
           </div>
           <div class="k-compare-box is-peach">
-            <h5>❌ Schein-Fachwörter auf Verdacht</h5>
+            <h5>Schein-Fachwörter auf Verdacht</h5>
             <p>Wörter wie „falsch“, „atonal“, „übersteuert“, „zu viel Dynamik“ oder „schräg“, wenn man eigentlich „es reibt sich“, „es wird zu spitz“ oder „mir fehlt Wärme“ meint – Profis verstehen darunter oft technisch etwas ganz anderes.</p>
           </div>
           <div class="k-compare-box is-sage">
-            <h5>✅ Ehrliche Bildsprache</h5>
+            <h5>Ehrliche Bildsprache</h5>
             <p>Lieber unverstellt bleiben: „Ich kenne das Fachwort nicht, aber an der Stelle fühlt es sich an, als würden zwei Dinge kurz aneinander reiben, bevor es wieder weich wird.“</p>
           </div>
           <div class="k-compare-box is-peach">
-            <h5>❌ Personen-Urteile &amp; Schubladen</h5>
+            <h5>Personen-Urteile &amp; Schubladen</h5>
             <p>„Er hat kein Gefühl“ oder „Typische Fahrstuhlmusik / reiner Kommerz.“ Das wertet ab und macht eine Gruppe oder ein Gespräch sofort defensiv.</p>
           </div>
           <div class="k-compare-box is-sage">
-            <h5>✅ Moment &amp; Kontrast benennen</h5>
+            <h5>Moment &amp; Kontrast benennen</h5>
             <p>„Für mich fließt die ganze Stelle so gleichmäßig dahin, dass mir ein kleiner Haken oder eine Kante zum Festhalten fehlt.“</p>
           </div>
         </div>
@@ -3654,7 +3654,7 @@ function renderKeysReferenceHTML(circleFilter = "all") {
     </article>
 
     <div class="k-sibling-bar">
-      <span>🧭 <strong>Visualisieren &amp; Anhören:</strong> Entdecke das interaktive Quintenzirkel-Rad mit Akkorden &amp; Modulationen.</span>
+      <span><strong>Visualisieren &amp; Anhören:</strong> Entdecke das interaktive Quintenzirkel-Rad mit Akkorden &amp; Modulationen.</span>
       <button type="button" class="btn-tool" data-jump-ref="circle-of-fifths">Zum Quintenzirkel →</button>
     </div>
 
@@ -3955,8 +3955,8 @@ function getLocalizedIntervalNamingGuideHTML() {
           <li><strong>4. Tritonus (<code>TT</code>):</strong> Teilt die Oktave exakt bei <strong>6 Halbtönen</strong> zwischen <code>P4</code> und <code>P5</code> (übermäßige Quarte / verminderte Quinte).</li>
         </ul>
         <div class="k-meta-box">
-          <div>🔎 <strong>Aktive Schreibweise:</strong> Sekunde: <code>${sym("m2")}</code> (1 HT) vs. <code>${sym("M2")}</code> (2 HT) · Terz: <code>${sym("m3")}</code> (3 HT) vs. <code>${sym("M3")}</code> (4 HT)</div>
-          <div>⚙️ <strong>Umschalten:</strong> In den <strong>App-Einstellungen → Musikalische Schreibweise → Intervall-Namensgebung</strong> kannst du jederzeit zwischen <strong>Deutsch (P / G / k)</strong> und <strong>International (P / M / m)</strong> wechseln.</div>
+          <div><strong>Aktive Schreibweise:</strong> Sekunde: <code>${sym("m2")}</code> (1 HT) vs. <code>${sym("M2")}</code> (2 HT) · Terz: <code>${sym("m3")}</code> (3 HT) vs. <code>${sym("M3")}</code> (4 HT)</div>
+          <div><strong>Umschalten:</strong> In den <strong>App-Einstellungen → Musikalische Schreibweise → Intervall-Namensgebung</strong> kannst du jederzeit zwischen <strong>Deutsch (P / G / k)</strong> und <strong>International (P / M / m)</strong> wechseln.</div>
         </div>
       </div>
     </details>
@@ -4810,7 +4810,7 @@ function renderCircleOfFifthsReferenceHTML(selectedIdx = 0, ringMode = "major", 
       </section>
 
       <div class="k-sibling-bar">
-        <span>🎼 <strong>${lc("Alle 12 Tonarten im Detail:", "Complete 12-Key Atlas:", "Atlas complet des 12 tonalités :")}</strong> ${lc("Alle Generalvorzeichen, Dreiklänge & Moll-Varianten auf einen Blick.", "Browse signatures, chord tables & natural/harmonic/melodic minor.", "Armures, accords diatoniques et les 3 gammes mineures d’un coup d’œil.")}</span>
+        <span><strong>${lc("Alle 12 Tonarten im Detail:", "Complete 12-Key Atlas:", "Atlas complet des 12 tonalités :")}</strong> ${lc("Alle Generalvorzeichen, Dreiklänge & Moll-Varianten auf einen Blick.", "Browse signatures, chord tables & natural/harmonic/melodic minor.", "Armures, accords diatoniques et les 3 gammes mineures d’un coup d’œil.")}</span>
         <button type="button" class="btn-tool" data-jump-ref="keys">${lc("Tonarten &amp; Vorzeichen →", "Keys &amp; Signatures →", "Tonalités &amp; Armures →")}</button>
       </div>
 
@@ -4904,8 +4904,8 @@ function renderNotationReferenceHTML() {
       </div>
 
       <div class="k-meta-box">
-        <div>🔑 <strong>Dasselbe Schloss-C (C4) verbindet alle drei Systeme:</strong> Im <strong>Violinschlüssel</strong> liegt c' auf der 1. Hilfslinie <em>unten</em>, im <strong>Altschlüssel</strong> genau in der <em>Mitte (Linie 3)</em> und im <strong>Bassschlüssel</strong> auf der 1. Hilfslinie <em>oben</em>!</div>
-        <div>🎼 <strong>Weitere Spezialschlüssel (Ausblick):</strong> Der <strong>Tenorschlüssel</strong> setzt denselben C-Schlüssel eine Stufe höher auf die 4. Linie (häufig für hohe Cello-, Fagott- oder Posaunenstellen). Oktavierende Schlüssel (<code>8vb</code> / <code>8va</code>) verschieben Gitarre oder Piccolo bequem um eine ganze Oktave, ohne Hilfslinien-Chaos zu erzeugen.</div>
+        <div><strong>Dasselbe Schloss-C (C4) verbindet alle drei Systeme:</strong> Im <strong>Violinschlüssel</strong> liegt c' auf der 1. Hilfslinie <em>unten</em>, im <strong>Altschlüssel</strong> genau in der <em>Mitte (Linie 3)</em> und im <strong>Bassschlüssel</strong> auf der 1. Hilfslinie <em>oben</em>!</div>
+        <div><strong>Weitere Spezialschlüssel (Ausblick):</strong> Der <strong>Tenorschlüssel</strong> setzt denselben C-Schlüssel eine Stufe höher auf die 4. Linie (häufig für hohe Cello-, Fagott- oder Posaunenstellen). Oktavierende Schlüssel (<code>8vb</code> / <code>8va</code>) verschieben Gitarre oder Piccolo bequem um eine ganze Oktave, ohne Hilfslinien-Chaos zu erzeugen.</div>
       </div>
     </article>
 
@@ -5143,7 +5143,7 @@ function renderArrangingReferenceHTML() {
         <button type="button" class="btn-tool" data-play-custom="arr-reharm-cinema">▶ Exakt gleiche Melodie cineastisch reharmonisiert</button>
       </div>
       <div class="k-meta-box">
-        <div>✅ <strong>Die 5-Fragen-Checkliste für jedes eigene Arrangement:</strong></div>
+        <div><strong>Die 5-Fragen-Checkliste für jedes eigene Arrangement:</strong></div>
         <div>1. <strong>Wer hat gerade das Wort?</strong> Zu jedem Zeitpunkt sollte maximal <em>ein</em> Element im vollen Rampenlicht stehen.</div>
         <div>2. <strong>Wo sind die Atemlöcher?</strong> Platziere Fills und Gegenmelodien gezielt in die Pausen der Hauptmelodie.</div>
         <div>3. <strong>Ist der Tieftonbereich sauber?</strong> Unter <code>C3</code> keine engen Terzen schichten – dort regieren Grundton, Quinte und Oktave.</div>
@@ -5151,9 +5151,9 @@ function renderArrangingReferenceHTML() {
         <div>5. <strong>Der Stummschalt-Test (Mute-Test):</strong> Schalte eine Spur probeweise stumm. Fehlt dem Song nichts, war sie nur Füllmaterial – gib ihr eine klare Aufgabe oder lass sie mutig weg!</div>
       </div>
       <div class="k-btn-row" style="margin-top:0.55rem;">
-        <button type="button" class="btn-tool" data-jump-ref="ensembles">🎻 Zu Orchester &amp; Bands →</button>
-        <button type="button" class="btn-tool" data-jump-ref="cadences">🎹 Zu Kadenzen &amp; Harmonien →</button>
-        <button type="button" class="btn-tool" data-jump-ref="physics">🌊 Zu Physik &amp; Obertönen →</button>
+        <button type="button" class="btn-tool" data-jump-ref="ensembles">Zu Orchester &amp; Bands →</button>
+        <button type="button" class="btn-tool" data-jump-ref="cadences">Zu Kadenzen &amp; Harmonien →</button>
+        <button type="button" class="btn-tool" data-jump-ref="physics">Zu Physik &amp; Obertönen →</button>
       </div>
     </article>
   `;

@@ -6844,6 +6844,7 @@ body.is-hum-pause #solfegeKeyboardWrap {
   cursor: pointer;
   flex-shrink: 0;
   font-size: 1.05rem;
+  color: var(--raccoon-dark);
 }
 
 .cp-native-btn input[type="color"] {

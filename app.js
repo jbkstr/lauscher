@@ -2787,7 +2787,7 @@ class AppState {
       this.sessionTimer &&
       (this.sessionTimer.status === "running" || this.sessionTimer.status === "paused")
     ) {
-      el.textContent = `${el.textContent}  •  ⏱ ${formatSessionMMSS(this.sessionTimer.remainingSec)}`;
+      el.textContent = `${el.textContent}  •  ${formatSessionMMSS(this.sessionTimer.remainingSec)}`;
     }
   }
 
@@ -6384,8 +6384,8 @@ function openKnowledgeRef(refKey, options = {}) {
             <p><strong>${tr("Stimmung & Charakter:", "Character & Feel:")}</strong> ${item.mood}</p>
             <p><strong>${tr("Physik:", "Acoustics:")}</strong> ${item.physics}</p>
             <div class="k-meta-box">
-              <div>🎵 <strong>${tr("Aufwärts:", "Ascending:")}</strong> ${item.songsAsc}</div>
-              <div>🎵 <strong>${tr("Abwärts:", "Descending:")}</strong> ${item.songsDesc}</div>
+              <div><strong>${tr("Aufwärts:", "Ascending:")}</strong> ${item.songsAsc}</div>
+              <div><strong>${tr("Abwärts:", "Descending:")}</strong> ${item.songsDesc}</div>
             </div>
             <div class="k-btn-row">
               <button class="btn-tool" data-play-int-asc="${item.semitones}">▶ ${tr("Aufwärts", "Ascending")}</button>
@@ -6549,7 +6549,7 @@ function openKnowledgeRef(refKey, options = {}) {
             <h4>${step.syllable} – ${step.character}</h4>
             <p>${step.desc}</p>
             <div class="k-song-ref">
-              🧭 <strong>${tr("Auflösungsweg:", "Resolution path:")}</strong> ${step.resolveDesc}
+              <strong>${tr("Auflösungsweg:", "Resolution path:")}</strong> ${step.resolveDesc}
             </div>
             <div class="k-btn-row">
               <button class="btn-tool" data-play-solfege-functional="${step.semitones}" data-resolve-path="${step.resolvePath.join(",")}">
@@ -11075,7 +11075,7 @@ function buildMelodySlotRhythmHTML(slot, ex) {
     ? `<span class="melody-rest-chip" title="${escapeHtml(tr("Pause davor", "Rest before"))}">${getMelodyRestSVG(10, 12)}</span>`
     : "";
   if (!showValue) {
-    return `${restChip}<span class="melody-rhythm-chip is-mystery">⏱ ?</span>`;
+    return `${restChip}<span class="melody-rhythm-chip is-mystery">?</span>`;
   }
   const rDef = getLocalizedMelodyRhythmValue(slot.rhythmKey);
   const partialCls = isDictation && slot.rhythmSolved && !slot.solved ? " is-partial-ok" : "";
@@ -11949,7 +11949,7 @@ function renderUI() {
   }
   if (solfegeKeyBtnLabel && (isSolfege || isMelody)) {
     const baseKeyName = getKeyDisplayName(state.currentKey);
-    solfegeKeyBtnLabel.textContent = `🎹 ${baseKeyName}`;
+    solfegeKeyBtnLabel.textContent = `${baseKeyName}`;
   }
 
   const tonicRefRow = document.getElementById("tonicRefRow");
@@ -21159,7 +21159,7 @@ function syncWarmupCountdownDisplay(liveDecrementSec = 0) {
   if (!badge) return;
   const baseRem = getWarmupRemainingSec(state.warmup);
   const shown = Math.max(0, baseRem - Math.max(0, Math.floor(liveDecrementSec)));
-  badge.textContent = `⏱ ${formatSessionMMSS(shown)}`;
+  badge.textContent = `${formatSessionMMSS(shown)}`;
 }
 
 function renderWarmupView() {
@@ -26567,7 +26567,7 @@ function syncWelcomeBeginnerOptInUI() {
     presetBtn.classList.toggle("is-applied", applied);
     presetBtn.textContent = applied
       ? getWelcomeText("welcome.begApplyPresetDone", "✓ Empfohlener Startpunkt (Intervalle • Stufe 1) ausgewählt")
-      : getWelcomeText("welcome.begApplyPresetBtn", "✨ Empfohlenen Startpunkt (Intervalle • Stufe 1) auswählen");
+      : getWelcomeText("welcome.begApplyPresetBtn", "Empfohlenen Startpunkt (Intervalle • Stufe 1) auswählen");
   }
   const greetBegBtn = document.getElementById("welcomeGreetBeginnerBtn");
   if (greetBegBtn) {
