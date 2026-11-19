@@ -107,7 +107,7 @@ def main():
     if tag_exists:
         print(f"  ⚠ Tag {tag} existiert bereits – für einen öffentlichen Release besser --name erhöhen.")
     print(f"  4. git tag {tag} && git push && git push origin {tag}")
-    print(f"  5. GitHub → Releases → {tag} → APK als „lauscher.apk“ anhängen")
+    print(f"  5. GitHub → Releases → {tag} → android/app/release/lauscher-{new_name}-build{new_build}-release.apk anhängen")
     return 0
 
 
