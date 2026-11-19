@@ -494,6 +494,7 @@ html, body {
   gap: 0.55rem;
   flex: 1 1 auto;
   min-width: 0;
+  overflow: hidden;
 }
 
 .app-brand > div {
@@ -505,13 +506,22 @@ html, body {
   display: flex;
   align-items: center;
   gap: 0.4rem;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .brand-name {
   font-weight: 800;
-  font-size: 1.12rem;
+  font-size: clamp(0.88rem, 4vw, 1.12rem);
+  line-height: 1.18;
   color: var(--raccoon-dark);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
 }
 
 .brand-sub {
@@ -528,6 +538,8 @@ html, body {
   align-items: center;
   gap: 0.3rem;
   flex-shrink: 0;
+  position: relative;
+  z-index: 2;
 }
 
 .icon-btn {
@@ -1302,8 +1314,15 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
 .account-hero-card {
   background: linear-gradient(145deg, var(--surface-white) 0%, var(--sage-soft) 100%);
   border: 1px solid rgba(46, 111, 78, 0.16);
-  padding: 0.9rem;
+  padding: 0.78rem 0.9rem 0.9rem;
   box-shadow: var(--shadow-card);
+}
+
+.account-hero-top-row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: -0.25rem;
 }
 
 .account-hero-head {
@@ -1340,13 +1359,19 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
   gap: 0.22rem;
 }
 
+.account-hero-tag,
 .account-hero-copy .k-card-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   font-size: 0.63rem;
   font-weight: 800;
-  padding: 0.14rem 0.55rem;
+  padding: 0.16rem 0.62rem;
   border-radius: var(--radius-pill);
   text-transform: uppercase;
   letter-spacing: 0.04em;
+  line-height: 1.2;
 }
 
 .account-hero-copy h2 {
@@ -8133,6 +8158,15 @@ body.is-hum-pause #solfegeKeyboardWrap {
   background: linear-gradient(180deg, var(--surface-warm) 0%, var(--surface-white) 56%);
 }
 
+.exam-result-hero-heading {
+  margin: 0 0 4px;
+  font-size: 1.42rem;
+  font-weight: 900;
+  color: var(--raccoon-dark);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
 .exam-result-badge-row {
   display: flex;
   align-items: center;
@@ -8294,6 +8328,18 @@ body.is-hum-pause #solfegeKeyboardWrap {
   gap: 8px;
 }
 
+.exam-result-actions-row .exam-retry-btn {
+  background-color: var(--sage);
+  color: var(--raccoon-dark);
+  border-color: rgba(46, 111, 78, 0.25);
+}
+
+.exam-result-actions-row .exam-more-btn {
+  background-color: var(--peach);
+  color: var(--raccoon-dark);
+  border-color: rgba(156, 74, 26, 0.25);
+}
+
 .exam-review-filter-row {
   display: flex;
   flex-wrap: wrap;
@@ -8391,6 +8437,70 @@ body.is-hum-pause #solfegeKeyboardWrap {
 }
 
 /* Prüfungsverlauf im Konto (#spaceExamHistoryCard) */
+.exam-history-clear-confirm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.58rem;
+  padding: 0.74rem 0.84rem;
+  margin-bottom: 0.65rem;
+  border-radius: var(--radius-md);
+  background-color: var(--mute-bg);
+  border: 1.5px solid var(--status-err);
+  box-shadow: var(--shadow-card);
+}
+
+[data-appearance="dark"] .exam-history-clear-confirm {
+  background-color: rgba(217, 107, 107, 0.14);
+  border-color: var(--status-err);
+}
+
+.exam-history-clear-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+}
+
+.exam-history-clear-copy strong {
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+  line-height: 1.25;
+}
+
+.exam-history-clear-copy span {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--raccoon-mid);
+  line-height: 1.35;
+}
+
+.exam-history-clear-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+#viewSpace .btn-tool.exam-history-confirm-danger-btn,
+[data-appearance="dark"] #viewSpace .btn-tool.exam-history-confirm-danger-btn {
+  background-color: var(--status-err);
+  border-color: var(--status-err);
+  color: #FFFFFF;
+  font-weight: 800;
+  box-shadow: 0 2px 0 rgba(138, 38, 38, 0.35);
+}
+
+#viewSpace .btn-tool.exam-history-confirm-danger-btn:active,
+[data-appearance="dark"] #viewSpace .btn-tool.exam-history-confirm-danger-btn:active {
+  background-color: #C25858;
+  border-color: #C25858;
+}
+
+#viewSpace .exam-history-clear-btn.is-armed {
+  opacity: 0.52;
+}
+
 .exam-history-summary {
   display: flex;
   flex-wrap: wrap;
@@ -12209,5 +12319,982 @@ body.is-hum-pause #solfegeKeyboardWrap {
   .freeplay-staff-box {
     flex-basis: 86px;
     height: 68px;
+  }
+}
+
+/* =====================================================
+   WERKZEUG: GITARREN-GRIFFBRETT (#viewFretboard)
+   ===================================================== */
+:root {
+  --fb-board-bg: #F6F1E7;
+  --fb-board-box-bg: rgba(184, 224, 200, 0.28);
+  --fb-nut-bg: #EFE9DC;
+  --fb-nut-wire: #6E655B;
+  --fb-fret-wire: rgba(94, 86, 76, 0.34);
+  --fb-string-color: #8E8478;
+  --fb-string-wound: #706558;
+  --fb-inlay-color: rgba(61, 64, 91, 0.16);
+  --fb-root-bg: #C45D27;
+  --fb-root-fg: #FFFFFF;
+  --fb-tone-bg: #2E6F4E;
+  --fb-tone-fg: #FFFFFF;
+  --fb-char-bg: #5B48A8;
+  --fb-char-fg: #FFFFFF;
+  --fb-barre-bg: rgba(46, 111, 78, 0.28);
+  --fb-barre-border: rgba(46, 111, 78, 0.52);
+}
+
+:root[data-theme="morgentau"] {
+  --fb-board-bg: #EDF4F7;
+  --fb-board-box-bg: rgba(181, 220, 232, 0.34);
+  --fb-nut-bg: #E2ECF1;
+  --fb-nut-wire: #58697B;
+  --fb-fret-wire: rgba(46, 59, 78, 0.28);
+  --fb-string-color: #7D8E9E;
+  --fb-string-wound: #5E6F80;
+  --fb-root-bg: #B55B24;
+  --fb-tone-bg: #1F6074;
+  --fb-char-bg: #3F4E99;
+  --fb-barre-bg: rgba(31, 96, 116, 0.26);
+  --fb-barre-border: rgba(31, 96, 116, 0.5);
+}
+
+:root[data-theme="abenddaemmerung"] {
+  --fb-board-bg: #F3EEF6;
+  --fb-board-box-bg: rgba(191, 224, 212, 0.32);
+  --fb-nut-bg: #EAE2EF;
+  --fb-nut-wire: #675B78;
+  --fb-fret-wire: rgba(62, 53, 79, 0.28);
+  --fb-string-color: #8B7F9A;
+  --fb-string-wound: #6C607B;
+  --fb-root-bg: #B24B3B;
+  --fb-tone-bg: #276852;
+  --fb-char-bg: #5A3C92;
+  --fb-barre-bg: rgba(39, 104, 82, 0.26);
+  --fb-barre-border: rgba(39, 104, 82, 0.5);
+}
+
+:root[data-appearance="dark"] {
+  --fb-board-bg: #242730;
+  --fb-board-box-bg: rgba(143, 215, 176, 0.14);
+  --fb-nut-bg: #2E323D;
+  --fb-nut-wire: #9CA3B5;
+  --fb-fret-wire: rgba(236, 237, 243, 0.2);
+  --fb-string-color: #8E95A8;
+  --fb-string-wound: #B2B8C9;
+  --fb-inlay-color: rgba(236, 237, 243, 0.16);
+  --fb-root-bg: #E07A47;
+  --fb-root-fg: #1C1D24;
+  --fb-tone-bg: #79C79E;
+  --fb-tone-fg: #18231E;
+  --fb-char-bg: #B8A7FF;
+  --fb-char-fg: #1D1830;
+  --fb-barre-bg: rgba(121, 199, 158, 0.26);
+  --fb-barre-border: rgba(121, 199, 158, 0.55);
+}
+
+.fretboard-view {
+  display: flex;
+  flex-direction: column;
+  gap: 0.72rem;
+  padding-bottom: 1.4rem;
+}
+
+.fb-mode-tabs {
+  margin-bottom: 0;
+}
+
+.fb-mode-tabs .knowledge-tab-btn {
+  font-size: 0.78rem;
+  padding: 0.48rem 0.4rem;
+}
+
+/* 1. Bühne / Analyse-Karte */
+.fb-stage-card {
+  padding: 0.85rem 0.92rem;
+  background: linear-gradient(155deg, var(--surface-white) 0%, var(--sage-soft) 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.56rem;
+}
+
+.fb-stage-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.72rem;
+}
+
+.fb-stage-copy {
+  min-width: 0;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+}
+
+.fb-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 0.34rem;
+  flex-wrap: wrap;
+}
+
+.fb-main-title {
+  font-size: 1.46rem;
+  font-weight: 900;
+  color: var(--raccoon-dark);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  overflow-wrap: anywhere;
+}
+
+.fb-sub-info {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--raccoon-mid);
+  line-height: 1.32;
+}
+
+.fb-staff-box {
+  flex: 0 0 104px;
+  height: 76px;
+}
+
+.fb-alt-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.32rem;
+}
+
+.fb-alt-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--raccoon-muted);
+}
+
+.fb-alt-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.22rem;
+  padding: 0.16rem 0.5rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--surface-white);
+  border: 1px solid var(--border-strong);
+  color: var(--raccoon-dark);
+  font-size: 0.71rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background-color 0.14s ease, border-color 0.14s ease, transform 0.1s ease;
+}
+
+.fb-alt-chip:active {
+  transform: scale(0.95);
+}
+
+.fb-alt-chip:hover {
+  background-color: var(--lilac-soft);
+  border-color: var(--lilac-strong);
+}
+
+.fb-stage-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.42rem;
+  flex-wrap: wrap;
+}
+
+.fb-play-primary,
+.fb-play-secondary {
+  flex: 1 1 0;
+  min-width: 96px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.48rem 0.72rem;
+  border-radius: var(--radius-md);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+#fbPrimaryPlayBtn,
+[data-appearance="dark"] #fbPrimaryPlayBtn {
+  background-color: var(--sage);
+  color: var(--raccoon-dark);
+  border: 1.5px solid var(--sage-strong);
+  box-shadow: 0 2px 0 var(--tactile-edge);
+}
+
+#fbSecondaryPlayBtn,
+#fbResetOrClearBtn,
+[data-appearance="dark"] #fbSecondaryPlayBtn,
+[data-appearance="dark"] #fbResetOrClearBtn {
+  background-color: var(--surface-white);
+  color: var(--raccoon-dark);
+  border: 1.5px solid var(--border-soft);
+  box-shadow: 0 2px 0 var(--tactile-edge);
+}
+
+#fbResetOrClearBtn {
+  flex: 0 0 auto;
+  min-width: auto;
+  padding: 0.48rem 0.78rem;
+}
+
+.fb-stage-actions button:disabled {
+  opacity: 0.45;
+  cursor: default;
+  transform: none !important;
+}
+
+/* 2. Interaktives Griffbrett */
+.fb-neck-card {
+  padding: 0.78rem 0.82rem 0.84rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.56rem;
+}
+
+.fb-neck-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.42rem;
+  flex-wrap: wrap;
+}
+
+.fb-neck-left-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.34rem;
+  flex-wrap: wrap;
+}
+
+.fb-voicing-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+}
+
+.fb-pos-counter {
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+  min-width: 4.9rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.fb-reverse-quick {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+}
+
+.fb-reverse-quick .k-filter-pill {
+  padding: 0.3rem 0.56rem;
+  font-size: 0.71rem;
+}
+
+#fbInspectPositionsBtn {
+  background-color: var(--peach-soft);
+  border-color: var(--peach-strong);
+  color: var(--peach-strong);
+  font-weight: 800;
+}
+
+.fb-scale-pos-label {
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: var(--sage-strong);
+  background-color: var(--sage-soft);
+  border: 1px solid var(--sage);
+  border-radius: var(--radius-pill);
+  padding: 0.22rem 0.6rem;
+}
+
+.fb-label-mode-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.24rem;
+  flex-wrap: wrap;
+}
+
+.fb-label-mode-group .k-filter-pill {
+  padding: 0.28rem 0.52rem;
+  font-size: 0.7rem;
+}
+
+/* Horizontal scrollbarer Griffbrett-Rahmen (immer LTR!) */
+.fb-neck-scroll {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  direction: ltr;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-strong);
+  background-color: var(--fb-board-bg);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.06);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.fb-neck-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.fb-neck-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--border-strong);
+  border-radius: 999px;
+}
+
+.fb-neck-host {
+  width: max-content;
+  min-width: 100%;
+  direction: ltr;
+}
+
+.fb-board {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  min-width: 100%;
+  direction: ltr;
+}
+
+.fb-strings-area {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Griffbrett-Inlays (Bund 3, 5, 7, 9, 12 doppelt, 15) */
+.fb-inlay-layer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 58px;
+  display: flex;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.fb-inlay-col {
+  width: 44px;
+  flex: 0 0 44px;
+  position: relative;
+}
+
+.fb-inlay-dot {
+  position: absolute;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: var(--fb-inlay-color);
+  transform: translate(-50%, -50%);
+}
+
+.fb-inlay-dot.is-mid {
+  top: 50%;
+}
+
+.fb-inlay-dot.is-top {
+  top: 25%;
+}
+
+.fb-inlay-dot.is-bot {
+  top: 75%;
+}
+
+/* Barré-Balken */
+.fb-barre-layer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 58px;
+  right: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.fb-barre-bar {
+  position: absolute;
+  width: 24px;
+  border-radius: 999px;
+  background-color: var(--fb-barre-bg);
+  border: 1.5px solid var(--fb-barre-border);
+  transform: translateX(-50%);
+}
+
+/* Einzelne Saiten-Zeile */
+.fb-string-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 34px;
+}
+
+.fb-string-wire {
+  position: absolute;
+  left: 58px;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 2;
+  background-color: var(--fb-string-color);
+}
+
+.fb-string-row[data-string-idx="5"] .fb-string-wire { height: 1.2px; }
+.fb-string-row[data-string-idx="4"] .fb-string-wire { height: 1.5px; }
+.fb-string-row[data-string-idx="3"] .fb-string-wire { height: 1.9px; }
+.fb-string-row[data-string-idx="2"] .fb-string-wire { height: 2.3px; background-color: var(--fb-string-wound); }
+.fb-string-row[data-string-idx="1"] .fb-string-wire { height: 2.7px; background-color: var(--fb-string-wound); }
+.fb-string-row[data-string-idx="0"] .fb-string-wire { height: 3.1px; background-color: var(--fb-string-wound); }
+
+.fb-string-row.is-muted .fb-string-wire {
+  opacity: 0.35;
+}
+
+/* Sattel-Spalte (sticky links) */
+.fb-nut-cell {
+  width: 58px;
+  flex: 0 0 58px;
+  height: 100%;
+  position: sticky;
+  left: 0;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5px 0 6px;
+  background-color: var(--fb-nut-bg);
+  border-right: 4px solid var(--fb-nut-wire);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.fb-string-name {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: var(--raccoon-mid);
+  width: 19px;
+  text-align: center;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.fb-nut-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-strong);
+  background-color: var(--surface-white);
+  color: var(--raccoon-mid);
+  font-size: 0.66rem;
+  font-weight: 900;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 0.1s ease, background-color 0.14s ease, border-color 0.14s ease, color 0.14s ease;
+}
+
+.fb-nut-btn:active {
+  transform: scale(0.9);
+}
+
+.fb-nut-btn.is-muted {
+  background-color: transparent;
+  border-style: dashed;
+  border-color: var(--border-strong);
+  color: var(--raccoon-muted);
+  font-size: 0.72rem;
+}
+
+.fb-nut-btn.is-open-ring {
+  background-color: var(--surface-white);
+  border-color: var(--fb-tone-bg);
+  color: var(--fb-tone-bg);
+}
+
+.fb-nut-btn.is-root {
+  background-color: var(--fb-root-bg);
+  border-color: var(--surface-white);
+  color: var(--fb-root-fg);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.18);
+}
+
+.fb-nut-btn.is-tone {
+  background-color: var(--fb-tone-bg);
+  border-color: var(--surface-white);
+  color: var(--fb-tone-fg);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16);
+}
+
+.fb-nut-btn.is-char {
+  background-color: var(--fb-char-bg);
+  border-color: var(--surface-white);
+  color: var(--fb-char-fg);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16);
+}
+
+.fb-nut-btn.is-dimmed {
+  opacity: 0.34;
+  transform: scale(0.84);
+}
+
+.fb-nut-btn.is-playing {
+  transform: scale(1.16);
+  box-shadow: 0 0 0 3.5px var(--peach);
+}
+
+/* Bund-Zellen (Bund 1–15) */
+.fb-fret-cell {
+  width: 44px;
+  flex: 0 0 44px;
+  height: 100%;
+  position: relative;
+  border-right: 2px solid var(--fb-fret-wire);
+  background: transparent;
+  padding: 0;
+  border-top: none;
+  border-bottom: none;
+  border-left: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.fb-fret-cell.is-in-box {
+  background-color: var(--fb-board-box-bg);
+}
+
+.fb-fret-cell:active::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border-radius: 8px;
+  background-color: var(--tint-subtle);
+  pointer-events: none;
+}
+
+/* Ton-Punkte auf dem Griffbrett */
+.fb-dot {
+  position: relative;
+  z-index: 4;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  border: 2px solid var(--surface-white);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.22);
+  pointer-events: none;
+  transition: transform 0.12s ease, opacity 0.14s ease, box-shadow 0.12s ease;
+}
+
+.fb-dot.is-root {
+  background-color: var(--fb-root-bg);
+  color: var(--fb-root-fg);
+}
+
+.fb-dot.is-tone {
+  background-color: var(--fb-tone-bg);
+  color: var(--fb-tone-fg);
+}
+
+.fb-dot.is-char {
+  background-color: var(--fb-char-bg);
+  color: var(--fb-char-fg);
+}
+
+.fb-dot.is-dimmed {
+  opacity: 0.3;
+  transform: scale(0.8);
+  box-shadow: none;
+}
+
+.fb-dot.is-playing {
+  transform: scale(1.2);
+  box-shadow: 0 0 0 4px var(--peach);
+  z-index: 5;
+}
+
+/* Bund-Nummern-Leiste unten */
+.fb-fret-nums-row {
+  display: flex;
+  align-items: center;
+  height: 24px;
+  background-color: var(--surface-warm);
+  border-top: 1px solid var(--border-soft);
+}
+
+.fb-fret-num-nut {
+  width: 58px;
+  flex: 0 0 58px;
+  height: 100%;
+  position: sticky;
+  left: 0;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 11px;
+  background-color: var(--surface-warm);
+  border-right: 4px solid var(--fb-nut-wire);
+  font-size: 0.64rem;
+  font-weight: 800;
+  color: var(--raccoon-muted);
+}
+
+.fb-fret-num {
+  width: 44px;
+  flex: 0 0 44px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--raccoon-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.fb-fret-num.is-marker {
+  font-weight: 900;
+  color: var(--raccoon-dark);
+}
+
+.fb-fret-num.is-active-box {
+  color: var(--sage-strong);
+  font-weight: 900;
+}
+
+/* Griffbrett-Fußzeile & Lage-Schnellwahl */
+.fb-neck-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.fb-neck-hint {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--raccoon-mid);
+  line-height: 1.28;
+  flex: 1 1 180px;
+}
+
+.fb-fret-readout {
+  font-size: 0.72rem;
+  font-weight: 900;
+  color: var(--raccoon-dark);
+  background-color: var(--surface-warm);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-pill);
+  padding: 0.18rem 0.58rem;
+  font-variant-numeric: tabular-nums;
+  direction: ltr;
+  white-space: nowrap;
+}
+
+.fb-voicing-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.34rem;
+}
+
+.fb-voicing-pill {
+  padding: 0.28rem 0.58rem;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--border-soft);
+  background-color: var(--surface-warm);
+  color: var(--raccoon-mid);
+  font-size: 0.71rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background-color 0.14s ease, border-color 0.14s ease, color 0.14s ease, transform 0.1s ease;
+}
+
+.fb-voicing-pill:active {
+  transform: scale(0.95);
+}
+
+.fb-voicing-pill.active {
+  background-color: var(--sage);
+  border-color: var(--sage-strong);
+  color: var(--raccoon-dark);
+}
+
+/* 3. Parameter-Karten (Akkorde / Umkehrsuche / Tonleitern) */
+.fb-params-card {
+  padding: 0.85rem 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.72rem;
+}
+
+.fb-param-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.38rem;
+}
+
+.fb-param-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.fb-param-label {
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: var(--raccoon-mid);
+  letter-spacing: 0.01em;
+}
+
+.fb-inline-tuning-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.34rem;
+}
+
+.fb-inline-select-label {
+  font-size: 0.69rem;
+  font-weight: 700;
+  color: var(--raccoon-muted);
+}
+
+.fb-mini-select {
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+  background-color: var(--surface-warm);
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-pill);
+  padding: 0.22rem 0.62rem;
+  cursor: pointer;
+  max-width: 158px;
+}
+
+/* 12 Grundtöne (6 × 2 Raster) */
+.fb-root-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.34rem;
+}
+
+.fb-root-btn {
+  padding: 0.42rem 0.16rem;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-soft);
+  background-color: var(--surface-warm);
+  color: var(--raccoon-dark);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 2px 0 var(--tactile-edge);
+  transition: transform 0.1s ease, background-color 0.14s ease, border-color 0.14s ease;
+}
+
+.fb-root-btn:active {
+  transform: translateY(1.5px) scale(0.96);
+}
+
+.fb-root-btn.active {
+  background-color: var(--peach);
+  border-color: var(--peach-strong);
+  color: var(--raccoon-dark);
+}
+
+/* Akkordqualitäten */
+.fb-quality-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.34rem;
+}
+
+.fb-quality-btn {
+  padding: 0.42rem 0.24rem;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-soft);
+  background-color: var(--surface-warm);
+  color: var(--raccoon-dark);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-align: center;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  box-shadow: 0 2px 0 var(--tactile-edge);
+  transition: transform 0.1s ease, background-color 0.14s ease, border-color 0.14s ease;
+}
+
+.fb-quality-btn:active {
+  transform: translateY(1.5px) scale(0.96);
+}
+
+.fb-quality-btn.active {
+  background-color: var(--sage);
+  border-color: var(--sage-strong);
+  color: var(--raccoon-dark);
+}
+
+/* Tonleitern & Modi Raster */
+.fb-scale-type-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.36rem;
+}
+
+.fb-scale-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.06rem;
+  padding: 0.44rem 0.58rem;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-soft);
+  background-color: var(--surface-warm);
+  color: var(--raccoon-dark);
+  text-align: start;
+  cursor: pointer;
+  box-shadow: 0 2px 0 var(--tactile-edge);
+  transition: transform 0.1s ease, background-color 0.14s ease, border-color 0.14s ease;
+}
+
+.fb-scale-btn:active {
+  transform: translateY(1.5px) scale(0.97);
+}
+
+.fb-scale-btn.active {
+  background-color: var(--sage);
+  border-color: var(--sage-strong);
+}
+
+.fb-scale-btn-name {
+  font-size: 0.76rem;
+  font-weight: 800;
+  line-height: 1.18;
+}
+
+.fb-scale-btn-formula {
+  font-size: 0.64rem;
+  font-weight: 700;
+  color: var(--raccoon-mid);
+  line-height: 1.15;
+}
+
+/* Scale-Lagen (Alle Bünde + Lage 1–5) */
+.fb-scale-pos-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.34rem;
+}
+
+.fb-scale-pos-btn {
+  padding: 0.36rem 0.62rem;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--border-soft);
+  background-color: var(--surface-warm);
+  color: var(--raccoon-mid);
+  font-size: 0.72rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background-color 0.14s ease, border-color 0.14s ease, color 0.14s ease, transform 0.1s ease;
+}
+
+.fb-scale-pos-btn:active {
+  transform: scale(0.95);
+}
+
+.fb-scale-pos-btn.active {
+  background-color: var(--lilac);
+  border-color: var(--lilac-strong);
+  color: var(--raccoon-dark);
+}
+
+.fb-bass-select {
+  width: 100%;
+}
+
+/* Farblegende */
+.fb-legend-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+  padding-top: 0.25rem;
+  border-top: 1px solid var(--border-soft);
+}
+
+.fb-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--raccoon-mid);
+}
+
+.fb-legend-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.fb-legend-dot.is-root {
+  background-color: var(--fb-root-bg);
+}
+
+.fb-legend-dot.is-tone {
+  background-color: var(--fb-tone-bg);
+}
+
+.fb-legend-dot.is-char {
+  background-color: var(--fb-char-bg);
+}
+
+.fb-legend-dot.is-open {
+  background-color: var(--surface-white);
+  border: 2px solid var(--fb-tone-bg);
+}
+
+@media (max-width: 350px) {
+  .fb-quality-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .fb-scale-type-grid {
+    grid-template-columns: 1fr;
+  }
+  .fb-staff-box {
+    flex-basis: 86px;
+    height: 68px;
+  }
+  .fb-root-btn {
+    font-size: 0.72rem;
   }
 }

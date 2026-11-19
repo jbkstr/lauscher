@@ -798,6 +798,30 @@
           </div>
           <span class="cat-chevron">›</span>
         </button>
+
+        <button id="openFretboardBtn" class="category-nav-card card-accent-sage category-card-wide" type="button" data-open-tool="fretboard">
+          <div class="cat-icon-box badge-sage">
+            <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="3.5" y="5.5" width="21" height="17" rx="2.5" stroke="currentColor" stroke-width="1.9"/>
+              <line x1="9.5" y1="5.5" x2="9.5" y2="22.5" stroke="currentColor" stroke-width="1.5" opacity="0.7"/>
+              <line x1="15.5" y1="5.5" x2="15.5" y2="22.5" stroke="currentColor" stroke-width="1.5" opacity="0.7"/>
+              <line x1="21" y1="5.5" x2="21" y2="22.5" stroke="currentColor" stroke-width="1.5" opacity="0.7"/>
+              <line x1="3.5" y1="9.8" x2="24.5" y2="9.8" stroke="currentColor" stroke-width="1.35" opacity="0.75"/>
+              <line x1="3.5" y1="14" x2="24.5" y2="14" stroke="currentColor" stroke-width="1.55" opacity="0.8"/>
+              <line x1="3.5" y1="18.2" x2="24.5" y2="18.2" stroke="currentColor" stroke-width="1.8" opacity="0.85"/>
+              <circle cx="6.5" cy="9.8" r="2.0" fill="currentColor"/>
+              <circle cx="12.5" cy="14" r="2.0" fill="currentColor"/>
+              <circle cx="18.25" cy="18.2" r="2.0" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="cat-text-box">
+            <div class="tool-card-title-row">
+              <h3 data-i18n="tools.fretboardTitle">Griffbrett</h3>
+            </div>
+            <p data-i18n="tools.fretboardSub">Gitarren-Akkorde, Lagen, Rückwärtssuche &amp; Tonleitern</p>
+          </div>
+          <span class="cat-chevron">›</span>
+        </button>
       </div>
     </main>
 
@@ -1131,10 +1155,12 @@
 
       <!-- 1. Musiker-Steckbrief & Gefährte -->
       <section class="account-card account-hero-card">
+        <div class="account-hero-top-row">
+          <span class="k-card-tag tag-sage account-hero-tag" data-i18n="space.localTag">Kein Punktestand</span>
+        </div>
         <div class="account-hero-head">
           <div class="account-avatar-box" id="spaceMascotSvg" aria-hidden="true"></div>
           <div class="account-hero-copy">
-            <span class="k-card-tag tag-sage" data-i18n="space.localTag">Lokales Konto • Kein Punktestand</span>
             <h2 id="spaceGreetingTitle">Dein Musiker-Profil</h2>
             <p id="spaceGreetingSub">Persönliche Vorlieben &amp; entspannte Routinen – ganz ohne Fortschrittsdruck.</p>
           </div>
@@ -1170,6 +1196,17 @@
             <p class="account-card-sub" data-i18n="space.examHistorySub">Deine abgeschlossenen Kategorie-Prüfungen &amp; Bestwerte (lokal auf deinem Gerät).</p>
           </div>
           <button type="button" class="btn-tool exam-history-clear-btn hidden" id="clearExamHistoryBtn" data-i18n="space.examHistoryClear">Verlauf löschen</button>
+        </div>
+
+        <div id="examHistoryClearConfirm" class="exam-history-clear-confirm hidden" role="alertdialog" aria-live="polite">
+          <div class="exam-history-clear-copy">
+            <strong data-i18n="space.examHistoryConfirmTitle">Prüfungsverlauf wirklich löschen?</strong>
+            <span data-i18n="space.examHistoryConfirmSub">Alle gespeicherten Prüfungsergebnisse und Bestwerte werden dauerhaft entfernt.</span>
+          </div>
+          <div class="exam-history-clear-actions">
+            <button type="button" class="btn-tool exam-history-confirm-danger-btn" id="confirmClearExamHistoryBtn" data-i18n="space.examHistoryConfirmBtn">Endgültig löschen</button>
+            <button type="button" class="btn-tool" id="cancelClearExamHistoryBtn" data-i18n="space.examHistoryCancelBtn">Abbrechen</button>
+          </div>
         </div>
 
         <div id="spaceExamHistorySummary" class="exam-history-summary"></div>
@@ -2146,6 +2183,169 @@
 
     </main>
 
+    <!-- =====================================================
+         ANSICHT 9: GITARREN-GRIFFBRETT (#viewFretboard)
+         ===================================================== -->
+    <main id="viewFretboard" class="view-container fretboard-view hidden">
+
+      <!-- 3-Wege Modus-Umschalter: Akkorde | Akkord finden | Tonleitern -->
+      <div class="knowledge-tabs fb-mode-tabs" role="tablist" aria-label="Griffbrett-Bereiche" data-i18n-aria="fb.tabsAria">
+        <button id="fbTabChordsBtn" type="button" class="knowledge-tab-btn active" role="tab" aria-selected="true" data-fb-tab="chords" data-i18n="fb.tabChords">Akkorde</button>
+        <button id="fbTabReverseBtn" type="button" class="knowledge-tab-btn" role="tab" aria-selected="false" data-fb-tab="reverse" data-i18n="fb.tabReverse">Akkord finden</button>
+        <button id="fbTabScalesBtn" type="button" class="knowledge-tab-btn" role="tab" aria-selected="false" data-fb-tab="scales" data-i18n="fb.tabScales">Tonleitern</button>
+      </div>
+
+      <!-- 1. Live-Ergebnis & Aktions-Bühne -->
+      <section class="module-card fb-stage-card">
+        <div class="fb-stage-top">
+          <div class="fb-stage-copy">
+            <div class="fb-badge-row">
+              <span id="fbTypeBadge" class="k-card-tag tag-sage">Akkord</span>
+              <span id="fbModifiedBadge" class="k-card-tag tag-peach hidden" data-i18n="fb.modifiedBadge">Bearbeitet</span>
+            </div>
+            <h2 id="fbMainTitle" class="fb-main-title">C</h2>
+            <p id="fbSubInfo" class="fb-sub-info">Dur-Dreiklang (1–3–5) • Grundstellung</p>
+          </div>
+          <div id="fbStaffBox" class="freeplay-staff-box fb-staff-box" aria-hidden="true"></div>
+        </div>
+
+        <div id="fbNotesRow" class="freeplay-notes-row fb-notes-row"></div>
+        <div id="fbAltRow" class="fb-alt-row hidden"></div>
+
+        <div class="fb-stage-actions">
+          <button id="fbPrimaryPlayBtn" type="button" class="btn-tool fb-play-primary">
+            <span id="fbPrimaryPlayLabel" data-i18n="fb.strumBtn">▶ Anschlagen</span>
+          </button>
+          <button id="fbSecondaryPlayBtn" type="button" class="btn-tool fb-play-secondary">
+            <span id="fbSecondaryPlayLabel" data-i18n="fb.pluckBtn">↗ Zupfen</span>
+          </button>
+          <button id="fbResetOrClearBtn" type="button" class="btn-tool fb-play-secondary hidden">
+            <span id="fbResetOrClearLabel">↺</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- 2. Interaktives Gitarrengriffbrett (0–15. Bund) -->
+      <section class="module-card fb-neck-card">
+        <div class="fb-neck-toolbar">
+          <div class="fb-neck-left-controls">
+            <div id="fbVoicingNav" class="fb-voicing-nav">
+              <button id="fbPosPrevBtn" type="button" class="metro-mini-btn" aria-label="Vorherige Lage" data-i18n-aria="fb.prevPosAria">‹</button>
+              <span id="fbPosCounter" class="fb-pos-counter">Lage 1 / 5</span>
+              <button id="fbPosNextBtn" type="button" class="metro-mini-btn" aria-label="Nächste Lage" data-i18n-aria="fb.nextPosAria">›</button>
+            </div>
+            <div id="fbReverseQuickBar" class="fb-reverse-quick hidden">
+              <button id="fbOpenAllBtn" type="button" class="k-filter-pill" data-i18n="fb.openAllBtn">◯ Alle offen</button>
+              <button id="fbClearAllBtn" type="button" class="k-filter-pill" data-i18n="fb.clearAllBtn">✕ Leeren</button>
+              <button id="fbInspectPositionsBtn" type="button" class="k-filter-pill hidden" data-i18n="fb.showPositionsBtn">→ Alle Lagen</button>
+            </div>
+            <div id="fbScalePosBadge" class="fb-scale-pos-label hidden">Bünde 0–15</div>
+          </div>
+
+          <div class="fb-label-mode-group" role="group" aria-label="Beschriftung" data-i18n-aria="fb.labelModeAria">
+            <button type="button" class="k-filter-pill active" data-fb-label-mode="notes" data-i18n="fb.lblNotes">Noten</button>
+            <button type="button" class="k-filter-pill" data-fb-label-mode="intervals" data-i18n="fb.lblIntervals">Stufen</button>
+            <button type="button" class="k-filter-pill" data-fb-label-mode="fingers" id="fbThirdLabelModeBtn" data-i18n="fb.lblFingers">Finger</button>
+          </div>
+        </div>
+
+        <div id="fbNeckScroll" class="fb-neck-scroll">
+          <div id="fbNeckHost" class="fb-neck-host"></div>
+        </div>
+
+        <div class="fb-neck-footer">
+          <span id="fbNeckHint" class="fb-neck-hint">Tippe auf Bünde, Leersaiten (◯) oder ✕ zum Abwandeln.</span>
+          <span id="fbFretReadout" class="fb-fret-readout">x · 3 · 2 · 0 · 1 · 0</span>
+        </div>
+
+        <!-- Schnellwahl der gefundenen Lagen im Akkord-Modus -->
+        <div id="fbVoicingPills" class="fb-voicing-pills"></div>
+      </section>
+
+      <!-- 3a. Parameter-Karte für AKKORDE -->
+      <section id="fbChordParamsCard" class="module-card fb-params-card">
+        <div class="fb-param-block">
+          <div class="fb-param-head">
+            <span class="fb-param-label" data-i18n="fb.rootLabel">Grundton</span>
+            <div class="fb-inline-tuning-wrap">
+              <label class="fb-inline-select-label" for="fbTuningSelect" data-i18n="fb.tuningLabel">Stimmung</label>
+              <select id="fbTuningSelect" class="fb-mini-select" aria-label="Stimmung" data-i18n-aria="fb.tuningLabel"></select>
+            </div>
+          </div>
+          <div id="fbChordRootGrid" class="fb-root-grid"></div>
+        </div>
+
+        <div class="fb-param-block">
+          <span class="fb-param-label" data-i18n="fb.qualityLabel">Akkordtyp / Qualität</span>
+          <div id="fbChordQualityGrid" class="fb-quality-grid"></div>
+        </div>
+
+        <div class="fb-param-block fb-bass-row">
+          <label class="fb-param-label" for="fbBassSelect" data-i18n="fb.bassLabel">Basston (Umkehrung / Slash-Akkord)</label>
+          <select id="fbBassSelect" class="account-select fb-bass-select"></select>
+        </div>
+      </section>
+
+      <!-- 3b. Parameter-Karte für UMKEHRSUCHE (Stimmung + Legende) -->
+      <section id="fbReverseParamsCard" class="module-card fb-params-card hidden">
+        <div class="fb-param-head">
+          <div>
+            <h3 class="freeplay-section-title" data-i18n="fb.reverseCardTitle">Eigene Griffe entschlüsseln</h3>
+            <p class="freeplay-section-sub" data-i18n="fb.reverseCardSub">Tippe Bünde auf dem Griffbrett an – links am Sattel wechselst du zwischen Leersaite (◯) und gedämpft (✕).</p>
+          </div>
+        </div>
+        <div class="fb-param-block fb-bass-row">
+          <label class="fb-param-label" for="fbReverseTuningSelect" data-i18n="fb.tuningLabel">Stimmung</label>
+          <select id="fbReverseTuningSelect" class="account-select fb-bass-select"></select>
+        </div>
+        <div class="fb-legend-row">
+          <span class="fb-legend-item"><span class="fb-legend-dot is-root"></span><span data-i18n="fb.legendRoot">Grundton (1)</span></span>
+          <span class="fb-legend-item"><span class="fb-legend-dot is-tone"></span><span data-i18n="fb.legendTone">Akkordton</span></span>
+          <span class="fb-legend-item"><span class="fb-legend-dot is-open"></span><span data-i18n="fb.legendOpen">Leersaite (0)</span></span>
+        </div>
+      </section>
+
+      <!-- 3c. Parameter-Karte für TONLEITERN & LAGEN (Scales) -->
+      <section id="fbScaleParamsCard" class="module-card fb-params-card hidden">
+        <div class="fb-param-block">
+          <div class="fb-param-head">
+            <span class="fb-param-label" data-i18n="fb.scaleRootLabel">Grundton der Tonleiter</span>
+            <div class="fb-inline-tuning-wrap">
+              <label class="fb-inline-select-label" for="fbScaleTuningSelect" data-i18n="fb.tuningLabel">Stimmung</label>
+              <select id="fbScaleTuningSelect" class="fb-mini-select" aria-label="Stimmung" data-i18n-aria="fb.tuningLabel"></select>
+            </div>
+          </div>
+          <div id="fbScaleRootGrid" class="fb-root-grid"></div>
+        </div>
+
+        <div class="fb-param-block">
+          <span class="fb-param-label" data-i18n="fb.scaleTypeLabel">Tonleiter / Modus</span>
+          <div id="fbScaleTypeGrid" class="fb-scale-type-grid"></div>
+        </div>
+
+        <div class="fb-param-block">
+          <span class="fb-param-label" data-i18n="fb.scalePositionLabel">Griffbrett-Lage (CAGED-Boxen)</span>
+          <div id="fbScalePositionRow" class="fb-scale-pos-row"></div>
+        </div>
+
+        <div class="fb-legend-row">
+          <span class="fb-legend-item"><span class="fb-legend-dot is-root"></span><span data-i18n="fb.legendRoot">Grundton (1)</span></span>
+          <span class="fb-legend-item"><span class="fb-legend-dot is-char"></span><span data-i18n="fb.legendChar">Charakterton / Blue Note</span></span>
+          <span class="fb-legend-item"><span class="fb-legend-dot is-tone"></span><span data-i18n="fb.legendScaleTone">Leiterton</span></span>
+        </div>
+
+        <div class="freeplay-bridge-box">
+          <span class="freeplay-bridge-label" data-i18n="freeplay.bridgeLabel">Direkt weiterüben:</span>
+          <div class="freeplay-bridge-actions">
+            <button type="button" class="k-filter-pill freeplay-bridge-btn" data-fb-jump="modes" data-i18n="fb.jumpModes">Tonleitern &amp; Modi →</button>
+            <button type="button" class="k-filter-pill freeplay-bridge-btn" data-fb-jump="chords" data-i18n="freeplay.jumpChords">Akkorde →</button>
+            <button type="button" class="k-filter-pill freeplay-bridge-btn" data-fb-jump="interval" data-i18n="freeplay.jumpIntervals">Intervalle →</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
     </div><!-- /.views-stage -->
 
     <!-- =====================================================
@@ -2163,8 +2363,10 @@
 
       <button class="nav-tab" data-nav="tools" title="Werkzeuge" aria-label="Werkzeuge" data-i18n-title="nav.tools" data-i18n-aria="nav.tools">
         <span class="nav-icon-pill">
-          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 17.5V6.2l11-2.2v11.3"/>
+            <circle cx="6.2" cy="17.5" r="2.8"/>
+            <circle cx="17.2" cy="15.3" r="2.8"/>
           </svg>
         </span>
       </button>
