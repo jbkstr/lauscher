@@ -954,6 +954,7 @@ html, body {
 
 html[lang="de"] .btn-primary-action.home-continue-fab { width: 168px; }
 html[lang="en"] .btn-primary-action.home-continue-fab { width: 146px; }
+html[lang="es"] .btn-primary-action.home-continue-fab { width: 184px; }
 html[lang="fr"] .btn-primary-action.home-continue-fab { width: 154px; }
 html[lang="pl"] .btn-primary-action.home-continue-fab { width: 154px; }
 html[lang="uk"] .btn-primary-action.home-continue-fab { width: 178px; }

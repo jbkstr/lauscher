@@ -542,7 +542,7 @@ const LAUSCHEBAER_QUOTES_FR = [
   { cat: "Bienvenue", text: "« Au casque tout doucement ou au salon — cinq minutes d’écoute attentive font des merveilles. »" },
   { cat: "Bienvenue", text: "« Envie d’échauffer ta voix ? L’Échauffement vocal t’accompagne en cinq minutes du souffle doux jusqu’aux accords de chœur ! »" },
   { cat: "Bienvenue", text: "« Pas les mains libres pour toucher l’écran ? Active « Écoute seule » et laisse les exercices défiler calmement pour ton oreille ! »" },
-  { cat: "Bienvenue", text: "« Curieux de découvrir les termes musicaux ailleurs ? Dans les Paramètres, passe en direct entre français, allemand, anglais, polonais, ukrainien et ourdou ! »" },
+  { cat: "Bienvenue", text: "« Curieux de découvrir les termes musicaux ailleurs ? Dans les Paramètres, passe en direct entre français, allemand, anglais, espagnol, polonais, ukrainien et ourdou ! »" },
   { cat: "Bienvenue", text: "« Prêt pour un petit bilan ? Chaque catégorie d’exercices propose son propre examen — sans chrono stressant et avec record sauvegardé ! »" },
   { cat: "Encouragement", text: "« Fais confiance à ton ressenti ! Avant d’analyser, tu sens souvent si l’accord est rentré à la maison. »" },
   { cat: "Encouragement", text: "« Petite astuce : fredonne tout bas la fondamentale — ta propre voix est la meilleure boussole. »" },
