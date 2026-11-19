@@ -5304,6 +5304,10 @@ function handleAboutAction(action) {
     openAboutLegal("privacy");
     return;
   }
+  if (action === "share") {
+    shareLauscherApp();
+    return;
+  }
   // Noch nicht verknüpfte Einträge
   document.getElementById("aboutPlaceholderNotice")?.classList.remove("hidden");
 }
@@ -5365,11 +5369,8 @@ function openContactMail() {
 }
 
 function showContactFallback() {
-  const box = document.getElementById("aboutContactFallback");
-  if (!box) return;
-  const text = document.getElementById("aboutContactFallbackText");
-  if (text) {
-    text.textContent = tr(
+  showAboutCopyFallback({
+    message: tr(
       "Falls sich kein Mail-Programm geöffnet hat, schreib einfach an:",
       "If no mail app opened, just write to:",
       {
@@ -5379,46 +5380,145 @@ function showContactFallback() {
         uk: "Якщо поштовий застосунок не відкрився, просто напиши на:",
         ur: "اگر کوئی میل ایپ نہیں کھلی تو اس پتے پر لکھیں:"
       }
-    );
-  }
+    ),
+    value: LAUSCHER_CONTACT_EMAIL,
+    kind: "address"
+  });
+}
+
+// Hinweis-Box unter der Link-Liste: Text + kopierbarer Wert (Mail-Adresse oder Link)
+function showAboutCopyFallback({ message = "", value = "", kind = "address" } = {}) {
+  const box = document.getElementById("aboutContactFallback");
+  if (!box) return;
+  box.dataset.copyValue = value;
+  box.dataset.copyKind = kind;
+  const text = document.getElementById("aboutContactFallbackText");
+  if (text) text.textContent = message;
   const addr = document.getElementById("aboutContactAddress");
-  if (addr) addr.textContent = LAUSCHER_CONTACT_EMAIL;
+  if (addr) addr.textContent = value;
   const copyBtn = document.getElementById("aboutCopyContactBtn");
-  if (copyBtn) copyBtn.textContent = getCopyContactLabel(false);
+  if (copyBtn) copyBtn.textContent = getCopyContactLabel(false, kind);
+  document.getElementById("aboutShareTargets")?.classList.add("hidden");
   box.classList.remove("hidden");
 }
 
-function getCopyContactLabel(copied) {
-  return copied
-    ? tr("✓ Kopiert", "✓ Copied", { fr: "✓ Copié", es: "✓ Copiado", pl: "✓ Skopiowano", uk: "✓ Скопійовано", ur: "✓ کاپی ہو گیا" })
+function getCopyContactLabel(copied, kind = "address") {
+  if (copied) {
+    return tr("✓ Kopiert", "✓ Copied", { fr: "✓ Copié", es: "✓ Copiado", pl: "✓ Skopiowano", uk: "✓ Скопійовано", ur: "✓ کاپی ہو گیا" });
+  }
+  return kind === "link"
+    ? tr("Link kopieren", "Copy link", { fr: "Copier le lien", es: "Copiar enlace", pl: "Kopiuj link", uk: "Копіювати посилання", ur: "لنک کاپی کریں" })
     : tr("Adresse kopieren", "Copy address", { fr: "Copier l’adresse", es: "Copiar dirección", pl: "Kopiuj adres", uk: "Копіювати адресу", ur: "پتہ کاپی کریں" });
 }
 
-async function copyContactAddressToClipboard() {
-  const btn = document.getElementById("aboutCopyContactBtn");
+async function copyTextToClipboard(value, selectEl = null) {
   let ok = false;
   try {
     if (navigator.clipboard?.writeText) {
-      await navigator.clipboard.writeText(LAUSCHER_CONTACT_EMAIL);
+      await navigator.clipboard.writeText(value);
       ok = true;
     }
   } catch (_e) {}
-  if (!ok) {
+  if (!ok && selectEl) {
     // Rückfall: Text markieren, damit er per Systemmenü kopiert werden kann
-    const addr = document.getElementById("aboutContactAddress");
     const sel = window.getSelection?.();
-    if (addr && sel && document.createRange) {
+    if (sel && document.createRange) {
       const range = document.createRange();
-      range.selectNodeContents(addr);
+      range.selectNodeContents(selectEl);
       sel.removeAllRanges();
       sel.addRange(range);
       try { ok = document.execCommand?.("copy") || false; } catch (_e) {}
     }
   }
+  return ok;
+}
+
+async function copyContactAddressToClipboard() {
+  const box = document.getElementById("aboutContactFallback");
+  const btn = document.getElementById("aboutCopyContactBtn");
+  const value = box?.dataset.copyValue || LAUSCHER_CONTACT_EMAIL;
+  const kind = box?.dataset.copyKind || "address";
+  const ok = await copyTextToClipboard(value, document.getElementById("aboutContactAddress"));
   if (btn && ok) {
-    btn.textContent = getCopyContactLabel(true);
-    setTimeout(() => { btn.textContent = getCopyContactLabel(false); }, 1800);
+    btn.textContent = getCopyContactLabel(true, kind);
+    setTimeout(() => { btn.textContent = getCopyContactLabel(false, kind); }, 1800);
   }
+}
+
+// ---------- Über-Fenster: Lauscher teilen ----------
+// Solange Lauscher nicht in den App-Stores ist, zeigt der Link auf die GitHub-Releases (Android-APK).
+// Bewusst /releases statt /releases/latest: „latest“ ignoriert Vorabversionen (Beta) und wäre dann leer.
+const LAUSCHER_SHARE_URL = "https://github.com/jbkstr/lauscher/releases";
+
+function getShareLauscherText() {
+  return tr(
+    "Lauscher – ruhiges Gehörtraining ohne Werbung und Tracking. Hier gibt es die Android-App:",
+    "Lauscher – calm ear training without ads or tracking. Get the Android app here:",
+    {
+      fr: "Lauscher – un entraînement de l’oreille au calme, sans pub ni pistage. L’application Android est ici :",
+      es: "Lauscher: entrenamiento auditivo tranquilo, sin anuncios ni rastreo. Aquí tienes la app para Android:",
+      pl: "Lauscher – spokojny trening słuchu bez reklam i śledzenia. Aplikacja na Androida jest tutaj:",
+      uk: "Lauscher – спокійне тренування слуху без реклами й стеження. Застосунок для Android тут:",
+      ur: "Lauscher – اشتہارات اور ٹریکنگ کے بغیر پُرسکون سماعتی تربیت۔ اینڈرائیڈ ایپ یہاں ملے گی:"
+    }
+  );
+}
+
+// Direkte Ziele (E-Mail, WhatsApp, Telegram) für Geräte ohne eigenes Teilen-Fenster
+function renderAboutShareTargets(text, url) {
+  const wrap = document.getElementById("aboutShareTargets");
+  if (!wrap) return;
+  const message = `${text} ${url}`;
+  const mail = document.getElementById("aboutShareMail");
+  if (mail) {
+    mail.textContent = tr("E-Mail", "Email", { fr: "E-mail", es: "Correo", pl: "E-mail", uk: "Ел. пошта", ur: "ای میل" });
+    mail.href = `mailto:?subject=${encodeURIComponent("Lauscher")}&body=${encodeURIComponent(message)}`;
+    mail.removeAttribute("target");
+  }
+  const wa = document.getElementById("aboutShareWhatsApp");
+  if (wa) wa.href = `https://wa.me/?text=${encodeURIComponent(message)}`;
+  const tg = document.getElementById("aboutShareTelegram");
+  if (tg) tg.href = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`;
+  wrap.classList.remove("hidden");
+}
+
+async function shareLauscherApp() {
+  const title = "Lauscher";
+  const text = getShareLauscherText();
+  const sharePlugin = getCapacitorNativePlugin("Share");
+  try {
+    if (sharePlugin) {
+      await sharePlugin.share({ title, text, url: LAUSCHER_SHARE_URL, dialogTitle: tr("Lauscher teilen", "Share Lauscher", { fr: "Partager Lauscher", es: "Compartir Lauscher", pl: "Udostępnij Lauscher", uk: "Поділитися Lauscher", ur: "Lauscher شیئر کریں" }) });
+      return;
+    }
+    if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
+      await navigator.share({ title, text, url: LAUSCHER_SHARE_URL });
+      return;
+    }
+  } catch (err) {
+    if (isShareCancelError(err)) return; // Nutzer hat das Teilen-Menü geschlossen
+  }
+  // Kein Teilen-Menü (z. B. Desktop-Browser): Link kopieren und anzeigen
+  const copied = await copyTextToClipboard(LAUSCHER_SHARE_URL);
+  if (copied) {
+    showAppToast(`✓ ${tr("Link zu Lauscher kopiert", "Link to Lauscher copied", { fr: "Lien vers Lauscher copié", es: "Enlace a Lauscher copiado", pl: "Skopiowano link do Lauscher", uk: "Посилання на Lauscher скопійовано", ur: "Lauscher کا لنک کاپی ہو گیا" })}`, "success");
+  }
+  showAboutCopyFallback({
+    message: tr(
+      "Dein Gerät bietet hier kein Teilen-Fenster an. Schick den Link direkt weiter oder kopiere ihn:",
+      "Your device doesn’t offer a share window here. Send the link directly or copy it:",
+      {
+        fr: "Ton appareil ne propose pas de fenêtre de partage ici. Envoie le lien directement ou copie-le :",
+        es: "Tu dispositivo no ofrece aquí una ventana para compartir. Envía el enlace directamente o cópialo:",
+        pl: "Twoje urządzenie nie oferuje tu okna udostępniania. Wyślij link bezpośrednio albo go skopiuj:",
+        uk: "Твій пристрій тут не пропонує вікна «Поділитися». Надішли посилання напряму або скопіюй його:",
+        ur: "آپ کا آلہ یہاں شیئر کرنے کی ونڈو نہیں دیتا۔ لنک سیدھا بھیجیں یا کاپی کریں:"
+      }
+    ),
+    value: LAUSCHER_SHARE_URL,
+    kind: "link"
+  });
+  renderAboutShareTargets(text, LAUSCHER_SHARE_URL);
 }
 
 function openAboutModal() {

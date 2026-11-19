@@ -10722,6 +10722,19 @@ body.is-hum-pause #solfegeKeyboardWrap {
   flex: 0 0 auto;
 }
 
+.about-share-targets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.6rem;
+}
+
+.about-share-target {
+  flex: 1 1 auto;
+  justify-content: center;
+  text-decoration: none;
+}
+
 /* Rechtstexte im Über-Fenster: ersetzt Kopf & Link-Liste, solange geöffnet */
 .about-modal-body.is-legal-open > :not(.about-legal-pane) {
   display: none !important;
