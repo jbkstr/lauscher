@@ -447,7 +447,7 @@ const I18N_STATIC_UR = {
   "settings.themeMetal": "میٹل",
   "settings.themeActive": "فعال",
   "settings.themeSelect": "منتخب کریں",
-  "settings.customizeThemesBtn": "🎨 اکاؤنٹ میں اپنا تھیم بنائیں ←",
+  "settings.customizeThemesBtn": "اکاؤنٹ میں اپنا تھیم بنائیں ←",
   "space.themesTitle": "تھیمز اور رنگ اسٹوڈیو",
   "space.themesSub": "کوئی موجودہ پیلیٹ چنیں یا R/G/B/A کلر پکر سے 3 تک اپنے ذاتی تھیمز بنائیں۔",
   "space.customSlotsLabel": "آپ کی 3 ذاتی تھیم جگہیں",

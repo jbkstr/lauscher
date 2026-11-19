@@ -447,7 +447,7 @@ const I18N_STATIC_PL = {
   "settings.themeMetal": "Metal",
   "settings.themeActive": "Aktywny",
   "settings.themeSelect": "Wybierz",
-  "settings.customizeThemesBtn": "🎨 Zaprojektuj własny motyw w Profilu →",
+  "settings.customizeThemesBtn": "Zaprojektuj własny motyw w Profilu →",
   "space.themesTitle": "Motywy i studio kolorów",
   "space.themesSub": "Wybierz gotową paletę albo stwórz do 3 własnych motywów w edytorze R/G/B/A.",
   "space.customSlotsLabel": "Twoje 3 własne miejsca na motywy",

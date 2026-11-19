@@ -447,7 +447,7 @@ const I18N_STATIC_FR = {
   "settings.themeMetal": "Métal",
   "settings.themeActive": "Actif",
   "settings.themeSelect": "Choisir",
-  "settings.customizeThemesBtn": "🎨 Créer un thème perso dans Mon compte →",
+  "settings.customizeThemesBtn": "Créer un thème perso dans Mon compte →",
   "space.themesTitle": "Thèmes & Studio Couleurs",
   "space.themesSub": "Choisissez une palette intégrée ou créez jusqu’à 3 thèmes personnels avec le sélecteur R/V/B/A.",
   "space.customSlotsLabel": "Vos 3 emplacements de thème perso",

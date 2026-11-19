@@ -824,7 +824,7 @@ const I18N_STATIC = {
   "settings.themeMetal": { de: "Metal", en: "Metal" },
   "settings.themeActive": { de: "Aktiv", en: "Active" },
   "settings.themeSelect": { de: "Auswählen", en: "Select" },
-  "settings.customizeThemesBtn": { de: "🎨 Eigenes Theme im Konto gestalten →", en: "🎨 Design Custom Theme in Account →" },
+  "settings.customizeThemesBtn": { de: "Eigenes Theme im Konto gestalten →", en: "Design Custom Theme in Account →" },
 
   "space.themesTitle": { de: "Themes & Farbdesigner", en: "Themes & Color Studio" },
   "space.themesSub": {
