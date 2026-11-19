@@ -419,10 +419,16 @@ html, body {
   font-family: "Andika", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   height: 100vh;
   height: 100dvh;
+  max-height: 100vh;
   max-height: 100dvh;
   overflow: hidden;
   user-select: none;
   -webkit-user-select: none;
+}
+
+input, textarea, select, [contenteditable="true"] {
+  user-select: text;
+  -webkit-user-select: text;
 }
 
 .app-shell {
@@ -16897,6 +16903,16 @@ class EarLabSampledInstrument {
   }
 }
 
+const IOS_SILENT_WAV_DATA_URI = "data:audio/wav;base64,UklGRsQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+
+function isIOSLikeDevice() {
+  if (typeof navigator === "undefined") return false;
+  const ua = String(navigator.userAgent || "");
+  const platform = String(navigator.platform || "");
+  const maxTouch = Number(navigator.maxTouchPoints || 0);
+  return /iPad|iPhone|iPod/i.test(ua) || (platform === "MacIntel" && maxTouch > 1);
+}
+
 /**
  * EarLab Audio Engine
  * Lineare Gain-Architektur für verzögerungsfreie Mixer- und Master-Steuerung.
@@ -16906,9 +16922,14 @@ class AudioEngine {
     this.isInitialized = false;
     this.graphBuilt = false;
     this.samplesLoaded = false;
+    this.wave1SamplesReady = false;
+    this.wave1SamplesPromise = null;
     this.contextConfigured = false;
     this.preparePromise = null;
     this.initPromise = null;
+    this._iosUnlockAudioEl = null;
+    this._iosHtmlAudioUnlocked = false;
+    this._silentBufferPlayed = false;
 
     this.masterLimiter = null;
     this.masterGain = null;
@@ -16987,176 +17008,301 @@ class AudioEngine {
     this.percTone = null;
   }
 
+  getRawAudioContext() {
+    if (typeof Tone === "undefined") return null;
+    try {
+      const ctx = typeof Tone.getContext === "function" ? Tone.getContext() : Tone.context;
+      return ctx?.rawContext || ctx?._context || Tone.context?.rawContext || Tone.context?._context || null;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  ensurePlaybackContext() {
+    if (typeof Tone === "undefined") return null;
+    if (!this.contextConfigured && typeof Tone.Context === "function" && typeof Tone.setContext === "function") {
+      try {
+        const oldCtx = typeof Tone.getContext === "function" ? Tone.getContext() : Tone.context;
+        const playbackCtx = new Tone.Context({ latencyHint: "playback", lookAhead: 0.08 });
+        Tone.setContext(playbackCtx);
+        if (oldCtx && oldCtx !== playbackCtx) oldCtx.dispose?.();
+        this.contextConfigured = true;
+      } catch (_) {}
+    }
+    const rawCtx = this.getRawAudioContext();
+    if (rawCtx && !rawCtx._earlabStateListenerAttached && typeof rawCtx.addEventListener === "function") {
+      rawCtx._earlabStateListenerAttached = true;
+      rawCtx.addEventListener("statechange", () => {
+        if (rawCtx.state === "interrupted" || rawCtx.state === "suspended") {
+          this._iosHtmlAudioUnlocked = false;
+          this._silentBufferPlayed = false;
+        }
+      });
+    }
+    return rawCtx;
+  }
+
+  isAudioUnlocked() {
+    const rawCtx = this.getRawAudioContext();
+    if (!rawCtx || rawCtx.state !== "running") return false;
+    if (isIOSLikeDevice() && !this._iosHtmlAudioUnlocked) return false;
+    return true;
+  }
+
+  markAudioSessionInterrupted() {
+    this._iosHtmlAudioUnlocked = false;
+    this._silentBufferPlayed = false;
+  }
+
+  /**
+   * Synchroner Audio-Unlock direkt innerhalb einer Nutzer-Geste (insbesondere iOS Safari & WKWebView):
+   * 1. Setzt iOS 17+ AudioSession auf "playback" (umgeht Hardware-Stummschalter).
+   * 2. Spielt einen winzigen stummen HTML5-<audio playsinline>-WAV-Clip (umgeht Stummschalter auf iOS < 17 & WKWebView).
+   * 3. Weckt den aktiven WebAudio-Kontext aus "suspended" UND iOS-"interrupted" auf + spielt 1-Sample-Silent-Buffer.
+   */
+  unlockAudioSessionSync() {
+    try {
+      if (typeof navigator !== "undefined" && navigator.audioSession) {
+        if (navigator.audioSession.type !== "playback") {
+          navigator.audioSession.type = "playback";
+        }
+      }
+    } catch (_) {}
+
+    const rawCtx = this.ensurePlaybackContext();
+
+    if (typeof document !== "undefined" && typeof Audio !== "undefined" && (!this._iosHtmlAudioUnlocked || rawCtx?.state !== "running")) {
+      try {
+        if (!this._iosUnlockAudioEl) {
+          const el = new Audio();
+          el.preload = "auto";
+          el.playsInline = true;
+          el.setAttribute?.("playsinline", "");
+          el.setAttribute?.("webkit-playsinline", "");
+          el.muted = false;
+          el.volume = 0.01;
+          el.src = IOS_SILENT_WAV_DATA_URI;
+          this._iosUnlockAudioEl = el;
+        }
+        const el = this._iosUnlockAudioEl;
+        if (el.paused || el.ended) {
+          try { el.currentTime = 0; } catch (_) {}
+          const playRes = el.play();
+          if (playRes && typeof playRes.then === "function") {
+            playRes.then(() => {
+              this._iosHtmlAudioUnlocked = true;
+            }).catch(() => {});
+          } else {
+            this._iosHtmlAudioUnlocked = true;
+          }
+        }
+      } catch (_) {}
+    }
+
+    if (rawCtx && (rawCtx.state === "suspended" || rawCtx.state === "interrupted") && typeof rawCtx.resume === "function") {
+      try {
+        Promise.resolve(rawCtx.resume()).catch(() => {});
+      } catch (_) {}
+    }
+
+    if (rawCtx && (!this._silentBufferPlayed || rawCtx.state !== "running")
+      && typeof rawCtx.createBuffer === "function" && typeof rawCtx.createBufferSource === "function") {
+      try {
+        const silentBuf = rawCtx.createBuffer(1, 1, 22050);
+        const src = rawCtx.createBufferSource();
+        src.buffer = silentBuf;
+        src.connect(rawCtx.destination);
+        src.start(0);
+        this._silentBufferPlayed = true;
+      } catch (_) {}
+    }
+
+    if (typeof Tone !== "undefined" && typeof Tone.start === "function") {
+      try {
+        Promise.resolve(Tone.start()).catch(() => {});
+      } catch (_) {}
+    }
+
+    return rawCtx;
+  }
+
+  buildAudioGraphSync(initialMaster = 0.67, initialMuted = false, initialMixer = null) {
+    if (this.graphBuilt) return true;
+
+    this.ensurePlaybackContext();
+
+    // Master-Limiter (-0.3 dBFS) & Master-Lautstärke
+    this.masterLimiter = new Tone.Limiter(-0.3).toDestination();
+    const startMaster = initialMuted ? 0 : initialMaster * 0.45;
+    this.masterGain = new Tone.Gain(startMaster).connect(this.masterLimiter);
+
+    // Hardware-beschleunigter Faltungshall (Tone.Reverb / ConvolverNode) auf echtem 100%-Wet-Aux-Bus
+    // Impulsantwort wird asynchron im Hintergrund erzeugt, damit OfflineAudioContext auf iOS nie blockiert.
+    this.reverbReturn = new Tone.Gain(0.22).connect(this.masterGain);
+    if (typeof Tone?.Reverb === "function") {
+      this.reverb = new Tone.Reverb({
+        decay: 1.55,
+        preDelay: 0.014,
+        wet: 1.0
+      }).connect(this.reverbReturn);
+      Promise.resolve(this.reverb.generate()).catch(() => {});
+    } else {
+      this.reverb = new Tone.Freeverb({
+        roomSize: 0.55,
+        dampening: 3400
+      }).connect(this.reverbReturn);
+      this.reverb.wet.value = 1.0;
+    }
+
+    const initPianoProf = PIANO_CHARACTER_PROFILES[this.pianoCharacter] || PIANO_CHARACTER_PROFILES.natural;
+    const initPianoMix = Number.isFinite(this.instrumentReverbMix?.piano)
+      ? Math.max(0, Math.min(1, this.instrumentReverbMix.piano))
+      : (Number.isFinite(this.pianoReverbMix) ? Math.max(0, Math.min(1, this.pianoReverbMix)) : initPianoProf.defaultReverb);
+    this.pianoReverbReturn = new Tone.Gain(1.0).connect(this.masterGain);
+    this.pianoReverbDamp = new Tone.Filter(initPianoProf.reverbDampHz, "lowpass");
+    this.pianoReverbSend = new Tone.Gain(initPianoMix * 1.15).connect(this.pianoReverbDamp);
+    this.stemReverbSends = { piano: this.pianoReverbSend };
+
+    // Sofortige Stereo-Erstreflexionen + synchrones Raum-Tank-Netzwerk (unabhängig von OfflineAudioContext)
+    if (typeof Tone?.Delay === "function" && typeof Tone?.Panner === "function") {
+      const earlyGainL = new Tone.Gain(0.32).connect(this.pianoReverbReturn);
+      const earlyPanL = new Tone.Panner(-0.55).connect(earlyGainL);
+      const earlyTapL = new Tone.Delay(0.017).connect(earlyPanL);
+      const earlyGainR = new Tone.Gain(0.32).connect(this.pianoReverbReturn);
+      const earlyPanR = new Tone.Panner(0.55).connect(earlyGainR);
+      const earlyTapR = new Tone.Delay(0.027).connect(earlyPanR);
+      this.pianoReverbDamp.connect(earlyTapL);
+      this.pianoReverbDamp.connect(earlyTapR);
+    }
+    if (typeof Tone?.Freeverb === "function") {
+      this.pianoFreeverb = new Tone.Freeverb({
+        roomSize: initPianoProf.roomSize,
+        dampening: initPianoProf.reverbDampHz
+      });
+      this.pianoFreeverb.wet.value = 1.0;
+      const freeverbOut = new Tone.Gain(0.68).connect(this.pianoReverbReturn);
+      this.pianoFreeverb.connect(freeverbOut);
+      this.pianoReverbDamp.connect(this.pianoFreeverb);
+    }
+    if (typeof Tone?.Reverb === "function") {
+      this.pianoReverbBoost = new Tone.Gain(2.8).connect(this.pianoReverbReturn);
+      this.pianoReverb = new Tone.Reverb({
+        decay: 2.35,
+        preDelay: 0.016,
+        wet: 1.0
+      }).connect(this.pianoReverbBoost);
+      this.pianoReverbDamp.connect(this.pianoReverb);
+      Promise.resolve(this.pianoReverb.generate()).catch(() => {});
+    }
+
+    const levels = initialMixer || {
+      piano: 0.90,
+      guitar: 0.00,
+      strings: 0.00,
+      brass: 0.00,
+      voice: 0.00,
+      bass: 0.00
+    };
+
+    const wireStemReverbSend = (stemKey, gainNode) => {
+      const stemMix = Number.isFinite(this.instrumentReverbMix?.[stemKey])
+        ? Math.max(0, Math.min(1, this.instrumentReverbMix[stemKey]))
+        : initPianoMix;
+      const sendNode = new Tone.Gain(stemMix * 1.15).connect(this.pianoReverbDamp);
+      this.stemReverbSends[stemKey] = sendNode;
+      gainNode.connect(sendNode);
+    };
+
+    // 1. Klavier (Synth als Fallback, wird bei geladenem DAW-Pack durch nativen EarLabSampledInstrument ersetzt)
+    this.pianoGain = new Tone.Gain(levels.piano * this.stemGainMultipliers.piano).connect(this.masterGain);
+    this.pianoGain.connect(this.pianoReverbSend);
+    this.pianoToneFilter = new Tone.Filter(initPianoProf.filterHz, "lowpass").connect(this.pianoGain);
+    this.pianoFallbackSynth = new Tone.PolySynth(Tone.Synth, {
+      oscillator: { type: "triangle8" },
+      envelope: { attack: 0.006, decay: 1.4, sustain: 0.30, release: 1.3 }
+    }).connect(this.pianoToneFilter);
+    this.piano = this.pianoFallbackSynth;
+
+    // 2. Gitarre
+    this.guitarGain = new Tone.Gain(levels.guitar * this.stemGainMultipliers.guitar).connect(this.masterGain);
+    wireStemReverbSend("guitar", this.guitarGain);
+    this.guitarFallbackSynth = new Tone.PolySynth(Tone.Synth, {
+      oscillator: { type: "triangle" },
+      envelope: { attack: 0.015, decay: 0.95, sustain: 0.22, release: 1.0 }
+    }).connect(this.guitarGain);
+    this.guitar = this.guitarFallbackSynth;
+
+    // 3. Streicher
+    this.stringsGain = new Tone.Gain(levels.strings * this.stemGainMultipliers.strings).connect(this.masterGain);
+    wireStemReverbSend("strings", this.stringsGain);
+    this.stringsFallbackSynth = new Tone.PolySynth(Tone.AMSynth, {
+      harmonicity: 1.25,
+      envelope: { attack: 0.30, decay: 0.45, sustain: 0.85, release: 1.5 }
+    }).connect(this.stringsGain);
+    this.strings = this.stringsFallbackSynth;
+
+    // 4. Bläser
+    this.brassGain = new Tone.Gain(levels.brass * this.stemGainMultipliers.brass).connect(this.masterGain);
+    wireStemReverbSend("brass", this.brassGain);
+    this.brassFallbackSynth = new Tone.PolySynth(Tone.Synth, {
+      oscillator: { type: "sawtooth" },
+      envelope: { attack: 0.07, decay: 0.35, sustain: 0.65, release: 0.8 }
+    }).connect(this.brassGain);
+    this.brass = this.brassFallbackSynth;
+
+    // 5. Stimme (Chor; mit regelbarem Raumklang-Send)
+    this.voiceGain = new Tone.Gain((levels.voice || 0) * this.stemGainMultipliers.voice).connect(this.masterGain);
+    wireStemReverbSend("voice", this.voiceGain);
+    this.voiceFallbackSynth = new Tone.PolySynth(Tone.Synth, {
+      oscillator: { type: "triangle8" },
+      envelope: { attack: 0.14, decay: 0.25, sustain: 0.82, release: 0.65 }
+    }).connect(this.voiceGain);
+    this.voice = this.voiceFallbackSynth;
+
+    // 6. Bass (mit eigenem Send; Standardwert niedrig für definiertes Fundament)
+    this.bassGain = new Tone.Gain(levels.bass * this.stemGainMultipliers.bass).connect(this.masterGain);
+    wireStemReverbSend("bass", this.bassGain);
+    const bassFallbackFilter = new Tone.Filter(380, "lowpass").connect(this.bassGain);
+    this.bassFallbackSynth = new Tone.MonoSynth({
+      oscillator: { type: "triangle" },
+      envelope: { attack: 0.01, decay: 0.6, sustain: 0.45, release: 0.6 }
+    }).connect(bassFallbackFilter);
+    this.bass = this.bassFallbackSynth;
+
+    this.graphBuilt = true;
+    this.isInitialized = true;
+    return true;
+  }
+
   async prepareAudioGraph(initialMaster = 0.67, initialMuted = false, initialMixer = null) {
     if (this.preparePromise) return this.preparePromise;
 
+    const levels = initialMixer || {
+      piano: 0.90,
+      guitar: 0.00,
+      strings: 0.00,
+      brass: 0.00,
+      voice: 0.00,
+      bass: 0.00
+    };
+
+    try {
+      this.buildAudioGraphSync(initialMaster, initialMuted, levels);
+    } catch (err) {
+      this.graphBuilt = false;
+      this.isInitialized = false;
+      throw err;
+    }
+
     this.preparePromise = (async () => {
       try {
-        // Stabilen Audio-Render-Puffer ("playback") vor Node-Erstellung setzen, um Knackser/CPU-Underruns zu vermeiden
-        if (!this.contextConfigured && typeof Tone?.Context === "function" && typeof Tone?.setContext === "function") {
-          try {
-            const oldCtx = typeof Tone.getContext === "function" ? Tone.getContext() : Tone.context;
-            const playbackCtx = new Tone.Context({ latencyHint: "playback", lookAhead: 0.08 });
-            Tone.setContext(playbackCtx);
-            if (oldCtx && oldCtx !== playbackCtx) oldCtx.dispose?.();
-            this.contextConfigured = true;
-          } catch (_) {}
-        }
-
-        // Master-Limiter (-0.3 dBFS) & Master-Lautstärke
-        this.masterLimiter = new Tone.Limiter(-0.3).toDestination();
-        const startMaster = initialMuted ? 0 : initialMaster * 0.45;
-        this.masterGain = new Tone.Gain(startMaster).connect(this.masterLimiter);
-
-        // Hardware-beschleunigter Faltungshall (Tone.Reverb / ConvolverNode) auf echtem 100%-Wet-Aux-Bus
-        this.reverbReturn = new Tone.Gain(0.22).connect(this.masterGain);
-        let reverbGenPromise = Promise.resolve();
-        if (typeof Tone?.Reverb === "function") {
-          this.reverb = new Tone.Reverb({
-            decay: 1.55,
-            preDelay: 0.014,
-            wet: 1.0
-          }).connect(this.reverbReturn);
-          reverbGenPromise = this.reverb.generate();
-        } else {
-          this.reverb = new Tone.Freeverb({
-            roomSize: 0.55,
-            dampening: 3400
-          }).connect(this.reverbReturn);
-          this.reverb.wet.value = 1.0;
-        }
-
-        const initPianoProf = PIANO_CHARACTER_PROFILES[this.pianoCharacter] || PIANO_CHARACTER_PROFILES.natural;
-        const initPianoMix = Number.isFinite(this.instrumentReverbMix?.piano)
-          ? Math.max(0, Math.min(1, this.instrumentReverbMix.piano))
-          : (Number.isFinite(this.pianoReverbMix) ? Math.max(0, Math.min(1, this.pianoReverbMix)) : initPianoProf.defaultReverb);
-        this.pianoReverbReturn = new Tone.Gain(1.0).connect(this.masterGain);
-        this.pianoReverbDamp = new Tone.Filter(initPianoProf.reverbDampHz, "lowpass");
-        this.pianoReverbSend = new Tone.Gain(initPianoMix * 1.15).connect(this.pianoReverbDamp);
-        this.stemReverbSends = { piano: this.pianoReverbSend };
-
-        // Sofortige Stereo-Erstreflexionen + synchrones Raum-Tank-Netzwerk (unabhängig von OfflineAudioContext)
-        if (typeof Tone?.Delay === "function" && typeof Tone?.Panner === "function") {
-          const earlyGainL = new Tone.Gain(0.32).connect(this.pianoReverbReturn);
-          const earlyPanL = new Tone.Panner(-0.55).connect(earlyGainL);
-          const earlyTapL = new Tone.Delay(0.017).connect(earlyPanL);
-          const earlyGainR = new Tone.Gain(0.32).connect(this.pianoReverbReturn);
-          const earlyPanR = new Tone.Panner(0.55).connect(earlyGainR);
-          const earlyTapR = new Tone.Delay(0.027).connect(earlyPanR);
-          this.pianoReverbDamp.connect(earlyTapL);
-          this.pianoReverbDamp.connect(earlyTapR);
-        }
-        if (typeof Tone?.Freeverb === "function") {
-          this.pianoFreeverb = new Tone.Freeverb({
-            roomSize: initPianoProf.roomSize,
-            dampening: initPianoProf.reverbDampHz
-          });
-          this.pianoFreeverb.wet.value = 1.0;
-          const freeverbOut = new Tone.Gain(0.68).connect(this.pianoReverbReturn);
-          this.pianoFreeverb.connect(freeverbOut);
-          this.pianoReverbDamp.connect(this.pianoFreeverb);
-        }
-        let pianoReverbGenPromise = Promise.resolve();
-        if (typeof Tone?.Reverb === "function") {
-          this.pianoReverbBoost = new Tone.Gain(2.8).connect(this.pianoReverbReturn);
-          this.pianoReverb = new Tone.Reverb({
-            decay: 2.35,
-            preDelay: 0.016,
-            wet: 1.0
-          }).connect(this.pianoReverbBoost);
-          this.pianoReverbDamp.connect(this.pianoReverb);
-          pianoReverbGenPromise = this.pianoReverb.generate();
-        }
-
-        const levels = initialMixer || {
-          piano: 0.90,
-          guitar: 0.00,
-          strings: 0.00,
-          brass: 0.00,
-          voice: 0.00,
-          bass: 0.00
-        };
-
-        const wireStemReverbSend = (stemKey, gainNode) => {
-          const stemMix = Number.isFinite(this.instrumentReverbMix?.[stemKey])
-            ? Math.max(0, Math.min(1, this.instrumentReverbMix[stemKey]))
-            : initPianoMix;
-          const sendNode = new Tone.Gain(stemMix * 1.15).connect(this.pianoReverbDamp);
-          this.stemReverbSends[stemKey] = sendNode;
-          gainNode.connect(sendNode);
-        };
-
-        // 1. Klavier (Synth als Fallback, wird bei geladenem DAW-Pack durch nativen EarLabSampledInstrument ersetzt)
-        this.pianoGain = new Tone.Gain(levels.piano * this.stemGainMultipliers.piano).connect(this.masterGain);
-        this.pianoGain.connect(this.pianoReverbSend);
-        this.pianoToneFilter = new Tone.Filter(initPianoProf.filterHz, "lowpass").connect(this.pianoGain);
-        this.pianoFallbackSynth = new Tone.PolySynth(Tone.Synth, {
-          oscillator: { type: "triangle8" },
-          envelope: { attack: 0.006, decay: 1.4, sustain: 0.30, release: 1.3 }
-        }).connect(this.pianoToneFilter);
-        this.piano = this.pianoFallbackSynth;
-
-        // 2. Gitarre
-        this.guitarGain = new Tone.Gain(levels.guitar * this.stemGainMultipliers.guitar).connect(this.masterGain);
-        wireStemReverbSend("guitar", this.guitarGain);
-        this.guitarFallbackSynth = new Tone.PolySynth(Tone.Synth, {
-          oscillator: { type: "triangle" },
-          envelope: { attack: 0.015, decay: 0.95, sustain: 0.22, release: 1.0 }
-        }).connect(this.guitarGain);
-        this.guitar = this.guitarFallbackSynth;
-
-        // 3. Streicher
-        this.stringsGain = new Tone.Gain(levels.strings * this.stemGainMultipliers.strings).connect(this.masterGain);
-        wireStemReverbSend("strings", this.stringsGain);
-        this.stringsFallbackSynth = new Tone.PolySynth(Tone.AMSynth, {
-          harmonicity: 1.25,
-          envelope: { attack: 0.30, decay: 0.45, sustain: 0.85, release: 1.5 }
-        }).connect(this.stringsGain);
-        this.strings = this.stringsFallbackSynth;
-
-        // 4. Bläser
-        this.brassGain = new Tone.Gain(levels.brass * this.stemGainMultipliers.brass).connect(this.masterGain);
-        wireStemReverbSend("brass", this.brassGain);
-        this.brassFallbackSynth = new Tone.PolySynth(Tone.Synth, {
-          oscillator: { type: "sawtooth" },
-          envelope: { attack: 0.07, decay: 0.35, sustain: 0.65, release: 0.8 }
-        }).connect(this.brassGain);
-        this.brass = this.brassFallbackSynth;
-
-        // 5. Stimme (Chor; mit regelbarem Raumklang-Send)
-        this.voiceGain = new Tone.Gain((levels.voice || 0) * this.stemGainMultipliers.voice).connect(this.masterGain);
-        wireStemReverbSend("voice", this.voiceGain);
-        this.voiceFallbackSynth = new Tone.PolySynth(Tone.Synth, {
-          oscillator: { type: "triangle8" },
-          envelope: { attack: 0.14, decay: 0.25, sustain: 0.82, release: 0.65 }
-        }).connect(this.voiceGain);
-        this.voice = this.voiceFallbackSynth;
-
-        // 6. Bass (mit eigenem Send; Standardwert niedrig für definiertes Fundament)
-        this.bassGain = new Tone.Gain(levels.bass * this.stemGainMultipliers.bass).connect(this.masterGain);
-        wireStemReverbSend("bass", this.bassGain);
-        const bassFallbackFilter = new Tone.Filter(380, "lowpass").connect(this.bassGain);
-        this.bassFallbackSynth = new Tone.MonoSynth({
-          oscillator: { type: "triangle" },
-          envelope: { attack: 0.01, decay: 0.6, sustain: 0.45, release: 0.6 }
-        }).connect(bassFallbackFilter);
-        this.bass = this.bassFallbackSynth;
-
-        this.graphBuilt = true;
-
-        await Promise.all([
-          reverbGenPromise,
-          pianoReverbGenPromise,
-          this.loadSampledPacks(levels)
-        ]);
-
+        await this.loadSampledPacks(levels);
         this.setPianoSoundProfile(this.pianoCharacter, this.instrumentReverbMix);
         this.samplesLoaded = true;
         return true;
       } catch (err) {
-        this.preparePromise = null;
-        this.graphBuilt = false;
-        throw err;
+        console.warn("Audio-Vorbereitung mit Synth-Fallback abgeschlossen:", err);
+        return true;
       }
     })();
 
@@ -17164,56 +17310,58 @@ class AudioEngine {
   }
 
   /**
-   * Startet Audiopuffer- und Impuls-Vorladen direkt beim App-Start ohne auf den ersten Klick zu warten.
+   * Startet Audiopuffer-Vorladen direkt beim App-Start ohne auf den ersten Klick zu warten.
    */
   preload(initialMaster = 0.67, initialMuted = false, initialMixer = null) {
     return this.prepareAudioGraph(initialMaster, initialMuted, initialMixer).catch(() => false);
   }
 
   async init(initialMaster = 0.67, initialMuted = false, initialMixer = null) {
-    // User-Geste synchron vor jeglichem await erfassen (essentiell für iOS Safari AudioContext.resume)
-    const rawCtx = typeof Tone?.getContext === "function" ? Tone.getContext()?.rawContext : Tone?.context?.rawContext;
-    if (rawCtx && typeof rawCtx.resume === "function") {
-      try { Promise.resolve(rawCtx.resume()).catch(() => {}); } catch (_) {}
-    }
-    const startPromise = typeof Tone?.start === "function" ? Tone.start() : Promise.resolve();
+    // 1. User-Geste & iOS-AudioSession synchron vor jedem await erfassen (inkl. Stummschalter-Bypass)
+    const rawCtx = this.unlockAudioSessionSync();
 
-    if (this.isInitialized && this.preparePromise) {
-      await Promise.all([startPromise, this.preparePromise]);
-      this.setMasterVolume(initialMaster, initialMuted);
-      if (initialMixer) this.setMixerGains(initialMixer);
-      return true;
+    // 2. Audio-Graph synchron aufbauen -> Fallback-Synths sind sofort spielbereit (nie dauerhaft blockiert!)
+    try {
+      this.buildAudioGraphSync(initialMaster, initialMuted, initialMixer);
+    } catch (err) {
+      console.warn("Audio-Graph konnte nicht aufgebaut werden:", err);
+      return false;
     }
 
-    if (this.initPromise) return this.initPromise;
+    // 3. Sample-Packs im Hintergrund starten (idempotent)
+    if (!this.preparePromise) {
+      this.prepareAudioGraph(initialMaster, initialMuted, initialMixer).catch(() => {});
+    }
 
-    this.initPromise = (async () => {
-      try {
-        await Promise.all([
-          startPromise,
-          this.prepareAudioGraph(initialMaster, initialMuted, initialMixer)
-        ]);
-
-        const postCtx = typeof Tone?.getContext === "function" ? Tone.getContext()?.rawContext : Tone?.context?.rawContext;
-        if (postCtx && postCtx.state === "suspended" && typeof Tone?.start === "function") {
-          try { await Tone.start(); } catch (_) {}
-        }
-        if (this.pianoReverb && this.pianoReverb.ready === false && typeof this.pianoReverb.generate === "function") {
-          try { await this.pianoReverb.generate(); } catch (_) {}
-        }
-
-        this.setMasterVolume(initialMaster, initialMuted);
-        if (initialMixer) this.setMixerGains(initialMixer);
-
-        this.isInitialized = true;
-        return true;
-      } catch (err) {
-        this.initPromise = null;
-        throw err;
+    // 4. Context-Resume mit kurzem Timeout abwarten (hängt niemals endlos, selbst außerhalb einer iOS-Geste!)
+    if (rawCtx && rawCtx.state !== "running") {
+      const resumeAttempts = [];
+      if (typeof rawCtx.resume === "function") {
+        resumeAttempts.push(Promise.resolve(rawCtx.resume()).catch(() => {}));
       }
-    })();
+      if (typeof Tone?.start === "function") {
+        resumeAttempts.push(Promise.resolve(Tone.start()).catch(() => {}));
+      }
+      if (resumeAttempts.length > 0) {
+        await Promise.race([
+          Promise.all(resumeAttempts),
+          new Promise(resolve => setTimeout(resolve, 260))
+        ]);
+      }
+    }
 
-    return this.initPromise;
+    // 5. Welle 1 (Klavier, Stimme, Perkussion) kurz abwarten, aber mit Sicherheits-Timeout für langsames/gestocktes iOS
+    if (!this.wave1SamplesReady && this.wave1SamplesPromise) {
+      await Promise.race([
+        this.wave1SamplesPromise.catch(() => {}),
+        new Promise(resolve => setTimeout(resolve, 1500))
+      ]);
+    }
+
+    this.setMasterVolume(initialMaster, initialMuted);
+    if (initialMixer) this.setMixerGains(initialMixer);
+    this.isInitialized = true;
+    return true;
   }
 
   base64ToArrayBuffer(b64) {
@@ -17225,17 +17373,33 @@ class AudioEngine {
     return bytes.buffer;
   }
 
-  decodeAudioBufferCompat(arrayBuffer) {
-    const rawCtx = typeof Tone !== "undefined" && typeof Tone.getContext === "function"
-      ? Tone.getContext()?.rawContext
-      : Tone?.context?.rawContext;
+  decodeAudioBufferCompat(arrayBuffer, timeoutMs = 4500) {
+    const rawCtx = this.getRawAudioContext();
     if (!rawCtx || typeof rawCtx.decodeAudioData !== "function") {
       return Promise.reject(new Error("WebAudio decodeAudioData unavailable"));
     }
     return new Promise((resolve, reject) => {
       let settled = false;
-      const onOk = (buf) => { if (!settled) { settled = true; resolve(buf); } };
-      const onErr = (err) => { if (!settled) { settled = true; reject(err); } };
+      const timerId = setTimeout(() => {
+        if (!settled) {
+          settled = true;
+          reject(new Error("WebAudio decodeAudioData timeout"));
+        }
+      }, timeoutMs);
+      const onOk = (buf) => {
+        if (!settled) {
+          settled = true;
+          clearTimeout(timerId);
+          resolve(buf);
+        }
+      };
+      const onErr = (err) => {
+        if (!settled) {
+          settled = true;
+          clearTimeout(timerId);
+          reject(err);
+        }
+      };
       try {
         const maybePromise = rawCtx.decodeAudioData(arrayBuffer, onOk, onErr);
         if (maybePromise && typeof maybePromise.then === "function") {
@@ -17300,22 +17464,35 @@ class AudioEngine {
   }
 
   async decodeSamplePackBuffers(pack, normalizeNoteKeys = true) {
-    const rawCtx = typeof Tone !== "undefined" && typeof Tone.getContext === "function"
-      ? Tone.getContext()?.rawContext
-      : Tone?.context?.rawContext;
+    const rawCtx = this.getRawAudioContext();
     if (!pack || !pack.notes || !rawCtx || typeof rawCtx.createBufferSource !== "function") return null;
 
     const entries = Object.entries(pack.notes);
     if (entries.length === 0) return null;
 
+    // Begrenzte Parallelität schützt den Hardware-AAC-Decoder-Pool auf iOS Safari/WKWebView vor Überlastung
+    const concurrency = isIOSLikeDevice() ? 2 : 4;
     const bufferMap = {};
-    await Promise.all(entries.map(async ([key, b64]) => {
-      const arrBuf = this.base64ToArrayBuffer(b64);
-      const decoded = await this.decodeAudioBufferCompat(arrBuf);
-      const trimmed = this.trimLeadingEncoderSilence(decoded);
-      const outKey = normalizeNoteKeys ? this.normalizeSamplerNoteKey(key) : key;
-      bufferMap[outKey] = trimmed;
-    }));
+    let cursor = 0;
+
+    const worker = async () => {
+      while (cursor < entries.length) {
+        const idx = cursor++;
+        const [key, b64] = entries[idx];
+        const arrBuf = this.base64ToArrayBuffer(b64);
+        const decoded = await this.decodeAudioBufferCompat(arrBuf);
+        const trimmed = this.trimLeadingEncoderSilence(decoded);
+        const outKey = normalizeNoteKeys ? this.normalizeSamplerNoteKey(key) : key;
+        bufferMap[outKey] = trimmed;
+      }
+    };
+
+    const workers = [];
+    const workerCount = Math.min(concurrency, entries.length);
+    for (let i = 0; i < workerCount; i++) {
+      workers.push(worker());
+    }
+    await Promise.all(workers);
 
     return { bufferMap, rawCtx };
   }
@@ -17411,7 +17588,10 @@ class AudioEngine {
       : (initialLevels || {});
     try {
       const packs = typeof window !== "undefined" ? window.EARLAB_SAMPLE_PACKS : null;
-      if (!packs) return;
+      if (!packs) {
+        this.wave1SamplesReady = true;
+        return;
+      }
 
       const allEntries = Object.entries(SAMPLED_STEM_CONFIG);
       const prioritySet = new Set(["piano", "voice"]);
@@ -17419,40 +17599,66 @@ class AudioEngine {
         if ((levelMap[stemKey] || 0) > 0) prioritySet.add(stemKey);
       });
 
-      const wave1Tasks = allEntries
-        .filter(([stemKey]) => prioritySet.has(stemKey))
-        .map(([stemKey, cfg]) => this.loadSingleSampledStem(stemKey, cfg, packs, levelMap));
-
-      if (packs.percussion) {
-        wave1Tasks.push((async () => {
-          try {
-            const decodedPerc = await this.decodeSamplePackBuffers(packs.percussion, false);
-            if (decodedPerc && Object.keys(decodedPerc.bufferMap).length > 0) {
-              this.percSampleRawCtx = decodedPerc.rawCtx;
-              this.percSampleGain = new Tone.Gain(1.0).connect(this.masterGain);
-              this.percSamples = decodedPerc.bufferMap;
-              this.percUsingSamples = true;
-            }
-          } catch (percErr) {
-            console.warn("Percussion-Sample-Pack konnte nicht decodiert werden, nutze Synth-Fallback:", percErr);
-            this.percSamples = {};
-            this.percUsingSamples = false;
+      const loadPercussionPack = async () => {
+        if (!packs.percussion) return;
+        try {
+          const decodedPerc = await this.decodeSamplePackBuffers(packs.percussion, false);
+          if (decodedPerc && Object.keys(decodedPerc.bufferMap).length > 0) {
+            this.percSampleRawCtx = decodedPerc.rawCtx;
+            this.percSampleGain = new Tone.Gain(1.0).connect(this.masterGain);
+            this.percSamples = decodedPerc.bufferMap;
+            this.percUsingSamples = true;
           }
-        })());
-      }
+        } catch (percErr) {
+          console.warn("Percussion-Sample-Pack konnte nicht decodiert werden, nutze Synth-Fallback:", percErr);
+          this.percSamples = {};
+          this.percUsingSamples = false;
+        }
+      };
 
-      // Welle 1 (Klavier, Stimme, aktive Mixer-Stems & Perkussion) priorisiert zuerst laden
-      await Promise.all(wave1Tasks);
+      const priorityEntries = allEntries.filter(([stemKey]) => prioritySet.has(stemKey));
+      const wave2Entries = allEntries.filter(([stemKey]) => !prioritySet.has(stemKey));
 
-      // Welle 2 (übrige Orchester-/Band-Stems) direkt im Anschluss fertig decodieren
-      const wave2Tasks = allEntries
-        .filter(([stemKey]) => !prioritySet.has(stemKey))
-        .map(([stemKey, cfg]) => this.loadSingleSampledStem(stemKey, cfg, packs, levelMap));
+      // Welle 1 (Klavier, Perkussion, Stimme & aktive Mixer-Stems) priorisiert laden;
+      // auf iOS seriell pro Instrument, damit der Hardware-AAC-Decoder nie überlastet wird.
+      const runWave1 = async () => {
+        if (isIOSLikeDevice()) {
+          const pianoEntry = priorityEntries.find(([k]) => k === "piano");
+          if (pianoEntry) await this.loadSingleSampledStem(pianoEntry[0], pianoEntry[1], packs, levelMap);
+          await loadPercussionPack();
+          for (const [stemKey, cfg] of priorityEntries) {
+            if (stemKey === "piano") continue;
+            await this.loadSingleSampledStem(stemKey, cfg, packs, levelMap);
+          }
+        } else {
+          const wave1Tasks = priorityEntries.map(([stemKey, cfg]) =>
+            this.loadSingleSampledStem(stemKey, cfg, packs, levelMap)
+          );
+          if (packs.percussion) wave1Tasks.push(loadPercussionPack());
+          await Promise.all(wave1Tasks);
+        }
+        this.wave1SamplesReady = true;
+      };
 
-      if (wave2Tasks.length > 0) {
-        await Promise.all(wave2Tasks);
+      this.wave1SamplesPromise = runWave1().catch(() => {
+        this.wave1SamplesReady = true;
+      });
+      await this.wave1SamplesPromise;
+
+      // Welle 2 (übrige Orchester-/Band-Stems) ruhig im Hintergrund fertig decodieren
+      if (wave2Entries.length > 0) {
+        if (isIOSLikeDevice()) {
+          for (const [stemKey, cfg] of wave2Entries) {
+            await this.loadSingleSampledStem(stemKey, cfg, packs, levelMap);
+          }
+        } else {
+          await Promise.all(
+            wave2Entries.map(([stemKey, cfg]) => this.loadSingleSampledStem(stemKey, cfg, packs, levelMap))
+          );
+        }
       }
     } catch (err) {
+      this.wave1SamplesReady = true;
       console.warn("Sample-Packs konnten nicht geladen werden, nutze Synth-Fallback:", err);
     }
   }
@@ -18191,6 +18397,10 @@ class AudioEngine {
    */
   playStep(notes, durationSec = 1.2, bassNote = null, _mode = "cadence", timingOpts = null) {
     if (!this.isInitialized) return;
+    const rawCtx = this.getRawAudioContext();
+    if (rawCtx && (rawCtx.state === "suspended" || rawCtx.state === "interrupted") && typeof rawCtx.resume === "function") {
+      try { Promise.resolve(rawCtx.resume()).catch(() => {}); } catch (_) {}
+    }
     const now = Tone.now();
     const rawCtxNow = this.piano?.rawCtx?.currentTime ?? Tone.context?.rawContext?.currentTime ?? now;
     const requestedAt = Number.isFinite(timingOpts?.atTime) ? timingOpts.atTime : now;
@@ -18318,6 +18528,10 @@ class AudioEngine {
 
   triggerPercussion(kind, scheduledTime = null, velocity = 1) {
     if (!this.isInitialized) return;
+    const rawCtx = this.getRawAudioContext();
+    if (rawCtx && (rawCtx.state === "suspended" || rawCtx.state === "interrupted") && typeof rawCtx.resume === "function") {
+      try { Promise.resolve(rawCtx.resume()).catch(() => {}); } catch (_) {}
+    }
     this.ensurePercussionSynths();
     const now = Tone.now();
     const when = scheduledTime !== null && scheduledTime !== undefined
@@ -66636,12 +66850,12 @@ function applyThemeAndAppearance() {
   }
 
   if (typeof document !== "undefined" && typeof document.querySelectorAll === "function") {
-    document.querySelectorAll("[data-appearance], [data-welcome-appearance]").forEach(btn => {
+    document.querySelectorAll("button[data-appearance], button[data-welcome-appearance]").forEach(btn => {
       const btnVal = btn.dataset?.appearance
         || btn.dataset?.welcomeAppearance
         || btn.getAttribute?.("data-appearance")
         || btn.getAttribute?.("data-welcome-appearance");
-      const isSelected = btnVal === appearance || (appearance === "system" && btnVal === effective);
+      const isSelected = btnVal === appearance;
       btn.classList?.toggle("active", isSelected);
       btn.setAttribute?.("aria-pressed", String(isSelected));
     });
@@ -77229,7 +77443,7 @@ async function handleMelodyRhythmClick(rhythmKey, btn, options = {}) {
     setListenOnlyMode(false, { keepPlayback: true });
   }
 
-  await ensureAudioReady();
+  prepareAudioNonBlocking();
 
   if (state.exam?.active) {
     handleExamMelodyRhythmChoice(ex, rhythmKey, btn);
@@ -77296,7 +77510,7 @@ async function handleMelodyKeyClick(clickedKeyDef, keyBtn, options = {}) {
     setListenOnlyMode(false, { keepPlayback: true });
   }
 
-  await ensureAudioReady();
+  prepareAudioNonBlocking();
 
   if (state.exam?.active) {
     handleExamMelodyAnswer(ex, clickedKeyDef, keyBtn);
@@ -77739,7 +77953,7 @@ async function handleNotationChordChoice(selectedKey, btnElement, options = {}) 
     setListenOnlyMode(false, { keepPlayback: true });
   }
 
-  await ensureAudioReady();
+  prepareAudioNonBlocking();
   if (isListenOnly && (!state.listenOnly?.active || state.listenOnly.token !== listenOnlyToken || state.currentView !== "exercise" || state.currentExercise !== ex)) {
     return;
   }
@@ -77867,7 +78081,7 @@ async function handleNotationKeyClick(clickedKeyDef, keyBtn, options = {}) {
     setListenOnlyMode(false, { keepPlayback: true });
   }
 
-  await ensureAudioReady();
+  prepareAudioNonBlocking();
   if (isListenOnly && (!state.listenOnly?.active || state.listenOnly.token !== listenOnlyToken || state.currentView !== "exercise" || state.currentExercise !== ex)) {
     return;
   }
@@ -78084,7 +78298,7 @@ async function handleSolfegeKeyClick(clickedKeyDef, keyBtn, options = {}) {
     setListenOnlyMode(false, { keepPlayback: true });
   }
 
-  await ensureAudioReady();
+  prepareAudioNonBlocking();
   if (isListenOnly && (!state.listenOnly?.active || state.listenOnly.token !== listenOnlyToken || state.currentView !== "exercise" || state.currentExercise !== ex || state.solfegeAnswered)) {
     return;
   }
@@ -78451,7 +78665,7 @@ async function handleRhythmDictationChoice(cellKey, btnElement, options = {}) {
     setListenOnlyMode(false, { keepPlayback: true });
   }
 
-  await ensureAudioReady();
+  prepareAudioNonBlocking();
 
   if (state.exam?.active) {
     handleExamRhythmDictationAnswer(ex, cellKey, btnElement);
@@ -78981,16 +79195,36 @@ function finishRhythmTapRound() {
 
 function unlockWebAudioSync() {
   try {
+    if (typeof audioEngine?.unlockAudioSessionSync === "function") {
+      audioEngine.unlockAudioSessionSync();
+      return;
+    }
     if (typeof Tone === "undefined") return;
     const ctx = typeof Tone.getContext === "function" ? Tone.getContext() : null;
     const rawCtx = ctx?.rawContext || ctx?._context || Tone.context?.rawContext || Tone.context?._context;
-    if (rawCtx && rawCtx.state === "suspended" && typeof rawCtx.resume === "function") {
+    if (rawCtx && (rawCtx.state === "suspended" || rawCtx.state === "interrupted") && typeof rawCtx.resume === "function") {
       Promise.resolve(rawCtx.resume()).catch(() => {});
     }
     if (typeof Tone.start === "function") {
       Promise.resolve(Tone.start()).catch(() => {});
     }
   } catch (_) {}
+}
+
+function prepareAudioNonBlocking() {
+  unlockWebAudioSync();
+  try {
+    const pianoPrefs = getActivePianoSoundSettings();
+    const droneMix = getActiveDroneMixSettings();
+    audioEngine?.setPianoSoundProfile?.(pianoPrefs.character, pianoPrefs.reverb);
+    audioEngine?.setDroneIntervalMix?.(droneMix.pad, droneMix.tone);
+    if (!audioEngine.graphBuilt && typeof audioEngine.buildAudioGraphSync === "function") {
+      audioEngine.buildAudioGraphSync(state.master.volume, state.master.muted, state.mixer);
+    }
+    audioEngine.setMasterVolume(state.master.volume, state.master.muted);
+    audioEngine.setMixerGains(state.mixer);
+  } catch (_) {}
+  ensureAudioReady().catch(() => {});
 }
 
 async function ensureAudioReady() {
@@ -84411,19 +84645,42 @@ document.addEventListener("DOMContentLoaded", () => {
   if (typeof audioEngine?.preload === "function") {
     Promise.resolve(audioEngine.preload(state.master.volume, state.master.muted, state.mixer)).catch(() => {});
   }
-  let unlockedAudioGesture = false;
-  const onFirstAudioGesture = () => {
-    if (unlockedAudioGesture) return;
-    unlockedAudioGesture = true;
-    document.removeEventListener?.("pointerdown", onFirstAudioGesture, true);
-    document.removeEventListener?.("touchstart", onFirstAudioGesture, true);
-    document.removeEventListener?.("keydown", onFirstAudioGesture, true);
-    unlockWebAudioSync();
-    ensureAudioReady().catch(() => {});
+  // iOS Safari / WKWebView Audio-Unlock: aktiv bleiben bis AudioContext wirklich "running"
+  // und AudioSession entsperrt sind (touchstart/pointerdown allein genügen auf iOS oft nicht).
+  const audioUnlockEvents = ["pointerdown", "touchstart", "touchend", "click", "keydown"];
+  let audioUnlockListenersBound = false;
+  const disarmAudioUnlockListeners = () => {
+    if (!audioUnlockListenersBound) return;
+    audioUnlockListenersBound = false;
+    audioUnlockEvents.forEach((evt) => {
+      document.removeEventListener?.(evt, onAudioUnlockGesture, true);
+    });
   };
-  document.addEventListener("pointerdown", onFirstAudioGesture, true);
-  document.addEventListener("touchstart", onFirstAudioGesture, true);
-  document.addEventListener("keydown", onFirstAudioGesture, true);
+  const onAudioUnlockGesture = () => {
+    unlockWebAudioSync();
+    if (typeof audioEngine?.preload === "function" && !audioEngine.preparePromise) {
+      Promise.resolve(audioEngine.preload(state.master.volume, state.master.muted, state.mixer)).catch(() => {});
+    }
+    if (typeof audioEngine?.isAudioUnlocked === "function" && audioEngine.isAudioUnlocked()) {
+      disarmAudioUnlockListeners();
+    }
+  };
+  const armAudioUnlockListeners = () => {
+    if (audioUnlockListenersBound) return;
+    audioUnlockListenersBound = true;
+    audioUnlockEvents.forEach((evt) => {
+      document.addEventListener(evt, onAudioUnlockGesture, true);
+    });
+  };
+  armAudioUnlockListeners();
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") {
+      if (typeof audioEngine?.isAudioUnlocked !== "function" || !audioEngine.isAudioUnlocked()) {
+        audioEngine?.markAudioSessionInterrupted?.();
+        armAudioUnlockListeners();
+      }
+    }
+  });
   initTabSwipeNavigation();
   initCapacitorNativeBridge();
   applyThemeAndAppearance();
@@ -84489,7 +84746,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  document.querySelectorAll("[data-appearance]").forEach(btn => {
+  document.querySelectorAll("button[data-appearance]").forEach(btn => {
     btn.addEventListener("click", () => {
       setAppearancePreference(btn.dataset.appearance);
     });
