@@ -44,7 +44,7 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 ## Daten & Speicher
 
 - Alles liegt lokal in `localStorage`. Schlüssel: `lauschebaer_visual_prefs_v1`, `lauschebaer_profile_v1`, `lauschebaer_custom_themes_v1`.
-- Die Struktur gespeicherter Daten nicht ohne Migration ändern, da bestehende Profile weiter funktionieren müssen. Export und Import laufen über `lauschebaer-profil-JJJJ-MM-TT.json` (`exportUserProfileBackup` / `importUserProfileJSON`, nur Profil, kein Fortschritt).
+- Die Struktur gespeicherter Daten nicht ohne Migration ändern, da bestehende Profile weiter funktionieren müssen. Export und Import laufen über `lauscher-profil-JJJJ-MM-TT.json` (`exportUserProfileBackup` / `importUserProfileJSON`, nur Profil, kein Fortschritt).
 
 ## Samples
 
@@ -53,7 +53,7 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 
 ## Mobile-Bundle
 
-- [lauschebaer-mobile.html](lauschebaer-mobile.html) (~12 MB) ist eine Einzeldatei mit allen CSS-, JS- und Sample-Inhalten inline. Nur `tone.js` wird extern daneben geladen.
+- [lauscher-mobile.html](lauscher-mobile.html) (~12 MB) ist eine Einzeldatei mit allen CSS-, JS- und Sample-Inhalten inline. Nur `tone.js` wird extern daneben geladen.
 - Die Datei wird von [scripts/build-mobile-bundle.py](scripts/build-mobile-bundle.py) aus `index.html` erzeugt: `styles.css` und alle `<script src>` außer `tone.js` werden inline eingesetzt. Lokale Dateien, die im CSS per `url(...)` eingebunden sind (die Fonts), werden als Base64 eingebettet. Diese Datei nie direkt bearbeiten und nicht lesen (zu groß).
 - **Nach jeder Änderung an index.html, styles.css oder einer JS-Datei das Bundle neu bauen und mitcommitten:**
   ```bash
@@ -89,6 +89,6 @@ Danach `http://localhost:8000` öffnen. Für den Nutzer gibt es die Doppelklick-
 - Code-Kommentare und Bezeichner im bestehenden Stil halten: Kommentare meist auf Deutsch, Bezeichner auf Englisch.
 - `localStorage`-Zugriffe immer in `try/catch` (wie im bestehenden Code).
 - Keine neuen Abhängigkeiten, CDNs, Analytics oder Netzwerkaufrufe einbauen. Datenschutz ist ein Kernversprechen der App.
-- Deployment über GitHub Pages (Branch `main`, Root-Ordner).
+- Deployment über GitHub Pages (Branch `main`, Root-Ordner). Repo: `github.com/jbkstr/lauscher`, Web-App: `https://jbkstr.github.io/lauscher/`, Datenschutz: `…/lauscher/datenschutz.html`. Der lokale Ordner heißt noch `projekt-lauschebear`.
 - **Ideen für später** stehen in [docs/ideen.md](docs/ideen.md). Wünscht der Nutzer etwas „für später“, dort eintragen. Vor Arbeiten an betroffenen Bereichen (z. B. Maskottchen, Visual-Update) dort nachsehen.
 - Abgeschaltete, aber aufbewahrte Features laufen über Schalter-Konstanten (z. B. `MASCOT_LOOKS_ENABLED` in app.js) statt über gelöschten Code.

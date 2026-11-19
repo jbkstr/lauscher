@@ -18690,7 +18690,7 @@ function getCapacitorNativePlugin(name) {
 function getProfileBackupFileName() {
   const d = new Date();
   const pad = n => String(n).padStart(2, "0");
-  return `lauschebaer-profil-${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}.json`;
+  return `lauscher-profil-${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}.json`;
 }
 
 function isShareCancelError(err) {

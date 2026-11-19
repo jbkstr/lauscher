@@ -98,7 +98,7 @@ Inside the **Knowledge** (`Wissen`) tab, interactive audio examples accompany ev
   - Multi-select dropdown menus with tag pills for **Your Instruments** and **Training Focus**. *(Lauscher mascot looks are temporarily hidden — see [`docs/ideen.md`](docs/ideen.md).)*
   - **Background Break Reminder (`5–30 min`):** Silent background exercise timer (default `15 min`, quick presets `5 / 10 / 15 / 20 / 25 min`) that gently prompts for an ear break without showing a distracting countdown during practice.
   - **Mindful Session Timer:** Configurable session pacing (`5–20 min`) with automatic inactivity pause (`2–5 min`).
-- **100% Local Privacy (`localStorage`):** No accounts, analytics, or external storage. Export, restore, or reset your complete profile, mixes, custom themes, and exam history anytime via **`lauschebaer-profil.json`**.
+- **100% Local Privacy (`localStorage`):** No accounts, analytics, or external storage. Export, restore, or reset your complete profile, mixes, custom themes, and exam history anytime via **`lauscher-profil-YYYY-MM-DD.json`**.
 
 ---
 
@@ -115,8 +115,8 @@ Inside the **Knowledge** (`Wissen`) tab, interactive audio examples accompany ev
 | [`fonts/Andika/`](fonts/Andika/) | App font **Andika** by SIL International (SIL Open Font License, see `OFL.txt`) |
 | [`samples/`](samples/) | Pre-processed Base64 JS instrument & percussion bundles (`*-bundle.js`) for instant browser audio without CORS errors |
 | [`docs/ideen.md`](docs/ideen.md) | Deferred ideas & planned features (German) |
-| [`lauschebaer-mobile.html`](lauschebaer-mobile.html) | Self-contained single-file bundle (CSS, JS samples & app code inline) for quick mobile/offline device testing — **generated, do not edit by hand** |
-| [`scripts/build-mobile-bundle.py`](scripts/build-mobile-bundle.py) | Rebuilds `lauschebaer-mobile.html` from `index.html` and all source files (Python standard library only) |
+| [`lauscher-mobile.html`](lauscher-mobile.html) | Self-contained single-file bundle (CSS, JS samples & app code inline) for quick mobile/offline device testing — **generated, do not edit by hand** |
+| [`scripts/build-mobile-bundle.py`](scripts/build-mobile-bundle.py) | Rebuilds `lauscher-mobile.html` from `index.html` and all source files (Python standard library only) |
 | `daw-sampling/` | Raw DAW stem source material (`exports/*.wav`, MIDI templates, `process_samples.py`) — **not needed by the browser** |
 
 ---
@@ -135,7 +135,7 @@ python3 -m http.server 8000
 
 Then open `http://localhost:8000` in your browser.
 
-- **Single-file bundle for mobile testing:** [`lauschebaer-mobile.html`](lauschebaer-mobile.html) inlines all CSS, sample bundles, and app scripts into a single HTML file and loads `Tone.js` locally from [`tone.js`](tone.js) (keep `tone.js` next to `lauschebaer-mobile.html`). *(On iOS, open the HTML file via **Safari** over an HTTPS/local web server URL or a WebView wrapper rather than iOS QuickLook.)*
+- **Single-file bundle for mobile testing:** [`lauscher-mobile.html`](lauscher-mobile.html) inlines all CSS, sample bundles, and app scripts into a single HTML file and loads `Tone.js` locally from [`tone.js`](tone.js) (keep `tone.js` next to `lauscher-mobile.html`). *(On iOS, open the HTML file via **Safari** over an HTTPS/local web server URL or a WebView wrapper rather than iOS QuickLook.)*
 - **Rebuild the bundle after every change** to `index.html`, `styles.css`, any `.js` file, or the fonts (fonts referenced in `styles.css` are embedded as Base64):
 
 ```bash
