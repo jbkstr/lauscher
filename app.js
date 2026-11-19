@@ -5218,6 +5218,7 @@ function renderAboutModalContent() {
   // Kopf zeigt das App-Icon (Squircle, reines CSS) – nichts zu rendern
   document.getElementById("aboutPlaceholderNotice")?.classList.add("hidden");
   document.getElementById("aboutContactFallback")?.classList.add("hidden");
+  renderAboutVersionBadge();
   showAboutMainPane();
 }
 
@@ -5304,10 +5305,28 @@ function handleAboutAction(action) {
   document.getElementById("aboutPlaceholderNotice")?.classList.remove("hidden");
 }
 
+function getAppVersionInfo() {
+  const v = typeof LAUSCHER_VERSION !== "undefined" ? LAUSCHER_VERSION : null;
+  return {
+    name: String(v?.name || ""),
+    build: Number.isFinite(Number(v?.build)) ? Number(v.build) : 0,
+    date: String(v?.date || "")
+  };
+}
+
+// z. B. "0.9.0-beta (Build 1)"
 function getAppVersionLabel() {
-  const text = typeof getStaticI18nText === "function" ? getStaticI18nText("about.version") : "";
-  const match = String(text || document.getElementById("aboutVersionBadge")?.textContent || "").match(/\d+(?:\.\d+)+(?:-[\w.]+)?/);
-  return match ? match[0] : "";
+  const { name, build } = getAppVersionInfo();
+  if (!name) return "";
+  return build ? `${name} (Build ${build})` : name;
+}
+
+function renderAboutVersionBadge() {
+  const badge = document.getElementById("aboutVersionBadge");
+  if (!badge) return;
+  const word = (typeof getStaticI18nText === "function" ? getStaticI18nText("about.version") : "") || "Version";
+  const label = getAppVersionLabel();
+  badge.textContent = label ? `${word} ${label}` : word;
 }
 
 function buildContactMailUrl() {

@@ -517,7 +517,7 @@ const I18N_STATIC_UK = {
   "settings.aboutHeading": "Про застосунок",
   "settings.openAboutBtn": "Про Lauscher →",
   "about.title": "Про Lauscher",
-  "about.version": "Версія 0.9.0-beta",
+  "about.version": "Версія",
   "about.description": "Lauscher — ваш спокійний супутник без реклами та відстеження для розвитку музичного слуху, читання нот, теорії музики, розспівування та студійного слухання — повністю локально на вашому пристрої та без тиску балів.",
   "about.linksHeading": "Контакти, підтримка та правова інформація",
   "about.linkContact": "Повідомлення розробнику / Контакт",
