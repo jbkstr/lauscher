@@ -2710,6 +2710,11 @@
           <h4 data-i18n="settings.appResetHeading">App zurücksetzen</h4>
           <p class="settings-hint" data-i18n="settings.appResetHint">Setzt alle lokalen Einstellungen, Themes und Profildaten zurück und startet die Einrichtung neu.</p>
           <button id="appResetBtn" type="button" class="btn-tool account-btn-danger settings-reset-btn" data-i18n="space.appResetBtn">App-Reset</button>
+          <!-- Bestätigung bewusst an anderer Stelle + kurze Sperrzeit, damit ein Doppeltipp nichts löscht -->
+          <div id="appResetConfirmPanel" class="settings-reset-confirm hidden" role="alertdialog" aria-labelledby="appResetConfirmText">
+            <p id="appResetConfirmText" class="settings-reset-confirm-text"></p>
+            <button id="appResetConfirmBtn" type="button" class="btn-tool account-btn-danger is-confirm-armed settings-reset-confirm-btn" disabled></button>
+          </div>
           <p id="settingsAppResetStatus" class="settings-hint settings-reset-status hidden"></p>
         </div>
 

@@ -10369,6 +10369,37 @@ body.is-hum-pause #solfegeKeyboardWrap {
   justify-content: center;
 }
 
+.settings-reset-btn.is-cancel-mode,
+.settings-reset-btn.is-cancel-mode:hover {
+  color: var(--btn-primary-fg);
+  border-color: transparent;
+}
+
+.settings-reset-confirm {
+  margin-top: 0.85rem;
+  padding: 0.8rem 0.85rem 0.85rem;
+  border: 1px solid var(--status-err);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--status-err) 7%, transparent);
+}
+
+.settings-reset-confirm-text {
+  margin: 0 0 0.7rem;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: var(--raccoon-dark);
+}
+
+.settings-reset-confirm-btn {
+  width: 100%;
+  justify-content: center;
+}
+
+.settings-reset-confirm-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
 .settings-reset-status {
   color: var(--status-err) !important;
   font-weight: 700;

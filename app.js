@@ -5229,6 +5229,9 @@ function setModalVisibility(modalName) {
   document.getElementById("mixerBackdrop")?.classList.toggle("modal-hidden", modalName !== "mixer");
   document.getElementById("settingsBackdrop")?.classList.toggle("modal-hidden", modalName !== "settings");
   document.getElementById("aboutBackdrop")?.classList.toggle("modal-hidden", modalName !== "about");
+  if (modalName !== "settings" && state.appResetConfirmArmed && typeof disarmAppResetConfirm === "function") {
+    disarmAppResetConfirm();
+  }
   if (modalName === "about") {
     renderAboutModalContent();
   }
@@ -18280,13 +18283,89 @@ function resetUserProfile() {
     resetBtn.textContent = tr("Konto zurücksetzen", "Reset Account");
     resetBtn.classList.remove("is-confirm-armed");
   }
-  const appResetBtn = document.getElementById("appResetBtn");
-  if (appResetBtn) {
-    appResetBtn.textContent = tr("App-Reset", "App Reset");
-    appResetBtn.classList.remove("is-confirm-armed");
-  }
+  disarmAppResetConfirm();
   setSettingsAppResetStatus("");
   setSpaceBackupStatus(tr("Lokales Konto auf Standardwerte zurückgesetzt.", "Local account reset to defaults."));
+}
+
+// App-Reset: zweistufig. Der eigentliche Lösch-Knopf liegt unterhalb (andere Stelle)
+// und ist erst nach kurzer Sperrzeit aktiv – ein Doppeltipp kann so nichts löschen.
+const APP_RESET_CONFIRM_DELAY_MS = 2000;
+const APP_RESET_CONFIRM_TIMEOUT_MS = 15000;
+let appResetConfirmTimers = [];
+
+function clearAppResetConfirmTimers() {
+  appResetConfirmTimers.forEach(id => clearTimeout(id));
+  appResetConfirmTimers = [];
+}
+
+function getAppResetConfirmLabel(secondsLeft = 0) {
+  const base = tr("Endgültig alles löschen", "Permanently delete everything", {
+    fr: "Tout effacer définitivement",
+    es: "Borrar todo definitivamente",
+    pl: "Usuń wszystko na stałe",
+    uk: "Остаточно видалити все",
+    ur: "سب کچھ مستقل طور پر حذف کریں"
+  });
+  return secondsLeft > 0 ? `${base} (${secondsLeft})` : base;
+}
+
+function armAppResetConfirm() {
+  clearAppResetConfirmTimers();
+  state.appResetConfirmArmed = true;
+  state.appResetConfirmReadyAt = Date.now() + APP_RESET_CONFIRM_DELAY_MS;
+  setSettingsAppResetStatus("");
+
+  const btn = document.getElementById("appResetBtn");
+  if (btn) {
+    btn.textContent = tr("Abbrechen", "Cancel", { fr: "Annuler", es: "Cancelar", pl: "Anuluj", uk: "Скасувати", ur: "منسوخ کریں" });
+    btn.classList.add("is-cancel-mode");
+  }
+  const panel = document.getElementById("appResetConfirmPanel");
+  const text = document.getElementById("appResetConfirmText");
+  const confirmBtn = document.getElementById("appResetConfirmBtn");
+  if (text) {
+    text.textContent = tr(
+      "Wirklich alles löschen? Einstellungen, Themes und Profil gehen verloren – das lässt sich nicht rückgängig machen. Tipp: Sichere vorher dein Profil unter Konto → Datensicherung.",
+      "Really delete everything? Settings, themes and your profile will be lost – this cannot be undone. Tip: back up your profile first under Account → Backup.",
+      {
+        fr: "Vraiment tout effacer ? Réglages, thèmes et profil seront perdus – impossible d’annuler. Astuce : sauvegarde d’abord ton profil dans Compte → Sauvegarde.",
+        es: "¿De verdad quieres borrarlo todo? Se perderán los ajustes, los temas y el perfil, y no se puede deshacer. Consejo: guarda antes tu perfil en Cuenta → Copia de seguridad.",
+        pl: "Na pewno usunąć wszystko? Ustawienia, motywy i profil zostaną utracone – tego nie da się cofnąć. Wskazówka: najpierw zapisz profil w Konto → Kopia zapasowa.",
+        uk: "Справді видалити все? Налаштування, теми й профіль буде втрачено – це не можна скасувати. Порада: спершу збережи профіль у Профіль → Резервна копія.",
+        ur: "کیا واقعی سب کچھ حذف کرنا ہے؟ سیٹنگز، تھیمز اور پروفائل ختم ہو جائیں گے – اسے واپس نہیں کیا جا سکتا۔ مشورہ: پہلے اکاؤنٹ → بیک اپ میں اپنا پروفائل محفوظ کریں۔"
+      }
+    );
+  }
+  if (panel) panel.classList.remove("hidden");
+  if (confirmBtn) {
+    confirmBtn.disabled = true;
+    const totalSec = Math.ceil(APP_RESET_CONFIRM_DELAY_MS / 1000);
+    confirmBtn.textContent = getAppResetConfirmLabel(totalSec);
+    for (let i = 1; i <= totalSec; i++) {
+      appResetConfirmTimers.push(setTimeout(() => {
+        if (!state.appResetConfirmArmed) return;
+        const left = totalSec - i;
+        confirmBtn.textContent = getAppResetConfirmLabel(left);
+        if (left <= 0) confirmBtn.disabled = false;
+      }, i * 1000));
+    }
+  }
+  appResetConfirmTimers.push(setTimeout(disarmAppResetConfirm, APP_RESET_CONFIRM_TIMEOUT_MS));
+}
+
+function disarmAppResetConfirm() {
+  clearAppResetConfirmTimers();
+  state.appResetConfirmArmed = false;
+  state.appResetConfirmReadyAt = 0;
+  const btn = document.getElementById("appResetBtn");
+  if (btn) {
+    btn.textContent = tr("App-Reset", "App Reset");
+    btn.classList.remove("is-confirm-armed", "is-cancel-mode");
+  }
+  document.getElementById("appResetConfirmPanel")?.classList.add("hidden");
+  const confirmBtn = document.getElementById("appResetConfirmBtn");
+  if (confirmBtn) confirmBtn.disabled = true;
 }
 
 function performFullAppReset() {
@@ -18347,11 +18426,7 @@ function performFullAppReset() {
     resetBtn.textContent = tr("Konto zurücksetzen", "Reset Account");
     resetBtn.classList.remove("is-confirm-armed");
   }
-  const appResetBtn = document.getElementById("appResetBtn");
-  if (appResetBtn) {
-    appResetBtn.textContent = tr("App-Reset", "App Reset");
-    appResetBtn.classList.remove("is-confirm-armed");
-  }
+  disarmAppResetConfirm();
   setSettingsAppResetStatus("");
   const statusEl = document.getElementById("spaceBackupStatus");
   if (statusEl) {
@@ -18767,25 +18842,15 @@ document.addEventListener("DOMContentLoaded", () => {
     resetUserProfile();
   });
   document.getElementById("appResetBtn")?.addEventListener("click", () => {
-    const btn = document.getElementById("appResetBtn");
-    if (!state.appResetConfirmArmed) {
-      state.appResetConfirmArmed = true;
-      if (btn) {
-        btn.textContent = tr("App-Reset bestätigen?", "Confirm App Reset?");
-        btn.classList.add("is-confirm-armed");
-      }
-      setSettingsAppResetStatus(tr("Tippe erneut auf „App-Reset bestätigen?“, um alle lokalen Daten zu löschen und das Willkommens-Intro neu zu starten.", "Tap “Confirm App Reset?” again to clear all local data and restart with the welcome intro."));
-      setTimeout(() => {
-        state.appResetConfirmArmed = false;
-        const b = document.getElementById("appResetBtn");
-        if (b) {
-          b.textContent = tr("App-Reset", "App Reset");
-          b.classList.remove("is-confirm-armed");
-        }
-        setSettingsAppResetStatus("");
-      }, 4200);
-      return;
+    // Erster Tipp öffnet die Bestätigung, ein zweiter Tipp an derselben Stelle bricht ab.
+    if (state.appResetConfirmArmed) {
+      disarmAppResetConfirm();
+    } else {
+      armAppResetConfirm();
     }
+  });
+  document.getElementById("appResetConfirmBtn")?.addEventListener("click", () => {
+    if (!state.appResetConfirmArmed || Date.now() < (state.appResetConfirmReadyAt || 0)) return;
     performFullAppReset();
   });
 
