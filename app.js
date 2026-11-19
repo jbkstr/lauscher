@@ -5219,14 +5219,15 @@ function renderAboutModalContent() {
   document.getElementById("aboutPlaceholderNotice")?.classList.add("hidden");
   document.getElementById("aboutContactFallback")?.classList.add("hidden");
   document.querySelector('[data-about-action="rate"]')?.classList.toggle("hidden", !ABOUT_RATE_ENABLED);
+  document.querySelector('[data-about-action="donate"]')?.classList.toggle("hidden", !ABOUT_SUPPORT_ENABLED);
   renderAboutVersionBadge();
   showAboutMainPane();
 }
 
-// ---------- Über-Fenster: Rechtstexte (Datenschutz) ----------
-// Text kommt aus legal.js (gleiche Quelle wie datenschutz.html). Die Ansicht ersetzt im
-// Über-Fenster Kopf und Link-Liste; „Zurück“ (Knopf, Android-Taste) führt zur Übersicht,
-// das ✕ schließt das ganze Fenster.
+// ---------- Über-Fenster: Rechtstexte (Datenschutz, Nutzungsbedingungen & Lizenzen) ----------
+// Texte kommen aus legal.js (gleiche Quelle wie datenschutz.html, nutzungsbedingungen.html & lizenzen.html).
+// Die Ansicht ersetzt im Über-Fenster Kopf und Link-Liste; „Zurück“ (Knopf, Android-Taste)
+// führt zur Übersicht, das ✕ schließt das ganze Fenster.
 
 function isAboutLegalOpen() {
   const pane = document.getElementById("aboutLegalPane");
@@ -5265,11 +5266,24 @@ function openAboutLegal(kind = "privacy") {
     content.innerHTML = doc.html;
     content.setAttribute("lang", doc.lang);
     content.setAttribute("dir", "ltr");
+    content.querySelectorAll("[data-legal-nav]").forEach(link => {
+      link.addEventListener("click", (e) => {
+        const targetKind = link.dataset.legalNav;
+        if (!targetKind) return;
+        e.preventDefault();
+        openAboutLegal(targetKind);
+      });
+    });
   }
   const onlineLink = document.getElementById("aboutLegalOnlineLink");
-  if (onlineLink && typeof LAUSCHER_PRIVACY_URL === "string") {
-    onlineLink.href = doc.lang === "en" ? `${LAUSCHER_PRIVACY_URL}?lang=en` : LAUSCHER_PRIVACY_URL;
+  const onlineRow = onlineLink?.closest(".about-legal-link-row");
+  const baseUrl = doc.onlineUrl || (kind === "privacy" && typeof LAUSCHER_PRIVACY_URL === "string" ? LAUSCHER_PRIVACY_URL : "");
+  if (onlineLink && baseUrl) {
+    onlineLink.href = doc.lang === "en" ? `${baseUrl}?lang=en` : baseUrl;
     onlineLink.textContent = `${tr("Online-Fassung öffnen", "Open online version", { fr: "Ouvrir la version en ligne", es: "Abrir la versión en línea", pl: "Otwórz wersję online", uk: "Відкрити онлайн-версію", ur: "آن لائن ورژن کھولیں" })} ↗`;
+    onlineRow?.classList.remove("hidden");
+  } else {
+    onlineRow?.classList.add("hidden");
   }
 
   document.getElementById("aboutPlaceholderNotice")?.classList.add("hidden");
@@ -5292,6 +5306,9 @@ function closeAboutLegal() {
 const LAUSCHER_CONTACT_EMAIL = "lauscher.privacy772@passfwd.com";
 // „App bewerten“ erst einblenden, wenn Lauscher in den App-Stores ist (dann Store-Link in handleAboutAction ergänzen).
 const ABOUT_RATE_ENABLED = false;
+// Freiwillige Unterstützung (Ko-fi). Bei späterer Store-Einreichung prüfen, ob externe Links zulässig sind.
+const LAUSCHER_SUPPORT_URL = "https://ko-fi.com/lauscher";
+const ABOUT_SUPPORT_ENABLED = true;
 
 function handleAboutAction(action) {
   document.getElementById("aboutPlaceholderNotice")?.classList.add("hidden");
@@ -5300,8 +5317,20 @@ function handleAboutAction(action) {
     openContactMail();
     return;
   }
+  if (action === "donate") {
+    openSupportPage();
+    return;
+  }
   if (action === "privacy") {
     openAboutLegal("privacy");
+    return;
+  }
+  if (action === "terms") {
+    openAboutLegal("terms");
+    return;
+  }
+  if (action === "licenses") {
+    openAboutLegal("licenses");
     return;
   }
   if (action === "share") {
@@ -5519,6 +5548,32 @@ async function shareLauscherApp() {
     kind: "link"
   });
   renderAboutShareTargets(text, LAUSCHER_SHARE_URL);
+}
+
+// ---------- Über-Fenster: Lauscher unterstützen (Ko-fi) ----------
+function openSupportPage() {
+  const a = document.createElement("a");
+  a.href = LAUSCHER_SUPPORT_URL;
+  a.target = "_blank";
+  a.rel = "noopener noreferrer";
+  document.body?.appendChild?.(a);
+  a.click?.();
+  a.remove?.();
+  showAboutCopyFallback({
+    message: tr(
+      "Falls sich die Unterstützungs-Seite nicht automatisch geöffnet hat, findest du sie hier:",
+      "If the support page didn’t open automatically, you can find it here:",
+      {
+        fr: "Si la page de soutien ne s’est pas ouverte automatiquement, tu la trouveras ici :",
+        es: "Si la página de apoyo no se abrió automáticamente, la encontrarás aquí:",
+        pl: "Jeśli strona wsparcia nie otworzyła się automatycznie, znajdziesz ją tutaj:",
+        uk: "Якщо сторінка підтримки не відкрилася автоматично, її можна знайти тут:",
+        ur: "اگر سپورٹ صفحہ خودکار طور پر نہیں کھلا تو آپ اسے یہاں کھول سکتے ہیں:"
+      }
+    ),
+    value: LAUSCHER_SUPPORT_URL,
+    kind: "link"
+  });
 }
 
 function openAboutModal() {

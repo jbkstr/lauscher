@@ -523,7 +523,7 @@ const I18N_STATIC_UR = {
   "about.linkContact": "ڈویلپر کو پیغام / رابطہ",
   "about.linkRate": "ایپ کی درجہ بندی کریں",
   "about.linkShare": "Lauscher شیئر کریں",
-  "about.linkDonate": "عطیہ کریں",
+  "about.linkDonate": "Lauscher کی حمایت کریں",
   "about.linkPrivacy": "رازداری کی پالیسی",
   "about.linkTerms": "استعمال کی شرائط",
   "about.linkLicenses": "لائسنس",

@@ -920,7 +920,7 @@ const I18N_STATIC = {
   "about.linkContact": { de: "Nachricht an den Entwickler / Kontakt", en: "Message the Developer / Contact" },
   "about.linkRate": { de: "App bewerten", en: "Rate the App" },
   "about.linkShare": { de: "Lauscher teilen", en: "Share Lauscher" },
-  "about.linkDonate": { de: "Spenden", en: "Donate" },
+  "about.linkDonate": { de: "Lauscher unterstützen", en: "Support Lauscher" },
   "about.linkPrivacy": { de: "Datenschutz", en: "Privacy Policy" },
   "about.linkTerms": { de: "Nutzungsbedingungen", en: "Terms of Use" },
   "about.linkLicenses": { de: "Lizenzen", en: "Licenses" },

@@ -523,7 +523,7 @@ const I18N_STATIC_FR = {
   "about.linkContact": "Message au développeur / Contact",
   "about.linkRate": "Évaluer l'application",
   "about.linkShare": "Partager Lauscher",
-  "about.linkDonate": "Faire un don",
+  "about.linkDonate": "Soutenir Lauscher",
   "about.linkPrivacy": "Confidentialité",
   "about.linkTerms": "Conditions d'utilisation",
   "about.linkLicenses": "Licences",

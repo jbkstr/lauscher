@@ -523,7 +523,7 @@ const I18N_STATIC_UK = {
   "about.linkContact": "Повідомлення розробнику / Контакт",
   "about.linkRate": "Оцінити застосунок",
   "about.linkShare": "Поділитися Lauscher",
-  "about.linkDonate": "Підтримати проєкт (Донат)",
+  "about.linkDonate": "Підтримати Lauscher",
   "about.linkPrivacy": "Конфіденційність",
   "about.linkTerms": "Умови використання",
   "about.linkLicenses": "Ліцензії",
