@@ -19,11 +19,12 @@
         if ((!raw && !hasProfileRaw) || (prefs && prefs.onboardingDone === false)) {
           document.documentElement.setAttribute("data-first-run", "1");
         }
-        var lang = (prefs.language === "en" || prefs.language === "fr" || prefs.language === "pl" || prefs.language === "uk" || prefs.language === "ur") ? prefs.language : "de";
+        var lang = (prefs.language === "en" || prefs.language === "es" || prefs.language === "fr" || prefs.language === "pl" || prefs.language === "uk" || prefs.language === "ur") ? prefs.language : "de";
         document.documentElement.lang = lang;
         document.documentElement.dir = lang === "ur" ? "rtl" : "ltr";
         document.documentElement.setAttribute("data-lang", lang);
         if (lang === "en") document.title = "Lauscher • Listen · Understand · Play";
+        else if (lang === "es") document.title = "Lauscher • Escucha · Comprende · Toca";
         else if (lang === "fr") document.title = "Lauscher • Écouter · Comprendre · Pratiquer";
         else if (lang === "pl") document.title = "Lauscher • Słuchaj · Rozumiej · Graj";
         else if (lang === "uk") document.title = "Lauscher • Слухай · Розумій · Грай";
@@ -2595,7 +2596,7 @@
           <select id="languageSelect" class="account-select settings-language-select" data-i18n-aria="settings.languageSelectAria" aria-label="Anwendungssprache wählen">
             <option value="de" selected>Deutsch</option>
             <option value="en">English</option>
-            <option value="es" disabled>Español (demnächst)</option>
+            <option value="es">Español</option>
             <option value="fr">Français</option>
             <option value="it" disabled>Italiano (demnächst)</option>
             <option value="nl" disabled>Nederlands (demnächst)</option>
@@ -2869,6 +2870,7 @@
   <script src="samples/mascot-bundle.js"></script>
   <script src="audio.js"></script>
   <script src="i18n.js"></script>
+  <script src="i18n-es.js"></script>
   <script src="i18n-fr.js"></script>
   <script src="i18n-pl.js"></script>
   <script src="i18n-uk.js"></script>
@@ -2876,6 +2878,7 @@
   <script src="knowledge-en.js"></script>
   <script src="knowledge-fr.js"></script>
   <script src="knowledge.js"></script>
+  <script src="knowledge-es.js"></script>
   <script src="knowledge-pl.js"></script>
   <script src="knowledge-uk.js"></script>
   <script src="knowledge-ur.js"></script>

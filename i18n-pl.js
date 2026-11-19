@@ -542,7 +542,7 @@ const LAUSCHEBAER_QUOTES_PL = [
   { cat: "Powitanie", text: "„W słuchawkach czy głośno w pokoju — pięć minut uważnego słuchania potrafi zdziałać cuda.”" },
   { cat: "Powitanie", text: "„Głos już rozgrzany? W „Rozgrzewce głosowej” w pięć minut przejdziesz od spokojnego oddechu do pełnego chóru!”" },
   { cat: "Powitanie", text: "„Masz zajęte ręce? Włącz „Tylko słuchaj” i ćwicz uważnie w myślach bez klikania klawiszy!”" },
-  { cat: "Powitanie", text: "„Ciekawi Cię, jak terminy muzyczne brzmią w innych językach? W Ustawieniach przełączysz natychmiast między Polski, Deutsch, English, Français, Українська i اردو!”" },
+  { cat: "Powitanie", text: "„Ciekawi Cię, jak terminy muzyczne brzmią w innych językach? W Ustawieniach przełączysz natychmiast między Polski, Deutsch, English, Español, Français, Українська i اردو!”" },
   { cat: "Powitanie", text: "„Chcesz sprawdzić formę? Każda kategoria ćwiczeń ma własny egzamin bez limitu czasu — a rekordy zapisują się w Twoim profilu!”" },
 
   { cat: "Motywacja", text: "„Zaufaj pierwszym odczuciom! Zanim przeanalizujesz dźwięki, zazwyczaj już czujesz, czy akord wrócił do domu.”" },

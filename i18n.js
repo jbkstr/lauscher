@@ -29,7 +29,7 @@ const APP_LANGUAGES = {
     htmlLang: "fr",
     available: true
   },
-  es: { code: "es", nativeName: "Español",    defaultNotation: "intl", defaultIntervalNotation: "intl", htmlLang: "es", available: false, placeholder: true },
+  es: { code: "es", nativeName: "Español",    defaultNotation: "intl", defaultIntervalNotation: "intl", htmlLang: "es", available: true },
   it: { code: "it", nativeName: "Italiano",   defaultNotation: "intl", defaultIntervalNotation: "intl", htmlLang: "it", available: false, placeholder: true },
   nl: { code: "nl", nativeName: "Nederlands", defaultNotation: "intl", defaultIntervalNotation: "intl", htmlLang: "nl", available: false, placeholder: true },
   no: { code: "no", nativeName: "Norsk",      defaultNotation: "de",   defaultIntervalNotation: "de",   htmlLang: "nb", available: false, placeholder: true },
@@ -1080,7 +1080,7 @@ const LAUSCHEBAER_QUOTES_EN = [
   { cat: "Welcome", text: "“Softly on headphones or out loud in your living room — five minutes of focused listening works wonders.”" },
   { cat: "Welcome", text: "“Ready to warm up your voice? Vocal Warmup guides your range in five minutes from gentle humming right up to choir blend!”" },
   { cat: "Welcome", text: "“Hands busy? Flip on ‘Listen Only’ and let exercises play seamlessly while you train your ear mentally!”" },
-  { cat: "Welcome", text: "“Curious how music terms sound abroad? Open Settings to switch live anytime between Deutsch, English, Français, Polski, Українська, and اردو!”" },
+  { cat: "Welcome", text: "“Curious how music terms sound abroad? Open Settings to switch live anytime between Deutsch, English, Español, Français, Polski, Українська, and اردو!”" },
   { cat: "Welcome", text: "“Up for a friendly check-in? Every exercise category offers its own Exam — no countdown clock, with your personal best saved in Account!”" },
 
   // Category 2: Encouragement & Practice Tips

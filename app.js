@@ -18,7 +18,7 @@ const LAUSCHEBAER_QUOTES = [
   { cat: "Willkommen", text: "„Ob leise mit Kopfhörern oder laut im Wohnzimmer – fünf Minuten Lauschen tun deinen Ohren richtig gut.“" },
   { cat: "Willkommen", text: "„Stimme schon aufgewärmt? Im ‚Einsing-Helfer‘ begleitest du deine Stimmlage in fünf Minuten vom lockeren Brummen bis zum Chorklang!“" },
   { cat: "Willkommen", text: "„Keine Hand frei zum Tippen? Schalte einfach ‚Nur Hören‘ ein und lass dir die Übungen entspannt zum Mitdenken vorspielen!“" },
-  { cat: "Willkommen", text: "„Neugierig auf Fachbegriffe in einer anderen Sprache? Unter den Einstellungen wechselst du live zwischen Deutsch, English, Français, Polski, Українська und اردو!“" },
+  { cat: "Willkommen", text: "„Neugierig auf Fachbegriffe in einer anderen Sprache? Unter den Einstellungen wechselst du live zwischen Deutsch, English, Español, Français, Polski, Українська und اردو!“" },
   { cat: "Willkommen", text: "„Bereit für eine kleine Herausforderung? Jede Übungskategorie bietet ihre eigene Prüfung – ganz ohne Zeitdruck und mit Bestwert im Konto!“" },
 
   // Kategorie 2: Mutmacher & Praxis-Tipps
@@ -3510,7 +3510,7 @@ function getLocalizedNotationKeySigName(keySigId = "none", shortZero = false) {
   }
   if (safeId === "Gb") {
     const useIntl = typeof state !== "undefined" && state?.profile?.notation === "intl";
-    return tr(useIntl ? "G♭-Dur" : "Ges-Dur", "G♭ Major", { fr: "Sol♭ majeur", pl: useIntl ? "G♭-dur" : "Ges-dur", uk: "Соль♭ мажор", ur: useIntl ? "G♭ میجر" : "Ges میجر" });
+    return tr(useIntl ? "G♭-Dur" : "Ges-Dur", "G♭ Major", { fr: "Sol♭ majeur", es: "Sol♭ mayor", pl: useIntl ? "G♭-dur" : "Ges-dur", uk: "Соль♭ мажор", ur: useIntl ? "G♭ میجر" : "Ges میجر" });
   }
   return getKeyDisplayName(safeId);
 }
@@ -6475,6 +6475,7 @@ function openKnowledgeRef(refKey, options = {}) {
   } else if (refKey === "arranging") {
     state.knowledgeTitle = tr("Arrangieren", "Arranging", {
       fr: "Arrangement",
+      es: "Arreglo",
       pl: "Aranżacja",
       uk: "Аранжування",
       ur: "ارینجنگ (ترتیبِ موسیقی)"
@@ -6484,6 +6485,7 @@ function openKnowledgeRef(refKey, options = {}) {
       "How a simple sketch turns into a living piece for band, choir, or orchestra",
       {
         fr: "Comment transformer une esquisse en œuvre vivante pour groupe, chœur ou orchestre",
+        es: "Cómo un simple boceto se convierte en una obra viva para grupo, coro u orquesta",
         pl: "Jak zamienić prosty szkic w żywe brzmienie dla zespołu, chóru lub orkiestry",
         uk: "Як перетворити простий ескіз на живе звучання для гурту, хору чи оркестру",
         ur: "ایک سادہ خاکے کو بینڈ، کوائر یا آرکسٹرا کے لیے جاندار موسیقی میں کیسے بدلا جائے"
@@ -13262,11 +13264,11 @@ function clampNotationListenPace(val) {
 
 function getLocalizedNotationPaceLabel(paceVal = state?.settings?.notationListenOnlyPace) {
   const p = clampNotationListenPace(paceVal);
-  if (p <= 19) return tr("Sehr langsam", "Very slow", { fr: "Très lent", pl: "Bardzo wolno", uk: "Дуже повільно", ur: "بہت آہستہ" });
-  if (p <= 39) return tr("Langsam", "Slow", { fr: "Lent", pl: "Wolno", uk: "Повільно", ur: "آہستہ" });
-  if (p <= 60) return tr("Mittel", "Medium", { fr: "Moyen", pl: "Średnio", uk: "Середньо", ur: "درمیانہ" });
-  if (p <= 80) return tr("Schnell", "Fast", { fr: "Rapide", pl: "Szybko", uk: "Швидко", ur: "تیز" });
-  return tr("Sehr schnell", "Very fast", { fr: "Très rapide", pl: "Bardzo szybko", uk: "Дуже швидко", ur: "بہت تیز" });
+  if (p <= 19) return tr("Sehr langsam", "Very slow", { fr: "Très lent", es: "Muy lento", pl: "Bardzo wolno", uk: "Дуже повільно", ur: "بہت آہستہ" });
+  if (p <= 39) return tr("Langsam", "Slow", { fr: "Lent", es: "Lento", pl: "Wolno", uk: "Повільно", ur: "آہستہ" });
+  if (p <= 60) return tr("Mittel", "Medium", { fr: "Moyen", es: "Medio", pl: "Średnio", uk: "Середньо", ur: "درمیانہ" });
+  if (p <= 80) return tr("Schnell", "Fast", { fr: "Rapide", es: "Rápido", pl: "Szybko", uk: "Швидко", ur: "تیز" });
+  return tr("Sehr schnell", "Very fast", { fr: "Très rapide", es: "Muy rápido", pl: "Bardzo szybko", uk: "Дуже швидко", ur: "بہت تیز" });
 }
 
 function getNotationListenOnlyKeyRevealDelayMs(paceVal = state?.settings?.notationListenOnlyPace) {
@@ -14615,6 +14617,8 @@ function handleRhythmTapInput(overrideRelMs = null, inputPoint = null) {
     } else if (lang === "ur") {
       const n = session.tapsMs.length;
       subEl.textContent = n === 1 ? "1 تھاپ ریکارڈ ہوئی" : `${n} تھاپیں ریکارڈ ہوئیں`;
+    } else if (lang === "es") {
+      subEl.textContent = `${session.tapsMs.length} ${session.tapsMs.length === 1 ? "golpe registrado" : "golpes registrados"}`;
     } else if (lang === "fr") {
       subEl.textContent = `${session.tapsMs.length} ${session.tapsMs.length === 1 ? "frappe enregistrée" : "frappes enregistrées"}`;
     } else if (lang === "en") {
@@ -18449,6 +18453,8 @@ document.addEventListener("DOMContentLoaded", () => {
     applyStaticDomLanguage(state.settings.language);
   }
   syncLanguageControls(state.settings.language);
+  // Kopfzeilen-Titel ("Übungen") steht statisch in index.html – beim Start in der aktiven Sprache setzen.
+  state.updateHeaderSubtext();
   renderHomeProfileGreeting();
   renderProfileAccountView();
   populateMixCreatorControls();
@@ -20066,6 +20072,7 @@ const WARMUP_STEP_CATALOG = {
     vowelsDe: ["Uuuu…", "Oooo…", "Aaaa…", "Eeee…", "Iiii…"],
     vowelsEn: ["Oooo…", "Ohhh…", "Ahhh…", "Ehhh…", "Eeee…"],
     vowelsFr: ["Ouuu…", "Oooo…", "Aaaa…", "Éééé…", "Iiii…"],
+    vowelsEs: ["Uuuu…", "Oooo…", "Aaaa…", "Eeee…", "Iiii…"],
     vowelsPl: ["Uuuu…", "Oooo…", "Aaaa…", "Eeee…", "Iiii…"],
     vowelsUk: ["Уууу…", "Оооо…", "Аааа…", "Ееее…", "Іііі…"],
     vowelsUr: ["اُووو…", "اووو…", "آااا…", "اےےے…", "اِییی…"],
@@ -20745,9 +20752,11 @@ function runCurrentWarmupRound() {
         ? (step.vowelsUk || step.vowelsEn)
         : lang === "pl"
           ? (step.vowelsPl || step.vowelsEn)
-          : lang === "fr"
-            ? (step.vowelsFr || step.vowelsEn)
-            : (lang === "en" ? step.vowelsEn : step.vowelsDe);
+          : lang === "es"
+            ? (step.vowelsEs || step.vowelsDe)
+            : lang === "fr"
+              ? (step.vowelsFr || step.vowelsEn)
+              : (lang === "en" ? step.vowelsEn : step.vowelsDe);
     const stepMs = (step.vowelStepBeats || 1.9) * beatMs;
     const tonicNote = midiToNote(tonicMidi);
     const subDomNotes = [midiToNote(tonicMidi), midiToNote(tonicMidi + 5), midiToNote(tonicMidi + 9)];
@@ -25873,7 +25882,7 @@ function renderWelcomeLanguageList() {
   if (!listEl || typeof document.createElement !== "function") return;
   const codes = typeof getAvailableLanguages === "function"
     ? getAvailableLanguages()
-    : ["de", "en", "fr", "pl", "uk", "ur"];
+    : ["de", "en", "es", "fr", "pl", "uk", "ur"];
   listEl.innerHTML = "";
   codes.forEach(code => {
     const cfg = typeof APP_LANGUAGES !== "undefined" ? (APP_LANGUAGES[code] || {}) : {};

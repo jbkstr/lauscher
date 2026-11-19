@@ -68,12 +68,14 @@ RUNTIME_FILES=(
   audio.js
   app.js
   i18n.js
+  i18n-es.js
   i18n-fr.js
   i18n-pl.js
   i18n-uk.js
   i18n-ur.js
   knowledge.js
   knowledge-en.js
+  knowledge-es.js
   knowledge-fr.js
   knowledge-pl.js
   knowledge-uk.js
