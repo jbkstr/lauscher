@@ -122,7 +122,7 @@ const LAUSCHER_LEGAL_DOCS = {
 </ul>
 <p>Bewusst <strong>nicht</strong> gespeichert werden ein Lernverlauf oder Übungsstatistiken über einzelne Sitzungen hinaus. Die Merkhilfe für verwechselte Intervalle u. Ä. existiert nur, solange die App geöffnet ist.</p>
 <p><strong>Zweck und Rechtsgrundlage:</strong> Die Speicherung ist technisch erforderlich, damit die von dir genutzten Funktionen so arbeiten, wie du sie eingestellt hast. Grundlage ist § 25 Abs. 2 Nr. 2 TDDDG und, soweit personenbezogene Daten betroffen sind (etwa dein freiwillig eingegebener Name), Art. 6 Abs. 1 lit. b DSGVO.</p>
-<p><strong>Empfänger:</strong> keine. Diese Daten werden nicht an mich oder Dritte übertragen.</p>
+<p><strong>Empfänger:</strong> keine. Diese Daten werden nicht an mich oder Dritte übertragen. Auch die automatische Android-Datensicherung in dein Google-Konto ist für Lauscher abgeschaltet; zum Umzug auf ein neues Gerät nutzt du die Profil-Sicherung (Abschnitt 4).</p>
 <p><strong>Löschung:</strong> Du kannst die Daten jederzeit selbst löschen:</p>
 <ul>
   <li>in der App unter <strong>Konto → Datensicherung &amp; Konto zurücksetzen → „Konto zurücksetzen“</strong>;</li>
@@ -243,7 +243,7 @@ const LAUSCHER_LEGAL_DOCS = {
 </ul>
 <p>Lauscher deliberately does <strong>not</strong> store a learning history or practice statistics beyond a single session. The helper that brings back confused intervals and the like only exists while the app is open.</p>
 <p><strong>Purpose and legal basis:</strong> This storage is technically necessary so that the features you use work the way you set them up. The legal basis is Section 25(2) no. 2 TDDDG (German Telecommunications Digital Services Data Protection Act) and, where personal data is involved (such as a name you choose to enter), Art. 6(1)(b) GDPR.</p>
-<p><strong>Recipients:</strong> none. This data is not transmitted to me or to third parties.</p>
+<p><strong>Recipients:</strong> none. This data is not transmitted to me or to third parties. Android’s automatic backup to your Google account is also switched off for Lauscher; to move to a new device, use the profile backup (section 4).</p>
 <p><strong>Deletion:</strong> You can delete this data yourself at any time:</p>
 <ul>
   <li>in the app under <strong>Account → Backup &amp; Reset Account → “Reset Account”</strong>;</li>
