@@ -697,6 +697,26 @@ function loadCustomThemesFromStorage() {
   }
 }
 
+// Speichern fehlgeschlagen (Speicher voll, privater Modus, blockierte WebView):
+// einmal pro Sitzung sichtbar warnen, statt Einstellungen still zu verlieren.
+let _storageSaveWarningShown = false;
+function notifyStorageSaveFailed() {
+  if (_storageSaveWarningShown) return;
+  if (typeof document === "undefined" || !document.getElementById("appToast") || typeof showAppToast !== "function") return;
+  _storageSaveWarningShown = true;
+  showAppToast(tr(
+    "Einstellungen konnten nicht gespeichert werden – der Speicher ist voll oder blockiert. Sichere dein Profil über „Profil sichern“.",
+    "Settings could not be saved – storage is full or blocked. Back up your profile via “Back Up Profile”.",
+    {
+      fr: "Impossible d’enregistrer les réglages – le stockage est plein ou bloqué. Sauvegarde ton profil via « Sauvegarder le profil ».",
+      es: "No se pudieron guardar los ajustes: el almacenamiento está lleno o bloqueado. Haz una copia de tu perfil con «Guardar perfil».",
+      pl: "Nie udało się zapisać ustawień – pamięć jest pełna lub zablokowana. Zapisz profil przez „Zapisz profil”.",
+      uk: "Не вдалося зберегти налаштування – сховище заповнене або заблоковане. Збережи профіль через «Зберегти профіль».",
+      ur: "سیٹنگز محفوظ نہیں ہو سکیں – اسٹوریج بھرا ہوا یا بند ہے۔ „پروفائل محفوظ کریں“ سے اپنا پروفائل محفوظ کریں۔"
+    }
+  ), "error", 6500);
+}
+
 function saveCustomThemesToStorage(slots) {
   const clean = sanitizeCustomThemesArray(slots);
   try {
@@ -704,7 +724,7 @@ function saveCustomThemesToStorage(slots) {
       localStorage.setItem(CUSTOM_THEMES_STORAGE_KEY, JSON.stringify(clean));
     }
   } catch (_err) {
-    // Auf eingeschränkten WebViews ignorieren
+    notifyStorageSaveFailed();
   }
   return clean;
 }
@@ -902,7 +922,7 @@ function saveVisualPrefs(
       })
     );
   } catch (_err) {
-    // Auf eingeschränkten content:// oder privaten WebViews ignorieren
+    notifyStorageSaveFailed();
   }
 }
 
@@ -2053,7 +2073,7 @@ function saveUserProfile(profile) {
     localStorage.setItem(PERSONAL_PROFILE_STORAGE_KEY, JSON.stringify({ ...sanitized, customThemes: compactThemes }));
     saveCustomThemesToStorage(sanitized.customThemes);
   } catch (_err) {
-    // Auf eingeschränkten WebViews ignorieren
+    notifyStorageSaveFailed();
   }
 }
 
@@ -2328,6 +2348,7 @@ class AppState {
     this.streakState = { count: 0, activeNoticeMilestone: 0 };
     this.currentQuoteIndex = -1;
     this.waveAnimFrame = null;
+    this.waveResume = null;
     this.circleOfFifthsState = { idx: 0, ringMode: "major", tab: "chords" };
     this.wavePaused = false;
 
@@ -5188,6 +5209,7 @@ function stopWaveAnimation() {
     cancelAnimationFrame(state.waveAnimFrame);
     state.waveAnimFrame = null;
   }
+  state.waveResume = null;
 }
 
 const appHistoryState = {
@@ -6510,6 +6532,8 @@ function setKnowledgeTab(tabKey) {
 function openKnowledgeRef(refKey, options = {}) {
   const container = document.getElementById("knowledgeDetailContent");
   if (!container) return;
+  // Querverweise wechseln die Seite ohne Ansichtswechsel – laufende Wellen-Animation hier beenden
+  stopWaveAnimation();
 
   state.activeKnowledgeDetail = { kind: "ref", key: refKey };
 
@@ -6669,7 +6693,7 @@ function openKnowledgeRef(refKey, options = {}) {
     bindKnowledgeAudioButtons(container);
     initPhysicsSpectrumExplorer(container);
     state.wavePaused = false;
-    initWaveVisualizer(2, 1);
+    // Wellen-Labor startet erst nach dem Ansichtswechsel (siehe Ende der Funktion)
 
     const pauseBtn = document.getElementById("toggleWavePauseBtn");
     pauseBtn?.addEventListener("click", () => {
@@ -6677,6 +6701,7 @@ function openKnowledgeRef(refKey, options = {}) {
       pauseBtn.textContent = state.wavePaused
         ? tr("▶ Welle bewegen", "▶ Animate Wave")
         : tr("⏸ Welle anhalten", "⏸ Pause Wave");
+      if (!state.wavePaused && typeof state.waveResume === "function") state.waveResume();
     });
 
     container.querySelectorAll("[data-wave-ratio]").forEach(btn => {
@@ -6921,6 +6946,11 @@ function openKnowledgeRef(refKey, options = {}) {
   if (!options.refreshOnly) {
     switchView("knowledge-detail");
   }
+  // Erst jetzt ist die Detailansicht aktiv – vorher würde die Animation sofort abbrechen
+  // bzw. von switchView() wieder gestoppt (das Wellenbild blieb leer)
+  if (refKey === "physics") {
+    initWaveVisualizer(2, 1);
+  }
 }
 
 function openKnowledgeArticle(articleId, options = {}) {
@@ -6966,7 +6996,12 @@ function initWaveVisualizer(num, den) {
   const topWavesVisible = baseWavesVisible * ratio;
 
   function draw() {
-    if (state.currentView !== "knowledge-detail") return;
+    // Nur zeichnen, solange die Physik-Seite mit diesem Canvas wirklich sichtbar ist
+    if (state.currentView !== "knowledge-detail" || !canvas.isConnected) {
+      state.waveAnimFrame = null;
+      state.waveResume = null;
+      return;
+    }
     const w = canvas.width;
     const h = canvas.height;
     ctx.clearRect(0, 0, w, h);
@@ -7063,11 +7098,19 @@ function initWaveVisualizer(num, den) {
     }
     ctx.stroke();
 
-    if (!state.wavePaused) {
-      phase += 0.025;
+    if (state.wavePaused) {
+      // Angehalten: Standbild stehen lassen, keine weiteren Frames anfordern (spart Akku)
+      state.waveAnimFrame = null;
+      return;
     }
+    phase += 0.025;
     state.waveAnimFrame = requestAnimationFrame(draw);
   }
+
+  // Fortsetzen nach „Welle bewegen“
+  state.waveResume = () => {
+    if (!state.waveAnimFrame) state.waveAnimFrame = requestAnimationFrame(draw);
+  };
 
   draw();
 }
@@ -27263,8 +27306,16 @@ function formatExamDuration(sec) {
   return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
 }
 
+// Datum & Uhrzeit im Format der App-Sprache (z. B. „19.11.2026, 14:30“ / „19 Nov 2026, 14:30“)
 function formatExamDate(ts) {
   const d = new Date(Number(ts) || Date.now());
+  try {
+    const lang = typeof getAppLanguage === "function" ? getAppLanguage() : "de";
+    const locale = (typeof getLanguageConfig === "function" && getLanguageConfig(lang)?.htmlLang) || lang || "de";
+    return new Intl.DateTimeFormat(locale, { dateStyle: "medium", timeStyle: "short" }).format(d);
+  } catch (_e) {
+    // Rückfall für sehr alte WebViews ohne Intl-Unterstützung
+  }
   const dd = String(d.getDate()).padStart(2, "0");
   const mm = String(d.getMonth() + 1).padStart(2, "0");
   const yyyy = d.getFullYear();
@@ -27680,6 +27731,10 @@ function tryConsumeExamReplay(options = {}) {
   return true;
 }
 
+// Doppeltipp-Schutz: Bis der Ton tatsächlich startet (Audio-Bereitschaft), ist state.isPlaying noch false –
+// ein zweiter Tipp in diesem Moment würde sonst eine weitere der begrenzten Wiederholungen verbrauchen.
+const EXAM_PLAY_DEBOUNCE_MS = 600;
+
 function triggerExamPlayAction() {
   const exam = state?.exam;
   if (!exam || !exam.active) {
@@ -27687,6 +27742,9 @@ function triggerExamPlayAction() {
     return;
   }
   if (exam.currentAnswered) return;
+  const now = Date.now();
+  if (now - (exam.lastPlayTriggerAt || 0) < EXAM_PLAY_DEBOUNCE_MS) return;
+  exam.lastPlayTriggerAt = now;
   playSequence();
 }
 
@@ -27716,6 +27774,7 @@ function loadCurrentExamQuestion() {
     exam.autoPlayTimerId = setTimeout(() => {
       if (!state.exam || state.exam !== exam || !exam.active || state.currentView !== "exercise") return;
       if (exam.currentAnswered || exam.currentPromptPlayedOnce) return;
+      exam.lastPlayTriggerAt = Date.now(); // ein Tipp direkt beim Autostart zählt nicht als Wiederholung
       playSequence({ examAutoStart: true });
     }, 150);
   }

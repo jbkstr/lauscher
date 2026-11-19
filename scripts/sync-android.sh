@@ -191,6 +191,13 @@ PYEOF
     echo "  → Berechtigung WRITE_EXTERNAL_STORAGE (maxSdkVersion=29) im AndroidManifest ergänzt"
   fi
 
+  # Keine automatische Android-Sicherung ins Google-Konto: Profil & Einstellungen bleiben auf dem Gerät
+  # (Datenschutzversprechen; Umzug aufs neue Handy über „Profil sichern“)
+  if grep -q 'android:allowBackup="true"' "$MANIFEST"; then
+    sed -i '' 's/android:allowBackup="true"/android:allowBackup="false"/' "$MANIFEST"
+    echo "  → android:allowBackup=\"false\" im AndroidManifest gesetzt"
+  fi
+
   # App auf Hochformat (Portrait) festlegen
   python3 - "$MANIFEST" <<'PYEOF'
 import re, sys
