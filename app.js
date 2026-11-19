@@ -5269,6 +5269,11 @@ function closeTransientPopovers() {
     document.getElementById(btnId)?.classList.remove("chip-open");
   });
   if (typeof closeTunerDropdowns === "function") closeTunerDropdowns();
+  if (_openProfileDropdownKey) {
+    _openProfileDropdownKey = null;
+    if (typeof renderProfileAccountView === "function") renderProfileAccountView();
+    if (typeof renderMixCreatorDropdowns === "function") renderMixCreatorDropdowns();
+  }
 }
 
 function captureHistorySnapshot(modalName = getOpenModalName()) {
@@ -5453,7 +5458,7 @@ function hasOpenTransientPopover() {
   ].some(id => {
     const el = document.getElementById(id);
     return Boolean(el && !el.classList.contains("hidden") && !el.classList.contains("is-pinned"));
-  }) || Boolean(typeof _tuner !== "undefined" && _tuner.openDropdown);
+  }) || Boolean(typeof _tuner !== "undefined" && _tuner.openDropdown) || Boolean(typeof _openProfileDropdownKey !== "undefined" && _openProfileDropdownKey);
 }
 
 function handleNativeBackButton() {
@@ -17282,6 +17287,156 @@ function populateMixCreatorControls(options = {}) {
   if (prevLvl && levels.map(String).includes(String(prevLvl))) {
     lvlSel.value = prevLvl;
   }
+  if (typeof renderMixCreatorDropdowns === "function") {
+    renderMixCreatorDropdowns();
+  }
+}
+
+function renderProfileSingleDropdown({
+  containerEl,
+  key,
+  options,
+  selectedKey,
+  ariaLabelledBy = "",
+  onSelect
+}) {
+  if (!containerEl || typeof document === "undefined" || typeof document.createElement !== "function") return;
+  bindProfileDropdownOutsideCloser();
+  containerEl.dataset.profileDropdownHost = key;
+  containerEl.innerHTML = "";
+
+  const isOpen = _openProfileDropdownKey === key;
+  const activeKey = String(selectedKey ?? "");
+  const selectedOpt = options.find(opt => String(opt.key) === activeKey) || options[0] || null;
+
+  const wrap = document.createElement("div");
+  wrap.className = "multi-dropdown-wrap";
+
+  const trigger = document.createElement("button");
+  trigger.type = "button";
+  trigger.className = `account-select multi-dropdown-trigger${isOpen ? " is-open" : ""}`;
+  trigger.dataset.dropdownTrigger = key;
+  trigger.setAttribute?.("aria-haspopup", "listbox");
+  trigger.setAttribute?.("aria-expanded", String(isOpen));
+  if (ariaLabelledBy) trigger.setAttribute?.("aria-labelledby", ariaLabelledBy);
+  trigger.innerHTML = `<span class="multi-dropdown-summary">${escapeHtml(selectedOpt ? selectedOpt.label : "")}</span><span class="multi-dropdown-meta">${buildDropdownChevronSVG()}</span>`;
+  trigger.addEventListener("click", (e) => {
+    e?.stopPropagation?.();
+    _openProfileDropdownKey = isOpen ? null : key;
+    renderProfileAccountView();
+    if (_openProfileDropdownKey === key) {
+      const activeEl = containerEl.querySelector(".multi-dropdown-option.is-selected");
+      activeEl?.scrollIntoView?.({ block: "nearest" });
+    }
+  });
+  wrap.appendChild(trigger);
+
+  const menu = document.createElement("div");
+  menu.className = `multi-dropdown-menu${isOpen ? "" : " hidden"}`;
+  menu.setAttribute?.("role", "listbox");
+  if (ariaLabelledBy) menu.setAttribute?.("aria-labelledby", ariaLabelledBy);
+
+  options.forEach(opt => {
+    const isSel = selectedOpt && String(opt.key) === String(selectedOpt.key);
+    const optBtn = document.createElement("button");
+    optBtn.type = "button";
+    optBtn.className = `multi-dropdown-option${isSel ? " is-selected" : ""}`;
+    optBtn.dataset.dropdownOption = String(opt.key);
+    optBtn.setAttribute?.("role", "option");
+    optBtn.setAttribute?.("aria-selected", String(Boolean(isSel)));
+    const hintHtml = opt.hint ? `<span class="multi-dropdown-opt-hint">${escapeHtml(opt.hint)}</span>` : "";
+    optBtn.innerHTML = `<span class="multi-dropdown-check" aria-hidden="true">${isSel ? "✓" : ""}</span><span class="multi-dropdown-opt-text"><span>${escapeHtml(opt.label)}</span>${hintHtml}</span>`;
+    optBtn.addEventListener("click", (e) => {
+      e?.stopPropagation?.();
+      _openProfileDropdownKey = null;
+      if (typeof onSelect === "function") onSelect(opt.key);
+    });
+    menu.appendChild(optBtn);
+  });
+
+  wrap.appendChild(menu);
+  containerEl.appendChild(wrap);
+}
+
+const MIX_BPM_OPTION_SPECS = [
+  { key: "0",   i18nKey: "space.mixBpmDefault", fallback: "Standardtempo" },
+  { key: "70",  i18nKey: "space.mixBpm70",      fallback: "70 BPM (Ruhig)" },
+  { key: "85",  i18nKey: "space.mixBpm85",      fallback: "85 BPM (Entspannt)" },
+  { key: "95",  i18nKey: "space.mixBpm95",      fallback: "95 BPM (Mittel)" },
+  { key: "110", i18nKey: "space.mixBpm110",     fallback: "110 BPM (Flott)" },
+  { key: "125", i18nKey: "space.mixBpm125",     fallback: "125 BPM (Sportlich)" }
+];
+
+function renderMixCreatorDropdowns() {
+  const modeSel = document.getElementById("mixModeSelect");
+  const lvlSel = document.getElementById("mixLevelSelect");
+  const bpmSel = document.getElementById("mixBpmSelect");
+  const modeHost = document.getElementById("mixModeDropdown");
+  const lvlHost = document.getElementById("mixLevelDropdown");
+  const bpmHost = document.getElementById("mixBpmDropdown");
+  if (!modeSel || !lvlSel || !bpmSel) return;
+
+  const chosenMode = MIX_MODE_CATALOG[modeSel.value] ? modeSel.value : "cadence";
+  if (modeHost) {
+    const modeOptions = Object.keys(MIX_MODE_CATALOG).map(k => ({
+      key: k,
+      label: getLocalizedMixModeLabel(k)
+    }));
+    renderProfileSingleDropdown({
+      containerEl: modeHost,
+      key: "mix-mode",
+      options: modeOptions,
+      selectedKey: chosenMode,
+      ariaLabelledBy: "mixModeLabel",
+      onSelect: (nextMode) => {
+        modeSel.value = nextMode;
+        populateMixCreatorControls();
+      }
+    });
+  }
+
+  if (lvlHost) {
+    const levels = MIX_MODE_CATALOG[chosenMode].levels || [];
+    const levelOptions = levels.map(l => ({
+      key: String(l),
+      label: getLevelDisplayForMix(chosenMode, l)
+    }));
+    const currentLvl = levelOptions.some(o => o.key === String(lvlSel.value))
+      ? String(lvlSel.value)
+      : (levelOptions[0]?.key || "1");
+    if (lvlSel.value !== currentLvl) lvlSel.value = currentLvl;
+    renderProfileSingleDropdown({
+      containerEl: lvlHost,
+      key: "mix-level",
+      options: levelOptions,
+      selectedKey: currentLvl,
+      ariaLabelledBy: "mixLevelLabel",
+      onSelect: (nextLevel) => {
+        lvlSel.value = String(nextLevel);
+        renderMixCreatorDropdowns();
+      }
+    });
+  }
+
+  if (bpmHost) {
+    const bpmOptions = MIX_BPM_OPTION_SPECS.map(spec => {
+      const localized = typeof getStaticI18nText === "function" ? getStaticI18nText(spec.i18nKey) : null;
+      return { key: spec.key, label: localized || spec.fallback };
+    });
+    const currentBpm = bpmOptions.some(o => o.key === String(bpmSel.value)) ? String(bpmSel.value) : "0";
+    if (bpmSel.value !== currentBpm) bpmSel.value = currentBpm;
+    renderProfileSingleDropdown({
+      containerEl: bpmHost,
+      key: "mix-bpm",
+      options: bpmOptions,
+      selectedKey: currentBpm,
+      ariaLabelledBy: "mixBpmLabel",
+      onSelect: (nextBpm) => {
+        bpmSel.value = String(nextBpm);
+        renderMixCreatorDropdowns();
+      }
+    });
+  }
 }
 
 function applyProfileDisplayChanges() {
@@ -17666,6 +17821,7 @@ function renderProfileAccountView() {
   renderExamHistoryCard();
   renderSessionTimerUI();
   renderProfileMixes();
+  renderMixCreatorDropdowns();
   renderCustomThemeSection();
 }
 
@@ -18692,11 +18848,18 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("mixToggleCreateBtn")?.addEventListener("click", () => {
     const form = document.getElementById("mixCreatorForm");
     if (!form) return;
+    if (String(_openProfileDropdownKey || "").startsWith("mix-")) {
+      _openProfileDropdownKey = null;
+    }
     populateMixCreatorControls();
     form.classList.toggle("hidden");
   });
   document.getElementById("mixCreateCancelBtn")?.addEventListener("click", () => {
+    if (String(_openProfileDropdownKey || "").startsWith("mix-")) {
+      _openProfileDropdownKey = null;
+    }
     document.getElementById("mixCreatorForm")?.classList.add("hidden");
+    renderMixCreatorDropdowns();
   });
   document.getElementById("mixCreateSaveBtn")?.addEventListener("click", () => {
     const title = document.getElementById("mixNameInput")?.value || "";
@@ -18716,7 +18879,11 @@ document.addEventListener("DOMContentLoaded", () => {
       saveUserProfile(state.profile);
       renderProfileMixes();
       if (document.getElementById("mixNameInput")) document.getElementById("mixNameInput").value = "";
+      if (String(_openProfileDropdownKey || "").startsWith("mix-")) {
+        _openProfileDropdownKey = null;
+      }
       document.getElementById("mixCreatorForm")?.classList.add("hidden");
+      renderMixCreatorDropdowns();
     }
   });
   document.getElementById("mixSaveCurrentBtn")?.addEventListener("click", () => {

@@ -1246,20 +1246,21 @@
             <label class="account-label" for="mixNameInput" data-i18n="space.mixNameLabel">Name des Mixes</label>
             <input id="mixNameInput" class="account-input" type="text" maxlength="32" placeholder="z. B. Abend-Diktat" data-i18n-placeholder="space.mixNamePlaceholder">
           </div>
-          <div class="account-form-grid">
-            <div class="account-field">
-              <label class="account-label" for="mixModeSelect" data-i18n="space.mixModuleLabel">Übungsmodul</label>
-              <select id="mixModeSelect" class="account-select"></select>
-            </div>
-            <div class="account-field">
-              <label class="account-label" for="mixLevelSelect" data-i18n="space.mixLevelLabel">Stufe / Umfang</label>
-              <select id="mixLevelSelect" class="account-select"></select>
-            </div>
+          <div class="account-field">
+            <span class="account-label" id="mixModeLabel" data-i18n="space.mixModuleLabel">Übungsmodul</span>
+            <div id="mixModeDropdown" class="profile-multi-dropdown-host mix-single-dropdown-host"></div>
+            <select id="mixModeSelect" class="account-select hidden" aria-hidden="true" tabindex="-1"></select>
           </div>
           <div class="account-form-grid">
             <div class="account-field">
-              <label class="account-label" for="mixBpmSelect" data-i18n="space.mixBpmLabel">Tempo</label>
-              <select id="mixBpmSelect" class="account-select">
+              <span class="account-label" id="mixLevelLabel" data-i18n="space.mixLevelLabel">Stufe / Umfang</span>
+              <div id="mixLevelDropdown" class="profile-multi-dropdown-host mix-single-dropdown-host"></div>
+              <select id="mixLevelSelect" class="account-select hidden" aria-hidden="true" tabindex="-1"></select>
+            </div>
+            <div class="account-field">
+              <span class="account-label" id="mixBpmLabel" data-i18n="space.mixBpmLabel">Tempo</span>
+              <div id="mixBpmDropdown" class="profile-multi-dropdown-host mix-single-dropdown-host"></div>
+              <select id="mixBpmSelect" class="account-select hidden" aria-hidden="true" tabindex="-1">
                 <option value="0" data-i18n="space.mixBpmDefault">Standardtempo</option>
                 <option value="70" data-i18n="space.mixBpm70">70 BPM (Ruhig)</option>
                 <option value="85" data-i18n="space.mixBpm85">85 BPM (Entspannt)</option>
