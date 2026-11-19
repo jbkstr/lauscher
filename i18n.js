@@ -236,32 +236,32 @@ const I18N_STATIC = {
     en: "Terms that musicians take for granted come down to four simple ideas:"
   },
   "welcome.begTermIntervalsTitle": {
-    de: "🎵 Intervalle (Ton-Abstände)",
-    en: "🎵 Intervals (Distances Between Notes)"
+    de: "Intervalle (Ton-Abstände)",
+    en: "Intervals (Distances Between Notes)"
   },
   "welcome.begTermIntervalsDesc": {
     de: "Ein Intervall ist einfach der Abstand zwischen zwei Tönen – wie zwei Treppenstufen. Liegen sie nah beieinander, klingt es nach einem kleinen Schritt; liegen sie weit auseinander, nach einem großen Sprung. Aus solchen Sprüngen entsteht jede Melodie.",
     en: "An interval is simply the distance between two notes — like steps on a staircase. Close notes sound like a small step; distant notes sound like a wide leap. Every melody is built from these steps and leaps."
   },
   "welcome.begTermChordsTitle": {
-    de: "🎹 Akkorde (Zusammenklänge)",
-    en: "🎹 Chords (Notes Sounding Together)"
+    de: "Akkorde (Zusammenklänge)",
+    en: "Chords (Notes Sounding Together)"
   },
   "welcome.begTermChordsDesc": {
     de: "Wenn drei oder mehr Töne gleichzeitig erklingen, nennt man das einen Akkord. Die beiden wichtigsten Klangfarben sind Dur (wirkt oft hell, offen, strahlend) und Moll (wirkt oft weich, nachdenklich, warm).",
     en: "When three or more notes ring out at the same time, they form a chord. The two most important colors are Major (often bright, open, sunny) and Minor (often soft, reflective, warm)."
   },
   "welcome.begTermCadencesTitle": {
-    de: "🧭 Kadenzen (Harmonische Wegweiser)",
-    en: "🧭 Cadences (Harmonic Signposts)"
+    de: "Kadenzen (Harmonische Wegweiser)",
+    en: "Cadences (Harmonic Signposts)"
   },
   "welcome.begTermCadencesDesc": {
     de: "Eine Kadenz ist eine kurze Folge von Akkorden – wie Satzzeichen in einer Geschichte. Manche Akkorde bauen Spannung auf (wie ein Fragezeichen), andere führen wieder entspannt nach Hause zum Grundton (wie ein Punkt am Satzende).",
     en: "A cadence is a short sequence of chords — like punctuation in a story. Some chords build tension (like a question mark), while others resolve calmly back home to the tonic (like a period at the end of a sentence)."
   },
   "welcome.begTermScalesTitle": {
-    de: "🪜 Tonleitern, Solfège & Rhythmus",
-    en: "🪜 Scales, Solfège & Rhythm"
+    de: "Tonleitern, Solfège & Rhythmus",
+    en: "Scales, Solfège & Rhythm"
   },
   "welcome.begTermScalesDesc": {
     de: "Eine Tonleiter ist der Ton-Vorrat eines Liedes. Mit Solfège (Do–Re–Mi) bekommt jede Stufe einen festen Rufnamen im Ohr, und der Rhythmus gibt der Musik ihren Puls, zu dem man automatisch mitwippt.",
@@ -277,32 +277,32 @@ const I18N_STATIC = {
     en: "You don’t need to try everything at once. These 3 gentle steps are the ideal way to start:"
   },
   "welcome.begTip1Title": {
-    de: "🥇 1. Intervalle (Stufe 1) & der „Nur hören“-Modus",
-    en: "🥇 1. Intervals (Level 1) & Listen-Only Mode"
+    de: "1. Intervalle (Stufe 1) & der „Nur hören“-Modus",
+    en: "1. Intervals (Level 1) & Listen-Only Mode"
   },
   "welcome.begTip1Desc": {
     de: "Starte mit „Intervalle • Stufe 1 (Grundlagen)“. Dort gibt es nur wenige, gut unterscheidbare Tonabstände. Tipp: Schalte oben im Modul ruhig zuerst den „Nur hören“-Modus ein, um den Klängen ohne Abfrage-Druck zu lauschen.",
     en: "Start with ‘Intervals • Level 1 (Foundations)’, which uses only a few distinct note distances. Tip: Turn on ‘Listen-Only’ mode at the top of the module first so you can simply absorb the sounds without quiz pressure."
   },
   "welcome.begTip2Title": {
-    de: "🥈 2. Akkorde (Dur vs. Moll) & Rhythmus-Puls",
-    en: "🥈 2. Chords (Major vs. Minor) & Rhythm Pulse"
+    de: "2. Akkorde (Dur vs. Moll) & Rhythmus-Puls",
+    en: "2. Chords (Major vs. Minor) & Rhythm Pulse"
   },
   "welcome.begTip2Desc": {
     de: "Achte bei „Akkorde • Stufe 1“ nur auf dein Bauchgefühl: Klingt der Akkord eher hell (Dur) oder weich und nachdenklich (Moll)? Im Modul „Rhythmus“ kannst du außerdem einfache Takte auf dem Tap-Pad nachklopfen.",
     en: "In ‘Chords • Level 1’, just trust your gut feeling: does the chord sound bright (Major) or soft and reflective (Minor)? In the ‘Rhythm’ module, you can also tap simple bars back on the live pad."
   },
   "welcome.begTip3Title": {
-    de: "🥉 3. Kurze Melodien (Do – Fa) & der Wissens-Hub",
-    en: "🥉 3. Short Melodies (Do – Fa) & the Knowledge Hub"
+    de: "3. Kurze Melodien (Do – Fa) & der Wissens-Hub",
+    en: "3. Short Melodies (Do – Fa) & the Knowledge Hub"
   },
   "welcome.begTip3Desc": {
     de: "In „Melodien • Stufe 1“ baust du kleine Tonfolgen aus nur 4 Tönen nach. Und wann immer dir ein Begriff neu ist, tippe unten in der Leiste auf das Buch-Symbol (Wissen) – dort ist alles mit Klangbeispielen zum Antippen erklärt.",
     en: "In ‘Melodies • Level 1’, you rebuild short phrases using just 4 notes. Whenever a term feels unfamiliar, tap the book icon (Knowledge) in the bottom bar to explore interactive audio explanations."
   },
   "welcome.begApplyPresetBtn": {
-    de: "✨ Empfohlenen Startpunkt (Intervalle • Stufe 1) auswählen",
-    en: "✨ Select recommended starting point (Intervals • Level 1)"
+    de: "Empfohlenen Startpunkt (Intervalle • Stufe 1) auswählen",
+    en: "Select recommended starting point (Intervals • Level 1)"
   },
   "welcome.begApplyPresetDone": {
     de: "✓ Empfohlener Startpunkt (Intervalle • Stufe 1) ausgewählt",
@@ -318,32 +318,32 @@ const I18N_STATIC = {
     en: "An honest note of encouragement before you play your first note:"
   },
   "welcome.begEncourage1Title": {
-    de: "💛 Es ist völlig normal, sich anfangs überwältigt zu fühlen",
-    en: "💛 It’s completely normal to feel overwhelmed at first"
+    de: "Es ist völlig normal, sich anfangs überwältigt zu fühlen",
+    en: "It’s completely normal to feel overwhelmed at first"
   },
   "welcome.begEncourage1Desc": {
     de: "Begriffe wie „Quinte“, „Kadenz“, „Solfège“ oder „Notenschlüssel“ wirken am Anfang oft wie eine riesige Flut an Informationen. Wenn du dich davon erst einmal erschlagen fühlst oder oft danebenliegst, ist das vollkommen normal – und bedeutet niemals, dass du „unmusikalisch“ bist!",
     en: "Terms like ‘fifth’, ‘cadence’, ‘solfège’, or ‘clef’ can feel like a huge wave of information on day one. If it feels like a lot at first or you miss many answers early on, that is completely normal — and never means you’re ‘unmusical’!"
   },
   "welcome.begEncourage2Title": {
-    de: "🌱 Das Geheimnis ist einfach, entspannt am Ball zu bleiben",
-    en: "🌱 The secret is simply staying with it at your own pace"
+    de: "Das Geheimnis ist einfach, entspannt am Ball zu bleiben",
+    en: "The secret is simply staying with it at your own pace"
   },
   "welcome.begEncourage2Desc": {
     de: "Musikalisches Gehör wächst wie eine Sprache durch kleine, regelmäßige Gewohnheiten. Schon 5 ruhige Minuten alle paar Tage reichen aus. In Lauscher gibt es keinen Punktedruck: Jeder falsche Tipp ist einfach ein kostenloser Hör-Vergleich für dein Ohr.",
     en: "Your musical ear grows just like learning a language — through small, steady habits. Even 5 calm minutes every few days is enough. There is zero score pressure in Lauscher: every wrong guess is simply a free listening comparison for your ear."
   },
   "welcome.begEncourage3Title": {
-    de: "🎧 Nimm dir Zeit & nutze alle Hörhilfen",
-    en: "🎧 Take your time & use the listening aids"
+    de: "Nimm dir Zeit & nutze alle Hörhilfen",
+    en: "Take your time & use the listening aids"
   },
   "welcome.begEncourage3Desc": {
     de: "Nutze jederzeit „Grundton hören“, „Ton nochmal“ oder die A/B-Vergleiche. Mach eine Pause, sobald dein Kopf voll ist, und bleib einfach neugierig dran – schon nach kurzer Zeit wirst du staunen, was dein Ohr plötzlich wie von selbst erkennt!",
     en: "Use ‘Hear Root’, ‘Replay Note’, or the A/B comparisons anytime. Take a break whenever your head feels full, and just keep going with curiosity — before long, you’ll be amazed by what your ear suddenly recognizes naturally!"
   },
   "welcome.greetBeginnerBtn": {
-    de: "🌱 Komplett neu in der Musik? Kurze Einführung starten",
-    en: "🌱 Brand new to music? Start short beginner intro"
+    de: "Komplett neu in der Musik? Kurze Einführung starten",
+    en: "Brand new to music? Start short beginner intro"
   },
   "welcome.greetTitle": {
     de: "Hallo! Schön, dass du da bist.",

@@ -725,27 +725,27 @@ const KNOWLEDGE_ARTICLES_FR = [
 
         <div class="k-compare-grid">
           <div class="k-compare-box is-peach">
-            <h5>❌ Bloquant &amp; Vague</h5>
+            <h5>Bloquant &amp; Vague</h5>
             <p><strong>Étiquettes vides :</strong> « Bien / nul / bas de gamme / pro / antimusical. » Ce sont des sentences qui laissent l’autre deviner ce que vous avez vraiment entendu.</p>
           </div>
           <div class="k-compare-box is-sage">
-            <h5>✅ Clair &amp; Ouvert</h5>
+            <h5>Clair &amp; Ouvert</h5>
             <p><strong>Décrire l’évolution :</strong> « Le début doux m’a tout de suite happé, mais au milieu j’ai senti que ça se pressait un peu et devenait agressif à mes oreilles. »</p>
           </div>
           <div class="k-compare-box is-peach">
-            <h5>❌ Faux amis techniques</h5>
+            <h5>Faux amis techniques</h5>
             <p>Lancer des mots comme « faux », « atonal », « ça sature » ou « trop de dynamique » quand on veut dire « ça frotte fort » ou « ça manque de douceur » : les pros donnent un sens strict à ces mots.</p>
           </div>
           <div class="k-compare-box is-sage">
-            <h5>✅ Images sincères du quotidien</h5>
+            <h5>Images sincères du quotidien</h5>
             <p>Restez simple : « Je n’ai pas le mot savant, mais à cet endroit j’ai l’impression que deux bords se frottent avant de s’adoucir. »</p>
           </div>
           <div class="k-compare-box is-peach">
-            <h5>❌ Jugements sur les personnes ou styles</h5>
+            <h5>Jugements sur les personnes ou styles</h5>
             <p>« Zéro émotion » ou « pure musique d’ascenseur / commerciale ». Étiqueter des gens ou un genre étouffe la curiosité sur-le-champ.</p>
           </div>
           <div class="k-compare-box is-sage">
-            <h5>✅ Nommer texture &amp; contraste</h5>
+            <h5>Nommer texture &amp; contraste</h5>
             <p>« Pour moi le passage s’écoule de manière si lisse et égale que j’en viens à espérer une petite surprise ou un relief accrocheur. »</p>
           </div>
         </div>
@@ -3383,7 +3383,7 @@ function renderKeysReferenceHTML_FR(circleFilter = "all") {
     </article>
 
     <div class="k-sibling-bar">
-      <span>🧭 <strong>Explorer à l’œil &amp; à l’oreille :</strong> Ouvrez la roue interactive du Cycle des quintes avec accords et modulations en direct.</span>
+      <span><strong>Explorer à l’œil &amp; à l’oreille :</strong> Ouvrez la roue interactive du Cycle des quintes avec accords et modulations en direct.</span>
       <button type="button" class="btn-tool" data-jump-ref="circle-of-fifths">Ouvrir le Cycle des quintes →</button>
     </div>
 
@@ -3773,8 +3773,8 @@ function getIntervalNamingGuideHTML_FR() {
           <li><strong>4. Triton (<code>TT</code>) :</strong> Coupe exactement l’octave en deux à <strong>6 demi-tons</strong>, pile entre <code>P4</code> et <code>P5</code> (quarte augmentée / quinte diminuée).</li>
         </ul>
         <div class="k-meta-box">
-          <div>🔎 <strong>Symboles actifs :</strong> 2des : <code>${m2}</code> (1 DT) vs <code>${M2}</code> (2 DT) · 3ces : <code>${m3}</code> (3 DT) vs <code>${M3}</code> (4 DT)</div>
-          <div>⚙️ <strong>Personnaliser :</strong> Basculez librement entre <strong>International (P / M / m)</strong> et <strong>Allemand (P / G / k)</strong> dans <strong>Paramètres → Notation musicale → Noms des intervalles</strong>.</div>
+          <div><strong>Symboles actifs :</strong> 2des : <code>${m2}</code> (1 DT) vs <code>${M2}</code> (2 DT) · 3ces : <code>${m3}</code> (3 DT) vs <code>${M3}</code> (4 DT)</div>
+          <div><strong>Personnaliser :</strong> Basculez librement entre <strong>International (P / M / m)</strong> et <strong>Allemand (P / G / k)</strong> dans <strong>Paramètres → Notation musicale → Noms des intervalles</strong>.</div>
         </div>
       </div>
     </details>
@@ -3857,8 +3857,8 @@ function renderNotationReferenceHTML_FR() {
       </div>
 
       <div class="k-meta-box">
-        <div>🔑 <strong>Le même Do central (C4) relie les trois clés :</strong> En <strong>clé de Sol</strong>, il est sur la 1re ligne supplémentaire <em>en bas</em> ; en <strong>clé d’Ut 3</strong>, pile au <em>centre (3e ligne)</em> ; en <strong>clé de Fa</strong>, sur la 1re ligne supplémentaire <em>en haut</em> !</div>
-        <div>🎼 <strong>Clés spéciales (Aperçu) :</strong> La <strong>clé d’Ut 4 (Ténor)</strong> place le même Do central sur la 4e ligne pour les passages aigus du violoncelle, du basson ou du trombone, tandis que les clés octaviantes (<code>8vb</code> / <code>8va</code>) évitent l’empilement de lignes pour la guitare ou le piccolo.</div>
+        <div><strong>Le même Do central (C4) relie les trois clés :</strong> En <strong>clé de Sol</strong>, il est sur la 1re ligne supplémentaire <em>en bas</em> ; en <strong>clé d’Ut 3</strong>, pile au <em>centre (3e ligne)</em> ; en <strong>clé de Fa</strong>, sur la 1re ligne supplémentaire <em>en haut</em> !</div>
+        <div><strong>Clés spéciales (Aperçu) :</strong> La <strong>clé d’Ut 4 (Ténor)</strong> place le même Do central sur la 4e ligne pour les passages aigus du violoncelle, du basson ou du trombone, tandis que les clés octaviantes (<code>8vb</code> / <code>8va</code>) évitent l’empilement de lignes pour la guitare ou le piccolo.</div>
       </div>
     </article>
 
@@ -4055,7 +4055,7 @@ function renderArrangingReferenceHTML_FR() {
         <button type="button" class="btn-tool" data-play-custom="arr-reharm-cinema">▶ Même mélodie réharmonisée façon cinéma</button>
       </div>
       <div class="k-meta-box">
-        <div>✅ <strong>5 questions clés pour vos arrangements :</strong></div>
+        <div><strong>5 questions clés pour vos arrangements :</strong></div>
         <div>1. <strong>Qui a la parole ?</strong> Un seul élément principal à la fois au premier plan.</div>
         <div>2. <strong>Où sont les respirations ?</strong> Placez les réponses dans les pauses du chant.</div>
         <div>3. <strong>Le grave est-il aéré ?</strong> Pas de tierces serrées sous <code>Do3 (C3)</code>.</div>
@@ -4063,9 +4063,9 @@ function renderArrangingReferenceHTML_FR() {
         <div>5. <strong>Le test du bouton Mute :</strong> Si couper une piste ne retire rien au morceau, donnez-lui un vrai rôle ou supprimez-la !</div>
       </div>
       <div class="k-btn-row" style="margin-top:0.55rem;">
-        <button type="button" class="btn-tool" data-jump-ref="ensembles">🎻 Vers Orchestres &amp; Groupes →</button>
-        <button type="button" class="btn-tool" data-jump-ref="cadences">🎹 Vers Cadences &amp; Harmonie →</button>
-        <button type="button" class="btn-tool" data-jump-ref="physics">🌊 Vers Physique &amp; Harmoniques →</button>
+        <button type="button" class="btn-tool" data-jump-ref="ensembles">Vers Orchestres &amp; Groupes →</button>
+        <button type="button" class="btn-tool" data-jump-ref="cadences">Vers Cadences &amp; Harmonie →</button>
+        <button type="button" class="btn-tool" data-jump-ref="physics">Vers Physique &amp; Harmoniques →</button>
       </div>
     </article>
   `;

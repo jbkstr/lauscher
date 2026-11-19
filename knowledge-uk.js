@@ -724,27 +724,27 @@ const KNOWLEDGE_ARTICLES_UK = [
 
         <div class="k-compare-grid">
           <div class="k-compare-box is-peach">
-            <h5>❌ Глухий кут і ярлики</h5>
+            <h5>Глухий кут і ярлики</h5>
             <p><strong>Порожні оцінки:</strong> «Гарно / погано / дешево / професійно / немузично». Вони ставлять штамп, не пояснюючи, що саме ти почув.</p>
           </div>
           <div class="k-compare-box is-sage">
-            <h5>✅ Чітко й відкрито</h5>
+            <h5>Чітко й відкрито</h5>
             <p><strong>Опиши зміну:</strong> «Тихий вступ мене одразу затягнув, але десь посередині звучання стало занадто поквапливим і різким для мого вуха».</p>
           </div>
           <div class="k-compare-box is-peach">
-            <h5>❌ Терміни навмання</h5>
+            <h5>Терміни навмання</h5>
             <p>Кидати слова «фальш», «атонально», «кліпує» чи «забагато динаміки», маючи на увазі «різко треться», «занадто колюче» або «бракує тепла» — професіонали вкладають у ці слова зовсім інший технічний зміст.</p>
           </div>
           <div class="k-compare-box is-sage">
-            <h5>✅ Чесний життєвий образ</h5>
+            <h5>Чесний життєвий образ</h5>
             <p>Залишайся природним: «Не знаю точного терміна, але ось тут відчуття, ніби дві шорсткі грані труться одна об одну, а потім знову м’якшають».</p>
           </div>
           <div class="k-compare-box is-peach">
-            <h5>❌ Напади на смаки й стереотипи</h5>
+            <h5>Напади на смаки й стереотипи</h5>
             <p>«Тут зовсім немає душі» чи «Це суцільна музика для ліфта / чиста комерція». Знецінення жанрів і виконавців одразу вбиває цікавість.</p>
           </div>
           <div class="k-compare-box is-sage">
-            <h5>✅ Назви фактуру й контраст</h5>
+            <h5>Назви фактуру й контраст</h5>
             <p>«Для мене цей фрагмент тече настільки рівно й гладко, що аж кортить дочекатися якоїсь несподіванки чи гострої грані».</p>
           </div>
         </div>
@@ -3376,7 +3376,7 @@ function renderKeysReferenceHTML_UK(circleFilter = "all") {
     </article>
 
     <div class="k-sibling-bar">
-      <span>🧭 <strong>Досліджуй візуально й на слух:</strong> Відкрий інтерактивне Кварто-квінтове коло з живими акордами та модуляціями.</span>
+      <span><strong>Досліджуй візуально й на слух:</strong> Відкрий інтерактивне Кварто-квінтове коло з живими акордами та модуляціями.</span>
       <button type="button" class="btn-tool" data-jump-ref="circle-of-fifths">Відкрити Кварто-квінтове коло →</button>
     </div>
 
@@ -3761,8 +3761,8 @@ function getIntervalNamingGuideHTML_UK() {
           <li><strong>4. Тритон (<code>TT</code>):</strong> Ділить октаву точно навпіл на <strong>6 півтонів</strong> між <code>P4</code> та <code>P5</code> (збільшена кварта / зменшена квінта).</li>
         </ul>
         <div class="k-meta-box">
-          <div>🔎 <strong>Активні скорочення:</strong> Секунди: <code>${sym("m2")}</code> (1 пт) проти <code>${sym("M2")}</code> (2 пт) · Терції: <code>${sym("m3")}</code> (3 пт) проти <code>${sym("M3")}</code> (4 пт)</div>
-          <div>⚙️ <strong>Перемикач:</strong> У <strong>Налаштуваннях → Мова та нотація → Музична нотація → Назви інтервалів</strong> будь-коли перемикайся між <strong>Міжнародними (P / M / m)</strong> та <strong>Німецькими (P / G / k)</strong>.</div>
+          <div><strong>Активні скорочення:</strong> Секунди: <code>${sym("m2")}</code> (1 пт) проти <code>${sym("M2")}</code> (2 пт) · Терції: <code>${sym("m3")}</code> (3 пт) проти <code>${sym("M3")}</code> (4 пт)</div>
+          <div><strong>Перемикач:</strong> У <strong>Налаштуваннях → Мова та нотація → Музична нотація → Назви інтервалів</strong> будь-коли перемикайся між <strong>Міжнародними (P / M / m)</strong> та <strong>Німецькими (P / G / k)</strong>.</div>
         </div>
       </div>
     </details>
@@ -3979,8 +3979,8 @@ function renderNotationReferenceHTML_UK() {
       </div>
 
       <div class="k-meta-box">
-        <div>🔑 <strong>Та сама середня До (C4) з’єднує всі три ключі:</strong> у <strong>скрипковому</strong> вона лежить на 1-й додатковій лінійці <em>знизу</em>, в <strong>альтовому</strong> — точно в <em>центрі (3-тя лінійка)</em>, а в <strong>басовому</strong> — на 1-й додатковій лінійці <em>зверху</em>!</div>
-        <div>🎼 <strong>Спеціальні ключі (огляд):</strong> <strong>Теноровий ключ</strong> піднімає той самий ключ До на 4-ту лінійку (для високих партій віолончелі, фагота чи тромбона), а октавні ключі (<code>8vb</code> / <code>8va</code>) зміщують нотацію гітари чи флейти-піколо без зайвих додаткових лінійок.</div>
+        <div><strong>Та сама середня До (C4) з’єднує всі три ключі:</strong> у <strong>скрипковому</strong> вона лежить на 1-й додатковій лінійці <em>знизу</em>, в <strong>альтовому</strong> — точно в <em>центрі (3-тя лінійка)</em>, а в <strong>басовому</strong> — на 1-й додатковій лінійці <em>зверху</em>!</div>
+        <div><strong>Спеціальні ключі (огляд):</strong> <strong>Теноровий ключ</strong> піднімає той самий ключ До на 4-ту лінійку (для високих партій віолончелі, фагота чи тромбона), а октавні ключі (<code>8vb</code> / <code>8va</code>) зміщують нотацію гітари чи флейти-піколо без зайвих додаткових лінійок.</div>
       </div>
     </article>
 
@@ -4177,7 +4177,7 @@ function renderArrangingReferenceHTML_UK() {
         <button type="button" class="btn-tool" data-play-custom="arr-reharm-cinema">▶ Та сама мелодія з кінематографічною гармонією</button>
       </div>
       <div class="k-meta-box">
-        <div>✅ <strong>5 контрольних запитань для власного аранжування:</strong></div>
+        <div><strong>5 контрольних запитань для власного аранжування:</strong></div>
         <div>1. <strong>Хто зараз головний?</strong> У кожен момент часу лише один елемент має бути у центрі уваги.</div>
         <div>2. <strong>Де місця для подиху?</strong> Розміщуйте підголоски в паузах головної мелодії.</div>
         <div>3. <strong>Чи чистий низький регістр?</strong> Уникайте тісних терцій нижче <code>C3</code>.</div>
@@ -4185,9 +4185,9 @@ function renderArrangingReferenceHTML_UK() {
         <div>5. <strong>Тест кнопки Mute:</strong> Якщо після вимкнення доріжки пісня нічого не втратила — дайте їй чітку роль або сміливо приберіть!</div>
       </div>
       <div class="k-btn-row" style="margin-top:0.55rem;">
-        <button type="button" class="btn-tool" data-jump-ref="ensembles">🎻 До Оркестрів і Гуртів →</button>
-        <button type="button" class="btn-tool" data-jump-ref="cadences">🎹 До Каденцій і Гармонії →</button>
-        <button type="button" class="btn-tool" data-jump-ref="physics">🌊 До Фізики й Обертонів →</button>
+        <button type="button" class="btn-tool" data-jump-ref="ensembles">До Оркестрів і Гуртів →</button>
+        <button type="button" class="btn-tool" data-jump-ref="cadences">До Каденцій і Гармонії →</button>
+        <button type="button" class="btn-tool" data-jump-ref="physics">До Фізики й Обертонів →</button>
       </div>
     </article>
   `;

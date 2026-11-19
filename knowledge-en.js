@@ -725,27 +725,27 @@ const KNOWLEDGE_ARTICLES_EN = [
 
         <div class="k-compare-grid">
           <div class="k-compare-box is-peach">
-            <h5>❌ Unhelpful &amp; Blocking</h5>
+            <h5>Unhelpful &amp; Blocking</h5>
             <p><strong>Empty pass/fail labels:</strong> “Good / bad / cheap / professional / unmusical.” They pass a verdict while leaving others guessing what you actually heard.</p>
           </div>
           <div class="k-compare-box is-sage">
-            <h5>✅ Clear &amp; Inviting</h5>
+            <h5>Clear &amp; Inviting</h5>
             <p><strong>Describe the shift:</strong> “The gentle start drew me right in, though halfway through it started feeling a bit rushed and glaring to me.”</p>
           </div>
           <div class="k-compare-box is-peach">
-            <h5>❌ Guesswork Buzzwords</h5>
+            <h5>Guesswork Buzzwords</h5>
             <p>Dropping words like “wrong”, “atonal”, “clipping”, or “too dynamic” when you really mean “it rubs harshly”, “feels too harsh”, or “misses warmth” — pros often attach strict technical meanings to those terms.</p>
           </div>
           <div class="k-compare-box is-sage">
-            <h5>✅ Honest Everyday Imagery</h5>
+            <h5>Honest Everyday Imagery</h5>
             <p>Stay natural: “I don’t know the fancy term, yet right there it feels like two edges rubbing together before softening out again.”</p>
           </div>
           <div class="k-compare-box is-peach">
-            <h5>❌ Personal Attacks &amp; Stereotypes</h5>
+            <h5>Personal Attacks &amp; Stereotypes</h5>
             <p>“No feeling at all” or “Sounds like elevator music / pure commercial fluff.” Putting labels on people or genres shuts curiosity down immediately.</p>
           </div>
           <div class="k-compare-box is-sage">
-            <h5>✅ Name the Texture &amp; Contrast</h5>
+            <h5>Name the Texture &amp; Contrast</h5>
             <p>“For me the passage flows so smoothly and evenly that I find myself wishing for one small surprise or rough edge to grab onto.”</p>
           </div>
         </div>
@@ -3412,7 +3412,7 @@ function renderKeysReferenceHTML_EN(circleFilter = "all") {
     </article>
 
     <div class="k-sibling-bar">
-      <span>🧭 <strong>Explore Visually &amp; By Ear:</strong> Open the interactive Circle of Fifths wheel with live chords &amp; modulations.</span>
+      <span><strong>Explore Visually &amp; By Ear:</strong> Open the interactive Circle of Fifths wheel with live chords &amp; modulations.</span>
       <button type="button" class="btn-tool" data-jump-ref="circle-of-fifths">Open Circle of Fifths →</button>
     </div>
 
@@ -3797,8 +3797,8 @@ function getIntervalNamingGuideHTML_EN() {
           <li><strong>4. Tritone (<code>TT</code>):</strong> Splits the octave cleanly in half at <strong>6 semitones</strong> right between <code>P4</code> and <code>P5</code> (augmented 4th / diminished 5th).</li>
         </ul>
         <div class="k-meta-box">
-          <div>🔎 <strong>Active Symbols:</strong> 2nds: <code>${sym("m2")}</code> (1 ST) vs. <code>${sym("M2")}</code> (2 ST) · 3rds: <code>${sym("m3")}</code> (3 ST) vs. <code>${sym("M3")}</code> (4 ST)</div>
-          <div>⚙️ <strong>Customize:</strong> Switch anytime between <strong>International (P / M / m)</strong> and <strong>German (P / G / k)</strong> in <strong>App Settings → Musical Notation → Interval Naming</strong>.</div>
+          <div><strong>Active Symbols:</strong> 2nds: <code>${sym("m2")}</code> (1 ST) vs. <code>${sym("M2")}</code> (2 ST) · 3rds: <code>${sym("m3")}</code> (3 ST) vs. <code>${sym("M3")}</code> (4 ST)</div>
+          <div><strong>Customize:</strong> Switch anytime between <strong>International (P / M / m)</strong> and <strong>German (P / G / k)</strong> in <strong>App Settings → Musical Notation → Interval Naming</strong>.</div>
         </div>
       </div>
     </details>
@@ -3881,8 +3881,8 @@ function renderNotationReferenceHTML_EN() {
       </div>
 
       <div class="k-meta-box">
-        <div>🔑 <strong>Same Middle C (C4) Bridges All Three Clefs:</strong> In <strong>Treble</strong>, C4 rests on the 1st ledger line <em>below</em>; in <strong>Alto</strong>, it sits dead <em>center (Line 3)</em>; and in <strong>Bass</strong>, it floats on the 1st ledger line <em>above</em>!</div>
-        <div>🎼 <strong>Special Clefs (Outlook):</strong> The <strong>Tenor Clef</strong> slides the same C-clef up to Line 4 for high cello, bassoon, and trombone passages, while octave clefs (<code>8vb</code> / <code>8va</code>) transpose guitar or piccolo cleanly by an octave without ledger-line clutter.</div>
+        <div><strong>Same Middle C (C4) Bridges All Three Clefs:</strong> In <strong>Treble</strong>, C4 rests on the 1st ledger line <em>below</em>; in <strong>Alto</strong>, it sits dead <em>center (Line 3)</em>; and in <strong>Bass</strong>, it floats on the 1st ledger line <em>above</em>!</div>
+        <div><strong>Special Clefs (Outlook):</strong> The <strong>Tenor Clef</strong> slides the same C-clef up to Line 4 for high cello, bassoon, and trombone passages, while octave clefs (<code>8vb</code> / <code>8va</code>) transpose guitar or piccolo cleanly by an octave without ledger-line clutter.</div>
       </div>
     </article>
 
@@ -4110,7 +4110,7 @@ function renderArrangingReferenceHTML_EN() {
         <button type="button" class="btn-tool" data-play-custom="arr-reharm-cinema">▶ Exact same melody cinematically reharmonized</button>
       </div>
       <div class="k-meta-box">
-        <div>✅ <strong>The 5-Question Checklist for Your Own Arrangements:</strong></div>
+        <div><strong>The 5-Question Checklist for Your Own Arrangements:</strong></div>
         <div>1. <strong>Who has the spotlight right now?</strong> Only one element should demand primary focus at any given moment.</div>
         <div>2. <strong>Where are the breathing spaces?</strong> Place fills and counter-lines inside the rests of the main melody.</div>
         <div>3. <strong>Is the low end clean?</strong> Avoid tight thirds below <code>C3</code> — anchor the bass with roots, fifths, and octaves.</div>
@@ -4118,9 +4118,9 @@ function renderArrangingReferenceHTML_EN() {
         <div>5. <strong>The Mute Test:</strong> Mute a track for a moment. If the song doesn’t miss it, either give that part a distinct role or boldly leave it out!</div>
       </div>
       <div class="k-btn-row" style="margin-top:0.55rem;">
-        <button type="button" class="btn-tool" data-jump-ref="ensembles">🎻 To Ensembles &amp; Orchestras →</button>
-        <button type="button" class="btn-tool" data-jump-ref="cadences">🎹 To Cadences &amp; Harmony →</button>
-        <button type="button" class="btn-tool" data-jump-ref="physics">🌊 To Physics &amp; Overtones →</button>
+        <button type="button" class="btn-tool" data-jump-ref="ensembles">To Ensembles &amp; Orchestras →</button>
+        <button type="button" class="btn-tool" data-jump-ref="cadences">To Cadences &amp; Harmony →</button>
+        <button type="button" class="btn-tool" data-jump-ref="physics">To Physics &amp; Overtones →</button>
       </div>
     </article>
   `;

@@ -725,27 +725,27 @@ const KNOWLEDGE_ARTICLES_ES = [
 
         <div class="k-compare-grid">
           <div class="k-compare-box is-peach">
-            <h5>❌ Bloqueante &amp; vago</h5>
+            <h5>Bloqueante &amp; vago</h5>
             <p><strong>Etiquetas vacías:</strong> «Bien / malo / de baja calidad / profesional / antimusical.» Son sentencias que obligan al otro a adivinar lo que de verdad has oído.</p>
           </div>
           <div class="k-compare-box is-sage">
-            <h5>✅ Claro &amp; abierto</h5>
+            <h5>Claro &amp; abierto</h5>
             <p><strong>Describir la evolución:</strong> «El comienzo suave me atrapó enseguida, pero en el medio sentí que se apresuraba un poco y se volvía agresivo para mis oídos.»</p>
           </div>
           <div class="k-compare-box is-peach">
-            <h5>❌ Falsos amigos técnicos</h5>
+            <h5>Falsos amigos técnicos</h5>
             <p>Soltar palabras como «desafinado», «atonal», «satura» o «demasiada dinámica» cuando se quiere decir «roza mucho» o «le falta suavidad»: los profesionales dan a esas palabras un sentido estricto.</p>
           </div>
           <div class="k-compare-box is-sage">
-            <h5>✅ Imágenes cotidianas sinceras</h5>
+            <h5>Imágenes cotidianas sinceras</h5>
             <p>Hazlo sencillo: «No tengo la palabra técnica, pero en este punto tengo la impresión de que dos bordes rozan antes de suavizarse.»</p>
           </div>
           <div class="k-compare-box is-peach">
-            <h5>❌ Juicios sobre personas o estilos</h5>
+            <h5>Juicios sobre personas o estilos</h5>
             <p>«Cero emoción» o «pura música de ascensor / comercial». Etiquetar a personas o a un género apaga la curiosidad al instante.</p>
           </div>
           <div class="k-compare-box is-sage">
-            <h5>✅ Nombrar textura &amp; contraste</h5>
+            <h5>Nombrar textura &amp; contraste</h5>
             <p>«Para mí, el pasaje fluye de forma tan lisa y uniforme que acabo deseando una pequeña sorpresa o un relieve que enganche.»</p>
           </div>
         </div>
@@ -3383,7 +3383,7 @@ function renderKeysReferenceHTML_ES(circleFilter = "all") {
     </article>
 
     <div class="k-sibling-bar">
-      <span>🧭 <strong>Explorar con la vista &amp; el oído:</strong> Abre la rueda interactiva del círculo de quintas con acordes y modulaciones en directo.</span>
+      <span><strong>Explorar con la vista &amp; el oído:</strong> Abre la rueda interactiva del círculo de quintas con acordes y modulaciones en directo.</span>
       <button type="button" class="btn-tool" data-jump-ref="circle-of-fifths">Abrir el círculo de quintas →</button>
     </div>
 
@@ -3773,8 +3773,8 @@ function getIntervalNamingGuideHTML_ES() {
           <li><strong>4. Tritono (<code>TT</code>):</strong> Divide la octava exactamente en dos a <strong>6 semitonos</strong>, justo entre <code>P4</code> y <code>P5</code> (cuarta aumentada / quinta disminuida).</li>
         </ul>
         <div class="k-meta-box">
-          <div>🔎 <strong>Símbolos activos:</strong> 2.as: <code>${m2}</code> (1 st) vs. <code>${M2}</code> (2 st) · 3.as: <code>${m3}</code> (3 st) vs. <code>${M3}</code> (4 st)</div>
-          <div>⚙️ <strong>Personalizar:</strong> Alterna libremente entre <strong>Internacional (P / M / m)</strong> y <strong>Alemán (P / G / k)</strong> en <strong>Ajustes → Notación musical → Nombres de los intervalos</strong>.</div>
+          <div><strong>Símbolos activos:</strong> 2.as: <code>${m2}</code> (1 st) vs. <code>${M2}</code> (2 st) · 3.as: <code>${m3}</code> (3 st) vs. <code>${M3}</code> (4 st)</div>
+          <div><strong>Personalizar:</strong> Alterna libremente entre <strong>Internacional (P / M / m)</strong> y <strong>Alemán (P / G / k)</strong> en <strong>Ajustes → Notación musical → Nombres de los intervalos</strong>.</div>
         </div>
       </div>
     </details>
@@ -3857,8 +3857,8 @@ function renderNotationReferenceHTML_ES() {
       </div>
 
       <div class="k-meta-box">
-        <div>🔑 <strong>El mismo Do central (C4) une las tres claves:</strong> En <strong>clave de Sol</strong> está en la 1.ª línea adicional <em>por debajo</em>; en <strong>clave de Do en 3.ª</strong>, justo en el <em>centro (3.ª línea)</em>; en <strong>clave de Fa</strong>, en la 1.ª línea adicional <em>por encima</em>.</div>
-        <div>🎼 <strong>Claves especiales (vista previa):</strong> La <strong>clave de Do en 4.ª (tenor)</strong> coloca el mismo Do central en la 4.ª línea para los pasajes agudos del violonchelo, el fagot o el trombón, mientras que las claves octavadas (<code>8vb</code> / <code>8va</code>) evitan amontonar líneas para la guitarra o el flautín.</div>
+        <div><strong>El mismo Do central (C4) une las tres claves:</strong> En <strong>clave de Sol</strong> está en la 1.ª línea adicional <em>por debajo</em>; en <strong>clave de Do en 3.ª</strong>, justo en el <em>centro (3.ª línea)</em>; en <strong>clave de Fa</strong>, en la 1.ª línea adicional <em>por encima</em>.</div>
+        <div><strong>Claves especiales (vista previa):</strong> La <strong>clave de Do en 4.ª (tenor)</strong> coloca el mismo Do central en la 4.ª línea para los pasajes agudos del violonchelo, el fagot o el trombón, mientras que las claves octavadas (<code>8vb</code> / <code>8va</code>) evitan amontonar líneas para la guitarra o el flautín.</div>
       </div>
     </article>
 
@@ -4055,7 +4055,7 @@ function renderArrangingReferenceHTML_ES() {
         <button type="button" class="btn-tool" data-play-custom="arr-reharm-cinema">▶ La misma melodía rearmonizada al estilo cine</button>
       </div>
       <div class="k-meta-box">
-        <div>✅ <strong>5 preguntas clave para tus arreglos:</strong></div>
+        <div><strong>5 preguntas clave para tus arreglos:</strong></div>
         <div>1. <strong>¿Quién tiene la palabra?</strong> Un solo elemento principal en primer plano cada vez.</div>
         <div>2. <strong>¿Dónde están las respiraciones?</strong> Coloca las respuestas en las pausas del canto.</div>
         <div>3. <strong>¿Está despejado el grave?</strong> Nada de terceras cerradas por debajo de <code>Do3 (C3)</code>.</div>
@@ -4063,9 +4063,9 @@ function renderArrangingReferenceHTML_ES() {
         <div>5. <strong>La prueba del botón de silencio:</strong> Si silenciar una pista no le quita nada a la canción, ¡dale un papel real o elimínala!</div>
       </div>
       <div class="k-btn-row" style="margin-top:0.55rem;">
-        <button type="button" class="btn-tool" data-jump-ref="ensembles">🎻 A Orquestas &amp; grupos →</button>
-        <button type="button" class="btn-tool" data-jump-ref="cadences">🎹 A Cadencias &amp; armonía →</button>
-        <button type="button" class="btn-tool" data-jump-ref="physics">🌊 A Física &amp; armónicos →</button>
+        <button type="button" class="btn-tool" data-jump-ref="ensembles">A Orquestas &amp; grupos →</button>
+        <button type="button" class="btn-tool" data-jump-ref="cadences">A Cadencias &amp; armonía →</button>
+        <button type="button" class="btn-tool" data-jump-ref="physics">A Física &amp; armónicos →</button>
       </div>
     </article>
   `;
