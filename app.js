@@ -2879,12 +2879,12 @@ function applyThemeAndAppearance() {
   }
 
   if (typeof document !== "undefined" && typeof document.querySelectorAll === "function") {
-    document.querySelectorAll("[data-appearance], [data-welcome-appearance]").forEach(btn => {
+    document.querySelectorAll("button[data-appearance], button[data-welcome-appearance]").forEach(btn => {
       const btnVal = btn.dataset?.appearance
         || btn.dataset?.welcomeAppearance
         || btn.getAttribute?.("data-appearance")
         || btn.getAttribute?.("data-welcome-appearance");
-      const isSelected = btnVal === appearance || (appearance === "system" && btnVal === effective);
+      const isSelected = btnVal === appearance;
       btn.classList?.toggle("active", isSelected);
       btn.setAttribute?.("aria-pressed", String(isSelected));
     });
@@ -13472,7 +13472,7 @@ async function handleMelodyRhythmClick(rhythmKey, btn, options = {}) {
     setListenOnlyMode(false, { keepPlayback: true });
   }
 
-  await ensureAudioReady();
+  prepareAudioNonBlocking();
 
   if (state.exam?.active) {
     handleExamMelodyRhythmChoice(ex, rhythmKey, btn);
@@ -13539,7 +13539,7 @@ async function handleMelodyKeyClick(clickedKeyDef, keyBtn, options = {}) {
     setListenOnlyMode(false, { keepPlayback: true });
   }
 
-  await ensureAudioReady();
+  prepareAudioNonBlocking();
 
   if (state.exam?.active) {
     handleExamMelodyAnswer(ex, clickedKeyDef, keyBtn);
@@ -13982,7 +13982,7 @@ async function handleNotationChordChoice(selectedKey, btnElement, options = {}) 
     setListenOnlyMode(false, { keepPlayback: true });
   }
 
-  await ensureAudioReady();
+  prepareAudioNonBlocking();
   if (isListenOnly && (!state.listenOnly?.active || state.listenOnly.token !== listenOnlyToken || state.currentView !== "exercise" || state.currentExercise !== ex)) {
     return;
   }
@@ -14110,7 +14110,7 @@ async function handleNotationKeyClick(clickedKeyDef, keyBtn, options = {}) {
     setListenOnlyMode(false, { keepPlayback: true });
   }
 
-  await ensureAudioReady();
+  prepareAudioNonBlocking();
   if (isListenOnly && (!state.listenOnly?.active || state.listenOnly.token !== listenOnlyToken || state.currentView !== "exercise" || state.currentExercise !== ex)) {
     return;
   }
@@ -14327,7 +14327,7 @@ async function handleSolfegeKeyClick(clickedKeyDef, keyBtn, options = {}) {
     setListenOnlyMode(false, { keepPlayback: true });
   }
 
-  await ensureAudioReady();
+  prepareAudioNonBlocking();
   if (isListenOnly && (!state.listenOnly?.active || state.listenOnly.token !== listenOnlyToken || state.currentView !== "exercise" || state.currentExercise !== ex || state.solfegeAnswered)) {
     return;
   }
@@ -14694,7 +14694,7 @@ async function handleRhythmDictationChoice(cellKey, btnElement, options = {}) {
     setListenOnlyMode(false, { keepPlayback: true });
   }
 
-  await ensureAudioReady();
+  prepareAudioNonBlocking();
 
   if (state.exam?.active) {
     handleExamRhythmDictationAnswer(ex, cellKey, btnElement);
@@ -15224,16 +15224,36 @@ function finishRhythmTapRound() {
 
 function unlockWebAudioSync() {
   try {
+    if (typeof audioEngine?.unlockAudioSessionSync === "function") {
+      audioEngine.unlockAudioSessionSync();
+      return;
+    }
     if (typeof Tone === "undefined") return;
     const ctx = typeof Tone.getContext === "function" ? Tone.getContext() : null;
     const rawCtx = ctx?.rawContext || ctx?._context || Tone.context?.rawContext || Tone.context?._context;
-    if (rawCtx && rawCtx.state === "suspended" && typeof rawCtx.resume === "function") {
+    if (rawCtx && (rawCtx.state === "suspended" || rawCtx.state === "interrupted") && typeof rawCtx.resume === "function") {
       Promise.resolve(rawCtx.resume()).catch(() => {});
     }
     if (typeof Tone.start === "function") {
       Promise.resolve(Tone.start()).catch(() => {});
     }
   } catch (_) {}
+}
+
+function prepareAudioNonBlocking() {
+  unlockWebAudioSync();
+  try {
+    const pianoPrefs = getActivePianoSoundSettings();
+    const droneMix = getActiveDroneMixSettings();
+    audioEngine?.setPianoSoundProfile?.(pianoPrefs.character, pianoPrefs.reverb);
+    audioEngine?.setDroneIntervalMix?.(droneMix.pad, droneMix.tone);
+    if (!audioEngine.graphBuilt && typeof audioEngine.buildAudioGraphSync === "function") {
+      audioEngine.buildAudioGraphSync(state.master.volume, state.master.muted, state.mixer);
+    }
+    audioEngine.setMasterVolume(state.master.volume, state.master.muted);
+    audioEngine.setMixerGains(state.mixer);
+  } catch (_) {}
+  ensureAudioReady().catch(() => {});
 }
 
 async function ensureAudioReady() {
@@ -20654,19 +20674,42 @@ document.addEventListener("DOMContentLoaded", () => {
   if (typeof audioEngine?.preload === "function") {
     Promise.resolve(audioEngine.preload(state.master.volume, state.master.muted, state.mixer)).catch(() => {});
   }
-  let unlockedAudioGesture = false;
-  const onFirstAudioGesture = () => {
-    if (unlockedAudioGesture) return;
-    unlockedAudioGesture = true;
-    document.removeEventListener?.("pointerdown", onFirstAudioGesture, true);
-    document.removeEventListener?.("touchstart", onFirstAudioGesture, true);
-    document.removeEventListener?.("keydown", onFirstAudioGesture, true);
-    unlockWebAudioSync();
-    ensureAudioReady().catch(() => {});
+  // iOS Safari / WKWebView Audio-Unlock: aktiv bleiben bis AudioContext wirklich "running"
+  // und AudioSession entsperrt sind (touchstart/pointerdown allein genügen auf iOS oft nicht).
+  const audioUnlockEvents = ["pointerdown", "touchstart", "touchend", "click", "keydown"];
+  let audioUnlockListenersBound = false;
+  const disarmAudioUnlockListeners = () => {
+    if (!audioUnlockListenersBound) return;
+    audioUnlockListenersBound = false;
+    audioUnlockEvents.forEach((evt) => {
+      document.removeEventListener?.(evt, onAudioUnlockGesture, true);
+    });
   };
-  document.addEventListener("pointerdown", onFirstAudioGesture, true);
-  document.addEventListener("touchstart", onFirstAudioGesture, true);
-  document.addEventListener("keydown", onFirstAudioGesture, true);
+  const onAudioUnlockGesture = () => {
+    unlockWebAudioSync();
+    if (typeof audioEngine?.preload === "function" && !audioEngine.preparePromise) {
+      Promise.resolve(audioEngine.preload(state.master.volume, state.master.muted, state.mixer)).catch(() => {});
+    }
+    if (typeof audioEngine?.isAudioUnlocked === "function" && audioEngine.isAudioUnlocked()) {
+      disarmAudioUnlockListeners();
+    }
+  };
+  const armAudioUnlockListeners = () => {
+    if (audioUnlockListenersBound) return;
+    audioUnlockListenersBound = true;
+    audioUnlockEvents.forEach((evt) => {
+      document.addEventListener(evt, onAudioUnlockGesture, true);
+    });
+  };
+  armAudioUnlockListeners();
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") {
+      if (typeof audioEngine?.isAudioUnlocked !== "function" || !audioEngine.isAudioUnlocked()) {
+        audioEngine?.markAudioSessionInterrupted?.();
+        armAudioUnlockListeners();
+      }
+    }
+  });
   initTabSwipeNavigation();
   initCapacitorNativeBridge();
   applyThemeAndAppearance();
@@ -20732,7 +20775,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  document.querySelectorAll("[data-appearance]").forEach(btn => {
+  document.querySelectorAll("button[data-appearance]").forEach(btn => {
     btn.addEventListener("click", () => {
       setAppearancePreference(btn.dataset.appearance);
     });
