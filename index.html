@@ -2864,6 +2864,19 @@
             </div>
           </div>
         </div>
+
+        <!-- Rechtstexte (z. B. Datenschutz) – Inhalt aus legal.js, ersetzt beim Öffnen die Übersicht -->
+        <section id="aboutLegalPane" class="about-legal-pane hidden" aria-labelledby="aboutLegalTitle">
+          <button type="button" id="aboutLegalBackBtn" class="btn-tool about-legal-back-btn"></button>
+          <h2 id="aboutLegalTitle" class="about-legal-title"></h2>
+          <p id="aboutLegalMeta" class="about-legal-meta"></p>
+          <p id="aboutLegalDraft" class="about-legal-draft hidden"></p>
+          <p id="aboutLegalLangNotice" class="settings-hint about-legal-lang hidden"></p>
+          <div id="aboutLegalContent" class="about-legal-content legal-doc"></div>
+          <p class="about-legal-link-row">
+            <a id="aboutLegalOnlineLink" class="about-legal-online-link" href="#" target="_blank" rel="noopener"></a>
+          </p>
+        </section>
       </div>
     </div>
   </div>
@@ -2905,6 +2918,7 @@
   <script src="knowledge-pl.js"></script>
   <script src="knowledge-uk.js"></script>
   <script src="knowledge-ur.js"></script>
+  <script src="legal.js"></script>
   <script src="app.js"></script>
 
 </body>

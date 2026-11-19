@@ -5215,6 +5215,71 @@ function renderAboutModalContent() {
   // Kopf zeigt das App-Icon (Squircle, reines CSS) – nichts zu rendern
   document.getElementById("aboutPlaceholderNotice")?.classList.add("hidden");
   document.getElementById("aboutContactFallback")?.classList.add("hidden");
+  showAboutMainPane();
+}
+
+// ---------- Über-Fenster: Rechtstexte (Datenschutz) ----------
+// Text kommt aus legal.js (gleiche Quelle wie datenschutz.html). Die Ansicht ersetzt im
+// Über-Fenster Kopf und Link-Liste; „Zurück“ (Knopf, Android-Taste) führt zur Übersicht,
+// das ✕ schließt das ganze Fenster.
+
+function isAboutLegalOpen() {
+  const pane = document.getElementById("aboutLegalPane");
+  return Boolean(pane && !pane.classList.contains("hidden") && getOpenModalName() === "about");
+}
+
+function showAboutMainPane() {
+  document.getElementById("aboutLegalPane")?.classList.add("hidden");
+  document.querySelector("#aboutBackdrop .about-modal-body")?.classList.remove("is-legal-open");
+}
+
+function openAboutLegal(kind = "privacy") {
+  if (typeof getLegalDocument !== "function") return;
+  const lang = typeof getAppLanguage === "function" ? getAppLanguage() : "de";
+  const doc = getLegalDocument(kind, lang);
+  if (!doc) return;
+  const setText = (id, text) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = text || "";
+  };
+  setText("aboutLegalBackBtn", `← ${tr("Zurück", "Back", { fr: "Retour", es: "Volver", pl: "Wstecz", uk: "Назад", ur: "واپس" })}`);
+  setText("aboutLegalTitle", doc.title);
+  setText("aboutLegalMeta", doc.updated);
+  const draftEl = document.getElementById("aboutLegalDraft");
+  if (draftEl) {
+    draftEl.textContent = doc.draftNotice || "";
+    draftEl.classList.toggle("hidden", !doc.isDraft);
+  }
+  const langEl = document.getElementById("aboutLegalLangNotice");
+  if (langEl) {
+    langEl.textContent = doc.langNotice || "";
+    langEl.classList.toggle("hidden", !doc.langNotice);
+  }
+  const content = document.getElementById("aboutLegalContent");
+  if (content) {
+    content.innerHTML = doc.html;
+    content.setAttribute("lang", doc.lang);
+    content.setAttribute("dir", "ltr");
+  }
+  const onlineLink = document.getElementById("aboutLegalOnlineLink");
+  if (onlineLink && typeof LAUSCHER_PRIVACY_URL === "string") {
+    onlineLink.href = doc.lang === "en" ? `${LAUSCHER_PRIVACY_URL}?lang=en` : LAUSCHER_PRIVACY_URL;
+    onlineLink.textContent = `${tr("Online-Fassung öffnen", "Open online version", { fr: "Ouvrir la version en ligne", es: "Abrir la versión en línea", pl: "Otwórz wersję online", uk: "Відкрити онлайн-версію", ur: "آن لائن ورژن کھولیں" })} ↗`;
+  }
+
+  document.getElementById("aboutPlaceholderNotice")?.classList.add("hidden");
+  document.getElementById("aboutContactFallback")?.classList.add("hidden");
+  const body = document.querySelector("#aboutBackdrop .about-modal-body");
+  body?.classList.add("is-legal-open");
+  document.getElementById("aboutLegalPane")?.classList.remove("hidden");
+  if (body) body.scrollTop = 0;
+}
+
+function closeAboutLegal() {
+  if (!isAboutLegalOpen()) return;
+  showAboutMainPane();
+  const body = document.querySelector("#aboutBackdrop .about-modal-body");
+  if (body) body.scrollTop = 0;
 }
 
 // ---------- Über-Fenster: Aktionen ----------
@@ -5226,6 +5291,10 @@ function handleAboutAction(action) {
   document.getElementById("aboutContactFallback")?.classList.add("hidden");
   if (action === "contact") {
     openContactMail();
+    return;
+  }
+  if (action === "privacy") {
+    openAboutLegal("privacy");
     return;
   }
   // Noch nicht verknüpfte Einträge
@@ -5606,6 +5675,10 @@ function handleNativeBackButton() {
     if (getOpenModalName() === "settings" && typeof _openProfileDropdownKey !== "undefined" && _openProfileDropdownKey === "settings-language") {
       _openProfileDropdownKey = null;
       if (typeof renderSettingsLanguageDropdown === "function") renderSettingsLanguageDropdown();
+      return true;
+    }
+    if (getOpenModalName() === "about" && isAboutLegalOpen()) {
+      closeAboutLegal();
       return true;
     }
     closeActiveModal();
@@ -19765,6 +19838,9 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.addEventListener("click", () => {
       handleAboutAction(btn.dataset.aboutAction);
     });
+  });
+  document.getElementById("aboutLegalBackBtn")?.addEventListener("click", () => {
+    closeAboutLegal();
   });
   document.getElementById("aboutCopyContactBtn")?.addEventListener("click", () => {
     copyContactAddressToClipboard();
