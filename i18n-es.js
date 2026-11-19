@@ -447,7 +447,7 @@ const I18N_STATIC_ES = {
   "settings.themeMetal": "Metal",
   "settings.themeActive": "Activo",
   "settings.themeSelect": "Elegir",
-  "settings.customizeThemesBtn": "🎨 Crear un tema propio en Mi cuenta →",
+  "settings.customizeThemesBtn": "Crear un tema propio en Mi cuenta →",
   "space.themesTitle": "Temas y colores del estudio",
   "space.themesSub": "Elige una paleta integrada o crea hasta 3 temas propios con el selector R/G/B/A.",
   "space.customSlotsLabel": "Tus 3 ranuras de tema propio",

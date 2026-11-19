@@ -447,7 +447,7 @@ const I18N_STATIC_UK = {
   "settings.themeMetal": "Метал",
   "settings.themeActive": "Активна",
   "settings.themeSelect": "Обрати",
-  "settings.customizeThemesBtn": "🎨 Створити власну тему в профілі →",
+  "settings.customizeThemesBtn": "Створити власну тему в профілі →",
   "space.themesTitle": "Теми та студія кольорів",
   "space.themesSub": "Обери готову палітру або створи до 3 власних тем у редакторі R/G/B/A.",
   "space.customSlotsLabel": "Твої 3 слоти власних тем",
