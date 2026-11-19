@@ -10377,6 +10377,37 @@ body.is-hum-pause #solfegeKeyboardWrap {
   justify-content: center;
 }
 
+.settings-reset-btn.is-cancel-mode,
+.settings-reset-btn.is-cancel-mode:hover {
+  color: var(--btn-primary-fg);
+  border-color: transparent;
+}
+
+.settings-reset-confirm {
+  margin-top: 0.85rem;
+  padding: 0.8rem 0.85rem 0.85rem;
+  border: 1px solid var(--status-err);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--status-err) 7%, transparent);
+}
+
+.settings-reset-confirm-text {
+  margin: 0 0 0.7rem;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: var(--raccoon-dark);
+}
+
+.settings-reset-confirm-btn {
+  width: 100%;
+  justify-content: center;
+}
+
+.settings-reset-confirm-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
 .settings-reset-status {
   color: var(--status-err) !important;
   font-weight: 700;
@@ -16010,6 +16041,11 @@ body.is-hum-pause #solfegeKeyboardWrap {
           <h4 data-i18n="settings.appResetHeading">App zurücksetzen</h4>
           <p class="settings-hint" data-i18n="settings.appResetHint">Setzt alle lokalen Einstellungen, Themes und Profildaten zurück und startet die Einrichtung neu.</p>
           <button id="appResetBtn" type="button" class="btn-tool account-btn-danger settings-reset-btn" data-i18n="space.appResetBtn">App-Reset</button>
+          <!-- Bestätigung bewusst an anderer Stelle + kurze Sperrzeit, damit ein Doppeltipp nichts löscht -->
+          <div id="appResetConfirmPanel" class="settings-reset-confirm hidden" role="alertdialog" aria-labelledby="appResetConfirmText">
+            <p id="appResetConfirmText" class="settings-reset-confirm-text"></p>
+            <button id="appResetConfirmBtn" type="button" class="btn-tool account-btn-danger is-confirm-armed settings-reset-confirm-btn" disabled></button>
+          </div>
           <p id="settingsAppResetStatus" class="settings-hint settings-reset-status hidden"></p>
         </div>
 
@@ -22096,6 +22132,9 @@ const TR_ES = {
   "Datei konnte nicht als Profil gelesen werden.": "No se puede leer este archivo como perfil.",
   "Konto zurücksetzen": "Restablecer la cuenta",
   "Lokales Konto auf Standardwerte zurückgesetzt.": "Cuenta local restablecida a los valores predeterminados.",
+  "Lauscher-Profil sichern": "Guardar el perfil de Lauscher",
+  "Sicherung abgebrochen – es wurde nichts gespeichert.": "Copia cancelada: no se ha guardado nada.",
+  "Sicherung fehlgeschlagen – bitte erneut versuchen.": "No se pudo guardar la copia; inténtalo de nuevo.",
   "Profil-Datei erstellt (kein Fortschritt enthalten).": "Archivo de perfil generado (sin datos de progreso).",
   "Wirklich leeren?": "¿Confirmar el borrado?",
   "Tippe erneut auf „Wirklich leeren?“, um das Konto zurückzusetzen.": "Toca de nuevo «¿Confirmar el borrado?» para restablecer la cuenta.",
@@ -24501,6 +24540,9 @@ Object.assign(TR_FR, {
   "Datei konnte nicht als Profil gelesen werden.": "Impossible de lire ce fichier comme profil.",
   "Konto zurücksetzen": "Réinitialiser le compte",
   "Lokales Konto auf Standardwerte zurückgesetzt.": "Compte local réinitialisé aux valeurs par défaut.",
+  "Lauscher-Profil sichern": "Sauvegarder le profil Lauscher",
+  "Sicherung abgebrochen – es wurde nichts gespeichert.": "Sauvegarde annulée – rien n’a été enregistré.",
+  "Sicherung fehlgeschlagen – bitte erneut versuchen.": "Échec de la sauvegarde – réessaie.",
   "Profil-Datei erstellt (kein Fortschritt enthalten).": "Fichier de profil généré (aucune donnée de progression incluse).",
   "Wirklich leeren?": "Confirmer l’effacement ?",
   "Tippe erneut auf „Wirklich leeren?“, um das Konto zurückzusetzen.": "Touchez à nouveau « Confirmer l’effacement ? » pour réinitialiser le compte.",
@@ -26482,6 +26524,9 @@ const TR_PL = {
   "Profi ±28 ms": "Pro ±28 ms",
   "Profil erfolgreich geladen!": "Profil wczytany pomyślnie!",
   "Profil, Timer & Vorlieben": "Profil, minutnik i preferencje",
+  "Lauscher-Profil sichern": "Zapisz profil Lauscher",
+  "Sicherung abgebrochen – es wurde nichts gespeichert.": "Anulowano kopię – nic nie zostało zapisane.",
+  "Sicherung fehlgeschlagen – bitte erneut versuchen.": "Nie udało się zapisać kopii – spróbuj ponownie.",
   "Profil-Datei erstellt (kein Fortschritt enthalten).": "Zapisano plik profilu (bez historii postępów).",
   "Präzises Timing mit Offbeats &amp; Triolen": "Precyzyjny timing z offbeatami i triolami",
   "Puls": "Puls",
@@ -28936,6 +28981,9 @@ const TR_UK = {
   "Profi ±28 ms": "Профі ±28 мс",
   "Profil erfolgreich geladen!": "Профіль успішно завантажено!",
   "Profil, Timer & Vorlieben": "Профіль, таймер та вподобання",
+  "Lauscher-Profil sichern": "Зберегти профіль Lauscher",
+  "Sicherung abgebrochen – es wurde nichts gespeichert.": "Резервне копіювання скасовано – нічого не збережено.",
+  "Sicherung fehlgeschlagen – bitte erneut versuchen.": "Не вдалося зберегти копію – спробуй ще раз.",
   "Profil-Datei erstellt (kein Fortschritt enthalten).": "Файл профілю збережено (без статистики чи оцінок).",
   "Präzises Timing mit Offbeats &amp; Triolen": "Точне чуття часу зі слабкими долями й тріолями",
   "Puls": "Пульс",
@@ -31420,6 +31468,9 @@ const TR_UR = Object.assign(Object.create(null), {
   "Profi ±28 ms": "پرو ±28 ms",
   "Profil erfolgreich geladen!": "پروفائل کامیابی سے لوڈ ہو گیا!",
   "Profil, Timer & Vorlieben": "پروفائل، ٹائمر اور ترجیحات",
+  "Lauscher-Profil sichern": "Lauscher پروفائل محفوظ کریں",
+  "Sicherung abgebrochen – es wurde nichts gespeichert.": "بیک اپ منسوخ – کچھ محفوظ نہیں ہوا۔",
+  "Sicherung fehlgeschlagen – bitte erneut versuchen.": "بیک اپ ناکام – براہ کرم دوبارہ کوشش کریں۔",
   "Profil-Datei erstellt (kein Fortschritt enthalten).": "پروفائل فائل تیار (کوئی پیش رفت ڈیٹا شامل نہیں)۔",
   "Präzises Timing mit Offbeats &amp; Triolen": "آف بیٹس اور ٹرپلیٹس کے ساتھ درست ٹائمنگ",
   "Puls": "نبض",
@@ -67767,6 +67818,9 @@ function setModalVisibility(modalName) {
   document.getElementById("mixerBackdrop")?.classList.toggle("modal-hidden", modalName !== "mixer");
   document.getElementById("settingsBackdrop")?.classList.toggle("modal-hidden", modalName !== "settings");
   document.getElementById("aboutBackdrop")?.classList.toggle("modal-hidden", modalName !== "about");
+  if (modalName !== "settings" && state.appResetConfirmArmed && typeof disarmAppResetConfirm === "function") {
+    disarmAppResetConfirm();
+  }
   if (modalName === "about") {
     renderAboutModalContent();
   }
@@ -80746,11 +80800,97 @@ function exportUserProfileJSON() {
   return JSON.stringify(payload, null, 2);
 }
 
+// ---------- Profil-Sicherung (Export) ----------
+// Android-App: Datei in den App-Cache schreiben und über das System-Teilen-Menü weitergeben
+// (Drive, Dateien, Mail …) – Browser-Downloads funktionieren in der WebView nicht.
+// Mobile Browser: Web Share mit Datei. Sonst: klassischer Download.
+function getCapacitorNativePlugin(name) {
+  if (typeof window === "undefined") return null;
+  const cap = window.Capacitor;
+  if (!cap || typeof cap.isNativePlatform !== "function" || !cap.isNativePlatform()) return null;
+  return cap.Plugins?.[name] || null;
+}
+
+function getProfileBackupFileName() {
+  const d = new Date();
+  const pad = n => String(n).padStart(2, "0");
+  return `lauschebaer-profil-${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}.json`;
+}
+
+function isShareCancelError(err) {
+  const msg = String(err?.message || err || "").toLowerCase();
+  return err?.name === "AbortError" || msg.includes("cancel") || msg.includes("abort");
+}
+
+function downloadProfileBackupFile(json, fileName) {
+  if (typeof Blob === "undefined" || typeof URL === "undefined" || typeof URL.createObjectURL !== "function") return false;
+  const blob = new Blob([json], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = fileName;
+  document.body?.appendChild?.(a);
+  a.click?.();
+  a.remove?.();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  return true;
+}
+
+async function exportUserProfileBackup() {
+  const json = exportUserProfileJSON();
+  const fileName = getProfileBackupFileName();
+  const shareTitle = tr("Lauscher-Profil sichern", "Back up Lauscher profile");
+  const savedMsg = tr("Profil-Datei erstellt (kein Fortschritt enthalten).", "Profile file created (no progress data included).");
+  const cancelMsg = tr("Sicherung abgebrochen – es wurde nichts gespeichert.", "Backup cancelled – nothing was saved.");
+
+  const fsPlugin = getCapacitorNativePlugin("Filesystem");
+  const sharePlugin = getCapacitorNativePlugin("Share");
+  if (fsPlugin && sharePlugin) {
+    try {
+      const written = await fsPlugin.writeFile({ path: fileName, data: json, directory: "CACHE", encoding: "utf8" });
+      await sharePlugin.share({ title: shareTitle, dialogTitle: shareTitle, files: [written.uri] });
+      setSpaceBackupStatus(savedMsg);
+    } catch (err) {
+      if (isShareCancelError(err)) {
+        setSpaceBackupStatus(cancelMsg, true);
+      } else {
+        setSpaceBackupStatus(tr("Sicherung fehlgeschlagen – bitte erneut versuchen.", "Backup failed – please try again."), true);
+      }
+    }
+    return;
+  }
+
+  const isTouch = typeof window !== "undefined" && window.matchMedia?.("(pointer: coarse)")?.matches;
+  if (isTouch && typeof File !== "undefined" && typeof navigator !== "undefined" && typeof navigator.share === "function") {
+    try {
+      const file = new File([json], fileName, { type: "application/json" });
+      if (!navigator.canShare || navigator.canShare({ files: [file] })) {
+        await navigator.share({ title: shareTitle, files: [file] });
+        setSpaceBackupStatus(savedMsg);
+        return;
+      }
+    } catch (err) {
+      if (isShareCancelError(err)) {
+        setSpaceBackupStatus(cancelMsg, true);
+        return;
+      }
+      // Andere Fehler: auf Download zurückfallen
+    }
+  }
+
+  if (downloadProfileBackupFile(json, fileName)) {
+    setSpaceBackupStatus(savedMsg);
+  } else {
+    setSpaceBackupStatus(tr("Sicherung fehlgeschlagen – bitte erneut versuchen.", "Backup failed – please try again."), true);
+  }
+}
+
 function importUserProfileJSON(rawText) {
   try {
     const parsed = JSON.parse(String(rawText || ""));
     const candidate = parsed && parsed.profile ? parsed.profile : parsed;
     if (!candidate || typeof candidate !== "object") {
+      setSpaceBackupStatus(tr("Datei konnte nicht als Profil gelesen werden.", "Could not read file as a profile."), true);
       return { ok: false, error: tr("Ungültiges Profil-Format.", "Invalid profile format.") };
     }
     state.profile = sanitizeUserProfile(candidate);
@@ -80818,13 +80958,89 @@ function resetUserProfile() {
     resetBtn.textContent = tr("Konto zurücksetzen", "Reset Account");
     resetBtn.classList.remove("is-confirm-armed");
   }
-  const appResetBtn = document.getElementById("appResetBtn");
-  if (appResetBtn) {
-    appResetBtn.textContent = tr("App-Reset", "App Reset");
-    appResetBtn.classList.remove("is-confirm-armed");
-  }
+  disarmAppResetConfirm();
   setSettingsAppResetStatus("");
   setSpaceBackupStatus(tr("Lokales Konto auf Standardwerte zurückgesetzt.", "Local account reset to defaults."));
+}
+
+// App-Reset: zweistufig. Der eigentliche Lösch-Knopf liegt unterhalb (andere Stelle)
+// und ist erst nach kurzer Sperrzeit aktiv – ein Doppeltipp kann so nichts löschen.
+const APP_RESET_CONFIRM_DELAY_MS = 2000;
+const APP_RESET_CONFIRM_TIMEOUT_MS = 15000;
+let appResetConfirmTimers = [];
+
+function clearAppResetConfirmTimers() {
+  appResetConfirmTimers.forEach(id => clearTimeout(id));
+  appResetConfirmTimers = [];
+}
+
+function getAppResetConfirmLabel(secondsLeft = 0) {
+  const base = tr("Endgültig alles löschen", "Permanently delete everything", {
+    fr: "Tout effacer définitivement",
+    es: "Borrar todo definitivamente",
+    pl: "Usuń wszystko na stałe",
+    uk: "Остаточно видалити все",
+    ur: "سب کچھ مستقل طور پر حذف کریں"
+  });
+  return secondsLeft > 0 ? `${base} (${secondsLeft})` : base;
+}
+
+function armAppResetConfirm() {
+  clearAppResetConfirmTimers();
+  state.appResetConfirmArmed = true;
+  state.appResetConfirmReadyAt = Date.now() + APP_RESET_CONFIRM_DELAY_MS;
+  setSettingsAppResetStatus("");
+
+  const btn = document.getElementById("appResetBtn");
+  if (btn) {
+    btn.textContent = tr("Abbrechen", "Cancel", { fr: "Annuler", es: "Cancelar", pl: "Anuluj", uk: "Скасувати", ur: "منسوخ کریں" });
+    btn.classList.add("is-cancel-mode");
+  }
+  const panel = document.getElementById("appResetConfirmPanel");
+  const text = document.getElementById("appResetConfirmText");
+  const confirmBtn = document.getElementById("appResetConfirmBtn");
+  if (text) {
+    text.textContent = tr(
+      "Wirklich alles löschen? Einstellungen, Themes und Profil gehen verloren – das lässt sich nicht rückgängig machen. Tipp: Sichere vorher dein Profil unter Konto → Datensicherung.",
+      "Really delete everything? Settings, themes and your profile will be lost – this cannot be undone. Tip: back up your profile first under Account → Backup.",
+      {
+        fr: "Vraiment tout effacer ? Réglages, thèmes et profil seront perdus – impossible d’annuler. Astuce : sauvegarde d’abord ton profil dans Compte → Sauvegarde.",
+        es: "¿De verdad quieres borrarlo todo? Se perderán los ajustes, los temas y el perfil, y no se puede deshacer. Consejo: guarda antes tu perfil en Cuenta → Copia de seguridad.",
+        pl: "Na pewno usunąć wszystko? Ustawienia, motywy i profil zostaną utracone – tego nie da się cofnąć. Wskazówka: najpierw zapisz profil w Konto → Kopia zapasowa.",
+        uk: "Справді видалити все? Налаштування, теми й профіль буде втрачено – це не можна скасувати. Порада: спершу збережи профіль у Профіль → Резервна копія.",
+        ur: "کیا واقعی سب کچھ حذف کرنا ہے؟ سیٹنگز، تھیمز اور پروفائل ختم ہو جائیں گے – اسے واپس نہیں کیا جا سکتا۔ مشورہ: پہلے اکاؤنٹ → بیک اپ میں اپنا پروفائل محفوظ کریں۔"
+      }
+    );
+  }
+  if (panel) panel.classList.remove("hidden");
+  if (confirmBtn) {
+    confirmBtn.disabled = true;
+    const totalSec = Math.ceil(APP_RESET_CONFIRM_DELAY_MS / 1000);
+    confirmBtn.textContent = getAppResetConfirmLabel(totalSec);
+    for (let i = 1; i <= totalSec; i++) {
+      appResetConfirmTimers.push(setTimeout(() => {
+        if (!state.appResetConfirmArmed) return;
+        const left = totalSec - i;
+        confirmBtn.textContent = getAppResetConfirmLabel(left);
+        if (left <= 0) confirmBtn.disabled = false;
+      }, i * 1000));
+    }
+  }
+  appResetConfirmTimers.push(setTimeout(disarmAppResetConfirm, APP_RESET_CONFIRM_TIMEOUT_MS));
+}
+
+function disarmAppResetConfirm() {
+  clearAppResetConfirmTimers();
+  state.appResetConfirmArmed = false;
+  state.appResetConfirmReadyAt = 0;
+  const btn = document.getElementById("appResetBtn");
+  if (btn) {
+    btn.textContent = tr("App-Reset", "App Reset");
+    btn.classList.remove("is-confirm-armed", "is-cancel-mode");
+  }
+  document.getElementById("appResetConfirmPanel")?.classList.add("hidden");
+  const confirmBtn = document.getElementById("appResetConfirmBtn");
+  if (confirmBtn) confirmBtn.disabled = true;
 }
 
 function performFullAppReset() {
@@ -80885,11 +81101,7 @@ function performFullAppReset() {
     resetBtn.textContent = tr("Konto zurücksetzen", "Reset Account");
     resetBtn.classList.remove("is-confirm-armed");
   }
-  const appResetBtn = document.getElementById("appResetBtn");
-  if (appResetBtn) {
-    appResetBtn.textContent = tr("App-Reset", "App Reset");
-    appResetBtn.classList.remove("is-confirm-armed");
-  }
+  disarmAppResetConfirm();
   setSettingsAppResetStatus("");
   const statusEl = document.getElementById("spaceBackupStatus");
   if (statusEl) {
@@ -81256,22 +81468,15 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.getElementById("exportProfileBtn")?.addEventListener("click", () => {
-    const json = exportUserProfileJSON();
-    if (typeof Blob !== "undefined" && typeof URL !== "undefined" && typeof URL.createObjectURL === "function") {
-      const blob = new Blob([json], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "lauschebaer-profil.json";
-      document.body?.appendChild?.(a);
-      a.click?.();
-      a.remove?.();
-      URL.revokeObjectURL(url);
-    }
-    setSpaceBackupStatus(tr("Profil-Datei erstellt (kein Fortschritt enthalten).", "Profile file created (no progress data included)."));
+    exportUserProfileBackup();
   });
   document.getElementById("importProfileBtn")?.addEventListener("click", () => {
-    document.getElementById("importProfileFile")?.click?.();
+    const input = document.getElementById("importProfileFile");
+    if (!input) return;
+    // Android-Dateiauswahl graut .json aus Drive/Downloads oft aus (falscher MIME-Typ) –
+    // in der App deshalb ohne Filter; ungültige Dateien fängt importUserProfileJSON ab.
+    if (getCapacitorNativePlugin("Filesystem")) input.removeAttribute?.("accept");
+    input.click?.();
   });
   document.getElementById("importProfileFile")?.addEventListener("change", (e) => {
     const file = e.target?.files?.[0];
@@ -81305,25 +81510,15 @@ document.addEventListener("DOMContentLoaded", () => {
     resetUserProfile();
   });
   document.getElementById("appResetBtn")?.addEventListener("click", () => {
-    const btn = document.getElementById("appResetBtn");
-    if (!state.appResetConfirmArmed) {
-      state.appResetConfirmArmed = true;
-      if (btn) {
-        btn.textContent = tr("App-Reset bestätigen?", "Confirm App Reset?");
-        btn.classList.add("is-confirm-armed");
-      }
-      setSettingsAppResetStatus(tr("Tippe erneut auf „App-Reset bestätigen?“, um alle lokalen Daten zu löschen und das Willkommens-Intro neu zu starten.", "Tap “Confirm App Reset?” again to clear all local data and restart with the welcome intro."));
-      setTimeout(() => {
-        state.appResetConfirmArmed = false;
-        const b = document.getElementById("appResetBtn");
-        if (b) {
-          b.textContent = tr("App-Reset", "App Reset");
-          b.classList.remove("is-confirm-armed");
-        }
-        setSettingsAppResetStatus("");
-      }, 4200);
-      return;
+    // Erster Tipp öffnet die Bestätigung, ein zweiter Tipp an derselben Stelle bricht ab.
+    if (state.appResetConfirmArmed) {
+      disarmAppResetConfirm();
+    } else {
+      armAppResetConfirm();
     }
+  });
+  document.getElementById("appResetConfirmBtn")?.addEventListener("click", () => {
+    if (!state.appResetConfirmArmed || Date.now() < (state.appResetConfirmReadyAt || 0)) return;
     performFullAppReset();
   });
 

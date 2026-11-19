@@ -41,7 +41,7 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 ## Daten & Speicher
 
 - Alles liegt lokal in `localStorage`. Schlüssel: `lauschebaer_visual_prefs_v1`, `lauschebaer_profile_v1`, `lauschebaer_custom_themes_v1`.
-- Die Struktur gespeicherter Daten nicht ohne Migration ändern, da bestehende Profile weiter funktionieren müssen. Export und Import laufen über `lauschebaer-profil.json`.
+- Die Struktur gespeicherter Daten nicht ohne Migration ändern, da bestehende Profile weiter funktionieren müssen. Export und Import laufen über `lauschebaer-profil-JJJJ-MM-TT.json` (`exportUserProfileBackup` / `importUserProfileJSON`, nur Profil, kein Fortschritt).
 
 ## Samples
 
@@ -66,6 +66,7 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 - ⚠️ Das Skript kopiert eine **feste Dateiliste** (`RUNTIME_FILES`) plus Fonts, Sample-Bundles und `icons/*.jpg`. Kommt eine neue JS-/CSS-Datei oder ein neuer Asset-Ordner hinzu, muss er dort zusätzlich zu `index.html` eingetragen werden.
 - Bilder für die Oberfläche (z. B. das App-Icon im Über-Fenster, `icons/app-icon.jpg`) per CSS `url(...)` einbinden – so bettet das Mobile-Bundle sie automatisch als Base64 ein.
 - In app.js: `initCapacitorNativeBridge()` fängt die Android-Zurück-Taste ab (`handleNativeBackButton`: Onboarding → Modal → Popover → Prüfungs-Abbruch → zurück navigieren → App beenden) und stoppt Audio, wenn die App in den Hintergrund geht. **Neue Popovers** in `hasOpenTransientPopover()` eintragen, damit „Zurück“ sie schließt. Ohne Capacitor (Browser) ist die Brücke inaktiv.
+- Profil-Sicherung: In der App funktionieren Browser-Downloads nicht. `exportUserProfileBackup()` schreibt die Datei deshalb per `@capacitor/filesystem` in den Cache und öffnet das Teilen-Menü (`@capacitor/share`); im Handy-Browser Web Share, am Desktop Download. Das Sync-Skript installiert die Plugins `app`, `filesystem` und `share` bei Bedarf selbst. Native Plugins immer über `getCapacitorNativePlugin(name)` holen.
 - Mikrofon (Tuner): Das Sync-Skript trägt `RECORD_AUDIO` und `MODIFY_AUDIO_SETTINGS` ins `AndroidManifest.xml` ein; Capacitor fragt die Berechtigung dann beim ersten `getUserMedia` selbst ab.
 - Safe-Areas: `viewport-fit=cover` in index.html, Abstände über `env(safe-area-inset-*)` bzw. `--safe-area-inset-*` (z. B. `.app-shell`). Neue randnahe Vollbild-Elemente ebenso absichern.
 

@@ -18211,11 +18211,97 @@ function exportUserProfileJSON() {
   return JSON.stringify(payload, null, 2);
 }
 
+// ---------- Profil-Sicherung (Export) ----------
+// Android-App: Datei in den App-Cache schreiben und über das System-Teilen-Menü weitergeben
+// (Drive, Dateien, Mail …) – Browser-Downloads funktionieren in der WebView nicht.
+// Mobile Browser: Web Share mit Datei. Sonst: klassischer Download.
+function getCapacitorNativePlugin(name) {
+  if (typeof window === "undefined") return null;
+  const cap = window.Capacitor;
+  if (!cap || typeof cap.isNativePlatform !== "function" || !cap.isNativePlatform()) return null;
+  return cap.Plugins?.[name] || null;
+}
+
+function getProfileBackupFileName() {
+  const d = new Date();
+  const pad = n => String(n).padStart(2, "0");
+  return `lauschebaer-profil-${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}.json`;
+}
+
+function isShareCancelError(err) {
+  const msg = String(err?.message || err || "").toLowerCase();
+  return err?.name === "AbortError" || msg.includes("cancel") || msg.includes("abort");
+}
+
+function downloadProfileBackupFile(json, fileName) {
+  if (typeof Blob === "undefined" || typeof URL === "undefined" || typeof URL.createObjectURL !== "function") return false;
+  const blob = new Blob([json], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = fileName;
+  document.body?.appendChild?.(a);
+  a.click?.();
+  a.remove?.();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  return true;
+}
+
+async function exportUserProfileBackup() {
+  const json = exportUserProfileJSON();
+  const fileName = getProfileBackupFileName();
+  const shareTitle = tr("Lauscher-Profil sichern", "Back up Lauscher profile");
+  const savedMsg = tr("Profil-Datei erstellt (kein Fortschritt enthalten).", "Profile file created (no progress data included).");
+  const cancelMsg = tr("Sicherung abgebrochen – es wurde nichts gespeichert.", "Backup cancelled – nothing was saved.");
+
+  const fsPlugin = getCapacitorNativePlugin("Filesystem");
+  const sharePlugin = getCapacitorNativePlugin("Share");
+  if (fsPlugin && sharePlugin) {
+    try {
+      const written = await fsPlugin.writeFile({ path: fileName, data: json, directory: "CACHE", encoding: "utf8" });
+      await sharePlugin.share({ title: shareTitle, dialogTitle: shareTitle, files: [written.uri] });
+      setSpaceBackupStatus(savedMsg);
+    } catch (err) {
+      if (isShareCancelError(err)) {
+        setSpaceBackupStatus(cancelMsg, true);
+      } else {
+        setSpaceBackupStatus(tr("Sicherung fehlgeschlagen – bitte erneut versuchen.", "Backup failed – please try again."), true);
+      }
+    }
+    return;
+  }
+
+  const isTouch = typeof window !== "undefined" && window.matchMedia?.("(pointer: coarse)")?.matches;
+  if (isTouch && typeof File !== "undefined" && typeof navigator !== "undefined" && typeof navigator.share === "function") {
+    try {
+      const file = new File([json], fileName, { type: "application/json" });
+      if (!navigator.canShare || navigator.canShare({ files: [file] })) {
+        await navigator.share({ title: shareTitle, files: [file] });
+        setSpaceBackupStatus(savedMsg);
+        return;
+      }
+    } catch (err) {
+      if (isShareCancelError(err)) {
+        setSpaceBackupStatus(cancelMsg, true);
+        return;
+      }
+      // Andere Fehler: auf Download zurückfallen
+    }
+  }
+
+  if (downloadProfileBackupFile(json, fileName)) {
+    setSpaceBackupStatus(savedMsg);
+  } else {
+    setSpaceBackupStatus(tr("Sicherung fehlgeschlagen – bitte erneut versuchen.", "Backup failed – please try again."), true);
+  }
+}
+
 function importUserProfileJSON(rawText) {
   try {
     const parsed = JSON.parse(String(rawText || ""));
     const candidate = parsed && parsed.profile ? parsed.profile : parsed;
     if (!candidate || typeof candidate !== "object") {
+      setSpaceBackupStatus(tr("Datei konnte nicht als Profil gelesen werden.", "Could not read file as a profile."), true);
       return { ok: false, error: tr("Ungültiges Profil-Format.", "Invalid profile format.") };
     }
     state.profile = sanitizeUserProfile(candidate);
@@ -18793,22 +18879,15 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.getElementById("exportProfileBtn")?.addEventListener("click", () => {
-    const json = exportUserProfileJSON();
-    if (typeof Blob !== "undefined" && typeof URL !== "undefined" && typeof URL.createObjectURL === "function") {
-      const blob = new Blob([json], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "lauschebaer-profil.json";
-      document.body?.appendChild?.(a);
-      a.click?.();
-      a.remove?.();
-      URL.revokeObjectURL(url);
-    }
-    setSpaceBackupStatus(tr("Profil-Datei erstellt (kein Fortschritt enthalten).", "Profile file created (no progress data included)."));
+    exportUserProfileBackup();
   });
   document.getElementById("importProfileBtn")?.addEventListener("click", () => {
-    document.getElementById("importProfileFile")?.click?.();
+    const input = document.getElementById("importProfileFile");
+    if (!input) return;
+    // Android-Dateiauswahl graut .json aus Drive/Downloads oft aus (falscher MIME-Typ) –
+    // in der App deshalb ohne Filter; ungültige Dateien fängt importUserProfileJSON ab.
+    if (getCapacitorNativePlugin("Filesystem")) input.removeAttribute?.("accept");
+    input.click?.();
   });
   document.getElementById("importProfileFile")?.addEventListener("change", (e) => {
     const file = e.target?.files?.[0];
