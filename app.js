@@ -5218,6 +5218,7 @@ function renderAboutModalContent() {
   // Kopf zeigt das App-Icon (Squircle, reines CSS) – nichts zu rendern
   document.getElementById("aboutPlaceholderNotice")?.classList.add("hidden");
   document.getElementById("aboutContactFallback")?.classList.add("hidden");
+  document.querySelector('[data-about-action="rate"]')?.classList.toggle("hidden", !ABOUT_RATE_ENABLED);
   renderAboutVersionBadge();
   showAboutMainPane();
 }
@@ -5289,6 +5290,8 @@ function closeAboutLegal() {
 // ---------- Über-Fenster: Aktionen ----------
 // Kontakt läuft über eine Weiterleitungs-Adresse (Alias), damit die private Adresse verborgen bleibt.
 const LAUSCHER_CONTACT_EMAIL = "lauscher.privacy772@passfwd.com";
+// „App bewerten“ erst einblenden, wenn Lauscher in den App-Stores ist (dann Store-Link in handleAboutAction ergänzen).
+const ABOUT_RATE_ENABLED = false;
 
 function handleAboutAction(action) {
   document.getElementById("aboutPlaceholderNotice")?.classList.add("hidden");
