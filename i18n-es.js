@@ -821,6 +821,10 @@ const LAUSCHEBAER_QUOTES_ES = [
   {
     "cat": "Ánimo",
     "text": "«¿Notas ya alguna diferencia al escuchar tu música favorita, cuando las líneas de bajo, los colores de los acordes o los intervalos se vuelven de repente mucho más claros?»"
+  },
+  {
+    "cat": "Consejo",
+    "text": "«Cuando las notas de un acorde en arpegio suenan una tras otra, presta especial atención a las terceras entre ellas: si son menores o mayores te revelará al instante el corazón del acorde.»"
   }
 ];
 

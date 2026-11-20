@@ -80,7 +80,8 @@ const LAUSCHEBAER_QUOTES = [
   { cat: "Tipp", text: "„Beim ‚Akkorde lesen‘ im Notenbereich erkennst du gestapelte Akkorde direkt als Kacheln – von Dur und Moll bis zu E7, Esus4 und ihren Umkehrungen!“" },
   { cat: "Wusstest du?", text: "„Was unterscheidet eine reine Sinuskurve vom warmen Klavier? Im Modul ‚Physik & Klang‘ hörst und siehst du im Frequenzspektrum, wie Obertöne jede Klangfarbe prägen!“" },
   { cat: "Tipp", text: "„Zeigst du bei bestimmten Tönen, Intervallen oder Akkorden noch Unsicherheiten, merkt sich Lauscher das im Hintergrund und fragt sie ganz von selbst gezielt wieder ab, bis sie sicher sitzen!“" },
-  { cat: "Mutmacher", text: "„Spürst du beim Hören deiner Lieblingsmusik schon einen Unterschied – wie du Bassläufe, Akkordfarben oder kleine Intervalle plötzlich viel bewusster wahrnimmst?“" }
+  { cat: "Mutmacher", text: "„Spürst du beim Hören deiner Lieblingsmusik schon einen Unterschied – wie du Bassläufe, Akkordfarben oder kleine Intervalle plötzlich viel bewusster wahrnimmst?“" },
+  { cat: "Tipp", text: "„Wenn bei den Akkord-Arpeggien die Töne nacheinander erklingen, lausche vor allem auf die Terzen dazwischen – ob klein oder groß verrät dir sofort das Herz des Akkords!“" }
 ];
 
 function getMascotAssetUri(mood = "idle") {
@@ -4710,6 +4711,10 @@ const CHORD_INVERSION_LEVELS = {
 
 function isChordArpeggioMode(mode) {
   return mode === "chord-arp-up" || mode === "chord-arp-down";
+}
+
+function isBlockChordMode(mode) {
+  return mode === "interval-chords" || mode === "chord-inversions";
 }
 
 function isChordQualityMode(mode) {
@@ -12359,12 +12364,14 @@ function renderUI() {
     }
   }
 
-  // Akkordübungen: statt BPM-Knopf ein dauerhaft sichtbarer Tempo-Schieberegler (außer in Prüfungen)
-  const isChordTempoPinned = isChordMode(ex.type) && !state.exam?.active;
+  // Akkord-Arpeggien: statt BPM-Knopf ein dauerhaft sichtbarer Tempo-Schieberegler (außer in Prüfungen);
+  // gleichzeitige Akkorde & Umkehrungen haben keine Tempo-Auswahl.
+  const isBlockChord = isBlockChordMode(ex.type);
+  const isChordTempoPinned = isChordArpeggioMode(ex.type) && !state.exam?.active;
   if (moduleBpmBtn) {
-    moduleBpmBtn.classList.toggle("hidden", isProd || isModes || isNotation || isChordTempoPinned);
+    moduleBpmBtn.classList.toggle("hidden", isProd || isModes || isNotation || isBlockChord || isChordTempoPinned);
     moduleBpmBtn.textContent = `${state.activeBpm} BPM`;
-    if (isChordTempoPinned) moduleBpmBtn.classList.remove("chip-open");
+    if (isChordTempoPinned || isBlockChord) moduleBpmBtn.classList.remove("chip-open");
   }
   const pinnedBpmPopover = document.getElementById("inlineBpmPopover");
   if (pinnedBpmPopover) {
@@ -12395,7 +12402,7 @@ function renderUI() {
     document.getElementById("inlineNotationPacePopover")?.classList.add("hidden");
     moduleNotationPaceBtn?.classList.remove("chip-open");
   }
-  if (isProd || isModes || isNotation) {
+  if (isProd || isModes || isNotation || isBlockChord) {
     document.getElementById("inlineBpmPopover")?.classList.add("hidden");
     moduleBpmBtn?.classList.remove("chip-open");
   }
@@ -13540,6 +13547,32 @@ function getAwaitingStageHint(ex, personalizeHint = false) {
     return name
       ? tf("{name}, welche Stufe schwingt noch nach? Tippe sie unten an.", "{name}, which chord degree lingers? Tap it below.", { name })
       : tr("Welche Stufe schwingt noch nach? Tippe sie unten an.", "Which chord degree lingers? Tap it below.");
+  }
+  if (isChordArpeggioMode(type)) {
+    return name
+      ? tf(
+          "{name}, achte vor allem auf die Terzen zwischen den Tönen – welche Akkordfarbe war’s?",
+          "{name}, listen especially for the thirds between the notes — which chord color was it?",
+          { name },
+          {
+            fr: "{name}, tends surtout l’oreille aux tierces entre les notes — quelle couleur d’accord était-ce ?",
+            es: "{name}, presta especial atención a las terceras entre las notas: ¿qué color de acorde era?",
+            pl: "{name}, wsłuchaj się przede wszystkim w tercje między dźwiękami — jaka to barwa akordu?",
+            uk: "{name}, дослухайся насамперед до терцій між нотами — яке це забарвлення акорду?",
+            ur: "{name}، سُروں کے درمیان خاص طور پر تِیسرے سُروں (تھرڈز) پر دھیان دیں — یہ کون سا کارڈ تھا؟"
+          }
+        )
+      : tr(
+          "Achte vor allem auf die Terzen zwischen den Tönen – welche Akkordfarbe war’s?",
+          "Listen especially for the thirds between the notes — which chord color was it?",
+          {
+            fr: "Tends surtout l’oreille aux tierces entre les notes — quelle couleur d’accord était-ce ?",
+            es: "Presta especial atención a las terceras entre las notas: ¿qué color de acorde era?",
+            pl: "Wsłuchaj się przede wszystkim w tercje między dźwiękami — jaka to barwa akordu?",
+            uk: "Дослухайся насамперед до терцій між нотами — яке це забарвлення акорду?",
+            ur: "سُروں کے درمیان خاص طور پر تِیسرے سُروں (تھرڈز) پر دھیان دیں — یہ کون سا کارڈ تھا؟"
+          }
+        );
   }
   if (isChordQualityMode(type)) {
     return name
@@ -17460,7 +17493,7 @@ function formatMixSubtitle(mix) {
   const lvlText = getLevelDisplayForMix(mix.mode, mix.level);
   const notKeyMode = isNotationMode(mix.mode) ? normalizeNotationKeyMode(mix.notationKeyMode) : "none";
   const notKeyText = notKeyMode !== "none" ? ` • ${getLocalizedNotationKeyModeLabel(notKeyMode, true)}` : "";
-  const bpmText = !mix.mode.startsWith("prod-") && !mix.mode.startsWith("modes-") && !isNotationMode(mix.mode) && mix.bpm > 0 ? ` • ${mix.bpm} BPM` : "";
+  const bpmText = !mix.mode.startsWith("prod-") && !mix.mode.startsWith("modes-") && !isNotationMode(mix.mode) && !isBlockChordMode(mix.mode) && mix.bpm > 0 ? ` • ${mix.bpm} BPM` : "";
   return `${modeLabel} • ${lvlText}${notKeyText}${bpmText}`;
 }
 
@@ -17548,7 +17581,7 @@ function captureCurrentExerciseAsMix(customTitle = "") {
     melodyStyle: state.settings.melodyStyle,
     melodyPulse: state.settings.melodyPulse,
     notationKeyMode: isNotationMode(mode) ? normalizeNotationKeyMode(state.settings.notationKeyMode) : "none",
-    bpm: !mode.startsWith("prod-") && !mode.startsWith("modes-") && !isNotationMode(mode) && state.hasManualExerciseBpm ? state.activeBpm : 0
+    bpm: !mode.startsWith("prod-") && !mode.startsWith("modes-") && !isNotationMode(mode) && !isBlockChordMode(mode) && state.hasManualExerciseBpm ? state.activeBpm : 0
   });
   if (!mix) return null;
 
@@ -28276,6 +28309,16 @@ function buildExamChoiceSnapshot(ex, chosenKey) {
       targetKey: targetKey
     };
   }
+  if (isChordQualityMode(type)) {
+    return {
+      type: type,
+      rootMidi: ex.targetItem?.rootMidi || 60,
+      targetNotes: Array.isArray(ex.targetItem?.notes) ? [...ex.targetItem.notes] : [],
+      activeBpm: state.activeBpm,
+      chosenKey: chosenKey,
+      targetKey: targetKey
+    };
+  }
   if (type.startsWith("interval-")) {
     return {
       type: type,
@@ -28284,16 +28327,6 @@ function buildExamChoiceSnapshot(ex, chosenKey) {
       refNote: ex.targetItem?.refNote || midiToNote(ex.effectiveRootMidi || 60),
       targetNote: ex.targetItem?.targetNote || ex.targetItem?.notes?.[1] || midiToNote(67),
       padNotes: Array.isArray(ex.padNotes) ? [...ex.padNotes] : undefined,
-      activeBpm: state.activeBpm,
-      chosenKey: chosenKey,
-      targetKey: targetKey
-    };
-  }
-  if (isChordQualityMode(type)) {
-    return {
-      type: type,
-      rootMidi: ex.targetItem?.rootMidi || 60,
-      targetNotes: Array.isArray(ex.targetItem?.notes) ? [...ex.targetItem.notes] : [],
       activeBpm: state.activeBpm,
       chosenKey: chosenKey,
       targetKey: targetKey
@@ -29640,33 +29673,6 @@ function playSingleExamReviewSnapshot(snap, side) {
     return Math.max(0, bars.length - 1) * timing.stepMs + timing.finalHoldMs;
   }
 
-  if (type && type.startsWith("interval-")) {
-    const def = key ? getLocalizedIntervalDef(key) : null;
-    const semi = def ? def.semitones : 0;
-    const targetMidi = (snap.rootMidi || 60) + (snap.directionSign || 1) * semi;
-    const secondNote = side === "chosen" ? midiToNote(targetMidi) : snap.targetNote;
-    const refNote = snap.refNote || midiToNote(snap.rootMidi || 60);
-    if (type === "interval-harmonic") {
-      audioEngine.playStep([refNote, secondNote], 1.15, null, "interval-harmonic");
-      return 1200;
-    }
-    if (type === "interval-drone") {
-      const { delayMs, pianoDurSec, padDurSec, cycleMs } = getDroneIntervalTiming(snap.activeBpm || 90);
-      const padNotes = Array.isArray(snap.padNotes) && snap.padNotes.length > 0
-        ? snap.padNotes
-        : [midiToNote((snap.rootMidi || 60) - 12), refNote];
-      audioEngine.playDroneIntervalCue(padNotes, [secondNote], { delayMs, padDurSec, pianoDurSec });
-      return cycleMs;
-    }
-    const { stepMs, note1DurSec, note2DurSec } = getMelodicIntervalTiming(snap.activeBpm || 90);
-    audioEngine.playStep([refNote], note1DurSec, null, "cadence");
-    audioEngine.registerTimer(() => {
-      if (audioEngine.playbackId !== currentId) return;
-      audioEngine.playStep([secondNote], note2DurSec, null, "cadence");
-    }, stepMs);
-    return stepMs + Math.round(note2DurSec * 1000) + 120;
-  }
-
   if (isChordQualityMode(type)) {
     const def = key ? getLocalizedChordDef(key) : null;
     const rawNotes = side === "chosen" && def
@@ -29687,6 +29693,22 @@ function playSingleExamReviewSnapshot(snap, side) {
     return 1250;
   }
 
+  if (type && type.startsWith("interval-")) {
+    const def = key ? getLocalizedIntervalDef(key) : null;
+    const semi = def ? def.semitones : 0;
+    const rootMidi = snap.rootMidi || 60;
+    const targetMidi = rootMidi + (snap.directionSign || 1) * semi;
+    const secondNote = (side !== "chosen" && snap.targetNote) ? snap.targetNote : midiToNote(targetMidi);
+    const refNote = snap.refNote || midiToNote(rootMidi);
+    const { stepMs, note1DurSec, note2DurSec } = getMelodicIntervalTiming(snap.activeBpm || 90);
+    audioEngine.playStep([refNote], note1DurSec, null, "cadence");
+    audioEngine.registerTimer(() => {
+      if (audioEngine.playbackId !== currentId) return;
+      audioEngine.playStep([secondNote], note2DurSec, null, "cadence");
+    }, stepMs);
+    return stepMs + Math.round(note2DurSec * 1000) + 120;
+  }
+
   if (type === "chord-inversions") {
     let notes = snap.targetNotes || [];
     if (side === "chosen" && key) {
@@ -29699,7 +29721,20 @@ function playSingleExamReviewSnapshot(snap, side) {
     return 1250;
   }
 
-  if (type === "solfege" || isNotationMode(type)) {
+  if (type === "solfege") {
+    const refNote = snap.refNote || midiToNote(snap.rootMidi || 60);
+    const noteName = side === "chosen" ? snap.chosenNoteName : snap.targetNoteName;
+    if (!noteName) return 0;
+    const { stepMs, note1DurSec, note2DurSec } = getMelodicIntervalTiming(snap.activeBpm || 90);
+    audioEngine.playStep([refNote], note1DurSec, null, "interval");
+    audioEngine.registerTimer(() => {
+      if (audioEngine.playbackId !== currentId) return;
+      audioEngine.playStep([noteName], note2DurSec, null, "interval");
+    }, stepMs);
+    return stepMs + Math.round(note2DurSec * 1000) + 120;
+  }
+
+  if (isNotationMode(type)) {
     if (snap.isChord) {
       const notes = side === "chosen" ? snap.chosenNotes : snap.targetNotes;
       if (Array.isArray(notes) && notes.length > 0) {
@@ -29852,12 +29887,12 @@ function playSingleExamReviewSnapshot(snap, side) {
   return 0;
 }
 
-async function playExamReviewAudio(entry, itemIdx, side = "target") {
+function playExamReviewAudio(entry, itemIdx, side = "target") {
   const item = entry?.reviewItems?.[itemIdx];
   const snap = item?.audioSnapshot;
   if (!snap) return;
 
-  await ensureAudioReady();
+  prepareAudioNonBlocking();
   stopPlayback();
   const playId = audioEngine.playbackId;
 

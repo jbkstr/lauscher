@@ -611,7 +611,8 @@ const LAUSCHEBAER_QUOTES_PL = [
   { cat: "Wskazówka", text: "„W trybie «Czytanie akordów» w dziale Notacja rozpoznajesz spiętrzone akordy na kafelkach wyboru — od trójdźwięków durowych i molowych po E7, Esus4 i przewroty!”" },
   { cat: "Czy wiesz, że…", text: "„Co odróżnia czystą sinusoidę od ciepłego brzmienia fortepianu? W dziale «Fizyka i dźwięk» usłyszysz i zobaczysz w widmie częstotliwości, jak alikwoty kształtują każdą barwę!”" },
   { cat: "Wskazówka", text: "„Gdy przy niektórych dźwiękach, interwałach lub akordach pojawia się niepewność, Lauscher sam to zapamiętuje i automatycznie odpytuje Cię z tych słabszych punktów, aż pewnie wejdą w ucho!”" },
-  { cat: "Motywacja", text: "„Czy czujesz już różnicę, słuchając swojej ulubionej muzyki — jak linie basu, barwy akordów i drobne interwały nagle stają się o wiele bardziej wyraziste?”" }
+  { cat: "Motywacja", text: "„Czy czujesz już różnicę, słuchając swojej ulubionej muzyki — jak linie basu, barwy akordów i drobne interwały nagle stają się o wiele bardziej wyraziste?”" },
+  { cat: "Wskazówka", text: "„Gdy w arpeggiach akordowych dźwięki wybrzmiewają jeden po drugim, wsłuchaj się przede wszystkim w tercje między nimi — mała czy wielka od razu zdradzi Ci serce akordu!”" }
 ];
 
 const PROFILE_INSTRUMENTS_PL = {
