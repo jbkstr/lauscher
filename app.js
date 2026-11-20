@@ -5667,6 +5667,7 @@ function closeTransientPopovers() {
     ["inlineNotationPacePopover", "moduleNotationPaceBtn"],
     ["inlineTimeSigPopover", "moduleTimeSigBtn"],
     ["inlineModesRootPopover", "targetBarBadge"],
+    ["inlineModesPadPopover", "modesPadBtn"],
     ["warmupVoicePopover", "warmupVoiceBtn"],
     ["warmupSoundPopover", "warmupSoundBtn"],
     ["warmupBpmPopover", "warmupBpmBtn"]
@@ -5864,6 +5865,7 @@ function hasOpenTransientPopover() {
     "inlineNotationPacePopover",
     "inlineTimeSigPopover",
     "inlineModesRootPopover",
+    "inlineModesPadPopover",
     "warmupVoicePopover",
     "warmupSoundPopover",
     "warmupBpmPopover"
@@ -11877,11 +11879,66 @@ function getSingAlongHintText(type) {
 function syncModesPadButton(btn) {
   if (!btn) return;
   const padOn = Boolean(state.settings.modesRootPad);
-  btn.textContent = padOn ? tr("Grundton-Fläche: An", "Root Pad: On") : tr("Grundton-Fläche: Aus", "Root Pad: Off");
+  btn.textContent = `${padOn ? tr("Grundton-Fläche: An", "Root Pad: On") : tr("Grundton-Fläche: Aus", "Root Pad: Off")} ▾`;
   btn.classList.toggle("btn-active", padOn);
   btn.classList.toggle("click-muted", !padOn);
-  btn.setAttribute("aria-pressed", String(padOn));
+  btn.setAttribute("aria-haspopup", "true");
+  btn.removeAttribute("aria-pressed");
   btn.title = tr("Grundton des Modus als Streicher-Fläche unterlegen", "Play the mode's root as a sustained strings pad");
+}
+
+/** Kurze Hörprobe der Grundton-Fläche (nur wenn gerade nichts läuft). */
+function previewModesRootPad(durSec = 1.4) {
+  const ex = state.currentExercise;
+  if (!String(ex?.type || "").startsWith("modes-") || !state.settings.modesRootPad || state.isPlaying) return;
+  if (!audioEngine?.isInitialized || !ex?.rootMidi) return;
+  audioEngine.playRootPad([midiToNote(ex.rootMidi - 12), midiToNote(ex.rootMidi)], durSec);
+}
+
+/**
+ * Popover der Grundton-Fläche (Tonleitern & Modi): An/Aus und – nur bei aktiver Fläche – die Lautstärke.
+ * Der Regler steht damit nicht dauerhaft in der Übung, sondern nur, wenn man ihn aufruft.
+ */
+function renderModesPadPopover() {
+  const pop = document.getElementById("inlineModesPadPopover");
+  if (!pop) return;
+  const padOn = Boolean(state.settings.modesRootPad);
+  const padPct = Math.round(getActiveDroneMixSettings().pad * 100);
+  const volLabel = tr("Lautstärke:", "Volume:", { fr: "Volume :", es: "Volumen:", pl: "Głośność:", uk: "Гучність:", ur: "آواز کی سطح:" });
+  const onLabel = tr("An", "On", { fr: "Oui", es: "Sí", pl: "Wł.", uk: "Увімк.", ur: "آن" });
+  const offLabel = tr("Aus", "Off", { fr: "Non", es: "No", pl: "Wył.", uk: "Вимк.", ur: "آف" });
+  pop.innerHTML = `
+    <div class="popover-pills-row">
+      <button type="button" class="popover-pill-btn${padOn ? " active" : ""}" data-modes-pad="on" aria-pressed="${padOn}">${escapeHtml(onLabel)}</button>
+      <button type="button" class="popover-pill-btn${!padOn ? " active" : ""}" data-modes-pad="off" aria-pressed="${!padOn}">${escapeHtml(offLabel)}</button>
+    </div>
+    ${padOn ? `
+    <div class="modes-pad-vol-row">
+      <span class="popover-label">${escapeHtml(volLabel)}</span>
+      <input type="range" id="modesPadVolSlider" min="0" max="100" step="2" value="${padPct}" aria-label="${escapeHtml(tr("Lautstärke der Grundton-Fläche", "Root pad volume", { fr: "Volume de la nappe de fondamentale", es: "Volumen del colchón de tónica", pl: "Głośność plamy dźwięku podstawowego", uk: "Гучність фону тоніки", ur: "بنیادی سُر کی تہہ کی آواز" }))}">
+      <span id="modesPadVolVal" class="popover-val">${padPct}%</span>
+    </div>` : ""}`;
+  pop.querySelectorAll("[data-modes-pad]").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const next = btn.dataset.modesPad === "on";
+      if (next === Boolean(state.settings.modesRootPad)) return;
+      state.settings.modesRootPad = next;
+      syncModesPadButton(document.getElementById("modesPadBtn"));
+      renderModesPadPopover();
+      if (typeof queueFitExerciseLayout === "function") queueFitExerciseLayout(true);
+      if (next) previewModesRootPad(1.6);
+    });
+  });
+  const slider = pop.querySelector("#modesPadVolSlider");
+  slider?.addEventListener("input", (e) => {
+    const pct = parseFloat(e.target.value);
+    if (!Number.isFinite(pct)) return;
+    setDroneMixValue("pad", pct / 100);
+    const val = pop.querySelector("#modesPadVolVal");
+    if (val) val.textContent = `${Math.round(pct)}%`;
+  });
+  slider?.addEventListener("change", () => previewModesRootPad());
 }
 
 /**
@@ -12206,6 +12263,10 @@ function renderUI() {
     const showPadBtn = isModes && !state.exam?.active;
     modesPadBtn.classList.toggle("hidden", !showPadBtn);
     if (showPadBtn) syncModesPadButton(modesPadBtn);
+    else {
+      modesPadBtn.classList.remove("chip-open");
+      document.getElementById("inlineModesPadPopover")?.classList.add("hidden");
+    }
   }
 
   if (melodyPulseBtn) {
@@ -12262,11 +12323,10 @@ function renderUI() {
   const droneMixStrip = document.getElementById("droneMixStrip");
   if (droneMixStrip) {
     const isDroneEx = ex.type === "interval-drone";
-    // Modi: Lautstärke der Grundton-Fläche einblenden, solange die Fläche aktiv ist
-    const isModesPadMix = String(ex.type || "").startsWith("modes-") && Boolean(state.settings.modesRootPad) && !state.exam?.active;
-    droneMixStrip.classList.toggle("hidden", !isDroneEx && !isModesPadMix);
-    droneMixStrip.classList.toggle("is-pad-only", isModesPadMix && !isDroneEx);
-    if (isDroneEx || isModesPadMix) syncDroneMixControls();
+    // Modi: Lautstärke der Grundton-Fläche steht im Popover des Flächen-Chips, nicht dauerhaft in der Übung
+    droneMixStrip.classList.toggle("hidden", !isDroneEx);
+    droneMixStrip.classList.remove("is-pad-only");
+    if (isDroneEx) syncDroneMixControls();
   }
   const badgeEl = document.getElementById("targetBarBadge");
   if (badgeEl) {
@@ -20345,6 +20405,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const inlineKeyPopover = document.getElementById("inlineKeyPopover");
   const inlineModesRootPopover = document.getElementById("inlineModesRootPopover");
   const modesRootBadge = document.getElementById("targetBarBadge");
+  const inlineModesPadPopover = document.getElementById("inlineModesPadPopover");
+  const modesPadBtn = document.getElementById("modesPadBtn");
   const inlineNotationKeyPopover = document.getElementById("inlineNotationKeyPopover");
   const inlineNotationPacePopover = document.getElementById("inlineNotationPacePopover");
   const inlineNotationPaceSlider = document.getElementById("inlineNotationPaceSlider");
@@ -20357,7 +20419,8 @@ document.addEventListener("DOMContentLoaded", () => {
       [inlineNotationKeyPopover, moduleNotationKeyBtn],
       [inlineNotationPacePopover, moduleNotationPaceBtn],
       [inlineTimeSigPopover, moduleTimeSigBtn],
-      [inlineModesRootPopover, modesRootBadge]
+      [inlineModesRootPopover, modesRootBadge],
+      [inlineModesPadPopover, modesPadBtn]
     ].forEach(([pop, btn]) => {
       if (pop?.classList.contains("is-pinned")) return;
       if (pop && pop !== exceptPopover) {
@@ -20403,25 +20466,14 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.addEventListener("click", () => setSingAlongPreference("singAlongPause", btn.dataset.singPause === "on"));
   });
 
-  document.getElementById("modesPadBtn")?.addEventListener("click", (e) => {
+  // Tonleitern & Modi: Flächen-Chip öffnet An/Aus + Lautstärke
+  modesPadBtn?.addEventListener("click", (e) => {
     e?.stopPropagation?.();
-    if (state.exam?.active) return;
-    closeAllInlinePopovers();
-    state.settings.modesRootPad = !state.settings.modesRootPad;
-    syncModesPadButton(e.currentTarget);
-    const ex = state.currentExercise;
-    // Lautstärke-Regler der Fläche nur bei aktiver Fläche zeigen
-    const padStrip = document.getElementById("droneMixStrip");
-    if (padStrip && String(ex?.type || "").startsWith("modes-")) {
-      padStrip.classList.toggle("hidden", !state.settings.modesRootPad);
-      padStrip.classList.toggle("is-pad-only", state.settings.modesRootPad);
-      if (state.settings.modesRootPad) syncDroneMixControls();
-      if (typeof queueFitExerciseLayout === "function") queueFitExerciseLayout(true);
-    }
-    // Kurze Hörprobe beim Einschalten (nur wenn gerade nichts läuft)
-    if (state.settings.modesRootPad && audioEngine.isInitialized && !state.isPlaying && ex?.rootMidi) {
-      audioEngine.playRootPad([midiToNote(ex.rootMidi - 12), midiToNote(ex.rootMidi)], 1.6);
-    }
+    if (state.exam?.active || !inlineModesPadPopover) return;
+    closeAllInlinePopovers(inlineModesPadPopover);
+    renderModesPadPopover();
+    const isHidden = inlineModesPadPopover.classList.toggle("hidden");
+    modesPadBtn.classList.toggle("chip-open", !isHidden);
   });
 
   melodyPulseBtn?.addEventListener("click", (e) => {
@@ -20475,7 +20527,7 @@ document.addEventListener("DOMContentLoaded", () => {
     moduleTimeSigBtn.classList.toggle("chip-open", !isHidden);
   });
 
-  [inlineBpmPopover, inlineKeyPopover, inlineNotationKeyPopover, inlineNotationPacePopover, inlineTimeSigPopover, inlineModesRootPopover].forEach(pop => {
+  [inlineBpmPopover, inlineKeyPopover, inlineNotationKeyPopover, inlineNotationPacePopover, inlineTimeSigPopover, inlineModesRootPopover, inlineModesPadPopover].forEach(pop => {
     pop?.addEventListener("click", (e) => e.stopPropagation());
   });
 
@@ -20922,13 +20974,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (Number.isFinite(pct)) {
       setDroneMixValue("pad", pct / 100);
     }
-  });
-  // Modi: nach dem Verstellen kurz die Fläche in neuer Lautstärke vorhören (nur wenn gerade nichts läuft)
-  document.getElementById("dronePadVolSlider")?.addEventListener("change", () => {
-    const ex = state.currentExercise;
-    if (!String(ex?.type || "").startsWith("modes-") || !state.settings.modesRootPad || state.isPlaying) return;
-    if (!audioEngine.isInitialized || !ex?.rootMidi) return;
-    audioEngine.playRootPad([midiToNote(ex.rootMidi - 12), midiToNote(ex.rootMidi)], 1.4);
   });
 
   document.getElementById("droneToneVolSlider")?.addEventListener("input", (e) => {
