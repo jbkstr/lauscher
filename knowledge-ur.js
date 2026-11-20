@@ -1632,7 +1632,7 @@ const CATEGORY_HELP_GUIDES_UR = {
 
       <div class="article-highlight-box">
         <h4>کنٹرولز، صرف سنیں اور امتحان</h4>
-        <p>اوپر چِپس سے <strong>کلید</strong>، <strong>ٹائم سگنیچر</strong> اور <strong>ٹیمپو (BPM)</strong> بدلیں۔ نیچے <strong>ٹانک (I)</strong> / <strong>ٹانک (i)</strong> اور <strong>کارڈ دوبارہ سنیں</strong> سہارا دیتے ہیں؛ <strong>لوپ</strong> مسلسل بجاتا ہے اور <strong>صرف سنیں</strong> خودکار جواب دکھاتا ہے۔ غلطی کے بعد <strong>A/B موازنہ</strong> و <strong>باس / بنیادی سُر</strong> فرق دکھاتے ہیں اور <strong>زمرہ امتحان</strong> میجر و مائنر کا امتحان لیتا ہے۔</p>
+        <p>اوپر چِپس سے <strong>کلید</strong> اور <strong>ٹیمپو (BPM)</strong> بدلیں۔ نیچے <strong>ٹانک (I)</strong> / <strong>ٹانک (i)</strong> اور <strong>کارڈ دوبارہ سنیں</strong> سہارا دیتے ہیں؛ <strong>لوپ</strong> مسلسل بجاتا ہے اور <strong>صرف سنیں</strong> خودکار جواب دکھاتا ہے۔ غلطی کے بعد <strong>A/B موازنہ</strong> و <strong>باس / بنیادی سُر</strong> فرق دکھاتے ہیں اور <strong>زمرہ امتحان</strong> میجر و مائنر کا امتحان لیتا ہے۔</p>
       </div>
     `
   },

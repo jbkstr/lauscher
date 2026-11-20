@@ -1801,7 +1801,7 @@ const CATEGORY_HELP_GUIDES_PL = {
 
       <div class="article-highlight-box">
         <h4>Sterowanie, Tryb słuchania i Egzamin</h4>
-        <p>U góry zmienisz <strong>Tonację</strong>, <strong>Metrum</strong> i <strong>Tempo (BPM)</strong>. Poniżej przyciski <strong>Tonika (I)</strong> / <strong>Tonika (i)</strong> oraz <strong>Powtórz akord</strong> dają bezpośrednie oparcie; <strong>Pętla</strong> zapętla odsłuch, a <strong>Tylko słuchaj</strong> prowadzi serię z automatycznym odkryciem odpowiedzi. Po błędzie <strong>Porównanie A/B</strong> i <strong>Bas / Pryma</strong> porównują Twój typ z rozwiązaniem — a <strong>Egzamin kategorii</strong> sprawdza dur i moll pod presją egzaminu.</p>
+        <p>U góry zmienisz <strong>Tonację</strong> i <strong>Tempo (BPM)</strong>. Poniżej przyciski <strong>Tonika (I)</strong> / <strong>Tonika (i)</strong> oraz <strong>Powtórz akord</strong> dają bezpośrednie oparcie; <strong>Pętla</strong> zapętla odsłuch, a <strong>Tylko słuchaj</strong> prowadzi serię z automatycznym odkryciem odpowiedzi. Po błędzie <strong>Porównanie A/B</strong> i <strong>Bas / Pryma</strong> porównują Twój typ z rozwiązaniem — a <strong>Egzamin kategorii</strong> sprawdza dur i moll pod presją egzaminu.</p>
       </div>
     `
   },

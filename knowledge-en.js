@@ -1805,7 +1805,7 @@ const CATEGORY_HELP_GUIDES_EN = {
 
       <div class="article-highlight-box">
         <h4>Controls, Listen Only &amp; Exam</h4>
-        <p>Above the stage, adjust <strong>Key</strong>, <strong>Time Signature</strong>, and <strong>Tempo (BPM)</strong> anytime. Below, <strong>Tonic (I)</strong> / <strong>Tonic (i)</strong> and <strong>Replay Chord</strong> anchor your ear; at the bottom, <strong>Loop</strong> repeats continuously and <strong>Listen Only</strong> plays and reveals solutions automatically. After a miss, <strong>A/B Compare</strong> and <strong>Bass / Root</strong> contrast your choice with the answer — and the <strong>Category Exam</strong> tests Major and Minor under exam conditions.</p>
+        <p>Above the stage, adjust <strong>Key</strong> and <strong>Tempo (BPM)</strong> anytime. Below, <strong>Tonic (I)</strong> / <strong>Tonic (i)</strong> and <strong>Replay Chord</strong> anchor your ear; at the bottom, <strong>Loop</strong> repeats continuously and <strong>Listen Only</strong> plays and reveals solutions automatically. After a miss, <strong>A/B Compare</strong> and <strong>Bass / Root</strong> contrast your choice with the answer — and the <strong>Category Exam</strong> tests Major and Minor under exam conditions.</p>
       </div>
     `
   },
