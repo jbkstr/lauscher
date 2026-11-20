@@ -1190,6 +1190,26 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
   background-color: var(--surface-warm);
 }
 
+/* Kleine Linien-Symbole im Text (Kreispfeil statt „↻“, das in Andika fehlt) */
+.inline-glyph {
+  width: 0.95em;
+  height: 0.95em;
+  flex-shrink: 0;
+  vertical-align: -0.12em;
+  margin-inline-end: 0.3em;
+}
+
+.inline-glyph.inline-glyph-after {
+  margin-inline-end: 0;
+  margin-inline-start: 0.3em;
+}
+
+.metro-profile-icon-btn .inline-glyph {
+  width: 1.05em;
+  height: 1.05em;
+  margin: 0;
+}
+
 .node-circle {
   position: relative;
   width: 68px;
@@ -14409,7 +14429,7 @@ const LAUSCHER_MASCOT_DATA_URIS = {
         <div class="hero-top">
           <button id="refreshQuoteBtn" class="hero-mascot-btn" title="Tippe für einen neuen Gedanken" data-i18n-title="home.refreshQuoteTitle">
             <div class="hero-mascot-avatar" id="heroMascotSvg"></div>
-            <span class="hero-mascot-hint" data-i18n="home.newQuote">Neu ↻</span>
+            <span class="hero-mascot-hint"><span data-i18n="home.newQuote">Neu</span><svg class="inline-glyph inline-glyph-after" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.35-5.66"/><path d="M20 4.5v4.6h-4.6"/></svg></span>
           </button>
           <div class="hero-bubble">
             <span id="quoteCategoryBadge" class="quote-badge">Willkommen</span>
@@ -15770,7 +15790,7 @@ const LAUSCHER_MASCOT_DATA_URIS = {
             <span data-i18n="warmup.semiDown">−1 Halbton</span>
           </button>
           <button id="warmupReplayStepBtn" class="tonic-btn warmup-replay-btn" type="button" title="Aktuelles Muster wiederholen" data-i18n-title="warmup.replayTitle">
-            <span data-i18n="warmup.replayStep">↻ Nochmal</span>
+            <svg class="inline-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.35-5.66"/><path d="M20 4.5v4.6h-4.6"/></svg><span data-i18n="warmup.replayStep">Nochmal</span>
           </button>
           <button id="warmupKeyUpBtn" class="tonic-btn warmup-shift-btn" type="button" title="Einen Halbton höher modulieren" data-i18n-title="warmup.semiUpTitle">
             <span data-i18n="warmup.semiUp">+1 Halbton</span>
@@ -19193,7 +19213,7 @@ const I18N_STATIC = {
   "master.muted": { de: "Stumm", en: "Muted" },
 
   "home.refreshQuoteTitle": { de: "Tippe für einen neuen Gedanken", en: "Tap for a new tip" },
-  "home.newQuote": { de: "Neu ↻", en: "New ↻" },
+  "home.newQuote": { de: "Neu", en: "New" },
   "home.continue": { de: "▶ Weiterüben", en: "▶ Continue" },
   "home.startHere": { de: "▶ Beginne hier", en: "▶ Start Here" },
   "space.mixesHomeToggleLabel": { de: "Schnellstart auf der Startseite anzeigen", en: "Show quick start on home screen" },
@@ -19511,7 +19531,7 @@ const I18N_STATIC = {
   "warmup.semiDownTitle": { de: "Einen Halbton tiefer modulieren", en: "Transpose one semitone down" },
   "warmup.semiDown": { de: "−1 Halbton", en: "−1 Semitone" },
   "warmup.replayTitle": { de: "Aktuelles Muster wiederholen", en: "Replay current pattern" },
-  "warmup.replayStep": { de: "↻ Nochmal", en: "↻ Replay" },
+  "warmup.replayStep": { de: "Nochmal", en: "Replay" },
   "warmup.semiUpTitle": { de: "Einen Halbton höher modulieren", en: "Transpose one semitone up" },
   "warmup.semiUp": { de: "+1 Halbton", en: "+1 Semitone" },
   "warmup.prevTitle": { de: "Vorherige Übung", en: "Previous exercise" },
@@ -20543,7 +20563,7 @@ const I18N_STATIC_ES = {
   "master.on": "Activado",
   "master.muted": "Silenciado",
   "home.refreshQuoteTitle": "Toca para un nuevo pensamiento",
-  "home.newQuote": "Nuevo ↻",
+  "home.newQuote": "Nuevo",
   "home.continue": "▶ Seguir practicando",
   "home.startHere": "▶ Empieza aquí",
   "app.portraitOnlyTitle": "Usa el modo vertical",
@@ -20838,7 +20858,7 @@ const I18N_STATIC_ES = {
   "warmup.semiDownTitle": "Modular un semitono hacia abajo",
   "warmup.semiDown": "−1 semitono",
   "warmup.replayTitle": "Repetir el patrón actual",
-  "warmup.replayStep": "↻ Repetir",
+  "warmup.replayStep": "Repetir",
   "warmup.semiUpTitle": "Modular un semitono hacia arriba",
   "warmup.semiUp": "+1 semitono",
   "warmup.prevTitle": "Ejercicio anterior",
@@ -22999,7 +23019,7 @@ const TR_ES = {
   "Viel Freude beim Singen und Musizieren! Tippe unten auf Starten für eine neue Runde.": "¡Buen ensayo y que disfrutes la música! Toca abajo para empezar de nuevo cuando quieras.",
   "⏸ Pause": "⏸ Pausa",
   "▶ Weiter": "▶ Reanudar",
-  "↻ Nochmal einsingen": "↻ Repetir el calentamiento",
+  "Nochmal einsingen": "Repetir el calentamiento",
   "▶ Einsingen starten": "▶ Iniciar el calentamiento",
   "Zyklus": "Ciclo",
   "Impuls": "Impulso",
@@ -23449,7 +23469,7 @@ const TR_ES = {
   "Schlüssel &amp; Umfang für diesen Direktstart:": "Clave &amp; ámbito para estos accesos rápidos:",
   "±3 + ♮/♯/♭": "±3 + ♮/♯/♭",
   "Tonart (Vorzeichen):": "Armadura (tonalidad):",
-  "↻ Nächste Tonart": "↻ Tonalidad siguiente",
+  "Nächste Tonart": "Tonalidad siguiente",
   "Note links (mit Vorzeichen) wählen:": "Nota de la izquierda (según la armadura):",
   "Neue Tonart: {key} ({acc})!": "¡Nueva tonalidad: {key} ({acc})!",
   "Tonart {key} ({acc}) beachten – oder „Überspringen“.": "Atención a la armadura {key} ({acc}), o toca «Saltar».",
@@ -23693,7 +23713,7 @@ const I18N_STATIC_FR = {
   "master.on": "Activé",
   "master.muted": "Muet",
   "home.refreshQuoteTitle": "Touchez pour une nouvelle pensée",
-  "home.newQuote": "Nouveau ↻",
+  "home.newQuote": "Nouveau",
   "home.continue": "▶ Continuer",
   "home.startHere": "▶ Commencez ici",
   "app.portraitOnlyTitle": "Utilise le mode portrait",
@@ -23988,7 +24008,7 @@ const I18N_STATIC_FR = {
   "warmup.semiDownTitle": "Moduler d’un demi-ton vers le bas",
   "warmup.semiDown": "−1 demi-ton",
   "warmup.replayTitle": "Répéter le motif en cours",
-  "warmup.replayStep": "↻ Rejouer",
+  "warmup.replayStep": "Rejouer",
   "warmup.semiUpTitle": "Moduler d’un demi-ton vers le haut",
   "warmup.semiUp": "+1 demi-ton",
   "warmup.prevTitle": "Exercice précédent",
@@ -25431,7 +25451,7 @@ Object.assign(TR_FR, {
   "Viel Freude beim Singen und Musizieren! Tippe unten auf Starten für eine neue Runde.": "Bonne répétition et belle musique ! Touchez ci-dessous pour recommencer quand vous voulez.",
   "⏸ Pause": "⏸ Pause",
   "▶ Weiter": "▶ Reprendre",
-  "↻ Nochmal einsingen": "↻ Refaire l’échauffement",
+  "Nochmal einsingen": "Refaire l’échauffement",
   "▶ Einsingen starten": "▶ Démarrer l’échauffement",
   "Zyklus": "Cycle",
   "Impuls": "Impulsion",
@@ -25886,7 +25906,7 @@ Object.assign(TR_FR, {
   "Schlüssel &amp; Umfang für diesen Direktstart:": "Clé &amp; tessiture pour ces accès rapides :",
   "±3 + ♮/♯/♭": "±3 + ♮/♯/♭",
   "Tonart (Vorzeichen):": "Armure (Tonalité) :",
-  "↻ Nächste Tonart": "↻ Tonalité suivante",
+  "Nächste Tonart": "Tonalité suivante",
   "Note links (mit Vorzeichen) wählen:": "Note à gauche (selon l’armure) :",
   "Neue Tonart: {key} ({acc})!": "Nouvelle tonalité : {key} ({acc}) !",
   "Tonart {key} ({acc}) beachten – oder „Überspringen“.": "Attention à l’armure {key} ({acc}) — ou touchez « Passer ».",
@@ -26128,7 +26148,7 @@ const I18N_STATIC_PL = {
   "master.on": "Wł.",
   "master.muted": "Wycisz.",
   "home.refreshQuoteTitle": "Dotknij, aby zobaczyć nową myśl",
-  "home.newQuote": "Nowa ↻",
+  "home.newQuote": "Nowa",
   "home.continue": "▶ Kontynuuj",
   "home.startHere": "▶ Zacznij tutaj",
   "app.portraitOnlyTitle": "Używaj w orientacji pionowej",
@@ -26423,7 +26443,7 @@ const I18N_STATIC_PL = {
   "warmup.semiDownTitle": "Obniż o półton",
   "warmup.semiDown": "−1 półton",
   "warmup.replayTitle": "Powtórz bieżące ćwiczenie",
-  "warmup.replayStep": "↻ Powtórz",
+  "warmup.replayStep": "Powtórz",
   "warmup.semiUpTitle": "Podwyższ o półton",
   "warmup.semiUp": "+1 półton",
   "warmup.prevTitle": "Poprzedni krok",
@@ -27741,7 +27761,7 @@ const TR_PL = {
   "Übungen zu Kadenzen • Ziel: Takt 4": "Ćwiczenia kadencji • Cel: Takt 4",
   "Übungen zu Kadenzen • Zufälliger Takt": "Ćwiczenia kadencji • Losowy takt",
   "← Zurück zur Übungsauswahl": "← Wróć do wyboru ćwiczeń",
-  "↻ Nochmal einsingen": "↻ Powtórz rozgrzewkę",
+  "Nochmal einsingen": "Powtórz rozgrzewkę",
   "⏸ Pause": "⏸ Pauza",
   "⏸ Pausieren": "⏸ Wstrzymaj",
   "⏸ Welle anhalten": "⏸ Zatrzymaj falę",
@@ -28366,7 +28386,7 @@ Object.assign(TR_PL, {
   "Schlüssel &amp; Umfang für diesen Direktstart:": "Klucz i skala dla tych kart szybkiego startu:",
   "±3 + ♮/♯/♭": "±3 + ♮/♯/♭",
   "Tonart (Vorzeichen):": "Tonacja (znaki przykluczowe):",
-  "↻ Nächste Tonart": "↻ Następna tonacja",
+  "Nächste Tonart": "Następna tonacja",
   "Note links (mit Vorzeichen) wählen:": "Nuta po lewej (z uwzględnieniem znaków):",
   "Neue Tonart: {key} ({acc})!": "Nowa tonacja: {key} ({acc})!",
   "Tonart {key} ({acc}) beachten – oder „Überspringen“.": "Uważaj na tonację {key} ({acc}) — lub dotknij „Pomiń”.",
@@ -28609,7 +28629,7 @@ const I18N_STATIC_UK = {
   "master.on": "Увімк.",
   "master.muted": "Без звуку",
   "home.refreshQuoteTitle": "Натисни для нової поради",
-  "home.newQuote": "Нова ↻",
+  "home.newQuote": "Нова",
   "home.continue": "▶ Продовжити",
   "home.startHere": "▶ Почни тут",
   "app.portraitOnlyTitle": "Будь ласка, використовуй портретний режим",
@@ -28904,7 +28924,7 @@ const I18N_STATIC_UK = {
   "warmup.semiDownTitle": "Модулювати на півтон нижче",
   "warmup.semiDown": "−1 півтон",
   "warmup.replayTitle": "Повторити поточну вправу",
-  "warmup.replayStep": "↻ Повторити",
+  "warmup.replayStep": "Повторити",
   "warmup.semiUpTitle": "Модулювати на півтон вище",
   "warmup.semiUp": "+1 півтон",
   "warmup.prevTitle": "Попередній крок",
@@ -30222,7 +30242,7 @@ const TR_UK = {
   "Übungen zu Kadenzen • Ziel: Takt 4": "Вправи на каданси • Ціль: такт 4",
   "Übungen zu Kadenzen • Zufälliger Takt": "Вправи на каданси • Випадковий такт",
   "← Zurück zur Übungsauswahl": "← Назад до вибору вправ",
-  "↻ Nochmal einsingen": "↻ Розспіватися ще раз",
+  "Nochmal einsingen": "Розспіватися ще раз",
   "⏸ Pause": "⏸ Пауза",
   "⏸ Pausieren": "⏸ Пауза",
   "⏸ Welle anhalten": "⏸ Зупинити хвилю",
@@ -30848,7 +30868,7 @@ Object.assign(TR_UK, {
   "Schlüssel &amp; Umfang für diesen Direktstart:": "Ключ і діапазон для швидкого старту:",
   "±3 + ♮/♯/♭": "±3 + ♮/♯/♭",
   "Tonart (Vorzeichen):": "Тональність (ключові знаки):",
-  "↻ Nächste Tonart": "↻ Наступна тональність",
+  "Nächste Tonart": "Наступна тональність",
   "Note links (mit Vorzeichen) wählen:": "Нота ліворуч (з урахуванням знаків):",
   "Neue Tonart: {key} ({acc})!": "Нова тональність: {key} ({acc})!",
   "Tonart {key} ({acc}) beachten – oder „Überspringen“.": "Зверни увагу на {key} ({acc}) — або натисни «Пропустити».",
@@ -31091,7 +31111,7 @@ const I18N_STATIC_UR = {
   "master.on": "آن",
   "master.muted": "خاموش",
   "home.refreshQuoteTitle": "نئی بات یا مشورے کے لیے ٹیپ کریں",
-  "home.newQuote": "نیا ↻",
+  "home.newQuote": "نیا",
   "home.continue": "▶ مشق جاری رکھیں",
   "home.startHere": "▶ یہاں سے شروع کریں",
   "app.portraitOnlyTitle": "براہِ کرم پورٹریٹ موڈ استعمال کریں",
@@ -31386,7 +31406,7 @@ const I18N_STATIC_UR = {
   "warmup.semiDownTitle": "ایک سیمی ٹون نیچے لے جائیں",
   "warmup.semiDown": "−1 سیمی ٹون",
   "warmup.replayTitle": "موجودہ پیٹرن دوبارہ چلائیں",
-  "warmup.replayStep": "↻ دوبارہ",
+  "warmup.replayStep": "دوبارہ",
   "warmup.semiUpTitle": "ایک سیمی ٹون اوپر لے جائیں",
   "warmup.semiUp": "+1 سیمی ٹون",
   "warmup.prevTitle": "پچھلی مشق",
@@ -32733,7 +32753,7 @@ const TR_UR = Object.assign(Object.create(null), {
   "Übungen zu Kadenzen • Ziel: Takt 4": "کیڈینس مشقیں • ہدف: بار 4",
   "Übungen zu Kadenzen • Zufälliger Takt": "کیڈینس مشقیں • بے ترتیب بار",
   "← Zurück zur Übungsauswahl": "→ مشقوں کے انتخاب پر واپس",
-  "↻ Nochmal einsingen": "↻ وارم اپ دہرائیں",
+  "Nochmal einsingen": "وارم اپ دہرائیں",
   "⏸ Pause": "⏸ وقفہ",
   "⏸ Pausieren": "⏸ روکیں",
   "⏸ Welle anhalten": "⏸ موج روکیں",
@@ -33166,7 +33186,7 @@ const TR_UR = Object.assign(Object.create(null), {
   "Schlüssel &amp; Umfang für diesen Direktstart:": "ان کوئیک اسٹارٹ کارڈز کے لیے کلیف اور رینج:",
   "±3 + ♮/♯/♭": "±3 + ♮/♯/♭",
   "Tonart (Vorzeichen):": "کی سگنیچر:",
-  "↻ Nächste Tonart": "↻ اگلی کلید",
+  "Nächste Tonart": "اگلی کلید",
   "Note links (mit Vorzeichen) wählen:": "بائیں جانب کا نوٹ چنیں (کی سگنیچر کا خیال رکھیں):",
   "Neue Tonart: {key} ({acc})!": "نئی کلید: {key} ({acc})!",
   "Tonart {key} ({acc}) beachten – oder „Überspringen“.": "{key} ({acc}) کا خیال رکھیں — یا «چھوڑیں» دبائیں۔",
@@ -35555,7 +35575,7 @@ const CATEGORY_HELP_GUIDES_EN = {
 
       <div class="article-highlight-box">
         <h4>Live Teaching Controls &amp; Keyboard</h4>
-        <p>Use the top chips anytime to switch <strong>Vocal Range (SATB)</strong>, <strong>Sound</strong> (Piano, Piano + Voice, or Voice), and <strong>Tempo</strong>, or jump straight between sections using the <strong>phase pills</strong>. Tap <strong>“−1 / +1 Semitone”</strong> and <strong>“↻ Replay”</strong> mid-exercise, or play single reference tones directly on the <strong>live keyboard</strong> below.</p>
+        <p>Use the top chips anytime to switch <strong>Vocal Range (SATB)</strong>, <strong>Sound</strong> (Piano, Piano + Voice, or Voice), and <strong>Tempo</strong>, or jump straight between sections using the <strong>phase pills</strong>. Tap <strong>“−1 / +1 Semitone”</strong> and <strong>“Replay”</strong> mid-exercise, or play single reference tones directly on the <strong>live keyboard</strong> below.</p>
       </div>
     `
   },
@@ -39669,7 +39689,7 @@ const CATEGORY_HELP_GUIDES_FR = {
 
       <div class="article-highlight-box">
         <h4>Contrôles en direct &amp; Clavier</h4>
-        <p>En haut, changez à tout moment <strong>Tessiture (SATB)</strong>, <strong>Son d’accompagnement</strong> (Piano, Piano + Voix ou Voix) et <strong>Tempo</strong>, ou naviguez entre étapes grâce aux <strong>pastilles de phase</strong>. En bas, ajustez avec <strong>« −1 / +1 demi-ton »</strong> et <strong>« ↻ Répéter »</strong>, ou jouez directement des notes repères sur le <strong>clavier interactif</strong>.</p>
+        <p>En haut, changez à tout moment <strong>Tessiture (SATB)</strong>, <strong>Son d’accompagnement</strong> (Piano, Piano + Voix ou Voix) et <strong>Tempo</strong>, ou naviguez entre étapes grâce aux <strong>pastilles de phase</strong>. En bas, ajustez avec <strong>« −1 / +1 demi-ton »</strong> et <strong>« Répéter »</strong>, ou jouez directement des notes repères sur le <strong>clavier interactif</strong>.</p>
       </div>
     `
   },
@@ -43830,7 +43850,7 @@ const CATEGORY_HELP_GUIDES = {
 
       <div class="article-highlight-box">
         <h4>Live-Steuerung &amp; Klaviatur</h4>
-        <p>Über die Chips oben wechselst du jederzeit zwischen <strong>Tonumfang (SATB)</strong>, <strong>Klang</strong> (Klavier, Klavier + Stimme oder Stimme) und <strong>Tempo</strong>; über die <strong>Phasen-Pills</strong> springst du gezielt zu einzelnen Abschnitten. Unten lässt sich jede Übung per <strong>„−1 / +1 Halbton“</strong> und <strong>„↻ Nochmal“</strong> direkt anpassen – oder du greifst auf der <strong>Live-Klaviatur</strong> einzelne Referenztöne direkt mit an.</p>
+        <p>Über die Chips oben wechselst du jederzeit zwischen <strong>Tonumfang (SATB)</strong>, <strong>Klang</strong> (Klavier, Klavier + Stimme oder Stimme) und <strong>Tempo</strong>; über die <strong>Phasen-Pills</strong> springst du gezielt zu einzelnen Abschnitten. Unten lässt sich jede Übung per <strong>„−1 / +1 Halbton“</strong> und <strong>„Nochmal“</strong> direkt anpassen – oder du greifst auf der <strong>Live-Klaviatur</strong> einzelne Referenztöne direkt mit an.</p>
       </div>
     `
   },
@@ -48906,7 +48926,7 @@ const CATEGORY_HELP_GUIDES_ES = {
 
       <div class="article-highlight-box">
         <h4>Controles en directo &amp; teclado</h4>
-        <p>Arriba, cambia en cualquier momento <strong>Tesitura (SATB)</strong>, <strong>Sonido de acompañamiento</strong> (piano, piano + voz o voz) y <strong>Tempo</strong>, o navega entre pasos con las <strong>pastillas de fase</strong>. Abajo, ajusta con <strong>«−1 / +1 semitono»</strong> y <strong>«↻ Repetir»</strong>, o toca directamente notas de referencia en el <strong>teclado interactivo</strong>.</p>
+        <p>Arriba, cambia en cualquier momento <strong>Tesitura (SATB)</strong>, <strong>Sonido de acompañamiento</strong> (piano, piano + voz o voz) y <strong>Tempo</strong>, o navega entre pasos con las <strong>pastillas de fase</strong>. Abajo, ajusta con <strong>«−1 / +1 semitono»</strong> y <strong>«Repetir»</strong>, o toca directamente notas de referencia en el <strong>teclado interactivo</strong>.</p>
       </div>
     `
   },
@@ -53161,7 +53181,7 @@ const CATEGORY_HELP_GUIDES_PL = {
 
       <div class="article-highlight-box">
         <h4>Sterowanie na żywo i klawiatura</h4>
-        <p>U góry zmieniasz <strong>Rejestr (SATB)</strong>, <strong>Barwę akompaniamentu</strong> (Fortepian, Fortepian + głos lub Głos) i <strong>Tempo</strong>, a przez <strong>pigułki etapów</strong> przeskakujesz dowolnie między fazami. U dołu działają przyciski <strong>„−1 / +1 półton”</strong> i <strong>„↻ Powtórz”</strong> oraz <strong>interaktywna klawiatura</strong> do grania dźwięków oparcia.</p>
+        <p>U góry zmieniasz <strong>Rejestr (SATB)</strong>, <strong>Barwę akompaniamentu</strong> (Fortepian, Fortepian + głos lub Głos) i <strong>Tempo</strong>, a przez <strong>pigułki etapów</strong> przeskakujesz dowolnie między fazami. U dołu działają przyciski <strong>„−1 / +1 półton”</strong> i <strong>„Powtórz”</strong> oraz <strong>interaktywna klawiatura</strong> do grania dźwięków oparcia.</p>
       </div>
     `
   },
@@ -57393,7 +57413,7 @@ const CATEGORY_HELP_GUIDES_UK = {
 
       <div class="article-highlight-box">
         <h4>Живе керування і клавіатура</h4>
-        <p>Плашки вгорі перемикають <strong>Діапазон (SATB)</strong>, <strong>Тембр супроводу</strong> (Фортепіано, Фортепіано + голос або Голос) і <strong>Темп</strong>, а <strong>пілюлі фаз</strong> дозволяють перестрибнути на будь-яку частину. Унизу кнопки <strong>«−1 / +1 півтон»</strong> і <strong>«↻ Повторити»</strong> миттєво коригують висоту, а <strong>жива клавіатура</strong> дає змогу підіграти окремі тони.</p>
+        <p>Плашки вгорі перемикають <strong>Діапазон (SATB)</strong>, <strong>Тембр супроводу</strong> (Фортепіано, Фортепіано + голос або Голос) і <strong>Темп</strong>, а <strong>пілюлі фаз</strong> дозволяють перестрибнути на будь-яку частину. Унизу кнопки <strong>«−1 / +1 півтон»</strong> і <strong>«Повторити»</strong> миттєво коригують висоту, а <strong>жива клавіатура</strong> дає змогу підіграти окремі тони.</p>
       </div>
     `
   },
@@ -61464,7 +61484,7 @@ const CATEGORY_HELP_GUIDES_UR = {
 
       <div class="article-highlight-box">
         <h4>لائیو کنٹرولز اور کی بورڈ</h4>
-        <p>اوپر چِپس سے <strong>آواز کی رینج (SATB)</strong>، <strong>ساتھ کا ساز</strong> (پیانو، پیانو+آواز یا آواز) اور <strong>ٹیمپو</strong> بدلیں یا <strong>مرحلہ چِپس</strong> سے آگے پیچھے جائیں۔ نیچے <strong>«−1 / +1 سیمی ٹون»</strong> و <strong>«↻ دوبارہ»</strong> دبائیں یا <strong>لائیو کی بورڈ</strong> پر براہِ راست سُر بجائیں۔</p>
+        <p>اوپر چِپس سے <strong>آواز کی رینج (SATB)</strong>، <strong>ساتھ کا ساز</strong> (پیانو، پیانو+آواز یا آواز) اور <strong>ٹیمپو</strong> بدلیں یا <strong>مرحلہ چِپس</strong> سے آگے پیچھے جائیں۔ نیچے <strong>«−1 / +1 سیمی ٹون»</strong> و <strong>«دوبارہ»</strong> دبائیں یا <strong>لائیو کی بورڈ</strong> پر براہِ راست سُر بجائیں۔</p>
       </div>
     `
   },
@@ -72557,13 +72577,13 @@ function openCategoryPage(categoryKey, options = {}) {
           </button>
 
           <button class="subpage-node-btn" data-launch-solfege="5">
-            <div class="node-circle circle-lilac">↻ • 1</div>
+            <div class="node-circle circle-lilac">${REFRESH_ICON_SVG} • 1</div>
             <span class="node-title">${tr("Stufe 5: Tonartwechsel (1 Oktave)", "Level 5: Key Changes (1 Octave)")}</span>
             <span class="node-sub">${tr("Neue Tonart nach jeder Antwort, 1 Okt.", "New key after every answer, 1 oct.")}</span>
           </button>
 
           <button class="subpage-node-btn" data-launch-solfege="6">
-            <div class="node-circle circle-lilac">↻ • ∞</div>
+            <div class="node-circle circle-lilac">${REFRESH_ICON_SVG} • ∞</div>
             <span class="node-title">${tr("Stufe 6: Tonartwechsel (Mehrere Okt.)", "Level 6: Key Changes (Multi-Oct.)")}</span>
             <span class="node-sub">${tr("Neue Tonart & Oktave nach jeder Antwort", "New key & octave after every answer")}</span>
           </button>
@@ -74465,6 +74485,10 @@ function generateRhythmGrooveExercise() {
  * - Stufe 5: Nicht C-Dur (neu nach jeder Antwort), 1 Oktave
  * - Stufe 6: Nicht C-Dur (neu nach jeder Antwort), mehrere Oktaven
  */
+// Kreispfeil („nochmal/neu/wechseln“) als Linien-Icon. Das Zeichen „↻“ fehlt in der App-Schrift Andika
+// und erschien auf Mobilgeräten/in der App als fremdes Emoji-/Systemsymbol.
+const REFRESH_ICON_SVG = '<svg class="inline-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.35-5.66"/><path d="M20 4.5v4.6h-4.6"/></svg>';
+
 // Solfège „Mehrere Oktaven“: drei feste Tonlagen (je 12 Halbtöne, jede Tonstufe passt genau einmal hinein).
 // Tief ≈ um C3, mittel ≈ um C4, hoch ≈ um C5 – unabhängig davon, wo die Tonart auf der Klaviatur liegt.
 const SOLFEGE_OCTAVE_BANDS = {
@@ -78187,7 +78211,7 @@ function renderInlineNotationKeyPopover() {
       <span class="popover-label">${escapeHtml(tr("Tonart (Vorzeichen):", "Key Signature:"))}</span>
       ${showNextKeyBtn ? `
         <button type="button" class="popover-pill-btn" data-inline-notation-rotate="1">
-          ${escapeHtml(tr("↻ Nächste Tonart", "↻ Next Key"))}
+          ${REFRESH_ICON_SVG}${escapeHtml(tr("Nächste Tonart", "Next Key"))}
         </button>
       ` : ""}
     </div>
@@ -86248,7 +86272,7 @@ function renderWarmupView() {
       playBtn.textContent = tr("▶ Weiter", "▶ Resume");
       playBtn.classList.remove("btn-stop");
     } else if (w.status === "completed") {
-      playBtn.textContent = tr("↻ Nochmal einsingen", "↻ Warmup Again");
+      playBtn.innerHTML = `${REFRESH_ICON_SVG}${escapeHtml(tr("Nochmal einsingen", "Warmup Again"))}`;
       playBtn.classList.remove("btn-stop");
     } else {
       playBtn.textContent = tr("▶ Einsingen starten", "▶ Start Warmup");
@@ -87306,7 +87330,7 @@ function renderMetronomeProfiles() {
     const updateBtn = document.createElement("button");
     updateBtn.type = "button";
     updateBtn.className = "metro-profile-icon-btn";
-    updateBtn.textContent = "↻";
+    updateBtn.innerHTML = REFRESH_ICON_SVG;
     updateBtn.title = tr("Aktuelle Werte in diesem Profil speichern", "Update profile with current settings");
     updateBtn.setAttribute?.("aria-label", tr("Profil aktualisieren", "Update profile"));
     updateBtn.addEventListener("click", () => {

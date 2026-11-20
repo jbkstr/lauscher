@@ -376,7 +376,7 @@ const I18N_STATIC = {
   "master.muted": { de: "Stumm", en: "Muted" },
 
   "home.refreshQuoteTitle": { de: "Tippe für einen neuen Gedanken", en: "Tap for a new tip" },
-  "home.newQuote": { de: "Neu ↻", en: "New ↻" },
+  "home.newQuote": { de: "Neu", en: "New" },
   "home.continue": { de: "▶ Weiterüben", en: "▶ Continue" },
   "home.startHere": { de: "▶ Beginne hier", en: "▶ Start Here" },
   "space.mixesHomeToggleLabel": { de: "Schnellstart auf der Startseite anzeigen", en: "Show quick start on home screen" },
@@ -694,7 +694,7 @@ const I18N_STATIC = {
   "warmup.semiDownTitle": { de: "Einen Halbton tiefer modulieren", en: "Transpose one semitone down" },
   "warmup.semiDown": { de: "−1 Halbton", en: "−1 Semitone" },
   "warmup.replayTitle": { de: "Aktuelles Muster wiederholen", en: "Replay current pattern" },
-  "warmup.replayStep": { de: "↻ Nochmal", en: "↻ Replay" },
+  "warmup.replayStep": { de: "Nochmal", en: "Replay" },
   "warmup.semiUpTitle": { de: "Einen Halbton höher modulieren", en: "Transpose one semitone up" },
   "warmup.semiUp": { de: "+1 Halbton", en: "+1 Semitone" },
   "warmup.prevTitle": { de: "Vorherige Übung", en: "Previous exercise" },

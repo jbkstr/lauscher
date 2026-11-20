@@ -1854,7 +1854,7 @@ const CATEGORY_HELP_GUIDES_UR = {
 
       <div class="article-highlight-box">
         <h4>لائیو کنٹرولز اور کی بورڈ</h4>
-        <p>اوپر چِپس سے <strong>آواز کی رینج (SATB)</strong>، <strong>ساتھ کا ساز</strong> (پیانو، پیانو+آواز یا آواز) اور <strong>ٹیمپو</strong> بدلیں یا <strong>مرحلہ چِپس</strong> سے آگے پیچھے جائیں۔ نیچے <strong>«−1 / +1 سیمی ٹون»</strong> و <strong>«↻ دوبارہ»</strong> دبائیں یا <strong>لائیو کی بورڈ</strong> پر براہِ راست سُر بجائیں۔</p>
+        <p>اوپر چِپس سے <strong>آواز کی رینج (SATB)</strong>، <strong>ساتھ کا ساز</strong> (پیانو، پیانو+آواز یا آواز) اور <strong>ٹیمپو</strong> بدلیں یا <strong>مرحلہ چِپس</strong> سے آگے پیچھے جائیں۔ نیچے <strong>«−1 / +1 سیمی ٹون»</strong> و <strong>«دوبارہ»</strong> دبائیں یا <strong>لائیو کی بورڈ</strong> پر براہِ راست سُر بجائیں۔</p>
       </div>
     `
   },

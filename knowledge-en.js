@@ -2029,7 +2029,7 @@ const CATEGORY_HELP_GUIDES_EN = {
 
       <div class="article-highlight-box">
         <h4>Live Teaching Controls &amp; Keyboard</h4>
-        <p>Use the top chips anytime to switch <strong>Vocal Range (SATB)</strong>, <strong>Sound</strong> (Piano, Piano + Voice, or Voice), and <strong>Tempo</strong>, or jump straight between sections using the <strong>phase pills</strong>. Tap <strong>“−1 / +1 Semitone”</strong> and <strong>“↻ Replay”</strong> mid-exercise, or play single reference tones directly on the <strong>live keyboard</strong> below.</p>
+        <p>Use the top chips anytime to switch <strong>Vocal Range (SATB)</strong>, <strong>Sound</strong> (Piano, Piano + Voice, or Voice), and <strong>Tempo</strong>, or jump straight between sections using the <strong>phase pills</strong>. Tap <strong>“−1 / +1 Semitone”</strong> and <strong>“Replay”</strong> mid-exercise, or play single reference tones directly on the <strong>live keyboard</strong> below.</p>
       </div>
     `
   },
