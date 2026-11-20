@@ -6523,21 +6523,14 @@ body.is-hum-pause #solfegeKeyboardWrap {
 }
 
 /* ---------- Antwort-Hinweis im unteren Modul (nicht bei Klaviatur-Übungen) ----------
-   B: Die Aufforderung wird zum Fragezeichen-Etikett in der Farbe der „Gesucht“-Karte.
-   A: Solange eine Antwort erwartet wird, bekommen die Antwort-Knöpfe einen kaum sichtbaren
-      Farbschimmer (Fläche dahinter + Tastenkante). Nur Farbe, keine Höhenänderung. */
+   B: Ein kleiner „?“-Punkt in der Farbe der „Gesucht“-Karte vor der Aufforderung.
+   A: Solange eine Antwort erwartet wird, liegt hinter den Antwort-Knöpfen eine zarte Fläche
+      (plus warme Tastenkante). Die Fläche sitzt im Innenabstand des Rasters, damit sie an den
+      Bildschirmrändern nicht abgeschnitten wird; der Abstand bleibt immer gleich (keine Sprünge). */
 #viewExercise.answer-cue .input-prompt {
-  /* gleiche Umbruch-Logik wie ohne Etikett, aber nur so breit wie der Text */
-  max-width: max-content;
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding-block: 0.18rem;
-  padding-inline: 0.22rem 0.66rem;
-  border-radius: var(--radius-pill);
-  background-color: var(--peach-soft);
-  border: 1px solid color-mix(in srgb, var(--peach) 70%, transparent);
-  color: var(--peach-strong);
+  gap: 0.34rem;
 }
 
 #viewExercise.answer-cue .input-prompt::before {
@@ -6546,8 +6539,9 @@ body.is-hum-pause #solfegeKeyboardWrap {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.2em;
-  height: 1.2em;
+  width: 1.15em;
+  height: 1.15em;
+  font-size: 0.92em;
   border-radius: 50%;
   background-color: var(--peach);
   color: var(--peach-strong);
@@ -6562,14 +6556,15 @@ body.is-hum-pause #solfegeKeyboardWrap {
 #viewExercise.answer-cue .degrees-grid {
   position: relative;
   isolation: isolate;
+  padding: 6px;
 }
 
 #viewExercise.answer-cue .degrees-grid::before {
   content: "";
   position: absolute;
-  inset: -6px -9px;
+  inset: 0;
   z-index: -1;
-  border-radius: calc(var(--radius-md) + 6px);
+  border-radius: calc(var(--radius-md) + 5px);
   background-color: var(--peach-soft);
   border: 1px solid color-mix(in srgb, var(--peach) 65%, transparent);
   opacity: 0;
@@ -6587,6 +6582,12 @@ body.is-hum-pause #solfegeKeyboardWrap {
 
 body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   opacity: 0;
+}
+
+/* Bei Platzmangel (fit-2/3) etwas weniger Innenabstand */
+#viewExercise.fit-2.answer-cue .degrees-grid,
+#viewExercise.fit-3.answer-cue .degrees-grid {
+  padding: 4px;
 }
 
 @media (prefers-reduced-motion: reduce) {
