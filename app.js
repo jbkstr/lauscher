@@ -23827,6 +23827,13 @@ function releaseTunerMicStream() {
   _tuner.analyser = null;
   _tuner.sink = null;
   state.tunerStream = null;
+  // iOS/Safari: Audio-Sitzung nach dem Mikrofon wieder auf reine Wiedergabe stellen, damit
+  // Bluetooth-Kopfhörer nicht im (verzerrten) Telefonie-Modus bleiben
+  try {
+    if (stream && navigator.audioSession && navigator.audioSession.type !== "playback") {
+      navigator.audioSession.type = "playback";
+    }
+  } catch (_) {}
 }
 
 function stopTunerSession() {
