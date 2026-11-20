@@ -6578,8 +6578,8 @@ body.is-hum-pause #solfegeKeyboardWrap {
   inset: 0;
   z-index: -1;
   border-radius: calc(var(--radius-md) + 5px);
-  background-color: var(--peach-soft);
-  border: 1px solid color-mix(in srgb, var(--peach) 65%, transparent);
+  background-color: color-mix(in srgb, var(--peach) 30%, var(--peach-soft));
+  border: 1px solid color-mix(in srgb, var(--peach) 90%, transparent);
   opacity: 0;
   transition: opacity 320ms ease;
   pointer-events: none;
@@ -6590,7 +6590,7 @@ body.is-hum-pause #solfegeKeyboardWrap {
 }
 
 #viewExercise.answer-ready .degree-btn:not(:disabled):not(.btn-correct):not(.btn-wrong) {
-  box-shadow: 0 2.5px 0 color-mix(in srgb, var(--peach) 55%, var(--tactile-edge)), var(--shadow-card);
+  box-shadow: 0 2.5px 0 color-mix(in srgb, var(--peach) 75%, var(--tactile-edge)), var(--shadow-card);
 }
 
 body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
@@ -77067,7 +77067,10 @@ window.addEventListener("resize", () => {
 // Die Übung scrollt nie. Bleibt für die mittlere Bühne zu wenig Platz, wird stufenweise verdichtet
 // (#viewExercise.fit-1 … fit-3 in styles.css). Die Bühne selbst passt sich per Container-Query an.
 const EXERCISE_FIT_LEVELS = 3;
-const EXERCISE_MIN_STAGE_PX = 70;
+// Mindesthöhe der Bühne: knapp über der Container-Query-Stufe (max-height: 96px), ab der die
+// Beschreibung auf eine Zeile gekürzt wird. Darunter werden lieber Kacheln/Knöpfe verdichtet,
+// damit Text und Maskottchen der Bühne nicht abgeschnitten wirken.
+const EXERCISE_MIN_STAGE_PX = 98;
 
 // reset = neue Aufgabe oder neue Fenstergröße. Sonst (Feedback-Karte o. Ä. erscheint) wird innerhalb
 // derselben Aufgabe nur weiter verdichtet, nie zurück – damit die Antwortknöpfe nicht springen.
