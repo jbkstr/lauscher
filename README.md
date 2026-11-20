@@ -35,7 +35,7 @@ Every training area includes graded difficulty levels, listening aids (A/B compa
    - **Mode recognition:** Ionian, Dorian, Phrygian, Lydian, Mixolydian, Aeolian, Locrian, and Harmonic Minor (including transposed tonal centers).
    - Mode names include their degree of the major scale (e.g. *Dorian (2)*); an optional **Root Pad** chip plays the mode's root as a sustained strings pad underneath.
    - **Characteristic color tones:** Hear defining modal intervals (`♯4`, `♭7`, `♮6`, `♭2`, `♭5`, `♯7`).
-   - **Modal cadences & vamps:** Recognize iconic modal loops (`i–IV`, `I–♭VII`, `I–II`, `i–♭II`, etc.).
+   - **Modal chord loops:** Recognize iconic two-chord modal loops (`i–IV`, `I–♭VII`, `I–II`, `i–♭II`, etc.).
 5. **Melodies**
    - 5 progressive levels from single-octave `Do–Fa` and `Sol–Do` tetrachords (`4–6` notes) to full-scale randomized keys, multi-octave expressive phrases, and **Level 5 Combined Melody Dictation** (identifying both pitch and rhythmic note durations together). The phrase is shown on a real staff (clef, key signature, meter, bar lines): unsolved notes appear as rhythm slashes on the middle line — in dictation even without stems — so no pitch is given away before you answer.
 6. **Rhythm**

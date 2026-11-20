@@ -2757,6 +2757,55 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
   white-space: nowrap;
 }
 
+/* Tonleitern & Modi: Grundton-Badge als Knopf für die Grundton-Auswahl */
+.module-badge.module-badge-btn {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background-color: var(--sage-soft);
+  color: var(--sage-strong);
+  border: 1.5px solid var(--sage);
+  transition: transform 0.1s, background-color 0.15s;
+}
+
+.module-badge.module-badge-btn::after {
+  content: "";
+  width: 0.36em;
+  height: 0.36em;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-0.12em) rotate(45deg);
+  flex-shrink: 0;
+}
+
+.module-badge.module-badge-btn.chip-open,
+.module-badge.module-badge-btn:active {
+  background-color: var(--sage);
+}
+
+.module-badge.module-badge-btn.chip-open::after {
+  transform: translateY(0.1em) rotate(-135deg);
+}
+
+.module-badge.module-badge-btn:active {
+  transform: scale(0.95);
+}
+
+.module-badge.module-badge-btn:focus-visible {
+  outline: 2px solid var(--sage-strong);
+  outline-offset: 2px;
+}
+
+.modes-root-popover .popover-pills-row {
+  gap: 0.3rem;
+}
+
+.modes-root-popover .popover-pill-btn {
+  min-width: 2.3rem;
+  text-align: center;
+}
+
 /* Direkt im oberen Modul aufklappbarer Schieberegler / Auswahlleiste */
 .module-inline-popover {
   background-color: var(--bg-base);
@@ -6366,6 +6415,15 @@ body,
 }
 
 .drone-mix-strip.hidden {
+  display: none;
+}
+
+/* Tonleitern & Modi: nur die Lautstärke der Grundton-Fläche */
+.drone-mix-strip.is-pad-only {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.drone-mix-strip.is-pad-only .drone-mix-control:has(#droneToneVolSlider) {
   display: none;
 }
 

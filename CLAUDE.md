@@ -76,7 +76,7 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 ## Version, Build-Nummer & Releases
 
 - **Einzige Quelle:** [version.js](version.js) (`LAUSCHER_VERSION = { name, build, date }`). `name` ist die sichtbare Version (SemVer, z. B. `0.9.0-beta`), `build` die fortlaufende Build-Nummer (= Android `versionCode`, darf nie sinken).
-- **Hochzählen nur per Skript:** `python3 scripts/bump-version.py` (Build +1) bzw. `--name 0.9.1-beta` (neue Version + Build +1); legt oben in [CHANGELOG.md](CHANGELOG.md) einen Abschnitt aus den Commits seit dem letzten Tag an. `--show` zeigt den Stand. Nur bei einem echten Release hochzählen, nicht bei jeder Änderung.
+- **Hochzählen nur per Skript:** `python3 scripts/bump-version.py` (Build +1) bzw. `--name 0.9.1-beta` (neue Version + Build +1); legt oben in [CHANGELOG.md](CHANGELOG.md) einen Abschnitt aus den Commits seit dem letzten Tag an. `--show` zeigt den Stand. **Der Changelog wird auf Englisch geführt** (vorbefüllte deutsche Commit-Titel übersetzen und für Nutzer formulieren). Nur bei einem echten Release hochzählen, nicht bei jeder Änderung.
 - Das Über-Fenster (`renderAboutVersionBadge`) und die Infozeile der Kontakt-Mail lesen `version.js`; `scripts/sync-android.sh` schreibt `versionName`/`versionCode` in `android/app/build.gradle`.
 - **APK-Release:** signiert in Android Studio (Build → Generate Signed App Bundle / APK → APK → release). Die Datei heißt automatisch `lauscher-<name>-build<build>-release.apk` (vom Sync-Skript in `build.gradle` eingetragen, Marker `LAUSCHER_APK_NAMING`). Dann Git-Tag `v<name>` und GitHub-Release mit der APK als Anhang. APKs nie ins Repo committen. Der Release-Keystore liegt außerhalb des Repos und darf nie verloren gehen (sonst keine Updates mehr möglich).
 

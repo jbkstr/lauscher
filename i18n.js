@@ -393,7 +393,7 @@ const I18N_STATIC = {
   "home.catSolfege": { de: "Solfège", en: "Solfège" },
   "home.catSolfegeDesc": { de: "Tonstufen mit Do, Re, Mi in einer Tonart erleben", en: "Feel scale degrees (Do–Re–Mi) inside a key" },
   "home.catModes": { de: "Tonleitern & Modi", en: "Scales & Modes" },
-  "home.catModesDesc": { de: "Kirchentonarten, Charaktertöne & modale Kadenzen", en: "Church modes, characteristic notes & modal vamps" },
+  "home.catModesDesc": { de: "Kirchentonarten, Charaktertöne & modale Kadenzen", en: "Church modes, characteristic notes & modal chord loops" },
   "home.catMelodies": { de: "Melodien", en: "Melodies" },
   "home.catMelodiesDesc": { de: "Kurze Tonfolgen nach Gehör Schritt für Schritt nachbauen", en: "Transcribe short melodies step by step by ear" },
   "home.catRhythm": { de: "Rhythmus", en: "Rhythm" },
@@ -638,6 +638,7 @@ const I18N_STATIC = {
   "ex.tempoLabel": { de: "Tempo:", en: "Tempo:" },
   "ex.random": { de: "Zufall", en: "Random" },
   "ex.keyLabel": { de: "Tonart:", en: "Key:" },
+  "ex.modesRootLabel": { de: "Grundton:", en: "Root:" },
   "ex.keyFixed": { de: "Fest auf C", en: "Fixed in C" },
   "ex.keyEasy": { de: "Leichte (G, F, D, B)", en: "Easy Keys (G, F, D, Bb)" },
   "ex.keyAll": { de: "Alle 12 (Zufall)", en: "All 12 (Random)" },
@@ -758,7 +759,7 @@ const I18N_STATIC = {
     en: "Auto-play next prompt"
   },
   "settings.singHeading": { de: "Mitsingen", en: "Sing Along" },
-  "settings.singHint": { de: "Einladungen zum Mitsingen und Mitsummen bei Intervall- und Solfège-Übungen.", en: "Invitations to sing and hum along in interval and solfège exercises." },
+  "settings.singHint": { de: "Einladungen zum Mitsingen und Mitsummen bei Intervall-, Kadenz- und Solfège-Übungen.", en: "Invitations to sing and hum along in interval, cadence and solfège exercises." },
   "settings.singTipsLabel": { de: "Mitsing-Tipps", en: "Sing-along tips" },
   "settings.singPauseLabel": { de: "Summ-Pause nach dem Abspielen (3 Sek.)", en: "Hum pause after playback (3 sec.)" },
   "settings.autoNextOn": { de: "Ein", en: "On" },
@@ -1201,7 +1202,7 @@ const MIX_MODES_EN = {
   "prod-eq-noise":         "Production • Pink Noise EQ",
   "modes-scale":           "Modes • Scale Recognition",
   "modes-char":            "Modes • Characteristic Note",
-  "modes-cadence":         "Modes • Modal Vamps",
+  "modes-cadence":         "Modes • Modal Chord Loops",
   "notation-treble":       "Notation • Treble Clef",
   "notation-bass":         "Notation • Bass Clef",
   "notation-alto":         "Notation • Alto Clef",
@@ -1415,7 +1416,7 @@ const MODES_EN = {
 const MODE_LEVEL_LABELS_EN = {
   scale:   { 1: "4 Core Modes",        2: "All 7 Modes (C)",       3: "All 7 + Changing Root" },
   char:    { 1: "Major Modes",         2: "Minor Modes",           3: "All + Harm. Minor" },
-  cadence: { 1: "4 Standard Vamps",    2: "All 6 Modal Vamps" }
+  cadence: { 1: "4 Standard Loops",    2: "All 6 Modal Loops" }
 };
 
 registerLanguageBundle("en", {
