@@ -6522,6 +6522,79 @@ body.is-hum-pause #solfegeKeyboardWrap {
   transition: opacity 0.2s ease;
 }
 
+/* ---------- Antwort-Hinweis im unteren Modul (nicht bei Klaviatur-Übungen) ----------
+   B: Die Aufforderung wird zum Fragezeichen-Etikett in der Farbe der „Gesucht“-Karte.
+   A: Solange eine Antwort erwartet wird, bekommen die Antwort-Knöpfe einen kaum sichtbaren
+      Farbschimmer (Fläche dahinter + Tastenkante). Nur Farbe, keine Höhenänderung. */
+#viewExercise.answer-cue .input-prompt {
+  /* gleiche Umbruch-Logik wie ohne Etikett, aber nur so breit wie der Text */
+  max-width: max-content;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding-block: 0.18rem;
+  padding-inline: 0.22rem 0.66rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--peach-soft);
+  border: 1px solid color-mix(in srgb, var(--peach) 70%, transparent);
+  color: var(--peach-strong);
+}
+
+#viewExercise.answer-cue .input-prompt::before {
+  content: "?";
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.2em;
+  height: 1.2em;
+  border-radius: 50%;
+  background-color: var(--peach);
+  color: var(--peach-strong);
+  font-weight: 800;
+  line-height: 1;
+}
+
+#viewExercise.answer-cue .input-prompt:empty {
+  visibility: hidden;
+}
+
+#viewExercise.answer-cue .degrees-grid {
+  position: relative;
+  isolation: isolate;
+}
+
+#viewExercise.answer-cue .degrees-grid::before {
+  content: "";
+  position: absolute;
+  inset: -6px -9px;
+  z-index: -1;
+  border-radius: calc(var(--radius-md) + 6px);
+  background-color: var(--peach-soft);
+  border: 1px solid color-mix(in srgb, var(--peach) 65%, transparent);
+  opacity: 0;
+  transition: opacity 320ms ease;
+  pointer-events: none;
+}
+
+#viewExercise.answer-ready .degrees-grid::before {
+  opacity: 1;
+}
+
+#viewExercise.answer-ready .degree-btn:not(:disabled):not(.btn-correct):not(.btn-wrong) {
+  box-shadow: 0 2.5px 0 color-mix(in srgb, var(--peach) 55%, var(--tactile-edge)), var(--shadow-card);
+}
+
+body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #viewExercise.answer-cue .degrees-grid::before {
+    transition: none;
+  }
+}
+
 .hum-pause-bar {
   height: 5px;
   margin-top: 0.55rem;

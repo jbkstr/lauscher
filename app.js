@@ -12145,6 +12145,7 @@ function renderUI() {
   const isNotation = isNotationMode(ex.type);
   const isNotationChordChoice = isNotationChordMode(ex.type);
   const isKeyboardMode = isSolfege || isMelody || (isNotation && !isNotationChordChoice);
+  syncAnswerCueState();
   const isRhythmMeter = ex.type === "rhythm-meter";
   const isRhythmDict = ex.type === "rhythm-dictation";
   const isRhythmTap = ex.type === "rhythm-tap";
@@ -13268,9 +13269,33 @@ function updateStageMascot(mood) {
   wrap.innerHTML = getMascotSVG(mood);
 }
 
+/** Übungen, die über eine Klaviatur beantwortet werden (Solfège, Melodie, Notations-Diktat). */
+function isKeyboardAnswerExercise(ex = state.currentExercise) {
+  const type = ex?.type;
+  if (!type) return false;
+  return type === "solfege" || type === "melody" || (isNotationMode(type) && !isNotationChordMode(type));
+}
+
+/**
+ * Antwort-Hinweis im unteren Modul: „answer-cue“ (Fragezeichen-Etikett an der Aufforderung) gilt für alle
+ * Übungen mit Antwort-Knöpfen, „answer-ready“ (zarte Tönung der Knöpfe) nur, solange eine Antwort erwartet wird.
+ * Klaviatur-Übungen bleiben bewusst ohne diese Gestaltung.
+ */
+function syncAnswerCueState(stageStateClass = null) {
+  const view = document.getElementById("viewExercise");
+  if (!view) return;
+  const ex = state.currentExercise;
+  const cue = Boolean(ex) && !isKeyboardAnswerExercise(ex);
+  view.classList.toggle("answer-cue", cue);
+  if (stageStateClass !== null) {
+    view.classList.toggle("answer-ready", cue && stageStateClass === "stage-awaiting" && !isCurrentExerciseSolved(ex));
+  }
+}
+
 function setCentralStageMode(stageStateClass) {
   const stage = document.getElementById("centralStageCard");
   if (!stage) return;
+  syncAnswerCueState(stageStateClass);
   const exType = state.currentExercise?.type;
   if (isNotationMode(exType)) {
     stage.className = `central-stage ${stageStateClass} is-notation`;
