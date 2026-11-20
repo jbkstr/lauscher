@@ -1152,7 +1152,8 @@ const LAUSCHEBAER_QUOTES_EN = [
   { cat: "Tip", text: "“In ‘Chord Reading’ under Notation, compare stacked chords right on multiple-choice tiles — from major and minor triads all the way to E7, Esus4, and inversions!”" },
   { cat: "Did You Know?", text: "“What sets a smooth sine wave apart from a warm piano note? Inside ‘Physics & Sound’, hear and watch the frequency spectrum show how overtones sculpt every timbre!”" },
   { cat: "Tip", text: "“Whenever certain notes, intervals, or chords trip you up, Lauscher quietly remembers your weak spots and automatically weaves them back in until they feel rock-solid!”" },
-  { cat: "Encouragement", text: "“Do you already feel a difference when listening to your favorite music — noticing bass lines, chord colors, or small intervals with completely new clarity?”" }
+  { cat: "Encouragement", text: "“Do you already feel a difference when listening to your favorite music — noticing bass lines, chord colors, or small intervals with completely new clarity?”" },
+  { cat: "Tip", text: "“When chord arpeggios roll out one note after another, listen especially for the thirds in between — whether minor or major immediately reveals the heart of the chord!”" }
 ];
 
 const PROFILE_INSTRUMENTS_EN = {
