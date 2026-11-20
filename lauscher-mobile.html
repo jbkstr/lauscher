@@ -6022,6 +6022,56 @@ body,
   }
 }
 
+/* Achtsamer Session-Timer: Eingabezeile für eine eigene Minutenzahl */
+.timer-custom-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.5rem;
+}
+
+.timer-custom-input {
+  width: 4.6rem;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  color: var(--raccoon-dark);
+  background-color: var(--surface-white);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  padding: 0.32rem 0.5rem;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.timer-custom-input::-webkit-outer-spin-button,
+.timer-custom-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.timer-custom-input:focus-visible {
+  outline: none;
+  border-color: var(--sage-strong);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--sage) 45%, transparent);
+}
+
+.timer-custom-unit {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--raccoon-mid);
+}
+
+.timer-custom-hint {
+  flex-basis: 100%;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--raccoon-muted);
+}
+
 /* Aufklappbare Konto-Detailblöcke & Kompakte Timer-Zusammenfassung */
 .timer-config-summary {
   margin: 0.2rem 0 0;
@@ -8081,10 +8131,26 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
   flex-shrink: 0;
-  background: var(--surface-warm);
+  background: var(--surface-white);
   border: 1px solid var(--border-soft);
+  color: var(--raccoon-dark);
+}
+
+/* Prüfungs-Icon in der Akzentfarbe der Kategorie */
+.category-exam-entry-card.accent-peach .category-exam-icon {
+  color: var(--peach-strong);
+  border-color: var(--peach);
+}
+
+.category-exam-entry-card.accent-sage .category-exam-icon {
+  color: var(--sage-strong);
+  border-color: var(--sage);
+}
+
+.category-exam-entry-card.accent-lilac .category-exam-icon {
+  color: var(--lilac-strong, var(--raccoon-dark));
+  border-color: var(--lilac);
 }
 
 .category-exam-copy {
@@ -15322,6 +15388,13 @@ const LAUSCHER_MASCOT_DATA_URIS = {
                 <button type="button" class="k-filter-pill active" data-timer-mins="10" data-i18n="space.timerMin10">10 Min</button>
                 <button type="button" class="k-filter-pill" data-timer-mins="15" data-i18n="space.timerMin15">15 Min</button>
                 <button type="button" class="k-filter-pill" data-timer-mins="20" data-i18n="space.timerMin20">20 Min</button>
+                <button type="button" id="timerDurationCustomBtn" class="k-filter-pill" data-timer-mins="custom" aria-expanded="false" aria-controls="timerDurationCustomRow">Eigene Zeit</button>
+              </div>
+              <div id="timerDurationCustomRow" class="timer-custom-row hidden">
+                <input id="timerDurationCustomInput" class="timer-custom-input" type="number" inputmode="numeric" min="1" max="180" step="1" aria-label="Eigene Wunschdauer in Minuten" data-i18n-aria="space.timerCustomDurAria">
+                <span class="timer-custom-unit" data-i18n="space.timerCustomUnit">Min</span>
+                <button type="button" id="timerDurationCustomApply" class="btn-tool timer-custom-apply" data-i18n="space.timerCustomApply">Übernehmen</button>
+                <span class="timer-custom-hint" data-i18n="space.timerCustomDurHint">1–180 Min</span>
               </div>
             </div>
 
@@ -15331,6 +15404,14 @@ const LAUSCHER_MASCOT_DATA_URIS = {
                 <button type="button" class="k-filter-pill" data-timer-idle="2" data-i18n="space.timerIdle2">nach 2 Min</button>
                 <button type="button" class="k-filter-pill active" data-timer-idle="3" data-i18n="space.timerIdle3">nach 3 Min</button>
                 <button type="button" class="k-filter-pill" data-timer-idle="5" data-i18n="space.timerIdle5">nach 5 Min</button>
+                <button type="button" id="timerIdleCustomBtn" class="k-filter-pill" data-timer-idle="custom" aria-expanded="false" aria-controls="timerIdleCustomRow">Eigene Zeit</button>
+                <button type="button" class="k-filter-pill" data-timer-idle="0" data-i18n="space.timerIdleNever">Nie</button>
+              </div>
+              <div id="timerIdleCustomRow" class="timer-custom-row hidden">
+                <input id="timerIdleCustomInput" class="timer-custom-input" type="number" inputmode="numeric" min="1" max="60" step="1" aria-label="Eigene Auto-Stopp-Zeit in Minuten" data-i18n-aria="space.timerCustomIdleAria">
+                <span class="timer-custom-unit" data-i18n="space.timerCustomUnit">Min</span>
+                <button type="button" id="timerIdleCustomApply" class="btn-tool timer-custom-apply" data-i18n="space.timerCustomApply">Übernehmen</button>
+                <span class="timer-custom-hint" data-i18n="space.timerCustomIdleHint">1–60 Min</span>
               </div>
             </div>
           </div>
@@ -19302,6 +19383,13 @@ const I18N_STATIC = {
   "space.timerIdle2": { de: "nach 2 Min", en: "after 2 min" },
   "space.timerIdle3": { de: "nach 3 Min", en: "after 3 min" },
   "space.timerIdle5": { de: "nach 5 Min", en: "after 5 min" },
+  "space.timerIdleNever": { de: "Nie", en: "Never" },
+  "space.timerCustomUnit": { de: "Min", en: "min" },
+  "space.timerCustomApply": { de: "Übernehmen", en: "Apply" },
+  "space.timerCustomDurHint": { de: "1–180 Min", en: "1–180 min" },
+  "space.timerCustomIdleHint": { de: "1–60 Min", en: "1–60 min" },
+  "space.timerCustomDurAria": { de: "Eigene Wunschdauer in Minuten", en: "Your own session length in minutes" },
+  "space.timerCustomIdleAria": { de: "Eigene Auto-Stopp-Zeit in Minuten", en: "Your own auto-stop time in minutes" },
   "space.timerReset": { de: "Zurücksetzen", en: "Reset" },
   "space.timerCustomize": { de: "Dauer & Auto-Stopp anpassen", en: "Customize Length & Auto-Stop" },
   "space.mixesTitle": { de: "Meine Übe-Mixe", en: "My Practice Mixes" },
@@ -20636,6 +20724,13 @@ const I18N_STATIC_ES = {
   "space.timerIdle2": "tras 2 min",
   "space.timerIdle3": "tras 3 min",
   "space.timerIdle5": "tras 5 min",
+  "space.timerIdleNever": "Nunca",
+  "space.timerCustomUnit": "min",
+  "space.timerCustomApply": "Aplicar",
+  "space.timerCustomDurHint": "1–180 min",
+  "space.timerCustomIdleHint": "1–60 min",
+  "space.timerCustomDurAria": "Duración propia en minutos",
+  "space.timerCustomIdleAria": "Tiempo propio de parada automática en minutos",
   "space.timerReset": "Restablecer",
   "space.timerCustomize": "Ajustar duración y parada automática",
   "space.mixesTitle": "Mis mezclas de entrenamiento",
@@ -21946,6 +22041,10 @@ const MODE_LEVEL_LABELS_ES = {
 };
 
 const TR_ES = {
+  "Läuft (ohne Auto-Stopp).": "En marcha (sin parada automática).",
+  "{dur} Min • ohne Auto-Stopp": "{dur} min • sin parada automática",
+  "Eigene: {n} Min": "Otra: {n} min",
+  "Bitte eine ganze Zahl zwischen {min} und {max} eingeben.": "Introduce un número entero entre {min} y {max}.",
   "Summ den Basston des gesuchten Akkords und sing von dort zurück zum Grundton der Tonart – die Zahl der Schritte verrät dir die Stufe.": "Tararea el bajo del acorde buscado y canta desde ahí hasta la tónica – el número de pasos te revela el grado.",
   "Summ den Basston des gesuchten Akkords – dann tippen.": "Tararea el bajo del acorde buscado – luego toca.",
   "Sing vom gesuchten Basston zurück zum Grundton: Wie viele Schritte?": "Canta desde ese bajo hasta la tónica: ¿cuántos pasos?",
@@ -23775,6 +23874,13 @@ const I18N_STATIC_FR = {
   "space.timerIdle2": "après 2 min",
   "space.timerIdle3": "après 3 min",
   "space.timerIdle5": "après 5 min",
+  "space.timerIdleNever": "Jamais",
+  "space.timerCustomUnit": "min",
+  "space.timerCustomApply": "Appliquer",
+  "space.timerCustomDurHint": "1–180 min",
+  "space.timerCustomIdleHint": "1–60 min",
+  "space.timerCustomDurAria": "Durée personnelle en minutes",
+  "space.timerCustomIdleAria": "Délai d’arrêt automatique personnel en minutes",
   "space.timerReset": "Réinitialiser",
   "space.timerCustomize": "Régler la durée et l’arrêt auto",
   "space.mixesTitle": "Mes mix d’entraînement",
@@ -24395,6 +24501,10 @@ const MODE_LEVEL_LABELS_FR = {
 };
 
 const TR_FR = {
+  "Läuft (ohne Auto-Stopp).": "En cours (sans arrêt automatique).",
+  "{dur} Min • ohne Auto-Stopp": "{dur} min • sans arrêt automatique",
+  "Eigene: {n} Min": "Autre : {n} min",
+  "Bitte eine ganze Zahl zwischen {min} und {max} eingeben.": "Merci d’indiquer un nombre entier entre {min} et {max}.",
   "Summ den Basston des gesuchten Akkords und sing von dort zurück zum Grundton der Tonart – die Zahl der Schritte verrät dir die Stufe.": "Fredonne la basse de l’accord recherché, puis chante depuis cette note jusqu’à la tonique – le nombre de pas te révèle le degré.",
   "Summ den Basston des gesuchten Akkords – dann tippen.": "Fredonne la basse de l’accord recherché – puis touche.",
   "Sing vom gesuchten Basston zurück zum Grundton: Wie viele Schritte?": "Chante de cette basse jusqu’à la tonique : combien de pas ?",
@@ -26199,6 +26309,13 @@ const I18N_STATIC_PL = {
   "space.timerIdle2": "po 2 min",
   "space.timerIdle3": "po 3 min",
   "space.timerIdle5": "po 5 min",
+  "space.timerIdleNever": "Nigdy",
+  "space.timerCustomUnit": "min",
+  "space.timerCustomApply": "Zastosuj",
+  "space.timerCustomDurHint": "1–180 min",
+  "space.timerCustomIdleHint": "1–60 min",
+  "space.timerCustomDurAria": "Własny czas sesji w minutach",
+  "space.timerCustomIdleAria": "Własny czas automatycznego zatrzymania w minutach",
   "space.timerReset": "Reset",
   "space.timerCustomize": "Zmień czas i autostop",
   "space.mixesTitle": "Moje miksy ćwiczeń",
@@ -26831,6 +26948,10 @@ const MODE_LEVEL_LABELS_PL = {
 };
 
 const TR_PL = {
+  "Läuft (ohne Auto-Stopp).": "Trwa (bez automatycznego zatrzymania).",
+  "{dur} Min • ohne Auto-Stopp": "{dur} min • bez automatycznego zatrzymania",
+  "Eigene: {n} Min": "Własny: {n} min",
+  "Bitte eine ganze Zahl zwischen {min} und {max} eingeben.": "Podaj liczbę całkowitą od {min} do {max}.",
   "Summ den Basston des gesuchten Akkords und sing von dort zurück zum Grundton der Tonart – die Zahl der Schritte verrät dir die Stufe.": "Zanuć bas szukanego akordu i zaśpiewaj od niego z powrotem do toniki – liczba kroków zdradzi ci stopień.",
   "Summ den Basston des gesuchten Akkords – dann tippen.": "Zanuć bas szukanego akordu – potem stuknij.",
   "Sing vom gesuchten Basston zurück zum Grundton: Wie viele Schritte?": "Zaśpiewaj od tego basu do toniki: ile kroków?",
@@ -28669,6 +28790,13 @@ const I18N_STATIC_UK = {
   "space.timerIdle2": "через 2 хв",
   "space.timerIdle3": "через 3 хв",
   "space.timerIdle5": "через 5 хв",
+  "space.timerIdleNever": "Ніколи",
+  "space.timerCustomUnit": "хв",
+  "space.timerCustomApply": "Застосувати",
+  "space.timerCustomDurHint": "1–180 хв",
+  "space.timerCustomIdleHint": "1–60 хв",
+  "space.timerCustomDurAria": "Власна тривалість у хвилинах",
+  "space.timerCustomIdleAria": "Власний час автозупинки у хвилинах",
   "space.timerReset": "Скинути",
   "space.timerCustomize": "Налаштувати тривалість і автостоп",
   "space.mixesTitle": "Мої мікси для занять",
@@ -29301,6 +29429,10 @@ const MODE_LEVEL_LABELS_UK = {
 };
 
 const TR_UK = {
+  "Läuft (ohne Auto-Stopp).": "Триває (без автозупинки).",
+  "{dur} Min • ohne Auto-Stopp": "{dur} хв • без автозупинки",
+  "Eigene: {n} Min": "Свій: {n} хв",
+  "Bitte eine ganze Zahl zwischen {min} und {max} eingeben.": "Введи ціле число від {min} до {max}.",
   "Summ den Basston des gesuchten Akkords und sing von dort zurück zum Grundton der Tonart – die Zahl der Schritte verrät dir die Stufe.": "Наспівай басовий тон шуканого акорду й заспівай від нього назад до тоніки – кількість кроків підкаже ступінь.",
   "Summ den Basston des gesuchten Akkords – dann tippen.": "Наспівай басовий тон шуканого акорду – потім торкнись.",
   "Sing vom gesuchten Basston zurück zum Grundton: Wie viele Schritte?": "Заспівай від цього баса до тоніки: скільки кроків?",
@@ -31140,6 +31272,13 @@ const I18N_STATIC_UR = {
   "space.timerIdle2": "2 منٹ بعد",
   "space.timerIdle3": "3 منٹ بعد",
   "space.timerIdle5": "5 منٹ بعد",
+  "space.timerIdleNever": "کبھی نہیں",
+  "space.timerCustomUnit": "منٹ",
+  "space.timerCustomApply": "لاگو کریں",
+  "space.timerCustomDurHint": "1–180 منٹ",
+  "space.timerCustomIdleHint": "1–60 منٹ",
+  "space.timerCustomDurAria": "منٹوں میں اپنا دورانیہ",
+  "space.timerCustomIdleAria": "منٹوں میں اپنا خودکار اسٹاپ وقت",
   "space.timerReset": "ری سیٹ",
   "space.timerCustomize": "مدت اور آٹو اسٹاپ ترتیب دیں",
   "space.mixesTitle": "میرے پریکٹس مکسز",
@@ -31801,6 +31940,10 @@ const MODE_LEVEL_LABELS_UR = {
 };
 
 const TR_UR = Object.assign(Object.create(null), {
+  "Läuft (ohne Auto-Stopp).": "جاری ہے (خودکار اسٹاپ کے بغیر)۔",
+  "{dur} Min • ohne Auto-Stopp": "{dur} منٹ • خودکار اسٹاپ کے بغیر",
+  "Eigene: {n} Min": "اپنا: {n} منٹ",
+  "Bitte eine ganze Zahl zwischen {min} und {max} eingeben.": "براہ کرم {min} اور {max} کے درمیان پورا عدد لکھیں۔",
   "Summ den Basston des gesuchten Akkords und sing von dort zurück zum Grundton der Tonart – die Zahl der Schritte verrät dir die Stufe.": "مطلوبہ کارڈ کا باس سُر گنگنائیں، پھر وہاں سے واپس اسکیل کے بنیادی سُر تک گائیں – قدموں کی تعداد آپ کو درجہ بتا دے گی۔",
   "Summ den Basston des gesuchten Akkords – dann tippen.": "مطلوبہ کارڈ کا باس سُر گنگنائیں – پھر ٹیپ کریں۔",
   "Sing vom gesuchten Basston zurück zum Grundton: Wie viele Schritte?": "اس باس سُر سے واپس بنیادی سُر تک گائیں: کتنے قدم؟",
@@ -65944,6 +66087,34 @@ const DEFAULT_BREAK_REMINDER_MINUTES = 15;
 const BREAK_REMINDER_MIN_MINUTES = 5;
 const BREAK_REMINDER_MAX_MINUTES = 30;
 
+// Achtsamer Session-Timer: Wunschdauer frei wählbar (1–180 Min), Auto-Stopp 1–60 Min oder 0 = „Nie“.
+// Ältere Profile (nur 5/10/15/20 bzw. 2/3/5) bleiben damit gültig.
+const SESSION_TIMER_PRESETS = [5, 10, 15, 20];
+const SESSION_TIMER_MIN_MINUTES = 1;
+const SESSION_TIMER_MAX_MINUTES = 180;
+const SESSION_IDLE_PRESETS = [2, 3, 5];
+const SESSION_IDLE_MIN_MINUTES = 1;
+const SESSION_IDLE_MAX_MINUTES = 60;
+const SESSION_IDLE_NEVER = 0;
+
+function sanitizeSessionTimerMinutes(val) {
+  const num = parseInt(val, 10);
+  if (!Number.isFinite(num) || num < SESSION_TIMER_MIN_MINUTES || num > SESSION_TIMER_MAX_MINUTES) return 10;
+  return num;
+}
+
+function sanitizeSessionIdleMinutes(val) {
+  const num = parseInt(val, 10);
+  if (num === SESSION_IDLE_NEVER) return SESSION_IDLE_NEVER;
+  if (!Number.isFinite(num) || num < SESSION_IDLE_MIN_MINUTES || num > SESSION_IDLE_MAX_MINUTES) return 3;
+  return num;
+}
+
+/** Auto-Stopp-Minuten des Timers; 0 bedeutet „Nie“ (kein automatisches Beenden). */
+function getSessionIdleMinutes() {
+  return sanitizeSessionIdleMinutes(state?.profile?.inactivityMinutes ?? 3);
+}
+
 function sanitizeBreakReminderMinutes(val) {
   const num = parseInt(val, 10);
   if (!Number.isFinite(num)) return DEFAULT_BREAK_REMINDER_MINUTES;
@@ -66064,8 +66235,8 @@ function sanitizeUserProfile(raw) {
     : def.instruments;
   const focuses = normalizeProfileFocuses(raw.focuses, raw.focus);
   const companionAccessories = normalizeProfileAccessories(raw.companionAccessories, raw.companionAccessory);
-  const sessMins = [5, 10, 15, 20].includes(parseInt(raw.sessionMinutes, 10)) ? parseInt(raw.sessionMinutes, 10) : 10;
-  const idleMins = [2, 3, 5].includes(parseInt(raw.inactivityMinutes, 10)) ? parseInt(raw.inactivityMinutes, 10) : 3;
+  const sessMins = sanitizeSessionTimerMinutes(raw.sessionMinutes);
+  const idleMins = sanitizeSessionIdleMinutes(raw.inactivityMinutes);
   const breakEnabled = raw.breakReminderEnabled === undefined ? DEFAULT_BREAK_REMINDER_ENABLED : Boolean(raw.breakReminderEnabled);
   const breakMinutes = sanitizeBreakReminderMinutes(raw.breakReminderMinutes);
 
@@ -73086,7 +73257,14 @@ function openCategoryPage(categoryKey, options = {}) {
     container.insertAdjacentHTML("beforeend", `
       <button id="openCategoryExamBtn" class="category-exam-entry-card accent-${examCfg.accent || "sage"}" type="button">
         <span class="category-exam-entry-left">
-          <span class="category-exam-icon" aria-hidden="true">🎓</span>
+          <span class="category-exam-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="4.5" width="14" height="16.5" rx="2.6"/>
+              <path d="M9.2 4.5V3.6c0-.6.5-1.1 1.1-1.1h3.4c.6 0 1.1.5 1.1 1.1v.9"/>
+              <path d="M9 12.6l2.2 2.2 4-4.3"/>
+              <path d="M9 18h6"/>
+            </svg>
+          </span>
           <span class="category-exam-copy">
             <span class="category-exam-title">${escapeHtml(tr("Kategorie-Prüfung ablegen", "Take Category Exam"))}</span>
             <span class="category-exam-sub">${escapeHtml(tr("1 Versuch pro Frage • verschiedene Stufen & Hör-Auswertung", "1 try per question • selectable levels & audio review"))}</span>
@@ -81681,8 +81859,11 @@ function renderHomeProfileGreeting() {
 
 function getSessionTimerLocalizedNote(st) {
   if (!st) return tr("Bereit für eine entspannte Session.", "Ready for a calm session.");
-  const idleMins = state.profile?.inactivityMinutes || 3;
+  const idleMins = getSessionIdleMinutes();
   if (st.noteKind === "custom" && st.statusNote) return st.statusNote;
+  if (st.noteKind === "running" && idleMins === SESSION_IDLE_NEVER) {
+    return tr("Läuft (ohne Auto-Stopp).", "Running (no auto-stop).");
+  }
   if (st.noteKind === "running") {
     return tf("Läuft (stoppt automatisch nach {mins} Min Inaktivität).", "Running (auto-stops after {mins} min idle).", { mins: idleMins });
   }
@@ -81736,19 +81917,72 @@ function renderSessionTimerUI() {
     }
   }
 
+  const durMins = sanitizeSessionTimerMinutes(state.profile.sessionMinutes);
+  const idleMinsNow = getSessionIdleMinutes();
+  const durIsCustom = !SESSION_TIMER_PRESETS.includes(durMins);
+  const idleIsCustom = idleMinsNow !== SESSION_IDLE_NEVER && !SESSION_IDLE_PRESETS.includes(idleMinsNow);
   document.querySelectorAll("[data-timer-mins]").forEach(btn => {
-    btn.classList.toggle("active", parseInt(btn.dataset.timerMins, 10) === state.profile.sessionMinutes);
+    const isCustomBtn = btn.dataset.timerMins === "custom";
+    btn.classList.toggle("active", isCustomBtn ? durIsCustom : parseInt(btn.dataset.timerMins, 10) === durMins);
   });
   document.querySelectorAll("[data-timer-idle]").forEach(btn => {
-    btn.classList.toggle("active", parseInt(btn.dataset.timerIdle, 10) === state.profile.inactivityMinutes);
+    const isCustomBtn = btn.dataset.timerIdle === "custom";
+    btn.classList.toggle("active", isCustomBtn ? idleIsCustom : parseInt(btn.dataset.timerIdle, 10) === idleMinsNow);
   });
+  const durCustomBtn = document.getElementById("timerDurationCustomBtn");
+  if (durCustomBtn) durCustomBtn.textContent = getSessionTimerCustomChipLabel(durIsCustom ? durMins : null);
+  const idleCustomBtn = document.getElementById("timerIdleCustomBtn");
+  if (idleCustomBtn) idleCustomBtn.textContent = getSessionTimerCustomChipLabel(idleIsCustom ? idleMinsNow : null);
 
   const summaryEl = document.getElementById("spaceTimerConfigSummary");
   if (summaryEl) {
-    const dur = state.profile.sessionMinutes || 10;
-    const idle = state.profile.inactivityMinutes || 3;
-    summaryEl.textContent = tf("{dur} Min • Auto-Stopp {idle} Min", "{dur} min • Auto-stop {idle} min", { dur, idle });
+    summaryEl.textContent = idleMinsNow === SESSION_IDLE_NEVER
+      ? tf("{dur} Min • ohne Auto-Stopp", "{dur} min • no auto-stop", { dur: durMins })
+      : tf("{dur} Min • Auto-Stopp {idle} Min", "{dur} min • Auto-stop {idle} min", { dur: durMins, idle: idleMinsNow });
   }
+}
+
+/** Beschriftung des „Eigene Zeit“-Chips: ohne eigenen Wert neutral, sonst mit der gewählten Minutenzahl. */
+function getSessionTimerCustomChipLabel(mins = null) {
+  if (!Number.isFinite(mins)) {
+    return tr("Eigene Zeit", "Set your own", { fr: "Autre durée", es: "Otra duración", pl: "Własny czas", uk: "Свій час", ur: "اپنا وقت" });
+  }
+  return tf("Eigene: {n} Min", "Own: {n} min", { n: mins });
+}
+
+/** Klappt die Eingabezeile für eine eigene Minutenzahl auf/zu und füllt den aktuellen Wert vor. */
+function toggleSessionTimerCustomRow(kind, forceOpen = null) {
+  const isIdle = kind === "idle";
+  const row = document.getElementById(isIdle ? "timerIdleCustomRow" : "timerDurationCustomRow");
+  const btn = document.getElementById(isIdle ? "timerIdleCustomBtn" : "timerDurationCustomBtn");
+  const input = document.getElementById(isIdle ? "timerIdleCustomInput" : "timerDurationCustomInput");
+  if (!row) return;
+  const open = forceOpen === null ? row.classList.contains("hidden") : Boolean(forceOpen);
+  row.classList.toggle("hidden", !open);
+  btn?.setAttribute("aria-expanded", String(open));
+  if (open && input) {
+    const cur = isIdle ? getSessionIdleMinutes() : sanitizeSessionTimerMinutes(state.profile.sessionMinutes);
+    input.value = cur > 0 ? String(cur) : "";
+    try { input.focus({ preventScroll: true }); input.select(); } catch (_) {}
+  }
+}
+
+/** Übernimmt die eingegebene Minutenzahl (mit Bereichsprüfung). */
+function applySessionTimerCustomValue(kind) {
+  const isIdle = kind === "idle";
+  const input = document.getElementById(isIdle ? "timerIdleCustomInput" : "timerDurationCustomInput");
+  const min = isIdle ? SESSION_IDLE_MIN_MINUTES : SESSION_TIMER_MIN_MINUTES;
+  const max = isIdle ? SESSION_IDLE_MAX_MINUTES : SESSION_TIMER_MAX_MINUTES;
+  const raw = String(input?.value ?? "").trim().replace(",", ".");
+  const num = Number(raw);
+  if (!raw || !Number.isInteger(num) || num < min || num > max) {
+    showAppToast(tf("Bitte eine ganze Zahl zwischen {min} und {max} eingeben.", "Please enter a whole number between {min} and {max}.", { min, max }), "error");
+    try { input?.focus(); } catch (_) {}
+    return;
+  }
+  if (isIdle) setSessionIdleMinutes(num);
+  else setSessionDurationMinutes(num);
+  toggleSessionTimerCustomRow(kind, false);
 }
 
 function stopSessionTimer(nextStatus = "idle", customNote = null, noteKind = null) {
@@ -81807,12 +82041,13 @@ function tickSessionTimer(nowWallMs = Date.now()) {
     st.hiddenSinceWallMs = null;
   }
 
-  const idleMins = state.profile.inactivityMinutes || 3;
+  const idleMins = getSessionIdleMinutes();
   const idleLimitMs = idleMins * 60 * 1000;
   const inactiveSinceWall = nowWallMs - st.lastActivityWallMs;
   const hiddenDuration = st.hiddenSinceWallMs !== null ? (nowWallMs - st.hiddenSinceWallMs) : 0;
 
-  if (inactiveSinceWall >= idleLimitMs || hiddenDuration >= idleLimitMs) {
+  // Auto-Stopp „Nie“: Timer läuft unabhängig von Inaktivität bis zum Ende
+  if (idleMins !== SESSION_IDLE_NEVER && (inactiveSinceWall >= idleLimitMs || hiddenDuration >= idleLimitMs)) {
     stopSessionTimer("auto-stopped", null, "auto-stopped-idle");
     return;
   }
@@ -81862,7 +82097,12 @@ function pauseSessionTimer() {
 }
 
 function setSessionDurationMinutes(mins) {
-  const parsed = [5, 10, 15, 20].includes(Number(mins)) ? Number(mins) : 10;
+  if (mins === "custom") {
+    toggleSessionTimerCustomRow("duration");
+    return;
+  }
+  toggleSessionTimerCustomRow("duration", false);
+  const parsed = sanitizeSessionTimerMinutes(mins);
   state.profile.sessionMinutes = parsed;
   saveUserProfile(state.profile);
   if (state.sessionTimer.status === "idle" || state.sessionTimer.status === "completed" || state.sessionTimer.status === "auto-stopped") {
@@ -81877,7 +82117,12 @@ function setSessionDurationMinutes(mins) {
 }
 
 function setSessionIdleMinutes(mins) {
-  const parsed = [2, 3, 5].includes(Number(mins)) ? Number(mins) : 3;
+  if (mins === "custom") {
+    toggleSessionTimerCustomRow("idle");
+    return;
+  }
+  toggleSessionTimerCustomRow("idle", false);
+  const parsed = sanitizeSessionIdleMinutes(mins);
   state.profile.inactivityMinutes = parsed;
   saveUserProfile(state.profile);
   if (state.sessionTimer.status === "running") {
@@ -83831,8 +84076,9 @@ document.addEventListener("DOMContentLoaded", () => {
         br.lastActivityWallMs = Date.now();
       }
       if (st && st.status === "running" && st.hiddenSinceWallMs !== null) {
-        const idleLimitMs = (state.profile.inactivityMinutes || 3) * 60 * 1000;
-        if (Date.now() - st.hiddenSinceWallMs >= idleLimitMs) {
+        const idleMinsVis = getSessionIdleMinutes();
+        const idleLimitMs = idleMinsVis * 60 * 1000;
+        if (idleMinsVis !== SESSION_IDLE_NEVER && Date.now() - st.hiddenSinceWallMs >= idleLimitMs) {
           stopSessionTimer("auto-stopped", null, "auto-stopped-pause");
         } else {
           st.hiddenSinceWallMs = null;
@@ -83860,6 +84106,16 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   document.querySelectorAll("[data-timer-idle]").forEach(btn => {
     btn.addEventListener("click", () => setSessionIdleMinutes(btn.dataset.timerIdle));
+  });
+  // Eigene Minutenzahl für Wunschdauer & Auto-Stopp (Übernehmen-Knopf oder Enter)
+  [["duration", "timerDurationCustomApply", "timerDurationCustomInput"], ["idle", "timerIdleCustomApply", "timerIdleCustomInput"]].forEach(([kind, applyId, inputId]) => {
+    document.getElementById(applyId)?.addEventListener("click", () => applySessionTimerCustomValue(kind));
+    document.getElementById(inputId)?.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        applySessionTimerCustomValue(kind);
+      }
+    });
   });
   document.getElementById("timerToggleBtn")?.addEventListener("click", () => {
     if (state.sessionTimer.status === "running") pauseSessionTimer();

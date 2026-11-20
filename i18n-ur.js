@@ -255,6 +255,13 @@ const I18N_STATIC_UR = {
   "space.timerIdle2": "2 منٹ بعد",
   "space.timerIdle3": "3 منٹ بعد",
   "space.timerIdle5": "5 منٹ بعد",
+  "space.timerIdleNever": "کبھی نہیں",
+  "space.timerCustomUnit": "منٹ",
+  "space.timerCustomApply": "لاگو کریں",
+  "space.timerCustomDurHint": "1–180 منٹ",
+  "space.timerCustomIdleHint": "1–60 منٹ",
+  "space.timerCustomDurAria": "منٹوں میں اپنا دورانیہ",
+  "space.timerCustomIdleAria": "منٹوں میں اپنا خودکار اسٹاپ وقت",
   "space.timerReset": "ری سیٹ",
   "space.timerCustomize": "مدت اور آٹو اسٹاپ ترتیب دیں",
   "space.mixesTitle": "میرے پریکٹس مکسز",
@@ -916,6 +923,10 @@ const MODE_LEVEL_LABELS_UR = {
 };
 
 const TR_UR = Object.assign(Object.create(null), {
+  "Läuft (ohne Auto-Stopp).": "جاری ہے (خودکار اسٹاپ کے بغیر)۔",
+  "{dur} Min • ohne Auto-Stopp": "{dur} منٹ • خودکار اسٹاپ کے بغیر",
+  "Eigene: {n} Min": "اپنا: {n} منٹ",
+  "Bitte eine ganze Zahl zwischen {min} und {max} eingeben.": "براہ کرم {min} اور {max} کے درمیان پورا عدد لکھیں۔",
   "Summ den Basston des gesuchten Akkords und sing von dort zurück zum Grundton der Tonart – die Zahl der Schritte verrät dir die Stufe.": "مطلوبہ کارڈ کا باس سُر گنگنائیں، پھر وہاں سے واپس اسکیل کے بنیادی سُر تک گائیں – قدموں کی تعداد آپ کو درجہ بتا دے گی۔",
   "Summ den Basston des gesuchten Akkords – dann tippen.": "مطلوبہ کارڈ کا باس سُر گنگنائیں – پھر ٹیپ کریں۔",
   "Sing vom gesuchten Basston zurück zum Grundton: Wie viele Schritte?": "اس باس سُر سے واپس بنیادی سُر تک گائیں: کتنے قدم؟",

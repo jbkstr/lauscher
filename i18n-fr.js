@@ -255,6 +255,13 @@ const I18N_STATIC_FR = {
   "space.timerIdle2": "après 2 min",
   "space.timerIdle3": "après 3 min",
   "space.timerIdle5": "après 5 min",
+  "space.timerIdleNever": "Jamais",
+  "space.timerCustomUnit": "min",
+  "space.timerCustomApply": "Appliquer",
+  "space.timerCustomDurHint": "1–180 min",
+  "space.timerCustomIdleHint": "1–60 min",
+  "space.timerCustomDurAria": "Durée personnelle en minutes",
+  "space.timerCustomIdleAria": "Délai d’arrêt automatique personnel en minutes",
   "space.timerReset": "Réinitialiser",
   "space.timerCustomize": "Régler la durée et l’arrêt auto",
   "space.mixesTitle": "Mes mix d’entraînement",
@@ -875,6 +882,10 @@ const MODE_LEVEL_LABELS_FR = {
 };
 
 const TR_FR = {
+  "Läuft (ohne Auto-Stopp).": "En cours (sans arrêt automatique).",
+  "{dur} Min • ohne Auto-Stopp": "{dur} min • sans arrêt automatique",
+  "Eigene: {n} Min": "Autre : {n} min",
+  "Bitte eine ganze Zahl zwischen {min} und {max} eingeben.": "Merci d’indiquer un nombre entier entre {min} et {max}.",
   "Summ den Basston des gesuchten Akkords und sing von dort zurück zum Grundton der Tonart – die Zahl der Schritte verrät dir die Stufe.": "Fredonne la basse de l’accord recherché, puis chante depuis cette note jusqu’à la tonique – le nombre de pas te révèle le degré.",
   "Summ den Basston des gesuchten Akkords – dann tippen.": "Fredonne la basse de l’accord recherché – puis touche.",
   "Sing vom gesuchten Basston zurück zum Grundton: Wie viele Schritte?": "Chante de cette basse jusqu’à la tonique : combien de pas ?",

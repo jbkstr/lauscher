@@ -255,6 +255,13 @@ const I18N_STATIC_UK = {
   "space.timerIdle2": "через 2 хв",
   "space.timerIdle3": "через 3 хв",
   "space.timerIdle5": "через 5 хв",
+  "space.timerIdleNever": "Ніколи",
+  "space.timerCustomUnit": "хв",
+  "space.timerCustomApply": "Застосувати",
+  "space.timerCustomDurHint": "1–180 хв",
+  "space.timerCustomIdleHint": "1–60 хв",
+  "space.timerCustomDurAria": "Власна тривалість у хвилинах",
+  "space.timerCustomIdleAria": "Власний час автозупинки у хвилинах",
   "space.timerReset": "Скинути",
   "space.timerCustomize": "Налаштувати тривалість і автостоп",
   "space.mixesTitle": "Мої мікси для занять",
@@ -887,6 +894,10 @@ const MODE_LEVEL_LABELS_UK = {
 };
 
 const TR_UK = {
+  "Läuft (ohne Auto-Stopp).": "Триває (без автозупинки).",
+  "{dur} Min • ohne Auto-Stopp": "{dur} хв • без автозупинки",
+  "Eigene: {n} Min": "Свій: {n} хв",
+  "Bitte eine ganze Zahl zwischen {min} und {max} eingeben.": "Введи ціле число від {min} до {max}.",
   "Summ den Basston des gesuchten Akkords und sing von dort zurück zum Grundton der Tonart – die Zahl der Schritte verrät dir die Stufe.": "Наспівай басовий тон шуканого акорду й заспівай від нього назад до тоніки – кількість кроків підкаже ступінь.",
   "Summ den Basston des gesuchten Akkords – dann tippen.": "Наспівай басовий тон шуканого акорду – потім торкнись.",
   "Sing vom gesuchten Basston zurück zum Grundton: Wie viele Schritte?": "Заспівай від цього баса до тоніки: скільки кроків?",

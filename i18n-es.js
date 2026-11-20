@@ -255,6 +255,13 @@ const I18N_STATIC_ES = {
   "space.timerIdle2": "tras 2 min",
   "space.timerIdle3": "tras 3 min",
   "space.timerIdle5": "tras 5 min",
+  "space.timerIdleNever": "Nunca",
+  "space.timerCustomUnit": "min",
+  "space.timerCustomApply": "Aplicar",
+  "space.timerCustomDurHint": "1–180 min",
+  "space.timerCustomIdleHint": "1–60 min",
+  "space.timerCustomDurAria": "Duración propia en minutos",
+  "space.timerCustomIdleAria": "Tiempo propio de parada automática en minutos",
   "space.timerReset": "Restablecer",
   "space.timerCustomize": "Ajustar duración y parada automática",
   "space.mixesTitle": "Mis mezclas de entrenamiento",
@@ -1565,6 +1572,10 @@ const MODE_LEVEL_LABELS_ES = {
 };
 
 const TR_ES = {
+  "Läuft (ohne Auto-Stopp).": "En marcha (sin parada automática).",
+  "{dur} Min • ohne Auto-Stopp": "{dur} min • sin parada automática",
+  "Eigene: {n} Min": "Otra: {n} min",
+  "Bitte eine ganze Zahl zwischen {min} und {max} eingeben.": "Introduce un número entero entre {min} y {max}.",
   "Summ den Basston des gesuchten Akkords und sing von dort zurück zum Grundton der Tonart – die Zahl der Schritte verrät dir die Stufe.": "Tararea el bajo del acorde buscado y canta desde ahí hasta la tónica – el número de pasos te revela el grado.",
   "Summ den Basston des gesuchten Akkords – dann tippen.": "Tararea el bajo del acorde buscado – luego toca.",
   "Sing vom gesuchten Basston zurück zum Grundton: Wie viele Schritte?": "Canta desde ese bajo hasta la tónica: ¿cuántos pasos?",
