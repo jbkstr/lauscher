@@ -9339,7 +9339,9 @@ function generateExercise() {
     state.currentKey = keys[Math.floor(Math.random() * keys.length)];
   }
 
-  if (state.settings.timeSig === "random") {
+  if (!CADENCE_TIME_SIG_PICKER_ENABLED) {
+    state.activeTimeSig = "4/4";
+  } else if (state.settings.timeSig === "random") {
     const sigs = ["4/4", "3/4", "6/8", "odd"];
     state.activeTimeSig = sigs[Math.floor(Math.random() * sigs.length)];
   } else {
@@ -9414,6 +9416,10 @@ const MINOR_CADENCE_POOLS = {
 };
 // Übersetzung der Dur-Grundmuster (Stufe 1) in ihre Moll-Entsprechung
 const MAJOR_TO_MINOR_L1 = { "I": "i", "IV": "iv", "V": "V", "vi": "VI" };
+
+// Taktart-Auswahl in Kadenz-Übungen: abgeschaltet, weil sie bei 4 Akkorden pro Aufgabe nur das
+// Tempo verändert (gleicher Effekt wie die Tempo-Auswahl). Solange aus, laufen Kadenzen immer in 4/4.
+const CADENCE_TIME_SIG_PICKER_ENABLED = false;
 
 function isCadenceMode(mode) {
   return mode === "cadence" || mode === "cadence-minor";
@@ -12191,7 +12197,7 @@ function renderUI() {
   }
 
   if (moduleTimeSigBtn) {
-    moduleTimeSigBtn.classList.toggle("hidden", !isCadence);
+    moduleTimeSigBtn.classList.toggle("hidden", !isCadence || !CADENCE_TIME_SIG_PICKER_ENABLED);
     moduleTimeSigBtn.textContent = state.activeTimeSig === "odd" ? "5/4" : state.activeTimeSig;
   }
 

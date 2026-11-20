@@ -1789,7 +1789,7 @@ const CATEGORY_HELP_GUIDES_ES = {
 
       <div class="article-highlight-box">
         <h4>Controles, solo escucha &amp; examen</h4>
-        <p>En la parte superior de la escena, ajusta <strong>Tonalidad</strong>, <strong>Compás</strong> y <strong>Tempo (BPM)</strong>. Debajo, <strong>Tónica (I)</strong> / <strong>Tónica (i)</strong> y <strong>Volver a escuchar el acorde</strong> anclan tu oído; el botón <strong>Bucle</strong> repite de forma continua y <strong>Solo escucha</strong> pasa los ejercicios con revelación automática. Tras un error, <strong>Comparación A/B</strong> y <strong>Bajo / fundamental</strong> comparan tu elección con la solución, y el <strong>Examen de categoría</strong> pone a prueba mayor y menor juntos.</p>
+        <p>En la parte superior de la escena, ajusta <strong>Tonalidad</strong> y <strong>Tempo (BPM)</strong>. Debajo, <strong>Tónica (I)</strong> / <strong>Tónica (i)</strong> y <strong>Volver a escuchar el acorde</strong> anclan tu oído; el botón <strong>Bucle</strong> repite de forma continua y <strong>Solo escucha</strong> pasa los ejercicios con revelación automática. Tras un error, <strong>Comparación A/B</strong> y <strong>Bajo / fundamental</strong> comparan tu elección con la solución, y el <strong>Examen de categoría</strong> pone a prueba mayor y menor juntos.</p>
       </div>
     `
   },

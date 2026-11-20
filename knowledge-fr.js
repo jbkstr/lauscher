@@ -1789,7 +1789,7 @@ const CATEGORY_HELP_GUIDES_FR = {
 
       <div class="article-highlight-box">
         <h4>Commandes, Écoute seule &amp; Examen</h4>
-        <p>En haut de la scène, réglez <strong>Tonalité</strong>, <strong>Mesure</strong> et <strong>Tempo (BPM)</strong>. En dessous, <strong>Tonique (I)</strong> / <strong>Tonique (i)</strong> et <strong>Réécouter l’accord</strong> ancrent votre oreille ; le bouton <strong>Boucle</strong> répète en continu et <strong>Écoute seule</strong> déroule les exercices avec révélation automatique. Après une erreur, <strong>Comparaison A/B</strong> et <strong>Basse / Fondamentale</strong> comparent votre choix et la solution — et l’<strong>Examen de catégorie</strong> teste majeur et mineur ensemble.</p>
+        <p>En haut de la scène, réglez <strong>Tonalité</strong> et <strong>Tempo (BPM)</strong>. En dessous, <strong>Tonique (I)</strong> / <strong>Tonique (i)</strong> et <strong>Réécouter l’accord</strong> ancrent votre oreille ; le bouton <strong>Boucle</strong> répète en continu et <strong>Écoute seule</strong> déroule les exercices avec révélation automatique. Après une erreur, <strong>Comparaison A/B</strong> et <strong>Basse / Fondamentale</strong> comparent votre choix et la solution — et l’<strong>Examen de catégorie</strong> teste majeur et mineur ensemble.</p>
       </div>
     `
   },

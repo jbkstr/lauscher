@@ -1790,7 +1790,7 @@ const CATEGORY_HELP_GUIDES_UK = {
 
       <div class="article-highlight-box">
         <h4>Керування, Режим слухання та Іспит</h4>
-        <p>Над сценою обирай <strong>Тональність</strong>, <strong>Розмір</strong> і <strong>Темп (BPM)</strong>. Унизу <strong>Тоніка (I)</strong> / <strong>Тоніка (i)</strong> та <strong>Ще раз акорд</strong> тримають опору; <strong>Повтор по колу</strong> зациклює зворот, а <strong>Лише слухати</strong> веде пасивний прогін із підказкою. Після помилки <strong>Порівняння A/B</strong> і <strong>Бас / Основний тон</strong> звіряють відповідь — а <strong>Іспит за категорією</strong> перевіряє мажор і мінор разом.</p>
+        <p>Над сценою обирай <strong>Тональність</strong> і <strong>Темп (BPM)</strong>. Унизу <strong>Тоніка (I)</strong> / <strong>Тоніка (i)</strong> та <strong>Ще раз акорд</strong> тримають опору; <strong>Повтор по колу</strong> зациклює зворот, а <strong>Лише слухати</strong> веде пасивний прогін із підказкою. Після помилки <strong>Порівняння A/B</strong> і <strong>Бас / Основний тон</strong> звіряють відповідь — а <strong>Іспит за категорією</strong> перевіряє мажор і мінор разом.</p>
       </div>
     `
   },

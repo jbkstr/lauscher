@@ -1876,7 +1876,7 @@ const CATEGORY_HELP_GUIDES = {
 
       <div class="article-highlight-box">
         <h4>Steuerung, Nur Hören &amp; Prüfung</h4>
-        <p>Oben im Aufgabenfeld wählst du <strong>Tonart</strong>, <strong>Taktart</strong> und <strong>Tempo (BPM)</strong>. Unten geben dir <strong>Tonika (I)</strong> / <strong>Tonika (i)</strong> und <strong>Stufe nochmal</strong> direkten Halt; links aktiviert der <strong>Loop-Button</strong> die Endlosschleife, rechts <strong>Nur Hören</strong> den automatischen Durchlauf. Nach einem Irrtum vergleichen <strong>A/B Vergleich</strong> und <strong>Bass / Grundton</strong> deinen Tipp mit der Lösung – und über die <strong>Kategorie-Prüfung</strong> testest du Dur und Moll unter Prüfungsbedingungen.</p>
+        <p>Oben im Aufgabenfeld wählst du <strong>Tonart</strong> und <strong>Tempo (BPM)</strong>. Unten geben dir <strong>Tonika (I)</strong> / <strong>Tonika (i)</strong> und <strong>Stufe nochmal</strong> direkten Halt; links aktiviert der <strong>Loop-Button</strong> die Endlosschleife, rechts <strong>Nur Hören</strong> den automatischen Durchlauf. Nach einem Irrtum vergleichen <strong>A/B Vergleich</strong> und <strong>Bass / Grundton</strong> deinen Tipp mit der Lösung – und über die <strong>Kategorie-Prüfung</strong> testest du Dur und Moll unter Prüfungsbedingungen.</p>
       </div>
     `
   },
