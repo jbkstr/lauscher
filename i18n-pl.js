@@ -255,6 +255,13 @@ const I18N_STATIC_PL = {
   "space.timerIdle2": "po 2 min",
   "space.timerIdle3": "po 3 min",
   "space.timerIdle5": "po 5 min",
+  "space.timerIdleNever": "Nigdy",
+  "space.timerCustomUnit": "min",
+  "space.timerCustomApply": "Zastosuj",
+  "space.timerCustomDurHint": "1–180 min",
+  "space.timerCustomIdleHint": "1–60 min",
+  "space.timerCustomDurAria": "Własny czas sesji w minutach",
+  "space.timerCustomIdleAria": "Własny czas automatycznego zatrzymania w minutach",
   "space.timerReset": "Reset",
   "space.timerCustomize": "Zmień czas i autostop",
   "space.mixesTitle": "Moje miksy ćwiczeń",
@@ -887,6 +894,10 @@ const MODE_LEVEL_LABELS_PL = {
 };
 
 const TR_PL = {
+  "Läuft (ohne Auto-Stopp).": "Trwa (bez automatycznego zatrzymania).",
+  "{dur} Min • ohne Auto-Stopp": "{dur} min • bez automatycznego zatrzymania",
+  "Eigene: {n} Min": "Własny: {n} min",
+  "Bitte eine ganze Zahl zwischen {min} und {max} eingeben.": "Podaj liczbę całkowitą od {min} do {max}.",
   "Summ den Basston des gesuchten Akkords und sing von dort zurück zum Grundton der Tonart – die Zahl der Schritte verrät dir die Stufe.": "Zanuć bas szukanego akordu i zaśpiewaj od niego z powrotem do toniki – liczba kroków zdradzi ci stopień.",
   "Summ den Basston des gesuchten Akkords – dann tippen.": "Zanuć bas szukanego akordu – potem stuknij.",
   "Sing vom gesuchten Basston zurück zum Grundton: Wie viele Schritte?": "Zaśpiewaj od tego basu do toniki: ile kroków?",

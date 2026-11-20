@@ -1858,6 +1858,34 @@ const DEFAULT_BREAK_REMINDER_MINUTES = 15;
 const BREAK_REMINDER_MIN_MINUTES = 5;
 const BREAK_REMINDER_MAX_MINUTES = 30;
 
+// Achtsamer Session-Timer: Wunschdauer frei wählbar (1–180 Min), Auto-Stopp 1–60 Min oder 0 = „Nie“.
+// Ältere Profile (nur 5/10/15/20 bzw. 2/3/5) bleiben damit gültig.
+const SESSION_TIMER_PRESETS = [5, 10, 15, 20];
+const SESSION_TIMER_MIN_MINUTES = 1;
+const SESSION_TIMER_MAX_MINUTES = 180;
+const SESSION_IDLE_PRESETS = [2, 3, 5];
+const SESSION_IDLE_MIN_MINUTES = 1;
+const SESSION_IDLE_MAX_MINUTES = 60;
+const SESSION_IDLE_NEVER = 0;
+
+function sanitizeSessionTimerMinutes(val) {
+  const num = parseInt(val, 10);
+  if (!Number.isFinite(num) || num < SESSION_TIMER_MIN_MINUTES || num > SESSION_TIMER_MAX_MINUTES) return 10;
+  return num;
+}
+
+function sanitizeSessionIdleMinutes(val) {
+  const num = parseInt(val, 10);
+  if (num === SESSION_IDLE_NEVER) return SESSION_IDLE_NEVER;
+  if (!Number.isFinite(num) || num < SESSION_IDLE_MIN_MINUTES || num > SESSION_IDLE_MAX_MINUTES) return 3;
+  return num;
+}
+
+/** Auto-Stopp-Minuten des Timers; 0 bedeutet „Nie“ (kein automatisches Beenden). */
+function getSessionIdleMinutes() {
+  return sanitizeSessionIdleMinutes(state?.profile?.inactivityMinutes ?? 3);
+}
+
 function sanitizeBreakReminderMinutes(val) {
   const num = parseInt(val, 10);
   if (!Number.isFinite(num)) return DEFAULT_BREAK_REMINDER_MINUTES;
@@ -1978,8 +2006,8 @@ function sanitizeUserProfile(raw) {
     : def.instruments;
   const focuses = normalizeProfileFocuses(raw.focuses, raw.focus);
   const companionAccessories = normalizeProfileAccessories(raw.companionAccessories, raw.companionAccessory);
-  const sessMins = [5, 10, 15, 20].includes(parseInt(raw.sessionMinutes, 10)) ? parseInt(raw.sessionMinutes, 10) : 10;
-  const idleMins = [2, 3, 5].includes(parseInt(raw.inactivityMinutes, 10)) ? parseInt(raw.inactivityMinutes, 10) : 3;
+  const sessMins = sanitizeSessionTimerMinutes(raw.sessionMinutes);
+  const idleMins = sanitizeSessionIdleMinutes(raw.inactivityMinutes);
   const breakEnabled = raw.breakReminderEnabled === undefined ? DEFAULT_BREAK_REMINDER_ENABLED : Boolean(raw.breakReminderEnabled);
   const breakMinutes = sanitizeBreakReminderMinutes(raw.breakReminderMinutes);
 
@@ -17602,8 +17630,11 @@ function renderHomeProfileGreeting() {
 
 function getSessionTimerLocalizedNote(st) {
   if (!st) return tr("Bereit für eine entspannte Session.", "Ready for a calm session.");
-  const idleMins = state.profile?.inactivityMinutes || 3;
+  const idleMins = getSessionIdleMinutes();
   if (st.noteKind === "custom" && st.statusNote) return st.statusNote;
+  if (st.noteKind === "running" && idleMins === SESSION_IDLE_NEVER) {
+    return tr("Läuft (ohne Auto-Stopp).", "Running (no auto-stop).");
+  }
   if (st.noteKind === "running") {
     return tf("Läuft (stoppt automatisch nach {mins} Min Inaktivität).", "Running (auto-stops after {mins} min idle).", { mins: idleMins });
   }
@@ -17657,19 +17688,72 @@ function renderSessionTimerUI() {
     }
   }
 
+  const durMins = sanitizeSessionTimerMinutes(state.profile.sessionMinutes);
+  const idleMinsNow = getSessionIdleMinutes();
+  const durIsCustom = !SESSION_TIMER_PRESETS.includes(durMins);
+  const idleIsCustom = idleMinsNow !== SESSION_IDLE_NEVER && !SESSION_IDLE_PRESETS.includes(idleMinsNow);
   document.querySelectorAll("[data-timer-mins]").forEach(btn => {
-    btn.classList.toggle("active", parseInt(btn.dataset.timerMins, 10) === state.profile.sessionMinutes);
+    const isCustomBtn = btn.dataset.timerMins === "custom";
+    btn.classList.toggle("active", isCustomBtn ? durIsCustom : parseInt(btn.dataset.timerMins, 10) === durMins);
   });
   document.querySelectorAll("[data-timer-idle]").forEach(btn => {
-    btn.classList.toggle("active", parseInt(btn.dataset.timerIdle, 10) === state.profile.inactivityMinutes);
+    const isCustomBtn = btn.dataset.timerIdle === "custom";
+    btn.classList.toggle("active", isCustomBtn ? idleIsCustom : parseInt(btn.dataset.timerIdle, 10) === idleMinsNow);
   });
+  const durCustomBtn = document.getElementById("timerDurationCustomBtn");
+  if (durCustomBtn) durCustomBtn.textContent = getSessionTimerCustomChipLabel(durIsCustom ? durMins : null);
+  const idleCustomBtn = document.getElementById("timerIdleCustomBtn");
+  if (idleCustomBtn) idleCustomBtn.textContent = getSessionTimerCustomChipLabel(idleIsCustom ? idleMinsNow : null);
 
   const summaryEl = document.getElementById("spaceTimerConfigSummary");
   if (summaryEl) {
-    const dur = state.profile.sessionMinutes || 10;
-    const idle = state.profile.inactivityMinutes || 3;
-    summaryEl.textContent = tf("{dur} Min • Auto-Stopp {idle} Min", "{dur} min • Auto-stop {idle} min", { dur, idle });
+    summaryEl.textContent = idleMinsNow === SESSION_IDLE_NEVER
+      ? tf("{dur} Min • ohne Auto-Stopp", "{dur} min • no auto-stop", { dur: durMins })
+      : tf("{dur} Min • Auto-Stopp {idle} Min", "{dur} min • Auto-stop {idle} min", { dur: durMins, idle: idleMinsNow });
   }
+}
+
+/** Beschriftung des „Eigene Zeit“-Chips: ohne eigenen Wert neutral, sonst mit der gewählten Minutenzahl. */
+function getSessionTimerCustomChipLabel(mins = null) {
+  if (!Number.isFinite(mins)) {
+    return tr("Eigene Zeit", "Set your own", { fr: "Autre durée", es: "Otra duración", pl: "Własny czas", uk: "Свій час", ur: "اپنا وقت" });
+  }
+  return tf("Eigene: {n} Min", "Own: {n} min", { n: mins });
+}
+
+/** Klappt die Eingabezeile für eine eigene Minutenzahl auf/zu und füllt den aktuellen Wert vor. */
+function toggleSessionTimerCustomRow(kind, forceOpen = null) {
+  const isIdle = kind === "idle";
+  const row = document.getElementById(isIdle ? "timerIdleCustomRow" : "timerDurationCustomRow");
+  const btn = document.getElementById(isIdle ? "timerIdleCustomBtn" : "timerDurationCustomBtn");
+  const input = document.getElementById(isIdle ? "timerIdleCustomInput" : "timerDurationCustomInput");
+  if (!row) return;
+  const open = forceOpen === null ? row.classList.contains("hidden") : Boolean(forceOpen);
+  row.classList.toggle("hidden", !open);
+  btn?.setAttribute("aria-expanded", String(open));
+  if (open && input) {
+    const cur = isIdle ? getSessionIdleMinutes() : sanitizeSessionTimerMinutes(state.profile.sessionMinutes);
+    input.value = cur > 0 ? String(cur) : "";
+    try { input.focus({ preventScroll: true }); input.select(); } catch (_) {}
+  }
+}
+
+/** Übernimmt die eingegebene Minutenzahl (mit Bereichsprüfung). */
+function applySessionTimerCustomValue(kind) {
+  const isIdle = kind === "idle";
+  const input = document.getElementById(isIdle ? "timerIdleCustomInput" : "timerDurationCustomInput");
+  const min = isIdle ? SESSION_IDLE_MIN_MINUTES : SESSION_TIMER_MIN_MINUTES;
+  const max = isIdle ? SESSION_IDLE_MAX_MINUTES : SESSION_TIMER_MAX_MINUTES;
+  const raw = String(input?.value ?? "").trim().replace(",", ".");
+  const num = Number(raw);
+  if (!raw || !Number.isInteger(num) || num < min || num > max) {
+    showAppToast(tf("Bitte eine ganze Zahl zwischen {min} und {max} eingeben.", "Please enter a whole number between {min} and {max}.", { min, max }), "error");
+    try { input?.focus(); } catch (_) {}
+    return;
+  }
+  if (isIdle) setSessionIdleMinutes(num);
+  else setSessionDurationMinutes(num);
+  toggleSessionTimerCustomRow(kind, false);
 }
 
 function stopSessionTimer(nextStatus = "idle", customNote = null, noteKind = null) {
@@ -17728,12 +17812,13 @@ function tickSessionTimer(nowWallMs = Date.now()) {
     st.hiddenSinceWallMs = null;
   }
 
-  const idleMins = state.profile.inactivityMinutes || 3;
+  const idleMins = getSessionIdleMinutes();
   const idleLimitMs = idleMins * 60 * 1000;
   const inactiveSinceWall = nowWallMs - st.lastActivityWallMs;
   const hiddenDuration = st.hiddenSinceWallMs !== null ? (nowWallMs - st.hiddenSinceWallMs) : 0;
 
-  if (inactiveSinceWall >= idleLimitMs || hiddenDuration >= idleLimitMs) {
+  // Auto-Stopp „Nie“: Timer läuft unabhängig von Inaktivität bis zum Ende
+  if (idleMins !== SESSION_IDLE_NEVER && (inactiveSinceWall >= idleLimitMs || hiddenDuration >= idleLimitMs)) {
     stopSessionTimer("auto-stopped", null, "auto-stopped-idle");
     return;
   }
@@ -17783,7 +17868,12 @@ function pauseSessionTimer() {
 }
 
 function setSessionDurationMinutes(mins) {
-  const parsed = [5, 10, 15, 20].includes(Number(mins)) ? Number(mins) : 10;
+  if (mins === "custom") {
+    toggleSessionTimerCustomRow("duration");
+    return;
+  }
+  toggleSessionTimerCustomRow("duration", false);
+  const parsed = sanitizeSessionTimerMinutes(mins);
   state.profile.sessionMinutes = parsed;
   saveUserProfile(state.profile);
   if (state.sessionTimer.status === "idle" || state.sessionTimer.status === "completed" || state.sessionTimer.status === "auto-stopped") {
@@ -17798,7 +17888,12 @@ function setSessionDurationMinutes(mins) {
 }
 
 function setSessionIdleMinutes(mins) {
-  const parsed = [2, 3, 5].includes(Number(mins)) ? Number(mins) : 3;
+  if (mins === "custom") {
+    toggleSessionTimerCustomRow("idle");
+    return;
+  }
+  toggleSessionTimerCustomRow("idle", false);
+  const parsed = sanitizeSessionIdleMinutes(mins);
   state.profile.inactivityMinutes = parsed;
   saveUserProfile(state.profile);
   if (state.sessionTimer.status === "running") {
@@ -19752,8 +19847,9 @@ document.addEventListener("DOMContentLoaded", () => {
         br.lastActivityWallMs = Date.now();
       }
       if (st && st.status === "running" && st.hiddenSinceWallMs !== null) {
-        const idleLimitMs = (state.profile.inactivityMinutes || 3) * 60 * 1000;
-        if (Date.now() - st.hiddenSinceWallMs >= idleLimitMs) {
+        const idleMinsVis = getSessionIdleMinutes();
+        const idleLimitMs = idleMinsVis * 60 * 1000;
+        if (idleMinsVis !== SESSION_IDLE_NEVER && Date.now() - st.hiddenSinceWallMs >= idleLimitMs) {
           stopSessionTimer("auto-stopped", null, "auto-stopped-pause");
         } else {
           st.hiddenSinceWallMs = null;
@@ -19781,6 +19877,16 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   document.querySelectorAll("[data-timer-idle]").forEach(btn => {
     btn.addEventListener("click", () => setSessionIdleMinutes(btn.dataset.timerIdle));
+  });
+  // Eigene Minutenzahl für Wunschdauer & Auto-Stopp (Übernehmen-Knopf oder Enter)
+  [["duration", "timerDurationCustomApply", "timerDurationCustomInput"], ["idle", "timerIdleCustomApply", "timerIdleCustomInput"]].forEach(([kind, applyId, inputId]) => {
+    document.getElementById(applyId)?.addEventListener("click", () => applySessionTimerCustomValue(kind));
+    document.getElementById(inputId)?.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        applySessionTimerCustomValue(kind);
+      }
+    });
   });
   document.getElementById("timerToggleBtn")?.addEventListener("click", () => {
     if (state.sessionTimer.status === "running") pauseSessionTimer();

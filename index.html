@@ -1445,6 +1445,13 @@
                 <button type="button" class="k-filter-pill active" data-timer-mins="10" data-i18n="space.timerMin10">10 Min</button>
                 <button type="button" class="k-filter-pill" data-timer-mins="15" data-i18n="space.timerMin15">15 Min</button>
                 <button type="button" class="k-filter-pill" data-timer-mins="20" data-i18n="space.timerMin20">20 Min</button>
+                <button type="button" id="timerDurationCustomBtn" class="k-filter-pill" data-timer-mins="custom" aria-expanded="false" aria-controls="timerDurationCustomRow">Eigene Zeit</button>
+              </div>
+              <div id="timerDurationCustomRow" class="timer-custom-row hidden">
+                <input id="timerDurationCustomInput" class="timer-custom-input" type="number" inputmode="numeric" min="1" max="180" step="1" aria-label="Eigene Wunschdauer in Minuten" data-i18n-aria="space.timerCustomDurAria">
+                <span class="timer-custom-unit" data-i18n="space.timerCustomUnit">Min</span>
+                <button type="button" id="timerDurationCustomApply" class="btn-tool timer-custom-apply" data-i18n="space.timerCustomApply">Übernehmen</button>
+                <span class="timer-custom-hint" data-i18n="space.timerCustomDurHint">1–180 Min</span>
               </div>
             </div>
 
@@ -1454,6 +1461,14 @@
                 <button type="button" class="k-filter-pill" data-timer-idle="2" data-i18n="space.timerIdle2">nach 2 Min</button>
                 <button type="button" class="k-filter-pill active" data-timer-idle="3" data-i18n="space.timerIdle3">nach 3 Min</button>
                 <button type="button" class="k-filter-pill" data-timer-idle="5" data-i18n="space.timerIdle5">nach 5 Min</button>
+                <button type="button" id="timerIdleCustomBtn" class="k-filter-pill" data-timer-idle="custom" aria-expanded="false" aria-controls="timerIdleCustomRow">Eigene Zeit</button>
+                <button type="button" class="k-filter-pill" data-timer-idle="0" data-i18n="space.timerIdleNever">Nie</button>
+              </div>
+              <div id="timerIdleCustomRow" class="timer-custom-row hidden">
+                <input id="timerIdleCustomInput" class="timer-custom-input" type="number" inputmode="numeric" min="1" max="60" step="1" aria-label="Eigene Auto-Stopp-Zeit in Minuten" data-i18n-aria="space.timerCustomIdleAria">
+                <span class="timer-custom-unit" data-i18n="space.timerCustomUnit">Min</span>
+                <button type="button" id="timerIdleCustomApply" class="btn-tool timer-custom-apply" data-i18n="space.timerCustomApply">Übernehmen</button>
+                <span class="timer-custom-hint" data-i18n="space.timerCustomIdleHint">1–60 Min</span>
               </div>
             </div>
           </div>
