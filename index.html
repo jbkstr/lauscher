@@ -1619,6 +1619,9 @@
           </div>
         </div>
 
+        <!-- Grundton-Auswahl (Tonleitern & Modi) – Inhalt wird in app.js aufgebaut -->
+        <div id="inlineModesRootPopover" class="module-inline-popover modes-root-popover hidden"></div>
+
         <!-- Direkt ausklappbare Taktart-Auswahl (im Kadenzmodus) -->
         <div id="inlineTimeSigPopover" class="module-inline-popover hidden">
           <span class="popover-label" data-i18n="ex.timeSigLabel">Taktart:</span>
@@ -1649,9 +1652,9 @@
           <label class="drone-mix-control" for="dronePadVolSlider">
             <span class="drone-mix-head">
               <span class="drone-mix-label" data-i18n="ex.dronePadVol">Fläche</span>
-              <span id="dronePadVolVal" class="drone-mix-val">70%</span>
+              <span id="dronePadVolVal" class="drone-mix-val">60%</span>
             </span>
-            <input type="range" id="dronePadVolSlider" min="0" max="100" step="2" value="70" aria-label="Lautstärke der Streicher-Fläche" data-i18n-aria="ex.dronePadVolAria">
+            <input type="range" id="dronePadVolSlider" min="0" max="100" step="2" value="60" aria-label="Lautstärke der Streicher-Fläche" data-i18n-aria="ex.dronePadVolAria">
           </label>
           <label class="drone-mix-control" for="droneToneVolSlider">
             <span class="drone-mix-head">

@@ -6369,6 +6369,49 @@ body,
   display: none;
 }
 
+/* Tonleitern & Modi: nur der Regler für die Grundton-Fläche */
+.drone-mix-strip.is-pad-only {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.drone-mix-strip.is-pad-only .drone-mix-control + .drone-mix-control {
+  display: none;
+}
+
+/* Tonleitern & Modi: Grundton-Badge als Auswahlknopf */
+.module-badge.module-badge-btn {
+  cursor: pointer;
+  border-color: var(--sage-strong);
+  color: var(--sage-strong);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.module-badge.module-badge-btn:hover,
+.module-badge.module-badge-btn.chip-open {
+  background-color: var(--sage-strong);
+  color: var(--surface-white);
+}
+
+.module-badge.module-badge-btn:focus-visible {
+  outline: 2px solid var(--sage-strong);
+  outline-offset: 2px;
+}
+
+.modes-root-popover .modes-root-pills {
+  gap: 0.28rem;
+}
+
+.modes-root-popover .popover-pill-btn {
+  min-width: 2.3rem;
+  justify-content: center;
+}
+
+.modes-root-hint {
+  flex-basis: 100%;
+  font-size: 0.68rem;
+  color: var(--raccoon-muted);
+}
+
 .drone-mix-control {
   display: flex;
   flex-direction: column;

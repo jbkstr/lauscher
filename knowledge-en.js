@@ -2004,7 +2004,7 @@ const CATEGORY_HELP_GUIDES_EN = {
       <ul class="article-steps-list">
         <li><strong>1. Identify Scale / Mode (3 Levels):</strong> A neutral <strong>Anchor Fifth</strong> rings out first (root + 5th, intentionally without a 3rd), followed by the ascending 8-note scale: Level 1 teaches 4 core modes (<code>Ionian, Aeolian, Dorian, Mixolydian</code>), Level 2 covers all 7 in <code>C</code>, and Level 3 rotates root pitches.</li>
         <li><strong>2. Characteristic Note &amp; Color (3 Levels):</strong> After the anchor fifth, a melodic turn highlights each mode’s signature tone (<code>#4</code> Lydian, <code>b7</code> Mixolydian, <code>♮6</code> Dorian, <code>b2</code> Phrygian, or leading <code>#7</code> in <strong>Harmonic Minor</strong>) across Major modes (Level 1), Minor modes (Level 2), and All 7 + Harmonic Minor on random roots (Level 3).</li>
-        <li><strong>3. Modal Cadences &amp; Vamps (2 Levels):</strong> Hear signature two-chord modal vamps (<code>i – IV</code> Dorian, <code>I – bVII</code> Mixolydian, <code>I – II</code> Lydian, <code>i – bII</code> Phrygian) — starting with 4 standard vamps in <code>C</code> (Level 1) up to all 6 transposed modal vamps (Level 2).</li>
+        <li><strong>3. Modal Cadences &amp; Chord Loops (2 Levels):</strong> Hear signature two-chord modal loops (<code>i – IV</code> Dorian, <code>I – bVII</code> Mixolydian, <code>I – II</code> Lydian, <code>i – bII</code> Phrygian) — starting with 4 standard chord loops in <code>C</code> (Level 1) up to all 6 transposed modal chord loops (Level 2). A chord loop is two chords alternating again and again, revealing the color of the mode.</li>
       </ul>
 
       <div class="article-highlight-box">
@@ -3214,7 +3214,7 @@ function renderModesReferenceHTML_EN(familyFilter = "all") {
           <p>${m.usage}</p>
           <div class="k-btn-row">
             <button class="btn-tool" data-play-mode-scale="${m.id}">▶ Scale (${m.rootLabel})</button>
-            <button class="btn-tool" data-play-mode-vamp="${m.id}">▶ Vamp: ${m.vamp}</button>
+            <button class="btn-tool" data-play-mode-vamp="${m.id}">▶ Chord loop: ${m.vamp}</button>
           </div>
         </article>
       `).join("")}
@@ -3228,7 +3228,7 @@ function renderModesReferenceHTML_EN(familyFilter = "all") {
       <h4>How to Write Modally Without Slipping Back Into Major</h4>
       <ul class="k-physics-list">
         <li><strong>Dodge the Parent-Key Tritone:</strong> Inside C Major’s notes, <code>F</code> and <code>B</code> form G7’s tritone that yanks ears straight back to C. Writing in D Dorian or G Mixolydian? Avoid dwelling on G7 → C so your chosen mode keeps center stage.</li>
-        <li><strong>Lean on Two-Chord Modal Vamps:</strong> Rather than long four-chord chains, modal grooves shuttle gently between the tonic chord and whichever neighbor showcases the <strong>color note</strong> (e.g., <code>Cm – F</code> in C Dorian spotlights bright <code>A</code>).</li>
+        <li><strong>Lean on Two-Chord Modal Loops:</strong> Rather than long four-chord chains, modal grooves shuttle gently between the tonic chord and whichever neighbor showcases the <strong>color note</strong> (e.g., <code>Cm – F</code> in C Dorian spotlights bright <code>A</code>).</li>
         <li><strong>Anchor With a Pedal Drone:</strong> Holding an open root + 5th drone in the bass pins your modal home down immediately — making every melodic color pop cleanly above it.</li>
       </ul>
     </article>

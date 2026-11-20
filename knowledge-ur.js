@@ -1829,7 +1829,7 @@ const CATEGORY_HELP_GUIDES_UR = {
       <ul class="article-steps-list">
         <li><strong>1. موڈ / اسکیل کی پہچان (3 سطحیں):</strong> پہلے غیر جانبدار <strong>لنگر ففتھ</strong> (بغیر تھرڈ) بجتی ہے، پھر 8 سُروں کا چڑھتا اسکیل: لیول 1 میں 4 بنیادی موڈز (<code>آئیونین، ایولین، ڈورین، مکسولیڈین</code>)، لیول 2 میں C پر تمام 7 اور لیول 3 میں بدلتی جڑیں شامل ہیں۔</li>
         <li><strong>2. امتیازی سُر اور رنگت (3 سطحیں):</strong> لنگر ففتھ کے بعد مختصر موڑ خاص سُر ابھارتا ہے (<code>#4</code> لِڈین، <code>b7</code> مکسولیڈین، <code>♮6</code> ڈورین، <code>b2</code> فریجین، یا <code>#7</code> <strong>ہارمونک مائنر</strong> میں) — میجر (لیول 1)، مائنر (لیول 2) اور سب + ہارمونک مائنر (لیول 3) میں منقسم۔</li>
-        <li><strong>3. موڈل کیڈینسز اور ویمپس (2 سطحیں):</strong> دو کارڈ کے کلاسک ویمپس (<code>i–IV</code>، <code>I–bVII</code>، <code>I–II</code>، <code>i–bII</code>): پہلے C پر 4 معیاری (لیول 1) پھر بدلتی کلیدوں میں تمام 6 موڈل ویمپس (لیول 2)۔</li>
+        <li><strong>3. موڈل کیڈینسز اور کارڈ لوپس (2 سطحیں):</strong> دو کارڈ کے کلاسک لوپس (<code>i–IV</code>، <code>I–bVII</code>، <code>I–II</code>، <code>i–bII</code>): پہلے C پر 4 معیاری (لیول 1) پھر بدلتی کلیدوں میں تمام 6 موڈل ویمپس (لیول 2)۔</li>
       </ul>
 
       <div class="article-highlight-box">
@@ -3033,7 +3033,7 @@ function renderModesReferenceHTML_UR(familyFilter = "all") {
           <p>${m.usage}</p>
           <div class="k-btn-row">
             <button class="btn-tool" data-play-mode-scale="${m.id}">▶ اسکیل (${m.rootLabel})</button>
-            <button class="btn-tool" data-play-mode-vamp="${m.id}">▶ ویمپ: ${m.vamp}</button>
+            <button class="btn-tool" data-play-mode-vamp="${m.id}">▶ کارڈ لوپ: ${m.vamp}</button>
           </div>
         </article>
       `).join("")}
@@ -3047,7 +3047,7 @@ function renderModesReferenceHTML_UR(familyFilter = "all") {
       <h4>موڈل موسیقی لکھتے ہوئے واپس میجر میں پھسلنے سے کیسے بچیں</h4>
       <ul class="k-physics-list">
         <li><strong>اصل کلید کے ٹرائی ٹون سے بچیں:</strong> سفید کنجیوں میں <code>F</code> اور <code>B</code> مل کر G7 کا ٹرائی ٹون بناتے ہیں جو کان کو واپس C کی طرف کھینچتا ہے۔ D ڈورین میں G7 → C بجانے سے گریز کریں۔</li>
-        <li><strong>دو کارڈز کے موڈل ویمپس استعمال کریں:</strong> طویل کارڈ سلسلوں کے بجائے ٹانک اور اس پڑوسی کارڈ پر جھولیں جو <strong>امتیازی سُر</strong> چمکائے (مثلاً C ڈورین میں <code>Cm – F</code> روشن <code>A</code> ابھارتا ہے)۔</li>
+        <li><strong>دو کارڈز کے موڈل لوپس استعمال کریں:</strong> طویل کارڈ سلسلوں کے بجائے ٹانک اور اس پڑوسی کارڈ پر جھولیں جو <strong>امتیازی سُر</strong> چمکائے (مثلاً C ڈورین میں <code>Cm – F</code> روشن <code>A</code> ابھارتا ہے)۔</li>
         <li><strong>باس ڈرون (تانپورہ انداز) قائم کریں:</strong> جڑ + ففتھ کا مستقل ڈرون بجانے سے موڈ کا گھر مضبوط رہتا ہے اور ہر امتیازی سُر چمک اٹھتا ہے۔</li>
       </ul>
     </article>
