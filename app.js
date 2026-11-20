@@ -9000,7 +9000,14 @@ function openCategoryPage(categoryKey, options = {}) {
     container.insertAdjacentHTML("beforeend", `
       <button id="openCategoryExamBtn" class="category-exam-entry-card accent-${examCfg.accent || "sage"}" type="button">
         <span class="category-exam-entry-left">
-          <span class="category-exam-icon" aria-hidden="true">🎓</span>
+          <span class="category-exam-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="4.5" width="14" height="16.5" rx="2.6"/>
+              <path d="M9.2 4.5V3.6c0-.6.5-1.1 1.1-1.1h3.4c.6 0 1.1.5 1.1 1.1v.9"/>
+              <path d="M9 12.6l2.2 2.2 4-4.3"/>
+              <path d="M9 18h6"/>
+            </svg>
+          </span>
           <span class="category-exam-copy">
             <span class="category-exam-title">${escapeHtml(tr("Kategorie-Prüfung ablegen", "Take Category Exam"))}</span>
             <span class="category-exam-sub">${escapeHtml(tr("1 Versuch pro Frage • verschiedene Stufen & Hör-Auswertung", "1 try per question • selectable levels & audio review"))}</span>
