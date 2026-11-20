@@ -192,7 +192,8 @@ function getMascotAccessorySVG(activeAccessories = []) {
 function hydrateMascotStaticSlots() {
   const splashBadge = document.querySelector("#startupSplash .splash-badge");
   const listenUri = getMascotAssetUri("listening");
-  if (splashBadge && listenUri) {
+  // index.html setzt das Bild meist schon direkt nach dem Laden des Maskottchen-Bundles
+  if (splashBadge && listenUri && !splashBadge.querySelector("image")) {
     splashBadge.innerHTML = `
       <svg class="splash-mascot-svg" width="84" height="84" viewBox="-1 0 68 64" fill="none" xmlns="http://www.w3.org/2000/svg">
         <image href="${listenUri}" x="0" y="2" width="60" height="60" preserveAspectRatio="xMidYMid meet"/>
@@ -8700,11 +8701,14 @@ function openCategoryPage(categoryKey, options = {}) {
         width: Math.max(140, 118 + previewSigCount * 10),
         compact: true
       });
-      const previewTitle = isNotationKeyPoolMode(selectedKeyMode)
-        ? tf("{mode} • Beispiel: {ex}", "{mode} • Example: {ex}", {
-            mode: getLocalizedNotationKeyModeLabel(selectedKeyMode, false),
+      // Bei Tonart-Gruppen: Schwierigkeitsgrad in der ersten Zeile, das Beispiel immer in einer eigenen Zeile darunter
+      const previewExample = isNotationKeyPoolMode(selectedKeyMode)
+        ? tf("Beispiel: {ex}", "Example: {ex}", {
             ex: `${getLocalizedNotationKeySigName(previewKeySigId)} (${getLocalizedNotationKeySigBadge(previewKeySigId, true)})`
           })
+        : "";
+      const previewTitle = isNotationKeyPoolMode(selectedKeyMode)
+        ? getLocalizedNotationKeyModeLabel(selectedKeyMode, false)
         : (selectedKeyMode === "none"
             ? tr("Keine Generalvorzeichen (C-Dur)", "No key signature (C Major)")
             : `${getLocalizedNotationKeySigName(selectedKeyMode)} • ${getLocalizedNotationKeySigBadge(selectedKeyMode, true)}`);
@@ -8833,6 +8837,7 @@ function openCategoryPage(categoryKey, options = {}) {
               <div class="notation-key-preview-svg">${previewSvg}</div>
               <div class="notation-key-preview-copy">
                 <span class="notation-key-preview-title">${escapeHtml(previewTitle)}</span>
+                ${previewExample ? `<span class="notation-key-preview-example">${escapeHtml(previewExample)}</span>` : ""}
                 <span class="notation-key-preview-desc">${previewDesc}</span>
               </div>
             </div>
@@ -12246,9 +12251,7 @@ function renderUI() {
     moduleNotationKeyBtn.classList.toggle("hidden", !isNotation);
   }
 
-  if (moduleNotationPaceBtn) {
-    moduleNotationPaceBtn.classList.toggle("hidden", !isNotation);
-  }
+  syncNotationPaceVisibility(ex);
   if (isNotation) {
     syncNotationPaceUI();
   }
@@ -13982,6 +13985,23 @@ function syncNotationPaceUI() {
   }
 }
 
+/**
+ * Notenlesen: Der Tempo-Knopf („Tempo: …“) wirkt nur im Nur-Hören-Modus und ist deshalb
+ * nur dann sichtbar und bedienbar.
+ */
+function syncNotationPaceVisibility(ex = state.currentExercise) {
+  const paceBtn = document.getElementById("moduleNotationPaceBtn");
+  if (!paceBtn) return false;
+  const show = Boolean(ex) && isNotationMode(ex.type) && Boolean(state.listenOnly?.active);
+  const changed = paceBtn.classList.contains("hidden") === show;
+  paceBtn.classList.toggle("hidden", !show);
+  if (!show) {
+    paceBtn.classList.remove("chip-open");
+    document.getElementById("inlineNotationPacePopover")?.classList.add("hidden");
+  }
+  return changed;
+}
+
 function setNotationListenOnlyPace(nextVal) {
   const clamped = clampNotationListenPace(nextVal);
   if (state?.settings) {
@@ -14062,9 +14082,7 @@ function renderNotationStaffPanel(ex, didShift = false, targetGrid = document.ge
   const clefId = target?.clefId || ex.baseClefId || "treble";
   const keySigId = normalizeNotationKeySigId(ex.keySignatureId || target?.keySignatureId || "none");
   const clefName = getLocalizedNotationClefName(clefId);
-  const rightHint = state.exam?.active
-    ? getLocalizedNotationClefAnchorHint(clefId)
-    : (target?.ledgerDesc || getNotationLedgerDescription(target?.staffStep ?? 4));
+  // Der frühere Lagen-Hinweis oben rechts („Im 5-Linien-System“ …) entfällt bewusst.
   const showClefPill = Boolean((ex.isMixedClef || ex.isGrandStaff) && !state.exam?.active);
   const showKeySigPill = keySigId !== "none";
   const hasLeftPill = showClefPill || showKeySigPill;
@@ -14099,15 +14117,14 @@ function renderNotationStaffPanel(ex, didShift = false, targetGrid = document.ge
       });
 
   panel.innerHTML = `
-    <div class="notation-queue-strip${hasLeftPill ? "" : " is-single-clef"}">
-      ${hasLeftPill ? `
+    ${hasLeftPill ? `
+      <div class="notation-queue-strip">
         <span class="notation-queue-pills" style="display:inline-flex;flex-wrap:wrap;gap:0.28rem;align-items:center;">
           ${showClefPill ? `<span class="notation-clef-pill">${escapeHtml(clefName)}</span>` : ""}
           ${showKeySigPill ? `<span class="notation-keysig-pill">${escapeHtml(keySigPillText)}</span>` : ""}
         </span>
-      ` : ""}
-      <span class="notation-ledger-hint">${escapeHtml(rightHint)}</span>
-    </div>
+      </div>
+    ` : ""}
     ${svg}
   `;
 
@@ -15867,6 +15884,7 @@ function syncListenOnlyUI() {
   const btn = document.getElementById("listenOnlyBtn");
   const lbl = document.getElementById("listenOnlyBtnLabel");
   const active = Boolean(state.listenOnly?.active);
+  if (syncNotationPaceVisibility() && typeof queueFitExerciseLayout === "function") queueFitExerciseLayout(true);
   if (btn) {
     btn.classList.toggle("btn-active", active);
     btn.setAttribute("aria-pressed", active ? "true" : "false");

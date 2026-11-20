@@ -2946,7 +2946,7 @@ const TR_ES = {
   "3–4 ♯/♭": "3–4 ♯/♭",
   "5–6 ♯/♭": "5–6 ♯/♭",
   "Alle 12": "Las 12",
-  "{mode} • Beispiel: {ex}": "{mode} • Ejemplo: {ex}",
+  "Beispiel: {ex}": "Ejemplo: {ex}",
   "Keine Generalvorzeichen (C-Dur)": "Sin alteraciones en la armadura (Do mayor)",
   "Alle Noten gelten zunächst als Stammtöne (bei Stufe 4 mit ♯/♭ direkt vor einzelnen Noten).": "Al principio todas las notas son naturales (con ♯/♭ ocasionales en el nivel 4).",
   "Das Generalvorzeichen gilt für das ganze System: Achte bei betroffenen Stammlinien &amp; Räumen automatisch auf die schwarzen Tasten!": "La armadura vale para todo el pentagrama: ¡piensa en las teclas negras para las notas afectadas!",

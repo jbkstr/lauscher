@@ -2278,7 +2278,7 @@ Object.assign(TR_PL, {
   "3–4 ♯/♭": "3–4 ♯/♭",
   "5–6 ♯/♭": "5–6 ♯/♭",
   "Alle 12": "Wszystkie 12",
-  "{mode} • Beispiel: {ex}": "{mode} • Przykład: {ex}",
+  "Beispiel: {ex}": "Przykład: {ex}",
   "Keine Generalvorzeichen (C-Dur)": "Brak znaków przykluczowych (C-dur)",
   "Alle Noten gelten zunächst als Stammtöne (bei Stufe 4 mit ♯/♭ direkt vor einzelnen Noten).": "Wszystkie nuty są na początku naturalne (na poziomie 4 z ♯/♭ bezpośrednio przy pojedynczych nutach).",
   "Das Generalvorzeichen gilt für das ganze System: Achte bei betroffenen Stammlinien &amp; Räumen automatisch auf die schwarzen Tasten!": "Znaki przykluczowe działają na całą pięciolinię: pamiętaj o czarnych klawiszach dla zmienionych dźwięków!",

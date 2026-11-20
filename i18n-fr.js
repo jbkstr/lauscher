@@ -2233,7 +2233,7 @@ Object.assign(TR_FR, {
   "3–4 ♯/♭": "3–4 ♯/♭",
   "5–6 ♯/♭": "5–6 ♯/♭",
   "Alle 12": "Les 12",
-  "{mode} • Beispiel: {ex}": "{mode} • Exemple : {ex}",
+  "Beispiel: {ex}": "Exemple : {ex}",
   "Keine Generalvorzeichen (C-Dur)": "Aucune altération à la clé (Do majeur)",
   "Alle Noten gelten zunächst als Stammtöne (bei Stufe 4 mit ♯/♭ direkt vor einzelnen Noten).": "Toutes les notes sont naturelles au départ (avec ♯/♭ ponctuels au niveau 4).",
   "Das Generalvorzeichen gilt für das ganze System: Achte bei betroffenen Stammlinien &amp; Räumen automatisch auf die schwarzen Tasten!": "L’armure s’applique à toute la portée : pensez aux touches noires pour les notes concernées !",
