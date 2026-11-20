@@ -12945,7 +12945,10 @@ window.addEventListener("resize", () => {
 // Die Übung scrollt nie. Bleibt für die mittlere Bühne zu wenig Platz, wird stufenweise verdichtet
 // (#viewExercise.fit-1 … fit-3 in styles.css). Die Bühne selbst passt sich per Container-Query an.
 const EXERCISE_FIT_LEVELS = 3;
-const EXERCISE_MIN_STAGE_PX = 70;
+// Mindesthöhe der Bühne: knapp über der Container-Query-Stufe (max-height: 96px), ab der die
+// Beschreibung auf eine Zeile gekürzt wird. Darunter werden lieber Kacheln/Knöpfe verdichtet,
+// damit Text und Maskottchen der Bühne nicht abgeschnitten wirken.
+const EXERCISE_MIN_STAGE_PX = 98;
 
 // reset = neue Aufgabe oder neue Fenstergröße. Sonst (Feedback-Karte o. Ä. erscheint) wird innerhalb
 // derselben Aufgabe nur weiter verdichtet, nie zurück – damit die Antwortknöpfe nicht springen.
