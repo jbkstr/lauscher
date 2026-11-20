@@ -74287,6 +74287,45 @@ function generateRhythmGrooveExercise() {
  * - Stufe 5: Nicht C-Dur (neu nach jeder Antwort), 1 Oktave
  * - Stufe 6: Nicht C-Dur (neu nach jeder Antwort), mehrere Oktaven
  */
+// Solfège „Mehrere Oktaven“: drei feste Tonlagen (je 12 Halbtöne, jede Tonstufe passt genau einmal hinein).
+// Tief ≈ um C3, mittel ≈ um C4, hoch ≈ um C5 – unabhängig davon, wo die Tonart auf der Klaviatur liegt.
+const SOLFEGE_OCTAVE_BANDS = {
+  low:  { min: 43, max: 54 },   // G2 – Fis3
+  mid:  { min: 55, max: 66 },   // G3 – Fis4
+  high: { min: 67, max: 78 }    // G4 – Fis5
+};
+let solfegeOctaveBag = [];
+let lastSolfegeOctaveBand = null;
+
+/**
+ * Gemischte, aber gleichmäßige Lagen: In jedem Dreierblock kommt jede Lage genau einmal vor
+ * (Reihenfolge zufällig, keine direkte Wiederholung über die Blockgrenze).
+ */
+function nextSolfegeOctaveBand() {
+  if (!solfegeOctaveBag.length) {
+    const bag = Object.keys(SOLFEGE_OCTAVE_BANDS);
+    for (let i = bag.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [bag[i], bag[j]] = [bag[j], bag[i]];
+    }
+    if (bag[0] === lastSolfegeOctaveBand) bag.push(bag.shift());
+    solfegeOctaveBag = bag;
+  }
+  lastSolfegeOctaveBand = solfegeOctaveBag.shift();
+  return lastSolfegeOctaveBand;
+}
+
+/** Oktavverschiebung (Vielfaches von 12), die den Klaviatur-Ton in die gewünschte Lage bringt. */
+function getSolfegeOctaveShiftForBand(keyboardMidi, bandKey) {
+  const band = SOLFEGE_OCTAVE_BANDS[bandKey];
+  if (!band) return 0;
+  for (let shift = -36; shift <= 36; shift += 12) {
+    const m = keyboardMidi + shift;
+    if (m >= band.min && m <= band.max) return shift;
+  }
+  return 0;
+}
+
 function generateSolfegeExercise(rootMidi) {
   const sLvl = state.settings.solfegeDifficulty || 1;
   const isMultiOctave = sLvl === 3 || sLvl === 4 || sLvl === 6;
@@ -74298,12 +74337,11 @@ function generateSolfegeExercise(rootMidi) {
   const chosenStep = SOLFEGE_SCALE_STEPS.find(st => st.key === solfegeKey) || SOLFEGE_SCALE_STEPS[0];
   const keyboardMidi = rootMidi + chosenStep.semitones;
 
-  // Bei „Mehrere Oktaven“ (Stufe 3, 4, 6) wird der abgefragte Ton in einer willkürlichen Oktavlage
-  // (-1 Oktave, mittlere Oktave oder +1 Oktave) abgespielt, während die Klaviatur 1 Oktave zeigt.
+  // Bei „Mehrere Oktaven“ (Stufe 3, 4, 6) erklingt der abgefragte Ton in einer von drei festen Lagen
+  // (tief/mittel/hoch, gleichmäßig rotiert), während die Klaviatur 1 Oktave zeigt.
   let octaveShift = 0;
   if (isMultiOctave) {
-    const validShifts = getValidOctaveShifts(keyboardMidi);
-    octaveShift = validShifts[Math.floor(Math.random() * validShifts.length)];
+    octaveShift = getSolfegeOctaveShiftForBand(keyboardMidi, nextSolfegeOctaveBand());
   }
 
   const playedMidi = keyboardMidi + octaveShift;
