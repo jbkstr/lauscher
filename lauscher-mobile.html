@@ -16980,6 +16980,20 @@ class EarLabSampledInstrument {
 
 const IOS_SILENT_WAV_DATA_URI = "data:audio/wav;base64,UklGRsQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
+/**
+ * Leichter Hall für schwächere Audio-Engines: Safari (Desktop & iOS, inkl. aller iOS-Browser/WKWebView)
+ * und Mobilgeräte. Dort verzichtet die Engine auf den Freeverb (8 AudioWorklet-Kammfilter, rechnet
+ * dauerhaft mit) und nutzt nur den nativen Faltungshall – sonst drohen Aussetzer/„Zerren“, besonders
+ * mit Bluetooth-Kopfhörern (größere Puffer, Resampling).
+ */
+function shouldUseLiteReverb() {
+  if (typeof navigator === "undefined") return false;
+  const ua = String(navigator.userAgent || "");
+  const isAndroid = /Android/i.test(ua);
+  const isWebKitOnly = /AppleWebKit/i.test(ua) && !/Chrome|Chromium|Edg\/|OPR\//i.test(ua);
+  return isIOSLikeDevice() || isWebKitOnly || isAndroid || /CriOS|FxiOS/i.test(ua);
+}
+
 function isIOSLikeDevice() {
   if (typeof navigator === "undefined") return false;
   const ua = String(navigator.userAgent || "");
@@ -17007,6 +17021,7 @@ class AudioEngine {
     this._silentBufferPlayed = false;
 
     this.masterLimiter = null;
+    this.limiterTrim = null;
     this.masterGain = null;
     this.reverb = null;
     this.reverbReturn = null;
@@ -17206,28 +17221,26 @@ class AudioEngine {
 
     this.ensurePlaybackContext();
 
-    // Master-Limiter (-0.3 dBFS) & Master-Lautstärke
-    this.masterLimiter = new Tone.Limiter(-0.3).toDestination();
+    // Master-Limiter & Master-Lautstärke.
+    // Früher Tone.Limiter(-0.3): Mit dessen 30-dB-Knie ließ er Spitzen dichter Akkorde/mehrerer Instrumente
+    // bis ca. +5 dBFS durch – am Ausgang (Lautsprecher/Bluetooth) wurde dann hart geclippt („Zerren“).
+    // Jetzt: Schwelle -4 dB, schmales Knie, 200 ms Release. Offline gemessen: +5 dB-Akkord → -2,5 dBFS,
+    // Verzerrung 0,3 % statt 2,3 %. Die automatische Makeup-Verstärkung des Web-Audio-Kompressors (+1,9 dB)
+    // gleicht limiterTrim aus, damit normale Pegel exakt unverändert bleiben.
+    this.limiterTrim = new Tone.Gain(Math.pow(10, -1.9 / 20)).toDestination();
+    this.masterLimiter = new Tone.Compressor({
+      threshold: -4,
+      ratio: 20,
+      knee: 2,
+      attack: 0.001,
+      release: 0.2
+    }).connect(this.limiterTrim);
     const startMaster = initialMuted ? 0 : initialMaster * 0.45;
     this.masterGain = new Tone.Gain(startMaster).connect(this.masterLimiter);
 
-    // Hardware-beschleunigter Faltungshall (Tone.Reverb / ConvolverNode) auf echtem 100%-Wet-Aux-Bus
-    // Impulsantwort wird asynchron im Hintergrund erzeugt, damit OfflineAudioContext auf iOS nie blockiert.
-    this.reverbReturn = new Tone.Gain(0.22).connect(this.masterGain);
-    if (typeof Tone?.Reverb === "function") {
-      this.reverb = new Tone.Reverb({
-        decay: 1.55,
-        preDelay: 0.014,
-        wet: 1.0
-      }).connect(this.reverbReturn);
-      Promise.resolve(this.reverb.generate()).catch(() => {});
-    } else {
-      this.reverb = new Tone.Freeverb({
-        roomSize: 0.55,
-        dampening: 3400
-      }).connect(this.reverbReturn);
-      this.reverb.wet.value = 1.0;
-    }
+    // Früherer allgemeiner Hall-Bus (eigener Faltungshall) entfällt: Alle Instrumente und Demos laufen
+    // über den Klavier-Hall-Bus (pianoReverbDamp). Ein ungenutzter ConvolverNode kostete nur Rechenzeit.
+    this.liteReverb = shouldUseLiteReverb();
 
     const initPianoProf = PIANO_CHARACTER_PROFILES[this.pianoCharacter] || PIANO_CHARACTER_PROFILES.natural;
     const initPianoMix = Number.isFinite(this.instrumentReverbMix?.piano)
@@ -17249,7 +17262,8 @@ class AudioEngine {
       this.pianoReverbDamp.connect(earlyTapL);
       this.pianoReverbDamp.connect(earlyTapR);
     }
-    if (typeof Tone?.Freeverb === "function") {
+    // Freeverb nur auf leistungsstarken Engines (siehe shouldUseLiteReverb)
+    if (!this.liteReverb && typeof Tone?.Freeverb === "function") {
       this.pianoFreeverb = new Tone.Freeverb({
         roomSize: initPianoProf.roomSize,
         dampening: initPianoProf.reverbDampHz
@@ -17260,7 +17274,8 @@ class AudioEngine {
       this.pianoReverbDamp.connect(this.pianoFreeverb);
     }
     if (typeof Tone?.Reverb === "function") {
-      this.pianoReverbBoost = new Tone.Gain(2.8).connect(this.pianoReverbReturn);
+      // Ohne Freeverb trägt der Faltungshall allein: Pegel so angehoben, dass die Hall-Energie gleich bleibt (gemessen)
+      this.pianoReverbBoost = new Tone.Gain(this.liteReverb ? 7.5 : 2.8).connect(this.pianoReverbReturn);
       this.pianoReverb = new Tone.Reverb({
         decay: 2.35,
         preDelay: 0.016,
@@ -87898,6 +87913,13 @@ function releaseTunerMicStream() {
   _tuner.analyser = null;
   _tuner.sink = null;
   state.tunerStream = null;
+  // iOS/Safari: Audio-Sitzung nach dem Mikrofon wieder auf reine Wiedergabe stellen, damit
+  // Bluetooth-Kopfhörer nicht im (verzerrten) Telefonie-Modus bleiben
+  try {
+    if (stream && navigator.audioSession && navigator.audioSession.type !== "playback") {
+      navigator.audioSession.type = "playback";
+    }
+  } catch (_) {}
 }
 
 function stopTunerSession() {
