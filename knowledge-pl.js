@@ -3205,7 +3205,7 @@ function renderModesReferenceHTML_PL(familyFilter = "all") {
           <p>${m.usage}</p>
           <div class="k-btn-row">
             <button class="btn-tool" data-play-mode-scale="${m.id}">▶ Skala (${m.rootLabel})</button>
-            <button class="btn-tool" data-play-mode-vamp="${m.id}">▶ Vamp: ${m.vamp}</button>
+            <button class="btn-tool" data-play-mode-vamp="${m.id}">▶ Zwrot akordowy: ${m.vamp}</button>
           </div>
         </article>
       `).join("")}

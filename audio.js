@@ -251,7 +251,7 @@ class AudioEngine {
     this.pianoCharacter = "natural";
     this.pianoReverbMix = PIANO_CHARACTER_PROFILES.natural.defaultReverb;
     this.instrumentReverbMix = { ...STEM_REVERB_BY_CHAR.natural };
-    this.dronePadGainScale = 0.70;
+    this.dronePadGainScale = 0.60;
     this.droneToneGainScale = 1.00;
 
     // 5 Stem-Synthesizer und zugehörige lineare Gain-Knoten
@@ -1076,7 +1076,7 @@ class AudioEngine {
     } catch (_) {}
   }
 
-  setDroneIntervalMix(padLevel = 0.70, toneLevel = 1.00) {
+  setDroneIntervalMix(padLevel = 0.60, toneLevel = 1.00) {
     const padNum = Number(padLevel);
     const toneNum = Number(toneLevel);
     if (Number.isFinite(padNum)) this.dronePadGainScale = Math.max(0, Math.min(1, padNum));

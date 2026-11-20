@@ -393,7 +393,7 @@ const I18N_STATIC = {
   "home.catSolfege": { de: "Solfège", en: "Solfège" },
   "home.catSolfegeDesc": { de: "Tonstufen mit Do, Re, Mi in einer Tonart erleben", en: "Feel scale degrees (Do–Re–Mi) inside a key" },
   "home.catModes": { de: "Tonleitern & Modi", en: "Scales & Modes" },
-  "home.catModesDesc": { de: "Kirchentonarten, Charaktertöne & modale Kadenzen", en: "Church modes, characteristic notes & modal vamps" },
+  "home.catModesDesc": { de: "Kirchentonarten, Charaktertöne & modale Kadenzen", en: "Church modes, characteristic notes & modal chord loops" },
   "home.catMelodies": { de: "Melodien", en: "Melodies" },
   "home.catMelodiesDesc": { de: "Kurze Tonfolgen nach Gehör Schritt für Schritt nachbauen", en: "Transcribe short melodies step by step by ear" },
   "home.catRhythm": { de: "Rhythmus", en: "Rhythm" },
@@ -1201,7 +1201,7 @@ const MIX_MODES_EN = {
   "prod-eq-noise":         "Production • Pink Noise EQ",
   "modes-scale":           "Modes • Scale Recognition",
   "modes-char":            "Modes • Characteristic Note",
-  "modes-cadence":         "Modes • Modal Vamps",
+  "modes-cadence":         "Modes • Modal Chord Loops",
   "notation-treble":       "Notation • Treble Clef",
   "notation-bass":         "Notation • Bass Clef",
   "notation-alto":         "Notation • Alto Clef",
@@ -1415,7 +1415,7 @@ const MODES_EN = {
 const MODE_LEVEL_LABELS_EN = {
   scale:   { 1: "4 Core Modes",        2: "All 7 Modes (C)",       3: "All 7 + Changing Root" },
   char:    { 1: "Major Modes",         2: "Minor Modes",           3: "All + Harm. Minor" },
-  cadence: { 1: "4 Standard Vamps",    2: "All 6 Modal Vamps" }
+  cadence: { 1: "4 Standard Chord Loops", 2: "All 6 Modal Chord Loops" }
 };
 
 registerLanguageBundle("en", {

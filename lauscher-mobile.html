@@ -6377,6 +6377,49 @@ body,
   display: none;
 }
 
+/* Tonleitern & Modi: nur der Regler für die Grundton-Fläche */
+.drone-mix-strip.is-pad-only {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.drone-mix-strip.is-pad-only .drone-mix-control + .drone-mix-control {
+  display: none;
+}
+
+/* Tonleitern & Modi: Grundton-Badge als Auswahlknopf */
+.module-badge.module-badge-btn {
+  cursor: pointer;
+  border-color: var(--sage-strong);
+  color: var(--sage-strong);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.module-badge.module-badge-btn:hover,
+.module-badge.module-badge-btn.chip-open {
+  background-color: var(--sage-strong);
+  color: var(--surface-white);
+}
+
+.module-badge.module-badge-btn:focus-visible {
+  outline: 2px solid var(--sage-strong);
+  outline-offset: 2px;
+}
+
+.modes-root-popover .modes-root-pills {
+  gap: 0.28rem;
+}
+
+.modes-root-popover .popover-pill-btn {
+  min-width: 2.3rem;
+  justify-content: center;
+}
+
+.modes-root-hint {
+  flex-basis: 100%;
+  font-size: 0.68rem;
+  color: var(--raccoon-muted);
+}
+
 .drone-mix-control {
   display: flex;
   flex-direction: column;
@@ -15355,6 +15398,9 @@ body.is-hum-pause #solfegeKeyboardWrap {
           </div>
         </div>
 
+        <!-- Grundton-Auswahl (Tonleitern & Modi) – Inhalt wird in app.js aufgebaut -->
+        <div id="inlineModesRootPopover" class="module-inline-popover modes-root-popover hidden"></div>
+
         <!-- Direkt ausklappbare Taktart-Auswahl (im Kadenzmodus) -->
         <div id="inlineTimeSigPopover" class="module-inline-popover hidden">
           <span class="popover-label" data-i18n="ex.timeSigLabel">Taktart:</span>
@@ -15385,9 +15431,9 @@ body.is-hum-pause #solfegeKeyboardWrap {
           <label class="drone-mix-control" for="dronePadVolSlider">
             <span class="drone-mix-head">
               <span class="drone-mix-label" data-i18n="ex.dronePadVol">Fläche</span>
-              <span id="dronePadVolVal" class="drone-mix-val">70%</span>
+              <span id="dronePadVolVal" class="drone-mix-val">60%</span>
             </span>
-            <input type="range" id="dronePadVolSlider" min="0" max="100" step="2" value="70" aria-label="Lautstärke der Streicher-Fläche" data-i18n-aria="ex.dronePadVolAria">
+            <input type="range" id="dronePadVolSlider" min="0" max="100" step="2" value="60" aria-label="Lautstärke der Streicher-Fläche" data-i18n-aria="ex.dronePadVolAria">
           </label>
           <label class="drone-mix-control" for="droneToneVolSlider">
             <span class="drone-mix-head">
@@ -16948,7 +16994,7 @@ class AudioEngine {
     this.pianoCharacter = "natural";
     this.pianoReverbMix = PIANO_CHARACTER_PROFILES.natural.defaultReverb;
     this.instrumentReverbMix = { ...STEM_REVERB_BY_CHAR.natural };
-    this.dronePadGainScale = 0.70;
+    this.dronePadGainScale = 0.60;
     this.droneToneGainScale = 1.00;
 
     // 5 Stem-Synthesizer und zugehörige lineare Gain-Knoten
@@ -17773,7 +17819,7 @@ class AudioEngine {
     } catch (_) {}
   }
 
-  setDroneIntervalMix(padLevel = 0.70, toneLevel = 1.00) {
+  setDroneIntervalMix(padLevel = 0.60, toneLevel = 1.00) {
     const padNum = Number(padLevel);
     const toneNum = Number(toneLevel);
     if (Number.isFinite(padNum)) this.dronePadGainScale = Math.max(0, Math.min(1, padNum));
@@ -19039,7 +19085,7 @@ const I18N_STATIC = {
   "home.catSolfege": { de: "Solfège", en: "Solfège" },
   "home.catSolfegeDesc": { de: "Tonstufen mit Do, Re, Mi in einer Tonart erleben", en: "Feel scale degrees (Do–Re–Mi) inside a key" },
   "home.catModes": { de: "Tonleitern & Modi", en: "Scales & Modes" },
-  "home.catModesDesc": { de: "Kirchentonarten, Charaktertöne & modale Kadenzen", en: "Church modes, characteristic notes & modal vamps" },
+  "home.catModesDesc": { de: "Kirchentonarten, Charaktertöne & modale Kadenzen", en: "Church modes, characteristic notes & modal chord loops" },
   "home.catMelodies": { de: "Melodien", en: "Melodies" },
   "home.catMelodiesDesc": { de: "Kurze Tonfolgen nach Gehör Schritt für Schritt nachbauen", en: "Transcribe short melodies step by step by ear" },
   "home.catRhythm": { de: "Rhythmus", en: "Rhythm" },
@@ -19847,7 +19893,7 @@ const MIX_MODES_EN = {
   "prod-eq-noise":         "Production • Pink Noise EQ",
   "modes-scale":           "Modes • Scale Recognition",
   "modes-char":            "Modes • Characteristic Note",
-  "modes-cadence":         "Modes • Modal Vamps",
+  "modes-cadence":         "Modes • Modal Chord Loops",
   "notation-treble":       "Notation • Treble Clef",
   "notation-bass":         "Notation • Bass Clef",
   "notation-alto":         "Notation • Alto Clef",
@@ -20061,7 +20107,7 @@ const MODES_EN = {
 const MODE_LEVEL_LABELS_EN = {
   scale:   { 1: "4 Core Modes",        2: "All 7 Modes (C)",       3: "All 7 + Changing Root" },
   char:    { 1: "Major Modes",         2: "Minor Modes",           3: "All + Harm. Minor" },
-  cadence: { 1: "4 Standard Vamps",    2: "All 6 Modal Vamps" }
+  cadence: { 1: "4 Standard Chord Loops", 2: "All 6 Modal Chord Loops" }
 };
 
 registerLanguageBundle("en", {
@@ -20388,7 +20434,7 @@ const I18N_STATIC_ES = {
   "home.catSolfege": "Solfeo",
   "home.catSolfegeDesc": "Sentir los grados Do–Re–Mi dentro de una tonalidad",
   "home.catModes": "Escalas y modos",
-  "home.catModesDesc": "Modos eclesiásticos, notas características y vamps modales",
+  "home.catModesDesc": "Modos eclesiásticos, notas características y bucles de acordes modales",
   "home.catMelodies": "Melodías",
   "home.catMelodiesDesc": "Transcribir paso a paso frases melódicas cortas de oído",
   "home.catRhythm": "Ritmo",
@@ -21182,7 +21228,7 @@ const MIX_MODES_ES = {
   "prod-eq-noise": "Producción • Ecualización en ruido rosa",
   "modes-scale": "Modos • Reconocer la escala",
   "modes-char": "Modos • Nota característica",
-  "modes-cadence": "Modos • Vamps modales",
+  "modes-cadence": "Modos • Bucles modales",
   "notation-treble": "Notación • Clave de sol",
   "notation-bass": "Notación • Clave de fa",
   "notation-alto": "Notación • Clave de do en 3.ª",
@@ -21850,12 +21896,17 @@ const MODE_LEVEL_LABELS_ES = {
     "3": "Todos + men. arm."
   },
   "cadence": {
-    "1": "4 vamps estándar",
-    "2": "Los 6 vamps modales"
+    "1": "4 bucles estándar",
+    "2": "Los 6 bucles modales"
   }
 };
 
 const TR_ES = {
+  "Summ den Basston des gesuchten Akkords und sing von dort zurück zum Grundton der Tonart – die Zahl der Schritte verrät dir die Stufe.": "Tararea el bajo del acorde buscado y canta desde ahí hasta la tónica – el número de pasos te revela el grado.",
+  "Summ den Basston des gesuchten Akkords – dann tippen.": "Tararea el bajo del acorde buscado – luego toca.",
+  "Sing vom gesuchten Basston zurück zum Grundton: Wie viele Schritte?": "Canta desde ese bajo hasta la tónica: ¿cuántos pasos?",
+  "NUR HÖREN • SUMM-PAUSE": "SOLO ESCUCHAR • PAUSA PARA TARAREAR",
+  "Pendel": "Bucle",
   // Interaktiver Quintenzirkel (lc() in knowledge.js)
   "Tonleiter:": "Escala:",
   "Tippen zum Anhören": "Toca para escuchar el acorde",
@@ -21937,7 +21988,7 @@ const TR_ES = {
   "Breiter EQ": "EQ amplio",
   "Modi: Tonleitern": "Modos: escalas",
   "Modi: Charakterton": "Modos: nota característica",
-  "Modi: Kadenzen": "Modos: vamps modales",
+  "Modi: Kadenzen": "Modos: bucles modales",
   "Dreiklänge": "Tríadas",
   "Sept & Sus": "7.ª y sus",
   "Erweitert": "Ampliados",
@@ -21966,7 +22017,7 @@ const TR_ES = {
   "Frequenzen": "Frecuencias",
   "EQ im Noise": "EQ en ruido rosa",
   "Tonleitern": "Escalas",
-  "Kadenzen & Vamps": "Vamps modales",
+  "Kadenzen & Akkordpendel": "Bucles modales",
   "Arpeggio (Aufwärts ↗)": "Arpegio (ascendente ↗)",
   "Arpeggio (Abwärts ↘)": "Arpegio (descendente ↘)",
   "Gleichzeitiger Klang": "Simultáneo",
@@ -22199,11 +22250,11 @@ const TR_ES = {
   "Äolisch, Dorisch, Phrygisch &amp; Lokrisch": "Eólico, dórico, frigio &amp; locrio",
   "Stufe 3: Gesamt-Spektrum": "Nivel 3: Espectro completo",
   "Alle 7 Modi + Harmonisch Moll": "Los 7 modos + menor armónica",
-  "3. Modale Kadenzen &amp; Vamps": "3. Cadencias modales &amp; vamps",
-  "Typische Pendel-Akkorde (z. B. i–IV, I–bVII, I–II oder i–bII) am Klang erkennen": "Identificar de oído los enlaces modales típicos (p. ej. i–IV, I–bVII, I–II o i–bII)",
-  "Stufe 1: Standard-Vamps": "Nivel 1: Vamps estándar",
+  "3. Modale Kadenzen &amp; Akkordpendel": "3. Cadencias modales &amp; bucles de acordes",
+  "Akkordpendel: Zwei Akkorde wechseln sich immer wieder ab und machen so die Farbe eines Modus hörbar (z. B. i–IV, I–bVII, I–II oder i–bII).": "Bucles de acordes: dos acordes se alternan una y otra vez y hacen audible el color de un modo (p. ej., i–IV, I–bVII, I–II o i–bII).",
+  "Stufe 1: Standard-Akkordpendel": "Nivel 1: Bucles estándar",
   "Ionisch, Dorisch, Mixolydisch &amp; Äolisch": "Jónico, dórico, mixolidio &amp; eólico",
-  "Stufe 2: Alle 6 Modal-Vamps": "Nivel 2: Los 6 vamps modales",
+  "Stufe 2: Alle 6 modalen Akkordpendel": "Nivel 2: Los 6 bucles modales",
   "Inkl. Lydisch (I–II) &amp; Phrygisch (i–bII)": "Incl. lidio (I–II) &amp; frigio (i–bII)",
   "1. Tonumfang wählen": "1. Elegir la tesitura",
   "Passt Grundton und Modulationsbereich der Übungen an dich oder deinen Chor an": "Adapta la tonalidad de partida y el ámbito de los ejercicios a tu voz o cuerda del coro",
@@ -22526,7 +22577,7 @@ const TR_ES = {
   "Charakterton • {lbl}": "Nota característica • {lbl}",
   "Grundton {root}": "Fundamental {root}",
   "Welcher Modus steckt in diesem Charakterton?": "¿Qué modo corresponde a esta nota característica?",
-  "Modale Kadenz • {lbl}": "Vamp modal • {lbl}",
+  "Modale Kadenz • {lbl}": "Bucle modal • {lbl}",
   "Welcher Modus prägt diese Akkordfolge?": "¿Qué modo colorea esta sucesión de acordes?",
   "Tonleiter / Modus • {lbl}": "Escala / modo • {lbl}",
   "Welche Kirchentonart erklingt aufwärts?": "¿Qué modo escuchas subiendo?",
@@ -22568,7 +22619,7 @@ const TR_ES = {
   "Umkehrung ?": "¿Inversión?",
   "Taktart ?": "¿Compás?",
   "Frequenz ?": "¿Frec.?",
-  "Vamp ?": "¿Vamp?",
+  "Pendel ?": "¿Bucle?",
   "Farbe ?": "¿Color?",
   "Modus ?": "¿Modo?",
   "Intervall ?": "¿Intervalo?",
@@ -22681,7 +22732,7 @@ const TR_ES = {
   "Höre genau hin – zu welchem Frequenzband gehört dieser Ton?": "Escucha bien: ¿a qué banda de frecuencias corresponde este sonido?",
   "PHASE 1 • {k}": "FASE 1 • {k}",
   "Neutrale Grundton-Quinte (ohne Terz) – gleich erklingt der Modus…": "Quinta neutra (sin tercera): llega el modo…",
-  "MODALER VAMP": "VAMP MODAL",
+  "MODALES AKKORDPENDEL": "BUCLE MODAL",
   "CHARAKTERTON": "NOTA CARACTERÍSTICA",
   "KIRCHENTONART": "MODO",
   "Welcher modale Klang prägt diese Akkordfolge?": "¿Qué color modal tiene esta secuencia de acordes?",
@@ -23004,7 +23055,7 @@ const TR_ES = {
   "Intervalle (Abwärts)": "Intervalos (descendentes)",
   "Intervalle (Aufwärts)": "Intervalos (ascendentes)",
   "Intervalle (Harmonisch)": "Intervalos (armónicos)",
-  "Ionisch, Äolisch, Dorisch & Mixolydisch (Tonleiter, Charakterton & Vamp)": "Jónico, eólico, dórico y mixolidio (escala, nota caract. y vamp)",
+  "Ionisch, Äolisch, Dorisch & Mixolydisch (Tonleiter, Charakterton & Akkordpendel)": "Jónico, eólico, dórico y mixolidio (escala, nota caract. y bucle)",
   "Isolierte Frequenzen": "Frecuencias aisladas",
   "Jede Prüfung schärft dein Ohr – vergleiche deine Antworten jetzt direkt in der Hör-Rückschau!": "Cada examen afina tu oído: ¡compara tus respuestas directamente en el repaso sonoro!",
   "KLOPFRUNDE ERFASST": "TOQUE REGISTRADO",
@@ -23018,7 +23069,7 @@ const TR_ES = {
   "Max. 2× Replay": "Máx. 2× repetición",
   "Max. 2× anhören": "Máx. 2× repetición",
   "Melodien (4 Töne)": "Melodías (4 notas)",
-  "Modaler Vamp": "Vamp modal",
+  "Modales Akkordpendel": "Bucle modal",
   "Neuer Bestwert!": "¡Nuevo récord!",
   "Noch keine Prüfung abgelegt. Öffne auf dem Startbildschirm eine Kategorie und wähle „Kategorie-Prüfung ablegen“.": "Aún no has hecho ningún examen. Abre una categoría en el inicio y elige «Hacer el examen de la categoría».",
   "Noch {left}× anhören": "Quedan {left}× de escucha",
@@ -23522,7 +23573,7 @@ const I18N_STATIC_FR = {
   "home.catSolfege": "Solfège",
   "home.catSolfegeDesc": "Ressentir les degrés Do–Re–Mi au sein d’une tonalité",
   "home.catModes": "Gammes & Modes",
-  "home.catModesDesc": "Modes ecclésiastiques, notes caractéristiques & vamps modaux",
+  "home.catModesDesc": "Modes ecclésiastiques, notes caractéristiques & boucles d’accords modales",
   "home.catMelodies": "Mélodies",
   "home.catMelodiesDesc": "Relever pas à pas de courtes phrases mélodiques à l’oreille",
   "home.catRhythm": "Rythme",
@@ -24082,7 +24133,7 @@ const MIX_MODES_FR = {
   "prod-eq-noise":         "Production • Égalisation bruit rose",
   "modes-scale":           "Modes • Reconnaître la gamme",
   "modes-char":            "Modes • Note caractéristique",
-  "modes-cadence":         "Modes • Vamps modaux",
+  "modes-cadence":         "Modes • Boucles modales",
   "notation-treble":       "Notation • Clé de Sol",
   "notation-bass":         "Notation • Clé de Fa",
   "notation-alto":         "Notation • Clé d’Ut 3",
@@ -24296,10 +24347,15 @@ const MODES_FR = {
 const MODE_LEVEL_LABELS_FR = {
   scale:   { 1: "4 modes de base", 2: "Tous les 7 (Do)",  3: "7 modes + Transposition" },
   char:    { 1: "Modes majeurs",   2: "Modes mineurs",    3: "Tous + Min. harm." },
-  cadence: { 1: "4 vamps standard",2: "Les 6 vamps modaux" }
+  cadence: { 1: "4 boucles standard", 2: "Les 6 boucles modales" }
 };
 
 const TR_FR = {
+  "Summ den Basston des gesuchten Akkords und sing von dort zurück zum Grundton der Tonart – die Zahl der Schritte verrät dir die Stufe.": "Fredonne la basse de l’accord recherché, puis chante depuis cette note jusqu’à la tonique – le nombre de pas te révèle le degré.",
+  "Summ den Basston des gesuchten Akkords – dann tippen.": "Fredonne la basse de l’accord recherché – puis touche.",
+  "Sing vom gesuchten Basston zurück zum Grundton: Wie viele Schritte?": "Chante de cette basse jusqu’à la tonique : combien de pas ?",
+  "NUR HÖREN • SUMM-PAUSE": "ÉCOUTE SEULE • PAUSE FREDONNEMENT",
+  "Pendel": "Boucle",
   "Bereit für eine entspannte Session.": "Prêt pour une session sereine.",
   "Stufe": "Niveau",
   "Basis": "Bases",
@@ -24342,7 +24398,7 @@ const TR_FR = {
   "Breiter EQ": "EQ large",
   "Modi: Tonleitern": "Modes : Gammes",
   "Modi: Charakterton": "Modes : Note caractéristique",
-  "Modi: Kadenzen": "Modes : Vamps modaux",
+  "Modi: Kadenzen": "Modes : boucles modales",
   "Dreiklänge": "Triades",
   "Sept & Sus": "7es & Sus",
   "Erweitert": "Enrichis",
@@ -24371,7 +24427,7 @@ const TR_FR = {
   "Frequenzen": "Fréquences",
   "EQ im Noise": "EQ bruit rose",
   "Tonleitern": "Gammes",
-  "Kadenzen & Vamps": "Vamps modaux",
+  "Kadenzen & Akkordpendel": "Boucles modales",
   "Arpeggio (Aufwärts ↗)": "Arpège (Ascendant ↗)",
   "Arpeggio (Abwärts ↘)": "Arpège (Descendant ↘)",
   "Gleichzeitiger Klang": "Simultané",
@@ -24606,11 +24662,11 @@ const TR_FR = {
   "Äolisch, Dorisch, Phrygisch &amp; Lokrisch": "Éolien, Dorien, Phrygien &amp; Locrien",
   "Stufe 3: Gesamt-Spektrum": "Niveau 3 : Spectre complet",
   "Alle 7 Modi + Harmonisch Moll": "Les 7 modes + Mineur harmonique",
-  "3. Modale Kadenzen &amp; Vamps": "3. Cadences modales &amp; Vamps",
-  "Typische Pendel-Akkorde (z. B. i–IV, I–bVII, I–II oder i–bII) am Klang erkennen": "Identifier à l’oreille les enchaînements modaux typiques (ex. i–IV, I–bVII, I–II ou i–bII)",
-  "Stufe 1: Standard-Vamps": "Niveau 1 : Vamps standard",
+  "3. Modale Kadenzen &amp; Akkordpendel": "3. Cadences &amp; boucles d’accords modales",
+  "Akkordpendel: Zwei Akkorde wechseln sich immer wieder ab und machen so die Farbe eines Modus hörbar (z. B. i–IV, I–bVII, I–II oder i–bII).": "Boucles d’accords : deux accords alternent encore et encore et font entendre la couleur d’un mode (p. ex. i–IV, I–bVII, I–II ou i–bII).",
+  "Stufe 1: Standard-Akkordpendel": "Niveau 1 : Boucles standard",
   "Ionisch, Dorisch, Mixolydisch &amp; Äolisch": "Ionien, Dorien, Mixolydien &amp; Éolien",
-  "Stufe 2: Alle 6 Modal-Vamps": "Niveau 2 : Les 6 vamps modaux",
+  "Stufe 2: Alle 6 modalen Akkordpendel": "Niveau 2 : Les 6 boucles modales",
   "Inkl. Lydisch (I–II) &amp; Phrygisch (i–bII)": "Incl. Lydien (I–II) &amp; Phrygien (i–bII)",
   "1. Tonumfang wählen": "1. Choisir la tessiture",
   "Passt Grundton und Modulationsbereich der Übungen an dich oder deinen Chor an": "Adapte la tonalité de départ et l’ambitus des exercices à votre voix ou pupitre",
@@ -24941,7 +24997,7 @@ Object.assign(TR_FR, {
   "Charakterton • {lbl}": "Note caractéristique • {lbl}",
   "Grundton {root}": "Fondamentale {root}",
   "Welcher Modus steckt in diesem Charakterton?": "Quel mode correspond à cette note caractéristique ?",
-  "Modale Kadenz • {lbl}": "Vamp modal • {lbl}",
+  "Modale Kadenz • {lbl}": "Boucle modale • {lbl}",
   "Welcher Modus prägt diese Akkordfolge?": "Quel mode colore cette suite d’accords ?",
   "Tonleiter / Modus • {lbl}": "Gamme / Mode • {lbl}",
   "Welche Kirchentonart erklingt aufwärts?": "Quel mode écoutez-vous en montant ?",
@@ -24983,7 +25039,7 @@ Object.assign(TR_FR, {
   "Umkehrung ?": "Renversement ?",
   "Taktart ?": "Mesure ?",
   "Frequenz ?": "Fréq. ?",
-  "Vamp ?": "Vamp ?",
+  "Pendel ?": "Boucle ?",
   "Farbe ?": "Couleur ?",
   "Modus ?": "Mode ?",
   "Intervall ?": "Intervalle ?",
@@ -25096,7 +25152,7 @@ Object.assign(TR_FR, {
   "Höre genau hin – zu welchem Frequenzband gehört dieser Ton?": "Écoutez bien — à quelle bande de fréquences correspond ce son ?",
   "PHASE 1 • {k}": "PHASE 1 • {k}",
   "Neutrale Grundton-Quinte (ohne Terz) – gleich erklingt der Modus…": "Quinte neutre (sans tierce) — le mode arrive…",
-  "MODALER VAMP": "VAMP MODAL",
+  "MODALES AKKORDPENDEL": "BOUCLE MODALE",
   "CHARAKTERTON": "NOTE CARACTÉRISTIQUE",
   "KIRCHENTONART": "MODE",
   "Welcher modale Klang prägt diese Akkordfolge?": "Quelle couleur modale porte cette grille d’accords ?",
@@ -25425,7 +25481,7 @@ Object.assign(TR_FR, {
   "Intervalle (Abwärts)": "Intervalles (Descendant)",
   "Intervalle (Aufwärts)": "Intervalles (Ascendant)",
   "Intervalle (Harmonisch)": "Intervalles (Harmonique)",
-  "Ionisch, Äolisch, Dorisch & Mixolydisch (Tonleiter, Charakterton & Vamp)": "Ionien, Éolien, Dorien & Mixolydien (gamme, note caract. & vamp)",
+  "Ionisch, Äolisch, Dorisch & Mixolydisch (Tonleiter, Charakterton & Akkordpendel)": "Ionien, Éolien, Dorien & Mixolydien (gamme, note caract. & boucle)",
   "Isolierte Frequenzen": "Fréquences isolées",
   "Jede Prüfung schärft dein Ohr – vergleiche deine Antworten jetzt direkt in der Hör-Rückschau!": "Chaque examen affine votre oreille — comparez vos réponses directement dans la revue audio !",
   "KLOPFRUNDE ERFASST": "FRAPPE ENREGISTRÉE",
@@ -25439,7 +25495,7 @@ Object.assign(TR_FR, {
   "Max. 2× Replay": "Max 2× réécoute",
   "Max. 2× anhören": "Max 2× réécoute",
   "Melodien (4 Töne)": "Mélodies (4 notes)",
-  "Modaler Vamp": "Vamp modal",
+  "Modales Akkordpendel": "Boucle modale",
   "Neuer Bestwert!": "Nouveau record !",
   "Noch keine Prüfung abgelegt. Öffne auf dem Startbildschirm eine Kategorie und wähle „Kategorie-Prüfung ablegen“.": "Aucun examen passé pour l’instant. Ouvrez une catégorie sur l’accueil et choisissez « Passer l’examen de la catégorie ».",
   "Noch {left}× anhören": "Encore {left}× d’écoute",
@@ -26731,6 +26787,11 @@ const MODE_LEVEL_LABELS_PL = {
 };
 
 const TR_PL = {
+  "Summ den Basston des gesuchten Akkords und sing von dort zurück zum Grundton der Tonart – die Zahl der Schritte verrät dir die Stufe.": "Zanuć bas szukanego akordu i zaśpiewaj od niego z powrotem do toniki – liczba kroków zdradzi ci stopień.",
+  "Summ den Basston des gesuchten Akkords – dann tippen.": "Zanuć bas szukanego akordu – potem stuknij.",
+  "Sing vom gesuchten Basston zurück zum Grundton: Wie viele Schritte?": "Zaśpiewaj od tego basu do toniki: ile kroków?",
+  "NUR HÖREN • SUMM-PAUSE": "TYLKO SŁUCHANIE • PAUZA NA NUCENIE",
+  "Pendel": "Zwrot",
   " • Takt 4": " • Takt 4",
   " • Zufallstakt": " • Losowy takt",
   "(Zufallstakt)": "(Losowy takt)",
@@ -26765,7 +26826,7 @@ const TR_PL = {
   "3 Arpeggio": "3 Arpeggio",
   "3 in Folge – schöner Flow!": "3 z rzędu — świetny flow!",
   "3. Alt: Oktave einschwingen": "3. Alt: wtop się w oktawę",
-  "3. Modale Kadenzen &amp; Vamps": "3. Kadencje i progresje modalne",
+  "3. Modale Kadenzen &amp; Akkordpendel": "3. Kadencje i progresje modalne",
   "3. Zusammenklang im Ohr (Summenwelle)": "3. Współbrzmienie w uchu (fala wypadkowa)",
   "4 / 4 gelöst ✓": "4 / 4 odgadnięte ✓",
   "4 Chorklang": "4 Chór",
@@ -27037,7 +27098,7 @@ const TR_PL = {
   "Kadenz + „{s}“ + Auflösung hören": "Posłuchaj: kadencja + „{s}” + rozwiązanie",
   "Kadenzen": "Kadencje",
   "Kadenzen & Harmonien": "Kadencje i harmonia",
-  "Kadenzen & Vamps": "Kadencje modalne",
+  "Kadenzen & Akkordpendel": "Kadencje modalne",
   "Karten & Felder": "Karty i panele",
   "Kein Instrument": "Brak instrumentu",
   "Kein Instrument gewählt": "Nie wybrano instrumentu",
@@ -27086,7 +27147,7 @@ const TR_PL = {
   "MELODIE • TON {n}/4": "MELODIA • NUTA {n}/4",
   "METRUM • TAKT {n}/2": "METRUM • TAKT {n}/2",
   "MIKRO-TIMING": "MIKROTIMING",
-  "MODALER VAMP": "KADENCJA MODALNA",
+  "MODALES AKKORDPENDEL": "KADENCJA MODALNA",
   "MUSTER • NUR HÖREN": "WZÓR • TYLKO SŁUCHAJ",
   "MUSTER • SCHLAG {n}/{tot}": "WZÓR • MIARA {n}/{tot}",
   "Ma – Me – Mi – Mo – Mu": "Ma – Me – Mi – Mo – Mu",
@@ -27303,9 +27364,9 @@ const TR_PL = {
   "Stufe 1: Groove-Stile": "Poziom 1: Style groovu",
   "Stufe 1: Puls &amp; Pausen": "Poziom 1: Puls i pauzy",
   "Stufe 1: Puls-Anker": "Poziom 1: Oparcie pulsu",
-  "Stufe 1: Standard-Vamps": "Poziom 1: Główne zwroty",
+  "Stufe 1: Standard-Akkordpendel": "Poziom 1: Główne zwroty",
   "Stufe 2: Achtel &amp; 3/4": "Poziom 2: Ósemki i 3/4",
-  "Stufe 2: Alle 6 Modal-Vamps": "Poziom 2: Wszystkie 6 zwrotów",
+  "Stufe 2: Alle 6 modalen Akkordpendel": "Poziom 2: Wszystkie 6 zwrotów",
   "Stufe 2: Diatonisch": "Poziom 2: Diatoniczny",
   "Stufe 2: Dur &amp; Moll": "Poziom 2: Dur i Moll",
   "Stufe 2: Dur-Tonleiter": "Poziom 2: Skala durowa",
@@ -27403,7 +27464,7 @@ const TR_PL = {
   "Tonpaar (Gleichzeitig)": "Współbrzmienie (2 nuty)",
   "Trainiere dein absolutes Frequenz-Gefühl vom Subbass (63 Hz) bis in die Air-Höhen (12 kHz)": "Wyćwicz precyzyjne rozpoznawanie pasm od subbasu (63 Hz) aż po najwyższą górę (12 kHz)",
   "Treffer ✓": "Trafienie ✓",
-  "Typische Pendel-Akkorde (z. B. i–IV, I–bVII, I–II oder i–bII) am Klang erkennen": "Rozpoznawaj po brzmieniu charakterystyczne progresje modalne (np. i–IV, I–bVII, I–II czy i–bII)",
+  "Akkordpendel: Zwei Akkorde wechseln sich immer wieder ab und machen so die Farbe eines Modus hörbar (z. B. i–IV, I–bVII, I–II oder i–bII).": "Zwroty akordowe: dwa akordy wymieniają się raz po raz i pokazują barwę trybu (np. i–IV, I–bVII, I–II lub i–bII).",
   "U → O → A → E → I": "U → O → A → E → I",
   "Umkehrung": "Przewrót",
   "Umkehrung ?": "Przewrót ?",
@@ -27415,7 +27476,7 @@ const TR_PL = {
   "VORSPIEL • SCHLAG {n}/{tot}": "WZÓR • MIARA {n}/{tot}",
   "VORZÄHLER ({n}/4)": "ODLICZANIE ({n}/4)",
   "VORZÄHLER • {m}": "ODLICZANIE • {m}",
-  "Vamp ?": "Progresja ?",
+  "Pendel ?": "Progresja ?",
   "Verfehlt: {missed} • Extraschläge: {extra} (Toleranz ±{tol} ms)": "Pominięte: {missed} • Dodatkowe: {extra} (tolerancja ±{tol} ms)",
   "Vergleich (Klick)": "Porównanie (klik)",
   "Vergleiche beide Modi über demselben Grundton:": "Porównaj obie skale od tego samego dźwięku podstawowego:",
@@ -27889,7 +27950,7 @@ Object.assign(TR_PL, {
   "Intervalle (Abwärts)": "Interwały (W dół)",
   "Intervalle (Aufwärts)": "Interwały (W górę)",
   "Intervalle (Harmonisch)": "Interwały (Harmoniczne)",
-  "Ionisch, Äolisch, Dorisch & Mixolydisch (Tonleiter, Charakterton & Vamp)": "Joński, eolski, dorycki i miksolidyjski (skala, ton i kadencja)",
+  "Ionisch, Äolisch, Dorisch & Mixolydisch (Tonleiter, Charakterton & Akkordpendel)": "Joński, eolski, dorycki i miksolidyjski (skala, ton i kadencja)",
   "Isolierte Frequenzen": "Częstotliwości izolowane",
   "Jede Prüfung schärft dein Ohr – vergleiche deine Antworten jetzt direkt in der Hör-Rückschau!": "Każdy egzamin wyostrza słuch — porównaj swoje odpowiedzi w odsłuchu poniżej!",
   "KLOPFRUNDE ERFASST": "RUNDA ZAPISANA",
@@ -27903,7 +27964,7 @@ Object.assign(TR_PL, {
   "Max. 2× Replay": "Maks. 2× odsłuch",
   "Max. 2× anhören": "Maks. 2× posłuchaj",
   "Melodien (4 Töne)": "Melodie (4 nuty)",
-  "Modaler Vamp": "Kadencja modalna",
+  "Modales Akkordpendel": "Kadencja modalna",
   "Neuer Bestwert!": "Nowy rekord!",
   "Noch keine Prüfung abgelegt. Öffne auf dem Startbildschirm eine Kategorie und wähle „Kategorie-Prüfung ablegen“.": "Brak ukończonych egzaminów. Otwórz kategorię na ekranie głównym i wybierz „Zdaj egzamin z kategorii”.",
   "Noch {left}× anhören": "Pozostało {left}× odsłuchu",
@@ -29196,6 +29257,11 @@ const MODE_LEVEL_LABELS_UK = {
 };
 
 const TR_UK = {
+  "Summ den Basston des gesuchten Akkords und sing von dort zurück zum Grundton der Tonart – die Zahl der Schritte verrät dir die Stufe.": "Наспівай басовий тон шуканого акорду й заспівай від нього назад до тоніки – кількість кроків підкаже ступінь.",
+  "Summ den Basston des gesuchten Akkords – dann tippen.": "Наспівай басовий тон шуканого акорду – потім торкнись.",
+  "Sing vom gesuchten Basston zurück zum Grundton: Wie viele Schritte?": "Заспівай від цього баса до тоніки: скільки кроків?",
+  "NUR HÖREN • SUMM-PAUSE": "ЛИШЕ СЛУХАННЯ • ПАУЗА ДЛЯ НАСПІВУВАННЯ",
+  "Pendel": "Зворот",
   " • Takt 4": " • Такт 4",
   " • Zufallstakt": " • Випадковий такт",
   "(Zufallstakt)": "(Випадковий такт)",
@@ -29230,7 +29296,7 @@ const TR_UK = {
   "3 Arpeggio": "3 Арпеджіо",
   "3 in Folge – schöner Flow!": "3 поспіль — чудовий потік!",
   "3. Alt: Oktave einschwingen": "3. Альт: злитися в октаву",
-  "3. Modale Kadenzen &amp; Vamps": "3. Модальні каданси та звороти",
+  "3. Modale Kadenzen &amp; Akkordpendel": "3. Модальні каданси та звороти",
   "3. Zusammenklang im Ohr (Summenwelle)": "3. Спільна хвиля у вусі (сума)",
   "4 / 4 gelöst ✓": "4 / 4 відгадано ✓",
   "4 Chorklang": "4 Хор",
@@ -29502,7 +29568,7 @@ const TR_UK = {
   "Kadenz + „{s}“ + Auflösung hören": "Почути: каданс + «{s}» + розв’язання",
   "Kadenzen": "Каданси",
   "Kadenzen & Harmonien": "Каданси та гармонія",
-  "Kadenzen & Vamps": "Модальні звороти",
+  "Kadenzen & Akkordpendel": "Модальні звороти",
   "Karten & Felder": "Картки й панелі",
   "Kein Instrument": "Без інструмента",
   "Kein Instrument gewählt": "Інструмент не обрано",
@@ -29551,7 +29617,7 @@ const TR_UK = {
   "MELODIE • TON {n}/4": "МЕЛОДІЯ • НОТА {n}/4",
   "METRUM • TAKT {n}/2": "РОЗМІР • ТАКТ {n}/2",
   "MIKRO-TIMING": "МІКРОТАЙМІНГ",
-  "MODALER VAMP": "МОДАЛЬНИЙ ЗВОРОТ",
+  "MODALES AKKORDPENDEL": "МОДАЛЬНИЙ ЗВОРОТ",
   "MUSTER • NUR HÖREN": "ЗРАЗОК • ЛИШЕ СЛУХАТИ",
   "MUSTER • SCHLAG {n}/{tot}": "ЗРАЗОК • ДОЛЯ {n}/{tot}",
   "Ma – Me – Mi – Mo – Mu": "Ма – Ме – Мі – Мо – Му",
@@ -29768,9 +29834,9 @@ const TR_UK = {
   "Stufe 1: Groove-Stile": "Рівень 1: Стилі ґруву",
   "Stufe 1: Puls &amp; Pausen": "Рівень 1: Пульс і паузи",
   "Stufe 1: Puls-Anker": "Рівень 1: Опора пульсу",
-  "Stufe 1: Standard-Vamps": "Рівень 1: Основні звороти",
+  "Stufe 1: Standard-Akkordpendel": "Рівень 1: Основні звороти",
   "Stufe 2: Achtel &amp; 3/4": "Рівень 2: Восьмі та 3/4",
-  "Stufe 2: Alle 6 Modal-Vamps": "Рівень 2: Усі 6 модальних зворотів",
+  "Stufe 2: Alle 6 modalen Akkordpendel": "Рівень 2: Усі 6 модальних зворотів",
   "Stufe 2: Diatonisch": "Рівень 2: Діатоніка",
   "Stufe 2: Dur &amp; Moll": "Рівень 2: Мажор і мінор",
   "Stufe 2: Dur-Tonleiter": "Рівень 2: Мажорна гама",
@@ -29868,7 +29934,7 @@ const TR_UK = {
   "Tonpaar (Gleichzeitig)": "Інтервал (одночасно)",
   "Trainiere dein absolutes Frequenz-Gefühl vom Subbass (63 Hz) bis in die Air-Höhen (12 kHz)": "Тренуй точне відчуття частот від саб-басу (63 Гц) до повітряних верхів (12 кГц)",
   "Treffer ✓": "Влучно ✓",
-  "Typische Pendel-Akkorde (z. B. i–IV, I–bVII, I–II oder i–bII) am Klang erkennen": "Упізнавай типові модальні звороти (напр. i–IV, I–bVII, I–II або i–bII) за звучанням",
+  "Akkordpendel: Zwei Akkorde wechseln sich immer wieder ab und machen so die Farbe eines Modus hörbar (z. B. i–IV, I–bVII, I–II oder i–bII).": "Акордові звороти: два акорди чергуються знову й знову та роблять чутним забарвлення ладу (напр. i–IV, I–bVII, I–II або i–bII).",
   "U → O → A → E → I": "У → О → А → Е → І",
   "Umkehrung": "Обернення",
   "Umkehrung ?": "Обернення ?",
@@ -29880,7 +29946,7 @@ const TR_UK = {
   "VORSPIEL • SCHLAG {n}/{tot}": "ДЕМО • ДОЛЯ {n}/{tot}",
   "VORZÄHLER ({n}/4)": "ВІДЛІК ({n}/4)",
   "VORZÄHLER • {m}": "ВІДЛІК • {m}",
-  "Vamp ?": "Зворот ?",
+  "Pendel ?": "Зворот ?",
   "Verfehlt: {missed} • Extraschläge: {extra} (Toleranz ±{tol} ms)": "Пропущено: {missed} • Зайвих ударів: {extra} (допуск ±{tol} мс)",
   "Vergleich (Klick)": "Порівняння (клік)",
   "Vergleiche beide Modi über demselben Grundton:": "Порівняй обидва лади від одного основного тону:",
@@ -30355,7 +30421,7 @@ Object.assign(TR_UK, {
   "Intervalle (Abwärts)": "Інтервали (Низхідні)",
   "Intervalle (Aufwärts)": "Інтервали (Висхідні)",
   "Intervalle (Harmonisch)": "Інтервали (Гармонічні)",
-  "Ionisch, Äolisch, Dorisch & Mixolydisch (Tonleiter, Charakterton & Vamp)": "Іонійський, еолійський, дорійський і міксолідійський (гама, тон і вамп)",
+  "Ionisch, Äolisch, Dorisch & Mixolydisch (Tonleiter, Charakterton & Akkordpendel)": "Іонійський, еолійський, дорійський і міксолідійський (гама, тон і зворот)",
   "Isolierte Frequenzen": "Ізольовані частоти",
   "Jede Prüfung schärft dein Ohr – vergleiche deine Antworten jetzt direkt in der Hör-Rückschau!": "Кожен іспит загострює слух — порівняй свої відповіді просто зараз в аудіорозборі!",
   "KLOPFRUNDE ERFASST": "РАУНД ЗАПИСАНО",
@@ -30369,7 +30435,7 @@ Object.assign(TR_UK, {
   "Max. 2× Replay": "Макс. 2× повтор",
   "Max. 2× anhören": "Макс. 2× повтор",
   "Melodien (4 Töne)": "Мелодії (4 ноти)",
-  "Modaler Vamp": "Модальний вамп",
+  "Modales Akkordpendel": "Модальний зворот",
   "Neuer Bestwert!": "Новий рекорд!",
   "Noch keine Prüfung abgelegt. Öffne auf dem Startbildschirm eine Kategorie und wähle „Kategorie-Prüfung ablegen“.": "Іспитів ще немає. Відкрий категорію на головному екрані й обери «Скласти іспит за категорією».",
   "Noch {left}× anhören": "Ще {left}× прослухати",
@@ -30872,7 +30938,7 @@ const I18N_STATIC_UR = {
   "home.catSolfege": "سولفیج (سرگم)",
   "home.catSolfegeDesc": "کسی کلید میں Do–Re–Mi کے درجات اور ذائقہ محسوس کریں",
   "home.catModes": "اسکیلز اور موڈز",
-  "home.catModesDesc": "چرچ موڈز، خاص امتیازی سُر اور موڈل ویمپس",
+  "home.catModesDesc": "چرچ موڈز، خاص امتیازی سُر اور موڈل کارڈ لوپس",
   "home.catMelodies": "دھنیں (Melodies)",
   "home.catMelodiesDesc": "چھوٹی دھنیں کان سے سن کر قدم بہ قدم ترتیب دیں",
   "home.catRhythm": "تال اور ردھم",
@@ -31453,7 +31519,7 @@ const MIX_MODES_UR = {
   "prod-eq-noise": "پروڈکشن • پنک نوائز EQ",
   "modes-scale": "موڈز • اسکیل کی پہچان",
   "modes-char": "موڈز • امتیازی سُر",
-  "modes-cadence": "موڈز • موڈل ویمپس",
+  "modes-cadence": "موڈز • موڈل کارڈ لوپس",
   "notation-treble": "نوٹیشن • ٹریبل کلیف",
   "notation-bass": "نوٹیشن • باس کلیف",
   "notation-alto": "نوٹیشن • آلٹو کلیف",
@@ -31685,12 +31751,17 @@ const MODE_LEVEL_LABELS_UR = {
     "3": "سب + ہارم۔ مائنر"
   },
   cadence: {
-    "1": "4 معیاری ویمپس",
-    "2": "تمام 6 موڈل ویمپس"
+    "1": "4 معیاری کارڈ لوپس",
+    "2": "تمام 6 موڈل کارڈ لوپس"
   }
 };
 
 const TR_UR = Object.assign(Object.create(null), {
+  "Summ den Basston des gesuchten Akkords und sing von dort zurück zum Grundton der Tonart – die Zahl der Schritte verrät dir die Stufe.": "مطلوبہ کارڈ کا باس سُر گنگنائیں، پھر وہاں سے واپس اسکیل کے بنیادی سُر تک گائیں – قدموں کی تعداد آپ کو درجہ بتا دے گی۔",
+  "Summ den Basston des gesuchten Akkords – dann tippen.": "مطلوبہ کارڈ کا باس سُر گنگنائیں – پھر ٹیپ کریں۔",
+  "Sing vom gesuchten Basston zurück zum Grundton: Wie viele Schritte?": "اس باس سُر سے واپس بنیادی سُر تک گائیں: کتنے قدم؟",
+  "NUR HÖREN • SUMM-PAUSE": "صرف سننا • گنگنانے کا وقفہ",
+  "Pendel": "لوپ",
   " • Takt 4": " • بار 4",
   " • Zufallstakt": " • بے ترتیب بار",
   "(Zufallstakt)": "(بے ترتیب بار)",
@@ -31725,7 +31796,7 @@ const TR_UR = Object.assign(Object.create(null), {
   "3 Arpeggio": "3 آرپیجیو",
   "3 in Folge – schöner Flow!": "لگاتار 3 — عمدہ روانی!",
   "3. Alt: Oktave einschwingen": "3. آلٹو: آکٹیو میں شامل ہوں",
-  "3. Modale Kadenzen &amp; Vamps": "3. موڈل کیڈینسز اور ویمپس",
+  "3. Modale Kadenzen &amp; Akkordpendel": "3. موڈل کیڈینسز اور کارڈ لوپس",
   "3. Zusammenklang im Ohr (Summenwelle)": "3. کان میں مشترکہ موج (مجموعہ)",
   "4 / 4 gelöst ✓": "4 / 4 حل ہو گئے ✓",
   "4 Chorklang": "4 کورس بلینڈ",
@@ -31991,13 +32062,13 @@ const TR_UR = Object.assign(Object.create(null), {
   "KIRCHENTONART": "موڈ (اسکیل)",
   "KNAPP DANEBEN": "تقریباً قریب",
   "KONTEXT-KADENZ ({n}/4)": "سیاق کیڈینس ({n}/4)",
-  "Kadenz": "ویمپ / کیڈینس",
+  "Kadenz": "کارڈ لوپ / کیڈینس",
   "Kadenz (I–vi–IV–V) + Stufe + Auflösung zur Tonika": "کیڈینس (I–vi–IV–V) + درجہ + ٹانک پر حل",
   "Kadenz (Takt 1–4)": "کیڈینس (بار 1–4)",
   "Kadenz + „{s}“ + Auflösung hören": "کیڈینس + «{s}» + حل سنیں",
   "Kadenzen": "کیڈینسز",
   "Kadenzen & Harmonien": "کیڈینسز اور ہارمونیز",
-  "Kadenzen & Vamps": "موڈل ویمپس",
+  "Kadenzen & Akkordpendel": "موڈل کارڈ لوپس",
   "Karten & Felder": "کارڈز اور خانے",
   "Kein Instrument": "کوئی ساز نہیں",
   "Kein Instrument gewählt": "کوئی ساز منتخب نہیں",
@@ -32046,7 +32117,7 @@ const TR_UR = Object.assign(Object.create(null), {
   "MELODIE • TON {n}/4": "دھن • نوٹ {n}/4",
   "METRUM • TAKT {n}/2": "تال • بار {n}/2",
   "MIKRO-TIMING": "مائیکرو ٹائمنگ",
-  "MODALER VAMP": "موڈل ویمپ",
+  "MODALES AKKORDPENDEL": "موڈل کارڈ لوپ",
   "MUSTER • NUR HÖREN": "پیٹرن • صرف سنیں",
   "MUSTER • SCHLAG {n}/{tot}": "پیٹرن • بیٹ {n}/{tot}",
   "Ma – Me – Mi – Mo – Mu": "ما – مے – می – مو – مُو",
@@ -32075,10 +32146,10 @@ const TR_UR = Object.assign(Object.create(null), {
   "Mix entfernen": "مکس ہٹائیں",
   "Mjaa – Nuu": "میا – نُو",
   "Mmm / Brrrr": "م م م / بررر",
-  "Modale Kadenz • {lbl}": "موڈل ویمپ • {lbl}",
+  "Modale Kadenz • {lbl}": "موڈل کارڈ لوپ • {lbl}",
   "Modi & Tonleitern": "موڈز اور اسکیلز",
   "Modi: Charakterton": "موڈز: امتیازی سُر",
-  "Modi: Kadenzen": "موڈز: ویمپس",
+  "Modi: Kadenzen": "موڈز: کارڈ لوپس",
   "Modi: Tonleitern": "موڈز: اسکیلز",
   "Modus ?": "موڈ ؟",
   "Moll & Warm": "مائنر اور گرمجوش",
@@ -32263,9 +32334,9 @@ const TR_UR = Object.assign(Object.create(null), {
   "Stufe 1: Groove-Stile": "لیول 1: گروو انداز",
   "Stufe 1: Puls &amp; Pausen": "لیول 1: نبض اور وقفے",
   "Stufe 1: Puls-Anker": "لیول 1: نبض کا لنگر",
-  "Stufe 1: Standard-Vamps": "لیول 1: معیاری ویمپس",
+  "Stufe 1: Standard-Akkordpendel": "لیول 1: معیاری کارڈ لوپس",
   "Stufe 2: Achtel &amp; 3/4": "لیول 2: آٹھویں اور 3/4",
-  "Stufe 2: Alle 6 Modal-Vamps": "لیول 2: تمام 6 موڈل ویمپس",
+  "Stufe 2: Alle 6 modalen Akkordpendel": "لیول 2: تمام 6 موڈل کارڈ لوپس",
   "Stufe 2: Diatonisch": "لیول 2: ڈایاٹونک",
   "Stufe 2: Dur &amp; Moll": "لیول 2: میجر اور مائنر",
   "Stufe 2: Dur-Tonleiter": "لیول 2: میجر اسکیل",
@@ -32363,7 +32434,7 @@ const TR_UR = Object.assign(Object.create(null), {
   "Tonpaar (Gleichzeitig)": "2 سُروں کا جوڑا",
   "Trainiere dein absolutes Frequenz-Gefühl vom Subbass (63 Hz) bis in die Air-Höhen (12 kHz)": "سب باس (63 Hz) سے Air بینڈ (12 kHz) تک فریکوئنسی کی پختہ پہچان مشق کریں",
   "Treffer ✓": "درست ✓",
-  "Typische Pendel-Akkorde (z. B. i–IV, I–bVII, I–II oder i–bII) am Klang erkennen": "کان سے مخصوص موڈل کارڈ ویمپس (مثلاً i–IV, I–bVII, I–II یا i–bII) پہچانیں",
+  "Akkordpendel: Zwei Akkorde wechseln sich immer wieder ab und machen so die Farbe eines Modus hörbar (z. B. i–IV, I–bVII, I–II oder i–bII).": "کارڈ لوپس: دو کارڈز بار بار باری باری بجتے ہیں اور کسی موڈ کا رنگ سنائی دیتا ہے (مثلاً i–IV، I–bVII، I–II یا i–bII)۔",
   "U → O → A → E → I": "اُ → او → آ → اے → اِی",
   "Umkehrung": "اُلٹاؤ (Inversion)",
   "Umkehrung ?": "اُلٹاؤ ؟",
@@ -32375,7 +32446,7 @@ const TR_UR = Object.assign(Object.create(null), {
   "VORSPIEL • SCHLAG {n}/{tot}": "تعارف • بیٹ {n}/{tot}",
   "VORZÄHLER ({n}/4)": "گنتی ({n}/4)",
   "VORZÄHLER • {m}": "گنتی • {m}",
-  "Vamp ?": "ویمپ ؟",
+  "Pendel ?": "لوپ ؟",
   "Verfehlt: {missed} • Extraschläge: {extra} (Toleranz ±{tol} ms)": "چوک: {missed} • اضافی ضربیں: {extra} (گنجائش ±{tol} ms)",
   "Vergleich (Klick)": "موازنہ (کلک)",
   "Vergleiche beide Modi über demselben Grundton:": "ایک ہی بنیادی سُر پر دونوں موڈز کا موازنہ کریں:",
@@ -32418,7 +32489,7 @@ const TR_UR = Object.assign(Object.create(null), {
   "Welcher Akkordton saß ganz unten im Bass? Wähle die Umkehrung.": "سب سے نیچے باس میں کون سا سُر تھا؟ نیچے اُلٹاؤ چنیں۔",
   "Welcher Frequenzbereich erklingt?": "کون سا فریکوئنسی بینڈ بج رہا ہے؟",
   "Welcher Groove-Charakter erklingt?": "کون سا گروو احساس سنائی دے رہا ہے؟",
-  "Welcher Modus prägt diese Akkordfolge?": "اس کارڈ ویمپ پر کون سا موڈ غالب ہے؟",
+  "Welcher Modus prägt diese Akkordfolge?": "اس کارڈ لوپ پر کون سا موڈ غالب ہے؟",
   "Welcher Modus steckt in diesem Charakterton?": "اس امتیازی سُر میں کون سا موڈ چھپا ہے؟",
   "Welcher Rhythmus-Baustein erklingt auf diesem Schlag?": "اس بیٹ پر کون سا ردھم سیل بج رہا ہے؟",
   "Welcher modale Klang prägt diese Akkordfolge?": "اس سلسلے کو کون سا موڈل رنگ سنوارتا ہے؟",
@@ -32657,7 +32728,7 @@ const TR_UR = Object.assign(Object.create(null), {
   "Intervalle (Abwärts)": "انٹرولز (اترتے)",
   "Intervalle (Aufwärts)": "انٹرولز (چڑھتے)",
   "Intervalle (Harmonisch)": "انٹرولز (ہارمونک)",
-  "Ionisch, Äolisch, Dorisch & Mixolydisch (Tonleiter, Charakterton & Vamp)": "آئیونین، ایولین، ڈورین اور مکسولیڈین (اسکیل، امتیازی سُر اور ویمپ)",
+  "Ionisch, Äolisch, Dorisch & Mixolydisch (Tonleiter, Charakterton & Akkordpendel)": "آئیونین، ایولین، ڈورین اور مکسولیڈین (اسکیل، امتیازی سُر اور کارڈ لوپ)",
   "Isolierte Frequenzen": "الگ فریکوئنسیز",
   "Jede Prüfung schärft dein Ohr – vergleiche deine Antworten jetzt direkt in der Hör-Rückschau!": "ہر امتحان آپ کی سماعت تیز کرتا ہے — نیچے آڈیو جائزے میں اپنے جوابات براہِ راست سن کر پرکھیں!",
   "KLOPFRUNDE ERFASST": "ٹیپ راؤنڈ درج ہو گیا",
@@ -32671,7 +32742,7 @@ const TR_UR = Object.assign(Object.create(null), {
   "Max. 2× Replay": "زیادہ سے زیادہ 2× ری پلے",
   "Max. 2× anhören": "زیادہ سے زیادہ 2 بار سنیں",
   "Melodien (4 Töne)": "دھنیں (4 نوٹس)",
-  "Modaler Vamp": "موڈل ویمپ",
+  "Modales Akkordpendel": "موڈل کارڈ لوپ",
   "Neuer Bestwert!": "نیا بہترین ریکارڈ!",
   "Noch keine Prüfung abgelegt. Öffne auf dem Startbildschirm eine Kategorie und wähle „Kategorie-Prüfung ablegen“.": "ابھی کوئی امتحان نہیں دیا۔ ہوم اسکرین پر کوئی زمرہ کھولیں اور «زمرہ امتحان دیں» منتخب کریں۔",
   "Noch {left}× anhören": "{left}× مزید سنیں",
@@ -35272,7 +35343,7 @@ const CATEGORY_HELP_GUIDES_EN = {
       <ul class="article-steps-list">
         <li><strong>1. Identify Scale / Mode (3 Levels):</strong> A neutral <strong>Anchor Fifth</strong> rings out first (root + 5th, intentionally without a 3rd), followed by the ascending 8-note scale: Level 1 teaches 4 core modes (<code>Ionian, Aeolian, Dorian, Mixolydian</code>), Level 2 covers all 7 in <code>C</code>, and Level 3 rotates root pitches.</li>
         <li><strong>2. Characteristic Note &amp; Color (3 Levels):</strong> After the anchor fifth, a melodic turn highlights each mode’s signature tone (<code>#4</code> Lydian, <code>b7</code> Mixolydian, <code>♮6</code> Dorian, <code>b2</code> Phrygian, or leading <code>#7</code> in <strong>Harmonic Minor</strong>) across Major modes (Level 1), Minor modes (Level 2), and All 7 + Harmonic Minor on random roots (Level 3).</li>
-        <li><strong>3. Modal Cadences &amp; Vamps (2 Levels):</strong> Hear signature two-chord modal vamps (<code>i – IV</code> Dorian, <code>I – bVII</code> Mixolydian, <code>I – II</code> Lydian, <code>i – bII</code> Phrygian) — starting with 4 standard vamps in <code>C</code> (Level 1) up to all 6 transposed modal vamps (Level 2).</li>
+        <li><strong>3. Modal Cadences &amp; Chord Loops (2 Levels):</strong> Hear signature two-chord modal loops (<code>i – IV</code> Dorian, <code>I – bVII</code> Mixolydian, <code>I – II</code> Lydian, <code>i – bII</code> Phrygian) — starting with 4 standard chord loops in <code>C</code> (Level 1) up to all 6 transposed modal chord loops (Level 2). A chord loop is two chords alternating again and again, revealing the color of the mode.</li>
       </ul>
 
       <div class="article-highlight-box">
@@ -36482,7 +36553,7 @@ function renderModesReferenceHTML_EN(familyFilter = "all") {
           <p>${m.usage}</p>
           <div class="k-btn-row">
             <button class="btn-tool" data-play-mode-scale="${m.id}">▶ Scale (${m.rootLabel})</button>
-            <button class="btn-tool" data-play-mode-vamp="${m.id}">▶ Vamp: ${m.vamp}</button>
+            <button class="btn-tool" data-play-mode-vamp="${m.id}">▶ Chord loop: ${m.vamp}</button>
           </div>
         </article>
       `).join("")}
@@ -36496,7 +36567,7 @@ function renderModesReferenceHTML_EN(familyFilter = "all") {
       <h4>How to Write Modally Without Slipping Back Into Major</h4>
       <ul class="k-physics-list">
         <li><strong>Dodge the Parent-Key Tritone:</strong> Inside C Major’s notes, <code>F</code> and <code>B</code> form G7’s tritone that yanks ears straight back to C. Writing in D Dorian or G Mixolydian? Avoid dwelling on G7 → C so your chosen mode keeps center stage.</li>
-        <li><strong>Lean on Two-Chord Modal Vamps:</strong> Rather than long four-chord chains, modal grooves shuttle gently between the tonic chord and whichever neighbor showcases the <strong>color note</strong> (e.g., <code>Cm – F</code> in C Dorian spotlights bright <code>A</code>).</li>
+        <li><strong>Lean on Two-Chord Modal Loops:</strong> Rather than long four-chord chains, modal grooves shuttle gently between the tonic chord and whichever neighbor showcases the <strong>color note</strong> (e.g., <code>Cm – F</code> in C Dorian spotlights bright <code>A</code>).</li>
         <li><strong>Anchor With a Pedal Drone:</strong> Holding an open root + 5th drone in the bass pins your modal home down immediately — making every melodic color pop cleanly above it.</li>
       </ul>
     </article>
@@ -39386,7 +39457,7 @@ const CATEGORY_HELP_GUIDES_FR = {
       <ul class="article-steps-list">
         <li><strong>1. Reconnaître la gamme / le mode (3 niveaux) :</strong> Une <strong>Quinte d’ancrage</strong> neutre résonne d’abord (sans tierce), suivie de la gamme ascendante de 8 notes : 4 modes de base au Niveau 1 (<code>Ionien, Éolien, Dorien, Mixolydien</code>), les 7 en <code>Do</code> au Niveau 2, et les 7 transposés au Niveau 3.</li>
         <li><strong>2. Note caractéristique &amp; Couleur (3 niveaux) :</strong> Après la quinte d’ancrage, une brève tournure isole le degré signature (<code>#4</code> Lydien, <code>b7</code> Mixolydien, <code>♮6</code> Dorien, <code>b2</code> Phrygien ou sensible <code>#7</code> du <strong>Mineur harmonique</strong>) — séparé en modes majeurs (Niveau 1), mineurs (Niveau 2) et Tous + Mineur harmonique sur fondamentales variées (Niveau 3).</li>
-        <li><strong>3. Cadences &amp; Vamps modaux (2 niveaux) :</strong> Enchaînements caractéristiques à deux accords (<code>i – IV</code> Dorien, <code>I – bVII</code> Mixolydien, <code>I – II</code> Lydien, <code>i – bII</code> Phrygien) : 4 vamps standards en <code>Do</code> (Niveau 1), puis les 6 vamps modaux transposés (Niveau 2).</li>
+        <li><strong>3. Cadences &amp; boucles d’accords modales (2 niveaux) :</strong> Enchaînements caractéristiques à deux accords (<code>i – IV</code> Dorien, <code>I – bVII</code> Mixolydien, <code>I – II</code> Lydien, <code>i – bII</code> Phrygien) : 4 boucles standard en <code>Do</code> (Niveau 1), puis les 6 boucles modales transposées (Niveau 2). Une boucle d’accords, ce sont deux accords qui alternent encore et encore et font entendre la couleur du mode.</li>
       </ul>
 
       <div class="article-highlight-box">
@@ -40585,7 +40656,7 @@ function renderModesReferenceHTML_FR(familyFilter = "all") {
       <p>${m.usage}</p>
       <div class="k-btn-row">
         <button class="btn-tool" data-play-mode-scale="${m.id}">▶ Gamme (${m.rootLabel})</button>
-        <button class="btn-tool" data-play-mode-vamp="${m.id}">▶ Vamp : ${m.vamp}</button>
+        <button class="btn-tool" data-play-mode-vamp="${m.id}">▶ Boucle : ${m.vamp}</button>
       </div>
     </article>
   `).join("");
@@ -40599,7 +40670,7 @@ function renderModesReferenceHTML_FR(familyFilter = "all") {
       <h4>Écrire modal sans retomber malgré soi en Majeur</h4>
       <ul class="k-physics-list">
         <li><strong>Évitez le triton de la gamme mère :</strong> Dans les notes de Do majeur, <code>Fa</code> et <code>Si</code> forment le triton de Sol7 qui tire l’oreille tout droit vers Do. Vous composez en Ré Dorien ou Sol Mixolydien ? Évitez d’appuyer sur Sol7 → Do pour protéger le foyer du mode.</li>
-        <li><strong>Appuyez-vous sur des vamps à deux accords :</strong> Au lieu de longues cadences fonctionnelles, faites respirer votre morceau entre la tonique et l’accord voisin contenant la <strong>note caractéristique</strong> (ex. <code>Dom – Fa</code> en Do Dorien met en relief le <code>La</code> lumineux).</li>
+        <li><strong>Appuyez-vous sur des boucles à deux accords :</strong> Au lieu de longues cadences fonctionnelles, faites respirer votre morceau entre la tonique et l’accord voisin contenant la <strong>note caractéristique</strong> (ex. <code>Dom – Fa</code> en Do Dorien met en relief le <code>La</code> lumineux).</li>
         <li><strong>Ancrez avec un bourdon (pédale) :</strong> Tenir une quinte vide à vide à la basse fixe immédiatement le centre modal — chaque intervalle caractéristique rayonne aussitôt au-dessus.</li>
       </ul>
     </article>
@@ -43547,7 +43618,7 @@ const CATEGORY_HELP_GUIDES = {
       <ul class="article-steps-list">
         <li><strong>1. Modus / Tonleiter erkennen (3 Stufen):</strong> Nach der neutralen <strong>Anker-Quinte</strong> (Grundton + Quinte ohne Terz) erklingt die 8-tönige Tonleiter aufwärts: Stufe 1 prüft die 4 Grund-Modi (<code>Ionisch, Äolisch, Dorisch, Mixolydisch</code>), Stufe 2 alle 7 Kirchentonarten in <code>C</code> und Stufe 3 alle 7 mit wechselndem Grundton.</li>
         <li><strong>2. Charakterton &amp; Klangfarbe (3 Stufen):</strong> Nach der Anker-Quinte fokussiert eine kurze Wendung den charakteristischen Leitton (<code>#4</code> Lydisch, <code>b7</code> Mixolydisch, <code>♮6</code> Dorisch, <code>b2</code> Phrygisch oder <code>#7</code> in <strong>Harmonisch Moll</strong>) – getrennt in Stufe 1 (Dur-Modi), Stufe 2 (Moll-Modi) und Stufe 3 (Alle 7 + Harmonisch Moll auf freien Grundtönen).</li>
-        <li><strong>3. Modale Kadenzen &amp; Vamps (2 Stufen):</strong> Zweitaktige Pendel-Akkorde (z. B. <code>i – IV</code> Dorisch, <code>I – bVII</code> Mixolydisch, <code>I – II</code> Lydisch, <code>i – bII</code> Phrygisch) erst über 4 Standard-Vamps in <code>C</code> (Stufe 1) und dann als alle 6 Modal-Vamps transponiert (Stufe 2).</li>
+        <li><strong>3. Modale Kadenzen &amp; Akkordpendel (2 Stufen):</strong> Zweitaktige Pendel-Akkorde (z. B. <code>i – IV</code> Dorisch, <code>I – bVII</code> Mixolydisch, <code>I – II</code> Lydisch, <code>i – bII</code> Phrygisch) erst über 4 Standard-Akkordpendel in <code>C</code> (Stufe 1) und dann als alle 6 modalen Akkordpendel transponiert (Stufe 2). Ein Akkordpendel sind zwei Akkorde, die sich immer wieder abwechseln, so wird die Farbe des Modus hörbar.</li>
       </ul>
 
       <div class="article-highlight-box">
@@ -44918,7 +44989,7 @@ function renderModesReferenceHTML(familyFilter = "all") {
           <p>${m.usage}</p>
           <div class="k-btn-row">
             <button class="btn-tool" data-play-mode-scale="${m.id}">▶ Tonleiter (${m.rootLabel})</button>
-            <button class="btn-tool" data-play-mode-vamp="${m.id}">▶ Vamp: ${m.vamp}</button>
+            <button class="btn-tool" data-play-mode-vamp="${m.id}">▶ Akkordpendel: ${m.vamp}</button>
           </div>
         </article>
       `).join("")}
@@ -44932,7 +45003,7 @@ function renderModesReferenceHTML(familyFilter = "all") {
       <h4>Wie man modal komponiert, ohne ins normale Dur zu kippen</h4>
       <ul class="k-physics-list">
         <li><strong>Tritonus-Falle meiden:</strong> Im klassischen C-Dur bilden <code>F</code> und <code>H</code> zusammen den Tritonus des G7-Akkords, der hart nach C zieht. Vermeide in Dorisch (D) oder Mixolydisch (G) lange V7→I-Wendungen des Stamm-Dur-Akkords, sonst verliert dein Modus sein eigenes Zuhause.</li>
-        <li><strong>Modale Vamps nutzen:</strong> Statt komplexer 4-Akkord-Funktionsketten pendeln modale Stücke meist zwischen dem Grundakkord und genau dem Nachbarakkord, der den <strong>Charakterton</strong> trägt (z. B. <code>Cm – F</code> in C-Dorisch enthält das helle <code>A</code>).</li>
+        <li><strong>Modale Akkordpendel nutzen:</strong> Statt komplexer 4-Akkord-Funktionsketten pendeln modale Stücke meist zwischen dem Grundakkord und genau dem Nachbarakkord, der den <strong>Charakterton</strong> trägt (z. B. <code>Cm – F</code> in C-Dorisch enthält das helle <code>A</code>).</li>
         <li><strong>Orgelpunkt (Drone):</strong> Ein liegender Grundton + Quinte im Bass verankert den Modus sofort – das Ohr hört jede Skalenstufe automatisch als Spannung relativ zu diesem Zentrum.</li>
       </ul>
     </article>
@@ -48623,7 +48694,7 @@ const CATEGORY_HELP_GUIDES_ES = {
       <ul class="article-steps-list">
         <li><strong>1. Reconocer la escala / el modo (3 niveles):</strong> Primero suena una <strong>quinta de anclaje</strong> neutra (sin tercera), seguida de la escala ascendente de 8 notas: 4 modos básicos en el nivel 1 (<code>jónico, eólico, dórico, mixolidio</code>), los 7 en <code>Do</code> en el nivel 2 y los 7 transpuestos en el nivel 3.</li>
         <li><strong>2. Nota característica &amp; color (3 niveles):</strong> Tras la quinta de anclaje, un breve giro aísla el grado distintivo (<code>#4</code> lidio, <code>b7</code> mixolidio, <code>♮6</code> dórico, <code>b2</code> frigio o la sensible <code>#7</code> de la <strong>menor armónica</strong>), separado en modos mayores (nivel 1), menores (nivel 2) y todos + menor armónica sobre fundamentales variadas (nivel 3).</li>
-        <li><strong>3. Cadencias &amp; vamps modales (2 niveles):</strong> Encadenamientos característicos de dos acordes (<code>i – IV</code> dórico, <code>I – bVII</code> mixolidio, <code>I – II</code> lidio, <code>i – bII</code> frigio): 4 vamps estándar en <code>Do</code> (nivel 1) y luego los 6 vamps modales transpuestos (nivel 2).</li>
+        <li><strong>3. Cadencias &amp; bucles de acordes modales (2 niveles):</strong> Encadenamientos característicos de dos acordes (<code>i – IV</code> dórico, <code>I – bVII</code> mixolidio, <code>I – II</code> lidio, <code>i – bII</code> frigio): 4 bucles estándar en <code>Do</code> (nivel 1) y luego los 6 bucles modales transpuestos (nivel 2). Un bucle de acordes son dos acordes que se alternan una y otra vez y hacen audible el color del modo.</li>
       </ul>
 
       <div class="article-highlight-box">
@@ -49822,7 +49893,7 @@ function renderModesReferenceHTML_ES(familyFilter = "all") {
       <p>${m.usage}</p>
       <div class="k-btn-row">
         <button class="btn-tool" data-play-mode-scale="${m.id}">▶ Escala (${m.rootLabel})</button>
-        <button class="btn-tool" data-play-mode-vamp="${m.id}">▶ Vamp: ${m.vamp}</button>
+        <button class="btn-tool" data-play-mode-vamp="${m.id}">▶ Bucle: ${m.vamp}</button>
       </div>
     </article>
   `).join("");
@@ -49836,7 +49907,7 @@ function renderModesReferenceHTML_ES(familyFilter = "all") {
       <h4>Escribir modal sin recaer sin querer en mayor</h4>
       <ul class="k-physics-list">
         <li><strong>Evita el tritono de la escala madre:</strong> En las notas de Do mayor, <code>Fa</code> y <code>Si</code> forman el tritono de Sol7, que arrastra el oído directamente hacia Do. ¿Compones en Re dórico o Sol mixolidio? Evita insistir en Sol7 → Do para proteger el hogar del modo.</li>
-        <li><strong>Apóyate en vamps de dos acordes:</strong> En lugar de largas cadencias funcionales, haz respirar tu pieza entre la tónica y el acorde vecino que contiene la <strong>nota característica</strong> (p. ej., <code>Dom – Fa</code> en Do dórico realza el <code>La</code> luminoso).</li>
+        <li><strong>Apóyate en bucles de dos acordes:</strong> En lugar de largas cadencias funcionales, haz respirar tu pieza entre la tónica y el acorde vecino que contiene la <strong>nota característica</strong> (p. ej., <code>Dom – Fa</code> en Do dórico realza el <code>La</code> luminoso).</li>
         <li><strong>Ancla con un bordón (pedal):</strong> Mantener una quinta vacía en el bajo fija al instante el centro modal: cada intervalo característico brilla enseguida por encima.</li>
       </ul>
     </article>
@@ -54083,7 +54154,7 @@ function renderModesReferenceHTML_PL(familyFilter = "all") {
           <p>${m.usage}</p>
           <div class="k-btn-row">
             <button class="btn-tool" data-play-mode-scale="${m.id}">▶ Skala (${m.rootLabel})</button>
-            <button class="btn-tool" data-play-mode-vamp="${m.id}">▶ Vamp: ${m.vamp}</button>
+            <button class="btn-tool" data-play-mode-vamp="${m.id}">▶ Zwrot akordowy: ${m.vamp}</button>
           </div>
         </article>
       `).join("")}
@@ -57110,7 +57181,7 @@ const CATEGORY_HELP_GUIDES_UK = {
       <ul class="article-steps-list">
         <li><strong>1. Визначити гаму / лад (3 рівні):</strong> Спочатку звучить нейтральна <strong>Опорна квінта</strong> (без терції), а потім висхідна 8-нотна гама: Рівень 1 — 4 базові лади (<code>Іонійський, Еолійський, Дорійський, Міксолідійський</code>), Рівень 2 — усі 7 у <code>C</code>, Рівень 3 — усі 7 зі зміною тоніки.</li>
         <li><strong>2. Характерний ступінь і барва (3 рівні):</strong> Після опорної квінти короткий зворот виділяє ключовий тон (<code>#4</code> лідійський, <code>b7</code> міксолідійський, <code>♮6</code> дорійський, <code>b2</code> фригійський або <code>#7</code> у <strong>гармонічному мінорі</strong>) — поділено на мажорні лади (Рівень 1), мінорні (Рівень 2) та Усі + гармонічний мінор від різних звуків (Рівень 3).</li>
-        <li><strong>3. Модальні каданси й вампи (2 рівні):</strong> Класичні двоакордові петлі (<code>i – IV</code> дорійський, <code>I – bVII</code> міксолідійський, <code>I – II</code> лідійський, <code>i – bII</code> фригійський): 4 базові вампи в <code>C</code> (Рівень 1) та всі 6 у різних тональностях (Рівень 2).</li>
+        <li><strong>3. Модальні каданси й акордові звороти (2 рівні):</strong> Класичні двоакордові петлі (<code>i – IV</code> дорійський, <code>I – bVII</code> міксолідійський, <code>I – II</code> лідійський, <code>i – bII</code> фригійський): 4 базові вампи в <code>C</code> (Рівень 1) та всі 6 у різних тональностях (Рівень 2).</li>
       </ul>
 
       <div class="article-highlight-box">
@@ -58314,7 +58385,7 @@ function renderModesReferenceHTML_UK(familyFilter = "all") {
           <p>${m.usage}</p>
           <div class="k-btn-row">
             <button class="btn-tool" data-play-mode-scale="${m.id}">▶ Гама (${m.rootLabel})</button>
-            <button class="btn-tool" data-play-mode-vamp="${m.id}">▶ Вамп: ${m.vamp}</button>
+            <button class="btn-tool" data-play-mode-vamp="${m.id}">▶ Зворот: ${m.vamp}</button>
           </div>
         </article>
       `).join("")}
@@ -61181,7 +61252,7 @@ const CATEGORY_HELP_GUIDES_UR = {
       <ul class="article-steps-list">
         <li><strong>1. موڈ / اسکیل کی پہچان (3 سطحیں):</strong> پہلے غیر جانبدار <strong>لنگر ففتھ</strong> (بغیر تھرڈ) بجتی ہے، پھر 8 سُروں کا چڑھتا اسکیل: لیول 1 میں 4 بنیادی موڈز (<code>آئیونین، ایولین، ڈورین، مکسولیڈین</code>)، لیول 2 میں C پر تمام 7 اور لیول 3 میں بدلتی جڑیں شامل ہیں۔</li>
         <li><strong>2. امتیازی سُر اور رنگت (3 سطحیں):</strong> لنگر ففتھ کے بعد مختصر موڑ خاص سُر ابھارتا ہے (<code>#4</code> لِڈین، <code>b7</code> مکسولیڈین، <code>♮6</code> ڈورین، <code>b2</code> فریجین، یا <code>#7</code> <strong>ہارمونک مائنر</strong> میں) — میجر (لیول 1)، مائنر (لیول 2) اور سب + ہارمونک مائنر (لیول 3) میں منقسم۔</li>
-        <li><strong>3. موڈل کیڈینسز اور ویمپس (2 سطحیں):</strong> دو کارڈ کے کلاسک ویمپس (<code>i–IV</code>، <code>I–bVII</code>، <code>I–II</code>، <code>i–bII</code>): پہلے C پر 4 معیاری (لیول 1) پھر بدلتی کلیدوں میں تمام 6 موڈل ویمپس (لیول 2)۔</li>
+        <li><strong>3. موڈل کیڈینسز اور کارڈ لوپس (2 سطحیں):</strong> دو کارڈ کے کلاسک لوپس (<code>i–IV</code>، <code>I–bVII</code>، <code>I–II</code>، <code>i–bII</code>): پہلے C پر 4 معیاری (لیول 1) پھر بدلتی کلیدوں میں تمام 6 موڈل ویمپس (لیول 2)۔</li>
       </ul>
 
       <div class="article-highlight-box">
@@ -62385,7 +62456,7 @@ function renderModesReferenceHTML_UR(familyFilter = "all") {
           <p>${m.usage}</p>
           <div class="k-btn-row">
             <button class="btn-tool" data-play-mode-scale="${m.id}">▶ اسکیل (${m.rootLabel})</button>
-            <button class="btn-tool" data-play-mode-vamp="${m.id}">▶ ویمپ: ${m.vamp}</button>
+            <button class="btn-tool" data-play-mode-vamp="${m.id}">▶ کارڈ لوپ: ${m.vamp}</button>
           </div>
         </article>
       `).join("")}
@@ -62399,7 +62470,7 @@ function renderModesReferenceHTML_UR(familyFilter = "all") {
       <h4>موڈل موسیقی لکھتے ہوئے واپس میجر میں پھسلنے سے کیسے بچیں</h4>
       <ul class="k-physics-list">
         <li><strong>اصل کلید کے ٹرائی ٹون سے بچیں:</strong> سفید کنجیوں میں <code>F</code> اور <code>B</code> مل کر G7 کا ٹرائی ٹون بناتے ہیں جو کان کو واپس C کی طرف کھینچتا ہے۔ D ڈورین میں G7 → C بجانے سے گریز کریں۔</li>
-        <li><strong>دو کارڈز کے موڈل ویمپس استعمال کریں:</strong> طویل کارڈ سلسلوں کے بجائے ٹانک اور اس پڑوسی کارڈ پر جھولیں جو <strong>امتیازی سُر</strong> چمکائے (مثلاً C ڈورین میں <code>Cm – F</code> روشن <code>A</code> ابھارتا ہے)۔</li>
+        <li><strong>دو کارڈز کے موڈل لوپس استعمال کریں:</strong> طویل کارڈ سلسلوں کے بجائے ٹانک اور اس پڑوسی کارڈ پر جھولیں جو <strong>امتیازی سُر</strong> چمکائے (مثلاً C ڈورین میں <code>Cm – F</code> روشن <code>A</code> ابھارتا ہے)۔</li>
         <li><strong>باس ڈرون (تانپورہ انداز) قائم کریں:</strong> جڑ + ففتھ کا مستقل ڈرون بجانے سے موڈ کا گھر مضبوط رہتا ہے اور ہر امتیازی سُر چمک اٹھتا ہے۔</li>
       </ul>
     </article>
@@ -65019,7 +65090,7 @@ const MIX_MODE_CATALOG = {
   "prod-eq-noise":         { label: "Produktion • EQ im Noise",     levels: [1, 2, 3] },
   "modes-scale":           { label: "Modi • Tonleitern erkennen",   levels: [1, 2, 3] },
   "modes-char":            { label: "Modi • Charakterton",          levels: [1, 2, 3] },
-  "modes-cadence":         { label: "Modi • Kadenzen & Vamps",      levels: [1, 2] },
+  "modes-cadence":         { label: "Modi • Kadenzen & Akkordpendel",      levels: [1, 2] },
   "notation-treble":       { label: "Notation • Violinschlüssel",   levels: [1, 2, 3, 4] },
   "notation-bass":         { label: "Notation • Bassschlüssel",     levels: [1, 2, 3, 4] },
   "notation-alto":         { label: "Notation • Altschlüssel",      levels: [1, 2, 3, 4] },
@@ -65296,8 +65367,8 @@ const EXAM_CATEGORY_LEVELS = {
         levelNumber: 1,
         title: { de: "Stufe 1 • Basis-Modi", en: "Level 1 • Core Modes" },
         desc: {
-          de: "Ionisch, Äolisch, Dorisch & Mixolydisch (Tonleiter, Charakterton & Vamp)",
-          en: "Ionian, Aeolian, Dorian & Mixolydian (Scale, Color Tone & Vamp)"
+          de: "Ionisch, Äolisch, Dorisch & Mixolydisch (Tonleiter, Charakterton & Akkordpendel)",
+          en: "Ionian, Aeolian, Dorian & Mixolydian (Scale, Color Tone & Chord Loop)"
         },
         modes: ["modes-scale", "modes-char", "modes-cadence"],
         apply: { modesScaleDifficulty: 1, modesCharDifficulty: 1, modesCadenceDifficulty: 1 }
@@ -65820,7 +65891,7 @@ const PIANO_REVERB_BY_CHAR = Object.freeze({
   concert: 0.48
 });
 const DEFAULT_DRONE_MIX = Object.freeze({
-  pad: 0.70,
+  pad: 0.60,
   tone: 1.00
 });
 const DEFAULT_BREAK_REMINDER_ENABLED = true;
@@ -65855,6 +65926,16 @@ function sanitizePianoSound(raw) {
   };
 }
 
+// Bis Build 1 lag der Flächen-Standard bei 70 %. Profile, die noch genau diesen alten Standard
+// gespeichert haben, wandern einmalig auf den neuen Standard (Merker: droneMixDefaultV2).
+const LEGACY_DRONE_PAD_DEFAULT = 0.70;
+function migrateDroneMixDefault(raw) {
+  const mix = raw?.droneMix;
+  if (raw?.droneMixDefaultV2 || !mix || typeof mix !== "object") return mix;
+  if (Math.abs(Number(mix.pad) - LEGACY_DRONE_PAD_DEFAULT) < 0.001) return { ...mix, pad: DEFAULT_DRONE_MIX.pad };
+  return mix;
+}
+
 function sanitizeDroneMix(raw) {
   const src = (raw && typeof raw === "object") ? raw : {};
   return {
@@ -65886,6 +65967,7 @@ function createDefaultProfile() {
     metronomeSound: DEFAULT_METRONOME_SOUND,
     pianoSound: sanitizePianoSound(DEFAULT_PIANO_SOUND),
     droneMix: sanitizeDroneMix(DEFAULT_DRONE_MIX),
+    droneMixDefaultV2: true,
     customThemes: [null, null, null],
     examHistory: [],
     hasPracticed: false,
@@ -65984,7 +66066,8 @@ function sanitizeUserProfile(raw) {
     metronomeMix: sanitizeMetronomeMix(raw.metronomeMix),
     metronomeSound: normalizeMetronomeSoundProfile(raw.metronomeSound),
     pianoSound: sanitizePianoSound(raw.pianoSound),
-    droneMix: sanitizeDroneMix(raw.droneMix),
+    droneMix: sanitizeDroneMix(migrateDroneMixDefault(raw)),
+    droneMixDefaultV2: true,
     customThemes: customThemes,
     examHistory: examHistory,
     // Ältere Profile (vor Einführung des Felds) gelten als „schon geübt“
@@ -66210,6 +66293,7 @@ class AppState {
       melodyStyle: "rhythmic",   // 'steady' (4 gleichlang) | 'rhythmic' (4–6 Töne phrasiert) | 'dictation' (Ton + Rhythmus)
       melodyPulse: true,         // Dezenter Takt-Puls beim Melodie-Abspielen
       modesRootPad: false,       // Modi: Bezugsgrundton als Streicher-Fläche unterlegen
+      modesRoot: "auto",         // Modi: Grundton – "auto" (je Stufe), "random" oder Tonklasse 0–11 als String
       rhythmTapReadMode: false,  // Rhythmus vom Blatt: Notenbild lesen & zum Metronom tappen (statt nachklopfen)
       rhythmMeterDifficulty: 1,
       rhythmDictationDifficulty: 1,
@@ -66606,7 +66690,7 @@ class AppState {
     }
     if (this.settings.mode === "modes-cadence") {
       const lvl = this.settings.modesCadenceDifficulty || 1;
-      const prefix = includeCategory ? tr("Modi: Kadenzen", "Modes: Vamps") : tr("Kadenzen & Vamps", "Modal Vamps");
+      const prefix = includeCategory ? tr("Modi: Kadenzen", "Modes: Chord Loops") : tr("Kadenzen & Akkordpendel", "Modal Chord Loops");
       return `${prefix} • ${lvlWord} ${lvl} (${getLocalizedModeLevelLabel("cadence", lvl)})`;
     }
     if (isNotationMode(this.settings.mode)) {
@@ -69125,8 +69209,8 @@ const MODE_CHAR_LEVELS = {
 };
 
 const MODE_CADENCE_LEVELS = {
-  1: { label: "4 Standard-Vamps",   randomRoot: false, choices: ["ionian", "dorian", "mixolydian", "aeolian"] },
-  2: { label: "Alle 6 Modal-Vamps", randomRoot: true,  choices: ["ionian", "dorian", "mixolydian", "aeolian", "lydian", "phrygian"] }
+  1: { label: "4 Standard-Akkordpendel",   randomRoot: false, choices: ["ionian", "dorian", "mixolydian", "aeolian"] },
+  2: { label: "Alle 6 modalen Akkordpendel", randomRoot: true,  choices: ["ionian", "dorian", "mixolydian", "aeolian", "lydian", "phrygian"] }
 };
 
 function getChoiceItem(exType, choiceKey) {
@@ -69624,6 +69708,7 @@ function closeTransientPopovers() {
     ["inlineNotationKeyPopover", "moduleNotationKeyBtn"],
     ["inlineNotationPacePopover", "moduleNotationPaceBtn"],
     ["inlineTimeSigPopover", "moduleTimeSigBtn"],
+    ["inlineModesRootPopover", "targetBarBadge"],
     ["warmupVoicePopover", "warmupVoiceBtn"],
     ["warmupSoundPopover", "warmupSoundBtn"],
     ["warmupBpmPopover", "warmupBpmBtn"]
@@ -69820,6 +69905,7 @@ function hasOpenTransientPopover() {
     "inlineNotationKeyPopover",
     "inlineNotationPacePopover",
     "inlineTimeSigPopover",
+    "inlineModesRootPopover",
     "warmupVoicePopover",
     "warmupSoundPopover",
     "warmupBpmPopover"
@@ -72523,17 +72609,17 @@ function openCategoryPage(categoryKey, options = {}) {
       </div>
 
       <div class="subpage-section">
-        <h3 class="subpage-section-title">${tr("3. Modale Kadenzen &amp; Vamps", "3. Modal Cadences &amp; Vamps")}</h3>
-        <p class="subpage-section-desc">${tr("Typische Pendel-Akkorde (z. B. i–IV, I–bVII, I–II oder i–bII) am Klang erkennen", "Identify signature modal chord vamps (e.g. i–IV, I–bVII, I–II, or i–bII) by ear")}</p>
+        <h3 class="subpage-section-title">${tr("3. Modale Kadenzen &amp; Akkordpendel", "3. Modal Cadences &amp; Chord Loops")}</h3>
+        <p class="subpage-section-desc">${tr("Akkordpendel: Zwei Akkorde wechseln sich immer wieder ab und machen so die Farbe eines Modus hörbar (z. B. i–IV, I–bVII, I–II oder i–bII).", "Chord loops: two chords alternate again and again, revealing the color of a mode (e.g. i–IV, I–bVII, I–II or i–bII).")}</p>
         <div class="subpage-nodes-grid">
           <button class="subpage-node-btn" data-launch-modes="modes-cadence" data-modes-lvl="1">
-            <div class="node-circle circle-lilac node-circle-stack"><span>4×</span><span class="node-stack-sub">Vamp</span></div>
-            <span class="node-title">${tr("Stufe 1: Standard-Vamps", "Level 1: Standard Vamps")}</span>
+            <div class="node-circle circle-lilac node-circle-stack"><span>4×</span><span class="node-stack-sub">${tr("Pendel", "Loop")}</span></div>
+            <span class="node-title">${tr("Stufe 1: Standard-Akkordpendel", "Level 1: Standard Chord Loops")}</span>
             <span class="node-sub">${tr("Ionisch, Dorisch, Mixolydisch &amp; Äolisch", "Ionian, Dorian, Mixolydian &amp; Aeolian")}</span>
           </button>
           <button class="subpage-node-btn" data-launch-modes="modes-cadence" data-modes-lvl="2">
-            <div class="node-circle circle-lilac node-circle-stack"><span>6×</span><span class="node-stack-sub">Vamp</span></div>
-            <span class="node-title">${tr("Stufe 2: Alle 6 Modal-Vamps", "Level 2: All 6 Modal Vamps")}</span>
+            <div class="node-circle circle-lilac node-circle-stack"><span>6×</span><span class="node-stack-sub">${tr("Pendel", "Loop")}</span></div>
+            <span class="node-title">${tr("Stufe 2: Alle 6 modalen Akkordpendel", "Level 2: All 6 Modal Chord Loops")}</span>
             <span class="node-sub">${tr("Inkl. Lydisch (I–II) &amp; Phrygisch (i–bII)", "Incl. Lydian (I–II) &amp; Phrygian (i–bII)")}</span>
           </button>
         </div>
@@ -73819,6 +73905,77 @@ function generateProdEqNoiseExercise() {
   };
 }
 
+// ---------- Tonleitern & Modi: wählbarer Grundton ----------
+// Tonklasse → Grundton-MIDI im bequemen Mittelregister (G3 … F#4)
+const MODES_ROOT_MIDI_BY_PC = [60, 61, 62, 63, 64, 65, 66, 55, 56, 57, 58, 59];
+const MODES_ROOT_FLAT_MIDIS = new Set([56, 58, 61, 63]); // As, B(b), Des, Es mit b schreiben
+const MODES_ROOT_LEGACY_POOL = [55, 57, 58, 60, 62, 63, 64, 65]; // „Automatisch“ auf Stufen mit Zufallsgrundton
+
+function getModesRootSetting() {
+  if (state.exam?.active) return "auto"; // Prüfungen bleiben bei den Vorgaben der Stufe
+  const v = String(state.settings.modesRoot ?? "auto");
+  return v === "random" || /^(?:[0-9]|1[01])$/.test(v) ? v : "auto";
+}
+
+function resolveModesRootMidi(levelCfg) {
+  const setting = getModesRootSetting();
+  if (setting === "random") {
+    return MODES_ROOT_MIDI_BY_PC[Math.floor(Math.random() * 12)];
+  }
+  if (setting !== "auto") return MODES_ROOT_MIDI_BY_PC[Number(setting)];
+  return levelCfg?.randomRoot
+    ? MODES_ROOT_LEGACY_POOL[Math.floor(Math.random() * MODES_ROOT_LEGACY_POOL.length)]
+    : 60;
+}
+
+/** Anzeigename des Grundtons gemäß Notations-Einstellung (z. B. „Es“/„Eb“, „H“/„B“). */
+function getModesRootDisplayName(rootMidi) {
+  return midiToGermanNote(rootMidi, MODES_ROOT_FLAT_MIDIS.has(rootMidi)).replace(/-?\d+$/, "");
+}
+
+function getModesRootSettingLabel(setting = getModesRootSetting()) {
+  if (setting === "random") return tr("Zufall", "Random");
+  if (setting === "auto") return tr("Automatisch", "Automatic", { fr: "Automatique", es: "Automático", pl: "Automatycznie", uk: "Автоматично", ur: "خودکار" });
+  return getModesRootDisplayName(MODES_ROOT_MIDI_BY_PC[Number(setting)]);
+}
+
+function renderModesRootPopover() {
+  const pop = document.getElementById("inlineModesRootPopover");
+  if (!pop) return;
+  const current = getModesRootSetting();
+  const options = ["auto", ...Array.from({ length: 12 }, (_, pc) => String(pc)), "random"];
+  const label = tr("Grundton:", "Root:", { fr: "Tonique :", es: "Tónica:", pl: "Dźwięk podstawowy:", uk: "Тоніка:", ur: "بنیادی سُر:" });
+  const hint = tr(
+    "„Automatisch“: C auf den Stufen 1–2, wechselnd auf Stufe 3.",
+    "“Automatic”: C on levels 1–2, changing on level 3.",
+    {
+      fr: "« Automatique » : Do aux niveaux 1–2, variable au niveau 3.",
+      es: "«Automático»: Do en los niveles 1–2, variable en el nivel 3.",
+      pl: "„Automatycznie”: C na poziomach 1–2, zmienny na poziomie 3.",
+      uk: "«Автоматично»: C на рівнях 1–2, змінна на рівні 3.",
+      ur: "„خودکار“: لیول 1–2 پر C، لیول 3 پر بدلتا ہوا۔"
+    }
+  );
+  pop.innerHTML = `
+    <span class="popover-label">${escapeHtml(label)}</span>
+    <div class="popover-pills-row modes-root-pills">
+      ${options.map(opt => `<button type="button" class="popover-pill-btn${opt === current ? " active" : ""}" data-modes-root="${opt}" aria-pressed="${opt === current}">${escapeHtml(getModesRootSettingLabel(opt))}</button>`).join("")}
+    </div>
+    <span class="modes-root-hint">${escapeHtml(hint)}</span>`;
+  pop.querySelectorAll("[data-modes-root]").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      state.settings.modesRoot = btn.dataset.modesRoot;
+      pop.classList.add("hidden");
+      document.getElementById("targetBarBadge")?.classList.remove("chip-open");
+      cancelListenOnlyTimers();
+      stopPlayback();
+      generateExercise();
+      if (state.listenOnly.active) startListenOnlyCycle();
+    });
+  });
+}
+
 function buildModesExercise(exType, level, levelCfg) {
   const prevKey = state.currentExercise?.type === exType ? state.currentExercise.targetItem?.key : null;
   const candidates = levelCfg.choices.length > 1
@@ -73829,10 +73986,8 @@ function buildModesExercise(exType, level, levelCfg) {
   const chosenKey = reviewKey ?? (freeCandidates[Math.floor(Math.random() * freeCandidates.length)] || levelCfg.choices[0]);
   const targetDef = getLocalizedModeDef(chosenKey) || getLocalizedModeDef("ionian");
 
-  const useRandomRoot = Boolean(levelCfg.randomRoot || state.settings.keyMode === "random");
-  const rootPool = [55, 57, 58, 60, 62, 63, 64, 65];
-  const rootMidi = useRandomRoot ? rootPool[Math.floor(Math.random() * rootPool.length)] : 60;
-  const rootLabel = midiToNote(rootMidi).replace(/\d+$/, "");
+  const rootMidi = resolveModesRootMidi(levelCfg);
+  const rootLabel = getModesRootDisplayName(rootMidi);
   const preferFlat = ["dorian", "phrygian", "mixolydian", "aeolian", "locrian", "harm_minor"].includes(chosenKey)
     || [58, 63, 65].includes(rootMidi);
   const toNote = (semi) => midiToNote(rootMidi + semi, preferFlat);
@@ -73842,7 +73997,7 @@ function buildModesExercise(exType, level, levelCfg) {
     : (exType === "modes-cadence" ? "cadence" : "scale");
   const kindLabel = modeKind === "char"
     ? tr("Charakterton", "Color Tone")
-    : (modeKind === "cadence" ? tr("Kadenz", "Vamp") : tr("Tonleiter", "Scale"));
+    : (modeKind === "cadence" ? tr("Kadenz", "Chord Loop") : tr("Tonleiter", "Scale"));
 
   state.currentExercise = {
     type: exType,
@@ -74878,7 +75033,7 @@ function refreshExerciseLocalization(ex) {
     const modeKind = ex.modeKind || (ex.type === "modes-char" ? "char" : (ex.type === "modes-cadence" ? "cadence" : "scale"));
     const kindLabel = modeKind === "char"
       ? tr("Charakterton", "Color Tone")
-      : (modeKind === "cadence" ? tr("Kadenz", "Vamp") : tr("Tonleiter", "Scale"));
+      : (modeKind === "cadence" ? tr("Kadenz", "Chord Loop") : tr("Tonleiter", "Scale"));
     ex.levelLabel = getLocalizedModeLevelLabel(modeKind, ex.level);
     ex.keyName = `${tr("Grundton", "Root")} ${ex.rootLabel}`;
     Object.assign(ex.targetItem, def, { displayMain: def.roman });
@@ -75724,7 +75879,7 @@ function renderMelodyRhythmPicker(ex = state.currentExercise) {
 }
 
 /**
- * Einladung zum Mitsingen/-summen für Intervall- und Solfège-Übungen.
+ * Einladung zum Mitsingen/-summen für Intervall-, Kadenz- und Solfège-Übungen.
  * Liefert null für alle anderen Übungstypen (Hinweis bleibt dann ausgeblendet).
  */
 function getSingAlongHintText(type) {
@@ -75741,6 +75896,9 @@ function getSingAlongHintText(type) {
     case "interval-drone":
       return tr("Summ den Grundton der Fläche mit und sing dann den Klavierton darüber – spür, wie weit deine Stimme springen muss.",
         "Hum along with the pad’s root, then sing the piano note above it — feel how far your voice has to leap.");
+    case "cadence":
+      return tr("Summ den Basston des gesuchten Akkords und sing von dort zurück zum Grundton der Tonart – die Zahl der Schritte verrät dir die Stufe.",
+        "Hum the bass note of the chord in question, then sing from there back to the key’s root — the number of steps tells you the degree.");
     case "solfege":
       return state?.profile?.solfegeLabels === "numbers"
         ? tr("Sing jeden Ton mit seiner Stufenzahl mit (1, 2, 3 …) – so verankert sich jede Stufe fest in deinem Ohr.",
@@ -75872,6 +76030,10 @@ function getSingAlongShortPrompt(type) {
       tr("Summ den Grundton mit, dann den Klavierton.", "Hum the root, then the piano note."),
       tr("Halte den Grundton mit der Stimme – wie weit liegt der Klavierton darüber?", "Hold the root with your voice — how far above is the piano note?")
     ],
+    "cadence": [
+      tr("Summ den Basston des gesuchten Akkords – dann tippen.", "Hum the bass note of the chord in question — then tap."),
+      tr("Sing vom gesuchten Basston zurück zum Grundton: Wie viele Schritte?", "Sing from that bass note back to the root: how many steps?")
+    ],
     "solfege": nums
       ? [
           tr("Sing den Ton mit seiner Stufenzahl (1, 2, 3 …).", "Sing the note with its degree number (1, 2, 3 …)."),
@@ -75979,16 +76141,14 @@ function cancelHumPause(showAwaiting = false) {
 }
 
 /** Optionale Summ-Pause: kurze Phase nach dem Abspielen, in der erst gesummt und dann geantwortet wird. */
-function startHumPause(ex) {
-  cancelHumPause();
+/** Bühne für die Summ-Pause: Hinweis, kurze Mitsing-Aufforderung und ablaufender Balken. */
+function renderHumPauseStage(ex, subtext = tr("SUMM-PAUSE", "HUM PAUSE")) {
   const stageCard = document.getElementById("centralStageCard");
-  if (!stageCard) {
-    showAwaitingAnswerStage(ex);
-    return;
-  }
+  if (!stageCard) return null;
+  document.getElementById("humPauseBar")?.remove();
   setCentralStageMode("stage-awaiting");
   updateStageMascot("listening");
-  document.getElementById("stageSubtext").textContent = tr("SUMM-PAUSE", "HUM PAUSE");
+  document.getElementById("stageSubtext").textContent = subtext;
   document.getElementById("stageMainText").textContent = tr("Jetzt summen…", "Hum it now…");
   document.getElementById("stageFunctionText").textContent = getSingAlongShortPrompt(ex.type) || "";
   document.body.classList.add("is-hum-pause");
@@ -75998,6 +76158,16 @@ function startHumPause(ex) {
   bar.style.setProperty("--hum-ms", `${HUM_PAUSE_MS}ms`);
   bar.innerHTML = "<span></span>";
   stageCard.appendChild(bar);
+  return bar;
+}
+
+function startHumPause(ex) {
+  cancelHumPause();
+  const bar = renderHumPauseStage(ex);
+  if (!bar) {
+    showAwaitingAnswerStage(ex);
+    return;
+  }
   humPauseTimer = setTimeout(() => {
     humPauseTimer = null;
     document.body.classList.remove("is-hum-pause");
@@ -76127,8 +76297,27 @@ function renderUI() {
   const droneMixStrip = document.getElementById("droneMixStrip");
   if (droneMixStrip) {
     const isDroneEx = ex.type === "interval-drone";
-    droneMixStrip.classList.toggle("hidden", !isDroneEx);
-    if (isDroneEx) syncDroneMixControls();
+    // Modi: Lautstärke der Grundton-Fläche einblenden, solange die Fläche aktiv ist
+    const isModesPadMix = String(ex.type || "").startsWith("modes-") && Boolean(state.settings.modesRootPad) && !state.exam?.active;
+    droneMixStrip.classList.toggle("hidden", !isDroneEx && !isModesPadMix);
+    droneMixStrip.classList.toggle("is-pad-only", isModesPadMix && !isDroneEx);
+    if (isDroneEx || isModesPadMix) syncDroneMixControls();
+  }
+  const badgeEl = document.getElementById("targetBarBadge");
+  if (badgeEl) {
+    const rootSelectable = String(ex.type || "").startsWith("modes-") && !state.exam?.active;
+    badgeEl.classList.toggle("module-badge-btn", rootSelectable);
+    if (rootSelectable) {
+      badgeEl.setAttribute("role", "button");
+      badgeEl.setAttribute("tabindex", "0");
+      badgeEl.title = tr("Grundton wählen", "Choose root", { fr: "Choisir la tonique", es: "Elegir tónica", pl: "Wybierz dźwięk podstawowy", uk: "Обрати тоніку", ur: "بنیادی سُر چنیں" });
+    } else {
+      badgeEl.removeAttribute("role");
+      badgeEl.removeAttribute("tabindex");
+      badgeEl.removeAttribute("title");
+      badgeEl.classList.remove("chip-open");
+      document.getElementById("inlineModesRootPopover")?.classList.add("hidden");
+    }
   }
 
   syncSingAlongUI(ex);
@@ -76406,15 +76595,15 @@ function renderUI() {
     barsGrid.classList.add("cols-2");
     if (ex.type === "modes-char") {
       if (moduleTitleEl) moduleTitleEl.textContent = tr("Quinte → Tonfarbe", "Fifth → Color");
-      if (targetBadgeEl) targetBadgeEl.textContent = tf("Grundton {root}", "Root {root}", { root: ex.rootLabel });
+      if (targetBadgeEl) targetBadgeEl.textContent = `${tf("Grundton {root}", "Root {root}", { root: ex.rootLabel })} ▾`;
       document.getElementById("inputPromptText").textContent = tr("Welcher Modus steckt in diesem Charakterton?", "Which mode matches this characteristic tone?");
     } else if (ex.type === "modes-cadence") {
       if (moduleTitleEl) moduleTitleEl.textContent = tr("Quinte → Akkordfolge", "Fifth → Progression");
-      if (targetBadgeEl) targetBadgeEl.textContent = tf("Grundton {root}", "Root {root}", { root: ex.rootLabel });
-      document.getElementById("inputPromptText").textContent = tr("Welcher Modus prägt diese Akkordfolge?", "Which mode shapes this chord vamp?");
+      if (targetBadgeEl) targetBadgeEl.textContent = `${tf("Grundton {root}", "Root {root}", { root: ex.rootLabel })} ▾`;
+      document.getElementById("inputPromptText").textContent = tr("Welcher Modus prägt diese Akkordfolge?", "Which mode shapes this chord loop?");
     } else {
       if (moduleTitleEl) moduleTitleEl.textContent = tr("Quinte → Klangfolge", "Fifth → Sequence");
-      if (targetBadgeEl) targetBadgeEl.textContent = tf("Grundton {root}", "Root {root}", { root: ex.rootLabel });
+      if (targetBadgeEl) targetBadgeEl.textContent = `${tf("Grundton {root}", "Root {root}", { root: ex.rootLabel })} ▾`;
       document.getElementById("inputPromptText").textContent = tr("Welche Kirchentonart erklingt aufwärts?", "Which ascending mode do you hear?");
     }
   } else {
@@ -76525,6 +76714,9 @@ function renderUI() {
     ex.bars.forEach((bar, idx) => {
       const isTarget = !isSolfege && (hideAllNonRef ? bar.key !== "ref" : idx === ex.targetIndex);
       const isDroneCard = ex.type === "interval-drone";
+      // Intervalle: melodisch „Ton 1 / Ton 2“ statt „Takt“, harmonisch (gleichzeitig) ohne Überschrift
+      const isMelodicIntervalCard = ex.type === "interval-melodic" || ex.type === "interval-melodic-down";
+      const hideBarTag = ex.type === "interval-harmonic";
       const card = document.createElement("div");
       card.className = `bar-card ${isTarget ? "bar-target" : ""}${isProdEqNoise || ((isModes || isDroneCard) && idx === 0) ? " bar-card-clickable" : ""}`;
       card.id = `barCard_${idx}`;
@@ -76541,7 +76733,9 @@ function renderUI() {
                     ? (idx === 0 ? tr("Ausgangs-Quinte", "Anchor Fifth") : tr("Gesuchter Modus", "Target Mode"))
                     : (isDroneCard
                         ? (idx === 0 ? tr("Streicher-Fläche", "Strings Pad") : tr("Klavier-Intervall", "Piano Interval"))
-                        : tf("Takt {n}", "Bar {n}", { n: idx + 1 })))));
+                        : (isMelodicIntervalCard
+                            ? tf("Ton {n}", "Note {n}", { n: idx + 1 })
+                            : tf("Takt {n}", "Bar {n}", { n: idx + 1 }))))));
 
       const mainText = document.createElement("div");
       mainText.className = "bar-roman";
@@ -76565,11 +76759,11 @@ function renderUI() {
                                 : (isProdEqNoise
                                     ? ex.keyName
                                     : (isModes
-                                        ? (ex.type === "modes-cadence" ? tr("Vamp ?", "Vamp ?") : (ex.type === "modes-char" ? tr("Farbe ?", "Color ?") : tr("Modus ?", "Mode ?")))
+                                        ? (ex.type === "modes-cadence" ? tr("Pendel ?", "Loop ?") : (ex.type === "modes-char" ? tr("Farbe ?", "Color ?") : tr("Modus ?", "Mode ?")))
                                         : tr("Intervall ?", "Interval ?")))))))))
         : bar.short;
 
-      card.appendChild(tag);
+      if (!hideBarTag) card.appendChild(tag);
       card.appendChild(mainText);
       card.appendChild(lbl);
 
@@ -79588,6 +79782,8 @@ function cancelListenOnlyTimers() {
     state.listenOnly.timerId = null;
   }
   state.listenOnly.phase = "idle";
+  // Nur die Summ-Pause-Anzeige des Nur-Hören-Modus aufräumen (die normale läuft über humPauseTimer)
+  if (!humPauseTimer) cancelHumPause();
 }
 
 function isCurrentExerciseSolved(ex = state.currentExercise) {
@@ -79827,6 +80023,12 @@ function revealListenOnlyAnswer(token) {
   handleAnswer(targetKey, targetBtn, { fromListenOnly: true });
 }
 
+/** Summ-Pause im Nur-Hören-Modus: gleiche Bedingungen wie in der normalen Übung (außer Prüfung). */
+function shouldRunListenOnlyHumPause(ex) {
+  return Boolean(ex && state.profile?.singAlongPause && isSingAlongTipsEnabled()
+    && isSingAlongExerciseType(ex.type) && !state.exam?.active);
+}
+
 function handleListenOnlyPromptEnded(expectedEx) {
   if (!state.listenOnly?.active || state.currentView !== "exercise") return;
   if (!expectedEx || state.currentExercise !== expectedEx) return;
@@ -79834,6 +80036,16 @@ function handleListenOnlyPromptEnded(expectedEx) {
 
   const token = state.listenOnly.token;
   state.listenOnly.phase = "think";
+
+  if (shouldRunListenOnlyHumPause(expectedEx) && !isCurrentExerciseSolved(expectedEx)
+      && renderHumPauseStage(expectedEx, tr("NUR HÖREN • SUMM-PAUSE", "LISTEN ONLY • HUM PAUSE"))) {
+    scheduleListenOnlyStep(() => {
+      cancelHumPause();
+      if (state.currentExercise !== expectedEx) return;
+      revealListenOnlyAnswer(token);
+    }, Math.max(HUM_PAUSE_MS, LISTEN_ONLY_REVEAL_DELAY_MS), token);
+    return;
+  }
 
   if (document.getElementById("centralStageCard") && !isCurrentExerciseSolved(expectedEx)) {
     setCentralStageMode("stage-target");
@@ -80056,7 +80268,7 @@ async function playSequence(options = {}) {
     return;
   }
 
-  // Tonleitern & Modi: Phase 1 Anker-Quinte -> Phase 2 Modus-Tonleiter / Charakterton / Modaler Vamp
+  // Tonleitern & Modi: Phase 1 Anker-Quinte -> Phase 2 Modus-Tonleiter / Charakterton / Modales Akkordpendel
   if (ex.type.startsWith("modes-")) {
     function runModeLoopCycle() {
       if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
@@ -80080,7 +80292,7 @@ async function playSequence(options = {}) {
         setCentralStageMode("stage-target");
         updateStageMascot("question");
         document.getElementById("stageSubtext").textContent =
-          ex.type === "modes-cadence" ? tr("MODALER VAMP", "MODAL VAMP") : (ex.type === "modes-char" ? tr("CHARAKTERTON", "COLOR TONE") : tr("KIRCHENTONART", "SCALE MODE"));
+          ex.type === "modes-cadence" ? tr("MODALES AKKORDPENDEL", "MODAL CHORD LOOP") : (ex.type === "modes-char" ? tr("CHARAKTERTON", "COLOR TONE") : tr("KIRCHENTONART", "SCALE MODE"));
         document.getElementById("stageMainText").textContent = "?";
         document.getElementById("stageFunctionText").textContent =
           ex.type === "modes-cadence"
@@ -84142,6 +84354,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const inlineBpmPopover = document.getElementById("inlineBpmPopover");
   const inlineKeyPopover = document.getElementById("inlineKeyPopover");
+  const inlineModesRootPopover = document.getElementById("inlineModesRootPopover");
+  const modesRootBadge = document.getElementById("targetBarBadge");
   const inlineNotationKeyPopover = document.getElementById("inlineNotationKeyPopover");
   const inlineNotationPacePopover = document.getElementById("inlineNotationPacePopover");
   const inlineNotationPaceSlider = document.getElementById("inlineNotationPaceSlider");
@@ -84153,7 +84367,8 @@ document.addEventListener("DOMContentLoaded", () => {
       [inlineKeyPopover, moduleKeyBtn],
       [inlineNotationKeyPopover, moduleNotationKeyBtn],
       [inlineNotationPacePopover, moduleNotationPaceBtn],
-      [inlineTimeSigPopover, moduleTimeSigBtn]
+      [inlineTimeSigPopover, moduleTimeSigBtn],
+      [inlineModesRootPopover, modesRootBadge]
     ].forEach(([pop, btn]) => {
       if (pop?.classList.contains("is-pinned")) return;
       if (pop && pop !== exceptPopover) {
@@ -84206,6 +84421,14 @@ document.addEventListener("DOMContentLoaded", () => {
     state.settings.modesRootPad = !state.settings.modesRootPad;
     syncModesPadButton(e.currentTarget);
     const ex = state.currentExercise;
+    // Lautstärke-Regler der Fläche nur bei aktiver Fläche zeigen
+    const padStrip = document.getElementById("droneMixStrip");
+    if (padStrip && String(ex?.type || "").startsWith("modes-")) {
+      padStrip.classList.toggle("hidden", !state.settings.modesRootPad);
+      padStrip.classList.toggle("is-pad-only", state.settings.modesRootPad);
+      if (state.settings.modesRootPad) syncDroneMixControls();
+      if (typeof queueFitExerciseLayout === "function") queueFitExerciseLayout(true);
+    }
     // Kurze Hörprobe beim Einschalten (nur wenn gerade nichts läuft)
     if (state.settings.modesRootPad && audioEngine.isInitialized && !state.isPlaying && ex?.rootMidi) {
       audioEngine.playRootPad([midiToNote(ex.rootMidi - 12), midiToNote(ex.rootMidi)], 1.6);
@@ -84263,8 +84486,25 @@ document.addEventListener("DOMContentLoaded", () => {
     moduleTimeSigBtn.classList.toggle("chip-open", !isHidden);
   });
 
-  [inlineBpmPopover, inlineKeyPopover, inlineNotationKeyPopover, inlineNotationPacePopover, inlineTimeSigPopover].forEach(pop => {
+  [inlineBpmPopover, inlineKeyPopover, inlineNotationKeyPopover, inlineNotationPacePopover, inlineTimeSigPopover, inlineModesRootPopover].forEach(pop => {
     pop?.addEventListener("click", (e) => e.stopPropagation());
+  });
+
+  // Tonleitern & Modi: Grundton-Badge öffnet die Grundton-Auswahl
+  const toggleModesRootPopover = (e) => {
+    e?.stopPropagation?.();
+    if (!modesRootBadge?.classList.contains("module-badge-btn") || !inlineModesRootPopover) return;
+    closeAllInlinePopovers(inlineModesRootPopover);
+    renderModesRootPopover();
+    const isHidden = inlineModesRootPopover.classList.toggle("hidden");
+    modesRootBadge.classList.toggle("chip-open", !isHidden);
+  };
+  modesRootBadge?.addEventListener("click", toggleModesRootPopover);
+  modesRootBadge?.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      toggleModesRootPopover(e);
+    }
   });
 
   document.addEventListener("click", () => {
@@ -84693,6 +84933,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (Number.isFinite(pct)) {
       setDroneMixValue("pad", pct / 100);
     }
+  });
+  // Modi: nach dem Verstellen kurz die Fläche in neuer Lautstärke vorhören (nur wenn gerade nichts läuft)
+  document.getElementById("dronePadVolSlider")?.addEventListener("change", () => {
+    const ex = state.currentExercise;
+    if (!String(ex?.type || "").startsWith("modes-") || !state.settings.modesRootPad || state.isPlaying) return;
+    if (!audioEngine.isInitialized || !ex?.rootMidi) return;
+    audioEngine.playRootPad([midiToNote(ex.rootMidi - 12), midiToNote(ex.rootMidi)], 1.4);
   });
 
   document.getElementById("droneToneVolSlider")?.addEventListener("input", (e) => {
@@ -91282,7 +91529,7 @@ function getLocalizedExamModeName(mode) {
     melody: tr("Melodien (4–6 Töne)", "Melodies (4–6 Notes)"),
     "modes-scale": tr("Kirchentonarten (Tonleiter)", "Modes (Scale)"),
     "modes-char": tr("Charakterton (Modi)", "Modal Color Tone"),
-    "modes-cadence": tr("Modaler Vamp", "Modal Vamp"),
+    "modes-cadence": tr("Modales Akkordpendel", "Modal Chord Loop"),
     "rhythm-meter": tr("Taktarten & Metrum", "Meters & Time Sigs"),
     "rhythm-dictation": tr("Rhythmus-Diktat", "Rhythm Dictation"),
     "rhythm-tap": tr("Rhythmus nachklopfen", "Rhythm Tap-Back"),
