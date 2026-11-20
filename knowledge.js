@@ -2100,7 +2100,7 @@ const CATEGORY_HELP_GUIDES = {
 
       <div class="article-highlight-box">
         <h4>Live-Steuerung &amp; Klaviatur</h4>
-        <p>Über die Chips oben wechselst du jederzeit zwischen <strong>Tonumfang (SATB)</strong>, <strong>Klang</strong> (Klavier, Klavier + Stimme oder Stimme) und <strong>Tempo</strong>; über die <strong>Phasen-Pills</strong> springst du gezielt zu einzelnen Abschnitten. Unten lässt sich jede Übung per <strong>„−1 / +1 Halbton“</strong> und <strong>„↻ Nochmal“</strong> direkt anpassen – oder du greifst auf der <strong>Live-Klaviatur</strong> einzelne Referenztöne direkt mit an.</p>
+        <p>Über die Chips oben wechselst du jederzeit zwischen <strong>Tonumfang (SATB)</strong>, <strong>Klang</strong> (Klavier, Klavier + Stimme oder Stimme) und <strong>Tempo</strong>; über die <strong>Phasen-Pills</strong> springst du gezielt zu einzelnen Abschnitten. Unten lässt sich jede Übung per <strong>„−1 / +1 Halbton“</strong> und <strong>„Nochmal“</strong> direkt anpassen – oder du greifst auf der <strong>Live-Klaviatur</strong> einzelne Referenztöne direkt mit an.</p>
       </div>
     `
   },

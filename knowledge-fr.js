@@ -2013,7 +2013,7 @@ const CATEGORY_HELP_GUIDES_FR = {
 
       <div class="article-highlight-box">
         <h4>Contrôles en direct &amp; Clavier</h4>
-        <p>En haut, changez à tout moment <strong>Tessiture (SATB)</strong>, <strong>Son d’accompagnement</strong> (Piano, Piano + Voix ou Voix) et <strong>Tempo</strong>, ou naviguez entre étapes grâce aux <strong>pastilles de phase</strong>. En bas, ajustez avec <strong>« −1 / +1 demi-ton »</strong> et <strong>« ↻ Répéter »</strong>, ou jouez directement des notes repères sur le <strong>clavier interactif</strong>.</p>
+        <p>En haut, changez à tout moment <strong>Tessiture (SATB)</strong>, <strong>Son d’accompagnement</strong> (Piano, Piano + Voix ou Voix) et <strong>Tempo</strong>, ou naviguez entre étapes grâce aux <strong>pastilles de phase</strong>. En bas, ajustez avec <strong>« −1 / +1 demi-ton »</strong> et <strong>« Répéter »</strong>, ou jouez directement des notes repères sur le <strong>clavier interactif</strong>.</p>
       </div>
     `
   },

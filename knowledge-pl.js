@@ -2025,7 +2025,7 @@ const CATEGORY_HELP_GUIDES_PL = {
 
       <div class="article-highlight-box">
         <h4>Sterowanie na żywo i klawiatura</h4>
-        <p>U góry zmieniasz <strong>Rejestr (SATB)</strong>, <strong>Barwę akompaniamentu</strong> (Fortepian, Fortepian + głos lub Głos) i <strong>Tempo</strong>, a przez <strong>pigułki etapów</strong> przeskakujesz dowolnie między fazami. U dołu działają przyciski <strong>„−1 / +1 półton”</strong> i <strong>„↻ Powtórz”</strong> oraz <strong>interaktywna klawiatura</strong> do grania dźwięków oparcia.</p>
+        <p>U góry zmieniasz <strong>Rejestr (SATB)</strong>, <strong>Barwę akompaniamentu</strong> (Fortepian, Fortepian + głos lub Głos) i <strong>Tempo</strong>, a przez <strong>pigułki etapów</strong> przeskakujesz dowolnie między fazami. U dołu działają przyciski <strong>„−1 / +1 półton”</strong> i <strong>„Powtórz”</strong> oraz <strong>interaktywna klawiatura</strong> do grania dźwięków oparcia.</p>
       </div>
     `
   },

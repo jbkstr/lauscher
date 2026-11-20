@@ -8328,13 +8328,13 @@ function openCategoryPage(categoryKey, options = {}) {
           </button>
 
           <button class="subpage-node-btn" data-launch-solfege="5">
-            <div class="node-circle circle-lilac">↻ • 1</div>
+            <div class="node-circle circle-lilac">${REFRESH_ICON_SVG} • 1</div>
             <span class="node-title">${tr("Stufe 5: Tonartwechsel (1 Oktave)", "Level 5: Key Changes (1 Octave)")}</span>
             <span class="node-sub">${tr("Neue Tonart nach jeder Antwort, 1 Okt.", "New key after every answer, 1 oct.")}</span>
           </button>
 
           <button class="subpage-node-btn" data-launch-solfege="6">
-            <div class="node-circle circle-lilac">↻ • ∞</div>
+            <div class="node-circle circle-lilac">${REFRESH_ICON_SVG} • ∞</div>
             <span class="node-title">${tr("Stufe 6: Tonartwechsel (Mehrere Okt.)", "Level 6: Key Changes (Multi-Oct.)")}</span>
             <span class="node-sub">${tr("Neue Tonart & Oktave nach jeder Antwort", "New key & octave after every answer")}</span>
           </button>
@@ -10236,6 +10236,10 @@ function generateRhythmGrooveExercise() {
  * - Stufe 5: Nicht C-Dur (neu nach jeder Antwort), 1 Oktave
  * - Stufe 6: Nicht C-Dur (neu nach jeder Antwort), mehrere Oktaven
  */
+// Kreispfeil („nochmal/neu/wechseln“) als Linien-Icon. Das Zeichen „↻“ fehlt in der App-Schrift Andika
+// und erschien auf Mobilgeräten/in der App als fremdes Emoji-/Systemsymbol.
+const REFRESH_ICON_SVG = '<svg class="inline-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.35-5.66"/><path d="M20 4.5v4.6h-4.6"/></svg>';
+
 // Solfège „Mehrere Oktaven“: drei feste Tonlagen (je 12 Halbtöne, jede Tonstufe passt genau einmal hinein).
 // Tief ≈ um C3, mittel ≈ um C4, hoch ≈ um C5 – unabhängig davon, wo die Tonart auf der Klaviatur liegt.
 const SOLFEGE_OCTAVE_BANDS = {
@@ -13958,7 +13962,7 @@ function renderInlineNotationKeyPopover() {
       <span class="popover-label">${escapeHtml(tr("Tonart (Vorzeichen):", "Key Signature:"))}</span>
       ${showNextKeyBtn ? `
         <button type="button" class="popover-pill-btn" data-inline-notation-rotate="1">
-          ${escapeHtml(tr("↻ Nächste Tonart", "↻ Next Key"))}
+          ${REFRESH_ICON_SVG}${escapeHtml(tr("Nächste Tonart", "Next Key"))}
         </button>
       ` : ""}
     </div>
@@ -22019,7 +22023,7 @@ function renderWarmupView() {
       playBtn.textContent = tr("▶ Weiter", "▶ Resume");
       playBtn.classList.remove("btn-stop");
     } else if (w.status === "completed") {
-      playBtn.textContent = tr("↻ Nochmal einsingen", "↻ Warmup Again");
+      playBtn.innerHTML = `${REFRESH_ICON_SVG}${escapeHtml(tr("Nochmal einsingen", "Warmup Again"))}`;
       playBtn.classList.remove("btn-stop");
     } else {
       playBtn.textContent = tr("▶ Einsingen starten", "▶ Start Warmup");
@@ -23077,7 +23081,7 @@ function renderMetronomeProfiles() {
     const updateBtn = document.createElement("button");
     updateBtn.type = "button";
     updateBtn.className = "metro-profile-icon-btn";
-    updateBtn.textContent = "↻";
+    updateBtn.innerHTML = REFRESH_ICON_SVG;
     updateBtn.title = tr("Aktuelle Werte in diesem Profil speichern", "Update profile with current settings");
     updateBtn.setAttribute?.("aria-label", tr("Profil aktualisieren", "Update profile"));
     updateBtn.addEventListener("click", () => {
