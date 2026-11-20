@@ -8073,10 +8073,26 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
   flex-shrink: 0;
-  background: var(--surface-warm);
+  background: var(--surface-white);
   border: 1px solid var(--border-soft);
+  color: var(--raccoon-dark);
+}
+
+/* Prüfungs-Icon in der Akzentfarbe der Kategorie */
+.category-exam-entry-card.accent-peach .category-exam-icon {
+  color: var(--peach-strong);
+  border-color: var(--peach);
+}
+
+.category-exam-entry-card.accent-sage .category-exam-icon {
+  color: var(--sage-strong);
+  border-color: var(--sage);
+}
+
+.category-exam-entry-card.accent-lilac .category-exam-icon {
+  color: var(--lilac-strong, var(--raccoon-dark));
+  border-color: var(--lilac);
 }
 
 .category-exam-copy {
