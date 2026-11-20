@@ -1989,7 +1989,7 @@ const CATEGORY_HELP_GUIDES_UK = {
       <ul class="article-steps-list">
         <li><strong>1. Визначити гаму / лад (3 рівні):</strong> Спочатку звучить нейтральна <strong>Опорна квінта</strong> (без терції), а потім висхідна 8-нотна гама: Рівень 1 — 4 базові лади (<code>Іонійський, Еолійський, Дорійський, Міксолідійський</code>), Рівень 2 — усі 7 у <code>C</code>, Рівень 3 — усі 7 зі зміною тоніки.</li>
         <li><strong>2. Характерний ступінь і барва (3 рівні):</strong> Після опорної квінти короткий зворот виділяє ключовий тон (<code>#4</code> лідійський, <code>b7</code> міксолідійський, <code>♮6</code> дорійський, <code>b2</code> фригійський або <code>#7</code> у <strong>гармонічному мінорі</strong>) — поділено на мажорні лади (Рівень 1), мінорні (Рівень 2) та Усі + гармонічний мінор від різних звуків (Рівень 3).</li>
-        <li><strong>3. Модальні каданси й вампи (2 рівні):</strong> Класичні двоакордові петлі (<code>i – IV</code> дорійський, <code>I – bVII</code> міксолідійський, <code>I – II</code> лідійський, <code>i – bII</code> фригійський): 4 базові вампи в <code>C</code> (Рівень 1) та всі 6 у різних тональностях (Рівень 2).</li>
+        <li><strong>3. Модальні акордові звороти (2 рівні):</strong> Класичні двоакордові петлі (<code>i – IV</code> дорійський, <code>I – bVII</code> міксолідійський, <code>I – II</code> лідійський, <code>i – bII</code> фригійський): 4 базові звороти в <code>C</code> (Рівень 1) та всі 6 у різних тональностях (Рівень 2). У джазі й попмузиці такі короткі повторювані петлі ще називають <em>вампами</em>.</li>
       </ul>
 
       <div class="article-highlight-box">
@@ -3193,7 +3193,7 @@ function renderModesReferenceHTML_UK(familyFilter = "all") {
           <p>${m.usage}</p>
           <div class="k-btn-row">
             <button class="btn-tool" data-play-mode-scale="${m.id}">▶ Гама (${m.rootLabel})</button>
-            <button class="btn-tool" data-play-mode-vamp="${m.id}">▶ Вамп: ${m.vamp}</button>
+            <button class="btn-tool" data-play-mode-vamp="${m.id}">▶ Зворот: ${m.vamp}</button>
           </div>
         </article>
       `).join("")}

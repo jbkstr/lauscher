@@ -8,7 +8,8 @@ Lauscher • Version hochzählen (version.js + CHANGELOG.md)
 
 - Die Build-Nummer (Android versionCode) steigt bei jedem Aufruf um 1 und darf nie sinken.
 - In CHANGELOG.md wird oben ein neuer Abschnitt angelegt, vorbefüllt mit den Commit-Titeln
-  seit dem letzten Git-Tag (danach von Hand kürzen/umformulieren).
+  seit dem letzten Git-Tag (danach von Hand kürzen und auf Englisch formulieren – der
+  Changelog wird auf Englisch geführt).
 - Das Skript committet und taggt nichts; die nächsten Schritte werden am Ende ausgegeben.
 Nur Python-Standardbibliothek.
 """
@@ -61,7 +62,8 @@ def add_changelog_section(name, build, date):
     last_tag, commits = commits_since_last_tag()
     header = f"## {name} (Build {build}) – {date}"
     body = "\n".join(f"- {c}" for c in commits) or "- …"
-    hint = f"<!-- Vorbefüllt aus Commits seit {last_tag or 'Projektbeginn (gekürzt)'} – bitte kürzen und für Nutzer formulieren. -->"
+    # Changelog wird auf Englisch geführt; Commit-Titel sind meist deutsch → Hinweis zum Übersetzen
+    hint = f"<!-- Prefilled from commits since {last_tag or 'project start (truncated)'} – shorten, translate to English and phrase for users. -->"
     section = f"{header}\n\n{hint}\n{body}\n"
     if CHANGELOG_FILE.exists():
         text = CHANGELOG_FILE.read_text(encoding="utf-8")
@@ -69,7 +71,7 @@ def add_changelog_section(name, build, date):
         idx = text.find(marker)
         text = (text[:idx + 1] + section + "\n" + text[idx + 1:]) if idx != -1 else (text.rstrip() + "\n\n" + section)
     else:
-        text = "# Changelog\n\nAlle veröffentlichten Versionen von Lauscher.\n\n" + section
+        text = "# Changelog\n\nAll released versions of Lauscher. Entries are written in English.\n\n" + section
     CHANGELOG_FILE.write_text(text, encoding="utf-8")
 
 
@@ -99,7 +101,7 @@ def main():
     tag_exists = bool(git("tag", "--list", tag))
     print(f"✓ Version: {name} (Build {build}) → {new_name} (Build {new_build})")
     if not args.no_changelog:
-        print("✓ CHANGELOG.md: neuer Abschnitt angelegt – bitte Einträge prüfen")
+        print("✓ CHANGELOG.md: neuer Abschnitt angelegt – Einträge prüfen und auf Englisch formulieren")
     print("\nNächste Schritte:")
     print("  1. ./scripts/sync-android.sh --no-open   (überträgt Version ins Android-Projekt)")
     print("  2. In Android Studio: Build → Generate Signed App Bundle / APK → APK → release")

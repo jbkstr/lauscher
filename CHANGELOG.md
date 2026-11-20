@@ -1,14 +1,14 @@
 # Changelog
 
-Alle veröffentlichten Versionen von Lauscher. Neue Abschnitte legt `python3 scripts/bump-version.py` an.
+All released versions of Lauscher. New sections are created by `python3 scripts/bump-version.py`. Entries are written in English.
 
 ## 0.9.0-beta (Build 1) – 2026-11-19
 
-Erste öffentliche Beta.
+First public beta.
 
-- Gehörbildung: Intervalle, Akkorde, Kadenzen, Solfège, Melodien, Rhythmus, Tonleitern & Modi, Frequenzen & EQ, Notenlesen – jeweils mit mehreren Stufen und Prüfungsmodus
-- Werkzeuge: Metronom, chromatischer Tuner, Freies Spiel (Klang-Labor) und Gitarren-Griffbrett
-- Einsing-Programme und Wissensbereich mit Klangbeispielen
-- 7 Sprachen: Deutsch, Englisch, Französisch, Spanisch, Polnisch, Ukrainisch, Urdu
-- Profil-Sicherung (lokal speichern oder teilen), eigene Farbschemata, hell/dunkel
-- Komplett lokal: kein Konto, keine Werbung, kein Tracking
+- Ear training: intervals, chords, cadences, solfège, melodies, rhythm, scales & modes, frequencies & EQ, note reading – each with several levels and an exam mode
+- Tools: metronome, chromatic tuner, free play (sound lab) and guitar fretboard
+- Warm-up singing programs and a knowledge section with audio examples
+- 7 languages: German, English, French, Spanish, Polish, Ukrainian, Urdu
+- Profile backup (save locally or share), custom color themes, light/dark mode
+- Fully local: no account, no ads, no tracking

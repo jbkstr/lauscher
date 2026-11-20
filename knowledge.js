@@ -2075,7 +2075,7 @@ const CATEGORY_HELP_GUIDES = {
       <ul class="article-steps-list">
         <li><strong>1. Modus / Tonleiter erkennen (3 Stufen):</strong> Nach der neutralen <strong>Anker-Quinte</strong> (Grundton + Quinte ohne Terz) erklingt die 8-tönige Tonleiter aufwärts: Stufe 1 prüft die 4 Grund-Modi (<code>Ionisch, Äolisch, Dorisch, Mixolydisch</code>), Stufe 2 alle 7 Kirchentonarten in <code>C</code> und Stufe 3 alle 7 mit wechselndem Grundton.</li>
         <li><strong>2. Charakterton &amp; Klangfarbe (3 Stufen):</strong> Nach der Anker-Quinte fokussiert eine kurze Wendung den charakteristischen Leitton (<code>#4</code> Lydisch, <code>b7</code> Mixolydisch, <code>♮6</code> Dorisch, <code>b2</code> Phrygisch oder <code>#7</code> in <strong>Harmonisch Moll</strong>) – getrennt in Stufe 1 (Dur-Modi), Stufe 2 (Moll-Modi) und Stufe 3 (Alle 7 + Harmonisch Moll auf freien Grundtönen).</li>
-        <li><strong>3. Modale Kadenzen &amp; Vamps (2 Stufen):</strong> Zweitaktige Pendel-Akkorde (z. B. <code>i – IV</code> Dorisch, <code>I – bVII</code> Mixolydisch, <code>I – II</code> Lydisch, <code>i – bII</code> Phrygisch) erst über 4 Standard-Vamps in <code>C</code> (Stufe 1) und dann als alle 6 Modal-Vamps transponiert (Stufe 2).</li>
+        <li><strong>3. Modale Akkordfolgen (2 Stufen):</strong> Zwei Akkorde, die sich immer wieder abwechseln (z. B. <code>i – IV</code> Dorisch, <code>I – bVII</code> Mixolydisch, <code>I – II</code> Lydisch, <code>i – bII</code> Phrygisch) erst über 4 Standard-Folgen in <code>C</code> (Stufe 1) und dann als alle 6 modalen Folgen transponiert (Stufe 2). Im Jazz und Pop heißen solche kurzen, wiederholten Akkordschleifen auch <em>Vamp</em>.</li>
       </ul>
 
       <div class="article-highlight-box">
@@ -3446,7 +3446,7 @@ function renderModesReferenceHTML(familyFilter = "all") {
           <p>${m.usage}</p>
           <div class="k-btn-row">
             <button class="btn-tool" data-play-mode-scale="${m.id}">▶ Tonleiter (${m.rootLabel})</button>
-            <button class="btn-tool" data-play-mode-vamp="${m.id}">▶ Vamp: ${m.vamp}</button>
+            <button class="btn-tool" data-play-mode-vamp="${m.id}">▶ Akkordfolge: ${m.vamp}</button>
           </div>
         </article>
       `).join("")}
@@ -3460,7 +3460,7 @@ function renderModesReferenceHTML(familyFilter = "all") {
       <h4>Wie man modal komponiert, ohne ins normale Dur zu kippen</h4>
       <ul class="k-physics-list">
         <li><strong>Tritonus-Falle meiden:</strong> Im klassischen C-Dur bilden <code>F</code> und <code>H</code> zusammen den Tritonus des G7-Akkords, der hart nach C zieht. Vermeide in Dorisch (D) oder Mixolydisch (G) lange V7→I-Wendungen des Stamm-Dur-Akkords, sonst verliert dein Modus sein eigenes Zuhause.</li>
-        <li><strong>Modale Vamps nutzen:</strong> Statt komplexer 4-Akkord-Funktionsketten pendeln modale Stücke meist zwischen dem Grundakkord und genau dem Nachbarakkord, der den <strong>Charakterton</strong> trägt (z. B. <code>Cm – F</code> in C-Dorisch enthält das helle <code>A</code>).</li>
+        <li><strong>Modale Akkordfolgen nutzen:</strong> Statt komplexer 4-Akkord-Funktionsketten pendeln modale Stücke meist zwischen dem Grundakkord und genau dem Nachbarakkord, der den <strong>Charakterton</strong> trägt (z. B. <code>Cm – F</code> in C-Dorisch enthält das helle <code>A</code>).</li>
         <li><strong>Orgelpunkt (Drone):</strong> Ein liegender Grundton + Quinte im Bass verankert den Modus sofort – das Ohr hört jede Skalenstufe automatisch als Spannung relativ zu diesem Zentrum.</li>
       </ul>
     </article>

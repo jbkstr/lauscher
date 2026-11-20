@@ -1048,7 +1048,7 @@ const MIX_MODE_CATALOG = {
   "prod-eq-noise":         { label: "Produktion • EQ im Noise",     levels: [1, 2, 3] },
   "modes-scale":           { label: "Modi • Tonleitern erkennen",   levels: [1, 2, 3] },
   "modes-char":            { label: "Modi • Charakterton",          levels: [1, 2, 3] },
-  "modes-cadence":         { label: "Modi • Kadenzen & Vamps",      levels: [1, 2] },
+  "modes-cadence":         { label: "Modi • Modale Akkordfolgen",   levels: [1, 2] },
   "notation-treble":       { label: "Notation • Violinschlüssel",   levels: [1, 2, 3, 4] },
   "notation-bass":         { label: "Notation • Bassschlüssel",     levels: [1, 2, 3, 4] },
   "notation-alto":         { label: "Notation • Altschlüssel",      levels: [1, 2, 3, 4] },
@@ -1325,8 +1325,8 @@ const EXAM_CATEGORY_LEVELS = {
         levelNumber: 1,
         title: { de: "Stufe 1 • Basis-Modi", en: "Level 1 • Core Modes" },
         desc: {
-          de: "Ionisch, Äolisch, Dorisch & Mixolydisch (Tonleiter, Charakterton & Vamp)",
-          en: "Ionian, Aeolian, Dorian & Mixolydian (Scale, Color Tone & Vamp)"
+          de: "Ionisch, Äolisch, Dorisch & Mixolydisch (Tonleiter, Charakterton & Akkordfolge)",
+          en: "Ionian, Aeolian, Dorian & Mixolydian (Scale, Color Tone & Chord Loop)"
         },
         modes: ["modes-scale", "modes-char", "modes-cadence"],
         apply: { modesScaleDifficulty: 1, modesCharDifficulty: 1, modesCadenceDifficulty: 1 }
@@ -2239,6 +2239,7 @@ class AppState {
       melodyStyle: "rhythmic",   // 'steady' (4 gleichlang) | 'rhythmic' (4–6 Töne phrasiert) | 'dictation' (Ton + Rhythmus)
       melodyPulse: true,         // Dezenter Takt-Puls beim Melodie-Abspielen
       modesRootPad: false,       // Modi: Bezugsgrundton als Streicher-Fläche unterlegen
+      modesRoot: null,           // Modi: null = Stufen-Standard (C bzw. Zufall) | "random" | Tonhöhenklasse 0–11
       rhythmTapReadMode: false,  // Rhythmus vom Blatt: Notenbild lesen & zum Metronom tappen (statt nachklopfen)
       rhythmMeterDifficulty: 1,
       rhythmDictationDifficulty: 1,
@@ -2635,7 +2636,7 @@ class AppState {
     }
     if (this.settings.mode === "modes-cadence") {
       const lvl = this.settings.modesCadenceDifficulty || 1;
-      const prefix = includeCategory ? tr("Modi: Kadenzen", "Modes: Vamps") : tr("Kadenzen & Vamps", "Modal Vamps");
+      const prefix = includeCategory ? tr("Modi: Akkordfolgen", "Modes: Chord Loops") : tr("Modale Akkordfolgen", "Modal Chord Loops");
       return `${prefix} • ${lvlWord} ${lvl} (${getLocalizedModeLevelLabel("cadence", lvl)})`;
     }
     if (isNotationMode(this.settings.mode)) {
@@ -5154,8 +5155,8 @@ const MODE_CHAR_LEVELS = {
 };
 
 const MODE_CADENCE_LEVELS = {
-  1: { label: "4 Standard-Vamps",   randomRoot: false, choices: ["ionian", "dorian", "mixolydian", "aeolian"] },
-  2: { label: "Alle 6 Modal-Vamps", randomRoot: true,  choices: ["ionian", "dorian", "mixolydian", "aeolian", "lydian", "phrygian"] }
+  1: { label: "4 Standard-Folgen",  randomRoot: false, choices: ["ionian", "dorian", "mixolydian", "aeolian"] },
+  2: { label: "Alle 6 modalen Folgen", randomRoot: true,  choices: ["ionian", "dorian", "mixolydian", "aeolian", "lydian", "phrygian"] }
 };
 
 function getChoiceItem(exType, choiceKey) {
@@ -5653,6 +5654,7 @@ function closeTransientPopovers() {
     ["inlineNotationKeyPopover", "moduleNotationKeyBtn"],
     ["inlineNotationPacePopover", "moduleNotationPaceBtn"],
     ["inlineTimeSigPopover", "moduleTimeSigBtn"],
+    ["inlineModesRootPopover", "targetBarBadge"],
     ["warmupVoicePopover", "warmupVoiceBtn"],
     ["warmupSoundPopover", "warmupSoundBtn"],
     ["warmupBpmPopover", "warmupBpmBtn"]
@@ -5849,6 +5851,7 @@ function hasOpenTransientPopover() {
     "inlineNotationKeyPopover",
     "inlineNotationPacePopover",
     "inlineTimeSigPopover",
+    "inlineModesRootPopover",
     "warmupVoicePopover",
     "warmupSoundPopover",
     "warmupBpmPopover"
@@ -8552,17 +8555,17 @@ function openCategoryPage(categoryKey, options = {}) {
       </div>
 
       <div class="subpage-section">
-        <h3 class="subpage-section-title">${tr("3. Modale Kadenzen &amp; Vamps", "3. Modal Cadences &amp; Vamps")}</h3>
-        <p class="subpage-section-desc">${tr("Typische Pendel-Akkorde (z. B. i–IV, I–bVII, I–II oder i–bII) am Klang erkennen", "Identify signature modal chord vamps (e.g. i–IV, I–bVII, I–II, or i–bII) by ear")}</p>
+        <h3 class="subpage-section-title">${tr("3. Modale Akkordfolgen", "3. Modal Chord Loops")}</h3>
+        <p class="subpage-section-desc">${tr("Zwei Akkorde im Wechsel (z. B. i–IV, I–bVII, I–II oder i–bII) – typische modale Akkordfolgen am Klang erkennen", "Two chords taking turns (e.g. i–IV, I–bVII, I–II or i–bII) — recognize signature modal chord loops by ear")}</p>
         <div class="subpage-nodes-grid">
           <button class="subpage-node-btn" data-launch-modes="modes-cadence" data-modes-lvl="1">
-            <div class="node-circle circle-lilac node-circle-stack"><span>4×</span><span class="node-stack-sub">Vamp</span></div>
-            <span class="node-title">${tr("Stufe 1: Standard-Vamps", "Level 1: Standard Vamps")}</span>
+            <div class="node-circle circle-lilac node-circle-stack"><span>4×</span><span class="node-stack-sub">${tr("Folgen", "Loops")}</span></div>
+            <span class="node-title">${tr("Stufe 1: Standard-Folgen", "Level 1: Standard Loops")}</span>
             <span class="node-sub">${tr("Ionisch, Dorisch, Mixolydisch &amp; Äolisch", "Ionian, Dorian, Mixolydian &amp; Aeolian")}</span>
           </button>
           <button class="subpage-node-btn" data-launch-modes="modes-cadence" data-modes-lvl="2">
-            <div class="node-circle circle-lilac node-circle-stack"><span>6×</span><span class="node-stack-sub">Vamp</span></div>
-            <span class="node-title">${tr("Stufe 2: Alle 6 Modal-Vamps", "Level 2: All 6 Modal Vamps")}</span>
+            <div class="node-circle circle-lilac node-circle-stack"><span>6×</span><span class="node-stack-sub">${tr("Folgen", "Loops")}</span></div>
+            <span class="node-title">${tr("Stufe 2: Alle 6 modalen Folgen", "Level 2: All 6 Modal Loops")}</span>
             <span class="node-sub">${tr("Inkl. Lydisch (I–II) &amp; Phrygisch (i–bII)", "Incl. Lydian (I–II) &amp; Phrygian (i–bII)")}</span>
           </button>
         </div>
@@ -9848,6 +9851,92 @@ function generateProdEqNoiseExercise() {
   };
 }
 
+// ---------- Tonleitern & Modi: wählbarer Grundton ----------
+const MODES_ROOT_DEFAULT_POOL = [55, 57, 58, 60, 62, 63, 64, 65]; // Stufen-Zufall (bisheriger Pool)
+const MODES_ROOT_LOW_MIDI = 55;                                   // gewählte Grundtöne liegen zwischen G3 und Fis4
+const MODES_ROOT_FLAT_PCS = new Set([1, 3, 5, 8, 10]);            // Des, Es, F, As, B mit b-Schreibweise
+const MODES_ROOT_PICKER_PCS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+
+function getModesRootLabel(pc) {
+  return midiToGermanNote(60 + pc, MODES_ROOT_FLAT_PCS.has(pc)).replace(/-?\d+$/, "");
+}
+
+function modesRootPcToMidi(pc) {
+  return MODES_ROOT_LOW_MIDI + ((pc - (MODES_ROOT_LOW_MIDI % 12) + 12) % 12);
+}
+
+/** Aktuelle Grundton-Wahl: "random", eine Tonhöhenklasse 0–11 oder null (Standard der Stufe). */
+function getModesRootChoice() {
+  const raw = state.settings.modesRoot;
+  if (raw === "random") return "random";
+  if (Number.isInteger(raw) && raw >= 0 && raw <= 11) return raw;
+  return null;
+}
+
+function isModesLevelRandomRoot(levelCfg) {
+  return Boolean(levelCfg?.randomRoot || state.settings.keyMode === "random");
+}
+
+function pickModesRootMidi(levelCfg, prevRootMidi = null) {
+  // Prüfungen bleiben beim Standard der Stufe (eigene Wahl gilt nur fürs freie Üben)
+  const choice = state.exam?.active ? null : getModesRootChoice();
+  if (Number.isInteger(choice)) return modesRootPcToMidi(choice);
+  if (choice === "random") {
+    const pool = MODES_ROOT_PICKER_PCS.map(modesRootPcToMidi).filter(m => m !== prevRootMidi);
+    return pool[Math.floor(Math.random() * pool.length)];
+  }
+  if (isModesLevelRandomRoot(levelCfg)) {
+    return MODES_ROOT_DEFAULT_POOL[Math.floor(Math.random() * MODES_ROOT_DEFAULT_POOL.length)];
+  }
+  return 60;
+}
+
+function getActiveModesLevelCfg(exType = state.currentExercise?.type) {
+  if (exType === "modes-char") return MODE_CHAR_LEVELS[state.settings.modesCharDifficulty] || MODE_CHAR_LEVELS[1];
+  if (exType === "modes-cadence") return MODE_CADENCE_LEVELS[state.settings.modesCadenceDifficulty] || MODE_CADENCE_LEVELS[1];
+  return MODE_SCALE_LEVELS[state.settings.modesScaleDifficulty] || MODE_SCALE_LEVELS[1];
+}
+
+/** Grundton-Auswahl (Zufall + 12 Töne) im aufklappbaren Feld unter dem Übungskopf aufbauen. */
+function renderModesRootPopover() {
+  const row = document.getElementById("modesRootPills");
+  if (!row) return;
+  const choice = getModesRootChoice();
+  const levelRandom = isModesLevelRandomRoot(getActiveModesLevelCfg());
+  const activeKey = choice === null ? (levelRandom ? "random" : 0) : choice;
+  const pills = [{ key: "random", label: tr("Zufall", "Random") }]
+    .concat(MODES_ROOT_PICKER_PCS.map(pc => ({ key: pc, label: getModesRootLabel(pc) })));
+  row.innerHTML = "";
+  pills.forEach(({ key, label }) => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "popover-pill-btn";
+    btn.dataset.modesRoot = String(key);
+    btn.textContent = label;
+    const isActive = key === activeKey;
+    btn.classList.toggle("active", isActive);
+    btn.setAttribute("aria-pressed", String(isActive));
+    row.appendChild(btn);
+  });
+}
+
+/** Grundton-Badge im Übungskopf: in Modi-Übungen als Knopf, der die Grundton-Auswahl öffnet. */
+function syncModesRootBadge(badgeEl, ex, isModes) {
+  if (!badgeEl) return;
+  const interactive = Boolean(isModes && !state.exam?.active);
+  badgeEl.classList.toggle("module-badge-btn", interactive);
+  if (interactive) {
+    badgeEl.setAttribute("role", "button");
+    badgeEl.setAttribute("tabindex", "0");
+    badgeEl.setAttribute("aria-haspopup", "true");
+    badgeEl.setAttribute("aria-controls", "inlineModesRootPopover");
+    badgeEl.title = tr("Grundton wählen", "Choose the root note");
+  } else {
+    ["role", "tabindex", "aria-haspopup", "aria-controls", "aria-expanded", "title"].forEach(a => badgeEl.removeAttribute(a));
+    badgeEl.classList.remove("chip-open");
+  }
+}
+
 function buildModesExercise(exType, level, levelCfg) {
   const prevKey = state.currentExercise?.type === exType ? state.currentExercise.targetItem?.key : null;
   const candidates = levelCfg.choices.length > 1
@@ -9858,12 +9947,11 @@ function buildModesExercise(exType, level, levelCfg) {
   const chosenKey = reviewKey ?? (freeCandidates[Math.floor(Math.random() * freeCandidates.length)] || levelCfg.choices[0]);
   const targetDef = getLocalizedModeDef(chosenKey) || getLocalizedModeDef("ionian");
 
-  const useRandomRoot = Boolean(levelCfg.randomRoot || state.settings.keyMode === "random");
-  const rootPool = [55, 57, 58, 60, 62, 63, 64, 65];
-  const rootMidi = useRandomRoot ? rootPool[Math.floor(Math.random() * rootPool.length)] : 60;
-  const rootLabel = midiToNote(rootMidi).replace(/\d+$/, "");
+  const rootMidi = pickModesRootMidi(levelCfg, state.currentExercise?.rootMidi ?? null);
+  const rootPc = ((rootMidi % 12) + 12) % 12;
+  const rootLabel = getModesRootLabel(rootPc);
   const preferFlat = ["dorian", "phrygian", "mixolydian", "aeolian", "locrian", "harm_minor"].includes(chosenKey)
-    || [58, 63, 65].includes(rootMidi);
+    || MODES_ROOT_FLAT_PCS.has(rootPc);
   const toNote = (semi) => midiToNote(rootMidi + semi, preferFlat);
 
   const modeKind = exType === "modes-char"
@@ -9871,7 +9959,7 @@ function buildModesExercise(exType, level, levelCfg) {
     : (exType === "modes-cadence" ? "cadence" : "scale");
   const kindLabel = modeKind === "char"
     ? tr("Charakterton", "Color Tone")
-    : (modeKind === "cadence" ? tr("Kadenz", "Vamp") : tr("Tonleiter", "Scale"));
+    : (modeKind === "cadence" ? tr("Akkordfolge", "Chord Loop") : tr("Tonleiter", "Scale"));
 
   state.currentExercise = {
     type: exType,
@@ -10907,7 +10995,7 @@ function refreshExerciseLocalization(ex) {
     const modeKind = ex.modeKind || (ex.type === "modes-char" ? "char" : (ex.type === "modes-cadence" ? "cadence" : "scale"));
     const kindLabel = modeKind === "char"
       ? tr("Charakterton", "Color Tone")
-      : (modeKind === "cadence" ? tr("Kadenz", "Vamp") : tr("Tonleiter", "Scale"));
+      : (modeKind === "cadence" ? tr("Akkordfolge", "Chord Loop") : tr("Tonleiter", "Scale"));
     ex.levelLabel = getLocalizedModeLevelLabel(modeKind, ex.level);
     ex.keyName = `${tr("Grundton", "Root")} ${ex.rootLabel}`;
     Object.assign(ex.targetItem, def, { displayMain: def.roman });
@@ -11753,7 +11841,7 @@ function renderMelodyRhythmPicker(ex = state.currentExercise) {
 }
 
 /**
- * Einladung zum Mitsingen/-summen für Intervall- und Solfège-Übungen.
+ * Einladung zum Mitsingen/-summen für Intervall-, Kadenz- und Solfège-Übungen.
  * Liefert null für alle anderen Übungstypen (Hinweis bleibt dann ausgeblendet).
  */
 function getSingAlongHintText(type) {
@@ -11770,6 +11858,9 @@ function getSingAlongHintText(type) {
     case "interval-drone":
       return tr("Summ den Grundton der Fläche mit und sing dann den Klavierton darüber – spür, wie weit deine Stimme springen muss.",
         "Hum along with the pad’s root, then sing the piano note above it — feel how far your voice has to leap.");
+    case "cadence":
+      return tr("Summ die Basstöne der Akkorde mit – die Basslinie verrät dir oft schneller, welche Stufe gesucht ist.",
+        "Hum along with the chords’ bass notes — the bass line often tells you the degree faster.");
     case "solfege":
       return state?.profile?.solfegeLabels === "numbers"
         ? tr("Sing jeden Ton mit seiner Stufenzahl mit (1, 2, 3 …) – so verankert sich jede Stufe fest in deinem Ohr.",
@@ -11779,6 +11870,21 @@ function getSingAlongHintText(type) {
     default:
       return null;
   }
+}
+
+/**
+ * Lautstärke-Streifen unter den Karten: Bordun-Intervalle zeigen Fläche + Intervallton,
+ * Tonleitern & Modi bei eingeschalteter Grundton-Fläche nur den Flächen-Regler.
+ */
+function syncDroneMixStripVisibility(ex = state.currentExercise) {
+  const strip = document.getElementById("droneMixStrip");
+  if (!strip) return;
+  const isDroneEx = ex?.type === "interval-drone";
+  const isModesPad = Boolean(String(ex?.type || "").startsWith("modes-")
+    && state.settings.modesRootPad && !state.exam?.active);
+  strip.classList.toggle("hidden", !(isDroneEx || isModesPad));
+  strip.classList.toggle("is-pad-only", isModesPad && !isDroneEx);
+  if (isDroneEx || isModesPad) syncDroneMixControls();
 }
 
 function syncModesPadButton(btn) {
@@ -11901,6 +12007,10 @@ function getSingAlongShortPrompt(type) {
       tr("Summ den Grundton mit, dann den Klavierton.", "Hum the root, then the piano note."),
       tr("Halte den Grundton mit der Stimme – wie weit liegt der Klavierton darüber?", "Hold the root with your voice — how far above is the piano note?")
     ],
+    "cadence": [
+      tr("Summ die Basslinie nach – wo landet der gesuchte Akkord?", "Hum the bass line back — where does the target chord land?"),
+      tr("Summ den Grundton der Tonart – wie weit liegt der gesuchte Bass davon weg?", "Hum the key’s tonic — how far from it is the target bass?")
+    ],
     "solfege": nums
       ? [
           tr("Sing den Ton mit seiner Stufenzahl (1, 2, 3 …).", "Sing the note with its degree number (1, 2, 3 …)."),
@@ -11991,9 +12101,15 @@ function setSingAlongPreference(key, value) {
   if (key === "singAlongPause" && !value) cancelHumPause(true);
 }
 
-function shouldRunHumPause(ex) {
+/** Summ-Pause ist für diese Übung eingeschaltet (unabhängig davon, ob „Nur Hören“ läuft). */
+function isHumPauseEnabledFor(ex) {
   return Boolean(ex && state.profile?.singAlongPause && isSingAlongTipsEnabled()
-    && isSingAlongExerciseType(ex.type) && !state.exam?.active && !state.listenOnly?.active);
+    && isSingAlongExerciseType(ex.type) && !state.exam?.active);
+}
+
+/** Normaler Übungsablauf; im Nur-Hören-Modus steuert handleListenOnlyPromptEnded die Summ-Pause selbst. */
+function shouldRunHumPause(ex) {
+  return isHumPauseEnabledFor(ex) && !state.listenOnly?.active;
 }
 
 function cancelHumPause(showAwaiting = false) {
@@ -12007,17 +12123,15 @@ function cancelHumPause(showAwaiting = false) {
   if (wasActive && showAwaiting) showAwaitingAnswerStage(state.currentExercise);
 }
 
-/** Optionale Summ-Pause: kurze Phase nach dem Abspielen, in der erst gesummt und dann geantwortet wird. */
-function startHumPause(ex) {
-  cancelHumPause();
+/** Bühne für die Summ-Pause (Text, Maskottchen, Fortschrittsbalken). Liefert den Balken oder null. */
+function renderHumPauseStage(ex, listenOnly = false) {
   const stageCard = document.getElementById("centralStageCard");
-  if (!stageCard) {
-    showAwaitingAnswerStage(ex);
-    return;
-  }
+  if (!stageCard) return null;
   setCentralStageMode("stage-awaiting");
   updateStageMascot("listening");
-  document.getElementById("stageSubtext").textContent = tr("SUMM-PAUSE", "HUM PAUSE");
+  document.getElementById("stageSubtext").textContent = listenOnly
+    ? tr("NUR HÖREN • SUMM-PAUSE", "LISTEN ONLY • HUM PAUSE")
+    : tr("SUMM-PAUSE", "HUM PAUSE");
   document.getElementById("stageMainText").textContent = tr("Jetzt summen…", "Hum it now…");
   document.getElementById("stageFunctionText").textContent = getSingAlongShortPrompt(ex.type) || "";
   document.body.classList.add("is-hum-pause");
@@ -12027,6 +12141,17 @@ function startHumPause(ex) {
   bar.style.setProperty("--hum-ms", `${HUM_PAUSE_MS}ms`);
   bar.innerHTML = "<span></span>";
   stageCard.appendChild(bar);
+  return bar;
+}
+
+/** Optionale Summ-Pause: kurze Phase nach dem Abspielen, in der erst gesummt und dann geantwortet wird. */
+function startHumPause(ex) {
+  cancelHumPause();
+  const bar = renderHumPauseStage(ex);
+  if (!bar) {
+    showAwaitingAnswerStage(ex);
+    return;
+  }
   humPauseTimer = setTimeout(() => {
     humPauseTimer = null;
     document.body.classList.remove("is-hum-pause");
@@ -12136,6 +12261,10 @@ function renderUI() {
   }
 
   // Bei Moduswechsel offene nicht-relevante Inline-Popovers schließen
+  if (!isModes || state.exam?.active) {
+    document.getElementById("inlineModesRootPopover")?.classList.add("hidden");
+    document.getElementById("targetBarBadge")?.classList.remove("chip-open");
+  }
   if (!isCadence) {
     document.getElementById("inlineKeyPopover")?.classList.add("hidden");
     document.getElementById("inlineTimeSigPopover")?.classList.add("hidden");
@@ -12153,12 +12282,7 @@ function renderUI() {
     moduleBpmBtn?.classList.remove("chip-open");
   }
 
-  const droneMixStrip = document.getElementById("droneMixStrip");
-  if (droneMixStrip) {
-    const isDroneEx = ex.type === "interval-drone";
-    droneMixStrip.classList.toggle("hidden", !isDroneEx);
-    if (isDroneEx) syncDroneMixControls();
-  }
+  syncDroneMixStripVisibility(ex);
 
   syncSingAlongUI(ex);
 
@@ -12316,6 +12440,7 @@ function renderUI() {
   const moduleTitleEl = document.getElementById("moduleTitleText");
   const targetBadgeEl = document.getElementById("targetBarBadge");
   moduleTitleEl?.classList.remove("hidden");
+  syncModesRootBadge(targetBadgeEl, ex, isModes);
 
   if (ex.type === "cadence") {
     const barNum = ex.targetIndex + 1;
@@ -12440,11 +12565,14 @@ function renderUI() {
     } else if (ex.type === "modes-cadence") {
       if (moduleTitleEl) moduleTitleEl.textContent = tr("Quinte → Akkordfolge", "Fifth → Progression");
       if (targetBadgeEl) targetBadgeEl.textContent = tf("Grundton {root}", "Root {root}", { root: ex.rootLabel });
-      document.getElementById("inputPromptText").textContent = tr("Welcher Modus prägt diese Akkordfolge?", "Which mode shapes this chord vamp?");
+      document.getElementById("inputPromptText").textContent = tr("Welcher Modus prägt diese Akkordfolge?", "Which mode shapes this chord loop?");
     } else {
       if (moduleTitleEl) moduleTitleEl.textContent = tr("Quinte → Klangfolge", "Fifth → Sequence");
       if (targetBadgeEl) targetBadgeEl.textContent = tf("Grundton {root}", "Root {root}", { root: ex.rootLabel });
       document.getElementById("inputPromptText").textContent = tr("Welche Kirchentonart erklingt aufwärts?", "Which ascending mode do you hear?");
+    }
+    if (document.getElementById("inlineModesRootPopover")?.classList.contains("hidden") === false) {
+      renderModesRootPopover();
     }
   } else {
     barsGrid.classList.add("cols-1");
@@ -12554,6 +12682,9 @@ function renderUI() {
     ex.bars.forEach((bar, idx) => {
       const isTarget = !isSolfege && (hideAllNonRef ? bar.key !== "ref" : idx === ex.targetIndex);
       const isDroneCard = ex.type === "interval-drone";
+      const isMelodicIntervalCard = ex.type === "interval-melodic" || ex.type === "interval-melodic-down";
+      // Harmonisches Intervall: nur eine Karte (Zusammenklang) – Überschrift entfällt
+      const omitBarTag = ex.type === "interval-harmonic";
       const card = document.createElement("div");
       card.className = `bar-card ${isTarget ? "bar-target" : ""}${isProdEqNoise || ((isModes || isDroneCard) && idx === 0) ? " bar-card-clickable" : ""}`;
       card.id = `barCard_${idx}`;
@@ -12570,7 +12701,9 @@ function renderUI() {
                     ? (idx === 0 ? tr("Ausgangs-Quinte", "Anchor Fifth") : tr("Gesuchter Modus", "Target Mode"))
                     : (isDroneCard
                         ? (idx === 0 ? tr("Streicher-Fläche", "Strings Pad") : tr("Klavier-Intervall", "Piano Interval"))
-                        : tf("Takt {n}", "Bar {n}", { n: idx + 1 })))));
+                        : (isMelodicIntervalCard
+                            ? tf("Ton {n}", "Note {n}", { n: idx + 1 })
+                            : tf("Takt {n}", "Bar {n}", { n: idx + 1 }))))));
 
       const mainText = document.createElement("div");
       mainText.className = "bar-roman";
@@ -12594,11 +12727,11 @@ function renderUI() {
                                 : (isProdEqNoise
                                     ? ex.keyName
                                     : (isModes
-                                        ? (ex.type === "modes-cadence" ? tr("Vamp ?", "Vamp ?") : (ex.type === "modes-char" ? tr("Farbe ?", "Color ?") : tr("Modus ?", "Mode ?")))
+                                        ? (ex.type === "modes-cadence" ? tr("Folge ?", "Loop ?") : (ex.type === "modes-char" ? tr("Farbe ?", "Color ?") : tr("Modus ?", "Mode ?")))
                                         : tr("Intervall ?", "Interval ?")))))))))
         : bar.short;
 
-      card.appendChild(tag);
+      if (!omitBarTag) card.appendChild(tag);
       card.appendChild(mainText);
       card.appendChild(lbl);
 
@@ -15616,6 +15749,7 @@ function cancelListenOnlyTimers() {
     clearTimeout(state.listenOnly.timerId);
     state.listenOnly.timerId = null;
   }
+  if (state.listenOnly.phase === "hum") cancelHumPause();
   state.listenOnly.phase = "idle";
 }
 
@@ -15862,6 +15996,23 @@ function handleListenOnlyPromptEnded(expectedEx) {
   if (state.listenOnly.phase !== "playing") return;
 
   const token = state.listenOnly.token;
+
+  // Eingeschaltete Summ-Pause gilt auch im Nur-Hören-Modus: erst summen, dann Denkpause & Auflösung
+  if (isHumPauseEnabledFor(expectedEx) && !isCurrentExerciseSolved(expectedEx)) {
+    state.listenOnly.phase = "hum";
+    renderHumPauseStage(expectedEx, true);
+    scheduleListenOnlyStep(() => {
+      cancelHumPause();
+      if (state.currentExercise !== expectedEx) return;
+      enterListenOnlyThinkPhase(expectedEx, token);
+    }, HUM_PAUSE_MS, token);
+    return;
+  }
+
+  enterListenOnlyThinkPhase(expectedEx, token);
+}
+
+function enterListenOnlyThinkPhase(expectedEx, token) {
   state.listenOnly.phase = "think";
 
   if (document.getElementById("centralStageCard") && !isCurrentExerciseSolved(expectedEx)) {
@@ -16085,7 +16236,7 @@ async function playSequence(options = {}) {
     return;
   }
 
-  // Tonleitern & Modi: Phase 1 Anker-Quinte -> Phase 2 Modus-Tonleiter / Charakterton / Modaler Vamp
+  // Tonleitern & Modi: Phase 1 Anker-Quinte -> Phase 2 Modus-Tonleiter / Charakterton / Modale Akkordfolge
   if (ex.type.startsWith("modes-")) {
     function runModeLoopCycle() {
       if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
@@ -16109,7 +16260,7 @@ async function playSequence(options = {}) {
         setCentralStageMode("stage-target");
         updateStageMascot("question");
         document.getElementById("stageSubtext").textContent =
-          ex.type === "modes-cadence" ? tr("MODALER VAMP", "MODAL VAMP") : (ex.type === "modes-char" ? tr("CHARAKTERTON", "COLOR TONE") : tr("KIRCHENTONART", "SCALE MODE"));
+          ex.type === "modes-cadence" ? tr("MODALE AKKORDFOLGE", "MODAL CHORD LOOP") : (ex.type === "modes-char" ? tr("CHARAKTERTON", "COLOR TONE") : tr("KIRCHENTONART", "SCALE MODE"));
         document.getElementById("stageMainText").textContent = "?";
         document.getElementById("stageFunctionText").textContent =
           ex.type === "modes-cadence"
@@ -20175,6 +20326,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const inlineNotationPacePopover = document.getElementById("inlineNotationPacePopover");
   const inlineNotationPaceSlider = document.getElementById("inlineNotationPaceSlider");
   const inlineTimeSigPopover = document.getElementById("inlineTimeSigPopover");
+  const inlineModesRootPopover = document.getElementById("inlineModesRootPopover");
+  const modesRootBadge = document.getElementById("targetBarBadge");
 
   function closeAllInlinePopovers(exceptPopover = null) {
     [
@@ -20182,7 +20335,8 @@ document.addEventListener("DOMContentLoaded", () => {
       [inlineKeyPopover, moduleKeyBtn],
       [inlineNotationKeyPopover, moduleNotationKeyBtn],
       [inlineNotationPacePopover, moduleNotationPaceBtn],
-      [inlineTimeSigPopover, moduleTimeSigBtn]
+      [inlineTimeSigPopover, moduleTimeSigBtn],
+      [inlineModesRootPopover, modesRootBadge]
     ].forEach(([pop, btn]) => {
       if (pop?.classList.contains("is-pinned")) return;
       if (pop && pop !== exceptPopover) {
@@ -20234,6 +20388,8 @@ document.addEventListener("DOMContentLoaded", () => {
     closeAllInlinePopovers();
     state.settings.modesRootPad = !state.settings.modesRootPad;
     syncModesPadButton(e.currentTarget);
+    syncDroneMixStripVisibility(state.currentExercise);
+    if (typeof fitExerciseLayout === "function") fitExerciseLayout();
     const ex = state.currentExercise;
     // Kurze Hörprobe beim Einschalten (nur wenn gerade nichts läuft)
     if (state.settings.modesRootPad && audioEngine.isInitialized && !state.isPlaying && ex?.rootMidi) {
@@ -20292,8 +20448,43 @@ document.addEventListener("DOMContentLoaded", () => {
     moduleTimeSigBtn.classList.toggle("chip-open", !isHidden);
   });
 
-  [inlineBpmPopover, inlineKeyPopover, inlineNotationKeyPopover, inlineNotationPacePopover, inlineTimeSigPopover].forEach(pop => {
+  [inlineBpmPopover, inlineKeyPopover, inlineNotationKeyPopover, inlineNotationPacePopover, inlineTimeSigPopover, inlineModesRootPopover].forEach(pop => {
     pop?.addEventListener("click", (e) => e.stopPropagation());
+  });
+
+  // Tonleitern & Modi: Grundton-Badge öffnet die Grundton-Auswahl (Zufall oder fester Ton)
+  const toggleModesRootPopover = (e) => {
+    const ex = state.currentExercise;
+    if (!ex || !String(ex.type || "").startsWith("modes-") || state.exam?.active || !inlineModesRootPopover) return;
+    e?.stopPropagation?.();
+    closeAllInlinePopovers(inlineModesRootPopover);
+    renderModesRootPopover();
+    const isHidden = inlineModesRootPopover.classList.toggle("hidden");
+    modesRootBadge?.classList.toggle("chip-open", !isHidden);
+    modesRootBadge?.setAttribute("aria-expanded", String(!isHidden));
+  };
+  modesRootBadge?.addEventListener("click", toggleModesRootPopover);
+  modesRootBadge?.addEventListener("keydown", (e) => {
+    if (!modesRootBadge.classList.contains("module-badge-btn")) return;
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      toggleModesRootPopover(e);
+    }
+  });
+  inlineModesRootPopover?.addEventListener("click", (e) => {
+    const pill = e.target?.closest?.("[data-modes-root]");
+    if (!pill) return;
+    const raw = pill.dataset.modesRoot;
+    state.settings.modesRoot = raw === "random" ? "random" : Number(raw);
+    inlineModesRootPopover.classList.add("hidden");
+    modesRootBadge?.classList.remove("chip-open");
+    modesRootBadge?.setAttribute("aria-expanded", "false");
+    cancelListenOnlyTimers();
+    stopPlayback();
+    generateExercise();
+    if (state.listenOnly?.active) {
+      startListenOnlyCycle();
+    }
   });
 
   document.addEventListener("click", () => {
@@ -20722,6 +20913,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (Number.isFinite(pct)) {
       setDroneMixValue("pad", pct / 100);
     }
+  });
+
+  // Tonleitern & Modi: nach dem Verschieben kurz die Grundton-Fläche in neuer Lautstärke anspielen
+  document.getElementById("dronePadVolSlider")?.addEventListener("change", () => {
+    const ex = state.currentExercise;
+    if (!ex || !String(ex.type || "").startsWith("modes-") || !state.settings.modesRootPad) return;
+    if (!audioEngine.isInitialized || state.isPlaying || !ex.rootMidi) return;
+    audioEngine.playRootPad([midiToNote(ex.rootMidi - 12), midiToNote(ex.rootMidi)], 1.4);
   });
 
   document.getElementById("droneToneVolSlider")?.addEventListener("input", (e) => {
@@ -27311,7 +27510,7 @@ function getLocalizedExamModeName(mode) {
     melody: tr("Melodien (4–6 Töne)", "Melodies (4–6 Notes)"),
     "modes-scale": tr("Kirchentonarten (Tonleiter)", "Modes (Scale)"),
     "modes-char": tr("Charakterton (Modi)", "Modal Color Tone"),
-    "modes-cadence": tr("Modaler Vamp", "Modal Vamp"),
+    "modes-cadence": tr("Modale Akkordfolge", "Modal Chord Loop"),
     "rhythm-meter": tr("Taktarten & Metrum", "Meters & Time Sigs"),
     "rhythm-dictation": tr("Rhythmus-Diktat", "Rhythm Dictation"),
     "rhythm-tap": tr("Rhythmus nachklopfen", "Rhythm Tap-Back"),

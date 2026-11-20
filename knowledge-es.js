@@ -418,7 +418,7 @@ const CADENCE_ENCYCLOPEDIA_ES = [
     songs: [
       "«Sweet Child o’ Mine» – Guns N’ Roses",
       "«Sympathy for the Devil» – The Rolling Stones",
-      "«Hey Jude» – The Beatles (vamp del estribillo)",
+      "«Hey Jude» – The Beatles (bucle del estribillo)",
       "«Royals» – Lorde"
     ]
   },
@@ -1988,7 +1988,7 @@ const CATEGORY_HELP_GUIDES_ES = {
       <ul class="article-steps-list">
         <li><strong>1. Reconocer la escala / el modo (3 niveles):</strong> Primero suena una <strong>quinta de anclaje</strong> neutra (sin tercera), seguida de la escala ascendente de 8 notas: 4 modos básicos en el nivel 1 (<code>jónico, eólico, dórico, mixolidio</code>), los 7 en <code>Do</code> en el nivel 2 y los 7 transpuestos en el nivel 3.</li>
         <li><strong>2. Nota característica &amp; color (3 niveles):</strong> Tras la quinta de anclaje, un breve giro aísla el grado distintivo (<code>#4</code> lidio, <code>b7</code> mixolidio, <code>♮6</code> dórico, <code>b2</code> frigio o la sensible <code>#7</code> de la <strong>menor armónica</strong>), separado en modos mayores (nivel 1), menores (nivel 2) y todos + menor armónica sobre fundamentales variadas (nivel 3).</li>
-        <li><strong>3. Cadencias &amp; vamps modales (2 niveles):</strong> Encadenamientos característicos de dos acordes (<code>i – IV</code> dórico, <code>I – bVII</code> mixolidio, <code>I – II</code> lidio, <code>i – bII</code> frigio): 4 vamps estándar en <code>Do</code> (nivel 1) y luego los 6 vamps modales transpuestos (nivel 2).</li>
+        <li><strong>3. Bucles de acordes modales (2 niveles):</strong> Encadenamientos característicos de dos acordes (<code>i – IV</code> dórico, <code>I – bVII</code> mixolidio, <code>I – II</code> lidio, <code>i – bII</code> frigio): 4 bucles estándar en <code>Do</code> (nivel 1) y luego los 6 bucles modales transpuestos (nivel 2). En jazz y pop, estos bucles cortos y repetidos también se llaman <em>vamps</em>.</li>
       </ul>
 
       <div class="article-highlight-box">
@@ -3187,7 +3187,7 @@ function renderModesReferenceHTML_ES(familyFilter = "all") {
       <p>${m.usage}</p>
       <div class="k-btn-row">
         <button class="btn-tool" data-play-mode-scale="${m.id}">▶ Escala (${m.rootLabel})</button>
-        <button class="btn-tool" data-play-mode-vamp="${m.id}">▶ Vamp: ${m.vamp}</button>
+        <button class="btn-tool" data-play-mode-vamp="${m.id}">▶ Bucle: ${m.vamp}</button>
       </div>
     </article>
   `).join("");
@@ -3201,7 +3201,7 @@ function renderModesReferenceHTML_ES(familyFilter = "all") {
       <h4>Escribir modal sin recaer sin querer en mayor</h4>
       <ul class="k-physics-list">
         <li><strong>Evita el tritono de la escala madre:</strong> En las notas de Do mayor, <code>Fa</code> y <code>Si</code> forman el tritono de Sol7, que arrastra el oído directamente hacia Do. ¿Compones en Re dórico o Sol mixolidio? Evita insistir en Sol7 → Do para proteger el hogar del modo.</li>
-        <li><strong>Apóyate en vamps de dos acordes:</strong> En lugar de largas cadencias funcionales, haz respirar tu pieza entre la tónica y el acorde vecino que contiene la <strong>nota característica</strong> (p. ej., <code>Dom – Fa</code> en Do dórico realza el <code>La</code> luminoso).</li>
+        <li><strong>Apóyate en bucles de dos acordes:</strong> En lugar de largas cadencias funcionales, haz respirar tu pieza entre la tónica y el acorde vecino que contiene la <strong>nota característica</strong> (p. ej., <code>Dom – Fa</code> en Do dórico realza el <code>La</code> luminoso).</li>
         <li><strong>Ancla con un bordón (pedal):</strong> Mantener una quinta vacía en el bajo fija al instante el centro modal: cada intervalo característico brilla enseguida por encima.</li>
       </ul>
     </article>

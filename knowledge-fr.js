@@ -418,7 +418,7 @@ const CADENCE_ENCYCLOPEDIA_FR = [
     songs: [
       "« Sweet Child o’ Mine » – Guns N’ Roses",
       "« Sympathy for the Devil » – The Rolling Stones",
-      "« Hey Jude » – The Beatles (vamp du refrain)",
+      "« Hey Jude » – The Beatles (boucle du refrain)",
       "« Royals » – Lorde"
     ]
   },
@@ -1988,7 +1988,7 @@ const CATEGORY_HELP_GUIDES_FR = {
       <ul class="article-steps-list">
         <li><strong>1. Reconnaître la gamme / le mode (3 niveaux) :</strong> Une <strong>Quinte d’ancrage</strong> neutre résonne d’abord (sans tierce), suivie de la gamme ascendante de 8 notes : 4 modes de base au Niveau 1 (<code>Ionien, Éolien, Dorien, Mixolydien</code>), les 7 en <code>Do</code> au Niveau 2, et les 7 transposés au Niveau 3.</li>
         <li><strong>2. Note caractéristique &amp; Couleur (3 niveaux) :</strong> Après la quinte d’ancrage, une brève tournure isole le degré signature (<code>#4</code> Lydien, <code>b7</code> Mixolydien, <code>♮6</code> Dorien, <code>b2</code> Phrygien ou sensible <code>#7</code> du <strong>Mineur harmonique</strong>) — séparé en modes majeurs (Niveau 1), mineurs (Niveau 2) et Tous + Mineur harmonique sur fondamentales variées (Niveau 3).</li>
-        <li><strong>3. Cadences &amp; Vamps modaux (2 niveaux) :</strong> Enchaînements caractéristiques à deux accords (<code>i – IV</code> Dorien, <code>I – bVII</code> Mixolydien, <code>I – II</code> Lydien, <code>i – bII</code> Phrygien) : 4 vamps standards en <code>Do</code> (Niveau 1), puis les 6 vamps modaux transposés (Niveau 2).</li>
+        <li><strong>3. Boucles d’accords modales (2 niveaux) :</strong> Enchaînements caractéristiques à deux accords (<code>i – IV</code> Dorien, <code>I – bVII</code> Mixolydien, <code>I – II</code> Lydien, <code>i – bII</code> Phrygien)  : 4 boucles standard en <code>Do</code> (Niveau 1), puis les 6 boucles modales transposées (Niveau 2). En jazz et en pop, ces courtes boucles répétées s’appellent aussi <em>vamps</em>.</li>
       </ul>
 
       <div class="article-highlight-box">
@@ -3187,7 +3187,7 @@ function renderModesReferenceHTML_FR(familyFilter = "all") {
       <p>${m.usage}</p>
       <div class="k-btn-row">
         <button class="btn-tool" data-play-mode-scale="${m.id}">▶ Gamme (${m.rootLabel})</button>
-        <button class="btn-tool" data-play-mode-vamp="${m.id}">▶ Vamp : ${m.vamp}</button>
+        <button class="btn-tool" data-play-mode-vamp="${m.id}">▶ Boucle : ${m.vamp}</button>
       </div>
     </article>
   `).join("");
@@ -3201,7 +3201,7 @@ function renderModesReferenceHTML_FR(familyFilter = "all") {
       <h4>Écrire modal sans retomber malgré soi en Majeur</h4>
       <ul class="k-physics-list">
         <li><strong>Évitez le triton de la gamme mère :</strong> Dans les notes de Do majeur, <code>Fa</code> et <code>Si</code> forment le triton de Sol7 qui tire l’oreille tout droit vers Do. Vous composez en Ré Dorien ou Sol Mixolydien ? Évitez d’appuyer sur Sol7 → Do pour protéger le foyer du mode.</li>
-        <li><strong>Appuyez-vous sur des vamps à deux accords :</strong> Au lieu de longues cadences fonctionnelles, faites respirer votre morceau entre la tonique et l’accord voisin contenant la <strong>note caractéristique</strong> (ex. <code>Dom – Fa</code> en Do Dorien met en relief le <code>La</code> lumineux).</li>
+        <li><strong>Appuyez-vous sur des boucles à deux accords :</strong> Au lieu de longues cadences fonctionnelles, faites respirer votre morceau entre la tonique et l’accord voisin contenant la <strong>note caractéristique</strong> (ex. <code>Dom – Fa</code> en Do Dorien met en relief le <code>La</code> lumineux).</li>
         <li><strong>Ancrez avec un bourdon (pédale) :</strong> Tenir une quinte vide à vide à la basse fixe immédiatement le centre modal — chaque intervalle caractéristique rayonne aussitôt au-dessus.</li>
       </ul>
     </article>
