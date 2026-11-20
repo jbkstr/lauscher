@@ -2115,7 +2115,7 @@ const TR_UR = Object.assign(Object.create(null), {
   "3–4 ♯/♭": "3–4 ♯/♭",
   "5–6 ♯/♭": "5–6 ♯/♭",
   "Alle 12": "تمام 12",
-  "{mode} • Beispiel: {ex}": "{mode} • مثال: {ex}",
+  "Beispiel: {ex}": "مثال: {ex}",
   "Keine Generalvorzeichen (C-Dur)": "کوئی کی سگنیچر نہیں (C میجر)",
   "Alle Noten gelten zunächst als Stammtöne (bei Stufe 4 mit ♯/♭ direkt vor einzelnen Noten).": "تمام نوٹس خالص سُر شمار ہوتے ہیں جب تک لیول 4 میں کسی نوٹ سے پہلے ♯ یا ♭ نہ لگا ہو۔",
   "Das Generalvorzeichen gilt für das ganze System: Achte bei betroffenen Stammlinien &amp; Räumen automatisch auf die schwarzen Tasten!": "یہ کی سگنیچر پورے اسٹاف پر لاگو ہے: متاثرہ لائنوں اور خانوں پر خودکار کالی کنجیاں (شارپ/فلیٹ) بجائیں!",

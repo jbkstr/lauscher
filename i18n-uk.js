@@ -2279,7 +2279,7 @@ Object.assign(TR_UK, {
   "3–4 ♯/♭": "3–4 ♯/♭",
   "5–6 ♯/♭": "5–6 ♯/♭",
   "Alle 12": "Усі 12",
-  "{mode} • Beispiel: {ex}": "{mode} • Приклад: {ex}",
+  "Beispiel: {ex}": "Приклад: {ex}",
   "Keine Generalvorzeichen (C-Dur)": "Без ключових знаків (До мажор)",
   "Alle Noten gelten zunächst als Stammtöne (bei Stufe 4 mit ♯/♭ direkt vor einzelnen Noten).": "Усі ноти читаються як натуральні (на 4-му рівні трапляються ♯/♭ біля окремих нот).",
   "Das Generalvorzeichen gilt für das ganze System: Achte bei betroffenen Stammlinien &amp; Räumen automatisch auf die schwarzen Tasten!": "Ключові знаки діють на весь нотний стан: не забувай натискати чорні клавіші для відповідних ступенів!",

@@ -9594,6 +9594,12 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   color: var(--ink);
 }
 
+.notation-key-preview-example {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
 .notation-key-preview-desc {
   font-size: 0.71rem;
   font-weight: 600;
