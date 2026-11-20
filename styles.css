@@ -6370,12 +6370,17 @@ body,
 }
 
 /* Tonleitern & Modi: nur der Regler für die Grundton-Fläche */
-.drone-mix-strip.is-pad-only {
-  grid-template-columns: minmax(0, 1fr);
+.modes-pad-vol-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1 1 100%;
+  min-width: 0;
 }
 
-.drone-mix-strip.is-pad-only .drone-mix-control + .drone-mix-control {
-  display: none;
+.modes-pad-vol-row input[type="range"] {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 /* Tonleitern & Modi: Grundton-Badge als Auswahlknopf */
