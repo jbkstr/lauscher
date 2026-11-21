@@ -1142,6 +1142,14 @@ registerColocatedTables({
       uk: "III ступінь (Mi → Do)",
       ur: "تیسرا درجہ (Mi → Do)"
     },
+    "Me": {
+      en: "Minor 3rd (Me → Do)",
+      fr: "3e degré min. (Me → Do)",
+      es: "3.er grado men. (Me → Do)",
+      pl: "III stopień moll (Me → Do)",
+      uk: "III мінорний ступінь (Me → Do)",
+      ur: "مائنر تیسرا درجہ (Me → Do)"
+    },
     "Fa": {
       en: "4th Degree (Fa → Do)",
       fr: "4e degré (Fa → Do)",
@@ -1166,6 +1174,14 @@ registerColocatedTables({
       uk: "VI ступінь (La → Do)",
       ur: "چھٹا درجہ (La → Do)"
     },
+    "Le": {
+      en: "Minor 6th (Le → Do)",
+      fr: "6e degré min. (Le → Do)",
+      es: "6.º grado men. (Le → Do)",
+      pl: "VI stopień moll (Le → Do)",
+      uk: "VI мінорний ступінь (Le → Do)",
+      ur: "مائنر چھٹا درجہ (Le → Do)"
+    },
     "Ti": {
       en: "Leading Tone (Ti → Do)",
       fr: "Note sensible (Ti → Do)",
@@ -1173,6 +1189,14 @@ registerColocatedTables({
       pl: "Dźwięk prowadzący (Ti → Do)",
       uk: "Ввідний тон (Ti → Do)",
       ur: "لیڈنگ ٹون (Ti → Do)"
+    },
+    "Te": {
+      en: "Minor 7th (Te → Do)",
+      fr: "7e degré min. (Te → Do)",
+      es: "7.º grado men. (Te → Do)",
+      pl: "VII stopień moll (Te → Do)",
+      uk: "VII мінорний ступінь (Te → Do)",
+      ur: "مائنر ساتواں درجہ (Te → Do)"
     },
     "Do_high": {
       en: "Upper Tonic (Do)",

@@ -136,18 +136,10 @@ function renderSolfegeKeyboard() {
   const firstWhite = prevWhiteMidi(rootMidi);
   const lastWhite = nextWhiteMidi(rootMidi + 12);
 
-  // Zuordnung der 8 Tonleiter-Töne (Do bis Do) in dieser Oktave
-  const allScaleEntries = [
-    [rootMidi + 0,  "Do"],
-    [rootMidi + 2,  "Re"],
-    [rootMidi + 4,  "Mi"],
-    [rootMidi + 5,  "Fa"],
-    [rootMidi + 7,  "Sol"],
-    [rootMidi + 9,  "La"],
-    [rootMidi + 11, "Ti"],
-    [rootMidi + 12, "Do"]
-  ];
-  const activeOffsets = state.currentExercise?.type === "melody" && Array.isArray(state.currentExercise.activeSemitones)
+  // Zuordnung der 8 Tonleiter-Töne (Dur: Do–Ti–Do, Moll: Do–Re–Me–Fa–Sol–Le–Te–Do) in dieser Oktave
+  const scaleSteps = getSolfegeScaleSteps(state.currentExercise?.tonality || "major");
+  const allScaleEntries = scaleSteps.map(st => [rootMidi + st.semitones, st.syllable]);
+  const activeOffsets = Array.isArray(state.currentExercise?.activeSemitones)
     ? new Set(state.currentExercise.activeSemitones)
     : null;
   const scaleMap = new Map(
@@ -1261,16 +1253,19 @@ function renderUI() {
   }
   const badgeEl = document.getElementById("targetBarBadge");
   const isCustomIntervalEx = String(ex.type || "").startsWith("interval-") && ex.type !== "interval-chords" && parseInt(state.settings.intervalDifficulty, 10) === 10 && !state.exam?.active;
+  const isCustomSolfegeEx = ex.type === "solfege" && parseInt(state.settings.solfegeDifficulty, 10) === 17 && !state.exam?.active;
   if (badgeEl) {
-    const rootSelectable = (String(ex.type || "").startsWith("modes-") && !state.exam?.active) || isCustomIntervalEx;
+    const rootSelectable = (String(ex.type || "").startsWith("modes-") && !state.exam?.active) || isCustomIntervalEx || isCustomSolfegeEx;
     badgeEl.classList.toggle("module-badge-btn", rootSelectable);
     if (rootSelectable) {
       badgeEl.setAttribute("role", "button");
       badgeEl.setAttribute("tabindex", "0");
-      badgeEl.title = isCustomIntervalEx
-        ? tr("Grundton & Modus wählen", "Choose root & mode")
-        : tr("Grundton wählen", "Choose root", { fr: "Choisir la tonique", es: "Elegir tónica", pl: "Wybierz dźwięk podstawowy", uk: "Обрати тоніку", ur: "بنیادی سُر چنیں" });
-      if (!isCustomIntervalEx) maybeShowModesRootHint(badgeEl);
+      badgeEl.title = isCustomSolfegeEx
+        ? tr("Tonart, Dur/Moll & Tonraum wählen", "Choose key, major/minor & range")
+        : (isCustomIntervalEx
+            ? tr("Grundton & Modus wählen", "Choose root & mode")
+            : tr("Grundton wählen", "Choose root", { fr: "Choisir la tonique", es: "Elegir tónica", pl: "Wybierz dźwięk podstawowy", uk: "Обрати тоніку", ur: "بنیادی سُر چنیں" }));
+      if (!isCustomIntervalEx && !isCustomSolfegeEx) maybeShowModesRootHint(badgeEl);
     } else {
       badgeEl.removeAttribute("role");
       badgeEl.removeAttribute("tabindex");
@@ -1289,7 +1284,7 @@ function renderUI() {
     solfegeKeyBtn.classList.toggle("hidden", !(isSolfege || isMelody));
   }
   if (solfegeKeyBtnLabel && (isSolfege || isMelody)) {
-    const baseKeyName = getKeyDisplayName(state.currentKey);
+    const baseKeyName = getKeyDisplayName(state.currentKey, ex.tonality || "major");
     solfegeKeyBtnLabel.textContent = `${baseKeyName}`;
   }
 
@@ -1451,7 +1446,21 @@ function renderUI() {
   } else if (ex.type === "solfege") {
     if (moduleTitleEl) moduleTitleEl.textContent = tr("Kontext Kadenz", "Context Cadence");
     if (targetBadgeEl) {
-      targetBadgeEl.textContent = ex.isMultiOctave ? tr("Einzelton (Mehrere Okt.)", "Single Note (Multi-Oct.)") : tr("Danach: Einzelton", "Then: Single Note");
+      if (isCustomSolfegeEx) {
+        targetBadgeEl.textContent = getSolfegeCustomBadgeLabel();
+      } else if (ex.solfegeRange === "do-fa") {
+        targetBadgeEl.textContent = ex.isMultiOctave
+          ? tr("Do–Fa (Mehrere Okt.)", "Do–Fa (Multi-Oct.)")
+          : tr("Untere Hälfte (Do–Fa)", "Lower Half (Do–Fa)");
+      } else if (ex.solfegeRange === "sol-do") {
+        targetBadgeEl.textContent = ex.isMultiOctave
+          ? tr("Sol–Do (Mehrere Okt.)", "Sol–Do (Multi-Oct.)")
+          : tr("Obere Hälfte (Sol–Do)", "Upper Half (Sol–Do)");
+      } else {
+        targetBadgeEl.textContent = ex.isMultiOctave
+          ? tr("Einzelton (Mehrere Okt.)", "Single Note (Multi-Oct.)")
+          : tr("Danach: Einzelton", "Then: Single Note");
+      }
     }
     document.getElementById("inputPromptText").textContent = tr("Tippe die gehörte Stufe auf der Klaviatur:", "Tap the heard scale degree on the keyboard:");
   } else if (ex.type === "melody") {

@@ -2680,6 +2680,8 @@ const BEGINNER_EXERCISES = new Set([
   "interval-chords:1",
   "melody:do-fa:fixed:single",
   "solfege:1",
+  "solfege:2",
+  "solfege:9",
   "rhythm-meter:1",
   "rhythm-dictation:1",
   "rhythm-tap:1",
@@ -3243,56 +3245,222 @@ function openCategoryPage(categoryKey, options = {}) {
   } else if (categoryKey === "solfege") {
     container.innerHTML = `
       <div class="subpage-section">
-        <h3 class="subpage-section-title">Solfège (Do, Re, Mi, Fa, Sol, La, Ti)</h3>
-        <p class="subpage-section-desc">${tr("Höre die Kadenz (I–vi–IV–V) und erkenne die gespielte Tonstufe auf der Klaviatur", "Hear the cadence (I–vi–IV–V) and identify the target scale degree on the keyboard")}</p>
+        <h3 class="subpage-section-title">${tr("Solfège • Dur (Do, Re, Mi, Fa, Sol, La, Ti)", "Solfège • Major (Do, Re, Mi, Fa, Sol, La, Ti)")}</h3>
+        <p class="subpage-section-desc">${tr("Höre die Dur-Kadenz (I–vi–IV–V) und erkenne die gespielte Tonstufe auf der Klaviatur", "Hear the major cadence (I–vi–IV–V) and identify the target scale degree on the keyboard")}</p>
         <div class="subpage-nodes-grid">
           <button class="subpage-node-btn" data-launch-solfege="1">
-            <div class="node-circle circle-sage">C • 1</div>
-            <span class="node-title">${tr("Stufe 1: C-Dur (1 Oktave)", "Level 1: C Major (1 Octave)")}</span>
-            <span class="node-sub">${tr("Mittlere Höhe, feste Tonart C-Dur", "Middle register, fixed key C Major")}</span>
+            <div class="node-circle circle-sage node-circle-compact">Do–Fa</div>
+            <span class="node-title">${tr("Stufe 1: Do–Fa (C-Dur)", "Level 1: Do–Fa (C Major)")}</span>
+            <span class="node-sub">${tr("Untere Hälfte (4 Töne), feste Tonart C-Dur", "Lower half (4 notes), fixed key C Major")}</span>
           </button>
 
           <button class="subpage-node-btn" data-launch-solfege="2">
-            <div class="node-circle circle-sage">? • 1</div>
-            <span class="node-title">${tr("Stufe 2: Zufällige Tonart (1 Okt.)", "Level 2: Random Key (1 Oct.)")}</span>
-            <span class="node-sub">${tr("Nicht C-Dur, fest für diese Sitzung", "Non-C key, fixed for this session")}</span>
+            <div class="node-circle circle-sage node-circle-compact">Sol–Do</div>
+            <span class="node-title">${tr("Stufe 2: Sol–Do (C-Dur)", "Level 2: Sol–Do (C Major)")}</span>
+            <span class="node-sub">${tr("Obere Hälfte (4 Töne), feste Tonart C-Dur", "Upper half (4 notes), fixed key C Major")}</span>
           </button>
 
           <button class="subpage-node-btn" data-launch-solfege="3">
-            <div class="node-circle circle-peach">C • ∞</div>
-            <span class="node-title">${tr("Stufe 3: C-Dur (Mehrere Oktaven)", "Level 3: C Major (Multi-Octave)")}</span>
-            <span class="node-sub">${tr("Feste Tonart C-Dur, wechselnde Oktaven", "Fixed key C Major, shifting octaves")}</span>
+            <div class="node-circle circle-sage">C • 1</div>
+            <span class="node-title">${tr("Stufe 3: C-Dur (1 Oktave)", "Level 3: C Major (1 Octave)")}</span>
+            <span class="node-sub">${tr("Ganze Tonleiter, mittlere Höhe, feste Tonart C-Dur", "Full scale, middle register, fixed key C Major")}</span>
           </button>
 
           <button class="subpage-node-btn" data-launch-solfege="4">
-            <div class="node-circle circle-peach">? • ∞</div>
-            <span class="node-title">${tr("Stufe 4: Zufällige Tonart (Mehrere Okt.)", "Level 4: Random Key (Multi-Oct.)")}</span>
-            <span class="node-sub">${tr("Nicht C-Dur (fest), wechselnde Oktaven", "Non-C key (fixed), shifting octaves")}</span>
+            <div class="node-circle circle-sage">? • 1</div>
+            <span class="node-title">${tr("Stufe 4: Zufällige Tonart (1 Okt.)", "Level 4: Random Key (1 Oct.)")}</span>
+            <span class="node-sub">${tr("Nicht C-Dur, fest für diese Sitzung", "Non-C key, fixed for this session")}</span>
           </button>
 
           <button class="subpage-node-btn" data-launch-solfege="5">
-            <div class="node-circle circle-lilac">${REFRESH_ICON_SVG} • 1</div>
-            <span class="node-title">${tr("Stufe 5: Tonartwechsel (1 Oktave)", "Level 5: Key Changes (1 Octave)")}</span>
-            <span class="node-sub">${tr("Neue Tonart nach jeder Antwort, 1 Okt.", "New key after every answer, 1 oct.")}</span>
+            <div class="node-circle circle-peach">C • ∞</div>
+            <span class="node-title">${tr("Stufe 5: C-Dur (Mehrere Oktaven)", "Level 5: C Major (Multi-Octave)")}</span>
+            <span class="node-sub">${tr("Feste Tonart C-Dur, wechselnde Oktaven", "Fixed key C Major, shifting octaves")}</span>
           </button>
 
           <button class="subpage-node-btn" data-launch-solfege="6">
+            <div class="node-circle circle-peach">? • ∞</div>
+            <span class="node-title">${tr("Stufe 6: Zufällige Tonart (Mehrere Okt.)", "Level 6: Random Key (Multi-Oct.)")}</span>
+            <span class="node-sub">${tr("Nicht C-Dur (fest), wechselnde Oktaven", "Non-C key (fixed), shifting octaves")}</span>
+          </button>
+
+          <button class="subpage-node-btn" data-launch-solfege="7">
+            <div class="node-circle circle-lilac">${REFRESH_ICON_SVG} • 1</div>
+            <span class="node-title">${tr("Stufe 7: Tonartwechsel (1 Oktave)", "Level 7: Key Changes (1 Octave)")}</span>
+            <span class="node-sub">${tr("Neue Tonart nach jeder Antwort, 1 Okt.", "New key after every answer, 1 oct.")}</span>
+          </button>
+
+          <button class="subpage-node-btn" data-launch-solfege="8">
             <div class="node-circle circle-lilac">${REFRESH_ICON_SVG} • ∞</div>
-            <span class="node-title">${tr("Stufe 6: Tonartwechsel (Mehrere Okt.)", "Level 6: Key Changes (Multi-Oct.)")}</span>
+            <span class="node-title">${tr("Stufe 8: Tonartwechsel (Mehrere Okt.)", "Level 8: Key Changes (Multi-Oct.)")}</span>
             <span class="node-sub">${tr("Neue Tonart & Oktave nach jeder Antwort", "New key & octave after every answer")}</span>
           </button>
         </div>
       </div>
+
+      <div class="subpage-section">
+        <h3 class="subpage-section-title">${tr("Solfège • Moll (Do, Re, Me, Fa, Sol, Le, Te)", "Solfège • Minor (Do, Re, Me, Fa, Sol, Le, Te)")}</h3>
+        <p class="subpage-section-desc">${tr("Höre die Moll-Kadenz (i–VI–iv–V) und erkenne die gespielte Tonstufe in Natürlich Moll", "Hear the minor cadence (i–VI–iv–V) and identify the target degree in Natural Minor")}</p>
+        <div class="subpage-nodes-grid">
+          <button class="subpage-node-btn" data-launch-solfege="9">
+            <div class="node-circle circle-lilac node-circle-compact">Do–Fa</div>
+            <span class="node-title">${tr("Moll 1: Do–Fa (c-Moll)", "Minor 1: Do–Fa (C Minor)")}</span>
+            <span class="node-sub">${tr("Untere Hälfte (Do, Re, Me, Fa), feste Tonart c-Moll", "Lower half (Do, Re, Me, Fa), fixed key C Minor")}</span>
+          </button>
+
+          <button class="subpage-node-btn" data-launch-solfege="10">
+            <div class="node-circle circle-lilac node-circle-compact">Sol–Do</div>
+            <span class="node-title">${tr("Moll 2: Sol–Do (c-Moll)", "Minor 2: Sol–Do (C Minor)")}</span>
+            <span class="node-sub">${tr("Obere Hälfte (Sol, Le, Te, Do), feste Tonart c-Moll", "Upper half (Sol, Le, Te, Do), fixed key C Minor")}</span>
+          </button>
+
+          <button class="subpage-node-btn" data-launch-solfege="11">
+            <div class="node-circle circle-lilac">c • 1</div>
+            <span class="node-title">${tr("Moll 3: c-Moll (1 Oktave)", "Minor 3: C Minor (1 Octave)")}</span>
+            <span class="node-sub">${tr("Ganze Moll-Tonleiter, mittlere Höhe, feste Tonart c-Moll", "Full minor scale, middle register, fixed key C Minor")}</span>
+          </button>
+
+          <button class="subpage-node-btn" data-launch-solfege="12">
+            <div class="node-circle circle-lilac">? • 1</div>
+            <span class="node-title">${tr("Moll 4: Zufällige Tonart (1 Okt.)", "Minor 4: Random Key (1 Oct.)")}</span>
+            <span class="node-sub">${tr("Nicht c-Moll, fest für diese Sitzung", "Non-C minor key, fixed for this session")}</span>
+          </button>
+
+          <button class="subpage-node-btn" data-launch-solfege="13">
+            <div class="node-circle circle-peach">c • ∞</div>
+            <span class="node-title">${tr("Moll 5: c-Moll (Mehrere Oktaven)", "Minor 5: C Minor (Multi-Octave)")}</span>
+            <span class="node-sub">${tr("Feste Tonart c-Moll, wechselnde Oktaven", "Fixed key C Minor, shifting octaves")}</span>
+          </button>
+
+          <button class="subpage-node-btn" data-launch-solfege="14">
+            <div class="node-circle circle-peach">? • ∞</div>
+            <span class="node-title">${tr("Moll 6: Zufällige Tonart (Mehrere Okt.)", "Minor 6: Random Key (Multi-Oct.)")}</span>
+            <span class="node-sub">${tr("Nicht c-Moll (fest), wechselnde Oktaven", "Non-C minor key (fixed), shifting octaves")}</span>
+          </button>
+
+          <button class="subpage-node-btn" data-launch-solfege="15">
+            <div class="node-circle circle-sage">${REFRESH_ICON_SVG} • 1</div>
+            <span class="node-title">${tr("Moll 7: Tonartwechsel (1 Oktave)", "Minor 7: Key Changes (1 Octave)")}</span>
+            <span class="node-sub">${tr("Neue Moll-Tonart nach jeder Antwort, 1 Okt.", "New minor key after every answer, 1 oct.")}</span>
+          </button>
+
+          <button class="subpage-node-btn" data-launch-solfege="16">
+            <div class="node-circle circle-sage">${REFRESH_ICON_SVG} • ∞</div>
+            <span class="node-title">${tr("Moll 8: Tonartwechsel (Mehrere Okt.)", "Minor 8: Key Changes (Multi-Oct.)")}</span>
+            <span class="node-sub">${tr("Neue Moll-Tonart & Oktave nach jeder Antwort", "New minor key & octave after every answer")}</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="solfegeCustomSectionMount" class="subpage-section"></div>
     `;
 
-    container.querySelectorAll("[data-launch-solfege]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        state.setMode("solfege");
-        state.setSolfegeDifficulty(btn.dataset.launchSolfege);
-        state.exerciseReturnView = "category";
-        switchView("exercise");
+    const bindSolfegeLaunchButtons = (root) => {
+      root.querySelectorAll("[data-launch-solfege]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          state.setMode("solfege");
+          state.setSolfegeDifficulty(btn.dataset.launchSolfege);
+          state.exerciseReturnView = "category";
+          switchView("exercise");
+        });
       });
-    });
+    };
+
+    const renderSolfegeCustomSection = () => {
+      const mount = container.querySelector("#solfegeCustomSectionMount");
+      if (!mount) return;
+      const curTonality = state.settings.solfegeCustomTonality === "minor" ? "minor" : "major";
+      const curKey = String(state.settings.solfegeCustomKey || "C");
+      const curRange = ["do-fa", "sol-do", "full"].includes(state.settings.solfegeCustomRange)
+        ? state.settings.solfegeCustomRange
+        : "full";
+      const curOct = state.settings.solfegeCustomOctave === "multi" ? "multi" : "single";
+      const keyOrder = ["random", "C", "G", "D", "A", "E", "B", "F#", "Db", "Ab", "Eb", "Bb", "F"];
+      const rangeDefs = [
+        { id: "do-fa",  label: tr("Do–Fa (Untere Hälfte)", "Do–Fa (Lower Half)") },
+        { id: "sol-do", label: tr("Sol–Do (Obere Hälfte)", "Sol–Do (Upper Half)") },
+        { id: "full",   label: tr("Ganze Tonart (Do–Do)", "Full Scale (Do–Do)") }
+      ];
+      const summaryKey = curKey === "random"
+        ? `${tr("Zufall", "Random")} (${curTonality === "minor" ? tr("Moll", "Minor") : tr("Dur", "Major")})`
+        : getKeyDisplayName(curKey, curTonality);
+      const summaryRange = curRange === "do-fa" ? "Do–Fa" : (curRange === "sol-do" ? "Sol–Do" : "Do–Do");
+      const summaryOct = curOct === "multi" ? tr("Mehrere Okt.", "Multi-Oct.") : tr("1 Oktave", "1 Octave");
+
+      mount.innerHTML = `
+        <h3 class="subpage-section-title">${tr("Eigene Tonart (Dur & Moll)", "Custom Key (Major & Minor)")}</h3>
+        <p class="subpage-section-desc">${tr("Wähle beliebige Dur- oder Moll-Tonart, Tonraum & Oktavlage frei – auch direkt in der Übung jederzeit anpassbar", "Choose any major or minor key, scale half & octave register freely — also adjustable anytime inside the exercise")}</p>
+        <div class="notation-key-quick-box">
+          <div class="notation-key-quick-group">
+            <span class="notation-key-quick-label">${tr("1. Tongeschlecht:", "1. Tonality:")}</span>
+            <div class="notation-key-quick-row">
+              <button type="button" class="k-filter-pill${curTonality === "major" ? " active" : ""}" data-solf-custom-tonality="major">${tr("Dur", "Major")}</button>
+              <button type="button" class="k-filter-pill${curTonality === "minor" ? " active" : ""}" data-solf-custom-tonality="minor">${tr("Moll", "Minor")}</button>
+            </div>
+          </div>
+          <div class="notation-key-quick-group">
+            <span class="notation-key-quick-label">${tr("2. Tonart:", "2. Key:")}</span>
+            <div class="notation-key-quick-row">
+              ${keyOrder.map(k => {
+                const lbl = k === "random" ? tr("Zufall", "Random") : getKeyDisplayName(k, curTonality);
+                return `<button type="button" class="k-filter-pill${k === curKey ? " active" : ""}" data-solf-custom-key="${k}">${escapeHtml(lbl)}</button>`;
+              }).join("")}
+            </div>
+          </div>
+          <div class="notation-key-quick-group">
+            <span class="notation-key-quick-label">${tr("3. Tonraum:", "3. Scale Range:")}</span>
+            <div class="notation-key-quick-row">
+              ${rangeDefs.map(r => `
+                <button type="button" class="k-filter-pill${r.id === curRange ? " active" : ""}" data-solf-custom-range="${r.id}">${escapeHtml(r.label)}</button>
+              `).join("")}
+            </div>
+          </div>
+          <div class="notation-key-quick-group">
+            <span class="notation-key-quick-label">${tr("4. Oktavlage:", "4. Octave Register:")}</span>
+            <div class="notation-key-quick-row">
+              <button type="button" class="k-filter-pill${curOct === "single" ? " active" : ""}" data-solf-custom-oct="single">${tr("1 Oktave", "1 Octave")}</button>
+              <button type="button" class="k-filter-pill${curOct === "multi" ? " active" : ""}" data-solf-custom-oct="multi">${tr("Mehrere Oktaven", "Multi-Octave")}</button>
+            </div>
+          </div>
+        </div>
+        <div class="subpage-nodes-grid" style="margin-top: 0.7rem;">
+          <button class="subpage-node-btn" data-launch-solfege="17">
+            <div class="node-circle circle-peach node-circle-compact">${tr("Frei", "Free")}</div>
+            <span class="node-title">${tr("Solfège mit eigener Tonart starten", "Start Custom Key Solfège")}</span>
+            <span class="node-sub">${escapeHtml(`${summaryKey} • ${summaryRange} • ${summaryOct}`)}</span>
+          </button>
+        </div>
+      `;
+
+      mount.querySelectorAll("[data-solf-custom-tonality]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          state.settings.solfegeCustomTonality = btn.dataset.solfCustomTonality === "minor" ? "minor" : "major";
+          renderSolfegeCustomSection();
+        });
+      });
+      mount.querySelectorAll("[data-solf-custom-key]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          state.settings.solfegeCustomKey = btn.dataset.solfCustomKey;
+          renderSolfegeCustomSection();
+        });
+      });
+      mount.querySelectorAll("[data-solf-custom-range]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          state.settings.solfegeCustomRange = btn.dataset.solfCustomRange;
+          renderSolfegeCustomSection();
+        });
+      });
+      mount.querySelectorAll("[data-solf-custom-oct]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          state.settings.solfegeCustomOctave = btn.dataset.solfCustomOct === "multi" ? "multi" : "single";
+          renderSolfegeCustomSection();
+        });
+      });
+      bindSolfegeLaunchButtons(mount);
+    };
+
+    bindSolfegeLaunchButtons(container);
+    renderSolfegeCustomSection();
 
   } else if (categoryKey === "rhythm") {
     container.innerHTML = `

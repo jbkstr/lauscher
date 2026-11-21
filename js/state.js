@@ -26,6 +26,10 @@ class AppState {
       chordDifficulty: 1,
       chordInversionDifficulty: 1,
       solfegeDifficulty: 1,
+      solfegeCustomKey: "C",         // "C", "G", ..., "F" oder "random"
+      solfegeCustomTonality: "major",// "major" | "minor"
+      solfegeCustomRange: "full",    // "do-fa" | "sol-do" | "full"
+      solfegeCustomOctave: "single", // "single" | "multi"
       melodyRange: "do-fa",      // 'do-fa' | 'sol-do' | 'full'
       melodyKeyMode: "fixed",    // 'fixed' (C-Dur) | 'random' (Zufallstonarten)
       melodyOctaveMode: "single",// 'single' (1 Oktave) | 'multi' (Mehrere Oktaven)
@@ -235,9 +239,10 @@ class AppState {
   }
 
   setSolfegeDifficulty(level) {
-    this.settings.solfegeDifficulty = parseInt(level, 10);
-    // Für Stufe 2 und 4: Zufällige Nicht-C-Dur Tonart einmal beim Start des Moduls würfeln und für die Sitzung festhalten
-    if (this.settings.solfegeDifficulty === 2 || this.settings.solfegeDifficulty === 4) {
+    this.settings.solfegeDifficulty = parseInt(level, 10) || 1;
+    // Für die Stufen „Feste Zufallstonart“ (Dur 4/6, Moll 12/14): Zufällige Nicht-C-Tonart einmal würfeln und festhalten
+    const cfg = getSolfegeLevelConfig(this.settings.solfegeDifficulty);
+    if (cfg.keyMode === "session") {
       this.solfegeSessionKey = pickRandomNonCKey(this.solfegeSessionKey);
     }
     this.updateHeaderSubtext();
@@ -349,16 +354,8 @@ class AppState {
         : `${styleTag} • ${rangeInfo.label} • ${keyLabel}, ${octLabel}`;
     }
     if (this.settings.mode === "solfege") {
-      const solfNames = {
-        1: tr("C-Dur, 1 Oktave", "C Major, 1 Octave"),
-        2: tr("Feste Zufallstonart, 1 Okt.", "Fixed Random Key, 1 Oct."),
-        3: tr("C-Dur, mehrere Oktaven", "C Major, Multi-Octave"),
-        4: tr("Feste Zufallstonart, mehrere Okt.", "Fixed Random Key, Multi-Oct."),
-        5: tr("Tonartwechsel, 1 Oktave", "Changing Keys, 1 Octave"),
-        6: tr("Tonartwechsel, mehrere Okt.", "Changing Keys, Multi-Oct.")
-      };
-      const lvl = this.settings.solfegeDifficulty || 1;
-      const lvlText = `${lvlWord} ${lvl} (${solfNames[lvl] || getKeyDisplayName("C")})`;
+      const lvl = parseInt(this.settings.solfegeDifficulty, 10) || 1;
+      const lvlText = getSolfegeLevelSummaryLabel(lvl);
       return includeCategory ? `Solfège • ${lvlText}` : lvlText;
     }
     if (this.settings.mode === "rhythm-meter") {
@@ -1079,8 +1076,97 @@ const INTL_KEY_NAMES = {
   "Bb": "Bb-Dur", "Eb": "Eb-Dur", "Ab": "Ab-Dur", "B": "B-Dur", "F#": "F#-Dur", "Db": "Db-Dur"
 };
 const SOLFEGE_DEGREE_NUMBERS = {
-  "Do": "1", "Do_low": "1", "Do_high": "1", "Re": "2", "Mi": "3", "Fa": "4", "Sol": "5", "La": "6", "Ti": "7"
+  "Do": "1", "Do_low": "1", "Do_high": "1",
+  "Re": "2",
+  "Mi": "3", "Me": "b3",
+  "Fa": "4",
+  "Sol": "5",
+  "La": "6", "Le": "b6",
+  "Ti": "7", "Te": "b7"
 };
+
+function getSolfegeLevelConfig(level = state?.settings?.solfegeDifficulty || 1) {
+  const lvl = parseInt(level, 10) || 1;
+  if (lvl === 17) {
+    const customRange = state?.settings?.solfegeCustomRange;
+    return {
+      level: 17,
+      tonality: state?.settings?.solfegeCustomTonality === "minor" ? "minor" : "major",
+      range: (customRange === "do-fa" || customRange === "sol-do") ? customRange : "full",
+      keyMode: "custom",
+      isMultiOctave: state?.settings?.solfegeCustomOctave === "multi",
+      isCustom: true
+    };
+  }
+  const isMinor = lvl >= 9 && lvl <= 16;
+  const sub = isMinor ? (lvl - 8) : lvl;
+  const map = {
+    1: { range: "do-fa",  keyMode: "fixed",   isMultiOctave: false },
+    2: { range: "sol-do", keyMode: "fixed",   isMultiOctave: false },
+    3: { range: "full",   keyMode: "fixed",   isMultiOctave: false },
+    4: { range: "full",   keyMode: "session", isMultiOctave: false },
+    5: { range: "full",   keyMode: "fixed",   isMultiOctave: true },
+    6: { range: "full",   keyMode: "session", isMultiOctave: true },
+    7: { range: "full",   keyMode: "random",  isMultiOctave: false },
+    8: { range: "full",   keyMode: "random",  isMultiOctave: true }
+  };
+  const cfg = map[sub] || map[3];
+  return {
+    level: lvl,
+    tonality: isMinor ? "minor" : "major",
+    range: cfg.range,
+    keyMode: cfg.keyMode,
+    isMultiOctave: cfg.isMultiOctave,
+    isCustom: false
+  };
+}
+
+function getSolfegeCustomBadgeLabel() {
+  const tonality = state?.settings?.solfegeCustomTonality === "minor" ? "minor" : "major";
+  const keySetting = state?.settings?.solfegeCustomKey || "C";
+  const keyText = keySetting === "random"
+    ? `${tr("Zufall", "Random")} (${tonality === "minor" ? tr("Moll", "Minor") : tr("Dur", "Major")})`
+    : getKeyDisplayName(keySetting, tonality);
+  const range = state?.settings?.solfegeCustomRange || "full";
+  const rangeText = range === "do-fa" ? "Do–Fa" : (range === "sol-do" ? "Sol–Do" : "Do–Do");
+  return `${keyText} • ${rangeText}`;
+}
+
+function getSolfegeLevelSummaryLabel(level = state?.settings?.solfegeDifficulty || 1) {
+  const lvl = parseInt(level, 10) || 1;
+  const lvlWord = tr("Stufe", "Level");
+  const minorWord = tr("Moll", "Minor");
+  if (lvl === 17) {
+    const tonality = state?.settings?.solfegeCustomTonality === "minor" ? "minor" : "major";
+    const keySetting = state?.settings?.solfegeCustomKey || "C";
+    const keyText = keySetting === "random"
+      ? `${tr("Zufall", "Random")} (${tonality === "minor" ? tr("Moll", "Minor") : tr("Dur", "Major")})`
+      : getKeyDisplayName(keySetting, tonality);
+    const octText = state?.settings?.solfegeCustomOctave === "multi"
+      ? tr("mehrere Okt.", "Multi-Oct.")
+      : tr("1 Oktave", "1 Octave");
+    return `${tr("Eigene Tonart", "Custom Key")} (${keyText}, ${octText})`;
+  }
+  const labels = {
+    1: `${lvlWord} 1 (${tr("Do–Fa, C-Dur", "Do–Fa, C Major")})`,
+    2: `${lvlWord} 2 (${tr("Sol–Do, C-Dur", "Sol–Do, C Major")})`,
+    3: `${lvlWord} 3 (${tr("C-Dur, 1 Oktave", "C Major, 1 Octave")})`,
+    4: `${lvlWord} 4 (${tr("Feste Zufallstonart, 1 Okt.", "Fixed Random Key, 1 Oct.")})`,
+    5: `${lvlWord} 5 (${tr("C-Dur, mehrere Oktaven", "C Major, Multi-Octave")})`,
+    6: `${lvlWord} 6 (${tr("Feste Zufallstonart, mehrere Okt.", "Fixed Random Key, Multi-Oct.")})`,
+    7: `${lvlWord} 7 (${tr("Tonartwechsel, 1 Oktave", "Changing Keys, 1 Octave")})`,
+    8: `${lvlWord} 8 (${tr("Tonartwechsel, mehrere Okt.", "Changing Keys, Multi-Oct.")})`,
+    9: `${minorWord} 1 (${tr("Do–Fa, c-Moll", "Do–Fa, C Minor")})`,
+    10: `${minorWord} 2 (${tr("Sol–Do, c-Moll", "Sol–Do, C Minor")})`,
+    11: `${minorWord} 3 (${tr("c-Moll, 1 Oktave", "C Minor, 1 Octave")})`,
+    12: `${minorWord} 4 (${tr("Feste Zufallstonart, 1 Okt.", "Fixed Random Key, 1 Oct.")})`,
+    13: `${minorWord} 5 (${tr("c-Moll, mehrere Oktaven", "C Minor, Multi-Octave")})`,
+    14: `${minorWord} 6 (${tr("Feste Zufallstonart, mehrere Okt.", "Fixed Random Key, Multi-Oct.")})`,
+    15: `${minorWord} 7 (${tr("Tonartwechsel, 1 Oktave", "Changing Keys, 1 Octave")})`,
+    16: `${minorWord} 8 (${tr("Tonartwechsel, mehrere Okt.", "Changing Keys, Multi-Oct.")})`
+  };
+  return labels[lvl] || labels[3];
+}
 
 function getWhiteNoteLabel(pc) {
   const norm = ((pc % 12) + 12) % 12;
