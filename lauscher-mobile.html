@@ -80,9 +80,9 @@
   --mute-bg: #FDE8E8;
   --mute-border: rgba(217, 107, 107, 0.3);
   --dot-idle-bg: #D2CEC4;
-  --piano-key-inactive-bg: #C4C0B7;
-  --piano-key-inactive-border: #9C988F;
-  --piano-key-inactive-text: #6B6D7E;
+  --piano-key-inactive-bg: var(--surface-warm);
+  --piano-key-inactive-border: var(--border-strong);
+  --piano-key-inactive-text: var(--raccoon-muted);
   --piano-white-active-bg: var(--surface-white);
   --piano-white-active-ink: var(--raccoon-dark);
   --piano-black-bg-top: #3D405B;
@@ -3278,13 +3278,13 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
   transform: translateY(1.5px);
 }
 
-/* Äußere Rahmen-Tasten (an beiden Enden nur halb breit, dezent abgesetzt) */
+/* Äußere Rahmen-Tasten (an beiden Enden nur halb breit, im hellen Modus in der warmen Akzentfarbe des Notensystem-/Kachel-Hintergrunds) */
 .piano-key-frame {
   flex: 0.5 1 0%;
   background: var(--piano-key-inactive-bg);
   border-right: 1px solid var(--piano-key-inactive-border);
   cursor: default;
-  box-shadow: inset 0 2px 5px rgba(34, 36, 54, 0.12);
+  box-shadow: inset 0 -3px 0 rgba(61, 64, 91, 0.06);
 }
 
 /* Innere Tasten außerhalb der aktuellen Tonleiter behalten normale weiße Klaviatur-Optik; Markierung erfolgt über Solfège-Kästchen */
@@ -3312,7 +3312,7 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
 
 .piano-key-frame:active {
   background: var(--piano-key-inactive-bg);
-  box-shadow: inset 0 2px 5px rgba(34, 36, 54, 0.12);
+  box-shadow: inset 0 -3px 0 rgba(61, 64, 91, 0.06);
 }
 
 .piano-key-inactive:not(.piano-key-frame):active {
@@ -70375,9 +70375,9 @@ function buildDerivedCustomThemeVars(rawColors) {
     "--mute-bg": `rgba(${c.statusErr.r}, ${c.statusErr.g}, ${c.statusErr.b}, 0.16)`,
     "--mute-border": `rgba(${c.statusErr.r}, ${c.statusErr.g}, ${c.statusErr.b}, 0.36)`,
     "--dot-idle-bg": rgbaToCssString(dotIdleRgba),
-    "--piano-key-inactive-bg": isDark ? "#454956" : "#C4C0B7",
-    "--piano-key-inactive-border": isDark ? "#595E6D" : "#9C988F",
-    "--piano-key-inactive-text": isDark ? "#A4A9B8" : "#6B6D7E",
+    "--piano-key-inactive-bg": isDark ? "#454956" : colors.surfaceWarm,
+    "--piano-key-inactive-border": isDark ? "#595E6D" : rgba(inkRgb, 0.22),
+    "--piano-key-inactive-text": isDark ? "#A4A9B8" : mutedHex,
     "--piano-white-active-bg": isDark ? "#DCE0E8" : colors.surfaceWhite,
     "--piano-white-active-ink": isDark ? "#22252F" : colors.raccoonDark,
     "--piano-black-bg-top": isDark ? "#1E212B" : "#3D405B",
@@ -81547,8 +81547,13 @@ function buildMelodyStaffSVG(ex) {
     beamPairs.set(b.idx, a);
   }
 
-  let inkMinY = 60;
-  let inkMaxY = 116;
+  let inkMinY = clefId === "bass" ? 60 : 44;
+  let inkMaxY = clefId === "bass" ? 116 : 132;
+  sigItems.forEach(ks => {
+    const ky = notationStepToY(ks.staffStep);
+    inkMinY = Math.min(inkMinY, ks.accidental === -1 ? (ky - 14) : (ky - 10));
+    inkMaxY = Math.max(inkMaxY, ky + 9);
+  });
   const labelEntries = [];
   let labelBaseline = 132;
   const noteHtml = items.map(it => {
@@ -81615,7 +81620,7 @@ function buildMelodyStaffSVG(ex) {
     <line x1="${endX - 1.5}" y1="64" x2="${endX - 1.5}" y2="112" stroke="currentColor" stroke-width="3.4"/>`;
 
   const vbTop = Math.floor(Math.min(inkMinY, 42) - 3);
-  const vbBottom = Math.ceil(Math.max(inkMaxY, 118) + 3);
+  const vbBottom = Math.ceil(Math.max(inkMaxY, clefId === "bass" ? 118 : 132) + 4);
   return `<svg class="notation-staff-svg melody-staff-svg" viewBox="0 ${vbTop} ${width} ${vbBottom - vbTop}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${escapeHtml(tr("Melodie im Notensystem", "Melody on the staff"))}">
     ${staffLines}
     ${getNotationClefGlyphSVG(clefId, startX + 8, 1, 1)}
