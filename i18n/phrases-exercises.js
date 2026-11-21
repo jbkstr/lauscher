@@ -3819,20 +3819,6 @@ registerColocatedPhrases({
     uk: "Почати сольфеджіо у власній тональності",
     ur: "اپنی کلید میں سولفیج شروع کریں"
   },
-  "Solfège • Dur (Do, Re, Mi, Fa, Sol, La, Ti)": {
-    fr: "Solfège • Majeur (Do, Re, Mi, Fa, Sol, La, Ti)",
-    es: "Solfeo • Mayor (Do, Re, Mi, Fa, Sol, La, Ti)",
-    pl: "Solfeż • Dur (Do, Re, Mi, Fa, Sol, La, Ti)",
-    uk: "Сольфеджіо • Мажор (Do, Re, Mi, Fa, Sol, La, Ti)",
-    ur: "سولفیج • میجر (Do, Re, Mi, Fa, Sol, La, Ti)"
-  },
-  "Solfège • Moll (Do, Re, Me, Fa, Sol, Le, Te)": {
-    fr: "Solfège • Mineur (Do, Re, Me, Fa, Sol, Le, Te)",
-    es: "Solfeo • Menor (Do, Re, Me, Fa, Sol, Le, Te)",
-    pl: "Solfeż • Moll (Do, Re, Me, Fa, Sol, Le, Te)",
-    uk: "Сольфеджіо • Мінор (Do, Re, Me, Fa, Sol, Le, Te)",
-    ur: "سولفیج • مائنر (Do, Re, Me, Fa, Sol, Le, Te)"
-  },
   "Sol–Do (Mehrere Okt.)": {
     fr: "Sol–Do (Plus. oct.)",
     es: "Sol–Do (Varias oct.)",

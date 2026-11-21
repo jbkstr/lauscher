@@ -1164,11 +1164,39 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
   color: var(--raccoon-dark);
 }
 
+.subpage-section-title-tones {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.34rem;
+}
+
+.subpage-section-tones {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  padding: 0.18rem 0.72rem;
+  border-radius: var(--radius-pill);
+  background: var(--surface-warm);
+  border: 1px solid var(--border-soft);
+  font-size: clamp(0.72rem, 3.2vw, 0.82rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.015em;
+  color: var(--raccoon-mid);
+  white-space: nowrap;
+}
+
 .subpage-section-desc {
   text-align: center;
   font-size: 0.76rem;
   color: var(--raccoon-mid);
   margin-top: -0.45rem;
+}
+
+.subpage-section-title-tones + .subpage-section-desc {
+  margin-top: -0.32rem;
 }
 
 .subpage-nodes-grid {
@@ -38061,20 +38089,6 @@ registerColocatedPhrases({
     pl: "Rozpocznij solfeż we własnej tonacji",
     uk: "Почати сольфеджіо у власній тональності",
     ur: "اپنی کلید میں سولفیج شروع کریں"
-  },
-  "Solfège • Dur (Do, Re, Mi, Fa, Sol, La, Ti)": {
-    fr: "Solfège • Majeur (Do, Re, Mi, Fa, Sol, La, Ti)",
-    es: "Solfeo • Mayor (Do, Re, Mi, Fa, Sol, La, Ti)",
-    pl: "Solfeż • Dur (Do, Re, Mi, Fa, Sol, La, Ti)",
-    uk: "Сольфеджіо • Мажор (Do, Re, Mi, Fa, Sol, La, Ti)",
-    ur: "سولفیج • میجر (Do, Re, Mi, Fa, Sol, La, Ti)"
-  },
-  "Solfège • Moll (Do, Re, Me, Fa, Sol, Le, Te)": {
-    fr: "Solfège • Mineur (Do, Re, Me, Fa, Sol, Le, Te)",
-    es: "Solfeo • Menor (Do, Re, Me, Fa, Sol, Le, Te)",
-    pl: "Solfeż • Moll (Do, Re, Me, Fa, Sol, Le, Te)",
-    uk: "Сольфеджіо • Мінор (Do, Re, Me, Fa, Sol, Le, Te)",
-    ur: "سولفیج • مائنر (Do, Re, Me, Fa, Sol, Le, Te)"
   },
   "Sol–Do (Mehrere Okt.)": {
     fr: "Sol–Do (Plus. oct.)",
@@ -80721,7 +80735,10 @@ function openCategoryPage(categoryKey, options = {}) {
       state.activeCategorySectionTitle = selectedSolfType.title;
       container.innerHTML = `
         <div class="subpage-section">
-          <h3 class="subpage-section-title">${tr("Solfège • Dur (Do, Re, Mi, Fa, Sol, La, Ti)", "Solfège • Major (Do, Re, Mi, Fa, Sol, La, Ti)")}</h3>
+          <h3 class="subpage-section-title subpage-section-title-tones">
+            <span class="subpage-section-title-main">${tr("Solfège • Dur", "Solfège • Major")}</span>
+            <span class="subpage-section-tones" dir="ltr">Do · Re · Mi · Fa · Sol · La · Ti</span>
+          </h3>
           <p class="subpage-section-desc">${tr("Höre die Dur-Kadenz (I–vi–IV–V) und erkenne die gespielte Tonstufe auf der Klaviatur", "Hear the major cadence (I–vi–IV–V) and identify the target scale degree on the keyboard")}</p>
           <div class="subpage-nodes-grid">
             <button class="subpage-node-btn" data-launch-solfege="1">
@@ -80779,7 +80796,10 @@ function openCategoryPage(categoryKey, options = {}) {
       state.activeCategorySectionTitle = selectedSolfType.title;
       container.innerHTML = `
         <div class="subpage-section">
-          <h3 class="subpage-section-title">${tr("Solfège • Moll (Do, Re, Me, Fa, Sol, Le, Te)", "Solfège • Minor (Do, Re, Me, Fa, Sol, Le, Te)")}</h3>
+          <h3 class="subpage-section-title subpage-section-title-tones">
+            <span class="subpage-section-title-main">${tr("Solfège • Moll", "Solfège • Minor")}</span>
+            <span class="subpage-section-tones" dir="ltr">Do · Re · Me · Fa · Sol · Le · Te</span>
+          </h3>
           <p class="subpage-section-desc">${tr("Höre die Moll-Kadenz (i–VI–iv–V) und erkenne die gespielte Tonstufe in Natürlich Moll", "Hear the minor cadence (i–VI–iv–V) and identify the target degree in Natural Minor")}</p>
           <div class="subpage-nodes-grid">
             <button class="subpage-node-btn" data-launch-solfege="9">
@@ -80853,10 +80873,16 @@ function openCategoryPage(categoryKey, options = {}) {
           : getKeyDisplayName(curKey, curTonality);
         const summaryRange = curRange === "do-fa" ? "Do–Fa" : (curRange === "sol-do" ? "Sol–Do" : "Do–Do");
         const summaryOct = curOct === "multi" ? tr("Mehrere Okt.", "Multi-Oct.") : tr("1 Oktave", "1 Octave");
+        const customToneStrip = curTonality === "minor"
+          ? (curRange === "do-fa" ? "Do · Re · Me · Fa" : (curRange === "sol-do" ? "Sol · Le · Te · Do" : "Do · Re · Me · Fa · Sol · Le · Te"))
+          : (curRange === "do-fa" ? "Do · Re · Mi · Fa" : (curRange === "sol-do" ? "Sol · La · Ti · Do" : "Do · Re · Mi · Fa · Sol · La · Ti"));
 
         container.innerHTML = `
           <div class="subpage-section">
-            <h3 class="subpage-section-title">${tr("Eigene Tonart (Dur & Moll)", "Custom Key (Major & Minor)")}</h3>
+            <h3 class="subpage-section-title subpage-section-title-tones">
+              <span class="subpage-section-title-main">${tr("Eigene Tonart (Dur & Moll)", "Custom Key (Major & Minor)")}</span>
+              <span class="subpage-section-tones" dir="ltr">${customToneStrip}</span>
+            </h3>
             <p class="subpage-section-desc">${tr("Wähle beliebige Dur- oder Moll-Tonart, Tonraum & Oktavlage frei – auch direkt in der Übung jederzeit anpassbar", "Choose any major or minor key, scale half & octave register freely — also adjustable anytime inside the exercise")}</p>
             <div class="notation-key-toolbar">
               <div class="notation-key-quick-group">
