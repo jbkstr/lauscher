@@ -257,6 +257,31 @@ PYEOF
   fi
 fi
 
+# Natives Rohmikrofon-Plugin (AudioSource.UNPROCESSED) für den Tuner kopieren & in MainActivity registrieren
+ANDROID_JAVA_DIR="$TARGET_DIR/android/app/src/main/java/de/jbkstr/lauscher"
+RAW_PLUGIN_SRC="$REPO_ROOT/scripts/android/RawAudioTunerPlugin.java"
+if [ -d "$ANDROID_JAVA_DIR" ] && [ -f "$RAW_PLUGIN_SRC" ]; then
+  cp "$RAW_PLUGIN_SRC" "$ANDROID_JAVA_DIR/RawAudioTunerPlugin.java"
+  MAIN_ACTIVITY="$ANDROID_JAVA_DIR/MainActivity.java"
+  if [ -f "$MAIN_ACTIVITY" ] && ! grep -q "RawAudioTunerPlugin" "$MAIN_ACTIVITY"; then
+    cat > "$MAIN_ACTIVITY" <<'EOF'
+package de.jbkstr.lauscher;
+
+import android.os.Bundle;
+import com.getcapacitor.BridgeActivity;
+
+public class MainActivity extends BridgeActivity {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        registerPlugin(RawAudioTunerPlugin.class);
+        super.onCreate(savedInstanceState);
+    }
+}
+EOF
+    echo "  → RawAudioTunerPlugin (AudioSource.UNPROCESSED) in MainActivity registriert"
+  fi
+fi
+
 echo "4/4 • Synchronisiere Capacitor → Android …"
 npx cap sync android
 
