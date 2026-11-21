@@ -1564,6 +1564,163 @@ const KNOWLEDGE_ARTICLES = [
         </div>
       </div>
     `
+  },
+  {
+    id: "art-nashville-number-system",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3.5" width="18" height="17" rx="2.5"/><line x1="3" y1="12" x2="21" y2="12" opacity="0.55"/><line x1="12" y1="3.5" x2="12" y2="20.5" opacity="0.55"/><text x="7.5" y="10" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">1</text><text x="16.5" y="10" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">4</text><text x="7.5" y="18.2" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">5</text><text x="16.5" y="18.2" text-anchor="middle" font-family="Andika, sans-serif" font-size="5.8" font-weight="700" fill="currentColor" stroke="none">6-</text></svg>`,
+    badgeClass: "badge-peach",
+    title: "Das Nashville Number System",
+    subtitle: "Wie Ziffern statt Akkordnamen ganze Bands sekundenschnell transponieren lassen",
+    tag: "Praxis & Studio",
+    render: () => `
+      <div class="article-body">
+        <span class="k-card-tag tag-peach">Studio-Praxis &amp; Harmonielehre</span>
+        <h2>Das Nashville Number System (NNS)</h2>
+        <p class="article-lead">
+          Stell dir eine Aufnahmesession vor: Fünf Musiker hören einen neuen Song zum allerersten Mal, schreiben sich in drei Minuten ein Blatt mit Zahlen wie <strong>1 – 5 – 6- – 4</strong> auf – und als der Sänger spontan ruft <em>„Lass uns das einen Ganzton tiefer probieren!“</em>, ändert niemand auch nur eine einzige Ziffer. Genau dafür wurde das <strong>Nashville Number System</strong> erfunden.
+        </p>
+
+        <h3>1. Wie ist das System entstanden?</h3>
+        <p>
+          Die Wurzeln des Systems liegen im <strong>Nashville der späten 1950er Jahre</strong> rund um die legendäre <em>Music Row</em>:
+        </p>
+        <ul class="article-steps-list">
+          <li>
+            <strong>Neal Matthews Jr. &amp; The Jordanaires (späte 1950er):</strong> Als Backgroundsänger von Elvis Presley und zahllosen Country-Stars standen die Jordanaires täglich vor wechselnden Sängern und ständig geänderten Tonarten. Um vierstimmige Gesangsarrangements blitzschnell anzupassen, begann Neal Matthews, die Harmonien nicht als feste Buchstaben, sondern als einfache Ziffern der Tonleiter zu notieren.
+          </li>
+          <li>
+            <strong>Charlie McCoy &amp; das Studio-Handwerk (1960er):</strong> Der Mundharmonika-Virtuose und Multiinstrumentalist <strong>Charlie McCoy</strong> übernahm das Prinzip Anfang der 1960er und entwickelte es für komplette Rhythmusgruppen (Gitarre, Bass, Klavier, Pedal Steel, Schlagzeug) weiter. In den dicht getakteten 3-Stunden-Sessions der Studio-Elite (bekannt als das <em>Nashville A-Team</em>) mussten oft drei bis vier Songs pro Termin eingespielt werden – ohne vorgefertigte Partituren.
+          </li>
+          <li>
+            <strong>Vom Geheimcode zum Weltstandard:</strong> Weil ein einzelnes Ziffernblatt in jeder beliebigen Tonart sofort funktioniert, eroberte das System längst nicht nur Country-Studios, sondern auch Pop-, Rock-, Gospel-, Worship- und Live-Bands weltweit.
+          </li>
+        </ul>
+
+        <h3>2. Wie funktioniert es?</h3>
+        <p>
+          Die Grundidee ist verblüffend einfach: Statt absoluter Akkordnamen (wie <em>G, C, D, Em</em>) schreibst du die <strong>Stufe innerhalb der Dur-Tonleiter</strong> als arabische Ziffer von <strong>1 bis 7</strong>. Ganz oben auf dem Blatt steht nur einmal die gewünschte Tonart (z. B. <strong>Key: G</strong>):
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row">
+            <div>
+              <strong>1 · 4 · 5 — Die drei Dur-Stufen (Tonika, Subdominante, Dominante)</strong>
+              <span>Tragen in der Grundform kein Zusatzzeichen: In C-Dur sind das <strong>C (1)</strong>, <strong>F (4)</strong> und <strong>G (5)</strong>.</span>
+            </div>
+            <button class="btn-tool" data-play-progression="I,IV,I,V">▶ 1 – 4 – 1 – 5</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>2- · 3- · 6- — Die drei Moll-Stufen</strong>
+              <span>Ein kleines Minus (<strong>-</strong>) oder <strong>m</strong> markiert Moll: In C-Dur also <strong>Dm (2-)</strong>, <strong>Em (3-)</strong> und <strong>Am (6-)</strong>.</span>
+            </div>
+            <button class="btn-tool" data-play-progression="I,V,vi,IV">▶ 1 – 5 – 6- – 4</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>7° — Die verminderte Stufe (oder 5/7)</strong>
+              <span>Die 7. Stufe ist von Natur aus vermindert (in C-Dur: <strong>H° / B°</strong>). In Pop und Country taucht stattdessen extrem häufig die Umkehrung <strong>5/7</strong> (G über Basston H) auf!</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>Unterschied zu römischen Stufen (I – V – vi – IV)</h4>
+          <p>
+            Musikalisch meinen <strong>I – V – vi – IV</strong> und <strong>1 – 5 – 6- – 4</strong> genau dasselbe. Römische Ziffern kommen aus der klassischen Harmonielehre – im hektischen Studio sind arabische Ziffern jedoch viel schneller handschriftlich zu notieren und auf zwei Metern Abstand am Notenständer sofort eindeutig unterscheidbar (niemand verwechselt <code>4</code> und <code>6-</code>, während <code>iv</code> und <code>vi</code> im Halbdunkel ähnlich aussehen!).
+          </p>
+        </div>
+
+        <h3>3. Die wichtigsten Chart-Zeichen (Studio-Kurzschrift)</h3>
+        <div class="nns-legend-grid">
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">2- / 6-</span>
+            <span class="nns-legend-desc">Minus (oder m) = Moll-Akkord</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">1/3</span>
+            <span class="nns-legend-desc">Slash = Akkord über anderem Basston</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym nns-legend-underline">4 &nbsp; 5</span>
+            <span class="nns-legend-desc">Unterstrichen = 2 Akkorde in einem Takt (Split Bar)</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">1◇</span>
+            <span class="nns-legend-desc">Diamant = einmal anschlagen &amp; ausklingen lassen</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">7°</span>
+            <span class="nns-legend-desc">Kreis = verminderter Dreiklang</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">^ / &lt;</span>
+            <span class="nns-legend-desc">Push = vorgezogener Einsatz (Synkope)</span>
+          </div>
+        </div>
+        <ul class="article-steps-list">
+          <li>
+            <strong>1 Ziffer = 1 ganzer Takt:</strong> Steht dort <code>1  4  5  1</code>, bekommt jeder Akkord einen vollen Takt (meist 4 Schläge).
+          </li>
+          <li>
+            <strong>Unterstreichung = Split Bar (geteilter Takt):</strong> Stehen zwei Zahlen gemeinsam unterstrichen (<u>4 &nbsp; 5</u>), teilen sie sich einen Takt (je 2 Schläge).
+          </li>
+          <li>
+            <strong>Moll-Songs im Studio:</strong> Viele Nashville-Musiker denken auch bei Moll-Songs von der <em>parallelen Dur-Tonleiter</em> aus. Ein Song in a-Moll steht dann oft unter „Key: C“ als <strong>6- – 4 – 1 – 5</strong> – so bleiben alle gewohnten Zahl-Muster sofort abrufbar.
+          </li>
+        </ul>
+
+        <h3>4. Typische Studio-Farben &amp; Slash-Akkorde</h3>
+        <p>
+          Über die 7 Grundstufen hinaus begegnen dir in fast jedem modernen Country-, Pop- oder Gospel-Chart diese sechs Studio-Klassiker (Beispiel in <strong>C-Dur</strong>):
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row">
+            <div>
+              <strong>1/3 (C/E) — Erste Umkehrung mit Terz im Bass</strong>
+              <span>Verbindet <strong>1 → 1/3 → 4</strong> (C → C/E → F) mit einer wunderbar fließenden Basslinie (C → E → F).</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>4/5 (F/G) — Der Gospel- &amp; Pop-Vorhalt (9sus4-Klang)</strong>
+              <span>Klingt warm, schwebend und edel vor dem Schlussakkord – das Erkennungszeichen tausender 80er/90er-Balladen.</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>5/7 (G/H) — Leitton-Bass zurück zur 1</strong>
+              <span>Ersetzt im Studio sehr oft die verminderte 7° und führt über den absteigenden Bass <strong>1 → 5/7 → 6-</strong> sanft nach unten.</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>♭7 (B / B♭) — Rock- &amp; Southern-Country-Farbe</strong>
+              <span>Aus dem Mixolydischen geliehen (z. B. <strong>1 – ♭7 – 4 – 1</strong> wie in <em>Sweet Home Alabama</em> oder zahllosen Rock-Hymnen).</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>4- (Fm) — Die Moll-Subdominante</strong>
+              <span>Ein kurzer Wechsel von <strong>4 → 4- → 1</strong> (F → Fm → C) zaubert sofort wehmütige Kino-Emotion in den Refrain.</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>2 (D-Dur statt Dm) — Doppeldominante zur 5</strong>
+              <span>Wird die 2. Stufe ohne Minus als Dur-Akkord notiert, zieht sie mit starkem Schwung direkt in die <strong>5</strong> (D → G → C).</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>Direkt nachschlagen im interaktiven Diagramm</h4>
+          <p>
+            Im <strong>Nashville-Number-System-Werkzeug</strong> kannst du jede der 12 Tonarten antippen, alle Stufen direkt anhören und per <strong>Kapodaster-Übersetzer</strong> sofort passende offene Gitarren-Griffe finden:
+          </p>
+          <button class="btn-tool" type="button" data-open-nashville-tool="1">▶ Nashville-Diagramm-Werkzeug öffnen</button>
+        </div>
+      </div>
+    `
   }
 ];
 

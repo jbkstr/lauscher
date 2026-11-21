@@ -2362,5 +2362,271 @@ registerColocatedPhrases({
     pl: "Frygijska dominantowa",
     uk: "Фригійський домінантовий",
     ur: "فریجین ڈومیننٹ"
+  },
+  "Nashville Number System": {
+    fr: "Nashville Number System",
+    es: "Sistema numérico de Nashville",
+    pl: "Nashville Number System",
+    uk: "Система цифр Нешвілла",
+    ur: "نیش وِل نمبر سسٹم"
+  },
+  "Tonarten-Diagramm, 12-Tonarten-Matrix & Kapodaster-Übersetzer": {
+    fr: "Diagramme des tonalités, matrice des 12 tonalités & traducteur de capo",
+    es: "Diagrama de tonalidades, tabla de 12 tonalidades y traductor de cejilla",
+    pl: "Diagram tonacji, tabela 12 tonacji i tłumacz kapodastra",
+    uk: "Діаграма тональностей, таблиця 12 тональностей і перекладач каподастра",
+    ur: "کی ڈایاگرام، 12 کیز ٹیبل اور گٹار کیپو ٹرانسلیٹر"
+  },
+  "{root}-Moll": {
+    fr: "{root} mineur",
+    es: "{root} menor",
+    pl: "{root}-moll",
+    uk: "{root} мінор",
+    ur: "{root} مائنر"
+  },
+  "{root}-Dur": {
+    fr: "{root} majeur",
+    es: "{root} mayor",
+    pl: "{root}-dur",
+    uk: "{root} мажор",
+    ur: "{root} میجر"
+  },
+  "Tonika": {
+    fr: "Tonique",
+    es: "Tónica",
+    pl: "Tonika",
+    uk: "Тоніка",
+    ur: "ٹانک"
+  },
+  "Subdominante": {
+    fr: "Sous-dominante",
+    es: "Subdominante",
+    pl: "Subdominanta",
+    uk: "Субдомінанта",
+    ur: "سب ڈومیننٹ"
+  },
+  "Dominante": {
+    fr: "Dominante",
+    es: "Dominante",
+    pl: "Dominanta",
+    uk: "Домінанта",
+    ur: "ڈومیننٹ"
+  },
+  "Nashville-Diagramm für {key}": {
+    fr: "Diagramme Nashville pour {key}",
+    es: "Diagrama Nashville para {key}",
+    pl: "Diagram Nashville dla {key}",
+    uk: "Діаграма Нешвілла для {key}",
+    ur: "{key} کے لیے نیش وِل ڈایاگرام"
+  },
+  "Tonart wählen": {
+    fr: "Choisir la tonalité",
+    es: "Elegir tonalidad",
+    pl: "Wybierz tonację",
+    uk: "Вибір тональності",
+    ur: "کی منتخب کریں"
+  },
+  "Tongeschlecht": {
+    fr: "Mode",
+    es: "Modo",
+    pl: "Tryb",
+    uk: "Лад",
+    ur: "موڈ"
+  },
+  "Dur (Standard)": {
+    fr: "Majeur (standard)",
+    es: "Mayor (estándar)",
+    pl: "Dur (standard)",
+    uk: "Мажор (стандарт)",
+    ur: "میجر (معیاری)"
+  },
+  "Moll (1-)": {
+    fr: "Mineur (1-)",
+    es: "Menor (1-)",
+    pl: "Moll (1-)",
+    uk: "Мінор (1-)",
+    ur: "مائنر (1-)"
+  },
+  "Alle 12 Tonarten": {
+    fr: "Les 12 tonalités",
+    es: "Las 12 tonalidades",
+    pl: "Wszystkie 12 tonacji",
+    uk: "Усі 12 тональностей",
+    ur: "تمام 12 کیز"
+  },
+  "Parallele Molltonart ist {rel} (Stufe 6-). Tippe auf beliebige Ziffern im Diagramm, um den Akkord sofort zu hören.": {
+    fr: "La relative mineure est {rel} (degré 6-). Touche n’importe quel chiffre du diagramme pour entendre l’accord immédiatement.",
+    es: "La relativa menor es {rel} (grado 6-). Toca cualquier número del diagrama para escuchar el acorde al instante.",
+    pl: "Równoległa tonacja molowa to {rel} (stopień 6-). Dotknij dowolnej cyfry na diagramie, aby od razu usłyszeć akord.",
+    uk: "Паралельний мінор — {rel} (ступінь 6-). Торкніться будь-якої цифри на діаграмі, щоб одразу почути акорд.",
+    ur: "متوازی مائنر کی {rel} (درجہ 6-) ہے۔ فوری سننے کے لیے ڈایاگرام میں کسی بھی ہندسے پر ٹیپ کریں۔"
+  },
+  "Moll-Referenz mit 1- als Grundton. Tipp: In Nashville-Studios werden Moll-Songs oft auch relativ zur Dur-Parallele (Start auf 6-) notiert.": {
+    fr: "Référence mineure avec 1- comme tonique. Astuce : en studio à Nashville, les morceaux mineurs sont aussi souvent notés en relatif majeur (départ sur 6-).",
+    es: "Referencia menor con 1- como tónica. Consejo: en los estudios de Nashville los temas menores también suelen anotarse respecto al relativo mayor (empezando en 6-).",
+    pl: "Układ molowy z 1- jako toniką. Wskazówka: w studiach Nashville utwory molowe często zapisuje się też względem paraleli durowej (start od 6-).",
+    uk: "Мінорна система з 1- як тонікою. Порада: у студіях Нешвілла мінорні пісні також часто записують відносно паралельного мажору (починаючи з 6-).",
+    ur: "1- کو بنیادی سر مان کر مائنر حوالہ۔ مشورہ: نیش وِل اسٹوڈیوز میں مائنر گانے اکثر متوازی میجر کے لحاظ سے (6- سے شروع) بھی لکھے جاتے ہیں۔"
+  },
+  "Funktions-Diagramm": {
+    fr: "Diagramme fonctionnel",
+    es: "Diagrama funcional",
+    pl: "Diagram funkcyjny",
+    uk: "Функційна діаграма",
+    ur: "فنکشن ڈایاگرام"
+  },
+  "Stufen-Diagramm in {key}": {
+    fr: "Diagramme des degrés en {key}",
+    es: "Diagrama de grados en {key}",
+    pl: "Diagram stopni w {key}",
+    uk: "Діаграма ступенів у {key}",
+    ur: "{key} میں ڈگری ڈایاگرام"
+  },
+  "Nachschlage-Diagramm": {
+    fr: "Tableau de référence",
+    es: "Tabla de referencia",
+    pl: "Tabela poglądowa",
+    uk: "Довідкова таблиця",
+    ur: "حوالہ چارٹ"
+  },
+  "Alle 12 Tonarten auf einen Blick": {
+    fr: "Les 12 tonalités en un coup d’œil",
+    es: "Las 12 tonalidades de un vistazo",
+    pl: "Wszystkie 12 tonacji na jednym widoku",
+    uk: "Усі 12 тональностей одним поглядом",
+    ur: "تمام 12 کیز ایک نظر میں"
+  },
+  "Tippe auf eine Tonart links zum Umschalten – oder direkt auf einen Akkord zum Anhören.": {
+    fr: "Touche une tonalité à gauche pour basculer – ou directement un accord pour l’écouter.",
+    es: "Toca una tonalidad a la izquierda para cambiar o directamente cualquier acorde para escucharlo.",
+    pl: "Dotknij tonacji po lewej, aby przełączyć – lub dowolnego akordu, aby go odsłuchać.",
+    uk: "Торкніться тональності ліворуч, щоб перемкнутися, або будь-якого акорду, щоб почути його.",
+    ur: "تبدیل کرنے کے لیے بائیں جانب کی پر ٹیپ کریں – یا سننے کے لیے کسی بھی کورڈ پر ٹیپ کریں۔"
+  },
+  "Tonart": {
+    fr: "Tonalité",
+    es: "Tonalidad",
+    pl: "Tonacja",
+    uk: "Тональність",
+    ur: "کی"
+  },
+  "Gitarren-Praxis": {
+    fr: "Pratique guitare",
+    es: "Práctica de guitarra",
+    pl: "Praktyka gitarowa",
+    uk: "Гітарна практика",
+    ur: "گٹار پریکٹس"
+  },
+  "Kapodaster-Übersetzer": {
+    fr: "Traducteur de capodastre",
+    es: "Traductor de cejilla",
+    pl: "Tłumacz kapodastra",
+    uk: "Перекладач каподастра",
+    ur: "کیپو ٹرانسلیٹر"
+  },
+  "Klingt in": {
+    fr: "Sonne en",
+    es: "Suena en",
+    pl: "Brzmi w",
+    uk: "Звучить у",
+    ur: "آواز کی کی"
+  },
+  "Kapodaster": {
+    fr: "Capodastre",
+    es: "Cejilla",
+    pl: "Kapodaster",
+    uk: "Каподастр",
+    ur: "کیپو"
+  },
+  "Ohne Kapo": {
+    fr: "Sans capo",
+    es: "Sin cejilla",
+    pl: "Bez kapo",
+    uk: "Без капо",
+    ur: "بغیر کیپو"
+  },
+  "Bund {n}": {
+    fr: "Case {n}",
+    es: "Traste {n}",
+    pl: "Próg {n}",
+    uk: "Лад {n}",
+    ur: "فریٹ {n}"
+  },
+  "Greife wie in": {
+    fr: "Positions de",
+    es: "Posiciones de",
+    pl: "Chwyty jak w",
+    uk: "Аплікатури в",
+    ur: "گرپ کی کی"
+  },
+  "Bequeme offene Gitarren-Formen für diese Tonart:": {
+    fr: "Positions ouvertes confortables à la guitare pour cette tonalité :",
+    es: "Posiciones abiertas cómodas en guitarra para esta tonalidad:",
+    pl: "Wygodne otwarte chwyty gitarowe dla tej tonacji:",
+    uk: "Зручні відкриті гітарні аплікатури для цієї тональності:",
+    ur: "اس کی کے لیے آرام دہ اوپن گٹار شیپس:"
+  },
+  "Offen (0)": {
+    fr: "Ouvert (0)",
+    es: "Abierto (0)",
+    pl: "Otwarte (0)",
+    uk: "Відкрито (0)",
+    ur: "اوپن (0)"
+  },
+  "Kapo {n}": {
+    fr: "Capo {n}",
+    es: "Cejilla {n}",
+    pl: "Kapo {n}",
+    uk: "Капо {n}",
+    ur: "کیپو {n}"
+  },
+  "{shape}-Form": {
+    fr: "Positions {shape}",
+    es: "Formas de {shape}",
+    pl: "Układ {shape}",
+    uk: "Форми {shape}",
+    ur: "{shape} شیپس"
+  },
+  "Oder Bund frei wählen (0–9):": {
+    fr: "Ou choisir librement une case (0–9) :",
+    es: "O elige cualquier traste libremente (0–9):",
+    pl: "Lub wybierz dowolny próg (0–9):",
+    uk: "Або оберіть будь-який лад (0–9):",
+    ur: "یا کوئی بھی فریٹ منتخب کریں (0–9):"
+  },
+  "Kapodaster-Bund": {
+    fr: "Case du capodastre",
+    es: "Traste de la cejilla",
+    pl: "Próg kapodastra",
+    uk: "Лад каподастра",
+    ur: "کیپو فریٹ"
+  },
+  "= {chord}": {
+    fr: "= {chord}",
+    es: "= {chord}",
+    pl: "= {chord}",
+    uk: "= {chord}",
+    ur: "= {chord}"
+  },
+  "Oben steht dein Gitarren-Griff (mit Kapo), darunter der tatsächlich klingende Akkord. Antippen spielt den klingenden Gitarren-Akkord.": {
+    fr: "En haut : la position guitare (avec capo), en dessous : l’accord qui sonne réellement. Touche une case pour entendre l’accord de guitare.",
+    es: "Arriba aparece tu postura de guitarra (con cejilla) y debajo el acorde que suena realmente. Toca cualquier casilla para escuchar el acorde real.",
+    pl: "U góry widzisz chwyt gitarowy (z kapodastrem), a poniżej realnie brzmiący akord. Dotknij kafelka, aby usłyszeć akord gitarowy.",
+    uk: "Зверху показано гітарний акорд (із каподастром), а знизу — реальне звучання. Торкніться плитки, щоб почути гітарний акорд.",
+    ur: "اوپر آپ کی گٹار گرپ (کیپو کے ساتھ) اور نیچے اصل بجنے والا کورڈ ہے۔ اصل گٹار کورڈ سننے کے لیے کسی بھی خانے پر ٹیپ کریں۔"
+  },
+  "Artikel: Wie das Nashville Number System funktioniert & entstand": {
+    fr: "Article : Comment fonctionne le Nashville Number System et son histoire",
+    es: "Artículo: Cómo funciona y cómo nació el sistema numérico de Nashville",
+    pl: "Artykuł: Jak działa i skąd pochodzi Nashville Number System",
+    uk: "Стаття: Як працює й виникла система цифр Нешвілла",
+    ur: "مضمون: نیش وِل نمبر سسٹم کیسے کام کرتا ہے اور کیسے شروع ہوا"
+  },
+  "Geschichte, Studio-Zeichen, Slash-Akkorde & Hörbeispiele": {
+    fr: "Histoire, symboles de grille, accords slash & exemples audio",
+    es: "Historia, símbolos de chart, acordes con barra y ejemplos de audio",
+    pl: "Historia, symbole studyjne, akordy łamane i przykłady audio",
+    uk: "Історія, студійні символи, слеш-акорди й аудіоприклади",
+    ur: "تاریخ، چارٹ علامات، سلیش کورڈز اور آڈیو مثالیں"
   }
 });

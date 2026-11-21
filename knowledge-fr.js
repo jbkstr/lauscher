@@ -1494,6 +1494,126 @@ const KNOWLEDGE_ARTICLES_FR = [
         </div>
       </div>
     `
+  },
+  {
+    id: "art-nashville-number-system",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3.5" width="18" height="17" rx="2.5"/><line x1="3" y1="12" x2="21" y2="12" opacity="0.55"/><line x1="12" y1="3.5" x2="12" y2="20.5" opacity="0.55"/><text x="7.5" y="10" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">1</text><text x="16.5" y="10" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">4</text><text x="7.5" y="18.2" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">5</text><text x="16.5" y="18.2" text-anchor="middle" font-family="Andika, sans-serif" font-size="5.8" font-weight="700" fill="currentColor" stroke="none">6-</text></svg>`,
+    badgeClass: "badge-peach",
+    title: "Le Nashville Number System",
+    subtitle: "Comment de simples chiffres permettent à tout un groupe de transposer en un instant",
+    tag: "Studio & Pratique",
+    render: () => `
+      <div class="article-body">
+        <span class="k-card-tag tag-peach">Pratique studio &amp; harmonie</span>
+        <h2>Le Nashville Number System (NNS)</h2>
+        <p class="article-lead">
+          Imagine une séance d’enregistrement : cinq musiciens découvrent une chanson pour la première fois, notent en trois minutes une grille de chiffres comme <strong>1 – 5 – 6- – 4</strong> – et quand le chanteur demande <em>« On la baisse d’un ton ? »</em>, personne ne change un seul chiffre. C’est la force du <strong>Nashville Number System</strong>.
+        </p>
+
+        <h3>1. Comment ce système est-il né ?</h3>
+        <p>
+          Le système est apparu à <strong>Nashville à la fin des années 1950</strong>, sur la célèbre <em>Music Row</em> :
+        </p>
+        <ul class="article-steps-list">
+          <li>
+            <strong>Neal Matthews Jr. &amp; The Jordanaires (fin des années 1950) :</strong> Choristes d’Elvis Presley et de nombreux artistes country, ils devaient adapter leurs harmonies vocales à chaque chanteur et aux changements de tonalité de dernière minute. Neal Matthews eut l’idée de noter les degrés par des chiffres plutôt que par des noms d’accords fixes.
+          </li>
+          <li>
+            <strong>Charlie McCoy &amp; les studios (années 1960) :</strong> Le multi-instrumentiste <strong>Charlie McCoy</strong> reprit cette méthode et l’étendit à toute la section rythmique (guitare, basse, piano, batterie). Lors des séances très rythmées du légendaire <em>Nashville A-Team</em> (souvent 3 ou 4 titres enregistrés en trois heures), il n’y avait pas de temps pour réécrire des partitions complètes.
+          </li>
+          <li>
+            <strong>D’un code de studio à un standard mondial :</strong> Comme une seule grille fonctionne immédiatement dans les 12 tonalités, le NNS s’est imposé en pop, rock, gospel et sur scène partout dans le monde.
+          </li>
+        </ul>
+
+        <h3>2. Comment ça marche ?</h3>
+        <p>
+          Au lieu de noms d’accords absolus, on numérote les <strong>7 degrés de la gamme majeure</strong> de <strong>1 à 7</strong>. La tonalité n’est indiquée qu’en haut de la feuille (ex. <strong>Key : G</strong>) :
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row">
+            <div>
+              <strong>1 · 4 · 5 — Les trois accords majeurs (Tonique, Sous-dominante, Dominante)</strong>
+              <span>Chiffres simples : en Do majeur, cela donne <strong>C (1)</strong>, <strong>F (4)</strong> et <strong>G (5)</strong>.</span>
+            </div>
+            <button class="btn-tool" data-play-progression="I,IV,I,V">▶ 1 – 4 – 1 – 5</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>2- · 3- · 6- — Les trois accords mineurs</strong>
+              <span>Un tiret (<strong>-</strong>) ou <strong>m</strong> indique le mineur : en Do majeur, <strong>Dm (2-)</strong>, <strong>Em (3-)</strong> et <strong>Am (6-)</strong>.</span>
+            </div>
+            <button class="btn-tool" data-play-progression="I,V,vi,IV">▶ 1 – 5 – 6- – 4</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>7° — Le degré diminué (ou 5/7)</strong>
+              <span>Le 7e degré est naturellement diminué (en Do : <strong>B°</strong>), mais en pop et country on utilise souvent le renversement <strong>5/7</strong> (G/B).</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>Différence avec les chiffres romains (I – V – vi – IV)</h4>
+          <p>
+            Sur le plan harmonique, <strong>I – V – vi – IV</strong> et <strong>1 – 5 – 6- – 4</strong> sont identiques. Les chiffres arabes sont simplement plus rapides à écrire à la main et lisibles sans confusion à distance (personne ne confond <code>4</code> et <code>6-</code>, alors que <code>iv</code> et <code>vi</code> se ressemblent dans la pénombre).
+          </p>
+        </div>
+
+        <h3>3. Les symboles essentiels d’une grille studio</h3>
+        <div class="nns-legend-grid">
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">2- / 6-</span>
+            <span class="nns-legend-desc">Tiret (ou m) = accord mineur</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">1/3</span>
+            <span class="nns-legend-desc">Barre oblique = accord sur une autre basse</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym nns-legend-underline">4 &nbsp; 5</span>
+            <span class="nns-legend-desc">Souligné = 2 accords dans une mesure (Split Bar)</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">1◇</span>
+            <span class="nns-legend-desc">Losange = plaquer une fois &amp; laisser résonner</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">7°</span>
+            <span class="nns-legend-desc">Cercle = accord diminué</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">^ / &lt;</span>
+            <span class="nns-legend-desc">Push = attaque anticipée (syncope)</span>
+          </div>
+        </div>
+        <ul class="article-steps-list">
+          <li><strong>1 chiffre = 1 mesure complète :</strong> Chaque chiffre vaut généralement 4 temps.</li>
+          <li><strong>Chansons mineures :</strong> En studio, on les note souvent en relatif majeur (en commençant sur <strong>6-</strong>) afin de garder les mêmes repères visuels.</li>
+        </ul>
+
+        <h3>4. Couleurs studio &amp; accords slash typiques</h3>
+        <p>
+          En plus des 7 degrés diatoniques, ces six tournures reviennent sans cesse en studio (exemples en <strong>Do majeur</strong>) :
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row"><div><strong>1/3 (C/E) — Basse à la tierce</strong><span>Enchaîne en douceur <strong>1 → 1/3 → 4</strong> (C → C/E → F).</span></div></div>
+          <div class="song-cheat-row"><div><strong>4/5 (F/G) — Suspension gospel / pop</strong><span>Tension douce et chaleureuse avant la résolution sur <strong>1</strong>.</span></div></div>
+          <div class="song-cheat-row"><div><strong>5/7 (G/B) — Basse sensible</strong><span>Remplace souvent 7° dans la descente <strong>1 → 5/7 → 6-</strong>.</span></div></div>
+          <div class="song-cheat-row"><div><strong>♭7 (B♭) — Couleur rock &amp; country</strong><span>Emprunt mixolydien typique (<strong>1 – ♭7 – 4 – 1</strong>).</span></div></div>
+          <div class="song-cheat-row"><div><strong>4- (Fm) — Sous-dominante mineure</strong><span>Le passage <strong>4 → 4- → 1</strong> apporte une touche nostalgique immédiate.</span></div></div>
+          <div class="song-cheat-row"><div><strong>2 (D majeur) — Dominante secondaire → 5</strong><span>Sans tiret, le 2 majeur pousse directement vers le <strong>5</strong> (D → G → C).</span></div></div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>Essayer directement dans l’outil interactif</h4>
+          <p>
+            Ouvre l’<strong>outil Nashville Number System</strong> pour explorer le diagramme des 12 tonalités, écouter chaque degré et traduire instantanément les positions de <strong>capodastre à la guitare</strong> :
+          </p>
+          <button class="btn-tool" type="button" data-open-nashville-tool="1">▶ Ouvrir l’outil Nashville</button>
+        </div>
+      </div>
+    `
   }
 ];
 

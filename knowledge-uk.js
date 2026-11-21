@@ -1492,6 +1492,126 @@ const KNOWLEDGE_ARTICLES_UK = [
         </div>
       </div>
     `
+  },
+  {
+    id: "art-nashville-number-system",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3.5" width="18" height="17" rx="2.5"/><line x1="3" y1="12" x2="21" y2="12" opacity="0.55"/><line x1="12" y1="3.5" x2="12" y2="20.5" opacity="0.55"/><text x="7.5" y="10" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">1</text><text x="16.5" y="10" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">4</text><text x="7.5" y="18.2" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">5</text><text x="16.5" y="18.2" text-anchor="middle" font-family="Andika, sans-serif" font-size="5.8" font-weight="700" fill="currentColor" stroke="none">6-</text></svg>`,
+    badgeClass: "badge-peach",
+    title: "Система цифр Нешвілла",
+    subtitle: "Як цифри замість назв акордів дозволяють гурту миттєво транспонувати пісню",
+    tag: "Студія та практика",
+    render: () => `
+      <div class="article-body">
+        <span class="k-card-tag tag-peach">Студійна практика й гармонія</span>
+        <h2>Система цифр Нешвілла (Nashville Number System)</h2>
+        <p class="article-lead">
+          Уявіть студійну сесію: п’ятеро музикантів уперше чують пісню, за три хвилини записують аркуш із цифрами на кшталт <strong>1 – 5 – 6- – 4</strong>, і коли вокаліст каже <em>«Спробуймо на тон нижче!»</em>, ніхто не виправляє жодної цифри. Саме для цього виникла <strong>Nashville Number System</strong>.
+        </p>
+
+        <h3>1. Як з’явилася ця система?</h3>
+        <p>
+          Її коріння — у <strong>Нешвіллі кінця 1950-х</strong>, на легендарній <em>Music Row</em>:
+        </p>
+        <ul class="article-steps-list">
+          <li>
+            <strong>Ніл Метьюз-молодший і The Jordanaires (кінець 1950-х):</strong> Бек-вокалісти Елвіса Преслі та зірок кантрі щодня підлаштовували вокальні партії під раптові зміни тональностей. Ніл Метьюз почав позначати гармонію простими цифрами ступенів гами.
+          </li>
+          <li>
+            <strong>Чарлі Маккой і студійні ритм-секції (1960-ті):</strong> Мультиінструменталіст <strong>Чарлі Маккой</strong> поширив цей запис на всю ритм-секцію (гітара, бас, фортепіано, ударні). Під час 3-годинних сесій легендарної <em>Nashville A-Team</em> записували по 3–4 пісні без готових нот.
+          </li>
+          <li>
+            <strong>Від студійного коду до світового стандарту:</strong> Один аркуш одразу працює в усіх 12 тональностях, тому система поширилася в попі, році, госпелі та живих виступах у всьому світі.
+          </li>
+        </ul>
+
+        <h3>2. Як вона працює?</h3>
+        <p>
+          Замість фіксованих назв акордів ви нумеруєте <strong>7 ступенів мажорної гами</strong> від <strong>1 до 7</strong>, а тональність зазначаєте один раз угорі (наприклад, <strong>Key: G</strong>):
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row">
+            <div>
+              <strong>1 · 4 · 5 — Три мажорні акорди (Тоніка, Субдомінанта, Домінанта)</strong>
+              <span>Без додаткових знаків: у До мажорі це <strong>C (1)</strong>, <strong>F (4)</strong> і <strong>G (5)</strong>.</span>
+            </div>
+            <button class="btn-tool" data-play-progression="I,IV,I,V">▶ 1 – 4 – 1 – 5</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>2- · 3- · 6- — Три мінорні акорди</strong>
+              <span>Мінус (<strong>-</strong>) або <strong>m</strong> означає мінор: у До мажорі це <strong>Dm (2-)</strong>, <strong>Em (3-)</strong> і <strong>Am (6-)</strong>.</span>
+            </div>
+            <button class="btn-tool" data-play-progression="I,V,vi,IV">▶ 1 – 5 – 6- – 4</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>7° — Зменшений ступінь (або 5/7)</strong>
+              <span>7-й ступінь є зменшеним (у До: <strong>B°</strong>), але в попі й кантрі дуже часто використовують обернення <strong>5/7</strong> (G/B).</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>Арабські цифри проти римських (I – V – vi – IV)</h4>
+          <p>
+            Гармонійний зміст однаковий, але в студії арабські цифри швидше писати від руки й легше читати з відстані (ніхто не сплутає <code>4</code> і <code>6-</code>, тоді як <code>iv</code> та <code>vi</code> легко переплутати).
+          </p>
+        </div>
+
+        <h3>3. Головні символи в чартах (студійні позначення)</h3>
+        <div class="nns-legend-grid">
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">2- / 6-</span>
+            <span class="nns-legend-desc">Мінус (або m) = мінорний акорд</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">1/3</span>
+            <span class="nns-legend-desc">Слеш = акорд на іншому басі</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym nns-legend-underline">4 &nbsp; 5</span>
+            <span class="nns-legend-desc">Підкреслення = 2 акорди в одному такті (Split Bar)</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">1◇</span>
+            <span class="nns-legend-desc">Ромб = один удар і вільне звучання</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">7°</span>
+            <span class="nns-legend-desc">Кружечок = зменшений тризвук</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">^ / &lt;</span>
+            <span class="nns-legend-desc">Push = випереджальний вступ (синкопа)</span>
+          </div>
+        </div>
+        <ul class="article-steps-list">
+          <li><strong>1 цифра = 1 повний такт:</strong> Зазвичай 4 долі.</li>
+          <li><strong>Мінорні пісні:</strong> У студіях їх часто записують відносно паралельного мажору (починаючи з <strong>6-</strong>).</li>
+        </ul>
+
+        <h3>4. Типові студійні барви й слеш-акорди</h3>
+        <p>
+          Крім 7 основних ступенів, у студійних чартах постійно трапляються ці шість прийомів (приклад у <strong>До мажорі</strong>):
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row"><div><strong>1/3 (C/E) — Перше обернення</strong><span>Плавно поєднує <strong>1 → 1/3 → 4</strong> (C → C/E → F) висхідною басовою лінією.</span></div></div>
+          <div class="song-cheat-row"><div><strong>4/5 (F/G) — Госпел-/поп-затримання</strong><span>Тепле «зависле» звучання перед розв’язанням у <strong>1</strong>.</span></div></div>
+          <div class="song-cheat-row"><div><strong>5/7 (G/B) — Ввідний бас до 1</strong><span>Часто замінює 7° у спадному ході <strong>1 → 5/7 → 6-</strong>.</span></div></div>
+          <div class="song-cheat-row"><div><strong>♭7 (B♭) — Рок- і кантрі-барва</strong><span>Міксолідійське запозичення (<strong>1 – ♭7 – 4 – 1</strong>).</span></div></div>
+          <div class="song-cheat-row"><div><strong>4- (Fm) — Мінорна субдомінанта</strong><span>Перехід <strong>4 → 4- → 1</strong> миттєво додає теплої меланхолії.</span></div></div>
+          <div class="song-cheat-row"><div><strong>2 (D мажор) — Подвійна домінанта → 5</strong><span>Без мінуса мажорна «2» енергійно тягне в <strong>5</strong> (D → G → C).</span></div></div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>Спробуйте наживо в інтерактивній діаграмі</h4>
+          <p>
+            Відкрийте <strong>інструмент Nashville Number System</strong>, щоб перемикати 12 тональностей, слухати ступені та користуватися <strong>перекладачем каподастра для гітари</strong>:
+          </p>
+          <button class="btn-tool" type="button" data-open-nashville-tool="1">▶ Відкрити інструмент Nashville</button>
+        </div>
+      </div>
+    `
   }
 ];
 

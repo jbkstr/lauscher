@@ -490,6 +490,8 @@ function captureHistorySnapshot(modalName = getOpenModalName()) {
     tunerReturnView: state.tunerReturnView,
     freeplayReturnView: state.freeplayReturnView,
     fretboardReturnView: state.fretboardReturnView,
+    circleReturnView: state.circleReturnView,
+    nashvilleReturnView: state.nashvilleReturnView,
     modal: modalName
   };
 }
@@ -634,6 +636,8 @@ function navigateBackFromUI() {
     switchView(state.fretboardReturnView || "tools", { skipHistoryPush: true });
   } else if (state.currentView === "circle") {
     switchView(state.circleReturnView || "tools", { skipHistoryPush: true });
+  } else if (state.currentView === "nashville") {
+    switchView(state.nashvilleReturnView || "tools", { skipHistoryPush: true });
   } else if (state.currentView === "exam-result") {
     switchView(state.examResultReturnView || "exam-setup", { skipHistoryPush: true });
   } else if (state.currentView === "exam-setup") {
@@ -778,7 +782,7 @@ function prefersReducedMotion() {
 
 function getTabForView(view) {
   if (view === "home" || view === "category" || view === "category-help" || view === "exam-setup") return "home";
-  if (view === "tools" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard" || view === "circle") return "tools";
+  if (view === "tools" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard" || view === "circle" || view === "nashville") return "tools";
   if (view === "exam-result") return state.examResultReturnView === "space" ? "space" : "home";
   if (view === "knowledge" || view === "knowledge-detail") return "knowledge";
   if (view === "space") return "space";
@@ -789,7 +793,7 @@ function getViewOrderInfo(view) {
   const tab = getTabForView(view) || "home";
   const tabIdx = MAIN_TAB_ORDER.indexOf(tab);
   let depth = 0;
-  if (view === "category" || view === "knowledge-detail" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard" || view === "circle") depth = 1;
+  if (view === "category" || view === "knowledge-detail" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard" || view === "circle" || view === "nashville") depth = 1;
   else if (view === "category-help" || view === "exam-setup") depth = 2;
   else if (view === "exercise" || view === "warmup") depth = 3;
   else if (view === "exam-result") depth = 4;
@@ -892,7 +896,7 @@ function navigateToMainTab(targetTab, swipeDir = null) {
 
   if (
     targetTab === "tools" &&
-    (state.currentView === "metronome" || state.currentView === "tuner" || state.currentView === "freeplay" || state.currentView === "fretboard" || state.currentView === "circle") &&
+    (state.currentView === "metronome" || state.currentView === "tuner" || state.currentView === "freeplay" || state.currentView === "fretboard" || state.currentView === "circle" || state.currentView === "nashville") &&
     canHistory &&
     appHistoryState.idx >= 1 &&
     window.history.state?.idx >= 1
@@ -952,7 +956,7 @@ function hasHorizontalScrollableAncestor(target) {
 }
 
 function isTabSwipeBlockedView(view) {
-  return view === "exercise" || view === "warmup" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard" || view === "circle";
+  return view === "exercise" || view === "warmup" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard" || view === "circle" || view === "nashville";
 }
 
 function handleHorizontalTabSwipe({ startX, startY, endX, endY, durationMs, viewportWidth, target }) {
@@ -1118,6 +1122,9 @@ function switchView(targetView, options = {}) {
     state.examHistoryClearArmed = false;
   }
   stopPlayback();
+  if (typeof stopNashvillePlayback === "function") {
+    stopNashvillePlayback(true);
+  }
   stopWaveAnimation();
   closeTransientPopovers();
   dismissModesRootHint(false);
@@ -1159,7 +1166,8 @@ function switchView(targetView, options = {}) {
     tuner: document.getElementById("viewTuner"),
     freeplay: document.getElementById("viewFreeplay"),
     fretboard: document.getElementById("viewFretboard"),
-    circle: document.getElementById("viewCircle")
+    circle: document.getElementById("viewCircle"),
+    nashville: document.getElementById("viewNashville")
   };
 
   finishActiveViewLeave();
@@ -1242,6 +1250,8 @@ function switchView(targetView, options = {}) {
     renderFretboardView();
   } else if (targetView === "circle" && typeof renderCircleOfFifthsView === "function") {
     renderCircleOfFifthsView();
+  } else if (targetView === "nashville" && typeof renderNashvilleView === "function") {
+    renderNashvilleView();
   }
 
   if (prevView === "exercise" && targetView !== "exercise" && typeof resetExerciseStreakState === "function") {
@@ -1995,6 +2005,14 @@ function bindKnowledgeAudioButtons(rootEl) {
     btn.addEventListener("click", () => {
       if (typeof openWarmupView === "function") {
         openWarmupView("full-5min", { returnView: "knowledge-detail" });
+      }
+    });
+  });
+
+  rootEl.querySelectorAll("[data-open-nashville-tool]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (typeof openNashvilleView === "function") {
+        openNashvilleView("knowledge-detail");
       }
     });
   });

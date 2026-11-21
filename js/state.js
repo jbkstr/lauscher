@@ -150,6 +150,8 @@ class AppState {
     this.waveAnimFrame = null;
     this.waveResume = null;
     this.circleOfFifthsState = { idx: 0, ringMode: "major", tab: "chords" };
+    this.nashvilleState = { keyIdx: 0, mode: "major", capoFret: 0 };
+    this.nashvilleReturnView = "tools";
     this.wavePaused = false;
 
     this.profile = loadUserProfile();
@@ -603,6 +605,9 @@ class AppState {
     } else if (this.currentView === "circle") {
       mainTitle.textContent = tr("Quintenzirkel", "Circle of Fifths");
       el.textContent = tr("Interaktives Klangrad, Akkorde, Vorzeichen & Modulation", "Interactive key wheel, chords, key signatures & modulation");
+    } else if (this.currentView === "nashville") {
+      mainTitle.textContent = tr("Nashville Number System", "Nashville Number System");
+      el.textContent = tr("Tonarten-Diagramm, 12-Tonarten-Matrix & Kapodaster-Übersetzer", "Key diagram, 12-key matrix & guitar capo translator");
     } else if (this.currentView === "exercise" && this.exam?.active) {
       const curQ = Math.min((this.exam.currentIdx || 0) + 1, this.exam.totalQuestions || 1);
       const presetMeta = typeof getExamPresetById === "function" ? getExamPresetById(this.exam.categoryKey, this.exam.levelId) : null;
@@ -830,6 +835,8 @@ function setLanguagePreference(nextLang) {
     renderExamResultView();
   } else if (state.currentView === "circle" && typeof renderCircleOfFifthsView === "function") {
     renderCircleOfFifthsView();
+  } else if (state.currentView === "nashville" && typeof renderNashvilleView === "function") {
+    renderNashvilleView();
   } else if (state.currentView === "knowledge-detail" && state.activeKnowledgeDetail) {
     if (state.activeKnowledgeDetail.kind === "article") {
       openKnowledgeArticle(state.activeKnowledgeDetail.id, { refreshOnly: true });

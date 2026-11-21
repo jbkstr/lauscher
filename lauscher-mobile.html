@@ -14632,6 +14632,681 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   }
 }
 
+/* =====================================================
+   WERKZEUG: NASHVILLE NUMBER SYSTEM (#viewNashville)
+   ===================================================== */
+.nashville-view #nashvilleToolContent {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-bottom: 24px;
+}
+
+.nns-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.nns-card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.nns-section-title {
+  margin: 4px 0 0;
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--raccoon-dark);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.nns-key-sig-pill {
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-warm);
+  color: var(--raccoon-mid);
+  border: 1px solid var(--border-soft);
+}
+
+.nns-mode-toggle {
+  display: inline-flex;
+  background: var(--surface-warm);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-pill);
+  padding: 3px;
+  gap: 3px;
+}
+
+.nns-mode-btn {
+  border: none;
+  background: transparent;
+  color: var(--raccoon-mid);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 5px 11px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: background-color 0.16s ease, color 0.16s ease;
+}
+
+.nns-mode-btn.active {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
+}
+
+.nns-key-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.nns-key-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  padding: 7px 4px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-soft);
+  background: var(--surface-warm);
+  color: var(--raccoon-dark);
+  cursor: pointer;
+  transition: transform 0.12s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.nns-key-pill:active {
+  transform: scale(0.96);
+}
+
+.nns-key-pill.active {
+  background: var(--peach-soft);
+  border-color: var(--peach-strong);
+  color: var(--peach-strong);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.nns-key-pill-name {
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.nns-key-pill-sig {
+  font-size: 0.68rem;
+  color: var(--raccoon-muted);
+  line-height: 1.1;
+}
+
+.nns-key-pill.active .nns-key-pill-sig {
+  color: var(--peach-strong);
+  opacity: 0.85;
+}
+
+.nns-mode-note,
+.nns-matrix-hint {
+  margin: 0;
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: var(--raccoon-mid);
+}
+
+/* SVG Funktions-Diagramm */
+.nns-diagram-wrap {
+  width: 100%;
+  border-radius: var(--radius-md);
+  background: var(--surface-warm);
+  border: 1px solid var(--border-soft);
+  padding: 8px 6px 6px;
+  overflow: hidden;
+}
+
+.nns-diagram-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 250px;
+}
+
+.nns-svg-zone {
+  stroke-width: 1.25;
+}
+
+.nns-svg-zone-tonic {
+  fill: var(--sage-soft);
+  stroke: var(--sage);
+  fill-opacity: 0.55;
+}
+
+.nns-svg-zone-subdom {
+  fill: var(--lilac-soft);
+  stroke: var(--lilac);
+  fill-opacity: 0.55;
+}
+
+.nns-svg-zone-dom {
+  fill: var(--peach-soft);
+  stroke: var(--peach);
+  fill-opacity: 0.55;
+}
+
+.nns-svg-zone-lbl-tonic { fill: var(--sage-strong); }
+.nns-svg-zone-lbl-subdom { fill: var(--lilac-strong); }
+.nns-svg-zone-lbl-dom { fill: var(--peach-strong); }
+
+.nns-svg-node {
+  cursor: pointer;
+  outline: none;
+}
+
+.nns-svg-node circle {
+  stroke-width: 2.2;
+  transition: transform 0.14s ease, filter 0.15s ease, fill 0.15s ease;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.nns-svg-node:hover circle,
+.nns-svg-node:focus-visible circle {
+  filter: brightness(0.96);
+  transform: scale(1.06);
+}
+
+.nns-svg-node-tonic circle {
+  fill: var(--surface-white);
+  stroke: var(--sage-strong);
+}
+
+.nns-svg-node-root circle {
+  fill: var(--sage-strong);
+  stroke: var(--sage-strong);
+}
+
+.nns-svg-node-subdom circle {
+  fill: var(--surface-white);
+  stroke: var(--lilac-strong);
+}
+
+.nns-svg-node-dom circle {
+  fill: var(--surface-white);
+  stroke: var(--peach-strong);
+}
+
+.nns-svg-num {
+  fill: var(--raccoon-dark);
+}
+
+.nns-svg-chord {
+  fill: var(--raccoon-mid);
+}
+
+.nns-svg-node-root .nns-svg-num,
+.nns-svg-node-root .nns-svg-chord {
+  fill: var(--on-strong-accent);
+}
+
+.nns-svg-node.is-active-sound circle {
+  fill: var(--peach-strong);
+  stroke: var(--peach-strong);
+  transform: scale(1.1);
+}
+
+.nns-svg-node.is-active-sound .nns-svg-num,
+.nns-svg-node.is-active-sound .nns-svg-chord {
+  fill: var(--on-strong-accent);
+}
+
+/* 7 Stufen-Kacheln */
+.nns-degree-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.nns-degree-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 9px 4px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-soft);
+  background: var(--surface-white);
+  color: var(--raccoon-dark);
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.12s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.nns-degree-tile:active {
+  transform: scale(0.95);
+}
+
+.nns-degree-tile.nns-fn-tonic {
+  border-color: var(--sage);
+  background: var(--sage-soft);
+}
+
+.nns-degree-tile.nns-fn-subdom {
+  border-color: var(--lilac);
+  background: var(--lilac-soft);
+}
+
+.nns-degree-tile.nns-fn-dom {
+  border-color: var(--peach);
+  background: var(--peach-soft);
+}
+
+.nns-degree-tile.is-active-sound {
+  background: var(--btn-primary-bg);
+  border-color: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
+  transform: translateY(-2px);
+}
+
+.nns-deg-num {
+  font-size: 1.12rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.nns-deg-chord {
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.nns-deg-meta {
+  font-size: 0.66rem;
+  color: var(--raccoon-mid);
+  line-height: 1.15;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.nns-degree-tile.is-active-sound .nns-deg-meta {
+  color: var(--btn-primary-fg);
+  opacity: 0.85;
+}
+
+.nns-extras-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--raccoon-mid);
+}
+
+/* Kapodaster-Übersetzer für Gitarre */
+.nns-capo-summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 6px;
+  padding: 10px;
+  border-radius: var(--radius-md);
+  background: var(--surface-warm);
+  border: 1.5px solid var(--border-soft);
+}
+
+.nns-capo-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2px;
+  padding: 6px 4px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-white);
+  border: 1px solid var(--border-soft);
+}
+
+.nns-capo-stat.is-capo {
+  background: var(--peach-soft);
+  border-color: var(--peach);
+}
+
+.nns-capo-stat.is-shape {
+  background: var(--sage-soft);
+  border-color: var(--sage);
+}
+
+.nns-capo-stat-lbl {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--raccoon-muted);
+  line-height: 1.15;
+}
+
+.nns-capo-stat-val {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--raccoon-dark);
+  line-height: 1.2;
+}
+
+.nns-capo-stat.is-capo .nns-capo-stat-val { color: var(--peach-strong); }
+.nns-capo-stat.is-shape .nns-capo-stat-val { color: var(--sage-strong); }
+
+.nns-capo-arrow {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--raccoon-muted);
+}
+
+.nns-capo-subblock {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.nns-capo-suggest-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.nns-capo-suggest-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 11px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--border-soft);
+  background: var(--surface-warm);
+  color: var(--raccoon-dark);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: transform 0.12s ease, background-color 0.14s ease, border-color 0.14s ease;
+}
+
+.nns-capo-suggest-chip:active {
+  transform: scale(0.96);
+}
+
+.nns-capo-suggest-chip.active {
+  background: var(--peach-strong);
+  border-color: var(--peach-strong);
+  color: var(--on-strong-accent);
+}
+
+.nns-capo-fret-row {
+  display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  gap: 5px;
+}
+
+.nns-capo-fret-btn {
+  padding: 7px 2px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-soft);
+  background: var(--surface-warm);
+  color: var(--raccoon-dark);
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.14s ease, border-color 0.14s ease, color 0.14s ease;
+}
+
+.nns-capo-fret-btn.active {
+  background: var(--btn-primary-bg);
+  border-color: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
+}
+
+.nns-capo-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.nns-capo-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 9px 4px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-soft);
+  background: var(--surface-white);
+  color: var(--raccoon-dark);
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.12s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.nns-capo-tile:active {
+  transform: scale(0.95);
+}
+
+.nns-capo-tile.nns-fn-tonic {
+  border-color: var(--sage);
+  background: var(--sage-soft);
+}
+
+.nns-capo-tile.nns-fn-subdom {
+  border-color: var(--lilac);
+  background: var(--lilac-soft);
+}
+
+.nns-capo-tile.nns-fn-dom {
+  border-color: var(--peach);
+  background: var(--peach-soft);
+}
+
+.nns-capo-tile.is-active-sound {
+  background: var(--btn-primary-bg);
+  border-color: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
+  transform: translateY(-2px);
+}
+
+.nns-capo-num {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--raccoon-mid);
+  line-height: 1.1;
+}
+
+.nns-capo-shape-chord {
+  font-size: 1.04rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.nns-capo-sound-chord {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--raccoon-mid);
+  line-height: 1.15;
+}
+
+.nns-capo-tile.is-active-sound .nns-capo-num,
+.nns-capo-tile.is-active-sound .nns-capo-sound-chord {
+  color: var(--btn-primary-fg);
+  opacity: 0.86;
+}
+
+/* 12-Tonarten-Matrix */
+.nns-matrix-scroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  background: var(--surface-white);
+}
+
+.nns-matrix-table {
+  width: 100%;
+  min-width: 470px;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.nns-matrix-table th,
+.nns-matrix-table td {
+  padding: 5px 4px;
+  text-align: center;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.nns-matrix-table thead th {
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 8px 4px;
+  background: var(--surface-warm);
+  color: var(--raccoon-dark);
+}
+
+.nns-matrix-table thead th.nns-th-tonic { color: var(--sage-strong); }
+.nns-matrix-table thead th.nns-th-subdom { color: var(--lilac-strong); }
+.nns-matrix-table thead th.nns-th-dom { color: var(--peach-strong); }
+
+.nns-sticky-col {
+  position: sticky;
+  inset-inline-start: 0;
+  z-index: 2;
+  background: var(--surface-warm);
+  border-inline-end: 1.5px solid var(--border-soft);
+  min-width: 68px;
+}
+
+.nns-matrix-table tbody tr.is-current-key {
+  background: var(--peach-soft);
+}
+
+.nns-matrix-table tbody tr.is-current-key .nns-sticky-col {
+  background: var(--peach-soft);
+}
+
+.nns-row-key-btn {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: var(--raccoon-dark);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  padding: 4px 6px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.nns-row-key-btn small {
+  font-size: 0.68rem;
+  color: var(--raccoon-muted);
+}
+
+.nns-matrix-table tbody tr.is-current-key .nns-row-key-btn {
+  color: var(--peach-strong);
+}
+
+.nns-cell-btn {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: var(--raccoon-dark);
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 6px 3px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.14s ease, color 0.14s ease;
+}
+
+.nns-cell-btn:hover {
+  background: var(--tint-subtle);
+}
+
+.nns-cell-btn.is-active-sound {
+  background: var(--sage-strong);
+  color: var(--on-strong-accent);
+}
+
+/* Symbol-Legende (im Nashville-Artikel) */
+.nns-legend-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 10px 0 14px;
+}
+
+.nns-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-warm);
+  border: 1px solid var(--border-soft);
+}
+
+.nns-legend-sym {
+  min-width: 48px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--peach-strong);
+  background: var(--surface-white);
+  border: 1px solid var(--border-soft);
+  border-radius: 7px;
+  padding: 3px 6px;
+  flex-shrink: 0;
+}
+
+.nns-legend-underline {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 2px;
+}
+
+.nns-legend-desc {
+  font-size: 0.8rem;
+  line-height: 1.3;
+  color: var(--raccoon-dark);
+}
+
+/* Artikel-Verknüpfungskarte am Ende des Werkzeugs */
+.nns-article-link-card {
+  margin-top: 2px;
+}
+
+@media (max-width: 560px) {
+  .nns-degree-grid,
+  .nns-capo-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .nns-capo-fret-row {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+  .nns-legend-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 390px) {
+  .nns-key-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .nns-capo-stat-val {
+    font-size: 0.82rem;
+  }
+}
+
 </style>
   <script>
     (function () {
@@ -15549,6 +16224,27 @@ const LAUSCHER_MASCOT_METAL_VARIANTS = {
               <h3 data-i18n="tools.circleTitle">Quintenzirkel</h3>
             </div>
             <p data-i18n="tools.circleSub">Interaktives Klangrad, Akkorde, Vorzeichen &amp; Modulation</p>
+          </div>
+          <span class="cat-chevron">›</span>
+        </button>
+
+        <button id="openNashvilleBtn" class="category-nav-card card-accent-peach category-card-wide" type="button" data-open-tool="nashville">
+          <div class="cat-icon-box badge-peach">
+            <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="4" y="4.5" width="20" height="19" rx="3" stroke="currentColor" stroke-width="1.9"/>
+              <line x1="4" y1="14" x2="24" y2="14" stroke="currentColor" stroke-width="1.35" opacity="0.5"/>
+              <line x1="14" y1="4.5" x2="14" y2="23.5" stroke="currentColor" stroke-width="1.35" opacity="0.5"/>
+              <text x="9" y="11.5" text-anchor="middle" font-family="Andika, sans-serif" font-size="7.5" font-weight="700" fill="currentColor">1</text>
+              <text x="19" y="11.5" text-anchor="middle" font-family="Andika, sans-serif" font-size="7.5" font-weight="700" fill="currentColor">4</text>
+              <text x="9" y="21" text-anchor="middle" font-family="Andika, sans-serif" font-size="7.5" font-weight="700" fill="currentColor">5</text>
+              <text x="19" y="21" text-anchor="middle" font-family="Andika, sans-serif" font-size="7" font-weight="700" fill="currentColor">6-</text>
+            </svg>
+          </div>
+          <div class="cat-text-box">
+            <div class="tool-card-title-row">
+              <h3 data-i18n="tools.nashvilleTitle">Nashville Number System</h3>
+            </div>
+            <p data-i18n="tools.nashvilleSub">Tonarten-Diagramm, 12-Tonarten-Matrix &amp; Kapodaster-Übersetzer</p>
           </div>
           <span class="cat-chevron">›</span>
         </button>
@@ -17107,6 +17803,13 @@ const LAUSCHER_MASCOT_METAL_VARIANTS = {
          ===================================================== -->
     <main id="viewCircle" class="view-container hidden">
       <div id="circleToolContent" class="knowledge-list"></div>
+    </main>
+
+    <!-- =====================================================
+         ANSICHT 11: NASHVILLE NUMBER SYSTEM (#viewNashville)
+         ===================================================== -->
+    <main id="viewNashville" class="view-container nashville-view hidden">
+      <div id="nashvilleToolContent" class="knowledge-list"></div>
     </main>
 
     </div><!-- /.views-stage -->
@@ -22049,6 +22752,24 @@ registerColocatedStatic({
     pl: "Interaktywna tarcza, akordy, znaki przykluczowe i modulacja",
     uk: "Інтерактивне коло, акорди, ключові знаки й модуляція",
     ur: "انٹرایکٹو پہیہ، کورڈز، کلیدی علامات اور ماڈیولیشن"
+  },
+  "tools.nashvilleTitle": {
+    de: "Nashville Number System",
+    en: "Nashville Number System",
+    fr: "Nashville Number System",
+    es: "Sistema numérico de Nashville",
+    pl: "Nashville Number System",
+    uk: "Система цифр Нешвілла",
+    ur: "نیش وِل نمبر سسٹم"
+  },
+  "tools.nashvilleSub": {
+    de: "Tonarten-Diagramm, 12-Tonarten-Matrix & Kapodaster-Übersetzer",
+    en: "Key diagram, 12-key matrix & guitar capo translator",
+    fr: "Diagramme des tonalités, grille des 12 tonalités & traducteur de capo",
+    es: "Diagrama de tonalidades, tabla de 12 tonalidades y traductor de cejilla",
+    pl: "Diagram tonacji, tabela 12 tonacji i tłumacz kapodastra",
+    uk: "Діаграма тональностей, таблиця 12 тональностей і перекладач каподастра",
+    ur: "کی ڈایاگرام، 12 کیز ٹیبل اور گٹار کیپو ٹرانسلیٹر"
   },
   "tools.soonBadge": {
     de: "Bald",
@@ -41325,6 +42046,272 @@ registerColocatedPhrases({
     pl: "Frygijska dominantowa",
     uk: "Фригійський домінантовий",
     ur: "فریجین ڈومیننٹ"
+  },
+  "Nashville Number System": {
+    fr: "Nashville Number System",
+    es: "Sistema numérico de Nashville",
+    pl: "Nashville Number System",
+    uk: "Система цифр Нешвілла",
+    ur: "نیش وِل نمبر سسٹم"
+  },
+  "Tonarten-Diagramm, 12-Tonarten-Matrix & Kapodaster-Übersetzer": {
+    fr: "Diagramme des tonalités, matrice des 12 tonalités & traducteur de capo",
+    es: "Diagrama de tonalidades, tabla de 12 tonalidades y traductor de cejilla",
+    pl: "Diagram tonacji, tabela 12 tonacji i tłumacz kapodastra",
+    uk: "Діаграма тональностей, таблиця 12 тональностей і перекладач каподастра",
+    ur: "کی ڈایاگرام، 12 کیز ٹیبل اور گٹار کیپو ٹرانسلیٹر"
+  },
+  "{root}-Moll": {
+    fr: "{root} mineur",
+    es: "{root} menor",
+    pl: "{root}-moll",
+    uk: "{root} мінор",
+    ur: "{root} مائنر"
+  },
+  "{root}-Dur": {
+    fr: "{root} majeur",
+    es: "{root} mayor",
+    pl: "{root}-dur",
+    uk: "{root} мажор",
+    ur: "{root} میجر"
+  },
+  "Tonika": {
+    fr: "Tonique",
+    es: "Tónica",
+    pl: "Tonika",
+    uk: "Тоніка",
+    ur: "ٹانک"
+  },
+  "Subdominante": {
+    fr: "Sous-dominante",
+    es: "Subdominante",
+    pl: "Subdominanta",
+    uk: "Субдомінанта",
+    ur: "سب ڈومیننٹ"
+  },
+  "Dominante": {
+    fr: "Dominante",
+    es: "Dominante",
+    pl: "Dominanta",
+    uk: "Домінанта",
+    ur: "ڈومیننٹ"
+  },
+  "Nashville-Diagramm für {key}": {
+    fr: "Diagramme Nashville pour {key}",
+    es: "Diagrama Nashville para {key}",
+    pl: "Diagram Nashville dla {key}",
+    uk: "Діаграма Нешвілла для {key}",
+    ur: "{key} کے لیے نیش وِل ڈایاگرام"
+  },
+  "Tonart wählen": {
+    fr: "Choisir la tonalité",
+    es: "Elegir tonalidad",
+    pl: "Wybierz tonację",
+    uk: "Вибір тональності",
+    ur: "کی منتخب کریں"
+  },
+  "Tongeschlecht": {
+    fr: "Mode",
+    es: "Modo",
+    pl: "Tryb",
+    uk: "Лад",
+    ur: "موڈ"
+  },
+  "Dur (Standard)": {
+    fr: "Majeur (standard)",
+    es: "Mayor (estándar)",
+    pl: "Dur (standard)",
+    uk: "Мажор (стандарт)",
+    ur: "میجر (معیاری)"
+  },
+  "Moll (1-)": {
+    fr: "Mineur (1-)",
+    es: "Menor (1-)",
+    pl: "Moll (1-)",
+    uk: "Мінор (1-)",
+    ur: "مائنر (1-)"
+  },
+  "Alle 12 Tonarten": {
+    fr: "Les 12 tonalités",
+    es: "Las 12 tonalidades",
+    pl: "Wszystkie 12 tonacji",
+    uk: "Усі 12 тональностей",
+    ur: "تمام 12 کیز"
+  },
+  "Parallele Molltonart ist {rel} (Stufe 6-). Tippe auf beliebige Ziffern im Diagramm, um den Akkord sofort zu hören.": {
+    fr: "La relative mineure est {rel} (degré 6-). Touche n’importe quel chiffre du diagramme pour entendre l’accord immédiatement.",
+    es: "La relativa menor es {rel} (grado 6-). Toca cualquier número del diagrama para escuchar el acorde al instante.",
+    pl: "Równoległa tonacja molowa to {rel} (stopień 6-). Dotknij dowolnej cyfry na diagramie, aby od razu usłyszeć akord.",
+    uk: "Паралельний мінор — {rel} (ступінь 6-). Торкніться будь-якої цифри на діаграмі, щоб одразу почути акорд.",
+    ur: "متوازی مائنر کی {rel} (درجہ 6-) ہے۔ فوری سننے کے لیے ڈایاگرام میں کسی بھی ہندسے پر ٹیپ کریں۔"
+  },
+  "Moll-Referenz mit 1- als Grundton. Tipp: In Nashville-Studios werden Moll-Songs oft auch relativ zur Dur-Parallele (Start auf 6-) notiert.": {
+    fr: "Référence mineure avec 1- comme tonique. Astuce : en studio à Nashville, les morceaux mineurs sont aussi souvent notés en relatif majeur (départ sur 6-).",
+    es: "Referencia menor con 1- como tónica. Consejo: en los estudios de Nashville los temas menores también suelen anotarse respecto al relativo mayor (empezando en 6-).",
+    pl: "Układ molowy z 1- jako toniką. Wskazówka: w studiach Nashville utwory molowe często zapisuje się też względem paraleli durowej (start od 6-).",
+    uk: "Мінорна система з 1- як тонікою. Порада: у студіях Нешвілла мінорні пісні також часто записують відносно паралельного мажору (починаючи з 6-).",
+    ur: "1- کو بنیادی سر مان کر مائنر حوالہ۔ مشورہ: نیش وِل اسٹوڈیوز میں مائنر گانے اکثر متوازی میجر کے لحاظ سے (6- سے شروع) بھی لکھے جاتے ہیں۔"
+  },
+  "Funktions-Diagramm": {
+    fr: "Diagramme fonctionnel",
+    es: "Diagrama funcional",
+    pl: "Diagram funkcyjny",
+    uk: "Функційна діаграма",
+    ur: "فنکشن ڈایاگرام"
+  },
+  "Stufen-Diagramm in {key}": {
+    fr: "Diagramme des degrés en {key}",
+    es: "Diagrama de grados en {key}",
+    pl: "Diagram stopni w {key}",
+    uk: "Діаграма ступенів у {key}",
+    ur: "{key} میں ڈگری ڈایاگرام"
+  },
+  "Nachschlage-Diagramm": {
+    fr: "Tableau de référence",
+    es: "Tabla de referencia",
+    pl: "Tabela poglądowa",
+    uk: "Довідкова таблиця",
+    ur: "حوالہ چارٹ"
+  },
+  "Alle 12 Tonarten auf einen Blick": {
+    fr: "Les 12 tonalités en un coup d’œil",
+    es: "Las 12 tonalidades de un vistazo",
+    pl: "Wszystkie 12 tonacji na jednym widoku",
+    uk: "Усі 12 тональностей одним поглядом",
+    ur: "تمام 12 کیز ایک نظر میں"
+  },
+  "Tippe auf eine Tonart links zum Umschalten – oder direkt auf einen Akkord zum Anhören.": {
+    fr: "Touche une tonalité à gauche pour basculer – ou directement un accord pour l’écouter.",
+    es: "Toca una tonalidad a la izquierda para cambiar o directamente cualquier acorde para escucharlo.",
+    pl: "Dotknij tonacji po lewej, aby przełączyć – lub dowolnego akordu, aby go odsłuchać.",
+    uk: "Торкніться тональності ліворуч, щоб перемкнутися, або будь-якого акорду, щоб почути його.",
+    ur: "تبدیل کرنے کے لیے بائیں جانب کی پر ٹیپ کریں – یا سننے کے لیے کسی بھی کورڈ پر ٹیپ کریں۔"
+  },
+  "Tonart": {
+    fr: "Tonalité",
+    es: "Tonalidad",
+    pl: "Tonacja",
+    uk: "Тональність",
+    ur: "کی"
+  },
+  "Gitarren-Praxis": {
+    fr: "Pratique guitare",
+    es: "Práctica de guitarra",
+    pl: "Praktyka gitarowa",
+    uk: "Гітарна практика",
+    ur: "گٹار پریکٹس"
+  },
+  "Kapodaster-Übersetzer": {
+    fr: "Traducteur de capodastre",
+    es: "Traductor de cejilla",
+    pl: "Tłumacz kapodastra",
+    uk: "Перекладач каподастра",
+    ur: "کیپو ٹرانسلیٹر"
+  },
+  "Klingt in": {
+    fr: "Sonne en",
+    es: "Suena en",
+    pl: "Brzmi w",
+    uk: "Звучить у",
+    ur: "آواز کی کی"
+  },
+  "Kapodaster": {
+    fr: "Capodastre",
+    es: "Cejilla",
+    pl: "Kapodaster",
+    uk: "Каподастр",
+    ur: "کیپو"
+  },
+  "Ohne Kapo": {
+    fr: "Sans capo",
+    es: "Sin cejilla",
+    pl: "Bez kapo",
+    uk: "Без капо",
+    ur: "بغیر کیپو"
+  },
+  "Bund {n}": {
+    fr: "Case {n}",
+    es: "Traste {n}",
+    pl: "Próg {n}",
+    uk: "Лад {n}",
+    ur: "فریٹ {n}"
+  },
+  "Greife wie in": {
+    fr: "Positions de",
+    es: "Posiciones de",
+    pl: "Chwyty jak w",
+    uk: "Аплікатури в",
+    ur: "گرپ کی کی"
+  },
+  "Bequeme offene Gitarren-Formen für diese Tonart:": {
+    fr: "Positions ouvertes confortables à la guitare pour cette tonalité :",
+    es: "Posiciones abiertas cómodas en guitarra para esta tonalidad:",
+    pl: "Wygodne otwarte chwyty gitarowe dla tej tonacji:",
+    uk: "Зручні відкриті гітарні аплікатури для цієї тональності:",
+    ur: "اس کی کے لیے آرام دہ اوپن گٹار شیپس:"
+  },
+  "Offen (0)": {
+    fr: "Ouvert (0)",
+    es: "Abierto (0)",
+    pl: "Otwarte (0)",
+    uk: "Відкрито (0)",
+    ur: "اوپن (0)"
+  },
+  "Kapo {n}": {
+    fr: "Capo {n}",
+    es: "Cejilla {n}",
+    pl: "Kapo {n}",
+    uk: "Капо {n}",
+    ur: "کیپو {n}"
+  },
+  "{shape}-Form": {
+    fr: "Positions {shape}",
+    es: "Formas de {shape}",
+    pl: "Układ {shape}",
+    uk: "Форми {shape}",
+    ur: "{shape} شیپس"
+  },
+  "Oder Bund frei wählen (0–9):": {
+    fr: "Ou choisir librement une case (0–9) :",
+    es: "O elige cualquier traste libremente (0–9):",
+    pl: "Lub wybierz dowolny próg (0–9):",
+    uk: "Або оберіть будь-який лад (0–9):",
+    ur: "یا کوئی بھی فریٹ منتخب کریں (0–9):"
+  },
+  "Kapodaster-Bund": {
+    fr: "Case du capodastre",
+    es: "Traste de la cejilla",
+    pl: "Próg kapodastra",
+    uk: "Лад каподастра",
+    ur: "کیپو فریٹ"
+  },
+  "= {chord}": {
+    fr: "= {chord}",
+    es: "= {chord}",
+    pl: "= {chord}",
+    uk: "= {chord}",
+    ur: "= {chord}"
+  },
+  "Oben steht dein Gitarren-Griff (mit Kapo), darunter der tatsächlich klingende Akkord. Antippen spielt den klingenden Gitarren-Akkord.": {
+    fr: "En haut : la position guitare (avec capo), en dessous : l’accord qui sonne réellement. Touche une case pour entendre l’accord de guitare.",
+    es: "Arriba aparece tu postura de guitarra (con cejilla) y debajo el acorde que suena realmente. Toca cualquier casilla para escuchar el acorde real.",
+    pl: "U góry widzisz chwyt gitarowy (z kapodastrem), a poniżej realnie brzmiący akord. Dotknij kafelka, aby usłyszeć akord gitarowy.",
+    uk: "Зверху показано гітарний акорд (із каподастром), а знизу — реальне звучання. Торкніться плитки, щоб почути гітарний акорд.",
+    ur: "اوپر آپ کی گٹار گرپ (کیپو کے ساتھ) اور نیچے اصل بجنے والا کورڈ ہے۔ اصل گٹار کورڈ سننے کے لیے کسی بھی خانے پر ٹیپ کریں۔"
+  },
+  "Artikel: Wie das Nashville Number System funktioniert & entstand": {
+    fr: "Article : Comment fonctionne le Nashville Number System et son histoire",
+    es: "Artículo: Cómo funciona y cómo nació el sistema numérico de Nashville",
+    pl: "Artykuł: Jak działa i skąd pochodzi Nashville Number System",
+    uk: "Стаття: Як працює й виникла система цифр Нешвілла",
+    ur: "مضمون: نیش وِل نمبر سسٹم کیسے کام کرتا ہے اور کیسے شروع ہوا"
+  },
+  "Geschichte, Studio-Zeichen, Slash-Akkorde & Hörbeispiele": {
+    fr: "Histoire, symboles de grille, accords slash & exemples audio",
+    es: "Historia, símbolos de chart, acordes con barra y ejemplos de audio",
+    pl: "Historia, symbole studyjne, akordy łamane i przykłady audio",
+    uk: "Історія, студійні символи, слеш-акорди й аудіоприклади",
+    ur: "تاریخ، چارٹ علامات، سلیش کورڈز اور آڈیو مثالیں"
   }
 });
 
@@ -42840,6 +43827,163 @@ const KNOWLEDGE_ARTICLES_EN = [
               • <strong>Diminished = 3 + 3</strong> • <strong>Augmented = 4 + 4</strong>
             </p>
           </div>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: "art-nashville-number-system",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3.5" width="18" height="17" rx="2.5"/><line x1="3" y1="12" x2="21" y2="12" opacity="0.55"/><line x1="12" y1="3.5" x2="12" y2="20.5" opacity="0.55"/><text x="7.5" y="10" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">1</text><text x="16.5" y="10" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">4</text><text x="7.5" y="18.2" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">5</text><text x="16.5" y="18.2" text-anchor="middle" font-family="Andika, sans-serif" font-size="5.8" font-weight="700" fill="currentColor" stroke="none">6-</text></svg>`,
+    badgeClass: "badge-peach",
+    title: "The Nashville Number System",
+    subtitle: "How scale-degree numbers let an entire studio band transpose in seconds",
+    tag: "Studio & Practice",
+    render: () => `
+      <div class="article-body">
+        <span class="k-card-tag tag-peach">Studio Practice &amp; Harmony</span>
+        <h2>The Nashville Number System (NNS)</h2>
+        <p class="article-lead">
+          Picture a recording session: five musicians hear a song for the very first time, jot down a single page of numbers like <strong>1 – 5 – 6- – 4</strong> in three minutes — and when the singer says <em>“Let’s drop it down a whole step!”</em>, nobody changes a single digit. That is the magic of the <strong>Nashville Number System</strong>.
+        </p>
+
+        <h3>1. How Did It Start?</h3>
+        <p>
+          The system was born in <strong>late-1950s Nashville</strong> along the famous <em>Music Row</em>:
+        </p>
+        <ul class="article-steps-list">
+          <li>
+            <strong>Neal Matthews Jr. &amp; The Jordanaires (late 1950s):</strong> Backing Elvis Presley and countless country stars meant adapting vocal harmonies to different singers and last-minute key changes every single day. Neal Matthews began writing chord degrees as simple scale numbers instead of fixed letter names.
+          </li>
+          <li>
+            <strong>Charlie McCoy &amp; the Studio Rhythm Section (1960s):</strong> Harmonica virtuoso and multi-instrumentalist <strong>Charlie McCoy</strong> picked up the idea and refined it into a full chart language for rhythm sections (guitar, bass, piano, pedal steel, drums). In tight 3-hour union sessions, Nashville’s legendary studio players (the <em>Nashville A-Team</em>) often tracked three or four songs per session with zero printed sheet music.
+          </li>
+          <li>
+            <strong>From Studio Shorthand to Global Standard:</strong> Because one chart works in all 12 keys instantly, the system spread far beyond country into pop, rock, gospel, worship, and touring bands worldwide.
+          </li>
+        </ul>
+
+        <h3>2. How Does It Work?</h3>
+        <p>
+          Instead of writing fixed chord letters (like <em>G, C, D, Em</em>), you number the <strong>7 degrees of the major scale</strong> from <strong>1 to 7</strong>. The key is written just once at the top of the page (e.g. <strong>Key: G</strong>):
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row">
+            <div>
+              <strong>1 · 4 · 5 — The Three Major Chords (Tonic, Subdominant, Dominant)</strong>
+              <span>Written as plain numbers: in C Major that means <strong>C (1)</strong>, <strong>F (4)</strong>, and <strong>G (5)</strong>.</span>
+            </div>
+            <button class="btn-tool" data-play-progression="I,IV,I,V">▶ 1 – 4 – 1 – 5</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>2- · 3- · 6- — The Three Minor Chords</strong>
+              <span>A minus sign (<strong>-</strong>) or <strong>m</strong> marks minor: in C Major, <strong>Dm (2-)</strong>, <strong>Em (3-)</strong>, and <strong>Am (6-)</strong>.</span>
+            </div>
+            <button class="btn-tool" data-play-progression="I,V,vi,IV">▶ 1 – 5 – 6- – 4</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>7° — The Diminished Degree (or 5/7)</strong>
+              <span>Degree 7 is naturally diminished (in C Major: <strong>B°</strong>). In pop and country, studios often use the first-inversion slash chord <strong>5/7</strong> (G/B) instead.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>Numbers vs. Roman Numerals (I – V – vi – IV)</h4>
+          <p>
+            Harmonic meaning is identical: <strong>I – V – vi – IV</strong> and <strong>1 – 5 – 6- – 4</strong> describe the exact same chords. Arabic numerals simply win in fast studio life — they are quicker to scribble by hand and unmistakable from across a dimly lit music stand (nobody confuses <code>4</code> and <code>6-</code>, whereas handwritten <code>iv</code> and <code>vi</code> look dangerously alike).
+          </p>
+        </div>
+
+        <h3>3. Essential Chart Symbols (Studio Shorthand)</h3>
+        <div class="nns-legend-grid">
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">2- / 6-</span>
+            <span class="nns-legend-desc">Minus (or m) = minor chord</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">1/3</span>
+            <span class="nns-legend-desc">Slash = chord over alternate bass note</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym nns-legend-underline">4 &nbsp; 5</span>
+            <span class="nns-legend-desc">Underlined = 2 chords sharing one bar (split bar)</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">1◇</span>
+            <span class="nns-legend-desc">Diamond = strum once &amp; let ring</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">7°</span>
+            <span class="nns-legend-desc">Circle = diminished triad</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">^ / &lt;</span>
+            <span class="nns-legend-desc">Push = anticipated beat (syncopation)</span>
+          </div>
+        </div>
+        <ul class="article-steps-list">
+          <li>
+            <strong>One Number = One Full Bar:</strong> Writing <code>1  4  5  1</code> gives each chord one full measure (typically 4 beats).
+          </li>
+          <li>
+            <strong>Underline = Split Bar:</strong> Two numbers underlined together (<u>4 &nbsp; 5</u>) share a single bar (2 beats each).
+          </li>
+          <li>
+            <strong>Minor Songs in NNS:</strong> Many Nashville players still chart minor-key songs relative to the <em>parallel major</em>. A song in A Minor is often written under “Key: C” as <strong>6- – 4 – 1 – 5</strong> so familiar visual patterns stay intact.
+          </li>
+        </ul>
+
+        <h3>4. Common Studio Colours &amp; Slash Chords</h3>
+        <p>
+          Beyond the 7 diatonic chords, these six studio staples appear on modern country, pop, and gospel charts every day (shown in <strong>C Major</strong>):
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row">
+            <div>
+              <strong>1/3 (C/E) — First Inversion Bass Walk</strong>
+              <span>Smoothly connects <strong>1 → 1/3 → 4</strong> (C → C/E → F) with a melodic bass walk up (C → E → F).</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>4/5 (F/G) — Gospel &amp; Pop Suspension (9sus4)</strong>
+              <span>Warm, floating tension right before resolving home — a hallmark of classic pop and soul ballads.</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>5/7 (G/B) — Leading-Tone Bass to 1</strong>
+              <span>Frequently replaces diminished 7° in bands, driving classic walk-downs like <strong>1 → 5/7 → 6-</strong>.</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>♭7 (B♭) — Rock &amp; Southern Country Borrowed Chord</strong>
+              <span>Borrowed from Mixolydian (<strong>1 – ♭7 – 4 – 1</strong>), giving instant swagger and lift.</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>4- (Fm) — Minor Subdominant</strong>
+              <span>Moving <strong>4 → 4- → 1</strong> (F → Fm → C) delivers bittersweet, cinematic warmth.</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>2 (D Major instead of Dm) — Secondary Dominant → 5</strong>
+              <span>Written without a minus sign, major <strong>2</strong> leans eagerly into the <strong>5</strong> chord (D → G → C).</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>Explore It Live in the Interactive Diagram</h4>
+          <p>
+            In the <strong>Nashville Number System tool</strong>, tap any of the 12 keys, play every degree, and use the built-in <strong>guitar capo translator</strong> to find comfortable open chord shapes right away:
+          </p>
+          <button class="btn-tool" type="button" data-open-nashville-tool="1">▶ Open Nashville Diagram Tool</button>
         </div>
       </div>
     `
@@ -46959,6 +48103,126 @@ const KNOWLEDGE_ARTICLES_FR = [
               • <strong>Diminué = 3 + 3</strong> • <strong>Augmenté = 4 + 4</strong>
             </p>
           </div>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: "art-nashville-number-system",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3.5" width="18" height="17" rx="2.5"/><line x1="3" y1="12" x2="21" y2="12" opacity="0.55"/><line x1="12" y1="3.5" x2="12" y2="20.5" opacity="0.55"/><text x="7.5" y="10" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">1</text><text x="16.5" y="10" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">4</text><text x="7.5" y="18.2" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">5</text><text x="16.5" y="18.2" text-anchor="middle" font-family="Andika, sans-serif" font-size="5.8" font-weight="700" fill="currentColor" stroke="none">6-</text></svg>`,
+    badgeClass: "badge-peach",
+    title: "Le Nashville Number System",
+    subtitle: "Comment de simples chiffres permettent à tout un groupe de transposer en un instant",
+    tag: "Studio & Pratique",
+    render: () => `
+      <div class="article-body">
+        <span class="k-card-tag tag-peach">Pratique studio &amp; harmonie</span>
+        <h2>Le Nashville Number System (NNS)</h2>
+        <p class="article-lead">
+          Imagine une séance d’enregistrement : cinq musiciens découvrent une chanson pour la première fois, notent en trois minutes une grille de chiffres comme <strong>1 – 5 – 6- – 4</strong> – et quand le chanteur demande <em>« On la baisse d’un ton ? »</em>, personne ne change un seul chiffre. C’est la force du <strong>Nashville Number System</strong>.
+        </p>
+
+        <h3>1. Comment ce système est-il né ?</h3>
+        <p>
+          Le système est apparu à <strong>Nashville à la fin des années 1950</strong>, sur la célèbre <em>Music Row</em> :
+        </p>
+        <ul class="article-steps-list">
+          <li>
+            <strong>Neal Matthews Jr. &amp; The Jordanaires (fin des années 1950) :</strong> Choristes d’Elvis Presley et de nombreux artistes country, ils devaient adapter leurs harmonies vocales à chaque chanteur et aux changements de tonalité de dernière minute. Neal Matthews eut l’idée de noter les degrés par des chiffres plutôt que par des noms d’accords fixes.
+          </li>
+          <li>
+            <strong>Charlie McCoy &amp; les studios (années 1960) :</strong> Le multi-instrumentiste <strong>Charlie McCoy</strong> reprit cette méthode et l’étendit à toute la section rythmique (guitare, basse, piano, batterie). Lors des séances très rythmées du légendaire <em>Nashville A-Team</em> (souvent 3 ou 4 titres enregistrés en trois heures), il n’y avait pas de temps pour réécrire des partitions complètes.
+          </li>
+          <li>
+            <strong>D’un code de studio à un standard mondial :</strong> Comme une seule grille fonctionne immédiatement dans les 12 tonalités, le NNS s’est imposé en pop, rock, gospel et sur scène partout dans le monde.
+          </li>
+        </ul>
+
+        <h3>2. Comment ça marche ?</h3>
+        <p>
+          Au lieu de noms d’accords absolus, on numérote les <strong>7 degrés de la gamme majeure</strong> de <strong>1 à 7</strong>. La tonalité n’est indiquée qu’en haut de la feuille (ex. <strong>Key : G</strong>) :
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row">
+            <div>
+              <strong>1 · 4 · 5 — Les trois accords majeurs (Tonique, Sous-dominante, Dominante)</strong>
+              <span>Chiffres simples : en Do majeur, cela donne <strong>C (1)</strong>, <strong>F (4)</strong> et <strong>G (5)</strong>.</span>
+            </div>
+            <button class="btn-tool" data-play-progression="I,IV,I,V">▶ 1 – 4 – 1 – 5</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>2- · 3- · 6- — Les trois accords mineurs</strong>
+              <span>Un tiret (<strong>-</strong>) ou <strong>m</strong> indique le mineur : en Do majeur, <strong>Dm (2-)</strong>, <strong>Em (3-)</strong> et <strong>Am (6-)</strong>.</span>
+            </div>
+            <button class="btn-tool" data-play-progression="I,V,vi,IV">▶ 1 – 5 – 6- – 4</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>7° — Le degré diminué (ou 5/7)</strong>
+              <span>Le 7e degré est naturellement diminué (en Do : <strong>B°</strong>), mais en pop et country on utilise souvent le renversement <strong>5/7</strong> (G/B).</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>Différence avec les chiffres romains (I – V – vi – IV)</h4>
+          <p>
+            Sur le plan harmonique, <strong>I – V – vi – IV</strong> et <strong>1 – 5 – 6- – 4</strong> sont identiques. Les chiffres arabes sont simplement plus rapides à écrire à la main et lisibles sans confusion à distance (personne ne confond <code>4</code> et <code>6-</code>, alors que <code>iv</code> et <code>vi</code> se ressemblent dans la pénombre).
+          </p>
+        </div>
+
+        <h3>3. Les symboles essentiels d’une grille studio</h3>
+        <div class="nns-legend-grid">
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">2- / 6-</span>
+            <span class="nns-legend-desc">Tiret (ou m) = accord mineur</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">1/3</span>
+            <span class="nns-legend-desc">Barre oblique = accord sur une autre basse</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym nns-legend-underline">4 &nbsp; 5</span>
+            <span class="nns-legend-desc">Souligné = 2 accords dans une mesure (Split Bar)</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">1◇</span>
+            <span class="nns-legend-desc">Losange = plaquer une fois &amp; laisser résonner</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">7°</span>
+            <span class="nns-legend-desc">Cercle = accord diminué</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">^ / &lt;</span>
+            <span class="nns-legend-desc">Push = attaque anticipée (syncope)</span>
+          </div>
+        </div>
+        <ul class="article-steps-list">
+          <li><strong>1 chiffre = 1 mesure complète :</strong> Chaque chiffre vaut généralement 4 temps.</li>
+          <li><strong>Chansons mineures :</strong> En studio, on les note souvent en relatif majeur (en commençant sur <strong>6-</strong>) afin de garder les mêmes repères visuels.</li>
+        </ul>
+
+        <h3>4. Couleurs studio &amp; accords slash typiques</h3>
+        <p>
+          En plus des 7 degrés diatoniques, ces six tournures reviennent sans cesse en studio (exemples en <strong>Do majeur</strong>) :
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row"><div><strong>1/3 (C/E) — Basse à la tierce</strong><span>Enchaîne en douceur <strong>1 → 1/3 → 4</strong> (C → C/E → F).</span></div></div>
+          <div class="song-cheat-row"><div><strong>4/5 (F/G) — Suspension gospel / pop</strong><span>Tension douce et chaleureuse avant la résolution sur <strong>1</strong>.</span></div></div>
+          <div class="song-cheat-row"><div><strong>5/7 (G/B) — Basse sensible</strong><span>Remplace souvent 7° dans la descente <strong>1 → 5/7 → 6-</strong>.</span></div></div>
+          <div class="song-cheat-row"><div><strong>♭7 (B♭) — Couleur rock &amp; country</strong><span>Emprunt mixolydien typique (<strong>1 – ♭7 – 4 – 1</strong>).</span></div></div>
+          <div class="song-cheat-row"><div><strong>4- (Fm) — Sous-dominante mineure</strong><span>Le passage <strong>4 → 4- → 1</strong> apporte une touche nostalgique immédiate.</span></div></div>
+          <div class="song-cheat-row"><div><strong>2 (D majeur) — Dominante secondaire → 5</strong><span>Sans tiret, le 2 majeur pousse directement vers le <strong>5</strong> (D → G → C).</span></div></div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>Essayer directement dans l’outil interactif</h4>
+          <p>
+            Ouvre l’<strong>outil Nashville Number System</strong> pour explorer le diagramme des 12 tonalités, écouter chaque degré et traduire instantanément les positions de <strong>capodastre à la guitare</strong> :
+          </p>
+          <button class="btn-tool" type="button" data-open-nashville-tool="1">▶ Ouvrir l’outil Nashville</button>
         </div>
       </div>
     `
@@ -51109,6 +52373,163 @@ const KNOWLEDGE_ARTICLES = [
               • <strong>Vermindert = 3 + 3</strong> • <strong>Übermäßig = 4 + 4</strong>
             </p>
           </div>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: "art-nashville-number-system",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3.5" width="18" height="17" rx="2.5"/><line x1="3" y1="12" x2="21" y2="12" opacity="0.55"/><line x1="12" y1="3.5" x2="12" y2="20.5" opacity="0.55"/><text x="7.5" y="10" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">1</text><text x="16.5" y="10" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">4</text><text x="7.5" y="18.2" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">5</text><text x="16.5" y="18.2" text-anchor="middle" font-family="Andika, sans-serif" font-size="5.8" font-weight="700" fill="currentColor" stroke="none">6-</text></svg>`,
+    badgeClass: "badge-peach",
+    title: "Das Nashville Number System",
+    subtitle: "Wie Ziffern statt Akkordnamen ganze Bands sekundenschnell transponieren lassen",
+    tag: "Praxis & Studio",
+    render: () => `
+      <div class="article-body">
+        <span class="k-card-tag tag-peach">Studio-Praxis &amp; Harmonielehre</span>
+        <h2>Das Nashville Number System (NNS)</h2>
+        <p class="article-lead">
+          Stell dir eine Aufnahmesession vor: Fünf Musiker hören einen neuen Song zum allerersten Mal, schreiben sich in drei Minuten ein Blatt mit Zahlen wie <strong>1 – 5 – 6- – 4</strong> auf – und als der Sänger spontan ruft <em>„Lass uns das einen Ganzton tiefer probieren!“</em>, ändert niemand auch nur eine einzige Ziffer. Genau dafür wurde das <strong>Nashville Number System</strong> erfunden.
+        </p>
+
+        <h3>1. Wie ist das System entstanden?</h3>
+        <p>
+          Die Wurzeln des Systems liegen im <strong>Nashville der späten 1950er Jahre</strong> rund um die legendäre <em>Music Row</em>:
+        </p>
+        <ul class="article-steps-list">
+          <li>
+            <strong>Neal Matthews Jr. &amp; The Jordanaires (späte 1950er):</strong> Als Backgroundsänger von Elvis Presley und zahllosen Country-Stars standen die Jordanaires täglich vor wechselnden Sängern und ständig geänderten Tonarten. Um vierstimmige Gesangsarrangements blitzschnell anzupassen, begann Neal Matthews, die Harmonien nicht als feste Buchstaben, sondern als einfache Ziffern der Tonleiter zu notieren.
+          </li>
+          <li>
+            <strong>Charlie McCoy &amp; das Studio-Handwerk (1960er):</strong> Der Mundharmonika-Virtuose und Multiinstrumentalist <strong>Charlie McCoy</strong> übernahm das Prinzip Anfang der 1960er und entwickelte es für komplette Rhythmusgruppen (Gitarre, Bass, Klavier, Pedal Steel, Schlagzeug) weiter. In den dicht getakteten 3-Stunden-Sessions der Studio-Elite (bekannt als das <em>Nashville A-Team</em>) mussten oft drei bis vier Songs pro Termin eingespielt werden – ohne vorgefertigte Partituren.
+          </li>
+          <li>
+            <strong>Vom Geheimcode zum Weltstandard:</strong> Weil ein einzelnes Ziffernblatt in jeder beliebigen Tonart sofort funktioniert, eroberte das System längst nicht nur Country-Studios, sondern auch Pop-, Rock-, Gospel-, Worship- und Live-Bands weltweit.
+          </li>
+        </ul>
+
+        <h3>2. Wie funktioniert es?</h3>
+        <p>
+          Die Grundidee ist verblüffend einfach: Statt absoluter Akkordnamen (wie <em>G, C, D, Em</em>) schreibst du die <strong>Stufe innerhalb der Dur-Tonleiter</strong> als arabische Ziffer von <strong>1 bis 7</strong>. Ganz oben auf dem Blatt steht nur einmal die gewünschte Tonart (z. B. <strong>Key: G</strong>):
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row">
+            <div>
+              <strong>1 · 4 · 5 — Die drei Dur-Stufen (Tonika, Subdominante, Dominante)</strong>
+              <span>Tragen in der Grundform kein Zusatzzeichen: In C-Dur sind das <strong>C (1)</strong>, <strong>F (4)</strong> und <strong>G (5)</strong>.</span>
+            </div>
+            <button class="btn-tool" data-play-progression="I,IV,I,V">▶ 1 – 4 – 1 – 5</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>2- · 3- · 6- — Die drei Moll-Stufen</strong>
+              <span>Ein kleines Minus (<strong>-</strong>) oder <strong>m</strong> markiert Moll: In C-Dur also <strong>Dm (2-)</strong>, <strong>Em (3-)</strong> und <strong>Am (6-)</strong>.</span>
+            </div>
+            <button class="btn-tool" data-play-progression="I,V,vi,IV">▶ 1 – 5 – 6- – 4</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>7° — Die verminderte Stufe (oder 5/7)</strong>
+              <span>Die 7. Stufe ist von Natur aus vermindert (in C-Dur: <strong>H° / B°</strong>). In Pop und Country taucht stattdessen extrem häufig die Umkehrung <strong>5/7</strong> (G über Basston H) auf!</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>Unterschied zu römischen Stufen (I – V – vi – IV)</h4>
+          <p>
+            Musikalisch meinen <strong>I – V – vi – IV</strong> und <strong>1 – 5 – 6- – 4</strong> genau dasselbe. Römische Ziffern kommen aus der klassischen Harmonielehre – im hektischen Studio sind arabische Ziffern jedoch viel schneller handschriftlich zu notieren und auf zwei Metern Abstand am Notenständer sofort eindeutig unterscheidbar (niemand verwechselt <code>4</code> und <code>6-</code>, während <code>iv</code> und <code>vi</code> im Halbdunkel ähnlich aussehen!).
+          </p>
+        </div>
+
+        <h3>3. Die wichtigsten Chart-Zeichen (Studio-Kurzschrift)</h3>
+        <div class="nns-legend-grid">
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">2- / 6-</span>
+            <span class="nns-legend-desc">Minus (oder m) = Moll-Akkord</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">1/3</span>
+            <span class="nns-legend-desc">Slash = Akkord über anderem Basston</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym nns-legend-underline">4 &nbsp; 5</span>
+            <span class="nns-legend-desc">Unterstrichen = 2 Akkorde in einem Takt (Split Bar)</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">1◇</span>
+            <span class="nns-legend-desc">Diamant = einmal anschlagen &amp; ausklingen lassen</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">7°</span>
+            <span class="nns-legend-desc">Kreis = verminderter Dreiklang</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">^ / &lt;</span>
+            <span class="nns-legend-desc">Push = vorgezogener Einsatz (Synkope)</span>
+          </div>
+        </div>
+        <ul class="article-steps-list">
+          <li>
+            <strong>1 Ziffer = 1 ganzer Takt:</strong> Steht dort <code>1  4  5  1</code>, bekommt jeder Akkord einen vollen Takt (meist 4 Schläge).
+          </li>
+          <li>
+            <strong>Unterstreichung = Split Bar (geteilter Takt):</strong> Stehen zwei Zahlen gemeinsam unterstrichen (<u>4 &nbsp; 5</u>), teilen sie sich einen Takt (je 2 Schläge).
+          </li>
+          <li>
+            <strong>Moll-Songs im Studio:</strong> Viele Nashville-Musiker denken auch bei Moll-Songs von der <em>parallelen Dur-Tonleiter</em> aus. Ein Song in a-Moll steht dann oft unter „Key: C“ als <strong>6- – 4 – 1 – 5</strong> – so bleiben alle gewohnten Zahl-Muster sofort abrufbar.
+          </li>
+        </ul>
+
+        <h3>4. Typische Studio-Farben &amp; Slash-Akkorde</h3>
+        <p>
+          Über die 7 Grundstufen hinaus begegnen dir in fast jedem modernen Country-, Pop- oder Gospel-Chart diese sechs Studio-Klassiker (Beispiel in <strong>C-Dur</strong>):
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row">
+            <div>
+              <strong>1/3 (C/E) — Erste Umkehrung mit Terz im Bass</strong>
+              <span>Verbindet <strong>1 → 1/3 → 4</strong> (C → C/E → F) mit einer wunderbar fließenden Basslinie (C → E → F).</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>4/5 (F/G) — Der Gospel- &amp; Pop-Vorhalt (9sus4-Klang)</strong>
+              <span>Klingt warm, schwebend und edel vor dem Schlussakkord – das Erkennungszeichen tausender 80er/90er-Balladen.</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>5/7 (G/H) — Leitton-Bass zurück zur 1</strong>
+              <span>Ersetzt im Studio sehr oft die verminderte 7° und führt über den absteigenden Bass <strong>1 → 5/7 → 6-</strong> sanft nach unten.</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>♭7 (B / B♭) — Rock- &amp; Southern-Country-Farbe</strong>
+              <span>Aus dem Mixolydischen geliehen (z. B. <strong>1 – ♭7 – 4 – 1</strong> wie in <em>Sweet Home Alabama</em> oder zahllosen Rock-Hymnen).</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>4- (Fm) — Die Moll-Subdominante</strong>
+              <span>Ein kurzer Wechsel von <strong>4 → 4- → 1</strong> (F → Fm → C) zaubert sofort wehmütige Kino-Emotion in den Refrain.</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>2 (D-Dur statt Dm) — Doppeldominante zur 5</strong>
+              <span>Wird die 2. Stufe ohne Minus als Dur-Akkord notiert, zieht sie mit starkem Schwung direkt in die <strong>5</strong> (D → G → C).</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>Direkt nachschlagen im interaktiven Diagramm</h4>
+          <p>
+            Im <strong>Nashville-Number-System-Werkzeug</strong> kannst du jede der 12 Tonarten antippen, alle Stufen direkt anhören und per <strong>Kapodaster-Übersetzer</strong> sofort passende offene Gitarren-Griffe finden:
+          </p>
+          <button class="btn-tool" type="button" data-open-nashville-tool="1">▶ Nashville-Diagramm-Werkzeug öffnen</button>
         </div>
       </div>
     `
@@ -56234,6 +57655,126 @@ const KNOWLEDGE_ARTICLES_ES = [
         </div>
       </div>
     `
+  },
+  {
+    id: "art-nashville-number-system",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3.5" width="18" height="17" rx="2.5"/><line x1="3" y1="12" x2="21" y2="12" opacity="0.55"/><line x1="12" y1="3.5" x2="12" y2="20.5" opacity="0.55"/><text x="7.5" y="10" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">1</text><text x="16.5" y="10" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">4</text><text x="7.5" y="18.2" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">5</text><text x="16.5" y="18.2" text-anchor="middle" font-family="Andika, sans-serif" font-size="5.8" font-weight="700" fill="currentColor" stroke="none">6-</text></svg>`,
+    badgeClass: "badge-peach",
+    title: "El sistema numérico de Nashville",
+    subtitle: "Cómo los números en lugar de nombres de acordes permiten transponer en segundos",
+    tag: "Estudio y práctica",
+    render: () => `
+      <div class="article-body">
+        <span class="k-card-tag tag-peach">Práctica de estudio y armonía</span>
+        <h2>El sistema numérico de Nashville (NNS)</h2>
+        <p class="article-lead">
+          Imagina una sesión de grabación: cinco músicos escuchan una canción por primera vez, apuntan en tres minutos una hoja con números como <strong>1 – 5 – 6- – 4</strong> y, cuando el cantante dice <em>«¡Bajémosla un tono!»</em>, nadie cambia ni un solo número. Para eso nació el <strong>Nashville Number System</strong>.
+        </p>
+
+        <h3>1. ¿Cómo surgió este sistema?</h3>
+        <p>
+          Sus raíces están en el <strong>Nashville de finales de los años 50</strong>, en la legendaria <em>Music Row</em>:
+        </p>
+        <ul class="article-steps-list">
+          <li>
+            <strong>Neal Matthews Jr. y The Jordanaires (finales de los 50):</strong> Como coristas de Elvis Presley y grandes figuras del country, adaptaban arreglos vocales cada día a cantantes y tonalidades cambiantes. Neal Matthews empezó a anotar los acordes con números de la escala en lugar de letras fijas.
+          </li>
+          <li>
+            <strong>Charlie McCoy y los estudios (años 60):</strong> El multiinstrumentista <strong>Charlie McCoy</strong> adoptó la idea y la perfeccionó para toda la sección rítmica (guitarra, bajo, piano, batería). En sesiones de 3 horas con el mítico <em>Nashville A-Team</em> se grababan tres o cuatro temas seguidos sin partituras previas.
+          </li>
+          <li>
+            <strong>De código de estudio a estándar mundial:</strong> Al funcionar al instante en las 12 tonalidades, hoy se usa en pop, rock, gospel y bandas de directo en todo el mundo.
+          </li>
+        </ul>
+
+        <h3>2. ¿Cómo funciona?</h3>
+        <p>
+          En lugar de nombres fijos de acordes, numeras los <strong>7 grados de la escala mayor</strong> del <strong>1 al 7</strong> y anotas la tonalidad una sola vez arriba (por ejemplo, <strong>Key: G</strong>):
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row">
+            <div>
+              <strong>1 · 4 · 5 — Los tres acordes mayores (Tónica, Subdominante, Dominante)</strong>
+              <span>Sin símbolo adicional: en Do mayor son <strong>C (1)</strong>, <strong>F (4)</strong> y <strong>G (5)</strong>.</span>
+            </div>
+            <button class="btn-tool" data-play-progression="I,IV,I,V">▶ 1 – 4 – 1 – 5</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>2- · 3- · 6- — Los tres acordes menores</strong>
+              <span>Un guion (<strong>-</strong>) o <strong>m</strong> indica menor: en Do mayor son <strong>Dm (2-)</strong>, <strong>Em (3-)</strong> y <strong>Am (6-)</strong>.</span>
+            </div>
+            <button class="btn-tool" data-play-progression="I,V,vi,IV">▶ 1 – 5 – 6- – 4</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>7° — El grado disminuido (o 5/7)</strong>
+              <span>El 7.º grado es disminuido (en Do: <strong>B°</strong>), aunque en pop y country suele sustituirse por la inversión <strong>5/7</strong> (G/B).</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>Diferencia con los números romanos (I – V – vi – IV)</h4>
+          <p>
+            Armónicamente significan exactamente lo mismo. Los números arábigos son simplemente más rápidos de escribir a mano y se leen sin errores desde un atril con poca luz (nadie confunde <code>4</code> con <code>6-</code>, mientras que <code>iv</code> y <code>vi</code> se parecen mucho).
+          </p>
+        </div>
+
+        <h3>3. Símbolos clave de un chart (taquigrafía de estudio)</h3>
+        <div class="nns-legend-grid">
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">2- / 6-</span>
+            <span class="nns-legend-desc">Guion (o m) = acorde menor</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">1/3</span>
+            <span class="nns-legend-desc">Barra = acorde sobre otro bajo</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym nns-legend-underline">4 &nbsp; 5</span>
+            <span class="nns-legend-desc">Subrayado = 2 acordes en un compás (Split Bar)</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">1◇</span>
+            <span class="nns-legend-desc">Diamante = tocar una vez y dejar sonar</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">7°</span>
+            <span class="nns-legend-desc">Círculo = tríada disminuida</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">^ / &lt;</span>
+            <span class="nns-legend-desc">Push = entrada anticipada (síncopa)</span>
+          </div>
+        </div>
+        <ul class="article-steps-list">
+          <li><strong>1 número = 1 compás completo:</strong> Cada cifra suele ocupar 4 pulsos.</li>
+          <li><strong>Temas menores:</strong> Muchos músicos de estudio los anotan en relativo mayor (empezando en <strong>6-</strong>) para conservar los mismos patrones.</li>
+        </ul>
+
+        <h3>4. Colores de estudio y acordes con barra (Slash)</h3>
+        <p>
+          Además de los 7 grados diatónicos, estos seis recursos aparecen a diario en estudio (ejemplos en <strong>Do mayor</strong>):
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row"><div><strong>1/3 (C/E) — Primera inversión</strong><span>Enlaza suavemente <strong>1 → 1/3 → 4</strong> (C → C/E → F) con una línea de bajo ascendente.</span></div></div>
+          <div class="song-cheat-row"><div><strong>4/5 (F/G) — Suspensión góspel / pop</strong><span>Tensión cálida y flotante antes de resolver en <strong>1</strong>.</span></div></div>
+          <div class="song-cheat-row"><div><strong>5/7 (G/B) — Bajo sensible hacia 1</strong><span>Suele sustituir al 7° en descensos clásicos como <strong>1 → 5/7 → 6-</strong>.</span></div></div>
+          <div class="song-cheat-row"><div><strong>♭7 (B♭) — Color rock y country</strong><span>Préstamo mixolidio clásico (<strong>1 – ♭7 – 4 – 1</strong>).</span></div></div>
+          <div class="song-cheat-row"><div><strong>4- (Fm) — Subdominante menor</strong><span>El paso <strong>4 → 4- → 1</strong> añade un matiz melancólico inmediato.</span></div></div>
+          <div class="song-cheat-row"><div><strong>2 (D mayor) — Dominante secundaria → 5</strong><span>Sin guion, el 2 mayor empuja directamente hacia el <strong>5</strong> (D → G → C).</span></div></div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>Pruébalo en directo en el diagrama interactivo</h4>
+          <p>
+            Abre la <strong>herramienta Nashville Number System</strong> para explorar las 12 tonalidades, escuchar cada grado y usar el <strong>traductor de cejilla para guitarra</strong>:
+          </p>
+          <button class="btn-tool" type="button" data-open-nashville-tool="1">▶ Abrir herramienta Nashville</button>
+        </div>
+      </div>
+    `
   }
 ];
 
@@ -60492,6 +62033,126 @@ const KNOWLEDGE_ARTICLES_PL = [
         </div>
       </div>
     `
+  },
+  {
+    id: "art-nashville-number-system",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3.5" width="18" height="17" rx="2.5"/><line x1="3" y1="12" x2="21" y2="12" opacity="0.55"/><line x1="12" y1="3.5" x2="12" y2="20.5" opacity="0.55"/><text x="7.5" y="10" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">1</text><text x="16.5" y="10" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">4</text><text x="7.5" y="18.2" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">5</text><text x="16.5" y="18.2" text-anchor="middle" font-family="Andika, sans-serif" font-size="5.8" font-weight="700" fill="currentColor" stroke="none">6-</text></svg>`,
+    badgeClass: "badge-peach",
+    title: "Nashville Number System",
+    subtitle: "Jak cyfry zamiast nazw akordów pozwalają zespołowi transponować w kilka sekund",
+    tag: "Studio i praktyka",
+    render: () => `
+      <div class="article-body">
+        <span class="k-card-tag tag-peach">Praktyka studyjna i harmonia</span>
+        <h2>Nashville Number System (NNS)</h2>
+        <p class="article-lead">
+          Wyobraź sobie sesję nagraniową: pięciu muzyków słyszy piosenkę po raz pierwszy, w trzy minuty zapisuje kartkę z cyframi takimi jak <strong>1 – 5 – 6- – 4</strong>, a gdy wokalista prosi <em>„Zróbmy to cały ton niżej!”</em>, nikt nie zmienia ani jednej cyfry. Do tego właśnie powstał <strong>Nashville Number System</strong>.
+        </p>
+
+        <h3>1. Jak powstał ten system?</h3>
+        <p>
+          Korzenie systemu sięgają <strong>Nashville końca lat 50.</strong> i słynnej ulicy <em>Music Row</em>:
+        </p>
+        <ul class="article-steps-list">
+          <li>
+            <strong>Neal Matthews Jr. i The Jordanaires (koniec lat 50.):</strong> Jako chórki Elvisa Presleya i gwiazd country codziennie dopasowywali partie wokalne do zmienianych w ostatniej chwili tonacji. Neal Matthews zaczął zapisywać akordy prostymi cyframi stopni skali.
+          </li>
+          <li>
+            <strong>Charlie McCoy i muzycy studyjni (lata 60.):</strong> Multiinstrumentalista <strong>Charlie McCoy</strong> rozwinął zapis dla całej sekcji rytmicznej (gitara, bas, pianino, perkusja). Podczas szybkich 3-godzinnych sesji legendarnego <em>Nashville A-Team</em> nagrywano kilka utworów bez gotowych nut.
+          </li>
+          <li>
+            <strong>Od studyjnego skrótu do światowego standardu:</strong> Jeden zapis działa natychmiast we wszystkich 12 tonacjach, dlatego system przyjął się w popie, rocku, gospel i na scenach całego świata.
+          </li>
+        </ul>
+
+        <h3>2. Jak to działa?</h3>
+        <p>
+          Zamiast stałych liter akordów numerujesz <strong>7 stopni skali durowej</strong> od <strong>1 do 7</strong>, a tonację wpisujesz tylko raz u góry (np. <strong>Key: G</strong>):
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row">
+            <div>
+              <strong>1 · 4 · 5 — Trzy akordy durowe (Tonika, Subdominanta, Dominanta)</strong>
+              <span>Bez dodatkowego znaku: w C-dur są to <strong>C (1)</strong>, <strong>F (4)</strong> i <strong>G (5)</strong>.</span>
+            </div>
+            <button class="btn-tool" data-play-progression="I,IV,I,V">▶ 1 – 4 – 1 – 5</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>2- · 3- · 6- — Trzy akordy molowe</strong>
+              <span>Minus (<strong>-</strong>) lub <strong>m</strong> oznacza moll: w C-dur są to <strong>Dm (2-)</strong>, <strong>Em (3-)</strong> i <strong>Am (6-)</strong>.</span>
+            </div>
+            <button class="btn-tool" data-play-progression="I,V,vi,IV">▶ 1 – 5 – 6- – 4</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>7° — Stopień zmniejszony (lub 5/7)</strong>
+              <span>7. stopień jest zmniejszony (w C-dur: <strong>B° / H°</strong>), a w popie i country często zastępuje go przewrót <strong>5/7</strong> (G/B).</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>Cyfry arabskie a rzymskie (I – V – vi – IV)</h4>
+          <p>
+            Harmonicznie oznaczają dokładnie to samo. Cyfry arabskie wygrywają w studiu szybkością zapisu odręcznego i czytelnością z daleka (nikt nie pomyli <code>4</code> z <code>6-</code>, podczas gdy <code>iv</code> i <code>vi</code> wyglądają bardzo podobnie).
+          </p>
+        </div>
+
+        <h3>3. Najważniejsze symbole w chartach (skróty studyjne)</h3>
+        <div class="nns-legend-grid">
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">2- / 6-</span>
+            <span class="nns-legend-desc">Minus (lub m) = akord molowy</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">1/3</span>
+            <span class="nns-legend-desc">Ukośnik = akord z innym basem</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym nns-legend-underline">4 &nbsp; 5</span>
+            <span class="nns-legend-desc">Podkreślenie = 2 akordy w jednym takcie (Split Bar)</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">1◇</span>
+            <span class="nns-legend-desc">Romb = jedno uderzenie i wybrzmienie</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">7°</span>
+            <span class="nns-legend-desc">Kółko = trójdźwięk zmniejszony</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">^ / &lt;</span>
+            <span class="nns-legend-desc">Push = wyprzedzenie rytmiczne (synkopa)</span>
+          </div>
+        </div>
+        <ul class="article-steps-list">
+          <li><strong>1 cyfra = 1 pełny takt:</strong> Zwykle 4 miary.</li>
+          <li><strong>Utwory molowe:</strong> Często zapisuje się je w tonacji równoległej durowej (start od <strong>6-</strong>), by zachować znane wzorce.</li>
+        </ul>
+
+        <h3>4. Typowe barwy studyjne i akordy łamane (Slash)</h3>
+        <p>
+          Poza 7 stopniami diatonicznymi w studiach najczęściej pojawiają się te sześć rozwiązań (przykład w <strong>C-dur</strong>):
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row"><div><strong>1/3 (C/E) — Pierwszy przewrót</strong><span>Płynnie łączy <strong>1 → 1/3 → 4</strong> (C → C/E → F) wznoszącą linią basu.</span></div></div>
+          <div class="song-cheat-row"><div><strong>4/5 (F/G) — Zawieszenie gospel / pop</strong><span>Ciepłe napięcie tuż przed rozwiązaniem na <strong>1</strong>.</span></div></div>
+          <div class="song-cheat-row"><div><strong>5/7 (G/B) — Bas prowadzący do 1</strong><span>Często zastępuje 7° w zejściu <strong>1 → 5/7 → 6-</strong>.</span></div></div>
+          <div class="song-cheat-row"><div><strong>♭7 (B♭) — Barwa rock / country</strong><span>Klasyczne zapożyczenie miksolidyjskie (<strong>1 – ♭7 – 4 – 1</strong>).</span></div></div>
+          <div class="song-cheat-row"><div><strong>4- (Fm) — Subdominanta molowa</strong><span>Przejście <strong>4 → 4- → 1</strong> od razu dodaje melancholii.</span></div></div>
+          <div class="song-cheat-row"><div><strong>2 (D-dur) — Dominanta wtrącona → 5</strong><span>Bez minusa durowa dwójka silnie ciągnie do <strong>5</strong> (D → G → C).</span></div></div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>Wypróbuj w interaktywnym diagramie</h4>
+          <p>
+            Otwórz <strong>narzędzie Nashville Number System</strong>, aby przeglądać 12 tonacji, odsłuchiwać stopnie i korzystać z <strong>tłumacza kapodastra dla gitary</strong>:
+          </p>
+          <button class="btn-tool" type="button" data-open-nashville-tool="1">▶ Otwórz narzędzie Nashville</button>
+        </div>
+      </div>
+    `
   }
 ];
 
@@ -64727,6 +66388,126 @@ const KNOWLEDGE_ARTICLES_UK = [
               • <strong>Зменшений = 3 + 3</strong> • <strong>Збільшений = 4 + 4</strong>
             </p>
           </div>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: "art-nashville-number-system",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3.5" width="18" height="17" rx="2.5"/><line x1="3" y1="12" x2="21" y2="12" opacity="0.55"/><line x1="12" y1="3.5" x2="12" y2="20.5" opacity="0.55"/><text x="7.5" y="10" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">1</text><text x="16.5" y="10" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">4</text><text x="7.5" y="18.2" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">5</text><text x="16.5" y="18.2" text-anchor="middle" font-family="Andika, sans-serif" font-size="5.8" font-weight="700" fill="currentColor" stroke="none">6-</text></svg>`,
+    badgeClass: "badge-peach",
+    title: "Система цифр Нешвілла",
+    subtitle: "Як цифри замість назв акордів дозволяють гурту миттєво транспонувати пісню",
+    tag: "Студія та практика",
+    render: () => `
+      <div class="article-body">
+        <span class="k-card-tag tag-peach">Студійна практика й гармонія</span>
+        <h2>Система цифр Нешвілла (Nashville Number System)</h2>
+        <p class="article-lead">
+          Уявіть студійну сесію: п’ятеро музикантів уперше чують пісню, за три хвилини записують аркуш із цифрами на кшталт <strong>1 – 5 – 6- – 4</strong>, і коли вокаліст каже <em>«Спробуймо на тон нижче!»</em>, ніхто не виправляє жодної цифри. Саме для цього виникла <strong>Nashville Number System</strong>.
+        </p>
+
+        <h3>1. Як з’явилася ця система?</h3>
+        <p>
+          Її коріння — у <strong>Нешвіллі кінця 1950-х</strong>, на легендарній <em>Music Row</em>:
+        </p>
+        <ul class="article-steps-list">
+          <li>
+            <strong>Ніл Метьюз-молодший і The Jordanaires (кінець 1950-х):</strong> Бек-вокалісти Елвіса Преслі та зірок кантрі щодня підлаштовували вокальні партії під раптові зміни тональностей. Ніл Метьюз почав позначати гармонію простими цифрами ступенів гами.
+          </li>
+          <li>
+            <strong>Чарлі Маккой і студійні ритм-секції (1960-ті):</strong> Мультиінструменталіст <strong>Чарлі Маккой</strong> поширив цей запис на всю ритм-секцію (гітара, бас, фортепіано, ударні). Під час 3-годинних сесій легендарної <em>Nashville A-Team</em> записували по 3–4 пісні без готових нот.
+          </li>
+          <li>
+            <strong>Від студійного коду до світового стандарту:</strong> Один аркуш одразу працює в усіх 12 тональностях, тому система поширилася в попі, році, госпелі та живих виступах у всьому світі.
+          </li>
+        </ul>
+
+        <h3>2. Як вона працює?</h3>
+        <p>
+          Замість фіксованих назв акордів ви нумеруєте <strong>7 ступенів мажорної гами</strong> від <strong>1 до 7</strong>, а тональність зазначаєте один раз угорі (наприклад, <strong>Key: G</strong>):
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row">
+            <div>
+              <strong>1 · 4 · 5 — Три мажорні акорди (Тоніка, Субдомінанта, Домінанта)</strong>
+              <span>Без додаткових знаків: у До мажорі це <strong>C (1)</strong>, <strong>F (4)</strong> і <strong>G (5)</strong>.</span>
+            </div>
+            <button class="btn-tool" data-play-progression="I,IV,I,V">▶ 1 – 4 – 1 – 5</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>2- · 3- · 6- — Три мінорні акорди</strong>
+              <span>Мінус (<strong>-</strong>) або <strong>m</strong> означає мінор: у До мажорі це <strong>Dm (2-)</strong>, <strong>Em (3-)</strong> і <strong>Am (6-)</strong>.</span>
+            </div>
+            <button class="btn-tool" data-play-progression="I,V,vi,IV">▶ 1 – 5 – 6- – 4</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>7° — Зменшений ступінь (або 5/7)</strong>
+              <span>7-й ступінь є зменшеним (у До: <strong>B°</strong>), але в попі й кантрі дуже часто використовують обернення <strong>5/7</strong> (G/B).</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>Арабські цифри проти римських (I – V – vi – IV)</h4>
+          <p>
+            Гармонійний зміст однаковий, але в студії арабські цифри швидше писати від руки й легше читати з відстані (ніхто не сплутає <code>4</code> і <code>6-</code>, тоді як <code>iv</code> та <code>vi</code> легко переплутати).
+          </p>
+        </div>
+
+        <h3>3. Головні символи в чартах (студійні позначення)</h3>
+        <div class="nns-legend-grid">
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">2- / 6-</span>
+            <span class="nns-legend-desc">Мінус (або m) = мінорний акорд</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">1/3</span>
+            <span class="nns-legend-desc">Слеш = акорд на іншому басі</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym nns-legend-underline">4 &nbsp; 5</span>
+            <span class="nns-legend-desc">Підкреслення = 2 акорди в одному такті (Split Bar)</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">1◇</span>
+            <span class="nns-legend-desc">Ромб = один удар і вільне звучання</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">7°</span>
+            <span class="nns-legend-desc">Кружечок = зменшений тризвук</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">^ / &lt;</span>
+            <span class="nns-legend-desc">Push = випереджальний вступ (синкопа)</span>
+          </div>
+        </div>
+        <ul class="article-steps-list">
+          <li><strong>1 цифра = 1 повний такт:</strong> Зазвичай 4 долі.</li>
+          <li><strong>Мінорні пісні:</strong> У студіях їх часто записують відносно паралельного мажору (починаючи з <strong>6-</strong>).</li>
+        </ul>
+
+        <h3>4. Типові студійні барви й слеш-акорди</h3>
+        <p>
+          Крім 7 основних ступенів, у студійних чартах постійно трапляються ці шість прийомів (приклад у <strong>До мажорі</strong>):
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row"><div><strong>1/3 (C/E) — Перше обернення</strong><span>Плавно поєднує <strong>1 → 1/3 → 4</strong> (C → C/E → F) висхідною басовою лінією.</span></div></div>
+          <div class="song-cheat-row"><div><strong>4/5 (F/G) — Госпел-/поп-затримання</strong><span>Тепле «зависле» звучання перед розв’язанням у <strong>1</strong>.</span></div></div>
+          <div class="song-cheat-row"><div><strong>5/7 (G/B) — Ввідний бас до 1</strong><span>Часто замінює 7° у спадному ході <strong>1 → 5/7 → 6-</strong>.</span></div></div>
+          <div class="song-cheat-row"><div><strong>♭7 (B♭) — Рок- і кантрі-барва</strong><span>Міксолідійське запозичення (<strong>1 – ♭7 – 4 – 1</strong>).</span></div></div>
+          <div class="song-cheat-row"><div><strong>4- (Fm) — Мінорна субдомінанта</strong><span>Перехід <strong>4 → 4- → 1</strong> миттєво додає теплої меланхолії.</span></div></div>
+          <div class="song-cheat-row"><div><strong>2 (D мажор) — Подвійна домінанта → 5</strong><span>Без мінуса мажорна «2» енергійно тягне в <strong>5</strong> (D → G → C).</span></div></div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>Спробуйте наживо в інтерактивній діаграмі</h4>
+          <p>
+            Відкрийте <strong>інструмент Nashville Number System</strong>, щоб перемикати 12 тональностей, слухати ступені та користуватися <strong>перекладачем каподастра для гітари</strong>:
+          </p>
+          <button class="btn-tool" type="button" data-open-nashville-tool="1">▶ Відкрити інструмент Nashville</button>
         </div>
       </div>
     `
@@ -68973,6 +70754,126 @@ const KNOWLEDGE_ARTICLES_UR = [
               • <strong>ڈمنشڈ = 3 + 3</strong> • <strong>آگمینٹڈ = 4 + 4</strong>
             </p>
           </div>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: "art-nashville-number-system",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3.5" width="18" height="17" rx="2.5"/><line x1="3" y1="12" x2="21" y2="12" opacity="0.55"/><line x1="12" y1="3.5" x2="12" y2="20.5" opacity="0.55"/><text x="7.5" y="10" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">1</text><text x="16.5" y="10" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">4</text><text x="7.5" y="18.2" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">5</text><text x="16.5" y="18.2" text-anchor="middle" font-family="Andika, sans-serif" font-size="5.8" font-weight="700" fill="currentColor" stroke="none">6-</text></svg>`,
+    badgeClass: "badge-peach",
+    title: "نیش وِل نمبر سسٹم",
+    subtitle: "کس طرح کورڈ کے ناموں کے بجائے ہندسے پورے بینڈ کو لمحوں میں اسکیل بدلنے دیتے ہیں",
+    tag: "اسٹوڈیو اور مشق",
+    render: () => `
+      <div class="article-body">
+        <span class="k-card-tag tag-peach">اسٹوڈیو پریکٹس اور ہارمونی</span>
+        <h2>نیش وِل نمبر سسٹم (Nashville Number System)</h2>
+        <p class="article-lead">
+          ایک اسٹوڈیو سیشن کا تصور کریں: پانچ موسیقار پہلی بار کوئی گانا سنتے ہیں، تین منٹ میں ایک صفحے پر <strong>1 – 5 – 6- – 4</strong> جیسے ہندسے لکھتے ہیں، اور جب گلوکار کہتا ہے <em>«آؤ ایک پورا سر نیچے گاتے ہیں!»</em> تو کسی کو ایک بھی ہندسہ نہیں بدلنا پڑتا۔ یہی <strong>نیش وِل نمبر سسٹم</strong> کا کمال ہے۔
+        </p>
+
+        <h3>1. یہ نظام کیسے شروع ہوا؟</h3>
+        <p>
+          اس کی جڑیں <strong>1950 کی دہائی کے آخر میں نیش وِل</strong> کی مشہور <em>Music Row</em> میں ہیں:
+        </p>
+        <ul class="article-steps-list">
+          <li>
+            <strong>نیل میتھیوز جونیئر اور دی جارڈنیئرز (1950 کی دہائی کے آخر میں):</strong> ایلوس پریسلے اور کنٹری گلوکاروں کے ساتھ بیکنگ ووکلز گاتے ہوئے روزانہ کی تبدیل کرنا پڑتی تھی۔ نیل میتھیوز نے فکسڈ حروف کے بجائے اسکیل کے ہندسوں سے کورڈ لکھنا شروع کیے۔
+          </li>
+          <li>
+            <strong>چارلی مکائے اور اسٹوڈیو بینڈز (1960 کی دہائی):</strong> ملٹی انسٹرومینٹلسٹ <strong>چارلی مکائے</strong> نے اس طریقے کو پورے ردم سیکشن (گٹار، باس، پیانو، ڈرمز) کے لیے معیاری چارٹ کی شکل دی، جہاں مختصر سیشنز میں بغیر نوٹیشن شیٹ کے کئی گانے ریکارڈ کیے جاتے تھے۔
+          </li>
+          <li>
+            <strong>اسٹوڈیو کوڈ سے عالمی معیار تک:</strong> ایک ہی چارٹ تمام 12 کیز میں فوراً کام کرتا ہے، اس لیے آج یہ پاپ، راک، گوسپل اور لائیو بینڈز میں دنیا بھر میں استعمال ہوتا ہے۔
+          </li>
+        </ul>
+
+        <h3>2. یہ کیسے کام کرتا ہے؟</h3>
+        <p>
+          کورڈ کے مستقل ناموں کے بجائے میجر اسکیل کے <strong>7 درجات کو 1 سے 7</strong> تک نمبر دیے جاتے ہیں اور اوپر صرف ایک بار کی لکھی جاتی ہے (مثلاً <strong>Key: G</strong>):
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row">
+            <div>
+              <strong>1 · 4 · 5 — تین میجر کورڈز (ٹانک، سب ڈومیننٹ، ڈومیننٹ)</strong>
+              <span>بغیر علامت کے: C میجر میں یہ <strong>C (1)</strong>، <strong>F (4)</strong> اور <strong>G (5)</strong> ہیں۔</span>
+            </div>
+            <button class="btn-tool" data-play-progression="I,IV,I,V">▶ 1 – 4 – 1 – 5</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>2- · 3- · 6- — تین مائنر کورڈز</strong>
+              <span>مائنس (<strong>-</strong>) یا <strong>m</strong> مائنر کی علامت ہے: C میجر میں <strong>Dm (2-)</strong>، <strong>Em (3-)</strong> اور <strong>Am (6-)</strong>۔</span>
+            </div>
+            <button class="btn-tool" data-play-progression="I,V,vi,IV">▶ 1 – 5 – 6- – 4</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>7° — ڈمنشڈ درجہ (یا 5/7)</strong>
+              <span>ساتواں درجہ ڈمنشڈ ہوتا ہے (C میں <strong>B°</strong>)، لیکن پاپ اور کنٹری میں اکثر <strong>5/7</strong> (G/B) استعمال ہوتا ہے۔</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>عربی ہندسے بمقابلہ رومن ہندسے (I – V – vi – IV)</h4>
+          <p>
+            موسیقی کے لحاظ سے دونوں کا مطلب بالکل ایک ہے، لیکن اسٹوڈیو میں عربی ہندسے ہاتھ سے تیزی سے لکھے جا سکتے ہیں اور دور سے بغیر غلطی پڑھے جا سکتے ہیں۔
+          </p>
+        </div>
+
+        <h3>3. چارٹ کی اہم علامات (اسٹوڈیو مختصر علامات)</h3>
+        <div class="nns-legend-grid">
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">2- / 6-</span>
+            <span class="nns-legend-desc">مائنس (یا m) = مائنر کورڈ</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">1/3</span>
+            <span class="nns-legend-desc">سلیش = متبادل باس نوٹ پر کورڈ</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym nns-legend-underline">4 &nbsp; 5</span>
+            <span class="nns-legend-desc">انڈر لائن = ایک بار میں 2 کورڈز (Split Bar)</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">1◇</span>
+            <span class="nns-legend-desc">ڈائمنڈ = ایک بار بجا کر گونجنے دیں</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">7°</span>
+            <span class="nns-legend-desc">دائرہ = ڈمنشڈ ٹرائی ایڈ</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">^ / &lt;</span>
+            <span class="nns-legend-desc">پُش = سنکوپیشن کے ساتھ پیشگی آغاز</span>
+          </div>
+        </div>
+        <ul class="article-steps-list">
+          <li><strong>1 ہندسہ = 1 پورا بار:</strong> عام طور پر 4 بیٹس۔</li>
+          <li><strong>مائنر گانے:</strong> اسٹوڈیو میں اکثر انہیں متوازی میجر کے حوالے سے (<strong>6-</strong> سے شروع کر کے) لکھا جاتا ہے۔</li>
+        </ul>
+
+        <h3>4. عام اسٹوڈیو رنگ اور سلیش کورڈز</h3>
+        <p>
+          بنیادی 7 درجات کے علاوہ یہ چھ اسٹوڈیو کورڈز جدید کنٹری، پاپ اور گوسپل چارٹس میں بار بار آتے ہیں (مثال <strong>C میجر</strong> میں):
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row"><div><strong>1/3 (C/E) — تیسرے باس پر پہلا درجہ</strong><span><strong>1 → 1/3 → 4</strong> (C → C/E → F) کو رواں باس لائن سے جوڑتا ہے۔</span></div></div>
+          <div class="song-cheat-row"><div><strong>4/5 (F/G) — گوسپل/پاپ سسپنشن</strong><span><strong>1</strong> پر ختم ہونے سے پہلے خوبصورت اور گرم تناؤ پیدا کرتا ہے۔</span></div></div>
+          <div class="song-cheat-row"><div><strong>5/7 (G/B) — 1 کی طرف لیڈنگ ٹون باس</strong><span>اکثر 7° کی جگہ <strong>1 → 5/7 → 6-</strong> میں استعمال ہوتا ہے۔</span></div></div>
+          <div class="song-cheat-row"><div><strong>♭7 (B♭) — راک اور کنٹری رنگ</strong><span>مکسولیڈین انداز (<strong>1 – ♭7 – 4 – 1</strong>) کے لیے مشہور۔</span></div></div>
+          <div class="song-cheat-row"><div><strong>4- (Fm) — مائنر سب ڈومیننٹ</strong><span><strong>4 → 4- → 1</strong> فوری جذباتی گہرائی لاتا ہے۔</span></div></div>
+          <div class="song-cheat-row"><div><strong>2 (D میجر) — ثانوی ڈومیننٹ → 5</strong><span>مائنس کے بغیر میجر 2 سیدھا <strong>5</strong> کی طرف کھینچتا ہے (D → G → C)۔</span></div></div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>انٹرایکٹو ڈایاگرام میں براہِ راست آزمائیں</h4>
+          <p>
+            <strong>نیش وِل نمبر سسٹم ٹول</strong> کھولیں، تمام 12 کیز دیکھیں، کورڈز سنیں اور <strong>گٹار کیپو ٹرانسلیٹر</strong> سے آسان اوپن شیپس فوراً پائیں:
+          </p>
+          <button class="btn-tool" type="button" data-open-nashville-tool="1">▶ نیش وِل ٹول کھولیں</button>
         </div>
       </div>
     `
@@ -74875,6 +76776,8 @@ class AppState {
     this.waveAnimFrame = null;
     this.waveResume = null;
     this.circleOfFifthsState = { idx: 0, ringMode: "major", tab: "chords" };
+    this.nashvilleState = { keyIdx: 0, mode: "major", capoFret: 0 };
+    this.nashvilleReturnView = "tools";
     this.wavePaused = false;
 
     this.profile = loadUserProfile();
@@ -75328,6 +77231,9 @@ class AppState {
     } else if (this.currentView === "circle") {
       mainTitle.textContent = tr("Quintenzirkel", "Circle of Fifths");
       el.textContent = tr("Interaktives Klangrad, Akkorde, Vorzeichen & Modulation", "Interactive key wheel, chords, key signatures & modulation");
+    } else if (this.currentView === "nashville") {
+      mainTitle.textContent = tr("Nashville Number System", "Nashville Number System");
+      el.textContent = tr("Tonarten-Diagramm, 12-Tonarten-Matrix & Kapodaster-Übersetzer", "Key diagram, 12-key matrix & guitar capo translator");
     } else if (this.currentView === "exercise" && this.exam?.active) {
       const curQ = Math.min((this.exam.currentIdx || 0) + 1, this.exam.totalQuestions || 1);
       const presetMeta = typeof getExamPresetById === "function" ? getExamPresetById(this.exam.categoryKey, this.exam.levelId) : null;
@@ -75555,6 +77461,8 @@ function setLanguagePreference(nextLang) {
     renderExamResultView();
   } else if (state.currentView === "circle" && typeof renderCircleOfFifthsView === "function") {
     renderCircleOfFifthsView();
+  } else if (state.currentView === "nashville" && typeof renderNashvilleView === "function") {
+    renderNashvilleView();
   } else if (state.currentView === "knowledge-detail" && state.activeKnowledgeDetail) {
     if (state.activeKnowledgeDetail.kind === "article") {
       openKnowledgeArticle(state.activeKnowledgeDetail.id, { refreshOnly: true });
@@ -78348,6 +80256,8 @@ function captureHistorySnapshot(modalName = getOpenModalName()) {
     tunerReturnView: state.tunerReturnView,
     freeplayReturnView: state.freeplayReturnView,
     fretboardReturnView: state.fretboardReturnView,
+    circleReturnView: state.circleReturnView,
+    nashvilleReturnView: state.nashvilleReturnView,
     modal: modalName
   };
 }
@@ -78492,6 +80402,8 @@ function navigateBackFromUI() {
     switchView(state.fretboardReturnView || "tools", { skipHistoryPush: true });
   } else if (state.currentView === "circle") {
     switchView(state.circleReturnView || "tools", { skipHistoryPush: true });
+  } else if (state.currentView === "nashville") {
+    switchView(state.nashvilleReturnView || "tools", { skipHistoryPush: true });
   } else if (state.currentView === "exam-result") {
     switchView(state.examResultReturnView || "exam-setup", { skipHistoryPush: true });
   } else if (state.currentView === "exam-setup") {
@@ -78636,7 +80548,7 @@ function prefersReducedMotion() {
 
 function getTabForView(view) {
   if (view === "home" || view === "category" || view === "category-help" || view === "exam-setup") return "home";
-  if (view === "tools" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard" || view === "circle") return "tools";
+  if (view === "tools" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard" || view === "circle" || view === "nashville") return "tools";
   if (view === "exam-result") return state.examResultReturnView === "space" ? "space" : "home";
   if (view === "knowledge" || view === "knowledge-detail") return "knowledge";
   if (view === "space") return "space";
@@ -78647,7 +80559,7 @@ function getViewOrderInfo(view) {
   const tab = getTabForView(view) || "home";
   const tabIdx = MAIN_TAB_ORDER.indexOf(tab);
   let depth = 0;
-  if (view === "category" || view === "knowledge-detail" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard" || view === "circle") depth = 1;
+  if (view === "category" || view === "knowledge-detail" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard" || view === "circle" || view === "nashville") depth = 1;
   else if (view === "category-help" || view === "exam-setup") depth = 2;
   else if (view === "exercise" || view === "warmup") depth = 3;
   else if (view === "exam-result") depth = 4;
@@ -78750,7 +80662,7 @@ function navigateToMainTab(targetTab, swipeDir = null) {
 
   if (
     targetTab === "tools" &&
-    (state.currentView === "metronome" || state.currentView === "tuner" || state.currentView === "freeplay" || state.currentView === "fretboard" || state.currentView === "circle") &&
+    (state.currentView === "metronome" || state.currentView === "tuner" || state.currentView === "freeplay" || state.currentView === "fretboard" || state.currentView === "circle" || state.currentView === "nashville") &&
     canHistory &&
     appHistoryState.idx >= 1 &&
     window.history.state?.idx >= 1
@@ -78810,7 +80722,7 @@ function hasHorizontalScrollableAncestor(target) {
 }
 
 function isTabSwipeBlockedView(view) {
-  return view === "exercise" || view === "warmup" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard" || view === "circle";
+  return view === "exercise" || view === "warmup" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard" || view === "circle" || view === "nashville";
 }
 
 function handleHorizontalTabSwipe({ startX, startY, endX, endY, durationMs, viewportWidth, target }) {
@@ -78976,6 +80888,9 @@ function switchView(targetView, options = {}) {
     state.examHistoryClearArmed = false;
   }
   stopPlayback();
+  if (typeof stopNashvillePlayback === "function") {
+    stopNashvillePlayback(true);
+  }
   stopWaveAnimation();
   closeTransientPopovers();
   dismissModesRootHint(false);
@@ -79017,7 +80932,8 @@ function switchView(targetView, options = {}) {
     tuner: document.getElementById("viewTuner"),
     freeplay: document.getElementById("viewFreeplay"),
     fretboard: document.getElementById("viewFretboard"),
-    circle: document.getElementById("viewCircle")
+    circle: document.getElementById("viewCircle"),
+    nashville: document.getElementById("viewNashville")
   };
 
   finishActiveViewLeave();
@@ -79100,6 +81016,8 @@ function switchView(targetView, options = {}) {
     renderFretboardView();
   } else if (targetView === "circle" && typeof renderCircleOfFifthsView === "function") {
     renderCircleOfFifthsView();
+  } else if (targetView === "nashville" && typeof renderNashvilleView === "function") {
+    renderNashvilleView();
   }
 
   if (prevView === "exercise" && targetView !== "exercise" && typeof resetExerciseStreakState === "function") {
@@ -79853,6 +81771,14 @@ function bindKnowledgeAudioButtons(rootEl) {
     btn.addEventListener("click", () => {
       if (typeof openWarmupView === "function") {
         openWarmupView("full-5min", { returnView: "knowledge-detail" });
+      }
+    });
+  });
+
+  rootEl.querySelectorAll("[data-open-nashville-tool]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (typeof openNashvilleView === "function") {
+        openNashvilleView("knowledge-detail");
       }
     });
   });
@@ -94415,6 +96341,9 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("openCircleBtn")?.addEventListener("click", () => {
     openCircleOfFifthsView("tools");
   });
+  document.getElementById("openNashvilleBtn")?.addEventListener("click", () => {
+    openNashvilleView("tools");
+  });
   initMetronomeEventListeners();
   initFreeplayEventListeners();
   initFretboardEventListeners();
@@ -101960,6 +103889,635 @@ function openFretboardView(returnView = "tools") {
   switchView("fretboard");
 }
 
+
+</script>
+<script>
+// =====================================================
+// WERKZEUG: NASHVILLE NUMBER SYSTEM (#viewNashville)
+// Interaktives Tonarten-Diagramm, 12-Tonarten-Matrix &
+// Kapodaster-Übersetzer für Gitarre
+// =====================================================
+
+const NNS_KEYS = [
+  {
+    id: "C", pc: 0, sig: "0", minorSig: "3♭", rootMidi: 60,
+    majorScale: ["C", "D", "E", "F", "G", "A", "B"],
+    minorScale: ["C", "D", "E♭", "F", "G", "A♭", "B♭"]
+  },
+  {
+    id: "G", pc: 7, sig: "1♯", minorSig: "2♭", rootMidi: 55,
+    majorScale: ["G", "A", "B", "C", "D", "E", "F♯"],
+    minorScale: ["G", "A", "B♭", "C", "D", "E♭", "F"]
+  },
+  {
+    id: "D", pc: 2, sig: "2♯", minorSig: "1♭", rootMidi: 62,
+    majorScale: ["D", "E", "F♯", "G", "A", "B", "C♯"],
+    minorScale: ["D", "E", "F", "G", "A", "B♭", "C"]
+  },
+  {
+    id: "A", pc: 9, sig: "3♯", minorSig: "0", rootMidi: 57,
+    majorScale: ["A", "B", "C♯", "D", "E", "F♯", "G♯"],
+    minorScale: ["A", "B", "C", "D", "E", "F", "G"]
+  },
+  {
+    id: "E", pc: 4, sig: "4♯", minorSig: "1♯", rootMidi: 64,
+    majorScale: ["E", "F♯", "G♯", "A", "B", "C♯", "D♯"],
+    minorScale: ["E", "F♯", "G", "A", "B", "C", "D"]
+  },
+  {
+    id: "B", pc: 11, sig: "5♯", minorSig: "2♯", rootMidi: 59,
+    majorScale: ["B", "C♯", "D♯", "E", "F♯", "G♯", "A♯"],
+    minorScale: ["B", "C♯", "D", "E", "F♯", "G", "A"]
+  },
+  {
+    id: "F#", pc: 6, sig: "6♯/6♭", minorSig: "3♯", rootMidi: 54,
+    majorScale: ["F♯", "G♯", "A♯", "B", "C♯", "D♯", "E♯"],
+    minorScale: ["F♯", "G♯", "A", "B", "C♯", "D", "E"]
+  },
+  {
+    id: "Db", pc: 1, sig: "5♭", minorSig: "4♯", rootMidi: 61,
+    majorScale: ["D♭", "E♭", "F", "G♭", "A♭", "B♭", "C"],
+    minorScale: ["C♯", "D♯", "E", "F♯", "G♯", "A", "B"]
+  },
+  {
+    id: "Ab", pc: 8, sig: "4♭", minorSig: "5♯", rootMidi: 56,
+    majorScale: ["A♭", "B♭", "C", "D♭", "E♭", "F", "G"],
+    minorScale: ["G♯", "A♯", "B", "C♯", "D♯", "E", "F♯"]
+  },
+  {
+    id: "Eb", pc: 3, sig: "3♭", minorSig: "6♭", rootMidi: 63,
+    majorScale: ["E♭", "F", "G", "A♭", "B♭", "C", "D"],
+    minorScale: ["E♭", "F", "G♭", "A♭", "B♭", "C♭", "D♭"]
+  },
+  {
+    id: "Bb", pc: 10, sig: "2♭", minorSig: "5♭", rootMidi: 58,
+    majorScale: ["B♭", "C", "D", "E♭", "F", "G", "A"],
+    minorScale: ["B♭", "C", "D♭", "E♭", "F", "G♭", "A♭"]
+  },
+  {
+    id: "F", pc: 5, sig: "1♭", minorSig: "4♭", rootMidi: 53,
+    majorScale: ["F", "G", "A", "B♭", "C", "D", "E"],
+    minorScale: ["F", "G", "A♭", "B♭", "C", "D♭", "E♭"]
+  }
+];
+
+const NNS_MAJOR_DEGREES = [
+  { token: "1",  degreeIdx: 0, semitone: 0,  quality: "maj", roman: "I",   fnKey: "tonic" },
+  { token: "2-", degreeIdx: 1, semitone: 2,  quality: "min", roman: "ii",  fnKey: "subdom" },
+  { token: "3-", degreeIdx: 2, semitone: 4,  quality: "min", roman: "iii", fnKey: "tonic" },
+  { token: "4",  degreeIdx: 3, semitone: 5,  quality: "maj", roman: "IV",  fnKey: "subdom" },
+  { token: "5",  degreeIdx: 4, semitone: 7,  quality: "maj", roman: "V",   fnKey: "dom" },
+  { token: "6-", degreeIdx: 5, semitone: 9,  quality: "min", roman: "vi",  fnKey: "tonic" },
+  { token: "7°", degreeIdx: 6, semitone: 11, quality: "dim", roman: "vii°", fnKey: "dom" }
+];
+
+const NNS_MINOR_DEGREES = [
+  { token: "1-", degreeIdx: 0, semitone: 0,  quality: "min", roman: "i",    fnKey: "tonic" },
+  { token: "2°", degreeIdx: 1, semitone: 2,  quality: "dim", roman: "ii°",  fnKey: "subdom" },
+  { token: "♭3", degreeIdx: 2, semitone: 3,  quality: "maj", roman: "♭III", fnKey: "tonic" },
+  { token: "4-", degreeIdx: 3, semitone: 5,  quality: "min", roman: "iv",   fnKey: "subdom" },
+  { token: "5-", degreeIdx: 4, semitone: 7,  quality: "min", roman: "v",    fnKey: "dom" },
+  { token: "♭6", degreeIdx: 5, semitone: 8,  quality: "maj", roman: "♭VI",  fnKey: "subdom" },
+  { token: "♭7", degreeIdx: 6, semitone: 10, quality: "maj", roman: "♭VII", fnKey: "dom" }
+];
+
+// Bequeme offene Gitarren-Formen (CAGED für Dur, Em/Am/Dm für Moll)
+const NNS_CAPO_OPEN_SHAPES_MAJOR = [7, 0, 2, 9, 4]; // G, C, D, A, E
+const NNS_CAPO_OPEN_SHAPES_MINOR = [4, 9, 2];       // Em, Am, Dm
+
+let _nnsFlashTimers = [];
+
+function getNashvilleState() {
+  if (!state.nashvilleState) {
+    state.nashvilleState = {
+      keyIdx: 0,
+      mode: "major",
+      capoFret: 0
+    };
+  }
+  if (typeof state.nashvilleState.capoFret !== "number" || Number.isNaN(state.nashvilleState.capoFret)) {
+    state.nashvilleState.capoFret = 0;
+  }
+  return state.nashvilleState;
+}
+
+function getNnsKeyByPc(pc) {
+  const norm = ((pc % 12) + 12) % 12;
+  return NNS_KEYS.find(k => k.pc === norm) || NNS_KEYS[0];
+}
+
+function getRecommendedCapoFretForKey(keyEntry, mode) {
+  const openShapes = mode === "minor" ? NNS_CAPO_OPEN_SHAPES_MINOR : NNS_CAPO_OPEN_SHAPES_MAJOR;
+  if (openShapes.includes(keyEntry.pc)) return 0;
+  // Bevorzuge Kapo-Bund 1–5 mit klassischer offener Spielform (G, C, D, A, E bzw. Em, Am, Dm)
+  let bestFret = 1;
+  let bestScore = 999;
+  for (let fret = 1; fret <= 9; fret++) {
+    const shapePc = (keyEntry.pc - fret + 12) % 12;
+    const rank = openShapes.indexOf(shapePc);
+    if (rank !== -1) {
+      const score = fret * 2 + rank;
+      if (score < bestScore) {
+        bestScore = score;
+        bestFret = fret;
+      }
+    }
+  }
+  return bestFret;
+}
+
+function getNnsCapoSuggestions(keyEntry, mode) {
+  const openShapes = mode === "minor" ? NNS_CAPO_OPEN_SHAPES_MINOR : NNS_CAPO_OPEN_SHAPES_MAJOR;
+  const list = [];
+  for (let fret = 0; fret <= 9; fret++) {
+    const shapePc = (keyEntry.pc - fret + 12) % 12;
+    if (openShapes.includes(shapePc)) {
+      const shapeKey = getNnsKeyByPc(shapePc);
+      const rawRoot = mode === "minor" ? shapeKey.minorScale[0] : shapeKey.majorScale[0];
+      const shapeLabel = formatNnsPitch(rawRoot) + (mode === "minor" ? "m" : "");
+      list.push({ fret, shapeKey, shapeLabel });
+    }
+  }
+  return list;
+}
+
+function nnsUseGermanH() {
+  const lang = typeof getAppLanguage === "function" ? getAppLanguage() : "de";
+  const prefIntl = typeof state !== "undefined" && state?.profile?.notation === "intl";
+  return lang === "de" && !prefIntl;
+}
+
+function formatNnsPitch(noteStr) {
+  if (!noteStr) return "";
+  if (!nnsUseGermanH()) return noteStr;
+  if (noteStr === "B") return "H";
+  if (noteStr === "B♭") return "B";
+  return noteStr;
+}
+
+function formatNnsKeyTitle(keyEntry, mode) {
+  const rawRoot = mode === "minor" ? keyEntry.minorScale[0] : keyEntry.majorScale[0];
+  const root = formatNnsPitch(rawRoot);
+  if (mode === "minor") {
+    return tf("{root}-Moll", "{root} Minor", { root });
+  }
+  return tf("{root}-Dur", "{root} Major", { root });
+}
+
+function nnsQualitySuffix(quality) {
+  if (quality === "min") return "m";
+  if (quality === "dim") return "°";
+  return "";
+}
+
+function nnsFunctionShort(fnKey) {
+  if (fnKey === "tonic") return tr("Tonika", "Tonic");
+  if (fnKey === "subdom") return tr("Subdominante", "Subdominant");
+  return tr("Dominante", "Dominant");
+}
+
+function resolveNnsToken(token, keyEntry, mode = "major") {
+  const clean = String(token || "1").trim();
+  const scale = mode === "minor" ? keyEntry.minorScale : keyEntry.majorScale;
+  const degList = mode === "minor" ? NNS_MINOR_DEGREES : NNS_MAJOR_DEGREES;
+
+  const direct = degList.find(d => d.token === clean) || degList[0];
+  const rootName = formatNnsPitch(scale[direct.degreeIdx]);
+  return {
+    token: direct.token,
+    chordName: rootName + nnsQualitySuffix(direct.quality),
+    rootSemi: direct.semitone,
+    quality: direct.quality,
+    roman: direct.roman,
+    fnKey: direct.fnKey
+  };
+}
+
+function buildNnsChordNoteNames(resolved, keyEntry) {
+  const baseRoot = keyEntry.rootMidi;
+  const triadIntervals = resolved.quality === "min"
+    ? [0, 3, 7]
+    : (resolved.quality === "dim" ? [0, 3, 6] : [0, 4, 7]);
+
+  let bassMidi = baseRoot - 12 + resolved.rootSemi;
+  while (bassMidi < 40) bassMidi += 12;
+  while (bassMidi > 55) bassMidi -= 12;
+
+  let chordRoot = baseRoot + resolved.rootSemi;
+  while (chordRoot < 57) chordRoot += 12;
+  while (chordRoot > 69) chordRoot -= 12;
+
+  const midis = [bassMidi, ...triadIntervals.map(iv => chordRoot + iv)];
+  return midis.map(m => midiToNote(m));
+}
+
+function stopNashvillePlayback() {
+  _nnsFlashTimers.forEach(id => clearTimeout(id));
+  _nnsFlashTimers = [];
+  if (typeof audioEngine !== "undefined" && audioEngine?.stopPlayback) {
+    audioEngine.stopPlayback();
+  }
+  const root = document.getElementById("nashvilleToolContent");
+  if (root) {
+    root.querySelectorAll(".is-active-sound").forEach(el => el.classList.remove("is-active-sound"));
+  }
+}
+
+function playNnsSingleToken(token, keyIdx, mode = "major", flashToken = null, preferGuitar = false) {
+  stopNashvillePlayback();
+  if (typeof prepareAudioNonBlocking === "function") {
+    prepareAudioNonBlocking();
+  }
+  const keyEntry = NNS_KEYS[keyIdx] || NNS_KEYS[0];
+  const resolved = resolveNnsToken(token, keyEntry, mode);
+  const notes = buildNnsChordNoteNames(resolved, keyEntry);
+  if (typeof audioEngine !== "undefined") {
+    if (preferGuitar && typeof audioEngine.playInstrumentSample === "function") {
+      audioEngine.playInstrumentSample("guitar", notes, 1.25, 22, 0.95);
+    } else if (typeof audioEngine.playStep === "function") {
+      const atTime = audioEngine.getAudioTime() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
+      audioEngine.playStep(notes, 1.15, null, "cadence", { atTime, legato: "chord" });
+    }
+  }
+  if (flashToken) {
+    flashNnsTokenElements(flashToken);
+  }
+}
+
+function flashNnsTokenElements(token) {
+  const root = document.getElementById("nashvilleToolContent");
+  if (!root) return;
+  root.querySelectorAll("[data-nns-flash]").forEach(el => {
+    el.classList.toggle("is-active-sound", el.dataset.nnsFlash === token);
+  });
+  const tId = setTimeout(() => {
+    const cur = document.getElementById("nashvilleToolContent");
+    if (!cur) return;
+    cur.querySelectorAll(".is-active-sound").forEach(el => el.classList.remove("is-active-sound"));
+  }, 620);
+  _nnsFlashTimers.push(tId);
+}
+
+function renderNashvilleDiagramSVG(keyEntry, mode) {
+  const degrees = mode === "minor" ? NNS_MINOR_DEGREES : NNS_MAJOR_DEGREES;
+  const resolved = degrees.map(d => resolveNnsToken(d.token, keyEntry, mode));
+
+  const nodes = [
+    { item: resolved[0], x: 280, y: 54,  r: 36, cls: "nns-svg-node-tonic nns-svg-node-root" },
+    { item: resolved[3], x: 112, y: 92,  r: 30, cls: "nns-svg-node-subdom" },
+    { item: resolved[4], x: 448, y: 92,  r: 30, cls: "nns-svg-node-dom" },
+    { item: resolved[1], x: 76,  y: 174, r: 25, cls: "nns-svg-node-subdom" },
+    { item: resolved[5], x: 222, y: 174, r: 26, cls: "nns-svg-node-tonic" },
+    { item: resolved[2], x: 338, y: 174, r: 25, cls: "nns-svg-node-tonic" },
+    { item: resolved[6], x: 484, y: 174, r: 25, cls: "nns-svg-node-dom" }
+  ];
+
+  const tonicLbl = escapeHtml(nnsFunctionShort("tonic"));
+  const subdomLbl = escapeHtml(nnsFunctionShort("subdom"));
+  const domLbl = escapeHtml(nnsFunctionShort("dom"));
+
+  return `
+    <svg class="nns-diagram-svg" viewBox="0 0 560 228" role="img" aria-label="${escapeHtml(tf("Nashville-Diagramm für {key}", "Nashville diagram for {key}", { key: formatNnsKeyTitle(keyEntry, mode) }))}" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="nnsArrowDom" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 1 2 L 8 5 L 1 8 z" fill="var(--peach-strong)"/>
+        </marker>
+        <marker id="nnsArrowSub" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 1 2 L 8 5 L 1 8 z" fill="var(--lilac-strong)"/>
+        </marker>
+      </defs>
+
+      <rect x="16" y="42" width="144" height="170" rx="18" class="nns-svg-zone nns-svg-zone-subdom"/>
+      <rect x="172" y="10" width="216" height="202" rx="20" class="nns-svg-zone nns-svg-zone-tonic"/>
+      <rect x="400" y="42" width="144" height="170" rx="18" class="nns-svg-zone nns-svg-zone-dom"/>
+
+      <text x="88" y="210" text-anchor="middle" font-family="Andika, sans-serif" font-size="11.5" font-weight="700" class="nns-svg-zone-lbl-subdom">${subdomLbl}</text>
+      <text x="280" y="210" text-anchor="middle" font-family="Andika, sans-serif" font-size="11.5" font-weight="700" class="nns-svg-zone-lbl-tonic">${tonicLbl}</text>
+      <text x="472" y="210" text-anchor="middle" font-family="Andika, sans-serif" font-size="11.5" font-weight="700" class="nns-svg-zone-lbl-dom">${domLbl}</text>
+
+      <path d="M 244 62 Q 194 64 146 82" fill="none" stroke="var(--lilac-strong)" stroke-width="2" stroke-dasharray="4 4" opacity="0.72" marker-end="url(#nnsArrowSub)"/>
+      <path d="M 144 102 Q 280 132 414 102" fill="none" stroke="var(--peach-strong)" stroke-width="2" stroke-dasharray="5 4" opacity="0.65" marker-end="url(#nnsArrowDom)"/>
+      <path d="M 418 78 Q 370 58 320 56" fill="none" stroke="var(--peach-strong)" stroke-width="2.3" opacity="0.88" marker-end="url(#nnsArrowDom)"/>
+      <line x1="264" y1="88" x2="234" y2="148" stroke="var(--sage-strong)" stroke-width="1.6" stroke-dasharray="3 4" opacity="0.5"/>
+      <line x1="296" y1="88" x2="326" y2="148" stroke="var(--sage-strong)" stroke-width="1.6" stroke-dasharray="3 4" opacity="0.5"/>
+      <line x1="104" y1="122" x2="86" y2="150" stroke="var(--lilac-strong)" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.5"/>
+      <line x1="456" y1="122" x2="474" y2="150" stroke="var(--peach-strong)" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.5"/>
+
+      ${nodes.map(n => `
+        <g class="nns-svg-node ${n.cls}" role="button" tabindex="0"
+           data-nns-play="${escapeHtml(n.item.token)}"
+           data-nns-flash="${escapeHtml(n.item.token)}"
+           aria-label="${escapeHtml(`${n.item.token}: ${n.item.chordName}`)}">
+          <circle cx="${n.x}" cy="${n.y}" r="${n.r}"/>
+          <text x="${n.x}" y="${n.y - 3}" text-anchor="middle" font-family="Andika, sans-serif" font-size="${n.r >= 34 ? 19 : (n.r >= 29 ? 16.5 : 14.5)}" font-weight="700" class="nns-svg-num">${escapeHtml(n.item.token)}</text>
+          <text x="${n.x}" y="${n.y + (n.r >= 34 ? 16 : 13.5)}" text-anchor="middle" font-family="Andika, sans-serif" font-size="${n.r >= 34 ? 13 : 11.5}" font-weight="700" class="nns-svg-chord">${escapeHtml(n.item.chordName)}</text>
+        </g>
+      `).join("")}
+    </svg>
+  `;
+}
+
+function renderNashvilleView() {
+  const container = document.getElementById("nashvilleToolContent");
+  if (!container) return;
+
+  const nns = getNashvilleState();
+  const safeKeyIdx = ((nns.keyIdx % NNS_KEYS.length) + NNS_KEYS.length) % NNS_KEYS.length;
+  nns.keyIdx = safeKeyIdx;
+  const keyEntry = NNS_KEYS[safeKeyIdx];
+  const mode = nns.mode === "minor" ? "minor" : "major";
+  const capoFret = Math.max(0, Math.min(9, parseInt(nns.capoFret, 10) || 0));
+  nns.capoFret = capoFret;
+
+  const degrees = mode === "minor" ? NNS_MINOR_DEGREES : NNS_MAJOR_DEGREES;
+  const resolvedDegrees = degrees.map(d => resolveNnsToken(d.token, keyEntry, mode));
+  const keyTitle = formatNnsKeyTitle(keyEntry, mode);
+  const relMinorName = formatNnsPitch(keyEntry.majorScale[5]) + "m";
+
+  // Kapodaster-Berechnung: Klingende Tonart = Spielform + Kapo-Bund => Spielform = Klingend - Kapo
+  const capoShapePc = (keyEntry.pc - capoFret + 12) % 12;
+  const capoShapeKey = getNnsKeyByPc(capoShapePc);
+  const capoShapeTitle = formatNnsKeyTitle(capoShapeKey, mode);
+  const capoShapeResolved = degrees.map(d => resolveNnsToken(d.token, capoShapeKey, mode));
+  const capoSuggestions = getNnsCapoSuggestions(keyEntry, mode);
+
+  container.innerHTML = `
+    <!-- 1. TONART & MODUS -->
+    <section class="k-card nns-card">
+      <div class="nns-card-head">
+        <div>
+          <span class="k-card-tag tag-peach">${tr("Tonart wählen", "Choose Key")}</span>
+          <h3 class="nns-section-title">${escapeHtml(keyTitle)} <span class="nns-key-sig-pill">${escapeHtml(mode === "minor" ? keyEntry.minorSig : keyEntry.sig)}</span></h3>
+        </div>
+        <div class="nns-mode-toggle" role="tablist" aria-label="${escapeHtml(tr("Tongeschlecht", "Key Mode"))}">
+          <button type="button" class="nns-mode-btn${mode === "major" ? " active" : ""}" data-nns-mode="major" role="tab" aria-selected="${mode === "major"}">${tr("Dur (Standard)", "Major (Standard)")}</button>
+          <button type="button" class="nns-mode-btn${mode === "minor" ? " active" : ""}" data-nns-mode="minor" role="tab" aria-selected="${mode === "minor"}">${tr("Moll (1-)", "Minor (1-)")}</button>
+        </div>
+      </div>
+
+      <div class="nns-key-grid" role="group" aria-label="${escapeHtml(tr("Alle 12 Tonarten", "All 12 Keys"))}">
+        ${NNS_KEYS.map((k, idx) => {
+          const lbl = formatNnsPitch(mode === "minor" ? k.minorScale[0] : k.majorScale[0]);
+          const isAct = idx === safeKeyIdx;
+          return `
+            <button type="button" class="nns-key-pill${isAct ? " active" : ""}" data-nns-key="${idx}" aria-pressed="${isAct}">
+              <span class="nns-key-pill-name">${escapeHtml(mode === "minor" ? `${lbl}m` : lbl)}</span>
+              <span class="nns-key-pill-sig">${escapeHtml(mode === "minor" ? k.minorSig : k.sig)}</span>
+            </button>
+          `;
+        }).join("")}
+      </div>
+
+      <p class="nns-mode-note">
+        ${mode === "major"
+          ? tf("Parallele Molltonart ist {rel} (Stufe 6-). Tippe auf beliebige Ziffern im Diagramm, um den Akkord sofort zu hören.",
+               "Relative minor is {rel} (degree 6-). Tap any number in the diagram to hear the chord right away.",
+               { rel: relMinorName })
+          : tr("Moll-Referenz mit 1- als Grundton. Tipp: In Nashville-Studios werden Moll-Songs oft auch relativ zur Dur-Parallele (Start auf 6-) notiert.",
+               "Minor reference with 1- as tonic. Tip: In Nashville studios, minor songs are also often charted relative to the parallel major (starting on 6-).")}
+      </p>
+    </section>
+
+    <!-- 2. INTERAKTIVES DIAGRAMM & STUFEN-KACHELN -->
+    <section class="k-card nns-card">
+      <div class="nns-card-head">
+        <div>
+          <span class="k-card-tag tag-sage">${tr("Funktions-Diagramm", "Function Diagram")}</span>
+          <h3 class="nns-section-title">${tf("Stufen-Diagramm in {key}", "Degree Diagram in {key}", { key: keyTitle })}</h3>
+        </div>
+      </div>
+
+      <div class="nns-diagram-wrap">
+        ${renderNashvilleDiagramSVG(keyEntry, mode)}
+      </div>
+
+      <div class="nns-degree-grid">
+        ${resolvedDegrees.map(item => `
+          <button type="button" class="nns-degree-tile nns-fn-${item.fnKey}"
+                  data-nns-play="${escapeHtml(item.token)}"
+                  data-nns-flash="${escapeHtml(item.token)}">
+            <span class="nns-deg-num">${escapeHtml(item.token)}</span>
+            <span class="nns-deg-chord">${escapeHtml(item.chordName)}</span>
+            <span class="nns-deg-meta">${escapeHtml(item.roman)} · ${escapeHtml(nnsFunctionShort(item.fnKey))}</span>
+          </button>
+        `).join("")}
+      </div>
+    </section>
+
+    <!-- 3. ALLE 12 TONARTEN AUF EINEN BLICK (NACHSCHLAGE-DIAGRAMM) -->
+    <section class="k-card nns-card">
+      <div class="nns-card-head">
+        <div>
+          <span class="k-card-tag tag-sage">${tr("Nachschlage-Diagramm", "Reference Chart")}</span>
+          <h3 class="nns-section-title">${tr("Alle 12 Tonarten auf einen Blick", "All 12 Keys at a Glance")}</h3>
+        </div>
+      </div>
+      <p class="nns-matrix-hint">${tr("Tippe auf eine Tonart links zum Umschalten – oder direkt auf einen Akkord zum Anhören.", "Tap a key on the left to switch – or tap any chord cell directly to hear it.")}</p>
+
+      <div class="nns-matrix-scroll" data-no-swipe="true">
+        <table class="nns-matrix-table">
+          <thead>
+            <tr>
+              <th class="nns-sticky-col">${tr("Tonart", "Key")}</th>
+              ${degrees.map(d => `<th class="nns-th-${d.fnKey}">${escapeHtml(d.token)}</th>`).join("")}
+            </tr>
+          </thead>
+          <tbody>
+            ${NNS_KEYS.map((k, kIdx) => {
+              const isCur = kIdx === safeKeyIdx;
+              const kLbl = formatNnsPitch(mode === "minor" ? k.minorScale[0] : k.majorScale[0]) + (mode === "minor" ? "m" : "");
+              return `
+                <tr class="${isCur ? "is-current-key" : ""}">
+                  <th class="nns-sticky-col">
+                    <button type="button" class="nns-row-key-btn" data-nns-key="${kIdx}">
+                      <span>${escapeHtml(kLbl)}</span>
+                      <small>${escapeHtml(mode === "minor" ? k.minorSig : k.sig)}</small>
+                    </button>
+                  </th>
+                  ${degrees.map(d => {
+                    const r = resolveNnsToken(d.token, k, mode);
+                    return `
+                      <td>
+                        <button type="button" class="nns-cell-btn" data-nns-cell-key="${kIdx}" data-nns-cell-tok="${escapeHtml(d.token)}">
+                          ${escapeHtml(r.chordName)}
+                        </button>
+                      </td>
+                    `;
+                  }).join("")}
+                </tr>
+              `;
+            }).join("")}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 4. KAPODASTER-ÜBERSETZER FÜR GITARRE -->
+    <section class="k-card nns-card">
+      <div class="nns-card-head">
+        <div>
+          <span class="k-card-tag tag-peach">${tr("Gitarren-Praxis", "Guitar Practice")}</span>
+          <h3 class="nns-section-title">${tr("Kapodaster-Übersetzer", "Capo Translator")}</h3>
+        </div>
+      </div>
+
+      <div class="nns-capo-summary">
+        <div class="nns-capo-stat">
+          <span class="nns-capo-stat-lbl">${tr("Klingt in", "Sounds in")}</span>
+          <strong class="nns-capo-stat-val">${escapeHtml(keyTitle)}</strong>
+        </div>
+        <span class="nns-capo-arrow" aria-hidden="true">→</span>
+        <div class="nns-capo-stat is-capo">
+          <span class="nns-capo-stat-lbl">${tr("Kapodaster", "Capo")}</span>
+          <strong class="nns-capo-stat-val">${capoFret === 0 ? tr("Ohne Kapo", "No Capo") : tf("Bund {n}", "Fret {n}", { n: capoFret })}</strong>
+        </div>
+        <span class="nns-capo-arrow" aria-hidden="true">→</span>
+        <div class="nns-capo-stat is-shape">
+          <span class="nns-capo-stat-lbl">${tr("Greife wie in", "Play shapes of")}</span>
+          <strong class="nns-capo-stat-val">${escapeHtml(capoShapeTitle)}</strong>
+        </div>
+      </div>
+
+      <div class="nns-capo-subblock">
+        <div class="nns-extras-label">${tr("Bequeme offene Gitarren-Formen für diese Tonart:", "Comfortable open guitar shapes for this key:")}</div>
+        <div class="nns-capo-suggest-row">
+          ${capoSuggestions.map(s => `
+            <button type="button" class="nns-capo-suggest-chip${s.fret === capoFret ? " active" : ""}" data-nns-capo="${s.fret}">
+              <span>${s.fret === 0 ? tr("Offen (0)", "Open (0)") : tf("Kapo {n}", "Capo {n}", { n: s.fret })}</span>
+              <strong>${tf("{shape}-Form", "{shape} shapes", { shape: s.shapeLabel })}</strong>
+            </button>
+          `).join("")}
+        </div>
+      </div>
+
+      <div class="nns-capo-subblock">
+        <div class="nns-extras-label">${tr("Oder Bund frei wählen (0–9):", "Or choose any fret freely (0–9):")}</div>
+        <div class="nns-capo-fret-row" role="group" aria-label="${escapeHtml(tr("Kapodaster-Bund", "Capo Fret"))}">
+          ${Array.from({ length: 10 }, (_, f) => `
+            <button type="button" class="nns-capo-fret-btn${f === capoFret ? " active" : ""}" data-nns-capo="${f}" aria-pressed="${f === capoFret}">
+              ${String(f)}
+            </button>
+          `).join("")}
+        </div>
+      </div>
+
+      <div class="nns-capo-grid">
+        ${capoShapeResolved.map((shapeItem, idx) => {
+          const soundingItem = resolvedDegrees[idx];
+          return `
+            <button type="button" class="nns-capo-tile nns-fn-${shapeItem.fnKey}"
+                    data-nns-capo-play="${escapeHtml(soundingItem.token)}"
+                    data-nns-flash="${escapeHtml(soundingItem.token)}">
+              <span class="nns-capo-num">${escapeHtml(shapeItem.token)}</span>
+              <span class="nns-capo-shape-chord">${escapeHtml(shapeItem.chordName)}</span>
+              <span class="nns-capo-sound-chord">${capoFret === 0 ? escapeHtml(shapeItem.roman) : tf("= {chord}", "= {chord}", { chord: soundingItem.chordName })}</span>
+            </button>
+          `;
+        }).join("")}
+      </div>
+      <p class="nns-matrix-hint">${tr("Oben steht dein Gitarren-Griff (mit Kapo), darunter der tatsächlich klingende Akkord. Antippen spielt den klingenden Gitarren-Akkord.", "Top shows your guitar chord shape (with capo), bottom shows the actual sounding chord. Tap any tile to hear the sounding guitar chord.")}</p>
+    </section>
+
+    <!-- 5. DIREKT-LINK ZUM WISSENSARTIKEL -->
+    <button type="button" id="nnsOpenArticleBtn" class="category-nav-card card-accent-lilac category-card-wide nns-article-link-card">
+      <div class="cat-icon-box badge-lilac">
+        <svg class="icon-svg-large" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/>
+          <path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/>
+        </svg>
+      </div>
+      <div class="cat-text-box">
+        <h3>${tr("Artikel: Wie das Nashville Number System funktioniert & entstand", "Article: How the Nashville Number System Works & Began")}</h3>
+        <p>${tr("Geschichte, Studio-Zeichen, Slash-Akkorde & Hörbeispiele", "History, chart symbols, slash chords & audio examples")}</p>
+      </div>
+      <span class="cat-chevron">›</span>
+    </button>
+  `;
+
+  bindNashvilleViewEvents(container);
+}
+
+function bindNashvilleViewEvents(container) {
+  const nns = getNashvilleState();
+
+  container.querySelectorAll("[data-nns-key]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      stopNashvillePlayback();
+      const nextIdx = parseInt(btn.dataset.nnsKey || "0", 10);
+      nns.keyIdx = nextIdx;
+      const nextKey = NNS_KEYS[((nextIdx % NNS_KEYS.length) + NNS_KEYS.length) % NNS_KEYS.length];
+      nns.capoFret = getRecommendedCapoFretForKey(nextKey, nns.mode);
+      renderNashvilleView();
+    });
+  });
+
+  container.querySelectorAll("[data-nns-mode]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      stopNashvillePlayback();
+      const nextMode = btn.dataset.nnsMode === "minor" ? "minor" : "major";
+      if (nns.mode !== nextMode) {
+        nns.mode = nextMode;
+        const curKey = NNS_KEYS[nns.keyIdx] || NNS_KEYS[0];
+        nns.capoFret = getRecommendedCapoFretForKey(curKey, nextMode);
+        renderNashvilleView();
+      }
+    });
+  });
+
+  container.querySelectorAll("[data-nns-capo]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      stopNashvillePlayback();
+      nns.capoFret = Math.max(0, Math.min(9, parseInt(btn.dataset.nnsCapo || "0", 10) || 0));
+      renderNashvilleView();
+    });
+  });
+
+  container.querySelectorAll("[data-nns-play]").forEach(el => {
+    const trigger = () => {
+      const tok = el.dataset.nnsPlay;
+      playNnsSingleToken(tok, nns.keyIdx, nns.mode, tok, false);
+    };
+    el.addEventListener("click", trigger);
+    if (el.tagName.toLowerCase() !== "button") {
+      el.addEventListener("keydown", ev => {
+        if (ev.key === "Enter" || ev.key === " ") {
+          ev.preventDefault();
+          trigger();
+        }
+      });
+    }
+  });
+
+  container.querySelectorAll("[data-nns-capo-play]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const tok = btn.dataset.nnsCapoPlay;
+      playNnsSingleToken(tok, nns.keyIdx, nns.mode, tok, true);
+    });
+  });
+
+  container.querySelectorAll("[data-nns-cell-key]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const kIdx = parseInt(btn.dataset.nnsCellKey || "0", 10);
+      const tok = btn.dataset.nnsCellTok || "1";
+      playNnsSingleToken(tok, kIdx, nns.mode, null, false);
+      btn.classList.add("is-active-sound");
+      const tid = setTimeout(() => btn.classList.remove("is-active-sound"), 550);
+      _nnsFlashTimers.push(tid);
+    });
+  });
+
+  container.querySelector("#nnsOpenArticleBtn")?.addEventListener("click", () => {
+    stopNashvillePlayback();
+    if (typeof openKnowledgeArticle === "function") {
+      openKnowledgeArticle("art-nashville-number-system", { returnView: "nashville" });
+    }
+  });
+}
+
+function openNashvilleView(returnView = "tools") {
+  state.nashvilleReturnView = returnView;
+  switchView("nashville");
+}
 
 </script>
 <script>
