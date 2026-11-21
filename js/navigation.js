@@ -2721,6 +2721,101 @@ function markBeginnerExerciseNodes(container) {
 
 const CATEGORY_CHEVRON_SVG = `<svg class="category-type-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>`;
 
+function getCategoryBadgeSVG(kind) {
+  let body = "";
+  if (kind === "treble") {
+    body = `
+      <g opacity="0.24" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+        <line x1="9" y1="15" x2="39" y2="15"/>
+        <line x1="9" y1="20" x2="39" y2="20"/>
+        <line x1="9" y1="25" x2="39" y2="25"/>
+        <line x1="9" y1="30" x2="39" y2="30"/>
+      </g>
+      <g transform="translate(18.4, 5.0) scale(0.41)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17.6 59.2 C15.6 62.2, 12.0 61.8, 10.2 58.6 C8.0 54.2, 9.2 48.0, 13.6 46.8 C18.2 45.6, 23.2 49.2, 23.8 56.8 C24.4 64.2, 20.8 70.0, 14.4 70.0 C7.5 70.0, 2.9 63.2, 3.4 54.0 C3.8 44.2, 14.6 35.8, 18.8 21.0 C20.6 14.2, 20.0 4.8, 16.5 4.4 C13.7 4.0, 12.6 9.5, 12.8 17.5 L13.6 79.8 C13.8 86.0, 10.8 88.6, 7.8 88.0 C5.8 87.6, 4.8 85.6, 5.2 83.4" stroke-width="5.2"/>
+        <circle cx="6.0" cy="82.8" r="3.2" fill="currentColor" stroke="none"/>
+      </g>`;
+  } else if (kind === "bass") {
+    body = `
+      <g opacity="0.24" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+        <line x1="9" y1="15" x2="39" y2="15"/>
+        <line x1="9" y1="20" x2="39" y2="20"/>
+        <line x1="9" y1="25" x2="39" y2="25"/>
+        <line x1="9" y1="30" x2="39" y2="30"/>
+      </g>
+      <g transform="translate(3.6, -27.7) scale(0.60)">
+        <circle cx="25" cy="76" r="4.2" fill="currentColor"/>
+        <path d="M24.5 76 C23 67.5, 31 63.2, 37.5 66.2 C43.8 69.2, 43.2 84.5, 34 95 C28 102, 21.5 106, 17.5 108.5" fill="none" stroke="currentColor" stroke-width="3.8" stroke-linecap="round"/>
+        <circle cx="48" cy="70" r="2.7" fill="currentColor"/>
+        <circle cx="48" cy="82" r="2.7" fill="currentColor"/>
+      </g>`;
+  } else if (kind === "alto") {
+    body = `
+      <g opacity="0.24" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+        <line x1="9" y1="15" x2="39" y2="15"/>
+        <line x1="9" y1="20" x2="39" y2="20"/>
+        <line x1="9" y1="25" x2="39" y2="25"/>
+        <line x1="9" y1="30" x2="39" y2="30"/>
+      </g>
+      <g transform="translate(5.4, -27.0) scale(0.58)">
+        <rect x="20" y="64" width="4.8" height="48" rx="1.2" fill="currentColor"/>
+        <line x1="28" y1="64" x2="28" y2="112" stroke="currentColor" stroke-width="2.1"/>
+        <path d="M29.5 88 C32.5 81, 43 81.5, 44 73.5 C45 67, 39.5 64, 33.5 65.5 C31 66.2, 30.5 69, 33 70.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
+        <path d="M29.5 88 C32.5 95, 43 94.5, 44 102.5 C45 109, 39.5 112, 33.5 110.5 C31 109.8, 30.5 107, 33 105.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
+      </g>`;
+  } else if (kind === "mixed") {
+    body = `
+      <g transform="translate(10.0, 9.2) scale(0.32)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17.6 59.2 C15.6 62.2, 12.0 61.8, 10.2 58.6 C8.0 54.2, 9.2 48.0, 13.6 46.8 C18.2 45.6, 23.2 49.2, 23.8 56.8 C24.4 64.2, 20.8 70.0, 14.4 70.0 C7.5 70.0, 2.9 63.2, 3.4 54.0 C3.8 44.2, 14.6 35.8, 18.8 21.0 C20.6 14.2, 20.0 4.8, 16.5 4.4 C13.7 4.0, 12.6 9.5, 12.8 17.5 L13.6 79.8 C13.8 86.0, 10.8 88.6, 7.8 88.0 C5.8 87.6, 4.8 85.6, 5.2 83.4" stroke-width="6.2"/>
+        <circle cx="6.0" cy="82.8" r="3.6" fill="currentColor" stroke="none"/>
+      </g>
+      <g transform="translate(13.2, -16.8) scale(0.47)">
+        <circle cx="25" cy="76" r="4.4" fill="currentColor"/>
+        <path d="M24.5 76 C23 67.5, 31 63.2, 37.5 66.2 C43.8 69.2, 43.2 84.5, 34 95 C28 102, 21.5 106, 17.5 108.5" fill="none" stroke="currentColor" stroke-width="4.4" stroke-linecap="round"/>
+        <circle cx="48" cy="70" r="2.9" fill="currentColor"/>
+        <circle cx="48" cy="82" r="2.9" fill="currentColor"/>
+      </g>`;
+  } else if (kind === "grand") {
+    body = `
+      <path d="M14.5 12 C11.5 12.5, 12.2 21, 9.5 24 C12.2 27, 11.5 35.5, 14.5 36" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+      <line x1="17" y1="12.5" x2="17" y2="35.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      <g stroke="currentColor" stroke-width="1.3" stroke-linecap="round" opacity="0.65">
+        <line x1="17" y1="13" x2="37" y2="13"/>
+        <line x1="17" y1="17" x2="37" y2="17"/>
+        <line x1="17" y1="21" x2="37" y2="21"/>
+        <line x1="17" y1="27" x2="37" y2="27"/>
+        <line x1="17" y1="31" x2="37" y2="31"/>
+        <line x1="17" y1="35" x2="37" y2="35"/>
+      </g>
+      <ellipse cx="29" cy="17" rx="3.1" ry="2.2" transform="rotate(-18 29 17)" fill="currentColor"/>
+      <line x1="31.8" y1="16.5" x2="31.8" y2="9.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+      <ellipse cx="24.5" cy="31" rx="3.1" ry="2.2" transform="rotate(-18 24.5 31)" fill="currentColor"/>
+      <line x1="21.7" y1="31.5" x2="21.7" y2="38.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>`;
+  } else if (kind === "keysig") {
+    body = `
+      <g transform="translate(15.5, 22) scale(0.95)" stroke="currentColor" stroke-linecap="round">
+        <line x1="-2.8" y1="-9" x2="-2.8" y2="9" stroke-width="1.9"/>
+        <line x1="2.8" y1="-10" x2="2.8" y2="8" stroke-width="1.9"/>
+        <line x1="-6" y1="-2.2" x2="6" y2="-4.2" stroke-width="2.6"/>
+        <line x1="-6" y1="3.8" x2="6" y2="1.8" stroke-width="2.6"/>
+      </g>
+      <line x1="22" y1="31.5" x2="26.5" y2="16.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.45"/>
+      <g transform="translate(33, 27.5) scale(1.05)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="-2.5" y1="-13.5" x2="-2.5" y2="4.2" stroke-width="2.0"/>
+        <path d="M-2.5 -0.8 C1.2 -3.6, 5.2 -1.8, 4.8 1.5 C4.3 4.2, 0.2 5.2, -2.5 4.2" stroke-width="2.2"/>
+      </g>`;
+  } else if (kind === "melody-dict") {
+    body = `
+      <ellipse cx="14.5" cy="32" rx="4.2" ry="3.0" transform="rotate(-18 14.5 32)" fill="currentColor"/>
+      <line x1="18.2" y1="31.2" x2="18.2" y2="15" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"/>
+      <ellipse cx="29.5" cy="27.5" rx="4.2" ry="3.0" transform="rotate(-18 29.5 27.5)" fill="currentColor"/>
+      <line x1="33.2" y1="26.7" x2="33.2" y2="11.5" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"/>
+      <path d="M18.2 15 L33.2 11.5" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/>
+      <circle cx="38" cy="27.5" r="2.1" fill="currentColor"/>`;
+  }
+  return `<svg class="node-rhythm-icon" width="46" height="46" viewBox="0 0 48 48" aria-hidden="true">${body}</svg>`;
+}
+
 function renderCategoryTypeMenu(container, categoryKey, items, options = {}) {
   container.innerHTML = `
     ${options.introHtml || ""}
@@ -2863,7 +2958,7 @@ function openCategoryPage(categoryKey, options = {}) {
         desc: tr("Zwei Töne erklingen nacheinander vom Ausgangston nach oben", "Two notes played sequentially upward from the reference pitch"),
         circle: "circle-peach",
         dir: "up",
-        badgeHtml: `<div class="node-circle circle-peach">1↗5</div>`,
+        badgeHtml: renderDirectionNodeCircle("1–5", "up", "circle-peach"),
         isBeginner: true
       },
       {
@@ -2872,7 +2967,7 @@ function openCategoryPage(categoryKey, options = {}) {
         desc: tr("Zwei Töne erklingen nacheinander vom Ausgangston nach unten", "Two notes played sequentially downward from the reference pitch"),
         circle: "circle-peach",
         dir: "down",
-        badgeHtml: `<div class="node-circle circle-peach">1↘5</div>`,
+        badgeHtml: renderDirectionNodeCircle("1–5", "down", "circle-peach"),
         isBeginner: true
       },
       {
@@ -2926,13 +3021,17 @@ function openCategoryPage(categoryKey, options = {}) {
     };
 
     const getSectionCardGroups = (sec) => {
-      const begBadge = sec.dir === "up" ? "1↗5" : (sec.dir === "down" ? "1↘5" : "1+5");
-      const begMinBadge = sec.dir === "up" ? "1↗♭3" : (sec.dir === "down" ? "1↘♭3" : "1+♭3");
+      const begCircleHtml = sec.dir
+        ? renderDirectionNodeCircle("1–5", sec.dir, sec.circle)
+        : `<div class="node-circle ${sec.circle}">1+5</div>`;
+      const begMinCircleHtml = sec.dir
+        ? renderDirectionNodeCircle("1–♭3", sec.dir, sec.circle)
+        : `<div class="node-circle ${sec.circle} node-circle-compact node-circle-nowrap">1+♭3</div>`;
       return {
         major: [
           {
             lvl: 1,
-            circleHtml: `<div class="node-circle ${sec.circle}">${begBadge}</div>`,
+            circleHtml: begCircleHtml,
             title: tr("Stufe 1: Einsteiger", "Level 1: Beginner"),
             sub: tr("Prime, gr. Terz, Quinte, Oktave", "Unison, Maj 3rd, 5th & Octave")
           },
@@ -2958,7 +3057,7 @@ function openCategoryPage(categoryKey, options = {}) {
         minor: [
           {
             lvl: 6,
-            circleHtml: `<div class="node-circle ${sec.circle} node-circle-compact node-circle-nowrap">${begMinBadge}</div>`,
+            circleHtml: begMinCircleHtml,
             title: tr("Moll 1: Einsteiger", "Minor 1: Beginner"),
             sub: tr("Prime, kl. Terz, Quinte, Oktave", "Unison, Min 3rd, 5th & Octave")
           },
@@ -3321,7 +3420,7 @@ function openCategoryPage(categoryKey, options = {}) {
         id: "dictation",
         title: tr("Kombi-Diktat", "Full Dictation"),
         desc: tr("Tonhöhe UND Notenlänge (♪, ♩, ♩., 𝅗𝅥) gemeinsam nach Gehör heraushören", "Identify both pitch AND note duration (♪, ♩, ♩., 𝅗𝅥) together by ear"),
-        badgeHtml: `<div class="node-circle circle-lilac node-circle-compact node-circle-nowrap">♪+Do</div>`,
+        badgeHtml: `<div class="node-circle circle-lilac node-circle-icon">${getCategoryBadgeSVG("melody-dict")}</div>`,
         meta: tr("3 Tonräume • Do–Fa, Sol–Do & Ganze Tonart", "3 Ranges • Do–Fa, Sol–Do & Full Key"),
         isBeginner: false
       }
@@ -3779,7 +3878,7 @@ function openCategoryPage(categoryKey, options = {}) {
         title: tr("Groove, Akzente &amp; Mikro-Timing", "Groove, Accents &amp; Micro-Timing"),
         plainTitle: tr("Groove, Akzente & Mikro-Timing", "Groove, Accents & Micro-Timing"),
         desc: tr("Spüre Groove-Stile, Offbeat-Akzente und feinste Verschiebungen im Band-Kontext", "Feel groove styles, offbeat accents, and subtle timing shifts in a band context"),
-        badgeHtml: `<div class="node-circle circle-peach node-circle-compact">Groove</div>`,
+        badgeHtml: `<div class="node-circle circle-peach node-circle-compact node-circle-nowrap">Groove</div>`,
         meta: tf("{n} Stufen", "{n} Levels", { n: 4 }),
         isBeginner: false,
         cardsHtml: `
@@ -3842,7 +3941,7 @@ function openCategoryPage(categoryKey, options = {}) {
         title: tr("Frequenzen erkennen (Reinton / Sinus)", "Frequency Recognition (Sine Wave)"),
         plainTitle: tr("Frequenzen erkennen (Sinus)", "Frequency Recognition (Sine)"),
         desc: tr("Trainiere dein absolutes Frequenz-Gefühl vom Subbass (63 Hz) bis in die Air-Höhen (12 kHz)", "Train absolute frequency recall from sub-bass (63 Hz) up to the air band (12 kHz)"),
-        badgeHtml: `<div class="node-circle circle-sage node-circle-compact">Hz</div>`,
+        badgeHtml: `<div class="node-circle circle-sage">Hz</div>`,
         meta: tf("{n} Stufen", "{n} Levels", { n: 3 }),
         isBeginner: true,
         cardsHtml: `
@@ -3868,7 +3967,7 @@ function openCategoryPage(categoryKey, options = {}) {
         title: tr("EQ-Boost im Pink Noise (Fortgeschritten)", "EQ Boost in Pink Noise (Advanced)"),
         plainTitle: tr("EQ-Boost im Pink Noise", "EQ Boost in Pink Noise"),
         desc: tr("Erst erklingt neutrales Pink Noise („Flat“), dann hebt ein Peaking-EQ genau eine Frequenz gezielt an", "First you hear neutral pink noise (“Flat”), then a peaking EQ boosts one targeted frequency"),
-        badgeHtml: `<div class="node-circle circle-lilac node-circle-compact">EQ</div>`,
+        badgeHtml: `<div class="node-circle circle-lilac">EQ</div>`,
         meta: tf("{n} Stufen", "{n} Levels", { n: 3 }),
         isBeginner: false,
         cardsHtml: `
@@ -3922,7 +4021,7 @@ function openCategoryPage(categoryKey, options = {}) {
         title: tr("1. Modus / Tonleiter erkennen", "1. Mode / Scale Recognition"),
         plainTitle: tr("Modus / Tonleiter erkennen", "Mode / Scale Recognition"),
         desc: tr("Erst hörst du die neutrale Anker-Quinte (ohne Terz), dann die 8-tönige Tonleiter aufwärts", "First you hear a neutral open-fifth anchor (no 3rd), then the 8-note ascending scale"),
-        badgeHtml: `<div class="node-circle circle-peach">7× C</div>`,
+        badgeHtml: `<div class="node-circle circle-peach node-circle-compact node-circle-nowrap">7× C</div>`,
         meta: tf("{n} Stufen", "{n} Levels", { n: 3 }),
         isBeginner: true,
         cardsHtml: `
@@ -4109,7 +4208,7 @@ function openCategoryPage(categoryKey, options = {}) {
           "Der G-Schlüssel markiert g' (G4) auf der 2. Linie von unten – die Basis für Klavier (rechte Hand), Gesang, Violine, Flöte &amp; Gitarre.",
           "Marks G4 on the 2nd line from the bottom — essential for piano right hand, vocals, violin, flute &amp; guitar."
         ),
-        badgeHtml: `<div class="node-circle circle-peach">𝄞</div>`,
+        badgeHtml: `<div class="node-circle circle-peach node-circle-icon">${getCategoryBadgeSVG("treble")}</div>`,
         meta: tf("{n} Stufen", "{n} Levels", { n: 4 }),
         isBeginner: true
       },
@@ -4120,7 +4219,7 @@ function openCategoryPage(categoryKey, options = {}) {
           "Der F-Schlüssel markiert f (F3) auf der 4. Linie zwischen den beiden Punkten – Standard für Bass, Cello, Posaune &amp; Klavier (linke Hand).",
           "Marks F3 on the 4th line between its two dots — standard for bass, cello, trombone &amp; piano left hand."
         ),
-        badgeHtml: `<div class="node-circle circle-sage">𝄢</div>`,
+        badgeHtml: `<div class="node-circle circle-sage node-circle-icon">${getCategoryBadgeSVG("bass")}</div>`,
         meta: tf("{n} Stufen", "{n} Levels", { n: 4 }),
         isBeginner: false
       },
@@ -4131,7 +4230,7 @@ function openCategoryPage(categoryKey, options = {}) {
           "Der C-Schlüssel legt das mittlere c' (C4) exakt auf die 3. (mittlere) Notenlinie – Pflichtschlüssel für Bratsche &amp; Partiturlesen.",
           "Places middle C4 right on the 3rd (center) line — standard clef for viola and full-score reading."
         ),
-        badgeHtml: `<div class="node-circle circle-lilac">𝄡</div>`,
+        badgeHtml: `<div class="node-circle circle-lilac node-circle-icon">${getCategoryBadgeSVG("alto")}</div>`,
         meta: tf("{n} Stufen", "{n} Levels", { n: 4 }),
         isBeginner: false
       },
@@ -4142,7 +4241,7 @@ function openCategoryPage(categoryKey, options = {}) {
           "Wechselt in der Notenzeile flexibel zwischen Violin-, Bass- und Altschlüssel – ideal für flüssiges Blattlesen und Partituren.",
           "Alternates across Treble, Bass &amp; Alto clefs — great practice for agile sight-reading across systems."
         ),
-        badgeHtml: `<div class="node-circle circle-peach node-circle-compact">𝄞+𝄢</div>`,
+        badgeHtml: `<div class="node-circle circle-peach node-circle-icon">${getCategoryBadgeSVG("mixed")}</div>`,
         meta: tf("{n} Stufen", "{n} Levels", { n: 4 }),
         isBeginner: false
       },
@@ -4153,7 +4252,7 @@ function openCategoryPage(categoryKey, options = {}) {
           "Klaviersystem mit beiden Schlüsseln gleichzeitig: Die Noten springen zwischen oberem und unterem System – wie beim Klavierspielen mit zwei Händen.",
           "Piano-style grand staff with both clefs at once: notes jump between the upper and lower staff — just like reading for two hands."
         ),
-        badgeHtml: `<div class="node-circle circle-sage node-circle-compact">${tr("Klavier", "Piano")}</div>`,
+        badgeHtml: `<div class="node-circle circle-sage node-circle-icon">${getCategoryBadgeSVG("grand")}</div>`,
         meta: tf("{n} Stufen", "{n} Levels", { n: 4 }),
         isBeginner: false
       },
@@ -4175,7 +4274,7 @@ function openCategoryPage(categoryKey, options = {}) {
           "Lies ganze 8-Noten-Phrasen mit vorgegebener Tonart im Notensystem und beachte die Vorzeichen vom Blatt!",
           "Read 8-note phrases with an active key signature on the staff and remember the sharps &amp; flats while playing!"
         ),
-        badgeHtml: `<div class="node-circle circle-peach">♯/♭</div>`,
+        badgeHtml: `<div class="node-circle circle-peach node-circle-icon">${getCategoryBadgeSVG("keysig")}</div>`,
         meta: tf("{n} Stufen", "{n} Levels", { n: 4 }),
         isBeginner: false
       }
