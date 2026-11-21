@@ -513,24 +513,6 @@ const LAUSCHER_LEGAL_DOCS = {
 
   <article class="legal-license-card">
     <div class="legal-license-head">
-      <strong class="legal-license-name">Tone.js 14.8.49</strong>
-      <span class="legal-license-badge">MIT</span>
-    </div>
-    <p class="legal-license-meta">Web-Audio-Framework für Klangsynthese, Timing und Effekte · Web &amp; Android-App</p>
-    <p class="legal-license-copy">Copyright © 2014–2020 Yotam Mann (<a href="https://tonejs.github.io/" target="_blank" rel="noopener">tonejs.github.io</a>). Das eingebettete Bundle enthält u. a. <em>standardized-audio-context</em> (Copyright © 2014 Christoph Guttandin, MIT), <em>automation-events</em> (MIT) sowie <em>tslib</em> (Copyright © Microsoft Corporation, 0BSD).</p>
-    <details class="legal-license-details">
-      <summary>Vollständigen Lizenztext anzeigen (MIT)</summary>
-      <div class="legal-license-text">MIT License
-
-Copyright (c) 2014-2020 Yotam Mann
-Copyright (c) 2014 Christoph Guttandin (standardized-audio-context)
-
-${LAUSCHER_MIT_BODY}</div>
-    </details>
-  </article>
-
-  <article class="legal-license-card">
-    <div class="legal-license-head">
       <strong class="legal-license-name">Capacitor &amp; Plugins</strong>
       <span class="legal-license-badge">MIT</span>
     </div>
@@ -586,24 +568,6 @@ ${LAUSCHER_MIT_BODY}</div>
     <details class="legal-license-details">
       <summary>Show full license text (SIL OFL 1.1)</summary>
       <div class="legal-license-text">${LAUSCHER_OFL_1_1_TEXT}</div>
-    </details>
-  </article>
-
-  <article class="legal-license-card">
-    <div class="legal-license-head">
-      <strong class="legal-license-name">Tone.js 14.8.49</strong>
-      <span class="legal-license-badge">MIT</span>
-    </div>
-    <p class="legal-license-meta">Web Audio framework for synthesis, timing and effects · Web &amp; Android app</p>
-    <p class="legal-license-copy">Copyright © 2014–2020 Yotam Mann (<a href="https://tonejs.github.io/" target="_blank" rel="noopener">tonejs.github.io</a>). The bundled build includes <em>standardized-audio-context</em> (Copyright © 2014 Christoph Guttandin, MIT), <em>automation-events</em> (MIT) and <em>tslib</em> (Copyright © Microsoft Corporation, 0BSD).</p>
-    <details class="legal-license-details">
-      <summary>Show full license text (MIT)</summary>
-      <div class="legal-license-text">MIT License
-
-Copyright (c) 2014-2020 Yotam Mann
-Copyright (c) 2014 Christoph Guttandin (standardized-audio-context)
-
-${LAUSCHER_MIT_BODY}</div>
     </details>
   </article>
 

@@ -7,7 +7,7 @@ Nimmt index.html und setzt direkt in die Datei ein:
   - <script src="…"></script>                   ->  <script>…</script>
   - url("…") im CSS auf lokale Dateien (z. B. Fonts) ->  data:-URI (Base64)
 
-tone.js bleibt bewusst extern (muss neben lauscher-mobile.html liegen).
+Das Ergebnis ist eine komplett eigenständige Offline-Einzeldatei ohne externe Abhängigkeiten.
 
 Aufruf (aus dem Projektordner):
     python3 scripts/build-mobile-bundle.py            # Bundle neu bauen
@@ -22,7 +22,7 @@ import re
 import sys
 from pathlib import Path
 
-EXTERNAL_SCRIPTS = {"tone.js"}
+EXTERNAL_SCRIPTS = set()
 OUTPUT_NAME = "lauscher-mobile.html"
 
 CSS_URL_RE = re.compile(r'url\(\s*(["\']?)([^"\')]+)\1\s*\)')
@@ -124,8 +124,6 @@ def main() -> int:
     out.write_text(result, encoding="utf-8")
     size_mb = out.stat().st_size / (1024 * 1024)
     print(f"✓ {out.name} gebaut ({size_mb:.1f} MB).")
-    if not (out.parent / "tone.js").is_file():
-        print("  Hinweis: tone.js muss neben der Datei liegen.")
     return 0
 
 

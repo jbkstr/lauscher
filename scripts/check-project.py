@@ -89,7 +89,7 @@ const sandbox = {
   parseInt, parseFloat, isNaN, isFinite, encodeURIComponent, decodeURIComponent,
   setTimeout: () => 0, clearTimeout(){}, setInterval: () => 0, clearInterval(){},
   requestAnimationFrame: () => 0, cancelAnimationFrame(){},
-  AudioEngine: class { constructor(){} },
+  Float32Array, Uint32Array, Uint8Array,
   window: { addEventListener(){}, matchMedia: () => ({ matches: false, addEventListener(){} }), history: { pushState(){}, replaceState(){} }, location: { hash: "", search: "", href: "http://localhost/" }, innerWidth: 390, innerHeight: 844 },
   document: { documentElement: stubEl(), body: stubEl(), head: stubEl(), addEventListener(){}, getElementById: () => null, querySelector: () => null, querySelectorAll: () => [], createElement: () => stubEl() },
   localStorage: { getItem: () => null, setItem(){}, removeItem(){} },
@@ -100,7 +100,6 @@ sandbox.globalThis = sandbox;
 sandbox.self = sandbox;
 vm.createContext(sandbox);
 for (const rel of files) {
-  if (rel === "audio.js") continue;
   vm.runInContext(fs.readFileSync(path.join(root, rel), "utf8"), sandbox, { filename: rel });
 }
 """

@@ -1,27 +1,29 @@
-function connectAudioNodeToTarget(node, target) {
-  if (!node || !target) return;
-  if (typeof Tone !== "undefined" && typeof Tone.connect === "function") {
-    Tone.connect(node, target);
-  } else if (target.input && typeof node.connect === "function") {
-    node.connect(target.input);
-  } else if (typeof node.connect === "function") {
-    node.connect(target);
-  }
-}
+/**
+ * Lauscher • Native WebAudio-Engine (ohne externe Audio-Frameworks)
+ *
+ * Schwerpunkte für maximale Stabilität auf allen Endgeräten (Desktop, iOS/Safari, Android/WebView, Bluetooth):
+ * 1. Reiner nativer AudioContext ({ latencyHint: "playback" }) ohne Wrapper-Overhead oder Doppel-Contexte.
+ * 2. Nur im Mixer aktive Stems (> 0 %) werden überhaupt ausgelöst (kein stummes 6-Spur-Mitlaufen).
+ * 3. Automatisches Multi-Stem-Headroom-Scaling + Master-Compressor + transparenter Soft-Clipper (0 digitales Clipping).
+ * 4. Globales Voice-Budget & knacksfreies Voice-Stealing / Stoppen per setTargetAtTime (C¹-stetig in allen Browsern).
+ * 5. Sample-Puffer-Ende-Schutz (jede Stimme blendet garantiert vor Pufferende aus) & Zero-Copy-Trim-Offset.
+ * 6. Synchron erzeugte, warme Stereo-Hall-IR (kein OfflineAudioContext, kein Freeverb, kein +17,5-dB-Boost).
+ * 7. Schonendes, Playback-bewusstes Sample-Decoding mit Main-Thread-Pausen (schützt Android/iOS MediaCodec-Pools).
+ */
 
 const SAMPLED_STEM_CONFIG = {
-  piano:   { demoStyle: "piano",   attackSec: 0.0025, releaseSec: 0.55, fallbackMult: 0.72, sampledMult: 0.90, demoGain: 0.85, useReverb: true,  maxPolyphony: 18 },
-  guitar:  { demoStyle: "guitar",  attackSec: 0.0025, releaseSec: 0.50, fallbackMult: 0.65, sampledMult: 0.78, demoGain: 0.85, useReverb: true,  maxPolyphony: 14 },
-  strings: { demoStyle: "strings", attackSec: 0.015,  releaseSec: 0.65, fallbackMult: 0.55, sampledMult: 0.58, demoGain: 0.85, useReverb: true,  maxPolyphony: 16 },
-  brass:   { demoStyle: "brass",   attackSec: 0.008,  releaseSec: 0.45, fallbackMult: 0.42, sampledMult: 0.62, demoGain: 0.85, useReverb: true,  maxPolyphony: 14 },
-  voice:   { demoStyle: "choir",   attackSec: 0.012,  releaseSec: 0.60, fallbackMult: 0.45, sampledMult: 0.58, demoGain: 0.85, useReverb: true,  maxPolyphony: 14 },
-  bass:    { demoStyle: "ebass",   attackSec: 0.002,  releaseSec: 0.25, fallbackMult: 0.92, sampledMult: 0.92, demoGain: 0.85, useReverb: false, maxPolyphony: 4 }
+  piano:   { demoStyle: "piano",   attackSec: 0.004, releaseSec: 0.55, fallbackMult: 0.72, sampledMult: 0.90, demoGain: 0.85, useReverb: true,  maxPolyphony: 14 },
+  guitar:  { demoStyle: "guitar",  attackSec: 0.004, releaseSec: 0.50, fallbackMult: 0.65, sampledMult: 0.78, demoGain: 0.85, useReverb: true,  maxPolyphony: 10 },
+  strings: { demoStyle: "strings", attackSec: 0.018, releaseSec: 0.65, fallbackMult: 0.55, sampledMult: 0.58, demoGain: 0.85, useReverb: true,  maxPolyphony: 10 },
+  brass:   { demoStyle: "brass",   attackSec: 0.010, releaseSec: 0.45, fallbackMult: 0.42, sampledMult: 0.62, demoGain: 0.85, useReverb: true,  maxPolyphony: 10 },
+  voice:   { demoStyle: "choir",   attackSec: 0.016, releaseSec: 0.60, fallbackMult: 0.45, sampledMult: 0.58, demoGain: 0.85, useReverb: true,  maxPolyphony: 10 },
+  bass:    { demoStyle: "ebass",   attackSec: 0.004, releaseSec: 0.28, fallbackMult: 0.92, sampledMult: 0.92, demoGain: 0.85, useReverb: false, maxPolyphony: 3 }
 };
 
 const PIANO_CHARACTER_PROFILES = {
-  dry:     { filterHz: 18000, reverbDampHz: 5200, roomSize: 0.58, defaultReverb: 0.00, releaseSec: 0.55, holdDecayFloor: 1.00, attackSec: 0.0025, spreadMs: 0,  humanize: false },
-  natural: { filterHz: 5800,  reverbDampHz: 4800, roomSize: 0.72, defaultReverb: 0.24, releaseSec: 0.78, holdDecayFloor: 0.68, attackSec: 0.0035, spreadMs: 9,  humanize: true  },
-  concert: { filterHz: 5000,  reverbDampHz: 5600, roomSize: 0.86, defaultReverb: 0.48, releaseSec: 1.05, holdDecayFloor: 0.62, attackSec: 0.0042, spreadMs: 13, humanize: true  }
+  dry:     { filterHz: 18000, reverbDampHz: 5200, roomSize: 0.58, defaultReverb: 0.00, releaseSec: 0.55, holdDecayFloor: 1.00, attackSec: 0.004,  spreadMs: 0,  humanize: false },
+  natural: { filterHz: 5800,  reverbDampHz: 4800, roomSize: 0.72, defaultReverb: 0.24, releaseSec: 0.78, holdDecayFloor: 0.68, attackSec: 0.0045, spreadMs: 8,  humanize: true  },
+  concert: { filterHz: 5000,  reverbDampHz: 5600, roomSize: 0.86, defaultReverb: 0.48, releaseSec: 1.05, holdDecayFloor: 0.62, attackSec: 0.005,  spreadMs: 12, humanize: true  }
 };
 
 const STEM_REVERB_BY_CHAR = {
@@ -30,30 +32,233 @@ const STEM_REVERB_BY_CHAR = {
   concert: { piano: 0.48, guitar: 0.42, strings: 0.56, brass: 0.46, voice: 0.52, bass: 0.16 }
 };
 
+const IOS_SILENT_WAV_DATA_URI = "data:audio/wav;base64,UklGRsQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+
+function isIOSLikeDevice() {
+  if (typeof navigator === "undefined") return false;
+  const ua = String(navigator.userAgent || "");
+  const platform = String(navigator.platform || "");
+  const maxTouch = Number(navigator.maxTouchPoints || 0);
+  return /iPad|iPhone|iPod/i.test(ua) || (platform === "MacIntel" && maxTouch > 1);
+}
+
+/**
+ * Erkennt Mobilgeräte (Android, iOS/iPadOS) und Safari/WebKit, die von kürzeren Faltungs-IRs,
+ * strafferem Voice-Budget und etwas größerem Scheduling-Lookahead besonders profitieren.
+ */
+function shouldUseLiteReverb() {
+  if (typeof navigator === "undefined") return false;
+  const ua = String(navigator.userAgent || "");
+  const isAndroid = /Android/i.test(ua);
+  const isWebKitOnly = /AppleWebKit/i.test(ua) && !/Chrome|Chromium|Edg\/|OPR\//i.test(ua);
+  return isIOSLikeDevice() || isWebKitOnly || isAndroid || /CriOS|FxiOS/i.test(ua);
+}
+
+function connectAudioNodeToTarget(node, target) {
+  if (!node || !target) return;
+  if (typeof node.connect === "function") {
+    node.connect(target.input || target);
+  }
+}
+
+/**
+ * Knacksfreie Parameter-Änderung per setTargetAtTime (C¹-stetig, frei vom Safari/Firefox-p.value-Bug).
+ */
+function smoothSetAudioParam(param, targetValue, rawCtx, rampSec = 0.03) {
+  if (!param) return;
+  const val = Number.isFinite(targetValue) ? targetValue : 0;
+  const now = rawCtx?.currentTime || 0;
+  const state = rawCtx?.state || "suspended";
+  try {
+    const t = now + 0.004;
+    if (state === "running" && typeof param.setTargetAtTime === "function" && rampSec > 0.001) {
+      if (typeof param.cancelAndHoldAtTime === "function") {
+        param.cancelAndHoldAtTime(t);
+      } else if (typeof param.cancelScheduledValues === "function") {
+        param.cancelScheduledValues(t);
+      }
+      param.setTargetAtTime(val, t, Math.max(0.003, rampSec / 3));
+    } else {
+      param.cancelScheduledValues?.(now);
+      param.setValueAtTime?.(val, now);
+      param.value = val;
+    }
+  } catch (_) {
+    try { param.value = val; } catch (_e) {}
+  }
+}
+
+/**
+ * Erzeugt eine transparente Soft-Clipper-Kennlinie für WaveShaperNode:
+ * - Innerhalb [-0.72, +0.72] exakt linear (y = x, 0 % Verzerrung bei Normalpegel).
+ * - Oberhalb 0.72 weiche C¹-stetige tanh-Sättigung asymptotisch gegen ±0.94 (-0,54 dBFS),
+ *   sodass digitales 0-dBFS-Clipping (hartes Knacksen/Kratzen) physisch ausgeschlossen ist.
+ */
+function createSoftClipperCurve(samples = 4096) {
+  const curve = new Float32Array(samples);
+  const knee = 0.72;
+  const ceiling = 0.94;
+  const headroom = ceiling - knee;
+  for (let i = 0; i < samples; i++) {
+    const x = (i * 2) / (samples - 1) - 1;
+    const ax = Math.abs(x);
+    if (ax <= knee) {
+      curve[i] = x;
+    } else {
+      const y = knee + headroom * Math.tanh((ax - knee) / headroom);
+      curve[i] = x < 0 ? -y : y;
+    }
+  }
+  return curve;
+}
+
+/**
+ * Erzeugt synchron im RAM eine warme, dekorrelierte Stereo-Raum-Impulsantwort (ohne OfflineAudioContext!).
+ * RMS-normiert für gleichmäßigen, kontrollierten Hall-Pegel ohne extremen Nachverstärkungs-Boost.
+ */
+function buildNativeReverbIR(rawCtx, durationSec = 1.35, dampHz = 4800) {
+  const sr = rawCtx.sampleRate || 44100;
+  const len = Math.max(1024, Math.floor(sr * Math.max(0.4, Math.min(2.2, durationSec))));
+  const buffer = rawCtx.createBuffer(2, len, sr);
+  const attackSamples = Math.max(64, Math.floor(sr * 0.014));
+  const preDelaySamples = Math.floor(sr * 0.012);
+  // 1-Pol-Tiefpass-Koeffizient für warme, natürliche Höhendämpfung in der Hallfahne
+  const lpCoeff = Math.exp((-2 * Math.PI * Math.min(sr * 0.4, Math.max(1200, dampHz))) / sr);
+  const lpInv = 1 - lpCoeff;
+
+  const makeRng = (seed) => {
+    let a = seed >>> 0;
+    return () => {
+      a = (a + 0x6D2B79F5) >>> 0;
+      let t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return (((t ^ (t >>> 14)) >>> 0) / 4294967296) * 2 - 1;
+    };
+  };
+
+  let energySum = 0;
+  for (let ch = 0; ch < 2; ch++) {
+    const data = buffer.getChannelData(ch);
+    const rng = makeRng(ch === 0 ? 0x51A7BEEF : 0xC0FFEE42);
+    let lpState = 0;
+    const decayRate = 6.2 / Math.max(0.3, (len - preDelaySamples) / sr);
+    for (let i = preDelaySamples; i < len; i++) {
+      const rel = i - preDelaySamples;
+      const tSec = rel / sr;
+      const env = Math.exp(-decayRate * tSec);
+      const fadeIn = rel < attackSamples ? Math.sin((rel / attackSamples) * (Math.PI * 0.5)) : 1;
+      // Leichtes Ausblenden am absoluten Ende (10 ms) gegen IR-Abbruch
+      const tailLeft = len - i;
+      const fadeOut = tailLeft < 480 ? tailLeft / 480 : 1;
+      const white = rng();
+      lpState = lpState * lpCoeff + white * lpInv;
+      const sample = lpState * env * fadeIn * fadeOut;
+      data[i] = sample;
+      energySum += sample * sample;
+    }
+  }
+
+  // Exakte Faltungs-Energie-Normierung (L2-Norm pro Kanal = 0,85 → ~ -1,4 dB bei 100 % Wet,
+  // unabhängig von Sample-Rate und IR-Länge; niemals Übersteuerung im Hall-Bus)
+  const channelL2 = Math.sqrt(energySum / 2);
+  const normScale = channelL2 > 1e-6 ? (0.85 / channelL2) : 0.015;
+  for (let ch = 0; ch < 2; ch++) {
+    const data = buffer.getChannelData(ch);
+    for (let i = 0; i < len; i++) {
+      data[i] *= normScale;
+    }
+  }
+  return buffer;
+}
+
+/**
+ * Erzeugt einmalig einen nahtlos geloopten 4-Sekunden-Puffer mit echtem Rosa Rauschen (-3 dB/Okt., Paul Kellet).
+ */
+function buildLoopedPinkNoiseBuffer(rawCtx, seconds = 4.0) {
+  const sr = rawCtx.sampleRate || 44100;
+  const len = Math.max(sr, Math.floor(sr * seconds));
+  const buffer = rawCtx.createBuffer(1, len, sr);
+  const data = buffer.getChannelData(0);
+  let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+  // Warmlauf, damit der Filter bereits im eingeschwungenen Zustand startet
+  for (let i = 0; i < 512; i++) {
+    const white = Math.random() * 2 - 1;
+    b0 = 0.99886 * b0 + white * 0.0555179;
+    b1 = 0.99332 * b1 + white * 0.0750759;
+    b2 = 0.96900 * b2 + white * 0.1538520;
+    b3 = 0.86650 * b3 + white * 0.3104856;
+    b4 = 0.55000 * b4 + white * 0.5329522;
+    b5 = -0.7616 * b5 - white * 0.0168980;
+    b6 = white * 0.115926;
+  }
+  let maxAbs = 0.001;
+  for (let i = 0; i < len; i++) {
+    const white = Math.random() * 2 - 1;
+    b0 = 0.99886 * b0 + white * 0.0555179;
+    b1 = 0.99332 * b1 + white * 0.0750759;
+    b2 = 0.96900 * b2 + white * 0.1538520;
+    b3 = 0.86650 * b3 + white * 0.3104856;
+    b4 = 0.55000 * b4 + white * 0.5329522;
+    b5 = -0.7616 * b5 - white * 0.0168980;
+    const pink = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.11;
+    b6 = white * 0.115926;
+    data[i] = pink;
+    const a = Math.abs(pink);
+    if (a > maxAbs) maxAbs = a;
+  }
+  const scale = 0.82 / maxAbs;
+  for (let i = 0; i < len; i++) data[i] *= scale;
+  // Kurzer Crossfade (20 ms) an der Loop-Naht für 100 % knackfreie Endlosschleife
+  const xfade = Math.min(Math.floor(sr * 0.02), Math.floor(len * 0.05));
+  for (let i = 0; i < xfade; i++) {
+    const t = i / xfade;
+    data[i] = data[i] * t + data[len - xfade + i] * (1 - t);
+  }
+  return buffer;
+}
+
+function buildWhiteNoiseBuffer(rawCtx, seconds = 1.0) {
+  const sr = rawCtx.sampleRate || 44100;
+  const len = Math.max(4096, Math.floor(sr * seconds));
+  const buffer = rawCtx.createBuffer(1, len, sr);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < len; i++) data[i] = Math.random() * 2 - 1;
+  return buffer;
+}
+
 /**
  * Schlanker nativer WebAudio-Sampler für Studio-Samples.
- * Vermeidet komplexe Tone.Sampler/ToneBufferSource-Wrapper-Allokationen pro Note
- * und verhindert Audio-Buffer-Underruns / Knackser auf Safari & Chrome.
+ * Features:
+ * - Zero-Copy Trim-Offset (keine doppelten AudioBuffer im RAM).
+ * - Sample-Puffer-Ende-Schutz (blendet garantiert vor Ende des Samples aus → 0 Knackser bei hohen/langen Tönen).
+ * - Knacksfreies Ausblenden per setTargetAtTime (in allen Browsern C¹-stetig).
+ * - Anbindung an globales Voice-Budget & Same-Note-Anti-Stacking.
  */
 class EarLabSampledInstrument {
-  constructor(bufferMap, targetToneGain, options = {}) {
+  constructor(bufferMap, targetNode, options = {}) {
     this.urls = bufferMap || {};
     this.rawCtx = options.rawCtx;
-    this.targetToneGain = targetToneGain;
-    this.attackSec = options.attackSec ?? 0.0025;
+    this.targetNode = targetNode;
+    this.attackSec = Math.max(0.004, options.attackSec ?? 0.004);
     this.releaseSec = options.releaseSec ?? 0.55;
-    this.maxPolyphony = options.maxPolyphony ?? 18;
+    this.maxPolyphony = options.maxPolyphony ?? 14;
     this.getSoundProfile = typeof options.getSoundProfile === "function" ? options.getSoundProfile : null;
+    this.onVoiceStart = typeof options.onVoiceStart === "function" ? options.onVoiceStart : null;
+    this.onVoiceEnd = typeof options.onVoiceEnd === "function" ? options.onVoiceEnd : null;
     this.activeVoices = [];
     this._played = [];
     this._humanizeCounter = 0;
 
     this.samples = Object.entries(this.urls)
-      .map(([note, buffer]) => ({
-        note,
-        midi: EarLabSampledInstrument.noteToMidi(note),
-        buffer
-      }))
+      .map(([note, entry]) => {
+        const isObj = entry && typeof entry === "object" && entry.buffer;
+        return {
+          note,
+          midi: EarLabSampledInstrument.noteToMidi(note),
+          buffer: isObj ? entry.buffer : entry,
+          trimOffsetSec: isObj ? (entry.trimOffsetSec || 0) : 0
+        };
+      })
       .filter(entry => entry.midi !== null && entry.buffer)
       .sort((a, b) => a.midi - b.midi);
   }
@@ -70,6 +275,10 @@ class EarLabSampledInstrument {
     return (oct + 1) * 12 + pc;
   }
 
+  static midiToFreq(midi) {
+    return 440 * Math.pow(2, (midi - 69) / 12);
+  }
+
   findClosestSample(targetMidi) {
     let best = this.samples[0];
     let bestDist = Infinity;
@@ -83,24 +292,21 @@ class EarLabSampledInstrument {
     return best;
   }
 
-  connectGainToTarget(gainNode) {
-    connectAudioNodeToTarget(gainNode, this.targetToneGain);
-  }
-
-  retireVoice(voice, fadeSec = 0.035) {
+  retireVoice(voice, fadeSec = 0.032) {
     if (!voice || voice.released) return;
     voice.released = true;
     try {
       const now = this.rawCtx?.currentTime || 0;
+      const t = now + 0.006;
       const p = voice.gain.gain;
+      const tau = Math.max(0.004, fadeSec / 4.5);
       if (typeof p.cancelAndHoldAtTime === "function") {
-        p.cancelAndHoldAtTime(now);
+        p.cancelAndHoldAtTime(t);
       } else {
-        p.cancelScheduledValues(now);
-        p.setValueAtTime(Math.max(0.0001, Number(p.value) || 0.0001), now);
+        p.cancelScheduledValues(t);
       }
-      p.linearRampToValueAtTime(0, now + fadeSec);
-      voice.src.stop(now + fadeSec + 0.015);
+      p.setTargetAtTime(0, t, tau);
+      voice.src.stop(t + fadeSec + 0.045);
     } catch (_) {}
   }
 
@@ -109,22 +315,25 @@ class EarLabSampledInstrument {
     const noteList = Array.isArray(notes) ? notes : [notes];
     if (noteList.length === 0) return;
 
-    this._played.push({ notes: noteList, dur: durationSec, time: whenTime, vel: velocity });
-
     const now = this.rawCtx.currentTime || 0;
-    const startAt = Math.max(now + 0.022, Number.isFinite(whenTime) ? whenTime : now + 0.022);
+    const minLead = shouldUseLiteReverb() ? 0.032 : 0.022;
+    const startAt = Math.max(now + minLead, Number.isFinite(whenTime) ? whenTime : now + minLead);
     const dur = Math.max(0.06, Number(durationSec) || 0.6);
     const safeVel = Math.max(0.02, Math.min(1, Number.isFinite(velocity) ? velocity : 1));
     const prof = this.getSoundProfile ? this.getSoundProfile() : null;
-    const effAttackSec = Number.isFinite(envOverride?.attackSec)
-      ? Math.max(0.001, envOverride.attackSec)
-      : (prof ? (prof.attackSec ?? this.attackSec) : this.attackSec);
+    const effAttackSec = Math.max(
+      0.004,
+      Number.isFinite(envOverride?.attackSec)
+        ? envOverride.attackSec
+        : (prof ? (prof.attackSec ?? this.attackSec) : this.attackSec)
+    );
     const baseReleaseSec = Number.isFinite(envOverride?.releaseSec)
-      ? Math.max(0.03, envOverride.releaseSec)
+      ? Math.max(0.035, envOverride.releaseSec)
       : (prof ? (prof.releaseSec ?? this.releaseSec) : this.releaseSec);
     const effReleaseSec = (!Number.isFinite(envOverride?.releaseSec) && prof && noteList.length === 1 && dur <= 0.38)
       ? Math.min(baseReleaseSec, Math.max(0.32, dur * 1.45))
       : baseReleaseSec;
+
     const resolvedEntries = noteList
       .map(noteToken => ({ noteToken, targetMidi: EarLabSampledInstrument.noteToMidi(noteToken) }))
       .filter(entry => entry.targetMidi !== null);
@@ -135,6 +344,14 @@ class EarLabSampledInstrument {
     resolvedEntries.forEach(({ targetMidi }, entryIdx) => {
       const chosen = this.findClosestSample(targetMidi);
       if (!chosen) return;
+
+      // Same-Note-Anti-Stacking: gleiche Note auf demselben Stem weich ablösen statt Kammfilter-Stapel
+      for (let i = 0; i < this.activeVoices.length; i++) {
+        const existing = this.activeVoices[i];
+        if (!existing.released && existing.midi === targetMidi && existing.startAt <= startAt - 0.01) {
+          this.retireVoice(existing, 0.028);
+        }
+      }
 
       while (this.activeVoices.length >= this.maxPolyphony) {
         const oldest = this.activeVoices.shift();
@@ -164,11 +381,21 @@ class EarLabSampledInstrument {
 
       const envGain = this.rawCtx.createGain();
       const gainParam = envGain.gain;
-      const relAt = voiceStartAt + dur;
-      const peakAt = voiceStartAt + effAttackSec;
-      const fadeOutEnd = relAt + effReleaseSec;
-      const maxBufDur = (chosen.buffer?.duration || 4.0) / Math.max(0.25, rate);
-      const stopAt = Math.min(fadeOutEnd + 0.025, voiceStartAt + maxBufDur + 0.04);
+      const trimOff = Math.max(0, Math.min((chosen.buffer.duration || 0) - 0.06, chosen.trimOffsetSec || 0));
+      const availBufDur = Math.max(0.08, ((chosen.buffer.duration || 4.0) - trimOff) / Math.max(0.25, rate));
+      const safeEndCeiling = voiceStartAt + Math.max(0.06, availBufDur - 0.02);
+
+      const peakAt = Math.min(voiceStartAt + effAttackSec, safeEndCeiling - 0.03);
+      let relAt = voiceStartAt + dur;
+      let fadeOutEnd = relAt + effReleaseSec;
+
+      // Sample-Puffer-Ende-Schutz: jede Stimme blendet garantiert weich auf 0 aus, BEVOR der Puffer endet!
+      if (fadeOutEnd > safeEndCeiling) {
+        fadeOutEnd = safeEndCeiling;
+        const minRelSpan = Math.min(effReleaseSec, Math.max(0.04, availBufDur * 0.28));
+        relAt = Math.max(peakAt + 0.008, fadeOutEnd - minRelSpan);
+      }
+      const stopAt = fadeOutEnd + 0.025;
 
       gainParam.setValueAtTime(0.0001, voiceStartAt);
       gainParam.linearRampToValueAtTime(voiceVel, peakAt);
@@ -176,25 +403,36 @@ class EarLabSampledInstrument {
         const octFactor = Math.max(0.75, Math.min(1.06, 1.0 - (targetMidi - 60) * 0.006));
         const holdEndVel = Math.max(0.18 * voiceVel, Math.min(voiceVel * 0.95, voiceVel * prof.holdDecayFloor * octFactor));
         gainParam.exponentialRampToValueAtTime(holdEndVel, relAt);
-      } else {
+      } else if (relAt > peakAt) {
         gainParam.setValueAtTime(voiceVel, relAt);
       }
-      gainParam.exponentialRampToValueAtTime(0.001, fadeOutEnd);
-      gainParam.linearRampToValueAtTime(0, fadeOutEnd + 0.018);
+      gainParam.exponentialRampToValueAtTime(0.0008, Math.max(relAt + 0.02, fadeOutEnd - 0.012));
+      gainParam.linearRampToValueAtTime(0, fadeOutEnd);
 
       src.connect(envGain);
-      this.connectGainToTarget(envGain);
+      connectAudioNodeToTarget(envGain, this.targetNode);
 
-      const voice = { src, gain: envGain, released: false };
+      const voice = {
+        src,
+        gain: envGain,
+        midi: targetMidi,
+        startAt: voiceStartAt,
+        releaseAt: relAt,
+        released: false,
+        retire: (fade = 0.028) => this.retireVoice(voice, fade)
+      };
       this.activeVoices.push(voice);
+      this.onVoiceStart?.(voice);
 
       src.onended = () => {
-        this.activeVoices = this.activeVoices.filter(v => v !== voice);
+        const idx = this.activeVoices.indexOf(voice);
+        if (idx !== -1) this.activeVoices.splice(idx, 1);
+        this.onVoiceEnd?.(voice);
         try { src.disconnect(); } catch (_) {}
         try { envGain.disconnect(); } catch (_) {}
       };
 
-      src.start(voiceStartAt);
+      src.start(voiceStartAt, trimOff);
       src.stop(stopAt);
     });
   }
@@ -202,37 +440,174 @@ class EarLabSampledInstrument {
   releaseAll() {
     const copy = this.activeVoices.slice();
     this.activeVoices = [];
-    copy.forEach(v => this.retireVoice(v, 0.045));
+    copy.forEach(v => this.retireVoice(v, 0.038));
   }
 }
 
-const IOS_SILENT_WAV_DATA_URI = "data:audio/wav;base64,UklGRsQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-
 /**
- * Leichter Hall für schwächere Audio-Engines: Safari (Desktop & iOS, inkl. aller iOS-Browser/WKWebView)
- * und Mobilgeräte. Dort verzichtet die Engine auf den Freeverb (8 AudioWorklet-Kammfilter, rechnet
- * dauerhaft mit) und nutzt nur den nativen Faltungshall – sonst drohen Aussetzer/„Zerren“, besonders
- * mit Bluetooth-Kopfhörern (größere Puffer, Resampling).
+ * Schlanker nativer WebAudio-Synthesizer als Fallback (solange Samples laden oder für Theorie-/Klang-Demos).
+ * Ersetzt schwere Tone.PolySynth/Tone.AMSynth-Wrapper durch direkte OscillatorNode + BiquadFilterNode + GainNode
+ * mit garantiert knacksfreiem Ausblenden.
  */
-function shouldUseLiteReverb() {
-  if (typeof navigator === "undefined") return false;
-  const ua = String(navigator.userAgent || "");
-  const isAndroid = /Android/i.test(ua);
-  const isWebKitOnly = /AppleWebKit/i.test(ua) && !/Chrome|Chromium|Edg\/|OPR\//i.test(ua);
-  return isIOSLikeDevice() || isWebKitOnly || isAndroid || /CriOS|FxiOS/i.test(ua);
-}
+class EarLabNativeSynth {
+  constructor(rawCtx, targetNode, options = {}) {
+    this.rawCtx = rawCtx;
+    this.targetNode = targetNode;
+    this.oscType = options.oscType || "triangle";
+    this.filterHz = Number.isFinite(options.filterHz) ? options.filterHz : 0;
+    this.attack = Math.max(0.005, options.attack ?? 0.01);
+    this.decay = Math.max(0.04, options.decay ?? 0.5);
+    this.sustain = Math.max(0.02, Math.min(1, options.sustain ?? 0.35));
+    this.release = Math.max(0.04, options.release ?? 0.45);
+    this.baseGain = Number.isFinite(options.baseGain) ? options.baseGain : 0.32;
+    this.maxPolyphony = options.maxPolyphony ?? 10;
+    this.monophonic = Boolean(options.monophonic);
+    this.detuneSpread = Number.isFinite(options.detuneSpread) ? options.detuneSpread : 0;
+    this.onVoiceStart = typeof options.onVoiceStart === "function" ? options.onVoiceStart : null;
+    this.onVoiceEnd = typeof options.onVoiceEnd === "function" ? options.onVoiceEnd : null;
+    this.activeVoices = [];
+  }
 
-function isIOSLikeDevice() {
-  if (typeof navigator === "undefined") return false;
-  const ua = String(navigator.userAgent || "");
-  const platform = String(navigator.platform || "");
-  const maxTouch = Number(navigator.maxTouchPoints || 0);
-  return /iPad|iPhone|iPod/i.test(ua) || (platform === "MacIntel" && maxTouch > 1);
+  retireVoice(voice, fadeSec = 0.03) {
+    if (!voice || voice.released) return;
+    voice.released = true;
+    try {
+      const now = this.rawCtx?.currentTime || 0;
+      const t = now + 0.006;
+      const p = voice.gain.gain;
+      const tau = Math.max(0.004, fadeSec / 4.5);
+      if (typeof p.cancelAndHoldAtTime === "function") {
+        p.cancelAndHoldAtTime(t);
+      } else {
+        p.cancelScheduledValues(t);
+      }
+      p.setTargetAtTime(0, t, tau);
+      const stopAt = t + fadeSec + 0.05;
+      voice.oscs.forEach(o => { try { o.stop(stopAt); } catch (_) {} });
+    } catch (_) {}
+  }
+
+  triggerAttackRelease(notesOrFreqs, durationSec = 1.0, whenTime = null, velocity = 1) {
+    if (!this.rawCtx) return;
+    const list = Array.isArray(notesOrFreqs) ? notesOrFreqs : [notesOrFreqs];
+    if (list.length === 0) return;
+
+    const now = this.rawCtx.currentTime || 0;
+    const minLead = shouldUseLiteReverb() ? 0.032 : 0.022;
+    const startAt = Math.max(now + minLead, Number.isFinite(whenTime) ? whenTime : now + minLead);
+    const dur = Math.max(0.06, Number(durationSec) || 0.6);
+    const safeVel = Math.max(0.02, Math.min(1, Number.isFinite(velocity) ? velocity : 1));
+    const polyScale = list.length > 1 ? (1 / Math.sqrt(list.length)) : 1;
+
+    list.forEach(token => {
+      let freq = null;
+      let midi = null;
+      if (typeof token === "number" && Number.isFinite(token) && token > 15) {
+        freq = token;
+      } else {
+        midi = EarLabSampledInstrument.noteToMidi(token);
+        if (midi !== null) freq = EarLabSampledInstrument.midiToFreq(midi);
+      }
+      if (!Number.isFinite(freq) || freq <= 15) return;
+
+      if (this.monophonic) {
+        this.releaseAll();
+      } else {
+        while (this.activeVoices.length >= this.maxPolyphony) {
+          const oldest = this.activeVoices.shift();
+          this.retireVoice(oldest, 0.025);
+        }
+      }
+
+      const envGain = this.rawCtx.createGain();
+      let dest = envGain;
+      let filter = null;
+      if (this.filterHz > 0) {
+        filter = this.rawCtx.createBiquadFilter();
+        filter.type = "lowpass";
+        filter.frequency.value = this.filterHz;
+        filter.Q.value = 0.7;
+        filter.connect(envGain);
+        dest = filter;
+      }
+
+      const oscs = [];
+      const detunes = this.detuneSpread > 0 ? [-this.detuneSpread, this.detuneSpread] : [0];
+      const oscGainScale = 1 / detunes.length;
+      detunes.forEach(det => {
+        const osc = this.rawCtx.createOscillator();
+        osc.type = this.oscType;
+        osc.frequency.setValueAtTime(freq, startAt);
+        if (det !== 0) osc.detune.setValueAtTime(det, startAt);
+        osc.connect(dest);
+        oscs.push(osc);
+      });
+
+      const peak = Math.min(0.9, this.baseGain * safeVel * polyScale * oscGainScale);
+      const sustainVal = Math.max(0.0005, peak * this.sustain);
+      const peakAt = startAt + this.attack;
+      const decayEnd = Math.min(startAt + dur, peakAt + this.decay);
+      const relAt = Math.max(peakAt + 0.01, startAt + dur);
+      const fadeEnd = relAt + this.release;
+
+      const gp = envGain.gain;
+      gp.setValueAtTime(0.0001, startAt);
+      gp.linearRampToValueAtTime(peak, peakAt);
+      if (decayEnd > peakAt + 0.005) {
+        gp.exponentialRampToValueAtTime(sustainVal, decayEnd);
+      }
+      if (relAt > decayEnd) {
+        gp.setValueAtTime(sustainVal, relAt);
+      }
+      gp.exponentialRampToValueAtTime(0.0005, Math.max(relAt + 0.02, fadeEnd - 0.012));
+      gp.linearRampToValueAtTime(0, fadeEnd);
+
+      connectAudioNodeToTarget(envGain, this.targetNode);
+
+      const voice = {
+        oscs,
+        filter,
+        gain: envGain,
+        midi,
+        startAt,
+        releaseAt: relAt,
+        released: false,
+        retire: (fade = 0.028) => this.retireVoice(voice, fade)
+      };
+      this.activeVoices.push(voice);
+      this.onVoiceStart?.(voice);
+
+      const primaryOsc = oscs[0];
+      primaryOsc.onended = () => {
+        const idx = this.activeVoices.indexOf(voice);
+        if (idx !== -1) this.activeVoices.splice(idx, 1);
+        this.onVoiceEnd?.(voice);
+        oscs.forEach(o => { try { o.disconnect(); } catch (_) {} });
+        try { filter?.disconnect(); } catch (_) {}
+        try { envGain.disconnect(); } catch (_) {}
+      };
+
+      const stopAt = fadeEnd + 0.03;
+      oscs.forEach(o => {
+        o.start(startAt);
+        o.stop(stopAt);
+      });
+    });
+  }
+
+  triggerRelease() {
+    this.releaseAll();
+  }
+
+  releaseAll() {
+    const copy = this.activeVoices.slice();
+    this.activeVoices = [];
+    copy.forEach(v => this.retireVoice(v, 0.035));
+  }
 }
 
 /**
- * EarLab Audio Engine
- * Lineare Gain-Architektur für verzögerungsfreie Mixer- und Master-Steuerung.
+ * EarLab Audio Engine (100 % native Web Audio API)
  */
 class AudioEngine {
   constructor() {
@@ -241,21 +616,23 @@ class AudioEngine {
     this.samplesLoaded = false;
     this.wave1SamplesReady = false;
     this.wave1SamplesPromise = null;
-    this.contextConfigured = false;
     this.preparePromise = null;
-    this.initPromise = null;
+    this.rawCtx = null;
     this._iosUnlockAudioEl = null;
     this._iosHtmlAudioUnlocked = false;
     this._silentBufferPlayed = false;
 
-    this.masterLimiter = null;
+    this.liteReverb = shouldUseLiteReverb();
+    this.maxGlobalVoices = this.liteReverb ? 22 : 36;
+    this.globalVoices = [];
+
+    this.softClipper = null;
     this.limiterTrim = null;
+    this.masterLimiter = null;
     this.masterGain = null;
-    this.reverb = null;
-    this.reverbReturn = null;
+    this.stemMixCompGain = null;
+    this.stemReverbBusGain = null;
     this.pianoReverb = null;
-    this.pianoReverbBoost = null;
-    this.pianoFreeverb = null;
     this.pianoReverbReturn = null;
     this.pianoReverbDamp = null;
     this.pianoReverbSend = null;
@@ -268,8 +645,12 @@ class AudioEngine {
     this.instrumentReverbMix = { ...STEM_REVERB_BY_CHAR.natural };
     this.dronePadGainScale = 0.60;
     this.droneToneGainScale = 1.00;
+    this.masterLevel = 0.67;
+    this.masterMuted = false;
 
-    // 5 Stem-Synthesizer und zugehörige lineare Gain-Knoten
+    this.stemLevels = { piano: 0.90, guitar: 0, strings: 0, brass: 0, voice: 0, bass: 0 };
+    this.stemLoadingPromises = {};
+
     this.piano = null;
     this.pianoFallbackSynth = null;
     this.pianoGain = null;
@@ -309,6 +690,9 @@ class AudioEngine {
     this.percSampleGain = null;
     this.percUsingSamples = false;
 
+    this.pinkNoiseBuffer = null;
+    this.whiteNoiseBuffer = null;
+
     this.activeTimers = [];
     this.activeDemoNodes = [];
     this.activeNoiseSession = null;
@@ -316,48 +700,52 @@ class AudioEngine {
 
     // Trockener Schutz-Limiter für Frequenz- & Noise-Training (-14 dBFS vor Master)
     this.prodSafetyLimiter = null;
-
-    // Perkussions-Synthesizer für Rhythmus-Hörbeispiele (werden bei Bedarf initialisiert)
-    this.percInitialized = false;
-    this.percMembrane = null;
-    this.percSnare = null;
-    this.percHat = null;
-    this.percShaker = null;
-    this.percTone = null;
   }
 
   getRawAudioContext() {
-    if (typeof Tone === "undefined") return null;
-    try {
-      const ctx = typeof Tone.getContext === "function" ? Tone.getContext() : Tone.context;
-      return ctx?.rawContext || ctx?._context || Tone.context?.rawContext || Tone.context?._context || null;
-    } catch (_) {
-      return null;
+    return this.rawCtx || null;
+  }
+
+  /**
+   * Einheitliche Hardware-Audio-Uhr (Sekunden) für alle Sequenzen, Rhythmen & das Metronom.
+   */
+  getAudioTime() {
+    if (this.rawCtx && Number.isFinite(this.rawCtx.currentTime)) {
+      return this.rawCtx.currentTime;
     }
+    return Date.now() / 1000;
+  }
+
+  getScheduleLookaheadSec() {
+    return this.liteReverb ? 0.045 : 0.028;
   }
 
   ensurePlaybackContext() {
-    if (typeof Tone === "undefined") return null;
-    if (!this.contextConfigured && typeof Tone.Context === "function" && typeof Tone.setContext === "function") {
-      try {
-        const oldCtx = typeof Tone.getContext === "function" ? Tone.getContext() : Tone.context;
-        const playbackCtx = new Tone.Context({ latencyHint: "playback", lookAhead: 0.08 });
-        Tone.setContext(playbackCtx);
-        if (oldCtx && oldCtx !== playbackCtx) oldCtx.dispose?.();
-        this.contextConfigured = true;
-      } catch (_) {}
+    if (this.rawCtx && this.rawCtx.state !== "closed") {
+      return this.rawCtx;
     }
-    const rawCtx = this.getRawAudioContext();
-    if (rawCtx && !rawCtx._earlabStateListenerAttached && typeof rawCtx.addEventListener === "function") {
-      rawCtx._earlabStateListenerAttached = true;
-      rawCtx.addEventListener("statechange", () => {
-        if (rawCtx.state === "interrupted" || rawCtx.state === "suspended") {
+    const Ctx = typeof window !== "undefined" ? (window.AudioContext || window.webkitAudioContext) : null;
+    if (!Ctx) return null;
+    try {
+      // "playback" nutzt größere Hardware-Puffer → drastisch stabiler auf Mobilgeräten & Bluetooth
+      this.rawCtx = new Ctx({ latencyHint: "playback" });
+    } catch (_) {
+      try {
+        this.rawCtx = new Ctx();
+      } catch (_e) {
+        return null;
+      }
+    }
+    if (this.rawCtx && !this.rawCtx._earlabStateListenerAttached && typeof this.rawCtx.addEventListener === "function") {
+      this.rawCtx._earlabStateListenerAttached = true;
+      this.rawCtx.addEventListener("statechange", () => {
+        if (this.rawCtx.state === "interrupted" || this.rawCtx.state === "suspended") {
           this._iosHtmlAudioUnlocked = false;
           this._silentBufferPlayed = false;
         }
       });
     }
-    return rawCtx;
+    return this.rawCtx;
   }
 
   isAudioUnlocked() {
@@ -372,11 +760,33 @@ class AudioEngine {
     this._silentBufferPlayed = false;
   }
 
+  registerVoice(voice) {
+    if (!voice) return;
+    this.globalVoices.push(voice);
+    if (this.globalVoices.length > this.maxGlobalVoices) {
+      const now = this.rawCtx?.currentTime || 0;
+      // Bevorzugt eine bereits im Release befindliche Stimme ablösen, sonst die älteste aktive Stimme
+      let victimIdx = this.globalVoices.findIndex(v => v !== voice && !v.released && v.releaseAt <= now);
+      if (victimIdx === -1) {
+        victimIdx = this.globalVoices.findIndex(v => v !== voice && !v.released);
+      }
+      if (victimIdx !== -1) {
+        const victim = this.globalVoices[victimIdx];
+        victim.retire?.(0.024);
+      }
+    }
+  }
+
+  unregisterVoice(voice) {
+    const idx = this.globalVoices.indexOf(voice);
+    if (idx !== -1) this.globalVoices.splice(idx, 1);
+  }
+
   /**
    * Synchroner Audio-Unlock direkt innerhalb einer Nutzer-Geste (insbesondere iOS Safari & WKWebView):
    * 1. Setzt iOS 17+ AudioSession auf "playback" (umgeht Hardware-Stummschalter).
-   * 2. Spielt einen winzigen stummen HTML5-<audio playsinline>-WAV-Clip (umgeht Stummschalter auf iOS < 17 & WKWebView).
-   * 3. Weckt den aktiven WebAudio-Kontext aus "suspended" UND iOS-"interrupted" auf + spielt 1-Sample-Silent-Buffer.
+   * 2. Spielt einen winzigen stummen HTML5-<audio playsinline>-WAV-Clip (iOS < 17 & WKWebView).
+   * 3. Weckt den nativen WebAudio-Kontext aus "suspended" / "interrupted" + 1-Sample-Silent-Buffer.
    */
   unlockAudioSessionSync() {
     try {
@@ -435,84 +845,151 @@ class AudioEngine {
       } catch (_) {}
     }
 
-    if (typeof Tone !== "undefined" && typeof Tone.start === "function") {
-      try {
-        Promise.resolve(Tone.start()).catch(() => {});
-      } catch (_) {}
-    }
-
     return rawCtx;
+  }
+
+  /**
+   * Automatisches Headroom-Scaling bei mehreren gleichzeitig aktiven Mixer-Spuren:
+   * - Ein einzelnes Instrument bleibt bei Faktor 1,0 (unveränderte Lautstärke).
+   * - Bei 2–6 gleichzeitig aktiven Spuren wird der Summenbus sanft abgesenkt, sodass
+   *   weder der Master-Compressor pumpt noch Transienten übersteuern.
+   */
+  computeMultiStemCompensation() {
+    let effSum = 0;
+    Object.keys(SAMPLED_STEM_CONFIG).forEach(k => {
+      const lv = Math.max(0, Number(this.stemLevels[k]) || 0);
+      if (lv > 0.005) {
+        effSum += lv * (this.stemGainMultipliers[k] || 0.75);
+      }
+    });
+    if (effSum <= 0.95) return 1.0;
+    return Math.max(0.38, Math.min(1.0, 1 / Math.pow(effSum / 0.95, 0.56)));
+  }
+
+  updateMultiStemCompensation(rampSec = 0.045) {
+    if (!this.rawCtx) return;
+    const comp = this.computeMultiStemCompensation();
+    smoothSetAudioParam(this.stemMixCompGain?.gain, comp, this.rawCtx, rampSec);
+    // Hall-Bus noch etwas ruhiger halten, wenn viele Spuren gleichzeitig senden
+    const revComp = Math.max(0.32, Math.min(1.0, comp * 0.95));
+    smoothSetAudioParam(this.stemReverbBusGain?.gain, revComp, this.rawCtx, rampSec);
+  }
+
+  hasAnyActiveReverb() {
+    return Object.values(this.instrumentReverbMix || {}).some(v => Number(v) > 0.005);
+  }
+
+  syncReverbReturnState() {
+    if (!this.pianoReverbReturn?.gain || !this.rawCtx) return;
+    const target = this.hasAnyActiveReverb() ? 0.55 : 0;
+    smoothSetAudioParam(this.pianoReverbReturn.gain, target, this.rawCtx, 0.06);
   }
 
   buildAudioGraphSync(initialMaster = 0.67, initialMuted = false, initialMixer = null) {
     if (this.graphBuilt) return true;
 
-    this.ensurePlaybackContext();
-
-    // Master-Limiter & Master-Lautstärke.
-    // Früher Tone.Limiter(-0.3): Mit dessen 30-dB-Knie ließ er Spitzen dichter Akkorde/mehrerer Instrumente
-    // bis ca. +5 dBFS durch – am Ausgang (Lautsprecher/Bluetooth) wurde dann hart geclippt („Zerren“).
-    // Jetzt: Schwelle -4 dB, schmales Knie, 200 ms Release. Offline gemessen: +5 dB-Akkord → -2,5 dBFS,
-    // Verzerrung 0,3 % statt 2,3 %. Die automatische Makeup-Verstärkung des Web-Audio-Kompressors (+1,9 dB)
-    // gleicht limiterTrim aus, damit normale Pegel exakt unverändert bleiben.
-    this.limiterTrim = new Tone.Gain(Math.pow(10, -1.9 / 20)).toDestination();
-    this.masterLimiter = new Tone.Compressor({
-      threshold: -4,
-      ratio: 20,
-      knee: 2,
-      attack: 0.001,
-      release: 0.2
-    }).connect(this.limiterTrim);
-    const startMaster = initialMuted ? 0 : initialMaster * 0.45;
-    this.masterGain = new Tone.Gain(startMaster).connect(this.masterLimiter);
-
-    // Früherer allgemeiner Hall-Bus (eigener Faltungshall) entfällt: Alle Instrumente und Demos laufen
-    // über den Klavier-Hall-Bus (pianoReverbDamp). Ein ungenutzter ConvolverNode kostete nur Rechenzeit.
+    const rawCtx = this.ensurePlaybackContext();
+    if (!rawCtx) return false;
     this.liteReverb = shouldUseLiteReverb();
+    this.maxGlobalVoices = this.liteReverb ? 22 : 36;
 
+    // 1. Klippsichere Master-Ausgangskette:
+    //    masterGain → masterLimiter (transparenter Peak-Compressor) → limiterTrim → softClipper (tanh ab -2,8 dB) → destination
+    this.softClipper = rawCtx.createWaveShaper();
+    this.softClipper.curve = createSoftClipperCurve(4096);
+    this.softClipper.oversample = "none";
+    this.softClipper.connect(rawCtx.destination);
+
+    this.limiterTrim = rawCtx.createGain();
+    this.limiterTrim.gain.value = Math.pow(10, -2.0 / 20);
+    this.limiterTrim.connect(this.softClipper);
+
+    this.masterLimiter = rawCtx.createDynamicsCompressor();
+    this.masterLimiter.threshold.value = -8;
+    this.masterLimiter.knee.value = 8;
+    this.masterLimiter.ratio.value = 10;
+    this.masterLimiter.attack.value = 0.003;
+    this.masterLimiter.release.value = 0.18;
+    this.masterLimiter.connect(this.limiterTrim);
+
+    this.masterLevel = Number.isFinite(initialMaster) ? initialMaster : 0.67;
+    this.masterMuted = Boolean(initialMuted);
+    this.masterGain = rawCtx.createGain();
+    this.masterGain.gain.value = this.masterMuted ? 0 : this.masterLevel * 0.48;
+    this.masterGain.connect(this.masterLimiter);
+
+    // Gemeinsamer Summenbus für die 6 Mixer-Spuren (automatischer Headroom bei Mehrspur-Mix)
+    this.stemMixCompGain = rawCtx.createGain();
+    this.stemMixCompGain.gain.value = 1.0;
+    this.stemMixCompGain.connect(this.masterGain);
+
+    // 2. Schlanker, synchron generierter Faltungshall (0 OfflineAudioContext, 0 Freeverb, kein 7,5×-Boost)
     const initPianoProf = PIANO_CHARACTER_PROFILES[this.pianoCharacter] || PIANO_CHARACTER_PROFILES.natural;
     const initPianoMix = Number.isFinite(this.instrumentReverbMix?.piano)
       ? Math.max(0, Math.min(1, this.instrumentReverbMix.piano))
       : (Number.isFinite(this.pianoReverbMix) ? Math.max(0, Math.min(1, this.pianoReverbMix)) : initPianoProf.defaultReverb);
-    this.pianoReverbReturn = new Tone.Gain(1.0).connect(this.masterGain);
-    this.pianoReverbDamp = new Tone.Filter(initPianoProf.reverbDampHz, "lowpass");
-    this.pianoReverbSend = new Tone.Gain(initPianoMix * 1.15).connect(this.pianoReverbDamp);
-    this.stemReverbSends = { piano: this.pianoReverbSend };
 
-    // Sofortige Stereo-Erstreflexionen + synchrones Raum-Tank-Netzwerk (unabhängig von OfflineAudioContext)
-    if (typeof Tone?.Delay === "function" && typeof Tone?.Panner === "function") {
-      const earlyGainL = new Tone.Gain(0.32).connect(this.pianoReverbReturn);
-      const earlyPanL = new Tone.Panner(-0.55).connect(earlyGainL);
-      const earlyTapL = new Tone.Delay(0.017).connect(earlyPanL);
-      const earlyGainR = new Tone.Gain(0.32).connect(this.pianoReverbReturn);
-      const earlyPanR = new Tone.Panner(0.55).connect(earlyGainR);
-      const earlyTapR = new Tone.Delay(0.027).connect(earlyPanR);
-      this.pianoReverbDamp.connect(earlyTapL);
-      this.pianoReverbDamp.connect(earlyTapR);
-    }
-    // Freeverb nur auf leistungsstarken Engines (siehe shouldUseLiteReverb)
-    if (!this.liteReverb && typeof Tone?.Freeverb === "function") {
-      this.pianoFreeverb = new Tone.Freeverb({
-        roomSize: initPianoProf.roomSize,
-        dampening: initPianoProf.reverbDampHz
-      });
-      this.pianoFreeverb.wet.value = 1.0;
-      const freeverbOut = new Tone.Gain(0.68).connect(this.pianoReverbReturn);
-      this.pianoFreeverb.connect(freeverbOut);
-      this.pianoReverbDamp.connect(this.pianoFreeverb);
-    }
-    if (typeof Tone?.Reverb === "function") {
-      // Ohne Freeverb trägt der Faltungshall allein: Pegel so angehoben, dass die Hall-Energie gleich bleibt (gemessen)
-      this.pianoReverbBoost = new Tone.Gain(this.liteReverb ? 7.5 : 2.8).connect(this.pianoReverbReturn);
-      this.pianoReverb = new Tone.Reverb({
-        decay: 2.35,
-        preDelay: 0.016,
-        wet: 1.0
-      }).connect(this.pianoReverbBoost);
-      this.pianoReverbDamp.connect(this.pianoReverb);
-      Promise.resolve(this.pianoReverb.generate()).catch(() => {});
+    this.pianoReverbReturn = rawCtx.createGain();
+    this.pianoReverbReturn.gain.value = this.hasAnyActiveReverb() ? 0.55 : 0;
+    this.pianoReverbReturn.connect(this.masterGain);
+
+    this.pianoReverbDamp = rawCtx.createBiquadFilter();
+    this.pianoReverbDamp.type = "lowpass";
+    this.pianoReverbDamp.frequency.value = initPianoProf.reverbDampHz;
+    this.pianoReverbDamp.Q.value = 0.7;
+
+    this.stemReverbBusGain = rawCtx.createGain();
+    this.stemReverbBusGain.gain.value = 1.0;
+    this.stemReverbBusGain.connect(this.pianoReverbDamp);
+
+    // Dezente Stereo-Erstreflexionen (sehr leichtgewichtig)
+    try {
+      const earlyTapL = rawCtx.createDelay(0.06);
+      earlyTapL.delayTime.value = 0.017;
+      const earlyGainL = rawCtx.createGain();
+      earlyGainL.gain.value = 0.16;
+      const earlyTapR = rawCtx.createDelay(0.06);
+      earlyTapR.delayTime.value = 0.026;
+      const earlyGainR = rawCtx.createGain();
+      earlyGainR.gain.value = 0.16;
+
+      if (typeof rawCtx.createStereoPanner === "function") {
+        const panL = rawCtx.createStereoPanner();
+        panL.pan.value = -0.55;
+        const panR = rawCtx.createStereoPanner();
+        panR.pan.value = 0.55;
+        this.pianoReverbDamp.connect(earlyTapL);
+        earlyTapL.connect(panL);
+        panL.connect(earlyGainL);
+        earlyGainL.connect(this.pianoReverbReturn);
+
+        this.pianoReverbDamp.connect(earlyTapR);
+        earlyTapR.connect(panR);
+        panR.connect(earlyGainR);
+        earlyGainR.connect(this.pianoReverbReturn);
+      } else {
+        this.pianoReverbDamp.connect(earlyTapL);
+        earlyTapL.connect(earlyGainL);
+        earlyGainL.connect(this.pianoReverbReturn);
+      }
+    } catch (_) {}
+
+    // Native ConvolverNode mit synchron berechneter, kurzer & warmer IR
+    if (typeof rawCtx.createConvolver === "function") {
+      try {
+        this.pianoReverb = rawCtx.createConvolver();
+        this.pianoReverb.normalize = false;
+        this.pianoReverb.buffer = buildNativeReverbIR(
+          rawCtx,
+          this.liteReverb ? 1.15 : 1.65,
+          initPianoProf.reverbDampHz
+        );
+        this.pianoReverbDamp.connect(this.pianoReverb);
+        this.pianoReverb.connect(this.pianoReverbReturn);
+      } catch (_) {}
     }
 
+    // 3. Die 6 Instrumenten-Stems + schlanke native Fallback-Synths
     const levels = initialMixer || {
       piano: 0.90,
       guitar: 0.00,
@@ -521,72 +998,83 @@ class AudioEngine {
       voice: 0.00,
       bass: 0.00
     };
+    Object.keys(SAMPLED_STEM_CONFIG).forEach(k => {
+      const lv = Number(levels[k]);
+      this.stemLevels[k] = Number.isFinite(lv) ? Math.max(0, Math.min(1, lv)) : 0;
+    });
 
-    const wireStemReverbSend = (stemKey, gainNode) => {
+    const voiceHooks = {
+      onVoiceStart: (v) => this.registerVoice(v),
+      onVoiceEnd: (v) => this.unregisterVoice(v)
+    };
+
+    const wireStemBus = (stemKey) => {
+      const gainNode = rawCtx.createGain();
+      gainNode.gain.value = this.stemLevels[stemKey] * this.stemGainMultipliers[stemKey];
+      gainNode.connect(this.stemMixCompGain);
+
       const stemMix = Number.isFinite(this.instrumentReverbMix?.[stemKey])
         ? Math.max(0, Math.min(1, this.instrumentReverbMix[stemKey]))
         : initPianoMix;
-      const sendNode = new Tone.Gain(stemMix * 1.15).connect(this.pianoReverbDamp);
-      this.stemReverbSends[stemKey] = sendNode;
+      const sendNode = rawCtx.createGain();
+      sendNode.gain.value = stemMix;
+      sendNode.connect(this.stemReverbBusGain);
       gainNode.connect(sendNode);
+
+      this[`${stemKey}Gain`] = gainNode;
+      this.stemReverbSends[stemKey] = sendNode;
+      if (stemKey === "piano") this.pianoReverbSend = sendNode;
+      return gainNode;
     };
 
-    // 1. Klavier (Synth als Fallback, wird bei geladenem DAW-Pack durch nativen EarLabSampledInstrument ersetzt)
-    this.pianoGain = new Tone.Gain(levels.piano * this.stemGainMultipliers.piano).connect(this.masterGain);
-    this.pianoGain.connect(this.pianoReverbSend);
-    this.pianoToneFilter = new Tone.Filter(initPianoProf.filterHz, "lowpass").connect(this.pianoGain);
-    this.pianoFallbackSynth = new Tone.PolySynth(Tone.Synth, {
-      oscillator: { type: "triangle8" },
-      envelope: { attack: 0.006, decay: 1.4, sustain: 0.30, release: 1.3 }
-    }).connect(this.pianoToneFilter);
+    // 1. Klavier
+    const pianoGain = wireStemBus("piano");
+    this.pianoToneFilter = rawCtx.createBiquadFilter();
+    this.pianoToneFilter.type = "lowpass";
+    this.pianoToneFilter.frequency.value = initPianoProf.filterHz;
+    this.pianoToneFilter.Q.value = 0.7;
+    this.pianoToneFilter.connect(pianoGain);
+    this.pianoFallbackSynth = new EarLabNativeSynth(rawCtx, this.pianoToneFilter, {
+      oscType: "triangle", filterHz: 3200, attack: 0.006, decay: 1.2, sustain: 0.25, release: 0.85, baseGain: 0.36, maxPolyphony: 12, ...voiceHooks
+    });
     this.piano = this.pianoFallbackSynth;
 
     // 2. Gitarre
-    this.guitarGain = new Tone.Gain(levels.guitar * this.stemGainMultipliers.guitar).connect(this.masterGain);
-    wireStemReverbSend("guitar", this.guitarGain);
-    this.guitarFallbackSynth = new Tone.PolySynth(Tone.Synth, {
-      oscillator: { type: "triangle" },
-      envelope: { attack: 0.015, decay: 0.95, sustain: 0.22, release: 1.0 }
-    }).connect(this.guitarGain);
+    const guitarGain = wireStemBus("guitar");
+    this.guitarFallbackSynth = new EarLabNativeSynth(rawCtx, guitarGain, {
+      oscType: "triangle", filterHz: 2600, attack: 0.008, decay: 0.85, sustain: 0.20, release: 0.75, baseGain: 0.34, maxPolyphony: 10, ...voiceHooks
+    });
     this.guitar = this.guitarFallbackSynth;
 
     // 3. Streicher
-    this.stringsGain = new Tone.Gain(levels.strings * this.stemGainMultipliers.strings).connect(this.masterGain);
-    wireStemReverbSend("strings", this.stringsGain);
-    this.stringsFallbackSynth = new Tone.PolySynth(Tone.AMSynth, {
-      harmonicity: 1.25,
-      envelope: { attack: 0.30, decay: 0.45, sustain: 0.85, release: 1.5 }
-    }).connect(this.stringsGain);
+    const stringsGain = wireStemBus("strings");
+    this.stringsFallbackSynth = new EarLabNativeSynth(rawCtx, stringsGain, {
+      oscType: "sawtooth", filterHz: 1850, attack: 0.20, decay: 0.35, sustain: 0.78, release: 0.85, baseGain: 0.22, detuneSpread: 5, maxPolyphony: 10, ...voiceHooks
+    });
     this.strings = this.stringsFallbackSynth;
 
     // 4. Bläser
-    this.brassGain = new Tone.Gain(levels.brass * this.stemGainMultipliers.brass).connect(this.masterGain);
-    wireStemReverbSend("brass", this.brassGain);
-    this.brassFallbackSynth = new Tone.PolySynth(Tone.Synth, {
-      oscillator: { type: "sawtooth" },
-      envelope: { attack: 0.07, decay: 0.35, sustain: 0.65, release: 0.8 }
-    }).connect(this.brassGain);
+    const brassGain = wireStemBus("brass");
+    this.brassFallbackSynth = new EarLabNativeSynth(rawCtx, brassGain, {
+      oscType: "sawtooth", filterHz: 2100, attack: 0.055, decay: 0.25, sustain: 0.65, release: 0.55, baseGain: 0.24, maxPolyphony: 10, ...voiceHooks
+    });
     this.brass = this.brassFallbackSynth;
 
-    // 5. Stimme (Chor; mit regelbarem Raumklang-Send)
-    this.voiceGain = new Tone.Gain((levels.voice || 0) * this.stemGainMultipliers.voice).connect(this.masterGain);
-    wireStemReverbSend("voice", this.voiceGain);
-    this.voiceFallbackSynth = new Tone.PolySynth(Tone.Synth, {
-      oscillator: { type: "triangle8" },
-      envelope: { attack: 0.14, decay: 0.25, sustain: 0.82, release: 0.65 }
-    }).connect(this.voiceGain);
+    // 5. Stimme (Chor)
+    const voiceGain = wireStemBus("voice");
+    this.voiceFallbackSynth = new EarLabNativeSynth(rawCtx, voiceGain, {
+      oscType: "triangle", filterHz: 1900, attack: 0.14, decay: 0.22, sustain: 0.80, release: 0.60, baseGain: 0.30, detuneSpread: 4, maxPolyphony: 10, ...voiceHooks
+    });
     this.voice = this.voiceFallbackSynth;
 
-    // 6. Bass (mit eigenem Send; Standardwert niedrig für definiertes Fundament)
-    this.bassGain = new Tone.Gain(levels.bass * this.stemGainMultipliers.bass).connect(this.masterGain);
-    wireStemReverbSend("bass", this.bassGain);
-    const bassFallbackFilter = new Tone.Filter(380, "lowpass").connect(this.bassGain);
-    this.bassFallbackSynth = new Tone.MonoSynth({
-      oscillator: { type: "triangle" },
-      envelope: { attack: 0.01, decay: 0.6, sustain: 0.45, release: 0.6 }
-    }).connect(bassFallbackFilter);
+    // 6. Bass
+    const bassGain = wireStemBus("bass");
+    this.bassFallbackSynth = new EarLabNativeSynth(rawCtx, bassGain, {
+      oscType: "triangle", filterHz: 420, attack: 0.008, decay: 0.50, sustain: 0.45, release: 0.35, baseGain: 0.44, monophonic: true, maxPolyphony: 2, ...voiceHooks
+    });
     this.bass = this.bassFallbackSynth;
 
+    this.updateMultiStemCompensation(0);
     this.graphBuilt = true;
     this.isInitialized = true;
     return true;
@@ -635,10 +1123,10 @@ class AudioEngine {
   }
 
   async init(initialMaster = 0.67, initialMuted = false, initialMixer = null) {
-    // 1. User-Geste & iOS-AudioSession synchron vor jedem await erfassen (inkl. Stummschalter-Bypass)
+    // 1. User-Geste & iOS-AudioSession synchron vor jedem await erfassen
     const rawCtx = this.unlockAudioSessionSync();
 
-    // 2. Audio-Graph synchron aufbauen -> Fallback-Synths sind sofort spielbereit (nie dauerhaft blockiert!)
+    // 2. Audio-Graph synchron aufbauen -> Fallback-Synths sind sofort spielbereit
     try {
       this.buildAudioGraphSync(initialMaster, initialMuted, initialMixer);
     } catch (err) {
@@ -651,28 +1139,19 @@ class AudioEngine {
       this.prepareAudioGraph(initialMaster, initialMuted, initialMixer).catch(() => {});
     }
 
-    // 4. Context-Resume mit kurzem Timeout abwarten (hängt niemals endlos, selbst außerhalb einer iOS-Geste!)
-    if (rawCtx && rawCtx.state !== "running") {
-      const resumeAttempts = [];
-      if (typeof rawCtx.resume === "function") {
-        resumeAttempts.push(Promise.resolve(rawCtx.resume()).catch(() => {}));
-      }
-      if (typeof Tone?.start === "function") {
-        resumeAttempts.push(Promise.resolve(Tone.start()).catch(() => {}));
-      }
-      if (resumeAttempts.length > 0) {
-        await Promise.race([
-          Promise.all(resumeAttempts),
-          new Promise(resolve => setTimeout(resolve, 260))
-        ]);
-      }
+    // 4. Context-Resume mit kurzem Timeout abwarten
+    if (rawCtx && rawCtx.state !== "running" && typeof rawCtx.resume === "function") {
+      await Promise.race([
+        Promise.resolve(rawCtx.resume()).catch(() => {}),
+        new Promise(resolve => setTimeout(resolve, 260))
+      ]);
     }
 
-    // 5. Welle 1 (Klavier, Stimme, Perkussion) kurz abwarten, aber mit Sicherheits-Timeout für langsames/gestocktes iOS
+    // 5. Welle 1 (Klavier, Perkussion, Stimme & aktive Stems) kurz abwarten
     if (!this.wave1SamplesReady && this.wave1SamplesPromise) {
       await Promise.race([
         this.wave1SamplesPromise.catch(() => {}),
-        new Promise(resolve => setTimeout(resolve, 1500))
+        new Promise(resolve => setTimeout(resolve, 1600))
       ]);
     }
 
@@ -691,7 +1170,7 @@ class AudioEngine {
     return bytes.buffer;
   }
 
-  decodeAudioBufferCompat(arrayBuffer, timeoutMs = 4500) {
+  decodeAudioBufferCompat(arrayBuffer, timeoutMs = 5000) {
     const rawCtx = this.getRawAudioContext();
     if (!rawCtx || typeof rawCtx.decodeAudioData !== "function") {
       return Promise.reject(new Error("WebAudio decodeAudioData unavailable"));
@@ -730,15 +1209,11 @@ class AudioEngine {
   }
 
   /**
-   * Entfernt ggf. browserseitig belassene AAC/MP4-Encoder-Vorlaufstille (> 3 ms),
-   * sodass der Tonanschlag plattformübergreifend latenzfrei auf dem Beat sitzt.
+   * Ermittelt ggf. browserseitig belassene AAC/MP4-Encoder-Vorlaufstille (> 3 ms)
+   * als reinen Start-Offset (Zero-Copy, keine doppelte AudioBuffer-Allokation im RAM!).
    */
-  trimLeadingEncoderSilence(audioBuffer, thresholdDb = -62, prePadMs = 1.0) {
-    const rawCtx = typeof Tone !== "undefined" && typeof Tone.getContext === "function"
-      ? Tone.getContext()?.rawContext
-      : Tone?.context?.rawContext;
-    if (!rawCtx || typeof rawCtx.createBuffer !== "function") return audioBuffer;
-
+  findLeadingSilenceOffsetSec(audioBuffer, thresholdDb = -62, prePadMs = 1.0) {
+    if (!audioBuffer || !audioBuffer.sampleRate || !audioBuffer.length) return 0;
     const sr = audioBuffer.sampleRate;
     const len = audioBuffer.length;
     const chCount = audioBuffer.numberOfChannels;
@@ -759,21 +1234,9 @@ class AudioEngine {
     const preSamples = Math.floor((prePadMs / 1000) * sr);
     const trimStart = firstActive - preSamples;
     if (firstActive >= len || trimStart <= Math.floor(sr * 0.003)) {
-      return audioBuffer;
+      return 0;
     }
-
-    const newLen = Math.max(1, len - trimStart);
-    const out = rawCtx.createBuffer(chCount, newLen, sr);
-    const fadeIn = Math.min(newLen, Math.max(1, Math.floor(sr * 0.0005)));
-    for (let c = 0; c < chCount; c++) {
-      const src = audioBuffer.getChannelData(c);
-      const dst = out.getChannelData(c);
-      dst.set(src.subarray(trimStart));
-      for (let k = 0; k < fadeIn; k++) {
-        dst[k] *= k / fadeIn;
-      }
-    }
-    return out;
+    return Math.min(audioBuffer.duration - 0.05, trimStart / sr);
   }
 
   normalizeSamplerNoteKey(noteName) {
@@ -781,27 +1244,49 @@ class AudioEngine {
     return String(noteName).replace(/^([A-G]b)(\d)$/, (_, pc, oct) => `${flatToSharp[pc] || pc}${oct}`);
   }
 
-  async decodeSamplePackBuffers(pack, normalizeNoteKeys = true) {
+  yieldToMainThread(ms = 6) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  /**
+   * Wartet für Welle-2-Hintergrund-Decoding kurz ab, falls gerade aktiv Töne laufen,
+   * damit Base64-Parsing und MediaCodec niemals laufendes Audio ins Stottern bringen.
+   */
+  async waitForPlaybackBreath(maxWaitMs = 1200) {
+    const started = Date.now();
+    while (this.globalVoices.length > 0 && Date.now() - started < maxWaitMs) {
+      await this.yieldToMainThread(90);
+    }
+  }
+
+  async decodeSamplePackBuffers(pack, normalizeNoteKeys = true, isBackgroundWave = false) {
     const rawCtx = this.getRawAudioContext();
     if (!pack || !pack.notes || !rawCtx || typeof rawCtx.createBufferSource !== "function") return null;
 
     const entries = Object.entries(pack.notes);
     if (entries.length === 0) return null;
 
-    // Begrenzte Parallelität schützt den Hardware-AAC-Decoder-Pool auf iOS Safari/WKWebView vor Überlastung
-    const concurrency = isIOSLikeDevice() ? 2 : 4;
+    // Begrenzte Parallelität schützt Android-MediaCodec- & iOS-AAC-Decoder-Pools vor Überlastung
+    const isConstrained = this.liteReverb;
+    const concurrency = isBackgroundWave ? 1 : (isConstrained ? 2 : 3);
+    const yieldMs = isBackgroundWave ? 14 : (isConstrained ? 8 : 2);
     const bufferMap = {};
     let cursor = 0;
 
     const worker = async () => {
       while (cursor < entries.length) {
+        if (isBackgroundWave && this.globalVoices.length > 0) {
+          await this.waitForPlaybackBreath(1000);
+        }
         const idx = cursor++;
+        if (idx >= entries.length) break;
         const [key, b64] = entries[idx];
         const arrBuf = this.base64ToArrayBuffer(b64);
         const decoded = await this.decodeAudioBufferCompat(arrBuf);
-        const trimmed = this.trimLeadingEncoderSilence(decoded);
+        const trimOffsetSec = this.findLeadingSilenceOffsetSec(decoded);
         const outKey = normalizeNoteKeys ? this.normalizeSamplerNoteKey(key) : key;
-        bufferMap[outKey] = trimmed;
+        bufferMap[outKey] = { buffer: decoded, trimOffsetSec };
+        if (yieldMs > 0) await this.yieldToMainThread(yieldMs);
       }
     };
 
@@ -815,16 +1300,18 @@ class AudioEngine {
     return { bufferMap, rawCtx };
   }
 
-  async initSampledInstrument(pack, targetGainNode, samplerOpts = {}) {
-    const decoded = await this.decodeSamplePackBuffers(pack, true);
+  async initSampledInstrument(pack, targetNode, samplerOpts = {}, isBackgroundWave = false) {
+    const decoded = await this.decodeSamplePackBuffers(pack, true, isBackgroundWave);
     if (!decoded) return null;
 
-    const sampler = new EarLabSampledInstrument(decoded.bufferMap, targetGainNode, {
+    const sampler = new EarLabSampledInstrument(decoded.bufferMap, targetNode, {
       rawCtx: decoded.rawCtx,
-      attackSec: samplerOpts.attackSec ?? 0.0025,
+      attackSec: samplerOpts.attackSec ?? 0.004,
       releaseSec: samplerOpts.releaseSec ?? 0.55,
-      maxPolyphony: samplerOpts.maxPolyphony ?? 18,
-      getSoundProfile: samplerOpts.getSoundProfile
+      maxPolyphony: samplerOpts.maxPolyphony ?? 14,
+      getSoundProfile: samplerOpts.getSoundProfile,
+      onVoiceStart: (v) => this.registerVoice(v),
+      onVoiceEnd: (v) => this.unregisterVoice(v)
     });
 
     return { sampler, bufferMap: decoded.bufferMap, rawCtx: decoded.rawCtx };
@@ -834,70 +1321,109 @@ class AudioEngine {
     return PIANO_CHARACTER_PROFILES[this.pianoCharacter] || PIANO_CHARACTER_PROFILES.natural;
   }
 
-  async loadSingleSampledStem(stemKey, cfg, packs, levelMap) {
-    if (!packs[stemKey]) return;
+  loadSingleSampledStem(stemKey, cfg, packs, levelMap, isBackgroundWave = false) {
+    if (!packs?.[stemKey]) return Promise.resolve();
+    if (this.sampledStems[stemKey]) return Promise.resolve();
+    if (this.stemLoadingPromises[stemKey]) return this.stemLoadingPromises[stemKey];
+
     const gainNode = this[`${stemKey}Gain`];
-    if (!gainNode) return;
+    const rawCtx = this.getRawAudioContext();
+    if (!gainNode || !rawCtx) return Promise.resolve();
+
     const isPiano = stemKey === "piano";
     const stemTargetNode = (isPiano && this.pianoToneFilter) ? this.pianoToneFilter : gainNode;
     const pianoProfGetter = isPiano ? () => this.getActivePianoProfile() : null;
-    try {
-      const decoded = await this.initSampledInstrument(packs[stemKey], stemTargetNode, {
-        attackSec: cfg.attackSec,
-        releaseSec: cfg.releaseSec,
-        maxPolyphony: cfg.maxPolyphony,
-        getSoundProfile: pianoProfGetter
-      });
-      if (!decoded) return;
 
-      this[stemKey] = decoded.sampler;
-      this.sampledStems[stemKey] = true;
-      this.stemGainMultipliers[stemKey] = cfg.sampledMult;
-      const level = levelMap[stemKey];
-      if (Number.isFinite(level) && gainNode.gain) {
-        gainNode.gain.value = level * cfg.sampledMult;
-      }
+    const promise = (async () => {
+      try {
+        const decoded = await this.initSampledInstrument(packs[stemKey], stemTargetNode, {
+          attackSec: cfg.attackSec,
+          releaseSec: cfg.releaseSec,
+          maxPolyphony: cfg.maxPolyphony,
+          getSoundProfile: pianoProfGetter
+        }, isBackgroundWave);
+        if (!decoded) return;
 
-      // Separater Demo-Bus für Instrumentenkunde/Theorie-Beispiele (teilt dieselben AudioBuffer im RAM)
-      const demoGain = new Tone.Gain(cfg.demoGain).connect(this.masterGain);
-      const initDemoReverbMix = this.instrumentReverbMix?.[stemKey] ?? (isPiano ? this.pianoReverbMix : 0.22);
-      if (this.pianoReverbDamp) {
-        const demoSend = new Tone.Gain(initDemoReverbMix * 1.15).connect(this.pianoReverbDamp);
-        this.demoReverbSends[stemKey] = demoSend;
-        demoGain.connect(demoSend);
-      } else if (cfg.useReverb && this.reverb) {
-        demoGain.connect(this.reverb);
-      }
-      const demoTarget = isPiano
-        ? (this.demoPianoToneFilter = new Tone.Filter(this.getActivePianoProfile().filterHz, "lowpass").connect(demoGain))
-        : demoGain;
-      const demoSampler = new EarLabSampledInstrument(decoded.bufferMap, demoTarget, {
-        rawCtx: decoded.rawCtx,
-        attackSec: cfg.attackSec,
-        releaseSec: cfg.releaseSec,
-        maxPolyphony: cfg.maxPolyphony,
-        getSoundProfile: pianoProfGetter
-      });
-      this.demoGains[cfg.demoStyle] = demoGain;
-      this.demoSamplers[cfg.demoStyle] = demoSampler;
+        // Evtl. noch klingende Fallback-Synth-Stimmen weich verabschieden
+        this[`${stemKey}FallbackSynth`]?.releaseAll?.();
 
-      if (isPiano) {
-        this.pianoUsingSampler = true;
-        this.pianoGainMultiplier = cfg.sampledMult;
-        this.demoPianoGain = demoGain;
-        this.demoPiano = demoSampler;
+        this[stemKey] = decoded.sampler;
+        this.sampledStems[stemKey] = true;
+        this.stemGainMultipliers[stemKey] = cfg.sampledMult;
+
+        const currentLevel = Number.isFinite(this.stemLevels[stemKey])
+          ? this.stemLevels[stemKey]
+          : (Number.isFinite(levelMap?.[stemKey]) ? levelMap[stemKey] : 0);
+        smoothSetAudioParam(gainNode.gain, currentLevel * cfg.sampledMult, rawCtx, 0.04);
+        this.updateMultiStemCompensation(0.04);
+
+        // Separater Demo-Bus für Instrumentenkunde/Theorie-Beispiele (teilt dieselben AudioBuffer im RAM)
+        const demoGain = rawCtx.createGain();
+        demoGain.gain.value = cfg.demoGain;
+        demoGain.connect(this.masterGain);
+
+        const initDemoReverbMix = this.instrumentReverbMix?.[stemKey] ?? (isPiano ? this.pianoReverbMix : 0.22);
+        if (this.pianoReverbDamp) {
+          const demoSend = rawCtx.createGain();
+          demoSend.gain.value = initDemoReverbMix;
+          demoSend.connect(this.pianoReverbDamp);
+          this.demoReverbSends[stemKey] = demoSend;
+          demoGain.connect(demoSend);
+        }
+
+        let demoTarget = demoGain;
+        if (isPiano) {
+          this.demoPianoToneFilter = rawCtx.createBiquadFilter();
+          this.demoPianoToneFilter.type = "lowpass";
+          this.demoPianoToneFilter.frequency.value = this.getActivePianoProfile().filterHz;
+          this.demoPianoToneFilter.Q.value = 0.7;
+          this.demoPianoToneFilter.connect(demoGain);
+          demoTarget = this.demoPianoToneFilter;
+        }
+
+        const demoSampler = new EarLabSampledInstrument(decoded.bufferMap, demoTarget, {
+          rawCtx: decoded.rawCtx,
+          attackSec: cfg.attackSec,
+          releaseSec: cfg.releaseSec,
+          maxPolyphony: cfg.maxPolyphony,
+          getSoundProfile: pianoProfGetter,
+          onVoiceStart: (v) => this.registerVoice(v),
+          onVoiceEnd: (v) => this.unregisterVoice(v)
+        });
+        this.demoGains[cfg.demoStyle] = demoGain;
+        this.demoSamplers[cfg.demoStyle] = demoSampler;
+
+        if (isPiano) {
+          this.pianoUsingSampler = true;
+          this.pianoGainMultiplier = cfg.sampledMult;
+          this.demoPianoGain = demoGain;
+          this.demoPiano = demoSampler;
+        }
+      } catch (stemErr) {
+        console.warn(`Sample-Pack "${stemKey}" konnte nicht decodiert werden, nutze Synth-Fallback:`, stemErr);
+        const fallback = this[`${stemKey}FallbackSynth`];
+        if (fallback) this[stemKey] = fallback;
+        this.sampledStems[stemKey] = false;
+        this.stemGainMultipliers[stemKey] = cfg.fallbackMult;
+        if (stemKey === "piano") {
+          this.pianoUsingSampler = false;
+          this.pianoGainMultiplier = cfg.fallbackMult;
+        }
+      } finally {
+        delete this.stemLoadingPromises[stemKey];
       }
-    } catch (stemErr) {
-      console.warn(`Sample-Pack "${stemKey}" konnte nicht decodiert werden, nutze Synth-Fallback:`, stemErr);
-      const fallback = this[`${stemKey}FallbackSynth`];
-      if (fallback) this[stemKey] = fallback;
-      this.sampledStems[stemKey] = false;
-      this.stemGainMultipliers[stemKey] = cfg.fallbackMult;
-      if (stemKey === "piano") {
-        this.pianoUsingSampler = false;
-        this.pianoGainMultiplier = cfg.fallbackMult;
-      }
-    }
+    })();
+
+    this.stemLoadingPromises[stemKey] = promise;
+    return promise;
+  }
+
+  prioritizeStemDecode(stemKey) {
+    if (!stemKey || this.sampledStems[stemKey] || this.stemLoadingPromises[stemKey]) return;
+    const packs = typeof window !== "undefined" ? window.EARLAB_SAMPLE_PACKS : null;
+    const cfg = SAMPLED_STEM_CONFIG[stemKey];
+    if (!packs?.[stemKey] || !cfg) return;
+    this.loadSingleSampledStem(stemKey, cfg, packs, this.stemLevels, false).catch(() => {});
   }
 
   async loadSampledPacks(initialLevels = {}) {
@@ -912,18 +1438,20 @@ class AudioEngine {
       }
 
       const allEntries = Object.entries(SAMPLED_STEM_CONFIG);
-      const prioritySet = new Set(["piano", "voice"]);
+      const prioritySet = new Set(["piano"]);
       allEntries.forEach(([stemKey]) => {
-        if ((levelMap[stemKey] || 0) > 0) prioritySet.add(stemKey);
+        if ((levelMap[stemKey] || 0) > 0.005) prioritySet.add(stemKey);
       });
 
       const loadPercussionPack = async () => {
-        if (!packs.percussion) return;
+        if (!packs.percussion || this.percUsingSamples) return;
         try {
-          const decodedPerc = await this.decodeSamplePackBuffers(packs.percussion, false);
+          const decodedPerc = await this.decodeSamplePackBuffers(packs.percussion, false, false);
           if (decodedPerc && Object.keys(decodedPerc.bufferMap).length > 0) {
             this.percSampleRawCtx = decodedPerc.rawCtx;
-            this.percSampleGain = new Tone.Gain(1.0).connect(this.masterGain);
+            this.percSampleGain = decodedPerc.rawCtx.createGain();
+            this.percSampleGain.gain.value = 1.0;
+            this.percSampleGain.connect(this.masterGain);
             this.percSamples = decodedPerc.bufferMap;
             this.percUsingSamples = true;
           }
@@ -937,23 +1465,17 @@ class AudioEngine {
       const priorityEntries = allEntries.filter(([stemKey]) => prioritySet.has(stemKey));
       const wave2Entries = allEntries.filter(([stemKey]) => !prioritySet.has(stemKey));
 
-      // Welle 1 (Klavier, Perkussion, Stimme & aktive Mixer-Stems) priorisiert laden;
-      // auf iOS seriell pro Instrument, damit der Hardware-AAC-Decoder nie überlastet wird.
+      // Welle 1 (Klavier, Perkussion & aktuell aktive Mixer-Stems) seriell pro Pack laden,
+      // damit Android- & iOS-Hardware-Decoder nie überlastet werden.
       const runWave1 = async () => {
-        if (isIOSLikeDevice()) {
-          const pianoEntry = priorityEntries.find(([k]) => k === "piano");
-          if (pianoEntry) await this.loadSingleSampledStem(pianoEntry[0], pianoEntry[1], packs, levelMap);
-          await loadPercussionPack();
-          for (const [stemKey, cfg] of priorityEntries) {
-            if (stemKey === "piano") continue;
-            await this.loadSingleSampledStem(stemKey, cfg, packs, levelMap);
-          }
-        } else {
-          const wave1Tasks = priorityEntries.map(([stemKey, cfg]) =>
-            this.loadSingleSampledStem(stemKey, cfg, packs, levelMap)
-          );
-          if (packs.percussion) wave1Tasks.push(loadPercussionPack());
-          await Promise.all(wave1Tasks);
+        const pianoEntry = priorityEntries.find(([k]) => k === "piano");
+        if (pianoEntry) {
+          await this.loadSingleSampledStem(pianoEntry[0], pianoEntry[1], packs, levelMap, false);
+        }
+        await loadPercussionPack();
+        for (const [stemKey, cfg] of priorityEntries) {
+          if (stemKey === "piano") continue;
+          await this.loadSingleSampledStem(stemKey, cfg, packs, levelMap, false);
         }
         this.wave1SamplesReady = true;
       };
@@ -963,17 +1485,11 @@ class AudioEngine {
       });
       await this.wave1SamplesPromise;
 
-      // Welle 2 (übrige Orchester-/Band-Stems) ruhig im Hintergrund fertig decodieren
-      if (wave2Entries.length > 0) {
-        if (isIOSLikeDevice()) {
-          for (const [stemKey, cfg] of wave2Entries) {
-            await this.loadSingleSampledStem(stemKey, cfg, packs, levelMap);
-          }
-        } else {
-          await Promise.all(
-            wave2Entries.map(([stemKey, cfg]) => this.loadSingleSampledStem(stemKey, cfg, packs, levelMap))
-          );
-        }
+      // Welle 2 (inaktive Orchester-/Band-Stems) extrem schonend im Hintergrund (pausiert während Wiedergabe)
+      for (const [stemKey, cfg] of wave2Entries) {
+        if (this.sampledStems[stemKey]) continue;
+        await this.waitForPlaybackBreath(1400);
+        await this.loadSingleSampledStem(stemKey, cfg, packs, levelMap, true);
       }
     } catch (err) {
       this.wave1SamplesReady = true;
@@ -982,27 +1498,11 @@ class AudioEngine {
   }
 
   setMasterVolume(val, isMuted) {
+    this.masterLevel = Number.isFinite(Number(val)) ? Math.max(0, Math.min(1, Number(val))) : this.masterLevel;
+    this.masterMuted = Boolean(isMuted);
     if ((!this.isInitialized && !this.graphBuilt) || !this.masterGain) return;
-    const target = isMuted ? 0 : val * 0.45;
-    this.masterGain.gain.rampTo(target, 0.04);
-  }
-
-  updateSendGainNode(sendNode, targetSend, rampSec = 0.045) {
-    if (!sendNode?.gain) return;
-    const rawState = (typeof Tone?.getContext === "function" ? Tone.getContext()?.rawContext?.state : Tone?.context?.rawContext?.state)
-      || Tone?.context?.state;
-    const now = Tone?.now?.() || 0;
-    try {
-      sendNode.gain.cancelScheduledValues?.(now);
-      if (rawState === "running" && typeof sendNode.gain.rampTo === "function") {
-        sendNode.gain.rampTo(targetSend, rampSec);
-      } else {
-        sendNode.gain.setValueAtTime?.(targetSend, now);
-        sendNode.gain.value = targetSend;
-      }
-    } catch (_) {
-      sendNode.gain.value = targetSend;
-    }
+    const target = this.masterMuted ? 0 : this.masterLevel * 0.48;
+    smoothSetAudioParam(this.masterGain.gain, target, this.rawCtx, 0.04);
   }
 
   setInstrumentReverb(instrumentKey = "piano", reverbMix = null) {
@@ -1017,9 +1517,9 @@ class AudioEngine {
     if (key === "piano") this.pianoReverbMix = mix;
 
     if (!this.isInitialized && !this.graphBuilt) return;
-    const targetSend = mix * 1.15;
-    this.updateSendGainNode(this.stemReverbSends?.[key], targetSend);
-    this.updateSendGainNode(this.demoReverbSends?.[key], targetSend);
+    smoothSetAudioParam(this.stemReverbSends?.[key]?.gain, mix, this.rawCtx, 0.05);
+    smoothSetAudioParam(this.demoReverbSends?.[key]?.gain, mix, this.rawCtx, 0.05);
+    this.syncReverbReturnState();
   }
 
   setAllInstrumentReverbs(reverbMap = null) {
@@ -1060,35 +1560,14 @@ class AudioEngine {
       this.pianoReverbMix = this.instrumentReverbMix.piano;
     }
 
-    if ((!this.isInitialized && !this.graphBuilt)) return;
-    const now = Tone?.now?.() || 0;
+    if (!this.isInitialized && !this.graphBuilt) return;
     this.setAllInstrumentReverbs(this.instrumentReverbMix);
-    if (this.pianoFreeverb) {
-      try {
-        if (this.pianoFreeverb.roomSize && typeof this.pianoFreeverb.roomSize === "object") {
-          this.pianoFreeverb.roomSize.value = prof.roomSize;
-        } else {
-          this.pianoFreeverb.roomSize = prof.roomSize;
-        }
-        if (this.pianoFreeverb.dampening && typeof this.pianoFreeverb.dampening === "object") {
-          this.pianoFreeverb.dampening.value = prof.reverbDampHz;
-        } else {
-          this.pianoFreeverb.dampening = prof.reverbDampHz;
-        }
-      } catch (_) {}
+    smoothSetAudioParam(this.pianoToneFilter?.frequency, prof.filterHz, this.rawCtx, 0.04);
+    smoothSetAudioParam(this.demoPianoToneFilter?.frequency, prof.filterHz, this.rawCtx, 0.04);
+    smoothSetAudioParam(this.pianoReverbDamp?.frequency, prof.reverbDampHz, this.rawCtx, 0.04);
+    if (this.pianoFallbackSynth) {
+      this.pianoFallbackSynth.release = prof.releaseSec + 0.35;
     }
-    const setFilterFreq = (filterNode, hz) => {
-      if (!filterNode?.frequency) return;
-      try { filterNode.frequency.cancelScheduledValues?.(now); } catch (_) {}
-      try { filterNode.frequency.setValueAtTime?.(hz, now); } catch (_) {}
-      filterNode.frequency.value = hz;
-    };
-    setFilterFreq(this.pianoToneFilter, prof.filterHz);
-    setFilterFreq(this.demoPianoToneFilter, prof.filterHz);
-    setFilterFreq(this.pianoReverbDamp, prof.reverbDampHz);
-    try {
-      this.pianoFallbackSynth?.set?.({ envelope: { release: prof.releaseSec + 0.45 } });
-    } catch (_) {}
   }
 
   setDroneIntervalMix(padLevel = 0.60, toneLevel = 1.00) {
@@ -1099,39 +1578,42 @@ class AudioEngine {
   }
 
   setMixerGains(levels) {
-    if ((!this.isInitialized && !this.graphBuilt) || !levels) return;
+    if (!levels) return;
     Object.keys(SAMPLED_STEM_CONFIG).forEach(stemKey => {
-      const gainNode = this[`${stemKey}Gain`];
       const rawLevel = levels[stemKey];
-      const level = Number.isFinite(rawLevel) ? rawLevel : (stemKey === "voice" ? 0 : undefined);
-      if (gainNode?.gain && Number.isFinite(level)) {
-        gainNode.gain.rampTo(level * this.stemGainMultipliers[stemKey], 0.04);
+      const level = Number.isFinite(rawLevel) ? Math.max(0, Math.min(1, rawLevel)) : (stemKey === "voice" ? 0 : undefined);
+      if (Number.isFinite(level)) {
+        this.stemLevels[stemKey] = level;
+        const gainNode = this[`${stemKey}Gain`];
+        if ((this.isInitialized || this.graphBuilt) && gainNode?.gain) {
+          smoothSetAudioParam(gainNode.gain, level * this.stemGainMultipliers[stemKey], this.rawCtx, 0.04);
+        }
+        // Wird ein noch nicht fertig geladener Stem aufgedreht, sofort bevorzugt decodieren
+        if (level > 0.005 && this.graphBuilt && !this.sampledStems[stemKey]) {
+          this.prioritizeStemDecode(stemKey);
+        }
       }
     });
+    if (this.isInitialized || this.graphBuilt) {
+      this.updateMultiStemCompensation(0.045);
+    }
   }
 
   stopNoiseEntryNow(entry) {
-    if (!entry) return;
+    if (!entry || entry.stopped) return;
+    entry.stopped = true;
     if (entry.autoStopTimer) {
       clearTimeout(entry.autoStopTimer);
       entry.autoStopTimer = null;
     }
-    const now = typeof Tone !== "undefined" && typeof Tone.now === "function" ? Tone.now() : 0;
     try {
-      if (entry.fadeGain?.gain) {
-        entry.fadeGain.gain.cancelScheduledValues?.(now);
-        entry.fadeGain.gain.rampTo?.(0.0001, 0.02, now);
-      }
+      smoothSetAudioParam(entry.fadeGain?.gain, 0, this.rawCtx, 0.025);
       setTimeout(() => {
-        try {
-          entry.noise?.stop?.();
-          entry.noise?.dispose?.();
-          entry.hpFilter?.dispose?.();
-          entry.lpFilter?.dispose?.();
-          entry.eqFilter?.dispose?.();
-          entry.fadeGain?.dispose?.();
-        } catch (_) {}
-      }, 30);
+        try { entry.src?.stop?.(); } catch (_) {}
+        [entry.src, entry.hpFilter, entry.lpFilter, entry.eqFilter, entry.fadeGain].forEach(n => {
+          try { n?.disconnect?.(); } catch (_) {}
+        });
+      }, 90);
     } catch (_) {}
   }
 
@@ -1144,21 +1626,11 @@ class AudioEngine {
       v.cleanupTimer = null;
     }
     try {
-      const now = v.rawCtx?.currentTime || 0;
-      const p = v.envGain?.gain;
-      if (p) {
-        if (typeof p.cancelAndHoldAtTime === "function") {
-          p.cancelAndHoldAtTime(now);
-        } else {
-          p.cancelScheduledValues(now);
-          p.setValueAtTime(Math.max(0.0001, Number(p.value) || 0.0001), now);
-        }
-        p.linearRampToValueAtTime(0, now + 0.045);
-      }
+      smoothSetAudioParam(v.envGain?.gain, 0, v.rawCtx, 0.035);
       setTimeout(() => {
         v.stopNodes.forEach(osc => { try { osc.stop(); } catch (_) {} });
         v.cleanupNodes.forEach(node => { try { node.disconnect(); } catch (_) {} });
-      }, 65);
+      }, 95);
     } catch (_) {}
   }
 
@@ -1186,10 +1658,15 @@ class AudioEngine {
           entry.demoSampler.releaseAll?.();
           return;
         }
-        entry.synth?.releaseAll?.();
-        entry.synth?.dispose?.();
-        entry.filter?.dispose?.();
-        entry.gain?.dispose?.();
+        if (entry.nativeSynth) {
+          // Knacksfrei ausblenden statt hartem .dispose()!
+          entry.nativeSynth.releaseAll();
+          setTimeout(() => {
+            try { entry.gain?.disconnect?.(); } catch (_) {}
+            try { entry.filter?.disconnect?.(); } catch (_) {}
+          }, 120);
+          return;
+        }
       } catch (_) {}
     });
     this.activeDemoNodes = [];
@@ -1208,9 +1685,16 @@ class AudioEngine {
    * damit Reintöne und Rosa Rauschen die Ohren nicht überlasten.
    */
   ensureProductionBus() {
-    if (!this.isInitialized || !this.masterGain) return null;
+    if (!this.isInitialized || !this.masterGain || !this.rawCtx) return null;
     if (!this.prodSafetyLimiter) {
-      this.prodSafetyLimiter = new Tone.Limiter(-14).connect(this.masterGain);
+      const comp = this.rawCtx.createDynamicsCompressor();
+      comp.threshold.value = -14;
+      comp.knee.value = 3;
+      comp.ratio.value = 18;
+      comp.attack.value = 0.002;
+      comp.release.value = 0.14;
+      comp.connect(this.masterGain);
+      this.prodSafetyLimiter = comp;
     }
     return this.prodSafetyLimiter;
   }
@@ -1251,54 +1735,78 @@ class AudioEngine {
    * über den trockenen Produktions-Schutzbus ab.
    */
   playProductionTone(freqHz, durationSec = 1.35) {
-    if (!this.isInitialized || !this.masterGain) return;
+    if (!this.isInitialized || !this.masterGain || !this.rawCtx) return;
     const dest = this.ensureProductionBus() || this.masterGain;
-    const now = Tone.now();
     const dur = Math.max(0.25, Math.min(4.0, Number(durationSec) || 1.35));
     const safeGain = this.getSafeSineGain(freqHz);
 
-    const tempGain = new Tone.Gain(safeGain).connect(dest);
-    const tempSynth = new Tone.Synth({
-      oscillator: { type: "sine" },
-      envelope: { attack: 0.045, decay: 0.10, sustain: 0.80, release: 0.24 }
-    }).connect(tempGain);
+    const tempGain = this.rawCtx.createGain();
+    tempGain.gain.value = safeGain;
+    tempGain.connect(dest);
 
-    const entry = { synth: tempSynth, gain: tempGain };
+    const tempSynth = new EarLabNativeSynth(this.rawCtx, tempGain, {
+      oscType: "sine",
+      attack: 0.045,
+      decay: 0.10,
+      sustain: 0.85,
+      release: 0.24,
+      baseGain: 1.0,
+      onVoiceStart: (v) => this.registerVoice(v),
+      onVoiceEnd: (v) => this.unregisterVoice(v)
+    });
+
+    const entry = { nativeSynth: tempSynth, gain: tempGain };
     this.activeDemoNodes.push(entry);
-    tempSynth.triggerAttackRelease(freqHz, dur, now);
+    tempSynth.triggerAttackRelease([Number(freqHz) || 1000], dur, this.getAudioTime() + this.getScheduleLookaheadSec(), 1.0);
 
     setTimeout(() => {
-      try {
-        tempSynth.dispose();
-        tempGain.dispose();
-      } catch (_) {}
+      try { tempGain.disconnect(); } catch (_) {}
       this.activeDemoNodes = this.activeDemoNodes.filter(item => item !== entry);
-    }, (dur + 0.6) * 1000);
+    }, (dur + 0.65) * 1000);
   }
 
   /**
    * Baut die bandbegrenzte Rosa-Rauschen-Signalkette mit parametrischer Peaking-EQ-Stufe auf.
    */
   createNoiseChain(dest, freqHz, qVal, initialGainDb) {
-    const fadeGain = new Tone.Gain(0).connect(dest);
-    const eqFilter = new Tone.Filter({
-      type: "peaking",
-      frequency: freqHz,
-      Q: qVal,
-      gain: initialGainDb
-    }).connect(fadeGain);
-    const lpFilter = new Tone.Filter(15000, "lowpass").connect(eqFilter);
-    const hpFilter = new Tone.Filter(28, "highpass").connect(lpFilter);
-    const noise = new Tone.Noise("pink").connect(hpFilter);
-    return { noise, hpFilter, lpFilter, eqFilter, fadeGain };
+    const rawCtx = this.rawCtx;
+    if (!this.pinkNoiseBuffer) {
+      this.pinkNoiseBuffer = buildLoopedPinkNoiseBuffer(rawCtx, 4.0);
+    }
+    const fadeGain = rawCtx.createGain();
+    fadeGain.gain.value = 0;
+    fadeGain.connect(dest);
+
+    const eqFilter = rawCtx.createBiquadFilter();
+    eqFilter.type = "peaking";
+    eqFilter.frequency.value = freqHz;
+    eqFilter.Q.value = qVal;
+    eqFilter.gain.value = initialGainDb;
+    eqFilter.connect(fadeGain);
+
+    const lpFilter = rawCtx.createBiquadFilter();
+    lpFilter.type = "lowpass";
+    lpFilter.frequency.value = 15000;
+    lpFilter.connect(eqFilter);
+
+    const hpFilter = rawCtx.createBiquadFilter();
+    hpFilter.type = "highpass";
+    hpFilter.frequency.value = 28;
+    hpFilter.connect(lpFilter);
+
+    const src = rawCtx.createBufferSource();
+    src.buffer = this.pinkNoiseBuffer;
+    src.loop = true;
+    src.connect(hpFilter);
+
+    return { noise: true, src, hpFilter, lpFilter, eqFilter, fadeGain, stopped: false };
   }
 
   /**
    * Startet dauerhaftes Rosa Rauschen (Pink Noise) mit aktiver EQ-Anhebung bis zum Treffer oder Stopp.
-   * Ermöglicht nahtloses Live-Umschalten auf das neutrale Original (Bypass) per setProductionNoiseBypass().
    */
   startProductionNoiseContinuous(options = {}) {
-    if (!this.isInitialized || !this.masterGain) return false;
+    if (!this.isInitialized || !this.masterGain || !this.rawCtx) return false;
     const dest = this.ensureProductionBus() || this.masterGain;
 
     if (this.activeNoiseSession) {
@@ -1314,8 +1822,7 @@ class AudioEngine {
     const startBypassed = Boolean(options.startBypassed);
     const maxDurationSec = Math.max(5, Math.min(180, Number(options.maxDurationSec) || 120));
 
-    // Etwas sanfterer Dauerpegel für ermüdungsfreies Hören + Make-up-Ausgleich bei aktivem Boost
-    const baseNoiseGain = 0.115;
+    const baseNoiseGain = 0.14;
     const makeup = Number.isFinite(options.makeupGain)
       ? Math.max(0.55, Math.min(1, options.makeupGain))
       : Math.max(0.66, Math.min(0.88, 1 - gainDb * 0.025));
@@ -1334,11 +1841,11 @@ class AudioEngine {
     this.activeDemoNodes.push(session);
     this.activeNoiseSession = session;
 
-    const now = typeof Tone.now === "function" ? Tone.now() : 0;
+    const startAt = this.getAudioTime() + 0.02;
     const targetGain = startBypassed ? baseNoiseGain : (baseNoiseGain * makeup);
-    session.fadeGain.gain.setValueAtTime(0.0001, now);
-    session.fadeGain.gain.rampTo(targetGain, 0.09, now);
-    session.noise.start(now);
+    session.fadeGain.gain.setValueAtTime(0.0001, startAt);
+    session.fadeGain.gain.linearRampToValueAtTime(targetGain, startAt + 0.09);
+    session.src.start(startAt);
 
     session.autoStopTimer = setTimeout(() => {
       if (this.activeNoiseSession !== session) return;
@@ -1355,25 +1862,19 @@ class AudioEngine {
    */
   setProductionNoiseBypass(isBypassed = false) {
     const s = this.activeNoiseSession;
-    if (!s) return false;
+    if (!s || !this.rawCtx) return false;
     const bypass = Boolean(isBypassed);
     s.bypassed = bypass;
-
-    const now = typeof Tone.now === "function" ? Tone.now() : 0;
-    const rampSec = 0.055;
-    s.eqFilter?.gain?.cancelScheduledValues?.(now);
-    s.eqFilter?.gain?.rampTo?.(bypass ? 0 : s.gainDb, rampSec, now);
-    s.fadeGain?.gain?.cancelScheduledValues?.(now);
-    s.fadeGain?.gain?.rampTo?.(bypass ? s.baseNoiseGain : (s.baseNoiseGain * s.makeup), rampSec, now);
+    smoothSetAudioParam(s.eqFilter?.gain, bypass ? 0 : s.gainDb, this.rawCtx, 0.055);
+    smoothSetAudioParam(s.fadeGain?.gain, bypass ? s.baseNoiseGain : (s.baseNoiseGain * s.makeup), this.rawCtx, 0.055);
     return true;
   }
 
   /**
-   * Spielt Rosa Rauschen (Pink Noise, -3 dB/Oktave) mit optionaler parametrischer Peaking-EQ-Anhebung ab.
-   * Nutzt geringen Basispegel, Make-up-Absenkung bei aktivem Boost, weiche Blenden und den -14 dBFS Schutz-Limiter.
+   * Spielt Rosa Rauschen mit optionaler parametrischer Peaking-EQ-Anhebung (Flat → Boost / Boost-Only).
    */
   playProductionNoiseEQ(options = {}) {
-    if (!this.isInitialized || !this.masterGain) return;
+    if (!this.isInitialized || !this.masterGain || !this.rawCtx) return;
     const dest = this.ensureProductionBus() || this.masterGain;
 
     const mode = options.mode || "ab-switch";
@@ -1385,45 +1886,46 @@ class AudioEngine {
     const singleDur = Math.max(0.35, Math.min(3.5, Number(options.durationSec) || 1.35));
     const totalDur = mode === "ab-switch" ? (flatDur + boostDur) : singleDur;
 
-    const baseNoiseGain = 0.13;
+    const baseNoiseGain = 0.155;
     const defaultMakeup = Math.max(0.68, Math.min(0.88, 1 - gainDb * 0.024));
     const makeup = Number.isFinite(options.makeupGain)
       ? Math.max(0.55, Math.min(1, options.makeupGain))
       : defaultMakeup;
 
     const entry = this.createNoiseChain(dest, freqHz, qVal, mode === "boost-only" ? gainDb : 0);
-    const { noise, hpFilter, lpFilter, eqFilter, fadeGain } = entry;
+    const { src, eqFilter, fadeGain } = entry;
     this.activeDemoNodes.push(entry);
 
-    const now = Tone.now();
+    const startAt = this.getAudioTime() + 0.025;
     const fadeInSec = 0.085;
     const fadeOutSec = 0.13;
     const startGain = mode === "boost-only" ? (baseNoiseGain * makeup) : baseNoiseGain;
 
-    fadeGain.gain.setValueAtTime(0.0001, now);
-    fadeGain.gain.rampTo(startGain, fadeInSec, now);
+    fadeGain.gain.setValueAtTime(0.0001, startAt);
+    fadeGain.gain.linearRampToValueAtTime(startGain, startAt + fadeInSec);
 
     if (mode === "ab-switch") {
-      const switchAt = now + flatDur;
-      eqFilter.gain.rampTo(gainDb, 0.055, switchAt);
-      fadeGain.gain.rampTo(baseNoiseGain * makeup, 0.055, switchAt);
+      const switchAt = startAt + flatDur;
+      eqFilter.gain.setValueAtTime(0, switchAt);
+      eqFilter.gain.linearRampToValueAtTime(gainDb, switchAt + 0.055);
+      fadeGain.gain.setValueAtTime(baseNoiseGain, switchAt);
+      fadeGain.gain.linearRampToValueAtTime(baseNoiseGain * makeup, switchAt + 0.055);
     }
 
-    const fadeOutAt = now + Math.max(fadeInSec + 0.05, totalDur - fadeOutSec);
-    fadeGain.gain.rampTo(0.0001, fadeOutSec, fadeOutAt);
+    const fadeOutAt = startAt + Math.max(fadeInSec + 0.05, totalDur - fadeOutSec);
+    fadeGain.gain.setValueAtTime(mode === "flat-only" ? baseNoiseGain : (baseNoiseGain * makeup), fadeOutAt);
+    fadeGain.gain.linearRampToValueAtTime(0, startAt + totalDur);
 
-    noise.start(now);
-    noise.stop(now + totalDur + 0.04);
+    src.start(startAt);
+    src.stop(startAt + totalDur + 0.04);
 
     setTimeout(() => {
-      try {
-        noise.stop();
-        noise.dispose();
-        hpFilter.dispose();
-        lpFilter.dispose();
-        eqFilter.dispose();
-        fadeGain.dispose();
-      } catch (_) {}
+      if (!entry.stopped) {
+        entry.stopped = true;
+        [entry.src, entry.hpFilter, entry.lpFilter, entry.eqFilter, entry.fadeGain].forEach(n => {
+          try { n?.disconnect?.(); } catch (_) {}
+        });
+      }
       this.activeDemoNodes = this.activeDemoNodes.filter(item => item !== entry);
     }, (totalDur + 0.45) * 1000);
   }
@@ -1433,29 +1935,33 @@ class AudioEngine {
    * (z. B. für Wellenform-, Schwebungs- und Stimmungs-Experimente im Wissensbereich).
    */
   playFrequencies(freqs, durationSec = 1.6, oscType = "sine", level = 0.28) {
-    if (!this.isInitialized || !this.masterGain || !freqs || freqs.length === 0) return;
-    const now = Tone.now();
+    if (!this.isInitialized || !this.masterGain || !this.rawCtx || !freqs || freqs.length === 0) return;
     const dur = Math.max(0.25, durationSec);
     const voiceLevel = level / Math.sqrt(freqs.length);
 
-    const tempGain = new Tone.Gain(voiceLevel).connect(this.masterGain);
-    const tempSynth = new Tone.PolySynth(Tone.Synth, {
-      oscillator: { type: oscType },
-      envelope: { attack: 0.03, decay: 0.15, sustain: 0.8, release: 0.28 }
-    }).connect(tempGain);
+    const tempGain = this.rawCtx.createGain();
+    tempGain.gain.value = voiceLevel;
+    tempGain.connect(this.masterGain);
 
-    const entry = { synth: tempSynth, gain: tempGain };
+    const tempSynth = new EarLabNativeSynth(this.rawCtx, tempGain, {
+      oscType: oscType || "sine",
+      attack: 0.03,
+      decay: 0.15,
+      sustain: 0.80,
+      release: 0.28,
+      baseGain: 1.0,
+      onVoiceStart: (v) => this.registerVoice(v),
+      onVoiceEnd: (v) => this.unregisterVoice(v)
+    });
+
+    const entry = { nativeSynth: tempSynth, gain: tempGain };
     this.activeDemoNodes.push(entry);
-
-    tempSynth.triggerAttackRelease(freqs, dur, now);
+    tempSynth.triggerAttackRelease(freqs, dur, this.getAudioTime() + this.getScheduleLookaheadSec(), 1.0);
 
     setTimeout(() => {
-      try {
-        tempSynth.dispose();
-        tempGain.dispose();
-      } catch (_) {}
+      try { tempGain.disconnect(); } catch (_) {}
       this.activeDemoNodes = this.activeDemoNodes.filter(item => item !== entry);
-    }, (dur + 0.6) * 1000);
+    }, (dur + 0.65) * 1000);
   }
 
   /**
@@ -1463,7 +1969,7 @@ class AudioEngine {
    * (unabhängig davon, wie die 6 Mixer-Fader der Übung gerade stehen).
    */
   playInstrumentSample(style, notes, durationSec = 1.35, arpeggioStepMs = 0, gainScale = 1.0, envOverride = null) {
-    if (!this.isInitialized || !this.masterGain || !notes || notes.length === 0) return;
+    if (!this.isInitialized || !this.masterGain || !this.rawCtx || !notes || notes.length === 0) return;
     if (Number.isFinite(gainScale) && gainScale <= 0) return;
 
     const safeGainScale = Math.max(0.01, Math.min(1.25, Number.isFinite(gainScale) ? gainScale : 1.0));
@@ -1477,16 +1983,14 @@ class AudioEngine {
       const entry = { demoSampler };
       this.activeDemoNodes.push(entry);
 
-      const currentId = this.playbackId;
+      const baseAt = this.getAudioTime() + this.getScheduleLookaheadSec();
       if (isSeq) {
         samplerNotes.forEach((n, idx) => {
-          this.registerTimer(() => {
-            if (!this.isInitialized || this.playbackId !== currentId) return;
-            demoSampler.triggerAttackRelease(n, stepDur, Tone.now(), vel, envOverride);
-          }, idx * arpeggioStepMs);
+          const tNote = baseAt + (idx * arpeggioStepMs) / 1000;
+          demoSampler.triggerAttackRelease(n, stepDur, tNote, vel, envOverride);
         });
       } else {
-        demoSampler.triggerAttackRelease(samplerNotes, stepDur, Tone.now(), vel, envOverride);
+        demoSampler.triggerAttackRelease(samplerNotes, stepDur, baseAt, vel, envOverride);
       }
 
       setTimeout(() => {
@@ -1496,19 +2000,19 @@ class AudioEngine {
     }
 
     const PRESETS = {
-      strings:   { Synth: Tone.AMSynth, harmonicity: 1.5, env: { attack: 0.22, decay: 0.30, sustain: 0.85, release: 0.65 }, gain: 0.34 },
-      pizzicato: { osc: "triangle", env: { attack: 0.004, decay: 0.22, sustain: 0.01, release: 0.14 }, gain: 0.38 },
-      brass:     { osc: "sawtooth", filter: 2100, env: { attack: 0.055, decay: 0.20, sustain: 0.72, release: 0.35 }, gain: 0.24 },
-      flute:     { osc: "sine",     env: { attack: 0.09, decay: 0.10, sustain: 0.85, release: 0.32 }, gain: 0.32 },
-      reed:      { osc: "square",   filter: 1450, env: { attack: 0.04, decay: 0.15, sustain: 0.78, release: 0.28 }, gain: 0.20 },
-      piano:     { osc: "triangle8",env: { attack: 0.006, decay: 1.15, sustain: 0.26, release: 0.75 }, gain: 0.34 },
-      cembalo:   { osc: "sawtooth", filter: 3800, env: { attack: 0.003, decay: 0.48, sustain: 0.04, release: 0.22 }, gain: 0.22 },
-      organ:     { osc: "sawtooth", filter: 2000, env: { attack: 0.015, decay: 0.10, sustain: 0.94, release: 0.14 }, gain: 0.20 },
-      guitar:    { osc: "triangle", env: { attack: 0.008, decay: 0.82, sustain: 0.16, release: 0.55 }, gain: 0.34 },
-      ebass:     { osc: "sawtooth", filter: 520,  env: { attack: 0.01, decay: 0.48, sustain: 0.45, release: 0.32 }, gain: 0.42 },
-      "synth-saw": { osc: "sawtooth", filter: 2900, env: { attack: 0.02, decay: 0.22, sustain: 0.74, release: 0.38 }, gain: 0.22 },
-      "synth-pad": { osc: "triangle", filter: 1600, env: { attack: 0.34, decay: 0.30, sustain: 0.86, release: 0.85 }, gain: 0.28 },
-      choir:     { osc: "triangle8",filter: 1900, env: { attack: 0.16, decay: 0.22, sustain: 0.82, release: 0.58 }, gain: 0.30 }
+      strings:     { osc: "sawtooth", filter: 1900, detune: 5, attack: 0.22, decay: 0.30, sustain: 0.82, release: 0.65, gain: 0.28 },
+      pizzicato:   { osc: "triangle", filter: 2800, detune: 0, attack: 0.005, decay: 0.22, sustain: 0.02, release: 0.16, gain: 0.38 },
+      brass:       { osc: "sawtooth", filter: 2100, detune: 3, attack: 0.055, decay: 0.20, sustain: 0.72, release: 0.35, gain: 0.24 },
+      flute:       { osc: "sine",     filter: 0,    detune: 0, attack: 0.09, decay: 0.10, sustain: 0.85, release: 0.32, gain: 0.32 },
+      reed:        { osc: "square",   filter: 1450, detune: 0, attack: 0.04, decay: 0.15, sustain: 0.78, release: 0.28, gain: 0.20 },
+      piano:       { osc: "triangle", filter: 3200, detune: 0, attack: 0.006, decay: 1.15, sustain: 0.26, release: 0.75, gain: 0.34 },
+      cembalo:     { osc: "sawtooth", filter: 3800, detune: 0, attack: 0.005, decay: 0.48, sustain: 0.04, release: 0.22, gain: 0.22 },
+      organ:       { osc: "sawtooth", filter: 2000, detune: 4, attack: 0.015, decay: 0.10, sustain: 0.92, release: 0.18, gain: 0.20 },
+      guitar:      { osc: "triangle", filter: 2600, detune: 0, attack: 0.008, decay: 0.82, sustain: 0.16, release: 0.55, gain: 0.34 },
+      ebass:       { osc: "sawtooth", filter: 520,  detune: 0, attack: 0.01, decay: 0.48, sustain: 0.45, release: 0.32, gain: 0.42 },
+      "synth-saw": { osc: "sawtooth", filter: 2900, detune: 5, attack: 0.02, decay: 0.22, sustain: 0.74, release: 0.38, gain: 0.22 },
+      "synth-pad": { osc: "triangle", filter: 1600, detune: 6, attack: 0.34, decay: 0.30, sustain: 0.86, release: 0.85, gain: 0.28 },
+      choir:       { osc: "triangle", filter: 1900, detune: 4, attack: 0.16, decay: 0.22, sustain: 0.82, release: 0.58, gain: 0.30 }
     };
 
     const cfg = PRESETS[style] || PRESETS.piano;
@@ -1516,43 +2020,43 @@ class AudioEngine {
     const stepDur = Math.max(0.2, durationSec);
     const totalWindowSec = isSeq ? ((notes.length - 1) * arpeggioStepMs) / 1000 + stepDur : stepDur;
 
-    const voiceCount = isSeq ? 1 : Math.sqrt(notes.length);
-    const tempGain = new Tone.Gain((cfg.gain * safeGainScale) / voiceCount).connect(this.masterGain);
-    const tempFilter = cfg.filter ? new Tone.Filter(cfg.filter, "lowpass").connect(tempGain) : null;
-    const destNode = tempFilter || tempGain;
+    const tempGain = this.rawCtx.createGain();
+    tempGain.gain.value = safeGainScale;
+    tempGain.connect(this.masterGain);
 
-    const tempSynth = cfg.Synth
-      ? new Tone.PolySynth(cfg.Synth, { harmonicity: cfg.harmonicity || 1.5, envelope: cfg.env }).connect(destNode)
-      : new Tone.PolySynth(Tone.Synth, { oscillator: { type: cfg.osc || "triangle" }, envelope: cfg.env }).connect(destNode);
+    const tempSynth = new EarLabNativeSynth(this.rawCtx, tempGain, {
+      oscType: cfg.osc,
+      filterHz: cfg.filter,
+      detuneSpread: cfg.detune,
+      attack: Number.isFinite(envOverride?.attackSec) ? envOverride.attackSec : cfg.attack,
+      decay: cfg.decay,
+      sustain: cfg.sustain,
+      release: Number.isFinite(envOverride?.releaseSec) ? envOverride.releaseSec : cfg.release,
+      baseGain: cfg.gain,
+      onVoiceStart: (v) => this.registerVoice(v),
+      onVoiceEnd: (v) => this.unregisterVoice(v)
+    });
 
-    const entry = { synth: tempSynth, gain: tempGain, filter: tempFilter };
+    const entry = { nativeSynth: tempSynth, gain: tempGain };
     this.activeDemoNodes.push(entry);
 
-    const currentId = this.playbackId;
+    const baseAt = this.getAudioTime() + this.getScheduleLookaheadSec();
     if (isSeq) {
       notes.forEach((n, idx) => {
-        this.registerTimer(() => {
-          if (!this.isInitialized || this.playbackId !== currentId) return;
-          tempSynth.triggerAttackRelease(n, stepDur, Tone.now());
-        }, idx * arpeggioStepMs);
+        tempSynth.triggerAttackRelease([n], stepDur, baseAt + (idx * arpeggioStepMs) / 1000, 1.0);
       });
     } else {
-      tempSynth.triggerAttackRelease(notes, stepDur, Tone.now());
+      tempSynth.triggerAttackRelease(notes, stepDur, baseAt, 1.0);
     }
 
     setTimeout(() => {
-      try {
-        tempSynth.dispose();
-        tempFilter?.dispose();
-        tempGain.dispose();
-      } catch (_) {}
+      try { tempGain.disconnect(); } catch (_) {}
       this.activeDemoNodes = this.activeDemoNodes.filter(item => item !== entry);
-    }, (totalWindowSec + 0.9) * 1000);
+    }, (totalWindowSec + 0.95) * 1000);
   }
 
   /**
-   * Spielt Begleit- oder Stimmführungs-Töne für den Einsing-Helfer direkt über den Master-Bus ab
-   * (unabhängig von den Übungs-Mixer-Fadern).
+   * Spielt Begleit- oder Stimmführungs-Töne für den Einsing-Helfer direkt über den Master-Bus ab.
    */
   playWarmupNotes(soundMode, notes, durationSec = 0.85, isChordCue = false, layerChoirOnChord = false) {
     if (!this.isInitialized || !notes || notes.length === 0) return;
@@ -1571,23 +2075,18 @@ class AudioEngine {
   }
 
   /**
-   * Spielt einen ruhigen, tiefen Bass-Klangteppich für die Atemübung im Einsing-Helfer ab,
-   * der sich über die exakte Dauer des jeweiligen Atemfensters weich ein- und ausblendet.
+   * Spielt einen ruhigen, tiefen Bass-Klangteppich für die Atemübung im Einsing-Helfer ab.
    */
   playWarmupBreathTone(noteOrMidi, durationSec = 4.0, options = {}) {
-    if (!this.isInitialized || !this.masterGain) return;
+    if (!this.isInitialized || !this.masterGain || !this.rawCtx) return;
     const midi = EarLabSampledInstrument.noteToMidi(noteOrMidi);
     if (midi === null) return;
 
-    const rawCtx = this.piano?.rawCtx
-      ?? (typeof Tone !== "undefined" && typeof Tone.getContext === "function" ? Tone.getContext()?.rawContext : Tone?.context?.rawContext);
-    if (!rawCtx || typeof rawCtx.createOscillator !== "function") return;
-
+    const rawCtx = this.rawCtx;
     const freq = 440 * Math.pow(2, (midi - 69) / 12);
     const dur = Math.max(0.4, Number(durationSec) || 4.0);
     const phase = options.phase || "inhale";
-    const now = rawCtx.currentTime || 0;
-    const startAt = now + 0.022;
+    const startAt = (rawCtx.currentTime || 0) + 0.025;
     const endAt = startAt + dur;
     const attackSec = Math.min(0.85, Math.max(0.18, dur * 0.22));
     const releaseSec = Math.min(1.10, Math.max(0.24, dur * 0.27));
@@ -1618,7 +2117,7 @@ class AudioEngine {
     envGain.gain.linearRampToValueAtTime(0, endAt);
 
     filter.connect(envGain);
-    connectAudioNodeToTarget(envGain, this.masterGain);
+    envGain.connect(this.masterGain);
 
     let reverbSendGain = null;
     const wetMix = Number.isFinite(this.instrumentReverbMix?.strings)
@@ -1628,7 +2127,7 @@ class AudioEngine {
       reverbSendGain = rawCtx.createGain();
       reverbSendGain.gain.value = wetMix;
       envGain.connect(reverbSendGain);
-      connectAudioNodeToTarget(reverbSendGain, this.pianoReverbDamp);
+      reverbSendGain.connect(this.pianoReverbDamp);
     }
 
     const oscSpecs = [
@@ -1710,151 +2209,224 @@ class AudioEngine {
   }
 
   /**
-   * Spielt einen Schritt über alle aktiven Mixer-Kanäle (Klavier, Gitarre, Streicher,
-   * Bläser, Stimme sowie Bass bei übergebenem bassNote) gemäß den aktuellen Mixer-Reglern ab.
+   * Spielt einen Schritt ausschließlich über die aktuell im Mixer aktiven Kanäle (> 0 %) ab.
+   * Stumme Spuren erzeugen keine AudioNodes und verbrauchen 0 % CPU.
    */
   playStep(notes, durationSec = 1.2, bassNote = null, _mode = "cadence", timingOpts = null) {
-    if (!this.isInitialized) return;
-    const rawCtx = this.getRawAudioContext();
-    if (rawCtx && (rawCtx.state === "suspended" || rawCtx.state === "interrupted") && typeof rawCtx.resume === "function") {
-      try { Promise.resolve(rawCtx.resume()).catch(() => {}); } catch (_) {}
+    if (!this.isInitialized || !this.rawCtx) return;
+    if ((this.rawCtx.state === "suspended" || this.rawCtx.state === "interrupted") && typeof this.rawCtx.resume === "function") {
+      try { Promise.resolve(this.rawCtx.resume()).catch(() => {}); } catch (_) {}
     }
-    const now = Tone.now();
-    const rawCtxNow = this.piano?.rawCtx?.currentTime ?? Tone.context?.rawContext?.currentTime ?? now;
-    const requestedAt = Number.isFinite(timingOpts?.atTime) ? timingOpts.atTime : now;
-    const at = Math.max(now, rawCtxNow, requestedAt);
+
+    const now = this.rawCtx.currentTime || 0;
+    const lead = this.getScheduleLookaheadSec();
+    const rawRequested = Number.isFinite(timingOpts?.atTime) ? timingOpts.atTime : (now + lead);
+    // Schutz gegen Uhr-Mismatch (z. B. Fallback-Date.now() vor Context-Start)
+    const safeRequested = rawRequested > now + 30 ? (now + lead) : rawRequested;
+    const at = Math.max(now + 0.018, safeRequested);
     const velScale = Number.isFinite(timingOpts?.velocity) ? Math.max(0.08, Math.min(1, timingOpts.velocity)) : 1;
     const minDur = timingOpts ? 0.14 : 0.2;
     const dur = Math.max(minDur, durationSec);
     const hasNotes = Array.isArray(notes) && notes.length > 0;
     const uniqNotes = hasNotes ? [...new Set(notes)] : [];
-    const chordVel = uniqNotes.length > 0 ? Math.min(1, 1.05 / Math.sqrt(uniqNotes.length)) * velScale : velScale;
+    const chordVel = uniqNotes.length > 0 ? Math.min(1, 1.02 / Math.sqrt(uniqNotes.length)) * velScale : velScale;
 
-    // Bei zweistimmigen harmonischen Intervallen (z. B. Oktave vs. Prime) verhindert ein minimaler
-    // Onset-Versatz mit klarer Oberstimmen-Betonung die Oberton-Verschmelzung am selben Einschwingmoment.
     let harmonicVoices = null;
     if (_mode === "interval-harmonic" && uniqNotes.length === 2) {
       const sorted = uniqNotes.slice().sort(
         (a, b) => EarLabSampledInstrument.noteToMidi(a) - EarLabSampledInstrument.noteToMidi(b)
       );
-      const rawNow = this.piano?.rawCtx?.currentTime ?? Tone.context?.rawContext?.currentTime ?? 0;
       const onsetGapSec = 0.022;
-      const baseAt = Math.max(at, rawNow + 0.024);
       harmonicVoices = [
-        { note: sorted[0], dur, at: baseAt, vel: 0.50 * velScale },
-        { note: sorted[1], dur: Math.max(0.2, dur - onsetGapSec), at: baseAt + onsetGapSec, vel: 1.0 * velScale }
+        { note: sorted[0], dur, at, vel: 0.50 * velScale },
+        { note: sorted[1], dur: Math.max(0.2, dur - onsetGapSec), at: at + onsetGapSec, vel: 1.0 * velScale }
       ];
     }
 
-    const triggerChordStem = (stemKey) => {
-      if (!hasNotes) return;
-      const inst = this[stemKey];
-      if (!inst) return;
-      const isSampled = this.sampledStems[stemKey] || (stemKey === "piano" && this.pianoUsingSampler);
-      if (harmonicVoices) {
-        harmonicVoices.forEach(v => inst.triggerAttackRelease([v.note], v.dur, v.at, v.vel));
-      } else if (isSampled) {
-        inst.triggerAttackRelease(uniqNotes, dur, at, chordVel);
-      } else if (timingOpts?.velocity !== undefined) {
-        inst.triggerAttackRelease(notes, dur, at, velScale);
-      } else {
-        inst.triggerAttackRelease(notes, dur, at);
-      }
-    };
-
+    // Nur aktive Stems (> 0,5 %) auslösen + winzige 1,5-ms-Staffelung bricht kohärente Transienten-Spitzen
     if (hasNotes) {
-      ["piano", "guitar", "strings", "brass", "voice"].forEach(triggerChordStem);
+      const chordStems = ["piano", "guitar", "strings", "brass", "voice"].filter(k => (this.stemLevels[k] || 0) > 0.005);
+      chordStems.forEach((stemKey, stemIdx) => {
+        const inst = this[stemKey];
+        if (!inst) return;
+        const stemOffset = stemIdx * 0.0015;
+        if (harmonicVoices) {
+          harmonicVoices.forEach(v => inst.triggerAttackRelease([v.note], v.dur, v.at + stemOffset, v.vel));
+        } else {
+          inst.triggerAttackRelease(uniqNotes, dur, at + stemOffset, chordVel);
+        }
+      });
     }
 
-    if (bassNote && this.bass) {
-      if (this.sampledStems.bass) {
-        this.bass.triggerAttackRelease(bassNote, dur, at, 0.95 * velScale);
-      } else if (timingOpts?.velocity !== undefined) {
-        this.bass.triggerAttackRelease(bassNote, dur, at, velScale);
-      } else {
-        this.bass.triggerAttackRelease(bassNote, dur, at);
-      }
+    if (bassNote && this.bass && (this.stemLevels.bass || 0) > 0.005) {
+      this.bass.triggerAttackRelease(bassNote, dur, at, 0.95 * velScale);
     }
   }
 
-  ensurePercussionSynths() {
-    if (this.percInitialized || !this.isInitialized || !this.masterGain) return;
-
-    const kickGain = new Tone.Gain(0.85).connect(this.masterGain);
-    this.percMembrane = new Tone.MembraneSynth({
-      pitchDecay: 0.045,
-      octaves: 5,
-      oscillator: { type: "sine" },
-      envelope: { attack: 0.002, decay: 0.22, sustain: 0.0, release: 0.08 }
-    }).connect(kickGain);
-
-    const snareFilter = new Tone.Filter(1500, "highpass").connect(this.masterGain);
-    const snareGain = new Tone.Gain(0.45).connect(snareFilter);
-    this.percSnare = new Tone.NoiseSynth({
-      noise: { type: "white" },
-      envelope: { attack: 0.002, decay: 0.14, sustain: 0.0 }
-    }).connect(snareGain);
-
-    const hatFilter = new Tone.Filter(6200, "highpass").connect(this.masterGain);
-    const hatGain = new Tone.Gain(0.24).connect(hatFilter);
-    this.percHat = new Tone.NoiseSynth({
-      noise: { type: "white" },
-      envelope: { attack: 0.001, decay: 0.045, sustain: 0.0 }
-    }).connect(hatGain);
-
-    const shakerFilter = new Tone.Filter({ frequency: 4400, type: "bandpass", Q: 1.5 }).connect(this.masterGain);
-    const shakerGain = new Tone.Gain(0.22).connect(shakerFilter);
-    this.percShaker = new Tone.NoiseSynth({
-      noise: { type: "pink" },
-      envelope: { attack: 0.01, decay: 0.065, sustain: 0.0 }
-    }).connect(shakerGain);
-
-    const toneGain = new Tone.Gain(0.35).connect(this.masterGain);
-    this.percTone = new Tone.PolySynth(Tone.Synth, {
-      oscillator: { type: "triangle" },
-      envelope: { attack: 0.002, decay: 0.065, sustain: 0.0, release: 0.03 }
-    }).connect(toneGain);
-
-    this.percInitialized = true;
-  }
-
-  playPercussionSample(buffer, when, gainVal, rate = 1.0) {
+  /**
+   * Nativer Percussion-Sample-Player mit 1-ms-Attack-Rampe gegen Nulldurchgangs-Clicks.
+   */
+  playPercussionSample(entry, when, gainVal, rate = 1.0) {
+    const buffer = entry?.buffer || entry;
+    const trimOff = entry?.trimOffsetSec || 0;
     if (!buffer || !this.percSampleRawCtx || !this.percSampleGain) return false;
     const rawCtx = this.percSampleRawCtx;
-    const startAt = Math.max(when, rawCtx.currentTime || 0);
+    const startAt = Math.max(when, (rawCtx.currentTime || 0) + 0.006);
     const src = rawCtx.createBufferSource();
     src.buffer = buffer;
     src.playbackRate.value = rate;
 
     const gainNode = rawCtx.createGain();
-    const peak = Math.max(0.01, Math.min(1.5, gainVal));
-    gainNode.gain.setValueAtTime(peak, startAt);
+    const peak = Math.max(0.01, Math.min(1.4, gainVal));
+    gainNode.gain.setValueAtTime(0.0001, startAt);
+    gainNode.gain.linearRampToValueAtTime(peak, startAt + 0.0015);
 
     src.connect(gainNode);
-    connectAudioNodeToTarget(gainNode, this.percSampleGain);
+    gainNode.connect(this.percSampleGain);
 
     src.onended = () => {
       try { src.disconnect(); } catch (_) {}
       try { gainNode.disconnect(); } catch (_) {}
     };
 
-    const maxDur = (buffer.duration || 1.2) / Math.max(0.25, rate);
-    src.start(startAt);
-    src.stop(startAt + maxDur + 0.03);
+    const availDur = Math.max(0.05, ((buffer.duration || 1.2) - trimOff) / Math.max(0.25, rate));
+    const fadeStart = startAt + Math.max(0.02, availDur - 0.015);
+    gainNode.gain.setValueAtTime(peak, fadeStart);
+    gainNode.gain.linearRampToValueAtTime(0, startAt + availDur);
+
+    src.start(startAt, trimOff);
+    src.stop(startAt + availDur + 0.02);
     return true;
   }
 
-  triggerPercussion(kind, scheduledTime = null, velocity = 1) {
-    if (!this.isInitialized) return;
-    const rawCtx = this.getRawAudioContext();
-    if (rawCtx && (rawCtx.state === "suspended" || rawCtx.state === "interrupted") && typeof rawCtx.resume === "function") {
-      try { Promise.resolve(rawCtx.resume()).catch(() => {}); } catch (_) {}
+  /**
+   * Schlanker nativer Percussion-Synthesizer (für Toms/Congas/Timpani sowie als Sample-Fallback).
+   */
+  triggerNativePercussionSynth(kind, when, vel) {
+    const rawCtx = this.rawCtx;
+    if (!rawCtx || !this.masterGain) return;
+    const startAt = Math.max(when, (rawCtx.currentTime || 0) + 0.006);
+
+    const playMembrane = (baseNote, dur = 0.22, octaves = 3.2, level = 0.72) => {
+      const midi = EarLabSampledInstrument.noteToMidi(baseNote) ?? 36;
+      const baseFreq = EarLabSampledInstrument.midiToFreq(midi);
+      const osc = rawCtx.createOscillator();
+      const gain = rawCtx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(baseFreq * Math.pow(2, octaves * 0.45), startAt);
+      osc.frequency.exponentialRampToValueAtTime(baseFreq, startAt + 0.045);
+
+      gain.gain.setValueAtTime(0.0001, startAt);
+      gain.gain.linearRampToValueAtTime(level * vel, startAt + 0.003);
+      gain.gain.exponentialRampToValueAtTime(0.0005, startAt + dur);
+      gain.gain.linearRampToValueAtTime(0, startAt + dur + 0.01);
+
+      osc.connect(gain);
+      gain.connect(this.masterGain);
+      osc.onended = () => {
+        try { osc.disconnect(); } catch (_) {}
+        try { gain.disconnect(); } catch (_) {}
+      };
+      osc.start(startAt);
+      osc.stop(startAt + dur + 0.025);
+    };
+
+    const playNoiseBurst = (filterType, freqHz, qVal, decaySec, level) => {
+      if (!this.whiteNoiseBuffer) this.whiteNoiseBuffer = buildWhiteNoiseBuffer(rawCtx, 1.0);
+      const src = rawCtx.createBufferSource();
+      src.buffer = this.whiteNoiseBuffer;
+      const filter = rawCtx.createBiquadFilter();
+      filter.type = filterType;
+      filter.frequency.value = freqHz;
+      filter.Q.value = qVal;
+      const gain = rawCtx.createGain();
+      gain.gain.setValueAtTime(0.0001, startAt);
+      gain.gain.linearRampToValueAtTime(level * vel, startAt + 0.002);
+      gain.gain.exponentialRampToValueAtTime(0.0005, startAt + decaySec);
+      gain.gain.linearRampToValueAtTime(0, startAt + decaySec + 0.01);
+
+      src.connect(filter);
+      filter.connect(gain);
+      gain.connect(this.masterGain);
+      src.onended = () => {
+        try { src.disconnect(); } catch (_) {}
+        try { filter.disconnect(); } catch (_) {}
+        try { gain.disconnect(); } catch (_) {}
+      };
+      src.start(startAt);
+      src.stop(startAt + decaySec + 0.025);
+    };
+
+    const playClickTone = (note, dur, level = 0.34) => {
+      const midi = EarLabSampledInstrument.noteToMidi(note) ?? 79;
+      const osc = rawCtx.createOscillator();
+      const gain = rawCtx.createGain();
+      osc.type = "triangle";
+      osc.frequency.setValueAtTime(EarLabSampledInstrument.midiToFreq(midi), startAt);
+      gain.gain.setValueAtTime(0.0001, startAt);
+      gain.gain.linearRampToValueAtTime(level * vel, startAt + 0.002);
+      gain.gain.exponentialRampToValueAtTime(0.0005, startAt + dur);
+      gain.gain.linearRampToValueAtTime(0, startAt + dur + 0.01);
+      osc.connect(gain);
+      gain.connect(this.masterGain);
+      osc.onended = () => {
+        try { osc.disconnect(); } catch (_) {}
+        try { gain.disconnect(); } catch (_) {}
+      };
+      osc.start(startAt);
+      osc.stop(startAt + dur + 0.02);
+    };
+
+    const membraneMap = {
+      kick: "C1", tom_low: "G2", tom_mid: "C3", tom_high: "F3",
+      conga_low: "A2", conga_high: "E3", timpani: "C2"
+    };
+    const toneMap = {
+      accent: { note: "C6", dur: 0.055 },
+      tick: { note: "G5", dur: 0.045 },
+      clave: { note: "E6", dur: 0.04 },
+      wood_accent: { note: "G6", dur: 0.045 },
+      wood_tick: { note: "D6", dur: 0.04 },
+      wood_sub: { note: "A6", dur: 0.03 },
+      cowbell: { note: "G#5", dur: 0.11 },
+      cowbell_accent: { note: "B5", dur: 0.11 },
+      cowbell_tick: { note: "G#5", dur: 0.095 },
+      cowbell_sub: { note: "E6", dur: 0.045 }
+    };
+
+    if (membraneMap[kind]) {
+      playMembrane(membraneMap[kind], kind === "timpani" ? 0.42 : 0.22);
+    } else if (kind === "rimshot_accent") {
+      playClickTone("F5", 0.035, 0.36);
+      playNoiseBurst("highpass", 1500, 0.8, 0.11, 0.32);
+    } else if (kind === "rimshot_tick") {
+      playClickTone("C5", 0.03, 0.28);
+      playNoiseBurst("highpass", 1500, 0.8, 0.07, 0.22);
+    } else if (kind === "rimshot_sub") {
+      playNoiseBurst("highpass", 6200, 0.8, 0.045, 0.20);
+    } else if (kind === "snare") {
+      playMembrane("D3", 0.10, 1.2, 0.28);
+      playNoiseBurst("highpass", 1500, 0.8, 0.14, 0.38);
+    } else if (kind === "hat") {
+      playNoiseBurst("highpass", 6200, 0.8, 0.05, 0.22);
+    } else if (kind === "shaker") {
+      playNoiseBurst("bandpass", 4400, 1.5, 0.07, 0.22);
+    } else if (toneMap[kind]) {
+      const def = toneMap[kind];
+      playClickTone(def.note, def.dur, 0.35);
     }
-    this.ensurePercussionSynths();
-    const now = Tone.now();
-    const when = scheduledTime !== null && scheduledTime !== undefined
-      ? Math.max(now, scheduledTime)
-      : now;
+  }
+
+  triggerPercussion(kind, scheduledTime = null, velocity = 1) {
+    if (!this.isInitialized || !this.rawCtx) return;
+    if ((this.rawCtx.state === "suspended" || this.rawCtx.state === "interrupted") && typeof this.rawCtx.resume === "function") {
+      try { Promise.resolve(this.rawCtx.resume()).catch(() => {}); } catch (_) {}
+    }
+    const now = this.rawCtx.currentTime || 0;
+    const hasSched = scheduledTime !== null && scheduledTime !== undefined && Number.isFinite(scheduledTime) && scheduledTime <= now + 30;
+    const when = hasSched
+      ? Math.max(now + 0.006, scheduledTime)
+      : (now + 0.015);
     const vel = Math.max(0.05, Math.min(1, Number.isFinite(velocity) ? velocity : 1));
 
     if (this.percUsingSamples) {
@@ -1878,68 +2450,26 @@ class AudioEngine {
         cowbell:        { key: "cowbell", gain: 0.82, rate: 1.0 }
       };
       const spec = sampleTable[kind];
-      const sampleBuf = spec ? this.percSamples[spec.key] : null;
-      if (sampleBuf && this.playPercussionSample(sampleBuf, when, vel * spec.gain, spec.rate)) {
+      const sampleEntry = spec ? this.percSamples[spec.key] : null;
+      if (sampleEntry && this.playPercussionSample(sampleEntry, when, vel * spec.gain, spec.rate)) {
         return;
       }
     }
 
-    const membraneMap = {
-      kick: "C1",
-      tom_low: "G2",
-      tom_mid: "C3",
-      tom_high: "F3",
-      conga_low: "A2",
-      conga_high: "E3",
-      timpani: "C2"
-    };
-    const toneMap = {
-      accent: { note: "C6", dur: 0.05 },
-      tick: { note: "G5", dur: 0.04 },
-      clave: { note: "E6", dur: 0.035 },
-      wood_accent: { note: "G6", dur: 0.04 },
-      wood_tick: { note: "D6", dur: 0.035 },
-      wood_sub: { note: "A6", dur: 0.025 },
-      cowbell: { note: "G#5", dur: 0.11 },
-      cowbell_accent: { note: "B5", dur: 0.11 },
-      cowbell_tick: { note: "G#5", dur: 0.095 },
-      cowbell_sub: { note: "E6", dur: 0.045 }
-    };
-
-    if (membraneMap[kind]) {
-      this.percMembrane?.triggerAttackRelease(membraneMap[kind], 0.16, when, vel);
-    } else if (kind === "rimshot_accent") {
-      this.percTone?.triggerAttackRelease("F5", 0.03, when, vel);
-      this.percSnare?.triggerAttackRelease("32n", when, vel * 0.85);
-    } else if (kind === "rimshot_tick") {
-      this.percTone?.triggerAttackRelease("C5", 0.025, when, vel * 0.75);
-      this.percSnare?.triggerAttackRelease("64n", when, vel * 0.55);
-    } else if (kind === "rimshot_sub") {
-      this.percHat?.triggerAttackRelease("32n", when, vel * 0.85);
-    } else if (kind === "snare") {
-      this.percSnare?.triggerAttackRelease("16n", when, vel);
-    } else if (kind === "hat") {
-      this.percHat?.triggerAttackRelease("32n", when, vel);
-    } else if (kind === "shaker") {
-      this.percShaker?.triggerAttackRelease("32n", when, vel);
-    } else if (toneMap[kind]) {
-      const def = toneMap[kind];
-      this.percTone?.triggerAttackRelease(def.note, def.dur, when, vel);
-    }
+    this.triggerNativePercussionSynth(kind, when, vel);
   }
 
   /**
    * Spielt ein Rhythmus-Muster aus [delayMs, instrumentKind, optionalVelocity] Paaren ab.
-   * Nutzt einen kurzen Lookahead auf die WebAudio-Uhr für präzises Timing ohne JS-Timer-Jittern.
+   * Nutzt Lookahead auf die WebAudio-Hardware-Uhr für jitterfreies Timing.
    */
   playRhythmSequence(events, baseAudioTimeOverride = null) {
     if (!this.isInitialized || !events || events.length === 0) return;
-    this.ensurePercussionSynths();
     const currentId = this.playbackId;
     const baseAudioTime = baseAudioTimeOverride !== null && baseAudioTimeOverride !== undefined
       ? baseAudioTimeOverride
-      : Tone.now() + 0.035;
-    const lookaheadMs = 95;
+      : (this.getAudioTime() + 0.045);
+    const lookaheadMs = 110;
 
     events.forEach(([delayMs, kind, vel]) => {
       const safeDelay = Math.max(0, delayMs);

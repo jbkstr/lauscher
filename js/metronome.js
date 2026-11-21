@@ -241,7 +241,7 @@ function scheduleSingleMetronomeStep(beatIdx, subIdx, whenSec, nowAudioSec, runT
 function scheduleMetronomeLoop() {
   if (!state.metronome?.running) return;
   const runToken = _metroRuntime.runToken;
-  const nowAudio = (typeof Tone !== "undefined" && typeof Tone.now === "function") ? Tone.now() : 0;
+  const nowAudio = (typeof audioEngine !== "undefined" && typeof audioEngine.getAudioTime === "function") ? audioEngine.getAudioTime() : 0;
   const lookaheadSec = 0.11;
 
   if (_metroRuntime.nextNoteTime < nowAudio - 0.5) {
@@ -273,7 +273,7 @@ async function startMetronome() {
   }
   clearPendingMetronomeVisualTimers();
 
-  const nowAudio = (typeof Tone !== "undefined" && typeof Tone.now === "function") ? Tone.now() : 0;
+  const nowAudio = (typeof audioEngine !== "undefined" && typeof audioEngine.getAudioTime === "function") ? audioEngine.getAudioTime() : 0;
   _metroRuntime.nextNoteTime = nowAudio + 0.04;
   _metroRuntime.currentBeatIndex = 0;
   _metroRuntime.currentSubIndex = 0;
@@ -363,7 +363,7 @@ function setMetronomeBpm(nextBpm, options = {}) {
 
   // Wenn das Metronom bereits läuft, das nächste geplante Intervall direkt an das neue Tempo anpassen
   if (state.metronome?.running) {
-    const nowAudio = (typeof Tone !== "undefined" && typeof Tone.now === "function") ? Tone.now() : 0;
+    const nowAudio = (typeof audioEngine !== "undefined" && typeof audioEngine.getAudioTime === "function") ? audioEngine.getAudioTime() : 0;
     const secPerStep = getMetronomeShortestStepSec(normalizeMetronomeSubdivision(state.metronome.subdivision), clamped);
     if (_metroRuntime.nextNoteTime > nowAudio + secPerStep) {
       _metroRuntime.nextNoteTime = nowAudio + secPerStep;

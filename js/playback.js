@@ -387,9 +387,9 @@ async function repeatRhythmDictationBeat(slotIdx = null) {
 }
 
 function getAudioClockSec() {
-  if (typeof Tone !== "undefined" && typeof Tone.now === "function") {
+  if (typeof audioEngine !== "undefined" && typeof audioEngine.getAudioTime === "function") {
     try {
-      const t = Tone.now();
+      const t = audioEngine.getAudioTime();
       if (Number.isFinite(t)) return t;
     } catch (_) {}
   }
@@ -745,16 +745,6 @@ function unlockWebAudioSync() {
   try {
     if (typeof audioEngine?.unlockAudioSessionSync === "function") {
       audioEngine.unlockAudioSessionSync();
-      return;
-    }
-    if (typeof Tone === "undefined") return;
-    const ctx = typeof Tone.getContext === "function" ? Tone.getContext() : null;
-    const rawCtx = ctx?.rawContext || ctx?._context || Tone.context?.rawContext || Tone.context?._context;
-    if (rawCtx && (rawCtx.state === "suspended" || rawCtx.state === "interrupted") && typeof rawCtx.resume === "function") {
-      Promise.resolve(rawCtx.resume()).catch(() => {});
-    }
-    if (typeof Tone.start === "function") {
-      Promise.resolve(Tone.start()).catch(() => {});
     }
   } catch (_) {}
 }
@@ -2434,10 +2424,26 @@ async function playSequence(options = {}) {
 
   function runLoopCycle() {
     if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
+    // Samplegenaue Hardware-Clock-Planung: Audio läuft auch bei DOM-/Layout-Spitzen absolut jitterfrei
+    const baseAudioTime = getAudioClockSec() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
+    const lookaheadMs = 85;
 
     ex.bars.forEach((bar, index) => {
       const delay = stepScheduleMs[index];
       const stepDur = stepDursSec[index];
+      const targetAudioTime = baseAudioTime + delay / 1000;
+      const audioTimerDelay = Math.max(0, delay - lookaheadMs);
+
+      audioEngine.registerTimer(() => {
+        if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
+        audioEngine.playStep(
+          bar.notes,
+          stepDur,
+          bar.bass,
+          ex.type === "interval-harmonic" ? "interval-harmonic" : "cadence",
+          { atTime: targetAudioTime }
+        );
+      }, audioTimerDelay);
 
       audioEngine.registerTimer(() => {
         if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
@@ -2465,9 +2471,6 @@ async function playSequence(options = {}) {
           document.getElementById("stageMainText").textContent = bar.symbol;
           document.getElementById("stageFunctionText").textContent = bar.label;
         }
-
-        audioEngine.playStep(bar.notes, stepDur, bar.bass, ex.type === "interval-harmonic" ? "interval-harmonic" : "cadence");
-
       }, delay);
     });
 
