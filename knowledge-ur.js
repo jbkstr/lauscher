@@ -1338,6 +1338,169 @@ const KNOWLEDGE_ARTICLES_UR = [
         </div>
       </div>
     `
+  },
+  {
+    id: "art-mnemonics",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1.1 2h5.8c.1-.8.5-1.5 1.1-2A7 7 0 0 0 12 2z"/></svg>`,
+    badgeClass: "badge-peach",
+    title: "موسیقی کے یادداشتی جملے اور آسان گر",
+    subtitle: "دائرہ خمس (Circle of Fifths)، نوٹیشن، کھلے تاروں، انٹرولز اور تال کے لیے مشہور یادداشتی طریقے",
+    tag: "یادداشت اور مشق",
+    render: () => `
+      <div class="article-body">
+        <span class="k-card-tag tag-peach">یادداشت اور مشق</span>
+        <h2>موسیقی کے ایسے آسان گر جو عمر بھر یاد رہیں</h2>
+        <p class="article-lead">
+          انسان کوئی مزے دار جملہ یا تال والا لفظ چند سیکنڈ میں یاد کر لیتا ہے، جبکہ محض سُروں کے ناموں کی خشک فہرست پانچ منٹ میں ذہن سے نکل جاتی ہے۔ انسانی دماغ <strong>تصویروں، کہانیوں، قافیے اور تال</strong> کے لیے بنا ہے۔ یہاں موسیقی سیکھنے کے سب سے مشہور اور کارآمد یادداشتی طریقے یکجا کیے گئے ہیں۔
+        </p>
+
+        <h3>1. دائرہ خمس (Circle of Fifths) اور شارپ/فلیٹ کی ترتیب</h3>
+        <p>
+          نوٹیشن میں شارپ (<strong>♯</strong>) اور فلیٹ (<strong>♭</strong>) ہمیشہ ایک ہی مقررہ ترتیب سے آتے ہیں — اور دونوں ترتیبیں ایک دوسرے کا بالکل الٹ آئینہ ہیں:
+        </p>
+        <div class="k-compare-grid">
+          <div class="k-compare-box is-sage">
+            <h5>شارپ (♯) کی ترتیب: F – C – G – D – A – E – B</h5>
+            <p>
+              <strong>“<u>F</u>ather <u>C</u>harles <u>G</u>oes <u>D</u>own <u>A</u>nd <u>E</u>nds <u>B</u>attle”</strong><br>
+              <em>متبادل:</em> “<strong>F</strong>at <strong>C</strong>ats <strong>G</strong>o <strong>D</strong>own <strong>A</strong>lleys <strong>E</strong>ating <strong>B</strong>irds”۔<br>
+              C (0) سے گھڑی کی سمت میجر کلیدیں: <strong>G</strong> (1♯)، <strong>D</strong> (2♯)، <strong>A</strong> (3♯)، <strong>E</strong> (4♯)، <strong>B</strong> (5♯)، <strong>F♯</strong> (6♯)۔
+            </p>
+          </div>
+          <div class="k-compare-box is-peach">
+            <h5>فلیٹ (♭) کی ترتیب: B – E – A – D – G – C – F</h5>
+            <p>
+              <strong>“<u>B</u>attle <u>E</u>nds <u>A</u>nd <u>D</u>own <u>G</u>oes <u>C</u>harles’ <u>F</u>ather”</strong><br>
+              <em>شارٹ کٹ:</em> لفظ <strong><u>BEAD</u></strong> + <strong><u>G</u></strong>reatest <strong><u>C</u></strong>ommon <strong><u>F</u></strong>actor!<br>
+              گھڑی کے الٹ سمت میجر کلیدیں: <strong>F</strong> (1♭)، <strong>B♭</strong> (2♭)، <strong>E♭</strong> (3♭)، <strong>A♭</strong> (4♭)، <strong>D♭</strong> (5♭)، <strong>G♭</strong> (6♭)۔
+            </p>
+          </div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>کلید (Key Signature) فوراً پہچاننے کے دو اصول</h4>
+          <ul class="article-steps-list">
+            <li><strong>شارپ (♯) کے لیے:</strong> دائیں جانب کا <em>آخری شارپ</em> ہمیشہ <strong>لیڈنگ ٹون (Ti / ساتواں درجہ)</strong> ہوتا ہے۔ اس سے <strong>ایک نیم سُر اوپر</strong> جائیں تو میجر کلید مل جاتی ہے! (مثال: آخری شارپ <em>C♯</em> → ایک نیم سُر اوپر = <strong>D میجر</strong>)۔</li>
+            <li><strong>فلیٹ (♭) کے لیے:</strong> <em>آخری سے پہلے والا فلیٹ</em> خود میجر کلید کا نام ہوتا ہے! (مثال: 3 فلیٹ = B♭، <strong>E♭</strong>، A♭ → <strong>E♭ میجر</strong>۔ صرف 1♭ = <strong>F میجر</strong> الگ یاد رکھیں)۔</li>
+            <li><strong>متعلقہ مائنر کلید:</strong> میجر بنیادی سُر سے <strong>3 نیم سُر (مائنر تھرڈ) نیچے</strong> اتریں (C میجر → A مائنر، G میجر → E مائنر)۔</li>
+          </ul>
+          <button class="btn-tool" data-jump-ref="circle-of-fifths">→ انٹرایکٹو دائرہ خمس کھولیں</button>
+        </div>
+
+        <h3>2. اسٹاف کی لکیریں اور خانے (Treble، Bass اور Alto کلیف)</h3>
+        <p>
+          اسٹاف کے یادداشتی جملے ہمیشہ <strong>سب سے نیچے والی لکیر یا خانے سے اوپر کی طرف</strong> پڑھے جاتے ہیں:
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row">
+            <div>
+              <strong>ٹریبل کلیف • 4 خانے: F – A – C – E</strong>
+              <span>خانوں کے حروف مل کر سیدھا لفظ <strong>“FACE”</strong> بناتے ہیں (“Face in the space!”)۔</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>ٹریبل کلیف • 5 لکیریں: E – G – B – D – F</strong>
+              <span><em>“<strong>E</strong>very <strong>G</strong>ood <strong>B</strong>oy <strong>D</strong>oes <strong>F</strong>ine”</em>۔</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>بیس کلیف • 5 لکیریں: G – B – D – F – A</strong>
+              <span><em>“<strong>G</strong>ood <strong>B</strong>oys <strong>D</strong>o <strong>F</strong>ine <strong>A</strong>lways”</em>۔</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>بیس کلیف • 4 خانے: A – C – E – G</strong>
+              <span><em>“<strong>A</strong>ll <strong>C</strong>ows <strong>E</strong>at <strong>G</strong>rass”</em>۔</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>تین کلیف کے نشانی نقاط (G، F اور C کلیف)</strong>
+              <span>• <strong>ٹریبل = G کلیف:</strong> اندرونی گول گھماؤ دوسری لکیر (<strong>G4</strong>) کے گرد بنتا ہے۔<br>• <strong>بیس = F کلیف:</strong> دونوں نقطے چوتھی لکیر (<strong>F3</strong>) کے اوپر نیچے ہوتے ہیں۔<br>• <strong>آلٹو = C کلیف:</strong> درمیانی نوک سیدھی تیسری لکیر = <strong>درمیانی C (C4)</strong> کی طرف اشارہ کرتی ہے!</span>
+            </div>
+          </div>
+        </div>
+
+        <h3>3. گٹار، بیس، وائلن اور یوکولیلے کے کھلے تار</h3>
+        <p>
+          تاروں کی تمام ترتیبیں <strong>سب سے گہرے (موٹے) تار سے سب سے باریک (اونچے) تار</strong> تک پڑھی جاتی ہیں:
+        </p>
+        <ul class="article-steps-list">
+          <li><strong>گٹار (6 تار: E – A – D – G – B – E):</strong> <em>“<strong>E</strong>ddy <strong>A</strong>te <strong>D</strong>ynamite, <strong>G</strong>ood <strong>B</strong>ye <strong>E</strong>ddy”</em> یا <em>“<strong>E</strong>lephants <strong>A</strong>nd <strong>D</strong>onkeys <strong>G</strong>row <strong>B</strong>ig <strong>E</strong>ars”</em>۔</li>
+          <li><strong>بیس گٹار اور ڈبل بیس (4 تار: E – A – D – G):</strong> گٹار کے پہلے چار موٹے تاروں کی عین وہی ترتیب، ہر تار میں پرفیکٹ فورتھ کا فاصلہ۔</li>
+          <li><strong>وائلن (4 تار: G – D – A – E):</strong> <em>“<strong>G</strong>ood <strong>D</strong>ogs <strong>A</strong>lways <strong>E</strong>at”</em> — اوپر جاتے پرفیکٹ ففتھ کے فاصلے!</li>
+          <li><strong>وایولا اور چیلو (4 تار: C – G – D – A):</strong> <em>“<strong>C</strong>ats <strong>G</strong>o <strong>D</strong>own <strong>A</strong>lleys”</em> — C سے شروع ہونے والے پرفیکٹ ففتھ۔</li>
+          <li><strong>یوکولیلے (G – C – E – A):</strong> <em>“<strong>G</strong>ood <strong>C</strong>ooks <strong>E</strong>at <strong>A</strong> Lot”</em> — کان سے سر کرنے کے لیے مشہور دھن <em>“My Dog Has Fleas”</em> استعمال ہوتی ہے!</li>
+        </ul>
+
+        <h3>4. انٹرولز کے لیے دھنوں کے لنگر (براہِ راست آڈیو کے ساتھ)</h3>
+        <p>
+          ہر انٹرول کی چھلانگ کو کسی ایسی معروف دھن کے پہلے دو سُروں سے جوڑ لیں جو آپ کو پہلے سے ازبر ہو:
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row">
+            <div>
+              <strong>مائنر سیکنڈ (1 نیم سُر) اور میجر سیکنڈ (2 نیم سُر)</strong>
+              <span>• <strong>مائنر سیکنڈ:</strong> اوپر <em>Jaws (Theme)</em> / نیچے <em>Für Elise</em>۔<br>• <strong>میجر سیکنڈ:</strong> <em>Happy Birthday</em> (سُر 2→3) یا <em>Frère Jacques</em>۔</span>
+            </div>
+            <button class="btn-tool" data-play-int-asc="1">▶ m2</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>مائنر تھرڈ (3 نیم سُر) اور میجر تھرڈ (4 نیم سُر)</strong>
+              <span>• <strong>مائنر تھرڈ:</strong> اوپر <em>Greensleeves</em> / نیچے <em>Hey Jude</em>۔<br>• <strong>میجر تھرڈ:</strong> اوپر <em>Oh When the Saints</em> / نیچے <em>Summertime</em>۔</span>
+            </div>
+            <button class="btn-tool" data-play-int-asc="4">▶ M3</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>پرفیکٹ فورتھ (5 نیم سُر) اور ٹرائیٹون (6 نیم سُر)</strong>
+              <span>• <strong>پرفیکٹ فورتھ:</strong> <em>Here Comes the Bride</em> یا <em>Amazing Grace</em>۔<br>• <strong>ٹرائیٹون:</strong> <em>The Simpsons</em> یا <em>Maria (West Side Story)</em>۔</span>
+            </div>
+            <button class="btn-tool" data-play-int-asc="6">▶ ٹرائیٹون</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>پرفیکٹ ففتھ (7 نیم سُر)، میجر سکستھ (9 نیم سُر) اور آکٹیو (12 نیم سُر)</strong>
+              <span>• <strong>پرفیکٹ ففتھ:</strong> <em>Star Wars (Main Title)</em> یا <em>Twinkle, Twinkle, Little Star</em>۔<br>• <strong>میجر سکستھ:</strong> <em>My Bonnie Lies Over the Ocean</em>۔<br>• <strong>آکٹیو:</strong> <em>Somewhere Over the Rainbow</em>۔</span>
+            </div>
+            <button class="btn-tool" data-play-int-asc="7">▶ P5</button>
+          </div>
+        </div>
+
+        <h3>5. موڈز، ٹرائی ایڈز اور تال کے بول</h3>
+        <div class="k-compare-grid">
+          <div class="k-compare-box is-lilac">
+            <h5>ساتوں موڈز کی ترتیب (سفید چابیاں C سے B تک)</h5>
+            <p>
+              <strong><u>I</u>onian – <u>D</u>orian – <u>P</u>hrygian – <u>L</u>ydian – <u>M</u>ixolydian – <u>A</u>eolian – <u>L</u>ocrian</strong><br>
+              جملہ: <em>“<strong>I</strong> <strong>D</strong>on’t <strong>P</strong>articularly <strong>L</strong>ike <strong>M</strong>odes <strong>A</strong> <strong>L</strong>ot”</em>۔<br>
+              <strong>رنگین سُر سے فوری پہچان:</strong><br>
+              • میجر + چمکدار <strong>#4</strong> = <strong>لڈین (Lydian)</strong><br>
+              • میجر + بلوزی <strong>b7</strong> = <strong>مکسولڈین (Mixolydian)</strong><br>
+              • مائنر + روشن <strong>♮6</strong> = <strong>ڈورین (Dorian)</strong><br>
+              • مائنر + پراسرار <strong>b2</strong> = <strong>فریجین (Phrygian)</strong>
+            </p>
+          </div>
+          <div class="k-compare-box is-sage">
+            <h5>تال کے بول اور ٹرائی ایڈ فارمولے</h5>
+            <p>
+              <strong>تقسیم کو بلند آواز میں بول کر محسوس کریں:</strong><br>
+              • کواٹر نوٹ (♩): <em>“Pie”</em> / <em>“Walk”</em> (1 ضرب)<br>
+              • دو ایٹتھ نوٹس (♪♪): <em>“Ap-ple”</em> / <em>“Run-ning”</em> (2 برابر حصے)<br>
+              • ٹرپلٹ (3 فی بیٹ): <em>“Pi-ne-ap-ple”</em> / <em>“Tri-po-let”</em><br>
+              • چار سکسٹینتھ (4 فی بیٹ): <em>“Wa-ter-me-lon”</em> / <em>“A-vo-ca-do”</em><br>
+              <strong>ٹرائی ایڈ کا نیم سُر نسخہ:</strong><br>
+              • <strong>میجر = 4 + 3</strong> • <strong>مائنر = 3 + 4</strong><br>
+              • <strong>ڈمنشڈ = 3 + 3</strong> • <strong>آگمینٹڈ = 4 + 4</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    `
   }
 ];
 

@@ -2434,7 +2434,10 @@ Object.assign(TR_PL, {
   "Lokrisch": "Lokrycka",
   "Harmonisch Moll": "Molowa harmoniczna",
   "Melodisch Moll": "Molowa melodyczna",
-  "Phrygisch Dominant": "Frygijska dominantowa"
+  "Phrygisch Dominant": "Frygijska dominantowa",
+  "Gitarre": "Gitara",
+  "Streicher": "Smyczki",
+  "Bläser": "Dęte blaszane"
 });
 
 if (typeof registerLanguageBundle === "function") {

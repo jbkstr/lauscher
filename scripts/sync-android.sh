@@ -52,47 +52,48 @@ mkdir -p "$TARGET_DIR"
 TARGET_DIR="$(cd "$TARGET_DIR" && pwd)"
 WWW_DIR="$TARGET_DIR/www"
 
-echo "1/4 • Baue/Prüfe Projekt-Skripte & Syntax …"
-node --check "$REPO_ROOT/audio.js"
-node --check "$REPO_ROOT/app.js"
+echo "1/4 • Prüfe Projekt-Skripte & baue Mobile-Bundle …"
+python3 "$REPO_ROOT/scripts/check-project.py" --no-bundle
 python3 "$REPO_ROOT/scripts/build-mobile-bundle.py" >/dev/null
 
 echo "2/4 • Klone Lauscher-Webdateien sauber nach $WWW_DIR …"
 rm -rf "$WWW_DIR"
 mkdir -p "$WWW_DIR/fonts/Andika" "$WWW_DIR/samples"
 
-RUNTIME_FILES=(
-  index.html
-  styles.css
-  tone.js
-  audio.js
-  app.js
-  i18n.js
-  i18n-es.js
-  i18n-fr.js
-  i18n-pl.js
-  i18n-uk.js
-  i18n-ur.js
-  knowledge.js
-  knowledge-en.js
-  knowledge-es.js
-  knowledge-fr.js
-  knowledge-pl.js
-  knowledge-uk.js
-  knowledge-ur.js
-  legal.js
-  version.js
-)
+# Alle lokalen CSS- und JS-Dateien dynamisch aus index.html auslesen (inkl. Unterordner wie js/*.js)
+python3 - "$REPO_ROOT/index.html" "$REPO_ROOT" "$WWW_DIR" <<'PYEOF'
+import re, shutil, sys
+from pathlib import Path
 
-for rel in "${RUNTIME_FILES[@]}"; do
-  cp "$REPO_ROOT/$rel" "$WWW_DIR/$rel"
-done
+index_path = Path(sys.argv[1])
+repo_root = Path(sys.argv[2])
+www_dir = Path(sys.argv[3])
+html = index_path.read_text(encoding="utf-8")
+
+rels = ["index.html"]
+for pattern in (
+    r'<link\b[^>]*\brel="stylesheet"[^>]*\bhref="([^"]+)"[^>]*>',
+    r'<script\b[^>]*\bsrc="([^"]+)"[^>]*></script>',
+):
+    for match in re.findall(pattern, html):
+        if re.match(r"^(https?:|//|data:)", match, re.I):
+            continue
+        if match not in rels:
+            rels.append(match)
+
+for rel in rels:
+    src = repo_root / rel
+    if not src.is_file():
+        sys.exit(f"Fehler: In index.html referenzierte Datei fehlt: {rel}")
+    dst = www_dir / rel
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(src, dst)
+PYEOF
 
 cp "$REPO_ROOT"/fonts/Andika/*.ttf "$WWW_DIR/fonts/Andika/"
 if [ -f "$REPO_ROOT/fonts/Andika/OFL.txt" ]; then
   cp "$REPO_ROOT/fonts/Andika/OFL.txt" "$WWW_DIR/fonts/Andika/"
 fi
-cp "$REPO_ROOT"/samples/*-bundle.js "$WWW_DIR/samples/"
 mkdir -p "$WWW_DIR/icons"
 cp "$REPO_ROOT"/icons/*.jpg "$WWW_DIR/icons/"
 

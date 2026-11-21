@@ -2461,7 +2461,9 @@ Object.assign(TR_UR, {
   "Lokrisch": "لوکرین",
   "Harmonisch Moll": "ہارمونک مائنر",
   "Melodisch Moll": "میلوڈک مائنر",
-  "Phrygisch Dominant": "فریجین ڈومیننٹ"
+  "Phrygisch Dominant": "فریجین ڈومیننٹ",
+  "Streicher": "اسٹرنگز",
+  "Bläser": "براس اور ونڈز"
 });
 
 if (typeof registerLanguageBundle === "function") {
