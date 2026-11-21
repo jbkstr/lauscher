@@ -461,12 +461,115 @@ function getCadenceStepTiming(bpm = state.activeBpm, timeSig = state.activeTimeS
   return { beatSec, stepBeats, finalHoldBeats, stepMs, finalHoldMs, stepDurSec, finalDurSec };
 }
 
+const INTERVAL_SCALE_PRESETS = {
+  ionian:     { id: "ionian",     pool: ["P1", "M2", "M3", "P4", "P5", "M6", "M7", "P8"], triad: ["P1", "M3", "P5", "P8"] },
+  aeolian:    { id: "aeolian",    pool: ["P1", "M2", "m3", "P4", "P5", "m6", "m7", "P8"], triad: ["P1", "m3", "P5", "P8"] },
+  harm_minor: { id: "harm_minor", pool: ["P1", "M2", "m3", "P4", "P5", "m6", "M7", "P8"], triad: ["P1", "m3", "P5", "P8"] },
+  mel_minor:  { id: "mel_minor",  pool: ["P1", "M2", "m3", "P4", "P5", "M6", "M7", "P8"], triad: ["P1", "m3", "P5", "P8"] },
+  dorian:     { id: "dorian",     pool: ["P1", "M2", "m3", "P4", "P5", "M6", "m7", "P8"], triad: ["P1", "m3", "P5", "P8"] },
+  phrygian:   { id: "phrygian",   pool: ["P1", "m2", "m3", "P4", "P5", "m6", "m7", "P8"], triad: ["P1", "m3", "P5", "P8"] },
+  lydian:     { id: "lydian",     pool: ["P1", "M2", "M3", "TT", "P5", "M6", "M7", "P8"], triad: ["P1", "M3", "P5", "P8"] },
+  mixolydian: { id: "mixolydian", pool: ["P1", "M2", "M3", "P4", "P5", "M6", "m7", "P8"], triad: ["P1", "M3", "P5", "P8"] },
+  locrian:    { id: "locrian",    pool: ["P1", "m2", "m3", "P4", "TT", "m6", "m7", "P8"], triad: ["P1", "m3", "TT", "P8"] },
+  chromatic:  { id: "chromatic",  pool: ["P1", "m2", "M2", "m3", "M3", "P4", "TT", "P5", "m6", "M6", "m7", "M7", "P8", "m9", "M9"], triad: ["P1", "m3", "M3", "P5", "P8"] }
+};
+
+function getLocalizedIntervalCustomScaleLabel(scaleId = state?.settings?.intervalCustomScale || "ionian") {
+  const map = {
+    ionian:     tr("Dur (Ionisch)", "Major (Ionian)"),
+    aeolian:    tr("Natürlich Moll", "Natural Minor"),
+    harm_minor: tr("Harmonisch Moll", "Harmonic Minor"),
+    mel_minor:  tr("Melodisch Moll", "Melodic Minor"),
+    dorian:     tr("Dorisch", "Dorian"),
+    phrygian:   tr("Phrygisch", "Phrygian"),
+    lydian:     tr("Lydisch", "Lydian"),
+    mixolydian: tr("Mixolydisch", "Mixolydian"),
+    locrian:    tr("Lokrisch", "Locrian"),
+    chromatic:  tr("Chromatisch", "Chromatic")
+  };
+  return map[scaleId] || map.ionian;
+}
+
+function getLocalizedIntervalCustomScopeLabel(scope = state?.settings?.intervalCustomScope || "full") {
+  const map = {
+    triad: tr("Einsteiger (1/3/5/8)", "Beginner (1/3/5/8)"),
+    lower: tr("Untere Hälfte (1–4)", "Lower Half (1–4)"),
+    upper: tr("Obere Hälfte (5–8)", "Upper Half (5–8)"),
+    full:  tr("Ganze Tonleiter (1–8)", "Full Scale (1–8)")
+  };
+  return map[scope] || map.full;
+}
+
+function getIntervalCustomDefaultPool(scaleId = "ionian", scope = "full") {
+  const preset = INTERVAL_SCALE_PRESETS[scaleId] || INTERVAL_SCALE_PRESETS.ionian;
+  if (scope === "triad") return [...preset.triad];
+  if (scope === "lower") {
+    return preset.id === "chromatic"
+      ? ["P1", "m2", "M2", "m3", "M3", "P4", "TT"]
+      : preset.pool.slice(0, 4);
+  }
+  if (scope === "upper") {
+    return preset.id === "chromatic"
+      ? ["P5", "m6", "M6", "m7", "M7", "P8", "m9", "M9"]
+      : preset.pool.slice(4, 8);
+  }
+  return [...preset.pool];
+}
+
+function getActiveIntervalCustomPool() {
+  const allOrder = Object.keys(HARMONIC_DATA.intervals);
+  const custom = state?.settings?.intervalCustomPool;
+  if (Array.isArray(custom)) {
+    const valid = allOrder.filter(k => custom.includes(k));
+    if (valid.length >= 2) return valid;
+  }
+  return getIntervalCustomDefaultPool(
+    state?.settings?.intervalCustomScale || "ionian",
+    state?.settings?.intervalCustomScope || "full"
+  );
+}
+
+function getIntervalCustomRootLabel(rootSetting = state?.settings?.intervalCustomRoot ?? "random") {
+  const v = String(rootSetting ?? "random");
+  if (/^(?:[0-9]|1[01])$/.test(v)) {
+    return getModesRootDisplayName(MODES_ROOT_MIDI_BY_PC[Number(v)]);
+  }
+  return tr("Zufall", "Random");
+}
+
+function getIntervalCustomBadgeLabel() {
+  const rootLbl = getIntervalCustomRootLabel();
+  const scaleLbl = getLocalizedIntervalCustomScaleLabel();
+  return `${rootLbl} • ${scaleLbl}`;
+}
+
+function getIntervalCustomSummaryLabel() {
+  const rootLbl = getIntervalCustomRootLabel();
+  const scaleLbl = getLocalizedIntervalCustomScaleLabel();
+  return `${scaleLbl} (${rootLbl})`;
+}
+
 function generateIntervalExercise(rootMidi, intervalMode) {
+  const lvl = parseInt(state.settings.intervalDifficulty, 10) || 1;
   let pool = ["P1", "M3", "P5", "P8"];
-  if (state.settings.intervalDifficulty === 2) {
+  if (lvl === 2) {
+    pool = ["P1", "M2", "M3", "P4"];
+  } else if (lvl === 3) {
+    pool = ["P5", "M6", "M7", "P8"];
+  } else if (lvl === 4) {
     pool = ["P1", "M2", "M3", "P4", "P5", "M6", "M7", "P8"];
-  } else if (state.settings.intervalDifficulty >= 3) {
+  } else if (lvl === 5) {
     pool = Object.keys(HARMONIC_DATA.intervals);
+  } else if (lvl === 6) {
+    pool = ["P1", "m3", "P5", "P8"];
+  } else if (lvl === 7) {
+    pool = ["P1", "M2", "m3", "P4"];
+  } else if (lvl === 8) {
+    pool = ["P5", "m6", "m7", "P8"];
+  } else if (lvl === 9) {
+    pool = ["P1", "M2", "m3", "P4", "P5", "m6", "m7", "P8"];
+  } else if (lvl === 10) {
+    pool = getActiveIntervalCustomPool();
   }
 
   const chosenKey = pickTargetKeyWithSessionReview(intervalMode, pool, getLastTargetKeyForType(intervalMode));
@@ -477,7 +580,16 @@ function generateIntervalExercise(rootMidi, intervalMode) {
   const isMelodic = isMelodicUp || isMelodicDown;
   const isDrone = intervalMode === "interval-drone";
 
-  const effectiveRootMidi = (isMelodic || isDrone) ? pickMelodicRootMidi(isMelodicDown) : rootMidi;
+  let effectiveRootMidi = (isMelodic || isDrone) ? pickMelodicRootMidi(isMelodicDown) : rootMidi;
+  if (lvl === 10 && !state.exam?.active) {
+    const customRoot = String(state.settings.intervalCustomRoot ?? "random");
+    if (/^(?:[0-9]|1[01])$/.test(customRoot)) {
+      const baseMidi = MODES_ROOT_MIDI_BY_PC[Number(customRoot)] || 60;
+      effectiveRootMidi = isMelodicDown && baseMidi < 64 ? baseMidi + 12 : baseMidi;
+    } else if (!isMelodic && !isDrone) {
+      effectiveRootMidi = MODES_ROOT_MIDI_BY_PC[Math.floor(Math.random() * 12)];
+    }
+  }
   const directionSign = isMelodicDown ? -1 : 1;
   const targetMidi = effectiveRootMidi + directionSign * targetDef.semitones;
 
@@ -782,6 +894,61 @@ function getModesRootSettingLabel(setting = getModesRootSetting()) {
 function renderModesRootPopover() {
   const pop = document.getElementById("inlineModesRootPopover");
   if (!pop) return;
+  const exType = String(state.currentExercise?.type || state.settings.mode || "");
+  if (exType.startsWith("interval-") && exType !== "interval-chords" && parseInt(state.settings.intervalDifficulty, 10) === 10) {
+    const curRoot = String(state.settings.intervalCustomRoot ?? "random");
+    const curScale = String(state.settings.intervalCustomScale || "ionian");
+    const curScope = String(state.settings.intervalCustomScope || "full");
+    const rootOptions = ["random", ...Array.from({ length: 12 }, (_, pc) => String(pc))];
+    const scaleIds = Object.keys(INTERVAL_SCALE_PRESETS);
+    const scopeIds = ["triad", "lower", "upper", "full"];
+    pop.innerHTML = `
+      <span class="popover-label">${escapeHtml(tr("Grundton:", "Root:"))}</span>
+      <div class="popover-pills-row modes-root-pills">
+        ${rootOptions.map(opt => `<button type="button" class="popover-pill-btn${opt === curRoot ? " active" : ""}" data-int-pop-root="${opt}" aria-pressed="${opt === curRoot}">${escapeHtml(getIntervalCustomRootLabel(opt))}</button>`).join("")}
+      </div>
+      <span class="popover-label" style="margin-top:0.35rem;">${escapeHtml(tr("Tonleiter / Modus:", "Scale / Mode:"))}</span>
+      <div class="popover-pills-row modes-root-pills">
+        ${scaleIds.map(sid => `<button type="button" class="popover-pill-btn${sid === curScale ? " active" : ""}" data-int-pop-scale="${sid}" aria-pressed="${sid === curScale}">${escapeHtml(getLocalizedIntervalCustomScaleLabel(sid))}</button>`).join("")}
+      </div>
+      <span class="popover-label" style="margin-top:0.35rem;">${escapeHtml(tr("Umfang:", "Range:"))}</span>
+      <div class="popover-pills-row modes-root-pills">
+        ${scopeIds.map(sc => `<button type="button" class="popover-pill-btn${sc === curScope && !state.settings.intervalCustomPool ? " active" : ""}" data-int-pop-scope="${sc}" aria-pressed="${sc === curScope && !state.settings.intervalCustomPool}">${escapeHtml(getLocalizedIntervalCustomScopeLabel(sc))}</button>`).join("")}
+      </div>
+    `;
+    const refreshCustomIntervalEx = () => {
+      state.updateHeaderSubtext();
+      renderModesRootPopover();
+      cancelListenOnlyTimers();
+      stopPlayback();
+      generateExercise();
+      if (state.listenOnly.active) startListenOnlyCycle();
+    };
+    pop.querySelectorAll("[data-int-pop-root]").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        state.settings.intervalCustomRoot = btn.dataset.intPopRoot;
+        refreshCustomIntervalEx();
+      });
+    });
+    pop.querySelectorAll("[data-int-pop-scale]").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        state.settings.intervalCustomScale = btn.dataset.intPopScale;
+        state.settings.intervalCustomPool = null;
+        refreshCustomIntervalEx();
+      });
+    });
+    pop.querySelectorAll("[data-int-pop-scope]").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        state.settings.intervalCustomScope = btn.dataset.intPopScope;
+        state.settings.intervalCustomPool = null;
+        refreshCustomIntervalEx();
+      });
+    });
+    return;
+  }
   const current = getModesRootSetting();
   const options = ["auto", ...Array.from({ length: 12 }, (_, pc) => String(pc)), "random"];
   const label = tr("Grundton:", "Root:", { fr: "Tonique :", es: "Tónica:", pl: "Dźwięk podstawowy:", uk: "Тоніка:", ur: "بنیادی سُر:" });

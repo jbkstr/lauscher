@@ -951,10 +951,10 @@ function toggleProfileAccessoryValue(currentList, nextKey) {
 const MIX_MODE_CATALOG = {
   "cadence":               { label: "Kadenzen",                     levels: [1, 2, 3, 4] },
   "cadence-minor":         { label: "Kadenzen (Moll)",              levels: [1, 2, 3, 4] },
-  "interval-melodic":      { label: "Intervalle (Aufwärts)",          levels: [1, 2, 3] },
-  "interval-melodic-down": { label: "Intervalle (Abwärts)",           levels: [1, 2, 3] },
-  "interval-harmonic":     { label: "Intervalle (Gleichz.)",          levels: [1, 2, 3] },
-  "interval-drone":        { label: "Intervalle (Grundton-Fläche)",   levels: [1, 2, 3] },
+  "interval-melodic":      { label: "Intervalle (Aufwärts)",          levels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] },
+  "interval-melodic-down": { label: "Intervalle (Abwärts)",           levels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] },
+  "interval-harmonic":     { label: "Intervalle (Gleichz.)",          levels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] },
+  "interval-drone":        { label: "Intervalle (Grundton-Fläche)",   levels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] },
   "chord-arp-up":          { label: "Akkorde (Arpeggio ↗)",         levels: [1, 2, 3, 4] },
   "chord-arp-down":        { label: "Akkorde (Arpeggio ↘)",         levels: [1, 2, 3, 4] },
   "interval-chords":       { label: "Akkorde (Gleichz.)",           levels: [1, 2, 3, 4] },
@@ -1010,7 +1010,7 @@ const EXAM_CATEGORY_LEVELS = {
           en: "All diatonic major intervals mixed across easy keys (incl. root pad)"
         },
         modes: ["interval-melodic", "interval-melodic-down", "interval-harmonic", "interval-drone"],
-        apply: { intervalDifficulty: 2, keyMode: "easy" }
+        apply: { intervalDifficulty: 4, keyMode: "easy" }
       },
       {
         id: "interval_l3",
@@ -1021,7 +1021,7 @@ const EXAM_CATEGORY_LEVELS = {
           en: "Full chromatic spectrum incl. tritone & minor/major intervals (incl. root pad)"
         },
         modes: ["interval-melodic", "interval-melodic-down", "interval-harmonic", "interval-drone"],
-        apply: { intervalDifficulty: 3, keyMode: "all" }
+        apply: { intervalDifficulty: 5, keyMode: "all" }
       }
     ]
   },
