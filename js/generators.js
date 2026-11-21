@@ -427,9 +427,9 @@ function getMelodicIntervalTiming(bpm = state.activeBpm) {
   const safeBpm = Math.max(40, Math.min(220, Number(bpm) || 90));
   const beatSec = 60 / safeBpm;
   const stepMs = Math.round(beatSec * 1000);
-  const note1DurSec = Math.max(0.22, beatSec * 0.86);
-  const note2DurSec = Math.max(0.28, beatSec * 1.25);
-  const cycleMs = Math.round(beatSec * 2.4 * 1000);
+  const note1DurSec = Math.max(0.24, beatSec * 1.05);
+  const note2DurSec = Math.max(0.32, beatSec * 1.28);
+  const cycleMs = Math.round(beatSec * 2.55 * 1000);
   return { beatSec, stepMs, note1DurSec, note2DurSec, cycleMs };
 }
 
@@ -463,8 +463,8 @@ function getCadenceStepTiming(bpm = state.activeBpm, timeSig = state.activeTimeS
   const stepMs = Math.round(stepSec * 1000);
   const finalHoldSec = finalHoldBeats * beatSec;
   const finalHoldMs = Math.round(finalHoldSec * 1000);
-  const stepDurSec = Math.max(0.32, stepSec * 0.99);
-  const finalDurSec = Math.max(0.55, finalHoldSec * 0.94);
+  const stepDurSec = Math.max(0.34, stepSec * 1.06);
+  const finalDurSec = Math.max(0.62, finalHoldSec * 0.98);
   return { beatSec, stepBeats, finalHoldBeats, stepMs, finalHoldMs, stepDurSec, finalDurSec };
 }
 

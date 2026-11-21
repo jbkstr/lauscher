@@ -131,17 +131,22 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
         arpeggioPlaybackId,
         () => {
           if (!audioEngine.isInitialized || audioEngine.playbackId !== arpeggioPlaybackId) return;
+          const baseArpTime = getAudioClockSec() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
+          const arpLookaheadMs = 85;
           chordNotes.forEach((note, idx) => {
             const isLast = idx === chordNotes.length - 1;
-            const noteDur = isLast ? lastNoteDurSec : noteDurSec;
+            const remainingSec = (chordNotes.length - 1 - idx) * (stepMs / 1000);
+            const bloomDur = Math.min(1.85, Math.max(isLast ? lastNoteDurSec : noteDurSec, remainingSec + Math.max(0.45, lastNoteDurSec * 0.85)));
             const delayMs = idx * stepMs;
-            if (delayMs === 0) {
-              audioEngine.playStep([note], noteDur, null, "interval");
+            const targetAudioTime = baseArpTime + delayMs / 1000;
+            const audioTimerDelayMs = Math.max(0, delayMs - arpLookaheadMs);
+            if (audioTimerDelayMs === 0) {
+              audioEngine.playStep([note], bloomDur, null, "interval", { atTime: targetAudioTime, legato: false });
             } else {
               audioEngine.registerTimer(() => {
                 if (audioEngine.playbackId !== arpeggioPlaybackId || state.currentView !== "exercise") return;
-                audioEngine.playStep([note], noteDur, null, "interval");
-              }, delayMs);
+                audioEngine.playStep([note], bloomDur, null, "interval", { atTime: targetAudioTime, legato: false });
+              }, audioTimerDelayMs);
             }
           });
           audioEngine.registerTimer(() => {
@@ -655,6 +660,7 @@ function finishRhythmTapRound() {
   }
 
   renderRhythmTapTimeline(ex, res, session.beatMs);
+  queueFitExerciseLayout(false);
 
   const totalExpected = session.expectedEvents.length;
   const hitCount = res.exactCount + res.closeCount;
@@ -822,7 +828,7 @@ async function repeatMelodySlotTone(slotIdx = null) {
   const beatSec = 60 / (state.activeBpm || 90);
   const beatMs = Math.round(beatSec * 1000);
   const durBeats = Number(slot.durationBeats) || 2;
-  const playDurSec = Math.max(0.18, durBeats * beatSec * 0.88);
+  const playDurSec = Math.max(0.22, durBeats * beatSec * 0.98);
   const usePulseCue = ex.melodyStyle !== "steady" && (Boolean(state.settings.melodyPulse) || ex.melodyStyle === "dictation");
   const singlePlaybackId = audioEngine.playbackId;
 
@@ -946,17 +952,27 @@ function playModeExercisePattern(ex, modeDef, startDelayMs = 0) {
     || [58, 63, 65].includes(ex.rootMidi);
   const toNote = (semi) => midiToNote(ex.rootMidi + semi, preferFlat);
   const currentId = audioEngine.playbackId;
+  const baseAudioTime = getAudioClockSec() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
+  const lookaheadMs = 85;
 
   if (ex.type === "modes-cadence") {
     const chords = modeDef.vampOffsets || [[0, 4, 7], [5, 9, 12]];
     const stepMs = 880;
+    const stepSec = stepMs / 1000;
     chords.forEach((offsets, idx) => {
+      const isLast = idx === chords.length - 1;
+      const delayMs = startDelayMs + idx * stepMs;
+      const targetAudioTime = baseAudioTime + delayMs / 1000;
+      const audioTimerDelayMs = Math.max(0, delayMs - lookaheadMs);
       audioEngine.registerTimer(() => {
         if (audioEngine.playbackId !== currentId) return;
         const notes = offsets.map(toNote);
         const bassNote = midiToNote(ex.rootMidi + offsets[0] - 12, preferFlat);
-        audioEngine.playStep(notes, idx === chords.length - 1 ? 0.95 : 0.78, bassNote, "cadence");
-      }, startDelayMs + idx * stepMs);
+        audioEngine.playStep(notes, isLast ? 1.05 : stepSec * 1.06, bassNote, "cadence", {
+          atTime: targetAudioTime,
+          legato: "chord"
+        });
+      }, audioTimerDelayMs);
     });
     return chords.length * stepMs + 220;
   }
@@ -965,19 +981,29 @@ function playModeExercisePattern(ex, modeDef, startDelayMs = 0) {
     ? (modeDef.charTurn || modeDef.intervals)
     : (modeDef.intervals || [0, 2, 4, 5, 7, 9, 11, 12]);
   const stepMs = ex.type === "modes-char" ? 390 : 340;
+  const stepSec = stepMs / 1000;
   const totalNotesMs = seqOffsets.length * stepMs + 520;
 
   audioEngine.registerTimer(() => {
     if (audioEngine.playbackId !== currentId) return;
-    audioEngine.playStep([], (totalNotesMs + 200) / 1000, ex.anchorBass, "cadence");
-  }, startDelayMs);
+    audioEngine.playStep([], (totalNotesMs + 260) / 1000, ex.anchorBass, "cadence", {
+      atTime: baseAudioTime + startDelayMs / 1000,
+      legato: false
+    });
+  }, Math.max(0, startDelayMs - lookaheadMs));
 
   seqOffsets.forEach((semi, idx) => {
+    const delayMs = startDelayMs + idx * stepMs;
+    const targetAudioTime = baseAudioTime + delayMs / 1000;
+    const audioTimerDelayMs = Math.max(0, delayMs - lookaheadMs);
+    const isLast = idx === seqOffsets.length - 1;
     audioEngine.registerTimer(() => {
       if (audioEngine.playbackId !== currentId) return;
-      const isLast = idx === seqOffsets.length - 1;
-      audioEngine.playStep([toNote(semi)], isLast ? 0.92 : 0.36, null, "interval");
-    }, startDelayMs + idx * stepMs);
+      audioEngine.playStep([toNote(semi)], isLast ? 0.98 : stepSec * 1.08, null, "interval", {
+        atTime: targetAudioTime,
+        legato: "melody"
+      });
+    }, audioTimerDelayMs);
   });
 
   return totalNotesMs;
@@ -1791,6 +1817,7 @@ async function playSequence(options = {}) {
     ex.tapEvaluated = false;
     ex.lastEvaluation = null;
     document.getElementById("rhythmTapTimeline")?.remove();
+    queueFitExerciseLayout(true);
 
     const beatMs = 60000 / (state.activeBpm || 90);
     const beatsPerBar = ex.beatsPerBar;
@@ -2015,11 +2042,27 @@ async function playSequence(options = {}) {
     const isDictation = ex.melodyStyle === "dictation";
     const pulseEnabled = Boolean(state.settings.melodyPulse);
 
+    const baseAudioTime = getAudioClockSec() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
+    const lookaheadMs = 95;
+
     slots.forEach((_, i) => {
       document.getElementById(`barCard_${i}`)?.classList.remove("bar-active");
     });
 
     ex.cadenceBars.forEach((bar, index) => {
+      const chordDelayMs = index * chordMs;
+      const chordAudioTime = baseAudioTime + chordDelayMs / 1000;
+      const isLastChord = index === totalChords - 1;
+      const chordDurSec = chordSec * (isLastChord ? 0.98 : 1.06);
+
+      audioEngine.registerTimer(() => {
+        if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
+        audioEngine.playStep(bar.notes, chordDurSec, bar.bass, "cadence", {
+          atTime: chordAudioTime,
+          legato: "chord"
+        });
+      }, Math.max(0, chordDelayMs - lookaheadMs));
+
       audioEngine.registerTimer(() => {
         if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
 
@@ -2028,9 +2071,7 @@ async function playSequence(options = {}) {
         document.getElementById("stageSubtext").textContent = tf("KONTEXT-KADENZ ({n}/4)", "CONTEXT CADENCE ({n}/4)", { n: index + 1 });
         document.getElementById("stageMainText").textContent = bar.symbol;
         document.getElementById("stageFunctionText").textContent = bar.label;
-
-        audioEngine.playStep(bar.notes, chordSec * 0.88, bar.bass, "cadence");
-      }, index * chordMs);
+      }, chordDelayMs);
     });
 
     if (isSteady) {
@@ -2038,7 +2079,6 @@ async function playSequence(options = {}) {
       const melodyStartMs = totalChords * chordMs + pauseAfterCadenceMs;
       const halfNoteSec = 2 * beatSec;
       const halfNoteMs = Math.round(halfNoteSec * 1000);
-      const halfPlaySec = Math.max(0.32, halfNoteSec * 0.88);
 
       if (pulseEnabled) {
         const steadyClicks = [];
@@ -2049,10 +2089,25 @@ async function playSequence(options = {}) {
             b % 4 === 0 ? 0.52 : 0.34
           ]);
         }
-        audioEngine.playRhythmSequence(steadyClicks, getAudioClockSec() + 0.04);
+        audioEngine.playRhythmSequence(steadyClicks, baseAudioTime);
       }
 
       slots.forEach((slot, idx) => {
+        const noteDelayMs = melodyStartMs + idx * halfNoteMs;
+        const targetAudioTime = baseAudioTime + noteDelayMs / 1000;
+        const isLastNote = idx === slots.length - 1;
+        const nextSlot = slots[idx + 1];
+        const isRepeat = Boolean(nextSlot && nextSlot.noteName === slot.noteName);
+        const halfPlaySec = Math.max(0.32, halfNoteSec * (isLastNote ? 1.02 : (isRepeat ? 0.96 : 1.06)));
+
+        audioEngine.registerTimer(() => {
+          if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
+          audioEngine.playStep([slot.noteName], halfPlaySec, null, "melody-note", {
+            atTime: targetAudioTime,
+            legato: "melody"
+          });
+        }, Math.max(0, noteDelayMs - lookaheadMs));
+
         audioEngine.registerTimer(() => {
           if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
 
@@ -2067,9 +2122,7 @@ async function playSequence(options = {}) {
           document.getElementById("stageFunctionText").textContent = slot.solved
             ? tf("Bereits gelöst ({note})", "Already solved ({note})", { note: slot.germanNote })
             : tf("Halbe Note ({bpm} BPM) • Höre genau hin", "Half note ({bpm} BPM) • Listen closely", { bpm });
-
-          audioEngine.playStep([slot.noteName], halfPlaySec, null, "interval");
-        }, melodyStartMs + idx * halfNoteMs);
+        }, noteDelayMs);
       });
 
       const melodyEndMs = melodyStartMs + slots.length * halfNoteMs;
@@ -2097,8 +2150,6 @@ async function playSequence(options = {}) {
     const pauseAfterCadenceMs = Math.round(beatSec * 0.9 * 1000);
     const countInStartMs = totalChords * chordMs + pauseAfterCadenceMs;
     const melodyStartMs = countInStartMs + beatsPerBar * beatMs;
-    const baseAudioTime = getAudioClockSec() + 0.04;
-    const lookaheadMs = 95;
 
     const pulseEvents = [];
     for (let b = 0; b < beatsPerBar; b++) {
@@ -2128,18 +2179,27 @@ async function playSequence(options = {}) {
     audioEngine.playRhythmSequence(pulseEvents, baseAudioTime);
 
     slots.forEach((slot, idx) => {
-      const offsetMs = Math.round((Number(slot.beatOffset) || 0) * beatMs);
+      const slotOffsetBeats = Number(slot.beatOffset) || 0;
+      const slotDurBeats = Number(slot.durationBeats) || 1;
+      const offsetMs = Math.round(slotOffsetBeats * beatMs);
       const noteDelayMs = melodyStartMs + offsetMs;
       const timerAudioDelayMs = Math.max(0, noteDelayMs - lookaheadMs);
       const targetAudioTime = baseAudioTime + noteDelayMs / 1000;
-      const durSec = Math.max(0.16, (Number(slot.durationBeats) || 1) * beatSec * 0.86);
+      const nextSlot = slots[idx + 1];
+      const hasImmediateNext = Boolean(
+        nextSlot && Math.abs((Number(nextSlot.beatOffset) || 0) - (slotOffsetBeats + slotDurBeats)) < 0.06
+      );
+      const isRepeat = Boolean(hasImmediateNext && nextSlot.noteName === slot.noteName);
+      const gateFactor = hasImmediateNext ? (isRepeat ? 0.95 : 1.06) : 0.97;
+      const durSec = Math.max(0.16, slotDurBeats * beatSec * gateFactor);
       const rDef = getLocalizedMelodyRhythmValue(slot.rhythmKey);
 
       audioEngine.registerTimer(() => {
         if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
         audioEngine.playStep([slot.noteName], durSec, null, "melody-note", {
           atTime: targetAudioTime,
-          velocity: slot.velocity || 0.88
+          velocity: slot.velocity || 0.88,
+          legato: "melody"
         });
       }, timerAudioDelayMs);
 
@@ -2192,8 +2252,23 @@ async function playSequence(options = {}) {
     // Nach dem Ausklingen des 4. Akkords folgt eine deutliche Pause (bei 90 BPM ca. 900 ms echte Stille)
     const pauseAfterCadenceMs = Math.round(beatSec * 1.35 * 1000);
     const totalChords = ex.bars.length;
+    const baseAudioTime = getAudioClockSec() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
+    const lookaheadMs = 85;
 
     ex.bars.forEach((bar, index) => {
+      const chordDelayMs = index * chordMs;
+      const targetAudioTime = baseAudioTime + chordDelayMs / 1000;
+      const isLastChord = index === totalChords - 1;
+      const chordDurSec = chordSec * (isLastChord ? 0.98 : 1.06);
+
+      audioEngine.registerTimer(() => {
+        if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
+        audioEngine.playStep(bar.notes, chordDurSec, bar.bass, "cadence", {
+          atTime: targetAudioTime,
+          legato: "chord"
+        });
+      }, Math.max(0, chordDelayMs - lookaheadMs));
+
       audioEngine.registerTimer(() => {
         if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
 
@@ -2206,13 +2281,21 @@ async function playSequence(options = {}) {
         document.getElementById("stageSubtext").textContent = tf("KONTEXT-KADENZ ({n}/4)", "CONTEXT CADENCE ({n}/4)", { n: index + 1 });
         document.getElementById("stageMainText").textContent = bar.symbol;
         document.getElementById("stageFunctionText").textContent = bar.label;
-
-        audioEngine.playStep(bar.notes, chordSec * 0.88, bar.bass, "cadence");
-      }, index * chordMs);
+      }, chordDelayMs);
     });
 
     // Nach deutlicher Pause: Einzelner abgefragter Ton (bei Loop alle 3 s nur Zielton wiederholen)
     const targetDelayMs = totalChords * chordMs + pauseAfterCadenceMs;
+    const targetNoteAudioTime = baseAudioTime + targetDelayMs / 1000;
+
+    audioEngine.registerTimer(() => {
+      if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
+      audioEngine.playStep(getNotationPlayNotes(ex.targetItem), 1.15, null, "interval", {
+        atTime: targetNoteAudioTime,
+        legato: false
+      });
+    }, Math.max(0, targetDelayMs - lookaheadMs));
+
     audioEngine.registerTimer(() => {
       if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
 
@@ -2226,8 +2309,6 @@ async function playSequence(options = {}) {
       document.getElementById("stageSubtext").textContent = tr("GESUCHTER TON", "TARGET NOTE");
       document.getElementById("stageMainText").textContent = "?";
       document.getElementById("stageFunctionText").textContent = tr("Tippe die Stufe auf der Klaviatur an!", "Tap the scale degree on the keyboard!");
-
-      audioEngine.playStep(getNotationPlayNotes(ex.targetItem), 1.1, null, "interval");
 
       if (keepPromptLooping() && !state.solfegeAnswered) {
         scheduleSolfegeTargetLoopTick(ex, currentId, SOLFEGE_LOOP_INTERVAL_MS);
@@ -2257,10 +2338,21 @@ async function playSequence(options = {}) {
     function runMelodicIntervalLoopCycle() {
       if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
       const { stepMs, note1DurSec, note2DurSec, cycleMs } = getMelodicIntervalTiming(state.activeBpm);
+      const baseAudioTime = getAudioClockSec() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
+      const lookaheadMs = 85;
 
       ex.bars.forEach((bar, index) => {
         const delay = index === 0 ? 0 : stepMs;
         const noteDur = index === 0 ? note1DurSec : note2DurSec;
+        const targetAudioTime = baseAudioTime + delay / 1000;
+
+        audioEngine.registerTimer(() => {
+          if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
+          audioEngine.playStep(bar.notes, noteDur, null, "interval", {
+            atTime: targetAudioTime,
+            legato: "melody"
+          });
+        }, Math.max(0, delay - lookaheadMs));
 
         audioEngine.registerTimer(() => {
           if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
@@ -2282,8 +2374,6 @@ async function playSequence(options = {}) {
             document.getElementById("stageMainText").textContent = bar.symbol;
             document.getElementById("stageFunctionText").textContent = bar.label;
           }
-
-          audioEngine.playStep(bar.notes, noteDur, null, "cadence");
         }, delay);
       });
 
@@ -2358,10 +2448,23 @@ async function playSequence(options = {}) {
         state.activeBpm
       );
       const dirArrow = ex.type === "chord-arp-down" ? "↘" : "↗";
+      const baseAudioTime = getAudioClockSec() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
+      const lookaheadMs = 85;
 
       seqNotes.forEach((note, idx) => {
         const delay = idx * stepMs;
-        const noteDur = idx === seqNotes.length - 1 ? lastNoteDurSec : noteDurSec;
+        const isLast = idx === seqNotes.length - 1;
+        const remainingSec = (seqNotes.length - 1 - idx) * (stepMs / 1000);
+        const noteDur = Math.min(1.85, Math.max(isLast ? lastNoteDurSec : noteDurSec, remainingSec + Math.max(0.42, lastNoteDurSec * 0.85)));
+        const targetAudioTime = baseAudioTime + delay / 1000;
+
+        audioEngine.registerTimer(() => {
+          if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
+          audioEngine.playStep([note], noteDur, null, "interval", {
+            atTime: targetAudioTime,
+            legato: false
+          });
+        }, Math.max(0, delay - lookaheadMs));
 
         audioEngine.registerTimer(() => {
           if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
@@ -2376,8 +2479,6 @@ async function playSequence(options = {}) {
           });
           document.getElementById("stageMainText").textContent = "?";
           document.getElementById("stageFunctionText").textContent = tr("Welcher Akkord erklingt jetzt?", "Which chord quality plays now?");
-
-          audioEngine.playStep([note], noteDur, null, "cadence");
         }, delay);
       });
 
@@ -2441,7 +2542,7 @@ async function playSequence(options = {}) {
           stepDur,
           bar.bass,
           ex.type === "interval-harmonic" ? "interval-harmonic" : "cadence",
-          { atTime: targetAudioTime }
+          { atTime: targetAudioTime, legato: ex.type === "cadence" ? "chord" : false }
         );
       }, audioTimerDelay);
 

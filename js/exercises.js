@@ -1148,6 +1148,7 @@ function renderUI() {
   document.getElementById("centralStageCard")?.classList.toggle("is-solfege", isSolfege || isMelody);
   document.getElementById("centralStageCard")?.classList.toggle("is-melody", isMelody);
   document.getElementById("centralStageCard")?.classList.toggle("is-notation", isNotation);
+  document.getElementById("centralStageCard")?.classList.toggle("is-rhythm-tap", isRhythmTap);
 
   // Im oberen Aufgabenmodul eingebettete Steuerungs-Buttons aktualisieren:
   // - Kadenzmodus: Tonart (Salbei) + Taktart (Pfirsich) + Tempo (Lila)
@@ -1951,8 +1952,10 @@ function fitExerciseLayout(reset = true) {
     return;
   }
   const stageWrap = view.querySelector(".stage-wrapper");
+  const stageCard = stageWrap?.querySelector(".central-stage");
   const fits = () => view.scrollHeight <= view.clientHeight + 1 &&
-    (!stageWrap || stageWrap.clientHeight >= EXERCISE_MIN_STAGE_PX);
+    (!stageWrap || stageWrap.clientHeight >= EXERCISE_MIN_STAGE_PX) &&
+    (!stageCard || stageCard.scrollHeight <= stageCard.clientHeight + 2);
   const floor = reset ? 0 : (parseInt(view.dataset.fitLevel, 10) || 0);
   view.classList.remove("sing-hint-float", "fit-overflow");
   const runLevels = () => {
@@ -2359,6 +2362,10 @@ function setCentralStageMode(stageStateClass) {
   const exType = state.currentExercise?.type;
   if (isNotationMode(exType)) {
     stage.className = `central-stage ${stageStateClass} is-notation`;
+    return;
+  }
+  if (exType === "rhythm-tap") {
+    stage.className = `central-stage ${stageStateClass} is-rhythm-tap`;
     return;
   }
   const isKeyboardLayout = exType === "solfege" || exType === "melody";
