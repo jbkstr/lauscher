@@ -2279,10 +2279,13 @@ function getRhythmNodeIconSVG(kind) {
   return `<svg class="node-rhythm-icon" width="46" height="46" viewBox="0 0 48 48" aria-hidden="true">${body}</svg>`;
 }
 
-// Stufen-Symbol mit Richtungspfeil: aufwärts steht der Pfeil über dem Wort, abwärts darunter
+// Stufen-Symbol mit Richtungspfeil: aufwärts steht der Pfeil über dem Wort, abwärts darunter (reines SVG gegen Android-Emoji-Fallback)
 function renderDirectionNodeCircle(word, direction = "up", colorClass = "circle-peach") {
   const isUp = direction !== "down";
-  const arrow = `<span class="node-dir-arrow" aria-hidden="true">${isUp ? "↗" : "↘"}</span>`;
+  const arrowSvg = isUp
+    ? `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12L12 4"/><polyline points="6 4 12 4 12 10"/></svg>`
+    : `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4L12 12"/><polyline points="12 6 12 12 6 12"/></svg>`;
+  const arrow = `<span class="node-dir-arrow" aria-hidden="true">${arrowSvg}</span>`;
   const label = `<span class="node-dir-word${String(word).length > 5 ? " is-long" : ""}">${escapeHtml(word)}</span>`;
   return `<div class="node-circle ${colorClass} node-circle-dir ${isUp ? "is-up" : "is-down"}">${isUp ? arrow + label : label + arrow}</div>`;
 }
