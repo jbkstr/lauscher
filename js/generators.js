@@ -281,6 +281,9 @@ function generateExercise() {
   state.exerciseSolved = false;
   state.lastAnswerWasWrong = false;
   state.wrongAnswerData = null;
+  if (typeof syncExerciseStreakScope === "function") {
+    syncExerciseStreakScope();
+  }
   if (state.streakState) {
     state.streakState.activeNoticeMilestone = 0;
   }

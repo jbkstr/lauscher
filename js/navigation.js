@@ -1244,7 +1244,14 @@ function switchView(targetView, options = {}) {
     renderCircleOfFifthsView();
   }
 
+  if (prevView === "exercise" && targetView !== "exercise" && typeof resetExerciseStreakState === "function") {
+    resetExerciseStreakState(null);
+  }
+
   if (targetView === "exercise") {
+    if (prevView !== "exercise" && !options.fromHistory && typeof resetExerciseStreakState === "function") {
+      resetExerciseStreakState(null);
+    }
     if (state.exam?.active && !options.skipExamLoad) {
       loadCurrentExamQuestion();
     } else if (!options.fromHistory || !state.currentExercise) {

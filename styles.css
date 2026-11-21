@@ -8147,6 +8147,22 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   animation: mascotHappyHop 480ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+@keyframes mascotPoseSwap {
+  0% { opacity: 0.72; transform: scale(0.91); }
+  65% { opacity: 1; transform: scale(1.04); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.mascot-pose-swap > svg {
+  animation: mascotPoseSwap 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mascot-pose-swap > svg {
+    animation: none;
+  }
+}
+
 .stage-streak-pill {
   position: absolute;
   top: 0.44rem;

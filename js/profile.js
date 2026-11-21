@@ -290,8 +290,11 @@ function setHomeQuickMixesEnabled(enabled) {
 
 function renderHomeProfileGreeting() {
   state.updateQuickStartLabel();
-  const heroSvg = document.getElementById("heroMascotSvg");
-  if (heroSvg) heroSvg.innerHTML = getMascotSVG("idle", true);
+  rotateMascotSlot("heroMascotSvg", "idle", true, {
+    slot: "hero",
+    keepIfSameMood: state.currentView !== "home",
+    forceRotate: state.currentView === "home"
+  });
 
   const bar = document.getElementById("homeProfileGreeting");
   if (bar) {
@@ -618,8 +621,7 @@ function syncBreakReminderControls() {
 
 function renderBreakReminderModalContent() {
   const mins = getBreakReminderMinutes();
-  const mascotEl = document.getElementById("breakReminderMascot");
-  if (mascotEl) mascotEl.innerHTML = getMascotSVG("break", true);
+  rotateMascotSlot("breakReminderMascot", "break", true, { slot: "break", forceRotate: true });
   const bodyEl = document.getElementById("breakReminderBody");
   if (bodyEl) {
     bodyEl.textContent = tf(
@@ -1231,8 +1233,7 @@ function renderProfileMultiDropdown({
 
 function renderProfileAccountView() {
   const p = state.profile || createDefaultProfile();
-  const spaceSvg = document.getElementById("spaceMascotSvg");
-  if (spaceSvg) spaceSvg.innerHTML = getMascotSVG("idle", true);
+  rotateMascotSlot("spaceMascotSvg", "idle", true, { slot: "space", forceRotate: true });
 
   const titleEl = document.getElementById("spaceGreetingTitle");
   const subEl = document.getElementById("spaceGreetingSub");
@@ -2226,7 +2227,7 @@ function resetUserProfile() {
   state.resetConfirmArmed = false;
   state.appResetConfirmArmed = false;
   state.examHistoryClearArmed = false;
-  state.streakState = { count: 0, activeNoticeMilestone: 0 };
+  state.streakState = { count: 0, activeNoticeMilestone: 0, scopeKey: null };
   if (typeof renderStageStreakUI === "function") renderStageStreakUI();
   stopSessionTimer("idle", null, "idle");
   resetBreakReminderTimer();
@@ -2339,7 +2340,7 @@ function performFullAppReset() {
   state.resetConfirmArmed = false;
   state.examHistoryClearArmed = false;
   state.exam = null;
-  state.streakState = { count: 0, activeNoticeMilestone: 0 };
+  state.streakState = { count: 0, activeNoticeMilestone: 0, scopeKey: null };
   if (typeof renderStageStreakUI === "function") renderStageStreakUI();
 
   state.profile = createDefaultProfile();
