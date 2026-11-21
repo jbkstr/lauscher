@@ -473,6 +473,9 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("openFretboardBtn")?.addEventListener("click", () => {
     openFretboardView("tools");
   });
+  document.getElementById("openCircleBtn")?.addEventListener("click", () => {
+    openCircleOfFifthsView("tools");
+  });
   initMetronomeEventListeners();
   initFreeplayEventListeners();
   initFretboardEventListeners();

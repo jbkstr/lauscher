@@ -582,6 +582,9 @@ class AppState {
     } else if (this.currentView === "fretboard") {
       mainTitle.textContent = tr("Griffbrett", "Fretboard");
       el.textContent = tr("Gitarren-Akkorde, Umkehrsuche & Tonleitern", "Guitar chords, reverse finder & scales");
+    } else if (this.currentView === "circle") {
+      mainTitle.textContent = tr("Quintenzirkel", "Circle of Fifths");
+      el.textContent = tr("Interaktives Klangrad, Akkorde, Vorzeichen & Modulation", "Interactive key wheel, chords, key signatures & modulation");
     } else if (this.currentView === "exercise" && this.exam?.active) {
       const curQ = Math.min((this.exam.currentIdx || 0) + 1, this.exam.totalQuestions || 1);
       const presetMeta = typeof getExamPresetById === "function" ? getExamPresetById(this.exam.categoryKey, this.exam.levelId) : null;
@@ -804,6 +807,8 @@ function setLanguagePreference(nextLang) {
     openExamSetupPage(state.examSetupCategory, { refreshOnly: true });
   } else if (state.currentView === "exam-result") {
     renderExamResultView();
+  } else if (state.currentView === "circle" && typeof renderCircleOfFifthsView === "function") {
+    renderCircleOfFifthsView();
   } else if (state.currentView === "knowledge-detail" && state.activeKnowledgeDetail) {
     if (state.activeKnowledgeDetail.kind === "article") {
       openKnowledgeArticle(state.activeKnowledgeDetail.id, { refreshOnly: true });
