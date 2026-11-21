@@ -2930,40 +2930,40 @@ registerColocatedStatic({
     ur: "سُر دوبارہ سنیں"
   },
   "ex.dronePadVol": {
-    de: "Fläche",
-    en: "Strings Pad",
-    fr: "Nappe",
-    es: "Colchón",
-    pl: "Tło smyczków",
-    uk: "Педаль",
-    ur: "اساس پیڈ"
+    de: "Grundton-Fläche",
+    en: "Root Drone Pad",
+    fr: "Bourdon (tonique)",
+    es: "Pedal de tónica",
+    pl: "Tło prymy",
+    uk: "Тонічна педаль",
+    ur: "بنیادی پیڈ"
   },
   "ex.dronePadVolAria": {
-    de: "Lautstärke der Streicher-Fläche",
-    en: "Strings pad volume",
-    fr: "Volume de la nappe de cordes",
-    es: "Volumen del colchón de cuerdas",
-    pl: "Głośność tła smyczkowego",
-    uk: "Гучність струнної педалі",
-    ur: "اسٹرنگز پیڈ کی آواز"
+    de: "Lautstärke der Grundton-Fläche",
+    en: "Root drone pad volume",
+    fr: "Volume du bourdon de tonique",
+    es: "Volumen del pedal de tónica",
+    pl: "Głośność tła prymy",
+    uk: "Гучність тонічної педалі",
+    ur: "بنیادی پیڈ کی آواز"
   },
   "ex.droneToneVol": {
-    de: "Intervallton",
-    en: "Interval Tone",
-    fr: "Note cible",
-    es: "Nota objetivo",
+    de: "Intervall",
+    en: "Interval",
+    fr: "Intervalle",
+    es: "Intervalo",
     pl: "Interwał",
     uk: "Інтервал",
-    ur: "انٹرول سُر"
+    ur: "انٹرول"
   },
   "ex.droneToneVolAria": {
-    de: "Lautstärke des Intervalltons",
-    en: "Interval tone volume",
-    fr: "Volume de la note d’intervalle",
-    es: "Volumen de la nota del intervalo",
-    pl: "Głośność dźwięku interwału",
-    uk: "Гучність цільової ноти інтервалу",
-    ur: "انٹرول نوٹ کی آواز"
+    de: "Lautstärke des Intervalls",
+    en: "Interval volume",
+    fr: "Volume de l’intervalle",
+    es: "Volumen del intervalo",
+    pl: "Głośność interwału",
+    uk: "Гучність інтервалу",
+    ur: "انٹرول کی آواز"
   },
   "ex.answerSoundOn": {
     de: "Notenton: An",

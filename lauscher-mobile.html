@@ -15753,17 +15753,17 @@ const LAUSCHER_MASCOT_DATA_URIS = {
         <div id="droneMixStrip" class="drone-mix-strip hidden">
           <label class="drone-mix-control" for="dronePadVolSlider">
             <span class="drone-mix-head">
-              <span class="drone-mix-label" data-i18n="ex.dronePadVol">Fläche</span>
-              <span id="dronePadVolVal" class="drone-mix-val">60%</span>
+              <span class="drone-mix-label" data-i18n="ex.dronePadVol">Grundton-Fläche</span>
+              <span id="dronePadVolVal" class="drone-mix-val">50%</span>
             </span>
-            <input type="range" id="dronePadVolSlider" min="0" max="100" step="2" value="60" aria-label="Lautstärke der Streicher-Fläche" data-i18n-aria="ex.dronePadVolAria">
+            <input type="range" id="dronePadVolSlider" min="0" max="100" step="2" value="50" aria-label="Lautstärke der Grundton-Fläche" data-i18n-aria="ex.dronePadVolAria">
           </label>
           <label class="drone-mix-control" for="droneToneVolSlider">
             <span class="drone-mix-head">
-              <span class="drone-mix-label" data-i18n="ex.droneToneVol">Intervallton</span>
+              <span class="drone-mix-label" data-i18n="ex.droneToneVol">Intervall</span>
               <span id="droneToneVolVal" class="drone-mix-val">100%</span>
             </span>
-            <input type="range" id="droneToneVolSlider" min="0" max="100" step="2" value="100" aria-label="Lautstärke des Intervalltons" data-i18n-aria="ex.droneToneVolAria">
+            <input type="range" id="droneToneVolSlider" min="0" max="100" step="2" value="100" aria-label="Lautstärke des Intervalls" data-i18n-aria="ex.droneToneVolAria">
           </label>
         </div>
 
@@ -17695,7 +17695,7 @@ class AudioEngine {
     this.pianoCharacter = "natural";
     this.pianoReverbMix = PIANO_CHARACTER_PROFILES.natural.defaultReverb;
     this.instrumentReverbMix = { ...STEM_REVERB_BY_CHAR.natural };
-    this.dronePadGainScale = 0.60;
+    this.dronePadGainScale = 0.50;
     this.droneToneGainScale = 1.00;
     this.masterLevel = 0.67;
     this.masterMuted = false;
@@ -23084,40 +23084,40 @@ registerColocatedStatic({
     ur: "سُر دوبارہ سنیں"
   },
   "ex.dronePadVol": {
-    de: "Fläche",
-    en: "Strings Pad",
-    fr: "Nappe",
-    es: "Colchón",
-    pl: "Tło smyczków",
-    uk: "Педаль",
-    ur: "اساس پیڈ"
+    de: "Grundton-Fläche",
+    en: "Root Drone Pad",
+    fr: "Bourdon (tonique)",
+    es: "Pedal de tónica",
+    pl: "Tło prymy",
+    uk: "Тонічна педаль",
+    ur: "بنیادی پیڈ"
   },
   "ex.dronePadVolAria": {
-    de: "Lautstärke der Streicher-Fläche",
-    en: "Strings pad volume",
-    fr: "Volume de la nappe de cordes",
-    es: "Volumen del colchón de cuerdas",
-    pl: "Głośność tła smyczkowego",
-    uk: "Гучність струнної педалі",
-    ur: "اسٹرنگز پیڈ کی آواز"
+    de: "Lautstärke der Grundton-Fläche",
+    en: "Root drone pad volume",
+    fr: "Volume du bourdon de tonique",
+    es: "Volumen del pedal de tónica",
+    pl: "Głośność tła prymy",
+    uk: "Гучність тонічної педалі",
+    ur: "بنیادی پیڈ کی آواز"
   },
   "ex.droneToneVol": {
-    de: "Intervallton",
-    en: "Interval Tone",
-    fr: "Note cible",
-    es: "Nota objetivo",
+    de: "Intervall",
+    en: "Interval",
+    fr: "Intervalle",
+    es: "Intervalo",
     pl: "Interwał",
     uk: "Інтервал",
-    ur: "انٹرول سُر"
+    ur: "انٹرول"
   },
   "ex.droneToneVolAria": {
-    de: "Lautstärke des Intervalltons",
-    en: "Interval tone volume",
-    fr: "Volume de la note d’intervalle",
-    es: "Volumen de la nota del intervalo",
-    pl: "Głośność dźwięku interwału",
-    uk: "Гучність цільової ноти інтервалу",
-    ur: "انٹرول نوٹ کی آواز"
+    de: "Lautstärke des Intervalls",
+    en: "Interval volume",
+    fr: "Volume de l’intervalle",
+    es: "Volumen del intervalo",
+    pl: "Głośność interwału",
+    uk: "Гучність інтервалу",
+    ur: "انٹرول کی آواز"
   },
   "ex.answerSoundOn": {
     de: "Notenton: An",
@@ -71625,7 +71625,7 @@ const PIANO_REVERB_BY_CHAR = Object.freeze({
   concert: 0.48
 });
 const DEFAULT_DRONE_MIX = Object.freeze({
-  pad: 0.60,
+  pad: 0.50,
   tone: 1.00
 });
 const DEFAULT_BREAK_REMINDER_ENABLED = true;
@@ -71688,13 +71688,15 @@ function sanitizePianoSound(raw) {
   };
 }
 
-// Bis Build 1 lag der Flächen-Standard bei 70 %. Profile, die noch genau diesen alten Standard
-// gespeichert haben, wandern einmalig auf den neuen Standard (Merker: droneMixDefaultV2).
-const LEGACY_DRONE_PAD_DEFAULT = 0.70;
+// Ältere Flächen-Standards (70 % bzw. 60 %) wandern einmalig auf den neuen Standard 50 % (Merker: droneMixDefaultV3).
+const LEGACY_DRONE_PAD_DEFAULTS = [0.70, 0.60];
 function migrateDroneMixDefault(raw) {
   const mix = raw?.droneMix;
-  if (raw?.droneMixDefaultV2 || !mix || typeof mix !== "object") return mix;
-  if (Math.abs(Number(mix.pad) - LEGACY_DRONE_PAD_DEFAULT) < 0.001) return { ...mix, pad: DEFAULT_DRONE_MIX.pad };
+  if (raw?.droneMixDefaultV3 || !mix || typeof mix !== "object") return mix;
+  const padNum = Number(mix.pad);
+  if (LEGACY_DRONE_PAD_DEFAULTS.some(def => Math.abs(padNum - def) < 0.001)) {
+    return { ...mix, pad: DEFAULT_DRONE_MIX.pad };
+  }
   return mix;
 }
 
@@ -71730,6 +71732,7 @@ function createDefaultProfile() {
     pianoSound: sanitizePianoSound(DEFAULT_PIANO_SOUND),
     droneMix: sanitizeDroneMix(DEFAULT_DRONE_MIX),
     droneMixDefaultV2: true,
+    droneMixDefaultV3: true,
     customThemes: [null, null, null],
     examHistory: [],
     hasPracticed: false,
@@ -71831,6 +71834,7 @@ function sanitizeUserProfile(raw) {
     pianoSound: sanitizePianoSound(raw.pianoSound),
     droneMix: sanitizeDroneMix(migrateDroneMixDefault(raw)),
     droneMixDefaultV2: true,
+    droneMixDefaultV3: true,
     customThemes: customThemes,
     examHistory: examHistory,
     // Ältere Profile (vor Einführung des Felds) gelten als „schon geübt“
