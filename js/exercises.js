@@ -536,8 +536,13 @@ function buildMelodyStaffSVG(ex) {
     beamPairs.set(b.idx, a);
   }
 
-  let inkMinY = 60;
-  let inkMaxY = 116;
+  let inkMinY = clefId === "bass" ? 60 : 44;
+  let inkMaxY = clefId === "bass" ? 116 : 132;
+  sigItems.forEach(ks => {
+    const ky = notationStepToY(ks.staffStep);
+    inkMinY = Math.min(inkMinY, ks.accidental === -1 ? (ky - 14) : (ky - 10));
+    inkMaxY = Math.max(inkMaxY, ky + 9);
+  });
   const labelEntries = [];
   let labelBaseline = 132;
   const noteHtml = items.map(it => {
@@ -604,7 +609,7 @@ function buildMelodyStaffSVG(ex) {
     <line x1="${endX - 1.5}" y1="64" x2="${endX - 1.5}" y2="112" stroke="currentColor" stroke-width="3.4"/>`;
 
   const vbTop = Math.floor(Math.min(inkMinY, 42) - 3);
-  const vbBottom = Math.ceil(Math.max(inkMaxY, 118) + 3);
+  const vbBottom = Math.ceil(Math.max(inkMaxY, clefId === "bass" ? 118 : 132) + 4);
   return `<svg class="notation-staff-svg melody-staff-svg" viewBox="0 ${vbTop} ${width} ${vbBottom - vbTop}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${escapeHtml(tr("Melodie im Notensystem", "Melody on the staff"))}">
     ${staffLines}
     ${getNotationClefGlyphSVG(clefId, startX + 8, 1, 1)}
