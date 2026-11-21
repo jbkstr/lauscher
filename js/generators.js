@@ -189,16 +189,23 @@ function injectNotationSessionReview(ex) {
 
 function generateExercise() {
   if (state.settings.mode === "solfege") {
-    const sLvl = state.settings.solfegeDifficulty || 1;
-    if (sLvl === 1 || sLvl === 3) {
+    const sCfg = getSolfegeLevelConfig(state.settings.solfegeDifficulty || 1);
+    if (sCfg.keyMode === "fixed") {
       state.currentKey = "C";
-    } else if (sLvl === 2 || sLvl === 4) {
+    } else if (sCfg.keyMode === "session") {
       if (!state.solfegeSessionKey || state.solfegeSessionKey === "C") {
         state.solfegeSessionKey = pickRandomNonCKey();
       }
       state.currentKey = state.solfegeSessionKey;
+    } else if (sCfg.keyMode === "custom") {
+      const customKey = state.settings.solfegeCustomKey || "C";
+      if (customKey === "random") {
+        state.currentKey = pickRandomAnyKey(state.currentKey);
+      } else {
+        state.currentKey = HARMONIC_DATA.roots[customKey] ? customKey : "C";
+      }
     } else {
-      // Stufe 5 & 6: Neue zufällige Nicht-C-Dur-Tonart nach jeder Antwort
+      // Tonartwechsel: Neue zufällige Nicht-C-Tonart nach jeder Antwort
       state.currentKey = pickRandomNonCKey(state.currentKey);
     }
   } else if (state.settings.mode === "melody") {
@@ -898,6 +905,80 @@ function renderModesRootPopover() {
   const pop = document.getElementById("inlineModesRootPopover");
   if (!pop) return;
   const exType = String(state.currentExercise?.type || state.settings.mode || "");
+  if (exType === "solfege" && parseInt(state.settings.solfegeDifficulty, 10) === 17) {
+    const curTonality = state.settings.solfegeCustomTonality === "minor" ? "minor" : "major";
+    const curKey = String(state.settings.solfegeCustomKey || "C");
+    const curRange = ["do-fa", "sol-do", "full"].includes(state.settings.solfegeCustomRange)
+      ? state.settings.solfegeCustomRange
+      : "full";
+    const curOct = state.settings.solfegeCustomOctave === "multi" ? "multi" : "single";
+    const keyOrder = ["random", "C", "G", "D", "A", "E", "B", "F#", "Db", "Ab", "Eb", "Bb", "F"];
+    const rangeDefs = [
+      { id: "do-fa",  label: "Do–Fa" },
+      { id: "sol-do", label: "Sol–Do" },
+      { id: "full",   label: tr("Ganze Tonart", "Full Scale") }
+    ];
+    pop.innerHTML = `
+      <span class="popover-label">${escapeHtml(tr("Tongeschlecht:", "Tonality:"))}</span>
+      <div class="popover-pills-row modes-root-pills">
+        <button type="button" class="popover-pill-btn${curTonality === "major" ? " active" : ""}" data-solf-pop-tonality="major" aria-pressed="${curTonality === "major"}">${escapeHtml(tr("Dur", "Major"))}</button>
+        <button type="button" class="popover-pill-btn${curTonality === "minor" ? " active" : ""}" data-solf-pop-tonality="minor" aria-pressed="${curTonality === "minor"}">${escapeHtml(tr("Moll", "Minor"))}</button>
+      </div>
+      <span class="popover-label" style="margin-top:0.35rem;">${escapeHtml(tr("Tonart:", "Key:"))}</span>
+      <div class="popover-pills-row modes-root-pills">
+        ${keyOrder.map(k => {
+          const lbl = k === "random" ? tr("Zufall", "Random") : getKeyDisplayName(k, curTonality);
+          return `<button type="button" class="popover-pill-btn${k === curKey ? " active" : ""}" data-solf-pop-key="${k}" aria-pressed="${k === curKey}">${escapeHtml(lbl)}</button>`;
+        }).join("")}
+      </div>
+      <span class="popover-label" style="margin-top:0.35rem;">${escapeHtml(tr("Tonraum:", "Range:"))}</span>
+      <div class="popover-pills-row modes-root-pills">
+        ${rangeDefs.map(r => `<button type="button" class="popover-pill-btn${r.id === curRange ? " active" : ""}" data-solf-pop-range="${r.id}" aria-pressed="${r.id === curRange}">${escapeHtml(r.label)}</button>`).join("")}
+      </div>
+      <span class="popover-label" style="margin-top:0.35rem;">${escapeHtml(tr("Oktave:", "Octave:"))}</span>
+      <div class="popover-pills-row modes-root-pills">
+        <button type="button" class="popover-pill-btn${curOct === "single" ? " active" : ""}" data-solf-pop-oct="single" aria-pressed="${curOct === "single"}">${escapeHtml(tr("1 Oktave", "1 Octave"))}</button>
+        <button type="button" class="popover-pill-btn${curOct === "multi" ? " active" : ""}" data-solf-pop-oct="multi" aria-pressed="${curOct === "multi"}">${escapeHtml(tr("Mehrere Okt.", "Multi-Oct."))}</button>
+      </div>
+    `;
+    const refreshCustomSolfegeEx = () => {
+      state.updateHeaderSubtext();
+      renderModesRootPopover();
+      cancelListenOnlyTimers();
+      stopPlayback();
+      generateExercise();
+      if (state.listenOnly.active) startListenOnlyCycle();
+    };
+    pop.querySelectorAll("[data-solf-pop-tonality]").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        state.settings.solfegeCustomTonality = btn.dataset.solfPopTonality === "minor" ? "minor" : "major";
+        refreshCustomSolfegeEx();
+      });
+    });
+    pop.querySelectorAll("[data-solf-pop-key]").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        state.settings.solfegeCustomKey = btn.dataset.solfPopKey;
+        refreshCustomSolfegeEx();
+      });
+    });
+    pop.querySelectorAll("[data-solf-pop-range]").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        state.settings.solfegeCustomRange = btn.dataset.solfPopRange;
+        refreshCustomSolfegeEx();
+      });
+    });
+    pop.querySelectorAll("[data-solf-pop-oct]").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        state.settings.solfegeCustomOctave = btn.dataset.solfPopOct === "multi" ? "multi" : "single";
+        refreshCustomSolfegeEx();
+      });
+    });
+    return;
+  }
   if (exType.startsWith("interval-") && exType !== "interval-chords" && parseInt(state.settings.intervalDifficulty, 10) === 10) {
     const curRoot = String(state.settings.intervalCustomRoot ?? "random");
     const curScale = String(state.settings.intervalCustomScale || "ionian");
@@ -1284,17 +1365,26 @@ function getSolfegeOctaveShiftForBand(keyboardMidi, bandKey) {
 }
 
 function generateSolfegeExercise(rootMidi) {
-  const sLvl = state.settings.solfegeDifficulty || 1;
-  const isMultiOctave = sLvl === 3 || sLvl === 4 || sLvl === 6;
+  const sCfg = getSolfegeLevelConfig(state.settings.solfegeDifficulty || 1);
+  const tonality = sCfg.tonality;
+  const solfegeRange = sCfg.range;
+  const isMultiOctave = sCfg.isMultiOctave;
+  const scaleSteps = getSolfegeScaleSteps(tonality);
+  const activeSteps = solfegeRange === "do-fa"
+    ? scaleSteps.slice(0, 4)
+    : (solfegeRange === "sol-do" ? scaleSteps.slice(4, 8) : scaleSteps);
+  const activeKeys = activeSteps.map(st => st.key);
+  const activeSemitones = activeSteps.map(st => st.semitones);
+  const reviewScope = tonality === "minor" ? "solfege-minor" : "solfege";
 
-  const solfegeLastKey = getLastTargetKeyForType("solfege");
-  const solfegeReviewKey = pickSessionReviewKey("solfege", SOLFEGE_SCALE_STEPS.map(st => st.key), solfegeLastKey);
-  const solfegeFreeKeys = filterCoolingSessionReviewKeys("solfege", SOLFEGE_SCALE_STEPS.map(st => st.key), solfegeLastKey);
+  const solfegeLastKey = getLastTargetKeyForType(reviewScope);
+  const solfegeReviewKey = pickSessionReviewKey(reviewScope, activeKeys, solfegeLastKey);
+  const solfegeFreeKeys = filterCoolingSessionReviewKeys(reviewScope, activeKeys, solfegeLastKey);
   const solfegeKey = solfegeReviewKey ?? solfegeFreeKeys[Math.floor(Math.random() * solfegeFreeKeys.length)];
-  const chosenStep = SOLFEGE_SCALE_STEPS.find(st => st.key === solfegeKey) || SOLFEGE_SCALE_STEPS[0];
+  const chosenStep = activeSteps.find(st => st.key === solfegeKey) || activeSteps[0];
   const keyboardMidi = rootMidi + chosenStep.semitones;
 
-  // Bei „Mehrere Oktaven“ (Stufe 3, 4, 6) erklingt der abgefragte Ton in einer von drei festen Lagen
+  // Bei „Mehrere Oktaven“ erklingt der abgefragte Ton in einer von drei festen Lagen
   // (tief/mittel/hoch, gleichmäßig rotiert), während die Klaviatur 1 Oktave zeigt.
   let octaveShift = 0;
   if (isMultiOctave) {
@@ -1304,22 +1394,26 @@ function generateSolfegeExercise(rootMidi) {
   const playedMidi = keyboardMidi + octaveShift;
   const keyboardResolveMidis = chosenStep.resolveOffsets.map(off => rootMidi + off);
   const audioResolveMidis = chosenStep.resolveOffsets.map(off => rootMidi + off + octaveShift);
-  const cadenceBars = buildContextCadenceBars(rootMidi);
+  const cadenceBars = buildContextCadenceBars(rootMidi, tonality);
 
   const leftFrameMidi = prevWhiteMidi(rootMidi);
   const rightFrameMidi = nextWhiteMidi(rootMidi + 12);
   const leftFrameName = getWhiteNoteLabel(((leftFrameMidi % 12) + 12) % 12);
   const rightFrameName = getWhiteNoteLabel(((rightFrameMidi % 12) + 12) % 12);
-  const keyBaseName = getKeyDisplayName(state.currentKey);
+  const keyBaseName = getKeyDisplayName(state.currentKey, tonality);
 
   state.currentExercise = {
     type: "solfege",
     rootMidi: rootMidi,
     keyCode: state.currentKey,
+    tonality: tonality,
+    solfegeRange: solfegeRange,
+    activeSemitones: activeSemitones,
+    isCustomSolfege: sCfg.isCustom,
     keyName: `${keyBaseName} (${leftFrameName}–${rightFrameName})`,
     isMultiOctave: isMultiOctave,
     targetIndex: 4,
-    reviewScope: "solfege",
+    reviewScope: reviewScope,
     reviewKey: chosenStep.key,
     targetItem: {
       ...chosenStep,
@@ -2174,14 +2268,15 @@ function refreshExerciseLocalization(ex) {
 
   if (ex.type === "solfege") {
     const keyCode = ex.keyCode || state.currentKey;
+    const tonality = ex.tonality || "major";
     const leftFrameName = getWhiteNoteLabel(((prevWhiteMidi(ex.rootMidi) % 12) + 12) % 12);
     const rightFrameName = getWhiteNoteLabel(((nextWhiteMidi(ex.rootMidi + 12) % 12) + 12) % 12);
-    ex.keyName = `${getKeyDisplayName(keyCode)} (${leftFrameName}–${rightFrameName})`;
+    ex.keyName = `${getKeyDisplayName(keyCode, tonality)} (${leftFrameName}–${rightFrameName})`;
     if (ex.targetItem?.key) {
-      const baseStep = SOLFEGE_SCALE_STEPS.find(s => s.key === ex.targetItem.key);
+      const baseStep = getSolfegeScaleSteps(tonality).find(s => s.key === ex.targetItem.key);
       ex.targetItem.label = getLocalizedSolfegeStepLabel(ex.targetItem.key, baseStep?.label || ex.targetItem.label);
     }
-    ex.bars = buildContextCadenceBars(ex.rootMidi);
+    ex.bars = buildContextCadenceBars(ex.rootMidi, tonality);
     return;
   }
 

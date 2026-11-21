@@ -628,8 +628,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // Tonart-Button links neben Tonika (spielt in Solfège den Tonika-Dreiklang der aktuellen Tonart an)
   document.getElementById("solfegeKeyBtn")?.addEventListener("click", async () => {
     await ensureAudioReady();
-    const rootMidi = HARMONIC_DATA.roots[state.currentKey].midi;
-    const tonicNotes = buildChordNotes(rootMidi, HARMONIC_DATA.degrees["I"]);
+    const ex = state.currentExercise;
+    const rootMidi = ex?.rootMidi || HARMONIC_DATA.roots[state.currentKey].midi;
+    const tonicKey = ex?.tonality === "minor" ? "i" : "I";
+    const tonicNotes = buildChordNotes(rootMidi, HARMONIC_DATA.degrees[tonicKey]);
     audioEngine.playStep(tonicNotes.chordNotes, 1.15, tonicNotes.bassNote, "cadence");
   });
 

@@ -3573,5 +3573,425 @@ registerColocatedPhrases({
     pl: "Dźwięk podstawowy:",
     uk: "Тоніка:",
     ur: "بنیادی سُر:"
+  },
+  "1. Tongeschlecht:": {
+    fr: "1. Mode (majeur/mineur) :",
+    es: "1. Modo (mayor/menor):",
+    pl: "1. Tryb (dur/moll):",
+    uk: "1. Лад (мажор/мінор):",
+    ur: "1. مزاج (میجر/مائنر):"
+  },
+  "2. Tonart:": {
+    fr: "2. Tonalité :",
+    es: "2. Tonalidad:",
+    pl: "2. Tonacja:",
+    uk: "2. Тональність:",
+    ur: "2. کلید:"
+  },
+  "3. Tonraum:": {
+    fr: "3. Étendue :",
+    es: "3. Rango:",
+    pl: "3. Zakres:",
+    uk: "3. Діапазон:",
+    ur: "3. دائرہ:"
+  },
+  "4. Oktavlage:": {
+    fr: "4. Registre d’octaves :",
+    es: "4. Registro de octavas:",
+    pl: "4. Zakres oktaw:",
+    uk: "4. Октавний регістр:",
+    ur: "4. آکٹیو:"
+  },
+  "Do–Fa (Mehrere Okt.)": {
+    fr: "Do–Fa (Plus. oct.)",
+    es: "Do–Fa (Varias oct.)",
+    pl: "Do–Fa (Wiele okt.)",
+    uk: "Do–Fa (Кілька окт.)",
+    ur: "Do–Fa (کئی آکٹیو)"
+  },
+  "Do–Fa (Untere Hälfte)": {
+    fr: "Do–Fa (Moitié basse)",
+    es: "Do–Fa (Mitad inferior)",
+    pl: "Do–Fa (Dolna połowa)",
+    uk: "Do–Fa (Нижня половина)",
+    ur: "Do–Fa (نچلا حصہ)"
+  },
+  "Do–Fa, C-Dur": {
+    fr: "Do–Fa, Do majeur",
+    es: "Do–Fa, Do mayor",
+    pl: "Do–Fa, C-dur",
+    uk: "Do–Fa, До мажор",
+    ur: "Do–Fa، C میجر"
+  },
+  "Do–Fa, c-Moll": {
+    fr: "Do–Fa, Do mineur",
+    es: "Do–Fa, Do menor",
+    pl: "Do–Fa, c-moll",
+    uk: "Do–Fa, До мінор",
+    ur: "Do–Fa، C مائنر"
+  },
+  "Eigene Tonart": {
+    fr: "Tonalité libre",
+    es: "Tonalidad libre",
+    pl: "Własna tonacja",
+    uk: "Власна тональність",
+    ur: "اپنی کلید"
+  },
+  "Eigene Tonart (Dur & Moll)": {
+    fr: "Tonalité libre (majeur & mineur)",
+    es: "Tonalidad libre (mayor y menor)",
+    pl: "Własna tonacja (dur i moll)",
+    uk: "Власна тональність (мажор і мінор)",
+    ur: "اپنی کلید (میجر اور مائنر)"
+  },
+  "Feste Tonart c-Moll, wechselnde Oktaven": {
+    fr: "Tonalité fixe Do mineur, octaves variables",
+    es: "Tonalidad fija Do menor, octavas variables",
+    pl: "Stała tonacja c-moll, zmienne oktawy",
+    uk: "Фіксована тональність До мінор, різні октави",
+    ur: "مقررہ C مائنر کلید، بدلتے آکٹیو"
+  },
+  "Ganze Moll-Tonleiter, mittlere Höhe, feste Tonart c-Moll": {
+    fr: "Gamme mineure complète, registre médium, Do mineur fixe",
+    es: "Escala menor completa, registro medio, Do menor fijo",
+    pl: "Pełna gama moll, średni rejestr, stała tonacja c-moll",
+    uk: "Повна мінорна гама, середній регістр, фіксований До мінор",
+    ur: "مکمل مائنر اسکیل، درمیانہ سُر، مقررہ C مائنر"
+  },
+  "Ganze Tonart": {
+    fr: "Gamme complète",
+    es: "Escala completa",
+    pl: "Cała gama",
+    uk: "Повна гама",
+    ur: "مکمل اسکیل"
+  },
+  "Ganze Tonart (Do–Do)": {
+    fr: "Gamme complète (Do–Do)",
+    es: "Escala completa (Do–Do)",
+    pl: "Cała gama (Do–Do)",
+    uk: "Повна гама (Do–Do)",
+    ur: "مکمل اسکیل (Do–Do)"
+  },
+  "Ganze Tonleiter, mittlere Höhe, feste Tonart C-Dur": {
+    fr: "Gamme complète, registre médium, Do majeur fixe",
+    es: "Escala completa, registro medio, Do mayor fijo",
+    pl: "Pełna gama, średni rejestr, stała tonacja C-dur",
+    uk: "Повна гама, середній регістр, фіксований До мажор",
+    ur: "مکمل اسکیل، درمیانہ سُر، مقررہ C میجر"
+  },
+  "Höre die Dur-Kadenz (I–vi–IV–V) und erkenne die gespielte Tonstufe auf der Klaviatur": {
+    fr: "Écoutez la cadence majeure (I–vi–IV–V) et identifiez le degré joué sur le clavier",
+    es: "Escucha la cadencia mayor (I–vi–IV–V) e identifica el grado tocado en el teclado",
+    pl: "Posłuchaj kadencji dur (I–vi–IV–V) i wskaż usłyszany stopień na klawiaturze",
+    uk: "Прослухай мажорну каденцію (I–vi–IV–V) і знайди зіграний ступінь на клавіатурі",
+    ur: "میجر کیڈینس (I–vi–IV–V) سنیں اور کی بورڈ پر بجائے گئے درجے کی شناخت کریں"
+  },
+  "Höre die Moll-Kadenz (i–VI–iv–V) und erkenne die gespielte Tonstufe in Natürlich Moll": {
+    fr: "Écoutez la cadence mineure (i–VI–iv–V) et identifiez le degré joué en mineur naturel",
+    es: "Escucha la cadencia menor (i–VI–iv–V) e identifica el grado en menor natural",
+    pl: "Posłuchaj kadencji moll (i–VI–iv–V) i wskaż stopień w skali moll naturalnej",
+    uk: "Прослухай мінорну каденцію (i–VI–iv–V) і знайди ступінь у натуральному мінорі",
+    ur: "مائنر کیڈینس (i–VI–iv–V) سنیں اور نیچرل مائنر میں سُر پہچانیں"
+  },
+  "Mehrere Oktaven": {
+    fr: "Plusieurs octaves",
+    es: "Varias octavas",
+    pl: "Wiele oktaw",
+    uk: "Кілька октав",
+    ur: "کئی آکٹیو"
+  },
+  "Moll 1: Do–Fa (c-Moll)": {
+    fr: "Mineur 1 : Do–Fa (Do mineur)",
+    es: "Menor 1: Do–Fa (Do menor)",
+    pl: "Moll 1: Do–Fa (c-moll)",
+    uk: "Мінор 1: Do–Fa (До мінор)",
+    ur: "مائنر 1: Do–Fa (C مائنر)"
+  },
+  "Moll 2: Sol–Do (c-Moll)": {
+    fr: "Mineur 2 : Sol–Do (Do mineur)",
+    es: "Menor 2: Sol–Do (Do menor)",
+    pl: "Moll 2: Sol–Do (c-moll)",
+    uk: "Мінор 2: Sol–Do (До мінор)",
+    ur: "مائنر 2: Sol–Do (C مائنر)"
+  },
+  "Moll 3: c-Moll (1 Oktave)": {
+    fr: "Mineur 3 : Do mineur (1 octave)",
+    es: "Menor 3: Do menor (1 octava)",
+    pl: "Moll 3: c-moll (1 oktawa)",
+    uk: "Мінор 3: До мінор (1 октава)",
+    ur: "مائنر 3: C مائنر (1 آکٹیو)"
+  },
+  "Moll 4: Zufällige Tonart (1 Okt.)": {
+    fr: "Mineur 4 : Tonalité aléatoire (1 oct.)",
+    es: "Menor 4: Tonalidad aleatoria (1 oct.)",
+    pl: "Moll 4: Losowa tonacja (1 okt.)",
+    uk: "Мінор 4: Випадкова тональність (1 окт.)",
+    ur: "مائنر 4: بے ترتیب کلید (1 آکٹیو)"
+  },
+  "Moll 5: c-Moll (Mehrere Oktaven)": {
+    fr: "Mineur 5 : Do mineur (plus. octaves)",
+    es: "Menor 5: Do menor (varias octavas)",
+    pl: "Moll 5: c-moll (wiele oktaw)",
+    uk: "Мінор 5: До мінор (кілька октав)",
+    ur: "مائنر 5: C مائنر (کئی آکٹیو)"
+  },
+  "Moll 6: Zufällige Tonart (Mehrere Okt.)": {
+    fr: "Mineur 6 : Tonalité aléatoire (plus. oct.)",
+    es: "Menor 6: Tonalidad aleatoria (varias oct.)",
+    pl: "Moll 6: Losowa tonacja (wiele okt.)",
+    uk: "Мінор 6: Випадкова тональність (кілька окт.)",
+    ur: "مائنر 6: بے ترتیب کلید (کئی آکٹیو)"
+  },
+  "Moll 7: Tonartwechsel (1 Oktave)": {
+    fr: "Mineur 7 : Changements de tonalité (1 oct.)",
+    es: "Menor 7: Cambios de tonalidad (1 oct.)",
+    pl: "Moll 7: Zmiana tonacji (1 oktawa)",
+    uk: "Мінор 7: Зміна тональності (1 октава)",
+    ur: "مائنر 7: کلید کی تبدیلی (1 آکٹیو)"
+  },
+  "Moll 8: Tonartwechsel (Mehrere Okt.)": {
+    fr: "Mineur 8 : Changements de tonalité (plus. oct.)",
+    es: "Menor 8: Cambios de tonalidad (varias oct.)",
+    pl: "Moll 8: Zmiana tonacji (wiele okt.)",
+    uk: "Мінор 8: Зміна тональності (кілька окт.)",
+    ur: "مائنر 8: کلید کی تبدیلی (کئی آکٹیو)"
+  },
+  "Neue Moll-Tonart & Oktave nach jeder Antwort": {
+    fr: "Nouvelle tonalité mineure et octave après chaque réponse",
+    es: "Nueva tonalidad menor y octava tras cada respuesta",
+    pl: "Nowa tonacja moll i oktawa po każdej odpowiedzi",
+    uk: "Нова мінорна тональність і октава після кожної відповіді",
+    ur: "ہر جواب کے بعد نئی مائنر کلید اور آکٹیو"
+  },
+  "Neue Moll-Tonart nach jeder Antwort, 1 Okt.": {
+    fr: "Nouvelle tonalité mineure après chaque réponse, 1 oct.",
+    es: "Nueva tonalidad menor tras cada respuesta, 1 oct.",
+    pl: "Nowa tonacja moll po każdej odpowiedzi, 1 okt.",
+    uk: "Нова мінорна тональність після кожної відповіді, 1 окт.",
+    ur: "ہر جواب کے بعد نئی مائنر کلید، 1 آکٹیو"
+  },
+  "Nicht c-Moll (fest), wechselnde Oktaven": {
+    fr: "Hors Do mineur (fixe), octaves variables",
+    es: "No Do menor (fija), octavas variables",
+    pl: "Nie c-moll (stała), zmienne oktawy",
+    uk: "Не До мінор (фіксована), різні октави",
+    ur: "C مائنر کے علاوہ (مقررہ)، بدلتے آکٹیو"
+  },
+  "Nicht c-Moll, fest für diese Sitzung": {
+    fr: "Hors Do mineur, fixe pour cette séance",
+    es: "No Do menor, fija para esta sesión",
+    pl: "Nie c-moll, stała na tę sesję",
+    uk: "Не До мінор, фіксована на цю сесію",
+    ur: "C مائنر کے علاوہ، اس سیشن کے لیے مقررہ"
+  },
+  "Obere Hälfte (4 Töne), feste Tonart C-Dur": {
+    fr: "Moitié haute (4 notes), Do majeur fixe",
+    es: "Mitad superior (4 notas), Do mayor fijo",
+    pl: "Górna połowa (4 dźwięki), stała tonacja C-dur",
+    uk: "Верхня половина (4 ноти), фіксований До мажор",
+    ur: "اوپری حصہ (4 سُر)، مقررہ C میجر"
+  },
+  "Obere Hälfte (Sol, Le, Te, Do), feste Tonart c-Moll": {
+    fr: "Moitié haute (Sol, Le, Te, Do), Do mineur fixe",
+    es: "Mitad superior (Sol, Le, Te, Do), Do menor fijo",
+    pl: "Górna połowa (Sol, Le, Te, Do), stała tonacja c-moll",
+    uk: "Верхня половина (Sol, Le, Te, Do), фіксований До мінор",
+    ur: "اوپری حصہ (Sol, Le, Te, Do)، مقررہ C مائنر"
+  },
+  "Obere Hälfte (Sol–Do)": {
+    fr: "Moitié haute (Sol–Do)",
+    es: "Mitad superior (Sol–Do)",
+    pl: "Górna połowa (Sol–Do)",
+    uk: "Верхня половина (Sol–Do)",
+    ur: "اوپری حصہ (Sol–Do)"
+  },
+  "Oktave:": {
+    fr: "Octave :",
+    es: "Octava:",
+    pl: "Oktawa:",
+    uk: "Октава:",
+    ur: "آکٹیو:"
+  },
+  "Solfège mit eigener Tonart starten": {
+    fr: "Démarrer le solfège dans ma tonalité",
+    es: "Iniciar solfeo con tonalidad libre",
+    pl: "Rozpocznij solfeż we własnej tonacji",
+    uk: "Почати сольфеджіо у власній тональності",
+    ur: "اپنی کلید میں سولفیج شروع کریں"
+  },
+  "Solfège • Dur (Do, Re, Mi, Fa, Sol, La, Ti)": {
+    fr: "Solfège • Majeur (Do, Re, Mi, Fa, Sol, La, Ti)",
+    es: "Solfeo • Mayor (Do, Re, Mi, Fa, Sol, La, Ti)",
+    pl: "Solfeż • Dur (Do, Re, Mi, Fa, Sol, La, Ti)",
+    uk: "Сольфеджіо • Мажор (Do, Re, Mi, Fa, Sol, La, Ti)",
+    ur: "سولفیج • میجر (Do, Re, Mi, Fa, Sol, La, Ti)"
+  },
+  "Solfège • Moll (Do, Re, Me, Fa, Sol, Le, Te)": {
+    fr: "Solfège • Mineur (Do, Re, Me, Fa, Sol, Le, Te)",
+    es: "Solfeo • Menor (Do, Re, Me, Fa, Sol, Le, Te)",
+    pl: "Solfeż • Moll (Do, Re, Me, Fa, Sol, Le, Te)",
+    uk: "Сольфеджіо • Мінор (Do, Re, Me, Fa, Sol, Le, Te)",
+    ur: "سولفیج • مائنر (Do, Re, Me, Fa, Sol, Le, Te)"
+  },
+  "Sol–Do (Mehrere Okt.)": {
+    fr: "Sol–Do (Plus. oct.)",
+    es: "Sol–Do (Varias oct.)",
+    pl: "Sol–Do (Wiele okt.)",
+    uk: "Sol–Do (Кілька окт.)",
+    ur: "Sol–Do (کئی آکٹیو)"
+  },
+  "Sol–Do (Obere Hälfte)": {
+    fr: "Sol–Do (Moitié haute)",
+    es: "Sol–Do (Mitad superior)",
+    pl: "Sol–Do (Górna połowa)",
+    uk: "Sol–Do (Верхня половина)",
+    ur: "Sol–Do (اوپری حصہ)"
+  },
+  "Sol–Do, C-Dur": {
+    fr: "Sol–Do, Do majeur",
+    es: "Sol–Do, Do mayor",
+    pl: "Sol–Do, C-dur",
+    uk: "Sol–Do, До мажор",
+    ur: "Sol–Do، C میجر"
+  },
+  "Sol–Do, c-Moll": {
+    fr: "Sol–Do, Do mineur",
+    es: "Sol–Do, Do menor",
+    pl: "Sol–Do, c-moll",
+    uk: "Sol–Do, До мінор",
+    ur: "Sol–Do، C مائنر"
+  },
+  "Stufe 1: Do–Fa (C-Dur)": {
+    fr: "Niveau 1 : Do–Fa (Do majeur)",
+    es: "Nivel 1: Do–Fa (Do mayor)",
+    pl: "Poziom 1: Do–Fa (C-dur)",
+    uk: "Рівень 1: Do–Fa (До мажор)",
+    ur: "سطح 1: Do–Fa (C میجر)"
+  },
+  "Stufe 2: Sol–Do (C-Dur)": {
+    fr: "Niveau 2 : Sol–Do (Do majeur)",
+    es: "Nivel 2: Sol–Do (Do mayor)",
+    pl: "Poziom 2: Sol–Do (C-dur)",
+    uk: "Рівень 2: Sol–Do (До мажор)",
+    ur: "سطح 2: Sol–Do (C میجر)"
+  },
+  "Stufe 3: C-Dur (1 Oktave)": {
+    fr: "Niveau 3 : Do majeur (1 octave)",
+    es: "Nivel 3: Do mayor (1 octava)",
+    pl: "Poziom 3: C-dur (1 oktawa)",
+    uk: "Рівень 3: До мажор (1 октава)",
+    ur: "سطح 3: C میجر (1 آکٹیو)"
+  },
+  "Stufe 4: Zufällige Tonart (1 Okt.)": {
+    fr: "Niveau 4 : Tonalité aléatoire (1 oct.)",
+    es: "Nivel 4: Tonalidad aleatoria (1 oct.)",
+    pl: "Poziom 4: Losowa tonacja (1 okt.)",
+    uk: "Рівень 4: Випадкова тональність (1 окт.)",
+    ur: "سطح 4: بے ترتیب کلید (1 آکٹیو)"
+  },
+  "Stufe 5: C-Dur (Mehrere Oktaven)": {
+    fr: "Niveau 5 : Do majeur (plus. octaves)",
+    es: "Nivel 5: Do mayor (varias octavas)",
+    pl: "Poziom 5: C-dur (wiele oktaw)",
+    uk: "Рівень 5: До мажор (кілька октав)",
+    ur: "سطح 5: C میجر (کئی آکٹیو)"
+  },
+  "Stufe 6: Zufällige Tonart (Mehrere Okt.)": {
+    fr: "Niveau 6 : Tonalité aléatoire (plus. oct.)",
+    es: "Nivel 6: Tonalidad aleatoria (varias oct.)",
+    pl: "Poziom 6: Losowa tonacja (wiele okt.)",
+    uk: "Рівень 6: Випадкова тональність (кілька окт.)",
+    ur: "سطح 6: بے ترتیب کلید (کئی آکٹیو)"
+  },
+  "Stufe 7: Tonartwechsel (1 Oktave)": {
+    fr: "Niveau 7 : Changements de tonalité (1 oct.)",
+    es: "Nivel 7: Cambios de tonalidad (1 oct.)",
+    pl: "Poziom 7: Zmiana tonacji (1 oktawa)",
+    uk: "Рівень 7: Зміна тональності (1 октава)",
+    ur: "سطح 7: کلید کی تبدیلی (1 آکٹیو)"
+  },
+  "Stufe 8: Tonartwechsel (Mehrere Okt.)": {
+    fr: "Niveau 8 : Changements de tonalité (plus. oct.)",
+    es: "Nivel 8: Cambios de tonalidad (varias oct.)",
+    pl: "Poziom 8: Zmiana tonacji (wiele okt.)",
+    uk: "Рівень 8: Зміна тональності (кілька окт.)",
+    ur: "سطح 8: کلید کی تبدیلی (کئی آکٹیو)"
+  },
+  "Tonart, Dur/Moll & Tonraum wählen": {
+    fr: "Choisir tonalité, majeur/mineur et étendue",
+    es: "Elegir tonalidad, mayor/menor y rango",
+    pl: "Wybierz tonację, dur/moll i zakres",
+    uk: "Обрати тональність, мажор/мінор і діапазон",
+    ur: "کلید، میجر/مائنر اور دائرہ چنیں"
+  },
+  "Tonart:": {
+    fr: "Tonalité :",
+    es: "Tonalidad:",
+    pl: "Tonacja:",
+    uk: "Тональність:",
+    ur: "کلید:"
+  },
+  "Tongeschlecht:": {
+    fr: "Mode :",
+    es: "Modo:",
+    pl: "Tryb:",
+    uk: "Лад:",
+    ur: "مزاج:"
+  },
+  "Tonraum:": {
+    fr: "Étendue :",
+    es: "Rango:",
+    pl: "Zakres:",
+    uk: "Діапазон:",
+    ur: "دائرہ:"
+  },
+  "Untere Hälfte (4 Töne), feste Tonart C-Dur": {
+    fr: "Moitié basse (4 notes), Do majeur fixe",
+    es: "Mitad inferior (4 notas), Do mayor fijo",
+    pl: "Dolna połowa (4 dźwięki), stała tonacja C-dur",
+    uk: "Нижня половина (4 ноти), фіксований До мажор",
+    ur: "نچلا حصہ (4 سُر)، مقررہ C میجر"
+  },
+  "Untere Hälfte (Do, Re, Me, Fa), feste Tonart c-Moll": {
+    fr: "Moitié basse (Do, Re, Me, Fa), Do mineur fixe",
+    es: "Mitad inferior (Do, Re, Me, Fa), Do menor fijo",
+    pl: "Dolna połowa (Do, Re, Me, Fa), stała tonacja c-moll",
+    uk: "Нижня половина (Do, Re, Me, Fa), фіксований До мінор",
+    ur: "نچلا حصہ (Do, Re, Me, Fa)، مقررہ C مائنر"
+  },
+  "Untere Hälfte (Do–Fa)": {
+    fr: "Moitié basse (Do–Fa)",
+    es: "Mitad inferior (Do–Fa)",
+    pl: "Dolna połowa (Do–Fa)",
+    uk: "Нижня половина (Do–Fa)",
+    ur: "نچلا حصہ (Do–Fa)"
+  },
+  "Wähle beliebige Dur- oder Moll-Tonart, Tonraum & Oktavlage frei – auch direkt in der Übung jederzeit anpassbar": {
+    fr: "Choisissez librement tonalité majeure ou mineure, étendue et octave — modifiable à tout moment dans l’exercice",
+    es: "Elige libremente cualquier tonalidad mayor o menor, rango y octava — también ajustable dentro del ejercicio",
+    pl: "Wybierz dowolną tonację dur lub moll, zakres i oktawę — do zmiany także w trakcie ćwiczenia",
+    uk: "Вільно обирай мажорну чи мінорну тональність, діапазон і октаву — усе можна змінювати прямо під час вправи",
+    ur: "اپنی مرضی کی میجر یا مائنر کلید، دائرہ اور آکٹیو چنیں — مشق کے دوران بھی کسی وقت بدلا جا سکتا ہے"
+  },
+  "c-Moll, 1 Oktave": {
+    fr: "Do mineur, 1 octave",
+    es: "Do menor, 1 octava",
+    pl: "c-moll, 1 oktawa",
+    uk: "До мінор, 1 октава",
+    ur: "C مائنر، 1 آکٹیو"
+  },
+  "c-Moll, mehrere Oktaven": {
+    fr: "Do mineur, plusieurs octaves",
+    es: "Do menor, varias octavas",
+    pl: "c-moll, wiele oktaw",
+    uk: "До мінор, кілька октав",
+    ur: "C مائنر، کئی آکٹیو"
+  },
+  "mehrere Okt.": {
+    fr: "plus. oct.",
+    es: "varias oct.",
+    pl: "wiele okt.",
+    uk: "кілька окт.",
+    ur: "کئی آکٹیو"
   }
 });

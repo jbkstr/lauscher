@@ -104,6 +104,9 @@ function getLevelDisplayForMix(mode, level) {
     const lbl = notationLvlLabels[level];
     if (lbl) return tf("Stufe {lvl} ({lbl})", "Level {lvl} ({lbl})", { lvl: level, lbl });
   }
+  if (mode === "solfege" && typeof getSolfegeLevelSummaryLabel === "function") {
+    return getSolfegeLevelSummaryLabel(level);
+  }
   if (String(mode || "").startsWith("interval-") && mode !== "interval-chords") {
     const intLvl = parseInt(level, 10) || 1;
     const intMixLabels = {

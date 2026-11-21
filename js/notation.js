@@ -820,6 +820,21 @@ const SOLFEGE_SCALE_STEPS = [
   { key: "Do_high", syllable: "Do",  label: "Obere Tonika (Do)",   semitones: 12, resolveOffsets: [12] }
 ];
 
+const SOLFEGE_MINOR_SCALE_STEPS = [
+  { key: "Do_low",  syllable: "Do",  label: "Grundton (Do)",        semitones: 0,  resolveOffsets: [0] },
+  { key: "Re",      syllable: "Re",  label: "2. Stufe (Re → Do)",   semitones: 2,  resolveOffsets: [2, 0] },
+  { key: "Me",      syllable: "Me",  label: "b3. Stufe (Me → Do)",  semitones: 3,  resolveOffsets: [3, 2, 0] },
+  { key: "Fa",      syllable: "Fa",  label: "4. Stufe (Fa → Do)",   semitones: 5,  resolveOffsets: [5, 3, 2, 0] },
+  { key: "Sol",     syllable: "Sol", label: "5. Stufe (Sol → Do)",  semitones: 7,  resolveOffsets: [7, 8, 10, 12] },
+  { key: "Le",      syllable: "Le",  label: "b6. Stufe (Le → Do)",  semitones: 8,  resolveOffsets: [8, 10, 12] },
+  { key: "Te",      syllable: "Te",  label: "b7. Stufe (Te → Do)",  semitones: 10, resolveOffsets: [10, 12] },
+  { key: "Do_high", syllable: "Do",  label: "Obere Tonika (Do)",    semitones: 12, resolveOffsets: [12] }
+];
+
+function getSolfegeScaleSteps(tonality = "major") {
+  return tonality === "minor" ? SOLFEGE_MINOR_SCALE_STEPS : SOLFEGE_SCALE_STEPS;
+}
+
 const MELODY_RANGE_CONFIG = {
   "do-fa":  { label: "Do–Fa",        semitones: [0, 2, 4, 5],               badge: "Do–Fa" },
   "sol-do": { label: "Sol–Do",       semitones: [7, 9, 11, 12],             badge: "Sol–Do" },
@@ -1105,8 +1120,9 @@ function generateMusicalMelodySteps(pool, template, isMultiOctave, rootMidi) {
   }));
 }
 
-function buildContextCadenceBars(rootMidi) {
-  return ["I", "vi", "IV", "V"].map(degKey => {
+function buildContextCadenceBars(rootMidi, tonality = "major") {
+  const degKeys = tonality === "minor" ? ["i", "VI", "iv", "V"] : ["I", "vi", "IV", "V"];
+  return degKeys.map(degKey => {
     const def = getLocalizedDegreeDef(degKey);
     const n = buildChordNotes(rootMidi, def);
     return {

@@ -959,7 +959,7 @@ const MIX_MODE_CATALOG = {
   "chord-arp-down":        { label: "Akkorde (Arpeggio ↘)",         levels: [1, 2, 3, 4] },
   "interval-chords":       { label: "Akkorde (Gleichz.)",           levels: [1, 2, 3, 4] },
   "chord-inversions":      { label: "Akkordumkehrungen",            levels: [1, 2, 3] },
-  "solfege":               { label: "Solfège",                      levels: [1, 2, 3, 4, 5, 6] },
+  "solfege":               { label: "Solfège",                      levels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17] },
   "melody":                { label: "Melodie-Phrasen",              levels: ["do-fa", "sol-do", "full"] },
   "rhythm-meter":          { label: "Rhythmus • Taktart",           levels: [1, 2, 3] },
   "rhythm-dictation":      { label: "Rhythmus • Diktat",            levels: [1, 2, 3, 4] },
@@ -980,7 +980,7 @@ const MIX_MODE_CATALOG = {
 
 function createDefaultMixes() {
   return [
-    { id: "mix_warmup",    title: "Morgen-Warmup",      mode: "solfege",          level: 1,       melodyRange: "do-fa", melodyKeyMode: "fixed", melodyOctaveMode: "single", bpm: 0 },
+    { id: "mix_warmup",    title: "Morgen-Warmup",      mode: "solfege",          level: 3,       melodyRange: "do-fa", melodyKeyMode: "fixed", melodyOctaveMode: "single", bpm: 0 },
     { id: "mix_intervals", title: "Intervall-Fokus",    mode: "interval-melodic", level: 2,       melodyRange: "do-fa", melodyKeyMode: "fixed", melodyOctaveMode: "single", bpm: 0 },
     { id: "mix_groove",    title: "Timing & Blindflug", mode: "rhythm-tap",       level: 4,       melodyRange: "do-fa", melodyKeyMode: "fixed", melodyOctaveMode: "single", bpm: 85 }
   ];
@@ -1253,7 +1253,7 @@ const EXAM_CATEGORY_LEVELS = {
           en: "Diatonic Do to Ti anchored in C Major"
         },
         modes: ["solfege"],
-        apply: { solfegeDifficulty: 1 }
+        apply: { solfegeDifficulty: 3 }
       },
       {
         id: "solfege_l2",
@@ -1264,7 +1264,7 @@ const EXAM_CATEGORY_LEVELS = {
           en: "Diatonic Do to Ti in a transposed key held steady"
         },
         modes: ["solfege"],
-        apply: { solfegeDifficulty: 2 }
+        apply: { solfegeDifficulty: 4 }
       },
       {
         id: "solfege_l3",
@@ -1275,7 +1275,7 @@ const EXAM_CATEGORY_LEVELS = {
           en: "All 12 chromatic syllables anchored in C Major"
         },
         modes: ["solfege"],
-        apply: { solfegeDifficulty: 3 }
+        apply: { solfegeDifficulty: 5 }
       },
       {
         id: "solfege_l4",
@@ -1286,7 +1286,7 @@ const EXAM_CATEGORY_LEVELS = {
           en: "All 12 tones in a steady transposed reference key"
         },
         modes: ["solfege"],
-        apply: { solfegeDifficulty: 4 }
+        apply: { solfegeDifficulty: 6 }
       },
       {
         id: "solfege_l5",
@@ -1297,7 +1297,7 @@ const EXAM_CATEGORY_LEVELS = {
           en: "Diatonic degrees — every question shifts to a new key"
         },
         modes: ["solfege"],
-        apply: { solfegeDifficulty: 5 }
+        apply: { solfegeDifficulty: 7 }
       },
       {
         id: "solfege_l6",
@@ -1308,7 +1308,7 @@ const EXAM_CATEGORY_LEVELS = {
           en: "Top tier: all 12 chromatic tones + new key on every question"
         },
         modes: ["solfege"],
-        apply: { solfegeDifficulty: 6 }
+        apply: { solfegeDifficulty: 8 }
       }
     ]
   },
