@@ -8299,29 +8299,11 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   flex: 1 1 auto;
 }
 
-.category-type-head {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-}
-
 .category-type-title {
   font-size: 0.95rem;
   font-weight: 800;
   color: var(--raccoon-dark);
   line-height: 1.25;
-}
-
-.category-type-beginner-pill {
-  font-size: 0.65rem;
-  font-weight: 800;
-  padding: 0.12rem 0.48rem;
-  border-radius: var(--radius-pill);
-  background: var(--sage-soft);
-  color: var(--sage-strong);
-  border: 1px solid var(--sage);
-  letter-spacing: 0.01em;
 }
 
 .category-type-desc {

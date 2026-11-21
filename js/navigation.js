@@ -2722,18 +2722,14 @@ function markBeginnerExerciseNodes(container) {
 const CATEGORY_CHEVRON_SVG = `<svg class="category-type-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>`;
 
 function renderCategoryTypeMenu(container, categoryKey, items, options = {}) {
-  const beginnerLabel = tr("Einsteiger", "Beginner");
   container.innerHTML = `
     ${options.introHtml || ""}
     <div class="category-types-list">
       ${items.map(item => `
-        <button type="button" class="category-type-card${item.isBeginner ? " is-beginner-type" : ""}" data-open-cat-section="${escapeHtml(item.id)}">
+        <button type="button" class="category-type-card" data-open-cat-section="${escapeHtml(item.id)}">
           <span class="category-type-badge-wrap" aria-hidden="true">${item.badgeHtml}</span>
           <span class="category-type-body">
-            <span class="category-type-head">
-              <span class="category-type-title">${item.title}</span>
-              ${item.isBeginner ? `<span class="category-type-beginner-pill">${escapeHtml(beginnerLabel)}</span>` : ""}
-            </span>
+            <span class="category-type-title">${item.title}</span>
             <span class="category-type-desc">${item.desc}</span>
             ${item.meta ? `<span class="category-type-meta">${escapeHtml(item.meta)}</span>` : ""}
           </span>
