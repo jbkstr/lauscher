@@ -4,17 +4,25 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 
 ## Tech-Stack & Architektur
 
-- **Vanilla JS, kein Framework, kein npm, kein Build-Schritt.** Alle Dateien sind klassische globale Skripte, die [index.html](index.html) per `<script>` in fester Reihenfolge lädt: `tone.js` → `samples/*-bundle.js` → `audio.js` → `i18n*.js` → `knowledge*.js` → `version.js` → `legal.js` → `app.js` → `js/*.js`. Es gibt keine ES-Module und kein `import`/`export`, und alles teilt sich einen globalen Scope.
+- **Vanilla JS, kein Framework, kein npm, kein Build-Schritt.** Alle Dateien sind klassische globale Skripte, die [index.html](index.html) per `<script>` in fester Reihenfolge lädt: `tone.js` → `samples/*-bundle.js` → `audio.js` → `i18n.js` → `i18n/*.js` → `knowledge*.js` → `version.js` → `legal.js` → `js/catalogs.js` … `js/profile.js` → `app.js` → `js/warmup.js` … `js/exam.js`. Es gibt keine ES-Module und kein `import`/`export`, und alles teilt sich einen globalen Scope.
 - **Tone.js 14.8.49** liegt lokal in [tone.js](tone.js) (minifiziert, nicht bearbeiten). Externe CDNs oder Netzwerkaufrufe gibt es nicht, und das soll so bleiben.
-- **Datei- & Modul-Karte (App-Logik):** Große Dateien nie komplett lesen, sondern gezielt mit `grep -n` suchen und nur betroffene Bereiche laden.
-  - [app.js](app.js) (~21.500 Zeilen): Kern-App – Konstanten/Kataloge (Themes, Profil, Mixer, Prüfungslevels, Notation), Übungs-Generatoren, `openCategoryPage`, `renderUI`, `handleAnswer`, `playSequence`, `DOMContentLoaded`-Init (~ab Zeile 18450), Capacitor-Bridge.
-  - [js/warmup.js](js/warmup.js): Einsing-Helfer (`#viewWarmup`)
-  - [js/metronome.js](js/metronome.js): Praxis-Metronom (`#viewMetronome`, `initMetronomeEventListeners`)
-  - [js/tuner.js](js/tuner.js): Chromatischer Tuner (`#viewTuner`)
-  - [js/freeplay.js](js/freeplay.js): Klang-Labor / Freies Spiel (`#viewFreeplay`)
-  - [js/fretboard.js](js/fretboard.js): Gitarren-Griffbrett (`#viewFretboard`)
-  - [js/onboarding.js](js/onboarding.js): Willkommens-Wizard & Startup-Splash (`#welcomeOnboarding`, `#startupSplash`)
-  - [js/exam.js](js/exam.js): Kategorie-Prüfungsmodus, Auswertung, Audio-Review & Verlauf
+- **Datei- & Modul-Karte (App-Logik):** Große Dateien gezielt per `grep -n` oder direkt im passenden Modul öffnen.
+  - [js/catalogs.js](js/catalogs.js) (~2.180 Z.): Themes, Custom-Theme-Persistenz, Visual-Prefs, Profil-Defaults & Musik-Kataloge (Stufen, Intervalle, Akkorde, Modi, Rhythmus, Produktion, Metronom)
+  - [js/state.js](js/state.js) (~1.160 Z.): `AppState`, `state`, `audioEngine`, Theme-/Sprach-/Settings-/AutoNext-/Piano-/Drone-Sync
+  - [js/notation.js](js/notation.js) (~1.840 Z.): Notensystem- & Rhythmus-SVG-Renderer, Melodie-/Kadenz-/Akkord-/Groove-Event-Builder, Tap-Auswertung
+  - [js/navigation.js](js/navigation.js) (~3.930 Z.): Routing, History & Capacitor-Bridge, Tab-Swipe, Über-/Rechts-Fenster, Wissens-Hub (Wellen-/Spektrum-Tools), Kategorie- & Hilfe-Seiten
+  - [js/generators.js](js/generators.js) (~2.040 Z.): Sitzungs-Gedächtnis (Anti-Repeat) & alle Übungs-Generatoren (`generateExercise` für alle Kategorien)
+  - [js/exercises.js](js/exercises.js) (~3.720 Z.): Übungs-UI, Klaviaturen (Notation/Solfège), Melodie-Notensystem, Modi-Popovers, Mitsingen/Summ-Pause, `renderUI`, Antwort-Kacheln, `fitExerciseLayout`, Bühne/Maskottchen, Inline-Notationskopf
+  - [js/playback.js](js/playback.js) (~2.560 Z.): Antwort-Auswertung (`handleAnswer`), Rhythmus-Tap-Pad, EQ-Vergleich, Modi-Wiedergabe, Nur-Hören-Modus, `playSequence`, Play-Button-UI
+  - [js/profile.js](js/profile.js) (~2.390 Z.): Mixer-Sync, Home-Schnellmix & Begrüßung, Sitzungs-Timer & Pausen-Erinnerung, Übe-Mixe, eigene Dropdowns, Mein Konto, Farb-Editor, Toasts, Profil-Backup & App-Reset
+  - [app.js](app.js) (~1.580 Z.): Einstiegspunkt – Markenname-Styling (`startBrandWordStyling`) & `DOMContentLoaded`-Initialisierung
+  - [js/warmup.js](js/warmup.js) (~1.140 Z.): Einsing-Helfer (`#viewWarmup`)
+  - [js/metronome.js](js/metronome.js) (~930 Z.): Praxis-Metronom (`#viewMetronome`, `initMetronomeEventListeners`)
+  - [js/tuner.js](js/tuner.js) (~1.020 Z.): Chromatischer Tuner (`#viewTuner`)
+  - [js/freeplay.js](js/freeplay.js) (~1.130 Z.): Klang-Labor / Freies Spiel (`#viewFreeplay`)
+  - [js/fretboard.js](js/fretboard.js) (~1.640 Z.): Gitarren-Griffbrett (`#viewFretboard`)
+  - [js/onboarding.js](js/onboarding.js) (~520 Z.): Willkommens-Wizard & Startup-Splash (`#welcomeOnboarding`, `#startupSplash`)
+  - [js/exam.js](js/exam.js) (~2.280 Z.): Kategorie-Prüfungsmodus, Auswertung, Audio-Review & Verlauf
 - **[audio.js](audio.js)**: `AudioEngine`, `EarLabSampledInstrument`, Hall-Sends, Limiter, Pink-Noise-EQ, Percussion. Samples kommen aus `window.EARLAB_SAMPLE_PACKS`, das die Bundles befüllen. Fehlt ein Sample, springt ein Synth als Fallback ein. Auf Safari (Desktop/iOS) und Mobilgeräten läuft ein leichter Hall ohne Freeverb (`shouldUseLiteReverb`), sonst drohen Aussetzer/„Zerren“. Master-Limiter: `Tone.Compressor` (Schwelle -4 dB, 200 ms Release) plus `limiterTrim` gegen die Makeup-Verstärkung – nicht durch `Tone.Limiter` ersetzen (30-dB-Knie ließ Spitzen bis +5 dBFS durch).
 - **Audio auf iPhone (Safari/WKWebView):** Ton darf nur direkt im Tipp gestartet werden. Klick-Handler, die sofort einen Klang auslösen, rufen `prepareAudioNonBlocking()` auf (synchroner Unlock + `buildAudioGraphSync`) statt vorher `await ensureAudioReady()` – ein `await` vor dem Abspielen verliert auf iOS die Nutzer-Geste. Die Unlock-Listener im Init bleiben aktiv, bis `audioEngine.isAudioUnlocked()` wahr ist, und werden nach Rückkehr aus dem Hintergrund neu scharf gestellt (`markAudioSessionInterrupted`).
 - **[styles.css](styles.css)**: Alle Themes laufen über CSS-Variablen und `data-theme` / `data-appearance` / `data-lang` auf `<html>`. RTL (Urdu) läuft über `dir="rtl"`.
@@ -38,11 +46,13 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 
 ## Mehrsprachigkeit (de, en, fr, es, pl, uk, ur)
 
-- Deutsch ist die Standard- und Quellsprache.
-- **Statische UI-Texte**: Attribut `data-i18n="key"` in index.html. Deutsch und Englisch stehen in `I18N_STATIC` in [i18n.js](i18n.js), die anderen Sprachen in `I18N_STATIC_FR/ES/PL/UK/UR` in `i18n-xx.js`.
-- **Dynamische Texte**: `tr("Deutsch", "English")` und `tf(de, en, vars)` mit `{platzhalter}`. Für fr/es/pl/uk/ur sind die Wörterbücher `TR_FR` usw. **nach dem deutschen (oder englischen) Text als Schlüssel** aufgebaut.
-  - ⚠️ Wird ein deutscher Text in einem `tr()`-Aufruf geändert, muss auch der Schlüssel in allen `TR_XX`-Wörterbüchern angepasst werden. Sonst fällt die Sprache still auf Englisch zurück.
-  - Neue Texte immer in allen 7 Sprachen ergänzen. Achtung: `tr()`-Aufrufe mit eigener Sprach-Map (`{ fr: …, pl: … }`) brauchen auch einen `es`-Eintrag.
+- Deutsch ist die Standard- und Quellsprache. Die Runtime-Engine liegt in [i18n.js](i18n.js); alle Übersetzungen liegen **ko-lokalisiert** (alle Sprachen pro Schlüssel direkt untereinander) in `i18n/`:
+  - [i18n/static.js](i18n/static.js): alle statischen UI-Texte (`data-i18n="key"` in `index.html`) für alle 7 Sprachen (`de`, `en`, `fr`, `es`, `pl`, `uk`, `ur`) via `registerColocatedStatic(...)`.
+  - [i18n/quotes.js](i18n/quotes.js): alle Startseiten-Zitate (`LAUSCHEBAER_QUOTES`) für alle 7 Sprachen via `registerColocatedQuotes(...)`.
+  - [i18n/tables.js](i18n/tables.js): alle 23 Musik- und App-Tabellen (Intervalle, Akkorde, Modi, Rhythmus, Produktion, Profil usw.) via `registerColocatedTables(...)`.
+  - [i18n/phrases-core.js](i18n/phrases-core.js), [i18n/phrases-exercises.js](i18n/phrases-exercises.js), [i18n/phrases-tools.js](i18n/phrases-tools.js): dynamische `tr("Deutsch", "English")`- und `tf(de, en, vars)`-Übersetzungen für `fr`, `es`, `pl`, `uk`, `ur` nach deutschem Schlüssel via `registerColocatedPhrases(...)`.
+    - ⚠️ Wird ein deutscher Text in einem `tr()`/`tf()`-Aufruf geändert, muss derselbe Schlüssel in der passenden `i18n/phrases-*.js`-Datei angepasst werden – `python3 scripts/check-project.py --strict` deckt fehlende Schlüssel sofort auf.
+    - Neue Texte immer direkt für alle 7 Sprachen am selben Eintrag ergänzen. Achtung: `tr()`-Aufrufe mit Inline-Map (`{ fr: …, pl: … }`) brauchen ebenfalls alle 5 Zielsprachen (`fr`, `es`, `pl`, `uk`, `ur`).
 - **Wissensbereich**: Deutsch steht in [knowledge.js](knowledge.js), die anderen Sprachen in `knowledge-xx.js` über `registerKnowledgeBundle(lang, bundle)`.
 - Bei Layout-Änderungen auch RTL (`ur`) und lange Texte (uk/pl/fr) beachten.
 

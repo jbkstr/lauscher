@@ -65,7 +65,7 @@ def check_js_syntax(root: Path, node_bin: str, scripts: list[str], errors: list[
             msg = (res.stderr or res.stdout or "").strip()
             errors.append(f"JS-Syntaxfehler in {rel}:\n{msg}")
 
-    # Prüfe zusätzlich auf globale const/let/class-Kollisionen über alle Skripte hinweg
+    # Prüfe zusätzlich auf globale const/let/class-Kollisionen und sequenzielle Lade-Reihenfolge (TDZ/Hoisting)
     if checked_files and not errors:
         collision_script = r"""
 const fs = require("fs");
@@ -75,6 +75,34 @@ const root = process.argv[1];
 const files = JSON.parse(process.argv[2]);
 const parts = files.map(f => `\n// === ${f} ===\n` + fs.readFileSync(path.join(root, f), "utf8"));
 new vm.Script(parts.join("\n;\n"), { filename: "combined-global-scope.js" });
+
+// Sequenzielle Top-Level-Ausführung in exakter index.html-Reihenfolge (ohne Tone/audio.js)
+const stubEl = () => ({
+  classList: { add(){}, remove(){}, toggle(){}, contains(){ return false; } },
+  style: { setProperty(){}, removeProperty(){} },
+  setAttribute(){}, removeAttribute(){}, getAttribute(){ return null; },
+  addEventListener(){}, querySelector: () => null, querySelectorAll: () => [],
+  appendChild(){}, innerHTML: "", textContent: "", dataset: {}
+});
+const sandbox = {
+  console, Math, Date, JSON, Object, Array, Map, Set, Number, String, Boolean, RegExp, Error, Promise,
+  parseInt, parseFloat, isNaN, isFinite, encodeURIComponent, decodeURIComponent,
+  setTimeout: () => 0, clearTimeout(){}, setInterval: () => 0, clearInterval(){},
+  requestAnimationFrame: () => 0, cancelAnimationFrame(){},
+  AudioEngine: class { constructor(){} },
+  window: { addEventListener(){}, matchMedia: () => ({ matches: false, addEventListener(){} }), history: { pushState(){}, replaceState(){} }, location: { hash: "", search: "", href: "http://localhost/" }, innerWidth: 390, innerHeight: 844 },
+  document: { documentElement: stubEl(), body: stubEl(), head: stubEl(), addEventListener(){}, getElementById: () => null, querySelector: () => null, querySelectorAll: () => [], createElement: () => stubEl() },
+  localStorage: { getItem: () => null, setItem(){}, removeItem(){} },
+  navigator: { language: "de-DE", languages: ["de-DE"], userAgent: "check-project" },
+  performance: { now: () => 0 }
+};
+sandbox.globalThis = sandbox;
+sandbox.self = sandbox;
+vm.createContext(sandbox);
+for (const rel of files) {
+  if (rel === "audio.js") continue;
+  vm.runInContext(fs.readFileSync(path.join(root, rel), "utf8"), sandbox, { filename: rel });
+}
 """
         res = subprocess.run(
             [node_bin, "-e", collision_script, str(root), json.dumps(checked_files)],
@@ -83,7 +111,7 @@ new vm.Script(parts.join("\n;\n"), { filename: "combined-global-scope.js" });
         )
         if res.returncode != 0:
             msg = (res.stderr or res.stdout or "").strip()
-            errors.append(f"Globale Scope-Kollision zwischen Skripten:\n{msg}")
+            errors.append(f"Globale Scope-Kollision oder Lade-Reihenfolge-Fehler:\n{msg}")
 
     return len(checked_files)
 
@@ -92,6 +120,7 @@ def check_i18n_and_knowledge(
     root: Path,
     node_bin: str,
     index_html: str,
+    i18n_knowledge_scripts: list[str],
     app_scripts: list[str],
     errors: list[str],
     warnings: list[str],
@@ -105,7 +134,8 @@ const vm = require("vm");
 
 const root = process.argv[1];
 const staticKeys = JSON.parse(process.argv[2]);
-const appScripts = JSON.parse(process.argv[3]);
+const loadFiles = JSON.parse(process.argv[3]);
+const appScripts = JSON.parse(process.argv[4]);
 
 const sandbox = {
   console,
@@ -122,33 +152,14 @@ const sandbox = {
 sandbox.globalThis = sandbox;
 vm.createContext(sandbox);
 
-const loadFiles = [
-  "i18n.js",
-  "i18n-es.js",
-  "i18n-fr.js",
-  "i18n-pl.js",
-  "i18n-uk.js",
-  "i18n-ur.js",
-  "knowledge-en.js",
-  "knowledge-fr.js",
-  "knowledge.js",
-  "knowledge-es.js",
-  "knowledge-pl.js",
-  "knowledge-uk.js",
-  "knowledge-ur.js"
-];
-
 for (const rel of loadFiles) {
   vm.runInContext(fs.readFileSync(path.join(root, rel), "utf8"), sandbox, { filename: rel });
 }
 
-// Extract LAUSCHEBAER_QUOTES from app.js cleanly
-const appSrc = fs.readFileSync(path.join(root, "app.js"), "utf8");
-const quotesMatch = appSrc.match(/const LAUSCHEBAER_QUOTES\s*=\s*(\[[\s\S]*?\n\]);/);
-if (!quotesMatch) {
-  throw new Error("LAUSCHEBAER_QUOTES in app.js nicht gefunden");
+const deQuotes = vm.runInContext("typeof LAUSCHEBAER_QUOTES !== 'undefined' ? LAUSCHEBAER_QUOTES : []", sandbox);
+if (!Array.isArray(deQuotes) || deQuotes.length === 0) {
+  throw new Error("LAUSCHEBAER_QUOTES ist leer oder fehlt");
 }
-const deQuotes = vm.runInContext("(" + quotesMatch[1] + ")", sandbox);
 
 const report = {
   errors: [],
@@ -195,13 +206,9 @@ for (const lang of ["en", ...langs]) {
   }
 }
 
-// 3. Check core i18n table keys parity against en
+// 3. Check ALL i18n tables parity against en
 const enTables = LOCALIZED_TABLES_BY_LANG.en || {};
-const tablesToCheck = [
-  "degrees", "intervals", "chords", "chordInversions", "modes",
-  "rhythmMeters", "rhythmCells", "rhythmGrooves", "prodFreqs",
-  "mixModes", "profileInstruments", "profileFocus"
-];
+const tablesToCheck = Object.keys(enTables).filter(k => k !== "quotes");
 for (const tbl of tablesToCheck) {
   const refObj = enTables[tbl];
   if (!refObj || typeof refObj !== "object") continue;
@@ -304,7 +311,15 @@ process.stdout.write(JSON.stringify(report));
 """
 
     res = subprocess.run(
-        [node_bin, "-e", node_script, str(root), json.dumps(static_keys), json.dumps(app_scripts)],
+        [
+            node_bin,
+            "-e",
+            node_script,
+            str(root),
+            json.dumps(static_keys),
+            json.dumps(i18n_knowledge_scripts),
+            json.dumps(app_scripts),
+        ],
         capture_output=True,
         text=True,
     )
@@ -349,8 +364,12 @@ def main() -> int:
     check_files_exist(root, scripts + styles, errors)
     js_checked = check_js_syntax(root, node_bin, scripts, errors)
 
+    i18n_knowledge_scripts = [
+        s for s in scripts
+        if s == "i18n.js" or s.startswith("i18n/") or s.startswith("i18n-") or s == "knowledge.js" or s.startswith("knowledge-")
+    ]
     app_scripts = [s for s in scripts if s == "app.js" or s.startswith("js/")]
-    stats = check_i18n_and_knowledge(root, node_bin, index_html, app_scripts, errors, warnings)
+    stats = check_i18n_and_knowledge(root, node_bin, index_html, i18n_knowledge_scripts, app_scripts, errors, warnings)
 
     if not args.no_bundle:
         check_mobile_bundle(root, errors)

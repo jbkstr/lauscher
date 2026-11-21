@@ -21,7 +21,15 @@ Große Dateien nie komplett einlesen, sondern gezielt per `grep -n` suchen.
 | [index.html](index.html) | Gesamtes Markup, Inline-Pre-Render-Skript im `<head>`, verbindliche `<script>`-Ladereihenfolge |
 | [styles.css](styles.css) | Alle Themes (`data-theme` / `data-appearance`), RTL (`dir="rtl"`), Exercise-Layout (`.fit-1`…`.fit-3`, `@container exstage`) |
 | [audio.js](audio.js) | `AudioEngine`, `EarLabSampledInstrument`, Limiter, Reverb, iOS-Audio-Unlock |
-| [app.js](app.js) | Kern-App: Kataloge/Konstanten, Übungs-Generatoren, `renderUI`, `handleAnswer`, `playSequence`, `DOMContentLoaded`-Init, Capacitor-Bridge |
+| [js/catalogs.js](js/catalogs.js) | Themes, Custom-Theme-Persistenz, Profil-Defaults & Musik-Kataloge |
+| [js/state.js](js/state.js) | `AppState`, `state`, `audioEngine`, Einstellungs-/Theme-/Sprach-Sync |
+| [js/notation.js](js/notation.js) | Notensystem- & Rhythmus-SVG-Renderer, Melodie-/Kadenz-/Akkord-/Groove-Builder |
+| [js/navigation.js](js/navigation.js) | Routing, History, Capacitor-Bridge, Über/Rechtliches, Wissens-Hub, Kategorienseiten |
+| [js/generators.js](js/generators.js) | Sitzungs-Gedächtnis (Anti-Repeat) & alle Übungs-Generatoren (`generateExercise`) |
+| [js/exercises.js](js/exercises.js) | Übungs-UI, Klaviaturen, Melodie-/Notations-Bühne, Mitsingen, `renderUI`, `fitExerciseLayout` |
+| [js/playback.js](js/playback.js) | `handleAnswer`, Rhythmus-Tap-Pad, EQ-Vergleich, Nur-Hören & `playSequence` |
+| [js/profile.js](js/profile.js) | Mixer-Sync, Home-Schnellmix, Timer, Konto, Farb-Editor, Toasts, Backup & Reset |
+| [app.js](app.js) | Einstiegspunkt: Markenname-Styling (`startBrandWordStyling`) & `DOMContentLoaded`-Init |
 | [js/warmup.js](js/warmup.js) | Einsing-Helfer (`#viewWarmup`) |
 | [js/metronome.js](js/metronome.js) | Praxis-Metronom (`#viewMetronome`) |
 | [js/tuner.js](js/tuner.js) | Chromatischer Tuner (`#viewTuner`) |
@@ -29,7 +37,7 @@ Große Dateien nie komplett einlesen, sondern gezielt per `grep -n` suchen.
 | [js/fretboard.js](js/fretboard.js) | Gitarren-Griffbrett (`#viewFretboard`) |
 | [js/onboarding.js](js/onboarding.js) | Willkommens-Wizard & Startup-Splash (`#welcomeOnboarding`, `#startupSplash`) |
 | [js/exam.js](js/exam.js) | Kategorie-Prüfungsmodus, Auswertung, Audio-Review & Verlauf |
-| `i18n.js`, `i18n-{es,fr,pl,uk,ur}.js` | Statische (`data-i18n`) und dynamische (`tr`/`tf`) Übersetzungen sowie lokalisierte Tabellen (7 Sprachen) |
+| [i18n.js](i18n.js) + `i18n/*.js` | Runtime-Engine + ko-lokalisierte Übersetzungen (`static.js`, `quotes.js`, `tables.js`, `phrases-{core,exercises,tools}.js`) für alle 7 Sprachen |
 | `knowledge.js`, `knowledge-{en,es,fr,pl,uk,ur}.js` | Wissensartikel, interaktive Theorie-Tools & Kategorie-Hilfen (7 Sprachen) |
 | [legal.js](legal.js) | Datenschutzerklärung, Nutzungsbedingungen & Open-Source-Lizenzen (auch für `privacy.html`, `terms.html`, `licenses.html`) |
 | [version.js](version.js) | Einzige Quelle für Version & Build-Nummer (`scripts/bump-version.py`) |
