@@ -15187,6 +15187,7 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: 6px;
+  padding-bottom: 4px;
 }
 
 .nns-capo-tile {
@@ -15401,7 +15402,7 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 
 /* Artikel-Verknüpfungskarte am Ende des Werkzeugs */
 .nns-article-link-card {
-  margin-top: 2px;
+  margin-top: 8px;
 }
 
 @media (max-width: 560px) {
@@ -42427,13 +42428,6 @@ registerColocatedPhrases({
     pl: "= {chord}",
     uk: "= {chord}",
     ur: "= {chord}"
-  },
-  "Oben steht dein Gitarren-Griff (mit Kapo), darunter der tatsächlich klingende Akkord. Antippen spielt den klingenden Gitarren-Akkord.": {
-    fr: "En haut : la position guitare (avec capo), en dessous : l’accord qui sonne réellement. Touche une case pour entendre l’accord de guitare.",
-    es: "Arriba aparece tu postura de guitarra (con cejilla) y debajo el acorde que suena realmente. Toca cualquier casilla para escuchar el acorde real.",
-    pl: "U góry widzisz chwyt gitarowy (z kapodastrem), a poniżej realnie brzmiący akord. Dotknij kafelka, aby usłyszeć akord gitarowy.",
-    uk: "Зверху показано гітарний акорд (із каподастром), а знизу — реальне звучання. Торкніться плитки, щоб почути гітарний акорд.",
-    ur: "اوپر آپ کی گٹار گرپ (کیپو کے ساتھ) اور نیچے اصل بجنے والا کورڈ ہے۔ اصل گٹار کورڈ سننے کے لیے کسی بھی خانے پر ٹیپ کریں۔"
   },
   "Artikel: Wie das Nashville Number System funktioniert & entstand": {
     fr: "Article : Comment fonctionne le Nashville Number System et son histoire",
@@ -104619,7 +104613,6 @@ function renderNashvilleView() {
           `;
         }).join("")}
       </div>
-      <p class="nns-matrix-hint">${tr("Oben steht dein Gitarren-Griff (mit Kapo), darunter der tatsächlich klingende Akkord. Antippen spielt den klingenden Gitarren-Akkord.", "Top shows your guitar chord shape (with capo), bottom shows the actual sounding chord. Tap any tile to hear the sounding guitar chord.")}</p>
     </section>
 
     <!-- 5. DIREKT-LINK ZUM WISSENSARTIKEL -->
