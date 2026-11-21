@@ -7,8 +7,20 @@ const _mascotRotationState = {
   bags: {},
   lastIdx: {},
   slots: {},
+  lastMetalMode: null,
   ambientTimerId: null
 };
+
+function isMetalMascotThemeActive() {
+  if (typeof document !== "undefined" && document.documentElement) {
+    const attr = document.documentElement.getAttribute("data-theme");
+    if (attr) return attr === "metal";
+  }
+  if (typeof state !== "undefined" && state?.settings?.theme) {
+    return state.settings.theme === "metal";
+  }
+  return false;
+}
 
 function normalizeMascotMoodKey(mood = "idle") {
   if (mood === "logo") return "logo";
@@ -20,6 +32,18 @@ function normalizeMascotMoodKey(mood = "idle") {
 
 function getMascotVariantsForMood(mood = "idle") {
   const key = normalizeMascotMoodKey(mood);
+  if (isMetalMascotThemeActive()) {
+    const metalMap = (typeof LAUSCHER_MASCOT_METAL_VARIANTS !== "undefined" && LAUSCHER_MASCOT_METAL_VARIANTS)
+      ? LAUSCHER_MASCOT_METAL_VARIANTS
+      : null;
+    if (metalMap) {
+      const lookupKey = key === "logo" ? "listening" : key;
+      const metalList = Array.isArray(metalMap[lookupKey]) ? metalMap[lookupKey].filter(Boolean) : [];
+      if (metalList.length > 0) return metalList;
+      const metalFallback = Array.isArray(metalMap.idle) ? metalMap.idle.filter(Boolean) : [];
+      if (metalFallback.length > 0) return metalFallback;
+    }
+  }
   const map = (typeof LAUSCHER_MASCOT_DATA_URIS !== "undefined" && LAUSCHER_MASCOT_DATA_URIS) ? LAUSCHER_MASCOT_DATA_URIS : null;
   const variantsMap = (typeof LAUSCHER_MASCOT_VARIANTS !== "undefined" && LAUSCHER_MASCOT_VARIANTS) ? LAUSCHER_MASCOT_VARIANTS : null;
   if (key === "logo") {
@@ -39,9 +63,9 @@ function getMascotVariantsForMood(mood = "idle") {
   return fallback ? [fallback] : [];
 }
 
-function pickNextMascotVariantIndex(moodKey, count) {
+function pickNextMascotVariantIndex(bagKey, count) {
   if (count <= 1) return 0;
-  let bag = _mascotRotationState.bags[moodKey];
+  let bag = _mascotRotationState.bags[bagKey];
   if (!Array.isArray(bag) || bag.length === 0) {
     bag = [];
     for (let i = 0; i < count; i++) bag.push(i);
@@ -52,17 +76,17 @@ function pickNextMascotVariantIndex(moodKey, count) {
       bag[i] = bag[j];
       bag[j] = tmp;
     }
-    const prev = _mascotRotationState.lastIdx[moodKey];
+    const prev = _mascotRotationState.lastIdx[bagKey];
     if (Number.isInteger(prev) && bag[bag.length - 1] === prev && bag.length > 1) {
       const swapIdx = Math.floor(Math.random() * (bag.length - 1));
       const tmp = bag[bag.length - 1];
       bag[bag.length - 1] = bag[swapIdx];
       bag[swapIdx] = tmp;
     }
-    _mascotRotationState.bags[moodKey] = bag;
+    _mascotRotationState.bags[bagKey] = bag;
   }
   const picked = bag.pop();
-  _mascotRotationState.lastIdx[moodKey] = picked;
+  _mascotRotationState.lastIdx[bagKey] = picked;
   return picked;
 }
 
@@ -74,11 +98,12 @@ function resetMascotSlot(slotName) {
 
 function getMascotAssetUri(mood = "idle", options = null) {
   const key = normalizeMascotMoodKey(mood);
+  const useMetal = isMetalMascotThemeActive();
   const variants = getMascotVariantsForMood(key);
   if (variants.length === 0) return "";
   if (variants.length === 1) {
     if (options?.slot) {
-      _mascotRotationState.slots[options.slot] = { mood: key, uri: variants[0], idx: 0 };
+      _mascotRotationState.slots[options.slot] = { mood: key, uri: variants[0], idx: 0, isMetal: useMetal };
     }
     return variants[0];
   }
@@ -89,17 +114,44 @@ function getMascotAssetUri(mood = "idle", options = null) {
 
   if (slotName && keepIfSameMood && !forceRotate) {
     const existing = _mascotRotationState.slots[slotName];
-    if (existing && existing.mood === key && existing.uri) {
+    if (existing && existing.mood === key && existing.isMetal === useMetal && existing.uri) {
       return existing.uri;
     }
   }
 
-  const idx = pickNextMascotVariantIndex(key, variants.length);
+  const bagKey = (useMetal ? "metal:" : "std:") + key;
+  const idx = pickNextMascotVariantIndex(bagKey, variants.length);
   const uri = variants[idx] || variants[0];
   if (slotName) {
-    _mascotRotationState.slots[slotName] = { mood: key, uri, idx };
+    _mascotRotationState.slots[slotName] = { mood: key, uri, idx, isMetal: useMetal };
   }
   return uri;
+}
+
+function refreshAllVisibleMascotsForTheme(force = false) {
+  const nextMetal = isMetalMascotThemeActive();
+  if (!force && _mascotRotationState.lastMetalMode === nextMetal) return;
+  _mascotRotationState.lastMetalMode = nextMetal;
+  _mascotRotationState.slots = {};
+  if (typeof document === "undefined") return;
+
+  const slotSpecs = [
+    { id: "heroMascotSvg", slot: "hero", defaultMood: "idle", showAccessory: true },
+    { id: "spaceMascotSvg", slot: "space", defaultMood: "idle", showAccessory: true },
+    { id: "stageMascotWrap", slot: "stage", defaultMood: "idle", showAccessory: false },
+    { id: "warmupMascotWrap", slot: "warmup", defaultMood: "idle", showAccessory: false },
+    { id: "breakReminderMascot", slot: "break", defaultMood: "break", showAccessory: true },
+    { id: "welcomeLangMascot", slot: "welcomeLang", defaultMood: "idle", showAccessory: false },
+    { id: "welcomeGreetMascot", slot: "welcomeGreet", defaultMood: "happy", showAccessory: false }
+  ];
+
+  slotSpecs.forEach(({ id, slot, defaultMood, showAccessory }) => {
+    const el = document.getElementById(id);
+    if (!el || !el.innerHTML.trim()) return;
+    const curSvg = typeof el.querySelector === "function" ? el.querySelector("svg[data-mascot-mood]") : null;
+    const mood = curSvg?.getAttribute("data-mascot-mood") || defaultMood;
+    rotateMascotSlot(el, mood, showAccessory, { slot, forceRotate: true, animate: true });
+  });
 }
 
 function rotateMascotSlot(elOrId, mood = "idle", showAccessory = false, options = null) {
@@ -246,8 +298,8 @@ function hydrateMascotStaticSlots() {
     splashBadge.innerHTML = `
       <svg class="splash-mascot-svg" width="84" height="84" viewBox="-1 0 68 64" fill="none" xmlns="http://www.w3.org/2000/svg">
         <image href="${listenUri}" x="0" y="2" width="60" height="60" preserveAspectRatio="xMidYMid meet"/>
-        <path class="splash-wave splash-wave-1" d="M56.5 14 C60.2 17.5 60.2 24 56.5 27.5" stroke="#2E6F4E" stroke-width="2.3" stroke-linecap="round"/>
-        <path class="splash-wave splash-wave-2" d="M60.2 11.2 C64.8 16.2 64.8 25.2 60.2 30.2" stroke="#2E6F4E" stroke-width="1.9" stroke-linecap="round"/>
+        <path class="splash-wave splash-wave-1" d="M56.5 14 C60.2 17.5 60.2 24 56.5 27.5" stroke="var(--sage-strong, #2E6F4E)" stroke-width="2.3" stroke-linecap="round"/>
+        <path class="splash-wave splash-wave-2" d="M60.2 11.2 C64.8 16.2 64.8 25.2 60.2 30.2" stroke="var(--sage-strong, #2E6F4E)" stroke-width="1.9" stroke-linecap="round"/>
       </svg>
     `;
   }

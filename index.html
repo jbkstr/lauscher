@@ -101,12 +101,19 @@
   <!-- Maskottchen-Grafiken früh laden, damit der Startbildschirm sofort den aktuellen Lauschebär zeigt
        (nicht erst, wenn alle Klang-Bundles und app.js geladen sind) -->
   <script src="samples/mascot-bundle.js"></script>
+  <script src="samples/mascot-metal-bundle.js"></script>
   <script>
     (function () {
+      var isMetal = document.documentElement && document.documentElement.getAttribute("data-theme") === "metal";
       var map = typeof LAUSCHER_MASCOT_DATA_URIS !== "undefined" ? LAUSCHER_MASCOT_DATA_URIS : null;
-      var variants = typeof LAUSCHER_MASCOT_VARIANTS !== "undefined" && LAUSCHER_MASCOT_VARIANTS && Array.isArray(LAUSCHER_MASCOT_VARIANTS.listening)
-        ? LAUSCHER_MASCOT_VARIANTS.listening
+      var metalVariants = isMetal && typeof LAUSCHER_MASCOT_METAL_VARIANTS !== "undefined" && LAUSCHER_MASCOT_METAL_VARIANTS && Array.isArray(LAUSCHER_MASCOT_METAL_VARIANTS.listening)
+        ? LAUSCHER_MASCOT_METAL_VARIANTS.listening
         : null;
+      var variants = (metalVariants && metalVariants.length > 0)
+        ? metalVariants
+        : (typeof LAUSCHER_MASCOT_VARIANTS !== "undefined" && LAUSCHER_MASCOT_VARIANTS && Array.isArray(LAUSCHER_MASCOT_VARIANTS.listening)
+          ? LAUSCHER_MASCOT_VARIANTS.listening
+          : null);
       var uri = (variants && variants.length > 0)
         ? variants[Math.floor(Math.random() * variants.length)]
         : (map && (map.listening || map.logo || map.idle));
@@ -114,8 +121,8 @@
       if (!uri || !badge) return;
       badge.innerHTML = '<svg class="splash-mascot-svg" width="84" height="84" viewBox="-1 0 68 64" fill="none" xmlns="http://www.w3.org/2000/svg">'
         + '<image href="' + uri + '" x="0" y="2" width="60" height="60" preserveAspectRatio="xMidYMid meet"/>'
-        + '<path class="splash-wave splash-wave-1" d="M56.5 14 C60.2 17.5 60.2 24 56.5 27.5" stroke="#2E6F4E" stroke-width="2.3" stroke-linecap="round"/>'
-        + '<path class="splash-wave splash-wave-2" d="M60.2 11.2 C64.8 16.2 64.8 25.2 60.2 30.2" stroke="#2E6F4E" stroke-width="1.9" stroke-linecap="round"/>'
+        + '<path class="splash-wave splash-wave-1" d="M56.5 14 C60.2 17.5 60.2 24 56.5 27.5" stroke="var(--sage-strong, #2E6F4E)" stroke-width="2.3" stroke-linecap="round"/>'
+        + '<path class="splash-wave splash-wave-2" d="M60.2 11.2 C64.8 16.2 64.8 25.2 60.2 30.2" stroke="var(--sage-strong, #2E6F4E)" stroke-width="1.9" stroke-linecap="round"/>'
         + '</svg>';
     })();
   </script>

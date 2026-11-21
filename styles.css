@@ -380,12 +380,6 @@
   border-color: rgba(255, 255, 255, 0.14);
 }
 
-:root[data-theme="metal"] .stage-mascot svg,
-:root[data-theme="metal"] .hero-mascot svg,
-:root[data-theme="metal"] .account-avatar-box svg {
-  filter: saturate(0.45) contrast(1.08);
-}
-
 * {
   box-sizing: border-box;
   margin: 0;
