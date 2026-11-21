@@ -1306,6 +1306,181 @@ registerColocatedPhrases({
     uk: "Перевір обрану тональність, гаму/лад і діапазон в умовах іспиту",
     ur: "امتحانی حالات میں اپنی منتخب کردہ کلید، اسکیل/موڈ اور دائرے کا امتحان لیں"
   },
+  "Aktive Stufen ({n}): {list}": {
+    fr: "Degrés actifs ({n}) : {list}",
+    es: "Grados activos ({n}): {list}",
+    pl: "Aktywne stopnie ({n}): {list}",
+    uk: "Активні ступені ({n}): {list}",
+    ur: "فعال درجات ({n}): {list}"
+  },
+  "Tongeschlecht": {
+    fr: "Mode",
+    es: "Modo",
+    pl: "Tryb",
+    uk: "Лад",
+    ur: "مزاج"
+  },
+  "Tonart": {
+    fr: "Tonalité",
+    es: "Tonalidad",
+    pl: "Tonacja",
+    uk: "Тональність",
+    ur: "کلید"
+  },
+  "Tonraum": {
+    fr: "Étendue",
+    es: "Rango",
+    pl: "Zakres",
+    uk: "Діапазон",
+    ur: "دائرہ"
+  },
+  "Meister": {
+    fr: "Maître",
+    es: "Maestro",
+    pl: "Mistrz",
+    uk: "Майстер",
+    ur: "ماہر"
+  },
+  "Moll • Stufe 4": {
+    fr: "Mineur • Niveau 4",
+    es: "Menor • Nivel 4",
+    pl: "Moll • Poziom 4",
+    uk: "Мінор • Рівень 4",
+    ur: "مائنر • سطح 4"
+  },
+  "Stufe 1 • Dur Hälften (Do–Fa & Sol–Do)": {
+    fr: "Niveau 1 • Moitiés majeur (Do–Fa & Sol–Do)",
+    es: "Nivel 1 • Mitades en mayor (Do–Fa y Sol–Do)",
+    pl: "Poziom 1 • Połówki dur (Do–Fa i Sol–Do)",
+    uk: "Рівень 1 • Половини мажору (Do–Fa та Sol–Do)",
+    ur: "سطح 1 • میجر حصے (Do–Fa اور Sol–Do)"
+  },
+  "Untere (Do–Fa) & obere (Sol–Do) Tonleiter-Hälfte im Wechsel in C-Dur (1 Oktave)": {
+    fr: "Moitiés basse (Do–Fa) et haute (Sol–Do) en alternance en Do majeur (1 octave)",
+    es: "Mitades inferior (Do–Fa) y superior (Sol–Do) alternadas en Do mayor (1 octava)",
+    pl: "Dolna (Do–Fa) i górna (Sol–Do) połowa gamy naprzemiennie w C-dur (1 oktawa)",
+    uk: "Нижня (Do–Fa) і верхня (Sol–Do) половини гами по черзі в до мажорі (1 октава)",
+    ur: "C میجر میں نچلا (Do–Fa) اور اوپری (Sol–Do) حصہ باری باری (1 آکٹیو)"
+  },
+  "Stufe 2 • Dur-Tonleiter (C-Dur, 1 Okt.)": {
+    fr: "Niveau 2 • Gamme majeure (Do majeur, 1 oct.)",
+    es: "Nivel 2 • Escala mayor (Do mayor, 1 oct.)",
+    pl: "Poziom 2 • Gama dur (C-dur, 1 okt.)",
+    uk: "Рівень 2 • Мажорна гама (До мажор, 1 окт.)",
+    ur: "سطح 2 • میجر اسکیل (C میجر، 1 آکٹیو)"
+  },
+  "Alle 7 Dur-Stufen (Do–Ti) mit fester C-Dur-Kadenz in einer Oktave": {
+    fr: "Les 7 degrés majeurs (Do–Ti) ancrés en Do majeur sur 1 octave",
+    es: "Los 7 grados mayores (Do–Ti) con cadencia fija en Do mayor (1 octava)",
+    pl: "Wszystkie 7 stopni dur (Do–Ti) w stałym C-dur w obrębie 1 oktawy",
+    uk: "Усі 7 мажорних ступенів (Do–Ti) зі сталою каденцією в до мажорі (1 октава)",
+    ur: "ایک آکٹیو میں مقررہ C میجر کیڈینس کے ساتھ تمام 7 میجر درجات (Do–Ti)"
+  },
+  "Stufe 3 • Dur Feste Tonart (Mehrere Okt.)": {
+    fr: "Niveau 3 • Majeur tonalité fixe (plus. oct.)",
+    es: "Nivel 3 • Mayor tonalidad fija (varias oct.)",
+    pl: "Poziom 3 • Dur stała tonacja (wiele okt.)",
+    uk: "Рівень 3 • Мажор фіксована тональність (кілька окт.)",
+    ur: "سطح 3 • میجر مقررہ کلید (کئی آکٹیو)"
+  },
+  "Alle 7 Dur-Stufen in einer konstanten Nicht-C-Tonart über mehrere Oktaven": {
+    fr: "Les 7 degrés majeurs dans une tonalité fixe hors Do sur plusieurs octaves",
+    es: "Los 7 grados mayores en una tonalidad fija distinta de Do en varias octavas",
+    pl: "Wszystkie 7 stopni dur w jednej stałej tonacji innej niż C w wielu oktawach",
+    uk: "Усі 7 мажорних ступенів у сталій тональності (не до) у кількох октавах",
+    ur: "کئی آکٹیو میں C کے علاوہ ایک مقررہ میجر کلید کے تمام 7 درجات"
+  },
+  "Stufe 4 • Dur Tonartwechsel (Mehrere Okt.)": {
+    fr: "Niveau 4 • Modulations majeur (plus. oct.)",
+    es: "Nivel 4 • Cambios de tonalidad mayor (varias oct.)",
+    pl: "Poziom 4 • Zmiana tonacji dur (wiele okt.)",
+    uk: "Рівень 4 • Зміна мажорних тональностей (кілька окт.)",
+    ur: "سطح 4 • میجر کلید کی تبدیلی (کئی آکٹیو)"
+  },
+  "Jede Frage wechselt in eine neue Dur-Tonart & Oktavlage": {
+    fr: "Chaque question passe dans une nouvelle tonalité majeure et une autre octave",
+    es: "Cada pregunta cambia a una nueva tonalidad mayor y registro de octava",
+    pl: "Każde pytanie przechodzi do nowej tonacji dur i innej oktawy",
+    uk: "Кожне питання змінює мажорну тональність і октавний регістр",
+    ur: "ہر سوال نئی میجر کلید اور آکٹیو میں بدل جاتا ہے"
+  },
+  "Moll • Hälften (Do–Fa & Sol–Do)": {
+    fr: "Mineur • Moitiés (Do–Fa & Sol–Do)",
+    es: "Menor • Mitades (Do–Fa y Sol–Do)",
+    pl: "Moll • Połówki (Do–Fa i Sol–Do)",
+    uk: "Мінор • Половини (Do–Fa та Sol–Do)",
+    ur: "مائنر • حصے (Do–Fa اور Sol–Do)"
+  },
+  "Untere (Do–Fa) & obere (Sol–Do) Moll-Hälfte im Wechsel in c-Moll (1 Oktave)": {
+    fr: "Moitiés basse (Do–Fa) et haute (Sol–Do) en alternance en Do mineur (1 octave)",
+    es: "Mitades inferior (Do–Fa) y superior (Sol–Do) alternadas en Do menor (1 octava)",
+    pl: "Dolna (Do–Fa) i górna (Sol–Do) połowa moll naprzemiennie w c-moll (1 oktawa)",
+    uk: "Нижня (Do–Fa) і верхня (Sol–Do) половини мінору по черзі в до мінорі (1 октава)",
+    ur: "C مائنر میں نچلا (Do–Fa) اور اوپری (Sol–Do) حصہ باری باری (1 آکٹیو)"
+  },
+  "Moll • Ganze Tonleiter (c-Moll, 1 Okt.)": {
+    fr: "Mineur • Gamme complète (Do mineur, 1 oct.)",
+    es: "Menor • Escala completa (Do menor, 1 oct.)",
+    pl: "Moll • Cała gama (c-moll, 1 okt.)",
+    uk: "Мінор • Повна гама (До мінор, 1 окт.)",
+    ur: "مائنر • مکمل اسکیل (C مائنر، 1 آکٹیو)"
+  },
+  "Alle 7 Stufen in Natürlich Moll (Do–Re–Me–Fa–Sol–Le–Te) in c-Moll": {
+    fr: "Les 7 degrés du mineur naturel (Do–Re–Me–Fa–Sol–Le–Te) en Do mineur",
+    es: "Los 7 grados de menor natural (Do–Re–Me–Fa–Sol–Le–Te) en Do menor",
+    pl: "Wszystkie 7 stopni moll naturalnego (Do–Re–Me–Fa–Sol–Le–Te) w c-moll",
+    uk: "Усі 7 ступенів натурального мінору (Do–Re–Me–Fa–Sol–Le–Te) у до мінорі",
+    ur: "C مائنر میں نیچرل مائنر کے تمام 7 درجات (Do–Re–Me–Fa–Sol–Le–Te)"
+  },
+  "Moll • Feste Tonart (Mehrere Okt.)": {
+    fr: "Mineur • Tonalité fixe (plus. oct.)",
+    es: "Menor • Tonalidad fija (varias oct.)",
+    pl: "Moll • Stała tonacja (wiele okt.)",
+    uk: "Мінор • Фіксована тональність (кілька окт.)",
+    ur: "مائنر • مقررہ کلید (کئی آکٹیو)"
+  },
+  "Alle 7 Moll-Stufen in einer konstanten Nicht-c-Tonart über mehrere Oktaven": {
+    fr: "Les 7 degrés mineurs dans une tonalité fixe hors Do sur plusieurs octaves",
+    es: "Los 7 grados menores en una tonalidad fija distinta de Do en varias octavas",
+    pl: "Wszystkie 7 stopni moll w jednej stałej tonacji innej niż c w wielu oktawach",
+    uk: "Усі 7 мінорних ступенів у сталій тональності (не до) у кількох октавах",
+    ur: "کئی آکٹیو میں C کے علاوہ ایک مقررہ مائنر کلید کے تمام 7 درجات"
+  },
+  "Moll • Tonartwechsel (Mehrere Okt.)": {
+    fr: "Mineur • Modulations (plus. oct.)",
+    es: "Menor • Cambios de tonalidad (varias oct.)",
+    pl: "Moll • Zmiana tonacji (wiele okt.)",
+    uk: "Мінор • Зміна тональностей (кілька окт.)",
+    ur: "مائنر • کلید کی تبدیلی (کئی آکٹیو)"
+  },
+  "Jede Frage wechselt in eine neue Moll-Tonart & Oktavlage": {
+    fr: "Chaque question passe dans une nouvelle tonalité mineure et une autre octave",
+    es: "Cada pregunta cambia a una nueva tonalidad menor y registro de octava",
+    pl: "Każde pytanie przechodzi do nowej tonacji moll i innej oktawy",
+    uk: "Кожне питання змінює мінорну тональність і октавний регістр",
+    ur: "ہر سوال نئی مائنر کلید اور آکٹیو میں بدل جاتا ہے"
+  },
+  "Dur & Moll im Wechsel": {
+    fr: "Majeur & Mineur en alternance",
+    es: "Mayor y Menor alternados",
+    pl: "Dur i Moll naprzemiennie",
+    uk: "Мажор і Мінор по черзі",
+    ur: "میجر اور مائنر باری باری"
+  },
+  "Jede Frage wechselt zwischen Dur- (I–vi–IV–V) & Moll-Tonarten (i–VI–iv–V)": {
+    fr: "Chaque question alterne entre tonalités majeures (I–vi–IV–V) et mineures (i–VI–iv–V)",
+    es: "Cada pregunta alterna entre tonalidades mayores (I–vi–IV–V) y menores (i–VI–iv–V)",
+    pl: "Każde pytanie przełącza między tonacjami dur (I–vi–IV–V) i moll (i–VI–iv–V)",
+    uk: "Кожне питання чергує мажорні (I–vi–IV–V) і мінорні (i–VI–iv–V) тональності",
+    ur: "ہر سوال میجر (I–vi–IV–V) اور مائنر (i–VI–iv–V) کلیدوں کے درمیان بدلتا ہے"
+  },
+  "Prüfe deine selbst gewählte Dur- oder Moll-Tonart, Tonraum & Oktave unter Prüfungsbedingungen": {
+    fr: "Testez la tonalité majeure ou mineure, l’étendue et l’octave choisies en conditions d’examen",
+    es: "Pon a prueba la tonalidad mayor o menor, el rango y la octava elegidos en condiciones de examen",
+    pl: "Sprawdź wybraną tonację dur lub moll, zakres i oktawę w warunkach egzaminu",
+    uk: "Перевір обрану мажорну чи мінорну тональність, діапазон і октаву в умовах іспиту",
+    ur: "امتحانی حالات میں اپنی منتخب کردہ میجر یا مائنر کلید، دائرے اور آکٹیو کا امتحان لیں"
+  },
   "Schwächstes Modul üben: {mod}": {
     fr: "Travailler le module faible : {mod}",
     es: "Practicar el módulo más flojo: {mod}",

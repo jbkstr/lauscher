@@ -231,6 +231,61 @@ function buildExamCustomIntervalControlsHtml() {
   `;
 }
 
+function buildExamCustomSolfegeControlsHtml() {
+  const curTonality = state?.settings?.solfegeCustomTonality === "minor" ? "minor" : "major";
+  const curKey = String(state?.settings?.solfegeCustomKey || "C");
+  const curRange = ["do-fa", "sol-do", "full"].includes(state?.settings?.solfegeCustomRange)
+    ? state.settings.solfegeCustomRange
+    : "full";
+  const curOct = state?.settings?.solfegeCustomOctave === "multi" ? "multi" : "single";
+  const keyOrder = ["random", "C", "G", "D", "A", "E", "B", "F#", "Db", "Ab", "Eb", "Bb", "F"];
+
+  const keyOptions = keyOrder.map(k => {
+    const lbl = k === "random" ? tr("Zufall (alle 12)", "Random (all 12)") : getKeyDisplayName(k, curTonality);
+    return `<option value="${escapeHtml(k)}" ${curKey === k ? "selected" : ""}>${escapeHtml(lbl)}</option>`;
+  }).join("");
+
+  const scaleSteps = getSolfegeScaleSteps(curTonality);
+  const activeSteps = curRange === "do-fa"
+    ? scaleSteps.slice(0, 4)
+    : (curRange === "sol-do" ? scaleSteps.slice(4, 8) : scaleSteps);
+  const stepText = activeSteps.map(st => getSolfegeDisplayLabel(st.syllable)).join(" • ");
+
+  return `
+    <div class="exam-custom-config" data-exam-solfege-custom-box>
+      <div class="exam-custom-grid is-cols-2">
+        <label class="exam-custom-field">
+          <span>${escapeHtml(tr("Tongeschlecht", "Tonality"))}</span>
+          <select class="account-select exam-custom-select" data-exam-solf-custom="tonality">
+            <option value="major" ${curTonality === "major" ? "selected" : ""}>${escapeHtml(tr("Dur", "Major"))}</option>
+            <option value="minor" ${curTonality === "minor" ? "selected" : ""}>${escapeHtml(tr("Moll", "Minor"))}</option>
+          </select>
+        </label>
+        <label class="exam-custom-field">
+          <span>${escapeHtml(tr("Tonart", "Key"))}</span>
+          <select class="account-select exam-custom-select" data-exam-solf-custom="key">${keyOptions}</select>
+        </label>
+        <label class="exam-custom-field">
+          <span>${escapeHtml(tr("Tonraum", "Scale Range"))}</span>
+          <select class="account-select exam-custom-select" data-exam-solf-custom="range">
+            <option value="do-fa" ${curRange === "do-fa" ? "selected" : ""}>${escapeHtml(tr("Do–Fa (Untere Hälfte)", "Do–Fa (Lower Half)"))}</option>
+            <option value="sol-do" ${curRange === "sol-do" ? "selected" : ""}>${escapeHtml(tr("Sol–Do (Obere Hälfte)", "Sol–Do (Upper Half)"))}</option>
+            <option value="full" ${curRange === "full" ? "selected" : ""}>${escapeHtml(tr("Ganze Tonart (Do–Do)", "Full Scale (Do–Do)"))}</option>
+          </select>
+        </label>
+        <label class="exam-custom-field">
+          <span>${escapeHtml(tr("Oktave", "Octave"))}</span>
+          <select class="account-select exam-custom-select" data-exam-solf-custom="oct">
+            <option value="single" ${curOct === "single" ? "selected" : ""}>${escapeHtml(tr("1 Oktave", "1 Octave"))}</option>
+            <option value="multi" ${curOct === "multi" ? "selected" : ""}>${escapeHtml(tr("Mehrere Oktaven", "Multi-Octave"))}</option>
+          </select>
+        </label>
+      </div>
+      <div class="exam-custom-preview" data-exam-solf-custom-preview>${escapeHtml(tf("Aktive Stufen ({n}): {list}", "Active Degrees ({n}): {list}", { n: activeSteps.length, list: stepText }))}</div>
+    </div>
+  `;
+}
+
 function openExamSetupPage(categoryKey = state.activeCategory, options = {}) {
   if (!categoryKey || !EXAM_CATEGORY_LEVELS[categoryKey]) return;
   state.activeCategory = categoryKey;
@@ -257,7 +312,9 @@ function openExamSetupPage(categoryKey = state.activeCategory, options = {}) {
     const modeChipsHtml = preset.modes.map(m =>
       `<span class="exam-mode-chip">${escapeHtml(getLocalizedExamModeName(m))}</span>`
     ).join("");
-    const customBoxHtml = preset.isCustomIntervalExam ? buildExamCustomIntervalControlsHtml() : "";
+    const customBoxHtml = preset.isCustomIntervalExam
+      ? buildExamCustomIntervalControlsHtml()
+      : (preset.isCustomSolfegeExam ? buildExamCustomSolfegeControlsHtml() : "");
 
     return `
       <article class="exam-level-card" data-exam-level-card="${escapeHtml(preset.id)}">
@@ -357,6 +414,39 @@ function openExamSetupPage(categoryKey = state.activeCategory, options = {}) {
     });
   });
 
+  container.querySelectorAll("[data-exam-solf-custom]").forEach(sel => {
+    sel.addEventListener("change", () => {
+      const kind = sel.dataset.examSolfCustom;
+      if (kind === "tonality") {
+        state.settings.solfegeCustomTonality = sel.value === "minor" ? "minor" : "major";
+        const keySel = container.querySelector('[data-exam-solf-custom="key"]');
+        if (keySel) {
+          const curTonality = state.settings.solfegeCustomTonality;
+          Array.from(keySel.options).forEach(opt => {
+            opt.textContent = opt.value === "random"
+              ? tr("Zufall (alle 12)", "Random (all 12)")
+              : getKeyDisplayName(opt.value, curTonality);
+          });
+        }
+      } else if (kind === "key") {
+        state.settings.solfegeCustomKey = sel.value;
+      } else if (kind === "range") {
+        state.settings.solfegeCustomRange = sel.value;
+      } else if (kind === "oct") {
+        state.settings.solfegeCustomOctave = sel.value === "multi" ? "multi" : "single";
+      }
+      const previewEl = container.querySelector("[data-exam-solf-custom-preview]");
+      if (previewEl) {
+        const curTonality = state.settings.solfegeCustomTonality === "minor" ? "minor" : "major";
+        const curRange = state.settings.solfegeCustomRange || "full";
+        const steps = getSolfegeScaleSteps(curTonality);
+        const activeSteps = curRange === "do-fa" ? steps.slice(0, 4) : (curRange === "sol-do" ? steps.slice(4, 8) : steps);
+        const stepText = activeSteps.map(st => getSolfegeDisplayLabel(st.syllable)).join(" • ");
+        previewEl.textContent = tf("Aktive Stufen ({n}): {list}", "Active Degrees ({n}): {list}", { n: activeSteps.length, list: stepText });
+      }
+    });
+  });
+
   container.querySelectorAll("[data-exam-count]").forEach(btn => {
     btn.addEventListener("click", () => {
       const val = parseInt(btn.dataset.examCount, 10);
@@ -424,13 +514,17 @@ function buildExamDifficultyPlan(cycle, count) {
   return plan;
 }
 
-function applyExamLevelSettings(preset, targetMode, overrideIntervalDifficulty = null) {
+function applyExamLevelSettings(preset, targetMode, overrideDifficulty = null) {
   if (!state?.settings || !preset) return;
   state.settings.mode = targetMode;
   state.settings.rhythmTapReadMode = false;
   Object.assign(state.settings, preset.apply || {});
-  if (Number.isInteger(overrideIntervalDifficulty)) {
-    state.settings.intervalDifficulty = overrideIntervalDifficulty;
+  if (Number.isInteger(overrideDifficulty)) {
+    if (targetMode === "solfege") {
+      state.settings.solfegeDifficulty = overrideDifficulty;
+    } else {
+      state.settings.intervalDifficulty = overrideDifficulty;
+    }
   }
   state.settings.loop = false;
   state.settings.autoNextAfterCorrect = false;
@@ -484,6 +578,13 @@ function startCategoryExam(categoryKey, levelId) {
   const total = [10, 20, 50].includes(cfg.count) ? cfg.count : 10;
   const plan = buildExamQuestionPlan(preset.modes, total);
   const difficultyPlan = buildExamDifficultyPlan(preset.difficultyCycle, total);
+
+  if (categoryKey === "solfege" && typeof getSolfegeLevelConfig === "function") {
+    const firstDiff = difficultyPlan ? difficultyPlan[0] : (preset.apply?.solfegeDifficulty || 1);
+    if (getSolfegeLevelConfig(firstDiff).keyMode === "session") {
+      state.solfegeSessionKey = pickRandomNonCKey(state.solfegeSessionKey);
+    }
+  }
 
   state.activeCategory = categoryKey;
   state.examSetupCategory = categoryKey;
@@ -936,6 +1037,7 @@ function handleExamSolfegeAnswer(ex, clickedKeyDef, keyBtn) {
   const isCorrect = clickedKeyDef.midi === target.midi ||
     (target.syllable === "Do" && clickedKeyDef.syllable === "Do");
   const chosenNoteName = midiToNote(clickedKeyDef.midi);
+  const preferFlat = FLAT_KEYS.has(state.currentKey) || ex.tonality === "minor";
 
   recordExamQuestionEntry({
     mode: "solfege",
@@ -943,11 +1045,11 @@ function handleExamSolfegeAnswer(ex, clickedKeyDef, keyBtn) {
     score: isCorrect ? 1 : 0,
     chosenKey: clickedKeyDef.syllable,
     targetKey: target.syllable,
-    chosenLabel: `${getSolfegeDisplayLabel(clickedKeyDef.syllable)} (${midiToGermanNote(clickedKeyDef.midi)})`,
-    targetLabel: `${getSolfegeDisplayLabel(target.syllable)} (${target.germanNote || midiToGermanNote(target.midi)})`,
+    chosenLabel: `${getSolfegeDisplayLabel(clickedKeyDef.syllable)} (${midiToGermanNote(clickedKeyDef.midi, preferFlat)})`,
+    targetLabel: `${getSolfegeDisplayLabel(target.syllable)} (${target.germanNote || midiToGermanNote(target.midi, preferFlat)})`,
     audioSnapshot: {
       type: "solfege",
-      rootMidi: HARMONIC_DATA.roots[state.currentKey]?.midi || 60,
+      rootMidi: ex.rootMidi || HARMONIC_DATA.roots[state.currentKey]?.midi || 60,
       targetNoteName: target.noteName,
       targetSyllable: target.syllable,
       chosenNoteName: chosenNoteName,

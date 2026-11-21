@@ -1245,70 +1245,124 @@ const EXAM_CATEGORY_LEVELS = {
     accent: "peach",
     presets: [
       {
-        id: "solfege_l1",
+        id: "solfege_dur_halves",
         levelNumber: 1,
-        title: { de: "Stufe 1 • Diatonisch (C-Dur)", en: "Level 1 • Diatonic (C Major)" },
+        title: { de: "Stufe 1 • Dur Hälften (Do–Fa & Sol–Do)", en: "Level 1 • Major Halves (Do–Fa & Sol–Do)" },
         desc: {
-          de: "Stammtöne Do bis Ti mit fester C-Dur-Kadenz",
-          en: "Diatonic Do to Ti anchored in C Major"
+          de: "Untere (Do–Fa) & obere (Sol–Do) Tonleiter-Hälfte im Wechsel in C-Dur (1 Oktave)",
+          en: "Lower (Do–Fa) & upper (Sol–Do) scale halves alternating in C Major (1 octave)"
+        },
+        modes: ["solfege"],
+        difficultyCycle: [1, 2],
+        apply: { solfegeDifficulty: 1 }
+      },
+      {
+        id: "solfege_l1",
+        levelNumber: 2,
+        title: { de: "Stufe 2 • Dur-Tonleiter (C-Dur, 1 Okt.)", en: "Level 2 • Major Scale (C Major, 1 Oct.)" },
+        desc: {
+          de: "Alle 7 Dur-Stufen (Do–Ti) mit fester C-Dur-Kadenz in einer Oktave",
+          en: "All 7 major degrees (Do–Ti) anchored in C Major within 1 octave"
         },
         modes: ["solfege"],
         apply: { solfegeDifficulty: 3 }
       },
       {
-        id: "solfege_l2",
-        levelNumber: 2,
-        title: { de: "Stufe 2 • Diatonisch (Feste Tonart)", en: "Level 2 • Diatonic (Session Key)" },
-        desc: {
-          de: "Stammtöne Do bis Ti in einer konstanten Nicht-C-Dur-Tonart",
-          en: "Diatonic Do to Ti in a transposed key held steady"
-        },
-        modes: ["solfege"],
-        apply: { solfegeDifficulty: 4 }
-      },
-      {
-        id: "solfege_l3",
-        levelNumber: 3,
-        title: { de: "Stufe 3 • Chromatisch (C-Dur)", en: "Level 3 • Chromatic (C Major)" },
-        desc: {
-          de: "Alle 12 Halbtöne (Di, Ra, Fi, Si, Te …) in C-Dur",
-          en: "All 12 chromatic syllables anchored in C Major"
-        },
-        modes: ["solfege"],
-        apply: { solfegeDifficulty: 5 }
-      },
-      {
         id: "solfege_l4",
-        levelNumber: 4,
-        title: { de: "Stufe 4 • Chromatisch (Feste Tonart)", en: "Level 4 • Chromatic (Session Key)" },
+        levelNumber: 3,
+        title: { de: "Stufe 3 • Dur Feste Tonart (Mehrere Okt.)", en: "Level 3 • Major Fixed Key (Multi-Oct.)" },
         desc: {
-          de: "Alle 12 Töne in einer transponierten Referenztonart",
-          en: "All 12 tones in a steady transposed reference key"
+          de: "Alle 7 Dur-Stufen in einer konstanten Nicht-C-Tonart über mehrere Oktaven",
+          en: "All 7 major degrees in a steady non-C key across multiple octaves"
         },
         modes: ["solfege"],
         apply: { solfegeDifficulty: 6 }
       },
       {
-        id: "solfege_l5",
-        levelNumber: 5,
-        title: { de: "Stufe 5 • Wechselnde Tonarten", en: "Level 5 • Rotating Keys" },
-        desc: {
-          de: "Diatonisch – aber jede Frage wechselt die Tonart",
-          en: "Diatonic degrees — every question shifts to a new key"
-        },
-        modes: ["solfege"],
-        apply: { solfegeDifficulty: 7 }
-      },
-      {
         id: "solfege_l6",
-        levelNumber: 6,
-        title: { de: "Stufe 6 • Chromatisch Dynamisch", en: "Level 6 • Chromatic Dynamic" },
+        levelNumber: 4,
+        title: { de: "Stufe 4 • Dur Tonartwechsel (Mehrere Okt.)", en: "Level 4 • Major Key Changes (Multi-Oct.)" },
         desc: {
-          de: "Königsklasse: Alle 12 Halbtöne + neue Tonart bei jeder Frage",
-          en: "Top tier: all 12 chromatic tones + new key on every question"
+          de: "Jede Frage wechselt in eine neue Dur-Tonart & Oktavlage",
+          en: "Every question shifts to a new major key & octave register"
         },
         modes: ["solfege"],
         apply: { solfegeDifficulty: 8 }
+      },
+      {
+        id: "solfege_minor_halves",
+        levelNumber: 1,
+        badge: { de: "Moll • Stufe 1", en: "Minor • Level 1" },
+        title: { de: "Moll • Hälften (Do–Fa & Sol–Do)", en: "Minor • Halves (Do–Fa & Sol–Do)" },
+        desc: {
+          de: "Untere (Do–Fa) & obere (Sol–Do) Moll-Hälfte im Wechsel in c-Moll (1 Oktave)",
+          en: "Lower (Do–Fa) & upper (Sol–Do) minor halves alternating in C Minor (1 octave)"
+        },
+        modes: ["solfege"],
+        difficultyCycle: [9, 10],
+        apply: { solfegeDifficulty: 9 }
+      },
+      {
+        id: "solfege_minor_l1",
+        levelNumber: 2,
+        badge: { de: "Moll • Stufe 2", en: "Minor • Level 2" },
+        title: { de: "Moll • Ganze Tonleiter (c-Moll, 1 Okt.)", en: "Minor • Full Scale (C Minor, 1 Oct.)" },
+        desc: {
+          de: "Alle 7 Stufen in Natürlich Moll (Do–Re–Me–Fa–Sol–Le–Te) in c-Moll",
+          en: "All 7 Natural Minor degrees (Do–Re–Me–Fa–Sol–Le–Te) anchored in C Minor"
+        },
+        modes: ["solfege"],
+        apply: { solfegeDifficulty: 11 }
+      },
+      {
+        id: "solfege_minor_l3",
+        levelNumber: 3,
+        badge: { de: "Moll • Stufe 3", en: "Minor • Level 3" },
+        title: { de: "Moll • Feste Tonart (Mehrere Okt.)", en: "Minor • Fixed Key (Multi-Oct.)" },
+        desc: {
+          de: "Alle 7 Moll-Stufen in einer konstanten Nicht-c-Tonart über mehrere Oktaven",
+          en: "All 7 minor degrees in a steady non-C minor key across multiple octaves"
+        },
+        modes: ["solfege"],
+        apply: { solfegeDifficulty: 14 }
+      },
+      {
+        id: "solfege_minor_l4",
+        levelNumber: 4,
+        badge: { de: "Moll • Stufe 4", en: "Minor • Level 4" },
+        title: { de: "Moll • Tonartwechsel (Mehrere Okt.)", en: "Minor • Key Changes (Multi-Oct.)" },
+        desc: {
+          de: "Jede Frage wechselt in eine neue Moll-Tonart & Oktavlage",
+          en: "Every question shifts to a new minor key & octave register"
+        },
+        modes: ["solfege"],
+        apply: { solfegeDifficulty: 16 }
+      },
+      {
+        id: "solfege_major_minor",
+        levelNumber: 5,
+        badge: { de: "Meister", en: "Master" },
+        title: { de: "Dur & Moll im Wechsel", en: "Major & Minor Mixed" },
+        desc: {
+          de: "Jede Frage wechselt zwischen Dur- (I–vi–IV–V) & Moll-Tonarten (i–VI–iv–V)",
+          en: "Every question alternates between rotating Major (I–vi–IV–V) & Minor (i–VI–iv–V) keys"
+        },
+        modes: ["solfege"],
+        difficultyCycle: [7, 15],
+        apply: { solfegeDifficulty: 7 }
+      },
+      {
+        id: "solfege_custom",
+        levelNumber: 6,
+        badge: { de: "Freie Wahl", en: "Custom" },
+        isCustomSolfegeExam: true,
+        title: { de: "Eigene Tonart (Dur & Moll)", en: "Custom Key (Major & Minor)" },
+        desc: {
+          de: "Prüfe deine selbst gewählte Dur- oder Moll-Tonart, Tonraum & Oktave unter Prüfungsbedingungen",
+          en: "Test your chosen major or minor key, scale range & octave under full exam conditions"
+        },
+        modes: ["solfege"],
+        apply: { solfegeDifficulty: 17 }
       }
     ]
   },

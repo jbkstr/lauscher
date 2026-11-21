@@ -3993,5 +3993,229 @@ registerColocatedPhrases({
     pl: "wiele okt.",
     uk: "кілька окт.",
     ur: "کئی آکٹیو"
+  },
+  "Wähle einen Aufgabentyp": {
+    fr: "Choisissez un type d’exercice",
+    es: "Elige un tipo de ejercicio",
+    pl: "Wybierz typ ćwiczenia",
+    uk: "Обери тип вправи",
+    ur: "مشق کی قسم چنیں"
+  },
+  "Schwierigkeitsgrad wählen": {
+    fr: "Choisir le niveau",
+    es: "Elegir dificultad",
+    pl: "Wybierz poziom trudności",
+    uk: "Обери рівень складності",
+    ur: "مشکل کی سطح چنیں"
+  },
+  "{n} Stufen": {
+    fr: "{n} niveaux",
+    es: "{n} niveles",
+    pl: "{n} poziomy",
+    uk: "{n} рівні",
+    ur: "{n} سطحیں"
+  },
+  "Dur • Ziel: Takt 4": {
+    fr: "Majeur • Cible : mesure 4",
+    es: "Mayor • Objetivo: compás 4",
+    pl: "Dur • Cel: takt 4",
+    uk: "Мажор • Ціль: такт 4",
+    ur: "میجر • ہدف: بار 4"
+  },
+  "Dur • Zufälliger Takt": {
+    fr: "Majeur • Mesure aléatoire",
+    es: "Mayor • Compás aleatorio",
+    pl: "Dur • Losowy takt",
+    uk: "Мажор • Випадковий такт",
+    ur: "میجر • بے ترتیب بار"
+  },
+  "Moll • Ziel: Takt 4": {
+    fr: "Mineur • Cible : mesure 4",
+    es: "Menor • Objetivo: compás 4",
+    pl: "Moll • Cel: takt 4",
+    uk: "Мінор • Ціль: такт 4",
+    ur: "مائنر • ہدف: بار 4"
+  },
+  "Moll • Zufälliger Takt": {
+    fr: "Mineur • Mesure aléatoire",
+    es: "Menor • Compás aleatorio",
+    pl: "Moll • Losowy takt",
+    uk: "Мінор • Випадковий такт",
+    ur: "مائنر • بے ترتیب بار"
+  },
+  "9 Stufen • Dur, Moll & Chromatisch": {
+    fr: "9 niveaux • Majeur, Mineur & Chromatique",
+    es: "9 niveles • Mayor, Menor y Cromático",
+    pl: "9 poziomów • Dur, Moll i Chromatycznie",
+    uk: "9 рівнів • Мажор, Мінор і Хроматика",
+    ur: "9 سطحیں • میجر، مائنر اور کرومیٹک"
+  },
+  "Frei wählbar • alle 4 Spielarten": {
+    fr: "Au choix • les 4 modes de jeu",
+    es: "Personalizable • los 4 modos",
+    pl: "Dowolny wybór • wszystkie 4 tryby",
+    uk: "Вільний вибір • усі 4 способи",
+    ur: "آزاد انتخاب • تمام 4 انداز"
+  },
+  "Dur-Intervalle": {
+    fr: "Intervalles majeurs",
+    es: "Intervalos mayores",
+    pl: "Interwały dur",
+    uk: "Мажорні інтервали",
+    ur: "میجر فاصلے"
+  },
+  "Moll-Intervalle": {
+    fr: "Intervalles mineurs",
+    es: "Intervalos menores",
+    pl: "Interwały moll",
+    uk: "Мінорні інтервали",
+    ur: "مائنر فاصلے"
+  },
+  "Derselbe Aufbau in Natürlich Moll (mit kl. Terz, kl. Sexte & kl. Septime)": {
+    fr: "Même progression en mineur naturel (tierce, sixte et septième mineures)",
+    es: "La misma progresión en menor natural (3.ª, 6.ª y 7.ª menores)",
+    pl: "Ten sam układ w moll naturalnym (mała tercja, seksta i septyma)",
+    uk: "Така сама побудова в натуральному мінорі (мала терція, секста й септима)",
+    ur: "نیچرل مائنر میں یہی ترتیب (مائنر تھرڈ، سکسٹھ اور سیونٹھ کے ساتھ)"
+  },
+  "Chromatisch (Alle 15 Intervalle)": {
+    fr: "Chromatique (les 15 intervalles)",
+    es: "Cromático (los 15 intervalos)",
+    pl: "Chromatycznie (wszystkie 15 interwałów)",
+    uk: "Хроматика (усі 15 інтервалів)",
+    ur: "کرومیٹک (تمام 15 فاصلے)"
+  },
+  "Volles Spektrum inkl. kl. Sekunde, Tritonus, kl./gr. Intervalle & Nonen": {
+    fr: "Spectre complet avec 2nde min., triton, intervalles min./maj. et neuvièmes",
+    es: "Espectro completo incl. 2.ª men., tritono, intervalos men./may. y novenas",
+    pl: "Pełne spektrum z małą sekundą, trytonem, interwałami m./w. i nonami",
+    uk: "Повний спектр із малою секундою, тритоном, малими/великими інтервалами й нонами",
+    ur: "مکمل اسپیکٹرم بشمول مائنر سیکنڈ، ٹرائی ٹون، مائنر/میجر فاصلے اور نائنتھ"
+  },
+  "4 gleichlange halbe Noten – voller Fokus auf Tonhöhen & Solfège-Stufen": {
+    fr: "4 blanches régulières — concentration totale sur les hauteurs et degrés",
+    es: "4 blancas iguales: atención total en las alturas y grados de solfeo",
+    pl: "4 równe półnuty — pełne skupienie na wysokości dźwięków i stopniach",
+    uk: "4 однакові половинні ноти — повний фокус на висоті звуків і ступенях",
+    ur: "4 برابر ہاف نوٹس — سُر اور سولفیج درجات پر مکمل توجہ"
+  },
+  "4–6 Töne in echten Phrasen (4/4 & 3/4) – der Rhythmus ist sichtbar vorgegeben": {
+    fr: "4–6 notes en vraies phrases (4/4 & 3/4) — le rythme est affiché comme repère",
+    es: "4–6 notas en frases reales (4/4 y 3/4): el ritmo aparece como guía",
+    pl: "4–6 dźwięków w prawdziwych frazach (4/4 i 3/4) — rytm jest widoczny",
+    uk: "4–6 нот у музичних фразах (4/4 і 3/4) — ритм показаний як підказка",
+    ur: "اصلی فریزز میں 4–6 نوٹس (4/4 اور 3/4) — ردھم رہنمائی کے لیے دکھایا جاتا ہے"
+  },
+  "Tonhöhe UND Notenlänge (♪, ♩, ♩., 𝅗𝅥) gemeinsam nach Gehör heraushören": {
+    fr: "Identifier ensemble la hauteur ET la durée (♪, ♩, ♩., 𝅗𝅥) à l’oreille",
+    es: "Identificar altura Y duración (♪, ♩, ♩., 𝅗𝅥) juntas de oído",
+    pl: "Rozpoznawaj ze słuchu jednocześnie wysokość ORAZ długość nut (♪, ♩, ♩., 𝅗𝅥)",
+    uk: "Визначай на слух одночасно висоту І тривалість нот (♪, ♩, ♩., 𝅗𝅥)",
+    ur: "کان سے سُر اور نوٹ کی لمبائی (♪, ♩, ♩., 𝅗𝅥) دونوں ایک ساتھ پہچانیں"
+  },
+  "3 Tonräume • Do–Fa, Sol–Do & Ganze Tonart": {
+    fr: "3 étendues • Do–Fa, Sol–Do & Gamme complète",
+    es: "3 rangos • Do–Fa, Sol–Do y Escala completa",
+    pl: "3 zakresy • Do–Fa, Sol–Do i Cała gama",
+    uk: "3 діапазони • Do–Fa, Sol–Do і Повна гама",
+    ur: "3 دائرے • Do–Fa، Sol–Do اور مکمل اسکیل"
+  },
+  "Solfège • Dur": {
+    fr: "Solfège • Majeur",
+    es: "Solfeo • Mayor",
+    pl: "Solfeż • Dur",
+    uk: "Сольфеджіо • Мажор",
+    ur: "سولفیج • میجر"
+  },
+  "Solfège • Moll": {
+    fr: "Solfège • Mineur",
+    es: "Solfeo • Menor",
+    pl: "Solfeż • Moll",
+    uk: "Сольфеджіо • Мінор",
+    ur: "سولفیج • مائنر"
+  },
+  "8 Stufen • Do–Fa, Sol–Do bis Tonartwechsel": {
+    fr: "8 niveaux • Do–Fa, Sol–Do jusqu’aux modulations",
+    es: "8 niveles • Do–Fa, Sol–Do hasta modulaciones",
+    pl: "8 poziomów • od Do–Fa i Sol–Do po zmiany tonacji",
+    uk: "8 рівнів • від Do–Fa і Sol–Do до модуляцій",
+    ur: "8 سطحیں • Do–Fa اور Sol–Do سے کلید کی تبدیلی تک"
+  },
+  "Frei wählbar • Dur & Moll": {
+    fr: "Au choix • Majeur & Mineur",
+    es: "Personalizable • Mayor y Menor",
+    pl: "Dowolny wybór • Dur i Moll",
+    uk: "Вільний вибір • Мажор і Мінор",
+    ur: "آزاد انتخاب • میجر اور مائنر"
+  },
+  "Taktart & Metrum erkennen": {
+    fr: "Mesure & métrique",
+    es: "Compás y métrica",
+    pl: "Metrum i takt",
+    uk: "Розмір і метр",
+    ur: "ٹائم سگنیچر اور میٹر"
+  },
+  "Groove, Akzente & Mikro-Timing": {
+    fr: "Groove, accents & micro-timing",
+    es: "Groove, acentos y microtiming",
+    pl: "Groove, akcenty i mikrotiming",
+    uk: "Грув, акценти і мікротаймінг",
+    ur: "گروو، ایکسنٹس اور مائیکرو ٹائمنگ"
+  },
+  "Frequenzen erkennen (Sinus)": {
+    fr: "Reconnaître les fréquences (Sinus)",
+    es: "Reconocer frecuencias (Seno)",
+    pl: "Rozpoznawanie częstotliwości (Sinus)",
+    uk: "Розпізнавання частот (Синус)",
+    ur: "فریکوئنسی کی پہچان (سائن)"
+  },
+  "Modus / Tonleiter erkennen": {
+    fr: "Reconnaître le mode / la gamme",
+    es: "Reconocer modo / escala",
+    pl: "Rozpoznawanie skali / modusu",
+    uk: "Розпізнавання ладу / гами",
+    ur: "موڈ / اسکیل کی پہچان"
+  },
+  "Charakterton & Klangfarbe": {
+    fr: "Note caractéristique & couleur",
+    es: "Nota característica y color",
+    pl: "Dźwięk charakterystyczny i barwa",
+    uk: "Характерний тон і барва",
+    ur: "امتیازی سُر اور رنگت"
+  },
+  "Modale Kadenzen & Akkordpendel": {
+    fr: "Cadences modales & boucles d’accords",
+    es: "Cadencias modales y bucles de acordes",
+    pl: "Kadencje modalne i pętle akordów",
+    uk: "Модальні каданси й акордові петлі",
+    ur: "موڈل کیڈینسز اور کارڈ لوپس"
+  },
+  "Tonarten-Blattspiel (Generalvorzeichen)": {
+    fr: "Lecture avec armures (tonalités)",
+    es: "Lectura con armaduras (tonalidades)",
+    pl: "Czytanie ze znakami przykluczowymi",
+    uk: "Читання з ключовими знаками",
+    ur: "کی سگنیچر کے ساتھ ریڈنگ"
+  },
+  "Tonart / Generalvorzeichen wählen": {
+    fr: "Choisir la tonalité / l’armure",
+    es: "Elegir tonalidad / armadura",
+    pl: "Wybierz tonację / znaki przykluczowe",
+    uk: "Обери тональність / ключові знаки",
+    ur: "کلید / کی سگنیچر چنیں"
+  },
+  "Lege fest, ob Tonarten mit Vorzeichen am Notenanfang stehen sollen – gilt auch für alle Schlüssel-Übungen.": {
+    fr: "Définissez si une armure apparaît au début de la portée — s’applique aussi à tous les exercices de clés.",
+    es: "Define si debe aparecer una armadura al inicio del pentagrama — también se aplica a todas las claves.",
+    pl: "Ustal znaki przykluczowe na początku pięciolinii — obowiązuje też we wszystkich ćwiczeniach kluczy.",
+    uk: "Встанови ключові знаки на початку нотного стану — діє також для всіх вправ із ключами.",
+    ur: "اسٹاف کے آغاز میں کی سگنیچر مقرر کریں — یہ تمام کلیف مشقوں پر بھی لاگو ہوتا ہے۔"
+  },
+  "Tonart / Generalvorzeichen anpassen": {
+    fr: "Ajuster la tonalité / l’armure",
+    es: "Ajustar tonalidad / armadura",
+    pl: "Dostosuj tonację / znaki przykluczowe",
+    uk: "Налаштувати тональність / ключові знаки",
+    ur: "کلید / کی سگنیچر تبدیل کریں"
   }
 });

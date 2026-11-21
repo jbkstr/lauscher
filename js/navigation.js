@@ -478,6 +478,7 @@ function captureHistorySnapshot(modalName = getOpenModalName()) {
     idx: appHistoryState.idx,
     view: state.currentView,
     activeCategory: state.activeCategory,
+    activeCategorySection: state.activeCategorySection || null,
     examSetupCategory: state.examSetupCategory,
     examResultReturnView: state.examResultReturnView,
     activeExamResultId: state.activeExamResultId,
@@ -559,12 +560,15 @@ function applyHistorySnapshot(snapshot) {
 
     const targetView = snapshot.view || "home";
     const viewChanged = targetView !== state.currentView;
+    const targetSection = snapshot.activeCategorySection || null;
+    const categoryStateChanged = targetView === "category" &&
+      (snapshot.activeCategory !== state.activeCategory || targetSection !== (state.activeCategorySection || null));
     const swipeDir = pendingSwipeDir;
     pendingSwipeDir = null;
 
-    if (viewChanged) {
+    if (viewChanged || categoryStateChanged) {
       if (targetView === "category" && snapshot.activeCategory) {
-        openCategoryPage(snapshot.activeCategory);
+        openCategoryPage(snapshot.activeCategory, { sectionId: targetSection, skipHistoryPush: true });
       } else if (targetView === "category-help" && snapshot.activeCategory) {
         openCategoryHelpPage(snapshot.activeCategory);
       } else if (targetView === "exam-setup" && (snapshot.examSetupCategory || snapshot.activeCategory)) {
@@ -633,11 +637,13 @@ function navigateBackFromUI() {
   } else if (state.currentView === "exam-result") {
     switchView(state.examResultReturnView || "exam-setup", { skipHistoryPush: true });
   } else if (state.currentView === "exam-setup") {
-    switchView("category", { skipHistoryPush: true });
+    openCategoryPage(state.examSetupCategory || state.activeCategory, { sectionId: null, skipHistoryPush: true });
   } else if (state.currentView === "knowledge-detail") {
     switchView(state.knowledgeReturnView || "knowledge", { skipHistoryPush: true });
   } else if (state.currentView === "category-help") {
-    switchView("category", { skipHistoryPush: true });
+    openCategoryPage(state.activeCategory, { sectionId: null, skipHistoryPush: true });
+  } else if (state.currentView === "category" && state.activeCategorySection) {
+    openCategoryPage(state.activeCategory, { sectionId: null, skipHistoryPush: true });
   } else {
     switchView("home", { skipHistoryPush: true });
   }
@@ -2713,10 +2719,49 @@ function markBeginnerExerciseNodes(container) {
   });
 }
 
+const CATEGORY_CHEVRON_SVG = `<svg class="category-type-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>`;
+
+function renderCategoryTypeMenu(container, categoryKey, items, options = {}) {
+  const beginnerLabel = tr("Einsteiger", "Beginner");
+  container.innerHTML = `
+    ${options.introHtml || ""}
+    <div class="category-types-list">
+      ${items.map(item => `
+        <button type="button" class="category-type-card${item.isBeginner ? " is-beginner-type" : ""}" data-open-cat-section="${escapeHtml(item.id)}">
+          <span class="category-type-badge-wrap" aria-hidden="true">${item.badgeHtml}</span>
+          <span class="category-type-body">
+            <span class="category-type-head">
+              <span class="category-type-title">${item.title}</span>
+              ${item.isBeginner ? `<span class="category-type-beginner-pill">${escapeHtml(beginnerLabel)}</span>` : ""}
+            </span>
+            <span class="category-type-desc">${item.desc}</span>
+            ${item.meta ? `<span class="category-type-meta">${escapeHtml(item.meta)}</span>` : ""}
+          </span>
+          ${CATEGORY_CHEVRON_SVG}
+        </button>
+      `).join("")}
+    </div>
+  `;
+
+  container.querySelectorAll("[data-open-cat-section]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      openCategoryPage(categoryKey, { sectionId: btn.dataset.openCatSection });
+    });
+  });
+}
+
 function openCategoryPage(categoryKey, options = {}) {
-  state.activeCategory = categoryKey;
   const container = document.getElementById("categoryPageContent");
   if (!container) return;
+
+  const wasSameView = state.currentView === "category";
+  const prevCat = state.activeCategory;
+  const prevSec = state.activeCategorySection || null;
+  const activeSection = categoryKey === "warmup" ? null : (options.sectionId || null);
+
+  state.activeCategory = categoryKey;
+  state.activeCategorySection = activeSection;
+  state.activeCategorySectionTitle = "";
 
   if (categoryKey === "cadence") {
     const CADENCE_LEVELS = [
@@ -2733,55 +2778,86 @@ function openCategoryPage(categoryKey, options = {}) {
       { level: 4, circle: "circle-lilac", badge: "iiø7",    title: tr("Stufe 4: Jazz & Tritone", "Level 4: Jazz & Tritone"), sub: tr("Moll-ii–V & Tritonussubstitution", "Minor ii–V & tritone substitution") }
     ];
 
-    const renderCadenceSection = (posMode, title, desc, tonality = "major") => `
-      <div class="subpage-section">
-        <h3 class="subpage-section-title">${title}</h3>
-        <p class="subpage-section-desc">${desc}</p>
-        <div class="subpage-nodes-grid">
-          ${(tonality === "minor" ? MINOR_CADENCE_LEVELS : CADENCE_LEVELS).map(lv => `
-            <button class="subpage-node-btn" data-launch-cadence="${lv.level}" data-cadence-pos="${posMode}" data-cadence-tonality="${tonality}">
-              <div class="node-circle ${lv.circle}${lv.nodeClass ? ` ${lv.nodeClass}` : ""}${posMode === "random" ? " has-random-badge" : ""}">${lv.badge}${posMode === "random" ? `<span class="node-random-badge" title="${tr("Zufälliger Takt", "Random Measure")}">?</span>` : ""}</div>
-              <span class="node-title">${lv.title}</span>
-              <span class="node-sub">${posMode === "random" ? `${lv.sub} ${tr("(Zufallstakt)", "(Random Bar)")}` : lv.sub}</span>
-            </button>
-          `).join("")}
+    const CADENCE_TYPES = [
+      {
+        id: "major-last",
+        posMode: "last",
+        tonality: "major",
+        isBeginner: true,
+        badgeHtml: `<div class="node-circle circle-sage">I–V</div>`,
+        title: tr("Dur • Ziel: Takt 4", "Major • Target: Bar 4"),
+        sectionTitle: tr("Übungen zu Kadenzen • Ziel: Takt 4", "Cadence Exercises • Target: Bar 4"),
+        desc: tr("Höre drei Takte Kontext und bestimme die gesuchte 4. Stufe", "Listen to three bars of context and identify the missing 4th chord"),
+        meta: tf("{n} Stufen", "{n} Levels", { n: 4 })
+      },
+      {
+        id: "major-random",
+        posMode: "random",
+        tonality: "major",
+        isBeginner: false,
+        badgeHtml: `<div class="node-circle circle-peach has-random-badge">I–V<span class="node-random-badge">?</span></div>`,
+        title: tr("Dur • Zufälliger Takt", "Major • Random Bar"),
+        sectionTitle: tr("Übungen zu Kadenzen • Zufälliger Takt", "Cadence Exercises • Random Bar"),
+        desc: tr("Die fehlende Stufe steht an einer zufälligen Stelle (Takt 1–4)", "The missing chord appears in a random position (Bars 1–4)"),
+        meta: tf("{n} Stufen", "{n} Levels", { n: 4 })
+      },
+      {
+        id: "minor-last",
+        posMode: "last",
+        tonality: "minor",
+        isBeginner: true,
+        badgeHtml: `<div class="node-circle circle-lilac">i–V</div>`,
+        title: tr("Moll • Ziel: Takt 4", "Minor • Target: Bar 4"),
+        sectionTitle: tr("Moll-Kadenzen • Ziel: Takt 4", "Minor Cadences • Target: Bar 4"),
+        desc: tr("Dieselben Übungen in Moll-Tonarten: Höre drei Takte Kontext und bestimme die gesuchte 4. Stufe", "The same exercises in minor keys: listen to three bars of context and identify the missing 4th chord"),
+        meta: tf("{n} Stufen", "{n} Levels", { n: 4 })
+      },
+      {
+        id: "minor-random",
+        posMode: "random",
+        tonality: "minor",
+        isBeginner: false,
+        badgeHtml: `<div class="node-circle circle-lilac has-random-badge">i–V<span class="node-random-badge">?</span></div>`,
+        title: tr("Moll • Zufälliger Takt", "Minor • Random Bar"),
+        sectionTitle: tr("Moll-Kadenzen • Zufälliger Takt", "Minor Cadences • Random Bar"),
+        desc: tr("Die fehlende Moll-Stufe steht an einer zufälligen Stelle (Takt 1–4)", "The missing minor-key chord appears in a random position (Bars 1–4)"),
+        meta: tf("{n} Stufen", "{n} Levels", { n: 4 })
+      }
+    ];
+
+    const selectedCad = activeSection ? CADENCE_TYPES.find(t => t.id === activeSection) : null;
+    if (!selectedCad) {
+      state.activeCategorySection = null;
+      renderCategoryTypeMenu(container, categoryKey, CADENCE_TYPES);
+    } else {
+      state.activeCategorySectionTitle = selectedCad.title;
+      const levels = selectedCad.tonality === "minor" ? MINOR_CADENCE_LEVELS : CADENCE_LEVELS;
+      container.innerHTML = `
+        <div class="subpage-section">
+          <h3 class="subpage-section-title">${selectedCad.sectionTitle}</h3>
+          <p class="subpage-section-desc">${selectedCad.desc}</p>
+          <div class="subpage-nodes-grid">
+            ${levels.map(lv => `
+              <button class="subpage-node-btn" data-launch-cadence="${lv.level}" data-cadence-pos="${selectedCad.posMode}" data-cadence-tonality="${selectedCad.tonality}">
+                <div class="node-circle ${lv.circle}${lv.nodeClass ? ` ${lv.nodeClass}` : ""}${selectedCad.posMode === "random" ? " has-random-badge" : ""}">${lv.badge}${selectedCad.posMode === "random" ? `<span class="node-random-badge" title="${tr("Zufälliger Takt", "Random Measure")}">?</span>` : ""}</div>
+                <span class="node-title">${lv.title}</span>
+                <span class="node-sub">${selectedCad.posMode === "random" ? `${lv.sub} ${tr("(Zufallstakt)", "(Random Bar)")}` : lv.sub}</span>
+              </button>
+            `).join("")}
+          </div>
         </div>
-      </div>
-    `;
+      `;
 
-    container.innerHTML =
-      renderCadenceSection(
-        "last",
-        tr("Übungen zu Kadenzen • Ziel: Takt 4", "Cadence Exercises • Target: Bar 4"),
-        tr("Höre drei Takte Kontext und bestimme die gesuchte 4. Stufe", "Listen to three bars of context and identify the missing 4th chord")
-      ) +
-      renderCadenceSection(
-        "random",
-        tr("Übungen zu Kadenzen • Zufälliger Takt", "Cadence Exercises • Random Bar"),
-        tr("Die fehlende Stufe steht an einer zufälligen Stelle (Takt 1–4)", "The missing chord appears in a random position (Bars 1–4)")
-      ) +
-      renderCadenceSection(
-        "last",
-        tr("Moll-Kadenzen • Ziel: Takt 4", "Minor Cadences • Target: Bar 4"),
-        tr("Dieselben Übungen in Moll-Tonarten: Höre drei Takte Kontext und bestimme die gesuchte 4. Stufe", "The same exercises in minor keys: listen to three bars of context and identify the missing 4th chord"),
-        "minor"
-      ) +
-      renderCadenceSection(
-        "random",
-        tr("Moll-Kadenzen • Zufälliger Takt", "Minor Cadences • Random Bar"),
-        tr("Die fehlende Moll-Stufe steht an einer zufälligen Stelle (Takt 1–4)", "The missing minor-key chord appears in a random position (Bars 1–4)"),
-        "minor"
-      );
-
-    container.querySelectorAll("[data-launch-cadence]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        state.setMode(btn.dataset.cadenceTonality === "minor" ? "cadence-minor" : "cadence");
-        state.setDifficulty(btn.dataset.launchCadence);
-        state.setCadencePos(btn.dataset.cadencePos);
-        state.exerciseReturnView = "category";
-        switchView("exercise");
+      container.querySelectorAll("[data-launch-cadence]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          state.setMode(btn.dataset.cadenceTonality === "minor" ? "cadence-minor" : "cadence");
+          state.setDifficulty(btn.dataset.launchCadence);
+          state.setCadencePos(btn.dataset.cadencePos);
+          state.exerciseReturnView = "category";
+          switchView("exercise");
+        });
       });
-    });
+    }
 
   } else if (categoryKey === "interval") {
     const INTERVAL_PLAY_SECTIONS = [
@@ -2790,28 +2866,58 @@ function openCategoryPage(categoryKey, options = {}) {
         title: tr("Melodische Intervalle (Aufwärts)", "Melodic Intervals (Ascending)"),
         desc: tr("Zwei Töne erklingen nacheinander vom Ausgangston nach oben", "Two notes played sequentially upward from the reference pitch"),
         circle: "circle-peach",
-        dir: "up"
+        dir: "up",
+        badgeHtml: `<div class="node-circle circle-peach">1↗5</div>`,
+        isBeginner: true
       },
       {
         mode: "interval-melodic-down",
         title: tr("Melodische Intervalle (Abwärts)", "Melodic Intervals (Descending)"),
         desc: tr("Zwei Töne erklingen nacheinander vom Ausgangston nach unten", "Two notes played sequentially downward from the reference pitch"),
         circle: "circle-peach",
-        dir: "down"
+        dir: "down",
+        badgeHtml: `<div class="node-circle circle-peach">1↘5</div>`,
+        isBeginner: true
       },
       {
         mode: "interval-harmonic",
         title: tr("Harmonische Intervalle", "Harmonic Intervals"),
         desc: tr("Beide Töne erklingen gleichzeitig als Zusammenklang", "Both notes sounded simultaneously in harmony"),
         circle: "circle-lilac",
-        dir: null
+        dir: null,
+        badgeHtml: `<div class="node-circle circle-lilac">1+5</div>`,
+        isBeginner: true
       },
       {
         mode: "interval-drone",
         title: tr("Intervalle über Grundton-Fläche", "Intervals Over Root Pad"),
         desc: tr("Eine warme Streicher-Fläche hält den Grundton – nach kurzer Verzögerung erklingt der gesuchte Intervallton auf dem Klavier darüber", "A warm strings pad sustains the root pitch — after a short delay, piano plays the target interval tone above it"),
         circle: "circle-sage",
-        dir: null
+        dir: null,
+        badgeHtml: `<div class="node-circle circle-sage node-circle-compact">Pad</div>`,
+        isBeginner: true
+      }
+    ];
+
+    const INTERVAL_TYPE_ITEMS = [
+      ...INTERVAL_PLAY_SECTIONS.map(sec => ({
+        id: sec.mode,
+        title: sec.title,
+        desc: sec.desc,
+        badgeHtml: sec.badgeHtml,
+        meta: tr("9 Stufen • Dur, Moll & Chromatisch", "9 Levels • Major, Minor & Chromatic"),
+        isBeginner: sec.isBeginner
+      })),
+      {
+        id: "interval-custom",
+        title: tr("Freie Tonart & Modi", "Custom Key & Modes"),
+        desc: tr(
+          "Wähle deinen festen Grundton (oder Zufall), eine Tonleiter bzw. Kirchentonart und passe die abgefragten Intervalle beliebig an.",
+          "Choose a fixed root key (or random), pick any scale or church mode, and customize which intervals are tested."
+        ),
+        badgeHtml: `<div class="node-circle circle-peach node-circle-compact">${tr("Frei", "Free")}</div>`,
+        meta: tr("Frei wählbar • alle 4 Spielarten", "Custom • all 4 playback modes"),
+        isBeginner: false
       }
     ];
 
@@ -2823,215 +2929,251 @@ function openCategoryPage(categoryKey, options = {}) {
       return `<div class="node-circle ${sec.circle}${cls}">${text}</div>`;
     };
 
-    const getSectionCards = (sec) => {
+    const getSectionCardGroups = (sec) => {
       const begBadge = sec.dir === "up" ? "1↗5" : (sec.dir === "down" ? "1↘5" : "1+5");
       const begMinBadge = sec.dir === "up" ? "1↗♭3" : (sec.dir === "down" ? "1↘♭3" : "1+♭3");
-      return [
-        {
-          lvl: 1,
-          circleHtml: `<div class="node-circle ${sec.circle}">${begBadge}</div>`,
-          title: tr("Stufe 1: Einsteiger", "Level 1: Beginner"),
-          sub: tr("Prime, gr. Terz, Quinte, Oktave", "Unison, Maj 3rd, 5th & Octave")
-        },
-        {
-          lvl: 2,
-          circleHtml: renderIntBadge(sec, "1–4"),
-          title: tr("Stufe 2: Dur 1–4", "Level 2: Major 1–4"),
-          sub: tr("Untere Hälfte: Prime, gr. Sek., gr. Terz, Quarte", "Lower half: Unison, Maj 2nd, Maj 3rd, 4th")
-        },
-        {
-          lvl: 3,
-          circleHtml: renderIntBadge(sec, "5–8"),
-          title: tr("Stufe 3: Dur 5–8", "Level 3: Major 5–8"),
-          sub: tr("Obere Hälfte: Quinte, gr. Sexte, gr. Sept., Oktave", "Upper half: 5th, Maj 6th, Maj 7th, Octave")
-        },
-        {
-          lvl: 4,
-          circleHtml: renderIntBadge(sec, tr("Dur", "Maj")),
-          title: tr("Stufe 4: Dur-Tonleiter", "Level 4: Major Scale"),
-          sub: tr("Alle 8 diatonischen Dur-Intervalle", "All 8 diatonic major intervals")
-        },
-        {
-          lvl: 6,
-          circleHtml: `<div class="node-circle ${sec.circle} node-circle-compact node-circle-nowrap">${begMinBadge}</div>`,
-          title: tr("Moll 1: Einsteiger", "Minor 1: Beginner"),
-          sub: tr("Prime, kl. Terz, Quinte, Oktave", "Unison, Min 3rd, 5th & Octave")
-        },
-        {
-          lvl: 7,
-          circleHtml: renderIntBadge(sec, "1–4m"),
-          title: tr("Moll 2: Moll 1–4", "Minor 2: Minor 1–4"),
-          sub: tr("Untere Hälfte: Prime, gr. Sek., kl. Terz, Quarte", "Lower half: Unison, Maj 2nd, Min 3rd, 4th")
-        },
-        {
-          lvl: 8,
-          circleHtml: renderIntBadge(sec, "5–8m"),
-          title: tr("Moll 3: Moll 5–8", "Minor 3: Minor 5–8"),
-          sub: tr("Obere Hälfte: Quinte, kl. Sexte, kl. Sept., Oktave", "Upper half: 5th, Min 6th, Min 7th, Octave")
-        },
-        {
-          lvl: 9,
-          circleHtml: renderIntBadge(sec, tr("Moll", "Min")),
-          title: tr("Moll 4: Moll-Tonleiter", "Minor 4: Minor Scale"),
-          sub: tr("Alle 8 Intervalle in natürlichem Moll", "All 8 natural minor intervals")
-        },
-        {
-          lvl: 5,
-          circleHtml: renderIntBadge(sec, tr("Alle", "All")),
-          title: tr("Stufe 5: Chromatisch", "Level 5: Chromatic"),
-          sub: tr("Alle 15 Intervalle bis zur None", "All 15 intervals up to a 9th")
-        }
-      ];
+      return {
+        major: [
+          {
+            lvl: 1,
+            circleHtml: `<div class="node-circle ${sec.circle}">${begBadge}</div>`,
+            title: tr("Stufe 1: Einsteiger", "Level 1: Beginner"),
+            sub: tr("Prime, gr. Terz, Quinte, Oktave", "Unison, Maj 3rd, 5th & Octave")
+          },
+          {
+            lvl: 2,
+            circleHtml: renderIntBadge(sec, "1–4"),
+            title: tr("Stufe 2: Dur 1–4", "Level 2: Major 1–4"),
+            sub: tr("Untere Hälfte: Prime, gr. Sek., gr. Terz, Quarte", "Lower half: Unison, Maj 2nd, Maj 3rd, 4th")
+          },
+          {
+            lvl: 3,
+            circleHtml: renderIntBadge(sec, "5–8"),
+            title: tr("Stufe 3: Dur 5–8", "Level 3: Major 5–8"),
+            sub: tr("Obere Hälfte: Quinte, gr. Sexte, gr. Sept., Oktave", "Upper half: 5th, Maj 6th, Maj 7th, Octave")
+          },
+          {
+            lvl: 4,
+            circleHtml: renderIntBadge(sec, tr("Dur", "Maj")),
+            title: tr("Stufe 4: Dur-Tonleiter", "Level 4: Major Scale"),
+            sub: tr("Alle 8 diatonischen Dur-Intervalle", "All 8 diatonic major intervals")
+          }
+        ],
+        minor: [
+          {
+            lvl: 6,
+            circleHtml: `<div class="node-circle ${sec.circle} node-circle-compact node-circle-nowrap">${begMinBadge}</div>`,
+            title: tr("Moll 1: Einsteiger", "Minor 1: Beginner"),
+            sub: tr("Prime, kl. Terz, Quinte, Oktave", "Unison, Min 3rd, 5th & Octave")
+          },
+          {
+            lvl: 7,
+            circleHtml: renderIntBadge(sec, "1–4m"),
+            title: tr("Moll 2: Moll 1–4", "Minor 2: Minor 1–4"),
+            sub: tr("Untere Hälfte: Prime, gr. Sek., kl. Terz, Quarte", "Lower half: Unison, Maj 2nd, Min 3rd, 4th")
+          },
+          {
+            lvl: 8,
+            circleHtml: renderIntBadge(sec, "5–8m"),
+            title: tr("Moll 3: Moll 5–8", "Minor 3: Minor 5–8"),
+            sub: tr("Obere Hälfte: Quinte, kl. Sexte, kl. Sept., Oktave", "Upper half: 5th, Min 6th, Min 7th, Octave")
+          },
+          {
+            lvl: 9,
+            circleHtml: renderIntBadge(sec, tr("Moll", "Min")),
+            title: tr("Moll 4: Moll-Tonleiter", "Minor 4: Minor Scale"),
+            sub: tr("Alle 8 Intervalle in natürlichem Moll", "All 8 natural minor intervals")
+          }
+        ],
+        chromatic: [
+          {
+            lvl: 5,
+            circleHtml: renderIntBadge(sec, tr("Alle", "All")),
+            title: tr("Stufe 5: Chromatisch", "Level 5: Chromatic"),
+            sub: tr("Alle 15 Intervalle bis zur None", "All 15 intervals up to a 9th")
+          }
+        ]
+      };
     };
 
-    const renderIntervalCategoryBody = () => {
-      const curRoot = String(state.settings.intervalCustomRoot ?? "random");
-      const curScale = String(state.settings.intervalCustomScale || "ionian");
-      const curScope = String(state.settings.intervalCustomScope || "full");
-      const activePool = getActiveIntervalCustomPool();
-      const hasManualPool = Array.isArray(state.settings.intervalCustomPool) && state.settings.intervalCustomPool.length >= 2;
-      const rootOptions = ["random", ...Array.from({ length: 12 }, (_, pc) => String(pc))];
-      const scaleIds = Object.keys(INTERVAL_SCALE_PRESETS);
-      const scopeIds = ["triad", "lower", "upper", "full"];
-      const allIntervals = Object.keys(HARMONIC_DATA.intervals);
-      const summaryBadge = getIntervalCustomBadgeLabel();
+    const selectedIntItem = activeSection ? INTERVAL_TYPE_ITEMS.find(t => t.id === activeSection) : null;
+    if (!selectedIntItem) {
+      state.activeCategorySection = null;
+      renderCategoryTypeMenu(container, categoryKey, INTERVAL_TYPE_ITEMS);
+    } else if (selectedIntItem.id === "interval-custom") {
+      state.activeCategorySectionTitle = selectedIntItem.title;
+      const renderCustomIntervalSubpage = () => {
+        const curRoot = String(state.settings.intervalCustomRoot ?? "random");
+        const curScale = String(state.settings.intervalCustomScale || "ionian");
+        const curScope = String(state.settings.intervalCustomScope || "full");
+        const activePool = getActiveIntervalCustomPool();
+        const hasManualPool = Array.isArray(state.settings.intervalCustomPool) && state.settings.intervalCustomPool.length >= 2;
+        const rootOptions = ["random", ...Array.from({ length: 12 }, (_, pc) => String(pc))];
+        const scaleIds = Object.keys(INTERVAL_SCALE_PRESETS);
+        const scopeIds = ["triad", "lower", "upper", "full"];
+        const allIntervals = Object.keys(HARMONIC_DATA.intervals);
+        const summaryBadge = getIntervalCustomBadgeLabel();
+
+        container.innerHTML = `
+          <div class="subpage-section">
+            <div class="subpage-section-head-row">
+              <h3 class="subpage-section-title">${tr("Freie Tonart & Modi (Eigenes Intervall-Training)", "Custom Key & Modes (Custom Interval Trainer)")}</h3>
+              <span class="subpage-section-key-pill">${escapeHtml(summaryBadge)}</span>
+            </div>
+            <p class="subpage-section-desc">${tr(
+              "Wähle deinen festen Grundton (oder Zufall), eine Tonleiter bzw. Kirchentonart und passe die abgefragten Intervalle beliebig an.",
+              "Choose a fixed root key (or random), pick any scale or church mode, and customize which intervals are tested."
+            )}</p>
+            <div class="notation-key-toolbar">
+              <div class="notation-key-quick-group">
+                <span class="notation-key-quick-label">${tr("1. Grundton / Tonart:", "1. Root / Key:")}</span>
+                <div class="notation-key-quick-row">
+                  ${rootOptions.map(opt => `
+                    <button type="button" class="k-filter-pill${curRoot === opt ? " active" : ""}" data-int-custom-root="${opt}">
+                      ${escapeHtml(getIntervalCustomRootLabel(opt))}
+                    </button>
+                  `).join("")}
+                </div>
+              </div>
+              <div class="notation-key-quick-group">
+                <span class="notation-key-quick-label">${tr("2. Tonleiter / Modus:", "2. Scale / Mode:")}</span>
+                <div class="notation-key-quick-row">
+                  ${scaleIds.map(sid => `
+                    <button type="button" class="k-filter-pill${curScale === sid ? " active" : ""}" data-int-custom-scale="${sid}">
+                      ${escapeHtml(getLocalizedIntervalCustomScaleLabel(sid))}
+                    </button>
+                  `).join("")}
+                </div>
+              </div>
+              <div class="notation-key-quick-group">
+                <span class="notation-key-quick-label">${tr("3. Umfang / Ausschnitt:", "3. Scale Range:")}</span>
+                <div class="notation-key-quick-row">
+                  ${scopeIds.map(sc => `
+                    <button type="button" class="k-filter-pill${curScope === sc && !hasManualPool ? " active" : ""}" data-int-custom-scope="${sc}">
+                      ${escapeHtml(getLocalizedIntervalCustomScopeLabel(sc))}
+                    </button>
+                  `).join("")}
+                </div>
+              </div>
+              <div class="notation-key-quick-group">
+                <span class="notation-key-quick-label">${tr("4. Aktive Intervalle (antippen zum An-/Abwählen, mind. 2):", "4. Active Intervals (tap to toggle, min. 2):")}</span>
+                <div class="notation-key-quick-row">
+                  ${allIntervals.map(intKey => {
+                    const def = getLocalizedIntervalDef(intKey);
+                    const isOn = activePool.includes(intKey);
+                    return `
+                      <button type="button" class="k-filter-pill${isOn ? " active" : ""}" data-int-custom-toggle="${intKey}" aria-pressed="${isOn}">
+                        ${escapeHtml(def.short)}
+                      </button>
+                    `;
+                  }).join("")}
+                </div>
+              </div>
+            </div>
+
+            <div class="subpage-nodes-grid" style="margin-top: 0.7rem;">
+              <button class="subpage-node-btn" data-launch-int="interval-melodic" data-int-lvl="10">
+                ${renderDirectionNodeCircle(tr("Frei", "Free"), "up")}
+                <span class="node-title">${tr("Aufwärts (Eigene Auswahl)", "Ascending (Custom)")}</span>
+                <span class="node-sub">${escapeHtml(summaryBadge)} • ${activePool.length} ${tr("Intervalle", "Intervals")}</span>
+              </button>
+              <button class="subpage-node-btn" data-launch-int="interval-melodic-down" data-int-lvl="10">
+                ${renderDirectionNodeCircle(tr("Frei", "Free"), "down")}
+                <span class="node-title">${tr("Abwärts (Eigene Auswahl)", "Descending (Custom)")}</span>
+                <span class="node-sub">${escapeHtml(summaryBadge)} • ${activePool.length} ${tr("Intervalle", "Intervals")}</span>
+              </button>
+              <button class="subpage-node-btn" data-launch-int="interval-harmonic" data-int-lvl="10">
+                <div class="node-circle circle-lilac node-circle-compact">${tr("Frei", "Free")}</div>
+                <span class="node-title">${tr("Harmonisch (Eigene Auswahl)", "Harmonic (Custom)")}</span>
+                <span class="node-sub">${escapeHtml(summaryBadge)} • ${activePool.length} ${tr("Intervalle", "Intervals")}</span>
+              </button>
+              <button class="subpage-node-btn" data-launch-int="interval-drone" data-int-lvl="10">
+                <div class="node-circle circle-sage node-circle-compact">${tr("Frei", "Free")}</div>
+                <span class="node-title">${tr("Grundton-Fläche (Eigene Auswahl)", "Root Pad (Custom)")}</span>
+                <span class="node-sub">${escapeHtml(summaryBadge)} • ${activePool.length} ${tr("Intervalle", "Intervals")}</span>
+              </button>
+            </div>
+          </div>
+        `;
+
+        container.querySelectorAll("[data-int-custom-root]").forEach(btn => {
+          btn.addEventListener("click", () => {
+            state.settings.intervalCustomRoot = btn.dataset.intCustomRoot;
+            renderCustomIntervalSubpage();
+          });
+        });
+
+        container.querySelectorAll("[data-int-custom-scale]").forEach(btn => {
+          btn.addEventListener("click", () => {
+            state.settings.intervalCustomScale = btn.dataset.intCustomScale;
+            state.settings.intervalCustomPool = null;
+            renderCustomIntervalSubpage();
+          });
+        });
+
+        container.querySelectorAll("[data-int-custom-scope]").forEach(btn => {
+          btn.addEventListener("click", () => {
+            state.settings.intervalCustomScope = btn.dataset.intCustomScope;
+            state.settings.intervalCustomPool = null;
+            renderCustomIntervalSubpage();
+          });
+        });
+
+        container.querySelectorAll("[data-int-custom-toggle]").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const key = btn.dataset.intCustomToggle;
+            const cur = getActiveIntervalCustomPool();
+            let next;
+            if (cur.includes(key)) {
+              if (cur.length <= 2) return;
+              next = cur.filter(k => k !== key);
+            } else {
+              next = Object.keys(HARMONIC_DATA.intervals).filter(k => cur.includes(k) || k === key);
+            }
+            state.settings.intervalCustomPool = next;
+            renderCustomIntervalSubpage();
+          });
+        });
+
+        container.querySelectorAll("[data-launch-int]").forEach(btn => {
+          btn.addEventListener("click", () => {
+            state.setMode(btn.dataset.launchInt);
+            state.setIntervalDifficulty(btn.dataset.intLvl);
+            state.exerciseReturnView = "category";
+            switchView("exercise");
+          });
+        });
+      };
+      renderCustomIntervalSubpage();
+    } else {
+      const sec = INTERVAL_PLAY_SECTIONS.find(s => s.mode === selectedIntItem.id);
+      state.activeCategorySectionTitle = sec.title;
+      const groups = getSectionCardGroups(sec);
+      const renderIntCards = (cards) => cards.map(card => `
+        <button class="subpage-node-btn" data-launch-int="${sec.mode}" data-int-lvl="${card.lvl}">
+          ${card.circleHtml}
+          <span class="node-title">${card.title}</span>
+          <span class="node-sub">${card.sub}</span>
+        </button>
+      `).join("");
 
       container.innerHTML = `
-        ${INTERVAL_PLAY_SECTIONS.map(sec => `
-          <div class="subpage-section">
-            <h3 class="subpage-section-title">${sec.title}</h3>
-            <p class="subpage-section-desc">${sec.desc}</p>
-            <div class="subpage-nodes-grid">
-              ${getSectionCards(sec).map(card => `
-                <button class="subpage-node-btn" data-launch-int="${sec.mode}" data-int-lvl="${card.lvl}">
-                  ${card.circleHtml}
-                  <span class="node-title">${card.title}</span>
-                  <span class="node-sub">${card.sub}</span>
-                </button>
-              `).join("")}
-            </div>
-          </div>
-        `).join("")}
-
         <div class="subpage-section">
-          <div class="subpage-section-head-row">
-            <h3 class="subpage-section-title">${tr("Freie Tonart & Modi (Eigenes Intervall-Training)", "Custom Key & Modes (Custom Interval Trainer)")}</h3>
-            <span class="subpage-section-key-pill">${escapeHtml(summaryBadge)}</span>
-          </div>
-          <p class="subpage-section-desc">${tr(
-            "Wähle deinen festen Grundton (oder Zufall), eine Tonleiter bzw. Kirchentonart und passe die abgefragten Intervalle beliebig an.",
-            "Choose a fixed root key (or random), pick any scale or church mode, and customize which intervals are tested."
-          )}</p>
-          <div class="notation-key-toolbar">
-            <div class="notation-key-quick-group">
-              <span class="notation-key-quick-label">${tr("1. Grundton / Tonart:", "1. Root / Key:")}</span>
-              <div class="notation-key-quick-row">
-                ${rootOptions.map(opt => `
-                  <button type="button" class="k-filter-pill${curRoot === opt ? " active" : ""}" data-int-custom-root="${opt}">
-                    ${escapeHtml(getIntervalCustomRootLabel(opt))}
-                  </button>
-                `).join("")}
-              </div>
-            </div>
-            <div class="notation-key-quick-group">
-              <span class="notation-key-quick-label">${tr("2. Tonleiter / Modus:", "2. Scale / Mode:")}</span>
-              <div class="notation-key-quick-row">
-                ${scaleIds.map(sid => `
-                  <button type="button" class="k-filter-pill${curScale === sid ? " active" : ""}" data-int-custom-scale="${sid}">
-                    ${escapeHtml(getLocalizedIntervalCustomScaleLabel(sid))}
-                  </button>
-                `).join("")}
-              </div>
-            </div>
-            <div class="notation-key-quick-group">
-              <span class="notation-key-quick-label">${tr("3. Umfang / Ausschnitt:", "3. Scale Range:")}</span>
-              <div class="notation-key-quick-row">
-                ${scopeIds.map(sc => `
-                  <button type="button" class="k-filter-pill${curScope === sc && !hasManualPool ? " active" : ""}" data-int-custom-scope="${sc}">
-                    ${escapeHtml(getLocalizedIntervalCustomScopeLabel(sc))}
-                  </button>
-                `).join("")}
-              </div>
-            </div>
-            <div class="notation-key-quick-group">
-              <span class="notation-key-quick-label">${tr("4. Aktive Intervalle (antippen zum An-/Abwählen, mind. 2):", "4. Active Intervals (tap to toggle, min. 2):")}</span>
-              <div class="notation-key-quick-row">
-                ${allIntervals.map(intKey => {
-                  const def = getLocalizedIntervalDef(intKey);
-                  const isOn = activePool.includes(intKey);
-                  return `
-                    <button type="button" class="k-filter-pill${isOn ? " active" : ""}" data-int-custom-toggle="${intKey}" aria-pressed="${isOn}">
-                      ${escapeHtml(def.short)}
-                    </button>
-                  `;
-                }).join("")}
-              </div>
-            </div>
-          </div>
-
-          <div class="subpage-nodes-grid" style="margin-top: 0.7rem;">
-            <button class="subpage-node-btn" data-launch-int="interval-melodic" data-int-lvl="10">
-              ${renderDirectionNodeCircle(tr("Frei", "Free"), "up")}
-              <span class="node-title">${tr("Aufwärts (Eigene Auswahl)", "Ascending (Custom)")}</span>
-              <span class="node-sub">${escapeHtml(summaryBadge)} • ${activePool.length} ${tr("Intervalle", "Intervals")}</span>
-            </button>
-            <button class="subpage-node-btn" data-launch-int="interval-melodic-down" data-int-lvl="10">
-              ${renderDirectionNodeCircle(tr("Frei", "Free"), "down")}
-              <span class="node-title">${tr("Abwärts (Eigene Auswahl)", "Descending (Custom)")}</span>
-              <span class="node-sub">${escapeHtml(summaryBadge)} • ${activePool.length} ${tr("Intervalle", "Intervals")}</span>
-            </button>
-            <button class="subpage-node-btn" data-launch-int="interval-harmonic" data-int-lvl="10">
-              <div class="node-circle circle-lilac node-circle-compact">${tr("Frei", "Free")}</div>
-              <span class="node-title">${tr("Harmonisch (Eigene Auswahl)", "Harmonic (Custom)")}</span>
-              <span class="node-sub">${escapeHtml(summaryBadge)} • ${activePool.length} ${tr("Intervalle", "Intervals")}</span>
-            </button>
-            <button class="subpage-node-btn" data-launch-int="interval-drone" data-int-lvl="10">
-              <div class="node-circle circle-sage node-circle-compact">${tr("Frei", "Free")}</div>
-              <span class="node-title">${tr("Grundton-Fläche (Eigene Auswahl)", "Root Pad (Custom)")}</span>
-              <span class="node-sub">${escapeHtml(summaryBadge)} • ${activePool.length} ${tr("Intervalle", "Intervals")}</span>
-            </button>
-          </div>
+          <h3 class="subpage-section-title">${tr("Dur-Intervalle", "Major Intervals")}</h3>
+          <p class="subpage-section-desc">${sec.desc}</p>
+          <div class="subpage-nodes-grid">${renderIntCards(groups.major)}</div>
+        </div>
+        <div class="subpage-section">
+          <h3 class="subpage-section-title">${tr("Moll-Intervalle", "Minor Intervals")}</h3>
+          <p class="subpage-section-desc">${tr("Derselbe Aufbau in Natürlich Moll (mit kl. Terz, kl. Sexte & kl. Septime)", "The same progression in Natural Minor (with min 3rd, min 6th & min 7th)")}</p>
+          <div class="subpage-nodes-grid">${renderIntCards(groups.minor)}</div>
+        </div>
+        <div class="subpage-section">
+          <h3 class="subpage-section-title">${tr("Chromatisch (Alle 15 Intervalle)", "Chromatic (All 15 Intervals)")}</h3>
+          <p class="subpage-section-desc">${tr("Volles Spektrum inkl. kl. Sekunde, Tritonus, kl./gr. Intervalle & Nonen", "Full spectrum incl. min 2nd, tritone, minor/major intervals & ninths")}</p>
+          <div class="subpage-nodes-grid">${renderIntCards(groups.chromatic)}</div>
         </div>
       `;
-
-      container.querySelectorAll("[data-int-custom-root]").forEach(btn => {
-        btn.addEventListener("click", () => {
-          state.settings.intervalCustomRoot = btn.dataset.intCustomRoot;
-          renderIntervalCategoryBody();
-        });
-      });
-
-      container.querySelectorAll("[data-int-custom-scale]").forEach(btn => {
-        btn.addEventListener("click", () => {
-          state.settings.intervalCustomScale = btn.dataset.intCustomScale;
-          state.settings.intervalCustomPool = null;
-          renderIntervalCategoryBody();
-        });
-      });
-
-      container.querySelectorAll("[data-int-custom-scope]").forEach(btn => {
-        btn.addEventListener("click", () => {
-          state.settings.intervalCustomScope = btn.dataset.intCustomScope;
-          state.settings.intervalCustomPool = null;
-          renderIntervalCategoryBody();
-        });
-      });
-
-      container.querySelectorAll("[data-int-custom-toggle]").forEach(btn => {
-        btn.addEventListener("click", () => {
-          const key = btn.dataset.intCustomToggle;
-          const cur = getActiveIntervalCustomPool();
-          let next;
-          if (cur.includes(key)) {
-            if (cur.length <= 2) return;
-            next = cur.filter(k => k !== key);
-          } else {
-            next = Object.keys(HARMONIC_DATA.intervals).filter(k => cur.includes(k) || k === key);
-          }
-          state.settings.intervalCustomPool = next;
-          renderIntervalCategoryBody();
-        });
-      });
 
       container.querySelectorAll("[data-launch-int]").forEach(btn => {
         btn.addEventListener("click", () => {
@@ -3041,29 +3183,31 @@ function openCategoryPage(categoryKey, options = {}) {
           switchView("exercise");
         });
       });
-
-      markBeginnerExerciseNodes(container);
-    };
-
-    renderIntervalCategoryBody();
+    }
 
   } else if (categoryKey === "chords") {
     const CHORD_QUALITY_SECTIONS = [
       {
         mode: "chord-arp-up",
         circleClass: "circle-sage",
+        badgeHtml: renderDirectionNodeCircle("Δ", "up", "circle-sage"),
+        isBeginner: true,
         title: tr("Akkord-Arpeggio (Aufwärts ↗)", "Chord Arpeggio (Ascending ↗)"),
         desc: tr("Akkordtöne erklingen nacheinander von unten nach oben – ideal zum Heraushören einzelner Terzen &amp; Septimen", "Chord tones roll upward note by note — ideal for hearing every 3rd, 5th &amp; 7th clearly")
       },
       {
         mode: "chord-arp-down",
         circleClass: "circle-lilac",
+        badgeHtml: renderDirectionNodeCircle("Δ", "down", "circle-lilac"),
+        isBeginner: true,
         title: tr("Akkord-Arpeggio (Abwärts ↘)", "Chord Arpeggio (Descending ↘)"),
         desc: tr("Akkordtöne erklingen nacheinander von oben nach unten", "Chord tones cascade downward from top to bottom")
       },
       {
         mode: "interval-chords",
         circleClass: "circle-peach",
+        badgeHtml: `<div class="node-circle circle-peach node-circle-compact node-circle-nowrap">Δ/7</div>`,
+        isBeginner: true,
         title: tr("Akkorde (Gleichzeitig)", "Chords (Simultaneous)"),
         desc: tr("Drei bis fünf Töne gleichzeitig als Vollklang – von einfachen Dreiklängen bis zu Jazz-Akkorden", "Three to five notes sounded together as one chord — from simple triads to jazz voicings")
       }
@@ -3074,80 +3218,116 @@ function openCategoryPage(categoryKey, options = {}) {
       { lvl: 3, badge: "7♭5", title: tr("Stufe 3: Erweitert", "Level 3: Extended"),                            sub: tr("+ sus2, Halb- &amp; Vollverm., m(maj7)", "+ sus2, Half- &amp; Full-Dim, m(maj7)") },
       { lvl: 4, badge: "7♯9", title: tr("Stufe 4: Jazz &amp; Optionstöne", "Level 4: Jazz &amp; Tensions"),   sub: "+ maj9, 7♭9 &amp; 7♯9" }
     ];
-    const renderQualitySection = (sec) => `
-      <div class="subpage-section">
-        <h3 class="subpage-section-title">${sec.title}</h3>
-        <p class="subpage-section-desc">${sec.desc}</p>
-        <div class="subpage-nodes-grid">
-          ${CHORD_QUALITY_LEVELS.map(lv => `
-            <button class="subpage-node-btn" data-launch-chord="${sec.mode}" data-chord-lvl="${lv.lvl}">
-              <div class="node-circle ${sec.circleClass}">${lv.badge}</div>
-              <span class="node-title">${lv.title}</span>
-              <span class="node-sub">${lv.sub}</span>
+
+    const CHORD_TYPE_ITEMS = [
+      ...CHORD_QUALITY_SECTIONS.map(sec => ({
+        id: sec.mode,
+        title: sec.title,
+        desc: sec.desc,
+        badgeHtml: sec.badgeHtml,
+        meta: tf("{n} Stufen", "{n} Levels", { n: 4 }),
+        isBeginner: sec.isBeginner
+      })),
+      {
+        id: "chord-inversions",
+        title: tr("Akkordumkehrungen", "Chord Inversions"),
+        desc: tr("Erkenne, welcher Akkordton ganz unten im Bass liegt (Grundstellung, 1., 2. oder 3. Umkehrung)", "Identify which chord tone sits lowest in the bass (Root Position, 1st, 2nd or 3rd Inversion)"),
+        badgeHtml: `<div class="node-circle circle-sage node-circle-compact node-circle-nowrap">1/3/5</div>`,
+        meta: tf("{n} Stufen", "{n} Levels", { n: 3 }),
+        isBeginner: false
+      }
+    ];
+
+    const selectedChordType = activeSection ? CHORD_TYPE_ITEMS.find(t => t.id === activeSection) : null;
+    if (!selectedChordType) {
+      state.activeCategorySection = null;
+      renderCategoryTypeMenu(container, categoryKey, CHORD_TYPE_ITEMS);
+    } else if (selectedChordType.id === "chord-inversions") {
+      state.activeCategorySectionTitle = selectedChordType.title;
+      container.innerHTML = `
+        <div class="subpage-section">
+          <h3 class="subpage-section-title">${tr("Akkordumkehrungen", "Chord Inversions")}</h3>
+          <p class="subpage-section-desc">${tr("Erkenne, welcher Akkordton ganz unten im Bass liegt (Grundstellung, 1., 2. oder 3. Umkehrung)", "Identify which chord tone sits lowest in the bass (Root Position, 1st, 2nd or 3rd Inversion)")}</p>
+          <div class="subpage-nodes-grid">
+            <button class="subpage-node-btn" data-launch-chord="chord-inversions" data-chord-lvl="1">
+              <div class="node-circle circle-sage">1/3/5</div>
+              <span class="node-title">${tr("Stufe 1: Dur-Dreiklang", "Level 1: Major Triad")}</span>
+              <span class="node-sub">${tr("Grundstellung, 1. &amp; 2. Umkehrung", "Root Pos., 1st &amp; 2nd Inversion")}</span>
             </button>
-          `).join("")}
+            <button class="subpage-node-btn" data-launch-chord="chord-inversions" data-chord-lvl="2">
+              <div class="node-circle circle-sage">${tr("D/m", "M/m")}</div>
+              <span class="node-title">${tr("Stufe 2: Dur &amp; Moll", "Level 2: Major &amp; Minor")}</span>
+              <span class="node-sub">${tr("Beide Dreiklangsfarben gemischt", "Major &amp; minor triads mixed")}</span>
+            </button>
+            <button class="subpage-node-btn" data-launch-chord="chord-inversions" data-chord-lvl="3">
+              <div class="node-circle circle-sage">1–7</div>
+              <span class="node-title">${tr("Stufe 3: Septakkorde (4)", "Level 3: 7th Chords (4)")}</span>
+              <span class="node-sub">${tr("Vierstimmig inkl. 3. Umkehrung (Bass: 7)", "Four-note chords incl. 3rd Inv. (Bass: 7)")}</span>
+            </button>
+          </div>
         </div>
-      </div>
-    `;
-
-    container.innerHTML = `
-      ${CHORD_QUALITY_SECTIONS.map(renderQualitySection).join("")}
-      <div class="subpage-section">
-        <h3 class="subpage-section-title">${tr("Akkordumkehrungen", "Chord Inversions")}</h3>
-        <p class="subpage-section-desc">${tr("Erkenne, welcher Akkordton ganz unten im Bass liegt (Grundstellung, 1., 2. oder 3. Umkehrung)", "Identify which chord tone sits lowest in the bass (Root Position, 1st, 2nd or 3rd Inversion)")}</p>
-        <div class="subpage-nodes-grid">
-          <button class="subpage-node-btn" data-launch-chord="chord-inversions" data-chord-lvl="1">
-            <div class="node-circle circle-sage">1/3/5</div>
-            <span class="node-title">${tr("Stufe 1: Dur-Dreiklang", "Level 1: Major Triad")}</span>
-            <span class="node-sub">${tr("Grundstellung, 1. &amp; 2. Umkehrung", "Root Pos., 1st &amp; 2nd Inversion")}</span>
-          </button>
-          <button class="subpage-node-btn" data-launch-chord="chord-inversions" data-chord-lvl="2">
-            <div class="node-circle circle-sage">${tr("D/m", "M/m")}</div>
-            <span class="node-title">${tr("Stufe 2: Dur &amp; Moll", "Level 2: Major &amp; Minor")}</span>
-            <span class="node-sub">${tr("Beide Dreiklangsfarben gemischt", "Major &amp; minor triads mixed")}</span>
-          </button>
-          <button class="subpage-node-btn" data-launch-chord="chord-inversions" data-chord-lvl="3">
-            <div class="node-circle circle-sage">1–7</div>
-            <span class="node-title">${tr("Stufe 3: Septakkorde (4)", "Level 3: 7th Chords (4)")}</span>
-            <span class="node-sub">${tr("Vierstimmig inkl. 3. Umkehrung (Bass: 7)", "Four-note chords incl. 3rd Inv. (Bass: 7)")}</span>
-          </button>
+      `;
+    } else {
+      const sec = CHORD_QUALITY_SECTIONS.find(s => s.mode === selectedChordType.id);
+      state.activeCategorySectionTitle = sec.title;
+      container.innerHTML = `
+        <div class="subpage-section">
+          <h3 class="subpage-section-title">${sec.title}</h3>
+          <p class="subpage-section-desc">${sec.desc}</p>
+          <div class="subpage-nodes-grid">
+            ${CHORD_QUALITY_LEVELS.map(lv => `
+              <button class="subpage-node-btn" data-launch-chord="${sec.mode}" data-chord-lvl="${lv.lvl}">
+                <div class="node-circle ${sec.circleClass}">${lv.badge}</div>
+                <span class="node-title">${lv.title}</span>
+                <span class="node-sub">${lv.sub}</span>
+              </button>
+            `).join("")}
+          </div>
         </div>
-      </div>
-    `;
+      `;
+    }
 
-    container.querySelectorAll("[data-launch-chord]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const mode = btn.dataset.launchChord;
-        state.setMode(mode);
-        if (mode === "chord-inversions") {
-          state.setChordInversionDifficulty(btn.dataset.chordLvl);
-        } else {
-          state.setChordDifficulty(btn.dataset.chordLvl);
-        }
-        state.exerciseReturnView = "category";
-        switchView("exercise");
+    if (selectedChordType) {
+      container.querySelectorAll("[data-launch-chord]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const mode = btn.dataset.launchChord;
+          state.setMode(mode);
+          if (mode === "chord-inversions") {
+            state.setChordInversionDifficulty(btn.dataset.chordLvl);
+          } else {
+            state.setChordDifficulty(btn.dataset.chordLvl);
+          }
+          state.exerciseReturnView = "category";
+          switchView("exercise");
+        });
       });
-    });
+    }
 
   } else if (categoryKey === "melody") {
-    const activeStyle = ["steady", "rhythmic", "dictation"].includes(state.settings.melodyStyle)
-      ? state.settings.melodyStyle
-      : "rhythmic";
-    const styleDefs = [
+    const MELODY_TYPE_ITEMS = [
+      {
+        id: "steady",
+        title: tr("Gleichmäßig (Basis)", "Steady (Basics)"),
+        desc: tr("4 gleichlange halbe Noten – voller Fokus auf Tonhöhen & Solfège-Stufen", "4 steady half notes — full focus on pitch & Solfège degrees"),
+        badgeHtml: `<div class="node-circle circle-sage node-circle-compact">${tr("Basis", "Basic")}</div>`,
+        meta: tr("3 Tonräume • Do–Fa, Sol–Do & Ganze Tonart", "3 Ranges • Do–Fa, Sol–Do & Full Key"),
+        isBeginner: true
+      },
       {
         id: "rhythmic",
         title: tr("Rhythmische Melodie", "Rhythmic Melody"),
-        sub: tr("4–6 Töne • Rhythmus sichtbar", "4–6 notes • Rhythm visible")
+        desc: tr("4–6 Töne in echten Phrasen (4/4 & 3/4) – der Rhythmus ist sichtbar vorgegeben", "4–6 notes in musical phrases (4/4 & 3/4) — rhythm is shown as a guide"),
+        badgeHtml: `<div class="node-circle circle-peach">4–6</div>`,
+        meta: tr("3 Tonräume • Do–Fa, Sol–Do & Ganze Tonart", "3 Ranges • Do–Fa, Sol–Do & Full Key"),
+        isBeginner: true
       },
       {
         id: "dictation",
         title: tr("Kombi-Diktat", "Full Dictation"),
-        sub: tr("Tonhöhe + Notenlänge hören", "Pitch + note length together")
-      },
-      {
-        id: "steady",
-        title: tr("Gleichmäßig (Basis)", "Steady (Basics)"),
-        sub: tr("4 gleichlange Halbe", "4 steady half notes")
+        desc: tr("Tonhöhe UND Notenlänge (♪, ♩, ♩., 𝅗𝅥) gemeinsam nach Gehör heraushören", "Identify both pitch AND note duration (♪, ♩, ♩., 𝅗𝅥) together by ear"),
+        badgeHtml: `<div class="node-circle circle-lilac node-circle-compact node-circle-nowrap">♪+Do</div>`,
+        meta: tr("3 Tonräume • Do–Fa, Sol–Do & Ganze Tonart", "3 Ranges • Do–Fa, Sol–Do & Full Key"),
+        isBeginner: false
       }
     ];
 
@@ -3180,22 +3360,17 @@ function openCategoryPage(categoryKey, options = {}) {
       { keyMode: "random", octave: "multi",  circle: "circle-lilac", badge: "? • ∞", title: tr("Zufallstonarten (Mehrere Okt.)", "Random Keys (Multi-Octave)"), sub: tr("Wechselnde Tonarten & Oktaven", "Changing keys & octaves") }
     ];
 
-    const renderMelodyBody = (selectedStyle) => `
-      <div class="melody-style-card">
-        <p class="melody-style-card-title">${tr("Rhythmus- & Trainingsart", "Rhythm & Exercise Mode")}</p>
-        <div class="melody-style-tabs" role="tablist" aria-label="${escapeHtml(tr("Melodie-Modus wählen", "Select melody mode"))}">
-          ${styleDefs.map(sd => `
-            <button type="button" class="melody-style-tab ${selectedStyle === sd.id ? "active" : ""}" data-melody-style-pick="${sd.id}">
-              <strong>${sd.title}</strong>
-              <span>${sd.sub}</span>
-            </button>
-          `).join("")}
-        </div>
-      </div>
-      ${MELODY_SECTIONS.map(sec => `
+    const selectedMelType = activeSection ? MELODY_TYPE_ITEMS.find(t => t.id === activeSection) : null;
+    if (!selectedMelType) {
+      state.activeCategorySection = null;
+      renderCategoryTypeMenu(container, categoryKey, MELODY_TYPE_ITEMS);
+    } else {
+      state.settings.melodyStyle = selectedMelType.id;
+      state.activeCategorySectionTitle = selectedMelType.title;
+      container.innerHTML = MELODY_SECTIONS.map(sec => `
         <div class="subpage-section">
           <h3 class="subpage-section-title">${sec.title}</h3>
-          <p class="subpage-section-desc" data-melody-sec-desc="${sec.range}">${getMelodyRangeDesc(sec.range, selectedStyle)}</p>
+          <p class="subpage-section-desc">${getMelodyRangeDesc(sec.range, selectedMelType.id)}</p>
           <div class="subpage-nodes-grid">
             ${MELODY_VARIANTS.map(v => `
               <button class="subpage-node-btn"
@@ -3209,151 +3384,50 @@ function openCategoryPage(categoryKey, options = {}) {
             `).join("")}
           </div>
         </div>
-      `).join("")}
-    `;
+      `).join("");
 
-    container.innerHTML = renderMelodyBody(activeStyle);
-
-    container.querySelectorAll("[data-melody-style-pick]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const nextStyle = btn.dataset.melodyStylePick;
-        state.settings.melodyStyle = ["steady", "rhythmic", "dictation"].includes(nextStyle) ? nextStyle : "rhythmic";
-        container.querySelectorAll("[data-melody-style-pick]").forEach(b => {
-          b.classList.toggle("active", b === btn);
-        });
-        MELODY_SECTIONS.forEach(sec => {
-          const pEl = container.querySelector(`[data-melody-sec-desc="${sec.range}"]`);
-          if (pEl) pEl.textContent = getMelodyRangeDesc(sec.range, state.settings.melodyStyle);
+      container.querySelectorAll("[data-launch-melody]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          state.setMode("melody");
+          state.setMelodyConfig(
+            btn.dataset.launchMelody,
+            btn.dataset.melodyKey,
+            btn.dataset.melodyOctave,
+            selectedMelType.id
+          );
+          state.exerciseReturnView = "category";
+          switchView("exercise");
         });
       });
-    });
-
-    container.querySelectorAll("[data-launch-melody]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        state.setMode("melody");
-        state.setMelodyConfig(
-          btn.dataset.launchMelody,
-          btn.dataset.melodyKey,
-          btn.dataset.melodyOctave,
-          state.settings.melodyStyle
-        );
-        state.exerciseReturnView = "category";
-        switchView("exercise");
-      });
-    });
+    }
 
   } else if (categoryKey === "solfege") {
-    container.innerHTML = `
-      <div class="subpage-section">
-        <h3 class="subpage-section-title">${tr("Solfège • Dur (Do, Re, Mi, Fa, Sol, La, Ti)", "Solfège • Major (Do, Re, Mi, Fa, Sol, La, Ti)")}</h3>
-        <p class="subpage-section-desc">${tr("Höre die Dur-Kadenz (I–vi–IV–V) und erkenne die gespielte Tonstufe auf der Klaviatur", "Hear the major cadence (I–vi–IV–V) and identify the target scale degree on the keyboard")}</p>
-        <div class="subpage-nodes-grid">
-          <button class="subpage-node-btn" data-launch-solfege="1">
-            <div class="node-circle circle-sage node-circle-compact">Do–Fa</div>
-            <span class="node-title">${tr("Stufe 1: Do–Fa (C-Dur)", "Level 1: Do–Fa (C Major)")}</span>
-            <span class="node-sub">${tr("Untere Hälfte (4 Töne), feste Tonart C-Dur", "Lower half (4 notes), fixed key C Major")}</span>
-          </button>
-
-          <button class="subpage-node-btn" data-launch-solfege="2">
-            <div class="node-circle circle-sage node-circle-compact">Sol–Do</div>
-            <span class="node-title">${tr("Stufe 2: Sol–Do (C-Dur)", "Level 2: Sol–Do (C Major)")}</span>
-            <span class="node-sub">${tr("Obere Hälfte (4 Töne), feste Tonart C-Dur", "Upper half (4 notes), fixed key C Major")}</span>
-          </button>
-
-          <button class="subpage-node-btn" data-launch-solfege="3">
-            <div class="node-circle circle-sage">C • 1</div>
-            <span class="node-title">${tr("Stufe 3: C-Dur (1 Oktave)", "Level 3: C Major (1 Octave)")}</span>
-            <span class="node-sub">${tr("Ganze Tonleiter, mittlere Höhe, feste Tonart C-Dur", "Full scale, middle register, fixed key C Major")}</span>
-          </button>
-
-          <button class="subpage-node-btn" data-launch-solfege="4">
-            <div class="node-circle circle-sage">? • 1</div>
-            <span class="node-title">${tr("Stufe 4: Zufällige Tonart (1 Okt.)", "Level 4: Random Key (1 Oct.)")}</span>
-            <span class="node-sub">${tr("Nicht C-Dur, fest für diese Sitzung", "Non-C key, fixed for this session")}</span>
-          </button>
-
-          <button class="subpage-node-btn" data-launch-solfege="5">
-            <div class="node-circle circle-peach">C • ∞</div>
-            <span class="node-title">${tr("Stufe 5: C-Dur (Mehrere Oktaven)", "Level 5: C Major (Multi-Octave)")}</span>
-            <span class="node-sub">${tr("Feste Tonart C-Dur, wechselnde Oktaven", "Fixed key C Major, shifting octaves")}</span>
-          </button>
-
-          <button class="subpage-node-btn" data-launch-solfege="6">
-            <div class="node-circle circle-peach">? • ∞</div>
-            <span class="node-title">${tr("Stufe 6: Zufällige Tonart (Mehrere Okt.)", "Level 6: Random Key (Multi-Oct.)")}</span>
-            <span class="node-sub">${tr("Nicht C-Dur (fest), wechselnde Oktaven", "Non-C key (fixed), shifting octaves")}</span>
-          </button>
-
-          <button class="subpage-node-btn" data-launch-solfege="7">
-            <div class="node-circle circle-lilac">${REFRESH_ICON_SVG} • 1</div>
-            <span class="node-title">${tr("Stufe 7: Tonartwechsel (1 Oktave)", "Level 7: Key Changes (1 Octave)")}</span>
-            <span class="node-sub">${tr("Neue Tonart nach jeder Antwort, 1 Okt.", "New key after every answer, 1 oct.")}</span>
-          </button>
-
-          <button class="subpage-node-btn" data-launch-solfege="8">
-            <div class="node-circle circle-lilac">${REFRESH_ICON_SVG} • ∞</div>
-            <span class="node-title">${tr("Stufe 8: Tonartwechsel (Mehrere Okt.)", "Level 8: Key Changes (Multi-Oct.)")}</span>
-            <span class="node-sub">${tr("Neue Tonart & Oktave nach jeder Antwort", "New key & octave after every answer")}</span>
-          </button>
-        </div>
-      </div>
-
-      <div class="subpage-section">
-        <h3 class="subpage-section-title">${tr("Solfège • Moll (Do, Re, Me, Fa, Sol, Le, Te)", "Solfège • Minor (Do, Re, Me, Fa, Sol, Le, Te)")}</h3>
-        <p class="subpage-section-desc">${tr("Höre die Moll-Kadenz (i–VI–iv–V) und erkenne die gespielte Tonstufe in Natürlich Moll", "Hear the minor cadence (i–VI–iv–V) and identify the target degree in Natural Minor")}</p>
-        <div class="subpage-nodes-grid">
-          <button class="subpage-node-btn" data-launch-solfege="9">
-            <div class="node-circle circle-lilac node-circle-compact">Do–Fa</div>
-            <span class="node-title">${tr("Moll 1: Do–Fa (c-Moll)", "Minor 1: Do–Fa (C Minor)")}</span>
-            <span class="node-sub">${tr("Untere Hälfte (Do, Re, Me, Fa), feste Tonart c-Moll", "Lower half (Do, Re, Me, Fa), fixed key C Minor")}</span>
-          </button>
-
-          <button class="subpage-node-btn" data-launch-solfege="10">
-            <div class="node-circle circle-lilac node-circle-compact">Sol–Do</div>
-            <span class="node-title">${tr("Moll 2: Sol–Do (c-Moll)", "Minor 2: Sol–Do (C Minor)")}</span>
-            <span class="node-sub">${tr("Obere Hälfte (Sol, Le, Te, Do), feste Tonart c-Moll", "Upper half (Sol, Le, Te, Do), fixed key C Minor")}</span>
-          </button>
-
-          <button class="subpage-node-btn" data-launch-solfege="11">
-            <div class="node-circle circle-lilac">c • 1</div>
-            <span class="node-title">${tr("Moll 3: c-Moll (1 Oktave)", "Minor 3: C Minor (1 Octave)")}</span>
-            <span class="node-sub">${tr("Ganze Moll-Tonleiter, mittlere Höhe, feste Tonart c-Moll", "Full minor scale, middle register, fixed key C Minor")}</span>
-          </button>
-
-          <button class="subpage-node-btn" data-launch-solfege="12">
-            <div class="node-circle circle-lilac">? • 1</div>
-            <span class="node-title">${tr("Moll 4: Zufällige Tonart (1 Okt.)", "Minor 4: Random Key (1 Oct.)")}</span>
-            <span class="node-sub">${tr("Nicht c-Moll, fest für diese Sitzung", "Non-C minor key, fixed for this session")}</span>
-          </button>
-
-          <button class="subpage-node-btn" data-launch-solfege="13">
-            <div class="node-circle circle-peach">c • ∞</div>
-            <span class="node-title">${tr("Moll 5: c-Moll (Mehrere Oktaven)", "Minor 5: C Minor (Multi-Octave)")}</span>
-            <span class="node-sub">${tr("Feste Tonart c-Moll, wechselnde Oktaven", "Fixed key C Minor, shifting octaves")}</span>
-          </button>
-
-          <button class="subpage-node-btn" data-launch-solfege="14">
-            <div class="node-circle circle-peach">? • ∞</div>
-            <span class="node-title">${tr("Moll 6: Zufällige Tonart (Mehrere Okt.)", "Minor 6: Random Key (Multi-Oct.)")}</span>
-            <span class="node-sub">${tr("Nicht c-Moll (fest), wechselnde Oktaven", "Non-C minor key (fixed), shifting octaves")}</span>
-          </button>
-
-          <button class="subpage-node-btn" data-launch-solfege="15">
-            <div class="node-circle circle-sage">${REFRESH_ICON_SVG} • 1</div>
-            <span class="node-title">${tr("Moll 7: Tonartwechsel (1 Oktave)", "Minor 7: Key Changes (1 Octave)")}</span>
-            <span class="node-sub">${tr("Neue Moll-Tonart nach jeder Antwort, 1 Okt.", "New minor key after every answer, 1 oct.")}</span>
-          </button>
-
-          <button class="subpage-node-btn" data-launch-solfege="16">
-            <div class="node-circle circle-sage">${REFRESH_ICON_SVG} • ∞</div>
-            <span class="node-title">${tr("Moll 8: Tonartwechsel (Mehrere Okt.)", "Minor 8: Key Changes (Multi-Oct.)")}</span>
-            <span class="node-sub">${tr("Neue Moll-Tonart & Oktave nach jeder Antwort", "New minor key & octave after every answer")}</span>
-          </button>
-        </div>
-      </div>
-
-      <div id="solfegeCustomSectionMount" class="subpage-section"></div>
-    `;
+    const SOLFEGE_TYPE_ITEMS = [
+      {
+        id: "major",
+        title: tr("Solfège • Dur", "Solfège • Major"),
+        desc: tr("Höre die Dur-Kadenz (I–vi–IV–V) und erkenne die gespielte Tonstufe auf der Klaviatur", "Hear the major cadence (I–vi–IV–V) and identify the target scale degree on the keyboard"),
+        badgeHtml: `<div class="node-circle circle-sage">${tr("Dur", "Maj")}</div>`,
+        meta: tr("8 Stufen • Do–Fa, Sol–Do bis Tonartwechsel", "8 Levels • Do–Fa, Sol–Do to Key Changes"),
+        isBeginner: true
+      },
+      {
+        id: "minor",
+        title: tr("Solfège • Moll", "Solfège • Minor"),
+        desc: tr("Höre die Moll-Kadenz (i–VI–iv–V) und erkenne die gespielte Tonstufe in Natürlich Moll", "Hear the minor cadence (i–VI–iv–V) and identify the target degree in Natural Minor"),
+        badgeHtml: `<div class="node-circle circle-lilac">${tr("Moll", "Min")}</div>`,
+        meta: tr("8 Stufen • Do–Fa, Sol–Do bis Tonartwechsel", "8 Levels • Do–Fa, Sol–Do to Key Changes"),
+        isBeginner: true
+      },
+      {
+        id: "custom",
+        title: tr("Eigene Tonart (Dur & Moll)", "Custom Key (Major & Minor)"),
+        desc: tr("Wähle beliebige Dur- oder Moll-Tonart, Tonraum & Oktavlage frei – auch direkt in der Übung jederzeit anpassbar", "Choose any major or minor key, scale half & octave register freely — also adjustable anytime inside the exercise"),
+        badgeHtml: `<div class="node-circle circle-peach node-circle-compact">${tr("Frei", "Free")}</div>`,
+        meta: tr("Frei wählbar • Dur & Moll", "Custom • Major & Minor"),
+        isBeginner: false
+      }
+    ];
 
     const bindSolfegeLaunchButtons = (root) => {
       root.querySelectorAll("[data-launch-solfege]").forEach(btn => {
@@ -3366,108 +3440,234 @@ function openCategoryPage(categoryKey, options = {}) {
       });
     };
 
-    const renderSolfegeCustomSection = () => {
-      const mount = container.querySelector("#solfegeCustomSectionMount");
-      if (!mount) return;
-      const curTonality = state.settings.solfegeCustomTonality === "minor" ? "minor" : "major";
-      const curKey = String(state.settings.solfegeCustomKey || "C");
-      const curRange = ["do-fa", "sol-do", "full"].includes(state.settings.solfegeCustomRange)
-        ? state.settings.solfegeCustomRange
-        : "full";
-      const curOct = state.settings.solfegeCustomOctave === "multi" ? "multi" : "single";
-      const keyOrder = ["random", "C", "G", "D", "A", "E", "B", "F#", "Db", "Ab", "Eb", "Bb", "F"];
-      const rangeDefs = [
-        { id: "do-fa",  label: tr("Do–Fa (Untere Hälfte)", "Do–Fa (Lower Half)") },
-        { id: "sol-do", label: tr("Sol–Do (Obere Hälfte)", "Sol–Do (Upper Half)") },
-        { id: "full",   label: tr("Ganze Tonart (Do–Do)", "Full Scale (Do–Do)") }
-      ];
-      const summaryKey = curKey === "random"
-        ? `${tr("Zufall", "Random")} (${curTonality === "minor" ? tr("Moll", "Minor") : tr("Dur", "Major")})`
-        : getKeyDisplayName(curKey, curTonality);
-      const summaryRange = curRange === "do-fa" ? "Do–Fa" : (curRange === "sol-do" ? "Sol–Do" : "Do–Do");
-      const summaryOct = curOct === "multi" ? tr("Mehrere Okt.", "Multi-Oct.") : tr("1 Oktave", "1 Octave");
+    const selectedSolfType = activeSection ? SOLFEGE_TYPE_ITEMS.find(t => t.id === activeSection) : null;
+    if (!selectedSolfType) {
+      state.activeCategorySection = null;
+      renderCategoryTypeMenu(container, categoryKey, SOLFEGE_TYPE_ITEMS);
+    } else if (selectedSolfType.id === "major") {
+      state.activeCategorySectionTitle = selectedSolfType.title;
+      container.innerHTML = `
+        <div class="subpage-section">
+          <h3 class="subpage-section-title">${tr("Solfège • Dur (Do, Re, Mi, Fa, Sol, La, Ti)", "Solfège • Major (Do, Re, Mi, Fa, Sol, La, Ti)")}</h3>
+          <p class="subpage-section-desc">${tr("Höre die Dur-Kadenz (I–vi–IV–V) und erkenne die gespielte Tonstufe auf der Klaviatur", "Hear the major cadence (I–vi–IV–V) and identify the target scale degree on the keyboard")}</p>
+          <div class="subpage-nodes-grid">
+            <button class="subpage-node-btn" data-launch-solfege="1">
+              <div class="node-circle circle-sage node-circle-compact">Do–Fa</div>
+              <span class="node-title">${tr("Stufe 1: Do–Fa (C-Dur)", "Level 1: Do–Fa (C Major)")}</span>
+              <span class="node-sub">${tr("Untere Hälfte (4 Töne), feste Tonart C-Dur", "Lower half (4 notes), fixed key C Major")}</span>
+            </button>
 
-      mount.innerHTML = `
-        <h3 class="subpage-section-title">${tr("Eigene Tonart (Dur & Moll)", "Custom Key (Major & Minor)")}</h3>
-        <p class="subpage-section-desc">${tr("Wähle beliebige Dur- oder Moll-Tonart, Tonraum & Oktavlage frei – auch direkt in der Übung jederzeit anpassbar", "Choose any major or minor key, scale half & octave register freely — also adjustable anytime inside the exercise")}</p>
-        <div class="notation-key-quick-box">
-          <div class="notation-key-quick-group">
-            <span class="notation-key-quick-label">${tr("1. Tongeschlecht:", "1. Tonality:")}</span>
-            <div class="notation-key-quick-row">
-              <button type="button" class="k-filter-pill${curTonality === "major" ? " active" : ""}" data-solf-custom-tonality="major">${tr("Dur", "Major")}</button>
-              <button type="button" class="k-filter-pill${curTonality === "minor" ? " active" : ""}" data-solf-custom-tonality="minor">${tr("Moll", "Minor")}</button>
-            </div>
+            <button class="subpage-node-btn" data-launch-solfege="2">
+              <div class="node-circle circle-sage node-circle-compact">Sol–Do</div>
+              <span class="node-title">${tr("Stufe 2: Sol–Do (C-Dur)", "Level 2: Sol–Do (C Major)")}</span>
+              <span class="node-sub">${tr("Obere Hälfte (4 Töne), feste Tonart C-Dur", "Upper half (4 notes), fixed key C Major")}</span>
+            </button>
+
+            <button class="subpage-node-btn" data-launch-solfege="3">
+              <div class="node-circle circle-sage">C • 1</div>
+              <span class="node-title">${tr("Stufe 3: C-Dur (1 Oktave)", "Level 3: C Major (1 Octave)")}</span>
+              <span class="node-sub">${tr("Ganze Tonleiter, mittlere Höhe, feste Tonart C-Dur", "Full scale, middle register, fixed key C Major")}</span>
+            </button>
+
+            <button class="subpage-node-btn" data-launch-solfege="4">
+              <div class="node-circle circle-sage">? • 1</div>
+              <span class="node-title">${tr("Stufe 4: Zufällige Tonart (1 Okt.)", "Level 4: Random Key (1 Oct.)")}</span>
+              <span class="node-sub">${tr("Nicht C-Dur, fest für diese Sitzung", "Non-C key, fixed for this session")}</span>
+            </button>
+
+            <button class="subpage-node-btn" data-launch-solfege="5">
+              <div class="node-circle circle-peach">C • ∞</div>
+              <span class="node-title">${tr("Stufe 5: C-Dur (Mehrere Oktaven)", "Level 5: C Major (Multi-Octave)")}</span>
+              <span class="node-sub">${tr("Feste Tonart C-Dur, wechselnde Oktaven", "Fixed key C Major, shifting octaves")}</span>
+            </button>
+
+            <button class="subpage-node-btn" data-launch-solfege="6">
+              <div class="node-circle circle-peach">? • ∞</div>
+              <span class="node-title">${tr("Stufe 6: Zufällige Tonart (Mehrere Okt.)", "Level 6: Random Key (Multi-Oct.)")}</span>
+              <span class="node-sub">${tr("Nicht C-Dur (fest), wechselnde Oktaven", "Non-C key (fixed), shifting octaves")}</span>
+            </button>
+
+            <button class="subpage-node-btn" data-launch-solfege="7">
+              <div class="node-circle circle-lilac">${REFRESH_ICON_SVG} • 1</div>
+              <span class="node-title">${tr("Stufe 7: Tonartwechsel (1 Oktave)", "Level 7: Key Changes (1 Octave)")}</span>
+              <span class="node-sub">${tr("Neue Tonart nach jeder Antwort, 1 Okt.", "New key after every answer, 1 oct.")}</span>
+            </button>
+
+            <button class="subpage-node-btn" data-launch-solfege="8">
+              <div class="node-circle circle-lilac">${REFRESH_ICON_SVG} • ∞</div>
+              <span class="node-title">${tr("Stufe 8: Tonartwechsel (Mehrere Okt.)", "Level 8: Key Changes (Multi-Oct.)")}</span>
+              <span class="node-sub">${tr("Neue Tonart & Oktave nach jeder Antwort", "New key & octave after every answer")}</span>
+            </button>
           </div>
-          <div class="notation-key-quick-group">
-            <span class="notation-key-quick-label">${tr("2. Tonart:", "2. Key:")}</span>
-            <div class="notation-key-quick-row">
-              ${keyOrder.map(k => {
-                const lbl = k === "random" ? tr("Zufall", "Random") : getKeyDisplayName(k, curTonality);
-                return `<button type="button" class="k-filter-pill${k === curKey ? " active" : ""}" data-solf-custom-key="${k}">${escapeHtml(lbl)}</button>`;
-              }).join("")}
-            </div>
-          </div>
-          <div class="notation-key-quick-group">
-            <span class="notation-key-quick-label">${tr("3. Tonraum:", "3. Scale Range:")}</span>
-            <div class="notation-key-quick-row">
-              ${rangeDefs.map(r => `
-                <button type="button" class="k-filter-pill${r.id === curRange ? " active" : ""}" data-solf-custom-range="${r.id}">${escapeHtml(r.label)}</button>
-              `).join("")}
-            </div>
-          </div>
-          <div class="notation-key-quick-group">
-            <span class="notation-key-quick-label">${tr("4. Oktavlage:", "4. Octave Register:")}</span>
-            <div class="notation-key-quick-row">
-              <button type="button" class="k-filter-pill${curOct === "single" ? " active" : ""}" data-solf-custom-oct="single">${tr("1 Oktave", "1 Octave")}</button>
-              <button type="button" class="k-filter-pill${curOct === "multi" ? " active" : ""}" data-solf-custom-oct="multi">${tr("Mehrere Oktaven", "Multi-Octave")}</button>
-            </div>
-          </div>
-        </div>
-        <div class="subpage-nodes-grid" style="margin-top: 0.7rem;">
-          <button class="subpage-node-btn" data-launch-solfege="17">
-            <div class="node-circle circle-peach node-circle-compact">${tr("Frei", "Free")}</div>
-            <span class="node-title">${tr("Solfège mit eigener Tonart starten", "Start Custom Key Solfège")}</span>
-            <span class="node-sub">${escapeHtml(`${summaryKey} • ${summaryRange} • ${summaryOct}`)}</span>
-          </button>
         </div>
       `;
+      bindSolfegeLaunchButtons(container);
+    } else if (selectedSolfType.id === "minor") {
+      state.activeCategorySectionTitle = selectedSolfType.title;
+      container.innerHTML = `
+        <div class="subpage-section">
+          <h3 class="subpage-section-title">${tr("Solfège • Moll (Do, Re, Me, Fa, Sol, Le, Te)", "Solfège • Minor (Do, Re, Me, Fa, Sol, Le, Te)")}</h3>
+          <p class="subpage-section-desc">${tr("Höre die Moll-Kadenz (i–VI–iv–V) und erkenne die gespielte Tonstufe in Natürlich Moll", "Hear the minor cadence (i–VI–iv–V) and identify the target degree in Natural Minor")}</p>
+          <div class="subpage-nodes-grid">
+            <button class="subpage-node-btn" data-launch-solfege="9">
+              <div class="node-circle circle-lilac node-circle-compact">Do–Fa</div>
+              <span class="node-title">${tr("Moll 1: Do–Fa (c-Moll)", "Minor 1: Do–Fa (C Minor)")}</span>
+              <span class="node-sub">${tr("Untere Hälfte (Do, Re, Me, Fa), feste Tonart c-Moll", "Lower half (Do, Re, Me, Fa), fixed key C Minor")}</span>
+            </button>
 
-      mount.querySelectorAll("[data-solf-custom-tonality]").forEach(btn => {
-        btn.addEventListener("click", () => {
-          state.settings.solfegeCustomTonality = btn.dataset.solfCustomTonality === "minor" ? "minor" : "major";
-          renderSolfegeCustomSection();
-        });
-      });
-      mount.querySelectorAll("[data-solf-custom-key]").forEach(btn => {
-        btn.addEventListener("click", () => {
-          state.settings.solfegeCustomKey = btn.dataset.solfCustomKey;
-          renderSolfegeCustomSection();
-        });
-      });
-      mount.querySelectorAll("[data-solf-custom-range]").forEach(btn => {
-        btn.addEventListener("click", () => {
-          state.settings.solfegeCustomRange = btn.dataset.solfCustomRange;
-          renderSolfegeCustomSection();
-        });
-      });
-      mount.querySelectorAll("[data-solf-custom-oct]").forEach(btn => {
-        btn.addEventListener("click", () => {
-          state.settings.solfegeCustomOctave = btn.dataset.solfCustomOct === "multi" ? "multi" : "single";
-          renderSolfegeCustomSection();
-        });
-      });
-      bindSolfegeLaunchButtons(mount);
-    };
+            <button class="subpage-node-btn" data-launch-solfege="10">
+              <div class="node-circle circle-lilac node-circle-compact">Sol–Do</div>
+              <span class="node-title">${tr("Moll 2: Sol–Do (c-Moll)", "Minor 2: Sol–Do (C Minor)")}</span>
+              <span class="node-sub">${tr("Obere Hälfte (Sol, Le, Te, Do), feste Tonart c-Moll", "Upper half (Sol, Le, Te, Do), fixed key C Minor")}</span>
+            </button>
 
-    bindSolfegeLaunchButtons(container);
-    renderSolfegeCustomSection();
+            <button class="subpage-node-btn" data-launch-solfege="11">
+              <div class="node-circle circle-lilac">c • 1</div>
+              <span class="node-title">${tr("Moll 3: c-Moll (1 Oktave)", "Minor 3: C Minor (1 Octave)")}</span>
+              <span class="node-sub">${tr("Ganze Moll-Tonleiter, mittlere Höhe, feste Tonart c-Moll", "Full minor scale, middle register, fixed key C Minor")}</span>
+            </button>
+
+            <button class="subpage-node-btn" data-launch-solfege="12">
+              <div class="node-circle circle-lilac">? • 1</div>
+              <span class="node-title">${tr("Moll 4: Zufällige Tonart (1 Okt.)", "Minor 4: Random Key (1 Oct.)")}</span>
+              <span class="node-sub">${tr("Nicht c-Moll, fest für diese Sitzung", "Non-C minor key, fixed for this session")}</span>
+            </button>
+
+            <button class="subpage-node-btn" data-launch-solfege="13">
+              <div class="node-circle circle-peach">c • ∞</div>
+              <span class="node-title">${tr("Moll 5: c-Moll (Mehrere Oktaven)", "Minor 5: C Minor (Multi-Octave)")}</span>
+              <span class="node-sub">${tr("Feste Tonart c-Moll, wechselnde Oktaven", "Fixed key C Minor, shifting octaves")}</span>
+            </button>
+
+            <button class="subpage-node-btn" data-launch-solfege="14">
+              <div class="node-circle circle-peach">? • ∞</div>
+              <span class="node-title">${tr("Moll 6: Zufällige Tonart (Mehrere Okt.)", "Minor 6: Random Key (Multi-Oct.)")}</span>
+              <span class="node-sub">${tr("Nicht c-Moll (fest), wechselnde Oktaven", "Non-C minor key (fixed), shifting octaves")}</span>
+            </button>
+
+            <button class="subpage-node-btn" data-launch-solfege="15">
+              <div class="node-circle circle-sage">${REFRESH_ICON_SVG} • 1</div>
+              <span class="node-title">${tr("Moll 7: Tonartwechsel (1 Oktave)", "Minor 7: Key Changes (1 Octave)")}</span>
+              <span class="node-sub">${tr("Neue Moll-Tonart nach jeder Antwort, 1 Okt.", "New minor key after every answer, 1 oct.")}</span>
+            </button>
+
+            <button class="subpage-node-btn" data-launch-solfege="16">
+              <div class="node-circle circle-sage">${REFRESH_ICON_SVG} • ∞</div>
+              <span class="node-title">${tr("Moll 8: Tonartwechsel (Mehrere Okt.)", "Minor 8: Key Changes (Multi-Oct.)")}</span>
+              <span class="node-sub">${tr("Neue Moll-Tonart & Oktave nach jeder Antwort", "New minor key & octave after every answer")}</span>
+            </button>
+          </div>
+        </div>
+      `;
+      bindSolfegeLaunchButtons(container);
+    } else {
+      state.activeCategorySectionTitle = selectedSolfType.title;
+      const renderSolfegeCustomSection = () => {
+        const curTonality = state.settings.solfegeCustomTonality === "minor" ? "minor" : "major";
+        const curKey = String(state.settings.solfegeCustomKey || "C");
+        const curRange = ["do-fa", "sol-do", "full"].includes(state.settings.solfegeCustomRange)
+          ? state.settings.solfegeCustomRange
+          : "full";
+        const curOct = state.settings.solfegeCustomOctave === "multi" ? "multi" : "single";
+        const keyOrder = ["random", "C", "G", "D", "A", "E", "B", "F#", "Db", "Ab", "Eb", "Bb", "F"];
+        const rangeDefs = [
+          { id: "do-fa",  label: tr("Do–Fa (Untere Hälfte)", "Do–Fa (Lower Half)") },
+          { id: "sol-do", label: tr("Sol–Do (Obere Hälfte)", "Sol–Do (Upper Half)") },
+          { id: "full",   label: tr("Ganze Tonart (Do–Do)", "Full Scale (Do–Do)") }
+        ];
+        const summaryKey = curKey === "random"
+          ? `${tr("Zufall", "Random")} (${curTonality === "minor" ? tr("Moll", "Minor") : tr("Dur", "Major")})`
+          : getKeyDisplayName(curKey, curTonality);
+        const summaryRange = curRange === "do-fa" ? "Do–Fa" : (curRange === "sol-do" ? "Sol–Do" : "Do–Do");
+        const summaryOct = curOct === "multi" ? tr("Mehrere Okt.", "Multi-Oct.") : tr("1 Oktave", "1 Octave");
+
+        container.innerHTML = `
+          <div class="subpage-section">
+            <h3 class="subpage-section-title">${tr("Eigene Tonart (Dur & Moll)", "Custom Key (Major & Minor)")}</h3>
+            <p class="subpage-section-desc">${tr("Wähle beliebige Dur- oder Moll-Tonart, Tonraum & Oktavlage frei – auch direkt in der Übung jederzeit anpassbar", "Choose any major or minor key, scale half & octave register freely — also adjustable anytime inside the exercise")}</p>
+            <div class="notation-key-toolbar">
+              <div class="notation-key-quick-group">
+                <span class="notation-key-quick-label">${tr("1. Tongeschlecht:", "1. Tonality:")}</span>
+                <div class="notation-key-quick-row">
+                  <button type="button" class="k-filter-pill${curTonality === "major" ? " active" : ""}" data-solf-custom-tonality="major">${tr("Dur", "Major")}</button>
+                  <button type="button" class="k-filter-pill${curTonality === "minor" ? " active" : ""}" data-solf-custom-tonality="minor">${tr("Moll", "Minor")}</button>
+                </div>
+              </div>
+              <div class="notation-key-quick-group">
+                <span class="notation-key-quick-label">${tr("2. Tonart:", "2. Key:")}</span>
+                <div class="notation-key-quick-row">
+                  ${keyOrder.map(k => {
+                    const lbl = k === "random" ? tr("Zufall", "Random") : getKeyDisplayName(k, curTonality);
+                    return `<button type="button" class="k-filter-pill${k === curKey ? " active" : ""}" data-solf-custom-key="${k}">${escapeHtml(lbl)}</button>`;
+                  }).join("")}
+                </div>
+              </div>
+              <div class="notation-key-quick-group">
+                <span class="notation-key-quick-label">${tr("3. Tonraum:", "3. Scale Range:")}</span>
+                <div class="notation-key-quick-row">
+                  ${rangeDefs.map(r => `
+                    <button type="button" class="k-filter-pill${r.id === curRange ? " active" : ""}" data-solf-custom-range="${r.id}">${escapeHtml(r.label)}</button>
+                  `).join("")}
+                </div>
+              </div>
+              <div class="notation-key-quick-group">
+                <span class="notation-key-quick-label">${tr("4. Oktavlage:", "4. Octave Register:")}</span>
+                <div class="notation-key-quick-row">
+                  <button type="button" class="k-filter-pill${curOct === "single" ? " active" : ""}" data-solf-custom-oct="single">${tr("1 Oktave", "1 Octave")}</button>
+                  <button type="button" class="k-filter-pill${curOct === "multi" ? " active" : ""}" data-solf-custom-oct="multi">${tr("Mehrere Oktaven", "Multi-Octave")}</button>
+                </div>
+              </div>
+            </div>
+            <div class="subpage-nodes-grid" style="margin-top: 0.7rem;">
+              <button class="subpage-node-btn" data-launch-solfege="17">
+                <div class="node-circle circle-peach node-circle-compact">${tr("Frei", "Free")}</div>
+                <span class="node-title">${tr("Solfège mit eigener Tonart starten", "Start Custom Key Solfège")}</span>
+                <span class="node-sub">${escapeHtml(`${summaryKey} • ${summaryRange} • ${summaryOct}`)}</span>
+              </button>
+            </div>
+          </div>
+        `;
+
+        container.querySelectorAll("[data-solf-custom-tonality]").forEach(btn => {
+          btn.addEventListener("click", () => {
+            state.settings.solfegeCustomTonality = btn.dataset.solfCustomTonality === "minor" ? "minor" : "major";
+            renderSolfegeCustomSection();
+          });
+        });
+        container.querySelectorAll("[data-solf-custom-key]").forEach(btn => {
+          btn.addEventListener("click", () => {
+            state.settings.solfegeCustomKey = btn.dataset.solfCustomKey;
+            renderSolfegeCustomSection();
+          });
+        });
+        container.querySelectorAll("[data-solf-custom-range]").forEach(btn => {
+          btn.addEventListener("click", () => {
+            state.settings.solfegeCustomRange = btn.dataset.solfCustomRange;
+            renderSolfegeCustomSection();
+          });
+        });
+        container.querySelectorAll("[data-solf-custom-oct]").forEach(btn => {
+          btn.addEventListener("click", () => {
+            state.settings.solfegeCustomOctave = btn.dataset.solfCustomOct === "multi" ? "multi" : "single";
+            renderSolfegeCustomSection();
+          });
+        });
+        bindSolfegeLaunchButtons(container);
+      };
+      renderSolfegeCustomSection();
+    }
 
   } else if (categoryKey === "rhythm") {
-    container.innerHTML = `
-      <div class="subpage-section">
-        <h3 class="subpage-section-title">${tr("Taktart &amp; Metrum erkennen", "Time Signature &amp; Meter")}</h3>
-        <p class="subpage-section-desc">${tr("Höre zwei Takte Percussion und erkenne den Grundschlag sowie die Takt-Betonung", "Hear two bars of percussion and identify the pulse and barline accent")}</p>
-        <div class="subpage-nodes-grid">
+    const RHYTHM_SECTIONS = [
+      {
+        id: "rhythm-meter",
+        title: tr("Taktart &amp; Metrum erkennen", "Time Signature &amp; Meter"),
+        plainTitle: tr("Taktart & Metrum erkennen", "Time Signature & Meter"),
+        desc: tr("Höre zwei Takte Percussion und erkenne den Grundschlag sowie die Takt-Betonung", "Hear two bars of percussion and identify the pulse and barline accent"),
+        badgeHtml: `<div class="node-circle circle-peach node-circle-icon">${getRhythmNodeIconSVG("meter-34-44")}</div>`,
+        meta: tf("{n} Stufen", "{n} Levels", { n: 3 }),
+        isBeginner: true,
+        cardsHtml: `
           <button class="subpage-node-btn" data-launch-rhythm="rhythm-meter" data-rhythm-lvl="1">
             <div class="node-circle circle-peach node-circle-icon">${getRhythmNodeIconSVG("meter-34-44")}</div>
             <span class="node-title">${tr("Stufe 1: Basis", "Level 1: Basics")}</span>
@@ -3483,13 +3683,17 @@ function openCategoryPage(categoryKey, options = {}) {
             <span class="node-title">${tr("Stufe 3: Ungerade Takte", "Level 3: Odd Meters")}</span>
             <span class="node-sub">${tr("Inklusive 5/4 (3+2) &amp; 7/8", "Including 5/4 (3+2) &amp; 7/8")}</span>
           </button>
-        </div>
-      </div>
-
-      <div class="subpage-section">
-        <h3 class="subpage-section-title">${tr("Rhythmus-Diktat (4 Zählzeiten)", "Rhythm Dictation (4 Beats)")}</h3>
-        <p class="subpage-section-desc">${tr("Wie bei den Melodien: Alle 4 Fragezeichen nach Gehör Baustein für Baustein lösen", "Just like melodies: solve all 4 question marks beat by beat by ear")}</p>
-        <div class="subpage-nodes-grid">
+        `
+      },
+      {
+        id: "rhythm-dictation",
+        title: tr("Rhythmus-Diktat (4 Zählzeiten)", "Rhythm Dictation (4 Beats)"),
+        plainTitle: tr("Rhythmus-Diktat (4 Zählzeiten)", "Rhythm Dictation (4 Beats)"),
+        desc: tr("Wie bei den Melodien: Alle 4 Fragezeichen nach Gehör Baustein für Baustein lösen", "Just like melodies: solve all 4 question marks beat by beat by ear"),
+        badgeHtml: `<div class="node-circle circle-sage node-circle-icon">${getRhythmNodeIconSVG("quarter-eighths")}</div>`,
+        meta: tf("{n} Stufen", "{n} Levels", { n: 4 }),
+        isBeginner: true,
+        cardsHtml: `
           <button class="subpage-node-btn" data-launch-rhythm="rhythm-dictation" data-rhythm-lvl="1">
             <div class="node-circle circle-sage node-circle-icon">${getRhythmNodeIconSVG("quarter-eighths")}</div>
             <span class="node-title">${tr("Stufe 1: Puls &amp; Pausen", "Level 1: Pulse &amp; Rests")}</span>
@@ -3510,13 +3714,17 @@ function openCategoryPage(categoryKey, options = {}) {
             <span class="node-title">${tr("Stufe 4: Punkt. &amp; Synkopen", "Level 4: Dotted &amp; Syncopation")}</span>
             <span class="node-sub">${tr("Punktierte Achtel &amp; 16tel-Synkopen", "Dotted eighths &amp; 16th syncopations")}</span>
           </button>
-        </div>
-      </div>
-
-      <div class="subpage-section">
-        <h3 class="subpage-section-title">${tr("Rhythmus nachklopfen (Tap-Pad)", "Rhythm Tap-Back (Tap Pad)")}</h3>
-        <p class="subpage-section-desc">${tr("1 Takt Vorzähler, 1 Takt Vorgabe – dann klopfst du den Rhythmus direkt auf dem Pad nach", "1 bar count-in, 1 bar prompt — then tap the rhythm back directly on the pad")}</p>
-        <div class="subpage-nodes-grid">
+        `
+      },
+      {
+        id: "rhythm-tap",
+        title: tr("Rhythmus nachklopfen (Tap-Pad)", "Rhythm Tap-Back (Tap Pad)"),
+        plainTitle: tr("Rhythmus nachklopfen (Tap-Pad)", "Rhythm Tap-Back (Tap Pad)"),
+        desc: tr("1 Takt Vorzähler, 1 Takt Vorgabe – dann klopfst du den Rhythmus direkt auf dem Pad nach", "1 bar count-in, 1 bar prompt — then tap the rhythm back directly on the pad"),
+        badgeHtml: `<div class="node-circle circle-lilac node-circle-icon">${getRhythmNodeIconSVG("tap")}</div>`,
+        meta: tf("{n} Stufen", "{n} Levels", { n: 4 }),
+        isBeginner: true,
+        cardsHtml: `
           <button class="subpage-node-btn" data-launch-rhythm="rhythm-tap" data-rhythm-lvl="1">
             <div class="node-circle circle-lilac node-circle-icon">${getRhythmNodeIconSVG("tap")}</div>
             <span class="node-title">${tr("Stufe 1: Puls-Anker", "Level 1: Pulse Anchor")}</span>
@@ -3537,13 +3745,17 @@ function openCategoryPage(categoryKey, options = {}) {
             <span class="node-title">${tr("Stufe 4: Blindflug", "Level 4: Blind Mode")}</span>
             <span class="node-sub">${tr("Klick verstummt während deiner Runde", "Metronome drops out during your turn")}</span>
           </button>
-        </div>
-      </div>
-
-      <div class="subpage-section">
-        <h3 class="subpage-section-title">${tr("Rhythmus vom Blatt tappen", "Tap Rhythms from Notation")}</h3>
-        <p class="subpage-section-desc">${tr("Der Rhythmus steht im Notensystem – ohne Vorspielen. Nach 1 Takt Vorzähler tippst du ihn zum Metronom auf das Pad.", "The rhythm is written on the staff — no demo. After a 1-bar count-in, tap it on the pad along with the metronome.")}</p>
-        <div class="subpage-nodes-grid">
+        `
+      },
+      {
+        id: "rhythm-tap-read",
+        title: tr("Rhythmus vom Blatt tappen", "Tap Rhythms from Notation"),
+        plainTitle: tr("Rhythmus vom Blatt tappen", "Tap Rhythms from Notation"),
+        desc: tr("Der Rhythmus steht im Notensystem – ohne Vorspielen. Nach 1 Takt Vorzähler tippst du ihn zum Metronom auf das Pad.", "The rhythm is written on the staff — no demo. After a 1-bar count-in, tap it on the pad along with the metronome."),
+        badgeHtml: `<div class="node-circle circle-sage node-circle-icon">${getRhythmNodeIconSVG("quarter-rest")}</div>`,
+        meta: tf("{n} Stufen", "{n} Levels", { n: 4 }),
+        isBeginner: false,
+        cardsHtml: `
           <button class="subpage-node-btn" data-launch-rhythm="rhythm-tap" data-rhythm-read="1" data-rhythm-lvl="1">
             <div class="node-circle circle-sage node-circle-icon">${getRhythmNodeIconSVG("quarter-rest")}</div>
             <span class="node-title">${tr("Stufe 1: Viertel &amp; Pausen", "Level 1: Quarters &amp; Rests")}</span>
@@ -3564,13 +3776,17 @@ function openCategoryPage(categoryKey, options = {}) {
             <span class="node-title">${tr("Stufe 4: Ohne Metronom", "Level 4: No Metronome")}</span>
             <span class="node-sub">${tr("Nach dem Vorzähler hältst du das Tempo allein", "After the count-in you keep the tempo yourself")}</span>
           </button>
-        </div>
-      </div>
-
-      <div class="subpage-section">
-        <h3 class="subpage-section-title">${tr("Groove, Akzente &amp; Mikro-Timing", "Groove, Accents &amp; Micro-Timing")}</h3>
-        <p class="subpage-section-desc">${tr("Spüre Groove-Stile, Offbeat-Akzente und feinste Verschiebungen im Band-Kontext", "Feel groove styles, offbeat accents, and subtle timing shifts in a band context")}</p>
-        <div class="subpage-nodes-grid">
+        `
+      },
+      {
+        id: "rhythm-groove",
+        title: tr("Groove, Akzente &amp; Mikro-Timing", "Groove, Accents &amp; Micro-Timing"),
+        plainTitle: tr("Groove, Akzente & Mikro-Timing", "Groove, Accents & Micro-Timing"),
+        desc: tr("Spüre Groove-Stile, Offbeat-Akzente und feinste Verschiebungen im Band-Kontext", "Feel groove styles, offbeat accents, and subtle timing shifts in a band context"),
+        badgeHtml: `<div class="node-circle circle-peach node-circle-compact">Groove</div>`,
+        meta: tf("{n} Stufen", "{n} Levels", { n: 4 }),
+        isBeginner: false,
+        cardsHtml: `
           <button class="subpage-node-btn" data-launch-rhythm="rhythm-groove" data-rhythm-lvl="1">
             <div class="node-circle circle-peach node-circle-compact">Groove</div>
             <span class="node-title">${tr("Stufe 1: Groove-Stile", "Level 1: Groove Styles")}</span>
@@ -3591,28 +3807,49 @@ function openCategoryPage(categoryKey, options = {}) {
             <span class="node-title">${tr("Stufe 4: Profi-Timing", "Level 4: Pro Timing")}</span>
             <span class="node-sub">${tr("Feinste Abweichungen sicher heraushören", "Hear the tiniest timing shifts cleanly")}</span>
           </button>
-        </div>
-      </div>
-    `;
+        `
+      }
+    ];
 
-    container.querySelectorAll("[data-launch-rhythm]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        state.setRhythmLevel(btn.dataset.launchRhythm, btn.dataset.rhythmLvl, btn.dataset.rhythmRead === "1");
-        state.exerciseReturnView = "category";
-        switchView("exercise");
+    const selectedRhythm = activeSection ? RHYTHM_SECTIONS.find(s => s.id === activeSection) : null;
+    if (!selectedRhythm) {
+      state.activeCategorySection = null;
+      renderCategoryTypeMenu(container, categoryKey, RHYTHM_SECTIONS);
+    } else {
+      state.activeCategorySectionTitle = selectedRhythm.plainTitle;
+      container.innerHTML = `
+        <div class="subpage-section">
+          <h3 class="subpage-section-title">${selectedRhythm.title}</h3>
+          <p class="subpage-section-desc">${selectedRhythm.desc}</p>
+          <div class="subpage-nodes-grid">${selectedRhythm.cardsHtml}</div>
+        </div>
+      `;
+
+      container.querySelectorAll("[data-launch-rhythm]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          state.setRhythmLevel(btn.dataset.launchRhythm, btn.dataset.rhythmLvl, btn.dataset.rhythmRead === "1");
+          state.exerciseReturnView = "category";
+          switchView("exercise");
+        });
       });
-    });
+    }
 
   } else if (categoryKey === "production") {
-    container.innerHTML = `
+    const safetyBannerHtml = `
       <div class="prod-safety-banner">
         <strong>${tr("Gehörschutz &amp; Rosa Rauschen:", "Hearing Protection &amp; Pink Noise:")}</strong> ${tr("Alle Signale laufen über einen integrierten -14 dBFS Schutz-Limiter mit Lautheits-Ausgleich (insbesondere bei 2–4 kHz) und weichen Ein- und Ausblenden. Übe dennoch bei moderater Abhörlautstärke.", "All signals pass through a built-in -14 dBFS safety limiter with equal-loudness compensation (especially around 2–4 kHz) and smooth fades. Always practice at a comfortable listening level.")}
       </div>
-
-      <div class="subpage-section">
-        <h3 class="subpage-section-title">${tr("Frequenzen erkennen (Reinton / Sinus)", "Frequency Recognition (Sine Wave)")}</h3>
-        <p class="subpage-section-desc">${tr("Trainiere dein absolutes Frequenz-Gefühl vom Subbass (63 Hz) bis in die Air-Höhen (12 kHz)", "Train absolute frequency recall from sub-bass (63 Hz) up to the air band (12 kHz)")}</p>
-        <div class="subpage-nodes-grid">
+    `;
+    const PROD_SECTIONS = [
+      {
+        id: "prod-tone",
+        title: tr("Frequenzen erkennen (Reinton / Sinus)", "Frequency Recognition (Sine Wave)"),
+        plainTitle: tr("Frequenzen erkennen (Sinus)", "Frequency Recognition (Sine)"),
+        desc: tr("Trainiere dein absolutes Frequenz-Gefühl vom Subbass (63 Hz) bis in die Air-Höhen (12 kHz)", "Train absolute frequency recall from sub-bass (63 Hz) up to the air band (12 kHz)"),
+        badgeHtml: `<div class="node-circle circle-sage node-circle-compact">Hz</div>`,
+        meta: tf("{n} Stufen", "{n} Levels", { n: 3 }),
+        isBeginner: true,
+        cardsHtml: `
           <button class="subpage-node-btn" data-launch-prod="prod-tone" data-prod-lvl="1">
             <div class="node-circle circle-sage node-circle-compact">5× Hz</div>
             <span class="node-title">${tr("Stufe 1: Basis", "Level 1: Basics")}</span>
@@ -3628,13 +3865,17 @@ function openCategoryPage(categoryKey, options = {}) {
             <span class="node-title">${tr("Stufe 3: Profi-Raster", "Level 3: Pro Grid")}</span>
             <span class="node-sub">${tr("12 Bänder inkl. 800 Hz, 1,6k &amp; 12k", "12 bands incl. 800 Hz, 1.6k &amp; 12k")}</span>
           </button>
-        </div>
-      </div>
-
-      <div class="subpage-section">
-        <h3 class="subpage-section-title">${tr("EQ-Boost im Pink Noise (Fortgeschritten)", "EQ Boost in Pink Noise (Advanced)")}</h3>
-        <p class="subpage-section-desc">${tr("Erst erklingt neutrales Pink Noise („Flat“), dann hebt ein Peaking-EQ genau eine Frequenz gezielt an", "First you hear neutral pink noise (“Flat”), then a peaking EQ boosts one targeted frequency")}</p>
-        <div class="subpage-nodes-grid">
+        `
+      },
+      {
+        id: "prod-eq-noise",
+        title: tr("EQ-Boost im Pink Noise (Fortgeschritten)", "EQ Boost in Pink Noise (Advanced)"),
+        plainTitle: tr("EQ-Boost im Pink Noise", "EQ Boost in Pink Noise"),
+        desc: tr("Erst erklingt neutrales Pink Noise („Flat“), dann hebt ein Peaking-EQ genau eine Frequenz gezielt an", "First you hear neutral pink noise (“Flat”), then a peaking EQ boosts one targeted frequency"),
+        badgeHtml: `<div class="node-circle circle-lilac node-circle-compact">EQ</div>`,
+        meta: tf("{n} Stufen", "{n} Levels", { n: 3 }),
+        isBeginner: false,
+        cardsHtml: `
           <button class="subpage-node-btn" data-launch-prod="prod-eq-noise" data-prod-lvl="1">
             <div class="node-circle circle-lilac node-circle-compact">+10 dB</div>
             <span class="node-title">${tr("Stufe 1: Breiter EQ", "Level 1: Wide EQ")}</span>
@@ -3650,24 +3891,45 @@ function openCategoryPage(categoryKey, options = {}) {
             <span class="node-title">${tr("Stufe 3: Chirurgisch", "Level 3: Surgical")}</span>
             <span class="node-sub">${tr("Q 4,2 • 10 schmale Resonanzen", "Q 4.2 • 10 narrow resonances")}</span>
           </button>
-        </div>
-      </div>
-    `;
+        `
+      }
+    ];
 
-    container.querySelectorAll("[data-launch-prod]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        state.setProdLevel(btn.dataset.launchProd, btn.dataset.prodLvl);
-        state.exerciseReturnView = "category";
-        switchView("exercise");
+    const selectedProd = activeSection ? PROD_SECTIONS.find(s => s.id === activeSection) : null;
+    if (!selectedProd) {
+      state.activeCategorySection = null;
+      renderCategoryTypeMenu(container, categoryKey, PROD_SECTIONS, { introHtml: safetyBannerHtml });
+    } else {
+      state.activeCategorySectionTitle = selectedProd.plainTitle;
+      container.innerHTML = `
+        ${safetyBannerHtml}
+        <div class="subpage-section">
+          <h3 class="subpage-section-title">${selectedProd.title}</h3>
+          <p class="subpage-section-desc">${selectedProd.desc}</p>
+          <div class="subpage-nodes-grid">${selectedProd.cardsHtml}</div>
+        </div>
+      `;
+
+      container.querySelectorAll("[data-launch-prod]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          state.setProdLevel(btn.dataset.launchProd, btn.dataset.prodLvl);
+          state.exerciseReturnView = "category";
+          switchView("exercise");
+        });
       });
-    });
+    }
 
   } else if (categoryKey === "modes") {
-    container.innerHTML = `
-      <div class="subpage-section">
-        <h3 class="subpage-section-title">${tr("1. Modus / Tonleiter erkennen", "1. Mode / Scale Recognition")}</h3>
-        <p class="subpage-section-desc">${tr("Erst hörst du die neutrale Anker-Quinte (ohne Terz), dann die 8-tönige Tonleiter aufwärts", "First you hear a neutral open-fifth anchor (no 3rd), then the 8-note ascending scale")}</p>
-        <div class="subpage-nodes-grid">
+    const MODES_SECTIONS = [
+      {
+        id: "modes-scale",
+        title: tr("1. Modus / Tonleiter erkennen", "1. Mode / Scale Recognition"),
+        plainTitle: tr("Modus / Tonleiter erkennen", "Mode / Scale Recognition"),
+        desc: tr("Erst hörst du die neutrale Anker-Quinte (ohne Terz), dann die 8-tönige Tonleiter aufwärts", "First you hear a neutral open-fifth anchor (no 3rd), then the 8-note ascending scale"),
+        badgeHtml: `<div class="node-circle circle-peach">7× C</div>`,
+        meta: tf("{n} Stufen", "{n} Levels", { n: 3 }),
+        isBeginner: true,
+        cardsHtml: `
           <button class="subpage-node-btn" data-launch-modes="modes-scale" data-modes-lvl="1">
             <div class="node-circle circle-peach">4× C</div>
             <span class="node-title">${tr("Stufe 1: Basis-Modi", "Level 1: Core Modes")}</span>
@@ -3683,35 +3945,43 @@ function openCategoryPage(categoryKey, options = {}) {
             <span class="node-title">${tr("Stufe 3: Transponiert", "Level 3: Transposed")}</span>
             <span class="node-sub">${tr("Alle 7 Modi über wechselnde Grundtöne", "All 7 modes across changing roots")}</span>
           </button>
-        </div>
-      </div>
-
-      <div class="subpage-section">
-        <h3 class="subpage-section-title">${tr("2. Charakterton &amp; Klangfarbe", "2. Characteristic Note &amp; Color")}</h3>
-        <p class="subpage-section-desc">${tr("Erkenne den Modus direkt an seiner charakteristischen Reibung (#4, b7, ♮6, b2, b5 oder #7)", "Recognize each mode immediately by its color tone (#4, b7, ♮6, b2, b5, or #7)")}</p>
-        <div class="subpage-nodes-grid">
+        `
+      },
+      {
+        id: "modes-char",
+        title: tr("2. Charakterton &amp; Klangfarbe", "2. Characteristic Note &amp; Color"),
+        plainTitle: tr("Charakterton & Klangfarbe", "Characteristic Note & Color"),
+        desc: tr("Erkenne den Modus direkt an seiner charakteristischen Reibung (#4, b7, ♮6, b2, b5 oder #7)", "Recognize each mode immediately by its color tone (#4, b7, ♮6, b2, b5, or #7)"),
+        badgeHtml: `<div class="node-circle circle-sage node-circle-compact node-circle-nowrap">#4/b7</div>`,
+        meta: tf("{n} Stufen", "{n} Levels", { n: 3 }),
+        isBeginner: false,
+        cardsHtml: `
           <button class="subpage-node-btn" data-launch-modes="modes-char" data-modes-lvl="1">
-            <div class="node-circle circle-sage">#4 / b7</div>
+            <div class="node-circle circle-sage node-circle-compact node-circle-nowrap">#4/b7</div>
             <span class="node-title">${tr("Stufe 1: Dur-Modi", "Level 1: Major Modes")}</span>
             <span class="node-sub">${tr("Ionisch vs. Lydisch vs. Mixolydisch", "Ionian vs. Lydian vs. Mixolydian")}</span>
           </button>
           <button class="subpage-node-btn" data-launch-modes="modes-char" data-modes-lvl="2">
-            <div class="node-circle circle-sage">♮6 / b2</div>
+            <div class="node-circle circle-sage node-circle-compact node-circle-nowrap">♮6/b2</div>
             <span class="node-title">${tr("Stufe 2: Moll-Modi", "Level 2: Minor Modes")}</span>
             <span class="node-sub">${tr("Äolisch, Dorisch, Phrygisch &amp; Lokrisch", "Aeolian, Dorian, Phrygian &amp; Locrian")}</span>
           </button>
           <button class="subpage-node-btn" data-launch-modes="modes-char" data-modes-lvl="3">
-            <div class="node-circle circle-sage node-circle-compact">+Harm</div>
+            <div class="node-circle circle-sage node-circle-compact node-circle-nowrap">+Harm</div>
             <span class="node-title">${tr("Stufe 3: Gesamt-Spektrum", "Level 3: Full Spectrum")}</span>
             <span class="node-sub">${tr("Alle 7 Modi + Harmonisch Moll", "All 7 modes + Harmonic Minor")}</span>
           </button>
-        </div>
-      </div>
-
-      <div class="subpage-section">
-        <h3 class="subpage-section-title">${tr("3. Modale Kadenzen &amp; Akkordpendel", "3. Modal Cadences &amp; Chord Loops")}</h3>
-        <p class="subpage-section-desc">${tr("Akkordpendel: Zwei Akkorde wechseln sich immer wieder ab und machen so die Farbe eines Modus hörbar (z. B. i–IV, I–bVII, I–II oder i–bII).", "Chord loops: two chords alternate again and again, revealing the color of a mode (e.g. i–IV, I–bVII, I–II or i–bII).")}</p>
-        <div class="subpage-nodes-grid">
+        `
+      },
+      {
+        id: "modes-cadence",
+        title: tr("3. Modale Kadenzen &amp; Akkordpendel", "3. Modal Cadences &amp; Chord Loops"),
+        plainTitle: tr("Modale Kadenzen & Akkordpendel", "Modal Cadences & Chord Loops"),
+        desc: tr("Akkordpendel: Zwei Akkorde wechseln sich immer wieder ab und machen so die Farbe eines Modus hörbar (z. B. i–IV, I–bVII, I–II oder i–bII).", "Chord loops: two chords alternate again and again, revealing the color of a mode (e.g. i–IV, I–bVII, I–II or i–bII)."),
+        badgeHtml: `<div class="node-circle circle-lilac node-circle-stack"><span>6×</span><span class="node-stack-sub">${tr("Pendel", "Loop")}</span></div>`,
+        meta: tf("{n} Stufen", "{n} Levels", { n: 2 }),
+        isBeginner: false,
+        cardsHtml: `
           <button class="subpage-node-btn" data-launch-modes="modes-cadence" data-modes-lvl="1">
             <div class="node-circle circle-lilac node-circle-stack"><span>4×</span><span class="node-stack-sub">${tr("Pendel", "Loop")}</span></div>
             <span class="node-title">${tr("Stufe 1: Standard-Akkordpendel", "Level 1: Standard Chord Loops")}</span>
@@ -3722,17 +3992,32 @@ function openCategoryPage(categoryKey, options = {}) {
             <span class="node-title">${tr("Stufe 2: Alle 6 modalen Akkordpendel", "Level 2: All 6 Modal Chord Loops")}</span>
             <span class="node-sub">${tr("Inkl. Lydisch (I–II) &amp; Phrygisch (i–bII)", "Incl. Lydian (I–II) &amp; Phrygian (i–bII)")}</span>
           </button>
-        </div>
-      </div>
-    `;
+        `
+      }
+    ];
 
-    container.querySelectorAll("[data-launch-modes]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        state.setModesLevel(btn.dataset.launchModes, btn.dataset.modesLvl);
-        state.exerciseReturnView = "category";
-        switchView("exercise");
+    const selectedModes = activeSection ? MODES_SECTIONS.find(s => s.id === activeSection) : null;
+    if (!selectedModes) {
+      state.activeCategorySection = null;
+      renderCategoryTypeMenu(container, categoryKey, MODES_SECTIONS);
+    } else {
+      state.activeCategorySectionTitle = selectedModes.plainTitle;
+      container.innerHTML = `
+        <div class="subpage-section">
+          <h3 class="subpage-section-title">${selectedModes.title}</h3>
+          <p class="subpage-section-desc">${selectedModes.desc}</p>
+          <div class="subpage-nodes-grid">${selectedModes.cardsHtml}</div>
+        </div>
+      `;
+
+      container.querySelectorAll("[data-launch-modes]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          state.setModesLevel(btn.dataset.launchModes, btn.dataset.modesLvl);
+          state.exerciseReturnView = "category";
+          switchView("exercise");
+        });
       });
-    });
+    }
 
   } else if (categoryKey === "notation") {
     const NOTATION_SECTIONS = [
@@ -3820,14 +4105,106 @@ function openCategoryPage(categoryKey, options = {}) {
       { lvl: 3, label: tr("±3 Hilfslinien", "±3 Ledgers") }
     ];
 
+    const NOTATION_TYPE_ITEMS = [
+      {
+        id: "notation-treble",
+        title: tr("Violinschlüssel (G-Schlüssel)", "Treble Clef (G Clef)"),
+        desc: tr(
+          "Der G-Schlüssel markiert g' (G4) auf der 2. Linie von unten – die Basis für Klavier (rechte Hand), Gesang, Violine, Flöte &amp; Gitarre.",
+          "Marks G4 on the 2nd line from the bottom — essential for piano right hand, vocals, violin, flute &amp; guitar."
+        ),
+        badgeHtml: `<div class="node-circle circle-peach">𝄞</div>`,
+        meta: tf("{n} Stufen", "{n} Levels", { n: 4 }),
+        isBeginner: true
+      },
+      {
+        id: "notation-bass",
+        title: tr("Bassschlüssel (F-Schlüssel)", "Bass Clef (F Clef)"),
+        desc: tr(
+          "Der F-Schlüssel markiert f (F3) auf der 4. Linie zwischen den beiden Punkten – Standard für Bass, Cello, Posaune &amp; Klavier (linke Hand).",
+          "Marks F3 on the 4th line between its two dots — standard for bass, cello, trombone &amp; piano left hand."
+        ),
+        badgeHtml: `<div class="node-circle circle-sage">𝄢</div>`,
+        meta: tf("{n} Stufen", "{n} Levels", { n: 4 }),
+        isBeginner: false
+      },
+      {
+        id: "notation-alto",
+        title: tr("Altschlüssel (C-Schlüssel)", "Alto Clef (C Clef)"),
+        desc: tr(
+          "Der C-Schlüssel legt das mittlere c' (C4) exakt auf die 3. (mittlere) Notenlinie – Pflichtschlüssel für Bratsche &amp; Partiturlesen.",
+          "Places middle C4 right on the 3rd (center) line — standard clef for viola and full-score reading."
+        ),
+        badgeHtml: `<div class="node-circle circle-lilac">𝄡</div>`,
+        meta: tf("{n} Stufen", "{n} Levels", { n: 4 }),
+        isBeginner: false
+      },
+      {
+        id: "notation-mixed",
+        title: tr("Alle Schlüssel gemischt", "Mixed Clefs"),
+        desc: tr(
+          "Wechselt in der Notenzeile flexibel zwischen Violin-, Bass- und Altschlüssel – ideal für flüssiges Blattlesen und Partituren.",
+          "Alternates across Treble, Bass &amp; Alto clefs — great practice for agile sight-reading across systems."
+        ),
+        badgeHtml: `<div class="node-circle circle-peach node-circle-compact">𝄞+𝄢</div>`,
+        meta: tf("{n} Stufen", "{n} Levels", { n: 4 }),
+        isBeginner: false
+      },
+      {
+        id: "notation-grand",
+        title: tr("Doppelsystem (Violin- &amp; Bassschlüssel)", "Grand Staff (Treble &amp; Bass)"),
+        desc: tr(
+          "Klaviersystem mit beiden Schlüsseln gleichzeitig: Die Noten springen zwischen oberem und unterem System – wie beim Klavierspielen mit zwei Händen.",
+          "Piano-style grand staff with both clefs at once: notes jump between the upper and lower staff — just like reading for two hands."
+        ),
+        badgeHtml: `<div class="node-circle circle-sage node-circle-compact">${tr("Klavier", "Piano")}</div>`,
+        meta: tf("{n} Stufen", "{n} Levels", { n: 4 }),
+        isBeginner: false
+      },
+      {
+        id: "notation-chords",
+        title: tr("Akkorde lesen", "Chord Reading"),
+        desc: tr(
+          "Mehrere Noten übereinander: Lies Grundton und Akkordaufbau im Notensystem und wähle das passende Akkordsymbol (z. B. E, Em, E7, Esus4).",
+          "Stacked notes: read root and chord structure on the staff and pick the matching chord symbol (e.g. E, Em, E7, Esus4)."
+        ),
+        badgeHtml: `<div class="node-circle circle-lilac node-circle-compact node-circle-nowrap">E/Em</div>`,
+        meta: tf("{n} Stufen", "{n} Levels", { n: 4 }),
+        isBeginner: false
+      },
+      {
+        id: "notation-keys",
+        title: tr("Tonarten-Blattspiel (Generalvorzeichen)", "Key-Signature Sight-Reading"),
+        desc: tr(
+          "Lies ganze 8-Noten-Phrasen mit vorgegebener Tonart im Notensystem und beachte die Vorzeichen vom Blatt!",
+          "Read 8-note phrases with an active key signature on the staff and remember the sharps &amp; flats while playing!"
+        ),
+        badgeHtml: `<div class="node-circle circle-peach">♯/♭</div>`,
+        meta: tf("{n} Stufen", "{n} Levels", { n: 4 }),
+        isBeginner: false
+      }
+    ];
+
+    const selectedNotType = activeSection ? NOTATION_TYPE_ITEMS.find(t => t.id === activeSection) : null;
+    let notationKeyDrawerOpen = false;
+
     const renderNotationCategoryBody = () => {
+      if (!selectedNotType) {
+        state.activeCategorySection = null;
+        renderCategoryTypeMenu(container, categoryKey, NOTATION_TYPE_ITEMS);
+        return;
+      }
+      state.activeCategorySectionTitle = selectedNotType.title.replace(/&amp;/g, "&");
       const selectedKeyMode = normalizeNotationKeyMode(state.settings.notationKeyMode);
       const hasSelectedKey = selectedKeyMode !== "none";
       const trainerClefMode = isNotationMode(state.settings.notationKeyTrainerClef)
         ? state.settings.notationKeyTrainerClef
         : "notation-treble";
       const trainerRangeLvl = Math.max(1, Math.min(3, parseInt(state.settings.notationKeyTrainerLevel, 10) || 2));
-      const previewClefId = (trainerClefMode === "notation-mixed" || trainerClefMode === "notation-grand") ? "treble" : getNotationClefFromMode(trainerClefMode);
+      const effectiveClefForPreview = selectedNotType.id === "notation-keys" ? trainerClefMode : selectedNotType.id;
+      const previewClefId = (effectiveClefForPreview === "notation-mixed" || effectiveClefForPreview === "notation-grand" || effectiveClefForPreview === "notation-chords")
+        ? "treble"
+        : getNotationClefFromMode(effectiveClefForPreview);
 
       const previewKeySigId = isNotationKeyPoolMode(selectedKeyMode)
         ? (selectedKeyMode === "easy" ? "D" : selectedKeyMode === "medium" ? "Eb" : selectedKeyMode === "hard" ? "B" : "A")
@@ -3949,75 +4326,82 @@ function openCategoryPage(categoryKey, options = {}) {
         }
       ];
 
-      container.innerHTML = `
-        <div class="subpage-section">
-          <h3 class="subpage-section-title">${tr("1. Tonart / Generalvorzeichen wählen", "1. Choose Key Signature")}</h3>
-          <p class="subpage-section-desc">${tr(
-            "Lege fest, ob Tonarten mit Vorzeichen am Notenanfang stehen sollen – gilt für alle Schlüssel-Übungen darunter.",
-            "Set a key signature at the start of the staff — applies to all clef exercises below."
-          )}</p>
-          <div class="notation-key-toolbar">
-            <div class="notation-key-pool-row">
-              ${KEY_POOL_CHIPS.map(ch => `
-                <button type="button" class="k-filter-pill${selectedKeyMode === ch.id ? " active" : ""}" data-notation-keymode="${ch.id}">
-                  ${escapeHtml(ch.label)}
-                </button>
-              `).join("")}
-            </div>
-            <div class="notation-key-groups">
-              <div class="notation-key-group-row">
-                ${NOTATION_SHARP_KEY_ORDER.map(renderSigChip).join("")}
-              </div>
-              <div class="notation-key-group-row">
-                ${NOTATION_FLAT_KEY_ORDER.map(renderSigChip).join("")}
-              </div>
-            </div>
-            <div class="notation-key-preview-box">
-              <div class="notation-key-preview-svg">${previewSvg}</div>
-              <div class="notation-key-preview-copy">
-                <span class="notation-key-preview-title">${escapeHtml(previewTitle)}</span>
-                ${previewExample ? `<span class="notation-key-preview-example">${escapeHtml(previewExample)}</span>` : ""}
-                <span class="notation-key-preview-desc">${previewDesc}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="subpage-section">
-          <h3 class="subpage-section-title">${tr("2. Tonarten-Blattspiel (Generalvorzeichen)", "2. Key-Signature Sight-Reading")}</h3>
-          <p class="subpage-section-desc">${tr(
-            "Lies ganze 8-Noten-Phrasen mit vorgegebener Tonart im Notensystem und beachte die Vorzeichen vom Blatt!",
-            "Read 8-note phrases with an active key signature on the staff and remember the sharps &amp; flats while playing!"
-          )}</p>
-          <div class="notation-key-quick-group">
-            <span class="notation-key-quick-label">${tr("Schlüssel &amp; Umfang für diesen Direktstart:", "Clef &amp; range for quick-start cards:")}</span>
-            <div class="notation-key-quick-row">
-              ${TRAINER_CLEFS.map(tc => `
-                <button type="button" class="k-filter-pill${trainerClefMode === tc.mode ? " active" : ""}" data-notation-trainer-clef="${tc.mode}">
-                  ${escapeHtml(tc.label)}
-                </button>
-              `).join("")}
-            </div>
-            <div class="notation-key-quick-row">
-              ${TRAINER_RANGES.map(trng => `
-                <button type="button" class="k-filter-pill${trainerRangeLvl === trng.lvl ? " active" : ""}" data-notation-trainer-lvl="${trng.lvl}">
-                  ${escapeHtml(trng.label)}
-                </button>
-              `).join("")}
-            </div>
-          </div>
-          <div class="subpage-nodes-grid">
-            ${KEY_SIGNATURE_CARDS.map(kc => `
-              <button class="subpage-node-btn" data-launch-notation-key="${kc.id}" data-notation-keymode-launch="${kc.keyMode}" data-notation-mode="${trainerClefMode}" data-notation-lvl="${kc.lvl}">
-                <div class="node-circle ${kc.circle}">${kc.badge}</div>
-                <span class="node-title">${kc.title}</span>
-                <span class="node-sub">${kc.sub}</span>
+      const keyToolbarHtml = `
+        <div class="notation-key-toolbar">
+          <div class="notation-key-pool-row">
+            ${KEY_POOL_CHIPS.map(ch => `
+              <button type="button" class="k-filter-pill${selectedKeyMode === ch.id ? " active" : ""}" data-notation-keymode="${ch.id}">
+                ${escapeHtml(ch.label)}
               </button>
             `).join("")}
           </div>
+          <div class="notation-key-groups">
+            <div class="notation-key-group-row">
+              ${NOTATION_SHARP_KEY_ORDER.map(renderSigChip).join("")}
+            </div>
+            <div class="notation-key-group-row">
+              ${NOTATION_FLAT_KEY_ORDER.map(renderSigChip).join("")}
+            </div>
+          </div>
+          <div class="notation-key-preview-box">
+            <div class="notation-key-preview-svg">${previewSvg}</div>
+            <div class="notation-key-preview-copy">
+              <span class="notation-key-preview-title">${escapeHtml(previewTitle)}</span>
+              ${previewExample ? `<span class="notation-key-preview-example">${escapeHtml(previewExample)}</span>` : ""}
+              <span class="notation-key-preview-desc">${previewDesc}</span>
+            </div>
+          </div>
         </div>
+      `;
 
-        ${NOTATION_SECTIONS.map(sec => `
+      if (selectedNotType.id === "notation-keys") {
+        container.innerHTML = `
+          <div class="subpage-section">
+            <h3 class="subpage-section-title">${tr("Tonarten-Blattspiel (Generalvorzeichen)", "Key-Signature Sight-Reading")}</h3>
+            <p class="subpage-section-desc">${tr(
+              "Lies ganze 8-Noten-Phrasen mit vorgegebener Tonart im Notensystem und beachte die Vorzeichen vom Blatt!",
+              "Read 8-note phrases with an active key signature on the staff and remember the sharps &amp; flats while playing!"
+            )}</p>
+            <div class="notation-key-quick-group">
+              <span class="notation-key-quick-label">${tr("Schlüssel &amp; Umfang für diesen Direktstart:", "Clef &amp; range for quick-start cards:")}</span>
+              <div class="notation-key-quick-row">
+                ${TRAINER_CLEFS.map(tc => `
+                  <button type="button" class="k-filter-pill${trainerClefMode === tc.mode ? " active" : ""}" data-notation-trainer-clef="${tc.mode}">
+                    ${escapeHtml(tc.label)}
+                  </button>
+                `).join("")}
+              </div>
+              <div class="notation-key-quick-row">
+                ${TRAINER_RANGES.map(trng => `
+                  <button type="button" class="k-filter-pill${trainerRangeLvl === trng.lvl ? " active" : ""}" data-notation-trainer-lvl="${trng.lvl}">
+                    ${escapeHtml(trng.label)}
+                  </button>
+                `).join("")}
+              </div>
+            </div>
+            <div class="subpage-nodes-grid">
+              ${KEY_SIGNATURE_CARDS.map(kc => `
+                <button class="subpage-node-btn" data-launch-notation-key="${kc.id}" data-notation-keymode-launch="${kc.keyMode}" data-notation-mode="${trainerClefMode}" data-notation-lvl="${kc.lvl}">
+                  <div class="node-circle ${kc.circle}">${kc.badge}</div>
+                  <span class="node-title">${kc.title}</span>
+                  <span class="node-sub">${kc.sub}</span>
+                </button>
+              `).join("")}
+            </div>
+          </div>
+
+          <div class="subpage-section">
+            <h3 class="subpage-section-title">${tr("Tonart / Generalvorzeichen wählen", "Choose Key Signature")}</h3>
+            <p class="subpage-section-desc">${tr(
+              "Lege fest, ob Tonarten mit Vorzeichen am Notenanfang stehen sollen – gilt auch für alle Schlüssel-Übungen.",
+              "Set a key signature at the start of the staff — also applies to all clef exercises."
+            )}</p>
+            ${keyToolbarHtml}
+          </div>
+        `;
+      } else {
+        const sec = NOTATION_SECTIONS.find(s => s.mode === selectedNotType.id);
+        container.innerHTML = `
           <div class="subpage-section">
             <div class="subpage-section-head-row">
               <h3 class="subpage-section-title">${sec.title}</h3>
@@ -4034,8 +4418,21 @@ function openCategoryPage(categoryKey, options = {}) {
               `).join("")}
             </div>
           </div>
-        `).join("")}
-      `;
+
+          <details class="notation-key-collapse"${notationKeyDrawerOpen ? " open" : ""}>
+            <summary class="notation-key-collapse-summary">
+              <span>${escapeHtml(tr("Tonart / Generalvorzeichen anpassen", "Customize Key Signature"))}</span>
+              <span class="subpage-section-key-pill">${escapeHtml(getLocalizedNotationKeyModeLabel(selectedKeyMode, true))}</span>
+            </summary>
+            <div class="notation-key-collapse-body">${keyToolbarHtml}</div>
+          </details>
+        `;
+
+        const detailsEl = container.querySelector(".notation-key-collapse");
+        detailsEl?.addEventListener("toggle", () => {
+          notationKeyDrawerOpen = Boolean(detailsEl.open);
+        });
+      }
 
       container.querySelectorAll("[data-notation-keymode]").forEach(btn => {
         btn.addEventListener("click", () => {
@@ -4075,6 +4472,8 @@ function openCategoryPage(categoryKey, options = {}) {
           switchView("exercise");
         });
       });
+
+      markBeginnerExerciseNodes(container);
     };
 
     renderNotationCategoryBody();
@@ -4129,8 +4528,10 @@ function openCategoryPage(categoryKey, options = {}) {
     });
   }
 
-  // Prüfungs-Einstieg auf jeder Übungskategorie-Unterseite (nicht beim Einsing-Helfer)
-  if (categoryKey !== "warmup" && EXAM_CATEGORY_LEVELS[categoryKey]) {
+  const isCategoryMainPage = !state.activeCategorySection;
+
+  // Prüfungs-Einstieg nur auf der Hauptseite der Übungskategorie (nicht beim Einsing-Helfer, nicht auf Aufgabentyp-Unterseiten)
+  if (isCategoryMainPage && categoryKey !== "warmup" && EXAM_CATEGORY_LEVELS[categoryKey]) {
     const examCfg = EXAM_CATEGORY_LEVELS[categoryKey];
     const catBest = getCategoryBestExamPercent(categoryKey);
     const catBestHtml = catBest !== null
@@ -4163,26 +4564,41 @@ function openCategoryPage(categoryKey, options = {}) {
 
   markBeginnerExerciseNodes(container);
 
-  // Mittiger Erklär-Button ganz unten auf jeder Übungs-Auswahlseite
-  container.insertAdjacentHTML("beforeend", `
-    <div class="category-help-footer">
-      <button id="openCategoryHelpBtn" class="category-help-btn" type="button">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="10"/>
-          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
-          <line x1="12" y1="17" x2="12.01" y2="17"/>
-        </svg>
-        <span>${tr("So funktioniert’s", "How It Works")}</span>
-      </button>
-    </div>
-  `);
+  // „So funktioniert’s“-Button bleibt auf der Hauptseite der jeweiligen Übungskategorie
+  if (isCategoryMainPage) {
+    container.insertAdjacentHTML("beforeend", `
+      <div class="category-help-footer">
+        <button id="openCategoryHelpBtn" class="category-help-btn" type="button">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <span>${tr("So funktioniert’s", "How It Works")}</span>
+        </button>
+      </div>
+    `);
 
-  document.getElementById("openCategoryHelpBtn")?.addEventListener("click", () => {
-    openCategoryHelpPage(categoryKey);
-  });
+    document.getElementById("openCategoryHelpBtn")?.addEventListener("click", () => {
+      openCategoryHelpPage(categoryKey);
+    });
+  }
 
   if (!options.refreshOnly) {
-    switchView("category");
+    if (wasSameView) {
+      state.updateHeaderSubtext();
+      const nextSec = state.activeCategorySection || null;
+      if (!options.skipHistoryPush && !appHistoryState.isApplying && (prevCat !== categoryKey || prevSec !== nextSec)) {
+        pushAppHistory(null);
+      }
+      const viewEl = document.getElementById("viewCategory");
+      if (viewEl) viewEl.scrollTop = 0;
+      window.scrollTo?.(0, 0);
+    } else {
+      switchView("category", { skipHistoryPush: Boolean(options.skipHistoryPush) });
+    }
+  } else {
+    state.updateHeaderSubtext();
   }
 }
 

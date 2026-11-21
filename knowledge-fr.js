@@ -1920,26 +1920,29 @@ const CATEGORY_HELP_GUIDES_FR = {
     tagClass: "tag-sage",
     tag: "Mode d’emploi • Solfège",
     title: "Comment fonctionne le solfège relatif (Do mobile)",
-    lead: "Le solfège relatif (Movable-Do) forge l’oreille relative : vous apprenez à reconnaître chacun des 7 degrés (Do–Ti ou 1–7) grâce à sa tension caractéristique et son attirance au sein de la tonalité.",
+    lead: "Le solfège relatif (Movable-Do) forge l’oreille relative en majeur comme en mineur : vous apprenez à reconnaître chaque degré (Do–Ti, Do–Re–Me–Fa–Sol–Le–Te ou chiffres) grâce à sa tension caractéristique au sein de la tonalité.",
     sections: `
       <h3>Chaque manche suit 4 étapes claires</h3>
       <ul class="article-steps-list">
-        <li><strong>1. Cadence de contexte :</strong> Une courte progression (<code>I – vi – IV – V</code>) accorde proprement votre oreille sur le centre tonal.</li>
-        <li><strong>2. Note cible :</strong> Après un instant, vous entendez un seul degré isolé issu de cette tonalité.</li>
-        <li><strong>3. Répondre au clavier :</strong> Seules les touches de la gamme affichent leur repère (<em>Do–Re–Mi–Fa–Sol–La–Ti–Do</em> ou les <em>chiffres 1–7</em> en option), encadrées d’une touche de marge de chaque côté ; les autres touches restent atténuées.</li>
-        <li><strong>4. Erreurs silencieuses &amp; Résolution naturelle :</strong> Une mauvaise touche clignote discrètement en rouge sans son afin de préserver votre mémoire tonale. La bonne touche s’illumine en vert et joue sa résolution vers la tonique (<code>Do–Fa</code> vers le bas, <code>Sol–Ti</code> vers le haut).</li>
+        <li><strong>1. Cadence de contexte :</strong> Une courte progression accorde proprement votre oreille sur le centre tonal — <code>I – vi – IV – V</code> en majeur ou <code>i – VI – iv – V</code> en mineur.</li>
+        <li><strong>2. Note cible :</strong> Après un instant, vous entendez un seul degré isolé issu de l’étendue active.</li>
+        <li><strong>3. Répondre au clavier :</strong> Seules les touches actives affichent leur repère (majeur : <em>Do–Re–Mi–Fa–Sol–La–Ti–Do</em>, mineur : <em>Do–Re–Me–Fa–Sol–Le–Te–Do</em> ou les <em>chiffres</em> en option), encadrées d’une touche de marge ; les autres touches restent atténuées.</li>
+        <li><strong>4. Erreurs silencieuses &amp; Résolution naturelle :</strong> Une mauvaise touche clignote discrètement en rouge sans son afin de préserver votre mémoire tonale. La bonne touche s’illumine en vert et joue sa résolution vers la tonique (<code>Do–Fa</code> vers le bas, <code>Sol–Ti/Te</code> vers le haut).</li>
       </ul>
 
-      <h3>Les 6 niveaux de difficulté</h3>
+      <h3>Majeur, Mineur &amp; Tonalité libre (progression)</h3>
       <ul class="article-steps-list">
-        <li><strong>Niveaux 1 &amp; 2 (1 octave) :</strong> Le niveau 1 reste fixe en <code>Do majeur</code> ; le niveau 2 choisit une tonalité aléatoire pour toute la session.</li>
-        <li><strong>Niveaux 3 &amp; 4 (Multi-octaves) :</strong> Les degrés cibles sautent dans les octaves graves ou aiguës — soit en <code>Do majeur</code> fixe (Niveau 3), soit dans une tonalité aléatoire fixe (Niveau 4).</li>
-        <li><strong>Niveaux 5 &amp; 6 (Modulations de tonalité) :</strong> Chaque bonne réponse module dans une toute nouvelle tonalité — d’abord sur 1 octave (Niveau 5), puis sur plusieurs octaves (Niveau 6).</li>
+        <li><strong>Niveaux 1 &amp; 2 – Moitiés de gamme (4 notes) :</strong> Démarrage en douceur sur 4 touches actives : moitié basse <code>Do–Fa</code> puis moitié haute <code>Sol–Do</code> en <code>Do majeur</code> ou <code>Do mineur</code> fixe.</li>
+        <li><strong>Niveaux 3 &amp; 4 – Gamme complète (1 octave) :</strong> Les 7 degrés en <code>Do majeur</code> / <code>Do mineur</code> (Niveau 3) ou dans une tonalité aléatoire fixe pour la session (Niveau 4).</li>
+        <li><strong>Niveaux 5 &amp; 6 – Multi-octaves :</strong> Les degrés sautent dans les octaves graves ou aiguës — en <code>Do majeur</code> / <code>Do mineur</code> fixe (Niveau 5) ou dans une tonalité aléatoire fixe (Niveau 6).</li>
+        <li><strong>Niveaux 7 &amp; 8 – Modulations :</strong> Chaque bonne réponse change de tonalité — d’abord sur 1 octave (Niveau 7), puis sur plusieurs octaves (Niveau 8).</li>
+        <li><strong>Majeur &amp; Mineur en miroir :</strong> Les 8 niveaux existent à l’identique en majeur et en mineur naturel.</li>
+        <li><strong>Tonalité libre (Majeur &amp; Mineur) :</strong> Choisissez mode (majeur/mineur), tonalité (les 12 ou aléatoire), étendue (<code>Do–Fa</code>, <code>Sol–Do</code>, <code>Gamme complète</code>) et octave — avant de lancer ou à tout moment via le badge cliquable en haut à droite de l’exercice.</li>
       </ul>
 
       <div class="article-highlight-box">
-        <h4>Aides, Chanter &amp; Étiquettes</h4>
-        <p>En haut, <strong>Chanter</strong> (avec <em>Pause fredonnée</em> en option) vous invite à chanter jusqu’au Do / 1, à côté du réglage <strong>Tempo (BPM)</strong>. Au-dessus du clavier se trouvent le <strong>badge de tonalité</strong> (joue l’accord tonique), <strong>Tonique (Do)</strong> et <strong>Réécouter</strong>. En bas, le bouton violet <strong>Boucle</strong> répète la note toutes les 3 secondes, et <strong>Écoute seule</strong> résout automatiquement. Basculez entre <strong>Syllabes (Do–Ti)</strong> et <strong>Chiffres (1–7)</strong> ou <strong>Suivant auto</strong> dans les <strong>Paramètres</strong>.</p>
+        <h4>Aides, Chanter, Étiquettes &amp; Examen</h4>
+        <p>En haut, <strong>Chanter</strong> (avec <em>Pause fredonnée</em> en option) vous invite à chanter jusqu’au Do / 1, à côté du réglage <strong>Tempo (BPM)</strong>. Au-dessus du clavier se trouvent le <strong>badge de tonalité</strong> (joue l’accord tonique majeur ou mineur), <strong>Tonique (Do)</strong> et <strong>Réécouter</strong>. En bas, le bouton violet <strong>Boucle</strong> répète la note toutes les 3 secondes, et <strong>Écoute seule</strong> résout automatiquement. Basculez entre <strong>Syllabes</strong> et <strong>Chiffres</strong> (<code>1–7</code> / <code>b3, b6, b7</code>) ou <strong>Suivant auto</strong> dans les <strong>Paramètres</strong> — et passez l’<strong>Examen de la catégorie</strong> (Majeur, Mineur, Moitiés, Majeur &amp; Mineur alternés ou Tonalité libre).</p>
       </div>
     `
   },
