@@ -117,39 +117,52 @@ function syncMetronomeTransportUI() {
   }
 }
 
+function getMetronomeGridTiles() {
+  const grid = document.getElementById("metroBeatGrid");
+  if (!grid || !grid.children) return [];
+  return Array.from(grid.children);
+}
+
 function clearMetronomeVisualPulseClasses() {
   if (_metroRuntime.hitClearTimer) {
     clearTimeout(_metroRuntime.hitClearTimer);
     _metroRuntime.hitClearTimer = null;
   }
-  const grid = document.getElementById("metroBeatGrid");
-  if (grid && Array.isArray(grid.children)) {
-    grid.children.forEach(tile => {
-      tile.classList?.remove?.("is-current", "is-beat-hit");
-    });
-  }
+  getMetronomeGridTiles().forEach(tile => {
+    tile?.classList?.remove?.("is-current", "is-beat-hit", "is-sub-hit");
+  });
   const tapBtn = document.getElementById("metroTapCircle");
   tapBtn?.classList?.remove?.("is-beat-accent", "is-beat-normal", "is-beat-muted");
   const track = document.getElementById("metroPendulumTrack");
   track?.classList?.remove?.("swing-left", "swing-right", "is-accent-hit", "is-muted-hit");
 }
 
-function triggerMetronomeBeatVisual(beatIdx, beatState) {
+function triggerMetronomeBeatVisual(beatIdx, beatState, subIdx = 0) {
   const beats = state.metronome?.beats || [];
   if (!state.metronome?.running || beatIdx < 0 || beatIdx >= beats.length) return;
 
-  _metroRuntime.activeBeatIndex = beatIdx;
-  const grid = document.getElementById("metroBeatGrid");
-  if (grid && Array.isArray(grid.children)) {
-    grid.children.forEach((tile, idx) => {
-      if (!tile?.classList) return;
-      tile.classList.toggle("is-current", idx === beatIdx);
-      tile.classList.remove("is-beat-hit");
-      if (idx === beatIdx) {
-        tile.classList.add("is-beat-hit");
-      }
-    });
+  const tiles = getMetronomeGridTiles();
+  if (subIdx > 0) {
+    const activeTile = tiles[beatIdx];
+    if (activeTile?.classList && beatState !== "muted") {
+      activeTile.classList.remove("is-sub-hit");
+      void activeTile.offsetWidth;
+      activeTile.classList.add("is-sub-hit");
+    }
+    return;
   }
+
+  _metroRuntime.activeBeatIndex = beatIdx;
+  tiles.forEach((tile, idx) => {
+    if (!tile?.classList) return;
+    const isCurrent = idx === beatIdx;
+    tile.classList.toggle("is-current", isCurrent);
+    tile.classList.remove("is-beat-hit", "is-sub-hit");
+    if (isCurrent) {
+      void tile.offsetWidth;
+      tile.classList.add("is-beat-hit");
+    }
+  });
 
   _metroRuntime.swingLeft = !_metroRuntime.swingLeft;
   const track = document.getElementById("metroPendulumTrack");
@@ -172,9 +185,7 @@ function triggerMetronomeBeatVisual(beatIdx, beatState) {
   const pulseMs = Math.max(90, Math.min(260, Math.round((60000 / clampMetronomeBpm(state.metronome.bpm)) * 0.45)));
   _metroRuntime.hitClearTimer = setTimeout(() => {
     _metroRuntime.hitClearTimer = null;
-    if (grid && Array.isArray(grid.children)) {
-      grid.children.forEach(tile => tile?.classList?.remove?.("is-beat-hit"));
-    }
+    getMetronomeGridTiles().forEach(tile => tile?.classList?.remove?.("is-beat-hit", "is-sub-hit"));
     tapCircle?.classList?.remove?.("is-beat-accent", "is-beat-normal", "is-beat-muted");
   }, pulseMs);
 }
@@ -220,21 +231,19 @@ function scheduleSingleMetronomeStep(beatIdx, subIdx, whenSec, nowAudioSec, runT
     }
   }
 
-  if (subIdx === 0) {
-    const delayMs = Math.max(0, Math.round((whenSec - nowAudioSec) * 1000));
-    if (delayMs <= 6) {
-      if (state.metronome.running && _metroRuntime.runToken === runToken) {
-        triggerMetronomeBeatVisual(safeIdx, beatState);
-      }
-    } else {
-      const vtId = setTimeout(() => {
-        _metroRuntime.visualTimers = _metroRuntime.visualTimers.filter(t => t !== vtId);
-        if (state.metronome.running && _metroRuntime.runToken === runToken) {
-          triggerMetronomeBeatVisual(safeIdx, beatState);
-        }
-      }, delayMs);
-      _metroRuntime.visualTimers.push(vtId);
+  const delayMs = Math.max(0, Math.round((whenSec - nowAudioSec) * 1000));
+  if (delayMs <= 6) {
+    if (state.metronome.running && _metroRuntime.runToken === runToken) {
+      triggerMetronomeBeatVisual(safeIdx, beatState, subIdx);
     }
+  } else {
+    const vtId = setTimeout(() => {
+      _metroRuntime.visualTimers = _metroRuntime.visualTimers.filter(t => t !== vtId);
+      if (state.metronome.running && _metroRuntime.runToken === runToken) {
+        triggerMetronomeBeatVisual(safeIdx, beatState, subIdx);
+      }
+    }, delayMs);
+    _metroRuntime.visualTimers.push(vtId);
   }
 }
 
@@ -508,8 +517,8 @@ function toggleMetronomeBeatState(index) {
   state.metronome.beats = beats;
   state.metronome.activeProfileId = null;
 
-  const grid = document.getElementById("metroBeatGrid");
-  const tile = grid && Array.isArray(grid.children) ? grid.children[index] : null;
+  const tiles = getMetronomeGridTiles();
+  const tile = tiles[index] || null;
   if (tile) {
     syncMetronomeBeatTileAppearance(tile, index, nextState);
   } else {
