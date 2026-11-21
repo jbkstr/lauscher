@@ -5626,7 +5626,7 @@ body,
   background-color: var(--bg-base);
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-md);
-  padding: 0.55rem 0.4rem;
+  padding: 0.45rem 0.2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -5635,7 +5635,7 @@ body,
 
 .cof-wheel-svg {
   width: 100%;
-  max-width: 344px;
+  max-width: 416px;
   height: auto;
   display: block;
   user-select: none;
@@ -14910,6 +14910,41 @@ const LAUSCHER_MASCOT_DATA_URIS = {
           </div>
           <span class="cat-chevron">›</span>
         </button>
+
+        <button id="openCircleBtn" class="category-nav-card card-accent-lilac category-card-wide" type="button" data-open-tool="circle">
+          <div class="cat-icon-box badge-lilac">
+            <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M 5.49 5.49 A 9.2 9.2 0 0 1 9.62 3.11 L 10.73 7.27 A 4.9 4.9 0 0 0 8.54 8.54 Z" fill="currentColor" fill-opacity="0.14" stroke="none"/>
+              <path d="M 14.38 3.11 A 9.2 9.2 0 0 1 18.51 5.49 L 15.46 8.54 A 4.9 4.9 0 0 0 13.27 7.27 Z" fill="currentColor" fill-opacity="0.14" stroke="none"/>
+              <path d="M 9.62 3.11 A 9.2 9.2 0 0 1 14.38 3.11 L 13.27 7.27 A 4.9 4.9 0 0 0 10.73 7.27 Z" fill="currentColor" fill-opacity="0.34" stroke="none"/>
+              <circle cx="12" cy="12" r="9.2"/>
+              <circle cx="12" cy="12" r="4.9" stroke-width="1.5"/>
+              <g stroke-width="1.0" opacity="0.72">
+                <line x1="10.73" y1="16.73" x2="9.62" y2="20.89"/>
+                <line x1="8.54" y1="15.46" x2="5.49" y2="18.51"/>
+                <line x1="7.27" y1="13.27" x2="3.11" y2="14.38"/>
+                <line x1="7.27" y1="10.73" x2="3.11" y2="9.62"/>
+                <line x1="8.54" y1="8.54" x2="5.49" y2="5.49"/>
+                <line x1="10.73" y1="7.27" x2="9.62" y2="3.11"/>
+                <line x1="13.27" y1="7.27" x2="14.38" y2="3.11"/>
+                <line x1="15.46" y1="8.54" x2="18.51" y2="5.49"/>
+                <line x1="16.73" y1="10.73" x2="20.89" y2="9.62"/>
+                <line x1="16.73" y1="13.27" x2="20.89" y2="14.38"/>
+                <line x1="15.46" y1="15.46" x2="18.51" y2="18.51"/>
+                <line x1="13.27" y1="16.73" x2="14.38" y2="20.89"/>
+              </g>
+              <ellipse cx="11.1" cy="13.5" rx="1.45" ry="1.05" transform="rotate(-18 11.1 13.5)" fill="currentColor" stroke="none"/>
+              <path d="M12.3 13.1 V9.1 C13.6 9.6 14.2 10.6 13.8 11.5" stroke-width="1.45"/>
+            </svg>
+          </div>
+          <div class="cat-text-box">
+            <div class="tool-card-title-row">
+              <h3 data-i18n="tools.circleTitle">Quintenzirkel</h3>
+            </div>
+            <p data-i18n="tools.circleSub">Interaktives Klangrad, Akkorde, Vorzeichen &amp; Modulation</p>
+          </div>
+          <span class="cat-chevron">›</span>
+        </button>
       </div>
     </main>
 
@@ -15050,7 +15085,7 @@ const LAUSCHER_MASCOT_DATA_URIS = {
               </svg>
             </div>
             <span class="ref-hub-title" data-i18n="knowledge.refCircle">Quintenzirkel</span>
-            <span class="ref-hub-sub" data-i18n="knowledge.refCircleSub">Interaktives Rad, Akkorde &amp; Praxis</span>
+            <span class="ref-hub-sub" data-i18n="knowledge.refCircleSub">Grundidee, Leselogik, Nutzen &amp; Praxis</span>
           </button>
 
           <button class="ref-hub-card card-top-lilac" data-open-ref="sing-and-play">
@@ -16458,6 +16493,13 @@ const LAUSCHER_MASCOT_DATA_URIS = {
         </div>
       </section>
 
+    </main>
+
+    <!-- =====================================================
+         ANSICHT 10: INTERAKTIVER QUINTENZIRKEL (#viewCircle)
+         ===================================================== -->
+    <main id="viewCircle" class="view-container hidden">
+      <div id="circleToolContent" class="knowledge-list"></div>
     </main>
 
     </div><!-- /.views-stage -->
@@ -21139,6 +21181,24 @@ registerColocatedStatic({
     uk: "Акорди в усіх позиціях, зворотний пошук і гами",
     ur: "تمام پوزیشنز میں کورڈز، ریورس کورڈ فائنڈر اور اسکیلز"
   },
+  "tools.circleTitle": {
+    de: "Quintenzirkel",
+    en: "Circle of Fifths",
+    fr: "Cycle des quintes",
+    es: "Círculo de quintas",
+    pl: "Koło kwintowe",
+    uk: "Кварто-квінтове коло",
+    ur: "سرکل آف ففتھس"
+  },
+  "tools.circleSub": {
+    de: "Interaktives Klangrad, Akkorde, Vorzeichen & Modulation",
+    en: "Interactive key wheel, chords, key signatures & modulation",
+    fr: "Roue interactive, accords, armures & modulation",
+    es: "Rueda interactiva, acordes, armaduras y modulación",
+    pl: "Interaktywna tarcza, akordy, znaki przykluczowe i modulacja",
+    uk: "Інтерактивне коло, акорди, ключові знаки й модуляція",
+    ur: "انٹرایکٹو پہیہ، کورڈز، کلیدی علامات اور ماڈیولیشن"
+  },
   "tools.soonBadge": {
     de: "Bald",
     en: "Soon",
@@ -21968,13 +22028,13 @@ registerColocatedStatic({
     ur: "سرکل آف ففتھس"
   },
   "knowledge.refCircleSub": {
-    de: "Interaktives Rad, Akkorde & Praxis",
-    en: "Interactive wheel, chords & tips",
-    fr: "Roue interactive, accords & pratique",
-    es: "Rueda interactiva, acordes y práctica",
-    pl: "Interaktywna tarcza, akordy i praktyka",
-    uk: "Інтерактивне колесо, акорди та поради",
-    ur: "انٹرایکٹو پہیہ، کارڈ خاندان اور مشق"
+    de: "Grundidee, Leselogik, Nutzen & Praxis",
+    en: "Core idea, reading logic, benefits & practice",
+    fr: "Principe, logique de lecture, utilité & pratique",
+    es: "Idea clave, lógica de lectura, utilidad y práctica",
+    pl: "Idea, logika odczytu, korzyści i praktyka",
+    uk: "Основна ідея, логіка читання, користь і практика",
+    ur: "بنیادی تصور، پڑھنے کی منطق، فوائد اور مشق"
   },
   "knowledge.refSingPlay": {
     de: "Singen & Spielen",
@@ -31773,6 +31833,41 @@ registerColocatedPhrases({
     pl: "Wszystkie 12 tonacji w szczegółach:",
     uk: "Усі 12 тональностей докладно:",
     ur: "تمام 12 کلیدیں تفصیل سے:"
+  },
+  "Hintergrund & Praxis-Wissen:": {
+    fr: "Principes & Guide pratique :",
+    es: "Fundamentos y guía práctica:",
+    pl: "Podstawy i praktyka:",
+    uk: "Основи та практика:",
+    ur: "پس منظر اور عملی رہنمائی:"
+  },
+  "Erfahre, warum sich der Zirkel schließt, wie du ihn in Sekunden liest und zum Üben nutzt.": {
+    fr: "Découvrez pourquoi le cycle se referme, comment le lire en quelques secondes et l’utiliser au quotidien.",
+    es: "Descubre por qué se cierra el círculo, cómo leerlo en segundos y cómo usarlo en tu práctica diaria.",
+    pl: "Dowiedz się, dlaczego koło się zamyka, jak odczytać je w kilka sekund i wykorzystać w codziennym ćwiczeniu.",
+    uk: "Дізнайся, чому коло замикається, як читати його за лічені секунди й використовувати у щоденних вправах.",
+    ur: "جانیں کہ یہ دائرہ کیوں مکمل ہوتا ہے، اسے چند سیکنڈ میں کیسے پڑھیں اور روزانہ مشق میں کیسے استعمال کریں۔"
+  },
+  "Quintenzirkel verstehen →": {
+    fr: "Comprendre le Cycle des quintes →",
+    es: "Entender el círculo de quintas →",
+    pl: "Zrozumieć koło kwintowe →",
+    uk: "Зрозуміти квінтове коло →",
+    ur: "حلقۂ خمسہ کو سمجھیں ←"
+  },
+  "Interaktives Klangrad, Akkorde, Vorzeichen & Modulation": {
+    fr: "Roue interactive, accords, armures & modulation",
+    es: "Rueda interactiva, acordes, armaduras y modulación",
+    pl: "Interaktywna tarcza, akordy, znaki przykluczowe i modulacja",
+    uk: "Інтерактивне коло, акорди, ключові знаки й модуляція",
+    ur: "انٹرایکٹو پہیہ، کورڈز، کلیدی علامات اور ماڈیولیشن"
+  },
+  "Grundidee, Leselogik, Nutzen & Praxis-Übungen": {
+    fr: "Principe, logique de lecture, utilité & exercices pratiques",
+    es: "Idea clave, lógica de lectura, utilidad y ejercicios prácticos",
+    pl: "Idea, logika odczytu, korzyści i ćwiczenia praktyczne",
+    uk: "Основна ідея, логіка читання, користь і практичні вправи",
+    ur: "بنیادی تصور، پڑھنے کی منطق، فوائد اور عملی مشقیں"
   },
   "Alle Generalvorzeichen, Dreiklänge & Moll-Varianten auf einen Blick.": {
     es: "Todas las armaduras, tríadas y variantes menores de un vistazo.",
@@ -51819,7 +51914,7 @@ function renderCircleOfFifthsTheoryHTML() {
   `;
 }
 
-function renderCircleOfFifthsReferenceHTML(selectedIdx = 0, ringMode = "major", activeTab = "chords") {
+function renderCircleOfFifthsToolHTML(selectedIdx = 0, ringMode = "major", activeTab = "chords") {
   const safeIdx = ((selectedIdx % 12) + 12) % 12;
   const safeRing = ringMode === "minor" ? "minor" : "major";
   const safeTab = ["chords", "signatures", "modulation"].includes(activeTab) ? activeTab : "chords";
@@ -52006,7 +52101,7 @@ function renderCircleOfFifthsReferenceHTML(selectedIdx = 0, ringMode = "major", 
         </div>
 
         <div class="cof-wheel-wrap">
-          <svg class="cof-wheel-svg" viewBox="0 0 360 360" role="img" aria-label="${lc("Interaktives Quintenzirkel-Rad", "Interactive Circle of Fifths wheel", "Roue interactive du Cycle des quintes")}">
+          <svg class="cof-wheel-svg" viewBox="5 5 350 350" role="img" aria-label="${lc("Interaktives Quintenzirkel-Rad", "Interactive Circle of Fifths wheel", "Roue interactive du Cycle des quintes")}">
             ${wedgesSvg}
             <circle class="cof-center-circle" cx="180" cy="180" r="59"/>
             <text class="cof-center-kicker" x="180" y="153">${safeRing === "minor" ? lc("MOLL", "MINOR", "MINEUR") : lc("DUR", "MAJOR", "MAJEUR")} • ${current.sigShort}</text>
@@ -52039,11 +52134,34 @@ function renderCircleOfFifthsReferenceHTML(selectedIdx = 0, ringMode = "major", 
       </section>
 
       <div class="k-sibling-bar">
+        <span><strong>${lc("Hintergrund & Praxis-Wissen:", "Background & Practice Guide:", "Principes & Guide pratique :")}</strong> ${lc("Erfahre, warum sich der Zirkel schließt, wie du ihn in Sekunden liest und zum Üben nutzt.", "Learn why the circle closes, how to read it in seconds, and how to use it in daily practice.", "Découvrez pourquoi le cycle se referme, comment le lire en quelques secondes et l’utiliser au quotidien.")}</span>
+        <button type="button" class="btn-tool" data-jump-ref="circle-of-fifths">${lc("Quintenzirkel verstehen →", "Understand the Circle of Fifths →", "Comprendre le Cycle des quintes →")}</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderCircleOfFifthsReferenceHTML() {
+  const lang = typeof getAppLanguage === "function" ? getAppLanguage() : "de";
+  const lc = (deStr, enStr, frStr) => {
+    if (lang === "fr") return frStr;
+    if (lang === "en") return enStr;
+    if (lang !== "de") {
+      const dict = typeof TRANSLATIONS_BY_LANG !== "undefined" ? TRANSLATIONS_BY_LANG[lang] : null;
+      if (dict && Object.prototype.hasOwnProperty.call(dict, deStr)) return dict[deStr];
+      if (dict && Object.prototype.hasOwnProperty.call(dict, enStr)) return dict[enStr];
+      return enStr;
+    }
+    return deStr;
+  };
+  return `
+    <div class="knowledge-list">
+      ${renderCircleOfFifthsTheoryHTML()}
+
+      <div class="k-sibling-bar">
         <span><strong>${lc("Alle 12 Tonarten im Detail:", "Complete 12-Key Atlas:", "Atlas complet des 12 tonalités :")}</strong> ${lc("Alle Generalvorzeichen, Dreiklänge & Moll-Varianten auf einen Blick.", "Browse signatures, chord tables & natural/harmonic/melodic minor.", "Armures, accords diatoniques et les 3 gammes mineures d’un coup d’œil.")}</span>
         <button type="button" class="btn-tool" data-jump-ref="keys">${lc("Tonarten &amp; Vorzeichen →", "Keys &amp; Signatures →", "Tonalités &amp; Armures →")}</button>
       </div>
-
-      ${renderCircleOfFifthsTheoryHTML()}
     </div>
   `;
 }
@@ -72623,6 +72741,9 @@ class AppState {
     } else if (this.currentView === "fretboard") {
       mainTitle.textContent = tr("Griffbrett", "Fretboard");
       el.textContent = tr("Gitarren-Akkorde, Umkehrsuche & Tonleitern", "Guitar chords, reverse finder & scales");
+    } else if (this.currentView === "circle") {
+      mainTitle.textContent = tr("Quintenzirkel", "Circle of Fifths");
+      el.textContent = tr("Interaktives Klangrad, Akkorde, Vorzeichen & Modulation", "Interactive key wheel, chords, key signatures & modulation");
     } else if (this.currentView === "exercise" && this.exam?.active) {
       const curQ = Math.min((this.exam.currentIdx || 0) + 1, this.exam.totalQuestions || 1);
       const presetMeta = typeof getExamPresetById === "function" ? getExamPresetById(this.exam.categoryKey, this.exam.levelId) : null;
@@ -72845,6 +72966,8 @@ function setLanguagePreference(nextLang) {
     openExamSetupPage(state.examSetupCategory, { refreshOnly: true });
   } else if (state.currentView === "exam-result") {
     renderExamResultView();
+  } else if (state.currentView === "circle" && typeof renderCircleOfFifthsView === "function") {
+    renderCircleOfFifthsView();
   } else if (state.currentView === "knowledge-detail" && state.activeKnowledgeDetail) {
     if (state.activeKnowledgeDetail.kind === "article") {
       openKnowledgeArticle(state.activeKnowledgeDetail.id, { refreshOnly: true });
@@ -75671,12 +75794,14 @@ function navigateBackFromUI() {
     switchView(state.freeplayReturnView || "tools", { skipHistoryPush: true });
   } else if (state.currentView === "fretboard") {
     switchView(state.fretboardReturnView || "tools", { skipHistoryPush: true });
+  } else if (state.currentView === "circle") {
+    switchView(state.circleReturnView || "tools", { skipHistoryPush: true });
   } else if (state.currentView === "exam-result") {
     switchView(state.examResultReturnView || "exam-setup", { skipHistoryPush: true });
   } else if (state.currentView === "exam-setup") {
     switchView("category", { skipHistoryPush: true });
   } else if (state.currentView === "knowledge-detail") {
-    switchView("knowledge", { skipHistoryPush: true });
+    switchView(state.knowledgeReturnView || "knowledge", { skipHistoryPush: true });
   } else if (state.currentView === "category-help") {
     switchView("category", { skipHistoryPush: true });
   } else {
@@ -75813,7 +75938,7 @@ function prefersReducedMotion() {
 
 function getTabForView(view) {
   if (view === "home" || view === "category" || view === "category-help" || view === "exam-setup") return "home";
-  if (view === "tools" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard") return "tools";
+  if (view === "tools" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard" || view === "circle") return "tools";
   if (view === "exam-result") return state.examResultReturnView === "space" ? "space" : "home";
   if (view === "knowledge" || view === "knowledge-detail") return "knowledge";
   if (view === "space") return "space";
@@ -75824,7 +75949,7 @@ function getViewOrderInfo(view) {
   const tab = getTabForView(view) || "home";
   const tabIdx = MAIN_TAB_ORDER.indexOf(tab);
   let depth = 0;
-  if (view === "category" || view === "knowledge-detail" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard") depth = 1;
+  if (view === "category" || view === "knowledge-detail" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard" || view === "circle") depth = 1;
   else if (view === "category-help" || view === "exam-setup") depth = 2;
   else if (view === "exercise" || view === "warmup") depth = 3;
   else if (view === "exam-result") depth = 4;
@@ -75927,7 +76052,7 @@ function navigateToMainTab(targetTab, swipeDir = null) {
 
   if (
     targetTab === "tools" &&
-    (state.currentView === "metronome" || state.currentView === "tuner" || state.currentView === "freeplay" || state.currentView === "fretboard") &&
+    (state.currentView === "metronome" || state.currentView === "tuner" || state.currentView === "freeplay" || state.currentView === "fretboard" || state.currentView === "circle") &&
     canHistory &&
     appHistoryState.idx >= 1 &&
     window.history.state?.idx >= 1
@@ -75987,7 +76112,7 @@ function hasHorizontalScrollableAncestor(target) {
 }
 
 function isTabSwipeBlockedView(view) {
-  return view === "exercise" || view === "warmup" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard";
+  return view === "exercise" || view === "warmup" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard" || view === "circle";
 }
 
 function handleHorizontalTabSwipe({ startX, startY, endX, endY, durationMs, viewportWidth, target }) {
@@ -76193,7 +76318,8 @@ function switchView(targetView, options = {}) {
     metronome: document.getElementById("viewMetronome"),
     tuner: document.getElementById("viewTuner"),
     freeplay: document.getElementById("viewFreeplay"),
-    fretboard: document.getElementById("viewFretboard")
+    fretboard: document.getElementById("viewFretboard"),
+    circle: document.getElementById("viewCircle")
   };
 
   finishActiveViewLeave();
@@ -76274,6 +76400,8 @@ function switchView(targetView, options = {}) {
     renderFreeplayView();
   } else if (targetView === "fretboard" && typeof renderFretboardView === "function") {
     renderFretboardView();
+  } else if (targetView === "circle" && typeof renderCircleOfFifthsView === "function") {
+    renderCircleOfFifthsView();
   }
 
   if (targetView === "exercise") {
@@ -76382,6 +76510,9 @@ function openKnowledgeRef(refKey, options = {}) {
   // Querverweise wechseln die Seite ohne Ansichtswechsel – laufende Wellen-Animation hier beenden
   stopWaveAnimation();
 
+  if (!options.refreshOnly) {
+    state.knowledgeReturnView = options.returnView || (state.currentView === "circle" ? "circle" : "knowledge");
+  }
   state.activeKnowledgeDetail = { kind: "ref", key: refKey };
 
   if (refKey === "intervals") {
@@ -76691,56 +76822,12 @@ function openKnowledgeRef(refKey, options = {}) {
   } else if (refKey === "circle-of-fifths") {
     state.knowledgeTitle = tr("Quintenzirkel", "Circle of Fifths");
     state.knowledgeSub = tr(
-      "Interaktives Klangrad, Nutzung, Akkord-Familien & Modulation",
-      "Interactive key wheel, how to use it, chord families & modulation"
+      "Grundidee, Leselogik, Nutzen & Praxis-Übungen",
+      "Core idea, reading logic, benefits & practical drills"
     );
 
-    const renderCircleModule = () => {
-      const cof = state.circleOfFifthsState || { idx: 0, ringMode: "major", tab: "chords" };
-      container.innerHTML = renderCircleOfFifthsReferenceHTML(cof.idx, cof.ringMode, cof.tab);
-      bindKnowledgeAudioButtons(container);
-
-      container.querySelectorAll("[data-cof-idx]").forEach(el => {
-        const activateWedge = () => {
-          const nextIdx = parseInt(el.dataset.cofIdx || "0", 10);
-          const targetRing = el.dataset.cofTargetRing === "minor" ? "minor" : "major";
-          state.circleOfFifthsState = { ...cof, idx: nextIdx, ringMode: targetRing };
-          renderCircleModule();
-        };
-        el.addEventListener("click", activateWedge);
-        el.addEventListener("keydown", ev => {
-          if (ev.key === "Enter" || ev.key === " ") {
-            ev.preventDefault();
-            activateWedge();
-          }
-        });
-      });
-
-      container.querySelectorAll("[data-cof-ring]").forEach(btn => {
-        btn.addEventListener("click", () => {
-          const targetRing = btn.dataset.cofRing === "minor" ? "minor" : "major";
-          state.circleOfFifthsState = { ...cof, ringMode: targetRing };
-          renderCircleModule();
-        });
-      });
-
-      container.querySelectorAll("[data-cof-step]").forEach(btn => {
-        btn.addEventListener("click", () => {
-          const delta = parseInt(btn.dataset.cofStep || "0", 10);
-          const nextIdx = ((cof.idx + delta) % 12 + 12) % 12;
-          state.circleOfFifthsState = { ...cof, idx: nextIdx };
-          renderCircleModule();
-        });
-      });
-
-      container.querySelectorAll("[data-cof-tab]").forEach(btn => {
-        btn.addEventListener("click", () => {
-          state.circleOfFifthsState = { ...cof, tab: btn.dataset.cofTab || "chords" };
-          renderCircleModule();
-        });
-      });
-    };
-    renderCircleModule();
+    container.innerHTML = renderCircleOfFifthsReferenceHTML();
+    bindKnowledgeAudioButtons(container);
 
   } else if (refKey === "sing-and-play") {
     state.knowledgeTitle = tr("Singen & Spielen", "Sing & Play");
@@ -76811,6 +76898,9 @@ function openKnowledgeArticle(articleId, options = {}) {
     return;
   }
 
+  if (!options.refreshOnly) {
+    state.knowledgeReturnView = options.returnView || "knowledge";
+  }
   state.activeKnowledgeDetail = { kind: "article", id: articleId };
   state.knowledgeTitle = art.tag;
   state.knowledgeSub = art.title;
@@ -76820,6 +76910,59 @@ function openKnowledgeArticle(articleId, options = {}) {
   if (!options.refreshOnly) {
     switchView("knowledge-detail");
   }
+}
+
+function openCircleOfFifthsView(returnView = "tools") {
+  state.circleReturnView = returnView;
+  switchView("circle");
+}
+
+function renderCircleOfFifthsView() {
+  const container = document.getElementById("circleToolContent");
+  if (!container || typeof renderCircleOfFifthsToolHTML !== "function") return;
+  const cof = state.circleOfFifthsState || { idx: 0, ringMode: "major", tab: "chords" };
+  container.innerHTML = renderCircleOfFifthsToolHTML(cof.idx, cof.ringMode, cof.tab);
+  bindKnowledgeAudioButtons(container);
+
+  container.querySelectorAll("[data-cof-idx]").forEach(el => {
+    const activateWedge = () => {
+      const nextIdx = parseInt(el.dataset.cofIdx || "0", 10);
+      const targetRing = el.dataset.cofTargetRing === "minor" ? "minor" : "major";
+      state.circleOfFifthsState = { ...cof, idx: nextIdx, ringMode: targetRing };
+      renderCircleOfFifthsView();
+    };
+    el.addEventListener("click", activateWedge);
+    el.addEventListener("keydown", ev => {
+      if (ev.key === "Enter" || ev.key === " ") {
+        ev.preventDefault();
+        activateWedge();
+      }
+    });
+  });
+
+  container.querySelectorAll("[data-cof-ring]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const targetRing = btn.dataset.cofRing === "minor" ? "minor" : "major";
+      state.circleOfFifthsState = { ...cof, ringMode: targetRing };
+      renderCircleOfFifthsView();
+    });
+  });
+
+  container.querySelectorAll("[data-cof-step]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const delta = parseInt(btn.dataset.cofStep || "0", 10);
+      const nextIdx = ((cof.idx + delta) % 12 + 12) % 12;
+      state.circleOfFifthsState = { ...cof, idx: nextIdx };
+      renderCircleOfFifthsView();
+    });
+  });
+
+  container.querySelectorAll("[data-cof-tab]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      state.circleOfFifthsState = { ...cof, tab: btn.dataset.cofTab || "chords" };
+      renderCircleOfFifthsView();
+    });
+  });
 }
 
 /**
@@ -90172,6 +90315,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   document.getElementById("openFretboardBtn")?.addEventListener("click", () => {
     openFretboardView("tools");
+  });
+  document.getElementById("openCircleBtn")?.addEventListener("click", () => {
+    openCircleOfFifthsView("tools");
   });
   initMetronomeEventListeners();
   initFreeplayEventListeners();

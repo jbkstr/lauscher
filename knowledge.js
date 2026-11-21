@@ -4590,7 +4590,7 @@ function renderCircleOfFifthsTheoryHTML() {
   `;
 }
 
-function renderCircleOfFifthsReferenceHTML(selectedIdx = 0, ringMode = "major", activeTab = "chords") {
+function renderCircleOfFifthsToolHTML(selectedIdx = 0, ringMode = "major", activeTab = "chords") {
   const safeIdx = ((selectedIdx % 12) + 12) % 12;
   const safeRing = ringMode === "minor" ? "minor" : "major";
   const safeTab = ["chords", "signatures", "modulation"].includes(activeTab) ? activeTab : "chords";
@@ -4777,7 +4777,7 @@ function renderCircleOfFifthsReferenceHTML(selectedIdx = 0, ringMode = "major", 
         </div>
 
         <div class="cof-wheel-wrap">
-          <svg class="cof-wheel-svg" viewBox="0 0 360 360" role="img" aria-label="${lc("Interaktives Quintenzirkel-Rad", "Interactive Circle of Fifths wheel", "Roue interactive du Cycle des quintes")}">
+          <svg class="cof-wheel-svg" viewBox="5 5 350 350" role="img" aria-label="${lc("Interaktives Quintenzirkel-Rad", "Interactive Circle of Fifths wheel", "Roue interactive du Cycle des quintes")}">
             ${wedgesSvg}
             <circle class="cof-center-circle" cx="180" cy="180" r="59"/>
             <text class="cof-center-kicker" x="180" y="153">${safeRing === "minor" ? lc("MOLL", "MINOR", "MINEUR") : lc("DUR", "MAJOR", "MAJEUR")} • ${current.sigShort}</text>
@@ -4810,11 +4810,34 @@ function renderCircleOfFifthsReferenceHTML(selectedIdx = 0, ringMode = "major", 
       </section>
 
       <div class="k-sibling-bar">
+        <span><strong>${lc("Hintergrund & Praxis-Wissen:", "Background & Practice Guide:", "Principes & Guide pratique :")}</strong> ${lc("Erfahre, warum sich der Zirkel schließt, wie du ihn in Sekunden liest und zum Üben nutzt.", "Learn why the circle closes, how to read it in seconds, and how to use it in daily practice.", "Découvrez pourquoi le cycle se referme, comment le lire en quelques secondes et l’utiliser au quotidien.")}</span>
+        <button type="button" class="btn-tool" data-jump-ref="circle-of-fifths">${lc("Quintenzirkel verstehen →", "Understand the Circle of Fifths →", "Comprendre le Cycle des quintes →")}</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderCircleOfFifthsReferenceHTML() {
+  const lang = typeof getAppLanguage === "function" ? getAppLanguage() : "de";
+  const lc = (deStr, enStr, frStr) => {
+    if (lang === "fr") return frStr;
+    if (lang === "en") return enStr;
+    if (lang !== "de") {
+      const dict = typeof TRANSLATIONS_BY_LANG !== "undefined" ? TRANSLATIONS_BY_LANG[lang] : null;
+      if (dict && Object.prototype.hasOwnProperty.call(dict, deStr)) return dict[deStr];
+      if (dict && Object.prototype.hasOwnProperty.call(dict, enStr)) return dict[enStr];
+      return enStr;
+    }
+    return deStr;
+  };
+  return `
+    <div class="knowledge-list">
+      ${renderCircleOfFifthsTheoryHTML()}
+
+      <div class="k-sibling-bar">
         <span><strong>${lc("Alle 12 Tonarten im Detail:", "Complete 12-Key Atlas:", "Atlas complet des 12 tonalités :")}</strong> ${lc("Alle Generalvorzeichen, Dreiklänge & Moll-Varianten auf einen Blick.", "Browse signatures, chord tables & natural/harmonic/melodic minor.", "Armures, accords diatoniques et les 3 gammes mineures d’un coup d’œil.")}</span>
         <button type="button" class="btn-tool" data-jump-ref="keys">${lc("Tonarten &amp; Vorzeichen →", "Keys &amp; Signatures →", "Tonalités &amp; Armures →")}</button>
       </div>
-
-      ${renderCircleOfFifthsTheoryHTML()}
     </div>
   `;
 }

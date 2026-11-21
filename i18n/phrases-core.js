@@ -3471,6 +3471,41 @@ registerColocatedPhrases({
     uk: "Усі 12 тональностей докладно:",
     ur: "تمام 12 کلیدیں تفصیل سے:"
   },
+  "Hintergrund & Praxis-Wissen:": {
+    fr: "Principes & Guide pratique :",
+    es: "Fundamentos y guía práctica:",
+    pl: "Podstawy i praktyka:",
+    uk: "Основи та практика:",
+    ur: "پس منظر اور عملی رہنمائی:"
+  },
+  "Erfahre, warum sich der Zirkel schließt, wie du ihn in Sekunden liest und zum Üben nutzt.": {
+    fr: "Découvrez pourquoi le cycle se referme, comment le lire en quelques secondes et l’utiliser au quotidien.",
+    es: "Descubre por qué se cierra el círculo, cómo leerlo en segundos y cómo usarlo en tu práctica diaria.",
+    pl: "Dowiedz się, dlaczego koło się zamyka, jak odczytać je w kilka sekund i wykorzystać w codziennym ćwiczeniu.",
+    uk: "Дізнайся, чому коло замикається, як читати його за лічені секунди й використовувати у щоденних вправах.",
+    ur: "جانیں کہ یہ دائرہ کیوں مکمل ہوتا ہے، اسے چند سیکنڈ میں کیسے پڑھیں اور روزانہ مشق میں کیسے استعمال کریں۔"
+  },
+  "Quintenzirkel verstehen →": {
+    fr: "Comprendre le Cycle des quintes →",
+    es: "Entender el círculo de quintas →",
+    pl: "Zrozumieć koło kwintowe →",
+    uk: "Зрозуміти квінтове коло →",
+    ur: "حلقۂ خمسہ کو سمجھیں ←"
+  },
+  "Interaktives Klangrad, Akkorde, Vorzeichen & Modulation": {
+    fr: "Roue interactive, accords, armures & modulation",
+    es: "Rueda interactiva, acordes, armaduras y modulación",
+    pl: "Interaktywna tarcza, akordy, znaki przykluczowe i modulacja",
+    uk: "Інтерактивне коло, акорди, ключові знаки й модуляція",
+    ur: "انٹرایکٹو پہیہ، کورڈز، کلیدی علامات اور ماڈیولیشن"
+  },
+  "Grundidee, Leselogik, Nutzen & Praxis-Übungen": {
+    fr: "Principe, logique de lecture, utilité & exercices pratiques",
+    es: "Idea clave, lógica de lectura, utilidad y ejercicios prácticos",
+    pl: "Idea, logika odczytu, korzyści i ćwiczenia praktyczne",
+    uk: "Основна ідея, логіка читання, користь і практичні вправи",
+    ur: "بنیادی تصور، پڑھنے کی منطق، فوائد اور عملی مشقیں"
+  },
   "Alle Generalvorzeichen, Dreiklänge & Moll-Varianten auf einen Blick.": {
     es: "Todas las armaduras, tríadas y variantes menores de un vistazo.",
     pl: "Wszystkie znaki przykluczowe, trójdźwięki i odmiany moll w jednym miejscu.",

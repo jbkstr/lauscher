@@ -5618,7 +5618,7 @@ body,
   background-color: var(--bg-base);
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-md);
-  padding: 0.55rem 0.4rem;
+  padding: 0.45rem 0.2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -5627,7 +5627,7 @@ body,
 
 .cof-wheel-svg {
   width: 100%;
-  max-width: 344px;
+  max-width: 416px;
   height: auto;
   display: block;
   user-select: none;

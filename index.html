@@ -750,6 +750,41 @@
           </div>
           <span class="cat-chevron">›</span>
         </button>
+
+        <button id="openCircleBtn" class="category-nav-card card-accent-lilac category-card-wide" type="button" data-open-tool="circle">
+          <div class="cat-icon-box badge-lilac">
+            <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M 5.49 5.49 A 9.2 9.2 0 0 1 9.62 3.11 L 10.73 7.27 A 4.9 4.9 0 0 0 8.54 8.54 Z" fill="currentColor" fill-opacity="0.14" stroke="none"/>
+              <path d="M 14.38 3.11 A 9.2 9.2 0 0 1 18.51 5.49 L 15.46 8.54 A 4.9 4.9 0 0 0 13.27 7.27 Z" fill="currentColor" fill-opacity="0.14" stroke="none"/>
+              <path d="M 9.62 3.11 A 9.2 9.2 0 0 1 14.38 3.11 L 13.27 7.27 A 4.9 4.9 0 0 0 10.73 7.27 Z" fill="currentColor" fill-opacity="0.34" stroke="none"/>
+              <circle cx="12" cy="12" r="9.2"/>
+              <circle cx="12" cy="12" r="4.9" stroke-width="1.5"/>
+              <g stroke-width="1.0" opacity="0.72">
+                <line x1="10.73" y1="16.73" x2="9.62" y2="20.89"/>
+                <line x1="8.54" y1="15.46" x2="5.49" y2="18.51"/>
+                <line x1="7.27" y1="13.27" x2="3.11" y2="14.38"/>
+                <line x1="7.27" y1="10.73" x2="3.11" y2="9.62"/>
+                <line x1="8.54" y1="8.54" x2="5.49" y2="5.49"/>
+                <line x1="10.73" y1="7.27" x2="9.62" y2="3.11"/>
+                <line x1="13.27" y1="7.27" x2="14.38" y2="3.11"/>
+                <line x1="15.46" y1="8.54" x2="18.51" y2="5.49"/>
+                <line x1="16.73" y1="10.73" x2="20.89" y2="9.62"/>
+                <line x1="16.73" y1="13.27" x2="20.89" y2="14.38"/>
+                <line x1="15.46" y1="15.46" x2="18.51" y2="18.51"/>
+                <line x1="13.27" y1="16.73" x2="14.38" y2="20.89"/>
+              </g>
+              <ellipse cx="11.1" cy="13.5" rx="1.45" ry="1.05" transform="rotate(-18 11.1 13.5)" fill="currentColor" stroke="none"/>
+              <path d="M12.3 13.1 V9.1 C13.6 9.6 14.2 10.6 13.8 11.5" stroke-width="1.45"/>
+            </svg>
+          </div>
+          <div class="cat-text-box">
+            <div class="tool-card-title-row">
+              <h3 data-i18n="tools.circleTitle">Quintenzirkel</h3>
+            </div>
+            <p data-i18n="tools.circleSub">Interaktives Klangrad, Akkorde, Vorzeichen &amp; Modulation</p>
+          </div>
+          <span class="cat-chevron">›</span>
+        </button>
       </div>
     </main>
 
@@ -890,7 +925,7 @@
               </svg>
             </div>
             <span class="ref-hub-title" data-i18n="knowledge.refCircle">Quintenzirkel</span>
-            <span class="ref-hub-sub" data-i18n="knowledge.refCircleSub">Interaktives Rad, Akkorde &amp; Praxis</span>
+            <span class="ref-hub-sub" data-i18n="knowledge.refCircleSub">Grundidee, Leselogik, Nutzen &amp; Praxis</span>
           </button>
 
           <button class="ref-hub-card card-top-lilac" data-open-ref="sing-and-play">
@@ -2298,6 +2333,13 @@
         </div>
       </section>
 
+    </main>
+
+    <!-- =====================================================
+         ANSICHT 10: INTERAKTIVER QUINTENZIRKEL (#viewCircle)
+         ===================================================== -->
+    <main id="viewCircle" class="view-container hidden">
+      <div id="circleToolContent" class="knowledge-list"></div>
     </main>
 
     </div><!-- /.views-stage -->

@@ -985,6 +985,24 @@ registerColocatedStatic({
     uk: "Акорди в усіх позиціях, зворотний пошук і гами",
     ur: "تمام پوزیشنز میں کورڈز، ریورس کورڈ فائنڈر اور اسکیلز"
   },
+  "tools.circleTitle": {
+    de: "Quintenzirkel",
+    en: "Circle of Fifths",
+    fr: "Cycle des quintes",
+    es: "Círculo de quintas",
+    pl: "Koło kwintowe",
+    uk: "Кварто-квінтове коло",
+    ur: "سرکل آف ففتھس"
+  },
+  "tools.circleSub": {
+    de: "Interaktives Klangrad, Akkorde, Vorzeichen & Modulation",
+    en: "Interactive key wheel, chords, key signatures & modulation",
+    fr: "Roue interactive, accords, armures & modulation",
+    es: "Rueda interactiva, acordes, armaduras y modulación",
+    pl: "Interaktywna tarcza, akordy, znaki przykluczowe i modulacja",
+    uk: "Інтерактивне коло, акорди, ключові знаки й модуляція",
+    ur: "انٹرایکٹو پہیہ، کورڈز، کلیدی علامات اور ماڈیولیشن"
+  },
   "tools.soonBadge": {
     de: "Bald",
     en: "Soon",
@@ -1814,13 +1832,13 @@ registerColocatedStatic({
     ur: "سرکل آف ففتھس"
   },
   "knowledge.refCircleSub": {
-    de: "Interaktives Rad, Akkorde & Praxis",
-    en: "Interactive wheel, chords & tips",
-    fr: "Roue interactive, accords & pratique",
-    es: "Rueda interactiva, acordes y práctica",
-    pl: "Interaktywna tarcza, akordy i praktyka",
-    uk: "Інтерактивне колесо, акорди та поради",
-    ur: "انٹرایکٹو پہیہ، کارڈ خاندان اور مشق"
+    de: "Grundidee, Leselogik, Nutzen & Praxis",
+    en: "Core idea, reading logic, benefits & practice",
+    fr: "Principe, logique de lecture, utilité & pratique",
+    es: "Idea clave, lógica de lectura, utilidad y práctica",
+    pl: "Idea, logika odczytu, korzyści i praktyka",
+    uk: "Основна ідея, логіка читання, користь і практика",
+    ur: "بنیادی تصور، پڑھنے کی منطق، فوائد اور مشق"
   },
   "knowledge.refSingPlay": {
     de: "Singen & Spielen",

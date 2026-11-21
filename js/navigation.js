@@ -628,12 +628,14 @@ function navigateBackFromUI() {
     switchView(state.freeplayReturnView || "tools", { skipHistoryPush: true });
   } else if (state.currentView === "fretboard") {
     switchView(state.fretboardReturnView || "tools", { skipHistoryPush: true });
+  } else if (state.currentView === "circle") {
+    switchView(state.circleReturnView || "tools", { skipHistoryPush: true });
   } else if (state.currentView === "exam-result") {
     switchView(state.examResultReturnView || "exam-setup", { skipHistoryPush: true });
   } else if (state.currentView === "exam-setup") {
     switchView("category", { skipHistoryPush: true });
   } else if (state.currentView === "knowledge-detail") {
-    switchView("knowledge", { skipHistoryPush: true });
+    switchView(state.knowledgeReturnView || "knowledge", { skipHistoryPush: true });
   } else if (state.currentView === "category-help") {
     switchView("category", { skipHistoryPush: true });
   } else {
@@ -770,7 +772,7 @@ function prefersReducedMotion() {
 
 function getTabForView(view) {
   if (view === "home" || view === "category" || view === "category-help" || view === "exam-setup") return "home";
-  if (view === "tools" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard") return "tools";
+  if (view === "tools" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard" || view === "circle") return "tools";
   if (view === "exam-result") return state.examResultReturnView === "space" ? "space" : "home";
   if (view === "knowledge" || view === "knowledge-detail") return "knowledge";
   if (view === "space") return "space";
@@ -781,7 +783,7 @@ function getViewOrderInfo(view) {
   const tab = getTabForView(view) || "home";
   const tabIdx = MAIN_TAB_ORDER.indexOf(tab);
   let depth = 0;
-  if (view === "category" || view === "knowledge-detail" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard") depth = 1;
+  if (view === "category" || view === "knowledge-detail" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard" || view === "circle") depth = 1;
   else if (view === "category-help" || view === "exam-setup") depth = 2;
   else if (view === "exercise" || view === "warmup") depth = 3;
   else if (view === "exam-result") depth = 4;
@@ -884,7 +886,7 @@ function navigateToMainTab(targetTab, swipeDir = null) {
 
   if (
     targetTab === "tools" &&
-    (state.currentView === "metronome" || state.currentView === "tuner" || state.currentView === "freeplay" || state.currentView === "fretboard") &&
+    (state.currentView === "metronome" || state.currentView === "tuner" || state.currentView === "freeplay" || state.currentView === "fretboard" || state.currentView === "circle") &&
     canHistory &&
     appHistoryState.idx >= 1 &&
     window.history.state?.idx >= 1
@@ -944,7 +946,7 @@ function hasHorizontalScrollableAncestor(target) {
 }
 
 function isTabSwipeBlockedView(view) {
-  return view === "exercise" || view === "warmup" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard";
+  return view === "exercise" || view === "warmup" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard" || view === "circle";
 }
 
 function handleHorizontalTabSwipe({ startX, startY, endX, endY, durationMs, viewportWidth, target }) {
@@ -1150,7 +1152,8 @@ function switchView(targetView, options = {}) {
     metronome: document.getElementById("viewMetronome"),
     tuner: document.getElementById("viewTuner"),
     freeplay: document.getElementById("viewFreeplay"),
-    fretboard: document.getElementById("viewFretboard")
+    fretboard: document.getElementById("viewFretboard"),
+    circle: document.getElementById("viewCircle")
   };
 
   finishActiveViewLeave();
@@ -1231,6 +1234,8 @@ function switchView(targetView, options = {}) {
     renderFreeplayView();
   } else if (targetView === "fretboard" && typeof renderFretboardView === "function") {
     renderFretboardView();
+  } else if (targetView === "circle" && typeof renderCircleOfFifthsView === "function") {
+    renderCircleOfFifthsView();
   }
 
   if (targetView === "exercise") {
@@ -1339,6 +1344,9 @@ function openKnowledgeRef(refKey, options = {}) {
   // Querverweise wechseln die Seite ohne Ansichtswechsel – laufende Wellen-Animation hier beenden
   stopWaveAnimation();
 
+  if (!options.refreshOnly) {
+    state.knowledgeReturnView = options.returnView || (state.currentView === "circle" ? "circle" : "knowledge");
+  }
   state.activeKnowledgeDetail = { kind: "ref", key: refKey };
 
   if (refKey === "intervals") {
@@ -1648,56 +1656,12 @@ function openKnowledgeRef(refKey, options = {}) {
   } else if (refKey === "circle-of-fifths") {
     state.knowledgeTitle = tr("Quintenzirkel", "Circle of Fifths");
     state.knowledgeSub = tr(
-      "Interaktives Klangrad, Nutzung, Akkord-Familien & Modulation",
-      "Interactive key wheel, how to use it, chord families & modulation"
+      "Grundidee, Leselogik, Nutzen & Praxis-Übungen",
+      "Core idea, reading logic, benefits & practical drills"
     );
 
-    const renderCircleModule = () => {
-      const cof = state.circleOfFifthsState || { idx: 0, ringMode: "major", tab: "chords" };
-      container.innerHTML = renderCircleOfFifthsReferenceHTML(cof.idx, cof.ringMode, cof.tab);
-      bindKnowledgeAudioButtons(container);
-
-      container.querySelectorAll("[data-cof-idx]").forEach(el => {
-        const activateWedge = () => {
-          const nextIdx = parseInt(el.dataset.cofIdx || "0", 10);
-          const targetRing = el.dataset.cofTargetRing === "minor" ? "minor" : "major";
-          state.circleOfFifthsState = { ...cof, idx: nextIdx, ringMode: targetRing };
-          renderCircleModule();
-        };
-        el.addEventListener("click", activateWedge);
-        el.addEventListener("keydown", ev => {
-          if (ev.key === "Enter" || ev.key === " ") {
-            ev.preventDefault();
-            activateWedge();
-          }
-        });
-      });
-
-      container.querySelectorAll("[data-cof-ring]").forEach(btn => {
-        btn.addEventListener("click", () => {
-          const targetRing = btn.dataset.cofRing === "minor" ? "minor" : "major";
-          state.circleOfFifthsState = { ...cof, ringMode: targetRing };
-          renderCircleModule();
-        });
-      });
-
-      container.querySelectorAll("[data-cof-step]").forEach(btn => {
-        btn.addEventListener("click", () => {
-          const delta = parseInt(btn.dataset.cofStep || "0", 10);
-          const nextIdx = ((cof.idx + delta) % 12 + 12) % 12;
-          state.circleOfFifthsState = { ...cof, idx: nextIdx };
-          renderCircleModule();
-        });
-      });
-
-      container.querySelectorAll("[data-cof-tab]").forEach(btn => {
-        btn.addEventListener("click", () => {
-          state.circleOfFifthsState = { ...cof, tab: btn.dataset.cofTab || "chords" };
-          renderCircleModule();
-        });
-      });
-    };
-    renderCircleModule();
+    container.innerHTML = renderCircleOfFifthsReferenceHTML();
+    bindKnowledgeAudioButtons(container);
 
   } else if (refKey === "sing-and-play") {
     state.knowledgeTitle = tr("Singen & Spielen", "Sing & Play");
@@ -1768,6 +1732,9 @@ function openKnowledgeArticle(articleId, options = {}) {
     return;
   }
 
+  if (!options.refreshOnly) {
+    state.knowledgeReturnView = options.returnView || "knowledge";
+  }
   state.activeKnowledgeDetail = { kind: "article", id: articleId };
   state.knowledgeTitle = art.tag;
   state.knowledgeSub = art.title;
@@ -1777,6 +1744,59 @@ function openKnowledgeArticle(articleId, options = {}) {
   if (!options.refreshOnly) {
     switchView("knowledge-detail");
   }
+}
+
+function openCircleOfFifthsView(returnView = "tools") {
+  state.circleReturnView = returnView;
+  switchView("circle");
+}
+
+function renderCircleOfFifthsView() {
+  const container = document.getElementById("circleToolContent");
+  if (!container || typeof renderCircleOfFifthsToolHTML !== "function") return;
+  const cof = state.circleOfFifthsState || { idx: 0, ringMode: "major", tab: "chords" };
+  container.innerHTML = renderCircleOfFifthsToolHTML(cof.idx, cof.ringMode, cof.tab);
+  bindKnowledgeAudioButtons(container);
+
+  container.querySelectorAll("[data-cof-idx]").forEach(el => {
+    const activateWedge = () => {
+      const nextIdx = parseInt(el.dataset.cofIdx || "0", 10);
+      const targetRing = el.dataset.cofTargetRing === "minor" ? "minor" : "major";
+      state.circleOfFifthsState = { ...cof, idx: nextIdx, ringMode: targetRing };
+      renderCircleOfFifthsView();
+    };
+    el.addEventListener("click", activateWedge);
+    el.addEventListener("keydown", ev => {
+      if (ev.key === "Enter" || ev.key === " ") {
+        ev.preventDefault();
+        activateWedge();
+      }
+    });
+  });
+
+  container.querySelectorAll("[data-cof-ring]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const targetRing = btn.dataset.cofRing === "minor" ? "minor" : "major";
+      state.circleOfFifthsState = { ...cof, ringMode: targetRing };
+      renderCircleOfFifthsView();
+    });
+  });
+
+  container.querySelectorAll("[data-cof-step]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const delta = parseInt(btn.dataset.cofStep || "0", 10);
+      const nextIdx = ((cof.idx + delta) % 12 + 12) % 12;
+      state.circleOfFifthsState = { ...cof, idx: nextIdx };
+      renderCircleOfFifthsView();
+    });
+  });
+
+  container.querySelectorAll("[data-cof-tab]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      state.circleOfFifthsState = { ...cof, tab: btn.dataset.cofTab || "chords" };
+      renderCircleOfFifthsView();
+    });
+  });
 }
 
 /**
