@@ -571,6 +571,9 @@ function generateIntervalExercise(rootMidi, intervalMode) {
   } else if (lvl === 10) {
     pool = getActiveIntervalCustomPool();
   }
+  if (state.exam?.active && Array.isArray(state.exam.fixedIntervalPool) && state.exam.fixedIntervalPool.length >= 2) {
+    pool = [...state.exam.fixedIntervalPool];
+  }
 
   const chosenKey = pickTargetKeyWithSessionReview(intervalMode, pool, getLastTargetKeyForType(intervalMode));
   const targetDef = getLocalizedIntervalDef(chosenKey);
@@ -581,7 +584,7 @@ function generateIntervalExercise(rootMidi, intervalMode) {
   const isDrone = intervalMode === "interval-drone";
 
   let effectiveRootMidi = (isMelodic || isDrone) ? pickMelodicRootMidi(isMelodicDown) : rootMidi;
-  if (lvl === 10 && !state.exam?.active) {
+  if (lvl === 10 && (!state.exam?.active || state.exam?.useCustomIntervalRoot)) {
     const customRoot = String(state.settings.intervalCustomRoot ?? "random");
     if (/^(?:[0-9]|1[01])$/.test(customRoot)) {
       const baseMidi = MODES_ROOT_MIDI_BY_PC[Number(customRoot)] || 60;

@@ -8461,7 +8461,16 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   border: 1px solid var(--lilac);
 }
 
+.exam-svg-icon {
+  display: inline-block;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
 .exam-best-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   font-size: 0.69rem;
   font-weight: 800;
   padding: 3px 9px;
@@ -8469,6 +8478,57 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   background: var(--sage-soft);
   color: var(--sage-strong);
   border: 1px solid var(--sage);
+}
+
+.exam-custom-config {
+  background: var(--surface-warm);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  padding: 10px 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.exam-custom-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+}
+
+@media (max-width: 480px) {
+  .exam-custom-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.exam-custom-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.exam-custom-field > span {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--raccoon-mid);
+}
+
+.exam-custom-select {
+  width: 100%;
+  min-width: 0;
+  padding: 6px 8px;
+  font-size: 0.78rem;
+}
+
+.exam-custom-preview {
+  font-size: 0.73rem;
+  font-weight: 700;
+  color: var(--raccoon-mid);
+  line-height: 1.35;
 }
 
 .exam-level-title {
@@ -8701,6 +8761,43 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   line-height: 1.15;
 }
 
+.exam-result-emblem {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--sage-soft);
+  color: var(--sage-strong);
+  border: 1.5px solid var(--sage);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.exam-result-emblem.is-master {
+  background: var(--sage-soft);
+  color: var(--sage-strong);
+  border-color: var(--status-ok);
+}
+
+.exam-result-emblem.is-medal {
+  background: var(--peach-soft);
+  color: var(--peach-strong);
+  border-color: var(--peach);
+}
+
+.exam-result-emblem.is-good {
+  background: var(--sage-soft);
+  color: var(--sage-strong);
+  border-color: var(--sage);
+}
+
+.exam-result-emblem.is-keep {
+  background: var(--lilac-soft);
+  color: var(--lilac-strong);
+  border-color: var(--lilac);
+}
+
 .exam-result-badge-row {
   display: flex;
   align-items: center;
@@ -8710,6 +8807,9 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 
 .exam-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   font-size: 0.76rem;
   font-weight: 800;
   padding: 4px 11px;
@@ -8719,7 +8819,22 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   border: 1px solid var(--sage);
 }
 
+.exam-badge-pill.is-medal {
+  background: var(--peach-soft);
+  color: var(--peach-strong);
+  border-color: var(--peach);
+}
+
+.exam-badge-pill.is-keep {
+  background: var(--lilac-soft);
+  color: var(--lilac-strong);
+  border-color: var(--lilac);
+}
+
 .exam-new-best-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   font-size: 0.74rem;
   font-weight: 800;
   padding: 4px 10px;
@@ -8923,6 +9038,9 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 
 .exam-review-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   font-size: 0.72rem;
   font-weight: 800;
   padding: 2px 8px;
@@ -8968,6 +9086,12 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+}
+
+.exam-review-audio-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
 }
 
 /* Prüfungsverlauf im Konto (#spaceExamHistoryCard) */
@@ -9088,8 +9212,37 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 
 .exam-history-meta {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
   font-size: 0.72rem;
   color: var(--raccoon-mid);
+}
+
+.exam-history-badge-ico {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--sage-soft);
+  color: var(--sage-strong);
+  border: 1px solid var(--sage);
+  flex-shrink: 0;
+}
+
+.exam-history-badge-ico.is-medal {
+  background: var(--peach-soft);
+  color: var(--peach-strong);
+  border-color: var(--peach);
+}
+
+.exam-history-badge-ico.is-keep {
+  background: var(--lilac-soft);
+  color: var(--lilac-strong);
+  border-color: var(--lilac);
 }
 
 .exam-history-score {
@@ -38547,54 +38700,222 @@ registerColocatedPhrases({
     uk: "Повторити іспит",
     ur: "امتحان دہرائیں"
   },
-  "⇄ A/B Vergleich": {
-    fr: "⇄ Comparaison A/B",
-    es: "⇄ Comparación A/B",
-    pl: "⇄ Porównanie A/B",
-    uk: "⇄ Порівняння A/B",
-    ur: "⇄ A/B موازنہ"
+  "A/B Vergleich": {
+    fr: "Comparaison A/B",
+    es: "Comparación A/B",
+    pl: "Porównanie A/B",
+    uk: "Порівняння A/B",
+    ur: "A/B موازنہ"
   },
-  "⏭ Übersprungen": {
-    fr: "⏭ Ignorée",
-    es: "⏭ Saltada",
-    pl: "⏭ Pominięte",
-    uk: "⏭ Пропущено",
-    ur: "⏭ چھوڑ دیا گیا"
+  "Meine Wahl": {
+    fr: "Mon choix",
+    es: "Mi elección",
+    pl: "Mój wybór",
+    uk: "Мій вибір",
+    ur: "میرا انتخاب"
   },
-  "▶ Meine Wahl": {
-    fr: "▶ Mon choix",
-    es: "▶ Mi elección",
-    pl: "▶ Mój wybór",
-    uk: "▶ Мій вибір",
-    ur: "▶ میرا انتخاب"
+  "Richtige Lösung": {
+    fr: "Bonne réponse",
+    es: "Respuesta correcta",
+    pl: "Poprawna odpowiedź",
+    uk: "Правильна відповідь",
+    ur: "صحیح آواز"
   },
-  "▶ Richtige Lösung": {
-    fr: "▶ Bonne réponse",
-    es: "▶ Respuesta correcta",
-    pl: "▶ Poprawna odpowiedź",
-    uk: "▶ Правильна відповідь",
-    ur: "▶ صحیح آواز"
+  "{pts} Pkt.": {
+    fr: "{pts} pt",
+    es: "{pts} pt",
+    pl: "{pts} pkt.",
+    uk: "{pts} б.",
+    ur: "{pts} پوائنٹس"
   },
-  "◐ {pts} Pkt.": {
-    fr: "◐ {pts} pt",
-    es: "◐ {pts} pt",
-    pl: "◐ {pts} pkt.",
-    uk: "◐ {pts} б.",
-    ur: "◐ {pts} پوائنٹس"
+  "Richtig": {
+    fr: "Juste",
+    es: "Correcto",
+    pl: "Poprawnie",
+    uk: "Правильно",
+    ur: "درست"
   },
-  "✓ Richtig": {
-    fr: "✓ Juste",
-    es: "✓ Correcto",
-    pl: "✓ Poprawnie",
-    uk: "✓ Правильно",
-    ur: "✓ درست"
+  "Falsch": {
+    fr: "Faux",
+    es: "Incorrecto",
+    pl: "Błąd",
+    uk: "Неправильно",
+    ur: "غلط"
   },
-  "✗ Falsch": {
-    fr: "✗ Faux",
-    es: "✗ Incorrecto",
-    pl: "✗ Błąd",
-    uk: "✗ Неправильно",
-    ur: "✗ غلط"
+  "Zufall (alle 12)": {
+    fr: "Aléatoire (les 12)",
+    es: "Aleatorio (las 12)",
+    pl: "Losowo (wszystkie 12)",
+    uk: "Випадково (усі 12)",
+    ur: "بے ترتیب (تمام 12)"
+  },
+  "Tonleiter / Modus": {
+    fr: "Gamme / Mode",
+    es: "Escala / Modo",
+    pl: "Skala / Modus",
+    uk: "Гама / Лад",
+    ur: "اسکیل / موڈ"
+  },
+  "Umfang": {
+    fr: "Étendue",
+    es: "Rango",
+    pl: "Zakres",
+    uk: "Діапазон",
+    ur: "دائرہ کار"
+  },
+  "Intervall-Auswahl ({n}): {list}": {
+    fr: "Sélection d’intervalles ({n}) : {list}",
+    es: "Selección de intervalos ({n}): {list}",
+    pl: "Zestaw interwałów ({n}): {list}",
+    uk: "Набір інтервалів ({n}): {list}",
+    ur: "فاصلوں کا انتخاب ({n}): {list}"
+  },
+  "Stufe 1 • Dur Grundlagen": {
+    fr: "Niveau 1 • Bases majeur",
+    es: "Nivel 1 • Bases en mayor",
+    pl: "Poziom 1 • Podstawy dur",
+    uk: "Рівень 1 • Основи мажору",
+    ur: "سطح 1 • میجر بنیادیں"
+  },
+  "Stufe 2 • Dur Tonleiter-Hälften (1–4 & 5–8)": {
+    fr: "Niveau 2 • Moitiés de gamme majeure (1–4 & 5–8)",
+    es: "Nivel 2 • Mitades de escala mayor (1–4 y 5–8)",
+    pl: "Poziom 2 • Połówki gamy dur (1–4 i 5–8)",
+    uk: "Рівень 2 • Половини мажору (1–4 та 5–8)",
+    ur: "سطح 2 • میجر اسکیل کے حصے (1–4 اور 5–8)"
+  },
+  "Unteres (1–4) & oberes (5–8) Dur-Tetrachord im Wechsel über leichte Tonarten": {
+    fr: "Tétracordes majeur inférieur (1–4) et supérieur (5–8) en alternance dans les tonalités faciles",
+    es: "Tetracordios mayor inferior (1–4) y superior (5–8) alternados en tonalidades fáciles",
+    pl: "Dolny (1–4) i górny (5–8) tetrachord dur naprzemiennie w łatwych tonacjach",
+    uk: "Нижній (1–4) і верхній (5–8) мажорні тетрахорди по черзі в простих тональностях",
+    ur: "آسان کلیدوں میں میجر کے نچلے (1–4) اور اوپری (5–8) حصے باری باری"
+  },
+  "Stufe 3 • Dur-Tonleiter (1–8)": {
+    fr: "Niveau 3 • Gamme majeure (1–8)",
+    es: "Nivel 3 • Escala mayor (1–8)",
+    pl: "Poziom 3 • Gama dur (1–8)",
+    uk: "Рівень 3 • Мажорна гама (1–8)",
+    ur: "سطح 3 • مکمل میجر اسکیل (1–8)"
+  },
+  "Alle 8 diatonischen Dur-Intervalle gemischt über leichte Tonarten (inkl. Grundton-Fläche)": {
+    fr: "Les 8 intervalles diatoniques majeurs mélangés en tonalités faciles (nappe incluse)",
+    es: "Los 8 intervalos diatónicos mayores mezclados en tonalidades fáciles (incl. pedal)",
+    pl: "Wszystkie 8 diatonicznych interwałów dur w łatwych tonacjach (z tłem prymy)",
+    uk: "Усі 8 діатонічних мажорних інтервалів у простих тональностях (із тонічним фоном)",
+    ur: "آسان کلیدوں میں تمام 8 میجر فاصلے ملا کر (بنیادی سُر کے پیڈ سمیت)"
+  },
+  "Moll • Stufe 1": {
+    fr: "Mineur • Niveau 1",
+    es: "Menor • Nivel 1",
+    pl: "Moll • Poziom 1",
+    uk: "Мінор • Рівень 1",
+    ur: "مائنر • سطح 1"
+  },
+  "Moll • Grundlagen": {
+    fr: "Mineur • Bases",
+    es: "Menor • Bases",
+    pl: "Moll • Podstawy",
+    uk: "Мінор • Основи",
+    ur: "مائنر • بنیادیں"
+  },
+  "Prime, kl. Terz, Quinte & Oktave (Aufwärts, Abwärts, Harmonisch & Grundton-Fläche)": {
+    fr: "Unisson, tierce min., quinte et octave (asc., desc., harmonique & nappe)",
+    es: "Unísono, 3.ª menor, 5.ª y octava (ascendente, descendente, armónico y pedal)",
+    pl: "Pryma, tercja mała, kwinta i oktawa (w górę, w dół, harmonicznie i na tle prymy)",
+    uk: "Прима, мала терція, квінта й октава (вгору, вниз, гармонічно та на тонічному фоні)",
+    ur: "پرائم، مائنر تھرڈ، ففتھ اور آکٹیو (اوپر، نیچے، ہارمونک اور بنیادی سُر کے پیڈ پر)"
+  },
+  "Moll • Stufe 2": {
+    fr: "Mineur • Niveau 2",
+    es: "Menor • Nivel 2",
+    pl: "Moll • Poziom 2",
+    uk: "Мінор • Рівень 2",
+    ur: "مائنر • سطح 2"
+  },
+  "Moll • Tonleiter-Hälften (1–4 & 5–8)": {
+    fr: "Mineur • Moitiés de gamme (1–4 & 5–8)",
+    es: "Menor • Mitades de escala (1–4 y 5–8)",
+    pl: "Moll • Połówki gamy (1–4 i 5–8)",
+    uk: "Мінор • Половини гами (1–4 та 5–8)",
+    ur: "مائنر • اسکیل کے حصے (1–4 اور 5–8)"
+  },
+  "Unteres (1–4) & oberes (5–8) Moll-Tetrachord im Wechsel über leichte Tonarten": {
+    fr: "Tétracordes mineur inférieur (1–4) et supérieur (5–8) en alternance dans les tonalités faciles",
+    es: "Tetracordios menor inferior (1–4) y superior (5–8) alternados en tonalidades fáciles",
+    pl: "Dolny (1–4) i górny (5–8) tetrachord moll naprzemiennie w łatwych tonacjach",
+    uk: "Нижній (1–4) і верхній (5–8) мінорні тетрахорди по черзі в простих тональностях",
+    ur: "آسان کلیدوں میں مائنر کے نچلے (1–4) اور اوپری (5–8) حصے باری باری"
+  },
+  "Moll • Stufe 3": {
+    fr: "Mineur • Niveau 3",
+    es: "Menor • Nivel 3",
+    pl: "Moll • Poziom 3",
+    uk: "Мінор • Рівень 3",
+    ur: "مائنر • سطح 3"
+  },
+  "Moll • Ganze Tonleiter (1–8)": {
+    fr: "Mineur • Gamme complète (1–8)",
+    es: "Menor • Escala completa (1–8)",
+    pl: "Moll • Cała gama (1–8)",
+    uk: "Мінор • Повна гама (1–8)",
+    ur: "مائنر • مکمل اسکیل (1–8)"
+  },
+  "Alle 8 Intervalle in Natürlich Moll inkl. kl. Terz, kl. Sexte & kl. Septime": {
+    fr: "Les 8 intervalles du mineur naturel dont tierce, sixte et septième mineures",
+    es: "Los 8 intervalos de menor natural incl. 3.ª, 6.ª y 7.ª menores",
+    pl: "Wszystkie 8 interwałów w moll naturalnym (w tym mała tercja, seksta i septyma)",
+    uk: "Усі 8 інтервалів натурального мінору включно з малою терцією, секстою та септимою",
+    ur: "نیچرل مائنر کے تمام 8 فاصلے بشمول مائنر تھرڈ، سکسٹھ اور سیونٹھ"
+  },
+  "Stufe 4 • Dur & Moll gemischt": {
+    fr: "Niveau 4 • Majeur & Mineur mélangés",
+    es: "Nivel 4 • Mayor y Menor combinados",
+    pl: "Poziom 4 • Dur i Moll razem",
+    uk: "Рівень 4 • Мажор і Мінор разом",
+    ur: "سطح 4 • میجر اور مائنر ملا کر"
+  },
+  "Alle 11 Dur- & Moll-Intervalle direkt gemischt (kl./gr. Terz, Sexte & Septime) in allen 12 Tonarten": {
+    fr: "Les 11 intervalles majeurs et mineurs mélangés (3ce, 6te & 7e min./maj.) dans les 12 tonalités",
+    es: "Los 11 intervalos mayores y menores mezclados (3.ª, 6.ª y 7.ª men./may.) en las 12 tonalidades",
+    pl: "Wszystkie 11 interwałów dur i moll razem (mała/wielka tercja, seksta i septyma) w 12 tonacjach",
+    uk: "Усі 11 мажорних і мінорних інтервалів разом (малі/великі терція, секста й септима) у 12 тональностях",
+    ur: "تمام 12 کلیدوں میں 11 میجر اور مائنر فاصلے آمنے سامنے (مائنر/میجر تھرڈ، سکسٹھ اور سیونٹھ)"
+  },
+  "Stufe 5 • Chromatisch (Alle 15 Intervalle)": {
+    fr: "Niveau 5 • Chromatique (les 15 intervalles)",
+    es: "Nivel 5 • Cromático (los 15 intervalos)",
+    pl: "Poziom 5 • Chromatycznie (wszystkie 15)",
+    uk: "Рівень 5 • Хроматика (усі 15 інтервалів)",
+    ur: "سطح 5 • کرومیٹک (تمام 15 فاصلے)"
+  },
+  "Gesamtes chromatisches Spektrum inkl. kl. Sekunde, Tritonus, kl./gr. Intervalle & Nonen": {
+    fr: "Spectre chromatique complet incluant 2nde min., triton, intervalles min./maj. et neuvièmes",
+    es: "Espectro cromático completo incl. 2.ª men., tritono, intervalos men./may. y novenas",
+    pl: "Pełne spektrum chromatyczne z małą sekundą, trytonem, interwałami m./w. oraz nonami",
+    uk: "Повний хроматичний спектр із малою секундою, тритоном, малими/великими інтервалами й нонами",
+    ur: "مکمل کرومیٹک اسپیکٹرم بشمول مائنر سیکنڈ، ٹرائی ٹون، مائنر/میجر فاصلے اور نائنتھ"
+  },
+  "Freie Wahl": {
+    fr: "Libre",
+    es: "Libre",
+    pl: "Dowolny",
+    uk: "Вільний вибір",
+    ur: "آزاد انتخاب"
+  },
+  "Freie Tonart & Modi": {
+    fr: "Tonalité & modes libres",
+    es: "Tonalidad y modos libres",
+    pl: "Dowolna tonacja i skale",
+    uk: "Вільна тональність і лади",
+    ur: "آزاد کلید اور موڈز"
+  },
+  "Prüfe deine selbst gewählte Tonart, Skala/Kirchentonart & Tonleiter-Ausschnitt unter Prüfungsbedingungen": {
+    fr: "Testez la tonalité, la gamme/le mode et l’étendue de votre choix en conditions d’examen",
+    es: "Pon a prueba la tonalidad, la escala/modo y el rango elegidos en condiciones de examen",
+    pl: "Sprawdź wybraną przez siebie tonację, skalę/modus i zakres w warunkach egzaminu",
+    uk: "Перевір обрану тональність, гаму/лад і діапазон в умовах іспиту",
+    ur: "امتحانی حالات میں اپنی منتخب کردہ کلید، اسکیل/موڈ اور دائرے کا امتحان لیں"
   },
   "Schwächstes Modul üben: {mod}": {
     fr: "Travailler le module faible : {mod}",
@@ -41315,15 +41636,18 @@ const CATEGORY_HELP_GUIDES_EN = {
         </div>
         <div class="k-compare-box is-peach">
           <h5>Intervals Over Root Pad (Strings ➔ Piano)</h5>
-          <p>A warm <strong>strings pad</strong> sustains the root note as a harmonic bed. After a short delay, <strong>piano</strong> plays the target tone above it — ideal for feeling tension and stability against a tonal center.</p>
+          <p>A warm <strong>strings pad</strong> sustains the root note as a harmonic bed. After a short delay, <strong>piano</strong> plays the target tone above it — with dedicated sliders for <strong>Root Drone Pad</strong> (default 50%) and <strong>Interval</strong> to balance the mix anytime.</p>
         </div>
       </div>
 
-      <h3>Interval Difficulty (3 Levels)</h3>
+      <h3>Levels: Major, Minor, Chromatic &amp; Custom Mode</h3>
       <ul class="article-steps-list">
-        <li><strong>Level 1 – Beginner:</strong> Four distinct cornerstone intervals (ascending or descending): Unison (<code>P1</code>), Major 3rd (<code>M3</code>), Perfect 5th (<code>P5</code>), and Octave (<code>P8</code>).</li>
-        <li><strong>Level 2 – Major Scale:</strong> All 8 diatonic intervals spanning from Unison up to Octave.</li>
-        <li><strong>Level 3 – Chromatic:</strong> All 15 intervals from Unison up to Major 9th (<code>M9</code>), including minor intervals and the Tritone.</li>
+        <li><strong>Beginner (Level 1 in Major / Minor 1):</strong> Four cornerstone triad intervals: Unison (<code>P1</code>), Major 3rd (<code>M3</code> in Major) or Minor 3rd (<code>m3</code> in Minor), Perfect 5th (<code>P5</code>), and Octave (<code>P8</code>).</li>
+        <li><strong>Lower Half 1–4 (Level 2 in Major / Minor 2):</strong> The lower tetrachord (4 intervals): Unison (<code>P1</code>), Major 2nd (<code>M2</code>), Major or Minor 3rd (<code>M3</code> / <code>m3</code>), and Perfect 4th (<code>P4</code>).</li>
+        <li><strong>Upper Half 5–8 (Level 3 in Major / Minor 3):</strong> The upper tetrachord (4 intervals): Perfect 5th (<code>P5</code>), Major or Minor 6th (<code>M6</code> / <code>m6</code>), Major or Minor 7th (<code>M7</code> / <code>m7</code>), and Octave (<code>P8</code>).</li>
+        <li><strong>Full Scale (Level 4 Major Scale / Minor 4 Minor Scale):</strong> All 8 diatonic intervals from Unison up to Octave in Major or Natural Minor.</li>
+        <li><strong>Level 5 – Chromatic:</strong> All 15 intervals from Unison up to Major 9th (<code>M9</code>), including all minor/major intervals and the Tritone (<code>TT</code>).</li>
+        <li><strong>Custom Key &amp; Modes (Custom Interval Trainer):</strong> Pick a fixed <strong>Root Key</strong> (<code>C</code> through <code>B</code>) or <strong>Random</strong>, choose any <strong>Scale or Church Mode</strong> (<em>Major/Ionian</em>, <em>Natural/Harmonic/Melodic Minor</em>, <em>Dorian</em>, <em>Phrygian</em>, <em>Lydian</em>, <em>Mixolydian</em>, <em>Locrian</em>, <em>Chromatic</em>), select a <strong>Range</strong> (<em>Beginner</em>, <em>1–4</em>, <em>5–8</em>, <em>1–8</em>), or toggle individual intervals on and off — both on the category screen and live inside the exercise via the top-right badge.</li>
       </ul>
 
       <h3>How Interval Symbols Work</h3>
@@ -41339,7 +41663,7 @@ const CATEGORY_HELP_GUIDES_EN = {
 
       <div class="article-highlight-box">
         <h4>Sing Along, A/B Compare &amp; Exam</h4>
-        <p>The top <strong>Sing along</strong> chip (with optional hum pause) invites your voice to feel the distance. Below, <strong>Root Note</strong> replays the starting pitch anytime; after a miss, <strong>A/B Compare</strong> plays your guess from the exact same starting pitch and direction right against the solution. Use <strong>Loop</strong> to repeat continuously (enable <strong>Auto-Next</strong> in Settings to jump straight to the next question on a hit), try <strong>Listen Only</strong> for passive review, or take the 3-level <strong>Category Exam</strong> across all 4 interval types.</p>
+        <p>The top <strong>Sing along</strong> chip (with optional hum pause) invites your voice to feel the distance. Below, <strong>Root Note</strong> replays the starting pitch anytime; after a miss, <strong>A/B Compare</strong> plays your guess from the exact same starting pitch and direction right against the solution. Use <strong>Loop</strong> to repeat continuously (enable <strong>Auto-Next</strong> in Settings to jump straight to the next question on a hit), try <strong>Listen Only</strong> for passive review, or take the <strong>Category Exam</strong> across all 4 interval types (Major, Minor, Scale Halves, Major &amp; Minor mixed, Chromatic, and Custom Key &amp; Modes).</p>
       </div>
     `
   },
@@ -45429,15 +45753,18 @@ const CATEGORY_HELP_GUIDES_FR = {
         </div>
         <div class="k-compare-box is-peach">
           <h5>Intervalles sur nappe de fondamentale (Cordes ➔ Piano)</h5>
-          <p>Une chaleureuse <strong>nappe de cordes</strong> tient la fondamentale en continu. Après un bref délai, le <strong>piano</strong> joue la note cible par-dessus — idéal pour sentir la tension et la couleur de chaque degré.</p>
+          <p>Une chaleureuse <strong>nappe de cordes</strong> tient la fondamentale en continu. Après un bref délai, le <strong>piano</strong> joue la note cible par-dessus — avec deux curseurs dédiés (<strong>Bourdon (tonique)</strong> à 50 % par défaut et <strong>Intervalle</strong>) pour ajuster la balance à tout moment.</p>
         </div>
       </div>
 
-      <h3>Difficulté des intervalles (3 niveaux)</h3>
+      <h3>Niveaux : Majeur, Mineur, Chromatique &amp; Mode libre</h3>
       <ul class="article-steps-list">
-        <li><strong>Niveau 1 – Débutant :</strong> Quatre repères incontournables (ascendants ou descendants) : Unisson (<code>P1</code>), Tierce majeure (<code>M3</code>), Quinte juste (<code>P5</code>) et Octave (<code>P8</code>).</li>
-        <li><strong>Niveau 2 – Gamme majeure :</strong> Les 8 intervalles diatoniques de l’Unisson à l’Octave.</li>
-        <li><strong>Niveau 3 – Chromatique :</strong> Les 15 intervalles de l’Unisson à la Neuvième majeure (<code>M9</code>), dont tous les intervalles mineurs et le Triton.</li>
+        <li><strong>Débutant (Niveau 1 en majeur / Mineur 1) :</strong> Quatre repères d’arpège : Unisson (<code>P1</code>), Tierce majeure (<code>M3</code>) ou Tierce mineure (<code>m3</code>), Quinte juste (<code>P5</code>) et Octave (<code>P8</code>).</li>
+        <li><strong>Moitié inférieure 1–4 (Niveau 2 en majeur / Mineur 2) :</strong> Le tétracorde inférieur (4 intervalles) : Unisson (<code>P1</code>), Seconde majeure (<code>M2</code>), Tierce majeure ou mineure (<code>M3</code> / <code>m3</code>) et Quarte juste (<code>P4</code>).</li>
+        <li><strong>Moitié supérieure 5–8 (Niveau 3 en majeur / Mineur 3) :</strong> Le tétracorde supérieur (4 intervalles) : Quinte juste (<code>P5</code>), Sixte majeure ou mineure (<code>M6</code> / <code>m6</code>), Septième majeure ou mineure (<code>M7</code> / <code>m7</code>) et Octave (<code>P8</code>).</li>
+        <li><strong>Gamme complète (Niveau 4 Gamme majeure / Mineur 4 Gamme mineure) :</strong> Les 8 intervalles diatoniques de l’Unisson à l’Octave en majeur ou en mineur naturel.</li>
+        <li><strong>Niveau 5 – Chromatique :</strong> Les 15 intervalles de l’Unisson à la Neuvième majeure (<code>M9</code>), dont tous les intervalles mineurs et le Triton (<code>TT</code>).</li>
+        <li><strong>Tonalité &amp; modes libres (Entraînement sur mesure) :</strong> Choisissez une <strong>Tonique fixe</strong> (<code>Do</code> à <code>Si</code>) ou <strong>Aléatoire</strong>, une <strong>Gamme ou un mode</strong> (<em>Majeur/Ionien</em>, <em>Mineur naturel/harmonique/mélodique</em>, <em>Dorien</em>, <em>Phrygien</em>, <em>Lydien</em>, <em>Mixolydien</em>, <em>Locrien</em>, <em>Chromatique</em>), l’<strong>Étendue</strong> (<em>Débutant</em>, <em>1–4</em>, <em>5–8</em>, <em>1–8</em>) ou activez chaque intervalle individuellement — sur la page de catégorie comme en direct via le badge en haut à droite.</li>
       </ul>
 
       <h3>Comprendre la notation abrégée des intervalles</h3>
@@ -45453,7 +45780,7 @@ const CATEGORY_HELP_GUIDES_FR = {
 
       <div class="article-highlight-box">
         <h4>Chanter, Comparaison A/B &amp; Examen</h4>
-        <p>En haut, le bouton <strong>Chanter</strong> (avec <em>Pause fredonnée</em> en option) aide votre voix à ressentir l’écart. En bas, <strong>Note de départ</strong> rejoue la note initiale ; après une erreur, la <strong>Comparaison A/B</strong> rejoue votre choix depuis cette même note et dans la même direction juste avant la solution. Utilisez <strong>Boucle</strong> pour répéter sans fin (ou activez <strong>Suivant auto</strong> dans les Paramètres), <strong>Écoute seule</strong> pour réviser passivement, et passez l’<strong>Examen de la catégorie</strong> sur les 4 types d’intervalles.</p>
+        <p>En haut, le bouton <strong>Chanter</strong> (avec <em>Pause fredonnée</em> en option) aide votre voix à ressentir l’écart. En bas, <strong>Note de départ</strong> rejoue la note initiale ; après une erreur, la <strong>Comparaison A/B</strong> rejoue votre choix depuis cette même note et dans la même direction juste avant la solution. Utilisez <strong>Boucle</strong> pour répéter sans fin (ou activez <strong>Suivant auto</strong> dans les Paramètres), <strong>Écoute seule</strong> pour réviser passivement, et passez l’<strong>Examen de la catégorie</strong> sur les 4 types d’intervalles (Majeur, Mineur, Moitiés, Majeur &amp; Mineur mélangés, Chromatique et Tonalité &amp; modes libres).</p>
       </div>
     `
   },
@@ -49590,15 +49917,18 @@ const CATEGORY_HELP_GUIDES = {
         </div>
         <div class="k-compare-box is-peach">
           <h5>Intervalle über Grundton-Fläche (Streicher ➔ Klavier)</h5>
-          <p>Eine warme <strong>Streicher-Fläche</strong> legt den Grundton als Klangteppich aus. Nach einer kurzen Verzögerung spielt das <strong>Klavier</strong> den gesuchten Ton darüber – ideal, um die Reibung oder Ruhe eines Intervalls zum Grundton zu erspüren.</p>
+          <p>Eine warme <strong>Streicher-Fläche</strong> legt den Grundton als Klangteppich aus. Nach einer kurzen Verzögerung spielt das <strong>Klavier</strong> den gesuchten Ton darüber – über die beiden Regler <strong>Grundton-Fläche</strong> (Standard 50 %) und <strong>Intervall</strong> passt du das Lautstärkeverhältnis jederzeit an.</p>
         </div>
       </div>
 
-      <h3>Schwierigkeitsstufen (3 Stufen)</h3>
+      <h3>Stufenaufbau: Dur, Moll, Chromatisch &amp; Freie Auswahl</h3>
       <ul class="article-steps-list">
-        <li><strong>Stufe 1 – Einsteiger:</strong> Vier markante Kernintervalle (aufwärts oder abwärts): Prime (<code>P1</code>), große Terz (<code>M3</code>), reine Quinte (<code>P5</code>) und Oktave (<code>P8</code>).</li>
-        <li><strong>Stufe 2 – Dur-Tonleiter:</strong> Alle 8 diatonischen Intervalle vom Ausgangston bis zur Oktave.</li>
-        <li><strong>Stufe 3 – Chromatisch:</strong> Alle 15 Intervalle von der Prime bis zur großen None (<code>M9</code>) inklusive kleiner Intervalle und Tritonus.</li>
+        <li><strong>Einsteiger (Stufe 1 in Dur / Moll 1):</strong> Vier markante Dreiklangs-Anker (aufwärts, abwärts, gleichzeitig oder über Fläche): Prime (<code>P1</code>), große Terz (<code>M3</code> in Dur) bzw. kleine Terz (<code>m3</code> in Moll), reine Quinte (<code>P5</code>) und Oktave (<code>P8</code>).</li>
+        <li><strong>Untere Hälfte 1–4 (Stufe 2 in Dur / Moll 2):</strong> Der untere Tetrachord mit 4 Intervallen: Prime (<code>P1</code>), große Sekunde (<code>M2</code>), große bzw. kleine Terz (<code>M3</code> / <code>m3</code>) und reine Quarte (<code>P4</code>).</li>
+        <li><strong>Obere Hälfte 5–8 (Stufe 3 in Dur / Moll 3):</strong> Der obere Tetrachord mit 4 Intervallen: reine Quinte (<code>P5</code>), große bzw. kleine Sexte (<code>M6</code> / <code>m6</code>), große bzw. kleine Septime (<code>M7</code> / <code>m7</code>) und Oktave (<code>P8</code>).</li>
+        <li><strong>Ganze Tonleiter (Stufe 4 Dur-Tonleiter / Moll 4 Moll-Tonleiter):</strong> Alle 8 diatonischen Intervalle vom Ausgangston bis zur Oktave in Dur bzw. natürlichem Moll.</li>
+        <li><strong>Stufe 5 – Chromatisch:</strong> Alle 15 Intervalle von der Prime bis zur großen None (<code>M9</code>) inklusive sämtlicher kleiner/großer Intervalle und Tritonus (<code>TT</code>).</li>
+        <li><strong>Freie Tonart &amp; Modi (Eigenes Intervall-Training):</strong> Wähle einen festen <strong>Grundton</strong> (<code>C</code> bis <code>H</code>) oder <strong>Zufall</strong>, eine <strong>Tonleiter bzw. Kirchentonart</strong> (<em>Dur/Ionisch</em>, <em>Natürlich/Harmonisch/Melodisch Moll</em>, <em>Dorisch</em>, <em>Phrygisch</em>, <em>Lydisch</em>, <em>Mixolydisch</em>, <em>Lokrisch</em>, <em>Chromatisch</em>), den <strong>Umfang</strong> (<em>Einsteiger</em>, <em>1–4</em>, <em>5–8</em>, <em>1–8</em>) oder schalte einzelne Intervalle frei an und aus – auf der Auswahlseite sowie live in der Übung über das Badge oben rechts.</li>
       </ul>
 
       <h3>Wie die Intervall-Kürzel funktionieren</h3>
@@ -49614,7 +49944,7 @@ const CATEGORY_HELP_GUIDES = {
 
       <div class="article-highlight-box">
         <h4>Mitsingen, A/B Vergleich &amp; Prüfung</h4>
-        <p>Der Chip <strong>Mitsingen</strong> oben (mit optionaler Summ-Pause) hilft deiner Stimme, den Abstand zu erspüren. Unten spielt <strong>Ausgangston</strong> jederzeit den Startton; nach einem Irrtum vergleicht <strong>A/B Vergleich</strong> deinen Tipp ab genau diesem Ausgangston und in derselben Richtung mit der Lösung. Mit <strong>Loop</strong> wiederholst du die Aufgabe endlos (<strong>Auto-Weiter</strong> in den Einstellungen wechselt nach Treffer direkt zur nächsten), mit <strong>Nur Hören</strong> läuft der Durchgang passiv mit Auflösung – und die <strong>Kategorie-Prüfung</strong> prüft alle 4 Intervalltypen gemischt.</p>
+        <p>Der Chip <strong>Mitsingen</strong> oben (mit optionaler Summ-Pause) hilft deiner Stimme, den Abstand zu erspüren. Unten spielt <strong>Ausgangston</strong> jederzeit den Startton; nach einem Irrtum vergleicht <strong>A/B Vergleich</strong> deinen Tipp ab genau diesem Ausgangston und in derselben Richtung mit der Lösung. Mit <strong>Loop</strong> wiederholst du die Aufgabe endlos (<strong>Auto-Weiter</strong> in den Einstellungen wechselt nach Treffer direkt zur nächsten), mit <strong>Nur Hören</strong> läuft der Durchgang passiv mit Auflösung – und die <strong>Kategorie-Prüfung</strong> prüft alle 4 Intervalltypen gemischt (Dur, Moll, Hälften, Dur &amp; Moll gemischt, Chromatisch sowie Freie Tonart &amp; Modi).</p>
       </div>
     `
   },
@@ -54689,15 +55019,18 @@ const CATEGORY_HELP_GUIDES_ES = {
         </div>
         <div class="k-compare-box is-peach">
           <h5>Intervalos sobre colchón de fundamental (cuerdas ➔ piano)</h5>
-          <p>Un cálido <strong>colchón de cuerdas</strong> mantiene la fundamental de forma continua. Tras una breve pausa, el <strong>piano</strong> toca la nota objetivo por encima: ideal para sentir la tensión y el color de cada grado.</p>
+          <p>Un cálido <strong>colchón de cuerdas</strong> mantiene la fundamental de forma continua. Tras una breve pausa, el <strong>piano</strong> toca la nota objetivo por encima, con controles propios para <strong>Pedal de tónica</strong> (50 % por defecto) e <strong>Intervalo</strong>.</p>
         </div>
       </div>
 
-      <h3>Dificultad de los intervalos (3 niveles)</h3>
+      <h3>Niveles: Mayor, Menor, Cromático &amp; Modo libre</h3>
       <ul class="article-steps-list">
-        <li><strong>Nivel 1 – Principiante:</strong> Cuatro referencias imprescindibles (ascendentes o descendentes): unísono (<code>P1</code>), tercera mayor (<code>M3</code>), quinta justa (<code>P5</code>) y octava (<code>P8</code>).</li>
-        <li><strong>Nivel 2 – Escala mayor:</strong> Los 8 intervalos diatónicos del unísono a la octava.</li>
-        <li><strong>Nivel 3 – Cromático:</strong> Los 15 intervalos del unísono a la novena mayor (<code>M9</code>), incluidos todos los intervalos menores y el tritono.</li>
+        <li><strong>Principiante (Nivel 1 en mayor / Menor 1):</strong> Cuatro referencias de tríada: unísono (<code>P1</code>), tercera mayor (<code>M3</code>) o tercera menor (<code>m3</code>), quinta justa (<code>P5</code>) y octava (<code>P8</code>).</li>
+        <li><strong>Mitad inferior 1–4 (Nivel 2 en mayor / Menor 2):</strong> El tetracordo inferior (4 intervalos): unísono (<code>P1</code>), segunda mayor (<code>M2</code>), tercera mayor o menor (<code>M3</code> / <code>m3</code>) y cuarta justa (<code>P4</code>).</li>
+        <li><strong>Mitad superior 5–8 (Nivel 3 en mayor / Menor 3):</strong> El tetracordo superior (4 intervalos): quinta justa (<code>P5</code>), sexta mayor o menor (<code>M6</code> / <code>m6</code>), séptima mayor o menor (<code>M7</code> / <code>m7</code>) y octava (<code>P8</code>).</li>
+        <li><strong>Escala completa (Nivel 4 Escala mayor / Menor 4 Escala menor):</strong> Los 8 intervalos diatónicos del unísono a la octava en mayor o menor natural.</li>
+        <li><strong>Nivel 5 – Cromático:</strong> Los 15 intervalos del unísono a la novena mayor (<code>M9</code>), incluidos todos los intervalos menores y el tritono (<code>TT</code>).</li>
+        <li><strong>Tonalidad &amp; modos libres (Entrenamiento a medida):</strong> Elige una <strong>Tónica fija</strong> (<code>Do</code> a <code>Si</code>) o <strong>Aleatoria</strong>, una <strong>Escala o modo</strong> (<em>Mayor/Jónico</em>, <em>Menor natural/armónica/melódica</em>, <em>Dórico</em>, <em>Frigio</em>, <em>Lidio</em>, <em>Mixolidio</em>, <em>Locrio</em>, <em>Cromática</em>), el <strong>Rango</strong> (<em>Principiante</em>, <em>1–4</em>, <em>5–8</em>, <em>1–8</em>) o activa cada intervalo individualmente, tanto en la página de categoría como en directo desde la insignia superior derecha.</li>
       </ul>
 
       <h3>Entender la notación abreviada de los intervalos</h3>
@@ -54713,7 +55046,7 @@ const CATEGORY_HELP_GUIDES_ES = {
 
       <div class="article-highlight-box">
         <h4>Cantar, comparación A/B &amp; examen</h4>
-        <p>Arriba, el botón <strong>Cantar</strong> (con <em>pausa para tararear</em> opcional) ayuda a tu voz a sentir la distancia. Abajo, <strong>Nota de partida</strong> repite la nota inicial; tras un error, la <strong>comparación A/B</strong> repite tu elección desde esa misma nota y en la misma dirección justo antes de la solución. Usa <strong>Bucle</strong> para repetir sin fin (o activa <strong>Siguiente automático</strong> en los Ajustes), <strong>Solo escucha</strong> para repasar de forma pasiva, y haz el <strong>Examen de categoría</strong> con los 4 tipos de intervalos.</p>
+        <p>Arriba, el botón <strong>Cantar</strong> (con <em>pausa para tararear</em> opcional) ayuda a tu voz a sentir la distancia. Abajo, <strong>Nota de partida</strong> repite la nota inicial; tras un error, la <strong>comparación A/B</strong> repite tu elección desde esa misma nota y en la misma dirección justo antes de la solución. Usa <strong>Bucle</strong> para repetir sin fin (o activa <strong>Siguiente automático</strong> en los Ajustes), <strong>Solo escucha</strong> para repasar de forma pasiva, y haz el <strong>Examen de categoría</strong> con los 4 tipos de intervalos (Mayor, Menor, Mitades, Mayor y Menor combinados, Cromático y Tonalidad y modos libres).</p>
       </div>
     `
   },
@@ -58944,15 +59277,18 @@ const CATEGORY_HELP_GUIDES_PL = {
         </div>
         <div class="k-compare-box is-peach">
           <h5>Interwały nad plamą dźwięku podstawowego (Smyczki ➔ Fortepian)</h5>
-          <p>Ciepła <strong>płaszczyzna smyczkowa</strong> podtrzymuje prymę jako tło. Po krótkiej pauzie <strong>fortepian</strong> gra szukany dźwięk nad nią — idealne do wyczucia barwy i napięcia interwału względem podstawy.</p>
+          <p>Ciepła <strong>płaszczyzna smyczkowa</strong> podtrzymuje prymę jako tło. Po krótkiej pauzie <strong>fortepian</strong> gra szukany dźwięk nad nią — a suwaki <strong>Tło prymy</strong> (domyślnie 50%) oraz <strong>Interwał</strong> pozwalają dopasować proporcje głośności.</p>
         </div>
       </div>
 
-      <h3>Trudność interwałów (3 poziomy)</h3>
+      <h3>Poziomy: Dur, Moll, Chromatyka i Tryb własny</h3>
       <ul class="article-steps-list">
-        <li><strong>Poziom 1 — Początkujący:</strong> Cztery podstawowe punkty zaczepienia (w górę lub w dół): pryma czysta (<code>P1</code>), tercja wielka (<code>G3/M3</code>), kwinta czysta (<code>P5</code>) i oktawa (<code>P8</code>).</li>
-        <li><strong>Poziom 2 — Gama durowa:</strong> Wszystkie 8 interwałów diatonicznych od prymy do oktawy.</li>
-        <li><strong>Poziom 3 — Chromatyka:</strong> Wszystkie 15 interwałów aż po nonę wielką (<code>G9/M9</code>), wraz z interwałami małymi i trytonem.</li>
+        <li><strong>Początkujący (Poziom 1 w dur / Moll 1):</strong> Cztery punkty oparcia trójdźwięku: pryma czysta (<code>P1</code>), tercja wielka (<code>G3/M3</code> w dur) lub tercja mała (<code>k3/m3</code> w moll), kwinta czysta (<code>P5</code>) i oktawa (<code>P8</code>).</li>
+        <li><strong>Dolna połowa 1–4 (Poziom 2 w dur / Moll 2):</strong> Dolny tetrachord (4 interwały): pryma (<code>P1</code>), sekunda wielka (<code>G2/M2</code>), tercja wielka lub mała (<code>G3/M3</code> / <code>k3/m3</code>) i kwarta czysta (<code>P4</code>).</li>
+        <li><strong>Górna połowa 5–8 (Poziom 3 w dur / Moll 3):</strong> Górny tetrachord (4 interwały): kwinta czysta (<code>P5</code>), seksta wielka lub mała (<code>G6/M6</code> / <code>k6/m6</code>), septyma wielka lub mała (<code>G7/M7</code> / <code>k7/m7</code>) i oktawa (<code>P8</code>).</li>
+        <li><strong>Cała gama (Poziom 4 Gama durowa / Moll 4 Gama molowa):</strong> Wszystkie 8 interwałów diatonicznych od prymy do oktawy w dur lub w moll naturalnym.</li>
+        <li><strong>Poziom 5 — Chromatyka:</strong> Wszystkie 15 interwałów aż po nonę wielką (<code>G9/M9</code>), wraz z interwałami małymi i trytonem (<code>TT</code>).</li>
+        <li><strong>Dowolna tonacja i tryby (Własny trening interwałów):</strong> Wybierz stały <strong>Dźwięk podstawowy</strong> (<code>C</code> do <code>H</code>) lub <strong>Losowy</strong>, dowolną <strong>Gamę lub tryb kościelny</strong> (<em>Dur/Jońska</em>, <em>Moll naturalny/harmoniczny/melodyczny</em>, <em>Dorycka</em>, <em>Frygijska</em>, <em>Lidyjska</em>, <em>Miksolidyjska</em>, <em>Lokrycka</em>, <em>Chromatyczna</em>), <strong>Zakres</strong> (<em>Początkujący</em>, <em>1–4</em>, <em>5–8</em>, <em>1–8</em>) albo włączaj pojedyncze interwały — na stronie wyboru oraz bezpośrednio w ćwiczeniu przez plakietkę u góry po prawej.</li>
       </ul>
 
       <h3>Jak czytać skróty interwałów</h3>
@@ -58968,7 +59304,7 @@ const CATEGORY_HELP_GUIDES_PL = {
 
       <div class="article-highlight-box">
         <h4>Śpiewanie, Porównanie A/B i Egzamin</h4>
-        <p>Przycisk <strong>Śpiewaj</strong> u góry (z opcjonalną pauzą na nucenie) pomaga poczuć odległość głosem. Poniżej <strong>Dźwięk wyjściowy</strong> odtwarza nutę startową; po pomyłce <strong>Porównanie A/B</strong> gra Twój wybór od tej samej nuty i w tym samym kierunku tuż przed poprawną odpowiedzią. Przycisk <strong>Pętla</strong> zapętla odsłuch (<strong>Autonastępne</strong> znajdziesz w Ustawieniach), <strong>Tylko słuchaj</strong> prowadzi pasywny odsłuch, a 3-poziomowy <strong>Egzamin</strong> łączy wszystkie 4 typy interwałów.</p>
+        <p>Przycisk <strong>Śpiewaj</strong> u góry (z opcjonalną pauzą na nucenie) pomaga poczuć odległość głosem. Poniżej <strong>Dźwięk wyjściowy</strong> odtwarza nutę startową; po pomyłce <strong>Porównanie A/B</strong> gra Twój wybór od tej samej nuty i w tym samym kierunku tuż przed poprawną odpowiedzią. Przycisk <strong>Pętla</strong> zapętla odsłuch (<strong>Autonastępne</strong> znajdziesz w Ustawieniach), <strong>Tylko słuchaj</strong> prowadzi pasywny odsłuch, a <strong>Egzamin kategorii</strong> łączy wszystkie 4 typy interwałów (Dur, Moll, Połówki, Dur i Moll razem, Chromatycznie oraz Dowolna tonacja i skale).</p>
       </div>
     `
   },
@@ -63176,15 +63512,18 @@ const CATEGORY_HELP_GUIDES_UK = {
         </div>
         <div class="k-compare-box is-peach">
           <h5>Інтервали над підкладкою основного тону (Струнні ➔ Фортепіано)</h5>
-          <p>Тепла <strong>струнна підкладка</strong> тримає основний тон як гармонічний килим. Після паузи <strong>фортепіано</strong> грає шуканий інтервал поверх неї — чудово тренує відчуття напруги й опори відносно устою.</p>
+          <p>Тепла <strong>струнна підкладка</strong> тримає основний тон як гармонічний килим. Після паузи <strong>фортепіано</strong> грає шуканий інтервал поверх неї — повзунки <strong>Тонічна педаль</strong> (стандартно 50%) та <strong>Інтервал</strong> дозволяють гнучко налаштувати баланс.</p>
         </div>
       </div>
 
-      <h3>Складність інтервалів (3 рівні)</h3>
+      <h3>Рівні: Мажор, Мінор, Хроматика та Власний вибір</h3>
       <ul class="article-steps-list">
-        <li><strong>Рівень 1 — Початковий:</strong> Чотири опорні інтервали (вгору або вниз): чиста прима (<code>P1</code>), Велика терція (<code>M3</code>), чиста квінта (<code>P5</code>) та октава (<code>P8</code>).</li>
-        <li><strong>Рівень 2 — Мажорна гама:</strong> Усі 8 діатонічних інтервалів від прими до октави.</li>
-        <li><strong>Рівень 3 — Хроматика:</strong> Усі 15 інтервалів від прими до Великої нони (<code>M9</code>), включно з малими інтервалами й тритоном.</li>
+        <li><strong>Початковий (Рівень 1 у мажорі / Мінор 1):</strong> Чотири опорні інтервали тризвуку: чиста прима (<code>P1</code>), велика терція (<code>M3</code> у мажорі) або мала терція (<code>m3</code> у мінорі), чиста квінта (<code>P5</code>) та октава (<code>P8</code>).</li>
+        <li><strong>Нижня половина 1–4 (Рівень 2 у мажорі / Мінор 2):</strong> Нижній тетрахорд (4 інтервали): прима (<code>P1</code>), велика секунда (<code>M2</code>), велика або мала терція (<code>M3</code> / <code>m3</code>) і чиста кварта (<code>P4</code>).</li>
+        <li><strong>Верхня половина 5–8 (Рівень 3 у мажорі / Мінор 3):</strong> Верхній тетрахорд (4 інтервали): чиста квінта (<code>P5</code>), велика або мала секста (<code>M6</code> / <code>m6</code>), велика або мала септима (<code>M7</code> / <code>m7</code>) та октава (<code>P8</code>).</li>
+        <li><strong>Вся гама (Рівень 4 Мажорна гама / Мінор 4 Мінорна гама):</strong> Усі 8 діатонічних інтервалів від прими до октави в мажорі або натуральному мінорі.</li>
+        <li><strong>Рівень 5 — Хроматика:</strong> Усі 15 інтервалів від прими до великої нони (<code>M9</code>), включно з малими інтервалами й тритоном (<code>TT</code>).</li>
+        <li><strong>Вільна тональність і лади (Власне тренування інтервалів):</strong> Обирай фіксовану <strong>Тоніку</strong> (<code>C</code>–<code>H</code>) або <strong>Випадково</strong>, будь-яку <strong>Гаму чи лад</strong> (<em>Мажор/Іонійський</em>, <em>Натуральний/Гармонічний/Мелодичний мінор</em>, <em>Дорійський</em>, <em>Фригійський</em>, <em>Лідійський</em>, <em>Міксолідійський</em>, <em>Локрійський</em>, <em>Хроматична</em>), <strong>Діапазон</strong> (<em>Початківець</em>, <em>1–4</em>, <em>5–8</em>, <em>1–8</em>) або вмикай окремі інтервали — на сторінці категорії та безпосередньо під час вправи через бейдж угорі праворуч.</li>
       </ul>
 
       <h3>Як читати скорочення інтервалів</h3>
@@ -63200,7 +63539,7 @@ const CATEGORY_HELP_GUIDES_UK = {
 
       <div class="article-highlight-box">
         <h4>Спів, Порівняння A/B та Іспит</h4>
-        <p>Плашка <strong>Співай</strong> угорі (з опціональною <em>Паузою для наспівування</em>) допомагає відчути відстань голосом. Унизу <strong>Вихідний тон</strong> нагадує стартову ноту; після помилки <strong>Порівняння A/B</strong> грає твій варіант від тієї самої ноти й у тому самому напрямку перед відповіддю. Кнопка <strong>Повтор по колу</strong> повторює завдання по колу (а <strong>Авто-перехід</strong> вмикається в Налаштуваннях), <strong>Лише слухати</strong> дає пасивний повтор, а 3-рівневий <strong>Іспит</strong> об’єднує всі 4 типи.</p>
+        <p>Плашка <strong>Співай</strong> угорі (з опціональною <em>Паузою для наспівування</em>) допомагає відчути відстань голосом. Унизу <strong>Вихідний тон</strong> нагадує стартову ноту; після помилки <strong>Порівняння A/B</strong> грає твій варіант від тієї самої ноти й у тому самому напрямку перед відповіддю. Кнопка <strong>Повтор по колу</strong> повторює завдання по колу (а <strong>Авто-перехід</strong> вмикається в Налаштуваннях), <strong>Лише слухати</strong> дає пасивний повтор, а <strong>Іспит категорії</strong> об’єднує всі 4 типи (Мажор, Мінор, Половини, Мажор і Мінор разом, Хроматика та Вільна тональність і лади).</p>
       </div>
     `
   },
@@ -67412,15 +67751,18 @@ const CATEGORY_HELP_GUIDES_UR = {
         </div>
         <div class="k-compare-box is-peach">
           <h5>بنیادی سُر کے پیڈ پر انٹرولز (اسٹرنگز ➔ پیانو)</h5>
-          <p>ایک گرم <strong>اسٹرنگز پیڈ</strong> بنیادی سُر کو مسلسل سنبھالے رکھتا ہے۔ تھوڑے وقفے کے بعد <strong>پیانو</strong> اس کے اوپر مطلوبہ سُر بجاتا ہے — اساس کے مقابلے میں ہر انٹرول کا مزاج اور کشش پہچاننے کے لیے بہترین۔</p>
+          <p>ایک گرم <strong>اسٹرنگز پیڈ</strong> بنیادی سُر کو مسلسل سنبھالے رکھتا ہے۔ تھوڑے وقفے کے بعد <strong>پیانو</strong> اس کے اوپر مطلوبہ سُر بجاتا ہے — اور <strong>بنیادی پیڈ</strong> (معیاری 50%) و <strong>انٹرول</strong> سلائیڈرز سے آپ توازن بدل سکتے ہیں۔</p>
         </div>
       </div>
 
-      <h3>انٹرول مشکل کی 3 سطحیں</h3>
+      <h3>سطحیں: میجر، مائنر، کرومیٹک اور آزاد انتخاب</h3>
       <ul class="article-steps-list">
-        <li><strong>لیول 1 – ابتدائی:</strong> چار واضح ستون انٹرولز: یونی سن (<code>P1</code>)، میجر تھرڈ (<code>M3</code>)، پرفیکٹ ففتھ (<code>P5</code>) اور آکٹیو (<code>P8</code>)۔</li>
-        <li><strong>لیول 2 – میجر اسکیل:</strong> یونی سن سے آکٹیو تک تمام 8 ڈایاٹونک انٹرولز۔</li>
-        <li><strong>لیول 3 – کرومیٹک:</strong> میجر نائنتھ (<code>M9</code>) تک تمام 15 انٹرولز مع مائنر اور ٹرائی ٹون۔</li>
+        <li><strong>ابتدائی (لیول 1 میجر / مائنر 1):</strong> چار بنیادی ٹرائڈ انٹرولز: یونی سن (<code>P1</code>)، میجر تھرڈ (<code>M3</code>) یا مائنر تھرڈ (<code>m3</code>)، پرفیکٹ ففتھ (<code>P5</code>) اور آکٹیو (<code>P8</code>)۔</li>
+        <li><strong>نچلا نصف 1–4 (لیول 2 میجر / مائنر 2):</strong> نچلا ٹیٹراکورڈ (4 انٹرولز): یونی سن (<code>P1</code>)، میجر سیکنڈ (<code>M2</code>)، میجر یا مائنر تھرڈ (<code>M3</code> / <code>m3</code>) اور پرفیکٹ فورتھ (<code>P4</code>)۔</li>
+        <li><strong>اوپری نصف 5–8 (لیول 3 میجر / مائنر 3):</strong> اوپری ٹیٹراکورڈ (4 انٹرولز): پرفیکٹ ففتھ (<code>P5</code>)، میجر یا مائنر سکستھ (<code>M6</code> / <code>m6</code>)، میجر یا مائنر سیونتھ (<code>M7</code> / <code>m7</code>) اور آکٹیو (<code>P8</code>)۔</li>
+        <li><strong>مکمل اسکیل (لیول 4 میجر اسکیل / مائنر 4 مائنر اسکیل):</strong> میجر یا قدرتی مائنر میں یونی سن سے آکٹیو تک تمام 8 ڈایاٹونک انٹرولز۔</li>
+        <li><strong>لیول 5 – کرومیٹک:</strong> میجر نائنتھ (<code>M9</code>) تک تمام 15 انٹرولز مع مائنر اور ٹرائی ٹون (<code>TT</code>)۔</li>
+        <li><strong>آزاد کلید اور موڈز (اپنی انٹرول ٹریننگ):</strong> مستقل <strong>بنیادی سُر</strong> (<code>C</code> تا <code>B</code>) یا <strong>بے ترتیب</strong> چنیں، کوئی بھی <strong>اسکیل یا موڈ</strong> (<em>میجر/آئونین</em>، <em>قدرتی/ہارمونک/میلوڈک مائنر</em>، <em>ڈورین</em>، <em>فریجین</em>، <em>لیڈین</em>، <em>مکسولیڈین</em>، <em>لوکرین</em>، <em>کرومیٹک</em>) اور <strong>حد</strong> (<em>ابتدائی</em>، <em>1–4</em>، <em>5–8</em>، <em>1–8</em>) منتخب کریں یا انفرادی انٹرولز آن/آف کریں — زمرہ اسکرین پر بھی اور مشق کے دوران اوپر دائیں بیج سے بھی۔</li>
       </ul>
 
       <h3>انٹرول علامتیں کیسے کام کرتی ہیں</h3>
@@ -67434,7 +67776,7 @@ const CATEGORY_HELP_GUIDES_UR = {
 
       <div class="article-highlight-box">
         <h4>ساتھ گانا، A/B موازنہ اور امتحان</h4>
-        <p>اوپر <strong>ساتھ گائیں</strong> چِپ (اختیاری <em>گنگنانے کے وقفے</em> کے ساتھ) آواز سے فاصلہ محسوس کرنے میں مدد دیتا ہے۔ نیچے <strong>ابتدائی سُر</strong> پہلا نوٹ سناتا ہے اور غلطی کے بعد <strong>A/B موازنہ</strong> اسی سُر و سمت سے دونوں جواب بجاتا ہے۔ <strong>لوپ</strong> دہراتا رہتا ہے (<em>خودکار اگلا</em> ترتیبات میں ہے)، <strong>صرف سنیں</strong> خودکار چلتا ہے اور 3 سطحی <strong>زمرہ امتحان</strong> سب اقسام ملا کر پوچھتا ہے۔</p>
+        <p>اوپر <strong>ساتھ گائیں</strong> چِپ (اختیاری <em>گنگنانے کے وقفے</em> کے ساتھ) آواز سے فاصلہ محسوس کرنے میں مدد دیتا ہے۔ نیچے <strong>ابتدائی سُر</strong> پہلا نوٹ سناتا ہے اور غلطی کے بعد <strong>A/B موازنہ</strong> اسی سُر و سمت سے دونوں جواب بجاتا ہے۔ <strong>لوپ</strong> دہراتا رہتا ہے (<em>خودکار اگلا</em> ترتیبات میں ہے)، <strong>صرف سنیں</strong> خودکار چلتا ہے اور <strong>زمرہ امتحان</strong> سب اقسام ملا کر پوچھتا ہے (میجر، مائنر، اسکیل کے حصے، میجر و مائنر ملا کر، کرومیٹک اور آزاد کلید و موڈز)۔</p>
       </div>
     `
   },
@@ -71330,7 +71672,7 @@ const EXAM_CATEGORY_LEVELS = {
       {
         id: "interval_l1",
         levelNumber: 1,
-        title: { de: "Stufe 1 • Grundlagen", en: "Level 1 • Foundations" },
+        title: { de: "Stufe 1 • Dur Grundlagen", en: "Level 1 • Major Foundations" },
         desc: {
           de: "Prime, gr. Terz, Quinte & Oktave (Aufwärts, Abwärts, Harmonisch & Grundton-Fläche)",
           en: "Unison, Maj 3rd, 5th & Octave (Ascending, Descending, Harmonic & Root Pad)"
@@ -71339,26 +71681,100 @@ const EXAM_CATEGORY_LEVELS = {
         apply: { intervalDifficulty: 1, keyMode: "fixed" }
       },
       {
-        id: "interval_l2",
+        id: "interval_dur_halves",
         levelNumber: 2,
-        title: { de: "Stufe 2 • Diatonisch", en: "Level 2 • Diatonic" },
+        title: { de: "Stufe 2 • Dur Tonleiter-Hälften (1–4 & 5–8)", en: "Level 2 • Major Scale Halves (1–4 & 5–8)" },
         desc: {
-          de: "Alle diatonischen Dur-Intervalle gemischt über leichte Tonarten (inkl. Grundton-Fläche)",
-          en: "All diatonic major intervals mixed across easy keys (incl. root pad)"
+          de: "Unteres (1–4) & oberes (5–8) Dur-Tetrachord im Wechsel über leichte Tonarten",
+          en: "Lower (1–4) & upper (5–8) major tetrachords alternating across easy keys"
+        },
+        modes: ["interval-melodic", "interval-melodic-down", "interval-harmonic", "interval-drone"],
+        difficultyCycle: [2, 3],
+        apply: { intervalDifficulty: 2, keyMode: "easy" }
+      },
+      {
+        id: "interval_l2",
+        levelNumber: 3,
+        title: { de: "Stufe 3 • Dur-Tonleiter (1–8)", en: "Level 3 • Major Scale (1–8)" },
+        desc: {
+          de: "Alle 8 diatonischen Dur-Intervalle gemischt über leichte Tonarten (inkl. Grundton-Fläche)",
+          en: "All 8 diatonic major intervals mixed across easy keys (incl. root pad)"
         },
         modes: ["interval-melodic", "interval-melodic-down", "interval-harmonic", "interval-drone"],
         apply: { intervalDifficulty: 4, keyMode: "easy" }
       },
       {
-        id: "interval_l3",
-        levelNumber: 3,
-        title: { de: "Stufe 3 • Alle 13 Intervalle", en: "Level 3 • All 13 Intervals" },
+        id: "interval_minor_l1",
+        levelNumber: 1,
+        badge: { de: "Moll • Stufe 1", en: "Minor • Level 1" },
+        title: { de: "Moll • Grundlagen", en: "Minor • Foundations" },
         desc: {
-          de: "Chromatisches Gesamt-Spektrum inkl. Tritonus & kl./gr. Intervalle (inkl. Grundton-Fläche)",
-          en: "Full chromatic spectrum incl. tritone & minor/major intervals (incl. root pad)"
+          de: "Prime, kl. Terz, Quinte & Oktave (Aufwärts, Abwärts, Harmonisch & Grundton-Fläche)",
+          en: "Unison, Min 3rd, 5th & Octave (Ascending, Descending, Harmonic & Root Pad)"
+        },
+        modes: ["interval-melodic", "interval-melodic-down", "interval-harmonic", "interval-drone"],
+        apply: { intervalDifficulty: 6, keyMode: "fixed" }
+      },
+      {
+        id: "interval_minor_halves",
+        levelNumber: 2,
+        badge: { de: "Moll • Stufe 2", en: "Minor • Level 2" },
+        title: { de: "Moll • Tonleiter-Hälften (1–4 & 5–8)", en: "Minor • Scale Halves (1–4 & 5–8)" },
+        desc: {
+          de: "Unteres (1–4) & oberes (5–8) Moll-Tetrachord im Wechsel über leichte Tonarten",
+          en: "Lower (1–4) & upper (5–8) minor tetrachords alternating across easy keys"
+        },
+        modes: ["interval-melodic", "interval-melodic-down", "interval-harmonic", "interval-drone"],
+        difficultyCycle: [7, 8],
+        apply: { intervalDifficulty: 7, keyMode: "easy" }
+      },
+      {
+        id: "interval_minor_l2",
+        levelNumber: 3,
+        badge: { de: "Moll • Stufe 3", en: "Minor • Level 3" },
+        title: { de: "Moll • Ganze Tonleiter (1–8)", en: "Minor • Full Scale (1–8)" },
+        desc: {
+          de: "Alle 8 Intervalle in Natürlich Moll inkl. kl. Terz, kl. Sexte & kl. Septime",
+          en: "All 8 natural minor intervals incl. min 3rd, min 6th & min 7th"
+        },
+        modes: ["interval-melodic", "interval-melodic-down", "interval-harmonic", "interval-drone"],
+        apply: { intervalDifficulty: 9, keyMode: "easy" }
+      },
+      {
+        id: "interval_major_minor",
+        levelNumber: 4,
+        title: { de: "Stufe 4 • Dur & Moll gemischt", en: "Level 4 • Major & Minor Mixed" },
+        desc: {
+          de: "Alle 11 Dur- & Moll-Intervalle direkt gemischt (kl./gr. Terz, Sexte & Septime) in allen 12 Tonarten",
+          en: "All 11 major & minor intervals mixed head-to-head (min/maj 3rd, 6th & 7th) across all 12 keys"
+        },
+        modes: ["interval-melodic", "interval-melodic-down", "interval-harmonic", "interval-drone"],
+        fixedIntervalPool: ["P1", "M2", "m3", "M3", "P4", "P5", "m6", "M6", "m7", "M7", "P8"],
+        apply: { intervalDifficulty: 5, keyMode: "all" }
+      },
+      {
+        id: "interval_l3",
+        levelNumber: 5,
+        title: { de: "Stufe 5 • Chromatisch (Alle 15 Intervalle)", en: "Level 5 • Chromatic (All 15 Intervals)" },
+        desc: {
+          de: "Gesamtes chromatisches Spektrum inkl. kl. Sekunde, Tritonus, kl./gr. Intervalle & Nonen",
+          en: "Full chromatic spectrum incl. min 2nd, tritone, minor/major intervals & ninths"
         },
         modes: ["interval-melodic", "interval-melodic-down", "interval-harmonic", "interval-drone"],
         apply: { intervalDifficulty: 5, keyMode: "all" }
+      },
+      {
+        id: "interval_custom",
+        levelNumber: 6,
+        badge: { de: "Freie Wahl", en: "Custom" },
+        isCustomIntervalExam: true,
+        title: { de: "Freie Tonart & Modi", en: "Custom Key & Modes" },
+        desc: {
+          de: "Prüfe deine selbst gewählte Tonart, Skala/Kirchentonart & Tonleiter-Ausschnitt unter Prüfungsbedingungen",
+          en: "Test your chosen root key, scale/mode & scale range under full exam conditions"
+        },
+        modes: ["interval-melodic", "interval-melodic-down", "interval-harmonic", "interval-drone"],
+        apply: { intervalDifficulty: 10 }
       }
     ]
   },
@@ -80230,6 +80646,9 @@ function generateIntervalExercise(rootMidi, intervalMode) {
   } else if (lvl === 10) {
     pool = getActiveIntervalCustomPool();
   }
+  if (state.exam?.active && Array.isArray(state.exam.fixedIntervalPool) && state.exam.fixedIntervalPool.length >= 2) {
+    pool = [...state.exam.fixedIntervalPool];
+  }
 
   const chosenKey = pickTargetKeyWithSessionReview(intervalMode, pool, getLastTargetKeyForType(intervalMode));
   const targetDef = getLocalizedIntervalDef(chosenKey);
@@ -80240,7 +80659,7 @@ function generateIntervalExercise(rootMidi, intervalMode) {
   const isDrone = intervalMode === "interval-drone";
 
   let effectiveRootMidi = (isMelodic || isDrone) ? pickMelodicRootMidi(isMelodicDown) : rootMidi;
-  if (lvl === 10 && !state.exam?.active) {
+  if (lvl === 10 && (!state.exam?.active || state.exam?.useCustomIntervalRoot)) {
     const customRoot = String(state.settings.intervalCustomRoot ?? "random");
     if (/^(?:[0-9]|1[01])$/.test(customRoot)) {
       const baseMidi = MODES_ROOT_MIDI_BY_PC[Number(customRoot)] || 60;
@@ -99198,12 +99617,52 @@ function formatExamScoreVal(val) {
   return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(2).replace(/0$/, "");
 }
 
+function getExamIconSVG(kind, size = 16) {
+  const s = Number(size) || 16;
+  const open = `<svg class="exam-svg-icon" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">`;
+  if (kind === "trophy") {
+    return `${open}<path d="M7 4.5h10v4.8a5 5 0 0 1-10 0V4.5Z" fill="currentColor" fill-opacity="0.16"/><path d="M7 6.5H4.8a1.8 1.8 0 0 0-1.8 1.8v.4a3.4 3.4 0 0 0 3.4 3.4h.9"/><path d="M17 6.5h2.2a1.8 1.8 0 0 1 1.8 1.8v.4a3.4 3.4 0 0 1-3.4 3.4h-.9"/><path d="M12 14.3v4.2"/><path d="M8.5 19.5h7"/><path d="M9.6 18.5h4.8"/></svg>`;
+  }
+  if (kind === "medal") {
+    return `${open}<path d="M8.5 3.5 10.6 9"/><path d="M15.5 3.5 13.4 9"/><path d="M7 3.5h10"/><circle cx="12" cy="14.5" r="5.5" fill="currentColor" fill-opacity="0.16"/><path d="M12 11.9l.8 1.7 1.8.2-1.3 1.3.3 1.8-1.6-.9-1.6.9.3-1.8-1.3-1.3 1.8-.2.8-1.7Z" stroke-width="1.5"/></svg>`;
+  }
+  if (kind === "leaf") {
+    return `${open}<path d="M19.5 4.8C13.4 4.8 7 8.4 6.2 15.2c-.2 1.7.7 3.1 2.4 3.2 6.8.3 10.9-5.8 10.9-13.6Z" fill="currentColor" fill-opacity="0.16"/><path d="M5.5 19.5c2.4-2.8 5.6-5.7 9.6-8.2"/></svg>`;
+  }
+  if (kind === "headphones") {
+    return `${open}<path d="M4.5 14v-1.5a7.5 7.5 0 0 1 15 0V14"/><rect x="3.5" y="13.5" width="3.8" height="6" rx="1.8" fill="currentColor" fill-opacity="0.18"/><rect x="16.7" y="13.5" width="3.8" height="6" rx="1.8" fill="currentColor" fill-opacity="0.18"/></svg>`;
+  }
+  if (kind === "star") {
+    return `${open}<path d="M12 3.4l2.55 5.18 5.72.83-4.14 4.03.98 5.7L12 16.45l-5.11 2.69.98-5.7-4.14-4.03 5.72-.83L12 3.4Z" fill="currentColor" fill-opacity="0.22"/></svg>`;
+  }
+  if (kind === "check") {
+    return `${open}<path d="M5 12.6l4.6 4.6L19 7.5" stroke-width="2.4"/></svg>`;
+  }
+  if (kind === "partial") {
+    return `${open}<circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 0 0 16Z" fill="currentColor" stroke="none"/></svg>`;
+  }
+  if (kind === "cross") {
+    return `${open}<path d="M7 7l10 10M17 7L7 17" stroke-width="2.3"/></svg>`;
+  }
+  if (kind === "skip") {
+    return `${open}<path d="M5.5 6.8 13.8 12l-8.3 5.2V6.8Z" fill="currentColor" fill-opacity="0.18"/><path d="M17.5 6.8v10.4" stroke-width="2.2"/></svg>`;
+  }
+  if (kind === "play") {
+    return `${open}<path d="M7.5 5.8 18.2 12 7.5 18.2V5.8Z" fill="currentColor" fill-opacity="0.22"/></svg>`;
+  }
+  if (kind === "compare") {
+    return `${open}<path d="M15.8 4.8 19.5 8.5l-3.7 3.7"/><path d="M19.2 8.5H5.5"/><path d="M8.2 19.2 4.5 15.5l3.7-3.7"/><path d="M4.8 15.5h13.7"/></svg>`;
+  }
+  return "";
+}
+
 function getLauschebaerExamBadge(percent) {
   const p = Number(percent) || 0;
   if (p >= 90) {
     return {
       tierCls: "tier-master",
-      icon: "🏆",
+      emblemCls: "is-master",
+      iconKey: "trophy",
       title: tr("Lauscher-Meister", "Lauscher Master"),
       sub: tr(
         "Souveränes Gehör! Du erkennst selbst feine Details ruhig und treffsicher.",
@@ -99214,7 +99673,8 @@ function getLauschebaerExamBadge(percent) {
   if (p >= 75) {
     return {
       tierCls: "tier-good",
-      icon: "✨",
+      emblemCls: "is-medal",
+      iconKey: "medal",
       title: tr("Starker Lauscher", "Sharp Listener"),
       sub: tr(
         "Sehr starke Trefferquote! Hör dir in der Rückschau kurz die wenigen Wackler im Vergleich an.",
@@ -99225,7 +99685,8 @@ function getLauschebaerExamBadge(percent) {
   if (p >= 50) {
     return {
       tierCls: "tier-good",
-      icon: "🌿",
+      emblemCls: "is-good",
+      iconKey: "leaf",
       title: tr("Guter Kurs", "Solid Progress"),
       sub: tr(
         "Gute Grundlage! Ein gezielter Übe-Fokus auf das schwächste Modul hebt dich aufs nächste Niveau.",
@@ -99235,13 +99696,59 @@ function getLauschebaerExamBadge(percent) {
   }
   return {
     tierCls: "",
-    icon: "🎧",
+    emblemCls: "is-keep",
+    iconKey: "headphones",
     title: tr("Dranbleiben lohnt sich", "Keep Listening"),
     sub: tr(
       "Jede Prüfung schärft dein Ohr – vergleiche deine Antworten jetzt direkt in der Hör-Rückschau!",
       "Every exam sharpens your ear — compare your choices directly in the audio review below!"
     )
   };
+}
+
+function buildExamCustomIntervalControlsHtml() {
+  const curRoot = String(state?.settings?.intervalCustomRoot ?? "random");
+  const curScale = String(state?.settings?.intervalCustomScale || "ionian");
+  const curScope = String(state?.settings?.intervalCustomScope || "full");
+
+  const rootOptions = [
+    `<option value="random" ${curRoot === "random" ? "selected" : ""}>${escapeHtml(tr("Zufall (alle 12)", "Random (all 12)"))}</option>`,
+    ...MODES_ROOT_MIDI_BY_PC.map((midi, pc) => {
+      const val = String(pc);
+      return `<option value="${val}" ${curRoot === val ? "selected" : ""}>${escapeHtml(getModesRootDisplayName(midi))}</option>`;
+    })
+  ].join("");
+
+  const scaleOptions = Object.keys(INTERVAL_SCALE_PRESETS).map(scaleId =>
+    `<option value="${escapeHtml(scaleId)}" ${curScale === scaleId ? "selected" : ""}>${escapeHtml(getLocalizedIntervalCustomScaleLabel(scaleId))}</option>`
+  ).join("");
+
+  const scopeOptions = ["triad", "lower", "upper", "full"].map(scope =>
+    `<option value="${escapeHtml(scope)}" ${curScope === scope ? "selected" : ""}>${escapeHtml(getLocalizedIntervalCustomScopeLabel(scope))}</option>`
+  ).join("");
+
+  const activePool = getActiveIntervalCustomPool();
+  const poolText = activePool.map(k => getLocalizedIntervalDef(k)?.symbol || k).join(" • ");
+
+  return `
+    <div class="exam-custom-config" data-exam-custom-box>
+      <div class="exam-custom-grid">
+        <label class="exam-custom-field">
+          <span>${escapeHtml(tr("Grundton", "Root Key"))}</span>
+          <select class="account-select exam-custom-select" data-exam-custom-select="root">${rootOptions}</select>
+        </label>
+        <label class="exam-custom-field">
+          <span>${escapeHtml(tr("Tonleiter / Modus", "Scale / Mode"))}</span>
+          <select class="account-select exam-custom-select" data-exam-custom-select="scale">${scaleOptions}</select>
+        </label>
+        <label class="exam-custom-field">
+          <span>${escapeHtml(tr("Umfang", "Range"))}</span>
+          <select class="account-select exam-custom-select" data-exam-custom-select="scope">${scopeOptions}</select>
+        </label>
+      </div>
+      <div class="exam-custom-preview" data-exam-custom-preview>${escapeHtml(tf("Intervall-Auswahl ({n}): {list}", "Interval Pool ({n}): {list}", { n: activePool.length, list: poolText }))}</div>
+    </div>
+  `;
 }
 
 function openExamSetupPage(categoryKey = state.activeCategory, options = {}) {
@@ -99256,30 +99763,35 @@ function openExamSetupPage(categoryKey = state.activeCategory, options = {}) {
   const cfg = state.examConfig || { count: 10, feedbackMode: "blind", maxReplays: 2 };
   const catBest = getCategoryBestExamPercent(categoryKey);
   const catBestPill = catBest !== null
-    ? `<span class="exam-best-pill">★ ${escapeHtml(tf("Bestwert: {pct}%", "Best: {pct}%", { pct: catBest }))}</span>`
+    ? `<span class="exam-best-pill">${getExamIconSVG("star", 12)}<span>${escapeHtml(tf("Bestwert: {pct}%", "Best: {pct}%", { pct: catBest }))}</span></span>`
     : "";
 
   const levelsHtml = catCfg.presets.map(preset => {
     const levelBest = getCategoryBestExamPercent(categoryKey, preset.id);
     const bestHtml = levelBest !== null
-      ? `<span class="exam-best-pill">${escapeHtml(tf("Bestwert: {pct}%", "Best: {pct}%", { pct: levelBest }))}</span>`
+      ? `<span class="exam-best-pill">${getExamIconSVG("star", 12)}<span>${escapeHtml(tf("Bestwert: {pct}%", "Best: {pct}%", { pct: levelBest }))}</span></span>`
       : "";
+    const pillText = preset.badge
+      ? tr(preset.badge.de, preset.badge.en)
+      : tf("Stufe {n}", "Level {n}", { n: preset.levelNumber });
     const modeChipsHtml = preset.modes.map(m =>
       `<span class="exam-mode-chip">${escapeHtml(getLocalizedExamModeName(m))}</span>`
     ).join("");
+    const customBoxHtml = preset.isCustomIntervalExam ? buildExamCustomIntervalControlsHtml() : "";
 
     return `
       <article class="exam-level-card" data-exam-level-card="${escapeHtml(preset.id)}">
         <div class="exam-level-top">
           <div>
             <div class="exam-level-badges">
-              <span class="exam-level-pill">${escapeHtml(tf("Stufe {n}", "Level {n}", { n: preset.levelNumber }))}</span>
+              <span class="exam-level-pill">${escapeHtml(pillText)}</span>
               ${bestHtml}
             </div>
             <h3 class="exam-level-title">${escapeHtml(tr(preset.title.de, preset.title.en))}</h3>
             <p class="exam-level-desc">${escapeHtml(tr(preset.desc.de, preset.desc.en))}</p>
           </div>
         </div>
+        ${customBoxHtml}
         <div class="exam-level-modes">${modeChipsHtml}</div>
         <div class="exam-level-footer">
           <button type="button" class="btn-primary-action exam-start-btn" data-start-exam-level="${escapeHtml(preset.id)}">
@@ -99344,6 +99856,27 @@ function openExamSetupPage(categoryKey = state.activeCategory, options = {}) {
     <div class="exam-level-grid">${levelsHtml}</div>
   `;
 
+  container.querySelectorAll("[data-exam-custom-select]").forEach(sel => {
+    sel.addEventListener("change", () => {
+      const kind = sel.dataset.examCustomSelect;
+      if (kind === "root") {
+        state.settings.intervalCustomRoot = sel.value;
+      } else if (kind === "scale") {
+        state.settings.intervalCustomScale = sel.value;
+        state.settings.intervalCustomPool = null;
+      } else if (kind === "scope") {
+        state.settings.intervalCustomScope = sel.value;
+        state.settings.intervalCustomPool = null;
+      }
+      const previewEl = container.querySelector("[data-exam-custom-preview]");
+      if (previewEl) {
+        const pool = getActiveIntervalCustomPool();
+        const poolText = pool.map(k => getLocalizedIntervalDef(k)?.symbol || k).join(" • ");
+        previewEl.textContent = tf("Intervall-Auswahl ({n}): {list}", "Interval Pool ({n}): {list}", { n: pool.length, list: poolText });
+      }
+    });
+  });
+
   container.querySelectorAll("[data-exam-count]").forEach(btn => {
     btn.addEventListener("click", () => {
       const val = parseInt(btn.dataset.examCount, 10);
@@ -99395,11 +99928,30 @@ function buildExamQuestionPlan(modes, count) {
   return plan;
 }
 
-function applyExamLevelSettings(preset, targetMode) {
+function buildExamDifficultyPlan(cycle, count) {
+  if (!Array.isArray(cycle) || cycle.length === 0) return null;
+  const total = Math.max(1, Math.min(50, parseInt(count, 10) || 10));
+  const plan = [];
+  for (let i = 0; i < total; i++) {
+    plan.push(cycle[i % cycle.length]);
+  }
+  for (let i = plan.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const tmp = plan[i];
+    plan[i] = plan[j];
+    plan[j] = tmp;
+  }
+  return plan;
+}
+
+function applyExamLevelSettings(preset, targetMode, overrideIntervalDifficulty = null) {
   if (!state?.settings || !preset) return;
   state.settings.mode = targetMode;
   state.settings.rhythmTapReadMode = false;
   Object.assign(state.settings, preset.apply || {});
+  if (Number.isInteger(overrideIntervalDifficulty)) {
+    state.settings.intervalDifficulty = overrideIntervalDifficulty;
+  }
   state.settings.loop = false;
   state.settings.autoNextAfterCorrect = false;
   state.settings.solfegeAutoNext = false;
@@ -99451,6 +100003,7 @@ function startCategoryExam(categoryKey, levelId) {
   const cfg = state.examConfig || { count: 10, feedbackMode: "blind", maxReplays: 2 };
   const total = [10, 20, 50].includes(cfg.count) ? cfg.count : 10;
   const plan = buildExamQuestionPlan(preset.modes, total);
+  const difficultyPlan = buildExamDifficultyPlan(preset.difficultyCycle, total);
 
   state.activeCategory = categoryKey;
   state.examSetupCategory = categoryKey;
@@ -99466,6 +100019,9 @@ function startCategoryExam(categoryKey, levelId) {
     totalQuestions: total,
     currentIdx: 0,
     plan: plan,
+    difficultyPlan: difficultyPlan,
+    fixedIntervalPool: Array.isArray(preset.fixedIntervalPool) ? [...preset.fixedIntervalPool] : null,
+    useCustomIntervalRoot: Boolean(preset.isCustomIntervalExam),
     questions: [],
     currentAnswered: false,
     currentPromptPlayedOnce: false,
@@ -99477,7 +100033,7 @@ function startCategoryExam(categoryKey, levelId) {
     prevHasManualBpm: Boolean(state.hasManualExerciseBpm)
   };
 
-  applyExamLevelSettings(preset, plan[0]);
+  applyExamLevelSettings(preset, plan[0], difficultyPlan ? difficultyPlan[0] : null);
   switchView("exercise", { preserveBpm: true });
 }
 
@@ -99628,7 +100184,8 @@ function loadCurrentExamQuestion() {
 
   const preset = getExamPresetById(exam.categoryKey, exam.levelId);
   const planMode = exam.plan[exam.currentIdx] || preset?.modes?.[0] || "cadence";
-  applyExamLevelSettings(preset, planMode);
+  const planDiff = Array.isArray(exam.difficultyPlan) ? exam.difficultyPlan[exam.currentIdx] : null;
+  applyExamLevelSettings(preset, planMode, Number.isInteger(planDiff) ? planDiff : null);
 
   exam.currentAnswered = false;
   exam.currentPromptPlayedOnce = false;
@@ -100846,11 +101403,14 @@ function renderExamResultView() {
     const isPartial = item.status === "partial";
     const cardCls = isOk ? "is-correct" : (isPartial ? "is-partial" : "is-wrong");
     const statusCls = isOk ? "is-ok" : (isPartial ? "is-warn" : "is-err");
+    const statusIconKey = isOk
+      ? "check"
+      : (isPartial ? "partial" : (item.status === "skipped" ? "skip" : "cross"));
     const statusText = isOk
-      ? tr("✓ Richtig", "✓ Correct")
+      ? tr("Richtig", "Correct")
       : (isPartial
-          ? tf("◐ {pts} Pkt.", "◐ {pts} pts", { pts: formatExamScoreVal(item.score) })
-          : (item.status === "skipped" ? tr("⏭ Übersprungen", "⏭ Skipped") : tr("✗ Falsch", "✗ Wrong")));
+          ? tf("{pts} Pkt.", "{pts} pts", { pts: formatExamScoreVal(item.score) })
+          : (item.status === "skipped" ? tr("Übersprungen", "Skipped") : tr("Falsch", "Wrong")));
 
     const targetDisplay = item.targetLabel || getExamChoiceDisplayText(item.mode, item.targetKey);
     const chosenDisplay = item.status === "skipped"
@@ -100876,7 +101436,7 @@ function renderExamResultView() {
       <article class="exam-review-item ${cardCls}" data-review-idx="${itemIdx}">
         <div class="exam-review-head">
           <span class="exam-review-q">${escapeHtml(tf("Frage {n} • {mod}", "Question {n} • {mod}", { n: item.qIndex || (visiblePos + 1), mod: getLocalizedExamModeName(item.mode) }))}</span>
-          <span class="exam-review-status ${statusCls}">${escapeHtml(statusText)}</span>
+          <span class="exam-review-status ${statusCls}">${getExamIconSVG(statusIconKey, 12)}<span>${escapeHtml(statusText)}</span></span>
         </div>
         ${isNotationMode(item.mode) && snap && Number.isFinite(Number(snap.staffStep)) ? `
           <div class="exam-notation-review-staff">${buildNotationMiniStaffSVG(snap)}</div>
@@ -100895,9 +101455,9 @@ function renderExamResultView() {
         </div>
         ${canPlayTarget ? `
           <div class="exam-review-audio">
-            ${canPlayChosen ? `<button type="button" class="btn-tool" data-review-play="${itemIdx}:chosen">${escapeHtml(tr("▶ Meine Wahl", "▶ My Choice"))}</button>` : ""}
-            <button type="button" class="btn-tool" data-review-play="${itemIdx}:target">${escapeHtml(tr("▶ Richtige Lösung", "▶ Target Sound"))}</button>
-            ${canCompareAB ? `<button type="button" class="btn-tool" data-review-play="${itemIdx}:compare">${escapeHtml(tr("⇄ A/B Vergleich", "⇄ A/B Compare"))}</button>` : ""}
+            ${canPlayChosen ? `<button type="button" class="btn-tool exam-review-audio-btn" data-review-play="${itemIdx}:chosen">${getExamIconSVG("play", 12)}<span>${escapeHtml(tr("Meine Wahl", "My Choice"))}</span></button>` : ""}
+            <button type="button" class="btn-tool exam-review-audio-btn" data-review-play="${itemIdx}:target">${getExamIconSVG("play", 12)}<span>${escapeHtml(tr("Richtige Lösung", "Target Sound"))}</span></button>
+            ${canCompareAB ? `<button type="button" class="btn-tool exam-review-audio-btn" data-review-play="${itemIdx}:compare">${getExamIconSVG("compare", 12)}<span>${escapeHtml(tr("A/B Vergleich", "A/B Compare"))}</span></button>` : ""}
           </div>
         ` : ""}
       </article>
@@ -100905,14 +101465,15 @@ function renderExamResultView() {
   }).join("");
 
   const newBestBadge = state.activeExamIsNewBest
-    ? `<span class="exam-new-best-pill">★ ${escapeHtml(tr("Neuer Bestwert!", "New Best!"))}</span>`
+    ? `<span class="exam-new-best-pill">${getExamIconSVG("star", 13)}<span>${escapeHtml(tr("Neuer Bestwert!", "New Best!"))}</span></span>`
     : "";
 
   container.innerHTML = `
     <section class="exam-result-hero ${badge.tierCls}">
       <h2 class="exam-result-hero-heading">${escapeHtml(tr("Prüfungsübersicht", "Exam Overview"))}</h2>
+      <div class="exam-result-emblem ${badge.emblemCls}" aria-hidden="true">${getExamIconSVG(badge.iconKey, 28)}</div>
       <div class="exam-result-badge-row">
-        <span class="exam-badge-pill">${badge.icon} ${escapeHtml(badge.title)}</span>
+        <span class="exam-badge-pill ${badge.emblemCls}">${escapeHtml(badge.title)}</span>
         ${newBestBadge}
       </div>
       <div class="exam-result-score">${entry.percent}%</div>
@@ -101332,7 +101893,10 @@ function renderExamHistoryCard() {
       <button type="button" class="exam-history-row" data-open-exam-result="${escapeHtml(entry.id)}">
         <span class="exam-history-main">
           <span class="exam-history-title">${escapeHtml(`${getCategoryTitle(entry.categoryKey)} • ${levelShort}`)}</span>
-          <span class="exam-history-meta">${escapeHtml(`${formatExamDate(entry.completedAt)} • ${entry.totalQuestions} ${tr("Fragen", "Questions")} • ${formatExamDuration(entry.durationSec)} • ${badge.icon}`)}</span>
+          <span class="exam-history-meta">
+            <span>${escapeHtml(`${formatExamDate(entry.completedAt)} • ${entry.totalQuestions} ${tr("Fragen", "Questions")} • ${formatExamDuration(entry.durationSec)}`)}</span>
+            <span class="exam-history-badge-ico ${badge.emblemCls}" title="${escapeHtml(badge.title)}" aria-hidden="true">${getExamIconSVG(badge.iconKey, 13)}</span>
+          </span>
         </span>
         <span class="exam-history-score">
           <span class="exam-history-pct ${pctCls}">${entry.percent}%</span>

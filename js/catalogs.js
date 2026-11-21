@@ -993,7 +993,7 @@ const EXAM_CATEGORY_LEVELS = {
       {
         id: "interval_l1",
         levelNumber: 1,
-        title: { de: "Stufe 1 • Grundlagen", en: "Level 1 • Foundations" },
+        title: { de: "Stufe 1 • Dur Grundlagen", en: "Level 1 • Major Foundations" },
         desc: {
           de: "Prime, gr. Terz, Quinte & Oktave (Aufwärts, Abwärts, Harmonisch & Grundton-Fläche)",
           en: "Unison, Maj 3rd, 5th & Octave (Ascending, Descending, Harmonic & Root Pad)"
@@ -1002,26 +1002,100 @@ const EXAM_CATEGORY_LEVELS = {
         apply: { intervalDifficulty: 1, keyMode: "fixed" }
       },
       {
-        id: "interval_l2",
+        id: "interval_dur_halves",
         levelNumber: 2,
-        title: { de: "Stufe 2 • Diatonisch", en: "Level 2 • Diatonic" },
+        title: { de: "Stufe 2 • Dur Tonleiter-Hälften (1–4 & 5–8)", en: "Level 2 • Major Scale Halves (1–4 & 5–8)" },
         desc: {
-          de: "Alle diatonischen Dur-Intervalle gemischt über leichte Tonarten (inkl. Grundton-Fläche)",
-          en: "All diatonic major intervals mixed across easy keys (incl. root pad)"
+          de: "Unteres (1–4) & oberes (5–8) Dur-Tetrachord im Wechsel über leichte Tonarten",
+          en: "Lower (1–4) & upper (5–8) major tetrachords alternating across easy keys"
+        },
+        modes: ["interval-melodic", "interval-melodic-down", "interval-harmonic", "interval-drone"],
+        difficultyCycle: [2, 3],
+        apply: { intervalDifficulty: 2, keyMode: "easy" }
+      },
+      {
+        id: "interval_l2",
+        levelNumber: 3,
+        title: { de: "Stufe 3 • Dur-Tonleiter (1–8)", en: "Level 3 • Major Scale (1–8)" },
+        desc: {
+          de: "Alle 8 diatonischen Dur-Intervalle gemischt über leichte Tonarten (inkl. Grundton-Fläche)",
+          en: "All 8 diatonic major intervals mixed across easy keys (incl. root pad)"
         },
         modes: ["interval-melodic", "interval-melodic-down", "interval-harmonic", "interval-drone"],
         apply: { intervalDifficulty: 4, keyMode: "easy" }
       },
       {
-        id: "interval_l3",
-        levelNumber: 3,
-        title: { de: "Stufe 3 • Alle 13 Intervalle", en: "Level 3 • All 13 Intervals" },
+        id: "interval_minor_l1",
+        levelNumber: 1,
+        badge: { de: "Moll • Stufe 1", en: "Minor • Level 1" },
+        title: { de: "Moll • Grundlagen", en: "Minor • Foundations" },
         desc: {
-          de: "Chromatisches Gesamt-Spektrum inkl. Tritonus & kl./gr. Intervalle (inkl. Grundton-Fläche)",
-          en: "Full chromatic spectrum incl. tritone & minor/major intervals (incl. root pad)"
+          de: "Prime, kl. Terz, Quinte & Oktave (Aufwärts, Abwärts, Harmonisch & Grundton-Fläche)",
+          en: "Unison, Min 3rd, 5th & Octave (Ascending, Descending, Harmonic & Root Pad)"
+        },
+        modes: ["interval-melodic", "interval-melodic-down", "interval-harmonic", "interval-drone"],
+        apply: { intervalDifficulty: 6, keyMode: "fixed" }
+      },
+      {
+        id: "interval_minor_halves",
+        levelNumber: 2,
+        badge: { de: "Moll • Stufe 2", en: "Minor • Level 2" },
+        title: { de: "Moll • Tonleiter-Hälften (1–4 & 5–8)", en: "Minor • Scale Halves (1–4 & 5–8)" },
+        desc: {
+          de: "Unteres (1–4) & oberes (5–8) Moll-Tetrachord im Wechsel über leichte Tonarten",
+          en: "Lower (1–4) & upper (5–8) minor tetrachords alternating across easy keys"
+        },
+        modes: ["interval-melodic", "interval-melodic-down", "interval-harmonic", "interval-drone"],
+        difficultyCycle: [7, 8],
+        apply: { intervalDifficulty: 7, keyMode: "easy" }
+      },
+      {
+        id: "interval_minor_l2",
+        levelNumber: 3,
+        badge: { de: "Moll • Stufe 3", en: "Minor • Level 3" },
+        title: { de: "Moll • Ganze Tonleiter (1–8)", en: "Minor • Full Scale (1–8)" },
+        desc: {
+          de: "Alle 8 Intervalle in Natürlich Moll inkl. kl. Terz, kl. Sexte & kl. Septime",
+          en: "All 8 natural minor intervals incl. min 3rd, min 6th & min 7th"
+        },
+        modes: ["interval-melodic", "interval-melodic-down", "interval-harmonic", "interval-drone"],
+        apply: { intervalDifficulty: 9, keyMode: "easy" }
+      },
+      {
+        id: "interval_major_minor",
+        levelNumber: 4,
+        title: { de: "Stufe 4 • Dur & Moll gemischt", en: "Level 4 • Major & Minor Mixed" },
+        desc: {
+          de: "Alle 11 Dur- & Moll-Intervalle direkt gemischt (kl./gr. Terz, Sexte & Septime) in allen 12 Tonarten",
+          en: "All 11 major & minor intervals mixed head-to-head (min/maj 3rd, 6th & 7th) across all 12 keys"
+        },
+        modes: ["interval-melodic", "interval-melodic-down", "interval-harmonic", "interval-drone"],
+        fixedIntervalPool: ["P1", "M2", "m3", "M3", "P4", "P5", "m6", "M6", "m7", "M7", "P8"],
+        apply: { intervalDifficulty: 5, keyMode: "all" }
+      },
+      {
+        id: "interval_l3",
+        levelNumber: 5,
+        title: { de: "Stufe 5 • Chromatisch (Alle 15 Intervalle)", en: "Level 5 • Chromatic (All 15 Intervals)" },
+        desc: {
+          de: "Gesamtes chromatisches Spektrum inkl. kl. Sekunde, Tritonus, kl./gr. Intervalle & Nonen",
+          en: "Full chromatic spectrum incl. min 2nd, tritone, minor/major intervals & ninths"
         },
         modes: ["interval-melodic", "interval-melodic-down", "interval-harmonic", "interval-drone"],
         apply: { intervalDifficulty: 5, keyMode: "all" }
+      },
+      {
+        id: "interval_custom",
+        levelNumber: 6,
+        badge: { de: "Freie Wahl", en: "Custom" },
+        isCustomIntervalExam: true,
+        title: { de: "Freie Tonart & Modi", en: "Custom Key & Modes" },
+        desc: {
+          de: "Prüfe deine selbst gewählte Tonart, Skala/Kirchentonart & Tonleiter-Ausschnitt unter Prüfungsbedingungen",
+          en: "Test your chosen root key, scale/mode & scale range under full exam conditions"
+        },
+        modes: ["interval-melodic", "interval-melodic-down", "interval-harmonic", "interval-drone"],
+        apply: { intervalDifficulty: 10 }
       }
     ]
   },

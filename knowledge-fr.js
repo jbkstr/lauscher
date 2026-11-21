@@ -1815,15 +1815,18 @@ const CATEGORY_HELP_GUIDES_FR = {
         </div>
         <div class="k-compare-box is-peach">
           <h5>Intervalles sur nappe de fondamentale (Cordes ➔ Piano)</h5>
-          <p>Une chaleureuse <strong>nappe de cordes</strong> tient la fondamentale en continu. Après un bref délai, le <strong>piano</strong> joue la note cible par-dessus — idéal pour sentir la tension et la couleur de chaque degré.</p>
+          <p>Une chaleureuse <strong>nappe de cordes</strong> tient la fondamentale en continu. Après un bref délai, le <strong>piano</strong> joue la note cible par-dessus — avec deux curseurs dédiés (<strong>Bourdon (tonique)</strong> à 50 % par défaut et <strong>Intervalle</strong>) pour ajuster la balance à tout moment.</p>
         </div>
       </div>
 
-      <h3>Difficulté des intervalles (3 niveaux)</h3>
+      <h3>Niveaux : Majeur, Mineur, Chromatique &amp; Mode libre</h3>
       <ul class="article-steps-list">
-        <li><strong>Niveau 1 – Débutant :</strong> Quatre repères incontournables (ascendants ou descendants) : Unisson (<code>P1</code>), Tierce majeure (<code>M3</code>), Quinte juste (<code>P5</code>) et Octave (<code>P8</code>).</li>
-        <li><strong>Niveau 2 – Gamme majeure :</strong> Les 8 intervalles diatoniques de l’Unisson à l’Octave.</li>
-        <li><strong>Niveau 3 – Chromatique :</strong> Les 15 intervalles de l’Unisson à la Neuvième majeure (<code>M9</code>), dont tous les intervalles mineurs et le Triton.</li>
+        <li><strong>Débutant (Niveau 1 en majeur / Mineur 1) :</strong> Quatre repères d’arpège : Unisson (<code>P1</code>), Tierce majeure (<code>M3</code>) ou Tierce mineure (<code>m3</code>), Quinte juste (<code>P5</code>) et Octave (<code>P8</code>).</li>
+        <li><strong>Moitié inférieure 1–4 (Niveau 2 en majeur / Mineur 2) :</strong> Le tétracorde inférieur (4 intervalles) : Unisson (<code>P1</code>), Seconde majeure (<code>M2</code>), Tierce majeure ou mineure (<code>M3</code> / <code>m3</code>) et Quarte juste (<code>P4</code>).</li>
+        <li><strong>Moitié supérieure 5–8 (Niveau 3 en majeur / Mineur 3) :</strong> Le tétracorde supérieur (4 intervalles) : Quinte juste (<code>P5</code>), Sixte majeure ou mineure (<code>M6</code> / <code>m6</code>), Septième majeure ou mineure (<code>M7</code> / <code>m7</code>) et Octave (<code>P8</code>).</li>
+        <li><strong>Gamme complète (Niveau 4 Gamme majeure / Mineur 4 Gamme mineure) :</strong> Les 8 intervalles diatoniques de l’Unisson à l’Octave en majeur ou en mineur naturel.</li>
+        <li><strong>Niveau 5 – Chromatique :</strong> Les 15 intervalles de l’Unisson à la Neuvième majeure (<code>M9</code>), dont tous les intervalles mineurs et le Triton (<code>TT</code>).</li>
+        <li><strong>Tonalité &amp; modes libres (Entraînement sur mesure) :</strong> Choisissez une <strong>Tonique fixe</strong> (<code>Do</code> à <code>Si</code>) ou <strong>Aléatoire</strong>, une <strong>Gamme ou un mode</strong> (<em>Majeur/Ionien</em>, <em>Mineur naturel/harmonique/mélodique</em>, <em>Dorien</em>, <em>Phrygien</em>, <em>Lydien</em>, <em>Mixolydien</em>, <em>Locrien</em>, <em>Chromatique</em>), l’<strong>Étendue</strong> (<em>Débutant</em>, <em>1–4</em>, <em>5–8</em>, <em>1–8</em>) ou activez chaque intervalle individuellement — sur la page de catégorie comme en direct via le badge en haut à droite.</li>
       </ul>
 
       <h3>Comprendre la notation abrégée des intervalles</h3>
@@ -1839,7 +1842,7 @@ const CATEGORY_HELP_GUIDES_FR = {
 
       <div class="article-highlight-box">
         <h4>Chanter, Comparaison A/B &amp; Examen</h4>
-        <p>En haut, le bouton <strong>Chanter</strong> (avec <em>Pause fredonnée</em> en option) aide votre voix à ressentir l’écart. En bas, <strong>Note de départ</strong> rejoue la note initiale ; après une erreur, la <strong>Comparaison A/B</strong> rejoue votre choix depuis cette même note et dans la même direction juste avant la solution. Utilisez <strong>Boucle</strong> pour répéter sans fin (ou activez <strong>Suivant auto</strong> dans les Paramètres), <strong>Écoute seule</strong> pour réviser passivement, et passez l’<strong>Examen de la catégorie</strong> sur les 4 types d’intervalles.</p>
+        <p>En haut, le bouton <strong>Chanter</strong> (avec <em>Pause fredonnée</em> en option) aide votre voix à ressentir l’écart. En bas, <strong>Note de départ</strong> rejoue la note initiale ; après une erreur, la <strong>Comparaison A/B</strong> rejoue votre choix depuis cette même note et dans la même direction juste avant la solution. Utilisez <strong>Boucle</strong> pour répéter sans fin (ou activez <strong>Suivant auto</strong> dans les Paramètres), <strong>Écoute seule</strong> pour réviser passivement, et passez l’<strong>Examen de la catégorie</strong> sur les 4 types d’intervalles (Majeur, Mineur, Moitiés, Majeur &amp; Mineur mélangés, Chromatique et Tonalité &amp; modes libres).</p>
       </div>
     `
   },

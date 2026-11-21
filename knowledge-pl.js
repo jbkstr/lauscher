@@ -1827,15 +1827,18 @@ const CATEGORY_HELP_GUIDES_PL = {
         </div>
         <div class="k-compare-box is-peach">
           <h5>Interwały nad plamą dźwięku podstawowego (Smyczki ➔ Fortepian)</h5>
-          <p>Ciepła <strong>płaszczyzna smyczkowa</strong> podtrzymuje prymę jako tło. Po krótkiej pauzie <strong>fortepian</strong> gra szukany dźwięk nad nią — idealne do wyczucia barwy i napięcia interwału względem podstawy.</p>
+          <p>Ciepła <strong>płaszczyzna smyczkowa</strong> podtrzymuje prymę jako tło. Po krótkiej pauzie <strong>fortepian</strong> gra szukany dźwięk nad nią — a suwaki <strong>Tło prymy</strong> (domyślnie 50%) oraz <strong>Interwał</strong> pozwalają dopasować proporcje głośności.</p>
         </div>
       </div>
 
-      <h3>Trudność interwałów (3 poziomy)</h3>
+      <h3>Poziomy: Dur, Moll, Chromatyka i Tryb własny</h3>
       <ul class="article-steps-list">
-        <li><strong>Poziom 1 — Początkujący:</strong> Cztery podstawowe punkty zaczepienia (w górę lub w dół): pryma czysta (<code>P1</code>), tercja wielka (<code>G3/M3</code>), kwinta czysta (<code>P5</code>) i oktawa (<code>P8</code>).</li>
-        <li><strong>Poziom 2 — Gama durowa:</strong> Wszystkie 8 interwałów diatonicznych od prymy do oktawy.</li>
-        <li><strong>Poziom 3 — Chromatyka:</strong> Wszystkie 15 interwałów aż po nonę wielką (<code>G9/M9</code>), wraz z interwałami małymi i trytonem.</li>
+        <li><strong>Początkujący (Poziom 1 w dur / Moll 1):</strong> Cztery punkty oparcia trójdźwięku: pryma czysta (<code>P1</code>), tercja wielka (<code>G3/M3</code> w dur) lub tercja mała (<code>k3/m3</code> w moll), kwinta czysta (<code>P5</code>) i oktawa (<code>P8</code>).</li>
+        <li><strong>Dolna połowa 1–4 (Poziom 2 w dur / Moll 2):</strong> Dolny tetrachord (4 interwały): pryma (<code>P1</code>), sekunda wielka (<code>G2/M2</code>), tercja wielka lub mała (<code>G3/M3</code> / <code>k3/m3</code>) i kwarta czysta (<code>P4</code>).</li>
+        <li><strong>Górna połowa 5–8 (Poziom 3 w dur / Moll 3):</strong> Górny tetrachord (4 interwały): kwinta czysta (<code>P5</code>), seksta wielka lub mała (<code>G6/M6</code> / <code>k6/m6</code>), septyma wielka lub mała (<code>G7/M7</code> / <code>k7/m7</code>) i oktawa (<code>P8</code>).</li>
+        <li><strong>Cała gama (Poziom 4 Gama durowa / Moll 4 Gama molowa):</strong> Wszystkie 8 interwałów diatonicznych od prymy do oktawy w dur lub w moll naturalnym.</li>
+        <li><strong>Poziom 5 — Chromatyka:</strong> Wszystkie 15 interwałów aż po nonę wielką (<code>G9/M9</code>), wraz z interwałami małymi i trytonem (<code>TT</code>).</li>
+        <li><strong>Dowolna tonacja i tryby (Własny trening interwałów):</strong> Wybierz stały <strong>Dźwięk podstawowy</strong> (<code>C</code> do <code>H</code>) lub <strong>Losowy</strong>, dowolną <strong>Gamę lub tryb kościelny</strong> (<em>Dur/Jońska</em>, <em>Moll naturalny/harmoniczny/melodyczny</em>, <em>Dorycka</em>, <em>Frygijska</em>, <em>Lidyjska</em>, <em>Miksolidyjska</em>, <em>Lokrycka</em>, <em>Chromatyczna</em>), <strong>Zakres</strong> (<em>Początkujący</em>, <em>1–4</em>, <em>5–8</em>, <em>1–8</em>) albo włączaj pojedyncze interwały — na stronie wyboru oraz bezpośrednio w ćwiczeniu przez plakietkę u góry po prawej.</li>
       </ul>
 
       <h3>Jak czytać skróty interwałów</h3>
@@ -1851,7 +1854,7 @@ const CATEGORY_HELP_GUIDES_PL = {
 
       <div class="article-highlight-box">
         <h4>Śpiewanie, Porównanie A/B i Egzamin</h4>
-        <p>Przycisk <strong>Śpiewaj</strong> u góry (z opcjonalną pauzą na nucenie) pomaga poczuć odległość głosem. Poniżej <strong>Dźwięk wyjściowy</strong> odtwarza nutę startową; po pomyłce <strong>Porównanie A/B</strong> gra Twój wybór od tej samej nuty i w tym samym kierunku tuż przed poprawną odpowiedzią. Przycisk <strong>Pętla</strong> zapętla odsłuch (<strong>Autonastępne</strong> znajdziesz w Ustawieniach), <strong>Tylko słuchaj</strong> prowadzi pasywny odsłuch, a 3-poziomowy <strong>Egzamin</strong> łączy wszystkie 4 typy interwałów.</p>
+        <p>Przycisk <strong>Śpiewaj</strong> u góry (z opcjonalną pauzą na nucenie) pomaga poczuć odległość głosem. Poniżej <strong>Dźwięk wyjściowy</strong> odtwarza nutę startową; po pomyłce <strong>Porównanie A/B</strong> gra Twój wybór od tej samej nuty i w tym samym kierunku tuż przed poprawną odpowiedzią. Przycisk <strong>Pętla</strong> zapętla odsłuch (<strong>Autonastępne</strong> znajdziesz w Ustawieniach), <strong>Tylko słuchaj</strong> prowadzi pasywny odsłuch, a <strong>Egzamin kategorii</strong> łączy wszystkie 4 typy interwałów (Dur, Moll, Połówki, Dur i Moll razem, Chromatycznie oraz Dowolna tonacja i skale).</p>
       </div>
     `
   },

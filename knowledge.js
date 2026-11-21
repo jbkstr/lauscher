@@ -1902,15 +1902,18 @@ const CATEGORY_HELP_GUIDES = {
         </div>
         <div class="k-compare-box is-peach">
           <h5>Intervalle über Grundton-Fläche (Streicher ➔ Klavier)</h5>
-          <p>Eine warme <strong>Streicher-Fläche</strong> legt den Grundton als Klangteppich aus. Nach einer kurzen Verzögerung spielt das <strong>Klavier</strong> den gesuchten Ton darüber – ideal, um die Reibung oder Ruhe eines Intervalls zum Grundton zu erspüren.</p>
+          <p>Eine warme <strong>Streicher-Fläche</strong> legt den Grundton als Klangteppich aus. Nach einer kurzen Verzögerung spielt das <strong>Klavier</strong> den gesuchten Ton darüber – über die beiden Regler <strong>Grundton-Fläche</strong> (Standard 50 %) und <strong>Intervall</strong> passt du das Lautstärkeverhältnis jederzeit an.</p>
         </div>
       </div>
 
-      <h3>Schwierigkeitsstufen (3 Stufen)</h3>
+      <h3>Stufenaufbau: Dur, Moll, Chromatisch &amp; Freie Auswahl</h3>
       <ul class="article-steps-list">
-        <li><strong>Stufe 1 – Einsteiger:</strong> Vier markante Kernintervalle (aufwärts oder abwärts): Prime (<code>P1</code>), große Terz (<code>M3</code>), reine Quinte (<code>P5</code>) und Oktave (<code>P8</code>).</li>
-        <li><strong>Stufe 2 – Dur-Tonleiter:</strong> Alle 8 diatonischen Intervalle vom Ausgangston bis zur Oktave.</li>
-        <li><strong>Stufe 3 – Chromatisch:</strong> Alle 15 Intervalle von der Prime bis zur großen None (<code>M9</code>) inklusive kleiner Intervalle und Tritonus.</li>
+        <li><strong>Einsteiger (Stufe 1 in Dur / Moll 1):</strong> Vier markante Dreiklangs-Anker (aufwärts, abwärts, gleichzeitig oder über Fläche): Prime (<code>P1</code>), große Terz (<code>M3</code> in Dur) bzw. kleine Terz (<code>m3</code> in Moll), reine Quinte (<code>P5</code>) und Oktave (<code>P8</code>).</li>
+        <li><strong>Untere Hälfte 1–4 (Stufe 2 in Dur / Moll 2):</strong> Der untere Tetrachord mit 4 Intervallen: Prime (<code>P1</code>), große Sekunde (<code>M2</code>), große bzw. kleine Terz (<code>M3</code> / <code>m3</code>) und reine Quarte (<code>P4</code>).</li>
+        <li><strong>Obere Hälfte 5–8 (Stufe 3 in Dur / Moll 3):</strong> Der obere Tetrachord mit 4 Intervallen: reine Quinte (<code>P5</code>), große bzw. kleine Sexte (<code>M6</code> / <code>m6</code>), große bzw. kleine Septime (<code>M7</code> / <code>m7</code>) und Oktave (<code>P8</code>).</li>
+        <li><strong>Ganze Tonleiter (Stufe 4 Dur-Tonleiter / Moll 4 Moll-Tonleiter):</strong> Alle 8 diatonischen Intervalle vom Ausgangston bis zur Oktave in Dur bzw. natürlichem Moll.</li>
+        <li><strong>Stufe 5 – Chromatisch:</strong> Alle 15 Intervalle von der Prime bis zur großen None (<code>M9</code>) inklusive sämtlicher kleiner/großer Intervalle und Tritonus (<code>TT</code>).</li>
+        <li><strong>Freie Tonart &amp; Modi (Eigenes Intervall-Training):</strong> Wähle einen festen <strong>Grundton</strong> (<code>C</code> bis <code>H</code>) oder <strong>Zufall</strong>, eine <strong>Tonleiter bzw. Kirchentonart</strong> (<em>Dur/Ionisch</em>, <em>Natürlich/Harmonisch/Melodisch Moll</em>, <em>Dorisch</em>, <em>Phrygisch</em>, <em>Lydisch</em>, <em>Mixolydisch</em>, <em>Lokrisch</em>, <em>Chromatisch</em>), den <strong>Umfang</strong> (<em>Einsteiger</em>, <em>1–4</em>, <em>5–8</em>, <em>1–8</em>) oder schalte einzelne Intervalle frei an und aus – auf der Auswahlseite sowie live in der Übung über das Badge oben rechts.</li>
       </ul>
 
       <h3>Wie die Intervall-Kürzel funktionieren</h3>
@@ -1926,7 +1929,7 @@ const CATEGORY_HELP_GUIDES = {
 
       <div class="article-highlight-box">
         <h4>Mitsingen, A/B Vergleich &amp; Prüfung</h4>
-        <p>Der Chip <strong>Mitsingen</strong> oben (mit optionaler Summ-Pause) hilft deiner Stimme, den Abstand zu erspüren. Unten spielt <strong>Ausgangston</strong> jederzeit den Startton; nach einem Irrtum vergleicht <strong>A/B Vergleich</strong> deinen Tipp ab genau diesem Ausgangston und in derselben Richtung mit der Lösung. Mit <strong>Loop</strong> wiederholst du die Aufgabe endlos (<strong>Auto-Weiter</strong> in den Einstellungen wechselt nach Treffer direkt zur nächsten), mit <strong>Nur Hören</strong> läuft der Durchgang passiv mit Auflösung – und die <strong>Kategorie-Prüfung</strong> prüft alle 4 Intervalltypen gemischt.</p>
+        <p>Der Chip <strong>Mitsingen</strong> oben (mit optionaler Summ-Pause) hilft deiner Stimme, den Abstand zu erspüren. Unten spielt <strong>Ausgangston</strong> jederzeit den Startton; nach einem Irrtum vergleicht <strong>A/B Vergleich</strong> deinen Tipp ab genau diesem Ausgangston und in derselben Richtung mit der Lösung. Mit <strong>Loop</strong> wiederholst du die Aufgabe endlos (<strong>Auto-Weiter</strong> in den Einstellungen wechselt nach Treffer direkt zur nächsten), mit <strong>Nur Hören</strong> läuft der Durchgang passiv mit Auflösung – und die <strong>Kategorie-Prüfung</strong> prüft alle 4 Intervalltypen gemischt (Dur, Moll, Hälften, Dur &amp; Moll gemischt, Chromatisch sowie Freie Tonart &amp; Modi).</p>
       </div>
     `
   },

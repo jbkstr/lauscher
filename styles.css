@@ -8453,7 +8453,16 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   border: 1px solid var(--lilac);
 }
 
+.exam-svg-icon {
+  display: inline-block;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
 .exam-best-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   font-size: 0.69rem;
   font-weight: 800;
   padding: 3px 9px;
@@ -8461,6 +8470,57 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   background: var(--sage-soft);
   color: var(--sage-strong);
   border: 1px solid var(--sage);
+}
+
+.exam-custom-config {
+  background: var(--surface-warm);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  padding: 10px 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.exam-custom-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+}
+
+@media (max-width: 480px) {
+  .exam-custom-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.exam-custom-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.exam-custom-field > span {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--raccoon-mid);
+}
+
+.exam-custom-select {
+  width: 100%;
+  min-width: 0;
+  padding: 6px 8px;
+  font-size: 0.78rem;
+}
+
+.exam-custom-preview {
+  font-size: 0.73rem;
+  font-weight: 700;
+  color: var(--raccoon-mid);
+  line-height: 1.35;
 }
 
 .exam-level-title {
@@ -8693,6 +8753,43 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   line-height: 1.15;
 }
 
+.exam-result-emblem {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--sage-soft);
+  color: var(--sage-strong);
+  border: 1.5px solid var(--sage);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.exam-result-emblem.is-master {
+  background: var(--sage-soft);
+  color: var(--sage-strong);
+  border-color: var(--status-ok);
+}
+
+.exam-result-emblem.is-medal {
+  background: var(--peach-soft);
+  color: var(--peach-strong);
+  border-color: var(--peach);
+}
+
+.exam-result-emblem.is-good {
+  background: var(--sage-soft);
+  color: var(--sage-strong);
+  border-color: var(--sage);
+}
+
+.exam-result-emblem.is-keep {
+  background: var(--lilac-soft);
+  color: var(--lilac-strong);
+  border-color: var(--lilac);
+}
+
 .exam-result-badge-row {
   display: flex;
   align-items: center;
@@ -8702,6 +8799,9 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 
 .exam-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   font-size: 0.76rem;
   font-weight: 800;
   padding: 4px 11px;
@@ -8711,7 +8811,22 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   border: 1px solid var(--sage);
 }
 
+.exam-badge-pill.is-medal {
+  background: var(--peach-soft);
+  color: var(--peach-strong);
+  border-color: var(--peach);
+}
+
+.exam-badge-pill.is-keep {
+  background: var(--lilac-soft);
+  color: var(--lilac-strong);
+  border-color: var(--lilac);
+}
+
 .exam-new-best-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   font-size: 0.74rem;
   font-weight: 800;
   padding: 4px 10px;
@@ -8915,6 +9030,9 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 
 .exam-review-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   font-size: 0.72rem;
   font-weight: 800;
   padding: 2px 8px;
@@ -8960,6 +9078,12 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+}
+
+.exam-review-audio-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
 }
 
 /* Prüfungsverlauf im Konto (#spaceExamHistoryCard) */
@@ -9080,8 +9204,37 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 
 .exam-history-meta {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
   font-size: 0.72rem;
   color: var(--raccoon-mid);
+}
+
+.exam-history-badge-ico {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--sage-soft);
+  color: var(--sage-strong);
+  border: 1px solid var(--sage);
+  flex-shrink: 0;
+}
+
+.exam-history-badge-ico.is-medal {
+  background: var(--peach-soft);
+  color: var(--peach-strong);
+  border-color: var(--peach);
+}
+
+.exam-history-badge-ico.is-keep {
+  background: var(--lilac-soft);
+  color: var(--lilac-strong);
+  border-color: var(--lilac);
 }
 
 .exam-history-score {
