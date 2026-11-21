@@ -2587,12 +2587,12 @@ registerColocatedPhrases({
     uk: "Форми {shape}",
     ur: "{shape} شیپس"
   },
-  "Oder Bund frei wählen (0–9):": {
-    fr: "Ou choisir librement une case (0–9) :",
-    es: "O elige cualquier traste libremente (0–9):",
-    pl: "Lub wybierz dowolny próg (0–9):",
-    uk: "Або оберіть будь-який лад (0–9):",
-    ur: "یا کوئی بھی فریٹ منتخب کریں (0–9):"
+  "Klingende Ausgangstonart": {
+    fr: "Tonalité de départ (son réel)",
+    es: "Tonalidad real de partida",
+    pl: "Brzmiąca tonacja wyjściowa",
+    uk: "Вихідна тональність звучання",
+    ur: "اصل بجنے والی کی"
   },
   "Kapodaster-Bund": {
     fr: "Case du capodastre",

@@ -462,6 +462,7 @@ function closeTransientPopovers() {
     document.getElementById(btnId)?.classList.remove("chip-open");
   });
   if (typeof closeTunerDropdowns === "function") closeTunerDropdowns();
+  if (typeof closeNashvilleDropdowns === "function") closeNashvilleDropdowns();
   if (_openProfileDropdownKey) {
     const prevKey = _openProfileDropdownKey;
     _openProfileDropdownKey = null;
@@ -669,7 +670,7 @@ function hasOpenTransientPopover() {
   ].some(id => {
     const el = document.getElementById(id);
     return Boolean(el && !el.classList.contains("hidden") && !el.classList.contains("is-pinned"));
-  }) || Boolean(typeof _tuner !== "undefined" && _tuner.openDropdown) || Boolean(typeof _openProfileDropdownKey !== "undefined" && _openProfileDropdownKey);
+  }) || Boolean(typeof _tuner !== "undefined" && _tuner.openDropdown) || Boolean(typeof _nnsOpenDropdown !== "undefined" && _nnsOpenDropdown) || Boolean(typeof _openProfileDropdownKey !== "undefined" && _openProfileDropdownKey);
 }
 
 function handleNativeBackButton() {
