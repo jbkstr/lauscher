@@ -730,7 +730,7 @@ const I18N_STATIC = {
   },
 
   "settings.title": { de: "App-Einstellungen", en: "App Settings" },
-  "settings.groupAudio": { de: "Audio & Tempo", en: "Audio & Tempo" },
+  "settings.groupAudio": { de: "Audio & Übungen", en: "Audio & Practice" },
   "settings.groupLanguageNotation": { de: "Sprache & Schreibweise", en: "Language & Notation" },
   "settings.groupAppearance": { de: "Optik & Farbschema", en: "Appearance & Themes" },
   "settings.defaultTempoHeading": { de: "Standardtempo", en: "Default Tempo" },

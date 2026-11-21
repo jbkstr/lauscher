@@ -399,7 +399,7 @@ const I18N_STATIC_UR = {
   "mixer.presetCustom": "اپنی مرضی کا",
   "mixer.presetHint": "کسی بھی سلائیڈر کو ہاتھ سے بدلنے پر خودکار «اپنی مرضی کا» فعال ہو جاتا ہے۔",
   "settings.title": "ایپ کی ترتیبات",
-  "settings.groupAudio": "آڈیو اور ٹیمپو",
+  "settings.groupAudio": "آڈیو اور مشقیں",
   "settings.groupLanguageNotation": "زبان اور تحریر",
   "settings.groupAppearance": "ظاہری شکل اور تھیمز",
   "settings.defaultTempoHeading": "طے شدہ ٹیمپو",

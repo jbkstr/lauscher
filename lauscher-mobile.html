@@ -2670,6 +2670,7 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
   align-items: center;
   gap: 0.45rem;
   margin-bottom: 0.52rem;
+  position: relative;
 }
 
 .module-header-left {
@@ -6478,6 +6479,67 @@ body,
 .module-badge.module-badge-btn:focus-visible {
   outline: 2px solid var(--sage-strong);
   outline-offset: 2px;
+}
+
+.module-badge.module-badge-btn.is-root-hint-pulse {
+  animation: modesRootHintPulse 1.5s ease-in-out 3;
+}
+
+@keyframes modesRootHintPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(90, 148, 118, 0.0);
+  }
+  50% {
+    box-shadow: 0 0 0 5px rgba(90, 148, 118, 0.32);
+  }
+}
+
+.modes-root-hint-bubble {
+  position: absolute;
+  inset-inline-end: 0;
+  top: calc(100% + 0.36rem);
+  z-index: 30;
+  padding: 0.28rem 0.62rem;
+  border: 1.5px solid var(--sage-strong);
+  border-radius: var(--radius-pill);
+  background-color: var(--sage-strong);
+  color: var(--surface-white);
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.25;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(45, 48, 71, 0.16);
+  animation: modesRootHintFadeIn 0.22s ease-out;
+}
+
+.modes-root-hint-bubble::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  inset-inline-end: 1.15rem;
+  width: 8px;
+  height: 8px;
+  background-color: var(--sage-strong);
+  transform: rotate(45deg);
+}
+
+@keyframes modesRootHintFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .module-badge.module-badge-btn.is-root-hint-pulse,
+  .modes-root-hint-bubble {
+    animation: none;
+  }
 }
 
 .modes-root-popover .modes-root-pills {
@@ -11184,92 +11246,122 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   overflow: hidden;
 }
 
-/* Etwas weniger Platz: kleineres Maskottchen, kleinere Schrift */
-@container exstage (max-height: 175px) {
+/* Etwas weniger Platz: kleineres Maskottchen, kompaktere Schrift & Zeilenlimit */
+@container exstage (max-height: 185px) {
   .central-stage:not(.is-notation) {
-    padding: 0.42rem 0.9rem;
+    padding: 0.38rem 0.85rem;
   }
   .central-stage:not(.is-notation) .stage-mascot {
-    width: 40px;
-    height: 40px;
-    margin-bottom: 0.1rem;
+    width: 38px;
+    height: 38px;
+    margin-bottom: 0.08rem;
   }
   .central-stage:not(.is-notation) .stage-main {
-    font-size: 1.45rem;
+    font-size: 1.38rem;
+    line-height: 1.15;
+  }
+  .central-stage:not(.is-notation) .stage-desc {
+    font-size: 0.7rem;
+    line-height: 1.22;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
   .stage-streak-notice {
-    margin-top: 0.18rem;
-    font-size: 0.64rem;
+    margin-top: 0.14rem;
+    font-size: 0.62rem;
   }
 }
 
-/* Wenig Platz: quer wie im Notenlesen – Maskottchen links, Text rechts */
-@container exstage (max-height: 122px) {
+/* Wenig Platz: rechtzeitig quer wie im Notenlesen – Maskottchen links, Text rechts (verhindert Abschneiden) */
+@container exstage (max-height: 154px) {
   .central-stage,
-  .central-stage.is-solfege {
+  .central-stage.is-solfege,
+  .central-stage.is-melody {
     width: fit-content;
     min-width: 184px;
-    max-width: 92%;
-    padding: 0.32rem 0.84rem;
+    max-width: 94%;
+    min-height: 0;
+    padding: 0.28rem 0.78rem;
     display: grid;
     grid-template-columns: auto minmax(0, auto);
     grid-template-rows: auto auto auto;
     justify-content: center;
     align-items: center;
     text-align: start;
-    gap: 0.02rem 0.56rem;
+    gap: 0.02rem 0.52rem;
   }
   .central-stage .stage-mascot,
-  .central-stage.is-solfege .stage-mascot {
+  .central-stage.is-solfege .stage-mascot,
+  .central-stage.is-melody .stage-mascot {
     grid-column: 1;
     grid-row: 1 / 4;
     width: 36px;
     height: 36px;
     margin: 0;
   }
-  .central-stage .stage-sub {
+  .central-stage .stage-sub,
+  .central-stage.is-solfege .stage-sub,
+  .central-stage.is-melody .stage-sub {
     grid-column: 2;
     grid-row: 1;
     font-size: 0.54rem;
+    line-height: 1.15;
     padding-inline-end: 1.9rem;
   }
   .central-stage .stage-main,
-  .central-stage.is-solfege .stage-main {
+  .central-stage.is-solfege .stage-main,
+  .central-stage.is-melody .stage-main {
     grid-column: 2;
     grid-row: 2;
-    font-size: 1.14rem;
-    line-height: 1.15;
+    font-size: 1.08rem;
+    line-height: 1.12;
     margin: 0;
   }
   .central-stage .stage-desc,
-  .central-stage.is-solfege .stage-desc {
+  .central-stage.is-solfege .stage-desc,
+  .central-stage.is-melody .stage-desc {
     grid-column: 2;
     grid-row: 3;
     font-size: 0.64rem;
-    line-height: 1.24;
+    line-height: 1.2;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
   .central-stage .stage-streak-pill {
-    top: 0.26rem;
-    inset-inline-end: 0.36rem;
+    top: 0.24rem;
+    inset-inline-end: 0.34rem;
     font-size: 0.54rem;
-    padding: 0.1rem 0.36rem;
+    padding: 0.08rem 0.34rem;
   }
   .central-stage .stage-streak-notice {
     grid-column: 1 / -1;
     justify-self: center;
-    margin-top: 0.1rem;
-    font-size: 0.6rem;
-    padding: 0.1rem 0.5rem;
+    margin-top: 0.08rem;
+    font-size: 0.58rem;
+    padding: 0.08rem 0.46rem;
   }
 }
 
-/* Knapp: Beschreibung nur noch einzeilig */
-@container exstage (max-height: 96px) {
-  .central-stage .stage-desc {
+/* Knapp: Beschreibung nur noch einzeilig, ohne Zusatzbanner */
+@container exstage (max-height: 108px) {
+  .central-stage,
+  .central-stage.is-solfege,
+  .central-stage.is-melody {
+    padding: 0.22rem 0.72rem;
+  }
+  .central-stage .stage-mascot,
+  .central-stage.is-solfege .stage-mascot,
+  .central-stage.is-melody .stage-mascot {
+    width: 32px;
+    height: 32px;
+  }
+  .central-stage .stage-desc,
+  .central-stage.is-solfege .stage-desc,
+  .central-stage.is-melody .stage-desc {
     -webkit-line-clamp: 1;
   }
   .central-stage .stage-streak-notice {
@@ -11278,11 +11370,12 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 
 /* Sehr wenig Platz: nur Status und Hauptzeile */
-@container exstage (max-height: 62px) {
+@container exstage (max-height: 70px) {
   .central-stage,
   .central-stage.is-solfege,
+  .central-stage.is-melody,
   .central-stage.is-notation {
-    padding: 0.2rem 0.8rem;
+    padding: 0.18rem 0.72rem;
     min-height: 0;
   }
   .central-stage .stage-mascot,
@@ -11361,12 +11454,39 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   max-height: 210px;
 }
 #viewExercise.fit-1 .piano-keyboard {
-  height: 150px;
+  height: 146px;
+}
+#viewExercise.fit-1 .solfege-keyboard-wrap,
+#viewExercise.fit-2 .solfege-keyboard-wrap,
+#viewExercise.fit-3 .solfege-keyboard-wrap {
+  padding: 0.1rem 0 0.06rem 0;
+}
+#viewExercise.fit-1 .melody-rhythm-picker,
+#viewExercise.fit-2 .melody-rhythm-picker,
+#viewExercise.fit-3 .melody-rhythm-picker {
+  padding: 4px 8px;
+  margin-bottom: 2px;
+  gap: 4px;
+}
+#viewExercise.fit-1 .rhythm-tap-wrap,
+#viewExercise.fit-2 .rhythm-tap-wrap,
+#viewExercise.fit-3 .rhythm-tap-wrap {
+  padding: 0.08rem 0 0.06rem 0;
+}
+#viewExercise.fit-1 .rhythm-tap-pad {
+  min-height: 112px;
+  padding: 0.55rem 0.8rem;
+  gap: 0.2rem;
+}
+#viewExercise.fit-1 .rhythm-pad-icon {
+  width: 38px;
+  height: 38px;
 }
 #viewExercise.fit-1 .input-prompt,
 #viewExercise.fit-2 .input-prompt,
 #viewExercise.fit-3 .input-prompt {
-  font-size: 0.76rem;
+  font-size: 0.74rem;
+  line-height: 1.18;
 }
 
 /* Stufe 2: Kacheln und Tasten deutlich flacher */
@@ -11407,19 +11527,43 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   max-height: 180px;
 }
 #viewExercise.fit-2 .piano-keyboard {
-  height: 132px;
+  height: 128px;
+}
+#viewExercise.fit-2 .rhythm-tap-pad {
+  min-height: 92px;
+  padding: 0.42rem 0.72rem;
+  gap: 0.14rem;
+}
+#viewExercise.fit-2 .rhythm-pad-icon {
+  width: 32px;
+  height: 32px;
+}
+#viewExercise.fit-2 .rhythm-pad-title,
+#viewExercise.fit-3 .rhythm-pad-title {
+  font-size: 0.94rem;
+}
+#viewExercise.fit-2 .rhythm-pad-sub,
+#viewExercise.fit-3 .rhythm-pad-sub {
+  font-size: 0.7rem;
+}
+#viewExercise.fit-2 .rhythm-staff-grid .bar-card .bar-roman,
+#viewExercise.fit-3 .rhythm-staff-grid .bar-card .bar-roman {
+  min-height: 32px;
 }
 #viewExercise.fit-2 .tonic-ref-row,
 #viewExercise.fit-3 .tonic-ref-row {
   margin: 0;
+  gap: 0.3rem;
 }
 #viewExercise.fit-2 .tonic-btn,
 #viewExercise.fit-3 .tonic-btn {
-  padding: 0.2rem 0.62rem;
+  padding: 0.18rem 0.56rem;
+  font-size: 0.72rem;
 }
 #viewExercise.fit-2 .input-header,
 #viewExercise.fit-3 .input-header {
-  padding: 0 0.18rem;
+  padding: 0 0.16rem;
+  gap: 0.2rem 0.38rem;
 }
 
 /* Stufe 3: letzte Reserve – Zusatzzeilen ausblenden, alles so flach wie noch gut tippbar */
@@ -11447,10 +11591,18 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   max-height: 156px;
 }
 #viewExercise.fit-3 .piano-keyboard {
-  height: 116px;
+  height: 112px;
+}
+#viewExercise.fit-3 .rhythm-tap-pad {
+  min-height: 76px;
+  padding: 0.32rem 0.64rem;
+  gap: 0.1rem;
+}
+#viewExercise.fit-3 .rhythm-pad-icon {
+  display: none;
 }
 #viewExercise.fit-3 .input-prompt {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
 }
 
 /* Notenlesen: Titel & Stufen-Badge wiederholen nur die obere Leiste → bei Platzmangel ausblenden */
@@ -15528,7 +15680,6 @@ const LAUSCHER_MASCOT_DATA_URIS = {
           <span class="popover-label" data-i18n="ex.tempoLabel">Tempo:</span>
           <input type="range" id="inlineBpmSlider" min="55" max="160" step="5" value="90">
           <span id="inlineBpmVal" class="popover-val">90 BPM</span>
-          <button id="inlineBpmRandomBtn" class="popover-pill-btn" data-i18n="ex.random">Zufall</button>
         </div>
 
         <!-- Direkt ausklappbare Tonart-Auswahl (im Kadenzmodus) -->
@@ -16456,16 +16607,7 @@ const LAUSCHER_MASCOT_DATA_URIS = {
       </div>
       <div class="modal-body">
 
-        <div class="settings-group-label" data-i18n="settings.groupAudio">Audio &amp; Tempo</div>
-
-        <div class="settings-section">
-          <h4 data-i18n="settings.defaultTempoHeading">Standardtempo</h4>
-          <p class="settings-hint" data-i18n="settings.defaultTempoHint">Wird beim Start einer Übung übernommen, bis du das Tempo im Modul manuell anpasst.</p>
-          <div class="tempo-control-row">
-            <input type="range" id="defaultBpmSlider" min="55" max="160" step="5" value="90">
-            <span id="defaultBpmDisplay" class="tempo-val">90 BPM</span>
-          </div>
-        </div>
+        <div class="settings-group-label" data-i18n="settings.groupAudio">Audio &amp; Übungen</div>
 
         <div class="settings-section">
           <h4 data-i18n="settings.singHeading">Mitsingen</h4>
@@ -19567,7 +19709,7 @@ const I18N_STATIC = {
   },
 
   "settings.title": { de: "App-Einstellungen", en: "App Settings" },
-  "settings.groupAudio": { de: "Audio & Tempo", en: "Audio & Tempo" },
+  "settings.groupAudio": { de: "Audio & Übungen", en: "Audio & Practice" },
   "settings.groupLanguageNotation": { de: "Sprache & Schreibweise", en: "Language & Notation" },
   "settings.groupAppearance": { de: "Optik & Farbschema", en: "Appearance & Themes" },
   "settings.defaultTempoHeading": { de: "Standardtempo", en: "Default Tempo" },
@@ -20889,7 +21031,7 @@ const I18N_STATIC_ES = {
   "mixer.presetCustom": "Personalizado",
   "mixer.presetHint": "Cualquier ajuste manual de los controles pasa automáticamente al modo «Personalizado».",
   "settings.title": "Ajustes de la app",
-  "settings.groupAudio": "Audio y tempo",
+  "settings.groupAudio": "Audio y ejercicios",
   "settings.groupLanguageNotation": "Idioma y notación",
   "settings.groupAppearance": "Apariencia y temas",
   "settings.defaultTempoHeading": "Tempo predeterminado",
@@ -24043,7 +24185,7 @@ const I18N_STATIC_FR = {
   "mixer.presetCustom": "Personnalisé",
   "mixer.presetHint": "Tout réglage manuel des curseurs passe automatiquement en mode « Personnalisé ».",
   "settings.title": "Paramètres de l’app",
-  "settings.groupAudio": "Audio & Tempo",
+  "settings.groupAudio": "Audio & Exercices",
   "settings.groupLanguageNotation": "Langue & Notation",
   "settings.groupAppearance": "Apparence & Thèmes",
   "settings.defaultTempoHeading": "Tempo par défaut",
@@ -26479,7 +26621,7 @@ const I18N_STATIC_PL = {
   "mixer.presetCustom": "Własny",
   "mixer.presetHint": "Każda ręczna zmiana suwaka przełącza preset w tryb własny.",
   "settings.title": "Ustawienia",
-  "settings.groupAudio": "Dźwięk i tempo",
+  "settings.groupAudio": "Dźwięk i ćwiczenia",
   "settings.groupLanguageNotation": "Język i notacja",
   "settings.groupAppearance": "Wygląd i motywy",
   "settings.defaultTempoHeading": "Domyślne tempo",
@@ -28961,7 +29103,7 @@ const I18N_STATIC_UK = {
   "mixer.presetCustom": "Власний",
   "mixer.presetHint": "Будь-який ручний рух повзунків перемикає пресет у режим «Власний».",
   "settings.title": "Налаштування",
-  "settings.groupAudio": "Звук і темп",
+  "settings.groupAudio": "Звук і вправи",
   "settings.groupLanguageNotation": "Мова та нотація",
   "settings.groupAppearance": "Вигляд і теми",
   "settings.defaultTempoHeading": "Типовий темп",
@@ -31444,7 +31586,7 @@ const I18N_STATIC_UR = {
   "mixer.presetCustom": "اپنی مرضی کا",
   "mixer.presetHint": "کسی بھی سلائیڈر کو ہاتھ سے بدلنے پر خودکار «اپنی مرضی کا» فعال ہو جاتا ہے۔",
   "settings.title": "ایپ کی ترتیبات",
-  "settings.groupAudio": "آڈیو اور ٹیمپو",
+  "settings.groupAudio": "آڈیو اور مشقیں",
   "settings.groupLanguageNotation": "زبان اور تحریر",
   "settings.groupAppearance": "ظاہری شکل اور تھیمز",
   "settings.defaultTempoHeading": "طے شدہ ٹیمپو",
@@ -63590,7 +63732,7 @@ const LAUSCHER_VERSION = {
  *
  * Einzige Textquelle für Datenschutzerklärung, Nutzungsbedingungen und Open-Source-Lizenzen:
  * Alle drei werden in der App im Über-Fenster angezeigt (app.js → openAboutLegal) sowie auf den
- * öffentlichen Seiten datenschutz.html, nutzungsbedingungen.html und lizenzen.html.
+ * öffentlichen Seiten privacy.html, terms.html und licenses.html.
  *
  * ⚠️ ENTWURF (Datenschutz & Nutzungsbedingungen) – nicht rechtsgeprüft. Vor Veröffentlichung
  * juristisch prüfen lassen und:
@@ -63610,9 +63752,9 @@ const LAUSCHER_VERSION = {
  */
 
 const LAUSCHER_LEGAL_DRAFT = true;
-const LAUSCHER_PRIVACY_URL = "https://jbkstr.github.io/lauscher/datenschutz.html";
-const LAUSCHER_TERMS_URL = "https://jbkstr.github.io/lauscher/nutzungsbedingungen.html";
-const LAUSCHER_LICENSES_URL = "https://jbkstr.github.io/lauscher/lizenzen.html";
+const LAUSCHER_PRIVACY_URL = "https://jbkstr.github.io/lauscher/privacy.html";
+const LAUSCHER_TERMS_URL = "https://jbkstr.github.io/lauscher/terms.html";
+const LAUSCHER_LICENSES_URL = "https://jbkstr.github.io/lauscher/licenses.html";
 const LAUSCHER_LEGAL_URLS = {
   privacy: LAUSCHER_PRIVACY_URL,
   terms: LAUSCHER_TERMS_URL,
@@ -63798,7 +63940,7 @@ const LAUSCHER_LEGAL_DOCS = {
 <p>Du hast außerdem das Recht, dich bei einer Datenschutz-Aufsichtsbehörde zu beschweren (Art. 77 DSGVO), z. B. bei der für mich zuständigen Behörde: Landesbeauftragte für Datenschutz und Informationsfreiheit Nordrhein-Westfalen (LDI NRW), Kavalleriestraße 2–4, 40213 Düsseldorf.</p>
 
 <h3>13. Änderungen dieser Datenschutzerklärung</h3>
-<p>Ich passe diese Erklärung an, wenn sich die App oder die Rechtslage ändert. Es gilt die jeweils aktuelle Fassung, die in der App und unter <a href="https://jbkstr.github.io/lauscher/datenschutz.html" target="_blank" rel="noopener">jbkstr.github.io/lauscher/datenschutz.html</a> abrufbar ist.</p>
+<p>Ich passe diese Erklärung an, wenn sich die App oder die Rechtslage ändert. Es gilt die jeweils aktuelle Fassung, die in der App und unter <a href="https://jbkstr.github.io/lauscher/privacy.html" target="_blank" rel="noopener">jbkstr.github.io/lauscher/privacy.html</a> abrufbar ist.</p>
 `
     },
     en: {
@@ -63919,7 +64061,7 @@ const LAUSCHER_LEGAL_DOCS = {
 <p>You also have the right to lodge a complaint with a data protection supervisory authority (Art. 77 GDPR), for example the authority responsible for me: the State Commissioner for Data Protection and Freedom of Information of North Rhine-Westphalia (LDI NRW), Kavalleriestraße 2–4, 40213 Düsseldorf, Germany.</p>
 
 <h3>13. Changes to this privacy policy</h3>
-<p>I update this policy when the app or the legal situation changes. The current version always applies; it is available in the app and at <a href="https://jbkstr.github.io/lauscher/datenschutz.html" target="_blank" rel="noopener">jbkstr.github.io/lauscher/datenschutz.html</a>.</p>
+<p>I update this policy when the app or the legal situation changes. The current version always applies; it is available in the app and at <a href="https://jbkstr.github.io/lauscher/privacy.html" target="_blank" rel="noopener">jbkstr.github.io/lauscher/privacy.html</a>.</p>
 `
     }
   },
@@ -63958,7 +64100,7 @@ const LAUSCHER_LEGAL_DOCS = {
   <li>Urheber-, Marken- oder Lizenzhinweise zu entfernen oder zu verändern;</li>
   <li>veränderte Installationsdateien (APKs) oder abgeänderte Fassungen unter dem Namen „Lauscher“ zu verbreiten.</li>
 </ul>
-<p>Soweit einzelne Bestandteile von Lauscher unter freien Open-Source-Lizenzen stehen (z. B. verwendete Bibliotheken oder die Schriftart Andika), gelten für diese Bestandteile vorrangig deren jeweilige Lizenzbedingungen (einsehbar unter <a href="https://jbkstr.github.io/lauscher/lizenzen.html" data-legal-nav="licenses">Lizenzen</a>).</p>
+<p>Soweit einzelne Bestandteile von Lauscher unter freien Open-Source-Lizenzen stehen (z. B. verwendete Bibliotheken oder die Schriftart Andika), gelten für diese Bestandteile vorrangig deren jeweilige Lizenzbedingungen (einsehbar unter <a href="https://jbkstr.github.io/lauscher/licenses.html" data-legal-nav="licenses">Lizenzen</a>).</p>
 
 <h3>4. Urheberrecht und Inhalte</h3>
 <p>Die Gestaltung, Texte, Übungslogik, Klang-Samples, Grafiken und das Maskottchen („Lauschebär“) sind urheberrechtlich geschützt, sofern sie nicht gesonderten Open-Source-Lizenzen unterliegen. Alle Rechte daran liegen bei mir bzw. den jeweiligen Rechteinhabern.</p>
@@ -63988,10 +64130,10 @@ const LAUSCHER_LEGAL_DOCS = {
 <p>Für Inhalte externer Websites, auf die in der App verlinkt wird (z. B. GitHub, Ko-fi), sind ausschließlich deren jeweilige Betreiber verantwortlich.</p>
 
 <h3>9. Datenschutz</h3>
-<p>Informationen dazu, welche Daten anfallen und wie sie verarbeitet werden, findest du in der <a href="https://jbkstr.github.io/lauscher/datenschutz.html" data-legal-nav="privacy">Datenschutzerklärung</a>.</p>
+<p>Informationen dazu, welche Daten anfallen und wie sie verarbeitet werden, findest du in der <a href="https://jbkstr.github.io/lauscher/privacy.html" data-legal-nav="privacy">Datenschutzerklärung</a>.</p>
 
 <h3>10. Änderungen dieser Nutzungsbedingungen</h3>
-<p>Ich kann diese Nutzungsbedingungen anpassen, wenn sich die App, der Funktionsumfang oder die Rechtslage ändert. Es gilt jeweils die aktuelle Fassung, abrufbar in der App sowie unter <a href="https://jbkstr.github.io/lauscher/nutzungsbedingungen.html" target="_blank" rel="noopener">jbkstr.github.io/lauscher/nutzungsbedingungen.html</a>.</p>
+<p>Ich kann diese Nutzungsbedingungen anpassen, wenn sich die App, der Funktionsumfang oder die Rechtslage ändert. Es gilt jeweils die aktuelle Fassung, abrufbar in der App sowie unter <a href="https://jbkstr.github.io/lauscher/terms.html" target="_blank" rel="noopener">jbkstr.github.io/lauscher/terms.html</a>.</p>
 
 <h3>11. Anwendbares Recht und Schlussbestimmungen</h3>
 <p>Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss des UN-Kaufrechts (CISG). Wenn du Verbraucher mit gewöhnlichem Aufenthalt in einem anderen Staat der Europäischen Union bist, bleiben zwingende Verbraucherschutzvorschriften deines Wohnsitzstaates unberührt.</p>
@@ -64034,7 +64176,7 @@ const LAUSCHER_LEGAL_DOCS = {
   <li>remove or alter copyright, brand or license notices;</li>
   <li>distribute modified installation files (APKs) or altered builds under the name “Lauscher”.</li>
 </ul>
-<p>Where individual components of Lauscher are provided under open-source licenses (such as third-party libraries or the Andika font), their respective license terms take precedence for those components (see <a href="https://jbkstr.github.io/lauscher/lizenzen.html?lang=en" data-legal-nav="licenses">Licenses</a>).</p>
+<p>Where individual components of Lauscher are provided under open-source licenses (such as third-party libraries or the Andika font), their respective license terms take precedence for those components (see <a href="https://jbkstr.github.io/lauscher/licenses.html?lang=en" data-legal-nav="licenses">Licenses</a>).</p>
 
 <h3>4. Copyright and content</h3>
 <p>The design, texts, exercise logic, audio samples, graphics and mascot (“Lauschebär”) are protected by copyright unless covered by separate open-source licenses. All rights remain with me or the respective rights holders.</p>
@@ -64064,10 +64206,10 @@ const LAUSCHER_LEGAL_DOCS = {
 <p>The operators of external websites linked from the app (such as GitHub or Ko-fi) are solely responsible for their content.</p>
 
 <h3>9. Privacy</h3>
-<p>Information on what data is involved and how it is handled can be found in the <a href="https://jbkstr.github.io/lauscher/datenschutz.html?lang=en" data-legal-nav="privacy">Privacy Policy</a>.</p>
+<p>Information on what data is involved and how it is handled can be found in the <a href="https://jbkstr.github.io/lauscher/privacy.html?lang=en" data-legal-nav="privacy">Privacy Policy</a>.</p>
 
 <h3>10. Changes to these terms</h3>
-<p>I may update these Terms of Use when the app, its features or the legal situation changes. The current version always applies and is available in the app and at <a href="https://jbkstr.github.io/lauscher/nutzungsbedingungen.html?lang=en" target="_blank" rel="noopener">jbkstr.github.io/lauscher/nutzungsbedingungen.html</a>.</p>
+<p>I may update these Terms of Use when the app, its features or the legal situation changes. The current version always applies and is available in the app and at <a href="https://jbkstr.github.io/lauscher/terms.html?lang=en" target="_blank" rel="noopener">jbkstr.github.io/lauscher/terms.html</a>.</p>
 
 <h3>11. Governing law and final provisions</h3>
 <p>The laws of the Federal Republic of Germany apply, excluding the UN Convention on Contracts for the International Sale of Goods (CISG). If you are a consumer habitually resident in another EU member state, mandatory consumer protection provisions of your country of residence remain unaffected.</p>
@@ -64150,7 +64292,7 @@ ${LAUSCHER_MIT_BODY}</div>
 </div>
 
 <h3>Lauscher – Eigene Inhalte &amp; Klang-Samples</h3>
-<p>Quellcode, Übungslogik, Texte, Übersetzungen, Gestaltung, Grafiken, das Maskottchen („Lauschebär“) sowie die eingebetteten Instrumenten- und Perkussions-Samples stammen aus dem Projekt Lauscher (© 2026 Jens Strauch). Alle Rechte vorbehalten, soweit nicht anders angegeben. Einzelheiten zur erlaubten Nutzung findest du in den <a href="https://jbkstr.github.io/lauscher/nutzungsbedingungen.html" data-legal-nav="terms">Nutzungsbedingungen</a>.</p>
+<p>Quellcode, Übungslogik, Texte, Übersetzungen, Gestaltung, Grafiken, das Maskottchen („Lauschebär“) sowie die eingebetteten Instrumenten- und Perkussions-Samples stammen aus dem Projekt Lauscher (© 2026 Jens Strauch). Alle Rechte vorbehalten, soweit nicht anders angegeben. Einzelheiten zur erlaubten Nutzung findest du in den <a href="https://jbkstr.github.io/lauscher/terms.html" data-legal-nav="terms">Nutzungsbedingungen</a>.</p>
 <p>Vielen Dank an alle Entwicklerinnen, Entwickler und Gemeinschaften hinter den oben genannten freien Projekten.</p>
 `
     },
@@ -64228,7 +64370,7 @@ ${LAUSCHER_MIT_BODY}</div>
 </div>
 
 <h3>Lauscher – Original content &amp; audio samples</h3>
-<p>Source code, exercise logic, texts, translations, visual design, artwork, the mascot (“Lauschebär”) and the embedded instrument and percussion samples are part of the Lauscher project (© 2026 Jens Strauch). All rights reserved unless stated otherwise. For permitted uses, see the <a href="https://jbkstr.github.io/lauscher/nutzungsbedingungen.html?lang=en" data-legal-nav="terms">Terms of Use</a>.</p>
+<p>Source code, exercise logic, texts, translations, visual design, artwork, the mascot (“Lauschebär”) and the embedded instrument and percussion samples are part of the Lauscher project (© 2026 Jens Strauch). All rights reserved unless stated otherwise. For permitted uses, see the <a href="https://jbkstr.github.io/lauscher/terms.html?lang=en" data-legal-nav="terms">Terms of Use</a>.</p>
 <p>Many thanks to all developers and communities behind the free and open-source projects listed above.</p>
 `
     }
@@ -64356,7 +64498,7 @@ function getMascotAssetUri(mood = "idle") {
 }
 
 // Lauscher-Looks (Accessoires) sind vorerst ausgeblendet. Code, Optionen und die im Profil
-// gespeicherte Auswahl (companionAccessories) bleiben erhalten – Pläne siehe docs/ideen.md.
+// gespeicherte Auswahl (companionAccessories) bleiben erhalten – Pläne siehe docs/ideas.md.
 const MASCOT_LOOKS_ENABLED = false;
 
 function getMascotAccessorySVG(activeAccessories = []) {
@@ -66222,6 +66364,7 @@ function createDefaultProfile() {
     singAlongPause: false,
     singAlongIntroCounts: {},
     singAlongIntroDone: false,
+    modesRootHintSeen: false,
     tuner: {}
   };
 }
@@ -66327,6 +66470,7 @@ function sanitizeUserProfile(raw) {
           .map(([k, v]) => [k, Math.max(0, Math.min(99, Math.round(Number(v))))]))
       : {},
     singAlongIntroDone: Boolean(raw.singAlongIntroDone),
+    modesRootHintSeen: Boolean(raw.modesRootHintSeen),
     tuner: sanitizeTunerPrefs(raw.tuner)
   };
 }
@@ -66404,6 +66548,8 @@ function resolveEffectiveAppearance(pref) {
 
 const CADENCE_DEFAULT_BPM = 120;
 const SOLFEGE_DEFAULT_BPM = 120;
+const CHORD_ARPEGGIO_DEFAULT_BPM = 80;
+const EXERCISE_DEFAULT_BPM = 90;
 const WARMUP_DEFAULT_BPM = 80;
 const SOLFEGE_LOOP_INTERVAL_MS = 3000;
 
@@ -66538,7 +66684,7 @@ class AppState {
       melodyOctaveMode: "single",// 'single' (1 Oktave) | 'multi' (Mehrere Oktaven)
       melodyStyle: "rhythmic",   // 'steady' (4 gleichlang) | 'rhythmic' (4–6 Töne phrasiert) | 'dictation' (Ton + Rhythmus)
       melodyPulse: true,         // Dezenter Takt-Puls beim Melodie-Abspielen
-      modesRootPad: false,       // Modi: Bezugsgrundton als Streicher-Fläche unterlegen
+      modesRootPad: true,        // Modi: Bezugsgrundton standardmäßig als Streicher-Fläche unterlegen
       modesRoot: "auto",         // Modi: Grundton – "auto" (je Stufe), "random" oder Tonklasse 0–11 als String
       rhythmTapReadMode: false,  // Rhythmus vom Blatt: Notenbild lesen & zum Metronom tappen (statt nachklopfen)
       rhythmMeterDifficulty: 1,
@@ -69552,7 +69698,7 @@ function renderAboutModalContent() {
 }
 
 // ---------- Über-Fenster: Rechtstexte (Datenschutz, Nutzungsbedingungen & Lizenzen) ----------
-// Texte kommen aus legal.js (gleiche Quelle wie datenschutz.html, nutzungsbedingungen.html & lizenzen.html).
+// Texte kommen aus legal.js (gleiche Quelle wie privacy.html, terms.html & licenses.html).
 // Die Ansicht ersetzt im Über-Fenster Kopf und Link-Liste; „Zurück“ (Knopf, Android-Taste)
 // führt zur Übersicht, das ✕ schließt das ganze Fenster.
 
@@ -70582,11 +70728,12 @@ function initTabSwipeNavigation() {
 }
 
 function getDefaultExerciseBpm(mode = state?.settings?.mode) {
-  const globalDefault = Number(state?.settings?.defaultBpm) || 90;
-  // Kadenz- und Solfège-Übungen starten standardmäßig mit 120 BPM
+  // Feste Standardtempi je Übungsart:
+  // Kadenz & Solfège: 120 BPM, Akkord-Arpeggien: 80 BPM, übrige Übungen: 90 BPM
   if (isCadenceMode(mode)) return CADENCE_DEFAULT_BPM;
   if (mode === "solfege") return SOLFEGE_DEFAULT_BPM;
-  return globalDefault;
+  if (isChordArpeggioMode(mode)) return CHORD_ARPEGGIO_DEFAULT_BPM;
+  return EXERCISE_DEFAULT_BPM;
 }
 
 function switchView(targetView, options = {}) {
@@ -70618,6 +70765,7 @@ function switchView(targetView, options = {}) {
   stopPlayback();
   stopWaveAnimation();
   closeTransientPopovers();
+  dismissModesRootHint(false);
   cancelHumPause();
   if (typeof cancelNotationChordAdvance === "function" && state.currentExercise?.isChordReading) {
     cancelNotationChordAdvance(state.currentExercise);
@@ -76232,6 +76380,55 @@ function syncModesPadButton(btn) {
   btn.title = tr("Grundton des Modus als Streicher-Fläche unterlegen", "Play the mode's root as a sustained strings pad");
 }
 
+let _modesRootHintTimer = null;
+
+function dismissModesRootHint(markSeen = true) {
+  if (_modesRootHintTimer) {
+    clearTimeout(_modesRootHintTimer);
+    _modesRootHintTimer = null;
+  }
+  document.getElementById("targetBarBadge")?.classList.remove("is-root-hint-pulse");
+  document.getElementById("modesRootHintBubble")?.remove();
+  if (markSeen) {
+    if (!state.profile) state.profile = createDefaultProfile();
+    if (!state.profile.modesRootHintSeen) {
+      state.profile.modesRootHintSeen = true;
+      saveUserProfile(state.profile);
+    }
+  }
+}
+
+function maybeShowModesRootHint(badgeEl) {
+  if (!badgeEl || typeof document === "undefined") return;
+  if (state.profile?.modesRootHintSeen) return;
+  if (document.getElementById("modesRootHintBubble")) return;
+  const headerEl = badgeEl.closest?.(".module-header") || badgeEl.parentElement;
+  if (!headerEl) return;
+
+  badgeEl.classList.add("is-root-hint-pulse");
+  const bubble = document.createElement("button");
+  bubble.id = "modesRootHintBubble";
+  bubble.type = "button";
+  bubble.className = "modes-root-hint-bubble";
+  bubble.textContent = tr("Grundton wählbar", "Tap to choose root", {
+    fr: "Tonique réglable",
+    es: "Tónica ajustable",
+    pl: "Wybierz dźwięk",
+    uk: "Тоніку можна змінити",
+    ur: "بنیادی سُر منتخب کریں"
+  });
+  bubble.addEventListener("click", (e) => {
+    e.stopPropagation();
+    dismissModesRootHint(true);
+    badgeEl.click();
+  });
+  headerEl.appendChild(bubble);
+
+  _modesRootHintTimer = setTimeout(() => {
+    dismissModesRootHint(true);
+  }, 6000);
+}
+
 /** Kurze Hörprobe der Grundton-Fläche (nur wenn gerade nichts läuft). */
 function previewModesRootPad(durSec = 1.4) {
   const ex = state.currentExercise;
@@ -76681,11 +76878,13 @@ function renderUI() {
       badgeEl.setAttribute("role", "button");
       badgeEl.setAttribute("tabindex", "0");
       badgeEl.title = tr("Grundton wählen", "Choose root", { fr: "Choisir la tonique", es: "Elegir tónica", pl: "Wybierz dźwięk podstawowy", uk: "Обрати тоніку", ur: "بنیادی سُر چنیں" });
+      maybeShowModesRootHint(badgeEl);
     } else {
       badgeEl.removeAttribute("role");
       badgeEl.removeAttribute("tabindex");
       badgeEl.removeAttribute("title");
       badgeEl.classList.remove("chip-open");
+      dismissModesRootHint(false);
       document.getElementById("inlineModesRootPopover")?.classList.add("hidden");
     }
   }
@@ -76881,7 +77080,13 @@ function renderUI() {
         : tf("Schlag {step} / 4", "Beat {step} / 4", { step: ex.rhythmStep + 1 });
     }
     document.getElementById("inputPromptText").textContent =
-      tf("Tippe das Muster für Schlag {step} von 4:", "Select the pattern for Beat {step} of 4:", { step: Math.min(ex.rhythmStep + 1, 4) });
+      tf("Muster für Schlag {step}/4:", "Pattern for beat {step}/4:", { step: Math.min(ex.rhythmStep + 1, 4) }, {
+        fr: "Motif pour le temps {step}/4 :",
+        es: "Patrón para el pulso {step}/4:",
+        pl: "Wzór na miarę {step}/4:",
+        uk: "Малюнок для долі {step}/4:",
+        ur: "دھڑکن {step}/4 کا نمونہ:"
+      });
   } else if (isRhythmTap) {
     if (ex.beatsPerBar === 3) {
       barsGrid.style.gridTemplateColumns = "repeat(3, minmax(0, 1fr))";
@@ -76894,11 +77099,35 @@ function renderUI() {
     }
     document.getElementById("inputPromptText").textContent = ex.readMode
       ? (ex.blind
-          ? tr("Vorzähler → Rhythmus vom Blatt tappen (ohne Metronom):", "Count-in → tap the written rhythm (no metronome):")
-          : tr("Vorzähler → Rhythmus vom Blatt zum Metronom tappen:", "Count-in → tap the written rhythm with the metronome:"))
+          ? tr("Vom Blatt tappen (ohne Klick):", "Tap from notation (no click):", {
+              fr: "Frapper à vue (sans clic) :",
+              es: "Marcar a vista (sin clic):",
+              pl: "Wystukaj z nut (bez kliku):",
+              uk: "Простукай з нот (без кліку):",
+              ur: "نوٹیشن دیکھ کر تھپکیں (بغیر کلک):"
+            })
+          : tr("Rhythmus vom Blatt tappen:", "Tap rhythm from notation:", {
+              fr: "Frapper le rythme à vue :",
+              es: "Marcar ritmo a vista:",
+              pl: "Wystukaj rytm z nut:",
+              uk: "Простукай ритм із нот:",
+              ur: "نوٹیشن سے تال تھپکیں:"
+            }))
       : (ex.blind
-          ? tr("Blindflug: Vorzähler → Demo → Klopfe im Kopf weiter!", "Blind mode: Count-in → Demo → Keep the pulse in your head!")
-          : tr("Vorzähler → Demo → Klopfe den Rhythmus direkt nach:", "Count-in → Demo → Tap the rhythm back directly:"));
+          ? tr("Blindflug: im Takt weiterklopfen:", "Blind mode: keep tapping in time:", {
+              fr: "À l’aveugle : garde la pulsation :",
+              es: "A ciegas: sigue el pulso:",
+              pl: "Na ślepo: utrzymaj puls:",
+              uk: "Наосліп: тримай пульс:",
+              ur: "بلائنڈ موڈ: تال برقرار رکھیں:"
+            })
+          : tr("Rhythmus direkt nachklopfen:", "Tap the rhythm back:", {
+              fr: "Reproduis le rythme :",
+              es: "Repite el ritmo:",
+              pl: "Wystukaj rytm:",
+              uk: "Повтори ритм:",
+              ur: "تال کو دوبارہ تھپکیں:"
+            }));
   } else if (isRhythmGroove) {
     if (ex.bars.length === 1) barsGrid.classList.add("cols-1");
     else if (ex.bars.length === 2) barsGrid.classList.add("cols-2");
@@ -76910,11 +77139,23 @@ function renderUI() {
     } else if (ex.grooveKind === "offbeat") {
       if (moduleTitleEl) moduleTitleEl.textContent = tr("2-Takt-Groove", "2-Bar Groove");
       if (targetBadgeEl) targetBadgeEl.textContent = tr("Ziel: Takt 2", "Target: Bar 2");
-      document.getElementById("inputPromptText").textContent = tr("Auf welchem Schlag liegt der Cowbell-Akzent?", "Which beat holds the cowbell accent?");
+      document.getElementById("inputPromptText").textContent = tr("Wo liegt der Cowbell-Akzent?", "Where is the cowbell accent?", {
+        fr: "Où est l’accent de cloche ?",
+        es: "¿Dónde cae el acento de cencerro?",
+        pl: "Gdzie pada akcent cowbella?",
+        uk: "Де акцент ковбела?",
+        ur: "کاؤ بیل کا زور کہاں ہے؟"
+      });
     } else {
       if (moduleTitleEl) moduleTitleEl.textContent = tr("Snare-Timing (2 & 4)", "Snare Timing (2 & 4)");
       if (targetBadgeEl) targetBadgeEl.textContent = ex.keyName;
-      document.getElementById("inputPromptText").textContent = tr("Liegt die Snare zu früh, exakt oder zu spät?", "Is the snare early, in the pocket, or late?");
+      document.getElementById("inputPromptText").textContent = tr("Snare: früh, exakt oder spät?", "Snare: early, on beat, or late?", {
+        fr: "Caisse claire : tôt, juste ou tard ?",
+        es: "Caja: ¿pronto, exacta o tarde?",
+        pl: "Werbel: za wcześnie, równo czy za późno?",
+        uk: "Малий барабан: рано, точно чи пізно?",
+        ur: "سنیئر: جلدی، عین وقت پر یا دیر سے؟"
+      });
     }
   } else if (isProdTone) {
     barsGrid.classList.add("cols-1");
@@ -79361,7 +79602,13 @@ async function handleRhythmDictationChoice(cellKey, btnElement, options = {}) {
     const badge = document.getElementById("targetBarBadge");
     if (badge) badge.textContent = tf("Schlag {n} / 4", "Beat {n} / 4", { n: nextIdx + 1 });
     const promptEl = document.getElementById("inputPromptText");
-    if (promptEl) promptEl.textContent = tf("Tippe das Muster für Schlag {n} von 4:", "Select the pattern for Beat {n} of 4:", { n: nextIdx + 1 });
+    if (promptEl) promptEl.textContent = tf("Muster für Schlag {step}/4:", "Pattern for beat {step}/4:", { step: nextIdx + 1 }, {
+      fr: "Motif pour le temps {step}/4 :",
+      es: "Patrón para el pulso {step}/4:",
+      pl: "Wzór na miarę {step}/4:",
+      uk: "Малюнок для долі {step}/4:",
+      ur: "دھڑکن {step}/4 کا نمونہ:"
+    });
 
     if (!state.isPlaying) {
       setCentralStageMode("stage-playing");
@@ -85002,6 +85249,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const toggleModesRootPopover = (e) => {
     e?.stopPropagation?.();
     if (!modesRootBadge?.classList.contains("module-badge-btn") || !inlineModesRootPopover) return;
+    dismissModesRootHint(true);
     closeAllInlinePopovers(inlineModesRootPopover);
     renderModesRootPopover();
     const isHidden = inlineModesRootPopover.classList.toggle("hidden");
@@ -85082,9 +85330,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  const defaultBpmSlider = document.getElementById("defaultBpmSlider");
-  const defaultBpmDisplay = document.getElementById("defaultBpmDisplay");
-
   const inlineBpmSlider = document.getElementById("inlineBpmSlider");
   const inlineBpmVal = document.getElementById("inlineBpmVal");
   const inlineBpmRandomBtn = document.getElementById("inlineBpmRandomBtn");
@@ -85102,17 +85347,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (inlineBpmVal) inlineBpmVal.textContent = `${newBpm} BPM`;
     if (moduleBpmBtn) moduleBpmBtn.textContent = `${newBpm} BPM`;
   }
-
-  // Standardtempo im Einstellungs-Modal:
-  // Wird für alle Module übernommen, solange im laufenden Modul noch nicht manuell geregelt wurde.
-  defaultBpmSlider?.addEventListener("input", (e) => {
-    const newDefault = parseInt(e.target.value, 10);
-    state.settings.defaultBpm = newDefault;
-    if (defaultBpmDisplay) defaultBpmDisplay.textContent = `${newDefault} BPM`;
-    if (!state.hasManualExerciseBpm) {
-      syncExerciseBpmUI(getDefaultExerciseBpm(state.settings.mode), false);
-    }
-  });
 
   // Manueller Tempo-Schieberegler im Übungsmodul:
   inlineBpmSlider?.addEventListener("input", (e) => {
@@ -93314,7 +93548,13 @@ function handleExamRhythmDictationAnswer(ex, cellKey, btnElement) {
     const badge = document.getElementById("targetBarBadge");
     if (badge) badge.textContent = tf("Schlag {n} / 4", "Beat {n} / 4", { n: nextIdx + 1 });
     const promptEl = document.getElementById("inputPromptText");
-    if (promptEl) promptEl.textContent = tf("Tippe das Muster für Schlag {n} von 4:", "Select the pattern for Beat {n} of 4:", { n: nextIdx + 1 });
+    if (promptEl) promptEl.textContent = tf("Muster für Schlag {step}/4:", "Pattern for beat {step}/4:", { step: nextIdx + 1 }, {
+      fr: "Motif pour le temps {step}/4 :",
+      es: "Patrón para el pulso {step}/4:",
+      pl: "Wzór na miarę {step}/4:",
+      uk: "Малюнок для долі {step}/4:",
+      ur: "دھڑکن {step}/4 کا نمونہ:"
+    });
     return;
   }
 

@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Nutzungsbedingungen – Lauscher</title>
-  <meta name="description" content="Nutzungsbedingungen der App Lauscher (Gehörbildung & Musiktheorie).">
-  <!-- Öffentliche Fassung der Nutzungsbedingungen (Adresse u. a. für Google Play / App Store).
+  <title>Datenschutzerklärung – Lauscher</title>
+  <meta name="description" content="Datenschutzerklärung der App Lauscher (Gehörbildung & Musiktheorie).">
+  <!-- Öffentliche Fassung der Datenschutzerklärung (Adresse für Google Play Console / App Store Connect).
        Der Text kommt aus legal.js – dieselbe Quelle wie in der App. -->
   <style>
     @font-face {
@@ -160,17 +160,17 @@
           <a href="?lang=en" data-lang="en">English</a>
         </nav>
       </div>
-      <h1 id="legalTitle">Nutzungsbedingungen</h1>
+      <h1 id="legalTitle">Datenschutzerklärung</h1>
       <p id="legalMeta" class="meta"></p>
       <p id="legalDraft" class="draft" hidden></p>
       <p id="legalLangNotice" class="note" hidden></p>
       <div id="legalContent" class="legal-doc">
-        <noscript><p>Bitte JavaScript aktivieren, um die Nutzungsbedingungen anzuzeigen. / Please enable JavaScript to view the terms of use.</p></noscript>
+        <noscript><p>Bitte JavaScript aktivieren, um die Datenschutzerklärung anzuzeigen. / Please enable JavaScript to view the privacy policy.</p></noscript>
       </div>
       <nav class="legal-footer" aria-label="Weitere Seiten">
         <a id="legalAppLink" href="./">← Zur App</a>
-        <a id="legalSiblingLink" href="datenschutz.html">Datenschutzerklärung</a>
-        <a id="legalLicensesLink" href="lizenzen.html">Lizenzen</a>
+        <a id="legalSiblingLink" href="terms.html">Nutzungsbedingungen</a>
+        <a id="legalLicensesLink" href="licenses.html">Lizenzen</a>
       </nav>
     </div>
   </main>
@@ -182,7 +182,7 @@
       var requested = params.get("lang");
       var browserLang = (navigator.language || "de").slice(0, 2).toLowerCase();
       var lang = requested === "en" || requested === "de" ? requested : (browserLang === "de" ? "de" : "en");
-      var doc = getLegalDocument("terms", lang);
+      var doc = getLegalDocument("privacy", lang);
       if (!doc) return;
       document.documentElement.lang = doc.lang;
       document.title = doc.title + " – Lauscher";
@@ -204,12 +204,12 @@
       if (doc.lang === "en") {
         if (appLink) appLink.textContent = "← Back to app";
         if (siblingLink) {
-          siblingLink.textContent = "Privacy Policy";
-          siblingLink.href = "datenschutz.html?lang=en";
+          siblingLink.textContent = "Terms of Use";
+          siblingLink.href = "terms.html?lang=en";
         }
         if (licensesLink) {
           licensesLink.textContent = "Licenses";
-          licensesLink.href = "lizenzen.html?lang=en";
+          licensesLink.href = "licenses.html?lang=en";
         }
       }
     })();

@@ -3,7 +3,7 @@
  *
  * Einzige Textquelle für Datenschutzerklärung, Nutzungsbedingungen und Open-Source-Lizenzen:
  * Alle drei werden in der App im Über-Fenster angezeigt (app.js → openAboutLegal) sowie auf den
- * öffentlichen Seiten datenschutz.html, nutzungsbedingungen.html und lizenzen.html.
+ * öffentlichen Seiten privacy.html, terms.html und licenses.html.
  *
  * ⚠️ ENTWURF (Datenschutz & Nutzungsbedingungen) – nicht rechtsgeprüft. Vor Veröffentlichung
  * juristisch prüfen lassen und:
@@ -23,9 +23,9 @@
  */
 
 const LAUSCHER_LEGAL_DRAFT = true;
-const LAUSCHER_PRIVACY_URL = "https://jbkstr.github.io/lauscher/datenschutz.html";
-const LAUSCHER_TERMS_URL = "https://jbkstr.github.io/lauscher/nutzungsbedingungen.html";
-const LAUSCHER_LICENSES_URL = "https://jbkstr.github.io/lauscher/lizenzen.html";
+const LAUSCHER_PRIVACY_URL = "https://jbkstr.github.io/lauscher/privacy.html";
+const LAUSCHER_TERMS_URL = "https://jbkstr.github.io/lauscher/terms.html";
+const LAUSCHER_LICENSES_URL = "https://jbkstr.github.io/lauscher/licenses.html";
 const LAUSCHER_LEGAL_URLS = {
   privacy: LAUSCHER_PRIVACY_URL,
   terms: LAUSCHER_TERMS_URL,
@@ -211,7 +211,7 @@ const LAUSCHER_LEGAL_DOCS = {
 <p>Du hast außerdem das Recht, dich bei einer Datenschutz-Aufsichtsbehörde zu beschweren (Art. 77 DSGVO), z. B. bei der für mich zuständigen Behörde: Landesbeauftragte für Datenschutz und Informationsfreiheit Nordrhein-Westfalen (LDI NRW), Kavalleriestraße 2–4, 40213 Düsseldorf.</p>
 
 <h3>13. Änderungen dieser Datenschutzerklärung</h3>
-<p>Ich passe diese Erklärung an, wenn sich die App oder die Rechtslage ändert. Es gilt die jeweils aktuelle Fassung, die in der App und unter <a href="https://jbkstr.github.io/lauscher/datenschutz.html" target="_blank" rel="noopener">jbkstr.github.io/lauscher/datenschutz.html</a> abrufbar ist.</p>
+<p>Ich passe diese Erklärung an, wenn sich die App oder die Rechtslage ändert. Es gilt die jeweils aktuelle Fassung, die in der App und unter <a href="https://jbkstr.github.io/lauscher/privacy.html" target="_blank" rel="noopener">jbkstr.github.io/lauscher/privacy.html</a> abrufbar ist.</p>
 `
     },
     en: {
@@ -332,7 +332,7 @@ const LAUSCHER_LEGAL_DOCS = {
 <p>You also have the right to lodge a complaint with a data protection supervisory authority (Art. 77 GDPR), for example the authority responsible for me: the State Commissioner for Data Protection and Freedom of Information of North Rhine-Westphalia (LDI NRW), Kavalleriestraße 2–4, 40213 Düsseldorf, Germany.</p>
 
 <h3>13. Changes to this privacy policy</h3>
-<p>I update this policy when the app or the legal situation changes. The current version always applies; it is available in the app and at <a href="https://jbkstr.github.io/lauscher/datenschutz.html" target="_blank" rel="noopener">jbkstr.github.io/lauscher/datenschutz.html</a>.</p>
+<p>I update this policy when the app or the legal situation changes. The current version always applies; it is available in the app and at <a href="https://jbkstr.github.io/lauscher/privacy.html" target="_blank" rel="noopener">jbkstr.github.io/lauscher/privacy.html</a>.</p>
 `
     }
   },
@@ -371,7 +371,7 @@ const LAUSCHER_LEGAL_DOCS = {
   <li>Urheber-, Marken- oder Lizenzhinweise zu entfernen oder zu verändern;</li>
   <li>veränderte Installationsdateien (APKs) oder abgeänderte Fassungen unter dem Namen „Lauscher“ zu verbreiten.</li>
 </ul>
-<p>Soweit einzelne Bestandteile von Lauscher unter freien Open-Source-Lizenzen stehen (z. B. verwendete Bibliotheken oder die Schriftart Andika), gelten für diese Bestandteile vorrangig deren jeweilige Lizenzbedingungen (einsehbar unter <a href="https://jbkstr.github.io/lauscher/lizenzen.html" data-legal-nav="licenses">Lizenzen</a>).</p>
+<p>Soweit einzelne Bestandteile von Lauscher unter freien Open-Source-Lizenzen stehen (z. B. verwendete Bibliotheken oder die Schriftart Andika), gelten für diese Bestandteile vorrangig deren jeweilige Lizenzbedingungen (einsehbar unter <a href="https://jbkstr.github.io/lauscher/licenses.html" data-legal-nav="licenses">Lizenzen</a>).</p>
 
 <h3>4. Urheberrecht und Inhalte</h3>
 <p>Die Gestaltung, Texte, Übungslogik, Klang-Samples, Grafiken und das Maskottchen („Lauschebär“) sind urheberrechtlich geschützt, sofern sie nicht gesonderten Open-Source-Lizenzen unterliegen. Alle Rechte daran liegen bei mir bzw. den jeweiligen Rechteinhabern.</p>
@@ -401,10 +401,10 @@ const LAUSCHER_LEGAL_DOCS = {
 <p>Für Inhalte externer Websites, auf die in der App verlinkt wird (z. B. GitHub, Ko-fi), sind ausschließlich deren jeweilige Betreiber verantwortlich.</p>
 
 <h3>9. Datenschutz</h3>
-<p>Informationen dazu, welche Daten anfallen und wie sie verarbeitet werden, findest du in der <a href="https://jbkstr.github.io/lauscher/datenschutz.html" data-legal-nav="privacy">Datenschutzerklärung</a>.</p>
+<p>Informationen dazu, welche Daten anfallen und wie sie verarbeitet werden, findest du in der <a href="https://jbkstr.github.io/lauscher/privacy.html" data-legal-nav="privacy">Datenschutzerklärung</a>.</p>
 
 <h3>10. Änderungen dieser Nutzungsbedingungen</h3>
-<p>Ich kann diese Nutzungsbedingungen anpassen, wenn sich die App, der Funktionsumfang oder die Rechtslage ändert. Es gilt jeweils die aktuelle Fassung, abrufbar in der App sowie unter <a href="https://jbkstr.github.io/lauscher/nutzungsbedingungen.html" target="_blank" rel="noopener">jbkstr.github.io/lauscher/nutzungsbedingungen.html</a>.</p>
+<p>Ich kann diese Nutzungsbedingungen anpassen, wenn sich die App, der Funktionsumfang oder die Rechtslage ändert. Es gilt jeweils die aktuelle Fassung, abrufbar in der App sowie unter <a href="https://jbkstr.github.io/lauscher/terms.html" target="_blank" rel="noopener">jbkstr.github.io/lauscher/terms.html</a>.</p>
 
 <h3>11. Anwendbares Recht und Schlussbestimmungen</h3>
 <p>Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss des UN-Kaufrechts (CISG). Wenn du Verbraucher mit gewöhnlichem Aufenthalt in einem anderen Staat der Europäischen Union bist, bleiben zwingende Verbraucherschutzvorschriften deines Wohnsitzstaates unberührt.</p>
@@ -447,7 +447,7 @@ const LAUSCHER_LEGAL_DOCS = {
   <li>remove or alter copyright, brand or license notices;</li>
   <li>distribute modified installation files (APKs) or altered builds under the name “Lauscher”.</li>
 </ul>
-<p>Where individual components of Lauscher are provided under open-source licenses (such as third-party libraries or the Andika font), their respective license terms take precedence for those components (see <a href="https://jbkstr.github.io/lauscher/lizenzen.html?lang=en" data-legal-nav="licenses">Licenses</a>).</p>
+<p>Where individual components of Lauscher are provided under open-source licenses (such as third-party libraries or the Andika font), their respective license terms take precedence for those components (see <a href="https://jbkstr.github.io/lauscher/licenses.html?lang=en" data-legal-nav="licenses">Licenses</a>).</p>
 
 <h3>4. Copyright and content</h3>
 <p>The design, texts, exercise logic, audio samples, graphics and mascot (“Lauschebär”) are protected by copyright unless covered by separate open-source licenses. All rights remain with me or the respective rights holders.</p>
@@ -477,10 +477,10 @@ const LAUSCHER_LEGAL_DOCS = {
 <p>The operators of external websites linked from the app (such as GitHub or Ko-fi) are solely responsible for their content.</p>
 
 <h3>9. Privacy</h3>
-<p>Information on what data is involved and how it is handled can be found in the <a href="https://jbkstr.github.io/lauscher/datenschutz.html?lang=en" data-legal-nav="privacy">Privacy Policy</a>.</p>
+<p>Information on what data is involved and how it is handled can be found in the <a href="https://jbkstr.github.io/lauscher/privacy.html?lang=en" data-legal-nav="privacy">Privacy Policy</a>.</p>
 
 <h3>10. Changes to these terms</h3>
-<p>I may update these Terms of Use when the app, its features or the legal situation changes. The current version always applies and is available in the app and at <a href="https://jbkstr.github.io/lauscher/nutzungsbedingungen.html?lang=en" target="_blank" rel="noopener">jbkstr.github.io/lauscher/nutzungsbedingungen.html</a>.</p>
+<p>I may update these Terms of Use when the app, its features or the legal situation changes. The current version always applies and is available in the app and at <a href="https://jbkstr.github.io/lauscher/terms.html?lang=en" target="_blank" rel="noopener">jbkstr.github.io/lauscher/terms.html</a>.</p>
 
 <h3>11. Governing law and final provisions</h3>
 <p>The laws of the Federal Republic of Germany apply, excluding the UN Convention on Contracts for the International Sale of Goods (CISG). If you are a consumer habitually resident in another EU member state, mandatory consumer protection provisions of your country of residence remain unaffected.</p>
@@ -563,7 +563,7 @@ ${LAUSCHER_MIT_BODY}</div>
 </div>
 
 <h3>Lauscher – Eigene Inhalte &amp; Klang-Samples</h3>
-<p>Quellcode, Übungslogik, Texte, Übersetzungen, Gestaltung, Grafiken, das Maskottchen („Lauschebär“) sowie die eingebetteten Instrumenten- und Perkussions-Samples stammen aus dem Projekt Lauscher (© 2026 Jens Strauch). Alle Rechte vorbehalten, soweit nicht anders angegeben. Einzelheiten zur erlaubten Nutzung findest du in den <a href="https://jbkstr.github.io/lauscher/nutzungsbedingungen.html" data-legal-nav="terms">Nutzungsbedingungen</a>.</p>
+<p>Quellcode, Übungslogik, Texte, Übersetzungen, Gestaltung, Grafiken, das Maskottchen („Lauschebär“) sowie die eingebetteten Instrumenten- und Perkussions-Samples stammen aus dem Projekt Lauscher (© 2026 Jens Strauch). Alle Rechte vorbehalten, soweit nicht anders angegeben. Einzelheiten zur erlaubten Nutzung findest du in den <a href="https://jbkstr.github.io/lauscher/terms.html" data-legal-nav="terms">Nutzungsbedingungen</a>.</p>
 <p>Vielen Dank an alle Entwicklerinnen, Entwickler und Gemeinschaften hinter den oben genannten freien Projekten.</p>
 `
     },
@@ -641,7 +641,7 @@ ${LAUSCHER_MIT_BODY}</div>
 </div>
 
 <h3>Lauscher – Original content &amp; audio samples</h3>
-<p>Source code, exercise logic, texts, translations, visual design, artwork, the mascot (“Lauschebär”) and the embedded instrument and percussion samples are part of the Lauscher project (© 2026 Jens Strauch). All rights reserved unless stated otherwise. For permitted uses, see the <a href="https://jbkstr.github.io/lauscher/nutzungsbedingungen.html?lang=en" data-legal-nav="terms">Terms of Use</a>.</p>
+<p>Source code, exercise logic, texts, translations, visual design, artwork, the mascot (“Lauschebär”) and the embedded instrument and percussion samples are part of the Lauscher project (© 2026 Jens Strauch). All rights reserved unless stated otherwise. For permitted uses, see the <a href="https://jbkstr.github.io/lauscher/terms.html?lang=en" data-legal-nav="terms">Terms of Use</a>.</p>
 <p>Many thanks to all developers and communities behind the free and open-source projects listed above.</p>
 `
     }

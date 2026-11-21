@@ -399,7 +399,7 @@ const I18N_STATIC_PL = {
   "mixer.presetCustom": "Własny",
   "mixer.presetHint": "Każda ręczna zmiana suwaka przełącza preset w tryb własny.",
   "settings.title": "Ustawienia",
-  "settings.groupAudio": "Dźwięk i tempo",
+  "settings.groupAudio": "Dźwięk i ćwiczenia",
   "settings.groupLanguageNotation": "Język i notacja",
   "settings.groupAppearance": "Wygląd i motywy",
   "settings.defaultTempoHeading": "Domyślne tempo",
