@@ -1156,11 +1156,39 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
   color: var(--raccoon-dark);
 }
 
+.subpage-section-title-tones {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.34rem;
+}
+
+.subpage-section-tones {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  padding: 0.18rem 0.72rem;
+  border-radius: var(--radius-pill);
+  background: var(--surface-warm);
+  border: 1px solid var(--border-soft);
+  font-size: clamp(0.72rem, 3.2vw, 0.82rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.015em;
+  color: var(--raccoon-mid);
+  white-space: nowrap;
+}
+
 .subpage-section-desc {
   text-align: center;
   font-size: 0.76rem;
   color: var(--raccoon-mid);
   margin-top: -0.45rem;
+}
+
+.subpage-section-title-tones + .subpage-section-desc {
+  margin-top: -0.32rem;
 }
 
 .subpage-nodes-grid {

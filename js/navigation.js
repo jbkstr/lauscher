@@ -3543,7 +3543,10 @@ function openCategoryPage(categoryKey, options = {}) {
       state.activeCategorySectionTitle = selectedSolfType.title;
       container.innerHTML = `
         <div class="subpage-section">
-          <h3 class="subpage-section-title">${tr("Solfège • Dur (Do, Re, Mi, Fa, Sol, La, Ti)", "Solfège • Major (Do, Re, Mi, Fa, Sol, La, Ti)")}</h3>
+          <h3 class="subpage-section-title subpage-section-title-tones">
+            <span class="subpage-section-title-main">${tr("Solfège • Dur", "Solfège • Major")}</span>
+            <span class="subpage-section-tones" dir="ltr">Do · Re · Mi · Fa · Sol · La · Ti</span>
+          </h3>
           <p class="subpage-section-desc">${tr("Höre die Dur-Kadenz (I–vi–IV–V) und erkenne die gespielte Tonstufe auf der Klaviatur", "Hear the major cadence (I–vi–IV–V) and identify the target scale degree on the keyboard")}</p>
           <div class="subpage-nodes-grid">
             <button class="subpage-node-btn" data-launch-solfege="1">
@@ -3601,7 +3604,10 @@ function openCategoryPage(categoryKey, options = {}) {
       state.activeCategorySectionTitle = selectedSolfType.title;
       container.innerHTML = `
         <div class="subpage-section">
-          <h3 class="subpage-section-title">${tr("Solfège • Moll (Do, Re, Me, Fa, Sol, Le, Te)", "Solfège • Minor (Do, Re, Me, Fa, Sol, Le, Te)")}</h3>
+          <h3 class="subpage-section-title subpage-section-title-tones">
+            <span class="subpage-section-title-main">${tr("Solfège • Moll", "Solfège • Minor")}</span>
+            <span class="subpage-section-tones" dir="ltr">Do · Re · Me · Fa · Sol · Le · Te</span>
+          </h3>
           <p class="subpage-section-desc">${tr("Höre die Moll-Kadenz (i–VI–iv–V) und erkenne die gespielte Tonstufe in Natürlich Moll", "Hear the minor cadence (i–VI–iv–V) and identify the target degree in Natural Minor")}</p>
           <div class="subpage-nodes-grid">
             <button class="subpage-node-btn" data-launch-solfege="9">
@@ -3675,10 +3681,16 @@ function openCategoryPage(categoryKey, options = {}) {
           : getKeyDisplayName(curKey, curTonality);
         const summaryRange = curRange === "do-fa" ? "Do–Fa" : (curRange === "sol-do" ? "Sol–Do" : "Do–Do");
         const summaryOct = curOct === "multi" ? tr("Mehrere Okt.", "Multi-Oct.") : tr("1 Oktave", "1 Octave");
+        const customToneStrip = curTonality === "minor"
+          ? (curRange === "do-fa" ? "Do · Re · Me · Fa" : (curRange === "sol-do" ? "Sol · Le · Te · Do" : "Do · Re · Me · Fa · Sol · Le · Te"))
+          : (curRange === "do-fa" ? "Do · Re · Mi · Fa" : (curRange === "sol-do" ? "Sol · La · Ti · Do" : "Do · Re · Mi · Fa · Sol · La · Ti"));
 
         container.innerHTML = `
           <div class="subpage-section">
-            <h3 class="subpage-section-title">${tr("Eigene Tonart (Dur & Moll)", "Custom Key (Major & Minor)")}</h3>
+            <h3 class="subpage-section-title subpage-section-title-tones">
+              <span class="subpage-section-title-main">${tr("Eigene Tonart (Dur & Moll)", "Custom Key (Major & Minor)")}</span>
+              <span class="subpage-section-tones" dir="ltr">${customToneStrip}</span>
+            </h3>
             <p class="subpage-section-desc">${tr("Wähle beliebige Dur- oder Moll-Tonart, Tonraum & Oktavlage frei – auch direkt in der Übung jederzeit anpassbar", "Choose any major or minor key, scale half & octave register freely — also adjustable anytime inside the exercise")}</p>
             <div class="notation-key-toolbar">
               <div class="notation-key-quick-group">
