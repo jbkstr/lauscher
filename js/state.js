@@ -19,6 +19,10 @@ class AppState {
       difficulty: 1,
       cadencePos: "last", // 'last' (Takt 4) | 'random' (zufälliger Takt 1–4)
       intervalDifficulty: 1,
+      intervalCustomRoot: "random", // "random" oder Tonklasse "0".."11"
+      intervalCustomScale: "ionian", // "ionian" | "aeolian" | "harm_minor" | "mel_minor" | "dorian" | "phrygian" | "lydian" | "mixolydian" | "locrian" | "chromatic"
+      intervalCustomScope: "full",   // "triad" | "lower" | "upper" | "full"
+      intervalCustomPool: null,      // Optionale manuelle Intervall-Liste (mind. 2 Schlüssel)
       chordDifficulty: 1,
       chordInversionDifficulty: 1,
       solfegeDifficulty: 1,
@@ -482,10 +486,20 @@ class AppState {
       const prefix = includeCategory ? tr("Akkordumkehrungen", "Chord Inversions") : tr("Umkehrungen", "Inversions");
       return `${prefix} • ${lvlWord} ${lvl} (${invDiffNames[lvl] || tr("Dur-Dreiklang", "Major Triad")})`;
     }
+    const intLvl = parseInt(this.settings.intervalDifficulty, 10) || 1;
     const intDiffNames = {
-      1: tr("Einsteiger", "Beginner"),
-      2: tr("Dur-Tonleiter", "Major Scale"),
-      3: tr("Alle Intervalle", "All Intervals")
+      1: `${lvlWord} 1 (${tr("Einsteiger", "Beginner")})`,
+      2: `${lvlWord} 2 (${tr("Dur 1–4", "Major 1–4")})`,
+      3: `${lvlWord} 3 (${tr("Dur 5–8", "Major 5–8")})`,
+      4: `${lvlWord} 4 (${tr("Dur-Tonleiter", "Major Scale")})`,
+      5: `${lvlWord} 5 (${tr("Alle Intervalle", "All Intervals")})`,
+      6: `${tr("Moll", "Minor")} 1 (${tr("Einsteiger", "Beginner")})`,
+      7: `${tr("Moll", "Minor")} 2 (${tr("Moll 1–4", "Minor 1–4")})`,
+      8: `${tr("Moll", "Minor")} 3 (${tr("Moll 5–8", "Minor 5–8")})`,
+      9: `${tr("Moll", "Minor")} 4 (${tr("Moll-Tonleiter", "Minor Scale")})`,
+      10: typeof getIntervalCustomSummaryLabel === "function"
+        ? getIntervalCustomSummaryLabel()
+        : tr("Eigene Tonart & Modus", "Custom Key & Mode")
     };
     const typeLabels = includeCategory
       ? {
@@ -501,7 +515,7 @@ class AppState {
           "interval-drone": tr("Grundton-Fläche", "Root Pad")
         };
     const typeLabel = typeLabels[this.settings.mode] || tr("Intervalle", "Intervals");
-    return `${typeLabel} • ${lvlWord} ${this.settings.intervalDifficulty} (${intDiffNames[this.settings.intervalDifficulty]})`;
+    return `${typeLabel} • ${intDiffNames[intLvl] || intDiffNames[1]}`;
   }
 
   updateHeaderSubtext() {

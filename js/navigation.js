@@ -2671,6 +2671,10 @@ const BEGINNER_EXERCISES = new Set([
   "interval-melodic-down:1",
   "interval-harmonic:1",
   "interval-drone:1",
+  "interval-melodic:6",
+  "interval-melodic-down:6",
+  "interval-harmonic:6",
+  "interval-drone:6",
   "chord-arp-up:1",
   "chord-arp-down:1",
   "interval-chords:1",
@@ -2778,104 +2782,268 @@ function openCategoryPage(categoryKey, options = {}) {
     });
 
   } else if (categoryKey === "interval") {
-    container.innerHTML = `
-      <div class="subpage-section">
-        <h3 class="subpage-section-title">${tr("Melodische Intervalle (Aufwärts)", "Melodic Intervals (Ascending)")}</h3>
-        <p class="subpage-section-desc">${tr("Zwei Töne erklingen nacheinander vom zufälligen Ausgangston nach oben", "Two notes played sequentially upward from a random reference pitch")}</p>
-        <div class="subpage-nodes-grid">
-          <button class="subpage-node-btn" data-launch-int="interval-melodic" data-int-lvl="1">
-            <div class="node-circle circle-peach">1↗5</div>
-            <span class="node-title">${tr("Stufe 1: Einsteiger", "Level 1: Beginner")}</span>
-            <span class="node-sub">${tr("Prime, gr. Terz, Quinte, Oktave", "Unison, Maj 3rd, 5th & Octave")}</span>
-          </button>
-          <button class="subpage-node-btn" data-launch-int="interval-melodic" data-int-lvl="2">
-            ${renderDirectionNodeCircle(tr("Dur", "Maj"), "up")}
-            <span class="node-title">${tr("Stufe 2: Dur-Tonleiter", "Level 2: Major Scale")}</span>
-            <span class="node-sub">${tr("8 diatonische Intervalle", "8 diatonic intervals")}</span>
-          </button>
-          <button class="subpage-node-btn" data-launch-int="interval-melodic" data-int-lvl="3">
-            ${renderDirectionNodeCircle(tr("Alle", "All"), "up")}
-            <span class="node-title">${tr("Stufe 3: Chromatisch", "Level 3: Chromatic")}</span>
-            <span class="node-sub">${tr("Alle 15 Intervalle bis zur None", "All 15 intervals up to a 9th")}</span>
-          </button>
-        </div>
-      </div>
+    const INTERVAL_PLAY_SECTIONS = [
+      {
+        mode: "interval-melodic",
+        title: tr("Melodische Intervalle (Aufwärts)", "Melodic Intervals (Ascending)"),
+        desc: tr("Zwei Töne erklingen nacheinander vom Ausgangston nach oben", "Two notes played sequentially upward from the reference pitch"),
+        circle: "circle-peach",
+        dir: "up"
+      },
+      {
+        mode: "interval-melodic-down",
+        title: tr("Melodische Intervalle (Abwärts)", "Melodic Intervals (Descending)"),
+        desc: tr("Zwei Töne erklingen nacheinander vom Ausgangston nach unten", "Two notes played sequentially downward from the reference pitch"),
+        circle: "circle-peach",
+        dir: "down"
+      },
+      {
+        mode: "interval-harmonic",
+        title: tr("Harmonische Intervalle", "Harmonic Intervals"),
+        desc: tr("Beide Töne erklingen gleichzeitig als Zusammenklang", "Both notes sounded simultaneously in harmony"),
+        circle: "circle-lilac",
+        dir: null
+      },
+      {
+        mode: "interval-drone",
+        title: tr("Intervalle über Grundton-Fläche", "Intervals Over Root Pad"),
+        desc: tr("Eine warme Streicher-Fläche hält den Grundton – nach kurzer Verzögerung erklingt der gesuchte Intervallton auf dem Klavier darüber", "A warm strings pad sustains the root pitch — after a short delay, piano plays the target interval tone above it"),
+        circle: "circle-sage",
+        dir: null
+      }
+    ];
 
-      <div class="subpage-section">
-        <h3 class="subpage-section-title">${tr("Melodische Intervalle (Abwärts)", "Melodic Intervals (Descending)")}</h3>
-        <p class="subpage-section-desc">${tr("Zwei Töne erklingen nacheinander vom zufälligen Ausgangston nach unten", "Two notes played sequentially downward from a random reference pitch")}</p>
-        <div class="subpage-nodes-grid">
-          <button class="subpage-node-btn" data-launch-int="interval-melodic-down" data-int-lvl="1">
-            <div class="node-circle circle-peach">1↘5</div>
-            <span class="node-title">${tr("Stufe 1: Einsteiger", "Level 1: Beginner")}</span>
-            <span class="node-sub">${tr("Prime, gr. Terz, Quinte, Oktave", "Unison, Maj 3rd, 5th & Octave")}</span>
-          </button>
-          <button class="subpage-node-btn" data-launch-int="interval-melodic-down" data-int-lvl="2">
-            ${renderDirectionNodeCircle(tr("Dur", "Maj"), "down")}
-            <span class="node-title">${tr("Stufe 2: Dur-Tonleiter", "Level 2: Major Scale")}</span>
-            <span class="node-sub">${tr("8 diatonische Intervalle abwärts", "8 descending diatonic intervals")}</span>
-          </button>
-          <button class="subpage-node-btn" data-launch-int="interval-melodic-down" data-int-lvl="3">
-            ${renderDirectionNodeCircle(tr("Alle", "All"), "down")}
-            <span class="node-title">${tr("Stufe 3: Chromatisch", "Level 3: Chromatic")}</span>
-            <span class="node-sub">${tr("Alle 15 Intervalle bis zur None", "All 15 intervals up to a 9th")}</span>
-          </button>
-        </div>
-      </div>
+    const renderIntBadge = (sec, text) => {
+      if (sec.dir) {
+        return renderDirectionNodeCircle(text, sec.dir, sec.circle);
+      }
+      const cls = String(text).length > 3 ? " node-circle-compact node-circle-nowrap" : "";
+      return `<div class="node-circle ${sec.circle}${cls}">${text}</div>`;
+    };
 
-      <div class="subpage-section">
-        <h3 class="subpage-section-title">${tr("Harmonische Intervalle", "Harmonic Intervals")}</h3>
-        <p class="subpage-section-desc">${tr("Beide Töne erklingen gleichzeitig als Zusammenklang", "Both notes sounded simultaneously in harmony")}</p>
-        <div class="subpage-nodes-grid">
-          <button class="subpage-node-btn" data-launch-int="interval-harmonic" data-int-lvl="1">
-            <div class="node-circle circle-lilac">1+5</div>
-            <span class="node-title">${tr("Stufe 1: Einsteiger", "Level 1: Beginner")}</span>
-            <span class="node-sub">${tr("Prime, gr. Terz, Quinte, Oktave", "Unison, Maj 3rd, 5th & Octave")}</span>
-          </button>
-          <button class="subpage-node-btn" data-launch-int="interval-harmonic" data-int-lvl="2">
-            <div class="node-circle circle-lilac">${tr("Dur", "Maj")}</div>
-            <span class="node-title">${tr("Stufe 2: Dur-Tonleiter", "Level 2: Major Scale")}</span>
-            <span class="node-sub">${tr("8 diatonische Intervalle", "8 diatonic intervals")}</span>
-          </button>
-          <button class="subpage-node-btn" data-launch-int="interval-harmonic" data-int-lvl="3">
-            <div class="node-circle circle-lilac">${tr("Alle", "All")}</div>
-            <span class="node-title">${tr("Stufe 3: Chromatisch", "Level 3: Chromatic")}</span>
-            <span class="node-sub">${tr("Alle 15 Intervalle bis zur None", "All 15 intervals up to a 9th")}</span>
-          </button>
-        </div>
-      </div>
+    const getSectionCards = (sec) => {
+      const begBadge = sec.dir === "up" ? "1↗5" : (sec.dir === "down" ? "1↘5" : "1+5");
+      const begMinBadge = sec.dir === "up" ? "1↗♭3" : (sec.dir === "down" ? "1↘♭3" : "1+♭3");
+      return [
+        {
+          lvl: 1,
+          circleHtml: `<div class="node-circle ${sec.circle}">${begBadge}</div>`,
+          title: tr("Stufe 1: Einsteiger", "Level 1: Beginner"),
+          sub: tr("Prime, gr. Terz, Quinte, Oktave", "Unison, Maj 3rd, 5th & Octave")
+        },
+        {
+          lvl: 2,
+          circleHtml: renderIntBadge(sec, "1–4"),
+          title: tr("Stufe 2: Dur 1–4", "Level 2: Major 1–4"),
+          sub: tr("Untere Hälfte: Prime, gr. Sek., gr. Terz, Quarte", "Lower half: Unison, Maj 2nd, Maj 3rd, 4th")
+        },
+        {
+          lvl: 3,
+          circleHtml: renderIntBadge(sec, "5–8"),
+          title: tr("Stufe 3: Dur 5–8", "Level 3: Major 5–8"),
+          sub: tr("Obere Hälfte: Quinte, gr. Sexte, gr. Sept., Oktave", "Upper half: 5th, Maj 6th, Maj 7th, Octave")
+        },
+        {
+          lvl: 4,
+          circleHtml: renderIntBadge(sec, tr("Dur", "Maj")),
+          title: tr("Stufe 4: Dur-Tonleiter", "Level 4: Major Scale"),
+          sub: tr("Alle 8 diatonischen Dur-Intervalle", "All 8 diatonic major intervals")
+        },
+        {
+          lvl: 6,
+          circleHtml: `<div class="node-circle ${sec.circle} node-circle-compact node-circle-nowrap">${begMinBadge}</div>`,
+          title: tr("Moll 1: Einsteiger", "Minor 1: Beginner"),
+          sub: tr("Prime, kl. Terz, Quinte, Oktave", "Unison, Min 3rd, 5th & Octave")
+        },
+        {
+          lvl: 7,
+          circleHtml: renderIntBadge(sec, "1–4m"),
+          title: tr("Moll 2: Moll 1–4", "Minor 2: Minor 1–4"),
+          sub: tr("Untere Hälfte: Prime, gr. Sek., kl. Terz, Quarte", "Lower half: Unison, Maj 2nd, Min 3rd, 4th")
+        },
+        {
+          lvl: 8,
+          circleHtml: renderIntBadge(sec, "5–8m"),
+          title: tr("Moll 3: Moll 5–8", "Minor 3: Minor 5–8"),
+          sub: tr("Obere Hälfte: Quinte, kl. Sexte, kl. Sept., Oktave", "Upper half: 5th, Min 6th, Min 7th, Octave")
+        },
+        {
+          lvl: 9,
+          circleHtml: renderIntBadge(sec, tr("Moll", "Min")),
+          title: tr("Moll 4: Moll-Tonleiter", "Minor 4: Minor Scale"),
+          sub: tr("Alle 8 Intervalle in natürlichem Moll", "All 8 natural minor intervals")
+        },
+        {
+          lvl: 5,
+          circleHtml: renderIntBadge(sec, tr("Alle", "All")),
+          title: tr("Stufe 5: Chromatisch", "Level 5: Chromatic"),
+          sub: tr("Alle 15 Intervalle bis zur None", "All 15 intervals up to a 9th")
+        }
+      ];
+    };
 
-      <div class="subpage-section">
-        <h3 class="subpage-section-title">${tr("Intervalle über Grundton-Fläche", "Intervals Over Root Pad")}</h3>
-        <p class="subpage-section-desc">${tr("Eine warme Streicher-Fläche hält den Grundton – nach kurzer Verzögerung erklingt der gesuchte Intervallton auf dem Klavier darüber", "A warm strings pad sustains the root pitch — after a short delay, piano plays the target interval tone above it")}</p>
-        <div class="subpage-nodes-grid">
-          <button class="subpage-node-btn" data-launch-int="interval-drone" data-int-lvl="1">
-            <div class="node-circle circle-sage">1+5</div>
-            <span class="node-title">${tr("Stufe 1: Einsteiger", "Level 1: Beginner")}</span>
-            <span class="node-sub">${tr("Prime, gr. Terz, Quinte, Oktave", "Unison, Maj 3rd, 5th & Octave")}</span>
-          </button>
-          <button class="subpage-node-btn" data-launch-int="interval-drone" data-int-lvl="2">
-            <div class="node-circle circle-sage">${tr("Dur", "Maj")}</div>
-            <span class="node-title">${tr("Stufe 2: Dur-Tonleiter", "Level 2: Major Scale")}</span>
-            <span class="node-sub">${tr("8 diatonische Intervalle auf Teppich", "8 diatonic intervals over pad")}</span>
-          </button>
-          <button class="subpage-node-btn" data-launch-int="interval-drone" data-int-lvl="3">
-            <div class="node-circle circle-sage">${tr("Alle", "All")}</div>
-            <span class="node-title">${tr("Stufe 3: Chromatisch", "Level 3: Chromatic")}</span>
-            <span class="node-sub">${tr("Alle 15 Intervalle bis zur None", "All 15 intervals up to a 9th")}</span>
-          </button>
-        </div>
-      </div>
-    `;
+    const renderIntervalCategoryBody = () => {
+      const curRoot = String(state.settings.intervalCustomRoot ?? "random");
+      const curScale = String(state.settings.intervalCustomScale || "ionian");
+      const curScope = String(state.settings.intervalCustomScope || "full");
+      const activePool = getActiveIntervalCustomPool();
+      const hasManualPool = Array.isArray(state.settings.intervalCustomPool) && state.settings.intervalCustomPool.length >= 2;
+      const rootOptions = ["random", ...Array.from({ length: 12 }, (_, pc) => String(pc))];
+      const scaleIds = Object.keys(INTERVAL_SCALE_PRESETS);
+      const scopeIds = ["triad", "lower", "upper", "full"];
+      const allIntervals = Object.keys(HARMONIC_DATA.intervals);
+      const summaryBadge = getIntervalCustomBadgeLabel();
 
-    container.querySelectorAll("[data-launch-int]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        state.setMode(btn.dataset.launchInt);
-        state.setIntervalDifficulty(btn.dataset.intLvl);
-        state.exerciseReturnView = "category";
-        switchView("exercise");
+      container.innerHTML = `
+        ${INTERVAL_PLAY_SECTIONS.map(sec => `
+          <div class="subpage-section">
+            <h3 class="subpage-section-title">${sec.title}</h3>
+            <p class="subpage-section-desc">${sec.desc}</p>
+            <div class="subpage-nodes-grid">
+              ${getSectionCards(sec).map(card => `
+                <button class="subpage-node-btn" data-launch-int="${sec.mode}" data-int-lvl="${card.lvl}">
+                  ${card.circleHtml}
+                  <span class="node-title">${card.title}</span>
+                  <span class="node-sub">${card.sub}</span>
+                </button>
+              `).join("")}
+            </div>
+          </div>
+        `).join("")}
+
+        <div class="subpage-section">
+          <div class="subpage-section-head-row">
+            <h3 class="subpage-section-title">${tr("Freie Tonart & Modi (Eigenes Intervall-Training)", "Custom Key & Modes (Custom Interval Trainer)")}</h3>
+            <span class="subpage-section-key-pill">${escapeHtml(summaryBadge)}</span>
+          </div>
+          <p class="subpage-section-desc">${tr(
+            "Wähle deinen festen Grundton (oder Zufall), eine Tonleiter bzw. Kirchentonart und passe die abgefragten Intervalle beliebig an.",
+            "Choose a fixed root key (or random), pick any scale or church mode, and customize which intervals are tested."
+          )}</p>
+          <div class="notation-key-toolbar">
+            <div class="notation-key-quick-group">
+              <span class="notation-key-quick-label">${tr("1. Grundton / Tonart:", "1. Root / Key:")}</span>
+              <div class="notation-key-quick-row">
+                ${rootOptions.map(opt => `
+                  <button type="button" class="k-filter-pill${curRoot === opt ? " active" : ""}" data-int-custom-root="${opt}">
+                    ${escapeHtml(getIntervalCustomRootLabel(opt))}
+                  </button>
+                `).join("")}
+              </div>
+            </div>
+            <div class="notation-key-quick-group">
+              <span class="notation-key-quick-label">${tr("2. Tonleiter / Modus:", "2. Scale / Mode:")}</span>
+              <div class="notation-key-quick-row">
+                ${scaleIds.map(sid => `
+                  <button type="button" class="k-filter-pill${curScale === sid ? " active" : ""}" data-int-custom-scale="${sid}">
+                    ${escapeHtml(getLocalizedIntervalCustomScaleLabel(sid))}
+                  </button>
+                `).join("")}
+              </div>
+            </div>
+            <div class="notation-key-quick-group">
+              <span class="notation-key-quick-label">${tr("3. Umfang / Ausschnitt:", "3. Scale Range:")}</span>
+              <div class="notation-key-quick-row">
+                ${scopeIds.map(sc => `
+                  <button type="button" class="k-filter-pill${curScope === sc && !hasManualPool ? " active" : ""}" data-int-custom-scope="${sc}">
+                    ${escapeHtml(getLocalizedIntervalCustomScopeLabel(sc))}
+                  </button>
+                `).join("")}
+              </div>
+            </div>
+            <div class="notation-key-quick-group">
+              <span class="notation-key-quick-label">${tr("4. Aktive Intervalle (antippen zum An-/Abwählen, mind. 2):", "4. Active Intervals (tap to toggle, min. 2):")}</span>
+              <div class="notation-key-quick-row">
+                ${allIntervals.map(intKey => {
+                  const def = getLocalizedIntervalDef(intKey);
+                  const isOn = activePool.includes(intKey);
+                  return `
+                    <button type="button" class="k-filter-pill${isOn ? " active" : ""}" data-int-custom-toggle="${intKey}" aria-pressed="${isOn}">
+                      ${escapeHtml(def.short)}
+                    </button>
+                  `;
+                }).join("")}
+              </div>
+            </div>
+          </div>
+
+          <div class="subpage-nodes-grid" style="margin-top: 0.7rem;">
+            <button class="subpage-node-btn" data-launch-int="interval-melodic" data-int-lvl="10">
+              ${renderDirectionNodeCircle(tr("Frei", "Free"), "up")}
+              <span class="node-title">${tr("Aufwärts (Eigene Auswahl)", "Ascending (Custom)")}</span>
+              <span class="node-sub">${escapeHtml(summaryBadge)} • ${activePool.length} ${tr("Intervalle", "Intervals")}</span>
+            </button>
+            <button class="subpage-node-btn" data-launch-int="interval-melodic-down" data-int-lvl="10">
+              ${renderDirectionNodeCircle(tr("Frei", "Free"), "down")}
+              <span class="node-title">${tr("Abwärts (Eigene Auswahl)", "Descending (Custom)")}</span>
+              <span class="node-sub">${escapeHtml(summaryBadge)} • ${activePool.length} ${tr("Intervalle", "Intervals")}</span>
+            </button>
+            <button class="subpage-node-btn" data-launch-int="interval-harmonic" data-int-lvl="10">
+              <div class="node-circle circle-lilac node-circle-compact">${tr("Frei", "Free")}</div>
+              <span class="node-title">${tr("Harmonisch (Eigene Auswahl)", "Harmonic (Custom)")}</span>
+              <span class="node-sub">${escapeHtml(summaryBadge)} • ${activePool.length} ${tr("Intervalle", "Intervals")}</span>
+            </button>
+            <button class="subpage-node-btn" data-launch-int="interval-drone" data-int-lvl="10">
+              <div class="node-circle circle-sage node-circle-compact">${tr("Frei", "Free")}</div>
+              <span class="node-title">${tr("Grundton-Fläche (Eigene Auswahl)", "Root Pad (Custom)")}</span>
+              <span class="node-sub">${escapeHtml(summaryBadge)} • ${activePool.length} ${tr("Intervalle", "Intervals")}</span>
+            </button>
+          </div>
+        </div>
+      `;
+
+      container.querySelectorAll("[data-int-custom-root]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          state.settings.intervalCustomRoot = btn.dataset.intCustomRoot;
+          renderIntervalCategoryBody();
+        });
       });
-    });
+
+      container.querySelectorAll("[data-int-custom-scale]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          state.settings.intervalCustomScale = btn.dataset.intCustomScale;
+          state.settings.intervalCustomPool = null;
+          renderIntervalCategoryBody();
+        });
+      });
+
+      container.querySelectorAll("[data-int-custom-scope]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          state.settings.intervalCustomScope = btn.dataset.intCustomScope;
+          state.settings.intervalCustomPool = null;
+          renderIntervalCategoryBody();
+        });
+      });
+
+      container.querySelectorAll("[data-int-custom-toggle]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const key = btn.dataset.intCustomToggle;
+          const cur = getActiveIntervalCustomPool();
+          let next;
+          if (cur.includes(key)) {
+            if (cur.length <= 2) return;
+            next = cur.filter(k => k !== key);
+          } else {
+            next = Object.keys(HARMONIC_DATA.intervals).filter(k => cur.includes(k) || k === key);
+          }
+          state.settings.intervalCustomPool = next;
+          renderIntervalCategoryBody();
+        });
+      });
+
+      container.querySelectorAll("[data-launch-int]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          state.setMode(btn.dataset.launchInt);
+          state.setIntervalDifficulty(btn.dataset.intLvl);
+          state.exerciseReturnView = "category";
+          switchView("exercise");
+        });
+      });
+
+      markBeginnerExerciseNodes(container);
+    };
+
+    renderIntervalCategoryBody();
 
   } else if (categoryKey === "chords") {
     const CHORD_QUALITY_SECTIONS = [

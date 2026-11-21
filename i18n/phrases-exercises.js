@@ -3209,5 +3209,369 @@ registerColocatedPhrases({
     pl: "Oktawa",
     uk: "Октава",
     ur: "آکٹیو"
+  },
+  "Dur 1–4": {
+    fr: "Majeur 1–4",
+    es: "Mayor 1–4",
+    pl: "Dur 1–4",
+    uk: "Мажор 1–4",
+    ur: "میجر 1–4"
+  },
+  "Dur 5–8": {
+    fr: "Majeur 5–8",
+    es: "Mayor 5–8",
+    pl: "Dur 5–8",
+    uk: "Мажор 5–8",
+    ur: "میجر 5–8"
+  },
+  "Moll 1–4": {
+    fr: "Mineur 1–4",
+    es: "Menor 1–4",
+    pl: "Moll 1–4",
+    uk: "Мінор 1–4",
+    ur: "مائنر 1–4"
+  },
+  "Moll 5–8": {
+    fr: "Mineur 5–8",
+    es: "Menor 5–8",
+    pl: "Moll 5–8",
+    uk: "Мінор 5–8",
+    ur: "مائنر 5–8"
+  },
+  "Moll-Tonleiter": {
+    fr: "Gamme mineure",
+    es: "Escala menor",
+    pl: "Gama molowa",
+    uk: "Мінорна гама",
+    ur: "مائنر اسکیل"
+  },
+  "Eigene Tonart & Modus": {
+    fr: "Tonalité & mode personnalisés",
+    es: "Tonalidad y modo propios",
+    pl: "Własna tonacja i tryb",
+    uk: "Власна тональність і лад",
+    ur: "اپنی کلید اور موڈ"
+  },
+  "Dur (Ionisch)": {
+    fr: "Majeur (Ionien)",
+    es: "Mayor (Jónico)",
+    pl: "Dur (Jońska)",
+    uk: "Мажор (Іонійський)",
+    ur: "میجر (آئونین)"
+  },
+  "Natürlich Moll": {
+    fr: "Mineur naturel",
+    es: "Menor natural",
+    pl: "Moll naturalny",
+    uk: "Натуральний мінор",
+    ur: "قدرتی مائنر"
+  },
+  "Harmonisch Moll": {
+    fr: "Mineur harmonique",
+    es: "Menor armónica",
+    pl: "Moll harmoniczny",
+    uk: "Гармонічний мінор",
+    ur: "ہارمونک مائنر"
+  },
+  "Melodisch Moll": {
+    fr: "Mineur mélodique",
+    es: "Menor melódica",
+    pl: "Moll melodyczny",
+    uk: "Мелодичний мінор",
+    ur: "میلوڈک مائنر"
+  },
+  "Dorisch": {
+    fr: "Dorien",
+    es: "Dórico",
+    pl: "Dorycka",
+    uk: "Дорійський",
+    ur: "ڈورین"
+  },
+  "Phrygisch": {
+    fr: "Phrygien",
+    es: "Frigio",
+    pl: "Frygijska",
+    uk: "Фригійський",
+    ur: "فریجین"
+  },
+  "Lydisch": {
+    fr: "Lydien",
+    es: "Lidio",
+    pl: "Lidyjska",
+    uk: "Лідійський",
+    ur: "لیڈین"
+  },
+  "Mixolydisch": {
+    fr: "Mixolydien",
+    es: "Mixolidio",
+    pl: "Miksolidyjska",
+    uk: "Міксолідійський",
+    ur: "مکسولیڈین"
+  },
+  "Lokrisch": {
+    fr: "Locrien",
+    es: "Locrio",
+    pl: "Lokrycka",
+    uk: "Локрійський",
+    ur: "لوکرین"
+  },
+  "Chromatisch": {
+    fr: "Chromatique",
+    es: "Cromática",
+    pl: "Chromatyczna",
+    uk: "Хроматична",
+    ur: "کرومیٹک"
+  },
+  "Einsteiger (1/3/5/8)": {
+    fr: "Débutant (1/3/5/8)",
+    es: "Principiante (1/3/5/8)",
+    pl: "Początkujący (1/3/5/8)",
+    uk: "Початківець (1/3/5/8)",
+    ur: "ابتدائی (1/3/5/8)"
+  },
+  "Untere Hälfte (1–4)": {
+    fr: "Moitié inférieure (1–4)",
+    es: "Mitad inferior (1–4)",
+    pl: "Dolna połowa (1–4)",
+    uk: "Нижня половина (1–4)",
+    ur: "نچلا نصف (1–4)"
+  },
+  "Obere Hälfte (5–8)": {
+    fr: "Moitié supérieure (5–8)",
+    es: "Mitad superior (5–8)",
+    pl: "Górna połowa (5–8)",
+    uk: "Верхня половина (5–8)",
+    ur: "اوپری نصف (5–8)"
+  },
+  "Ganze Tonleiter (1–8)": {
+    fr: "Gamme complète (1–8)",
+    es: "Escala completa (1–8)",
+    pl: "Cała gama (1–8)",
+    uk: "Вся гама (1–8)",
+    ur: "مکمل اسکیل (1–8)"
+  },
+  "Tonleiter / Modus:": {
+    fr: "Gamme / Mode :",
+    es: "Escala / Modo:",
+    pl: "Gama / Tryb:",
+    uk: "Гама / Лад:",
+    ur: "اسکیل / موڈ:"
+  },
+  "Umfang:": {
+    fr: "Étendue :",
+    es: "Rango:",
+    pl: "Zakres:",
+    uk: "Діапазон:",
+    ur: "حد:"
+  },
+  "Grundton & Modus wählen": {
+    fr: "Choisir la tonique & le mode",
+    es: "Elegir tónica y modo",
+    pl: "Wybierz prymę i tryb",
+    uk: "Обрати тоніку й лад",
+    ur: "بنیادی سُر اور موڈ چنیں"
+  },
+  "Zwei Töne erklingen nacheinander vom Ausgangston nach oben": {
+    fr: "Deux notes jouées l’une après l’autre vers le haut depuis la note de départ",
+    es: "Dos notas suenan seguidas hacia arriba desde la nota de partida",
+    pl: "Dwa dźwięki grane kolejno w górę od dźwięku wyjściowego",
+    uk: "Дві ноти звучать послідовно вгору від початкового тону",
+    ur: "بنیادی سُر سے اوپر کی طرف یکے بعد دیگرے دو سُر بجتے ہیں"
+  },
+  "Zwei Töne erklingen nacheinander vom Ausgangston nach unten": {
+    fr: "Deux notes jouées l’une après l’autre vers le bas depuis la note de départ",
+    es: "Dos notas suenan seguidas hacia abajo desde la nota de partida",
+    pl: "Dwa dźwięki grane kolejno w dół od dźwięku wyjściowego",
+    uk: "Дві ноти звучать послідовно вниз від початкового тону",
+    ur: "بنیادی سُر سے نیچے کی طرف یکے بعد دیگرے دو سُر بجتے ہیں"
+  },
+  "Stufe 2: Dur 1–4": {
+    fr: "Niveau 2 : Majeur 1–4",
+    es: "Nivel 2: Mayor 1–4",
+    pl: "Poziom 2: Dur 1–4",
+    uk: "Рівень 2: Мажор 1–4",
+    ur: "مرحلہ 2: میجر 1–4"
+  },
+  "Untere Hälfte: Prime, gr. Sek., gr. Terz, Quarte": {
+    fr: "Moitié inf. : unisson, 2de maj., 3ce maj., quarte",
+    es: "Mitad inf.: unísono, 2.ª may., 3.ª may., cuarta",
+    pl: "Dolna połowa: pryma, sek. w., tercja w., kwarta",
+    uk: "Нижня половина: прима, вел. сек., вел. терція, кварта",
+    ur: "نچلا نصف: پرائم، میجر سیکنڈ، میجر تھرڈ، فورتھ"
+  },
+  "Stufe 3: Dur 5–8": {
+    fr: "Niveau 3 : Majeur 5–8",
+    es: "Nivel 3: Mayor 5–8",
+    pl: "Poziom 3: Dur 5–8",
+    uk: "Рівень 3: Мажор 5–8",
+    ur: "مرحلہ 3: میجر 5–8"
+  },
+  "Obere Hälfte: Quinte, gr. Sexte, gr. Sept., Oktave": {
+    fr: "Moitié sup. : quinte, 6te maj., 7e maj., octave",
+    es: "Mitad sup.: quinta, 6.ª may., 7.ª may., octava",
+    pl: "Górna połowa: kwinta, seksta w., sept. w., oktawa",
+    uk: "Верхня половина: квінта, вел. секста, вел. септ., октава",
+    ur: "اوپری نصف: ففتھ، میجر سکستھ، میجر سیونتھ، آکٹیو"
+  },
+  "Stufe 4: Dur-Tonleiter": {
+    fr: "Niveau 4 : Gamme majeure",
+    es: "Nivel 4: Escala mayor",
+    pl: "Poziom 4: Gama durowa",
+    uk: "Рівень 4: Мажорна гама",
+    ur: "مرحلہ 4: میجر اسکیل"
+  },
+  "Alle 8 diatonischen Dur-Intervalle": {
+    fr: "Les 8 intervalles diatoniques majeurs",
+    es: "Los 8 intervalos diatónicos mayores",
+    pl: "Wszystkie 8 diatonicznych interwałów durowych",
+    uk: "Усі 8 діатонічних мажорних інтервалів",
+    ur: "تمام 8 ڈایاٹونک میجر انٹرولز"
+  },
+  "Moll 1: Einsteiger": {
+    fr: "Mineur 1 : Débutant",
+    es: "Menor 1: Principiante",
+    pl: "Moll 1: Początkujący",
+    uk: "Мінор 1: Початківець",
+    ur: "مائنر 1: ابتدائی"
+  },
+  "Prime, kl. Terz, Quinte, Oktave": {
+    fr: "Unisson, tierce mineure, quinte, octave",
+    es: "Unísono, tercera menor, quinta, octava",
+    pl: "Pryma, tercja mała, kwinta, oktawa",
+    uk: "Прима, мала терція, квінта, октава",
+    ur: "پرائم، مائنر تھرڈ، ففتھ، آکٹیو"
+  },
+  "Moll 2: Moll 1–4": {
+    fr: "Mineur 2 : Mineur 1–4",
+    es: "Menor 2: Menor 1–4",
+    pl: "Moll 2: Moll 1–4",
+    uk: "Мінор 2: Мінор 1–4",
+    ur: "مائنر 2: مائنر 1–4"
+  },
+  "Untere Hälfte: Prime, gr. Sek., kl. Terz, Quarte": {
+    fr: "Moitié inf. : unisson, 2de maj., 3ce min., quarte",
+    es: "Mitad inf.: unísono, 2.ª may., 3.ª men., cuarta",
+    pl: "Dolna połowa: pryma, sek. w., tercja m., kwarta",
+    uk: "Нижня половина: прима, вел. сек., мала терція, кварта",
+    ur: "نچلا نصف: پرائم، میجر سیکنڈ، مائنر تھرڈ، فورتھ"
+  },
+  "Moll 3: Moll 5–8": {
+    fr: "Mineur 3 : Mineur 5–8",
+    es: "Menor 3: Menor 5–8",
+    pl: "Moll 3: Moll 5–8",
+    uk: "Мінор 3: Мінор 5–8",
+    ur: "مائنر 3: مائنر 5–8"
+  },
+  "Obere Hälfte: Quinte, kl. Sexte, kl. Sept., Oktave": {
+    fr: "Moitié sup. : quinte, 6te min., 7e min., octave",
+    es: "Mitad sup.: quinta, 6.ª men., 7.ª men., octava",
+    pl: "Górna połowa: kwinta, seksta m., sept. m., oktawa",
+    uk: "Верхня половина: квінта, мала секста, мала септ., октава",
+    ur: "اوپری نصف: ففتھ، مائنر سکستھ، مائنر سیونتھ، آکٹیو"
+  },
+  "Moll 4: Moll-Tonleiter": {
+    fr: "Mineur 4 : Gamme mineure",
+    es: "Menor 4: Escala menor",
+    pl: "Moll 4: Gama molowa",
+    uk: "Мінор 4: Мінорна гама",
+    ur: "مائنر 4: مائنر اسکیل"
+  },
+  "Alle 8 Intervalle in natürlichem Moll": {
+    fr: "Les 8 intervalles du mineur naturel",
+    es: "Los 8 intervalos de la escala menor natural",
+    pl: "Wszystkie 8 interwałów moll naturalnego",
+    uk: "Усі 8 інтервалів натурального мінору",
+    ur: "قدرتی مائنر کے تمام 8 انٹرولز"
+  },
+  "Stufe 5: Chromatisch": {
+    fr: "Niveau 5 : Chromatique",
+    es: "Nivel 5: Cromático",
+    pl: "Poziom 5: Chromatyczny",
+    uk: "Рівень 5: Хроматичний",
+    ur: "مرحلہ 5: کرومیٹک"
+  },
+  "Freie Tonart & Modi (Eigenes Intervall-Training)": {
+    fr: "Tonalité & modes libres (Entraînement sur mesure)",
+    es: "Tonalidad y modos libres (Entrenamiento a medida)",
+    pl: "Dowolna tonacja i tryby (Własny trening interwałów)",
+    uk: "Вільна тональність і лади (Власне тренування інтервалів)",
+    ur: "آزاد کلید اور موڈز (اپنی انٹرول ٹریننگ)"
+  },
+  "Wähle deinen festen Grundton (oder Zufall), eine Tonleiter bzw. Kirchentonart und passe die abgefragten Intervalle beliebig an.": {
+    fr: "Choisis une tonique fixe (ou aléatoire), une gamme ou un mode ecclésiastique, et personnalise les intervalles interrogés.",
+    es: "Elige una tónica fija (o aleatoria), una escala o modo eclesiástico y personaliza los intervalos que quieres practicar.",
+    pl: "Wybierz stały dźwięk podstawowy (lub losowy), gamę bądź tryb kościelny i dowolnie dostosuj sprawdzane interwały.",
+    uk: "Обери фіксовану тоніку (або випадкову), гаму чи церковний лад і налаштуй інтервали для перевірки.",
+    ur: "اپنا مستقل بنیادی سُر (یا بے ترتیب)، کوئی اسکیل یا موڈ منتخب کریں اور مشق کے انٹرولز اپنی مرضی سے ترتیب دیں۔"
+  },
+  "1. Grundton / Tonart:": {
+    fr: "1. Tonique / Tonalité :",
+    es: "1. Tónica / Tonalidad:",
+    pl: "1. Dźwięk podstawowy / Tonacja:",
+    uk: "1. Тоніка / Тональність:",
+    ur: "1. بنیادی سُر / کلید:"
+  },
+  "2. Tonleiter / Modus:": {
+    fr: "2. Gamme / Mode :",
+    es: "2. Escala / Modo:",
+    pl: "2. Gama / Tryb:",
+    uk: "2. Гама / Лад:",
+    ur: "2. اسکیل / موڈ:"
+  },
+  "3. Umfang / Ausschnitt:": {
+    fr: "3. Étendue / Segment :",
+    es: "3. Rango / Sección:",
+    pl: "3. Zakres / Wycinek:",
+    uk: "3. Діапазон / Частина:",
+    ur: "3. حد / حصہ:"
+  },
+  "4. Aktive Intervalle (antippen zum An-/Abwählen, mind. 2):": {
+    fr: "4. Intervalles actifs (touchez pour activer/désactiver, min. 2) :",
+    es: "4. Intervalos activos (toca para activar/desactivar, mín. 2):",
+    pl: "4. Aktywne interwały (dotknij, aby włączyć/wyłączyć, min. 2):",
+    uk: "4. Активні інтервали (торкнися, щоб увімкнути/вимкнути, мін. 2):",
+    ur: "4. فعال انٹرولز (منتخب یا غیر منتخب کرنے کے لیے ٹیپ کریں، کم از کم 2):"
+  },
+  "Frei": {
+    fr: "Libre",
+    es: "Libre",
+    pl: "Własne",
+    uk: "Вільно",
+    ur: "آزاد"
+  },
+  "Aufwärts (Eigene Auswahl)": {
+    fr: "Ascendant (Sur mesure)",
+    es: "Ascendente (Selección propia)",
+    pl: "W górę (Własny wybór)",
+    uk: "Вгору (Власний вибір)",
+    ur: "اوپر کی طرف (اپنا انتخاب)"
+  },
+  "Abwärts (Eigene Auswahl)": {
+    fr: "Descendant (Sur mesure)",
+    es: "Descendente (Selección propia)",
+    pl: "W dół (Własny wybór)",
+    uk: "Вниз (Власний вибір)",
+    ur: "نیچے کی طرف (اپنا انتخاب)"
+  },
+  "Harmonisch (Eigene Auswahl)": {
+    fr: "Harmonique (Sur mesure)",
+    es: "Armónico (Selección propia)",
+    pl: "Harmonicznie (Własny wybór)",
+    uk: "Гармонічно (Власний вибір)",
+    ur: "ہارمونک (اپنا انتخاب)"
+  },
+  "Grundton-Fläche (Eigene Auswahl)": {
+    fr: "Bourdon (Sur mesure)",
+    es: "Pedal de tónica (Selección propia)",
+    pl: "Tło prymy (Własny wybór)",
+    uk: "Тонічна педаль (Власний вибір)",
+    ur: "بنیادی پیڈ (اپنا انتخاب)"
+  },
+  "Grundton:": {
+    fr: "Tonique :",
+    es: "Tónica:",
+    pl: "Dźwięk podstawowy:",
+    uk: "Тоніка:",
+    ur: "بنیادی سُر:"
   }
 });

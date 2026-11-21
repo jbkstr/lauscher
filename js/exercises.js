@@ -1260,14 +1260,17 @@ function renderUI() {
     if (isDroneEx) syncDroneMixControls();
   }
   const badgeEl = document.getElementById("targetBarBadge");
+  const isCustomIntervalEx = String(ex.type || "").startsWith("interval-") && ex.type !== "interval-chords" && parseInt(state.settings.intervalDifficulty, 10) === 10 && !state.exam?.active;
   if (badgeEl) {
-    const rootSelectable = String(ex.type || "").startsWith("modes-") && !state.exam?.active;
+    const rootSelectable = (String(ex.type || "").startsWith("modes-") && !state.exam?.active) || isCustomIntervalEx;
     badgeEl.classList.toggle("module-badge-btn", rootSelectable);
     if (rootSelectable) {
       badgeEl.setAttribute("role", "button");
       badgeEl.setAttribute("tabindex", "0");
-      badgeEl.title = tr("Grundton wählen", "Choose root", { fr: "Choisir la tonique", es: "Elegir tónica", pl: "Wybierz dźwięk podstawowy", uk: "Обрати тоніку", ur: "بنیادی سُر چنیں" });
-      maybeShowModesRootHint(badgeEl);
+      badgeEl.title = isCustomIntervalEx
+        ? tr("Grundton & Modus wählen", "Choose root & mode")
+        : tr("Grundton wählen", "Choose root", { fr: "Choisir la tonique", es: "Elegir tónica", pl: "Wybierz dźwięk podstawowy", uk: "Обрати тоніку", ur: "بنیادی سُر چنیں" });
+      if (!isCustomIntervalEx) maybeShowModesRootHint(badgeEl);
     } else {
       badgeEl.removeAttribute("role");
       badgeEl.removeAttribute("tabindex");
@@ -1559,17 +1562,17 @@ function renderUI() {
   } else if (ex.type === "interval-melodic") {
     barsGrid.classList.add("cols-2");
     if (moduleTitleEl) moduleTitleEl.textContent = tr("Tonfolge (2 Töne)", "2-Note Sequence");
-    if (targetBadgeEl) targetBadgeEl.textContent = tr("Ziel: Ton 2 ↗", "Target: Note 2 ↗");
+    if (targetBadgeEl) targetBadgeEl.textContent = isCustomIntervalEx ? `${getIntervalCustomBadgeLabel()} ▾` : tr("Ziel: Ton 2 ↗", "Target: Note 2 ↗");
     document.getElementById("inputPromptText").textContent = tr("Welches Intervall erklingt aufwärts?", "Which ascending interval do you hear?");
   } else if (ex.type === "interval-melodic-down") {
     barsGrid.classList.add("cols-2");
     if (moduleTitleEl) moduleTitleEl.textContent = tr("Tonfolge (2 Töne)", "2-Note Sequence");
-    if (targetBadgeEl) targetBadgeEl.textContent = tr("Ziel: Ton 2 ↘", "Target: Note 2 ↘");
+    if (targetBadgeEl) targetBadgeEl.textContent = isCustomIntervalEx ? `${getIntervalCustomBadgeLabel()} ▾` : tr("Ziel: Ton 2 ↘", "Target: Note 2 ↘");
     document.getElementById("inputPromptText").textContent = tr("Welches Intervall erklingt abwärts?", "Which descending interval do you hear?");
   } else if (ex.type === "interval-drone") {
     barsGrid.classList.add("cols-2");
     if (moduleTitleEl) moduleTitleEl.textContent = tr("Fläche + Intervall", "Pad + Interval");
-    if (targetBadgeEl) targetBadgeEl.textContent = tr("Streicher ➔ Klavier", "Strings ➔ Piano");
+    if (targetBadgeEl) targetBadgeEl.textContent = isCustomIntervalEx ? `${getIntervalCustomBadgeLabel()} ▾` : tr("Streicher ➔ Klavier", "Strings ➔ Piano");
     document.getElementById("inputPromptText").textContent = tr("Welches Intervall hörst du über der Fläche?", "Which interval do you hear over the pad?");
   } else if (ex.type === "chord-arp-up") {
     barsGrid.classList.add("cols-1");
@@ -1609,7 +1612,7 @@ function renderUI() {
   } else {
     barsGrid.classList.add("cols-1");
     if (moduleTitleEl) moduleTitleEl.textContent = tr("Tonpaar (Gleichzeitig)", "2-Note Dyad");
-    if (targetBadgeEl) targetBadgeEl.textContent = tr("Zusammenklang", "Dyad");
+    if (targetBadgeEl) targetBadgeEl.textContent = isCustomIntervalEx ? `${getIntervalCustomBadgeLabel()} ▾` : tr("Zusammenklang", "Dyad");
     document.getElementById("inputPromptText").textContent = tr("Welches Intervall erklingt?", "Which harmonic interval do you hear?");
   }
 

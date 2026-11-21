@@ -104,6 +104,22 @@ function getLevelDisplayForMix(mode, level) {
     const lbl = notationLvlLabels[level];
     if (lbl) return tf("Stufe {lvl} ({lbl})", "Level {lvl} ({lbl})", { lvl: level, lbl });
   }
+  if (String(mode || "").startsWith("interval-") && mode !== "interval-chords") {
+    const intLvl = parseInt(level, 10) || 1;
+    const intMixLabels = {
+      1: tf("Stufe {lvl} ({lbl})", "Level {lvl} ({lbl})", { lvl: 1, lbl: tr("Einsteiger", "Beginner") }),
+      2: tf("Stufe {lvl} ({lbl})", "Level {lvl} ({lbl})", { lvl: 2, lbl: tr("Dur 1–4", "Major 1–4") }),
+      3: tf("Stufe {lvl} ({lbl})", "Level {lvl} ({lbl})", { lvl: 3, lbl: tr("Dur 5–8", "Major 5–8") }),
+      4: tf("Stufe {lvl} ({lbl})", "Level {lvl} ({lbl})", { lvl: 4, lbl: tr("Dur-Tonleiter", "Major Scale") }),
+      5: tf("Stufe {lvl} ({lbl})", "Level {lvl} ({lbl})", { lvl: 5, lbl: tr("Alle Intervalle", "All Intervals") }),
+      6: `${tr("Moll", "Minor")} 1 (${tr("Einsteiger", "Beginner")})`,
+      7: `${tr("Moll", "Minor")} 2 (${tr("Moll 1–4", "Minor 1–4")})`,
+      8: `${tr("Moll", "Minor")} 3 (${tr("Moll 5–8", "Minor 5–8")})`,
+      9: `${tr("Moll", "Minor")} 4 (${tr("Moll-Tonleiter", "Minor Scale")})`,
+      10: tr("Eigene Tonart & Modus", "Custom Key & Mode")
+    };
+    if (intMixLabels[intLvl]) return intMixLabels[intLvl];
+  }
   return tf("Stufe {lvl}", "Level {lvl}", { lvl: level });
 }
 
