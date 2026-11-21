@@ -679,6 +679,9 @@ function applyThemeAndAppearance() {
     document.documentElement.setAttribute("data-theme", theme);
     document.documentElement.setAttribute("data-appearance", effective);
   }
+  if (typeof refreshAllVisibleMascotsForTheme === "function") {
+    refreshAllVisibleMascotsForTheme();
+  }
 
   const activeMeta = customEntry?.paletteMeta || (THEME_PALETTE_META[theme] || THEME_PALETTE_META.waldlichtung)[effective];
   const metaEl = typeof document !== "undefined" ? document.getElementById("metaThemeColor") : null;
