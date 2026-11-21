@@ -5508,5 +5508,12 @@ registerColocatedPhrases({
     pl: "Dęte blaszane",
     uk: "Духові",
     ur: "براس اور ونڈز"
+  },
+  "Fokus": {
+    fr: "Focus",
+    es: "Enfoque",
+    pl: "Cel",
+    uk: "Фокус",
+    ur: "فوکس"
   }
 });

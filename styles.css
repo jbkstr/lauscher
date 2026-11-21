@@ -6129,6 +6129,68 @@ body,
   opacity: 0.65;
 }
 
+/* Markierung passender Übungskacheln für gewählte Trainings-Schwerpunkte */
+.category-nav-card.is-focus-match.card-accent-sage {
+  border-color: var(--sage-strong);
+  border-inline-start-color: var(--sage-strong);
+  background-color: var(--sage-soft);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.category-nav-card.is-focus-match.card-accent-peach {
+  border-color: var(--peach-strong);
+  border-inline-start-color: var(--peach-strong);
+  background-color: var(--peach-soft);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.category-nav-card.is-focus-match.card-accent-lilac {
+  border-color: var(--lilac-strong);
+  border-inline-start-color: var(--lilac-strong);
+  background-color: var(--lilac-soft);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.cat-focus-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 7px;
+  border-radius: var(--radius-pill);
+  font-size: 0.66rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+.card-accent-sage .cat-focus-pill {
+  background-color: var(--sage-strong);
+  color: var(--on-strong-accent);
+}
+
+.card-accent-peach .cat-focus-pill {
+  background-color: var(--peach-strong);
+  color: var(--on-strong-accent);
+}
+
+.card-accent-lilac .cat-focus-pill {
+  background-color: var(--lilac-strong);
+  color: var(--on-strong-accent);
+}
+
+.category-grid-home .category-nav-card.is-focus-match .cat-focus-pill {
+  position: absolute;
+  top: 0.76rem;
+  inset-inline-end: 0.72rem;
+}
+
+.category-grid-home .category-nav-card.is-focus-match .cat-chevron {
+  opacity: 0;
+}
+
 .category-card-wide {
   padding-top: 0.76rem;
   padding-bottom: 0.76rem;

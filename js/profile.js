@@ -288,6 +288,35 @@ function setHomeQuickMixesEnabled(enabled) {
   renderHomeQuickMixBar();
 }
 
+function syncHomeFocusHighlights() {
+  if (typeof document === "undefined" || typeof getFocusedHomeCategories !== "function") return;
+  const homeView = document.getElementById("viewHome");
+  if (!homeView) return;
+
+  const focusedCats = getFocusedHomeCategories(state?.profile);
+  const pillLabel = tr("Fokus", "Focus");
+
+  homeView.querySelectorAll(".category-nav-card[data-open-category]").forEach(card => {
+    const cat = card.dataset?.openCategory;
+    const isMatch = Boolean(cat && focusedCats.has(cat));
+    card.classList.toggle("is-focus-match", isMatch);
+
+    let pill = card.querySelector(".cat-focus-pill");
+    if (isMatch) {
+      if (!pill) {
+        pill = document.createElement("span");
+        pill.className = "cat-focus-pill";
+        const chevron = card.querySelector(".cat-chevron");
+        if (chevron) card.insertBefore(pill, chevron);
+        else card.appendChild(pill);
+      }
+      pill.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.4l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.3l-5.9 3.1 1.2-6.5-4.8-4.6 6.6-.9z"/></svg><span>${escapeHtml(pillLabel)}</span>`;
+    } else if (pill) {
+      pill.remove();
+    }
+  });
+}
+
 function renderHomeProfileGreeting() {
   state.updateQuickStartLabel();
   rotateMascotSlot("heroMascotSvg", "idle", true, {
@@ -304,6 +333,7 @@ function renderHomeProfileGreeting() {
 
   refreshCurrentQuoteLocalization();
   renderHomeQuickMixBar();
+  syncHomeFocusHighlights();
 }
 
 function getSessionTimerLocalizedNote(st) {
