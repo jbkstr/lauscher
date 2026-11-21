@@ -643,7 +643,7 @@ class AudioEngine {
     this.pianoCharacter = "natural";
     this.pianoReverbMix = PIANO_CHARACTER_PROFILES.natural.defaultReverb;
     this.instrumentReverbMix = { ...STEM_REVERB_BY_CHAR.natural };
-    this.dronePadGainScale = 0.60;
+    this.dronePadGainScale = 0.50;
     this.droneToneGainScale = 1.00;
     this.masterLevel = 0.67;
     this.masterMuted = false;

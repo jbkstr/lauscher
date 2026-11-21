@@ -1770,7 +1770,7 @@ const PIANO_REVERB_BY_CHAR = Object.freeze({
   concert: 0.48
 });
 const DEFAULT_DRONE_MIX = Object.freeze({
-  pad: 0.60,
+  pad: 0.50,
   tone: 1.00
 });
 const DEFAULT_BREAK_REMINDER_ENABLED = true;
@@ -1833,13 +1833,15 @@ function sanitizePianoSound(raw) {
   };
 }
 
-// Bis Build 1 lag der Flächen-Standard bei 70 %. Profile, die noch genau diesen alten Standard
-// gespeichert haben, wandern einmalig auf den neuen Standard (Merker: droneMixDefaultV2).
-const LEGACY_DRONE_PAD_DEFAULT = 0.70;
+// Ältere Flächen-Standards (70 % bzw. 60 %) wandern einmalig auf den neuen Standard 50 % (Merker: droneMixDefaultV3).
+const LEGACY_DRONE_PAD_DEFAULTS = [0.70, 0.60];
 function migrateDroneMixDefault(raw) {
   const mix = raw?.droneMix;
-  if (raw?.droneMixDefaultV2 || !mix || typeof mix !== "object") return mix;
-  if (Math.abs(Number(mix.pad) - LEGACY_DRONE_PAD_DEFAULT) < 0.001) return { ...mix, pad: DEFAULT_DRONE_MIX.pad };
+  if (raw?.droneMixDefaultV3 || !mix || typeof mix !== "object") return mix;
+  const padNum = Number(mix.pad);
+  if (LEGACY_DRONE_PAD_DEFAULTS.some(def => Math.abs(padNum - def) < 0.001)) {
+    return { ...mix, pad: DEFAULT_DRONE_MIX.pad };
+  }
   return mix;
 }
 
@@ -1875,6 +1877,7 @@ function createDefaultProfile() {
     pianoSound: sanitizePianoSound(DEFAULT_PIANO_SOUND),
     droneMix: sanitizeDroneMix(DEFAULT_DRONE_MIX),
     droneMixDefaultV2: true,
+    droneMixDefaultV3: true,
     customThemes: [null, null, null],
     examHistory: [],
     hasPracticed: false,
@@ -1976,6 +1979,7 @@ function sanitizeUserProfile(raw) {
     pianoSound: sanitizePianoSound(raw.pianoSound),
     droneMix: sanitizeDroneMix(migrateDroneMixDefault(raw)),
     droneMixDefaultV2: true,
+    droneMixDefaultV3: true,
     customThemes: customThemes,
     examHistory: examHistory,
     // Ältere Profile (vor Einführung des Felds) gelten als „schon geübt“
