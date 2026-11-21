@@ -2701,10 +2701,10 @@ function openCategoryPage(categoryKey, options = {}) {
     ];
 
     const MINOR_CADENCE_LEVELS = [
-      { level: 1, circle: "circle-sage",  badge: "i–V",   title: tr("Stufe 1: Basis", "Level 1: Basics"),              sub: tr("i, iv, V und VI", "i, iv, V & VI") },
-      { level: 2, circle: "circle-sage",  badge: "ii°–VII", title: tr("Stufe 2: Diatonisch", "Level 2: Diatonic"),     sub: tr("Alle leitereigenen Stufen inkl. v und V", "All diatonic degrees incl. v & V") },
-      { level: 3, circle: "circle-peach", badge: "N6",    title: tr("Stufe 3: Erweitert", "Level 3: Extended"),        sub: tr("Mit V7, V/V & Neapolitaner", "With V7, V/V & Neapolitan") },
-      { level: 4, circle: "circle-lilac", badge: "iiø7",  title: tr("Stufe 4: Jazz & Tritone", "Level 4: Jazz & Tritone"), sub: tr("Moll-ii–V & Tritonussubstitution", "Minor ii–V & tritone substitution") }
+      { level: 1, circle: "circle-sage",  badge: "i–V",     title: tr("Stufe 1: Basis", "Level 1: Basics"),              sub: tr("i, iv, V und VI", "i, iv, V & VI") },
+      { level: 2, circle: "circle-sage",  badge: "ii°–VII", nodeClass: "node-circle-nowrap", title: tr("Stufe 2: Diatonisch", "Level 2: Diatonic"),     sub: tr("Alle leitereigenen Stufen inkl. v und V", "All diatonic degrees incl. v & V") },
+      { level: 3, circle: "circle-peach", badge: "N6",      title: tr("Stufe 3: Erweitert", "Level 3: Extended"),        sub: tr("Mit V7, V/V & Neapolitaner", "With V7, V/V & Neapolitan") },
+      { level: 4, circle: "circle-lilac", badge: "iiø7",    title: tr("Stufe 4: Jazz & Tritone", "Level 4: Jazz & Tritone"), sub: tr("Moll-ii–V & Tritonussubstitution", "Minor ii–V & tritone substitution") }
     ];
 
     const renderCadenceSection = (posMode, title, desc, tonality = "major") => `
@@ -2714,10 +2714,7 @@ function openCategoryPage(categoryKey, options = {}) {
         <div class="subpage-nodes-grid">
           ${(tonality === "minor" ? MINOR_CADENCE_LEVELS : CADENCE_LEVELS).map(lv => `
             <button class="subpage-node-btn" data-launch-cadence="${lv.level}" data-cadence-pos="${posMode}" data-cadence-tonality="${tonality}">
-              <div class="node-circle ${lv.circle}${posMode === "random" ? " has-random-badge" : ""}">
-                ${lv.badge}
-                ${posMode === "random" ? `<span class="node-random-badge" title="${tr("Zufälliger Takt", "Random Measure")}">?</span>` : ""}
-              </div>
+              <div class="node-circle ${lv.circle}${lv.nodeClass ? ` ${lv.nodeClass}` : ""}${posMode === "random" ? " has-random-badge" : ""}">${lv.badge}${posMode === "random" ? `<span class="node-random-badge" title="${tr("Zufälliger Takt", "Random Measure")}">?</span>` : ""}</div>
               <span class="node-title">${lv.title}</span>
               <span class="node-sub">${posMode === "random" ? `${lv.sub} ${tr("(Zufallstakt)", "(Random Bar)")}` : lv.sub}</span>
             </button>
@@ -3437,9 +3434,9 @@ function openCategoryPage(categoryKey, options = {}) {
           "Stacked notes: read root and chord structure on the staff and pick the matching chord symbol (e.g. E, Em, E7, Esus4)."
         ),
         levels: [
-          { lvl: 1, badge: "E / Em",  title: tr("Stufe 1: Dreiklänge (Violin)", "Level 1: Triads (Treble)"), sub: tr("Dur, Moll, Vermindert, Übermäßig & Sus", "Major, minor, dim, aug & sus (root pos.)") },
-          { lvl: 2, badge: "𝄢 Em",   title: tr("Stufe 2: Dreiklänge (Bass)", "Level 2: Triads (Bass)"),     sub: tr("Alle Grundtypen im Bassschlüssel", "Basic chord types in bass clef") },
-          { lvl: 3, badge: "6 / 64", title: tr("Stufe 3: Umkehrungen", "Level 3: Inversions"),             sub: tr("Dreiklänge & Sus in allen Lagen, beide Schlüssel", "Triads & sus in all inversions, both clefs") },
+          { lvl: 1, badge: "E/Em",   nodeClass: "node-circle-compact node-circle-nowrap", title: tr("Stufe 1: Dreiklänge (Violin)", "Level 1: Triads (Treble)"), sub: tr("Dur, Moll, Vermindert, Übermäßig & Sus", "Major, minor, dim, aug & sus (root pos.)") },
+          { lvl: 2, badge: `<span>Em</span><span class="node-stack-sub">${tr("Bass", "Bass")}</span>`, nodeClass: "node-circle-stack", title: tr("Stufe 2: Dreiklänge (Bass)", "Level 2: Triads (Bass)"),     sub: tr("Alle Grundtypen im Bassschlüssel", "Basic chord types in bass clef") },
+          { lvl: 3, badge: "6/64",   nodeClass: "node-circle-compact node-circle-nowrap", title: tr("Stufe 3: Umkehrungen", "Level 3: Inversions"),             sub: tr("Dreiklänge & Sus in allen Lagen, beide Schlüssel", "Triads & sus in all inversions, both clefs") },
           { lvl: 4, badge: "E7",     title: tr("Stufe 4: Alle Typen & Septakkorde", "Level 4: All Types & 7th Chords"), sub: tr("E, Em, E7, Emaj7, Esus4 u. v. m. inkl. Umkehrungen", "E, Em, E7, Emaj7, Esus4 & more + inversions") }
         ]
       }
@@ -3674,7 +3671,7 @@ function openCategoryPage(categoryKey, options = {}) {
             <div class="subpage-nodes-grid">
               ${(sec.levels || NOTATION_DIFFICULTY_CARDS).map(lv => `
                 <button class="subpage-node-btn" data-launch-notation="${sec.mode}" data-notation-lvl="${lv.lvl}">
-                  <div class="node-circle ${sec.circleClass}">${lv.badge}</div>
+                  <div class="node-circle ${sec.circleClass}${lv.nodeClass ? ` ${lv.nodeClass}` : ""}">${lv.badge}</div>
                   <span class="node-title">${lv.title}</span>
                   <span class="node-sub">${lv.sub}</span>
                 </button>

@@ -446,6 +446,7 @@ function renderWarmupKeyboard(tonicMidi, activeMidis = []) {
     if (activeSet.has(wk.midi)) btn.classList.add("is-active");
 
     const pc = ((wk.midi % 12) + 12) % 12;
+    if (pc === 0) btn.classList.add("is-c-key");
     if (pc === 0 || wk.midi === tonicMidi) {
       const oct = Math.floor(wk.midi / 12) - 1;
       const lbl = document.createElement("span");
@@ -459,7 +460,7 @@ function renderWarmupKeyboard(tonicMidi, activeMidis = []) {
   });
 
   const whiteCount = whiteKeys.length || 15;
-  const blackWidthPct = (100 / whiteCount) * 0.64;
+  const blackWidthPct = (100 / whiteCount) * 0.62;
 
   blackKeys.forEach(bk => {
     if (bk.afterWhiteIdx < 0 || bk.afterWhiteIdx >= whiteCount - 1) return;

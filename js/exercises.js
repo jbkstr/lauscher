@@ -83,7 +83,6 @@ function renderNotationKeyboard(wrap, ex) {
     kb.appendChild(keyBtn);
   });
 
-  const numWhite = whiteKeys.length;
   const totalWeight = whiteKeys.reduce((sum, wk) => sum + (wk.isFrame ? 0.5 : 1), 0);
   const cumWeights = [];
   let runningWeight = 0;
@@ -91,7 +90,7 @@ function renderNotationKeyboard(wrap, ex) {
     runningWeight += wk.isFrame ? 0.5 : 1;
     cumWeights.push(runningWeight);
   });
-  const totalDeductionPx = 10 + Math.max(0, numWhite - 1) * 3;
+  const blackWidthPct = (100 / totalWeight) * 0.62;
 
   blackKeys.forEach(bk => {
     const blackEl = document.createElement("button");
@@ -102,9 +101,8 @@ function renderNotationKeyboard(wrap, ex) {
     blackEl.dataset.pc = bk.pc;
 
     const k = bk.afterWhiteIdx;
-    const weightFrac = cumWeights[k] / totalWeight;
-    const gapOffsetPx = (5 + (k + 0.5) * 3).toFixed(1);
-    blackEl.style.left = `calc(${gapOffsetPx}px + (100% - ${totalDeductionPx}px) * ${weightFrac.toFixed(6)})`;
+    blackEl.style.left = `${(cumWeights[k] / totalWeight) * 100}%`;
+    blackEl.style.width = `${blackWidthPct}%`;
 
     if (showBlackLabels && bk.noteLabel) {
       const box = document.createElement("span");
@@ -221,7 +219,6 @@ function renderSolfegeKeyboard() {
     kb.appendChild(keyBtn);
   });
 
-  const numWhite = whiteKeys.length;
   const totalWeight = whiteKeys.reduce((sum, wk) => sum + (wk.isFrame ? 0.5 : 1), 0);
   const cumWeights = [];
   let runningWeight = 0;
@@ -229,7 +226,7 @@ function renderSolfegeKeyboard() {
     runningWeight += wk.isFrame ? 0.5 : 1;
     cumWeights.push(runningWeight);
   });
-  const totalDeductionPx = 10 + Math.max(0, numWhite - 1) * 3;
+  const blackWidthPct = (100 / totalWeight) * 0.62;
 
   blackKeys.forEach(bk => {
     const blackEl = document.createElement(bk.inScale ? "button" : "div");
@@ -239,11 +236,10 @@ function renderSolfegeKeyboard() {
     blackEl.dataset.midi = bk.midi;
     if (bk.syllable) blackEl.dataset.syllable = bk.syllable;
 
-    // Position exakt in der Fuge zwischen den gewichteten weißen Tasten (CSS zentriert via translateX(-50%))
+    // Position exakt auf der Trennlinie zwischen den gewichteten weißen Tasten (wie im Freien Spiel)
     const k = bk.afterWhiteIdx;
-    const weightFrac = cumWeights[k] / totalWeight;
-    const gapOffsetPx = (5 + (k + 0.5) * 3).toFixed(1);
-    blackEl.style.left = `calc(${gapOffsetPx}px + (100% - ${totalDeductionPx}px) * ${weightFrac.toFixed(6)})`;
+    blackEl.style.left = `${(cumWeights[k] / totalWeight) * 100}%`;
+    blackEl.style.width = `${blackWidthPct}%`;
 
     if (bk.inScale && bk.syllable) {
       const box = document.createElement("span");

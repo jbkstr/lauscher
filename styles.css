@@ -3230,6 +3230,10 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
 .solfege-keyboard-wrap {
   width: 100%;
   padding: 0.28rem 0 0.18rem 0;
+  direction: ltr;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
 }
 
 .piano-keyboard {
@@ -3237,12 +3241,13 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
   width: 100%;
   height: 172px;
   display: flex;
-  gap: 3px;
-  background-color: var(--raccoon-dark);
-  padding: 5px 5px 6px 5px;
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  border: 1.5px solid var(--border-strong);
+  background-color: var(--surface-warm);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.08);
   user-select: none;
+  direction: ltr;
 }
 
 @media (min-width: 640px) {
@@ -3254,35 +3259,45 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
 .piano-white-key {
   flex: 1 1 0%;
   position: relative;
-  background-color: var(--surface-white);
-  border: 1px solid rgba(61, 64, 91, 0.2);
-  border-radius: 4px 4px 8px 8px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--piano-white-active-bg) 0%, var(--surface-white) 85%, var(--surface-warm) 100%);
+  color: var(--piano-white-active-ink);
+  border: none;
+  border-right: 1px solid var(--border-soft);
+  border-radius: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  padding-bottom: 0.34rem;
+  padding: 0 0 0.36rem 0;
   cursor: pointer;
+  touch-action: manipulation;
   min-width: 0;
-  transition: background-color 0.15s, transform 0.08s, border-color 0.15s;
+  transition: background 0.08s ease, transform 0.06s ease, box-shadow 0.08s ease;
+}
+
+.piano-white-key:last-of-type {
+  border-right: none;
 }
 
 .piano-white-key:active {
-  transform: translateY(2px);
+  background: linear-gradient(180deg, var(--sage) 0%, var(--sage-soft) 100%);
+  box-shadow: inset 0 3px 6px rgba(46, 111, 78, 0.22);
+  transform: translateY(1.5px);
 }
 
-/* Äußere Rahmen-Tasten (an beiden Enden nur halb breit, dezent abgesetzt wie bei Notation) */
+/* Äußere Rahmen-Tasten (an beiden Enden nur halb breit, dezent abgesetzt) */
 .piano-key-frame {
   flex: 0.5 1 0%;
-  background-color: var(--piano-key-inactive-bg);
-  border-color: var(--piano-key-inactive-border);
+  background: var(--piano-key-inactive-bg);
+  border-right: 1px solid var(--piano-key-inactive-border);
   cursor: default;
-  box-shadow: inset 0 2px 5px rgba(34, 36, 54, 0.14);
+  box-shadow: inset 0 2px 5px rgba(34, 36, 54, 0.12);
 }
 
 /* Innere Tasten außerhalb der aktuellen Tonleiter behalten normale weiße Klaviatur-Optik; Markierung erfolgt über Solfège-Kästchen */
 .piano-key-inactive:not(.piano-key-frame) {
-  background-color: var(--piano-white-active-bg);
+  background: linear-gradient(180deg, var(--piano-white-active-bg) 0%, var(--surface-white) 85%, var(--surface-warm) 100%);
   color: var(--piano-white-active-ink);
   cursor: default;
 }
@@ -3300,19 +3315,29 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
 .piano-key-frame:active,
 .piano-key-inactive:active {
   transform: none;
+  box-shadow: none;
+}
+
+.piano-key-frame:active {
+  background: var(--piano-key-inactive-bg);
+  box-shadow: inset 0 2px 5px rgba(34, 36, 54, 0.12);
+}
+
+.piano-key-inactive:not(.piano-key-frame):active {
+  background: linear-gradient(180deg, var(--piano-white-active-bg) 0%, var(--surface-white) 85%, var(--surface-warm) 100%);
 }
 
 /* Mittiges Solfège-Kästchen sauber unterhalb der schwarzen Tasten auf den relevanten Tonleiter-Tasten */
 .solfege-key-box {
   position: absolute;
-  top: 68%;
+  top: 70%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: var(--bg-base);
   border: 1.5px solid var(--border-strong);
   border-radius: 6px;
   padding: 0.22rem 0.14rem;
-  width: 84%;
+  width: 82%;
   text-align: center;
   font-size: 0.86rem;
   font-weight: 800;
@@ -3331,15 +3356,21 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
 
 .piano-note-hint {
   font-size: 0.68rem;
-  font-weight: 700;
-  color: var(--raccoon-muted);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--piano-white-active-ink);
+  opacity: 0.72;
   pointer-events: none;
 }
 
-/* Richtige Antwort & aktive Auflösungs-Töne (Grün) */
-.piano-white-key.key-correct,
+/* Richtige Antwort & aktive Auflösungs-Töne (Grün – wie Aktiv-Zustand im Freien Spiel) */
+.piano-white-key.key-correct {
+  background: linear-gradient(180deg, var(--sage) 0%, var(--sage-soft) 100%) !important;
+  box-shadow: inset 0 3px 6px rgba(46, 111, 78, 0.24) !important;
+}
+
 .piano-black-key.key-correct {
-  background: var(--sage) !important;
+  background: linear-gradient(180deg, var(--sage-strong) 0%, var(--sage) 100%) !important;
   border-color: var(--sage-strong) !important;
 }
 
@@ -3354,7 +3385,7 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
 /* Falsche Antwort (Rot / Korall passend zur Farbpalette) */
 .piano-white-key.key-wrong,
 .piano-black-key.key-wrong {
-  background: #F8CACA !important;
+  background: linear-gradient(180deg, #F5B5B5 0%, #FDE2E2 100%) !important;
   border-color: var(--status-err) !important;
 }
 
@@ -3365,35 +3396,38 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
   border-color: var(--status-err);
 }
 
-/* Schwarze Tasten (aktiv in Tonart vs. ausgegraut außerhalb der Tonart) */
+/* Schwarze Tasten – einheitliches Design wie im Freien Spiel */
 .piano-black-key {
   position: absolute;
-  top: 4px;
-  width: 8%;
-  height: 54%;
+  top: 0;
+  height: 56%;
   transform: translateX(-50%);
   background: linear-gradient(180deg, var(--piano-black-bg-top) 0%, var(--piano-black-bg-bottom) 100%);
-  border: 1.5px solid var(--piano-black-border);
+  color: #FFFFFF;
+  border: 1px solid var(--piano-black-border);
+  border-top: none;
   border-radius: 0 0 6px 6px;
-  z-index: 2;
+  z-index: 4;
   pointer-events: none;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.28);
   padding: 0;
-  transition: background 0.15s, transform 0.08s, border-color 0.15s;
+  transition: background 0.08s ease, transform 0.06s ease, box-shadow 0.08s ease;
 }
 
 .piano-black-key.key-in-scale {
   pointer-events: auto;
   cursor: pointer;
-  z-index: 3;
+  z-index: 5;
 }
 
 .piano-black-key.key-in-scale:active {
-  transform: translate(-50%, 2px);
+  background: linear-gradient(180deg, var(--sage-strong) 0%, var(--sage) 100%);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22);
+  transform: translateX(-50%) translateY(1.5px);
 }
 
 .solfege-key-box-black {
-  top: 50%;
+  top: 52%;
   width: 88%;
   padding: 0.16rem 0.08rem;
   font-size: 0.66rem;
@@ -5071,27 +5105,72 @@ body,
   box-shadow: 0 12px 28px rgba(8, 10, 14, 0.42);
 }
 
-/* Klaviatur im Dark Mode: matte Elfenbein-Tasten, schiefergraue Randtasten & hoher Kontrast */
-[data-appearance="dark"] .piano-white-key {
-  background-color: var(--piano-white-active-bg);
+/* Einheitliche Klaviaturen im Dark Mode (Freies Spiel, Übungen & Einsing-Helfer): matte Elfenbein-Tasten & hoher Kontrast */
+[data-appearance="dark"] .piano-white-key,
+[data-appearance="dark"] .warmup-kb-white,
+[data-appearance="dark"] .freeplay-kb-white {
+  background: var(--piano-white-active-bg);
+  background: linear-gradient(180deg, var(--piano-white-active-bg) 0%, color-mix(in srgb, var(--piano-white-active-bg) 88%, #000000 12%) 100%);
   color: var(--piano-white-active-ink);
-  border-color: rgba(15, 17, 24, 0.28);
+  border-right-color: rgba(15, 17, 24, 0.28);
+}
+
+[data-appearance="dark"] .freeplay-kb-white.is-c-key,
+[data-appearance="dark"] .warmup-kb-white.is-c-key {
+  background: var(--piano-white-active-bg);
+  background: linear-gradient(180deg, var(--piano-white-active-bg) 0%, color-mix(in srgb, var(--piano-white-active-bg) 82%, var(--sage) 18%) 100%);
+}
+
+[data-appearance="dark"] .freeplay-kb-white.is-c-key .freeplay-kb-white-label,
+[data-appearance="dark"] .warmup-kb-white.is-c-key .warmup-kb-note {
+  color: var(--piano-white-active-ink);
+}
+
+[data-appearance="dark"] .freeplay-kb-white.is-root-key,
+[data-appearance="dark"] .warmup-kb-white.is-tonic {
+  background: linear-gradient(180deg, var(--peach) 0%, var(--peach-soft) 100%);
+}
+
+[data-appearance="dark"] .freeplay-kb-white.is-root-key .freeplay-kb-white-label,
+[data-appearance="dark"] .warmup-kb-white.is-tonic .warmup-kb-note {
+  color: var(--peach-strong);
+}
+
+[data-appearance="dark"] .freeplay-kb-white.is-active,
+[data-appearance="dark"] .freeplay-kb-white.is-pressed,
+[data-appearance="dark"] .warmup-kb-white.is-active,
+[data-appearance="dark"] .piano-white-key:not(.piano-key-frame):not(.piano-key-inactive):active {
+  background: linear-gradient(180deg, var(--sage) 0%, var(--sage-soft) 100%);
+}
+
+[data-appearance="dark"] .piano-black-key.key-in-scale:active,
+[data-appearance="dark"] .piano-black-key.notation-black-active:active {
+  background: linear-gradient(180deg, var(--sage-strong) 0%, var(--sage) 100%);
+}
+
+[data-appearance="dark"] .freeplay-kb-white.is-active .freeplay-kb-white-label,
+[data-appearance="dark"] .freeplay-kb-white.is-pressed .freeplay-kb-white-label,
+[data-appearance="dark"] .warmup-kb-white.is-active .warmup-kb-note {
+  color: var(--sage-strong);
 }
 
 [data-appearance="dark"] .piano-key-frame {
-  background-color: var(--piano-key-inactive-bg);
-  border-color: var(--piano-key-inactive-border);
+  background: var(--piano-key-inactive-bg);
+  border-right-color: var(--piano-key-inactive-border);
   color: var(--piano-key-inactive-text);
   box-shadow: inset 0 2px 6px rgba(10, 12, 16, 0.34);
 }
 
 [data-appearance="dark"] .piano-key-inactive:not(.piano-key-frame) {
-  background-color: var(--piano-white-active-bg);
-  border-color: rgba(15, 17, 24, 0.28);
+  background: var(--piano-white-active-bg);
+  background: linear-gradient(180deg, var(--piano-white-active-bg) 0%, color-mix(in srgb, var(--piano-white-active-bg) 88%, #000000 12%) 100%);
+  border-right-color: rgba(15, 17, 24, 0.28);
   color: var(--piano-white-active-ink);
 }
 
-[data-appearance="dark"] .piano-black-key {
+[data-appearance="dark"] .piano-black-key,
+[data-appearance="dark"] .warmup-kb-black,
+[data-appearance="dark"] .freeplay-kb-black {
   background: linear-gradient(180deg, var(--piano-black-bg-top) 0%, var(--piano-black-bg-bottom) 100%);
   border-color: var(--piano-black-border);
 }
@@ -5106,11 +5185,15 @@ body,
   color: var(--piano-black-solfege-ink);
 }
 
-[data-appearance="dark"] .piano-white-key.key-correct,
-[data-appearance="dark"] .piano-black-key.key-correct {
-  background: var(--sage) !important;
-  border-color: var(--sage-strong) !important;
+[data-appearance="dark"] .piano-white-key.key-correct {
+  background: linear-gradient(180deg, var(--sage) 0%, var(--sage-soft) 100%) !important;
   color: var(--raccoon-dark) !important;
+}
+
+[data-appearance="dark"] .piano-black-key.key-correct {
+  background: linear-gradient(180deg, var(--sage-strong) 0%, var(--sage) 100%) !important;
+  border-color: var(--sage-strong) !important;
+  color: var(--on-strong-accent) !important;
 }
 
 [data-appearance="dark"] .piano-white-key.key-correct .solfege-key-box,
@@ -7623,11 +7706,10 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 
 .warmup-keyboard-wrap {
   width: 100%;
-  border-radius: var(--radius-md);
-  background: var(--surface-white);
-  border: 1.5px solid var(--border-strong);
-  padding: 0.32rem;
-  box-shadow: var(--shadow-card);
+  direction: ltr;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
 }
 
 .warmup-kb {
@@ -7635,72 +7717,101 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   display: flex;
   width: 100%;
   height: 64px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1.5px solid var(--border-strong);
+  background-color: var(--surface-warm);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.08);
   user-select: none;
+  direction: ltr;
 }
 
 .warmup-kb-white {
+  position: relative;
   flex: 1 1 0%;
   min-width: 0;
   height: 100%;
-  border: 1px solid #D5CEC2;
-  border-radius: 0 0 6px 6px;
-  background: #FFFFFF;
-  position: relative;
-  padding: 0;
+  background: linear-gradient(180deg, var(--piano-white-active-bg) 0%, var(--surface-white) 85%, var(--surface-warm) 100%);
+  color: var(--piano-white-active-ink);
+  border: none;
+  border-right: 1px solid var(--border-soft);
+  padding: 0 0 0.24rem 0;
   cursor: pointer;
+  touch-action: manipulation;
   display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding-bottom: 4px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  transition: background 0.08s ease, transform 0.06s ease, box-shadow 0.08s ease;
 }
 
-.warmup-kb-white + .warmup-kb-white {
-  margin-left: 2px;
+.warmup-kb-white:last-of-type {
+  border-right: none;
+}
+
+.warmup-kb-white.is-c-key {
+  background: linear-gradient(180deg, var(--surface-white) 0%, var(--sage-soft) 100%);
 }
 
 .warmup-kb-note {
   font-size: 0.56rem;
   font-weight: 800;
-  color: #6B6D7C;
+  color: var(--piano-white-active-ink);
   pointer-events: none;
   line-height: 1;
 }
 
+.warmup-kb-white.is-c-key .warmup-kb-note {
+  color: var(--sage-strong);
+}
+
 .warmup-kb-white.is-tonic {
-  background: #FFF2E6;
-  border-color: #E3A77C;
+  background: linear-gradient(180deg, var(--peach) 0%, var(--peach-soft) 100%);
+  box-shadow: inset 0 2px 5px rgba(156, 74, 26, 0.22);
+}
+
+.warmup-kb-white.is-tonic .warmup-kb-note {
+  color: var(--peach-strong);
 }
 
 .warmup-kb-white.is-active {
-  background: var(--sage) !important;
-  border-color: var(--sage-strong) !important;
+  background: linear-gradient(180deg, var(--sage) 0%, var(--sage-soft) 100%) !important;
+  box-shadow: inset 0 3px 6px rgba(46, 111, 78, 0.24);
+  transform: translateY(1.5px);
 }
 
 .warmup-kb-white.is-active .warmup-kb-note {
-  color: #1F2622;
+  color: var(--sage-strong);
 }
 
 .warmup-kb-black {
   position: absolute;
   top: 0;
-  height: 58%;
+  height: 60%;
   transform: translateX(-50%);
-  border: 1px solid #1C1E2E;
-  border-radius: 0 0 5px 5px;
-  background: linear-gradient(180deg, #3D405B 0%, #242639 100%);
-  z-index: 3;
+  z-index: 4;
+  background: linear-gradient(180deg, var(--piano-black-bg-top) 0%, var(--piano-black-bg-bottom) 100%);
+  color: #FFFFFF;
+  border: 1px solid var(--piano-black-border);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
   cursor: pointer;
+  touch-action: manipulation;
   padding: 0;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.28);
+  transition: background 0.08s ease, transform 0.06s ease, box-shadow 0.08s ease;
 }
 
 .warmup-kb-black.is-tonic {
-  background: linear-gradient(180deg, #C77A4A 0%, #8C4E27 100%);
-  border-color: #6E3918;
+  background: linear-gradient(180deg, var(--peach-strong) 0%, var(--peach) 100%);
+  border-color: var(--peach-strong);
 }
 
 .warmup-kb-black.is-active {
-  background: var(--sage-strong) !important;
-  border-color: var(--sage) !important;
+  background: linear-gradient(180deg, var(--sage-strong) 0%, var(--sage) 100%) !important;
+  border-color: var(--sage-strong) !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22);
+  transform: translateX(-50%) translateY(1.5px);
 }
 
 .warmup-manual-row {
@@ -7964,22 +8075,18 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   box-shadow: 0 0.5px 0 var(--tactile-edge);
 }
 
-.piano-white-key:not(.piano-key-frame) {
-  box-shadow: inset 0 -3px 0 rgba(61, 64, 91, 0.11);
-}
-
 .piano-white-key:not(.piano-key-frame):not(.piano-key-inactive):active {
-  transform: translateY(2px);
-  box-shadow: inset 0 -1px 0 rgba(61, 64, 91, 0.08);
+  transform: translateY(1.5px);
+  box-shadow: inset 0 3px 6px rgba(46, 111, 78, 0.22);
 }
 
 .piano-black-key {
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.28), inset 0 -2px 0 rgba(255, 255, 255, 0.09);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.28);
 }
 
 .piano-black-key.key-in-scale:active {
-  transform: translate(-50%, 2px);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.24);
+  transform: translateX(-50%) translateY(1.5px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22);
 }
 
 .central-stage {
@@ -9510,17 +9617,17 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 
 .solfege-keyboard-wrap.is-notation .piano-black-key {
-  height: 54%;
+  height: 56%;
 }
 
 .solfege-keyboard-wrap.is-notation .notation-key-box-white {
-  top: 75%;
+  top: 76%;
   font-size: 0.86rem;
   padding: 0.22rem 0.14rem;
 }
 
 .solfege-keyboard-wrap.is-notation .notation-key-box-black {
-  top: 48%;
+  top: 50%;
   font-size: 0.54rem;
   padding: 0.14rem 0.06rem;
 }
@@ -9534,11 +9641,13 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 .piano-black-key.notation-black-active {
   pointer-events: auto;
   cursor: pointer;
-  z-index: 3;
+  z-index: 5;
 }
 
 .piano-black-key.notation-black-active:active {
-  transform: translate(-50%, 2px);
+  background: linear-gradient(180deg, var(--sage-strong) 0%, var(--sage) 100%);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22);
+  transform: translateX(-50%) translateY(1.5px);
 }
 
 .exam-notation-review-staff {
@@ -9805,6 +9914,22 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
    ===================================================== */
 .tools-card-list {
   gap: 0.68rem;
+}
+
+.tools-card-list .category-nav-card {
+  border-inline-start: 1px solid var(--border-soft);
+}
+
+.tools-card-list .category-nav-card.card-accent-sage {
+  border-bottom: 5px solid var(--sage);
+}
+
+.tools-card-list .category-nav-card.card-accent-peach {
+  border-bottom: 5px solid var(--peach);
+}
+
+.tools-card-list .category-nav-card.card-accent-lilac {
+  border-bottom: 5px solid var(--lilac);
 }
 
 .tool-card-title-row {
@@ -12499,9 +12624,14 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   font-size: 0.9rem;
 }
 .node-circle.node-circle-nowrap {
-  font-size: 0.8rem;
-  letter-spacing: -0.03em;
+  font-size: 0.84rem;
+  letter-spacing: -0.025em;
+  line-height: 1;
   white-space: nowrap;
+}
+.node-circle.node-circle-compact.node-circle-nowrap {
+  font-size: 0.94rem;
+  letter-spacing: -0.02em;
 }
 
 /* Hochformat-Sperre auf Smartphones im Querformat */
