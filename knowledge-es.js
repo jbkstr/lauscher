@@ -1815,15 +1815,18 @@ const CATEGORY_HELP_GUIDES_ES = {
         </div>
         <div class="k-compare-box is-peach">
           <h5>Intervalos sobre colchón de fundamental (cuerdas ➔ piano)</h5>
-          <p>Un cálido <strong>colchón de cuerdas</strong> mantiene la fundamental de forma continua. Tras una breve pausa, el <strong>piano</strong> toca la nota objetivo por encima: ideal para sentir la tensión y el color de cada grado.</p>
+          <p>Un cálido <strong>colchón de cuerdas</strong> mantiene la fundamental de forma continua. Tras una breve pausa, el <strong>piano</strong> toca la nota objetivo por encima, con controles propios para <strong>Pedal de tónica</strong> (50 % por defecto) e <strong>Intervalo</strong>.</p>
         </div>
       </div>
 
-      <h3>Dificultad de los intervalos (3 niveles)</h3>
+      <h3>Niveles: Mayor, Menor, Cromático &amp; Modo libre</h3>
       <ul class="article-steps-list">
-        <li><strong>Nivel 1 – Principiante:</strong> Cuatro referencias imprescindibles (ascendentes o descendentes): unísono (<code>P1</code>), tercera mayor (<code>M3</code>), quinta justa (<code>P5</code>) y octava (<code>P8</code>).</li>
-        <li><strong>Nivel 2 – Escala mayor:</strong> Los 8 intervalos diatónicos del unísono a la octava.</li>
-        <li><strong>Nivel 3 – Cromático:</strong> Los 15 intervalos del unísono a la novena mayor (<code>M9</code>), incluidos todos los intervalos menores y el tritono.</li>
+        <li><strong>Principiante (Nivel 1 en mayor / Menor 1):</strong> Cuatro referencias de tríada: unísono (<code>P1</code>), tercera mayor (<code>M3</code>) o tercera menor (<code>m3</code>), quinta justa (<code>P5</code>) y octava (<code>P8</code>).</li>
+        <li><strong>Mitad inferior 1–4 (Nivel 2 en mayor / Menor 2):</strong> El tetracordo inferior (4 intervalos): unísono (<code>P1</code>), segunda mayor (<code>M2</code>), tercera mayor o menor (<code>M3</code> / <code>m3</code>) y cuarta justa (<code>P4</code>).</li>
+        <li><strong>Mitad superior 5–8 (Nivel 3 en mayor / Menor 3):</strong> El tetracordo superior (4 intervalos): quinta justa (<code>P5</code>), sexta mayor o menor (<code>M6</code> / <code>m6</code>), séptima mayor o menor (<code>M7</code> / <code>m7</code>) y octava (<code>P8</code>).</li>
+        <li><strong>Escala completa (Nivel 4 Escala mayor / Menor 4 Escala menor):</strong> Los 8 intervalos diatónicos del unísono a la octava en mayor o menor natural.</li>
+        <li><strong>Nivel 5 – Cromático:</strong> Los 15 intervalos del unísono a la novena mayor (<code>M9</code>), incluidos todos los intervalos menores y el tritono (<code>TT</code>).</li>
+        <li><strong>Tonalidad &amp; modos libres (Entrenamiento a medida):</strong> Elige una <strong>Tónica fija</strong> (<code>Do</code> a <code>Si</code>) o <strong>Aleatoria</strong>, una <strong>Escala o modo</strong> (<em>Mayor/Jónico</em>, <em>Menor natural/armónica/melódica</em>, <em>Dórico</em>, <em>Frigio</em>, <em>Lidio</em>, <em>Mixolidio</em>, <em>Locrio</em>, <em>Cromática</em>), el <strong>Rango</strong> (<em>Principiante</em>, <em>1–4</em>, <em>5–8</em>, <em>1–8</em>) o activa cada intervalo individualmente, tanto en la página de categoría como en directo desde la insignia superior derecha.</li>
       </ul>
 
       <h3>Entender la notación abreviada de los intervalos</h3>
@@ -1839,7 +1842,7 @@ const CATEGORY_HELP_GUIDES_ES = {
 
       <div class="article-highlight-box">
         <h4>Cantar, comparación A/B &amp; examen</h4>
-        <p>Arriba, el botón <strong>Cantar</strong> (con <em>pausa para tararear</em> opcional) ayuda a tu voz a sentir la distancia. Abajo, <strong>Nota de partida</strong> repite la nota inicial; tras un error, la <strong>comparación A/B</strong> repite tu elección desde esa misma nota y en la misma dirección justo antes de la solución. Usa <strong>Bucle</strong> para repetir sin fin (o activa <strong>Siguiente automático</strong> en los Ajustes), <strong>Solo escucha</strong> para repasar de forma pasiva, y haz el <strong>Examen de categoría</strong> con los 4 tipos de intervalos.</p>
+        <p>Arriba, el botón <strong>Cantar</strong> (con <em>pausa para tararear</em> opcional) ayuda a tu voz a sentir la distancia. Abajo, <strong>Nota de partida</strong> repite la nota inicial; tras un error, la <strong>comparación A/B</strong> repite tu elección desde esa misma nota y en la misma dirección justo antes de la solución. Usa <strong>Bucle</strong> para repetir sin fin (o activa <strong>Siguiente automático</strong> en los Ajustes), <strong>Solo escucha</strong> para repasar de forma pasiva, y haz el <strong>Examen de categoría</strong> con los 4 tipos de intervalos (Mayor, Menor, Mitades, Mayor y Menor combinados, Cromático y Tonalidad y modos libres).</p>
       </div>
     `
   },

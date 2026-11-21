@@ -1089,54 +1089,222 @@ registerColocatedPhrases({
     uk: "Повторити іспит",
     ur: "امتحان دہرائیں"
   },
-  "⇄ A/B Vergleich": {
-    fr: "⇄ Comparaison A/B",
-    es: "⇄ Comparación A/B",
-    pl: "⇄ Porównanie A/B",
-    uk: "⇄ Порівняння A/B",
-    ur: "⇄ A/B موازنہ"
+  "A/B Vergleich": {
+    fr: "Comparaison A/B",
+    es: "Comparación A/B",
+    pl: "Porównanie A/B",
+    uk: "Порівняння A/B",
+    ur: "A/B موازنہ"
   },
-  "⏭ Übersprungen": {
-    fr: "⏭ Ignorée",
-    es: "⏭ Saltada",
-    pl: "⏭ Pominięte",
-    uk: "⏭ Пропущено",
-    ur: "⏭ چھوڑ دیا گیا"
+  "Meine Wahl": {
+    fr: "Mon choix",
+    es: "Mi elección",
+    pl: "Mój wybór",
+    uk: "Мій вибір",
+    ur: "میرا انتخاب"
   },
-  "▶ Meine Wahl": {
-    fr: "▶ Mon choix",
-    es: "▶ Mi elección",
-    pl: "▶ Mój wybór",
-    uk: "▶ Мій вибір",
-    ur: "▶ میرا انتخاب"
+  "Richtige Lösung": {
+    fr: "Bonne réponse",
+    es: "Respuesta correcta",
+    pl: "Poprawna odpowiedź",
+    uk: "Правильна відповідь",
+    ur: "صحیح آواز"
   },
-  "▶ Richtige Lösung": {
-    fr: "▶ Bonne réponse",
-    es: "▶ Respuesta correcta",
-    pl: "▶ Poprawna odpowiedź",
-    uk: "▶ Правильна відповідь",
-    ur: "▶ صحیح آواز"
+  "{pts} Pkt.": {
+    fr: "{pts} pt",
+    es: "{pts} pt",
+    pl: "{pts} pkt.",
+    uk: "{pts} б.",
+    ur: "{pts} پوائنٹس"
   },
-  "◐ {pts} Pkt.": {
-    fr: "◐ {pts} pt",
-    es: "◐ {pts} pt",
-    pl: "◐ {pts} pkt.",
-    uk: "◐ {pts} б.",
-    ur: "◐ {pts} پوائنٹس"
+  "Richtig": {
+    fr: "Juste",
+    es: "Correcto",
+    pl: "Poprawnie",
+    uk: "Правильно",
+    ur: "درست"
   },
-  "✓ Richtig": {
-    fr: "✓ Juste",
-    es: "✓ Correcto",
-    pl: "✓ Poprawnie",
-    uk: "✓ Правильно",
-    ur: "✓ درست"
+  "Falsch": {
+    fr: "Faux",
+    es: "Incorrecto",
+    pl: "Błąd",
+    uk: "Неправильно",
+    ur: "غلط"
   },
-  "✗ Falsch": {
-    fr: "✗ Faux",
-    es: "✗ Incorrecto",
-    pl: "✗ Błąd",
-    uk: "✗ Неправильно",
-    ur: "✗ غلط"
+  "Zufall (alle 12)": {
+    fr: "Aléatoire (les 12)",
+    es: "Aleatorio (las 12)",
+    pl: "Losowo (wszystkie 12)",
+    uk: "Випадково (усі 12)",
+    ur: "بے ترتیب (تمام 12)"
+  },
+  "Tonleiter / Modus": {
+    fr: "Gamme / Mode",
+    es: "Escala / Modo",
+    pl: "Skala / Modus",
+    uk: "Гама / Лад",
+    ur: "اسکیل / موڈ"
+  },
+  "Umfang": {
+    fr: "Étendue",
+    es: "Rango",
+    pl: "Zakres",
+    uk: "Діапазон",
+    ur: "دائرہ کار"
+  },
+  "Intervall-Auswahl ({n}): {list}": {
+    fr: "Sélection d’intervalles ({n}) : {list}",
+    es: "Selección de intervalos ({n}): {list}",
+    pl: "Zestaw interwałów ({n}): {list}",
+    uk: "Набір інтервалів ({n}): {list}",
+    ur: "فاصلوں کا انتخاب ({n}): {list}"
+  },
+  "Stufe 1 • Dur Grundlagen": {
+    fr: "Niveau 1 • Bases majeur",
+    es: "Nivel 1 • Bases en mayor",
+    pl: "Poziom 1 • Podstawy dur",
+    uk: "Рівень 1 • Основи мажору",
+    ur: "سطح 1 • میجر بنیادیں"
+  },
+  "Stufe 2 • Dur Tonleiter-Hälften (1–4 & 5–8)": {
+    fr: "Niveau 2 • Moitiés de gamme majeure (1–4 & 5–8)",
+    es: "Nivel 2 • Mitades de escala mayor (1–4 y 5–8)",
+    pl: "Poziom 2 • Połówki gamy dur (1–4 i 5–8)",
+    uk: "Рівень 2 • Половини мажору (1–4 та 5–8)",
+    ur: "سطح 2 • میجر اسکیل کے حصے (1–4 اور 5–8)"
+  },
+  "Unteres (1–4) & oberes (5–8) Dur-Tetrachord im Wechsel über leichte Tonarten": {
+    fr: "Tétracordes majeur inférieur (1–4) et supérieur (5–8) en alternance dans les tonalités faciles",
+    es: "Tetracordios mayor inferior (1–4) y superior (5–8) alternados en tonalidades fáciles",
+    pl: "Dolny (1–4) i górny (5–8) tetrachord dur naprzemiennie w łatwych tonacjach",
+    uk: "Нижній (1–4) і верхній (5–8) мажорні тетрахорди по черзі в простих тональностях",
+    ur: "آسان کلیدوں میں میجر کے نچلے (1–4) اور اوپری (5–8) حصے باری باری"
+  },
+  "Stufe 3 • Dur-Tonleiter (1–8)": {
+    fr: "Niveau 3 • Gamme majeure (1–8)",
+    es: "Nivel 3 • Escala mayor (1–8)",
+    pl: "Poziom 3 • Gama dur (1–8)",
+    uk: "Рівень 3 • Мажорна гама (1–8)",
+    ur: "سطح 3 • مکمل میجر اسکیل (1–8)"
+  },
+  "Alle 8 diatonischen Dur-Intervalle gemischt über leichte Tonarten (inkl. Grundton-Fläche)": {
+    fr: "Les 8 intervalles diatoniques majeurs mélangés en tonalités faciles (nappe incluse)",
+    es: "Los 8 intervalos diatónicos mayores mezclados en tonalidades fáciles (incl. pedal)",
+    pl: "Wszystkie 8 diatonicznych interwałów dur w łatwych tonacjach (z tłem prymy)",
+    uk: "Усі 8 діатонічних мажорних інтервалів у простих тональностях (із тонічним фоном)",
+    ur: "آسان کلیدوں میں تمام 8 میجر فاصلے ملا کر (بنیادی سُر کے پیڈ سمیت)"
+  },
+  "Moll • Stufe 1": {
+    fr: "Mineur • Niveau 1",
+    es: "Menor • Nivel 1",
+    pl: "Moll • Poziom 1",
+    uk: "Мінор • Рівень 1",
+    ur: "مائنر • سطح 1"
+  },
+  "Moll • Grundlagen": {
+    fr: "Mineur • Bases",
+    es: "Menor • Bases",
+    pl: "Moll • Podstawy",
+    uk: "Мінор • Основи",
+    ur: "مائنر • بنیادیں"
+  },
+  "Prime, kl. Terz, Quinte & Oktave (Aufwärts, Abwärts, Harmonisch & Grundton-Fläche)": {
+    fr: "Unisson, tierce min., quinte et octave (asc., desc., harmonique & nappe)",
+    es: "Unísono, 3.ª menor, 5.ª y octava (ascendente, descendente, armónico y pedal)",
+    pl: "Pryma, tercja mała, kwinta i oktawa (w górę, w dół, harmonicznie i na tle prymy)",
+    uk: "Прима, мала терція, квінта й октава (вгору, вниз, гармонічно та на тонічному фоні)",
+    ur: "پرائم، مائنر تھرڈ، ففتھ اور آکٹیو (اوپر، نیچے، ہارمونک اور بنیادی سُر کے پیڈ پر)"
+  },
+  "Moll • Stufe 2": {
+    fr: "Mineur • Niveau 2",
+    es: "Menor • Nivel 2",
+    pl: "Moll • Poziom 2",
+    uk: "Мінор • Рівень 2",
+    ur: "مائنر • سطح 2"
+  },
+  "Moll • Tonleiter-Hälften (1–4 & 5–8)": {
+    fr: "Mineur • Moitiés de gamme (1–4 & 5–8)",
+    es: "Menor • Mitades de escala (1–4 y 5–8)",
+    pl: "Moll • Połówki gamy (1–4 i 5–8)",
+    uk: "Мінор • Половини гами (1–4 та 5–8)",
+    ur: "مائنر • اسکیل کے حصے (1–4 اور 5–8)"
+  },
+  "Unteres (1–4) & oberes (5–8) Moll-Tetrachord im Wechsel über leichte Tonarten": {
+    fr: "Tétracordes mineur inférieur (1–4) et supérieur (5–8) en alternance dans les tonalités faciles",
+    es: "Tetracordios menor inferior (1–4) y superior (5–8) alternados en tonalidades fáciles",
+    pl: "Dolny (1–4) i górny (5–8) tetrachord moll naprzemiennie w łatwych tonacjach",
+    uk: "Нижній (1–4) і верхній (5–8) мінорні тетрахорди по черзі в простих тональностях",
+    ur: "آسان کلیدوں میں مائنر کے نچلے (1–4) اور اوپری (5–8) حصے باری باری"
+  },
+  "Moll • Stufe 3": {
+    fr: "Mineur • Niveau 3",
+    es: "Menor • Nivel 3",
+    pl: "Moll • Poziom 3",
+    uk: "Мінор • Рівень 3",
+    ur: "مائنر • سطح 3"
+  },
+  "Moll • Ganze Tonleiter (1–8)": {
+    fr: "Mineur • Gamme complète (1–8)",
+    es: "Menor • Escala completa (1–8)",
+    pl: "Moll • Cała gama (1–8)",
+    uk: "Мінор • Повна гама (1–8)",
+    ur: "مائنر • مکمل اسکیل (1–8)"
+  },
+  "Alle 8 Intervalle in Natürlich Moll inkl. kl. Terz, kl. Sexte & kl. Septime": {
+    fr: "Les 8 intervalles du mineur naturel dont tierce, sixte et septième mineures",
+    es: "Los 8 intervalos de menor natural incl. 3.ª, 6.ª y 7.ª menores",
+    pl: "Wszystkie 8 interwałów w moll naturalnym (w tym mała tercja, seksta i septyma)",
+    uk: "Усі 8 інтервалів натурального мінору включно з малою терцією, секстою та септимою",
+    ur: "نیچرل مائنر کے تمام 8 فاصلے بشمول مائنر تھرڈ، سکسٹھ اور سیونٹھ"
+  },
+  "Stufe 4 • Dur & Moll gemischt": {
+    fr: "Niveau 4 • Majeur & Mineur mélangés",
+    es: "Nivel 4 • Mayor y Menor combinados",
+    pl: "Poziom 4 • Dur i Moll razem",
+    uk: "Рівень 4 • Мажор і Мінор разом",
+    ur: "سطح 4 • میجر اور مائنر ملا کر"
+  },
+  "Alle 11 Dur- & Moll-Intervalle direkt gemischt (kl./gr. Terz, Sexte & Septime) in allen 12 Tonarten": {
+    fr: "Les 11 intervalles majeurs et mineurs mélangés (3ce, 6te & 7e min./maj.) dans les 12 tonalités",
+    es: "Los 11 intervalos mayores y menores mezclados (3.ª, 6.ª y 7.ª men./may.) en las 12 tonalidades",
+    pl: "Wszystkie 11 interwałów dur i moll razem (mała/wielka tercja, seksta i septyma) w 12 tonacjach",
+    uk: "Усі 11 мажорних і мінорних інтервалів разом (малі/великі терція, секста й септима) у 12 тональностях",
+    ur: "تمام 12 کلیدوں میں 11 میجر اور مائنر فاصلے آمنے سامنے (مائنر/میجر تھرڈ، سکسٹھ اور سیونٹھ)"
+  },
+  "Stufe 5 • Chromatisch (Alle 15 Intervalle)": {
+    fr: "Niveau 5 • Chromatique (les 15 intervalles)",
+    es: "Nivel 5 • Cromático (los 15 intervalos)",
+    pl: "Poziom 5 • Chromatycznie (wszystkie 15)",
+    uk: "Рівень 5 • Хроматика (усі 15 інтервалів)",
+    ur: "سطح 5 • کرومیٹک (تمام 15 فاصلے)"
+  },
+  "Gesamtes chromatisches Spektrum inkl. kl. Sekunde, Tritonus, kl./gr. Intervalle & Nonen": {
+    fr: "Spectre chromatique complet incluant 2nde min., triton, intervalles min./maj. et neuvièmes",
+    es: "Espectro cromático completo incl. 2.ª men., tritono, intervalos men./may. y novenas",
+    pl: "Pełne spektrum chromatyczne z małą sekundą, trytonem, interwałami m./w. oraz nonami",
+    uk: "Повний хроматичний спектр із малою секундою, тритоном, малими/великими інтервалами й нонами",
+    ur: "مکمل کرومیٹک اسپیکٹرم بشمول مائنر سیکنڈ، ٹرائی ٹون، مائنر/میجر فاصلے اور نائنتھ"
+  },
+  "Freie Wahl": {
+    fr: "Libre",
+    es: "Libre",
+    pl: "Dowolny",
+    uk: "Вільний вибір",
+    ur: "آزاد انتخاب"
+  },
+  "Freie Tonart & Modi": {
+    fr: "Tonalité & modes libres",
+    es: "Tonalidad y modos libres",
+    pl: "Dowolna tonacja i skale",
+    uk: "Вільна тональність і лади",
+    ur: "آزاد کلید اور موڈز"
+  },
+  "Prüfe deine selbst gewählte Tonart, Skala/Kirchentonart & Tonleiter-Ausschnitt unter Prüfungsbedingungen": {
+    fr: "Testez la tonalité, la gamme/le mode et l’étendue de votre choix en conditions d’examen",
+    es: "Pon a prueba la tonalidad, la escala/modo y el rango elegidos en condiciones de examen",
+    pl: "Sprawdź wybraną przez siebie tonację, skalę/modus i zakres w warunkach egzaminu",
+    uk: "Перевір обрану тональність, гаму/лад і діапазон в умовах іспиту",
+    ur: "امتحانی حالات میں اپنی منتخب کردہ کلید، اسکیل/موڈ اور دائرے کا امتحان لیں"
   },
   "Schwächstes Modul üben: {mod}": {
     fr: "Travailler le module faible : {mod}",

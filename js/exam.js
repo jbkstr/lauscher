@@ -97,12 +97,52 @@ function formatExamScoreVal(val) {
   return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(2).replace(/0$/, "");
 }
 
+function getExamIconSVG(kind, size = 16) {
+  const s = Number(size) || 16;
+  const open = `<svg class="exam-svg-icon" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">`;
+  if (kind === "trophy") {
+    return `${open}<path d="M7 4.5h10v4.8a5 5 0 0 1-10 0V4.5Z" fill="currentColor" fill-opacity="0.16"/><path d="M7 6.5H4.8a1.8 1.8 0 0 0-1.8 1.8v.4a3.4 3.4 0 0 0 3.4 3.4h.9"/><path d="M17 6.5h2.2a1.8 1.8 0 0 1 1.8 1.8v.4a3.4 3.4 0 0 1-3.4 3.4h-.9"/><path d="M12 14.3v4.2"/><path d="M8.5 19.5h7"/><path d="M9.6 18.5h4.8"/></svg>`;
+  }
+  if (kind === "medal") {
+    return `${open}<path d="M8.5 3.5 10.6 9"/><path d="M15.5 3.5 13.4 9"/><path d="M7 3.5h10"/><circle cx="12" cy="14.5" r="5.5" fill="currentColor" fill-opacity="0.16"/><path d="M12 11.9l.8 1.7 1.8.2-1.3 1.3.3 1.8-1.6-.9-1.6.9.3-1.8-1.3-1.3 1.8-.2.8-1.7Z" stroke-width="1.5"/></svg>`;
+  }
+  if (kind === "leaf") {
+    return `${open}<path d="M19.5 4.8C13.4 4.8 7 8.4 6.2 15.2c-.2 1.7.7 3.1 2.4 3.2 6.8.3 10.9-5.8 10.9-13.6Z" fill="currentColor" fill-opacity="0.16"/><path d="M5.5 19.5c2.4-2.8 5.6-5.7 9.6-8.2"/></svg>`;
+  }
+  if (kind === "headphones") {
+    return `${open}<path d="M4.5 14v-1.5a7.5 7.5 0 0 1 15 0V14"/><rect x="3.5" y="13.5" width="3.8" height="6" rx="1.8" fill="currentColor" fill-opacity="0.18"/><rect x="16.7" y="13.5" width="3.8" height="6" rx="1.8" fill="currentColor" fill-opacity="0.18"/></svg>`;
+  }
+  if (kind === "star") {
+    return `${open}<path d="M12 3.4l2.55 5.18 5.72.83-4.14 4.03.98 5.7L12 16.45l-5.11 2.69.98-5.7-4.14-4.03 5.72-.83L12 3.4Z" fill="currentColor" fill-opacity="0.22"/></svg>`;
+  }
+  if (kind === "check") {
+    return `${open}<path d="M5 12.6l4.6 4.6L19 7.5" stroke-width="2.4"/></svg>`;
+  }
+  if (kind === "partial") {
+    return `${open}<circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 0 0 16Z" fill="currentColor" stroke="none"/></svg>`;
+  }
+  if (kind === "cross") {
+    return `${open}<path d="M7 7l10 10M17 7L7 17" stroke-width="2.3"/></svg>`;
+  }
+  if (kind === "skip") {
+    return `${open}<path d="M5.5 6.8 13.8 12l-8.3 5.2V6.8Z" fill="currentColor" fill-opacity="0.18"/><path d="M17.5 6.8v10.4" stroke-width="2.2"/></svg>`;
+  }
+  if (kind === "play") {
+    return `${open}<path d="M7.5 5.8 18.2 12 7.5 18.2V5.8Z" fill="currentColor" fill-opacity="0.22"/></svg>`;
+  }
+  if (kind === "compare") {
+    return `${open}<path d="M15.8 4.8 19.5 8.5l-3.7 3.7"/><path d="M19.2 8.5H5.5"/><path d="M8.2 19.2 4.5 15.5l3.7-3.7"/><path d="M4.8 15.5h13.7"/></svg>`;
+  }
+  return "";
+}
+
 function getLauschebaerExamBadge(percent) {
   const p = Number(percent) || 0;
   if (p >= 90) {
     return {
       tierCls: "tier-master",
-      icon: "🏆",
+      emblemCls: "is-master",
+      iconKey: "trophy",
       title: tr("Lauscher-Meister", "Lauscher Master"),
       sub: tr(
         "Souveränes Gehör! Du erkennst selbst feine Details ruhig und treffsicher.",
@@ -113,7 +153,8 @@ function getLauschebaerExamBadge(percent) {
   if (p >= 75) {
     return {
       tierCls: "tier-good",
-      icon: "✨",
+      emblemCls: "is-medal",
+      iconKey: "medal",
       title: tr("Starker Lauscher", "Sharp Listener"),
       sub: tr(
         "Sehr starke Trefferquote! Hör dir in der Rückschau kurz die wenigen Wackler im Vergleich an.",
@@ -124,7 +165,8 @@ function getLauschebaerExamBadge(percent) {
   if (p >= 50) {
     return {
       tierCls: "tier-good",
-      icon: "🌿",
+      emblemCls: "is-good",
+      iconKey: "leaf",
       title: tr("Guter Kurs", "Solid Progress"),
       sub: tr(
         "Gute Grundlage! Ein gezielter Übe-Fokus auf das schwächste Modul hebt dich aufs nächste Niveau.",
@@ -134,13 +176,59 @@ function getLauschebaerExamBadge(percent) {
   }
   return {
     tierCls: "",
-    icon: "🎧",
+    emblemCls: "is-keep",
+    iconKey: "headphones",
     title: tr("Dranbleiben lohnt sich", "Keep Listening"),
     sub: tr(
       "Jede Prüfung schärft dein Ohr – vergleiche deine Antworten jetzt direkt in der Hör-Rückschau!",
       "Every exam sharpens your ear — compare your choices directly in the audio review below!"
     )
   };
+}
+
+function buildExamCustomIntervalControlsHtml() {
+  const curRoot = String(state?.settings?.intervalCustomRoot ?? "random");
+  const curScale = String(state?.settings?.intervalCustomScale || "ionian");
+  const curScope = String(state?.settings?.intervalCustomScope || "full");
+
+  const rootOptions = [
+    `<option value="random" ${curRoot === "random" ? "selected" : ""}>${escapeHtml(tr("Zufall (alle 12)", "Random (all 12)"))}</option>`,
+    ...MODES_ROOT_MIDI_BY_PC.map((midi, pc) => {
+      const val = String(pc);
+      return `<option value="${val}" ${curRoot === val ? "selected" : ""}>${escapeHtml(getModesRootDisplayName(midi))}</option>`;
+    })
+  ].join("");
+
+  const scaleOptions = Object.keys(INTERVAL_SCALE_PRESETS).map(scaleId =>
+    `<option value="${escapeHtml(scaleId)}" ${curScale === scaleId ? "selected" : ""}>${escapeHtml(getLocalizedIntervalCustomScaleLabel(scaleId))}</option>`
+  ).join("");
+
+  const scopeOptions = ["triad", "lower", "upper", "full"].map(scope =>
+    `<option value="${escapeHtml(scope)}" ${curScope === scope ? "selected" : ""}>${escapeHtml(getLocalizedIntervalCustomScopeLabel(scope))}</option>`
+  ).join("");
+
+  const activePool = getActiveIntervalCustomPool();
+  const poolText = activePool.map(k => getLocalizedIntervalDef(k)?.symbol || k).join(" • ");
+
+  return `
+    <div class="exam-custom-config" data-exam-custom-box>
+      <div class="exam-custom-grid">
+        <label class="exam-custom-field">
+          <span>${escapeHtml(tr("Grundton", "Root Key"))}</span>
+          <select class="account-select exam-custom-select" data-exam-custom-select="root">${rootOptions}</select>
+        </label>
+        <label class="exam-custom-field">
+          <span>${escapeHtml(tr("Tonleiter / Modus", "Scale / Mode"))}</span>
+          <select class="account-select exam-custom-select" data-exam-custom-select="scale">${scaleOptions}</select>
+        </label>
+        <label class="exam-custom-field">
+          <span>${escapeHtml(tr("Umfang", "Range"))}</span>
+          <select class="account-select exam-custom-select" data-exam-custom-select="scope">${scopeOptions}</select>
+        </label>
+      </div>
+      <div class="exam-custom-preview" data-exam-custom-preview>${escapeHtml(tf("Intervall-Auswahl ({n}): {list}", "Interval Pool ({n}): {list}", { n: activePool.length, list: poolText }))}</div>
+    </div>
+  `;
 }
 
 function openExamSetupPage(categoryKey = state.activeCategory, options = {}) {
@@ -155,30 +243,35 @@ function openExamSetupPage(categoryKey = state.activeCategory, options = {}) {
   const cfg = state.examConfig || { count: 10, feedbackMode: "blind", maxReplays: 2 };
   const catBest = getCategoryBestExamPercent(categoryKey);
   const catBestPill = catBest !== null
-    ? `<span class="exam-best-pill">★ ${escapeHtml(tf("Bestwert: {pct}%", "Best: {pct}%", { pct: catBest }))}</span>`
+    ? `<span class="exam-best-pill">${getExamIconSVG("star", 12)}<span>${escapeHtml(tf("Bestwert: {pct}%", "Best: {pct}%", { pct: catBest }))}</span></span>`
     : "";
 
   const levelsHtml = catCfg.presets.map(preset => {
     const levelBest = getCategoryBestExamPercent(categoryKey, preset.id);
     const bestHtml = levelBest !== null
-      ? `<span class="exam-best-pill">${escapeHtml(tf("Bestwert: {pct}%", "Best: {pct}%", { pct: levelBest }))}</span>`
+      ? `<span class="exam-best-pill">${getExamIconSVG("star", 12)}<span>${escapeHtml(tf("Bestwert: {pct}%", "Best: {pct}%", { pct: levelBest }))}</span></span>`
       : "";
+    const pillText = preset.badge
+      ? tr(preset.badge.de, preset.badge.en)
+      : tf("Stufe {n}", "Level {n}", { n: preset.levelNumber });
     const modeChipsHtml = preset.modes.map(m =>
       `<span class="exam-mode-chip">${escapeHtml(getLocalizedExamModeName(m))}</span>`
     ).join("");
+    const customBoxHtml = preset.isCustomIntervalExam ? buildExamCustomIntervalControlsHtml() : "";
 
     return `
       <article class="exam-level-card" data-exam-level-card="${escapeHtml(preset.id)}">
         <div class="exam-level-top">
           <div>
             <div class="exam-level-badges">
-              <span class="exam-level-pill">${escapeHtml(tf("Stufe {n}", "Level {n}", { n: preset.levelNumber }))}</span>
+              <span class="exam-level-pill">${escapeHtml(pillText)}</span>
               ${bestHtml}
             </div>
             <h3 class="exam-level-title">${escapeHtml(tr(preset.title.de, preset.title.en))}</h3>
             <p class="exam-level-desc">${escapeHtml(tr(preset.desc.de, preset.desc.en))}</p>
           </div>
         </div>
+        ${customBoxHtml}
         <div class="exam-level-modes">${modeChipsHtml}</div>
         <div class="exam-level-footer">
           <button type="button" class="btn-primary-action exam-start-btn" data-start-exam-level="${escapeHtml(preset.id)}">
@@ -243,6 +336,27 @@ function openExamSetupPage(categoryKey = state.activeCategory, options = {}) {
     <div class="exam-level-grid">${levelsHtml}</div>
   `;
 
+  container.querySelectorAll("[data-exam-custom-select]").forEach(sel => {
+    sel.addEventListener("change", () => {
+      const kind = sel.dataset.examCustomSelect;
+      if (kind === "root") {
+        state.settings.intervalCustomRoot = sel.value;
+      } else if (kind === "scale") {
+        state.settings.intervalCustomScale = sel.value;
+        state.settings.intervalCustomPool = null;
+      } else if (kind === "scope") {
+        state.settings.intervalCustomScope = sel.value;
+        state.settings.intervalCustomPool = null;
+      }
+      const previewEl = container.querySelector("[data-exam-custom-preview]");
+      if (previewEl) {
+        const pool = getActiveIntervalCustomPool();
+        const poolText = pool.map(k => getLocalizedIntervalDef(k)?.symbol || k).join(" • ");
+        previewEl.textContent = tf("Intervall-Auswahl ({n}): {list}", "Interval Pool ({n}): {list}", { n: pool.length, list: poolText });
+      }
+    });
+  });
+
   container.querySelectorAll("[data-exam-count]").forEach(btn => {
     btn.addEventListener("click", () => {
       const val = parseInt(btn.dataset.examCount, 10);
@@ -294,11 +408,30 @@ function buildExamQuestionPlan(modes, count) {
   return plan;
 }
 
-function applyExamLevelSettings(preset, targetMode) {
+function buildExamDifficultyPlan(cycle, count) {
+  if (!Array.isArray(cycle) || cycle.length === 0) return null;
+  const total = Math.max(1, Math.min(50, parseInt(count, 10) || 10));
+  const plan = [];
+  for (let i = 0; i < total; i++) {
+    plan.push(cycle[i % cycle.length]);
+  }
+  for (let i = plan.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const tmp = plan[i];
+    plan[i] = plan[j];
+    plan[j] = tmp;
+  }
+  return plan;
+}
+
+function applyExamLevelSettings(preset, targetMode, overrideIntervalDifficulty = null) {
   if (!state?.settings || !preset) return;
   state.settings.mode = targetMode;
   state.settings.rhythmTapReadMode = false;
   Object.assign(state.settings, preset.apply || {});
+  if (Number.isInteger(overrideIntervalDifficulty)) {
+    state.settings.intervalDifficulty = overrideIntervalDifficulty;
+  }
   state.settings.loop = false;
   state.settings.autoNextAfterCorrect = false;
   state.settings.solfegeAutoNext = false;
@@ -350,6 +483,7 @@ function startCategoryExam(categoryKey, levelId) {
   const cfg = state.examConfig || { count: 10, feedbackMode: "blind", maxReplays: 2 };
   const total = [10, 20, 50].includes(cfg.count) ? cfg.count : 10;
   const plan = buildExamQuestionPlan(preset.modes, total);
+  const difficultyPlan = buildExamDifficultyPlan(preset.difficultyCycle, total);
 
   state.activeCategory = categoryKey;
   state.examSetupCategory = categoryKey;
@@ -365,6 +499,9 @@ function startCategoryExam(categoryKey, levelId) {
     totalQuestions: total,
     currentIdx: 0,
     plan: plan,
+    difficultyPlan: difficultyPlan,
+    fixedIntervalPool: Array.isArray(preset.fixedIntervalPool) ? [...preset.fixedIntervalPool] : null,
+    useCustomIntervalRoot: Boolean(preset.isCustomIntervalExam),
     questions: [],
     currentAnswered: false,
     currentPromptPlayedOnce: false,
@@ -376,7 +513,7 @@ function startCategoryExam(categoryKey, levelId) {
     prevHasManualBpm: Boolean(state.hasManualExerciseBpm)
   };
 
-  applyExamLevelSettings(preset, plan[0]);
+  applyExamLevelSettings(preset, plan[0], difficultyPlan ? difficultyPlan[0] : null);
   switchView("exercise", { preserveBpm: true });
 }
 
@@ -527,7 +664,8 @@ function loadCurrentExamQuestion() {
 
   const preset = getExamPresetById(exam.categoryKey, exam.levelId);
   const planMode = exam.plan[exam.currentIdx] || preset?.modes?.[0] || "cadence";
-  applyExamLevelSettings(preset, planMode);
+  const planDiff = Array.isArray(exam.difficultyPlan) ? exam.difficultyPlan[exam.currentIdx] : null;
+  applyExamLevelSettings(preset, planMode, Number.isInteger(planDiff) ? planDiff : null);
 
   exam.currentAnswered = false;
   exam.currentPromptPlayedOnce = false;
@@ -1745,11 +1883,14 @@ function renderExamResultView() {
     const isPartial = item.status === "partial";
     const cardCls = isOk ? "is-correct" : (isPartial ? "is-partial" : "is-wrong");
     const statusCls = isOk ? "is-ok" : (isPartial ? "is-warn" : "is-err");
+    const statusIconKey = isOk
+      ? "check"
+      : (isPartial ? "partial" : (item.status === "skipped" ? "skip" : "cross"));
     const statusText = isOk
-      ? tr("✓ Richtig", "✓ Correct")
+      ? tr("Richtig", "Correct")
       : (isPartial
-          ? tf("◐ {pts} Pkt.", "◐ {pts} pts", { pts: formatExamScoreVal(item.score) })
-          : (item.status === "skipped" ? tr("⏭ Übersprungen", "⏭ Skipped") : tr("✗ Falsch", "✗ Wrong")));
+          ? tf("{pts} Pkt.", "{pts} pts", { pts: formatExamScoreVal(item.score) })
+          : (item.status === "skipped" ? tr("Übersprungen", "Skipped") : tr("Falsch", "Wrong")));
 
     const targetDisplay = item.targetLabel || getExamChoiceDisplayText(item.mode, item.targetKey);
     const chosenDisplay = item.status === "skipped"
@@ -1775,7 +1916,7 @@ function renderExamResultView() {
       <article class="exam-review-item ${cardCls}" data-review-idx="${itemIdx}">
         <div class="exam-review-head">
           <span class="exam-review-q">${escapeHtml(tf("Frage {n} • {mod}", "Question {n} • {mod}", { n: item.qIndex || (visiblePos + 1), mod: getLocalizedExamModeName(item.mode) }))}</span>
-          <span class="exam-review-status ${statusCls}">${escapeHtml(statusText)}</span>
+          <span class="exam-review-status ${statusCls}">${getExamIconSVG(statusIconKey, 12)}<span>${escapeHtml(statusText)}</span></span>
         </div>
         ${isNotationMode(item.mode) && snap && Number.isFinite(Number(snap.staffStep)) ? `
           <div class="exam-notation-review-staff">${buildNotationMiniStaffSVG(snap)}</div>
@@ -1794,9 +1935,9 @@ function renderExamResultView() {
         </div>
         ${canPlayTarget ? `
           <div class="exam-review-audio">
-            ${canPlayChosen ? `<button type="button" class="btn-tool" data-review-play="${itemIdx}:chosen">${escapeHtml(tr("▶ Meine Wahl", "▶ My Choice"))}</button>` : ""}
-            <button type="button" class="btn-tool" data-review-play="${itemIdx}:target">${escapeHtml(tr("▶ Richtige Lösung", "▶ Target Sound"))}</button>
-            ${canCompareAB ? `<button type="button" class="btn-tool" data-review-play="${itemIdx}:compare">${escapeHtml(tr("⇄ A/B Vergleich", "⇄ A/B Compare"))}</button>` : ""}
+            ${canPlayChosen ? `<button type="button" class="btn-tool exam-review-audio-btn" data-review-play="${itemIdx}:chosen">${getExamIconSVG("play", 12)}<span>${escapeHtml(tr("Meine Wahl", "My Choice"))}</span></button>` : ""}
+            <button type="button" class="btn-tool exam-review-audio-btn" data-review-play="${itemIdx}:target">${getExamIconSVG("play", 12)}<span>${escapeHtml(tr("Richtige Lösung", "Target Sound"))}</span></button>
+            ${canCompareAB ? `<button type="button" class="btn-tool exam-review-audio-btn" data-review-play="${itemIdx}:compare">${getExamIconSVG("compare", 12)}<span>${escapeHtml(tr("A/B Vergleich", "A/B Compare"))}</span></button>` : ""}
           </div>
         ` : ""}
       </article>
@@ -1804,14 +1945,15 @@ function renderExamResultView() {
   }).join("");
 
   const newBestBadge = state.activeExamIsNewBest
-    ? `<span class="exam-new-best-pill">★ ${escapeHtml(tr("Neuer Bestwert!", "New Best!"))}</span>`
+    ? `<span class="exam-new-best-pill">${getExamIconSVG("star", 13)}<span>${escapeHtml(tr("Neuer Bestwert!", "New Best!"))}</span></span>`
     : "";
 
   container.innerHTML = `
     <section class="exam-result-hero ${badge.tierCls}">
       <h2 class="exam-result-hero-heading">${escapeHtml(tr("Prüfungsübersicht", "Exam Overview"))}</h2>
+      <div class="exam-result-emblem ${badge.emblemCls}" aria-hidden="true">${getExamIconSVG(badge.iconKey, 28)}</div>
       <div class="exam-result-badge-row">
-        <span class="exam-badge-pill">${badge.icon} ${escapeHtml(badge.title)}</span>
+        <span class="exam-badge-pill ${badge.emblemCls}">${escapeHtml(badge.title)}</span>
         ${newBestBadge}
       </div>
       <div class="exam-result-score">${entry.percent}%</div>
@@ -2231,7 +2373,10 @@ function renderExamHistoryCard() {
       <button type="button" class="exam-history-row" data-open-exam-result="${escapeHtml(entry.id)}">
         <span class="exam-history-main">
           <span class="exam-history-title">${escapeHtml(`${getCategoryTitle(entry.categoryKey)} • ${levelShort}`)}</span>
-          <span class="exam-history-meta">${escapeHtml(`${formatExamDate(entry.completedAt)} • ${entry.totalQuestions} ${tr("Fragen", "Questions")} • ${formatExamDuration(entry.durationSec)} • ${badge.icon}`)}</span>
+          <span class="exam-history-meta">
+            <span>${escapeHtml(`${formatExamDate(entry.completedAt)} • ${entry.totalQuestions} ${tr("Fragen", "Questions")} • ${formatExamDuration(entry.durationSec)}`)}</span>
+            <span class="exam-history-badge-ico ${badge.emblemCls}" title="${escapeHtml(badge.title)}" aria-hidden="true">${getExamIconSVG(badge.iconKey, 13)}</span>
+          </span>
         </span>
         <span class="exam-history-score">
           <span class="exam-history-pct ${pctCls}">${entry.percent}%</span>

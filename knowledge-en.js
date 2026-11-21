@@ -1831,15 +1831,18 @@ const CATEGORY_HELP_GUIDES_EN = {
         </div>
         <div class="k-compare-box is-peach">
           <h5>Intervals Over Root Pad (Strings ➔ Piano)</h5>
-          <p>A warm <strong>strings pad</strong> sustains the root note as a harmonic bed. After a short delay, <strong>piano</strong> plays the target tone above it — ideal for feeling tension and stability against a tonal center.</p>
+          <p>A warm <strong>strings pad</strong> sustains the root note as a harmonic bed. After a short delay, <strong>piano</strong> plays the target tone above it — with dedicated sliders for <strong>Root Drone Pad</strong> (default 50%) and <strong>Interval</strong> to balance the mix anytime.</p>
         </div>
       </div>
 
-      <h3>Interval Difficulty (3 Levels)</h3>
+      <h3>Levels: Major, Minor, Chromatic &amp; Custom Mode</h3>
       <ul class="article-steps-list">
-        <li><strong>Level 1 – Beginner:</strong> Four distinct cornerstone intervals (ascending or descending): Unison (<code>P1</code>), Major 3rd (<code>M3</code>), Perfect 5th (<code>P5</code>), and Octave (<code>P8</code>).</li>
-        <li><strong>Level 2 – Major Scale:</strong> All 8 diatonic intervals spanning from Unison up to Octave.</li>
-        <li><strong>Level 3 – Chromatic:</strong> All 15 intervals from Unison up to Major 9th (<code>M9</code>), including minor intervals and the Tritone.</li>
+        <li><strong>Beginner (Level 1 in Major / Minor 1):</strong> Four cornerstone triad intervals: Unison (<code>P1</code>), Major 3rd (<code>M3</code> in Major) or Minor 3rd (<code>m3</code> in Minor), Perfect 5th (<code>P5</code>), and Octave (<code>P8</code>).</li>
+        <li><strong>Lower Half 1–4 (Level 2 in Major / Minor 2):</strong> The lower tetrachord (4 intervals): Unison (<code>P1</code>), Major 2nd (<code>M2</code>), Major or Minor 3rd (<code>M3</code> / <code>m3</code>), and Perfect 4th (<code>P4</code>).</li>
+        <li><strong>Upper Half 5–8 (Level 3 in Major / Minor 3):</strong> The upper tetrachord (4 intervals): Perfect 5th (<code>P5</code>), Major or Minor 6th (<code>M6</code> / <code>m6</code>), Major or Minor 7th (<code>M7</code> / <code>m7</code>), and Octave (<code>P8</code>).</li>
+        <li><strong>Full Scale (Level 4 Major Scale / Minor 4 Minor Scale):</strong> All 8 diatonic intervals from Unison up to Octave in Major or Natural Minor.</li>
+        <li><strong>Level 5 – Chromatic:</strong> All 15 intervals from Unison up to Major 9th (<code>M9</code>), including all minor/major intervals and the Tritone (<code>TT</code>).</li>
+        <li><strong>Custom Key &amp; Modes (Custom Interval Trainer):</strong> Pick a fixed <strong>Root Key</strong> (<code>C</code> through <code>B</code>) or <strong>Random</strong>, choose any <strong>Scale or Church Mode</strong> (<em>Major/Ionian</em>, <em>Natural/Harmonic/Melodic Minor</em>, <em>Dorian</em>, <em>Phrygian</em>, <em>Lydian</em>, <em>Mixolydian</em>, <em>Locrian</em>, <em>Chromatic</em>), select a <strong>Range</strong> (<em>Beginner</em>, <em>1–4</em>, <em>5–8</em>, <em>1–8</em>), or toggle individual intervals on and off — both on the category screen and live inside the exercise via the top-right badge.</li>
       </ul>
 
       <h3>How Interval Symbols Work</h3>
@@ -1855,7 +1858,7 @@ const CATEGORY_HELP_GUIDES_EN = {
 
       <div class="article-highlight-box">
         <h4>Sing Along, A/B Compare &amp; Exam</h4>
-        <p>The top <strong>Sing along</strong> chip (with optional hum pause) invites your voice to feel the distance. Below, <strong>Root Note</strong> replays the starting pitch anytime; after a miss, <strong>A/B Compare</strong> plays your guess from the exact same starting pitch and direction right against the solution. Use <strong>Loop</strong> to repeat continuously (enable <strong>Auto-Next</strong> in Settings to jump straight to the next question on a hit), try <strong>Listen Only</strong> for passive review, or take the 3-level <strong>Category Exam</strong> across all 4 interval types.</p>
+        <p>The top <strong>Sing along</strong> chip (with optional hum pause) invites your voice to feel the distance. Below, <strong>Root Note</strong> replays the starting pitch anytime; after a miss, <strong>A/B Compare</strong> plays your guess from the exact same starting pitch and direction right against the solution. Use <strong>Loop</strong> to repeat continuously (enable <strong>Auto-Next</strong> in Settings to jump straight to the next question on a hit), try <strong>Listen Only</strong> for passive review, or take the <strong>Category Exam</strong> across all 4 interval types (Major, Minor, Scale Halves, Major &amp; Minor mixed, Chromatic, and Custom Key &amp; Modes).</p>
       </div>
     `
   },
