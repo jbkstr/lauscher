@@ -2630,15 +2630,29 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
   gap: 0.5rem;
 }
 
-.song-cheat-row strong {
+.song-cheat-row > div > strong {
   display: block;
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   color: var(--raccoon-dark);
+  margin-bottom: 0.2rem;
 }
 
 .song-cheat-row span {
-  font-size: 0.72rem;
+  display: block;
+  font-size: 0.75rem;
+  line-height: 1.46;
   color: var(--raccoon-mid);
+}
+
+.song-cheat-row span strong {
+  display: inline;
+  font-size: inherit;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+}
+
+.song-cheat-row span em {
+  word-spacing: 0.1em;
 }
 
 /* ==========================================
