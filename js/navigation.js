@@ -2816,6 +2816,13 @@ function getCategoryBadgeSVG(kind) {
   return `<svg class="node-rhythm-icon" width="46" height="46" viewBox="0 0 48 48" aria-hidden="true">${body}</svg>`;
 }
 
+function formatStackedParenTitle(title) {
+  const s = String(title || "").trim();
+  const m = s.match(/^(.+?)\s+(\([^)]+\))$/);
+  if (!m) return s;
+  return `<span class="stacked-title-main">${m[1]}</span><span class="stacked-title-paren">${m[2]}</span>`;
+}
+
 function renderCategoryTypeMenu(container, categoryKey, items, options = {}) {
   container.innerHTML = `
     ${options.introHtml || ""}
@@ -2824,7 +2831,7 @@ function renderCategoryTypeMenu(container, categoryKey, items, options = {}) {
         <button type="button" class="category-type-card" data-open-cat-section="${escapeHtml(item.id)}">
           <span class="category-type-badge-wrap" aria-hidden="true">${item.badgeHtml}</span>
           <span class="category-type-body">
-            <span class="category-type-title">${item.title}</span>
+            <span class="category-type-title">${item.titleHtml || item.title}</span>
             <span class="category-type-desc">${item.desc}</span>
             ${item.meta ? `<span class="category-type-meta">${escapeHtml(item.meta)}</span>` : ""}
           </span>
@@ -3517,6 +3524,7 @@ function openCategoryPage(categoryKey, options = {}) {
       {
         id: "custom",
         title: tr("Eigene Tonart (Dur & Moll)", "Custom Key (Major & Minor)"),
+        titleHtml: formatStackedParenTitle(tr("Eigene Tonart (Dur & Moll)", "Custom Key (Major & Minor)")),
         desc: tr("Wähle beliebige Dur- oder Moll-Tonart, Tonraum & Oktavlage frei – auch direkt in der Übung jederzeit anpassbar", "Choose any major or minor key, scale half & octave register freely — also adjustable anytime inside the exercise"),
         badgeHtml: `<div class="node-circle circle-peach node-circle-compact">${tr("Frei", "Free")}</div>`,
         meta: tr("Frei wählbar • Dur & Moll", "Custom • Major & Minor"),
@@ -4290,7 +4298,7 @@ function openCategoryPage(categoryKey, options = {}) {
         meta: tf("{n} Stufen", "{n} Levels", { n: 4 }),
         isBeginner: false
       }
-    ];
+    ].map(item => ({ ...item, titleHtml: formatStackedParenTitle(item.title) }));
 
     const selectedNotType = activeSection ? NOTATION_TYPE_ITEMS.find(t => t.id === activeSection) : null;
     let notationKeyDrawerOpen = false;
@@ -4464,7 +4472,7 @@ function openCategoryPage(categoryKey, options = {}) {
       if (selectedNotType.id === "notation-keys") {
         container.innerHTML = `
           <div class="subpage-section">
-            <h3 class="subpage-section-title">${tr("Tonarten-Blattspiel (Generalvorzeichen)", "Key-Signature Sight-Reading")}</h3>
+            <h3 class="subpage-section-title">${formatStackedParenTitle(tr("Tonarten-Blattspiel (Generalvorzeichen)", "Key-Signature Sight-Reading"))}</h3>
             <p class="subpage-section-desc">${tr(
               "Lies ganze 8-Noten-Phrasen mit vorgegebener Tonart im Notensystem und beachte die Vorzeichen vom Blatt!",
               "Read 8-note phrases with an active key signature on the staff and remember the sharps &amp; flats while playing!"
@@ -4511,7 +4519,7 @@ function openCategoryPage(categoryKey, options = {}) {
         container.innerHTML = `
           <div class="subpage-section">
             <div class="subpage-section-head-row">
-              <h3 class="subpage-section-title">${sec.title}</h3>
+              <h3 class="subpage-section-title">${formatStackedParenTitle(sec.title)}</h3>
               <span class="subpage-section-key-pill">${escapeHtml(getLocalizedNotationKeyModeLabel(selectedKeyMode, true))}</span>
             </div>
             <p class="subpage-section-desc">${sec.desc}</p>
