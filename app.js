@@ -696,27 +696,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Master-Lautstärke Popover & Mute
-  const volBtn = document.getElementById("masterVolBtn");
-  const volPopover = document.getElementById("masterVolPopover");
+  // Master-Lautstärke & Mute (oben im Lautstärke-Modal)
   const volSlider = document.getElementById("masterVolSlider");
   const volVal = document.getElementById("masterVolVal");
   const muteBtn = document.getElementById("masterMuteToggle");
 
-  volBtn?.addEventListener("click", (e) => {
-    e.stopPropagation();
-    const isHidden = volPopover.classList.toggle("hidden");
-    volBtn.classList.toggle("btn-open", !isHidden);
-  });
-
-  volPopover?.addEventListener("click", (e) => e.stopPropagation());
-
-  document.addEventListener("click", () => {
-    if (volPopover && !volPopover.classList.contains("hidden")) {
-      volPopover.classList.add("hidden");
-      volBtn?.classList.remove("btn-open");
+  const syncMasterVolumeControls = () => {
+    if (volSlider) volSlider.value = String(state.master.volume);
+    if (volVal) volVal.textContent = `${Math.round(state.master.volume * 100)}%`;
+    if (muteBtn) {
+      muteBtn.textContent = state.master.muted ? tr("Stumm", "Muted") : tr("An", "On");
+      muteBtn.title = state.master.muted ? tr("Ton einschalten", "Unmute Audio") : tr("Stummschalten", "Mute Audio");
+      muteBtn.classList.toggle("muted", Boolean(state.master.muted));
     }
-  });
+  };
+  syncMasterVolumeControls();
 
   volSlider?.addEventListener("input", async (e) => {
     state.master.volume = parseFloat(e.target.value);
@@ -764,6 +758,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("openMixerBtn")?.addEventListener("click", () => {
     if (getOpenModalName() === "mixer") return;
+    syncMasterVolumeControls();
     setModalVisibility("mixer");
     pushAppHistory("mixer");
   });

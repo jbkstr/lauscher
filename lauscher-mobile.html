@@ -549,12 +549,19 @@ input, textarea, select, [contenteditable="true"] {
 }
 
 .brand-sub {
-  font-size: 0.74rem;
-  line-height: 1.25;
+  font-size: 0.72rem;
+  line-height: 1.22;
   color: var(--raccoon-muted);
   font-weight: 500;
-  display: block;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
   overflow-wrap: break-word;
+}
+
+.top-bar:has(#backToHomeBtn:not(.hidden)) .brand-sub:not(.hidden) {
+  min-height: calc(2 * 1.22em);
 }
 
 .header-actions {
@@ -2959,8 +2966,9 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
 }
 
 .central-stage {
-  width: 92%;
-  max-width: 400px;
+  width: 88%;
+  max-width: 360px;
+  min-height: 124px;
   background-color: var(--surface-white);
   border: 2px solid var(--border-soft);
   border-radius: var(--radius-lg);
@@ -2969,15 +2977,15 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 0.65rem 1rem;
+  padding: 0.56rem 0.95rem;
   box-shadow: var(--shadow-card);
-  transition: all 0.22s ease-out;
+  transition: background-color 0.22s ease-out, border-color 0.22s ease-out, box-shadow 0.22s ease-out;
 }
 
 .stage-mascot {
-  width: 56px;
-  height: 56px;
-  margin-bottom: 0.2rem;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 0.14rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3009,50 +3017,26 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
 }
 
 .stage-sub {
-  font-size: 0.62rem;
+  font-size: 0.58rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   color: var(--raccoon-muted);
 }
 
 .stage-main {
-  font-size: 1.75rem;
+  font-size: 1.52rem;
+  line-height: 1.15;
   font-weight: 800;
   color: var(--raccoon-dark);
-  margin: 0.05rem 0;
+  margin: 0.03rem 0;
   letter-spacing: -0.02em;
 }
 
 .stage-desc {
-  font-size: 0.76rem;
+  font-size: 0.72rem;
+  line-height: 1.24;
   font-weight: 600;
   color: var(--raccoon-mid);
-}
-
-/* Mittlere Anzeige in Solfège 15% kleiner für mehr Platz der Klaviatur */
-.central-stage.is-solfege {
-  width: 82%;
-  max-width: 340px;
-  padding: 0.52rem 0.85rem;
-}
-
-.central-stage.is-solfege .stage-mascot {
-  width: 48px;
-  height: 48px;
-  margin-bottom: 0.14rem;
-}
-
-.central-stage.is-solfege .stage-sub {
-  font-size: 0.54rem;
-}
-
-.central-stage.is-solfege .stage-main {
-  font-size: 1.48rem;
-  margin: 0.03rem 0;
-}
-
-.central-stage.is-solfege .stage-desc {
-  font-size: 0.65rem;
 }
 
 .stage-playing {
@@ -6323,6 +6307,17 @@ body,
   margin-top: 0.48rem;
 }
 
+.mixer-master-section {
+  margin-bottom: 0.9rem;
+  flex-shrink: 0;
+}
+
+.mixer-master-row input[type="range"] {
+  flex: 1;
+  min-width: 0;
+  accent-color: var(--raccoon-dark);
+}
+
 .mixer-tabs {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -8153,19 +8148,6 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   color: var(--sage-strong);
 }
 
-.central-stage.is-solfege .stage-streak-pill {
-  top: 0.34rem;
-  inset-inline-end: 0.42rem;
-  font-size: 0.56rem;
-  padding: 0.12rem 0.42rem;
-}
-
-.central-stage.is-solfege .stage-streak-notice {
-  font-size: 0.63rem;
-  padding: 0.14rem 0.52rem;
-  margin-top: 0.24rem;
-}
-
 .stage-burst-layer {
   position: absolute;
   inset: 0;
@@ -9526,67 +9508,6 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 
 .notation-notes-layer.did-shift {
   animation: notationQueueShift 0.22s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-/* Kompakte, zentrierte mittlere Bühne in Notation ohne Totraum rechts */
-.central-stage.is-notation {
-  width: fit-content;
-  min-width: 184px;
-  max-width: min(84%, 272px);
-  margin: 0 auto;
-  padding: 0.36rem 0.84rem;
-  display: grid;
-  grid-template-columns: auto auto;
-  grid-template-rows: auto auto auto;
-  justify-content: center;
-  align-items: center;
-  text-align: start;
-  gap: 0.02rem 0.56rem;
-  min-height: 54px;
-}
-
-.central-stage.is-notation .stage-streak-pill {
-  top: 0.28rem;
-  inset-inline-end: 0.38rem;
-  font-size: 0.54rem;
-  padding: 0.1rem 0.36rem;
-}
-
-.central-stage.is-notation .stage-mascot {
-  grid-column: 1;
-  grid-row: 1 / 4;
-  width: 38px;
-  height: 38px;
-  margin: 0;
-}
-
-.central-stage.is-notation .stage-sub {
-  grid-column: 2;
-  grid-row: 1;
-  font-size: 0.54rem;
-  padding-inline-end: 1.9rem;
-}
-
-.central-stage.is-notation .stage-main {
-  grid-column: 2;
-  grid-row: 2;
-  font-size: 1.14rem;
-  line-height: 1.15;
-  margin: 0;
-}
-
-.central-stage.is-notation .stage-desc {
-  grid-column: 2;
-  grid-row: 3;
-  font-size: 0.64rem;
-  line-height: 1.24;
-}
-
-.central-stage.is-notation .stage-streak-notice {
-  grid-column: 1 / -1;
-  justify-self: center;
-  text-align: center;
-  margin-top: 0.14rem;
 }
 
 .dock-icon-btn.is-labeled {
@@ -11371,27 +11292,39 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   overflow: hidden;
 }
 
-/* Etwas weniger Platz: kleineres Maskottchen, kompaktere Schrift & Zeilenlimit */
-@container exstage (max-height: 185px) {
-  .central-stage:not(.is-notation) {
-    padding: 0.38rem 0.85rem;
+/* Mittlere Platzhöhe (z. B. Solfège, Melodie, Notenlesen-Einzelsystem, größere Antwortraster):
+   weiterhin dieselbe vertikale Kartenform und -breite, harmonisch kompakter */
+@container exstage (max-height: 162px) {
+  .central-stage {
+    min-height: 106px;
+    padding: 0.4rem 0.85rem;
   }
-  .central-stage:not(.is-notation) .stage-mascot {
-    width: 38px;
-    height: 38px;
+  .central-stage .stage-mascot {
+    width: 42px;
+    height: 42px;
     margin-bottom: 0.08rem;
   }
-  .central-stage:not(.is-notation) .stage-main {
-    font-size: 1.38rem;
-    line-height: 1.15;
+  .central-stage .stage-sub {
+    font-size: 0.54rem;
   }
-  .central-stage:not(.is-notation) .stage-desc {
-    font-size: 0.7rem;
+  .central-stage .stage-main {
+    font-size: 1.36rem;
+    line-height: 1.14;
+    margin: 0.02rem 0;
+  }
+  .central-stage .stage-desc {
+    font-size: 0.68rem;
     line-height: 1.22;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+  .central-stage .stage-streak-pill {
+    top: 0.34rem;
+    inset-inline-end: 0.42rem;
+    font-size: 0.56rem;
+    padding: 0.12rem 0.42rem;
   }
   .stage-streak-notice {
     margin-top: 0.14rem;
@@ -11399,57 +11332,47 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   }
 }
 
-/* Wenig Platz: rechtzeitig quer wie im Notenlesen – Maskottchen links, Text rechts (verhindert Abschneiden) */
-@container exstage (max-height: 154px) {
-  .central-stage,
-  .central-stage.is-solfege,
-  .central-stage.is-melody {
-    width: fit-content;
-    min-width: 184px;
-    max-width: 94%;
-    min-height: 0;
-    padding: 0.28rem 0.78rem;
+/* Wenig vertikaler Platz (z. B. Doppelsystem, Kombi-Diktat oder eingeblendete Feedback-Karte):
+   gleiche Kartenbreite beibehalten, Inhalt quer anordnen (Maskottchen links, Text rechts) */
+@container exstage (max-height: 118px) {
+  .central-stage {
+    width: 88%;
+    max-width: 360px;
+    min-height: 66px;
+    padding: 0.34rem 0.88rem;
     display: grid;
-    grid-template-columns: auto minmax(0, auto);
+    grid-template-columns: auto minmax(0, 1fr);
     grid-template-rows: auto auto auto;
     justify-content: center;
     align-items: center;
     text-align: start;
-    gap: 0.02rem 0.52rem;
+    gap: 0.02rem 0.62rem;
   }
-  .central-stage .stage-mascot,
-  .central-stage.is-solfege .stage-mascot,
-  .central-stage.is-melody .stage-mascot {
+  .central-stage .stage-mascot {
     grid-column: 1;
     grid-row: 1 / 4;
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
     margin: 0;
   }
-  .central-stage .stage-sub,
-  .central-stage.is-solfege .stage-sub,
-  .central-stage.is-melody .stage-sub {
+  .central-stage .stage-sub {
     grid-column: 2;
     grid-row: 1;
     font-size: 0.54rem;
     line-height: 1.15;
     padding-inline-end: 1.9rem;
   }
-  .central-stage .stage-main,
-  .central-stage.is-solfege .stage-main,
-  .central-stage.is-melody .stage-main {
+  .central-stage .stage-main {
     grid-column: 2;
     grid-row: 2;
-    font-size: 1.08rem;
-    line-height: 1.12;
+    font-size: 1.12rem;
+    line-height: 1.14;
     margin: 0;
   }
-  .central-stage .stage-desc,
-  .central-stage.is-solfege .stage-desc,
-  .central-stage.is-melody .stage-desc {
+  .central-stage .stage-desc {
     grid-column: 2;
     grid-row: 3;
-    font-size: 0.64rem;
+    font-size: 0.65rem;
     line-height: 1.2;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -11457,8 +11380,8 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
     overflow: hidden;
   }
   .central-stage .stage-streak-pill {
-    top: 0.24rem;
-    inset-inline-end: 0.34rem;
+    top: 0.26rem;
+    inset-inline-end: 0.36rem;
     font-size: 0.54rem;
     padding: 0.08rem 0.34rem;
   }
@@ -11472,21 +11395,16 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 
 /* Knapp: Beschreibung nur noch einzeilig, ohne Zusatzbanner */
-@container exstage (max-height: 108px) {
-  .central-stage,
-  .central-stage.is-solfege,
-  .central-stage.is-melody {
-    padding: 0.22rem 0.72rem;
+@container exstage (max-height: 86px) {
+  .central-stage {
+    min-height: 52px;
+    padding: 0.22rem 0.8rem;
   }
-  .central-stage .stage-mascot,
-  .central-stage.is-solfege .stage-mascot,
-  .central-stage.is-melody .stage-mascot {
+  .central-stage .stage-mascot {
     width: 32px;
     height: 32px;
   }
-  .central-stage .stage-desc,
-  .central-stage.is-solfege .stage-desc,
-  .central-stage.is-melody .stage-desc {
+  .central-stage .stage-desc {
     -webkit-line-clamp: 1;
   }
   .central-stage .stage-streak-notice {
@@ -11495,12 +11413,9 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 
 /* Sehr wenig Platz: nur Status und Hauptzeile */
-@container exstage (max-height: 70px) {
-  .central-stage,
-  .central-stage.is-solfege,
-  .central-stage.is-melody,
-  .central-stage.is-notation {
-    padding: 0.18rem 0.72rem;
+@container exstage (max-height: 64px) {
+  .central-stage {
+    padding: 0.16rem 0.76rem;
     min-height: 0;
   }
   .central-stage .stage-mascot,
@@ -14664,27 +14579,11 @@ const LAUSCHER_MASCOT_DATA_URIS = {
         </div>
       </div>
 
-      <!-- Rechts: Audio, Mixer & Einstellungen -->
+      <!-- Rechts: Lautstärke & Einstellungen -->
       <div class="header-actions">
-        <div class="master-vol-wrap">
-          <button id="masterVolBtn" class="icon-btn" title="Master-Lautstärke" aria-label="Master-Lautstärke" data-i18n-title="header.masterVolTitle" data-i18n-aria="header.masterVolTitle">
-            <svg id="masterVolIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
-            </svg>
-          </button>
-          <div id="masterVolPopover" class="master-vol-popover hidden">
-            <button id="masterMuteToggle" class="mute-btn" title="Stummschalten" data-i18n-title="header.muteTitle">An</button>
-            <input type="range" id="masterVolSlider" min="0" max="1" step="0.01" value="0.67">
-            <span id="masterVolVal" class="vol-percent">67%</span>
-          </div>
-        </div>
-
-        <button id="openMixerBtn" class="icon-btn" title="Mixer" aria-label="Mixer" data-i18n-title="header.mixerTitle" data-i18n-aria="header.mixerTitle">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/>
-            <line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/>
-            <line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/>
-            <line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>
+        <button id="openMixerBtn" class="icon-btn" title="Lautstärke" aria-label="Lautstärke" data-i18n-title="header.mixerTitle" data-i18n-aria="header.mixerTitle">
+          <svg id="masterVolIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
           </svg>
         </button>
 
@@ -16607,14 +16506,23 @@ const LAUSCHER_MASCOT_DATA_URIS = {
 
   </div>
 
-  <!-- Eigenständiges Modal: Mixer -->
+  <!-- Eigenständiges Modal: Lautstärke & Mixer -->
   <div id="mixerBackdrop" class="modal-backdrop modal-hidden">
     <div class="modal-dialog">
       <div class="modal-header">
-        <h3 data-i18n="mixer.title">Mixer</h3>
+        <h3 data-i18n="mixer.title">Lautstärke</h3>
         <button id="closeMixerBtn" class="modal-close-btn">✕</button>
       </div>
       <div class="modal-body">
+        <div class="settings-section mixer-master-section">
+          <h4 data-i18n="header.masterVolTitle">Master-Lautstärke</h4>
+          <div class="tempo-control-row mixer-master-row">
+            <button id="masterMuteToggle" type="button" class="mute-btn" title="Stummschalten" data-i18n-title="header.muteTitle">An</button>
+            <input type="range" id="masterVolSlider" min="0" max="1" step="0.01" value="0.67" aria-label="Master-Lautstärke" data-i18n-aria="header.masterVolTitle">
+            <span id="masterVolVal" class="vol-percent">67%</span>
+          </div>
+        </div>
+
         <div id="mixerModeTabs" class="mixer-tabs" role="tablist" aria-label="Mixer-Ansicht" data-i18n-aria="mixer.tabsAria">
           <button id="mixerTabLevelsBtn" type="button" class="mixer-tab-btn active" data-mixer-tab="levels" role="tab" aria-selected="true" data-i18n="mixer.tabLevels">Lautstärken</button>
           <button id="mixerTabReverbBtn" type="button" class="mixer-tab-btn" data-mixer-tab="reverb" role="tab" aria-selected="false" data-i18n="mixer.tabReverb">Raumhall</button>
@@ -16736,7 +16644,7 @@ const LAUSCHER_MASCOT_DATA_URIS = {
       </div>
       <div class="modal-body">
 
-        <div class="settings-group-label" data-i18n="settings.groupAudio">Audio &amp; Übungen</div>
+        <div class="settings-group-label" data-i18n="settings.groupAudio">Übungen</div>
 
         <div class="settings-section">
           <h4 data-i18n="settings.singHeading">Mitsingen</h4>
@@ -20845,13 +20753,13 @@ registerColocatedStatic({
     ur: "آواز آن کریں"
   },
   "header.mixerTitle": {
-    de: "Mixer",
-    en: "Mixer",
-    fr: "Console de mixage",
-    es: "Mesa de mezclas",
-    pl: "Mikser",
-    uk: "Мікшер",
-    ur: "مِکسر"
+    de: "Lautstärke",
+    en: "Volume",
+    fr: "Volume",
+    es: "Volumen",
+    pl: "Głośność",
+    uk: "Гучність",
+    ur: "والیوم"
   },
   "header.settingsTitle": {
     de: "Tonart, Tempo & Taktart",
@@ -23599,13 +23507,13 @@ registerColocatedStatic({
     ur: "میرا اکاؤنٹ"
   },
   "mixer.title": {
-    de: "Mixer",
-    en: "Mixer",
-    fr: "Console",
-    es: "Mezclador",
-    pl: "Mikser",
-    uk: "Мікшер",
-    ur: "مِکسر"
+    de: "Lautstärke",
+    en: "Volume",
+    fr: "Volume",
+    es: "Volumen",
+    pl: "Głośność",
+    uk: "Гучність",
+    ur: "والیوم"
   },
   "mixer.tabsAria": {
     de: "Mixer-Bereich wählen",
@@ -23770,13 +23678,13 @@ registerColocatedStatic({
     ur: "ایپ کی ترتیبات"
   },
   "settings.groupAudio": {
-    de: "Audio & Übungen",
-    en: "Audio & Practice",
-    fr: "Audio & Exercices",
-    es: "Audio y ejercicios",
-    pl: "Dźwięk i ćwiczenia",
-    uk: "Звук і вправи",
-    ur: "آڈیو اور مشقیں"
+    de: "Übungen",
+    en: "Practice",
+    fr: "Exercices",
+    es: "Ejercicios",
+    pl: "Ćwiczenia",
+    uk: "Вправи",
+    ur: "مشقیں"
   },
   "settings.groupLanguageNotation": {
     de: "Sprache & Schreibweise",
@@ -83025,7 +82933,11 @@ function fitExerciseLayout(reset = true) {
   const view = document.getElementById("viewExercise");
   if (!view) return;
   if (view.classList.contains("hidden") || view.clientHeight <= 0) {
-    if (reset) view.dataset.fitLevel = "0"; // beim Einblenden misst der ResizeObserver neu
+    if (reset) {
+      view.dataset.fitLevel = "0"; // beim Einblenden misst der ResizeObserver neu
+      view.classList.remove("sing-hint-float", "fit-overflow");
+      for (let i = 1; i <= EXERCISE_FIT_LEVELS; i++) view.classList.remove(`fit-${i}`);
+    }
     return;
   }
   const stageWrap = view.querySelector(".stage-wrapper");
@@ -90475,27 +90387,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Master-Lautstärke Popover & Mute
-  const volBtn = document.getElementById("masterVolBtn");
-  const volPopover = document.getElementById("masterVolPopover");
+  // Master-Lautstärke & Mute (oben im Lautstärke-Modal)
   const volSlider = document.getElementById("masterVolSlider");
   const volVal = document.getElementById("masterVolVal");
   const muteBtn = document.getElementById("masterMuteToggle");
 
-  volBtn?.addEventListener("click", (e) => {
-    e.stopPropagation();
-    const isHidden = volPopover.classList.toggle("hidden");
-    volBtn.classList.toggle("btn-open", !isHidden);
-  });
-
-  volPopover?.addEventListener("click", (e) => e.stopPropagation());
-
-  document.addEventListener("click", () => {
-    if (volPopover && !volPopover.classList.contains("hidden")) {
-      volPopover.classList.add("hidden");
-      volBtn?.classList.remove("btn-open");
+  const syncMasterVolumeControls = () => {
+    if (volSlider) volSlider.value = String(state.master.volume);
+    if (volVal) volVal.textContent = `${Math.round(state.master.volume * 100)}%`;
+    if (muteBtn) {
+      muteBtn.textContent = state.master.muted ? tr("Stumm", "Muted") : tr("An", "On");
+      muteBtn.title = state.master.muted ? tr("Ton einschalten", "Unmute Audio") : tr("Stummschalten", "Mute Audio");
+      muteBtn.classList.toggle("muted", Boolean(state.master.muted));
     }
-  });
+  };
+  syncMasterVolumeControls();
 
   volSlider?.addEventListener("input", async (e) => {
     state.master.volume = parseFloat(e.target.value);
@@ -90543,6 +90449,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("openMixerBtn")?.addEventListener("click", () => {
     if (getOpenModalName() === "mixer") return;
+    syncMasterVolumeControls();
     setModalVisibility("mixer");
     pushAppHistory("mixer");
   });
@@ -96068,7 +95975,7 @@ function initFreeplayEventListeners() {
   });
 
   document.getElementById("freeplayOpenMixerBtn")?.addEventListener("click", () => {
-    document.getElementById("mixerBtn")?.click();
+    document.getElementById("openMixerBtn")?.click();
   });
 
   document.querySelectorAll("#freeplayPresetRow [data-freeplay-preset]").forEach(btn => {

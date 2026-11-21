@@ -599,13 +599,13 @@ registerColocatedStatic({
     ur: "آواز آن کریں"
   },
   "header.mixerTitle": {
-    de: "Mixer",
-    en: "Mixer",
-    fr: "Console de mixage",
-    es: "Mesa de mezclas",
-    pl: "Mikser",
-    uk: "Мікшер",
-    ur: "مِکسر"
+    de: "Lautstärke",
+    en: "Volume",
+    fr: "Volume",
+    es: "Volumen",
+    pl: "Głośność",
+    uk: "Гучність",
+    ur: "والیوم"
   },
   "header.settingsTitle": {
     de: "Tonart, Tempo & Taktart",
@@ -3353,13 +3353,13 @@ registerColocatedStatic({
     ur: "میرا اکاؤنٹ"
   },
   "mixer.title": {
-    de: "Mixer",
-    en: "Mixer",
-    fr: "Console",
-    es: "Mezclador",
-    pl: "Mikser",
-    uk: "Мікшер",
-    ur: "مِکسر"
+    de: "Lautstärke",
+    en: "Volume",
+    fr: "Volume",
+    es: "Volumen",
+    pl: "Głośność",
+    uk: "Гучність",
+    ur: "والیوم"
   },
   "mixer.tabsAria": {
     de: "Mixer-Bereich wählen",
@@ -3524,13 +3524,13 @@ registerColocatedStatic({
     ur: "ایپ کی ترتیبات"
   },
   "settings.groupAudio": {
-    de: "Audio & Übungen",
-    en: "Audio & Practice",
-    fr: "Audio & Exercices",
-    es: "Audio y ejercicios",
-    pl: "Dźwięk i ćwiczenia",
-    uk: "Звук і вправи",
-    ur: "آڈیو اور مشقیں"
+    de: "Übungen",
+    en: "Practice",
+    fr: "Exercices",
+    es: "Ejercicios",
+    pl: "Ćwiczenia",
+    uk: "Вправи",
+    ur: "مشقیں"
   },
   "settings.groupLanguageNotation": {
     de: "Sprache & Schreibweise",

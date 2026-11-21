@@ -1064,7 +1064,7 @@ function initFreeplayEventListeners() {
   });
 
   document.getElementById("freeplayOpenMixerBtn")?.addEventListener("click", () => {
-    document.getElementById("mixerBtn")?.click();
+    document.getElementById("openMixerBtn")?.click();
   });
 
   document.querySelectorAll("#freeplayPresetRow [data-freeplay-preset]").forEach(btn => {

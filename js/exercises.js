@@ -1926,7 +1926,11 @@ function fitExerciseLayout(reset = true) {
   const view = document.getElementById("viewExercise");
   if (!view) return;
   if (view.classList.contains("hidden") || view.clientHeight <= 0) {
-    if (reset) view.dataset.fitLevel = "0"; // beim Einblenden misst der ResizeObserver neu
+    if (reset) {
+      view.dataset.fitLevel = "0"; // beim Einblenden misst der ResizeObserver neu
+      view.classList.remove("sing-hint-float", "fit-overflow");
+      for (let i = 1; i <= EXERCISE_FIT_LEVELS; i++) view.classList.remove(`fit-${i}`);
+    }
     return;
   }
   const stageWrap = view.querySelector(".stage-wrapper");
