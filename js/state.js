@@ -150,7 +150,7 @@ class AppState {
     this.waveAnimFrame = null;
     this.waveResume = null;
     this.circleOfFifthsState = { idx: 0, ringMode: "major", tab: "chords" };
-    this.nashvilleState = { keyIdx: 0, mode: "major", capoFret: 0 };
+    this.nashvilleState = { keyIdx: 0, mode: "major", capoKeyIdx: 0, capoMode: "major", capoFret: 0 };
     this.nashvilleReturnView = "tools";
     this.wavePaused = false;
 

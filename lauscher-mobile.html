@@ -3998,6 +3998,37 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
   text-align: center;
 }
 
+.opt-btn-stacked {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 0.48rem 0.34rem;
+  line-height: 1.25;
+  min-width: 0;
+}
+
+.opt-btn-stacked .opt-btn-line-main,
+.opt-btn-stacked .opt-btn-line-sub {
+  display: block;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.opt-btn-stacked .opt-btn-line-main {
+  font-size: clamp(0.68rem, 3.1vw, 0.78rem);
+  font-weight: 700;
+}
+
+.opt-btn-stacked .opt-btn-line-sub {
+  font-size: clamp(0.62rem, 2.7vw, 0.71rem);
+  font-weight: 600;
+  opacity: 0.86;
+}
+
 .opt-btn.active {
   background-color: var(--sage);
   color: var(--raccoon-dark);
@@ -14948,10 +14979,15 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 
 /* Kapodaster-Übersetzer für Gitarre */
+.nns-capo-card {
+  position: relative;
+  overflow: visible;
+}
+
 .nns-capo-summary {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
-  align-items: center;
+  align-items: stretch;
   gap: 6px;
   padding: 10px;
   border-radius: var(--radius-md);
@@ -14959,21 +14995,46 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   border: 1.5px solid var(--border-soft);
 }
 
+.nns-capo-dropdown-anchor {
+  position: relative;
+  min-width: 0;
+  display: flex;
+}
+
 .nns-capo-stat {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
   gap: 2px;
-  padding: 6px 4px;
+  padding: 7px 5px;
   border-radius: var(--radius-sm);
   background: var(--surface-white);
-  border: 1px solid var(--border-soft);
+  border: 1.5px solid var(--border-soft);
+  color: inherit;
+}
+
+.nns-capo-stat.is-interactive {
+  cursor: pointer;
+  border-color: var(--border-strong);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  transition: transform 0.12s ease, border-color 0.14s ease, box-shadow 0.14s ease, background-color 0.14s ease;
+}
+
+.nns-capo-stat.is-interactive:active {
+  transform: scale(0.97);
+}
+
+.nns-capo-stat.is-interactive.is-open {
+  border-color: var(--btn-primary-bg);
+  box-shadow: 0 0 0 2px var(--tint-subtle);
 }
 
 .nns-capo-stat.is-capo {
   background: var(--peach-soft);
-  border-color: var(--peach);
+  border-color: var(--peach-strong);
 }
 
 .nns-capo-stat.is-shape {
@@ -14982,10 +15043,28 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 
 .nns-capo-stat-lbl {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
   font-size: 0.68rem;
   font-weight: 700;
   color: var(--raccoon-muted);
   line-height: 1.15;
+}
+
+.nns-capo-stat.is-capo .nns-capo-stat-lbl {
+  color: var(--peach-strong);
+  opacity: 0.88;
+}
+
+.nns-capo-chevron {
+  flex-shrink: 0;
+  transition: transform 0.16s ease;
+}
+
+.nns-capo-stat.is-open .nns-capo-chevron {
+  transform: rotate(180deg);
 }
 
 .nns-capo-stat-val {
@@ -14999,9 +15078,73 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 .nns-capo-stat.is-shape .nns-capo-stat-val { color: var(--sage-strong); }
 
 .nns-capo-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 0.95rem;
   font-weight: 700;
   color: var(--raccoon-muted);
+}
+
+.nns-capo-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  inset-inline-start: 0;
+  min-width: max(100%, 172px);
+  max-height: 250px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  z-index: 40;
+  background: var(--surface-white);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-float);
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.nns-capo-dropdown-menu.hidden {
+  display: none;
+}
+
+.nns-capo-dropdown-opt {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: var(--raccoon-dark);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  text-align: start;
+  cursor: pointer;
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+
+.nns-capo-dropdown-opt small {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--raccoon-muted);
+}
+
+.nns-capo-dropdown-opt:hover {
+  background: var(--surface-warm);
+}
+
+.nns-capo-dropdown-opt.is-selected {
+  background: var(--peach-soft);
+  color: var(--peach-strong);
+}
+
+.nns-capo-dropdown-opt.is-selected small {
+  color: var(--peach-strong);
+  opacity: 0.85;
 }
 
 .nns-capo-subblock {
@@ -15038,30 +15181,6 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   background: var(--peach-strong);
   border-color: var(--peach-strong);
   color: var(--on-strong-accent);
-}
-
-.nns-capo-fret-row {
-  display: grid;
-  grid-template-columns: repeat(10, minmax(0, 1fr));
-  gap: 5px;
-}
-
-.nns-capo-fret-btn {
-  padding: 7px 2px;
-  border-radius: var(--radius-sm);
-  border: 1.5px solid var(--border-soft);
-  background: var(--surface-warm);
-  color: var(--raccoon-dark);
-  font-size: 0.84rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background-color 0.14s ease, border-color 0.14s ease, color 0.14s ease;
-}
-
-.nns-capo-fret-btn.active {
-  background: var(--btn-primary-bg);
-  border-color: var(--btn-primary-bg);
-  color: var(--btn-primary-fg);
 }
 
 .nns-capo-grid {
@@ -15290,8 +15409,10 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   .nns-capo-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
-  .nns-capo-fret-row {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+  .nns-capo-dropdown-menu[data-nns-dropdown-menu="capoFret"] {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
   }
   .nns-legend-grid {
     grid-template-columns: 1fr;
@@ -18081,21 +18202,21 @@ const LAUSCHER_MASCOT_METAL_VARIANTS = {
           <p class="settings-hint" data-i18n="space.notationSub">Steuert Tonnamen, Intervall-Kürzel &amp; Tasten-Beschriftung in deinen Übungen.</p>
           <span class="account-label" data-i18n="space.notationSystem">Notensystem</span>
           <div class="btn-group" id="profileNotationGroup">
-            <button type="button" class="opt-btn active" data-notation="de" data-i18n="space.notationDe">Deutsch (H / B / Cis)</button>
-            <button type="button" class="opt-btn" data-notation="intl" data-i18n="space.notationIntl">International (B / Bb / C#)</button>
+            <button type="button" class="opt-btn opt-btn-stacked active" data-notation="de" data-i18n="space.notationDe" data-i18n-stacked="1"><span class="opt-btn-line-main">Deutsch</span><span class="opt-btn-line-sub">(H / B / Cis)</span></button>
+            <button type="button" class="opt-btn opt-btn-stacked" data-notation="intl" data-i18n="space.notationIntl" data-i18n-stacked="1"><span class="opt-btn-line-main">International</span><span class="opt-btn-line-sub">(B / Bb / C#)</span></button>
           </div>
           <div class="settings-sub-field">
             <span class="account-label" data-i18n="space.intervalNotationSystem">Intervall-Namensgebung</span>
             <div class="btn-group" id="profileIntervalNotationGroup">
-              <button type="button" class="opt-btn active" data-interval-notation="de" data-i18n="space.intervalNotationDe">Deutsch (P / G / k)</button>
-              <button type="button" class="opt-btn" data-interval-notation="intl" data-i18n="space.intervalNotationIntl">International (P / M / m)</button>
+              <button type="button" class="opt-btn opt-btn-stacked active" data-interval-notation="de" data-i18n="space.intervalNotationDe" data-i18n-stacked="1"><span class="opt-btn-line-main">Deutsch</span><span class="opt-btn-line-sub">(P / G / k)</span></button>
+              <button type="button" class="opt-btn opt-btn-stacked" data-interval-notation="intl" data-i18n="space.intervalNotationIntl" data-i18n-stacked="1"><span class="opt-btn-line-main">International</span><span class="opt-btn-line-sub">(P / M / m)</span></button>
             </div>
           </div>
           <div class="settings-sub-field">
             <span class="account-label" data-i18n="space.solfegeLabelSystem">Klaviatur-Beschriftung (Solfège &amp; Melodie)</span>
             <div class="btn-group" id="profileSolfegeLabelGroup">
-              <button type="button" class="opt-btn active" data-solfege-labels="syllables" data-i18n="space.solfegeSyllables">Silben (Do – Ti)</button>
-              <button type="button" class="opt-btn" data-solfege-labels="numbers" data-i18n="space.solfegeNumbers">Stufenzahlen (1 – 7)</button>
+              <button type="button" class="opt-btn opt-btn-stacked active" data-solfege-labels="syllables" data-i18n="space.solfegeSyllables" data-i18n-stacked="1"><span class="opt-btn-line-main">Silben</span><span class="opt-btn-line-sub">(Do – Ti)</span></button>
+              <button type="button" class="opt-btn opt-btn-stacked" data-solfege-labels="numbers" data-i18n="space.solfegeNumbers" data-i18n-stacked="1"><span class="opt-btn-line-main">Stufenzahlen</span><span class="opt-btn-line-sub">(1 – 7)</span></button>
             </div>
           </div>
         </div>
@@ -21419,6 +21540,21 @@ function tf(deTemplate, enTemplate, vars = {}, extraMap = null) {
 
 function setElementLocalizedText(el, text) {
   if (!el || typeof text !== "string") return;
+  if (el.dataset?.i18nStacked === "1" || el.classList?.contains("opt-btn-stacked")) {
+    const m = text.match(/^(.*?)\s*(\([^()]+\))$/);
+    if (m && typeof document !== "undefined" && typeof document.createElement === "function") {
+      el.innerHTML = "";
+      const mainSpan = document.createElement("span");
+      mainSpan.className = "opt-btn-line-main";
+      mainSpan.textContent = m[1].trim();
+      const subSpan = document.createElement("span");
+      subSpan.className = "opt-btn-line-sub";
+      subSpan.textContent = m[2].trim();
+      el.appendChild(mainSpan);
+      el.appendChild(subSpan);
+      return;
+    }
+  }
   // Automatisch formatierte Markennamen (<span class="brand-word">, siehe app.js) vorher
   // wieder zu reinem Text machen, damit der Text unten sauber ersetzt wird.
   if (typeof el.querySelectorAll === "function") {
@@ -42271,12 +42407,12 @@ registerColocatedPhrases({
     uk: "Форми {shape}",
     ur: "{shape} شیپس"
   },
-  "Oder Bund frei wählen (0–9):": {
-    fr: "Ou choisir librement une case (0–9) :",
-    es: "O elige cualquier traste libremente (0–9):",
-    pl: "Lub wybierz dowolny próg (0–9):",
-    uk: "Або оберіть будь-який лад (0–9):",
-    ur: "یا کوئی بھی فریٹ منتخب کریں (0–9):"
+  "Klingende Ausgangstonart": {
+    fr: "Tonalité de départ (son réel)",
+    es: "Tonalidad real de partida",
+    pl: "Brzmiąca tonacja wyjściowa",
+    uk: "Вихідна тональність звучання",
+    ur: "اصل بجنے والی کی"
   },
   "Kapodaster-Bund": {
     fr: "Case du capodastre",
@@ -76776,7 +76912,7 @@ class AppState {
     this.waveAnimFrame = null;
     this.waveResume = null;
     this.circleOfFifthsState = { idx: 0, ringMode: "major", tab: "chords" };
-    this.nashvilleState = { keyIdx: 0, mode: "major", capoFret: 0 };
+    this.nashvilleState = { keyIdx: 0, mode: "major", capoKeyIdx: 0, capoMode: "major", capoFret: 0 };
     this.nashvilleReturnView = "tools";
     this.wavePaused = false;
 
@@ -80228,6 +80364,7 @@ function closeTransientPopovers() {
     document.getElementById(btnId)?.classList.remove("chip-open");
   });
   if (typeof closeTunerDropdowns === "function") closeTunerDropdowns();
+  if (typeof closeNashvilleDropdowns === "function") closeNashvilleDropdowns();
   if (_openProfileDropdownKey) {
     const prevKey = _openProfileDropdownKey;
     _openProfileDropdownKey = null;
@@ -80435,7 +80572,7 @@ function hasOpenTransientPopover() {
   ].some(id => {
     const el = document.getElementById(id);
     return Boolean(el && !el.classList.contains("hidden") && !el.classList.contains("is-pinned"));
-  }) || Boolean(typeof _tuner !== "undefined" && _tuner.openDropdown) || Boolean(typeof _openProfileDropdownKey !== "undefined" && _openProfileDropdownKey);
+  }) || Boolean(typeof _tuner !== "undefined" && _tuner.openDropdown) || Boolean(typeof _nnsOpenDropdown !== "undefined" && _nnsOpenDropdown) || Boolean(typeof _openProfileDropdownKey !== "undefined" && _openProfileDropdownKey);
 }
 
 function handleNativeBackButton() {
@@ -103895,7 +104032,7 @@ function openFretboardView(returnView = "tools") {
 // =====================================================
 // WERKZEUG: NASHVILLE NUMBER SYSTEM (#viewNashville)
 // Interaktives Tonarten-Diagramm, 12-Tonarten-Matrix &
-// Kapodaster-Übersetzer für Gitarre
+// unabhängiger Kapodaster-Übersetzer für Gitarre
 // =====================================================
 
 const NNS_KEYS = [
@@ -103986,14 +104123,24 @@ const NNS_CAPO_OPEN_SHAPES_MAJOR = [7, 0, 2, 9, 4]; // G, C, D, A, E
 const NNS_CAPO_OPEN_SHAPES_MINOR = [4, 9, 2];       // Em, Am, Dm
 
 let _nnsFlashTimers = [];
+let _nnsOpenDropdown = null; // "capoKey" | "capoFret" | null
+let _nnsOutsideClickBound = false;
 
 function getNashvilleState() {
   if (!state.nashvilleState) {
     state.nashvilleState = {
       keyIdx: 0,
       mode: "major",
+      capoKeyIdx: 0,
+      capoMode: "major",
       capoFret: 0
     };
+  }
+  if (typeof state.nashvilleState.capoKeyIdx !== "number" || Number.isNaN(state.nashvilleState.capoKeyIdx)) {
+    state.nashvilleState.capoKeyIdx = 0;
+  }
+  if (state.nashvilleState.capoMode !== "major" && state.nashvilleState.capoMode !== "minor") {
+    state.nashvilleState.capoMode = "major";
   }
   if (typeof state.nashvilleState.capoFret !== "number" || Number.isNaN(state.nashvilleState.capoFret)) {
     state.nashvilleState.capoFret = 0;
@@ -104001,29 +104148,33 @@ function getNashvilleState() {
   return state.nashvilleState;
 }
 
+function bindNashvilleOutsideClickCloser() {
+  if (_nnsOutsideClickBound || typeof document === "undefined") return;
+  _nnsOutsideClickBound = true;
+  document.addEventListener("click", (ev) => {
+    if (!_nnsOpenDropdown) return;
+    if (ev.target?.closest?.(".nns-capo-dropdown-anchor")) return;
+    closeNashvilleDropdowns();
+  });
+}
+
+function closeNashvilleDropdowns() {
+  if (!_nnsOpenDropdown) return false;
+  _nnsOpenDropdown = null;
+  const root = document.getElementById("nashvilleToolContent");
+  if (root) {
+    root.querySelectorAll("[data-nns-dropdown-menu]").forEach(m => m.classList.add("hidden"));
+    root.querySelectorAll("[data-nns-dropdown-trigger]").forEach(btn => {
+      btn.classList.remove("is-open");
+      btn.setAttribute("aria-expanded", "false");
+    });
+  }
+  return true;
+}
+
 function getNnsKeyByPc(pc) {
   const norm = ((pc % 12) + 12) % 12;
   return NNS_KEYS.find(k => k.pc === norm) || NNS_KEYS[0];
-}
-
-function getRecommendedCapoFretForKey(keyEntry, mode) {
-  const openShapes = mode === "minor" ? NNS_CAPO_OPEN_SHAPES_MINOR : NNS_CAPO_OPEN_SHAPES_MAJOR;
-  if (openShapes.includes(keyEntry.pc)) return 0;
-  // Bevorzuge Kapo-Bund 1–5 mit klassischer offener Spielform (G, C, D, A, E bzw. Em, Am, Dm)
-  let bestFret = 1;
-  let bestScore = 999;
-  for (let fret = 1; fret <= 9; fret++) {
-    const shapePc = (keyEntry.pc - fret + 12) % 12;
-    const rank = openShapes.indexOf(shapePc);
-    if (rank !== -1) {
-      const score = fret * 2 + rank;
-      if (score < bestScore) {
-        bestScore = score;
-        bestFret = fret;
-      }
-    }
-  }
-  return bestFret;
 }
 
 function getNnsCapoSuggestions(keyEntry, mode) {
@@ -104123,7 +104274,7 @@ function stopNashvillePlayback() {
   }
 }
 
-function playNnsSingleToken(token, keyIdx, mode = "major", flashToken = null, preferGuitar = false) {
+function playNnsSingleToken(token, keyIdx, mode = "major", flashAttr = null, flashVal = null, preferGuitar = false) {
   stopNashvillePlayback();
   if (typeof prepareAudioNonBlocking === "function") {
     prepareAudioNonBlocking();
@@ -104139,16 +104290,16 @@ function playNnsSingleToken(token, keyIdx, mode = "major", flashToken = null, pr
       audioEngine.playStep(notes, 1.15, null, "cadence", { atTime, legato: "chord" });
     }
   }
-  if (flashToken) {
-    flashNnsTokenElements(flashToken);
+  if (flashAttr && flashVal) {
+    flashNnsElements(flashAttr, flashVal);
   }
 }
 
-function flashNnsTokenElements(token) {
+function flashNnsElements(attrName, val) {
   const root = document.getElementById("nashvilleToolContent");
   if (!root) return;
-  root.querySelectorAll("[data-nns-flash]").forEach(el => {
-    el.classList.toggle("is-active-sound", el.dataset.nnsFlash === token);
+  root.querySelectorAll(`[${attrName}]`).forEach(el => {
+    el.classList.toggle("is-active-sound", el.getAttribute(attrName) === val);
   });
   const tId = setTimeout(() => {
     const cur = document.getElementById("nashvilleToolContent");
@@ -104217,32 +104368,48 @@ function renderNashvilleDiagramSVG(keyEntry, mode) {
   `;
 }
 
+function buildNnsChevronSvg() {
+  return `<svg class="nns-capo-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>`;
+}
+
 function renderNashvilleView() {
   const container = document.getElementById("nashvilleToolContent");
   if (!container) return;
+  bindNashvilleOutsideClickCloser();
 
   const nns = getNashvilleState();
   const safeKeyIdx = ((nns.keyIdx % NNS_KEYS.length) + NNS_KEYS.length) % NNS_KEYS.length;
   nns.keyIdx = safeKeyIdx;
   const keyEntry = NNS_KEYS[safeKeyIdx];
   const mode = nns.mode === "minor" ? "minor" : "major";
-  const capoFret = Math.max(0, Math.min(9, parseInt(nns.capoFret, 10) || 0));
-  nns.capoFret = capoFret;
 
   const degrees = mode === "minor" ? NNS_MINOR_DEGREES : NNS_MAJOR_DEGREES;
   const resolvedDegrees = degrees.map(d => resolveNnsToken(d.token, keyEntry, mode));
   const keyTitle = formatNnsKeyTitle(keyEntry, mode);
   const relMinorName = formatNnsPitch(keyEntry.majorScale[5]) + "m";
 
-  // Kapodaster-Berechnung: Klingende Tonart = Spielform + Kapo-Bund => Spielform = Klingend - Kapo
-  const capoShapePc = (keyEntry.pc - capoFret + 12) % 12;
+  // Unabhängiger Zustand für den Kapodaster-Übersetzer
+  const safeCapoKeyIdx = ((nns.capoKeyIdx % NNS_KEYS.length) + NNS_KEYS.length) % NNS_KEYS.length;
+  nns.capoKeyIdx = safeCapoKeyIdx;
+  const capoKeyEntry = NNS_KEYS[safeCapoKeyIdx];
+  const capoMode = nns.capoMode === "minor" ? "minor" : "major";
+  const capoFret = Math.max(0, Math.min(9, parseInt(nns.capoFret, 10) || 0));
+  nns.capoFret = capoFret;
+
+  const capoDegrees = capoMode === "minor" ? NNS_MINOR_DEGREES : NNS_MAJOR_DEGREES;
+  const capoSoundingTitle = formatNnsKeyTitle(capoKeyEntry, capoMode);
+  const capoSoundingResolved = capoDegrees.map(d => resolveNnsToken(d.token, capoKeyEntry, capoMode));
+  const capoShapePc = (capoKeyEntry.pc - capoFret + 12) % 12;
   const capoShapeKey = getNnsKeyByPc(capoShapePc);
-  const capoShapeTitle = formatNnsKeyTitle(capoShapeKey, mode);
-  const capoShapeResolved = degrees.map(d => resolveNnsToken(d.token, capoShapeKey, mode));
-  const capoSuggestions = getNnsCapoSuggestions(keyEntry, mode);
+  const capoShapeTitle = formatNnsKeyTitle(capoShapeKey, capoMode);
+  const capoShapeResolved = capoDegrees.map(d => resolveNnsToken(d.token, capoShapeKey, capoMode));
+  const capoSuggestions = getNnsCapoSuggestions(capoKeyEntry, capoMode);
+
+  const isKeyMenuOpen = _nnsOpenDropdown === "capoKey";
+  const isFretMenuOpen = _nnsOpenDropdown === "capoFret";
 
   container.innerHTML = `
-    <!-- 1. TONART & MODUS -->
+    <!-- 1. TONART & MODUS (FÜR DIAGRAMM & 12-TONARTEN-MATRIX) -->
     <section class="k-card nns-card">
       <div class="nns-card-head">
         <div>
@@ -104352,26 +104519,74 @@ function renderNashvilleView() {
       </div>
     </section>
 
-    <!-- 4. KAPODASTER-ÜBERSETZER FÜR GITARRE -->
-    <section class="k-card nns-card">
+    <!-- 4. UNABHÄNGIGER KAPODASTER-ÜBERSETZER FÜR GITARRE -->
+    <section class="k-card nns-card nns-capo-card">
       <div class="nns-card-head">
         <div>
           <span class="k-card-tag tag-peach">${tr("Gitarren-Praxis", "Guitar Practice")}</span>
           <h3 class="nns-section-title">${tr("Kapodaster-Übersetzer", "Capo Translator")}</h3>
         </div>
+        <div class="nns-mode-toggle" role="tablist" aria-label="${escapeHtml(tr("Tongeschlecht", "Key Mode"))}">
+          <button type="button" class="nns-mode-btn${capoMode === "major" ? " active" : ""}" data-nns-capo-mode="major" role="tab" aria-selected="${capoMode === "major"}">${tr("Dur (Standard)", "Major (Standard)")}</button>
+          <button type="button" class="nns-mode-btn${capoMode === "minor" ? " active" : ""}" data-nns-capo-mode="minor" role="tab" aria-selected="${capoMode === "minor"}">${tr("Moll (1-)", "Minor (1-)")}</button>
+        </div>
       </div>
 
       <div class="nns-capo-summary">
-        <div class="nns-capo-stat">
-          <span class="nns-capo-stat-lbl">${tr("Klingt in", "Sounds in")}</span>
-          <strong class="nns-capo-stat-val">${escapeHtml(keyTitle)}</strong>
+        <!-- Klickbares Dropdown: Klingende Ausgangstonart -->
+        <div class="nns-capo-dropdown-anchor">
+          <button type="button"
+                  class="nns-capo-stat is-interactive${isKeyMenuOpen ? " is-open" : ""}"
+                  data-nns-dropdown-trigger="capoKey"
+                  aria-haspopup="listbox"
+                  aria-expanded="${isKeyMenuOpen}">
+            <span class="nns-capo-stat-lbl">${tr("Klingt in", "Sounds in")} ${buildNnsChevronSvg()}</span>
+            <strong class="nns-capo-stat-val">${escapeHtml(capoSoundingTitle)}</strong>
+          </button>
+          <div class="nns-capo-dropdown-menu${isKeyMenuOpen ? "" : " hidden"}" data-nns-dropdown-menu="capoKey" role="listbox" aria-label="${escapeHtml(tr("Klingende Ausgangstonart", "Sounding key"))}">
+            ${NNS_KEYS.map((k, idx) => {
+              const title = formatNnsKeyTitle(k, capoMode);
+              const sig = capoMode === "minor" ? k.minorSig : k.sig;
+              const isSel = idx === safeCapoKeyIdx;
+              return `
+                <button type="button" class="nns-capo-dropdown-opt${isSel ? " is-selected" : ""}" data-nns-capo-key="${idx}" role="option" aria-selected="${isSel}">
+                  <span>${escapeHtml(title)}</span>
+                  <small>${escapeHtml(sig)}</small>
+                </button>
+              `;
+            }).join("")}
+          </div>
         </div>
+
         <span class="nns-capo-arrow" aria-hidden="true">→</span>
-        <div class="nns-capo-stat is-capo">
-          <span class="nns-capo-stat-lbl">${tr("Kapodaster", "Capo")}</span>
-          <strong class="nns-capo-stat-val">${capoFret === 0 ? tr("Ohne Kapo", "No Capo") : tf("Bund {n}", "Fret {n}", { n: capoFret })}</strong>
+
+        <!-- Klickbares Dropdown: Kapodaster-Bund -->
+        <div class="nns-capo-dropdown-anchor">
+          <button type="button"
+                  class="nns-capo-stat is-capo is-interactive${isFretMenuOpen ? " is-open" : ""}"
+                  data-nns-dropdown-trigger="capoFret"
+                  aria-haspopup="listbox"
+                  aria-expanded="${isFretMenuOpen}">
+            <span class="nns-capo-stat-lbl">${tr("Kapodaster", "Capo")} ${buildNnsChevronSvg()}</span>
+            <strong class="nns-capo-stat-val">${capoFret === 0 ? tr("Ohne Kapo", "No Capo") : tf("Bund {n}", "Fret {n}", { n: capoFret })}</strong>
+          </button>
+          <div class="nns-capo-dropdown-menu${isFretMenuOpen ? "" : " hidden"}" data-nns-dropdown-menu="capoFret" role="listbox" aria-label="${escapeHtml(tr("Kapodaster-Bund", "Capo Fret"))}">
+            ${Array.from({ length: 10 }, (_, f) => {
+              const resShapeKey = getNnsKeyByPc((capoKeyEntry.pc - f + 12) % 12);
+              const resShapeTitle = formatNnsKeyTitle(resShapeKey, capoMode);
+              const isSel = f === capoFret;
+              return `
+                <button type="button" class="nns-capo-dropdown-opt${isSel ? " is-selected" : ""}" data-nns-capo="${f}" role="option" aria-selected="${isSel}">
+                  <span>${f === 0 ? tr("Ohne Kapo", "No Capo") : tf("Bund {n}", "Fret {n}", { n: f })}</span>
+                  <small>${escapeHtml(resShapeTitle)}</small>
+                </button>
+              `;
+            }).join("")}
+          </div>
         </div>
+
         <span class="nns-capo-arrow" aria-hidden="true">→</span>
+
         <div class="nns-capo-stat is-shape">
           <span class="nns-capo-stat-lbl">${tr("Greife wie in", "Play shapes of")}</span>
           <strong class="nns-capo-stat-val">${escapeHtml(capoShapeTitle)}</strong>
@@ -104390,24 +104605,13 @@ function renderNashvilleView() {
         </div>
       </div>
 
-      <div class="nns-capo-subblock">
-        <div class="nns-extras-label">${tr("Oder Bund frei wählen (0–9):", "Or choose any fret freely (0–9):")}</div>
-        <div class="nns-capo-fret-row" role="group" aria-label="${escapeHtml(tr("Kapodaster-Bund", "Capo Fret"))}">
-          ${Array.from({ length: 10 }, (_, f) => `
-            <button type="button" class="nns-capo-fret-btn${f === capoFret ? " active" : ""}" data-nns-capo="${f}" aria-pressed="${f === capoFret}">
-              ${String(f)}
-            </button>
-          `).join("")}
-        </div>
-      </div>
-
       <div class="nns-capo-grid">
         ${capoShapeResolved.map((shapeItem, idx) => {
-          const soundingItem = resolvedDegrees[idx];
+          const soundingItem = capoSoundingResolved[idx];
           return `
             <button type="button" class="nns-capo-tile nns-fn-${shapeItem.fnKey}"
                     data-nns-capo-play="${escapeHtml(soundingItem.token)}"
-                    data-nns-flash="${escapeHtml(soundingItem.token)}">
+                    data-nns-capo-flash="${escapeHtml(soundingItem.token)}">
               <span class="nns-capo-num">${escapeHtml(shapeItem.token)}</span>
               <span class="nns-capo-shape-chord">${escapeHtml(shapeItem.chordName)}</span>
               <span class="nns-capo-sound-chord">${capoFret === 0 ? escapeHtml(shapeItem.roman) : tf("= {chord}", "= {chord}", { chord: soundingItem.chordName })}</span>
@@ -104440,13 +104644,12 @@ function renderNashvilleView() {
 function bindNashvilleViewEvents(container) {
   const nns = getNashvilleState();
 
+  // Oberes Diagramm + 12-Tonarten-Matrix (unabhängig vom Kapodaster-Übersetzer)
   container.querySelectorAll("[data-nns-key]").forEach(btn => {
     btn.addEventListener("click", () => {
       stopNashvillePlayback();
-      const nextIdx = parseInt(btn.dataset.nnsKey || "0", 10);
-      nns.keyIdx = nextIdx;
-      const nextKey = NNS_KEYS[((nextIdx % NNS_KEYS.length) + NNS_KEYS.length) % NNS_KEYS.length];
-      nns.capoFret = getRecommendedCapoFretForKey(nextKey, nns.mode);
+      _nnsOpenDropdown = null;
+      nns.keyIdx = parseInt(btn.dataset.nnsKey || "0", 10);
       renderNashvilleView();
     });
   });
@@ -104454,19 +104657,59 @@ function bindNashvilleViewEvents(container) {
   container.querySelectorAll("[data-nns-mode]").forEach(btn => {
     btn.addEventListener("click", () => {
       stopNashvillePlayback();
+      _nnsOpenDropdown = null;
       const nextMode = btn.dataset.nnsMode === "minor" ? "minor" : "major";
       if (nns.mode !== nextMode) {
         nns.mode = nextMode;
-        const curKey = NNS_KEYS[nns.keyIdx] || NNS_KEYS[0];
-        nns.capoFret = getRecommendedCapoFretForKey(curKey, nextMode);
         renderNashvilleView();
       }
     });
   });
 
-  container.querySelectorAll("[data-nns-capo]").forEach(btn => {
+  // Kapodaster-Übersetzer: unabhängiger Dur/Moll-Umschalter
+  container.querySelectorAll("[data-nns-capo-mode]").forEach(btn => {
     btn.addEventListener("click", () => {
       stopNashvillePlayback();
+      _nnsOpenDropdown = null;
+      const nextMode = btn.dataset.nnsCapoMode === "minor" ? "minor" : "major";
+      if (nns.capoMode !== nextMode) {
+        nns.capoMode = nextMode;
+        renderNashvilleView();
+      }
+    });
+  });
+
+  // Kapodaster-Dropdown-Trigger ("Klingt in" & "Kapodaster")
+  container.querySelectorAll("[data-nns-dropdown-trigger]").forEach(btn => {
+    btn.addEventListener("click", (ev) => {
+      ev.stopPropagation();
+      const targetKey = btn.dataset.nnsDropdownTrigger;
+      _nnsOpenDropdown = (_nnsOpenDropdown === targetKey) ? null : targetKey;
+      renderNashvilleView();
+      if (_nnsOpenDropdown) {
+        const opened = document.querySelector(`#nashvilleToolContent [data-nns-dropdown-menu="${_nnsOpenDropdown}"]`);
+        opened?.querySelector(".is-selected")?.scrollIntoView?.({ block: "nearest" });
+      }
+    });
+  });
+
+  // Auswahl im "Klingt in"-Dropdown
+  container.querySelectorAll("[data-nns-capo-key]").forEach(btn => {
+    btn.addEventListener("click", (ev) => {
+      ev.stopPropagation();
+      stopNashvillePlayback();
+      _nnsOpenDropdown = null;
+      nns.capoKeyIdx = parseInt(btn.dataset.nnsCapoKey || "0", 10);
+      renderNashvilleView();
+    });
+  });
+
+  // Auswahl im "Kapodaster"-Dropdown oder über offene Formen-Chips
+  container.querySelectorAll("[data-nns-capo]").forEach(btn => {
+    btn.addEventListener("click", (ev) => {
+      ev.stopPropagation();
+      stopNashvillePlayback();
+      _nnsOpenDropdown = null;
       nns.capoFret = Math.max(0, Math.min(9, parseInt(btn.dataset.nnsCapo || "0", 10) || 0));
       renderNashvilleView();
     });
@@ -104475,7 +104718,7 @@ function bindNashvilleViewEvents(container) {
   container.querySelectorAll("[data-nns-play]").forEach(el => {
     const trigger = () => {
       const tok = el.dataset.nnsPlay;
-      playNnsSingleToken(tok, nns.keyIdx, nns.mode, tok, false);
+      playNnsSingleToken(tok, nns.keyIdx, nns.mode, "data-nns-flash", tok, false);
     };
     el.addEventListener("click", trigger);
     if (el.tagName.toLowerCase() !== "button") {
@@ -104491,7 +104734,7 @@ function bindNashvilleViewEvents(container) {
   container.querySelectorAll("[data-nns-capo-play]").forEach(btn => {
     btn.addEventListener("click", () => {
       const tok = btn.dataset.nnsCapoPlay;
-      playNnsSingleToken(tok, nns.keyIdx, nns.mode, tok, true);
+      playNnsSingleToken(tok, nns.capoKeyIdx, nns.capoMode, "data-nns-capo-flash", tok, true);
     });
   });
 
@@ -104499,7 +104742,7 @@ function bindNashvilleViewEvents(container) {
     btn.addEventListener("click", () => {
       const kIdx = parseInt(btn.dataset.nnsCellKey || "0", 10);
       const tok = btn.dataset.nnsCellTok || "1";
-      playNnsSingleToken(tok, kIdx, nns.mode, null, false);
+      playNnsSingleToken(tok, kIdx, nns.mode, null, null, false);
       btn.classList.add("is-active-sound");
       const tid = setTimeout(() => btn.classList.remove("is-active-sound"), 550);
       _nnsFlashTimers.push(tid);
@@ -104508,6 +104751,7 @@ function bindNashvilleViewEvents(container) {
 
   container.querySelector("#nnsOpenArticleBtn")?.addEventListener("click", () => {
     stopNashvillePlayback();
+    _nnsOpenDropdown = null;
     if (typeof openKnowledgeArticle === "function") {
       openKnowledgeArticle("art-nashville-number-system", { returnView: "nashville" });
     }
@@ -104515,6 +104759,7 @@ function bindNashvilleViewEvents(container) {
 }
 
 function openNashvilleView(returnView = "tools") {
+  _nnsOpenDropdown = null;
   state.nashvilleReturnView = returnView;
   switchView("nashville");
 }

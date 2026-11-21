@@ -276,6 +276,21 @@ function tf(deTemplate, enTemplate, vars = {}, extraMap = null) {
 
 function setElementLocalizedText(el, text) {
   if (!el || typeof text !== "string") return;
+  if (el.dataset?.i18nStacked === "1" || el.classList?.contains("opt-btn-stacked")) {
+    const m = text.match(/^(.*?)\s*(\([^()]+\))$/);
+    if (m && typeof document !== "undefined" && typeof document.createElement === "function") {
+      el.innerHTML = "";
+      const mainSpan = document.createElement("span");
+      mainSpan.className = "opt-btn-line-main";
+      mainSpan.textContent = m[1].trim();
+      const subSpan = document.createElement("span");
+      subSpan.className = "opt-btn-line-sub";
+      subSpan.textContent = m[2].trim();
+      el.appendChild(mainSpan);
+      el.appendChild(subSpan);
+      return;
+    }
+  }
   // Automatisch formatierte Markennamen (<span class="brand-word">, siehe app.js) vorher
   // wieder zu reinem Text machen, damit der Text unten sauber ersetzt wird.
   if (typeof el.querySelectorAll === "function") {
