@@ -2435,7 +2435,10 @@ Object.assign(TR_UK, {
   "Lokrisch": "Локрійський",
   "Harmonisch Moll": "Гармонічний мінор",
   "Melodisch Moll": "Мелодичний мінор",
-  "Phrygisch Dominant": "Фригійський домінантовий"
+  "Phrygisch Dominant": "Фригійський домінантовий",
+  "Gitarre": "Гітара",
+  "Streicher": "Струнні",
+  "Bläser": "Духові"
 });
 
 if (typeof registerLanguageBundle === "function") {

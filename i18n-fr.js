@@ -2389,7 +2389,10 @@ Object.assign(TR_FR, {
   "Lokrisch": "Locrien",
   "Harmonisch Moll": "Mineur harmonique",
   "Melodisch Moll": "Mineur mélodique",
-  "Phrygisch Dominant": "Phrygien dominant"
+  "Phrygisch Dominant": "Phrygien dominant",
+  "Gitarre": "Guitare",
+  "Streicher": "Cordes",
+  "Bläser": "Cuivres & Vents"
 });
 
 if (typeof registerLanguageBundle === "function") {

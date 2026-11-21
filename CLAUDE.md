@@ -4,13 +4,17 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 
 ## Tech-Stack & Architektur
 
-- **Vanilla JS, kein Framework, kein npm, kein Build-Schritt.** Alle Dateien sind klassische globale Skripte, die [index.html](index.html) per `<script>` in fester Reihenfolge lädt: `tone.js` → `samples/*-bundle.js` → `audio.js` → `i18n*.js` → `knowledge*.js` → `app.js`. Es gibt keine ES-Module und kein `import`/`export`, und alles teilt sich einen globalen Scope.
+- **Vanilla JS, kein Framework, kein npm, kein Build-Schritt.** Alle Dateien sind klassische globale Skripte, die [index.html](index.html) per `<script>` in fester Reihenfolge lädt: `tone.js` → `samples/*-bundle.js` → `audio.js` → `i18n*.js` → `knowledge*.js` → `version.js` → `legal.js` → `app.js` → `js/*.js`. Es gibt keine ES-Module und kein `import`/`export`, und alles teilt sich einen globalen Scope.
 - **Tone.js 14.8.49** liegt lokal in [tone.js](tone.js) (minifiziert, nicht bearbeiten). Externe CDNs oder Netzwerkaufrufe gibt es nicht, und das soll so bleiben.
-- **[app.js](app.js)** (~28.500 Zeilen) enthält die gesamte App-Logik. Datei nie komplett lesen, sondern gezielt mit `grep -n` suchen und nur die betroffenen Bereiche lesen. Grobe Gliederung:
-  - Konstanten/Kataloge am Anfang (Themes, Profil, Mixer, Prüfungslevels, Metronom, Notation)
-  - Übungs-Generatoren, `openCategoryPage`, `renderUI`, `handleAnswer`, `playSequence`
-  - `DOMContentLoaded`-Init etwa ab Zeile 18450
-  - Einsing-Helfer (`// EINSING-HELFER`), Metronom (`// PRAXIS-METRONOM`), Tuner (`// CHROMATISCHER TUNER`), Freies Spiel (`// WERKZEUG: FREIES SPIEL`), Griffbrett (`// WERKZEUG: GITARREN-GRIFFBRETT`), Prüfungsmodus (`// KATEGORIE-PRÜFUNGSMODUS`)
+- **Datei- & Modul-Karte (App-Logik):** Große Dateien nie komplett lesen, sondern gezielt mit `grep -n` suchen und nur betroffene Bereiche laden.
+  - [app.js](app.js) (~21.500 Zeilen): Kern-App – Konstanten/Kataloge (Themes, Profil, Mixer, Prüfungslevels, Notation), Übungs-Generatoren, `openCategoryPage`, `renderUI`, `handleAnswer`, `playSequence`, `DOMContentLoaded`-Init (~ab Zeile 18450), Capacitor-Bridge.
+  - [js/warmup.js](js/warmup.js): Einsing-Helfer (`#viewWarmup`)
+  - [js/metronome.js](js/metronome.js): Praxis-Metronom (`#viewMetronome`, `initMetronomeEventListeners`)
+  - [js/tuner.js](js/tuner.js): Chromatischer Tuner (`#viewTuner`)
+  - [js/freeplay.js](js/freeplay.js): Klang-Labor / Freies Spiel (`#viewFreeplay`)
+  - [js/fretboard.js](js/fretboard.js): Gitarren-Griffbrett (`#viewFretboard`)
+  - [js/onboarding.js](js/onboarding.js): Willkommens-Wizard & Startup-Splash (`#welcomeOnboarding`, `#startupSplash`)
+  - [js/exam.js](js/exam.js): Kategorie-Prüfungsmodus, Auswertung, Audio-Review & Verlauf
 - **[audio.js](audio.js)**: `AudioEngine`, `EarLabSampledInstrument`, Hall-Sends, Limiter, Pink-Noise-EQ, Percussion. Samples kommen aus `window.EARLAB_SAMPLE_PACKS`, das die Bundles befüllen. Fehlt ein Sample, springt ein Synth als Fallback ein. Auf Safari (Desktop/iOS) und Mobilgeräten läuft ein leichter Hall ohne Freeverb (`shouldUseLiteReverb`), sonst drohen Aussetzer/„Zerren“. Master-Limiter: `Tone.Compressor` (Schwelle -4 dB, 200 ms Release) plus `limiterTrim` gegen die Makeup-Verstärkung – nicht durch `Tone.Limiter` ersetzen (30-dB-Knie ließ Spitzen bis +5 dBFS durch).
 - **Audio auf iPhone (Safari/WKWebView):** Ton darf nur direkt im Tipp gestartet werden. Klick-Handler, die sofort einen Klang auslösen, rufen `prepareAudioNonBlocking()` auf (synchroner Unlock + `buildAudioGraphSync`) statt vorher `await ensureAudioReady()` – ein `await` vor dem Abspielen verliert auf iOS die Nutzer-Geste. Die Unlock-Listener im Init bleiben aktiv, bis `audioEngine.isAudioUnlocked()` wahr ist, und werden nach Rückkehr aus dem Hintergrund neu scharf gestellt (`markAudioSessionInterrupted`).
 - **[styles.css](styles.css)**: Alle Themes laufen über CSS-Variablen und `data-theme` / `data-appearance` / `data-lang` auf `<html>`. RTL (Urdu) läuft über `dir="rtl"`.
@@ -67,7 +71,7 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 
 - Die Android-App ist ein **separates Capacitor-Projekt außerhalb des Repos** (`~/Documents/lauscher-android`, App-ID `de.jbkstr.lauscher`). Es wird nicht hier gepflegt, sondern per [scripts/sync-android.sh](scripts/sync-android.sh) bzw. Doppelklick auf [Start-Android-Studio.command](Start-Android-Studio.command) befüllt: Syntax-Check, Bundle-Build, Kopie der Web-Dateien nach `www/`, `npx cap sync android`, Android Studio öffnen.
 - **Nach jeder Änderung an Web-Dateien (index.html, CSS, JS, Fonts, Samples) den Android-Sync mitlaufen lassen** – auf Wunsch des Nutzers immer, ohne Nachfrage: `./scripts/sync-android.sh --no-open` (Android Studio öffnet der Nutzer selbst). Ändert nichts im Repo.
-- ⚠️ Das Skript kopiert eine **feste Dateiliste** (`RUNTIME_FILES`) plus Fonts, Sample-Bundles und `icons/*.jpg`. Kommt eine neue JS-/CSS-Datei oder ein neuer Asset-Ordner hinzu, muss er dort zusätzlich zu `index.html` eingetragen werden.
+- **Dynamische Dateiliste:** Das Sync-Skript liest alle lokalen `<script src>`- und `<link rel="stylesheet">`-Dateien (inkl. `js/*.js` und `samples/*-bundle.js`) direkt aus [index.html](index.html) aus und kopiert zusätzlich Fonts (`fonts/Andika/`) und `icons/*.jpg`. Neue JS-/CSS-Dateien müssen daher nur in `index.html` eingebunden werden. Nur für völlig neue Asset-Ordner (z. B. Bilder außerhalb von `icons/`) muss das Sync-Skript ergänzt werden.
 - Bilder für die Oberfläche (z. B. das App-Icon im Über-Fenster, `icons/app-icon.jpg`) per CSS `url(...)` einbinden – so bettet das Mobile-Bundle sie automatisch als Base64 ein.
 - In app.js: `initCapacitorNativeBridge()` fängt die Android-Zurück-Taste ab (`handleNativeBackButton`: Onboarding → Modal → Popover → Prüfungs-Abbruch → zurück navigieren → App beenden) und stoppt Audio, wenn die App in den Hintergrund geht. **Neue Popovers** in `hasOpenTransientPopover()` eintragen, damit „Zurück“ sie schließt. Ohne Capacitor (Browser) ist die Brücke inaktiv.
 - Profil-Sicherung: In der App funktionieren Browser-Downloads nicht. Auf Mobilgeräten (App oder Browser mit Web Share) öffnet „Profil sichern“ eine Auswahl `#spaceBackupExportChooser`: **Lokal speichern** (`saveProfileBackupLocally`, Android: `@capacitor/filesystem` nach `Dokumente/Lauscher/`, Rückfall `EXTERNAL`; Browser: Download) oder **Teilen** (`shareProfileBackup`, `@capacitor/share` bzw. Web Share). Am Desktop direkt Download. Rückmeldung über `setSpaceBackupStatus` plus Toast `showAppToast`. Das Sync-Skript installiert die Plugins `app`, `filesystem` und `share` bei Bedarf und trägt `WRITE_EXTERNAL_STORAGE` (`maxSdkVersion=29`) ins Manifest ein. Native Plugins immer über `getCapacitorNativePlugin(name)` holen.
@@ -88,7 +92,7 @@ python3 -m http.server 8000
 ```
 
 Danach `http://localhost:8000` öffnen. Für den Nutzer gibt es die Doppelklick-Startdatei [Start-Lauscher.command](Start-Lauscher.command), die das Gleiche tut. **`index.html` nicht direkt per `file://` öffnen:** Chrome blockiert dort die Schriftdateien. Automatische Tests gibt es nicht.
-- Syntax-Check nach Änderungen: `node --check app.js` (bzw. die geänderte Datei).
+- **Projekt-Check nach Änderungen:** `python3 scripts/check-project.py` prüft Existenz aller in `index.html` geladenen Dateien, JS-Syntax (`node --check`) sowie globale `const`/`let`/`class`-Kollisionen über alle Skripte hinweg, i18n- und Knowledge-Parität über alle 7 Sprachen sowie den Stand von `lauscher-mobile.html` (`--no-bundle` überspringt den Bundle-Check; `--strict` wertet auch `tr()`/`tf()`- und Knowledge-Hinweise als Fehler).
 - **Browser-Test in der Claude-Desktop-App:** `file://` und ein per `preview_start`/`launch.json` gestarteter Server funktionieren nicht (macOS-Zugriffsschutz auf `~/Documents`). Was funktioniert: Server per Bash im Hintergrund starten (`python3 -m http.server 8811 --bind 127.0.0.1` im Projektordner, `run_in_background`), dann `preview_start` mit `url: http://localhost:8811/` aufrufen. Danach Server wieder stoppen.
 - Änderungen im Browser prüfen und dabei die Konsole auf Fehler achten. Wenn relevant, auch die Mobilbreite, ein dunkles Theme und eine weitere Sprache prüfen.
 
