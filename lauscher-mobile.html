@@ -6137,6 +6137,68 @@ body,
   opacity: 0.65;
 }
 
+/* Markierung passender Übungskacheln für gewählte Trainings-Schwerpunkte */
+.category-nav-card.is-focus-match.card-accent-sage {
+  border-color: var(--sage-strong);
+  border-inline-start-color: var(--sage-strong);
+  background-color: var(--sage-soft);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.category-nav-card.is-focus-match.card-accent-peach {
+  border-color: var(--peach-strong);
+  border-inline-start-color: var(--peach-strong);
+  background-color: var(--peach-soft);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.category-nav-card.is-focus-match.card-accent-lilac {
+  border-color: var(--lilac-strong);
+  border-inline-start-color: var(--lilac-strong);
+  background-color: var(--lilac-soft);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.cat-focus-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 7px;
+  border-radius: var(--radius-pill);
+  font-size: 0.66rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+.card-accent-sage .cat-focus-pill {
+  background-color: var(--sage-strong);
+  color: var(--on-strong-accent);
+}
+
+.card-accent-peach .cat-focus-pill {
+  background-color: var(--peach-strong);
+  color: var(--on-strong-accent);
+}
+
+.card-accent-lilac .cat-focus-pill {
+  background-color: var(--lilac-strong);
+  color: var(--on-strong-accent);
+}
+
+.category-grid-home .category-nav-card.is-focus-match .cat-focus-pill {
+  position: absolute;
+  top: 0.76rem;
+  inset-inline-end: 0.72rem;
+}
+
+.category-grid-home .category-nav-card.is-focus-match .cat-chevron {
+  opacity: 0;
+}
+
 .category-card-wide {
   padding-top: 0.76rem;
   padding-bottom: 0.76rem;
@@ -35604,6 +35666,13 @@ registerColocatedPhrases({
     pl: "Dęte blaszane",
     uk: "Духові",
     ur: "براس اور ونڈز"
+  },
+  "Fokus": {
+    fr: "Focus",
+    es: "Enfoque",
+    pl: "Cel",
+    uk: "Фокус",
+    ur: "فوکس"
   }
 });
 
@@ -75297,6 +75366,25 @@ const PROFILE_FOCUS_OPTIONS = {
   production: { key: "production", label: "Produktion & Mixing",  hint: "Frequenzen & EQ im Noise üben",    mode: "prod-eq-noise" },
   modes:      { key: "modes",      label: "Tonleitern & Modi",    hint: "Kirchentonarten & Charaktertöne",  mode: "modes-scale" }
 };
+const PROFILE_FOCUS_CATEGORY_MAP = {
+  allround:   [],
+  harmony:    ["chords", "cadence"],
+  melody:     ["interval", "solfege", "melody"],
+  rhythm:     ["rhythm"],
+  notation:   ["notation"],
+  production: ["production"],
+  modes:      ["modes"]
+};
+
+function getFocusedHomeCategories(profile = state?.profile) {
+  const focusKeys = getResolvedProfileFocuses(profile);
+  const cats = new Set();
+  focusKeys.forEach(fk => {
+    if (fk === "allround") return;
+    (PROFILE_FOCUS_CATEGORY_MAP[fk] || []).forEach(cat => cats.add(cat));
+  });
+  return cats;
+}
 const PROFILE_ACCESSORY_OPTIONS = [
   { key: "headphones", label: "Kopfhörer" },
   { key: "sunglasses", label: "Sonnenbrille" },
@@ -93867,6 +93955,35 @@ function setHomeQuickMixesEnabled(enabled) {
   renderHomeQuickMixBar();
 }
 
+function syncHomeFocusHighlights() {
+  if (typeof document === "undefined" || typeof getFocusedHomeCategories !== "function") return;
+  const homeView = document.getElementById("viewHome");
+  if (!homeView) return;
+
+  const focusedCats = getFocusedHomeCategories(state?.profile);
+  const pillLabel = tr("Fokus", "Focus");
+
+  homeView.querySelectorAll(".category-nav-card[data-open-category]").forEach(card => {
+    const cat = card.dataset?.openCategory;
+    const isMatch = Boolean(cat && focusedCats.has(cat));
+    card.classList.toggle("is-focus-match", isMatch);
+
+    let pill = card.querySelector(".cat-focus-pill");
+    if (isMatch) {
+      if (!pill) {
+        pill = document.createElement("span");
+        pill.className = "cat-focus-pill";
+        const chevron = card.querySelector(".cat-chevron");
+        if (chevron) card.insertBefore(pill, chevron);
+        else card.appendChild(pill);
+      }
+      pill.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.4l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.3l-5.9 3.1 1.2-6.5-4.8-4.6 6.6-.9z"/></svg><span>${escapeHtml(pillLabel)}</span>`;
+    } else if (pill) {
+      pill.remove();
+    }
+  });
+}
+
 function renderHomeProfileGreeting() {
   state.updateQuickStartLabel();
   rotateMascotSlot("heroMascotSvg", "idle", true, {
@@ -93883,6 +94000,7 @@ function renderHomeProfileGreeting() {
 
   refreshCurrentQuoteLocalization();
   renderHomeQuickMixBar();
+  syncHomeFocusHighlights();
 }
 
 function getSessionTimerLocalizedNote(st) {

@@ -1039,6 +1039,25 @@ const PROFILE_FOCUS_OPTIONS = {
   production: { key: "production", label: "Produktion & Mixing",  hint: "Frequenzen & EQ im Noise üben",    mode: "prod-eq-noise" },
   modes:      { key: "modes",      label: "Tonleitern & Modi",    hint: "Kirchentonarten & Charaktertöne",  mode: "modes-scale" }
 };
+const PROFILE_FOCUS_CATEGORY_MAP = {
+  allround:   [],
+  harmony:    ["chords", "cadence"],
+  melody:     ["interval", "solfege", "melody"],
+  rhythm:     ["rhythm"],
+  notation:   ["notation"],
+  production: ["production"],
+  modes:      ["modes"]
+};
+
+function getFocusedHomeCategories(profile = state?.profile) {
+  const focusKeys = getResolvedProfileFocuses(profile);
+  const cats = new Set();
+  focusKeys.forEach(fk => {
+    if (fk === "allround") return;
+    (PROFILE_FOCUS_CATEGORY_MAP[fk] || []).forEach(cat => cats.add(cat));
+  });
+  return cats;
+}
 const PROFILE_ACCESSORY_OPTIONS = [
   { key: "headphones", label: "Kopfhörer" },
   { key: "sunglasses", label: "Sonnenbrille" },
