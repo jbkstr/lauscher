@@ -3013,11 +3013,20 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
 .stage-mascot {
   width: 48px;
   height: 48px;
+  flex-shrink: 0;
   margin-bottom: 0.14rem;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: transform 0.25s ease;
+}
+
+.stage-mascot > svg,
+.stage-mascot > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
 
 .stage-playing .stage-mascot {
@@ -11673,85 +11682,26 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 
 /* Mittlere Platzhöhe (z. B. Solfège, Melodie, Notenlesen-Einzelsystem, größere Antwortraster):
    weiterhin dieselbe vertikale Kartenform und -breite, harmonisch kompakter */
-@container exstage (max-height: 162px) {
+@container exstage (max-height: 184px) {
   .central-stage {
     min-height: 106px;
-    padding: 0.4rem 0.85rem;
+    padding: 0.36rem 0.85rem;
   }
   .central-stage .stage-mascot {
-    width: 42px;
-    height: 42px;
-    margin-bottom: 0.08rem;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 0.06rem;
   }
   .central-stage .stage-sub {
     font-size: 0.54rem;
   }
   .central-stage .stage-main {
-    font-size: 1.36rem;
-    line-height: 1.14;
+    font-size: 1.28rem;
+    line-height: 1.12;
     margin: 0.02rem 0;
   }
   .central-stage .stage-desc {
-    font-size: 0.68rem;
-    line-height: 1.22;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  .central-stage .stage-streak-pill {
-    top: 0.34rem;
-    inset-inline-end: 0.42rem;
-    font-size: 0.56rem;
-    padding: 0.12rem 0.42rem;
-  }
-  .stage-streak-notice {
-    margin-top: 0.14rem;
-    font-size: 0.62rem;
-  }
-}
-
-/* Wenig vertikaler Platz (z. B. Doppelsystem, Kombi-Diktat oder eingeblendete Feedback-Karte):
-   gleiche Kartenbreite beibehalten, Inhalt quer anordnen (Maskottchen links, Text rechts) */
-@container exstage (max-height: 118px) {
-  .central-stage {
-    width: 88%;
-    max-width: 360px;
-    min-height: 66px;
-    padding: 0.34rem 0.88rem;
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    grid-template-rows: auto auto auto;
-    justify-content: center;
-    align-items: center;
-    text-align: start;
-    gap: 0.02rem 0.62rem;
-  }
-  .central-stage .stage-mascot {
-    grid-column: 1;
-    grid-row: 1 / 4;
-    width: 38px;
-    height: 38px;
-    margin: 0;
-  }
-  .central-stage .stage-sub {
-    grid-column: 2;
-    grid-row: 1;
-    font-size: 0.54rem;
-    line-height: 1.15;
-    padding-inline-end: 1.9rem;
-  }
-  .central-stage .stage-main {
-    grid-column: 2;
-    grid-row: 2;
-    font-size: 1.12rem;
-    line-height: 1.14;
-    margin: 0;
-  }
-  .central-stage .stage-desc {
-    grid-column: 2;
-    grid-row: 3;
-    font-size: 0.65rem;
+    font-size: 0.67rem;
     line-height: 1.2;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -11759,7 +11709,73 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
     overflow: hidden;
   }
   .central-stage .stage-streak-pill {
-    top: 0.26rem;
+    top: 0.32rem;
+    inset-inline-end: 0.4rem;
+    font-size: 0.56rem;
+    padding: 0.1rem 0.4rem;
+  }
+  .stage-streak-notice {
+    margin-top: 0.12rem;
+    font-size: 0.6rem;
+  }
+}
+
+/* Wenig vertikaler Platz (z. B. Tap-Pad, Doppelsystem, Kombi-Diktat oder eingeblendete Feedback-Karte):
+   rechtzeitig quer anordnen (Maskottchen links, Text rechts), damit weder Bild noch Text je beschnitten werden */
+@container exstage (max-height: 152px) {
+  .central-stage {
+    width: 92%;
+    max-width: 380px;
+    min-height: 64px;
+    padding: 0.34rem 0.85rem;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    text-align: start;
+    gap: 0.04rem 0.62rem;
+  }
+  .central-stage .stage-mascot {
+    grid-column: 1;
+    grid-row: 1 / 4;
+    width: 40px;
+    height: 40px;
+    margin: 0;
+  }
+  .central-stage .stage-sub {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 0.54rem;
+    line-height: 1.14;
+    padding-inline-end: 2.1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .central-stage .stage-main {
+    grid-column: 2;
+    grid-row: 2;
+    font-size: clamp(0.98rem, 4.2vw, 1.14rem);
+    line-height: 1.14;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .central-stage .stage-desc {
+    grid-column: 2;
+    grid-row: 3;
+    font-size: 0.65rem;
+    line-height: 1.18;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .central-stage .stage-streak-pill {
+    top: 0.24rem;
     inset-inline-end: 0.36rem;
     font-size: 0.54rem;
     padding: 0.08rem 0.34rem;
@@ -11769,21 +11785,28 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
     justify-self: center;
     margin-top: 0.08rem;
     font-size: 0.58rem;
-    padding: 0.08rem 0.46rem;
+    padding: 0.06rem 0.44rem;
   }
 }
 
-/* Knapp: Beschreibung nur noch einzeilig, ohne Zusatzbanner */
-@container exstage (max-height: 86px) {
+/* Knapp (z. B. mit eingeblendetem Tap-Zeitstrahl): Beschreibung einzeilig, ohne Zusatzbanner */
+@container exstage (max-height: 94px) {
   .central-stage {
-    min-height: 52px;
-    padding: 0.22rem 0.8rem;
+    min-height: 50px;
+    padding: 0.22rem 0.78rem;
+    gap: 0.02rem 0.52rem;
   }
   .central-stage .stage-mascot {
     width: 32px;
     height: 32px;
   }
+  .central-stage .stage-main {
+    font-size: clamp(0.9rem, 3.9vw, 1.04rem);
+    line-height: 1.1;
+  }
   .central-stage .stage-desc {
+    font-size: 0.62rem;
+    line-height: 1.15;
     -webkit-line-clamp: 1;
   }
   .central-stage .stage-streak-notice {
@@ -11791,20 +11814,31 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   }
 }
 
-/* Sehr wenig Platz: nur Status und Hauptzeile */
-@container exstage (max-height: 64px) {
+/* Sehr wenig Platz: nur Status und Hauptzeile (mit kleinem Maskottchen links) */
+@container exstage (max-height: 66px) {
   .central-stage {
-    padding: 0.16rem 0.76rem;
+    padding: 0.16rem 0.72rem;
     min-height: 0;
+    grid-template-rows: auto auto;
+    gap: 0 0.46rem;
   }
-  .central-stage .stage-mascot,
+  .central-stage .stage-mascot {
+    grid-row: 1 / 3;
+    width: 26px;
+    height: 26px;
+  }
   .central-stage .stage-desc,
   .central-stage .stage-streak-notice {
     display: none;
   }
-  .central-stage .stage-sub,
+  .central-stage .stage-sub {
+    grid-column: 2;
+    grid-row: 1;
+  }
   .central-stage .stage-main {
-    grid-column: 1 / -1;
+    grid-column: 2;
+    grid-row: 2;
+    font-size: 0.92rem;
   }
 }
 
@@ -11891,6 +11925,25 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 #viewExercise.fit-2 .rhythm-tap-wrap,
 #viewExercise.fit-3 .rhythm-tap-wrap {
   padding: 0.08rem 0 0.06rem 0;
+}
+#viewExercise.fit-1 .rhythm-tap-timeline,
+#viewExercise.fit-2 .rhythm-tap-timeline,
+#viewExercise.fit-3 .rhythm-tap-timeline {
+  margin-top: 0.3rem;
+  padding: 0.22rem 0.36rem 0.2rem;
+}
+#viewExercise.fit-1 .rhythm-tap-timeline svg,
+#viewExercise.fit-2 .rhythm-tap-timeline svg {
+  height: 36px;
+}
+#viewExercise.fit-3 .rhythm-tap-timeline svg {
+  height: 30px;
+}
+#viewExercise.fit-1 .rhythm-tap-timeline-legend,
+#viewExercise.fit-2 .rhythm-tap-timeline-legend,
+#viewExercise.fit-3 .rhythm-tap-timeline-legend {
+  font-size: 0.6rem;
+  gap: 0.08rem 0.42rem;
 }
 #viewExercise.fit-1 .rhythm-tap-pad {
   min-height: 112px;
@@ -17490,19 +17543,26 @@ window.EARLAB_SAMPLE_PACKS["voice"] = {"instrument":"voice","format":"m4a","mime
  * 7. Schonendes, Playback-bewusstes Sample-Decoding mit Main-Thread-Pausen (schützt Android/iOS MediaCodec-Pools).
  */
 
+/**
+ * Dreiecksverteilter Zufallswert in [0, 1] (häuft sich organisch um 0,5, vermeidet harte Ausreißer).
+ */
+function triRand01() {
+  return (Math.random() + Math.random()) * 0.5;
+}
+
 const SAMPLED_STEM_CONFIG = {
-  piano:   { demoStyle: "piano",   attackSec: 0.004, releaseSec: 0.55, fallbackMult: 0.72, sampledMult: 0.90, demoGain: 0.85, useReverb: true,  maxPolyphony: 14 },
-  guitar:  { demoStyle: "guitar",  attackSec: 0.004, releaseSec: 0.50, fallbackMult: 0.65, sampledMult: 0.78, demoGain: 0.85, useReverb: true,  maxPolyphony: 10 },
-  strings: { demoStyle: "strings", attackSec: 0.018, releaseSec: 0.65, fallbackMult: 0.55, sampledMult: 0.58, demoGain: 0.85, useReverb: true,  maxPolyphony: 10 },
-  brass:   { demoStyle: "brass",   attackSec: 0.010, releaseSec: 0.45, fallbackMult: 0.42, sampledMult: 0.62, demoGain: 0.85, useReverb: true,  maxPolyphony: 10 },
-  voice:   { demoStyle: "choir",   attackSec: 0.016, releaseSec: 0.60, fallbackMult: 0.45, sampledMult: 0.58, demoGain: 0.85, useReverb: true,  maxPolyphony: 10 },
-  bass:    { demoStyle: "ebass",   attackSec: 0.004, releaseSec: 0.28, fallbackMult: 0.92, sampledMult: 0.92, demoGain: 0.85, useReverb: false, maxPolyphony: 3 }
+  piano:   { demoStyle: "piano",   attackSec: 0.004, legatoAttackSec: 0.007, legatoStartSkipSec: 0.000, releaseSec: 0.62, legatoOverlapSec: 0.025, chordCrossfadeSec: 0.16, melodyCrossfadeSec: 0.15, chordSpreadMs: 9,  noteJitterMs: 3.5, chordRollMode: "roll",     ensembleRangeMs: [0, 4],  fallbackMult: 0.72, sampledMult: 0.90, demoGain: 0.85, useReverb: true,  maxPolyphony: 16 },
+  guitar:  { demoStyle: "guitar",  attackSec: 0.004, legatoAttackSec: 0.008, legatoStartSkipSec: 0.000, releaseSec: 0.58, legatoOverlapSec: 0.022, chordCrossfadeSec: 0.15, melodyCrossfadeSec: 0.14, chordSpreadMs: 14, noteJitterMs: 3.0, chordRollMode: "roll",     ensembleRangeMs: [2, 8],  fallbackMult: 0.65, sampledMult: 0.78, demoGain: 0.85, useReverb: true,  maxPolyphony: 12 },
+  strings: { demoStyle: "strings", attackSec: 0.024, legatoAttackSec: 0.048, legatoStartSkipSec: 0.042, releaseSec: 0.72, legatoOverlapSec: 0.055, chordCrossfadeSec: 0.16, melodyCrossfadeSec: 0.14, chordSpreadMs: 11, noteJitterMs: 5.0, chordRollMode: "ensemble", ensembleRangeMs: [4, 13], fallbackMult: 0.55, sampledMult: 0.58, demoGain: 0.85, useReverb: true,  maxPolyphony: 12 },
+  brass:   { demoStyle: "brass",   attackSec: 0.012, legatoAttackSec: 0.026, legatoStartSkipSec: 0.018, releaseSec: 0.50, legatoOverlapSec: 0.036, chordCrossfadeSec: 0.13, melodyCrossfadeSec: 0.12, chordSpreadMs: 8,  noteJitterMs: 4.5, chordRollMode: "ensemble", ensembleRangeMs: [3, 10], fallbackMult: 0.42, sampledMult: 0.62, demoGain: 0.85, useReverb: true,  maxPolyphony: 12 },
+  voice:   { demoStyle: "choir",   attackSec: 0.020, legatoAttackSec: 0.055, legatoStartSkipSec: 0.075, releaseSec: 0.68, legatoOverlapSec: 0.070, chordCrossfadeSec: 0.17, melodyCrossfadeSec: 0.15, chordSpreadMs: 13, noteJitterMs: 6.0, chordRollMode: "ensemble", ensembleRangeMs: [5, 15], fallbackMult: 0.45, sampledMult: 0.58, demoGain: 0.85, useReverb: true,  maxPolyphony: 12 },
+  bass:    { demoStyle: "ebass",   attackSec: 0.004, legatoAttackSec: 0.007, legatoStartSkipSec: 0.000, releaseSec: 0.34, legatoOverlapSec: 0.016, chordCrossfadeSec: 0.075, melodyCrossfadeSec: 0.075, chordSpreadMs: 0, noteJitterMs: 2.5, chordRollMode: "ensemble", ensembleRangeMs: [0, 6],  fallbackMult: 0.92, sampledMult: 0.92, demoGain: 0.85, useReverb: false, maxPolyphony: 4 }
 };
 
 const PIANO_CHARACTER_PROFILES = {
-  dry:     { filterHz: 18000, reverbDampHz: 5200, roomSize: 0.58, defaultReverb: 0.00, releaseSec: 0.55, holdDecayFloor: 1.00, attackSec: 0.004,  spreadMs: 0,  humanize: false },
-  natural: { filterHz: 5800,  reverbDampHz: 4800, roomSize: 0.72, defaultReverb: 0.24, releaseSec: 0.78, holdDecayFloor: 0.68, attackSec: 0.0045, spreadMs: 8,  humanize: true  },
-  concert: { filterHz: 5000,  reverbDampHz: 5600, roomSize: 0.86, defaultReverb: 0.48, releaseSec: 1.05, holdDecayFloor: 0.62, attackSec: 0.005,  spreadMs: 12, humanize: true  }
+  dry:     { filterHz: 18000, reverbDampHz: 5200, roomSize: 0.58, defaultReverb: 0.00, releaseSec: 0.60, holdDecayFloor: 1.00, attackSec: 0.004,  spreadMs: 3.5, jitterMs: 1.5, humanize: true },
+  natural: { filterHz: 5800,  reverbDampHz: 4800, roomSize: 0.72, defaultReverb: 0.24, releaseSec: 0.84, holdDecayFloor: 0.86, attackSec: 0.0045, spreadMs: 9.0, jitterMs: 3.5, humanize: true },
+  concert: { filterHz: 5000,  reverbDampHz: 5600, roomSize: 0.86, defaultReverb: 0.48, releaseSec: 1.12, holdDecayFloor: 0.82, attackSec: 0.005,  spreadMs: 13.0, jitterMs: 4.5, humanize: true }
 };
 
 const STEM_REVERB_BY_CHAR = {
@@ -17719,8 +17779,16 @@ class EarLabSampledInstrument {
     this.rawCtx = options.rawCtx;
     this.targetNode = targetNode;
     this.attackSec = Math.max(0.004, options.attackSec ?? 0.004);
-    this.releaseSec = options.releaseSec ?? 0.55;
-    this.maxPolyphony = options.maxPolyphony ?? 14;
+    this.legatoAttackSec = Math.max(this.attackSec, options.legatoAttackSec ?? Math.min(0.045, this.attackSec * 1.6));
+    this.legatoStartSkipSec = Math.max(0, options.legatoStartSkipSec ?? 0);
+    this.releaseSec = options.releaseSec ?? 0.60;
+    this.legatoOverlapSec = Math.max(0.008, options.legatoOverlapSec ?? 0.025);
+    this.chordCrossfadeSec = Math.max(0.04, options.chordCrossfadeSec ?? 0.15);
+    this.melodyCrossfadeSec = Math.max(0.04, options.melodyCrossfadeSec ?? 0.14);
+    this.chordSpreadMs = Math.max(0, options.chordSpreadMs ?? 9);
+    this.noteJitterMs = Math.max(0, options.noteJitterMs ?? 3.5);
+    this.chordRollMode = options.chordRollMode || "roll";
+    this.maxPolyphony = options.maxPolyphony ?? 16;
     this.getSoundProfile = typeof options.getSoundProfile === "function" ? options.getSoundProfile : null;
     this.onVoiceStart = typeof options.onVoiceStart === "function" ? options.onVoiceStart : null;
     this.onVoiceEnd = typeof options.onVoiceEnd === "function" ? options.onVoiceEnd : null;
@@ -17771,21 +17839,39 @@ class EarLabSampledInstrument {
     return best;
   }
 
-  retireVoice(voice, fadeSec = 0.032) {
-    if (!voice || voice.released) return;
-    voice.released = true;
+  retireVoice(voice, fadeSec = 0.032, whenSec = null) {
+    if (!voice) return;
+    const now = this.rawCtx?.currentTime || 0;
+    const t = Number.isFinite(whenSec) ? Math.max(now + 0.006, whenSec) : (now + 0.006);
+    if (voice.released) return;
+    if (Number.isFinite(voice.retiredAt) && voice.retiredAt <= t + 0.002) return;
+    if (Number.isFinite(voice.fadeOutEnd) && t >= voice.fadeOutEnd - 0.012) {
+      voice.retiredAt = voice.fadeOutEnd;
+      if (t <= now + 0.015) voice.released = true;
+      return;
+    }
+    voice.retiredAt = t;
+    const isImmediate = t <= now + 0.015;
+    if (isImmediate) voice.released = true;
     try {
-      const now = this.rawCtx?.currentTime || 0;
-      const t = now + 0.006;
       const p = voice.gain.gain;
-      const tau = Math.max(0.004, fadeSec / 4.5);
+      if (Number.isFinite(voice.startAt) && t < voice.startAt - 0.004) {
+        // Noch nicht gestartete, vorab geplante Stimme lautlos abbrechen
+        p.cancelScheduledValues(0);
+        p.setValueAtTime(0, t);
+        voice.released = true;
+        try { voice.src.stop(t); } catch (_) {}
+        return;
+      }
+      const safeFade = Math.max(0.02, fadeSec);
+      const tau = Math.max(0.004, safeFade / 4.5);
       if (typeof p.cancelAndHoldAtTime === "function") {
         p.cancelAndHoldAtTime(t);
       } else {
         p.cancelScheduledValues(t);
       }
       p.setTargetAtTime(0, t, tau);
-      voice.src.stop(t + fadeSec + 0.045);
+      try { voice.src.stop(t + safeFade + 0.055); } catch (_) {}
     } catch (_) {}
   }
 
@@ -17800,41 +17886,88 @@ class EarLabSampledInstrument {
     const dur = Math.max(0.06, Number(durationSec) || 0.6);
     const safeVel = Math.max(0.02, Math.min(1, Number.isFinite(velocity) ? velocity : 1));
     const prof = this.getSoundProfile ? this.getSoundProfile() : null;
-    const effAttackSec = Math.max(
-      0.004,
-      Number.isFinite(envOverride?.attackSec)
-        ? envOverride.attackSec
-        : (prof ? (prof.attackSec ?? this.attackSec) : this.attackSec)
-    );
-    const baseReleaseSec = Number.isFinite(envOverride?.releaseSec)
-      ? Math.max(0.035, envOverride.releaseSec)
-      : (prof ? (prof.releaseSec ?? this.releaseSec) : this.releaseSec);
-    const effReleaseSec = (!Number.isFinite(envOverride?.releaseSec) && prof && noteList.length === 1 && dur <= 0.38)
-      ? Math.min(baseReleaseSec, Math.max(0.32, dur * 1.45))
-      : baseReleaseSec;
+    const legatoGroup = (envOverride?.legatoGroup === "chord" || envOverride?.legatoGroup === "melody")
+      ? envOverride.legatoGroup
+      : null;
 
     const resolvedEntries = noteList
       .map(noteToken => ({ noteToken, targetMidi: EarLabSampledInstrument.noteToMidi(noteToken) }))
       .filter(entry => entry.targetMidi !== null);
-    const sortedMidis = prof && prof.humanize && resolvedEntries.length >= 3
+    if (resolvedEntries.length === 0) return;
+    const incomingMidiSet = new Set(resolvedEntries.map(e => e.targetMidi));
+
+    // Legato-Übergänge & Same-Note-Anti-Stacking präzise auf den echten Einsatzzeitpunkt (startAt) planen
+    let hasLegatoPredecessor = false;
+    let hasDifferentPitchPredecessor = false;
+    const overlapSec = Number.isFinite(envOverride?.legatoOverlapSec)
+      ? Math.max(0.005, envOverride.legatoOverlapSec)
+      : this.legatoOverlapSec;
+    const crossfadeSec = Number.isFinite(envOverride?.legatoCrossfadeSec)
+      ? Math.max(0.035, envOverride.legatoCrossfadeSec)
+      : (legatoGroup === "melody" ? this.melodyCrossfadeSec : this.chordCrossfadeSec);
+
+    for (let i = 0; i < this.activeVoices.length; i++) {
+      const existing = this.activeVoices[i];
+      if (!existing || existing.released || existing.startAt > startAt - 0.012) continue;
+      const existingEnd = Number.isFinite(existing.retiredAt) ? existing.retiredAt : (existing.fadeOutEnd || 0);
+      const isSamePitch = incomingMidiSet.has(existing.midi);
+
+      if (legatoGroup && existing.legatoGroup === legatoGroup && existingEnd >= startAt - 0.08) {
+        hasLegatoPredecessor = true;
+        if (!isSamePitch) hasDifferentPitchPredecessor = true;
+        if (isSamePitch) {
+          if (legatoGroup === "melody") {
+            // Tonwiederholung in einer Melodie: minimaler sauberer Neuansatz vor startAt für klare Rhythmik
+            this.retireVoice(existing, 0.026, Math.max(now + 0.006, startAt - 0.022));
+          } else {
+            // Gemeinsamer Akkordton (z. B. C in I → vi): nahtlose Übergabe ohne Lücke & ohne Kammfilter
+            this.retireVoice(existing, 0.042, Math.max(now + 0.006, startAt - 0.004));
+          }
+        } else {
+          // Klangwechsel: Vorgängerton trägt bis kurz nach startAt und blendet dann wie beim Halbpedal/Bogenwechsel weich aus
+          this.retireVoice(existing, crossfadeSec, startAt + overlapSec);
+        }
+      } else if (isSamePitch && existingEnd > startAt - 0.01) {
+        // Same-Note-Anti-Stacking erst am tatsächlichen startAt statt sofort bei Lookahead-Vorplanung
+        this.retireVoice(existing, 0.036, Math.max(now + 0.006, startAt - 0.004));
+      }
+    }
+
+    const useLegatoContinuation = Boolean(legatoGroup && hasLegatoPredecessor && (legatoGroup === "chord" || hasDifferentPitchPredecessor));
+    const baseAttackSec = prof ? (prof.attackSec ?? this.attackSec) : this.attackSec;
+    const effAttackSec = Math.max(
+      0.004,
+      Number.isFinite(envOverride?.attackSec)
+        ? envOverride.attackSec
+        : (useLegatoContinuation ? Math.max(baseAttackSec, this.legatoAttackSec) : baseAttackSec)
+    );
+    const extraStartSkipSec = useLegatoContinuation ? this.legatoStartSkipSec : 0;
+    const baseReleaseSec = Number.isFinite(envOverride?.releaseSec)
+      ? Math.max(0.04, envOverride.releaseSec)
+      : (prof ? (prof.releaseSec ?? this.releaseSec) : this.releaseSec);
+    const effReleaseSec = (!Number.isFinite(envOverride?.releaseSec) && prof && noteList.length === 1 && dur <= 0.38)
+      ? Math.min(baseReleaseSec, Math.max(0.40, dur * 1.6))
+      : baseReleaseSec;
+
+    const allowHumanize = envOverride?.humanize !== false && (!prof || prof.humanize !== false);
+    const effSpreadMs = prof && Number.isFinite(prof.spreadMs) ? prof.spreadMs : this.chordSpreadMs;
+    const effJitterMs = prof && Number.isFinite(prof.jitterMs) ? prof.jitterMs : this.noteJitterMs;
+    const sortedMidis = allowHumanize && resolvedEntries.length >= 2
       ? resolvedEntries.map(e => e.targetMidi).sort((a, b) => a - b)
       : null;
+    // Pro Akkord einmalig gewürfelte, dezente Roll-Varianz (nie zweimal identisch, nie übertrieben)
+    const chordRollFactor = 0.65 + triRand01() * 0.70;
+    const invertRoll = this.chordRollMode === "roll" && resolvedEntries.length >= 3 && Math.random() < 0.16;
 
-    resolvedEntries.forEach(({ targetMidi }, entryIdx) => {
+    resolvedEntries.forEach(({ targetMidi }) => {
       const chosen = this.findClosestSample(targetMidi);
       if (!chosen) return;
 
-      // Same-Note-Anti-Stacking: gleiche Note auf demselben Stem weich ablösen statt Kammfilter-Stapel
-      for (let i = 0; i < this.activeVoices.length; i++) {
-        const existing = this.activeVoices[i];
-        if (!existing.released && existing.midi === targetMidi && existing.startAt <= startAt - 0.01) {
-          this.retireVoice(existing, 0.028);
-        }
-      }
-
       while (this.activeVoices.length >= this.maxPolyphony) {
-        const oldest = this.activeVoices.shift();
-        this.retireVoice(oldest, 0.025);
+        let evictIdx = this.activeVoices.findIndex(v => Number.isFinite(v.retiredAt) && v.retiredAt <= startAt + 0.02);
+        if (evictIdx === -1) evictIdx = 0;
+        const oldest = this.activeVoices.splice(evictIdx, 1)[0];
+        this.retireVoice(oldest, 0.028, Math.max(now + 0.006, Math.min(startAt, oldest?.retiredAt ?? startAt)));
       }
 
       const rate = Math.pow(2, (targetMidi - chosen.midi) / 12);
@@ -17844,49 +17977,78 @@ class EarLabSampledInstrument {
 
       let voiceStartAt = startAt;
       let voiceVel = safeVel;
-      if (prof && prof.humanize) {
-        const stepSeed = ((++this._humanizeCounter * 37 + entryIdx * 13 + targetMidi) % 100) / 100;
-        const velJitter = 0.97 + stepSeed * 0.055;
-        if (sortedMidis && sortedMidis.length >= 3) {
+      if (allowHumanize) {
+        const velJitter = 0.96 + triRand01() * 0.08;
+        if (sortedMidis && sortedMidis.length >= 2) {
           const rank = sortedMidis.indexOf(targetMidi);
-          const normPos = sortedMidis.length > 1 ? rank / (sortedMidis.length - 1) : 0;
-          const balanceScale = rank === sortedMidis.length - 1 ? 1.00 : (rank === 0 ? 0.93 : 0.82);
-          voiceVel = Math.max(0.02, Math.min(1, safeVel * balanceScale * velJitter));
-          voiceStartAt += normPos * ((prof.spreadMs || 0) / 1000) + stepSeed * 0.0016;
-        } else if (resolvedEntries.length === 1) {
+          const rawPos = sortedMidis.length > 1 ? rank / (sortedMidis.length - 1) : 0;
+          const normPos = invertRoll ? (1 - rawPos) : rawPos;
+          const dyadScale = sortedMidis.length === 2 ? 0.55 : 1.0;
+          if (sortedMidis.length >= 3) {
+            const balanceScale = rank === sortedMidis.length - 1 ? 1.00 : (rank === 0 ? 0.94 : 0.83);
+            voiceVel = Math.max(0.02, Math.min(1, safeVel * balanceScale * velJitter));
+          } else {
+            voiceVel = Math.max(0.02, Math.min(1, safeVel * velJitter));
+          }
+          if (this.chordRollMode === "ensemble") {
+            // Streicher/Chor/Bläser: jede Stimme im Ensemble setzt organisch minimal versetzt ein
+            const spreadRange = (effSpreadMs * dyadScale + effJitterMs) / 1000;
+            voiceStartAt += triRand01() * spreadRange;
+          } else {
+            // Klavier/Gitarre: feines organisches Akkord-Roll + zufälliger Finger-Mikroversatz
+            const rollSec = normPos * ((effSpreadMs * dyadScale * chordRollFactor) / 1000);
+            const jitterSec = triRand01() * (effJitterMs / 1000);
+            voiceStartAt += rollSec + jitterSec;
+          }
+        } else {
           voiceVel = Math.max(0.02, Math.min(1, safeVel * velJitter));
         }
       }
 
       const envGain = this.rawCtx.createGain();
       const gainParam = envGain.gain;
-      const trimOff = Math.max(0, Math.min((chosen.buffer.duration || 0) - 0.06, chosen.trimOffsetSec || 0));
+      const trimOff = Math.max(0, Math.min((chosen.buffer.duration || 0) - 0.12, (chosen.trimOffsetSec || 0) + extraStartSkipSec));
       const availBufDur = Math.max(0.08, ((chosen.buffer.duration || 4.0) - trimOff) / Math.max(0.25, rate));
       const safeEndCeiling = voiceStartAt + Math.max(0.06, availBufDur - 0.02);
 
-      const peakAt = Math.min(voiceStartAt + effAttackSec, safeEndCeiling - 0.03);
+      const peakAt = Math.min(voiceStartAt + effAttackSec, safeEndCeiling - 0.035);
       let relAt = voiceStartAt + dur;
       let fadeOutEnd = relAt + effReleaseSec;
 
       // Sample-Puffer-Ende-Schutz: jede Stimme blendet garantiert weich auf 0 aus, BEVOR der Puffer endet!
       if (fadeOutEnd > safeEndCeiling) {
         fadeOutEnd = safeEndCeiling;
-        const minRelSpan = Math.min(effReleaseSec, Math.max(0.04, availBufDur * 0.28));
+        const minRelSpan = Math.min(effReleaseSec, Math.max(0.045, availBufDur * 0.28));
         relAt = Math.max(peakAt + 0.008, fadeOutEnd - minRelSpan);
       }
       const stopAt = fadeOutEnd + 0.025;
 
+      gainParam.value = 0.0001;
       gainParam.setValueAtTime(0.0001, voiceStartAt);
       gainParam.linearRampToValueAtTime(voiceVel, peakAt);
+
+      let relStartVel = voiceVel;
       if (prof && prof.holdDecayFloor < 0.99 && relAt > peakAt + 0.04) {
-        const octFactor = Math.max(0.75, Math.min(1.06, 1.0 - (targetMidi - 60) * 0.006));
-        const holdEndVel = Math.max(0.18 * voiceVel, Math.min(voiceVel * 0.95, voiceVel * prof.holdDecayFloor * octFactor));
-        gainParam.exponentialRampToValueAtTime(holdEndVel, relAt);
+        const octFactor = Math.max(0.84, Math.min(1.04, 1.0 - (targetMidi - 60) * 0.004));
+        relStartVel = Math.max(0.35 * voiceVel, Math.min(voiceVel * 0.96, voiceVel * prof.holdDecayFloor * octFactor));
+        gainParam.exponentialRampToValueAtTime(relStartVel, relAt);
       } else if (relAt > peakAt) {
         gainParam.setValueAtTime(voiceVel, relAt);
       }
-      gainParam.exponentialRampToValueAtTime(0.0008, Math.max(relAt + 0.02, fadeOutEnd - 0.012));
-      gainParam.linearRampToValueAtTime(0, fadeOutEnd);
+
+      // Zweistufiges musikalisches Ausklingen (weiche Dämpfer-Schulter statt steiler -62-dB-Klippe)
+      const relSpan = Math.max(0.025, fadeOutEnd - relAt);
+      if (relSpan >= 0.09) {
+        const kneeAt = relAt + relSpan * 0.36;
+        const tailAt = Math.max(kneeAt + 0.02, fadeOutEnd - 0.014);
+        const kneeVel = Math.max(0.002, relStartVel * 0.42);
+        gainParam.exponentialRampToValueAtTime(kneeVel, kneeAt);
+        gainParam.exponentialRampToValueAtTime(0.0008, tailAt);
+        gainParam.linearRampToValueAtTime(0, fadeOutEnd);
+      } else {
+        gainParam.exponentialRampToValueAtTime(0.0008, Math.max(relAt + 0.015, fadeOutEnd - 0.01));
+        gainParam.linearRampToValueAtTime(0, fadeOutEnd);
+      }
 
       src.connect(envGain);
       connectAudioNodeToTarget(envGain, this.targetNode);
@@ -17897,8 +18059,11 @@ class EarLabSampledInstrument {
         midi: targetMidi,
         startAt: voiceStartAt,
         releaseAt: relAt,
+        fadeOutEnd,
+        retiredAt: undefined,
+        legatoGroup,
         released: false,
-        retire: (fade = 0.028) => this.retireVoice(voice, fade)
+        retire: (fade = 0.028, when = null) => this.retireVoice(voice, fade, when)
       };
       this.activeVoices.push(voice);
       this.onVoiceStart?.(voice);
@@ -17947,26 +18112,41 @@ class EarLabNativeSynth {
     this.activeVoices = [];
   }
 
-  retireVoice(voice, fadeSec = 0.03) {
+  retireVoice(voice, fadeSec = 0.03, whenSec = null) {
     if (!voice || voice.released) return;
-    voice.released = true;
+    const now = this.rawCtx?.currentTime || 0;
+    const t = Number.isFinite(whenSec) ? Math.max(now + 0.006, whenSec) : (now + 0.006);
+    if (Number.isFinite(voice.retiredAt) && voice.retiredAt <= t + 0.002) return;
+    if (Number.isFinite(voice.fadeOutEnd) && t >= voice.fadeOutEnd - 0.012) {
+      voice.retiredAt = voice.fadeOutEnd;
+      if (t <= now + 0.015) voice.released = true;
+      return;
+    }
+    voice.retiredAt = t;
+    if (t <= now + 0.015) voice.released = true;
     try {
-      const now = this.rawCtx?.currentTime || 0;
-      const t = now + 0.006;
       const p = voice.gain.gain;
-      const tau = Math.max(0.004, fadeSec / 4.5);
+      if (Number.isFinite(voice.startAt) && t < voice.startAt - 0.004) {
+        p.cancelScheduledValues(0);
+        p.setValueAtTime(0, t);
+        voice.released = true;
+        voice.oscs.forEach(o => { try { o.stop(t); } catch (_) {} });
+        return;
+      }
+      const safeFade = Math.max(0.02, fadeSec);
+      const tau = Math.max(0.004, safeFade / 4.5);
       if (typeof p.cancelAndHoldAtTime === "function") {
         p.cancelAndHoldAtTime(t);
       } else {
         p.cancelScheduledValues(t);
       }
       p.setTargetAtTime(0, t, tau);
-      const stopAt = t + fadeSec + 0.05;
+      const stopAt = t + safeFade + 0.055;
       voice.oscs.forEach(o => { try { o.stop(stopAt); } catch (_) {} });
     } catch (_) {}
   }
 
-  triggerAttackRelease(notesOrFreqs, durationSec = 1.0, whenTime = null, velocity = 1) {
+  triggerAttackRelease(notesOrFreqs, durationSec = 1.0, whenTime = null, velocity = 1, envOverride = null) {
     if (!this.rawCtx) return;
     const list = Array.isArray(notesOrFreqs) ? notesOrFreqs : [notesOrFreqs];
     if (list.length === 0) return;
@@ -17977,8 +18157,11 @@ class EarLabNativeSynth {
     const dur = Math.max(0.06, Number(durationSec) || 0.6);
     const safeVel = Math.max(0.02, Math.min(1, Number.isFinite(velocity) ? velocity : 1));
     const polyScale = list.length > 1 ? (1 / Math.sqrt(list.length)) : 1;
+    const legatoGroup = (envOverride?.legatoGroup === "chord" || envOverride?.legatoGroup === "melody")
+      ? envOverride.legatoGroup
+      : null;
 
-    list.forEach(token => {
+    const parsed = list.map(token => {
       let freq = null;
       let midi = null;
       if (typeof token === "number" && Number.isFinite(token) && token > 15) {
@@ -17987,14 +18170,41 @@ class EarLabNativeSynth {
         midi = EarLabSampledInstrument.noteToMidi(token);
         if (midi !== null) freq = EarLabSampledInstrument.midiToFreq(midi);
       }
-      if (!Number.isFinite(freq) || freq <= 15) return;
+      return { freq, midi };
+    }).filter(x => Number.isFinite(x.freq) && x.freq > 15);
+    if (parsed.length === 0) return;
 
-      if (this.monophonic) {
-        this.releaseAll();
-      } else {
+    const incomingMidiSet = new Set(parsed.map(x => x.midi).filter(m => m !== null));
+    if (this.monophonic) {
+      this.activeVoices.forEach(existing => {
+        if (existing && !existing.released && existing.startAt <= startAt - 0.01) {
+          this.retireVoice(existing, 0.055, Math.max(now + 0.006, startAt + 0.01));
+        }
+      });
+    } else if (legatoGroup) {
+      this.activeVoices.forEach(existing => {
+        if (!existing || existing.released || existing.startAt > startAt - 0.012) return;
+        const existingEnd = Number.isFinite(existing.retiredAt) ? existing.retiredAt : (existing.fadeOutEnd || 0);
+        if (existing.legatoGroup === legatoGroup && existingEnd >= startAt - 0.08) {
+          const isSamePitch = existing.midi !== null && incomingMidiSet.has(existing.midi);
+          if (isSamePitch && legatoGroup === "melody") {
+            this.retireVoice(existing, 0.026, Math.max(now + 0.006, startAt - 0.022));
+          } else if (isSamePitch) {
+            this.retireVoice(existing, 0.04, Math.max(now + 0.006, startAt - 0.004));
+          } else {
+            this.retireVoice(existing, 0.13, startAt + 0.022);
+          }
+        }
+      });
+    }
+
+    parsed.forEach(({ freq, midi }) => {
+      if (!this.monophonic) {
         while (this.activeVoices.length >= this.maxPolyphony) {
-          const oldest = this.activeVoices.shift();
-          this.retireVoice(oldest, 0.025);
+          let evictIdx = this.activeVoices.findIndex(v => Number.isFinite(v.retiredAt) && v.retiredAt <= startAt + 0.02);
+          if (evictIdx === -1) evictIdx = 0;
+          const oldest = this.activeVoices.splice(evictIdx, 1)[0];
+          this.retireVoice(oldest, 0.025, Math.max(now + 0.006, Math.min(startAt, oldest?.retiredAt ?? startAt)));
         }
       }
 
@@ -18030,16 +18240,28 @@ class EarLabNativeSynth {
       const fadeEnd = relAt + this.release;
 
       const gp = envGain.gain;
+      gp.value = 0.0001;
       gp.setValueAtTime(0.0001, startAt);
       gp.linearRampToValueAtTime(peak, peakAt);
+      let relStartVal = peak;
       if (decayEnd > peakAt + 0.005) {
         gp.exponentialRampToValueAtTime(sustainVal, decayEnd);
+        relStartVal = sustainVal;
       }
       if (relAt > decayEnd) {
-        gp.setValueAtTime(sustainVal, relAt);
+        gp.setValueAtTime(relStartVal, relAt);
       }
-      gp.exponentialRampToValueAtTime(0.0005, Math.max(relAt + 0.02, fadeEnd - 0.012));
-      gp.linearRampToValueAtTime(0, fadeEnd);
+      const relSpan = Math.max(0.025, fadeEnd - relAt);
+      if (relSpan >= 0.09) {
+        const kneeAt = relAt + relSpan * 0.36;
+        const tailAt = Math.max(kneeAt + 0.02, fadeEnd - 0.014);
+        gp.exponentialRampToValueAtTime(Math.max(0.002, relStartVal * 0.42), kneeAt);
+        gp.exponentialRampToValueAtTime(0.0005, tailAt);
+        gp.linearRampToValueAtTime(0, fadeEnd);
+      } else {
+        gp.exponentialRampToValueAtTime(0.0005, Math.max(relAt + 0.015, fadeEnd - 0.01));
+        gp.linearRampToValueAtTime(0, fadeEnd);
+      }
 
       connectAudioNodeToTarget(envGain, this.targetNode);
 
@@ -18050,8 +18272,11 @@ class EarLabNativeSynth {
         midi,
         startAt,
         releaseAt: relAt,
+        fadeOutEnd: fadeEnd,
+        retiredAt: undefined,
+        legatoGroup,
         released: false,
-        retire: (fade = 0.028) => this.retireVoice(voice, fade)
+        retire: (fade = 0.028, when = null) => this.retireVoice(voice, fade, when)
       };
       this.activeVoices.push(voice);
       this.onVoiceStart?.(voice);
@@ -18102,7 +18327,7 @@ class AudioEngine {
     this._silentBufferPlayed = false;
 
     this.liteReverb = shouldUseLiteReverb();
-    this.maxGlobalVoices = this.liteReverb ? 22 : 36;
+    this.maxGlobalVoices = this.liteReverb ? 28 : 44;
     this.globalVoices = [];
 
     this.softClipper = null;
@@ -18244,8 +18469,8 @@ class AudioEngine {
     this.globalVoices.push(voice);
     if (this.globalVoices.length > this.maxGlobalVoices) {
       const now = this.rawCtx?.currentTime || 0;
-      // Bevorzugt eine bereits im Release befindliche Stimme ablösen, sonst die älteste aktive Stimme
-      let victimIdx = this.globalVoices.findIndex(v => v !== voice && !v.released && v.releaseAt <= now);
+      // Bevorzugt eine bereits im Release/Crossfade befindliche Stimme ablösen, sonst die älteste aktive Stimme
+      let victimIdx = this.globalVoices.findIndex(v => v !== voice && !v.released && ((v.retiredAt ?? v.releaseAt) <= now));
       if (victimIdx === -1) {
         victimIdx = this.globalVoices.findIndex(v => v !== voice && !v.released);
       }
@@ -18370,7 +18595,7 @@ class AudioEngine {
     const rawCtx = this.ensurePlaybackContext();
     if (!rawCtx) return false;
     this.liteReverb = shouldUseLiteReverb();
-    this.maxGlobalVoices = this.liteReverb ? 22 : 36;
+    this.maxGlobalVoices = this.liteReverb ? 28 : 44;
 
     // 1. Klippsichere Master-Ausgangskette:
     //    masterGain → masterLimiter (transparenter Peak-Compressor) → limiterTrim → softClipper (tanh ab -2,8 dB) → destination
@@ -18786,8 +19011,16 @@ class AudioEngine {
     const sampler = new EarLabSampledInstrument(decoded.bufferMap, targetNode, {
       rawCtx: decoded.rawCtx,
       attackSec: samplerOpts.attackSec ?? 0.004,
-      releaseSec: samplerOpts.releaseSec ?? 0.55,
-      maxPolyphony: samplerOpts.maxPolyphony ?? 14,
+      legatoAttackSec: samplerOpts.legatoAttackSec,
+      legatoStartSkipSec: samplerOpts.legatoStartSkipSec,
+      releaseSec: samplerOpts.releaseSec ?? 0.60,
+      legatoOverlapSec: samplerOpts.legatoOverlapSec,
+      chordCrossfadeSec: samplerOpts.chordCrossfadeSec,
+      melodyCrossfadeSec: samplerOpts.melodyCrossfadeSec,
+      chordSpreadMs: samplerOpts.chordSpreadMs,
+      noteJitterMs: samplerOpts.noteJitterMs,
+      chordRollMode: samplerOpts.chordRollMode,
+      maxPolyphony: samplerOpts.maxPolyphony ?? 16,
       getSoundProfile: samplerOpts.getSoundProfile,
       onVoiceStart: (v) => this.registerVoice(v),
       onVoiceEnd: (v) => this.unregisterVoice(v)
@@ -18817,7 +19050,15 @@ class AudioEngine {
       try {
         const decoded = await this.initSampledInstrument(packs[stemKey], stemTargetNode, {
           attackSec: cfg.attackSec,
+          legatoAttackSec: cfg.legatoAttackSec,
+          legatoStartSkipSec: cfg.legatoStartSkipSec,
           releaseSec: cfg.releaseSec,
+          legatoOverlapSec: cfg.legatoOverlapSec,
+          chordCrossfadeSec: cfg.chordCrossfadeSec,
+          melodyCrossfadeSec: cfg.melodyCrossfadeSec,
+          chordSpreadMs: cfg.chordSpreadMs,
+          noteJitterMs: cfg.noteJitterMs,
+          chordRollMode: cfg.chordRollMode,
           maxPolyphony: cfg.maxPolyphony,
           getSoundProfile: pianoProfGetter
         }, isBackgroundWave);
@@ -18863,7 +19104,15 @@ class AudioEngine {
         const demoSampler = new EarLabSampledInstrument(decoded.bufferMap, demoTarget, {
           rawCtx: decoded.rawCtx,
           attackSec: cfg.attackSec,
+          legatoAttackSec: cfg.legatoAttackSec,
+          legatoStartSkipSec: cfg.legatoStartSkipSec,
           releaseSec: cfg.releaseSec,
+          legatoOverlapSec: cfg.legatoOverlapSec,
+          chordCrossfadeSec: cfg.chordCrossfadeSec,
+          melodyCrossfadeSec: cfg.melodyCrossfadeSec,
+          chordSpreadMs: cfg.chordSpreadMs,
+          noteJitterMs: cfg.noteJitterMs,
+          chordRollMode: cfg.chordRollMode,
           maxPolyphony: cfg.maxPolyphony,
           getSoundProfile: pianoProfGetter,
           onVoiceStart: (v) => this.registerVoice(v),
@@ -19462,7 +19711,10 @@ class AudioEngine {
       const entry = { demoSampler };
       this.activeDemoNodes.push(entry);
 
-      const baseAt = this.getAudioTime() + this.getScheduleLookaheadSec();
+      const nowAt = this.getAudioTime();
+      const leadAt = this.getScheduleLookaheadSec();
+      const reqAt = Number.isFinite(envOverride?.atTime) ? envOverride.atTime : (nowAt + leadAt);
+      const baseAt = Math.max(nowAt + 0.018, reqAt > nowAt + 30 ? (nowAt + leadAt) : reqAt);
       if (isSeq) {
         samplerNotes.forEach((n, idx) => {
           const tNote = baseAt + (idx * arpeggioStepMs) / 1000;
@@ -19519,13 +19771,16 @@ class AudioEngine {
     const entry = { nativeSynth: tempSynth, gain: tempGain };
     this.activeDemoNodes.push(entry);
 
-    const baseAt = this.getAudioTime() + this.getScheduleLookaheadSec();
+    const nowAt = this.getAudioTime();
+    const leadAt = this.getScheduleLookaheadSec();
+    const reqAt = Number.isFinite(envOverride?.atTime) ? envOverride.atTime : (nowAt + leadAt);
+    const baseAt = Math.max(nowAt + 0.018, reqAt > nowAt + 30 ? (nowAt + leadAt) : reqAt);
     if (isSeq) {
       notes.forEach((n, idx) => {
-        tempSynth.triggerAttackRelease([n], stepDur, baseAt + (idx * arpeggioStepMs) / 1000, 1.0);
+        tempSynth.triggerAttackRelease([n], stepDur, baseAt + (idx * arpeggioStepMs) / 1000, 1.0, envOverride);
       });
     } else {
-      tempSynth.triggerAttackRelease(notes, stepDur, baseAt, 1.0);
+      tempSynth.triggerAttackRelease(notes, stepDur, baseAt, 1.0, envOverride);
     }
 
     setTimeout(() => {
@@ -19537,19 +19792,27 @@ class AudioEngine {
   /**
    * Spielt Begleit- oder Stimmführungs-Töne für den Einsing-Helfer direkt über den Master-Bus ab.
    */
-  playWarmupNotes(soundMode, notes, durationSec = 0.85, isChordCue = false, layerChoirOnChord = false) {
+  playWarmupNotes(soundMode, notes, durationSec = 0.85, isChordCue = false, layerChoirOnChord = false, options = null) {
     if (!this.isInitialized || !notes || notes.length === 0) return;
     const dur = Math.max(0.22, Number(durationSec) || 0.85);
     const mode = soundMode === "voice" || soundMode === "piano-voice" ? soundMode : "piano";
+    const envOverride = options && typeof options === "object"
+      ? {
+          atTime: options.atTime,
+          legatoGroup: options.legato === false
+            ? null
+            : (options.legato === "chord" || options.legato === "melody" ? options.legato : null)
+        }
+      : null;
 
     if (mode === "voice") {
-      this.playInstrumentSample("choir", notes, dur, 0, isChordCue ? 0.72 : 0.88);
+      this.playInstrumentSample("choir", notes, dur, 0, isChordCue ? 0.72 : 0.88, envOverride);
       return;
     }
 
-    this.playInstrumentSample("piano", notes, dur, 0, isChordCue ? 0.80 : 0.90);
+    this.playInstrumentSample("piano", notes, dur, 0, isChordCue ? 0.80 : 0.90, envOverride);
     if (mode === "piano-voice" && (!isChordCue || layerChoirOnChord)) {
-      this.playInstrumentSample("choir", notes, Math.max(0.32, dur * 1.04), 0, isChordCue ? 0.44 : 0.56);
+      this.playInstrumentSample("choir", notes, Math.max(0.32, dur * 1.06), 0, isChordCue ? 0.44 : 0.56, envOverride);
     }
   }
 
@@ -19722,23 +19985,49 @@ class AudioEngine {
       ];
     }
 
-    // Nur aktive Stems (> 0,5 %) auslösen + winzige 1,5-ms-Staffelung bricht kohärente Transienten-Spitzen
+    const legatoMode = timingOpts?.legato === false
+      ? null
+      : (timingOpts?.legato === "chord" || timingOpts?.legato === "melody"
+          ? timingOpts.legato
+          : (timingOpts?.legato === true
+              ? (uniqNotes.length <= 1 ? "melody" : "chord")
+              : (_mode === "cadence" && uniqNotes.length >= 2 ? "chord" : null)));
+    const envOverride = legatoMode ? { legatoGroup: legatoMode } : null;
+
+    // Nur aktive Stems (> 0,5 %) auslösen; im Mehr-Instrumenten-Zusammenspiel feiner menschlicher Ensemble-Versatz
+    const activeChordStems = hasNotes
+      ? ["piano", "guitar", "strings", "brass", "voice"].filter(k => (this.stemLevels[k] || 0) > 0.005)
+      : [];
+    const hasBass = Boolean(bassNote && this.bass && (this.stemLevels.bass || 0) > 0.005);
+    const totalActiveStems = activeChordStems.length + (hasBass ? 1 : 0);
+    // Bei rhythmischen Melodien bleibt der Ensemble-Versatz besonders straff, bei Akkorden/Kadenzen organisch
+    const ensembleScale = totalActiveStems >= 2
+      ? (_mode === "melody-note" ? 0.35 : 1.0)
+      : 0;
+    const sampleEnsembleOffsetSec = (stemKey) => {
+      if (ensembleScale <= 0) return 0;
+      const range = SAMPLED_STEM_CONFIG[stemKey]?.ensembleRangeMs || [0, 6];
+      const ms = (range[0] + triRand01() * (range[1] - range[0])) * ensembleScale;
+      return ms / 1000;
+    };
+
     if (hasNotes) {
-      const chordStems = ["piano", "guitar", "strings", "brass", "voice"].filter(k => (this.stemLevels[k] || 0) > 0.005);
-      chordStems.forEach((stemKey, stemIdx) => {
+      activeChordStems.forEach(stemKey => {
         const inst = this[stemKey];
         if (!inst) return;
-        const stemOffset = stemIdx * 0.0015;
+        const stemOffset = sampleEnsembleOffsetSec(stemKey);
         if (harmonicVoices) {
-          harmonicVoices.forEach(v => inst.triggerAttackRelease([v.note], v.dur, v.at + stemOffset, v.vel));
+          harmonicVoices.forEach(v => inst.triggerAttackRelease([v.note], v.dur, v.at + stemOffset, v.vel, envOverride));
         } else {
-          inst.triggerAttackRelease(uniqNotes, dur, at + stemOffset, chordVel);
+          inst.triggerAttackRelease(uniqNotes, dur, at + stemOffset, chordVel, envOverride);
         }
       });
     }
 
-    if (bassNote && this.bass && (this.stemLevels.bass || 0) > 0.005) {
-      this.bass.triggerAttackRelease(bassNote, dur, at, 0.95 * velScale);
+    if (hasBass) {
+      const bassEnv = legatoMode ? { legatoGroup: legatoMode } : null;
+      const bassOffset = sampleEnsembleOffsetSec("bass");
+      this.bass.triggerAttackRelease(bassNote, dur, at + bassOffset, 0.95 * velScale, bassEnv);
     }
   }
 
@@ -79215,10 +79504,11 @@ function bindKnowledgeAudioButtons(rootEl) {
       await ensureAudioReady();
       audioEngine.stopPlayback();
       const semi = parseInt(btn.dataset.playIntAsc, 10);
-      audioEngine.playStep(["C4"], 0.55, null, "interval");
+      const baseAt = audioEngine.getAudioTime() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
+      audioEngine.playStep(["C4"], 0.64, null, "interval", { atTime: baseAt, legato: "melody" });
       audioEngine.registerTimer(() => {
-        audioEngine.playStep([midiToNote(60 + semi)], 0.95, null, "interval");
-      }, 600);
+        audioEngine.playStep([midiToNote(60 + semi)], 1.0, null, "interval", { atTime: baseAt + 0.6, legato: "melody" });
+      }, 515);
     });
   });
 
@@ -79227,10 +79517,11 @@ function bindKnowledgeAudioButtons(rootEl) {
       await ensureAudioReady();
       audioEngine.stopPlayback();
       const semi = parseInt(btn.dataset.playIntDesc, 10);
-      audioEngine.playStep(["C5"], 0.55, null, "interval");
+      const baseAt = audioEngine.getAudioTime() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
+      audioEngine.playStep(["C5"], 0.64, null, "interval", { atTime: baseAt, legato: "melody" });
       audioEngine.registerTimer(() => {
-        audioEngine.playStep([midiToNote(72 - semi)], 0.95, null, "interval");
-      }, 600);
+        audioEngine.playStep([midiToNote(72 - semi)], 1.0, null, "interval", { atTime: baseAt + 0.6, legato: "melody" });
+      }, 515);
     });
   });
 
@@ -79249,10 +79540,11 @@ function bindKnowledgeAudioButtons(rootEl) {
       audioEngine.stopPlayback();
       const def = HARMONIC_DATA.intervals[btn.dataset.playIntervalMel];
       if (!def) return;
-      audioEngine.playStep(["C4"], 0.55, null, "interval");
+      const baseAt = audioEngine.getAudioTime() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
+      audioEngine.playStep(["C4"], 0.64, null, "interval", { atTime: baseAt, legato: "melody" });
       audioEngine.registerTimer(() => {
-        audioEngine.playStep([midiToNote(60 + def.semitones)], 0.95, null, "interval");
-      }, 600);
+        audioEngine.playStep([midiToNote(60 + def.semitones)], 1.0, null, "interval", { atTime: baseAt + 0.6, legato: "melody" });
+      }, 515);
     });
   });
 
@@ -79276,16 +79568,23 @@ function bindKnowledgeAudioButtons(rootEl) {
       const stepMs = Number.isFinite(customStepMs) && customStepMs > 0
         ? customStepMs
         : (degrees.length >= 6 ? 880 : 1050);
+      const stepSec = stepMs / 1000;
       const chordDur = Number.isFinite(customDur) && customDur > 0
-        ? customDur
-        : (degrees.length >= 6 ? 0.80 : 0.95);
+        ? Math.max(customDur, stepSec * 1.04)
+        : stepSec * 1.06;
+      const baseAt = audioEngine.getAudioTime() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
       degrees.forEach((degKey, idx) => {
+        const delayMs = idx * stepMs;
+        const isLast = idx === degrees.length - 1;
         audioEngine.registerTimer(() => {
           const def = HARMONIC_DATA.degrees[degKey];
           if (!def) return;
           const n = buildChordNotes(60, def);
-          audioEngine.playStep(n.chordNotes, chordDur, n.bassNote, "cadence");
-        }, idx * stepMs);
+          audioEngine.playStep(n.chordNotes, isLast ? Math.max(chordDur, stepSec * 1.1) : chordDur, n.bassNote, "cadence", {
+            atTime: baseAt + delayMs / 1000,
+            legato: "chord"
+          });
+        }, Math.max(0, delayMs - 85));
       });
     });
   });
@@ -79359,29 +79658,43 @@ function bindKnowledgeAudioButtons(rootEl) {
       const chordSec = beatSec * 1.45;
       const chordStepMs = Math.round(chordSec * 1000);
       const pauseAfterCadenceMs = Math.round(beatSec * 1.35 * 1000);
+      const baseAt = audioEngine.getAudioTime() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
 
       // 1. Kadenz I - vi - IV - V
       cadenceDegrees.forEach((degKey, idx) => {
+        const delayMs = idx * chordStepMs;
+        const isLastChord = idx === cadenceDegrees.length - 1;
         audioEngine.registerTimer(() => {
           const n = buildChordNotes(60, HARMONIC_DATA.degrees[degKey]);
-          audioEngine.playStep(n.chordNotes, chordSec * 0.88, n.bassNote, "cadence");
-        }, idx * chordStepMs);
+          audioEngine.playStep(n.chordNotes, chordSec * (isLastChord ? 0.98 : 1.06), n.bassNote, "cadence", {
+            atTime: baseAt + delayMs / 1000,
+            legato: "chord"
+          });
+        }, Math.max(0, delayMs - 85));
       });
 
       // 2. Nach deutlicher Pause: der jeweilige Solfège-Ton
       const toneStartMs = cadenceDegrees.length * chordStepMs + pauseAfterCadenceMs;
       audioEngine.registerTimer(() => {
-        audioEngine.playStep([midiToNote(60 + semi)], 1.05, null, "interval");
-      }, toneStartMs);
+        audioEngine.playStep([midiToNote(60 + semi)], 1.08, null, "interval", {
+          atTime: baseAt + toneStartMs / 1000,
+          legato: false
+        });
+      }, Math.max(0, toneStartMs - 85));
 
       // 3. Nach kurzer Pause: Ruhige stufenweise Auflösung zur Tonika (Do-Fa abwärts, Sol-Ti aufwärts)
       const resolveStartMs = toneStartMs + 1450;
-      const resolveStepMs = Math.round(beatSec * 0.92 * 1000);
+      const resolveStepSec = beatSec * 0.92;
+      const resolveStepMs = Math.round(resolveStepSec * 1000);
       resolvePath.forEach((stepSemi, idx) => {
+        const delayMs = resolveStartMs + idx * resolveStepMs;
+        const isLast = idx === resolvePath.length - 1;
         audioEngine.registerTimer(() => {
-          const isLast = idx === resolvePath.length - 1;
-          audioEngine.playStep([midiToNote(60 + stepSemi)], isLast ? 1.15 : 0.52, null, "interval");
-        }, resolveStartMs + idx * resolveStepMs);
+          audioEngine.playStep([midiToNote(60 + stepSemi)], isLast ? 1.2 : resolveStepSec * 1.06, null, "interval", {
+            atTime: baseAt + delayMs / 1000,
+            legato: "melody"
+          });
+        }, Math.max(0, delayMs - 85));
       });
     });
   });
@@ -79394,10 +79707,15 @@ function bindKnowledgeAudioButtons(rootEl) {
 
       if (type === "scale-unresolved") {
         const notes = ["C4", "D4", "E4", "F4", "G4", "A4", "B4"];
+        const baseAt = audioEngine.getAudioTime() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
         notes.forEach((n, i) => {
+          const delayMs = i * 380;
           audioEngine.registerTimer(() => {
-            audioEngine.playStep([n], i === 6 ? 1.3 : 0.35, null, "interval");
-          }, i * 380);
+            audioEngine.playStep([n], i === 6 ? 1.3 : 0.41, null, "interval", {
+              atTime: baseAt + delayMs / 1000,
+              legato: "melody"
+            });
+          }, Math.max(0, delayMs - 85));
         });
       } else if (type === "leading-tone") {
         audioEngine.playStep(["B4"], 0.7, "G2", "cadence");
@@ -79750,13 +80068,18 @@ function bindKnowledgeAudioButtons(rootEl) {
       if (!modeObj) return;
       const notes = modeObj.notes.split(",").map(s => s.trim()).filter(Boolean);
       const currentId = audioEngine.playbackId;
-      audioEngine.playStep([], 2.9, "C3", "cadence");
+      const baseAt = audioEngine.getAudioTime() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
+      audioEngine.playStep([], 3.0, "C3", "cadence", { atTime: baseAt, legato: false });
       notes.forEach((n, idx) => {
+        const delayMs = idx * 320;
+        const isLast = idx === notes.length - 1;
         audioEngine.registerTimer(() => {
           if (audioEngine.playbackId !== currentId) return;
-          const isLast = idx === notes.length - 1;
-          audioEngine.playStep([n], isLast ? 0.95 : 0.34, null, "interval");
-        }, idx * 320);
+          audioEngine.playStep([n], isLast ? 1.0 : 0.35, null, "interval", {
+            atTime: baseAt + delayMs / 1000,
+            legato: "melody"
+          });
+        }, Math.max(0, delayMs - 85));
       });
     });
   });
@@ -79770,13 +80093,19 @@ function bindKnowledgeAudioButtons(rootEl) {
         : null;
       if (!modeObj?.vampChords?.length) return;
       const currentId = audioEngine.playbackId;
+      const baseAt = audioEngine.getAudioTime() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
       modeObj.vampChords.forEach((ch, idx) => {
+        const delayMs = idx * 920;
+        const isLast = idx === modeObj.vampChords.length - 1;
         audioEngine.registerTimer(() => {
           if (audioEngine.playbackId !== currentId) return;
           const bassNote = ch[0];
           const upper = ch.slice(1);
-          audioEngine.playStep(upper, 0.88, bassNote, "cadence");
-        }, idx * 920);
+          audioEngine.playStep(upper, isLast ? 1.05 : 0.98, bassNote, "cadence", {
+            atTime: baseAt + delayMs / 1000,
+            legato: "chord"
+          });
+        }, Math.max(0, delayMs - 85));
       });
     });
   });
@@ -79801,13 +80130,18 @@ function bindKnowledgeAudioButtons(rootEl) {
             { rootOff: 0,  triad: [0, 4, 7] }
           ];
       const currentId = audioEngine.playbackId;
+      const baseAt = audioEngine.getAudioTime() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
       prog.forEach((step, idx) => {
+        const delayMs = idx * 720;
         audioEngine.registerTimer(() => {
           if (audioEngine.playbackId !== currentId) return;
           const chordNotes = step.triad.map(off => midiToNote(rootMidi + off));
           const bassNote = midiToNote(rootMidi + step.rootOff - 12);
-          audioEngine.playStep(chordNotes, idx === 3 ? 0.95 : 0.65, bassNote, "cadence");
-        }, idx * 720);
+          audioEngine.playStep(chordNotes, idx === 3 ? 1.05 : 0.77, bassNote, "cadence", {
+            atTime: baseAt + delayMs / 1000,
+            legato: "chord"
+          });
+        }, Math.max(0, delayMs - 85));
       });
     });
   });
@@ -79832,12 +80166,17 @@ function bindKnowledgeAudioButtons(rootEl) {
       const midis = String(btn.dataset.playCofScale || "").split(",").map(Number).filter(n => !Number.isNaN(n));
       if (!midis.length) return;
       const currentId = audioEngine.playbackId;
+      const baseAt = audioEngine.getAudioTime() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
       midis.forEach((m, idx) => {
+        const delayMs = idx * 290;
+        const isLast = idx === midis.length - 1;
         audioEngine.registerTimer(() => {
           if (audioEngine.playbackId !== currentId) return;
-          const isLast = idx === midis.length - 1;
-          audioEngine.playStep([midiToNote(m)], isLast ? 0.9 : 0.34, null, "interval");
-        }, idx * 290);
+          audioEngine.playStep([midiToNote(m)], isLast ? 0.95 : 0.32, null, "interval", {
+            atTime: baseAt + delayMs / 1000,
+            legato: "melody"
+          });
+        }, Math.max(0, delayMs - 85));
       });
     });
   });
@@ -79863,13 +80202,18 @@ function bindKnowledgeAudioButtons(rootEl) {
             { chord: [-1, 2, 7], bass: 7 }
           ];
       const currentId = audioEngine.playbackId;
+      const baseAt = audioEngine.getAudioTime() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
       prog.forEach((step, idx) => {
+        const delayMs = idx * 780;
         audioEngine.registerTimer(() => {
           if (audioEngine.playbackId !== currentId) return;
           const chordNotes = step.chord.map(o => midiToNote(baseMidi + o));
           const bassNote = bassFor(baseMidi + step.bass);
-          audioEngine.playStep(chordNotes, idx === 3 ? 1.05 : 0.68, bassNote, "cadence");
-        }, idx * 780);
+          audioEngine.playStep(chordNotes, idx === 3 ? 1.12 : 0.83, bassNote, "cadence", {
+            atTime: baseAt + delayMs / 1000,
+            legato: "chord"
+          });
+        }, Math.max(0, delayMs - 85));
       });
     });
   });
@@ -81132,7 +81476,7 @@ function openCategoryPage(categoryKey, options = {}) {
           </button>
         `
       }
-    ];
+    ].map(item => ({ ...item, titleHtml: formatStackedParenTitle(item.title) }));
 
     const selectedRhythm = activeSection ? RHYTHM_SECTIONS.find(s => s.id === activeSection) : null;
     if (!selectedRhythm) {
@@ -81142,7 +81486,7 @@ function openCategoryPage(categoryKey, options = {}) {
       state.activeCategorySectionTitle = selectedRhythm.plainTitle;
       container.innerHTML = `
         <div class="subpage-section">
-          <h3 class="subpage-section-title">${selectedRhythm.title}</h3>
+          <h3 class="subpage-section-title">${selectedRhythm.titleHtml || selectedRhythm.title}</h3>
           <p class="subpage-section-desc">${selectedRhythm.desc}</p>
           <div class="subpage-nodes-grid">${selectedRhythm.cardsHtml}</div>
         </div>
@@ -82449,9 +82793,9 @@ function getMelodicIntervalTiming(bpm = state.activeBpm) {
   const safeBpm = Math.max(40, Math.min(220, Number(bpm) || 90));
   const beatSec = 60 / safeBpm;
   const stepMs = Math.round(beatSec * 1000);
-  const note1DurSec = Math.max(0.22, beatSec * 0.86);
-  const note2DurSec = Math.max(0.28, beatSec * 1.25);
-  const cycleMs = Math.round(beatSec * 2.4 * 1000);
+  const note1DurSec = Math.max(0.24, beatSec * 1.05);
+  const note2DurSec = Math.max(0.32, beatSec * 1.28);
+  const cycleMs = Math.round(beatSec * 2.55 * 1000);
   return { beatSec, stepMs, note1DurSec, note2DurSec, cycleMs };
 }
 
@@ -82485,8 +82829,8 @@ function getCadenceStepTiming(bpm = state.activeBpm, timeSig = state.activeTimeS
   const stepMs = Math.round(stepSec * 1000);
   const finalHoldSec = finalHoldBeats * beatSec;
   const finalHoldMs = Math.round(finalHoldSec * 1000);
-  const stepDurSec = Math.max(0.32, stepSec * 0.99);
-  const finalDurSec = Math.max(0.55, finalHoldSec * 0.94);
+  const stepDurSec = Math.max(0.34, stepSec * 1.06);
+  const finalDurSec = Math.max(0.62, finalHoldSec * 0.98);
   return { beatSec, stepBeats, finalHoldBeats, stepMs, finalHoldMs, stepDurSec, finalDurSec };
 }
 
@@ -85476,6 +85820,7 @@ function renderUI() {
   document.getElementById("centralStageCard")?.classList.toggle("is-solfege", isSolfege || isMelody);
   document.getElementById("centralStageCard")?.classList.toggle("is-melody", isMelody);
   document.getElementById("centralStageCard")?.classList.toggle("is-notation", isNotation);
+  document.getElementById("centralStageCard")?.classList.toggle("is-rhythm-tap", isRhythmTap);
 
   // Im oberen Aufgabenmodul eingebettete Steuerungs-Buttons aktualisieren:
   // - Kadenzmodus: Tonart (Salbei) + Taktart (Pfirsich) + Tempo (Lila)
@@ -86279,8 +86624,10 @@ function fitExerciseLayout(reset = true) {
     return;
   }
   const stageWrap = view.querySelector(".stage-wrapper");
+  const stageCard = stageWrap?.querySelector(".central-stage");
   const fits = () => view.scrollHeight <= view.clientHeight + 1 &&
-    (!stageWrap || stageWrap.clientHeight >= EXERCISE_MIN_STAGE_PX);
+    (!stageWrap || stageWrap.clientHeight >= EXERCISE_MIN_STAGE_PX) &&
+    (!stageCard || stageCard.scrollHeight <= stageCard.clientHeight + 2);
   const floor = reset ? 0 : (parseInt(view.dataset.fitLevel, 10) || 0);
   view.classList.remove("sing-hint-float", "fit-overflow");
   const runLevels = () => {
@@ -86687,6 +87034,10 @@ function setCentralStageMode(stageStateClass) {
   const exType = state.currentExercise?.type;
   if (isNotationMode(exType)) {
     stage.className = `central-stage ${stageStateClass} is-notation`;
+    return;
+  }
+  if (exType === "rhythm-tap") {
+    stage.className = `central-stage ${stageStateClass} is-rhythm-tap`;
     return;
   }
   const isKeyboardLayout = exType === "solfege" || exType === "melody";
@@ -88200,17 +88551,22 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
         arpeggioPlaybackId,
         () => {
           if (!audioEngine.isInitialized || audioEngine.playbackId !== arpeggioPlaybackId) return;
+          const baseArpTime = getAudioClockSec() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
+          const arpLookaheadMs = 85;
           chordNotes.forEach((note, idx) => {
             const isLast = idx === chordNotes.length - 1;
-            const noteDur = isLast ? lastNoteDurSec : noteDurSec;
+            const remainingSec = (chordNotes.length - 1 - idx) * (stepMs / 1000);
+            const bloomDur = Math.min(1.85, Math.max(isLast ? lastNoteDurSec : noteDurSec, remainingSec + Math.max(0.45, lastNoteDurSec * 0.85)));
             const delayMs = idx * stepMs;
-            if (delayMs === 0) {
-              audioEngine.playStep([note], noteDur, null, "interval");
+            const targetAudioTime = baseArpTime + delayMs / 1000;
+            const audioTimerDelayMs = Math.max(0, delayMs - arpLookaheadMs);
+            if (audioTimerDelayMs === 0) {
+              audioEngine.playStep([note], bloomDur, null, "interval", { atTime: targetAudioTime, legato: false });
             } else {
               audioEngine.registerTimer(() => {
                 if (audioEngine.playbackId !== arpeggioPlaybackId || state.currentView !== "exercise") return;
-                audioEngine.playStep([note], noteDur, null, "interval");
-              }, delayMs);
+                audioEngine.playStep([note], bloomDur, null, "interval", { atTime: targetAudioTime, legato: false });
+              }, audioTimerDelayMs);
             }
           });
           audioEngine.registerTimer(() => {
@@ -88724,6 +89080,7 @@ function finishRhythmTapRound() {
   }
 
   renderRhythmTapTimeline(ex, res, session.beatMs);
+  queueFitExerciseLayout(false);
 
   const totalExpected = session.expectedEvents.length;
   const hitCount = res.exactCount + res.closeCount;
@@ -88891,7 +89248,7 @@ async function repeatMelodySlotTone(slotIdx = null) {
   const beatSec = 60 / (state.activeBpm || 90);
   const beatMs = Math.round(beatSec * 1000);
   const durBeats = Number(slot.durationBeats) || 2;
-  const playDurSec = Math.max(0.18, durBeats * beatSec * 0.88);
+  const playDurSec = Math.max(0.22, durBeats * beatSec * 0.98);
   const usePulseCue = ex.melodyStyle !== "steady" && (Boolean(state.settings.melodyPulse) || ex.melodyStyle === "dictation");
   const singlePlaybackId = audioEngine.playbackId;
 
@@ -89015,17 +89372,27 @@ function playModeExercisePattern(ex, modeDef, startDelayMs = 0) {
     || [58, 63, 65].includes(ex.rootMidi);
   const toNote = (semi) => midiToNote(ex.rootMidi + semi, preferFlat);
   const currentId = audioEngine.playbackId;
+  const baseAudioTime = getAudioClockSec() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
+  const lookaheadMs = 85;
 
   if (ex.type === "modes-cadence") {
     const chords = modeDef.vampOffsets || [[0, 4, 7], [5, 9, 12]];
     const stepMs = 880;
+    const stepSec = stepMs / 1000;
     chords.forEach((offsets, idx) => {
+      const isLast = idx === chords.length - 1;
+      const delayMs = startDelayMs + idx * stepMs;
+      const targetAudioTime = baseAudioTime + delayMs / 1000;
+      const audioTimerDelayMs = Math.max(0, delayMs - lookaheadMs);
       audioEngine.registerTimer(() => {
         if (audioEngine.playbackId !== currentId) return;
         const notes = offsets.map(toNote);
         const bassNote = midiToNote(ex.rootMidi + offsets[0] - 12, preferFlat);
-        audioEngine.playStep(notes, idx === chords.length - 1 ? 0.95 : 0.78, bassNote, "cadence");
-      }, startDelayMs + idx * stepMs);
+        audioEngine.playStep(notes, isLast ? 1.05 : stepSec * 1.06, bassNote, "cadence", {
+          atTime: targetAudioTime,
+          legato: "chord"
+        });
+      }, audioTimerDelayMs);
     });
     return chords.length * stepMs + 220;
   }
@@ -89034,19 +89401,29 @@ function playModeExercisePattern(ex, modeDef, startDelayMs = 0) {
     ? (modeDef.charTurn || modeDef.intervals)
     : (modeDef.intervals || [0, 2, 4, 5, 7, 9, 11, 12]);
   const stepMs = ex.type === "modes-char" ? 390 : 340;
+  const stepSec = stepMs / 1000;
   const totalNotesMs = seqOffsets.length * stepMs + 520;
 
   audioEngine.registerTimer(() => {
     if (audioEngine.playbackId !== currentId) return;
-    audioEngine.playStep([], (totalNotesMs + 200) / 1000, ex.anchorBass, "cadence");
-  }, startDelayMs);
+    audioEngine.playStep([], (totalNotesMs + 260) / 1000, ex.anchorBass, "cadence", {
+      atTime: baseAudioTime + startDelayMs / 1000,
+      legato: false
+    });
+  }, Math.max(0, startDelayMs - lookaheadMs));
 
   seqOffsets.forEach((semi, idx) => {
+    const delayMs = startDelayMs + idx * stepMs;
+    const targetAudioTime = baseAudioTime + delayMs / 1000;
+    const audioTimerDelayMs = Math.max(0, delayMs - lookaheadMs);
+    const isLast = idx === seqOffsets.length - 1;
     audioEngine.registerTimer(() => {
       if (audioEngine.playbackId !== currentId) return;
-      const isLast = idx === seqOffsets.length - 1;
-      audioEngine.playStep([toNote(semi)], isLast ? 0.92 : 0.36, null, "interval");
-    }, startDelayMs + idx * stepMs);
+      audioEngine.playStep([toNote(semi)], isLast ? 0.98 : stepSec * 1.08, null, "interval", {
+        atTime: targetAudioTime,
+        legato: "melody"
+      });
+    }, audioTimerDelayMs);
   });
 
   return totalNotesMs;
@@ -89860,6 +90237,7 @@ async function playSequence(options = {}) {
     ex.tapEvaluated = false;
     ex.lastEvaluation = null;
     document.getElementById("rhythmTapTimeline")?.remove();
+    queueFitExerciseLayout(true);
 
     const beatMs = 60000 / (state.activeBpm || 90);
     const beatsPerBar = ex.beatsPerBar;
@@ -90084,11 +90462,27 @@ async function playSequence(options = {}) {
     const isDictation = ex.melodyStyle === "dictation";
     const pulseEnabled = Boolean(state.settings.melodyPulse);
 
+    const baseAudioTime = getAudioClockSec() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
+    const lookaheadMs = 95;
+
     slots.forEach((_, i) => {
       document.getElementById(`barCard_${i}`)?.classList.remove("bar-active");
     });
 
     ex.cadenceBars.forEach((bar, index) => {
+      const chordDelayMs = index * chordMs;
+      const chordAudioTime = baseAudioTime + chordDelayMs / 1000;
+      const isLastChord = index === totalChords - 1;
+      const chordDurSec = chordSec * (isLastChord ? 0.98 : 1.06);
+
+      audioEngine.registerTimer(() => {
+        if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
+        audioEngine.playStep(bar.notes, chordDurSec, bar.bass, "cadence", {
+          atTime: chordAudioTime,
+          legato: "chord"
+        });
+      }, Math.max(0, chordDelayMs - lookaheadMs));
+
       audioEngine.registerTimer(() => {
         if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
 
@@ -90097,9 +90491,7 @@ async function playSequence(options = {}) {
         document.getElementById("stageSubtext").textContent = tf("KONTEXT-KADENZ ({n}/4)", "CONTEXT CADENCE ({n}/4)", { n: index + 1 });
         document.getElementById("stageMainText").textContent = bar.symbol;
         document.getElementById("stageFunctionText").textContent = bar.label;
-
-        audioEngine.playStep(bar.notes, chordSec * 0.88, bar.bass, "cadence");
-      }, index * chordMs);
+      }, chordDelayMs);
     });
 
     if (isSteady) {
@@ -90107,7 +90499,6 @@ async function playSequence(options = {}) {
       const melodyStartMs = totalChords * chordMs + pauseAfterCadenceMs;
       const halfNoteSec = 2 * beatSec;
       const halfNoteMs = Math.round(halfNoteSec * 1000);
-      const halfPlaySec = Math.max(0.32, halfNoteSec * 0.88);
 
       if (pulseEnabled) {
         const steadyClicks = [];
@@ -90118,10 +90509,25 @@ async function playSequence(options = {}) {
             b % 4 === 0 ? 0.52 : 0.34
           ]);
         }
-        audioEngine.playRhythmSequence(steadyClicks, getAudioClockSec() + 0.04);
+        audioEngine.playRhythmSequence(steadyClicks, baseAudioTime);
       }
 
       slots.forEach((slot, idx) => {
+        const noteDelayMs = melodyStartMs + idx * halfNoteMs;
+        const targetAudioTime = baseAudioTime + noteDelayMs / 1000;
+        const isLastNote = idx === slots.length - 1;
+        const nextSlot = slots[idx + 1];
+        const isRepeat = Boolean(nextSlot && nextSlot.noteName === slot.noteName);
+        const halfPlaySec = Math.max(0.32, halfNoteSec * (isLastNote ? 1.02 : (isRepeat ? 0.96 : 1.06)));
+
+        audioEngine.registerTimer(() => {
+          if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
+          audioEngine.playStep([slot.noteName], halfPlaySec, null, "melody-note", {
+            atTime: targetAudioTime,
+            legato: "melody"
+          });
+        }, Math.max(0, noteDelayMs - lookaheadMs));
+
         audioEngine.registerTimer(() => {
           if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
 
@@ -90136,9 +90542,7 @@ async function playSequence(options = {}) {
           document.getElementById("stageFunctionText").textContent = slot.solved
             ? tf("Bereits gelöst ({note})", "Already solved ({note})", { note: slot.germanNote })
             : tf("Halbe Note ({bpm} BPM) • Höre genau hin", "Half note ({bpm} BPM) • Listen closely", { bpm });
-
-          audioEngine.playStep([slot.noteName], halfPlaySec, null, "interval");
-        }, melodyStartMs + idx * halfNoteMs);
+        }, noteDelayMs);
       });
 
       const melodyEndMs = melodyStartMs + slots.length * halfNoteMs;
@@ -90166,8 +90570,6 @@ async function playSequence(options = {}) {
     const pauseAfterCadenceMs = Math.round(beatSec * 0.9 * 1000);
     const countInStartMs = totalChords * chordMs + pauseAfterCadenceMs;
     const melodyStartMs = countInStartMs + beatsPerBar * beatMs;
-    const baseAudioTime = getAudioClockSec() + 0.04;
-    const lookaheadMs = 95;
 
     const pulseEvents = [];
     for (let b = 0; b < beatsPerBar; b++) {
@@ -90197,18 +90599,27 @@ async function playSequence(options = {}) {
     audioEngine.playRhythmSequence(pulseEvents, baseAudioTime);
 
     slots.forEach((slot, idx) => {
-      const offsetMs = Math.round((Number(slot.beatOffset) || 0) * beatMs);
+      const slotOffsetBeats = Number(slot.beatOffset) || 0;
+      const slotDurBeats = Number(slot.durationBeats) || 1;
+      const offsetMs = Math.round(slotOffsetBeats * beatMs);
       const noteDelayMs = melodyStartMs + offsetMs;
       const timerAudioDelayMs = Math.max(0, noteDelayMs - lookaheadMs);
       const targetAudioTime = baseAudioTime + noteDelayMs / 1000;
-      const durSec = Math.max(0.16, (Number(slot.durationBeats) || 1) * beatSec * 0.86);
+      const nextSlot = slots[idx + 1];
+      const hasImmediateNext = Boolean(
+        nextSlot && Math.abs((Number(nextSlot.beatOffset) || 0) - (slotOffsetBeats + slotDurBeats)) < 0.06
+      );
+      const isRepeat = Boolean(hasImmediateNext && nextSlot.noteName === slot.noteName);
+      const gateFactor = hasImmediateNext ? (isRepeat ? 0.95 : 1.06) : 0.97;
+      const durSec = Math.max(0.16, slotDurBeats * beatSec * gateFactor);
       const rDef = getLocalizedMelodyRhythmValue(slot.rhythmKey);
 
       audioEngine.registerTimer(() => {
         if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
         audioEngine.playStep([slot.noteName], durSec, null, "melody-note", {
           atTime: targetAudioTime,
-          velocity: slot.velocity || 0.88
+          velocity: slot.velocity || 0.88,
+          legato: "melody"
         });
       }, timerAudioDelayMs);
 
@@ -90261,8 +90672,23 @@ async function playSequence(options = {}) {
     // Nach dem Ausklingen des 4. Akkords folgt eine deutliche Pause (bei 90 BPM ca. 900 ms echte Stille)
     const pauseAfterCadenceMs = Math.round(beatSec * 1.35 * 1000);
     const totalChords = ex.bars.length;
+    const baseAudioTime = getAudioClockSec() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
+    const lookaheadMs = 85;
 
     ex.bars.forEach((bar, index) => {
+      const chordDelayMs = index * chordMs;
+      const targetAudioTime = baseAudioTime + chordDelayMs / 1000;
+      const isLastChord = index === totalChords - 1;
+      const chordDurSec = chordSec * (isLastChord ? 0.98 : 1.06);
+
+      audioEngine.registerTimer(() => {
+        if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
+        audioEngine.playStep(bar.notes, chordDurSec, bar.bass, "cadence", {
+          atTime: targetAudioTime,
+          legato: "chord"
+        });
+      }, Math.max(0, chordDelayMs - lookaheadMs));
+
       audioEngine.registerTimer(() => {
         if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
 
@@ -90275,13 +90701,21 @@ async function playSequence(options = {}) {
         document.getElementById("stageSubtext").textContent = tf("KONTEXT-KADENZ ({n}/4)", "CONTEXT CADENCE ({n}/4)", { n: index + 1 });
         document.getElementById("stageMainText").textContent = bar.symbol;
         document.getElementById("stageFunctionText").textContent = bar.label;
-
-        audioEngine.playStep(bar.notes, chordSec * 0.88, bar.bass, "cadence");
-      }, index * chordMs);
+      }, chordDelayMs);
     });
 
     // Nach deutlicher Pause: Einzelner abgefragter Ton (bei Loop alle 3 s nur Zielton wiederholen)
     const targetDelayMs = totalChords * chordMs + pauseAfterCadenceMs;
+    const targetNoteAudioTime = baseAudioTime + targetDelayMs / 1000;
+
+    audioEngine.registerTimer(() => {
+      if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
+      audioEngine.playStep(getNotationPlayNotes(ex.targetItem), 1.15, null, "interval", {
+        atTime: targetNoteAudioTime,
+        legato: false
+      });
+    }, Math.max(0, targetDelayMs - lookaheadMs));
+
     audioEngine.registerTimer(() => {
       if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
 
@@ -90295,8 +90729,6 @@ async function playSequence(options = {}) {
       document.getElementById("stageSubtext").textContent = tr("GESUCHTER TON", "TARGET NOTE");
       document.getElementById("stageMainText").textContent = "?";
       document.getElementById("stageFunctionText").textContent = tr("Tippe die Stufe auf der Klaviatur an!", "Tap the scale degree on the keyboard!");
-
-      audioEngine.playStep(getNotationPlayNotes(ex.targetItem), 1.1, null, "interval");
 
       if (keepPromptLooping() && !state.solfegeAnswered) {
         scheduleSolfegeTargetLoopTick(ex, currentId, SOLFEGE_LOOP_INTERVAL_MS);
@@ -90326,10 +90758,21 @@ async function playSequence(options = {}) {
     function runMelodicIntervalLoopCycle() {
       if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
       const { stepMs, note1DurSec, note2DurSec, cycleMs } = getMelodicIntervalTiming(state.activeBpm);
+      const baseAudioTime = getAudioClockSec() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
+      const lookaheadMs = 85;
 
       ex.bars.forEach((bar, index) => {
         const delay = index === 0 ? 0 : stepMs;
         const noteDur = index === 0 ? note1DurSec : note2DurSec;
+        const targetAudioTime = baseAudioTime + delay / 1000;
+
+        audioEngine.registerTimer(() => {
+          if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
+          audioEngine.playStep(bar.notes, noteDur, null, "interval", {
+            atTime: targetAudioTime,
+            legato: "melody"
+          });
+        }, Math.max(0, delay - lookaheadMs));
 
         audioEngine.registerTimer(() => {
           if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
@@ -90351,8 +90794,6 @@ async function playSequence(options = {}) {
             document.getElementById("stageMainText").textContent = bar.symbol;
             document.getElementById("stageFunctionText").textContent = bar.label;
           }
-
-          audioEngine.playStep(bar.notes, noteDur, null, "cadence");
         }, delay);
       });
 
@@ -90427,10 +90868,23 @@ async function playSequence(options = {}) {
         state.activeBpm
       );
       const dirArrow = ex.type === "chord-arp-down" ? "↘" : "↗";
+      const baseAudioTime = getAudioClockSec() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
+      const lookaheadMs = 85;
 
       seqNotes.forEach((note, idx) => {
         const delay = idx * stepMs;
-        const noteDur = idx === seqNotes.length - 1 ? lastNoteDurSec : noteDurSec;
+        const isLast = idx === seqNotes.length - 1;
+        const remainingSec = (seqNotes.length - 1 - idx) * (stepMs / 1000);
+        const noteDur = Math.min(1.85, Math.max(isLast ? lastNoteDurSec : noteDurSec, remainingSec + Math.max(0.42, lastNoteDurSec * 0.85)));
+        const targetAudioTime = baseAudioTime + delay / 1000;
+
+        audioEngine.registerTimer(() => {
+          if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
+          audioEngine.playStep([note], noteDur, null, "interval", {
+            atTime: targetAudioTime,
+            legato: false
+          });
+        }, Math.max(0, delay - lookaheadMs));
 
         audioEngine.registerTimer(() => {
           if (!state.isPlaying || audioEngine.playbackId !== currentId) return;
@@ -90445,8 +90899,6 @@ async function playSequence(options = {}) {
           });
           document.getElementById("stageMainText").textContent = "?";
           document.getElementById("stageFunctionText").textContent = tr("Welcher Akkord erklingt jetzt?", "Which chord quality plays now?");
-
-          audioEngine.playStep([note], noteDur, null, "cadence");
         }, delay);
       });
 
@@ -90510,7 +90962,7 @@ async function playSequence(options = {}) {
           stepDur,
           bar.bass,
           ex.type === "interval-harmonic" ? "interval-harmonic" : "cadence",
-          { atTime: targetAudioTime }
+          { atTime: targetAudioTime, legato: ex.type === "cadence" ? "chord" : false }
         );
       }, audioTimerDelay);
 
@@ -95506,9 +95958,9 @@ function runCurrentWarmupRound() {
         const sylEl = document.getElementById("warmupSyllableMain");
         if (sylEl) sylEl.textContent = vLabel;
         if (vIdx === 2) {
-          audioEngine.playWarmupNotes("piano", subDomNotes, (stepMs * 2) / 1000, true);
+          audioEngine.playWarmupNotes("piano", subDomNotes, (stepMs * 2.08) / 1000, true, false, { legato: "chord" });
         } else if (vIdx === 4) {
-          audioEngine.playWarmupNotes("piano", homeChordNotes, (stepMs * 1.4) / 1000, true);
+          audioEngine.playWarmupNotes("piano", homeChordNotes, (stepMs * 1.45) / 1000, true, false, { legato: "chord" });
         }
       }, startVocalMs + vIdx * stepMs);
     });
@@ -95571,19 +96023,33 @@ function runCurrentWarmupRound() {
   }
 
   // Standard vocal-pattern (Summen, Seufzer, Dreiklangs-Arpeggio, Oktav-Staccato, Cool-Down)
+  const warmupBaseAudioTime = (audioEngine.getAudioTime?.() || 0) + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
+  const warmupLookaheadMs = 85;
   let elapsedNoteMs = 0;
-  (step.semitones || []).forEach((semi, nIdx) => {
+  const semiList = step.semitones || [];
+  semiList.forEach((semi, nIdx) => {
+    const isLastNote = nIdx === semiList.length - 1;
     const noteBeatDur = (step.noteBeats?.[nIdx] || 0.9) * beatMs;
-    const noteDurSec = step.staccato && nIdx < step.semitones.length - 1
-      ? Math.max(0.22, (noteBeatDur / 1000) * 0.56)
-      : Math.max(0.28, (noteBeatDur / 1000) * 0.94);
+    const isStaccato = Boolean(step.staccato && !isLastNote);
+    const noteDurSec = isStaccato
+      ? Math.max(0.20, (noteBeatDur / 1000) * 0.56)
+      : Math.max(0.28, (noteBeatDur / 1000) * (isLastNote ? 1.02 : 1.07));
     const playMidi = tonicMidi + semi;
     const playAtMs = startVocalMs + elapsedNoteMs;
+    const audioTimerDelayMs = Math.max(0, playAtMs - warmupLookaheadMs);
+    const targetAudioTime = warmupBaseAudioTime + playAtMs / 1000;
     elapsedNoteMs += noteBeatDur;
 
     audioEngine.registerTimer(() => {
       if (state.warmup.token !== token || state.warmup.status !== "running") return;
-      audioEngine.playWarmupNotes(w.soundMode, [midiToNote(playMidi)], noteDurSec, false);
+      audioEngine.playWarmupNotes(w.soundMode, [midiToNote(playMidi)], noteDurSec, false, false, {
+        atTime: targetAudioTime,
+        legato: isStaccato ? false : "melody"
+      });
+    }, audioTimerDelayMs);
+
+    audioEngine.registerTimer(() => {
+      if (state.warmup.token !== token || state.warmup.status !== "running") return;
       w.activeMidis = [playMidi];
       updateWarmupKeyboardHighlights(tonicMidi, [playMidi]);
     }, playAtMs);

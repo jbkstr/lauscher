@@ -11,19 +11,26 @@
  * 7. Schonendes, Playback-bewusstes Sample-Decoding mit Main-Thread-Pausen (schützt Android/iOS MediaCodec-Pools).
  */
 
+/**
+ * Dreiecksverteilter Zufallswert in [0, 1] (häuft sich organisch um 0,5, vermeidet harte Ausreißer).
+ */
+function triRand01() {
+  return (Math.random() + Math.random()) * 0.5;
+}
+
 const SAMPLED_STEM_CONFIG = {
-  piano:   { demoStyle: "piano",   attackSec: 0.004, releaseSec: 0.55, fallbackMult: 0.72, sampledMult: 0.90, demoGain: 0.85, useReverb: true,  maxPolyphony: 14 },
-  guitar:  { demoStyle: "guitar",  attackSec: 0.004, releaseSec: 0.50, fallbackMult: 0.65, sampledMult: 0.78, demoGain: 0.85, useReverb: true,  maxPolyphony: 10 },
-  strings: { demoStyle: "strings", attackSec: 0.018, releaseSec: 0.65, fallbackMult: 0.55, sampledMult: 0.58, demoGain: 0.85, useReverb: true,  maxPolyphony: 10 },
-  brass:   { demoStyle: "brass",   attackSec: 0.010, releaseSec: 0.45, fallbackMult: 0.42, sampledMult: 0.62, demoGain: 0.85, useReverb: true,  maxPolyphony: 10 },
-  voice:   { demoStyle: "choir",   attackSec: 0.016, releaseSec: 0.60, fallbackMult: 0.45, sampledMult: 0.58, demoGain: 0.85, useReverb: true,  maxPolyphony: 10 },
-  bass:    { demoStyle: "ebass",   attackSec: 0.004, releaseSec: 0.28, fallbackMult: 0.92, sampledMult: 0.92, demoGain: 0.85, useReverb: false, maxPolyphony: 3 }
+  piano:   { demoStyle: "piano",   attackSec: 0.004, legatoAttackSec: 0.007, legatoStartSkipSec: 0.000, releaseSec: 0.62, legatoOverlapSec: 0.025, chordCrossfadeSec: 0.16, melodyCrossfadeSec: 0.15, chordSpreadMs: 9,  noteJitterMs: 3.5, chordRollMode: "roll",     ensembleRangeMs: [0, 4],  fallbackMult: 0.72, sampledMult: 0.90, demoGain: 0.85, useReverb: true,  maxPolyphony: 16 },
+  guitar:  { demoStyle: "guitar",  attackSec: 0.004, legatoAttackSec: 0.008, legatoStartSkipSec: 0.000, releaseSec: 0.58, legatoOverlapSec: 0.022, chordCrossfadeSec: 0.15, melodyCrossfadeSec: 0.14, chordSpreadMs: 14, noteJitterMs: 3.0, chordRollMode: "roll",     ensembleRangeMs: [2, 8],  fallbackMult: 0.65, sampledMult: 0.78, demoGain: 0.85, useReverb: true,  maxPolyphony: 12 },
+  strings: { demoStyle: "strings", attackSec: 0.024, legatoAttackSec: 0.048, legatoStartSkipSec: 0.042, releaseSec: 0.72, legatoOverlapSec: 0.055, chordCrossfadeSec: 0.16, melodyCrossfadeSec: 0.14, chordSpreadMs: 11, noteJitterMs: 5.0, chordRollMode: "ensemble", ensembleRangeMs: [4, 13], fallbackMult: 0.55, sampledMult: 0.58, demoGain: 0.85, useReverb: true,  maxPolyphony: 12 },
+  brass:   { demoStyle: "brass",   attackSec: 0.012, legatoAttackSec: 0.026, legatoStartSkipSec: 0.018, releaseSec: 0.50, legatoOverlapSec: 0.036, chordCrossfadeSec: 0.13, melodyCrossfadeSec: 0.12, chordSpreadMs: 8,  noteJitterMs: 4.5, chordRollMode: "ensemble", ensembleRangeMs: [3, 10], fallbackMult: 0.42, sampledMult: 0.62, demoGain: 0.85, useReverb: true,  maxPolyphony: 12 },
+  voice:   { demoStyle: "choir",   attackSec: 0.020, legatoAttackSec: 0.055, legatoStartSkipSec: 0.075, releaseSec: 0.68, legatoOverlapSec: 0.070, chordCrossfadeSec: 0.17, melodyCrossfadeSec: 0.15, chordSpreadMs: 13, noteJitterMs: 6.0, chordRollMode: "ensemble", ensembleRangeMs: [5, 15], fallbackMult: 0.45, sampledMult: 0.58, demoGain: 0.85, useReverb: true,  maxPolyphony: 12 },
+  bass:    { demoStyle: "ebass",   attackSec: 0.004, legatoAttackSec: 0.007, legatoStartSkipSec: 0.000, releaseSec: 0.34, legatoOverlapSec: 0.016, chordCrossfadeSec: 0.075, melodyCrossfadeSec: 0.075, chordSpreadMs: 0, noteJitterMs: 2.5, chordRollMode: "ensemble", ensembleRangeMs: [0, 6],  fallbackMult: 0.92, sampledMult: 0.92, demoGain: 0.85, useReverb: false, maxPolyphony: 4 }
 };
 
 const PIANO_CHARACTER_PROFILES = {
-  dry:     { filterHz: 18000, reverbDampHz: 5200, roomSize: 0.58, defaultReverb: 0.00, releaseSec: 0.55, holdDecayFloor: 1.00, attackSec: 0.004,  spreadMs: 0,  humanize: false },
-  natural: { filterHz: 5800,  reverbDampHz: 4800, roomSize: 0.72, defaultReverb: 0.24, releaseSec: 0.78, holdDecayFloor: 0.68, attackSec: 0.0045, spreadMs: 8,  humanize: true  },
-  concert: { filterHz: 5000,  reverbDampHz: 5600, roomSize: 0.86, defaultReverb: 0.48, releaseSec: 1.05, holdDecayFloor: 0.62, attackSec: 0.005,  spreadMs: 12, humanize: true  }
+  dry:     { filterHz: 18000, reverbDampHz: 5200, roomSize: 0.58, defaultReverb: 0.00, releaseSec: 0.60, holdDecayFloor: 1.00, attackSec: 0.004,  spreadMs: 3.5, jitterMs: 1.5, humanize: true },
+  natural: { filterHz: 5800,  reverbDampHz: 4800, roomSize: 0.72, defaultReverb: 0.24, releaseSec: 0.84, holdDecayFloor: 0.86, attackSec: 0.0045, spreadMs: 9.0, jitterMs: 3.5, humanize: true },
+  concert: { filterHz: 5000,  reverbDampHz: 5600, roomSize: 0.86, defaultReverb: 0.48, releaseSec: 1.12, holdDecayFloor: 0.82, attackSec: 0.005,  spreadMs: 13.0, jitterMs: 4.5, humanize: true }
 };
 
 const STEM_REVERB_BY_CHAR = {
@@ -240,8 +247,16 @@ class EarLabSampledInstrument {
     this.rawCtx = options.rawCtx;
     this.targetNode = targetNode;
     this.attackSec = Math.max(0.004, options.attackSec ?? 0.004);
-    this.releaseSec = options.releaseSec ?? 0.55;
-    this.maxPolyphony = options.maxPolyphony ?? 14;
+    this.legatoAttackSec = Math.max(this.attackSec, options.legatoAttackSec ?? Math.min(0.045, this.attackSec * 1.6));
+    this.legatoStartSkipSec = Math.max(0, options.legatoStartSkipSec ?? 0);
+    this.releaseSec = options.releaseSec ?? 0.60;
+    this.legatoOverlapSec = Math.max(0.008, options.legatoOverlapSec ?? 0.025);
+    this.chordCrossfadeSec = Math.max(0.04, options.chordCrossfadeSec ?? 0.15);
+    this.melodyCrossfadeSec = Math.max(0.04, options.melodyCrossfadeSec ?? 0.14);
+    this.chordSpreadMs = Math.max(0, options.chordSpreadMs ?? 9);
+    this.noteJitterMs = Math.max(0, options.noteJitterMs ?? 3.5);
+    this.chordRollMode = options.chordRollMode || "roll";
+    this.maxPolyphony = options.maxPolyphony ?? 16;
     this.getSoundProfile = typeof options.getSoundProfile === "function" ? options.getSoundProfile : null;
     this.onVoiceStart = typeof options.onVoiceStart === "function" ? options.onVoiceStart : null;
     this.onVoiceEnd = typeof options.onVoiceEnd === "function" ? options.onVoiceEnd : null;
@@ -292,21 +307,39 @@ class EarLabSampledInstrument {
     return best;
   }
 
-  retireVoice(voice, fadeSec = 0.032) {
-    if (!voice || voice.released) return;
-    voice.released = true;
+  retireVoice(voice, fadeSec = 0.032, whenSec = null) {
+    if (!voice) return;
+    const now = this.rawCtx?.currentTime || 0;
+    const t = Number.isFinite(whenSec) ? Math.max(now + 0.006, whenSec) : (now + 0.006);
+    if (voice.released) return;
+    if (Number.isFinite(voice.retiredAt) && voice.retiredAt <= t + 0.002) return;
+    if (Number.isFinite(voice.fadeOutEnd) && t >= voice.fadeOutEnd - 0.012) {
+      voice.retiredAt = voice.fadeOutEnd;
+      if (t <= now + 0.015) voice.released = true;
+      return;
+    }
+    voice.retiredAt = t;
+    const isImmediate = t <= now + 0.015;
+    if (isImmediate) voice.released = true;
     try {
-      const now = this.rawCtx?.currentTime || 0;
-      const t = now + 0.006;
       const p = voice.gain.gain;
-      const tau = Math.max(0.004, fadeSec / 4.5);
+      if (Number.isFinite(voice.startAt) && t < voice.startAt - 0.004) {
+        // Noch nicht gestartete, vorab geplante Stimme lautlos abbrechen
+        p.cancelScheduledValues(0);
+        p.setValueAtTime(0, t);
+        voice.released = true;
+        try { voice.src.stop(t); } catch (_) {}
+        return;
+      }
+      const safeFade = Math.max(0.02, fadeSec);
+      const tau = Math.max(0.004, safeFade / 4.5);
       if (typeof p.cancelAndHoldAtTime === "function") {
         p.cancelAndHoldAtTime(t);
       } else {
         p.cancelScheduledValues(t);
       }
       p.setTargetAtTime(0, t, tau);
-      voice.src.stop(t + fadeSec + 0.045);
+      try { voice.src.stop(t + safeFade + 0.055); } catch (_) {}
     } catch (_) {}
   }
 
@@ -321,41 +354,88 @@ class EarLabSampledInstrument {
     const dur = Math.max(0.06, Number(durationSec) || 0.6);
     const safeVel = Math.max(0.02, Math.min(1, Number.isFinite(velocity) ? velocity : 1));
     const prof = this.getSoundProfile ? this.getSoundProfile() : null;
-    const effAttackSec = Math.max(
-      0.004,
-      Number.isFinite(envOverride?.attackSec)
-        ? envOverride.attackSec
-        : (prof ? (prof.attackSec ?? this.attackSec) : this.attackSec)
-    );
-    const baseReleaseSec = Number.isFinite(envOverride?.releaseSec)
-      ? Math.max(0.035, envOverride.releaseSec)
-      : (prof ? (prof.releaseSec ?? this.releaseSec) : this.releaseSec);
-    const effReleaseSec = (!Number.isFinite(envOverride?.releaseSec) && prof && noteList.length === 1 && dur <= 0.38)
-      ? Math.min(baseReleaseSec, Math.max(0.32, dur * 1.45))
-      : baseReleaseSec;
+    const legatoGroup = (envOverride?.legatoGroup === "chord" || envOverride?.legatoGroup === "melody")
+      ? envOverride.legatoGroup
+      : null;
 
     const resolvedEntries = noteList
       .map(noteToken => ({ noteToken, targetMidi: EarLabSampledInstrument.noteToMidi(noteToken) }))
       .filter(entry => entry.targetMidi !== null);
-    const sortedMidis = prof && prof.humanize && resolvedEntries.length >= 3
+    if (resolvedEntries.length === 0) return;
+    const incomingMidiSet = new Set(resolvedEntries.map(e => e.targetMidi));
+
+    // Legato-Übergänge & Same-Note-Anti-Stacking präzise auf den echten Einsatzzeitpunkt (startAt) planen
+    let hasLegatoPredecessor = false;
+    let hasDifferentPitchPredecessor = false;
+    const overlapSec = Number.isFinite(envOverride?.legatoOverlapSec)
+      ? Math.max(0.005, envOverride.legatoOverlapSec)
+      : this.legatoOverlapSec;
+    const crossfadeSec = Number.isFinite(envOverride?.legatoCrossfadeSec)
+      ? Math.max(0.035, envOverride.legatoCrossfadeSec)
+      : (legatoGroup === "melody" ? this.melodyCrossfadeSec : this.chordCrossfadeSec);
+
+    for (let i = 0; i < this.activeVoices.length; i++) {
+      const existing = this.activeVoices[i];
+      if (!existing || existing.released || existing.startAt > startAt - 0.012) continue;
+      const existingEnd = Number.isFinite(existing.retiredAt) ? existing.retiredAt : (existing.fadeOutEnd || 0);
+      const isSamePitch = incomingMidiSet.has(existing.midi);
+
+      if (legatoGroup && existing.legatoGroup === legatoGroup && existingEnd >= startAt - 0.08) {
+        hasLegatoPredecessor = true;
+        if (!isSamePitch) hasDifferentPitchPredecessor = true;
+        if (isSamePitch) {
+          if (legatoGroup === "melody") {
+            // Tonwiederholung in einer Melodie: minimaler sauberer Neuansatz vor startAt für klare Rhythmik
+            this.retireVoice(existing, 0.026, Math.max(now + 0.006, startAt - 0.022));
+          } else {
+            // Gemeinsamer Akkordton (z. B. C in I → vi): nahtlose Übergabe ohne Lücke & ohne Kammfilter
+            this.retireVoice(existing, 0.042, Math.max(now + 0.006, startAt - 0.004));
+          }
+        } else {
+          // Klangwechsel: Vorgängerton trägt bis kurz nach startAt und blendet dann wie beim Halbpedal/Bogenwechsel weich aus
+          this.retireVoice(existing, crossfadeSec, startAt + overlapSec);
+        }
+      } else if (isSamePitch && existingEnd > startAt - 0.01) {
+        // Same-Note-Anti-Stacking erst am tatsächlichen startAt statt sofort bei Lookahead-Vorplanung
+        this.retireVoice(existing, 0.036, Math.max(now + 0.006, startAt - 0.004));
+      }
+    }
+
+    const useLegatoContinuation = Boolean(legatoGroup && hasLegatoPredecessor && (legatoGroup === "chord" || hasDifferentPitchPredecessor));
+    const baseAttackSec = prof ? (prof.attackSec ?? this.attackSec) : this.attackSec;
+    const effAttackSec = Math.max(
+      0.004,
+      Number.isFinite(envOverride?.attackSec)
+        ? envOverride.attackSec
+        : (useLegatoContinuation ? Math.max(baseAttackSec, this.legatoAttackSec) : baseAttackSec)
+    );
+    const extraStartSkipSec = useLegatoContinuation ? this.legatoStartSkipSec : 0;
+    const baseReleaseSec = Number.isFinite(envOverride?.releaseSec)
+      ? Math.max(0.04, envOverride.releaseSec)
+      : (prof ? (prof.releaseSec ?? this.releaseSec) : this.releaseSec);
+    const effReleaseSec = (!Number.isFinite(envOverride?.releaseSec) && prof && noteList.length === 1 && dur <= 0.38)
+      ? Math.min(baseReleaseSec, Math.max(0.40, dur * 1.6))
+      : baseReleaseSec;
+
+    const allowHumanize = envOverride?.humanize !== false && (!prof || prof.humanize !== false);
+    const effSpreadMs = prof && Number.isFinite(prof.spreadMs) ? prof.spreadMs : this.chordSpreadMs;
+    const effJitterMs = prof && Number.isFinite(prof.jitterMs) ? prof.jitterMs : this.noteJitterMs;
+    const sortedMidis = allowHumanize && resolvedEntries.length >= 2
       ? resolvedEntries.map(e => e.targetMidi).sort((a, b) => a - b)
       : null;
+    // Pro Akkord einmalig gewürfelte, dezente Roll-Varianz (nie zweimal identisch, nie übertrieben)
+    const chordRollFactor = 0.65 + triRand01() * 0.70;
+    const invertRoll = this.chordRollMode === "roll" && resolvedEntries.length >= 3 && Math.random() < 0.16;
 
-    resolvedEntries.forEach(({ targetMidi }, entryIdx) => {
+    resolvedEntries.forEach(({ targetMidi }) => {
       const chosen = this.findClosestSample(targetMidi);
       if (!chosen) return;
 
-      // Same-Note-Anti-Stacking: gleiche Note auf demselben Stem weich ablösen statt Kammfilter-Stapel
-      for (let i = 0; i < this.activeVoices.length; i++) {
-        const existing = this.activeVoices[i];
-        if (!existing.released && existing.midi === targetMidi && existing.startAt <= startAt - 0.01) {
-          this.retireVoice(existing, 0.028);
-        }
-      }
-
       while (this.activeVoices.length >= this.maxPolyphony) {
-        const oldest = this.activeVoices.shift();
-        this.retireVoice(oldest, 0.025);
+        let evictIdx = this.activeVoices.findIndex(v => Number.isFinite(v.retiredAt) && v.retiredAt <= startAt + 0.02);
+        if (evictIdx === -1) evictIdx = 0;
+        const oldest = this.activeVoices.splice(evictIdx, 1)[0];
+        this.retireVoice(oldest, 0.028, Math.max(now + 0.006, Math.min(startAt, oldest?.retiredAt ?? startAt)));
       }
 
       const rate = Math.pow(2, (targetMidi - chosen.midi) / 12);
@@ -365,49 +445,78 @@ class EarLabSampledInstrument {
 
       let voiceStartAt = startAt;
       let voiceVel = safeVel;
-      if (prof && prof.humanize) {
-        const stepSeed = ((++this._humanizeCounter * 37 + entryIdx * 13 + targetMidi) % 100) / 100;
-        const velJitter = 0.97 + stepSeed * 0.055;
-        if (sortedMidis && sortedMidis.length >= 3) {
+      if (allowHumanize) {
+        const velJitter = 0.96 + triRand01() * 0.08;
+        if (sortedMidis && sortedMidis.length >= 2) {
           const rank = sortedMidis.indexOf(targetMidi);
-          const normPos = sortedMidis.length > 1 ? rank / (sortedMidis.length - 1) : 0;
-          const balanceScale = rank === sortedMidis.length - 1 ? 1.00 : (rank === 0 ? 0.93 : 0.82);
-          voiceVel = Math.max(0.02, Math.min(1, safeVel * balanceScale * velJitter));
-          voiceStartAt += normPos * ((prof.spreadMs || 0) / 1000) + stepSeed * 0.0016;
-        } else if (resolvedEntries.length === 1) {
+          const rawPos = sortedMidis.length > 1 ? rank / (sortedMidis.length - 1) : 0;
+          const normPos = invertRoll ? (1 - rawPos) : rawPos;
+          const dyadScale = sortedMidis.length === 2 ? 0.55 : 1.0;
+          if (sortedMidis.length >= 3) {
+            const balanceScale = rank === sortedMidis.length - 1 ? 1.00 : (rank === 0 ? 0.94 : 0.83);
+            voiceVel = Math.max(0.02, Math.min(1, safeVel * balanceScale * velJitter));
+          } else {
+            voiceVel = Math.max(0.02, Math.min(1, safeVel * velJitter));
+          }
+          if (this.chordRollMode === "ensemble") {
+            // Streicher/Chor/Bläser: jede Stimme im Ensemble setzt organisch minimal versetzt ein
+            const spreadRange = (effSpreadMs * dyadScale + effJitterMs) / 1000;
+            voiceStartAt += triRand01() * spreadRange;
+          } else {
+            // Klavier/Gitarre: feines organisches Akkord-Roll + zufälliger Finger-Mikroversatz
+            const rollSec = normPos * ((effSpreadMs * dyadScale * chordRollFactor) / 1000);
+            const jitterSec = triRand01() * (effJitterMs / 1000);
+            voiceStartAt += rollSec + jitterSec;
+          }
+        } else {
           voiceVel = Math.max(0.02, Math.min(1, safeVel * velJitter));
         }
       }
 
       const envGain = this.rawCtx.createGain();
       const gainParam = envGain.gain;
-      const trimOff = Math.max(0, Math.min((chosen.buffer.duration || 0) - 0.06, chosen.trimOffsetSec || 0));
+      const trimOff = Math.max(0, Math.min((chosen.buffer.duration || 0) - 0.12, (chosen.trimOffsetSec || 0) + extraStartSkipSec));
       const availBufDur = Math.max(0.08, ((chosen.buffer.duration || 4.0) - trimOff) / Math.max(0.25, rate));
       const safeEndCeiling = voiceStartAt + Math.max(0.06, availBufDur - 0.02);
 
-      const peakAt = Math.min(voiceStartAt + effAttackSec, safeEndCeiling - 0.03);
+      const peakAt = Math.min(voiceStartAt + effAttackSec, safeEndCeiling - 0.035);
       let relAt = voiceStartAt + dur;
       let fadeOutEnd = relAt + effReleaseSec;
 
       // Sample-Puffer-Ende-Schutz: jede Stimme blendet garantiert weich auf 0 aus, BEVOR der Puffer endet!
       if (fadeOutEnd > safeEndCeiling) {
         fadeOutEnd = safeEndCeiling;
-        const minRelSpan = Math.min(effReleaseSec, Math.max(0.04, availBufDur * 0.28));
+        const minRelSpan = Math.min(effReleaseSec, Math.max(0.045, availBufDur * 0.28));
         relAt = Math.max(peakAt + 0.008, fadeOutEnd - minRelSpan);
       }
       const stopAt = fadeOutEnd + 0.025;
 
+      gainParam.value = 0.0001;
       gainParam.setValueAtTime(0.0001, voiceStartAt);
       gainParam.linearRampToValueAtTime(voiceVel, peakAt);
+
+      let relStartVel = voiceVel;
       if (prof && prof.holdDecayFloor < 0.99 && relAt > peakAt + 0.04) {
-        const octFactor = Math.max(0.75, Math.min(1.06, 1.0 - (targetMidi - 60) * 0.006));
-        const holdEndVel = Math.max(0.18 * voiceVel, Math.min(voiceVel * 0.95, voiceVel * prof.holdDecayFloor * octFactor));
-        gainParam.exponentialRampToValueAtTime(holdEndVel, relAt);
+        const octFactor = Math.max(0.84, Math.min(1.04, 1.0 - (targetMidi - 60) * 0.004));
+        relStartVel = Math.max(0.35 * voiceVel, Math.min(voiceVel * 0.96, voiceVel * prof.holdDecayFloor * octFactor));
+        gainParam.exponentialRampToValueAtTime(relStartVel, relAt);
       } else if (relAt > peakAt) {
         gainParam.setValueAtTime(voiceVel, relAt);
       }
-      gainParam.exponentialRampToValueAtTime(0.0008, Math.max(relAt + 0.02, fadeOutEnd - 0.012));
-      gainParam.linearRampToValueAtTime(0, fadeOutEnd);
+
+      // Zweistufiges musikalisches Ausklingen (weiche Dämpfer-Schulter statt steiler -62-dB-Klippe)
+      const relSpan = Math.max(0.025, fadeOutEnd - relAt);
+      if (relSpan >= 0.09) {
+        const kneeAt = relAt + relSpan * 0.36;
+        const tailAt = Math.max(kneeAt + 0.02, fadeOutEnd - 0.014);
+        const kneeVel = Math.max(0.002, relStartVel * 0.42);
+        gainParam.exponentialRampToValueAtTime(kneeVel, kneeAt);
+        gainParam.exponentialRampToValueAtTime(0.0008, tailAt);
+        gainParam.linearRampToValueAtTime(0, fadeOutEnd);
+      } else {
+        gainParam.exponentialRampToValueAtTime(0.0008, Math.max(relAt + 0.015, fadeOutEnd - 0.01));
+        gainParam.linearRampToValueAtTime(0, fadeOutEnd);
+      }
 
       src.connect(envGain);
       connectAudioNodeToTarget(envGain, this.targetNode);
@@ -418,8 +527,11 @@ class EarLabSampledInstrument {
         midi: targetMidi,
         startAt: voiceStartAt,
         releaseAt: relAt,
+        fadeOutEnd,
+        retiredAt: undefined,
+        legatoGroup,
         released: false,
-        retire: (fade = 0.028) => this.retireVoice(voice, fade)
+        retire: (fade = 0.028, when = null) => this.retireVoice(voice, fade, when)
       };
       this.activeVoices.push(voice);
       this.onVoiceStart?.(voice);
@@ -468,26 +580,41 @@ class EarLabNativeSynth {
     this.activeVoices = [];
   }
 
-  retireVoice(voice, fadeSec = 0.03) {
+  retireVoice(voice, fadeSec = 0.03, whenSec = null) {
     if (!voice || voice.released) return;
-    voice.released = true;
+    const now = this.rawCtx?.currentTime || 0;
+    const t = Number.isFinite(whenSec) ? Math.max(now + 0.006, whenSec) : (now + 0.006);
+    if (Number.isFinite(voice.retiredAt) && voice.retiredAt <= t + 0.002) return;
+    if (Number.isFinite(voice.fadeOutEnd) && t >= voice.fadeOutEnd - 0.012) {
+      voice.retiredAt = voice.fadeOutEnd;
+      if (t <= now + 0.015) voice.released = true;
+      return;
+    }
+    voice.retiredAt = t;
+    if (t <= now + 0.015) voice.released = true;
     try {
-      const now = this.rawCtx?.currentTime || 0;
-      const t = now + 0.006;
       const p = voice.gain.gain;
-      const tau = Math.max(0.004, fadeSec / 4.5);
+      if (Number.isFinite(voice.startAt) && t < voice.startAt - 0.004) {
+        p.cancelScheduledValues(0);
+        p.setValueAtTime(0, t);
+        voice.released = true;
+        voice.oscs.forEach(o => { try { o.stop(t); } catch (_) {} });
+        return;
+      }
+      const safeFade = Math.max(0.02, fadeSec);
+      const tau = Math.max(0.004, safeFade / 4.5);
       if (typeof p.cancelAndHoldAtTime === "function") {
         p.cancelAndHoldAtTime(t);
       } else {
         p.cancelScheduledValues(t);
       }
       p.setTargetAtTime(0, t, tau);
-      const stopAt = t + fadeSec + 0.05;
+      const stopAt = t + safeFade + 0.055;
       voice.oscs.forEach(o => { try { o.stop(stopAt); } catch (_) {} });
     } catch (_) {}
   }
 
-  triggerAttackRelease(notesOrFreqs, durationSec = 1.0, whenTime = null, velocity = 1) {
+  triggerAttackRelease(notesOrFreqs, durationSec = 1.0, whenTime = null, velocity = 1, envOverride = null) {
     if (!this.rawCtx) return;
     const list = Array.isArray(notesOrFreqs) ? notesOrFreqs : [notesOrFreqs];
     if (list.length === 0) return;
@@ -498,8 +625,11 @@ class EarLabNativeSynth {
     const dur = Math.max(0.06, Number(durationSec) || 0.6);
     const safeVel = Math.max(0.02, Math.min(1, Number.isFinite(velocity) ? velocity : 1));
     const polyScale = list.length > 1 ? (1 / Math.sqrt(list.length)) : 1;
+    const legatoGroup = (envOverride?.legatoGroup === "chord" || envOverride?.legatoGroup === "melody")
+      ? envOverride.legatoGroup
+      : null;
 
-    list.forEach(token => {
+    const parsed = list.map(token => {
       let freq = null;
       let midi = null;
       if (typeof token === "number" && Number.isFinite(token) && token > 15) {
@@ -508,14 +638,41 @@ class EarLabNativeSynth {
         midi = EarLabSampledInstrument.noteToMidi(token);
         if (midi !== null) freq = EarLabSampledInstrument.midiToFreq(midi);
       }
-      if (!Number.isFinite(freq) || freq <= 15) return;
+      return { freq, midi };
+    }).filter(x => Number.isFinite(x.freq) && x.freq > 15);
+    if (parsed.length === 0) return;
 
-      if (this.monophonic) {
-        this.releaseAll();
-      } else {
+    const incomingMidiSet = new Set(parsed.map(x => x.midi).filter(m => m !== null));
+    if (this.monophonic) {
+      this.activeVoices.forEach(existing => {
+        if (existing && !existing.released && existing.startAt <= startAt - 0.01) {
+          this.retireVoice(existing, 0.055, Math.max(now + 0.006, startAt + 0.01));
+        }
+      });
+    } else if (legatoGroup) {
+      this.activeVoices.forEach(existing => {
+        if (!existing || existing.released || existing.startAt > startAt - 0.012) return;
+        const existingEnd = Number.isFinite(existing.retiredAt) ? existing.retiredAt : (existing.fadeOutEnd || 0);
+        if (existing.legatoGroup === legatoGroup && existingEnd >= startAt - 0.08) {
+          const isSamePitch = existing.midi !== null && incomingMidiSet.has(existing.midi);
+          if (isSamePitch && legatoGroup === "melody") {
+            this.retireVoice(existing, 0.026, Math.max(now + 0.006, startAt - 0.022));
+          } else if (isSamePitch) {
+            this.retireVoice(existing, 0.04, Math.max(now + 0.006, startAt - 0.004));
+          } else {
+            this.retireVoice(existing, 0.13, startAt + 0.022);
+          }
+        }
+      });
+    }
+
+    parsed.forEach(({ freq, midi }) => {
+      if (!this.monophonic) {
         while (this.activeVoices.length >= this.maxPolyphony) {
-          const oldest = this.activeVoices.shift();
-          this.retireVoice(oldest, 0.025);
+          let evictIdx = this.activeVoices.findIndex(v => Number.isFinite(v.retiredAt) && v.retiredAt <= startAt + 0.02);
+          if (evictIdx === -1) evictIdx = 0;
+          const oldest = this.activeVoices.splice(evictIdx, 1)[0];
+          this.retireVoice(oldest, 0.025, Math.max(now + 0.006, Math.min(startAt, oldest?.retiredAt ?? startAt)));
         }
       }
 
@@ -551,16 +708,28 @@ class EarLabNativeSynth {
       const fadeEnd = relAt + this.release;
 
       const gp = envGain.gain;
+      gp.value = 0.0001;
       gp.setValueAtTime(0.0001, startAt);
       gp.linearRampToValueAtTime(peak, peakAt);
+      let relStartVal = peak;
       if (decayEnd > peakAt + 0.005) {
         gp.exponentialRampToValueAtTime(sustainVal, decayEnd);
+        relStartVal = sustainVal;
       }
       if (relAt > decayEnd) {
-        gp.setValueAtTime(sustainVal, relAt);
+        gp.setValueAtTime(relStartVal, relAt);
       }
-      gp.exponentialRampToValueAtTime(0.0005, Math.max(relAt + 0.02, fadeEnd - 0.012));
-      gp.linearRampToValueAtTime(0, fadeEnd);
+      const relSpan = Math.max(0.025, fadeEnd - relAt);
+      if (relSpan >= 0.09) {
+        const kneeAt = relAt + relSpan * 0.36;
+        const tailAt = Math.max(kneeAt + 0.02, fadeEnd - 0.014);
+        gp.exponentialRampToValueAtTime(Math.max(0.002, relStartVal * 0.42), kneeAt);
+        gp.exponentialRampToValueAtTime(0.0005, tailAt);
+        gp.linearRampToValueAtTime(0, fadeEnd);
+      } else {
+        gp.exponentialRampToValueAtTime(0.0005, Math.max(relAt + 0.015, fadeEnd - 0.01));
+        gp.linearRampToValueAtTime(0, fadeEnd);
+      }
 
       connectAudioNodeToTarget(envGain, this.targetNode);
 
@@ -571,8 +740,11 @@ class EarLabNativeSynth {
         midi,
         startAt,
         releaseAt: relAt,
+        fadeOutEnd: fadeEnd,
+        retiredAt: undefined,
+        legatoGroup,
         released: false,
-        retire: (fade = 0.028) => this.retireVoice(voice, fade)
+        retire: (fade = 0.028, when = null) => this.retireVoice(voice, fade, when)
       };
       this.activeVoices.push(voice);
       this.onVoiceStart?.(voice);
@@ -623,7 +795,7 @@ class AudioEngine {
     this._silentBufferPlayed = false;
 
     this.liteReverb = shouldUseLiteReverb();
-    this.maxGlobalVoices = this.liteReverb ? 22 : 36;
+    this.maxGlobalVoices = this.liteReverb ? 28 : 44;
     this.globalVoices = [];
 
     this.softClipper = null;
@@ -765,8 +937,8 @@ class AudioEngine {
     this.globalVoices.push(voice);
     if (this.globalVoices.length > this.maxGlobalVoices) {
       const now = this.rawCtx?.currentTime || 0;
-      // Bevorzugt eine bereits im Release befindliche Stimme ablösen, sonst die älteste aktive Stimme
-      let victimIdx = this.globalVoices.findIndex(v => v !== voice && !v.released && v.releaseAt <= now);
+      // Bevorzugt eine bereits im Release/Crossfade befindliche Stimme ablösen, sonst die älteste aktive Stimme
+      let victimIdx = this.globalVoices.findIndex(v => v !== voice && !v.released && ((v.retiredAt ?? v.releaseAt) <= now));
       if (victimIdx === -1) {
         victimIdx = this.globalVoices.findIndex(v => v !== voice && !v.released);
       }
@@ -891,7 +1063,7 @@ class AudioEngine {
     const rawCtx = this.ensurePlaybackContext();
     if (!rawCtx) return false;
     this.liteReverb = shouldUseLiteReverb();
-    this.maxGlobalVoices = this.liteReverb ? 22 : 36;
+    this.maxGlobalVoices = this.liteReverb ? 28 : 44;
 
     // 1. Klippsichere Master-Ausgangskette:
     //    masterGain → masterLimiter (transparenter Peak-Compressor) → limiterTrim → softClipper (tanh ab -2,8 dB) → destination
@@ -1307,8 +1479,16 @@ class AudioEngine {
     const sampler = new EarLabSampledInstrument(decoded.bufferMap, targetNode, {
       rawCtx: decoded.rawCtx,
       attackSec: samplerOpts.attackSec ?? 0.004,
-      releaseSec: samplerOpts.releaseSec ?? 0.55,
-      maxPolyphony: samplerOpts.maxPolyphony ?? 14,
+      legatoAttackSec: samplerOpts.legatoAttackSec,
+      legatoStartSkipSec: samplerOpts.legatoStartSkipSec,
+      releaseSec: samplerOpts.releaseSec ?? 0.60,
+      legatoOverlapSec: samplerOpts.legatoOverlapSec,
+      chordCrossfadeSec: samplerOpts.chordCrossfadeSec,
+      melodyCrossfadeSec: samplerOpts.melodyCrossfadeSec,
+      chordSpreadMs: samplerOpts.chordSpreadMs,
+      noteJitterMs: samplerOpts.noteJitterMs,
+      chordRollMode: samplerOpts.chordRollMode,
+      maxPolyphony: samplerOpts.maxPolyphony ?? 16,
       getSoundProfile: samplerOpts.getSoundProfile,
       onVoiceStart: (v) => this.registerVoice(v),
       onVoiceEnd: (v) => this.unregisterVoice(v)
@@ -1338,7 +1518,15 @@ class AudioEngine {
       try {
         const decoded = await this.initSampledInstrument(packs[stemKey], stemTargetNode, {
           attackSec: cfg.attackSec,
+          legatoAttackSec: cfg.legatoAttackSec,
+          legatoStartSkipSec: cfg.legatoStartSkipSec,
           releaseSec: cfg.releaseSec,
+          legatoOverlapSec: cfg.legatoOverlapSec,
+          chordCrossfadeSec: cfg.chordCrossfadeSec,
+          melodyCrossfadeSec: cfg.melodyCrossfadeSec,
+          chordSpreadMs: cfg.chordSpreadMs,
+          noteJitterMs: cfg.noteJitterMs,
+          chordRollMode: cfg.chordRollMode,
           maxPolyphony: cfg.maxPolyphony,
           getSoundProfile: pianoProfGetter
         }, isBackgroundWave);
@@ -1384,7 +1572,15 @@ class AudioEngine {
         const demoSampler = new EarLabSampledInstrument(decoded.bufferMap, demoTarget, {
           rawCtx: decoded.rawCtx,
           attackSec: cfg.attackSec,
+          legatoAttackSec: cfg.legatoAttackSec,
+          legatoStartSkipSec: cfg.legatoStartSkipSec,
           releaseSec: cfg.releaseSec,
+          legatoOverlapSec: cfg.legatoOverlapSec,
+          chordCrossfadeSec: cfg.chordCrossfadeSec,
+          melodyCrossfadeSec: cfg.melodyCrossfadeSec,
+          chordSpreadMs: cfg.chordSpreadMs,
+          noteJitterMs: cfg.noteJitterMs,
+          chordRollMode: cfg.chordRollMode,
           maxPolyphony: cfg.maxPolyphony,
           getSoundProfile: pianoProfGetter,
           onVoiceStart: (v) => this.registerVoice(v),
@@ -1983,7 +2179,10 @@ class AudioEngine {
       const entry = { demoSampler };
       this.activeDemoNodes.push(entry);
 
-      const baseAt = this.getAudioTime() + this.getScheduleLookaheadSec();
+      const nowAt = this.getAudioTime();
+      const leadAt = this.getScheduleLookaheadSec();
+      const reqAt = Number.isFinite(envOverride?.atTime) ? envOverride.atTime : (nowAt + leadAt);
+      const baseAt = Math.max(nowAt + 0.018, reqAt > nowAt + 30 ? (nowAt + leadAt) : reqAt);
       if (isSeq) {
         samplerNotes.forEach((n, idx) => {
           const tNote = baseAt + (idx * arpeggioStepMs) / 1000;
@@ -2040,13 +2239,16 @@ class AudioEngine {
     const entry = { nativeSynth: tempSynth, gain: tempGain };
     this.activeDemoNodes.push(entry);
 
-    const baseAt = this.getAudioTime() + this.getScheduleLookaheadSec();
+    const nowAt = this.getAudioTime();
+    const leadAt = this.getScheduleLookaheadSec();
+    const reqAt = Number.isFinite(envOverride?.atTime) ? envOverride.atTime : (nowAt + leadAt);
+    const baseAt = Math.max(nowAt + 0.018, reqAt > nowAt + 30 ? (nowAt + leadAt) : reqAt);
     if (isSeq) {
       notes.forEach((n, idx) => {
-        tempSynth.triggerAttackRelease([n], stepDur, baseAt + (idx * arpeggioStepMs) / 1000, 1.0);
+        tempSynth.triggerAttackRelease([n], stepDur, baseAt + (idx * arpeggioStepMs) / 1000, 1.0, envOverride);
       });
     } else {
-      tempSynth.triggerAttackRelease(notes, stepDur, baseAt, 1.0);
+      tempSynth.triggerAttackRelease(notes, stepDur, baseAt, 1.0, envOverride);
     }
 
     setTimeout(() => {
@@ -2058,19 +2260,27 @@ class AudioEngine {
   /**
    * Spielt Begleit- oder Stimmführungs-Töne für den Einsing-Helfer direkt über den Master-Bus ab.
    */
-  playWarmupNotes(soundMode, notes, durationSec = 0.85, isChordCue = false, layerChoirOnChord = false) {
+  playWarmupNotes(soundMode, notes, durationSec = 0.85, isChordCue = false, layerChoirOnChord = false, options = null) {
     if (!this.isInitialized || !notes || notes.length === 0) return;
     const dur = Math.max(0.22, Number(durationSec) || 0.85);
     const mode = soundMode === "voice" || soundMode === "piano-voice" ? soundMode : "piano";
+    const envOverride = options && typeof options === "object"
+      ? {
+          atTime: options.atTime,
+          legatoGroup: options.legato === false
+            ? null
+            : (options.legato === "chord" || options.legato === "melody" ? options.legato : null)
+        }
+      : null;
 
     if (mode === "voice") {
-      this.playInstrumentSample("choir", notes, dur, 0, isChordCue ? 0.72 : 0.88);
+      this.playInstrumentSample("choir", notes, dur, 0, isChordCue ? 0.72 : 0.88, envOverride);
       return;
     }
 
-    this.playInstrumentSample("piano", notes, dur, 0, isChordCue ? 0.80 : 0.90);
+    this.playInstrumentSample("piano", notes, dur, 0, isChordCue ? 0.80 : 0.90, envOverride);
     if (mode === "piano-voice" && (!isChordCue || layerChoirOnChord)) {
-      this.playInstrumentSample("choir", notes, Math.max(0.32, dur * 1.04), 0, isChordCue ? 0.44 : 0.56);
+      this.playInstrumentSample("choir", notes, Math.max(0.32, dur * 1.06), 0, isChordCue ? 0.44 : 0.56, envOverride);
     }
   }
 
@@ -2243,23 +2453,49 @@ class AudioEngine {
       ];
     }
 
-    // Nur aktive Stems (> 0,5 %) auslösen + winzige 1,5-ms-Staffelung bricht kohärente Transienten-Spitzen
+    const legatoMode = timingOpts?.legato === false
+      ? null
+      : (timingOpts?.legato === "chord" || timingOpts?.legato === "melody"
+          ? timingOpts.legato
+          : (timingOpts?.legato === true
+              ? (uniqNotes.length <= 1 ? "melody" : "chord")
+              : (_mode === "cadence" && uniqNotes.length >= 2 ? "chord" : null)));
+    const envOverride = legatoMode ? { legatoGroup: legatoMode } : null;
+
+    // Nur aktive Stems (> 0,5 %) auslösen; im Mehr-Instrumenten-Zusammenspiel feiner menschlicher Ensemble-Versatz
+    const activeChordStems = hasNotes
+      ? ["piano", "guitar", "strings", "brass", "voice"].filter(k => (this.stemLevels[k] || 0) > 0.005)
+      : [];
+    const hasBass = Boolean(bassNote && this.bass && (this.stemLevels.bass || 0) > 0.005);
+    const totalActiveStems = activeChordStems.length + (hasBass ? 1 : 0);
+    // Bei rhythmischen Melodien bleibt der Ensemble-Versatz besonders straff, bei Akkorden/Kadenzen organisch
+    const ensembleScale = totalActiveStems >= 2
+      ? (_mode === "melody-note" ? 0.35 : 1.0)
+      : 0;
+    const sampleEnsembleOffsetSec = (stemKey) => {
+      if (ensembleScale <= 0) return 0;
+      const range = SAMPLED_STEM_CONFIG[stemKey]?.ensembleRangeMs || [0, 6];
+      const ms = (range[0] + triRand01() * (range[1] - range[0])) * ensembleScale;
+      return ms / 1000;
+    };
+
     if (hasNotes) {
-      const chordStems = ["piano", "guitar", "strings", "brass", "voice"].filter(k => (this.stemLevels[k] || 0) > 0.005);
-      chordStems.forEach((stemKey, stemIdx) => {
+      activeChordStems.forEach(stemKey => {
         const inst = this[stemKey];
         if (!inst) return;
-        const stemOffset = stemIdx * 0.0015;
+        const stemOffset = sampleEnsembleOffsetSec(stemKey);
         if (harmonicVoices) {
-          harmonicVoices.forEach(v => inst.triggerAttackRelease([v.note], v.dur, v.at + stemOffset, v.vel));
+          harmonicVoices.forEach(v => inst.triggerAttackRelease([v.note], v.dur, v.at + stemOffset, v.vel, envOverride));
         } else {
-          inst.triggerAttackRelease(uniqNotes, dur, at + stemOffset, chordVel);
+          inst.triggerAttackRelease(uniqNotes, dur, at + stemOffset, chordVel, envOverride);
         }
       });
     }
 
-    if (bassNote && this.bass && (this.stemLevels.bass || 0) > 0.005) {
-      this.bass.triggerAttackRelease(bassNote, dur, at, 0.95 * velScale);
+    if (hasBass) {
+      const bassEnv = legatoMode ? { legatoGroup: legatoMode } : null;
+      const bassOffset = sampleEnsembleOffsetSec("bass");
+      this.bass.triggerAttackRelease(bassNote, dur, at + bassOffset, 0.95 * velScale, bassEnv);
     }
   }
 

@@ -2007,10 +2007,11 @@ function bindKnowledgeAudioButtons(rootEl) {
       await ensureAudioReady();
       audioEngine.stopPlayback();
       const semi = parseInt(btn.dataset.playIntAsc, 10);
-      audioEngine.playStep(["C4"], 0.55, null, "interval");
+      const baseAt = audioEngine.getAudioTime() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
+      audioEngine.playStep(["C4"], 0.64, null, "interval", { atTime: baseAt, legato: "melody" });
       audioEngine.registerTimer(() => {
-        audioEngine.playStep([midiToNote(60 + semi)], 0.95, null, "interval");
-      }, 600);
+        audioEngine.playStep([midiToNote(60 + semi)], 1.0, null, "interval", { atTime: baseAt + 0.6, legato: "melody" });
+      }, 515);
     });
   });
 
@@ -2019,10 +2020,11 @@ function bindKnowledgeAudioButtons(rootEl) {
       await ensureAudioReady();
       audioEngine.stopPlayback();
       const semi = parseInt(btn.dataset.playIntDesc, 10);
-      audioEngine.playStep(["C5"], 0.55, null, "interval");
+      const baseAt = audioEngine.getAudioTime() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
+      audioEngine.playStep(["C5"], 0.64, null, "interval", { atTime: baseAt, legato: "melody" });
       audioEngine.registerTimer(() => {
-        audioEngine.playStep([midiToNote(72 - semi)], 0.95, null, "interval");
-      }, 600);
+        audioEngine.playStep([midiToNote(72 - semi)], 1.0, null, "interval", { atTime: baseAt + 0.6, legato: "melody" });
+      }, 515);
     });
   });
 
@@ -2041,10 +2043,11 @@ function bindKnowledgeAudioButtons(rootEl) {
       audioEngine.stopPlayback();
       const def = HARMONIC_DATA.intervals[btn.dataset.playIntervalMel];
       if (!def) return;
-      audioEngine.playStep(["C4"], 0.55, null, "interval");
+      const baseAt = audioEngine.getAudioTime() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
+      audioEngine.playStep(["C4"], 0.64, null, "interval", { atTime: baseAt, legato: "melody" });
       audioEngine.registerTimer(() => {
-        audioEngine.playStep([midiToNote(60 + def.semitones)], 0.95, null, "interval");
-      }, 600);
+        audioEngine.playStep([midiToNote(60 + def.semitones)], 1.0, null, "interval", { atTime: baseAt + 0.6, legato: "melody" });
+      }, 515);
     });
   });
 
@@ -2068,16 +2071,23 @@ function bindKnowledgeAudioButtons(rootEl) {
       const stepMs = Number.isFinite(customStepMs) && customStepMs > 0
         ? customStepMs
         : (degrees.length >= 6 ? 880 : 1050);
+      const stepSec = stepMs / 1000;
       const chordDur = Number.isFinite(customDur) && customDur > 0
-        ? customDur
-        : (degrees.length >= 6 ? 0.80 : 0.95);
+        ? Math.max(customDur, stepSec * 1.04)
+        : stepSec * 1.06;
+      const baseAt = audioEngine.getAudioTime() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
       degrees.forEach((degKey, idx) => {
+        const delayMs = idx * stepMs;
+        const isLast = idx === degrees.length - 1;
         audioEngine.registerTimer(() => {
           const def = HARMONIC_DATA.degrees[degKey];
           if (!def) return;
           const n = buildChordNotes(60, def);
-          audioEngine.playStep(n.chordNotes, chordDur, n.bassNote, "cadence");
-        }, idx * stepMs);
+          audioEngine.playStep(n.chordNotes, isLast ? Math.max(chordDur, stepSec * 1.1) : chordDur, n.bassNote, "cadence", {
+            atTime: baseAt + delayMs / 1000,
+            legato: "chord"
+          });
+        }, Math.max(0, delayMs - 85));
       });
     });
   });
@@ -2151,29 +2161,43 @@ function bindKnowledgeAudioButtons(rootEl) {
       const chordSec = beatSec * 1.45;
       const chordStepMs = Math.round(chordSec * 1000);
       const pauseAfterCadenceMs = Math.round(beatSec * 1.35 * 1000);
+      const baseAt = audioEngine.getAudioTime() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
 
       // 1. Kadenz I - vi - IV - V
       cadenceDegrees.forEach((degKey, idx) => {
+        const delayMs = idx * chordStepMs;
+        const isLastChord = idx === cadenceDegrees.length - 1;
         audioEngine.registerTimer(() => {
           const n = buildChordNotes(60, HARMONIC_DATA.degrees[degKey]);
-          audioEngine.playStep(n.chordNotes, chordSec * 0.88, n.bassNote, "cadence");
-        }, idx * chordStepMs);
+          audioEngine.playStep(n.chordNotes, chordSec * (isLastChord ? 0.98 : 1.06), n.bassNote, "cadence", {
+            atTime: baseAt + delayMs / 1000,
+            legato: "chord"
+          });
+        }, Math.max(0, delayMs - 85));
       });
 
       // 2. Nach deutlicher Pause: der jeweilige Solfège-Ton
       const toneStartMs = cadenceDegrees.length * chordStepMs + pauseAfterCadenceMs;
       audioEngine.registerTimer(() => {
-        audioEngine.playStep([midiToNote(60 + semi)], 1.05, null, "interval");
-      }, toneStartMs);
+        audioEngine.playStep([midiToNote(60 + semi)], 1.08, null, "interval", {
+          atTime: baseAt + toneStartMs / 1000,
+          legato: false
+        });
+      }, Math.max(0, toneStartMs - 85));
 
       // 3. Nach kurzer Pause: Ruhige stufenweise Auflösung zur Tonika (Do-Fa abwärts, Sol-Ti aufwärts)
       const resolveStartMs = toneStartMs + 1450;
-      const resolveStepMs = Math.round(beatSec * 0.92 * 1000);
+      const resolveStepSec = beatSec * 0.92;
+      const resolveStepMs = Math.round(resolveStepSec * 1000);
       resolvePath.forEach((stepSemi, idx) => {
+        const delayMs = resolveStartMs + idx * resolveStepMs;
+        const isLast = idx === resolvePath.length - 1;
         audioEngine.registerTimer(() => {
-          const isLast = idx === resolvePath.length - 1;
-          audioEngine.playStep([midiToNote(60 + stepSemi)], isLast ? 1.15 : 0.52, null, "interval");
-        }, resolveStartMs + idx * resolveStepMs);
+          audioEngine.playStep([midiToNote(60 + stepSemi)], isLast ? 1.2 : resolveStepSec * 1.06, null, "interval", {
+            atTime: baseAt + delayMs / 1000,
+            legato: "melody"
+          });
+        }, Math.max(0, delayMs - 85));
       });
     });
   });
@@ -2186,10 +2210,15 @@ function bindKnowledgeAudioButtons(rootEl) {
 
       if (type === "scale-unresolved") {
         const notes = ["C4", "D4", "E4", "F4", "G4", "A4", "B4"];
+        const baseAt = audioEngine.getAudioTime() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
         notes.forEach((n, i) => {
+          const delayMs = i * 380;
           audioEngine.registerTimer(() => {
-            audioEngine.playStep([n], i === 6 ? 1.3 : 0.35, null, "interval");
-          }, i * 380);
+            audioEngine.playStep([n], i === 6 ? 1.3 : 0.41, null, "interval", {
+              atTime: baseAt + delayMs / 1000,
+              legato: "melody"
+            });
+          }, Math.max(0, delayMs - 85));
         });
       } else if (type === "leading-tone") {
         audioEngine.playStep(["B4"], 0.7, "G2", "cadence");
@@ -2542,13 +2571,18 @@ function bindKnowledgeAudioButtons(rootEl) {
       if (!modeObj) return;
       const notes = modeObj.notes.split(",").map(s => s.trim()).filter(Boolean);
       const currentId = audioEngine.playbackId;
-      audioEngine.playStep([], 2.9, "C3", "cadence");
+      const baseAt = audioEngine.getAudioTime() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
+      audioEngine.playStep([], 3.0, "C3", "cadence", { atTime: baseAt, legato: false });
       notes.forEach((n, idx) => {
+        const delayMs = idx * 320;
+        const isLast = idx === notes.length - 1;
         audioEngine.registerTimer(() => {
           if (audioEngine.playbackId !== currentId) return;
-          const isLast = idx === notes.length - 1;
-          audioEngine.playStep([n], isLast ? 0.95 : 0.34, null, "interval");
-        }, idx * 320);
+          audioEngine.playStep([n], isLast ? 1.0 : 0.35, null, "interval", {
+            atTime: baseAt + delayMs / 1000,
+            legato: "melody"
+          });
+        }, Math.max(0, delayMs - 85));
       });
     });
   });
@@ -2562,13 +2596,19 @@ function bindKnowledgeAudioButtons(rootEl) {
         : null;
       if (!modeObj?.vampChords?.length) return;
       const currentId = audioEngine.playbackId;
+      const baseAt = audioEngine.getAudioTime() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
       modeObj.vampChords.forEach((ch, idx) => {
+        const delayMs = idx * 920;
+        const isLast = idx === modeObj.vampChords.length - 1;
         audioEngine.registerTimer(() => {
           if (audioEngine.playbackId !== currentId) return;
           const bassNote = ch[0];
           const upper = ch.slice(1);
-          audioEngine.playStep(upper, 0.88, bassNote, "cadence");
-        }, idx * 920);
+          audioEngine.playStep(upper, isLast ? 1.05 : 0.98, bassNote, "cadence", {
+            atTime: baseAt + delayMs / 1000,
+            legato: "chord"
+          });
+        }, Math.max(0, delayMs - 85));
       });
     });
   });
@@ -2593,13 +2633,18 @@ function bindKnowledgeAudioButtons(rootEl) {
             { rootOff: 0,  triad: [0, 4, 7] }
           ];
       const currentId = audioEngine.playbackId;
+      const baseAt = audioEngine.getAudioTime() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
       prog.forEach((step, idx) => {
+        const delayMs = idx * 720;
         audioEngine.registerTimer(() => {
           if (audioEngine.playbackId !== currentId) return;
           const chordNotes = step.triad.map(off => midiToNote(rootMidi + off));
           const bassNote = midiToNote(rootMidi + step.rootOff - 12);
-          audioEngine.playStep(chordNotes, idx === 3 ? 0.95 : 0.65, bassNote, "cadence");
-        }, idx * 720);
+          audioEngine.playStep(chordNotes, idx === 3 ? 1.05 : 0.77, bassNote, "cadence", {
+            atTime: baseAt + delayMs / 1000,
+            legato: "chord"
+          });
+        }, Math.max(0, delayMs - 85));
       });
     });
   });
@@ -2624,12 +2669,17 @@ function bindKnowledgeAudioButtons(rootEl) {
       const midis = String(btn.dataset.playCofScale || "").split(",").map(Number).filter(n => !Number.isNaN(n));
       if (!midis.length) return;
       const currentId = audioEngine.playbackId;
+      const baseAt = audioEngine.getAudioTime() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
       midis.forEach((m, idx) => {
+        const delayMs = idx * 290;
+        const isLast = idx === midis.length - 1;
         audioEngine.registerTimer(() => {
           if (audioEngine.playbackId !== currentId) return;
-          const isLast = idx === midis.length - 1;
-          audioEngine.playStep([midiToNote(m)], isLast ? 0.9 : 0.34, null, "interval");
-        }, idx * 290);
+          audioEngine.playStep([midiToNote(m)], isLast ? 0.95 : 0.32, null, "interval", {
+            atTime: baseAt + delayMs / 1000,
+            legato: "melody"
+          });
+        }, Math.max(0, delayMs - 85));
       });
     });
   });
@@ -2655,13 +2705,18 @@ function bindKnowledgeAudioButtons(rootEl) {
             { chord: [-1, 2, 7], bass: 7 }
           ];
       const currentId = audioEngine.playbackId;
+      const baseAt = audioEngine.getAudioTime() + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
       prog.forEach((step, idx) => {
+        const delayMs = idx * 780;
         audioEngine.registerTimer(() => {
           if (audioEngine.playbackId !== currentId) return;
           const chordNotes = step.chord.map(o => midiToNote(baseMidi + o));
           const bassNote = bassFor(baseMidi + step.bass);
-          audioEngine.playStep(chordNotes, idx === 3 ? 1.05 : 0.68, bassNote, "cadence");
-        }, idx * 780);
+          audioEngine.playStep(chordNotes, idx === 3 ? 1.12 : 0.83, bassNote, "cadence", {
+            atTime: baseAt + delayMs / 1000,
+            legato: "chord"
+          });
+        }, Math.max(0, delayMs - 85));
       });
     });
   });
@@ -3924,7 +3979,7 @@ function openCategoryPage(categoryKey, options = {}) {
           </button>
         `
       }
-    ];
+    ].map(item => ({ ...item, titleHtml: formatStackedParenTitle(item.title) }));
 
     const selectedRhythm = activeSection ? RHYTHM_SECTIONS.find(s => s.id === activeSection) : null;
     if (!selectedRhythm) {
@@ -3934,7 +3989,7 @@ function openCategoryPage(categoryKey, options = {}) {
       state.activeCategorySectionTitle = selectedRhythm.plainTitle;
       container.innerHTML = `
         <div class="subpage-section">
-          <h3 class="subpage-section-title">${selectedRhythm.title}</h3>
+          <h3 class="subpage-section-title">${selectedRhythm.titleHtml || selectedRhythm.title}</h3>
           <p class="subpage-section-desc">${selectedRhythm.desc}</p>
           <div class="subpage-nodes-grid">${selectedRhythm.cardsHtml}</div>
         </div>

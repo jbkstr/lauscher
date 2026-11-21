@@ -873,9 +873,9 @@ function runCurrentWarmupRound() {
         const sylEl = document.getElementById("warmupSyllableMain");
         if (sylEl) sylEl.textContent = vLabel;
         if (vIdx === 2) {
-          audioEngine.playWarmupNotes("piano", subDomNotes, (stepMs * 2) / 1000, true);
+          audioEngine.playWarmupNotes("piano", subDomNotes, (stepMs * 2.08) / 1000, true, false, { legato: "chord" });
         } else if (vIdx === 4) {
-          audioEngine.playWarmupNotes("piano", homeChordNotes, (stepMs * 1.4) / 1000, true);
+          audioEngine.playWarmupNotes("piano", homeChordNotes, (stepMs * 1.45) / 1000, true, false, { legato: "chord" });
         }
       }, startVocalMs + vIdx * stepMs);
     });
@@ -938,19 +938,33 @@ function runCurrentWarmupRound() {
   }
 
   // Standard vocal-pattern (Summen, Seufzer, Dreiklangs-Arpeggio, Oktav-Staccato, Cool-Down)
+  const warmupBaseAudioTime = (audioEngine.getAudioTime?.() || 0) + (audioEngine.getScheduleLookaheadSec?.() || 0.045);
+  const warmupLookaheadMs = 85;
   let elapsedNoteMs = 0;
-  (step.semitones || []).forEach((semi, nIdx) => {
+  const semiList = step.semitones || [];
+  semiList.forEach((semi, nIdx) => {
+    const isLastNote = nIdx === semiList.length - 1;
     const noteBeatDur = (step.noteBeats?.[nIdx] || 0.9) * beatMs;
-    const noteDurSec = step.staccato && nIdx < step.semitones.length - 1
-      ? Math.max(0.22, (noteBeatDur / 1000) * 0.56)
-      : Math.max(0.28, (noteBeatDur / 1000) * 0.94);
+    const isStaccato = Boolean(step.staccato && !isLastNote);
+    const noteDurSec = isStaccato
+      ? Math.max(0.20, (noteBeatDur / 1000) * 0.56)
+      : Math.max(0.28, (noteBeatDur / 1000) * (isLastNote ? 1.02 : 1.07));
     const playMidi = tonicMidi + semi;
     const playAtMs = startVocalMs + elapsedNoteMs;
+    const audioTimerDelayMs = Math.max(0, playAtMs - warmupLookaheadMs);
+    const targetAudioTime = warmupBaseAudioTime + playAtMs / 1000;
     elapsedNoteMs += noteBeatDur;
 
     audioEngine.registerTimer(() => {
       if (state.warmup.token !== token || state.warmup.status !== "running") return;
-      audioEngine.playWarmupNotes(w.soundMode, [midiToNote(playMidi)], noteDurSec, false);
+      audioEngine.playWarmupNotes(w.soundMode, [midiToNote(playMidi)], noteDurSec, false, false, {
+        atTime: targetAudioTime,
+        legato: isStaccato ? false : "melody"
+      });
+    }, audioTimerDelayMs);
+
+    audioEngine.registerTimer(() => {
+      if (state.warmup.token !== token || state.warmup.status !== "running") return;
       w.activeMidis = [playMidi];
       updateWarmupKeyboardHighlights(tonicMidi, [playMidi]);
     }, playAtMs);
