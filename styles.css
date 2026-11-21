@@ -8377,6 +8377,18 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   line-height: 1.25;
 }
 
+.stacked-title-main {
+  display: block;
+}
+
+.stacked-title-paren {
+  display: block;
+  font-size: 0.86em;
+  font-weight: 700;
+  color: var(--raccoon-mid);
+  margin-top: 0.05rem;
+}
+
 .category-type-desc {
   font-size: 0.78rem;
   line-height: 1.38;
@@ -10154,6 +10166,10 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   align-items: center;
   justify-content: space-between;
   gap: 0.35rem;
+}
+
+.subpage-section-head-row .subpage-section-title {
+  text-align: start;
 }
 
 .subpage-section-key-pill {
