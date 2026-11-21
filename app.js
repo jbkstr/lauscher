@@ -479,6 +479,9 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("openCircleBtn")?.addEventListener("click", () => {
     openCircleOfFifthsView("tools");
   });
+  document.getElementById("openNashvilleBtn")?.addEventListener("click", () => {
+    openNashvilleView("tools");
+  });
   initMetronomeEventListeners();
   initFreeplayEventListeners();
   initFretboardEventListeners();

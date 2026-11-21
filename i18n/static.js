@@ -1003,6 +1003,24 @@ registerColocatedStatic({
     uk: "Інтерактивне коло, акорди, ключові знаки й модуляція",
     ur: "انٹرایکٹو پہیہ، کورڈز، کلیدی علامات اور ماڈیولیشن"
   },
+  "tools.nashvilleTitle": {
+    de: "Nashville Number System",
+    en: "Nashville Number System",
+    fr: "Nashville Number System",
+    es: "Sistema numérico de Nashville",
+    pl: "Nashville Number System",
+    uk: "Система цифр Нешвілла",
+    ur: "نیش وِل نمبر سسٹم"
+  },
+  "tools.nashvilleSub": {
+    de: "Tonarten-Diagramm, 12-Tonarten-Matrix & Kapodaster-Übersetzer",
+    en: "Key diagram, 12-key matrix & guitar capo translator",
+    fr: "Diagramme des tonalités, grille des 12 tonalités & traducteur de capo",
+    es: "Diagrama de tonalidades, tabla de 12 tonalidades y traductor de cejilla",
+    pl: "Diagram tonacji, tabela 12 tonacji i tłumacz kapodastra",
+    uk: "Діаграма тональностей, таблиця 12 тональностей і перекладач каподастра",
+    ur: "کی ڈایاگرام، 12 کیز ٹیبل اور گٹار کیپو ٹرانسلیٹر"
+  },
   "tools.soonBadge": {
     de: "Bald",
     en: "Soon",

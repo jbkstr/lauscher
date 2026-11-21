@@ -1494,6 +1494,126 @@ const KNOWLEDGE_ARTICLES_ES = [
         </div>
       </div>
     `
+  },
+  {
+    id: "art-nashville-number-system",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3.5" width="18" height="17" rx="2.5"/><line x1="3" y1="12" x2="21" y2="12" opacity="0.55"/><line x1="12" y1="3.5" x2="12" y2="20.5" opacity="0.55"/><text x="7.5" y="10" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">1</text><text x="16.5" y="10" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">4</text><text x="7.5" y="18.2" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">5</text><text x="16.5" y="18.2" text-anchor="middle" font-family="Andika, sans-serif" font-size="5.8" font-weight="700" fill="currentColor" stroke="none">6-</text></svg>`,
+    badgeClass: "badge-peach",
+    title: "El sistema numérico de Nashville",
+    subtitle: "Cómo los números en lugar de nombres de acordes permiten transponer en segundos",
+    tag: "Estudio y práctica",
+    render: () => `
+      <div class="article-body">
+        <span class="k-card-tag tag-peach">Práctica de estudio y armonía</span>
+        <h2>El sistema numérico de Nashville (NNS)</h2>
+        <p class="article-lead">
+          Imagina una sesión de grabación: cinco músicos escuchan una canción por primera vez, apuntan en tres minutos una hoja con números como <strong>1 – 5 – 6- – 4</strong> y, cuando el cantante dice <em>«¡Bajémosla un tono!»</em>, nadie cambia ni un solo número. Para eso nació el <strong>Nashville Number System</strong>.
+        </p>
+
+        <h3>1. ¿Cómo surgió este sistema?</h3>
+        <p>
+          Sus raíces están en el <strong>Nashville de finales de los años 50</strong>, en la legendaria <em>Music Row</em>:
+        </p>
+        <ul class="article-steps-list">
+          <li>
+            <strong>Neal Matthews Jr. y The Jordanaires (finales de los 50):</strong> Como coristas de Elvis Presley y grandes figuras del country, adaptaban arreglos vocales cada día a cantantes y tonalidades cambiantes. Neal Matthews empezó a anotar los acordes con números de la escala en lugar de letras fijas.
+          </li>
+          <li>
+            <strong>Charlie McCoy y los estudios (años 60):</strong> El multiinstrumentista <strong>Charlie McCoy</strong> adoptó la idea y la perfeccionó para toda la sección rítmica (guitarra, bajo, piano, batería). En sesiones de 3 horas con el mítico <em>Nashville A-Team</em> se grababan tres o cuatro temas seguidos sin partituras previas.
+          </li>
+          <li>
+            <strong>De código de estudio a estándar mundial:</strong> Al funcionar al instante en las 12 tonalidades, hoy se usa en pop, rock, gospel y bandas de directo en todo el mundo.
+          </li>
+        </ul>
+
+        <h3>2. ¿Cómo funciona?</h3>
+        <p>
+          En lugar de nombres fijos de acordes, numeras los <strong>7 grados de la escala mayor</strong> del <strong>1 al 7</strong> y anotas la tonalidad una sola vez arriba (por ejemplo, <strong>Key: G</strong>):
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row">
+            <div>
+              <strong>1 · 4 · 5 — Los tres acordes mayores (Tónica, Subdominante, Dominante)</strong>
+              <span>Sin símbolo adicional: en Do mayor son <strong>C (1)</strong>, <strong>F (4)</strong> y <strong>G (5)</strong>.</span>
+            </div>
+            <button class="btn-tool" data-play-progression="I,IV,I,V">▶ 1 – 4 – 1 – 5</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>2- · 3- · 6- — Los tres acordes menores</strong>
+              <span>Un guion (<strong>-</strong>) o <strong>m</strong> indica menor: en Do mayor son <strong>Dm (2-)</strong>, <strong>Em (3-)</strong> y <strong>Am (6-)</strong>.</span>
+            </div>
+            <button class="btn-tool" data-play-progression="I,V,vi,IV">▶ 1 – 5 – 6- – 4</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>7° — El grado disminuido (o 5/7)</strong>
+              <span>El 7.º grado es disminuido (en Do: <strong>B°</strong>), aunque en pop y country suele sustituirse por la inversión <strong>5/7</strong> (G/B).</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>Diferencia con los números romanos (I – V – vi – IV)</h4>
+          <p>
+            Armónicamente significan exactamente lo mismo. Los números arábigos son simplemente más rápidos de escribir a mano y se leen sin errores desde un atril con poca luz (nadie confunde <code>4</code> con <code>6-</code>, mientras que <code>iv</code> y <code>vi</code> se parecen mucho).
+          </p>
+        </div>
+
+        <h3>3. Símbolos clave de un chart (taquigrafía de estudio)</h3>
+        <div class="nns-legend-grid">
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">2- / 6-</span>
+            <span class="nns-legend-desc">Guion (o m) = acorde menor</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">1/3</span>
+            <span class="nns-legend-desc">Barra = acorde sobre otro bajo</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym nns-legend-underline">4 &nbsp; 5</span>
+            <span class="nns-legend-desc">Subrayado = 2 acordes en un compás (Split Bar)</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">1◇</span>
+            <span class="nns-legend-desc">Diamante = tocar una vez y dejar sonar</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">7°</span>
+            <span class="nns-legend-desc">Círculo = tríada disminuida</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">^ / &lt;</span>
+            <span class="nns-legend-desc">Push = entrada anticipada (síncopa)</span>
+          </div>
+        </div>
+        <ul class="article-steps-list">
+          <li><strong>1 número = 1 compás completo:</strong> Cada cifra suele ocupar 4 pulsos.</li>
+          <li><strong>Temas menores:</strong> Muchos músicos de estudio los anotan en relativo mayor (empezando en <strong>6-</strong>) para conservar los mismos patrones.</li>
+        </ul>
+
+        <h3>4. Colores de estudio y acordes con barra (Slash)</h3>
+        <p>
+          Además de los 7 grados diatónicos, estos seis recursos aparecen a diario en estudio (ejemplos en <strong>Do mayor</strong>):
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row"><div><strong>1/3 (C/E) — Primera inversión</strong><span>Enlaza suavemente <strong>1 → 1/3 → 4</strong> (C → C/E → F) con una línea de bajo ascendente.</span></div></div>
+          <div class="song-cheat-row"><div><strong>4/5 (F/G) — Suspensión góspel / pop</strong><span>Tensión cálida y flotante antes de resolver en <strong>1</strong>.</span></div></div>
+          <div class="song-cheat-row"><div><strong>5/7 (G/B) — Bajo sensible hacia 1</strong><span>Suele sustituir al 7° en descensos clásicos como <strong>1 → 5/7 → 6-</strong>.</span></div></div>
+          <div class="song-cheat-row"><div><strong>♭7 (B♭) — Color rock y country</strong><span>Préstamo mixolidio clásico (<strong>1 – ♭7 – 4 – 1</strong>).</span></div></div>
+          <div class="song-cheat-row"><div><strong>4- (Fm) — Subdominante menor</strong><span>El paso <strong>4 → 4- → 1</strong> añade un matiz melancólico inmediato.</span></div></div>
+          <div class="song-cheat-row"><div><strong>2 (D mayor) — Dominante secundaria → 5</strong><span>Sin guion, el 2 mayor empuja directamente hacia el <strong>5</strong> (D → G → C).</span></div></div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>Pruébalo en directo en el diagrama interactivo</h4>
+          <p>
+            Abre la <strong>herramienta Nashville Number System</strong> para explorar las 12 tonalidades, escuchar cada grado y usar el <strong>traductor de cejilla para guitarra</strong>:
+          </p>
+          <button class="btn-tool" type="button" data-open-nashville-tool="1">▶ Abrir herramienta Nashville</button>
+        </div>
+      </div>
+    `
   }
 ];
 

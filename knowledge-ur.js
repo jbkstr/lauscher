@@ -1501,6 +1501,126 @@ const KNOWLEDGE_ARTICLES_UR = [
         </div>
       </div>
     `
+  },
+  {
+    id: "art-nashville-number-system",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3.5" width="18" height="17" rx="2.5"/><line x1="3" y1="12" x2="21" y2="12" opacity="0.55"/><line x1="12" y1="3.5" x2="12" y2="20.5" opacity="0.55"/><text x="7.5" y="10" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">1</text><text x="16.5" y="10" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">4</text><text x="7.5" y="18.2" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">5</text><text x="16.5" y="18.2" text-anchor="middle" font-family="Andika, sans-serif" font-size="5.8" font-weight="700" fill="currentColor" stroke="none">6-</text></svg>`,
+    badgeClass: "badge-peach",
+    title: "نیش وِل نمبر سسٹم",
+    subtitle: "کس طرح کورڈ کے ناموں کے بجائے ہندسے پورے بینڈ کو لمحوں میں اسکیل بدلنے دیتے ہیں",
+    tag: "اسٹوڈیو اور مشق",
+    render: () => `
+      <div class="article-body">
+        <span class="k-card-tag tag-peach">اسٹوڈیو پریکٹس اور ہارمونی</span>
+        <h2>نیش وِل نمبر سسٹم (Nashville Number System)</h2>
+        <p class="article-lead">
+          ایک اسٹوڈیو سیشن کا تصور کریں: پانچ موسیقار پہلی بار کوئی گانا سنتے ہیں، تین منٹ میں ایک صفحے پر <strong>1 – 5 – 6- – 4</strong> جیسے ہندسے لکھتے ہیں، اور جب گلوکار کہتا ہے <em>«آؤ ایک پورا سر نیچے گاتے ہیں!»</em> تو کسی کو ایک بھی ہندسہ نہیں بدلنا پڑتا۔ یہی <strong>نیش وِل نمبر سسٹم</strong> کا کمال ہے۔
+        </p>
+
+        <h3>1. یہ نظام کیسے شروع ہوا؟</h3>
+        <p>
+          اس کی جڑیں <strong>1950 کی دہائی کے آخر میں نیش وِل</strong> کی مشہور <em>Music Row</em> میں ہیں:
+        </p>
+        <ul class="article-steps-list">
+          <li>
+            <strong>نیل میتھیوز جونیئر اور دی جارڈنیئرز (1950 کی دہائی کے آخر میں):</strong> ایلوس پریسلے اور کنٹری گلوکاروں کے ساتھ بیکنگ ووکلز گاتے ہوئے روزانہ کی تبدیل کرنا پڑتی تھی۔ نیل میتھیوز نے فکسڈ حروف کے بجائے اسکیل کے ہندسوں سے کورڈ لکھنا شروع کیے۔
+          </li>
+          <li>
+            <strong>چارلی مکائے اور اسٹوڈیو بینڈز (1960 کی دہائی):</strong> ملٹی انسٹرومینٹلسٹ <strong>چارلی مکائے</strong> نے اس طریقے کو پورے ردم سیکشن (گٹار، باس، پیانو، ڈرمز) کے لیے معیاری چارٹ کی شکل دی، جہاں مختصر سیشنز میں بغیر نوٹیشن شیٹ کے کئی گانے ریکارڈ کیے جاتے تھے۔
+          </li>
+          <li>
+            <strong>اسٹوڈیو کوڈ سے عالمی معیار تک:</strong> ایک ہی چارٹ تمام 12 کیز میں فوراً کام کرتا ہے، اس لیے آج یہ پاپ، راک، گوسپل اور لائیو بینڈز میں دنیا بھر میں استعمال ہوتا ہے۔
+          </li>
+        </ul>
+
+        <h3>2. یہ کیسے کام کرتا ہے؟</h3>
+        <p>
+          کورڈ کے مستقل ناموں کے بجائے میجر اسکیل کے <strong>7 درجات کو 1 سے 7</strong> تک نمبر دیے جاتے ہیں اور اوپر صرف ایک بار کی لکھی جاتی ہے (مثلاً <strong>Key: G</strong>):
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row">
+            <div>
+              <strong>1 · 4 · 5 — تین میجر کورڈز (ٹانک، سب ڈومیننٹ، ڈومیننٹ)</strong>
+              <span>بغیر علامت کے: C میجر میں یہ <strong>C (1)</strong>، <strong>F (4)</strong> اور <strong>G (5)</strong> ہیں۔</span>
+            </div>
+            <button class="btn-tool" data-play-progression="I,IV,I,V">▶ 1 – 4 – 1 – 5</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>2- · 3- · 6- — تین مائنر کورڈز</strong>
+              <span>مائنس (<strong>-</strong>) یا <strong>m</strong> مائنر کی علامت ہے: C میجر میں <strong>Dm (2-)</strong>، <strong>Em (3-)</strong> اور <strong>Am (6-)</strong>۔</span>
+            </div>
+            <button class="btn-tool" data-play-progression="I,V,vi,IV">▶ 1 – 5 – 6- – 4</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>7° — ڈمنشڈ درجہ (یا 5/7)</strong>
+              <span>ساتواں درجہ ڈمنشڈ ہوتا ہے (C میں <strong>B°</strong>)، لیکن پاپ اور کنٹری میں اکثر <strong>5/7</strong> (G/B) استعمال ہوتا ہے۔</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>عربی ہندسے بمقابلہ رومن ہندسے (I – V – vi – IV)</h4>
+          <p>
+            موسیقی کے لحاظ سے دونوں کا مطلب بالکل ایک ہے، لیکن اسٹوڈیو میں عربی ہندسے ہاتھ سے تیزی سے لکھے جا سکتے ہیں اور دور سے بغیر غلطی پڑھے جا سکتے ہیں۔
+          </p>
+        </div>
+
+        <h3>3. چارٹ کی اہم علامات (اسٹوڈیو مختصر علامات)</h3>
+        <div class="nns-legend-grid">
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">2- / 6-</span>
+            <span class="nns-legend-desc">مائنس (یا m) = مائنر کورڈ</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">1/3</span>
+            <span class="nns-legend-desc">سلیش = متبادل باس نوٹ پر کورڈ</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym nns-legend-underline">4 &nbsp; 5</span>
+            <span class="nns-legend-desc">انڈر لائن = ایک بار میں 2 کورڈز (Split Bar)</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">1◇</span>
+            <span class="nns-legend-desc">ڈائمنڈ = ایک بار بجا کر گونجنے دیں</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">7°</span>
+            <span class="nns-legend-desc">دائرہ = ڈمنشڈ ٹرائی ایڈ</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">^ / &lt;</span>
+            <span class="nns-legend-desc">پُش = سنکوپیشن کے ساتھ پیشگی آغاز</span>
+          </div>
+        </div>
+        <ul class="article-steps-list">
+          <li><strong>1 ہندسہ = 1 پورا بار:</strong> عام طور پر 4 بیٹس۔</li>
+          <li><strong>مائنر گانے:</strong> اسٹوڈیو میں اکثر انہیں متوازی میجر کے حوالے سے (<strong>6-</strong> سے شروع کر کے) لکھا جاتا ہے۔</li>
+        </ul>
+
+        <h3>4. عام اسٹوڈیو رنگ اور سلیش کورڈز</h3>
+        <p>
+          بنیادی 7 درجات کے علاوہ یہ چھ اسٹوڈیو کورڈز جدید کنٹری، پاپ اور گوسپل چارٹس میں بار بار آتے ہیں (مثال <strong>C میجر</strong> میں):
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row"><div><strong>1/3 (C/E) — تیسرے باس پر پہلا درجہ</strong><span><strong>1 → 1/3 → 4</strong> (C → C/E → F) کو رواں باس لائن سے جوڑتا ہے۔</span></div></div>
+          <div class="song-cheat-row"><div><strong>4/5 (F/G) — گوسپل/پاپ سسپنشن</strong><span><strong>1</strong> پر ختم ہونے سے پہلے خوبصورت اور گرم تناؤ پیدا کرتا ہے۔</span></div></div>
+          <div class="song-cheat-row"><div><strong>5/7 (G/B) — 1 کی طرف لیڈنگ ٹون باس</strong><span>اکثر 7° کی جگہ <strong>1 → 5/7 → 6-</strong> میں استعمال ہوتا ہے۔</span></div></div>
+          <div class="song-cheat-row"><div><strong>♭7 (B♭) — راک اور کنٹری رنگ</strong><span>مکسولیڈین انداز (<strong>1 – ♭7 – 4 – 1</strong>) کے لیے مشہور۔</span></div></div>
+          <div class="song-cheat-row"><div><strong>4- (Fm) — مائنر سب ڈومیننٹ</strong><span><strong>4 → 4- → 1</strong> فوری جذباتی گہرائی لاتا ہے۔</span></div></div>
+          <div class="song-cheat-row"><div><strong>2 (D میجر) — ثانوی ڈومیننٹ → 5</strong><span>مائنس کے بغیر میجر 2 سیدھا <strong>5</strong> کی طرف کھینچتا ہے (D → G → C)۔</span></div></div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>انٹرایکٹو ڈایاگرام میں براہِ راست آزمائیں</h4>
+          <p>
+            <strong>نیش وِل نمبر سسٹم ٹول</strong> کھولیں، تمام 12 کیز دیکھیں، کورڈز سنیں اور <strong>گٹار کیپو ٹرانسلیٹر</strong> سے آسان اوپن شیپس فوراً پائیں:
+          </p>
+          <button class="btn-tool" type="button" data-open-nashville-tool="1">▶ نیش وِل ٹول کھولیں</button>
+        </div>
+      </div>
+    `
   }
 ];
 

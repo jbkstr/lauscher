@@ -1511,6 +1511,163 @@ const KNOWLEDGE_ARTICLES_EN = [
         </div>
       </div>
     `
+  },
+  {
+    id: "art-nashville-number-system",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3.5" width="18" height="17" rx="2.5"/><line x1="3" y1="12" x2="21" y2="12" opacity="0.55"/><line x1="12" y1="3.5" x2="12" y2="20.5" opacity="0.55"/><text x="7.5" y="10" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">1</text><text x="16.5" y="10" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">4</text><text x="7.5" y="18.2" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">5</text><text x="16.5" y="18.2" text-anchor="middle" font-family="Andika, sans-serif" font-size="5.8" font-weight="700" fill="currentColor" stroke="none">6-</text></svg>`,
+    badgeClass: "badge-peach",
+    title: "The Nashville Number System",
+    subtitle: "How scale-degree numbers let an entire studio band transpose in seconds",
+    tag: "Studio & Practice",
+    render: () => `
+      <div class="article-body">
+        <span class="k-card-tag tag-peach">Studio Practice &amp; Harmony</span>
+        <h2>The Nashville Number System (NNS)</h2>
+        <p class="article-lead">
+          Picture a recording session: five musicians hear a song for the very first time, jot down a single page of numbers like <strong>1 – 5 – 6- – 4</strong> in three minutes — and when the singer says <em>“Let’s drop it down a whole step!”</em>, nobody changes a single digit. That is the magic of the <strong>Nashville Number System</strong>.
+        </p>
+
+        <h3>1. How Did It Start?</h3>
+        <p>
+          The system was born in <strong>late-1950s Nashville</strong> along the famous <em>Music Row</em>:
+        </p>
+        <ul class="article-steps-list">
+          <li>
+            <strong>Neal Matthews Jr. &amp; The Jordanaires (late 1950s):</strong> Backing Elvis Presley and countless country stars meant adapting vocal harmonies to different singers and last-minute key changes every single day. Neal Matthews began writing chord degrees as simple scale numbers instead of fixed letter names.
+          </li>
+          <li>
+            <strong>Charlie McCoy &amp; the Studio Rhythm Section (1960s):</strong> Harmonica virtuoso and multi-instrumentalist <strong>Charlie McCoy</strong> picked up the idea and refined it into a full chart language for rhythm sections (guitar, bass, piano, pedal steel, drums). In tight 3-hour union sessions, Nashville’s legendary studio players (the <em>Nashville A-Team</em>) often tracked three or four songs per session with zero printed sheet music.
+          </li>
+          <li>
+            <strong>From Studio Shorthand to Global Standard:</strong> Because one chart works in all 12 keys instantly, the system spread far beyond country into pop, rock, gospel, worship, and touring bands worldwide.
+          </li>
+        </ul>
+
+        <h3>2. How Does It Work?</h3>
+        <p>
+          Instead of writing fixed chord letters (like <em>G, C, D, Em</em>), you number the <strong>7 degrees of the major scale</strong> from <strong>1 to 7</strong>. The key is written just once at the top of the page (e.g. <strong>Key: G</strong>):
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row">
+            <div>
+              <strong>1 · 4 · 5 — The Three Major Chords (Tonic, Subdominant, Dominant)</strong>
+              <span>Written as plain numbers: in C Major that means <strong>C (1)</strong>, <strong>F (4)</strong>, and <strong>G (5)</strong>.</span>
+            </div>
+            <button class="btn-tool" data-play-progression="I,IV,I,V">▶ 1 – 4 – 1 – 5</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>2- · 3- · 6- — The Three Minor Chords</strong>
+              <span>A minus sign (<strong>-</strong>) or <strong>m</strong> marks minor: in C Major, <strong>Dm (2-)</strong>, <strong>Em (3-)</strong>, and <strong>Am (6-)</strong>.</span>
+            </div>
+            <button class="btn-tool" data-play-progression="I,V,vi,IV">▶ 1 – 5 – 6- – 4</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>7° — The Diminished Degree (or 5/7)</strong>
+              <span>Degree 7 is naturally diminished (in C Major: <strong>B°</strong>). In pop and country, studios often use the first-inversion slash chord <strong>5/7</strong> (G/B) instead.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>Numbers vs. Roman Numerals (I – V – vi – IV)</h4>
+          <p>
+            Harmonic meaning is identical: <strong>I – V – vi – IV</strong> and <strong>1 – 5 – 6- – 4</strong> describe the exact same chords. Arabic numerals simply win in fast studio life — they are quicker to scribble by hand and unmistakable from across a dimly lit music stand (nobody confuses <code>4</code> and <code>6-</code>, whereas handwritten <code>iv</code> and <code>vi</code> look dangerously alike).
+          </p>
+        </div>
+
+        <h3>3. Essential Chart Symbols (Studio Shorthand)</h3>
+        <div class="nns-legend-grid">
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">2- / 6-</span>
+            <span class="nns-legend-desc">Minus (or m) = minor chord</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">1/3</span>
+            <span class="nns-legend-desc">Slash = chord over alternate bass note</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym nns-legend-underline">4 &nbsp; 5</span>
+            <span class="nns-legend-desc">Underlined = 2 chords sharing one bar (split bar)</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">1◇</span>
+            <span class="nns-legend-desc">Diamond = strum once &amp; let ring</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">7°</span>
+            <span class="nns-legend-desc">Circle = diminished triad</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">^ / &lt;</span>
+            <span class="nns-legend-desc">Push = anticipated beat (syncopation)</span>
+          </div>
+        </div>
+        <ul class="article-steps-list">
+          <li>
+            <strong>One Number = One Full Bar:</strong> Writing <code>1  4  5  1</code> gives each chord one full measure (typically 4 beats).
+          </li>
+          <li>
+            <strong>Underline = Split Bar:</strong> Two numbers underlined together (<u>4 &nbsp; 5</u>) share a single bar (2 beats each).
+          </li>
+          <li>
+            <strong>Minor Songs in NNS:</strong> Many Nashville players still chart minor-key songs relative to the <em>parallel major</em>. A song in A Minor is often written under “Key: C” as <strong>6- – 4 – 1 – 5</strong> so familiar visual patterns stay intact.
+          </li>
+        </ul>
+
+        <h3>4. Common Studio Colours &amp; Slash Chords</h3>
+        <p>
+          Beyond the 7 diatonic chords, these six studio staples appear on modern country, pop, and gospel charts every day (shown in <strong>C Major</strong>):
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row">
+            <div>
+              <strong>1/3 (C/E) — First Inversion Bass Walk</strong>
+              <span>Smoothly connects <strong>1 → 1/3 → 4</strong> (C → C/E → F) with a melodic bass walk up (C → E → F).</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>4/5 (F/G) — Gospel &amp; Pop Suspension (9sus4)</strong>
+              <span>Warm, floating tension right before resolving home — a hallmark of classic pop and soul ballads.</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>5/7 (G/B) — Leading-Tone Bass to 1</strong>
+              <span>Frequently replaces diminished 7° in bands, driving classic walk-downs like <strong>1 → 5/7 → 6-</strong>.</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>♭7 (B♭) — Rock &amp; Southern Country Borrowed Chord</strong>
+              <span>Borrowed from Mixolydian (<strong>1 – ♭7 – 4 – 1</strong>), giving instant swagger and lift.</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>4- (Fm) — Minor Subdominant</strong>
+              <span>Moving <strong>4 → 4- → 1</strong> (F → Fm → C) delivers bittersweet, cinematic warmth.</span>
+            </div>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>2 (D Major instead of Dm) — Secondary Dominant → 5</strong>
+              <span>Written without a minus sign, major <strong>2</strong> leans eagerly into the <strong>5</strong> chord (D → G → C).</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>Explore It Live in the Interactive Diagram</h4>
+          <p>
+            In the <strong>Nashville Number System tool</strong>, tap any of the 12 keys, play every degree, and use the built-in <strong>guitar capo translator</strong> to find comfortable open chord shapes right away:
+          </p>
+          <button class="btn-tool" type="button" data-open-nashville-tool="1">▶ Open Nashville Diagram Tool</button>
+        </div>
+      </div>
+    `
   }
 ];
 

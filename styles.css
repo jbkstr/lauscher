@@ -14623,3 +14623,678 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
     font-size: 0.72rem;
   }
 }
+
+/* =====================================================
+   WERKZEUG: NASHVILLE NUMBER SYSTEM (#viewNashville)
+   ===================================================== */
+.nashville-view #nashvilleToolContent {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-bottom: 24px;
+}
+
+.nns-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.nns-card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.nns-section-title {
+  margin: 4px 0 0;
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--raccoon-dark);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.nns-key-sig-pill {
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-warm);
+  color: var(--raccoon-mid);
+  border: 1px solid var(--border-soft);
+}
+
+.nns-mode-toggle {
+  display: inline-flex;
+  background: var(--surface-warm);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-pill);
+  padding: 3px;
+  gap: 3px;
+}
+
+.nns-mode-btn {
+  border: none;
+  background: transparent;
+  color: var(--raccoon-mid);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 5px 11px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: background-color 0.16s ease, color 0.16s ease;
+}
+
+.nns-mode-btn.active {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
+}
+
+.nns-key-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.nns-key-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  padding: 7px 4px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-soft);
+  background: var(--surface-warm);
+  color: var(--raccoon-dark);
+  cursor: pointer;
+  transition: transform 0.12s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.nns-key-pill:active {
+  transform: scale(0.96);
+}
+
+.nns-key-pill.active {
+  background: var(--peach-soft);
+  border-color: var(--peach-strong);
+  color: var(--peach-strong);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.nns-key-pill-name {
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.nns-key-pill-sig {
+  font-size: 0.68rem;
+  color: var(--raccoon-muted);
+  line-height: 1.1;
+}
+
+.nns-key-pill.active .nns-key-pill-sig {
+  color: var(--peach-strong);
+  opacity: 0.85;
+}
+
+.nns-mode-note,
+.nns-matrix-hint {
+  margin: 0;
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: var(--raccoon-mid);
+}
+
+/* SVG Funktions-Diagramm */
+.nns-diagram-wrap {
+  width: 100%;
+  border-radius: var(--radius-md);
+  background: var(--surface-warm);
+  border: 1px solid var(--border-soft);
+  padding: 8px 6px 6px;
+  overflow: hidden;
+}
+
+.nns-diagram-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 250px;
+}
+
+.nns-svg-zone {
+  stroke-width: 1.25;
+}
+
+.nns-svg-zone-tonic {
+  fill: var(--sage-soft);
+  stroke: var(--sage);
+  fill-opacity: 0.55;
+}
+
+.nns-svg-zone-subdom {
+  fill: var(--lilac-soft);
+  stroke: var(--lilac);
+  fill-opacity: 0.55;
+}
+
+.nns-svg-zone-dom {
+  fill: var(--peach-soft);
+  stroke: var(--peach);
+  fill-opacity: 0.55;
+}
+
+.nns-svg-zone-lbl-tonic { fill: var(--sage-strong); }
+.nns-svg-zone-lbl-subdom { fill: var(--lilac-strong); }
+.nns-svg-zone-lbl-dom { fill: var(--peach-strong); }
+
+.nns-svg-node {
+  cursor: pointer;
+  outline: none;
+}
+
+.nns-svg-node circle {
+  stroke-width: 2.2;
+  transition: transform 0.14s ease, filter 0.15s ease, fill 0.15s ease;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.nns-svg-node:hover circle,
+.nns-svg-node:focus-visible circle {
+  filter: brightness(0.96);
+  transform: scale(1.06);
+}
+
+.nns-svg-node-tonic circle {
+  fill: var(--surface-white);
+  stroke: var(--sage-strong);
+}
+
+.nns-svg-node-root circle {
+  fill: var(--sage-strong);
+  stroke: var(--sage-strong);
+}
+
+.nns-svg-node-subdom circle {
+  fill: var(--surface-white);
+  stroke: var(--lilac-strong);
+}
+
+.nns-svg-node-dom circle {
+  fill: var(--surface-white);
+  stroke: var(--peach-strong);
+}
+
+.nns-svg-num {
+  fill: var(--raccoon-dark);
+}
+
+.nns-svg-chord {
+  fill: var(--raccoon-mid);
+}
+
+.nns-svg-node-root .nns-svg-num,
+.nns-svg-node-root .nns-svg-chord {
+  fill: var(--on-strong-accent);
+}
+
+.nns-svg-node.is-active-sound circle {
+  fill: var(--peach-strong);
+  stroke: var(--peach-strong);
+  transform: scale(1.1);
+}
+
+.nns-svg-node.is-active-sound .nns-svg-num,
+.nns-svg-node.is-active-sound .nns-svg-chord {
+  fill: var(--on-strong-accent);
+}
+
+/* 7 Stufen-Kacheln */
+.nns-degree-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.nns-degree-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 9px 4px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-soft);
+  background: var(--surface-white);
+  color: var(--raccoon-dark);
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.12s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.nns-degree-tile:active {
+  transform: scale(0.95);
+}
+
+.nns-degree-tile.nns-fn-tonic {
+  border-color: var(--sage);
+  background: var(--sage-soft);
+}
+
+.nns-degree-tile.nns-fn-subdom {
+  border-color: var(--lilac);
+  background: var(--lilac-soft);
+}
+
+.nns-degree-tile.nns-fn-dom {
+  border-color: var(--peach);
+  background: var(--peach-soft);
+}
+
+.nns-degree-tile.is-active-sound {
+  background: var(--btn-primary-bg);
+  border-color: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
+  transform: translateY(-2px);
+}
+
+.nns-deg-num {
+  font-size: 1.12rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.nns-deg-chord {
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.nns-deg-meta {
+  font-size: 0.66rem;
+  color: var(--raccoon-mid);
+  line-height: 1.15;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.nns-degree-tile.is-active-sound .nns-deg-meta {
+  color: var(--btn-primary-fg);
+  opacity: 0.85;
+}
+
+.nns-extras-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--raccoon-mid);
+}
+
+/* Kapodaster-Übersetzer für Gitarre */
+.nns-capo-summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 6px;
+  padding: 10px;
+  border-radius: var(--radius-md);
+  background: var(--surface-warm);
+  border: 1.5px solid var(--border-soft);
+}
+
+.nns-capo-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2px;
+  padding: 6px 4px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-white);
+  border: 1px solid var(--border-soft);
+}
+
+.nns-capo-stat.is-capo {
+  background: var(--peach-soft);
+  border-color: var(--peach);
+}
+
+.nns-capo-stat.is-shape {
+  background: var(--sage-soft);
+  border-color: var(--sage);
+}
+
+.nns-capo-stat-lbl {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--raccoon-muted);
+  line-height: 1.15;
+}
+
+.nns-capo-stat-val {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--raccoon-dark);
+  line-height: 1.2;
+}
+
+.nns-capo-stat.is-capo .nns-capo-stat-val { color: var(--peach-strong); }
+.nns-capo-stat.is-shape .nns-capo-stat-val { color: var(--sage-strong); }
+
+.nns-capo-arrow {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--raccoon-muted);
+}
+
+.nns-capo-subblock {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.nns-capo-suggest-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.nns-capo-suggest-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 11px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--border-soft);
+  background: var(--surface-warm);
+  color: var(--raccoon-dark);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: transform 0.12s ease, background-color 0.14s ease, border-color 0.14s ease;
+}
+
+.nns-capo-suggest-chip:active {
+  transform: scale(0.96);
+}
+
+.nns-capo-suggest-chip.active {
+  background: var(--peach-strong);
+  border-color: var(--peach-strong);
+  color: var(--on-strong-accent);
+}
+
+.nns-capo-fret-row {
+  display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  gap: 5px;
+}
+
+.nns-capo-fret-btn {
+  padding: 7px 2px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-soft);
+  background: var(--surface-warm);
+  color: var(--raccoon-dark);
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.14s ease, border-color 0.14s ease, color 0.14s ease;
+}
+
+.nns-capo-fret-btn.active {
+  background: var(--btn-primary-bg);
+  border-color: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
+}
+
+.nns-capo-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.nns-capo-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 9px 4px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-soft);
+  background: var(--surface-white);
+  color: var(--raccoon-dark);
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.12s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.nns-capo-tile:active {
+  transform: scale(0.95);
+}
+
+.nns-capo-tile.nns-fn-tonic {
+  border-color: var(--sage);
+  background: var(--sage-soft);
+}
+
+.nns-capo-tile.nns-fn-subdom {
+  border-color: var(--lilac);
+  background: var(--lilac-soft);
+}
+
+.nns-capo-tile.nns-fn-dom {
+  border-color: var(--peach);
+  background: var(--peach-soft);
+}
+
+.nns-capo-tile.is-active-sound {
+  background: var(--btn-primary-bg);
+  border-color: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
+  transform: translateY(-2px);
+}
+
+.nns-capo-num {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--raccoon-mid);
+  line-height: 1.1;
+}
+
+.nns-capo-shape-chord {
+  font-size: 1.04rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.nns-capo-sound-chord {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--raccoon-mid);
+  line-height: 1.15;
+}
+
+.nns-capo-tile.is-active-sound .nns-capo-num,
+.nns-capo-tile.is-active-sound .nns-capo-sound-chord {
+  color: var(--btn-primary-fg);
+  opacity: 0.86;
+}
+
+/* 12-Tonarten-Matrix */
+.nns-matrix-scroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  background: var(--surface-white);
+}
+
+.nns-matrix-table {
+  width: 100%;
+  min-width: 470px;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.nns-matrix-table th,
+.nns-matrix-table td {
+  padding: 5px 4px;
+  text-align: center;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.nns-matrix-table thead th {
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 8px 4px;
+  background: var(--surface-warm);
+  color: var(--raccoon-dark);
+}
+
+.nns-matrix-table thead th.nns-th-tonic { color: var(--sage-strong); }
+.nns-matrix-table thead th.nns-th-subdom { color: var(--lilac-strong); }
+.nns-matrix-table thead th.nns-th-dom { color: var(--peach-strong); }
+
+.nns-sticky-col {
+  position: sticky;
+  inset-inline-start: 0;
+  z-index: 2;
+  background: var(--surface-warm);
+  border-inline-end: 1.5px solid var(--border-soft);
+  min-width: 68px;
+}
+
+.nns-matrix-table tbody tr.is-current-key {
+  background: var(--peach-soft);
+}
+
+.nns-matrix-table tbody tr.is-current-key .nns-sticky-col {
+  background: var(--peach-soft);
+}
+
+.nns-row-key-btn {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: var(--raccoon-dark);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  padding: 4px 6px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.nns-row-key-btn small {
+  font-size: 0.68rem;
+  color: var(--raccoon-muted);
+}
+
+.nns-matrix-table tbody tr.is-current-key .nns-row-key-btn {
+  color: var(--peach-strong);
+}
+
+.nns-cell-btn {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: var(--raccoon-dark);
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 6px 3px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.14s ease, color 0.14s ease;
+}
+
+.nns-cell-btn:hover {
+  background: var(--tint-subtle);
+}
+
+.nns-cell-btn.is-active-sound {
+  background: var(--sage-strong);
+  color: var(--on-strong-accent);
+}
+
+/* Symbol-Legende (im Nashville-Artikel) */
+.nns-legend-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 10px 0 14px;
+}
+
+.nns-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-warm);
+  border: 1px solid var(--border-soft);
+}
+
+.nns-legend-sym {
+  min-width: 48px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--peach-strong);
+  background: var(--surface-white);
+  border: 1px solid var(--border-soft);
+  border-radius: 7px;
+  padding: 3px 6px;
+  flex-shrink: 0;
+}
+
+.nns-legend-underline {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 2px;
+}
+
+.nns-legend-desc {
+  font-size: 0.8rem;
+  line-height: 1.3;
+  color: var(--raccoon-dark);
+}
+
+/* Artikel-Verknüpfungskarte am Ende des Werkzeugs */
+.nns-article-link-card {
+  margin-top: 2px;
+}
+
+@media (max-width: 560px) {
+  .nns-degree-grid,
+  .nns-capo-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .nns-capo-fret-row {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+  .nns-legend-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 390px) {
+  .nns-key-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .nns-capo-stat-val {
+    font-size: 0.82rem;
+  }
+}

@@ -1503,6 +1503,126 @@ const KNOWLEDGE_ARTICLES_PL = [
         </div>
       </div>
     `
+  },
+  {
+    id: "art-nashville-number-system",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3.5" width="18" height="17" rx="2.5"/><line x1="3" y1="12" x2="21" y2="12" opacity="0.55"/><line x1="12" y1="3.5" x2="12" y2="20.5" opacity="0.55"/><text x="7.5" y="10" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">1</text><text x="16.5" y="10" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">4</text><text x="7.5" y="18.2" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">5</text><text x="16.5" y="18.2" text-anchor="middle" font-family="Andika, sans-serif" font-size="5.8" font-weight="700" fill="currentColor" stroke="none">6-</text></svg>`,
+    badgeClass: "badge-peach",
+    title: "Nashville Number System",
+    subtitle: "Jak cyfry zamiast nazw akordów pozwalają zespołowi transponować w kilka sekund",
+    tag: "Studio i praktyka",
+    render: () => `
+      <div class="article-body">
+        <span class="k-card-tag tag-peach">Praktyka studyjna i harmonia</span>
+        <h2>Nashville Number System (NNS)</h2>
+        <p class="article-lead">
+          Wyobraź sobie sesję nagraniową: pięciu muzyków słyszy piosenkę po raz pierwszy, w trzy minuty zapisuje kartkę z cyframi takimi jak <strong>1 – 5 – 6- – 4</strong>, a gdy wokalista prosi <em>„Zróbmy to cały ton niżej!”</em>, nikt nie zmienia ani jednej cyfry. Do tego właśnie powstał <strong>Nashville Number System</strong>.
+        </p>
+
+        <h3>1. Jak powstał ten system?</h3>
+        <p>
+          Korzenie systemu sięgają <strong>Nashville końca lat 50.</strong> i słynnej ulicy <em>Music Row</em>:
+        </p>
+        <ul class="article-steps-list">
+          <li>
+            <strong>Neal Matthews Jr. i The Jordanaires (koniec lat 50.):</strong> Jako chórki Elvisa Presleya i gwiazd country codziennie dopasowywali partie wokalne do zmienianych w ostatniej chwili tonacji. Neal Matthews zaczął zapisywać akordy prostymi cyframi stopni skali.
+          </li>
+          <li>
+            <strong>Charlie McCoy i muzycy studyjni (lata 60.):</strong> Multiinstrumentalista <strong>Charlie McCoy</strong> rozwinął zapis dla całej sekcji rytmicznej (gitara, bas, pianino, perkusja). Podczas szybkich 3-godzinnych sesji legendarnego <em>Nashville A-Team</em> nagrywano kilka utworów bez gotowych nut.
+          </li>
+          <li>
+            <strong>Od studyjnego skrótu do światowego standardu:</strong> Jeden zapis działa natychmiast we wszystkich 12 tonacjach, dlatego system przyjął się w popie, rocku, gospel i na scenach całego świata.
+          </li>
+        </ul>
+
+        <h3>2. Jak to działa?</h3>
+        <p>
+          Zamiast stałych liter akordów numerujesz <strong>7 stopni skali durowej</strong> od <strong>1 do 7</strong>, a tonację wpisujesz tylko raz u góry (np. <strong>Key: G</strong>):
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row">
+            <div>
+              <strong>1 · 4 · 5 — Trzy akordy durowe (Tonika, Subdominanta, Dominanta)</strong>
+              <span>Bez dodatkowego znaku: w C-dur są to <strong>C (1)</strong>, <strong>F (4)</strong> i <strong>G (5)</strong>.</span>
+            </div>
+            <button class="btn-tool" data-play-progression="I,IV,I,V">▶ 1 – 4 – 1 – 5</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>2- · 3- · 6- — Trzy akordy molowe</strong>
+              <span>Minus (<strong>-</strong>) lub <strong>m</strong> oznacza moll: w C-dur są to <strong>Dm (2-)</strong>, <strong>Em (3-)</strong> i <strong>Am (6-)</strong>.</span>
+            </div>
+            <button class="btn-tool" data-play-progression="I,V,vi,IV">▶ 1 – 5 – 6- – 4</button>
+          </div>
+          <div class="song-cheat-row">
+            <div>
+              <strong>7° — Stopień zmniejszony (lub 5/7)</strong>
+              <span>7. stopień jest zmniejszony (w C-dur: <strong>B° / H°</strong>), a w popie i country często zastępuje go przewrót <strong>5/7</strong> (G/B).</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>Cyfry arabskie a rzymskie (I – V – vi – IV)</h4>
+          <p>
+            Harmonicznie oznaczają dokładnie to samo. Cyfry arabskie wygrywają w studiu szybkością zapisu odręcznego i czytelnością z daleka (nikt nie pomyli <code>4</code> z <code>6-</code>, podczas gdy <code>iv</code> i <code>vi</code> wyglądają bardzo podobnie).
+          </p>
+        </div>
+
+        <h3>3. Najważniejsze symbole w chartach (skróty studyjne)</h3>
+        <div class="nns-legend-grid">
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">2- / 6-</span>
+            <span class="nns-legend-desc">Minus (lub m) = akord molowy</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">1/3</span>
+            <span class="nns-legend-desc">Ukośnik = akord z innym basem</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym nns-legend-underline">4 &nbsp; 5</span>
+            <span class="nns-legend-desc">Podkreślenie = 2 akordy w jednym takcie (Split Bar)</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">1◇</span>
+            <span class="nns-legend-desc">Romb = jedno uderzenie i wybrzmienie</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">7°</span>
+            <span class="nns-legend-desc">Kółko = trójdźwięk zmniejszony</span>
+          </div>
+          <div class="nns-legend-item">
+            <span class="nns-legend-sym">^ / &lt;</span>
+            <span class="nns-legend-desc">Push = wyprzedzenie rytmiczne (synkopa)</span>
+          </div>
+        </div>
+        <ul class="article-steps-list">
+          <li><strong>1 cyfra = 1 pełny takt:</strong> Zwykle 4 miary.</li>
+          <li><strong>Utwory molowe:</strong> Często zapisuje się je w tonacji równoległej durowej (start od <strong>6-</strong>), by zachować znane wzorce.</li>
+        </ul>
+
+        <h3>4. Typowe barwy studyjne i akordy łamane (Slash)</h3>
+        <p>
+          Poza 7 stopniami diatonicznymi w studiach najczęściej pojawiają się te sześć rozwiązań (przykład w <strong>C-dur</strong>):
+        </p>
+        <div class="song-cheat-grid">
+          <div class="song-cheat-row"><div><strong>1/3 (C/E) — Pierwszy przewrót</strong><span>Płynnie łączy <strong>1 → 1/3 → 4</strong> (C → C/E → F) wznoszącą linią basu.</span></div></div>
+          <div class="song-cheat-row"><div><strong>4/5 (F/G) — Zawieszenie gospel / pop</strong><span>Ciepłe napięcie tuż przed rozwiązaniem na <strong>1</strong>.</span></div></div>
+          <div class="song-cheat-row"><div><strong>5/7 (G/B) — Bas prowadzący do 1</strong><span>Często zastępuje 7° w zejściu <strong>1 → 5/7 → 6-</strong>.</span></div></div>
+          <div class="song-cheat-row"><div><strong>♭7 (B♭) — Barwa rock / country</strong><span>Klasyczne zapożyczenie miksolidyjskie (<strong>1 – ♭7 – 4 – 1</strong>).</span></div></div>
+          <div class="song-cheat-row"><div><strong>4- (Fm) — Subdominanta molowa</strong><span>Przejście <strong>4 → 4- → 1</strong> od razu dodaje melancholii.</span></div></div>
+          <div class="song-cheat-row"><div><strong>2 (D-dur) — Dominanta wtrącona → 5</strong><span>Bez minusa durowa dwójka silnie ciągnie do <strong>5</strong> (D → G → C).</span></div></div>
+        </div>
+
+        <div class="article-highlight-box">
+          <h4>Wypróbuj w interaktywnym diagramie</h4>
+          <p>
+            Otwórz <strong>narzędzie Nashville Number System</strong>, aby przeglądać 12 tonacji, odsłuchiwać stopnie i korzystać z <strong>tłumacza kapodastra dla gitary</strong>:
+          </p>
+          <button class="btn-tool" type="button" data-open-nashville-tool="1">▶ Otwórz narzędzie Nashville</button>
+        </div>
+      </div>
+    `
   }
 ];
 
