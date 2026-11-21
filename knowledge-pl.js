@@ -1932,26 +1932,29 @@ const CATEGORY_HELP_GUIDES_PL = {
     tagClass: "tag-sage",
     tag: "Instrukcja • Solfeż",
     title: "Jak działa solfeż funkcyjny",
-    lead: "Solfeż relatywny (ruchome Do) wyrabia prawdziwy słuch względny: uczysz się rozpoznawać każdy z 7 stopni gamy (Do–Ti lub 1–7) po jego niepowtarzalnym ciążeniu wewnątrz tonacji.",
+    lead: "Solfeż relatywny (ruchome Do) wyrabia prawdziwy słuch względny w dur i moll: uczysz się rozpoznawać każdy stopień gamy (Do–Ti, Do–Re–Me–Fa–Sol–Le–Te lub cyfry) po jego charakterystycznym ciążeniu w tonacji.",
     sections: `
       <h3>Każda runda ma 4 przejrzyste kroki</h3>
       <ul class="article-steps-list">
-        <li><strong>1. Kadencja kontekstowa:</strong> Krótki przebieg (<code>I – vi – IV – V</code>) stabilnie zakotwicza tonację.</li>
-        <li><strong>2. Szukany dźwięk:</strong> Po chwili ciszy wybrzmiewa jedna izolowana nuta tej tonacji.</li>
-        <li><strong>3. Wybór na klawiaturze:</strong> Tylko aktywne klawisze gamy noszą oznaczenia (<em>Do–Re–Mi–Fa–Sol–La–Ti–Do</em> lub opcjonalne <em>cyfry stopni 1–7</em>) w czytelnej ramce; dźwięki spoza skali są wygaszone.</li>
-        <li><strong>4. Ciche błędy i naturalne rozwiązanie:</strong> Błędny klawisz podświetla się na czerwono bez dźwięku, by nie zaburzać pamięci tonacji. Trafienie świeci na zielono i gra naturalne rozwiązanie do toniki (<code>Do–Fa</code> w dół, <code>Sol–Ti</code> w górę).</li>
+        <li><strong>1. Kadencja kontekstowa:</strong> Krótki przebieg zakotwicza tonację — <code>I – vi – IV – V</code> w dur lub <code>i – VI – iv – V</code> w moll.</li>
+        <li><strong>2. Szukany dźwięk:</strong> Po chwili ciszy wybrzmiewa jedna izolowana nuta z aktywnego zakresu.</li>
+        <li><strong>3. Wybór na klawiaturze:</strong> Oznaczenia (dur: <em>Do–Re–Mi–Fa–Sol–La–Ti–Do</em>, moll: <em>Do–Re–Me–Fa–Sol–Le–Te–Do</em> lub opcjonalnie <em>cyfry stopni</em>) mają tylko aktywne klawisze w czytelnej ramce; pozostałe są wygaszone.</li>
+        <li><strong>4. Ciche błędy i naturalne rozwiązanie:</strong> Błędny klawisz podświetla się na czerwono bez dźwięku, by nie zaburzać pamięci tonacji. Trafienie świeci na zielono i gra rozwiązanie do toniki (<code>Do–Fa</code> w dół, <code>Sol–Ti/Te</code> w górę).</li>
       </ul>
 
-      <h3>Wszystkie 6 poziomów trudności</h3>
+      <h3>Dur, Moll i Własna tonacja (układ poziomów)</h3>
       <ul class="article-steps-list">
-        <li><strong>Poziomy 1 i 2 (1 oktawa):</strong> Poziom 1 trzyma <code>C-dur</code>; poziom 2 losuje jedną tonację na całą sesję.</li>
-        <li><strong>Poziomy 3 i 4 (wiele oktaw):</strong> Szukane dźwięki przeskakują o oktawę wyżej lub niżej — w stałym <code>C-dur</code> (poziom 3) albo w jednej losowej tonacji (poziom 4).</li>
-        <li><strong>Poziomy 5 i 6 (modulacje):</strong> Po każdej trafnej odpowiedzi ucho przechodzi do nowej tonacji — najpierw w 1 oktawie (poziom 5), potem w wielu oktawach (poziom 6).</li>
+        <li><strong>Poziomy 1 i 2 – Połówki gamy (po 4 dźwięki):</strong> Łagodny start na 4 aktywnych klawiszach: najpierw dolna połowa <code>Do–Fa</code>, potem górna połowa <code>Sol–Do</code> w stałym <code>C-dur</code> lub <code>c-moll</code>.</li>
+        <li><strong>Poziomy 3 i 4 – Cała gama (1 oktawa):</strong> Wszystkie 7 stopni w <code>C-dur</code> / <code>c-moll</code> (poziom 3) albo w jednej losowej tonacji na całą sesję (poziom 4).</li>
+        <li><strong>Poziomy 5 i 6 – Wiele oktaw:</strong> Dźwięki przeskakują w niższe lub wyższe oktawy — w stałym <code>C-dur</code> / <code>c-moll</code> (poziom 5) lub w losowej stałej tonacji (poziom 6).</li>
+        <li><strong>Poziomy 7 i 8 – Modulacje:</strong> Po każdej trafnej odpowiedzi ucho przechodzi do nowej tonacji — w 1 oktawie (poziom 7) i w wielu oktawach (poziom 8).</li>
+        <li><strong>Pełna symetria Dur i Moll:</strong> Wszystkie 8 poziomów dostępne są identycznie dla dur i moll naturalnego.</li>
+        <li><strong>Własna tonacja (Dur i Moll):</strong> Swobodnie wybierz tryb (dur/moll), jedną z 12 tonacji (lub losowo), zakres (<code>Do–Fa</code>, <code>Sol–Do</code>, <code>Cała gama</code>) oraz oktawę — przed startem albo w każdej chwili przez klikalną plakietkę u góry po prawej stronie ćwiczenia.</li>
       </ul>
 
       <div class="article-highlight-box">
-        <h4>Pomoce, Śpiewanie i Etykiety</h4>
-        <p>U góry <strong>Śpiewaj</strong> (opcjonalnie z <em>Pauzą na nucenie</em>) zachęca do zaśpiewania powrotu do Do / 1, tuż obok regulacji <strong>Tempo (BPM)</strong>. Nad klawiaturą znajdziesz <strong>plakietkę tonacji</strong> (gra akord toniki), <strong>Tonika (Do)</strong> oraz <strong>Powtórz dźwięk</strong>. Fioletowa <strong>Pętla</strong> powtarza szukaną nutę co 3 sekundy, a <strong>Tylko słuchaj</strong> rozwiązuje automatycznie. Przełączaj <strong>Sylaby (Do–Ti)</strong> vs. <strong>Cyfry (1–7)</strong> i <strong>Autonastępne</strong> w <strong>Ustawieniach</strong>.</p>
+        <h4>Pomoce, Śpiewanie, Etykiety i Egzamin</h4>
+        <p>U góry <strong>Śpiewaj</strong> (opcjonalnie z <em>Pauzą na nucenie</em>) zachęca do zaśpiewania powrotu do Do / 1, tuż obok regulacji <strong>Tempo (BPM)</strong>. Nad klawiaturą znajdziesz <strong>plakietkę tonacji</strong> (gra akord toniki dur lub moll), <strong>Tonika (Do)</strong> oraz <strong>Powtórz dźwięk</strong>. Fioletowa <strong>Pętla</strong> powtarza szukaną nutę co 3 sekundy, a <strong>Tylko słuchaj</strong> rozwiązuje automatycznie. Przełączaj <strong>Sylaby</strong> vs. <strong>Cyfry</strong> (<code>1–7</code> / <code>b3, b6, b7</code>) i <strong>Autonastępne</strong> w <strong>Ustawieniach</strong> — a <strong>Egzamin kategorii</strong> sprawdza Dur, Moll, Połówki, Dur i Moll naprzemiennie oraz Własną tonację.</p>
       </div>
     `
   },

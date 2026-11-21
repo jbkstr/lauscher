@@ -8241,6 +8241,158 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
    PRÜFUNGSMODUS (#viewExamSetup, #examStatusBar, #viewExamResult, #spaceExamHistoryCard)
    ===================================================== */
 
+/* Aufgabentyp-Übersicht auf den Übungs-Hauptseiten (#viewCategory) */
+.category-types-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.category-type-card {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem;
+  padding: 0.85rem 0.95rem;
+  border-radius: var(--radius-lg);
+  background: var(--surface-white);
+  border: 1.5px solid var(--border-soft);
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  text-align: start;
+  color: var(--raccoon-dark);
+  font-family: inherit;
+  transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.14s ease, background 0.14s ease;
+}
+
+.category-type-card:hover {
+  transform: translateY(-1px);
+  border-color: var(--border-strong);
+  background: var(--surface-hover);
+  box-shadow: var(--shadow-float);
+}
+
+.category-type-card:active {
+  transform: translateY(0);
+}
+
+.category-type-badge-wrap {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.category-type-badge-wrap .node-circle {
+  width: 50px;
+  height: 50px;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.category-type-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.22rem;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.category-type-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.category-type-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+  line-height: 1.25;
+}
+
+.category-type-beginner-pill {
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 0.12rem 0.48rem;
+  border-radius: var(--radius-pill);
+  background: var(--sage-soft);
+  color: var(--sage-strong);
+  border: 1px solid var(--sage);
+  letter-spacing: 0.01em;
+}
+
+.category-type-desc {
+  font-size: 0.78rem;
+  line-height: 1.38;
+  color: var(--raccoon-mid);
+}
+
+.category-type-meta {
+  display: inline-block;
+  align-self: flex-start;
+  margin-top: 0.15rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 0.14rem 0.52rem;
+  border-radius: var(--radius-pill);
+  background: var(--surface-warm);
+  color: var(--raccoon-mid);
+  border: 1px solid var(--border-soft);
+}
+
+.category-type-chevron {
+  flex-shrink: 0;
+  color: var(--raccoon-light);
+  transition: transform 0.14s ease, color 0.14s ease;
+}
+
+.category-type-card:hover .category-type-chevron {
+  color: var(--raccoon-dark);
+  transform: translateX(2px);
+}
+
+[dir="rtl"] .category-type-chevron {
+  transform: scaleX(-1);
+}
+
+[dir="rtl"] .category-type-card:hover .category-type-chevron {
+  transform: scaleX(-1) translateX(2px);
+}
+
+/* Klappbare Generalvorzeichen-Auswahl auf Notenlesen-Unterseiten */
+.notation-key-collapse {
+  background: var(--surface-white);
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  margin-top: 0.75rem;
+  overflow: hidden;
+}
+
+.notation-key-collapse-summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 0.85rem 1rem;
+  cursor: pointer;
+  font-size: 0.86rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+}
+
+.notation-key-collapse-summary::-webkit-details-marker {
+  display: none;
+}
+
+.notation-key-collapse-body {
+  padding: 0 0.85rem 0.9rem;
+}
+
 .category-exam-entry-card {
   width: 100%;
   display: flex;
@@ -8488,8 +8640,13 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   gap: 7px;
 }
 
+.exam-custom-grid.is-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 @media (max-width: 480px) {
-  .exam-custom-grid {
+  .exam-custom-grid,
+  .exam-custom-grid.is-cols-2 {
     grid-template-columns: 1fr;
   }
 }

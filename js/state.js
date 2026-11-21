@@ -6,6 +6,8 @@ class AppState {
   constructor() {
     this.currentView = "home"; // 'home' | 'category' | 'knowledge' | 'knowledge-detail' | 'space' | 'exercise'
     this.activeCategory = "cadence";
+    this.activeCategorySection = null;
+    this.activeCategorySectionTitle = "";
     this.activeKnowledgeTab = "theory";
     this.activeKnowledgeDetail = null;
     this.knowledgeTitle = "Wissen";
@@ -547,12 +549,17 @@ class AppState {
       mainTitle.textContent = tr("Mein Konto", "My Account");
       el.textContent = tr("Profil, Timer & Vorlieben", "Profile, Timer & Preferences");
     } else if (this.currentView === "category" || this.currentView === "category-help") {
-      mainTitle.textContent = getCategoryTitle(this.activeCategory);
-      el.textContent = this.currentView === "category-help"
-        ? tr("So funktioniert’s • Anleitung & Aufgaben", "How It Works • Guide & Levels")
-        : (this.activeCategory === "warmup"
-            ? tr("Wähle Programm & Tonumfang", "Choose routine & vocal range")
-            : tr("Wähle Modus & Schwierigkeitsgrad", "Choose a mode & difficulty"));
+      if (this.currentView === "category" && this.activeCategorySection) {
+        mainTitle.textContent = this.activeCategorySectionTitle || getCategoryTitle(this.activeCategory);
+        el.textContent = `${getCategoryTitle(this.activeCategory)} • ${tr("Schwierigkeitsgrad wählen", "Choose difficulty")}`;
+      } else {
+        mainTitle.textContent = getCategoryTitle(this.activeCategory);
+        el.textContent = this.currentView === "category-help"
+          ? tr("So funktioniert’s • Anleitung & Aufgaben", "How It Works • Guide & Levels")
+          : (this.activeCategory === "warmup"
+              ? tr("Wähle Programm & Tonumfang", "Choose routine & vocal range")
+              : tr("Wähle einen Aufgabentyp", "Choose an exercise type"));
+      }
     } else if (this.currentView === "exam-setup") {
       mainTitle.textContent = tf("{cat} • Prüfung", "{cat} • Exam", {
         cat: getCategoryTitle(this.examSetupCategory || this.activeCategory)
@@ -811,7 +818,7 @@ function setLanguagePreference(nextLang) {
   populateMixCreatorControls({ forceRepopulate: true });
 
   if (state.currentView === "category") {
-    openCategoryPage(state.activeCategory, { refreshOnly: true });
+    openCategoryPage(state.activeCategory, { sectionId: state.activeCategorySection, refreshOnly: true });
   } else if (state.currentView === "category-help") {
     openCategoryHelpPage(state.activeCategory, { refreshOnly: true });
   } else if (state.currentView === "exam-setup") {

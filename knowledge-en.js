@@ -1936,26 +1936,29 @@ const CATEGORY_HELP_GUIDES_EN = {
     tagClass: "tag-sage",
     tag: "How It Works • Solfège",
     title: "How Functional Solfège Works",
-    lead: "Movable-Do Solfège builds relative pitch: you learn to recognize each of the 7 scale degrees (Do–Ti or 1–7) by its signature tension and pull inside a key.",
+    lead: "Movable-Do Solfège builds relative pitch in both Major and Minor: you learn to recognize each scale degree (Do–Ti, Do–Re–Me–Fa–Sol–Le–Te, or scale numbers) by its signature tension and pull inside a key.",
     sections: `
       <h3>Every Round Follows 4 Clear Steps</h3>
       <ul class="article-steps-list">
-        <li><strong>1. Context Cadence:</strong> A short reference progression (<code>I – vi – IV – V</code>) tunes your ear cleanly into the tonal center.</li>
-        <li><strong>2. Target Degree:</strong> After a brief pause, you hear one isolated degree from that key.</li>
-        <li><strong>3. Play It on the Keyboard:</strong> Only active scale notes carry labels (<em>Do–Re–Mi–Fa–Sol–La–Ti–Do</em> or optional <em>Scale Degrees 1–7</em>), framed neatly with one border key on each side; non-diatonic keys stay dimmed.</li>
-        <li><strong>4. Silent Misses &amp; Natural Resolution:</strong> Wrong keys flash soft red silently so your tonal memory stays clean. Landing the right key highlights green and plays its functional resolution back home (<code>Do–Fa</code> downward, <code>Sol–Ti</code> upward).</li>
+        <li><strong>1. Context Cadence:</strong> A short reference progression tunes your ear cleanly into the key — <code>I – vi – IV – V</code> in Major or <code>i – VI – iv – V</code> in Minor.</li>
+        <li><strong>2. Target Degree:</strong> After a brief pause, you hear one isolated degree from the active scale range.</li>
+        <li><strong>3. Play It on the Keyboard:</strong> Only active notes carry labels (Major: <em>Do–Re–Mi–Fa–Sol–La–Ti–Do</em>, Minor: <em>Do–Re–Me–Fa–Sol–Le–Te–Do</em>, or optional <em>Scale Numbers</em>), framed neatly with one border key on each side; inactive keys stay dimmed.</li>
+        <li><strong>4. Silent Misses &amp; Natural Resolution:</strong> Wrong keys flash soft red silently so your tonal memory stays clean. Landing the right key highlights green and plays its functional resolution back home (<code>Do–Fa</code> downward, <code>Sol–Ti/Te</code> upward).</li>
       </ul>
 
-      <h3>All 6 Difficulty Levels</h3>
+      <h3>Major, Minor &amp; Custom Key (Level Progression)</h3>
       <ul class="article-steps-list">
-        <li><strong>Level 1 &amp; 2 (1 Octave):</strong> Level 1 stays locked in <code>C Major</code>; Level 2 picks one random key for the whole session.</li>
-        <li><strong>Level 3 &amp; 4 (Multi-Octave):</strong> Target degrees jump into lower or higher octaves — either in fixed <code>C Major</code> (Level 3) or a fixed random key (Level 4).</li>
-        <li><strong>Level 5 &amp; 6 (Key Modulations):</strong> Every solved question modulates into a brand-new key — first within 1 octave (Level 5), then across multiple octaves (Level 6).</li>
+        <li><strong>Levels 1 &amp; 2 – Scale Halves (4 Notes Each):</strong> Gentle starter stages with just 4 active keys — first the lower half <code>Do–Fa</code>, then the upper half <code>Sol–Do</code> in fixed <code>C Major</code> or <code>C Minor</code>.</li>
+        <li><strong>Levels 3 &amp; 4 – Full Scale (1 Octave):</strong> All 7 degrees in fixed <code>C Major</code> / <code>C Minor</code> (Level 3) or a steady random key for the whole session (Level 4).</li>
+        <li><strong>Levels 5 &amp; 6 – Multi-Octave:</strong> Target degrees jump into lower or higher octaves — in fixed <code>C Major</code> / <code>C Minor</code> (Level 5) or a fixed random key (Level 6).</li>
+        <li><strong>Levels 7 &amp; 8 – Key Modulations:</strong> Every solved question modulates into a brand-new key — first within 1 octave (Level 7), then across multiple octaves (Level 8).</li>
+        <li><strong>Full Major &amp; Minor Parity:</strong> All 8 levels are available symmetrically for both Major and Natural Minor.</li>
+        <li><strong>Custom Key (Major &amp; Minor):</strong> Freely choose Major or Minor, any of the 12 keys (or Random), scale range (<code>Do–Fa</code>, <code>Sol–Do</code>, <code>Full Scale</code>), and octave register — either before starting or anytime via the clickable badge in the top right of the exercise.</li>
       </ul>
 
       <div class="article-highlight-box">
-        <h4>Helpers, Sing Along &amp; Labels</h4>
-        <p>At the top, the <strong>Sing along</strong> chip (with optional hum pause) invites you to sing back to Do / 1, while <strong>BPM</strong> sits right beside it. Above the keyboard sit the <strong>Key Badge</strong> (tap for the tonic triad), <strong>Tonic (Do)</strong>, and <strong>Replay Tone</strong>. Below, the purple <strong>Loop button</strong> repeats the target note every 3 seconds, and <strong>Listen Only</strong> reveals and resolves automatically. Switch between <strong>Syllables (Do–Ti)</strong> and <strong>Numbers (1–7)</strong> or <strong>Auto-Next</strong> anytime in <strong>App Settings</strong>.</p>
+        <h4>Helpers, Sing Along, Labels &amp; Exam</h4>
+        <p>At the top, the <strong>Sing along</strong> chip (with optional hum pause) invites you to sing back to Do / 1, while <strong>BPM</strong> sits right beside it. Above the keyboard sit the <strong>Key Badge</strong> (tap for the Major or Minor tonic triad), <strong>Tonic (Do)</strong>, and <strong>Replay Tone</strong>. Below, the purple <strong>Loop button</strong> repeats the target note every 3 seconds, and <strong>Listen Only</strong> reveals and resolves automatically. Switch between <strong>Syllables</strong> and <strong>Numbers</strong> (<code>1–7</code> / <code>b3, b6, b7</code>) or <strong>Auto-Next</strong> anytime in <strong>App Settings</strong> — and take the <strong>Category Exam</strong> across Major, Minor, Halves, Major &amp; Minor mixed, or your Custom Key.</p>
       </div>
     `
   },

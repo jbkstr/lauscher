@@ -2007,26 +2007,29 @@ const CATEGORY_HELP_GUIDES = {
     tagClass: "tag-sage",
     tag: "Anleitung • Solfège",
     title: "So funktioniert das Solfège-Training",
-    lead: "Solfège schult das relative Gehör: Du lernst, jede der 7 Tonstufen (Do–Ti bzw. 1–7) an ihrer typischen Spannung und ihrem Auflösungsdrang innerhalb einer Tonart zu erkennen.",
+    lead: "Solfège schult das relative Gehör in Dur und Moll: Du lernst, jede Tonstufe (Do–Ti bzw. Do–Re–Me–Fa–Sol–Le–Te oder Stufenzahlen) an ihrer typischen Spannung und ihrem Auflösungsdrang innerhalb einer Tonart zu erkennen.",
     sections: `
       <h3>Ablauf jeder einzelnen Aufgabe</h3>
       <ul class="article-steps-list">
-        <li><strong>1. Kontext-Kadenz:</strong> Zu Beginn erklingt im gewählten Tempo eine Referenzkadenz (<code>I – vi – IV – V</code>), damit sich dein Gehör in der Tonart einrichtet.</li>
-        <li><strong>2. Gesuchter Einzelton:</strong> Nach einer deutlichen Pause hörst du genau eine Stufe der aktuellen Tonart.</li>
-        <li><strong>3. Antwort auf der Klaviatur:</strong> Nur die Töne der aktiven Tonart tragen ihre Beschriftung (<em>Do–Re–Mi–Fa–Sol–La–Ti–Do</em> oder wahlweise <em>Stufenzahlen 1–7</em>), eingerahmt von je einer Randtaste; tonartfremde Tasten sind abgedunkelt.</li>
-        <li><strong>4. Rückmeldung &amp; Auflösung:</strong> Eine falsche Taste wird stumm rot markiert, damit deine Tonvorstellung stabil bleibt. Bei der richtigen Taste leuchtet sie grün und spielt automatisch die Auflösung zurück zur Tonika (<code>Do–Fa</code> abwärts, <code>Sol–Ti</code> aufwärts).</li>
+        <li><strong>1. Kontext-Kadenz:</strong> Zu Beginn erklingt im gewählten Tempo eine Referenzkadenz – in Dur <code>I – vi – IV – V</code>, in Moll <code>i – VI – iv – V</code> –, damit sich dein Gehör sicher in der Tonart einrichtet.</li>
+        <li><strong>2. Gesuchter Einzelton:</strong> Nach einer deutlichen Pause hörst du genau eine Stufe aus dem aktiven Tonraum.</li>
+        <li><strong>3. Antwort auf der Klaviatur:</strong> Nur die aktiven Töne der jeweiligen Übung tragen ihre Beschriftung (Dur: <em>Do–Re–Mi–Fa–Sol–La–Ti–Do</em>, Moll: <em>Do–Re–Me–Fa–Sol–Le–Te–Do</em> oder wahlweise <em>Stufenzahlen</em>), eingerahmt von je einer Randtaste; inaktive Tasten sind abgedunkelt.</li>
+        <li><strong>4. Rückmeldung &amp; Auflösung:</strong> Eine falsche Taste wird stumm rot markiert, damit deine Tonvorstellung stabil bleibt. Bei der richtigen Taste leuchtet sie grün und spielt automatisch die Auflösung zurück zur Tonika (<code>Do–Fa</code> abwärts, <code>Sol–Ti/Te</code> aufwärts).</li>
       </ul>
 
-      <h3>Die 6 Stufen auf der Auswahlseite</h3>
+      <h3>Dur, Moll &amp; Eigene Tonart (Stufen-Aufbau)</h3>
       <ul class="article-steps-list">
-        <li><strong>Stufe 1 &amp; 2 (1 Oktave):</strong> In Stufe 1 übst du fest in <code>C-Dur</code>, in Stufe 2 in einer zufällig festgelegten anderen Tonart für die gesamte Runde.</li>
-        <li><strong>Stufe 3 &amp; 4 (Mehrere Oktaven):</strong> Der Zielton springt auch in tiefere oder höhere Oktaven – bei fester Tonart <code>C-Dur</code> (Stufe 3) bzw. fester Zufallstonart (Stufe 4).</li>
-        <li><strong>Stufe 5 &amp; 6 (Tonartwechsel):</strong> Nach jeder richtigen Antwort wechselt die Tonart neu – erst innerhalb einer Oktave (Stufe 5), dann über mehrere Oktaven (Stufe 6).</li>
+        <li><strong>Stufe 1 &amp; 2 – Tonleiter-Hälften (je 4 Töne):</strong> Sanfter Einstieg mit nur 4 aktiven Tasten: zuerst die untere Hälfte <code>Do–Fa</code>, dann die obere Hälfte <code>Sol–Do</code> in fester Grundtonart (<code>C-Dur</code> bzw. <code>c-Moll</code>).</li>
+        <li><strong>Stufe 3 &amp; 4 – Ganze Tonleiter (1 Oktave):</strong> Alle 7 Stufen in <code>C-Dur</code> / <code>c-Moll</code> (Stufe 3) bzw. in einer zufällig festgelegten anderen Tonart für die gesamte Sitzung (Stufe 4).</li>
+        <li><strong>Stufe 5 &amp; 6 – Mehrere Oktaven:</strong> Der Zielton springt auch in tiefere oder höhere Oktaven – fest in <code>C-Dur</code> / <code>c-Moll</code> (Stufe 5) bzw. in einer festen Zufallstonart (Stufe 6).</li>
+        <li><strong>Stufe 7 &amp; 8 – Tonartwechsel:</strong> Nach jeder richtigen Antwort wechselt die Tonart neu – erst innerhalb einer Oktave (Stufe 7), dann über mehrere Oktaven (Stufe 8).</li>
+        <li><strong>Komplett in Dur &amp; Moll:</strong> Alle 8 Stufen stehen spiegelbildlich für Dur und Natürlich Moll bereit.</li>
+        <li><strong>Eigene Tonart (Dur &amp; Moll):</strong> Wähle Tongeschlecht (Dur/Moll), beliebige Tonart (alle 12 oder Zufall), Tonraum (<code>Do–Fa</code>, <code>Sol–Do</code>, <code>Ganze Tonart</code>) und Oktavlage frei – vor dem Start oder jederzeit direkt über das klickbare Badge oben rechts in der Übung.</li>
       </ul>
 
       <div class="article-highlight-box">
-        <h4>Hilfen, Mitsingen &amp; Schreibweise</h4>
-        <p>Oben lädt <strong>Mitsingen</strong> (optional mit Summ-Pause) zum Nachsingen zurück zum Do ein; rechts daneben passt du das <strong>Tempo (BPM)</strong> an. Über der Klaviatur stehen der <strong>Tonarten-Button</strong> (spielt den Tonika-Akkord an), <strong>Tonika (Do)</strong> und <strong>Ton nochmal</strong> bereit. Unten schaltet der lila <strong>Loop-Button</strong> eine langsame Wiederholung alle 3 Sekunden ein, <strong>Nur Hören</strong> löst automatisch mit Auflösung auf. Zwischen <strong>Silben (Do–Ti)</strong> und <strong>Stufenzahlen (1–7)</strong> sowie <strong>Auto-Weiter</strong> wechselst du in den <strong>App-Einstellungen</strong>.</p>
+        <h4>Hilfen, Mitsingen, Schreibweise &amp; Prüfung</h4>
+        <p>Oben lädt <strong>Mitsingen</strong> (optional mit Summ-Pause) zum Nachsingen zurück zum Do ein; rechts daneben passt du das <strong>Tempo (BPM)</strong> an. Über der Klaviatur stehen der <strong>Tonarten-Button</strong> (spielt den Dur- oder Moll-Tonika-Akkord an), <strong>Tonika (Do)</strong> und <strong>Ton nochmal</strong> bereit. Unten wiederholt der lila <strong>Loop-Button</strong> den Zielton alle 3 Sekunden, <strong>Nur Hören</strong> löst automatisch mit Auflösung auf. Zwischen <strong>Silben</strong> und <strong>Stufenzahlen</strong> (<code>1–7</code> bzw. <code>b3, b6, b7</code>) sowie <strong>Auto-Weiter</strong> wechselst du in den <strong>App-Einstellungen</strong> – und die <strong>Kategorie-Prüfung</strong> testet Dur, Moll, Hälften, Dur &amp; Moll im Wechsel sowie deine Eigene Tonart.</p>
       </div>
     `
   },

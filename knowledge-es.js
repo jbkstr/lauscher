@@ -1920,26 +1920,29 @@ const CATEGORY_HELP_GUIDES_ES = {
     tagClass: "tag-sage",
     tag: "Instrucciones • Solfeo",
     title: "Cómo funciona el solfeo relativo (Do móvil)",
-    lead: "El solfeo relativo (Do móvil) forja el oído relativo: aprendes a reconocer cada uno de los 7 grados (Do–Ti o 1–7) por su tensión característica y su atracción dentro de la tonalidad.",
+    lead: "El solfeo relativo (Do móvil) forja el oído relativo en mayor y en menor: aprendes a reconocer cada grado (Do–Ti, Do–Re–Me–Fa–Sol–Le–Te o números) por su tensión característica dentro de la tonalidad.",
     sections: `
       <h3>Cada ronda sigue 4 pasos claros</h3>
       <ul class="article-steps-list">
-        <li><strong>1. Cadencia de contexto:</strong> Una breve progresión (<code>I – vi – IV – V</code>) afina tu oído con claridad sobre el centro tonal.</li>
-        <li><strong>2. Nota objetivo:</strong> Tras un instante, oyes un único grado aislado de esa tonalidad.</li>
-        <li><strong>3. Responder en el teclado:</strong> Solo las teclas de la escala muestran su referencia (<em>Do–Re–Mi–Fa–Sol–La–Ti–Do</em> o, como opción, los <em>números 1–7</em>), rodeadas de una tecla de margen a cada lado; las demás teclas quedan atenuadas.</li>
-        <li><strong>4. Errores silenciosos &amp; resolución natural:</strong> Una tecla equivocada parpadea discretamente en rojo sin sonido para preservar tu memoria tonal. La tecla correcta se ilumina en verde y toca su resolución hacia la tónica (<code>Do–Fa</code> hacia abajo, <code>Sol–Ti</code> hacia arriba).</li>
+        <li><strong>1. Cadencia de contexto:</strong> Una breve progresión afina tu oído sobre el centro tonal: <code>I – vi – IV – V</code> en mayor o <code>i – VI – iv – V</code> en menor.</li>
+        <li><strong>2. Nota objetivo:</strong> Tras un instante, oyes un único grado aislado del rango activo.</li>
+        <li><strong>3. Responder en el teclado:</strong> Solo las teclas activas muestran su referencia (mayor: <em>Do–Re–Mi–Fa–Sol–La–Ti–Do</em>, menor: <em>Do–Re–Me–Fa–Sol–Le–Te–Do</em> o <em>números</em> en opción), rodeadas de una tecla de margen; el resto queda atenuado.</li>
+        <li><strong>4. Errores silenciosos &amp; resolución natural:</strong> Una tecla equivocada parpadea en rojo sin sonido para preservar tu memoria tonal. La tecla correcta se ilumina en verde y toca su resolución hacia la tónica (<code>Do–Fa</code> hacia abajo, <code>Sol–Ti/Te</code> hacia arriba).</li>
       </ul>
 
-      <h3>Los 6 niveles de dificultad</h3>
+      <h3>Mayor, Menor &amp; Tonalidad libre (progresión)</h3>
       <ul class="article-steps-list">
-        <li><strong>Niveles 1 &amp; 2 (1 octava):</strong> El nivel 1 se queda fijo en <code>Do mayor</code>; el nivel 2 elige una tonalidad aleatoria para toda la sesión.</li>
-        <li><strong>Niveles 3 &amp; 4 (varias octavas):</strong> Los grados objetivo saltan a octavas graves o agudas, ya sea en <code>Do mayor</code> fijo (nivel 3) o en una tonalidad aleatoria fija (nivel 4).</li>
-        <li><strong>Niveles 5 &amp; 6 (modulaciones):</strong> Cada respuesta correcta modula a una tonalidad completamente nueva: primero en 1 octava (nivel 5) y luego en varias octavas (nivel 6).</li>
+        <li><strong>Niveles 1 &amp; 2 – Mitades de escala (4 notas):</strong> Entrada gradual con solo 4 teclas activas: primero la mitad inferior <code>Do–Fa</code> y luego la superior <code>Sol–Do</code> en <code>Do mayor</code> o <code>Do menor</code> fijo.</li>
+        <li><strong>Niveles 3 &amp; 4 – Escala completa (1 octava):</strong> Los 7 grados en <code>Do mayor</code> / <code>Do menor</code> (nivel 3) o en una tonalidad aleatoria fija para toda la sesión (nivel 4).</li>
+        <li><strong>Niveles 5 &amp; 6 – Varias octavas:</strong> Los grados saltan a octavas graves o agudas en <code>Do mayor</code> / <code>Do menor</code> fijo (nivel 5) o en una tonalidad aleatoria fija (nivel 6).</li>
+        <li><strong>Niveles 7 &amp; 8 – Modulaciones:</strong> Cada respuesta correcta cambia de tonalidad: primero en 1 octava (nivel 7) y luego en varias octavas (nivel 8).</li>
+        <li><strong>Mayor y Menor completos:</strong> Los 8 niveles existen de forma simétrica para mayor y menor natural.</li>
+        <li><strong>Tonalidad libre (Mayor y Menor):</strong> Elige modo (mayor/menor), cualquiera de las 12 tonalidades (o aleatorio), rango (<code>Do–Fa</code>, <code>Sol–Do</code>, <code>Escala completa</code>) y octava antes de empezar o en cualquier momento desde la insignia superior derecha del ejercicio.</li>
       </ul>
 
       <div class="article-highlight-box">
-        <h4>Ayudas, cantar &amp; etiquetas</h4>
-        <p>Arriba, <strong>Cantar</strong> (con <em>pausa para tararear</em> opcional) te invita a cantar hasta el Do / 1, junto al ajuste de <strong>Tempo (BPM)</strong>. Encima del teclado están la <strong>insignia de tonalidad</strong> (toca el acorde de tónica), <strong>Tónica (Do)</strong> y <strong>Repetir</strong>. Abajo, el botón violeta <strong>Bucle</strong> repite la nota cada 3 segundos y <strong>Solo escucha</strong> resuelve automáticamente. Alterna entre <strong>Sílabas (Do–Ti)</strong> y <strong>Números (1–7)</strong> o activa <strong>Siguiente automático</strong> en los <strong>Ajustes</strong>.</p>
+        <h4>Ayudas, cantar, etiquetas &amp; examen</h4>
+        <p>Arriba, <strong>Cantar</strong> (con <em>pausa para tararear</em> opcional) te invita a cantar hasta el Do / 1, junto al ajuste de <strong>Tempo (BPM)</strong>. Encima del teclado están la <strong>insignia de tonalidad</strong> (toca el acorde de tónica mayor o menor), <strong>Tónica (Do)</strong> y <strong>Repetir</strong>. Abajo, el botón violeta <strong>Bucle</strong> repite la nota cada 3 segundos y <strong>Solo escucha</strong> resuelve automáticamente. Alterna entre <strong>Sílabas</strong> y <strong>Números</strong> (<code>1–7</code> / <code>b3, b6, b7</code>) o <strong>Siguiente automático</strong> en los <strong>Ajustes</strong>, y realiza el <strong>Examen de categoría</strong> (Mayor, Menor, Mitades, Mayor y Menor alternados o Tonalidad libre).</p>
       </div>
     `
   },
