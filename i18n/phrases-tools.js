@@ -2608,13 +2608,6 @@ registerColocatedPhrases({
     uk: "= {chord}",
     ur: "= {chord}"
   },
-  "Oben steht dein Gitarren-Griff (mit Kapo), darunter der tatsächlich klingende Akkord. Antippen spielt den klingenden Gitarren-Akkord.": {
-    fr: "En haut : la position guitare (avec capo), en dessous : l’accord qui sonne réellement. Touche une case pour entendre l’accord de guitare.",
-    es: "Arriba aparece tu postura de guitarra (con cejilla) y debajo el acorde que suena realmente. Toca cualquier casilla para escuchar el acorde real.",
-    pl: "U góry widzisz chwyt gitarowy (z kapodastrem), a poniżej realnie brzmiący akord. Dotknij kafelka, aby usłyszeć akord gitarowy.",
-    uk: "Зверху показано гітарний акорд (із каподастром), а знизу — реальне звучання. Торкніться плитки, щоб почути гітарний акорд.",
-    ur: "اوپر آپ کی گٹار گرپ (کیپو کے ساتھ) اور نیچے اصل بجنے والا کورڈ ہے۔ اصل گٹار کورڈ سننے کے لیے کسی بھی خانے پر ٹیپ کریں۔"
-  },
   "Artikel: Wie das Nashville Number System funktioniert & entstand": {
     fr: "Article : Comment fonctionne le Nashville Number System et son histoire",
     es: "Artículo: Cómo funciona y cómo nació el sistema numérico de Nashville",

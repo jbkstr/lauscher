@@ -588,7 +588,6 @@ function renderNashvilleView() {
           `;
         }).join("")}
       </div>
-      <p class="nns-matrix-hint">${tr("Oben steht dein Gitarren-Griff (mit Kapo), darunter der tatsächlich klingende Akkord. Antippen spielt den klingenden Gitarren-Akkord.", "Top shows your guitar chord shape (with capo), bottom shows the actual sounding chord. Tap any tile to hear the sounding guitar chord.")}</p>
     </section>
 
     <!-- 5. DIREKT-LINK ZUM WISSENSARTIKEL -->
