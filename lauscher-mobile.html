@@ -19694,14 +19694,22 @@ class AudioEngine {
   playFrequencies(freqs, durationSec = 1.6, oscType = "sine", level = 0.28) {
     if (!this.isInitialized || !this.masterGain || !this.rawCtx || !freqs || freqs.length === 0) return;
     const dur = Math.max(0.25, durationSec);
-    const voiceLevel = level / Math.sqrt(freqs.length);
+    const wave = oscType || "sine";
+    // Psychoakustische Lautheits-Angleichung (Fletcher-Munson): obertonreiche Sägezahn-/Rechteckwellen
+    // besitzen im empfindlichen 1–5-kHz-Bereich ein Vielfaches der gefühlten Lautheit einer Sinuswelle.
+    const waveLoudnessScale = wave === "sawtooth"
+      ? 0.28
+      : (wave === "square" ? 0.24 : (wave === "triangle" ? 0.88 : 1.0));
+    const filterHz = (wave === "sawtooth" || wave === "square") ? 3200 : 0;
+    const voiceLevel = (level * waveLoudnessScale) / Math.sqrt(freqs.length);
 
     const tempGain = this.rawCtx.createGain();
     tempGain.gain.value = voiceLevel;
     tempGain.connect(this.masterGain);
 
     const tempSynth = new EarLabNativeSynth(this.rawCtx, tempGain, {
-      oscType: oscType || "sine",
+      oscType: wave,
+      filterHz,
       attack: 0.03,
       decay: 0.15,
       sustain: 0.80,
