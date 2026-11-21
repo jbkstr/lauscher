@@ -399,7 +399,7 @@ const I18N_STATIC_UK = {
   "mixer.presetCustom": "Власний",
   "mixer.presetHint": "Будь-який ручний рух повзунків перемикає пресет у режим «Власний».",
   "settings.title": "Налаштування",
-  "settings.groupAudio": "Звук і темп",
+  "settings.groupAudio": "Звук і вправи",
   "settings.groupLanguageNotation": "Мова та нотація",
   "settings.groupAppearance": "Вигляд і теми",
   "settings.defaultTempoHeading": "Типовий темп",

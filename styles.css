@@ -2662,6 +2662,7 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
   align-items: center;
   gap: 0.45rem;
   margin-bottom: 0.52rem;
+  position: relative;
 }
 
 .module-header-left {
@@ -6470,6 +6471,67 @@ body,
 .module-badge.module-badge-btn:focus-visible {
   outline: 2px solid var(--sage-strong);
   outline-offset: 2px;
+}
+
+.module-badge.module-badge-btn.is-root-hint-pulse {
+  animation: modesRootHintPulse 1.5s ease-in-out 3;
+}
+
+@keyframes modesRootHintPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(90, 148, 118, 0.0);
+  }
+  50% {
+    box-shadow: 0 0 0 5px rgba(90, 148, 118, 0.32);
+  }
+}
+
+.modes-root-hint-bubble {
+  position: absolute;
+  inset-inline-end: 0;
+  top: calc(100% + 0.36rem);
+  z-index: 30;
+  padding: 0.28rem 0.62rem;
+  border: 1.5px solid var(--sage-strong);
+  border-radius: var(--radius-pill);
+  background-color: var(--sage-strong);
+  color: var(--surface-white);
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.25;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(45, 48, 71, 0.16);
+  animation: modesRootHintFadeIn 0.22s ease-out;
+}
+
+.modes-root-hint-bubble::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  inset-inline-end: 1.15rem;
+  width: 8px;
+  height: 8px;
+  background-color: var(--sage-strong);
+  transform: rotate(45deg);
+}
+
+@keyframes modesRootHintFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .module-badge.module-badge-btn.is-root-hint-pulse,
+  .modes-root-hint-bubble {
+    animation: none;
+  }
 }
 
 .modes-root-popover .modes-root-pills {
@@ -11176,92 +11238,122 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   overflow: hidden;
 }
 
-/* Etwas weniger Platz: kleineres Maskottchen, kleinere Schrift */
-@container exstage (max-height: 175px) {
+/* Etwas weniger Platz: kleineres Maskottchen, kompaktere Schrift & Zeilenlimit */
+@container exstage (max-height: 185px) {
   .central-stage:not(.is-notation) {
-    padding: 0.42rem 0.9rem;
+    padding: 0.38rem 0.85rem;
   }
   .central-stage:not(.is-notation) .stage-mascot {
-    width: 40px;
-    height: 40px;
-    margin-bottom: 0.1rem;
+    width: 38px;
+    height: 38px;
+    margin-bottom: 0.08rem;
   }
   .central-stage:not(.is-notation) .stage-main {
-    font-size: 1.45rem;
+    font-size: 1.38rem;
+    line-height: 1.15;
+  }
+  .central-stage:not(.is-notation) .stage-desc {
+    font-size: 0.7rem;
+    line-height: 1.22;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
   .stage-streak-notice {
-    margin-top: 0.18rem;
-    font-size: 0.64rem;
+    margin-top: 0.14rem;
+    font-size: 0.62rem;
   }
 }
 
-/* Wenig Platz: quer wie im Notenlesen – Maskottchen links, Text rechts */
-@container exstage (max-height: 122px) {
+/* Wenig Platz: rechtzeitig quer wie im Notenlesen – Maskottchen links, Text rechts (verhindert Abschneiden) */
+@container exstage (max-height: 154px) {
   .central-stage,
-  .central-stage.is-solfege {
+  .central-stage.is-solfege,
+  .central-stage.is-melody {
     width: fit-content;
     min-width: 184px;
-    max-width: 92%;
-    padding: 0.32rem 0.84rem;
+    max-width: 94%;
+    min-height: 0;
+    padding: 0.28rem 0.78rem;
     display: grid;
     grid-template-columns: auto minmax(0, auto);
     grid-template-rows: auto auto auto;
     justify-content: center;
     align-items: center;
     text-align: start;
-    gap: 0.02rem 0.56rem;
+    gap: 0.02rem 0.52rem;
   }
   .central-stage .stage-mascot,
-  .central-stage.is-solfege .stage-mascot {
+  .central-stage.is-solfege .stage-mascot,
+  .central-stage.is-melody .stage-mascot {
     grid-column: 1;
     grid-row: 1 / 4;
     width: 36px;
     height: 36px;
     margin: 0;
   }
-  .central-stage .stage-sub {
+  .central-stage .stage-sub,
+  .central-stage.is-solfege .stage-sub,
+  .central-stage.is-melody .stage-sub {
     grid-column: 2;
     grid-row: 1;
     font-size: 0.54rem;
+    line-height: 1.15;
     padding-inline-end: 1.9rem;
   }
   .central-stage .stage-main,
-  .central-stage.is-solfege .stage-main {
+  .central-stage.is-solfege .stage-main,
+  .central-stage.is-melody .stage-main {
     grid-column: 2;
     grid-row: 2;
-    font-size: 1.14rem;
-    line-height: 1.15;
+    font-size: 1.08rem;
+    line-height: 1.12;
     margin: 0;
   }
   .central-stage .stage-desc,
-  .central-stage.is-solfege .stage-desc {
+  .central-stage.is-solfege .stage-desc,
+  .central-stage.is-melody .stage-desc {
     grid-column: 2;
     grid-row: 3;
     font-size: 0.64rem;
-    line-height: 1.24;
+    line-height: 1.2;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
   .central-stage .stage-streak-pill {
-    top: 0.26rem;
-    inset-inline-end: 0.36rem;
+    top: 0.24rem;
+    inset-inline-end: 0.34rem;
     font-size: 0.54rem;
-    padding: 0.1rem 0.36rem;
+    padding: 0.08rem 0.34rem;
   }
   .central-stage .stage-streak-notice {
     grid-column: 1 / -1;
     justify-self: center;
-    margin-top: 0.1rem;
-    font-size: 0.6rem;
-    padding: 0.1rem 0.5rem;
+    margin-top: 0.08rem;
+    font-size: 0.58rem;
+    padding: 0.08rem 0.46rem;
   }
 }
 
-/* Knapp: Beschreibung nur noch einzeilig */
-@container exstage (max-height: 96px) {
-  .central-stage .stage-desc {
+/* Knapp: Beschreibung nur noch einzeilig, ohne Zusatzbanner */
+@container exstage (max-height: 108px) {
+  .central-stage,
+  .central-stage.is-solfege,
+  .central-stage.is-melody {
+    padding: 0.22rem 0.72rem;
+  }
+  .central-stage .stage-mascot,
+  .central-stage.is-solfege .stage-mascot,
+  .central-stage.is-melody .stage-mascot {
+    width: 32px;
+    height: 32px;
+  }
+  .central-stage .stage-desc,
+  .central-stage.is-solfege .stage-desc,
+  .central-stage.is-melody .stage-desc {
     -webkit-line-clamp: 1;
   }
   .central-stage .stage-streak-notice {
@@ -11270,11 +11362,12 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 
 /* Sehr wenig Platz: nur Status und Hauptzeile */
-@container exstage (max-height: 62px) {
+@container exstage (max-height: 70px) {
   .central-stage,
   .central-stage.is-solfege,
+  .central-stage.is-melody,
   .central-stage.is-notation {
-    padding: 0.2rem 0.8rem;
+    padding: 0.18rem 0.72rem;
     min-height: 0;
   }
   .central-stage .stage-mascot,
@@ -11353,12 +11446,39 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   max-height: 210px;
 }
 #viewExercise.fit-1 .piano-keyboard {
-  height: 150px;
+  height: 146px;
+}
+#viewExercise.fit-1 .solfege-keyboard-wrap,
+#viewExercise.fit-2 .solfege-keyboard-wrap,
+#viewExercise.fit-3 .solfege-keyboard-wrap {
+  padding: 0.1rem 0 0.06rem 0;
+}
+#viewExercise.fit-1 .melody-rhythm-picker,
+#viewExercise.fit-2 .melody-rhythm-picker,
+#viewExercise.fit-3 .melody-rhythm-picker {
+  padding: 4px 8px;
+  margin-bottom: 2px;
+  gap: 4px;
+}
+#viewExercise.fit-1 .rhythm-tap-wrap,
+#viewExercise.fit-2 .rhythm-tap-wrap,
+#viewExercise.fit-3 .rhythm-tap-wrap {
+  padding: 0.08rem 0 0.06rem 0;
+}
+#viewExercise.fit-1 .rhythm-tap-pad {
+  min-height: 112px;
+  padding: 0.55rem 0.8rem;
+  gap: 0.2rem;
+}
+#viewExercise.fit-1 .rhythm-pad-icon {
+  width: 38px;
+  height: 38px;
 }
 #viewExercise.fit-1 .input-prompt,
 #viewExercise.fit-2 .input-prompt,
 #viewExercise.fit-3 .input-prompt {
-  font-size: 0.76rem;
+  font-size: 0.74rem;
+  line-height: 1.18;
 }
 
 /* Stufe 2: Kacheln und Tasten deutlich flacher */
@@ -11399,19 +11519,43 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   max-height: 180px;
 }
 #viewExercise.fit-2 .piano-keyboard {
-  height: 132px;
+  height: 128px;
+}
+#viewExercise.fit-2 .rhythm-tap-pad {
+  min-height: 92px;
+  padding: 0.42rem 0.72rem;
+  gap: 0.14rem;
+}
+#viewExercise.fit-2 .rhythm-pad-icon {
+  width: 32px;
+  height: 32px;
+}
+#viewExercise.fit-2 .rhythm-pad-title,
+#viewExercise.fit-3 .rhythm-pad-title {
+  font-size: 0.94rem;
+}
+#viewExercise.fit-2 .rhythm-pad-sub,
+#viewExercise.fit-3 .rhythm-pad-sub {
+  font-size: 0.7rem;
+}
+#viewExercise.fit-2 .rhythm-staff-grid .bar-card .bar-roman,
+#viewExercise.fit-3 .rhythm-staff-grid .bar-card .bar-roman {
+  min-height: 32px;
 }
 #viewExercise.fit-2 .tonic-ref-row,
 #viewExercise.fit-3 .tonic-ref-row {
   margin: 0;
+  gap: 0.3rem;
 }
 #viewExercise.fit-2 .tonic-btn,
 #viewExercise.fit-3 .tonic-btn {
-  padding: 0.2rem 0.62rem;
+  padding: 0.18rem 0.56rem;
+  font-size: 0.72rem;
 }
 #viewExercise.fit-2 .input-header,
 #viewExercise.fit-3 .input-header {
-  padding: 0 0.18rem;
+  padding: 0 0.16rem;
+  gap: 0.2rem 0.38rem;
 }
 
 /* Stufe 3: letzte Reserve – Zusatzzeilen ausblenden, alles so flach wie noch gut tippbar */
@@ -11439,10 +11583,18 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   max-height: 156px;
 }
 #viewExercise.fit-3 .piano-keyboard {
-  height: 116px;
+  height: 112px;
+}
+#viewExercise.fit-3 .rhythm-tap-pad {
+  min-height: 76px;
+  padding: 0.32rem 0.64rem;
+  gap: 0.1rem;
+}
+#viewExercise.fit-3 .rhythm-pad-icon {
+  display: none;
 }
 #viewExercise.fit-3 .input-prompt {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
 }
 
 /* Notenlesen: Titel & Stufen-Badge wiederholen nur die obere Leiste → bei Platzmangel ausblenden */

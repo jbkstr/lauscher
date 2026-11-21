@@ -399,7 +399,7 @@ const I18N_STATIC_FR = {
   "mixer.presetCustom": "Personnalisé",
   "mixer.presetHint": "Tout réglage manuel des curseurs passe automatiquement en mode « Personnalisé ».",
   "settings.title": "Paramètres de l’app",
-  "settings.groupAudio": "Audio & Tempo",
+  "settings.groupAudio": "Audio & Exercices",
   "settings.groupLanguageNotation": "Langue & Notation",
   "settings.groupAppearance": "Apparence & Thèmes",
   "settings.defaultTempoHeading": "Tempo par défaut",

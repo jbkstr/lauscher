@@ -20,7 +20,7 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 - **Startseite:** „Weiterüben“ ist ein schwebender Knopf (`#quickStartBtn.home-continue-fab`). Ist im Profil ein Name gesetzt, sprechen Startseiten-Zitate und Übungs-Bühne den Nutzer persönlich an (`getProfileUserName`, `getPersonalized…StageSubtext`).
 - **Nur Hochformat:** Auf Handys im Querformat legt sich `#portraitLockOverlay` per Media-Query über die App; in der Android-App setzt das Sync-Skript zusätzlich `android:screenOrientation="portrait"`.
 - **Dropdowns:** Auswahlfelder nutzen eigene Dropdowns statt `<select>`: `renderProfileSingleDropdown({containerEl, key, options, selectedKey, onSelect})` für Einfachauswahl (z. B. Sprache in den Einstellungen, Übe-Mix-Erstellung), Mehrfachauswahl im gleichen Stil (`multi-dropdown-*`). Das offene Dropdown steht in `_openProfileDropdownKey`; Außenklick und Android-„Zurück“ schließen es automatisch.
-- **Rechtstexte:** Datenschutzerklärung (`privacy`), Nutzungsbedingungen (`terms`) und Open-Source-Lizenzen (`licenses`) stehen nur in [legal.js](legal.js) (`LAUSCHER_LEGAL_DOCS`, DE maßgeblich + EN; andere Sprachen zeigen EN). Die App zeigt sie im Über-Fenster (`openAboutLegal`, Ansicht `#aboutLegalPane`), die öffentlichen Seiten [datenschutz.html](datenschutz.html), [nutzungsbedingungen.html](nutzungsbedingungen.html) und [lizenzen.html](lizenzen.html) laden dieselbe Datei. Solange `LAUSCHER_LEGAL_DRAFT = true`, erscheint bei Datenschutz & Nutzungsbedingungen ein Entwurfs-Hinweis. Bei neuen Funktionen, Datenverarbeitungen oder Bibliotheken/Fonts die Texte nachpflegen.
+- **Rechtstexte:** Datenschutzerklärung (`privacy`), Nutzungsbedingungen (`terms`) und Open-Source-Lizenzen (`licenses`) stehen nur in [legal.js](legal.js) (`LAUSCHER_LEGAL_DOCS`, DE maßgeblich + EN; andere Sprachen zeigen EN). Die App zeigt sie im Über-Fenster (`openAboutLegal`, Ansicht `#aboutLegalPane`), die öffentlichen Seiten [privacy.html](privacy.html), [terms.html](terms.html) und [licenses.html](licenses.html) laden dieselbe Datei. Solange `LAUSCHER_LEGAL_DRAFT = true`, erscheint bei Datenschutz & Nutzungsbedingungen ein Entwurfs-Hinweis. Bei neuen Funktionen, Datenverarbeitungen oder Bibliotheken/Fonts die Texte nachpflegen.
 - **Toasts:** kurze Bestätigungen über `showAppToast(msg, "success"|"error")` (`#appToast`).
 - **Inline-Skript im `<head>` von index.html** setzt Theme, Sprache und `data-first-run` vor dem ersten Rendern. Kommen Themes oder Sprachen dazu, muss es mit angepasst werden.
 
@@ -65,7 +65,7 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 
 ## Android-App (Capacitor)
 
-- Die Android-App ist ein **separates Capacitor-Projekt außerhalb des Repos** (`~/Documents/lauscher-android`, App-ID `de.jbkstr.lauscher`). Es wird nicht hier gepflegt, sondern per [scripts/sync-android.sh](scripts/sync-android.sh) bzw. Doppelklick auf [Android-Studio-starten.command](Android-Studio-starten.command) befüllt: Syntax-Check, Bundle-Build, Kopie der Web-Dateien nach `www/`, `npx cap sync android`, Android Studio öffnen.
+- Die Android-App ist ein **separates Capacitor-Projekt außerhalb des Repos** (`~/Documents/lauscher-android`, App-ID `de.jbkstr.lauscher`). Es wird nicht hier gepflegt, sondern per [scripts/sync-android.sh](scripts/sync-android.sh) bzw. Doppelklick auf [Start-Android-Studio.command](Start-Android-Studio.command) befüllt: Syntax-Check, Bundle-Build, Kopie der Web-Dateien nach `www/`, `npx cap sync android`, Android Studio öffnen.
 - **Nach jeder Änderung an Web-Dateien (index.html, CSS, JS, Fonts, Samples) den Android-Sync mitlaufen lassen** – auf Wunsch des Nutzers immer, ohne Nachfrage: `./scripts/sync-android.sh --no-open` (Android Studio öffnet der Nutzer selbst). Ändert nichts im Repo.
 - ⚠️ Das Skript kopiert eine **feste Dateiliste** (`RUNTIME_FILES`) plus Fonts, Sample-Bundles und `icons/*.jpg`. Kommt eine neue JS-/CSS-Datei oder ein neuer Asset-Ordner hinzu, muss er dort zusätzlich zu `index.html` eingetragen werden.
 - Bilder für die Oberfläche (z. B. das App-Icon im Über-Fenster, `icons/app-icon.jpg`) per CSS `url(...)` einbinden – so bettet das Mobile-Bundle sie automatisch als Base64 ein.
@@ -87,7 +87,7 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 python3 -m http.server 8000
 ```
 
-Danach `http://localhost:8000` öffnen. Für den Nutzer gibt es die Doppelklick-Startdatei [Lauscher-starten.command](Lauscher-starten.command), die das Gleiche tut. **`index.html` nicht direkt per `file://` öffnen:** Chrome blockiert dort die Schriftdateien. Automatische Tests gibt es nicht.
+Danach `http://localhost:8000` öffnen. Für den Nutzer gibt es die Doppelklick-Startdatei [Start-Lauscher.command](Start-Lauscher.command), die das Gleiche tut. **`index.html` nicht direkt per `file://` öffnen:** Chrome blockiert dort die Schriftdateien. Automatische Tests gibt es nicht.
 - Syntax-Check nach Änderungen: `node --check app.js` (bzw. die geänderte Datei).
 - **Browser-Test in der Claude-Desktop-App:** `file://` und ein per `preview_start`/`launch.json` gestarteter Server funktionieren nicht (macOS-Zugriffsschutz auf `~/Documents`). Was funktioniert: Server per Bash im Hintergrund starten (`python3 -m http.server 8811 --bind 127.0.0.1` im Projektordner, `run_in_background`), dann `preview_start` mit `url: http://localhost:8811/` aufrufen. Danach Server wieder stoppen.
 - Änderungen im Browser prüfen und dabei die Konsole auf Fehler achten. Wenn relevant, auch die Mobilbreite, ein dunkles Theme und eine weitere Sprache prüfen.
@@ -97,6 +97,7 @@ Danach `http://localhost:8000` öffnen. Für den Nutzer gibt es die Doppelklick-
 - Code-Kommentare und Bezeichner im bestehenden Stil halten: Kommentare meist auf Deutsch, Bezeichner auf Englisch.
 - `localStorage`-Zugriffe immer in `try/catch` (wie im bestehenden Code).
 - Keine neuen Abhängigkeiten, CDNs, Analytics oder Netzwerkaufrufe einbauen. Datenschutz ist ein Kernversprechen der App.
-- Deployment über GitHub Pages (Branch `main`, Root-Ordner). Repo: `github.com/jbkstr/lauscher`, Web-App: `https://jbkstr.github.io/lauscher/`, Datenschutz: `…/lauscher/datenschutz.html`, Nutzungsbedingungen: `…/lauscher/nutzungsbedingungen.html`, Lizenzen: `…/lauscher/lizenzen.html`. Der lokale Ordner heißt noch `projekt-lauschebear`.
-- **Ideen für später** stehen in [docs/ideen.md](docs/ideen.md). Wünscht der Nutzer etwas „für später“, dort eintragen. Vor Arbeiten an betroffenen Bereichen (z. B. Maskottchen, Visual-Update) dort nachsehen.
+- **Dateinamen im Repository sind immer auf Englisch** (auch für neue Dateien, Doku-Dateien, Skripte und Assets).
+- Deployment über GitHub Pages (Branch `main`, Root-Ordner). Repo: `github.com/jbkstr/lauscher`, Web-App: `https://jbkstr.github.io/lauscher/`, Datenschutz: `…/lauscher/privacy.html`, Nutzungsbedingungen: `…/lauscher/terms.html`, Lizenzen: `…/lauscher/licenses.html`. Der lokale Ordner heißt noch `projekt-lauschebear`.
+- **Ideen für später** stehen in [docs/ideas.md](docs/ideas.md). Wünscht der Nutzer etwas „für später“, dort eintragen. Vor Arbeiten an betroffenen Bereichen (z. B. Maskottchen, Visual-Update) dort nachsehen.
 - Abgeschaltete, aber aufbewahrte Features laufen über Schalter-Konstanten (z. B. `MASCOT_LOOKS_ENABLED` in app.js) statt über gelöschten Code.

@@ -31,7 +31,7 @@ Gesammelte Pläne, die bewusst auf später verschoben sind. Neue Einträge oben 
    - Onboarding (Sprachauswahl, Begrüßung)
    - Startanimation (Splash)
 
-   Das App-Icon (siehe [design/app-icon-aktuell.jpg](../design/app-icon-aktuell.jpg)) bleibt immer unverändert.
+   Das App-Icon (siehe [design/app-icon-current.jpg](../design/app-icon-current.jpg)) bleibt immer unverändert.
 
 ### Hinweis
 Am besten zusammen mit dem geplanten **visuellen Update** angehen, denn dann werden die Maskottchen-Grafiken ohnehin ersetzt. Die Accessoires sollten dann als Ebenen zu den neuen Grafiken passen, für alle Stimmungen.

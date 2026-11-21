@@ -95,7 +95,7 @@ Inside the **Knowledge** (`Wissen`) tab, interactive audio examples accompany ev
   - **Metal** — a sleek, dark obsidian black theme (`#090A0D`) built for a clean, adult look with dual accents (**Cold Steel Blue** & **Crimson Red**).
   - **Custom Theme Studio:** 3 persistent user slots with live RGBA/color-pad customization per UI color token starting from any built-in template.
 - **Account (`Konto`) & Mindful Timers:**
-  - Multi-select dropdown menus with tag pills for **Your Instruments** and **Training Focus**. *(Lauscher mascot looks are temporarily hidden — see [`docs/ideen.md`](docs/ideen.md).)*
+  - Multi-select dropdown menus with tag pills for **Your Instruments** and **Training Focus**. *(Lauscher mascot looks are temporarily hidden — see [`docs/ideas.md`](docs/ideas.md).)*
   - **Background Break Reminder (`5–30 min`):** Silent background exercise timer (default `15 min`, quick presets `5 / 10 / 15 / 20 / 25 min`) that gently prompts for an ear break without showing a distracting countdown during practice.
   - **Mindful Session Timer:** Configurable session pacing (`5–20 min`) with automatic inactivity pause (`2–5 min`).
 - **100% Local Privacy (`localStorage`):** No accounts, analytics, or external storage. Export, restore, or reset your complete profile, mixes, custom themes, and exam history anytime via **`lauscher-profil-YYYY-MM-DD.json`**.
@@ -114,7 +114,7 @@ Inside the **Knowledge** (`Wissen`) tab, interactive audio examples accompany ev
 | [`knowledge.js`](knowledge.js), [`knowledge-en.js`](knowledge-en.js), [`knowledge-fr.js`](knowledge-fr.js), [`knowledge-pl.js`](knowledge-pl.js), [`knowledge-uk.js`](knowledge-uk.js), [`knowledge-ur.js`](knowledge-ur.js) | Localized knowledge modules, articles, instrument guides & Circle of Fifths content across all 6 languages |
 | [`fonts/Andika/`](fonts/Andika/) | App font **Andika** by SIL International (SIL Open Font License, see `OFL.txt`) |
 | [`samples/`](samples/) | Pre-processed Base64 JS instrument & percussion bundles (`*-bundle.js`) for instant browser audio without CORS errors |
-| [`docs/ideen.md`](docs/ideen.md) | Deferred ideas & planned features (German) |
+| [`docs/ideas.md`](docs/ideas.md) | Deferred ideas & planned features (German) |
 | [`lauscher-mobile.html`](lauscher-mobile.html) | Self-contained single-file bundle (CSS, JS samples & app code inline) for quick mobile/offline device testing — **generated, do not edit by hand** |
 | [`scripts/build-mobile-bundle.py`](scripts/build-mobile-bundle.py) | Rebuilds `lauscher-mobile.html` from `index.html` and all source files (Python standard library only) |
 | `daw-sampling/` | Raw DAW stem source material (`exports/*.wav`, MIDI templates, `process_samples.py`) — **not needed by the browser** |
@@ -123,7 +123,7 @@ Inside the **Knowledge** (`Wissen`) tab, interactive audio examples accompany ev
 
 ## Run Locally & Test on Mobile
 
-**Easiest on macOS:** double-click [`Lauscher-starten.command`](Lauscher-starten.command). It starts a small local web server and opens the app in your browser (close the Terminal window to stop it).
+**Easiest on macOS:** double-click [`Start-Lauscher.command`](Start-Lauscher.command). It starts a small local web server and opens the app in your browser (close the Terminal window to stop it).
 
 > Don't open `index.html` directly via double-click (`file://`): browsers such as Chrome block loading the app font (Andika) from local files.
 

@@ -98,7 +98,7 @@ function getMascotAssetUri(mood = "idle") {
 }
 
 // Lauscher-Looks (Accessoires) sind vorerst ausgeblendet. Code, Optionen und die im Profil
-// gespeicherte Auswahl (companionAccessories) bleiben erhalten – Pläne siehe docs/ideen.md.
+// gespeicherte Auswahl (companionAccessories) bleiben erhalten – Pläne siehe docs/ideas.md.
 const MASCOT_LOOKS_ENABLED = false;
 
 function getMascotAccessorySVG(activeAccessories = []) {
@@ -1964,6 +1964,7 @@ function createDefaultProfile() {
     singAlongPause: false,
     singAlongIntroCounts: {},
     singAlongIntroDone: false,
+    modesRootHintSeen: false,
     tuner: {}
   };
 }
@@ -2069,6 +2070,7 @@ function sanitizeUserProfile(raw) {
           .map(([k, v]) => [k, Math.max(0, Math.min(99, Math.round(Number(v))))]))
       : {},
     singAlongIntroDone: Boolean(raw.singAlongIntroDone),
+    modesRootHintSeen: Boolean(raw.modesRootHintSeen),
     tuner: sanitizeTunerPrefs(raw.tuner)
   };
 }
@@ -2146,6 +2148,8 @@ function resolveEffectiveAppearance(pref) {
 
 const CADENCE_DEFAULT_BPM = 120;
 const SOLFEGE_DEFAULT_BPM = 120;
+const CHORD_ARPEGGIO_DEFAULT_BPM = 80;
+const EXERCISE_DEFAULT_BPM = 90;
 const WARMUP_DEFAULT_BPM = 80;
 const SOLFEGE_LOOP_INTERVAL_MS = 3000;
 
@@ -2280,7 +2284,7 @@ class AppState {
       melodyOctaveMode: "single",// 'single' (1 Oktave) | 'multi' (Mehrere Oktaven)
       melodyStyle: "rhythmic",   // 'steady' (4 gleichlang) | 'rhythmic' (4–6 Töne phrasiert) | 'dictation' (Ton + Rhythmus)
       melodyPulse: true,         // Dezenter Takt-Puls beim Melodie-Abspielen
-      modesRootPad: false,       // Modi: Bezugsgrundton als Streicher-Fläche unterlegen
+      modesRootPad: true,        // Modi: Bezugsgrundton standardmäßig als Streicher-Fläche unterlegen
       modesRoot: "auto",         // Modi: Grundton – "auto" (je Stufe), "random" oder Tonklasse 0–11 als String
       rhythmTapReadMode: false,  // Rhythmus vom Blatt: Notenbild lesen & zum Metronom tappen (statt nachklopfen)
       rhythmMeterDifficulty: 1,
@@ -5294,7 +5298,7 @@ function renderAboutModalContent() {
 }
 
 // ---------- Über-Fenster: Rechtstexte (Datenschutz, Nutzungsbedingungen & Lizenzen) ----------
-// Texte kommen aus legal.js (gleiche Quelle wie datenschutz.html, nutzungsbedingungen.html & lizenzen.html).
+// Texte kommen aus legal.js (gleiche Quelle wie privacy.html, terms.html & licenses.html).
 // Die Ansicht ersetzt im Über-Fenster Kopf und Link-Liste; „Zurück“ (Knopf, Android-Taste)
 // führt zur Übersicht, das ✕ schließt das ganze Fenster.
 
@@ -6324,11 +6328,12 @@ function initTabSwipeNavigation() {
 }
 
 function getDefaultExerciseBpm(mode = state?.settings?.mode) {
-  const globalDefault = Number(state?.settings?.defaultBpm) || 90;
-  // Kadenz- und Solfège-Übungen starten standardmäßig mit 120 BPM
+  // Feste Standardtempi je Übungsart:
+  // Kadenz & Solfège: 120 BPM, Akkord-Arpeggien: 80 BPM, übrige Übungen: 90 BPM
   if (isCadenceMode(mode)) return CADENCE_DEFAULT_BPM;
   if (mode === "solfege") return SOLFEGE_DEFAULT_BPM;
-  return globalDefault;
+  if (isChordArpeggioMode(mode)) return CHORD_ARPEGGIO_DEFAULT_BPM;
+  return EXERCISE_DEFAULT_BPM;
 }
 
 function switchView(targetView, options = {}) {
@@ -6360,6 +6365,7 @@ function switchView(targetView, options = {}) {
   stopPlayback();
   stopWaveAnimation();
   closeTransientPopovers();
+  dismissModesRootHint(false);
   cancelHumPause();
   if (typeof cancelNotationChordAdvance === "function" && state.currentExercise?.isChordReading) {
     cancelNotationChordAdvance(state.currentExercise);
@@ -11974,6 +11980,55 @@ function syncModesPadButton(btn) {
   btn.title = tr("Grundton des Modus als Streicher-Fläche unterlegen", "Play the mode's root as a sustained strings pad");
 }
 
+let _modesRootHintTimer = null;
+
+function dismissModesRootHint(markSeen = true) {
+  if (_modesRootHintTimer) {
+    clearTimeout(_modesRootHintTimer);
+    _modesRootHintTimer = null;
+  }
+  document.getElementById("targetBarBadge")?.classList.remove("is-root-hint-pulse");
+  document.getElementById("modesRootHintBubble")?.remove();
+  if (markSeen) {
+    if (!state.profile) state.profile = createDefaultProfile();
+    if (!state.profile.modesRootHintSeen) {
+      state.profile.modesRootHintSeen = true;
+      saveUserProfile(state.profile);
+    }
+  }
+}
+
+function maybeShowModesRootHint(badgeEl) {
+  if (!badgeEl || typeof document === "undefined") return;
+  if (state.profile?.modesRootHintSeen) return;
+  if (document.getElementById("modesRootHintBubble")) return;
+  const headerEl = badgeEl.closest?.(".module-header") || badgeEl.parentElement;
+  if (!headerEl) return;
+
+  badgeEl.classList.add("is-root-hint-pulse");
+  const bubble = document.createElement("button");
+  bubble.id = "modesRootHintBubble";
+  bubble.type = "button";
+  bubble.className = "modes-root-hint-bubble";
+  bubble.textContent = tr("Grundton wählbar", "Tap to choose root", {
+    fr: "Tonique réglable",
+    es: "Tónica ajustable",
+    pl: "Wybierz dźwięk",
+    uk: "Тоніку можна змінити",
+    ur: "بنیادی سُر منتخب کریں"
+  });
+  bubble.addEventListener("click", (e) => {
+    e.stopPropagation();
+    dismissModesRootHint(true);
+    badgeEl.click();
+  });
+  headerEl.appendChild(bubble);
+
+  _modesRootHintTimer = setTimeout(() => {
+    dismissModesRootHint(true);
+  }, 6000);
+}
+
 /** Kurze Hörprobe der Grundton-Fläche (nur wenn gerade nichts läuft). */
 function previewModesRootPad(durSec = 1.4) {
   const ex = state.currentExercise;
@@ -12423,11 +12478,13 @@ function renderUI() {
       badgeEl.setAttribute("role", "button");
       badgeEl.setAttribute("tabindex", "0");
       badgeEl.title = tr("Grundton wählen", "Choose root", { fr: "Choisir la tonique", es: "Elegir tónica", pl: "Wybierz dźwięk podstawowy", uk: "Обрати тоніку", ur: "بنیادی سُر چنیں" });
+      maybeShowModesRootHint(badgeEl);
     } else {
       badgeEl.removeAttribute("role");
       badgeEl.removeAttribute("tabindex");
       badgeEl.removeAttribute("title");
       badgeEl.classList.remove("chip-open");
+      dismissModesRootHint(false);
       document.getElementById("inlineModesRootPopover")?.classList.add("hidden");
     }
   }
@@ -12623,7 +12680,13 @@ function renderUI() {
         : tf("Schlag {step} / 4", "Beat {step} / 4", { step: ex.rhythmStep + 1 });
     }
     document.getElementById("inputPromptText").textContent =
-      tf("Tippe das Muster für Schlag {step} von 4:", "Select the pattern for Beat {step} of 4:", { step: Math.min(ex.rhythmStep + 1, 4) });
+      tf("Muster für Schlag {step}/4:", "Pattern for beat {step}/4:", { step: Math.min(ex.rhythmStep + 1, 4) }, {
+        fr: "Motif pour le temps {step}/4 :",
+        es: "Patrón para el pulso {step}/4:",
+        pl: "Wzór na miarę {step}/4:",
+        uk: "Малюнок для долі {step}/4:",
+        ur: "دھڑکن {step}/4 کا نمونہ:"
+      });
   } else if (isRhythmTap) {
     if (ex.beatsPerBar === 3) {
       barsGrid.style.gridTemplateColumns = "repeat(3, minmax(0, 1fr))";
@@ -12636,11 +12699,35 @@ function renderUI() {
     }
     document.getElementById("inputPromptText").textContent = ex.readMode
       ? (ex.blind
-          ? tr("Vorzähler → Rhythmus vom Blatt tappen (ohne Metronom):", "Count-in → tap the written rhythm (no metronome):")
-          : tr("Vorzähler → Rhythmus vom Blatt zum Metronom tappen:", "Count-in → tap the written rhythm with the metronome:"))
+          ? tr("Vom Blatt tappen (ohne Klick):", "Tap from notation (no click):", {
+              fr: "Frapper à vue (sans clic) :",
+              es: "Marcar a vista (sin clic):",
+              pl: "Wystukaj z nut (bez kliku):",
+              uk: "Простукай з нот (без кліку):",
+              ur: "نوٹیشن دیکھ کر تھپکیں (بغیر کلک):"
+            })
+          : tr("Rhythmus vom Blatt tappen:", "Tap rhythm from notation:", {
+              fr: "Frapper le rythme à vue :",
+              es: "Marcar ritmo a vista:",
+              pl: "Wystukaj rytm z nut:",
+              uk: "Простукай ритм із нот:",
+              ur: "نوٹیشن سے تال تھپکیں:"
+            }))
       : (ex.blind
-          ? tr("Blindflug: Vorzähler → Demo → Klopfe im Kopf weiter!", "Blind mode: Count-in → Demo → Keep the pulse in your head!")
-          : tr("Vorzähler → Demo → Klopfe den Rhythmus direkt nach:", "Count-in → Demo → Tap the rhythm back directly:"));
+          ? tr("Blindflug: im Takt weiterklopfen:", "Blind mode: keep tapping in time:", {
+              fr: "À l’aveugle : garde la pulsation :",
+              es: "A ciegas: sigue el pulso:",
+              pl: "Na ślepo: utrzymaj puls:",
+              uk: "Наосліп: тримай пульс:",
+              ur: "بلائنڈ موڈ: تال برقرار رکھیں:"
+            })
+          : tr("Rhythmus direkt nachklopfen:", "Tap the rhythm back:", {
+              fr: "Reproduis le rythme :",
+              es: "Repite el ritmo:",
+              pl: "Wystukaj rytm:",
+              uk: "Повтори ритм:",
+              ur: "تال کو دوبارہ تھپکیں:"
+            }));
   } else if (isRhythmGroove) {
     if (ex.bars.length === 1) barsGrid.classList.add("cols-1");
     else if (ex.bars.length === 2) barsGrid.classList.add("cols-2");
@@ -12652,11 +12739,23 @@ function renderUI() {
     } else if (ex.grooveKind === "offbeat") {
       if (moduleTitleEl) moduleTitleEl.textContent = tr("2-Takt-Groove", "2-Bar Groove");
       if (targetBadgeEl) targetBadgeEl.textContent = tr("Ziel: Takt 2", "Target: Bar 2");
-      document.getElementById("inputPromptText").textContent = tr("Auf welchem Schlag liegt der Cowbell-Akzent?", "Which beat holds the cowbell accent?");
+      document.getElementById("inputPromptText").textContent = tr("Wo liegt der Cowbell-Akzent?", "Where is the cowbell accent?", {
+        fr: "Où est l’accent de cloche ?",
+        es: "¿Dónde cae el acento de cencerro?",
+        pl: "Gdzie pada akcent cowbella?",
+        uk: "Де акцент ковбела?",
+        ur: "کاؤ بیل کا زور کہاں ہے؟"
+      });
     } else {
       if (moduleTitleEl) moduleTitleEl.textContent = tr("Snare-Timing (2 & 4)", "Snare Timing (2 & 4)");
       if (targetBadgeEl) targetBadgeEl.textContent = ex.keyName;
-      document.getElementById("inputPromptText").textContent = tr("Liegt die Snare zu früh, exakt oder zu spät?", "Is the snare early, in the pocket, or late?");
+      document.getElementById("inputPromptText").textContent = tr("Snare: früh, exakt oder spät?", "Snare: early, on beat, or late?", {
+        fr: "Caisse claire : tôt, juste ou tard ?",
+        es: "Caja: ¿pronto, exacta o tarde?",
+        pl: "Werbel: za wcześnie, równo czy za późno?",
+        uk: "Малий барабан: рано, точно чи пізно?",
+        ur: "سنیئر: جلدی، عین وقت پر یا دیر سے؟"
+      });
     }
   } else if (isProdTone) {
     barsGrid.classList.add("cols-1");
@@ -15103,7 +15202,13 @@ async function handleRhythmDictationChoice(cellKey, btnElement, options = {}) {
     const badge = document.getElementById("targetBarBadge");
     if (badge) badge.textContent = tf("Schlag {n} / 4", "Beat {n} / 4", { n: nextIdx + 1 });
     const promptEl = document.getElementById("inputPromptText");
-    if (promptEl) promptEl.textContent = tf("Tippe das Muster für Schlag {n} von 4:", "Select the pattern for Beat {n} of 4:", { n: nextIdx + 1 });
+    if (promptEl) promptEl.textContent = tf("Muster für Schlag {step}/4:", "Pattern for beat {step}/4:", { step: nextIdx + 1 }, {
+      fr: "Motif pour le temps {step}/4 :",
+      es: "Patrón para el pulso {step}/4:",
+      pl: "Wzór na miarę {step}/4:",
+      uk: "Малюнок для долі {step}/4:",
+      ur: "دھڑکن {step}/4 کا نمونہ:"
+    });
 
     if (!state.isPlaying) {
       setCentralStageMode("stage-playing");
@@ -20744,6 +20849,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const toggleModesRootPopover = (e) => {
     e?.stopPropagation?.();
     if (!modesRootBadge?.classList.contains("module-badge-btn") || !inlineModesRootPopover) return;
+    dismissModesRootHint(true);
     closeAllInlinePopovers(inlineModesRootPopover);
     renderModesRootPopover();
     const isHidden = inlineModesRootPopover.classList.toggle("hidden");
@@ -20824,9 +20930,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  const defaultBpmSlider = document.getElementById("defaultBpmSlider");
-  const defaultBpmDisplay = document.getElementById("defaultBpmDisplay");
-
   const inlineBpmSlider = document.getElementById("inlineBpmSlider");
   const inlineBpmVal = document.getElementById("inlineBpmVal");
   const inlineBpmRandomBtn = document.getElementById("inlineBpmRandomBtn");
@@ -20844,17 +20947,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (inlineBpmVal) inlineBpmVal.textContent = `${newBpm} BPM`;
     if (moduleBpmBtn) moduleBpmBtn.textContent = `${newBpm} BPM`;
   }
-
-  // Standardtempo im Einstellungs-Modal:
-  // Wird für alle Module übernommen, solange im laufenden Modul noch nicht manuell geregelt wurde.
-  defaultBpmSlider?.addEventListener("input", (e) => {
-    const newDefault = parseInt(e.target.value, 10);
-    state.settings.defaultBpm = newDefault;
-    if (defaultBpmDisplay) defaultBpmDisplay.textContent = `${newDefault} BPM`;
-    if (!state.hasManualExerciseBpm) {
-      syncExerciseBpmUI(getDefaultExerciseBpm(state.settings.mode), false);
-    }
-  });
 
   // Manueller Tempo-Schieberegler im Übungsmodul:
   inlineBpmSlider?.addEventListener("input", (e) => {
@@ -29056,7 +29148,13 @@ function handleExamRhythmDictationAnswer(ex, cellKey, btnElement) {
     const badge = document.getElementById("targetBarBadge");
     if (badge) badge.textContent = tf("Schlag {n} / 4", "Beat {n} / 4", { n: nextIdx + 1 });
     const promptEl = document.getElementById("inputPromptText");
-    if (promptEl) promptEl.textContent = tf("Tippe das Muster für Schlag {n} von 4:", "Select the pattern for Beat {n} of 4:", { n: nextIdx + 1 });
+    if (promptEl) promptEl.textContent = tf("Muster für Schlag {step}/4:", "Pattern for beat {step}/4:", { step: nextIdx + 1 }, {
+      fr: "Motif pour le temps {step}/4 :",
+      es: "Patrón para el pulso {step}/4:",
+      pl: "Wzór na miarę {step}/4:",
+      uk: "Малюнок для долі {step}/4:",
+      ur: "دھڑکن {step}/4 کا نمونہ:"
+    });
     return;
   }
 
