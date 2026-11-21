@@ -597,8 +597,8 @@ function renderWarmupView() {
 
   const mascotEl = document.getElementById("warmupMascotWrap");
   if (mascotEl) {
-    const mood = w.status === "completed" ? "happy" : (w.status === "running" ? "idle" : "thinking");
-    mascotEl.innerHTML = getMascotSVG(mood);
+    const mood = w.status === "completed" ? "happy" : (isBreath ? "break" : (w.status === "running" ? "listening" : "idle"));
+    rotateMascotSlot(mascotEl, mood, false, { slot: "warmup", keepIfSameMood: true });
   }
 
   const phaseBadgeEl = document.getElementById("warmupPhaseBadge");
@@ -759,6 +759,7 @@ function runCurrentWarmupRound() {
   const advanceRoundOrStep = () => {
     if (!state.warmup || state.warmup.token !== token || state.warmup.status !== "running") return;
     w.keyOffsetIndex += 1;
+    resetMascotSlot("warmup");
     if (w.keyOffsetIndex >= roundCount) {
       w.stepIndex += 1;
       w.keyOffsetIndex = 0;

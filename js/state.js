@@ -145,7 +145,7 @@ class AppState {
     };
     this.lastAnswerWasWrong = false;
     this.wrongAnswerData = null;
-    this.streakState = { count: 0, activeNoticeMilestone: 0 };
+    this.streakState = { count: 0, activeNoticeMilestone: 0, scopeKey: null };
     this.currentQuoteIndex = -1;
     this.waveAnimFrame = null;
     this.waveResume = null;

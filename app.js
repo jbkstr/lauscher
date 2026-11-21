@@ -78,6 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initExerciseFitObserver();
   bindGlobalPointerInputTracker();
   hydrateMascotStaticSlots();
+  startMascotAmbientRotation();
   if (typeof applyStaticDomLanguage === "function") {
     applyStaticDomLanguage(state.settings.language);
   }
@@ -438,6 +439,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("refreshQuoteBtn")?.addEventListener("click", () => {
     pickRandomQuote();
+    const tapMood = Math.random() < 0.25 ? "happy" : "idle";
+    rotateMascotSlot("heroMascotSvg", tapMood, true, { slot: "hero", forceRotate: true });
   });
 
   // Untere 4-Icon Reiter-Navigation

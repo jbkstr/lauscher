@@ -104,7 +104,12 @@
   <script>
     (function () {
       var map = typeof LAUSCHER_MASCOT_DATA_URIS !== "undefined" ? LAUSCHER_MASCOT_DATA_URIS : null;
-      var uri = map && (map.listening || map.logo || map.idle);
+      var variants = typeof LAUSCHER_MASCOT_VARIANTS !== "undefined" && LAUSCHER_MASCOT_VARIANTS && Array.isArray(LAUSCHER_MASCOT_VARIANTS.listening)
+        ? LAUSCHER_MASCOT_VARIANTS.listening
+        : null;
+      var uri = (variants && variants.length > 0)
+        ? variants[Math.floor(Math.random() * variants.length)]
+        : (map && (map.listening || map.logo || map.idle));
       var badge = document.querySelector("#startupSplash .splash-badge");
       if (!uri || !badge) return;
       badge.innerHTML = '<svg class="splash-mascot-svg" width="84" height="84" viewBox="-1 0 68 64" fill="none" xmlns="http://www.w3.org/2000/svg">'

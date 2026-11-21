@@ -3,17 +3,146 @@
  * (Startseiten-Zitate `LAUSCHEBAER_QUOTES` liegen ko-lokalisiert in i18n/quotes.js.)
  */
 
-function getMascotAssetUri(mood = "idle") {
+const _mascotRotationState = {
+  bags: {},
+  lastIdx: {},
+  slots: {},
+  ambientTimerId: null
+};
+
+function normalizeMascotMoodKey(mood = "idle") {
+  if (mood === "logo") return "logo";
+  if (mood === "happy" || mood === "listening" || mood === "awaiting" || mood === "question" || mood === "thinking" || mood === "break") {
+    return mood;
+  }
+  return "idle";
+}
+
+function getMascotVariantsForMood(mood = "idle") {
+  const key = normalizeMascotMoodKey(mood);
   const map = (typeof LAUSCHER_MASCOT_DATA_URIS !== "undefined" && LAUSCHER_MASCOT_DATA_URIS) ? LAUSCHER_MASCOT_DATA_URIS : null;
-  if (!map) return "";
-  if (mood === "logo") return map.logo || map.listening || map.idle || "";
-  if (mood === "happy") return map.happy || map.idle || "";
-  if (mood === "listening") return map.listening || map.logo || map.idle || "";
-  if (mood === "awaiting") return map.awaiting || map.thinking || map.idle || "";
-  if (mood === "question") return map.question || map.idle || "";
-  if (mood === "thinking") return map.thinking || map.awaiting || map.idle || "";
-  if (mood === "break") return map.break || map.idle || "";
-  return map.idle || map.question || "";
+  const variantsMap = (typeof LAUSCHER_MASCOT_VARIANTS !== "undefined" && LAUSCHER_MASCOT_VARIANTS) ? LAUSCHER_MASCOT_VARIANTS : null;
+  if (key === "logo") {
+    const logoUri = map?.logo || map?.listening || map?.idle || "";
+    return logoUri ? [logoUri] : [];
+  }
+  const list = variantsMap && Array.isArray(variantsMap[key]) ? variantsMap[key].filter(Boolean) : [];
+  if (list.length > 0) return list;
+  if (!map) return [];
+  const fallback = map[key]
+    || (key === "awaiting" ? map.thinking : "")
+    || (key === "thinking" ? map.awaiting : "")
+    || (key === "listening" ? map.logo : "")
+    || map.idle
+    || map.question
+    || "";
+  return fallback ? [fallback] : [];
+}
+
+function pickNextMascotVariantIndex(moodKey, count) {
+  if (count <= 1) return 0;
+  let bag = _mascotRotationState.bags[moodKey];
+  if (!Array.isArray(bag) || bag.length === 0) {
+    bag = [];
+    for (let i = 0; i < count; i++) bag.push(i);
+    // Fisher-Yates-Shuffle für gleichmäßige Abwechslung ohne Wiederholungs-Cluster
+    for (let i = bag.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const tmp = bag[i];
+      bag[i] = bag[j];
+      bag[j] = tmp;
+    }
+    const prev = _mascotRotationState.lastIdx[moodKey];
+    if (Number.isInteger(prev) && bag[bag.length - 1] === prev && bag.length > 1) {
+      const swapIdx = Math.floor(Math.random() * (bag.length - 1));
+      const tmp = bag[bag.length - 1];
+      bag[bag.length - 1] = bag[swapIdx];
+      bag[swapIdx] = tmp;
+    }
+    _mascotRotationState.bags[moodKey] = bag;
+  }
+  const picked = bag.pop();
+  _mascotRotationState.lastIdx[moodKey] = picked;
+  return picked;
+}
+
+function resetMascotSlot(slotName) {
+  if (slotName && _mascotRotationState.slots[slotName]) {
+    delete _mascotRotationState.slots[slotName];
+  }
+}
+
+function getMascotAssetUri(mood = "idle", options = null) {
+  const key = normalizeMascotMoodKey(mood);
+  const variants = getMascotVariantsForMood(key);
+  if (variants.length === 0) return "";
+  if (variants.length === 1) {
+    if (options?.slot) {
+      _mascotRotationState.slots[options.slot] = { mood: key, uri: variants[0], idx: 0 };
+    }
+    return variants[0];
+  }
+
+  const slotName = options?.slot || null;
+  const keepIfSameMood = Boolean(options?.keepIfSameMood);
+  const forceRotate = Boolean(options?.forceRotate);
+
+  if (slotName && keepIfSameMood && !forceRotate) {
+    const existing = _mascotRotationState.slots[slotName];
+    if (existing && existing.mood === key && existing.uri) {
+      return existing.uri;
+    }
+  }
+
+  const idx = pickNextMascotVariantIndex(key, variants.length);
+  const uri = variants[idx] || variants[0];
+  if (slotName) {
+    _mascotRotationState.slots[slotName] = { mood: key, uri, idx };
+  }
+  return uri;
+}
+
+function rotateMascotSlot(elOrId, mood = "idle", showAccessory = false, options = null) {
+  const el = typeof elOrId === "string" ? document.getElementById(elOrId) : elOrId;
+  if (!el) return false;
+  const slotName = options?.slot || (typeof elOrId === "string" ? elOrId : null);
+  const prevUri = slotName ? _mascotRotationState.slots[slotName]?.uri : null;
+  const html = getMascotSVG(mood, showAccessory, { ...(options || {}), slot: slotName });
+  const nextUri = slotName ? _mascotRotationState.slots[slotName]?.uri : null;
+  const changed = !prevUri || prevUri !== nextUri || !el.innerHTML;
+  if (changed) {
+    el.innerHTML = html;
+    if (options?.animate !== false) {
+      el.classList?.remove("mascot-pose-swap");
+      void el.offsetWidth;
+      el.classList?.add("mascot-pose-swap");
+    }
+  }
+  return changed;
+}
+
+function startMascotAmbientRotation() {
+  if (_mascotRotationState.ambientTimerId !== null) return;
+  _mascotRotationState.ambientTimerId = setInterval(() => {
+    if (typeof document === "undefined" || document.hidden) return;
+    if (typeof state === "undefined") return;
+
+    const breakModal = document.getElementById("breakReminderModal");
+    if (breakModal && !breakModal.classList.contains("hidden")) {
+      rotateMascotSlot("breakReminderMascot", "break", true, { slot: "break", forceRotate: true });
+      return;
+    }
+
+    const welcomeEl = document.getElementById("welcomeOnboarding");
+    if (welcomeEl && !welcomeEl.classList.contains("hidden")) return;
+
+    if (state.currentView === "home") {
+      const homeMood = Math.random() < 0.22 ? (Math.random() < 0.5 ? "listening" : "happy") : "idle";
+      rotateMascotSlot("heroMascotSvg", homeMood, true, { slot: "hero", forceRotate: true });
+    } else if (state.currentView === "space") {
+      rotateMascotSlot("spaceMascotSvg", "idle", true, { slot: "space", forceRotate: true });
+    }
+  }, 15000);
 }
 
 // Lauscher-Looks (Accessoires) sind vorerst ausgeblendet. Code, Optionen und die im Profil
@@ -124,14 +253,14 @@ function hydrateMascotStaticSlots() {
   }
 }
 
-function getMascotSVG(mood = "idle", showAccessory = false) {
+function getMascotSVG(mood = "idle", showAccessory = false, options = null) {
   const activeAccessories = MASCOT_LOOKS_ENABLED && showAccessory && typeof state !== "undefined" && state?.profile
     ? getResolvedProfileAccessories(state.profile)
     : [];
   const hasAcc = (key) => activeAccessories.includes(key);
   const highStreak = !showAccessory && typeof state !== "undefined" && (state?.streakState?.count || 0) >= 5;
   const accessoryMarkup = getMascotAccessorySVG(activeAccessories);
-  const artUri = getMascotAssetUri(mood);
+  const artUri = getMascotAssetUri(mood, options);
 
   let extraBadge = "";
   if (mood === "listening") {
@@ -162,7 +291,7 @@ function getMascotSVG(mood = "idle", showAccessory = false) {
   if (artUri) {
     return `
       <svg width="58" height="58" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" data-mascot-mood="${escapeHtml(mood)}">
-        <image href="${artUri}" x="0" y="0" width="64" height="64" preserveAspectRatio="xMidYMid meet"/>
+        <image href="${artUri}" x="2" y="2" width="60" height="60" preserveAspectRatio="xMidYMid meet"/>
         ${accessoryMarkup}
         ${extraBadge}
       </svg>

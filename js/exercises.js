@@ -2072,16 +2072,75 @@ function renderStageStreakUI() {
   }
 }
 
+function getExerciseStreakScopeKey() {
+  const s = state?.settings;
+  if (!s) return "";
+  const mode = String(s.mode || "cadence");
+  if (mode === "cadence" || mode === "cadence-minor") {
+    return `${mode}:${s.difficulty}:${s.cadencePos}`;
+  }
+  if (mode === "solfege") {
+    if (String(s.solfegeDifficulty) === "17") {
+      return `solfege:17:${s.solfegeCustomTonality}:${s.solfegeCustomKey}:${s.solfegeCustomRange}:${s.solfegeCustomOctave}`;
+    }
+    return `solfege:${s.solfegeDifficulty}`;
+  }
+  if (mode === "melody") {
+    return `melody:${s.melodyStyle}:${s.melodyRange}:${s.melodyKeyMode}:${s.melodyOctave}`;
+  }
+  if (mode === "rhythm-tap") {
+    return `rhythm-tap:${s.rhythmDifficulty}:${s.rhythmTapRead ? "read" : "ear"}`;
+  }
+  if (mode.startsWith("rhythm-")) {
+    return `${mode}:${s.rhythmDifficulty}`;
+  }
+  if (mode.startsWith("prod-")) {
+    return `${mode}:${s.prodDifficulty}`;
+  }
+  if (mode.startsWith("modes-")) {
+    return `${mode}:${s.modesDifficulty}`;
+  }
+  if (mode.startsWith("notation-")) {
+    return `${mode}:${s.notationDifficulty}`;
+  }
+  if (mode === "chord-inversions") {
+    return `chord-inversions:${s.chordInvDifficulty}`;
+  }
+  if (mode === "interval-chords" || mode === "chord-arp-up" || mode === "chord-arp-down") {
+    return `${mode}:${s.chordDifficulty}`;
+  }
+  if (mode === "interval-custom") {
+    return `interval-custom:${s.intervalCustomScale}:${s.intervalCustomPlayMode || "melodic"}`;
+  }
+  return `${mode}:${s.intervalDifficulty}`;
+}
+
+function resetExerciseStreakState(scopeKey = null) {
+  if (!state) return;
+  state.streakState = { count: 0, activeNoticeMilestone: 0, scopeKey };
+  renderStageStreakUI();
+}
+
+function syncExerciseStreakScope() {
+  if (!state) return;
+  const nextScope = getExerciseStreakScopeKey();
+  if (!state.streakState || state.streakState.scopeKey !== nextScope) {
+    state.streakState = { count: 0, activeNoticeMilestone: 0, scopeKey: nextScope };
+  }
+}
+
 function resetExerciseStreakOnAttempt(ex) {
   if (ex) ex.hadWrongAttempt = true;
-  if (!state.streakState) state.streakState = { count: 0, activeNoticeMilestone: 0 };
+  const scopeKey = getExerciseStreakScopeKey();
+  if (!state.streakState) state.streakState = { count: 0, activeNoticeMilestone: 0, scopeKey };
   state.streakState.count = 0;
   state.streakState.activeNoticeMilestone = 0;
+  state.streakState.scopeKey = scopeKey;
   renderStageStreakUI();
 }
 
 function recordExerciseStreakSuccess(ex) {
-  if (!state.streakState) state.streakState = { count: 0, activeNoticeMilestone: 0 };
+  syncExerciseStreakScope();
   if (!ex || ex.streakCounted) {
     return {
       count: state.streakState.count,
@@ -2325,11 +2384,15 @@ function triggerCelebrationFeedback(anchorEl, options = {}) {
   }
 }
 
-function updateStageMascot(mood) {
+function updateStageMascot(mood, options = null) {
   const wrap = document.getElementById("stageMascotWrap");
   if (!wrap) return;
   if (mood !== "happy") wrap.classList.remove("mascot-happy-hop");
-  wrap.innerHTML = getMascotSVG(mood);
+  rotateMascotSlot(wrap, mood, false, {
+    slot: "stage",
+    keepIfSameMood: true,
+    ...(options || {})
+  });
 }
 
 /** Übungen, die über eine Klaviatur beantwortet werden (Solfège, Melodie, Notations-Diktat). */
@@ -2379,7 +2442,8 @@ function resetCentralStage() {
   const burstLayer = document.getElementById("stageBurstLayer");
   if (burstLayer) burstLayer.innerHTML = "";
   setCentralStageMode("stage-idle");
-  updateStageMascot("idle");
+  resetMascotSlot("stage");
+  updateStageMascot("idle", { forceRotate: true });
   const ex = state.currentExercise;
   const mode = ex?.type;
   if (isNotationMode(mode)) {
