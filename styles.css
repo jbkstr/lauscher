@@ -7991,18 +7991,18 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 .warmup-kb-black {
   position: absolute;
   top: 0;
-  height: 60%;
+  height: 56%;
   transform: translateX(-50%);
   z-index: 4;
   background: linear-gradient(180deg, var(--piano-black-bg-top) 0%, var(--piano-black-bg-bottom) 100%);
   color: #FFFFFF;
   border: 1px solid var(--piano-black-border);
   border-top: none;
-  border-radius: 0 0 6px 6px;
+  border-radius: 0 0 2.5px 2.5px;
   cursor: pointer;
   touch-action: manipulation;
   padding: 0;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.26);
   transition: background 0.08s ease, transform 0.06s ease, box-shadow 0.08s ease;
 }
 
@@ -8527,6 +8527,10 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 
 .category-type-badge-wrap .node-circle.node-circle-compact.node-circle-nowrap {
   font-size: 0.78rem;
+}
+
+.category-type-badge-wrap .node-circle.node-circle-dense {
+  font-size: 0.7rem;
 }
 
 .category-type-badge-wrap .node-circle.node-circle-stack {
@@ -13197,6 +13201,13 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 .node-circle.node-circle-compact.node-circle-nowrap {
   font-size: 0.94rem;
   letter-spacing: -0.02em;
+}
+.node-circle.node-circle-dense {
+  font-size: 0.78rem;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  white-space: nowrap;
+  padding: 0 3px;
 }
 
 /* Hochformat-Sperre auf Smartphones im Querformat */
