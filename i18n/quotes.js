@@ -1614,5 +1614,365 @@ registerColocatedQuotes([
       cat: "مشورہ",
       text: "«جب کارڈ آرپیجیو میں سُر ایک کے بعد ایک بجتے ہیں تو خاص طور پر ان کے درمیان تِیسرے سُروں (تھرڈز) کو غور سے سنیں — چھوٹا یا بڑا تِیسرا فوراً کارڈ کا اصل رنگ بتا دیتا ہے!»"
     }
+  },
+  {
+    de: {
+      cat: "Wusstest du?",
+      text: "„Psst… hast du in den Einstellungen schon das Metal-Theme ausprobiert? Gerüchten zufolge wirft sich Lauscher dafür heimlich in Nieten-Kutte, schnappt sich eine E-Gitarre und wird richtig rockig!“"
+    },
+    en: {
+      cat: "Did you know?",
+      text: "“Psst… have you tried the Metal theme in Settings yet? Rumor has it Lauscher secretly slips into a studded battle vest, grabs an electric guitar, and goes full rockstar!”"
+    },
+    fr: {
+      cat: "Le savais-tu ?",
+      text: "« Chut… as-tu déjà essayé le thème Metal dans les réglages ? Il paraît que Lauscher enfile en secret un gilet à clous, attrape une guitare électrique et passe en mode rockstar ! »"
+    },
+    es: {
+      cat: "¿Sabías que…?",
+      text: "«Pst… ¿ya probaste el tema Metal en los ajustes? Se rumorea que Lauscher se pone a escondidas un chaleco con tachuelas, agarra una guitarra eléctrica y se vuelve toda una estrella del rock.»"
+    },
+    pl: {
+      cat: "Czy wiesz?",
+      text: "„Psst… sprawdzałeś już motyw Metal w ustawieniach? Krążą słuchy, że Lauscher po kryjomu zakłada wtedy nabijaną ćwiekami kamizelkę, łapie za gitarę elektryczną i wchodzi w tryb gwiazdy rocka!”"
+    },
+    uk: {
+      cat: "Чи знаєш ти?",
+      text: "«Тсс… ти вже пробував тему Metal у налаштуваннях? Подейкують, що Lauscher потай одягає жилетку із заклепками, хапає електрогітару й перетворюється на справжню рок-зірку!»"
+    },
+    ur: {
+      cat: "کیا آپ جانتے ہیں؟",
+      text: "«چپکے سے بتاؤں… کیا آپ نے سیٹنگز میں Metal تھیم آزمائی ہے؟ سنا ہے اس میں Lauscher خفیہ طور پر اسٹڈڈ جیکٹ پہن کر الیکٹرک گٹار اٹھا لیتا ہے اور مکمل راک اسٹار بن جاتا ہے!»"
+    }
+  },
+  {
+    de: {
+      cat: "Tipp",
+      text: "„Lust auf einen kleinen Stilbruch beim Üben? Schalte mal auf das Metal-Theme um – Lauscher hat dafür extra seinen geheimen Backstage-Look ausgepackt!“"
+    },
+    en: {
+      cat: "Tip",
+      text: "“In the mood for a cheeky change of vibe while practicing? Switch to the Metal theme — Lauscher pulled out a secret backstage look just for it!”"
+    },
+    fr: {
+      cat: "Astuce",
+      text: "« Envie de changer complètement d’ambiance pendant l’entraînement ? Passe au thème Metal — Lauscher a sorti son look secret de coulisses rien que pour ça ! »"
+    },
+    es: {
+      cat: "Consejo",
+      text: "«¿Te apetece cambiar de aires mientras practicas? Activa el tema Metal: ¡Lauscher ha sacado su look secreto de backstage solo para la ocasión!»"
+    },
+    pl: {
+      cat: "Wskazówka",
+      text: "„Masz ochotę na małą zmianę klimatu podczas ćwiczeń? Przełącz na motyw Metal — Lauscher wyciągnął specjalnie na tę okazję swój sekretny backstage’owy look!”"
+    },
+    uk: {
+      cat: "Порада",
+      text: "«Хочеться змінити настрій під час занять? Перемкнись на тему Metal — Lauscher підготував для неї свій секретний бекстейдж-образ!»"
+    },
+    ur: {
+      cat: "مشورہ",
+      text: "«مشق کے دوران تھوڑا انداز بدلنے کا دل چاہتا ہے؟ Metal تھیم آن کر کے دیکھیں — Lauscher نے خاص اسی کے لیے اپنا خفیہ بیک اسٹیج انداز نکالا ہے!»"
+    }
+  },
+  {
+    de: {
+      cat: "Wusstest du?",
+      text: "„Tipp mich hier oben ruhig mal an – ich habe ein ganzes Repertoire neuer Posen einstudiert und wechsle zwischendurch auch ganz von allein meine Stimmung!“"
+    },
+    en: {
+      cat: "Did you know?",
+      text: "“Go ahead and tap me up here — I’ve rehearsed a whole repertoire of new poses and even switch moods on my own now and then!”"
+    },
+    fr: {
+      cat: "Le savais-tu ?",
+      text: "« N’hésite pas à me toucher ici en haut — j’ai répété tout un répertoire de nouvelles poses et je change même d’humeur tout seul de temps en temps ! »"
+    },
+    es: {
+      cat: "¿Sabías que…?",
+      text: "«Tócame aquí arriba sin miedo: he ensayado todo un repertorio de poses nuevas e incluso cambio de humor por mi cuenta de vez en cuando.»"
+    },
+    pl: {
+      cat: "Czy wiesz?",
+      text: "„Śmiało stuknij we mnie tutaj na górze — przećwiczyłem cały repertuar nowych póz, a czasem sam z siebie zmieniam nastrój!”"
+    },
+    uk: {
+      cat: "Чи знаєш ти?",
+      text: "«Сміливо торкнися мене тут угорі — я відрепетирував цілий репертуар нових поз і навіть сам час від часу змінюю настрій!»"
+    },
+    ur: {
+      cat: "کیا آپ جانتے ہیں؟",
+      text: "«اوپر مجھ پر بے جھجک ٹیپ کریں — میں نے نئے پوز کا پورا خزانہ تیار کیا ہے اور کبھی کبھار خود بھی اپنا موڈ بدل لیتا ہوں!»"
+    }
+  },
+  {
+    de: {
+      cat: "Tipp",
+      text: "„Schon das Nashville Number System bei den Werkzeugen entdeckt? Mit Ziffern statt festen Akkordnamen denkst du in jeder Tonart flexibel – inklusive Kapodaster-Übersetzer für Gitarre!“"
+    },
+    en: {
+      cat: "Tip",
+      text: "“Spotted the Nashville Number System in Tools yet? Thinking in numbers instead of fixed chord names lets you move across any key — complete with a guitar capo translator!”"
+    },
+    fr: {
+      cat: "Astuce",
+      text: "« As-tu déjà découvert le Nashville Number System dans les outils ? Penser en chiffres plutôt qu’en noms d’accords fixes te libère dans toutes les tonalités — avec traducteur de capodastre inclus ! »"
+    },
+    es: {
+      cat: "Consejo",
+      text: "«¿Ya descubriste el sistema numérico de Nashville en Herramientas? Pensar en números en lugar de acordes fijos te da libertad en cualquier tonalidad, ¡con traductor de cejilla incluido!»"
+    },
+    pl: {
+      cat: "Wskazówka",
+      text: "„Widziałeś już Nashville Number System w narzędziach? Myślenie cyframi zamiast sztywnych nazw akordów daje swobodę w każdej tonacji — razem z tłumaczem kapodastra dla gitary!”"
+    },
+    uk: {
+      cat: "Порада",
+      text: "«Вже бачив систему цифр Нешвілла в Інструментах? Мислення цифрами замість жорстких назв акордів дає свободу в будь-якій тональності — ще й із перекладачем каподастра для гітари!»"
+    },
+    ur: {
+      cat: "مشورہ",
+      text: "«کیا آپ نے ٹولز میں نیش وِل نمبر سسٹم دیکھ لیا؟ فکسڈ کورڈ ناموں کے بجائے ہندسوں میں سوچنا ہر کی میں آسانی دیتا ہے — اور ساتھ گٹار کیپو ٹرانسلیٹر بھی موجود ہے!»"
+    }
+  },
+  {
+    de: {
+      cat: "Tipp",
+      text: "„Wusstest du, dass dein Trainings-Schwerpunkt im Konto direkt die passenden Übungskacheln hier auf der Startseite für dich hervorhebt?“"
+    },
+    en: {
+      cat: "Tip",
+      text: "“Did you know your training focus in Account automatically highlights the matching exercise cards right here on the home screen?”"
+    },
+    fr: {
+      cat: "Astuce",
+      text: "« Savais-tu que ton objectif d’entraînement dans ton compte met automatiquement en valeur les exercices correspondants ici sur l’écran d’accueil ? »"
+    },
+    es: {
+      cat: "Consejo",
+      text: "«¿Sabías que tu enfoque de entrenamiento en tu cuenta resalta automáticamente las tarjetas de ejercicios adecuadas aquí en la pantalla principal?»"
+    },
+    pl: {
+      cat: "Wskazówka",
+      text: "„Wiesz, że wybrany cel treningowy w Twoim koncie automatycznie wyróżnia pasujące kafelki ćwiczeń tutaj na ekranie głównym?”"
+    },
+    uk: {
+      cat: "Порада",
+      text: "«Знаєш, що обраний фокус тренувань у твоєму профілі автоматично підсвічує відповідні картки вправ просто тут, на головному екрані?»"
+    },
+    ur: {
+      cat: "مشورہ",
+      text: "«کیا آپ جانتے ہیں کہ اکاؤنٹ میں منتخب کردہ ٹریننگ فوکس ہوم اسکرین پر متعلقہ مشقوں کے کارڈز کو خودبخود نمایاں کر دیتا ہے؟»"
+    }
+  },
+  {
+    de: {
+      cat: "Tipp",
+      text: "„Im Metronom leuchtet jede Zählzeit live auf – perfekt, um auch krumme Takte wie 5/4 oder 7/8 nicht nur zu hören, sondern richtig zu sehen!“"
+    },
+    en: {
+      cat: "Tip",
+      text: "“Every beat lights up live inside the Metronome — ideal for seeing odd meters like 5/4 or 7/8 just as clearly as you hear them!”"
+    },
+    fr: {
+      cat: "Astuce",
+      text: "« Dans le métronome, chaque temps s’illumine en direct — parfait pour voir les mesures asymétriques comme le 5/4 ou le 7/8 aussi clairement que tu les entends ! »"
+    },
+    es: {
+      cat: "Consejo",
+      text: "«En el metrónomo cada pulso se ilumina en directo: ideal para ver compases irregulares como 5/4 o 7/8 tan claros como los escuchas.»"
+    },
+    pl: {
+      cat: "Wskazówka",
+      text: "„W metronomie każda miara podświetla się na żywo — idealnie, by nieparzyste metra jak 5/4 czy 7/8 nie tylko słyszeć, ale i widzieć!”"
+    },
+    uk: {
+      cat: "Порада",
+      text: "«У метрономі кожна доля підсвічується наживо — ідеально, щоб непарні розміри на кшталт 5/4 чи 7/8 не лише чути, а й чітко бачити!»"
+    },
+    ur: {
+      cat: "مشورہ",
+      text: "«میٹرونوم میں ہر بیٹ لائیو روشن ہوتی ہے — تاکہ 5/4 یا 7/8 جیسے غیر معمولی تال نہ صرف سنے بلکہ صاف دیکھے بھی جا سکیں!»"
+    }
+  },
+  {
+    de: {
+      cat: "Wusstest du?",
+      text: "„Echte Musiker spielen nie wie ein kalter Computer: Winzige Millisekunden Unterschied zwischen den Tönen machen einen Akkord erst warm und lebendig.“"
+    },
+    en: {
+      cat: "Did you know?",
+      text: "“Real musicians never strike notes like a cold machine — tiny millisecond offsets between chord tones are what make music breathe and feel alive.”"
+    },
+    fr: {
+      cat: "Le savais-tu ?",
+      text: "« Les vrais musiciens ne jouent jamais comme une machine froide : quelques millisecondes de décalage entre les notes suffisent à rendre un accord vivant et chaleureux. »"
+    },
+    es: {
+      cat: "¿Sabías que…?",
+      text: "«Los músicos reales nunca tocan como una máquina fría: unos pocos milisegundos de diferencia entre notas son lo que hace que un acorde suene cálido y vivo.»"
+    },
+    pl: {
+      cat: "Czy wiesz?",
+      text: "„Prawdziwi muzycy nigdy nie grają jak chłodna maszyna — drobne milisekundy przesunięcia między dźwiękami sprawiają, że akord nabiera ciepła i życia.”"
+    },
+    uk: {
+      cat: "Чи знаєш ти?",
+      text: "«Справжні музиканти ніколи не грають як холодний комп’ютер: крихітні мілісекунди різниці між звуками роблять акорд теплим і живим.»"
+    },
+    ur: {
+      cat: "کیا آپ جانتے ہیں؟",
+      text: "«اصلی موسیقار کبھی ٹھنڈی مشین کی طرح نہیں بجاتے: سُروں کے درمیان چند ملی سیکنڈ کا باریک فرق ہی کارڈ میں جان اور گرماہٹ پیدا کرتا ہے۔»"
+    }
+  },
+  {
+    de: {
+      cat: "Mutmacher",
+      text: "„Fünf entspannte Minuten am Morgen wirken oft Wunder fürs Gehör – dein Gehirn sortiert die neuen Klänge danach ganz nebenbei im Hintergrund weiter.“"
+    },
+    en: {
+      cat: "Encouragement",
+      text: "“Five relaxed minutes in the morning work wonders for your ears — your brain keeps quietly sorting those new sounds in the background all day.”"
+    },
+    fr: {
+      cat: "Encouragement",
+      text: "« Cinq minutes détendues le matin font des merveilles pour l’oreille — ton cerveau continue ensuite à classer ces sons tranquillement en arrière-plan. »"
+    },
+    es: {
+      cat: "Ánimo",
+      text: "«Cinco minutos tranquilos por la mañana hacen maravillas para el oído: después, tu cerebro sigue ordenando esos sonidos nuevos en segundo plano.»"
+    },
+    pl: {
+      cat: "Motywacja",
+      text: "„Pięć spokojnych minut rano potrafi zdziałać cuda dla słuchu — Twój mózg po cichu porządkuje nowe brzmienia w tle jeszcze długo potem.”"
+    },
+    uk: {
+      cat: "Підбадьорення",
+      text: "«П’ять спокійних хвилин зранку творять дива для слуху — мозок потім непомітно розкладає нові звучання по поличках у фоновому режимі.»"
+    },
+    ur: {
+      cat: "حوصلہ افزائی",
+      text: "«صبح کے پانچ پُرسکون منٹ سماعت کے لیے کمال کر دیتے ہیں — پھر آپ کا دماغ سارا دن پسِ پردہ ان نئی آوازوں کو ترتیب دیتا رہتا ہے۔»"
+    }
+  },
+  {
+    de: {
+      cat: "Tipp",
+      text: "„Ein Ton, den du einmal kurz nachgesummt hast, verankert sich doppelt so tief im Gehör – ganz egal, wie perfekt oder schräg deine Stimme dabei klingt!“"
+    },
+    en: {
+      cat: "Tip",
+      text: "“A note you hum back just once sinks twice as deep into your musical memory — no matter how polished or wobbly your voice feels!”"
+    },
+    fr: {
+      cat: "Astuce",
+      text: "« Une note que tu fredonnes ne serait-ce qu’une fois s’ancre deux fois plus profondément dans l’oreille — peu importe la justesse parfaite de ta voix ! »"
+    },
+    es: {
+      cat: "Consejo",
+      text: "«Una nota que tarareas aunque sea una vez se graba el doble de profundo en tu oído, ¡sin importar lo perfecta o insegura que suene tu voz!»"
+    },
+    pl: {
+      cat: "Wskazówka",
+      text: "„Dźwięk, który choć raz krótko zanuciłeś, utrwala się w słuchu dwa razy głębiej — nieważne, jak idealnie albo krzywo brzmi Twój głos!”"
+    },
+    uk: {
+      cat: "Порада",
+      text: "«Нота, яку ти бодай раз тихо наспівав, закріплюється у слуху вдвічі глибше — і зовсім не важливо, наскільки ідеально звучить голос!»"
+    },
+    ur: {
+      cat: "مشورہ",
+      text: "«جو سُر آپ ایک بار ہلکے سے گنگنا لیں، وہ کان میں دوگنا گہرا بیٹھ جاتا ہے — چاہے آپ کی آواز کتنی ہی سادہ یا لرزتی ہوئی کیوں نہ ہو!»"
+    }
+  },
+  {
+    de: {
+      cat: "Wusstest du?",
+      text: "„Viele Profis nutzen noch nach Jahrzehnten kleine Liedanfänge im Kopf als Intervall-Eselsbrücke – im Wissensbereich findest du unsere liebsten Merkhilfen dazu!“"
+    },
+    en: {
+      cat: "Did you know?",
+      text: "“Even decades into their careers, plenty of pros still keep famous song openings in their head as interval anchors — check out our favorite mnemonics in the Knowledge hub!”"
+    },
+    fr: {
+      cat: "Le savais-tu ?",
+      text: "« Même après des décennies, beaucoup de pros gardent en tête des débuts de chansons célèbres comme repères d’intervalles — découvre nos meilleurs moyens mnémotechniques dans l’onglet Savoir ! »"
+    },
+    es: {
+      cat: "¿Sabías que…?",
+      text: "«Incluso tras décadas tocando, muchos profesionales siguen usando inicios de canciones famosas como referencia para los intervalos: descubre nuestras mejores reglas mnemotécnicas en Saber.»"
+    },
+    pl: {
+      cat: "Czy wiesz?",
+      text: "„Nawet po dekadach grania wielu zawodowców wciąż korzysta w głowie ze znanych początków melodii jako podpowiedzi interwałów — najlepsze skojarzenia znajdziesz w dziale Wiedza!”"
+    },
+    uk: {
+      cat: "Чи знаєш ти?",
+      text: "«Навіть через десятиліття практики багато профі тримають у голові відомі початки мелодій як підказки для інтервалів — найкращі мнемоніки чекають у розділі Знання!»"
+    },
+    ur: {
+      cat: "کیا آپ جانتے ہیں؟",
+      text: "«دہائیوں کے تجربے کے بعد بھی بہت سے ماہر موسیقار وقفوں کے لیے مشہور گانوں کے ابتدائی سُر یاد رکھتے ہیں — بہترین یادداشتی گر علم کے حصے میں موجود ہیں!»"
+    }
+  },
+  {
+    de: {
+      cat: "Willkommen",
+      text: "„Ohren gespitzt, Schultern locker, einmal tief durchatmen – los geht’s auf eine kleine Klangreise!“"
+    },
+    en: {
+      cat: "Welcome",
+      text: "“Ears perked up, shoulders relaxed, one deep breath — off we go on a little sound adventure!”"
+    },
+    fr: {
+      cat: "Bienvenue",
+      text: "« Oreilles dressées, épaules détendues, une grande inspiration — c’est parti pour un petit voyage sonore ! »"
+    },
+    es: {
+      cat: "Bienvenida",
+      text: "«Orejas atentas, hombros sueltos, una respiración profunda… ¡y allá vamos con un pequeño viaje sonoro!»"
+    },
+    pl: {
+      cat: "Powitanie",
+      text: "„Uszy nastawione, ramiona rozluźnione, jeden głęboki wdech — ruszamy w małą dźwiękową podróż!”"
+    },
+    uk: {
+      cat: "Ласкаво просимо",
+      text: "«Вушка нашорошені, плечі розслаблені, один глибокий вдих — вирушаємо у невелику звукову подорож!»"
+    },
+    ur: {
+      cat: "خوش آمدید",
+      text: "«کان چوکنے، کندھے ڈھیلے، ایک گہرا سانس — چلیں ایک چھوٹے سے سُریلے سفر پر نکلتے ہیں!»"
+    }
+  },
+  {
+    de: {
+      cat: "Mutmacher",
+      text: "„Gehörbildung ist wie Muskeln im Zeitlupentempo: Man merkt es nicht nach einer Minute, aber eines Tages hörst du plötzlich jeden Akkordwechsel im Radio heraus!“"
+    },
+    en: {
+      cat: "Encouragement",
+      text: "“Ear training is like building muscle in slow motion: you barely notice it after a minute, yet one day you suddenly hear every chord change on the radio!”"
+    },
+    fr: {
+      cat: "Encouragement",
+      text: "« L’entraînement de l’oreille, c’est comme se muscler au ralenti : on ne le voit pas au bout d’une minute, mais un jour on entend soudain chaque changement d’accord à la radio ! »"
+    },
+    es: {
+      cat: "Ánimo",
+      text: "«El entrenamiento auditivo es como fortalecer un músculo a cámara lenta: no lo notas en un minuto, pero un día de pronto distingues cada cambio de acorde en la radio.»"
+    },
+    pl: {
+      cat: "Motywacja",
+      text: "„Kształcenie słuchu przypomina budowanie mięśni w zwolnionym tempie: nie czuć tego po minucie, aż pewnego dnia nagle słyszysz każdą zmianę akordu w radiu!”"
+    },
+    uk: {
+      cat: "Підбадьорення",
+      text: "«Розвиток слуху схожий на тренування м’язів у сповільненій зйомці: за хвилину непомітно, а одного дня ти раптом чуєш кожну зміну акорду по радіо!»"
+    },
+    ur: {
+      cat: "حوصلہ افزائی",
+      text: "«سماعت کی تربیت آہستہ آہستہ مضبوط ہونے والے پٹھوں جیسی ہے: ایک منٹ میں فرق نہیں لگتا، لیکن ایک دن اچانک ریڈیو پر ہر کارڈ تبدیلی صاف سنائی دینے لگتی ہے!»"
+    }
   }
 ]);

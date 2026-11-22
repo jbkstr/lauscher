@@ -127,13 +127,13 @@
     })();
   </script>
 
-  <!-- Erststart-Einrichtung: Schritt-für-Schritt-Assistent (Sprache, Look, Auto-Weiter, Profil, Schwerpunkt & Begrüßung) -->
+  <!-- Erststart-Einrichtung: Schritt-für-Schritt-Assistent (Sprache, Look, Profil, Schwerpunkt & Begrüßung) -->
   <div id="welcomeOnboarding" class="welcome-onboarding hidden" role="dialog" aria-modal="true" aria-labelledby="welcomeLangTitle">
     <div class="welcome-shell">
       <div id="welcomeProgressHeader" class="welcome-progress-header">
-        <span id="welcomeProgressText" class="welcome-progress-text">Schritt 1 von 6</span>
+        <span id="welcomeProgressText" class="welcome-progress-text">Schritt 1 von 5</span>
         <div class="welcome-progress-track" aria-hidden="true">
-          <div id="welcomeProgressFill" class="welcome-progress-fill" style="width: 16.67%;"></div>
+          <div id="welcomeProgressFill" class="welcome-progress-fill" style="width: 20%;"></div>
         </div>
       </div>
 
@@ -225,31 +225,7 @@
         </div>
       </div>
 
-      <!-- Seite 3: Nach Abfragung automatisch weiterspielen -->
-      <div id="welcomeStepAutoNext" class="welcome-step hidden">
-        <h2 id="welcomeAutoNextTitle" class="welcome-step-title" data-i18n="welcome.autoNextTitle">Nach richtiger Lösung weiter?</h2>
-        <p id="welcomeAutoNextSub" class="welcome-step-sub" data-i18n="welcome.autoNextSub">Bestimme, ob automatisch die nächste Aufgabe abgespielt wird.</p>
-
-        <div class="welcome-panel">
-          <div id="welcomeAutoNextGroup" class="welcome-choice-stack" role="radiogroup" aria-label="Nächste Abfragung automatisch abspielen" data-i18n-aria="settings.autoNextAria">
-            <button type="button" class="welcome-choice-card active" data-welcome-autonext="on" aria-pressed="true">
-              <strong data-i18n="welcome.autoNextOnTitle">Automatisch weiterspielen (Empfohlen)</strong>
-              <span data-i18n="welcome.autoNextOnDesc">Startet nach einer richtigen Antwort sofort die nächste Aufgabe für flüssigen Spielfluss.</span>
-            </button>
-            <button type="button" class="welcome-choice-card" data-welcome-autonext="off" aria-pressed="false">
-              <strong data-i18n="welcome.autoNextOffTitle">Manuell abspielen</strong>
-              <span data-i18n="welcome.autoNextOffDesc">Wartet nach jeder Lösung, bis du bewusst selbst den nächsten Ton abspielst.</span>
-            </button>
-          </div>
-        </div>
-
-        <div class="welcome-nav-row">
-          <button type="button" id="welcomeAutoNextBackBtn" class="btn-tool welcome-back-btn" data-welcome-nav="prev" data-i18n="welcome.backBtn">← Zurück</button>
-          <button type="button" id="welcomeAutoNextNextBtn" class="btn-primary-action welcome-next-btn" data-welcome-nav="next" data-i18n="welcome.nextBtn">Weiter →</button>
-        </div>
-      </div>
-
-      <!-- Seite 4: Eigenes Musiker-Profil -->
+      <!-- Seite 3: Eigenes Musiker-Profil -->
       <div id="welcomeStepProfile" class="welcome-step hidden">
         <h2 id="welcomeProfileTitle" class="welcome-step-title" data-i18n="welcome.profileTitle">Dein Musiker-Profil</h2>
         <p id="welcomeProfileSub" class="welcome-step-sub" data-i18n="welcome.profileSub">Wie darf dich Lauscher begrüßen und welche Instrumente spielst du?</p>
@@ -271,7 +247,7 @@
         </div>
       </div>
 
-      <!-- Seite 5: Lernschwerpunkt -->
+      <!-- Seite 4: Lernschwerpunkt -->
       <div id="welcomeStepFocus" class="welcome-step hidden">
         <h2 id="welcomeFocusTitle" class="welcome-step-title" data-i18n="welcome.focusTitle">Dein Lernschwerpunkt</h2>
         <p id="welcomeFocusSub" class="welcome-step-sub" data-i18n="welcome.focusSub">Worauf möchtest du dich zuerst konzentrieren?</p>
@@ -459,15 +435,19 @@
       
       <section class="hero-card">
         <div class="hero-top">
-          <button id="refreshQuoteBtn" class="hero-mascot-btn" title="Tippe für einen neuen Gedanken" data-i18n-title="home.refreshQuoteTitle">
+          <button id="heroMascotBtn" type="button" class="hero-mascot-btn" title="Tippe für einen neuen Gedanken" data-i18n-title="home.refreshQuoteTitle" aria-label="Tippe für einen neuen Gedanken" data-i18n-aria="home.refreshQuoteTitle">
             <div class="hero-mascot-avatar" id="heroMascotSvg"></div>
-            <span class="hero-mascot-hint"><span data-i18n="home.newQuote">Neu</span><svg class="inline-glyph inline-glyph-after" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.35-5.66"/><path d="M20 4.5v4.6h-4.6"/></svg></span>
           </button>
           <div class="hero-bubble">
             <span id="quoteCategoryBadge" class="quote-badge">Willkommen</span>
             <p id="heroQuoteText" class="hero-quote-text">
               „Schön, dass du da bist! Heute entdecken wir, wie Musik Geschichten erzählt.“
             </p>
+            <div class="hero-bubble-footer">
+              <button id="refreshQuoteBtn" type="button" class="hero-quote-new-btn" title="Tippe für einen neuen Gedanken" data-i18n-title="home.refreshQuoteTitle">
+                <span data-i18n="home.newQuote">Neu</span><svg class="inline-glyph inline-glyph-after" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.35-5.66"/><path d="M20 4.5v4.6h-4.6"/></svg>
+              </button>
+            </div>
           </div>
         </div>
 

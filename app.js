@@ -437,11 +437,13 @@ document.addEventListener("DOMContentLoaded", () => {
     window.screen?.orientation?.lock?.("portrait")?.catch?.(() => {});
   } catch (_e) {}
 
-  document.getElementById("refreshQuoteBtn")?.addEventListener("click", () => {
+  const triggerHeroQuoteRefresh = () => {
     pickRandomQuote();
     const tapMood = Math.random() < 0.25 ? "happy" : "idle";
     rotateMascotSlot("heroMascotSvg", tapMood, true, { slot: "hero", forceRotate: true });
-  });
+  };
+  document.getElementById("heroMascotBtn")?.addEventListener("click", triggerHeroQuoteRefresh);
+  document.getElementById("refreshQuoteBtn")?.addEventListener("click", triggerHeroQuoteRefresh);
 
   // Untere 4-Icon Reiter-Navigation
   document.querySelectorAll(".nav-tab").forEach(tab => {

@@ -37,13 +37,13 @@ registerColocatedTables({
       uk: "Бас",
       ur: "باس"
     },
-    "Schlagzeug": {
-      en: "Drums",
-      fr: "Batterie",
-      es: "Batería",
+    "Percussion": {
+      en: "Percussion",
+      fr: "Percussions",
+      es: "Percusión",
       pl: "Perkusja",
-      uk: "Ударні",
-      ur: "ڈرمز / طبلہ"
+      uk: "Ударні та перкусія",
+      ur: "پرکشن / طبلہ"
     },
     "Bläser": {
       en: "Horns & Winds",
