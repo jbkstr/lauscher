@@ -606,7 +606,7 @@ class AppState {
       mainTitle.textContent = tr("Quintenzirkel", "Circle of Fifths");
       el.textContent = tr("Interaktives Klangrad, Akkorde, Vorzeichen & Modulation", "Interactive key wheel, chords, key signatures & modulation");
     } else if (this.currentView === "nashville") {
-      mainTitle.textContent = tr("Nashville Number System", "Nashville Number System");
+      mainTitle.textContent = tr("Nashville-Zahlensystem", "Nashville Number System");
       el.textContent = tr("Tonarten-Diagramm, 12-Tonarten-Matrix & Kapodaster-Übersetzer", "Key diagram, 12-key matrix & guitar capo translator");
     } else if (this.currentView === "exercise" && this.exam?.active) {
       const curQ = Math.min((this.exam.currentIdx || 0) + 1, this.exam.totalQuestions || 1);

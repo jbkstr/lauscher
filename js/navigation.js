@@ -34,12 +34,25 @@ function getOpenModalName() {
   return null;
 }
 
+function isRunningInNativeApp() {
+  if (typeof window !== "undefined" && window.Capacitor) {
+    if (typeof window.Capacitor.isNativePlatform === "function") {
+      return Boolean(window.Capacitor.isNativePlatform());
+    }
+    if (window.Capacitor.isNative) return true;
+  }
+  return Boolean(typeof getCapacitorNativePlugin === "function" && getCapacitorNativePlugin("App"));
+}
+
 function renderAboutModalContent() {
   // Kopf zeigt das App-Icon (Squircle, reines CSS) – nichts zu rendern
   document.getElementById("aboutPlaceholderNotice")?.classList.add("hidden");
   document.getElementById("aboutContactFallback")?.classList.add("hidden");
   document.querySelector('[data-about-action="rate"]')?.classList.toggle("hidden", !ABOUT_RATE_ENABLED);
   document.querySelector('[data-about-action="donate"]')?.classList.toggle("hidden", !ABOUT_SUPPORT_ENABLED);
+  const isNative = isRunningInNativeApp();
+  document.querySelector('[data-about-action="web-version"]')?.classList.toggle("hidden", !isNative);
+  document.querySelector('[data-about-action="get-app"]')?.classList.toggle("hidden", isNative);
   renderAboutVersionBadge();
   showAboutMainPane();
 }
@@ -157,7 +170,11 @@ function handleAboutAction(action) {
     shareLauscherApp();
     return;
   }
-  // Noch nicht verknüpfte Einträge
+  if (action === "web-version") {
+    openWebVersionPage();
+    return;
+  }
+  // Noch nicht verknüpfte Einträge (u. a. "get-app" als Platzhalter für spätere App-Store-Links)
   document.getElementById("aboutPlaceholderNotice")?.classList.remove("hidden");
 }
 
@@ -392,6 +409,33 @@ function openSupportPage() {
       }
     ),
     value: LAUSCHER_SUPPORT_URL,
+    kind: "link"
+  });
+}
+
+const LAUSCHER_WEB_URL = "https://jbkstr.github.io/lauscher/";
+
+function openWebVersionPage() {
+  const a = document.createElement("a");
+  a.href = LAUSCHER_WEB_URL;
+  a.target = "_blank";
+  a.rel = "noopener noreferrer";
+  document.body?.appendChild?.(a);
+  a.click?.();
+  a.remove?.();
+  showAboutCopyFallback({
+    message: tr(
+      "Falls sich die Webversion nicht automatisch geöffnet hat, findest du sie hier:",
+      "If the web version didn’t open automatically, you can find it here:",
+      {
+        fr: "Si la version web ne s’est pas ouverte automatiquement, tu la trouveras ici :",
+        es: "Si la versión web no se abrió automáticamente, la encontrarás aquí:",
+        pl: "Jeśli wersja przeglądarkowa nie otworzyła się automatycznie, znajdziesz ją tutaj:",
+        uk: "Якщо вебверсія не відкрилася автоматично, її можна знайти тут:",
+        ur: "اگر ویب ورژن خودکار طور پر نہیں کھلا تو آپ اسے یہاں کھول سکتے ہیں:"
+      }
+    ),
+    value: LAUSCHER_WEB_URL,
     kind: "link"
   });
 }

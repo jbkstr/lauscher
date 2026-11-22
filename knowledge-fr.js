@@ -1499,13 +1499,13 @@ const KNOWLEDGE_ARTICLES_FR = [
     id: "art-nashville-number-system",
     icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3.5" width="18" height="17" rx="2.5"/><line x1="3" y1="12" x2="21" y2="12" opacity="0.55"/><line x1="12" y1="3.5" x2="12" y2="20.5" opacity="0.55"/><text x="7.5" y="10" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">1</text><text x="16.5" y="10" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">4</text><text x="7.5" y="18.2" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">5</text><text x="16.5" y="18.2" text-anchor="middle" font-family="Andika, sans-serif" font-size="5.8" font-weight="700" fill="currentColor" stroke="none">6-</text></svg>`,
     badgeClass: "badge-peach",
-    title: "Le Nashville Number System",
+    title: "Le système numérique de Nashville",
     subtitle: "Comment de simples chiffres permettent à tout un groupe de transposer en un instant",
     tag: "Studio & Pratique",
     render: () => `
       <div class="article-body">
         <span class="k-card-tag tag-peach">Pratique studio &amp; harmonie</span>
-        <h2>Le Nashville Number System (NNS)</h2>
+        <h2>Le système numérique de Nashville (Nashville Number System)</h2>
         <p class="article-lead">
           Imagine une séance d’enregistrement : cinq musiciens découvrent une chanson pour la première fois, notent en trois minutes une grille de chiffres comme <strong>1 – 5 – 6- – 4</strong> – et quand le chanteur demande <em>« On la baisse d’un ton ? »</em>, personne ne change un seul chiffre. C’est la force du <strong>Nashville Number System</strong>.
         </p>
