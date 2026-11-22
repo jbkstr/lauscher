@@ -68,23 +68,23 @@ const NNS_KEYS = [
 ];
 
 const NNS_MAJOR_DEGREES = [
-  { token: "1",  degreeIdx: 0, semitone: 0,  quality: "maj", roman: "I",   fnKey: "tonic" },
-  { token: "2-", degreeIdx: 1, semitone: 2,  quality: "min", roman: "ii",  fnKey: "subdom" },
-  { token: "3-", degreeIdx: 2, semitone: 4,  quality: "min", roman: "iii", fnKey: "tonic" },
-  { token: "4",  degreeIdx: 3, semitone: 5,  quality: "maj", roman: "IV",  fnKey: "subdom" },
-  { token: "5",  degreeIdx: 4, semitone: 7,  quality: "maj", roman: "V",   fnKey: "dom" },
-  { token: "6-", degreeIdx: 5, semitone: 9,  quality: "min", roman: "vi",  fnKey: "tonic" },
-  { token: "7°", degreeIdx: 6, semitone: 11, quality: "dim", roman: "vii°", fnKey: "dom" }
+  { token: "1",  degreeIdx: 0, semitone: 0,  quality: "maj", roman: "I",    fnKey: "tonic",  fnSym: "T",       roleKey: "maj_1" },
+  { token: "2-", degreeIdx: 1, semitone: 2,  quality: "min", roman: "ii",   fnKey: "subdom", fnSym: "Sp",      roleKey: "maj_2" },
+  { token: "3-", degreeIdx: 2, semitone: 4,  quality: "min", roman: "iii",  fnKey: "dom",    fnSym: "Dp / Tg", roleKey: "maj_3" },
+  { token: "4",  degreeIdx: 3, semitone: 5,  quality: "maj", roman: "IV",   fnKey: "subdom", fnSym: "S",       roleKey: "maj_4" },
+  { token: "5",  degreeIdx: 4, semitone: 7,  quality: "maj", roman: "V",    fnKey: "dom",    fnSym: "D",       roleKey: "maj_5" },
+  { token: "6-", degreeIdx: 5, semitone: 9,  quality: "min", roman: "vi",   fnKey: "tonic",  fnSym: "Tp",      roleKey: "maj_6" },
+  { token: "7°", degreeIdx: 6, semitone: 11, quality: "dim", roman: "vii°", fnKey: "dom",    fnSym: "Đ⁷",      roleKey: "maj_7" }
 ];
 
 const NNS_MINOR_DEGREES = [
-  { token: "1-", degreeIdx: 0, semitone: 0,  quality: "min", roman: "i",    fnKey: "tonic" },
-  { token: "2°", degreeIdx: 1, semitone: 2,  quality: "dim", roman: "ii°",  fnKey: "subdom" },
-  { token: "♭3", degreeIdx: 2, semitone: 3,  quality: "maj", roman: "♭III", fnKey: "tonic" },
-  { token: "4-", degreeIdx: 3, semitone: 5,  quality: "min", roman: "iv",   fnKey: "subdom" },
-  { token: "5-", degreeIdx: 4, semitone: 7,  quality: "min", roman: "v",    fnKey: "dom" },
-  { token: "♭6", degreeIdx: 5, semitone: 8,  quality: "maj", roman: "♭VI",  fnKey: "subdom" },
-  { token: "♭7", degreeIdx: 6, semitone: 10, quality: "maj", roman: "♭VII", fnKey: "dom" }
+  { token: "1-", degreeIdx: 0, semitone: 0,  quality: "min", roman: "i",    fnKey: "tonic",  fnSym: "t",  roleKey: "min_1" },
+  { token: "2°", degreeIdx: 1, semitone: 2,  quality: "dim", roman: "ii°",  fnKey: "subdom", fnSym: "s²", roleKey: "min_2" },
+  { token: "♭3", degreeIdx: 2, semitone: 3,  quality: "maj", roman: "♭III", fnKey: "tonic",  fnSym: "tP", roleKey: "min_3" },
+  { token: "4-", degreeIdx: 3, semitone: 5,  quality: "min", roman: "iv",   fnKey: "subdom", fnSym: "s",  roleKey: "min_4" },
+  { token: "5-", degreeIdx: 4, semitone: 7,  quality: "min", roman: "v",    fnKey: "dom",    fnSym: "d",  roleKey: "min_5" },
+  { token: "♭6", degreeIdx: 5, semitone: 8,  quality: "maj", roman: "♭VI",  fnKey: "subdom", fnSym: "sP", roleKey: "min_6" },
+  { token: "♭7", degreeIdx: 6, semitone: 10, quality: "maj", roman: "♭VII", fnKey: "dom",    fnSym: "dP", roleKey: "min_7" }
 ];
 
 // Bequeme offene Gitarren-Formen (CAGED für Dur, Em/Am/Dm für Moll)
@@ -190,10 +190,50 @@ function nnsQualitySuffix(quality) {
   return "";
 }
 
-function nnsFunctionShort(fnKey) {
-  if (fnKey === "tonic") return tr("Tonika", "Tonic");
-  if (fnKey === "subdom") return tr("Subdominante", "Subdominant");
-  return tr("Dominante", "Dominant");
+function nnsFunctionZoneLabel(fnKey) {
+  if (fnKey === "tonic") return tr("Tonika-Bereich", "Tonic Area");
+  if (fnKey === "subdom") return tr("Subdominant-Bereich", "Subdominant Area");
+  return tr("Dominant-Bereich", "Dominant Area");
+}
+
+function nnsDegreeRoleLabel(roleKey) {
+  switch (roleKey) {
+    case "maj_1": return tr("Tonika", "Tonic");
+    case "maj_2": return tr("Subdom.-Parallele", "Subdom. Relative");
+    case "maj_3": return tr("Dominant-Parallele", "Dominant Relative");
+    case "maj_4": return tr("Subdominante", "Subdominant");
+    case "maj_5": return tr("Dominante", "Dominant");
+    case "maj_6": return tr("Tonika-Parallele", "Tonic Relative");
+    case "maj_7": return tr("Leitton-Dominante", "Leading-Tone Dom.");
+    case "min_1": return tr("Moll-Tonika", "Minor Tonic");
+    case "min_2": return tr("Verm. Subdom.", "Dim. Subdominant");
+    case "min_3": return tr("Tonika-Parallele", "Tonic Relative");
+    case "min_4": return tr("Moll-Subdominante", "Minor Subdominant");
+    case "min_5": return tr("Moll-Dominante", "Minor Dominant");
+    case "min_6": return tr("Subdom.-Parallele", "Subdom. Relative");
+    case "min_7": return tr("Dominant-Parallele", "Dominant Relative");
+    default: return "";
+  }
+}
+
+function nnsDiagramNodeBadge(roleKey) {
+  switch (roleKey) {
+    case "maj_1": return tr("T · Tonika", "T · Tonic");
+    case "maj_2": return tr("Sp · Parallele zu 4", "Sp · Relative of 4");
+    case "maj_3": return tr("Dp · Parallele", "Dp · Relative");
+    case "maj_4": return tr("S · Subdominante", "S · Subdominant");
+    case "maj_5": return tr("D · Dominante", "D · Dominant");
+    case "maj_6": return tr("Tp · Parallele zu 1", "Tp · Relative of 1");
+    case "maj_7": return tr("Đ⁷ · Leitton", "vii° · Leading");
+    case "min_1": return tr("t · Moll-Tonika", "t · Minor Tonic");
+    case "min_2": return tr("s² · Vermind.", "ii° · Diminished");
+    case "min_3": return tr("tP · Parallele zu 1-", "tP · Relative of 1-");
+    case "min_4": return tr("s · Subdominante", "s · Subdominant");
+    case "min_5": return tr("d · Dominante", "d · Dominant");
+    case "min_6": return tr("sP · Parallele", "sP · Relative");
+    case "min_7": return tr("dP · Parallele zu 5-", "dP · Relative of 5-");
+    default: return "";
+  }
 }
 
 function resolveNnsToken(token, keyEntry, mode = "major") {
@@ -209,7 +249,9 @@ function resolveNnsToken(token, keyEntry, mode = "major") {
     rootSemi: direct.semitone,
     quality: direct.quality,
     roman: direct.roman,
-    fnKey: direct.fnKey
+    fnKey: direct.fnKey,
+    fnSym: direct.fnSym,
+    roleKey: direct.roleKey
   };
 }
 
@@ -282,22 +324,49 @@ function renderNashvilleDiagramSVG(keyEntry, mode) {
   const degrees = mode === "minor" ? NNS_MINOR_DEGREES : NNS_MAJOR_DEGREES;
   const resolved = degrees.map(d => resolveNnsToken(d.token, keyEntry, mode));
 
-  const nodes = [
-    { item: resolved[0], x: 280, y: 54,  r: 36, cls: "nns-svg-node-tonic nns-svg-node-root" },
-    { item: resolved[3], x: 112, y: 92,  r: 30, cls: "nns-svg-node-subdom" },
-    { item: resolved[4], x: 448, y: 92,  r: 30, cls: "nns-svg-node-dom" },
-    { item: resolved[1], x: 76,  y: 174, r: 25, cls: "nns-svg-node-subdom" },
-    { item: resolved[5], x: 222, y: 174, r: 26, cls: "nns-svg-node-tonic" },
-    { item: resolved[2], x: 338, y: 174, r: 25, cls: "nns-svg-node-tonic" },
-    { item: resolved[6], x: 484, y: 174, r: 25, cls: "nns-svg-node-dom" }
-  ];
+  // Obere Reihe: die 3 Hauptfunktionen (1, 4, 5).
+  // Untere Reihe: ihre jeweiligen Parallelen & Stellvertreter im passenden Funktionsbereich.
+  const nodes = mode === "minor"
+    ? [
+        { item: resolved[0], x: 280, y: 50,  r: 34, cls: "nns-svg-node-tonic nns-svg-node-root" }, // 1- (t)
+        { item: resolved[3], x: 96,  y: 74,  r: 29, cls: "nns-svg-node-subdom" },                  // 4- (s)
+        { item: resolved[4], x: 464, y: 74,  r: 29, cls: "nns-svg-node-dom" },                     // 5- (d)
+        { item: resolved[1], x: 56,  y: 164, r: 23, cls: "nns-svg-node-subdom" },                  // 2° (s²)
+        { item: resolved[5], x: 136, y: 164, r: 23, cls: "nns-svg-node-subdom" },                  // ♭6 (sP)
+        { item: resolved[2], x: 280, y: 164, r: 24, cls: "nns-svg-node-tonic" },                   // ♭3 (tP)
+        { item: resolved[6], x: 464, y: 164, r: 24, cls: "nns-svg-node-dom" }                      // ♭7 (dP)
+      ]
+    : [
+        { item: resolved[0], x: 280, y: 50,  r: 34, cls: "nns-svg-node-tonic nns-svg-node-root" }, // 1 (T)
+        { item: resolved[3], x: 96,  y: 74,  r: 29, cls: "nns-svg-node-subdom" },                  // 4 (S)
+        { item: resolved[4], x: 464, y: 74,  r: 29, cls: "nns-svg-node-dom" },                     // 5 (D)
+        { item: resolved[1], x: 96,  y: 164, r: 24, cls: "nns-svg-node-subdom" },                  // 2- (Sp)
+        { item: resolved[5], x: 280, y: 164, r: 24, cls: "nns-svg-node-tonic" },                   // 6- (Tp)
+        { item: resolved[2], x: 424, y: 164, r: 23, cls: "nns-svg-node-dom" },                     // 3- (Dp / Tg)
+        { item: resolved[6], x: 504, y: 164, r: 23, cls: "nns-svg-node-dom" }                      // 7° (Đ⁷)
+      ];
 
-  const tonicLbl = escapeHtml(nnsFunctionShort("tonic"));
-  const subdomLbl = escapeHtml(nnsFunctionShort("subdom"));
-  const domLbl = escapeHtml(nnsFunctionShort("dom"));
+  const tonicLbl = escapeHtml(nnsFunctionZoneLabel("tonic"));
+  const subdomLbl = escapeHtml(nnsFunctionZoneLabel("subdom"));
+  const domLbl = escapeHtml(nnsFunctionZoneLabel("dom"));
+
+  const relationLines = mode === "minor"
+    ? `
+      <line x1="84" y1="120" x2="64" y2="140" stroke="var(--lilac-strong)" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.55"/>
+      <line x1="108" y1="120" x2="128" y2="140" stroke="var(--lilac-strong)" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.55"/>
+      <line x1="280" y1="104" x2="280" y2="138" stroke="var(--sage-strong)" stroke-width="1.6" stroke-dasharray="3 4" opacity="0.55"/>
+      <line x1="464" y1="120" x2="464" y2="138" stroke="var(--peach-strong)" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.55"/>
+    `
+    : `
+      <line x1="96" y1="120" x2="96" y2="138" stroke="var(--lilac-strong)" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.55"/>
+      <line x1="280" y1="104" x2="280" y2="138" stroke="var(--sage-strong)" stroke-width="1.6" stroke-dasharray="3 4" opacity="0.55"/>
+      <line x1="452" y1="120" x2="432" y2="140" stroke="var(--peach-strong)" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.55"/>
+      <line x1="476" y1="120" x2="496" y2="140" stroke="var(--peach-strong)" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.55"/>
+      <line x1="308" y1="74" x2="404" y2="148" stroke="var(--sage-strong)" stroke-width="1.4" stroke-dasharray="2 4" opacity="0.4"/>
+    `;
 
   return `
-    <svg class="nns-diagram-svg" viewBox="0 0 560 228" role="img" aria-label="${escapeHtml(tf("Nashville-Diagramm für {key}", "Nashville diagram for {key}", { key: formatNnsKeyTitle(keyEntry, mode) }))}" xmlns="http://www.w3.org/2000/svg">
+    <svg class="nns-diagram-svg" viewBox="0 0 560 250" role="img" aria-label="${escapeHtml(tf("Nashville-Diagramm für {key}", "Nashville diagram for {key}", { key: formatNnsKeyTitle(keyEntry, mode) }))}" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="nnsArrowDom" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
           <path d="M 1 2 L 8 5 L 1 8 z" fill="var(--peach-strong)"/>
@@ -307,32 +376,34 @@ function renderNashvilleDiagramSVG(keyEntry, mode) {
         </marker>
       </defs>
 
-      <rect x="16" y="42" width="144" height="170" rx="18" class="nns-svg-zone nns-svg-zone-subdom"/>
-      <rect x="172" y="10" width="216" height="202" rx="20" class="nns-svg-zone nns-svg-zone-tonic"/>
-      <rect x="400" y="42" width="144" height="170" rx="18" class="nns-svg-zone nns-svg-zone-dom"/>
+      <rect x="12" y="34" width="168" height="208" rx="18" class="nns-svg-zone nns-svg-zone-subdom"/>
+      <rect x="196" y="10" width="168" height="232" rx="20" class="nns-svg-zone nns-svg-zone-tonic"/>
+      <rect x="380" y="34" width="168" height="208" rx="18" class="nns-svg-zone nns-svg-zone-dom"/>
 
-      <text x="88" y="210" text-anchor="middle" font-family="Andika, sans-serif" font-size="11.5" font-weight="700" class="nns-svg-zone-lbl-subdom">${subdomLbl}</text>
-      <text x="280" y="210" text-anchor="middle" font-family="Andika, sans-serif" font-size="11.5" font-weight="700" class="nns-svg-zone-lbl-tonic">${tonicLbl}</text>
-      <text x="472" y="210" text-anchor="middle" font-family="Andika, sans-serif" font-size="11.5" font-weight="700" class="nns-svg-zone-lbl-dom">${domLbl}</text>
+      <text x="96" y="231" text-anchor="middle" font-family="Andika, sans-serif" font-size="11" font-weight="700" class="nns-svg-zone-lbl-subdom">${subdomLbl}</text>
+      <text x="280" y="231" text-anchor="middle" font-family="Andika, sans-serif" font-size="11" font-weight="700" class="nns-svg-zone-lbl-tonic">${tonicLbl}</text>
+      <text x="464" y="231" text-anchor="middle" font-family="Andika, sans-serif" font-size="11" font-weight="700" class="nns-svg-zone-lbl-dom">${domLbl}</text>
 
-      <path d="M 244 62 Q 194 64 146 82" fill="none" stroke="var(--lilac-strong)" stroke-width="2" stroke-dasharray="4 4" opacity="0.72" marker-end="url(#nnsArrowSub)"/>
-      <path d="M 144 102 Q 280 132 414 102" fill="none" stroke="var(--peach-strong)" stroke-width="2" stroke-dasharray="5 4" opacity="0.65" marker-end="url(#nnsArrowDom)"/>
-      <path d="M 418 78 Q 370 58 320 56" fill="none" stroke="var(--peach-strong)" stroke-width="2.3" opacity="0.88" marker-end="url(#nnsArrowDom)"/>
-      <line x1="264" y1="88" x2="234" y2="148" stroke="var(--sage-strong)" stroke-width="1.6" stroke-dasharray="3 4" opacity="0.5"/>
-      <line x1="296" y1="88" x2="326" y2="148" stroke="var(--sage-strong)" stroke-width="1.6" stroke-dasharray="3 4" opacity="0.5"/>
-      <line x1="104" y1="122" x2="86" y2="150" stroke="var(--lilac-strong)" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.5"/>
-      <line x1="456" y1="122" x2="474" y2="150" stroke="var(--peach-strong)" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.5"/>
+      <path d="M 244 58 Q 184 60 128 72" fill="none" stroke="var(--lilac-strong)" stroke-width="2" stroke-dasharray="4 4" opacity="0.72" marker-end="url(#nnsArrowSub)"/>
+      <path d="M 128 86 Q 280 122 432 86" fill="none" stroke="var(--peach-strong)" stroke-width="2" stroke-dasharray="5 4" opacity="0.65" marker-end="url(#nnsArrowDom)"/>
+      <path d="M 434 66 Q 376 46 318 50" fill="none" stroke="var(--peach-strong)" stroke-width="2.3" opacity="0.88" marker-end="url(#nnsArrowDom)"/>
+      ${relationLines}
 
-      ${nodes.map(n => `
+      ${nodes.map(n => {
+        const badge = nnsDiagramNodeBadge(n.item.roleKey);
+        const roleLabel = nnsDegreeRoleLabel(n.item.roleKey);
+        return `
         <g class="nns-svg-node ${n.cls}" role="button" tabindex="0"
            data-nns-play="${escapeHtml(n.item.token)}"
            data-nns-flash="${escapeHtml(n.item.token)}"
-           aria-label="${escapeHtml(`${n.item.token}: ${n.item.chordName}`)}">
+           aria-label="${escapeHtml(`${n.item.token}: ${n.item.chordName} (${n.item.roman}, ${roleLabel})`)}">
           <circle cx="${n.x}" cy="${n.y}" r="${n.r}"/>
-          <text x="${n.x}" y="${n.y - 3}" text-anchor="middle" font-family="Andika, sans-serif" font-size="${n.r >= 34 ? 19 : (n.r >= 29 ? 16.5 : 14.5)}" font-weight="700" class="nns-svg-num">${escapeHtml(n.item.token)}</text>
-          <text x="${n.x}" y="${n.y + (n.r >= 34 ? 16 : 13.5)}" text-anchor="middle" font-family="Andika, sans-serif" font-size="${n.r >= 34 ? 13 : 11.5}" font-weight="700" class="nns-svg-chord">${escapeHtml(n.item.chordName)}</text>
+          <text x="${n.x}" y="${n.y - 3}" text-anchor="middle" font-family="Andika, sans-serif" font-size="${n.r >= 33 ? 18.5 : (n.r >= 28 ? 16 : 14)}" font-weight="700" class="nns-svg-num">${escapeHtml(n.item.token)}</text>
+          <text x="${n.x}" y="${n.y + (n.r >= 33 ? 15.5 : 13)}" text-anchor="middle" font-family="Andika, sans-serif" font-size="${n.r >= 33 ? 12.5 : 11}" font-weight="700" class="nns-svg-chord">${escapeHtml(n.item.chordName)}</text>
+          <text x="${n.x}" y="${n.y + n.r + 13}" text-anchor="middle" font-family="Andika, sans-serif" font-size="9.3" font-weight="700" class="nns-svg-role">${escapeHtml(badge)}</text>
         </g>
-      `).join("")}
+      `;
+      }).join("")}
     </svg>
   `;
 }
@@ -427,6 +498,14 @@ function renderNashvilleView() {
         ${renderNashvilleDiagramSVG(keyEntry, mode)}
       </div>
 
+      <p class="nns-mode-note nns-diagram-note">
+        ${mode === "major"
+          ? tr("Obere Reihe: die 3 Hauptfunktionen Tonika (1), Subdominante (4) und Dominante (5). Darunter: ihre Moll-Parallelen (6-, 2-, 3-) und der Leittonakkord (7°) – sie teilen je zwei Töne mit ihrer Hauptstufe und können sie vertreten (3- ist zugleich Dominant-Parallele Dp zur 5 und Tonika-Gegenklang Tg zur 1).",
+               "Top row: the 3 primary functions Tonic (1), Subdominant (4), and Dominant (5). Below them: their relative minors (6-, 2-, 3-) and the leading-tone chord (7°) — each shares two notes with its primary chord and can substitute for it (3- acts both as dominant relative Dp to 5 and tonic counter-relative Tg to 1).")
+          : tr("Obere Reihe: die 3 Moll-Hauptfunktionen Tonika (1-), Subdominante (4-) und Dominante (5-). Darunter: ihre Dur-Parallelen (♭3, ♭6, ♭7) sowie die verminderte 2°, die jeweils zwei Töne mit ihrer Hauptstufe teilen.",
+               "Top row: the 3 minor primary functions Tonic (1-), Subdominant (4-), and Dominant (5-). Below them: their relative major chords (♭3, ♭6, ♭7) and the diminished 2°, each sharing two notes with its primary chord.")}
+      </p>
+
       <div class="nns-degree-grid">
         ${resolvedDegrees.map(item => `
           <button type="button" class="nns-degree-tile nns-fn-${item.fnKey}"
@@ -434,7 +513,8 @@ function renderNashvilleView() {
                   data-nns-flash="${escapeHtml(item.token)}">
             <span class="nns-deg-num">${escapeHtml(item.token)}</span>
             <span class="nns-deg-chord">${escapeHtml(item.chordName)}</span>
-            <span class="nns-deg-meta">${escapeHtml(item.roman)} · ${escapeHtml(nnsFunctionShort(item.fnKey))}</span>
+            <span class="nns-deg-meta">${escapeHtml(item.roman)} · ${escapeHtml(item.fnSym)}</span>
+            <span class="nns-deg-role">${escapeHtml(nnsDegreeRoleLabel(item.roleKey))}</span>
           </button>
         `).join("")}
       </div>
