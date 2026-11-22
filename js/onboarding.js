@@ -5,7 +5,6 @@
 const WELCOME_WIZARD_STEPS = [
   "welcomeStepLang",
   "welcomeStepLook",
-  "welcomeStepAutoNext",
   "welcomeStepProfile",
   "welcomeStepFocus",
   "welcomeStepGreet"
@@ -14,7 +13,6 @@ const WELCOME_WIZARD_STEPS = [
 const BEGINNER_WELCOME_WIZARD_STEPS = [
   "welcomeStepLang",
   "welcomeStepLook",
-  "welcomeStepAutoNext",
   "welcomeStepProfile",
   "welcomeStepFocus",
   "welcomeStepBeginner1",
@@ -266,9 +264,6 @@ function bindWelcomeOnboardingControls() {
   document.querySelectorAll("[data-welcome-theme]").forEach(btn => {
     btn.addEventListener("click", () => setThemePreference(btn.dataset.welcomeTheme));
   });
-  document.querySelectorAll("[data-welcome-autonext]").forEach(btn => {
-    btn.addEventListener("click", () => setAutoNextPreference(btn.dataset.welcomeAutonext));
-  });
   document.getElementById("welcomeBeginnerOptInNoBtn")?.addEventListener("click", () => {
     setWelcomeBeginnerIntroOptIn(false);
   });
@@ -280,7 +275,7 @@ function bindWelcomeOnboardingControls() {
   });
   document.getElementById("welcomeGreetBeginnerBtn")?.addEventListener("click", () => {
     setWelcomeBeginnerIntroOptIn(true);
-    goToWelcomeStep(5);
+    goToWelcomeStep(BEGINNER_WELCOME_WIZARD_STEPS.indexOf("welcomeStepBeginner1"));
   });
 
   const nameInput = document.getElementById("welcomeProfileNameInput");
@@ -300,7 +295,6 @@ function bindWelcomeOnboardingControls() {
 
   [
     "welcomeLookBackBtn", "welcomeLookNextBtn",
-    "welcomeAutoNextBackBtn", "welcomeAutoNextNextBtn",
     "welcomeProfileBackBtn", "welcomeProfileNextBtn",
     "welcomeFocusBackBtn", "welcomeFocusNextBtn",
     "welcomeBeginner1BackBtn", "welcomeBeginner1NextBtn",
@@ -335,7 +329,6 @@ function goToWelcomeStep(targetIdx, options = {}) {
 
   renderWelcomeProgress(nextIdx);
   if (nextStepId === "welcomeStepLook") applyThemeAndAppearance();
-  if (nextStepId === "welcomeStepAutoNext") syncAutoNextControls();
   if (nextStepId === "welcomeStepProfile") renderWelcomeProfileStep();
   if (nextStepId === "welcomeStepFocus") {
     renderWelcomeFocusStep();
@@ -458,7 +451,6 @@ function openFirstRunOnboarding() {
   if (langMascot) langMascot.innerHTML = getMascotSVG("idle");
   renderWelcomeLanguageList();
   applyThemeAndAppearance();
-  syncAutoNextControls();
   renderWelcomeProfileStep();
   renderWelcomeFocusStep();
   goToWelcomeStep(0, { immediate: true });

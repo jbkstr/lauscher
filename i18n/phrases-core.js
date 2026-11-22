@@ -5509,6 +5509,13 @@ registerColocatedPhrases({
     uk: "Духові",
     ur: "براس اور ونڈز"
   },
+  "Dein": {
+    fr: "Ton",
+    es: "Tu",
+    pl: "Twój",
+    uk: "Твій",
+    ur: "آپ کا"
+  },
   "Fokus": {
     fr: "Focus",
     es: "Enfoque",

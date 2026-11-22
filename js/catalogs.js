@@ -1029,7 +1029,7 @@ function saveVisualPrefs(
 }
 
 const PERSONAL_PROFILE_STORAGE_KEY = "lauschebaer_profile_v1";
-const PROFILE_INSTRUMENT_OPTIONS = ["Klavier", "Gitarre", "Gesang", "Bass", "Schlagzeug", "Bläser", "Produktion"];
+const PROFILE_INSTRUMENT_OPTIONS = ["Klavier", "Gitarre", "Gesang", "Bass", "Percussion", "Bläser", "Produktion"];
 const PROFILE_FOCUS_OPTIONS = {
   allround:   { key: "allround",   label: "Allrounder",           hint: "Quer durch alle Übungen",          mode: "cadence" },
   harmony:    { key: "harmony",    label: "Akkorde & Harmonie",   hint: "Kadenzen & Mehrklänge schärfen",   mode: "cadence" },
@@ -2254,7 +2254,11 @@ function sanitizeUserProfile(raw) {
   if (!raw || typeof raw !== "object") return def;
 
   const validInstruments = Array.isArray(raw.instruments)
-    ? raw.instruments.filter(i => PROFILE_INSTRUMENT_OPTIONS.includes(i)).slice(0, 7)
+    ? Array.from(new Set(
+        raw.instruments
+          .map(i => (i === "Schlagzeug" ? "Percussion" : i))
+          .filter(i => PROFILE_INSTRUMENT_OPTIONS.includes(i))
+      )).slice(0, 7)
     : def.instruments;
   const focuses = normalizeProfileFocuses(raw.focuses, raw.focus);
   const companionAccessories = normalizeProfileAccessories(raw.companionAccessories, raw.companionAccessory);

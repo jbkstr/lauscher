@@ -874,7 +874,7 @@ function setLanguagePreference(nextLang) {
 
 function syncAutoNextControls() {
   const enabled = state.settings.autoNextAfterCorrect !== false;
-  document.querySelectorAll("[data-auto-next], [data-welcome-autonext]").forEach(btn => {
+  document.querySelectorAll("[data-auto-next]").forEach(btn => {
     const rawVal = btn.dataset?.autoNext !== undefined ? btn.dataset.autoNext : btn.dataset?.welcomeAutonext;
     const isMatch = (rawVal !== "off") === enabled;
     btn.classList?.toggle("active", isMatch);

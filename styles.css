@@ -849,7 +849,7 @@ input, textarea, select, [contenteditable="true"] {
 
 .hero-top {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   gap: 0.8rem;
 }
 
@@ -857,11 +857,13 @@ input, textarea, select, [contenteditable="true"] {
   background: var(--surface-white);
   border: 2px solid var(--sage);
   border-radius: var(--radius-md);
-  padding: 0.35rem 0.45rem;
+  width: 74px;
+  height: 86px;
+  padding: 0;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
+  align-self: flex-start;
   cursor: pointer;
   flex-shrink: 0;
   box-shadow: var(--shadow-card);
@@ -873,31 +875,55 @@ input, textarea, select, [contenteditable="true"] {
 }
 
 .hero-mascot-avatar {
-  width: 56px;
-  height: 56px;
+  width: 60px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .hero-mascot-avatar svg {
-  width: 56px;
-  height: 56px;
+  width: 60px;
+  height: 60px;
   display: block;
-}
-
-.hero-mascot-hint {
-  font-size: 0.62rem;
-  font-weight: 700;
-  color: var(--raccoon-muted);
-  margin-top: 0.1rem;
 }
 
 .hero-bubble {
   flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.3rem;
+}
+
+.hero-bubble-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: auto;
+  padding-top: 0.15rem;
+}
+
+.hero-quote-new-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.22rem;
+  padding: 0.22rem 0.62rem;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--sage);
+  background: var(--surface-white);
+  color: var(--sage-strong);
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1.2;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.12s ease, background-color 0.14s ease, border-color 0.14s ease;
+}
+
+.hero-quote-new-btn:active {
+  transform: scale(0.95);
+  background: var(--sage-soft);
 }
 
 .quote-badge {
@@ -6153,17 +6179,33 @@ body,
 
 .cat-focus-pill {
   display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  padding: 2px 7px;
-  border-radius: var(--radius-pill);
-  font-size: 0.66rem;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0;
+  padding: 3px 8px;
+  border-radius: 10px;
+  font-size: 0.64rem;
   font-weight: 700;
-  line-height: 1.25;
+  line-height: 1.15;
   letter-spacing: 0.01em;
   white-space: nowrap;
   flex-shrink: 0;
   pointer-events: none;
+}
+
+.cat-focus-line-top {
+  font-size: 0.58rem;
+  font-weight: 700;
+  opacity: 0.9;
+}
+
+.cat-focus-line-bottom {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.66rem;
+  font-weight: 700;
 }
 
 .card-accent-sage .cat-focus-pill {
@@ -6183,8 +6225,8 @@ body,
 
 .category-grid-home .category-nav-card.is-focus-match .cat-focus-pill {
   position: absolute;
-  top: 0.76rem;
-  inset-inline-end: 0.72rem;
+  top: 0.68rem;
+  inset-inline-end: 0.68rem;
 }
 
 .category-grid-home .category-nav-card.is-focus-match .cat-chevron {

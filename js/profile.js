@@ -294,7 +294,8 @@ function syncHomeFocusHighlights() {
   if (!homeView) return;
 
   const focusedCats = getFocusedHomeCategories(state?.profile);
-  const pillLabel = tr("Fokus", "Focus");
+  const topLabel = tr("Dein", "Your");
+  const bottomLabel = tr("Fokus", "Focus");
 
   homeView.querySelectorAll(".category-nav-card[data-open-category]").forEach(card => {
     const cat = card.dataset?.openCategory;
@@ -310,7 +311,7 @@ function syncHomeFocusHighlights() {
         if (chevron) card.insertBefore(pill, chevron);
         else card.appendChild(pill);
       }
-      pill.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.4l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.3l-5.9 3.1 1.2-6.5-4.8-4.6 6.6-.9z"/></svg><span>${escapeHtml(pillLabel)}</span>`;
+      pill.innerHTML = `<span class="cat-focus-line-top">${escapeHtml(topLabel)}</span><span class="cat-focus-line-bottom"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.4l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.3l-5.9 3.1 1.2-6.5-4.8-4.6 6.6-.9z"/></svg><span>${escapeHtml(bottomLabel)}</span></span>`;
     } else if (pill) {
       pill.remove();
     }
