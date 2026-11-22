@@ -237,8 +237,8 @@ const WARMUP_PRESETS = [
   },
   {
     id: "arpeggio-focus",
-    badge: "1–3–5–8",
-    circle: "circle-peach node-circle-compact node-circle-nowrap",
+    badge: "1·3·5·8",
+    circle: "circle-peach node-circle-dense",
     titleDe: "Arpeggio & Register-Training",
     titleEn: "Arpeggio & Register Drill",
     descDe: "Fokus auf Beweglichkeit, Staccato-Oktaven und sanften Lagen-Ausgleich",
