@@ -651,6 +651,7 @@ function syncExamExerciseControls() {
 
   if (isExam) {
     closeTransientPopovers();
+    if (typeof dismissCadenceKeyHint === "function") dismissCadenceKeyHint(false);
     renderExamStatusBar();
   }
   renderStageStreakUI();

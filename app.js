@@ -942,6 +942,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   moduleKeyBtn?.addEventListener("click", (e) => {
     e.stopPropagation();
+    dismissCadenceKeyHint(true);
     closeAllInlinePopovers(inlineKeyPopover);
     const isHidden = inlineKeyPopover.classList.toggle("hidden");
     moduleKeyBtn.classList.toggle("chip-open", !isHidden);

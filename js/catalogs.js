@@ -2312,6 +2312,7 @@ function createDefaultProfile() {
     singAlongIntroCounts: {},
     singAlongIntroDone: false,
     modesRootHintSeen: false,
+    cadenceKeyHintSeen: false,
     tuner: {}
   };
 }
@@ -2423,6 +2424,7 @@ function sanitizeUserProfile(raw) {
       : {},
     singAlongIntroDone: Boolean(raw.singAlongIntroDone),
     modesRootHintSeen: Boolean(raw.modesRootHintSeen),
+    cadenceKeyHintSeen: Boolean(raw.cadenceKeyHintSeen),
     tuner: sanitizeTunerPrefs(raw.tuner)
   };
 }

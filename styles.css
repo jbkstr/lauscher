@@ -6748,7 +6748,8 @@ body,
   outline-offset: 2px;
 }
 
-.module-badge.module-badge-btn.is-root-hint-pulse {
+.module-badge.module-badge-btn.is-root-hint-pulse,
+.module-chip-btn.is-root-hint-pulse {
   animation: modesRootHintPulse 1.5s ease-in-out 3;
 }
 
@@ -6791,6 +6792,16 @@ body,
   transform: rotate(45deg);
 }
 
+.modes-root-hint-bubble.is-inline-start {
+  inset-inline-start: 0;
+  inset-inline-end: auto;
+}
+
+.modes-root-hint-bubble.is-inline-start::before {
+  inset-inline-start: 1.25rem;
+  inset-inline-end: auto;
+}
+
 @keyframes modesRootHintFadeIn {
   from {
     opacity: 0;
@@ -6804,6 +6815,7 @@ body,
 
 @media (prefers-reduced-motion: reduce) {
   .module-badge.module-badge-btn.is-root-hint-pulse,
+  .module-chip-btn.is-root-hint-pulse,
   .modes-root-hint-bubble {
     animation: none;
   }
