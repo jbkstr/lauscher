@@ -828,6 +828,7 @@ function saveCustomThemesToStorage(slots) {
   } catch (_err) {
     notifyStorageSaveFailed();
   }
+  syncNativeStorageMirror();
   return clean;
 }
 
@@ -998,6 +999,101 @@ function loadVisualPrefs() {
   }
 }
 
+const NATIVE_STORAGE_MIRROR_PATH = "lauscher-local-mirror-v1.json";
+let _nativeMirrorTimerId = null;
+
+function getNativeMirrorFilesystem() {
+  if (typeof window === "undefined") return null;
+  const cap = window.Capacitor;
+  if (!cap) return null;
+  const isNative = typeof cap.isNativePlatform === "function" ? cap.isNativePlatform() : Boolean(cap.isNative);
+  if (!isNative) return null;
+  const fs = cap.Plugins?.Filesystem || null;
+  return (fs && typeof fs.writeFile === "function" && typeof fs.readFile === "function") ? fs : null;
+}
+
+function writeNativeStorageMirrorNow() {
+  const fs = getNativeMirrorFilesystem();
+  if (!fs || typeof localStorage === "undefined") return;
+  try {
+    const visual = localStorage.getItem(VISUAL_PREFS_STORAGE_KEY);
+    const profile = localStorage.getItem(PERSONAL_PROFILE_STORAGE_KEY);
+    const customThemes = localStorage.getItem(CUSTOM_THEMES_STORAGE_KEY);
+    if (!visual && !profile && !customThemes) return;
+    const payload = JSON.stringify({ v: 1, visual, profile, customThemes });
+    Promise.resolve(fs.writeFile({
+      path: NATIVE_STORAGE_MIRROR_PATH,
+      data: payload,
+      directory: "DATA",
+      encoding: "utf8"
+    })).catch(() => {});
+  } catch (_err) {}
+}
+
+function syncNativeStorageMirror(immediate = false) {
+  if (!getNativeMirrorFilesystem()) return;
+  if (_nativeMirrorTimerId !== null) {
+    clearTimeout(_nativeMirrorTimerId);
+    _nativeMirrorTimerId = null;
+  }
+  if (immediate) {
+    writeNativeStorageMirrorNow();
+  } else {
+    _nativeMirrorTimerId = setTimeout(() => {
+      _nativeMirrorTimerId = null;
+      writeNativeStorageMirrorNow();
+    }, 120);
+  }
+}
+
+function clearNativeStorageMirror() {
+  if (_nativeMirrorTimerId !== null) {
+    clearTimeout(_nativeMirrorTimerId);
+    _nativeMirrorTimerId = null;
+  }
+  const fs = getNativeMirrorFilesystem();
+  if (!fs || typeof fs.deleteFile !== "function") return;
+  Promise.resolve(fs.deleteFile({
+    path: NATIVE_STORAGE_MIRROR_PATH,
+    directory: "DATA"
+  })).catch(() => {});
+}
+
+async function restoreNativeStorageMirrorIfNeeded() {
+  const fs = getNativeMirrorFilesystem();
+  if (!fs || typeof localStorage === "undefined") return false;
+  try {
+    const hasVisual = Boolean(localStorage.getItem(VISUAL_PREFS_STORAGE_KEY));
+    const hasProfile = Boolean(localStorage.getItem(PERSONAL_PROFILE_STORAGE_KEY));
+    if (hasVisual || hasProfile) return false;
+    const res = await fs.readFile({
+      path: NATIVE_STORAGE_MIRROR_PATH,
+      directory: "DATA",
+      encoding: "utf8"
+    });
+    const raw = typeof res?.data === "string" ? res.data : "";
+    if (!raw) return false;
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object") return false;
+    let restoredAny = false;
+    if (typeof parsed.visual === "string" && parsed.visual) {
+      localStorage.setItem(VISUAL_PREFS_STORAGE_KEY, parsed.visual);
+      restoredAny = true;
+    }
+    if (typeof parsed.profile === "string" && parsed.profile) {
+      localStorage.setItem(PERSONAL_PROFILE_STORAGE_KEY, parsed.profile);
+      restoredAny = true;
+    }
+    if (typeof parsed.customThemes === "string" && parsed.customThemes) {
+      localStorage.setItem(CUSTOM_THEMES_STORAGE_KEY, parsed.customThemes);
+      restoredAny = true;
+    }
+    return restoredAny;
+  } catch (_err) {
+    return false;
+  }
+}
+
 function saveVisualPrefs(
   appearance,
   theme,
@@ -1023,6 +1119,7 @@ function saveVisualPrefs(
         onboardingDone: validOnboardingDone
       })
     );
+    syncNativeStorageMirror();
   } catch (_err) {
     notifyStorageSaveFailed();
   }
@@ -2371,6 +2468,7 @@ function saveUserProfile(profile) {
     } : null);
     localStorage.setItem(PERSONAL_PROFILE_STORAGE_KEY, JSON.stringify({ ...sanitized, customThemes: compactThemes }));
     saveCustomThemesToStorage(sanitized.customThemes);
+    syncNativeStorageMirror();
   } catch (_err) {
     notifyStorageSaveFailed();
   }

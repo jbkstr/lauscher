@@ -717,6 +717,27 @@ function hasOpenTransientPopover() {
   }) || Boolean(typeof _tuner !== "undefined" && _tuner.openDropdown) || Boolean(typeof _nnsOpenDropdown !== "undefined" && _nnsOpenDropdown) || Boolean(typeof _openProfileDropdownKey !== "undefined" && _openProfileDropdownKey);
 }
 
+function minimizeOrExitNativeApp() {
+  stopPlayback();
+  if (typeof syncNativeStorageMirror === "function") {
+    syncNativeStorageMirror(true);
+  }
+  const capApp = typeof window !== "undefined" ? window.Capacitor?.Plugins?.App : null;
+  if (!capApp) return false;
+  // minimizeApp() nutzt Androids moveTaskToBack(true) statt Activity.finish():
+  // Die WebView bleibt intakt und Chromium flusht localStorage sauber auf Disk,
+  // statt bei schnellem Beenden einen ungewollten App-Reset auszulösen.
+  if (typeof capApp.minimizeApp === "function") {
+    Promise.resolve(capApp.minimizeApp()).catch(() => {});
+    return true;
+  }
+  if (typeof capApp.exitApp === "function") {
+    capApp.exitApp();
+    return true;
+  }
+  return false;
+}
+
 function handleNativeBackButton() {
   const welcome = document.getElementById("welcomeOnboarding");
   if (welcome && !welcome.classList.contains("hidden")) {
@@ -724,12 +745,7 @@ function handleNativeBackButton() {
       goToWelcomeStep(_welcomeOnboardingState.currentStep - 1);
       return true;
     }
-    const capApp = typeof window !== "undefined" ? window.Capacitor?.Plugins?.App : null;
-    if (capApp && typeof capApp.exitApp === "function") {
-      capApp.exitApp();
-      return true;
-    }
-    return false;
+    return minimizeOrExitNativeApp();
   }
 
   if (getOpenModalName()) {
@@ -762,12 +778,7 @@ function handleNativeBackButton() {
     return true;
   }
 
-  const capApp = typeof window !== "undefined" ? window.Capacitor?.Plugins?.App : null;
-  if (capApp && typeof capApp.exitApp === "function") {
-    capApp.exitApp();
-    return true;
-  }
-  return false;
+  return minimizeOrExitNativeApp();
 }
 
 function syncNativeSystemBars(effectiveAppearance = null) {
@@ -796,6 +807,7 @@ function initCapacitorNativeBridge() {
   // Laufende Audio-Sessions beim Wechseln der App pausieren/stoppen und Systemleiste abgleichen
   capApp.addListener("appStateChange", ({ isActive } = {}) => {
     if (isActive === false) {
+      if (typeof syncNativeStorageMirror === "function") syncNativeStorageMirror(true);
       stopPlayback();
       if (typeof stopMetronome === "function") stopMetronome();
       if (typeof pauseWarmupSession === "function") pauseWarmupSession({ keepPlayback: false });

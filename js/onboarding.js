@@ -459,57 +459,103 @@ function openFirstRunOnboarding() {
   return true;
 }
 
+function applyRestoredNativeAppState() {
+  const restoredVisual = loadVisualPrefs();
+  state.settings.appearance = restoredVisual.appearance;
+  state.settings.theme = restoredVisual.theme;
+  state.settings.language = restoredVisual.language;
+  state.settings.autoNextAfterCorrect = restoredVisual.autoNextAfterCorrect;
+  state.settings.playCorrectAnswerAudio = restoredVisual.playCorrectAnswerAudio;
+  state.settings.onboardingDone = restoredVisual.onboardingDone;
+  state.profile = loadUserProfile();
+
+  if (typeof applyThemeAndAppearance === "function") applyThemeAndAppearance();
+  if (typeof applyStaticDomLanguage === "function") applyStaticDomLanguage(state.settings.language);
+  if (typeof syncLanguageControls === "function") syncLanguageControls(state.settings.language);
+  if (typeof syncAutoNextControls === "function") syncAutoNextControls();
+  if (typeof syncAnswerSoundToggleUI === "function") syncAnswerSoundToggleUI();
+  if (typeof renderHomeProfileGreeting === "function") renderHomeProfileGreeting();
+  if (typeof renderProfileAccountView === "function") renderProfileAccountView();
+  if (typeof state.updateHeaderSubtext === "function") state.updateHeaderSubtext();
+  if (typeof state.updateQuickStartLabel === "function") state.updateQuickStartLabel();
+}
+
 function initStartupSplash() {
   hydrateMascotStaticSlots();
   const splash = document.getElementById("startupSplash");
   const welcome = document.getElementById("welcomeOnboarding");
 
-  if (isFirstRunOnboardingNeeded() && welcome) {
-    if (splash) {
-      splash.classList.add("splash-out");
-      splash.classList.add("splash-hidden");
+  const continueAfterRestoreCheck = () => {
+    if (isFirstRunOnboardingNeeded() && welcome) {
+      if (splash) {
+        splash.classList.add("splash-out");
+        splash.classList.add("splash-hidden");
+      }
+      openFirstRunOnboarding();
+      return;
     }
-    openFirstRunOnboarding();
+
+    if (welcome) {
+      welcome.classList.add("hidden");
+      welcome.classList.remove("welcome-out");
+    }
+    if (typeof document !== "undefined" && document.documentElement?.removeAttribute) {
+      document.documentElement.removeAttribute("data-first-run");
+    }
+    if (!splash) return;
+
+    splash.classList.remove("splash-out");
+    splash.classList.remove("splash-hidden");
+
+    let dismissed = false;
+    let autoTimer = null;
+
+    function dismissSplash() {
+      if (dismissed) return;
+      dismissed = true;
+      if (autoTimer) clearTimeout(autoTimer);
+      splash.classList.add("splash-out");
+      setTimeout(() => {
+        splash.classList.add("splash-hidden");
+      }, 360);
+    }
+
+    const prefersReduced =
+      typeof window !== "undefined" &&
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (!splash._dismissSplashBound) {
+      splash._dismissSplashBound = true;
+      splash.addEventListener("click", () => {
+        if (splash._activeDismissFn) splash._activeDismissFn();
+      });
+    }
+    splash._activeDismissFn = dismissSplash;
+    autoTimer = setTimeout(dismissSplash, prefersReduced ? 450 : 1200);
+  };
+
+  if (
+    isFirstRunOnboardingNeeded() &&
+    typeof restoreNativeStorageMirrorIfNeeded === "function" &&
+    typeof getNativeMirrorFilesystem === "function" &&
+    getNativeMirrorFilesystem()
+  ) {
+    restoreNativeStorageMirrorIfNeeded()
+      .then(restored => {
+        if (restored) applyRestoredNativeAppState();
+        continueAfterRestoreCheck();
+      })
+      .catch(() => {
+        continueAfterRestoreCheck();
+      });
     return;
   }
 
-  if (welcome) {
-    welcome.classList.add("hidden");
-    welcome.classList.remove("welcome-out");
+  // Bei vorhandenem localStorage den nativen Spiegel einmal still nachziehen (für Alt-Installationen)
+  if (!isFirstRunOnboardingNeeded() && typeof syncNativeStorageMirror === "function") {
+    syncNativeStorageMirror();
   }
-  if (typeof document !== "undefined" && document.documentElement?.removeAttribute) {
-    document.documentElement.removeAttribute("data-first-run");
-  }
-  if (!splash) return;
-
-  splash.classList.remove("splash-out");
-  splash.classList.remove("splash-hidden");
-
-  let dismissed = false;
-  let autoTimer = null;
-
-  function dismissSplash() {
-    if (dismissed) return;
-    dismissed = true;
-    if (autoTimer) clearTimeout(autoTimer);
-    splash.classList.add("splash-out");
-    setTimeout(() => {
-      splash.classList.add("splash-hidden");
-    }, 360);
-  }
-
-  const prefersReduced =
-    typeof window !== "undefined" &&
-    typeof window.matchMedia === "function" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  if (!splash._dismissSplashBound) {
-    splash._dismissSplashBound = true;
-    splash.addEventListener("click", () => {
-      if (splash._activeDismissFn) splash._activeDismissFn();
-    });
-  }
-  splash._activeDismissFn = dismissSplash;
-  autoTimer = setTimeout(dismissSplash, prefersReduced ? 450 : 1200);
+  continueAfterRestoreCheck();
 }
 
