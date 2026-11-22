@@ -1974,5 +1974,191 @@ registerColocatedQuotes([
       cat: "حوصلہ افزائی",
       text: "«سماعت کی تربیت آہستہ آہستہ مضبوط ہونے والے پٹھوں جیسی ہے: ایک منٹ میں فرق نہیں لگتا، لیکن ایک دن اچانک ریڈیو پر ہر کارڈ تبدیلی صاف سنائی دینے لگتی ہے!»"
     }
+  },
+  {
+    weight: 4,
+    de: {
+      cat: "Hinweis",
+      text: "„Lauscher begleitet dich beim Lernen, ersetzt aber weder das Üben am eigenen Instrument noch echten Unterricht – und kann das auch gar nicht.“"
+    },
+    en: {
+      cat: "Note",
+      text: "“Lauscher is your companion for learning, not a replacement for practicing your instrument or real lessons — and it can’t replace them either.”"
+    },
+    fr: {
+      cat: "Remarque",
+      text: "« Lauscher t’accompagne dans ton apprentissage, mais ne remplace — et ne peut remplacer — ni la pratique de ton instrument ni de vrais cours. »"
+    },
+    es: {
+      cat: "Nota",
+      text: "«Lauscher te acompaña al aprender, pero no sustituye —ni puede sustituir— la práctica con tu instrumento ni las clases reales.»"
+    },
+    pl: {
+      cat: "Uwaga",
+      text: "„Lauscher wspiera Twoją naukę, ale nie zastępuje — i nie może zastąpić — regularnego ćwiczenia na instrumencie ani prawdziwych lekcji.”"
+    },
+    uk: {
+      cat: "Важливо",
+      text: "«Lauscher супроводжує твоє навчання, але не замінює — і не може замінити — практику на власному інструменті та живі уроки.»"
+    },
+    ur: {
+      cat: "اہم بات",
+      text: "«Lauscher سیکھنے میں آپ کا ساتھی ہے، لیکن یہ نہ تو اصل ساز پر مشق اور حقیقی اسباق کا نعم البدل ہے اور نہ ہو سکتا ہے۔»"
+    }
+  },
+  {
+    weight: 4,
+    de: {
+      cat: "Hinweis",
+      text: "„Hier trainierst du dein Hörverständnis und Musikwissen – praktische Spieltechnik, Haltung und Gefühl fürs Instrument lernst du nur am echten Instrument.“"
+    },
+    en: {
+      cat: "Note",
+      text: "“Here you build your listening skills and musical knowledge — practical playing technique, posture, and touch can only be learned on a real instrument.”"
+    },
+    fr: {
+      cat: "Remarque",
+      text: "« Ici, tu développes ton écoute et tes connaissances musicales — la technique de jeu, la posture et le toucher ne s’apprennent que sur un vrai instrument. »"
+    },
+    es: {
+      cat: "Nota",
+      text: "«Aquí entrenas tu comprensión auditiva y tus conocimientos musicales: la técnica práctica, la postura y el tacto solo se aprenden con el instrumento real.»"
+    },
+    pl: {
+      cat: "Uwaga",
+      text: "„Tutaj rozwijasz słuch muzyczny i wiedzę — praktyczną technikę gry, postawę i wyczucie instrumentu zdobywa się wyłącznie na prawdziwym instrumencie.”"
+    },
+    uk: {
+      cat: "Важливо",
+      text: "«Тут ти тренуєш слух і музичні знання — практичну техніку гри, поставу та відчуття інструмента можна здобути лише на справжньому інструменті.»"
+    },
+    ur: {
+      cat: "اہم بات",
+      text: "«یہاں آپ سماعت کی سمجھ اور موسیقی کا علم سیکھتے ہیں — عملی بجانے کی مہارت، درست انداز اور ساز کا احساس صرف اصل ساز پر ہی سیکھا جاتا ہے۔»"
+    }
+  },
+  {
+    weight: 4,
+    de: {
+      cat: "Hinweis",
+      text: "„Lauscher schärft dein Ohr und erklärt Zusammenhänge, aber Fingerfertigkeit, Ansatz und Klangbildung entstehen erst beim regelmäßigen Üben am Instrument.“"
+    },
+    en: {
+      cat: "Note",
+      text: "“Lauscher sharpens your ear and explains how music fits together, while dexterity, tone production, and real playing skills only grow at your instrument.”"
+    },
+    fr: {
+      cat: "Remarque",
+      text: "« Lauscher affine ton oreille et éclaire la théorie, mais la dextérité, le geste et le son ne naissent qu’en pratiquant régulièrement ton instrument. »"
+    },
+    es: {
+      cat: "Nota",
+      text: "«Lauscher afina tu oído y explica cómo funciona la música, pero la destreza, la técnica y el sonido solo crecen practicando regularmente con tu instrumento.»"
+    },
+    pl: {
+      cat: "Uwaga",
+      text: "„Lauscher wyostrza słuch i wyjaśnia zależności, ale biegłość palców, technika i brzmienie rodzą się dopiero przy regularnej grze na instrumencie.”"
+    },
+    uk: {
+      cat: "Важливо",
+      text: "«Lauscher загострює слух і пояснює зв’язки в музиці, але техніка, вправність рук і живий звук народжуються лише під час регулярної гри на інструменті.»"
+    },
+    ur: {
+      cat: "اہم بات",
+      text: "«Lauscher آپ کے کان کو تیز کرتا اور اصول سمجھاتا ہے، لیکن انگلیوں کی مہارت اور اصل سُر کی پختگی صرف ساز پر باقاعدہ مشق سے آتی ہے۔»"
+    }
+  },
+  {
+    weight: 4,
+    de: {
+      cat: "Hinweis",
+      text: "„Keine App kann eine gute Lehrkraft ersetzen: Lauscher vermittelt Theorie und Gehörverständnis für zwischendurch – das echte Spielen entsteht im Unterricht und am Instrument.“"
+    },
+    en: {
+      cat: "Note",
+      text: "“No app can replace a good teacher: Lauscher offers theory and ear training in between, while real musical playing grows in lessons and hands-on practice.”"
+    },
+    fr: {
+      cat: "Remarque",
+      text: "« Aucune appli ne remplace un bon professeur : Lauscher apporte théorie et écoute au quotidien, tandis que le vrai jeu se construit en cours et sur l’instrument. »"
+    },
+    es: {
+      cat: "Nota",
+      text: "«Ninguna app puede sustituir a un buen profesor: Lauscher aporta teoría y oído para el día a día, mientras que tocar de verdad se construye en clase y con el instrumento.»"
+    },
+    pl: {
+      cat: "Uwaga",
+      text: "„Żadna aplikacja nie zastąpi dobrego nauczyciela: Lauscher daje teorię i trening słuchu na co dzień, a prawdziwa gra rozwija się na lekcjach i z instrumentem.”"
+    },
+    uk: {
+      cat: "Важливо",
+      text: "«Жоден застосунок не замінить хорошого викладача: Lauscher дає теорію й тренування слуху між заняттями, а справжня гра народжується на уроках і з інструментом.»"
+    },
+    ur: {
+      cat: "اہم بات",
+      text: "«کوئی ایپ ایک اچھے استاد کی جگہ نہیں لے سکتی: Lauscher وقفوں میں تھیوری اور سماعت کی مشق دیتا ہے، جبکہ اصل فن سیکھنا استاد اور ساز کے ساتھ ہی ممکن ہے۔»"
+    }
+  },
+  {
+    weight: 4,
+    de: {
+      cat: "Hinweis",
+      text: "„Was du hier hörst und verstehst, wird erst am Instrument lebendig: Nutze Lauscher als Begleiter neben deinem Üben – niemals stattdessen!“"
+    },
+    en: {
+      cat: "Note",
+      text: "“Everything you hear and understand here truly comes alive on your instrument: use Lauscher alongside your practice — never instead of it!”"
+    },
+    fr: {
+      cat: "Remarque",
+      text: "« Ce que tu entends et comprends ici ne prend vraiment vie que sur ton instrument : utilise Lauscher en complément de ta pratique, jamais à sa place ! »"
+    },
+    es: {
+      cat: "Nota",
+      text: "«Lo que escuchas y comprendes aquí solo cobra verdadera vida en tu instrumento: usa Lauscher como complemento de tu práctica, ¡nunca en su lugar!»"
+    },
+    pl: {
+      cat: "Uwaga",
+      text: "„To, co tutaj słyszysz i rozumiesz, naprawdę ożywa dopiero na instrumencie: traktuj Lauscher jako dodatek do ćwiczeń — nigdy zamiast nich!”"
+    },
+    uk: {
+      cat: "Важливо",
+      text: "«Те, що ти чуєш і розумієш тут, по-справжньому оживає лише на інструменті: використовуй Lauscher як доповнення до занять, а не замість них!»"
+    },
+    ur: {
+      cat: "اہم بات",
+      text: "«جو کچھ آپ یہاں سنتے اور سمجھتے ہیں وہ اصل میں آپ کے ساز پر ہی زندہ ہوتا ہے: Lauscher کو اپنی مشق کے ساتھ معاون بنائیں — اس کے بدلے کبھی نہیں!»"
+    }
+  },
+  {
+    weight: 4,
+    de: {
+      cat: "Hinweis",
+      text: "„Ganz ehrlich: Mit Lauscher lernst du keine praktischen Spiel-Skills, sondern Wissen und Hörverständnis. Dein Instrument und guter Unterricht bleiben unersetzlich!“"
+    },
+    en: {
+      cat: "Note",
+      text: "“To be completely honest: Lauscher doesn’t teach practical playing skills, only knowledge and listening comprehension. Your instrument and good lessons remain irreplaceable!”"
+    },
+    fr: {
+      cat: "Remarque",
+      text: "« Soyons francs : Lauscher n’enseigne pas de compétences pratiques de jeu, seulement des connaissances et la compréhension auditive. Ton instrument et de bons cours restent irremplaçables ! »"
+    },
+    es: {
+      cat: "Nota",
+      text: "«Seamos claros: con Lauscher no se aprenden habilidades prácticas de interpretación, solo conocimientos y comprensión auditiva. ¡Tu instrumento y unas buenas clases siguen siendo insustituibles!»"
+    },
+    pl: {
+      cat: "Uwaga",
+      text: "„Szczerze mówiąc: z Lauscher nie nauczysz się praktycznych umiejętności gry, lecz wiedzy i rozumienia ze słuchu. Twój instrument i dobre lekcje pozostają niezastąpione!”"
+    },
+    uk: {
+      cat: "Важливо",
+      text: "«Скажемо чесно: Lauscher не навчає практичних навичок гри, а лише дає знання й розуміння на слух. Твій інструмент і хороші уроки залишаються незамінними!»"
+    },
+    ur: {
+      cat: "اہم بات",
+      text: "«صاف بات یہ ہے: Lauscher عملی بجانے کی مہارت نہیں سکھاتا، بلکہ صرف علم اور سماعت کی سمجھ دیتا ہے۔ آپ کا ساز اور اچھے اسباق ہمیشہ ناگزیر رہیں گے!»"
+    }
   }
 ]);

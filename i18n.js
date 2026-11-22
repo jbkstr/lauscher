@@ -167,15 +167,18 @@ function registerColocatedStatic(entries) {
 
 /**
  * Registriert ko-lokalisierte Startseiten-Zitate:
- * [ { de: { cat, text }, en: { cat, text }, fr: ..., es: ..., pl: ..., uk: ..., ur: ... }, ... ]
+ * [ { weight?: number, de: { cat, text }, en: { cat, text }, fr: ..., es: ..., pl: ..., uk: ..., ur: ... }, ... ]
  */
 function registerColocatedQuotes(list) {
   if (!Array.isArray(list)) return;
   for (const item of list) {
     if (!item || typeof item !== "object") continue;
-    if (item.de) LAUSCHEBAER_QUOTES.push(item.de);
+    const weight = Number(item.weight) > 0 ? Number(item.weight) : 1;
+    if (item.de) {
+      LAUSCHEBAER_QUOTES.push(weight !== 1 ? { ...item.de, weight } : item.de);
+    }
     for (const [lang, q] of Object.entries(item)) {
-      if (lang === "de") continue;
+      if (lang === "de" || lang === "weight" || !q || typeof q !== "object") continue;
       if (!LOCALIZED_TABLES_BY_LANG[lang]) LOCALIZED_TABLES_BY_LANG[lang] = {};
       if (!Array.isArray(LOCALIZED_TABLES_BY_LANG[lang].quotes)) {
         LOCALIZED_TABLES_BY_LANG[lang].quotes = [];
