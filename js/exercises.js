@@ -810,6 +810,56 @@ function maybeShowModesRootHint(badgeEl) {
   }, 6000);
 }
 
+let _cadenceKeyHintTimer = null;
+
+function dismissCadenceKeyHint(markSeen = true) {
+  if (_cadenceKeyHintTimer) {
+    clearTimeout(_cadenceKeyHintTimer);
+    _cadenceKeyHintTimer = null;
+  }
+  document.getElementById("moduleKeyBtn")?.classList.remove("is-root-hint-pulse");
+  document.getElementById("cadenceKeyHintBubble")?.remove();
+  if (markSeen) {
+    if (!state.profile) state.profile = createDefaultProfile();
+    if (!state.profile.cadenceKeyHintSeen) {
+      state.profile.cadenceKeyHintSeen = true;
+      saveUserProfile(state.profile);
+    }
+  }
+}
+
+function maybeShowCadenceKeyHint(keyBtn) {
+  if (!keyBtn || typeof document === "undefined") return;
+  if (state.currentView !== "exercise" || state.exam?.active) return;
+  if (state.profile?.cadenceKeyHintSeen) return;
+  if (document.getElementById("cadenceKeyHintBubble")) return;
+  const headerEl = keyBtn.closest?.(".module-header") || keyBtn.parentElement;
+  if (!headerEl) return;
+
+  keyBtn.classList.add("is-root-hint-pulse");
+  const bubble = document.createElement("button");
+  bubble.id = "cadenceKeyHintBubble";
+  bubble.type = "button";
+  bubble.className = "modes-root-hint-bubble is-inline-start";
+  bubble.textContent = tr("Tonart anpassbar", "Tap to change key", {
+    fr: "Tonalité réglable",
+    es: "Tonalidad ajustable",
+    pl: "Tonacja do wyboru",
+    uk: "Тональність можна змінити",
+    ur: "کلید تبدیل کریں"
+  });
+  bubble.addEventListener("click", (e) => {
+    e.stopPropagation();
+    dismissCadenceKeyHint(true);
+    keyBtn.click();
+  });
+  headerEl.appendChild(bubble);
+
+  _cadenceKeyHintTimer = setTimeout(() => {
+    dismissCadenceKeyHint(true);
+  }, 6000);
+}
+
 /** Kurze Hörprobe der Grundton-Fläche (nur wenn gerade nichts läuft). */
 function previewModesRootPad(durSec = 1.4) {
   const ex = state.currentExercise;
@@ -1164,6 +1214,11 @@ function renderUI() {
   if (moduleKeyBtn) {
     moduleKeyBtn.classList.toggle("hidden", !isCadence);
     moduleKeyBtn.textContent = ex.keyName;
+    if (isCadence && !state.exam?.active) {
+      maybeShowCadenceKeyHint(moduleKeyBtn);
+    } else {
+      dismissCadenceKeyHint(false);
+    }
   }
 
   if (moduleNotationKeyBtn) {

@@ -1185,6 +1185,7 @@ function switchView(targetView, options = {}) {
   stopWaveAnimation();
   closeTransientPopovers();
   dismissModesRootHint(false);
+  dismissCadenceKeyHint(false);
   cancelHumPause();
   if (typeof cancelNotationChordAdvance === "function" && state.currentExercise?.isChordReading) {
     cancelNotationChordAdvance(state.currentExercise);
@@ -1325,6 +1326,8 @@ function switchView(targetView, options = {}) {
       generateExercise();
     } else if (state.profileDisplayDirty) {
       renderUI();
+    } else if (state.currentExercise?.type === "cadence" && !state.exam?.active) {
+      maybeShowCadenceKeyHint(document.getElementById("moduleKeyBtn"));
     }
     state.profileDisplayDirty = false;
     if (state.breakReminder) {
