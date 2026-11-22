@@ -599,7 +599,7 @@ function renderNashvilleView() {
         </svg>
       </div>
       <div class="cat-text-box">
-        <h3>${tr("Artikel: Wie das Nashville Number System funktioniert & entstand", "Article: How the Nashville Number System Works & Began")}</h3>
+        <h3>${tr("Artikel: Wie das Nashville-Zahlensystem funktioniert & entstand", "Article: How the Nashville Number System Works & Began")}</h3>
         <p>${tr("Geschichte, Studio-Zeichen, Slash-Akkorde & Hörbeispiele", "History, chart symbols, slash chords & audio examples")}</p>
       </div>
       <span class="cat-chevron">›</span>

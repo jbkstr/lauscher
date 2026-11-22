@@ -1508,13 +1508,13 @@ const KNOWLEDGE_ARTICLES_PL = [
     id: "art-nashville-number-system",
     icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3.5" width="18" height="17" rx="2.5"/><line x1="3" y1="12" x2="21" y2="12" opacity="0.55"/><line x1="12" y1="3.5" x2="12" y2="20.5" opacity="0.55"/><text x="7.5" y="10" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">1</text><text x="16.5" y="10" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">4</text><text x="7.5" y="18.2" text-anchor="middle" font-family="Andika, sans-serif" font-size="6.4" font-weight="700" fill="currentColor" stroke="none">5</text><text x="16.5" y="18.2" text-anchor="middle" font-family="Andika, sans-serif" font-size="5.8" font-weight="700" fill="currentColor" stroke="none">6-</text></svg>`,
     badgeClass: "badge-peach",
-    title: "Nashville Number System",
+    title: "System liczbowy Nashville",
     subtitle: "Jak cyfry zamiast nazw akordów pozwalają zespołowi transponować w kilka sekund",
     tag: "Studio i praktyka",
     render: () => `
       <div class="article-body">
         <span class="k-card-tag tag-peach">Praktyka studyjna i harmonia</span>
-        <h2>Nashville Number System (NNS)</h2>
+        <h2>System liczbowy Nashville (Nashville Number System)</h2>
         <p class="article-lead">
           Wyobraź sobie sesję nagraniową: pięciu muzyków słyszy piosenkę po raz pierwszy, w trzy minuty zapisuje kartkę z cyframi takimi jak <strong>1 – 5 – 6- – 4</strong>, a gdy wokalista prosi <em>„Zróbmy to cały ton niżej!”</em>, nikt nie zmienia ani jednej cyfry. Do tego właśnie powstał <strong>Nashville Number System</strong>.
         </p>

@@ -1004,11 +1004,11 @@ registerColocatedStatic({
     ur: "انٹرایکٹو پہیہ، کورڈز، کلیدی علامات اور ماڈیولیشن"
   },
   "tools.nashvilleTitle": {
-    de: "Nashville Number System",
+    de: "Nashville-Zahlensystem",
     en: "Nashville Number System",
-    fr: "Nashville Number System",
+    fr: "Système numérique de Nashville",
     es: "Sistema numérico de Nashville",
-    pl: "Nashville Number System",
+    pl: "System liczbowy Nashville",
     uk: "Система цифр Нешвілла",
     ur: "نیش وِل نمبر سسٹم"
   },
@@ -4773,6 +4773,24 @@ registerColocatedStatic({
     pl: "Udostępnij Lauscher",
     uk: "Поділитися Lauscher",
     ur: "Lauscher شیئر کریں"
+  },
+  "about.linkWebVersion": {
+    de: "Webversion",
+    en: "Web Version",
+    fr: "Version web",
+    es: "Versión web",
+    pl: "Wersja przeglądarkowa",
+    uk: "Вебверсія",
+    ur: "ویب ورژن"
+  },
+  "about.linkGetApp": {
+    de: "Hol dir die App",
+    en: "Get the App",
+    fr: "Télécharger l’appli",
+    es: "Descarga la app",
+    pl: "Pobierz aplikację",
+    uk: "Завантажити застосунок",
+    ur: "ایپ حاصل کریں"
   },
   "about.linkDonate": {
     de: "Lauscher unterstützen",

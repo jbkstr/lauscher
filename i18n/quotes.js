@@ -1708,7 +1708,7 @@ registerColocatedQuotes([
   {
     de: {
       cat: "Tipp",
-      text: "„Schon das Nashville Number System bei den Werkzeugen entdeckt? Mit Ziffern statt festen Akkordnamen denkst du in jeder Tonart flexibel – inklusive Kapodaster-Übersetzer für Gitarre!“"
+      text: "„Schon das Nashville-Zahlensystem bei den Werkzeugen entdeckt? Mit Ziffern statt festen Akkordnamen denkst du in jeder Tonart flexibel – inklusive Kapodaster-Übersetzer für Gitarre!“"
     },
     en: {
       cat: "Tip",
@@ -1716,7 +1716,7 @@ registerColocatedQuotes([
     },
     fr: {
       cat: "Astuce",
-      text: "« As-tu déjà découvert le Nashville Number System dans les outils ? Penser en chiffres plutôt qu’en noms d’accords fixes te libère dans toutes les tonalités — avec traducteur de capodastre inclus ! »"
+      text: "« As-tu déjà découvert le système numérique de Nashville dans les outils ? Penser en chiffres plutôt qu’en noms d’accords fixes te libère dans toutes les tonalités — avec traducteur de capodastre inclus ! »"
     },
     es: {
       cat: "Consejo",
@@ -1724,7 +1724,7 @@ registerColocatedQuotes([
     },
     pl: {
       cat: "Wskazówka",
-      text: "„Widziałeś już Nashville Number System w narzędziach? Myślenie cyframi zamiast sztywnych nazw akordów daje swobodę w każdej tonacji — razem z tłumaczem kapodastra dla gitary!”"
+      text: "„Widziałeś już system liczbowy Nashville w narzędziach? Myślenie cyframi zamiast sztywnych nazw akordów daje swobodę w każdej tonacji — razem z tłumaczem kapodastra dla gitary!”"
     },
     uk: {
       cat: "Порада",

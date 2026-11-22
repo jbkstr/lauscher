@@ -2363,10 +2363,10 @@ registerColocatedPhrases({
     uk: "Фригійський домінантовий",
     ur: "فریجین ڈومیننٹ"
   },
-  "Nashville Number System": {
-    fr: "Nashville Number System",
+  "Nashville-Zahlensystem": {
+    fr: "Système numérique de Nashville",
     es: "Sistema numérico de Nashville",
-    pl: "Nashville Number System",
+    pl: "System liczbowy Nashville",
     uk: "Система цифр Нешвілла",
     ur: "نیش وِل نمبر سسٹم"
   },
@@ -2608,10 +2608,10 @@ registerColocatedPhrases({
     uk: "= {chord}",
     ur: "= {chord}"
   },
-  "Artikel: Wie das Nashville Number System funktioniert & entstand": {
-    fr: "Article : Comment fonctionne le Nashville Number System et son histoire",
+  "Artikel: Wie das Nashville-Zahlensystem funktioniert & entstand": {
+    fr: "Article : Comment fonctionne le système numérique de Nashville et son histoire",
     es: "Artículo: Cómo funciona y cómo nació el sistema numérico de Nashville",
-    pl: "Artykuł: Jak działa i skąd pochodzi Nashville Number System",
+    pl: "Artykuł: Jak działa i skąd pochodzi system liczbowy Nashville",
     uk: "Стаття: Як працює й виникла система цифр Нешвілла",
     ur: "مضمون: نیش وِل نمبر سسٹم کیسے کام کرتا ہے اور کیسے شروع ہوا"
   },
