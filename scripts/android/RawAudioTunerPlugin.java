@@ -3,6 +3,7 @@ package de.jbkstr.lauscher;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.media.AudioDeviceInfo;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioRecord;
@@ -18,6 +19,8 @@ import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
 import com.getcapacitor.annotation.Permission;
 import com.getcapacitor.annotation.PermissionCallback;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Lauscher • Natives Android-Rohmikrofon-Plugin für den chromatischen Tuner.
@@ -80,6 +83,7 @@ public class RawAudioTunerPlugin extends Plugin {
 
     private final Object ringLock = new Object();
     private final short[] ringBuffer = new short[RING_SIZE];
+    private final byte[] readBytes = new byte[RING_SIZE * 2];
     private int ringWritePos = 0;
     private long totalSamples = 0;
 
@@ -88,6 +92,8 @@ public class RawAudioTunerPlugin extends Plugin {
     private Thread captureThread = null;
     private int activeSampleRate = 48000;
     private String activeSourceName = "unprocessed";
+    private boolean activeBluetoothMic = false;
+    private String activeDeviceName = "";
 
     @PluginMethod
     public void start(PluginCall call) {
@@ -112,13 +118,15 @@ public class RawAudioTunerPlugin extends Plugin {
         stopCaptureInternal();
 
         int[] candidateSources = buildSourceFallbackOrder();
+        int[] candidateRates = buildSampleRateOrder();
+        AudioDeviceInfo builtInMic = findBuiltInMic();
         AudioRecord created = null;
         int chosenRate = 48000;
         String chosenSource = "mic";
-        int readChunk = 1024;
+        int readChunk = 960;
 
         for (int source : candidateSources) {
-            for (int rate : SAMPLE_RATES) {
+            for (int rate : candidateRates) {
                 int minBuf = AudioRecord.getMinBufferSize(
                     rate,
                     AudioFormat.CHANNEL_IN_MONO,
@@ -138,12 +146,19 @@ public class RawAudioTunerPlugin extends Plugin {
                         bufBytes
                     );
                     if (candidate.getState() == AudioRecord.STATE_INITIALIZED) {
+                        if (builtInMic != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            try {
+                                candidate.setPreferredDevice(builtInMic);
+                            } catch (Exception ignored) {}
+                        }
                         candidate.startRecording();
                         if (candidate.getRecordingState() == AudioRecord.RECORDSTATE_RECORDING) {
                             created = candidate;
                             chosenRate = rate;
                             chosenSource = sourceName(source);
-                            readChunk = Math.max(512, Math.min(2048, minBuf / 2));
+                            // ~20 ms Hop-Fortschritt im Ringpuffer für flüssige 20–30 ms Auswertung
+                            int targetChunk = (int) Math.round(rate * 0.020);
+                            readChunk = Math.max(512, Math.min(2048, targetChunk));
                             break;
                         }
                     }
@@ -173,6 +188,8 @@ public class RawAudioTunerPlugin extends Plugin {
         audioRecord = created;
         activeSampleRate = chosenRate;
         activeSourceName = chosenSource;
+        activeBluetoothMic = isBluetoothInputActive(created);
+        activeDeviceName = getRoutedDeviceLabel(created);
         running = true;
 
         final AudioRecord rec = created;
@@ -226,6 +243,8 @@ public class RawAudioTunerPlugin extends Plugin {
         res.put("source", activeSourceName);
         res.put("bufferSize", RING_SIZE);
         res.put("bandpassApplied", true);
+        res.put("bluetoothMic", activeBluetoothMic);
+        res.put("deviceName", activeDeviceName);
         call.resolve(res);
     }
 
@@ -239,8 +258,8 @@ public class RawAudioTunerPlugin extends Plugin {
         }
 
         long lastSeq = call.getLong("lastSeq", -1L);
-        byte[] bytes = new byte[RING_SIZE * 2];
         long seq;
+        String encoded;
 
         synchronized (ringLock) {
             seq = totalSamples;
@@ -256,11 +275,12 @@ public class RawAudioTunerPlugin extends Plugin {
             int idx = ringWritePos;
             for (int i = 0; i < RING_SIZE; i++) {
                 short s = ringBuffer[idx];
-                bytes[2 * i] = (byte) (s & 0xff);
-                bytes[2 * i + 1] = (byte) ((s >>> 8) & 0xff);
+                readBytes[2 * i] = (byte) (s & 0xff);
+                readBytes[2 * i + 1] = (byte) ((s >>> 8) & 0xff);
                 idx++;
                 if (idx == RING_SIZE) idx = 0;
             }
+            encoded = Base64.encodeToString(readBytes, Base64.NO_WRAP);
         }
 
         JSObject res = new JSObject();
@@ -270,7 +290,7 @@ public class RawAudioTunerPlugin extends Plugin {
         res.put("sampleRate", activeSampleRate);
         res.put("source", activeSourceName);
         res.put("bandpassApplied", true);
-        res.put("pcm16Base64", Base64.encodeToString(bytes, Base64.NO_WRAP));
+        res.put("pcm16Base64", encoded);
         call.resolve(res);
     }
 
@@ -345,6 +365,74 @@ public class RawAudioTunerPlugin extends Plugin {
             MediaRecorder.AudioSource.VOICE_RECOGNITION,
             MediaRecorder.AudioSource.MIC
         };
+    }
+
+    private int[] buildSampleRateOrder() {
+        List<Integer> rates = new ArrayList<>();
+        try {
+            AudioManager am = (AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE);
+            if (am != null) {
+                String prop = am.getProperty(AudioManager.PROPERTY_OUTPUT_SAMPLE_RATE);
+                if (prop != null) {
+                    int nativeRate = Integer.parseInt(prop.trim());
+                    if (nativeRate >= 22050 && nativeRate <= 96000) {
+                        rates.add(nativeRate);
+                    }
+                }
+            }
+        } catch (Exception ignored) {}
+        for (int r : SAMPLE_RATES) {
+            if (!rates.contains(r)) rates.add(r);
+        }
+        int[] out = new int[rates.size()];
+        for (int i = 0; i < rates.size(); i++) out[i] = rates.get(i);
+        return out;
+    }
+
+    private AudioDeviceInfo findBuiltInMic() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return null;
+        try {
+            AudioManager am = (AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE);
+            if (am == null) return null;
+            AudioDeviceInfo[] inputs = am.getDevices(AudioManager.GET_DEVICES_INPUTS);
+            for (AudioDeviceInfo dev : inputs) {
+                if (dev != null && dev.getType() == AudioDeviceInfo.TYPE_BUILTIN_MIC) {
+                    return dev;
+                }
+            }
+        } catch (Exception ignored) {}
+        return null;
+    }
+
+    private boolean isBluetoothInputActive(AudioRecord rec) {
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && rec != null) {
+                AudioDeviceInfo routed = rec.getRoutedDevice();
+                if (routed != null) {
+                    int type = routed.getType();
+                    if (type == AudioDeviceInfo.TYPE_BLUETOOTH_SCO) return true;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && type == AudioDeviceInfo.TYPE_BLE_HEADSET) {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            AudioManager am = (AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE);
+            if (am != null && am.isBluetoothScoOn()) return true;
+        } catch (Exception ignored) {}
+        return false;
+    }
+
+    private String getRoutedDeviceLabel(AudioRecord rec) {
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && rec != null) {
+                AudioDeviceInfo routed = rec.getRoutedDevice();
+                if (routed != null && routed.getProductName() != null) {
+                    return routed.getProductName().toString();
+                }
+            }
+        } catch (Exception ignored) {}
+        return "";
     }
 
     private String sourceName(int source) {

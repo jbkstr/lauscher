@@ -1754,6 +1754,13 @@ registerColocatedPhrases({
     uk: "Примітка: мікрофон працює лише через HTTPS або http://localhost – на file:// чи незашифрованому HTTP у локальній мережі браузери блокують доступ.",
     ur: "نوٹ: مائیکروفون صرف HTTPS یا http://localhost پر کام کرتا ہے – file:// یا غیر محفوظ LAN-HTTP پر براؤزر رسائی روک دیتے ہیں۔"
   },
+  "Bluetooth-Mikrofon aktiv – für genaueres Stimmen besser das interne Mikrofon nutzen.": {
+    fr: "Micro Bluetooth actif – utilisez plutôt le micro interne pour un accordage plus précis.",
+    es: "Micrófono Bluetooth activo: usa el micrófono interno para una afinación más precisa.",
+    pl: "Aktywny mikrofon Bluetooth – dla dokładniejszego strojenia lepiej użyć wbudowanego mikrofonu.",
+    uk: "Активний Bluetooth-мікрофон – для точнішого налаштування краще використовувати вбудований мікрофон.",
+    ur: "بلوٹوتھ مائیکروفون فعال ہے – زیادہ درست ٹیوننگ کے لیے اندرونی مائیکروفون استعمال کریں۔"
+  },
   "Tippe auf „Tuner starten“ – beim ersten Mal fragt dein Gerät nach dem Mikrofon.": {
     fr: "Touchez « Démarrer l’accordeur » – la première fois, votre appareil demande l’accès au micro.",
     es: "Toca «Iniciar el afinador»: la primera vez, tu dispositivo pedirá acceso al micrófono.",
