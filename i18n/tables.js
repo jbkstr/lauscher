@@ -45,6 +45,14 @@ registerColocatedTables({
       uk: "Ударні та перкусія",
       ur: "پرکشن / طبلہ"
     },
+    "Streicher": {
+      en: "Strings",
+      fr: "Cordes",
+      es: "Cuerdas",
+      pl: "Smyczki",
+      uk: "Струнні",
+      ur: "اسٹرنگز"
+    },
     "Bläser": {
       en: "Horns & Winds",
       fr: "Vents & Cuivres",
