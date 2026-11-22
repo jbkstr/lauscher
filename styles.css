@@ -15033,6 +15033,15 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   fill: var(--raccoon-mid);
 }
 
+.nns-svg-role {
+  fill: var(--raccoon-dark);
+  opacity: 0.85;
+}
+
+.nns-svg-node-tonic .nns-svg-role { fill: var(--sage-strong); opacity: 1; }
+.nns-svg-node-subdom .nns-svg-role { fill: var(--lilac-strong); opacity: 1; }
+.nns-svg-node-dom .nns-svg-role { fill: var(--peach-strong); opacity: 1; }
+
 .nns-svg-node-root .nns-svg-num,
 .nns-svg-node-root .nns-svg-chord {
   fill: var(--on-strong-accent);
@@ -15111,18 +15120,31 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 
 .nns-deg-meta {
-  font-size: 0.66rem;
+  font-size: 0.68rem;
+  font-weight: 700;
   color: var(--raccoon-mid);
   line-height: 1.15;
-  overflow: hidden;
-  text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 100%;
 }
 
-.nns-degree-tile.is-active-sound .nns-deg-meta {
+.nns-deg-role {
+  font-size: 0.63rem;
+  color: var(--raccoon-mid);
+  line-height: 1.15;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.nns-degree-tile.is-active-sound .nns-deg-meta,
+.nns-degree-tile.is-active-sound .nns-deg-role {
   color: var(--btn-primary-fg);
-  opacity: 0.85;
+  opacity: 0.88;
+}
+
+.nns-diagram-note {
+  margin-top: -2px;
+  margin-bottom: 2px;
 }
 
 .nns-extras-label {

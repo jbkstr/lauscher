@@ -2419,6 +2419,195 @@ registerColocatedPhrases({
     uk: "Домінанта",
     ur: "ڈومیننٹ"
   },
+  "Tonika-Bereich": {
+    fr: "Pôle tonique",
+    es: "Área de tónica",
+    pl: "Strefa toniki",
+    uk: "Сфера тоніки",
+    ur: "ٹانک حلقہ"
+  },
+  "Subdominant-Bereich": {
+    fr: "Pôle sous-dominant",
+    es: "Área de subdominante",
+    pl: "Strefa subdominanty",
+    uk: "Сфера субдомінанти",
+    ur: "سب ڈومیننٹ حلقہ"
+  },
+  "Dominant-Bereich": {
+    fr: "Pôle dominant",
+    es: "Área de dominante",
+    pl: "Strefa dominanty",
+    uk: "Сфера домінанти",
+    ur: "ڈومیننٹ حلقہ"
+  },
+  "Tonika-Parallele": {
+    fr: "Relative de tonique",
+    es: "Relativo de tónica",
+    pl: "Paralela toniki",
+    uk: "Паралель тоніки",
+    ur: "ٹانک متوازی"
+  },
+  "Subdom.-Parallele": {
+    fr: "Relative sous-dom.",
+    es: "Relativo subdom.",
+    pl: "Paralela subdom.",
+    uk: "Паралель субдом.",
+    ur: "سب ڈومیننٹ متوازی"
+  },
+  "Dominant-Parallele": {
+    fr: "Relative de dominante",
+    es: "Relativo de dominante",
+    pl: "Paralela dominanty",
+    uk: "Паралель домінанти",
+    ur: "ڈومیننٹ متوازی"
+  },
+  "Leitton-Dominante": {
+    fr: "Accord sensible",
+    es: "Sensible dominante",
+    pl: "Dominanta septymowa bez prymy",
+    uk: "Ввідний домінантовий",
+    ur: "لیڈنگ ٹون ڈومیننٹ"
+  },
+  "Moll-Tonika": {
+    fr: "Tonique mineure",
+    es: "Tónica menor",
+    pl: "Tonika molowa",
+    uk: "Мінорна тоніка",
+    ur: "مائنر ٹانک"
+  },
+  "Verm. Subdom.": {
+    fr: "Sous-dom. dim.",
+    es: "Subdom. dism.",
+    pl: "Subdom. zmniej.",
+    uk: "Зменш. субдом.",
+    ur: "ڈمنشڈ سب ڈومیننٹ"
+  },
+  "Moll-Subdominante": {
+    fr: "Sous-dom. mineure",
+    es: "Subdom. menor",
+    pl: "Subdom. molowa",
+    uk: "Мінорна субдомінанта",
+    ur: "مائنر سب ڈومیننٹ"
+  },
+  "Moll-Dominante": {
+    fr: "Dominante mineure",
+    es: "Dominante menor",
+    pl: "Dominanta molowa",
+    uk: "Мінорна домінанта",
+    ur: "مائنر ڈومیننٹ"
+  },
+  "T · Tonika": {
+    fr: "T · Tonique",
+    es: "T · Tónica",
+    pl: "T · Tonika",
+    uk: "T · Тоніка",
+    ur: "T · ٹانک"
+  },
+  "Tp · Parallele zu 1": {
+    fr: "Tp · Relative de 1",
+    es: "Tp · Relativo de 1",
+    pl: "Tp · Paralela do 1",
+    uk: "Tp · Паралель до 1",
+    ur: "Tp · 1 کا متوازی"
+  },
+  "S · Subdominante": {
+    fr: "S · Sous-dominante",
+    es: "S · Subdominante",
+    pl: "S · Subdominanta",
+    uk: "S · Субдомінанта",
+    ur: "S · سب ڈومیننٹ"
+  },
+  "Sp · Parallele zu 4": {
+    fr: "Sp · Relative de 4",
+    es: "Sp · Relativo de 4",
+    pl: "Sp · Paralela do 4",
+    uk: "Sp · Паралель до 4",
+    ur: "Sp · 4 کا متوازی"
+  },
+  "D · Dominante": {
+    fr: "D · Dominante",
+    es: "D · Dominante",
+    pl: "D · Dominanta",
+    uk: "D · Домінанта",
+    ur: "D · ڈومیننٹ"
+  },
+  "Dp · Parallele": {
+    fr: "Dp · Relative",
+    es: "Dp · Relativo",
+    pl: "Dp · Paralela",
+    uk: "Dp · Паралель",
+    ur: "Dp · متوازی"
+  },
+  "Đ⁷ · Leitton": {
+    fr: "vii° · Sensible",
+    es: "vii° · Sensible",
+    pl: "Đ⁷ · Prowadzący",
+    uk: "vii° · Ввідний",
+    ur: "vii° · لیڈنگ ٹون"
+  },
+  "t · Moll-Tonika": {
+    fr: "t · Tonique mineure",
+    es: "t · Tónica menor",
+    pl: "t · Tonika molowa",
+    uk: "t · Мінорна тоніка",
+    ur: "t · مائنر ٹانک"
+  },
+  "s² · Vermind.": {
+    fr: "ii° · Diminué",
+    es: "ii° · Dismin.",
+    pl: "s² · Zmniejsz.",
+    uk: "ii° · Зменш.",
+    ur: "ii° · ڈمنشڈ"
+  },
+  "tP · Parallele zu 1-": {
+    fr: "tP · Relative de 1-",
+    es: "tP · Relativo de 1-",
+    pl: "tP · Paralela do 1-",
+    uk: "tP · Паралель до 1-",
+    ur: "tP · 1- کا متوازی"
+  },
+  "s · Subdominante": {
+    fr: "s · Sous-dominante",
+    es: "s · Subdominante",
+    pl: "s · Subdominanta",
+    uk: "s · Субдомінанта",
+    ur: "s · سب ڈومیننٹ"
+  },
+  "d · Dominante": {
+    fr: "d · Dominante",
+    es: "d · Dominante",
+    pl: "d · Dominanta",
+    uk: "d · Домінанта",
+    ur: "d · ڈومیننٹ"
+  },
+  "sP · Parallele": {
+    fr: "sP · Relative",
+    es: "sP · Relativo",
+    pl: "sP · Paralela",
+    uk: "sP · Паралель",
+    ur: "sP · متوازی"
+  },
+  "dP · Parallele zu 5-": {
+    fr: "dP · Relative de 5-",
+    es: "dP · Relativo de 5-",
+    pl: "dP · Paralela do 5-",
+    uk: "dP · Паралель до 5-",
+    ur: "dP · 5- کا متوازی"
+  },
+  "Obere Reihe: die 3 Hauptfunktionen Tonika (1), Subdominante (4) und Dominante (5). Darunter: ihre Moll-Parallelen (6-, 2-, 3-) und der Leittonakkord (7°) – sie teilen je zwei Töne mit ihrer Hauptstufe und können sie vertreten (3- ist zugleich Dominant-Parallele Dp zur 5 und Tonika-Gegenklang Tg zur 1).": {
+    fr: "Rangée du haut : les 3 fonctions principales Tonique (1), Sous-dominante (4) et Dominante (5). En dessous : leurs relatives mineures (6-, 2-, 3-) et l’accord de sensible (7°) — chacun partage deux notes avec son accord principal et peut le remplacer (3- agit à la fois comme relative de dominante Dp de 5 et contre-relative de tonique Tg de 1).",
+    es: "Fila superior: las 3 funciones principales Tónica (1), Subdominante (4) y Dominante (5). Debajo: sus relativos menores (6-, 2-, 3-) y el acorde de sensible (7°); cada uno comparte dos notas con su grado principal y puede sustituirlo (3- actúa a la vez como relativo de dominante Dp de 5 y contrarrelativo de tónica Tg de 1).",
+    pl: "Górny rząd: 3 funkcje główne — Tonika (1), Subdominanta (4) i Dominanta (5). Poniżej: ich paralele molowe (6-, 2-, 3-) oraz akord prowadzący (7°), które dzielą po dwa dźwięki ze swoją funkcją główną i mogą ją zastępować (3- pełni jednocześnie rolę paraleli dominanty Dp dla 5 oraz przeciwklangu toniki Tg dla 1).",
+    uk: "Верхній ряд: 3 головні функції — Тоніка (1), Субдомінанта (4) і Домінанта (5). Нижче: їхні мінорні паралелі (6-, 2-, 3-) та ввідний акорд (7°), які мають по два спільні звуки зі своїм головним ступенем і можуть його заміщувати (3- є водночас паралеллю домінанти Dp до 5 і протизвучанням тоніки Tg до 1).",
+    ur: "اوپر والی قطار: 3 بنیادی فنکشنز ٹانک (1)، سب ڈومیننٹ (4) اور ڈومیننٹ (5)۔ نیچے: ان کے متوازی مائنر کورڈز (6-، 2-، 3-) اور لیڈنگ ٹون کورڈ (7°) — ہر ایک اپنے بنیادی کورڈ کے ساتھ دو سُر مشترک رکھتا ہے (3- بیک وقت 5 کا ڈومیننٹ متوازی Dp اور 1 کا کاؤنٹر متوازی Tg ہے)۔"
+  },
+  "Obere Reihe: die 3 Moll-Hauptfunktionen Tonika (1-), Subdominante (4-) und Dominante (5-). Darunter: ihre Dur-Parallelen (♭3, ♭6, ♭7) sowie die verminderte 2°, die jeweils zwei Töne mit ihrer Hauptstufe teilen.": {
+    fr: "Rangée du haut : les 3 fonctions principales mineures Tonique (1-), Sous-dominante (4-) et Dominante (5-). En dessous : leurs relatives majeures (♭3, ♭6, ♭7) et le 2° diminué, qui partagent chacun deux notes avec leur accord principal.",
+    es: "Fila superior: las 3 funciones principales menores Tónica (1-), Subdominante (4-) y Dominante (5-). Debajo: sus relativos mayores (♭3, ♭6, ♭7) y el 2° disminuido, que comparten dos notas con su grado principal.",
+    pl: "Górny rząd: 3 molowe funkcje główne — Tonika (1-), Subdominanta (4-) i Dominanta (5-). Poniżej: ich paralele durowe (♭3, ♭6, ♭7) oraz zmniejszony 2°, dzielące po dwa dźwięki ze swoim stopniem głównym.",
+    uk: "Верхній ряд: 3 головні мінорні функції — Тоніка (1-), Субдомінанта (4-) і Домінанта (5-). Нижче: їхні мажорні паралелі (♭3, ♭6, ♭7) та зменшений 2°, що мають по два спільні звуки зі своїм головним ступенем.",
+    ur: "اوپر والی قطار: 3 مائنر بنیادی فنکشنز ٹانک (1-)، سب ڈومیننٹ (4-) اور ڈومیننٹ (5-)۔ نیچے: ان کے متوازی میجر کورڈز (♭3، ♭6، ♭7) اور ڈمنشڈ 2° جو اپنے بنیادی کورڈ کے ساتھ دو سُر مشترک رکھتے ہیں۔"
+  },
   "Nashville-Diagramm für {key}": {
     fr: "Diagramme Nashville pour {key}",
     es: "Diagrama Nashville para {key}",
