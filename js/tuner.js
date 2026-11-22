@@ -82,7 +82,9 @@ function getTunerPrefs() {
     // Erstes Öffnen: Instrument aus dem Musiker-Profil ableiten
     const insts = state.profile?.instruments || [];
     instrument = insts.includes("Gitarre") ? "guitar"
-      : (insts.includes("Bass") ? "ebass" : (insts.includes("Gesang") ? "voice" : "chromatic"));
+      : (insts.includes("Bass") ? "ebass"
+        : (insts.includes("Streicher") ? "violin"
+          : (insts.includes("Gesang") ? "voice" : "chromatic")));
   }
   const tunings = TUNER_INSTRUMENTS[instrument].tunings;
   const tuning = tunings ? (tunings[raw.tuning] ? raw.tuning : Object.keys(tunings)[0]) : "";
