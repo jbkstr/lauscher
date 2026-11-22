@@ -21,3 +21,6 @@ __pycache__/
 *.jks
 *.keystore
 keystore.properties
+
+# Lokale Screenshot-Datenbank (generiert via scripts/capture-screenshots.py)
+screenshots/
