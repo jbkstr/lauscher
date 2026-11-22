@@ -4916,13 +4916,35 @@ function formatHeroQuoteWithProfileName(quoteText, quoteIndex) {
   if (rawCat === "Praxis-Tipp") {
     return `${tf("Tipp für dich, {name}:", "Tip for you, {name}:", { name })} ${text}`;
   }
-  if (rawCat === "Mutmacher") {
+  if (rawCat === "Mutmacher" || rawCat === "Hinweis") {
     return `${tf("{name}, denk dran:", "{name}, remember:", { name })} ${text}`;
   }
   if (quoteIndex % 3 === 0) {
     return `${tf("Für dein Ohr, {name}:", "For your ear, {name}:", { name })} ${text}`;
   }
   return `${tf("Hey {name}:", "Hey {name}:", { name })} ${text}`;
+}
+
+function getQuoteWeight(quoteIndex) {
+  const raw = LAUSCHEBAER_QUOTES[quoteIndex];
+  const w = Number(raw?.weight);
+  return Number.isFinite(w) && w > 0 ? w : 1;
+}
+
+function isPriorityNoticeQuote(quoteIndex) {
+  return getQuoteWeight(quoteIndex) > 1;
+}
+
+function pickWeightedQuoteIndex(candidates) {
+  if (!candidates.length) return -1;
+  let totalWeight = 0;
+  for (const idx of candidates) totalWeight += getQuoteWeight(idx);
+  let r = Math.random() * totalWeight;
+  for (const idx of candidates) {
+    r -= getQuoteWeight(idx);
+    if (r <= 0) return idx;
+  }
+  return candidates[candidates.length - 1];
 }
 
 function refreshCurrentQuoteLocalization() {
@@ -4938,11 +4960,46 @@ function refreshCurrentQuoteLocalization() {
 function pickRandomQuote() {
   const quotes = getLocalizedQuotes();
   if (quotes.length === 0) return;
-  let nextIdx = Math.floor(Math.random() * quotes.length);
-  if (quotes.length > 1 && nextIdx === state.currentQuoteIndex) {
-    nextIdx = (nextIdx + 1) % quotes.length;
+
+  const priorityIndices = [];
+  const regularIndices = [];
+  for (let i = 0; i < quotes.length; i++) {
+    if (isPriorityNoticeQuote(i)) priorityIndices.push(i);
+    else regularIndices.push(i);
   }
+
+  const prevIdx = state.currentQuoteIndex;
+  const prevWasPriority = prevIdx >= 0 && isPriorityNoticeQuote(prevIdx);
+  const sincePriority = Number(state.quotesSincePriorityNotice || 0);
+  const lastPriorityIdx = Number.isInteger(state.lastPriorityQuoteIndex) ? state.lastPriorityQuoteIndex : -1;
+
+  let nextIdx = -1;
+  if (quotes.length === 1) {
+    nextIdx = 0;
+  } else if (priorityIndices.length > 0 && sincePriority >= 4 && !prevWasPriority) {
+    const pool = priorityIndices.length > 1
+      ? priorityIndices.filter(i => i !== lastPriorityIdx)
+      : priorityIndices;
+    nextIdx = pickWeightedQuoteIndex(pool);
+  } else if (prevWasPriority && regularIndices.length > 0) {
+    nextIdx = pickWeightedQuoteIndex(regularIndices);
+  } else {
+    const pool = [];
+    for (let i = 0; i < quotes.length; i++) {
+      if (i === prevIdx) continue;
+      if (isPriorityNoticeQuote(i) && priorityIndices.length > 1 && i === lastPriorityIdx) continue;
+      pool.push(i);
+    }
+    nextIdx = pickWeightedQuoteIndex(pool.length ? pool : [0]);
+  }
+
   state.currentQuoteIndex = nextIdx;
+  if (isPriorityNoticeQuote(nextIdx)) {
+    state.quotesSincePriorityNotice = 0;
+    state.lastPriorityQuoteIndex = nextIdx;
+  } else {
+    state.quotesSincePriorityNotice = sincePriority + 1;
+  }
   state.quotePersonalizeStep = Number(state.quotePersonalizeStep || 0) + 1;
   refreshCurrentQuoteLocalization();
 }
