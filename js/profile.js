@@ -2396,6 +2396,9 @@ function performFullAppReset() {
   } catch (_err) {
     // Auf eingeschränkten WebViews ignorieren
   }
+  if (typeof clearNativeStorageMirror === "function") {
+    clearNativeStorageMirror();
+  }
 
   clearCustomThemeCssVars();
   applyThemeAndAppearance();

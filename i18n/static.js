@@ -4037,31 +4037,31 @@ registerColocatedStatic({
     ur: "ہر رنگ پیلیٹ روشن اور تاریک دونوں موڈز میں کام کرتا ہے۔"
   },
   "settings.themeForest": {
-    de: "Waldlichtung & Salbei",
-    en: "Forest Glade & Sage",
-    fr: "Clairière & Sauge",
-    es: "Claro del bosque y salvia",
-    pl: "Leśna polana i szałwia",
-    uk: "Лісова галявина й шавлія",
-    ur: "جنگل کی روشنی اور سیج"
+    de: "Folk",
+    en: "Folk",
+    fr: "Folk",
+    es: "Folk",
+    pl: "Folk",
+    uk: "Фолк",
+    ur: "فوک"
   },
   "settings.themeCoast": {
-    de: "Morgentau & Küste",
-    en: "Morning Dew & Coast",
-    fr: "Rosée du matin & Côte",
-    es: "Rocío matinal y costa",
-    pl: "Poranna rosa i wybrzeże",
-    uk: "Ранкова роса й узбережжя",
-    ur: "صبح کی شبنم اور ساحل"
+    de: "Klassik",
+    en: "Classical",
+    fr: "Classique",
+    es: "Clásico",
+    pl: "Klasyka",
+    uk: "Класика",
+    ur: "کلاسیکی"
   },
   "settings.themeDusk": {
-    de: "Abenddämmerung",
-    en: "Evening Dusk",
-    fr: "Crépuscule doux",
-    es: "Crepúsculo suave",
-    pl: "Wieczorny zmierzch",
-    uk: "Теплі сутінки",
-    ur: "شام کا شفق"
+    de: "Jazz",
+    en: "Jazz",
+    fr: "Jazz",
+    es: "Jazz",
+    pl: "Jazz",
+    uk: "Джаз",
+    ur: "جاز"
   },
   "settings.themeMetal": {
     de: "Metal",
@@ -4244,67 +4244,67 @@ registerColocatedStatic({
     ur: "بند کریں"
   },
   "space.tplForestLight": {
-    de: "Waldlichtung • Hell",
-    en: "Forest Glade • Light",
-    fr: "Clairière • Clair",
-    es: "Claro del bosque • Claro",
-    pl: "Leśna polana • Jasny",
-    uk: "Лісова галявина • Світла",
-    ur: "جنگل کی روشنی • روشن"
+    de: "Folk • Hell",
+    en: "Folk • Light",
+    fr: "Folk • Clair",
+    es: "Folk • Claro",
+    pl: "Folk • Jasny",
+    uk: "Фолк • Світла",
+    ur: "فوک • روشن"
   },
   "space.tplForestDark": {
-    de: "Waldlichtung • Dunkel",
-    en: "Forest Glade • Dark",
-    fr: "Clairière • Sombre",
-    es: "Claro del bosque • Oscuro",
-    pl: "Leśna polana • Ciemny",
-    uk: "Лісова галявина • Темна",
-    ur: "جنگل کی روشنی • تاریک"
+    de: "Folk • Dunkel",
+    en: "Folk • Dark",
+    fr: "Folk • Sombre",
+    es: "Folk • Oscuro",
+    pl: "Folk • Ciemny",
+    uk: "Фолк • Темна",
+    ur: "فوک • تاریک"
   },
   "space.tplCoastLight": {
-    de: "Morgentau • Hell",
-    en: "Morning Dew • Light",
-    fr: "Rosée • Clair",
-    es: "Rocío • Claro",
-    pl: "Poranna rosa • Jasny",
-    uk: "Ранкова роса • Світла",
-    ur: "صبح کی شبنم • روشن"
+    de: "Klassik • Hell",
+    en: "Classical • Light",
+    fr: "Classique • Clair",
+    es: "Clásico • Claro",
+    pl: "Klasyka • Jasny",
+    uk: "Класика • Світла",
+    ur: "کلاسیکی • روشن"
   },
   "space.tplCoastDark": {
-    de: "Morgentau • Dunkel",
-    en: "Morning Dew • Dark",
-    fr: "Rosée • Sombre",
-    es: "Rocío • Oscuro",
-    pl: "Poranna rosa • Ciemny",
-    uk: "Ранкова роса • Темна",
-    ur: "صبح کی شبنم • تاریک"
+    de: "Klassik • Dunkel",
+    en: "Classical • Dark",
+    fr: "Classique • Sombre",
+    es: "Clásico • Oscuro",
+    pl: "Klasyka • Ciemny",
+    uk: "Класика • Темна",
+    ur: "کلاسیکی • تاریک"
   },
   "space.tplDuskLight": {
-    de: "Abenddämmerung • Hell",
-    en: "Evening Dusk • Light",
-    fr: "Crépuscule • Clair",
-    es: "Crepúsculo • Claro",
-    pl: "Wieczorny zmierzch • Jasny",
-    uk: "Теплі сутінки • Світла",
-    ur: "شام کا شفق • روشن"
+    de: "Jazz • Hell",
+    en: "Jazz • Light",
+    fr: "Jazz • Clair",
+    es: "Jazz • Claro",
+    pl: "Jazz • Jasny",
+    uk: "Джаз • Світла",
+    ur: "جاز • روشن"
   },
   "space.tplDuskDark": {
-    de: "Abenddämmerung • Dunkel",
-    en: "Evening Dusk • Dark",
-    fr: "Crépuscule • Sombre",
-    es: "Crepúsculo • Oscuro",
-    pl: "Wieczorny zmierzch • Ciemny",
-    uk: "Теплі сутінки • Темна",
-    ur: "شام کا شفق • تاریک"
+    de: "Jazz • Dunkel",
+    en: "Jazz • Dark",
+    fr: "Jazz • Sombre",
+    es: "Jazz • Oscuro",
+    pl: "Jazz • Ciemny",
+    uk: "Джаз • Темна",
+    ur: "جاز • تاریک"
   },
   "space.tplMetal": {
-    de: "Metal • Schwarz",
-    en: "Metal • Black",
-    fr: "Métal • Noir",
-    es: "Metal • Negro",
-    pl: "Metal • Czerń",
-    uk: "Метал • Чорна",
-    ur: "میٹل • سیاہ"
+    de: "Metal • Dunkel",
+    en: "Metal • Dark",
+    fr: "Métal • Sombre",
+    es: "Metal • Oscuro",
+    pl: "Metal • Ciemny",
+    uk: "Метал • Темна",
+    ur: "میٹل • تاریک"
   },
   "metro.bpmEditTitle": {
     de: "Tippen, um BPM genau einzugeben",
