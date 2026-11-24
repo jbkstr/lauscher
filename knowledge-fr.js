@@ -1608,9 +1608,10 @@ const KNOWLEDGE_ARTICLES_FR = [
         <div class="article-highlight-box">
           <h4>Essayer directement dans l’outil interactif</h4>
           <p>
-            Ouvre l’<strong>outil Nashville Number System</strong> pour explorer le diagramme des 12 tonalités, écouter chaque degré et traduire instantanément les positions de <strong>capodastre à la guitare</strong> :
+            Ouvre l’<strong>outil Nashville Number System</strong> pour explorer le diagramme des 12 tonalités et écouter chaque degré, ou le <strong>Traducteur de capodastre</strong> autonome pour convertir tonalité réelle, case et positions :
           </p>
           <button class="btn-tool" type="button" data-open-nashville-tool="1">▶ Ouvrir l’outil Nashville</button>
+          <button class="btn-tool" type="button" data-open-capo-tool="1">▶ Ouvrir le traducteur de capodastre</button>
         </div>
       </div>
     `
@@ -2127,14 +2128,14 @@ const CATEGORY_HELP_GUIDES_FR = {
     tagClass: "tag-sage",
     tag: "Mode d’emploi • Échauffement vocal",
     title: "Comment fonctionne l’échauffement vocal guidé",
-    lead: "Conçu pour les répétitions chorales, cours de chant et routines quotidiennes : choisissez parmi 5 tessitures (SATB) puis lancez l’un des 4 programmes guidés — avec sphère respiratoire, clavier interactif et transposition instantanée.",
+    lead: "Conçu pour les répétitions chorales, cours de chant et routines quotidiennes : choisissez parmi 5 tessitures (SATB) puis lancez l’un des 5 programmes guidés — avec sphère respiratoire, clavier interactif et transposition instantanée.",
     sections: `
-      <h3>4 programmes au choix &amp; 4 phases</h3>
+      <h3>5 programmes au choix &amp; 4 phases</h3>
       <ul class="article-steps-list">
-        <li><strong>4 programmes adaptés :</strong> Lancez selon votre temps l’<strong>Échauffement complet (5 min)</strong> (4 phases, 9 exercices), l’<strong>Échauffement express (~3 min)</strong>, <strong>Arpèges &amp; Passage des registres</strong> ou <strong>Souffle choral &amp; Justesse</strong>.</li>
+        <li><strong>5 programmes adaptés :</strong> Lancez selon votre temps l’<strong>Échauffement complet (5 min)</strong> (4 phases, 11 exercices incluant gammes majeure et mineure), l’<strong>Échauffement express (~3 min)</strong>, <strong>Gammes (Majeur &amp; Mineur)</strong>, <strong>Arpèges &amp; Passage des registres</strong> ou <strong>Souffle choral &amp; Justesse</strong>.</li>
         <li><strong>Phase 1 – Souffle &amp; Corps :</strong> Une sphère respiratoire sur <code>ffff / ssss</code> et de douces impulsions (<code>P – T – K</code>) éveillent le soutien abdominal sans tension laryngée.</li>
         <li><strong>Phase 2 – Résonance &amp; Placement :</strong> Bouche fermée / trilles de lèvres (<code>Mmm / Brrr</code>) et soupirs descendants de quinte (<code>5–4–3–2–1</code>) unissent en douceur les registres.</li>
-        <li><strong>Phases 3 &amp; 4 – Arpèges, Voyelles &amp; Chœur :</strong> Arpèges modulants par demi-tons adaptés à <strong>Chœur Médium, Soprano, Alto, Ténor ou Basse</strong>, suivis du glissement vocalique (<code>Ou → Ô → A → É → I</code>) et d’un accord SATB empilé.</li>
+        <li><strong>Phases 3 &amp; 4 – Gammes, Arpèges &amp; Chœur :</strong> Gammes d’octave complètes en <strong>majeur et mineur naturel, harmonique &amp; mélodique</strong> ainsi qu’arpèges modulants par demi-tons adaptés à <strong>Chœur Médium, Soprano, Alto, Ténor ou Basse</strong>, suivis du glissement vocalique (<code>Ou → Ô → A → É → I</code>) et d’un accord SATB empilé.</li>
       </ul>
 
       <div class="article-highlight-box">

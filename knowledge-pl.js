@@ -1617,9 +1617,10 @@ const KNOWLEDGE_ARTICLES_PL = [
         <div class="article-highlight-box">
           <h4>Wypróbuj w interaktywnym diagramie</h4>
           <p>
-            Otwórz <strong>narzędzie Nashville Number System</strong>, aby przeglądać 12 tonacji, odsłuchiwać stopnie i korzystać z <strong>tłumacza kapodastra dla gitary</strong>:
+            Otwórz <strong>narzędzie Nashville Number System</strong>, aby przeglądać 12 tonacji i odsłuchiwać stopnie, lub osobny <strong>Tłumacz kapodastra</strong> do przeliczania tonacji brzmiącej, progu i chwytów:
           </p>
           <button class="btn-tool" type="button" data-open-nashville-tool="1">▶ Otwórz narzędzie Nashville</button>
+          <button class="btn-tool" type="button" data-open-capo-tool="1">▶ Otwórz tłumacz kapodastra</button>
         </div>
       </div>
     `
@@ -2139,14 +2140,14 @@ const CATEGORY_HELP_GUIDES_PL = {
     tagClass: "tag-sage",
     tag: "Instrukcja • Rozgrzewka głosowa",
     title: "Jak przebiega prowadzona rozgrzewka głosowa",
-    lead: "Stworzona z myślą o próbach chóralnych, lekcjach śpiewu i ćwiczeniu w domu: wybierz jedną z 5 skal głosu (SATB) i uruchom jeden z 4 programów — ze sferą oddechu, żywą klawiaturą i kontrolą półtonów.",
+    lead: "Stworzona z myślą o próbach chóralnych, lekcjach śpiewu i ćwiczeniu w domu: wybierz jedną z 5 skal głosu (SATB) i uruchom jeden z 5 programów — ze sferą oddechu, żywą klawiaturą i kontrolą półtonów.",
     sections: `
-      <h3>4 programy do wyboru i 4 etapy</h3>
+      <h3>5 programów do wyboru i 4 etapy</h3>
       <ul class="article-steps-list">
-        <li><strong>4 programy rozgrzewki:</strong> Dobierz do potrzeb <strong>Pełną 5-minutową rozgrzewkę</strong> (4 etapy, 9 ćwiczeń), <strong>Krótką rozgrzewkę (ok. 3 min)</strong>, <strong>Arpeggia i wyrównanie rejestrów</strong> lub <strong>Oddech chóralny i intonację</strong>.</li>
+        <li><strong>5 programów rozgrzewki:</strong> Dobierz do potrzeb <strong>Pełną 5-minutową rozgrzewkę</strong> (4 etapy, 11 ćwiczeń z gamami dur i moll), <strong>Krótką rozgrzewkę (ok. 3 min)</strong>, <strong>Gamy (dur i moll)</strong>, <strong>Arpeggia i wyrównanie rejestrów</strong> lub <strong>Oddech chóralny i intonację</strong>.</li>
         <li><strong>Etap 1 — Oddech i ciało:</strong> Animowana sfera oddechu na <code>ffff / ssss</code> oraz lekkie impulsy artykulacyjne (<code>P – T – K</code>) budzą podparcie bez ścisku w gardle.</li>
         <li><strong>Etap 2 — Rezonans i osadzenie:</strong> Miękkie mormorando / wibracja warg (<code>Mmm / Brrrr</code>) i opadające westchnienia kwintowe (<code>5–4–3–2–1</code>) łagodnie łączą rejestry.</li>
-        <li><strong>Etapy 3 i 4 — Arpeggia, samogłoski i chór:</strong> Arpeggia trójdźwiękowe i oktawowe modulują co półton w rejestrze (<strong>Chór, Sopran, Alt, Tenor lub Bas</strong>), po czym następują przejścia samogłosek (<code>U → O → A → E → I</code>) i akord SATB.</li>
+        <li><strong>Etapy 3 i 4 — Gamy, arpeggia i chór:</strong> Pełne gamy oktawowe w <strong>dur oraz moll naturalnym, harmonicznym i melodycznym</strong> oraz arpeggia trójdźwiękowe i oktawowe modulują co półton w rejestrze (<strong>Chór, Sopran, Alt, Tenor lub Bas</strong>), po czym następują przejścia samogłosek (<code>U → O → A → E → I</code>) i akord SATB.</li>
       </ul>
 
       <div class="article-highlight-box">

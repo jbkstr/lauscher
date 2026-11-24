@@ -1608,9 +1608,10 @@ const KNOWLEDGE_ARTICLES_ES = [
         <div class="article-highlight-box">
           <h4>Pruébalo en directo en el diagrama interactivo</h4>
           <p>
-            Abre la <strong>herramienta Nashville Number System</strong> para explorar las 12 tonalidades, escuchar cada grado y usar el <strong>traductor de cejilla para guitarra</strong>:
+            Abre la <strong>herramienta Nashville Number System</strong> para explorar las 12 tonalidades y escuchar cada grado, o abre el <strong>Traductor de cejilla</strong> independiente para convertir tonalidad real, traste y posiciones:
           </p>
           <button class="btn-tool" type="button" data-open-nashville-tool="1">▶ Abrir herramienta Nashville</button>
+          <button class="btn-tool" type="button" data-open-capo-tool="1">▶ Abrir traductor de cejilla</button>
         </div>
       </div>
     `
@@ -2127,14 +2128,14 @@ const CATEGORY_HELP_GUIDES_ES = {
     tagClass: "tag-sage",
     tag: "Instrucciones • Calentamiento vocal",
     title: "Cómo funciona el calentamiento vocal guiado",
-    lead: "Pensado para ensayos de coro, clases de canto y rutinas diarias: elige entre 5 tesituras (SATB) y lanza uno de los 4 programas guiados, con esfera de respiración, teclado interactivo y transposición instantánea.",
+    lead: "Pensado para ensayos de coro, clases de canto y rutinas diarias: elige entre 5 tesituras (SATB) y lanza uno de los 5 programas guiados, con esfera de respiración, teclado interactivo y transposición instantánea.",
     sections: `
-      <h3>4 programas a elegir &amp; 4 fases</h3>
+      <h3>5 programas a elegir &amp; 4 fases</h3>
       <ul class="article-steps-list">
-        <li><strong>4 programas adaptados:</strong> Según tu tiempo, lanza el <strong>Calentamiento completo (5 min)</strong> (4 fases, 9 ejercicios), el <strong>Calentamiento exprés (~3 min)</strong>, <strong>Arpegios &amp; paso de registros</strong> o <strong>Respiración coral &amp; afinación</strong>.</li>
+        <li><strong>5 programas adaptados:</strong> Según tu tiempo, lanza el <strong>Calentamiento completo (5 min)</strong> (4 fases, 11 ejercicios con escalas mayor y menor), el <strong>Calentamiento exprés (~3 min)</strong>, <strong>Escalas (Mayor y Menor)</strong>, <strong>Arpegios &amp; paso de registros</strong> o <strong>Respiración coral &amp; afinación</strong>.</li>
         <li><strong>Fase 1 – Respiración &amp; cuerpo:</strong> Una esfera de respiración sobre <code>ffff / ssss</code> y suaves impulsos (<code>P – T – K</code>) despiertan el apoyo abdominal sin tensión en la laringe.</li>
         <li><strong>Fase 2 – Resonancia &amp; colocación:</strong> Boca cerrada / vibración de labios (<code>Mmm / Brrr</code>) y suspiros descendentes de quinta (<code>5–4–3–2–1</code>) unen suavemente los registros.</li>
-        <li><strong>Fases 3 &amp; 4 – Arpegios, vocales &amp; coro:</strong> Arpegios que modulan por semitonos adaptados a <strong>coro medio, soprano, contralto, tenor o bajo</strong>, seguidos del deslizamiento vocálico (<code>U → O → A → E → I</code>) y de un acorde SATB apilado.</li>
+        <li><strong>Fases 3 &amp; 4 – Escalas, arpegios &amp; coro:</strong> Escalas completas de octava en <strong>mayor y menor natural, armónica y melódica</strong> junto con arpegios que modulan por semitonos adaptados a <strong>coro medio, soprano, contralto, tenor o bajo</strong>, seguidos del deslizamiento vocálico (<code>U → O → A → E → I</code>) y de un acorde SATB apilado.</li>
       </ul>
 
       <div class="article-highlight-box">

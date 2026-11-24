@@ -1662,9 +1662,10 @@ const KNOWLEDGE_ARTICLES_EN = [
         <div class="article-highlight-box">
           <h4>Explore It Live in the Interactive Diagram</h4>
           <p>
-            In the <strong>Nashville Number System tool</strong>, tap any of the 12 keys, play every degree, and use the built-in <strong>guitar capo translator</strong> to find comfortable open chord shapes right away:
+            In the <strong>Nashville Number System tool</strong>, tap any of the 12 keys and play every degree — and use the standalone <strong>Capo Translator</strong> to convert sounding key, capo fret, and chord shapes directly:
           </p>
           <button class="btn-tool" type="button" data-open-nashville-tool="1">▶ Open Nashville Diagram Tool</button>
+          <button class="btn-tool" type="button" data-open-capo-tool="1">▶ Open Capo Translator</button>
         </div>
       </div>
     `
@@ -2180,14 +2181,14 @@ const CATEGORY_HELP_GUIDES_EN = {
     tagClass: "tag-sage",
     tag: "How It Works • Vocal Warmup",
     title: "How the Guided Vocal Warmup Works",
-    lead: "Built for choir rehearsals, voice lessons, and home practice: choose one of 5 vocal ranges (SATB) and launch any of 4 structured routines — complete with pacing breath orb, live keyboard, and instant key control.",
+    lead: "Built for choir rehearsals, voice lessons, and home practice: choose one of 5 vocal ranges (SATB) and launch any of 5 structured routines — complete with pacing breath orb, live keyboard, and instant key control.",
     sections: `
-      <h3>4 Selectable Routines &amp; 4 Warmup Phases</h3>
+      <h3>5 Selectable Routines &amp; 4 Warmup Phases</h3>
       <ul class="article-steps-list">
-        <li><strong>4 Programs to Choose From:</strong> Pick the <strong>5-Min Complete Vocal Warmup</strong> (all 4 phases, 9 steps), <strong>Compact Warmup (~3 Min.)</strong> for a fast lesson opener, <strong>Arpeggio &amp; Register Drill</strong> for agility, or <strong>Choir Breath &amp; Intonation</strong>.</li>
+        <li><strong>5 Programs to Choose From:</strong> Pick the <strong>5-Min Complete Vocal Warmup</strong> (all 4 phases, 11 steps incl. major &amp; minor scales), <strong>Compact Warmup (~3 Min.)</strong> for a fast lesson opener, <strong>Scales (Major &amp; Minor)</strong>, <strong>Arpeggio &amp; Register Drill</strong> for agility, or <strong>Choir Breath &amp; Intonation</strong>.</li>
         <li><strong>Phase 1 – Breath &amp; Body:</strong> A pacing breath orb on <code>ffff / ssss</code> and gentle rhythmic articulation pulses (<code>P – T – K</code>) wake up breath support without pressing the throat.</li>
         <li><strong>Phase 2 – Resonance &amp; Placement:</strong> Easy humming / lip trills (<code>Mmm / Brrr</code>) and descending 5th sighs (<code>5–4–3–2–1</code>) blend chest and head resonance gently.</li>
-        <li><strong>Phase 3 &amp; 4 – Arpeggios, Vowels &amp; Choral Blend:</strong> Triad and octave arpeggios automatically modulate by semitone in your chosen <strong>Choir Mid, Soprano, Alto, Tenor, or Bass</strong> range, followed by vowel morphing (<code>Oo → Oh → Ah → Eh → Ee</code>) and a layered SATB closing chord.</li>
+        <li><strong>Phase 3 &amp; 4 – Scales, Arpeggios &amp; Choral Blend:</strong> Full octave scales in <strong>major as well as natural, harmonic &amp; melodic minor</strong> plus triad and octave arpeggios automatically modulate by semitone in your chosen <strong>Choir Mid, Soprano, Alto, Tenor, or Bass</strong> range, followed by vowel morphing (<code>Oo → Oh → Ah → Eh → Ee</code>) and a layered SATB closing chord.</li>
       </ul>
 
       <div class="article-highlight-box">

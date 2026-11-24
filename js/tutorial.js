@@ -347,8 +347,47 @@ function scheduleTutorialTimer(fn, delayMs, token = _exTutorial.token) {
   return id;
 }
 
-const TUTORIAL_READ_LEAD_MS = 1750;       // Lesezeit für Schritt 1, bevor das Audio losläuft
-const TUTORIAL_POST_AUDIO_PAUSE_MS = 950; // Ruhige Pause nach Audio-Ende vor Schritt 2
+/**
+ * Übungstyp-spezifisches Timing-Profil (alle Werte in ms):
+ * - readLeadMs:        ruhige Lesezeit für Schritt 1, bevor der erste Ton erklingt
+ * - postAudioPauseMs:  Auskling- & Denk-Pause nach Audio-Ende vor Schritt 2
+ * - answerLeadMs:      Lesezeit in Schritt 2 vor Start der Animation / Bestätigung
+ * - stepMs:            Abstand zwischen Einzelschritten bei Mehr-Schritt-Übungen
+ */
+function getTutorialTimingProfile(groupId, ex) {
+  switch (groupId) {
+    case "cadence":
+      return { readLeadMs: 2400, postAudioPauseMs: 1300, answerLeadMs: 900, stepMs: 0 };
+    case "interval":
+      return { readLeadMs: 2300, postAudioPauseMs: 1300, answerLeadMs: 900, stepMs: 0 };
+    case "chord":
+      return { readLeadMs: 2300, postAudioPauseMs: 1300, answerLeadMs: 900, stepMs: 0 };
+    case "modes":
+      return { readLeadMs: 2400, postAudioPauseMs: 1300, answerLeadMs: 900, stepMs: 0 };
+    case "solfege":
+      return { readLeadMs: 2500, postAudioPauseMs: 1300, answerLeadMs: 1100, stepMs: 0 };
+    case "melody":
+      return { readLeadMs: 2300, postAudioPauseMs: 1300, answerLeadMs: 2000, stepMs: 1050 };
+    case "melody-dictation":
+      return { readLeadMs: 2600, postAudioPauseMs: 1300, answerLeadMs: 2300, stepMs: 1450 };
+    case "rhythm-dictation":
+      return { readLeadMs: 2500, postAudioPauseMs: 1300, answerLeadMs: 2100, stepMs: 1100 };
+    case "rhythm-tap":
+      return { readLeadMs: 2600, postAudioPauseMs: 1100, answerLeadMs: 2200, stepMs: 0 };
+    case "rhythm-choice":
+      return { readLeadMs: 2300, postAudioPauseMs: 1300, answerLeadMs: 900, stepMs: 0 };
+    case "notation-keys":
+      return { readLeadMs: 2300, postAudioPauseMs: 2000, answerLeadMs: 900, stepMs: 0 };
+    case "notation-chords":
+      return { readLeadMs: 2500, postAudioPauseMs: 2300, answerLeadMs: 900, stepMs: 0 };
+    case "production":
+      return ex?.type === "prod-eq-noise"
+        ? { readLeadMs: 2600, postAudioPauseMs: 1100, answerLeadMs: 900, stepMs: 0 }
+        : { readLeadMs: 2400, postAudioPauseMs: 1300, answerLeadMs: 900, stepMs: 0 };
+    default:
+      return { readLeadMs: 2300, postAudioPauseMs: 1300, answerLeadMs: 900, stepMs: 0 };
+  }
+}
 
 function setTutorialBackdropVisible(visible) {
   document.getElementById("exerciseTutorialBackdrop")?.classList.toggle("hidden", !visible);
@@ -443,11 +482,14 @@ function stopExerciseTutorial(options = {}) {
   card?.classList.add("hidden");
   syncExerciseDemoButtonUI();
 
-  if (wasRunning && !options.keepPlayback) {
+  if ((wasRunning || hadCard) && !options.keepPlayback) {
     stopPlayback();
   }
   if (options.refreshExercise && hadCard && state.currentView === "exercise" && !state.exam?.active) {
     generateExercise();
+    if (options.autoPlay && !isNotationMode(state.currentExercise?.type)) {
+      playSequence();
+    }
   }
 }
 
@@ -592,22 +634,22 @@ async function runExerciseTutorialDemo(options = {}) {
   await ensureAudioReady();
   if (!_exTutorial.active || _exTutorial.token !== token || state.currentView !== "exercise") return;
 
-  // Entspannter Lese-Vorlauf, damit der Nutzer den Hinweis lesen kann, bevor der erste Ton startet
-  const readLeadMs = groupId === "rhythm-tap" ? 1950 : TUTORIAL_READ_LEAD_MS;
+  const timing = getTutorialTimingProfile(groupId, ex);
+  // Entspannter Lese-Vorlauf je Übungstyp, damit der Nutzer den Hinweis in Ruhe liest, bevor Audio startet
   scheduleTutorialTimer(async () => {
-    // Sonderfall 1: Rhythmus-Tap (1 Takt Vorzähler -> 1 Takt Muster mit live aufblitzendem Tap-Pad!)
+    // Sonderfall 1: Rhythmus-Tap (erst Muster im Modul hören, dann nach Lese-Pause live aufs Pad schauen)
     if (groupId === "rhythm-tap") {
-      runRhythmTapTutorialDemo(ex, meta, token);
+      runRhythmTapTutorialDemo(ex, meta, timing, token);
       return;
     }
 
     // Sonderfall 2: Studio EQ-Vergleich (Flat -> EQ-Boost -> Antwort zeigen)
     if (ex.type === "prod-eq-noise") {
-      runProdEqTutorialDemo(ex, meta, token);
+      runProdEqTutorialDemo(ex, meta, timing, token);
       return;
     }
 
-    // Sonderfall 3: Notenlesen (linke Note / Akkord anspielen -> kurz Zeit zum Ablesen -> Antwort)
+    // Sonderfall 3: Notenlesen (linke Note / Akkord anspielen -> in Ruhe im System ablesen -> Antwort)
     if (groupId === "notation-keys" || groupId === "notation-chords") {
       const playNotes = getNotationPlayNotes(ex.targetItem);
       if (playNotes && playNotes.length) {
@@ -615,13 +657,13 @@ async function runExerciseTutorialDemo(options = {}) {
       }
       scheduleTutorialTimer(() => {
         runExerciseTutorialAnswerPhase(ex, groupId, meta, token);
-      }, ex.isChordReading ? 1750 : 1500, token);
+      }, timing.postAudioPauseMs, token);
       return;
     }
 
     // Standardfall: reguläre Audio-Sequenz der Übung abspielen; Ende ruft onExerciseTutorialPlaybackEnded(ex)
     await playSequence();
-  }, readLeadMs, token);
+  }, timing.readLeadMs, token);
 }
 
 function onExerciseTutorialPlaybackEnded(ex) {
@@ -630,47 +672,88 @@ function onExerciseTutorialPlaybackEnded(ex) {
   const token = _exTutorial.token;
   const groupId = _exTutorial.groupId;
   const meta = getTutorialMeta(groupId, ex);
+  const timing = getTutorialTimingProfile(groupId, ex);
   scheduleTutorialTimer(() => {
     runExerciseTutorialAnswerPhase(ex, groupId, meta, token);
-  }, TUTORIAL_POST_AUDIO_PAUSE_MS, token);
+  }, timing.postAudioPauseMs, token);
 }
 
-function runRhythmTapTutorialDemo(ex, meta, token) {
+function buildTutorialDoneActions(groupId) {
+  return [
+    {
+      label: tr("▶ Jetzt selbst probieren", "▶ Try it myself"),
+      cls: "ex-tutorial-btn is-primary",
+      onClick: () => stopExerciseTutorial({ refreshExercise: true, autoPlay: true })
+    },
+    {
+      label: tr("Nochmal ansehen", "Watch again"),
+      cls: "ex-tutorial-btn is-secondary",
+      onClick: () => runExerciseTutorialDemo({ fresh: true })
+    }
+  ];
+}
+
+function setTutorialCardActionsOnly(actions) {
+  const actionsEl = document.getElementById("exTutorialActions");
+  if (!actionsEl) return;
+  actionsEl.innerHTML = "";
+  actions.forEach(act => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = act.cls || "ex-tutorial-btn";
+    btn.textContent = act.label;
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      act.onClick?.();
+    });
+    actionsEl.appendChild(btn);
+  });
+}
+
+function runRhythmTapTutorialDemo(ex, meta, timing, token) {
   const beatMs = 60000 / (state.activeBpm || 90);
   const beatsPerBar = ex.beatsPerBar || 4;
   const barMs = beatsPerBar * beatMs;
-  const events = [];
-
-  for (let b = 0; b < beatsPerBar; b++) {
-    events.push([Math.round(b * beatMs), b === 0 ? "accent" : "tick", b === 0 ? 0.92 : 0.7]);
-    events.push([Math.round(barMs + b * beatMs), b === 0 ? "accent" : "tick", b === 0 ? 0.56 : 0.36]);
-  }
-  const hitDelaysMs = [];
-  (ex.tapSlots || []).forEach((slot, beatIdx) => {
-    (slot.cell?.offsets || []).forEach(off => {
-      const relMs = Math.round((beatIdx + off) * beatMs);
-      events.push([Math.round(barMs + relMs), "clave", 0.96]);
-      hitDelaysMs.push({ relMs, beatIdx });
-    });
-  });
-
-  const baseAudioSec = audioEngine.getAudioTime() + 0.05;
-  audioEngine.playRhythmSequence(events, baseAudioSec);
-
   const padBtn = document.getElementById("rhythmTapPadBtn");
   const padTitle = document.getElementById("rhythmPadTitle");
   const padSub = document.getElementById("rhythmPadSub");
 
-  // Takt 1: Vorzähler
+  const hitDelaysMs = [];
+  (ex.tapSlots || []).forEach((slot, beatIdx) => {
+    (slot.cell?.offsets || []).forEach(off => {
+      hitDelaysMs.push({ relMs: Math.round((beatIdx + off) * beatMs), beatIdx });
+    });
+  });
+
+  // Schritt 1: 1 Takt Vorzähler + 1 Takt Muster zum Zuhören (Fokus auf oberem Modul)
+  const listenEvents = [];
+  for (let b = 0; b < beatsPerBar; b++) {
+    listenEvents.push([Math.round(b * beatMs), b === 0 ? "accent" : "tick", b === 0 ? 0.92 : 0.7]);
+    listenEvents.push([Math.round(barMs + b * beatMs), b === 0 ? "accent" : "tick", b === 0 ? 0.56 : 0.36]);
+  }
+  hitDelaysMs.forEach(({ relMs }) => {
+    listenEvents.push([Math.round(barMs + relMs), "clave", 0.96]);
+  });
+  audioEngine.playRhythmSequence(listenEvents, audioEngine.getAudioTime() + 0.05);
+
   for (let b = 0; b < beatsPerBar; b++) {
     scheduleTutorialTimer(() => {
       if (padTitle) padTitle.textContent = tf("Vorzähler: {n}", "Count-in: {n}", { n: b + 1 });
       if (padSub) padSub.textContent = tr("Erst den Puls aufnehmen…", "Feel the pulse first…");
     }, 50 + Math.round(b * beatMs), token);
+
+    scheduleTutorialTimer(() => {
+      for (let i = 0; i < beatsPerBar; i++) {
+        document.getElementById(`barCard_${i}`)?.classList.toggle("bar-active", i === b);
+      }
+    }, 50 + Math.round(barMs + b * beatMs), token);
   }
 
-  // Takt 2: Demo-Klopfen – Fokus wandert aufs Pad und blitzt exakt auf jedem Schlag auf!
+  // Nach Ende von Schritt 1: Pause, dann Schritt 2 mit echtem Lese-Vorlauf, BEVOR das Pad blinkt!
   scheduleTutorialTimer(() => {
+    for (let i = 0; i < beatsPerBar; i++) {
+      document.getElementById(`barCard_${i}`)?.classList.remove("bar-active");
+    }
     _exTutorial.phase = "demo";
     setTutorialSpotlight(document.getElementById("rhythmTapPadWrap") || padBtn);
     updateTutorialCardUI({
@@ -678,7 +761,7 @@ function runRhythmTapTutorialDemo(ex, meta, token) {
       title: meta.title,
       text: meta.answerPrompt(),
       mood: "happy",
-      compact: true,
+      compact: false,
       position: "top",
       actions: [
         {
@@ -690,48 +773,45 @@ function runRhythmTapTutorialDemo(ex, meta, token) {
     });
     if (padTitle) padTitle.textContent = tr("Jetzt im Takt klopfen!", "Tap in time now!");
     if (padSub) padSub.textContent = tr("Jedes grüne Aufblitzen = 1 Tippen", "Every green flash = 1 tap");
-  }, 50 + Math.round(barMs - 60), token);
 
-  for (let b = 0; b < beatsPerBar; b++) {
+    // Nach dem Lese-Vorlauf für Schritt 2 spielt der Demo-Takt mit grün aufblitzendem Pad
     scheduleTutorialTimer(() => {
-      for (let i = 0; i < beatsPerBar; i++) {
-        document.getElementById(`barCard_${i}`)?.classList.toggle("bar-active", i === b);
+      const tapDemoEvents = [];
+      for (let b = 0; b < beatsPerBar; b++) {
+        tapDemoEvents.push([Math.round(b * beatMs), b === 0 ? "accent" : "tick", b === 0 ? 0.56 : 0.36]);
       }
-    }, 50 + Math.round(barMs + b * beatMs), token);
-  }
+      hitDelaysMs.forEach(({ relMs }) => {
+        tapDemoEvents.push([relMs, "clave", 0.96]);
+      });
+      audioEngine.playRhythmSequence(tapDemoEvents, audioEngine.getAudioTime() + 0.05);
 
-  hitDelaysMs.forEach(({ relMs }) => {
-    scheduleTutorialTimer(() => {
-      if (!padBtn) return;
-      padBtn.classList.add("is-hit", "tutorial-target-pulse");
-      if (!_exTutorial.markedEls.includes(padBtn)) _exTutorial.markedEls.push(padBtn);
+      hitDelaysMs.forEach(({ relMs }) => {
+        scheduleTutorialTimer(() => {
+          if (!padBtn) return;
+          padBtn.classList.add("is-hit", "tutorial-target-pulse");
+          if (!_exTutorial.markedEls.includes(padBtn)) _exTutorial.markedEls.push(padBtn);
+          scheduleTutorialTimer(() => {
+            padBtn.classList.remove("is-hit");
+          }, Math.min(220, Math.round(beatMs * 0.45)), token);
+        }, 50 + relMs, token);
+      });
+
       scheduleTutorialTimer(() => {
-        padBtn.classList.remove("is-hit");
-      }, Math.min(200, Math.round(beatMs * 0.45)), token);
-    }, 50 + Math.round(barMs + relMs), token);
-  });
-
-  scheduleTutorialTimer(() => {
-    for (let i = 0; i < beatsPerBar; i++) {
-      document.getElementById(`barCard_${i}`)?.classList.remove("bar-active");
-    }
-    revealTutorialDoneActions({
-      groupId: _exTutorial.groupId,
-      title: meta.title,
-      text: meta.answerPrompt(),
-      position: "top",
-      token
-    });
-  }, 50 + Math.round(2 * barMs + 600), token);
+        _exTutorial.phase = "done";
+        markTutorialGroupSeen(_exTutorial.groupId);
+        setTutorialCardActionsOnly(buildTutorialDoneActions(_exTutorial.groupId));
+      }, 50 + Math.round(barMs + 500), token);
+    }, timing.answerLeadMs, token);
+  }, 50 + Math.round(2 * barMs + timing.postAudioPauseMs), token);
 }
 
-function runProdEqTutorialDemo(ex, meta, token) {
+function runProdEqTutorialDemo(ex, meta, timing, token) {
   audioEngine.startProductionNoiseLoop({
     freqHz: ex.targetItem.freqHz,
     q: ex.q,
     gainDb: ex.boostDb,
     startBypassed: true,
-    maxDurationSec: 12
+    maxDurationSec: 15
   });
   const refBtn = document.getElementById("tonicRefBtn");
   refBtn?.classList.add("btn-active");
@@ -757,45 +837,58 @@ function runProdEqTutorialDemo(ex, meta, token) {
         }
       ]
     });
-  }, 1900, token);
+  }, 2400, token);
 
   scheduleTutorialTimer(() => {
     audioEngine.stopPlayback();
-    runExerciseTutorialAnswerPhase(ex, "production", meta, token);
-  }, 4300, token);
+    scheduleTutorialTimer(() => {
+      runExerciseTutorialAnswerPhase(ex, "production", meta, token);
+    }, timing.postAudioPauseMs, token);
+  }, 5200, token);
 }
 
-function revealTutorialDoneActions({ groupId, title, text, position = "top", token }) {
-  if (!_exTutorial.active || _exTutorial.token !== token || state.currentView !== "exercise") return;
-  _exTutorial.phase = "done";
-  markTutorialGroupSeen(groupId);
-  // Spotlight & grüne Lösung bleiben ruhig sichtbar – der Nutzer bestimmt selbst, wann es weitergeht!
-  updateTutorialCardUI({
-    badge: tr("BEREIT!", "READY!"),
-    title: title || tr("Jetzt bist du dran!", "Now it’s your turn!"),
-    text: text || "",
-    mood: "happy",
-    compact: false,
-    position,
-    actions: [
-      {
-        label: tr("▶ Jetzt selbst probieren", "▶ Try it myself"),
-        cls: "ex-tutorial-btn is-primary",
-        onClick: () => stopExerciseTutorial({ refreshExercise: true })
-      },
-      {
-        label: tr("Nochmal ansehen", "Watch again"),
-        cls: "ex-tutorial-btn is-secondary",
-        onClick: () => runExerciseTutorialDemo({ fresh: true })
-      }
-    ]
-  });
+function playTutorialConfirmationAudio(ex, groupId) {
+  if (!ex || !audioEngine?.isInitialized) return;
+  if (groupId === "cadence" && ex.targetItem?.notes) {
+    audioEngine.playStep(ex.targetItem.notes, 1.2, ex.targetItem.bass, "cadence");
+    return;
+  }
+  if (groupId === "interval") {
+    if (ex.type === "interval-harmonic" && ex.targetItem?.notes) {
+      audioEngine.playStep(ex.targetItem.notes, 1.25, null, "interval-harmonic");
+    } else if (ex.type === "interval-drone" && ex.padNotes && ex.targetItem?.targetNote) {
+      audioEngine.playDroneIntervalCue(ex.padNotes, [ex.targetItem.targetNote], {
+        delayMs: 320,
+        padDurSec: 1.4,
+        pianoDurSec: 1.05
+      });
+    } else if (Array.isArray(ex.bars) && ex.bars.length >= 2) {
+      if (ex.bars[0]?.notes) audioEngine.playStep(ex.bars[0].notes, 0.55, null, "interval");
+      scheduleTutorialTimer(() => {
+        if (ex.bars[1]?.notes) audioEngine.playStep(ex.bars[1].notes, 1.05, null, "interval");
+      }, 520, _exTutorial.token);
+    }
+    return;
+  }
+  if (groupId === "chord" && Array.isArray(ex.targetItem?.notes)) {
+    audioEngine.playStep(ex.targetItem.notes, 1.25, ex.targetItem.bass || null, "cadence");
+    return;
+  }
+  if (groupId === "notation-keys" || groupId === "notation-chords") {
+    const playNotes = getNotationPlayNotes(ex.targetItem);
+    if (playNotes?.length) audioEngine.playStep(playNotes, ex.isChordReading ? 1.2 : 0.95, null, "interval");
+    return;
+  }
+  if (ex.type === "prod-tone" && Number.isFinite(ex.targetItem?.freqHz)) {
+    audioEngine.playProductionTone(ex.targetItem.freqHz, 0.85);
+  }
 }
 
 function runExerciseTutorialAnswerPhase(ex, groupId, meta, token) {
   if (!_exTutorial.active || _exTutorial.token !== token || state.currentView !== "exercise") return;
   _exTutorial.phase = "demo";
 
+  const timing = getTutorialTimingProfile(groupId, ex);
   const label = getTutorialTargetDisplayLabel(ex, groupId);
   const answerText = meta.answerPrompt(label);
   const isMultiStep = groupId === "melody" || groupId === "melody-dictation" || groupId === "rhythm-dictation";
@@ -814,61 +907,68 @@ function runExerciseTutorialAnswerPhase(ex, groupId, meta, token) {
   setTutorialSpotlight(spotEls);
 
   const cardPos = isMultiStep ? "center" : "top";
-  updateTutorialCardUI({
-    badge: tr("SCHRITT 2 / 2 · ANTWORT", "STEP 2 / 2 · ANSWER"),
-    title: meta.title,
-    text: answerText,
-    mood: "happy",
-    compact: true,
-    position: cardPos,
-    actions: [
-      {
-        label: tr("Abbrechen", "Cancel"),
-        cls: "ex-tutorial-btn is-secondary",
-        onClick: () => stopExerciseTutorial({ refreshExercise: true })
-      }
-    ]
-  });
 
-  // 1. Melodie & Melodie-Diktat: ruhig Schritt für Schritt auf der Klaviatur (+ Notenwert) vormachen
-  if (groupId === "melody" || groupId === "melody-dictation") {
-    const slots = (ex.melodySlots || []).slice(0, 5);
-    const stepMs = groupId === "melody-dictation" ? 1250 : 980;
-    const startDelay = 700;
-    slots.forEach((slot, idx) => {
-      scheduleTutorialTimer(() => {
-        document.querySelectorAll("#solfegeKeyboardWrap .tutorial-target-pulse").forEach(el => {
-          el.classList.remove("tutorial-target-pulse", "key-correct");
-        });
-        document.querySelectorAll("#melodyRhythmPicker .tutorial-target-pulse").forEach(el => {
-          el.classList.remove("tutorial-target-pulse");
-        });
-        const card = document.getElementById(`barCard_${idx}`);
-        if (card) markTutorialTargetEl(card, ["bar-active"]);
-        const keyEl = document.getElementById(`solfegeKey_${slot.midi}`)
-          || document.getElementById(`solfegeKey_${slot.playedMidi}`)
-          || document.querySelector(`#solfegeKeyboardWrap [data-syllable="${slot.syllable}"]`);
-        if (keyEl) markTutorialTargetEl(keyEl, ["key-correct"]);
-        if (groupId === "melody-dictation" && slot.rhythmKey) {
-          const rBtn = document.querySelector(`#melodyRhythmPicker [data-melody-rhythm="${slot.rhythmKey}"]`);
-          if (rBtn) markTutorialTargetEl(rBtn, []);
+  // 1. Mehr-Schritt-Übungen: erst Lese-Vorlauf mit [Abbrechen], dann ruhige Schritt-für-Schritt-Demo,
+  //    danach wechseln nur die Buttons auf [Jetzt selbst probieren] [Nochmal ansehen] (ohne Karte neu zu bauen)
+  if (isMultiStep) {
+    updateTutorialCardUI({
+      badge: tr("SCHRITT 2 / 2 · ANTWORT", "STEP 2 / 2 · ANSWER"),
+      title: meta.title,
+      text: answerText,
+      mood: "happy",
+      compact: true,
+      position: cardPos,
+      actions: [
+        {
+          label: tr("Abbrechen", "Cancel"),
+          cls: "ex-tutorial-btn is-secondary",
+          onClick: () => stopExerciseTutorial({ refreshExercise: true })
         }
-        if (Number.isFinite(slot.playedMidi)) {
-          audioEngine.playStep([midiToNote(slot.playedMidi)], 0.55, null, "interval");
-        }
-      }, startDelay + idx * stepMs, token);
+      ]
     });
-    scheduleTutorialTimer(() => {
-      revealTutorialDoneActions({ groupId, title: meta.title, text: answerText, position: cardPos, token });
-    }, startDelay + Math.max(1100, slots.length * stepMs + 350), token);
-    return;
-  }
 
-  // 2. Rhythmus-Diktat: 4 Zählzeiten ruhig Schritt für Schritt vormachen
-  if (groupId === "rhythm-dictation") {
+    if (groupId === "melody" || groupId === "melody-dictation") {
+      const slots = (ex.melodySlots || []).slice(0, 5);
+      const stepMs = timing.stepMs;
+      const startDelay = timing.answerLeadMs;
+      slots.forEach((slot, idx) => {
+        scheduleTutorialTimer(() => {
+          document.querySelectorAll("#solfegeKeyboardWrap .tutorial-target-pulse").forEach(el => {
+            el.classList.remove("tutorial-target-pulse", "key-correct");
+          });
+          document.querySelectorAll("#melodyRhythmPicker .tutorial-target-pulse").forEach(el => {
+            el.classList.remove("tutorial-target-pulse");
+          });
+          const card = document.getElementById(`barCard_${idx}`);
+          if (card) markTutorialTargetEl(card, ["bar-active"]);
+          const keyEl = document.getElementById(`solfegeKey_${slot.midi}`)
+            || document.getElementById(`solfegeKey_${slot.playedMidi}`)
+            || document.querySelector(`#solfegeKeyboardWrap [data-syllable="${slot.syllable}"]`);
+          if (keyEl) markTutorialTargetEl(keyEl, ["key-correct"]);
+          if (Number.isFinite(slot.playedMidi)) {
+            audioEngine.playStep([midiToNote(slot.playedMidi)], 0.58, null, "interval");
+          }
+          // Im Melodie-Diktat kurz versetzt den zugehörigen Notenwert hervorheben
+          if (groupId === "melody-dictation" && slot.rhythmKey) {
+            scheduleTutorialTimer(() => {
+              const rBtn = document.querySelector(`#melodyRhythmPicker [data-melody-rhythm="${slot.rhythmKey}"]`);
+              if (rBtn) markTutorialTargetEl(rBtn, []);
+            }, 420, token);
+          }
+        }, startDelay + idx * stepMs, token);
+      });
+      scheduleTutorialTimer(() => {
+        _exTutorial.phase = "done";
+        markTutorialGroupSeen(groupId);
+        setTutorialCardActionsOnly(buildTutorialDoneActions(groupId));
+      }, startDelay + Math.max(1100, slots.length * stepMs + 450), token);
+      return;
+    }
+
+    // Rhythmus-Diktat: 4 Zählzeiten ruhig Schritt für Schritt vormachen
     const slots = ex.rhythmSlots || [];
-    const stepMs = 960;
-    const startDelay = 700;
+    const stepMs = timing.stepMs;
+    const startDelay = timing.answerLeadMs;
     const beatMs = 60000 / (state.activeBpm || 90);
     slots.forEach((slot, idx) => {
       scheduleTutorialTimer(() => {
@@ -893,12 +993,28 @@ function runExerciseTutorialAnswerPhase(ex, groupId, meta, token) {
       }, startDelay + idx * stepMs, token);
     });
     scheduleTutorialTimer(() => {
-      revealTutorialDoneActions({ groupId, title: meta.title, text: answerText, position: cardPos, token });
-    }, startDelay + Math.max(1100, slots.length * stepMs + 350), token);
+      _exTutorial.phase = "done";
+      markTutorialGroupSeen(groupId);
+      setTutorialCardActionsOnly(buildTutorialDoneActions(groupId));
+    }, startDelay + Math.max(1100, slots.length * stepMs + 450), token);
     return;
   }
 
-  // 3. Solfège: Taste grün aufleuchten + Auflösung zur Tonika spielen, dann ruhig stehen bleiben
+  // 2. Alle Einzel-Antwort-Übungen: Karte erscheint direkt im finalen, ruhigen Lösungszustand
+  //    (kein 650-ms-Umspringen, kein Größenwechsel, kein Badge-Flackern – Nutzer liest im eigenen Tempo!)
+  _exTutorial.phase = "done";
+  markTutorialGroupSeen(groupId);
+  updateTutorialCardUI({
+    badge: tr("SCHRITT 2 / 2 · ANTWORT", "STEP 2 / 2 · ANSWER"),
+    title: meta.title,
+    text: answerText,
+    mood: "happy",
+    compact: false,
+    position: cardPos,
+    actions: buildTutorialDoneActions(groupId)
+  });
+
+  // Solfège: Taste grün markieren + nach kurzem Lesemoment die Auflösung zu Do spielen
   if (groupId === "solfege") {
     const target = ex.targetItem;
     const keyBtn = document.getElementById(`solfegeKey_${target?.midi}`)
@@ -906,42 +1022,32 @@ function runExerciseTutorialAnswerPhase(ex, groupId, meta, token) {
     if (keyBtn) markTutorialTargetEl(keyBtn, ["key-correct"]);
     if (target && Array.isArray(target.audioResolveMidis) && target.audioResolveMidis.length) {
       const steps = buildSolfegeResolutionSchedule(target.audioResolveMidis.length, state.activeBpm || 120);
-      target.audioResolveMidis.forEach((midi, idx) => {
-        const st = steps[idx] || { delayMs: idx * 320, durationSec: 0.5 };
-        scheduleTutorialTimer(() => {
-          audioEngine.playStep([midiToNote(midi)], st.durationSec, null, "interval");
-        }, st.delayMs, token);
-      });
-      const last = steps[steps.length - 1] || { delayMs: 800, durationSec: 0.8 };
       scheduleTutorialTimer(() => {
-        revealTutorialDoneActions({ groupId, title: meta.title, text: answerText, position: cardPos, token });
-      }, last.delayMs + Math.round(last.durationSec * 1000) + 250, token);
-    } else {
-      scheduleTutorialTimer(() => {
-        revealTutorialDoneActions({ groupId, title: meta.title, text: answerText, position: cardPos, token });
-      }, 650, token);
+        target.audioResolveMidis.forEach((midi, idx) => {
+          const st = steps[idx] || { delayMs: idx * 320, durationSec: 0.5 };
+          scheduleTutorialTimer(() => {
+            audioEngine.playStep([midiToNote(midi)], st.durationSec, null, "interval");
+          }, st.delayMs, token);
+        });
+      }, timing.answerLeadMs, token);
     }
     return;
   }
 
-  // 4. Notenlesen (Klaviatur): passende Taste grün markieren + Ton anspielen, dann ruhig stehen bleiben
+  // Notenlesen (Klaviatur): passende Taste grün markieren + Bestätigungston nach kurzem Lesemoment
   if (groupId === "notation-keys") {
     const target = ex.targetItem;
     const pc = Number(target?.pc);
     const keyBtn = Array.from(document.querySelectorAll("#solfegeKeyboardWrap .piano-white-key:not(.piano-key-frame), #solfegeKeyboardWrap .piano-black-key"))
       .find(el => Number(el.dataset.pc) === pc);
     if (keyBtn) markTutorialTargetEl(keyBtn, ["key-correct"]);
-    const playNotes = getNotationPlayNotes(target);
-    if (playNotes?.length) {
-      audioEngine.playStep(playNotes, 0.9, null, "interval");
-    }
     scheduleTutorialTimer(() => {
-      revealTutorialDoneActions({ groupId, title: meta.title, text: answerText, position: cardPos, token });
-    }, 650, token);
+      playTutorialConfirmationAudio(ex, groupId);
+    }, timing.answerLeadMs, token);
     return;
   }
 
-  // 5. Alle Kachel-Übungen (Kadenz, Intervall, Akkord, Modi, Taktart/Groove, Noten-Akkorde, Studio)
+  // Alle Kachel-Übungen (Kadenz, Intervall, Akkord, Modi, Taktart/Groove, Noten-Akkorde, Studio)
   const targetKey = ex.targetItem?.key;
   const targetBtn = Array.from(document.querySelectorAll("#degreeButtonsGrid .degree-btn"))
     .find(el => el.dataset.choice === targetKey);
@@ -956,17 +1062,12 @@ function runExerciseTutorialAnswerPhase(ex, groupId, meta, token) {
       if (romanEl && ex.targetItem?.roman) romanEl.textContent = ex.targetItem.roman;
       if (lblEl && ex.targetItem?.short) lblEl.textContent = ex.targetItem.short;
     }
-    if (ex.targetItem?.notes) {
-      audioEngine.playStep(ex.targetItem.notes, 1.15, ex.targetItem.bass, "cadence");
-    }
-  } else if (groupId === "notation-chords") {
-    const playNotes = getNotationPlayNotes(ex.targetItem);
-    if (playNotes?.length) audioEngine.playStep(playNotes, 1.15, null, "interval");
   }
 
+  // Kurzes Bestätigungs-Audio nach ruhigem Lesemoment (damit Ohr & Blick die Lösung verknüpfen)
   scheduleTutorialTimer(() => {
-    revealTutorialDoneActions({ groupId, title: meta.title, text: answerText, position: cardPos, token });
-  }, 650, token);
+    playTutorialConfirmationAudio(ex, groupId);
+  }, timing.answerLeadMs, token);
 }
 
 function initExerciseTutorialUI() {

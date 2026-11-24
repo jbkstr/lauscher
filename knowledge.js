@@ -1715,9 +1715,10 @@ const KNOWLEDGE_ARTICLES = [
         <div class="article-highlight-box">
           <h4>Direkt nachschlagen im interaktiven Diagramm</h4>
           <p>
-            Im <strong>Nashville-Number-System-Werkzeug</strong> kannst du jede der 12 Tonarten antippen, alle Stufen direkt anhören und per <strong>Kapodaster-Übersetzer</strong> sofort passende offene Gitarren-Griffe finden:
+            Im <strong>Nashville-Number-System-Werkzeug</strong> kannst du jede der 12 Tonarten antippen und alle Stufen direkt anhören – und im eigenständigen <strong>Kapodaster-Übersetzer</strong> rechnest du klingende Tonart, Bund und Greif-Formen direkt um:
           </p>
           <button class="btn-tool" type="button" data-open-nashville-tool="1">▶ Nashville-Diagramm-Werkzeug öffnen</button>
+          <button class="btn-tool" type="button" data-open-capo-tool="1">▶ Kapodaster-Übersetzer öffnen</button>
         </div>
       </div>
     `
@@ -2251,14 +2252,14 @@ const CATEGORY_HELP_GUIDES = {
     tagClass: "tag-sage",
     tag: "Anleitung • Einsing-Helfer",
     title: "So funktioniert das geführte Einsingen",
-    lead: "Ideal für Chorprobe, Einzelunterricht oder vor dem Üben: Wähle zunächst einen von 5 Stimmumfängen (SATB) und starte eines von 4 strukturierten Programmen – komplett mit Atem-Kugel, Live-Klaviatur und Halbton-Steuerung.",
+    lead: "Ideal für Chorprobe, Einzelunterricht oder vor dem Üben: Wähle zunächst einen von 5 Stimmumfängen (SATB) und starte eines von 5 strukturierten Programmen – komplett mit Atem-Kugel, Live-Klaviatur und Halbton-Steuerung.",
     sections: `
-      <h3>Die 4 Warmup-Programme &amp; 4 Phasen</h3>
+      <h3>Die 5 Warmup-Programme &amp; 4 Phasen</h3>
       <ul class="article-steps-list">
-        <li><strong>4 Programme zur Wahl:</strong> Starte je nach Zeit und Ziel das <strong>5-Minuten Komplett-Einsingen</strong> (alle 4 Phasen, 9 Übungen), das <strong>Kompakt-Warmup (ca. 3 Min.)</strong> für den schnellen Unterrichtsstart, das <strong>Arpeggio &amp; Register-Training</strong> oder <strong>Chor-Atem &amp; Intonation</strong>.</li>
+        <li><strong>5 Programme zur Wahl:</strong> Starte je nach Zeit und Ziel das <strong>5-Minuten Komplett-Einsingen</strong> (alle 4 Phasen, 11 Übungen inkl. Dur- &amp; Moll-Tonleitern), das <strong>Kompakt-Warmup (ca. 3 Min.)</strong> für den schnellen Unterrichtsstart, <strong>Tonleitern (Dur &amp; Moll)</strong>, das <strong>Arpeggio &amp; Register-Training</strong> oder <strong>Chor-Atem &amp; Intonation</strong>.</li>
         <li><strong>Phase 1 – Atem &amp; Körper:</strong> Die animierte Atemkugel auf <code>ffff / ssss</code> und leichte Zwerchfell-Impulse (<code>P – T – K</code>) wecken die Stütze ohne Druck auf den Stimmlippen.</li>
         <li><strong>Phase 2 – Stimmsitz &amp; Resonanz:</strong> Sanftes Summen / Lippenflattern (<code>Mmm / Brrr</code>) und Seufzer-Abgänge über die Quinte öffnen weich den Resonanzraum.</li>
-        <li><strong>Phase 3 &amp; 4 – Arpeggios, Vokale &amp; Chorklang:</strong> Dreiklangs- und Oktav-Arpeggios modulieren in Halbtonschritten passend für <strong>Chor-Mitte, Sopran, Alt, Tenor oder Bass</strong>, gefolgt von Vokal-Wandern (<code>U → O → A → E → I</code>) und einem schichtweisen SATB-Schlussakkord.</li>
+        <li><strong>Phase 3 &amp; 4 – Tonleitern, Arpeggios &amp; Chorklang:</strong> Ganze Oktav-Tonleitern in <strong>Dur sowie natürlichem, harmonischem &amp; melodischem Moll</strong> und Dreiklangs-/Oktav-Arpeggios modulieren in Halbtonschritten passend für <strong>Chor-Mitte, Sopran, Alt, Tenor oder Bass</strong>, gefolgt von Vokal-Wandern (<code>U → O → A → E → I</code>) und einem schichtweisen SATB-Schlussakkord.</li>
       </ul>
 
       <div class="article-highlight-box">

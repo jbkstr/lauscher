@@ -506,7 +506,7 @@ function closeTransientPopovers() {
     document.getElementById(btnId)?.classList.remove("chip-open");
   });
   if (typeof closeTunerDropdowns === "function") closeTunerDropdowns();
-  if (typeof closeNashvilleDropdowns === "function") closeNashvilleDropdowns();
+  if (typeof closeCapoDropdowns === "function") closeCapoDropdowns();
   if (_openProfileDropdownKey) {
     const prevKey = _openProfileDropdownKey;
     _openProfileDropdownKey = null;
@@ -536,6 +536,7 @@ function captureHistorySnapshot(modalName = getOpenModalName()) {
     freeplayReturnView: state.freeplayReturnView,
     fretboardReturnView: state.fretboardReturnView,
     circleReturnView: state.circleReturnView,
+    capoReturnView: state.capoReturnView,
     nashvilleReturnView: state.nashvilleReturnView,
     modal: modalName
   };
@@ -585,6 +586,15 @@ function applyHistorySnapshot(snapshot) {
     }
     if (snapshot.fretboardReturnView) {
       state.fretboardReturnView = snapshot.fretboardReturnView;
+    }
+    if (snapshot.circleReturnView) {
+      state.circleReturnView = snapshot.circleReturnView;
+    }
+    if (snapshot.capoReturnView) {
+      state.capoReturnView = snapshot.capoReturnView;
+    }
+    if (snapshot.nashvilleReturnView) {
+      state.nashvilleReturnView = snapshot.nashvilleReturnView;
     }
     if (snapshot.activeCategory) {
       state.activeCategory = snapshot.activeCategory;
@@ -681,6 +691,8 @@ function navigateBackFromUI() {
     switchView(state.fretboardReturnView || "tools", { skipHistoryPush: true });
   } else if (state.currentView === "circle") {
     switchView(state.circleReturnView || "tools", { skipHistoryPush: true });
+  } else if (state.currentView === "capo") {
+    switchView(state.capoReturnView || "tools", { skipHistoryPush: true });
   } else if (state.currentView === "nashville") {
     switchView(state.nashvilleReturnView || "tools", { skipHistoryPush: true });
   } else if (state.currentView === "exam-result") {
@@ -714,7 +726,7 @@ function hasOpenTransientPopover() {
   ].some(id => {
     const el = document.getElementById(id);
     return Boolean(el && !el.classList.contains("hidden") && !el.classList.contains("is-pinned"));
-  }) || Boolean(typeof _tuner !== "undefined" && _tuner.openDropdown) || Boolean(typeof _nnsOpenDropdown !== "undefined" && _nnsOpenDropdown) || Boolean(typeof _openProfileDropdownKey !== "undefined" && _openProfileDropdownKey);
+  }) || Boolean(typeof _tuner !== "undefined" && _tuner.openDropdown) || Boolean(typeof _capoOpenDropdown !== "undefined" && _capoOpenDropdown) || Boolean(typeof _openProfileDropdownKey !== "undefined" && _openProfileDropdownKey);
 }
 
 function minimizeOrExitNativeApp() {
@@ -839,7 +851,7 @@ function prefersReducedMotion() {
 
 function getTabForView(view) {
   if (view === "home" || view === "category" || view === "category-help" || view === "exam-setup") return "home";
-  if (view === "tools" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard" || view === "circle" || view === "nashville") return "tools";
+  if (view === "tools" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard" || view === "circle" || view === "capo" || view === "nashville") return "tools";
   if (view === "exam-result") return state.examResultReturnView === "space" ? "space" : "home";
   if (view === "knowledge" || view === "knowledge-detail") return "knowledge";
   if (view === "space") return "space";
@@ -850,7 +862,7 @@ function getViewOrderInfo(view) {
   const tab = getTabForView(view) || "home";
   const tabIdx = MAIN_TAB_ORDER.indexOf(tab);
   let depth = 0;
-  if (view === "category" || view === "knowledge-detail" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard" || view === "circle" || view === "nashville") depth = 1;
+  if (view === "category" || view === "knowledge-detail" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard" || view === "circle" || view === "capo" || view === "nashville") depth = 1;
   else if (view === "category-help" || view === "exam-setup") depth = 2;
   else if (view === "exercise" || view === "warmup") depth = 3;
   else if (view === "exam-result") depth = 4;
@@ -953,7 +965,7 @@ function navigateToMainTab(targetTab, swipeDir = null) {
 
   if (
     targetTab === "tools" &&
-    (state.currentView === "metronome" || state.currentView === "tuner" || state.currentView === "freeplay" || state.currentView === "fretboard" || state.currentView === "circle" || state.currentView === "nashville") &&
+    (state.currentView === "metronome" || state.currentView === "tuner" || state.currentView === "freeplay" || state.currentView === "fretboard" || state.currentView === "circle" || state.currentView === "capo" || state.currentView === "nashville") &&
     canHistory &&
     appHistoryState.idx >= 1 &&
     window.history.state?.idx >= 1
@@ -1013,7 +1025,7 @@ function hasHorizontalScrollableAncestor(target) {
 }
 
 function isTabSwipeBlockedView(view) {
-  return view === "exercise" || view === "warmup" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard" || view === "circle" || view === "nashville";
+  return view === "exercise" || view === "warmup" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard" || view === "circle" || view === "capo" || view === "nashville";
 }
 
 function handleHorizontalTabSwipe({ startX, startY, endX, endY, durationMs, viewportWidth, target }) {
@@ -1228,6 +1240,7 @@ function switchView(targetView, options = {}) {
     freeplay: document.getElementById("viewFreeplay"),
     fretboard: document.getElementById("viewFretboard"),
     circle: document.getElementById("viewCircle"),
+    capo: document.getElementById("viewCapo"),
     nashville: document.getElementById("viewNashville")
   };
 
@@ -1311,6 +1324,8 @@ function switchView(targetView, options = {}) {
     renderFretboardView();
   } else if (targetView === "circle" && typeof renderCircleOfFifthsView === "function") {
     renderCircleOfFifthsView();
+  } else if (targetView === "capo" && typeof renderCapoView === "function") {
+    renderCapoView();
   } else if (targetView === "nashville" && typeof renderNashvilleView === "function") {
     renderNashvilleView();
   }
@@ -2079,6 +2094,14 @@ function bindKnowledgeAudioButtons(rootEl) {
     btn.addEventListener("click", () => {
       if (typeof openNashvilleView === "function") {
         openNashvilleView("knowledge-detail");
+      }
+    });
+  });
+
+  rootEl.querySelectorAll("[data-open-capo-tool]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (typeof openCapoView === "function") {
+        openCapoView("knowledge-detail");
       }
     });
   });

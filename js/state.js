@@ -152,7 +152,9 @@ class AppState {
     this.waveAnimFrame = null;
     this.waveResume = null;
     this.circleOfFifthsState = { idx: 0, ringMode: "major", tab: "chords" };
-    this.nashvilleState = { keyIdx: 0, mode: "major", capoKeyIdx: 0, capoMode: "major", capoFret: 0 };
+    this.capoState = { keyIdx: 0, mode: "major", fret: 0 };
+    this.capoReturnView = "tools";
+    this.nashvilleState = { keyIdx: 0, mode: "major" };
     this.nashvilleReturnView = "tools";
     this.wavePaused = false;
 
@@ -607,9 +609,12 @@ class AppState {
     } else if (this.currentView === "circle") {
       mainTitle.textContent = tr("Quintenzirkel", "Circle of Fifths");
       el.textContent = tr("Interaktives Klangrad, Akkorde, Vorzeichen & Modulation", "Interactive key wheel, chords, key signatures & modulation");
+    } else if (this.currentView === "capo") {
+      mainTitle.textContent = tr("Kapodaster-Übersetzer", "Capo Translator");
+      el.textContent = tr("Klingende Tonart, Kapo-Bund & Greif-Formen direkt umrechnen", "Convert sounding key, capo fret & chord shapes instantly");
     } else if (this.currentView === "nashville") {
       mainTitle.textContent = tr("Nashville-Zahlensystem", "Nashville Number System");
-      el.textContent = tr("Tonarten-Diagramm, 12-Tonarten-Matrix & Kapodaster-Übersetzer", "Key diagram, 12-key matrix & guitar capo translator");
+      el.textContent = tr("Tonarten-Diagramm & 12-Tonarten-Matrix", "Key diagram & 12-key matrix");
     } else if (this.currentView === "exercise" && this.exam?.active) {
       const curQ = Math.min((this.exam.currentIdx || 0) + 1, this.exam.totalQuestions || 1);
       const presetMeta = typeof getExamPresetById === "function" ? getExamPresetById(this.exam.categoryKey, this.exam.levelId) : null;
@@ -837,6 +842,8 @@ function setLanguagePreference(nextLang) {
     renderExamResultView();
   } else if (state.currentView === "circle" && typeof renderCircleOfFifthsView === "function") {
     renderCircleOfFifthsView();
+  } else if (state.currentView === "capo" && typeof renderCapoView === "function") {
+    renderCapoView();
   } else if (state.currentView === "nashville" && typeof renderNashvilleView === "function") {
     renderNashvilleView();
   } else if (state.currentView === "knowledge-detail" && state.activeKnowledgeDetail) {

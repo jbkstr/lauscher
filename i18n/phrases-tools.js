@@ -39,6 +39,20 @@ registerColocatedPhrases({
     uk: "3 Арпеджіо",
     ur: "3 آرپیجیو"
   },
+  "3 Tonleitern": {
+    fr: "3 Gammes",
+    es: "3 Escalas",
+    pl: "3 Gamy",
+    uk: "3 Гами",
+    ur: "3 اسکیلز"
+  },
+  "3 Umfang": {
+    fr: "3 Ambitus",
+    es: "3 Ámbito",
+    pl: "3 Skala",
+    uk: "3 Діапазон",
+    ur: "3 رینج"
+  },
   "3. Alt: Oktave einschwingen": {
     fr: "3. Alto : fondre l’octave",
     es: "3. Contralto: fundir la octava",
@@ -67,12 +81,12 @@ registerColocatedPhrases({
     uk: "Повна 5-хвилинна розспівка",
     ur: "5 منٹ مکمل وارم اپ"
   },
-  "Alle 4 Phasen: Bauchatmung, Summen, modulierte Arpeggios & SATB-Chorklang": {
-    fr: "Les 4 phases : souffle, bouche fermée, arpèges modulés & accord choral SATB",
-    es: "Las 4 fases: respiración, boca cerrada, arpegios modulados y acorde coral SATB",
-    pl: "Wszystkie 4 etapy: oddech przeponowy, mormorando, modulowane arpeggia i akord chóru SATB",
-    uk: "Усі 4 етапи: діафрагмальне дихання, гудіння, модульовані арпеджіо й хоровий акорд SATB",
-    ur: "چاروں مراحل: پیٹ سے سانس، گنگنانا، آرپیجیو اور SATB کورس بلینڈ"
+  "Alle 4 Phasen: Atem, Summen, Tonleitern (Dur/Moll), Arpeggios & SATB-Chorklang": {
+    fr: "Les 4 phases : souffle, bouche fermée, gammes (maj./min.), arpèges & chœur SATB",
+    es: "Las 4 fases: respiración, boca cerrada, escalas (may./men.), arpegios y coro SATB",
+    pl: "Wszystkie 4 etapy: oddech, mormorando, gamy (dur/moll), arpeggia i chór SATB",
+    uk: "Усі 4 етапи: дихання, гудіння, гами (мажор/мінор), арпеджіо й хор SATB",
+    ur: "چاروں مراحل: سانس، گنگنانا، اسکیلز (میجر/مائنر)، آرپیجیو اور SATB کورس"
   },
   "Arpeggio & Register-Training": {
     fr: "Arpèges & Passage des registres",
@@ -493,6 +507,111 @@ registerColocatedPhrases({
     pl: "Powtórz rozgrzewkę",
     uk: "Розспіватися ще раз",
     ur: "وارم اپ دہرائیں"
+  },
+  "PHASE 3 • TONLEITERN (DUR & MOLL)": {
+    fr: "PHASE 3 • GAMMES (MAJEUR & MINEUR)",
+    es: "FASE 3 • ESCALAS (MAYOR Y MENOR)",
+    pl: "ETAP 3 • GAMY (DUR I MOLL)",
+    uk: "ЕТАП 3 • ГАМИ (МАЖОР І МІНОР)",
+    ur: "مرحلہ 3 • اسکیلز (میجر اور مائنر)"
+  },
+  "Tonleitern (Dur & Moll)": {
+    fr: "Gammes (Majeur & Mineur)",
+    es: "Escalas (Mayor y Menor)",
+    pl: "Gamy (dur i moll)",
+    uk: "Гами (мажор і мінор)",
+    ur: "اسکیلز (میجر اور مائنر)"
+  },
+  "Ganze Oktav-Tonleitern singen: Dur sowie natürliches, harmonisches & melodisches Moll": {
+    fr: "Chanter des gammes d’octave complètes : majeur et mineur naturel, harmonique & mélodique",
+    es: "Cantar escalas de octava completas: mayor y menor natural, armónica y melódica",
+    pl: "Śpiewanie pełnych gam w oktawie: dur oraz moll naturalny, harmoniczny i melodyczny",
+    uk: "Спів повних октавних гам: мажор, а також натуральний, гармонічний і мелодичний мінор",
+    ur: "مکمل آکٹیو اسکیلز گائیں: میجر کے ساتھ نیچرل، ہارمونک اور میلوڈک مائنر"
+  },
+  "Dur-Tonleiter (auf & ab)": {
+    fr: "Gamme majeure (aller-retour)",
+    es: "Escala mayor (subida y bajada)",
+    pl: "Gama durowa (w górę i w dół)",
+    uk: "Мажорна гама (вгору й вниз)",
+    ur: "میجر اسکیل (اوپر اور نیچے)"
+  },
+  "La – la / Do – Re – Mi": {
+    fr: "La – la / Do – Ré – Mi",
+    es: "La – la / Do – Re – Mi",
+    pl: "La – la / Do – Re – Mi",
+    uk: "Ла – ла / До – Ре – Мі",
+    ur: "لا – لا / ڈو – رے – می"
+  },
+  "Gleichmäßig legato über die ganze Oktave singen – die Halbtonschritte 3–4 und 7–8 bewusst hoch denken.": {
+    fr: "Chantez en legato régulier sur toute l’octave — pensez les demi-tons 3–4 et 7–8 bien hauts.",
+    es: "Canta en legato regular toda la octava; piensa bien altos los semitonos 3–4 y 7–8.",
+    pl: "Śpiewaj płynnie legato przez całą oktawę — półtony 3–4 i 7–8 intonuj lekko w górę.",
+    uk: "Співай рівно легато всю октаву — півтони 3–4 та 7–8 мисли трохи вище.",
+    ur: "پورے آکٹیو میں ہموار لیگاٹو گائیں — 3–4 اور 7–8 کے سیمی ٹونز کو روشن اور بلند رکھیں۔"
+  },
+  "Natürliches Moll (auf & ab)": {
+    fr: "Mineur naturel (aller-retour)",
+    es: "Menor natural (subida y bajada)",
+    pl: "Moll naturalny (w górę i w dół)",
+    uk: "Натуральний мінор (вгору й вниз)",
+    ur: "نیچرل مائنر (اوپر اور نیچے)"
+  },
+  "Na – na – na": {
+    fr: "Na – na – na",
+    es: "Na – na – na",
+    pl: "Na – na – na",
+    uk: "На – на – на",
+    ur: "نا – نا – نا"
+  },
+  "Weiche Moll-Farbe halten – auf die kleine Terz (♭3) und die entspannten Stufen ♭6 und ♭7 achten.": {
+    fr: "Gardez une couleur mineure douce — soignez la tierce mineure (♭3) et les degrés ♭6 et ♭7 détendus.",
+    es: "Mantén un color menor suave; cuida la tercera menor (♭3) y los grados ♭6 y ♭7 relajados.",
+    pl: "Utrzymuj miękką barwę molową — pilnuj tercji małej (♭3) oraz swobodnych stopni ♭6 i ♭7.",
+    uk: "Тримай м’який мінорний тембр — стеж за малою терцією (♭3) та спокійними ступенями ♭6 і ♭7.",
+    ur: "نرم مائنر رنگ برقرار رکھیں — مائنر تھرڈ (♭3) اور پُرسکون ♭6 و ♭7 پر توجہ دیں۔"
+  },
+  "Harmonisches Moll (auf & ab)": {
+    fr: "Mineur harmonique (aller-retour)",
+    es: "Menor armónica (subida y bajada)",
+    pl: "Moll harmoniczny (w górę i w dół)",
+    uk: "Гармонічний мінор (вгору й вниз)",
+    ur: "ہارمونک مائنر (اوپر اور نیچے)"
+  },
+  "Ma – ma – ma": {
+    fr: "Ma – ma – ma",
+    es: "Ma – ma – ma",
+    pl: "Ma – ma – ma",
+    uk: "Ма – ма – ма",
+    ur: "ما – ما – ما"
+  },
+  "Zwischen ♭6 und erhöhter 7. Stufe sauber spannen – der Leitton (7) zieht eng zur Oktave.": {
+    fr: "Tendez proprement l’intervalle entre ♭6 et la 7e haussée — la sensible (7) attire vers l’octave.",
+    es: "Afina con precisión el salto entre ♭6 y el 7.º grado alterado; la sensible (7) tira hacia la octava.",
+    pl: "Czysto rozepnij krok między ♭6 a podwyższonym 7. stopniem — dźwięk prowadzący (7) ciąży do oktawy.",
+    uk: "Чисто інтонуй ширший крок між ♭6 і підвищеним 7-м ступенем — ввідний тон (7) тяжіє до октави.",
+    ur: "♭6 اور بلند 7ویں درجے کے درمیان فاصلہ صاف رکھیں — لیڈنگ ٹون (7) آکٹیو کی طرف کھنچتا ہے۔"
+  },
+  "Melodisches Moll (auf & ab)": {
+    fr: "Mineur mélodique (aller-retour)",
+    es: "Menor melódica (subida y bajada)",
+    pl: "Moll melodyczny (w górę i w dół)",
+    uk: "Мелодичний мінор (вгору й вниз)",
+    ur: "میلوڈک مائنر (اوپر اور نیچے)"
+  },
+  "La – le – li – lo": {
+    fr: "La – lé – li – lo",
+    es: "La – le – li – lo",
+    pl: "La – le – li – lo",
+    uk: "Ла – ле – лі – ло",
+    ur: "لا – لے – لی – لو"
+  },
+  "Aufwärts mit hoher 6. und 7. Stufe fließend öffnen, abwärts weich über ♭7 und ♭6 natürlich zurückkehren.": {
+    fr: "Ouvrez fluidement en montant avec les 6e et 7e haussées, puis redescendez en mineur naturel par ♭7 et ♭6.",
+    es: "Sube con fluidez con 6.º y 7.º grados altos y desciende con suavidad en menor natural por ♭7 y ♭6.",
+    pl: "W górę otwieraj płynnie z podwyższonym 6. i 7. stopniem, w dół wracaj naturalnie przez ♭7 i ♭6.",
+    uk: "Угору плавно відкривай з підвищеними 6-м і 7-м ступенями, униз м’яко повертайся натурально через ♭7 і ♭6.",
+    ur: "اوپر جاتے ہوئے بلند 6 اور 7 کے ساتھ روانی سے کھلیں، اور نیچے ♭7 اور ♭6 کے ذریعے نیچرل مائنر میں واپس آئیں۔"
   },
   "▶ Weiter": {
     fr: "▶ Reprendre",
@@ -2377,12 +2496,19 @@ registerColocatedPhrases({
     uk: "Система цифр Нешвілла",
     ur: "نیش وِل نمبر سسٹم"
   },
-  "Tonarten-Diagramm, 12-Tonarten-Matrix & Kapodaster-Übersetzer": {
-    fr: "Diagramme des tonalités, matrice des 12 tonalités & traducteur de capo",
-    es: "Diagrama de tonalidades, tabla de 12 tonalidades y traductor de cejilla",
-    pl: "Diagram tonacji, tabela 12 tonacji i tłumacz kapodastra",
-    uk: "Діаграма тональностей, таблиця 12 тональностей і перекладач каподастра",
-    ur: "کی ڈایاگرام، 12 کیز ٹیبل اور گٹار کیپو ٹرانسلیٹر"
+  "Klingende Tonart, Kapo-Bund & Greif-Formen direkt umrechnen": {
+    fr: "Convertir tonalité réelle, case du capo & positions d’accords",
+    es: "Convierte tonalidad real, traste de cejilla y posiciones de acordes",
+    pl: "Przeliczaj tonację brzmiącą, próg kapodastra i chwyty gitarowe",
+    uk: "Швидкий перерахунок звучання, ладу каподастра й гітарних аплікатур",
+    ur: "اصل کی، کیپو فریٹ اور گٹار شیپس کو فوراً تبدیل کریں"
+  },
+  "Tonarten-Diagramm & 12-Tonarten-Matrix": {
+    fr: "Diagramme des tonalités & matrice des 12 tonalités",
+    es: "Diagrama de tonalidades y tabla de 12 tonalidades",
+    pl: "Diagram tonacji i tabela 12 tonacji",
+    uk: "Діаграма тональностей і таблиця 12 тональностей",
+    ur: "کی ڈایاگرام اور 12 کیز ٹیبل"
   },
   "{root}-Moll": {
     fr: "{root} mineur",
@@ -2754,34 +2880,6 @@ registerColocatedPhrases({
     pl: "Chwyty jak w",
     uk: "Аплікатури в",
     ur: "گرپ کی کی"
-  },
-  "Bequeme offene Gitarren-Formen für diese Tonart:": {
-    fr: "Positions ouvertes confortables à la guitare pour cette tonalité :",
-    es: "Posiciones abiertas cómodas en guitarra para esta tonalidad:",
-    pl: "Wygodne otwarte chwyty gitarowe dla tej tonacji:",
-    uk: "Зручні відкриті гітарні аплікатури для цієї тональності:",
-    ur: "اس کی کے لیے آرام دہ اوپن گٹار شیپس:"
-  },
-  "Offen (0)": {
-    fr: "Ouvert (0)",
-    es: "Abierto (0)",
-    pl: "Otwarte (0)",
-    uk: "Відкрито (0)",
-    ur: "اوپن (0)"
-  },
-  "Kapo {n}": {
-    fr: "Capo {n}",
-    es: "Cejilla {n}",
-    pl: "Kapo {n}",
-    uk: "Капо {n}",
-    ur: "کیپو {n}"
-  },
-  "{shape}-Form": {
-    fr: "Positions {shape}",
-    es: "Formas de {shape}",
-    pl: "Układ {shape}",
-    uk: "Форми {shape}",
-    ur: "{shape} شیپس"
   },
   "Klingende Ausgangstonart": {
     fr: "Tonalité de départ (son réel)",
