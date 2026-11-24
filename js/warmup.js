@@ -4,6 +4,8 @@
 
 const WARMUP_KEY_CODES_BY_PC = ["C", "Db", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"];
 const WARMUP_FLAT_PITCH_CLASSES = new Set([1, 3, 5, 8, 10]);
+// Enharmonische Zuordnung passend zu MINOR_KEY_NAMES_DE/_INTL (cis/fis/gis mit #, es/b mit b)
+const WARMUP_MINOR_FLAT_PITCH_CLASSES = new Set([0, 2, 3, 5, 7, 10]);
 
 const WARMUP_VOICE_RANGES = {
   mixed:   { id: "mixed",   baseMidi: 60, de: "Chor-Mitte", en: "Choir Mid", subDe: "c¹–e²", subEn: "C4–E5" },
@@ -95,6 +97,90 @@ const WARMUP_STEP_CATALOG = {
     cueChordBeats: 1.25,
     breathGapBeats: 0.75,
     postRestBeats: 0.85,
+    staccato: false
+  },
+  "major-scale": {
+    id: "major-scale",
+    phaseId: "arpeggio",
+    isScale: true,
+    tonality: "major",
+    kind: "vocal-pattern",
+    titleDe: "Dur-Tonleiter (auf & ab)",
+    titleEn: "Major Scale (Up & Down)",
+    syllableDe: "La – la / Do – Re – Mi",
+    syllableEn: "La – la / Do – Re – Mi",
+    degreesText: "1 – 2 – 3 – 4 – 5 – 6 – 7 – 8 ↘ 1",
+    hintDe: "Gleichmäßig legato über die ganze Oktave singen – die Halbtonschritte 3–4 und 7–8 bewusst hoch denken.",
+    hintEn: "Sing smoothly legato across the full octave — keep half-steps 3–4 and 7–8 bright and lifted.",
+    semitones: [0, 2, 4, 5, 7, 9, 11, 12, 11, 9, 7, 5, 4, 2, 0],
+    noteBeats: [0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 1.44],
+    keyOffsets: [0, 1, 2, 3, 4],
+    cueChordBeats: 1.25,
+    breathGapBeats: 0.75,
+    postRestBeats: 0.9,
+    staccato: false
+  },
+  "minor-natural-scale": {
+    id: "minor-natural-scale",
+    phaseId: "arpeggio",
+    isScale: true,
+    tonality: "minor",
+    kind: "vocal-pattern",
+    titleDe: "Natürliches Moll (auf & ab)",
+    titleEn: "Natural Minor Scale (Up & Down)",
+    syllableDe: "Na – na – na",
+    syllableEn: "Na – na – na",
+    degreesText: "1 – 2 – ♭3 – 4 – 5 – ♭6 – ♭7 – 8 ↘ 1",
+    hintDe: "Weiche Moll-Farbe halten – auf die kleine Terz (♭3) und die entspannten Stufen ♭6 und ♭7 achten.",
+    hintEn: "Keep a warm minor color — listen closely to the minor 3rd (♭3) and relaxed ♭6 and ♭7.",
+    semitones: [0, 2, 3, 5, 7, 8, 10, 12, 10, 8, 7, 5, 3, 2, 0],
+    noteBeats: [0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 1.44],
+    keyOffsets: [0, 1, 2, 3, 4],
+    cueChordBeats: 1.25,
+    breathGapBeats: 0.75,
+    postRestBeats: 0.9,
+    staccato: false
+  },
+  "minor-harmonic-scale": {
+    id: "minor-harmonic-scale",
+    phaseId: "arpeggio",
+    isScale: true,
+    tonality: "minor",
+    kind: "vocal-pattern",
+    titleDe: "Harmonisches Moll (auf & ab)",
+    titleEn: "Harmonic Minor Scale (Up & Down)",
+    syllableDe: "Ma – ma – ma",
+    syllableEn: "Ma – ma – ma",
+    degreesText: "1 – 2 – ♭3 – 4 – 5 – ♭6 – 7 – 8 ↘ 1",
+    hintDe: "Zwischen ♭6 und erhöhter 7. Stufe sauber spannen – der Leitton (7) zieht eng zur Oktave.",
+    hintEn: "Span the wider step between ♭6 and raised 7 cleanly — let the leading tone (7) pull into the octave.",
+    semitones: [0, 2, 3, 5, 7, 8, 11, 12, 11, 8, 7, 5, 3, 2, 0],
+    noteBeats: [0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 1.44],
+    keyOffsets: [0, 1, 2, 3, 4],
+    cueChordBeats: 1.25,
+    breathGapBeats: 0.75,
+    postRestBeats: 0.9,
+    staccato: false
+  },
+  "minor-melodic-scale": {
+    id: "minor-melodic-scale",
+    phaseId: "arpeggio",
+    isScale: true,
+    tonality: "minor",
+    kind: "vocal-pattern",
+    titleDe: "Melodisches Moll (auf & ab)",
+    titleEn: "Melodic Minor Scale (Up & Down)",
+    syllableDe: "La – le – li – lo",
+    syllableEn: "La – le – li – lo",
+    degreesText: "↗ 1…♭3…6–7–8  •  ↘ ♭7–♭6…1",
+    hintDe: "Aufwärts mit hoher 6. und 7. Stufe fließend öffnen, abwärts weich über ♭7 und ♭6 natürlich zurückkehren.",
+    hintEn: "Ascend smoothly with raised 6th and 7th, then descend naturally through ♭7 and ♭6.",
+    semitones: [0, 2, 3, 5, 7, 9, 11, 12, 10, 8, 7, 5, 3, 2, 0],
+    noteBeats: [0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 1.44],
+    keyOffsets: [0, 1, 2, 3, 4],
+    cueChordBeats: 1.25,
+    breathGapBeats: 0.75,
+    postRestBeats: 0.9,
     staccato: false
   },
   "triad-syllables": {
@@ -204,18 +290,20 @@ const WARMUP_PRESETS = [
     circle: "circle-sage",
     titleDe: "5-Minuten Komplett-Einsingen",
     titleEn: "5-Min Complete Vocal Warmup",
-    descDe: "Alle 4 Phasen: Bauchatmung, Summen, modulierte Arpeggios & SATB-Chorklang",
-    descEn: "All 4 phases: deep breathing, humming, modulated arpeggios & SATB blend",
+    descDe: "Alle 4 Phasen: Atem, Summen, Tonleitern (Dur/Moll), Arpeggios & SATB-Chorklang",
+    descEn: "All 4 phases: breathing, humming, major & minor scales, arpeggios & SATB blend",
     steps: [
-      { id: "breath-circle" },
-      { id: "diaphragm-pulse" },
-      { id: "humming-wave" },
-      { id: "fifth-sigh" },
-      { id: "triad-syllables" },
-      { id: "octave-staccato" },
-      { id: "cool-down-arp" },
-      { id: "vowel-blend" },
-      { id: "choir-cadence" }
+      { id: "breath-circle", cycles: 3 },
+      { id: "diaphragm-pulse", rounds: 4 },
+      { id: "humming-wave", keyOffsets: [0, 1, 2, 3, 4] },
+      { id: "fifth-sigh", keyOffsets: [4, 3, 2, 1] },
+      { id: "major-scale", keyOffsets: [0, 1, 2] },
+      { id: "minor-natural-scale", keyOffsets: [0, 1, 2] },
+      { id: "triad-syllables", keyOffsets: [0, 1, 2, 3, 4] },
+      { id: "octave-staccato", keyOffsets: [2, 3, 4, 5] },
+      { id: "cool-down-arp", keyOffsets: [5, 4, 3, 2] },
+      { id: "vowel-blend", keyOffsets: [0, 2, 4] },
+      { id: "choir-cadence", keyOffsets: [0, 2] }
     ]
   },
   {
@@ -233,6 +321,23 @@ const WARMUP_PRESETS = [
       { id: "triad-syllables" },
       { id: "vowel-blend", keyOffsets: [0, 2] },
       { id: "choir-cadence", keyOffsets: [0, 2] }
+    ]
+  },
+  {
+    id: "scales-focus",
+    badge: "1↗8",
+    circle: "circle-peach",
+    titleDe: "Tonleitern (Dur & Moll)",
+    titleEn: "Scales (Major & Minor)",
+    descDe: "Ganze Oktav-Tonleitern singen: Dur sowie natürliches, harmonisches & melodisches Moll",
+    descEn: "Sing full octave scales: major plus natural, harmonic & melodic minor",
+    steps: [
+      { id: "humming-wave", keyOffsets: [0, 2, 4] },
+      { id: "major-scale" },
+      { id: "minor-natural-scale" },
+      { id: "minor-harmonic-scale" },
+      { id: "minor-melodic-scale" },
+      { id: "choir-cadence", keyOffsets: [0] }
     ]
   },
   {
@@ -309,13 +414,32 @@ function getWarmupPhaseInfo(phaseId) {
   };
 }
 
-function getWarmupKeyNameFromMidi(midi) {
+function getWarmupPhasePillLabel(phase, steps) {
+  if (phase.id === "arpeggio" && Array.isArray(steps)) {
+    const p3Steps = steps.filter(s => s.phaseId === "arpeggio");
+    const hasScales = p3Steps.some(s => s.isScale);
+    const hasNonScales = p3Steps.some(s => !s.isScale);
+    if (hasScales && !hasNonScales) return tr("3 Tonleitern", "3 Scales");
+    if (hasScales && hasNonScales) return tr("3 Umfang", "3 Range");
+  }
+  return tr(phase.shortDe, phase.shortEn);
+}
+
+function getWarmupStagePhaseLabel(step, phaseInfo) {
+  if (step?.phaseId === "arpeggio" && step?.isScale) {
+    return tr("PHASE 3 • TONLEITERN (DUR & MOLL)", "PHASE 3 • SCALES (MAJOR & MINOR)");
+  }
+  return phaseInfo.label;
+}
+
+function getWarmupKeyNameFromMidi(midi, tonality = "major") {
   const pc = ((midi % 12) + 12) % 12;
   const keyCode = WARMUP_KEY_CODES_BY_PC[pc] || "C";
+  const isMinor = tonality === "minor";
   return {
     keyCode,
-    keyName: getKeyDisplayName(keyCode),
-    preferFlat: WARMUP_FLAT_PITCH_CLASSES.has(pc)
+    keyName: getKeyDisplayName(keyCode, isMinor ? "minor" : "major"),
+    preferFlat: isMinor ? WARMUP_MINOR_FLAT_PITCH_CLASSES.has(pc) : WARMUP_FLAT_PITCH_CLASSES.has(pc)
   };
 }
 
@@ -567,7 +691,7 @@ function renderWarmupView() {
       const hasPhaseSteps = steps.some(s => s.phaseId === p.id);
       if (!hasPhaseSteps) return "";
       const cls = p.num < activePhaseNum ? "is-done" : (p.num === activePhaseNum ? "is-active" : "");
-      return `<button type="button" class="warmup-phase-pill ${cls}" data-warmup-phase="${p.id}">${tr(p.shortDe, p.shortEn)}</button>`;
+      return `<button type="button" class="warmup-phase-pill ${cls}" data-warmup-phase="${p.id}">${getWarmupPhasePillLabel(p, steps)}</button>`;
     }).join("");
     pillsWrap.querySelectorAll("[data-warmup-phase]").forEach(pill => {
       pill.addEventListener("click", () => {
@@ -605,7 +729,7 @@ function renderWarmupView() {
   if (phaseBadgeEl) {
     phaseBadgeEl.textContent = w.status === "completed"
       ? tr("EINSINGEN ABGESCHLOSSEN", "WARMUP COMPLETE")
-      : phaseInfo.label;
+      : getWarmupStagePhaseLabel(step, phaseInfo);
   }
 
   const orbWrap = document.getElementById("warmupBreathOrbWrap");
@@ -643,7 +767,8 @@ function renderWarmupView() {
     if (showDeg) degEl.textContent = step.degreesText;
   }
 
-  const keyInfo = getWarmupKeyNameFromMidi(tonicMidi);
+  const stepTonality = step.tonality === "minor" ? "minor" : "major";
+  const keyInfo = getWarmupKeyNameFromMidi(tonicMidi, stepTonality);
   const noteText = midiToGermanNote(tonicMidi, keyInfo.preferFlat);
   const keyBadgeEl = document.getElementById("warmupKeyNoteBadge");
   const roundTotal = getWarmupStepRoundCount(step);
@@ -709,9 +834,18 @@ function renderWarmupView() {
   state.updateHeaderSubtext();
 }
 
-function playWarmupMajorTriadCue(tonicMidi, durSec, soundMode) {
-  const notes = [midiToNote(tonicMidi), midiToNote(tonicMidi + 4), midiToNote(tonicMidi + 7)];
+function getWarmupCueTriadMidis(tonicMidi, tonality = "major") {
+  const third = tonality === "minor" ? 3 : 4;
+  return [tonicMidi, tonicMidi + third, tonicMidi + 7];
+}
+
+function playWarmupTriadCue(tonicMidi, durSec, soundMode, tonality = "major") {
+  const notes = getWarmupCueTriadMidis(tonicMidi, tonality).map(m => midiToNote(m));
   audioEngine.playWarmupNotes(soundMode, notes, durSec, true);
+}
+
+function playWarmupMajorTriadCue(tonicMidi, durSec, soundMode) {
+  playWarmupTriadCue(tonicMidi, durSec, soundMode, "major");
 }
 
 function runCurrentWarmupRound() {
@@ -738,7 +872,8 @@ function runCurrentWarmupRound() {
   const beatSec = 60 / Math.max(60, Math.min(140, w.bpm || WARMUP_DEFAULT_BPM));
   const beatMs = beatSec * 1000;
   const tonicMidi = getWarmupTonicMidi(step, w.keyOffsetIndex, w);
-  const keyInfo = getWarmupKeyNameFromMidi(tonicMidi);
+  const stepTonality = step.tonality === "minor" ? "minor" : "major";
+  const keyInfo = getWarmupKeyNameFromMidi(tonicMidi, stepTonality);
   w.currentTonicMidi = tonicMidi;
   w.activeMidis = [];
   w.vowelLabel = "";
@@ -838,8 +973,8 @@ function runCurrentWarmupRound() {
   // Cue-Akkord + kurze Einatem-Lücke vor allen gesungenen Übungen
   const cueMs = (step.cueChordBeats || 1.25) * beatMs;
   const startVocalMs = cueMs + (step.breathGapBeats || 0.75) * beatMs;
-  playWarmupMajorTriadCue(tonicMidi, Math.max(0.55, cueMs / 1000 * 0.92), w.soundMode);
-  w.activeMidis = [tonicMidi, tonicMidi + 4, tonicMidi + 7];
+  playWarmupTriadCue(tonicMidi, Math.max(0.55, cueMs / 1000 * 0.92), w.soundMode, stepTonality);
+  w.activeMidis = getWarmupCueTriadMidis(tonicMidi, stepTonality);
   updateWarmupKeyboardHighlights(tonicMidi, w.activeMidis);
 
   if (step.kind === "vowel-blend") {
@@ -1084,8 +1219,9 @@ async function replayWarmupRound() {
   const steps = getWarmupStepsForPreset(w.presetId);
   const step = steps[Math.max(0, Math.min(steps.length - 1, w.stepIndex))];
   const tonicMidi = getWarmupTonicMidi(step, w.keyOffsetIndex, w);
-  playWarmupMajorTriadCue(tonicMidi, 0.85, w.soundMode);
-  w.activeMidis = [tonicMidi, tonicMidi + 4, tonicMidi + 7];
+  const stepTonality = step?.tonality === "minor" ? "minor" : "major";
+  playWarmupTriadCue(tonicMidi, 0.85, w.soundMode, stepTonality);
+  w.activeMidis = getWarmupCueTriadMidis(tonicMidi, stepTonality);
   renderWarmupView();
 }
 
@@ -1106,7 +1242,8 @@ async function shiftWarmupTranspose(deltaSemitones) {
   } else {
     renderWarmupView();
     await ensureAudioReady();
-    playWarmupMajorTriadCue(previewTonic, 0.75, w.soundMode);
+    const stepTonality = step?.tonality === "minor" ? "minor" : "major";
+    playWarmupTriadCue(previewTonic, 0.75, w.soundMode, stepTonality);
   }
 }
 

@@ -484,6 +484,9 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("openCircleBtn")?.addEventListener("click", () => {
     openCircleOfFifthsView("tools");
   });
+  document.getElementById("openCapoBtn")?.addEventListener("click", () => {
+    openCapoView("tools");
+  });
   document.getElementById("openNashvilleBtn")?.addEventListener("click", () => {
     openNashvilleView("tools");
   });

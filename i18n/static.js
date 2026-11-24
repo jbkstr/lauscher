@@ -1003,6 +1003,24 @@ registerColocatedStatic({
     uk: "Інтерактивне коло, акорди, ключові знаки й модуляція",
     ur: "انٹرایکٹو پہیہ، کورڈز، کلیدی علامات اور ماڈیولیشن"
   },
+  "tools.capoTitle": {
+    de: "Kapodaster-Übersetzer",
+    en: "Capo Translator",
+    fr: "Traducteur de capodastre",
+    es: "Traductor de cejilla",
+    pl: "Tłumacz kapodastra",
+    uk: "Перекладач каподастра",
+    ur: "کیپو ٹرانسلیٹر"
+  },
+  "tools.capoSub": {
+    de: "Klingende Tonart, Kapo-Bund & Greif-Formen direkt umrechnen",
+    en: "Convert sounding key, capo fret & chord shapes instantly",
+    fr: "Convertir tonalité réelle, case du capo & positions d’accords",
+    es: "Convierte tonalidad real, traste de cejilla y posiciones de acordes",
+    pl: "Przeliczaj tonację brzmiącą, próg kapodastra i chwyty gitarowe",
+    uk: "Швидкий перерахунок звучання, ладу каподастра й гітарних аплікатур",
+    ur: "اصل کی، کیپو فریٹ اور گٹار شیپس کو فوراً تبدیل کریں"
+  },
   "tools.nashvilleTitle": {
     de: "Nashville-Zahlensystem",
     en: "Nashville Number System",
@@ -1013,13 +1031,13 @@ registerColocatedStatic({
     ur: "نیش وِل نمبر سسٹم"
   },
   "tools.nashvilleSub": {
-    de: "Tonarten-Diagramm, 12-Tonarten-Matrix & Kapodaster-Übersetzer",
-    en: "Key diagram, 12-key matrix & guitar capo translator",
-    fr: "Diagramme des tonalités, grille des 12 tonalités & traducteur de capo",
-    es: "Diagrama de tonalidades, tabla de 12 tonalidades y traductor de cejilla",
-    pl: "Diagram tonacji, tabela 12 tonacji i tłumacz kapodastra",
-    uk: "Діаграма тональностей, таблиця 12 тональностей і перекладач каподастра",
-    ur: "کی ڈایاگرام، 12 کیز ٹیبل اور گٹار کیپو ٹرانسلیٹر"
+    de: "Tonarten-Diagramm & 12-Tonarten-Matrix",
+    en: "Key diagram & 12-key matrix",
+    fr: "Diagramme des tonalités & grille des 12 tonalités",
+    es: "Diagrama de tonalidades y tabla de 12 tonalidades",
+    pl: "Diagram tonacji i tabela 12 tonacji",
+    uk: "Діаграма тональностей і таблиця 12 тональностей",
+    ur: "کی ڈایاگرام اور 12 کیز ٹیبل"
   },
   "tools.soonBadge": {
     de: "Bald",

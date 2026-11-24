@@ -7698,7 +7698,8 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 
 .warmup-phase-pills {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
   gap: 0.3rem;
 }
 
@@ -11479,6 +11480,7 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 [dir="rtl"] .piano-keyboard,
 [dir="rtl"] .solfege-keyboard-wrap,
 [dir="rtl"] .warmup-kb,
+[dir="rtl"] .warmup-pattern-degrees,
 [dir="rtl"] .notation-staff-panel,
 [dir="rtl"] .notation-key-preview-svg,
 [dir="rtl"] .exam-notation-review-staff,
@@ -14877,7 +14879,8 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 /* =====================================================
    WERKZEUG: NASHVILLE NUMBER SYSTEM (#viewNashville)
    ===================================================== */
-.nashville-view #nashvilleToolContent {
+.nashville-view #nashvilleToolContent,
+.capo-view #capoToolContent {
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -15277,7 +15280,7 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 
 .nns-capo-stat.is-shape {
   background: var(--sage-soft);
-  border-color: var(--sage);
+  border-color: var(--sage-strong);
 }
 
 .nns-capo-stat-lbl {
@@ -15293,6 +15296,11 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 
 .nns-capo-stat.is-capo .nns-capo-stat-lbl {
   color: var(--peach-strong);
+  opacity: 0.88;
+}
+
+.nns-capo-stat.is-shape .nns-capo-stat-lbl {
+  color: var(--sage-strong);
   opacity: 0.88;
 }
 
@@ -15347,6 +15355,11 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   display: none;
 }
 
+.nns-capo-dropdown-menu[data-nns-dropdown-menu="capoShape"] {
+  inset-inline-start: auto;
+  inset-inline-end: 0;
+}
+
 .nns-capo-dropdown-opt {
   width: 100%;
   border: none;
@@ -15383,42 +15396,6 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 .nns-capo-dropdown-opt.is-selected small {
   color: var(--peach-strong);
   opacity: 0.85;
-}
-
-.nns-capo-subblock {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.nns-capo-suggest-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.nns-capo-suggest-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 11px;
-  border-radius: var(--radius-pill);
-  border: 1.5px solid var(--border-soft);
-  background: var(--surface-warm);
-  color: var(--raccoon-dark);
-  font-size: 0.8rem;
-  cursor: pointer;
-  transition: transform 0.12s ease, background-color 0.14s ease, border-color 0.14s ease;
-}
-
-.nns-capo-suggest-chip:active {
-  transform: scale(0.96);
-}
-
-.nns-capo-suggest-chip.active {
-  background: var(--peach-strong);
-  border-color: var(--peach-strong);
-  color: var(--on-strong-accent);
 }
 
 .nns-capo-grid {
@@ -16726,68 +16703,6 @@ const LAUSCHER_MASCOT_METAL_VARIANTS = {
           <span class="cat-chevron">›</span>
         </button>
 
-        <button id="openTunerBtn" class="category-nav-card card-accent-lilac category-card-wide" type="button" data-open-tool="tuner">
-          <div class="cat-icon-box badge-lilac">
-            <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M9.5 4.5V12C9.5 14.4853 11.5147 16.5 14 16.5C16.4853 16.5 18.5 14.4853 18.5 12V4.5" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
-              <line x1="14" y1="16.5" x2="14" y2="23.5" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
-              <circle cx="14" cy="23.5" r="1.6" fill="currentColor"/>
-              <path d="M5.8 6.8C4.6 8.3 4.6 10.7 5.8 12.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.72"/>
-              <path d="M22.2 6.8C23.4 8.3 23.4 10.7 22.2 12.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.72"/>
-            </svg>
-          </div>
-          <div class="cat-text-box">
-            <div class="tool-card-title-row">
-              <h3 data-i18n="tools.tunerTitle">Tuner</h3>
-            </div>
-            <p data-i18n="tools.tunerSub">Stimmgerät &amp; präzise Tonhöhen-Anzeige per Mikrofon</p>
-          </div>
-          <span class="cat-chevron">›</span>
-        </button>
-
-        <button id="openFreeplayBtn" class="category-nav-card card-accent-peach category-card-wide" type="button" data-open-tool="freeplay">
-          <div class="cat-icon-box badge-peach">
-            <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <rect x="4" y="6" width="20" height="16" rx="2.5" stroke="currentColor" stroke-width="2"/>
-              <line x1="10.67" y1="6" x2="10.67" y2="22" stroke="currentColor" stroke-width="1.6"/>
-              <line x1="17.33" y1="6" x2="17.33" y2="22" stroke="currentColor" stroke-width="1.6"/>
-              <rect x="8.7" y="6" width="3.9" height="9.5" rx="1" fill="currentColor"/>
-              <rect x="15.4" y="6" width="3.9" height="9.5" rx="1" fill="currentColor"/>
-            </svg>
-          </div>
-          <div class="cat-text-box">
-            <div class="tool-card-title-row">
-              <h3 data-i18n="tools.freeplayTitle">Freies Spiel</h3>
-            </div>
-            <p data-i18n="tools.freeplaySub">Freie Klaviatur &amp; Akkord-Flächen mit allen Mixer-Klängen</p>
-          </div>
-          <span class="cat-chevron">›</span>
-        </button>
-
-        <button id="openFretboardBtn" class="category-nav-card card-accent-sage category-card-wide" type="button" data-open-tool="fretboard">
-          <div class="cat-icon-box badge-sage">
-            <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <rect x="3.5" y="5.5" width="21" height="17" rx="2.5" stroke="currentColor" stroke-width="1.9"/>
-              <line x1="9.5" y1="5.5" x2="9.5" y2="22.5" stroke="currentColor" stroke-width="1.5" opacity="0.7"/>
-              <line x1="15.5" y1="5.5" x2="15.5" y2="22.5" stroke="currentColor" stroke-width="1.5" opacity="0.7"/>
-              <line x1="21" y1="5.5" x2="21" y2="22.5" stroke="currentColor" stroke-width="1.5" opacity="0.7"/>
-              <line x1="3.5" y1="9.8" x2="24.5" y2="9.8" stroke="currentColor" stroke-width="1.35" opacity="0.75"/>
-              <line x1="3.5" y1="14" x2="24.5" y2="14" stroke="currentColor" stroke-width="1.55" opacity="0.8"/>
-              <line x1="3.5" y1="18.2" x2="24.5" y2="18.2" stroke="currentColor" stroke-width="1.8" opacity="0.85"/>
-              <circle cx="6.5" cy="9.8" r="2.0" fill="currentColor"/>
-              <circle cx="12.5" cy="14" r="2.0" fill="currentColor"/>
-              <circle cx="18.25" cy="18.2" r="2.0" fill="currentColor"/>
-            </svg>
-          </div>
-          <div class="cat-text-box">
-            <div class="tool-card-title-row">
-              <h3 data-i18n="tools.fretboardTitle">Griffbrett</h3>
-            </div>
-            <p data-i18n="tools.fretboardSub">Gitarren-Akkorde, Lagen, Rückwärtssuche &amp; Tonleitern</p>
-          </div>
-          <span class="cat-chevron">›</span>
-        </button>
-
         <button id="openCircleBtn" class="category-nav-card card-accent-lilac category-card-wide" type="button" data-open-tool="circle">
           <div class="cat-icon-box badge-lilac">
             <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -16823,8 +16738,91 @@ const LAUSCHER_MASCOT_METAL_VARIANTS = {
           <span class="cat-chevron">›</span>
         </button>
 
-        <button id="openNashvilleBtn" class="category-nav-card card-accent-peach category-card-wide" type="button" data-open-tool="nashville">
+        <button id="openFreeplayBtn" class="category-nav-card card-accent-peach category-card-wide" type="button" data-open-tool="freeplay">
           <div class="cat-icon-box badge-peach">
+            <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="4" y="6" width="20" height="16" rx="2.5" stroke="currentColor" stroke-width="2"/>
+              <line x1="10.67" y1="6" x2="10.67" y2="22" stroke="currentColor" stroke-width="1.6"/>
+              <line x1="17.33" y1="6" x2="17.33" y2="22" stroke="currentColor" stroke-width="1.6"/>
+              <rect x="8.7" y="6" width="3.9" height="9.5" rx="1" fill="currentColor"/>
+              <rect x="15.4" y="6" width="3.9" height="9.5" rx="1" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="cat-text-box">
+            <div class="tool-card-title-row">
+              <h3 data-i18n="tools.freeplayTitle">Freies Spiel</h3>
+            </div>
+            <p data-i18n="tools.freeplaySub">Freie Klaviatur &amp; Akkord-Flächen mit allen Mixer-Klängen</p>
+          </div>
+          <span class="cat-chevron">›</span>
+        </button>
+
+        <button id="openTunerBtn" class="category-nav-card card-accent-lilac category-card-wide" type="button" data-open-tool="tuner">
+          <div class="cat-icon-box badge-lilac">
+            <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M9.5 4.5V12C9.5 14.4853 11.5147 16.5 14 16.5C16.4853 16.5 18.5 14.4853 18.5 12V4.5" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+              <line x1="14" y1="16.5" x2="14" y2="23.5" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
+              <circle cx="14" cy="23.5" r="1.6" fill="currentColor"/>
+              <path d="M5.8 6.8C4.6 8.3 4.6 10.7 5.8 12.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.72"/>
+              <path d="M22.2 6.8C23.4 8.3 23.4 10.7 22.2 12.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.72"/>
+            </svg>
+          </div>
+          <div class="cat-text-box">
+            <div class="tool-card-title-row">
+              <h3 data-i18n="tools.tunerTitle">Tuner</h3>
+            </div>
+            <p data-i18n="tools.tunerSub">Stimmgerät &amp; präzise Tonhöhen-Anzeige per Mikrofon</p>
+          </div>
+          <span class="cat-chevron">›</span>
+        </button>
+
+        <button id="openFretboardBtn" class="category-nav-card card-accent-sage category-card-wide" type="button" data-open-tool="fretboard">
+          <div class="cat-icon-box badge-sage">
+            <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="3.5" y="5.5" width="21" height="17" rx="2.5" stroke="currentColor" stroke-width="1.9"/>
+              <line x1="9.5" y1="5.5" x2="9.5" y2="22.5" stroke="currentColor" stroke-width="1.5" opacity="0.7"/>
+              <line x1="15.5" y1="5.5" x2="15.5" y2="22.5" stroke="currentColor" stroke-width="1.5" opacity="0.7"/>
+              <line x1="21" y1="5.5" x2="21" y2="22.5" stroke="currentColor" stroke-width="1.5" opacity="0.7"/>
+              <line x1="3.5" y1="9.8" x2="24.5" y2="9.8" stroke="currentColor" stroke-width="1.35" opacity="0.75"/>
+              <line x1="3.5" y1="14" x2="24.5" y2="14" stroke="currentColor" stroke-width="1.55" opacity="0.8"/>
+              <line x1="3.5" y1="18.2" x2="24.5" y2="18.2" stroke="currentColor" stroke-width="1.8" opacity="0.85"/>
+              <circle cx="6.5" cy="9.8" r="2.0" fill="currentColor"/>
+              <circle cx="12.5" cy="14" r="2.0" fill="currentColor"/>
+              <circle cx="18.25" cy="18.2" r="2.0" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="cat-text-box">
+            <div class="tool-card-title-row">
+              <h3 data-i18n="tools.fretboardTitle">Griffbrett</h3>
+            </div>
+            <p data-i18n="tools.fretboardSub">Gitarren-Akkorde, Lagen, Rückwärtssuche &amp; Tonleitern</p>
+          </div>
+          <span class="cat-chevron">›</span>
+        </button>
+
+        <button id="openCapoBtn" class="category-nav-card card-accent-peach category-card-wide" type="button" data-open-tool="capo">
+          <div class="cat-icon-box badge-peach">
+            <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="4" y="6.5" width="20" height="15" rx="2.4" stroke="currentColor" stroke-width="1.8" opacity="0.65"/>
+              <line x1="4" y1="10.8" x2="24" y2="10.8" stroke="currentColor" stroke-width="1.25" opacity="0.6"/>
+              <line x1="4" y1="14" x2="24" y2="14" stroke="currentColor" stroke-width="1.35" opacity="0.65"/>
+              <line x1="4" y1="17.2" x2="24" y2="17.2" stroke="currentColor" stroke-width="1.5" opacity="0.7"/>
+              <line x1="17.5" y1="6.5" x2="17.5" y2="21.5" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
+              <rect x="9.5" y="4.2" width="4.4" height="19.6" rx="2.1" fill="currentColor"/>
+              <path d="M13.9 10.5H15.8C16.6 10.5 17.2 11.1 17.2 11.9V16.1C17.2 16.9 16.6 17.5 15.8 17.5H13.9" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="cat-text-box">
+            <div class="tool-card-title-row">
+              <h3 data-i18n="tools.capoTitle">Kapodaster-Übersetzer</h3>
+            </div>
+            <p data-i18n="tools.capoSub">Klingende Tonart, Kapo-Bund &amp; Greif-Formen direkt umrechnen</p>
+          </div>
+          <span class="cat-chevron">›</span>
+        </button>
+
+        <button id="openNashvilleBtn" class="category-nav-card card-accent-lilac category-card-wide" type="button" data-open-tool="nashville">
+          <div class="cat-icon-box badge-lilac">
             <svg class="icon-svg-large" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <rect x="4" y="4.5" width="20" height="19" rx="3" stroke="currentColor" stroke-width="1.9"/>
               <line x1="4" y1="14" x2="24" y2="14" stroke="currentColor" stroke-width="1.35" opacity="0.5"/>
@@ -16839,7 +16837,7 @@ const LAUSCHER_MASCOT_METAL_VARIANTS = {
             <div class="tool-card-title-row">
               <h3 data-i18n="tools.nashvilleTitle">Nashville-Zahlensystem</h3>
             </div>
-            <p data-i18n="tools.nashvilleSub">Tonarten-Diagramm, 12-Tonarten-Matrix &amp; Kapodaster-Übersetzer</p>
+            <p data-i18n="tools.nashvilleSub">Tonarten-Diagramm &amp; 12-Tonarten-Matrix</p>
           </div>
           <span class="cat-chevron">›</span>
         </button>
@@ -18424,7 +18422,14 @@ const LAUSCHER_MASCOT_METAL_VARIANTS = {
     </main>
 
     <!-- =====================================================
-         ANSICHT 11: NASHVILLE NUMBER SYSTEM (#viewNashville)
+         ANSICHT 11: KAPODASTER-ÜBERSETZER (#viewCapo)
+         ===================================================== -->
+    <main id="viewCapo" class="view-container capo-view hidden">
+      <div id="capoToolContent" class="knowledge-list"></div>
+    </main>
+
+    <!-- =====================================================
+         ANSICHT 12: NASHVILLE NUMBER SYSTEM (#viewNashville)
          ===================================================== -->
     <main id="viewNashville" class="view-container nashville-view hidden">
       <div id="nashvilleToolContent" class="knowledge-list"></div>
@@ -23432,6 +23437,24 @@ registerColocatedStatic({
     uk: "Інтерактивне коло, акорди, ключові знаки й модуляція",
     ur: "انٹرایکٹو پہیہ، کورڈز، کلیدی علامات اور ماڈیولیشن"
   },
+  "tools.capoTitle": {
+    de: "Kapodaster-Übersetzer",
+    en: "Capo Translator",
+    fr: "Traducteur de capodastre",
+    es: "Traductor de cejilla",
+    pl: "Tłumacz kapodastra",
+    uk: "Перекладач каподастра",
+    ur: "کیپو ٹرانسلیٹر"
+  },
+  "tools.capoSub": {
+    de: "Klingende Tonart, Kapo-Bund & Greif-Formen direkt umrechnen",
+    en: "Convert sounding key, capo fret & chord shapes instantly",
+    fr: "Convertir tonalité réelle, case du capo & positions d’accords",
+    es: "Convierte tonalidad real, traste de cejilla y posiciones de acordes",
+    pl: "Przeliczaj tonację brzmiącą, próg kapodastra i chwyty gitarowe",
+    uk: "Швидкий перерахунок звучання, ладу каподастра й гітарних аплікатур",
+    ur: "اصل کی، کیپو فریٹ اور گٹار شیپس کو فوراً تبدیل کریں"
+  },
   "tools.nashvilleTitle": {
     de: "Nashville-Zahlensystem",
     en: "Nashville Number System",
@@ -23442,13 +23465,13 @@ registerColocatedStatic({
     ur: "نیش وِل نمبر سسٹم"
   },
   "tools.nashvilleSub": {
-    de: "Tonarten-Diagramm, 12-Tonarten-Matrix & Kapodaster-Übersetzer",
-    en: "Key diagram, 12-key matrix & guitar capo translator",
-    fr: "Diagramme des tonalités, grille des 12 tonalités & traducteur de capo",
-    es: "Diagrama de tonalidades, tabla de 12 tonalidades y traductor de cejilla",
-    pl: "Diagram tonacji, tabela 12 tonacji i tłumacz kapodastra",
-    uk: "Діаграма тональностей, таблиця 12 тональностей і перекладач каподастра",
-    ur: "کی ڈایاگرام، 12 کیز ٹیبل اور گٹار کیپو ٹرانسلیٹر"
+    de: "Tonarten-Diagramm & 12-Tonarten-Matrix",
+    en: "Key diagram & 12-key matrix",
+    fr: "Diagramme des tonalités & grille des 12 tonalités",
+    es: "Diagrama de tonalidades y tabla de 12 tonalidades",
+    pl: "Diagram tonacji i tabela 12 tonacji",
+    uk: "Діаграма тональностей і таблиця 12 тональностей",
+    ur: "کی ڈایاگرام اور 12 کیز ٹیبل"
   },
   "tools.soonBadge": {
     de: "Bald",
@@ -41597,6 +41620,20 @@ registerColocatedPhrases({
     uk: "3 Арпеджіо",
     ur: "3 آرپیجیو"
   },
+  "3 Tonleitern": {
+    fr: "3 Gammes",
+    es: "3 Escalas",
+    pl: "3 Gamy",
+    uk: "3 Гами",
+    ur: "3 اسکیلز"
+  },
+  "3 Umfang": {
+    fr: "3 Ambitus",
+    es: "3 Ámbito",
+    pl: "3 Skala",
+    uk: "3 Діапазон",
+    ur: "3 رینج"
+  },
   "3. Alt: Oktave einschwingen": {
     fr: "3. Alto : fondre l’octave",
     es: "3. Contralto: fundir la octava",
@@ -41625,12 +41662,12 @@ registerColocatedPhrases({
     uk: "Повна 5-хвилинна розспівка",
     ur: "5 منٹ مکمل وارم اپ"
   },
-  "Alle 4 Phasen: Bauchatmung, Summen, modulierte Arpeggios & SATB-Chorklang": {
-    fr: "Les 4 phases : souffle, bouche fermée, arpèges modulés & accord choral SATB",
-    es: "Las 4 fases: respiración, boca cerrada, arpegios modulados y acorde coral SATB",
-    pl: "Wszystkie 4 etapy: oddech przeponowy, mormorando, modulowane arpeggia i akord chóru SATB",
-    uk: "Усі 4 етапи: діафрагмальне дихання, гудіння, модульовані арпеджіо й хоровий акорд SATB",
-    ur: "چاروں مراحل: پیٹ سے سانس، گنگنانا، آرپیجیو اور SATB کورس بلینڈ"
+  "Alle 4 Phasen: Atem, Summen, Tonleitern (Dur/Moll), Arpeggios & SATB-Chorklang": {
+    fr: "Les 4 phases : souffle, bouche fermée, gammes (maj./min.), arpèges & chœur SATB",
+    es: "Las 4 fases: respiración, boca cerrada, escalas (may./men.), arpegios y coro SATB",
+    pl: "Wszystkie 4 etapy: oddech, mormorando, gamy (dur/moll), arpeggia i chór SATB",
+    uk: "Усі 4 етапи: дихання, гудіння, гами (мажор/мінор), арпеджіо й хор SATB",
+    ur: "چاروں مراحل: سانس، گنگنانا، اسکیلز (میجر/مائنر)، آرپیجیو اور SATB کورس"
   },
   "Arpeggio & Register-Training": {
     fr: "Arpèges & Passage des registres",
@@ -42051,6 +42088,111 @@ registerColocatedPhrases({
     pl: "Powtórz rozgrzewkę",
     uk: "Розспіватися ще раз",
     ur: "وارم اپ دہرائیں"
+  },
+  "PHASE 3 • TONLEITERN (DUR & MOLL)": {
+    fr: "PHASE 3 • GAMMES (MAJEUR & MINEUR)",
+    es: "FASE 3 • ESCALAS (MAYOR Y MENOR)",
+    pl: "ETAP 3 • GAMY (DUR I MOLL)",
+    uk: "ЕТАП 3 • ГАМИ (МАЖОР І МІНОР)",
+    ur: "مرحلہ 3 • اسکیلز (میجر اور مائنر)"
+  },
+  "Tonleitern (Dur & Moll)": {
+    fr: "Gammes (Majeur & Mineur)",
+    es: "Escalas (Mayor y Menor)",
+    pl: "Gamy (dur i moll)",
+    uk: "Гами (мажор і мінор)",
+    ur: "اسکیلز (میجر اور مائنر)"
+  },
+  "Ganze Oktav-Tonleitern singen: Dur sowie natürliches, harmonisches & melodisches Moll": {
+    fr: "Chanter des gammes d’octave complètes : majeur et mineur naturel, harmonique & mélodique",
+    es: "Cantar escalas de octava completas: mayor y menor natural, armónica y melódica",
+    pl: "Śpiewanie pełnych gam w oktawie: dur oraz moll naturalny, harmoniczny i melodyczny",
+    uk: "Спів повних октавних гам: мажор, а також натуральний, гармонічний і мелодичний мінор",
+    ur: "مکمل آکٹیو اسکیلز گائیں: میجر کے ساتھ نیچرل، ہارمونک اور میلوڈک مائنر"
+  },
+  "Dur-Tonleiter (auf & ab)": {
+    fr: "Gamme majeure (aller-retour)",
+    es: "Escala mayor (subida y bajada)",
+    pl: "Gama durowa (w górę i w dół)",
+    uk: "Мажорна гама (вгору й вниз)",
+    ur: "میجر اسکیل (اوپر اور نیچے)"
+  },
+  "La – la / Do – Re – Mi": {
+    fr: "La – la / Do – Ré – Mi",
+    es: "La – la / Do – Re – Mi",
+    pl: "La – la / Do – Re – Mi",
+    uk: "Ла – ла / До – Ре – Мі",
+    ur: "لا – لا / ڈو – رے – می"
+  },
+  "Gleichmäßig legato über die ganze Oktave singen – die Halbtonschritte 3–4 und 7–8 bewusst hoch denken.": {
+    fr: "Chantez en legato régulier sur toute l’octave — pensez les demi-tons 3–4 et 7–8 bien hauts.",
+    es: "Canta en legato regular toda la octava; piensa bien altos los semitonos 3–4 y 7–8.",
+    pl: "Śpiewaj płynnie legato przez całą oktawę — półtony 3–4 i 7–8 intonuj lekko w górę.",
+    uk: "Співай рівно легато всю октаву — півтони 3–4 та 7–8 мисли трохи вище.",
+    ur: "پورے آکٹیو میں ہموار لیگاٹو گائیں — 3–4 اور 7–8 کے سیمی ٹونز کو روشن اور بلند رکھیں۔"
+  },
+  "Natürliches Moll (auf & ab)": {
+    fr: "Mineur naturel (aller-retour)",
+    es: "Menor natural (subida y bajada)",
+    pl: "Moll naturalny (w górę i w dół)",
+    uk: "Натуральний мінор (вгору й вниз)",
+    ur: "نیچرل مائنر (اوپر اور نیچے)"
+  },
+  "Na – na – na": {
+    fr: "Na – na – na",
+    es: "Na – na – na",
+    pl: "Na – na – na",
+    uk: "На – на – на",
+    ur: "نا – نا – نا"
+  },
+  "Weiche Moll-Farbe halten – auf die kleine Terz (♭3) und die entspannten Stufen ♭6 und ♭7 achten.": {
+    fr: "Gardez une couleur mineure douce — soignez la tierce mineure (♭3) et les degrés ♭6 et ♭7 détendus.",
+    es: "Mantén un color menor suave; cuida la tercera menor (♭3) y los grados ♭6 y ♭7 relajados.",
+    pl: "Utrzymuj miękką barwę molową — pilnuj tercji małej (♭3) oraz swobodnych stopni ♭6 i ♭7.",
+    uk: "Тримай м’який мінорний тембр — стеж за малою терцією (♭3) та спокійними ступенями ♭6 і ♭7.",
+    ur: "نرم مائنر رنگ برقرار رکھیں — مائنر تھرڈ (♭3) اور پُرسکون ♭6 و ♭7 پر توجہ دیں۔"
+  },
+  "Harmonisches Moll (auf & ab)": {
+    fr: "Mineur harmonique (aller-retour)",
+    es: "Menor armónica (subida y bajada)",
+    pl: "Moll harmoniczny (w górę i w dół)",
+    uk: "Гармонічний мінор (вгору й вниз)",
+    ur: "ہارمونک مائنر (اوپر اور نیچے)"
+  },
+  "Ma – ma – ma": {
+    fr: "Ma – ma – ma",
+    es: "Ma – ma – ma",
+    pl: "Ma – ma – ma",
+    uk: "Ма – ма – ма",
+    ur: "ما – ما – ما"
+  },
+  "Zwischen ♭6 und erhöhter 7. Stufe sauber spannen – der Leitton (7) zieht eng zur Oktave.": {
+    fr: "Tendez proprement l’intervalle entre ♭6 et la 7e haussée — la sensible (7) attire vers l’octave.",
+    es: "Afina con precisión el salto entre ♭6 y el 7.º grado alterado; la sensible (7) tira hacia la octava.",
+    pl: "Czysto rozepnij krok między ♭6 a podwyższonym 7. stopniem — dźwięk prowadzący (7) ciąży do oktawy.",
+    uk: "Чисто інтонуй ширший крок між ♭6 і підвищеним 7-м ступенем — ввідний тон (7) тяжіє до октави.",
+    ur: "♭6 اور بلند 7ویں درجے کے درمیان فاصلہ صاف رکھیں — لیڈنگ ٹون (7) آکٹیو کی طرف کھنچتا ہے۔"
+  },
+  "Melodisches Moll (auf & ab)": {
+    fr: "Mineur mélodique (aller-retour)",
+    es: "Menor melódica (subida y bajada)",
+    pl: "Moll melodyczny (w górę i w dół)",
+    uk: "Мелодичний мінор (вгору й вниз)",
+    ur: "میلوڈک مائنر (اوپر اور نیچے)"
+  },
+  "La – le – li – lo": {
+    fr: "La – lé – li – lo",
+    es: "La – le – li – lo",
+    pl: "La – le – li – lo",
+    uk: "Ла – ле – лі – ло",
+    ur: "لا – لے – لی – لو"
+  },
+  "Aufwärts mit hoher 6. und 7. Stufe fließend öffnen, abwärts weich über ♭7 und ♭6 natürlich zurückkehren.": {
+    fr: "Ouvrez fluidement en montant avec les 6e et 7e haussées, puis redescendez en mineur naturel par ♭7 et ♭6.",
+    es: "Sube con fluidez con 6.º y 7.º grados altos y desciende con suavidad en menor natural por ♭7 y ♭6.",
+    pl: "W górę otwieraj płynnie z podwyższonym 6. i 7. stopniem, w dół wracaj naturalnie przez ♭7 i ♭6.",
+    uk: "Угору плавно відкривай з підвищеними 6-м і 7-м ступенями, униз м’яко повертайся натурально через ♭7 і ♭6.",
+    ur: "اوپر جاتے ہوئے بلند 6 اور 7 کے ساتھ روانی سے کھلیں، اور نیچے ♭7 اور ♭6 کے ذریعے نیچرل مائنر میں واپس آئیں۔"
   },
   "▶ Weiter": {
     fr: "▶ Reprendre",
@@ -43935,12 +44077,19 @@ registerColocatedPhrases({
     uk: "Система цифр Нешвілла",
     ur: "نیش وِل نمبر سسٹم"
   },
-  "Tonarten-Diagramm, 12-Tonarten-Matrix & Kapodaster-Übersetzer": {
-    fr: "Diagramme des tonalités, matrice des 12 tonalités & traducteur de capo",
-    es: "Diagrama de tonalidades, tabla de 12 tonalidades y traductor de cejilla",
-    pl: "Diagram tonacji, tabela 12 tonacji i tłumacz kapodastra",
-    uk: "Діаграма тональностей, таблиця 12 тональностей і перекладач каподастра",
-    ur: "کی ڈایاگرام، 12 کیز ٹیبل اور گٹار کیپو ٹرانسلیٹر"
+  "Klingende Tonart, Kapo-Bund & Greif-Formen direkt umrechnen": {
+    fr: "Convertir tonalité réelle, case du capo & positions d’accords",
+    es: "Convierte tonalidad real, traste de cejilla y posiciones de acordes",
+    pl: "Przeliczaj tonację brzmiącą, próg kapodastra i chwyty gitarowe",
+    uk: "Швидкий перерахунок звучання, ладу каподастра й гітарних аплікатур",
+    ur: "اصل کی، کیپو فریٹ اور گٹار شیپس کو فوراً تبدیل کریں"
+  },
+  "Tonarten-Diagramm & 12-Tonarten-Matrix": {
+    fr: "Diagramme des tonalités & matrice des 12 tonalités",
+    es: "Diagrama de tonalidades y tabla de 12 tonalidades",
+    pl: "Diagram tonacji i tabela 12 tonacji",
+    uk: "Діаграма тональностей і таблиця 12 тональностей",
+    ur: "کی ڈایاگرام اور 12 کیز ٹیبل"
   },
   "{root}-Moll": {
     fr: "{root} mineur",
@@ -44312,34 +44461,6 @@ registerColocatedPhrases({
     pl: "Chwyty jak w",
     uk: "Аплікатури в",
     ur: "گرپ کی کی"
-  },
-  "Bequeme offene Gitarren-Formen für diese Tonart:": {
-    fr: "Positions ouvertes confortables à la guitare pour cette tonalité :",
-    es: "Posiciones abiertas cómodas en guitarra para esta tonalidad:",
-    pl: "Wygodne otwarte chwyty gitarowe dla tej tonacji:",
-    uk: "Зручні відкриті гітарні аплікатури для цієї тональності:",
-    ur: "اس کی کے لیے آرام دہ اوپن گٹار شیپس:"
-  },
-  "Offen (0)": {
-    fr: "Ouvert (0)",
-    es: "Abierto (0)",
-    pl: "Otwarte (0)",
-    uk: "Відкрито (0)",
-    ur: "اوپن (0)"
-  },
-  "Kapo {n}": {
-    fr: "Capo {n}",
-    es: "Cejilla {n}",
-    pl: "Kapo {n}",
-    uk: "Капо {n}",
-    ur: "کیپو {n}"
-  },
-  "{shape}-Form": {
-    fr: "Positions {shape}",
-    es: "Formas de {shape}",
-    pl: "Układ {shape}",
-    uk: "Форми {shape}",
-    ur: "{shape} شیپس"
   },
   "Klingende Ausgangstonart": {
     fr: "Tonalité de départ (son réel)",
@@ -46044,9 +46165,10 @@ const KNOWLEDGE_ARTICLES_EN = [
         <div class="article-highlight-box">
           <h4>Explore It Live in the Interactive Diagram</h4>
           <p>
-            In the <strong>Nashville Number System tool</strong>, tap any of the 12 keys, play every degree, and use the built-in <strong>guitar capo translator</strong> to find comfortable open chord shapes right away:
+            In the <strong>Nashville Number System tool</strong>, tap any of the 12 keys and play every degree — and use the standalone <strong>Capo Translator</strong> to convert sounding key, capo fret, and chord shapes directly:
           </p>
           <button class="btn-tool" type="button" data-open-nashville-tool="1">▶ Open Nashville Diagram Tool</button>
+          <button class="btn-tool" type="button" data-open-capo-tool="1">▶ Open Capo Translator</button>
         </div>
       </div>
     `
@@ -46562,14 +46684,14 @@ const CATEGORY_HELP_GUIDES_EN = {
     tagClass: "tag-sage",
     tag: "How It Works • Vocal Warmup",
     title: "How the Guided Vocal Warmup Works",
-    lead: "Built for choir rehearsals, voice lessons, and home practice: choose one of 5 vocal ranges (SATB) and launch any of 4 structured routines — complete with pacing breath orb, live keyboard, and instant key control.",
+    lead: "Built for choir rehearsals, voice lessons, and home practice: choose one of 5 vocal ranges (SATB) and launch any of 5 structured routines — complete with pacing breath orb, live keyboard, and instant key control.",
     sections: `
-      <h3>4 Selectable Routines &amp; 4 Warmup Phases</h3>
+      <h3>5 Selectable Routines &amp; 4 Warmup Phases</h3>
       <ul class="article-steps-list">
-        <li><strong>4 Programs to Choose From:</strong> Pick the <strong>5-Min Complete Vocal Warmup</strong> (all 4 phases, 9 steps), <strong>Compact Warmup (~3 Min.)</strong> for a fast lesson opener, <strong>Arpeggio &amp; Register Drill</strong> for agility, or <strong>Choir Breath &amp; Intonation</strong>.</li>
+        <li><strong>5 Programs to Choose From:</strong> Pick the <strong>5-Min Complete Vocal Warmup</strong> (all 4 phases, 11 steps incl. major &amp; minor scales), <strong>Compact Warmup (~3 Min.)</strong> for a fast lesson opener, <strong>Scales (Major &amp; Minor)</strong>, <strong>Arpeggio &amp; Register Drill</strong> for agility, or <strong>Choir Breath &amp; Intonation</strong>.</li>
         <li><strong>Phase 1 – Breath &amp; Body:</strong> A pacing breath orb on <code>ffff / ssss</code> and gentle rhythmic articulation pulses (<code>P – T – K</code>) wake up breath support without pressing the throat.</li>
         <li><strong>Phase 2 – Resonance &amp; Placement:</strong> Easy humming / lip trills (<code>Mmm / Brrr</code>) and descending 5th sighs (<code>5–4–3–2–1</code>) blend chest and head resonance gently.</li>
-        <li><strong>Phase 3 &amp; 4 – Arpeggios, Vowels &amp; Choral Blend:</strong> Triad and octave arpeggios automatically modulate by semitone in your chosen <strong>Choir Mid, Soprano, Alto, Tenor, or Bass</strong> range, followed by vowel morphing (<code>Oo → Oh → Ah → Eh → Ee</code>) and a layered SATB closing chord.</li>
+        <li><strong>Phase 3 &amp; 4 – Scales, Arpeggios &amp; Choral Blend:</strong> Full octave scales in <strong>major as well as natural, harmonic &amp; melodic minor</strong> plus triad and octave arpeggios automatically modulate by semitone in your chosen <strong>Choir Mid, Soprano, Alto, Tenor, or Bass</strong> range, followed by vowel morphing (<code>Oo → Oh → Ah → Eh → Ee</code>) and a layered SATB closing chord.</li>
       </ul>
 
       <div class="article-highlight-box">
@@ -50283,9 +50405,10 @@ const KNOWLEDGE_ARTICLES_FR = [
         <div class="article-highlight-box">
           <h4>Essayer directement dans l’outil interactif</h4>
           <p>
-            Ouvre l’<strong>outil Nashville Number System</strong> pour explorer le diagramme des 12 tonalités, écouter chaque degré et traduire instantanément les positions de <strong>capodastre à la guitare</strong> :
+            Ouvre l’<strong>outil Nashville Number System</strong> pour explorer le diagramme des 12 tonalités et écouter chaque degré, ou le <strong>Traducteur de capodastre</strong> autonome pour convertir tonalité réelle, case et positions :
           </p>
           <button class="btn-tool" type="button" data-open-nashville-tool="1">▶ Ouvrir l’outil Nashville</button>
+          <button class="btn-tool" type="button" data-open-capo-tool="1">▶ Ouvrir le traducteur de capodastre</button>
         </div>
       </div>
     `
@@ -50802,14 +50925,14 @@ const CATEGORY_HELP_GUIDES_FR = {
     tagClass: "tag-sage",
     tag: "Mode d’emploi • Échauffement vocal",
     title: "Comment fonctionne l’échauffement vocal guidé",
-    lead: "Conçu pour les répétitions chorales, cours de chant et routines quotidiennes : choisissez parmi 5 tessitures (SATB) puis lancez l’un des 4 programmes guidés — avec sphère respiratoire, clavier interactif et transposition instantanée.",
+    lead: "Conçu pour les répétitions chorales, cours de chant et routines quotidiennes : choisissez parmi 5 tessitures (SATB) puis lancez l’un des 5 programmes guidés — avec sphère respiratoire, clavier interactif et transposition instantanée.",
     sections: `
-      <h3>4 programmes au choix &amp; 4 phases</h3>
+      <h3>5 programmes au choix &amp; 4 phases</h3>
       <ul class="article-steps-list">
-        <li><strong>4 programmes adaptés :</strong> Lancez selon votre temps l’<strong>Échauffement complet (5 min)</strong> (4 phases, 9 exercices), l’<strong>Échauffement express (~3 min)</strong>, <strong>Arpèges &amp; Passage des registres</strong> ou <strong>Souffle choral &amp; Justesse</strong>.</li>
+        <li><strong>5 programmes adaptés :</strong> Lancez selon votre temps l’<strong>Échauffement complet (5 min)</strong> (4 phases, 11 exercices incluant gammes majeure et mineure), l’<strong>Échauffement express (~3 min)</strong>, <strong>Gammes (Majeur &amp; Mineur)</strong>, <strong>Arpèges &amp; Passage des registres</strong> ou <strong>Souffle choral &amp; Justesse</strong>.</li>
         <li><strong>Phase 1 – Souffle &amp; Corps :</strong> Une sphère respiratoire sur <code>ffff / ssss</code> et de douces impulsions (<code>P – T – K</code>) éveillent le soutien abdominal sans tension laryngée.</li>
         <li><strong>Phase 2 – Résonance &amp; Placement :</strong> Bouche fermée / trilles de lèvres (<code>Mmm / Brrr</code>) et soupirs descendants de quinte (<code>5–4–3–2–1</code>) unissent en douceur les registres.</li>
-        <li><strong>Phases 3 &amp; 4 – Arpèges, Voyelles &amp; Chœur :</strong> Arpèges modulants par demi-tons adaptés à <strong>Chœur Médium, Soprano, Alto, Ténor ou Basse</strong>, suivis du glissement vocalique (<code>Ou → Ô → A → É → I</code>) et d’un accord SATB empilé.</li>
+        <li><strong>Phases 3 &amp; 4 – Gammes, Arpèges &amp; Chœur :</strong> Gammes d’octave complètes en <strong>majeur et mineur naturel, harmonique &amp; mélodique</strong> ainsi qu’arpèges modulants par demi-tons adaptés à <strong>Chœur Médium, Soprano, Alto, Ténor ou Basse</strong>, suivis du glissement vocalique (<code>Ou → Ô → A → É → I</code>) et d’un accord SATB empilé.</li>
       </ul>
 
       <div class="article-highlight-box">
@@ -54590,9 +54713,10 @@ const KNOWLEDGE_ARTICLES = [
         <div class="article-highlight-box">
           <h4>Direkt nachschlagen im interaktiven Diagramm</h4>
           <p>
-            Im <strong>Nashville-Number-System-Werkzeug</strong> kannst du jede der 12 Tonarten antippen, alle Stufen direkt anhören und per <strong>Kapodaster-Übersetzer</strong> sofort passende offene Gitarren-Griffe finden:
+            Im <strong>Nashville-Number-System-Werkzeug</strong> kannst du jede der 12 Tonarten antippen und alle Stufen direkt anhören – und im eigenständigen <strong>Kapodaster-Übersetzer</strong> rechnest du klingende Tonart, Bund und Greif-Formen direkt um:
           </p>
           <button class="btn-tool" type="button" data-open-nashville-tool="1">▶ Nashville-Diagramm-Werkzeug öffnen</button>
+          <button class="btn-tool" type="button" data-open-capo-tool="1">▶ Kapodaster-Übersetzer öffnen</button>
         </div>
       </div>
     `
@@ -55126,14 +55250,14 @@ const CATEGORY_HELP_GUIDES = {
     tagClass: "tag-sage",
     tag: "Anleitung • Einsing-Helfer",
     title: "So funktioniert das geführte Einsingen",
-    lead: "Ideal für Chorprobe, Einzelunterricht oder vor dem Üben: Wähle zunächst einen von 5 Stimmumfängen (SATB) und starte eines von 4 strukturierten Programmen – komplett mit Atem-Kugel, Live-Klaviatur und Halbton-Steuerung.",
+    lead: "Ideal für Chorprobe, Einzelunterricht oder vor dem Üben: Wähle zunächst einen von 5 Stimmumfängen (SATB) und starte eines von 5 strukturierten Programmen – komplett mit Atem-Kugel, Live-Klaviatur und Halbton-Steuerung.",
     sections: `
-      <h3>Die 4 Warmup-Programme &amp; 4 Phasen</h3>
+      <h3>Die 5 Warmup-Programme &amp; 4 Phasen</h3>
       <ul class="article-steps-list">
-        <li><strong>4 Programme zur Wahl:</strong> Starte je nach Zeit und Ziel das <strong>5-Minuten Komplett-Einsingen</strong> (alle 4 Phasen, 9 Übungen), das <strong>Kompakt-Warmup (ca. 3 Min.)</strong> für den schnellen Unterrichtsstart, das <strong>Arpeggio &amp; Register-Training</strong> oder <strong>Chor-Atem &amp; Intonation</strong>.</li>
+        <li><strong>5 Programme zur Wahl:</strong> Starte je nach Zeit und Ziel das <strong>5-Minuten Komplett-Einsingen</strong> (alle 4 Phasen, 11 Übungen inkl. Dur- &amp; Moll-Tonleitern), das <strong>Kompakt-Warmup (ca. 3 Min.)</strong> für den schnellen Unterrichtsstart, <strong>Tonleitern (Dur &amp; Moll)</strong>, das <strong>Arpeggio &amp; Register-Training</strong> oder <strong>Chor-Atem &amp; Intonation</strong>.</li>
         <li><strong>Phase 1 – Atem &amp; Körper:</strong> Die animierte Atemkugel auf <code>ffff / ssss</code> und leichte Zwerchfell-Impulse (<code>P – T – K</code>) wecken die Stütze ohne Druck auf den Stimmlippen.</li>
         <li><strong>Phase 2 – Stimmsitz &amp; Resonanz:</strong> Sanftes Summen / Lippenflattern (<code>Mmm / Brrr</code>) und Seufzer-Abgänge über die Quinte öffnen weich den Resonanzraum.</li>
-        <li><strong>Phase 3 &amp; 4 – Arpeggios, Vokale &amp; Chorklang:</strong> Dreiklangs- und Oktav-Arpeggios modulieren in Halbtonschritten passend für <strong>Chor-Mitte, Sopran, Alt, Tenor oder Bass</strong>, gefolgt von Vokal-Wandern (<code>U → O → A → E → I</code>) und einem schichtweisen SATB-Schlussakkord.</li>
+        <li><strong>Phase 3 &amp; 4 – Tonleitern, Arpeggios &amp; Chorklang:</strong> Ganze Oktav-Tonleitern in <strong>Dur sowie natürlichem, harmonischem &amp; melodischem Moll</strong> und Dreiklangs-/Oktav-Arpeggios modulieren in Halbtonschritten passend für <strong>Chor-Mitte, Sopran, Alt, Tenor oder Bass</strong>, gefolgt von Vokal-Wandern (<code>U → O → A → E → I</code>) und einem schichtweisen SATB-Schlussakkord.</li>
       </ul>
 
       <div class="article-highlight-box">
@@ -59832,9 +59956,10 @@ const KNOWLEDGE_ARTICLES_ES = [
         <div class="article-highlight-box">
           <h4>Pruébalo en directo en el diagrama interactivo</h4>
           <p>
-            Abre la <strong>herramienta Nashville Number System</strong> para explorar las 12 tonalidades, escuchar cada grado y usar el <strong>traductor de cejilla para guitarra</strong>:
+            Abre la <strong>herramienta Nashville Number System</strong> para explorar las 12 tonalidades y escuchar cada grado, o abre el <strong>Traductor de cejilla</strong> independiente para convertir tonalidad real, traste y posiciones:
           </p>
           <button class="btn-tool" type="button" data-open-nashville-tool="1">▶ Abrir herramienta Nashville</button>
+          <button class="btn-tool" type="button" data-open-capo-tool="1">▶ Abrir traductor de cejilla</button>
         </div>
       </div>
     `
@@ -60351,14 +60476,14 @@ const CATEGORY_HELP_GUIDES_ES = {
     tagClass: "tag-sage",
     tag: "Instrucciones • Calentamiento vocal",
     title: "Cómo funciona el calentamiento vocal guiado",
-    lead: "Pensado para ensayos de coro, clases de canto y rutinas diarias: elige entre 5 tesituras (SATB) y lanza uno de los 4 programas guiados, con esfera de respiración, teclado interactivo y transposición instantánea.",
+    lead: "Pensado para ensayos de coro, clases de canto y rutinas diarias: elige entre 5 tesituras (SATB) y lanza uno de los 5 programas guiados, con esfera de respiración, teclado interactivo y transposición instantánea.",
     sections: `
-      <h3>4 programas a elegir &amp; 4 fases</h3>
+      <h3>5 programas a elegir &amp; 4 fases</h3>
       <ul class="article-steps-list">
-        <li><strong>4 programas adaptados:</strong> Según tu tiempo, lanza el <strong>Calentamiento completo (5 min)</strong> (4 fases, 9 ejercicios), el <strong>Calentamiento exprés (~3 min)</strong>, <strong>Arpegios &amp; paso de registros</strong> o <strong>Respiración coral &amp; afinación</strong>.</li>
+        <li><strong>5 programas adaptados:</strong> Según tu tiempo, lanza el <strong>Calentamiento completo (5 min)</strong> (4 fases, 11 ejercicios con escalas mayor y menor), el <strong>Calentamiento exprés (~3 min)</strong>, <strong>Escalas (Mayor y Menor)</strong>, <strong>Arpegios &amp; paso de registros</strong> o <strong>Respiración coral &amp; afinación</strong>.</li>
         <li><strong>Fase 1 – Respiración &amp; cuerpo:</strong> Una esfera de respiración sobre <code>ffff / ssss</code> y suaves impulsos (<code>P – T – K</code>) despiertan el apoyo abdominal sin tensión en la laringe.</li>
         <li><strong>Fase 2 – Resonancia &amp; colocación:</strong> Boca cerrada / vibración de labios (<code>Mmm / Brrr</code>) y suspiros descendentes de quinta (<code>5–4–3–2–1</code>) unen suavemente los registros.</li>
-        <li><strong>Fases 3 &amp; 4 – Arpegios, vocales &amp; coro:</strong> Arpegios que modulan por semitonos adaptados a <strong>coro medio, soprano, contralto, tenor o bajo</strong>, seguidos del deslizamiento vocálico (<code>U → O → A → E → I</code>) y de un acorde SATB apilado.</li>
+        <li><strong>Fases 3 &amp; 4 – Escalas, arpegios &amp; coro:</strong> Escalas completas de octava en <strong>mayor y menor natural, armónica y melódica</strong> junto con arpegios que modulan por semitonos adaptados a <strong>coro medio, soprano, contralto, tenor o bajo</strong>, seguidos del deslizamiento vocálico (<code>U → O → A → E → I</code>) y de un acorde SATB apilado.</li>
       </ul>
 
       <div class="article-highlight-box">
@@ -64210,9 +64335,10 @@ const KNOWLEDGE_ARTICLES_PL = [
         <div class="article-highlight-box">
           <h4>Wypróbuj w interaktywnym diagramie</h4>
           <p>
-            Otwórz <strong>narzędzie Nashville Number System</strong>, aby przeglądać 12 tonacji, odsłuchiwać stopnie i korzystać z <strong>tłumacza kapodastra dla gitary</strong>:
+            Otwórz <strong>narzędzie Nashville Number System</strong>, aby przeglądać 12 tonacji i odsłuchiwać stopnie, lub osobny <strong>Tłumacz kapodastra</strong> do przeliczania tonacji brzmiącej, progu i chwytów:
           </p>
           <button class="btn-tool" type="button" data-open-nashville-tool="1">▶ Otwórz narzędzie Nashville</button>
+          <button class="btn-tool" type="button" data-open-capo-tool="1">▶ Otwórz tłumacz kapodastra</button>
         </div>
       </div>
     `
@@ -64732,14 +64858,14 @@ const CATEGORY_HELP_GUIDES_PL = {
     tagClass: "tag-sage",
     tag: "Instrukcja • Rozgrzewka głosowa",
     title: "Jak przebiega prowadzona rozgrzewka głosowa",
-    lead: "Stworzona z myślą o próbach chóralnych, lekcjach śpiewu i ćwiczeniu w domu: wybierz jedną z 5 skal głosu (SATB) i uruchom jeden z 4 programów — ze sferą oddechu, żywą klawiaturą i kontrolą półtonów.",
+    lead: "Stworzona z myślą o próbach chóralnych, lekcjach śpiewu i ćwiczeniu w domu: wybierz jedną z 5 skal głosu (SATB) i uruchom jeden z 5 programów — ze sferą oddechu, żywą klawiaturą i kontrolą półtonów.",
     sections: `
-      <h3>4 programy do wyboru i 4 etapy</h3>
+      <h3>5 programów do wyboru i 4 etapy</h3>
       <ul class="article-steps-list">
-        <li><strong>4 programy rozgrzewki:</strong> Dobierz do potrzeb <strong>Pełną 5-minutową rozgrzewkę</strong> (4 etapy, 9 ćwiczeń), <strong>Krótką rozgrzewkę (ok. 3 min)</strong>, <strong>Arpeggia i wyrównanie rejestrów</strong> lub <strong>Oddech chóralny i intonację</strong>.</li>
+        <li><strong>5 programów rozgrzewki:</strong> Dobierz do potrzeb <strong>Pełną 5-minutową rozgrzewkę</strong> (4 etapy, 11 ćwiczeń z gamami dur i moll), <strong>Krótką rozgrzewkę (ok. 3 min)</strong>, <strong>Gamy (dur i moll)</strong>, <strong>Arpeggia i wyrównanie rejestrów</strong> lub <strong>Oddech chóralny i intonację</strong>.</li>
         <li><strong>Etap 1 — Oddech i ciało:</strong> Animowana sfera oddechu na <code>ffff / ssss</code> oraz lekkie impulsy artykulacyjne (<code>P – T – K</code>) budzą podparcie bez ścisku w gardle.</li>
         <li><strong>Etap 2 — Rezonans i osadzenie:</strong> Miękkie mormorando / wibracja warg (<code>Mmm / Brrrr</code>) i opadające westchnienia kwintowe (<code>5–4–3–2–1</code>) łagodnie łączą rejestry.</li>
-        <li><strong>Etapy 3 i 4 — Arpeggia, samogłoski i chór:</strong> Arpeggia trójdźwiękowe i oktawowe modulują co półton w rejestrze (<strong>Chór, Sopran, Alt, Tenor lub Bas</strong>), po czym następują przejścia samogłosek (<code>U → O → A → E → I</code>) i akord SATB.</li>
+        <li><strong>Etapy 3 i 4 — Gamy, arpeggia i chór:</strong> Pełne gamy oktawowe w <strong>dur oraz moll naturalnym, harmonicznym i melodycznym</strong> oraz arpeggia trójdźwiękowe i oktawowe modulują co półton w rejestrze (<strong>Chór, Sopran, Alt, Tenor lub Bas</strong>), po czym następują przejścia samogłosek (<code>U → O → A → E → I</code>) i akord SATB.</li>
       </ul>
 
       <div class="article-highlight-box">
@@ -68568,9 +68694,10 @@ const KNOWLEDGE_ARTICLES_UK = [
         <div class="article-highlight-box">
           <h4>Спробуйте наживо в інтерактивній діаграмі</h4>
           <p>
-            Відкрийте <strong>інструмент Nashville Number System</strong>, щоб перемикати 12 тональностей, слухати ступені та користуватися <strong>перекладачем каподастра для гітари</strong>:
+            Відкрийте <strong>інструмент Nashville Number System</strong>, щоб перемикати 12 тональностей і слухати ступені, або окремий <strong>Перекладач каподастра</strong> для перерахунку звучання, ладу й аплікатур:
           </p>
           <button class="btn-tool" type="button" data-open-nashville-tool="1">▶ Відкрити інструмент Nashville</button>
+          <button class="btn-tool" type="button" data-open-capo-tool="1">▶ Відкрити перекладач каподастра</button>
         </div>
       </div>
     `
@@ -69090,14 +69217,14 @@ const CATEGORY_HELP_GUIDES_UK = {
     tagClass: "tag-sage",
     tag: "Як це працює • Вокальна розспівка",
     title: "Як проходить керована розспівка",
-    lead: "Створено для хорових репетицій, уроків вокалу та занять удома: обери один із 5 діапазонів (SATB) і запусти будь-яку з 4 програм — із дихальною сферою, живою клавіатурою та півтоновою модуляцією.",
+    lead: "Створено для хорових репетицій, уроків вокалу та занять удома: обери один із 5 діапазонів (SATB) і запусти будь-яку з 5 програм — із дихальною сферою, живою клавіатурою та півтоновою модуляцією.",
     sections: `
-      <h3>4 програми на вибір і 4 фази</h3>
+      <h3>5 програм на вибір і 4 фази</h3>
       <ul class="article-steps-list">
-        <li><strong>4 готові програми:</strong> Обирай за часом <strong>Повну 5-хвилинну розспівку</strong> (усі 4 фази, 9 вправ), <strong>Експрес-розспівку (прибл. 3 хв)</strong>, <strong>Арпеджіо та перехід між регістрами</strong> або <strong>Хорове дихання й інтонування</strong>.</li>
+        <li><strong>5 готових програм:</strong> Обирай за часом <strong>Повну 5-хвилинну розспівку</strong> (усі 4 фази, 11 вправ із мажорною та мінорною гамами), <strong>Експрес-розспівку (прибл. 3 хв)</strong>, <strong>Гами (мажор і мінор)</strong>, <strong>Арпеджіо та перехід між регістрами</strong> або <strong>Хорове дихання й інтонування</strong>.</li>
         <li><strong>Фаза 1 — Дихання й тіло:</strong> Дихальна сфера на <code>ffff / ssss</code> та легкі артикуляційні імпульси (<code>P – T – K</code>) будять опору без затиску горла.</li>
         <li><strong>Фаза 2 — Резонанс і позиція:</strong> М’яке мугикання / вібрація губ (<code>Ммм / Бррр</code>) та низхідні зітхання по квінті (<code>5–4–3–2–1</code>) з’єднують регістри.</li>
-        <li><strong>Фази 3 і 4 — Арпеджіо, голосні та хор:</strong> Тризвукові й октавні арпеджіо модулюють по півтонах для <strong>Хору, Сопрано, Альта, Тенора чи Басу</strong>, за ними йдуть голосні (<code>У → О → А → Е → І</code>) та акорд SATB.</li>
+        <li><strong>Фази 3 і 4 — Гами, арпеджіо та хор:</strong> Повні октавні гами в <strong>мажорі, натуральному, гармонічному й мелодичному мінорі</strong>, а також тризвукові й октавні арпеджіо модулюють по півтонах для <strong>Хору, Сопрано, Альта, Тенора чи Басу</strong>, за ними йдуть голосні (<code>У → О → А → Е → І</code>) та акорд SATB.</li>
       </ul>
 
       <div class="article-highlight-box">
@@ -72934,9 +73061,10 @@ const KNOWLEDGE_ARTICLES_UR = [
         <div class="article-highlight-box">
           <h4>انٹرایکٹو ڈایاگرام میں براہِ راست آزمائیں</h4>
           <p>
-            <strong>نیش وِل نمبر سسٹم ٹول</strong> کھولیں، تمام 12 کیز دیکھیں، کورڈز سنیں اور <strong>گٹار کیپو ٹرانسلیٹر</strong> سے آسان اوپن شیپس فوراً پائیں:
+            <strong>نیش وِل نمبر سسٹم ٹول</strong> کھول کر تمام 12 کیز اور کورڈز سنیں، اور علیحدہ <strong>کیپو ٹرانسلیٹر</strong> میں اصل کی، فریٹ اور گٹار شیپس کو فوراً تبدیل کریں:
           </p>
           <button class="btn-tool" type="button" data-open-nashville-tool="1">▶ نیش وِل ٹول کھولیں</button>
+          <button class="btn-tool" type="button" data-open-capo-tool="1">▶ کیپو ٹرانسلیٹر کھولیں</button>
         </div>
       </div>
     `
@@ -73450,14 +73578,14 @@ const CATEGORY_HELP_GUIDES_UR = {
     tagClass: "tag-sage",
     tag: "طریقہ کار • ووکل وارم اپ",
     title: "رہنمائی والا ووکل وارم اپ کیسے کام کرتا ہے",
-    lead: "کورس ریہرسل، گلوکاری سبق اور گھر کی مشق کے لیے: 5 میں سے کوئی بھی آواز کی رینج (SATB) چنیں اور 4 میں سے ایک پروگرام شروع کریں — سانس کے گولے، لائیو کی بورڈ اور سیمی ٹون کنٹرول کے ساتھ۔",
+    lead: "کورس ریہرسل، گلوکاری سبق اور گھر کی مشق کے لیے: 5 میں سے کوئی بھی آواز کی رینج (SATB) چنیں اور 5 میں سے ایک پروگرام شروع کریں — سانس کے گولے، لائیو کی بورڈ اور سیمی ٹون کنٹرول کے ساتھ۔",
     sections: `
-      <h3>4 پروگرام اور وارم اپ کے 4 مراحل</h3>
+      <h3>5 پروگرام اور وارم اپ کے 4 مراحل</h3>
       <ul class="article-steps-list">
-        <li><strong>4 دستیاب پروگرام:</strong> چنیں <strong>5 منٹ مکمل وارم اپ</strong> (4 مراحل، 9 مشقیں)، <strong>مختصر وارم اپ (تقریباً 3 منٹ)</strong>، <strong>آرپیجیو اور رجسٹر تربیت</strong> یا <strong>کورس سانس اور سُر کی صفائی</strong>۔</li>
+        <li><strong>5 دستیاب پروگرام:</strong> چنیں <strong>5 منٹ مکمل وارم اپ</strong> (4 مراحل، 11 مشقیں بشمول میجر اور مائنر اسکیلز)، <strong>مختصر وارم اپ (تقریباً 3 منٹ)</strong>، <strong>اسکیلز (میجر اور مائنر)</strong>، <strong>آرپیجیو اور رجسٹر تربیت</strong> یا <strong>کورس سانس اور سُر کی صفائی</strong>۔</li>
         <li><strong>مرحلہ 1 – سانس اور جسم:</strong> <code>ffff / ssss</code> پر سانس کا دائرہ اور ہلکی ضربیں (<code>P – T – K</code>) گلے کو دبائے بغیر سانس کے سہارے کو جگاتی ہیں۔</li>
         <li><strong>مرحلہ 2 – گونج اور آواز کا مقام:</strong> ہلکی گنگناہٹ / ہونٹ لرزانا (<code>Mmm / Brrr</code>) اور اترتی ففتھ آہ (<code>5–4–3–2–1</code>) رجسٹرز کو ملائم جوڑتے ہیں۔</li>
-        <li><strong>مراحل 3 و 4 – آرپیجیوز، حروفِ علت اور کورس:</strong> آرپیجیوز آپ کی رینج (<strong>کورس مڈ، سوپرانو، آلٹو، ٹینر یا باس</strong>) میں سیمی ٹون کے ساتھ چڑھتے اترتے ہیں، پھر حروفِ علت اور SATB کارڈ آتا ہے۔</li>
+        <li><strong>مراحل 3 و 4 – اسکیلز، آرپیجیوز اور کورس:</strong> مکمل آکٹیو اسکیلز (<strong>میجر اور نیچرل، ہارمونک و میلوڈک مائنر</strong>) اور آرپیجیوز آپ کی رینج (<strong>کورس مڈ، سوپرانو، آلٹو، ٹینر یا باس</strong>) میں سیمی ٹون کے ساتھ چڑھتے اترتے ہیں، پھر حروفِ علت اور SATB کارڈ آتا ہے۔</li>
       </ul>
 
       <div class="article-highlight-box">
@@ -78970,7 +79098,9 @@ class AppState {
     this.waveAnimFrame = null;
     this.waveResume = null;
     this.circleOfFifthsState = { idx: 0, ringMode: "major", tab: "chords" };
-    this.nashvilleState = { keyIdx: 0, mode: "major", capoKeyIdx: 0, capoMode: "major", capoFret: 0 };
+    this.capoState = { keyIdx: 0, mode: "major", fret: 0 };
+    this.capoReturnView = "tools";
+    this.nashvilleState = { keyIdx: 0, mode: "major" };
     this.nashvilleReturnView = "tools";
     this.wavePaused = false;
 
@@ -79425,9 +79555,12 @@ class AppState {
     } else if (this.currentView === "circle") {
       mainTitle.textContent = tr("Quintenzirkel", "Circle of Fifths");
       el.textContent = tr("Interaktives Klangrad, Akkorde, Vorzeichen & Modulation", "Interactive key wheel, chords, key signatures & modulation");
+    } else if (this.currentView === "capo") {
+      mainTitle.textContent = tr("Kapodaster-Übersetzer", "Capo Translator");
+      el.textContent = tr("Klingende Tonart, Kapo-Bund & Greif-Formen direkt umrechnen", "Convert sounding key, capo fret & chord shapes instantly");
     } else if (this.currentView === "nashville") {
       mainTitle.textContent = tr("Nashville-Zahlensystem", "Nashville Number System");
-      el.textContent = tr("Tonarten-Diagramm, 12-Tonarten-Matrix & Kapodaster-Übersetzer", "Key diagram, 12-key matrix & guitar capo translator");
+      el.textContent = tr("Tonarten-Diagramm & 12-Tonarten-Matrix", "Key diagram & 12-key matrix");
     } else if (this.currentView === "exercise" && this.exam?.active) {
       const curQ = Math.min((this.exam.currentIdx || 0) + 1, this.exam.totalQuestions || 1);
       const presetMeta = typeof getExamPresetById === "function" ? getExamPresetById(this.exam.categoryKey, this.exam.levelId) : null;
@@ -79655,6 +79788,8 @@ function setLanguagePreference(nextLang) {
     renderExamResultView();
   } else if (state.currentView === "circle" && typeof renderCircleOfFifthsView === "function") {
     renderCircleOfFifthsView();
+  } else if (state.currentView === "capo" && typeof renderCapoView === "function") {
+    renderCapoView();
   } else if (state.currentView === "nashville" && typeof renderNashvilleView === "function") {
     renderNashvilleView();
   } else if (state.currentView === "knowledge-detail" && state.activeKnowledgeDetail) {
@@ -82484,7 +82619,7 @@ function closeTransientPopovers() {
     document.getElementById(btnId)?.classList.remove("chip-open");
   });
   if (typeof closeTunerDropdowns === "function") closeTunerDropdowns();
-  if (typeof closeNashvilleDropdowns === "function") closeNashvilleDropdowns();
+  if (typeof closeCapoDropdowns === "function") closeCapoDropdowns();
   if (_openProfileDropdownKey) {
     const prevKey = _openProfileDropdownKey;
     _openProfileDropdownKey = null;
@@ -82514,6 +82649,7 @@ function captureHistorySnapshot(modalName = getOpenModalName()) {
     freeplayReturnView: state.freeplayReturnView,
     fretboardReturnView: state.fretboardReturnView,
     circleReturnView: state.circleReturnView,
+    capoReturnView: state.capoReturnView,
     nashvilleReturnView: state.nashvilleReturnView,
     modal: modalName
   };
@@ -82563,6 +82699,15 @@ function applyHistorySnapshot(snapshot) {
     }
     if (snapshot.fretboardReturnView) {
       state.fretboardReturnView = snapshot.fretboardReturnView;
+    }
+    if (snapshot.circleReturnView) {
+      state.circleReturnView = snapshot.circleReturnView;
+    }
+    if (snapshot.capoReturnView) {
+      state.capoReturnView = snapshot.capoReturnView;
+    }
+    if (snapshot.nashvilleReturnView) {
+      state.nashvilleReturnView = snapshot.nashvilleReturnView;
     }
     if (snapshot.activeCategory) {
       state.activeCategory = snapshot.activeCategory;
@@ -82659,6 +82804,8 @@ function navigateBackFromUI() {
     switchView(state.fretboardReturnView || "tools", { skipHistoryPush: true });
   } else if (state.currentView === "circle") {
     switchView(state.circleReturnView || "tools", { skipHistoryPush: true });
+  } else if (state.currentView === "capo") {
+    switchView(state.capoReturnView || "tools", { skipHistoryPush: true });
   } else if (state.currentView === "nashville") {
     switchView(state.nashvilleReturnView || "tools", { skipHistoryPush: true });
   } else if (state.currentView === "exam-result") {
@@ -82692,7 +82839,7 @@ function hasOpenTransientPopover() {
   ].some(id => {
     const el = document.getElementById(id);
     return Boolean(el && !el.classList.contains("hidden") && !el.classList.contains("is-pinned"));
-  }) || Boolean(typeof _tuner !== "undefined" && _tuner.openDropdown) || Boolean(typeof _nnsOpenDropdown !== "undefined" && _nnsOpenDropdown) || Boolean(typeof _openProfileDropdownKey !== "undefined" && _openProfileDropdownKey);
+  }) || Boolean(typeof _tuner !== "undefined" && _tuner.openDropdown) || Boolean(typeof _capoOpenDropdown !== "undefined" && _capoOpenDropdown) || Boolean(typeof _openProfileDropdownKey !== "undefined" && _openProfileDropdownKey);
 }
 
 function minimizeOrExitNativeApp() {
@@ -82817,7 +82964,7 @@ function prefersReducedMotion() {
 
 function getTabForView(view) {
   if (view === "home" || view === "category" || view === "category-help" || view === "exam-setup") return "home";
-  if (view === "tools" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard" || view === "circle" || view === "nashville") return "tools";
+  if (view === "tools" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard" || view === "circle" || view === "capo" || view === "nashville") return "tools";
   if (view === "exam-result") return state.examResultReturnView === "space" ? "space" : "home";
   if (view === "knowledge" || view === "knowledge-detail") return "knowledge";
   if (view === "space") return "space";
@@ -82828,7 +82975,7 @@ function getViewOrderInfo(view) {
   const tab = getTabForView(view) || "home";
   const tabIdx = MAIN_TAB_ORDER.indexOf(tab);
   let depth = 0;
-  if (view === "category" || view === "knowledge-detail" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard" || view === "circle" || view === "nashville") depth = 1;
+  if (view === "category" || view === "knowledge-detail" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard" || view === "circle" || view === "capo" || view === "nashville") depth = 1;
   else if (view === "category-help" || view === "exam-setup") depth = 2;
   else if (view === "exercise" || view === "warmup") depth = 3;
   else if (view === "exam-result") depth = 4;
@@ -82931,7 +83078,7 @@ function navigateToMainTab(targetTab, swipeDir = null) {
 
   if (
     targetTab === "tools" &&
-    (state.currentView === "metronome" || state.currentView === "tuner" || state.currentView === "freeplay" || state.currentView === "fretboard" || state.currentView === "circle" || state.currentView === "nashville") &&
+    (state.currentView === "metronome" || state.currentView === "tuner" || state.currentView === "freeplay" || state.currentView === "fretboard" || state.currentView === "circle" || state.currentView === "capo" || state.currentView === "nashville") &&
     canHistory &&
     appHistoryState.idx >= 1 &&
     window.history.state?.idx >= 1
@@ -82991,7 +83138,7 @@ function hasHorizontalScrollableAncestor(target) {
 }
 
 function isTabSwipeBlockedView(view) {
-  return view === "exercise" || view === "warmup" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard" || view === "circle" || view === "nashville";
+  return view === "exercise" || view === "warmup" || view === "metronome" || view === "tuner" || view === "freeplay" || view === "fretboard" || view === "circle" || view === "capo" || view === "nashville";
 }
 
 function handleHorizontalTabSwipe({ startX, startY, endX, endY, durationMs, viewportWidth, target }) {
@@ -83206,6 +83353,7 @@ function switchView(targetView, options = {}) {
     freeplay: document.getElementById("viewFreeplay"),
     fretboard: document.getElementById("viewFretboard"),
     circle: document.getElementById("viewCircle"),
+    capo: document.getElementById("viewCapo"),
     nashville: document.getElementById("viewNashville")
   };
 
@@ -83289,6 +83437,8 @@ function switchView(targetView, options = {}) {
     renderFretboardView();
   } else if (targetView === "circle" && typeof renderCircleOfFifthsView === "function") {
     renderCircleOfFifthsView();
+  } else if (targetView === "capo" && typeof renderCapoView === "function") {
+    renderCapoView();
   } else if (targetView === "nashville" && typeof renderNashvilleView === "function") {
     renderNashvilleView();
   }
@@ -84057,6 +84207,14 @@ function bindKnowledgeAudioButtons(rootEl) {
     btn.addEventListener("click", () => {
       if (typeof openNashvilleView === "function") {
         openNashvilleView("knowledge-detail");
+      }
+    });
+  });
+
+  rootEl.querySelectorAll("[data-open-capo-tool]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (typeof openCapoView === "function") {
+        openCapoView("knowledge-detail");
       }
     });
   });
@@ -96358,8 +96516,47 @@ function scheduleTutorialTimer(fn, delayMs, token = _exTutorial.token) {
   return id;
 }
 
-const TUTORIAL_READ_LEAD_MS = 1750;       // Lesezeit für Schritt 1, bevor das Audio losläuft
-const TUTORIAL_POST_AUDIO_PAUSE_MS = 950; // Ruhige Pause nach Audio-Ende vor Schritt 2
+/**
+ * Übungstyp-spezifisches Timing-Profil (alle Werte in ms):
+ * - readLeadMs:        ruhige Lesezeit für Schritt 1, bevor der erste Ton erklingt
+ * - postAudioPauseMs:  Auskling- & Denk-Pause nach Audio-Ende vor Schritt 2
+ * - answerLeadMs:      Lesezeit in Schritt 2 vor Start der Animation / Bestätigung
+ * - stepMs:            Abstand zwischen Einzelschritten bei Mehr-Schritt-Übungen
+ */
+function getTutorialTimingProfile(groupId, ex) {
+  switch (groupId) {
+    case "cadence":
+      return { readLeadMs: 2400, postAudioPauseMs: 1300, answerLeadMs: 900, stepMs: 0 };
+    case "interval":
+      return { readLeadMs: 2300, postAudioPauseMs: 1300, answerLeadMs: 900, stepMs: 0 };
+    case "chord":
+      return { readLeadMs: 2300, postAudioPauseMs: 1300, answerLeadMs: 900, stepMs: 0 };
+    case "modes":
+      return { readLeadMs: 2400, postAudioPauseMs: 1300, answerLeadMs: 900, stepMs: 0 };
+    case "solfege":
+      return { readLeadMs: 2500, postAudioPauseMs: 1300, answerLeadMs: 1100, stepMs: 0 };
+    case "melody":
+      return { readLeadMs: 2300, postAudioPauseMs: 1300, answerLeadMs: 2000, stepMs: 1050 };
+    case "melody-dictation":
+      return { readLeadMs: 2600, postAudioPauseMs: 1300, answerLeadMs: 2300, stepMs: 1450 };
+    case "rhythm-dictation":
+      return { readLeadMs: 2500, postAudioPauseMs: 1300, answerLeadMs: 2100, stepMs: 1100 };
+    case "rhythm-tap":
+      return { readLeadMs: 2600, postAudioPauseMs: 1100, answerLeadMs: 2200, stepMs: 0 };
+    case "rhythm-choice":
+      return { readLeadMs: 2300, postAudioPauseMs: 1300, answerLeadMs: 900, stepMs: 0 };
+    case "notation-keys":
+      return { readLeadMs: 2300, postAudioPauseMs: 2000, answerLeadMs: 900, stepMs: 0 };
+    case "notation-chords":
+      return { readLeadMs: 2500, postAudioPauseMs: 2300, answerLeadMs: 900, stepMs: 0 };
+    case "production":
+      return ex?.type === "prod-eq-noise"
+        ? { readLeadMs: 2600, postAudioPauseMs: 1100, answerLeadMs: 900, stepMs: 0 }
+        : { readLeadMs: 2400, postAudioPauseMs: 1300, answerLeadMs: 900, stepMs: 0 };
+    default:
+      return { readLeadMs: 2300, postAudioPauseMs: 1300, answerLeadMs: 900, stepMs: 0 };
+  }
+}
 
 function setTutorialBackdropVisible(visible) {
   document.getElementById("exerciseTutorialBackdrop")?.classList.toggle("hidden", !visible);
@@ -96454,11 +96651,14 @@ function stopExerciseTutorial(options = {}) {
   card?.classList.add("hidden");
   syncExerciseDemoButtonUI();
 
-  if (wasRunning && !options.keepPlayback) {
+  if ((wasRunning || hadCard) && !options.keepPlayback) {
     stopPlayback();
   }
   if (options.refreshExercise && hadCard && state.currentView === "exercise" && !state.exam?.active) {
     generateExercise();
+    if (options.autoPlay && !isNotationMode(state.currentExercise?.type)) {
+      playSequence();
+    }
   }
 }
 
@@ -96603,22 +96803,22 @@ async function runExerciseTutorialDemo(options = {}) {
   await ensureAudioReady();
   if (!_exTutorial.active || _exTutorial.token !== token || state.currentView !== "exercise") return;
 
-  // Entspannter Lese-Vorlauf, damit der Nutzer den Hinweis lesen kann, bevor der erste Ton startet
-  const readLeadMs = groupId === "rhythm-tap" ? 1950 : TUTORIAL_READ_LEAD_MS;
+  const timing = getTutorialTimingProfile(groupId, ex);
+  // Entspannter Lese-Vorlauf je Übungstyp, damit der Nutzer den Hinweis in Ruhe liest, bevor Audio startet
   scheduleTutorialTimer(async () => {
-    // Sonderfall 1: Rhythmus-Tap (1 Takt Vorzähler -> 1 Takt Muster mit live aufblitzendem Tap-Pad!)
+    // Sonderfall 1: Rhythmus-Tap (erst Muster im Modul hören, dann nach Lese-Pause live aufs Pad schauen)
     if (groupId === "rhythm-tap") {
-      runRhythmTapTutorialDemo(ex, meta, token);
+      runRhythmTapTutorialDemo(ex, meta, timing, token);
       return;
     }
 
     // Sonderfall 2: Studio EQ-Vergleich (Flat -> EQ-Boost -> Antwort zeigen)
     if (ex.type === "prod-eq-noise") {
-      runProdEqTutorialDemo(ex, meta, token);
+      runProdEqTutorialDemo(ex, meta, timing, token);
       return;
     }
 
-    // Sonderfall 3: Notenlesen (linke Note / Akkord anspielen -> kurz Zeit zum Ablesen -> Antwort)
+    // Sonderfall 3: Notenlesen (linke Note / Akkord anspielen -> in Ruhe im System ablesen -> Antwort)
     if (groupId === "notation-keys" || groupId === "notation-chords") {
       const playNotes = getNotationPlayNotes(ex.targetItem);
       if (playNotes && playNotes.length) {
@@ -96626,13 +96826,13 @@ async function runExerciseTutorialDemo(options = {}) {
       }
       scheduleTutorialTimer(() => {
         runExerciseTutorialAnswerPhase(ex, groupId, meta, token);
-      }, ex.isChordReading ? 1750 : 1500, token);
+      }, timing.postAudioPauseMs, token);
       return;
     }
 
     // Standardfall: reguläre Audio-Sequenz der Übung abspielen; Ende ruft onExerciseTutorialPlaybackEnded(ex)
     await playSequence();
-  }, readLeadMs, token);
+  }, timing.readLeadMs, token);
 }
 
 function onExerciseTutorialPlaybackEnded(ex) {
@@ -96641,47 +96841,88 @@ function onExerciseTutorialPlaybackEnded(ex) {
   const token = _exTutorial.token;
   const groupId = _exTutorial.groupId;
   const meta = getTutorialMeta(groupId, ex);
+  const timing = getTutorialTimingProfile(groupId, ex);
   scheduleTutorialTimer(() => {
     runExerciseTutorialAnswerPhase(ex, groupId, meta, token);
-  }, TUTORIAL_POST_AUDIO_PAUSE_MS, token);
+  }, timing.postAudioPauseMs, token);
 }
 
-function runRhythmTapTutorialDemo(ex, meta, token) {
+function buildTutorialDoneActions(groupId) {
+  return [
+    {
+      label: tr("▶ Jetzt selbst probieren", "▶ Try it myself"),
+      cls: "ex-tutorial-btn is-primary",
+      onClick: () => stopExerciseTutorial({ refreshExercise: true, autoPlay: true })
+    },
+    {
+      label: tr("Nochmal ansehen", "Watch again"),
+      cls: "ex-tutorial-btn is-secondary",
+      onClick: () => runExerciseTutorialDemo({ fresh: true })
+    }
+  ];
+}
+
+function setTutorialCardActionsOnly(actions) {
+  const actionsEl = document.getElementById("exTutorialActions");
+  if (!actionsEl) return;
+  actionsEl.innerHTML = "";
+  actions.forEach(act => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = act.cls || "ex-tutorial-btn";
+    btn.textContent = act.label;
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      act.onClick?.();
+    });
+    actionsEl.appendChild(btn);
+  });
+}
+
+function runRhythmTapTutorialDemo(ex, meta, timing, token) {
   const beatMs = 60000 / (state.activeBpm || 90);
   const beatsPerBar = ex.beatsPerBar || 4;
   const barMs = beatsPerBar * beatMs;
-  const events = [];
-
-  for (let b = 0; b < beatsPerBar; b++) {
-    events.push([Math.round(b * beatMs), b === 0 ? "accent" : "tick", b === 0 ? 0.92 : 0.7]);
-    events.push([Math.round(barMs + b * beatMs), b === 0 ? "accent" : "tick", b === 0 ? 0.56 : 0.36]);
-  }
-  const hitDelaysMs = [];
-  (ex.tapSlots || []).forEach((slot, beatIdx) => {
-    (slot.cell?.offsets || []).forEach(off => {
-      const relMs = Math.round((beatIdx + off) * beatMs);
-      events.push([Math.round(barMs + relMs), "clave", 0.96]);
-      hitDelaysMs.push({ relMs, beatIdx });
-    });
-  });
-
-  const baseAudioSec = audioEngine.getAudioTime() + 0.05;
-  audioEngine.playRhythmSequence(events, baseAudioSec);
-
   const padBtn = document.getElementById("rhythmTapPadBtn");
   const padTitle = document.getElementById("rhythmPadTitle");
   const padSub = document.getElementById("rhythmPadSub");
 
-  // Takt 1: Vorzähler
+  const hitDelaysMs = [];
+  (ex.tapSlots || []).forEach((slot, beatIdx) => {
+    (slot.cell?.offsets || []).forEach(off => {
+      hitDelaysMs.push({ relMs: Math.round((beatIdx + off) * beatMs), beatIdx });
+    });
+  });
+
+  // Schritt 1: 1 Takt Vorzähler + 1 Takt Muster zum Zuhören (Fokus auf oberem Modul)
+  const listenEvents = [];
+  for (let b = 0; b < beatsPerBar; b++) {
+    listenEvents.push([Math.round(b * beatMs), b === 0 ? "accent" : "tick", b === 0 ? 0.92 : 0.7]);
+    listenEvents.push([Math.round(barMs + b * beatMs), b === 0 ? "accent" : "tick", b === 0 ? 0.56 : 0.36]);
+  }
+  hitDelaysMs.forEach(({ relMs }) => {
+    listenEvents.push([Math.round(barMs + relMs), "clave", 0.96]);
+  });
+  audioEngine.playRhythmSequence(listenEvents, audioEngine.getAudioTime() + 0.05);
+
   for (let b = 0; b < beatsPerBar; b++) {
     scheduleTutorialTimer(() => {
       if (padTitle) padTitle.textContent = tf("Vorzähler: {n}", "Count-in: {n}", { n: b + 1 });
       if (padSub) padSub.textContent = tr("Erst den Puls aufnehmen…", "Feel the pulse first…");
     }, 50 + Math.round(b * beatMs), token);
+
+    scheduleTutorialTimer(() => {
+      for (let i = 0; i < beatsPerBar; i++) {
+        document.getElementById(`barCard_${i}`)?.classList.toggle("bar-active", i === b);
+      }
+    }, 50 + Math.round(barMs + b * beatMs), token);
   }
 
-  // Takt 2: Demo-Klopfen – Fokus wandert aufs Pad und blitzt exakt auf jedem Schlag auf!
+  // Nach Ende von Schritt 1: Pause, dann Schritt 2 mit echtem Lese-Vorlauf, BEVOR das Pad blinkt!
   scheduleTutorialTimer(() => {
+    for (let i = 0; i < beatsPerBar; i++) {
+      document.getElementById(`barCard_${i}`)?.classList.remove("bar-active");
+    }
     _exTutorial.phase = "demo";
     setTutorialSpotlight(document.getElementById("rhythmTapPadWrap") || padBtn);
     updateTutorialCardUI({
@@ -96689,7 +96930,7 @@ function runRhythmTapTutorialDemo(ex, meta, token) {
       title: meta.title,
       text: meta.answerPrompt(),
       mood: "happy",
-      compact: true,
+      compact: false,
       position: "top",
       actions: [
         {
@@ -96701,48 +96942,45 @@ function runRhythmTapTutorialDemo(ex, meta, token) {
     });
     if (padTitle) padTitle.textContent = tr("Jetzt im Takt klopfen!", "Tap in time now!");
     if (padSub) padSub.textContent = tr("Jedes grüne Aufblitzen = 1 Tippen", "Every green flash = 1 tap");
-  }, 50 + Math.round(barMs - 60), token);
 
-  for (let b = 0; b < beatsPerBar; b++) {
+    // Nach dem Lese-Vorlauf für Schritt 2 spielt der Demo-Takt mit grün aufblitzendem Pad
     scheduleTutorialTimer(() => {
-      for (let i = 0; i < beatsPerBar; i++) {
-        document.getElementById(`barCard_${i}`)?.classList.toggle("bar-active", i === b);
+      const tapDemoEvents = [];
+      for (let b = 0; b < beatsPerBar; b++) {
+        tapDemoEvents.push([Math.round(b * beatMs), b === 0 ? "accent" : "tick", b === 0 ? 0.56 : 0.36]);
       }
-    }, 50 + Math.round(barMs + b * beatMs), token);
-  }
+      hitDelaysMs.forEach(({ relMs }) => {
+        tapDemoEvents.push([relMs, "clave", 0.96]);
+      });
+      audioEngine.playRhythmSequence(tapDemoEvents, audioEngine.getAudioTime() + 0.05);
 
-  hitDelaysMs.forEach(({ relMs }) => {
-    scheduleTutorialTimer(() => {
-      if (!padBtn) return;
-      padBtn.classList.add("is-hit", "tutorial-target-pulse");
-      if (!_exTutorial.markedEls.includes(padBtn)) _exTutorial.markedEls.push(padBtn);
+      hitDelaysMs.forEach(({ relMs }) => {
+        scheduleTutorialTimer(() => {
+          if (!padBtn) return;
+          padBtn.classList.add("is-hit", "tutorial-target-pulse");
+          if (!_exTutorial.markedEls.includes(padBtn)) _exTutorial.markedEls.push(padBtn);
+          scheduleTutorialTimer(() => {
+            padBtn.classList.remove("is-hit");
+          }, Math.min(220, Math.round(beatMs * 0.45)), token);
+        }, 50 + relMs, token);
+      });
+
       scheduleTutorialTimer(() => {
-        padBtn.classList.remove("is-hit");
-      }, Math.min(200, Math.round(beatMs * 0.45)), token);
-    }, 50 + Math.round(barMs + relMs), token);
-  });
-
-  scheduleTutorialTimer(() => {
-    for (let i = 0; i < beatsPerBar; i++) {
-      document.getElementById(`barCard_${i}`)?.classList.remove("bar-active");
-    }
-    revealTutorialDoneActions({
-      groupId: _exTutorial.groupId,
-      title: meta.title,
-      text: meta.answerPrompt(),
-      position: "top",
-      token
-    });
-  }, 50 + Math.round(2 * barMs + 600), token);
+        _exTutorial.phase = "done";
+        markTutorialGroupSeen(_exTutorial.groupId);
+        setTutorialCardActionsOnly(buildTutorialDoneActions(_exTutorial.groupId));
+      }, 50 + Math.round(barMs + 500), token);
+    }, timing.answerLeadMs, token);
+  }, 50 + Math.round(2 * barMs + timing.postAudioPauseMs), token);
 }
 
-function runProdEqTutorialDemo(ex, meta, token) {
+function runProdEqTutorialDemo(ex, meta, timing, token) {
   audioEngine.startProductionNoiseLoop({
     freqHz: ex.targetItem.freqHz,
     q: ex.q,
     gainDb: ex.boostDb,
     startBypassed: true,
-    maxDurationSec: 12
+    maxDurationSec: 15
   });
   const refBtn = document.getElementById("tonicRefBtn");
   refBtn?.classList.add("btn-active");
@@ -96768,45 +97006,58 @@ function runProdEqTutorialDemo(ex, meta, token) {
         }
       ]
     });
-  }, 1900, token);
+  }, 2400, token);
 
   scheduleTutorialTimer(() => {
     audioEngine.stopPlayback();
-    runExerciseTutorialAnswerPhase(ex, "production", meta, token);
-  }, 4300, token);
+    scheduleTutorialTimer(() => {
+      runExerciseTutorialAnswerPhase(ex, "production", meta, token);
+    }, timing.postAudioPauseMs, token);
+  }, 5200, token);
 }
 
-function revealTutorialDoneActions({ groupId, title, text, position = "top", token }) {
-  if (!_exTutorial.active || _exTutorial.token !== token || state.currentView !== "exercise") return;
-  _exTutorial.phase = "done";
-  markTutorialGroupSeen(groupId);
-  // Spotlight & grüne Lösung bleiben ruhig sichtbar – der Nutzer bestimmt selbst, wann es weitergeht!
-  updateTutorialCardUI({
-    badge: tr("BEREIT!", "READY!"),
-    title: title || tr("Jetzt bist du dran!", "Now it’s your turn!"),
-    text: text || "",
-    mood: "happy",
-    compact: false,
-    position,
-    actions: [
-      {
-        label: tr("▶ Jetzt selbst probieren", "▶ Try it myself"),
-        cls: "ex-tutorial-btn is-primary",
-        onClick: () => stopExerciseTutorial({ refreshExercise: true })
-      },
-      {
-        label: tr("Nochmal ansehen", "Watch again"),
-        cls: "ex-tutorial-btn is-secondary",
-        onClick: () => runExerciseTutorialDemo({ fresh: true })
-      }
-    ]
-  });
+function playTutorialConfirmationAudio(ex, groupId) {
+  if (!ex || !audioEngine?.isInitialized) return;
+  if (groupId === "cadence" && ex.targetItem?.notes) {
+    audioEngine.playStep(ex.targetItem.notes, 1.2, ex.targetItem.bass, "cadence");
+    return;
+  }
+  if (groupId === "interval") {
+    if (ex.type === "interval-harmonic" && ex.targetItem?.notes) {
+      audioEngine.playStep(ex.targetItem.notes, 1.25, null, "interval-harmonic");
+    } else if (ex.type === "interval-drone" && ex.padNotes && ex.targetItem?.targetNote) {
+      audioEngine.playDroneIntervalCue(ex.padNotes, [ex.targetItem.targetNote], {
+        delayMs: 320,
+        padDurSec: 1.4,
+        pianoDurSec: 1.05
+      });
+    } else if (Array.isArray(ex.bars) && ex.bars.length >= 2) {
+      if (ex.bars[0]?.notes) audioEngine.playStep(ex.bars[0].notes, 0.55, null, "interval");
+      scheduleTutorialTimer(() => {
+        if (ex.bars[1]?.notes) audioEngine.playStep(ex.bars[1].notes, 1.05, null, "interval");
+      }, 520, _exTutorial.token);
+    }
+    return;
+  }
+  if (groupId === "chord" && Array.isArray(ex.targetItem?.notes)) {
+    audioEngine.playStep(ex.targetItem.notes, 1.25, ex.targetItem.bass || null, "cadence");
+    return;
+  }
+  if (groupId === "notation-keys" || groupId === "notation-chords") {
+    const playNotes = getNotationPlayNotes(ex.targetItem);
+    if (playNotes?.length) audioEngine.playStep(playNotes, ex.isChordReading ? 1.2 : 0.95, null, "interval");
+    return;
+  }
+  if (ex.type === "prod-tone" && Number.isFinite(ex.targetItem?.freqHz)) {
+    audioEngine.playProductionTone(ex.targetItem.freqHz, 0.85);
+  }
 }
 
 function runExerciseTutorialAnswerPhase(ex, groupId, meta, token) {
   if (!_exTutorial.active || _exTutorial.token !== token || state.currentView !== "exercise") return;
   _exTutorial.phase = "demo";
 
+  const timing = getTutorialTimingProfile(groupId, ex);
   const label = getTutorialTargetDisplayLabel(ex, groupId);
   const answerText = meta.answerPrompt(label);
   const isMultiStep = groupId === "melody" || groupId === "melody-dictation" || groupId === "rhythm-dictation";
@@ -96825,61 +97076,68 @@ function runExerciseTutorialAnswerPhase(ex, groupId, meta, token) {
   setTutorialSpotlight(spotEls);
 
   const cardPos = isMultiStep ? "center" : "top";
-  updateTutorialCardUI({
-    badge: tr("SCHRITT 2 / 2 · ANTWORT", "STEP 2 / 2 · ANSWER"),
-    title: meta.title,
-    text: answerText,
-    mood: "happy",
-    compact: true,
-    position: cardPos,
-    actions: [
-      {
-        label: tr("Abbrechen", "Cancel"),
-        cls: "ex-tutorial-btn is-secondary",
-        onClick: () => stopExerciseTutorial({ refreshExercise: true })
-      }
-    ]
-  });
 
-  // 1. Melodie & Melodie-Diktat: ruhig Schritt für Schritt auf der Klaviatur (+ Notenwert) vormachen
-  if (groupId === "melody" || groupId === "melody-dictation") {
-    const slots = (ex.melodySlots || []).slice(0, 5);
-    const stepMs = groupId === "melody-dictation" ? 1250 : 980;
-    const startDelay = 700;
-    slots.forEach((slot, idx) => {
-      scheduleTutorialTimer(() => {
-        document.querySelectorAll("#solfegeKeyboardWrap .tutorial-target-pulse").forEach(el => {
-          el.classList.remove("tutorial-target-pulse", "key-correct");
-        });
-        document.querySelectorAll("#melodyRhythmPicker .tutorial-target-pulse").forEach(el => {
-          el.classList.remove("tutorial-target-pulse");
-        });
-        const card = document.getElementById(`barCard_${idx}`);
-        if (card) markTutorialTargetEl(card, ["bar-active"]);
-        const keyEl = document.getElementById(`solfegeKey_${slot.midi}`)
-          || document.getElementById(`solfegeKey_${slot.playedMidi}`)
-          || document.querySelector(`#solfegeKeyboardWrap [data-syllable="${slot.syllable}"]`);
-        if (keyEl) markTutorialTargetEl(keyEl, ["key-correct"]);
-        if (groupId === "melody-dictation" && slot.rhythmKey) {
-          const rBtn = document.querySelector(`#melodyRhythmPicker [data-melody-rhythm="${slot.rhythmKey}"]`);
-          if (rBtn) markTutorialTargetEl(rBtn, []);
+  // 1. Mehr-Schritt-Übungen: erst Lese-Vorlauf mit [Abbrechen], dann ruhige Schritt-für-Schritt-Demo,
+  //    danach wechseln nur die Buttons auf [Jetzt selbst probieren] [Nochmal ansehen] (ohne Karte neu zu bauen)
+  if (isMultiStep) {
+    updateTutorialCardUI({
+      badge: tr("SCHRITT 2 / 2 · ANTWORT", "STEP 2 / 2 · ANSWER"),
+      title: meta.title,
+      text: answerText,
+      mood: "happy",
+      compact: true,
+      position: cardPos,
+      actions: [
+        {
+          label: tr("Abbrechen", "Cancel"),
+          cls: "ex-tutorial-btn is-secondary",
+          onClick: () => stopExerciseTutorial({ refreshExercise: true })
         }
-        if (Number.isFinite(slot.playedMidi)) {
-          audioEngine.playStep([midiToNote(slot.playedMidi)], 0.55, null, "interval");
-        }
-      }, startDelay + idx * stepMs, token);
+      ]
     });
-    scheduleTutorialTimer(() => {
-      revealTutorialDoneActions({ groupId, title: meta.title, text: answerText, position: cardPos, token });
-    }, startDelay + Math.max(1100, slots.length * stepMs + 350), token);
-    return;
-  }
 
-  // 2. Rhythmus-Diktat: 4 Zählzeiten ruhig Schritt für Schritt vormachen
-  if (groupId === "rhythm-dictation") {
+    if (groupId === "melody" || groupId === "melody-dictation") {
+      const slots = (ex.melodySlots || []).slice(0, 5);
+      const stepMs = timing.stepMs;
+      const startDelay = timing.answerLeadMs;
+      slots.forEach((slot, idx) => {
+        scheduleTutorialTimer(() => {
+          document.querySelectorAll("#solfegeKeyboardWrap .tutorial-target-pulse").forEach(el => {
+            el.classList.remove("tutorial-target-pulse", "key-correct");
+          });
+          document.querySelectorAll("#melodyRhythmPicker .tutorial-target-pulse").forEach(el => {
+            el.classList.remove("tutorial-target-pulse");
+          });
+          const card = document.getElementById(`barCard_${idx}`);
+          if (card) markTutorialTargetEl(card, ["bar-active"]);
+          const keyEl = document.getElementById(`solfegeKey_${slot.midi}`)
+            || document.getElementById(`solfegeKey_${slot.playedMidi}`)
+            || document.querySelector(`#solfegeKeyboardWrap [data-syllable="${slot.syllable}"]`);
+          if (keyEl) markTutorialTargetEl(keyEl, ["key-correct"]);
+          if (Number.isFinite(slot.playedMidi)) {
+            audioEngine.playStep([midiToNote(slot.playedMidi)], 0.58, null, "interval");
+          }
+          // Im Melodie-Diktat kurz versetzt den zugehörigen Notenwert hervorheben
+          if (groupId === "melody-dictation" && slot.rhythmKey) {
+            scheduleTutorialTimer(() => {
+              const rBtn = document.querySelector(`#melodyRhythmPicker [data-melody-rhythm="${slot.rhythmKey}"]`);
+              if (rBtn) markTutorialTargetEl(rBtn, []);
+            }, 420, token);
+          }
+        }, startDelay + idx * stepMs, token);
+      });
+      scheduleTutorialTimer(() => {
+        _exTutorial.phase = "done";
+        markTutorialGroupSeen(groupId);
+        setTutorialCardActionsOnly(buildTutorialDoneActions(groupId));
+      }, startDelay + Math.max(1100, slots.length * stepMs + 450), token);
+      return;
+    }
+
+    // Rhythmus-Diktat: 4 Zählzeiten ruhig Schritt für Schritt vormachen
     const slots = ex.rhythmSlots || [];
-    const stepMs = 960;
-    const startDelay = 700;
+    const stepMs = timing.stepMs;
+    const startDelay = timing.answerLeadMs;
     const beatMs = 60000 / (state.activeBpm || 90);
     slots.forEach((slot, idx) => {
       scheduleTutorialTimer(() => {
@@ -96904,12 +97162,28 @@ function runExerciseTutorialAnswerPhase(ex, groupId, meta, token) {
       }, startDelay + idx * stepMs, token);
     });
     scheduleTutorialTimer(() => {
-      revealTutorialDoneActions({ groupId, title: meta.title, text: answerText, position: cardPos, token });
-    }, startDelay + Math.max(1100, slots.length * stepMs + 350), token);
+      _exTutorial.phase = "done";
+      markTutorialGroupSeen(groupId);
+      setTutorialCardActionsOnly(buildTutorialDoneActions(groupId));
+    }, startDelay + Math.max(1100, slots.length * stepMs + 450), token);
     return;
   }
 
-  // 3. Solfège: Taste grün aufleuchten + Auflösung zur Tonika spielen, dann ruhig stehen bleiben
+  // 2. Alle Einzel-Antwort-Übungen: Karte erscheint direkt im finalen, ruhigen Lösungszustand
+  //    (kein 650-ms-Umspringen, kein Größenwechsel, kein Badge-Flackern – Nutzer liest im eigenen Tempo!)
+  _exTutorial.phase = "done";
+  markTutorialGroupSeen(groupId);
+  updateTutorialCardUI({
+    badge: tr("SCHRITT 2 / 2 · ANTWORT", "STEP 2 / 2 · ANSWER"),
+    title: meta.title,
+    text: answerText,
+    mood: "happy",
+    compact: false,
+    position: cardPos,
+    actions: buildTutorialDoneActions(groupId)
+  });
+
+  // Solfège: Taste grün markieren + nach kurzem Lesemoment die Auflösung zu Do spielen
   if (groupId === "solfege") {
     const target = ex.targetItem;
     const keyBtn = document.getElementById(`solfegeKey_${target?.midi}`)
@@ -96917,42 +97191,32 @@ function runExerciseTutorialAnswerPhase(ex, groupId, meta, token) {
     if (keyBtn) markTutorialTargetEl(keyBtn, ["key-correct"]);
     if (target && Array.isArray(target.audioResolveMidis) && target.audioResolveMidis.length) {
       const steps = buildSolfegeResolutionSchedule(target.audioResolveMidis.length, state.activeBpm || 120);
-      target.audioResolveMidis.forEach((midi, idx) => {
-        const st = steps[idx] || { delayMs: idx * 320, durationSec: 0.5 };
-        scheduleTutorialTimer(() => {
-          audioEngine.playStep([midiToNote(midi)], st.durationSec, null, "interval");
-        }, st.delayMs, token);
-      });
-      const last = steps[steps.length - 1] || { delayMs: 800, durationSec: 0.8 };
       scheduleTutorialTimer(() => {
-        revealTutorialDoneActions({ groupId, title: meta.title, text: answerText, position: cardPos, token });
-      }, last.delayMs + Math.round(last.durationSec * 1000) + 250, token);
-    } else {
-      scheduleTutorialTimer(() => {
-        revealTutorialDoneActions({ groupId, title: meta.title, text: answerText, position: cardPos, token });
-      }, 650, token);
+        target.audioResolveMidis.forEach((midi, idx) => {
+          const st = steps[idx] || { delayMs: idx * 320, durationSec: 0.5 };
+          scheduleTutorialTimer(() => {
+            audioEngine.playStep([midiToNote(midi)], st.durationSec, null, "interval");
+          }, st.delayMs, token);
+        });
+      }, timing.answerLeadMs, token);
     }
     return;
   }
 
-  // 4. Notenlesen (Klaviatur): passende Taste grün markieren + Ton anspielen, dann ruhig stehen bleiben
+  // Notenlesen (Klaviatur): passende Taste grün markieren + Bestätigungston nach kurzem Lesemoment
   if (groupId === "notation-keys") {
     const target = ex.targetItem;
     const pc = Number(target?.pc);
     const keyBtn = Array.from(document.querySelectorAll("#solfegeKeyboardWrap .piano-white-key:not(.piano-key-frame), #solfegeKeyboardWrap .piano-black-key"))
       .find(el => Number(el.dataset.pc) === pc);
     if (keyBtn) markTutorialTargetEl(keyBtn, ["key-correct"]);
-    const playNotes = getNotationPlayNotes(target);
-    if (playNotes?.length) {
-      audioEngine.playStep(playNotes, 0.9, null, "interval");
-    }
     scheduleTutorialTimer(() => {
-      revealTutorialDoneActions({ groupId, title: meta.title, text: answerText, position: cardPos, token });
-    }, 650, token);
+      playTutorialConfirmationAudio(ex, groupId);
+    }, timing.answerLeadMs, token);
     return;
   }
 
-  // 5. Alle Kachel-Übungen (Kadenz, Intervall, Akkord, Modi, Taktart/Groove, Noten-Akkorde, Studio)
+  // Alle Kachel-Übungen (Kadenz, Intervall, Akkord, Modi, Taktart/Groove, Noten-Akkorde, Studio)
   const targetKey = ex.targetItem?.key;
   const targetBtn = Array.from(document.querySelectorAll("#degreeButtonsGrid .degree-btn"))
     .find(el => el.dataset.choice === targetKey);
@@ -96967,17 +97231,12 @@ function runExerciseTutorialAnswerPhase(ex, groupId, meta, token) {
       if (romanEl && ex.targetItem?.roman) romanEl.textContent = ex.targetItem.roman;
       if (lblEl && ex.targetItem?.short) lblEl.textContent = ex.targetItem.short;
     }
-    if (ex.targetItem?.notes) {
-      audioEngine.playStep(ex.targetItem.notes, 1.15, ex.targetItem.bass, "cadence");
-    }
-  } else if (groupId === "notation-chords") {
-    const playNotes = getNotationPlayNotes(ex.targetItem);
-    if (playNotes?.length) audioEngine.playStep(playNotes, 1.15, null, "interval");
   }
 
+  // Kurzes Bestätigungs-Audio nach ruhigem Lesemoment (damit Ohr & Blick die Lösung verknüpfen)
   scheduleTutorialTimer(() => {
-    revealTutorialDoneActions({ groupId, title: meta.title, text: answerText, position: cardPos, token });
-  }, 650, token);
+    playTutorialConfirmationAudio(ex, groupId);
+  }, timing.answerLeadMs, token);
 }
 
 function initExerciseTutorialUI() {
@@ -99943,6 +100202,9 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("openCircleBtn")?.addEventListener("click", () => {
     openCircleOfFifthsView("tools");
   });
+  document.getElementById("openCapoBtn")?.addEventListener("click", () => {
+    openCapoView("tools");
+  });
   document.getElementById("openNashvilleBtn")?.addEventListener("click", () => {
     openNashvilleView("tools");
   });
@@ -101079,6 +101341,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 const WARMUP_KEY_CODES_BY_PC = ["C", "Db", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"];
 const WARMUP_FLAT_PITCH_CLASSES = new Set([1, 3, 5, 8, 10]);
+// Enharmonische Zuordnung passend zu MINOR_KEY_NAMES_DE/_INTL (cis/fis/gis mit #, es/b mit b)
+const WARMUP_MINOR_FLAT_PITCH_CLASSES = new Set([0, 2, 3, 5, 7, 10]);
 
 const WARMUP_VOICE_RANGES = {
   mixed:   { id: "mixed",   baseMidi: 60, de: "Chor-Mitte", en: "Choir Mid", subDe: "c¹–e²", subEn: "C4–E5" },
@@ -101170,6 +101434,90 @@ const WARMUP_STEP_CATALOG = {
     cueChordBeats: 1.25,
     breathGapBeats: 0.75,
     postRestBeats: 0.85,
+    staccato: false
+  },
+  "major-scale": {
+    id: "major-scale",
+    phaseId: "arpeggio",
+    isScale: true,
+    tonality: "major",
+    kind: "vocal-pattern",
+    titleDe: "Dur-Tonleiter (auf & ab)",
+    titleEn: "Major Scale (Up & Down)",
+    syllableDe: "La – la / Do – Re – Mi",
+    syllableEn: "La – la / Do – Re – Mi",
+    degreesText: "1 – 2 – 3 – 4 – 5 – 6 – 7 – 8 ↘ 1",
+    hintDe: "Gleichmäßig legato über die ganze Oktave singen – die Halbtonschritte 3–4 und 7–8 bewusst hoch denken.",
+    hintEn: "Sing smoothly legato across the full octave — keep half-steps 3–4 and 7–8 bright and lifted.",
+    semitones: [0, 2, 4, 5, 7, 9, 11, 12, 11, 9, 7, 5, 4, 2, 0],
+    noteBeats: [0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 1.44],
+    keyOffsets: [0, 1, 2, 3, 4],
+    cueChordBeats: 1.25,
+    breathGapBeats: 0.75,
+    postRestBeats: 0.9,
+    staccato: false
+  },
+  "minor-natural-scale": {
+    id: "minor-natural-scale",
+    phaseId: "arpeggio",
+    isScale: true,
+    tonality: "minor",
+    kind: "vocal-pattern",
+    titleDe: "Natürliches Moll (auf & ab)",
+    titleEn: "Natural Minor Scale (Up & Down)",
+    syllableDe: "Na – na – na",
+    syllableEn: "Na – na – na",
+    degreesText: "1 – 2 – ♭3 – 4 – 5 – ♭6 – ♭7 – 8 ↘ 1",
+    hintDe: "Weiche Moll-Farbe halten – auf die kleine Terz (♭3) und die entspannten Stufen ♭6 und ♭7 achten.",
+    hintEn: "Keep a warm minor color — listen closely to the minor 3rd (♭3) and relaxed ♭6 and ♭7.",
+    semitones: [0, 2, 3, 5, 7, 8, 10, 12, 10, 8, 7, 5, 3, 2, 0],
+    noteBeats: [0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 1.44],
+    keyOffsets: [0, 1, 2, 3, 4],
+    cueChordBeats: 1.25,
+    breathGapBeats: 0.75,
+    postRestBeats: 0.9,
+    staccato: false
+  },
+  "minor-harmonic-scale": {
+    id: "minor-harmonic-scale",
+    phaseId: "arpeggio",
+    isScale: true,
+    tonality: "minor",
+    kind: "vocal-pattern",
+    titleDe: "Harmonisches Moll (auf & ab)",
+    titleEn: "Harmonic Minor Scale (Up & Down)",
+    syllableDe: "Ma – ma – ma",
+    syllableEn: "Ma – ma – ma",
+    degreesText: "1 – 2 – ♭3 – 4 – 5 – ♭6 – 7 – 8 ↘ 1",
+    hintDe: "Zwischen ♭6 und erhöhter 7. Stufe sauber spannen – der Leitton (7) zieht eng zur Oktave.",
+    hintEn: "Span the wider step between ♭6 and raised 7 cleanly — let the leading tone (7) pull into the octave.",
+    semitones: [0, 2, 3, 5, 7, 8, 11, 12, 11, 8, 7, 5, 3, 2, 0],
+    noteBeats: [0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 1.44],
+    keyOffsets: [0, 1, 2, 3, 4],
+    cueChordBeats: 1.25,
+    breathGapBeats: 0.75,
+    postRestBeats: 0.9,
+    staccato: false
+  },
+  "minor-melodic-scale": {
+    id: "minor-melodic-scale",
+    phaseId: "arpeggio",
+    isScale: true,
+    tonality: "minor",
+    kind: "vocal-pattern",
+    titleDe: "Melodisches Moll (auf & ab)",
+    titleEn: "Melodic Minor Scale (Up & Down)",
+    syllableDe: "La – le – li – lo",
+    syllableEn: "La – le – li – lo",
+    degreesText: "↗ 1…♭3…6–7–8  •  ↘ ♭7–♭6…1",
+    hintDe: "Aufwärts mit hoher 6. und 7. Stufe fließend öffnen, abwärts weich über ♭7 und ♭6 natürlich zurückkehren.",
+    hintEn: "Ascend smoothly with raised 6th and 7th, then descend naturally through ♭7 and ♭6.",
+    semitones: [0, 2, 3, 5, 7, 9, 11, 12, 10, 8, 7, 5, 3, 2, 0],
+    noteBeats: [0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 1.44],
+    keyOffsets: [0, 1, 2, 3, 4],
+    cueChordBeats: 1.25,
+    breathGapBeats: 0.75,
+    postRestBeats: 0.9,
     staccato: false
   },
   "triad-syllables": {
@@ -101279,18 +101627,20 @@ const WARMUP_PRESETS = [
     circle: "circle-sage",
     titleDe: "5-Minuten Komplett-Einsingen",
     titleEn: "5-Min Complete Vocal Warmup",
-    descDe: "Alle 4 Phasen: Bauchatmung, Summen, modulierte Arpeggios & SATB-Chorklang",
-    descEn: "All 4 phases: deep breathing, humming, modulated arpeggios & SATB blend",
+    descDe: "Alle 4 Phasen: Atem, Summen, Tonleitern (Dur/Moll), Arpeggios & SATB-Chorklang",
+    descEn: "All 4 phases: breathing, humming, major & minor scales, arpeggios & SATB blend",
     steps: [
-      { id: "breath-circle" },
-      { id: "diaphragm-pulse" },
-      { id: "humming-wave" },
-      { id: "fifth-sigh" },
-      { id: "triad-syllables" },
-      { id: "octave-staccato" },
-      { id: "cool-down-arp" },
-      { id: "vowel-blend" },
-      { id: "choir-cadence" }
+      { id: "breath-circle", cycles: 3 },
+      { id: "diaphragm-pulse", rounds: 4 },
+      { id: "humming-wave", keyOffsets: [0, 1, 2, 3, 4] },
+      { id: "fifth-sigh", keyOffsets: [4, 3, 2, 1] },
+      { id: "major-scale", keyOffsets: [0, 1, 2] },
+      { id: "minor-natural-scale", keyOffsets: [0, 1, 2] },
+      { id: "triad-syllables", keyOffsets: [0, 1, 2, 3, 4] },
+      { id: "octave-staccato", keyOffsets: [2, 3, 4, 5] },
+      { id: "cool-down-arp", keyOffsets: [5, 4, 3, 2] },
+      { id: "vowel-blend", keyOffsets: [0, 2, 4] },
+      { id: "choir-cadence", keyOffsets: [0, 2] }
     ]
   },
   {
@@ -101308,6 +101658,23 @@ const WARMUP_PRESETS = [
       { id: "triad-syllables" },
       { id: "vowel-blend", keyOffsets: [0, 2] },
       { id: "choir-cadence", keyOffsets: [0, 2] }
+    ]
+  },
+  {
+    id: "scales-focus",
+    badge: "1↗8",
+    circle: "circle-peach",
+    titleDe: "Tonleitern (Dur & Moll)",
+    titleEn: "Scales (Major & Minor)",
+    descDe: "Ganze Oktav-Tonleitern singen: Dur sowie natürliches, harmonisches & melodisches Moll",
+    descEn: "Sing full octave scales: major plus natural, harmonic & melodic minor",
+    steps: [
+      { id: "humming-wave", keyOffsets: [0, 2, 4] },
+      { id: "major-scale" },
+      { id: "minor-natural-scale" },
+      { id: "minor-harmonic-scale" },
+      { id: "minor-melodic-scale" },
+      { id: "choir-cadence", keyOffsets: [0] }
     ]
   },
   {
@@ -101384,13 +101751,32 @@ function getWarmupPhaseInfo(phaseId) {
   };
 }
 
-function getWarmupKeyNameFromMidi(midi) {
+function getWarmupPhasePillLabel(phase, steps) {
+  if (phase.id === "arpeggio" && Array.isArray(steps)) {
+    const p3Steps = steps.filter(s => s.phaseId === "arpeggio");
+    const hasScales = p3Steps.some(s => s.isScale);
+    const hasNonScales = p3Steps.some(s => !s.isScale);
+    if (hasScales && !hasNonScales) return tr("3 Tonleitern", "3 Scales");
+    if (hasScales && hasNonScales) return tr("3 Umfang", "3 Range");
+  }
+  return tr(phase.shortDe, phase.shortEn);
+}
+
+function getWarmupStagePhaseLabel(step, phaseInfo) {
+  if (step?.phaseId === "arpeggio" && step?.isScale) {
+    return tr("PHASE 3 • TONLEITERN (DUR & MOLL)", "PHASE 3 • SCALES (MAJOR & MINOR)");
+  }
+  return phaseInfo.label;
+}
+
+function getWarmupKeyNameFromMidi(midi, tonality = "major") {
   const pc = ((midi % 12) + 12) % 12;
   const keyCode = WARMUP_KEY_CODES_BY_PC[pc] || "C";
+  const isMinor = tonality === "minor";
   return {
     keyCode,
-    keyName: getKeyDisplayName(keyCode),
-    preferFlat: WARMUP_FLAT_PITCH_CLASSES.has(pc)
+    keyName: getKeyDisplayName(keyCode, isMinor ? "minor" : "major"),
+    preferFlat: isMinor ? WARMUP_MINOR_FLAT_PITCH_CLASSES.has(pc) : WARMUP_FLAT_PITCH_CLASSES.has(pc)
   };
 }
 
@@ -101642,7 +102028,7 @@ function renderWarmupView() {
       const hasPhaseSteps = steps.some(s => s.phaseId === p.id);
       if (!hasPhaseSteps) return "";
       const cls = p.num < activePhaseNum ? "is-done" : (p.num === activePhaseNum ? "is-active" : "");
-      return `<button type="button" class="warmup-phase-pill ${cls}" data-warmup-phase="${p.id}">${tr(p.shortDe, p.shortEn)}</button>`;
+      return `<button type="button" class="warmup-phase-pill ${cls}" data-warmup-phase="${p.id}">${getWarmupPhasePillLabel(p, steps)}</button>`;
     }).join("");
     pillsWrap.querySelectorAll("[data-warmup-phase]").forEach(pill => {
       pill.addEventListener("click", () => {
@@ -101680,7 +102066,7 @@ function renderWarmupView() {
   if (phaseBadgeEl) {
     phaseBadgeEl.textContent = w.status === "completed"
       ? tr("EINSINGEN ABGESCHLOSSEN", "WARMUP COMPLETE")
-      : phaseInfo.label;
+      : getWarmupStagePhaseLabel(step, phaseInfo);
   }
 
   const orbWrap = document.getElementById("warmupBreathOrbWrap");
@@ -101718,7 +102104,8 @@ function renderWarmupView() {
     if (showDeg) degEl.textContent = step.degreesText;
   }
 
-  const keyInfo = getWarmupKeyNameFromMidi(tonicMidi);
+  const stepTonality = step.tonality === "minor" ? "minor" : "major";
+  const keyInfo = getWarmupKeyNameFromMidi(tonicMidi, stepTonality);
   const noteText = midiToGermanNote(tonicMidi, keyInfo.preferFlat);
   const keyBadgeEl = document.getElementById("warmupKeyNoteBadge");
   const roundTotal = getWarmupStepRoundCount(step);
@@ -101784,9 +102171,18 @@ function renderWarmupView() {
   state.updateHeaderSubtext();
 }
 
-function playWarmupMajorTriadCue(tonicMidi, durSec, soundMode) {
-  const notes = [midiToNote(tonicMidi), midiToNote(tonicMidi + 4), midiToNote(tonicMidi + 7)];
+function getWarmupCueTriadMidis(tonicMidi, tonality = "major") {
+  const third = tonality === "minor" ? 3 : 4;
+  return [tonicMidi, tonicMidi + third, tonicMidi + 7];
+}
+
+function playWarmupTriadCue(tonicMidi, durSec, soundMode, tonality = "major") {
+  const notes = getWarmupCueTriadMidis(tonicMidi, tonality).map(m => midiToNote(m));
   audioEngine.playWarmupNotes(soundMode, notes, durSec, true);
+}
+
+function playWarmupMajorTriadCue(tonicMidi, durSec, soundMode) {
+  playWarmupTriadCue(tonicMidi, durSec, soundMode, "major");
 }
 
 function runCurrentWarmupRound() {
@@ -101813,7 +102209,8 @@ function runCurrentWarmupRound() {
   const beatSec = 60 / Math.max(60, Math.min(140, w.bpm || WARMUP_DEFAULT_BPM));
   const beatMs = beatSec * 1000;
   const tonicMidi = getWarmupTonicMidi(step, w.keyOffsetIndex, w);
-  const keyInfo = getWarmupKeyNameFromMidi(tonicMidi);
+  const stepTonality = step.tonality === "minor" ? "minor" : "major";
+  const keyInfo = getWarmupKeyNameFromMidi(tonicMidi, stepTonality);
   w.currentTonicMidi = tonicMidi;
   w.activeMidis = [];
   w.vowelLabel = "";
@@ -101913,8 +102310,8 @@ function runCurrentWarmupRound() {
   // Cue-Akkord + kurze Einatem-Lücke vor allen gesungenen Übungen
   const cueMs = (step.cueChordBeats || 1.25) * beatMs;
   const startVocalMs = cueMs + (step.breathGapBeats || 0.75) * beatMs;
-  playWarmupMajorTriadCue(tonicMidi, Math.max(0.55, cueMs / 1000 * 0.92), w.soundMode);
-  w.activeMidis = [tonicMidi, tonicMidi + 4, tonicMidi + 7];
+  playWarmupTriadCue(tonicMidi, Math.max(0.55, cueMs / 1000 * 0.92), w.soundMode, stepTonality);
+  w.activeMidis = getWarmupCueTriadMidis(tonicMidi, stepTonality);
   updateWarmupKeyboardHighlights(tonicMidi, w.activeMidis);
 
   if (step.kind === "vowel-blend") {
@@ -102159,8 +102556,9 @@ async function replayWarmupRound() {
   const steps = getWarmupStepsForPreset(w.presetId);
   const step = steps[Math.max(0, Math.min(steps.length - 1, w.stepIndex))];
   const tonicMidi = getWarmupTonicMidi(step, w.keyOffsetIndex, w);
-  playWarmupMajorTriadCue(tonicMidi, 0.85, w.soundMode);
-  w.activeMidis = [tonicMidi, tonicMidi + 4, tonicMidi + 7];
+  const stepTonality = step?.tonality === "minor" ? "minor" : "major";
+  playWarmupTriadCue(tonicMidi, 0.85, w.soundMode, stepTonality);
+  w.activeMidis = getWarmupCueTriadMidis(tonicMidi, stepTonality);
   renderWarmupView();
 }
 
@@ -102181,7 +102579,8 @@ async function shiftWarmupTranspose(deltaSemitones) {
   } else {
     renderWarmupView();
     await ensureAudioReady();
-    playWarmupMajorTriadCue(previewTonic, 0.75, w.soundMode);
+    const stepTonality = step?.tonality === "minor" ? "minor" : "major";
+    playWarmupTriadCue(previewTonic, 0.75, w.soundMode, stepTonality);
   }
 }
 
@@ -108118,8 +108517,7 @@ function openFretboardView(returnView = "tools") {
 <script>
 // =====================================================
 // WERKZEUG: NASHVILLE NUMBER SYSTEM (#viewNashville)
-// Interaktives Tonarten-Diagramm, 12-Tonarten-Matrix &
-// unabhängiger Kapodaster-Übersetzer für Gitarre
+// Interaktives Tonarten-Diagramm & 12-Tonarten-Matrix
 // =====================================================
 
 const NNS_KEYS = [
@@ -108205,78 +108603,21 @@ const NNS_MINOR_DEGREES = [
   { token: "♭7", degreeIdx: 6, semitone: 10, quality: "maj", roman: "♭VII", fnKey: "dom",    fnSym: "dP", roleKey: "min_7" }
 ];
 
-// Bequeme offene Gitarren-Formen (CAGED für Dur, Em/Am/Dm für Moll)
-const NNS_CAPO_OPEN_SHAPES_MAJOR = [7, 0, 2, 9, 4]; // G, C, D, A, E
-const NNS_CAPO_OPEN_SHAPES_MINOR = [4, 9, 2];       // Em, Am, Dm
-
 let _nnsFlashTimers = [];
-let _nnsOpenDropdown = null; // "capoKey" | "capoFret" | null
-let _nnsOutsideClickBound = false;
 
 function getNashvilleState() {
   if (!state.nashvilleState) {
     state.nashvilleState = {
       keyIdx: 0,
-      mode: "major",
-      capoKeyIdx: 0,
-      capoMode: "major",
-      capoFret: 0
+      mode: "major"
     };
   }
-  if (typeof state.nashvilleState.capoKeyIdx !== "number" || Number.isNaN(state.nashvilleState.capoKeyIdx)) {
-    state.nashvilleState.capoKeyIdx = 0;
-  }
-  if (state.nashvilleState.capoMode !== "major" && state.nashvilleState.capoMode !== "minor") {
-    state.nashvilleState.capoMode = "major";
-  }
-  if (typeof state.nashvilleState.capoFret !== "number" || Number.isNaN(state.nashvilleState.capoFret)) {
-    state.nashvilleState.capoFret = 0;
-  }
   return state.nashvilleState;
-}
-
-function bindNashvilleOutsideClickCloser() {
-  if (_nnsOutsideClickBound || typeof document === "undefined") return;
-  _nnsOutsideClickBound = true;
-  document.addEventListener("click", (ev) => {
-    if (!_nnsOpenDropdown) return;
-    if (ev.target?.closest?.(".nns-capo-dropdown-anchor")) return;
-    closeNashvilleDropdowns();
-  });
-}
-
-function closeNashvilleDropdowns() {
-  if (!_nnsOpenDropdown) return false;
-  _nnsOpenDropdown = null;
-  const root = document.getElementById("nashvilleToolContent");
-  if (root) {
-    root.querySelectorAll("[data-nns-dropdown-menu]").forEach(m => m.classList.add("hidden"));
-    root.querySelectorAll("[data-nns-dropdown-trigger]").forEach(btn => {
-      btn.classList.remove("is-open");
-      btn.setAttribute("aria-expanded", "false");
-    });
-  }
-  return true;
 }
 
 function getNnsKeyByPc(pc) {
   const norm = ((pc % 12) + 12) % 12;
   return NNS_KEYS.find(k => k.pc === norm) || NNS_KEYS[0];
-}
-
-function getNnsCapoSuggestions(keyEntry, mode) {
-  const openShapes = mode === "minor" ? NNS_CAPO_OPEN_SHAPES_MINOR : NNS_CAPO_OPEN_SHAPES_MAJOR;
-  const list = [];
-  for (let fret = 0; fret <= 9; fret++) {
-    const shapePc = (keyEntry.pc - fret + 12) % 12;
-    if (openShapes.includes(shapePc)) {
-      const shapeKey = getNnsKeyByPc(shapePc);
-      const rawRoot = mode === "minor" ? shapeKey.minorScale[0] : shapeKey.majorScale[0];
-      const shapeLabel = formatNnsPitch(rawRoot) + (mode === "minor" ? "m" : "");
-      list.push({ fret, shapeKey, shapeLabel });
-    }
-  }
-  return list;
 }
 
 function nnsUseGermanH() {
@@ -108397,13 +108738,15 @@ function stopNashvillePlayback() {
   if (typeof audioEngine !== "undefined" && audioEngine?.stopPlayback) {
     audioEngine.stopPlayback();
   }
-  const root = document.getElementById("nashvilleToolContent");
-  if (root) {
-    root.querySelectorAll(".is-active-sound").forEach(el => el.classList.remove("is-active-sound"));
-  }
+  ["nashvilleToolContent", "capoToolContent"].forEach(id => {
+    const root = document.getElementById(id);
+    if (root) {
+      root.querySelectorAll(".is-active-sound").forEach(el => el.classList.remove("is-active-sound"));
+    }
+  });
 }
 
-function playNnsSingleToken(token, keyIdx, mode = "major", flashAttr = null, flashVal = null, preferGuitar = false) {
+function playNnsSingleToken(token, keyIdx, mode = "major", flashAttr = null, flashVal = null, preferGuitar = false, flashRootId = "nashvilleToolContent") {
   stopNashvillePlayback();
   if (typeof prepareAudioNonBlocking === "function") {
     prepareAudioNonBlocking();
@@ -108420,18 +108763,18 @@ function playNnsSingleToken(token, keyIdx, mode = "major", flashAttr = null, fla
     }
   }
   if (flashAttr && flashVal) {
-    flashNnsElements(flashAttr, flashVal);
+    flashNnsElements(flashAttr, flashVal, flashRootId);
   }
 }
 
-function flashNnsElements(attrName, val) {
-  const root = document.getElementById("nashvilleToolContent");
+function flashNnsElements(attrName, val, rootId = "nashvilleToolContent") {
+  const root = document.getElementById(rootId);
   if (!root) return;
   root.querySelectorAll(`[${attrName}]`).forEach(el => {
     el.classList.toggle("is-active-sound", el.getAttribute(attrName) === val);
   });
   const tId = setTimeout(() => {
-    const cur = document.getElementById("nashvilleToolContent");
+    const cur = document.getElementById(rootId);
     if (!cur) return;
     cur.querySelectorAll(".is-active-sound").forEach(el => el.classList.remove("is-active-sound"));
   }, 620);
@@ -108546,7 +108889,6 @@ function buildNnsChevronSvg() {
 function renderNashvilleView() {
   const container = document.getElementById("nashvilleToolContent");
   if (!container) return;
-  bindNashvilleOutsideClickCloser();
 
   const nns = getNashvilleState();
   const safeKeyIdx = ((nns.keyIdx % NNS_KEYS.length) + NNS_KEYS.length) % NNS_KEYS.length;
@@ -108558,26 +108900,6 @@ function renderNashvilleView() {
   const resolvedDegrees = degrees.map(d => resolveNnsToken(d.token, keyEntry, mode));
   const keyTitle = formatNnsKeyTitle(keyEntry, mode);
   const relMinorName = formatNnsPitch(keyEntry.majorScale[5]) + "m";
-
-  // Unabhängiger Zustand für den Kapodaster-Übersetzer
-  const safeCapoKeyIdx = ((nns.capoKeyIdx % NNS_KEYS.length) + NNS_KEYS.length) % NNS_KEYS.length;
-  nns.capoKeyIdx = safeCapoKeyIdx;
-  const capoKeyEntry = NNS_KEYS[safeCapoKeyIdx];
-  const capoMode = nns.capoMode === "minor" ? "minor" : "major";
-  const capoFret = Math.max(0, Math.min(9, parseInt(nns.capoFret, 10) || 0));
-  nns.capoFret = capoFret;
-
-  const capoDegrees = capoMode === "minor" ? NNS_MINOR_DEGREES : NNS_MAJOR_DEGREES;
-  const capoSoundingTitle = formatNnsKeyTitle(capoKeyEntry, capoMode);
-  const capoSoundingResolved = capoDegrees.map(d => resolveNnsToken(d.token, capoKeyEntry, capoMode));
-  const capoShapePc = (capoKeyEntry.pc - capoFret + 12) % 12;
-  const capoShapeKey = getNnsKeyByPc(capoShapePc);
-  const capoShapeTitle = formatNnsKeyTitle(capoShapeKey, capoMode);
-  const capoShapeResolved = capoDegrees.map(d => resolveNnsToken(d.token, capoShapeKey, capoMode));
-  const capoSuggestions = getNnsCapoSuggestions(capoKeyEntry, capoMode);
-
-  const isKeyMenuOpen = _nnsOpenDropdown === "capoKey";
-  const isFretMenuOpen = _nnsOpenDropdown === "capoFret";
 
   container.innerHTML = `
     <!-- 1. TONART & MODUS (FÜR DIAGRAMM & 12-TONARTEN-MATRIX) -->
@@ -108699,109 +109021,7 @@ function renderNashvilleView() {
       </div>
     </section>
 
-    <!-- 4. UNABHÄNGIGER KAPODASTER-ÜBERSETZER FÜR GITARRE -->
-    <section class="k-card nns-card nns-capo-card">
-      <div class="nns-card-head">
-        <div>
-          <span class="k-card-tag tag-peach">${tr("Gitarren-Praxis", "Guitar Practice")}</span>
-          <h3 class="nns-section-title">${tr("Kapodaster-Übersetzer", "Capo Translator")}</h3>
-        </div>
-        <div class="nns-mode-toggle" role="tablist" aria-label="${escapeHtml(tr("Tongeschlecht", "Key Mode"))}">
-          <button type="button" class="nns-mode-btn${capoMode === "major" ? " active" : ""}" data-nns-capo-mode="major" role="tab" aria-selected="${capoMode === "major"}">${tr("Dur (Standard)", "Major (Standard)")}</button>
-          <button type="button" class="nns-mode-btn${capoMode === "minor" ? " active" : ""}" data-nns-capo-mode="minor" role="tab" aria-selected="${capoMode === "minor"}">${tr("Moll (1-)", "Minor (1-)")}</button>
-        </div>
-      </div>
-
-      <div class="nns-capo-summary">
-        <!-- Klickbares Dropdown: Klingende Ausgangstonart -->
-        <div class="nns-capo-dropdown-anchor">
-          <button type="button"
-                  class="nns-capo-stat is-interactive${isKeyMenuOpen ? " is-open" : ""}"
-                  data-nns-dropdown-trigger="capoKey"
-                  aria-haspopup="listbox"
-                  aria-expanded="${isKeyMenuOpen}">
-            <span class="nns-capo-stat-lbl">${tr("Klingt in", "Sounds in")} ${buildNnsChevronSvg()}</span>
-            <strong class="nns-capo-stat-val">${escapeHtml(capoSoundingTitle)}</strong>
-          </button>
-          <div class="nns-capo-dropdown-menu${isKeyMenuOpen ? "" : " hidden"}" data-nns-dropdown-menu="capoKey" role="listbox" aria-label="${escapeHtml(tr("Klingende Ausgangstonart", "Sounding key"))}">
-            ${NNS_KEYS.map((k, idx) => {
-              const title = formatNnsKeyTitle(k, capoMode);
-              const sig = capoMode === "minor" ? k.minorSig : k.sig;
-              const isSel = idx === safeCapoKeyIdx;
-              return `
-                <button type="button" class="nns-capo-dropdown-opt${isSel ? " is-selected" : ""}" data-nns-capo-key="${idx}" role="option" aria-selected="${isSel}">
-                  <span>${escapeHtml(title)}</span>
-                  <small>${escapeHtml(sig)}</small>
-                </button>
-              `;
-            }).join("")}
-          </div>
-        </div>
-
-        <span class="nns-capo-arrow" aria-hidden="true">→</span>
-
-        <!-- Klickbares Dropdown: Kapodaster-Bund -->
-        <div class="nns-capo-dropdown-anchor">
-          <button type="button"
-                  class="nns-capo-stat is-capo is-interactive${isFretMenuOpen ? " is-open" : ""}"
-                  data-nns-dropdown-trigger="capoFret"
-                  aria-haspopup="listbox"
-                  aria-expanded="${isFretMenuOpen}">
-            <span class="nns-capo-stat-lbl">${tr("Kapodaster", "Capo")} ${buildNnsChevronSvg()}</span>
-            <strong class="nns-capo-stat-val">${capoFret === 0 ? tr("Ohne Kapo", "No Capo") : tf("Bund {n}", "Fret {n}", { n: capoFret })}</strong>
-          </button>
-          <div class="nns-capo-dropdown-menu${isFretMenuOpen ? "" : " hidden"}" data-nns-dropdown-menu="capoFret" role="listbox" aria-label="${escapeHtml(tr("Kapodaster-Bund", "Capo Fret"))}">
-            ${Array.from({ length: 10 }, (_, f) => {
-              const resShapeKey = getNnsKeyByPc((capoKeyEntry.pc - f + 12) % 12);
-              const resShapeTitle = formatNnsKeyTitle(resShapeKey, capoMode);
-              const isSel = f === capoFret;
-              return `
-                <button type="button" class="nns-capo-dropdown-opt${isSel ? " is-selected" : ""}" data-nns-capo="${f}" role="option" aria-selected="${isSel}">
-                  <span>${f === 0 ? tr("Ohne Kapo", "No Capo") : tf("Bund {n}", "Fret {n}", { n: f })}</span>
-                  <small>${escapeHtml(resShapeTitle)}</small>
-                </button>
-              `;
-            }).join("")}
-          </div>
-        </div>
-
-        <span class="nns-capo-arrow" aria-hidden="true">→</span>
-
-        <div class="nns-capo-stat is-shape">
-          <span class="nns-capo-stat-lbl">${tr("Greife wie in", "Play shapes of")}</span>
-          <strong class="nns-capo-stat-val">${escapeHtml(capoShapeTitle)}</strong>
-        </div>
-      </div>
-
-      <div class="nns-capo-subblock">
-        <div class="nns-extras-label">${tr("Bequeme offene Gitarren-Formen für diese Tonart:", "Comfortable open guitar shapes for this key:")}</div>
-        <div class="nns-capo-suggest-row">
-          ${capoSuggestions.map(s => `
-            <button type="button" class="nns-capo-suggest-chip${s.fret === capoFret ? " active" : ""}" data-nns-capo="${s.fret}">
-              <span>${s.fret === 0 ? tr("Offen (0)", "Open (0)") : tf("Kapo {n}", "Capo {n}", { n: s.fret })}</span>
-              <strong>${tf("{shape}-Form", "{shape} shapes", { shape: s.shapeLabel })}</strong>
-            </button>
-          `).join("")}
-        </div>
-      </div>
-
-      <div class="nns-capo-grid">
-        ${capoShapeResolved.map((shapeItem, idx) => {
-          const soundingItem = capoSoundingResolved[idx];
-          return `
-            <button type="button" class="nns-capo-tile nns-fn-${shapeItem.fnKey}"
-                    data-nns-capo-play="${escapeHtml(soundingItem.token)}"
-                    data-nns-capo-flash="${escapeHtml(soundingItem.token)}">
-              <span class="nns-capo-num">${escapeHtml(shapeItem.token)}</span>
-              <span class="nns-capo-shape-chord">${escapeHtml(shapeItem.chordName)}</span>
-              <span class="nns-capo-sound-chord">${capoFret === 0 ? escapeHtml(shapeItem.roman) : tf("= {chord}", "= {chord}", { chord: soundingItem.chordName })}</span>
-            </button>
-          `;
-        }).join("")}
-      </div>
-    </section>
-
-    <!-- 5. DIREKT-LINK ZUM WISSENSARTIKEL -->
+    <!-- 4. DIREKT-LINK ZUM WISSENSARTIKEL -->
     <button type="button" id="nnsOpenArticleBtn" class="category-nav-card card-accent-lilac category-card-wide nns-article-link-card">
       <div class="cat-icon-box badge-lilac">
         <svg class="icon-svg-large" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -108823,11 +109043,9 @@ function renderNashvilleView() {
 function bindNashvilleViewEvents(container) {
   const nns = getNashvilleState();
 
-  // Oberes Diagramm + 12-Tonarten-Matrix (unabhängig vom Kapodaster-Übersetzer)
   container.querySelectorAll("[data-nns-key]").forEach(btn => {
     btn.addEventListener("click", () => {
       stopNashvillePlayback();
-      _nnsOpenDropdown = null;
       nns.keyIdx = parseInt(btn.dataset.nnsKey || "0", 10);
       renderNashvilleView();
     });
@@ -108836,61 +109054,11 @@ function bindNashvilleViewEvents(container) {
   container.querySelectorAll("[data-nns-mode]").forEach(btn => {
     btn.addEventListener("click", () => {
       stopNashvillePlayback();
-      _nnsOpenDropdown = null;
       const nextMode = btn.dataset.nnsMode === "minor" ? "minor" : "major";
       if (nns.mode !== nextMode) {
         nns.mode = nextMode;
         renderNashvilleView();
       }
-    });
-  });
-
-  // Kapodaster-Übersetzer: unabhängiger Dur/Moll-Umschalter
-  container.querySelectorAll("[data-nns-capo-mode]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      stopNashvillePlayback();
-      _nnsOpenDropdown = null;
-      const nextMode = btn.dataset.nnsCapoMode === "minor" ? "minor" : "major";
-      if (nns.capoMode !== nextMode) {
-        nns.capoMode = nextMode;
-        renderNashvilleView();
-      }
-    });
-  });
-
-  // Kapodaster-Dropdown-Trigger ("Klingt in" & "Kapodaster")
-  container.querySelectorAll("[data-nns-dropdown-trigger]").forEach(btn => {
-    btn.addEventListener("click", (ev) => {
-      ev.stopPropagation();
-      const targetKey = btn.dataset.nnsDropdownTrigger;
-      _nnsOpenDropdown = (_nnsOpenDropdown === targetKey) ? null : targetKey;
-      renderNashvilleView();
-      if (_nnsOpenDropdown) {
-        const opened = document.querySelector(`#nashvilleToolContent [data-nns-dropdown-menu="${_nnsOpenDropdown}"]`);
-        opened?.querySelector(".is-selected")?.scrollIntoView?.({ block: "nearest" });
-      }
-    });
-  });
-
-  // Auswahl im "Klingt in"-Dropdown
-  container.querySelectorAll("[data-nns-capo-key]").forEach(btn => {
-    btn.addEventListener("click", (ev) => {
-      ev.stopPropagation();
-      stopNashvillePlayback();
-      _nnsOpenDropdown = null;
-      nns.capoKeyIdx = parseInt(btn.dataset.nnsCapoKey || "0", 10);
-      renderNashvilleView();
-    });
-  });
-
-  // Auswahl im "Kapodaster"-Dropdown oder über offene Formen-Chips
-  container.querySelectorAll("[data-nns-capo]").forEach(btn => {
-    btn.addEventListener("click", (ev) => {
-      ev.stopPropagation();
-      stopNashvillePlayback();
-      _nnsOpenDropdown = null;
-      nns.capoFret = Math.max(0, Math.min(9, parseInt(btn.dataset.nnsCapo || "0", 10) || 0));
-      renderNashvilleView();
     });
   });
 
@@ -108910,13 +109078,6 @@ function bindNashvilleViewEvents(container) {
     }
   });
 
-  container.querySelectorAll("[data-nns-capo-play]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const tok = btn.dataset.nnsCapoPlay;
-      playNnsSingleToken(tok, nns.capoKeyIdx, nns.capoMode, "data-nns-capo-flash", tok, true);
-    });
-  });
-
   container.querySelectorAll("[data-nns-cell-key]").forEach(btn => {
     btn.addEventListener("click", () => {
       const kIdx = parseInt(btn.dataset.nnsCellKey || "0", 10);
@@ -108930,7 +109091,6 @@ function bindNashvilleViewEvents(container) {
 
   container.querySelector("#nnsOpenArticleBtn")?.addEventListener("click", () => {
     stopNashvillePlayback();
-    _nnsOpenDropdown = null;
     if (typeof openKnowledgeArticle === "function") {
       openKnowledgeArticle("art-nashville-number-system", { returnView: "nashville" });
     }
@@ -108938,9 +109098,283 @@ function bindNashvilleViewEvents(container) {
 }
 
 function openNashvilleView(returnView = "tools") {
-  _nnsOpenDropdown = null;
   state.nashvilleReturnView = returnView;
   switchView("nashville");
+}
+
+</script>
+<script>
+// =====================================================
+// WERKZEUG: KAPODASTER-ÜBERSETZER (#viewCapo)
+// Eigenständiges Gitarren-Werkzeug: Klingende Tonart,
+// Kapodaster-Bund (0–11) & Greif-Tonart mit Priorität
+// auf „Klingt in“ sowie direkt anhörbaren Akkorden.
+// Nutzt die gemeinsamen Tonarten-/Akkord-Helfer aus js/nashville.js.
+// =====================================================
+
+let _capoOpenDropdown = null; // "capoKey" | "capoFret" | "capoShape" | null
+let _capoOutsideClickBound = false;
+
+function getCapoState() {
+  if (!state.capoState) {
+    state.capoState = {
+      keyIdx: 0,
+      mode: "major",
+      fret: 0
+    };
+  }
+  if (typeof state.capoState.keyIdx !== "number" || Number.isNaN(state.capoState.keyIdx)) {
+    state.capoState.keyIdx = 0;
+  }
+  if (state.capoState.mode !== "major" && state.capoState.mode !== "minor") {
+    state.capoState.mode = "major";
+  }
+  if (typeof state.capoState.fret !== "number" || Number.isNaN(state.capoState.fret)) {
+    state.capoState.fret = 0;
+  }
+  return state.capoState;
+}
+
+function bindCapoOutsideClickCloser() {
+  if (_capoOutsideClickBound || typeof document === "undefined") return;
+  _capoOutsideClickBound = true;
+  document.addEventListener("click", (ev) => {
+    if (!_capoOpenDropdown) return;
+    if (ev.target?.closest?.(".nns-capo-dropdown-anchor")) return;
+    closeCapoDropdowns();
+  });
+}
+
+function closeCapoDropdowns() {
+  if (!_capoOpenDropdown) return false;
+  _capoOpenDropdown = null;
+  const root = document.getElementById("capoToolContent");
+  if (root) {
+    root.querySelectorAll("[data-nns-dropdown-menu]").forEach(m => m.classList.add("hidden"));
+    root.querySelectorAll("[data-nns-dropdown-trigger]").forEach(btn => {
+      btn.classList.remove("is-open");
+      btn.setAttribute("aria-expanded", "false");
+    });
+  }
+  return true;
+}
+
+function renderCapoView() {
+  const container = document.getElementById("capoToolContent");
+  if (!container) return;
+  bindCapoOutsideClickCloser();
+
+  const capo = getCapoState();
+  const safeKeyIdx = ((capo.keyIdx % NNS_KEYS.length) + NNS_KEYS.length) % NNS_KEYS.length;
+  capo.keyIdx = safeKeyIdx;
+  const capoKeyEntry = NNS_KEYS[safeKeyIdx];
+  const capoMode = capo.mode === "minor" ? "minor" : "major";
+  const capoFret = Math.max(0, Math.min(11, parseInt(capo.fret, 10) || 0));
+  capo.fret = capoFret;
+
+  const capoDegrees = capoMode === "minor" ? NNS_MINOR_DEGREES : NNS_MAJOR_DEGREES;
+  const capoSoundingTitle = formatNnsKeyTitle(capoKeyEntry, capoMode);
+  const capoSoundingResolved = capoDegrees.map(d => resolveNnsToken(d.token, capoKeyEntry, capoMode));
+  const capoShapePc = (capoKeyEntry.pc - capoFret + 12) % 12;
+  const capoShapeKey = getNnsKeyByPc(capoShapePc);
+  const capoShapeTitle = formatNnsKeyTitle(capoShapeKey, capoMode);
+  const capoShapeResolved = capoDegrees.map(d => resolveNnsToken(d.token, capoShapeKey, capoMode));
+
+  const isKeyMenuOpen = _capoOpenDropdown === "capoKey";
+  const isFretMenuOpen = _capoOpenDropdown === "capoFret";
+  const isShapeMenuOpen = _capoOpenDropdown === "capoShape";
+
+  container.innerHTML = `
+    <section class="k-card nns-card nns-capo-card">
+      <div class="nns-card-head">
+        <div>
+          <span class="k-card-tag tag-peach">${tr("Gitarren-Praxis", "Guitar Practice")}</span>
+          <h3 class="nns-section-title">${tr("Kapodaster-Übersetzer", "Capo Translator")}</h3>
+        </div>
+        <div class="nns-mode-toggle" role="tablist" aria-label="${escapeHtml(tr("Tongeschlecht", "Key Mode"))}">
+          <button type="button" class="nns-mode-btn${capoMode === "major" ? " active" : ""}" data-capo-mode="major" role="tab" aria-selected="${capoMode === "major"}">${tr("Dur (Standard)", "Major (Standard)")}</button>
+          <button type="button" class="nns-mode-btn${capoMode === "minor" ? " active" : ""}" data-capo-mode="minor" role="tab" aria-selected="${capoMode === "minor"}">${tr("Moll (1-)", "Minor (1-)")}</button>
+        </div>
+      </div>
+
+      <div class="nns-capo-summary">
+        <!-- Klickbares Dropdown: Klingende Ausgangstonart (Priorität) -->
+        <div class="nns-capo-dropdown-anchor">
+          <button type="button"
+                  class="nns-capo-stat is-interactive${isKeyMenuOpen ? " is-open" : ""}"
+                  data-nns-dropdown-trigger="capoKey"
+                  aria-haspopup="listbox"
+                  aria-expanded="${isKeyMenuOpen}">
+            <span class="nns-capo-stat-lbl">${tr("Klingt in", "Sounds in")} ${buildNnsChevronSvg()}</span>
+            <strong class="nns-capo-stat-val">${escapeHtml(capoSoundingTitle)}</strong>
+          </button>
+          <div class="nns-capo-dropdown-menu${isKeyMenuOpen ? "" : " hidden"}" data-nns-dropdown-menu="capoKey" role="listbox" aria-label="${escapeHtml(tr("Klingende Ausgangstonart", "Sounding key"))}">
+            ${NNS_KEYS.map((k, idx) => {
+              const title = formatNnsKeyTitle(k, capoMode);
+              const sig = capoMode === "minor" ? k.minorSig : k.sig;
+              const isSel = idx === safeKeyIdx;
+              return `
+                <button type="button" class="nns-capo-dropdown-opt${isSel ? " is-selected" : ""}" data-capo-key="${idx}" role="option" aria-selected="${isSel}">
+                  <span>${escapeHtml(title)}</span>
+                  <small>${escapeHtml(sig)}</small>
+                </button>
+              `;
+            }).join("")}
+          </div>
+        </div>
+
+        <span class="nns-capo-arrow" aria-hidden="true">→</span>
+
+        <!-- Klickbares Dropdown: Kapodaster-Bund -->
+        <div class="nns-capo-dropdown-anchor">
+          <button type="button"
+                  class="nns-capo-stat is-capo is-interactive${isFretMenuOpen ? " is-open" : ""}"
+                  data-nns-dropdown-trigger="capoFret"
+                  aria-haspopup="listbox"
+                  aria-expanded="${isFretMenuOpen}">
+            <span class="nns-capo-stat-lbl">${tr("Kapodaster", "Capo")} ${buildNnsChevronSvg()}</span>
+            <strong class="nns-capo-stat-val">${capoFret === 0 ? tr("Ohne Kapo", "No Capo") : tf("Bund {n}", "Fret {n}", { n: capoFret })}</strong>
+          </button>
+          <div class="nns-capo-dropdown-menu${isFretMenuOpen ? "" : " hidden"}" data-nns-dropdown-menu="capoFret" role="listbox" aria-label="${escapeHtml(tr("Kapodaster-Bund", "Capo Fret"))}">
+            ${Array.from({ length: 12 }, (_, f) => {
+              const resShapeKey = getNnsKeyByPc((capoKeyEntry.pc - f + 12) % 12);
+              const resShapeTitle = formatNnsKeyTitle(resShapeKey, capoMode);
+              const isSel = f === capoFret;
+              return `
+                <button type="button" class="nns-capo-dropdown-opt${isSel ? " is-selected" : ""}" data-capo-fret="${f}" role="option" aria-selected="${isSel}">
+                  <span>${f === 0 ? tr("Ohne Kapo", "No Capo") : tf("Bund {n}", "Fret {n}", { n: f })}</span>
+                  <small>${escapeHtml(resShapeTitle)}</small>
+                </button>
+              `;
+            }).join("")}
+          </div>
+        </div>
+
+        <span class="nns-capo-arrow" aria-hidden="true">→</span>
+
+        <!-- Klickbares Dropdown: Greif-Tonart (Klingt in bleibt Priorität -> Kapo-Bund passt sich an) -->
+        <div class="nns-capo-dropdown-anchor">
+          <button type="button"
+                  class="nns-capo-stat is-shape is-interactive${isShapeMenuOpen ? " is-open" : ""}"
+                  data-nns-dropdown-trigger="capoShape"
+                  aria-haspopup="listbox"
+                  aria-expanded="${isShapeMenuOpen}">
+            <span class="nns-capo-stat-lbl">${tr("Greife wie in", "Play shapes of")} ${buildNnsChevronSvg()}</span>
+            <strong class="nns-capo-stat-val">${escapeHtml(capoShapeTitle)}</strong>
+          </button>
+          <div class="nns-capo-dropdown-menu${isShapeMenuOpen ? "" : " hidden"}" data-nns-dropdown-menu="capoShape" role="listbox" aria-label="${escapeHtml(tr("Greife wie in", "Play shapes of"))}">
+            ${NNS_KEYS.map((k) => {
+              const title = formatNnsKeyTitle(k, capoMode);
+              const reqFret = (capoKeyEntry.pc - k.pc + 12) % 12;
+              const fretLabel = reqFret === 0 ? tr("Ohne Kapo", "No Capo") : tf("Bund {n}", "Fret {n}", { n: reqFret });
+              const isSel = k.pc === capoShapeKey.pc;
+              return `
+                <button type="button" class="nns-capo-dropdown-opt${isSel ? " is-selected" : ""}" data-capo-shape-pc="${k.pc}" role="option" aria-selected="${isSel}">
+                  <span>${escapeHtml(title)}</span>
+                  <small>${escapeHtml(fretLabel)}</small>
+                </button>
+              `;
+            }).join("")}
+          </div>
+        </div>
+      </div>
+
+      <div class="nns-capo-grid">
+        ${capoShapeResolved.map((shapeItem, idx) => {
+          const soundingItem = capoSoundingResolved[idx];
+          return `
+            <button type="button" class="nns-capo-tile nns-fn-${shapeItem.fnKey}"
+                    data-capo-play="${escapeHtml(soundingItem.token)}"
+                    data-capo-flash="${escapeHtml(soundingItem.token)}">
+              <span class="nns-capo-num">${escapeHtml(shapeItem.token)}</span>
+              <span class="nns-capo-shape-chord">${escapeHtml(shapeItem.chordName)}</span>
+              <span class="nns-capo-sound-chord">${capoFret === 0 ? escapeHtml(shapeItem.roman) : tf("= {chord}", "= {chord}", { chord: soundingItem.chordName })}</span>
+            </button>
+          `;
+        }).join("")}
+      </div>
+    </section>
+  `;
+
+  bindCapoViewEvents(container);
+}
+
+function bindCapoViewEvents(container) {
+  const capo = getCapoState();
+
+  container.querySelectorAll("[data-capo-mode]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      stopNashvillePlayback();
+      _capoOpenDropdown = null;
+      const nextMode = btn.dataset.capoMode === "minor" ? "minor" : "major";
+      if (capo.mode !== nextMode) {
+        capo.mode = nextMode;
+        renderCapoView();
+      }
+    });
+  });
+
+  container.querySelectorAll("[data-nns-dropdown-trigger]").forEach(btn => {
+    btn.addEventListener("click", (ev) => {
+      ev.stopPropagation();
+      const targetKey = btn.dataset.nnsDropdownTrigger;
+      _capoOpenDropdown = (_capoOpenDropdown === targetKey) ? null : targetKey;
+      renderCapoView();
+      if (_capoOpenDropdown) {
+        const opened = document.querySelector(`#capoToolContent [data-nns-dropdown-menu="${_capoOpenDropdown}"]`);
+        opened?.querySelector(".is-selected")?.scrollIntoView?.({ block: "nearest" });
+      }
+    });
+  });
+
+  // Auswahl im "Klingt in"-Dropdown (Priorität: Kapo bleibt, Greif-Tonart passt sich an)
+  container.querySelectorAll("[data-capo-key]").forEach(btn => {
+    btn.addEventListener("click", (ev) => {
+      ev.stopPropagation();
+      stopNashvillePlayback();
+      _capoOpenDropdown = null;
+      capo.keyIdx = parseInt(btn.dataset.capoKey || "0", 10);
+      renderCapoView();
+    });
+  });
+
+  // Auswahl im "Kapodaster"-Dropdown (Klingt in bleibt Priorität -> Greif-Tonart passt sich an)
+  container.querySelectorAll("[data-capo-fret]").forEach(btn => {
+    btn.addEventListener("click", (ev) => {
+      ev.stopPropagation();
+      stopNashvillePlayback();
+      _capoOpenDropdown = null;
+      capo.fret = Math.max(0, Math.min(11, parseInt(btn.dataset.capoFret || "0", 10) || 0));
+      renderCapoView();
+    });
+  });
+
+  // Auswahl im "Greife wie in"-Dropdown (Klingt in bleibt Priorität -> Kapo-Bund passt sich an)
+  container.querySelectorAll("[data-capo-shape-pc]").forEach(btn => {
+    btn.addEventListener("click", (ev) => {
+      ev.stopPropagation();
+      stopNashvillePlayback();
+      _capoOpenDropdown = null;
+      const shapePc = parseInt(btn.dataset.capoShapePc || "0", 10);
+      const safeKeyIdx = ((capo.keyIdx % NNS_KEYS.length) + NNS_KEYS.length) % NNS_KEYS.length;
+      const soundingPc = NNS_KEYS[safeKeyIdx].pc;
+      capo.fret = (soundingPc - shapePc + 12) % 12;
+      renderCapoView();
+    });
+  });
+
+  container.querySelectorAll("[data-capo-play]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const tok = btn.dataset.capoPlay;
+      playNnsSingleToken(tok, capo.keyIdx, capo.mode, "data-capo-flash", tok, true, "capoToolContent");
+    });
+  });
+}
+
+function openCapoView(returnView = "tools") {
+  _capoOpenDropdown = null;
+  state.capoReturnView = returnView;
+  switchView("capo");
 }
 
 </script>
