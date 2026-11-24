@@ -684,6 +684,13 @@ function applyThemeAndAppearance() {
     theme = "waldlichtung";
     saveVisualPrefs(appearance, theme, state.settings.language);
   }
+  if (typeof getBonusThemeLockInfo === "function") {
+    const activeBonus = getBonusThemeLockInfo(theme);
+    if (activeBonus.isBonus && !activeBonus.unlocked) {
+      theme = "waldlichtung";
+      saveVisualPrefs(appearance, theme, state.settings.language);
+    }
+  }
   const effective = customEntry
     ? (customEntry.isDark ? "dark" : "light")
     : (theme === "metal" ? "dark" : resolveEffectiveAppearance(appearance));
@@ -728,13 +735,25 @@ function applyThemeAndAppearance() {
     const builtInEffective = resolveEffectiveAppearance(appearance);
     document.querySelectorAll("[data-theme-choice], [data-welcome-theme]").forEach(card => {
       const cardTheme = card.dataset?.themeChoice || card.dataset?.welcomeTheme;
-      const isSelected = cardTheme === theme;
+      const bonusInfo = typeof getBonusThemeLockInfo === "function" ? getBonusThemeLockInfo(cardTheme) : { isBonus: false, unlocked: true };
+      const isLocked = Boolean(bonusInfo.isBonus && !bonusInfo.unlocked);
+      const isSelected = !isLocked && cardTheme === theme;
       card.classList?.toggle("active", isSelected);
+      card.classList?.toggle("is-bonus-locked", isLocked);
       card.setAttribute?.("aria-pressed", String(isSelected));
+      if (isLocked) {
+        card.setAttribute?.("aria-disabled", "true");
+      } else {
+        card.removeAttribute?.("aria-disabled");
+      }
 
       const statusEl = typeof card.querySelector === "function" ? card.querySelector(".theme-status") : null;
       if (statusEl) {
-        statusEl.textContent = isSelected ? tr("Aktiv", "Active") : tr("Auswählen", "Select");
+        if (isLocked && typeof formatAchievementUI === "function") {
+          statusEl.textContent = formatAchievementUI("lockAt", { n: bonusInfo.requiredCount });
+        } else {
+          statusEl.textContent = isSelected ? tr("Aktiv", "Active") : tr("Auswählen", "Select");
+        }
       }
 
       const customCard = getCustomThemeEntry(cardTheme);
@@ -768,6 +787,15 @@ function setAppearancePreference(nextAppearance) {
 }
 
 function setThemePreference(nextTheme) {
+  if (typeof getBonusThemeLockInfo === "function") {
+    const bonusInfo = getBonusThemeLockInfo(nextTheme);
+    if (bonusInfo.isBonus && !bonusInfo.unlocked) {
+      if (typeof showAppToast === "function" && typeof formatAchievementUI === "function") {
+        showAppToast(formatAchievementUI("lockNeedMore", { n: bonusInfo.remaining }), "info", 3200);
+      }
+      return;
+    }
+  }
   const valid = ALL_VALID_THEMES.includes(nextTheme)
     && (!CUSTOM_THEME_SLOT_IDS.includes(nextTheme) || Boolean(getCustomThemeEntry(nextTheme)));
   state.settings.theme = valid ? nextTheme : "waldlichtung";

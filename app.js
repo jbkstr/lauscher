@@ -205,6 +205,9 @@ document.addEventListener("DOMContentLoaded", () => {
       state.profile.mixes = [created, ...(state.profile.mixes || [])].slice(0, 16);
       saveUserProfile(state.profile);
       renderProfileMixes();
+      if (typeof recordAchievementEvent === "function") {
+        recordAchievementEvent({ type: "personal-style" });
+      }
       if (document.getElementById("mixNameInput")) document.getElementById("mixNameInput").value = "";
       if (String(_openProfileDropdownKey || "").startsWith("mix-")) {
         _openProfileDropdownKey = null;
@@ -1422,6 +1425,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   initTabSwipeNavigation();
   initCapacitorNativeBridge();
+  if (typeof initAchievementsSystem === "function") {
+    initAchievementsSystem();
+  }
   applyThemeAndAppearance();
   syncAutoNextControls();
   syncPianoSoundControls();

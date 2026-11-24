@@ -1507,6 +1507,9 @@ function setListenOnlyMode(enabled, options = {}) {
     document.getElementById("loopToggleBtn")?.classList.remove("btn-active");
   }
   syncListenOnlyUI();
+  if (typeof recordAchievementEvent === "function") {
+    recordAchievementEvent({ type: "listen-only" });
+  }
   startListenOnlyCycle();
 }
 

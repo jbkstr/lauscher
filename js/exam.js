@@ -2003,6 +2003,14 @@ function completeCategoryExam() {
     state.profile.examHistory = state.profile.examHistory.slice(0, 25);
     saveUserProfile(state.profile);
   }
+  if (typeof recordAchievementEvent === "function") {
+    recordAchievementEvent({
+      type: "exam-completed",
+      categoryKey: exam.categoryKey,
+      levelId: exam.levelId,
+      percent
+    });
+  }
 
   cleanupActiveExamState({ restoreSettings: true });
   openExamResultView(entry?.id || null, {

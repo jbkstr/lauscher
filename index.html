@@ -31,7 +31,7 @@
         else if (lang === "uk") document.title = "Lauscher • Прислухайся трохи уважніше.";
         else if (lang === "ur") document.title = "Lauscher • ذرا غور سے سنیں۔";
         var appearance = (prefs.appearance === "light" || prefs.appearance === "dark" || prefs.appearance === "system") ? prefs.appearance : "light";
-        var isBuiltInTheme = (prefs.theme === "waldlichtung" || prefs.theme === "morgentau" || prefs.theme === "abenddaemmerung" || prefs.theme === "metal");
+        var isBuiltInTheme = (prefs.theme === "waldlichtung" || prefs.theme === "morgentau" || prefs.theme === "abenddaemmerung" || prefs.theme === "metal" || prefs.theme === "konzertsaal" || prefs.theme === "mitternacht");
         var isCustomTheme = (prefs.theme === "custom_1" || prefs.theme === "custom_2" || prefs.theme === "custom_3");
         var theme = (isBuiltInTheme || isCustomTheme) ? prefs.theme : "waldlichtung";
         var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -71,7 +71,9 @@
             waldlichtung: { light: "#FAF7F2", dark: "#212329" },
             morgentau: { light: "#F3F8FA", dark: "#1E232A" },
             abenddaemmerung: { light: "#F7F4F8", dark: "#22202A" },
-            metal: { light: "#090A0D", dark: "#090A0D" }
+            metal: { light: "#090A0D", dark: "#090A0D" },
+            konzertsaal: { light: "#F9F5EC", dark: "#211D18" },
+            mitternacht: { light: "#F2F4FA", dark: "#161B29" }
           };
           meta.setAttribute("content", appliedCustomBg || (metaColors[theme] && metaColors[theme][effective]) || "#FAF7F2");
         }
@@ -1167,6 +1169,7 @@
       <section class="account-card account-hero-card">
         <div class="account-hero-top-row">
           <span class="k-card-tag tag-sage account-hero-tag" data-i18n="space.localTag">Kein Punktestand</span>
+          <span id="spaceProfileTitleBadge" class="account-title-badge hidden"></span>
         </div>
         <div class="account-hero-head">
           <div class="account-avatar-box" id="spaceMascotSvg" aria-hidden="true"></div>
@@ -1190,6 +1193,11 @@
           <span class="account-label" data-i18n="space.focusLabel">Trainings-Schwerpunkte</span>
           <div id="profileFocusGroup" class="profile-multi-dropdown-host"></div>
           <div id="spaceFocusSuggestionRow" class="account-focus-suggestion hidden"></div>
+        </div>
+
+        <div id="profileTitleField" class="account-field hidden">
+          <label class="account-label" for="profileTitleSelect" id="profileTitleLabel">Freigeschalteter Profil-Titel</label>
+          <select id="profileTitleSelect" class="account-select"></select>
         </div>
 
         <div id="profileAccessoryField" class="account-field hidden">
@@ -1224,6 +1232,25 @@
         <div id="spaceExamHistoryFooter" class="exam-history-footer hidden">
           <button type="button" class="btn-tool" id="toggleAllExamHistoryBtn"></button>
         </div>
+      </section>
+
+      <!-- 2b. Meilensteine (lokal, optional & abschaltbar) -->
+      <section class="account-card" id="spaceAchievementsCard">
+        <div class="account-card-head ach-card-head">
+          <div>
+            <div class="ach-title-row">
+              <h3 data-i18n="space.achievementsTitle">Meilensteine</h3>
+              <span id="spaceAchievementsCountBadge" class="ach-count-badge">0 / 20</span>
+            </div>
+            <p class="account-card-sub" data-i18n="space.achievementsSub">Kleine musikalische Erinnerungen – 100 % lokal, ohne Zwang und jederzeit abschaltbar.</p>
+          </div>
+          <div class="btn-group ach-toggle-group" role="group" aria-label="Meilensteine anzeigen" data-i18n-aria="space.achievementsToggleAria">
+            <button type="button" class="opt-btn active" data-achievements-toggle="on" aria-pressed="true" data-i18n="settings.autoNextOn">Ein</button>
+            <button type="button" class="opt-btn" data-achievements-toggle="off" aria-pressed="false" data-i18n="settings.autoNextOff">Aus</button>
+          </div>
+        </div>
+        <p id="spaceAchievementsHiddenNote" class="ach-hidden-note hidden"></p>
+        <div id="spaceAchievementsBody" class="ach-body"></div>
       </section>
 
       <!-- 3. Meine Übe-Mixe (Favoriten zum Direktstart) -->
@@ -1356,6 +1383,32 @@
                 <span class="swatch-dot" data-swatch="1" style="background:#2D6394;"></span>
                 <span class="swatch-dot" data-swatch="2" style="background:#B52B3B;"></span>
                 <span class="swatch-dot" data-swatch="3" style="background:#9EA6B4;"></span>
+              </div>
+            </button>
+
+            <button class="theme-preview-item is-bonus-theme" type="button" data-theme-choice="konzertsaal">
+              <div class="theme-info">
+                <span class="theme-name" data-i18n="settings.themeConcert">Konzertsaal</span>
+                <span class="theme-status">Ab 5 Meilensteinen</span>
+              </div>
+              <div class="theme-swatches">
+                <span class="swatch-dot" data-swatch="0" style="background:#F9F5EC;"></span>
+                <span class="swatch-dot" data-swatch="1" style="background:#E8D5A3;"></span>
+                <span class="swatch-dot" data-swatch="2" style="background:#D7B4A0;"></span>
+                <span class="swatch-dot" data-swatch="3" style="background:#C9D3C0;"></span>
+              </div>
+            </button>
+
+            <button class="theme-preview-item is-bonus-theme" type="button" data-theme-choice="mitternacht">
+              <div class="theme-info">
+                <span class="theme-name" data-i18n="settings.themeMidnight">Mitternachts-Jazz</span>
+                <span class="theme-status">Ab 10 Meilensteinen</span>
+              </div>
+              <div class="theme-swatches">
+                <span class="swatch-dot" data-swatch="0" style="background:#F2F4FA;"></span>
+                <span class="swatch-dot" data-swatch="1" style="background:#B9CBEB;"></span>
+                <span class="swatch-dot" data-swatch="2" style="background:#F0CF9B;"></span>
+                <span class="swatch-dot" data-swatch="3" style="background:#B8DDD4;"></span>
               </div>
             </button>
           </div>
@@ -2796,6 +2849,32 @@
                 <span class="swatch-dot" data-swatch="3" style="background:#9EA6B4;"></span>
               </div>
             </button>
+
+            <button class="theme-preview-item is-bonus-theme" type="button" data-theme-choice="konzertsaal">
+              <div class="theme-info">
+                <span class="theme-name" data-i18n="settings.themeConcert">Konzertsaal</span>
+                <span class="theme-status">Ab 5 Meilensteinen</span>
+              </div>
+              <div class="theme-swatches">
+                <span class="swatch-dot" data-swatch="0" style="background:#F9F5EC;"></span>
+                <span class="swatch-dot" data-swatch="1" style="background:#E8D5A3;"></span>
+                <span class="swatch-dot" data-swatch="2" style="background:#D7B4A0;"></span>
+                <span class="swatch-dot" data-swatch="3" style="background:#C9D3C0;"></span>
+              </div>
+            </button>
+
+            <button class="theme-preview-item is-bonus-theme" type="button" data-theme-choice="mitternacht">
+              <div class="theme-info">
+                <span class="theme-name" data-i18n="settings.themeMidnight">Mitternachts-Jazz</span>
+                <span class="theme-status">Ab 10 Meilensteinen</span>
+              </div>
+              <div class="theme-swatches">
+                <span class="swatch-dot" data-swatch="0" style="background:#F2F4FA;"></span>
+                <span class="swatch-dot" data-swatch="1" style="background:#B9CBEB;"></span>
+                <span class="swatch-dot" data-swatch="2" style="background:#F0CF9B;"></span>
+                <span class="swatch-dot" data-swatch="3" style="background:#B8DDD4;"></span>
+              </div>
+            </button>
           </div>
           <div class="theme-preview-list custom-themes-settings-list hidden" id="settingsCustomThemeList"></div>
           <button type="button" class="btn-tool settings-sub-field" id="settingsCustomizeThemesBtn" data-i18n="settings.customizeThemesBtn">Eigenes Theme im Konto gestalten →</button>
@@ -3027,6 +3106,7 @@
   <script src="i18n/phrases-exercises.js"></script>
   <script src="i18n/phrases-tools.js"></script>
   <script src="i18n/notation-terms.js"></script>
+  <script src="i18n/achievements.js"></script>
   <script src="knowledge-en.js"></script>
   <script src="knowledge-fr.js"></script>
   <script src="knowledge.js"></script>
@@ -3038,6 +3118,7 @@
   <script src="version.js"></script>
   <script src="legal.js"></script>
   <script src="js/catalogs.js"></script>
+  <script src="js/achievements.js"></script>
   <script src="js/state.js"></script>
   <script src="js/notation.js"></script>
   <script src="js/notation-terms.js"></script>
