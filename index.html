@@ -19,7 +19,7 @@
         if ((!raw && !hasProfileRaw) || (prefs && prefs.onboardingDone === false)) {
           document.documentElement.setAttribute("data-first-run", "1");
         }
-        var lang = (prefs.language === "en" || prefs.language === "es" || prefs.language === "fr" || prefs.language === "it" || prefs.language === "pl" || prefs.language === "uk" || prefs.language === "ur") ? prefs.language : "de";
+        var lang = (prefs.language === "en" || prefs.language === "es" || prefs.language === "fr" || prefs.language === "it" || prefs.language === "pl" || prefs.language === "tr" || prefs.language === "uk" || prefs.language === "ur") ? prefs.language : "de";
         document.documentElement.lang = lang;
         document.documentElement.dir = lang === "ur" ? "rtl" : "ltr";
         document.documentElement.setAttribute("data-lang", lang);
@@ -28,6 +28,7 @@
         else if (lang === "fr") document.title = "Lauscher • Écouter d’un peu plus près.";
         else if (lang === "it") document.title = "Lauscher • Ascolta un po’ più da vicino.";
         else if (lang === "pl") document.title = "Lauscher • Wsłuchaj się uważniej.";
+        else if (lang === "tr") document.title = "Lauscher • Biraz daha dikkatli dinle.";
         else if (lang === "uk") document.title = "Lauscher • Прислухайся трохи уважніше.";
         else if (lang === "ur") document.title = "Lauscher • ذرا غور سے سنیں۔";
         var appearance = (prefs.appearance === "light" || prefs.appearance === "dark" || prefs.appearance === "system") ? prefs.appearance : "light";
@@ -2763,7 +2764,7 @@
             <option value="no" disabled>Norsk (demnächst)</option>
             <option value="pl">Polski</option>
             <option value="sv" disabled>Svenska (demnächst)</option>
-            <option value="tr" disabled>Türkçe (demnächst)</option>
+            <option value="tr">Türkçe</option>
             <option value="el" disabled>Ελληνικά (demnächst)</option>
             <option value="uk">Українська</option>
             <option value="ur">اردو</option>
@@ -3125,6 +3126,7 @@
   <script src="knowledge-es.js"></script>
   <script src="knowledge-it.js"></script>
   <script src="knowledge-pl.js"></script>
+  <script src="knowledge-tr.js"></script>
   <script src="knowledge-uk.js"></script>
   <script src="knowledge-ur.js"></script>
   <script src="version.js"></script>

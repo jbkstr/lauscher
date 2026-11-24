@@ -814,6 +814,7 @@ function maybeShowModesRootHint(badgeEl) {
     es: "Tónica ajustable",
     it: "Tonica regolabile",
     pl: "Wybierz dźwięk",
+    tr: "Kök ses seçilebilir",
     uk: "Тоніку можна змінити",
     ur: "بنیادی سُر منتخب کریں"
   });
@@ -865,6 +866,7 @@ function maybeShowCadenceKeyHint(keyBtn) {
     es: "Tonalidad ajustable",
     it: "Tonalità regolabile",
     pl: "Tonacja do wyboru",
+    tr: "Ton ayarlanabilir",
     uk: "Тональність можна змінити",
     ur: "کلید تبدیل کریں"
   });
@@ -897,9 +899,9 @@ function renderModesPadPopover() {
   if (!pop) return;
   const padOn = Boolean(state.settings.modesRootPad);
   const padPct = Math.round(getActiveDroneMixSettings().pad * 100);
-  const volLabel = tr("Lautstärke:", "Volume:", { fr: "Volume :", es: "Volumen:", it: "Volume:", pl: "Głośność:", uk: "Гучність:", ur: "آواز کی سطح:" });
-  const onLabel = tr("An", "On", { fr: "Oui", es: "Sí", it: "Sì", pl: "Wł.", uk: "Увімк.", ur: "آن" });
-  const offLabel = tr("Aus", "Off", { fr: "Non", es: "No", it: "No", pl: "Wył.", uk: "Вимк.", ur: "آف" });
+  const volLabel = tr("Lautstärke:", "Volume:", { fr: "Volume :", es: "Volumen:", it: "Volume:", pl: "Głośność:", tr: "Ses seviyesi:", uk: "Гучність:", ur: "آواز کی سطح:" });
+  const onLabel = tr("An", "On", { fr: "Oui", es: "Sí", it: "Sì", pl: "Wł.", tr: "Açık", uk: "Увімк.", ur: "آن" });
+  const offLabel = tr("Aus", "Off", { fr: "Non", es: "No", it: "No", pl: "Wył.", tr: "Kapalı", uk: "Вимк.", ur: "آف" });
   pop.innerHTML = `
     <div class="popover-pills-row">
       <button type="button" class="popover-pill-btn${padOn ? " active" : ""}" data-modes-pad="on" aria-pressed="${padOn}">${escapeHtml(onLabel)}</button>
@@ -908,7 +910,7 @@ function renderModesPadPopover() {
     ${padOn ? `
     <div class="modes-pad-vol-row">
       <span class="popover-label">${escapeHtml(volLabel)}</span>
-      <input type="range" id="modesPadVolSlider" min="0" max="100" step="2" value="${padPct}" aria-label="${escapeHtml(tr("Lautstärke der Grundton-Fläche", "Root pad volume", { fr: "Volume de la nappe de fondamentale", es: "Volumen del colchón de tónica", it: "Volume del tappeto di tonica", pl: "Głośność plamy dźwięku podstawowego", uk: "Гучність фону тоніки", ur: "بنیادی سُر کی تہہ کی آواز" }))}">
+      <input type="range" id="modesPadVolSlider" min="0" max="100" step="2" value="${padPct}" aria-label="${escapeHtml(tr("Lautstärke der Grundton-Fläche", "Root pad volume", { fr: "Volume de la nappe de fondamentale", es: "Volumen del colchón de tónica", it: "Volume del tappeto di tonica", pl: "Głośność plamy dźwięku podstawowego", tr: "Kök ses pedi seviyesi", uk: "Гучність фону тоніки", ur: "بنیادی سُر کی تہہ کی آواز" }))}">
       <span id="modesPadVolVal" class="popover-val">${padPct}%</span>
     </div>` : ""}`;
   pop.querySelectorAll("[data-modes-pad]").forEach(btn => {
@@ -1345,7 +1347,7 @@ function renderUI() {
         ? tr("Tonart, Dur/Moll & Tonraum wählen", "Choose key, major/minor & range")
         : (isCustomIntervalEx
             ? tr("Grundton & Modus wählen", "Choose root & mode")
-            : tr("Grundton wählen", "Choose root", { fr: "Choisir la tonique", es: "Elegir tónica", it: "Scegli tonica", pl: "Wybierz dźwięk podstawowy", uk: "Обрати тоніку", ur: "بنیادی سُر چنیں" }));
+            : tr("Grundton wählen", "Choose root", { fr: "Choisir la tonique", es: "Elegir tónica", it: "Scegli tonica", pl: "Wybierz dźwięk podstawowy", tr: "Kök ses seç", uk: "Обрати тоніку", ur: "بنیادی سُر چنیں" }));
       if (!isCustomIntervalEx && !isCustomSolfegeEx) maybeShowModesRootHint(badgeEl);
     } else {
       badgeEl.removeAttribute("role");
@@ -1569,6 +1571,7 @@ function renderUI() {
         es: "Patrón para el pulso {step}/4:",
         it: "Motivo per il battito {step}/4:",
         pl: "Wzór na miarę {step}/4:",
+        tr: "{step}/4 vuruş için desen:",
         uk: "Малюнок для долі {step}/4:",
         ur: "دھڑکن {step}/4 کا نمونہ:"
       });
@@ -1589,6 +1592,7 @@ function renderUI() {
               es: "Marcar a vista (sin clic):",
               it: "Batti a prima vista (senza clic):",
               pl: "Wystukaj z nut (bez kliku):",
+              tr: "Notadan vur (tıklamasız):",
               uk: "Простукай з нот (без кліку):",
               ur: "نوٹیشن دیکھ کر تھپکیں (بغیر کلک):"
             })
@@ -1597,6 +1601,7 @@ function renderUI() {
               es: "Marcar ritmo a vista:",
               it: "Batti il ritmo a prima vista:",
               pl: "Wystukaj rytm z nut:",
+              tr: "Ritmi notadan vur:",
               uk: "Простукай ритм із нот:",
               ur: "نوٹیشن سے تال تھپکیں:"
             }))
@@ -1606,6 +1611,7 @@ function renderUI() {
               es: "A ciegas: sigue el pulso:",
               it: "Alla cieca: mantieni la pulsazione:",
               pl: "Na ślepo: utrzymaj puls:",
+              tr: "Kör mod: tempoyu koru:",
               uk: "Наосліп: тримай пульс:",
               ur: "بلائنڈ موڈ: تال برقرار رکھیں:"
             })
@@ -1614,6 +1620,7 @@ function renderUI() {
               es: "Repite el ritmo:",
               it: "Ripeti il ritmo:",
               pl: "Wystukaj rytm:",
+              tr: "Ritmi aynen vur:",
               uk: "Повтори ритм:",
               ur: "تال کو دوبارہ تھپکیں:"
             }));
@@ -1633,6 +1640,7 @@ function renderUI() {
         es: "¿Dónde cae el acento de cencerro?",
         it: "Dove cade l’accento di campanaccio?",
         pl: "Gdzie pada akcent cowbella?",
+        tr: "Cowbell vurgusu nerede?",
         uk: "Де акцент ковбела?",
         ur: "کاؤ بیل کا زور کہاں ہے؟"
       });
@@ -1644,6 +1652,7 @@ function renderUI() {
         es: "Caja: ¿pronto, exacta o tarde?",
         it: "Rullante: anticipato, esatto o ritardato?",
         pl: "Werbel: za wcześnie, równo czy za późno?",
+        tr: "Trampet: erken, tam vuruşta mı yoksa geç mi?",
         uk: "Малий барабан: рано, точно чи пізно?",
         ur: "سنیئر: جلدی، عین وقت پر یا دیر سے؟"
       });
@@ -2802,6 +2811,7 @@ function getAwaitingStageHint(ex, personalizeHint = false) {
             es: "{name}, presta especial atención a las terceras entre las notas: ¿qué color de acorde era?",
             it: "{name}, fai attenzione soprattutto alle terze tra le note: che colore di accordo era?",
             pl: "{name}, wsłuchaj się przede wszystkim w tercje między dźwiękami — jaka to barwa akordu?",
+            tr: "{name}, özellikle notalar arasındaki üçlülere dikkat et — bu hangi akor rengiydi?",
             uk: "{name}, дослухайся насамперед до терцій між нотами — яке це забарвлення акорду?",
             ur: "{name}، سُروں کے درمیان خاص طور پر تِیسرے سُروں (تھرڈز) پر دھیان دیں — یہ کون سا کارڈ تھا؟"
           }
@@ -2814,6 +2824,7 @@ function getAwaitingStageHint(ex, personalizeHint = false) {
             es: "Presta especial atención a las terceras entre las notas: ¿qué color de acorde era?",
             it: "Fai attenzione soprattutto alle terze tra le note: che colore di accordo era?",
             pl: "Wsłuchaj się przede wszystkim w tercje między dźwiękami — jaka to barwa akordu?",
+            tr: "Özellikle notalar arasındaki üçlülere dikkat et — bu hangi akor rengiydi?",
             uk: "Дослухайся насамперед до терцій між нотами — яке це забарвлення акорду?",
             ur: "سُروں کے درمیان خاص طور پر تِیسرے سُروں (تھرڈز) پر دھیان دیں — یہ کون سا کارڈ تھا؟"
           }
@@ -3297,11 +3308,11 @@ function clampNotationListenPace(val) {
 
 function getLocalizedNotationPaceLabel(paceVal = state?.settings?.notationListenOnlyPace) {
   const p = clampNotationListenPace(paceVal);
-  if (p <= 19) return tr("Sehr langsam", "Very slow", { fr: "Très lent", es: "Muy lento", it: "Molto lento", pl: "Bardzo wolno", uk: "Дуже повільно", ur: "بہت آہستہ" });
-  if (p <= 39) return tr("Langsam", "Slow", { fr: "Lent", es: "Lento", it: "Lento", pl: "Wolno", uk: "Повільно", ur: "آہستہ" });
-  if (p <= 60) return tr("Mittel", "Medium", { fr: "Moyen", es: "Medio", it: "Medio", pl: "Średnio", uk: "Середньо", ur: "درمیانہ" });
-  if (p <= 80) return tr("Schnell", "Fast", { fr: "Rapide", es: "Rápido", it: "Veloce", pl: "Szybko", uk: "Швидко", ur: "تیز" });
-  return tr("Sehr schnell", "Very fast", { fr: "Très rapide", es: "Muy rápido", it: "Molto veloce", pl: "Bardzo szybko", uk: "Дуже швидко", ur: "بہت تیز" });
+  if (p <= 19) return tr("Sehr langsam", "Very slow", { fr: "Très lent", es: "Muy lento", it: "Molto lento", pl: "Bardzo wolno", tr: "Çok yavaş", uk: "Дуже повільно", ur: "بہت آہستہ" });
+  if (p <= 39) return tr("Langsam", "Slow", { fr: "Lent", es: "Lento", it: "Lento", pl: "Wolno", tr: "Yavaş", uk: "Повільно", ur: "آہستہ" });
+  if (p <= 60) return tr("Mittel", "Medium", { fr: "Moyen", es: "Medio", it: "Medio", pl: "Średnio", tr: "Orta", uk: "Середньо", ur: "درمیانہ" });
+  if (p <= 80) return tr("Schnell", "Fast", { fr: "Rapide", es: "Rápido", it: "Veloce", pl: "Szybko", tr: "Hızlı", uk: "Швидко", ur: "تیز" });
+  return tr("Sehr schnell", "Very fast", { fr: "Très rapide", es: "Muy rápido", it: "Molto veloce", pl: "Bardzo szybko", tr: "Çok hızlı", uk: "Дуже швидко", ur: "بہت تیز" });
 }
 
 function getNotationListenOnlyKeyRevealDelayMs(paceVal = state?.settings?.notationListenOnlyPace) {

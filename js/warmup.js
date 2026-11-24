@@ -452,6 +452,7 @@ const WARMUP_STEP_CATALOG = {
     vowelsEs: ["Uuuu…", "Oooo…", "Aaaa…", "Eeee…", "Iiii…"],
     vowelsIt: ["Uuuu…", "Oooo…", "Aaaa…", "Eeee…", "Iiii…"],
     vowelsPl: ["Uuuu…", "Oooo…", "Aaaa…", "Eeee…", "Iiii…"],
+    vowelsTr: ["Uuuu…", "Oooo…", "Aaaa…", "Eeee…", "İiii…"],
     vowelsUk: ["Уууу…", "Оооо…", "Аааа…", "Ееее…", "Іііі…"],
     vowelsUr: ["اُووو…", "اووو…", "آااا…", "اےےے…", "اِییی…"],
     keyOffsets: [0, 2, 4, 5],
@@ -1485,8 +1486,10 @@ function runCurrentWarmupRound() {
       ? (step.vowelsUr || step.vowelsEn)
       : lang === "uk"
         ? (step.vowelsUk || step.vowelsEn)
-        : lang === "pl"
-          ? (step.vowelsPl || step.vowelsEn)
+        : lang === "tr"
+          ? (step.vowelsTr || step.vowelsDe)
+          : lang === "pl"
+            ? (step.vowelsPl || step.vowelsEn)
           : lang === "it"
             ? (step.vowelsIt || step.vowelsDe)
             : lang === "es"

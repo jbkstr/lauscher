@@ -1,6 +1,6 @@
 /**
  * Lauscher • Lokalisierte Musik- & App-Tabellen (ko-lokalisiert je Eintrag)
- * Enthält alle 23 Katalog-Tabellen (Intervalle, Akkorde, Modi, Rhythmus, Produktion, Profil usw.) in 8 Sprachen.
+ * Enthält alle 23 Katalog-Tabellen (Intervalle, Akkorde, Modi, Rhythmus, Produktion, Profil usw.) in 9 Sprachen.
  */
 
 registerColocatedTables({
@@ -12,7 +12,8 @@ registerColocatedTables({
       it: "Pianoforte",
       pl: "Fortepian",
       uk: "Фортепіано",
-      ur: "پیانو / ہارمونیم"
+      ur: "پیانو / ہارمونیم",
+      tr: "Piyano"
     },
     "Gitarre": {
       en: "Guitar",
@@ -21,7 +22,8 @@ registerColocatedTables({
       it: "Chitarra",
       pl: "Gitara",
       uk: "Гітара",
-      ur: "گٹار"
+      ur: "گٹار",
+      tr: "Gitar"
     },
     "Gesang": {
       en: "Vocals",
@@ -30,7 +32,8 @@ registerColocatedTables({
       it: "Canto",
       pl: "Śpiew",
       uk: "Вокал",
-      ur: "گلوکاری"
+      ur: "گلوکاری",
+      tr: "Vokal / Şan"
     },
     "Bass": {
       en: "Bass",
@@ -39,7 +42,8 @@ registerColocatedTables({
       it: "Basso",
       pl: "Bas",
       uk: "Бас",
-      ur: "باس"
+      ur: "باس",
+      tr: "Bas"
     },
     "Percussion": {
       en: "Percussion",
@@ -48,7 +52,8 @@ registerColocatedTables({
       it: "Percussioni",
       pl: "Perkusja",
       uk: "Ударні та перкусія",
-      ur: "پرکشن / طبلہ"
+      ur: "پرکشن / طبلہ",
+      tr: "Perküsyon / Davul"
     },
     "Streicher": {
       en: "Strings",
@@ -57,7 +62,8 @@ registerColocatedTables({
       it: "Archi",
       pl: "Smyczki",
       uk: "Струнні",
-      ur: "اسٹرنگز"
+      ur: "اسٹرنگز",
+      tr: "Yaylılar"
     },
     "Bläser": {
       en: "Horns & Winds",
@@ -66,7 +72,8 @@ registerColocatedTables({
       it: "Fiati e ottoni",
       pl: "Dęte",
       uk: "Духові",
-      ur: "بانسری اور پھونک ساز"
+      ur: "بانسری اور پھونک ساز",
+      tr: "Üflemeliler"
     },
     "Produktion": {
       en: "Production",
@@ -75,7 +82,8 @@ registerColocatedTables({
       it: "Produzione",
       pl: "Produkcja",
       uk: "Продакшн",
-      ur: "پروڈکشن"
+      ur: "پروڈکشن",
+      tr: "Prodüksiyon"
     }
   },
   profileFocus: {
@@ -86,7 +94,8 @@ registerColocatedTables({
       it: { label: "Polivalente", hint: "Mix equilibrato di tutte le abilità" },
       pl: { label: "Wszystko po trochu", hint: "Zrównoważone ćwiczenie różnych obszarów" },
       uk: { label: "Усе потроху", hint: "Збалансоване поєднання всіх модулів" },
-      ur: { label: "آل راؤنڈر", hint: "تمام صلاحیتوں کا متوازن امتزاج" }
+      ur: { label: "آل راؤنڈر", hint: "تمام صلاحیتوں کا متوازن امتزاج" },
+      tr: { label: "Çok Yönlü", hint: "Tüm becerilerde dengeli karışım" }
     },
     "harmony": {
       en: { label: "Chords & Harmony", hint: "Sharpen cadences & chord colors" },
@@ -95,7 +104,8 @@ registerColocatedTables({
       it: { label: "Accordi e armonia", hint: "Affina cadenze e colori degli accordi" },
       pl: { label: "Akordy i harmonia", hint: "Pewniejsze rozpoznawanie kadencji i akordów" },
       uk: { label: "Акорди та гармонія", hint: "Впевненіше розпізнавати каданси й акорди" },
-      ur: { label: "کارڈز اور ہارمونی", hint: "کیڈینسز اور کارڈز کے رنگ نکھاریں" }
+      ur: { label: "کارڈز اور ہارمونی", hint: "کیڈینسز اور کارڈز کے رنگ نکھاریں" },
+      tr: { label: "Akor ve Armoni", hint: "Kadansları ve akor renklerini keskinleştir" }
     },
     "melody": {
       en: { label: "Melody & Solfège", hint: "Practice scale degrees & melodic lines" },
@@ -104,7 +114,8 @@ registerColocatedTables({
       it: { label: "Melodia e solfeggio", hint: "Allena gradi della scala e linee melodiche" },
       pl: { label: "Melodia i solfeż", hint: "Stopnie gamy i pamięć melodyczna" },
       uk: { label: "Мелодія й сольфеджіо", hint: "Тренувати ладові ступені та мелодичний слух" },
-      ur: { label: "دھنیں اور سولفیج", hint: "اسکیل درجات اور دھنوں کی مشق" }
+      ur: { label: "دھنیں اور سولفیج", hint: "اسکیل درجات اور دھنوں کی مشق" },
+      tr: { label: "Melodi ve Solfej", hint: "Gam derecelerini ve ezgi hatlarını çalış" }
     },
     "rhythm": {
       en: { label: "Rhythm & Groove", hint: "Meter, tapping & micro-timing" },
@@ -113,7 +124,8 @@ registerColocatedTables({
       it: { label: "Ritmo e groove", hint: "Tempi, tap ritmico e microtiming" },
       pl: { label: "Rytm i groove", hint: "Metrum, precyzja uderzeń i mikrotiming" },
       uk: { label: "Ритм і ґрув", hint: "Розміри, точність влучання й мікротаймінг" },
-      ur: { label: "ردھم اور گروو", hint: "ٹائم سگنیچر، ٹیپنگ اور مائیکرو ٹائمنگ" }
+      ur: { label: "ردھم اور گروو", hint: "ٹائم سگنیچر، ٹیپنگ اور مائیکرو ٹائمنگ" },
+      tr: { label: "Ritim ve Groove", hint: "Ölçü birimi, tempo tutma ve mikro zamanlama" }
     },
     "notation": {
       en: { label: "Notation & Reading", hint: "Treble, Bass, Alto clefs & ledger lines" },
@@ -122,7 +134,8 @@ registerColocatedTables({
       it: { label: "Lettura delle note", hint: "Chiavi di violino, basso, contralto e tagli addizionali" },
       pl: { label: "Czytanie nut", hint: "Klucze wiolinowy, basowy, altowy i linie dodane" },
       uk: { label: "Читання нот", hint: "Скрипковий, басовий, альтовий ключі й додаткові лінійки" },
-      ur: { label: "نوٹیشن اور اسٹاف ریڈنگ", hint: "ٹریبل، باس، آلٹو کلیف اور لیجر لائنز" }
+      ur: { label: "نوٹیشن اور اسٹاف ریڈنگ", hint: "ٹریبل، باس، آلٹو کلیف اور لیجر لائنز" },
+      tr: { label: "Nota ve Okuma", hint: "Sol, Fa, Alto anahtarları ve ek çizgiler" }
     },
     "production": {
       en: { label: "Production & Mixing", hint: "Frequencies & EQ in pink noise" },
@@ -131,7 +144,8 @@ registerColocatedTables({
       it: { label: "Produzione e mix", hint: "Frequenze ed EQ nel rumore rosa" },
       pl: { label: "Produkcja i miks", hint: "Częstotliwości i korekcja w szumie różowym" },
       uk: { label: "Продакшн і мікс", hint: "Частоти та корекція в рожевому шумі" },
-      ur: { label: "پروڈکشن اور مکسنگ", hint: "پنک نوائز میں فریکوئنسیز اور EQ" }
+      ur: { label: "پروڈکشن اور مکسنگ", hint: "پنک نوائز میں فریکوئنسیز اور EQ" },
+      tr: { label: "Prodüksiyon ve Miks", hint: "Frekanslar ve pembe gürültüde EQ" }
     },
     "modes": {
       en: { label: "Scales & Modes", hint: "Church modes & characteristic notes" },
@@ -140,7 +154,8 @@ registerColocatedTables({
       it: { label: "Scale e modi", hint: "Modi ecclesiastici e note caratteristiche" },
       pl: { label: "Skale i tryby", hint: "Skale kościelne i dźwięki charakterystyczne" },
       uk: { label: "Гами та лади", hint: "Натуральні лади й характерні тяжіння" },
-      ur: { label: "اسکیلز اور موڈز", hint: "چرچ موڈز اور امتیازی سُر" }
+      ur: { label: "اسکیلز اور موڈز", hint: "چرچ موڈز اور امتیازی سُر" },
+      tr: { label: "Gamlar ve Modlar", hint: "Kilise modları ve karakteristik sesler" }
     }
   },
   profileAccessories: {
@@ -151,7 +166,8 @@ registerColocatedTables({
       it: "Cuffie",
       pl: "Słuchawki",
       uk: "Навушники",
-      ur: "ہیڈفونز"
+      ur: "ہیڈفونز",
+      tr: "Kulaklık"
     },
     "sunglasses": {
       en: "Sunglasses",
@@ -160,7 +176,8 @@ registerColocatedTables({
       it: "Occhiali da sole",
       pl: "Okulary przeciwsłoneczne",
       uk: "Сонцезахисні окуляри",
-      ur: "دھوپ کا چشمہ"
+      ur: "دھوپ کا چشمہ",
+      tr: "Güneş Gözlüğü"
     },
     "beret": {
       en: "Jazz Beret",
@@ -169,7 +186,8 @@ registerColocatedTables({
       it: "Basco jazz",
       pl: "Beret jazzowy",
       uk: "Джазовий берет",
-      ur: "جیز بیریٹ ٹوپی"
+      ur: "جیز بیریٹ ٹوپی",
+      tr: "Caz Beresi"
     },
     "bowtie": {
       en: "Concert Bow Tie",
@@ -178,7 +196,8 @@ registerColocatedTables({
       it: "Papillon da concerto",
       pl: "Muszka koncertowa",
       uk: "Концертний метелик",
-      ur: "کنسرٹ بو ٹائی"
+      ur: "کنسرٹ بو ٹائی",
+      tr: "Konser Papyonu"
     },
     "mic": {
       en: "Studio Mic",
@@ -187,7 +206,8 @@ registerColocatedTables({
       it: "Microfono da studio",
       pl: "Mikrofon studyjny",
       uk: "Студійний мікрофон",
-      ur: "اسٹوڈیو مائیک"
+      ur: "اسٹوڈیو مائیک",
+      tr: "Stüdyo Mikrofonu"
     },
     "coffee": {
       en: "Coffee Break",
@@ -196,7 +216,8 @@ registerColocatedTables({
       it: "Pausa caffè",
       pl: "Przerwa na kawę",
       uk: "Кавова пауза",
-      ur: "چائے / کافی وقفہ"
+      ur: "چائے / کافی وقفہ",
+      tr: "Kahve Molası"
     },
     "notes": {
       en: "Music Notes",
@@ -205,7 +226,8 @@ registerColocatedTables({
       it: "Note musicali",
       pl: "Zeszyt nutowy",
       uk: "Ноти поруч",
-      ur: "موسیقی کے نوٹس"
+      ur: "موسیقی کے نوٹس",
+      tr: "Müzik Notaları"
     },
     "sparkles": {
       en: "Starlight",
@@ -214,7 +236,8 @@ registerColocatedTables({
       it: "Polvere di stelle",
       pl: "Gwiezdny blask",
       uk: "Зоряне сяйво",
-      ur: "ستاروں کی چمک"
+      ur: "ستاروں کی چمک",
+      tr: "Yıldız Işıltısı"
     },
     "none": {
       en: "Classic",
@@ -223,7 +246,8 @@ registerColocatedTables({
       it: "Classico",
       pl: "Klasyczny",
       uk: "Класичний",
-      ur: "کلاسک"
+      ur: "کلاسک",
+      tr: "Klasik"
     }
   },
   mixModes: {
@@ -234,7 +258,8 @@ registerColocatedTables({
       it: "Cadenze",
       pl: "Kadencje",
       uk: "Каданси",
-      ur: "کیڈینسز"
+      ur: "کیڈینسز",
+      tr: "Kadanslar"
     },
     "cadence-minor": {
       en: "Cadences (Minor)",
@@ -243,7 +268,8 @@ registerColocatedTables({
       it: "Cadenze (minore)",
       pl: "Kadencje (moll)",
       uk: "Каданси (мінор)",
-      ur: "کیڈینسز (مائنر)"
+      ur: "کیڈینسز (مائنر)",
+      tr: "Kadanslar (Minör)"
     },
     "interval-melodic": {
       en: "Intervals (Ascending)",
@@ -252,7 +278,8 @@ registerColocatedTables({
       it: "Intervalli (ascendenti)",
       pl: "Interwały (W górę)",
       uk: "Інтервали (Висхідні)",
-      ur: "انٹرولز (چڑھتے)"
+      ur: "انٹرولز (چڑھتے)",
+      tr: "Aralıklar (Çıkıcı)"
     },
     "interval-melodic-down": {
       en: "Intervals (Descending)",
@@ -261,7 +288,8 @@ registerColocatedTables({
       it: "Intervalli (discendenti)",
       pl: "Interwały (W dół)",
       uk: "Інтервали (Низхідні)",
-      ur: "انٹرولز (اترتے)"
+      ur: "انٹرولز (اترتے)",
+      tr: "Aralıklar (İnici)"
     },
     "interval-harmonic": {
       en: "Intervals (Harmonic)",
@@ -270,7 +298,8 @@ registerColocatedTables({
       it: "Intervalli (armonici)",
       pl: "Interwały (Harmoniczne)",
       uk: "Інтервали (Гармонічні)",
-      ur: "انٹرولز (ہارمونک)"
+      ur: "انٹرولز (ہارمونک)",
+      tr: "Aralıklar (Armonik)"
     },
     "interval-drone": {
       en: "Intervals (Root Pad)",
@@ -279,7 +308,8 @@ registerColocatedTables({
       it: "Intervalli (bordone di tonica)",
       pl: "Interwały (Na tle burdonu)",
       uk: "Інтервали (На тлі педалі)",
-      ur: "انٹرولز (اساس پیڈ پر)"
+      ur: "انٹرولز (اساس پیڈ پر)",
+      tr: "Aralıklar (Kök Ses Pedi)"
     },
     "chord-arp-up": {
       en: "Chords (Arpeggio ↗)",
@@ -288,7 +318,8 @@ registerColocatedTables({
       it: "Accordi (arpeggio ↗)",
       pl: "Akordy (Arpeggio ↗)",
       uk: "Акорди (Арпеджіо ↗)",
-      ur: "کارڈز (آرپیجیو ↗)"
+      ur: "کارڈز (آرپیجیو ↗)",
+      tr: "Akorlar (Arpej ↗)"
     },
     "chord-arp-down": {
       en: "Chords (Arpeggio ↘)",
@@ -297,7 +328,8 @@ registerColocatedTables({
       it: "Accordi (arpeggio ↘)",
       pl: "Akordy (Arpeggio ↘)",
       uk: "Акорди (Арпеджіо ↘)",
-      ur: "کارڈز (آرپیجیو ↘)"
+      ur: "کارڈز (آرپیجیو ↘)",
+      tr: "Akorlar (Arpej ↘)"
     },
     "interval-chords": {
       en: "Chords (Simultaneous)",
@@ -306,7 +338,8 @@ registerColocatedTables({
       it: "Accordi (simultanei)",
       pl: "Akordy (Jednoczesne)",
       uk: "Акорди (Одночасні)",
-      ur: "کارڈز (بیک وقت)"
+      ur: "کارڈز (بیک وقت)",
+      tr: "Akorlar (Eş Zamanlı)"
     },
     "chord-inversions": {
       en: "Chord Inversions",
@@ -315,7 +348,8 @@ registerColocatedTables({
       it: "Rivolti di accordi",
       pl: "Przewroty akordów",
       uk: "Обернення акордів",
-      ur: "کارڈ انورژنز"
+      ur: "کارڈ انورژنز",
+      tr: "Akor Çevrimleri"
     },
     "solfege": {
       en: "Solfège",
@@ -324,7 +358,8 @@ registerColocatedTables({
       it: "Solfeggio",
       pl: "Solfeż",
       uk: "Сольфеджіо",
-      ur: "سولفیج"
+      ur: "سولفیج",
+      tr: "Solfej"
     },
     "melody": {
       en: "Melody Phrases",
@@ -333,7 +368,8 @@ registerColocatedTables({
       it: "Frasi melodiche",
       pl: "Frazy melodyczne",
       uk: "Мелодичні фрази",
-      ur: "دھنوں کی فریزز"
+      ur: "دھنوں کی فریزز",
+      tr: "Melodi Cümleleri"
     },
     "rhythm-meter": {
       en: "Rhythm • Time Signature",
@@ -342,7 +378,8 @@ registerColocatedTables({
       it: "Ritmo • Indicazione di tempo",
       pl: "Rytm • Metrum",
       uk: "Ритм • Розмір",
-      ur: "ردھم • ٹائم سگنیچر"
+      ur: "ردھم • ٹائم سگنیچر",
+      tr: "Ritim • Ölçü Birimi"
     },
     "rhythm-dictation": {
       en: "Rhythm • Dictation",
@@ -351,7 +388,8 @@ registerColocatedTables({
       it: "Ritmo • Dettato",
       pl: "Rytm • Dyktando",
       uk: "Ритм • Диктант",
-      ur: "ردھم • ڈکٹیشن"
+      ur: "ردھم • ڈکٹیشن",
+      tr: "Ritim • Dikte"
     },
     "rhythm-tap": {
       en: "Rhythm • Rhythm Tap",
@@ -360,7 +398,8 @@ registerColocatedTables({
       it: "Ritmo • Riproduci sul pad",
       pl: "Rytm • Stukanie na padzie",
       uk: "Ритм • Повтор на педі",
-      ur: "ردھم • ردھم ٹیپ"
+      ur: "ردھم • ردھم ٹیپ",
+      tr: "Ritim • Ritim Tekrarı"
     },
     "rhythm-groove": {
       en: "Rhythm • Groove & Feel",
@@ -369,7 +408,8 @@ registerColocatedTables({
       it: "Ritmo • Groove e feeling",
       pl: "Rytm • Groove i feel",
       uk: "Ритм • Ґрув і відчуття",
-      ur: "ردھم • گروو اور احساس"
+      ur: "ردھم • گروو اور احساس",
+      tr: "Ritim • Groove ve His"
     },
     "prod-tone": {
       en: "Production • Frequencies",
@@ -378,7 +418,8 @@ registerColocatedTables({
       it: "Produzione • Frequenze",
       pl: "Produkcja • Częstotliwości",
       uk: "Продакшн • Частоти",
-      ur: "پروڈکشن • فریکوئنسیز"
+      ur: "پروڈکشن • فریکوئنسیز",
+      tr: "Prodüksiyon • Frekanslar"
     },
     "prod-eq-noise": {
       en: "Production • Pink Noise EQ",
@@ -387,7 +428,8 @@ registerColocatedTables({
       it: "Produzione • EQ nel rumore rosa",
       pl: "Produkcja • EQ w szumie różowym",
       uk: "Продакшн • EQ у рожевому шумі",
-      ur: "پروڈکشن • پنک نوائز EQ"
+      ur: "پروڈکشن • پنک نوائز EQ",
+      tr: "Prodüksiyon • Pembe Gürültü EQ"
     },
     "modes-scale": {
       en: "Modes • Scale Recognition",
@@ -396,7 +438,8 @@ registerColocatedTables({
       it: "Modi • Riconosci la scala",
       pl: "Tryby • Rozpoznaj skalę",
       uk: "Лади • Розпізнавання гами",
-      ur: "موڈز • اسکیل کی پہچان"
+      ur: "موڈز • اسکیل کی پہچان",
+      tr: "Modlar • Gam Tanıma"
     },
     "modes-char": {
       en: "Modes • Characteristic Note",
@@ -405,7 +448,8 @@ registerColocatedTables({
       it: "Modi • Nota caratteristica",
       pl: "Tryby • Dźwięk charakterystyczny",
       uk: "Лади • Характерний ступінь",
-      ur: "موڈز • امتیازی سُر"
+      ur: "موڈز • امتیازی سُر",
+      tr: "Modlar • Karakteristik Ses"
     },
     "modes-cadence": {
       en: "Modes • Modal Chord Loops",
@@ -414,7 +458,8 @@ registerColocatedTables({
       it: "Modi • Giri modali",
       pl: "Tryby • Kadencje modalne",
       uk: "Лади • Модальні звороти",
-      ur: "موڈز • موڈل کارڈ لوپس"
+      ur: "موڈز • موڈل کارڈ لوپس",
+      tr: "Modlar • Modal Akor Döngüleri"
     },
     "notation-treble": {
       en: "Notation • Treble Clef",
@@ -423,7 +468,8 @@ registerColocatedTables({
       it: "Notazione • Chiave di violino",
       pl: "Nuty • Klucz wiolinowy",
       uk: "Нотопис • Скрипковий ключ",
-      ur: "نوٹیشن • ٹریبل کلیف"
+      ur: "نوٹیشن • ٹریبل کلیف",
+      tr: "Nota • Sol Anahtarı"
     },
     "notation-bass": {
       en: "Notation • Bass Clef",
@@ -432,7 +478,8 @@ registerColocatedTables({
       it: "Notazione • Chiave di basso",
       pl: "Nuty • Klucz basowy",
       uk: "Нотопис • Басовий ключ",
-      ur: "نوٹیشن • باس کلیف"
+      ur: "نوٹیشن • باس کلیف",
+      tr: "Nota • Fa Anahtarı"
     },
     "notation-alto": {
       en: "Notation • Alto Clef",
@@ -441,7 +488,8 @@ registerColocatedTables({
       it: "Notazione • Chiave di contralto",
       pl: "Nuty • Klucz altowy",
       uk: "Нотопис • Альтовий ключ",
-      ur: "نوٹیشن • آلٹو کلیف"
+      ur: "نوٹیشن • آلٹو کلیف",
+      tr: "Nota • Alto Anahtarı"
     },
     "notation-mixed": {
       en: "Notation • Clef Mix",
@@ -450,7 +498,8 @@ registerColocatedTables({
       it: "Notazione • Mix di chiavi",
       pl: "Nuty • Miks kluczy",
       uk: "Нотопис • Мікс ключів",
-      ur: "نوٹیشن • کلیف مکس"
+      ur: "نوٹیشن • کلیف مکس",
+      tr: "Nota • Anahtar Karışımı"
     },
     "notation-grand": {
       en: "Notation • Grand Staff",
@@ -459,7 +508,8 @@ registerColocatedTables({
       it: "Notazione • Doppio pentagramma",
       pl: "Nuty • System fortepianowy",
       uk: "Нотопис • Подвійний стан",
-      ur: "نوٹیشن • گرینڈ اسٹاف"
+      ur: "نوٹیشن • گرینڈ اسٹاف",
+      tr: "Nota • Piyano Portesi"
     },
     "notation-chords": {
       en: "Notation • Chord Reading",
@@ -468,7 +518,8 @@ registerColocatedTables({
       it: "Notazione • Lettura accordi",
       pl: "Nuty • Czytanie akordów",
       uk: "Нотопис • Читання акордів",
-      ur: "نوٹیشن • کارڈز پڑھنا"
+      ur: "نوٹیشن • کارڈز پڑھنا",
+      tr: "Nota • Akor Okuma"
     },
     "notation-symbols": {
       en: "Notation • Symbols & Markings",
@@ -477,7 +528,8 @@ registerColocatedTables({
       it: "Notazione • Simboli e indicazioni",
       pl: "Nuty • Symbole i oznaczenia",
       uk: "Нотопис • Символи й позначення",
-      ur: "نوٹیشن • علامات اور ہدایات"
+      ur: "نوٹیشن • علامات اور ہدایات",
+      tr: "Nota • Semboller ve İşaretler"
     }
   },
   defaultMixTitles: {
@@ -489,7 +541,8 @@ registerColocatedTables({
       it: "Risveglio mattutino",
       pl: "Poranna rozgrzewka",
       uk: "Ранковий старт",
-      ur: "صبح کا وارم اپ"
+      ur: "صبح کا وارم اپ",
+      tr: "Sabah Isınması"
     },
     "mix_intervals": {
       de: "Intervall-Fokus",
@@ -499,7 +552,8 @@ registerColocatedTables({
       it: "Sprint intervalli",
       pl: "Trening interwałów",
       uk: "Інтервальний спринт",
-      ur: "انٹرول اسپرنٹ"
+      ur: "انٹرول اسپرنٹ",
+      tr: "Aralık Hız Turu"
     },
     "mix_groove": {
       de: "Timing & Blindflug",
@@ -509,7 +563,8 @@ registerColocatedTables({
       it: "Timing e modalità al buio",
       pl: "Timing i tryb ślepy",
       uk: "Таймінг і сліпий режим",
-      ur: "ٹائمنگ اور بلائنڈ ٹیپ"
+      ur: "ٹائمنگ اور بلائنڈ ٹیپ",
+      tr: "Zamanlama ve Kör Mod"
     }
   },
   keyNames: {
@@ -520,7 +575,8 @@ registerColocatedTables({
       it: "Do maggiore",
       pl: "C-dur",
       uk: "До мажор",
-      ur: "C میجر"
+      ur: "C میجر",
+      tr: "Do Majör"
     },
     "G": {
       en: "G Major",
@@ -529,7 +585,8 @@ registerColocatedTables({
       it: "Sol maggiore",
       pl: "G-dur",
       uk: "Соль мажор",
-      ur: "G میجر"
+      ur: "G میجر",
+      tr: "Sol Majör"
     },
     "D": {
       en: "D Major",
@@ -538,7 +595,8 @@ registerColocatedTables({
       it: "Re maggiore",
       pl: "D-dur",
       uk: "Ре мажор",
-      ur: "D میجر"
+      ur: "D میجر",
+      tr: "Re Majör"
     },
     "F": {
       en: "F Major",
@@ -547,7 +605,8 @@ registerColocatedTables({
       it: "Fa maggiore",
       pl: "F-dur",
       uk: "Фа мажор",
-      ur: "F میجر"
+      ur: "F میجر",
+      tr: "Fa Majör"
     },
     "Bb": {
       en: "Bb Major",
@@ -556,7 +615,8 @@ registerColocatedTables({
       it: "Si♭ maggiore",
       pl: "B-dur",
       uk: "Сі♭ мажор",
-      ur: "B♭ میجر"
+      ur: "B♭ میجر",
+      tr: "Si♭ Majör"
     },
     "Eb": {
       en: "Eb Major",
@@ -565,7 +625,8 @@ registerColocatedTables({
       it: "Mi♭ maggiore",
       pl: "Es-dur",
       uk: "Мі♭ мажор",
-      ur: "E♭ میجر"
+      ur: "E♭ میجر",
+      tr: "Mi♭ Majör"
     },
     "Ab": {
       en: "Ab Major",
@@ -574,7 +635,8 @@ registerColocatedTables({
       it: "La♭ maggiore",
       pl: "As-dur",
       uk: "Ля♭ мажор",
-      ur: "A♭ میجر"
+      ur: "A♭ میجر",
+      tr: "La♭ Majör"
     },
     "A": {
       en: "A Major",
@@ -583,7 +645,8 @@ registerColocatedTables({
       it: "La maggiore",
       pl: "A-dur",
       uk: "Ля мажор",
-      ur: "A میجر"
+      ur: "A میجر",
+      tr: "La Majör"
     },
     "E": {
       en: "E Major",
@@ -592,7 +655,8 @@ registerColocatedTables({
       it: "Mi maggiore",
       pl: "E-dur",
       uk: "Мі мажор",
-      ur: "E میجر"
+      ur: "E میجر",
+      tr: "Mi Majör"
     },
     "B": {
       en: "B Major",
@@ -601,7 +665,8 @@ registerColocatedTables({
       it: "Si maggiore",
       pl: "H-dur",
       uk: "Сі мажор",
-      ur: "B میجر"
+      ur: "B میجر",
+      tr: "Si Majör"
     },
     "F#": {
       en: "F# Major",
@@ -610,7 +675,8 @@ registerColocatedTables({
       it: "Fa♯ maggiore",
       pl: "Fis-dur",
       uk: "Фа♯ мажор",
-      ur: "F♯ میجر"
+      ur: "F♯ میجر",
+      tr: "Fa♯ Majör"
     },
     "Db": {
       en: "Db Major",
@@ -619,7 +685,8 @@ registerColocatedTables({
       it: "Re♭ maggiore",
       pl: "Des-dur",
       uk: "Ре♭ мажор",
-      ur: "D♭ میجر"
+      ur: "D♭ میجر",
+      tr: "Re♭ Majör"
     }
   },
   minorKeyNames: {
@@ -630,7 +697,8 @@ registerColocatedTables({
       it: "Do minore",
       pl: "c-moll",
       uk: "До мінор",
-      ur: "C مائنر"
+      ur: "C مائنر",
+      tr: "Do Minör"
     },
     "G": {
       en: "G minor",
@@ -639,7 +707,8 @@ registerColocatedTables({
       it: "Sol minore",
       pl: "g-moll",
       uk: "Соль мінор",
-      ur: "G مائنر"
+      ur: "G مائنر",
+      tr: "Sol Minör"
     },
     "D": {
       en: "D minor",
@@ -648,7 +717,8 @@ registerColocatedTables({
       it: "Re minore",
       pl: "d-moll",
       uk: "Ре мінор",
-      ur: "D مائنر"
+      ur: "D مائنر",
+      tr: "Re Minör"
     },
     "F": {
       en: "F minor",
@@ -657,7 +727,8 @@ registerColocatedTables({
       it: "Fa minore",
       pl: "f-moll",
       uk: "Фа мінор",
-      ur: "F مائنر"
+      ur: "F مائنر",
+      tr: "Fa Minör"
     },
     "Bb": {
       en: "Bb minor",
@@ -666,7 +737,8 @@ registerColocatedTables({
       it: "Si♭ minore",
       pl: "b-moll",
       uk: "Сі♭ мінор",
-      ur: "B♭ مائنر"
+      ur: "B♭ مائنر",
+      tr: "Si♭ Minör"
     },
     "Eb": {
       en: "Eb minor",
@@ -675,7 +747,8 @@ registerColocatedTables({
       it: "Mi♭ minore",
       pl: "es-moll",
       uk: "Мі♭ мінор",
-      ur: "E♭ مائنر"
+      ur: "E♭ مائنر",
+      tr: "Mi♭ Minör"
     },
     "Ab": {
       en: "G# minor",
@@ -684,7 +757,8 @@ registerColocatedTables({
       it: "Sol♯ minore",
       pl: "gis-moll",
       uk: "Соль♯ мінор",
-      ur: "G♯ مائنر"
+      ur: "G♯ مائنر",
+      tr: "Sol♯ Minör"
     },
     "A": {
       en: "A minor",
@@ -693,7 +767,8 @@ registerColocatedTables({
       it: "La minore",
       pl: "a-moll",
       uk: "Ля мінор",
-      ur: "A مائنر"
+      ur: "A مائنر",
+      tr: "La Minör"
     },
     "E": {
       en: "E minor",
@@ -702,7 +777,8 @@ registerColocatedTables({
       it: "Mi minore",
       pl: "e-moll",
       uk: "Мі мінор",
-      ur: "E مائنر"
+      ur: "E مائنر",
+      tr: "Mi Minör"
     },
     "B": {
       en: "B minor",
@@ -711,7 +787,8 @@ registerColocatedTables({
       it: "Si minore",
       pl: "h-moll",
       uk: "Сі мінор",
-      ur: "B مائنر"
+      ur: "B مائنر",
+      tr: "Si Minör"
     },
     "F#": {
       en: "F# minor",
@@ -720,7 +797,8 @@ registerColocatedTables({
       it: "Fa♯ minore",
       pl: "fis-moll",
       uk: "Фа♯ мінор",
-      ur: "F♯ مائنر"
+      ur: "F♯ مائنر",
+      tr: "Fa♯ Minör"
     },
     "Db": {
       en: "C# minor",
@@ -729,7 +807,8 @@ registerColocatedTables({
       it: "Do♯ minore",
       pl: "cis-moll",
       uk: "До♯ мінор",
-      ur: "C♯ مائنر"
+      ur: "C♯ مائنر",
+      tr: "Do♯ Minör"
     }
   },
   degrees: {
@@ -740,7 +819,8 @@ registerColocatedTables({
       it: { label: "Tonica", short: "Tonica" },
       pl: { label: "Tonika", short: "Tonika" },
       uk: { label: "Тоніка", short: "Тоніка" },
-      ur: { label: "ٹانک (I)", short: "ٹانک" }
+      ur: { label: "ٹانک (I)", short: "ٹانک" },
+      tr: { label: "Tonik", short: "Tonik" }
     },
     "I7": {
       en: { label: "Tonic Dom. 7th", short: "I7" },
@@ -749,7 +829,8 @@ registerColocatedTables({
       it: { label: "Tonica settima di dom.", short: "I7" },
       pl: { label: "Tonika z septyma m.", short: "I7" },
       uk: { label: "Тоніка з мал. 7", short: "I7" },
-      ur: { label: "ٹانک ڈومیننٹ سیونتھ", short: "I7" }
+      ur: { label: "ٹانک ڈومیننٹ سیونتھ", short: "I7" },
+      tr: { label: "Tonik Dominant 7'li", short: "I7" }
     },
     "Imaj7": {
       en: { label: "Tonic Major 7th", short: "Imaj7" },
@@ -758,7 +839,8 @@ registerColocatedTables({
       it: { label: "Tonica settima magg.", short: "Imaj7" },
       pl: { label: "Tonika maj7", short: "Imaj7" },
       uk: { label: "Тонічний майор-7", short: "Imaj7" },
-      ur: { label: "ٹانک میجر سیونتھ", short: "Imaj7" }
+      ur: { label: "ٹانک میجر سیونتھ", short: "Imaj7" },
+      tr: { label: "Tonik Majör 7'li", short: "Imaj7" }
     },
     "ii": {
       en: { label: "Supertonic (minor)", short: "ii (Min)" },
@@ -767,7 +849,8 @@ registerColocatedTables({
       it: { label: "Sopratonica (minore)", short: "ii (min.)" },
       pl: { label: "Supertonika (moll)", short: "ii (moll)" },
       uk: { label: "Супертоніка (мінор)", short: "ii (мін)" },
-      ur: { label: "سپرٹانک (مائنر ii)", short: "ii (مائنر)" }
+      ur: { label: "سپرٹانک (مائنر ii)", short: "ii (مائنر)" },
+      tr: { label: "Üst Tonik (Minör)", short: "ii (Min)" }
     },
     "iii": {
       en: { label: "Mediant (minor)", short: "iii (Min)" },
@@ -776,7 +859,8 @@ registerColocatedTables({
       it: { label: "Mediante (minore)", short: "iii (min.)" },
       pl: { label: "Medianta (moll)", short: "iii (moll)" },
       uk: { label: "Медіанта (мінор)", short: "iii (мін)" },
-      ur: { label: "میڈینٹ (مائنر iii)", short: "iii (مائنر)" }
+      ur: { label: "میڈینٹ (مائنر iii)", short: "iii (مائنر)" },
+      tr: { label: "Mediyant (Minör)", short: "iii (Min)" }
     },
     "III7": {
       en: { label: "Secondary Dom. III7", short: "III7" },
@@ -785,7 +869,8 @@ registerColocatedTables({
       it: { label: "Dom. secondaria III7", short: "III7" },
       pl: { label: "Dom. wtrącona III7", short: "III7" },
       uk: { label: "Побічна домін. III7", short: "III7" },
-      ur: { label: "سیکنڈری ڈومیننٹ III7", short: "III7" }
+      ur: { label: "سیکنڈری ڈومیننٹ III7", short: "III7" },
+      tr: { label: "İkincil Dominant III7", short: "III7" }
     },
     "IV": {
       en: { label: "Subdominant", short: "Subdom." },
@@ -794,7 +879,8 @@ registerColocatedTables({
       it: { label: "Sottodominante", short: "Sottodom." },
       pl: { label: "Subdominanta", short: "Subdom." },
       uk: { label: "Субдомінанта", short: "Субдом." },
-      ur: { label: "سب ڈومیننٹ (IV)", short: "سب ڈوم۔" }
+      ur: { label: "سب ڈومیننٹ (IV)", short: "سب ڈوم۔" },
+      tr: { label: "Subdominant", short: "Subdom." }
     },
     "IV7": {
       en: { label: "Subdominant Dom. 7", short: "IV7" },
@@ -803,7 +889,8 @@ registerColocatedTables({
       it: { label: "Sottodominante 7", short: "IV7" },
       pl: { label: "Subdominanta 7", short: "IV7" },
       uk: { label: "Субдомінанта 7", short: "IV7" },
-      ur: { label: "سب ڈومیننٹ 7", short: "IV7" }
+      ur: { label: "سب ڈومیننٹ 7", short: "IV7" },
+      tr: { label: "Subdominant Dom. 7'li", short: "IV7" }
     },
     "iv": {
       en: { label: "Minor Subdominant", short: "iv (Min)" },
@@ -812,7 +899,8 @@ registerColocatedTables({
       it: { label: "Sottodominante minore", short: "iv (min.)" },
       pl: { label: "Subdominanta molowa", short: "iv (moll)" },
       uk: { label: "Мінорна субдом.", short: "iv (мін)" },
-      ur: { label: "مائنر سب ڈومیننٹ (iv)", short: "iv (مائنر)" }
+      ur: { label: "مائنر سب ڈومیننٹ (iv)", short: "iv (مائنر)" },
+      tr: { label: "Minör Subdominant", short: "iv (Min)" }
     },
     "V": {
       en: { label: "Dominant", short: "Dominant" },
@@ -821,7 +909,8 @@ registerColocatedTables({
       it: { label: "Dominante", short: "Dominante" },
       pl: { label: "Dominanta", short: "Dominanta" },
       uk: { label: "Домінанта", short: "Домінанта" },
-      ur: { label: "ڈومیننٹ (V)", short: "ڈومیننٹ" }
+      ur: { label: "ڈومیننٹ (V)", short: "ڈومیننٹ" },
+      tr: { label: "Dominant", short: "Dominant" }
     },
     "V7": {
       en: { label: "Dominant 7th", short: "Dom. 7" },
@@ -830,7 +919,8 @@ registerColocatedTables({
       it: { label: "Settima di dominante", short: "Dom. 7" },
       pl: { label: "Dominanta septymowa", short: "Dom. 7" },
       uk: { label: "Домінантсептакорд", short: "Домін. 7" },
-      ur: { label: "ڈومیننٹ سیونتھ (V7)", short: "ڈوم۔ 7" }
+      ur: { label: "ڈومیننٹ سیونتھ (V7)", short: "ڈوم۔ 7" },
+      tr: { label: "Dominant 7'li", short: "Dom. 7" }
     },
     "Vsus4": {
       en: { label: "Dominant Sus4", short: "Vsus4" },
@@ -839,7 +929,8 @@ registerColocatedTables({
       it: { label: "Dominante sus4", short: "Vsus4" },
       pl: { label: "Dominanta sus4", short: "Vsus4" },
       uk: { label: "Домінанта sus4", short: "Vsus4" },
-      ur: { label: "ڈومیننٹ Sus4", short: "Vsus4" }
+      ur: { label: "ڈومیننٹ Sus4", short: "Vsus4" },
+      tr: { label: "Dominant Sus4", short: "Vsus4" }
     },
     "vi": {
       en: { label: "Relative Minor (vi)", short: "vi (Min)" },
@@ -848,7 +939,8 @@ registerColocatedTables({
       it: { label: "Relativa minore (vi)", short: "vi (min.)" },
       pl: { label: "Moll równoległy (vi)", short: "vi (moll)" },
       uk: { label: "Паралельний мінор (vi)", short: "vi (мін)" },
-      ur: { label: "پیرالل مائنر (vi)", short: "vi (مائنر)" }
+      ur: { label: "پیرالل مائنر (vi)", short: "vi (مائنر)" },
+      tr: { label: "İlgili Minör (vi)", short: "vi (Min)" }
     },
     "bVI": {
       en: { label: "Modal Borrowed bVI", short: "bVI" },
@@ -857,7 +949,8 @@ registerColocatedTables({
       it: { label: "Prestito modale bVI", short: "bVI" },
       pl: { label: "Modalny bVI", short: "bVI" },
       uk: { label: "Модальний bVI", short: "bVI" },
-      ur: { label: "مائنر باروڈ bVI", short: "bVI" }
+      ur: { label: "مائنر باروڈ bVI", short: "bVI" },
+      tr: { label: "Modal Ödünç bVI", short: "bVI" }
     },
     "bVII": {
       en: { label: "Subtonic bVII", short: "bVII" },
@@ -866,7 +959,8 @@ registerColocatedTables({
       it: { label: "Sottotonica bVII", short: "bVII" },
       pl: { label: "Naturalny bVII", short: "bVII" },
       uk: { label: "Натуральний bVII", short: "bVII" },
-      ur: { label: "سب ٹانک bVII", short: "bVII" }
+      ur: { label: "سب ٹانک bVII", short: "bVII" },
+      tr: { label: "Alt Tonik bVII", short: "bVII" }
     },
     "V/V": {
       en: { label: "Secondary Dominant", short: "V/V" },
@@ -875,7 +969,8 @@ registerColocatedTables({
       it: { label: "Dominante secondaria", short: "V/V" },
       pl: { label: "Dominanta wtrącona", short: "V/V" },
       uk: { label: "Побічна домінанта", short: "V/V" },
-      ur: { label: "سیکنڈری ڈومیننٹ V/V", short: "V/V" }
+      ur: { label: "سیکنڈری ڈومیننٹ V/V", short: "V/V" },
+      tr: { label: "İkincil Dominant", short: "V/V" }
     },
     "bII7": {
       en: { label: "Tritone Substitution", short: "bII7 (Sub)" },
@@ -884,7 +979,8 @@ registerColocatedTables({
       it: { label: "Sostituzione di tritono", short: "bII7 (sost.)" },
       pl: { label: "Substytut trytonowy", short: "bII7 (Sub.)" },
       uk: { label: "Тритонова заміна", short: "bII7 (Зам.)" },
-      ur: { label: "ٹرائی ٹون متبادل bII7", short: "bII7 (سب)" }
+      ur: { label: "ٹرائی ٹون متبادل bII7", short: "bII7 (سب)" },
+      tr: { label: "Triton İkamesi", short: "bII7 (İkame)" }
     },
     "i": {
       en: { label: "Minor Tonic", short: "Tonic" },
@@ -893,7 +989,8 @@ registerColocatedTables({
       it: { label: "Tonica minore", short: "Tonica" },
       pl: { label: "Tonika molowa", short: "Tonika" },
       uk: { label: "Мінорна тоніка", short: "Тоніка" },
-      ur: { label: "مائنر ٹانک", short: "ٹانک" }
+      ur: { label: "مائنر ٹانک", short: "ٹانک" },
+      tr: { label: "Minör Tonik", short: "Tonik" }
     },
     "iio": {
       en: { label: "Diminished ii", short: "ii° (dim)" },
@@ -902,7 +999,8 @@ registerColocatedTables({
       it: { label: "ii diminuito", short: "ii° (dim.)" },
       pl: { label: "Zmniejszony ii", short: "ii° (zmn.)" },
       uk: { label: "Зменшений ii", short: "ii° (зм.)" },
-      ur: { label: "ڈمنشڈ ii", short: "ii° (ڈمنشڈ)" }
+      ur: { label: "ڈمنشڈ ii", short: "ii° (ڈمنشڈ)" },
+      tr: { label: "Eksik ii", short: "ii° (eksik)" }
     },
     "ii7b5": {
       en: { label: "Half-Diminished ii", short: "iiø7" },
@@ -911,7 +1009,8 @@ registerColocatedTables({
       it: { label: "ii semidiminuito", short: "iiø7" },
       pl: { label: "Półzmniejszony ii", short: "iiø7" },
       uk: { label: "Напівзменшений ii", short: "iiø7" },
-      ur: { label: "ہاف ڈمنشڈ ii", short: "iiø7" }
+      ur: { label: "ہاف ڈمنشڈ ii", short: "iiø7" },
+      tr: { label: "Yarı Eksik ii", short: "iiø7" }
     },
     "III": {
       en: { label: "Relative Major", short: "Rel. Major" },
@@ -920,7 +1019,8 @@ registerColocatedTables({
       it: { label: "Relativa maggiore", short: "Rel. magg." },
       pl: { label: "Równoległa durowa", short: "Równol. dur" },
       uk: { label: "Паралельний мажор", short: "Пар. мажор" },
-      ur: { label: "ریلیٹو میجر", short: "ریلیٹو میجر" }
+      ur: { label: "ریلیٹو میجر", short: "ریلیٹو میجر" },
+      tr: { label: "İlgili Majör", short: "İlg. Majör" }
     },
     "v": {
       en: { label: "Minor Dominant", short: "v (Min)" },
@@ -929,7 +1029,8 @@ registerColocatedTables({
       it: { label: "Dominante minore", short: "v (min.)" },
       pl: { label: "Dominanta molowa", short: "v (mol)" },
       uk: { label: "Мінорна домінанта", short: "v (мін.)" },
-      ur: { label: "مائنر ڈومیننٹ", short: "v (مائنر)" }
+      ur: { label: "مائنر ڈومیننٹ", short: "v (مائنر)" },
+      tr: { label: "Minör Dominant", short: "v (Min)" }
     },
     "VI": {
       en: { label: "Submediant VI (Major)", short: "VI" },
@@ -938,7 +1039,8 @@ registerColocatedTables({
       it: { label: "Grado VI (maggiore)", short: "VI" },
       pl: { label: "Stopień VI (dur)", short: "VI" },
       uk: { label: "VI ступінь (мажор)", short: "VI" },
-      ur: { label: "درجہ VI (میجر)", short: "VI" }
+      ur: { label: "درجہ VI (میجر)", short: "VI" },
+      tr: { label: "Alt Mediyant VI (Majör)", short: "VI" }
     },
     "VII": {
       en: { label: "Subtonic VII (Major)", short: "VII" },
@@ -947,7 +1049,8 @@ registerColocatedTables({
       it: { label: "Grado VII (maggiore)", short: "VII" },
       pl: { label: "Stopień VII (dur)", short: "VII" },
       uk: { label: "VII ступінь (мажор)", short: "VII" },
-      ur: { label: "درجہ VII (میجر)", short: "VII" }
+      ur: { label: "درجہ VII (میجر)", short: "VII" },
+      tr: { label: "Alt Tonik VII (Majör)", short: "VII" }
     },
     "N6": {
       en: { label: "Neapolitan (♭II⁶)", short: "N6" },
@@ -956,7 +1059,8 @@ registerColocatedTables({
       it: { label: "Sesta napoletana (♭II⁶)", short: "N6" },
       pl: { label: "Neapolitański (♭II⁶)", short: "N6" },
       uk: { label: "Неаполітанський (♭II⁶)", short: "N6" },
-      ur: { label: "نیپولیٹن (♭II⁶)", short: "N6" }
+      ur: { label: "نیپولیٹن (♭II⁶)", short: "N6" },
+      tr: { label: "Napoliten (♭II⁶)", short: "N6" }
     }
   },
   intervals: {
@@ -967,7 +1071,8 @@ registerColocatedTables({
       it: { label: "Unisono giusto", short: "Unisono" },
       pl: { label: "Pryma czysta", short: "Pryma" },
       uk: { label: "Чиста прима", short: "Прима" },
-      ur: { label: "پرفیکٹ یونی سن (ہم سُر)", short: "یونی سن" }
+      ur: { label: "پرفیکٹ یونی سن (ہم سُر)", short: "یونی سن" },
+      tr: { label: "Tam Birli (Ünison)", short: "Ünison" }
     },
     "m2": {
       en: { label: "Minor 2nd", short: "min 2nd" },
@@ -976,7 +1081,8 @@ registerColocatedTables({
       it: { label: "Seconda minore", short: "2ª min." },
       pl: { label: "Sekunda mała", short: "2m" },
       uk: { label: "Мала секунда", short: "м. 2" },
-      ur: { label: "مائنر سیکنڈ (کومل رے)", short: "مائنر 2nd" }
+      ur: { label: "مائنر سیکنڈ (کومل رے)", short: "مائنر 2nd" },
+      tr: { label: "Küçük İkili", short: "küç. 2'li" }
     },
     "M2": {
       en: { label: "Major 2nd", short: "Maj 2nd" },
@@ -985,7 +1091,8 @@ registerColocatedTables({
       it: { label: "Seconda maggiore", short: "2ª magg." },
       pl: { label: "Sekunda wielka", short: "2w" },
       uk: { label: "Велика секунда", short: "в. 2" },
-      ur: { label: "میجر سیکنڈ (شدھ رے)", short: "میجر 2nd" }
+      ur: { label: "میجر سیکنڈ (شدھ رے)", short: "میجر 2nd" },
+      tr: { label: "Büyük İkili", short: "Büy. 2'li" }
     },
     "m3": {
       en: { label: "Minor 3rd", short: "min 3rd" },
@@ -994,7 +1101,8 @@ registerColocatedTables({
       it: { label: "Terza minore", short: "3ª min." },
       pl: { label: "Tercja mała", short: "3m" },
       uk: { label: "Мала терція", short: "м. 3" },
-      ur: { label: "مائنر تھرڈ (کومل گا)", short: "مائنر 3rd" }
+      ur: { label: "مائنر تھرڈ (کومل گا)", short: "مائنر 3rd" },
+      tr: { label: "Küçük Üçlü", short: "küç. 3'lü" }
     },
     "M3": {
       en: { label: "Major 3rd", short: "Maj 3rd" },
@@ -1003,7 +1111,8 @@ registerColocatedTables({
       it: { label: "Terza maggiore", short: "3ª magg." },
       pl: { label: "Tercja wielka", short: "3w" },
       uk: { label: "Велика терція", short: "в. 3" },
-      ur: { label: "میجر تھرڈ (شدھ گا)", short: "میجر 3rd" }
+      ur: { label: "میجر تھرڈ (شدھ گا)", short: "میجر 3rd" },
+      tr: { label: "Büyük Üçlü", short: "Büy. 3'lü" }
     },
     "P4": {
       en: { label: "Perfect 4th", short: "Perf. 4th" },
@@ -1012,7 +1121,8 @@ registerColocatedTables({
       it: { label: "Quarta giusta", short: "4ª g." },
       pl: { label: "Kwarta czysta", short: "Kwarta" },
       uk: { label: "Чиста кварта", short: "Кварта" },
-      ur: { label: "پرفیکٹ فورتھ (شدھ ما)", short: "پرف۔ 4th" }
+      ur: { label: "پرفیکٹ فورتھ (شدھ ما)", short: "پرف۔ 4th" },
+      tr: { label: "Tam Dörtlü", short: "Tam 4'lü" }
     },
     "TT": {
       en: { label: "Tritone", short: "Tritone" },
@@ -1021,7 +1131,8 @@ registerColocatedTables({
       it: { label: "Tritono", short: "Tritono" },
       pl: { label: "Tryton", short: "Tryton" },
       uk: { label: "Тритон", short: "Тритон" },
-      ur: { label: "ٹرائی ٹون (تیور ما)", short: "ٹرائی ٹون" }
+      ur: { label: "ٹرائی ٹون (تیور ما)", short: "ٹرائی ٹون" },
+      tr: { label: "Triton", short: "Triton" }
     },
     "P5": {
       en: { label: "Perfect 5th", short: "Perf. 5th" },
@@ -1030,7 +1141,8 @@ registerColocatedTables({
       it: { label: "Quinta giusta", short: "5ª g." },
       pl: { label: "Kwinta czysta", short: "Kwinta" },
       uk: { label: "Чиста квінта", short: "Квінта" },
-      ur: { label: "پرفیکٹ ففتھ (پا)", short: "پرف۔ 5th" }
+      ur: { label: "پرفیکٹ ففتھ (پا)", short: "پرف۔ 5th" },
+      tr: { label: "Tam Beşli", short: "Tam 5'li" }
     },
     "m6": {
       en: { label: "Minor 6th", short: "min 6th" },
@@ -1039,7 +1151,8 @@ registerColocatedTables({
       it: { label: "Sesta minore", short: "6ª min." },
       pl: { label: "Seksta mała", short: "6m" },
       uk: { label: "Мала секста", short: "м. 6" },
-      ur: { label: "مائنر سکستھ (کومل دھا)", short: "مائنر 6th" }
+      ur: { label: "مائنر سکستھ (کومل دھا)", short: "مائنر 6th" },
+      tr: { label: "Küçük Altılı", short: "küç. 6'lı" }
     },
     "M6": {
       en: { label: "Major 6th", short: "Maj 6th" },
@@ -1048,7 +1161,8 @@ registerColocatedTables({
       it: { label: "Sesta maggiore", short: "6ª magg." },
       pl: { label: "Seksta wielka", short: "6w" },
       uk: { label: "Велика секста", short: "в. 6" },
-      ur: { label: "میجر سکستھ (شدھ دھا)", short: "میجر 6th" }
+      ur: { label: "میجر سکستھ (شدھ دھا)", short: "میجر 6th" },
+      tr: { label: "Büyük Altılı", short: "Büy. 6'lı" }
     },
     "m7": {
       en: { label: "Minor 7th", short: "min 7th" },
@@ -1057,7 +1171,8 @@ registerColocatedTables({
       it: { label: "Settima minore", short: "7ª min." },
       pl: { label: "Septyma mała", short: "7m" },
       uk: { label: "Мала септима", short: "м. 7" },
-      ur: { label: "مائنر سیونتھ (کومل نی)", short: "مائنر 7th" }
+      ur: { label: "مائنر سیونتھ (کومل نی)", short: "مائنر 7th" },
+      tr: { label: "Küçük Yedili", short: "küç. 7'li" }
     },
     "M7": {
       en: { label: "Major 7th", short: "Maj 7th" },
@@ -1066,7 +1181,8 @@ registerColocatedTables({
       it: { label: "Settima maggiore", short: "7ª magg." },
       pl: { label: "Septyma wielka", short: "7w" },
       uk: { label: "Велика септима", short: "в. 7" },
-      ur: { label: "میجر سیونتھ (شدھ نی)", short: "میجر 7th" }
+      ur: { label: "میجر سیونتھ (شدھ نی)", short: "میجر 7th" },
+      tr: { label: "Büyük Yedili", short: "Büy. 7'li" }
     },
     "P8": {
       en: { label: "Perfect Octave", short: "Octave" },
@@ -1075,7 +1191,8 @@ registerColocatedTables({
       it: { label: "Ottava giusta", short: "Ottava" },
       pl: { label: "Oktawa czysta", short: "Oktawa" },
       uk: { label: "Чиста октава", short: "Октава" },
-      ur: { label: "پرفیکٹ آکٹیو (تار سپتک)", short: "آکٹیو" }
+      ur: { label: "پرفیکٹ آکٹیو (تار سپتک)", short: "آکٹیو" },
+      tr: { label: "Tam Oktav", short: "Oktav" }
     },
     "m9": {
       en: { label: "Minor 9th", short: "min 9th" },
@@ -1084,7 +1201,8 @@ registerColocatedTables({
       it: { label: "Nona minore", short: "9ª min." },
       pl: { label: "Nona mała", short: "9m" },
       uk: { label: "Мала нона", short: "м. 9" },
-      ur: { label: "مائنر نائنتھ", short: "مائنر 9th" }
+      ur: { label: "مائنر نائنتھ", short: "مائنر 9th" },
+      tr: { label: "Küçük Dokuzlu", short: "küç. 9'lu" }
     },
     "M9": {
       en: { label: "Major 9th", short: "Maj 9th" },
@@ -1093,7 +1211,8 @@ registerColocatedTables({
       it: { label: "Nona maggiore", short: "9ª magg." },
       pl: { label: "Nona wielka", short: "9w" },
       uk: { label: "Велика нона", short: "в. 9" },
-      ur: { label: "میجر نائنتھ", short: "میجر 9th" }
+      ur: { label: "میجر نائنتھ", short: "میجر 9th" },
+      tr: { label: "Büyük Dokuzlu", short: "Büy. 9'lu" }
     }
   },
   chords: {
@@ -1104,7 +1223,8 @@ registerColocatedTables({
       it: { symbol: "7", label: "Settima di dominante (1–3–5–♭7)", short: "Dom. 7" },
       pl: { symbol: "7", label: "Dominanta septymowa (1–3–5–♭7)", short: "Dom. 7" },
       uk: { symbol: "7", label: "Домінантсептакорд (1–3–5–♭7)", short: "Домін. 7" },
-      ur: { symbol: "7", label: "ڈومیننٹ سیونتھ (1–3–5–♭7)", short: "ڈوم۔ 7" }
+      ur: { symbol: "7", label: "ڈومیننٹ سیونتھ (1–3–5–♭7)", short: "ڈوم۔ 7" },
+      tr: { symbol: "7", label: "Dominant 7'li (1–3–5–♭7)", short: "Dom. 7" }
     },
     "maj": {
       en: { symbol: "maj", label: "Major Triad (1–3–5)", short: "Major" },
@@ -1113,7 +1233,8 @@ registerColocatedTables({
       it: { symbol: "maj", label: "Triade maggiore (1–3–5)", short: "Maggiore" },
       pl: { symbol: "maj", label: "Trójdźwięk durowy (1–3–5)", short: "Dur" },
       uk: { symbol: "maj", label: "Мажорний тризвук (1–3–5)", short: "Мажор" },
-      ur: { symbol: "maj", label: "میجر ٹرائڈ (1–3–5)", short: "میجر" }
+      ur: { symbol: "maj", label: "میجر ٹرائڈ (1–3–5)", short: "میجر" },
+      tr: { symbol: "maj", label: "Majör Üçlü Akor (1–3–5)", short: "Majör" }
     },
     "min": {
       en: { symbol: "m", label: "Minor Triad (1–♭3–5)", short: "Minor" },
@@ -1122,7 +1243,8 @@ registerColocatedTables({
       it: { symbol: "m", label: "Triade minore (1–♭3–5)", short: "Minore" },
       pl: { symbol: "m", label: "Trójdźwięk molowy (1–♭3–5)", short: "Moll" },
       uk: { symbol: "m", label: "Мінорний тризвук (1–♭3–5)", short: "Мінор" },
-      ur: { symbol: "m", label: "مائنر ٹرائڈ (1–♭3–5)", short: "مائنر" }
+      ur: { symbol: "m", label: "مائنر ٹرائڈ (1–♭3–5)", short: "مائنر" },
+      tr: { symbol: "m", label: "Minör Üçlü Akor (1–♭3–5)", short: "Minör" }
     },
     "dim": {
       en: { symbol: "dim", label: "Diminished Triad (1–♭3–♭5)", short: "Diminished" },
@@ -1131,7 +1253,8 @@ registerColocatedTables({
       it: { symbol: "dim", label: "Triade diminuita (1–♭3–♭5)", short: "Diminuito" },
       pl: { symbol: "dim", label: "Trójdźwięk zmniejszony (1–♭3–♭5)", short: "Zmniejsz." },
       uk: { symbol: "dim", label: "Зменшений тризвук (1–♭3–♭5)", short: "Зменш." },
-      ur: { symbol: "dim", label: "ڈِمنشڈ ٹرائڈ (1–♭3–♭5)", short: "ڈِمنشڈ" }
+      ur: { symbol: "dim", label: "ڈِمنشڈ ٹرائڈ (1–♭3–♭5)", short: "ڈِمنشڈ" },
+      tr: { symbol: "dim", label: "Eksik Üçlü Akor (1–♭3–♭5)", short: "Eksik" }
     },
     "aug": {
       en: { symbol: "aug", label: "Augmented Triad (1–3–♯5)", short: "Augmented" },
@@ -1140,7 +1263,8 @@ registerColocatedTables({
       it: { symbol: "aug", label: "Triade aumentata (1–3–♯5)", short: "Aumentato" },
       pl: { symbol: "aug", label: "Trójdźwięk zwiększony (1–3–♯5)", short: "Zwiększ." },
       uk: { symbol: "aug", label: "Збільшений тризвук (1–3–♯5)", short: "Збільш." },
-      ur: { symbol: "aug", label: "آگمینٹڈ ٹرائڈ (1–3–♯5)", short: "آگمینٹڈ" }
+      ur: { symbol: "aug", label: "آگمینٹڈ ٹرائڈ (1–3–♯5)", short: "آگمینٹڈ" },
+      tr: { symbol: "aug", label: "Artık Üçlü Akor (1–3–♯5)", short: "Artık" }
     },
     "sus4": {
       en: { symbol: "sus4", label: "Suspended 4th (1–4–5)", short: "Sus 4" },
@@ -1149,7 +1273,8 @@ registerColocatedTables({
       it: { symbol: "sus4", label: "Accordo sus4 (1–4–5)", short: "Sus 4" },
       pl: { symbol: "sus4", label: "Akord zawieszony sus4 (1–4–5)", short: "sus4" },
       uk: { symbol: "sus4", label: "Затриманий акорд sus4 (1–4–5)", short: "sus4" },
-      ur: { symbol: "sus4", label: "سسپینڈڈ فورتھ (1–4–5)", short: "Sus 4" }
+      ur: { symbol: "sus4", label: "سسپینڈڈ فورتھ (1–4–5)", short: "Sus 4" },
+      tr: { symbol: "sus4", label: "Askılı Dörtlü (1–4–5)", short: "Sus 4" }
     },
     "maj7": {
       en: { symbol: "maj7", label: "Major 7th (1–3–5–7)", short: "Major 7" },
@@ -1158,7 +1283,8 @@ registerColocatedTables({
       it: { symbol: "maj7", label: "Settima maggiore (1–3–5–7)", short: "Maggiore 7" },
       pl: { symbol: "maj7", label: "Wielki septymowy durowy (1–3–5–7)", short: "Maj7" },
       uk: { symbol: "maj7", label: "Великий мажорний септ. (1–3–5–7)", short: "Маж. 7" },
-      ur: { symbol: "maj7", label: "میجر سیونتھ (1–3–5–7)", short: "میجر 7" }
+      ur: { symbol: "maj7", label: "میجر سیونتھ (1–3–5–7)", short: "میجر 7" },
+      tr: { symbol: "maj7", label: "Majör 7'li (1–3–5–7)", short: "Majör 7" }
     },
     "m7": {
       en: { symbol: "m7", label: "Minor 7th (1–♭3–5–♭7)", short: "Minor 7" },
@@ -1167,7 +1293,8 @@ registerColocatedTables({
       it: { symbol: "m7", label: "Minore settima (1–♭3–5–♭7)", short: "Minore 7" },
       pl: { symbol: "m7", label: "Mały septymowy molowy (1–♭3–5–♭7)", short: "Moll 7" },
       uk: { symbol: "m7", label: "Малий мінорний септ. (1–♭3–5–♭7)", short: "Мін. 7" },
-      ur: { symbol: "m7", label: "مائنر سیونتھ (1–♭3–5–♭7)", short: "مائنر 7" }
+      ur: { symbol: "m7", label: "مائنر سیونتھ (1–♭3–5–♭7)", short: "مائنر 7" },
+      tr: { symbol: "m7", label: "Minör 7'li (1–♭3–5–♭7)", short: "Minör 7" }
     },
     "sus2": {
       en: { symbol: "sus2", label: "Suspended 2nd (1–2–5)", short: "Sus 2" },
@@ -1176,7 +1303,8 @@ registerColocatedTables({
       it: { symbol: "sus2", label: "Accordo sus2 (1–2–5)", short: "Sus 2" },
       pl: { symbol: "sus2", label: "Akord zawieszony sus2 (1–2–5)", short: "sus2" },
       uk: { symbol: "sus2", label: "Затриманий акорд sus2 (1–2–5)", short: "sus2" },
-      ur: { symbol: "sus2", label: "سسپینڈڈ سیکنڈ (1–2–5)", short: "Sus 2" }
+      ur: { symbol: "sus2", label: "سسپینڈڈ سیکنڈ (1–2–5)", short: "Sus 2" },
+      tr: { symbol: "sus2", label: "Askılı İkili (1–2–5)", short: "Sus 2" }
     },
     "m7b5": {
       en: { symbol: "m7♭5", label: "Half-Diminished (1–♭3–♭5–♭7)", short: "Half-Dim" },
@@ -1185,7 +1313,8 @@ registerColocatedTables({
       it: { symbol: "m7♭5", label: "Semidiminuito (1–♭3–♭5–♭7)", short: "Semidim." },
       pl: { symbol: "m7♭5", label: "Półzmniejszony (1–♭3–♭5–♭7)", short: "Półzmn." },
       uk: { symbol: "m7♭5", label: "Напівзменшений септ. (1–♭3–♭5–♭7)", short: "Напівзм." },
-      ur: { symbol: "m7♭5", label: "ہاف ڈِمنشڈ (1–♭3–♭5–♭7)", short: "ہاف ڈِم" }
+      ur: { symbol: "m7♭5", label: "ہاف ڈِمنشڈ (1–♭3–♭5–♭7)", short: "ہاف ڈِم" },
+      tr: { symbol: "m7♭5", label: "Yarı Eksik 7'li (1–♭3–♭5–♭7)", short: "Yarı Eksik" }
     },
     "dim7": {
       en: { symbol: "°7", label: "Diminished 7th (1–♭3–♭5–♭♭7)", short: "Dim 7" },
@@ -1194,7 +1323,8 @@ registerColocatedTables({
       it: { symbol: "°7", label: "Settima diminuita (1–♭3–♭5–♭♭7)", short: "Dim. 7" },
       pl: { symbol: "°7", label: "Zmniejszony septymowy (1–♭3–♭5–♭♭7)", short: "Zmn. 7" },
       uk: { symbol: "°7", label: "Зменшений септакорд (1–♭3–♭5–♭♭7)", short: "Зменш. 7" },
-      ur: { symbol: "°7", label: "ڈِمنشڈ سیونتھ (1–♭3–♭5–♭♭7)", short: "ڈِم 7" }
+      ur: { symbol: "°7", label: "ڈِمنشڈ سیونتھ (1–♭3–♭5–♭♭7)", short: "ڈِم 7" },
+      tr: { symbol: "°7", label: "Eksik 7'li (1–♭3–♭5–♭♭7)", short: "Eksik 7" }
     },
     "mMaj7": {
       en: { symbol: "m(maj7)", label: "Minor Major 7th (1–♭3–5–7)", short: "Min-Maj7" },
@@ -1203,7 +1333,8 @@ registerColocatedTables({
       it: { symbol: "m(maj7)", label: "Minore con settima maggiore (1–♭3–5–7)", short: "Min-Maj7" },
       pl: { symbol: "m(maj7)", label: "Molowo-wielki septymowy (1–♭3–5–7)", short: "Moll-maj7" },
       uk: { symbol: "m(maj7)", label: "Великий мінорний септ. (1–♭3–5–7)", short: "Мін-маж7" },
-      ur: { symbol: "m(maj7)", label: "مائنر میجر سیونتھ (1–♭3–5–7)", short: "Min-Maj7" }
+      ur: { symbol: "m(maj7)", label: "مائنر میجر سیونتھ (1–♭3–5–7)", short: "Min-Maj7" },
+      tr: { symbol: "m(maj7)", label: "Minör-Majör 7'li (1–♭3–5–7)", short: "Min-Maj7" }
     },
     "maj9": {
       en: { symbol: "maj9", label: "Major 9th (1–3–5–7–9)", short: "Major 9" },
@@ -1212,7 +1343,8 @@ registerColocatedTables({
       it: { symbol: "maj9", label: "Nona maggiore (1–3–5–7–9)", short: "Maggiore 9" },
       pl: { symbol: "maj9", label: "Wielki nonowy durowy (1–3–5–7–9)", short: "Maj9" },
       uk: { symbol: "maj9", label: "Великий мажорний нон. (1–3–5–7–9)", short: "Маж. 9" },
-      ur: { symbol: "maj9", label: "میجر نائنتھ (1–3–5–7–9)", short: "میجر 9" }
+      ur: { symbol: "maj9", label: "میجر نائنتھ (1–3–5–7–9)", short: "میجر 9" },
+      tr: { symbol: "maj9", label: "Majör 9'lu (1–3–5–7–9)", short: "Majör 9" }
     },
     "7b9": {
       en: { symbol: "7♭9", label: "Dominant 7♭9 (1–3–5–♭7–♭9)", short: "Dom. 7♭9" },
@@ -1221,7 +1353,8 @@ registerColocatedTables({
       it: { symbol: "7♭9", label: "Dominante 7♭9 (1–3–5–♭7–♭9)", short: "Dom. 7♭9" },
       pl: { symbol: "7♭9", label: "Dominanta 7♭9 (1–3–5–♭7–♭9)", short: "Dom. 7♭9" },
       uk: { symbol: "7♭9", label: "Домінантсепт. 7♭9 (1–3–5–♭7–♭9)", short: "Домін. 7♭9" },
-      ur: { symbol: "7♭9", label: "ڈومیننٹ 7♭9 (1–3–5–♭7–♭9)", short: "ڈوم۔ 7♭9" }
+      ur: { symbol: "7♭9", label: "ڈومیننٹ 7♭9 (1–3–5–♭7–♭9)", short: "ڈوم۔ 7♭9" },
+      tr: { symbol: "7♭9", label: "Dominant 7♭9 (1–3–5–♭7–♭9)", short: "Dom. 7♭9" }
     },
     "7s9": {
       en: { symbol: "7♯9", label: "Dominant 7♯9 (1–3–5–♭7–♯9)", short: "Dom. 7♯9" },
@@ -1230,7 +1363,8 @@ registerColocatedTables({
       it: { symbol: "7♯9", label: "Dominante 7♯9 (1–3–5–♭7–♯9)", short: "Dom. 7♯9" },
       pl: { symbol: "7♯9", label: "Dominanta 7♯9 (1–3–5–♭7–♯9)", short: "Dom. 7♯9" },
       uk: { symbol: "7♯9", label: "Домінантсепт. 7♯9 (1–3–5–♭7–♯9)", short: "Домін. 7♯9" },
-      ur: { symbol: "7♯9", label: "ڈومیننٹ 7♯9 (1–3–5–♭7–♯9)", short: "ڈوم۔ 7♯9" }
+      ur: { symbol: "7♯9", label: "ڈومیننٹ 7♯9 (1–3–5–♭7–♯9)", short: "ڈوم۔ 7♯9" },
+      tr: { symbol: "7♯9", label: "Dominant 7♯9 (1–3–5–♭7–♯9)", short: "Dom. 7♯9" }
     }
   },
   chordInversions: {
@@ -1241,7 +1375,8 @@ registerColocatedTables({
       it: { symbol: "Basso: 1", label: "Stato fondamentale (basso: fondamentale)", short: "Stato fond." },
       pl: { symbol: "Bas: 1", label: "Postać zasadnicza (Bas: pryma)", short: "Zasadnicza" },
       uk: { symbol: "Бас: 1", label: "Основний вид (Бас: прима)", short: "Основний" },
-      ur: { symbol: "Bass: 1", label: "بنیادی حالت (باس: جڑ)", short: "بنیادی حالت" }
+      ur: { symbol: "Bass: 1", label: "بنیادی حالت (باس: جڑ)", short: "بنیادی حالت" },
+      tr: { symbol: "Bas: 1", label: "Kök Durum (Bas: Kök Ses)", short: "Kök Durum" }
     },
     "inv1": {
       en: { symbol: "Bass: 3", label: "1st Inversion (Bass: 3rd)", short: "1st Inversion" },
@@ -1250,7 +1385,8 @@ registerColocatedTables({
       it: { symbol: "Basso: 3", label: "1° rivolto (basso: terza)", short: "1° rivolto" },
       pl: { symbol: "Bas: 3", label: "1. przewrót (Bas: tercja)", short: "1. przewrót" },
       uk: { symbol: "Бас: 3", label: "1-ше обернення (Бас: терція)", short: "1-ше оберн." },
-      ur: { symbol: "Bass: 3", label: "پہلا اُلٹاؤ (باس: تیسرا)", short: "پہلا اُلٹاؤ" }
+      ur: { symbol: "Bass: 3", label: "پہلا اُلٹاؤ (باس: تیسرا)", short: "پہلا اُلٹاؤ" },
+      tr: { symbol: "Bas: 3", label: "1. Çevrim (Bas: 3'lü)", short: "1. Çevrim" }
     },
     "inv2": {
       en: { symbol: "Bass: 5", label: "2nd Inversion (Bass: 5th)", short: "2nd Inversion" },
@@ -1259,7 +1395,8 @@ registerColocatedTables({
       it: { symbol: "Basso: 5", label: "2° rivolto (basso: quinta)", short: "2° rivolto" },
       pl: { symbol: "Bas: 5", label: "2. przewrót (Bas: kwinta)", short: "2. przewrót" },
       uk: { symbol: "Бас: 5", label: "2-ге обернення (Бас: квінта)", short: "2-ге оберн." },
-      ur: { symbol: "Bass: 5", label: "دوسرا اُلٹاؤ (باس: پانچواں)", short: "دوسرا اُلٹاؤ" }
+      ur: { symbol: "Bass: 5", label: "دوسرا اُلٹاؤ (باس: پانچواں)", short: "دوسرا اُلٹاؤ" },
+      tr: { symbol: "Bas: 5", label: "2. Çevrim (Bas: 5'li)", short: "2. Çevrim" }
     },
     "inv3": {
       en: { symbol: "Bass: 7", label: "3rd Inversion (Bass: 7th)", short: "3rd Inversion" },
@@ -1268,7 +1405,8 @@ registerColocatedTables({
       it: { symbol: "Basso: 7", label: "3° rivolto (basso: settima)", short: "3° rivolto" },
       pl: { symbol: "Bas: 7", label: "3. przewrót (Bas: septyma)", short: "3. przewrót" },
       uk: { symbol: "Бас: 7", label: "3-тє обернення (Бас: септима)", short: "3-тє оберн." },
-      ur: { symbol: "Bass: 7", label: "تیسرا اُلٹاؤ (باس: ساتواں)", short: "تیسرا اُلٹاؤ" }
+      ur: { symbol: "Bass: 7", label: "تیسرا اُلٹاؤ (باس: ساتواں)", short: "تیسرا اُلٹاؤ" },
+      tr: { symbol: "Bas: 7", label: "3. Çevrim (Bas: 7'li)", short: "3. Çevrim" }
     }
   },
   solfegeStepsLabel: {
@@ -1279,7 +1417,8 @@ registerColocatedTables({
       it: "Fondamentale (Do)",
       pl: "Pryma toniki (Do)",
       uk: "Основний тон (Do)",
-      ur: "بنیادی سُر (Do / سا)"
+      ur: "بنیادی سُر (Do / سا)",
+      tr: "Kök Ses (Do)"
     },
     "Re": {
       en: "2nd Degree (Re → Do)",
@@ -1288,7 +1427,8 @@ registerColocatedTables({
       it: "2° grado (Re → Do)",
       pl: "II stopień (Re → Do)",
       uk: "II ступінь (Re → Do)",
-      ur: "دوسرا درجہ (Re → Do)"
+      ur: "دوسرا درجہ (Re → Do)",
+      tr: "2. Derece (Re → Do)"
     },
     "Mi": {
       en: "3rd Degree (Mi → Do)",
@@ -1297,7 +1437,8 @@ registerColocatedTables({
       it: "3° grado (Mi → Do)",
       pl: "III stopień (Mi → Do)",
       uk: "III ступінь (Mi → Do)",
-      ur: "تیسرا درجہ (Mi → Do)"
+      ur: "تیسرا درجہ (Mi → Do)",
+      tr: "3. Derece (Mi → Do)"
     },
     "Me": {
       en: "Minor 3rd (Me → Do)",
@@ -1306,7 +1447,8 @@ registerColocatedTables({
       it: "3° grado min. (Me → Do)",
       pl: "III stopień moll (Me → Do)",
       uk: "III мінорний ступінь (Me → Do)",
-      ur: "مائنر تیسرا درجہ (Me → Do)"
+      ur: "مائنر تیسرا درجہ (Me → Do)",
+      tr: "Küçük Üçlü (Me → Do)"
     },
     "Fa": {
       en: "4th Degree (Fa → Do)",
@@ -1315,7 +1457,8 @@ registerColocatedTables({
       it: "4° grado (Fa → Do)",
       pl: "IV stopień (Fa → Do)",
       uk: "IV ступінь (Fa → Do)",
-      ur: "چوتھا درجہ (Fa → Do)"
+      ur: "چوتھا درجہ (Fa → Do)",
+      tr: "4. Derece (Fa → Do)"
     },
     "Sol": {
       en: "5th Degree (Sol → Do)",
@@ -1324,7 +1467,8 @@ registerColocatedTables({
       it: "5° grado (Sol → Do)",
       pl: "V stopień (Sol → Do)",
       uk: "V ступінь (Sol → Do)",
-      ur: "پانچواں درجہ (Sol → Do)"
+      ur: "پانچواں درجہ (Sol → Do)",
+      tr: "5. Derece (Sol → Do)"
     },
     "La": {
       en: "6th Degree (La → Do)",
@@ -1333,7 +1477,8 @@ registerColocatedTables({
       it: "6° grado (La → Do)",
       pl: "VI stopień (La → Do)",
       uk: "VI ступінь (La → Do)",
-      ur: "چھٹا درجہ (La → Do)"
+      ur: "چھٹا درجہ (La → Do)",
+      tr: "6. Derece (La → Do)"
     },
     "Le": {
       en: "Minor 6th (Le → Do)",
@@ -1342,7 +1487,8 @@ registerColocatedTables({
       it: "6° grado min. (Le → Do)",
       pl: "VI stopień moll (Le → Do)",
       uk: "VI мінорний ступінь (Le → Do)",
-      ur: "مائنر چھٹا درجہ (Le → Do)"
+      ur: "مائنر چھٹا درجہ (Le → Do)",
+      tr: "Küçük Altılı (Le → Do)"
     },
     "Ti": {
       en: "Leading Tone (Ti → Do)",
@@ -1351,7 +1497,8 @@ registerColocatedTables({
       it: "Sensibile (Ti → Do)",
       pl: "Dźwięk prowadzący (Ti → Do)",
       uk: "Ввідний тон (Ti → Do)",
-      ur: "لیڈنگ ٹون (Ti → Do)"
+      ur: "لیڈنگ ٹون (Ti → Do)",
+      tr: "Yeden Ses (Ti → Do)"
     },
     "Te": {
       en: "Minor 7th (Te → Do)",
@@ -1360,7 +1507,8 @@ registerColocatedTables({
       it: "7° grado min. (Te → Do)",
       pl: "VII stopień moll (Te → Do)",
       uk: "VII мінорний ступінь (Te → Do)",
-      ur: "مائنر ساتواں درجہ (Te → Do)"
+      ur: "مائنر ساتواں درجہ (Te → Do)",
+      tr: "Küçük Yedili (Te → Do)"
     },
     "Do_high": {
       en: "Upper Tonic (Do)",
@@ -1369,7 +1517,8 @@ registerColocatedTables({
       it: "Tonica all’ottava (Do)",
       pl: "Górna tonika (Do)",
       uk: "Верхня тоніка (Do)",
-      ur: "بالائی ٹانک (Do)"
+      ur: "بالائی ٹانک (Do)",
+      tr: "Üst Tonik (Do)"
     }
   },
   melodyRanges: {
@@ -1380,7 +1529,8 @@ registerColocatedTables({
       it: { label: "Do–Fa", badge: "Do–Fa" },
       pl: { label: "Do–Fa", badge: "Do–Fa" },
       uk: { label: "Do–Fa", badge: "Do–Fa" },
-      ur: { label: "Do–Fa", badge: "Do–Fa" }
+      ur: { label: "Do–Fa", badge: "Do–Fa" },
+      tr: { label: "Do–Fa", badge: "Do–Fa" }
     },
     "sol-do": {
       en: { label: "Sol–Do", badge: "Sol–Do" },
@@ -1389,7 +1539,8 @@ registerColocatedTables({
       it: { label: "Sol–Do", badge: "Sol–Do" },
       pl: { label: "Sol–Do", badge: "Sol–Do" },
       uk: { label: "Sol–Do", badge: "Sol–Do" },
-      ur: { label: "Sol–Do", badge: "Sol–Do" }
+      ur: { label: "Sol–Do", badge: "Sol–Do" },
+      tr: { label: "Sol–Do", badge: "Sol–Do" }
     },
     "full": {
       en: { label: "Full Key", badge: "Do–Do" },
@@ -1398,7 +1549,8 @@ registerColocatedTables({
       it: { label: "Scala completa", badge: "Do–Do" },
       pl: { label: "Cała gama", badge: "Do–Do" },
       uk: { label: "Уся гама", badge: "Do–Do" },
-      ur: { label: "مکمل کلید", badge: "Do–Do" }
+      ur: { label: "مکمل کلید", badge: "Do–Do" },
+      tr: { label: "Tam Tonalite", badge: "Do–Do" }
     }
   },
   rhythmMeters: {
@@ -1409,7 +1561,8 @@ registerColocatedTables({
       it: { short: "4/4 binario", label: "Tempo in 4/4 (4 semiminime)" },
       pl: { short: "4/4 prosty", label: "Metrum 4/4 (Czterodzielne)" },
       uk: { short: "4/4 рівний", label: "Розмір 4/4 (Чотиридольний)" },
-      ur: { short: "عام 4/4", label: "4/4 تال (4 کوارٹر بیٹس)" }
+      ur: { short: "عام 4/4", label: "4/4 تال (4 کوارٹر بیٹس)" },
+      tr: { short: "4/4 Standart", label: "4/4 Ölçü (4 Dörtlük)" }
     },
     "3/4": {
       en: { short: "3/4 Waltz", label: "3/4 Time (Waltz)" },
@@ -1418,7 +1571,8 @@ registerColocatedTables({
       it: { short: "3/4 valzer", label: "Tempo in 3/4 (valzer)" },
       pl: { short: "3/4 Walc", label: "Metrum 3/4 (Walc)" },
       uk: { short: "3/4 Вальс", label: "Розмір 3/4 (Вальс)" },
-      ur: { short: "3/4 والٹز", label: "3/4 تال (والٹز)" }
+      ur: { short: "3/4 والٹز", label: "3/4 تال (والٹز)" },
+      tr: { short: "3/4 Vals", label: "3/4 Ölçü (Vals)" }
     },
     "2/4": {
       en: { short: "2/4 March", label: "2/4 Time (March)" },
@@ -1427,7 +1581,8 @@ registerColocatedTables({
       it: { short: "2/4 marcia", label: "Tempo in 2/4 (marcia)" },
       pl: { short: "2/4 Marsz", label: "Metrum 2/4 (Marsz)" },
       uk: { short: "2/4 Марш", label: "Розмір 2/4 (Марш)" },
-      ur: { short: "2/4 مارچ", label: "2/4 تال (مارچ)" }
+      ur: { short: "2/4 مارچ", label: "2/4 تال (مارچ)" },
+      tr: { short: "2/4 Marş", label: "2/4 Ölçü (Marş)" }
     },
     "6/8": {
       en: { short: "6/8 Swinging", label: "6/8 Time (Compound 2×3)" },
@@ -1436,7 +1591,8 @@ registerColocatedTables({
       it: { short: "6/8 composto", label: "Tempo in 6/8 (composto 2×3)" },
       pl: { short: "6/8 kołys.", label: "Metrum 6/8 (Złożone dwudzielne)" },
       uk: { short: "6/8 гойдалка", label: "Розмір 6/8 (Складний дводольний)" },
-      ur: { short: "6/8 جھولتا", label: "6/8 تال (کمپاؤنڈ 2×3)" }
+      ur: { short: "6/8 جھولتا", label: "6/8 تال (کمپاؤنڈ 2×3)" },
+      tr: { short: "6/8 Sallantılı", label: "6/8 Ölçü (Bileşik 2×3)" }
     },
     "5/4": {
       en: { short: "Odd 3 + 2", label: "5/4 Time (Odd Meter 3+2)" },
@@ -1445,7 +1601,8 @@ registerColocatedTables({
       it: { short: "5/4 (3 + 2)", label: "Tempo in 5/4 (irregolare 3+2)" },
       pl: { short: "5/4 (3 + 2)", label: "Metrum 5/4 (Nieregularne 3+2)" },
       uk: { short: "5/4 (3 + 2)", label: "Розмір 5/4 (Несиметричний 3+2)" },
-      ur: { short: "غیر روایتی 3+2", label: "5/4 تال (طاق تال 3+2)" }
+      ur: { short: "غیر روایتی 3+2", label: "5/4 تال (طاق تال 3+2)" },
+      tr: { short: "Aksak 3 + 2", label: "5/4 Ölçü (Aksak 3+2)" }
     },
     "7/8": {
       en: { short: "Odd 2+2+3", label: "7/8 Time (Odd Meter 7/8)" },
@@ -1454,7 +1611,8 @@ registerColocatedTables({
       it: { short: "7/8 (2+2+3)", label: "Tempo in 7/8 (irregolare 7/8)" },
       pl: { short: "7/8 (2+2+3)", label: "Metrum 7/8 (Nieregularne 7/8)" },
       uk: { short: "7/8 (2+2+3)", label: "Розмір 7/8 (Несиметричний 7/8)" },
-      ur: { short: "غیر روایتی 2+2+3", label: "7/8 تال (طاق تال 7/8)" }
+      ur: { short: "غیر روایتی 2+2+3", label: "7/8 تال (طاق تال 7/8)" },
+      tr: { short: "Aksak 2+2+3", label: "7/8 Ölçü (Aksak 7/8)" }
     }
   },
   rhythmCells: {
@@ -1465,7 +1623,8 @@ registerColocatedTables({
       it: { symbol: "♩", short: "Semiminima", label: "Semiminima (1 battito)" },
       pl: { symbol: "♩", short: "Ćwierćnuta", label: "Ćwierćnuta (1 miara)" },
       uk: { symbol: "♩", short: "Чвертка", label: "Чвертна нота (1 доля)" },
-      ur: { symbol: "♩", short: "کوارٹر", label: "کوارٹر نوٹ (1 بیٹ)" }
+      ur: { symbol: "♩", short: "کوارٹر", label: "کوارٹر نوٹ (1 بیٹ)" },
+      tr: { symbol: "♩", short: "Dörtlük", label: "Dörtlük Nota (1 vuruş)" }
     },
     "eighth2": {
       en: { symbol: "♫", short: "2 Eighths", label: "Eighth-Note Pair (1-and)" },
@@ -1474,7 +1633,8 @@ registerColocatedTables({
       it: { symbol: "♫", short: "2 crome", label: "Due crome (1-e)" },
       pl: { symbol: "♫", short: "Dwie ósemki", label: "Para ósemek (1-i)" },
       uk: { symbol: "♫", short: "Дві восьмі", label: "Пара восьмих (1-і)" },
-      ur: { symbol: "♫", short: "2 آٹھویں", label: "آٹھویں نوٹس کا جوڑا (1-اور)" }
+      ur: { symbol: "♫", short: "2 آٹھویں", label: "آٹھویں نوٹس کا جوڑا (1-اور)" },
+      tr: { symbol: "♫", short: "2 Sekizlik", label: "İki Sekizlik Nota (1-ve)" }
     },
     "rest": {
       en: { symbol: "Rest", short: "Rest", label: "Quarter Rest (Silence)" },
@@ -1483,7 +1643,8 @@ registerColocatedTables({
       it: { symbol: "Pausa", short: "Pausa", label: "Pausa di semiminima (1 battito di silenzio)" },
       pl: { symbol: "Pauza", short: "Pauza", label: "Pauza ćwierćnutowa (1 miara ciszy)" },
       uk: { symbol: "Пауза", short: "Пауза", label: "Чвертна пауза (1 доля тиші)" },
-      ur: { symbol: "وقفہ", short: "وقفہ", label: "کوارٹر وقفہ (خاموشی)" }
+      ur: { symbol: "وقفہ", short: "وقفہ", label: "کوارٹر وقفہ (خاموشی)" },
+      tr: { symbol: "Es", short: "Es", label: "Dörtlük Es (Sessizlik)" }
     },
     "offbeat": {
       en: { symbol: "and", short: "Offbeat", label: "Eighth Rest + Eighth Note (“and”)" },
@@ -1492,7 +1653,8 @@ registerColocatedTables({
       it: { symbol: "e", short: "Levare", label: "Pausa di croma + croma («e»)" },
       pl: { symbol: "i", short: "Synkopa (i)", label: "Pauza ósemkowa + ósemka („i”)" },
       uk: { symbol: "і", short: "Синкопа (і)", label: "Восьма пауза + восьма («і»)" },
-      ur: { symbol: "اور", short: "آف بیٹ", label: "آٹھواں وقفہ + آٹھواں نوٹ («اور»)" }
+      ur: { symbol: "اور", short: "آف بیٹ", label: "آٹھواں وقفہ + آٹھواں نوٹ («اور»)" },
+      tr: { symbol: "ve", short: "Offbeat", label: "Sekizlik Es + Sekizlik Nota («ve»)" }
     },
     "triplet": {
       en: { symbol: "3×♪", short: "Triplet", label: "Eighth-Note Triplet (3 equal)" },
@@ -1501,7 +1663,8 @@ registerColocatedTables({
       it: { symbol: "3×♪", short: "Terzina", label: "Terzina di crome (3 uguali)" },
       pl: { symbol: "3×♪", short: "Triola", label: "Triola ósemkowa (3 równe dźwięki)" },
       uk: { symbol: "3×♪", short: "Тріоль", label: "Восьма тріоль (3 рівні ноти)" },
-      ur: { symbol: "3×♪", short: "ٹرپلیٹ", label: "آٹھویں کا ٹرپلیٹ (3 برابر)" }
+      ur: { symbol: "3×♪", short: "ٹرپلیٹ", label: "آٹھویں کا ٹرپلیٹ (3 برابر)" },
+      tr: { symbol: "3×♪", short: "Üçleme", label: "Sekizlik Üçleme (3 eşit)" }
     },
     "eighths16": {
       en: { symbol: "♪♬", short: "8th + two 16s", label: "Eighth + Two 16ths" },
@@ -1510,7 +1673,8 @@ registerColocatedTables({
       it: { symbol: "♪♬", short: "Croma + 2 semic.", label: "Croma + 2 semicrome" },
       pl: { symbol: "♪♬", short: "8-ka + 2×16-ka", label: "Ósemka + dwie szesnastki" },
       uk: { symbol: "♪♬", short: "8-ма + 2×16-ті", label: "Восьма + дві шістнадцяті" },
-      ur: { symbol: "♪♬", short: "8واں + دو 16ویں", label: "ایک آٹھواں + دو سولہویں" }
+      ur: { symbol: "♪♬", short: "8واں + دو 16ویں", label: "ایک آٹھواں + دو سولہویں" },
+      tr: { symbol: "♪♬", short: "8'lik + iki 16'lık", label: "Bir Sekizlik + İki Onaltılık" }
     },
     "sixteenths8": {
       en: { symbol: "♬♪", short: "Two 16s + 8th", label: "Two 16ths + Eighth" },
@@ -1519,7 +1683,8 @@ registerColocatedTables({
       it: { symbol: "♬♪", short: "2 semic. + croma", label: "2 semicrome + croma" },
       pl: { symbol: "♬♪", short: "2×16-ka + 8-ka", label: "Dwie szesnastki + ósemka" },
       uk: { symbol: "♬♪", short: "2×16-ті + 8-ма", label: "Дві шістнадцяті + восьма" },
-      ur: { symbol: "♬♪", short: "دو 16ویں + 8واں", label: "دو سولہویں + ایک آٹھواں" }
+      ur: { symbol: "♬♪", short: "دو 16ویں + 8واں", label: "دو سولہویں + ایک آٹھواں" },
+      tr: { symbol: "♬♪", short: "İki 16'lık + 8'lik", label: "İki Onaltılık + Bir Sekizlik" }
     },
     "sixteenth4": {
       en: { symbol: "♬", short: "4× 16ths", label: "Four 16th Notes" },
@@ -1528,7 +1693,8 @@ registerColocatedTables({
       it: { symbol: "♬", short: "4× semicrome", label: "Quattro semicrome" },
       pl: { symbol: "♬", short: "4× 16-ki", label: "Cztery szesnastki" },
       uk: { symbol: "♬", short: "4× 16-ті", label: "Чотири шістнадцяті" },
-      ur: { symbol: "♬", short: "4× 16ویں", label: "چار سولہویں نوٹس" }
+      ur: { symbol: "♬", short: "4× 16ویں", label: "چار سولہویں نوٹس" },
+      tr: { symbol: "♬", short: "4× 16'lık", label: "Dört Onaltılık Nota" }
     },
     "dotEighth16": {
       en: { symbol: "♩.♬", short: "Long–Short", label: "Dotted Eighth + 16th" },
@@ -1537,7 +1703,8 @@ registerColocatedTables({
       it: { symbol: "♩.♬", short: "Lunga–breve", label: "Croma puntata + semicroma" },
       pl: { symbol: "♩.♬", short: "Długa–krótka", label: "Ósemka z kropką + 16-tka" },
       uk: { symbol: "♩.♬", short: "Довга–коротка", label: "Восьма з крапкою + 16-та" },
-      ur: { symbol: "♩.♬", short: "لمبا–مختصر", label: "ڈاٹڈ آٹھواں + سولہواں" }
+      ur: { symbol: "♩.♬", short: "لمبا–مختصر", label: "ڈاٹڈ آٹھواں + سولہواں" },
+      tr: { symbol: "♩.♬", short: "Uzun–Kısa", label: "Noktalı Sekizlik + Onaltılık" }
     },
     "sixteenDotEighth": {
       en: { symbol: "♬♩.", short: "Short–Long", label: "16th + Dotted Eighth" },
@@ -1546,7 +1713,8 @@ registerColocatedTables({
       it: { symbol: "♬♩.", short: "Breve–lunga", label: "Semicroma + croma puntata" },
       pl: { symbol: "♬♩.", short: "Krótka–długa", label: "16-tka + ósemka z kropką" },
       uk: { symbol: "♬♩.", short: "Коротка–довга", label: "16-та + восьма з крапкою" },
-      ur: { symbol: "♬♩.", short: "مختصر–لمبا", label: "سولہواں + ڈاٹڈ آٹھواں" }
+      ur: { symbol: "♬♩.", short: "مختصر–لمبا", label: "سولہواں + ڈاٹڈ آٹھواں" },
+      tr: { symbol: "♬♩.", short: "Kısa–Uzun", label: "Onaltılık + Noktalı Sekizlik" }
     },
     "sync16": {
       en: { symbol: "Sync.", short: "16th Sync.", label: "16th Rest + 16th Syncopation" },
@@ -1555,7 +1723,8 @@ registerColocatedTables({
       it: { symbol: "Sinc.", short: "Sincope in semic.", label: "Pausa di semicroma + sincope in semicrome" },
       pl: { symbol: "Synk.", short: "Synkopa 16-tk.", label: "Pauza 16-tkowa + figura synkopowana" },
       uk: { symbol: "Синк.", short: "16-та синкопа", label: "Пауза 16-та + синкопована фігура" },
-      ur: { symbol: "سنکوپ", short: "16واں سنکوپ", label: "سولہواں وقفہ + سنکوپیشن" }
+      ur: { symbol: "سنکوپ", short: "16واں سنکوپ", label: "سولہواں وقفہ + سنکوپیشن" },
+      tr: { symbol: "Senk.", short: "16'lık Senkop", label: "Onaltılık Es + Onaltılık Senkop" }
     }
   },
   rhythmTapLevels: {
@@ -1566,7 +1735,8 @@ registerColocatedTables({
       it: "Ancoraggio della pulsazione",
       pl: "Oparcie pulsu",
       uk: "Опора пульсу",
-      ur: "نبض کا لنگر"
+      ur: "نبض کا لنگر",
+      tr: "Nabız Çapası"
     },
     "2": {
       en: "Eighths & 3/4",
@@ -1575,7 +1745,8 @@ registerColocatedTables({
       it: "Crome e 3/4",
       pl: "Ósemki i 3/4",
       uk: "Восьмі та 3/4",
-      ur: "آٹھویں اور 3/4"
+      ur: "آٹھویں اور 3/4",
+      tr: "Sekizlikler ve 3/4"
     },
     "3": {
       en: "Syncopation & Triplets",
@@ -1584,7 +1755,8 @@ registerColocatedTables({
       it: "Sincopi e terzine",
       pl: "Synkopy i triole",
       uk: "Синкопи й тріолі",
-      ur: "سنکوپیشن اور ٹرپلیٹس"
+      ur: "سنکوپیشن اور ٹرپلیٹس",
+      tr: "Senkop ve Üçlemeler"
     },
     "4": {
       en: "Blind Mode",
@@ -1593,7 +1765,8 @@ registerColocatedTables({
       it: "Modalità al buio",
       pl: "Tryb ślepy",
       uk: "Сліпий режим",
-      ur: "بلائنڈ موڈ"
+      ur: "بلائنڈ موڈ",
+      tr: "Kör Mod"
     }
   },
   rhythmGrooves: {
@@ -1604,7 +1777,8 @@ registerColocatedTables({
       it: { roman: "Marcia", short: "Accento su 1 e 3", label: "Marcia (rullante su 1 e 3)" },
       pl: { roman: "Marsz", short: "Akcent na 1 i 3", label: "Marsz (Werbel na 1 i 3)" },
       uk: { roman: "Марш", short: "Акцент 1 і 3", label: "Марш (Малий барабан на 1 і 3)" },
-      ur: { roman: "مارچ", short: "زور 1 اور 3 پر", label: "مارچ (اسنیئر 1 اور 3 پر)" }
+      ur: { roman: "مارچ", short: "زور 1 اور 3 پر", label: "مارچ (اسنیئر 1 اور 3 پر)" },
+      tr: { roman: "Marş", short: "Vurgu 1 ve 3", label: "Marş (Trampet 1 ve 3'te)" }
     },
     "backbeat": {
       en: { roman: "Backbeat", short: "Pop/Rock 2 & 4", label: "Backbeat (Snare on 2 & 4)" },
@@ -1613,7 +1787,8 @@ registerColocatedTables({
       it: { roman: "Backbeat", short: "Pop/rock 2 e 4", label: "Backbeat (rullante su 2 e 4)" },
       pl: { roman: "Backbeat", short: "Pop/Rock na 2 i 4", label: "Backbeat (Werbel na 2 i 4)" },
       uk: { roman: "Бекбіт", short: "Поп/Рок 2 і 4", label: "Бекбіт (Малий барабан на 2 і 4)" },
-      ur: { roman: "بیک بیٹ", short: "پاپ/راک 2 اور 4", label: "بیک بیٹ (اسنیئر 2 اور 4 پر)" }
+      ur: { roman: "بیک بیٹ", short: "پاپ/راک 2 اور 4", label: "بیک بیٹ (اسنیئر 2 اور 4 پر)" },
+      tr: { roman: "Backbeat", short: "Pop/Rock 2 ve 4", label: "Backbeat (Trampet 2 ve 4'te)" }
     },
     "syncopation": {
       en: { roman: "Syncop.", short: "Upbeat “and”", label: "Syncopated Groove (Offbeats)" },
@@ -1622,7 +1797,8 @@ registerColocatedTables({
       it: { roman: "Sincopato", short: "La «e» in levare", label: "Groove sincopato (levare)" },
       pl: { roman: "Synkopa", short: "Przesunięcie na „i”", label: "Groove synkopowany (Na „i”)" },
       uk: { roman: "Синкопа", short: "Зміщення на «і»", label: "Синкопований ґрув (Слабка доля)" },
-      ur: { roman: "سنکوپ", short: "اپ بیٹ «اور»", label: "سنکوپیٹڈ گروو (آف بیٹس)" }
+      ur: { roman: "سنکوپ", short: "اپ بیٹ «اور»", label: "سنکوپیٹڈ گروو (آف بیٹس)" },
+      tr: { roman: "Senkop", short: "Ara vuruş «ve»", label: "Senkoplu Groove (Offbeat'ler)" }
     },
     "swing": {
       en: { roman: "Swing", short: "Triplet Bounce", label: "Swing / Shuffle (Triplet feel)" },
@@ -1631,7 +1807,8 @@ registerColocatedTables({
       it: { roman: "Swing", short: "Rimbalzo ternario", label: "Swing / shuffle (feel ternario)" },
       pl: { roman: "Swing", short: "Triolowy buj", label: "Swing / Shuffle (Puls triolowy)" },
       uk: { roman: "Свінґ", short: "Тріольна гойдалка", label: "Свінґ / Шафл (Тріольна пульсація)" },
-      ur: { roman: "سوئنگ", short: "ٹرپلیٹ جھول", label: "سوئنگ / شفل (ٹرپلیٹ احساس)" }
+      ur: { roman: "سوئنگ", short: "ٹرپلیٹ جھول", label: "سوئنگ / شفل (ٹرپلیٹ احساس)" },
+      tr: { roman: "Swing", short: "Üçleme Hissi", label: "Swing / Shuffle (Üçleme hissi)" }
     },
     "poly32": {
       en: { roman: "3 vs 2", short: "Polyrhythm", label: "Polyrhythm (3 against 2)" },
@@ -1640,7 +1817,8 @@ registerColocatedTables({
       it: { roman: "3 su 2", short: "Poliritmia", label: "Poliritmia (3 contro 2)" },
       pl: { roman: "3 na 2", short: "Polirytmia", label: "Polirytmia (3 przeciw 2)" },
       uk: { roman: "3 на 2", short: "Поліритмія", label: "Поліритмія (3 проти 2)" },
-      ur: { roman: "3 بمقابلہ 2", short: "پولی ردھم", label: "پولی ردھم (2 کے خلاف 3)" }
+      ur: { roman: "3 بمقابلہ 2", short: "پولی ردھم", label: "پولی ردھم (2 کے خلاف 3)" },
+      tr: { roman: "3'e 2", short: "Poliritim", label: "Poliritim (2'ye karşı 3)" }
     }
   },
   rhythmOffbeats: {
@@ -1651,7 +1829,8 @@ registerColocatedTables({
       it: { roman: "1", short: "Battere 1", label: "Battito 1 (battere)" },
       pl: { roman: "1", short: "Miara 1", label: "Miara 1 (Mocna)" },
       uk: { roman: "1", short: "Доля 1", label: "Доля 1 (Сильна)" },
-      ur: { roman: "1", short: "آن بیٹ 1", label: "بیٹ 1 (آن بیٹ)" }
+      ur: { roman: "1", short: "آن بیٹ 1", label: "بیٹ 1 (آن بیٹ)" },
+      tr: { roman: "1", short: "Vuruş 1", label: "1. Vuruş (Ana vuruş)" }
     },
     "2": {
       en: { roman: "2", short: "Onbeat 2", label: "Beat 2 (Onbeat)" },
@@ -1660,7 +1839,8 @@ registerColocatedTables({
       it: { roman: "2", short: "Battere 2", label: "Battito 2 (battere)" },
       pl: { roman: "2", short: "Miara 2", label: "Miara 2 (Mocna)" },
       uk: { roman: "2", short: "Доля 2", label: "Доля 2 (Сильна)" },
-      ur: { roman: "2", short: "آن بیٹ 2", label: "بیٹ 2 (آن بیٹ)" }
+      ur: { roman: "2", short: "آن بیٹ 2", label: "بیٹ 2 (آن بیٹ)" },
+      tr: { roman: "2", short: "Vuruş 2", label: "2. Vuruş (Ana vuruş)" }
     },
     "3": {
       en: { roman: "3", short: "Onbeat 3", label: "Beat 3 (Onbeat)" },
@@ -1669,7 +1849,8 @@ registerColocatedTables({
       it: { roman: "3", short: "Battere 3", label: "Battito 3 (battere)" },
       pl: { roman: "3", short: "Miara 3", label: "Miara 3 (Mocna)" },
       uk: { roman: "3", short: "Доля 3", label: "Доля 3 (Сильна)" },
-      ur: { roman: "3", short: "آن بیٹ 3", label: "بیٹ 3 (آن بیٹ)" }
+      ur: { roman: "3", short: "آن بیٹ 3", label: "بیٹ 3 (آن بیٹ)" },
+      tr: { roman: "3", short: "Vuruş 3", label: "3. Vuruş (Ana vuruş)" }
     },
     "4": {
       en: { roman: "4", short: "Onbeat 4", label: "Beat 4 (Onbeat)" },
@@ -1678,7 +1859,8 @@ registerColocatedTables({
       it: { roman: "4", short: "Battere 4", label: "Battito 4 (battere)" },
       pl: { roman: "4", short: "Miara 4", label: "Miara 4 (Mocna)" },
       uk: { roman: "4", short: "Доля 4", label: "Доля 4 (Сильна)" },
-      ur: { roman: "4", short: "آن بیٹ 4", label: "بیٹ 4 (آن بیٹ)" }
+      ur: { roman: "4", short: "آن بیٹ 4", label: "بیٹ 4 (آن بیٹ)" },
+      tr: { roman: "4", short: "Vuruş 4", label: "4. Vuruş (Ana vuruş)" }
     },
     "1+": {
       en: { roman: "1-and", short: "Offbeat", label: "1-and (Offbeat)" },
@@ -1687,7 +1869,8 @@ registerColocatedTables({
       it: { roman: "1-e", short: "Levare", label: "1-e (levare)" },
       pl: { roman: "1-i", short: "Między 1–2", label: "1-i (Offbeat)" },
       uk: { roman: "1-і", short: "Між 1 і 2", label: "1-і (Слабка доля)" },
-      ur: { roman: "1-اور", short: "آف بیٹ", label: "1-اور (آف بیٹ)" }
+      ur: { roman: "1-اور", short: "آف بیٹ", label: "1-اور (آف بیٹ)" },
+      tr: { roman: "1-ve", short: "Offbeat", label: "1-ve (Ara vuruş)" }
     },
     "2+": {
       en: { roman: "2-and", short: "Offbeat", label: "2-and (Offbeat)" },
@@ -1696,7 +1879,8 @@ registerColocatedTables({
       it: { roman: "2-e", short: "Levare", label: "2-e (levare)" },
       pl: { roman: "2-i", short: "Między 2–3", label: "2-i (Offbeat)" },
       uk: { roman: "2-і", short: "Між 2 і 3", label: "2-і (Слабка доля)" },
-      ur: { roman: "2-اور", short: "آف بیٹ", label: "2-اور (آف بیٹ)" }
+      ur: { roman: "2-اور", short: "آف بیٹ", label: "2-اور (آف بیٹ)" },
+      tr: { roman: "2-ve", short: "Offbeat", label: "2-ve (Ara vuruş)" }
     },
     "3+": {
       en: { roman: "3-and", short: "Offbeat", label: "3-and (Offbeat)" },
@@ -1705,7 +1889,8 @@ registerColocatedTables({
       it: { roman: "3-e", short: "Levare", label: "3-e (levare)" },
       pl: { roman: "3-i", short: "Między 3–4", label: "3-i (Offbeat)" },
       uk: { roman: "3-і", short: "Між 3 і 4", label: "3-і (Слабка доля)" },
-      ur: { roman: "3-اور", short: "آف بیٹ", label: "3-اور (آف بیٹ)" }
+      ur: { roman: "3-اور", short: "آف بیٹ", label: "3-اور (آف بیٹ)" },
+      tr: { roman: "3-ve", short: "Offbeat", label: "3-ve (Ara vuruş)" }
     },
     "4+": {
       en: { roman: "4-and", short: "Offbeat", label: "4-and (Offbeat)" },
@@ -1714,7 +1899,8 @@ registerColocatedTables({
       it: { roman: "4-e", short: "Levare", label: "4-e (levare)" },
       pl: { roman: "4-i", short: "Między 4–1", label: "4-i (Offbeat)" },
       uk: { roman: "4-і", short: "Між 4 і 1", label: "4-і (Слабка доля)" },
-      ur: { roman: "4-اور", short: "آف بیٹ", label: "4-اور (آف بیٹ)" }
+      ur: { roman: "4-اور", short: "آف بیٹ", label: "4-اور (آف بیٹ)" },
+      tr: { roman: "4-ve", short: "Offbeat", label: "4-ve (Ara vuruş)" }
     }
   },
   rhythmMicro: {
@@ -1725,7 +1911,8 @@ registerColocatedTables({
       it: { roman: "↖ In anticipo", short: "Spinge avanti", label: "In anticipo (leggermente incalzante)" },
       pl: { roman: "↖ Przed", short: "Nieco do przodu", label: "Za wcześnie (Napędza / pcha)" },
       uk: { roman: "↖ Попереду", short: "Трохи наперед", label: "Попереду (Трохи поспішає)" },
-      ur: { roman: "↖ جلدی", short: "آگے دھکیلنا", label: "جلدی (بیٹ سے ذرا آگے)" }
+      ur: { roman: "↖ جلدی", short: "آگے دھکیلنا", label: "جلدی (بیٹ سے ذرا آگے)" },
+      tr: { roman: "↖ Erken", short: "Önde (İtici)", label: "Erken (vuruşun önünde, aceleci)" }
     },
     "pocket": {
       en: { roman: "◎ Pocket", short: "In the Pocket", label: "Dead on the Beat (“In the Pocket”)" },
@@ -1734,7 +1921,8 @@ registerColocatedTables({
       it: { roman: "◎ Pocket", short: "In the pocket", label: "Esattamente sul battito («in the pocket»)" },
       pl: { roman: "◎ W punkt", short: "W „pocket”", label: "Idealnie w „pocket” (Równo z klikiem)" },
       uk: { roman: "◎ В точку", short: "У «кишені»", label: "Рівно в «покет» (Точно в долю)" },
-      ur: { roman: "◎ پاکٹ", short: "عین پاکٹ میں", label: "بالکل بیٹ پر («ان دی پاکٹ»)" }
+      ur: { roman: "◎ پاکٹ", short: "عین پاکٹ میں", label: "بالکل بیٹ پر («ان دی پاکٹ»)" },
+      tr: { roman: "◎ Pocket", short: "Tam Üstünde", label: "Tam Vuruşta («In the Pocket»)" }
     },
     "late": {
       en: { roman: "↘ Late", short: "Laid-back", label: "Late (laid-back behind the beat)" },
@@ -1743,7 +1931,8 @@ registerColocatedTables({
       it: { roman: "↘ In ritardo", short: "Laid-back", label: "In ritardo (rilassato, laid-back)" },
       pl: { roman: "↘ Za", short: "Luźno z tyłu", label: "Za późno (Luźno / laid-back)" },
       uk: { roman: "↘ Позаду", short: "Розслаблено", label: "Позаду (Розслаблено, laid-back)" },
-      ur: { roman: "↘ دیر سے", short: "پُرسکون پیچھے", label: "دیر سے (بیٹ کے پیچھے آرام سے)" }
+      ur: { roman: "↘ دیر سے", short: "پُرسکون پیچھے", label: "دیر سے (بیٹ کے پیچھے آرام سے)" },
+      tr: { roman: "↘ Geç", short: "Geride (Rahat)", label: "Geç (vuruşun gerisinde, rahat)" }
     }
   },
   prodFreqs: {
@@ -1754,7 +1943,8 @@ registerColocatedTables({
       it: { symbol: "63 Hz", roman: "63 Hz", short: "Sub-bassi", label: "63 Hz – sub-bassi e impatto della cassa" },
       pl: { symbol: "63 Hz", roman: "63 Hz", short: "Subbas", label: "63 Hz – Subbas i uderzenie stopy" },
       uk: { symbol: "63 Гц", roman: "63 Hz", short: "Саб-бас", label: "63 Гц – Саб-бас і удар бочки" },
-      ur: { symbol: "63 Hz", roman: "63 Hz", short: "سب باس", label: "63 Hz – سب باس اور کِک تھپک" }
+      ur: { symbol: "63 Hz", roman: "63 Hz", short: "سب باس", label: "63 Hz – سب باس اور کِک تھپک" },
+      tr: { symbol: "63 Hz", roman: "63 Hz", short: "Sub-Bas", label: "63 Hz – Sub-Bas ve Kick Dolgunluğu" }
     },
     "125": {
       en: { symbol: "125 Hz", roman: "125 Hz", short: "Bass", label: "125 Hz – Bass Punch & Warmth" },
@@ -1763,7 +1953,8 @@ registerColocatedTables({
       it: { symbol: "125 Hz", roman: "125 Hz", short: "Bassi", label: "125 Hz – punch del basso e calore" },
       pl: { symbol: "125 Hz", roman: "125 Hz", short: "Bas", label: "125 Hz – Mięsistość basu i ciepło" },
       uk: { symbol: "125 Гц", roman: "125 Hz", short: "Бас", label: "125 Гц – Щільність баса й тепло" },
-      ur: { symbol: "125 Hz", roman: "125 Hz", short: "باس", label: "125 Hz – باس پنچ اور گرمائش" }
+      ur: { symbol: "125 Hz", roman: "125 Hz", short: "باس", label: "125 Hz – باس پنچ اور گرمائش" },
+      tr: { symbol: "125 Hz", roman: "125 Hz", short: "Bas", label: "125 Hz – Bas Gücü ve Sıcaklık" }
     },
     "250": {
       en: { symbol: "250 Hz", roman: "250 Hz", short: "Low-Mids", label: "250 Hz – Low-Mids (“Mud” Zone)" },
@@ -1772,7 +1963,8 @@ registerColocatedTables({
       it: { symbol: "250 Hz", roman: "250 Hz", short: "Medio-bassi", label: "250 Hz – medio-bassi (zona «fangosa»)" },
       pl: { symbol: "250 Hz", roman: "250 Hz", short: "Niski środek", label: "250 Hz – Ciepło / strefa zamulenia" },
       uk: { symbol: "250 Гц", roman: "250 Hz", short: "Низька середина", label: "250 Гц – Тепло / «мутна» зона" },
-      ur: { symbol: "250 Hz", roman: "250 Hz", short: "لو مِڈز", label: "250 Hz – لو مِڈز («گدلا پن» زون)" }
+      ur: { symbol: "250 Hz", roman: "250 Hz", short: "لو مِڈز", label: "250 Hz – لو مِڈز («گدلا پن» زون)" },
+      tr: { symbol: "250 Hz", roman: "250 Hz", short: "Alt Orta", label: "250 Hz – Alt Ortalar (Bulanıklık Bölgesi)" }
     },
     "500": {
       en: { symbol: "500 Hz", roman: "500 Hz", short: "Boxiness", label: "500 Hz – Lower Mids (“Boxy”)" },
@@ -1791,7 +1983,8 @@ registerColocatedTables({
       },
       pl: { symbol: "500 Hz", roman: "500 Hz", short: "Karton", label: "500 Hz – Kartonowy przydźwięk" },
       uk: { symbol: "500 Гц", roman: "500 Hz", short: "Коробка", label: "500 Гц – Коробковий призвук" },
-      ur: { symbol: "500 Hz", roman: "500 Hz", short: "باکسی پن", label: "500 Hz – زیریں مِڈز («باکسی»)" }
+      ur: { symbol: "500 Hz", roman: "500 Hz", short: "باکسی پن", label: "500 Hz – زیریں مِڈز («باکسی»)" },
+      tr: { symbol: "500 Hz", roman: "500 Hz", short: "Kutu Tınısı", label: "500 Hz – Alt-Orta Frekanslar («Boxy»)" }
     },
     "800": {
       en: { symbol: "800 Hz", roman: "800 Hz", short: "Core Mids", label: "800 Hz – Nasal Mids & Wood" },
@@ -1800,7 +1993,8 @@ registerColocatedTables({
       it: { symbol: "800 Hz", roman: "800 Hz", short: "Medi nasali", label: "800 Hz – medi nasali e legno" },
       pl: { symbol: "800 Hz", roman: "800 Hz", short: "Nosowość", label: "800 Hz – Nosowy środek i drewno" },
       uk: { symbol: "800 Гц", roman: "800 Hz", short: "Гнусавість", label: "800 Гц – Носовий тембр і дерево" },
-      ur: { symbol: "800 Hz", roman: "800 Hz", short: "کور مِڈز", label: "800 Hz – ناک کی گونج اور لکڑی" }
+      ur: { symbol: "800 Hz", roman: "800 Hz", short: "کور مِڈز", label: "800 Hz – ناک کی گونج اور لکڑی" },
+      tr: { symbol: "800 Hz", roman: "800 Hz", short: "Orta Gövde", label: "800 Hz – Genizsi Ortalar ve Ahşap Tınısı" }
     },
     "1000": {
       en: { symbol: "1 kHz", roman: "1 kHz", short: "Core", label: "1 kHz – Center Midrange" },
@@ -1809,7 +2003,8 @@ registerColocatedTables({
       it: { symbol: "1 kHz", roman: "1 kHz", short: "Centro medi", label: "1 kHz – centro della gamma media" },
       pl: { symbol: "1 kHz", roman: "1 kHz", short: "Centrum środka", label: "1 kHz – Rdzeń pasma średniego" },
       uk: { symbol: "1 кГц", roman: "1 kHz", short: "Центр середини", label: "1 кГц – Ядро середнього діапазону" },
-      ur: { symbol: "1 kHz", roman: "1 kHz", short: "درمیانی", label: "1 kHz – مرکزی مِڈ رینج" }
+      ur: { symbol: "1 kHz", roman: "1 kHz", short: "درمیانی", label: "1 kHz – مرکزی مِڈ رینج" },
+      tr: { symbol: "1 kHz", roman: "1 kHz", short: "Merkez", label: "1 kHz – Merkez Orta Frekans" }
     },
     "1600": {
       en: { symbol: "1.6 kHz", roman: "1.6 kHz", short: "Attack", label: "1.6 kHz – Upper-Mid Attack" },
@@ -1818,7 +2013,8 @@ registerColocatedTables({
       it: { symbol: "1,6 kHz", roman: "1,6 kHz", short: "Attacco", label: "1,6 kHz – medio-alti e attacco" },
       pl: { symbol: "1,6 kHz", roman: "1.6 kHz", short: "Atak", label: "1,6 kHz – Wyższy środek i atak" },
       uk: { symbol: "1,6 кГц", roman: "1.6 kHz", short: "Атака", label: "1,6 кГц – Верхня середина й атака" },
-      ur: { symbol: "1.6 kHz", roman: "1.6 kHz", short: "اٹیک", label: "1.6 kHz – بالائی مِڈ اٹیک" }
+      ur: { symbol: "1.6 kHz", roman: "1.6 kHz", short: "اٹیک", label: "1.6 kHz – بالائی مِڈ اٹیک" },
+      tr: { symbol: "1,6 kHz", roman: "1,6 kHz", short: "Atak", label: "1,6 kHz – Üst-Orta Atak" }
     },
     "2000": {
       en: { symbol: "2 kHz", roman: "2 kHz", short: "Presence", label: "2 kHz – Vocal Focus & Presence" },
@@ -1827,7 +2023,8 @@ registerColocatedTables({
       it: { symbol: "2 kHz", roman: "2 kHz", short: "Presenza", label: "2 kHz – chiarezza vocale e presenza" },
       pl: { symbol: "2 kHz", roman: "2 kHz", short: "Prezencja", label: "2 kHz – Czytelność wokalu i prezencja" },
       uk: { symbol: "2 кГц", roman: "2 kHz", short: "Присутність", label: "2 кГц – Розбірливість вокалу й присутність" },
-      ur: { symbol: "2 kHz", roman: "2 kHz", short: "موجودگی", label: "2 kHz – آواز کی صفائی اور موجودگی" }
+      ur: { symbol: "2 kHz", roman: "2 kHz", short: "موجودگی", label: "2 kHz – آواز کی صفائی اور موجودگی" },
+      tr: { symbol: "2 kHz", roman: "2 kHz", short: "Varlık", label: "2 kHz – Vokal Odağı ve Varlık" }
     },
     "2500": {
       en: { symbol: "2.5 kHz", roman: "2.5 kHz", short: "Edge", label: "2.5 kHz – Bite & Cut-Through" },
@@ -1836,7 +2033,8 @@ registerColocatedTables({
       it: { symbol: "2,5 kHz", roman: "2,5 kHz", short: "Mordente", label: "2,5 kHz – mordente e definizione nel mix" },
       pl: { symbol: "2,5 kHz", roman: "2.5 kHz", short: "Ostrość", label: "2,5 kHz – Przebicie i klarowność w miksie" },
       uk: { symbol: "2,5 кГц", roman: "2.5 kHz", short: "Гострота", label: "2,5 кГц – Пробивність і читаність у міксі" },
-      ur: { symbol: "2.5 kHz", roman: "2.5 kHz", short: "تیزی", label: "2.5 kHz – کاٹ اور نمایاں ہونا" }
+      ur: { symbol: "2.5 kHz", roman: "2.5 kHz", short: "تیزی", label: "2.5 kHz – کاٹ اور نمایاں ہونا" },
+      tr: { symbol: "2,5 kHz", roman: "2,5 kHz", short: "Keskinlik", label: "2,5 kHz – Isırıcılık ve Öne Çıkma" }
     },
     "4000": {
       en: { symbol: "4 kHz", roman: "4 kHz", short: "Direct", label: "4 kHz – Definition & Consonants" },
@@ -1845,7 +2043,8 @@ registerColocatedTables({
       it: { symbol: "4 kHz", roman: "4 kHz", short: "Precisione", label: "4 kHz – definizione e consonanti" },
       pl: { symbol: "4 kHz", roman: "4 kHz", short: "Kontur", label: "4 kHz – Wyrazistość i spółgłoski" },
       uk: { symbol: "4 кГц", roman: "4 kHz", short: "Чіткість", label: "4 кГц – Чіткість і приголосні звуки" },
-      ur: { symbol: "4 kHz", roman: "4 kHz", short: "وضاحت", label: "4 kHz – وضاحت اور حروفِ صحیح" }
+      ur: { symbol: "4 kHz", roman: "4 kHz", short: "وضاحت", label: "4 kHz – وضاحت اور حروفِ صحیح" },
+      tr: { symbol: "4 kHz", roman: "4 kHz", short: "Netlik", label: "4 kHz – Tanımlılık ve Ünsüzler" }
     },
     "6300": {
       en: { symbol: "6.3 kHz", roman: "6.3 kHz", short: "Sibilance", label: "6.3 kHz – Sibilance & Crispness" },
@@ -1854,7 +2053,8 @@ registerColocatedTables({
       it: { symbol: "6,3 kHz", roman: "6,3 kHz", short: "Sibilanti", label: "6,3 kHz – sibilanti e nitidezza" },
       pl: { symbol: "6,3 kHz", roman: "6.3 kHz", short: "Sybilanty", label: "6,3 kHz – Sybilanty (S/Sz) i chrupkość" },
       uk: { symbol: "6,3 кГц", roman: "6.3 kHz", short: "Сибілянти", label: "6,3 кГц – Сибілянти (С/Ш) і хрускіт" },
-      ur: { symbol: "6.3 kHz", roman: "6.3 kHz", short: "سسکار", label: "6.3 kHz – سسکار (Sibilance) اور تازگی" }
+      ur: { symbol: "6.3 kHz", roman: "6.3 kHz", short: "سسکار", label: "6.3 kHz – سسکار (Sibilance) اور تازگی" },
+      tr: { symbol: "6,3 kHz", roman: "6,3 kHz", short: "Islık (S)", label: "6,3 kHz – Islıklı S Sesleri ve Gevreklik" }
     },
     "8000": {
       en: { symbol: "8 kHz", roman: "8 kHz", short: "Sparkle", label: "8 kHz – High-End Sparkle & Sheen" },
@@ -1863,7 +2063,8 @@ registerColocatedTables({
       it: { symbol: "8 kHz", roman: "8 kHz", short: "Brillantezza", label: "8 kHz – brillantezza e lucentezza degli alti" },
       pl: { symbol: "8 kHz", roman: "8 kHz", short: "Blask", label: "8 kHz – Dzwonkowość i jasność góry" },
       uk: { symbol: "8 кГц", roman: "8 kHz", short: "Блиск", label: "8 кГц – Дзвінкість і яскравість верху" },
-      ur: { symbol: "8 kHz", roman: "8 kHz", short: "چمک", label: "8 kHz – ہائی اینڈ چمک اور نکھار" }
+      ur: { symbol: "8 kHz", roman: "8 kHz", short: "چمک", label: "8 kHz – ہائی اینڈ چمک اور نکھار" },
+      tr: { symbol: "8 kHz", roman: "8 kHz", short: "Parıltı", label: "8 kHz – Tiz Parıltı ve Parlaklık" }
     },
     "12000": {
       en: { symbol: "12 kHz", roman: "12 kHz", short: "Air", label: "12 kHz – Super-Highs & “Air” Band" },
@@ -1872,7 +2073,8 @@ registerColocatedTables({
       it: { symbol: "12 kHz", roman: "12 kHz", short: "Aria", label: "12 kHz – altissimi e banda «aria»" },
       pl: { symbol: "12 kHz", roman: "12 kHz", short: "Powietrze", label: "12 kHz – Najwyższe pasmo „powietrza”" },
       uk: { symbol: "12 кГц", roman: "12 kHz", short: "Повітря", label: "12 кГц – Надвисокий діапазон «повітря»" },
-      ur: { symbol: "12 kHz", roman: "12 kHz", short: "ہوا (Air)", label: "12 kHz – سپر ہائیز اور «Air» بینڈ" }
+      ur: { symbol: "12 kHz", roman: "12 kHz", short: "ہوا (Air)", label: "12 kHz – سپر ہائیز اور «Air» بینڈ" },
+      tr: { symbol: "12 kHz", roman: "12 kHz", short: "Hava", label: "12 kHz – Üst Tizler ve «Hava» Bandı" }
     }
   },
   prodLevelLabels: {
@@ -1883,7 +2085,8 @@ registerColocatedTables({
       it: { "1": "5 bande (base)", "2": "8 bande d’ottava", "3": "12 bande" },
       pl: { "1": "5 pasm (Baza)", "2": "8 pasm oktawowych", "3": "12 pasm" },
       uk: { "1": "5 смуг (База)", "2": "8 октавних смуг", "3": "12 смуг" },
-      ur: { "1": "5 بینڈز (بنیادی)", "2": "8 آکٹیو بینڈز", "3": "12 بینڈز" }
+      ur: { "1": "5 بینڈز (بنیادی)", "2": "8 آکٹیو بینڈز", "3": "12 بینڈز" },
+      tr: { "1": "5 Bant (Temel)", "2": "8 Oktav Bandı", "3": "12 Bant" }
     },
     "eq": {
       en: { "1": "Wide EQ", "2": "Octave EQ", "3": "Surgical" },
@@ -1892,7 +2095,8 @@ registerColocatedTables({
       it: { "1": "EQ ampio", "2": "EQ d’ottava", "3": "Chirurgico" },
       pl: { "1": "Szerokie EQ", "2": "EQ oktawowe", "3": "Chirurgiczne" },
       uk: { "1": "Широкий EQ", "2": "Октавний EQ", "3": "Хірургічний" },
-      ur: { "1": "چوڑا EQ", "2": "آکٹیو EQ", "3": "باریک سرجیکل" }
+      ur: { "1": "چوڑا EQ", "2": "آکٹیو EQ", "3": "باریک سرجیکل" },
+      tr: { "1": "Geniş EQ", "2": "Oktav EQ", "3": "Cerrahi EQ" }
     }
   },
   modes: {
@@ -1903,7 +2107,8 @@ registerColocatedTables({
       it: { roman: "Ionico", short: "Maggiore (1 2 3 4 5 6 7)", label: "Ionico (scala maggiore)" },
       pl: { roman: "Joński", short: "Dur (1 2 3 4 5 6 7)", label: "Joński (Skala durowa naturalna)" },
       uk: { roman: "Іонійський", short: "Мажор (1 2 3 4 5 6 7)", label: "Іонійський (Натуральний мажор)" },
-      ur: { roman: "آئیونین", short: "میجر (1 2 3 4 5 6 7)", label: "آئیونین (میجر اسکیل / بلاول)" }
+      ur: { roman: "آئیونین", short: "میجر (1 2 3 4 5 6 7)", label: "آئیونین (میجر اسکیل / بلاول)" },
+      tr: { roman: "İyonik", short: "Majör (1 2 3 4 5 6 7)", label: "İyonik (Majör Gam)" }
     },
     "dorian": {
       en: { roman: "Dorian", short: "Minor w/ ♮6", label: "Dorian (1 2 b3 4 5 6 b7)" },
@@ -1912,7 +2117,8 @@ registerColocatedTables({
       it: { roman: "Dorico", short: "Minore con ♮6", label: "Dorico (1 2 b3 4 5 6 b7)" },
       pl: { roman: "Dorycki", short: "Moll z ♮6", label: "Dorycki (1 2 b3 4 5 6 b7)" },
       uk: { roman: "Дорійський", short: "Мінор з ♮6", label: "Дорійський (1 2 b3 4 5 6 b7)" },
-      ur: { roman: "ڈورین", short: "مائنر مع ♮6", label: "ڈورین (1 2 b3 4 5 6 b7 / کافی)" }
+      ur: { roman: "ڈورین", short: "مائنر مع ♮6", label: "ڈورین (1 2 b3 4 5 6 b7 / کافی)" },
+      tr: { roman: "Doryen", short: "♮6'lı Minör", label: "Doryen (1 2 b3 4 5 6 b7)" }
     },
     "phrygian": {
       en: { roman: "Phrygian", short: "Minor w/ b2", label: "Phrygian (1 b2 b3 4 5 b6 b7)" },
@@ -1921,7 +2127,8 @@ registerColocatedTables({
       it: { roman: "Frigio", short: "Minore con b2", label: "Frigio (1 b2 b3 4 5 b6 b7)" },
       pl: { roman: "Frygijski", short: "Moll z b2", label: "Frygijski (1 b2 b3 4 5 b6 b7)" },
       uk: { roman: "Фригійський", short: "Мінор з b2", label: "Фригійський (1 b2 b3 4 5 b6 b7)" },
-      ur: { roman: "فریجین", short: "مائنر مع b2", label: "فریجین (1 b2 b3 4 5 b6 b7 / بھیرویں)" }
+      ur: { roman: "فریجین", short: "مائنر مع b2", label: "فریجین (1 b2 b3 4 5 b6 b7 / بھیرویں)" },
+      tr: { roman: "Frigyen", short: "b2'li Minör", label: "Frigyen (1 b2 b3 4 5 b6 b7)" }
     },
     "lydian": {
       en: { roman: "Lydian", short: "Major w/ #4", label: "Lydian (1 2 3 #4 5 6 7)" },
@@ -1930,7 +2137,8 @@ registerColocatedTables({
       it: { roman: "Lidio", short: "Maggiore con #4", label: "Lidio (1 2 3 #4 5 6 7)" },
       pl: { roman: "Lidyjski", short: "Dur z #4", label: "Lidyjski (1 2 3 #4 5 6 7)" },
       uk: { roman: "Лідійський", short: "Мажор з #4", label: "Лідійський (1 2 3 #4 5 6 7)" },
-      ur: { roman: "لِڈین", short: "میجر مع #4", label: "لِڈین (1 2 3 #4 5 6 7 / کلیان)" }
+      ur: { roman: "لِڈین", short: "میجر مع #4", label: "لِڈین (1 2 3 #4 5 6 7 / کلیان)" },
+      tr: { roman: "Lidyen", short: "#4'lü Majör", label: "Lidyen (1 2 3 #4 5 6 7)" }
     },
     "mixolydian": {
       en: { roman: "Mixolydian", short: "Major w/ b7", label: "Mixolydian (1 2 3 4 5 6 b7)" },
@@ -1939,7 +2147,8 @@ registerColocatedTables({
       it: { roman: "Misolidio", short: "Maggiore con b7", label: "Misolidio (1 2 3 4 5 6 b7)" },
       pl: { roman: "Miksolid.", short: "Dur z b7", label: "Miksolidyjski (1 2 3 4 5 6 b7)" },
       uk: { roman: "Міксолід.", short: "Мажор з b7", label: "Міксолідійський (1 2 3 4 5 6 b7)" },
-      ur: { roman: "مکسولیڈین", short: "میجر مع b7", label: "مکسولیڈین (1 2 3 4 5 6 b7 / کھماج)" }
+      ur: { roman: "مکسولیڈین", short: "میجر مع b7", label: "مکسولیڈین (1 2 3 4 5 6 b7 / کھماج)" },
+      tr: { roman: "Miksolidyen", short: "b7'li Majör", label: "Miksolidyen (1 2 3 4 5 6 b7)" }
     },
     "aeolian": {
       en: { roman: "Aeolian", short: "Natural Minor (b6, b7)", label: "Aeolian (1 2 b3 4 5 b6 b7)" },
@@ -1948,7 +2157,8 @@ registerColocatedTables({
       it: { roman: "Eolio", short: "Minore nat. (b6, b7)", label: "Eolio (1 2 b3 4 5 b6 b7)" },
       pl: { roman: "Eolski", short: "Moll nat. (b6, b7)", label: "Eolski (1 2 b3 4 5 b6 b7)" },
       uk: { roman: "Еолійський", short: "Нат. мінор (b6, b7)", label: "Еолійський (1 2 b3 4 5 b6 b7)" },
-      ur: { roman: "ایولین", short: "نیچرل مائنر (b6, b7)", label: "ایولین (1 2 b3 4 5 b6 b7 / آساوری)" }
+      ur: { roman: "ایولین", short: "نیچرل مائنر (b6, b7)", label: "ایولین (1 2 b3 4 5 b6 b7 / آساوری)" },
+      tr: { roman: "Eolyen", short: "Doğal Minör (b6, b7)", label: "Eolyen (1 2 b3 4 5 b6 b7)" }
     },
     "locrian": {
       en: { roman: "Locrian", short: "Minor w/ b2 & b5", label: "Locrian (1 b2 b3 4 b5 b6 b7)" },
@@ -1957,7 +2167,8 @@ registerColocatedTables({
       it: { roman: "Locrio", short: "Minore b2 e b5", label: "Locrio (1 b2 b3 4 b5 b6 b7)" },
       pl: { roman: "Lokrycki", short: "Moll b2 i b5", label: "Lokrycki (1 b2 b3 4 b5 b6 b7)" },
       uk: { roman: "Локрійський", short: "Мінор b2 і b5", label: "Локрійський (1 b2 b3 4 b5 b6 b7)" },
-      ur: { roman: "لوکرین", short: "مائنر مع b2 اور b5", label: "لوکرین (1 b2 b3 4 b5 b6 b7)" }
+      ur: { roman: "لوکرین", short: "مائنر مع b2 اور b5", label: "لوکرین (1 b2 b3 4 b5 b6 b7)" },
+      tr: { roman: "Lokriyen", short: "b2 ve b5'li Minör", label: "Lokriyen (1 b2 b3 4 b5 b6 b7)" }
     },
     "harm_minor": {
       en: { roman: "Harm. Minor", short: "Minor w/ #7", label: "Harmonic Minor (b6 & leading 7)" },
@@ -1966,7 +2177,8 @@ registerColocatedTables({
       it: { roman: "Min. arm.", short: "Minore con #7", label: "Minore armonica (b6 e sensibile #7)" },
       pl: { roman: "Moll harm.", short: "Moll z #7", label: "Moll harmoniczny (b6 i dźwięk prowadzący #7)" },
       uk: { roman: "Гарм. мінор", short: "Мінор з #7", label: "Гармонічний мінор (b6 і ввідний #7)" },
-      ur: { roman: "ہارمونک مائنر", short: "مائنر مع #7", label: "ہارمونک مائنر (b6 اور لیڈنگ 7)" }
+      ur: { roman: "ہارمونک مائنر", short: "مائنر مع #7", label: "ہارمونک مائنر (b6 اور لیڈنگ 7)" },
+      tr: { roman: "Arm. Minör", short: "#7'li Minör", label: "Armonik Minör (b6 ve yeden 7)" }
     }
   },
   modeLevelLabels: {
@@ -1977,7 +2189,8 @@ registerColocatedTables({
       it: { "1": "4 modi di base", "2": "Tutti e 7 (Do)", "3": "7 modi + trasposizione" },
       pl: { "1": "4 główne skale", "2": "Wszystkie 7 (w C)", "3": "Wszystkie 7 + transpozycja" },
       uk: { "1": "4 базові лади", "2": "Усі 7 (До)", "3": "Усі 7 + Транспозиція" },
-      ur: { "1": "4 بنیادی موڈز", "2": "تمام 7 موڈز (C)", "3": "تمام 7 + بدلتی جڑ" }
+      ur: { "1": "4 بنیادی موڈز", "2": "تمام 7 موڈز (C)", "3": "تمام 7 + بدلتی جڑ" },
+      tr: { "1": "4 Temel Mod", "2": "7 Modun Tümü (Do)", "3": "Tümü + Değişen Kök Ses" }
     },
     "char": {
       en: { "1": "Major Modes", "2": "Minor Modes", "3": "All + Harm. Minor" },
@@ -1986,7 +2199,8 @@ registerColocatedTables({
       it: { "1": "Modi maggiori", "2": "Modi minori", "3": "Tutti + min. arm." },
       pl: { "1": "Tryby durowe", "2": "Tryby molowe", "3": "Wszystkie + moll harm." },
       uk: { "1": "Мажорні лади", "2": "Мінорні лади", "3": "Усі + Гарм. мінор" },
-      ur: { "1": "میجر موڈز", "2": "مائنر موڈز", "3": "سب + ہارم۔ مائنر" }
+      ur: { "1": "میجر موڈز", "2": "مائنر موڈز", "3": "سب + ہارم۔ مائنر" },
+      tr: { "1": "Majör Modlar", "2": "Minör Modlar", "3": "Tümü + Arm. Minör" }
     },
     "cadence": {
       en: { "1": "4 Standard Chord Loops", "2": "All 6 Modal Chord Loops" },
@@ -1995,7 +2209,8 @@ registerColocatedTables({
       it: { "1": "4 giri standard", "2": "Tutti e 6 i giri modali" },
       pl: { "1": "4 główne zwroty", "2": "Wszystkie 6 zwrotów modalnych" },
       uk: { "1": "4 основні звороти", "2": "Усі 6 модальних зворотів" },
-      ur: { "1": "4 معیاری کارڈ لوپس", "2": "تمام 6 موڈل کارڈ لوپس" }
+      ur: { "1": "4 معیاری کارڈ لوپس", "2": "تمام 6 موڈل کارڈ لوپس" },
+      tr: { "1": "4 Standart Akor Döngüsü", "2": "6 Modal Akor Döngüsünün Tümü" }
     }
   }
 });

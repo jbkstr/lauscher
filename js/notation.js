@@ -169,7 +169,7 @@ function getLocalizedNotationKeySigName(keySigId = "none", shortZero = false) {
   }
   if (safeId === "Gb") {
     const useIntl = typeof state !== "undefined" && state?.profile?.notation === "intl";
-    return tr(useIntl ? "G♭-Dur" : "Ges-Dur", "G♭ Major", { fr: "Sol♭ majeur", es: "Sol♭ mayor", it: "Sol♭ maggiore", pl: useIntl ? "G♭-dur" : "Ges-dur", uk: "Соль♭ мажор", ur: useIntl ? "G♭ میجر" : "Ges میجر" });
+    return tr(useIntl ? "G♭-Dur" : "Ges-Dur", "G♭ Major", { fr: "Sol♭ majeur", es: "Sol♭ mayor", it: "Sol♭ maggiore", pl: useIntl ? "G♭-dur" : "Ges-dur", tr: "G♭ Majör", uk: "Соль♭ мажор", ur: useIntl ? "G♭ میجر" : "Ges میجر" });
   }
   return getKeyDisplayName(safeId);
 }
