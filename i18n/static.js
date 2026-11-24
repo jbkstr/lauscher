@@ -2124,6 +2124,26 @@ registerColocatedStatic({
     uk: "Скрипковий, басовий, альтовий, додаткові лінійки й альтерація",
     ur: "ٹریبل، باس اور آلٹو کلیف، لیجر لائنز اور علامتیں"
   },
+  "knowledge.refNotationSymbols": {
+    de: "Vortragszeichen & Symbole",
+    en: "Expression Marks & Symbols",
+    fr: "Signes & indications",
+    es: "Símbolos e indicaciones",
+    it: "Segni e indicazioni",
+    pl: "Symbole i oznaczenia",
+    uk: "Символи й позначення",
+    ur: "علامات اور ہدایات"
+  },
+  "knowledge.refNotationSymbolsSub": {
+    de: "Dynamik, Tempo, Artikulation, Coda & Ablauf",
+    en: "Dynamics, tempo, articulation, Coda & roadmaps",
+    fr: "Nuances, tempo, articulation, Coda & reprises",
+    es: "Dinámica, tempo, articulación, Coda y saltos",
+    it: "Dinamica, tempo, articolazione, Coda e ritornelli",
+    pl: "Dynamika, tempo, artykulacja, Coda i przebieg",
+    uk: "Динаміка, темп, артикуляція, Кода та форма",
+    ur: "آواز، رفتار، ادائیگی، کوڈا اور ترتیب"
+  },
   "knowledge.refArranging": {
     de: "Arrangieren",
     en: "Arranging",

@@ -48,7 +48,8 @@ function getLocalizedExamModeName(mode) {
     "notation-alto": tr("Altschlüssel", "Alto Clef"),
     "notation-mixed": tr("Schlüssel-Mix", "Clef Mix"),
     "notation-grand": tr("Doppelsystem", "Grand Staff"),
-    "notation-chords": tr("Akkorde lesen", "Chord Reading")
+    "notation-chords": tr("Akkorde lesen", "Chord Reading"),
+    "notation-symbols": tr("Symbole & Begriffe", "Symbols & Markings")
   };
   return names[mode] || mode;
 }
@@ -639,8 +640,8 @@ function syncExamExerciseControls() {
     postAnswerBar?.classList.add("hidden");
   }
 
-  if (answerSoundBtn) answerSoundBtn.classList.toggle("hidden", isExam || !isNotationMode(state?.currentExercise?.type));
-  if (listenBtn) listenBtn.classList.toggle("hidden", isExam);
+  if (answerSoundBtn) answerSoundBtn.classList.toggle("hidden", isExam || !isNotationStaffMode(state?.currentExercise?.type));
+  if (listenBtn) listenBtn.classList.toggle("hidden", isExam || isNotationSymbolsMode(state?.currentExercise?.type));
   if (loopBtn) loopBtn.classList.toggle("hidden", isExam);
 
   [keyBtn, notationKeyBtn, notationPaceBtn, timeBtn, bpmBtn, melodyPulseBtn].forEach(btn => {
@@ -679,7 +680,9 @@ function renderExamStatusBar() {
   }
   if (replayPill) {
     replayPill.classList.remove("is-warn", "is-exhausted");
-    if (exam.maxReplays === 0) {
+    if (isNotationSymbolsMode(curMode)) {
+      replayPill.textContent = tr("Ohne Audio", "Visual");
+    } else if (exam.maxReplays === 0) {
       replayPill.textContent = tr("Hören: Unbegrenzt", "Audio: Unlimited");
     } else if (!exam.currentPromptPlayedOnce) {
       replayPill.textContent = tf("1× Start + {left}× nachhören", "1× Start + {left}× replay", { left: exam.maxReplays });
@@ -1278,6 +1281,87 @@ function handleExamNotationChordAnswer(ex, selectedKey, btnElement) {
   showExamPostAnswerNextBar();
 }
 
+function handleExamNotationSymbolAnswer(ex, selectedKey, btnElement) {
+  const exam = state?.exam;
+  if (!exam || !exam.active || exam.currentAnswered || !ex?.targetItem) return;
+
+  exam.currentAnswered = true;
+  clearExamTimers(exam);
+  stopPlayback({ preserveStage: true });
+  state.exerciseSolved = true;
+  ex.isSolved = true;
+
+  const target = ex.targetItem;
+  const isCorrect = selectedKey === target.key;
+  const chosenMeta = ex.symbolChoiceMeta?.[selectedKey];
+  const chosenDisplay = ex.promptKind === "flow-order"
+    ? (chosenMeta?.text || selectedKey || "?")
+    : (ex.promptKind === "meaning-to-symbol"
+        ? (chosenMeta ? `${chosenMeta.term} (${chosenMeta.abbr})` : selectedKey)
+        : (chosenMeta?.short || selectedKey || "?"));
+  const detailText = ex.promptKind === "flow-order"
+    ? (target.termLabel || "")
+    : `${target.termLabel || ""}${target.abbr ? ` (${target.abbr})` : ""}`;
+
+  recordExamQuestionEntry({
+    mode: ex.type,
+    status: isCorrect ? "correct" : "wrong",
+    score: isCorrect ? 1 : 0,
+    chosenKey: selectedKey,
+    targetKey: target.key,
+    chosenLabel: chosenDisplay,
+    targetLabel: target.displayName,
+    detailNote: detailText,
+    audioSnapshot: {
+      type: "notation-symbols",
+      isVisualOnly: true,
+      promptKind: ex.promptKind,
+      svgKey: ex.svgKey || target.svgKey || null,
+      flowScenarioId: ex.flowScenarioId || null,
+      promptText: ex.promptKind === "meaning-to-symbol" ? (ex.promptQuestion || "") : (ex.promptTitle || "")
+    }
+  });
+
+  if (exam.feedbackMode === "blind") {
+    btnElement?.classList.add("exam-choice-recorded");
+    if (document.getElementById("centralStageCard")) {
+      setCentralStageMode("stage-playing");
+      updateStageMascot("listening");
+      document.getElementById("stageSubtext").textContent = tr("ANTWORT ERFASST", "ANSWER RECORDED");
+      document.getElementById("stageMainText").textContent = chosenDisplay;
+      document.getElementById("stageFunctionText").textContent = tr("Weiter zur nächsten Frage…", "Moving to the next question…");
+    }
+    scheduleExamAutoAdvance(260);
+    return;
+  }
+
+  document.querySelectorAll("#degreeButtonsGrid .degree-btn").forEach(el => {
+    el.classList.remove("btn-wrong", "btn-correct");
+    if (el.dataset.choice === target.key) el.classList.add("btn-correct");
+  });
+  const panelEl = document.getElementById("notationStaffPanel");
+  panelEl?.classList.remove("is-wrong", "is-correct");
+
+  if (isCorrect) {
+    btnElement?.classList.add("btn-correct");
+    panelEl?.classList.add("is-correct");
+    setCentralStageMode("stage-playing");
+    updateStageMascot("happy");
+    document.getElementById("stageSubtext").textContent = tr("RICHTIG!", "CORRECT!");
+  } else {
+    btnElement?.classList.add("btn-wrong");
+    panelEl?.classList.add("is-wrong");
+    setCentralStageMode("stage-wrong");
+    updateStageMascot("thinking");
+    document.getElementById("stageSubtext").textContent = tr("NICHT GANZ", "NOT QUITE");
+  }
+  document.getElementById("stageMainText").textContent = ex.promptKind === "flow-order"
+    ? target.displayName
+    : `${target.termLabel} (${target.abbr})`;
+  document.getElementById("stageFunctionText").textContent = target.explanation || target.shortMeaning || "";
+  showExamPostAnswerNextBar();
+}
+
 function finalizeExamMelodySlot(ex, idx) {
   const exam = state?.exam;
   const slots = ex?.melodySlots || [];
@@ -1780,6 +1864,16 @@ function skipCurrentExamQuestion() {
       expectedOffsets: exp,
       tapsMs: null
     };
+  } else if (isNotationSymbolsMode(curMode) && ex?.targetItem) {
+    targetLabel = ex.targetItem.displayName;
+    snapshot = {
+      type: "notation-symbols",
+      isVisualOnly: true,
+      promptKind: ex.promptKind,
+      svgKey: ex.svgKey || ex.targetItem.svgKey || null,
+      flowScenarioId: ex.flowScenarioId || null,
+      promptText: ex.promptKind === "meaning-to-symbol" ? (ex.promptQuestion || "") : (ex.promptTitle || "")
+    };
   } else if (isNotationMode(curMode) && ex?.targetItem) {
     targetLabel = ex.targetItem.displayName;
     const sigId = normalizeNotationKeySigId(ex.targetItem.keySignatureId || ex.keySignatureId || "none");
@@ -2002,9 +2096,9 @@ function renderExamResultView() {
       ? tr("Übersprungen", "Skipped")
       : (item.chosenLabel || getExamChoiceDisplayText(item.mode, item.chosenKey));
 
-    const canPlayTarget = Boolean(snap);
+    const canPlayTarget = Boolean(snap && !snap.isVisualOnly);
     const canPlayChosen = Boolean(
-      snap && item.status !== "skipped" && (
+      snap && !snap.isVisualOnly && item.status !== "skipped" && (
         snap.chosenKey || snap.chosenNoteName || snap.chosenFreqHz ||
         (Array.isArray(snap.chosenNotes) && snap.chosenNotes.length > 0) ||
         (Array.isArray(snap.chosenSlots) && snap.chosenSlots.length > 0) ||
@@ -2023,7 +2117,8 @@ function renderExamResultView() {
           <span class="exam-review-q">${escapeHtml(tf("Frage {n} • {mod}", "Question {n} • {mod}", { n: item.qIndex || (visiblePos + 1), mod: getLocalizedExamModeName(item.mode) }))}</span>
           <span class="exam-review-status ${statusCls}">${getExamIconSVG(statusIconKey, 12)}<span>${escapeHtml(statusText)}</span></span>
         </div>
-        ${isNotationMode(item.mode) && snap && Number.isFinite(Number(snap.staffStep)) ? `
+        ${isNotationSymbolsMode(item.mode) && snap && typeof buildNotationSymbolReviewHTML === "function" ? buildNotationSymbolReviewHTML(snap) : ""}
+        ${isNotationStaffMode(item.mode) && snap && Number.isFinite(Number(snap.staffStep)) ? `
           <div class="exam-notation-review-staff">${buildNotationMiniStaffSVG(snap)}</div>
         ` : ""}
         <div class="exam-review-answers">

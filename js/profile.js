@@ -94,6 +94,10 @@ function getLevelDisplayForMix(mode, level) {
     const lbl = invLvlLabels[level];
     if (lbl) return tf("Stufe {lvl} ({lbl})", "Level {lvl} ({lbl})", { lvl: level, lbl });
   }
+  if (isNotationSymbolsMode(mode)) {
+    const lbl = typeof getNotationSymbolsLevelLabel === "function" ? getNotationSymbolsLevelLabel(level) : "";
+    if (lbl) return tf("Stufe {lvl} ({lbl})", "Level {lvl} ({lbl})", { lvl: level, lbl });
+  }
   if (isNotationMode(mode)) {
     const notationLvlLabels = {
       1: tr("Stammlinien", "5-Line Staff"),
@@ -129,7 +133,7 @@ function getLevelDisplayForMix(mode, level) {
 function formatMixSubtitle(mix) {
   const modeLabel = getLocalizedMixModeLabel(mix.mode);
   const lvlText = getLevelDisplayForMix(mix.mode, mix.level);
-  const notKeyMode = isNotationMode(mix.mode) ? normalizeNotationKeyMode(mix.notationKeyMode) : "none";
+  const notKeyMode = isNotationStaffMode(mix.mode) ? normalizeNotationKeyMode(mix.notationKeyMode) : "none";
   const notKeyText = notKeyMode !== "none" ? ` • ${getLocalizedNotationKeyModeLabel(notKeyMode, true)}` : "";
   const bpmText = !mix.mode.startsWith("prod-") && !mix.mode.startsWith("modes-") && !isNotationMode(mix.mode) && !isBlockChordMode(mix.mode) && mix.bpm > 0 ? ` • ${mix.bpm} BPM` : "";
   return `${modeLabel} • ${lvlText}${notKeyText}${bpmText}`;

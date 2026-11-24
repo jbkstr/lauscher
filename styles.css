@@ -15871,3 +15871,730 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
     animation: none;
   }
 }
+
+
+/* =========================================================================
+   NOTATION: SYMBOLE, SPIELANWEISUNGEN & ABLAUF (Übung + Wissensmodul)
+   ========================================================================= */
+
+.notation-symbol-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.28rem;
+  padding: 0.55rem 0.72rem;
+  min-height: 92px;
+  text-align: center;
+}
+
+.nts-prompt-svg-wrap {
+  width: 100%;
+  max-width: 196px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--raccoon-dark);
+}
+
+.nts-prompt-svg-wrap .nts-symbol-svg {
+  width: 100%;
+  height: auto;
+  max-height: 82px;
+}
+
+.nts-prompt-term-sub {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--raccoon-muted);
+  line-height: 1.2;
+}
+
+.nts-prompt-kind-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--lilac-strong);
+  background: color-mix(in srgb, var(--lilac-strong) 12%, transparent);
+  padding: 0.14rem 0.55rem;
+  border-radius: 999px;
+}
+
+.nts-prompt-meaning-lead {
+  font-size: 1.06rem;
+  font-weight: 700;
+  color: var(--raccoon-dark);
+  line-height: 1.3;
+  max-width: 24rem;
+  padding: 0.14rem 0.25rem;
+}
+
+.nts-prompt-flow-wrap {
+  width: 100%;
+  max-width: 420px;
+  color: var(--raccoon-dark);
+}
+
+.nts-prompt-flow-wrap .notation-flow-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 86px;
+}
+
+.nts-prompt-question {
+  font-size: 0.80rem;
+  font-weight: 700;
+  color: var(--raccoon-muted);
+  line-height: 1.25;
+}
+
+/* Antwortkacheln für Symbole & Spielanweisungen (volle Breite im Auswahlbereich) */
+.degrees-grid.grid-notation-symbols {
+  display: block;
+  width: 100%;
+}
+
+.nts-choices-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.52rem;
+  width: 100%;
+}
+
+.nts-choices-grid.is-flow {
+  grid-template-columns: 1fr;
+  gap: 0.42rem;
+}
+
+@media (min-width: 520px) {
+  .nts-choices-grid.is-flow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.52rem;
+  }
+}
+
+.degrees-grid.grid-notation-symbols .degree-btn.nts-choice-btn {
+  width: 100%;
+  min-height: 70px;
+  padding: 0.62rem 0.78rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .degrees-grid.grid-notation-symbols .degree-btn.nts-choice-btn {
+    min-height: 78px;
+    padding: 0.7rem 0.9rem;
+  }
+}
+
+.degrees-grid.grid-notation-symbols .degree-btn.nts-choice-btn.is-svg-tile {
+  min-height: 76px;
+  padding: 0.42rem 0.65rem;
+}
+
+@media (min-width: 640px) {
+  .degrees-grid.grid-notation-symbols .degree-btn.nts-choice-btn.is-svg-tile {
+    min-height: 86px;
+  }
+}
+
+.degrees-grid.grid-notation-symbols .degree-btn.nts-choice-btn.is-flow-tile {
+  min-height: 46px;
+  padding: 0.48rem 0.78rem;
+}
+
+@media (min-width: 520px) {
+  .degrees-grid.grid-notation-symbols .degree-btn.nts-choice-btn.is-flow-tile {
+    min-height: 66px;
+  }
+}
+
+.nts-choice-svg-wrap {
+  width: 100%;
+  max-width: 132px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--raccoon-dark);
+}
+
+.nts-choice-svg-wrap .nts-symbol-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 58px;
+}
+
+.nts-choice-meaning-text {
+  font-size: 0.94rem;
+  font-weight: 700;
+  line-height: 1.26;
+  color: var(--raccoon-dark);
+  overflow-wrap: break-word;
+  word-break: normal;
+  white-space: normal;
+  max-width: 100%;
+}
+
+.nts-choice-flow-text {
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.24;
+  color: var(--raccoon-dark);
+  letter-spacing: 0.015em;
+  white-space: nowrap;
+}
+
+/* Fit-Stufen für feste Übungshöhe (mobil 360×640 / 375×667) – volle Breite immer erhalten */
+#viewExercise.fit-1 .notation-symbol-panel {
+  min-height: 76px;
+  padding: 0.4rem 0.55rem;
+  gap: 0.18rem;
+}
+
+#viewExercise.fit-1 .nts-prompt-svg-wrap .nts-symbol-svg {
+  max-height: 68px;
+}
+
+#viewExercise.fit-1 .nts-prompt-flow-wrap .notation-flow-svg {
+  max-height: 72px;
+}
+
+#viewExercise.fit-1 .nts-choices-grid {
+  gap: 0.42rem;
+}
+
+#viewExercise.fit-1 .degrees-grid.grid-notation-symbols .degree-btn.nts-choice-btn {
+  width: 100%;
+  min-height: 58px;
+  padding: 0.46rem 0.62rem;
+}
+
+#viewExercise.fit-1 .degrees-grid.grid-notation-symbols .degree-btn.nts-choice-btn.is-svg-tile {
+  min-height: 64px;
+  padding: 0.34rem 0.5rem;
+}
+
+#viewExercise.fit-1 .degrees-grid.grid-notation-symbols .degree-btn.nts-choice-btn.is-flow-tile {
+  min-height: 42px;
+  padding: 0.38rem 0.65rem;
+}
+
+#viewExercise.fit-1 .nts-choice-svg-wrap .nts-symbol-svg {
+  max-height: 48px;
+}
+
+#viewExercise.fit-1 .nts-choice-meaning-text {
+  font-size: 0.88rem;
+}
+
+#viewExercise.fit-1 .nts-choice-flow-text {
+  font-size: 0.86rem;
+}
+
+#viewExercise.fit-2 .notation-symbol-panel {
+  min-height: 64px;
+  padding: 0.3rem 0.48rem;
+}
+
+#viewExercise.fit-2 .nts-prompt-svg-wrap .nts-symbol-svg {
+  max-height: 56px;
+}
+
+#viewExercise.fit-2 .nts-prompt-flow-wrap .notation-flow-svg {
+  max-height: 60px;
+}
+
+#viewExercise.fit-2 .nts-prompt-meaning-lead {
+  font-size: 0.94rem;
+}
+
+#viewExercise.fit-2 .nts-choices-grid {
+  gap: 0.36rem;
+}
+
+#viewExercise.fit-2 .degrees-grid.grid-notation-symbols .degree-btn.nts-choice-btn {
+  width: 100%;
+  min-height: 50px;
+  padding: 0.36rem 0.52rem;
+}
+
+#viewExercise.fit-2 .degrees-grid.grid-notation-symbols .degree-btn.nts-choice-btn.is-svg-tile {
+  min-height: 56px;
+}
+
+#viewExercise.fit-2 .degrees-grid.grid-notation-symbols .degree-btn.nts-choice-btn.is-flow-tile {
+  min-height: 38px;
+  padding: 0.3rem 0.55rem;
+}
+
+#viewExercise.fit-2 .nts-choice-meaning-text,
+#viewExercise.fit-2 .nts-choice-flow-text {
+  font-size: 0.83rem;
+}
+
+#viewExercise.fit-3 .notation-symbol-panel {
+  min-height: 54px;
+  padding: 0.22rem 0.4rem;
+}
+
+#viewExercise.fit-3 .nts-prompt-svg-wrap .nts-symbol-svg {
+  max-height: 48px;
+}
+
+#viewExercise.fit-3 .nts-prompt-flow-wrap .notation-flow-svg {
+  max-height: 52px;
+}
+
+#viewExercise.fit-3 .nts-choices-grid {
+  gap: 0.32rem;
+}
+
+#viewExercise.fit-3 .degrees-grid.grid-notation-symbols .degree-btn.nts-choice-btn {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.28rem 0.44rem;
+}
+
+#viewExercise.fit-3 .degrees-grid.grid-notation-symbols .degree-btn.nts-choice-btn.is-flow-tile {
+  min-height: 35px;
+  padding: 0.24rem 0.48rem;
+}
+
+#viewExercise.fit-3 .nts-choice-svg-wrap .nts-symbol-svg {
+  max-height: 40px;
+}
+
+#viewExercise.fit-3 .nts-choice-meaning-text,
+#viewExercise.fit-3 .nts-choice-flow-text {
+  font-size: 0.79rem;
+}
+
+/* Kategorie-Seite Direktlink zum Wissensmodul */
+.nts-category-ref-row {
+  margin-top: 0.75rem;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.nts-category-ref-btn {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Prüfungs-Rückblick Vorschau */
+.exam-nts-review-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.45rem 0.6rem;
+}
+
+.exam-nts-review-svg {
+  width: 100%;
+  max-width: 132px;
+  color: var(--raccoon-dark);
+}
+
+.exam-nts-review-svg .nts-symbol-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 56px;
+}
+
+.exam-nts-review-box .notation-flow-svg {
+  display: block;
+  width: 100%;
+  max-width: 340px;
+  height: auto;
+  color: var(--raccoon-dark);
+}
+
+.exam-nts-review-prompt {
+  font-size: 0.80rem;
+  font-weight: 700;
+  color: var(--raccoon-muted);
+  text-align: center;
+}
+
+/* =========================================================================
+   WISSENSMODUL: VORTRAGSZEICHEN, BEGRIFFE & SYMBOLE
+   ========================================================================= */
+
+.nts-intro-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.65rem;
+}
+
+.nts-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin: 0.1rem 0 0.2rem;
+}
+
+.nts-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.nts-search-wrap {
+  display: flex;
+  gap: 0.45rem;
+  align-items: center;
+}
+
+.nts-search-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0.56rem 0.8rem;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-soft);
+  background: var(--surface-white);
+  color: var(--raccoon-dark);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.16s ease;
+}
+
+.nts-search-input:focus {
+  border-color: var(--lilac-strong);
+}
+
+.nts-search-input::placeholder {
+  color: var(--raccoon-muted);
+  opacity: 0.78;
+}
+
+.nts-search-clear {
+  flex-shrink: 0;
+}
+
+/* Dynamik-Leiter */
+.nts-dynamics-ladder {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 0.35rem;
+  margin-top: 0.6rem;
+  align-items: end;
+}
+
+.nts-ladder-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.4rem 0.2rem 0.36rem;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-soft);
+  background: var(--surface-warm);
+  color: var(--raccoon-dark);
+  cursor: pointer;
+  transition: transform 0.14s ease, border-color 0.14s ease;
+}
+
+.nts-ladder-step:hover,
+.nts-ladder-step:focus-visible {
+  border-color: var(--peach-strong);
+  transform: translateY(-2px);
+}
+
+.nts-ladder-bar-wrap {
+  width: 100%;
+  height: 54px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0 0.22rem;
+}
+
+.nts-ladder-bar {
+  display: block;
+  width: 100%;
+  max-width: 22px;
+  border-radius: 5px 5px 2px 2px;
+  background: linear-gradient(180deg, var(--peach-strong), color-mix(in srgb, var(--peach-strong) 45%, var(--lilac-strong)));
+}
+
+.nts-ladder-sym {
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--peach-strong);
+}
+
+/* Tempo-Spektrum */
+.nts-tempo-strip {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.45rem;
+  margin-top: 0.55rem;
+}
+
+@media (min-width: 560px) {
+  .nts-tempo-strip {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.nts-tempo-chip-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.12rem;
+  position: relative;
+  padding: 0.55rem 0.68rem;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-soft);
+  background: var(--surface-warm);
+  color: var(--raccoon-dark);
+  cursor: pointer;
+  text-align: start;
+  transition: border-color 0.15s ease, transform 0.14s ease;
+}
+
+.nts-tempo-chip-btn:hover,
+.nts-tempo-chip-btn:focus-visible {
+  border-color: var(--sage-strong);
+  transform: translateY(-1px);
+}
+
+.nts-tempo-name {
+  font-size: 0.92rem;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--sage-strong);
+}
+
+.nts-tempo-bpm {
+  font-size: 0.76rem;
+  color: var(--raccoon-muted);
+}
+
+.nts-tempo-play {
+  position: absolute;
+  inset-inline-end: 0.6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.78rem;
+  color: var(--sage-strong);
+  opacity: 0.85;
+}
+
+/* Ablauf-Schaubilder (Coda, Segno, Volten, D.C.) */
+.nts-flow-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin-top: 0.6rem;
+}
+
+@media (min-width: 740px) {
+  .nts-flow-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.nts-flow-card {
+  background: var(--surface-warm);
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  padding: 0.72rem 0.78rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.42rem;
+}
+
+.nts-flow-card h5 {
+  margin: 0;
+  font-size: 0.94rem;
+  color: var(--raccoon-dark);
+}
+
+.nts-flow-svg-box {
+  background: var(--surface-white);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: 0.35rem 0.4rem;
+  color: var(--raccoon-dark);
+}
+
+.nts-flow-svg-box .notation-flow-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.nts-flow-order-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.83rem;
+}
+
+.nts-flow-order-lbl {
+  font-weight: 700;
+  color: var(--raccoon-muted);
+}
+
+.nts-flow-order-val {
+  font-weight: 700;
+  color: var(--peach-strong);
+  background: color-mix(in srgb, var(--peach-strong) 12%, transparent);
+  padding: 0.12rem 0.48rem;
+  border-radius: 999px;
+}
+
+.nts-flow-desc {
+  margin: 0;
+  font-size: 0.84rem;
+  line-height: 1.42;
+  color: var(--raccoon-muted);
+}
+
+/* Begriffs- & Symbol-Karten */
+.nts-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.72rem;
+  margin-top: 0.65rem;
+}
+
+@media (min-width: 680px) {
+  .nts-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.nts-card {
+  background: var(--surface-warm);
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  padding: 0.72rem 0.78rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.42rem;
+}
+
+.nts-card-top {
+  display: flex;
+  align-items: center;
+  gap: 0.68rem;
+}
+
+.nts-svg-box {
+  flex: 0 0 92px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-white);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: 0.2rem;
+  color: var(--raccoon-dark);
+}
+
+.nts-svg-box .nts-symbol-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.nts-card-head {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.14rem;
+}
+
+.nts-card-term {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--raccoon-dark);
+  line-height: 1.22;
+}
+
+.nts-card-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  align-items: center;
+}
+
+.nts-abbr-chip {
+  font-size: 0.74rem;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--lilac-strong);
+  background: color-mix(in srgb, var(--lilac-strong) 12%, transparent);
+  padding: 0.08rem 0.42rem;
+  border-radius: 999px;
+}
+
+.nts-bpm-chip {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--sage-strong);
+  background: color-mix(in srgb, var(--sage-strong) 12%, transparent);
+  padding: 0.08rem 0.42rem;
+  border-radius: 999px;
+}
+
+.nts-card-short {
+  margin: 0.08rem 0 0;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--raccoon-dark);
+  line-height: 1.28;
+}
+
+.nts-card-desc {
+  margin: 0;
+  font-size: 0.83rem;
+  line-height: 1.44;
+  color: var(--raccoon-muted);
+}
+
+.nts-card-tip {
+  margin: 0;
+  font-size: 0.79rem;
+  line-height: 1.38;
+  color: var(--raccoon-dark);
+  background: color-mix(in srgb, var(--sage-strong) 9%, transparent);
+  border-inline-start: 3px solid var(--sage-strong);
+  padding: 0.3rem 0.52rem;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+[dir="rtl"] .nts-card-tip {
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+}
+
+.nts-card-actions {
+  margin-top: auto;
+  padding-top: 0.15rem;
+}
+
+.nts-demo-btn {
+  font-size: 0.79rem;
+  padding: 0.3rem 0.65rem;
+}
+
+.nts-empty-card {
+  text-align: center;
+  color: var(--raccoon-muted);
+}

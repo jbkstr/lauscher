@@ -10,6 +10,9 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
   if (ex.type === "rhythm-dictation") {
     return handleRhythmDictationChoice(selectedKey, btnElement, { ...options, inputPoint: capturedInputPoint });
   }
+  if (ex.isNotationSymbols) {
+    return handleNotationSymbolChoice(selectedKey, btnElement, { ...options, inputPoint: capturedInputPoint });
+  }
   if (ex.isChordReading) {
     return handleNotationChordChoice(selectedKey, btnElement, { ...options, inputPoint: capturedInputPoint });
   }
@@ -1188,8 +1191,10 @@ function syncListenOnlyUI() {
   const btn = document.getElementById("listenOnlyBtn");
   const lbl = document.getElementById("listenOnlyBtnLabel");
   const active = Boolean(state.listenOnly?.active);
+  const hideForMode = Boolean(state.exam?.active) || isNotationSymbolsMode(state.currentExercise?.type);
   if (syncNotationPaceVisibility() && typeof queueFitExerciseLayout === "function") queueFitExerciseLayout(true);
   if (btn) {
+    btn.classList.toggle("hidden", hideForMode);
     btn.classList.toggle("btn-active", active);
     btn.setAttribute("aria-pressed", active ? "true" : "false");
     btn.title = active
@@ -1507,6 +1512,22 @@ function setListenOnlyMode(enabled, options = {}) {
 
 async function playSequence(options = {}) {
   cancelHumPause();
+  if (isNotationSymbolsMode(state.currentExercise?.type)) {
+    if (state.exam?.active) {
+      if (state.exam.currentAnswered && state.exam.feedbackMode === "instant") {
+        advanceExamQuestion();
+      }
+      return;
+    }
+    const symEx = state.currentExercise;
+    if (symEx?.isSolved) {
+      cancelNotationSymbolAdvance(symEx);
+      generateExercise();
+    } else {
+      showNotationSymbolHint(symEx);
+    }
+    return;
+  }
   if (state.exam?.active && !tryConsumeExamReplay({ isInitialAuto: Boolean(options.examAutoStart) })) {
     return;
   }
@@ -2633,7 +2654,8 @@ function stopPlayback(options = {}) {
   }
 
   const tapFinished = state.currentExercise?.type === "rhythm-tap" && state.currentExercise?.tapEvaluated;
-  if (!options?.preserveStage && !state.solfegeAnswered && !state.melodyCompleted && !state.rhythmDictationCompleted && !tapFinished) {
+  const symbolSolved = Boolean(state.currentExercise?.isNotationSymbols && state.currentExercise?.isSolved);
+  if (!options?.preserveStage && !state.solfegeAnswered && !state.melodyCompleted && !state.rhythmDictationCompleted && !tapFinished && !symbolSolved) {
     resetCentralStage();
   }
   const totalBars = state.currentExercise?.bars?.length ?? 4;
@@ -2648,6 +2670,7 @@ function stopPlayback(options = {}) {
 function updatePlayButtonUI(isPlaying) {
   const btn = document.getElementById("playBtn");
   if (!btn) return;
+  btn.classList.remove("hidden");
   if (state.exam?.active && state.exam.currentAnswered && state.exam.feedbackMode === "instant") {
     const isLast = state.exam.currentIdx >= state.exam.totalQuestions - 1;
     btn.innerHTML = isLast ? tr("Auswertung →", "Results →") : tr("Nächste Frage →", "Next Question →");
@@ -2667,7 +2690,20 @@ function updatePlayButtonUI(isPlaying) {
   if (isPlaying) {
     btn.innerHTML = tr("■ Stopp", "■ Stop");
     btn.classList.add("btn-stop");
+  } else if (isNotationSymbolsMode(state.currentExercise?.type)) {
+    const symSolved = Boolean(state.currentExercise?.isSolved);
+    if (state.exam?.active) {
+      btn.classList.toggle("hidden", !(state.exam.currentAnswered && state.exam.feedbackMode === "instant"));
+      btn.classList.remove("btn-stop");
+    } else {
+      btn.classList.remove("hidden");
+      btn.innerHTML = symSolved
+        ? tr("Nächste Frage →", "Next Question →")
+        : tr("💡 Hinweis", "💡 Hint");
+      btn.classList.remove("btn-stop");
+    }
   } else if (isNotationMode(state.currentExercise?.type)) {
+    btn.classList.remove("hidden");
     btn.innerHTML = state.exam?.active
       ? tr("▶ Ankerton", "▶ Anchor Pitch")
       : (isNotationChordMode(state.currentExercise?.type)
@@ -2675,6 +2711,7 @@ function updatePlayButtonUI(isPlaying) {
           : tr("▶ Ton anhören", "▶ Hear Note"));
     btn.classList.remove("btn-stop");
   } else {
+    btn.classList.remove("hidden");
     btn.innerHTML = tr("▶ Abspielen", "▶ Play");
     btn.classList.remove("btn-stop");
   }

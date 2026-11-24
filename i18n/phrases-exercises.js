@@ -5427,5 +5427,326 @@ registerColocatedPhrases({
     pl: "Anuluj",
     uk: "Скасувати",
     ur: "منسوخ کریں"
+  },
+  // ===== Notation: Symbole, Begriffe & Ablauf =====
+  "Symbole & Spielanweisungen": {
+    fr: "Symboles & indications",
+    es: "Símbolos e indicaciones",
+    it: "Simboli e indicazioni",
+    pl: "Symbole i oznaczenia",
+    uk: "Символи й позначення",
+    ur: "علامات اور ہدایات"
+  },
+  "Symbole & Begriffe": {
+    fr: "Symboles & termes",
+    es: "Símbolos y términos",
+    it: "Simboli e termini",
+    pl: "Symbole i pojęcia",
+    uk: "Символи й терміни",
+    ur: "علامات اور اصطلاحات"
+  },
+  "Vortragszeichen & Symbole": {
+    fr: "Signes & indications",
+    es: "Símbolos e indicaciones",
+    it: "Segni e indicazioni",
+    pl: "Symbole i oznaczenia",
+    uk: "Символи й позначення",
+    ur: "علامات اور ہدایات"
+  },
+  "Dynamik, Tempo, Artikulation, Verzierungen, Coda & Ablauf": {
+    fr: "Nuances, tempo, articulation, ornements, Coda & reprises",
+    es: "Dinámica, tempo, articulación, adornos, Coda y saltos",
+    it: "Dinamica, tempo, articolazione, abbellimenti, Coda e ritornelli",
+    pl: "Dynamika, tempo, artykulacja, ozdobniki, Coda i przebieg",
+    uk: "Динаміка, темп, артикуляція, мелізми, Кода та форма",
+    ur: "آواز، رفتار، ادائیگی، سجاوٹ، کوڈا اور ترتیب"
+  },
+  "Dynamik, Tempo, Artikulation & Ablauf nachschlagen": {
+    fr: "Consulter nuances, tempo, articulation & structure",
+    es: "Consultar dinámica, tempo, articulación y saltos",
+    it: "Consulta dinamica, tempo, articolazione e ritornelli",
+    pl: "Sprawdź dynamikę, tempo, artykulację i nawigację",
+    uk: "Довідник із динаміки, темпу, артикуляції та форми",
+    ur: "آواز، رفتار، ادائیگی اور ترتیب کی گائیڈ دیکھیں"
+  },
+  "Alle wichtigen Spielanweisungen, Verzierungen und Sprungzeichen (Segno, Coda, Volten) mit Erklärungen und Hörbeispielen.": {
+    fr: "Toutes les indications d’interprétation, ornements et signes de renvoi (Segno, Coda, voltas) avec explications et extraits audio.",
+    es: "Todas las indicaciones, adornos y signos de salto (Segno, Coda, casillas) con explicaciones y ejemplos de audio.",
+    it: "Tutte le indicazioni esecutive, gli abbellimenti e i rimandi (Segno, Coda, volte) con spiegazioni ed esempi audio.",
+    pl: "Wszystkie ważne oznaczenia wykonawcze, ozdobniki i znaki skoku (Segno, Coda, volty) z opisami i przykładami audio.",
+    uk: "Усі важливі виконавські позначки, мелізми та знаки переходів (Segno, Кода, вольти) з поясненнями й аудіоприкладами.",
+    ur: "تمام اہم ہدایات، سجاوٹیں اور چھلانگ کی علامات (سیگنو، کوڈا، وولٹا) وضاحت اور آڈیو مثالوں کے ساتھ۔"
+  },
+  "Vortragszeichen & Symbole öffnen →": {
+    fr: "Ouvrir Signes & indications →",
+    es: "Abrir Símbolos e indicaciones →",
+    it: "Apri Segni e indicazioni →",
+    pl: "Otwórz Symbole i oznaczenia →",
+    uk: "Відкрити «Символи й позначення» →",
+    ur: "علامات اور ہدایات کھولیں ←"
+  },
+  "Im Wissens-Hub nachschlagen: Vortragszeichen & Symbole →": {
+    fr: "Consulter dans le guide : Signes & indications →",
+    es: "Consultar en la guía: Símbolos e indicaciones →",
+    it: "Consulta nella guida: Segni e indicazioni →",
+    pl: "Sprawdź w kompendium: Symbole i oznaczenia →",
+    uk: "Переглянути в довіднику: Символи й позначення →",
+    ur: "معلومات کے مرکز میں دیکھیں: علامات اور ہدایات ←"
+  },
+  "Mehr als nur Notenköpfe: Trainiere Dynamik, Tempo, Artikulation, Verzierungen, Spielweisen sowie Ablauf- & Sprungzeichen (Segno, Coda, Voltenklammern).": {
+    fr: "Bien plus que des hauteurs : entraîne les nuances, le tempo, l’articulation, les ornements et les renvois (Segno, Coda, voltas).",
+    es: "Más allá de las notas: entrena dinámica, tempo, articulación, adornos y saltos de partitura (Segno, Coda, casillas).",
+    it: "Oltre le altezze: allena dinamica, tempo, articolazione, abbellimenti e percorsi di spartito (Segno, Coda, volte).",
+    pl: "Więcej niż same nuty: ćwicz dynamikę, tempo, artykulację, ozdobniki oraz znaki przebiegu (Segno, Coda, volty).",
+    uk: "Більше ніж ноти: тренуй динаміку, темп, артикуляцію, мелізми та знаки навігації (Segno, Кода, вольти).",
+    ur: "صرف سُروں سے بڑھ کر: آواز، رفتار، ادائیگی، سجاوٹ اور سیگنو، کوڈا و وولٹا کی مشق کریں۔"
+  },
+  "Dynamik (pp–ff, sfz), Tempo & Ausdruck, Artikulation & Verzierungen sowie Ablauf- und Sprungzeichen (Wiederholung, Volten, Segno, Coda).": {
+    fr: "Nuances (pp–ff, sfz), tempo & expression, articulation & ornements, ainsi que reprises, voltas, Segno & Coda.",
+    es: "Dinámica (pp–ff, sfz), tempo y expresión, articulación y adornos, además de repeticiones, casillas, Segno y Coda.",
+    it: "Dinamica (pp–ff, sfz), tempo ed espressione, articolazione e abbellimenti, più ritornelli, volte, Segno e Coda.",
+    pl: "Dynamika (pp–ff, sfz), tempo i wyraz, artykulacja i ozdobniki oraz repetycje, volty, Segno i Coda.",
+    uk: "Динаміка (pp–ff, sfz), темп і виразність, артикуляція й мелізми, а також репризи, вольти, Segno та Кода.",
+    ur: "آواز (pp–ff, sfz)، رفتار اور تاثرات، ادائیگی اور سجاوٹ، نیز دہرائی، وولٹا، سیگنو اور کوڈا۔"
+  },
+  "Stufe 1: Dynamik & Lautstärke": {
+    fr: "Niveau 1 : Nuances & volume",
+    es: "Nivel 1: Dinámica y volumen",
+    it: "Livello 1: Dinamica e volume",
+    pl: "Poziom 1: Dynamika i głośność",
+    uk: "Рівень 1: Динаміка та гучність",
+    ur: "درجہ 1: آواز کی سطح (ڈائنامکس)"
+  },
+  "ppp bis fff, Crescendo/Decrescendo, sfz, fp & subito p": {
+    fr: "ppp à fff, crescendo/decrescendo, sfz, fp & subito p",
+    es: "ppp a fff, crescendo/decrescendo, sfz, fp y subito p",
+    it: "Da ppp a fff, crescendo/decrescendo, sfz, fp e subito p",
+    pl: "Od ppp do fff, crescendo/decrescendo, sfz, fp i subito p",
+    uk: "Від ppp до fff, крещендо/декрещендо, sfz, fp та subito p",
+    ur: "ppp سے fff، کریشینڈو/ڈیکریشینڈو، sfz، fp اور subito p"
+  },
+  "Stufe 2: Tempo, Agogik & Ausdruck": {
+    fr: "Niveau 2 : Tempo, agogique & caractère",
+    es: "Nivel 2: Tempo, agógica y carácter",
+    it: "Livello 2: Tempo, agogica e carattere",
+    pl: "Poziom 2: Tempo, agogika i charakter",
+    uk: "Рівень 2: Темп, агогіка й характер",
+    ur: "درجہ 2: رفتار اور تاثرات"
+  },
+  "Largo bis Presto, rit./accel., Fermate, dolce & maestoso": {
+    fr: "Largo à Presto, rit./accel., point d’orgue, dolce & maestoso",
+    es: "Largo a Presto, rit./accel., calderón, dolce y maestoso",
+    it: "Da Largo a Presto, rit./accel., corona, dolce e maestoso",
+    pl: "Od Largo do Presto, rit./accel., fermata, dolce i maestoso",
+    uk: "Від Largo до Presto, rit./accel., фермата, dolce й maestoso",
+    ur: "Largo سے Presto، rit./accel.، فرماٹا، dolce اور maestoso"
+  },
+  "Stufe 3: Artikulation & Spielweisen": {
+    fr: "Niveau 3 : Articulation & jeu",
+    es: "Nivel 3: Articulación y técnicas",
+    it: "Livello 3: Articolazione e tecniche",
+    pl: "Poziom 3: Artykulacja i techniki gry",
+    uk: "Рівень 3: Артикуляція й прийоми гри",
+    ur: "درجہ 3: ادائیگی اور بجانے کے انداز"
+  },
+  "Staccato, Legato, Haltebogen, Triller, 8va, Pedal & pizz.": {
+    fr: "Staccato, legato, liaisons, trilles, 8va, pédale & pizz.",
+    es: "Staccato, legato, ligaduras, trinos, 8va, pedal y pizz.",
+    it: "Staccato, legato, legature, trilli, 8va, pedale e pizz.",
+    pl: "Staccato, legato, łuki, tryle, 8va, pedał i pizz.",
+    uk: "Стакато, легато, ліги, трелі, 8va, педаль і pizz.",
+    ur: "اسٹاکاٹو، لیگاٹو، ٹائی، ٹرل، 8va، پیڈل اور pizz."
+  },
+  "Stufe 4: Ablauf, Form & Coda": {
+    fr: "Niveau 4 : Structure, reprises & Coda",
+    es: "Nivel 4: Forma, repeticiones y Coda",
+    it: "Livello 4: Forma, ritornelli e Coda",
+    pl: "Poziom 4: Forma, repetycje i Coda",
+    uk: "Рівень 4: Форма, репризи й Кода",
+    ur: "درجہ 4: ترتیب، دہرائی اور کوڈا"
+  },
+  "Wiederholung, 1./2. Klammer, D.C., Segno, Coda & Spielreihenfolge": {
+    fr: "Reprises, 1re/2e fins, D.C., Segno, Coda & ordre de jeu",
+    es: "Repeticiones, 1.ª/2.ª casillas, D.C., Segno, Coda y orden",
+    it: "Ritornelli, 1./2. volta, D.C., Segno, Coda e ordine",
+    pl: "Repetycje, 1./2. volta, D.C., Segno, Coda i kolejność",
+    uk: "Репризи, 1-/2-га вольти, D.C., Segno, Кода й порядок гри",
+    ur: "دہرائی، 1./2. وولٹا، D.C.، سیگنو، کوڈا اور ترتیب"
+  },
+  "Stufe 5: Alle Bereiche gemischt": {
+    fr: "Niveau 5 : Tous les thèmes mélangés",
+    es: "Nivel 5: Todos los temas mezclados",
+    it: "Livello 5: Tutti gli ambiti insieme",
+    pl: "Poziom 5: Wszystkie działy razem",
+    uk: "Рівень 5: Усі розділи разом",
+    ur: "درجہ 5: تمام موضوعات کا مجموعہ"
+  },
+  "Kompletter Profi-Mix aus Begriffen, Symbolen & Ablauf-Partituren": {
+    fr: "Mix complet de termes, symboles et parcours de partition",
+    es: "Mezcla completa de términos, símbolos y recorridos de partitura",
+    it: "Mix completo di termini, simboli e percorsi di spartito",
+    pl: "Pełny miks pojęć, symboli i układów przebiegu partytury",
+    uk: "Повний мікс термінів, символів і маршрутів партитури",
+    ur: "اصطلاحات، علامات اور ترتیب کی مکمل جامع مشق"
+  },
+  "Stufe 7 • Symbole, Begriffe & Ablauf": {
+    fr: "Niveau 7 • Symboles, termes & structure",
+    es: "Nivel 7 • Símbolos, términos y forma",
+    it: "Livello 7 • Simboli, termini e forma",
+    pl: "Poziom 7 • Symbole, pojęcia i przebieg",
+    uk: "Рівень 7 • Символи, терміни та форма",
+    ur: "درجہ 7 • علامات، اصطلاحات اور ترتیب"
+  },
+  "Dynamik, Tempo, Artikulation, Verzierungen, Coda, Segno & Spielreihenfolgen": {
+    fr: "Nuances, tempo, articulation, ornements, Coda, Segno & ordres de jeu",
+    es: "Dinámica, tempo, articulación, adornos, Coda, Segno y orden de juego",
+    it: "Dinamica, tempo, articolazione, abbellimenti, Coda, Segno e ordini",
+    pl: "Dynamika, tempo, artykulacja, ozdobniki, Coda, Segno i kolejność gry",
+    uk: "Динаміка, темп, артикуляція, мелізми, Кода, Segno та порядок виконання",
+    ur: "آواز، رفتار، ادائیگی، سجاوٹ، کوڈا، سیگنو اور بجانے کی ترتیب"
+  },
+  "Aktuelle Frage überspringen": {
+    fr: "Passer la question actuelle",
+    es: "Saltar la pregunta actual",
+    it: "Salta la domanda attuale",
+    pl: "Pomiń bieżące pytanie",
+    uk: "Пропустити поточне запитання",
+    ur: "موجودہ سوال چھوڑیں"
+  },
+  "NOTATIONS-WISSEN": {
+    fr: "SAVOIR NOTATION",
+    es: "CONOCIMIENTO DE NOTACIÓN",
+    it: "NOTAZIONE MUSICALE",
+    pl: "WIEDZA O NOTACJI",
+    uk: "ЗНАННЯ НОТОПИСУ",
+    ur: "نوٹیشن کا علم"
+  },
+  "Folge den Sprung- & Wiederholungszeichen und wähle die Spielreihenfolge.": {
+    fr: "Suis les signes de reprise et de renvoi, puis choisis l’ordre de jeu.",
+    es: "Sigue las repeticiones y saltos y elige el orden de ejecución.",
+    it: "Segui i ritornelli e i rimandi e scegli l’ordine di esecuzione.",
+    pl: "Prześledź znaki powtórek i skoków oraz wybierz kolejność gry.",
+    uk: "Простеж знаки повторів і переходів та обери порядок виконання.",
+    ur: "دہرائی اور چھلانگ کی علامات دیکھ کر بجانے کی درست ترتیب منتخب کریں۔"
+  },
+  "Finde das passende Notationssymbol zur Beschreibung oben.": {
+    fr: "Trouve le symbole de notation qui correspond à la description ci-dessus.",
+    es: "Encuentra el símbolo de notación que corresponde a la descripción.",
+    it: "Trova il simbolo di notazione che corrisponde alla descrizione sopra.",
+    pl: "Wybierz symbol muzyczny pasujący do opisu powyżej.",
+    uk: "Обери нотний символ, що відповідає опису вгорі.",
+    ur: "اوپر دی گئی وضاحت کے مطابق درست علامت منتخب کریں۔"
+  },
+  "Wähle unten die richtige Bedeutung für dieses Zeichen.": {
+    fr: "Choisis ci-dessous la bonne signification pour ce signe.",
+    es: "Elige abajo el significado correcto de este signo.",
+    it: "Scegli sotto il significato corretto di questo segno.",
+    pl: "Wybierz poniżej właściwe znaczenie tego znaku.",
+    uk: "Обери нижче правильне значення цього знака.",
+    ur: "اس علامت کا درست مطلب نیچے سے منتخب کریں۔"
+  },
+  "Spielreihenfolge wählen:": {
+    fr: "Choisis l’ordre de jeu :",
+    es: "Elige el orden de ejecución:",
+    it: "Scegli l’ordine di esecuzione:",
+    pl: "Wybierz kolejność gry:",
+    uk: "Обери порядок виконання:",
+    ur: "بجانے کی ترتیب منتخب کریں:"
+  },
+  "Passendes Symbol wählen:": {
+    fr: "Choisis le bon symbole :",
+    es: "Elige el símbolo correcto:",
+    it: "Scegli il simbolo giusto:",
+    pl: "Wybierz właściwy symbol:",
+    uk: "Обери відповідний символ:",
+    ur: "درست علامت منتخب کریں:"
+  },
+  "Bedeutung wählen:": {
+    fr: "Choisis la signification :",
+    es: "Elige el significado:",
+    it: "Scegli il significato:",
+    pl: "Wybierz znaczenie:",
+    uk: "Обери значення:",
+    ur: "درست مطلب منتخب کریں:"
+  },
+  "Welches Symbol passt?": {
+    fr: "Quel symbole correspond ?",
+    es: "¿Qué símbolo corresponde?",
+    it: "Quale simbolo corrisponde?",
+    pl: "Który symbol pasuje?",
+    uk: "Який символ підходить?",
+    ur: "کون سی علامت درست ہے؟"
+  },
+  "Lies zuerst von links nach rechts bis zum Sprungzeichen, ignoriere Fine/Coda im 1. Durchgang!": {
+    fr: "Lis d’abord de gauche à droite jusqu’au signe de renvoi, en ignorant Fine/Coda au 1er passage !",
+    es: "Lee primero de izquierda a derecha hasta el salto, ignorando Fine/Coda en la 1.ª vuelta.",
+    it: "Leggi prima da sinistra a destra fino al rimando, ignorando Fine/Coda al 1° passaggio!",
+    pl: "Najpierw czytaj od lewej do prawej do znaku skoku, pomijając Fine/Coda w 1. przejściu!",
+    uk: "Спершу читай зліва направо до знака переходу, ігноруючи Fine/Коду в 1-му проході!",
+    ur: "پہلے بائیں سے دائیں چھلانگ کے نشان تک پڑھیں اور پہلی بار Fine/Coda کو نظر انداز کریں!"
+  },
+  "MERKHILFE": {
+    fr: "ASTUCE",
+    es: "PISTA",
+    it: "SUGGERIMENTO",
+    pl: "PODPOWIEDŹ",
+    uk: "ПІДКАЗКА",
+    ur: "اشارہ"
+  },
+  "Hinweis": {
+    fr: "Indice",
+    es: "Pista",
+    it: "Indizio",
+    pl: "Podpowiedź",
+    uk: "Підказка",
+    ur: "اشارہ"
+  },
+  "💡 Hinweis": {
+    fr: "💡 Indice",
+    es: "💡 Pista",
+    it: "💡 Indizio",
+    pl: "💡 Podpowiedź",
+    uk: "💡 Підказка",
+    ur: "💡 اشارہ"
+  },
+  "Das war „{term}“ ({short}). Probier es nochmal!": {
+    fr: "C’était « {term} » ({short}). Essaie encore !",
+    es: "Eso era «{term}» ({short}). ¡Inténtalo de nuevo!",
+    it: "Quello era «{term}» ({short}). Riprova!",
+    pl: "To było „{term}” ({short}). Spróbuj ponownie!",
+    uk: "Це було «{term}» ({short}). Спробуй ще раз!",
+    ur: "وہ «{term}» ({short}) تھا۔ دوبارہ کوشش کریں!"
+  },
+  "Noch nicht ganz – probier eine andere Antwort oder tippe auf „Hinweis“.": {
+    fr: "Pas tout à fait — essaie une autre réponse ou touche « Indice ».",
+    es: "Todavía no — prueba otra respuesta o toca «Pista».",
+    it: "Non ancora — prova un’altra risposta o tocca «Indizio».",
+    pl: "Jeszcze nie to — wybierz inną odpowiedź lub kliknij „Podpowiedź”.",
+    uk: "Ще не зовсім — спробуй іншу відповідь або натисни «Підказка».",
+    ur: "ابھی درست نہیں — دوسرا جواب آزمائیں یا ’اشارہ‘ دبائیں۔"
+  },
+  "Fast!": {
+    fr: "Presque !",
+    es: "¡Casi!",
+    it: "Quasi!",
+    pl: "Blisko!",
+    uk: "Майже!",
+    ur: "تقریباً!"
+  },
+  "AUFLÖSUNG": {
+    fr: "SOLUTION",
+    es: "SOLUCIÓN",
+    it: "SOLUZIONE",
+    pl: "ROZWIĄZANIE",
+    uk: "ВІДПОВІДЬ",
+    ur: "درست جواب"
+  },
+  "Ohne Audio": {
+    fr: "Visuel",
+    es: "Visual",
+    it: "Visivo",
+    pl: "Wizualne",
+    uk: "Візуально",
+    ur: "بصری"
   }
 });
