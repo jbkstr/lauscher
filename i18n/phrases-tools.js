@@ -4315,15 +4315,15 @@ registerColocatedPhrases({
     tr: "AŞAMA 2 • SİRENLER VE SES BÖLGESİ AKIŞI",
     ar: "المرحلة 2 • الانزلاقات وانسياب الطبقات"
   },
-  "Atem & Stütze intensiv": {
-    fr: "Souffle & soutien intensif",
-    es: "Respiración y apoyo intensivo",
-    it: "Respiro e sostegno intensivo",
-    pl: "Intensywny oddech i podparcie",
-    uk: "Інтенсивне дихання й опора",
-    ur: "گہری سانس اور سپورٹ مشق",
-    tr: "Yoğun Nefes ve Destek",
-    ar: "التنفس والدعم المكثّف"
+  "Atem & Stütze": {
+    fr: "Souffle & soutien",
+    es: "Respiración y apoyo",
+    it: "Respiro e sostegno",
+    pl: "Oddech i podparcie",
+    uk: "Дихання й опора",
+    ur: "سانس اور سپورٹ",
+    tr: "Nefes ve Destek",
+    ar: "التنفس والدعم"
   },
   "4–7–8 Entspannung, Farinelli-Atemleiter (4–10 s), langer Zisch-Ausatem (bis 20 s) & Stützstrom-Drill": {
     fr: "Relaxation 4–7–8, échelle de Farinelli (4–10 s), long souffle sifflé (jusqu’à 20 s) & impulsions soutenues",
