@@ -127,7 +127,7 @@ function renderWelcomeLanguageList() {
   if (!listEl || typeof document.createElement !== "function") return;
   const codes = typeof getAvailableLanguages === "function"
     ? getAvailableLanguages()
-    : ["de", "en", "es", "fr", "pl", "uk", "ur"];
+    : ["de", "en", "es", "fr", "it", "pl", "uk", "ur"];
   listEl.innerHTML = "";
   codes.forEach(code => {
     const cfg = typeof APP_LANGUAGES !== "undefined" ? (APP_LANGUAGES[code] || {}) : {};

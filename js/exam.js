@@ -1557,6 +1557,7 @@ function handleExamRhythmDictationAnswer(ex, cellKey, btnElement) {
     if (promptEl) promptEl.textContent = tf("Muster für Schlag {step}/4:", "Pattern for beat {step}/4:", { step: nextIdx + 1 }, {
       fr: "Motif pour le temps {step}/4 :",
       es: "Patrón para el pulso {step}/4:",
+      it: "Motivo per il battito {step}/4:",
       pl: "Wzór na miarę {step}/4:",
       uk: "Малюнок для долі {step}/4:",
       ur: "دھڑکن {step}/4 کا نمونہ:"

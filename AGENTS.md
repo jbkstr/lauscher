@@ -37,8 +37,8 @@ Große Dateien nie komplett einlesen, sondern gezielt per `grep -n` suchen.
 | [js/fretboard.js](js/fretboard.js) | Gitarren-Griffbrett (`#viewFretboard`) |
 | [js/onboarding.js](js/onboarding.js) | Willkommens-Wizard & Startup-Splash (`#welcomeOnboarding`, `#startupSplash`) |
 | [js/exam.js](js/exam.js) | Kategorie-Prüfungsmodus, Auswertung, Audio-Review & Verlauf |
-| [i18n.js](i18n.js) + `i18n/*.js` | Runtime-Engine + ko-lokalisierte Übersetzungen (`static.js`, `quotes.js`, `tables.js`, `phrases-{core,exercises,tools}.js`) für alle 7 Sprachen |
-| `knowledge.js`, `knowledge-{en,es,fr,pl,uk,ur}.js` | Wissensartikel, interaktive Theorie-Tools & Kategorie-Hilfen (7 Sprachen) |
+| [i18n.js](i18n.js) + `i18n/*.js` | Runtime-Engine + ko-lokalisierte Übersetzungen (`static.js`, `quotes.js`, `tables.js`, `phrases-{core,exercises,tools}.js`) für alle 8 Sprachen |
+| `knowledge.js`, `knowledge-{en,es,fr,it,pl,uk,ur}.js` | Wissensartikel, interaktive Theorie-Tools & Kategorie-Hilfen (8 Sprachen) |
 | [legal.js](legal.js) | Datenschutzerklärung, Nutzungsbedingungen & Open-Source-Lizenzen (auch für `privacy.html`, `terms.html`, `licenses.html`) |
 | [version.js](version.js) | Einzige Quelle für Version & Build-Nummer (`scripts/bump-version.py`) |
 | [scripts/check-project.py](scripts/check-project.py) | Prüft Dateien, JS-Syntax, globale Scope-Kollisionen, i18n/Knowledge-Parität & Bundle-Stand |

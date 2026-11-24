@@ -841,7 +841,7 @@ function generateProdToneExercise() {
 
 function formatEqParamsLabel(boostDb, q) {
   const commaLabel = `+${String(boostDb).replace(".", ",")} dB • Q ${String(q).replace(".", ",")}`;
-  return tr(commaLabel, `+${boostDb} dB • Q ${q}`, { fr: commaLabel, uk: commaLabel });
+  return tr(commaLabel, `+${boostDb} dB • Q ${q}`, { fr: commaLabel, es: commaLabel, it: commaLabel, pl: commaLabel, uk: commaLabel });
 }
 
 function generateProdEqNoiseExercise() {
@@ -900,7 +900,7 @@ function getModesRootDisplayName(rootMidi) {
 
 function getModesRootSettingLabel(setting = getModesRootSetting()) {
   if (setting === "random") return tr("Zufall", "Random");
-  if (setting === "auto") return tr("Automatisch", "Automatic", { fr: "Automatique", es: "Automático", pl: "Automatycznie", uk: "Автоматично", ur: "خودکار" });
+  if (setting === "auto") return tr("Automatisch", "Automatic", { fr: "Automatique", es: "Automático", it: "Automatico", pl: "Automatycznie", uk: "Автоматично", ur: "خودکار" });
   return getModesRootDisplayName(MODES_ROOT_MIDI_BY_PC[Number(setting)]);
 }
 
@@ -1038,13 +1038,14 @@ function renderModesRootPopover() {
   }
   const current = getModesRootSetting();
   const options = ["auto", ...Array.from({ length: 12 }, (_, pc) => String(pc)), "random"];
-  const label = tr("Grundton:", "Root:", { fr: "Tonique :", es: "Tónica:", pl: "Dźwięk podstawowy:", uk: "Тоніка:", ur: "بنیادی سُر:" });
+  const label = tr("Grundton:", "Root:", { fr: "Tonique :", es: "Tónica:", it: "Tonica:", pl: "Dźwięk podstawowy:", uk: "Тоніка:", ur: "بنیادی سُر:" });
   const hint = tr(
     "„Automatisch“: C auf den Stufen 1–2, wechselnd auf Stufe 3.",
     "“Automatic”: C on levels 1–2, changing on level 3.",
     {
       fr: "« Automatique » : Do aux niveaux 1–2, variable au niveau 3.",
       es: "«Automático»: Do en los niveles 1–2, variable en el nivel 3.",
+      it: "«Automatico»: Do nei livelli 1–2, variabile nel livello 3.",
       pl: "„Automatycznie”: C na poziomach 1–2, zmienny na poziomie 3.",
       uk: "«Автоматично»: C на рівнях 1–2, змінна на рівні 3.",
       ur: "„خودکار“: لیول 1–2 پر C، لیول 3 پر بدلتا ہوا۔"

@@ -812,6 +812,7 @@ function notifyStorageSaveFailed() {
     {
       fr: "Impossible d’enregistrer les réglages – le stockage est plein ou bloqué. Sauvegarde ton profil via « Sauvegarder le profil ».",
       es: "No se pudieron guardar los ajustes: el almacenamiento está lleno o bloqueado. Haz una copia de tu perfil con «Guardar perfil».",
+      it: "Impossibile salvare le impostazioni: lo spazio di archiviazione è pieno o bloccato. Salva il tuo profilo tramite «Salva profilo».",
       pl: "Nie udało się zapisać ustawień – pamięć jest pełna lub zablokowana. Zapisz profil przez „Zapisz profil”.",
       uk: "Не вдалося зберегти налаштування – сховище заповнене або заблоковане. Збережи профіль через «Зберегти профіль».",
       ur: "سیٹنگز محفوظ نہیں ہو سکیں – اسٹوریج بھرا ہوا یا بند ہے۔ „پروفائل محفوظ کریں“ سے اپنا پروفائل محفوظ کریں۔"

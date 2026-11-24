@@ -19,13 +19,14 @@
         if ((!raw && !hasProfileRaw) || (prefs && prefs.onboardingDone === false)) {
           document.documentElement.setAttribute("data-first-run", "1");
         }
-        var lang = (prefs.language === "en" || prefs.language === "es" || prefs.language === "fr" || prefs.language === "pl" || prefs.language === "uk" || prefs.language === "ur") ? prefs.language : "de";
+        var lang = (prefs.language === "en" || prefs.language === "es" || prefs.language === "fr" || prefs.language === "it" || prefs.language === "pl" || prefs.language === "uk" || prefs.language === "ur") ? prefs.language : "de";
         document.documentElement.lang = lang;
         document.documentElement.dir = lang === "ur" ? "rtl" : "ltr";
         document.documentElement.setAttribute("data-lang", lang);
         if (lang === "en") document.title = "Lauscher • Listen a little closer.";
         else if (lang === "es") document.title = "Lauscher • Escucha un poco más de cerca.";
         else if (lang === "fr") document.title = "Lauscher • Écouter d’un peu plus près.";
+        else if (lang === "it") document.title = "Lauscher • Ascolta un po’ più da vicino.";
         else if (lang === "pl") document.title = "Lauscher • Wsłuchaj się uważniej.";
         else if (lang === "uk") document.title = "Lauscher • Прислухайся трохи уважніше.";
         else if (lang === "ur") document.title = "Lauscher • ذرا غور سے سنیں۔";
@@ -2677,7 +2678,7 @@
             <option value="en">English</option>
             <option value="es">Español</option>
             <option value="fr">Français</option>
-            <option value="it" disabled>Italiano (demnächst)</option>
+            <option value="it">Italiano</option>
             <option value="nl" disabled>Nederlands (demnächst)</option>
             <option value="no" disabled>Norsk (demnächst)</option>
             <option value="pl">Polski</option>
@@ -3014,6 +3015,7 @@
   <script src="knowledge-fr.js"></script>
   <script src="knowledge.js"></script>
   <script src="knowledge-es.js"></script>
+  <script src="knowledge-it.js"></script>
   <script src="knowledge-pl.js"></script>
   <script src="knowledge-uk.js"></script>
   <script src="knowledge-ur.js"></script>

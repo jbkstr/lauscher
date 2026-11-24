@@ -170,14 +170,14 @@ const report = {
   }
 };
 
-const langs = ["fr", "es", "pl", "uk", "ur"];
+const langs = ["fr", "es", "it", "pl", "uk", "ur"];
 const I18N_STATIC = vm.runInContext("I18N_STATIC", sandbox);
 const I18N_STATIC_BY_LANG = vm.runInContext("I18N_STATIC_BY_LANG", sandbox);
 const LOCALIZED_TABLES_BY_LANG = vm.runInContext("LOCALIZED_TABLES_BY_LANG", sandbox);
 const TRANSLATIONS_BY_LANG = vm.runInContext("TRANSLATIONS_BY_LANG", sandbox);
 
-// 1. Check index.html data-i18n keys across all 7 languages
-const missingStaticByLang = { de: [], en: [], fr: [], es: [], pl: [], uk: [], ur: [] };
+// 1. Check index.html data-i18n keys across all 8 languages
+const missingStaticByLang = { de: [], en: [], fr: [], es: [], it: [], pl: [], uk: [], ur: [] };
 for (const key of staticKeys) {
   const base = I18N_STATIC[key];
   if (!base || typeof base.de !== "string") missingStaticByLang.de.push(key);
@@ -195,7 +195,7 @@ for (const [lang, list] of Object.entries(missingStaticByLang)) {
   }
 }
 
-// 2. Check LAUSCHEBAER_QUOTES count parity across all 7 languages
+// 2. Check LAUSCHEBAER_QUOTES count parity across all 8 languages
 for (const lang of ["en", ...langs]) {
   const q = LOCALIZED_TABLES_BY_LANG[lang]?.quotes;
   if (!Array.isArray(q)) {
@@ -277,9 +277,9 @@ if (deGuides && typeof deGuides === "object") {
   }
 }
 
-// 5. Scan tr("de", "en") / tf("de", "en", ...) calls in app scripts without inline 5-lang map
+// 5. Scan tr("de", "en") / tf("de", "en", ...) calls in app scripts without inline 6-lang map
 const trCallRe = /\b(?:tr|tf)\(\s*"([^"\\\n]+)"\s*,\s*"([^"\\\n]+)"\s*(\)|,\s*\{)/g;
-const missingTrByLang = { fr: new Set(), es: new Set(), pl: new Set(), uk: new Set(), ur: new Set() };
+const missingTrByLang = { fr: new Set(), es: new Set(), it: new Set(), pl: new Set(), uk: new Set(), ur: new Set() };
 for (const rel of appScripts) {
   const src = fs.readFileSync(path.join(root, rel), "utf8");
   let m;
@@ -287,9 +287,9 @@ for (const rel of appScripts) {
     const deStr = m[1];
     const enStr = m[2];
     const tail = m[3];
-    // Look ahead for inline { fr: ..., es: ..., pl: ..., uk: ..., ur: ... } (also for longer multi-line calls)
+    // Look ahead for inline { fr: ..., es: ..., it: ..., pl: ..., uk: ..., ur: ... } (also for longer multi-line calls)
     const slice = src.slice(m.index, m.index + 2600);
-    const hasInlineMap = tail !== ")" && /\bfr\s*:/.test(slice) && /\bes\s*:/.test(slice) && /\bpl\s*:/.test(slice) && /\buk\s*:/.test(slice) && /\bur\s*:/.test(slice);
+    const hasInlineMap = tail !== ")" && /\bfr\s*:/.test(slice) && /\bes\s*:/.test(slice) && /\bit\s*:/.test(slice) && /\bpl\s*:/.test(slice) && /\buk\s*:/.test(slice) && /\bur\s*:/.test(slice);
     if (hasInlineMap) continue;
     for (const lang of langs) {
       const dict = TRANSLATIONS_BY_LANG[lang] || {};
@@ -390,7 +390,7 @@ def main() -> int:
 
     print(
         f"✓ Projekt-Check bestanden: {js_checked} JS-Dateien, "
-        f"{stats.get('staticKeys', '?')} data-i18n-Keys (7 Sprachen), "
+        f"{stats.get('staticKeys', '?')} data-i18n-Keys (8 Sprachen), "
         f"{stats.get('quotesCount', '?')} Quotes, "
         f"{stats.get('knowledgeArticles', '?')} Wissensartikel"
         + (" (ohne Bundle-Check)" if args.no_bundle else ", Bundle aktuell")
