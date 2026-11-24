@@ -7878,12 +7878,14 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 
 .warmup-breath-orb {
-  width: 72px;
-  height: 72px;
+  width: 74px;
+  height: 74px;
   border-radius: 50%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 0.08rem;
   text-align: center;
   padding: 0.25rem;
   background-color: var(--sage-soft);
@@ -7898,7 +7900,7 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   width: 102px;
   height: 102px;
   background-color: var(--sage);
-  transition-duration: 3.8s, 3.8s, 0.4s, 0.4s;
+  transition-duration: var(--breath-dur, 3.8s), var(--breath-dur, 3.8s), 0.4s, 0.4s;
   transition-timing-function: ease-in-out, ease-in-out, ease, ease;
 }
 
@@ -7911,17 +7913,17 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 
 .warmup-breath-orb.is-exhale {
-  width: 64px;
-  height: 64px;
+  width: 66px;
+  height: 66px;
   background-color: var(--sage-soft);
   border-color: var(--sage-strong);
-  transition-duration: 4.8s, 4.8s, 0.4s, 0.4s;
+  transition-duration: var(--breath-dur, 4.8s), var(--breath-dur, 4.8s), 0.4s, 0.4s;
   transition-timing-function: ease-in-out, ease-in-out, ease, ease;
 }
 
 .warmup-breath-orb.is-rest {
-  width: 72px;
-  height: 72px;
+  width: 74px;
+  height: 74px;
   background-color: var(--sage-soft);
   border-color: var(--sage);
   transition-duration: 1.0s;
@@ -7936,13 +7938,52 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 
 .warmup-breath-cue {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 800;
   color: var(--raccoon-dark);
-  line-height: 1.12;
+  line-height: 1.1;
   background: transparent;
   border: none;
   pointer-events: none;
+}
+
+.warmup-breath-timer {
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: var(--raccoon-muted);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* Live-Kurve für Sirenenübungen (#warmupSirenWrap) */
+.warmup-siren-wrap {
+  width: 100%;
+  max-width: 296px;
+  margin: 0.08rem auto 0.04rem;
+  padding: 0.18rem 0.28rem;
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--lilac-strong) 7%, var(--surface-white));
+  border: 1.5px solid color-mix(in srgb, var(--lilac-strong) 24%, var(--border-soft));
+  color: var(--raccoon-dark);
+  flex-shrink: 0;
+}
+
+.warmup-siren-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 82px;
+}
+
+.warmup-stage-card.is-siren-step .warmup-mascot {
+  display: none;
+}
+
+@media (max-height: 700px) {
+  .warmup-siren-svg {
+    max-height: 66px;
+  }
 }
 
 .warmup-keyboard-wrap {
@@ -14329,6 +14370,31 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 
 .fb-string-row.is-muted .fb-string-wire {
   opacity: 0.35;
+}
+
+.fb-string-vibe-svg {
+  position: absolute;
+  left: 58px;
+  right: 0;
+  top: 0;
+  width: calc(100% - 58px);
+  height: 34px;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
+  color: var(--fb-string-color);
+}
+
+.fb-string-vibe-svg.is-wound {
+  color: var(--fb-string-wound);
+}
+
+.fb-string-vibe-halo {
+  color: var(--peach-strong);
+}
+
+.fb-string-vibe-core {
+  filter: drop-shadow(0 0 2px color-mix(in srgb, var(--peach-strong) 42%, transparent));
 }
 
 /* Sattel-Spalte (sticky links) */

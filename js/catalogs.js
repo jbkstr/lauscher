@@ -2632,7 +2632,7 @@ function getCategoryTitle(categoryKey) {
     notation: tr("Notation", "Notation"),
     production: tr("Produktion", "Production"),
     modes: tr("Tonleitern & Modi", "Scales & Modes"),
-    warmup: tr("Stimme & Chor", "Voice & Choir")
+    warmup: tr("Singen", "Singing")
   };
   return catNames[categoryKey] || tr("Übungen", "Exercises");
 }

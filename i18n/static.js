@@ -995,24 +995,24 @@ registerColocatedStatic({
     ur: "آواز اور کورس"
   },
   "home.catWarmup": {
-    de: "Einsing-Helfer",
-    en: "Vocal Warmup",
-    fr: "Échauffement vocal",
-    es: "Calentamiento vocal",
-    it: "Riscaldamento vocale",
-    pl: "Rozgrzewka głosowa",
-    uk: "Розспівка",
-    ur: "ووکل وارم اپ"
+    de: "Singen",
+    en: "Singing",
+    fr: "Chant",
+    es: "Canto",
+    it: "Canto",
+    pl: "Śpiew",
+    uk: "Спів",
+    ur: "گانا"
   },
   "home.catWarmupDesc": {
-    de: "5-Minuten-Warmup: Atem, Summen, Arpeggios & Chorklang",
-    en: "5-min routine: breath, humming, arpeggios & choir blend",
-    fr: "Routine 5 min : souffle, bouche fermée, arpèges & fondu choral",
-    es: "Rutina de 5 min: respiración, boca cerrada, arpegios y empaste coral",
-    it: "Routine da 5 min: respiro, bocca chiusa, arpeggi e impasto corale",
-    pl: "5-min trening: oddech, mormorando, arpeggia i brzmienie chóru",
-    uk: "5-хв програма: дихання, гудіння, арпеджіо та хорове злиття",
-    ur: "5 منٹ کا معمول: سانس، گنگنانا، آرپیجیو اور کورس بلینڈ"
+    de: "Atem, Sirenen, Einsingen, Tonleitern & Chorklang",
+    en: "Breath, sirens, vocal warmups, scales & choir blend",
+    fr: "Souffle, sirènes, échauffement, gammes & fondu choral",
+    es: "Respiración, sirenas, calentamiento, escalas y coro",
+    it: "Respiro, sirene, riscaldamento, scale e impasto corale",
+    pl: "Oddech, syreny, rozgrzewka, skale i brzmienie chóru",
+    uk: "Дихання, сирени, розспівка, гами та хорове злиття",
+    ur: "سانس، سائرن، آواز کی تیاری، اسکیلز اور کورس"
   },
   "tools.metronomeTitle": {
     de: "Metronom",
@@ -3735,14 +3735,14 @@ registerColocatedStatic({
     ur: "پچھلی مشق"
   },
   "warmup.startBtn": {
-    de: "▶ Einsingen starten",
-    en: "▶ Start Warmup",
-    fr: "▶ Démarrer l’échauffement",
-    es: "▶ Iniciar el calentamiento",
-    it: "▶ Avvia riscaldamento",
-    pl: "▶ Rozpocznij rozgrzewkę",
-    uk: "▶ Почати розспівку",
-    ur: "▶ وارم اپ شروع کریں"
+    de: "▶ Singen starten",
+    en: "▶ Start Singing",
+    fr: "▶ Commencer à chanter",
+    es: "▶ Empezar a cantar",
+    it: "▶ Inizia a cantare",
+    pl: "▶ Rozpocznij śpiew",
+    uk: "▶ Почати спів",
+    ur: "▶ گانا شروع کریں"
   },
   "warmup.nextTitle": {
     de: "Nächste Übung",
