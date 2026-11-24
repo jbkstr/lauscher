@@ -170,14 +170,14 @@ const report = {
   }
 };
 
-const langs = ["fr", "es", "it", "pl", "tr", "uk", "ur"];
+const langs = ["fr", "es", "it", "pl", "tr", "uk", "ur", "ar"];
 const I18N_STATIC = vm.runInContext("I18N_STATIC", sandbox);
 const I18N_STATIC_BY_LANG = vm.runInContext("I18N_STATIC_BY_LANG", sandbox);
 const LOCALIZED_TABLES_BY_LANG = vm.runInContext("LOCALIZED_TABLES_BY_LANG", sandbox);
 const TRANSLATIONS_BY_LANG = vm.runInContext("TRANSLATIONS_BY_LANG", sandbox);
 
-// 1. Check index.html data-i18n keys across all 9 languages
-const missingStaticByLang = { de: [], en: [], fr: [], es: [], it: [], pl: [], tr: [], uk: [], ur: [] };
+// 1. Check index.html data-i18n keys across all 10 languages
+const missingStaticByLang = { de: [], en: [], fr: [], es: [], it: [], pl: [], tr: [], uk: [], ur: [], ar: [] };
 for (const key of staticKeys) {
   const base = I18N_STATIC[key];
   if (!base || typeof base.de !== "string") missingStaticByLang.de.push(key);
@@ -277,9 +277,9 @@ if (deGuides && typeof deGuides === "object") {
   }
 }
 
-// 5. Scan tr("de", "en") / tf("de", "en", ...) calls in app scripts without inline 7-lang map
+// 5. Scan tr("de", "en") / tf("de", "en", ...) calls in app scripts without inline 8-lang map
 const trCallRe = /\b(?:tr|tf)\(\s*"([^"\\\n]+)"\s*,\s*"([^"\\\n]+)"\s*(\)|,\s*\{)/g;
-const missingTrByLang = { fr: new Set(), es: new Set(), it: new Set(), pl: new Set(), tr: new Set(), uk: new Set(), ur: new Set() };
+const missingTrByLang = { fr: new Set(), es: new Set(), it: new Set(), pl: new Set(), tr: new Set(), uk: new Set(), ur: new Set(), ar: new Set() };
 for (const rel of appScripts) {
   const src = fs.readFileSync(path.join(root, rel), "utf8");
   let m;
@@ -287,9 +287,9 @@ for (const rel of appScripts) {
     const deStr = m[1];
     const enStr = m[2];
     const tail = m[3];
-    // Look ahead for inline { fr: ..., es: ..., it: ..., pl: ..., tr: ..., uk: ..., ur: ... } (also for longer multi-line calls)
-    const slice = src.slice(m.index, m.index + 2800);
-    const hasInlineMap = tail !== ")" && /\bfr\s*:/.test(slice) && /\bes\s*:/.test(slice) && /\bit\s*:/.test(slice) && /\bpl\s*:/.test(slice) && /\btr\s*:/.test(slice) && /\buk\s*:/.test(slice) && /\bur\s*:/.test(slice);
+    // Look ahead for inline { fr: ..., es: ..., it: ..., pl: ..., tr: ..., uk: ..., ur: ..., ar: ... } (also for longer multi-line calls)
+    const slice = src.slice(m.index, m.index + 3200);
+    const hasInlineMap = tail !== ")" && /\bfr\s*:/.test(slice) && /\bes\s*:/.test(slice) && /\bit\s*:/.test(slice) && /\bpl\s*:/.test(slice) && /\btr\s*:/.test(slice) && /\buk\s*:/.test(slice) && /\bur\s*:/.test(slice) && /\bar\s*:/.test(slice);
     if (hasInlineMap) continue;
     for (const lang of langs) {
       const dict = TRANSLATIONS_BY_LANG[lang] || {};
@@ -390,7 +390,7 @@ def main() -> int:
 
     print(
         f"✓ Projekt-Check bestanden: {js_checked} JS-Dateien, "
-        f"{stats.get('staticKeys', '?')} data-i18n-Keys (9 Sprachen), "
+        f"{stats.get('staticKeys', '?')} data-i18n-Keys (10 Sprachen), "
         f"{stats.get('quotesCount', '?')} Quotes, "
         f"{stats.get('knowledgeArticles', '?')} Wissensartikel"
         + (" (ohne Bundle-Check)" if args.no_bundle else ", Bundle aktuell")

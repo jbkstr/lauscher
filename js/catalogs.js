@@ -816,7 +816,8 @@ function notifyStorageSaveFailed() {
       pl: "Nie udało się zapisać ustawień – pamięć jest pełna lub zablokowana. Zapisz profil przez „Zapisz profil”.",
       tr: "Ayarlar kaydedilemedi – depolama alanı dolu veya engelli. Profilini “Profili yedekle” ile yedekle.",
       uk: "Не вдалося зберегти налаштування – сховище заповнене або заблоковане. Збережи профіль через «Зберегти профіль».",
-      ur: "سیٹنگز محفوظ نہیں ہو سکیں – اسٹوریج بھرا ہوا یا بند ہے۔ „پروفائل محفوظ کریں“ سے اپنا پروفائل محفوظ کریں۔"
+      ur: "سیٹنگز محفوظ نہیں ہو سکیں – اسٹوریج بھرا ہوا یا بند ہے۔ „پروفائل محفوظ کریں“ سے اپنا پروفائل محفوظ کریں۔",
+      ar: "تعذّر حفظ الإعدادات – مساحة التخزين ممتلئة أو محظورة. احفظ ملفك الشخصي عبر «حفظ الملف الشخصي»."
     }
   ), "error", 6500);
 }

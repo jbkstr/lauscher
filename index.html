@@ -19,9 +19,9 @@
         if ((!raw && !hasProfileRaw) || (prefs && prefs.onboardingDone === false)) {
           document.documentElement.setAttribute("data-first-run", "1");
         }
-        var lang = (prefs.language === "en" || prefs.language === "es" || prefs.language === "fr" || prefs.language === "it" || prefs.language === "pl" || prefs.language === "tr" || prefs.language === "uk" || prefs.language === "ur") ? prefs.language : "de";
+        var lang = (prefs.language === "ar" || prefs.language === "en" || prefs.language === "es" || prefs.language === "fr" || prefs.language === "it" || prefs.language === "pl" || prefs.language === "tr" || prefs.language === "uk" || prefs.language === "ur") ? prefs.language : "de";
         document.documentElement.lang = lang;
-        document.documentElement.dir = lang === "ur" ? "rtl" : "ltr";
+        document.documentElement.dir = (lang === "ur" || lang === "ar") ? "rtl" : "ltr";
         document.documentElement.setAttribute("data-lang", lang);
         if (lang === "en") document.title = "Lauscher • Listen a little closer.";
         else if (lang === "es") document.title = "Lauscher • Escucha un poco más de cerca.";
@@ -31,6 +31,7 @@
         else if (lang === "tr") document.title = "Lauscher • Biraz daha dikkatli dinle.";
         else if (lang === "uk") document.title = "Lauscher • Прислухайся трохи уважніше.";
         else if (lang === "ur") document.title = "Lauscher • ذرا غور سے سنیں۔";
+        else if (lang === "ar") document.title = "Lauscher • استمع بتركيز أكبر.";
         var appearance = (prefs.appearance === "light" || prefs.appearance === "dark" || prefs.appearance === "system") ? prefs.appearance : "light";
         var isBuiltInTheme = (prefs.theme === "waldlichtung" || prefs.theme === "morgentau" || prefs.theme === "abenddaemmerung" || prefs.theme === "metal" || prefs.theme === "konzertsaal" || prefs.theme === "mitternacht");
         var isCustomTheme = (prefs.theme === "custom_1" || prefs.theme === "custom_2" || prefs.theme === "custom_3");
@@ -2768,6 +2769,7 @@
             <option value="el" disabled>Ελληνικά (demnächst)</option>
             <option value="uk">Українська</option>
             <option value="ur">اردو</option>
+            <option value="ar">العربية</option>
           </select>
         </div>
 
@@ -3129,6 +3131,7 @@
   <script src="knowledge-tr.js"></script>
   <script src="knowledge-uk.js"></script>
   <script src="knowledge-ur.js"></script>
+  <script src="knowledge-ar.js"></script>
   <script src="version.js"></script>
   <script src="legal.js"></script>
   <script src="js/catalogs.js"></script>

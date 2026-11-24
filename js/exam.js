@@ -1645,7 +1645,8 @@ function handleExamRhythmDictationAnswer(ex, cellKey, btnElement) {
       pl: "Wzór na miarę {step}/4:",
       tr: "{step}/4 vuruş için desen:",
       uk: "Малюнок для долі {step}/4:",
-      ur: "دھڑکن {step}/4 کا نمونہ:"
+      ur: "دھڑکن {step}/4 کا نمونہ:",
+      ar: "نمط النبضة {step}/4:"
     });
     return;
   }

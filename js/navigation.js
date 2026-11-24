@@ -81,7 +81,7 @@ function openAboutLegal(kind = "privacy") {
     const el = document.getElementById(id);
     if (el) el.textContent = text || "";
   };
-  setText("aboutLegalBackBtn", `← ${tr("Zurück", "Back", { fr: "Retour", es: "Volver", it: "Indietro", pl: "Wstecz", tr: "Geri", uk: "Назад", ur: "واپس" })}`);
+  setText("aboutLegalBackBtn", `← ${tr("Zurück", "Back", { fr: "Retour", es: "Volver", it: "Indietro", pl: "Wstecz", tr: "Geri", uk: "Назад", ur: "واپس", ar: "رجوع" })}`);
   setText("aboutLegalTitle", doc.title);
   setText("aboutLegalMeta", doc.updated);
   const draftEl = document.getElementById("aboutLegalDraft");
@@ -113,7 +113,7 @@ function openAboutLegal(kind = "privacy") {
   const baseUrl = doc.onlineUrl || (kind === "privacy" && typeof LAUSCHER_PRIVACY_URL === "string" ? LAUSCHER_PRIVACY_URL : "");
   if (onlineLink && baseUrl) {
     onlineLink.href = doc.lang === "en" ? `${baseUrl}?lang=en` : baseUrl;
-    onlineLink.textContent = `${tr("Online-Fassung öffnen", "Open online version", { fr: "Ouvrir la version en ligne", es: "Abrir la versión en línea", it: "Apri la versione online", pl: "Otwórz wersję online", tr: "Çevrimiçi sürümü aç", uk: "Відкрити онлайн-версію", ur: "آن لائن ورژن کھولیں" })} ↗`;
+    onlineLink.textContent = `${tr("Online-Fassung öffnen", "Open online version", { fr: "Ouvrir la version en ligne", es: "Abrir la versión en línea", it: "Apri la versione online", pl: "Otwórz wersję online", tr: "Çevrimiçi sürümü aç", uk: "Відкрити онлайн-версію", ur: "آن لائن ورژن کھولیں", ar: "فتح النسخة عبر الإنترنت" })} ↗`;
     onlineRow?.classList.remove("hidden");
   } else {
     onlineRow?.classList.add("hidden");
@@ -210,13 +210,14 @@ function buildContactMailUrl() {
     pl: "Lauscher – Wiadomość",
     tr: "Lauscher – Mesaj",
     uk: "Lauscher – Повідомлення",
-    ur: "Lauscher – پیغام"
+    ur: "Lauscher – پیغام",
+    ar: "Lauscher – رسالة"
   });
-  const greeting = tr("Hallo,", "Hi,", { fr: "Bonjour,", es: "Hola:", it: "Ciao,", pl: "Cześć,", tr: "Merhaba,", uk: "Привіт,", ur: "السلام علیکم،" });
+  const greeting = tr("Hallo,", "Hi,", { fr: "Bonjour,", es: "Hola:", it: "Ciao,", pl: "Cześć,", tr: "Merhaba,", uk: "Привіт,", ur: "السلام علیکم،", ar: "مرحباً،" });
   const isNativeApp = Boolean(getCapacitorNativePlugin("App"));
   const platform = isNativeApp
-    ? tr("Android-App", "Android app", { fr: "Application Android", es: "App de Android", it: "App Android", pl: "Aplikacja Android", tr: "Android uygulaması", uk: "Android-застосунок", ur: "اینڈرائیڈ ایپ" })
-    : tr("Browser", "Browser", { fr: "Navigateur", es: "Navegador", it: "Browser", pl: "Przeglądarka", tr: "Tarayıcı", uk: "Браузер", ur: "براؤزر" });
+    ? tr("Android-App", "Android app", { fr: "Application Android", es: "App de Android", it: "App Android", pl: "Aplikacja Android", tr: "Android uygulaması", uk: "Android-застосунок", ur: "اینڈرائیڈ ایپ", ar: "تطبيق أندرويد" })
+    : tr("Browser", "Browser", { fr: "Navigateur", es: "Navegador", it: "Browser", pl: "Przeglądarka", tr: "Tarayıcı", uk: "Браузер", ur: "براؤزر", ar: "المتصفح" });
   const version = getAppVersionLabel();
   const lang = typeof getAppLanguage === "function" ? getAppLanguage() : "de";
   const infoLine = [version ? `Lauscher ${version}` : "Lauscher", platform, lang.toUpperCase()].join(" · ");
@@ -248,7 +249,8 @@ function showContactFallback() {
         pl: "Jeśli nie otworzyła się aplikacja pocztowa, napisz po prostu na:",
         tr: "E-posta uygulaması açılmadıysa doğrudan şu adrese yaz:",
         uk: "Якщо поштовий застосунок не відкрився, просто напиши на:",
-        ur: "اگر کوئی میل ایپ نہیں کھلی تو اس پتے پر لکھیں:"
+        ur: "اگر کوئی میل ایپ نہیں کھلی تو اس پتے پر لکھیں:",
+        ar: "إذا لم يُفتح تطبيق البريد، اكتب مباشرةً إلى:"
       }
     ),
     value: LAUSCHER_CONTACT_EMAIL,
@@ -274,11 +276,11 @@ function showAboutCopyFallback({ message = "", value = "", kind = "address" } = 
 
 function getCopyContactLabel(copied, kind = "address") {
   if (copied) {
-    return tr("✓ Kopiert", "✓ Copied", { fr: "✓ Copié", es: "✓ Copiado", it: "✓ Copiato", pl: "✓ Skopiowano", tr: "✓ Kopyalandı", uk: "✓ Скопійовано", ur: "✓ کاپی ہو گیا" });
+    return tr("✓ Kopiert", "✓ Copied", { fr: "✓ Copié", es: "✓ Copiado", it: "✓ Copiato", pl: "✓ Skopiowano", tr: "✓ Kopyalandı", uk: "✓ Скопійовано", ur: "✓ کاپی ہو گیا", ar: "✓ تم النسخ" });
   }
   return kind === "link"
-    ? tr("Link kopieren", "Copy link", { fr: "Copier le lien", es: "Copiar enlace", it: "Copia link", pl: "Kopiuj link", tr: "Bağlantıyı kopyala", uk: "Копіювати посилання", ur: "لنک کاپی کریں" })
-    : tr("Adresse kopieren", "Copy address", { fr: "Copier l’adresse", es: "Copiar dirección", it: "Copia indirizzo", pl: "Kopiuj adres", tr: "Adresi kopyala", uk: "Копіювати адресу", ur: "پتہ کاپی کریں" });
+    ? tr("Link kopieren", "Copy link", { fr: "Copier le lien", es: "Copiar enlace", it: "Copia link", pl: "Kopiuj link", tr: "Bağlantıyı kopyala", uk: "Копіювати посилання", ur: "لنک کاپی کریں", ar: "نسخ الرابط" })
+    : tr("Adresse kopieren", "Copy address", { fr: "Copier l’adresse", es: "Copiar dirección", it: "Copia indirizzo", pl: "Kopiuj adres", tr: "Adresi kopyala", uk: "Копіювати адресу", ur: "پتہ کاپی کریں", ar: "نسخ العنوان" });
 }
 
 async function copyTextToClipboard(value, selectEl = null) {
@@ -331,7 +333,8 @@ function getShareLauscherText() {
       pl: "Lauscher – spokojny trening słuchu bez reklam i śledzenia. Aplikacja na Androida jest tutaj:",
       tr: "Lauscher – reklamsız ve izlemesiz, sakin kulak eğitimi. Android uygulamasını burada bulabilirsin:",
       uk: "Lauscher – спокійне тренування слуху без реклами й стеження. Застосунок для Android тут:",
-      ur: "Lauscher – اشتہارات اور ٹریکنگ کے بغیر پُرسکون سماعتی تربیت۔ اینڈرائیڈ ایپ یہاں ملے گی:"
+      ur: "Lauscher – اشتہارات اور ٹریکنگ کے بغیر پُرسکون سماعتی تربیت۔ اینڈرائیڈ ایپ یہاں ملے گی:",
+      ar: "Lauscher – تدريب سمعي هادئ بلا إعلانات أو تتبّع. احصل على تطبيق أندرويد من هنا:"
     }
   );
 }
@@ -343,7 +346,7 @@ function renderAboutShareTargets(text, url) {
   const message = `${text} ${url}`;
   const mail = document.getElementById("aboutShareMail");
   if (mail) {
-    mail.textContent = tr("E-Mail", "Email", { fr: "E-mail", es: "Correo", it: "E-mail", pl: "E-mail", tr: "E-posta", uk: "Ел. пошта", ur: "ای میل" });
+    mail.textContent = tr("E-Mail", "Email", { fr: "E-mail", es: "Correo", it: "E-mail", pl: "E-mail", tr: "E-posta", uk: "Ел. пошта", ur: "ای میل", ar: "البريد الإلكتروني" });
     mail.href = `mailto:?subject=${encodeURIComponent("Lauscher")}&body=${encodeURIComponent(message)}`;
     mail.removeAttribute("target");
   }
@@ -360,7 +363,7 @@ async function shareLauscherApp() {
   const sharePlugin = getCapacitorNativePlugin("Share");
   try {
     if (sharePlugin) {
-      await sharePlugin.share({ title, text, url: LAUSCHER_SHARE_URL, dialogTitle: tr("Lauscher teilen", "Share Lauscher", { fr: "Partager Lauscher", es: "Compartir Lauscher", it: "Condividi Lauscher", pl: "Udostępnij Lauscher", tr: "Lauscher'ı paylaş", uk: "Поділитися Lauscher", ur: "Lauscher شیئر کریں" }) });
+      await sharePlugin.share({ title, text, url: LAUSCHER_SHARE_URL, dialogTitle: tr("Lauscher teilen", "Share Lauscher", { fr: "Partager Lauscher", es: "Compartir Lauscher", it: "Condividi Lauscher", pl: "Udostępnij Lauscher", tr: "Lauscher'ı paylaş", uk: "Поділитися Lauscher", ur: "Lauscher شیئر کریں", ar: "مشاركة Lauscher" }) });
       return;
     }
     if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
@@ -373,7 +376,7 @@ async function shareLauscherApp() {
   // Kein Teilen-Menü (z. B. Desktop-Browser): Link kopieren und anzeigen
   const copied = await copyTextToClipboard(LAUSCHER_SHARE_URL);
   if (copied) {
-    showAppToast(`✓ ${tr("Link zu Lauscher kopiert", "Link to Lauscher copied", { fr: "Lien vers Lauscher copié", es: "Enlace a Lauscher copiado", it: "Link di Lauscher copiato", pl: "Skopiowano link do Lauscher", tr: "Lauscher bağlantısı kopyalandı", uk: "Посилання на Lauscher скопійовано", ur: "Lauscher کا لنک کاپی ہو گیا" })}`, "success");
+    showAppToast(`✓ ${tr("Link zu Lauscher kopiert", "Link to Lauscher copied", { fr: "Lien vers Lauscher copié", es: "Enlace a Lauscher copiado", it: "Link di Lauscher copiato", pl: "Skopiowano link do Lauscher", tr: "Lauscher bağlantısı kopyalandı", uk: "Посилання на Lauscher скопійовано", ur: "Lauscher کا لنک کاپی ہو گیا", ar: "تم نسخ رابط Lauscher" })}`, "success");
   }
   showAboutCopyFallback({
     message: tr(
@@ -386,7 +389,8 @@ async function shareLauscherApp() {
         pl: "Twoje urządzenie nie oferuje tu okna udostępniania. Wyślij link bezpośrednio albo go skopiuj:",
         tr: "Cihazın burada bir paylaşım penceresi sunmuyor. Bağlantıyı doğrudan gönder veya kopyala:",
         uk: "Твій пристрій тут не пропонує вікна «Поділитися». Надішли посилання напряму або скопіюй його:",
-        ur: "آپ کا آلہ یہاں شیئر کرنے کی ونڈو نہیں دیتا۔ لنک سیدھا بھیجیں یا کاپی کریں:"
+        ur: "آپ کا آلہ یہاں شیئر کرنے کی ونڈو نہیں دیتا۔ لنک سیدھا بھیجیں یا کاپی کریں:",
+        ar: "لا يوفر جهازك نافذة مشاركة هنا. أرسل الرابط مباشرةً أو انسخه:"
       }
     ),
     value: LAUSCHER_SHARE_URL,
@@ -415,7 +419,8 @@ function openSupportPage() {
         pl: "Jeśli strona wsparcia nie otworzyła się automatycznie, znajdziesz ją tutaj:",
         tr: "Destek sayfası otomatik olarak açılmadıysa burada bulabilirsin:",
         uk: "Якщо сторінка підтримки не відкрилася автоматично, її можна знайти тут:",
-        ur: "اگر سپورٹ صفحہ خودکار طور پر نہیں کھلا تو آپ اسے یہاں کھول سکتے ہیں:"
+        ur: "اگر سپورٹ صفحہ خودکار طور پر نہیں کھلا تو آپ اسے یہاں کھول سکتے ہیں:",
+        ar: "إذا لم تُفتح صفحة الدعم تلقائياً، يمكنك العثور عليها هنا:"
       }
     ),
     value: LAUSCHER_SUPPORT_URL,
@@ -444,7 +449,8 @@ function openWebVersionPage() {
         pl: "Jeśli wersja przeglądarkowa nie otworzyła się automatycznie, znajdziesz ją tutaj:",
         tr: "Web sürümü otomatik olarak açılmadıysa burada bulabilirsin:",
         uk: "Якщо вебверсія не відкрилася автоматично, її можна знайти тут:",
-        ur: "اگر ویب ورژن خودکار طور پر نہیں کھلا تو آپ اسے یہاں کھول سکتے ہیں:"
+        ur: "اگر ویب ورژن خودکار طور پر نہیں کھلا تو آپ اسے یہاں کھول سکتے ہیں:",
+        ar: "إذا لم تُفتح نسخة الويب تلقائياً، يمكنك العثور عليها هنا:"
       }
     ),
     value: LAUSCHER_WEB_URL,
@@ -1834,7 +1840,8 @@ function openKnowledgeRef(refKey, options = {}) {
       pl: "Aranżacja",
       tr: "Aranjman",
       uk: "Аранжування",
-      ur: "ارینجنگ (ترتیبِ موسیقی)"
+      ur: "ارینجنگ (ترتیبِ موسیقی)",
+      ar: "التوزيع الموسيقي"
     });
     state.knowledgeSub = tr(
       "Wie aus einer Skizze ein lebendiges Gesamtwerk für Band, Chor oder Orchester wird",
@@ -1846,7 +1853,8 @@ function openKnowledgeRef(refKey, options = {}) {
         pl: "Jak zamienić prosty szkic w żywe brzmienie dla zespołu, chóru lub orkiestry",
         tr: "Basit bir taslağın grup, koro veya orkestra için canlı bir esere dönüşmesi",
         uk: "Як перетворити простий ескіз на живе звучання для гурту, хору чи оркестру",
-        ur: "ایک سادہ خاکے کو بینڈ، کوائر یا آرکسٹرا کے لیے جاندار موسیقی میں کیسے بدلا جائے"
+        ur: "ایک سادہ خاکے کو بینڈ، کوائر یا آرکسٹرا کے لیے جاندار موسیقی میں کیسے بدلا جائے",
+        ar: "كيف تتحوّل فكرة موسيقية بسيطة إلى عمل حيّ لفرقة أو جوقة أو أوركسترا"
       }
     );
 

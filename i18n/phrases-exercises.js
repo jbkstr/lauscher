@@ -1,6 +1,6 @@
 /**
  * Lauscher • Dynamische Phrasen (Übungen, Auswertung, Prüfung & Audio-Feedback)
- * Alle 7 Zielsprachen (fr, es, it, pl, tr, uk, ur) stehen direkt unter dem deutschen tr()/tf()-Schlüssel.
+ * Alle 8 Zielsprachen (fr, es, it, pl, tr, uk, ur, ar) stehen direkt unter dem deutschen tr()/tf()-Schlüssel.
  */
 
 registerColocatedPhrases({
@@ -11,7 +11,8 @@ registerColocatedPhrases({
     pl: "Zanuć bas szukanego akordu i zaśpiewaj od niego z powrotem do toniki – liczba kroków zdradzi ci stopień.",
     uk: "Наспівай басовий тон шуканого акорду й заспівай від нього назад до тоніки – кількість кроків підкаже ступінь.",
     ur: "مطلوبہ کارڈ کا باس سُر گنگنائیں، پھر وہاں سے واپس اسکیل کے بنیادی سُر تک گائیں – قدموں کی تعداد آپ کو درجہ بتا دے گی۔",
-    tr: "Aranan akorun bas sesini mırıldan ve oradan tonun kök sesine geri söyle – adım sayısı sana dereceyi verir."
+    tr: "Aranan akorun bas sesini mırıldan ve oradan tonun kök sesine geri söyle – adım sayısı sana dereceyi verir.",
+    ar: "دندِن نغمة الباص في التآلف المطلوب، ثم غنِّ منها عائدًا إلى النغمة الأساسية للمقام – عدد الخطوات سيكشف لك الدرجة."
   },
   "Summ den Basston des gesuchten Akkords – dann tippen.": {
     fr: "Fredonne la basse de l’accord recherché – puis touche.",
@@ -20,7 +21,8 @@ registerColocatedPhrases({
     pl: "Zanuć bas szukanego akordu – potem stuknij.",
     uk: "Наспівай басовий тон шуканого акорду – потім торкнись.",
     ur: "مطلوبہ کارڈ کا باس سُر گنگنائیں – پھر ٹیپ کریں۔",
-    tr: "Aranan akorun bas sesini mırıldan – sonra dokun."
+    tr: "Aranan akorun bas sesini mırıldan – sonra dokun.",
+    ar: "دندِن نغمة الباص في التآلف المطلوب – ثم انقر."
   },
   "Sing vom gesuchten Basston zurück zum Grundton: Wie viele Schritte?": {
     fr: "Chante de cette basse jusqu’à la tonique : combien de pas ?",
@@ -29,7 +31,8 @@ registerColocatedPhrases({
     pl: "Zaśpiewaj od tego basu do toniki: ile kroków?",
     uk: "Заспівай від цього баса до тоніки: скільки кроків?",
     ur: "اس باس سُر سے واپس بنیادی سُر تک گائیں: کتنے قدم؟",
-    tr: "Aranan bas sesten kök sese geri söyle: Kaç adım?"
+    tr: "Aranan bas sesten kök sese geri söyle: Kaç adım?",
+    ar: "غنِّ من نغمة الباص المطلوبة عائدًا إلى النغمة الأساسية: كم خطوة؟"
   },
   "NUR HÖREN • SUMM-PAUSE": {
     fr: "ÉCOUTE SEULE • PAUSE FREDONNEMENT",
@@ -38,7 +41,8 @@ registerColocatedPhrases({
     pl: "TYLKO SŁUCHANIE • PAUZA NA NUCENIE",
     uk: "ЛИШЕ СЛУХАННЯ • ПАУЗА ДЛЯ НАСПІВУВАННЯ",
     ur: "صرف سننا • گنگنانے کا وقفہ",
-    tr: "SADECE DİNLE • MIRILDANMA MOLASI"
+    tr: "SADECE DİNLE • MIRILDANMA MOLASI",
+    ar: "استماع فقط • وقفة دندنة"
   },
   "1 Takt Viertelpuls im aktuellen Tempo anhören": {
     fr: "Écouter 1 mesure de noires au tempo actuel",
@@ -47,7 +51,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj 1 taktu pulsu ćwierćnutowego w bieżącym tempie",
     uk: "Прослухати 1 такт четвертного пульсу в поточному темпі",
     ur: "موجودہ رفتار پر 1 بار کوارٹر نبض سنیں",
-    tr: "Mevcut tempoda 1 ölçü dörtlük nabız dinle"
+    tr: "Mevcut tempoda 1 ölçü dörtlük nabız dinle",
+    ar: "الاستماع إلى مازورة واحدة بنبض السوداء بالسرعة الحالية"
   },
   "1 Takt Zählpuls (1–2–3–4) als Tempo-Referenz anhören": {
     fr: "Écouter 1 mesure de décompte (1–2–3–4) comme repère",
@@ -56,7 +61,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj 1 taktu odliczania (1–2–3–4) jako wzorca tempa",
     uk: "Прослухати 1 такт відліку (1–2–3–4) як орієнтир темпу",
     ur: "رفتار کے حوالے کے طور پر 1 بار گنتی (1–2–3–4) سنیں",
-    tr: "Tempo referansı olarak 1 ölçü sayma nabzı (1–2–3–4) dinle"
+    tr: "Tempo referansı olarak 1 ölçü sayma nabzı (1–2–3–4) dinle",
+    ar: "الاستماع إلى مازورة عدّ واحدة (1–2–3–4) كمرجع لسرعة الإيقاع"
   },
   "1 Takt neutralen 4/4-Puls anhören": {
     fr: "Écouter 1 mesure de pulsation 4/4 neutre",
@@ -65,7 +71,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj 1 taktu równego pulsu 4/4",
     uk: "Прослухати 1 такт рівного пульсу 4/4",
     ur: "1 بار غیر جانبدار 4/4 نبض سنیں",
-    tr: "1 ölçü nötr 4/4 nabız dinle"
+    tr: "1 ölçü nötr 4/4 nabız dinle",
+    ar: "الاستماع إلى مازورة واحدة بنبض 4/4 محايد"
   },
   "1 kHz-Referenzton zur Orientierung anspielen": {
     fr: "Jouer un son de référence à 1 kHz pour se repérer",
@@ -74,7 +81,8 @@ registerColocatedPhrases({
     pl: "Odtwórz referencyjny sinus 1 kHz dla porównania",
     uk: "Програти опорний синусоїдальний тон 1 кГц",
     ur: "حوالے کے لیے 1 kHz سائن ٹون بجائیں",
-    tr: "Yön bulmak için 1 kHz referans tonu çal"
+    tr: "Yön bulmak için 1 kHz referans tonu çal",
+    ar: "تشغيل نغمة مرجعية بتردد 1 kHz للاستدلال"
   },
   "10 in Folge – beeindruckend sicher!": {
     fr: "10 de suite — quelle assurance !",
@@ -83,7 +91,8 @@ registerColocatedPhrases({
     pl: "10 z rzędu — imponująca pewność!",
     uk: "10 поспіль — вражаюча точність!",
     ur: "لگاتار 10 — کمال کا اعتماد!",
-    tr: "Üst üste 10 – etkileyici bir güven!"
+    tr: "Üst üste 10 – etkileyici bir güven!",
+    ar: "10 على التوالي – ثقة مذهلة!"
   },
   "15 in Folge – echtes Musiker-Gehör!": {
     fr: "15 de suite — une vraie oreille de musicien !",
@@ -92,7 +101,8 @@ registerColocatedPhrases({
     pl: "15 z rzędu — prawdziwy słuch muzyka!",
     uk: "15 поспіль — справжній слух музиканта!",
     ur: "لگاتار 15 — سچّے موسیقار جیسی سماعت!",
-    tr: "Üst üste 15 – gerçek bir müzisyen kulağı!"
+    tr: "Üst üste 15 – gerçek bir müzisyen kulağı!",
+    ar: "15 على التوالي – أذن موسيقية حقيقية!"
   },
   "2-Takt-Groove": {
     fr: "Groove sur 2 mesures",
@@ -101,7 +111,8 @@ registerColocatedPhrases({
     pl: "2-taktowy groove",
     uk: "2-тактовий ґрув",
     ur: "2 بار گروو",
-    tr: "2 ölçülük groove"
+    tr: "2 ölçülük groove",
+    ar: "غروف من مازورتين"
   },
   "2-Takt-Puls": {
     fr: "Pulsation sur 2 mesures",
@@ -110,7 +121,8 @@ registerColocatedPhrases({
     pl: "2-taktowy puls",
     uk: "2-тактовий пульс",
     ur: "2 بار نبض",
-    tr: "2 ölçülük nabız"
+    tr: "2 ölçülük nabız",
+    ar: "نبض من مازورتين"
   },
   "20 in Folge – absolut souverän!": {
     fr: "20 de suite — maîtrise totale !",
@@ -119,7 +131,8 @@ registerColocatedPhrases({
     pl: "20 z rzędu — absolutne mistrzostwo!",
     uk: "20 поспіль — бездоганна майстерність!",
     ur: "لگاتار 20 — بے مثال مہارت!",
-    tr: "Üst üste 20 – kusursuz hâkimiyet!"
+    tr: "Üst üste 20 – kusursuz hâkimiyet!",
+    ar: "20 على التوالي – إتقان تام!"
   },
   "3 in Folge – schöner Flow!": {
     fr: "3 de suite — beau flow !",
@@ -128,7 +141,8 @@ registerColocatedPhrases({
     pl: "3 z rzędu — świetny flow!",
     uk: "3 поспіль — чудовий потік!",
     ur: "لگاتار 3 — عمدہ روانی!",
-    tr: "Üst üste 3 – harika akış!"
+    tr: "Üst üste 3 – harika akış!",
+    ar: "3 على التوالي – انسجام رائع!"
   },
   "4 / 4 gelöst ✓": {
     fr: "4 / 4 résolues ✓",
@@ -137,7 +151,8 @@ registerColocatedPhrases({
     pl: "4 / 4 odgadnięte ✓",
     uk: "4 / 4 відгадано ✓",
     ur: "4 / 4 حل ہو گئے ✓",
-    tr: "4 / 4 çözüldü ✓"
+    tr: "4 / 4 çözüldü ✓",
+    ar: "تم حل 4 / 4 ✓"
   },
   "4-Schlag-Raster": {
     fr: "Grille à 4 temps",
@@ -146,7 +161,8 @@ registerColocatedPhrases({
     pl: "Siatka 4-miarowa",
     uk: "4-дольна сітка",
     ur: "4 بیٹس گرِڈ",
-    tr: "4 vuruşluk ızgara"
+    tr: "4 vuruşluk ızgara",
+    ar: "شبكة من 4 نبضات"
   },
   "4-Ton-Folge": {
     fr: "Phrase de 4 notes",
@@ -155,7 +171,8 @@ registerColocatedPhrases({
     pl: "Fraza 4-nutowa",
     uk: "4-нотна фраза",
     ur: "4 نوٹ کی دھن",
-    tr: "4 seslik dizi"
+    tr: "4 seslik dizi",
+    ar: "تتابع من 4 نغمات"
   },
   "4/4 Groove": {
     fr: "Groove 4/4",
@@ -164,7 +181,8 @@ registerColocatedPhrases({
     pl: "Groove 4/4",
     uk: "Ґрув 4/4",
     ur: "4/4 گروو",
-    tr: "4/4 Groove"
+    tr: "4/4 Groove",
+    ar: "غروف 4/4"
   },
   "5 in Folge – dein Ohr ist voll da!": {
     fr: "5 de suite — ton oreille est au top !",
@@ -173,7 +191,8 @@ registerColocatedPhrases({
     pl: "5 z rzędu — Twoje ucho jest w pełnej formie!",
     uk: "5 поспіль — твій слух у чудовій формі!",
     ur: "لگاتار 5 — آپ کے کان پوری طرح جاگ اٹھے!",
-    tr: "Üst üste 5 – kulağın tamamen açık!"
+    tr: "Üst üste 5 – kulağın tamamen açık!",
+    ar: "5 على التوالي – أذنك حاضرة تمامًا!"
   },
   "8 in Folge – eine ganze Oktave!": {
     fr: "8 de suite — toute une octave !",
@@ -182,7 +201,8 @@ registerColocatedPhrases({
     pl: "8 z rzędu — cała oktawa!",
     uk: "8 поспіль — ціла октава!",
     ur: "لگاتار 8 — ایک پورا آکٹیو!",
-    tr: "Üst üste 8 – tam bir oktav!"
+    tr: "Üst üste 8 – tam bir oktav!",
+    ar: "8 على التوالي – أوكتاف كامل!"
   },
   "A/B-Referenz (Noise)": {
     fr: "Comparaison A/B (Bruit)",
@@ -191,7 +211,8 @@ registerColocatedPhrases({
     pl: "Porównanie A/B (Szum)",
     uk: "Порівняння A/B (Шум)",
     ur: "A/B حوالہ (نوائز)",
-    tr: "A/B referansı (Gürültü)"
+    tr: "A/B referansı (Gürültü)",
+    ar: "مرجع A/B (ضوضاء)"
   },
   "ARPEGGIO {dir} • {bpm} BPM": {
     fr: "ARPÈGE {dir} • {bpm} BPM",
@@ -200,7 +221,8 @@ registerColocatedPhrases({
     pl: "ARPEGGIO {dir} • {bpm} BPM",
     uk: "АРПЕДЖІО {dir} • {bpm} BPM",
     ur: "آرپیجیو {dir} • {bpm} BPM",
-    tr: "ARPEJ {dir} • {bpm} BPM"
+    tr: "ARPEJ {dir} • {bpm} BPM",
+    ar: "أربيجيو {dir} • {bpm} BPM"
   },
   "Abgefragte Stufe nochmal abspielen": {
     fr: "Réécouter le degré d’accord demandé",
@@ -209,7 +231,8 @@ registerColocatedPhrases({
     pl: "Powtórz pytany stopień akordu",
     uk: "Повторити загаданий ступінь акорду",
     ur: "مطلوبہ کارڈ درجہ دوبارہ سنیں",
-    tr: "Sorulan dereceyi tekrar çal"
+    tr: "Sorulan dereceyi tekrar çal",
+    ar: "إعادة تشغيل الدرجة المطلوبة"
   },
   "Achte auf die betonte Eins – welche Taktart erklingt?": {
     fr: "Repérez le premier temps accentué — quelle mesure entendez-vous ?",
@@ -218,7 +241,8 @@ registerColocatedPhrases({
     pl: "Zwróć uwagę na mocną pierwszą miarę — jakie to metrum?",
     uk: "Зверни увагу на сильну першу долю — який це розмір?",
     ur: "پہلی زوردار بیٹ پر دھیان دیں — کون سا تال بج رہا ہے؟",
-    tr: "Vurgulu birinci vuruşa dikkat et – hangi ölçü birimi çalıyor?"
+    tr: "Vurgulu birinci vuruşa dikkat et – hangi ölçü birimi çalıyor?",
+    ar: "انتبه إلى النبضة الأولى المشددة – ما الوزن الإيقاعي الذي تسمعه؟"
   },
   "Akkord ?": {
     fr: "Accord ?",
@@ -227,7 +251,8 @@ registerColocatedPhrases({
     pl: "Akord ?",
     uk: "Акорд ?",
     ur: "کارڈ ؟",
-    tr: "Akor ?"
+    tr: "Akor ?",
+    ar: "تآلف ؟"
   },
   "Akkord {n}": {
     fr: "Accord {n}",
@@ -236,7 +261,8 @@ registerColocatedPhrases({
     pl: "Akord {n}",
     uk: "Акорд {n}",
     ur: "کارڈ {n}",
-    tr: "Akor {n}"
+    tr: "Akor {n}",
+    ar: "التآلف {n}"
   },
   "Akkord-Klang": {
     fr: "Structure d’accord",
@@ -245,7 +271,8 @@ registerColocatedPhrases({
     pl: "Barwa akordu",
     uk: "Склад акорду",
     ur: "کارڈ وائسنگ",
-    tr: "Akor tınısı"
+    tr: "Akor tınısı",
+    ar: "صوت التآلف"
   },
   "Akkord-Töne": {
     fr: "Notes de l’accord",
@@ -254,7 +281,8 @@ registerColocatedPhrases({
     pl: "Dźwięki akordu",
     uk: "Звуки акорду",
     ur: "کارڈ کے نوٹس",
-    tr: "Akor sesleri"
+    tr: "Akor sesleri",
+    ar: "نغمات التآلف"
   },
   "Aktuellen Schlag (mit Vorpuls) nochmal anhören": {
     fr: "Réécouter le temps en cours (avec pulsation d’entrée)",
@@ -263,7 +291,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj ponownie tej miary (z wprowadzeniem)",
     uk: "Повторити поточну долю (з ввідним пульсом)",
     ur: "موجودہ بیٹ (ابتدائی نبض سمیت) دوبارہ سنیں",
-    tr: "Mevcut vuruşu (ön nabızla) tekrar dinle"
+    tr: "Mevcut vuruşu (ön nabızla) tekrar dinle",
+    ar: "إعادة الاستماع إلى النبضة الحالية (مع نبض تمهيدي)"
   },
   "Akzent-Takt": {
     fr: "Mesure accentuée",
@@ -272,7 +301,8 @@ registerColocatedPhrases({
     pl: "Takt akcentu",
     uk: "Такт акценту",
     ur: "اکسنٹ بار",
-    tr: "Vurgu ölçüsü"
+    tr: "Vurgu ölçüsü",
+    ar: "مازورة النبر"
   },
   "Alle 4 Zählzeiten gelöst – weiter geht’s!": {
     fr: "Les 4 temps sont trouvés — on continue !",
@@ -281,7 +311,8 @@ registerColocatedPhrases({
     pl: "Wszystkie 4 miary odgadnięte — lecimy dalej!",
     uk: "Усі 4 долі відгадано — йдемо далі!",
     ur: "چاروں بیٹس حل ہو گئیں — آگے بڑھیں!",
-    tr: "4 vuruşun tamamı çözüldü – devam!"
+    tr: "4 vuruşun tamamı çözüldü – devam!",
+    ar: "تم حل جميع النبضات الأربع – لنواصل!"
   },
   "Anker-Quinte": {
     fr: "Quinte d’ancrage",
@@ -290,7 +321,8 @@ registerColocatedPhrases({
     pl: "Kwinta oparcia",
     uk: "Опорна квінта",
     ur: "لنگر ففتھ",
-    tr: "Çapa beşlisi"
+    tr: "Çapa beşlisi",
+    ar: "خامسة مرجعية"
   },
   "Arpeggio ↗": {
     fr: "Arpège ↗",
@@ -299,7 +331,8 @@ registerColocatedPhrases({
     pl: "Arpeggio ↗",
     uk: "Арпеджіо ↗",
     ur: "آرپیجیو ↗",
-    tr: "Arpej ↗"
+    tr: "Arpej ↗",
+    ar: "أربيجيو صاعد ↗"
   },
   "Arpeggio ↘": {
     fr: "Arpège ↘",
@@ -308,7 +341,8 @@ registerColocatedPhrases({
     pl: "Arpeggio ↘",
     uk: "Арпеджіо ↘",
     ur: "آرپیجیو ↘",
-    tr: "Arpej ↘"
+    tr: "Arpej ↘",
+    ar: "أربيجيو هابط ↘"
   },
   "Ausgangs-Quinte": {
     fr: "Quinte de départ",
@@ -317,7 +351,8 @@ registerColocatedPhrases({
     pl: "Kwinta wyjściowa",
     uk: "Початкова квінта",
     ur: "بنیادی ففتھ",
-    tr: "Başlangıç beşlisi"
+    tr: "Başlangıç beşlisi",
+    ar: "خامسة البداية"
   },
   "Ausgangston": {
     fr: "Note de départ",
@@ -326,7 +361,8 @@ registerColocatedPhrases({
     pl: "Dźwięk wyjściowy",
     uk: "Початковий тон",
     ur: "بنیادی سُر",
-    tr: "Başlangıç sesi"
+    tr: "Başlangıç sesi",
+    ar: "نغمة البداية"
   },
   "Ausgangston (Hoch)": {
     fr: "Note de départ (Aiguë)",
@@ -335,7 +371,8 @@ registerColocatedPhrases({
     pl: "Wyższy dźwięk startowy",
     uk: "Верхній вихідний тон",
     ur: "بنیادی سُر (اونچا)",
-    tr: "Başlangıç sesi (Tiz)"
+    tr: "Başlangıç sesi (Tiz)",
+    ar: "نغمة البداية (عالية)"
   },
   "Ausgangston (Ton 1)": {
     fr: "Note de départ (Note 1)",
@@ -344,7 +381,8 @@ registerColocatedPhrases({
     pl: "Dźwięk wyjściowy (Nuta 1)",
     uk: "Початковий тон (Нота 1)",
     ur: "بنیادی سُر (نوٹ 1)",
-    tr: "Başlangıç sesi (1. ses)"
+    tr: "Başlangıç sesi (1. ses)",
+    ar: "نغمة البداية (النغمة 1)"
   },
   "BLINDFLUG • DEIN EINSATZ!": {
     fr: "MODE AVEUGLE • À VOUS !",
@@ -353,7 +391,8 @@ registerColocatedPhrases({
     pl: "TRYB ŚLEPY • TWOJA KOLEJ!",
     uk: "СЛІПИЙ РЕЖИМ • ТВІЙ ВИХІД!",
     ur: "بلائنڈ موڈ • آپ کی باری!",
-    tr: "KÖR UÇUŞ • SIRA SENDE!"
+    tr: "KÖR UÇUŞ • SIRA SENDE!",
+    ar: "وضع أعمى • دورك الآن!"
   },
   "Basston hören": {
     fr: "Écouter la basse",
@@ -362,7 +401,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj basu",
     uk: "Почути басову ноту",
     ur: "باس نوٹ سنیں",
-    tr: "Bas sesini dinle"
+    tr: "Bas sesini dinle",
+    ar: "سماع نغمة الباص"
   },
   "Basston-Analyse": {
     fr: "Note à la basse",
@@ -371,7 +411,8 @@ registerColocatedPhrases({
     pl: "Analiza basu",
     uk: "Аналіз баса",
     ur: "باس نوٹ کا تجزیہ",
-    tr: "Bas sesi analizi"
+    tr: "Bas sesi analizi",
+    ar: "تحليل نغمة الباص"
   },
   "Bereit zum Klopfen": {
     fr: "Prêt à frapper",
@@ -380,7 +421,8 @@ registerColocatedPhrases({
     pl: "Gotowy do stukania",
     uk: "Готовий стукати",
     ur: "ٹیپ کرنے کے لیے تیار",
-    tr: "Vurmaya hazır"
+    tr: "Vurmaya hazır",
+    ar: "جاهز للنقر الإيقاعي"
   },
   "Bereits gelöst ({lbl})": {
     fr: "Déjà trouvé ({lbl})",
@@ -389,7 +431,8 @@ registerColocatedPhrases({
     pl: "Już odgadnięte ({lbl})",
     uk: "Уже розгадано ({lbl})",
     ur: "پہلے حل ہو چکا ({lbl})",
-    tr: "Zaten çözüldü ({lbl})"
+    tr: "Zaten çözüldü ({lbl})",
+    ar: "تم الحل مسبقًا ({lbl})"
   },
   "Bereits gelöst ({note})": {
     fr: "Déjà trouvée ({note})",
@@ -398,7 +441,8 @@ registerColocatedPhrases({
     pl: "Już odkryte ({note})",
     uk: "Уже відкрито ({note})",
     ur: "پہلے حل ہو چکا ({note})",
-    tr: "Zaten çözüldü ({note})"
+    tr: "Zaten çözüldü ({note})",
+    ar: "تم الحل مسبقًا ({note})"
   },
   "Blindflug-Stufe: Während deiner Eingabe ist der Hilfs-Klick deaktiviert": {
     fr: "Mode aveugle : le clic d’aide est coupé pendant votre frappe",
@@ -407,7 +451,8 @@ registerColocatedPhrases({
     pl: "Tryb ślepy: w trakcie Twojej odpowiedzi pomocniczy klik milknie",
     uk: "Сліпий режим: під час твоєї відповіді допоміжний клік вимкнено",
     ur: "بلائنڈ لیول: آپ کی باری میں مددی کلک بند رہتا ہے",
-    tr: "Kör uçuş seviyesi: Girişin sırasında yardımcı tık kapalı"
+    tr: "Kör uçuş seviyesi: Girişin sırasında yardımcı tık kapalı",
+    ar: "المستوى الأعمى: يُعطَّل النقر المساعد أثناء إدخالك"
   },
   "Blindflug: Jetzt klopfen!": {
     fr: "Mode aveugle : Frappez maintenant !",
@@ -416,7 +461,8 @@ registerColocatedPhrases({
     pl: "Tryb ślepy: teraz stukaj!",
     uk: "Сліпий режим: тепер стукай!",
     ur: "بلائنڈ موڈ: اب ٹیپ کریں!",
-    tr: "Kör uçuş: Şimdi vur!"
+    tr: "Kör uçuş: Şimdi vur!",
+    ar: "وضع أعمى: انقر الإيقاع الآن!"
   },
   "CHARAKTERTON": {
     fr: "NOTE CARACTÉRISTIQUE",
@@ -425,7 +471,8 @@ registerColocatedPhrases({
     pl: "DŹWIĘK CHARAKTERYSTYCZNY",
     uk: "ХАРАКТЕРНИЙ СТУПІНЬ",
     ur: "امتیازی سُر",
-    tr: "KARAKTER SESİ"
+    tr: "KARAKTER SESİ",
+    ar: "النغمة المميزة"
   },
   "DEIN EINSATZ!": {
     fr: "À VOUS !",
@@ -434,7 +481,8 @@ registerColocatedPhrases({
     pl: "TWOJA KOLEJ!",
     uk: "ТВІЙ ХІД!",
     ur: "آپ کی باری!",
-    tr: "SIRA SENDE!"
+    tr: "SIRA SENDE!",
+    ar: "دورك الآن!"
   },
   "DEIN TIPP": {
     fr: "VOTRE CHOIX",
@@ -443,7 +491,8 @@ registerColocatedPhrases({
     pl: "TWÓJ WYBÓR",
     uk: "ТВІЙ ВИБІР",
     ur: "آپ کا انتخاب",
-    tr: "TAHMİNİN"
+    tr: "TAHMİNİN",
+    ar: "إجابتك"
   },
   "Danach sofort nachklopfen!": {
     fr: "Reproduisez aussitôt après !",
@@ -452,7 +501,8 @@ registerColocatedPhrases({
     pl: "Zaraz potem powtórz rytm!",
     uk: "Одразу після цього повтори!",
     ur: "اس کے فوراً بعد خود ٹیپ کریں!",
-    tr: "Ardından hemen tekrar vur!"
+    tr: "Ardından hemen tekrar vur!",
+    ar: "انقر الإيقاع فورًا بعد ذلك!"
   },
   "Danach: Einzelton": {
     fr: "Ensuite : Note seule",
@@ -461,7 +511,8 @@ registerColocatedPhrases({
     pl: "Następnie: pojedynczy dźwięk",
     uk: "Далі: окрема нота",
     ur: "پھر: اکیلا سُر",
-    tr: "Ardından: Tek ses"
+    tr: "Ardından: Tek ses",
+    ar: "بعد ذلك: نغمة منفردة"
   },
   "Daneben": {
     fr: "Raté",
@@ -470,7 +521,8 @@ registerColocatedPhrases({
     pl: "Obok",
     uk: "Мимо",
     ur: "چوک گئے",
-    tr: "Iska"
+    tr: "Iska",
+    ar: "خطأ"
   },
   "Dauerbetrieb: Höre das angehobene Band heraus oder tippe „Flat-Bypass“": {
     fr: "Lecture continue : repérez la bande amplifiée ou touchez « Bypass Flat »",
@@ -479,7 +531,8 @@ registerColocatedPhrases({
     pl: "Tryb ciągły: wyłów podbite pasmo lub dotknij „Bypass Flat”",
     uk: "Безперервне відтворення: знайди підсилену смугу або натисни «Байпас Flat»",
     ur: "مسلسل پلے بیک: ابھرا ہوا بینڈ پہچانیں یا «فلیٹ بائی پاس» آزمائیں",
-    tr: "Sürekli mod: Yükseltilen bandı kulaktan bul ya da \"Flat-Bypass\"a dokun"
+    tr: "Sürekli mod: Yükseltilen bandı kulaktan bul ya da \"Flat-Bypass\"a dokun",
+    ar: "تشغيل مستمر: ميّز النطاق المعزَّز أو انقر «تجاوز مسطّح»"
   },
   "Demo: Schlag {n}": {
     fr: "Démo : Temps {n}",
@@ -488,7 +541,8 @@ registerColocatedPhrases({
     pl: "Wzór: miara {n}",
     uk: "Зразок: доля {n}",
     ur: "نمونہ: بیٹ {n}",
-    tr: "Demo: Vuruş {n}"
+    tr: "Demo: Vuruş {n}",
+    ar: "عرض: النبضة {n}"
   },
   "Drücke unten auf Abspielen": {
     fr: "Appuyez sur Écouter ci-dessous",
@@ -497,7 +551,8 @@ registerColocatedPhrases({
     pl: "Naciśnij Odtwórz poniżej",
     uk: "Натисни «Слухати» внизу",
     ur: "سننے کے لیے نیچے چلائیں دبائیں",
-    tr: "Aşağıdan Çal'a bas"
+    tr: "Aşağıdan Çal'a bas",
+    ar: "اضغط على تشغيل بالأسفل"
   },
   "Durchschnitt {avg} (Toleranz ±{tol} ms)": {
     fr: "Moyenne {avg} (tolérance ±{tol} ms)",
@@ -506,7 +561,8 @@ registerColocatedPhrases({
     pl: "Średnio {avg} (tolerancja ±{tol} ms)",
     uk: "Середнє {avg} (допуск ±{tol} мс)",
     ur: "اوسط {avg} (گنجائش ±{tol} ms)",
-    tr: "Ortalama {avg} (Tolerans ±{tol} ms)"
+    tr: "Ortalama {avg} (Tolerans ±{tol} ms)",
+    ar: "المتوسط {avg} (هامش التسامح ±{tol} ms)"
   },
   "EQ-BOOST AKTIV ({info})": {
     fr: "BOOST EQ ACTIF ({info})",
@@ -515,7 +571,8 @@ registerColocatedPhrases({
     pl: "PODBICIE EQ AKTYWNE ({info})",
     uk: "ПІДСИЛЕННЯ EQ АКТИВНЕ ({info})",
     ur: "EQ بوسٹ فعال ({info})",
-    tr: "EQ YÜKSELTME AKTİF ({info})"
+    tr: "EQ YÜKSELTME AKTİF ({info})",
+    ar: "تعزيز EQ مفعّل ({info})"
   },
   "EQ-Boost läuft – Auflösung folgt gleich…": {
     fr: "Boost EQ en cours — réponse dans un instant…",
@@ -524,7 +581,8 @@ registerColocatedPhrases({
     pl: "Podbicie EQ gra — rozwiązanie za chwilę…",
     uk: "Звучить підсилення EQ — відповідь за мить…",
     ur: "EQ بوسٹ چل رہا ہے — جواب ابھی ظاہر ہوگا…",
-    tr: "EQ yükseltme çalıyor – çözüm birazdan…"
+    tr: "EQ yükseltme çalıyor – çözüm birazdan…",
+    ar: "تعزيز EQ قيد التشغيل – ستظهر الإجابة حالًا…"
   },
   "Einzelton (Mehrere Okt.)": {
     fr: "Note seule (Plus. oct.)",
@@ -533,7 +591,8 @@ registerColocatedPhrases({
     pl: "Pojedynczy ton (wiele okt.)",
     uk: "Окрема нота (кілька окт.)",
     ur: "اکیلا سُر (متعدد آکٹ)",
-    tr: "Tek ses (Birden fazla oktav)"
+    tr: "Tek ses (Birden fazla oktav)",
+    ar: "نغمة منفردة (عدة أوكتافات)"
   },
   "FLAT / BYPASS (ORIGINAL)": {
     fr: "FLAT / BYPASS (ORIGINAL)",
@@ -542,7 +601,8 @@ registerColocatedPhrases({
     pl: "FLAT / BYPASS (ORYGINAŁ)",
     uk: "FLAT / БАЙПАС (ОРИГІНАЛ)",
     ur: "فلیٹ / بائی پاس (اصل)",
-    tr: "FLAT / BYPASS (ORİJİNAL)"
+    tr: "FLAT / BYPASS (ORİJİNAL)",
+    ar: "مسطّح / تجاوز (الأصلي)"
   },
   "Farbe ?": {
     fr: "Couleur ?",
@@ -551,7 +611,8 @@ registerColocatedPhrases({
     pl: "Barwa ?",
     uk: "Барва ?",
     ur: "رنگ ؟",
-    tr: "Renk ?"
+    tr: "Renk ?",
+    ar: "اللون الصوتي ؟"
   },
   "Flat → Ziel-EQ": {
     fr: "Flat → EQ cible",
@@ -560,7 +621,8 @@ registerColocatedPhrases({
     pl: "Flat → Docelowe EQ",
     uk: "Flat → Цільовий EQ",
     ur: "فلیٹ → ہدف EQ",
-    tr: "Flat → Hedef EQ"
+    tr: "Flat → Hedef EQ",
+    ar: "مسطّح ← EQ المستهدف"
   },
   "Flat-Bypass": {
     fr: "Bypass Flat",
@@ -569,7 +631,8 @@ registerColocatedPhrases({
     pl: "Bypass Flat",
     uk: "Байпас Flat",
     ur: "فلیٹ بائی پاس",
-    tr: "Flat-Bypass"
+    tr: "Flat-Bypass",
+    ar: "تجاوز مسطّح"
   },
   "Flat: AN": {
     fr: "Flat : OUI",
@@ -578,7 +641,8 @@ registerColocatedPhrases({
     pl: "Flat: WŁ.",
     uk: "Flat: УВІМК.",
     ur: "فلیٹ: آن",
-    tr: "Flat: AÇIK"
+    tr: "Flat: AÇIK",
+    ar: "مسطّح: مفعّل"
   },
   "Frequenz ?": {
     fr: "Fréq. ?",
@@ -587,7 +651,8 @@ registerColocatedPhrases({
     pl: "Częstotliwość ?",
     uk: "Частота ?",
     ur: "فریکوئنسی ؟",
-    tr: "Frekans ?"
+    tr: "Frekans ?",
+    ar: "التردد ؟"
   },
   "GESUCHTER TON": {
     fr: "NOTE CIBLE",
@@ -596,7 +661,8 @@ registerColocatedPhrases({
     pl: "SZUKANY DŹWIĘK",
     uk: "ЦІЛЬОВА НОТА",
     ur: "مطلوبہ سُر",
-    tr: "ARANAN SES"
+    tr: "ARANAN SES",
+    ar: "النغمة المطلوبة"
   },
   "GROOVE • TAKT {n}/2": {
     fr: "GROOVE • MESURE {n}/2",
@@ -605,7 +671,8 @@ registerColocatedPhrases({
     pl: "GROOVE • TAKT {n}/2",
     uk: "ҐРУВ • ТАКТ {n}/2",
     ur: "گروو • بار {n}/2",
-    tr: "GROOVE • ÖLÇÜ {n}/2"
+    tr: "GROOVE • ÖLÇÜ {n}/2",
+    ar: "غروف • المازورة {n}/2"
   },
   "Ganz Ohr!": {
     fr: "Tout ouïe !",
@@ -614,7 +681,8 @@ registerColocatedPhrases({
     pl: "Zamieniam się w słuch!",
     uk: "Увесь у слух!",
     ur: "پوری توجہ سے سنیں!",
-    tr: "Kulak kesil!"
+    tr: "Kulak kesil!",
+    ar: "كلي آذان صاغية!"
   },
   "Gelöster Ton ({note})": {
     fr: "Note trouvée ({note})",
@@ -623,7 +691,8 @@ registerColocatedPhrases({
     pl: "Odkryta nuta ({note})",
     uk: "Відкрита нота ({note})",
     ur: "حل شدہ سُر ({note})",
-    tr: "Çözülen ses ({note})"
+    tr: "Çözülen ses ({note})",
+    ar: "نغمة محلولة ({note})"
   },
   "Gelöstes Muster ({lbl})": {
     fr: "Figure résolue ({lbl})",
@@ -632,7 +701,8 @@ registerColocatedPhrases({
     pl: "Odgadnięta figura ({lbl})",
     uk: "Відгадана фігура ({lbl})",
     ur: "حل شدہ پیٹرن ({lbl})",
-    tr: "Çözülen kalıp ({lbl})"
+    tr: "Çözülen kalıp ({lbl})",
+    ar: "نمط محلول ({lbl})"
   },
   "Gesucht": {
     fr: "Recherché",
@@ -641,7 +711,8 @@ registerColocatedPhrases({
     pl: "Szukane",
     uk: "Шукаємо",
     ur: "مطلوبہ",
-    tr: "Aranan"
+    tr: "Aranan",
+    ar: "مطلوب"
   },
   "Gesuchter Modus": {
     fr: "Mode recherché",
@@ -650,7 +721,8 @@ registerColocatedPhrases({
     pl: "Szukana skala",
     uk: "Загаданий лад",
     ur: "مطلوبہ موڈ",
-    tr: "Aranan mod"
+    tr: "Aranan mod",
+    ar: "النمط المطلوب"
   },
   "Gewählt: {sym} ({lbl}).": {
     fr: "Votre choix : {sym} ({lbl}).",
@@ -659,7 +731,8 @@ registerColocatedPhrases({
     pl: "Wybrano: {sym} ({lbl}).",
     uk: "Обрано: {sym} ({lbl}).",
     ur: "منتخب: {sym} ({lbl})۔",
-    tr: "Seçilen: {sym} ({lbl})."
+    tr: "Seçilen: {sym} ({lbl}).",
+    ar: "المختار: {sym} ({lbl})."
   },
   "Gleich erklingt das Muster…": {
     fr: "Le motif arrive…",
@@ -668,7 +741,8 @@ registerColocatedPhrases({
     pl: "Za chwilę zabrzmi wzór rytmu…",
     uk: "Зараз прозвучить ритм…",
     ur: "پیٹرن ابھی بجنے والا ہے…",
-    tr: "Kalıp birazdan çalacak…"
+    tr: "Kalıp birazdan çalacak…",
+    ar: "سيعزف النمط حالًا…"
   },
   "Groove-Puls": {
     fr: "Pulsation groove",
@@ -677,7 +751,8 @@ registerColocatedPhrases({
     pl: "Puls groovu",
     uk: "Пульс ґруву",
     ur: "گروو نبض",
-    tr: "Groove nabzı"
+    tr: "Groove nabzı",
+    ar: "نبض الغروف"
   },
   "Grundton {root}": {
     fr: "Fondamentale {root}",
@@ -686,7 +761,8 @@ registerColocatedPhrases({
     pl: "Pryma {root}",
     uk: "Тоніка {root}",
     ur: "بنیادی سُر {root}",
-    tr: "Kök ses {root}"
+    tr: "Kök ses {root}",
+    ar: "النغمة الأساسية {root}"
   },
   "Halbe Note ({bpm} BPM) • Höre genau hin": {
     fr: "Blanche ({bpm} BPM) • Écoutez bien",
@@ -695,7 +771,8 @@ registerColocatedPhrases({
     pl: "Półnuta ({bpm} BPM) • Słuchaj uważnie",
     uk: "Половинна нота ({bpm} BPM) • Слухай уважно",
     ur: "ہاف نوٹ ({bpm} BPM) • غور سے سنیں",
-    tr: "İkilik nota ({bpm} BPM) • Dikkatle dinle"
+    tr: "İkilik nota ({bpm} BPM) • Dikkatle dinle",
+    ar: "نغمة بيضاء ({bpm} BPM) • استمع جيدًا"
   },
   "Hilfs-Klick in der Nachklopf-Phase ein- oder ausschalten": {
     fr: "Activer ou couper le clic d’aide pendant la reproduction",
@@ -704,7 +781,8 @@ registerColocatedPhrases({
     pl: "Włącz lub wyłącz pomocniczy klik podczas powtarzania rytmu",
     uk: "Увімкнути або вимкнути допоміжний метроном під час твоєї черги",
     ur: "ٹیپ بیک مرحلے میں مددی کلک آن یا آف کریں",
-    tr: "Tekrar vurma aşamasında yardımcı tıkı aç veya kapat"
+    tr: "Tekrar vurma aşamasında yardımcı tıkı aç veya kapat",
+    ar: "تشغيل أو إيقاف النقر المساعد أثناء مرحلة النقر الإيقاعي"
   },
   "Hör dir beide Klänge direkt nacheinander an:": {
     fr: "Écoutez les deux sons l’un après l’autre :",
@@ -713,7 +791,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj obu brzmień bezpośrednio po sobie:",
     uk: "Послухай обидва звучання одразу одне за одним:",
     ur: "دونوں آوازیں لگاتار سنیں:",
-    tr: "İki tınıyı arka arkaya dinle:"
+    tr: "İki tınıyı arka arkaya dinle:",
+    ar: "استمع إلى الصوتين مباشرة واحدًا تلو الآخر:"
   },
   "Hör dir beide Rhythmen direkt nacheinander an:": {
     fr: "Écoutez les deux rythmes l’un après l’autre :",
@@ -722,7 +801,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj obu rytmów bezpośrednio po sobie:",
     uk: "Послухай обидва ритми одразу один за одним:",
     ur: "دونوں ردھم لگاتار سنیں:",
-    tr: "İki ritmi arka arkaya dinle:"
+    tr: "İki ritmi arka arkaya dinle:",
+    ar: "استمع إلى الإيقاعين مباشرة واحدًا تلو الآخر:"
   },
   "Hör dir den Rhythmus in Ruhe ein.": {
     fr: "Imprégnez-vous tranquillement du rythme.",
@@ -731,7 +811,8 @@ registerColocatedPhrases({
     pl: "Spokojnie zapamiętaj ten rytm.",
     uk: "Спокійно запам’ятай ритм.",
     ur: "ردھم کو اطمینان سے ذہن میں بٹھائیں۔",
-    tr: "Ritmi sakince dinleyip içine sindir."
+    tr: "Ritmi sakince dinleyip içine sindir.",
+    ar: "استمع إلى الإيقاع بهدوء واستوعبه."
   },
   "Höre genau auf die Snare (2 & 4): zu früh, exakt oder zu spät?": {
     fr: "Écoutez bien la caisse claire (2 & 4) : en avant, dans le pocket ou en arrière ?",
@@ -740,7 +821,8 @@ registerColocatedPhrases({
     pl: "Wsłuchaj się w werbel (2 i 4): przed czasem, równo w punkt czy za późno?",
     uk: "Вслухайся в малий барабан (2 і 4): наперед, точно в «покет» чи позаду?",
     ur: "اسنیئر (2 اور 4) پر دھیان دیں: وقت سے پہلے، عین وقت پر، یا دیر سے؟",
-    tr: "Trampete (2 ve 4) dikkatle kulak ver: çok erken, tam zamanında mı, yoksa çok geç mi?"
+    tr: "Trampete (2 ve 4) dikkatle kulak ver: çok erken, tam zamanında mı, yoksa çok geç mi?",
+    ar: "استمع بدقة إلى طبلة السنير (2 و 4): مبكرة جدًا، دقيقة أم متأخرة؟"
   },
   "Höre genau hin – zu welchem Frequenzband gehört dieser Ton?": {
     fr: "Écoutez bien — à quelle bande de fréquences correspond ce son ?",
@@ -749,7 +831,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj uważnie — do którego pasma należy ten dźwięk?",
     uk: "Прислухайся уважно — до якої частотної смуги належить цей звук?",
     ur: "غور سے سنیں — یہ آواز کس فریکوئنسی بینڈ کی ہے؟",
-    tr: "Dikkatle dinle – bu ses hangi frekans bandına ait?"
+    tr: "Dikkatle dinle – bu ses hangi frekans bandına ait?",
+    ar: "استمع جيدًا – إلى أي نطاق ترددي تنتمي هذه النغمة؟"
   },
   "Höre zu und bereite deinen Einsatz vor…": {
     fr: "Écoutez attentivement et préparez votre entrée…",
@@ -758,7 +841,8 @@ registerColocatedPhrases({
     pl: "Słuchaj i przygotuj się do wejścia…",
     uk: "Слухай уважно й готуйся вступити…",
     ur: "غور سے سنیں اور اپنی باری کے لیے تیار رہیں…",
-    tr: "Dinle ve girişine hazırlan…"
+    tr: "Dinle ve girişine hazırlan…",
+    ar: "استمع واستعد لدورك…"
   },
   "In welchem Band lag der Schwerpunkt? Tippe es unten an.": {
     fr: "Dans quelle bande se trouvait l’accent ? Touchez-la ci-dessous.",
@@ -767,7 +851,8 @@ registerColocatedPhrases({
     pl: "W którym paśmie słyszałeś akcent? Wybierz odpowiedź poniżej.",
     uk: "У якій смузі прозвучав акцент? Обери її нижче.",
     ur: "زور کس بینڈ پر تھا؟ نیچے ٹیپ کریں۔",
-    tr: "Ağırlık hangi banttaydı? Aşağıdan dokun."
+    tr: "Ağırlık hangi banttaydı? Aşağıdan dokun.",
+    ar: "في أي نطاق كان التركيز؟ انقر عليه بالأسفل."
   },
   "Intervall ?": {
     fr: "Intervalle ?",
@@ -776,7 +861,8 @@ registerColocatedPhrases({
     pl: "Interwał ?",
     uk: "Інтервал ?",
     ur: "انٹرول ؟",
-    tr: "Aralık ?"
+    tr: "Aralık ?",
+    ar: "المسافة ؟"
   },
   "Jetzt gesucht: Schlag {n} von 4": {
     fr: "Prochaine cible : Temps {n} sur 4",
@@ -785,7 +871,8 @@ registerColocatedPhrases({
     pl: "Teraz szukana: miara {n} z 4",
     uk: "Тепер шукаємо: доля {n} із 4",
     ur: "اب مطلوبہ: 4 میں سے بیٹ {n}",
-    tr: "Şimdi aranan: 4 vuruştan {n}. vuruş"
+    tr: "Şimdi aranan: 4 vuruştan {n}. vuruş",
+    ar: "المطلوب الآن: النبضة {n} من 4"
   },
   "Jetzt nachklopfen!": {
     fr: "À vous de frapper !",
@@ -794,7 +881,8 @@ registerColocatedPhrases({
     pl: "Teraz stukaj!",
     uk: "Тепер стукай!",
     ur: "اب خود ٹیپ کریں!",
-    tr: "Şimdi tekrar vur!"
+    tr: "Şimdi tekrar vur!",
+    ar: "انقر الإيقاع الآن!"
   },
   "KIRCHENTONART": {
     fr: "MODE",
@@ -803,7 +891,8 @@ registerColocatedPhrases({
     pl: "SKALA MODALNA",
     uk: "ЛАД / ГАМА",
     ur: "موڈ (اسکیل)",
-    tr: "KİLİSE MODU"
+    tr: "KİLİSE MODU",
+    ar: "النمط الموسيقي"
   },
   "KNAPP DANEBEN": {
     fr: "PRESQUE",
@@ -812,7 +901,8 @@ registerColocatedPhrases({
     pl: "PRAWIE TRAFIONE",
     uk: "МАЙЖЕ ВЛУЧИВ",
     ur: "تقریباً قریب",
-    tr: "AZ FARKLA KAÇTI"
+    tr: "AZ FARKLA KAÇTI",
+    ar: "قريب جدًا"
   },
   "KONTEXT-KADENZ ({n}/4)": {
     fr: "CADENCE CONTEXTE ({n}/4)",
@@ -821,7 +911,8 @@ registerColocatedPhrases({
     pl: "KADENCJA ({n}/4)",
     uk: "НАЛАШТУВАННЯ ({n}/4)",
     ur: "سیاق کیڈینس ({n}/4)",
-    tr: "BAĞLAM KADANSI ({n}/4)"
+    tr: "BAĞLAM KADANSI ({n}/4)",
+    ar: "قفلة السياق ({n}/4)"
   },
   "Kadenz": {
     fr: "Cadence",
@@ -830,7 +921,8 @@ registerColocatedPhrases({
     pl: "Kadencja",
     uk: "Зворот",
     ur: "کارڈ لوپ / کیڈینس",
-    tr: "Kadans"
+    tr: "Kadans",
+    ar: "قفلة موسيقية"
   },
   "Kadenz (Takt 1–4)": {
     fr: "Cadence (Mesures 1–4)",
@@ -839,7 +931,8 @@ registerColocatedPhrases({
     pl: "Kadencja (takty 1–4)",
     uk: "Каданс (такти 1–4)",
     ur: "کیڈینس (بار 1–4)",
-    tr: "Kadans (Ölçü 1–4)"
+    tr: "Kadans (Ölçü 1–4)",
+    ar: "قفلة موسيقية (المازورة 1–4)"
   },
   "Kein Klick, keine Anzeige – zähle im Kopf weiter!": {
     fr: "Aucun clic, aucun repère — comptez dans votre tête !",
@@ -848,7 +941,8 @@ registerColocatedPhrases({
     pl: "Bez kliku i podpowiedzi — licz w myślach!",
     uk: "Без кліка й підказок — рахуй про себе!",
     ur: "نہ کلک نہ اشارہ — ذہن ہی میں گنتی جاری رکھیں!",
-    tr: "Tık yok, gösterge yok – içinden saymaya devam et!"
+    tr: "Tık yok, gösterge yok – içinden saymaya devam et!",
+    ar: "بلا نقر وبلا مؤشر – واصل العدّ في ذهنك!"
   },
   "Klick: Blind": {
     fr: "Clic : Aveugle",
@@ -857,7 +951,8 @@ registerColocatedPhrases({
     pl: "Klik: Ślepy",
     uk: "Клік: Сліпий",
     ur: "کلک: بلائنڈ",
-    tr: "Tık: Kör"
+    tr: "Tık: Kör",
+    ar: "النقر: أعمى"
   },
   "Klicken für Flat-Vergleich (Bypass)": {
     fr: "Cliquer pour comparer en Flat (Bypass)",
@@ -866,7 +961,8 @@ registerColocatedPhrases({
     pl: "Kliknij, aby porównać z Flat (Bypass)",
     uk: "Натисни для порівняння з Flat (байпас)",
     ur: "فلیٹ A/B موازنے کے لیے کلک کریں (بائی پاس)",
-    tr: "Flat karşılaştırması için tıkla (Bypass)"
+    tr: "Flat karşılaştırması için tıkla (Bypass)",
+    ar: "انقر للمقارنة المسطّحة (تجاوز)"
   },
   "Klopf-Raster": {
     fr: "Grille de frappe",
@@ -875,7 +971,8 @@ registerColocatedPhrases({
     pl: "Siatka rytmiczna",
     uk: "Ритмічна сітка",
     ur: "ٹیپ گرِڈ",
-    tr: "Vuruş ızgarası"
+    tr: "Vuruş ızgarası",
+    ar: "شبكة النقر"
   },
   "Klopfe das Muster im {m}-Takt nach.": {
     fr: "Reproduisez le motif en mesure {m}.",
@@ -884,7 +981,8 @@ registerColocatedPhrases({
     pl: "Powtórz ten wzór rytmiczny w metrum {m}.",
     uk: "Відстукай ритмічний малюнок у розмірі {m}.",
     ur: "{m} تال میں یہ پیٹرن ٹیپ کریں۔",
-    tr: "Kalıbı {m} ölçüsünde tekrar vur."
+    tr: "Kalıbı {m} ölçüsünde tekrar vur.",
+    ar: "انقر النمط الإيقاعي بوزن {m}."
   },
   "Klopfen!": {
     fr: "Frappez !",
@@ -893,7 +991,8 @@ registerColocatedPhrases({
     pl: "Stukaj!",
     uk: "Стукай!",
     ur: "ٹیپ!",
-    tr: "Vur!"
+    tr: "Vur!",
+    ar: "انقر!"
   },
   "Knapp ({hit}/{tot}) – nochmal tippen": {
     fr: "De justesse ({hit}/{tot}) — réessayez",
@@ -902,7 +1001,8 @@ registerColocatedPhrases({
     pl: "Blisko ({hit}/{tot}) — spróbuj jeszcze raz",
     uk: "Близько ({hit}/{tot}) — спробуй ще раз",
     ur: "قریب ({hit}/{tot}) — دوبارہ کوشش کریں",
-    tr: "Yaklaştı ({hit}/{tot}) – tekrar dokun"
+    tr: "Yaklaştı ({hit}/{tot}) – tekrar dokun",
+    ar: "قريب ({hit}/{tot}) – أعد النقر"
   },
   "Kontext Kadenz": {
     fr: "Cadence de contexte",
@@ -911,7 +1011,8 @@ registerColocatedPhrases({
     pl: "Kadencja wprowadzająca",
     uk: "Налаштовувальний каданс",
     ur: "سیاقی کیڈینس",
-    tr: "Bağlam kadansı"
+    tr: "Bağlam kadansı",
+    ar: "قفلة السياق"
   },
   "Lösung wird gleich angezeigt…": {
     fr: "Affichage de la réponse imminent…",
@@ -920,7 +1021,8 @@ registerColocatedPhrases({
     pl: "Rozwiązanie pojawi się za chwilę…",
     uk: "Відповідь з’явиться за мить…",
     ur: "جواب ابھی ظاہر ہو رہا ہے…",
-    tr: "Çözüm birazdan gösterilecek…"
+    tr: "Çözüm birazdan gösterilecek…",
+    ar: "سيظهر الحل حالًا…"
   },
   "METRUM • TAKT {n}/2": {
     fr: "MESURE • {n}/2",
@@ -929,7 +1031,8 @@ registerColocatedPhrases({
     pl: "METRUM • TAKT {n}/2",
     uk: "РОЗМІР • ТАКТ {n}/2",
     ur: "تال • بار {n}/2",
-    tr: "ÖLÇÜ BİRİMİ • ÖLÇÜ {n}/2"
+    tr: "ÖLÇÜ BİRİMİ • ÖLÇÜ {n}/2",
+    ar: "الوزن الإيقاعي • المازورة {n}/2"
   },
   "MIKRO-TIMING": {
     fr: "MICRO-TIMING",
@@ -938,7 +1041,8 @@ registerColocatedPhrases({
     pl: "MIKROTIMING",
     uk: "МІКРОТАЙМІНГ",
     ur: "مائیکرو ٹائمنگ",
-    tr: "MİKRO ZAMANLAMA"
+    tr: "MİKRO ZAMANLAMA",
+    ar: "التوقيت الدقيق"
   },
   "MODALES AKKORDPENDEL": {
     fr: "BOUCLE MODALE",
@@ -947,7 +1051,8 @@ registerColocatedPhrases({
     pl: "KADENCJA MODALNA",
     uk: "МОДАЛЬНИЙ ЗВОРОТ",
     ur: "موڈل کارڈ لوپ",
-    tr: "MODAL AKOR SARKACI"
+    tr: "MODAL AKOR SARKACI",
+    ar: "تأرجح تآلفي نمطي"
   },
   "MUSTER • NUR HÖREN": {
     fr: "MOTIF • ÉCOUTE SEULE",
@@ -956,7 +1061,8 @@ registerColocatedPhrases({
     pl: "WZÓR • TYLKO SŁUCHAJ",
     uk: "ЗРАЗОК • ЛИШЕ СЛУХАТИ",
     ur: "پیٹرن • صرف سنیں",
-    tr: "KALIP • SADECE DİNLE"
+    tr: "KALIP • SADECE DİNLE",
+    ar: "النمط • استماع فقط"
   },
   "MUSTER • SCHLAG {n}/{tot}": {
     fr: "MOTIF • TEMPS {n}/{tot}",
@@ -965,7 +1071,8 @@ registerColocatedPhrases({
     pl: "WZÓR • MIARA {n}/{tot}",
     uk: "ЗРАЗОК • ДОЛЯ {n}/{tot}",
     ur: "پیٹرن • بیٹ {n}/{tot}",
-    tr: "KALIP • VURUŞ {n}/{tot}"
+    tr: "KALIP • VURUŞ {n}/{tot}",
+    ar: "النمط • النبضة {n}/{tot}"
   },
   "Mehrklang": {
     fr: "Accord plaqué",
@@ -974,7 +1081,8 @@ registerColocatedPhrases({
     pl: "Akord",
     uk: "Акорд",
     ur: "کارڈ",
-    tr: "Çok sesli"
+    tr: "Çok sesli",
+    ar: "صوت متآلف"
   },
   "Merke dir den Puls – gleich folgt die Demo": {
     fr: "Mémorisez la pulsation — la démo suit",
@@ -983,7 +1091,8 @@ registerColocatedPhrases({
     pl: "Zapamiętaj puls — zaraz zabrzmi wzór",
     uk: "Запам’ятай пульс — далі прозвучить зразок",
     ur: "نبض پکڑیں — اگلا نمونہ ابھی آتا ہے",
-    tr: "Nabzı aklında tut – birazdan demo geliyor"
+    tr: "Nabzı aklında tut – birazdan demo geliyor",
+    ar: "احفظ النبض – سيتبعه العرض حالًا"
   },
   "Metronom (1–4)": {
     fr: "Métronome (1–4)",
@@ -992,7 +1101,8 @@ registerColocatedPhrases({
     pl: "Metronom (1–4)",
     uk: "Метроном (1–4)",
     ur: "میٹرونوم (1–4)",
-    tr: "Metronom (1–4)"
+    tr: "Metronom (1–4)",
+    ar: "المترونوم (1–4)"
   },
   "Metrum": {
     fr: "Mesure",
@@ -1001,7 +1111,8 @@ registerColocatedPhrases({
     pl: "Metrum",
     uk: "Розмір",
     ur: "تال",
-    tr: "Ölçü birimi"
+    tr: "Ölçü birimi",
+    ar: "الوزن الإيقاعي"
   },
   "Modus ?": {
     fr: "Mode ?",
@@ -1010,7 +1121,8 @@ registerColocatedPhrases({
     pl: "Tryb ?",
     uk: "Лад ?",
     ur: "موڈ ؟",
-    tr: "Mod ?"
+    tr: "Mod ?",
+    ar: "النمط ؟"
   },
   "Muster einmal ohne Eingabefenster anhören": {
     fr: "Écouter le motif une fois sans fenêtre de saisie",
@@ -1019,7 +1131,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj przykładu jeden raz bez okna odpowiedzi",
     uk: "Прослухати зразок один раз без вікна введення",
     ur: "بغیر کسی جوابی کارروائی کے پیٹرن ایک بار سنیں",
-    tr: "Kalıbı giriş penceresi olmadan bir kez dinle"
+    tr: "Kalıbı giriş penceresi olmadan bir kez dinle",
+    ar: "الاستماع إلى النمط مرة واحدة دون نافذة الإدخال"
   },
   "Muster gezeigt ✓": {
     fr: "Motif affiché ✓",
@@ -1028,7 +1141,8 @@ registerColocatedPhrases({
     pl: "Wzór pokazany ✓",
     uk: "Ритм показано ✓",
     ur: "پیٹرن دکھا دیا گیا ✓",
-    tr: "Kalıp gösterildi ✓"
+    tr: "Kalıp gösterildi ✓",
+    ar: "تم عرض النمط ✓"
   },
   "Muster: Schlag {n}": {
     fr: "Motif : Temps {n}",
@@ -1037,7 +1151,8 @@ registerColocatedPhrases({
     pl: "Wzór: miara {n}",
     uk: "Зразок: доля {n}",
     ur: "پیٹرن: بیٹ {n}",
-    tr: "Kalıp: Vuruş {n}"
+    tr: "Kalıp: Vuruş {n}",
+    ar: "النمط: النبضة {n}"
   },
   "NOCH NICHT GANZ": {
     fr: "PAS TOUT À FAIT",
@@ -1046,7 +1161,8 @@ registerColocatedPhrases({
     pl: "JESZCZE NIE TO",
     uk: "ЩЕ НЕ ЗОВСІМ",
     ur: "ابھی پورا نہیں",
-    tr: "HENÜZ TAM DEĞİL"
+    tr: "HENÜZ TAM DEĞİL",
+    ar: "ليس تمامًا بعد"
   },
   "NOCHMAL VERSUCHEN": {
     fr: "ON RÉESSAIE",
@@ -1055,7 +1171,8 @@ registerColocatedPhrases({
     pl: "SPRÓBUJ PONOWNIE",
     uk: "СПРОБУЙМО ЩЕ РАЗ",
     ur: "دوبارہ کوشش کریں",
-    tr: "TEKRAR DENE"
+    tr: "TEKRAR DENE",
+    ar: "حاول مرة أخرى"
   },
   "NUR ANHÖREN • VORZÄHLER": {
     fr: "ÉCOUTE SEULE • DÉCOMPTE",
@@ -1064,7 +1181,8 @@ registerColocatedPhrases({
     pl: "TYLKO SŁUCHAJ • ODLICZANIE",
     uk: "ЛИШЕ СЛУХАТИ • ВІДЛІК",
     ur: "صرف سنیں • گنتی",
-    tr: "SADECE DİNLE • ÖN SAYIM"
+    tr: "SADECE DİNLE • ÖN SAYIM",
+    ar: "استماع فقط • عدّ تمهيدي"
   },
   "NUR HÖREN • DENKPAUSE": {
     fr: "ÉCOUTE SEULE • RÉFLEXION",
@@ -1073,7 +1191,8 @@ registerColocatedPhrases({
     pl: "TYLKO SŁUCHAJ • PAUZA",
     uk: "ЛИШЕ СЛУХАТИ • ПАУЗА",
     ur: "صرف سنیں • سوچیں",
-    tr: "SADECE DİNLE • DÜŞÜNME MOLASI"
+    tr: "SADECE DİNLE • DÜŞÜNME MOLASI",
+    ar: "استماع فقط • وقفة تفكير"
   },
   "Na, was war’s?": {
     fr: "Alors, qu’avez-vous entendu ?",
@@ -1082,7 +1201,8 @@ registerColocatedPhrases({
     pl: "I co to było?",
     uk: "То що ж прозвучало?",
     ur: "تو، وہ کیا تھا؟",
-    tr: "Peki, neydi?"
+    tr: "Peki, neydi?",
+    ar: "حسنًا، ماذا كانت؟"
   },
   "Nach bestandenem Nachklopfen automatisch nächste Runde starten": {
     fr: "Lancer automatiquement la manche suivante après une frappe réussie",
@@ -1091,7 +1211,8 @@ registerColocatedPhrases({
     pl: "Po udanym powtórzeniu automatycznie zacznij kolejną rundę",
     uk: "Автоматично починати наступний раунд після успішного повтору",
     ur: "کامیاب ٹیپ کے بعد اگلا دور خودکار شروع کریں",
-    tr: "Başarılı tekrar vuruşundan sonra sonraki turu otomatik başlat"
+    tr: "Başarılı tekrar vuruşundan sonra sonraki turu otomatik başlat",
+    ar: "بدء الجولة التالية تلقائيًا بعد اجتياز النقر الإيقاعي"
   },
   "Nein": {
     fr: "Non",
@@ -1100,7 +1221,8 @@ registerColocatedPhrases({
     pl: "Nie",
     uk: "Ні",
     ur: "نہیں",
-    tr: "Hayır"
+    tr: "Hayır",
+    ar: "لا"
   },
   "Neutrale Grundton-Quinte (ohne Terz) anhören": {
     fr: "Écouter la quinte d’ancrage neutre (sans tierce)",
@@ -1109,7 +1231,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj neutralnej kwinty podstawowej (bez tercji)",
     uk: "Прослухати нейтральну опорну квінту (без терції)",
     ur: "غیر جانبدار جڑ اور ففتھ (تھرڈ کے بغیر) سنیں",
-    tr: "Nötr kök ses-beşliyi (üçlüsüz) dinle"
+    tr: "Nötr kök ses-beşliyi (üçlüsüz) dinle",
+    ar: "الاستماع إلى خامسة النغمة الأساسية المحايدة (دون ثالثة)"
   },
   "Neutrale Grundton-Quinte (ohne Terz) – gleich erklingt der Modus…": {
     fr: "Quinte neutre (sans tierce) — le mode arrive…",
@@ -1118,7 +1241,8 @@ registerColocatedPhrases({
     pl: "Neutralna kwinta (bez tercji) — zaraz zabrzmi skala…",
     uk: "Нейтральна квінта (без терції) — зараз прозвучить лад…",
     ur: "غیر جانبدار کھلی ففتھ (تھرڈ کے بغیر) — موڈ ابھی بجنے والا ہے…",
-    tr: "Nötr kök ses-beşli (üçlüsüz) – birazdan mod çalacak…"
+    tr: "Nötr kök ses-beşli (üçlüsüz) – birazdan mod çalacak…",
+    ar: "خامسة النغمة الأساسية المحايدة (دون ثالثة) – سيعزف النمط حالًا…"
   },
   "Neutraler Ausgangsklang ({root}5)": {
     fr: "Quinte ouverte neutre ({root}5)",
@@ -1127,7 +1251,8 @@ registerColocatedPhrases({
     pl: "Neutralna kwinta ({root}5)",
     uk: "Нейтральна квінта ({root}5)",
     ur: "غیر جانبدار آغاز ({root}5)",
-    tr: "Nötr başlangıç tınısı ({root}5)"
+    tr: "Nötr başlangıç tınısı ({root}5)",
+    ar: "صوت بداية محايد ({root}5)"
   },
   "Noch einen Moment – erst zu Ende hören!": {
     fr: "Un instant — écoutez d’abord la démo jusqu’au bout !",
@@ -1136,7 +1261,8 @@ registerColocatedPhrases({
     pl: "Chwileczkę — dosłuchaj najpierw do końca!",
     uk: "Хвилинку — спершу дослухай до кінця!",
     ur: "تھوڑا انتظار — پہلے پورا نمونہ سنیں!",
-    tr: "Bir saniye daha – önce sonuna kadar dinle!"
+    tr: "Bir saniye daha – önce sonuna kadar dinle!",
+    ar: "لحظة – استمع حتى النهاية أولًا!"
   },
   "Noch warten – erst zuhören": {
     fr: "Patientez — écoutez d’abord",
@@ -1145,7 +1271,8 @@ registerColocatedPhrases({
     pl: "Poczekaj — najpierw posłuchaj",
     uk: "Зачекай — спочатку послухай",
     ur: "ٹھہریں — پہلے سنیں",
-    tr: "Biraz bekle – önce dinle"
+    tr: "Biraz bekle – önce dinle",
+    ar: "انتظر قليلًا – استمع أولًا"
   },
   "Nochmal!": {
     fr: "À refaire !",
@@ -1154,7 +1281,8 @@ registerColocatedPhrases({
     pl: "Jeszcze raz!",
     uk: "Ще раз!",
     ur: "دوبارہ کوشش کریں!",
-    tr: "Bir daha!"
+    tr: "Bir daha!",
+    ar: "مرة أخرى!"
   },
   "Nur anhören": {
     fr: "Écoute seule",
@@ -1163,7 +1291,8 @@ registerColocatedPhrases({
     pl: "Tylko odsłuch",
     uk: "Лише слухати",
     ur: "صرف سنیں",
-    tr: "Sadece dinle"
+    tr: "Sadece dinle",
+    ar: "استماع فقط"
   },
   "Nur anhören (ohne Eingabe)": {
     fr: "Écoute seule (sans saisie)",
@@ -1172,7 +1301,8 @@ registerColocatedPhrases({
     pl: "Tylko posłuchaj (bez odpowiedzi)",
     uk: "Лише прослухати (без введення)",
     ur: "صرف سنیں (ان پٹ کے بغیر)",
-    tr: "Sadece dinle (giriş olmadan)"
+    tr: "Sadece dinle (giriş olmadan)",
+    ar: "استماع فقط (دون إدخال)"
   },
   "Nur-Hören-Modus läuft (Tippen zum Beenden)": {
     fr: "Mode Écoute seule actif (touchez pour arrêter)",
@@ -1181,7 +1311,8 @@ registerColocatedPhrases({
     pl: "Tryb „Tylko słuchaj” aktywny (dotknij, aby wyłączyć)",
     uk: "Режим «Лише слухати» активний (натисни для виходу)",
     ur: "صرف سننے کا موڈ جاری ہے (بند کرنے کے لیے ٹیپ کریں)",
-    tr: "Sadece dinleme modu çalışıyor (Bitirmek için dokun)"
+    tr: "Sadece dinleme modu çalışıyor (Bitirmek için dokun)",
+    ar: "وضع الاستماع فقط قيد التشغيل (انقر للإنهاء)"
   },
   "Nächste Abfrage ⏭": {
     fr: "Question suivante ⏭",
@@ -1190,7 +1321,8 @@ registerColocatedPhrases({
     pl: "Następne pytanie ⏭",
     uk: "Наступне завдання ⏭",
     ur: "اگلی مشق ⏭",
-    tr: "Sonraki soru ⏭"
+    tr: "Sonraki soru ⏭",
+    ar: "السؤال التالي ⏭"
   },
   "Nächste Aufgabe wird geladen…": {
     fr: "Chargement du prochain exercice…",
@@ -1199,7 +1331,8 @@ registerColocatedPhrases({
     pl: "Ładowanie kolejnego zadania…",
     uk: "Завантажується наступне завдання…",
     ur: "اگلا سوال لوڈ ہو رہا ہے…",
-    tr: "Sonraki alıştırma yükleniyor…"
+    tr: "Sonraki alıştırma yükleniyor…",
+    ar: "جارٍ تحميل التمرين التالي…"
   },
   "Nächste Klopfrunde automatisch starten": {
     fr: "Lancer automatiquement le prochain rythme",
@@ -1208,7 +1341,8 @@ registerColocatedPhrases({
     pl: "Automatyczny start kolejnej rundy",
     uk: "Автозапуск наступного ритму",
     ur: "اگلا ٹیپ راؤنڈ خودکار شروع کریں",
-    tr: "Sonraki vuruş turunu otomatik başlat"
+    tr: "Sonraki vuruş turunu otomatik başlat",
+    ar: "بدء جولة النقر التالية تلقائيًا"
   },
   "Nächste Melodie automatisch abspielen": {
     fr: "Enchaîner automatiquement la mélodie suivante",
@@ -1217,7 +1351,8 @@ registerColocatedPhrases({
     pl: "Automatycznie graj kolejną melodię",
     uk: "Автоматично вмикати наступну мелодію",
     ur: "اگلی دھن خودکار چلائیں",
-    tr: "Sonraki melodiyi otomatik çal"
+    tr: "Sonraki melodiyi otomatik çal",
+    ar: "تشغيل اللحن التالي تلقائيًا"
   },
   "Nächste Runde startet gleich…": {
     fr: "Manche suivante dans un instant…",
@@ -1226,7 +1361,8 @@ registerColocatedPhrases({
     pl: "Następna runda za chwilę…",
     uk: "Наступний раунд за мить…",
     ur: "اگلا راؤنڈ ابھی شروع ہو رہا ہے…",
-    tr: "Sonraki tur birazdan başlıyor…"
+    tr: "Sonraki tur birazdan başlıyor…",
+    ar: "ستبدأ الجولة التالية حالًا…"
   },
   "Nächstes Rhythmus-Diktat automatisch abspielen": {
     fr: "Enchaîner automatiquement la dictée rythmique suivante",
@@ -1235,7 +1371,8 @@ registerColocatedPhrases({
     pl: "Automatycznie graj kolejne dyktando",
     uk: "Автоматично вмикати наступний диктант",
     ur: "اگلا ردھم ڈکٹیشن خودکار چلائیں",
-    tr: "Sonraki ritim diktesini otomatik çal"
+    tr: "Sonraki ritim diktesini otomatik çal",
+    ar: "تشغيل الإملاء الإيقاعي التالي تلقائيًا"
   },
   "Nächstes Rhythmus-Diktat nach 4/4 Lösung automatisch abspielen": {
     fr: "Jouer automatiquement la dictée rythmique suivante après réussite",
@@ -1244,7 +1381,8 @@ registerColocatedPhrases({
     pl: "Automatycznie odtwarzaj kolejne dyktando po ułożeniu 4/4",
     uk: "Автоматично вмикати наступний ритмічний диктант після 4/4 розгаданих долей",
     ur: "4/4 حل ہونے پر اگلا ردھم ڈکٹیشن خودکار چلائیں",
-    tr: "4/4 çözümden sonra sonraki ritim diktesini otomatik çal"
+    tr: "4/4 çözümden sonra sonraki ritim diktesini otomatik çal",
+    ar: "تشغيل الإملاء الإيقاعي التالي تلقائيًا بعد حل 4/4"
   },
   "Offen": {
     fr: "En attente",
@@ -1253,7 +1391,8 @@ registerColocatedPhrases({
     pl: "Otwarte",
     uk: "Очікує",
     ur: "باقی",
-    tr: "Açık"
+    tr: "Açık",
+    ar: "مفتوح"
   },
   "Original-Noise": {
     fr: "Bruit brut",
@@ -1262,7 +1401,8 @@ registerColocatedPhrases({
     pl: "Oryginalny szum",
     uk: "Оригінальний шум",
     ur: "اصل نوائز",
-    tr: "Orijinal gürültü"
+    tr: "Orijinal gürültü",
+    ar: "الضوضاء الأصلية"
   },
   "PERFEKT GETROFFEN!": {
     fr: "PILE DANS LE TEMPS !",
@@ -1271,7 +1411,8 @@ registerColocatedPhrases({
     pl: "IDEALNIE TRAFIONE!",
     uk: "ІДЕАЛЬНЕ ВЛУЧАННЯ!",
     ur: "بالکل درست نشانہ!",
-    tr: "MÜKEMMEL İSABET!"
+    tr: "MÜKEMMEL İSABET!",
+    ar: "إصابة مثالية!"
   },
   "PHASE 1 • {k}": {
     fr: "PHASE 1 • {k}",
@@ -1280,7 +1421,8 @@ registerColocatedPhrases({
     pl: "ETAP 1 • {k}",
     uk: "ЕТАП 1 • {k}",
     ur: "مرحلہ 1 • {k}",
-    tr: "AŞAMA 1 • {k}"
+    tr: "AŞAMA 1 • {k}",
+    ar: "المرحلة 1 • {k}"
   },
   "Pattern-Analyse": {
     fr: "Analyse du pattern",
@@ -1289,7 +1431,8 @@ registerColocatedPhrases({
     pl: "Analiza wzoru",
     uk: "Аналіз малюнка",
     ur: "پیٹرن کی جانچ",
-    tr: "Kalıp analizi"
+    tr: "Kalıp analizi",
+    ar: "تحليل النمط"
   },
   "Pocket ±55 ms": {
     fr: "Pocket ±55 ms",
@@ -1298,7 +1441,8 @@ registerColocatedPhrases({
     pl: "Pocket ±55 ms",
     uk: "Покет ±55 мс",
     ur: "پاکٹ ±55 ms",
-    tr: "Pocket ±55 ms"
+    tr: "Pocket ±55 ms",
+    ar: "غروف ±55 ms"
   },
   "Profi ±28 ms": {
     fr: "Pro ±28 ms",
@@ -1307,7 +1451,8 @@ registerColocatedPhrases({
     pl: "Pro ±28 ms",
     uk: "Профі ±28 мс",
     ur: "پرو ±28 ms",
-    tr: "Profesyonel ±28 ms"
+    tr: "Profesyonel ±28 ms",
+    ar: "محترف ±28 ms"
   },
   "Puls": {
     fr: "Pulsation",
@@ -1316,7 +1461,8 @@ registerColocatedPhrases({
     pl: "Puls",
     uk: "Пульс",
     ur: "نبض",
-    tr: "Nabız"
+    tr: "Nabız",
+    ar: "النبض"
   },
   "Puls / Eins hören": {
     fr: "Écouter pulsation / 1er temps",
@@ -1325,7 +1471,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj pulsu / „Raz”",
     uk: "Почути пульс / Першу долю",
     ur: "نبض / پہلی بیٹ سنیں",
-    tr: "Nabzı / 1. vuruşu dinle"
+    tr: "Nabzı / 1. vuruşu dinle",
+    ar: "سماع النبض / النبضة الأولى"
   },
   "Quinte → Akkordfolge": {
     fr: "Quinte → Enchaînement",
@@ -1334,7 +1481,8 @@ registerColocatedPhrases({
     pl: "Kwinta → Progresja",
     uk: "Квінта → Послідовність",
     ur: "ففتھ ← کارڈ سلسلہ",
-    tr: "Beşli → Akor dizisi"
+    tr: "Beşli → Akor dizisi",
+    ar: "خامسة ← تتابع تآلفات"
   },
   "Quinte → Klangfolge": {
     fr: "Quinte → Séquence",
@@ -1343,7 +1491,8 @@ registerColocatedPhrases({
     pl: "Kwinta → Motyw",
     uk: "Квінта → Поспівка",
     ur: "ففتھ ← سُروں کا سلسلہ",
-    tr: "Beşli → Ses dizisi"
+    tr: "Beşli → Ses dizisi",
+    ar: "خامسة ← تتابع صوتي"
   },
   "Quinte → Tonfarbe": {
     fr: "Quinte → Couleur",
@@ -1352,7 +1501,8 @@ registerColocatedPhrases({
     pl: "Kwinta → Barwa",
     uk: "Квінта → Барва",
     ur: "ففتھ ← رنگت",
-    tr: "Beşli → Tını rengi"
+    tr: "Beşli → Tını rengi",
+    ar: "خامسة ← لون صوتي"
   },
   "RHYTHMUS GELÖST! (4/4)": {
     fr: "RYTHME RÉSOLU ! (4/4)",
@@ -1361,7 +1511,8 @@ registerColocatedPhrases({
     pl: "RYTM ODGADNIĘTY! (4/4)",
     uk: "РИТМ РОЗГАДАНО! (4/4)",
     ur: "ردھم حل ہو گیا! (4/4)",
-    tr: "RİTİM ÇÖZÜLDÜ! (4/4)"
+    tr: "RİTİM ÇÖZÜLDÜ! (4/4)",
+    ar: "تم حل الإيقاع! (4/4)"
   },
   "RHYTHMUS • SCHLAG {n}/4": {
     fr: "RYTHME • TEMPS {n}/4",
@@ -1370,7 +1521,8 @@ registerColocatedPhrases({
     pl: "RYTM • MIARA {n}/4",
     uk: "РИТМ • ДОЛЯ {n}/4",
     ur: "ردھم • بیٹ {n}/4",
-    tr: "RİTİM • VURUŞ {n}/4"
+    tr: "RİTİM • VURUŞ {n}/4",
+    ar: "إيقاع • النبضة {n}/4"
   },
   "RICHTIG!": {
     fr: "BRAVO !",
@@ -1379,7 +1531,8 @@ registerColocatedPhrases({
     pl: "DOBRZE!",
     uk: "ПРАВИЛЬНО!",
     ur: "بالکل درست!",
-    tr: "DOĞRU!"
+    tr: "DOĞRU!",
+    ar: "صحيح!"
   },
   "RICHTIG! AUFLÖSUNG ZUR TONIKA": {
     fr: "BRAVO ! RÉSOLUTION VERS LA TONIQUE",
@@ -1388,7 +1541,8 @@ registerColocatedPhrases({
     pl: "BRAWO! ROZWIĄZANIE DO TONIKI",
     uk: "ТОЧНО! РОЗВ’ЯЗАННЯ В ТОНІКУ",
     ur: "درست! ٹانک پر حل",
-    tr: "DOĞRU! TONİĞE ÇÖZÜLÜM"
+    tr: "DOĞRU! TONİĞE ÇÖZÜLÜM",
+    ar: "صحيح! حلّ إلى درجة القرار"
   },
   "Ref: 1 kHz": {
     fr: "Réf. : 1 kHz",
@@ -1397,7 +1551,8 @@ registerColocatedPhrases({
     pl: "Ref: 1 kHz",
     uk: "Опора: 1 кГц",
     ur: "حوالہ: 1 kHz",
-    tr: "Ref: 1 kHz"
+    tr: "Ref: 1 kHz",
+    ar: "مرجع: 1 kHz"
   },
   "Referenz-Takt": {
     fr: "Mesure repère",
@@ -1406,7 +1561,8 @@ registerColocatedPhrases({
     pl: "Takt odniesienia",
     uk: "Опорний такт",
     ur: "حوالہ بار",
-    tr: "Referans ölçüsü"
+    tr: "Referans ölçüsü",
+    ar: "مازورة مرجعية"
   },
   "Rhythmus-Muster ✓": {
     fr: "Motif rythmique ✓",
@@ -1415,7 +1571,8 @@ registerColocatedPhrases({
     pl: "Wzór rytmiczny ✓",
     uk: "Ритмічний малюнок ✓",
     ur: "ردھم پیٹرن ✓",
-    tr: "Ritim kalıbı ✓"
+    tr: "Ritim kalıbı ✓",
+    ar: "نمط إيقاعي ✓"
   },
   "Rhythmus-Tap-Pad": {
     fr: "Pad de frappe rythmique",
@@ -1424,7 +1581,8 @@ registerColocatedPhrases({
     pl: "Pad rytmiczny",
     uk: "Ритмічний Tap-пед",
     ur: "ردھم ٹیپ پیڈ",
-    tr: "Ritim Vuruş Pedi"
+    tr: "Ritim Vuruş Pedi",
+    ar: "لوحة النقر الإيقاعي"
   },
   "SAUBER IM TAKT!": {
     fr: "BIEN EN PLACE !",
@@ -1433,7 +1591,8 @@ registerColocatedPhrases({
     pl: "RÓWNO W TAKCIE!",
     uk: "РІВНО В ТАКТ!",
     ur: "زبردست ٹائمنگ!",
-    tr: "TAM ÖLÇÜDE!"
+    tr: "TAM ÖLÇÜDE!",
+    ar: "مضبوط على الإيقاع!"
   },
   "SCHLAG {n} RICHTIG": {
     fr: "TEMPS {n} TROUVÉ",
@@ -1442,7 +1601,8 @@ registerColocatedPhrases({
     pl: "MIARA {n} DOBRZE",
     uk: "ДОЛЯ {n} ВІДГАДАНА",
     ur: "بیٹ {n} درست",
-    tr: "{n}. VURUŞ DOĞRU"
+    tr: "{n}. VURUŞ DOĞRU",
+    ar: "النبضة {n} صحيحة"
   },
   "SCHLAG {n} VON 4 (EINZELN)": {
     fr: "TEMPS {n} SUR 4 (ISOLÉ)",
@@ -1451,7 +1611,8 @@ registerColocatedPhrases({
     pl: "MIARA {n} Z 4 (OSOBNO)",
     uk: "ДОЛЯ {n} З 4 (ОКРЕМО)",
     ur: "4 میں سے بیٹ {n} (انفرادی)",
-    tr: "4 VURUŞTAN {n}. VURUŞ (TEKLİ)"
+    tr: "4 VURUŞTAN {n}. VURUŞ (TEKLİ)",
+    ar: "النبضة {n} من 4 (منفردة)"
   },
   "SCHLAG {n} VON 4 • DEIN TIPP": {
     fr: "TEMPS {n} SUR 4 • VOTRE CHOIX",
@@ -1460,7 +1621,8 @@ registerColocatedPhrases({
     pl: "MIARA {n} Z 4 • TWÓJ WYBÓR",
     uk: "ДОЛЯ {n} З 4 • ТВІЙ ВИБІР",
     ur: "4 میں سے بیٹ {n} • آپ کا انتخاب",
-    tr: "4 VURUŞTAN {n}. VURUŞ • TAHMİNİN"
+    tr: "4 VURUŞTAN {n}. VURUŞ • TAHMİNİN",
+    ar: "النبضة {n} من 4 • إجابتك"
   },
   "SCHLAG {n} VON 4 • NOCH NICHT": {
     fr: "TEMPS {n} SUR 4 • PAS ENCORE",
@@ -1469,7 +1631,8 @@ registerColocatedPhrases({
     pl: "MIARA {n} Z 4 • JESZCZE NIE",
     uk: "ДОЛЯ {n} З 4 • ЩЕ НЕ ТА",
     ur: "4 میں سے بیٹ {n} • ابھی نہیں",
-    tr: "4 VURUŞTAN {n}. VURUŞ • HENÜZ DEĞİL"
+    tr: "4 VURUŞTAN {n}. VURUŞ • HENÜZ DEĞİL",
+    ar: "النبضة {n} من 4 • ليس بعد"
   },
   "SINUSTON • STUFE {lvl}": {
     fr: "SINUSOÏDE • NIVEAU {lvl}",
@@ -1478,7 +1641,8 @@ registerColocatedPhrases({
     pl: "TON SINUSOWY • POZIOM {lvl}",
     uk: "СИНУСОЇДА • РІВЕНЬ {lvl}",
     ur: "سائن ٹون • لیول {lvl}",
-    tr: "SİNÜS TONU • SEVİYE {lvl}"
+    tr: "SİNÜS TONU • SEVİYE {lvl}",
+    ar: "موجة جيبية • المستوى {lvl}"
   },
   "STATUS": {
     fr: "ÉTAT",
@@ -1487,7 +1651,8 @@ registerColocatedPhrases({
     pl: "STATUS",
     uk: "СТАН",
     ur: "کیفیت",
-    tr: "DURUM"
+    tr: "DURUM",
+    ar: "الحالة"
   },
   "Sauber! {hit}/{tot} Treffer": {
     fr: "Propre ! {hit}/{tot} touchés",
@@ -1496,7 +1661,8 @@ registerColocatedPhrases({
     pl: "Świetnie! {hit}/{tot} trafień",
     uk: "Чітко! {hit}/{tot} влучань",
     ur: "عمدہ! {hit}/{tot} درست",
-    tr: "Harika! {hit}/{tot} isabet"
+    tr: "Harika! {hit}/{tot} isabet",
+    ar: "ممتاز! {hit}/{tot} إصابة"
   },
   "Schlag": {
     fr: "Temps",
@@ -1505,7 +1671,8 @@ registerColocatedPhrases({
     pl: "Miara",
     uk: "Доля",
     ur: "بیٹ",
-    tr: "Vuruş"
+    tr: "Vuruş",
+    ar: "نبضة"
   },
   "Schlag nochmal": {
     fr: "Rejouer le temps",
@@ -1514,7 +1681,8 @@ registerColocatedPhrases({
     pl: "Powtórz miarę",
     uk: "Повторити долю",
     ur: "بیٹ دوبارہ سنیں",
-    tr: "Vuruşu tekrar çal"
+    tr: "Vuruşu tekrar çal",
+    ar: "إعادة النبضة"
   },
   "Schlag {n}": {
     fr: "Temps {n}",
@@ -1523,7 +1691,8 @@ registerColocatedPhrases({
     pl: "Miara {n}",
     uk: "Доля {n}",
     ur: "بیٹ {n}",
-    tr: "Vuruş {n}"
+    tr: "Vuruş {n}",
+    ar: "النبضة {n}"
   },
   "Schlag {n} / 4": {
     fr: "Temps {n} / 4",
@@ -1532,7 +1701,8 @@ registerColocatedPhrases({
     pl: "Miara {n} / 4",
     uk: "Доля {n} / 4",
     ur: "بیٹ {n} / 4",
-    tr: "Vuruş {n} / 4"
+    tr: "Vuruş {n} / 4",
+    ar: "النبضة {n} / 4"
   },
   "Schlag {step} / 4": {
     fr: "Temps {step} / 4",
@@ -1541,7 +1711,8 @@ registerColocatedPhrases({
     pl: "Miara {step} / 4",
     uk: "Доля {step} / 4",
     ur: "بیٹ {step} / 4",
-    tr: "Vuruş {step} / 4"
+    tr: "Vuruş {step} / 4",
+    ar: "النبضة {step} / 4"
   },
   "Sinus-Spektrum": {
     fr: "Spectre sinusoïdal",
@@ -1550,7 +1721,8 @@ registerColocatedPhrases({
     pl: "Widmo sinusowe",
     uk: "Спектр синусоїди",
     ur: "سائن اسپیکٹرم",
-    tr: "Sinüs spektrumu"
+    tr: "Sinüs spektrumu",
+    ar: "طيف الموجة الجيبية"
   },
   "Sinuston": {
     fr: "Sinusoïde",
@@ -1559,7 +1731,8 @@ registerColocatedPhrases({
     pl: "Ton prosty (sinus)",
     uk: "Синусоїда",
     ur: "سائن ویو",
-    tr: "Sinüs tonu"
+    tr: "Sinüs tonu",
+    ar: "موجة جيبية"
   },
   "Snare-Timing (2 & 4)": {
     fr: "Caisse claire (2 & 4)",
@@ -1568,7 +1741,8 @@ registerColocatedPhrases({
     pl: "Timing werbla (2 i 4)",
     uk: "Таймінг малого (2 і 4)",
     ur: "اسنیئر ٹائمنگ (2 اور 4)",
-    tr: "Trampet zamanlaması (2 ve 4)"
+    tr: "Trampet zamanlaması (2 ve 4)",
+    ar: "توقيت السنير (2 و 4)"
   },
   "Spüre die Zählzeiten – gleich kommt der Cowbell-Akzent": {
     fr: "Ressentez les temps — l’accent de cloche arrive mesure 2",
@@ -1577,7 +1751,8 @@ registerColocatedPhrases({
     pl: "Poczuj miary — w 2. takcie pojawi się akcent cowbella",
     uk: "Відчуй пульс — у 2-му такті прозвучить акцент ковбелла",
     ur: "بیٹس محسوس کریں — بار 2 میں کاؤ بیل اکسنٹ آ رہا ہے",
-    tr: "Vuruşları hisset – birazdan cowbell vurgusu gelecek"
+    tr: "Vuruşları hisset – birazdan cowbell vurgusu gelecek",
+    ar: "اشعر بالنبضات – سيأتي نبر الجرس الإيقاعي حالًا"
   },
   "Starte unten die Runde und klopfe danach im Takt mit!": {
     fr: "Lancez l’écoute ci-dessous puis frappez en rythme !",
@@ -1586,7 +1761,8 @@ registerColocatedPhrases({
     pl: "Uruchom rundę poniżej i powtórz rytm w takcie!",
     uk: "Запусти раунд внизу й відстукай у такт!",
     ur: "نیچے چلائیں دبائیں اور تال کے ساتھ ٹیپ کریں!",
-    tr: "Aşağıdan turu başlat ve ardından ölçüyle birlikte vur!"
+    tr: "Aşağıdan turu başlat ve ardından ölçüyle birlikte vur!",
+    ar: "ابدأ الجولة بالأسفل ثم انقر الإيقاع مع النبض!"
   },
   "Stille!": {
     fr: "Silence !",
@@ -1595,7 +1771,8 @@ registerColocatedPhrases({
     pl: "Cisza!",
     uk: "Тиша!",
     ur: "خاموشی!",
-    tr: "Sessizlik!"
+    tr: "Sessizlik!",
+    ar: "صمت!"
   },
   "Stufe nochmal": {
     fr: "Rejouer l’accord",
@@ -1604,7 +1781,8 @@ registerColocatedPhrases({
     pl: "Powtórz akord",
     uk: "Ще раз акорд",
     ur: "کارڈ دوبارہ سنیں",
-    tr: "Dereceyi tekrar çal"
+    tr: "Dereceyi tekrar çal",
+    ar: "إعادة الدرجة"
   },
   "Stufe {lvl} • {lbl}": {
     fr: "Niveau {lvl} • {lbl}",
@@ -1613,7 +1791,8 @@ registerColocatedPhrases({
     pl: "Poziom {lvl} • {lbl}",
     uk: "Рівень {lvl} • {lbl}",
     ur: "لیول {lvl} • {lbl}",
-    tr: "Seviye {lvl} • {lbl}"
+    tr: "Seviye {lvl} • {lbl}",
+    ar: "المستوى {lvl} • {lbl}"
   },
   "TAKT 1 • REFERENZ-PULS": {
     fr: "MESURE 1 • PULSATION REPÈRE",
@@ -1622,7 +1801,8 @@ registerColocatedPhrases({
     pl: "TAKT 1 • PULS ODNIESIENIA",
     uk: "ТАКТ 1 • ОПОРНИЙ ПУЛЬС",
     ur: "بار 1 • حوالہ نبض",
-    tr: "ÖLÇÜ 1 • REFERANS NABIZ"
+    tr: "ÖLÇÜ 1 • REFERANS NABIZ",
+    ar: "المازورة 1 • النبض المرجعي"
   },
   "TAKT 2 • AKZENT": {
     fr: "MESURE 2 • ACCENT",
@@ -1631,7 +1811,8 @@ registerColocatedPhrases({
     pl: "TAKT 2 • AKCENT",
     uk: "ТАКТ 2 • АКЦЕНТ",
     ur: "بار 2 • اکسنٹ",
-    tr: "ÖLÇÜ 2 • VURGU"
+    tr: "ÖLÇÜ 2 • VURGU",
+    ar: "المازورة 2 • النبر"
   },
   "TAKT {n}": {
     fr: "MESURE {n}",
@@ -1640,7 +1821,8 @@ registerColocatedPhrases({
     pl: "TAKT {n}",
     uk: "ТАКТ {n}",
     ur: "بار {n}",
-    tr: "ÖLÇÜ {n}"
+    tr: "ÖLÇÜ {n}",
+    ar: "المازورة {n}"
   },
   "TAKT {n} • GESUCHT": {
     fr: "MESURE {n} • CIBLE",
@@ -1649,7 +1831,8 @@ registerColocatedPhrases({
     pl: "TAKT {n} • SZUKANE",
     uk: "ТАКТ {n} • ПРОПУЩЕНО",
     ur: "بار {n} • مطلوبہ",
-    tr: "ÖLÇÜ {n} • ARANAN"
+    tr: "ÖLÇÜ {n} • ARANAN",
+    ar: "المازورة {n} • مطلوبة"
   },
   "TON 1 • {bpm} BPM": {
     fr: "NOTE 1 • {bpm} BPM",
@@ -1658,7 +1841,8 @@ registerColocatedPhrases({
     pl: "DŹWIĘK 1 • {bpm} BPM",
     uk: "НОТА 1 • {bpm} BPM",
     ur: "نوٹ 1 • {bpm} BPM",
-    tr: "1. SES • {bpm} BPM"
+    tr: "1. SES • {bpm} BPM",
+    ar: "النغمة 1 • {bpm} BPM"
   },
   "TON {n} RICHTIG": {
     fr: "NOTE {n} TROUVÉE",
@@ -1667,7 +1851,8 @@ registerColocatedPhrases({
     pl: "DŹWIĘK {n} TRAFIONY",
     uk: "НОТА {n} ВІДГАДАНА",
     ur: "نوٹ {n} درست",
-    tr: "{n}. SES DOĞRU"
+    tr: "{n}. SES DOĞRU",
+    ar: "النغمة {n} صحيحة"
   },
   "TON {n} • GESUCHT": {
     fr: "NOTE {n} • CIBLE",
@@ -1676,7 +1861,8 @@ registerColocatedPhrases({
     pl: "DŹWIĘK {n} • SZUKANY",
     uk: "НОТА {n} • ПРОПУЩЕНО",
     ur: "نوٹ {n} • مطلوبہ",
-    tr: "{n}. SES • ARANAN"
+    tr: "{n}. SES • ARANAN",
+    ar: "النغمة {n} • مطلوبة"
   },
   "Takt {n}": {
     fr: "Mesure {n}",
@@ -1685,7 +1871,8 @@ registerColocatedPhrases({
     pl: "Takt {n}",
     uk: "Такт {n}",
     ur: "بار {n}",
-    tr: "Ölçü {n}"
+    tr: "Ölçü {n}",
+    ar: "المازورة {n}"
   },
   "Taktart ?": {
     fr: "Mesure ?",
@@ -1694,7 +1881,8 @@ registerColocatedPhrases({
     pl: "Metrum ?",
     uk: "Розмір ?",
     ur: "تال ؟",
-    tr: "Ölçü birimi ?"
+    tr: "Ölçü birimi ?",
+    ar: "الوزن الإيقاعي ؟"
   },
   "Tempo {bpm} BPM – gleich folgt die Clave": {
     fr: "Tempo {bpm} BPM — la clave arrive",
@@ -1703,7 +1891,8 @@ registerColocatedPhrases({
     pl: "Tempo {bpm} BPM — za chwilę wejdzie clave",
     uk: "Темп {bpm} BPM — зараз вступить клаве",
     ur: "ٹیمپو {bpm} BPM — کلاوے ابھی شروع ہونے والی ہے",
-    tr: "Tempo {bpm} BPM – birazdan klave gelecek"
+    tr: "Tempo {bpm} BPM – birazdan klave gelecek",
+    ar: "سرعة الإيقاع {bpm} BPM – سيتبعها الكلافي حالًا"
   },
   "Tippe auf das Pad oder die Leertaste": {
     fr: "Touchez le pad ou la barre d’espace",
@@ -1712,7 +1901,8 @@ registerColocatedPhrases({
     pl: "Stukaj w pad lub naciskaj Spację",
     uk: "Натискай на пед або пробіл",
     ur: "پیڈ پر ٹیپ کریں یا اسپیس بار دبائیں",
-    tr: "Pede dokun veya boşluk tuşuna bas"
+    tr: "Pede dokun veya boşluk tuşuna bas",
+    ar: "انقر على اللوحة أو اضغط مفتاح المسافة"
   },
   "Tippe das Pad oder „▶ Abspielen“": {
     fr: "Touchez le pad ou « ▶ Écouter »",
@@ -1721,7 +1911,8 @@ registerColocatedPhrases({
     pl: "Dotknij pada lub kliknij „▶ Odtwórz”",
     uk: "Торкнися педа або «▶ Слухати»",
     ur: "پیڈ پر ٹیپ کریں یا «▶ چلائیں» دبائیں",
-    tr: "Pede dokun veya \"▶ Çal\"a bas"
+    tr: "Pede dokun veya \"▶ Çal\"a bas",
+    ar: "انقر على اللوحة أو «▶ تشغيل»"
   },
   "Tippe die Stufe auf der Klaviatur an!": {
     fr: "Touchez le degré sur le clavier !",
@@ -1730,7 +1921,8 @@ registerColocatedPhrases({
     pl: "Dotknij szukany stopień na klawiaturze!",
     uk: "Обери ступінь на клавіатурі!",
     ur: "کی بورڈ پر اسکیل درجہ ٹیپ کریں!",
-    tr: "Klavyede dereceye dokun!"
+    tr: "Klavyede dereceye dokun!",
+    ar: "انقر على الدرجة في لوحة المفاتيح!"
   },
   "Tippe die Stufe für Takt {bar}:": {
     fr: "Choisissez le degré pour la mesure {bar} :",
@@ -1739,7 +1931,8 @@ registerColocatedPhrases({
     pl: "Wybierz funkcję dla taktu {bar}:",
     uk: "Обери ступінь для такту {bar}:",
     ur: "بار {bar} کے لیے درجہ منتخب کریں:",
-    tr: "{bar}. ölçü için dereceye dokun:"
+    tr: "{bar}. ölçü için dereceye dokun:",
+    ar: "انقر على الدرجة للمازورة {bar}:"
   },
   "Tippe die gehörte Stufe auf der Klaviatur:": {
     fr: "Touchez le degré entendu sur le clavier :",
@@ -1748,7 +1941,8 @@ registerColocatedPhrases({
     pl: "Wybierz usłyszany stopień na klawiaturze:",
     uk: "Натисни почутий ступінь на клавіатурі:",
     ur: "کی بورڈ پر سنا ہوا درجہ ٹیپ کریں:",
-    tr: "Duyduğun dereceye klavyede dokun:"
+    tr: "Duyduğun dereceye klavyede dokun:",
+    ar: "انقر على الدرجة المسموعة في لوحة المفاتيح:"
   },
   "Tippe weiter oder hör dir den Ton nochmal an!": {
     fr: "Continuez ou réécoutez la note !",
@@ -1757,7 +1951,8 @@ registerColocatedPhrases({
     pl: "Spróbuj jeszcze raz lub powtórz dźwięk!",
     uk: "Спробуй ще або повтори ноту!",
     ur: "کوشش جاری رکھیں یا سُر دوبارہ سنیں!",
-    tr: "Dokunmaya devam et veya sesi tekrar dinle!"
+    tr: "Dokunmaya devam et veya sesi tekrar dinle!",
+    ar: "واصل النقر أو استمع إلى النغمة مرة أخرى!"
   },
   "Tippe weiter oder nutze „Schlag nochmal“ (bzw. das ?-Feld).": {
     fr: "Continuez ou touchez « Rejouer le temps » (ou la carte ?).",
@@ -1766,7 +1961,8 @@ registerColocatedPhrases({
     pl: "Spróbuj jeszcze raz lub użyj „Powtórz miarę” (albo pola ?).",
     uk: "Спробуй ще або натисни «Повторити долю» (чи картку ?).",
     ur: "کوشش جاری رکھیں یا «بیٹ دوبارہ سنیں» (یا ؟ کارڈ) دبائیں۔",
-    tr: "Dokunmaya devam et veya \"Vuruşu tekrar çal\"ı (ya da ? alanını) kullan."
+    tr: "Dokunmaya devam et veya \"Vuruşu tekrar çal\"ı (ya da ? alanını) kullan.",
+    ar: "واصل النقر أو استخدم «إعادة النبضة» (أو خانة ?)."
   },
   "Tippe weiter oder nutze „Ton nochmal“!": {
     fr: "Continuez d’essayer ou touchez « Réécouter » !",
@@ -1775,7 +1971,8 @@ registerColocatedPhrases({
     pl: "Spróbuj ponownie lub kliknij „Powtórz dźwięk”!",
     uk: "Спробуй ще або натисни «Ще раз ноту»!",
     ur: "کوشش جاری رکھیں یا «سُر دوبارہ سنیں» دبائیں!",
-    tr: "Dokunmaya devam et veya \"Sesi tekrar çal\"ı kullan!"
+    tr: "Dokunmaya devam et veya \"Sesi tekrar çal\"ı kullan!",
+    ar: "واصل النقر أو استخدم «إعادة النغمة»!"
   },
   "Tippe „▶ Abspielen“ oder drücke die Leertaste": {
     fr: "Touchez « ▶ Écouter » ou appuyez sur Espace",
@@ -1784,7 +1981,8 @@ registerColocatedPhrases({
     pl: "Naciśnij „▶ Odtwórz” lub Spację",
     uk: "Натисни «▶ Слухати» або клавішу Пробіл",
     ur: "«▶ چلائیں» پر ٹیپ کریں یا اسپیس بار دبائیں",
-    tr: "\"▶ Çal\"a dokun veya boşluk tuşuna bas"
+    tr: "\"▶ Çal\"a dokun veya boşluk tuşuna bas",
+    ar: "انقر «▶ تشغيل» أو اضغط مفتاح المسافة"
   },
   "Ton {n}": {
     fr: "Note {n}",
@@ -1793,7 +1991,8 @@ registerColocatedPhrases({
     pl: "Nuta {n}",
     uk: "Нота {n}",
     ur: "نوٹ {n}",
-    tr: "Ses {n}"
+    tr: "Ses {n}",
+    ar: "النغمة {n}"
   },
   "Tonfolge (2 Töne)": {
     fr: "Suite de 2 notes",
@@ -1802,7 +2001,8 @@ registerColocatedPhrases({
     pl: "Następstwo (2 nuty)",
     uk: "Послідовність (2 ноти)",
     ur: "2 سُروں کا سلسلہ",
-    tr: "Ses dizisi (2 ses)"
+    tr: "Ses dizisi (2 ses)",
+    ar: "تتابع نغمي (نغمتان)"
   },
   "Tonika (Do)": {
     fr: "Tonique (Do)",
@@ -1811,7 +2011,8 @@ registerColocatedPhrases({
     pl: "Tonika (Do)",
     uk: "Тоніка (Do)",
     ur: "ٹانک (Do)",
-    tr: "Tonik (Do)"
+    tr: "Tonik (Do)",
+    ar: "درجة القرار (Do)"
   },
   "Tonleiter": {
     fr: "Gamme",
@@ -1820,7 +2021,8 @@ registerColocatedPhrases({
     pl: "Skala",
     uk: "Гама",
     ur: "اسکیل",
-    tr: "Gam"
+    tr: "Gam",
+    ar: "السلم الموسيقي"
   },
   "Tonpaar (Gleichzeitig)": {
     fr: "Accord de 2 notes",
@@ -1829,7 +2031,8 @@ registerColocatedPhrases({
     pl: "Współbrzmienie (2 nuty)",
     uk: "Інтервал (одночасно)",
     ur: "2 سُروں کا جوڑا",
-    tr: "Ses çifti (Eşzamanlı)"
+    tr: "Ses çifti (Eşzamanlı)",
+    ar: "زوج نغمات (معًا)"
   },
   "Treffer ✓": {
     fr: "Réussi ✓",
@@ -1838,7 +2041,8 @@ registerColocatedPhrases({
     pl: "Trafienie ✓",
     uk: "Влучно ✓",
     ur: "درست ✓",
-    tr: "İsabet ✓"
+    tr: "İsabet ✓",
+    ar: "إصابة ✓"
   },
   "Umkehrung": {
     fr: "Renversement",
@@ -1847,7 +2051,8 @@ registerColocatedPhrases({
     pl: "Przewrót",
     uk: "Обернення",
     ur: "انورژن",
-    tr: "Çevrim"
+    tr: "Çevrim",
+    ar: "الانقلاب"
   },
   "Umkehrung ?": {
     fr: "Renversement ?",
@@ -1856,7 +2061,8 @@ registerColocatedPhrases({
     pl: "Przewrót ?",
     uk: "Обернення ?",
     ur: "اُلٹاؤ ؟",
-    tr: "Çevrim ?"
+    tr: "Çevrim ?",
+    ar: "الانقلاب ؟"
   },
   "Unbearbeitetes Rosa Rauschen – schalte zurück auf Ziel-EQ für den Kontrast": {
     fr: "Bruit rose neutre — repassez sur EQ cible pour comparer",
@@ -1865,7 +2071,8 @@ registerColocatedPhrases({
     pl: "Czysty szum różowy — przełącz z powrotem na „Docelowe EQ” dla porównania",
     uk: "Необроблений рожевий шум — перемкни назад на «Цільовий EQ» для контрасту",
     ur: "خالص پنک نوائز — موازنے کے لیے ہدف EQ پر واپس سوئچ کریں",
-    tr: "İşlenmemiş pembe gürültü – kontrast için Hedef EQ'ya geri dön"
+    tr: "İşlenmemiş pembe gürültü – kontrast için Hedef EQ'ya geri dön",
+    ar: "ضوضاء وردية غير معالَجة – بدّل مجددًا إلى EQ المستهدف للمقارنة"
   },
   "Und …?": {
     fr: "Une idée ?",
@@ -1874,7 +2081,8 @@ registerColocatedPhrases({
     pl: "I jak?",
     uk: "То як?",
     ur: "اور …؟",
-    tr: "Peki …?"
+    tr: "Peki …?",
+    ar: "و…؟"
   },
   "VORSPIEL • SCHLAG {n}/{tot}": {
     fr: "DÉMO • TEMPS {n}/{tot}",
@@ -1883,7 +2091,8 @@ registerColocatedPhrases({
     pl: "WZÓR • MIARA {n}/{tot}",
     uk: "ДЕМО • ДОЛЯ {n}/{tot}",
     ur: "تعارف • بیٹ {n}/{tot}",
-    tr: "ÖN ÇALIM • VURUŞ {n}/{tot}"
+    tr: "ÖN ÇALIM • VURUŞ {n}/{tot}",
+    ar: "عرض تمهيدي • النبضة {n}/{tot}"
   },
   "VORZÄHLER ({n}/4)": {
     fr: "DÉCOMPTE ({n}/4)",
@@ -1892,7 +2101,8 @@ registerColocatedPhrases({
     pl: "ODLICZANIE ({n}/4)",
     uk: "ВІДЛІК ({n}/4)",
     ur: "گنتی ({n}/4)",
-    tr: "ÖN SAYIM ({n}/4)"
+    tr: "ÖN SAYIM ({n}/4)",
+    ar: "عدّ تمهيدي ({n}/4)"
   },
   "VORZÄHLER • {m}": {
     fr: "DÉCOMPTE • {m}",
@@ -1901,7 +2111,8 @@ registerColocatedPhrases({
     pl: "ODLICZANIE • {m}",
     uk: "ВІДЛІК • {m}",
     ur: "گنتی • {m}",
-    tr: "ÖN SAYIM • {m}"
+    tr: "ÖN SAYIM • {m}",
+    ar: "عدّ تمهيدي • {m}"
   },
   "Pendel ?": {
     fr: "Boucle ?",
@@ -1910,7 +2121,8 @@ registerColocatedPhrases({
     pl: "Progresja ?",
     uk: "Зворот ?",
     ur: "لوپ ؟",
-    tr: "Sarkaç ?"
+    tr: "Sarkaç ?",
+    ar: "تأرجح ؟"
   },
   "Verfehlt: {missed} • Extraschläge: {extra} (Toleranz ±{tol} ms)": {
     fr: "Manqués : {missed} • En trop : {extra} (tolérance ±{tol} ms)",
@@ -1919,7 +2131,8 @@ registerColocatedPhrases({
     pl: "Pominięte: {missed} • Dodatkowe: {extra} (tolerancja ±{tol} ms)",
     uk: "Пропущено: {missed} • Зайвих ударів: {extra} (допуск ±{tol} мс)",
     ur: "چوک: {missed} • اضافی ضربیں: {extra} (گنجائش ±{tol} ms)",
-    tr: "Kaçırılan: {missed} • Fazla vuruş: {extra} (Tolerans ±{tol} ms)"
+    tr: "Kaçırılan: {missed} • Fazla vuruş: {extra} (Tolerans ±{tol} ms)",
+    ar: "فائتة: {missed} • نقرات زائدة: {extra} (هامش التسامح ±{tol} ms)"
   },
   "Vergleich (Klick)": {
     fr: "Comparer (Clic)",
@@ -1928,7 +2141,8 @@ registerColocatedPhrases({
     pl: "Porównanie (klik)",
     uk: "Порівняння (клік)",
     ur: "موازنہ (کلک)",
-    tr: "Karşılaştırma (Tık)"
+    tr: "Karşılaştırma (Tık)",
+    ar: "مقارنة (انقر)"
   },
   "Vergleiche beide Modi über demselben Grundton:": {
     fr: "Comparez les deux modes sur la même fondamentale :",
@@ -1937,7 +2151,8 @@ registerColocatedPhrases({
     pl: "Porównaj obie skale od tego samego dźwięku podstawowego:",
     uk: "Порівняй обидва лади від одного основного тону:",
     ur: "ایک ہی بنیادی سُر پر دونوں موڈز کا موازنہ کریں:",
-    tr: "Aynı kök ses üzerinde iki modu karşılaştır:"
+    tr: "Aynı kök ses üzerinde iki modu karşılaştır:",
+    ar: "قارن بين النمطين على نفس النغمة الأساسية:"
   },
   "Vergleiche deine Wahl direkt mit der Ziel-Frequenz:": {
     fr: "Comparez directement votre choix avec la fréquence cible :",
@@ -1946,7 +2161,8 @@ registerColocatedPhrases({
     pl: "Porównaj swój wybór bezpośrednio z szukaną częstotliwością:",
     uk: "Порівняй свій вибір безпосередньо із загаданою частотою:",
     ur: "اپنے انتخاب کا براہِ راست ہدف فریکوئنسی سے موازنہ کریں:",
-    tr: "Seçimini doğrudan hedef frekansla karşılaştır:"
+    tr: "Seçimini doğrudan hedef frekansla karşılaştır:",
+    ar: "قارن اختيارك مباشرة مع التردد المستهدف:"
   },
   "Vergleichen hilft": {
     fr: "Comparer les deux",
@@ -1955,7 +2171,8 @@ registerColocatedPhrases({
     pl: "Porównaj oba",
     uk: "Порівняти обидва",
     ur: "دونوں کا موازنہ",
-    tr: "Karşılaştırmak yardımcı olur"
+    tr: "Karşılaştırmak yardımcı olur",
+    ar: "المقارنة تساعد"
   },
   "Viertel-Puls": {
     fr: "Noires (pulsation)",
@@ -1964,7 +2181,8 @@ registerColocatedPhrases({
     pl: "Puls ćwierćnutowy",
     uk: "Чвертний пульс",
     ur: "کوارٹر نبض",
-    tr: "Dörtlük nabız"
+    tr: "Dörtlük nabız",
+    ar: "نبض السوداء"
   },
   "Vorpuls + Schlag-Muster + Endpuls": {
     fr: "Pulsation d’entrée + figure + pulsation finale",
@@ -1973,7 +2191,8 @@ registerColocatedPhrases({
     pl: "Puls wstępny + wzór miary + miara zamykająca",
     uk: "Ввідний пульс + ритм долі + завершальний удар",
     ur: "ابتدائی نبض + بیٹ پیٹرن + اختتامی نبض",
-    tr: "Ön nabız + Vuruş kalıbı + Son nabız"
+    tr: "Ön nabız + Vuruş kalıbı + Son nabız",
+    ar: "نبض تمهيدي + نمط النبضة + نبض ختامي"
   },
   "Vorzähler: {n}": {
     fr: "Décompte : {n}",
@@ -1982,7 +2201,8 @@ registerColocatedPhrases({
     pl: "Odliczanie: {n}",
     uk: "Відлік: {n}",
     ur: "گنتی: {n}",
-    tr: "Ön sayım: {n}"
+    tr: "Ön sayım: {n}",
+    ar: "العدّ التمهيدي: {n}"
   },
   "Was meinst du?": {
     fr: "Votre avis ?",
@@ -1991,7 +2211,8 @@ registerColocatedPhrases({
     pl: "Co to było?",
     uk: "Що це було?",
     ur: "آپ کا کیا خیال ہے؟",
-    tr: "Sence hangisi?"
+    tr: "Sence hangisi?",
+    ar: "ما رأيك؟"
   },
   "Welche Akkordfarbe ist hängengeblieben? Wähle unten aus.": {
     fr: "Quelle couleur d’accord vous est restée ? Choisissez ci-dessous.",
@@ -2000,7 +2221,8 @@ registerColocatedPhrases({
     pl: "Jaka barwa akordu została Ci w uchu? Wybierz poniżej.",
     uk: "Яка барва акорду прозвучала? Обери нижче.",
     ur: "کس کارڈ کا رنگ ذہن میں رہا؟ نیچے چنیں۔",
-    tr: "Hangi akor rengi aklında kaldı? Aşağıdan seç."
+    tr: "Hangi akor rengi aklında kaldı? Aşağıdan seç.",
+    ar: "أي لون تآلفي بقي في ذهنك؟ اختر بالأسفل."
   },
   "Welche Frequenz wird per EQ angehoben?": {
     fr: "Quelle fréquence est accentuée par l’égaliseur ?",
@@ -2009,7 +2231,8 @@ registerColocatedPhrases({
     pl: "Która częstotliwość została podbita w EQ?",
     uk: "Яку частоту підсилює еквалайзер?",
     ur: "EQ کس فریکوئنسی کو ابھار رہا ہے؟",
-    tr: "Hangi frekans EQ ile yükseltiliyor?"
+    tr: "Hangi frekans EQ ile yükseltiliyor?",
+    ar: "أي تردد يتم تعزيزه عبر المعادل (EQ)؟"
   },
   "Welche Kirchentonart erklingt aufwärts?": {
     fr: "Quel mode écoutez-vous en montant ?",
@@ -2018,7 +2241,8 @@ registerColocatedPhrases({
     pl: "Jaka skala modalna zabrzmiała w górę?",
     uk: "Який лад звучить угору?",
     ur: "کون سا چڑھتا ہوا موڈ بج رہا ہے؟",
-    tr: "Hangi kilise modu çıkıcı olarak çalıyor?"
+    tr: "Hangi kilise modu çıkıcı olarak çalıyor?",
+    ar: "أي نمط موسيقي يُعزف صعودًا؟"
   },
   "Welche Klangfarbe schwang da mit? Wähle den Modus.": {
     fr: "Quelle couleur modale ressortait ? Choisissez le mode.",
@@ -2027,7 +2251,8 @@ registerColocatedPhrases({
     pl: "Jaka barwa trybu zabrzmiała? Wybierz skalę.",
     uk: "Який ладовий відтінок прозвучав? Обери лад.",
     ur: "کون سا موڈل رنگ گونجا؟ نیچے موڈ چنیں۔",
-    tr: "Hangi tını rengi eşlik ediyordu? Modu seç."
+    tr: "Hangi tını rengi eşlik ediyordu? Modu seç.",
+    ar: "أي لون صوتي تردّد هنا؟ اختر النمط."
   },
   "Welche Silbe war Ton {n}? Tippe auf die Tasten (oder „Ton nochmal“).": {
     fr: "Quelle syllabe était la note {n} ? Touchez le clavier (ou « Réécouter »).",
@@ -2036,7 +2261,8 @@ registerColocatedPhrases({
     pl: "Który stopień był nutą {n}? Wskaż na klawiaturze (lub „Powtórz dźwięk”).",
     uk: "Який склад був на ноті {n}? Натисни на клавіші (або «Ще раз ноту»).",
     ur: "نوٹ {n} کون سا درجہ تھا؟ کی بورڈ دبائیں (یا «سُر دوبارہ سنیں»)۔",
-    tr: "{n}. ses hangi heceydi? Tuşlara dokun (veya \"Sesi tekrar çal\")."
+    tr: "{n}. ses hangi heceydi? Tuşlara dokun (veya \"Sesi tekrar çal\").",
+    ar: "أي مقطع صولفيج كانت النغمة {n}؟ انقر على المفاتيح (أو «إعادة النغمة»)."
   },
   "Welche Solfège-Stufe hörst du hier?": {
     fr: "Quel degré de solfège entendez-vous ici ?",
@@ -2045,7 +2271,8 @@ registerColocatedPhrases({
     pl: "Jaki stopień solfeżu słyszysz?",
     uk: "Який ступінь сольфеджіо ти чуєш?",
     ur: "آپ یہاں کون سا سولفیج درجہ سن رہے ہیں؟",
-    tr: "Burada hangi solfej derecesini duyuyorsun?"
+    tr: "Burada hangi solfej derecesini duyuyorsun?",
+    ar: "أي درجة صولفيج تسمع هنا؟"
   },
   "Welche Stufe (Do bis Do) hörst du?": {
     fr: "Quel degré (de Do à Do) entendez-vous ?",
@@ -2054,7 +2281,8 @@ registerColocatedPhrases({
     pl: "Który stopień (od Do do Do) słyszysz?",
     uk: "Який ступінь (від Do до Do) ти чуєш?",
     ur: "آپ کون سا درجہ (Do تا Do) سن رہے ہیں؟",
-    tr: "Hangi dereceyi (Do'dan Do'ya) duyuyorsun?"
+    tr: "Hangi dereceyi (Do'dan Do'ya) duyuyorsun?",
+    ar: "أي درجة (من Do إلى Do) تسمع؟"
   },
   "Welche Stufe erklingt jetzt?": {
     fr: "Quel degré joue maintenant ?",
@@ -2063,7 +2291,8 @@ registerColocatedPhrases({
     pl: "Który stopień teraz brzmi?",
     uk: "Який ступінь звучить зараз?",
     ur: "اب کون سا کارڈ درجہ بج رہا ہے؟",
-    tr: "Şimdi hangi derece çalıyor?"
+    tr: "Şimdi hangi derece çalıyor?",
+    ar: "أي درجة تُعزف الآن؟"
   },
   "Welche Stufe schwingt noch nach? Tippe sie unten an.": {
     fr: "Quel degré résonne encore ? Touchez-le ci-dessous.",
@@ -2072,7 +2301,8 @@ registerColocatedPhrases({
     pl: "Który stopień właśnie zabrzmiał? Wybierz poniżej.",
     uk: "Який ступінь щойно прозвучав? Натисни його нижче.",
     ur: "کون سا کارڈ درجہ گونج رہا ہے؟ نیچے ٹیپ کریں۔",
-    tr: "Hangi derece hâlâ çınlıyor? Aşağıdan dokun."
+    tr: "Hangi derece hâlâ çınlıyor? Aşağıdan dokun.",
+    ar: "أي درجة لا تزال تتردّد في ذهنك؟ انقر عليها بالأسفل."
   },
   "Welche Taktart hörst du?": {
     fr: "Quelle mesure entendez-vous ?",
@@ -2081,7 +2311,8 @@ registerColocatedPhrases({
     pl: "Jakie metrum słyszysz?",
     uk: "Який музичний розмір ти чуєш?",
     ur: "آپ کون سا ٹائم سگنیچر سن رہے ہیں؟",
-    tr: "Hangi ölçü birimini duyuyorsun?"
+    tr: "Hangi ölçü birimini duyuyorsun?",
+    ar: "ما الوزن الإيقاعي الذي تسمعه؟"
   },
   "Welche Tonleiter bzw. Klangfarbe hörst du?": {
     fr: "Quelle gamme ou couleur modale entendez-vous ?",
@@ -2090,7 +2321,8 @@ registerColocatedPhrases({
     pl: "Jaką skalę lub barwę modalną słyszysz?",
     uk: "Яку гаму чи ладову барву ти чуєш?",
     ur: "آپ کون سا موڈ یا اسکیل رنگ سن رہے ہیں؟",
-    tr: "Hangi gamı veya tını rengini duyuyorsun?"
+    tr: "Hangi gamı veya tını rengini duyuyorsun?",
+    ar: "أي سلم أو لون صوتي تسمع؟"
   },
   "Welchen Groove hörst du?": {
     fr: "Quel groove entendez-vous ?",
@@ -2099,7 +2331,8 @@ registerColocatedPhrases({
     pl: "Jaki groove słyszysz?",
     uk: "Який ґрув ти чуєш?",
     ur: "آپ کون سا گروو سن رہے ہیں؟",
-    tr: "Hangi groove'u duyuyorsun?"
+    tr: "Hangi groove'u duyuyorsun?",
+    ar: "أي غروف تسمع؟"
   },
   "Welcher Akkord erklingt jetzt?": {
     fr: "Quel accord joue maintenant ?",
@@ -2108,7 +2341,8 @@ registerColocatedPhrases({
     pl: "Jaki akord teraz słyszysz?",
     uk: "Який акорд звучить зараз?",
     ur: "اب کون سا کارڈ بج رہا ہے؟",
-    tr: "Şimdi hangi akor çalıyor?"
+    tr: "Şimdi hangi akor çalıyor?",
+    ar: "أي تآلف يُعزف الآن؟"
   },
   "Welcher Akkord erklingt?": {
     fr: "Quel type d’accord entendez-vous ?",
@@ -2117,7 +2351,8 @@ registerColocatedPhrases({
     pl: "Jaki rodzaj akordu słyszysz?",
     uk: "Який тип акорду звучить?",
     ur: "کون سا کارڈ سنائی دے رہا ہے؟",
-    tr: "Hangi akor çalıyor?"
+    tr: "Hangi akor çalıyor?",
+    ar: "أي تآلف يُعزف؟"
   },
   "Welcher Akkordton liegt ganz unten im Bass?": {
     fr: "Quelle note de l’accord est tout en bas à la basse ?",
@@ -2126,7 +2361,8 @@ registerColocatedPhrases({
     pl: "Który składnik akordu leży najniżej w basie?",
     uk: "Який акордний тон звучить найнижче в басу?",
     ur: "باس میں سب سے نیچے کارڈ کا کون سا سُر ہے؟",
-    tr: "Hangi akor sesi en altta, basta yer alıyor?"
+    tr: "Hangi akor sesi en altta, basta yer alıyor?",
+    ar: "أي نغمة من التآلف تقع في أسفل الباص؟"
   },
   "Welcher Akkordton liegt im Bass?": {
     fr: "Quelle note d’accord est à la basse ?",
@@ -2135,7 +2371,8 @@ registerColocatedPhrases({
     pl: "Która nuta jest w basie?",
     uk: "Який звук акорду в басу?",
     ur: "باس میں کون سا کارڈ سُر ہے؟",
-    tr: "Hangi akor sesi basta yer alıyor?"
+    tr: "Hangi akor sesi basta yer alıyor?",
+    ar: "أي نغمة من التآلف تقع في الباص؟"
   },
   "Welcher Akkordton saß ganz unten im Bass? Wähle die Umkehrung.": {
     fr: "Quelle note était la plus grave à la basse ? Choisissez le renversement.",
@@ -2144,7 +2381,8 @@ registerColocatedPhrases({
     pl: "Który dźwięk był w basie? Wskaż przewrót akordu.",
     uk: "Яка нота була найнижчою в басу? Обери обернення.",
     ur: "سب سے نیچے باس میں کون سا سُر تھا؟ نیچے اُلٹاؤ چنیں۔",
-    tr: "Hangi akor sesi en altta, bastaydı? Çevrimi seç."
+    tr: "Hangi akor sesi en altta, bastaydı? Çevrimi seç.",
+    ar: "أي نغمة من التآلف كانت في أسفل الباص؟ اختر الانقلاب."
   },
   "Welcher Frequenzbereich erklingt?": {
     fr: "Quelle bande de fréquences entendez-vous ?",
@@ -2153,7 +2391,8 @@ registerColocatedPhrases({
     pl: "Które pasmo częstotliwości słyszysz?",
     uk: "Яка частотна смуга звучить?",
     ur: "کون سا فریکوئنسی بینڈ بج رہا ہے؟",
-    tr: "Hangi frekans aralığı çalıyor?"
+    tr: "Hangi frekans aralığı çalıyor?",
+    ar: "أي نطاق ترددي يُعزف؟"
   },
   "Welcher Groove-Charakter erklingt?": {
     fr: "Quel type de groove entendez-vous ?",
@@ -2162,7 +2401,8 @@ registerColocatedPhrases({
     pl: "Jaki charakter groovu słyszysz?",
     uk: "Який характер ґруву звучить?",
     ur: "کون سا گروو احساس سنائی دے رہا ہے؟",
-    tr: "Hangi groove karakteri çalıyor?"
+    tr: "Hangi groove karakteri çalıyor?",
+    ar: "أي طابع غروف يُعزف؟"
   },
   "Welcher Modus prägt diese Akkordfolge?": {
     fr: "Quel mode colore cette suite d’accords ?",
@@ -2171,7 +2411,8 @@ registerColocatedPhrases({
     pl: "Jaki tryb nadaje charakter tej progresji akordów?",
     uk: "Який лад формує цю акордову послідовність?",
     ur: "اس کارڈ لوپ پر کون سا موڈ غالب ہے؟",
-    tr: "Bu akor dizisine hangi mod karakterini veriyor?"
+    tr: "Bu akor dizisine hangi mod karakterini veriyor?",
+    ar: "أي نمط يميّز هذا التتابع التآلفي؟"
   },
   "Welcher Modus steckt in diesem Charakterton?": {
     fr: "Quel mode correspond à cette note caractéristique ?",
@@ -2180,7 +2421,8 @@ registerColocatedPhrases({
     pl: "Który tryb kryje się za tym dźwiękiem charakterystycznym?",
     uk: "Який лад криється в цьому характерному звуці?",
     ur: "اس امتیازی سُر میں کون سا موڈ چھپا ہے؟",
-    tr: "Bu karakter sesinin arkasında hangi mod var?"
+    tr: "Bu karakter sesinin arkasında hangi mod var?",
+    ar: "أي نمط يكمن في هذه النغمة المميزة؟"
   },
   "Welcher Rhythmus-Baustein erklingt auf diesem Schlag?": {
     fr: "Quelle figure rythmique joue sur ce temps ?",
@@ -2189,7 +2431,8 @@ registerColocatedPhrases({
     pl: "Jaka figura rytmiczna brzmi na tej mierze?",
     uk: "Яка ритмічна фігура звучить на цій долі?",
     ur: "اس بیٹ پر کون سا ردھم سیل بج رہا ہے؟",
-    tr: "Bu vuruşta hangi ritim yapı taşı çalıyor?"
+    tr: "Bu vuruşta hangi ritim yapı taşı çalıyor?",
+    ar: "أي وحدة إيقاعية تُعزف على هذه النبضة؟"
   },
   "Welcher modale Klang prägt diese Akkordfolge?": {
     fr: "Quelle couleur modale porte cette grille d’accords ?",
@@ -2198,7 +2441,8 @@ registerColocatedPhrases({
     pl: "Jakie brzmienie modalne słychać w tym zwrocie?",
     uk: "Який модальний характер забарвлює цей зворот?",
     ur: "اس سلسلے کو کون سا موڈل رنگ سنوارتا ہے؟",
-    tr: "Bu akor dizisine hangi modal tını karakterini veriyor?"
+    tr: "Bu akor dizisine hangi modal tını karakterini veriyor?",
+    ar: "أي طابع نمطي يميّز هذا التتابع التآلفي؟"
   },
   "Welches Intervall erklingt abwärts?": {
     fr: "Quel intervalle descendant entendez-vous ?",
@@ -2207,7 +2451,8 @@ registerColocatedPhrases({
     pl: "Jaki interwał w dół słyszysz?",
     uk: "Який низхідний інтервал ти чуєш?",
     ur: "کون سا اترتا ہوا انٹرول بج رہا ہے؟",
-    tr: "İnici olarak hangi aralık çalıyor?"
+    tr: "İnici olarak hangi aralık çalıyor?",
+    ar: "أي مسافة موسيقية تُعزف هبوطًا؟"
   },
   "Welches Intervall erklingt aufwärts?": {
     fr: "Quel intervalle ascendant entendez-vous ?",
@@ -2216,7 +2461,8 @@ registerColocatedPhrases({
     pl: "Jaki interwał w górę słyszysz?",
     uk: "Який висхідний інтервал ти чуєш?",
     ur: "کون سا چڑھتا ہوا انٹرول بج رہا ہے؟",
-    tr: "Çıkıcı olarak hangi aralık çalıyor?"
+    tr: "Çıkıcı olarak hangi aralık çalıyor?",
+    ar: "أي مسافة موسيقية تُعزف صعودًا؟"
   },
   "Welches Intervall erklingt jetzt?": {
     fr: "Quel intervalle joue maintenant ?",
@@ -2225,7 +2471,8 @@ registerColocatedPhrases({
     pl: "Jaki interwał teraz słyszysz?",
     uk: "Який інтервал звучить зараз?",
     ur: "اب کون سا انٹرول بج رہا ہے؟",
-    tr: "Şimdi hangi aralık çalıyor?"
+    tr: "Şimdi hangi aralık çalıyor?",
+    ar: "أي مسافة موسيقية تُعزف الآن؟"
   },
   "Welches Intervall erklingt?": {
     fr: "Quel intervalle harmonique entendez-vous ?",
@@ -2234,7 +2481,8 @@ registerColocatedPhrases({
     pl: "Jaki interwał harmoniczny słyszysz?",
     uk: "Який гармонічний інтервал ти чуєш?",
     ur: "کون سا ہارمونک انٹرول بج رہا ہے؟",
-    tr: "Hangi aralık çalıyor?"
+    tr: "Hangi aralık çalıyor?",
+    ar: "أي مسافة موسيقية تُعزف؟"
   },
   "Welches Muster lag auf Schlag {n}? Wähle unten (oder „Schlag nochmal“).": {
     fr: "Quelle figure tombait sur le temps {n} ? Choisissez ci-dessous (ou « Rejouer le temps »).",
@@ -2243,7 +2491,8 @@ registerColocatedPhrases({
     pl: "Jaka figura brzmiała na mierze {n}? Wybierz poniżej (lub „Powtórz miarę”).",
     uk: "Яка фігура була на долі {n}? Обери нижче (або «Повторити долю»).",
     ur: "بیٹ {n} پر کون سا پیٹرن تھا؟ نیچے چنیں (یا «بیٹ دوبارہ سنیں»)۔",
-    tr: "{n}. vuruşta hangi kalıp vardı? Aşağıdan seç (veya \"Vuruşu tekrar çal\")."
+    tr: "{n}. vuruşta hangi kalıp vardı? Aşağıdan seç (veya \"Vuruşu tekrar çal\").",
+    ar: "أي نمط كان على النبضة {n}؟ اختر بالأسفل (أو «إعادة النبضة»)."
   },
   "Wie hat der Groove für dich geatmet? Wähle unten aus.": {
     fr: "Comment ce groove respirait-il ? Choisissez votre réponse ci-dessous.",
@@ -2252,7 +2501,8 @@ registerColocatedPhrases({
     pl: "Jak oddychał ten groove? Wybierz poniżej.",
     uk: "Як дихав цей ґрув? Обери відповідь нижче.",
     ur: "گروو کا انداز کیسا لگا؟ نیچے جواب منتخب کریں۔",
-    tr: "Groove sana nasıl nefes alıyormuş gibi geldi? Aşağıdan seç."
+    tr: "Groove sana nasıl nefes alıyormuş gibi geldi? Aşağıdan seç.",
+    ar: "كيف شعرت بنبض الغروف؟ اختر بالأسفل."
   },
   "Wie weit fühlte sich der Abstand an? Wähle das Intervall.": {
     fr: "Quelle distance avez-vous ressentie ? Choisissez l’intervalle.",
@@ -2261,7 +2511,8 @@ registerColocatedPhrases({
     pl: "Jak szeroka była odległość między dźwiękami? Wybierz interwał.",
     uk: "Якою відчулася відстань? Обери інтервал нижче.",
     ur: "فاصلہ کتنا محسوس ہوا؟ نیچے انٹرول چنیں۔",
-    tr: "Mesafe ne kadar geniş hissettirdi? Aralığı seç."
+    tr: "Mesafe ne kadar geniş hissettirdi? Aralığı seç.",
+    ar: "كم بدت المسافة بعيدة؟ اختر المسافة الموسيقية."
   },
   "Wo lag die betonte Eins? Wähle die passende Taktart.": {
     fr: "Où tombait l’appui du premier temps ? Choisissez la mesure.",
@@ -2270,7 +2521,8 @@ registerColocatedPhrases({
     pl: "Gdzie znajdowała się akcentowana „raz”? Wybierz metrum.",
     uk: "Де була сильна перша доля? Обери відповідний розмір.",
     ur: "زوردار پہلی بیٹ کہاں آئی؟ نیچے تال منتخب کریں۔",
-    tr: "Vurgulu birinci vuruş neredeydi? Uygun ölçü birimini seç."
+    tr: "Vurgulu birinci vuruş neredeydi? Uygun ölçü birimini seç.",
+    ar: "أين كانت النبضة الأولى المشددة؟ اختر الوزن الإيقاعي المناسب."
   },
   "Wo sitzt der Cowbell-Schlag (1, 1-und … 4-und)?": {
     fr: "Où se place le coup de cloche (1, 1-et … 4-et) ?",
@@ -2279,7 +2531,8 @@ registerColocatedPhrases({
     pl: "Gdzie brzmi uderzenie cowbella (1, 1-i … 4-i)?",
     uk: "Де розташовано акцент ковбелла (1, 1-і … 4-і)?",
     ur: "کاؤ بیل کی ضرب کہاں ہے (1، 1-اور … 4-اور)؟",
-    tr: "Cowbell vuruşu nerede (1, 1-ve … 4-ve)?"
+    tr: "Cowbell vuruşu nerede (1, 1-ve … 4-ve)?",
+    ar: "أين تقع ضربة الجرس الإيقاعي (1، 1-و … 4-و)؟"
   },
   "Wo sitzt dieser Ton in der Tonleiter? Tippe auf die Taste.": {
     fr: "Où se situe cette note dans la gamme ? Touchez la bonne touche.",
@@ -2288,7 +2541,8 @@ registerColocatedPhrases({
     pl: "Gdzie leży ten dźwięk w skali? Naciśnij klawisz.",
     uk: "Де розташований цей звук у гамі? Натисни потрібну клавішу.",
     ur: "یہ سُر اسکیل میں کہاں ہے؟ متعلقہ کی دبائیں۔",
-    tr: "Bu ses gamın neresinde yer alıyor? Tuşa dokun."
+    tr: "Bu ses gamın neresinde yer alıyor? Tuşa dokun.",
+    ar: "أين تقع هذه النغمة في السلم؟ انقر على المفتاح."
   },
   "Wähle unten deine Antwort – oder hör’s dir noch einmal an.": {
     fr: "Choisissez votre réponse ci-dessous — ou réécoutez à volonté.",
@@ -2297,7 +2551,8 @@ registerColocatedPhrases({
     pl: "Wybierz odpowiedź poniżej albo posłuchaj jeszcze raz.",
     uk: "Обери відповідь нижче — або послухай ще раз.",
     ur: "نیچے جواب چنیں — یا دوبارہ سنیں۔",
-    tr: "Aşağıdan cevabını seç – ya da bir kez daha dinle."
+    tr: "Aşağıdan cevabını seç – ya da bir kez daha dinle.",
+    ar: "اختر إجابتك بالأسفل – أو استمع إليها مرة أخرى."
   },
   "Ziel-EQ (Klick)": {
     fr: "EQ cible (Clic)",
@@ -2306,7 +2561,8 @@ registerColocatedPhrases({
     pl: "Docelowe EQ (klik)",
     uk: "Цільовий EQ (клік)",
     ur: "ہدف EQ (کلک)",
-    tr: "Hedef EQ (Tık)"
+    tr: "Hedef EQ (Tık)",
+    ar: "EQ المستهدف (انقر)"
   },
   "Ziel: Takt 2": {
     fr: "Cible : Mesure 2",
@@ -2315,7 +2571,8 @@ registerColocatedPhrases({
     pl: "Cel: Takt 2",
     uk: "Ціль: такт 2",
     ur: "ہدف: بار 2",
-    tr: "Hedef: 2. ölçü"
+    tr: "Hedef: 2. ölçü",
+    ar: "الهدف: المازورة 2"
   },
   "Ziel: Takt 4": {
     fr: "Cible : Mesure 4",
@@ -2324,7 +2581,8 @@ registerColocatedPhrases({
     pl: "Cel: Takt 4",
     uk: "Ціль: такт 4",
     ur: "ہدف: بار 4",
-    tr: "Hedef: 4. ölçü"
+    tr: "Hedef: 4. ölçü",
+    ar: "الهدف: المازورة 4"
   },
   "Ziel: Ton 2 ↗": {
     fr: "Cible : Note 2 ↗",
@@ -2333,7 +2591,8 @@ registerColocatedPhrases({
     pl: "Cel: Nuta 2 ↗",
     uk: "Ціль: нота 2 ↗",
     ur: "ہدف: نوٹ 2 ↗",
-    tr: "Hedef: 2. ses ↗"
+    tr: "Hedef: 2. ses ↗",
+    ar: "الهدف: النغمة 2 ↗"
   },
   "Ziel: Ton 2 ↘": {
     fr: "Cible : Note 2 ↘",
@@ -2342,7 +2601,8 @@ registerColocatedPhrases({
     pl: "Cel: Nuta 2 ↘",
     uk: "Ціль: нота 2 ↘",
     ur: "ہدف: نوٹ 2 ↘",
-    tr: "Hedef: 2. ses ↘"
+    tr: "Hedef: 2. ses ↘",
+    ar: "الهدف: النغمة 2 ↘"
   },
   "Zielton alle 3 Sekunden wiederholen (Loop)": {
     fr: "Répéter la note cible toutes les 3 secondes (Boucle)",
@@ -2351,7 +2611,8 @@ registerColocatedPhrases({
     pl: "Powtarzaj szukany dźwięk co 3 sekundy (pętla)",
     uk: "Повторювати загадану ноту кожні 3 секунди (по колу)",
     ur: "ہدف نوٹ ہر 3 سیکنڈ بعد دہرائیں (لوپ)",
-    tr: "Hedef sesi her 3 saniyede bir tekrarla (Döngü)"
+    tr: "Hedef sesi her 3 saniyede bir tekrarla (Döngü)",
+    ar: "تكرار النغمة المستهدفة كل 3 ثوانٍ (تكرار مستمر)"
   },
   "Zielton-Loop umschalten": {
     fr: "Activer/désactiver la boucle de la note cible",
@@ -2360,7 +2621,8 @@ registerColocatedPhrases({
     pl: "Włącz lub wyłącz powtarzanie szukanego dźwięku",
     uk: "Увімкнути або вимкнути повтор цільової ноти",
     ur: "ہدف نوٹ لوپ آن/آف کریں",
-    tr: "Hedef ses döngüsünü aç/kapat"
+    tr: "Hedef ses döngüsünü aç/kapat",
+    ar: "تبديل تكرار النغمة المستهدفة"
   },
   "Zufall • Takt {bar}": {
     fr: "Aléatoire • Mesure {bar}",
@@ -2369,7 +2631,8 @@ registerColocatedPhrases({
     pl: "Losowy • Takt {bar}",
     uk: "Випадково • Такт {bar}",
     ur: "بے ترتیب • بار {bar}",
-    tr: "Rastgele • Ölçü {bar}"
+    tr: "Rastgele • Ölçü {bar}",
+    ar: "عشوائي • المازورة {bar}"
   },
   "Zusammenklang": {
     fr: "Dyade",
@@ -2378,7 +2641,8 @@ registerColocatedPhrases({
     pl: "Współbrzmienie",
     uk: "Співзвуччя",
     ur: "جوڑا (Dyad)",
-    tr: "Birlikte tını"
+    tr: "Birlikte tını",
+    ar: "عزف متزامن"
   },
   "Zwischen EQ-Boost und neutralem Pink Noise (Bypass) fließend umschalten": {
     fr: "Basculer en douceur entre le boost EQ et le bruit rose neutre (Bypass)",
@@ -2387,7 +2651,8 @@ registerColocatedPhrases({
     pl: "Przełączaj płynnie między podbiciem EQ a neutralnym szumem różowym (Bypass)",
     uk: "Плавно перемикайся між підсиленням EQ та чистим рожевим шумом (байпас)",
     ur: "EQ بوسٹ اور غیر جانبدار پنک نوائز (بائی پاس) کے درمیان روانی سے بدلیں",
-    tr: "EQ yükseltme ile nötr pembe gürültü (Bypass) arasında akıcı geçiş yap"
+    tr: "EQ yükseltme ile nötr pembe gürültü (Bypass) arasında akıcı geçiş yap",
+    ar: "التبديل بسلاسة بين تعزيز EQ والضوضاء الوردية المحايدة (تجاوز)"
   },
   "{exact} exakt, {close} knapp • Avg {avg} ms": {
     fr: "{exact} exacts, {close} justes • Moy. {avg} ms",
@@ -2396,7 +2661,8 @@ registerColocatedPhrases({
     pl: "{exact} w punkt, {close} blisko • Śr. {avg} ms",
     uk: "{exact} точно, {close} близько • Середн. {avg} мс",
     ur: "{exact} بالکل درست، {close} قریب • اوسط {avg} ms",
-    tr: "{exact} tam, {close} yakın • Ort. {avg} ms"
+    tr: "{exact} tam, {close} yakın • Ort. {avg} ms",
+    ar: "{exact} دقيقة، {close} قريبة • المتوسط {avg} ms"
   },
   "{hit}/{tot} Treffer": {
     fr: "{hit}/{tot} touchés",
@@ -2405,7 +2671,8 @@ registerColocatedPhrases({
     pl: "{hit}/{tot} trafień",
     uk: "{hit}/{tot} влучань",
     ur: "{hit}/{tot} درست",
-    tr: "{hit}/{tot} isabet"
+    tr: "{hit}/{tot} isabet",
+    ar: "{hit}/{tot} إصابة"
   },
   "{n} in Folge – starker Fokus!": {
     fr: "{n} de suite — concentration maximale !",
@@ -2414,7 +2681,8 @@ registerColocatedPhrases({
     pl: "{n} z rzędu — świetne skupienie!",
     uk: "{n} поспіль — чудова концентрація!",
     ur: "لگاتار {n} — زبردست توجہ!",
-    tr: "Üst üste {n} – güçlü odak!"
+    tr: "Üst üste {n} – güçlü odak!",
+    ar: "{n} على التوالي – تركيز قوي!"
   },
   "■ Stopp": {
     fr: "■ Stop",
@@ -2423,7 +2691,8 @@ registerColocatedPhrases({
     pl: "■ Stop",
     uk: "■ Стоп",
     ur: "■ رکیں",
-    tr: "■ Durdur"
+    tr: "■ Durdur",
+    ar: "■ إيقاف"
   },
   "✓ Exakt": {
     fr: "✓ Exact",
@@ -2432,7 +2701,8 @@ registerColocatedPhrases({
     pl: "✓ Równo",
     uk: "✓ Точно",
     ur: "✓ بالکل درست",
-    tr: "✓ Tam"
+    tr: "✓ Tam",
+    ar: "✓ دقيق"
   },
   "✓ Pause": {
     fr: "✓ Soupir",
@@ -2441,7 +2711,8 @@ registerColocatedPhrases({
     pl: "✓ Pauza",
     uk: "✓ Пауза",
     ur: "✓ وقفہ",
-    tr: "✓ Es"
+    tr: "✓ Es",
+    ar: "✓ سكتة"
   },
   "✦ {n} in Folge": {
     fr: "✦ {n} de suite",
@@ -2450,7 +2721,8 @@ registerColocatedPhrases({
     pl: "✦ {n} z rzędu",
     uk: "✦ {n} поспіль",
     ur: "✦ لگاتار {n}",
-    tr: "✦ Üst üste {n}"
+    tr: "✦ Üst üste {n}",
+    ar: "✦ {n} على التوالي"
   },
   "Achtel": {
     fr: "Croche",
@@ -2459,7 +2731,8 @@ registerColocatedPhrases({
     pl: "Ósemka",
     uk: "Восьма",
     ur: "آٹھواں",
-    tr: "Sekizlik"
+    tr: "Sekizlik",
+    ar: "ذات السن"
   },
   "Alle Töne erfasst ✓": {
     fr: "Toutes les notes enregistrées ✓",
@@ -2468,7 +2741,8 @@ registerColocatedPhrases({
     pl: "Wszystkie nuty zapisane ✓",
     uk: "Усі ноти зафіксовано ✓",
     ur: "تمام نوٹس درج ہو گئے ✓",
-    tr: "Tüm sesler yakalandı ✓"
+    tr: "Tüm sesler yakalandı ✓",
+    ar: "تم إدخال جميع النغمات ✓"
   },
   "Alle {tot} Fragezeichen gelöst – weiter geht’s!": {
     fr: "Les {tot} points d’interrogation résolus — on continue !",
@@ -2477,7 +2751,8 @@ registerColocatedPhrases({
     pl: "Wszystkie {tot} nut odgadnięte — jedziemy dalej!",
     uk: "Усі {tot} нот розгадано — рухаємося далі!",
     ur: "تمام {tot} سوالیہ نشان حل ہو گئے — آگے بڑھیں!",
-    tr: "Tüm {tot} soru işareti çözüldü – devam!"
+    tr: "Tüm {tot} soru işareti çözüldü – devam!",
+    ar: "تم حل جميع علامات الاستفهام ({tot}) – لنواصل!"
   },
   "EINZÄHLER • {meter}": {
     fr: "DÉCOMPTE • {meter}",
@@ -2486,7 +2761,8 @@ registerColocatedPhrases({
     pl: "ODLICZANIE • {meter}",
     uk: "ВІДЛІК • {meter}",
     ur: "گنتی • {meter}",
-    tr: "ÖN SAYIM • {meter}"
+    tr: "ÖN SAYIM • {meter}",
+    ar: "عدّ تمهيدي • {meter}"
   },
   "Fühle den Puls… gleich startet die Melodie": {
     fr: "Sentez la pulsation… la mélodie démarre sur le 1",
@@ -2495,7 +2771,8 @@ registerColocatedPhrases({
     pl: "Poczuj puls… za chwilę rusza melodia",
     uk: "Відчуй пульс… зараз стартує мелодія",
     ur: "نبض محسوس کریں… دھن ابھی 1 پر شروع ہوگی",
-    tr: "Nabzı hisset… melodi birazdan başlıyor"
+    tr: "Nabzı hisset… melodi birazdan başlıyor",
+    ar: "اشعر بالنبض… سيبدأ اللحن حالًا"
   },
   "Halbe": {
     fr: "Blanche",
@@ -2504,7 +2781,8 @@ registerColocatedPhrases({
     pl: "Półnuta",
     uk: "Половинна",
     ur: "ہاف نوٹ",
-    tr: "İkilik"
+    tr: "İkilik",
+    ar: "بيضاء"
   },
   "Hör mit dem Puls genau hin oder probiere „Ton nochmal“!": {
     fr: "Écoutez attentivement avec la pulsation ou essayez « Répéter la note » !",
@@ -2513,7 +2791,8 @@ registerColocatedPhrases({
     pl: "Wsłuchaj się w puls lub kliknij „Powtórz dźwięk”!",
     uk: "Прислухайся до пульсу або натисни «Ще раз ноту»!",
     ur: "نبض کے ساتھ غور سے سنیں یا «سُر دوبارہ سنیں» آزمائیں!",
-    tr: "Nabızla birlikte dikkatle dinle veya \"Sesi tekrar çal\"ı dene!"
+    tr: "Nabızla birlikte dikkatle dinle veya \"Sesi tekrar çal\"ı dene!",
+    ar: "استمع جيدًا مع النبض أو جرّب «إعادة النغمة»!"
   },
   "Höre Tonhöhe & Länge relativ zum Puls!": {
     fr: "Écoutez la hauteur et la durée par rapport à la pulsation !",
@@ -2522,7 +2801,8 @@ registerColocatedPhrases({
     pl: "Słuchaj wysokości i długości względem pulsu!",
     uk: "Слухай висоту та тривалість відносно пульсу!",
     ur: "نبض کے لحاظ سے سُر اور لمبائی دونوں پر دھیان دیں!",
-    tr: "Nabza göre ses perdesini ve uzunluğunu dinle!"
+    tr: "Nabza göre ses perdesini ve uzunluğunu dinle!",
+    ar: "استمع إلى طبقة النغمة ومدتها نسبةً إلى النبض!"
   },
   "Jetzt gesucht: Ton {n} von {tot}": {
     fr: "Recherchée maintenant : note {n} sur {tot}",
@@ -2531,7 +2811,8 @@ registerColocatedPhrases({
     pl: "Teraz szukana: nuta {n} z {tot}",
     uk: "Тепер шукаємо: нота {n} з {tot}",
     ur: "اب مطلوبہ: {tot} میں سے نوٹ {n}",
-    tr: "Şimdi aranan: {tot} sesten {n}. ses"
+    tr: "Şimdi aranan: {tot} sesten {n}. ses",
+    ar: "المطلوب الآن: النغمة {n} من {tot}"
   },
   "Jetzt noch den passenden Notenwert darüber wählen!": {
     fr: "Choisissez maintenant la valeur rythmique correspondante au-dessus !",
@@ -2540,7 +2821,8 @@ registerColocatedPhrases({
     pl: "Teraz wybierz właściwą wartość rytmiczną powyżej!",
     uk: "Тепер обери відповідну тривалість ноти вгорі!",
     ur: "اب اوپر سے درست نوٹ ویلیو چنیں!",
-    tr: "Şimdi üstten uygun nota değerini de seç!"
+    tr: "Şimdi üstten uygun nota değerini de seç!",
+    ar: "اختر الآن القيمة الزمنية المناسبة بالأعلى!"
   },
   "Jetzt noch die Tonhöhe unten auf der Klaviatur tippen!": {
     fr: "Touchez maintenant la hauteur sur le clavier ci-dessous !",
@@ -2549,7 +2831,8 @@ registerColocatedPhrases({
     pl: "Teraz wskaż wysokość dźwięku na klawiaturze poniżej!",
     uk: "Тепер натисни висоту звуку на клавіатурі нижче!",
     ur: "اب نیچے کی بورڈ پر درست سُر ٹیپ کریں!",
-    tr: "Şimdi alttaki klavyeden ses perdesine de dokun!"
+    tr: "Şimdi alttaki klavyeden ses perdesine de dokun!",
+    ar: "انقر الآن على طبقة النغمة بالأسفل في لوحة المفاتيح!"
   },
   "MELODIE GELÖST! ({tot}/{tot})": {
     fr: "MÉLODIE RÉSOLUE ! ({tot}/{tot})",
@@ -2558,7 +2841,8 @@ registerColocatedPhrases({
     pl: "MELODIA ODGADNIĘTA! ({tot}/{tot})",
     uk: "МЕЛОДІЮ РОЗГАДАНО! ({tot}/{tot})",
     ur: "دھن حل ہو گئی! ({tot}/{tot})",
-    tr: "MELODİ ÇÖZÜLDÜ! ({tot}/{tot})"
+    tr: "MELODİ ÇÖZÜLDÜ! ({tot}/{tot})",
+    ar: "تم حل اللحن! ({tot}/{tot})"
   },
   "MELODIE • TON {n}/{tot}": {
     fr: "MÉLODIE • NOTE {n}/{tot}",
@@ -2567,7 +2851,8 @@ registerColocatedPhrases({
     pl: "MELODIA • NUTA {n}/{tot}",
     uk: "МЕЛОДІЯ • НОТА {n}/{tot}",
     ur: "دھن • نوٹ {n}/{tot}",
-    tr: "MELODİ • SES {n}/{tot}"
+    tr: "MELODİ • SES {n}/{tot}",
+    ar: "اللحن • النغمة {n}/{tot}"
   },
   "Melodie-Phrase": {
     fr: "Phrase mélodique",
@@ -2576,7 +2861,8 @@ registerColocatedPhrases({
     pl: "Fraza melodyczna",
     uk: "Мелодична фраза",
     ur: "دھن کی فریز",
-    tr: "Melodi cümlesi"
+    tr: "Melodi cümlesi",
+    ar: "جملة لحنية"
   },
   "Melodiediktat": {
     fr: "Dictée mélodique",
@@ -2585,7 +2871,8 @@ registerColocatedPhrases({
     pl: "Dyktando melodyczne",
     uk: "Мелодичний диктант",
     ur: "دھن ڈکٹیشن",
-    tr: "Melodi diktesi"
+    tr: "Melodi diktesi",
+    ar: "إملاء لحني"
   },
   "Melodiediktat ({bpm} BPM) • Höre Tonhöhe & Länge": {
     fr: "Dictée mélodique ({bpm} BPM) • Hauteur & durée",
@@ -2594,7 +2881,8 @@ registerColocatedPhrases({
     pl: "Dyktando melodyczne ({bpm} BPM) • Wysokość i rytm",
     uk: "Мелодичний диктант ({bpm} BPM) • Висота й тривалість",
     ur: "دھن ڈکٹیشن ({bpm} BPM) • سُر اور دورانیہ سنیں",
-    tr: "Melodi diktesi ({bpm} BPM) • Ses perdesi ve uzunluğu dinle"
+    tr: "Melodi diktesi ({bpm} BPM) • Ses perdesi ve uzunluğu dinle",
+    ar: "إملاء لحني ({bpm} BPM) • استمع إلى طبقة النغمة ومدتها"
   },
   "Notenwert stimmt schon — wähle noch die Tonhöhe auf der Klaviatur!": {
     fr: "La durée est déjà bonne — choisissez encore la hauteur au clavier !",
@@ -2603,7 +2891,8 @@ registerColocatedPhrases({
     pl: "Wartość nuty jest dobra — wskaż jeszcze wysokość na klawiaturze!",
     uk: "Тривалість вже правильна — обери висоту на клавіатурі!",
     ur: "نوٹ کی لمبائی درست ہے — اب کی بورڈ پر سُر منتخب کریں!",
-    tr: "Nota değeri doğru — şimdi klavyeden ses perdesini seç!"
+    tr: "Nota değeri doğru — şimdi klavyeden ses perdesini seç!",
+    ar: "القيمة الزمنية صحيحة — اختر الآن طبقة النغمة على لوحة المفاتيح!"
   },
   "Notenwert wählen:": {
     fr: "Choisir la valeur :",
@@ -2612,7 +2901,8 @@ registerColocatedPhrases({
     pl: "Wybierz wartość rytmiczną:",
     uk: "Обрати тривалість:",
     ur: "نوٹ ویلیو چنیں:",
-    tr: "Nota değerini seç:"
+    tr: "Nota değerini seç:",
+    ar: "اختر القيمة الزمنية:"
   },
   "Notenwert ✓ ({val}) — jetzt Tonhöhe": {
     fr: "Durée ✓ ({val}) — puis la hauteur",
@@ -2621,7 +2911,8 @@ registerColocatedPhrases({
     pl: "Wartość ✓ ({val}) — teraz wysokość",
     uk: "Тривалість ✓ ({val}) — далі висота",
     ur: "لمبائی ✓ ({val}) — اب سُر چنیں",
-    tr: "Nota değeri ✓ ({val}) — şimdi ses perdesi"
+    tr: "Nota değeri ✓ ({val}) — şimdi ses perdesi",
+    ar: "القيمة الزمنية ✓ ({val}) — الآن طبقة النغمة"
   },
   "Notenwert: {val} — jetzt Tonhöhe wählen": {
     fr: "Valeur : {val} — choisir la hauteur",
@@ -2630,7 +2921,8 @@ registerColocatedPhrases({
     pl: "Wartość: {val} — wybierz wysokość",
     uk: "Тривалість: {val} — обери висоту",
     ur: "لمبائی: {val} — اب سُر منتخب کریں",
-    tr: "Nota değeri: {val} — şimdi ses perdesini seç"
+    tr: "Nota değeri: {val} — şimdi ses perdesini seç",
+    ar: "القيمة الزمنية: {val} — اختر الآن طبقة النغمة"
   },
   "Nächste Melodie nach Lösung automatisch abspielen": {
     fr: "Jouer automatiquement la mélodie suivante après résolution",
@@ -2639,7 +2931,8 @@ registerColocatedPhrases({
     pl: "Automatycznie odtwarzaj kolejną melodię po rozwiązaniu",
     uk: "Автоматично вмикати наступну мелодію після розв’язання",
     ur: "حل ہونے پر اگلی دھن خودکار چلائیں",
-    tr: "Çözümden sonra sonraki melodiyi otomatik çal"
+    tr: "Çözümden sonra sonraki melodiyi otomatik çal",
+    ar: "تشغيل اللحن التالي تلقائيًا بعد الحل"
   },
   "Pause davor": {
     fr: "Silence avant",
@@ -2648,7 +2941,8 @@ registerColocatedPhrases({
     pl: "Pauza przed nutą",
     uk: "Пауза перед нотою",
     ur: "اس سے پہلے وقفہ",
-    tr: "Öncesinde es"
+    tr: "Öncesinde es",
+    ar: "سكتة قبلها"
   },
   "Punkt. Viertel": {
     fr: "Noire pointée",
@@ -2657,7 +2951,8 @@ registerColocatedPhrases({
     pl: "Ćw. z kropką",
     uk: "Чверть з кр.",
     ur: "ڈاٹڈ کوارٹر",
-    tr: "Noktalı dörtlük"
+    tr: "Noktalı dörtlük",
+    ar: "سوداء منقوطة"
   },
   "TON {n} VON {tot} (EINZELN)": {
     fr: "NOTE {n} SUR {tot} (ISOLÉE)",
@@ -2666,7 +2961,8 @@ registerColocatedPhrases({
     pl: "NUTA {n} Z {tot} (OSOBNO)",
     uk: "НОТА {n} З {tot} (ОКРЕМО)",
     ur: "{tot} میں سے نوٹ {n} (انفرادی)",
-    tr: "{tot} SESTEN {n}. SES (TEKLİ)"
+    tr: "{tot} SESTEN {n}. SES (TEKLİ)",
+    ar: "النغمة {n} من {tot} (منفردة)"
   },
   "TON {n} VON {tot} • DEIN TIPP": {
     fr: "NOTE {n} SUR {tot} • VOTRE CHOIX",
@@ -2675,7 +2971,8 @@ registerColocatedPhrases({
     pl: "NUTA {n} Z {tot} • TWÓJ WYBÓR",
     uk: "НОТА {n} З {tot} • ТВІЙ ВАРІАНТ",
     ur: "{tot} میں سے نوٹ {n} • آپ کا انتخاب",
-    tr: "{tot} SESTEN {n}. SES • TAHMİNİN"
+    tr: "{tot} SESTEN {n}. SES • TAHMİNİN",
+    ar: "النغمة {n} من {tot} • إجابتك"
   },
   "TON {n} VON {tot} • NOCH NICHT": {
     fr: "NOTE {n} SUR {tot} • PAS ENCORE",
@@ -2684,7 +2981,8 @@ registerColocatedPhrases({
     pl: "NUTA {n} Z {tot} • JESZCZE NIE",
     uk: "НОТА {n} З {tot} • ЩЕ НІ",
     ur: "{tot} میں سے نوٹ {n} • ابھی نہیں",
-    tr: "{tot} SESTEN {n}. SES • HENÜZ DEĞİL"
+    tr: "{tot} SESTEN {n}. SES • HENÜZ DEĞİL",
+    ar: "النغمة {n} من {tot} • ليس بعد"
   },
   "TON {n} VON {tot} • NOTENWERT NOCH NICHT": {
     fr: "NOTE {n} SUR {tot} • MAUVAISE DURÉE",
@@ -2693,7 +2991,8 @@ registerColocatedPhrases({
     pl: "NUTA {n} Z {tot} • ZŁA WARTOŚĆ",
     uk: "НОТА {n} З {tot} • НЕ ТА ТРИВАЛІСТЬ",
     ur: "{tot} میں سے نوٹ {n} • لمبائی ابھی نہیں",
-    tr: "{tot} SESTEN {n}. SES • NOTA DEĞERİ HENÜZ DEĞİL"
+    tr: "{tot} SESTEN {n}. SES • NOTA DEĞERİ HENÜZ DEĞİL",
+    ar: "النغمة {n} من {tot} • القيمة الزمنية ليست صحيحة بعد"
   },
   "TON {n} VON {tot} • NOTENWERT RICHTIG": {
     fr: "NOTE {n} SUR {tot} • DURÉE CORRECTE",
@@ -2702,7 +3001,8 @@ registerColocatedPhrases({
     pl: "NUTA {n} Z {tot} • WARTOŚĆ DOBRA",
     uk: "НОТА {n} З {tot} • ТРИВАЛІСТЬ ПРАВИЛЬНА",
     ur: "{tot} میں سے نوٹ {n} • لمبائی درست",
-    tr: "{tot} SESTEN {n}. SES • NOTA DEĞERİ DOĞRU"
+    tr: "{tot} SESTEN {n}. SES • NOTA DEĞERİ DOĞRU",
+    ar: "النغمة {n} من {tot} • القيمة الزمنية صحيحة"
   },
   "TON {n} VON {tot} • TONHÖHE RICHTIG": {
     fr: "NOTE {n} SUR {tot} • HAUTEUR CORRECTE",
@@ -2711,7 +3011,8 @@ registerColocatedPhrases({
     pl: "NUTA {n} Z {tot} • WYSOKOŚĆ DOBRA",
     uk: "НОТА {n} З {tot} • ВИСОТА ПРАВИЛЬНА",
     ur: "{tot} میں سے نوٹ {n} • سُر درست",
-    tr: "{tot} SESTEN {n}. SES • SES PERDESİ DOĞRU"
+    tr: "{tot} SESTEN {n}. SES • SES PERDESİ DOĞRU",
+    ar: "النغمة {n} من {tot} • طبقة النغمة صحيحة"
   },
   "Tippe Ton {step} von {tot} auf der Klaviatur:": {
     fr: "Touchez la note {step} sur {tot} sur le clavier :",
@@ -2720,7 +3021,8 @@ registerColocatedPhrases({
     pl: "Wskaż nutę {step} z {tot} na klawiaturze:",
     uk: "Натисни ноту {step} з {tot} на клавіатурі:",
     ur: "کی بورڈ پر {tot} میں سے نوٹ {step} ٹیپ کریں:",
-    tr: "Klavyede {tot} sesten {step}. sese dokun:"
+    tr: "Klavyede {tot} sesten {step}. sese dokun:",
+    ar: "انقر على النغمة {step} من {tot} في لوحة المفاتيح:"
   },
   "Ton {n} / {tot}: Reihenfolge egal": {
     fr: "Note {n} / {tot} : ordre libre",
@@ -2729,7 +3031,8 @@ registerColocatedPhrases({
     pl: "Nuta {n} / {tot}: kolejność dowolna",
     uk: "Нота {n} / {tot}: довільний порядок",
     ur: "نوٹ {n} / {tot}: ترتیب کی قید نہیں",
-    tr: "Ses {n} / {tot}: Sıra fark etmez"
+    tr: "Ses {n} / {tot}: Sıra fark etmez",
+    ar: "النغمة {n} / {tot}: الترتيب غير مهم"
   },
   "Ton {n} / {tot}: Tonhöhe + Notenwert": {
     fr: "Note {n} / {tot} : hauteur + durée",
@@ -2738,7 +3041,8 @@ registerColocatedPhrases({
     pl: "Nuta {n} / {tot}: wysokość + wartość",
     uk: "Нота {n} / {tot}: висота + тривалість",
     ur: "نوٹ {n} / {tot}: سُر + دورانیہ",
-    tr: "Ses {n} / {tot}: Ses perdesi + Nota değeri"
+    tr: "Ses {n} / {tot}: Ses perdesi + Nota değeri",
+    ar: "النغمة {n} / {tot}: طبقة النغمة + القيمة الزمنية"
   },
   "Ton {step} / {tot}": {
     fr: "Note {step} / {tot}",
@@ -2747,7 +3051,8 @@ registerColocatedPhrases({
     pl: "Nuta {step} / {tot}",
     uk: "Нота {step} / {tot}",
     ur: "نوٹ {step} / {tot}",
-    tr: "Ses {step} / {tot}"
+    tr: "Ses {step} / {tot}",
+    ar: "النغمة {step} / {tot}"
   },
   "Ton: {syl} — jetzt Notenwert wählen": {
     fr: "Note : {syl} — choisir la valeur",
@@ -2756,7 +3061,8 @@ registerColocatedPhrases({
     pl: "Dźwięk: {syl} — teraz wybierz wartość",
     uk: "Нота: {syl} — обери тривалість",
     ur: "سُر: {syl} — اب دورانیہ منتخب کریں",
-    tr: "Ses: {syl} — şimdi nota değerini seç"
+    tr: "Ses: {syl} — şimdi nota değerini seç",
+    ar: "النغمة: {syl} — اختر الآن القيمة الزمنية"
   },
   "Tonhöhe stimmt schon — wähle noch den Notenwert darüber!": {
     fr: "La hauteur est déjà bonne — choisissez encore la durée au-dessus !",
@@ -2765,7 +3071,8 @@ registerColocatedPhrases({
     pl: "Wysokość się zgadza — wybierz wartość nuty powyżej!",
     uk: "Висота вже правильна — обери тривалість ноти вгорі!",
     ur: "سُر درست ہے — اب اوپر سے نوٹ کی لمبائی چنیں!",
-    tr: "Ses perdesi doğru — şimdi üstten nota değerini de seç!"
+    tr: "Ses perdesi doğru — şimdi üstten nota değerini de seç!",
+    ar: "طبقة النغمة صحيحة — اختر الآن القيمة الزمنية بالأعلى!"
   },
   "Tonhöhe ✓ ({syl}) — jetzt Notenwert": {
     fr: "Hauteur ✓ ({syl}) — puis la valeur",
@@ -2774,7 +3081,8 @@ registerColocatedPhrases({
     pl: "Wysokość ✓ ({syl}) — teraz wartość",
     uk: "Висота ✓ ({syl}) — далі тривалість",
     ur: "سُر ✓ ({syl}) — اب دورانیہ چنیں",
-    tr: "Ses perdesi ✓ ({syl}) — şimdi nota değeri"
+    tr: "Ses perdesi ✓ ({syl}) — şimdi nota değeri",
+    ar: "طبقة النغمة ✓ ({syl}) — الآن القيمة الزمنية"
   },
   "Viertel": {
     fr: "Noire",
@@ -2783,7 +3091,8 @@ registerColocatedPhrases({
     pl: "Ćwierćnuta",
     uk: "Чверть",
     ur: "کوارٹر",
-    tr: "Dörtlük"
+    tr: "Dörtlük",
+    ar: "سوداء"
   },
   "Wie klingt Ton {n} und wie lang ist er? Wähle Tonhöhe & Notenwert.": {
     fr: "Quelle est la hauteur et la durée de la note {n} ? Choisissez les deux.",
@@ -2792,7 +3101,8 @@ registerColocatedPhrases({
     pl: "Jak brzmi nuta {n} i jak jest długa? Wybierz wysokość i wartość.",
     uk: "Яка висота й тривалість ноти {n}? Обери обидва параметри.",
     ur: "نوٹ {n} کیسا سنائی دیتا اور کتنا لمبا ہے؟ سُر اور دورانیہ دونوں چنیں۔",
-    tr: "{n}. ses nasıl tınlıyor ve ne kadar uzun? Ses perdesi ve nota değerini seç."
+    tr: "{n}. ses nasıl tınlıyor ve ne kadar uzun? Ses perdesi ve nota değerini seç.",
+    ar: "كيف تبدو النغمة {n} وما مدتها؟ اختر طبقة النغمة والقيمة الزمنية."
   },
   "Wähle Tonhöhe & Notenwert für Ton {step} von {tot}:": {
     fr: "Choisissez hauteur & valeur pour la note {step} sur {tot} :",
@@ -2801,7 +3111,8 @@ registerColocatedPhrases({
     pl: "Wybierz wysokość i wartość dla nuty {step} z {tot}:",
     uk: "Обери висоту й тривалість для ноти {step} з {tot}:",
     ur: "{tot} میں سے نوٹ {step} کے لیے سُر اور دورانیہ چنیں:",
-    tr: "{tot} sesten {step}. ses için ses perdesi ve nota değerini seç:"
+    tr: "{tot} sesten {step}. ses için ses perdesi ve nota değerini seç:",
+    ar: "اختر طبقة النغمة والقيمة الزمنية للنغمة {step} من {tot}:"
   },
   "{meter} • Ton {step} / {tot}": {
     fr: "{meter} • Note {step} / {tot}",
@@ -2810,7 +3121,8 @@ registerColocatedPhrases({
     pl: "{meter} • Nuta {step} / {tot}",
     uk: "{meter} • Нота {step} / {tot}",
     ur: "{meter} • نوٹ {step} / {tot}",
-    tr: "{meter} • Ses {step} / {tot}"
+    tr: "{meter} • Ses {step} / {tot}",
+    ar: "{meter} • النغمة {step} / {tot}"
   },
   "{rhythm} ({bpm} BPM) • Höre genau hin": {
     fr: "{rhythm} ({bpm} BPM) • Écoutez attentivement",
@@ -2819,7 +3131,8 @@ registerColocatedPhrases({
     pl: "{rhythm} ({bpm} BPM) • Słuchaj uważnie",
     uk: "{rhythm} ({bpm} BPM) • Слухай уважно",
     ur: "{rhythm} ({bpm} BPM) • غور سے سنیں",
-    tr: "{rhythm} ({bpm} BPM) • Dikkatle dinle"
+    tr: "{rhythm} ({bpm} BPM) • Dikkatle dinle",
+    ar: "{rhythm} ({bpm} BPM) • استمع جيدًا"
   },
   "{tot} / {tot} gelöst ✓": {
     fr: "{tot} / {tot} résolues ✓",
@@ -2828,7 +3141,8 @@ registerColocatedPhrases({
     pl: "{tot} / {tot} odgadnięte ✓",
     uk: "{tot} / {tot} розгадано ✓",
     ur: "{tot} / {tot} حل ہو گئے ✓",
-    tr: "{tot} / {tot} çözüldü ✓"
+    tr: "{tot} / {tot} çözüldü ✓",
+    ar: "تم حل {tot} / {tot} ✓"
   },
   "Auswertung →": {
     fr: "Résultats →",
@@ -2837,7 +3151,8 @@ registerColocatedPhrases({
     pl: "Wynik →",
     uk: "Підсумок →",
     ur: "نتائج ←",
-    tr: "Değerlendirme →"
+    tr: "Değerlendirme →",
+    ar: "التقييم →"
   },
   "Nächste Frage →": {
     fr: "Question suivante →",
@@ -2846,7 +3161,8 @@ registerColocatedPhrases({
     pl: "Następne pytanie →",
     uk: "Наступне питання →",
     ur: "اگلا سوال ←",
-    tr: "Sonraki soru →"
+    tr: "Sonraki soru →",
+    ar: "السؤال التالي →"
   },
   "Toleranz ±{tol} ms": {
     fr: "Tolérance ±{tol} ms",
@@ -2855,7 +3171,8 @@ registerColocatedPhrases({
     pl: "Tolerancja ±{tol} ms",
     uk: "Допуск ±{tol} мс",
     ur: "گنجائش ±{tol} ms",
-    tr: "Tolerans ±{tol} ms"
+    tr: "Tolerans ±{tol} ms",
+    ar: "هامش التسامح ±{tol} ms"
   },
   "Tenorschlüssel": {
     fr: "Clé d’Ut 4 (Ténor)",
@@ -2864,7 +3181,8 @@ registerColocatedPhrases({
     pl: "Klucz tenorowy",
     uk: "Теноровий ключ",
     ur: "ٹینر کلیف",
-    tr: "Tenor anahtarı"
+    tr: "Tenor anahtarı",
+    ar: "مفتاح التينور"
   },
   "G4 (g') • 2. Linie": {
     fr: "Sol4 (G4) • 2e ligne",
@@ -2873,7 +3191,8 @@ registerColocatedPhrases({
     pl: "g¹ (G4) • 2. linia",
     uk: "G4 (соль1) • 2-га лінійка",
     ur: "G4 • 2nd لائن",
-    tr: "G4 (g') • 2. çizgi"
+    tr: "G4 (g') • 2. çizgi",
+    ar: "G4 (g') • الخط الثاني"
   },
   "F3 (f) • 4. Linie": {
     fr: "Fa3 (F3) • 4e ligne",
@@ -2882,7 +3201,8 @@ registerColocatedPhrases({
     pl: "f (F3) • 4. linia",
     uk: "F3 (фа м.) • 4-та лінійка",
     ur: "F3 • 4th لائن",
-    tr: "F3 (f) • 4. çizgi"
+    tr: "F3 (f) • 4. çizgi",
+    ar: "F3 (f) • الخط الرابع"
   },
   "C4 (c') • Mittellinie": {
     fr: "Do4 (C4) • 3e ligne",
@@ -2891,7 +3211,8 @@ registerColocatedPhrases({
     pl: "c¹ (C4) • 3. linia (środkowa)",
     uk: "C4 (до1) • Середня лінійка",
     ur: "C4 • درمیانی لائن",
-    tr: "C4 (c') • Orta çizgi"
+    tr: "C4 (c') • Orta çizgi",
+    ar: "C4 (c') • الخط الأوسط"
   },
   "C4 (c') • 4. Linie": {
     fr: "Do4 (C4) • 4e ligne",
@@ -2900,7 +3221,8 @@ registerColocatedPhrases({
     pl: "c¹ (C4) • 4. linia",
     uk: "C4 (до1) • 4-та лінійка",
     ur: "C4 • 4th لائن",
-    tr: "C4 (c') • 4. çizgi"
+    tr: "C4 (c') • 4. çizgi",
+    ar: "C4 (c') • الخط الرابع"
   },
   "Unter der 1. Linie": {
     fr: "Sous la 1re ligne",
@@ -2909,7 +3231,8 @@ registerColocatedPhrases({
     pl: "Pod 1. linią",
     uk: "Під 1-ю лінійкою",
     ur: "1st لائن کے نیچے",
-    tr: "1. çizginin altında"
+    tr: "1. çizginin altında",
+    ar: "تحت الخط الأول"
   },
   "Über der 5. Linie": {
     fr: "Au-dessus de la 5e ligne",
@@ -2918,7 +3241,8 @@ registerColocatedPhrases({
     pl: "Nad 5. linią",
     uk: "Над 5-ю лінійкою",
     ur: "5th لائن کے اوپر",
-    tr: "5. çizginin üstünde"
+    tr: "5. çizginin üstünde",
+    ar: "فوق الخط الخامس"
   },
   "Im 5-Linien-System": {
     fr: "Dans les 5 lignes",
@@ -2927,7 +3251,8 @@ registerColocatedPhrases({
     pl: "W obrębie pięciolinii",
     uk: "У межах 5 лінійок",
     ur: "5 لائن اسٹاف کے اندر",
-    tr: "5 çizgili dizekte"
+    tr: "5 çizgili dizekte",
+    ar: "داخل المدرج ذي الخطوط الخمسة"
   },
   "{n}. Hilfslinie unten": {
     fr: "{n}e ligne suppl. dessous",
@@ -2936,7 +3261,8 @@ registerColocatedPhrases({
     pl: "{n}. linia dodana dolna",
     uk: "{n}-тя дод. лінійка знизу",
     ur: "نیچے {n}ویں لیجر لائن",
-    tr: "Altta {n}. ek çizgi"
+    tr: "Altta {n}. ek çizgi",
+    ar: "الخط الإضافي {n} بالأسفل"
   },
   "{n}. Hilfslinie oben": {
     fr: "{n}e ligne suppl. dessus",
@@ -2945,7 +3271,8 @@ registerColocatedPhrases({
     pl: "{n}. linia dodana górna",
     uk: "{n}-тя дод. лінійка зверху",
     ur: "اوپر {n}ویں لیجر لائن",
-    tr: "Üstte {n}. ek çizgi"
+    tr: "Üstte {n}. ek çizgi",
+    ar: "الخط الإضافي {n} بالأعلى"
   },
   "Aktuelle Note überspringen": {
     fr: "Passer la note actuelle",
@@ -2954,7 +3281,8 @@ registerColocatedPhrases({
     pl: "Pomiń bieżącą nutę",
     uk: "Пропустити поточну ноту",
     ur: "موجودہ نوٹ چھوڑیں",
-    tr: "Mevcut notayı atla"
+    tr: "Mevcut notayı atla",
+    ar: "تخطّي النغمة الحالية"
   },
   "NOTENLESEN": {
     fr: "LECTURE DE NOTES",
@@ -2963,7 +3291,8 @@ registerColocatedPhrases({
     pl: "CZYTANIE NUT",
     uk: "ЧИТАННЯ НОТ",
     ur: "اسٹاف ریڈنگ",
-    tr: "NOTA OKUMA"
+    tr: "NOTA OKUMA",
+    ar: "قراءة النوتة"
   },
   "Lies die Note im System und wähle die Taste unten.": {
     fr: "Lisez la note sur la portée et touchez la touche correspondante.",
@@ -2972,7 +3301,8 @@ registerColocatedPhrases({
     pl: "Odczytaj nutę z pięciolinii i wskaż klawisz poniżej.",
     uk: "Прочитай ноту на стані та натисни клавішу внизу.",
     ur: "اسٹاف پر نوٹ پڑھیں اور نیچے متعلقہ کی دبائیں۔",
-    tr: "Dizekteki notayı oku ve alttaki tuşu seç."
+    tr: "Dizekteki notayı oku ve alttaki tuşu seç.",
+    ar: "اقرأ النغمة على المدرج واختر المفتاح بالأسفل."
   },
   "Lies die erste Note links — oder tippe „Überspringen“.": {
     fr: "Lisez la première note à gauche — ou touchez « Passer ».",
@@ -2981,7 +3311,8 @@ registerColocatedPhrases({
     pl: "Odczytaj pierwszą nutę po lewej — lub dotknij „Pomiń”.",
     uk: "Прочитай першу ноту зліва — або натисни «Пропустити».",
     ur: "بائیں جانب پہلا نوٹ پڑھیں — یا «چھوڑیں» دبائیں۔",
-    tr: "Soldaki ilk notayı oku — ya da \"Atla\"ya dokun."
+    tr: "Soldaki ilk notayı oku — ya da \"Atla\"ya dokun.",
+    ar: "اقرأ النغمة الأولى على اليسار — أو انقر «تخطّي»."
   },
   "Schlüssel-Mix • {clef}": {
     fr: "Mix de clés • {clef}",
@@ -2990,7 +3321,8 @@ registerColocatedPhrases({
     pl: "Miks kluczy • {clef}",
     uk: "Мікс ключів • {clef}",
     ur: "کلیف مکس • {clef}",
-    tr: "Anahtar karışımı • {clef}"
+    tr: "Anahtar karışımı • {clef}",
+    ar: "مزيج المفاتيح • {clef}"
   },
   "Stufe {lvl} • {tag}": {
     fr: "Niveau {lvl} • {tag}",
@@ -2999,7 +3331,8 @@ registerColocatedPhrases({
     pl: "Poziom {lvl} • {tag}",
     uk: "Рівень {lvl} • {tag}",
     ur: "لیول {lvl} • {tag}",
-    tr: "Seviye {lvl} • {tag}"
+    tr: "Seviye {lvl} • {tag}",
+    ar: "المستوى {lvl} • {tag}"
   },
   "Note links wählen:": {
     fr: "Note à gauche :",
@@ -3008,7 +3341,8 @@ registerColocatedPhrases({
     pl: "Wybierz nutę po lewej:",
     uk: "Нота зліва:",
     ur: "بائیں جانب کا نوٹ چنیں:",
-    tr: "Soldaki notayı seç:"
+    tr: "Soldaki notayı seç:",
+    ar: "اختر النغمة على اليسار:"
   },
   "{note}? Nein": {
     fr: "{note} ? Non",
@@ -3017,7 +3351,8 @@ registerColocatedPhrases({
     pl: "{note}? Nie",
     uk: "{note}? Ні",
     ur: "{note}؟ نہیں",
-    tr: "{note}? Hayır"
+    tr: "{note}? Hayır",
+    ar: "{note}؟ لا"
   },
   "Schau genau in den {clef} — oder tippe „Überspringen“.": {
     fr: "Observez bien la {clef} — ou touchez « Passer ».",
@@ -3026,7 +3361,8 @@ registerColocatedPhrases({
     pl: "Sprawdź dokładnie {clef} — albo dotknij „Pomiń”.",
     uk: "Перевір {clef} уважніше — або натисни «Пропустити».",
     ur: "{clef} کو غور سے دیکھیں — یا «چھوڑیں» دبائیں۔",
-    tr: "{clef} içine dikkatle bak — ya da \"Atla\"ya dokun."
+    tr: "{clef} içine dikkatle bak — ya da \"Atla\"ya dokun.",
+    ar: "انظر بدقة إلى {clef} — أو انقر «تخطّي»."
   },
   "RICHTIG GELESEN!": {
     fr: "BIEN LU !",
@@ -3035,7 +3371,8 @@ registerColocatedPhrases({
     pl: "ODCZYTANO POPRAWNIE!",
     uk: "ПРОЧИТАНО ВІРНО!",
     ur: "بالکل صحیح پڑھا!",
-    tr: "DOĞRU OKUDUN!"
+    tr: "DOĞRU OKUDUN!",
+    ar: "قراءة صحيحة!"
   },
   "{clef} • {ledger}": {
     fr: "{clef} • {ledger}",
@@ -3044,7 +3381,8 @@ registerColocatedPhrases({
     pl: "{clef} • {ledger}",
     uk: "{clef} • {ledger}",
     ur: "{clef} • {ledger}",
-    tr: "{clef} • {ledger}"
+    tr: "{clef} • {ledger}",
+    ar: "{clef} • {ledger}"
   },
   "ÜBERSPRUNGEN • DAS WAR:": {
     fr: "PASSÉ • C’ÉTAIT :",
@@ -3053,7 +3391,8 @@ registerColocatedPhrases({
     pl: "POMINIĘTE • TO BYŁA:",
     uk: "ПРОПУЩЕНО • ЦЕ БУЛА:",
     ur: "چھوڑ دیا گیا • وہ تھا:",
-    tr: "ATLANDI • DOĞRU CEVAP:"
+    tr: "ATLANDI • DOĞRU CEVAP:",
+    ar: "تم التخطّي • كانت الإجابة:"
   },
   "NUR HÖREN • NOTENLESEN": {
     fr: "ÉCOUTE SEULE • LECTURE",
@@ -3062,7 +3401,8 @@ registerColocatedPhrases({
     pl: "TYLKO SŁUCHAJ • NUTY",
     uk: "ЛИШЕ СЛУХАТИ • НОТИ",
     ur: "صرف سنیں • اسٹاف ریڈنگ",
-    tr: "SADECE DİNLE • NOTA OKUMA"
+    tr: "SADECE DİNLE • NOTA OKUMA",
+    ar: "استماع فقط • قراءة النوتة"
   },
   "▶ Ankerton": {
     fr: "▶ Repère",
@@ -3071,7 +3411,8 @@ registerColocatedPhrases({
     pl: "▶ Dźwięk oparcia",
     uk: "▶ Опорний звук",
     ur: "▶ لنگر سُر",
-    tr: "▶ Çapa sesi"
+    tr: "▶ Çapa sesi",
+    ar: "▶ نغمة مرجعية"
   },
   "▶ Ton anhören": {
     fr: "▶ Écouter la note",
@@ -3080,7 +3421,8 @@ registerColocatedPhrases({
     pl: "▶ Posłuchaj nuty",
     uk: "▶ Послухати ноту",
     ur: "▶ نوٹ سنیں",
-    tr: "▶ Sesi dinle"
+    tr: "▶ Sesi dinle",
+    ar: "▶ سماع النغمة"
   },
   "C-Dur (0)": {
     fr: "Do maj. (0)",
@@ -3089,7 +3431,8 @@ registerColocatedPhrases({
     pl: "C-dur (0)",
     uk: "До маж. (0)",
     ur: "C میجر (0)",
-    tr: "Do Majör (0)"
+    tr: "Do Majör (0)",
+    ar: "دو كبير (0)"
   },
   "Tonarten 1–2 ♯/♭": {
     fr: "Tonalités 1–2 ♯/♭",
@@ -3098,7 +3441,8 @@ registerColocatedPhrases({
     pl: "Tonacje 1–2 ♯/♭",
     uk: "Тональності 1–2 ♯/♭",
     ur: "کلیدیں 1–2 ♯/♭",
-    tr: "1–2 ♯/♭ tonlar"
+    tr: "1–2 ♯/♭ tonlar",
+    ar: "مقامات 1–2 ♯/♭"
   },
   "Tonarten 3–4 ♯/♭": {
     fr: "Tonalités 3–4 ♯/♭",
@@ -3107,7 +3451,8 @@ registerColocatedPhrases({
     pl: "Tonacje 3–4 ♯/♭",
     uk: "Тональності 3–4 ♯/♭",
     ur: "کلیدیں 3–4 ♯/♭",
-    tr: "3–4 ♯/♭ tonlar"
+    tr: "3–4 ♯/♭ tonlar",
+    ar: "مقامات 3–4 ♯/♭"
   },
   "Tonarten 5–6 ♯/♭": {
     fr: "Tonalités 5–6 ♯/♭",
@@ -3116,7 +3461,8 @@ registerColocatedPhrases({
     pl: "Tonacje 5–6 ♯/♭",
     uk: "Тональності 5–6 ♯/♭",
     ur: "کلیدیں 5–6 ♯/♭",
-    tr: "5–6 ♯/♭ tonlar"
+    tr: "5–6 ♯/♭ tonlar",
+    ar: "مقامات 5–6 ♯/♭"
   },
   "Alle Tonarten": {
     fr: "Toutes tonalités",
@@ -3125,7 +3471,8 @@ registerColocatedPhrases({
     pl: "Wszystkie tonacje",
     uk: "Усі тональності",
     ur: "تمام کلیدیں",
-    tr: "Tüm tonlar"
+    tr: "Tüm tonlar",
+    ar: "جميع المقامات"
   },
   "1–2 ♯/♭": {
     fr: "1–2 ♯/♭",
@@ -3134,7 +3481,8 @@ registerColocatedPhrases({
     pl: "1–2 ♯/♭",
     uk: "1–2 ♯/♭",
     ur: "1–2 ♯/♭",
-    tr: "1–2 ♯/♭"
+    tr: "1–2 ♯/♭",
+    ar: "1–2 ♯/♭"
   },
   "3–4 ♯/♭": {
     fr: "3–4 ♯/♭",
@@ -3143,7 +3491,8 @@ registerColocatedPhrases({
     pl: "3–4 ♯/♭",
     uk: "3–4 ♯/♭",
     ur: "3–4 ♯/♭",
-    tr: "3–4 ♯/♭"
+    tr: "3–4 ♯/♭",
+    ar: "3–4 ♯/♭"
   },
   "5–6 ♯/♭": {
     fr: "5–6 ♯/♭",
@@ -3152,7 +3501,8 @@ registerColocatedPhrases({
     pl: "5–6 ♯/♭",
     uk: "5–6 ♯/♭",
     ur: "5–6 ♯/♭",
-    tr: "5–6 ♯/♭"
+    tr: "5–6 ♯/♭",
+    ar: "5–6 ♯/♭"
   },
   "Alle 12": {
     fr: "Les 12",
@@ -3161,7 +3511,8 @@ registerColocatedPhrases({
     pl: "Wszystkie 12",
     uk: "Усі 12",
     ur: "تمام 12",
-    tr: "Tümü (12)"
+    tr: "Tümü (12)",
+    ar: "الكل (12)"
   },
   "±3 + ♮/♯/♭": {
     fr: "±3 + ♮/♯/♭",
@@ -3170,7 +3521,8 @@ registerColocatedPhrases({
     pl: "±3 + ♮/♯/♭",
     uk: "±3 + ♮/♯/♭",
     ur: "±3 + ♮/♯/♭",
-    tr: "±3 + ♮/♯/♭"
+    tr: "±3 + ♮/♯/♭",
+    ar: "±3 + ♮/♯/♭"
   },
   "Tonart (Vorzeichen):": {
     fr: "Armure (Tonalité) :",
@@ -3179,7 +3531,8 @@ registerColocatedPhrases({
     pl: "Tonacja (znaki przykluczowe):",
     uk: "Тональність (ключові знаки):",
     ur: "کی سگنیچر:",
-    tr: "Ton (Donanım):"
+    tr: "Ton (Donanım):",
+    ar: "المقام (دليل المقام):"
   },
   "Nächste Tonart": {
     fr: "Tonalité suivante",
@@ -3188,7 +3541,8 @@ registerColocatedPhrases({
     pl: "Następna tonacja",
     uk: "Наступна тональність",
     ur: "اگلی کلید",
-    tr: "Sonraki ton"
+    tr: "Sonraki ton",
+    ar: "المقام التالي"
   },
   "Note links (mit Vorzeichen) wählen:": {
     fr: "Note à gauche (selon l’armure) :",
@@ -3197,7 +3551,8 @@ registerColocatedPhrases({
     pl: "Nuta po lewej (z uwzględnieniem znaków):",
     uk: "Нота ліворуч (з урахуванням знаків):",
     ur: "بائیں جانب کا نوٹ چنیں (کی سگنیچر کا خیال رکھیں):",
-    tr: "Soldaki notayı (değiştirici işaretle) seç:"
+    tr: "Soldaki notayı (değiştirici işaretle) seç:",
+    ar: "اختر النغمة على اليسار (مع علامات التحويل):"
   },
   "Neue Tonart: {key} ({acc})!": {
     fr: "Nouvelle tonalité : {key} ({acc}) !",
@@ -3206,7 +3561,8 @@ registerColocatedPhrases({
     pl: "Nowa tonacja: {key} ({acc})!",
     uk: "Нова тональність: {key} ({acc})!",
     ur: "نئی کلید: {key} ({acc})!",
-    tr: "Yeni ton: {key} ({acc})!"
+    tr: "Yeni ton: {key} ({acc})!",
+    ar: "مقام جديد: {key} ({acc})!"
   },
   "Tonart {key} ({acc}) beachten – oder „Überspringen“.": {
     fr: "Attention à l’armure {key} ({acc}) — ou touchez « Passer ».",
@@ -3215,7 +3571,8 @@ registerColocatedPhrases({
     pl: "Uważaj na tonację {key} ({acc}) — lub dotknij „Pomiń”.",
     uk: "Зверни увагу на {key} ({acc}) — або натисни «Пропустити».",
     ur: "{key} ({acc}) کا خیال رکھیں — یا «چھوڑیں» دبائیں۔",
-    tr: "{key} ({acc}) tonuna dikkat et – ya da \"Atla\"."
+    tr: "{key} ({acc}) tonuna dikkat et – ya da \"Atla\".",
+    ar: "انتبه لمقام {key} ({acc}) – أو انقر «تخطّي»."
   },
   "Melodie im Notensystem": {
     fr: "Mélodie sur la portée",
@@ -3224,7 +3581,8 @@ registerColocatedPhrases({
     pl: "Melodia na pięciolinii",
     uk: "Мелодія на нотному стані",
     ur: "اسٹاف پر دُھن",
-    tr: "Dizekte melodi"
+    tr: "Dizekte melodi",
+    ar: "اللحن على المدرج الموسيقي"
   },
   "Mitsing-Tipp ein- oder ausklappen": {
     fr: "Afficher ou masquer le conseil pour chanter",
@@ -3233,7 +3591,8 @@ registerColocatedPhrases({
     pl: "Pokaż lub ukryj wskazówkę do śpiewania",
     uk: "Показати або сховати підказку для співу",
     ur: "ساتھ گانے کی تجویز دکھائیں یا چھپائیں",
-    tr: "Eşlik ederek söyleme ipucunu aç veya kapat"
+    tr: "Eşlik ederek söyleme ipucunu aç veya kapat",
+    ar: "إظهار أو إخفاء تلميح الغناء المصاحب"
   },
   "Summ-Pause: An": {
     fr: "Pause fredonnée : oui",
@@ -3242,7 +3601,8 @@ registerColocatedPhrases({
     pl: "Pauza na nucenie: wł.",
     uk: "Пауза для наспівування: увімк.",
     ur: "گنگنانے کا وقفہ: آن",
-    tr: "Mırıldanma molası: Açık"
+    tr: "Mırıldanma molası: Açık",
+    ar: "وقفة الدندنة: مفعّلة"
   },
   "Summ-Pause: Aus": {
     fr: "Pause fredonnée : non",
@@ -3251,7 +3611,8 @@ registerColocatedPhrases({
     pl: "Pauza na nucenie: wył.",
     uk: "Пауза для наспівування: вимк.",
     ur: "گنگنانے کا وقفہ: آف",
-    tr: "Mırıldanma molası: Kapalı"
+    tr: "Mırıldanma molası: Kapalı",
+    ar: "وقفة الدندنة: متوقفة"
   },
   "Verstanden": {
     fr: "Compris",
@@ -3260,7 +3621,8 @@ registerColocatedPhrases({
     pl: "Rozumiem",
     uk: "Зрозуміло",
     ur: "سمجھ گیا",
-    tr: "Anlaşıldı"
+    tr: "Anlaşıldı",
+    ar: "فهمت"
   },
   "SUMM-PAUSE": {
     fr: "PAUSE FREDONNÉE",
@@ -3269,7 +3631,8 @@ registerColocatedPhrases({
     pl: "PAUZA NA NUCENIE",
     uk: "ПАУЗА ДЛЯ НАСПІВУВАННЯ",
     ur: "گنگنانے کا وقفہ",
-    tr: "MIRILDANMA MOLASI"
+    tr: "MIRILDANMA MOLASI",
+    ar: "وقفة دندنة"
   },
   "Jetzt summen…": {
     fr: "Fredonnez maintenant…",
@@ -3278,7 +3641,8 @@ registerColocatedPhrases({
     pl: "Teraz zanuć…",
     uk: "Тепер наспівуй…",
     ur: "اب گنگنائیں…",
-    tr: "Şimdi mırıldan…"
+    tr: "Şimdi mırıldan…",
+    ar: "دندِن الآن…"
   },
   "Summ beide Töne nach – dann tippen.": {
     fr: "Fredonnez les deux notes – puis touchez.",
@@ -3287,7 +3651,8 @@ registerColocatedPhrases({
     pl: "Zanuć oba dźwięki – potem dotknij.",
     uk: "Наспівай обидва звуки – потім натисни.",
     ur: "دونوں سُر گنگنائیں – پھر ٹیپ کریں۔",
-    tr: "İki sesi de mırıldanarak tekrarla – sonra dokun."
+    tr: "İki sesi de mırıldanarak tekrarla – sonra dokun.",
+    ar: "دندِن النغمتين معًا – ثم انقر."
   },
   "Sing die Töne nach: Wie weit springt deine Stimme?": {
     fr: "Chantez les notes : jusqu’où saute votre voix ?",
@@ -3296,7 +3661,8 @@ registerColocatedPhrases({
     pl: "Zaśpiewaj dźwięki: jak daleko skacze twój głos?",
     uk: "Заспівай звуки: наскільки стрибає твій голос?",
     ur: "سُر گائیں: آپ کی آواز کتنی چھلانگ لگاتی ہے؟",
-    tr: "Sesleri tekrarlayarak söyle: Sesin ne kadar sıçrıyor?"
+    tr: "Sesleri tekrarlayarak söyle: Sesin ne kadar sıçrıyor?",
+    ar: "غنِّ النغمتين بعد الاستماع: كم تقفز طبقة صوتك؟"
   },
   "Sing beide Töne abwärts nach – dann tippen.": {
     fr: "Chantez les deux notes en descendant – puis touchez.",
@@ -3305,7 +3671,8 @@ registerColocatedPhrases({
     pl: "Zaśpiewaj oba dźwięki w dół – potem dotknij.",
     uk: "Заспівай обидва звуки вниз – потім натисни.",
     ur: "دونوں سُر نیچے کی طرف گائیں – پھر ٹیپ کریں۔",
-    tr: "İki sesi de inici olarak söyle – sonra dokun."
+    tr: "İki sesi de inici olarak söyle – sonra dokun.",
+    ar: "غنِّ النغمتين هبوطًا – ثم انقر."
   },
   "Summ den Abstieg nach: kleiner Schritt oder großer Sprung?": {
     fr: "Fredonnez la descente : petit pas ou grand saut ?",
@@ -3314,7 +3681,8 @@ registerColocatedPhrases({
     pl: "Zanuć zejście: mały krok czy duży skok?",
     uk: "Наспівай спуск: малий крок чи великий стрибок?",
     ur: "اترتے سُر گنگنائیں: چھوٹا قدم یا بڑی چھلانگ؟",
-    tr: "İnişi mırıldanarak tekrarla: küçük bir adım mı, yoksa büyük bir sıçrama mı?"
+    tr: "İnişi mırıldanarak tekrarla: küçük bir adım mı, yoksa büyük bir sıçrama mı?",
+    ar: "دندِن الهبوط: خطوة صغيرة أم قفزة كبيرة؟"
   },
   "Summ erst den tiefen, dann den hohen Ton.": {
     fr: "Fredonnez d’abord la note grave, puis l’aiguë.",
@@ -3323,7 +3691,8 @@ registerColocatedPhrases({
     pl: "Zanuć najpierw niższy, potem wyższy dźwięk.",
     uk: "Наспівай спершу нижчий, потім вищий звук.",
     ur: "پہلے نیچا، پھر اونچا سُر گنگنائیں۔",
-    tr: "Önce pes sesi, sonra tiz sesi mırıldan."
+    tr: "Önce pes sesi, sonra tiz sesi mırıldan.",
+    ar: "دندِن النغمة المنخفضة أولًا، ثم العالية."
   },
   "Zerleg den Klang: unten summen, dann oben.": {
     fr: "Décomposez le son : fredonnez le bas, puis le haut.",
@@ -3332,7 +3701,8 @@ registerColocatedPhrases({
     pl: "Rozłóż brzmienie: zanuć dół, potem górę.",
     uk: "Розклади звучання: наспівай низ, потім верх.",
     ur: "آواز کو الگ کریں: پہلے نیچے، پھر اوپر گنگنائیں۔",
-    tr: "Tınıyı ayrıştır: önce alttakini, sonra üsttekini mırıldan."
+    tr: "Tınıyı ayrıştır: önce alttakini, sonra üsttekini mırıldan.",
+    ar: "فكّك الصوت: دندِن السفلى أولًا، ثم العليا."
   },
   "Summ den Grundton mit, dann den Klavierton.": {
     fr: "Fredonnez la fondamentale, puis la note du piano.",
@@ -3341,7 +3711,8 @@ registerColocatedPhrases({
     pl: "Zanuć dźwięk podstawowy, potem dźwięk fortepianu.",
     uk: "Наспівай основний тон, потім звук фортепіано.",
     ur: "بنیادی سُر گنگنائیں، پھر پیانو کا سُر۔",
-    tr: "Kök sese mırıldanarak eşlik et, sonra piyano sesini söyle."
+    tr: "Kök sese mırıldanarak eşlik et, sonra piyano sesini söyle.",
+    ar: "دندِن النغمة الأساسية، ثم نغمة البيانو."
   },
   "Halte den Grundton mit der Stimme – wie weit liegt der Klavierton darüber?": {
     fr: "Tenez la fondamentale avec la voix – à quelle distance est la note du piano ?",
@@ -3350,7 +3721,8 @@ registerColocatedPhrases({
     pl: "Trzymaj dźwięk podstawowy głosem – jak wysoko nad nim jest fortepian?",
     uk: "Тримай основний тон голосом – наскільки вище звук фортепіано?",
     ur: "بنیادی سُر آواز سے تھامیں – پیانو کا سُر کتنا اوپر ہے؟",
-    tr: "Kök sesi sesinle tut – piyano sesi ne kadar yukarıda kalıyor?"
+    tr: "Kök sesi sesinle tut – piyano sesi ne kadar yukarıda kalıyor?",
+    ar: "أبقِ النغمة الأساسية بصوتك – كم تعلو نغمة البيانو فوقها؟"
   },
   "Sing den Ton mit seiner Stufenzahl (1, 2, 3 …).": {
     fr: "Chantez la note avec son numéro de degré (1, 2, 3 …).",
@@ -3359,7 +3731,8 @@ registerColocatedPhrases({
     pl: "Zaśpiewaj dźwięk z numerem stopnia (1, 2, 3 …).",
     uk: "Заспівай звук із номером ступеня (1, 2, 3 …).",
     ur: "سُر کو اس کے درجے کے نمبر (1, 2, 3 …) کے ساتھ گائیں۔",
-    tr: "Sesi derece numarasıyla söyle (1, 2, 3 …)."
+    tr: "Sesi derece numarasıyla söyle (1, 2, 3 …).",
+    ar: "غنِّ النغمة مع رقم درجتها (1، 2، 3 …)."
   },
   "Sing vom Ton zurück zur 1 – welche Stufe war’s?": {
     fr: "Chantez de la note jusqu’au 1 – quel degré était-ce ?",
@@ -3368,7 +3741,8 @@ registerColocatedPhrases({
     pl: "Zaśpiewaj od dźwięku do 1 – który to był stopień?",
     uk: "Заспівай від звуку до 1 – який це був ступінь?",
     ur: "سُر سے 1 تک واپس گائیں – کون سا درجہ تھا؟",
-    tr: "Sesten 1'e geri söyle – hangi dereceydi?"
+    tr: "Sesten 1'e geri söyle – hangi dereceydi?",
+    ar: "غنِّ من النغمة عائدًا إلى 1 – أي درجة كانت؟"
   },
   "Sing den Ton mit seinem Namen (Do, Re, Mi …).": {
     fr: "Chantez la note avec son nom (Do, Ré, Mi …).",
@@ -3377,7 +3751,8 @@ registerColocatedPhrases({
     pl: "Zaśpiewaj dźwięk z jego nazwą (Do, Re, Mi …).",
     uk: "Заспівай звук із його назвою (Do, Re, Mi …).",
     ur: "سُر کو اس کے نام (Do, Re, Mi …) کے ساتھ گائیں۔",
-    tr: "Sesi adıyla söyle (Do, Re, Mi …)."
+    tr: "Sesi adıyla söyle (Do, Re, Mi …).",
+    ar: "غنِّ النغمة باسمها (Do، Re، Mi …)."
   },
   "Sing vom Ton zurück zum Do – welche Stufe war’s?": {
     fr: "Chantez de la note jusqu’au Do – quel degré était-ce ?",
@@ -3386,7 +3761,8 @@ registerColocatedPhrases({
     pl: "Zaśpiewaj od dźwięku do Do – który to był stopień?",
     uk: "Заспівай від звуку до Do – який це був ступінь?",
     ur: "سُر سے Do تک واپس گائیں – کون سا درجہ تھا؟",
-    tr: "Sesten Do'ya geri söyle – hangi dereceydi?"
+    tr: "Sesten Do'ya geri söyle – hangi dereceydi?",
+    ar: "غنِّ من النغمة عائدًا إلى Do – أي درجة كانت؟"
   },
   "Doppelsystem (Violin- und Bassschlüssel)": {
     fr: "Grand portée (clés de sol et de fa)",
@@ -3395,7 +3771,8 @@ registerColocatedPhrases({
     pl: "System fortepianowy (klucz wiolinowy i basowy)",
     uk: "Подвійний нотний стан (скрипковий і басовий ключ)",
     ur: "گرینڈ اسٹاف (ٹریبل اور بیس کلیف)",
-    tr: "Çift dizek (Sol ve Fa anahtarı)"
+    tr: "Çift dizek (Sol ve Fa anahtarı)",
+    ar: "المدرج المزدوج (مفتاح صول ومفتاح فا)"
   },
   "1. Umkehrung": {
     fr: "1er renversement",
@@ -3404,7 +3781,8 @@ registerColocatedPhrases({
     pl: "1. przewrót",
     uk: "1-ше обернення",
     ur: "پہلا انورژن",
-    tr: "1. Çevrim"
+    tr: "1. Çevrim",
+    ar: "الانقلاب الأول"
   },
   "2. Umkehrung": {
     fr: "2e renversement",
@@ -3413,7 +3791,8 @@ registerColocatedPhrases({
     pl: "2. przewrót",
     uk: "2-ге обернення",
     ur: "دوسرا انورژن",
-    tr: "2. Çevrim"
+    tr: "2. Çevrim",
+    ar: "الانقلاب الثاني"
   },
   "3. Umkehrung": {
     fr: "3e renversement",
@@ -3422,7 +3801,8 @@ registerColocatedPhrases({
     pl: "3. przewrót",
     uk: "3-тє обернення",
     ur: "تیسرا انورژن",
-    tr: "3. Çevrim"
+    tr: "3. Çevrim",
+    ar: "الانقلاب الثالث"
   },
   "Grundstellung": {
     fr: "État fondamental",
@@ -3431,7 +3811,8 @@ registerColocatedPhrases({
     pl: "Postać zasadnicza",
     uk: "Основний вигляд",
     ur: "روٹ پوزیشن",
-    tr: "Kök durum"
+    tr: "Kök durum",
+    ar: "الوضع الأساسي"
   },
   "Grundton-Fläche: An": {
     fr: "Nappe de fondamentale : oui",
@@ -3440,7 +3821,8 @@ registerColocatedPhrases({
     pl: "Plama podstawy: wł.",
     uk: "Підкладка основного тону: увімк.",
     ur: "بنیادی سُر کا پیڈ: آن",
-    tr: "Kök ses zemini: Açık"
+    tr: "Kök ses zemini: Açık",
+    ar: "خلفية النغمة الأساسية: مفعّلة"
   },
   "Grundton-Fläche: Aus": {
     fr: "Nappe de fondamentale : non",
@@ -3449,7 +3831,8 @@ registerColocatedPhrases({
     pl: "Plama podstawy: wył.",
     uk: "Підкладка основного тону: вимк.",
     ur: "بنیادی سُر کا پیڈ: آف",
-    tr: "Kök ses zemini: Kapalı"
+    tr: "Kök ses zemini: Kapalı",
+    ar: "خلفية النغمة الأساسية: متوقفة"
   },
   "Grundton des Modus als Streicher-Fläche unterlegen": {
     fr: "Jouer la fondamentale du mode en nappe de cordes",
@@ -3458,7 +3841,8 @@ registerColocatedPhrases({
     pl: "Podłóż dźwięk podstawowy modusu jako plamę smyczków",
     uk: "Підклади основний тон ладу струнною підкладкою",
     ur: "موڈ کے بنیادی سُر کو اسٹرنگز پیڈ کے طور پر بجائیں",
-    tr: "Modun kök sesini yaylı zemini olarak alttan ver"
+    tr: "Modun kök sesini yaylı zemini olarak alttan ver",
+    ar: "تشغيل النغمة الأساسية للنمط كخلفية وتريات ممتدة"
   },
   "exakt": {
     fr: "exact",
@@ -3467,7 +3851,8 @@ registerColocatedPhrases({
     pl: "dokładnie",
     uk: "точно",
     ur: "درست",
-    tr: "tam"
+    tr: "tam",
+    ar: "دقيق"
   },
   "knapp": {
     fr: "juste",
@@ -3476,7 +3861,8 @@ registerColocatedPhrases({
     pl: "blisko",
     uk: "майже",
     ur: "قریب",
-    tr: "yakın"
+    tr: "yakın",
+    ar: "قريب"
   },
   "verpasst": {
     fr: "manqué",
@@ -3485,7 +3871,8 @@ registerColocatedPhrases({
     pl: "pominięte",
     uk: "пропущено",
     ur: "چھوٹ گیا",
-    tr: "kaçırıldı"
+    tr: "kaçırıldı",
+    ar: "فائت"
   },
   "zu viel": {
     fr: "en trop",
@@ -3494,7 +3881,8 @@ registerColocatedPhrases({
     pl: "za dużo",
     uk: "зайве",
     ur: "زائد",
-    tr: "fazla"
+    tr: "fazla",
+    ar: "زائد"
   },
   "Zeitstrahl deiner Taps": {
     fr: "Chronologie de vos frappes",
@@ -3503,7 +3891,8 @@ registerColocatedPhrases({
     pl: "Oś czasu twoich uderzeń",
     uk: "Часова шкала твоїх натискань",
     ur: "آپ کے ٹیپس کی ٹائم لائن",
-    tr: "Vuruşlarının zaman çizelgesi"
+    tr: "Vuruşlarının zaman çizelgesi",
+    ar: "الخط الزمني لنقراتك"
   },
   "Lies den ersten Akkord links und wähle das Symbol unten — oder „Überspringen“.": {
     fr: "Lisez le premier accord à gauche et choisissez son symbole ci-dessous — ou « Passer ».",
@@ -3512,7 +3901,8 @@ registerColocatedPhrases({
     pl: "Odczytaj pierwszy akord z lewej i wybierz jego symbol poniżej — albo „Pomiń”.",
     uk: "Прочитай перший акорд ліворуч і вибери символ унизу — або «Пропустити».",
     ur: "بائیں جانب پہلا کارڈ پڑھیں اور نیچے اس کی علامت منتخب کریں — یا «چھوڑیں»۔",
-    tr: "Soldaki ilk akoru oku ve alttaki sembolü seç — ya da \"Atla\"."
+    tr: "Soldaki ilk akoru oku ve alttaki sembolü seç — ya da \"Atla\".",
+    ar: "اقرأ التآلف الأول على اليسار واختر الرمز بالأسفل — أو انقر «تخطّي»."
   },
   "Lies den Akkord im System und wähle unten das passende Symbol.": {
     fr: "Lisez l’accord sur la portée et choisissez le bon symbole ci-dessous.",
@@ -3521,7 +3911,8 @@ registerColocatedPhrases({
     pl: "Odczytaj akord na pięciolinii i wybierz właściwy symbol poniżej.",
     uk: "Прочитай акорд на нотному стані й вибери відповідний символ унизу.",
     ur: "اسٹاف پر کارڈ پڑھیں اور نیچے درست علامت منتخب کریں۔",
-    tr: "Dizekteki akoru oku ve alttan uygun sembolü seç."
+    tr: "Dizekteki akoru oku ve alttan uygun sembolü seç.",
+    ar: "اقرأ التآلف على المدرج واختر الرمز المناسب بالأسفل."
   },
   "Dreiklänge • Violinschlüssel": {
     fr: "Accords de 3 sons • clé de sol",
@@ -3530,7 +3921,8 @@ registerColocatedPhrases({
     pl: "Trójdźwięki • klucz wiolinowy",
     uk: "Тризвуки • скрипковий ключ",
     ur: "ٹرائیڈز • ٹریبل کلیف",
-    tr: "Üçlü akorlar • Sol anahtarı"
+    tr: "Üçlü akorlar • Sol anahtarı",
+    ar: "التآلفات الثلاثية • مفتاح صول"
   },
   "Dreiklänge • Bassschlüssel": {
     fr: "Accords de 3 sons • clé de fa",
@@ -3539,7 +3931,8 @@ registerColocatedPhrases({
     pl: "Trójdźwięki • klucz basowy",
     uk: "Тризвуки • басовий ключ",
     ur: "ٹرائیڈز • بیس کلیف",
-    tr: "Üçlü akorlar • Fa anahtarı"
+    tr: "Üçlü akorlar • Fa anahtarı",
+    ar: "التآلفات الثلاثية • مفتاح فا"
   },
   "Alle Typen & Septakkorde": {
     fr: "Tous types & septièmes",
@@ -3548,7 +3941,8 @@ registerColocatedPhrases({
     pl: "Wszystkie typy i septymakordy",
     uk: "Усі типи й септакорди",
     ur: "تمام اقسام اور سیونتھ کارڈز",
-    tr: "Tüm türler ve yedili akorlar"
+    tr: "Tüm türler ve yedili akorlar",
+    ar: "جميع الأنواع والتآلفات السباعية"
   },
   "Aktuellen Akkord überspringen": {
     fr: "Passer l’accord actuel",
@@ -3557,7 +3951,8 @@ registerColocatedPhrases({
     pl: "Pomiń bieżący akord",
     uk: "Пропустити поточний акорд",
     ur: "موجودہ کارڈ چھوڑیں",
-    tr: "Mevcut akoru atla"
+    tr: "Mevcut akoru atla",
+    ar: "تخطّي التآلف الحالي"
   },
   "▶ Akkord anhören": {
     fr: "▶ Écouter l’accord",
@@ -3566,7 +3961,8 @@ registerColocatedPhrases({
     pl: "▶ Posłuchaj akordu",
     uk: "▶ Послухати акорд",
     ur: "▶ کارڈ سنیں",
-    tr: "▶ Akoru dinle"
+    tr: "▶ Akoru dinle",
+    ar: "▶ سماع التآلف"
   },
   "Akkord links (mit Vorzeichen) wählen:": {
     fr: "Choisissez l’accord à gauche (avec armure) :",
@@ -3575,7 +3971,8 @@ registerColocatedPhrases({
     pl: "Wybierz akord z lewej (ze znakami przykluczowymi):",
     uk: "Вибери акорд ліворуч (зі знаками):",
     ur: "بائیں جانب کا کارڈ چُنیں (علامتوں کا خیال رکھیں):",
-    tr: "Soldaki akoru (değiştirici işaretle) seç:"
+    tr: "Soldaki akoru (değiştirici işaretle) seç:",
+    ar: "اختر التآلف على اليسار (مع علامات التحويل):"
   },
   "Akkord links wählen:": {
     fr: "Choisissez l’accord à gauche :",
@@ -3584,7 +3981,8 @@ registerColocatedPhrases({
     pl: "Wybierz akord z lewej:",
     uk: "Вибери акорд ліворуч:",
     ur: "بائیں جانب کا کارڈ چُنیں:",
-    tr: "Soldaki akoru seç:"
+    tr: "Soldaki akoru seç:",
+    ar: "اختر التآلف على اليسار:"
   },
   "{sym}? Nein": {
     fr: "{sym} ? Non",
@@ -3593,7 +3991,8 @@ registerColocatedPhrases({
     pl: "{sym}? Nie",
     uk: "{sym}? Ні",
     ur: "{sym}؟ نہیں",
-    tr: "{sym}? Hayır"
+    tr: "{sym}? Hayır",
+    ar: "{sym}؟ لا"
   },
   "Grundton stimmt! Prüfe Vorzeichen, Terz & Zusatztöne genau.": {
     fr: "Bonne fondamentale ! Vérifiez altérations, tierce et extensions.",
@@ -3602,7 +4001,8 @@ registerColocatedPhrases({
     pl: "Pryma się zgadza! Sprawdź dokładnie znaki chromatyczne, tercję i składniki.",
     uk: "Основний тон правильний! Перевір альтерацію, терцію та додаткові тони.",
     ur: "بنیادی سُر درست ہے! علامتوں، تھرڈ اور اضافی نوٹس کو غور سے دیکھیں۔",
-    tr: "Kök ses doğru! Değiştirici işaretleri, üçlüyü ve ek sesleri dikkatle kontrol et."
+    tr: "Kök ses doğru! Değiştirici işaretleri, üçlüyü ve ek sesleri dikkatle kontrol et.",
+    ar: "النغمة الأساسية صحيحة! تحقّق بدقة من علامات التحويل والثالثة والنغمات الإضافية."
   },
   "Achte auf den echten Grundton (Umkehrung!) und den Schlüssel.": {
     fr: "Repérez la vraie fondamentale (renversement !) et la clé.",
@@ -3611,7 +4011,8 @@ registerColocatedPhrases({
     pl: "Zwróć uwagę na prawdziwą prymę (przewrót!) i klucz.",
     uk: "Зверни увагу на справжній основний тон (обернення!) і ключ.",
     ur: "اصل بنیادی سُر (انورژن!) اور کلیف پر توجہ دیں۔",
-    tr: "Gerçek kök sese (çevrim!) ve anahtara dikkat et."
+    tr: "Gerçek kök sese (çevrim!) ve anahtara dikkat et.",
+    ar: "انتبه إلى النغمة الأساسية الحقيقية (انقلاب!) وإلى المفتاح الموسيقي."
   },
   "Lies zuerst den Grundton im {clef} – oder tippe „Überspringen“.": {
     fr: "Lisez d’abord la fondamentale en {clef} — ou touchez « Passer ».",
@@ -3620,7 +4021,8 @@ registerColocatedPhrases({
     pl: "Odczytaj najpierw prymę w {clef} — albo dotknij „Pomiń”.",
     uk: "Спершу прочитай основний тон у {clef} — або натисни «Пропустити».",
     ur: "پہلے {clef} میں بنیادی سُر پڑھیں — یا «چھوڑیں» دبائیں۔",
-    tr: "Önce {clef} içindeki kök sesi oku – ya da \"Atla\"ya dokun."
+    tr: "Önce {clef} içindeki kök sesi oku – ya da \"Atla\"ya dokun.",
+    ar: "اقرأ النغمة الأساسية أولًا في {clef} – أو انقر «تخطّي»."
   },
   "Höre den Akkord & schau auf den ersten Akkord links…": {
     fr: "Écoutez l’accord et observez le premier accord à gauche…",
@@ -3629,7 +4031,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj akordu i spójrz na pierwszy akord z lewej…",
     uk: "Слухай акорд і дивись на перший акорд ліворуч…",
     ur: "کارڈ سنیں اور بائیں جانب پہلے کارڈ پر نظر رکھیں…",
-    tr: "Akoru dinle ve soldaki ilk akora bak…"
+    tr: "Akoru dinle ve soldaki ilk akora bak…",
+    ar: "استمع إلى التآلف وانظر إلى التآلف الأول على اليسار…"
   },
   "Weiter so – welche Töne fehlen noch?": {
     fr: "Continuez – quelles notes manquent encore ?",
@@ -3638,7 +4041,8 @@ registerColocatedPhrases({
     pl: "Tak trzymaj – których dźwięków jeszcze brakuje?",
     uk: "Так тримати – яких звуків ще бракує?",
     ur: "جاری رکھیں – کون سے نوٹس ابھی باقی ہیں؟",
-    tr: "Böyle devam – hangi sesler hâlâ eksik?"
+    tr: "Böyle devam – hangi sesler hâlâ eksik?",
+    ar: "أحسنت، واصل – ما النغمات التي لا تزال ناقصة؟"
   },
   "Lies den Rhythmus mit – nach dem Vorzähler tippst du ihn zum Metronom": {
     fr: "Lisez le rythme – après le décompte, tapez-le avec le métronome",
@@ -3647,7 +4051,8 @@ registerColocatedPhrases({
     pl: "Czytaj rytm – po odliczaniu wystukaj go z metronomem",
     uk: "Читай ритм – після відліку вистукай його з метрономом",
     ur: "ردھم ساتھ پڑھیں – گنتی کے بعد اسے میٹرونوم کے ساتھ ٹیپ کریں",
-    tr: "Ritmi gözünle takip et – ön sayımdan sonra metronomla birlikte vuracaksın"
+    tr: "Ritmi gözünle takip et – ön sayımdan sonra metronomla birlikte vuracaksın",
+    ar: "تابع قراءة الإيقاع – بعد العدّ التمهيدي ستنقره مع المترونوم"
   },
   "Gleich geht's los – Einsatz auf der Eins!": {
     fr: "C’est parti – entrée sur le premier temps !",
@@ -3656,7 +4061,8 @@ registerColocatedPhrases({
     pl: "Zaraz startujemy – wejście na raz!",
     uk: "Зараз почнемо – вступ на раз!",
     ur: "شروع ہونے والا ہے – پہلی بیٹ پر شروع کریں!",
-    tr: "Başlamak üzere – birinci vuruşta gir!"
+    tr: "Başlamak üzere – birinci vuruşta gir!",
+    ar: "سنبدأ حالًا – الدخول على النبضة الأولى!"
   },
   "Blindflug: Jetzt vom Blatt tappen!": {
     fr: "Mode aveugle : tapez à vue maintenant !",
@@ -3665,7 +4071,8 @@ registerColocatedPhrases({
     pl: "Na ślepo: wystukaj teraz z nut!",
     uk: "Наосліп: вистукуй з нот зараз!",
     ur: "بلائنڈ موڈ: ابھی نوٹیشن سے ٹیپ کریں!",
-    tr: "Kör uçuş: Şimdi notadan vur!"
+    tr: "Kör uçuş: Şimdi notadan vur!",
+    ar: "وضع أعمى: انقر الآن من النوتة مباشرة!"
   },
   "Jetzt vom Blatt tappen!": {
     fr: "Tapez à vue maintenant !",
@@ -3674,7 +4081,8 @@ registerColocatedPhrases({
     pl: "Teraz wystukaj z nut!",
     uk: "Тепер вистукуй з нот!",
     ur: "اب نوٹیشن سے ٹیپ کریں!",
-    tr: "Şimdi notadan vur!"
+    tr: "Şimdi notadan vur!",
+    ar: "انقر الآن من النوتة مباشرة!"
   },
   "Tempo: {p}": {
     fr: "Tempo : {p}",
@@ -3683,7 +4091,8 @@ registerColocatedPhrases({
     pl: "Tempo: {p}",
     uk: "Темп: {p}",
     ur: "ٹیمپو: {p}",
-    tr: "Tempo: {p}"
+    tr: "Tempo: {p}",
+    ar: "سرعة الإيقاع: {p}"
   },
   "Akkorde • {clef}": {
     fr: "Accords • {clef}",
@@ -3692,7 +4101,8 @@ registerColocatedPhrases({
     pl: "Akordy • {clef}",
     uk: "Акорди • {clef}",
     ur: "کارڈز • {clef}",
-    tr: "Akorlar • {clef}"
+    tr: "Akorlar • {clef}",
+    ar: "التآلفات • {clef}"
   },
   "AKKORDTON {found}/{total}": {
     fr: "NOTE DE L’ACCORD {found}/{total}",
@@ -3701,7 +4111,8 @@ registerColocatedPhrases({
     pl: "DŹWIĘK AKORDU {found}/{total}",
     uk: "ЗВУК АКОРДУ {found}/{total}",
     ur: "کارڈ نوٹ {found}/{total}",
-    tr: "AKOR SESİ {found}/{total}"
+    tr: "AKOR SESİ {found}/{total}",
+    ar: "نغمة التآلف {found}/{total}"
   },
   "Tippe den notierten Rhythmus im {m}-Takt zum Metronom.": {
     fr: "Tapez le rythme écrit en {m} avec le métronome.",
@@ -3710,7 +4121,8 @@ registerColocatedPhrases({
     pl: "Wystukaj zapisany rytm w metrum {m} z metronomem.",
     uk: "Вистукай записаний ритм у розмірі {m} з метрономом.",
     ur: "لکھا ہوا ردھم {m} میں میٹرونوم کے ساتھ ٹیپ کریں۔",
-    tr: "Yazılı ritmi {m} ölçüsünde metronomla birlikte vur."
+    tr: "Yazılı ritmi {m} ölçüsünde metronomla birlikte vur.",
+    ar: "انقر الإيقاع المكتوب بوزن {m} مع المترونوم."
   },
   "FLÄCHE • {bpm} BPM": {
     fr: "NAPPE • {bpm} BPM",
@@ -3719,7 +4131,8 @@ registerColocatedPhrases({
     pl: "PLAMA • {bpm} BPM",
     uk: "ПІДКЛАДКА • {bpm} BPM",
     ur: "پیڈ • {bpm} BPM",
-    tr: "ZEMİN • {bpm} BPM"
+    tr: "ZEMİN • {bpm} BPM",
+    ar: "خلفية ممتدة • {bpm} BPM"
   },
   "Tonika (i)": {
     fr: "Tonique (i)",
@@ -3728,7 +4141,8 @@ registerColocatedPhrases({
     pl: "Tonika (i)",
     uk: "Тоніка (i)",
     ur: "ٹانک (i)",
-    tr: "Tonik (i)"
+    tr: "Tonik (i)",
+    ar: "درجة القرار (i)"
   },
   "Sing mit!": {
     fr: "Chantez avec nous !",
@@ -3737,7 +4151,8 @@ registerColocatedPhrases({
     pl: "Śpiewaj z nami!",
     uk: "Співай разом!",
     ur: "ساتھ گائیں!",
-    tr: "Eşlik ederek söyle!"
+    tr: "Eşlik ederek söyle!",
+    ar: "غنِّ معًا!"
   },
   "Summ beide Töne nach, bevor du antwortest – deine Stimme spürt den Abstand oft schneller als der Kopf.": {
     fr: "Fredonnez les deux notes avant de répondre – votre voix sent souvent l’écart plus vite que votre tête.",
@@ -3746,7 +4161,8 @@ registerColocatedPhrases({
     pl: "Zanuć oba dźwięki, zanim odpowiesz – twój głos często wyczuwa odległość szybciej niż głowa.",
     uk: "Наспівай обидва звуки, перш ніж відповісти, – твій голос часто відчуває відстань швидше, ніж голова.",
     ur: "جواب دینے سے پہلے دونوں سُر گنگنائیں – آپ کی آواز اکثر دماغ سے پہلے فاصلہ محسوس کر لیتی ہے۔",
-    tr: "Cevap vermeden önce iki sesi de mırıldanarak tekrarla – sesin mesafeyi çoğu zaman zihninden daha hızlı hisseder."
+    tr: "Cevap vermeden önce iki sesi de mırıldanarak tekrarla – sesin mesafeyi çoğu zaman zihninden daha hızlı hisseder.",
+    ar: "دندِن النغمتين قبل أن تجيب – غالبًا ما يشعر صوتك بالمسافة أسرع من التفكير."
   },
   "Sing beide Töne abwärts nach – stell dir dabei eine Treppe nach unten vor.": {
     fr: "Chantez les deux notes en descendant – imaginez un escalier qui descend.",
@@ -3755,7 +4171,8 @@ registerColocatedPhrases({
     pl: "Zaśpiewaj oba dźwięki w dół – wyobraź sobie schody prowadzące w dół.",
     uk: "Заспівай обидва звуки вниз – уяви сходи, що ведуть донизу.",
     ur: "دونوں سُر نیچے کی طرف گائیں – تصور کریں کہ آپ سیڑھیاں اتر رہے ہیں۔",
-    tr: "İki sesi de inici olarak söyle – bunu yaparken aşağı inen bir merdiven hayal et."
+    tr: "İki sesi de inici olarak söyle – bunu yaparken aşağı inen bir merdiven hayal et.",
+    ar: "غنِّ النغمتين هبوطًا – وتخيّل سلمًا ينزل إلى الأسفل."
   },
   "Summ erst den tiefen, dann den hohen Ton heraus – so wird aus dem Zusammenklang ein Schritt, den du singen kannst.": {
     fr: "Fredonnez d’abord la note grave, puis la note aiguë – l’accord devient ainsi un pas que vous pouvez chanter.",
@@ -3764,7 +4181,8 @@ registerColocatedPhrases({
     pl: "Zanuć najpierw niższy, potem wyższy dźwięk – tak współbrzmienie zmienia się w krok, który możesz zaśpiewać.",
     uk: "Наспівай спершу нижчий, а потім вищий звук – так співзвуччя перетвориться на крок, який можна заспівати.",
     ur: "پہلے نیچا، پھر اونچا سُر گنگنائیں – یوں ہم آہنگ آواز ایک ایسا قدم بن جاتی ہے جسے آپ گا سکتے ہیں۔",
-    tr: "Önce pes sesi, sonra tiz sesi mırıldanarak ayır – böylece birlikte tınlayan sesler söyleyebileceğin bir adıma dönüşür."
+    tr: "Önce pes sesi, sonra tiz sesi mırıldanarak ayır – böylece birlikte tınlayan sesler söyleyebileceğin bir adıma dönüşür.",
+    ar: "دندِن النغمة المنخفضة أولًا ثم العالية – هكذا يتحوّل العزف المتزامن إلى خطوة يسهل غناؤها."
   },
   "Summ den Grundton der Fläche mit und sing dann den Klavierton darüber – spür, wie weit deine Stimme springen muss.": {
     fr: "Fredonnez la fondamentale de la nappe, puis chantez la note du piano par-dessus – sentez jusqu’où votre voix doit sauter.",
@@ -3773,7 +4191,8 @@ registerColocatedPhrases({
     pl: "Nuć dźwięk podstawowy plamy, a potem zaśpiewaj nad nim dźwięk fortepianu – poczuj, jak daleko musi skoczyć twój głos.",
     uk: "Наспівуй основний тон підкладки, а потім заспівай над ним звук фортепіано – відчуй, наскільки далеко має стрибнути твій голос.",
     ur: "پیڈ کے بنیادی سُر کے ساتھ گنگنائیں، پھر اس کے اوپر پیانو کا سُر گائیں – محسوس کریں کہ آپ کی آواز کو کتنی چھلانگ لگانی ہے۔",
-    tr: "Zemindeki kök sese mırıldanarak eşlik et, sonra üstündeki piyano sesini söyle – sesinin ne kadar sıçraması gerektiğini hisset."
+    tr: "Zemindeki kök sese mırıldanarak eşlik et, sonra üstündeki piyano sesini söyle – sesinin ne kadar sıçraması gerektiğini hisset.",
+    ar: "دندِن النغمة الأساسية للخلفية ثم غنِّ نغمة البيانو فوقها – اشعر بمدى قفزة صوتك."
   },
   "Sing jeden Ton mit seiner Stufenzahl mit (1, 2, 3 …) – so verankert sich jede Stufe fest in deinem Ohr.": {
     fr: "Chantez chaque note avec son numéro de degré (1, 2, 3 …) – chaque degré s’ancre ainsi solidement dans votre oreille.",
@@ -3782,7 +4201,8 @@ registerColocatedPhrases({
     pl: "Śpiewaj każdy dźwięk z numerem stopnia (1, 2, 3 …) – tak każdy stopień mocno zakotwiczy się w twoim uchu.",
     uk: "Співай кожен звук із номером ступеня (1, 2, 3 …) – так кожен ступінь міцно закріпиться у твоєму слуху.",
     ur: "ہر سُر کو اس کے درجے کے نمبر (1, 2, 3 …) کے ساتھ گائیں – یوں ہر درجہ آپ کے کان میں مضبوطی سے بیٹھ جاتا ہے۔",
-    tr: "Her sese derece numarasıyla eşlik et (1, 2, 3 …) – böylece her derece kulağına sağlamca yerleşir."
+    tr: "Her sese derece numarasıyla eşlik et (1, 2, 3 …) – böylece her derece kulağına sağlamca yerleşir.",
+    ar: "غنِّ كل نغمة مع رقم درجتها (1، 2، 3 …) – هكذا تترسّخ كل درجة بقوة في أذنك."
   },
   "Sing jeden Ton mit seinem Namen mit (Do, Re, Mi …) – so verankert sich jede Stufe fest in deinem Ohr.": {
     fr: "Chantez chaque note avec son nom (Do, Ré, Mi …) – chaque degré s’ancre ainsi solidement dans votre oreille.",
@@ -3791,7 +4211,8 @@ registerColocatedPhrases({
     pl: "Śpiewaj każdy dźwięk z jego nazwą (Do, Re, Mi …) – tak każdy stopień mocno zakotwiczy się w twoim uchu.",
     uk: "Співай кожен звук із його назвою (Do, Re, Mi …) – так кожен ступінь міцно закріпиться у твоєму слуху.",
     ur: "ہر سُر کو اس کے نام (Do, Re, Mi …) کے ساتھ گائیں – یوں ہر درجہ آپ کے کان میں مضبوطی سے بیٹھ جاتا ہے۔",
-    tr: "Her sese adıyla eşlik et (Do, Re, Mi …) – böylece her derece kulağına sağlamca yerleşir."
+    tr: "Her sese adıyla eşlik et (Do, Re, Mi …) – böylece her derece kulağına sağlamca yerleşir.",
+    ar: "غنِّ كل نغمة باسمها (Do، Re، Mi …) – هكذا تترسّخ كل درجة بقوة في أذنك."
   },
   "Grundton (Streicher-Fläche)": {
     fr: "Fondamentale (nappe de cordes)",
@@ -3800,7 +4221,8 @@ registerColocatedPhrases({
     pl: "Dźwięk podstawowy (plama smyczków)",
     uk: "Основний тон (струнна підкладка)",
     ur: "بنیادی سُر (اسٹرنگز پیڈ)",
-    tr: "Kök ses (Yaylı zemini)"
+    tr: "Kök ses (Yaylı zemini)",
+    ar: "النغمة الأساسية (خلفية وتريات)"
   },
   "Streicher-Fläche": {
     fr: "Nappe de cordes",
@@ -3809,7 +4231,8 @@ registerColocatedPhrases({
     pl: "Plama smyczków",
     uk: "Струнна підкладка",
     ur: "اسٹرنگز پیڈ",
-    tr: "Yaylı zemini"
+    tr: "Yaylı zemini",
+    ar: "خلفية وتريات"
   },
   "Fläche + Intervall": {
     fr: "Nappe + intervalle",
@@ -3818,7 +4241,8 @@ registerColocatedPhrases({
     pl: "Plama + interwał",
     uk: "Підкладка + інтервал",
     ur: "پیڈ + انٹرول",
-    tr: "Zemin + Aralık"
+    tr: "Zemin + Aralık",
+    ar: "خلفية + مسافة موسيقية"
   },
   "Streicher ➔ Klavier": {
     fr: "Cordes ➔ Piano",
@@ -3827,7 +4251,8 @@ registerColocatedPhrases({
     pl: "Smyczki ➔ Fortepian",
     uk: "Струнні ➔ Фортепіано",
     ur: "اسٹرنگز ➔ پیانو",
-    tr: "Yaylı ➔ Piyano"
+    tr: "Yaylı ➔ Piyano",
+    ar: "وتريات ➔ بيانو"
   },
   "Welches Intervall hörst du über der Fläche?": {
     fr: "Quel intervalle entendez-vous sur la nappe ?",
@@ -3836,7 +4261,8 @@ registerColocatedPhrases({
     pl: "Jaki interwał słyszysz nad plamą?",
     uk: "Який інтервал ти чуєш над підкладкою?",
     ur: "پیڈ کے اوپر آپ کون سا انٹرول سن رہے ہیں؟",
-    tr: "Zeminin üzerinde hangi aralığı duyuyorsun?"
+    tr: "Zeminin üzerinde hangi aralığı duyuyorsun?",
+    ar: "أي مسافة موسيقية تسمعها فوق الخلفية؟"
   },
   "Klavier-Intervall": {
     fr: "Intervalle au piano",
@@ -3845,7 +4271,8 @@ registerColocatedPhrases({
     pl: "Interwał fortepianu",
     uk: "Інтервал фортепіано",
     ur: "پیانو انٹرول",
-    tr: "Piyano aralığı"
+    tr: "Piyano aralığı",
+    ar: "مسافة البيانو"
   },
   "Höre den Ton & schau auf die erste Note links…": {
     fr: "Écoutez le son et lisez la première note à gauche…",
@@ -3854,7 +4281,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj dźwięku i spójrz na pierwszą nutę z lewej…",
     uk: "Послухай звук і подивись на першу ноту зліва…",
     ur: "سُر سنیں اور بائیں جانب پہلے نوٹ کو دیکھیں…",
-    tr: "Sesi dinle ve soldaki ilk notaya bak…"
+    tr: "Sesi dinle ve soldaki ilk notaya bak…",
+    ar: "استمع إلى النغمة وانظر إلى النغمة الأولى على اليسار…"
   },
   "Fläche hören": {
     fr: "Écouter la nappe",
@@ -3863,7 +4291,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj plamy",
     uk: "Слухати підкладку",
     ur: "پیڈ سنیں",
-    tr: "Zemini dinle"
+    tr: "Zemini dinle",
+    ar: "سماع الخلفية"
   },
   "Streicher-Fläche hält den Grundton – gleich folgt das Klavier…": {
     fr: "La nappe de cordes tient la fondamentale – le piano arrive…",
@@ -3872,7 +4301,8 @@ registerColocatedPhrases({
     pl: "Plama smyczków trzyma dźwięk podstawowy – zaraz wejdzie fortepian…",
     uk: "Струнна підкладка тримає основний тон – зараз вступить фортепіано…",
     ur: "اسٹرنگز پیڈ بنیادی سُر کو تھامے ہوئے ہے – پیانو آنے والا ہے…",
-    tr: "Yaylı zemini kök sesi tutuyor – birazdan piyano geliyor…"
+    tr: "Yaylı zemini kök sesi tutuyor – birazdan piyano geliyor…",
+    ar: "خلفية الوتريات تثبّت النغمة الأساسية – سيتبعها البيانو حالًا…"
   },
   "KLAVIER • GESUCHT": {
     fr: "PIANO • CIBLE",
@@ -3881,7 +4311,8 @@ registerColocatedPhrases({
     pl: "FORTEPIAN • SZUKANY",
     uk: "ФОРТЕПІАНО • ШУКАНИЙ",
     ur: "پیانو • مطلوبہ",
-    tr: "PİYANO • ARANAN"
+    tr: "PİYANO • ARANAN",
+    ar: "البيانو • مطلوب"
   },
   "Welches Intervall erklingt über der Grundton-Fläche?": {
     fr: "Quel intervalle sonne sur la nappe de fondamentale ?",
@@ -3890,7 +4321,8 @@ registerColocatedPhrases({
     pl: "Jaki interwał brzmi nad plamą dźwięku podstawowego?",
     uk: "Який інтервал звучить над підкладкою основного тону?",
     ur: "بنیادی سُر کے پیڈ پر کون سا انٹرول بج رہا ہے؟",
-    tr: "Kök ses zemininin üzerinde hangi aralık çalıyor?"
+    tr: "Kök ses zemininin üzerinde hangi aralık çalıyor?",
+    ar: "أي مسافة موسيقية تُعزف فوق خلفية النغمة الأساسية؟"
   },
   "Nur Hören: Unbearbeitetes Rosa Rauschen – gleich folgt der EQ-Boost…": {
     fr: "Écoute seule : bruit rose neutre — le boost EQ arrive…",
@@ -3899,7 +4331,8 @@ registerColocatedPhrases({
     pl: "Tylko słuchanie: czysty szum różowy — zaraz włączy się podbicie EQ…",
     uk: "Лише слухання: чистий рожевий шум — зараз увімкнеться підсилення EQ…",
     ur: "صرف سنیں: اصل پنک نوائز چل رہا ہے — ابھی EQ بوسٹ آئے گا…",
-    tr: "Sadece dinle: İşlenmemiş pembe gürültü – birazdan EQ yükseltme geliyor…"
+    tr: "Sadece dinle: İşlenmemiş pembe gürültü – birazdan EQ yükseltme geliyor…",
+    ar: "استماع فقط: ضوضاء وردية غير معالَجة – سيتبعها تعزيز EQ حالًا…"
   },
   "Nur Hören: EQ-Boost aktiv – welches Band tritt hervor?": {
     fr: "Écoute seule : boost EQ actif — quelle bande ressort ?",
@@ -3908,7 +4341,8 @@ registerColocatedPhrases({
     pl: "Tylko słuchanie: podbicie EQ aktywne — które pasmo się wybija?",
     uk: "Лише слухання: підсилення EQ активне — яка смуга виділяється?",
     ur: "صرف سنیں: EQ بوسٹ فعال ہے — کون سا بینڈ نمایاں ہے؟",
-    tr: "Sadece dinle: EQ yükseltme aktif – hangi bant öne çıkıyor?"
+    tr: "Sadece dinle: EQ yükseltme aktif – hangi bant öne çıkıyor?",
+    ar: "استماع فقط: تعزيز EQ مفعّل – أي نطاق يبرز؟"
   },
   "3 in Folge, {name} – schöner Flow!": {
     fr: "3 à la suite, {name} — beau flow !",
@@ -3917,7 +4351,8 @@ registerColocatedPhrases({
     pl: "3 z rzędu, {name} – świetny rytm!",
     uk: "3 поспіль, {name} — чудовий темп!",
     ur: "لگاتار 3، {name} — بہترین تسلسل!",
-    tr: "Üst üste 3, {name} – harika akış!"
+    tr: "Üst üste 3, {name} – harika akış!",
+    ar: "3 على التوالي يا {name} – انسجام رائع!"
   },
   "8 in Folge, {name} – eine ganze Oktave!": {
     fr: "8 à la suite, {name} — toute une octave !",
@@ -3926,7 +4361,8 @@ registerColocatedPhrases({
     pl: "8 z rzędu, {name} – cała oktawa!",
     uk: "8 поспіль, {name} — ціла октава!",
     ur: "لگاتار 8، {name} — پورا ایک آکٹیو!",
-    tr: "Üst üste 8, {name} – tam bir oktav!"
+    tr: "Üst üste 8, {name} – tam bir oktav!",
+    ar: "8 على التوالي يا {name} – أوكتاف كامل!"
   },
   "15 in Folge, {name} – echtes Musiker-Gehör!": {
     fr: "15 à la suite, {name} — une vraie oreille de musicien !",
@@ -3935,7 +4371,8 @@ registerColocatedPhrases({
     pl: "15 z rzędu, {name} – prawdziwe ucho muzyka!",
     uk: "15 поспіль, {name} — справжній слух музиканта!",
     ur: "لگاتار 15، {name} — سچے موسیقار کا کان!",
-    tr: "Üst üste 15, {name} – gerçek bir müzisyen kulağı!"
+    tr: "Üst üste 15, {name} – gerçek bir müzisyen kulağı!",
+    ar: "15 على التوالي يا {name} – أذن موسيقية حقيقية!"
   },
   "{n} in Folge, {name} – starker Fokus!": {
     fr: "{n} à la suite, {name} — concentration au sommet !",
@@ -3944,7 +4381,8 @@ registerColocatedPhrases({
     pl: "{n} z rzędu, {name} – mocne skupienie!",
     uk: "{n} поспіль, {name} — потужна концентрація!",
     ur: "لگاتار {n}، {name} — زبردست توجہ!",
-    tr: "Üst üste {n}, {name} – güçlü odak!"
+    tr: "Üst üste {n}, {name} – güçlü odak!",
+    ar: "{n} على التوالي يا {name} – تركيز قوي!"
   },
   "Bereit, {name}?": {
     fr: "Prêt, {name} ?",
@@ -3953,7 +4391,8 @@ registerColocatedPhrases({
     pl: "Gotowy, {name}?",
     uk: "Готовий, {name}?",
     ur: "تیار ہیں، {name}؟",
-    tr: "Hazır mısın, {name}?"
+    tr: "Hazır mısın, {name}?",
+    ar: "جاهز يا {name}؟"
   },
   "Was meinst du, {name}?": {
     fr: "Qu’entends-tu, {name} ?",
@@ -3962,7 +4401,8 @@ registerColocatedPhrases({
     pl: "Co słyszysz, {name}?",
     uk: "Що чуєш, {name}?",
     ur: "{name}، آپ نے کیا سنا؟",
-    tr: "Sence hangisi, {name}?"
+    tr: "Sence hangisi, {name}?",
+    ar: "ما رأيك يا {name}؟"
   },
   "Na, was war’s, {name}?": {
     fr: "Alors, c’était quoi, {name} ?",
@@ -3971,7 +4411,8 @@ registerColocatedPhrases({
     pl: "No i co to było, {name}?",
     uk: "Ну, що це було, {name}?",
     ur: "تو یہ کیا تھا، {name}؟",
-    tr: "Peki, neydi {name}?"
+    tr: "Peki, neydi {name}?",
+    ar: "حسنًا، ماذا كانت يا {name}؟"
   },
   "Ganz Ohr, {name}!": {
     fr: "Tout ouïe, {name} !",
@@ -3980,7 +4421,8 @@ registerColocatedPhrases({
     pl: "Zamieniam się w słuch, {name}!",
     uk: "Уважно слухаю, {name}!",
     ur: "ہمہ تن گوش، {name}!",
-    tr: "Kulak kesil, {name}!"
+    tr: "Kulak kesil, {name}!",
+    ar: "كلي آذان صاغية يا {name}!"
   },
   "Dein Tipp, {name}?": {
     fr: "Ton avis, {name} ?",
@@ -3989,7 +4431,8 @@ registerColocatedPhrases({
     pl: "Twój typ, {name}?",
     uk: "Твій варіант, {name}?",
     ur: "{name}، آپ کا اندازہ؟",
-    tr: "Tahminin ne, {name}?"
+    tr: "Tahminin ne, {name}?",
+    ar: "إجابتك يا {name}؟"
   },
   "RICHTIG, {name}!": {
     fr: "EXACT, {name} !",
@@ -3998,7 +4441,8 @@ registerColocatedPhrases({
     pl: "DOBRZE, {name}!",
     uk: "ПРАВИЛЬНО, {name}!",
     ur: "بالکل درست، {name}!",
-    tr: "DOĞRU, {name}!"
+    tr: "DOĞRU, {name}!",
+    ar: "صحيح يا {name}!"
   },
   "STARK GEHÖRT, {name}!": {
     fr: "BIEN ENTENDU, {name} !",
@@ -4007,7 +4451,8 @@ registerColocatedPhrases({
     pl: "ŚWIETNY SŁUCH, {name}!",
     uk: "ЧУДОВИЙ СЛУХ, {name}!",
     ur: "شاندار سماعت، {name}!",
-    tr: "HARİKA DUYDUN, {name}!"
+    tr: "HARİKA DUYDUN, {name}!",
+    ar: "سماع رائع يا {name}!"
   },
   "TREFFER, {name}!": {
     fr: "DANS LE MILLE, {name} !",
@@ -4016,7 +4461,8 @@ registerColocatedPhrases({
     pl: "W PUNKT, {name}!",
     uk: "ВЛУЧНО, {name}!",
     ur: "عین نشانے پر، {name}!",
-    tr: "İSABET, {name}!"
+    tr: "İSABET, {name}!",
+    ar: "إصابة موفّقة يا {name}!"
   },
   "SAUBER, {name}!": {
     fr: "BIEN JOUÉ, {name} !",
@@ -4025,7 +4471,8 @@ registerColocatedPhrases({
     pl: "BRAWO, {name}!",
     uk: "ЧИСТО, {name}!",
     ur: "بہت خوب، {name}!",
-    tr: "SÜPER, {name}!"
+    tr: "SÜPER, {name}!",
+    ar: "ممتاز يا {name}!"
   },
   "Vergleichen hilft, {name}": {
     fr: "Comparer aide, {name}",
@@ -4034,7 +4481,8 @@ registerColocatedPhrases({
     pl: "Porównanie pomaga, {name}",
     uk: "Порівняння допомагає, {name}",
     ur: "موازنہ مدد دیتا ہے، {name}",
-    tr: "Karşılaştırmak yardımcı olur, {name}"
+    tr: "Karşılaştırmak yardımcı olur, {name}",
+    ar: "المقارنة تساعد يا {name}"
   },
   "{name}, welche Stufe schwingt noch nach? Tippe sie unten an.": {
     fr: "{name}, quel degré résonne encore ? Touche-le ci-dessous.",
@@ -4043,7 +4491,8 @@ registerColocatedPhrases({
     pl: "{name}, który stopień jeszcze wybrzmiewa? Wybierz poniżej.",
     uk: "{name}, який ступінь ще звучить у пам’яті? Обери нижче.",
     ur: "{name}، کون سا درجہ اب بھی گونج رہا ہے؟ نیچے منتخب کریں۔",
-    tr: "{name}, hangi derece hâlâ çınlıyor? Aşağıdan dokun."
+    tr: "{name}, hangi derece hâlâ çınlıyor? Aşağıdan dokun.",
+    ar: "يا {name}، أي درجة لا تزال تتردّد في ذهنك؟ انقر عليها بالأسفل."
   },
   "{name}, welche Akkordfarbe ist hängengeblieben? Wähle unten aus.": {
     fr: "{name}, quelle couleur d’accord t’est restée ? Choisis ci-dessous.",
@@ -4052,7 +4501,8 @@ registerColocatedPhrases({
     pl: "{name}, jaka barwa akordu została w uchu? Wybierz poniżej.",
     uk: "{name}, яке забарвлення акорду запам’яталося? Обери нижче.",
     ur: "{name}، کورڈ کا کون سا رنگ ذہن میں رہا؟ نیچے منتخب کریں۔",
-    tr: "{name}, hangi akor rengi aklında kaldı? Aşağıdan seç."
+    tr: "{name}, hangi akor rengi aklında kaldı? Aşağıdan seç.",
+    ar: "يا {name}، أي لون تآلفي بقي في ذهنك؟ اختر بالأسفل."
   },
   "{name}, welcher Akkordton saß ganz unten im Bass?": {
     fr: "{name}, quelle note de l’accord était tout en bas à la basse ?",
@@ -4061,7 +4511,8 @@ registerColocatedPhrases({
     pl: "{name}, który dźwięk akordu leżał najniżej w basie?",
     uk: "{name}, який тон акорду звучав найнижче в басу?",
     ur: "{name}، بیس میں سب سے نیچے کون سا سُر تھا؟",
-    tr: "{name}, hangi akor sesi en altta, bastaydı?"
+    tr: "{name}, hangi akor sesi en altta, bastaydı?",
+    ar: "يا {name}، أي نغمة من التآلف كانت في أسفل الباص؟"
   },
   "{name}, wie weit fühlte sich der Abstand an? Wähle das Intervall.": {
     fr: "{name}, quelle amplitude avait ce saut ? Choisis l’intervalle.",
@@ -4070,7 +4521,8 @@ registerColocatedPhrases({
     pl: "{name}, jak szeroki był ten skok? Wybierz interwał.",
     uk: "{name}, наскільки широким здався стрибок? Обери інтервал.",
     ur: "{name}، سُروں کا فاصلہ کتنا لگا؟ نیچے وقفہ منتخب کریں۔",
-    tr: "{name}, mesafe ne kadar geniş hissettirdi? Aralığı seç."
+    tr: "{name}, mesafe ne kadar geniş hissettirdi? Aralığı seç.",
+    ar: "يا {name}، كم بدت المسافة بعيدة؟ اختر المسافة الموسيقية."
   },
   "{name}, wo sitzt dieser Ton in der Tonleiter? Tippe auf die Taste.": {
     fr: "{name}, où se place cette note dans la gamme ? Touche la touche.",
@@ -4079,7 +4531,8 @@ registerColocatedPhrases({
     pl: "{name}, gdzie w skali leży ten dźwięk? Naciśnij klawisz.",
     uk: "{name}, де цей звук розташований у гамі? Натисни клавішу.",
     ur: "{name}، یہ سُر اسکیل میں کہاں ہے؟ متعلقہ کلید دبائیں۔",
-    tr: "{name}, bu ses gamın neresinde yer alıyor? Tuşa dokun."
+    tr: "{name}, bu ses gamın neresinde yer alıyor? Tuşa dokun.",
+    ar: "يا {name}، أين تقع هذه النغمة في السلم؟ انقر على المفتاح."
   },
   "{name}, wo lag die betonte Eins? Wähle die passende Taktart.": {
     fr: "{name}, où tombait le temps fort ? Choisis la mesure.",
@@ -4088,7 +4541,8 @@ registerColocatedPhrases({
     pl: "{name}, gdzie wypadła mocna raz? Wybierz metrum.",
     uk: "{name}, де була сильна частка? Обери розмір.",
     ur: "{name}، مضبوط پہلی ضرب کہاں تھی؟ نیچے تال منتخب کریں۔",
-    tr: "{name}, vurgulu birinci vuruş neredeydi? Uygun ölçü birimini seç."
+    tr: "{name}, vurgulu birinci vuruş neredeydi? Uygun ölçü birimini seç.",
+    ar: "يا {name}، أين كانت النبضة الأولى المشددة؟ اختر الوزن الإيقاعي المناسب."
   },
   "{name}, wie hat der Groove für dich geatmet? Wähle unten aus.": {
     fr: "{name}, comment ce groove respirait-il ? Choisis ci-dessous.",
@@ -4097,7 +4551,8 @@ registerColocatedPhrases({
     pl: "{name}, jak kołysał ten groove? Wybierz poniżej.",
     uk: "{name}, як дихав цей грув? Обери відповідь нижче.",
     ur: "{name}، اس گروو کا انداز کیسا لگا؟ نیچے منتخب کریں۔",
-    tr: "{name}, groove sana nasıl nefes alıyormuş gibi geldi? Aşağıdan seç."
+    tr: "{name}, groove sana nasıl nefes alıyormuş gibi geldi? Aşağıdan seç.",
+    ar: "يا {name}، كيف شعرت بنبض الغروف؟ اختر بالأسفل."
   },
   "{name}, in welchem Band lag der Schwerpunkt? Tippe es unten an.": {
     fr: "{name}, quelle bande portait l’accent ? Touche-la ci-dessous.",
@@ -4106,7 +4561,8 @@ registerColocatedPhrases({
     pl: "{name}, w którym paśmie leżał akcent? Wybierz poniżej.",
     uk: "{name}, у якій смузі був акцент? Обери нижче.",
     ur: "{name}، کس فریکوئنسی بینڈ پر زور تھا؟ نیچے منتخب کریں۔",
-    tr: "{name}, ağırlık hangi banttaydı? Aşağıdan dokun."
+    tr: "{name}, ağırlık hangi banttaydı? Aşağıdan dokun.",
+    ar: "يا {name}، في أي نطاق كان التركيز؟ انقر عليه بالأسفل."
   },
   "{name}, welche Klangfarbe schwang da mit? Wähle den Modus.": {
     fr: "{name}, quelle couleur modale ressortait ? Choisis le mode.",
@@ -4115,7 +4571,8 @@ registerColocatedPhrases({
     pl: "{name}, jaka barwa modalna tu wybrzmiała? Wybierz tryb.",
     uk: "{name}, який ладовий відтінок прозвучав? Обери лад.",
     ur: "{name}، کون سا موڈل رنگ نمایاں تھا؟ نیچے موڈ منتخب کریں۔",
-    tr: "{name}, hangi tını rengi eşlik ediyordu? Modu seç."
+    tr: "{name}, hangi tını rengi eşlik ediyordu? Modu seç.",
+    ar: "يا {name}، أي لون صوتي تردّد هنا؟ اختر النمط."
   },
   "Oktave": {
     fr: "Octave",
@@ -4124,7 +4581,8 @@ registerColocatedPhrases({
     pl: "Oktawa",
     uk: "Октава",
     ur: "آکٹیو",
-    tr: "Oktav"
+    tr: "Oktav",
+    ar: "أوكتاف"
   },
   "Dur 1–4": {
     fr: "Majeur 1–4",
@@ -4133,7 +4591,8 @@ registerColocatedPhrases({
     pl: "Dur 1–4",
     uk: "Мажор 1–4",
     ur: "میجر 1–4",
-    tr: "Majör 1–4"
+    tr: "Majör 1–4",
+    ar: "كبير 1–4"
   },
   "Dur 5–8": {
     fr: "Majeur 5–8",
@@ -4142,7 +4601,8 @@ registerColocatedPhrases({
     pl: "Dur 5–8",
     uk: "Мажор 5–8",
     ur: "میجر 5–8",
-    tr: "Majör 5–8"
+    tr: "Majör 5–8",
+    ar: "كبير 5–8"
   },
   "Moll 1–4": {
     fr: "Mineur 1–4",
@@ -4151,7 +4611,8 @@ registerColocatedPhrases({
     pl: "Moll 1–4",
     uk: "Мінор 1–4",
     ur: "مائنر 1–4",
-    tr: "Minör 1–4"
+    tr: "Minör 1–4",
+    ar: "صغير 1–4"
   },
   "Moll 5–8": {
     fr: "Mineur 5–8",
@@ -4160,7 +4621,8 @@ registerColocatedPhrases({
     pl: "Moll 5–8",
     uk: "Мінор 5–8",
     ur: "مائنر 5–8",
-    tr: "Minör 5–8"
+    tr: "Minör 5–8",
+    ar: "صغير 5–8"
   },
   "Moll-Tonleiter": {
     fr: "Gamme mineure",
@@ -4169,7 +4631,8 @@ registerColocatedPhrases({
     pl: "Gama molowa",
     uk: "Мінорна гама",
     ur: "مائنر اسکیل",
-    tr: "Minör gam"
+    tr: "Minör gam",
+    ar: "السلم الصغير"
   },
   "Eigene Tonart & Modus": {
     fr: "Tonalité & mode personnalisés",
@@ -4178,7 +4641,8 @@ registerColocatedPhrases({
     pl: "Własna tonacja i tryb",
     uk: "Власна тональність і лад",
     ur: "اپنی کلید اور موڈ",
-    tr: "Özel ton ve mod"
+    tr: "Özel ton ve mod",
+    ar: "مقام ونمط مخصصان"
   },
   "Dur (Ionisch)": {
     fr: "Majeur (Ionien)",
@@ -4187,7 +4651,8 @@ registerColocatedPhrases({
     pl: "Dur (Jońska)",
     uk: "Мажор (Іонійський)",
     ur: "میجر (آئونین)",
-    tr: "Majör (İyonik)"
+    tr: "Majör (İyonik)",
+    ar: "كبير (أيوني)"
   },
   "Natürlich Moll": {
     fr: "Mineur naturel",
@@ -4196,7 +4661,8 @@ registerColocatedPhrases({
     pl: "Moll naturalny",
     uk: "Натуральний мінор",
     ur: "قدرتی مائنر",
-    tr: "Doğal Minör"
+    tr: "Doğal Minör",
+    ar: "صغير طبيعي"
   },
   "Harmonisch Moll": {
     fr: "Mineur harmonique",
@@ -4205,7 +4671,8 @@ registerColocatedPhrases({
     pl: "Moll harmoniczny",
     uk: "Гармонічний мінор",
     ur: "ہارمونک مائنر",
-    tr: "Armonik Minör"
+    tr: "Armonik Minör",
+    ar: "صغير هارموني"
   },
   "Melodisch Moll": {
     fr: "Mineur mélodique",
@@ -4214,7 +4681,8 @@ registerColocatedPhrases({
     pl: "Moll melodyczny",
     uk: "Мелодичний мінор",
     ur: "میلوڈک مائنر",
-    tr: "Melodik Minör"
+    tr: "Melodik Minör",
+    ar: "صغير لحني"
   },
   "Dorisch": {
     fr: "Dorien",
@@ -4223,7 +4691,8 @@ registerColocatedPhrases({
     pl: "Dorycka",
     uk: "Дорійський",
     ur: "ڈورین",
-    tr: "Doryen"
+    tr: "Doryen",
+    ar: "دوري"
   },
   "Phrygisch": {
     fr: "Phrygien",
@@ -4232,7 +4701,8 @@ registerColocatedPhrases({
     pl: "Frygijska",
     uk: "Фригійський",
     ur: "فریجین",
-    tr: "Frigyen"
+    tr: "Frigyen",
+    ar: "فريجي"
   },
   "Lydisch": {
     fr: "Lydien",
@@ -4241,7 +4711,8 @@ registerColocatedPhrases({
     pl: "Lidyjska",
     uk: "Лідійський",
     ur: "لیڈین",
-    tr: "Lidyen"
+    tr: "Lidyen",
+    ar: "ليدي"
   },
   "Mixolydisch": {
     fr: "Mixolydien",
@@ -4250,7 +4721,8 @@ registerColocatedPhrases({
     pl: "Miksolidyjska",
     uk: "Міксолідійський",
     ur: "مکسولیڈین",
-    tr: "Miksolidyen"
+    tr: "Miksolidyen",
+    ar: "ميكسوليدي"
   },
   "Lokrisch": {
     fr: "Locrien",
@@ -4259,7 +4731,8 @@ registerColocatedPhrases({
     pl: "Lokrycka",
     uk: "Локрійський",
     ur: "لوکرین",
-    tr: "Lokriyen"
+    tr: "Lokriyen",
+    ar: "لوكري"
   },
   "Chromatisch": {
     fr: "Chromatique",
@@ -4268,7 +4741,8 @@ registerColocatedPhrases({
     pl: "Chromatyczna",
     uk: "Хроматична",
     ur: "کرومیٹک",
-    tr: "Kromatik"
+    tr: "Kromatik",
+    ar: "كروماتي"
   },
   "Einsteiger (1/3/5/8)": {
     fr: "Débutant (1/3/5/8)",
@@ -4277,7 +4751,8 @@ registerColocatedPhrases({
     pl: "Początkujący (1/3/5/8)",
     uk: "Початківець (1/3/5/8)",
     ur: "ابتدائی (1/3/5/8)",
-    tr: "Başlangıç (1/3/5/8)"
+    tr: "Başlangıç (1/3/5/8)",
+    ar: "مبتدئ (1/3/5/8)"
   },
   "Untere Hälfte (1–4)": {
     fr: "Moitié inférieure (1–4)",
@@ -4286,7 +4761,8 @@ registerColocatedPhrases({
     pl: "Dolna połowa (1–4)",
     uk: "Нижня половина (1–4)",
     ur: "نچلا نصف (1–4)",
-    tr: "Alt yarı (1–4)"
+    tr: "Alt yarı (1–4)",
+    ar: "النصف السفلي (1–4)"
   },
   "Obere Hälfte (5–8)": {
     fr: "Moitié supérieure (5–8)",
@@ -4295,7 +4771,8 @@ registerColocatedPhrases({
     pl: "Górna połowa (5–8)",
     uk: "Верхня половина (5–8)",
     ur: "اوپری نصف (5–8)",
-    tr: "Üst yarı (5–8)"
+    tr: "Üst yarı (5–8)",
+    ar: "النصف العلوي (5–8)"
   },
   "Ganze Tonleiter (1–8)": {
     fr: "Gamme complète (1–8)",
@@ -4304,7 +4781,8 @@ registerColocatedPhrases({
     pl: "Cała gama (1–8)",
     uk: "Вся гама (1–8)",
     ur: "مکمل اسکیل (1–8)",
-    tr: "Tüm gam (1–8)"
+    tr: "Tüm gam (1–8)",
+    ar: "السلم الكامل (1–8)"
   },
   "Tonleiter / Modus:": {
     fr: "Gamme / Mode :",
@@ -4313,7 +4791,8 @@ registerColocatedPhrases({
     pl: "Gama / Tryb:",
     uk: "Гама / Лад:",
     ur: "اسکیل / موڈ:",
-    tr: "Gam / Mod:"
+    tr: "Gam / Mod:",
+    ar: "السلم / النمط:"
   },
   "Umfang:": {
     fr: "Étendue :",
@@ -4322,7 +4801,8 @@ registerColocatedPhrases({
     pl: "Zakres:",
     uk: "Діапазон:",
     ur: "حد:",
-    tr: "Aralık:"
+    tr: "Aralık:",
+    ar: "النطاق:"
   },
   "Grundton & Modus wählen": {
     fr: "Choisir la tonique & le mode",
@@ -4331,7 +4811,8 @@ registerColocatedPhrases({
     pl: "Wybierz prymę i tryb",
     uk: "Обрати тоніку й лад",
     ur: "بنیادی سُر اور موڈ چنیں",
-    tr: "Kök ses ve mod seç"
+    tr: "Kök ses ve mod seç",
+    ar: "اختيار النغمة الأساسية والنمط"
   },
   "Zwei Töne erklingen nacheinander vom Ausgangston nach oben": {
     fr: "Deux notes jouées l’une après l’autre vers le haut depuis la note de départ",
@@ -4340,7 +4821,8 @@ registerColocatedPhrases({
     pl: "Dwa dźwięki grane kolejno w górę od dźwięku wyjściowego",
     uk: "Дві ноти звучать послідовно вгору від початкового тону",
     ur: "بنیادی سُر سے اوپر کی طرف یکے بعد دیگرے دو سُر بجتے ہیں",
-    tr: "Başlangıç sesinden yukarı doğru art arda iki ses çalar"
+    tr: "Başlangıç sesinden yukarı doğru art arda iki ses çalar",
+    ar: "تُعزف نغمتان متتاليتان صعودًا من نغمة البداية"
   },
   "Zwei Töne erklingen nacheinander vom Ausgangston nach unten": {
     fr: "Deux notes jouées l’une après l’autre vers le bas depuis la note de départ",
@@ -4349,7 +4831,8 @@ registerColocatedPhrases({
     pl: "Dwa dźwięki grane kolejno w dół od dźwięku wyjściowego",
     uk: "Дві ноти звучать послідовно вниз від початкового тону",
     ur: "بنیادی سُر سے نیچے کی طرف یکے بعد دیگرے دو سُر بجتے ہیں",
-    tr: "Başlangıç sesinden aşağı doğru art arda iki ses çalar"
+    tr: "Başlangıç sesinden aşağı doğru art arda iki ses çalar",
+    ar: "تُعزف نغمتان متتاليتان هبوطًا من نغمة البداية"
   },
   "Stufe 2: Dur 1–4": {
     fr: "Niveau 2 : Majeur 1–4",
@@ -4358,7 +4841,8 @@ registerColocatedPhrases({
     pl: "Poziom 2: Dur 1–4",
     uk: "Рівень 2: Мажор 1–4",
     ur: "مرحلہ 2: میجر 1–4",
-    tr: "Seviye 2: Majör 1–4"
+    tr: "Seviye 2: Majör 1–4",
+    ar: "المستوى 2: كبير 1–4"
   },
   "Untere Hälfte: Prime, gr. Sek., gr. Terz, Quarte": {
     fr: "Moitié inf. : unisson, 2de maj., 3ce maj., quarte",
@@ -4367,7 +4851,8 @@ registerColocatedPhrases({
     pl: "Dolna połowa: pryma, sek. w., tercja w., kwarta",
     uk: "Нижня половина: прима, вел. сек., вел. терція, кварта",
     ur: "نچلا نصف: پرائم، میجر سیکنڈ، میجر تھرڈ، فورتھ",
-    tr: "Alt yarı: Birli, B. İkili, B. Üçlü, Dörtlü"
+    tr: "Alt yarı: Birli, B. İkili, B. Üçlü, Dörtlü",
+    ar: "النصف السفلي: تطابق، ثانية كبيرة، ثالثة كبيرة، رابعة تامة"
   },
   "Stufe 3: Dur 5–8": {
     fr: "Niveau 3 : Majeur 5–8",
@@ -4376,7 +4861,8 @@ registerColocatedPhrases({
     pl: "Poziom 3: Dur 5–8",
     uk: "Рівень 3: Мажор 5–8",
     ur: "مرحلہ 3: میجر 5–8",
-    tr: "Seviye 3: Majör 5–8"
+    tr: "Seviye 3: Majör 5–8",
+    ar: "المستوى 3: كبير 5–8"
   },
   "Obere Hälfte: Quinte, gr. Sexte, gr. Sept., Oktave": {
     fr: "Moitié sup. : quinte, 6te maj., 7e maj., octave",
@@ -4385,7 +4871,8 @@ registerColocatedPhrases({
     pl: "Górna połowa: kwinta, seksta w., sept. w., oktawa",
     uk: "Верхня половина: квінта, вел. секста, вел. септ., октава",
     ur: "اوپری نصف: ففتھ، میجر سکستھ، میجر سیونتھ، آکٹیو",
-    tr: "Üst yarı: Beşli, B. Altılı, B. Yedili, Oktav"
+    tr: "Üst yarı: Beşli, B. Altılı, B. Yedili, Oktav",
+    ar: "النصف العلوي: خامسة تامة، سادسة كبيرة، سابعة كبيرة، أوكتاف"
   },
   "Stufe 4: Dur-Tonleiter": {
     fr: "Niveau 4 : Gamme majeure",
@@ -4394,7 +4881,8 @@ registerColocatedPhrases({
     pl: "Poziom 4: Gama durowa",
     uk: "Рівень 4: Мажорна гама",
     ur: "مرحلہ 4: میجر اسکیل",
-    tr: "Seviye 4: Majör gam"
+    tr: "Seviye 4: Majör gam",
+    ar: "المستوى 4: السلم الكبير"
   },
   "Alle 8 diatonischen Dur-Intervalle": {
     fr: "Les 8 intervalles diatoniques majeurs",
@@ -4403,7 +4891,8 @@ registerColocatedPhrases({
     pl: "Wszystkie 8 diatonicznych interwałów durowych",
     uk: "Усі 8 діатонічних мажорних інтервалів",
     ur: "تمام 8 ڈایاٹونک میجر انٹرولز",
-    tr: "8 diyatonik majör aralığın tamamı"
+    tr: "8 diyatonik majör aralığın tamamı",
+    ar: "جميع المسافات الثماني الدياتونية في السلم الكبير"
   },
   "Moll 1: Einsteiger": {
     fr: "Mineur 1 : Débutant",
@@ -4412,7 +4901,8 @@ registerColocatedPhrases({
     pl: "Moll 1: Początkujący",
     uk: "Мінор 1: Початківець",
     ur: "مائنر 1: ابتدائی",
-    tr: "Minör 1: Başlangıç"
+    tr: "Minör 1: Başlangıç",
+    ar: "صغير 1: مبتدئ"
   },
   "Prime, kl. Terz, Quinte, Oktave": {
     fr: "Unisson, tierce mineure, quinte, octave",
@@ -4421,7 +4911,8 @@ registerColocatedPhrases({
     pl: "Pryma, tercja mała, kwinta, oktawa",
     uk: "Прима, мала терція, квінта, октава",
     ur: "پرائم، مائنر تھرڈ، ففتھ، آکٹیو",
-    tr: "Birli, k. Üçlü, Beşli, Oktav"
+    tr: "Birli, k. Üçlü, Beşli, Oktav",
+    ar: "تطابق، ثالثة صغيرة، خامسة تامة، أوكتاف"
   },
   "Moll 2: Moll 1–4": {
     fr: "Mineur 2 : Mineur 1–4",
@@ -4430,7 +4921,8 @@ registerColocatedPhrases({
     pl: "Moll 2: Moll 1–4",
     uk: "Мінор 2: Мінор 1–4",
     ur: "مائنر 2: مائنر 1–4",
-    tr: "Minör 2: Minör 1–4"
+    tr: "Minör 2: Minör 1–4",
+    ar: "صغير 2: صغير 1–4"
   },
   "Untere Hälfte: Prime, gr. Sek., kl. Terz, Quarte": {
     fr: "Moitié inf. : unisson, 2de maj., 3ce min., quarte",
@@ -4439,7 +4931,8 @@ registerColocatedPhrases({
     pl: "Dolna połowa: pryma, sek. w., tercja m., kwarta",
     uk: "Нижня половина: прима, вел. сек., мала терція, кварта",
     ur: "نچلا نصف: پرائم، میجر سیکنڈ، مائنر تھرڈ، فورتھ",
-    tr: "Alt yarı: Birli, B. İkili, k. Üçlü, Dörtlü"
+    tr: "Alt yarı: Birli, B. İkili, k. Üçlü, Dörtlü",
+    ar: "النصف السفلي: تطابق، ثانية كبيرة، ثالثة صغيرة، رابعة تامة"
   },
   "Moll 3: Moll 5–8": {
     fr: "Mineur 3 : Mineur 5–8",
@@ -4448,7 +4941,8 @@ registerColocatedPhrases({
     pl: "Moll 3: Moll 5–8",
     uk: "Мінор 3: Мінор 5–8",
     ur: "مائنر 3: مائنر 5–8",
-    tr: "Minör 3: Minör 5–8"
+    tr: "Minör 3: Minör 5–8",
+    ar: "صغير 3: صغير 5–8"
   },
   "Obere Hälfte: Quinte, kl. Sexte, kl. Sept., Oktave": {
     fr: "Moitié sup. : quinte, 6te min., 7e min., octave",
@@ -4457,7 +4951,8 @@ registerColocatedPhrases({
     pl: "Górna połowa: kwinta, seksta m., sept. m., oktawa",
     uk: "Верхня половина: квінта, мала секста, мала септ., октава",
     ur: "اوپری نصف: ففتھ، مائنر سکستھ، مائنر سیونتھ، آکٹیو",
-    tr: "Üst yarı: Beşli, k. Altılı, k. Yedili, Oktav"
+    tr: "Üst yarı: Beşli, k. Altılı, k. Yedili, Oktav",
+    ar: "النصف العلوي: خامسة تامة، سادسة صغيرة، سابعة صغيرة، أوكتاف"
   },
   "Moll 4: Moll-Tonleiter": {
     fr: "Mineur 4 : Gamme mineure",
@@ -4466,7 +4961,8 @@ registerColocatedPhrases({
     pl: "Moll 4: Gama molowa",
     uk: "Мінор 4: Мінорна гама",
     ur: "مائنر 4: مائنر اسکیل",
-    tr: "Minör 4: Minör gam"
+    tr: "Minör 4: Minör gam",
+    ar: "صغير 4: السلم الصغير"
   },
   "Alle 8 Intervalle in natürlichem Moll": {
     fr: "Les 8 intervalles du mineur naturel",
@@ -4475,7 +4971,8 @@ registerColocatedPhrases({
     pl: "Wszystkie 8 interwałów moll naturalnego",
     uk: "Усі 8 інтервалів натурального мінору",
     ur: "قدرتی مائنر کے تمام 8 انٹرولز",
-    tr: "Doğal minördeki 8 aralığın tamamı"
+    tr: "Doğal minördeki 8 aralığın tamamı",
+    ar: "جميع المسافات الثماني في السلم الصغير الطبيعي"
   },
   "Stufe 5: Chromatisch": {
     fr: "Niveau 5 : Chromatique",
@@ -4484,7 +4981,8 @@ registerColocatedPhrases({
     pl: "Poziom 5: Chromatyczny",
     uk: "Рівень 5: Хроматичний",
     ur: "مرحلہ 5: کرومیٹک",
-    tr: "Seviye 5: Kromatik"
+    tr: "Seviye 5: Kromatik",
+    ar: "المستوى 5: كروماتي"
   },
   "Freie Tonart & Modi (Eigenes Intervall-Training)": {
     fr: "Tonalité & modes libres (Entraînement sur mesure)",
@@ -4493,7 +4991,8 @@ registerColocatedPhrases({
     pl: "Dowolna tonacja i tryby (Własny trening interwałów)",
     uk: "Вільна тональність і лади (Власне тренування інтервалів)",
     ur: "آزاد کلید اور موڈز (اپنی انٹرول ٹریننگ)",
-    tr: "Serbest ton ve modlar (Özel aralık çalışması)"
+    tr: "Serbest ton ve modlar (Özel aralık çalışması)",
+    ar: "مقام وأنماط حرة (تدريب مسافات مخصص)"
   },
   "Wähle deinen festen Grundton (oder Zufall), eine Tonleiter bzw. Kirchentonart und passe die abgefragten Intervalle beliebig an.": {
     fr: "Choisis une tonique fixe (ou aléatoire), une gamme ou un mode ecclésiastique, et personnalise les intervalles interrogés.",
@@ -4502,7 +5001,8 @@ registerColocatedPhrases({
     pl: "Wybierz stały dźwięk podstawowy (lub losowy), gamę bądź tryb kościelny i dowolnie dostosuj sprawdzane interwały.",
     uk: "Обери фіксовану тоніку (або випадкову), гаму чи церковний лад і налаштуй інтервали для перевірки.",
     ur: "اپنا مستقل بنیادی سُر (یا بے ترتیب)، کوئی اسکیل یا موڈ منتخب کریں اور مشق کے انٹرولز اپنی مرضی سے ترتیب دیں۔",
-    tr: "Sabit kök sesini (veya rastgele) ve bir gam ya da kilise modunu seç, sorulacak aralıkları dilediğin gibi ayarla."
+    tr: "Sabit kök sesini (veya rastgele) ve bir gam ya da kilise modunu seç, sorulacak aralıkları dilediğin gibi ayarla.",
+    ar: "اختر نغمتك الأساسية الثابتة (أو عشوائية)، وسلمًا أو نمطًا موسيقيًا، وخصّص المسافات المطلوبة بحرية."
   },
   "1. Grundton / Tonart:": {
     fr: "1. Tonique / Tonalité :",
@@ -4511,7 +5011,8 @@ registerColocatedPhrases({
     pl: "1. Dźwięk podstawowy / Tonacja:",
     uk: "1. Тоніка / Тональність:",
     ur: "1. بنیادی سُر / کلید:",
-    tr: "1. Kök ses / Ton:"
+    tr: "1. Kök ses / Ton:",
+    ar: "1. النغمة الأساسية / المقام:"
   },
   "2. Tonleiter / Modus:": {
     fr: "2. Gamme / Mode :",
@@ -4520,7 +5021,8 @@ registerColocatedPhrases({
     pl: "2. Gama / Tryb:",
     uk: "2. Гама / Лад:",
     ur: "2. اسکیل / موڈ:",
-    tr: "2. Gam / Mod:"
+    tr: "2. Gam / Mod:",
+    ar: "2. السلم / النمط:"
   },
   "3. Umfang / Ausschnitt:": {
     fr: "3. Étendue / Segment :",
@@ -4529,7 +5031,8 @@ registerColocatedPhrases({
     pl: "3. Zakres / Wycinek:",
     uk: "3. Діапазон / Частина:",
     ur: "3. حد / حصہ:",
-    tr: "3. Aralık / Kesit:"
+    tr: "3. Aralık / Kesit:",
+    ar: "3. النطاق / القسم:"
   },
   "4. Aktive Intervalle (antippen zum An-/Abwählen, mind. 2):": {
     fr: "4. Intervalles actifs (touchez pour activer/désactiver, min. 2) :",
@@ -4538,7 +5041,8 @@ registerColocatedPhrases({
     pl: "4. Aktywne interwały (dotknij, aby włączyć/wyłączyć, min. 2):",
     uk: "4. Активні інтервали (торкнися, щоб увімкнути/вимкнути, мін. 2):",
     ur: "4. فعال انٹرولز (منتخب یا غیر منتخب کرنے کے لیے ٹیپ کریں، کم از کم 2):",
-    tr: "4. Aktif aralıklar (seçmek/kaldırmak için dokun, en az 2):"
+    tr: "4. Aktif aralıklar (seçmek/kaldırmak için dokun, en az 2):",
+    ar: "4. المسافات المفعّلة (انقر للتفعيل أو الإلغاء، بحد أدنى 2):"
   },
   "Frei": {
     fr: "Libre",
@@ -4547,7 +5051,8 @@ registerColocatedPhrases({
     pl: "Własne",
     uk: "Вільно",
     ur: "آزاد",
-    tr: "Serbest"
+    tr: "Serbest",
+    ar: "حر"
   },
   "Aufwärts (Eigene Auswahl)": {
     fr: "Ascendant (Sur mesure)",
@@ -4556,7 +5061,8 @@ registerColocatedPhrases({
     pl: "W górę (Własny wybór)",
     uk: "Вгору (Власний вибір)",
     ur: "اوپر کی طرف (اپنا انتخاب)",
-    tr: "Çıkıcı (Özel seçim)"
+    tr: "Çıkıcı (Özel seçim)",
+    ar: "صعودًا (اختيار مخصص)"
   },
   "Abwärts (Eigene Auswahl)": {
     fr: "Descendant (Sur mesure)",
@@ -4565,7 +5071,8 @@ registerColocatedPhrases({
     pl: "W dół (Własny wybór)",
     uk: "Вниз (Власний вибір)",
     ur: "نیچے کی طرف (اپنا انتخاب)",
-    tr: "İnici (Özel seçim)"
+    tr: "İnici (Özel seçim)",
+    ar: "هبوطًا (اختيار مخصص)"
   },
   "Harmonisch (Eigene Auswahl)": {
     fr: "Harmonique (Sur mesure)",
@@ -4574,7 +5081,8 @@ registerColocatedPhrases({
     pl: "Harmonicznie (Własny wybór)",
     uk: "Гармонічно (Власний вибір)",
     ur: "ہارمونک (اپنا انتخاب)",
-    tr: "Armonik (Özel seçim)"
+    tr: "Armonik (Özel seçim)",
+    ar: "متزامن (اختيار مخصص)"
   },
   "Grundton-Fläche (Eigene Auswahl)": {
     fr: "Bourdon (Sur mesure)",
@@ -4583,7 +5091,8 @@ registerColocatedPhrases({
     pl: "Tło prymy (Własny wybór)",
     uk: "Тонічна педаль (Власний вибір)",
     ur: "بنیادی پیڈ (اپنا انتخاب)",
-    tr: "Kök ses zemini (Özel seçim)"
+    tr: "Kök ses zemini (Özel seçim)",
+    ar: "خلفية النغمة الأساسية (اختيار مخصص)"
   },
   "Grundton:": {
     fr: "Tonique :",
@@ -4592,7 +5101,8 @@ registerColocatedPhrases({
     pl: "Dźwięk podstawowy:",
     uk: "Тоніка:",
     ur: "بنیادی سُر:",
-    tr: "Kök ses:"
+    tr: "Kök ses:",
+    ar: "النغمة الأساسية:"
   },
   "1. Tongeschlecht:": {
     fr: "1. Mode (majeur/mineur) :",
@@ -4601,7 +5111,8 @@ registerColocatedPhrases({
     pl: "1. Tryb (dur/moll):",
     uk: "1. Лад (мажор/мінор):",
     ur: "1. مزاج (میجر/مائنر):",
-    tr: "1. Ton türü:"
+    tr: "1. Ton türü:",
+    ar: "1. الجنس النغمي:"
   },
   "2. Tonart:": {
     fr: "2. Tonalité :",
@@ -4610,7 +5121,8 @@ registerColocatedPhrases({
     pl: "2. Tonacja:",
     uk: "2. Тональність:",
     ur: "2. کلید:",
-    tr: "2. Ton:"
+    tr: "2. Ton:",
+    ar: "2. المقام:"
   },
   "3. Tonraum:": {
     fr: "3. Étendue :",
@@ -4619,7 +5131,8 @@ registerColocatedPhrases({
     pl: "3. Zakres:",
     uk: "3. Діапазон:",
     ur: "3. دائرہ:",
-    tr: "3. Ses alanı:"
+    tr: "3. Ses alanı:",
+    ar: "3. المجال النغمي:"
   },
   "4. Oktavlage:": {
     fr: "4. Registre d’octaves :",
@@ -4628,7 +5141,8 @@ registerColocatedPhrases({
     pl: "4. Zakres oktaw:",
     uk: "4. Октавний регістр:",
     ur: "4. آکٹیو:",
-    tr: "4. Oktav konumu:"
+    tr: "4. Oktav konumu:",
+    ar: "4. نطاق الأوكتاف:"
   },
   "Do–Fa (Mehrere Okt.)": {
     fr: "Do–Fa (Plus. oct.)",
@@ -4637,7 +5151,8 @@ registerColocatedPhrases({
     pl: "Do–Fa (Wiele okt.)",
     uk: "Do–Fa (Кілька окт.)",
     ur: "Do–Fa (کئی آکٹیو)",
-    tr: "Do–Fa (Birden fazla oktav)"
+    tr: "Do–Fa (Birden fazla oktav)",
+    ar: "Do–Fa (عدة أوكتافات)"
   },
   "Do–Fa (Untere Hälfte)": {
     fr: "Do–Fa (Moitié basse)",
@@ -4646,7 +5161,8 @@ registerColocatedPhrases({
     pl: "Do–Fa (Dolna połowa)",
     uk: "Do–Fa (Нижня половина)",
     ur: "Do–Fa (نچلا حصہ)",
-    tr: "Do–Fa (Alt yarı)"
+    tr: "Do–Fa (Alt yarı)",
+    ar: "Do–Fa (النصف السفلي)"
   },
   "Do–Fa, C-Dur": {
     fr: "Do–Fa, Do majeur",
@@ -4655,7 +5171,8 @@ registerColocatedPhrases({
     pl: "Do–Fa, C-dur",
     uk: "Do–Fa, До мажор",
     ur: "Do–Fa، C میجر",
-    tr: "Do–Fa, Do Majör"
+    tr: "Do–Fa, Do Majör",
+    ar: "Do–Fa، دو كبير"
   },
   "Do–Fa, c-Moll": {
     fr: "Do–Fa, Do mineur",
@@ -4664,7 +5181,8 @@ registerColocatedPhrases({
     pl: "Do–Fa, c-moll",
     uk: "Do–Fa, До мінор",
     ur: "Do–Fa، C مائنر",
-    tr: "Do–Fa, Do Minör"
+    tr: "Do–Fa, Do Minör",
+    ar: "Do–Fa، دو صغير"
   },
   "Eigene Tonart": {
     fr: "Tonalité libre",
@@ -4673,7 +5191,8 @@ registerColocatedPhrases({
     pl: "Własna tonacja",
     uk: "Власна тональність",
     ur: "اپنی کلید",
-    tr: "Özel ton"
+    tr: "Özel ton",
+    ar: "مقام مخصص"
   },
   "Eigene Tonart (Dur & Moll)": {
     fr: "Tonalité libre (majeur & mineur)",
@@ -4682,7 +5201,8 @@ registerColocatedPhrases({
     pl: "Własna tonacja (dur i moll)",
     uk: "Власна тональність (мажор і мінор)",
     ur: "اپنی کلید (میجر اور مائنر)",
-    tr: "Özel ton (Majör ve Minör)"
+    tr: "Özel ton (Majör ve Minör)",
+    ar: "مقام مخصص (كبير وصغير)"
   },
   "Feste Tonart c-Moll, wechselnde Oktaven": {
     fr: "Tonalité fixe Do mineur, octaves variables",
@@ -4691,7 +5211,8 @@ registerColocatedPhrases({
     pl: "Stała tonacja c-moll, zmienne oktawy",
     uk: "Фіксована тональність До мінор, різні октави",
     ur: "مقررہ C مائنر کلید، بدلتے آکٹیو",
-    tr: "Sabit Do Minör tonu, değişen oktavlar"
+    tr: "Sabit Do Minör tonu, değişen oktavlar",
+    ar: "مقام ثابت دو صغير، أوكتافات متغيرة"
   },
   "Ganze Moll-Tonleiter, mittlere Höhe, feste Tonart c-Moll": {
     fr: "Gamme mineure complète, registre médium, Do mineur fixe",
@@ -4700,7 +5221,8 @@ registerColocatedPhrases({
     pl: "Pełna gama moll, średni rejestr, stała tonacja c-moll",
     uk: "Повна мінорна гама, середній регістр, фіксований До мінор",
     ur: "مکمل مائنر اسکیل، درمیانہ سُر، مقررہ C مائنر",
-    tr: "Tüm minör gam, orta kayıt, sabit Do Minör tonu"
+    tr: "Tüm minör gam, orta kayıt, sabit Do Minör tonu",
+    ar: "السلم الصغير الكامل، طبقة متوسطة، مقام ثابت دو صغير"
   },
   "Ganze Tonart": {
     fr: "Gamme complète",
@@ -4709,7 +5231,8 @@ registerColocatedPhrases({
     pl: "Cała gama",
     uk: "Повна гама",
     ur: "مکمل اسکیل",
-    tr: "Tüm ton"
+    tr: "Tüm ton",
+    ar: "المقام الكامل"
   },
   "Ganze Tonart (Do–Do)": {
     fr: "Gamme complète (Do–Do)",
@@ -4718,7 +5241,8 @@ registerColocatedPhrases({
     pl: "Cała gama (Do–Do)",
     uk: "Повна гама (Do–Do)",
     ur: "مکمل اسکیل (Do–Do)",
-    tr: "Tüm ton (Do–Do)"
+    tr: "Tüm ton (Do–Do)",
+    ar: "المقام الكامل (Do–Do)"
   },
   "Ganze Tonleiter, mittlere Höhe, feste Tonart C-Dur": {
     fr: "Gamme complète, registre médium, Do majeur fixe",
@@ -4727,7 +5251,8 @@ registerColocatedPhrases({
     pl: "Pełna gama, średni rejestr, stała tonacja C-dur",
     uk: "Повна гама, середній регістр, фіксований До мажор",
     ur: "مکمل اسکیل، درمیانہ سُر، مقررہ C میجر",
-    tr: "Tüm gam, orta kayıt, sabit Do Majör tonu"
+    tr: "Tüm gam, orta kayıt, sabit Do Majör tonu",
+    ar: "السلم الكامل، طبقة متوسطة، مقام ثابت دو كبير"
   },
   "Höre die Dur-Kadenz (I–vi–IV–V) und erkenne die gespielte Tonstufe auf der Klaviatur": {
     fr: "Écoutez la cadence majeure (I–vi–IV–V) et identifiez le degré joué sur le clavier",
@@ -4736,7 +5261,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj kadencji dur (I–vi–IV–V) i wskaż usłyszany stopień na klawiaturze",
     uk: "Прослухай мажорну каденцію (I–vi–IV–V) і знайди зіграний ступінь на клавіатурі",
     ur: "میجر کیڈینس (I–vi–IV–V) سنیں اور کی بورڈ پر بجائے گئے درجے کی شناخت کریں",
-    tr: "Majör kadansı (I–vi–IV–V) dinle ve çalınan dereceyi klavyede tanı"
+    tr: "Majör kadansı (I–vi–IV–V) dinle ve çalınan dereceyi klavyede tanı",
+    ar: "استمع إلى القفلة الكبيرة (I–vi–IV–V) وميّز الدرجة المعزوفة على لوحة المفاتيح"
   },
   "Höre die Moll-Kadenz (i–VI–iv–V) und erkenne die gespielte Tonstufe in Natürlich Moll": {
     fr: "Écoutez la cadence mineure (i–VI–iv–V) et identifiez le degré joué en mineur naturel",
@@ -4745,7 +5271,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj kadencji moll (i–VI–iv–V) i wskaż stopień w skali moll naturalnej",
     uk: "Прослухай мінорну каденцію (i–VI–iv–V) і знайди ступінь у натуральному мінорі",
     ur: "مائنر کیڈینس (i–VI–iv–V) سنیں اور نیچرل مائنر میں سُر پہچانیں",
-    tr: "Minör kadansı (i–VI–iv–V) dinle ve çalınan dereceyi Doğal Minör'de tanı"
+    tr: "Minör kadansı (i–VI–iv–V) dinle ve çalınan dereceyi Doğal Minör'de tanı",
+    ar: "استمع إلى القفلة الصغيرة (i–VI–iv–V) وميّز الدرجة المعزوفة في السلم الصغير الطبيعي"
   },
   "Mehrere Oktaven": {
     fr: "Plusieurs octaves",
@@ -4754,7 +5281,8 @@ registerColocatedPhrases({
     pl: "Wiele oktaw",
     uk: "Кілька октав",
     ur: "کئی آکٹیو",
-    tr: "Birden fazla oktav"
+    tr: "Birden fazla oktav",
+    ar: "عدة أوكتافات"
   },
   "Moll 1: Do–Fa (c-Moll)": {
     fr: "Mineur 1 : Do–Fa (Do mineur)",
@@ -4763,7 +5291,8 @@ registerColocatedPhrases({
     pl: "Moll 1: Do–Fa (c-moll)",
     uk: "Мінор 1: Do–Fa (До мінор)",
     ur: "مائنر 1: Do–Fa (C مائنر)",
-    tr: "Minör 1: Do–Fa (Do Minör)"
+    tr: "Minör 1: Do–Fa (Do Minör)",
+    ar: "صغير 1: Do–Fa (دو صغير)"
   },
   "Moll 2: Sol–Do (c-Moll)": {
     fr: "Mineur 2 : Sol–Do (Do mineur)",
@@ -4772,7 +5301,8 @@ registerColocatedPhrases({
     pl: "Moll 2: Sol–Do (c-moll)",
     uk: "Мінор 2: Sol–Do (До мінор)",
     ur: "مائنر 2: Sol–Do (C مائنر)",
-    tr: "Minör 2: Sol–Do (Do Minör)"
+    tr: "Minör 2: Sol–Do (Do Minör)",
+    ar: "صغير 2: Sol–Do (دو صغير)"
   },
   "Moll 3: c-Moll (1 Oktave)": {
     fr: "Mineur 3 : Do mineur (1 octave)",
@@ -4781,7 +5311,8 @@ registerColocatedPhrases({
     pl: "Moll 3: c-moll (1 oktawa)",
     uk: "Мінор 3: До мінор (1 октава)",
     ur: "مائنر 3: C مائنر (1 آکٹیو)",
-    tr: "Minör 3: Do Minör (1 oktav)"
+    tr: "Minör 3: Do Minör (1 oktav)",
+    ar: "صغير 3: دو صغير (أوكتاف واحد)"
   },
   "Moll 4: Zufällige Tonart (1 Okt.)": {
     fr: "Mineur 4 : Tonalité aléatoire (1 oct.)",
@@ -4790,7 +5321,8 @@ registerColocatedPhrases({
     pl: "Moll 4: Losowa tonacja (1 okt.)",
     uk: "Мінор 4: Випадкова тональність (1 окт.)",
     ur: "مائنر 4: بے ترتیب کلید (1 آکٹیو)",
-    tr: "Minör 4: Rastgele ton (1 oktav)"
+    tr: "Minör 4: Rastgele ton (1 oktav)",
+    ar: "صغير 4: مقام عشوائي (أوكتاف واحد)"
   },
   "Moll 5: c-Moll (Mehrere Oktaven)": {
     fr: "Mineur 5 : Do mineur (plus. octaves)",
@@ -4799,7 +5331,8 @@ registerColocatedPhrases({
     pl: "Moll 5: c-moll (wiele oktaw)",
     uk: "Мінор 5: До мінор (кілька октав)",
     ur: "مائنر 5: C مائنر (کئی آکٹیو)",
-    tr: "Minör 5: Do Minör (Birden fazla oktav)"
+    tr: "Minör 5: Do Minör (Birden fazla oktav)",
+    ar: "صغير 5: دو صغير (عدة أوكتافات)"
   },
   "Moll 6: Zufällige Tonart (Mehrere Okt.)": {
     fr: "Mineur 6 : Tonalité aléatoire (plus. oct.)",
@@ -4808,7 +5341,8 @@ registerColocatedPhrases({
     pl: "Moll 6: Losowa tonacja (wiele okt.)",
     uk: "Мінор 6: Випадкова тональність (кілька окт.)",
     ur: "مائنر 6: بے ترتیب کلید (کئی آکٹیو)",
-    tr: "Minör 6: Rastgele ton (Birden fazla oktav)"
+    tr: "Minör 6: Rastgele ton (Birden fazla oktav)",
+    ar: "صغير 6: مقام عشوائي (عدة أوكتافات)"
   },
   "Moll 7: Tonartwechsel (1 Oktave)": {
     fr: "Mineur 7 : Changements de tonalité (1 oct.)",
@@ -4817,7 +5351,8 @@ registerColocatedPhrases({
     pl: "Moll 7: Zmiana tonacji (1 oktawa)",
     uk: "Мінор 7: Зміна тональності (1 октава)",
     ur: "مائنر 7: کلید کی تبدیلی (1 آکٹیو)",
-    tr: "Minör 7: Ton değişimi (1 oktav)"
+    tr: "Minör 7: Ton değişimi (1 oktav)",
+    ar: "صغير 7: تغيير المقام (أوكتاف واحد)"
   },
   "Moll 8: Tonartwechsel (Mehrere Okt.)": {
     fr: "Mineur 8 : Changements de tonalité (plus. oct.)",
@@ -4826,7 +5361,8 @@ registerColocatedPhrases({
     pl: "Moll 8: Zmiana tonacji (wiele okt.)",
     uk: "Мінор 8: Зміна тональності (кілька окт.)",
     ur: "مائنر 8: کلید کی تبدیلی (کئی آکٹیو)",
-    tr: "Minör 8: Ton değişimi (Birden fazla oktav)"
+    tr: "Minör 8: Ton değişimi (Birden fazla oktav)",
+    ar: "صغير 8: تغيير المقام (عدة أوكتافات)"
   },
   "Neue Moll-Tonart & Oktave nach jeder Antwort": {
     fr: "Nouvelle tonalité mineure et octave après chaque réponse",
@@ -4835,7 +5371,8 @@ registerColocatedPhrases({
     pl: "Nowa tonacja moll i oktawa po każdej odpowiedzi",
     uk: "Нова мінорна тональність і октава після кожної відповіді",
     ur: "ہر جواب کے بعد نئی مائنر کلید اور آکٹیو",
-    tr: "Her cevaptan sonra yeni minör ton ve oktav"
+    tr: "Her cevaptan sonra yeni minör ton ve oktav",
+    ar: "مقام صغير وأوكتاف جديدان بعد كل إجابة"
   },
   "Neue Moll-Tonart nach jeder Antwort, 1 Okt.": {
     fr: "Nouvelle tonalité mineure après chaque réponse, 1 oct.",
@@ -4844,7 +5381,8 @@ registerColocatedPhrases({
     pl: "Nowa tonacja moll po każdej odpowiedzi, 1 okt.",
     uk: "Нова мінорна тональність після кожної відповіді, 1 окт.",
     ur: "ہر جواب کے بعد نئی مائنر کلید، 1 آکٹیو",
-    tr: "Her cevaptan sonra yeni minör ton, 1 oktav"
+    tr: "Her cevaptan sonra yeni minör ton, 1 oktav",
+    ar: "مقام صغير جديد بعد كل إجابة، أوكتاف واحد"
   },
   "Nicht c-Moll (fest), wechselnde Oktaven": {
     fr: "Hors Do mineur (fixe), octaves variables",
@@ -4853,7 +5391,8 @@ registerColocatedPhrases({
     pl: "Nie c-moll (stała), zmienne oktawy",
     uk: "Не До мінор (фіксована), різні октави",
     ur: "C مائنر کے علاوہ (مقررہ)، بدلتے آکٹیو",
-    tr: "Do Minör dışı (sabit), değişen oktavlar"
+    tr: "Do Minör dışı (sabit), değişen oktavlar",
+    ar: "مقام غير دو صغير (ثابت)، أوكتافات متغيرة"
   },
   "Nicht c-Moll, fest für diese Sitzung": {
     fr: "Hors Do mineur, fixe pour cette séance",
@@ -4862,7 +5401,8 @@ registerColocatedPhrases({
     pl: "Nie c-moll, stała na tę sesję",
     uk: "Не До мінор, фіксована на цю сесію",
     ur: "C مائنر کے علاوہ، اس سیشن کے لیے مقررہ",
-    tr: "Do Minör dışı, bu oturum için sabit"
+    tr: "Do Minör dışı, bu oturum için sabit",
+    ar: "مقام غير دو صغير، ثابت طوال هذه الجلسة"
   },
   "Obere Hälfte (4 Töne), feste Tonart C-Dur": {
     fr: "Moitié haute (4 notes), Do majeur fixe",
@@ -4871,7 +5411,8 @@ registerColocatedPhrases({
     pl: "Górna połowa (4 dźwięki), stała tonacja C-dur",
     uk: "Верхня половина (4 ноти), фіксований До мажор",
     ur: "اوپری حصہ (4 سُر)، مقررہ C میجر",
-    tr: "Üst yarı (4 ses), sabit Do Majör tonu"
+    tr: "Üst yarı (4 ses), sabit Do Majör tonu",
+    ar: "النصف العلوي (4 نغمات)، مقام ثابت دو كبير"
   },
   "Obere Hälfte (Sol, Le, Te, Do), feste Tonart c-Moll": {
     fr: "Moitié haute (Sol, Le, Te, Do), Do mineur fixe",
@@ -4880,7 +5421,8 @@ registerColocatedPhrases({
     pl: "Górna połowa (Sol, Le, Te, Do), stała tonacja c-moll",
     uk: "Верхня половина (Sol, Le, Te, Do), фіксований До мінор",
     ur: "اوپری حصہ (Sol, Le, Te, Do)، مقررہ C مائنر",
-    tr: "Üst yarı (Sol, Le, Te, Do), sabit Do Minör tonu"
+    tr: "Üst yarı (Sol, Le, Te, Do), sabit Do Minör tonu",
+    ar: "النصف العلوي (Sol، Le، Te، Do)، مقام ثابت دو صغير"
   },
   "Obere Hälfte (Sol–Do)": {
     fr: "Moitié haute (Sol–Do)",
@@ -4889,7 +5431,8 @@ registerColocatedPhrases({
     pl: "Górna połowa (Sol–Do)",
     uk: "Верхня половина (Sol–Do)",
     ur: "اوپری حصہ (Sol–Do)",
-    tr: "Üst yarı (Sol–Do)"
+    tr: "Üst yarı (Sol–Do)",
+    ar: "النصف العلوي (Sol–Do)"
   },
   "Oktave:": {
     fr: "Octave :",
@@ -4898,7 +5441,8 @@ registerColocatedPhrases({
     pl: "Oktawa:",
     uk: "Октава:",
     ur: "آکٹیو:",
-    tr: "Oktav:"
+    tr: "Oktav:",
+    ar: "الأوكتاف:"
   },
   "Solfège mit eigener Tonart starten": {
     fr: "Démarrer le solfège dans ma tonalité",
@@ -4907,7 +5451,8 @@ registerColocatedPhrases({
     pl: "Rozpocznij solfeż we własnej tonacji",
     uk: "Почати сольфеджіо у власній тональності",
     ur: "اپنی کلید میں سولفیج شروع کریں",
-    tr: "Özel tonla solfeji başlat"
+    tr: "Özel tonla solfeji başlat",
+    ar: "بدء الصولفيج بمقام مخصص"
   },
   "Sol–Do (Mehrere Okt.)": {
     fr: "Sol–Do (Plus. oct.)",
@@ -4916,7 +5461,8 @@ registerColocatedPhrases({
     pl: "Sol–Do (Wiele okt.)",
     uk: "Sol–Do (Кілька окт.)",
     ur: "Sol–Do (کئی آکٹیو)",
-    tr: "Sol–Do (Birden fazla oktav)"
+    tr: "Sol–Do (Birden fazla oktav)",
+    ar: "Sol–Do (عدة أوكتافات)"
   },
   "Sol–Do (Obere Hälfte)": {
     fr: "Sol–Do (Moitié haute)",
@@ -4925,7 +5471,8 @@ registerColocatedPhrases({
     pl: "Sol–Do (Górna połowa)",
     uk: "Sol–Do (Верхня половина)",
     ur: "Sol–Do (اوپری حصہ)",
-    tr: "Sol–Do (Üst yarı)"
+    tr: "Sol–Do (Üst yarı)",
+    ar: "Sol–Do (النصف العلوي)"
   },
   "Sol–Do, C-Dur": {
     fr: "Sol–Do, Do majeur",
@@ -4934,7 +5481,8 @@ registerColocatedPhrases({
     pl: "Sol–Do, C-dur",
     uk: "Sol–Do, До мажор",
     ur: "Sol–Do، C میجر",
-    tr: "Sol–Do, Do Majör"
+    tr: "Sol–Do, Do Majör",
+    ar: "Sol–Do، دو كبير"
   },
   "Sol–Do, c-Moll": {
     fr: "Sol–Do, Do mineur",
@@ -4943,7 +5491,8 @@ registerColocatedPhrases({
     pl: "Sol–Do, c-moll",
     uk: "Sol–Do, До мінор",
     ur: "Sol–Do، C مائنر",
-    tr: "Sol–Do, Do Minör"
+    tr: "Sol–Do, Do Minör",
+    ar: "Sol–Do، دو صغير"
   },
   "Stufe 1: Do–Fa (C-Dur)": {
     fr: "Niveau 1 : Do–Fa (Do majeur)",
@@ -4952,7 +5501,8 @@ registerColocatedPhrases({
     pl: "Poziom 1: Do–Fa (C-dur)",
     uk: "Рівень 1: Do–Fa (До мажор)",
     ur: "سطح 1: Do–Fa (C میجر)",
-    tr: "Seviye 1: Do–Fa (Do Majör)"
+    tr: "Seviye 1: Do–Fa (Do Majör)",
+    ar: "المستوى 1: Do–Fa (دو كبير)"
   },
   "Stufe 2: Sol–Do (C-Dur)": {
     fr: "Niveau 2 : Sol–Do (Do majeur)",
@@ -4961,7 +5511,8 @@ registerColocatedPhrases({
     pl: "Poziom 2: Sol–Do (C-dur)",
     uk: "Рівень 2: Sol–Do (До мажор)",
     ur: "سطح 2: Sol–Do (C میجر)",
-    tr: "Seviye 2: Sol–Do (Do Majör)"
+    tr: "Seviye 2: Sol–Do (Do Majör)",
+    ar: "المستوى 2: Sol–Do (دو كبير)"
   },
   "Stufe 3: C-Dur (1 Oktave)": {
     fr: "Niveau 3 : Do majeur (1 octave)",
@@ -4970,7 +5521,8 @@ registerColocatedPhrases({
     pl: "Poziom 3: C-dur (1 oktawa)",
     uk: "Рівень 3: До мажор (1 октава)",
     ur: "سطح 3: C میجر (1 آکٹیو)",
-    tr: "Seviye 3: Do Majör (1 oktav)"
+    tr: "Seviye 3: Do Majör (1 oktav)",
+    ar: "المستوى 3: دو كبير (أوكتاف واحد)"
   },
   "Stufe 4: Zufällige Tonart (1 Okt.)": {
     fr: "Niveau 4 : Tonalité aléatoire (1 oct.)",
@@ -4979,7 +5531,8 @@ registerColocatedPhrases({
     pl: "Poziom 4: Losowa tonacja (1 okt.)",
     uk: "Рівень 4: Випадкова тональність (1 окт.)",
     ur: "سطح 4: بے ترتیب کلید (1 آکٹیو)",
-    tr: "Seviye 4: Rastgele ton (1 oktav)"
+    tr: "Seviye 4: Rastgele ton (1 oktav)",
+    ar: "المستوى 4: مقام عشوائي (أوكتاف واحد)"
   },
   "Stufe 5: C-Dur (Mehrere Oktaven)": {
     fr: "Niveau 5 : Do majeur (plus. octaves)",
@@ -4988,7 +5541,8 @@ registerColocatedPhrases({
     pl: "Poziom 5: C-dur (wiele oktaw)",
     uk: "Рівень 5: До мажор (кілька октав)",
     ur: "سطح 5: C میجر (کئی آکٹیو)",
-    tr: "Seviye 5: Do Majör (Birden fazla oktav)"
+    tr: "Seviye 5: Do Majör (Birden fazla oktav)",
+    ar: "المستوى 5: دو كبير (عدة أوكتافات)"
   },
   "Stufe 6: Zufällige Tonart (Mehrere Okt.)": {
     fr: "Niveau 6 : Tonalité aléatoire (plus. oct.)",
@@ -4997,7 +5551,8 @@ registerColocatedPhrases({
     pl: "Poziom 6: Losowa tonacja (wiele okt.)",
     uk: "Рівень 6: Випадкова тональність (кілька окт.)",
     ur: "سطح 6: بے ترتیب کلید (کئی آکٹیو)",
-    tr: "Seviye 6: Rastgele ton (Birden fazla oktav)"
+    tr: "Seviye 6: Rastgele ton (Birden fazla oktav)",
+    ar: "المستوى 6: مقام عشوائي (عدة أوكتافات)"
   },
   "Stufe 7: Tonartwechsel (1 Oktave)": {
     fr: "Niveau 7 : Changements de tonalité (1 oct.)",
@@ -5006,7 +5561,8 @@ registerColocatedPhrases({
     pl: "Poziom 7: Zmiana tonacji (1 oktawa)",
     uk: "Рівень 7: Зміна тональності (1 октава)",
     ur: "سطح 7: کلید کی تبدیلی (1 آکٹیو)",
-    tr: "Seviye 7: Ton değişimi (1 oktav)"
+    tr: "Seviye 7: Ton değişimi (1 oktav)",
+    ar: "المستوى 7: تغيير المقام (أوكتاف واحد)"
   },
   "Stufe 8: Tonartwechsel (Mehrere Okt.)": {
     fr: "Niveau 8 : Changements de tonalité (plus. oct.)",
@@ -5015,7 +5571,8 @@ registerColocatedPhrases({
     pl: "Poziom 8: Zmiana tonacji (wiele okt.)",
     uk: "Рівень 8: Зміна тональності (кілька окт.)",
     ur: "سطح 8: کلید کی تبدیلی (کئی آکٹیو)",
-    tr: "Seviye 8: Ton değişimi (Birden fazla oktav)"
+    tr: "Seviye 8: Ton değişimi (Birden fazla oktav)",
+    ar: "المستوى 8: تغيير المقام (عدة أوكتافات)"
   },
   "Tonart, Dur/Moll & Tonraum wählen": {
     fr: "Choisir tonalité, majeur/mineur et étendue",
@@ -5024,7 +5581,8 @@ registerColocatedPhrases({
     pl: "Wybierz tonację, dur/moll i zakres",
     uk: "Обрати тональність, мажор/мінор і діапазон",
     ur: "کلید، میجر/مائنر اور دائرہ چنیں",
-    tr: "Ton, Majör/Minör ve ses alanı seç"
+    tr: "Ton, Majör/Minör ve ses alanı seç",
+    ar: "اختيار المقام وكبير/صغير والمجال النغمي"
   },
   "Tonart:": {
     fr: "Tonalité :",
@@ -5033,7 +5591,8 @@ registerColocatedPhrases({
     pl: "Tonacja:",
     uk: "Тональність:",
     ur: "کلید:",
-    tr: "Ton:"
+    tr: "Ton:",
+    ar: "المقام:"
   },
   "Tongeschlecht:": {
     fr: "Mode :",
@@ -5042,7 +5601,8 @@ registerColocatedPhrases({
     pl: "Tryb:",
     uk: "Лад:",
     ur: "مزاج:",
-    tr: "Ton türü:"
+    tr: "Ton türü:",
+    ar: "الجنس النغمي:"
   },
   "Tonraum:": {
     fr: "Étendue :",
@@ -5051,7 +5611,8 @@ registerColocatedPhrases({
     pl: "Zakres:",
     uk: "Діапазон:",
     ur: "دائرہ:",
-    tr: "Ses alanı:"
+    tr: "Ses alanı:",
+    ar: "المجال النغمي:"
   },
   "Untere Hälfte (4 Töne), feste Tonart C-Dur": {
     fr: "Moitié basse (4 notes), Do majeur fixe",
@@ -5060,7 +5621,8 @@ registerColocatedPhrases({
     pl: "Dolna połowa (4 dźwięki), stała tonacja C-dur",
     uk: "Нижня половина (4 ноти), фіксований До мажор",
     ur: "نچلا حصہ (4 سُر)، مقررہ C میجر",
-    tr: "Alt yarı (4 ses), sabit Do Majör tonu"
+    tr: "Alt yarı (4 ses), sabit Do Majör tonu",
+    ar: "النصف السفلي (4 نغمات)، مقام ثابت دو كبير"
   },
   "Untere Hälfte (Do, Re, Me, Fa), feste Tonart c-Moll": {
     fr: "Moitié basse (Do, Re, Me, Fa), Do mineur fixe",
@@ -5069,7 +5631,8 @@ registerColocatedPhrases({
     pl: "Dolna połowa (Do, Re, Me, Fa), stała tonacja c-moll",
     uk: "Нижня половина (Do, Re, Me, Fa), фіксований До мінор",
     ur: "نچلا حصہ (Do, Re, Me, Fa)، مقررہ C مائنر",
-    tr: "Alt yarı (Do, Re, Me, Fa), sabit Do Minör tonu"
+    tr: "Alt yarı (Do, Re, Me, Fa), sabit Do Minör tonu",
+    ar: "النصف السفلي (Do، Re، Me، Fa)، مقام ثابت دو صغير"
   },
   "Untere Hälfte (Do–Fa)": {
     fr: "Moitié basse (Do–Fa)",
@@ -5078,7 +5641,8 @@ registerColocatedPhrases({
     pl: "Dolna połowa (Do–Fa)",
     uk: "Нижня половина (Do–Fa)",
     ur: "نچلا حصہ (Do–Fa)",
-    tr: "Alt yarı (Do–Fa)"
+    tr: "Alt yarı (Do–Fa)",
+    ar: "النصف السفلي (Do–Fa)"
   },
   "Wähle beliebige Dur- oder Moll-Tonart, Tonraum & Oktavlage frei – auch direkt in der Übung jederzeit anpassbar": {
     fr: "Choisissez librement tonalité majeure ou mineure, étendue et octave — modifiable à tout moment dans l’exercice",
@@ -5087,7 +5651,8 @@ registerColocatedPhrases({
     pl: "Wybierz dowolną tonację dur lub moll, zakres i oktawę — do zmiany także w trakcie ćwiczenia",
     uk: "Вільно обирай мажорну чи мінорну тональність, діапазон і октаву — усе можна змінювати прямо під час вправи",
     ur: "اپنی مرضی کی میجر یا مائنر کلید، دائرہ اور آکٹیو چنیں — مشق کے دوران بھی کسی وقت بدلا جا سکتا ہے",
-    tr: "İstediğin majör veya minör tonu, ses alanını ve oktav konumunu serbestçe seç – alıştırma içinde de dilediğin an değiştir"
+    tr: "İstediğin majör veya minör tonu, ses alanını ve oktav konumunu serbestçe seç – alıştırma içinde de dilediğin an değiştir",
+    ar: "اختر أي مقام كبير أو صغير ومجالًا نغميًا ونطاق أوكتاف بحرية – ويمكن تعديلها في أي وقت داخل التمرين أيضًا"
   },
   "c-Moll, 1 Oktave": {
     fr: "Do mineur, 1 octave",
@@ -5096,7 +5661,8 @@ registerColocatedPhrases({
     pl: "c-moll, 1 oktawa",
     uk: "До мінор, 1 октава",
     ur: "C مائنر، 1 آکٹیو",
-    tr: "Do Minör, 1 oktav"
+    tr: "Do Minör, 1 oktav",
+    ar: "دو صغير، أوكتاف واحد"
   },
   "c-Moll, mehrere Oktaven": {
     fr: "Do mineur, plusieurs octaves",
@@ -5105,7 +5671,8 @@ registerColocatedPhrases({
     pl: "c-moll, wiele oktaw",
     uk: "До мінор, кілька октав",
     ur: "C مائنر، کئی آکٹیو",
-    tr: "Do Minör, birden fazla oktav"
+    tr: "Do Minör, birden fazla oktav",
+    ar: "دو صغير، عدة أوكتافات"
   },
   "mehrere Okt.": {
     fr: "plus. oct.",
@@ -5114,7 +5681,8 @@ registerColocatedPhrases({
     pl: "wiele okt.",
     uk: "кілька окт.",
     ur: "کئی آکٹیو",
-    tr: "birden fazla oktav"
+    tr: "birden fazla oktav",
+    ar: "عدة أوكتافات"
   },
   "Wähle einen Aufgabentyp": {
     fr: "Choisissez un type d’exercice",
@@ -5123,7 +5691,8 @@ registerColocatedPhrases({
     pl: "Wybierz typ ćwiczenia",
     uk: "Обери тип вправи",
     ur: "مشق کی قسم چنیں",
-    tr: "Bir alıştırma türü seç"
+    tr: "Bir alıştırma türü seç",
+    ar: "اختر نوع التمرين"
   },
   "Schwierigkeitsgrad wählen": {
     fr: "Choisir le niveau",
@@ -5132,7 +5701,8 @@ registerColocatedPhrases({
     pl: "Wybierz poziom trudności",
     uk: "Обери рівень складності",
     ur: "مشکل کی سطح چنیں",
-    tr: "Zorluk seviyesi seç"
+    tr: "Zorluk seviyesi seç",
+    ar: "اختر مستوى الصعوبة"
   },
   "{n} Stufen": {
     fr: "{n} niveaux",
@@ -5141,7 +5711,8 @@ registerColocatedPhrases({
     pl: "{n} poziomy",
     uk: "{n} рівні",
     ur: "{n} سطحیں",
-    tr: "{n} seviye"
+    tr: "{n} seviye",
+    ar: "{n} مستويات"
   },
   "Dur • Ziel: Takt 4": {
     fr: "Majeur • Cible : mesure 4",
@@ -5150,7 +5721,8 @@ registerColocatedPhrases({
     pl: "Dur • Cel: takt 4",
     uk: "Мажор • Ціль: такт 4",
     ur: "میجر • ہدف: بار 4",
-    tr: "Majör • Hedef: 4. ölçü"
+    tr: "Majör • Hedef: 4. ölçü",
+    ar: "كبير • الهدف: المازورة 4"
   },
   "Dur • Zufälliger Takt": {
     fr: "Majeur • Mesure aléatoire",
@@ -5159,7 +5731,8 @@ registerColocatedPhrases({
     pl: "Dur • Losowy takt",
     uk: "Мажор • Випадковий такт",
     ur: "میجر • بے ترتیب بار",
-    tr: "Majör • Rastgele ölçü"
+    tr: "Majör • Rastgele ölçü",
+    ar: "كبير • مازورة عشوائية"
   },
   "Moll • Ziel: Takt 4": {
     fr: "Mineur • Cible : mesure 4",
@@ -5168,7 +5741,8 @@ registerColocatedPhrases({
     pl: "Moll • Cel: takt 4",
     uk: "Мінор • Ціль: такт 4",
     ur: "مائنر • ہدف: بار 4",
-    tr: "Minör • Hedef: 4. ölçü"
+    tr: "Minör • Hedef: 4. ölçü",
+    ar: "صغير • الهدف: المازورة 4"
   },
   "Moll • Zufälliger Takt": {
     fr: "Mineur • Mesure aléatoire",
@@ -5177,7 +5751,8 @@ registerColocatedPhrases({
     pl: "Moll • Losowy takt",
     uk: "Мінор • Випадковий такт",
     ur: "مائنر • بے ترتیب بار",
-    tr: "Minör • Rastgele ölçü"
+    tr: "Minör • Rastgele ölçü",
+    ar: "صغير • مازورة عشوائية"
   },
   "9 Stufen • Dur, Moll & Chromatisch": {
     fr: "9 niveaux • Majeur, Mineur & Chromatique",
@@ -5186,7 +5761,8 @@ registerColocatedPhrases({
     pl: "9 poziomów • Dur, Moll i Chromatycznie",
     uk: "9 рівнів • Мажор, Мінор і Хроматика",
     ur: "9 سطحیں • میجر، مائنر اور کرومیٹک",
-    tr: "9 seviye • Majör, Minör ve Kromatik"
+    tr: "9 seviye • Majör, Minör ve Kromatik",
+    ar: "9 مستويات • كبير وصغير وكروماتي"
   },
   "Frei wählbar • alle 4 Spielarten": {
     fr: "Au choix • les 4 modes de jeu",
@@ -5195,7 +5771,8 @@ registerColocatedPhrases({
     pl: "Dowolny wybór • wszystkie 4 tryby",
     uk: "Вільний вибір • усі 4 способи",
     ur: "آزاد انتخاب • تمام 4 انداز",
-    tr: "Serbest seçim • 4 çalım türü"
+    tr: "Serbest seçim • 4 çalım türü",
+    ar: "اختيار حر • جميع طرق العزف الأربع"
   },
   "Dur-Intervalle": {
     fr: "Intervalles majeurs",
@@ -5204,7 +5781,8 @@ registerColocatedPhrases({
     pl: "Interwały dur",
     uk: "Мажорні інтервали",
     ur: "میجر فاصلے",
-    tr: "Majör aralıklar"
+    tr: "Majör aralıklar",
+    ar: "مسافات السلم الكبير"
   },
   "Moll-Intervalle": {
     fr: "Intervalles mineurs",
@@ -5213,7 +5791,8 @@ registerColocatedPhrases({
     pl: "Interwały moll",
     uk: "Мінорні інтервали",
     ur: "مائنر فاصلے",
-    tr: "Minör aralıklar"
+    tr: "Minör aralıklar",
+    ar: "مسافات السلم الصغير"
   },
   "Derselbe Aufbau in Natürlich Moll (mit kl. Terz, kl. Sexte & kl. Septime)": {
     fr: "Même progression en mineur naturel (tierce, sixte et septième mineures)",
@@ -5222,7 +5801,8 @@ registerColocatedPhrases({
     pl: "Ten sam układ w moll naturalnym (mała tercja, seksta i septyma)",
     uk: "Така сама побудова в натуральному мінорі (мала терція, секста й септима)",
     ur: "نیچرل مائنر میں یہی ترتیب (مائنر تھرڈ، سکسٹھ اور سیونٹھ کے ساتھ)",
-    tr: "Doğal Minör'de aynı yapı (küçük üçlü, küçük altılı ve küçük yedili ile)"
+    tr: "Doğal Minör'de aynı yapı (küçük üçlü, küçük altılı ve küçük yedili ile)",
+    ar: "نفس البنية في السلم الصغير الطبيعي (مع ثالثة صغيرة وسادسة صغيرة وسابعة صغيرة)"
   },
   "Chromatisch (Alle 15 Intervalle)": {
     fr: "Chromatique (les 15 intervalles)",
@@ -5231,7 +5811,8 @@ registerColocatedPhrases({
     pl: "Chromatycznie (wszystkie 15 interwałów)",
     uk: "Хроматика (усі 15 інтервалів)",
     ur: "کرومیٹک (تمام 15 فاصلے)",
-    tr: "Kromatik (Tüm 15 aralık)"
+    tr: "Kromatik (Tüm 15 aralık)",
+    ar: "كروماتي (جميع المسافات الـ 15)"
   },
   "Volles Spektrum inkl. kl. Sekunde, Tritonus, kl./gr. Intervalle & Nonen": {
     fr: "Spectre complet avec 2nde min., triton, intervalles min./maj. et neuvièmes",
@@ -5240,7 +5821,8 @@ registerColocatedPhrases({
     pl: "Pełne spektrum z małą sekundą, trytonem, interwałami m./w. i nonami",
     uk: "Повний спектр із малою секундою, тритоном, малими/великими інтервалами й нонами",
     ur: "مکمل اسپیکٹرم بشمول مائنر سیکنڈ، ٹرائی ٹون، مائنر/میجر فاصلے اور نائنتھ",
-    tr: "Küçük ikili, triton, küçük/büyük aralıklar ve dokuzlular dâhil tam spektrum"
+    tr: "Küçük ikili, triton, küçük/büyük aralıklar ve dokuzlular dâhil tam spektrum",
+    ar: "الطيف الكامل بما في ذلك الثانية الصغيرة والترايتون والمسافات الصغيرة والكبيرة والتاسعات"
   },
   "4 gleichlange halbe Noten – voller Fokus auf Tonhöhen & Solfège-Stufen": {
     fr: "4 blanches régulières — concentration totale sur les hauteurs et degrés",
@@ -5249,7 +5831,8 @@ registerColocatedPhrases({
     pl: "4 równe półnuty — pełne skupienie na wysokości dźwięków i stopniach",
     uk: "4 однакові половинні ноти — повний фокус на висоті звуків і ступенях",
     ur: "4 برابر ہاف نوٹس — سُر اور سولفیج درجات پر مکمل توجہ",
-    tr: "4 eşit ikilik nota – tüm odak ses perdeleri ve solfej derecelerinde"
+    tr: "4 eşit ikilik nota – tüm odak ses perdeleri ve solfej derecelerinde",
+    ar: "4 نغمات بيضاء متساوية المدة – تركيز كامل على طبقات النغمات ودرجات الصولفيج"
   },
   "4–6 Töne in echten Phrasen (4/4 & 3/4) – der Rhythmus ist sichtbar vorgegeben": {
     fr: "4–6 notes en vraies phrases (4/4 & 3/4) — le rythme est affiché comme repère",
@@ -5258,7 +5841,8 @@ registerColocatedPhrases({
     pl: "4–6 dźwięków w prawdziwych frazach (4/4 i 3/4) — rytm jest widoczny",
     uk: "4–6 нот у музичних фразах (4/4 і 3/4) — ритм показаний як підказка",
     ur: "اصلی فریزز میں 4–6 نوٹس (4/4 اور 3/4) — ردھم رہنمائی کے لیے دکھایا جاتا ہے",
-    tr: "Gerçek cümlelerde 4–6 ses (4/4 ve 3/4) – ritim görünür olarak verilir"
+    tr: "Gerçek cümlelerde 4–6 ses (4/4 ve 3/4) – ritim görünür olarak verilir",
+    ar: "4–6 نغمات في جمل حقيقية (4/4 و 3/4) – الإيقاع معروض بوضوح مسبقًا"
   },
   "Tonhöhe UND Notenlänge (♪, ♩, ♩., 𝅗𝅥) gemeinsam nach Gehör heraushören": {
     fr: "Identifier ensemble la hauteur ET la durée (♪, ♩, ♩., 𝅗𝅥) à l’oreille",
@@ -5267,7 +5851,8 @@ registerColocatedPhrases({
     pl: "Rozpoznawaj ze słuchu jednocześnie wysokość ORAZ długość nut (♪, ♩, ♩., 𝅗𝅥)",
     uk: "Визначай на слух одночасно висоту І тривалість нот (♪, ♩, ♩., 𝅗𝅥)",
     ur: "کان سے سُر اور نوٹ کی لمبائی (♪, ♩, ♩., 𝅗𝅥) دونوں ایک ساتھ پہچانیں",
-    tr: "Ses perdesini VE nota uzunluğunu (♪, ♩, ♩., 𝅗𝅥) birlikte kulaktan çıkar"
+    tr: "Ses perdesini VE nota uzunluğunu (♪, ♩, ♩., 𝅗𝅥) birlikte kulaktan çıkar",
+    ar: "تمييز طبقة النغمة ومدتها الزمنية (♪, ♩, ♩., 𝅗𝅥) معًا بالسماع"
   },
   "3 Tonräume • Do–Fa, Sol–Do & Ganze Tonart": {
     fr: "3 étendues • Do–Fa, Sol–Do & Gamme complète",
@@ -5276,7 +5861,8 @@ registerColocatedPhrases({
     pl: "3 zakresy • Do–Fa, Sol–Do i Cała gama",
     uk: "3 діапазони • Do–Fa, Sol–Do і Повна гама",
     ur: "3 دائرے • Do–Fa، Sol–Do اور مکمل اسکیل",
-    tr: "3 ses alanı • Do–Fa, Sol–Do ve Tüm ton"
+    tr: "3 ses alanı • Do–Fa, Sol–Do ve Tüm ton",
+    ar: "3 مجالات نغمية • Do–Fa و Sol–Do والمقام الكامل"
   },
   "Solfège • Dur": {
     fr: "Solfège • Majeur",
@@ -5285,7 +5871,8 @@ registerColocatedPhrases({
     pl: "Solfeż • Dur",
     uk: "Сольфеджіо • Мажор",
     ur: "سولفیج • میجر",
-    tr: "Solfej • Majör"
+    tr: "Solfej • Majör",
+    ar: "صولفيج • كبير"
   },
   "Solfège • Moll": {
     fr: "Solfège • Mineur",
@@ -5294,7 +5881,8 @@ registerColocatedPhrases({
     pl: "Solfeż • Moll",
     uk: "Сольфеджіо • Мінор",
     ur: "سولفیج • مائنر",
-    tr: "Solfej • Minör"
+    tr: "Solfej • Minör",
+    ar: "صولفيج • صغير"
   },
   "8 Stufen • Do–Fa, Sol–Do bis Tonartwechsel": {
     fr: "8 niveaux • Do–Fa, Sol–Do jusqu’aux modulations",
@@ -5303,7 +5891,8 @@ registerColocatedPhrases({
     pl: "8 poziomów • od Do–Fa i Sol–Do po zmiany tonacji",
     uk: "8 рівнів • від Do–Fa і Sol–Do до модуляцій",
     ur: "8 سطحیں • Do–Fa اور Sol–Do سے کلید کی تبدیلی تک",
-    tr: "8 seviye • Do–Fa, Sol–Do'dan ton değişimine"
+    tr: "8 seviye • Do–Fa, Sol–Do'dan ton değişimine",
+    ar: "8 مستويات • من Do–Fa و Sol–Do حتى تغيير المقام"
   },
   "Frei wählbar • Dur & Moll": {
     fr: "Au choix • Majeur & Mineur",
@@ -5312,7 +5901,8 @@ registerColocatedPhrases({
     pl: "Dowolny wybór • Dur i Moll",
     uk: "Вільний вибір • Мажор і Мінор",
     ur: "آزاد انتخاب • میجر اور مائنر",
-    tr: "Serbest seçim • Majör ve Minör"
+    tr: "Serbest seçim • Majör ve Minör",
+    ar: "اختيار حر • كبير وصغير"
   },
   "Taktart & Metrum erkennen": {
     fr: "Mesure & métrique",
@@ -5321,7 +5911,8 @@ registerColocatedPhrases({
     pl: "Metrum i takt",
     uk: "Розмір і метр",
     ur: "ٹائم سگنیچر اور میٹر",
-    tr: "Ölçü birimi ve metrum tanıma"
+    tr: "Ölçü birimi ve metrum tanıma",
+    ar: "تمييز الوزن الإيقاعي والميزان"
   },
   "Groove, Akzente & Mikro-Timing": {
     fr: "Groove, accents & micro-timing",
@@ -5330,7 +5921,8 @@ registerColocatedPhrases({
     pl: "Groove, akcenty i mikrotiming",
     uk: "Грув, акценти і мікротаймінг",
     ur: "گروو، ایکسنٹس اور مائیکرو ٹائمنگ",
-    tr: "Groove, vurgular ve mikro zamanlama"
+    tr: "Groove, vurgular ve mikro zamanlama",
+    ar: "الغروف والنبر والتوقيت الدقيق"
   },
   "Frequenzen erkennen (Sinus)": {
     fr: "Reconnaître les fréquences (Sinus)",
@@ -5339,7 +5931,8 @@ registerColocatedPhrases({
     pl: "Rozpoznawanie częstotliwości (Sinus)",
     uk: "Розпізнавання частот (Синус)",
     ur: "فریکوئنسی کی پہچان (سائن)",
-    tr: "Frekans tanıma (Sinüs)"
+    tr: "Frekans tanıma (Sinüs)",
+    ar: "تمييز الترددات (موجة جيبية)"
   },
   "Modus / Tonleiter erkennen": {
     fr: "Reconnaître le mode / la gamme",
@@ -5348,7 +5941,8 @@ registerColocatedPhrases({
     pl: "Rozpoznawanie skali / modusu",
     uk: "Розпізнавання ладу / гами",
     ur: "موڈ / اسکیل کی پہچان",
-    tr: "Mod / Gam tanıma"
+    tr: "Mod / Gam tanıma",
+    ar: "تمييز النمط / السلم"
   },
   "Charakterton & Klangfarbe": {
     fr: "Note caractéristique & couleur",
@@ -5357,7 +5951,8 @@ registerColocatedPhrases({
     pl: "Dźwięk charakterystyczny i barwa",
     uk: "Характерний тон і барва",
     ur: "امتیازی سُر اور رنگت",
-    tr: "Karakter sesi ve tını rengi"
+    tr: "Karakter sesi ve tını rengi",
+    ar: "النغمة المميزة واللون الصوتي"
   },
   "Modale Kadenzen & Akkordpendel": {
     fr: "Cadences modales & boucles d’accords",
@@ -5366,7 +5961,8 @@ registerColocatedPhrases({
     pl: "Kadencje modalne i pętle akordów",
     uk: "Модальні каданси й акордові петлі",
     ur: "موڈل کیڈینسز اور کارڈ لوپس",
-    tr: "Modal kadanslar ve akor sarkacı"
+    tr: "Modal kadanslar ve akor sarkacı",
+    ar: "القفلات النمطية والتأرجح التآلفي"
   },
   "Tonarten-Blattspiel (Generalvorzeichen)": {
     fr: "Lecture avec armures (tonalités)",
@@ -5375,7 +5971,8 @@ registerColocatedPhrases({
     pl: "Czytanie ze znakami przykluczowymi",
     uk: "Читання з ключовими знаками",
     ur: "کی سگنیچر کے ساتھ ریڈنگ",
-    tr: "Tonlarla deşifre (Donanım)"
+    tr: "Tonlarla deşifre (Donanım)",
+    ar: "قراءة المقامات (دليل المقام)"
   },
   "Tonart / Generalvorzeichen wählen": {
     fr: "Choisir la tonalité / l’armure",
@@ -5384,7 +5981,8 @@ registerColocatedPhrases({
     pl: "Wybierz tonację / znaki przykluczowe",
     uk: "Обери тональність / ключові знаки",
     ur: "کلید / کی سگنیچر چنیں",
-    tr: "Ton / Donanım seç"
+    tr: "Ton / Donanım seç",
+    ar: "اختيار المقام / دليل المقام"
   },
   "Lege fest, ob Tonarten mit Vorzeichen am Notenanfang stehen sollen – gilt auch für alle Schlüssel-Übungen.": {
     fr: "Définissez si une armure apparaît au début de la portée — s’applique aussi à tous les exercices de clés.",
@@ -5393,7 +5991,8 @@ registerColocatedPhrases({
     pl: "Ustal znaki przykluczowe na początku pięciolinii — obowiązuje też we wszystkich ćwiczeniach kluczy.",
     uk: "Встанови ключові знаки на початку нотного стану — діє також для всіх вправ із ключами.",
     ur: "اسٹاف کے آغاز میں کی سگنیچر مقرر کریں — یہ تمام کلیف مشقوں پر بھی لاگو ہوتا ہے۔",
-    tr: "Dizek başında donanım işaretlerinin yer alıp almayacağını belirle – tüm anahtar alıştırmaları için de geçerlidir."
+    tr: "Dizek başında donanım işaretlerinin yer alıp almayacağını belirle – tüm anahtar alıştırmaları için de geçerlidir.",
+    ar: "حدّد ما إذا كانت المقامات ستظهر بعلامات تحويل في بداية المدرج – يسري ذلك أيضًا على جميع تمارين المفاتيح."
   },
   "Tonart / Generalvorzeichen anpassen": {
     fr: "Ajuster la tonalité / l’armure",
@@ -5402,7 +6001,8 @@ registerColocatedPhrases({
     pl: "Dostosuj tonację / znaki przykluczowe",
     uk: "Налаштувати тональність / ключові знаки",
     ur: "کلید / کی سگنیچر تبدیل کریں",
-    tr: "Ton / Donanım ayarla"
+    tr: "Ton / Donanım ayarla",
+    ar: "تخصيص المقام / دليل المقام"
   },
   "Alle Übungs-Einführungen wurden zurückgesetzt.": {
     fr: "Tous les tutoriels d’exercice ont été réinitialisés.",
@@ -5411,7 +6011,8 @@ registerColocatedPhrases({
     pl: "Wszystkie samouczki ćwiczeń zostały zresetowane.",
     uk: "Усі вступні підказки до вправ скинуто.",
     ur: "تمام مشقوں کے رہنما دوبارہ فعال کر دیے گئے ہیں۔",
-    tr: "Tüm alıştırma tanıtımları sıfırlandı."
+    tr: "Tüm alıştırma tanıtımları sıfırlandı.",
+    ar: "تمت إعادة تعيين جميع شروحات التمارين."
   },
   "So funktioniert: Kadenz": {
     fr: "Comment ça marche : Cadence",
@@ -5420,7 +6021,8 @@ registerColocatedPhrases({
     pl: "Jak to działa: Kadencja",
     uk: "Як це працює: Каденція",
     ur: "یہ کیسے کام کرتا ہے: کیڈنس",
-    tr: "Nasıl çalışır: Kadans"
+    tr: "Nasıl çalışır: Kadans",
+    ar: "كيف يعمل تمرين: القفلة الموسيقية"
   },
   "Höre die 4 Takte der Kadenz, erkenne die fehlende Akkordstufe und tippe sie unten an.": {
     fr: "Écoutez les 4 mesures de la cadence, reconnaissez le degré manquant et touchez-le en bas.",
@@ -5429,7 +6031,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj 4 taktów kadencji, rozpoznaj brakujący stopień akordu i dotknij go poniżej.",
     uk: "Послухай 4 такти каденції, упізнай відсутній ступінь акорду та натисни його нижче.",
     ur: "کیڈنس کے 4 بار سنیں، غائب ڈگری پہچانیں اور نیچے ٹیپ کریں۔",
-    tr: "Kadansın 4 ölçüsünü dinle, eksik akor derecesini tanı ve alttan dokun."
+    tr: "Kadansın 4 ölçüsünü dinle, eksik akor derecesini tanı ve alttan dokun.",
+    ar: "استمع إلى المازورات الأربع للقفلة الموسيقية، وميّز درجة التآلف المفقودة ثم انقر عليها بالأسفل."
   },
   "Hör zu: Die 4 Takte laufen oben mit – achte besonders auf den markierten Zieltakt.": {
     fr: "Écoutez : les 4 mesures défilent en haut — concentrez-vous sur la mesure cible.",
@@ -5438,7 +6041,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj: 4 takty przesuwają się u góry — zwróć uwagę na wyróżniony takt docelowy.",
     uk: "Слухай: 4 такти йдуть угорі — зосередься на виділеному цільовому такті.",
     ur: "سنیں: اوپر 4 بار چل رہے ہیں — نمایاں ہدف بار پر دھیان دیں۔",
-    tr: "Dinle: 4 ölçü yukarıda akıyor – özellikle işaretli hedef ölçüye dikkat et."
+    tr: "Dinle: 4 ölçü yukarıda akıyor – özellikle işaretli hedef ölçüye dikkat et.",
+    ar: "استمع: تتابع المازورات الأربع بالأعلى – ركّز جيدًا على المازورة المستهدفة المظللة."
   },
   "Das war {lbl}! Tippe genau auf diese Kachel, um zu lösen.": {
     fr: "C’était {lbl} ! Touchez cette case pour répondre.",
@@ -5447,7 +6051,8 @@ registerColocatedPhrases({
     pl: "To było {lbl}! Dotknij tego kafelka, aby odpowiedzieć.",
     uk: "Це було {lbl}! Натисни цю плитку для відповіді.",
     ur: "یہ {lbl} تھا! جواب کے لیے اس ٹائل پر ٹیپ کریں۔",
-    tr: "Bu {lbl} idi! Çözmek için tam olarak bu karta dokun."
+    tr: "Bu {lbl} idi! Çözmek için tam olarak bu karta dokun.",
+    ar: "كانت الإجابة {lbl}! انقر على هذه البطاقة بالذات للحل."
   },
   "So funktioniert: Intervalle": {
     fr: "Comment ça marche : Intervalles",
@@ -5456,7 +6061,8 @@ registerColocatedPhrases({
     pl: "Jak to działa: Interwały",
     uk: "Як це працює: Інтервали",
     ur: "یہ کیسے کام کرتا ہے: انٹرولز",
-    tr: "Nasıl çalışır: Aralıklar"
+    tr: "Nasıl çalışır: Aralıklar",
+    ar: "كيف يعمل تمرين: المسافات الموسيقية"
   },
   "Vergleiche den Abstand zwischen den beiden Tönen und wähle unten das passende Intervall.": {
     fr: "Comparez l’écart entre les deux notes et choisissez l’intervalle correspondant en bas.",
@@ -5465,7 +6071,8 @@ registerColocatedPhrases({
     pl: "Porównaj odległość między dwoma dźwiękami i wybierz pasujący interwał poniżej.",
     uk: "Порівняй відстань між двома звуками та обери відповідний інтервал нижче.",
     ur: "دونوں سُروں کے درمیان فاصلہ موازنہ کریں اور نیچے درست انٹرول چنیں۔",
-    tr: "İki ses arasındaki mesafeyi karşılaştır ve alttan uygun aralığı seç."
+    tr: "İki ses arasındaki mesafeyi karşılaştır ve alttan uygun aralığı seç.",
+    ar: "قارن البُعد بين النغمتين واختر المسافة الموسيقية المناسبة بالأسفل."
   },
   "Hör zu: Erst der Ausgangston, dann der Zielton – achte auf den Abstand dazwischen.": {
     fr: "Écoutez : notez l’écart entre la note de départ et la note cible.",
@@ -5474,7 +6081,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj: zwróć uwagę na odległość między dźwiękiem wyjściowym a docelowym.",
     uk: "Слухай: зверни увагу на відстань між початковим і цільовим звуком.",
     ur: "سنیں: ابتدائی اور ہدف سُر کے درمیانی فاصلے پر غور کریں۔",
-    tr: "Dinle: Önce başlangıç sesi, sonra hedef ses – aradaki mesafeye dikkat et."
+    tr: "Dinle: Önce başlangıç sesi, sonra hedef ses – aradaki mesafeye dikkat et.",
+    ar: "استمع: أولًا نغمة البداية، ثم النغمة المستهدفة – انتبه إلى البُعد بينهما."
   },
   "Das gesuchte Intervall ist {lbl} – die passende Kachel leuchtet unten auf.": {
     fr: "L’intervalle recherché est {lbl} — la bonne case s’allume en bas.",
@@ -5483,7 +6091,8 @@ registerColocatedPhrases({
     pl: "Szukany interwał to {lbl} — właściwy kafelek podświetla się poniżej.",
     uk: "Шуканий інтервал — {lbl}, потрібна плитка підсвічується нижче.",
     ur: "مطلوبہ انٹرول {lbl} ہے — درست ٹائل نیچے روشن ہو رہی ہے۔",
-    tr: "Aranan aralık {lbl} – uygun kart aşağıda parlıyor."
+    tr: "Aranan aralık {lbl} – uygun kart aşağıda parlıyor.",
+    ar: "المسافة المطلوبة هي {lbl} – ستضيء البطاقة المناسبة بالأسفل."
   },
   "So funktioniert: Akkorde": {
     fr: "Comment ça marche : Accords",
@@ -5492,7 +6101,8 @@ registerColocatedPhrases({
     pl: "Jak to działa: Akordy",
     uk: "Як це працює: Акорди",
     ur: "یہ کیسے کام کرتا ہے: کارڈز",
-    tr: "Nasıl çalışır: Akorlar"
+    tr: "Nasıl çalışır: Akorlar",
+    ar: "كيف يعمل تمرين: التآلفات"
   },
   "Höre dir den Klang oder die Lage des Akkords an und wähle unten den passenden Typ.": {
     fr: "Écoutez la couleur ou le renversement de l’accord et choisissez le bon type en bas.",
@@ -5501,7 +6111,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj brzmienia lub przewrotu akordu i wybierz odpowiedni typ poniżej.",
     uk: "Послухай звучання або обернення акорду та обери відповідний тип нижче.",
     ur: "کارڈ کا رنگ یا انورژن سنیں اور نیچے درست قسم چنیں۔",
-    tr: "Akorun tınısını veya konumunu dinle ve alttan uygun türü seç."
+    tr: "Akorun tınısını veya konumunu dinle ve alttan uygun türü seç.",
+    ar: "استمع إلى صوت التآلف أو وضعه واختر النوع المناسب بالأسفل."
   },
   "Hör zu: Achte auf den Gesamtklang (hell, dunkel, gespannt) und den tiefsten Ton.": {
     fr: "Écoutez : prêtez attention à la couleur globale (clair, sombre, tendu) et à la basse.",
@@ -5510,7 +6121,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj: zwróć uwagę na ogólne brzmienie (jasne, ciemne, napięte) i dźwięk basowy.",
     uk: "Слухай: зверни увагу на загальний тембр (світлий, темний, напружений) і басовий звук.",
     ur: "سنیں: مجموعی رنگ (روشن، گہرا، تناؤ) اور سب سے نچلے سُر پر توجہ دیں۔",
-    tr: "Dinle: Genel tınıya (parlak, koyu, gergin) ve en pes sese dikkat et."
+    tr: "Dinle: Genel tınıya (parlak, koyu, gergin) ve en pes sese dikkat et.",
+    ar: "استمع: انتبه إلى الصوت العام (مشرق، داكن، متوتر) وإلى أخفض نغمة."
   },
   "Dieser Akkord ist {lbl} – wähle unten die markierte Kachel.": {
     fr: "Cet accord est {lbl} — sélectionnez la case mise en évidence en bas.",
@@ -5519,7 +6131,8 @@ registerColocatedPhrases({
     pl: "Ten akord to {lbl} — wybierz podświetlony kafelek poniżej.",
     uk: "Цей акорд — {lbl}, обери підсвічену плитку нижче.",
     ur: "یہ کارڈ {lbl} ہے — نیچے نمایاں ٹائل چنیں۔",
-    tr: "Bu akor {lbl} – alttan işaretli kartı seç."
+    tr: "Bu akor {lbl} – alttan işaretli kartı seç.",
+    ar: "هذا التآلف هو {lbl} – اختر البطاقة المحددة بالأسفل."
   },
   "So funktioniert: Tonleitern & Modi": {
     fr: "Comment ça marche : Gammes & Modes",
@@ -5528,7 +6141,8 @@ registerColocatedPhrases({
     pl: "Jak to działa: Skale i Tryby",
     uk: "Як це працює: Гами та Лади",
     ur: "یہ کیسے کام کرتا ہے: اسکیلز اور موڈز",
-    tr: "Nasıl çalışır: Gamlar ve Modlar"
+    tr: "Nasıl çalışır: Gamlar ve Modlar",
+    ar: "كيف يعمل تمرين: السلالم والأنماط"
   },
   "Der Grundton gibt dir Halt – erkenne am typischen Charakterton den Modus und tippe ihn an.": {
     fr: "La fondamentale vous ancre — reconnaissez le mode à sa note typique et touchez-le.",
@@ -5537,7 +6151,8 @@ registerColocatedPhrases({
     pl: "Dźwięk podstawowy daje oparcie — rozpoznaj tryb po nucie charakterystycznej i dotknij go.",
     uk: "Тоніка дає опору — упізнай лад за характерним звуком і натисни його.",
     ur: "بنیادی سُر سہارا دیتا ہے — مخصوص رنگ سے موڈ پہچانیں اور نیچے ٹیپ کریں۔",
-    tr: "Kök ses sana dayanak verir – tipik karakter sesinden modu tanı ve dokun."
+    tr: "Kök ses sana dayanak verir – tipik karakter sesinden modu tanı ve dokun.",
+    ar: "تمنحك النغمة الأساسية مرتكزًا – ميّز النمط من نغمته المميزة وانقر عليه."
   },
   "Hör zu: Achte auf die besondere Klangfarbe über dem Grundton.": {
     fr: "Écoutez : concentrez-vous sur la couleur caractéristique au-dessus de la fondamentale.",
@@ -5546,7 +6161,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj: skup się na charakterystycznym zabarwieniu nad dźwiękiem podstawowym.",
     uk: "Слухай: зосередься на характерному забарвленні над тонікою.",
     ur: "سنیں: بنیادی سُر کے اوپر مخصوص رنگ پر غور کریں۔",
-    tr: "Dinle: Kök ses üzerindeki özel tını rengine dikkat et."
+    tr: "Dinle: Kök ses üzerindeki özel tını rengine dikkat et.",
+    ar: "استمع: انتبه إلى اللون الصوتي الخاص فوق النغمة الأساسية."
   },
   "Diese Klangfarbe gehört zu {lbl} – tippe unten auf die hervorgehobene Kachel.": {
     fr: "Cette couleur correspond à {lbl} — touchez la case mise en évidence en bas.",
@@ -5555,7 +6171,8 @@ registerColocatedPhrases({
     pl: "To brzmienie należy do {lbl} — dotknij podświetlonego kafelka poniżej.",
     uk: "Це забарвлення належить до {lbl} — натисни підсвічену плитку нижче.",
     ur: "یہ رنگ {lbl} کا ہے — نیچے نمایاں ٹائل پر ٹیپ کریں۔",
-    tr: "Bu tını rengi {lbl} moduna ait – altta vurgulanan karta dokun."
+    tr: "Bu tını rengi {lbl} moduna ait – altta vurgulanan karta dokun.",
+    ar: "هذا اللون الصوتي ينتمي إلى {lbl} – انقر على البطاقة المبرزة بالأسفل."
   },
   "So funktioniert: Solfège": {
     fr: "Comment ça marche : Solfège",
@@ -5564,7 +6181,8 @@ registerColocatedPhrases({
     pl: "Jak to działa: Solfeż",
     uk: "Як це працює: Сольфеджіо",
     ur: "یہ کیسے کام کرتا ہے: سولفیج",
-    tr: "Nasıl çalışır: Solfej"
+    tr: "Nasıl çalışır: Solfej",
+    ar: "كيف يعمل تمرين: الصولفيج"
   },
   "Erst hörst du die Tonart-Kadenz, dann einen einzelnen Zielton – tippe seine Taste auf der Klaviatur.": {
     fr: "Vous entendez d’abord la cadence de la tonalité, puis une note cible — touchez sa touche au clavier.",
@@ -5573,7 +6191,8 @@ registerColocatedPhrases({
     pl: "Najpierw słyszysz kadencję tonacji, potem pojedynczy dźwięk — dotknij jego klawisza na klawiaturze.",
     uk: "Спочатку звучить каденція тональності, потім один цільовий звук — натисни його клавішу.",
     ur: "پہلے کلید کا کیڈنس سنائی دیتا ہے، پھر ایک ہدف سُر — کی بورڈ پر اس کی کلید دبائیں۔",
-    tr: "Önce ton kadansını, ardından tek bir hedef sesi duyarsın – klavyede onun tuşuna dokun."
+    tr: "Önce ton kadansını, ardından tek bir hedef sesi duyarsın – klavyede onun tuşuna dokun.",
+    ar: "تسمع أولًا قفلة المقام، ثم نغمة مستهدفة منفردة – انقر على مفتاحها في لوحة المفاتيح."
   },
   "Hör zu: Die Kadenz verankert Do – merk dir danach genau den einzelnen Zielton.": {
     fr: "Écoutez : la cadence ancre Do — mémorisez ensuite la note cible unique.",
@@ -5582,7 +6201,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj: kadencja utrwala Do — potem zapamiętaj dokładnie pojedynczy dźwięk.",
     uk: "Слухай: каденція закріплює До — далі запам’ятай окремий цільовий звук.",
     ur: "سنیں: کیڈنس ڈو کو پکا کرتا ہے — پھر اکیلے ہدف سُر پر دھیان دیں۔",
-    tr: "Dinle: Kadans Do'yu sabitler – ardından tek hedef sesi aklında tut."
+    tr: "Dinle: Kadans Do'yu sabitler – ardından tek hedef sesi aklında tut.",
+    ar: "استمع: القفلة ترسّخ Do – احفظ بعدها النغمة المستهدفة المنفردة بدقة."
   },
   "Das war {lbl}! Nach dem Antippen löst sich der Ton musikalisch zu Do auf.": {
     fr: "C’était {lbl} ! Après l’appui, la note se résout musicalement vers Do.",
@@ -5591,7 +6211,8 @@ registerColocatedPhrases({
     pl: "To było {lbl}! Po dotknięciu dźwięk rozwiązuje się muzycznie do Do.",
     uk: "Це було {lbl}! Після натискання звук музично розв’язується в До.",
     ur: "یہ {lbl} تھا! ٹیپ کرنے کے بعد سُر موسیقی کے انداز میں ڈو پر حل ہو جاتا ہے۔",
-    tr: "Bu {lbl} idi! Dokunduktan sonra ses müzikal olarak Do'ya çözülür."
+    tr: "Bu {lbl} idi! Dokunduktan sonra ses müzikal olarak Do'ya çözülür.",
+    ar: "كانت {lbl}! بعد النقر، تُحلّ النغمة موسيقيًا إلى Do."
   },
   "So funktioniert: Melodie": {
     fr: "Comment ça marche : Mélodie",
@@ -5600,7 +6221,8 @@ registerColocatedPhrases({
     pl: "Jak to działa: Melodia",
     uk: "Як це працює: Мелодія",
     ur: "یہ کیسے کام کرتا ہے: دھن",
-    tr: "Nasıl çalışır: Melodi"
+    tr: "Nasıl çalışır: Melodi",
+    ar: "كيف يعمل تمرين: اللحن"
   },
   "Höre die kurze Melodie und spiele sie anschließend Ton für Ton auf der Klaviatur nach.": {
     fr: "Écoutez la courte mélodie, puis rejouez-la note par note sur le clavier.",
@@ -5609,7 +6231,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj krótkiej melodii, a następnie zagraj ją dźwięk po dźwięku na klawiaturze.",
     uk: "Послухай коротку мелодію, а потім зіграй її нота за нотою на клавіатурі.",
     ur: "مختصر دھن سنیں اور پھر کی بورڈ پر ایک ایک سُر کر کے بجائیں۔",
-    tr: "Kısa melodiyi dinle ve ardından klavyede ses ses tekrar çal."
+    tr: "Kısa melodiyi dinle ve ardından klavyede ses ses tekrar çal.",
+    ar: "استمع إلى اللحن القصير ثم اعزفه نغمةً تلو أخرى على لوحة المفاتيح."
   },
   "Hör zu: Die Töne laufen oben der Reihe nach durch.": {
     fr: "Écoutez : les notes défilent dans l’ordre en haut.",
@@ -5618,7 +6241,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj: dźwięki przesuwają się kolejno u góry.",
     uk: "Слухай: ноти проходять по черзі вгорі.",
     ur: "سنیں: سُر اوپر ترتیب سے چل رہے ہیں۔",
-    tr: "Dinle: Sesler yukarıda sırayla akıyor."
+    tr: "Dinle: Sesler yukarıda sırayla akıyor.",
+    ar: "استمع: تتوالى النغمات بالأعلى واحدة تلو الأخرى."
   },
   "Jetzt wird Ton für Ton auf der Klaviatur nachgespielt – jede grüne Taste löst den nächsten Platz.": {
     fr: "On rejoue maintenant note par note sur le clavier — chaque touche verte valide l’emplacement suivant.",
@@ -5627,7 +6251,8 @@ registerColocatedPhrases({
     pl: "Teraz odtwarzamy dźwięk po dźwięku na klawiaturze — każdy zielony klawisz uzupełnia kolejne miejsce.",
     uk: "Тепер граємо нота за нотою на клавіатурі — кожна зелена клавіша заповнює наступне місце.",
     ur: "اب کی بورڈ پر ایک ایک سُر بجایا جا رہا ہے — ہر سبز کلید اگلی جگہ مکمل کرتی ہے۔",
-    tr: "Şimdi klavyede ses ses tekrar çalınıyor – her yeşil tuş bir sonraki yeri açar."
+    tr: "Şimdi klavyede ses ses tekrar çalınıyor – her yeşil tuş bir sonraki yeri açar.",
+    ar: "الآن يُعزف اللحن نغمةً تلو أخرى على لوحة المفاتيح – كل مفتاح أخضر يحلّ الخانة التالية."
   },
   "So funktioniert: Melodie-Diktat": {
     fr: "Comment ça marche : Dictée mélodique",
@@ -5636,7 +6261,8 @@ registerColocatedPhrases({
     pl: "Jak to działa: Dyktando melodyczne",
     uk: "Як це працює: Мелодичний диктант",
     ur: "یہ کیسے کام کرتا ہے: میلوڈی ڈکٹیشن",
-    tr: "Nasıl çalışır: Melodi diktesi"
+    tr: "Nasıl çalışır: Melodi diktesi",
+    ar: "كيف يعمل تمرين: الإملاء اللحني"
   },
   "Wähle für jeden Ton der Melodie sowohl die richtige Klaviatur-Taste als auch den Notenwert.": {
     fr: "Pour chaque note de la mélodie, choisissez la bonne touche du clavier et la bonne valeur rythmique.",
@@ -5645,7 +6271,8 @@ registerColocatedPhrases({
     pl: "Dla każdego dźwięku melodii wybierz zarówno właściwy klawisz, jak i wartość rytmiczną.",
     uk: "Для кожної ноти мелодії обери і правильну клавішу, і ритмічну тривалість.",
     ur: "دھن کے ہر سُر کے لیے درست کی بورڈ کلید اور نوٹ کی قدر دونوں چنیں۔",
-    tr: "Melodideki her ses için hem doğru klavye tuşunu hem de nota değerini seç."
+    tr: "Melodideki her ses için hem doğru klavye tuşunu hem de nota değerini seç.",
+    ar: "اختر لكل نغمة في اللحن مفتاح لوحة المفاتيح الصحيح والقيمة الزمنية المناسبة معًا."
   },
   "Hör zu: Merke dir Melodieverlauf und Rhythmus der Phrase.": {
     fr: "Écoutez : mémorisez la courbe mélodique et le rythme de la phrase.",
@@ -5654,7 +6281,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj: zapamiętaj linię melodyczną i rytm frazy.",
     uk: "Слухай: запам’ятай мелодичний рух і ритм фрази.",
     ur: "سنیں: دھن کا اتار چڑھاؤ اور تال دونوں یاد رکھیں۔",
-    tr: "Dinle: Cümlenin melodi akışını ve ritmini aklında tut."
+    tr: "Dinle: Cümlenin melodi akışını ve ritmini aklında tut.",
+    ar: "استمع: احفظ مسار اللحن وإيقاع الجملة."
   },
   "Pro Platz erst Taste antippen, dann den passenden Notenwert wählen – schon rückt der nächste Ton nach.": {
     fr: "Pour chaque position, touchez la touche puis la valeur rythmique pour passer à la note suivante.",
@@ -5663,7 +6291,8 @@ registerColocatedPhrases({
     pl: "Dla każdego miejsca wybierz klawisz i wartość nuty, aby przejść do kolejnego dźwięku.",
     uk: "Для кожної позиції натисни клавішу та обери тривалість, щоб перейти до наступної ноти.",
     ur: "ہر جگہ کے لیے پہلے کلید دبائیں، پھر نوٹ کی قدر چنیں تاکہ اگلا سُر آئے۔",
-    tr: "Her konum için önce tuşa dokun, sonra uygun nota değerini seç – hemen bir sonraki sese geçilir."
+    tr: "Her konum için önce tuşa dokun, sonra uygun nota değerini seç – hemen bir sonraki sese geçilir.",
+    ar: "لكل خانة، انقر المفتاح أولًا ثم اختر القيمة الزمنية المناسبة – وسينتقل المؤشر فورًا للنغمة التالية."
   },
   "So funktioniert: Rhythmus-Diktat": {
     fr: "Comment ça marche : Dictée rythmique",
@@ -5672,7 +6301,8 @@ registerColocatedPhrases({
     pl: "Jak to działa: Dyktando rytmiczne",
     uk: "Як це працює: Ритмічний диктант",
     ur: "یہ کیسے کام کرتا ہے: رِدم ڈکٹیشن",
-    tr: "Nasıl çalışır: Ritim diktesi"
+    tr: "Nasıl çalışır: Ritim diktesi",
+    ar: "كيف يعمل تمرين: الإملاء الإيقاعي"
   },
   "Höre den 4-Schlag-Rhythmus und setze unten für jede Zählzeit das passende Notenbild ein.": {
     fr: "Écoutez le rythme sur 4 temps et choisissez en bas la figure correspondant à chaque temps.",
@@ -5681,7 +6311,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj 4-miarowego rytmu i wybierz poniżej pasującą figurę dla każdego uderzenia.",
     uk: "Послухай ритм на 4 долі та обери нижче відповідний ритмічний малюнок для кожної долі.",
     ur: "4 بیٹ کا رِدم سنیں اور نیچے ہر بیٹ کے لیے درست نوٹ پیٹرن چنیں۔",
-    tr: "4 vuruşluk ritmi dinle ve alttan her vuruş için uygun nota kalıbını yerleştir."
+    tr: "4 vuruşluk ritmi dinle ve alttan her vuruş için uygun nota kalıbını yerleştir.",
+    ar: "استمع إلى الإيقاع ذي النبضات الأربع وضع بالأسفل الشكل الإيقاعي المناسب لكل نبضة."
   },
   "Hör zu: Nach dem Einzähler erklingt das Muster über 4 Zählzeiten.": {
     fr: "Écoutez : après le décompte, le motif joue sur 4 temps.",
@@ -5690,7 +6321,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj: po odliczeniu rozbrzmiewa wzór na 4 uderzenia.",
     uk: "Слухай: після відліку звучить малюнок на 4 долі.",
     ur: "سنیں: گنتی کے بعد 4 بیٹ کا پیٹرن بجے گا۔",
-    tr: "Dinle: Ön sayımdan sonra kalıp 4 vuruş boyunca çalar."
+    tr: "Dinle: Ön sayımdan sonra kalıp 4 vuruş boyunca çalar.",
+    ar: "استمع: بعد العدّ التمهيدي يُعزف النمط على مدى 4 نبضات."
   },
   "Jetzt werden die 4 Zählzeiten nacheinander über die Rhythmus-Kacheln unten eingetragen.": {
     fr: "Les 4 temps sont maintenant remplis un par un à l’aide des cases rythmiques en bas.",
@@ -5699,7 +6331,8 @@ registerColocatedPhrases({
     pl: "Teraz 4 uderzenia są kolejno uzupełniane za pomocą kafelków rytmicznych poniżej.",
     uk: "Тепер 4 долі по черзі заповнюються за допомогою ритмічних плиток нижче.",
     ur: "اب نیچے رِدم ٹائلز سے چاروں بیٹ ایک ایک کر کے بھرے جا رہے ہیں۔",
-    tr: "Şimdi 4 vuruş sırayla alttaki ritim kartlarıyla giriliyor."
+    tr: "Şimdi 4 vuruş sırayla alttaki ritim kartlarıyla giriliyor.",
+    ar: "الآن تُدخل النبضات الأربع تباعًا عبر بطاقات الإيقاع بالأسفل."
   },
   "So funktioniert: Rhythmus klopfen": {
     fr: "Comment ça marche : Frapper le rythme",
@@ -5708,7 +6341,8 @@ registerColocatedPhrases({
     pl: "Jak to działa: Wyklaskiwanie rytmu",
     uk: "Як це працює: Відстукування ритму",
     ur: "یہ کیسے کام کرتا ہے: رِدم ٹیپ",
-    tr: "Nasıl çalışır: Ritim vurma"
+    tr: "Nasıl çalışır: Ritim vurma",
+    ar: "كيف يعمل تمرين: النقر الإيقاعي"
   },
   "Nach dem Einzähler hörst du das Muster – danach klopfst du es exakt im Takt auf das Pad.": {
     fr: "Après le décompte, vous entendez le motif — puis vous le frappez en rythme sur le pad.",
@@ -5717,7 +6351,8 @@ registerColocatedPhrases({
     pl: "Po odliczeniu słyszysz wzór — potem wyklaskujesz go dokładnie w rytmie na padzie.",
     uk: "Після відліку звучить малюнок — потім ти точно відстукуєш його в ритмі на педі.",
     ur: "گنتی کے بعد آپ پیٹرن سنیں گے — پھر اسے بالکل تال میں پیڈ پر ٹیپ کریں گے۔",
-    tr: "Ön sayımdan sonra kalıbı duyarsın – ardından tam ölçüde pede vurursun."
+    tr: "Ön sayımdan sonra kalıbı duyarsın – ardından tam ölçüde pede vurursun.",
+    ar: "بعد العدّ التمهيدي تسمع النمط – وبعده تنقره بدقة مع الإيقاع على اللوحة."
   },
   "Hör zu & schau aufs Pad: Erst der Einzähler, dann blitzt das Pad genau auf jedem Ziel-Schlag auf.": {
     fr: "Écoutez et regardez le pad : après le décompte, le pad s’allume exactement sur chaque coup.",
@@ -5726,7 +6361,8 @@ registerColocatedPhrases({
     pl: "Słuchaj i patrz na pad: po odliczeniu pad błyska dokładnie na każde uderzenie.",
     uk: "Слухай і дивись на пед: після відліку пед спалахує точно на кожен удар.",
     ur: "سنیں اور پیڈ دیکھیں: گنتی کے بعد ہر درست ضرب پر پیڈ روشن ہوگا۔",
-    tr: "Dinle ve pede bak: Önce ön sayım, sonra ped tam her hedef vuruşta parlar."
+    tr: "Dinle ve pede bak: Önce ön sayım, sonra ped tam her hedef vuruşta parlar.",
+    ar: "استمع وانظر إلى اللوحة: أولًا العدّ التمهيدي، ثم تومض اللوحة بالضبط عند كل نبضة مستهدفة."
   },
   "Schau genau hin: Immer wenn das Pad grün aufblitzt, wird geklopft!": {
     fr: "Regardez bien : on frappe le pad à chaque éclair vert !",
@@ -5735,7 +6371,8 @@ registerColocatedPhrases({
     pl: "Patrz uważnie: uderzamy w pad za każdym razem, gdy błyśnie na zielono!",
     uk: "Дивись уважно: натискай пед щоразу, коли він спалахує зеленим!",
     ur: "غور سے دیکھیں: جب بھی پیڈ سبز چمکے، تبھی ٹیپ کرنا ہے!",
-    tr: "Dikkatle bak: Ped ne zaman yeşil parlarsa o an vurulur!"
+    tr: "Dikkatle bak: Ped ne zaman yeşil parlarsa o an vurulur!",
+    ar: "انتبه جيدًا: في كل مرة تومض فيها اللوحة بالأخضر، حان وقت النقر!"
   },
   "So funktioniert: Taktart & Groove": {
     fr: "Comment ça marche : Mesure & Groove",
@@ -5744,7 +6381,8 @@ registerColocatedPhrases({
     pl: "Jak to działa: Metrum i Groove",
     uk: "Як це працює: Розмір і Ґрув",
     ur: "یہ کیسے کام کرتا ہے: میٹر اور گروو",
-    tr: "Nasıl çalışır: Ölçü birimi ve Groove"
+    tr: "Nasıl çalışır: Ölçü birimi ve Groove",
+    ar: "كيف يعمل تمرين: الوزن الإيقاعي والغروف"
   },
   "Achte auf den betonten ersten Schlag und das Grundmuster – wähle dann unten die passende Kachel.": {
     fr: "Repérez le premier temps accentué et le groove — choisissez ensuite la bonne case en bas.",
@@ -5753,7 +6391,8 @@ registerColocatedPhrases({
     pl: "Zwróć uwagę na akcentowaną jedynkę i puls — potem wybierz odpowiedni kafelek poniżej.",
     uk: "Зверни увагу на акцентовану першу долю та малюнок — потім обери потрібну плитку нижче.",
     ur: "پہلی زور دار بیٹ اور تال کے انداز پر غور کریں — پھر نیچے درست ٹائل چنیں۔",
-    tr: "Vurgulu ilk vuruşa ve temel kalıba dikkat et – sonra alttan uygun kartı seç."
+    tr: "Vurgulu ilk vuruşa ve temel kalıba dikkat et – sonra alttan uygun kartı seç.",
+    ar: "انتبه إلى النبضة الأولى المشددة والنمط الأساسي – ثم اختر البطاقة المناسبة بالأسفل."
   },
   "Hör zu: Zähle leise bis zur nächsten betonten Eins mit.": {
     fr: "Écoutez : comptez doucement jusqu’au prochain temps fort.",
@@ -5762,7 +6401,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj: licz cicho do kolejnej akcentowanej jedynki.",
     uk: "Слухай: тихо рахуй до наступної акцентованої першої долі.",
     ur: "سنیں: اگلی زور دار پہلی بیٹ تک آہستہ گنتی کریں۔",
-    tr: "Dinle: Bir sonraki vurgulu birinci vuruşa kadar içinden sessizce say."
+    tr: "Dinle: Bir sonraki vurgulu birinci vuruşa kadar içinden sessizce say.",
+    ar: "استمع: عُدّ بهدوء حتى النبضة الأولى المشددة التالية."
   },
   "Das gehörte Muster ist {lbl} – tippe unten auf diese Kachel.": {
     fr: "Le motif entendu est {lbl} — touchez cette case en bas.",
@@ -5771,7 +6411,8 @@ registerColocatedPhrases({
     pl: "Usłyszany wzór to {lbl} — dotknij tego kafelka poniżej.",
     uk: "Почутий малюнок — {lbl}, натисни цю плитку нижче.",
     ur: "سنا گیا پیٹرن {lbl} ہے — نیچے اس ٹائل پر ٹیپ کریں۔",
-    tr: "Duyulan kalıp {lbl} – alttan bu karta dokun."
+    tr: "Duyulan kalıp {lbl} – alttan bu karta dokun.",
+    ar: "النمط المسموع هو {lbl} – انقر على هذه البطاقة بالأسفل."
   },
   "So funktioniert: Notenlesen": {
     fr: "Comment ça marche : Lecture de notes",
@@ -5780,7 +6421,8 @@ registerColocatedPhrases({
     pl: "Jak to działa: Czytanie nut",
     uk: "Як це працює: Читання нот",
     ur: "یہ کیسے کام کرتا ہے: نوٹ پڑھنا",
-    tr: "Nasıl çalışır: Nota okuma"
+    tr: "Nasıl çalışır: Nota okuma",
+    ar: "كيف يعمل تمرين: قراءة النوتة"
   },
   "Lies immer die vorderste markierte Note links im Notensystem ab und tippe die passende Taste.": {
     fr: "Lisez toujours la note mise en évidence tout à gauche et touchez la touche correspondante.",
@@ -5789,7 +6431,8 @@ registerColocatedPhrases({
     pl: "Czytaj zawsze pierwszą wyróżnioną nutę po lewej na pięciolinii i dotknij właściwego klawisza.",
     uk: "Завжди читай першу виділену ноту ліворуч на нотному стані та натискай відповідну клавішу.",
     ur: "ہمیشہ بائیں جانب سب سے پہلا نمایاں نوٹ پڑھیں اور درست کلید دبائیں۔",
-    tr: "Dizekte her zaman soldaki en önde işaretli notayı oku ve uygun tuşa dokun."
+    tr: "Dizekte her zaman soldaki en önde işaretli notayı oku ve uygun tuşa dokun.",
+    ar: "اقرأ دائمًا النغمة الأولى المحددة على يسار المدرج الموسيقي وانقر على المفتاح المناسب."
   },
   "Schau auf die erste Note links im System (inklusive Vorzeichen).": {
     fr: "Regardez la première note à gauche sur la portée (armure et altérations comprises).",
@@ -5798,7 +6441,8 @@ registerColocatedPhrases({
     pl: "Spójrz na pierwszą nutę po lewej na pięciolinii (wraz ze znakami chromatycznymi).",
     uk: "Подивись на першу ноту ліворуч на стані (разом зі знаками альтерації).",
     ur: "اسٹاف پر بائیں جانب پہلے نوٹ کو دیکھیں (بشمول علامات)۔",
-    tr: "Dizekte soldaki ilk notaya bak (değiştirici işaretler dâhil)."
+    tr: "Dizekte soldaki ilk notaya bak (değiştirici işaretler dâhil).",
+    ar: "انظر إلى النغمة الأولى على يسار المدرج (بما في ذلك علامات التحويل)."
   },
   "Diese Note ist {lbl} – tippe die grün markierte Taste, dann rückt die nächste Note nach.": {
     fr: "Cette note est {lbl} — touchez la touche verte et la note suivante avance.",
@@ -5807,7 +6451,8 @@ registerColocatedPhrases({
     pl: "Ta nuta to {lbl} — dotknij zielonego klawisza, a pojawi się kolejna nuta.",
     uk: "Ця нота — {lbl}, натисни зелену клавішу, і з’явиться наступна нота.",
     ur: "یہ نوٹ {lbl} ہے — سبز کلید دبائیں تو اگلا نوٹ سامنے آ جائے گا۔",
-    tr: "Bu nota {lbl} – yeşil işaretli tuşa dokun, ardından bir sonraki nota gelir."
+    tr: "Bu nota {lbl} – yeşil işaretli tuşa dokun, ardından bir sonraki nota gelir.",
+    ar: "هذه النغمة هي {lbl} – انقر على المفتاح المحدد بالأخضر لتنتقل إلى النغمة التالية."
   },
   "So funktioniert: Akkorde lesen": {
     fr: "Comment ça marche : Lecture d’accords",
@@ -5816,7 +6461,8 @@ registerColocatedPhrases({
     pl: "Jak to działa: Czytanie akordów",
     uk: "Як це працює: Читання акордів",
     ur: "یہ کیسے کام کرتا ہے: کارڈز پڑھنا",
-    tr: "Nasıl çalışır: Akor okuma"
+    tr: "Nasıl çalışır: Akor okuma",
+    ar: "كيف يعمل تمرين: قراءة التآلفات"
   },
   "Lies den vordersten Akkord im Notensystem von unten nach oben und wähle die passende Kachel.": {
     fr: "Lisez l’accord le plus à gauche de bas en haut et choisissez la case correspondante.",
@@ -5825,7 +6471,8 @@ registerColocatedPhrases({
     pl: "Przeczytaj pierwszy akord od dołu do góry i wybierz odpowiedni kafelek.",
     uk: "Прочитай перший акорд знизу вгору та обери відповідну плитку.",
     ur: "بائیں جانب سب سے پہلا کارڈ نیچے سے اوپر پڑھیں اور درست ٹائل چنیں۔",
-    tr: "Dizekteki en önde yer alan akoru aşağıdan yukarıya oku ve uygun kartı seç."
+    tr: "Dizekteki en önde yer alan akoru aşağıdan yukarıya oku ve uygun kartı seç.",
+    ar: "اقرأ التآلف الأول على المدرج الموسيقي من الأسفل إلى الأعلى واختر البطاقة المناسبة."
   },
   "Schau auf den markierten Akkord links – Grundton, Terz und Klangfarbe bestimmen die Antwort.": {
     fr: "Observez l’accord à gauche — fondamentale, tierce et intervalles déterminent la réponse.",
@@ -5834,7 +6481,8 @@ registerColocatedPhrases({
     pl: "Spójrz na wyróżniony akord po lewej — prymy, tercja i interwały wyznaczają odpowiedź.",
     uk: "Подивись на виділений акорд ліворуч — тоніка, терція та інтервали визначають відповідь.",
     ur: "بائیں جانب نمایاں کارڈ دیکھیں — بنیادی سُر، تیسرا سُر اور وقفے جواب بتاتے ہیں۔",
-    tr: "Soldaki işaretli akora bak – kök ses, üçlü ve tını rengi cevabı belirler."
+    tr: "Soldaki işaretli akora bak – kök ses, üçlü ve tını rengi cevabı belirler.",
+    ar: "انظر إلى التآلف المحدد على اليسار – النغمة الأساسية والثالثة واللون الصوتي تحدّد الإجابة."
   },
   "Der notierte Akkord ist {lbl} – tippe unten auf die passende Kachel.": {
     fr: "L’accord noté est {lbl} — touchez la case correspondante en bas.",
@@ -5843,7 +6491,8 @@ registerColocatedPhrases({
     pl: "Zapisany akord to {lbl} — dotknij właściwego kafelka poniżej.",
     uk: "Записаний акорд — {lbl}, натисни відповідну плитку нижче.",
     ur: "لکھا ہوا کارڈ {lbl} ہے — نیچے درست ٹائل پر ٹیپ کریں۔",
-    tr: "Yazılı akor {lbl} – alttan uygun karta dokun."
+    tr: "Yazılı akor {lbl} – alttan uygun karta dokun.",
+    ar: "التآلف المكتوب هو {lbl} – انقر على البطاقة المناسبة بالأسفل."
   },
   "So funktioniert: Frequenz- & EQ-Training": {
     fr: "Comment ça marche : Fréquences & EQ",
@@ -5852,7 +6501,8 @@ registerColocatedPhrases({
     pl: "Jak to działa: Częstotliwości i EQ",
     uk: "Як це працює: Частоти та EQ",
     ur: "یہ کیسے کام کرتا ہے: فریکوئنسی اور EQ",
-    tr: "Nasıl çalışır: Frekans ve EQ çalışması"
+    tr: "Nasıl çalışır: Frekans ve EQ çalışması",
+    ar: "كيف يعمل تمرين: الترددات والمعادل (EQ)"
   },
   "Vergleiche das neutrale Rauschen (Flat) mit dem EQ-Boost und wähle das angehobene Frequenzband.": {
     fr: "Comparez le bruit neutre (Flat) au boost EQ et choisissez la bande accentuée.",
@@ -5861,7 +6511,8 @@ registerColocatedPhrases({
     pl: "Porównaj neutralny szum (Flat) z podbiciem EQ i wybierz podbite pasmo.",
     uk: "Порівняй нейтральний шум (Flat) з підсиленням EQ та обери підсилену смугу.",
     ur: "فلیٹ شور اور EQ بوسٹ کا موازنہ کریں اور بڑھائی گئی فریکوئنسی چنیں۔",
-    tr: "Nötr gürültüyü (Flat) EQ yükseltmeyle karşılaştır ve yükseltilen frekans bandını seç."
+    tr: "Nötr gürültüyü (Flat) EQ yükseltmeyle karşılaştır ve yükseltilen frekans bandını seç.",
+    ar: "قارن الضوضاء المحايدة (مسطّح) مع تعزيز EQ واختر النطاق الترددي المعزَّز."
   },
   "Höre die reine Tonhöhe des Sinustons und ordne sie unten der passenden Frequenz zu.": {
     fr: "Écoutez la hauteur pure de la sinusoïde et associez-la à sa fréquence en bas.",
@@ -5870,7 +6521,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj czystej wysokości sinusoidy i dopasuj ją do częstotliwości poniżej.",
     uk: "Послухай чисту висоту синусоїди та співстав її з частотою нижче.",
     ur: "خالص سائن ٹون کی پچ سنیں اور نیچے درست فریکوئنسی چنیں۔",
-    tr: "Sinüs tonunun saf perdesini dinle ve alttan uygun frekansla eşleştir."
+    tr: "Sinüs tonunun saf perdesini dinle ve alttan uygun frekansla eşleştir.",
+    ar: "استمع إلى طبقة الموجة الجيبية النقية واربطها بالتردد المناسب بالأسفل."
   },
   "Hör zu: Erst neutrales Rauschen (Flat), dann schaltet der EQ-Boost dazu.": {
     fr: "Écoutez : d’abord le bruit neutre (Flat), puis le boost EQ s’active.",
@@ -5879,7 +6531,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj: najpierw neutralny szum (Flat), potem włącza się podbicie EQ.",
     uk: "Слухай: спочатку нейтральний шум (Flat), потім вмикається підсилення EQ.",
     ur: "سنیں: پہلے فلیٹ شور، پھر EQ بوسٹ آن ہوگا۔",
-    tr: "Dinle: Önce nötr gürültü (Flat), sonra EQ yükseltme devreye girer."
+    tr: "Dinle: Önce nötr gürültü (Flat), sonra EQ yükseltme devreye girer.",
+    ar: "استمع: أولًا ضوضاء محايدة (مسطّح)، ثم يُفعَّل تعزيز EQ."
   },
   "Hör zu: Präge dir die Höhe des Sinustons ein.": {
     fr: "Écoutez : concentrez-vous sur la hauteur exacte du son pur.",
@@ -5888,7 +6541,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj: skup się na dokładnej wysokości czystego tonu.",
     uk: "Слухай: зосередься на точній висоті чистого тону.",
     ur: "سنیں: سائن ٹون کی عین پچ پر دھیان دیں۔",
-    tr: "Dinle: Sinüs tonunun perdesini aklına kazı."
+    tr: "Dinle: Sinüs tonunun perdesini aklına kazı.",
+    ar: "استمع: احفظ طبقة الموجة الجيبية في ذهنك."
   },
   "Die gesuchte Frequenz ist {lbl} – tippe unten auf die hervorgehobene Kachel.": {
     fr: "La fréquence recherchée est {lbl} — touchez la case mise en évidence en bas.",
@@ -5897,7 +6551,8 @@ registerColocatedPhrases({
     pl: "Szukana częstotliwość to {lbl} — dotknij podświetlonego kafelka poniżej.",
     uk: "Шукана частота — {lbl}, натисни підсвічену плитку нижче.",
     ur: "مطلوبہ فریکوئنسی {lbl} ہے — نیچے نمایاں ٹائل پر ٹیپ کریں۔",
-    tr: "Aranan frekans {lbl} – altta vurgulanan karta dokun."
+    tr: "Aranan frekans {lbl} – altta vurgulanan karta dokun.",
+    ar: "التردد المطلوب هو {lbl} – انقر على البطاقة المبرزة بالأسفل."
   },
   "So funktioniert diese Übung": {
     fr: "Comment fonctionne cet exercice",
@@ -5906,7 +6561,8 @@ registerColocatedPhrases({
     pl: "Jak działa to ćwiczenie",
     uk: "Як працює ця вправа",
     ur: "یہ مشق کیسے کام کرتی ہے",
-    tr: "Bu alıştırma nasıl çalışır"
+    tr: "Bu alıştırma nasıl çalışır",
+    ar: "كيف يعمل هذا التمرين"
   },
   "Höre die Aufgabe an und wähle anschließend unten die passende Antwort.": {
     fr: "Écoutez l’exemple puis choisissez la bonne réponse en bas.",
@@ -5915,7 +6571,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj przykładu, a następnie wybierz właściwą odpowiedź poniżej.",
     uk: "Послухай приклад, а потім обери правильну відповідь нижче.",
     ur: "مثال سنیں اور پھر نیچے درست جواب چنیں۔",
-    tr: "Alıştırmayı dinle ve ardından alttan uygun cevabı seç."
+    tr: "Alıştırmayı dinle ve ardından alttan uygun cevabı seç.",
+    ar: "استمع إلى التمرين ثم اختر الإجابة المناسبة بالأسفل."
   },
   "Hör genau hin – das Beispiel läuft gerade.": {
     fr: "Écoutez attentivement — l’exemple est en cours.",
@@ -5924,7 +6581,8 @@ registerColocatedPhrases({
     pl: "Posłuchaj uważnie — przykład właśnie gra.",
     uk: "Слухай уважно — приклад саме звучить.",
     ur: "غور سے سنیں — مثال چل رہی ہے۔",
-    tr: "Dikkatle dinle – örnek şu an çalıyor."
+    tr: "Dikkatle dinle – örnek şu an çalıyor.",
+    ar: "استمع جيدًا – المثال قيد التشغيل الآن."
   },
   "Die Lösung ist {lbl}.": {
     fr: "La réponse est {lbl}.",
@@ -5933,7 +6591,8 @@ registerColocatedPhrases({
     pl: "Rozwiązanie to {lbl}.",
     uk: "Правильна відповідь — {lbl}.",
     ur: "درست جواب {lbl} ہے۔",
-    tr: "Çözüm: {lbl}."
+    tr: "Çözüm: {lbl}.",
+    ar: "الحل هو {lbl}."
   },
   "NEUE ÜBUNG • VORMACHEN": {
     fr: "NOUVEL EXERCICE • DÉMO",
@@ -5942,7 +6601,8 @@ registerColocatedPhrases({
     pl: "NOWE ĆWICZENIE • POKAZ",
     uk: "НОВА ВПРАВА • ДЕМО",
     ur: "نئی مشق • ڈیمو",
-    tr: "YENİ ALIŞTIRMA • ÖRNEK GÖSTERİM"
+    tr: "YENİ ALIŞTIRMA • ÖRNEK GÖSTERİM",
+    ar: "تمرين جديد • عرض توضيحي"
   },
   "▶ Beispiel vormachen": {
     fr: "▶ Voir un exemple",
@@ -5951,7 +6611,8 @@ registerColocatedPhrases({
     pl: "▶ Pokaż przykład",
     uk: "▶ Показати приклад",
     ur: "▶ مثال دکھائیں",
-    tr: "▶ Örnek göster"
+    tr: "▶ Örnek göster",
+    ar: "▶ عرض مثال توضيحي"
   },
   "Direkt starten": {
     fr: "Commencer directement",
@@ -5960,7 +6621,8 @@ registerColocatedPhrases({
     pl: "Zacznij od razu",
     uk: "Почати одразу",
     ur: "براہِ راست شروع کریں",
-    tr: "Doğrudan başla"
+    tr: "Doğrudan başla",
+    ar: "البدء مباشرة"
   },
   "Nicht mehr automatisch zeigen": {
     fr: "Ne plus afficher automatiquement",
@@ -5969,7 +6631,8 @@ registerColocatedPhrases({
     pl: "Nie pokazuj automatycznie",
     uk: "Більше не показувати автоматично",
     ur: "خودکار طور پر دوبارہ نہ دکھائیں",
-    tr: "Bir daha otomatik gösterme"
+    tr: "Bir daha otomatik gösterme",
+    ar: "عدم الإظهار تلقائيًا بعد الآن"
   },
   "SCHRITT 1 / 2 · ZUHÖREN": {
     fr: "ÉTAPE 1 / 2 · ÉCOUTER",
@@ -5978,7 +6641,8 @@ registerColocatedPhrases({
     pl: "KROK 1 / 2 · SŁUCHAJ",
     uk: "КРОК 1 / 2 · СЛУХАЙ",
     ur: "مرحلہ 1 / 2 · سنیں",
-    tr: "ADIM 1 / 2 · DİNLE"
+    tr: "ADIM 1 / 2 · DİNLE",
+    ar: "الخطوة 1 / 2 · استماع"
   },
   "SCHRITT 1 / 2 · EQ-BOOST": {
     fr: "ÉTAPE 1 / 2 · BOOST EQ",
@@ -5987,7 +6651,8 @@ registerColocatedPhrases({
     pl: "KROK 1 / 2 · PODBICIE EQ",
     uk: "КРОК 1 / 2 · ПІДСИЛЕННЯ EQ",
     ur: "مرحلہ 1 / 2 · EQ بوسٹ",
-    tr: "ADIM 1 / 2 · EQ YÜKSELTME"
+    tr: "ADIM 1 / 2 · EQ YÜKSELTME",
+    ar: "الخطوة 1 / 2 · تعزيز EQ"
   },
   "SCHRITT 2 / 2 · ANTWORT": {
     fr: "ÉTAPE 2 / 2 · RÉPONSE",
@@ -5996,7 +6661,8 @@ registerColocatedPhrases({
     pl: "KROK 2 / 2 · ODPOWIEDŹ",
     uk: "КРОК 2 / 2 · ВІДПОВІДЬ",
     ur: "مرحلہ 2 / 2 · جواب",
-    tr: "ADIM 2 / 2 · CEVAP"
+    tr: "ADIM 2 / 2 · CEVAP",
+    ar: "الخطوة 2 / 2 · الإجابة"
   },
   "SCHRITT 2 / 2 · MITKLOPFEN": {
     fr: "ÉTAPE 2 / 2 · FRAPPER",
@@ -6005,7 +6671,8 @@ registerColocatedPhrases({
     pl: "KROK 2 / 2 · KLASKAJ",
     uk: "КРОК 2 / 2 · ВІДСТУКУЙ",
     ur: "مرحلہ 2 / 2 · ساتھ ٹیپ کریں",
-    tr: "ADIM 2 / 2 · BİRLİKTE VUR"
+    tr: "ADIM 2 / 2 · BİRLİKTE VUR",
+    ar: "الخطوة 2 / 2 · النقر مع الإيقاع"
   },
   "Erst den Puls aufnehmen…": {
     fr: "Ressentez d’abord la pulsation…",
@@ -6014,7 +6681,8 @@ registerColocatedPhrases({
     pl: "Najpierw wyczuj puls…",
     uk: "Спочатку відчуй пульс…",
     ur: "پہلے تال محسوس کریں…",
-    tr: "Önce nabzı yakala…"
+    tr: "Önce nabzı yakala…",
+    ar: "التقط النبض أولًا…"
   },
   "Jetzt im Takt klopfen!": {
     fr: "Frappez en rythme maintenant !",
@@ -6023,7 +6691,8 @@ registerColocatedPhrases({
     pl: "Teraz klaskaj w rytmie!",
     uk: "Тепер відстукуй у ритмі!",
     ur: "اب تال میں ٹیپ کریں!",
-    tr: "Şimdi ölçüyle birlikte vur!"
+    tr: "Şimdi ölçüyle birlikte vur!",
+    ar: "انقر مع الإيقاع الآن!"
   },
   "Jedes grüne Aufblitzen = 1 Tippen": {
     fr: "Chaque éclair vert = 1 appui",
@@ -6032,7 +6701,8 @@ registerColocatedPhrases({
     pl: "Każdy zielony błysk = 1 dotknięcie",
     uk: "Кожен зелений спалах = 1 натискання",
     ur: "ہر سبز چمک = 1 ٹیپ",
-    tr: "Her yeşil parlayış = 1 dokunuş"
+    tr: "Her yeşil parlayış = 1 dokunuş",
+    ar: "كل وميض أخضر = نقرة واحدة"
   },
   "Jetzt ist der EQ-Boost aktiv – hörst du, welches Frequenzband hervortritt?": {
     fr: "Le boost EQ est actif — entendez-vous quelle bande ressort ?",
@@ -6041,7 +6711,8 @@ registerColocatedPhrases({
     pl: "Podbicie EQ jest aktywne — słyszysz, które pasmo się wybija?",
     uk: "Підсилення EQ активне — чуєш, яка смуга виділяється?",
     ur: "اب EQ بوسٹ فعال ہے — کیا آپ سن سکتے ہیں کون سی فریکوئنسی نمایاں ہے؟",
-    tr: "Şimdi EQ yükseltme aktif – hangi frekans bandının öne çıktığını duyuyor musun?"
+    tr: "Şimdi EQ yükseltme aktif – hangi frekans bandının öne çıktığını duyuyor musun?",
+    ar: "تعزيز EQ مفعّل الآن – هل تسمع أي نطاق ترددي يبرز؟"
   },
   "BEREIT!": {
     fr: "PRÊT !",
@@ -6050,7 +6721,8 @@ registerColocatedPhrases({
     pl: "GOTOWE!",
     uk: "ГОТОВО!",
     ur: "تیار!",
-    tr: "HAZIR!"
+    tr: "HAZIR!",
+    ar: "جاهز!"
   },
   "Jetzt bist du dran!": {
     fr: "À vous de jouer !",
@@ -6059,7 +6731,8 @@ registerColocatedPhrases({
     pl: "Teraz twoja kolej!",
     uk: "Тепер твоя черга!",
     ur: "اب آپ کی باری!",
-    tr: "Şimdi sıra sende!"
+    tr: "Şimdi sıra sende!",
+    ar: "الآن دورك!"
   },
   "Wir laden dir gleich eine frische Aufgabe – tippe einfach direkt los!": {
     fr: "Un nouvel exercice arrive — commencez directement !",
@@ -6068,7 +6741,8 @@ registerColocatedPhrases({
     pl: "Załadujemy nowe zadanie — po prostu zacznij!",
     uk: "Завантажимо нове завдання — просто починай!",
     ur: "ہم نیا سوال لوڈ کر رہے ہیں — بس فوراً شروع کریں!",
-    tr: "Senin için birazdan yeni bir soru yüklüyoruz – doğrudan dokunmaya başla!"
+    tr: "Senin için birazdan yeni bir soru yüklüyoruz – doğrudan dokunmaya başla!",
+    ar: "سنحمّل لك تمرينًا جديدًا حالًا – ابدأ بالنقر مباشرة!"
   },
   "Wir laden dir jetzt eine frische Aufgabe – drücke unten auf Abspielen, sobald du bereit bist.": {
     fr: "Nous chargeons un nouvel exercice — appuyez sur Lire dès que vous êtes prêt.",
@@ -6077,7 +6751,8 @@ registerColocatedPhrases({
     pl: "Załadujemy nowe zadanie — naciśnij Odtwórz poniżej, gdy będziesz gotowy.",
     uk: "Завантажимо нове завдання — натисни Відтворити нижче, коли будеш готовий.",
     ur: "ہم آپ کے لیے نئی مشق لوڈ کر رہے ہیں — جب تیار ہوں نیچے پلے دبائیں۔",
-    tr: "Senin için şimdi yeni bir soru yüklüyoruz – hazır olduğunda aşağıdan Çal'a bas."
+    tr: "Senin için şimdi yeni bir soru yüklüyoruz – hazır olduğunda aşağıdan Çal'a bas.",
+    ar: "سنحمّل لك تمرينًا جديدًا الآن – اضغط على تشغيل بالأسفل حالما تكون جاهزًا."
   },
   "▶ Jetzt selbst probieren": {
     fr: "▶ Essayer moi-même",
@@ -6086,7 +6761,8 @@ registerColocatedPhrases({
     pl: "▶ Spróbuj samodzielnie",
     uk: "▶ Спробувати самостійно",
     ur: "▶ خود آزمائیں",
-    tr: "▶ Şimdi kendin dene"
+    tr: "▶ Şimdi kendin dene",
+    ar: "▶ جرّب بنفسك الآن"
   },
   "Nochmal ansehen": {
     fr: "Revoir",
@@ -6095,7 +6771,8 @@ registerColocatedPhrases({
     pl: "Zobacz ponownie",
     uk: "Подивитись ще раз",
     ur: "دوبارہ دیکھیں",
-    tr: "Tekrar izle"
+    tr: "Tekrar izle",
+    ar: "المشاهدة مجددًا"
   },
   "Abbrechen": {
     fr: "Annuler",
@@ -6104,7 +6781,8 @@ registerColocatedPhrases({
     pl: "Anuluj",
     uk: "Скасувати",
     ur: "منسوخ کریں",
-    tr: "İptal"
+    tr: "İptal",
+    ar: "إلغاء"
   },
   // ===== Notation: Symbole, Begriffe & Ablauf =====
   "Symbole & Spielanweisungen": {
@@ -6114,7 +6792,8 @@ registerColocatedPhrases({
     pl: "Symbole i oznaczenia",
     uk: "Символи й позначення",
     ur: "علامات اور ہدایات",
-    tr: "Semboller ve çalım yönergeleri"
+    tr: "Semboller ve çalım yönergeleri",
+    ar: "الرموز وتعليمات الأداء"
   },
   "Symbole & Begriffe": {
     fr: "Symboles & termes",
@@ -6123,7 +6802,8 @@ registerColocatedPhrases({
     pl: "Symbole i pojęcia",
     uk: "Символи й терміни",
     ur: "علامات اور اصطلاحات",
-    tr: "Semboller ve terimler"
+    tr: "Semboller ve terimler",
+    ar: "الرموز والمصطلحات"
   },
   "Vortragszeichen & Symbole": {
     fr: "Signes & indications",
@@ -6132,7 +6812,8 @@ registerColocatedPhrases({
     pl: "Symbole i oznaczenia",
     uk: "Символи й позначення",
     ur: "علامات اور ہدایات",
-    tr: "İfade işaretleri ve semboller"
+    tr: "İfade işaretleri ve semboller",
+    ar: "علامات الأداء والرموز"
   },
   "Dynamik, Tempo, Artikulation, Verzierungen, Coda & Ablauf": {
     fr: "Nuances, tempo, articulation, ornements, Coda & reprises",
@@ -6141,7 +6822,8 @@ registerColocatedPhrases({
     pl: "Dynamika, tempo, artykulacja, ozdobniki, Coda i przebieg",
     uk: "Динаміка, темп, артикуляція, мелізми, Кода та форма",
     ur: "آواز، رفتار، ادائیگی، سجاوٹ، کوڈا اور ترتیب",
-    tr: "Gürlük, tempo, artikülasyon, süslemeler, koda ve akış"
+    tr: "Gürlük, tempo, artikülasyon, süslemeler, koda ve akış",
+    ar: "الديناميك، سرعة الإيقاع، الأداء التعبيري، الزخارف، الكودا والتسلسل"
   },
   "Dynamik, Tempo, Artikulation & Ablauf nachschlagen": {
     fr: "Consulter nuances, tempo, articulation & structure",
@@ -6150,7 +6832,8 @@ registerColocatedPhrases({
     pl: "Sprawdź dynamikę, tempo, artykulację i nawigację",
     uk: "Довідник із динаміки, темпу, артикуляції та форми",
     ur: "آواز، رفتار، ادائیگی اور ترتیب کی گائیڈ دیکھیں",
-    tr: "Gürlük, tempo, artikülasyon ve akışa göz at"
+    tr: "Gürlük, tempo, artikülasyon ve akışa göz at",
+    ar: "استعراض الديناميك وسرعة الإيقاع والأداء والتسلسل"
   },
   "Alle wichtigen Spielanweisungen, Verzierungen und Sprungzeichen (Segno, Coda, Volten) mit Erklärungen und Hörbeispielen.": {
     fr: "Toutes les indications d’interprétation, ornements et signes de renvoi (Segno, Coda, voltas) avec explications et extraits audio.",
@@ -6159,7 +6842,8 @@ registerColocatedPhrases({
     pl: "Wszystkie ważne oznaczenia wykonawcze, ozdobniki i znaki skoku (Segno, Coda, volty) z opisami i przykładami audio.",
     uk: "Усі важливі виконавські позначки, мелізми та знаки переходів (Segno, Кода, вольти) з поясненнями й аудіоприкладами.",
     ur: "تمام اہم ہدایات، سجاوٹیں اور چھلانگ کی علامات (سیگنو، کوڈا، وولٹا) وضاحت اور آڈیو مثالوں کے ساتھ۔",
-    tr: "Açıklamalar ve ses örnekleriyle tüm önemli çalım yönergeleri, süslemeler ve atlama işaretleri (Segno, Coda, dolaplar)."
+    tr: "Açıklamalar ve ses örnekleriyle tüm önemli çalım yönergeleri, süslemeler ve atlama işaretleri (Segno, Coda, dolaplar).",
+    ar: "جميع تعليمات الأداء المهمة والزخارف وعلامات القفز (Segno و Coda وأقواس الإعادة) مع الشروحات والأمثلة الصوتية."
   },
   "Vortragszeichen & Symbole öffnen →": {
     fr: "Ouvrir Signes & indications →",
@@ -6168,7 +6852,8 @@ registerColocatedPhrases({
     pl: "Otwórz Symbole i oznaczenia →",
     uk: "Відкрити «Символи й позначення» →",
     ur: "علامات اور ہدایات کھولیں ←",
-    tr: "İfade işaretleri ve sembolleri aç →"
+    tr: "İfade işaretleri ve sembolleri aç →",
+    ar: "فتح علامات الأداء والرموز →"
   },
   "Im Wissens-Hub nachschlagen: Vortragszeichen & Symbole →": {
     fr: "Consulter dans le guide : Signes & indications →",
@@ -6177,7 +6862,8 @@ registerColocatedPhrases({
     pl: "Sprawdź w kompendium: Symbole i oznaczenia →",
     uk: "Переглянути в довіднику: Символи й позначення →",
     ur: "معلومات کے مرکز میں دیکھیں: علامات اور ہدایات ←",
-    tr: "Bilgi Merkezi'nde incele: İfade işaretleri ve semboller →"
+    tr: "Bilgi Merkezi'nde incele: İfade işaretleri ve semboller →",
+    ar: "الاطلاع في مركز المعرفة: علامات الأداء والرموز →"
   },
   "Mehr als nur Notenköpfe: Trainiere Dynamik, Tempo, Artikulation, Verzierungen, Spielweisen sowie Ablauf- & Sprungzeichen (Segno, Coda, Voltenklammern).": {
     fr: "Bien plus que des hauteurs : entraîne les nuances, le tempo, l’articulation, les ornements et les renvois (Segno, Coda, voltas).",
@@ -6186,7 +6872,8 @@ registerColocatedPhrases({
     pl: "Więcej niż same nuty: ćwicz dynamikę, tempo, artykulację, ozdobniki oraz znaki przebiegu (Segno, Coda, volty).",
     uk: "Більше ніж ноти: тренуй динаміку, темп, артикуляцію, мелізми та знаки навігації (Segno, Кода, вольти).",
     ur: "صرف سُروں سے بڑھ کر: آواز، رفتار، ادائیگی، سجاوٹ اور سیگنو، کوڈا و وولٹا کی مشق کریں۔",
-    tr: "Sadece nota başlarından fazlası: Gürlük, tempo, artikülasyon, süslemeler, çalım teknikleri ile akış ve atlama işaretlerini (Segno, Coda, dolap parantezleri) çalış."
+    tr: "Sadece nota başlarından fazlası: Gürlük, tempo, artikülasyon, süslemeler, çalım teknikleri ile akış ve atlama işaretlerini (Segno, Coda, dolap parantezleri) çalış.",
+    ar: "أكثر من مجرد رؤوس النوتات: تدرّب على الديناميك وسرعة الإيقاع والأداء التعبيري والزخارف وأساليب العزف وعلامات التسلسل والقفز (Segno و Coda وأقواس الإعادة)."
   },
   "Dynamik (pp–ff, sfz), Tempo & Ausdruck, Artikulation & Verzierungen sowie Ablauf- und Sprungzeichen (Wiederholung, Volten, Segno, Coda).": {
     fr: "Nuances (pp–ff, sfz), tempo & expression, articulation & ornements, ainsi que reprises, voltas, Segno & Coda.",
@@ -6195,7 +6882,8 @@ registerColocatedPhrases({
     pl: "Dynamika (pp–ff, sfz), tempo i wyraz, artykulacja i ozdobniki oraz repetycje, volty, Segno i Coda.",
     uk: "Динаміка (pp–ff, sfz), темп і виразність, артикуляція й мелізми, а також репризи, вольти, Segno та Кода.",
     ur: "آواز (pp–ff, sfz)، رفتار اور تاثرات، ادائیگی اور سجاوٹ، نیز دہرائی، وولٹا، سیگنو اور کوڈا۔",
-    tr: "Gürlük (pp–ff, sfz), tempo ve ifade, artikülasyon ve süslemeler ile akış ve atlama işaretleri (tekrar, dolaplar, Segno, Coda)."
+    tr: "Gürlük (pp–ff, sfz), tempo ve ifade, artikülasyon ve süslemeler ile akış ve atlama işaretleri (tekrar, dolaplar, Segno, Coda).",
+    ar: "الديناميك (pp–ff، sfz)، سرعة الإيقاع والتعبير، الأداء التعبيري والزخارف، إضافةً إلى علامات التسلسل والقفز (الإعادة، أقواس الإعادة، Segno، Coda)."
   },
   "Stufe 1: Dynamik & Lautstärke": {
     fr: "Niveau 1 : Nuances & volume",
@@ -6204,7 +6892,8 @@ registerColocatedPhrases({
     pl: "Poziom 1: Dynamika i głośność",
     uk: "Рівень 1: Динаміка та гучність",
     ur: "درجہ 1: آواز کی سطح (ڈائنامکس)",
-    tr: "Seviye 1: Gürlük ve ses seviyesi"
+    tr: "Seviye 1: Gürlük ve ses seviyesi",
+    ar: "المستوى 1: الديناميك وشدة الصوت"
   },
   "ppp bis fff, Crescendo/Decrescendo, sfz, fp & subito p": {
     fr: "ppp à fff, crescendo/decrescendo, sfz, fp & subito p",
@@ -6213,7 +6902,8 @@ registerColocatedPhrases({
     pl: "Od ppp do fff, crescendo/decrescendo, sfz, fp i subito p",
     uk: "Від ppp до fff, крещендо/декрещендо, sfz, fp та subito p",
     ur: "ppp سے fff، کریشینڈو/ڈیکریشینڈو، sfz، fp اور subito p",
-    tr: "ppp'den fff'ye, Crescendo/Decrescendo, sfz, fp ve subito p"
+    tr: "ppp'den fff'ye, Crescendo/Decrescendo, sfz, fp ve subito p",
+    ar: "من ppp إلى fff، و Crescendo/Decrescendo و sfz و fp و subito p"
   },
   "Stufe 2: Tempo, Agogik & Ausdruck": {
     fr: "Niveau 2 : Tempo, agogique & caractère",
@@ -6222,7 +6912,8 @@ registerColocatedPhrases({
     pl: "Poziom 2: Tempo, agogika i charakter",
     uk: "Рівень 2: Темп, агогіка й характер",
     ur: "درجہ 2: رفتار اور تاثرات",
-    tr: "Seviye 2: Tempo, agogik ve ifade"
+    tr: "Seviye 2: Tempo, agogik ve ifade",
+    ar: "المستوى 2: سرعة الإيقاع والتعبير"
   },
   "Largo bis Presto, rit./accel., Fermate, dolce & maestoso": {
     fr: "Largo à Presto, rit./accel., point d’orgue, dolce & maestoso",
@@ -6231,7 +6922,8 @@ registerColocatedPhrases({
     pl: "Od Largo do Presto, rit./accel., fermata, dolce i maestoso",
     uk: "Від Largo до Presto, rit./accel., фермата, dolce й maestoso",
     ur: "Largo سے Presto، rit./accel.، فرماٹا، dolce اور maestoso",
-    tr: "Largo'dan Presto'ya, rit./accel., fermat, dolce ve maestoso"
+    tr: "Largo'dan Presto'ya, rit./accel., fermat, dolce ve maestoso",
+    ar: "من Largo إلى Presto، و rit./accel. و Fermate و dolce و maestoso"
   },
   "Stufe 3: Artikulation & Spielweisen": {
     fr: "Niveau 3 : Articulation & jeu",
@@ -6240,7 +6932,8 @@ registerColocatedPhrases({
     pl: "Poziom 3: Artykulacja i techniki gry",
     uk: "Рівень 3: Артикуляція й прийоми гри",
     ur: "درجہ 3: ادائیگی اور بجانے کے انداز",
-    tr: "Seviye 3: Artikülasyon ve çalım teknikleri"
+    tr: "Seviye 3: Artikülasyon ve çalım teknikleri",
+    ar: "المستوى 3: الأداء التعبيري وأساليب العزف"
   },
   "Staccato, Legato, Haltebogen, Triller, 8va, Pedal & pizz.": {
     fr: "Staccato, legato, liaisons, trilles, 8va, pédale & pizz.",
@@ -6249,7 +6942,8 @@ registerColocatedPhrases({
     pl: "Staccato, legato, łuki, tryle, 8va, pedał i pizz.",
     uk: "Стакато, легато, ліги, трелі, 8va, педаль і pizz.",
     ur: "اسٹاکاٹو، لیگاٹو، ٹائی، ٹرل، 8va، پیڈل اور pizz.",
-    tr: "Staccato, Legato, uzatma bağı, tril, 8va, pedal ve pizz."
+    tr: "Staccato, Legato, uzatma bağı, tril, 8va, pedal ve pizz.",
+    ar: "Staccato و Legato والرباط الإيقاعي والترِلّ و 8va والدواسة و pizz."
   },
   "Stufe 4: Ablauf, Form & Coda": {
     fr: "Niveau 4 : Structure, reprises & Coda",
@@ -6258,7 +6952,8 @@ registerColocatedPhrases({
     pl: "Poziom 4: Forma, repetycje i Coda",
     uk: "Рівень 4: Форма, репризи й Кода",
     ur: "درجہ 4: ترتیب، دہرائی اور کوڈا",
-    tr: "Seviye 4: Akış, form ve Coda"
+    tr: "Seviye 4: Akış, form ve Coda",
+    ar: "المستوى 4: التسلسل والشكل و Coda"
   },
   "Wiederholung, 1./2. Klammer, D.C., Segno, Coda & Spielreihenfolge": {
     fr: "Reprises, 1re/2e fins, D.C., Segno, Coda & ordre de jeu",
@@ -6267,7 +6962,8 @@ registerColocatedPhrases({
     pl: "Repetycje, 1./2. volta, D.C., Segno, Coda i kolejność",
     uk: "Репризи, 1-/2-га вольти, D.C., Segno, Кода й порядок гри",
     ur: "دہرائی، 1./2. وولٹا، D.C.، سیگنو، کوڈا اور ترتیب",
-    tr: "Tekrar, 1./2. dolap, D.C., Segno, Coda ve çalım sırası"
+    tr: "Tekrar, 1./2. dolap, D.C., Segno, Coda ve çalım sırası",
+    ar: "الإعادة، القوس 1/2، D.C.، Segno، Coda وترتيب العزف"
   },
   "Stufe 5: Alle Bereiche gemischt": {
     fr: "Niveau 5 : Tous les thèmes mélangés",
@@ -6276,7 +6972,8 @@ registerColocatedPhrases({
     pl: "Poziom 5: Wszystkie działy razem",
     uk: "Рівень 5: Усі розділи разом",
     ur: "درجہ 5: تمام موضوعات کا مجموعہ",
-    tr: "Seviye 5: Tüm alanlar karışık"
+    tr: "Seviye 5: Tüm alanlar karışık",
+    ar: "المستوى 5: جميع المجالات معًا"
   },
   "Kompletter Profi-Mix aus Begriffen, Symbolen & Ablauf-Partituren": {
     fr: "Mix complet de termes, symboles et parcours de partition",
@@ -6285,7 +6982,8 @@ registerColocatedPhrases({
     pl: "Pełny miks pojęć, symboli i układów przebiegu partytury",
     uk: "Повний мікс термінів, символів і маршрутів партитури",
     ur: "اصطلاحات، علامات اور ترتیب کی مکمل جامع مشق",
-    tr: "Terimler, semboller ve akış partisyonlarından oluşan eksiksiz profesyonel karışım"
+    tr: "Terimler, semboller ve akış partisyonlarından oluşan eksiksiz profesyonel karışım",
+    ar: "مزيج احترافي كامل من المصطلحات والرموز والمدونات التسلسلية"
   },
   "Stufe 7 • Symbole, Begriffe & Ablauf": {
     fr: "Niveau 7 • Symboles, termes & structure",
@@ -6294,7 +6992,8 @@ registerColocatedPhrases({
     pl: "Poziom 7 • Symbole, pojęcia i przebieg",
     uk: "Рівень 7 • Символи, терміни та форма",
     ur: "درجہ 7 • علامات، اصطلاحات اور ترتیب",
-    tr: "Seviye 7 • Semboller, terimler ve akış"
+    tr: "Seviye 7 • Semboller, terimler ve akış",
+    ar: "المستوى 7 • الرموز والمصطلحات والتسلسل"
   },
   "Dynamik, Tempo, Artikulation, Verzierungen, Coda, Segno & Spielreihenfolgen": {
     fr: "Nuances, tempo, articulation, ornements, Coda, Segno & ordres de jeu",
@@ -6303,7 +7002,8 @@ registerColocatedPhrases({
     pl: "Dynamika, tempo, artykulacja, ozdobniki, Coda, Segno i kolejność gry",
     uk: "Динаміка, темп, артикуляція, мелізми, Кода, Segno та порядок виконання",
     ur: "آواز، رفتار، ادائیگی، سجاوٹ، کوڈا، سیگنو اور بجانے کی ترتیب",
-    tr: "Gürlük, tempo, artikülasyon, süslemeler, Coda, Segno ve çalım sıraları"
+    tr: "Gürlük, tempo, artikülasyon, süslemeler, Coda, Segno ve çalım sıraları",
+    ar: "الديناميك وسرعة الإيقاع والأداء التعبيري والزخارف و Coda و Segno وترتيب العزف"
   },
   "Aktuelle Frage überspringen": {
     fr: "Passer la question actuelle",
@@ -6312,7 +7012,8 @@ registerColocatedPhrases({
     pl: "Pomiń bieżące pytanie",
     uk: "Пропустити поточне запитання",
     ur: "موجودہ سوال چھوڑیں",
-    tr: "Mevcut soruyu atla"
+    tr: "Mevcut soruyu atla",
+    ar: "تخطّي السؤال الحالي"
   },
   "NOTATIONS-WISSEN": {
     fr: "SAVOIR NOTATION",
@@ -6321,7 +7022,8 @@ registerColocatedPhrases({
     pl: "WIEDZA O NOTACJI",
     uk: "ЗНАННЯ НОТОПИСУ",
     ur: "نوٹیشن کا علم",
-    tr: "NOTASYON BİLGİSİ"
+    tr: "NOTASYON BİLGİSİ",
+    ar: "معرفة التدوين الموسيقي"
   },
   "Folge den Sprung- & Wiederholungszeichen und wähle die Spielreihenfolge.": {
     fr: "Suis les signes de reprise et de renvoi, puis choisis l’ordre de jeu.",
@@ -6330,7 +7032,8 @@ registerColocatedPhrases({
     pl: "Prześledź znaki powtórek i skoków oraz wybierz kolejność gry.",
     uk: "Простеж знаки повторів і переходів та обери порядок виконання.",
     ur: "دہرائی اور چھلانگ کی علامات دیکھ کر بجانے کی درست ترتیب منتخب کریں۔",
-    tr: "Atlama ve tekrar işaretlerini takip et ve çalım sırasını seç."
+    tr: "Atlama ve tekrar işaretlerini takip et ve çalım sırasını seç.",
+    ar: "اتبع علامات القفز والإعادة واختر ترتيب العزف الصحيح."
   },
   "Finde das passende Notationssymbol zur Beschreibung oben.": {
     fr: "Trouve le symbole de notation qui correspond à la description ci-dessus.",
@@ -6339,7 +7042,8 @@ registerColocatedPhrases({
     pl: "Wybierz symbol muzyczny pasujący do opisu powyżej.",
     uk: "Обери нотний символ, що відповідає опису вгорі.",
     ur: "اوپر دی گئی وضاحت کے مطابق درست علامت منتخب کریں۔",
-    tr: "Yukarıdaki açıklamaya uygun notasyon sembolünü bul."
+    tr: "Yukarıdaki açıklamaya uygun notasyon sembolünü bul.",
+    ar: "اختر رمز التدوين الموسيقي المطابق للوصف بالأعلى."
   },
   "Wähle unten die richtige Bedeutung für dieses Zeichen.": {
     fr: "Choisis ci-dessous la bonne signification pour ce signe.",
@@ -6348,7 +7052,8 @@ registerColocatedPhrases({
     pl: "Wybierz poniżej właściwe znaczenie tego znaku.",
     uk: "Обери нижче правильне значення цього знака.",
     ur: "اس علامت کا درست مطلب نیچے سے منتخب کریں۔",
-    tr: "Bu işaretin doğru anlamını aşağıdan seç."
+    tr: "Bu işaretin doğru anlamını aşağıdan seç.",
+    ar: "اختر بالأسفل المعنى الصحيح لهذه العلامة."
   },
   "Spielreihenfolge wählen:": {
     fr: "Choisis l’ordre de jeu :",
@@ -6357,7 +7062,8 @@ registerColocatedPhrases({
     pl: "Wybierz kolejność gry:",
     uk: "Обери порядок виконання:",
     ur: "بجانے کی ترتیب منتخب کریں:",
-    tr: "Çalım sırasını seç:"
+    tr: "Çalım sırasını seç:",
+    ar: "اختر ترتيب العزف:"
   },
   "Passendes Symbol wählen:": {
     fr: "Choisis le bon symbole :",
@@ -6366,7 +7072,8 @@ registerColocatedPhrases({
     pl: "Wybierz właściwy symbol:",
     uk: "Обери відповідний символ:",
     ur: "درست علامت منتخب کریں:",
-    tr: "Uygun sembolü seç:"
+    tr: "Uygun sembolü seç:",
+    ar: "اختر الرمز المناسب:"
   },
   "Bedeutung wählen:": {
     fr: "Choisis la signification :",
@@ -6375,7 +7082,8 @@ registerColocatedPhrases({
     pl: "Wybierz znaczenie:",
     uk: "Обери значення:",
     ur: "درست مطلب منتخب کریں:",
-    tr: "Anlamını seç:"
+    tr: "Anlamını seç:",
+    ar: "اختر المعنى:"
   },
   "Welches Symbol passt?": {
     fr: "Quel symbole correspond ?",
@@ -6384,7 +7092,8 @@ registerColocatedPhrases({
     pl: "Który symbol pasuje?",
     uk: "Який символ підходить?",
     ur: "کون سی علامت درست ہے؟",
-    tr: "Hangi sembol uyuyor?"
+    tr: "Hangi sembol uyuyor?",
+    ar: "أي رمز هو المناسب؟"
   },
   "Lies zuerst von links nach rechts bis zum Sprungzeichen, ignoriere Fine/Coda im 1. Durchgang!": {
     fr: "Lis d’abord de gauche à droite jusqu’au signe de renvoi, en ignorant Fine/Coda au 1er passage !",
@@ -6393,7 +7102,8 @@ registerColocatedPhrases({
     pl: "Najpierw czytaj od lewej do prawej do znaku skoku, pomijając Fine/Coda w 1. przejściu!",
     uk: "Спершу читай зліва направо до знака переходу, ігноруючи Fine/Коду в 1-му проході!",
     ur: "پہلے بائیں سے دائیں چھلانگ کے نشان تک پڑھیں اور پہلی بار Fine/Coda کو نظر انداز کریں!",
-    tr: "Önce soldan sağa atlama işaretine kadar oku, 1. geçişte Fine/Coda'yı yok say!"
+    tr: "Önce soldan sağa atlama işaretine kadar oku, 1. geçişte Fine/Coda'yı yok say!",
+    ar: "اقرأ أولًا من اليسار إلى اليمين حتى علامة القفز، وتجاهل Fine/Coda في المرور الأول!"
   },
   "MERKHILFE": {
     fr: "ASTUCE",
@@ -6402,7 +7112,8 @@ registerColocatedPhrases({
     pl: "PODPOWIEDŹ",
     uk: "ПІДКАЗКА",
     ur: "اشارہ",
-    tr: "HATIRLATICI"
+    tr: "HATIRLATICI",
+    ar: "تلميح للحفظ"
   },
   "Hinweis": {
     fr: "Indice",
@@ -6411,7 +7122,8 @@ registerColocatedPhrases({
     pl: "Podpowiedź",
     uk: "Підказка",
     ur: "اشارہ",
-    tr: "İpucu"
+    tr: "İpucu",
+    ar: "تلميح"
   },
   "💡 Hinweis": {
     fr: "💡 Indice",
@@ -6420,7 +7132,8 @@ registerColocatedPhrases({
     pl: "💡 Podpowiedź",
     uk: "💡 Підказка",
     ur: "💡 اشارہ",
-    tr: "💡 İpucu"
+    tr: "💡 İpucu",
+    ar: "💡 تلميح"
   },
   "Das war „{term}“ ({short}). Probier es nochmal!": {
     fr: "C’était « {term} » ({short}). Essaie encore !",
@@ -6429,7 +7142,8 @@ registerColocatedPhrases({
     pl: "To było „{term}” ({short}). Spróbuj ponownie!",
     uk: "Це було «{term}» ({short}). Спробуй ще раз!",
     ur: "وہ «{term}» ({short}) تھا۔ دوبارہ کوشش کریں!",
-    tr: "Bu \"{term}\" ({short}) idi. Tekrar dene!"
+    tr: "Bu \"{term}\" ({short}) idi. Tekrar dene!",
+    ar: "كانت تلك «{term}» ({short}). حاول مرة أخرى!"
   },
   "Noch nicht ganz – probier eine andere Antwort oder tippe auf „Hinweis“.": {
     fr: "Pas tout à fait — essaie une autre réponse ou touche « Indice ».",
@@ -6438,7 +7152,8 @@ registerColocatedPhrases({
     pl: "Jeszcze nie to — wybierz inną odpowiedź lub kliknij „Podpowiedź”.",
     uk: "Ще не зовсім — спробуй іншу відповідь або натисни «Підказка».",
     ur: "ابھی درست نہیں — دوسرا جواب آزمائیں یا ’اشارہ‘ دبائیں۔",
-    tr: "Henüz tam değil – başka bir cevap dene veya \"İpucu\"na dokun."
+    tr: "Henüz tam değil – başka bir cevap dene veya \"İpucu\"na dokun.",
+    ar: "ليس تمامًا بعد – جرّب إجابة أخرى أو انقر على «تلميح»."
   },
   "Fast!": {
     fr: "Presque !",
@@ -6447,7 +7162,8 @@ registerColocatedPhrases({
     pl: "Blisko!",
     uk: "Майже!",
     ur: "تقریباً!",
-    tr: "Neredeyse!"
+    tr: "Neredeyse!",
+    ar: "قريب جدًا!"
   },
   "AUFLÖSUNG": {
     fr: "SOLUTION",
@@ -6456,7 +7172,8 @@ registerColocatedPhrases({
     pl: "ROZWIĄZANIE",
     uk: "ВІДПОВІДЬ",
     ur: "درست جواب",
-    tr: "ÇÖZÜM"
+    tr: "ÇÖZÜM",
+    ar: "الحل"
   },
   "Ohne Audio": {
     fr: "Visuel",
@@ -6465,6 +7182,7 @@ registerColocatedPhrases({
     pl: "Wizualne",
     uk: "Візуально",
     ur: "بصری",
-    tr: "Görsel"
+    tr: "Görsel",
+    ar: "بدون صوت"
   }
 });

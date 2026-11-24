@@ -455,6 +455,7 @@ const WARMUP_STEP_CATALOG = {
     vowelsTr: ["Uuuu…", "Oooo…", "Aaaa…", "Eeee…", "İiii…"],
     vowelsUk: ["Уууу…", "Оооо…", "Аааа…", "Ееее…", "Іііі…"],
     vowelsUr: ["اُووو…", "اووو…", "آااا…", "اےےے…", "اِییی…"],
+    vowelsAr: ["أُووو…", "أووو…", "آااا…", "إيهه…", "إييي…"],
     keyOffsets: [0, 2, 4, 5],
     cueChordBeats: 1.35,
     breathGapBeats: 0.8,
@@ -1482,8 +1483,10 @@ function runCurrentWarmupRound() {
 
   if (step.kind === "vowel-blend") {
     const lang = typeof getAppLanguage === "function" ? getAppLanguage() : "de";
-    const vowels = lang === "ur"
-      ? (step.vowelsUr || step.vowelsEn)
+    const vowels = lang === "ar"
+      ? (step.vowelsAr || step.vowelsEn)
+      : lang === "ur"
+        ? (step.vowelsUr || step.vowelsEn)
       : lang === "uk"
         ? (step.vowelsUk || step.vowelsEn)
         : lang === "tr"

@@ -1206,6 +1206,7 @@ html[lang="pl"] .btn-primary-action.home-continue-fab { width: 154px; }
 html[lang="tr"] .btn-primary-action.home-continue-fab { width: 150px; }
 html[lang="uk"] .btn-primary-action.home-continue-fab { width: 178px; }
 html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
+html[lang="ar"] .btn-primary-action.home-continue-fab { width: 174px; }
 
 .btn-primary-action.home-continue-fab span {
   display: inline-flex;
@@ -11680,10 +11681,12 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 
 /* =====================================================
-   RTL-UNTERSTÜTZUNG & URDU-TYPOGRAFIE ([dir="rtl"] / [data-lang="ur"])
+   RTL-UNTERSTÜTZUNG & ARABISCH/URDU-TYPOGRAFIE ([dir="rtl"] / [data-lang="ur"] / [data-lang="ar"])
    ===================================================== */
 :root[data-lang="ur"],
-:root[data-lang="ur"] body {
+:root[data-lang="ur"] body,
+:root[data-lang="ar"],
+:root[data-lang="ar"] body {
   font-family: "Noto Naskh Arabic", "Geeza Pro", "Noto Sans Arabic", "Segoe UI", "Tahoma", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
@@ -11698,13 +11701,24 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 [data-lang="ur"] .module-chip-btn,
 [data-lang="ur"] .nav-btn-label,
 [data-lang="ur"] .dock-action-btn,
-[data-lang="ur"] .stage-sub {
+[data-lang="ur"] .stage-sub,
+[data-lang="ar"] .brand-name,
+[data-lang="ar"] .brand-sub,
+[data-lang="ar"] .opt-btn,
+[data-lang="ar"] .k-filter-pill,
+[data-lang="ar"] .module-chip-btn,
+[data-lang="ar"] .nav-btn-label,
+[data-lang="ar"] .dock-action-btn,
+[data-lang="ar"] .stage-sub {
   line-height: 1.42;
 }
 
 [data-lang="ur"] .opt-btn,
 [data-lang="ur"] .k-filter-pill,
-[data-lang="ur"] .module-chip-btn {
+[data-lang="ur"] .module-chip-btn,
+[data-lang="ar"] .opt-btn,
+[data-lang="ar"] .k-filter-pill,
+[data-lang="ar"] .module-chip-btn {
   padding-top: 0.36rem;
   padding-bottom: 0.36rem;
 }
