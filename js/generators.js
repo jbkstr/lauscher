@@ -1399,8 +1399,7 @@ function generateSolfegeExercise(rootMidi) {
   const audioResolveMidis = chosenStep.resolveOffsets.map(off => rootMidi + off + octaveShift);
   const cadenceBars = buildContextCadenceBars(rootMidi, tonality);
 
-  const leftFrameMidi = prevWhiteMidi(rootMidi);
-  const rightFrameMidi = nextWhiteMidi(rootMidi + 12);
+  const { firstWhite: leftFrameMidi, lastWhite: rightFrameMidi } = getSolfegeKeyboardBounds(rootMidi);
   const leftFrameName = getWhiteNoteLabel(((leftFrameMidi % 12) + 12) % 12);
   const rightFrameName = getWhiteNoteLabel(((rightFrameMidi % 12) + 12) % 12);
   const keyBaseName = getKeyDisplayName(state.currentKey, tonality);
@@ -1492,8 +1491,7 @@ function generateMelodyExercise(rootMidi) {
     };
   });
 
-  const leftFrameMidi = prevWhiteMidi(rootMidi);
-  const rightFrameMidi = nextWhiteMidi(rootMidi + 12);
+  const { firstWhite: leftFrameMidi, lastWhite: rightFrameMidi } = getSolfegeKeyboardBounds(rootMidi);
   const leftFrameName = getWhiteNoteLabel(((leftFrameMidi % 12) + 12) % 12);
   const rightFrameName = getWhiteNoteLabel(((rightFrameMidi % 12) + 12) % 12);
   const keyBaseName = getKeyDisplayName(state.currentKey);
@@ -2272,8 +2270,9 @@ function refreshExerciseLocalization(ex) {
   if (ex.type === "solfege") {
     const keyCode = ex.keyCode || state.currentKey;
     const tonality = ex.tonality || "major";
-    const leftFrameName = getWhiteNoteLabel(((prevWhiteMidi(ex.rootMidi) % 12) + 12) % 12);
-    const rightFrameName = getWhiteNoteLabel(((nextWhiteMidi(ex.rootMidi + 12) % 12) + 12) % 12);
+    const { firstWhite: leftFrameMidi, lastWhite: rightFrameMidi } = getSolfegeKeyboardBounds(ex.rootMidi);
+    const leftFrameName = getWhiteNoteLabel(((leftFrameMidi % 12) + 12) % 12);
+    const rightFrameName = getWhiteNoteLabel(((rightFrameMidi % 12) + 12) % 12);
     ex.keyName = `${getKeyDisplayName(keyCode, tonality)} (${leftFrameName}–${rightFrameName})`;
     if (ex.targetItem?.key) {
       const baseStep = getSolfegeScaleSteps(tonality).find(s => s.key === ex.targetItem.key);
@@ -2287,8 +2286,9 @@ function refreshExerciseLocalization(ex) {
     const keyCode = ex.keyCode || state.currentKey;
     const rangeCfg = getLocalizedMelodyRange(ex.range) || getLocalizedMelodyRange("do-fa");
     const preferFlat = FLAT_KEYS.has(keyCode);
-    const leftFrameName = getWhiteNoteLabel(((prevWhiteMidi(ex.rootMidi) % 12) + 12) % 12);
-    const rightFrameName = getWhiteNoteLabel(((nextWhiteMidi(ex.rootMidi + 12) % 12) + 12) % 12);
+    const { firstWhite: leftFrameMidi, lastWhite: rightFrameMidi } = getSolfegeKeyboardBounds(ex.rootMidi);
+    const leftFrameName = getWhiteNoteLabel(((leftFrameMidi % 12) + 12) % 12);
+    const rightFrameName = getWhiteNoteLabel(((rightFrameMidi % 12) + 12) % 12);
     ex.rangeLabel = rangeCfg.label;
     ex.keyName = `${getKeyDisplayName(keyCode)} (${leftFrameName}–${rightFrameName})`;
     ex.cadenceBars = buildContextCadenceBars(ex.rootMidi);

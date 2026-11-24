@@ -532,8 +532,8 @@ class AppState {
     if (this.currentView === "home") {
       mainTitle.textContent = tr("Übungen", "Home");
       el.textContent = typeof getStaticI18nText === "function"
-        ? (getStaticI18nText("app.tagline") || tr("Hören · Verstehen · Musizieren", "Listen · Understand · Play"))
-        : tr("Hören · Verstehen · Musizieren", "Listen · Understand · Play");
+        ? (getStaticI18nText("app.tagline") || tr("Genauer hinhören.", "Listen a little closer."))
+        : tr("Genauer hinhören.", "Listen a little closer.");
     } else if (this.currentView === "tools") {
       mainTitle.textContent = tr("Werkzeuge", "Tools");
       el.textContent = tr("Metronom, Tuner, Freies Spiel & Griffbrett", "Metronome, Tuner, Free Play & Fretboard");
@@ -1264,6 +1264,24 @@ function nextWhiteMidi(midi) {
   let m = midi + 1;
   while (!isWhiteMidi(m)) m++;
   return m;
+}
+
+/**
+ * Liefert die konsistenten Grenzen der 1-Oktav-Klaviatur für Solfège & Melodie:
+ * - Alle aktiven Skalentöne (auch bei schwarzen Tonarten wie Des, Es, Fis, As, B)
+ *   sitzen vollständig auf regulären weißen Tasten.
+ * - Links und rechts schließt jeweils genau eine schmale, inaktive Rahmentaste an.
+ */
+function getSolfegeKeyboardBounds(rootMidi) {
+  const safeRoot = Number.isFinite(rootMidi) ? rootMidi : 60;
+  const firstFullWhite = isWhiteMidi(safeRoot) ? safeRoot : prevWhiteMidi(safeRoot);
+  const lastFullWhite = isWhiteMidi(safeRoot + 12) ? (safeRoot + 12) : nextWhiteMidi(safeRoot + 12);
+  return {
+    firstFullWhite,
+    lastFullWhite,
+    firstWhite: prevWhiteMidi(firstFullWhite),
+    lastWhite: nextWhiteMidi(lastFullWhite)
+  };
 }
 
 function pickRandomNonCKey(excludeKey = null) {

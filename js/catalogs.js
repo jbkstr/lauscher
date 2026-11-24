@@ -2311,6 +2311,8 @@ function createDefaultProfile() {
     singAlongPause: false,
     singAlongIntroCounts: {},
     singAlongIntroDone: false,
+    exerciseTutorials: true,
+    seenTutorials: [],
     modesRootHintSeen: false,
     cadenceKeyHintSeen: false,
     tuner: {}
@@ -2423,6 +2425,10 @@ function sanitizeUserProfile(raw) {
           .map(([k, v]) => [k, Math.max(0, Math.min(99, Math.round(Number(v))))]))
       : {},
     singAlongIntroDone: Boolean(raw.singAlongIntroDone),
+    exerciseTutorials: raw.exerciseTutorials !== false,
+    seenTutorials: Array.isArray(raw.seenTutorials)
+      ? Array.from(new Set(raw.seenTutorials.filter(k => typeof k === "string" && /^[a-z0-9-]{2,32}$/.test(k)))).slice(0, 32)
+      : [],
     modesRootHintSeen: Boolean(raw.modesRootHintSeen),
     cadenceKeyHintSeen: Boolean(raw.cadenceKeyHintSeen),
     tuner: sanitizeTunerPrefs(raw.tuner)

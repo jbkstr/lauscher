@@ -1,6 +1,6 @@
 # Lauscher • Ear Training, Music Theory & Studio Listening
 
-**Lauscher** (*Listen · Understand · Play*) is an interactive, ad-free, and tracker-free web application for musical ear training, music theory, sight-reading, vocal warmup, and studio mixing ear training — running directly in the browser with no backend server, no login, and no score pressure.
+**Lauscher** (*Listen a little closer.*) is an interactive, ad-free, and tracker-free web application for musical ear training, music theory, sight-reading, vocal warmup, and studio mixing ear training — running directly in the browser with no backend server, no login, and no score pressure.
 
 ---
 

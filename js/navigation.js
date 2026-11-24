@@ -1157,6 +1157,9 @@ function switchView(targetView, options = {}) {
   if (typeof state.listenOnly === "object" && state.listenOnly.active && (targetView !== "exercise" || prevView !== "exercise")) {
     setListenOnlyMode(false, { keepPlayback: true });
   }
+  if (prevView === "exercise" && targetView !== "exercise" && typeof stopExerciseTutorial === "function") {
+    stopExerciseTutorial({ keepPlayback: true });
+  }
   if (prevView === "exercise" && targetView !== "exercise" && state.exam?.active) {
     cleanupActiveExamState({ restoreSettings: !options.examCompletedTransition });
   }
@@ -1324,6 +1327,9 @@ function switchView(targetView, options = {}) {
       loadCurrentExamQuestion();
     } else if (!options.fromHistory || !state.currentExercise) {
       generateExercise();
+      if (!state.exam?.active && typeof maybeOfferExerciseTutorial === "function") {
+        maybeOfferExerciseTutorial(state.currentExercise);
+      }
     } else if (state.profileDisplayDirty) {
       renderUI();
     } else if (state.currentExercise?.type === "cadence" && !state.exam?.active) {
@@ -2944,6 +2950,36 @@ function getCategoryBadgeSVG(kind) {
         <line x1="-2.5" y1="-13.5" x2="-2.5" y2="4.2" stroke-width="2.0"/>
         <path d="M-2.5 -0.8 C1.2 -3.6, 5.2 -1.8, 4.8 1.5 C4.3 4.2, 0.2 5.2, -2.5 4.2" stroke-width="2.2"/>
       </g>`;
+  } else if (kind === "keysig-nat") {
+    body = `
+      <g transform="translate(16.2, 23.8) scale(0.92)" stroke="currentColor" stroke-linecap="round">
+        <line x1="-2.8" y1="-9" x2="-2.8" y2="9" stroke-width="1.95"/>
+        <line x1="2.8" y1="-10" x2="2.8" y2="8" stroke-width="1.95"/>
+        <line x1="-6" y1="-2.2" x2="6" y2="-4.2" stroke-width="2.65"/>
+        <line x1="-6" y1="3.8" x2="6" y2="1.8" stroke-width="2.65"/>
+      </g>
+      <line x1="23.0" y1="31.5" x2="27.2" y2="16.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.45"/>
+      <g transform="translate(33.8, 24.0) scale(0.96)" stroke="currentColor" stroke-linecap="round">
+        <line x1="-3.0" y1="-10.5" x2="-3.0" y2="4.6" stroke-width="1.95"/>
+        <line x1="3.0" y1="-4.6" x2="3.0" y2="10.5" stroke-width="1.95"/>
+        <line x1="-3.0" y1="-2.6" x2="3.0" y2="-4.4" stroke-width="2.55"/>
+        <line x1="-3.0" y1="4.4" x2="3.0" y2="2.6" stroke-width="2.55"/>
+      </g>`;
+  } else if (kind === "nat-sharp") {
+    body = `
+      <g transform="translate(14.8, 24.0) scale(0.96)" stroke="currentColor" stroke-linecap="round">
+        <line x1="-3.0" y1="-10.5" x2="-3.0" y2="4.6" stroke-width="1.95"/>
+        <line x1="3.0" y1="-4.6" x2="3.0" y2="10.5" stroke-width="1.95"/>
+        <line x1="-3.0" y1="-2.6" x2="3.0" y2="-4.4" stroke-width="2.55"/>
+        <line x1="-3.0" y1="4.4" x2="3.0" y2="2.6" stroke-width="2.55"/>
+      </g>
+      <line x1="21.0" y1="31.5" x2="25.2" y2="16.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.45"/>
+      <g transform="translate(32.0, 23.8) scale(0.92)" stroke="currentColor" stroke-linecap="round">
+        <line x1="-2.8" y1="-9" x2="-2.8" y2="9" stroke-width="1.95"/>
+        <line x1="2.8" y1="-10" x2="2.8" y2="8" stroke-width="1.95"/>
+        <line x1="-6" y1="-2.2" x2="6" y2="-4.2" stroke-width="2.65"/>
+        <line x1="-6" y1="3.8" x2="6" y2="1.8" stroke-width="2.65"/>
+      </g>`;
   } else if (kind === "melody-dict") {
     body = `
       <ellipse cx="14.5" cy="32" rx="4.2" ry="3.0" transform="rotate(-18 14.5 32)" fill="currentColor"/>
@@ -4532,7 +4568,8 @@ function openCategoryPage(categoryKey, options = {}) {
         },
         {
           lvl: 4,
-          badge: hasSelectedKey ? "♮/♯" : "♯/♭",
+          badge: hasSelectedKey ? getCategoryBadgeSVG("nat-sharp") : getCategoryBadgeSVG("keysig"),
+          nodeClass: "node-circle-icon",
           title: hasSelectedKey
             ? tr("Stufe 4: + Auflösungszeichen (♮)", "Level 4: + Naturals (♮)")
             : tr("Stufe 4: 3 Hilfsl. + Vorzeichen", "Level 4: 3 Ledgers + ♯/♭"),
@@ -4575,7 +4612,8 @@ function openCategoryPage(categoryKey, options = {}) {
           keyMode: "all",
           lvl: 4,
           circle: "circle-peach",
-          badge: "♯/♮",
+          nodeClass: "node-circle-icon",
+          badge: getCategoryBadgeSVG("keysig-nat"),
           title: tr("Tonarten + Auflösungszeichen", "Key Signatures + Naturals (♮)"),
           sub: tr("Blattspiel-Profi mit ♮ &amp; Wechselvorzeichen", "Pro sight-reading with ♮ &amp; accidentals")
         }
@@ -4637,7 +4675,7 @@ function openCategoryPage(categoryKey, options = {}) {
             <div class="subpage-nodes-grid">
               ${KEY_SIGNATURE_CARDS.map(kc => `
                 <button class="subpage-node-btn" data-launch-notation-key="${kc.id}" data-notation-keymode-launch="${kc.keyMode}" data-notation-mode="${trainerClefMode}" data-notation-lvl="${kc.lvl}">
-                  <div class="node-circle ${kc.circle}">${kc.badge}</div>
+                  <div class="node-circle ${kc.circle}${kc.nodeClass ? ` ${kc.nodeClass}` : ""}">${kc.badge}</div>
                   <span class="node-title">${kc.title}</span>
                   <span class="node-sub">${kc.sub}</span>
                 </button>

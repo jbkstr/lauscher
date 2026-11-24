@@ -3,11 +3,43 @@
  */
 
 /**
- * Baut die 1-Oktav-Klaviatur dynamisch für jede beliebige Tonart auf:
- * - Zeigt an beiden Enden jeweils eine weiße Rahmentaste nur halb breit (nicht in der Tonart benutzt); die gewonnene Breite wird proportional auf die Tasten dazwischen verteilt.
- * - Alle 8 Töne der aktuellen Dur-Tonleiter (egal ob weiße oder schwarze Taste) werden eindeutig über ihr mittiges Solfège-Kästchen (Do–Re–Mi–Fa–Sol–La–Ti–Do) markiert.
- * - Innere Tasten außerhalb der Tonart behalten ihre reguläre Klaviatur-Farbe (ohne Kästchen); nur die beiden äußeren halben Rahmentasten bleiben dezent abgesetzt.
+ * Einheitliche Klaviatur-Geometrie für alle Übungen mit Klaviatur-Eingabe (Solfège, Melodie, Notenlesen):
+ * - Alle regulären weißen Tasten besitzen exakt dieselbe Breite (Gewicht 1.0).
+ * - Beide äußeren inaktiven Rahmentasten sind einheitlich schmaler (ca. 1/3 einer Taste statt 1/2),
+ *   lassen aber genügend Raum, damit angrenzende schwarze Tasten nie am Rand abgeschnitten werden.
+ * - Bei Tonarten auf schwarzen Tasten (Des, Es, Fis, As, B) bleiben die weißen Träger-Tasten
+ *   links und rechts der beiden Do-Tasten volle weiße Tasten.
  */
+const PIANO_FRAME_KEY_WEIGHT = 0.36;
+const PIANO_BLACK_KEY_RATIO = 0.62;
+
+function applyPianoKeyboardGeometry(whiteKeyEls, whiteKeys, blackKeyEls, blackKeys) {
+  const weights = whiteKeys.map(wk => (wk.isFrame ? PIANO_FRAME_KEY_WEIGHT : 1));
+  const totalWeight = weights.reduce((sum, w) => sum + w, 0) || 1;
+  const cumWeights = [];
+  let runningWeight = 0;
+
+  weights.forEach((w, idx) => {
+    runningWeight += w;
+    cumWeights.push(runningWeight);
+    const el = whiteKeyEls[idx];
+    if (el) {
+      el.style.flex = "0 0 auto";
+      el.style.width = `${(w / totalWeight) * 100}%`;
+      el.classList.toggle("is-last-white", idx === whiteKeys.length - 1);
+    }
+  });
+
+  const blackWidthPct = (100 / totalWeight) * PIANO_BLACK_KEY_RATIO;
+  blackKeys.forEach((bk, idx) => {
+    const blackEl = blackKeyEls[idx];
+    if (!blackEl) return;
+    const k = bk.afterWhiteIdx;
+    blackEl.style.left = `${(cumWeights[k] / totalWeight) * 100}%`;
+    blackEl.style.width = `${blackWidthPct}%`;
+  });
+}
+
 const NOTATION_BLACK_LABELS_DE = {
   1: "Cis\nDes",
   3: "Dis\nEs",
@@ -25,8 +57,8 @@ const NOTATION_BLACK_LABELS_INTL = {
 
 function renderNotationKeyboard(wrap, ex) {
   wrap.classList.add("is-notation");
-  const firstWhite = 59; // H3 / B3 als halbe linke Rahmentaste
-  const lastWhite = 72;  // C5 als halbe rechte Rahmentaste
+  const firstWhite = 59; // H3 / B3 als schmale linke Rahmentaste
+  const lastWhite = 72;  // C5 als schmale rechte Rahmentaste
   const showBlackLabels = Boolean(ex?.allowAccidentals || (ex?.keySignatureId && ex.keySignatureId !== "none"));
   const useIntl = typeof state !== "undefined" && state?.profile?.notation === "intl";
   const blackLabelMap = useIntl ? NOTATION_BLACK_LABELS_INTL : NOTATION_BLACK_LABELS_DE;
@@ -58,6 +90,8 @@ function renderNotationKeyboard(wrap, ex) {
 
   const kb = document.createElement("div");
   kb.className = "piano-keyboard";
+  const whiteKeyEls = [];
+  const blackKeyEls = [];
 
   whiteKeys.forEach(wk => {
     const keyBtn = document.createElement("button");
@@ -78,19 +112,13 @@ function renderNotationKeyboard(wrap, ex) {
       hint.className = "piano-note-hint";
       hint.textContent = wk.noteLabel;
       keyBtn.appendChild(hint);
+      keyBtn.tabIndex = -1;
+      keyBtn.setAttribute("aria-disabled", "true");
     }
 
+    whiteKeyEls.push(keyBtn);
     kb.appendChild(keyBtn);
   });
-
-  const totalWeight = whiteKeys.reduce((sum, wk) => sum + (wk.isFrame ? 0.5 : 1), 0);
-  const cumWeights = [];
-  let runningWeight = 0;
-  whiteKeys.forEach(wk => {
-    runningWeight += wk.isFrame ? 0.5 : 1;
-    cumWeights.push(runningWeight);
-  });
-  const blackWidthPct = (100 / totalWeight) * 0.62;
 
   blackKeys.forEach(bk => {
     const blackEl = document.createElement("button");
@@ -100,10 +128,6 @@ function renderNotationKeyboard(wrap, ex) {
     blackEl.dataset.midi = bk.midi;
     blackEl.dataset.pc = bk.pc;
 
-    const k = bk.afterWhiteIdx;
-    blackEl.style.left = `${(cumWeights[k] / totalWeight) * 100}%`;
-    blackEl.style.width = `${blackWidthPct}%`;
-
     if (showBlackLabels && bk.noteLabel) {
       const box = document.createElement("span");
       box.className = "solfege-key-box solfege-key-box-black notation-key-box-black";
@@ -111,8 +135,11 @@ function renderNotationKeyboard(wrap, ex) {
       blackEl.appendChild(box);
     }
     blackEl.addEventListener("click", (e) => handleNotationKeyClick(bk, blackEl, { inputEvent: e }));
+    blackKeyEls.push(blackEl);
     kb.appendChild(blackEl);
   });
+
+  applyPianoKeyboardGeometry(whiteKeyEls, whiteKeys, blackKeyEls, blackKeys);
 
   wrap.innerHTML = "";
   wrap.appendChild(kb);
@@ -133,8 +160,7 @@ function renderSolfegeKeyboard() {
     ? state.currentExercise.rootMidi
     : HARMONIC_DATA.roots[state.currentKey].midi;
 
-  const firstWhite = prevWhiteMidi(rootMidi);
-  const lastWhite = nextWhiteMidi(rootMidi + 12);
+  const { firstWhite, lastWhite } = getSolfegeKeyboardBounds(rootMidi);
 
   // Zuordnung der 8 Tonleiter-Töne (Dur: Do–Ti–Do, Moll: Do–Re–Me–Fa–Sol–Le–Te–Do) in dieser Oktave
   const scaleSteps = getSolfegeScaleSteps(state.currentExercise?.tonality || "major");
@@ -179,6 +205,8 @@ function renderSolfegeKeyboard() {
 
   const kb = document.createElement("div");
   kb.className = "piano-keyboard";
+  const whiteKeyEls = [];
+  const blackKeyEls = [];
 
   whiteKeys.forEach(wk => {
     const keyBtn = document.createElement("button");
@@ -208,17 +236,9 @@ function renderSolfegeKeyboard() {
       keyBtn.setAttribute("aria-disabled", "true");
     }
 
+    whiteKeyEls.push(keyBtn);
     kb.appendChild(keyBtn);
   });
-
-  const totalWeight = whiteKeys.reduce((sum, wk) => sum + (wk.isFrame ? 0.5 : 1), 0);
-  const cumWeights = [];
-  let runningWeight = 0;
-  whiteKeys.forEach(wk => {
-    runningWeight += wk.isFrame ? 0.5 : 1;
-    cumWeights.push(runningWeight);
-  });
-  const blackWidthPct = (100 / totalWeight) * 0.62;
 
   blackKeys.forEach(bk => {
     const blackEl = document.createElement(bk.inScale ? "button" : "div");
@@ -228,11 +248,6 @@ function renderSolfegeKeyboard() {
     blackEl.dataset.midi = bk.midi;
     if (bk.syllable) blackEl.dataset.syllable = bk.syllable;
 
-    // Position exakt auf der Trennlinie zwischen den gewichteten weißen Tasten (wie im Freien Spiel)
-    const k = bk.afterWhiteIdx;
-    blackEl.style.left = `${(cumWeights[k] / totalWeight) * 100}%`;
-    blackEl.style.width = `${blackWidthPct}%`;
-
     if (bk.inScale && bk.syllable) {
       const box = document.createElement("span");
       box.className = "solfege-key-box solfege-key-box-black";
@@ -241,8 +256,11 @@ function renderSolfegeKeyboard() {
       blackEl.addEventListener("click", (e) => onKeyboardKeyClick(bk, blackEl, { inputEvent: e }));
     }
 
+    blackKeyEls.push(blackEl);
     kb.appendChild(blackEl);
   });
+
+  applyPianoKeyboardGeometry(whiteKeyEls, whiteKeys, blackKeyEls, blackKeys);
 
   wrap.innerHTML = "";
   wrap.appendChild(kb);
@@ -1270,6 +1288,8 @@ function renderUI() {
     if (isChordTempoPinned) {
       pinnedBpmPopover.classList.add("is-pinned");
       pinnedBpmPopover.classList.remove("hidden");
+      pinnedBpmPopover.style.top = "";
+      pinnedBpmPopover.style.maxHeight = "";
     } else if (pinnedBpmPopover.classList.contains("is-pinned")) {
       pinnedBpmPopover.classList.remove("is-pinned");
       pinnedBpmPopover.classList.add("hidden");
@@ -1898,6 +1918,9 @@ function renderUI() {
   resetCentralStage();
   updatePlayButtonUI(false);
   syncListenOnlyUI();
+  if (typeof syncExerciseDemoButtonUI === "function") {
+    syncExerciseDemoButtonUI();
+  }
   document.getElementById("feedbackContainer").classList.add("hidden");
   syncExamExerciseControls();
   fitExerciseLayout();
@@ -1992,9 +2015,60 @@ const EXERCISE_FIT_LEVELS = 3;
 // Beschreibung auf eine Zeile gekürzt wird. Darunter werden lieber Kacheln/Knöpfe verdichtet,
 // damit Text und Maskottchen der Bühne nicht abgeschnitten wirken.
 const EXERCISE_MIN_STAGE_PX = 98;
+let lastExerciseFitSnapshot = "";
 
-// reset = neue Aufgabe oder neue Fenstergröße. Sonst (Feedback-Karte o. Ä. erscheint) wird innerhalb
-// derselben Aufgabe nur weiter verdichtet, nie zurück – damit die Antwortknöpfe nicht springen.
+function getExerciseFitSnapshot() {
+  const view = document.getElementById("viewExercise");
+  if (!view || view.classList.contains("hidden") || view.clientHeight <= 0) return "";
+  const card = document.getElementById("exerciseModuleCard");
+  const dock = view.querySelector(".bottom-dock");
+  return `${view.clientWidth}x${view.clientHeight}:${card?.offsetHeight || 0}:${dock?.offsetHeight || 0}`;
+}
+
+function hasActiveExerciseResultExtension() {
+  const fb = document.getElementById("feedbackContainer");
+  if (fb && !fb.classList.contains("hidden")) return true;
+  const tl = document.getElementById("rhythmTapTimeline");
+  if (tl && !tl.classList.contains("hidden")) return true;
+  return false;
+}
+
+/** Positioniert schwebende Einstellungs-Popovers direkt unterhalb von .module-header
+ *  und begrenzt ihre Höhe sicher auf den sichtbaren Bereich von #viewExercise. */
+function positionOpenModulePopovers() {
+  const card = document.getElementById("exerciseModuleCard");
+  const view = document.getElementById("viewExercise");
+  if (!card) return;
+  const header = card.querySelector(".module-header");
+  const headerBottom = header ? (header.offsetTop + header.offsetHeight + 4) : 48;
+  const cardTopInView = card.offsetTop || 0;
+  const viewH = view && view.clientHeight > 0 ? view.clientHeight : window.innerHeight;
+  const maxPopoverH = Math.max(110, Math.min(420, viewH - cardTopInView - headerBottom - 12));
+  card.querySelectorAll(":scope > .module-inline-popover").forEach(pop => {
+    if (pop.classList.contains("is-pinned")) {
+      pop.style.top = "";
+      pop.style.maxHeight = "";
+      return;
+    }
+    if (pop.classList.contains("hidden")) return;
+    pop.style.top = `${headerBottom}px`;
+    pop.style.maxHeight = `${maxPopoverH}px`;
+  });
+  const singHint = document.getElementById("singAlongHint");
+  if (singHint) {
+    if (view?.classList.contains("sing-hint-float") && !singHint.classList.contains("hidden") && viewH > 0) {
+      const floatTop = cardTopInView + card.offsetHeight + 6;
+      const maxHintH = Math.max(96, Math.min(260, viewH - floatTop - 12));
+      singHint.style.maxHeight = `${maxHintH}px`;
+    } else {
+      singHint.style.maxHeight = "";
+    }
+  }
+}
+
+// reset = neue Aufgabe oder neue Fenstergröße. Solange keine Feedback-Karte / Tap-Auswertung aktiv ist,
+// darf das Layout immer zur optimalen (größtmöglichen) Stufe zurückkehren; nur bei aktiver Ergebnis-Karte
+// wird innerhalb derselben Aufgabe nicht zurückgesprungen, damit die Antwortknöpfe ruhig bleiben.
 function fitExerciseLayout(reset = true) {
   const view = document.getElementById("viewExercise");
   if (!view) return;
@@ -2003,38 +2077,81 @@ function fitExerciseLayout(reset = true) {
       view.dataset.fitLevel = "0"; // beim Einblenden misst der ResizeObserver neu
       view.classList.remove("sing-hint-float", "fit-overflow");
       for (let i = 1; i <= EXERCISE_FIT_LEVELS; i++) view.classList.remove(`fit-${i}`);
+      lastExerciseFitSnapshot = "";
     }
     return;
   }
-  const stageWrap = view.querySelector(".stage-wrapper");
-  const stageCard = stageWrap?.querySelector(".central-stage");
-  const fits = () => view.scrollHeight <= view.clientHeight + 1 &&
-    (!stageWrap || stageWrap.clientHeight >= EXERCISE_MIN_STAGE_PX) &&
-    (!stageCard || stageCard.scrollHeight <= stageCard.clientHeight + 2);
-  const floor = reset ? 0 : (parseInt(view.dataset.fitLevel, 10) || 0);
-  view.classList.remove("sing-hint-float", "fit-overflow");
-  const runLevels = () => {
-    for (let i = 1; i <= EXERCISE_FIT_LEVELS; i++) view.classList.remove(`fit-${i}`);
-    let lvl = floor;
-    if (lvl > 0) view.classList.add(`fit-${lvl}`);
-    while (lvl < EXERCISE_FIT_LEVELS && !fits()) {
-      if (lvl > 0) view.classList.remove(`fit-${lvl}`);
-      lvl += 1;
-      view.classList.add(`fit-${lvl}`);
-    }
-    return lvl;
-  };
-  let level = runLevels();
-  // Mitsing-Einführung passt nicht mehr hinein → schwebend über der Bühne zeigen
-  const singHint = document.getElementById("singAlongHint");
-  if (!fits() && singHint && !singHint.classList.contains("hidden")) {
-    view.classList.add("sing-hint-float");
-    level = runLevels();
+  const card = document.getElementById("exerciseModuleCard");
+  const openFloatingPopovers = card
+    ? Array.from(card.querySelectorAll(":scope > .module-inline-popover:not(.is-pinned):not(.hidden)"))
+    : [];
+  const tutorialCard = document.getElementById("exerciseTutorialCard");
+  if (tutorialCard && !tutorialCard.classList.contains("hidden")) {
+    openFloatingPopovers.push(tutorialCard);
   }
-  if (view.scrollHeight > view.clientHeight + 1) view.classList.add("fit-overflow");
-  view.dataset.fitLevel = String(level);
-  const grid = document.getElementById("degreeButtonsGrid");
-  if (grid && (grid.querySelector(".degree-step") || grid.classList.contains("grid-chords"))) fitChoiceNamesToTiles(grid);
+  const tutorialBackdrop = document.getElementById("exerciseTutorialBackdrop");
+  if (tutorialBackdrop && !tutorialBackdrop.classList.contains("hidden")) {
+    openFloatingPopovers.push(tutorialBackdrop);
+  }
+  // Schwebende Einstellungs-Popovers & Tutorial-Karte für die synchrone Messung ausblenden, damit sie
+  // view.scrollHeight selbst auf sehr kleinen Bildschirmen nie verfälschen (kein Paint dazwischen).
+  openFloatingPopovers.forEach(pop => { pop.style.display = "none"; });
+
+  try {
+    const stageWrap = view.querySelector(".stage-wrapper");
+    const stageCard = stageWrap?.querySelector(".central-stage");
+    const fits = () => view.scrollHeight <= view.clientHeight + 1 &&
+      (!stageWrap || stageWrap.clientHeight >= EXERCISE_MIN_STAGE_PX) &&
+      (!stageCard || stageCard.scrollHeight <= stageCard.clientHeight + 2);
+    const keepFloor = !reset && hasActiveExerciseResultExtension();
+    const floor = keepFloor ? (parseInt(view.dataset.fitLevel, 10) || 0) : 0;
+    const singHint = document.getElementById("singAlongHint");
+    const singHintVisible = Boolean(singHint && !singHint.classList.contains("hidden"));
+
+    view.classList.remove("sing-hint-float", "fit-overflow");
+    const runLevels = (startLvl = floor) => {
+      for (let i = 1; i <= EXERCISE_FIT_LEVELS; i++) view.classList.remove(`fit-${i}`);
+      let lvl = startLvl;
+      if (lvl > 0) view.classList.add(`fit-${lvl}`);
+      while (lvl < EXERCISE_FIT_LEVELS && !fits()) {
+        if (lvl > 0) view.classList.remove(`fit-${lvl}`);
+        lvl += 1;
+        view.classList.add(`fit-${lvl}`);
+      }
+      return lvl;
+    };
+
+    let level;
+    if (singHintVisible) {
+      // Erst messen, welches Level die eigentliche Übung (ohne Mitsing-Karte im Fluss) braucht:
+      // manuell aufgeklappte Mitsing-Karte schwebt immer; automatisches Intro bleibt nur im Fluss,
+      // wenn es ohne zusätzliche Verdichtung hineinpasst.
+      view.classList.add("sing-hint-float");
+      singHint.style.display = "none";
+      level = runLevels(floor);
+      if (!state?.singAlongExpanded) {
+        singHint.style.display = "";
+        view.classList.remove("sing-hint-float");
+        if (!fits()) {
+          view.classList.add("sing-hint-float");
+          singHint.style.display = "none";
+        }
+      }
+    } else {
+      level = runLevels(floor);
+    }
+
+    if (view.scrollHeight > view.clientHeight + 1) view.classList.add("fit-overflow");
+    view.dataset.fitLevel = String(level);
+    const grid = document.getElementById("degreeButtonsGrid");
+    if (grid && (grid.querySelector(".degree-step") || grid.classList.contains("grid-chords"))) fitChoiceNamesToTiles(grid);
+    lastExerciseFitSnapshot = getExerciseFitSnapshot();
+  } finally {
+    const singHintEl = document.getElementById("singAlongHint");
+    if (singHintEl) singHintEl.style.display = "";
+    openFloatingPopovers.forEach(pop => { pop.style.display = ""; });
+    positionOpenModulePopovers();
+  }
 }
 
 let exerciseFitQueued = null;
@@ -2054,7 +2171,14 @@ function queueFitExerciseLayout(reset = false) {
 function initExerciseFitObserver() {
   window.addEventListener("resize", () => queueFitExerciseLayout(true));
   if (typeof ResizeObserver !== "function") return;
-  const ro = new ResizeObserver(() => queueFitExerciseLayout(false));
+  const ro = new ResizeObserver(() => {
+    const snap = getExerciseFitSnapshot();
+    if (!snap || snap === lastExerciseFitSnapshot) {
+      positionOpenModulePopovers();
+      return;
+    }
+    queueFitExerciseLayout(false);
+  });
   ["viewExercise", "exerciseModuleCard"].forEach(id => {
     const el = document.getElementById(id);
     if (el) ro.observe(el);
@@ -2689,7 +2813,9 @@ function showAwaitingAnswerStage(ex = state.currentExercise) {
 
 function completePromptPlayback(ex = state.currentExercise) {
   stopPlayback({ preserveStage: true });
-  if (state.listenOnly?.active) {
+  if (typeof isExerciseTutorialRunning === "function" && isExerciseTutorialRunning()) {
+    onExerciseTutorialPlaybackEnded(ex);
+  } else if (state.listenOnly?.active) {
     handleListenOnlyPromptEnded(ex);
   } else if (ex && state.currentExercise === ex && !isCurrentExerciseSolved(ex)) {
     if (shouldRunHumPause(ex)) startHumPause(ex);

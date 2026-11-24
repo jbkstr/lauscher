@@ -472,6 +472,10 @@ class EarLabSampledInstrument {
           voiceVel = Math.max(0.02, Math.min(1, safeVel * velJitter));
         }
       }
+      const gainMult = Number.isFinite(envOverride?.gainMult)
+        ? Math.max(0.05, Math.min(1.5, envOverride.gainMult))
+        : 1.0;
+      voiceVel *= gainMult;
 
       const envGain = this.rawCtx.createGain();
       const gainParam = envGain.gain;
@@ -2183,7 +2187,11 @@ class AudioEngine {
       const stepDur = Math.max(0.2, durationSec);
       const totalWindowSec = isSeq ? ((notes.length - 1) * arpeggioStepMs) / 1000 + stepDur : stepDur;
       const samplerNotes = isSeq ? notes : [...new Set(notes)];
-      const vel = Math.min(1, (isSeq ? 0.92 : Math.min(1, 1.05 / Math.sqrt(samplerNotes.length))) * safeGainScale);
+      const baseVel = isSeq ? 0.92 : Math.min(1, 1.05 / Math.sqrt(samplerNotes.length));
+      const vel = Math.min(1, baseVel * Math.min(1, safeGainScale));
+      const samplerEnv = safeGainScale > 1
+        ? { ...(envOverride || {}), gainMult: (Number.isFinite(envOverride?.gainMult) ? envOverride.gainMult : 1) * safeGainScale }
+        : envOverride;
       const entry = { demoSampler };
       this.activeDemoNodes.push(entry);
 
@@ -2194,10 +2202,10 @@ class AudioEngine {
       if (isSeq) {
         samplerNotes.forEach((n, idx) => {
           const tNote = baseAt + (idx * arpeggioStepMs) / 1000;
-          demoSampler.triggerAttackRelease(n, stepDur, tNote, vel, envOverride);
+          demoSampler.triggerAttackRelease(n, stepDur, tNote, vel, samplerEnv);
         });
       } else {
-        demoSampler.triggerAttackRelease(samplerNotes, stepDur, baseAt, vel, envOverride);
+        demoSampler.triggerAttackRelease(samplerNotes, stepDur, baseAt, vel, samplerEnv);
       }
 
       setTimeout(() => {

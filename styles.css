@@ -2874,6 +2874,24 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
   min-width: 0;
 }
 
+/* Temporäre Einstellungs-Popovers im Übungsmodul schweben als Overlay unter dem Kopf,
+   damit Öffnen und Schließen weder die Modulhöhe noch das Fit-Layout (Notensystem/Kacheln) verschieben */
+#exerciseModuleCard {
+  z-index: 20;
+}
+
+#exerciseModuleCard > .module-inline-popover:not(.is-pinned) {
+  position: absolute;
+  top: 3.2rem;
+  inset-inline: 0.48rem;
+  margin-bottom: 0;
+  z-index: 35;
+  max-height: min(62dvh, 420px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  box-shadow: 0 12px 30px rgba(31, 51, 66, 0.22), var(--shadow-card);
+}
+
 @keyframes fadeSlideDown {
   from { opacity: 0; transform: translateY(-4px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -3331,7 +3349,8 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
   transition: background 0.08s ease, transform 0.06s ease, box-shadow 0.08s ease;
 }
 
-.piano-white-key:last-of-type {
+.piano-white-key:last-of-type,
+.piano-white-key.is-last-white {
   border-right: none;
 }
 
@@ -3341,9 +3360,9 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
   transform: translateY(1.5px);
 }
 
-/* Äußere Rahmen-Tasten (an beiden Enden nur halb breit, im hellen Modus in der warmen Akzentfarbe des Notensystem-/Kachel-Hintergrunds) */
+/* Äußere Rahmen-Tasten (an beiden Enden schmaler als halbe Taste, dezent abgesetzt) */
 .piano-key-frame {
-  flex: 0.5 1 0%;
+  flex: 0.36 1 0%;
   background: var(--piano-key-inactive-bg);
   border-right: 1px solid var(--piano-key-inactive-border);
   cursor: default;
@@ -3358,9 +3377,8 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
 }
 
 .piano-key-frame .piano-note-hint {
-  font-size: 0.64rem;
   color: var(--piano-key-inactive-text);
-  opacity: 0.88;
+  opacity: 0.68;
 }
 
 .piano-key-inactive:not(.piano-key-frame) .piano-note-hint {
@@ -3382,7 +3400,7 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
   background: linear-gradient(180deg, var(--piano-white-active-bg) 0%, var(--surface-white) 85%, var(--surface-warm) 100%);
 }
 
-/* Mittiges Solfège-Kästchen sauber unterhalb der schwarzen Tasten auf den relevanten Tonleiter-Tasten */
+/* Einheitliche Solfège-/Ton-Kästchen auf weißen und schwarzen Tasten */
 .solfege-key-box {
   position: absolute;
   top: 70%;
@@ -3391,11 +3409,14 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
   background-color: var(--bg-base);
   border: 1.5px solid var(--border-strong);
   border-radius: 6px;
-  padding: 0.22rem 0.14rem;
-  width: 82%;
+  padding: 0.18rem 0.08rem;
+  width: min(76%, 2.45rem);
   text-align: center;
-  font-size: 0.86rem;
+  font-size: clamp(0.62rem, 2.15vw, 0.8rem);
   font-weight: 800;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  white-space: nowrap;
   color: var(--raccoon-dark);
   box-shadow: 0 2px 4px rgba(61, 64, 91, 0.08);
   transition: background-color 0.15s, color 0.15s, border-color 0.15s, transform 0.15s;
@@ -3404,13 +3425,13 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
 
 @media (min-width: 640px) {
   .solfege-key-box {
-    font-size: 0.96rem;
-    padding: 0.26rem 0.18rem;
+    font-size: 0.8rem;
+    padding: 0.22rem 0.14rem;
   }
 }
 
 .piano-note-hint {
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   font-weight: 800;
   line-height: 1;
   color: var(--piano-white-active-ink);
@@ -3483,9 +3504,11 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
 
 .solfege-key-box-black {
   top: 52%;
-  width: 88%;
-  padding: 0.16rem 0.08rem;
-  font-size: 0.66rem;
+  width: calc(100% - 2px);
+  max-width: 2.3rem;
+  border-width: 1px;
+  padding: 0.18rem 0.04rem;
+  font-size: clamp(0.62rem, 2.15vw, 0.8rem);
   line-height: 1.15;
   background-color: var(--piano-black-solfege-bg);
   color: var(--piano-black-solfege-ink);
@@ -3493,8 +3516,8 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
 
 @media (min-width: 640px) {
   .solfege-key-box-black {
-    font-size: 0.78rem;
-    padding: 0.2rem 0.12rem;
+    font-size: 0.8rem;
+    padding: 0.22rem 0.08rem;
   }
 }
 
@@ -3541,6 +3564,7 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
 }
 
 .answer-sound-btn,
+.exercise-demo-btn,
 .listen-only-btn {
   background-color: var(--surface-white);
   color: var(--raccoon-mid);
@@ -3559,10 +3583,21 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
 }
 
 .answer-sound-btn svg,
+.exercise-demo-btn svg,
 .listen-only-btn svg {
   width: 13px;
   height: 13px;
   flex-shrink: 0;
+}
+
+.exercise-demo-btn svg {
+  color: var(--peach-strong);
+}
+
+.exercise-demo-btn.is-active {
+  background-color: var(--peach-soft);
+  border-color: var(--peach-strong);
+  color: var(--peach-strong);
 }
 
 .answer-sound-btn .answer-sound-icon {
@@ -10119,19 +10154,32 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 
 .solfege-keyboard-wrap.is-notation .notation-key-box-white {
   top: 76%;
-  font-size: 0.86rem;
-  padding: 0.22rem 0.14rem;
+  width: min(76%, 2.45rem);
+  font-size: clamp(0.72rem, 2.35vw, 0.84rem);
+  padding: 0.2rem 0.1rem;
 }
 
 .solfege-keyboard-wrap.is-notation .notation-key-box-black {
   top: 50%;
-  font-size: 0.54rem;
-  padding: 0.14rem 0.06rem;
+  width: calc(100% - 3px);
+  max-width: 2.35rem;
+  font-size: clamp(0.56rem, 1.85vw, 0.66rem);
+  line-height: 1.14;
+  padding: 0.14rem 0.04rem;
+  white-space: pre-line;
 }
 
 @media (min-width: 640px) {
   .solfege-keyboard-wrap.is-notation .piano-keyboard {
     height: 198px;
+  }
+  .solfege-keyboard-wrap.is-notation .notation-key-box-white {
+    font-size: 0.84rem;
+    padding: 0.22rem 0.14rem;
+  }
+  .solfege-keyboard-wrap.is-notation .notation-key-box-black {
+    font-size: 0.66rem;
+    padding: 0.16rem 0.06rem;
   }
 }
 
@@ -12306,10 +12354,12 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 #viewExercise.sing-hint-float .sing-along-hint {
   position: absolute;
   top: calc(100% + 0.35rem);
-  left: 0.3rem;
-  right: 0.3rem;
+  inset-inline: 0.3rem;
   margin-top: 0;
-  z-index: 20;
+  z-index: 25;
+  max-height: min(48dvh, 260px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
   box-shadow: 0 10px 28px rgba(31, 51, 66, 0.22), var(--shadow-card);
 }
 
@@ -14950,7 +15000,7 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   border-radius: var(--radius-md);
   background: var(--surface-warm);
   border: 1px solid var(--border-soft);
-  padding: 8px 6px 6px;
+  padding: 8px 4px 6px;
   overflow: hidden;
 }
 
@@ -14958,7 +15008,8 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   display: block;
   width: 100%;
   height: auto;
-  max-height: 250px;
+  max-height: 410px;
+  margin: 0 auto;
 }
 
 .nns-svg-zone {
@@ -15036,6 +15087,10 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 .nns-svg-role {
   fill: var(--raccoon-dark);
   opacity: 0.85;
+}
+
+.nns-svg-role-sub {
+  opacity: 0.88;
 }
 
 .nns-svg-node-tonic .nns-svg-role { fill: var(--sage-strong); opacity: 1; }
@@ -15601,5 +15656,240 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   }
   .nns-capo-stat-val {
     font-size: 0.82rem;
+  }
+}
+
+/* =====================================================
+   VORMACHEN-DEMO / INTERAKTIVES ÜBUNGS-TUTORIAL
+   ===================================================== */
+#viewExercise {
+  position: relative;
+}
+
+.ex-tutorial-backdrop {
+  position: absolute;
+  inset: -4px;
+  z-index: 38;
+  background: rgba(15, 22, 32, 0.56);
+  backdrop-filter: blur(1.5px);
+  -webkit-backdrop-filter: blur(1.5px);
+  pointer-events: auto;
+  animation: exTutorialFadeIn 0.2s ease-out;
+}
+
+[data-appearance="dark"] .ex-tutorial-backdrop {
+  background: rgba(4, 6, 12, 0.72);
+}
+
+@keyframes exTutorialFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.ex-tutorial-card {
+  position: absolute;
+  inset-inline: 0.65rem;
+  max-width: 440px;
+  margin-inline: auto;
+  z-index: 52;
+  background-color: var(--surface-white);
+  border: 2px solid var(--peach-strong);
+  border-radius: var(--radius-lg);
+  padding: 0.78rem 0.88rem;
+  box-shadow: 0 18px 44px rgba(15, 22, 32, 0.34), var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.52rem;
+  animation: fadeSlideDown 0.18s ease-out;
+}
+
+.ex-tutorial-card.is-pos-center {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.ex-tutorial-card.is-pos-top {
+  top: 0.65rem;
+}
+
+.ex-tutorial-card.is-pos-bottom {
+  bottom: 4.4rem;
+}
+
+.ex-tutorial-card.is-compact {
+  padding: 0.56rem 0.76rem;
+  gap: 0.36rem;
+}
+
+.ex-tutorial-head {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.ex-tutorial-mascot {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ex-tutorial-card.is-compact .ex-tutorial-mascot {
+  width: 34px;
+  height: 34px;
+}
+
+.ex-tutorial-mascot > svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.ex-tutorial-head-copy {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+  gap: 0.08rem;
+}
+
+.ex-tutorial-badge {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--peach-strong);
+}
+
+.ex-tutorial-title {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+  line-height: 1.2;
+}
+
+.ex-tutorial-card.is-compact .ex-tutorial-title {
+  font-size: 0.84rem;
+}
+
+.ex-tutorial-close {
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-soft);
+  background: var(--surface-warm);
+  color: var(--raccoon-mid);
+  font-size: 0.82rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ex-tutorial-text {
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: var(--raccoon-mid);
+  margin: 0;
+}
+
+.ex-tutorial-card.is-compact .ex-tutorial-text {
+  font-size: 0.78rem;
+  line-height: 1.32;
+}
+
+.ex-tutorial-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.ex-tutorial-btn {
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 0.44rem 0.78rem;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--border-strong);
+  background: var(--surface-warm);
+  color: var(--raccoon-dark);
+  cursor: pointer;
+  transition: transform 0.1s ease, filter 0.15s ease;
+}
+
+.ex-tutorial-btn:active {
+  transform: scale(0.97);
+}
+
+.ex-tutorial-btn.is-primary {
+  background: var(--btn-primary-bg);
+  border-color: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
+}
+
+.ex-tutorial-btn.is-secondary {
+  background: var(--surface-white);
+  border-color: var(--border-strong);
+  color: var(--raccoon-dark);
+}
+
+.ex-tutorial-btn.is-ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--raccoon-muted);
+  font-size: 0.71rem;
+  padding: 0.24rem 0.32rem;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.ex-tutorial-card.is-compact .ex-tutorial-btn {
+  font-size: 0.72rem;
+  padding: 0.28rem 0.64rem;
+}
+
+.tutorial-spotlight {
+  position: relative !important;
+  z-index: 44 !important;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 0 0 3px var(--peach-strong), 0 0 0 8px color-mix(in srgb, var(--peach-strong) 26%, transparent), 0 14px 36px rgba(15, 22, 32, 0.32) !important;
+  transition: box-shadow 0.24s ease;
+}
+
+.bottom-dock .tutorial-spotlight {
+  background-color: var(--bg-base);
+  padding: 6px;
+  margin: -6px;
+}
+
+@keyframes tutorialTargetPulse {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--sage-strong) 55%, transparent); }
+  55%  { box-shadow: 0 0 0 7px color-mix(in srgb, var(--sage-strong) 18%, transparent); }
+  100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--sage-strong) 0%, transparent); }
+}
+
+.tutorial-target-pulse {
+  animation: tutorialTargetPulse 0.95s ease-out infinite;
+  outline: 2.5px solid var(--sage-strong);
+  outline-offset: 1px;
+}
+
+#viewExercise.is-tutorial-running .bottom-dock .degrees-grid,
+#viewExercise.is-tutorial-running .bottom-dock .solfege-keyboard-wrap,
+#viewExercise.is-tutorial-running .bottom-dock .rhythm-tap-wrap,
+#viewExercise.is-tutorial-running .bottom-dock .melody-rhythm-picker {
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ex-tutorial-backdrop,
+  .ex-tutorial-card,
+  .tutorial-target-pulse {
+    animation: none;
   }
 }

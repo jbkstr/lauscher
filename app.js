@@ -76,6 +76,9 @@ function startBrandWordStyling() {
 document.addEventListener("DOMContentLoaded", () => {
   startBrandWordStyling();
   initExerciseFitObserver();
+  if (typeof initExerciseTutorialUI === "function") {
+    initExerciseTutorialUI();
+  }
   bindGlobalPointerInputTracker();
   hydrateMascotStaticSlots();
   startMascotAmbientRotation();
@@ -520,6 +523,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.getElementById("playBtn")?.addEventListener("click", () => {
+    if (typeof isExerciseTutorialActive === "function" && isExerciseTutorialActive()) {
+      stopExerciseTutorial({ keepPlayback: false });
+    }
     if (state.exam?.active) {
       if (state.exam.currentAnswered && state.exam.feedbackMode === "instant") {
         advanceExamQuestion();
@@ -543,6 +549,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.getElementById("skipBtn")?.addEventListener("click", () => {
+    if (typeof isExerciseTutorialActive === "function" && isExerciseTutorialActive()) {
+      stopExerciseTutorial({ keepPlayback: false });
+    }
     if (state.exam?.active) {
       if (state.exam.currentAnswered) {
         advanceExamQuestion();
@@ -884,6 +893,7 @@ document.addEventListener("DOMContentLoaded", () => {
     closeAllInlinePopovers(inlineBpmPopover);
     const isHidden = inlineBpmPopover.classList.toggle("hidden");
     moduleBpmBtn.classList.toggle("chip-open", !isHidden);
+    if (!isHidden && typeof positionOpenModulePopovers === "function") positionOpenModulePopovers();
   });
 
   document.getElementById("singAlongChipBtn")?.addEventListener("click", (e) => {
@@ -894,6 +904,7 @@ document.addEventListener("DOMContentLoaded", () => {
     state.singAlongExpanded = !isOpen;
     if (isOpen && ex) ex.singIntroShown = false;
     syncSingAlongUI(ex);
+    if (typeof queueFitExerciseLayout === "function") queueFitExerciseLayout(isOpen);
   });
   document.getElementById("singAlongDismissBtn")?.addEventListener("click", () => {
     const ex = state.currentExercise;
@@ -904,6 +915,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (ex) ex.singIntroShown = false;
     state.singAlongExpanded = false;
     syncSingAlongUI(ex);
+    if (typeof queueFitExerciseLayout === "function") queueFitExerciseLayout(true);
   });
   document.getElementById("singAlongPauseToggle")?.addEventListener("click", () => {
     setSingAlongPreference("singAlongPause", !state.profile?.singAlongPause);
@@ -923,6 +935,7 @@ document.addEventListener("DOMContentLoaded", () => {
     renderModesPadPopover();
     const isHidden = inlineModesPadPopover.classList.toggle("hidden");
     modesPadBtn.classList.toggle("chip-open", !isHidden);
+    if (!isHidden && typeof positionOpenModulePopovers === "function") positionOpenModulePopovers();
   });
 
   melodyPulseBtn?.addEventListener("click", (e) => {
@@ -946,6 +959,7 @@ document.addEventListener("DOMContentLoaded", () => {
     closeAllInlinePopovers(inlineKeyPopover);
     const isHidden = inlineKeyPopover.classList.toggle("hidden");
     moduleKeyBtn.classList.toggle("chip-open", !isHidden);
+    if (!isHidden && typeof positionOpenModulePopovers === "function") positionOpenModulePopovers();
   });
 
   moduleNotationKeyBtn?.addEventListener("click", (e) => {
@@ -955,6 +969,7 @@ document.addEventListener("DOMContentLoaded", () => {
     renderInlineNotationKeyPopover();
     const isHidden = inlineNotationKeyPopover.classList.toggle("hidden");
     moduleNotationKeyBtn.classList.toggle("chip-open", !isHidden);
+    if (!isHidden && typeof positionOpenModulePopovers === "function") positionOpenModulePopovers();
   });
 
   moduleNotationPaceBtn?.addEventListener("click", (e) => {
@@ -964,6 +979,7 @@ document.addEventListener("DOMContentLoaded", () => {
     syncNotationPaceUI();
     const isHidden = inlineNotationPacePopover.classList.toggle("hidden");
     moduleNotationPaceBtn.classList.toggle("chip-open", !isHidden);
+    if (!isHidden && typeof positionOpenModulePopovers === "function") positionOpenModulePopovers();
   });
 
   inlineNotationPaceSlider?.addEventListener("input", (e) => {
@@ -975,6 +991,7 @@ document.addEventListener("DOMContentLoaded", () => {
     closeAllInlinePopovers(inlineTimeSigPopover);
     const isHidden = inlineTimeSigPopover.classList.toggle("hidden");
     moduleTimeSigBtn.classList.toggle("chip-open", !isHidden);
+    if (!isHidden && typeof positionOpenModulePopovers === "function") positionOpenModulePopovers();
   });
 
   [inlineBpmPopover, inlineKeyPopover, inlineNotationKeyPopover, inlineNotationPacePopover, inlineTimeSigPopover, inlineModesRootPopover, inlineModesPadPopover].forEach(pop => {
@@ -990,6 +1007,7 @@ document.addEventListener("DOMContentLoaded", () => {
     renderModesRootPopover();
     const isHidden = inlineModesRootPopover.classList.toggle("hidden");
     modesRootBadge.classList.toggle("chip-open", !isHidden);
+    if (!isHidden && typeof positionOpenModulePopovers === "function") positionOpenModulePopovers();
   };
   modesRootBadge?.addEventListener("click", toggleModesRootPopover);
   modesRootBadge?.addEventListener("keydown", (e) => {
@@ -1546,8 +1564,12 @@ document.addEventListener("DOMContentLoaded", () => {
     stepWarmupIndex(1);
   });
 
-  // Leertaste als Takt-/Tap-Taste (Rhythmus) bzw. Start/Pause (Einsing-Helfer)
+  // Leertaste als Takt-/Tap-Taste (Rhythmus) bzw. Start/Pause (Einsing-Helfer); Escape schließt Tutorial
   document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && typeof isExerciseTutorialActive === "function" && isExerciseTutorialActive()) {
+      stopExerciseTutorial({ refreshExercise: true });
+      return;
+    }
     if (e.code !== "Space" && e.key !== " ") return;
     if (e.repeat) return;
     const tag = e.target?.tagName;

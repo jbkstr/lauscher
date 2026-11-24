@@ -4203,5 +4203,551 @@ registerColocatedPhrases({
     pl: "Dostosuj tonację / znaki przykluczowe",
     uk: "Налаштувати тональність / ключові знаки",
     ur: "کلید / کی سگنیچر تبدیل کریں"
+  },
+  "Alle Übungs-Einführungen wurden zurückgesetzt.": {
+    fr: "Tous les tutoriels d’exercice ont été réinitialisés.",
+    es: "Se han restablecido todos los tutoriales de ejercicio.",
+    pl: "Wszystkie samouczki ćwiczeń zostały zresetowane.",
+    uk: "Усі вступні підказки до вправ скинуто.",
+    ur: "تمام مشقوں کے رہنما دوبارہ فعال کر دیے گئے ہیں۔"
+  },
+  "So funktioniert: Kadenz": {
+    fr: "Comment ça marche : Cadence",
+    es: "Cómo funciona: Cadencia",
+    pl: "Jak to działa: Kadencja",
+    uk: "Як це працює: Каденція",
+    ur: "یہ کیسے کام کرتا ہے: کیڈنس"
+  },
+  "Höre die 4 Takte der Kadenz, erkenne die fehlende Akkordstufe und tippe sie unten an.": {
+    fr: "Écoutez les 4 mesures de la cadence, reconnaissez le degré manquant et touchez-le en bas.",
+    es: "Escucha los 4 compases de la cadencia, reconoce el grado que falta y tócalo abajo.",
+    pl: "Posłuchaj 4 taktów kadencji, rozpoznaj brakujący stopień akordu i dotknij go poniżej.",
+    uk: "Послухай 4 такти каденції, упізнай відсутній ступінь акорду та натисни його нижче.",
+    ur: "کیڈنس کے 4 بار سنیں، غائب ڈگری پہچانیں اور نیچے ٹیپ کریں۔"
+  },
+  "Hör zu: Die 4 Takte laufen oben mit – achte besonders auf den markierten Zieltakt.": {
+    fr: "Écoutez : les 4 mesures défilent en haut — concentrez-vous sur la mesure cible.",
+    es: "Escucha: los 4 compases avanzan arriba — concéntrate en el compás marcado.",
+    pl: "Posłuchaj: 4 takty przesuwają się u góry — zwróć uwagę na wyróżniony takt docelowy.",
+    uk: "Слухай: 4 такти йдуть угорі — зосередься на виділеному цільовому такті.",
+    ur: "سنیں: اوپر 4 بار چل رہے ہیں — نمایاں ہدف بار پر دھیان دیں۔"
+  },
+  "Das war {lbl}! Tippe genau auf diese Kachel, um zu lösen.": {
+    fr: "C’était {lbl} ! Touchez cette case pour répondre.",
+    es: "¡Era {lbl}! Toca esta casilla para responder.",
+    pl: "To było {lbl}! Dotknij tego kafelka, aby odpowiedzieć.",
+    uk: "Це було {lbl}! Натисни цю плитку для відповіді.",
+    ur: "یہ {lbl} تھا! جواب کے لیے اس ٹائل پر ٹیپ کریں۔"
+  },
+  "So funktioniert: Intervalle": {
+    fr: "Comment ça marche : Intervalles",
+    es: "Cómo funciona: Intervalos",
+    pl: "Jak to działa: Interwały",
+    uk: "Як це працює: Інтервали",
+    ur: "یہ کیسے کام کرتا ہے: انٹرولز"
+  },
+  "Vergleiche den Abstand zwischen den beiden Tönen und wähle unten das passende Intervall.": {
+    fr: "Comparez l’écart entre les deux notes et choisissez l’intervalle correspondant en bas.",
+    es: "Compara la distancia entre ambas notas y elige el intervalo correspondiente abajo.",
+    pl: "Porównaj odległość między dwoma dźwiękami i wybierz pasujący interwał poniżej.",
+    uk: "Порівняй відстань між двома звуками та обери відповідний інтервал нижче.",
+    ur: "دونوں سُروں کے درمیان فاصلہ موازنہ کریں اور نیچے درست انٹرول چنیں۔"
+  },
+  "Hör zu: Erst der Ausgangston, dann der Zielton – achte auf den Abstand dazwischen.": {
+    fr: "Écoutez : notez l’écart entre la note de départ et la note cible.",
+    es: "Escucha: fíjate en la distancia entre la nota de partida y la nota objetivo.",
+    pl: "Posłuchaj: zwróć uwagę na odległość między dźwiękiem wyjściowym a docelowym.",
+    uk: "Слухай: зверни увагу на відстань між початковим і цільовим звуком.",
+    ur: "سنیں: ابتدائی اور ہدف سُر کے درمیانی فاصلے پر غور کریں۔"
+  },
+  "Das gesuchte Intervall ist {lbl} – die passende Kachel leuchtet unten auf.": {
+    fr: "L’intervalle recherché est {lbl} — la bonne case s’allume en bas.",
+    es: "El intervalo buscado es {lbl} — la casilla correcta se ilumina abajo.",
+    pl: "Szukany interwał to {lbl} — właściwy kafelek podświetla się poniżej.",
+    uk: "Шуканий інтервал — {lbl}, потрібна плитка підсвічується нижче.",
+    ur: "مطلوبہ انٹرول {lbl} ہے — درست ٹائل نیچے روشن ہو رہی ہے۔"
+  },
+  "So funktioniert: Akkorde": {
+    fr: "Comment ça marche : Accords",
+    es: "Cómo funciona: Acordes",
+    pl: "Jak to działa: Akordy",
+    uk: "Як це працює: Акорди",
+    ur: "یہ کیسے کام کرتا ہے: کارڈز"
+  },
+  "Höre dir den Klang oder die Lage des Akkords an und wähle unten den passenden Typ.": {
+    fr: "Écoutez la couleur ou le renversement de l’accord et choisissez le bon type en bas.",
+    es: "Escucha la sonoridad o la inversión del acorde y elige el tipo correspondiente abajo.",
+    pl: "Posłuchaj brzmienia lub przewrotu akordu i wybierz odpowiedni typ poniżej.",
+    uk: "Послухай звучання або обернення акорду та обери відповідний тип нижче.",
+    ur: "کارڈ کا رنگ یا انورژن سنیں اور نیچے درست قسم چنیں۔"
+  },
+  "Hör zu: Achte auf den Gesamtklang (hell, dunkel, gespannt) und den tiefsten Ton.": {
+    fr: "Écoutez : prêtez attention à la couleur globale (clair, sombre, tendu) et à la basse.",
+    es: "Escucha: presta atención al color general (brillante, oscuro, tenso) y al bajo.",
+    pl: "Posłuchaj: zwróć uwagę na ogólne brzmienie (jasne, ciemne, napięte) i dźwięk basowy.",
+    uk: "Слухай: зверни увагу на загальний тембр (світлий, темний, напружений) і басовий звук.",
+    ur: "سنیں: مجموعی رنگ (روشن، گہرا، تناؤ) اور سب سے نچلے سُر پر توجہ دیں۔"
+  },
+  "Dieser Akkord ist {lbl} – wähle unten die markierte Kachel.": {
+    fr: "Cet accord est {lbl} — sélectionnez la case mise en évidence en bas.",
+    es: "Este acorde es {lbl} — selecciona la casilla resaltada abajo.",
+    pl: "Ten akord to {lbl} — wybierz podświetlony kafelek poniżej.",
+    uk: "Цей акорд — {lbl}, обери підсвічену плитку нижче.",
+    ur: "یہ کارڈ {lbl} ہے — نیچے نمایاں ٹائل چنیں۔"
+  },
+  "So funktioniert: Tonleitern & Modi": {
+    fr: "Comment ça marche : Gammes & Modes",
+    es: "Cómo funciona: Escalas y Modos",
+    pl: "Jak to działa: Skale i Tryby",
+    uk: "Як це працює: Гами та Лади",
+    ur: "یہ کیسے کام کرتا ہے: اسکیلز اور موڈز"
+  },
+  "Der Grundton gibt dir Halt – erkenne am typischen Charakterton den Modus und tippe ihn an.": {
+    fr: "La fondamentale vous ancre — reconnaissez le mode à sa note typique et touchez-le.",
+    es: "La tónica te da referencia — reconoce el modo por su nota característica y tócalo.",
+    pl: "Dźwięk podstawowy daje oparcie — rozpoznaj tryb po nucie charakterystycznej i dotknij go.",
+    uk: "Тоніка дає опору — упізнай лад за характерним звуком і натисни його.",
+    ur: "بنیادی سُر سہارا دیتا ہے — مخصوص رنگ سے موڈ پہچانیں اور نیچے ٹیپ کریں۔"
+  },
+  "Hör zu: Achte auf die besondere Klangfarbe über dem Grundton.": {
+    fr: "Écoutez : concentrez-vous sur la couleur caractéristique au-dessus de la fondamentale.",
+    es: "Escucha: fíjate en el color característico sobre la tónica.",
+    pl: "Posłuchaj: skup się na charakterystycznym zabarwieniu nad dźwiękiem podstawowym.",
+    uk: "Слухай: зосередься на характерному забарвленні над тонікою.",
+    ur: "سنیں: بنیادی سُر کے اوپر مخصوص رنگ پر غور کریں۔"
+  },
+  "Diese Klangfarbe gehört zu {lbl} – tippe unten auf die hervorgehobene Kachel.": {
+    fr: "Cette couleur correspond à {lbl} — touchez la case mise en évidence en bas.",
+    es: "Ese color pertenece a {lbl} — toca la casilla resaltada abajo.",
+    pl: "To brzmienie należy do {lbl} — dotknij podświetlonego kafelka poniżej.",
+    uk: "Це забарвлення належить до {lbl} — натисни підсвічену плитку нижче.",
+    ur: "یہ رنگ {lbl} کا ہے — نیچے نمایاں ٹائل پر ٹیپ کریں۔"
+  },
+  "So funktioniert: Solfège": {
+    fr: "Comment ça marche : Solfège",
+    es: "Cómo funciona: Solfeo",
+    pl: "Jak to działa: Solfeż",
+    uk: "Як це працює: Сольфеджіо",
+    ur: "یہ کیسے کام کرتا ہے: سولفیج"
+  },
+  "Erst hörst du die Tonart-Kadenz, dann einen einzelnen Zielton – tippe seine Taste auf der Klaviatur.": {
+    fr: "Vous entendez d’abord la cadence de la tonalité, puis une note cible — touchez sa touche au clavier.",
+    es: "Primero escuchas la cadencia de la tonalidad y luego una nota objetivo — toca su tecla en el teclado.",
+    pl: "Najpierw słyszysz kadencję tonacji, potem pojedynczy dźwięk — dotknij jego klawisza na klawiaturze.",
+    uk: "Спочатку звучить каденція тональності, потім один цільовий звук — натисни його клавішу.",
+    ur: "پہلے کلید کا کیڈنس سنائی دیتا ہے، پھر ایک ہدف سُر — کی بورڈ پر اس کی کلید دبائیں۔"
+  },
+  "Hör zu: Die Kadenz verankert Do – merk dir danach genau den einzelnen Zielton.": {
+    fr: "Écoutez : la cadence ancre Do — mémorisez ensuite la note cible unique.",
+    es: "Escucha: la cadencia fija Do — después memoriza con precisión la nota objetivo.",
+    pl: "Posłuchaj: kadencja utrwala Do — potem zapamiętaj dokładnie pojedynczy dźwięk.",
+    uk: "Слухай: каденція закріплює До — далі запам’ятай окремий цільовий звук.",
+    ur: "سنیں: کیڈنس ڈو کو پکا کرتا ہے — پھر اکیلے ہدف سُر پر دھیان دیں۔"
+  },
+  "Das war {lbl}! Nach dem Antippen löst sich der Ton musikalisch zu Do auf.": {
+    fr: "C’était {lbl} ! Après l’appui, la note se résout musicalement vers Do.",
+    es: "¡Era {lbl}! Al tocarla, la nota resuelve musicalmente hacia Do.",
+    pl: "To było {lbl}! Po dotknięciu dźwięk rozwiązuje się muzycznie do Do.",
+    uk: "Це було {lbl}! Після натискання звук музично розв’язується в До.",
+    ur: "یہ {lbl} تھا! ٹیپ کرنے کے بعد سُر موسیقی کے انداز میں ڈو پر حل ہو جاتا ہے۔"
+  },
+  "So funktioniert: Melodie": {
+    fr: "Comment ça marche : Mélodie",
+    es: "Cómo funciona: Melodía",
+    pl: "Jak to działa: Melodia",
+    uk: "Як це працює: Мелодія",
+    ur: "یہ کیسے کام کرتا ہے: دھن"
+  },
+  "Höre die kurze Melodie und spiele sie anschließend Ton für Ton auf der Klaviatur nach.": {
+    fr: "Écoutez la courte mélodie, puis rejouez-la note par note sur le clavier.",
+    es: "Escucha la breve melodía y luego tócala nota a nota en el teclado.",
+    pl: "Posłuchaj krótkiej melodii, a następnie zagraj ją dźwięk po dźwięku na klawiaturze.",
+    uk: "Послухай коротку мелодію, а потім зіграй її нота за нотою на клавіатурі.",
+    ur: "مختصر دھن سنیں اور پھر کی بورڈ پر ایک ایک سُر کر کے بجائیں۔"
+  },
+  "Hör zu: Die Töne laufen oben der Reihe nach durch.": {
+    fr: "Écoutez : les notes défilent dans l’ordre en haut.",
+    es: "Escucha: las notas avanzan en orden arriba.",
+    pl: "Posłuchaj: dźwięki przesuwają się kolejno u góry.",
+    uk: "Слухай: ноти проходять по черзі вгорі.",
+    ur: "سنیں: سُر اوپر ترتیب سے چل رہے ہیں۔"
+  },
+  "Jetzt wird Ton für Ton auf der Klaviatur nachgespielt – jede grüne Taste löst den nächsten Platz.": {
+    fr: "On rejoue maintenant note par note sur le clavier — chaque touche verte valide l’emplacement suivant.",
+    es: "Ahora se toca nota a nota en el teclado — cada tecla verde completa el siguiente lugar.",
+    pl: "Teraz odtwarzamy dźwięk po dźwięku na klawiaturze — każdy zielony klawisz uzupełnia kolejne miejsce.",
+    uk: "Тепер граємо нота за нотою на клавіатурі — кожна зелена клавіша заповнює наступне місце.",
+    ur: "اب کی بورڈ پر ایک ایک سُر بجایا جا رہا ہے — ہر سبز کلید اگلی جگہ مکمل کرتی ہے۔"
+  },
+  "So funktioniert: Melodie-Diktat": {
+    fr: "Comment ça marche : Dictée mélodique",
+    es: "Cómo funciona: Dictado melódico",
+    pl: "Jak to działa: Dyktando melodyczne",
+    uk: "Як це працює: Мелодичний диктант",
+    ur: "یہ کیسے کام کرتا ہے: میلوڈی ڈکٹیشن"
+  },
+  "Wähle für jeden Ton der Melodie sowohl die richtige Klaviatur-Taste als auch den Notenwert.": {
+    fr: "Pour chaque note de la mélodie, choisissez la bonne touche du clavier et la bonne valeur rythmique.",
+    es: "Para cada nota de la melodía, elige tanto la tecla correcta como la figura rítmica.",
+    pl: "Dla każdego dźwięku melodii wybierz zarówno właściwy klawisz, jak i wartość rytmiczną.",
+    uk: "Для кожної ноти мелодії обери і правильну клавішу, і ритмічну тривалість.",
+    ur: "دھن کے ہر سُر کے لیے درست کی بورڈ کلید اور نوٹ کی قدر دونوں چنیں۔"
+  },
+  "Hör zu: Merke dir Melodieverlauf und Rhythmus der Phrase.": {
+    fr: "Écoutez : mémorisez la courbe mélodique et le rythme de la phrase.",
+    es: "Escucha: memoriza tanto el contorno melódico como el ritmo de la frase.",
+    pl: "Posłuchaj: zapamiętaj linię melodyczną i rytm frazy.",
+    uk: "Слухай: запам’ятай мелодичний рух і ритм фрази.",
+    ur: "سنیں: دھن کا اتار چڑھاؤ اور تال دونوں یاد رکھیں۔"
+  },
+  "Pro Platz erst Taste antippen, dann den passenden Notenwert wählen – schon rückt der nächste Ton nach.": {
+    fr: "Pour chaque position, touchez la touche puis la valeur rythmique pour passer à la note suivante.",
+    es: "En cada posición, toca la tecla y elige la figura rítmica para pasar a la siguiente nota.",
+    pl: "Dla każdego miejsca wybierz klawisz i wartość nuty, aby przejść do kolejnego dźwięku.",
+    uk: "Для кожної позиції натисни клавішу та обери тривалість, щоб перейти до наступної ноти.",
+    ur: "ہر جگہ کے لیے پہلے کلید دبائیں، پھر نوٹ کی قدر چنیں تاکہ اگلا سُر آئے۔"
+  },
+  "So funktioniert: Rhythmus-Diktat": {
+    fr: "Comment ça marche : Dictée rythmique",
+    es: "Cómo funciona: Dictado rítmico",
+    pl: "Jak to działa: Dyktando rytmiczne",
+    uk: "Як це працює: Ритмічний диктант",
+    ur: "یہ کیسے کام کرتا ہے: رِدم ڈکٹیشن"
+  },
+  "Höre den 4-Schlag-Rhythmus und setze unten für jede Zählzeit das passende Notenbild ein.": {
+    fr: "Écoutez le rythme sur 4 temps et choisissez en bas la figure correspondant à chaque temps.",
+    es: "Escucha el ritmo de 4 tiempos y coloca abajo la figura rítmica de cada pulso.",
+    pl: "Posłuchaj 4-miarowego rytmu i wybierz poniżej pasującą figurę dla każdego uderzenia.",
+    uk: "Послухай ритм на 4 долі та обери нижче відповідний ритмічний малюнок для кожної долі.",
+    ur: "4 بیٹ کا رِدم سنیں اور نیچے ہر بیٹ کے لیے درست نوٹ پیٹرن چنیں۔"
+  },
+  "Hör zu: Nach dem Einzähler erklingt das Muster über 4 Zählzeiten.": {
+    fr: "Écoutez : après le décompte, le motif joue sur 4 temps.",
+    es: "Escucha: tras la cuenta previa suena el patrón de 4 tiempos.",
+    pl: "Posłuchaj: po odliczeniu rozbrzmiewa wzór na 4 uderzenia.",
+    uk: "Слухай: після відліку звучить малюнок на 4 долі.",
+    ur: "سنیں: گنتی کے بعد 4 بیٹ کا پیٹرن بجے گا۔"
+  },
+  "Jetzt werden die 4 Zählzeiten nacheinander über die Rhythmus-Kacheln unten eingetragen.": {
+    fr: "Les 4 temps sont maintenant remplis un par un à l’aide des cases rythmiques en bas.",
+    es: "Ahora los 4 tiempos se completan uno a uno con las casillas rítmicas de abajo.",
+    pl: "Teraz 4 uderzenia są kolejno uzupełniane za pomocą kafelków rytmicznych poniżej.",
+    uk: "Тепер 4 долі по черзі заповнюються за допомогою ритмічних плиток нижче.",
+    ur: "اب نیچے رِدم ٹائلز سے چاروں بیٹ ایک ایک کر کے بھرے جا رہے ہیں۔"
+  },
+  "So funktioniert: Rhythmus klopfen": {
+    fr: "Comment ça marche : Frapper le rythme",
+    es: "Cómo funciona: Marcar el ritmo",
+    pl: "Jak to działa: Wyklaskiwanie rytmu",
+    uk: "Як це працює: Відстукування ритму",
+    ur: "یہ کیسے کام کرتا ہے: رِدم ٹیپ"
+  },
+  "Nach dem Einzähler hörst du das Muster – danach klopfst du es exakt im Takt auf das Pad.": {
+    fr: "Après le décompte, vous entendez le motif — puis vous le frappez en rythme sur le pad.",
+    es: "Tras la cuenta previa escuchas el patrón — luego lo marcas a tiempo sobre el pad.",
+    pl: "Po odliczeniu słyszysz wzór — potem wyklaskujesz go dokładnie w rytmie na padzie.",
+    uk: "Після відліку звучить малюнок — потім ти точно відстукуєш його в ритмі на педі.",
+    ur: "گنتی کے بعد آپ پیٹرن سنیں گے — پھر اسے بالکل تال میں پیڈ پر ٹیپ کریں گے۔"
+  },
+  "Hör zu & schau aufs Pad: Erst der Einzähler, dann blitzt das Pad genau auf jedem Ziel-Schlag auf.": {
+    fr: "Écoutez et regardez le pad : après le décompte, le pad s’allume exactement sur chaque coup.",
+    es: "Escucha y mira el pad: tras la cuenta, el pad destella exactamente en cada golpe.",
+    pl: "Słuchaj i patrz na pad: po odliczeniu pad błyska dokładnie na każde uderzenie.",
+    uk: "Слухай і дивись на пед: після відліку пед спалахує точно на кожен удар.",
+    ur: "سنیں اور پیڈ دیکھیں: گنتی کے بعد ہر درست ضرب پر پیڈ روشن ہوگا۔"
+  },
+  "Schau genau hin: Immer wenn das Pad grün aufblitzt, wird geklopft!": {
+    fr: "Regardez bien : on frappe le pad à chaque éclair vert !",
+    es: "¡Fíjate bien: se toca el pad cada vez que destella en verde!",
+    pl: "Patrz uważnie: uderzamy w pad za każdym razem, gdy błyśnie na zielono!",
+    uk: "Дивись уважно: натискай пед щоразу, коли він спалахує зеленим!",
+    ur: "غور سے دیکھیں: جب بھی پیڈ سبز چمکے، تبھی ٹیپ کرنا ہے!"
+  },
+  "So funktioniert: Taktart & Groove": {
+    fr: "Comment ça marche : Mesure & Groove",
+    es: "Cómo funciona: Compás y Groove",
+    pl: "Jak to działa: Metrum i Groove",
+    uk: "Як це працює: Розмір і Ґрув",
+    ur: "یہ کیسے کام کرتا ہے: میٹر اور گروو"
+  },
+  "Achte auf den betonten ersten Schlag und das Grundmuster – wähle dann unten die passende Kachel.": {
+    fr: "Repérez le premier temps accentué et le groove — choisissez ensuite la bonne case en bas.",
+    es: "Fíjate en el primer tiempo acentuado y el patrón — luego elige la casilla adecuada abajo.",
+    pl: "Zwróć uwagę na akcentowaną jedynkę i puls — potem wybierz odpowiedni kafelek poniżej.",
+    uk: "Зверни увагу на акцентовану першу долю та малюнок — потім обери потрібну плитку нижче.",
+    ur: "پہلی زور دار بیٹ اور تال کے انداز پر غور کریں — پھر نیچے درست ٹائل چنیں۔"
+  },
+  "Hör zu: Zähle leise bis zur nächsten betonten Eins mit.": {
+    fr: "Écoutez : comptez doucement jusqu’au prochain temps fort.",
+    es: "Escucha: cuenta en voz baja hasta el siguiente tiempo fuerte.",
+    pl: "Posłuchaj: licz cicho do kolejnej akcentowanej jedynki.",
+    uk: "Слухай: тихо рахуй до наступної акцентованої першої долі.",
+    ur: "سنیں: اگلی زور دار پہلی بیٹ تک آہستہ گنتی کریں۔"
+  },
+  "Das gehörte Muster ist {lbl} – tippe unten auf diese Kachel.": {
+    fr: "Le motif entendu est {lbl} — touchez cette case en bas.",
+    es: "El patrón escuchado es {lbl} — toca esta casilla abajo.",
+    pl: "Usłyszany wzór to {lbl} — dotknij tego kafelka poniżej.",
+    uk: "Почутий малюнок — {lbl}, натисни цю плитку нижче.",
+    ur: "سنا گیا پیٹرن {lbl} ہے — نیچے اس ٹائل پر ٹیپ کریں۔"
+  },
+  "So funktioniert: Notenlesen": {
+    fr: "Comment ça marche : Lecture de notes",
+    es: "Cómo funciona: Lectura de notas",
+    pl: "Jak to działa: Czytanie nut",
+    uk: "Як це працює: Читання нот",
+    ur: "یہ کیسے کام کرتا ہے: نوٹ پڑھنا"
+  },
+  "Lies immer die vorderste markierte Note links im Notensystem ab und tippe die passende Taste.": {
+    fr: "Lisez toujours la note mise en évidence tout à gauche et touchez la touche correspondante.",
+    es: "Lee siempre la nota resaltada más a la izquierda del pentagrama y toca su tecla.",
+    pl: "Czytaj zawsze pierwszą wyróżnioną nutę po lewej na pięciolinii i dotknij właściwego klawisza.",
+    uk: "Завжди читай першу виділену ноту ліворуч на нотному стані та натискай відповідну клавішу.",
+    ur: "ہمیشہ بائیں جانب سب سے پہلا نمایاں نوٹ پڑھیں اور درست کلید دبائیں۔"
+  },
+  "Schau auf die erste Note links im System (inklusive Vorzeichen).": {
+    fr: "Regardez la première note à gauche sur la portée (armure et altérations comprises).",
+    es: "Observa la primera nota a la izquierda del pentagrama (incluyendo alteraciones).",
+    pl: "Spójrz na pierwszą nutę po lewej na pięciolinii (wraz ze znakami chromatycznymi).",
+    uk: "Подивись на першу ноту ліворуч на стані (разом зі знаками альтерації).",
+    ur: "اسٹاف پر بائیں جانب پہلے نوٹ کو دیکھیں (بشمول علامات)۔"
+  },
+  "Diese Note ist {lbl} – tippe die grün markierte Taste, dann rückt die nächste Note nach.": {
+    fr: "Cette note est {lbl} — touchez la touche verte et la note suivante avance.",
+    es: "Esta nota es {lbl} — toca la tecla verde y avanzará la siguiente nota.",
+    pl: "Ta nuta to {lbl} — dotknij zielonego klawisza, a pojawi się kolejna nuta.",
+    uk: "Ця нота — {lbl}, натисни зелену клавішу, і з’явиться наступна нота.",
+    ur: "یہ نوٹ {lbl} ہے — سبز کلید دبائیں تو اگلا نوٹ سامنے آ جائے گا۔"
+  },
+  "So funktioniert: Akkorde lesen": {
+    fr: "Comment ça marche : Lecture d’accords",
+    es: "Cómo funciona: Lectura de acordes",
+    pl: "Jak to działa: Czytanie akordów",
+    uk: "Як це працює: Читання акордів",
+    ur: "یہ کیسے کام کرتا ہے: کارڈز پڑھنا"
+  },
+  "Lies den vordersten Akkord im Notensystem von unten nach oben und wähle die passende Kachel.": {
+    fr: "Lisez l’accord le plus à gauche de bas en haut et choisissez la case correspondante.",
+    es: "Lee el acorde más a la izquierda de abajo arriba y elige la casilla correspondiente.",
+    pl: "Przeczytaj pierwszy akord od dołu do góry i wybierz odpowiedni kafelek.",
+    uk: "Прочитай перший акорд знизу вгору та обери відповідну плитку.",
+    ur: "بائیں جانب سب سے پہلا کارڈ نیچے سے اوپر پڑھیں اور درست ٹائل چنیں۔"
+  },
+  "Schau auf den markierten Akkord links – Grundton, Terz und Klangfarbe bestimmen die Antwort.": {
+    fr: "Observez l’accord à gauche — fondamentale, tierce et intervalles déterminent la réponse.",
+    es: "Observa el acorde a la izquierda — fundamental, tercera e intervalos definen la respuesta.",
+    pl: "Spójrz na wyróżniony akord po lewej — prymy, tercja i interwały wyznaczają odpowiedź.",
+    uk: "Подивись на виділений акорд ліворуч — тоніка, терція та інтервали визначають відповідь.",
+    ur: "بائیں جانب نمایاں کارڈ دیکھیں — بنیادی سُر، تیسرا سُر اور وقفے جواب بتاتے ہیں۔"
+  },
+  "Der notierte Akkord ist {lbl} – tippe unten auf die passende Kachel.": {
+    fr: "L’accord noté est {lbl} — touchez la case correspondante en bas.",
+    es: "El acorde escrito es {lbl} — toca la casilla correspondiente abajo.",
+    pl: "Zapisany akord to {lbl} — dotknij właściwego kafelka poniżej.",
+    uk: "Записаний акорд — {lbl}, натисни відповідну плитку нижче.",
+    ur: "لکھا ہوا کارڈ {lbl} ہے — نیچے درست ٹائل پر ٹیپ کریں۔"
+  },
+  "So funktioniert: Frequenz- & EQ-Training": {
+    fr: "Comment ça marche : Fréquences & EQ",
+    es: "Cómo funciona: Frecuencias y EQ",
+    pl: "Jak to działa: Częstotliwości i EQ",
+    uk: "Як це працює: Частоти та EQ",
+    ur: "یہ کیسے کام کرتا ہے: فریکوئنسی اور EQ"
+  },
+  "Vergleiche das neutrale Rauschen (Flat) mit dem EQ-Boost und wähle das angehobene Frequenzband.": {
+    fr: "Comparez le bruit neutre (Flat) au boost EQ et choisissez la bande accentuée.",
+    es: "Compara el ruido neutro (Flat) con el realce EQ y elige la banda realzada.",
+    pl: "Porównaj neutralny szum (Flat) z podbiciem EQ i wybierz podbite pasmo.",
+    uk: "Порівняй нейтральний шум (Flat) з підсиленням EQ та обери підсилену смугу.",
+    ur: "فلیٹ شور اور EQ بوسٹ کا موازنہ کریں اور بڑھائی گئی فریکوئنسی چنیں۔"
+  },
+  "Höre die reine Tonhöhe des Sinustons und ordne sie unten der passenden Frequenz zu.": {
+    fr: "Écoutez la hauteur pure de la sinusoïde et associez-la à sa fréquence en bas.",
+    es: "Escucha la altura pura del tono senoidal y relaciónala con su frecuencia abajo.",
+    pl: "Posłuchaj czystej wysokości sinusoidy i dopasuj ją do częstotliwości poniżej.",
+    uk: "Послухай чисту висоту синусоїди та співстав її з частотою нижче.",
+    ur: "خالص سائن ٹون کی پچ سنیں اور نیچے درست فریکوئنسی چنیں۔"
+  },
+  "Hör zu: Erst neutrales Rauschen (Flat), dann schaltet der EQ-Boost dazu.": {
+    fr: "Écoutez : d’abord le bruit neutre (Flat), puis le boost EQ s’active.",
+    es: "Escucha: primero ruido neutro (Flat), luego se activa el realce EQ.",
+    pl: "Posłuchaj: najpierw neutralny szum (Flat), potem włącza się podbicie EQ.",
+    uk: "Слухай: спочатку нейтральний шум (Flat), потім вмикається підсилення EQ.",
+    ur: "سنیں: پہلے فلیٹ شور، پھر EQ بوسٹ آن ہوگا۔"
+  },
+  "Hör zu: Präge dir die Höhe des Sinustons ein.": {
+    fr: "Écoutez : concentrez-vous sur la hauteur exacte du son pur.",
+    es: "Escucha: concéntrate en la altura exacta de la onda senoidal.",
+    pl: "Posłuchaj: skup się na dokładnej wysokości czystego tonu.",
+    uk: "Слухай: зосередься на точній висоті чистого тону.",
+    ur: "سنیں: سائن ٹون کی عین پچ پر دھیان دیں۔"
+  },
+  "Die gesuchte Frequenz ist {lbl} – tippe unten auf die hervorgehobene Kachel.": {
+    fr: "La fréquence recherchée est {lbl} — touchez la case mise en évidence en bas.",
+    es: "La frecuencia buscada es {lbl} — toca la casilla resaltada abajo.",
+    pl: "Szukana częstotliwość to {lbl} — dotknij podświetlonego kafelka poniżej.",
+    uk: "Шукана частота — {lbl}, натисни підсвічену плитку нижче.",
+    ur: "مطلوبہ فریکوئنسی {lbl} ہے — نیچے نمایاں ٹائل پر ٹیپ کریں۔"
+  },
+  "So funktioniert diese Übung": {
+    fr: "Comment fonctionne cet exercice",
+    es: "Cómo funciona este ejercicio",
+    pl: "Jak działa to ćwiczenie",
+    uk: "Як працює ця вправа",
+    ur: "یہ مشق کیسے کام کرتی ہے"
+  },
+  "Höre die Aufgabe an und wähle anschließend unten die passende Antwort.": {
+    fr: "Écoutez l’exemple puis choisissez la bonne réponse en bas.",
+    es: "Escucha el ejemplo y luego elige la respuesta correcta abajo.",
+    pl: "Posłuchaj przykładu, a następnie wybierz właściwą odpowiedź poniżej.",
+    uk: "Послухай приклад, а потім обери правильну відповідь нижче.",
+    ur: "مثال سنیں اور پھر نیچے درست جواب چنیں۔"
+  },
+  "Hör genau hin – das Beispiel läuft gerade.": {
+    fr: "Écoutez attentivement — l’exemple est en cours.",
+    es: "Escucha con atención — el ejemplo está sonando.",
+    pl: "Posłuchaj uważnie — przykład właśnie gra.",
+    uk: "Слухай уважно — приклад саме звучить.",
+    ur: "غور سے سنیں — مثال چل رہی ہے۔"
+  },
+  "Die Lösung ist {lbl}.": {
+    fr: "La réponse est {lbl}.",
+    es: "La respuesta es {lbl}.",
+    pl: "Rozwiązanie to {lbl}.",
+    uk: "Правильна відповідь — {lbl}.",
+    ur: "درست جواب {lbl} ہے۔"
+  },
+  "NEUE ÜBUNG • VORMACHEN": {
+    fr: "NOUVEL EXERCICE • DÉMO",
+    es: "NUEVO EJERCICIO • DEMO",
+    pl: "NOWE ĆWICZENIE • POKAZ",
+    uk: "НОВА ВПРАВА • ДЕМО",
+    ur: "نئی مشق • ڈیمو"
+  },
+  "▶ Beispiel vormachen": {
+    fr: "▶ Voir un exemple",
+    es: "▶ Ver un ejemplo",
+    pl: "▶ Pokaż przykład",
+    uk: "▶ Показати приклад",
+    ur: "▶ مثال دکھائیں"
+  },
+  "Direkt starten": {
+    fr: "Commencer directement",
+    es: "Empezar directamente",
+    pl: "Zacznij od razu",
+    uk: "Почати одразу",
+    ur: "براہِ راست شروع کریں"
+  },
+  "Nicht mehr automatisch zeigen": {
+    fr: "Ne plus afficher automatiquement",
+    es: "No mostrar automáticamente",
+    pl: "Nie pokazuj automatycznie",
+    uk: "Більше не показувати автоматично",
+    ur: "خودکار طور پر دوبارہ نہ دکھائیں"
+  },
+  "SCHRITT 1 / 2 · ZUHÖREN": {
+    fr: "ÉTAPE 1 / 2 · ÉCOUTER",
+    es: "PASO 1 / 2 · ESCUCHAR",
+    pl: "KROK 1 / 2 · SŁUCHAJ",
+    uk: "КРОК 1 / 2 · СЛУХАЙ",
+    ur: "مرحلہ 1 / 2 · سنیں"
+  },
+  "SCHRITT 1 / 2 · EQ-BOOST": {
+    fr: "ÉTAPE 1 / 2 · BOOST EQ",
+    es: "PASO 1 / 2 · REALCE EQ",
+    pl: "KROK 1 / 2 · PODBICIE EQ",
+    uk: "КРОК 1 / 2 · ПІДСИЛЕННЯ EQ",
+    ur: "مرحلہ 1 / 2 · EQ بوسٹ"
+  },
+  "SCHRITT 2 / 2 · ANTWORT": {
+    fr: "ÉTAPE 2 / 2 · RÉPONSE",
+    es: "PASO 2 / 2 · RESPUESTA",
+    pl: "KROK 2 / 2 · ODPOWIEDŹ",
+    uk: "КРОК 2 / 2 · ВІДПОВІДЬ",
+    ur: "مرحلہ 2 / 2 · جواب"
+  },
+  "SCHRITT 2 / 2 · MITKLOPFEN": {
+    fr: "ÉTAPE 2 / 2 · FRAPPER",
+    es: "PASO 2 / 2 · MARCAR",
+    pl: "KROK 2 / 2 · KLASKAJ",
+    uk: "КРОК 2 / 2 · ВІДСТУКУЙ",
+    ur: "مرحلہ 2 / 2 · ساتھ ٹیپ کریں"
+  },
+  "Erst den Puls aufnehmen…": {
+    fr: "Ressentez d’abord la pulsation…",
+    es: "Siente primero el pulso…",
+    pl: "Najpierw wyczuj puls…",
+    uk: "Спочатку відчуй пульс…",
+    ur: "پہلے تال محسوس کریں…"
+  },
+  "Jetzt im Takt klopfen!": {
+    fr: "Frappez en rythme maintenant !",
+    es: "¡Marca a tiempo ahora!",
+    pl: "Teraz klaskaj w rytmie!",
+    uk: "Тепер відстукуй у ритмі!",
+    ur: "اب تال میں ٹیپ کریں!"
+  },
+  "Jedes grüne Aufblitzen = 1 Tippen": {
+    fr: "Chaque éclair vert = 1 appui",
+    es: "Cada destello verde = 1 toque",
+    pl: "Każdy zielony błysk = 1 dotknięcie",
+    uk: "Кожен зелений спалах = 1 натискання",
+    ur: "ہر سبز چمک = 1 ٹیپ"
+  },
+  "Jetzt ist der EQ-Boost aktiv – hörst du, welches Frequenzband hervortritt?": {
+    fr: "Le boost EQ est actif — entendez-vous quelle bande ressort ?",
+    es: "El realce EQ está activo — ¿notas qué banda sobresale?",
+    pl: "Podbicie EQ jest aktywne — słyszysz, które pasmo się wybija?",
+    uk: "Підсилення EQ активне — чуєш, яка смуга виділяється?",
+    ur: "اب EQ بوسٹ فعال ہے — کیا آپ سن سکتے ہیں کون سی فریکوئنسی نمایاں ہے؟"
+  },
+  "BEREIT!": {
+    fr: "PRÊT !",
+    es: "¡LISTO!",
+    pl: "GOTOWE!",
+    uk: "ГОТОВО!",
+    ur: "تیار!"
+  },
+  "Jetzt bist du dran!": {
+    fr: "À vous de jouer !",
+    es: "¡Ahora te toca!",
+    pl: "Teraz twoja kolej!",
+    uk: "Тепер твоя черга!",
+    ur: "اب آپ کی باری!"
+  },
+  "Wir laden dir gleich eine frische Aufgabe – tippe einfach direkt los!": {
+    fr: "Un nouvel exercice arrive — commencez directement !",
+    es: "Cargaremos un nuevo ejercicio — ¡empieza directamente!",
+    pl: "Załadujemy nowe zadanie — po prostu zacznij!",
+    uk: "Завантажимо нове завдання — просто починай!",
+    ur: "ہم نیا سوال لوڈ کر رہے ہیں — بس فوراً شروع کریں!"
+  },
+  "Wir laden dir jetzt eine frische Aufgabe – drücke unten auf Abspielen, sobald du bereit bist.": {
+    fr: "Nous chargeons un nouvel exercice — appuyez sur Lire dès que vous êtes prêt.",
+    es: "Cargaremos un nuevo ejercicio — pulsa Reproducir cuando estés listo.",
+    pl: "Załadujemy nowe zadanie — naciśnij Odtwórz poniżej, gdy będziesz gotowy.",
+    uk: "Завантажимо нове завдання — натисни Відтворити нижче, коли будеш готовий.",
+    ur: "ہم آپ کے لیے نئی مشق لوڈ کر رہے ہیں — جب تیار ہوں نیچے پلے دبائیں۔"
+  },
+  "▶ Jetzt selbst probieren": {
+    fr: "▶ Essayer moi-même",
+    es: "▶ Probarlo ahora",
+    pl: "▶ Spróbuj samodzielnie",
+    uk: "▶ Спробувати самостійно",
+    ur: "▶ خود آزمائیں"
+  },
+  "Nochmal ansehen": {
+    fr: "Revoir",
+    es: "Ver de nuevo",
+    pl: "Zobacz ponownie",
+    uk: "Подивитись ще раз",
+    ur: "دوبارہ دیکھیں"
+  },
+  "Abbrechen": {
+    fr: "Annuler",
+    es: "Cancelar",
+    pl: "Anuluj",
+    uk: "Скасувати",
+    ur: "منسوخ کریں"
   }
 });

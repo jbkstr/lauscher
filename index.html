@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Lauscher • Hören · Verstehen · Musizieren</title>
+  <title>Lauscher • Genauer hinhören.</title>
   <meta name="theme-color" id="metaThemeColor" content="#FAF7F2">
   <link rel="preload" href="fonts/Andika/Andika-Regular.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="preload" href="fonts/Andika/Andika-Bold.ttf" as="font" type="font/ttf" crossorigin>
@@ -23,12 +23,12 @@
         document.documentElement.lang = lang;
         document.documentElement.dir = lang === "ur" ? "rtl" : "ltr";
         document.documentElement.setAttribute("data-lang", lang);
-        if (lang === "en") document.title = "Lauscher • Listen · Understand · Play";
-        else if (lang === "es") document.title = "Lauscher • Escucha · Comprende · Toca";
-        else if (lang === "fr") document.title = "Lauscher • Écouter · Comprendre · Pratiquer";
-        else if (lang === "pl") document.title = "Lauscher • Słuchaj · Rozumiej · Graj";
-        else if (lang === "uk") document.title = "Lauscher • Слухай · Розумій · Грай";
-        else if (lang === "ur") document.title = "Lauscher • سنو · سمجھو · بجاؤ";
+        if (lang === "en") document.title = "Lauscher • Listen a little closer.";
+        else if (lang === "es") document.title = "Lauscher • Escucha un poco más de cerca.";
+        else if (lang === "fr") document.title = "Lauscher • Écouter d’un peu plus près.";
+        else if (lang === "pl") document.title = "Lauscher • Wsłuchaj się uważniej.";
+        else if (lang === "uk") document.title = "Lauscher • Прислухайся трохи уважніше.";
+        else if (lang === "ur") document.title = "Lauscher • ذرا غور سے سنیں۔";
         var appearance = (prefs.appearance === "light" || prefs.appearance === "dark" || prefs.appearance === "system") ? prefs.appearance : "light";
         var isBuiltInTheme = (prefs.theme === "waldlichtung" || prefs.theme === "morgentau" || prefs.theme === "abenddaemmerung" || prefs.theme === "metal");
         var isCustomTheme = (prefs.theme === "custom_1" || prefs.theme === "custom_2" || prefs.theme === "custom_3");
@@ -94,7 +94,7 @@
         <div class="splash-badge"></div>
       </div>
       <div class="splash-title">Lauscher</div>
-      <div class="splash-sub" data-i18n="app.tagline">Hören · Verstehen · Musizieren</div>
+      <div class="splash-sub" data-i18n="app.tagline">Genauer hinhören.</div>
     </div>
   </div>
 
@@ -402,7 +402,7 @@
             <div class="brand-title-wrap">
               <span id="headerMainTitle" class="brand-name">Übungen</span>
             </div>
-            <span id="subHeaderInfo" class="brand-sub" data-i18n="app.tagline">Hören · Verstehen · Musizieren</span>
+            <span id="subHeaderInfo" class="brand-sub" data-i18n="app.tagline">Genauer hinhören.</span>
           </div>
         </div>
       </div>
@@ -1729,6 +1729,13 @@
               </svg>
               <span id="answerSoundBtnLabel" data-i18n="ex.answerSoundOn">Notenton: An</span>
             </button>
+            <button id="exerciseDemoBtn" type="button" class="exercise-demo-btn" title="Übung einmal vormachen lassen" data-i18n-title="ex.demoBtnTitle" data-i18n-aria="ex.demoBtnAria">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9.5"/>
+                <polygon points="10 8.2 16 12 10 15.8 10 8.2" fill="currentColor" stroke="none"/>
+              </svg>
+              <span id="exerciseDemoBtnLabel" data-i18n="ex.demoBtn">Demo</span>
+            </button>
             <button id="listenOnlyBtn" type="button" class="listen-only-btn" aria-pressed="false" title="Nur-Hören-Modus ein-/ausschalten" data-i18n-title="ex.listenOnlyTitle" data-i18n-aria="ex.listenOnlyAria">
               <span class="listen-only-dot" aria-hidden="true"></span>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -1764,6 +1771,21 @@
           </button>
         </div>
 
+      </div>
+
+      <!-- Abdunkelung & schwebende Vormachen-Demo / Tutorial-Karte (ändert niemals die Übungshöhe) -->
+      <div id="exerciseTutorialBackdrop" class="ex-tutorial-backdrop hidden" aria-hidden="true"></div>
+      <div id="exerciseTutorialCard" class="ex-tutorial-card hidden" role="dialog" aria-modal="false" aria-live="polite">
+        <div class="ex-tutorial-head">
+          <div id="exTutorialMascot" class="ex-tutorial-mascot" aria-hidden="true"></div>
+          <div class="ex-tutorial-head-copy">
+            <span id="exTutorialStepBadge" class="ex-tutorial-badge">VORMACHEN</span>
+            <strong id="exTutorialTitle" class="ex-tutorial-title">So funktioniert diese Übung</strong>
+          </div>
+          <button type="button" id="exTutorialCloseBtn" class="ex-tutorial-close" aria-label="Schließen">✕</button>
+        </div>
+        <p id="exTutorialText" class="ex-tutorial-text"></p>
+        <div id="exTutorialActions" class="ex-tutorial-actions"></div>
       </div>
     </main>
 
@@ -2550,6 +2572,18 @@
         <div class="settings-group-label" data-i18n="settings.groupAudio">Übungen</div>
 
         <div class="settings-section">
+          <h4 data-i18n="settings.tutorialsHeading">Übungs-Tutorials (Vormachen)</h4>
+          <p class="settings-hint" data-i18n="settings.tutorialsHint">Zeigt beim ersten Start einer neuen Übungsart eine kurze Beispielrunde mit visuellen Hinweisen.</p>
+          <div id="exerciseTutorialsGroup" class="btn-group" role="group" aria-label="Übungs-Tutorials automatisch zeigen" data-i18n-aria="settings.tutorialsAria">
+            <button type="button" class="opt-btn active" data-ex-tutorials="on" aria-pressed="true" data-i18n="settings.autoNextOn">Ein</button>
+            <button type="button" class="opt-btn" data-ex-tutorials="off" aria-pressed="false" data-i18n="settings.autoNextOff">Aus</button>
+          </div>
+          <div class="settings-sub-field">
+            <button type="button" id="resetTutorialsBtn" class="btn-tool" data-i18n="settings.tutorialsResetBtn">Alle Einführungen erneut zeigen</button>
+          </div>
+        </div>
+
+        <div class="settings-section">
           <h4 data-i18n="settings.singHeading">Mitsingen</h4>
           <p class="settings-hint" data-i18n="settings.singHint">Einladungen zum Mitsingen und Mitsummen bei Intervall- und Solfège-Übungen.</p>
           <span class="account-label" data-i18n="settings.singTipsLabel">Mitsing-Tipps</span>
@@ -2775,7 +2809,7 @@
             <svg class="about-squircle-defs" width="0" height="0" focusable="false"><clipPath id="lauscherSquircle" clipPathUnits="objectBoundingBox"><path d="M1.0000 0.5000 L0.9996 0.6680 L0.9983 0.7214 L0.9961 0.7601 L0.9931 0.7912 L0.9892 0.8175 L0.9844 0.8405 L0.9787 0.8608 L0.9720 0.8789 L0.9644 0.8952 L0.9558 0.9100 L0.9461 0.9233 L0.9353 0.9353 L0.9233 0.9461 L0.9100 0.9558 L0.8952 0.9644 L0.8789 0.9720 L0.8608 0.9787 L0.8405 0.9844 L0.8175 0.9892 L0.7912 0.9931 L0.7601 0.9961 L0.7214 0.9983 L0.6680 0.9996 L0.5000 1.0000 L0.3320 0.9996 L0.2786 0.9983 L0.2399 0.9961 L0.2088 0.9931 L0.1825 0.9892 L0.1595 0.9844 L0.1392 0.9787 L0.1211 0.9720 L0.1048 0.9644 L0.0900 0.9558 L0.0767 0.9461 L0.0647 0.9353 L0.0539 0.9233 L0.0442 0.9100 L0.0356 0.8952 L0.0280 0.8789 L0.0213 0.8608 L0.0156 0.8405 L0.0108 0.8175 L0.0069 0.7912 L0.0039 0.7601 L0.0017 0.7214 L0.0004 0.6680 L0.0000 0.5000 L0.0004 0.3320 L0.0017 0.2786 L0.0039 0.2399 L0.0069 0.2088 L0.0108 0.1825 L0.0156 0.1595 L0.0213 0.1392 L0.0280 0.1211 L0.0356 0.1048 L0.0442 0.0900 L0.0539 0.0767 L0.0647 0.0647 L0.0767 0.0539 L0.0900 0.0442 L0.1048 0.0356 L0.1211 0.0280 L0.1392 0.0213 L0.1595 0.0156 L0.1825 0.0108 L0.2088 0.0069 L0.2399 0.0039 L0.2786 0.0017 L0.3320 0.0004 L0.5000 0.0000 L0.6680 0.0004 L0.7214 0.0017 L0.7601 0.0039 L0.7912 0.0069 L0.8175 0.0108 L0.8405 0.0156 L0.8608 0.0213 L0.8789 0.0280 L0.8952 0.0356 L0.9100 0.0442 L0.9233 0.0539 L0.9353 0.0647 L0.9461 0.0767 L0.9558 0.0900 L0.9644 0.1048 L0.9720 0.1211 L0.9787 0.1392 L0.9844 0.1595 L0.9892 0.1825 L0.9931 0.2088 L0.9961 0.2399 L0.9983 0.2786 L0.9996 0.3320 Z"/></clipPath></svg>
           </div>
           <h2 class="about-app-name">Lauscher</h2>
-          <span class="about-app-tagline" data-i18n="app.tagline">Hören · Verstehen · Musizieren</span>
+          <span class="about-app-tagline" data-i18n="app.tagline">Genauer hinhören.</span>
           <span id="aboutVersionBadge" class="about-version-badge">Version 0.9.0-beta</span>
           <p class="about-app-desc" data-i18n="about.description">Lauscher ist dein ruhiger, werbe- und trackingfreier Begleiter für musikalisches Gehörtraining, Notenlesen, Musiktheorie, Einsingen und Studio-Hören – komplett lokal auf deinem Gerät und ohne Punktedruck.</p>
         </div>
@@ -2964,6 +2998,7 @@
   <script src="js/generators.js"></script>
   <script src="js/exercises.js"></script>
   <script src="js/playback.js"></script>
+  <script src="js/tutorial.js"></script>
   <script src="js/profile.js"></script>
   <script src="app.js"></script>
   <script src="js/warmup.js"></script>

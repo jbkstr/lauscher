@@ -326,24 +326,26 @@ function renderNashvilleDiagramSVG(keyEntry, mode) {
 
   // Obere Reihe: die 3 Hauptfunktionen (1, 4, 5).
   // Untere Reihe: ihre jeweiligen Parallelen & Stellvertreter im passenden Funktionsbereich.
+  // 2er-Untergruppen (3-/7° in Dur bzw. 2°/♭6 in Moll) sind gestaffelt, damit das Diagramm
+  // vertikal großzügig und auf Mobilgeräten gut lesbar & bequem tippbar bleibt.
   const nodes = mode === "minor"
     ? [
-        { item: resolved[0], x: 280, y: 50,  r: 34, cls: "nns-svg-node-tonic nns-svg-node-root" }, // 1- (t)
-        { item: resolved[3], x: 96,  y: 74,  r: 29, cls: "nns-svg-node-subdom" },                  // 4- (s)
-        { item: resolved[4], x: 464, y: 74,  r: 29, cls: "nns-svg-node-dom" },                     // 5- (d)
-        { item: resolved[1], x: 56,  y: 164, r: 23, cls: "nns-svg-node-subdom" },                  // 2° (s²)
-        { item: resolved[5], x: 136, y: 164, r: 23, cls: "nns-svg-node-subdom" },                  // ♭6 (sP)
-        { item: resolved[2], x: 280, y: 164, r: 24, cls: "nns-svg-node-tonic" },                   // ♭3 (tP)
-        { item: resolved[6], x: 464, y: 164, r: 24, cls: "nns-svg-node-dom" }                      // ♭7 (dP)
+        { item: resolved[0], x: 228, y: 58,  r: 36, cls: "nns-svg-node-tonic nns-svg-node-root" }, // 1- (t)
+        { item: resolved[3], x: 78,  y: 86,  r: 32, cls: "nns-svg-node-subdom" },                  // 4- (s)
+        { item: resolved[4], x: 378, y: 86,  r: 32, cls: "nns-svg-node-dom" },                     // 5- (d)
+        { item: resolved[5], x: 112, y: 204, r: 27, cls: "nns-svg-node-subdom" },                  // ♭6 (sP)
+        { item: resolved[1], x: 44,  y: 266, r: 27, cls: "nns-svg-node-subdom" },                  // 2° (s²)
+        { item: resolved[2], x: 228, y: 232, r: 29, cls: "nns-svg-node-tonic" },                   // ♭3 (tP)
+        { item: resolved[6], x: 378, y: 232, r: 29, cls: "nns-svg-node-dom" }                      // ♭7 (dP)
       ]
     : [
-        { item: resolved[0], x: 280, y: 50,  r: 34, cls: "nns-svg-node-tonic nns-svg-node-root" }, // 1 (T)
-        { item: resolved[3], x: 96,  y: 74,  r: 29, cls: "nns-svg-node-subdom" },                  // 4 (S)
-        { item: resolved[4], x: 464, y: 74,  r: 29, cls: "nns-svg-node-dom" },                     // 5 (D)
-        { item: resolved[1], x: 96,  y: 164, r: 24, cls: "nns-svg-node-subdom" },                  // 2- (Sp)
-        { item: resolved[5], x: 280, y: 164, r: 24, cls: "nns-svg-node-tonic" },                   // 6- (Tp)
-        { item: resolved[2], x: 424, y: 164, r: 23, cls: "nns-svg-node-dom" },                     // 3- (Dp / Tg)
-        { item: resolved[6], x: 504, y: 164, r: 23, cls: "nns-svg-node-dom" }                      // 7° (Đ⁷)
+        { item: resolved[0], x: 228, y: 58,  r: 36, cls: "nns-svg-node-tonic nns-svg-node-root" }, // 1 (T)
+        { item: resolved[3], x: 78,  y: 86,  r: 32, cls: "nns-svg-node-subdom" },                  // 4 (S)
+        { item: resolved[4], x: 378, y: 86,  r: 32, cls: "nns-svg-node-dom" },                     // 5 (D)
+        { item: resolved[1], x: 78,  y: 232, r: 29, cls: "nns-svg-node-subdom" },                  // 2- (Sp)
+        { item: resolved[5], x: 228, y: 232, r: 29, cls: "nns-svg-node-tonic" },                   // 6- (Tp)
+        { item: resolved[2], x: 344, y: 204, r: 27, cls: "nns-svg-node-dom" },                     // 3- (Dp / Tg)
+        { item: resolved[6], x: 412, y: 266, r: 27, cls: "nns-svg-node-dom" }                      // 7° (Đ⁷)
       ];
 
   const tonicLbl = escapeHtml(nnsFunctionZoneLabel("tonic"));
@@ -352,21 +354,21 @@ function renderNashvilleDiagramSVG(keyEntry, mode) {
 
   const relationLines = mode === "minor"
     ? `
-      <line x1="84" y1="120" x2="64" y2="140" stroke="var(--lilac-strong)" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.55"/>
-      <line x1="108" y1="120" x2="128" y2="140" stroke="var(--lilac-strong)" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.55"/>
-      <line x1="280" y1="104" x2="280" y2="138" stroke="var(--sage-strong)" stroke-width="1.6" stroke-dasharray="3 4" opacity="0.55"/>
-      <line x1="464" y1="120" x2="464" y2="138" stroke="var(--peach-strong)" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.55"/>
+      <line x1="64" y1="154" x2="48" y2="237" stroke="var(--lilac-strong)" stroke-width="1.6" stroke-dasharray="3 4" opacity="0.55"/>
+      <line x1="90" y1="154" x2="104" y2="175" stroke="var(--lilac-strong)" stroke-width="1.6" stroke-dasharray="3 4" opacity="0.55"/>
+      <line x1="228" y1="138" x2="228" y2="199" stroke="var(--sage-strong)" stroke-width="1.7" stroke-dasharray="3 4" opacity="0.55"/>
+      <line x1="378" y1="154" x2="378" y2="199" stroke="var(--peach-strong)" stroke-width="1.6" stroke-dasharray="3 4" opacity="0.55"/>
     `
     : `
-      <line x1="96" y1="120" x2="96" y2="138" stroke="var(--lilac-strong)" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.55"/>
-      <line x1="280" y1="104" x2="280" y2="138" stroke="var(--sage-strong)" stroke-width="1.6" stroke-dasharray="3 4" opacity="0.55"/>
-      <line x1="452" y1="120" x2="432" y2="140" stroke="var(--peach-strong)" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.55"/>
-      <line x1="476" y1="120" x2="496" y2="140" stroke="var(--peach-strong)" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.55"/>
-      <line x1="308" y1="74" x2="404" y2="148" stroke="var(--sage-strong)" stroke-width="1.4" stroke-dasharray="2 4" opacity="0.4"/>
+      <line x1="78" y1="154" x2="78" y2="199" stroke="var(--lilac-strong)" stroke-width="1.6" stroke-dasharray="3 4" opacity="0.55"/>
+      <line x1="228" y1="138" x2="228" y2="199" stroke="var(--sage-strong)" stroke-width="1.7" stroke-dasharray="3 4" opacity="0.55"/>
+      <line x1="366" y1="154" x2="352" y2="175" stroke="var(--peach-strong)" stroke-width="1.6" stroke-dasharray="3 4" opacity="0.55"/>
+      <line x1="392" y1="154" x2="408" y2="237" stroke="var(--peach-strong)" stroke-width="1.6" stroke-dasharray="3 4" opacity="0.55"/>
+      <line x1="258" y1="84" x2="324" y2="184" stroke="var(--sage-strong)" stroke-width="1.5" stroke-dasharray="2 4" opacity="0.42"/>
     `;
 
   return `
-    <svg class="nns-diagram-svg" viewBox="0 0 560 250" role="img" aria-label="${escapeHtml(tf("Nashville-Diagramm für {key}", "Nashville diagram for {key}", { key: formatNnsKeyTitle(keyEntry, mode) }))}" xmlns="http://www.w3.org/2000/svg">
+    <svg class="nns-diagram-svg" viewBox="0 0 456 368" role="img" aria-label="${escapeHtml(tf("Nashville-Diagramm für {key}", "Nashville diagram for {key}", { key: formatNnsKeyTitle(keyEntry, mode) }))}" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="nnsArrowDom" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
           <path d="M 1 2 L 8 5 L 1 8 z" fill="var(--peach-strong)"/>
@@ -376,31 +378,42 @@ function renderNashvilleDiagramSVG(keyEntry, mode) {
         </marker>
       </defs>
 
-      <rect x="12" y="34" width="168" height="208" rx="18" class="nns-svg-zone nns-svg-zone-subdom"/>
-      <rect x="196" y="10" width="168" height="232" rx="20" class="nns-svg-zone nns-svg-zone-tonic"/>
-      <rect x="380" y="34" width="168" height="208" rx="18" class="nns-svg-zone nns-svg-zone-dom"/>
+      <rect x="6" y="32" width="144" height="326" rx="18" class="nns-svg-zone nns-svg-zone-subdom"/>
+      <rect x="156" y="10" width="144" height="348" rx="20" class="nns-svg-zone nns-svg-zone-tonic"/>
+      <rect x="306" y="32" width="144" height="326" rx="18" class="nns-svg-zone nns-svg-zone-dom"/>
 
-      <text x="96" y="231" text-anchor="middle" font-family="Andika, sans-serif" font-size="11" font-weight="700" class="nns-svg-zone-lbl-subdom">${subdomLbl}</text>
-      <text x="280" y="231" text-anchor="middle" font-family="Andika, sans-serif" font-size="11" font-weight="700" class="nns-svg-zone-lbl-tonic">${tonicLbl}</text>
-      <text x="464" y="231" text-anchor="middle" font-family="Andika, sans-serif" font-size="11" font-weight="700" class="nns-svg-zone-lbl-dom">${domLbl}</text>
+      <text x="78" y="347" text-anchor="middle" font-family="Andika, sans-serif" font-size="12" font-weight="700" class="nns-svg-zone-lbl-subdom">${subdomLbl}</text>
+      <text x="228" y="347" text-anchor="middle" font-family="Andika, sans-serif" font-size="12" font-weight="700" class="nns-svg-zone-lbl-tonic">${tonicLbl}</text>
+      <text x="378" y="347" text-anchor="middle" font-family="Andika, sans-serif" font-size="12" font-weight="700" class="nns-svg-zone-lbl-dom">${domLbl}</text>
 
-      <path d="M 244 58 Q 184 60 128 72" fill="none" stroke="var(--lilac-strong)" stroke-width="2" stroke-dasharray="4 4" opacity="0.72" marker-end="url(#nnsArrowSub)"/>
-      <path d="M 128 86 Q 280 122 432 86" fill="none" stroke="var(--peach-strong)" stroke-width="2" stroke-dasharray="5 4" opacity="0.65" marker-end="url(#nnsArrowDom)"/>
-      <path d="M 434 66 Q 376 46 318 50" fill="none" stroke="var(--peach-strong)" stroke-width="2.3" opacity="0.88" marker-end="url(#nnsArrowDom)"/>
+      <path d="M 190 66 Q 148 68 112 80" fill="none" stroke="var(--lilac-strong)" stroke-width="2.1" stroke-dasharray="4 4" opacity="0.72" marker-end="url(#nnsArrowSub)"/>
+      <path d="M 110 102 Q 228 168 346 102" fill="none" stroke="var(--peach-strong)" stroke-width="2.1" stroke-dasharray="5 4" opacity="0.65" marker-end="url(#nnsArrowDom)"/>
+      <path d="M 346 74 Q 306 52 266 56" fill="none" stroke="var(--peach-strong)" stroke-width="2.4" opacity="0.88" marker-end="url(#nnsArrowDom)"/>
       ${relationLines}
 
       ${nodes.map(n => {
         const badge = nnsDiagramNodeBadge(n.item.roleKey);
         const roleLabel = nnsDegreeRoleLabel(n.item.roleKey);
+        const badgeParts = String(badge || "").split(" · ");
+        const badgeY = n.y + n.r + 14;
+        const badgeMarkup = badgeParts.length >= 2
+          ? `<text x="${n.x}" y="${badgeY}" text-anchor="middle" font-family="Andika, sans-serif" font-size="12" font-weight="700" class="nns-svg-role">
+              <tspan x="${n.x}" dy="0">${escapeHtml(badgeParts[0])}</tspan>
+              <tspan x="${n.x}" dy="13" font-size="10.8" class="nns-svg-role-sub">${escapeHtml(badgeParts.slice(1).join(" · "))}</tspan>
+            </text>`
+          : `<text x="${n.x}" y="${badgeY}" text-anchor="middle" font-family="Andika, sans-serif" font-size="11.5" font-weight="700" class="nns-svg-role">${escapeHtml(badge)}</text>`;
+        const numSize = n.r >= 35 ? 21 : (n.r >= 31 ? 18.5 : (n.r >= 28 ? 17 : 16));
+        const chordSize = n.r >= 35 ? 14 : (n.r >= 31 ? 13 : (n.r >= 28 ? 12.5 : 12));
+        const chordDy = n.r >= 35 ? 16 : (n.r >= 31 ? 15 : 14);
         return `
         <g class="nns-svg-node ${n.cls}" role="button" tabindex="0"
            data-nns-play="${escapeHtml(n.item.token)}"
            data-nns-flash="${escapeHtml(n.item.token)}"
            aria-label="${escapeHtml(`${n.item.token}: ${n.item.chordName} (${n.item.roman}, ${roleLabel})`)}">
           <circle cx="${n.x}" cy="${n.y}" r="${n.r}"/>
-          <text x="${n.x}" y="${n.y - 3}" text-anchor="middle" font-family="Andika, sans-serif" font-size="${n.r >= 33 ? 18.5 : (n.r >= 28 ? 16 : 14)}" font-weight="700" class="nns-svg-num">${escapeHtml(n.item.token)}</text>
-          <text x="${n.x}" y="${n.y + (n.r >= 33 ? 15.5 : 13)}" text-anchor="middle" font-family="Andika, sans-serif" font-size="${n.r >= 33 ? 12.5 : 11}" font-weight="700" class="nns-svg-chord">${escapeHtml(n.item.chordName)}</text>
-          <text x="${n.x}" y="${n.y + n.r + 13}" text-anchor="middle" font-family="Andika, sans-serif" font-size="9.3" font-weight="700" class="nns-svg-role">${escapeHtml(badge)}</text>
+          <text x="${n.x}" y="${n.y - 3.5}" text-anchor="middle" font-family="Andika, sans-serif" font-size="${numSize}" font-weight="700" class="nns-svg-num">${escapeHtml(n.item.token)}</text>
+          <text x="${n.x}" y="${n.y + chordDy}" text-anchor="middle" font-family="Andika, sans-serif" font-size="${chordSize}" font-weight="700" class="nns-svg-chord">${escapeHtml(n.item.chordName)}</text>
+          ${badgeMarkup}
         </g>
       `;
       }).join("")}
