@@ -6,7 +6,7 @@
 
 // DEV-ONLY: 7× Tippen auf das Versions-Badge in „Über Lauscher“ schaltet alle Meilensteine frei
 // (nochmal 7× setzt sie zum Testen wieder zurück). Vor Release auf false setzen oder entfernen.
-const DEV_ACHIEVEMENTS_TAP_UNLOCK_ENABLED = true;
+const DEV_ACHIEVEMENTS_TAP_UNLOCK_ENABLED = false;
 
 const ACHIEVEMENT_GROUPS = ["explore", "music", "exams", "habit"];
 
