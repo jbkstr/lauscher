@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Lauscher • Hören · Verstehen · Musizieren</title>
+  <title>Lauscher • Genauer hinhören.</title>
   <meta name="theme-color" id="metaThemeColor" content="#FAF7F2">
   <style>
 /* =====================================================
@@ -2882,6 +2882,24 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
   min-width: 0;
 }
 
+/* Temporäre Einstellungs-Popovers im Übungsmodul schweben als Overlay unter dem Kopf,
+   damit Öffnen und Schließen weder die Modulhöhe noch das Fit-Layout (Notensystem/Kacheln) verschieben */
+#exerciseModuleCard {
+  z-index: 20;
+}
+
+#exerciseModuleCard > .module-inline-popover:not(.is-pinned) {
+  position: absolute;
+  top: 3.2rem;
+  inset-inline: 0.48rem;
+  margin-bottom: 0;
+  z-index: 35;
+  max-height: min(62dvh, 420px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  box-shadow: 0 12px 30px rgba(31, 51, 66, 0.22), var(--shadow-card);
+}
+
 @keyframes fadeSlideDown {
   from { opacity: 0; transform: translateY(-4px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -3339,7 +3357,8 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
   transition: background 0.08s ease, transform 0.06s ease, box-shadow 0.08s ease;
 }
 
-.piano-white-key:last-of-type {
+.piano-white-key:last-of-type,
+.piano-white-key.is-last-white {
   border-right: none;
 }
 
@@ -3349,9 +3368,9 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
   transform: translateY(1.5px);
 }
 
-/* Äußere Rahmen-Tasten (an beiden Enden nur halb breit, im hellen Modus in der warmen Akzentfarbe des Notensystem-/Kachel-Hintergrunds) */
+/* Äußere Rahmen-Tasten (an beiden Enden schmaler als halbe Taste, dezent abgesetzt) */
 .piano-key-frame {
-  flex: 0.5 1 0%;
+  flex: 0.36 1 0%;
   background: var(--piano-key-inactive-bg);
   border-right: 1px solid var(--piano-key-inactive-border);
   cursor: default;
@@ -3366,9 +3385,8 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
 }
 
 .piano-key-frame .piano-note-hint {
-  font-size: 0.64rem;
   color: var(--piano-key-inactive-text);
-  opacity: 0.88;
+  opacity: 0.68;
 }
 
 .piano-key-inactive:not(.piano-key-frame) .piano-note-hint {
@@ -3390,7 +3408,7 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
   background: linear-gradient(180deg, var(--piano-white-active-bg) 0%, var(--surface-white) 85%, var(--surface-warm) 100%);
 }
 
-/* Mittiges Solfège-Kästchen sauber unterhalb der schwarzen Tasten auf den relevanten Tonleiter-Tasten */
+/* Einheitliche Solfège-/Ton-Kästchen auf weißen und schwarzen Tasten */
 .solfege-key-box {
   position: absolute;
   top: 70%;
@@ -3399,11 +3417,14 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
   background-color: var(--bg-base);
   border: 1.5px solid var(--border-strong);
   border-radius: 6px;
-  padding: 0.22rem 0.14rem;
-  width: 82%;
+  padding: 0.18rem 0.08rem;
+  width: min(76%, 2.45rem);
   text-align: center;
-  font-size: 0.86rem;
+  font-size: clamp(0.62rem, 2.15vw, 0.8rem);
   font-weight: 800;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  white-space: nowrap;
   color: var(--raccoon-dark);
   box-shadow: 0 2px 4px rgba(61, 64, 91, 0.08);
   transition: background-color 0.15s, color 0.15s, border-color 0.15s, transform 0.15s;
@@ -3412,13 +3433,13 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
 
 @media (min-width: 640px) {
   .solfege-key-box {
-    font-size: 0.96rem;
-    padding: 0.26rem 0.18rem;
+    font-size: 0.8rem;
+    padding: 0.22rem 0.14rem;
   }
 }
 
 .piano-note-hint {
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   font-weight: 800;
   line-height: 1;
   color: var(--piano-white-active-ink);
@@ -3491,9 +3512,11 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
 
 .solfege-key-box-black {
   top: 52%;
-  width: 88%;
-  padding: 0.16rem 0.08rem;
-  font-size: 0.66rem;
+  width: calc(100% - 2px);
+  max-width: 2.3rem;
+  border-width: 1px;
+  padding: 0.18rem 0.04rem;
+  font-size: clamp(0.62rem, 2.15vw, 0.8rem);
   line-height: 1.15;
   background-color: var(--piano-black-solfege-bg);
   color: var(--piano-black-solfege-ink);
@@ -3501,8 +3524,8 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
 
 @media (min-width: 640px) {
   .solfege-key-box-black {
-    font-size: 0.78rem;
-    padding: 0.2rem 0.12rem;
+    font-size: 0.8rem;
+    padding: 0.22rem 0.08rem;
   }
 }
 
@@ -3549,6 +3572,7 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
 }
 
 .answer-sound-btn,
+.exercise-demo-btn,
 .listen-only-btn {
   background-color: var(--surface-white);
   color: var(--raccoon-mid);
@@ -3567,10 +3591,21 @@ html[lang="ur"] .btn-primary-action.home-continue-fab { width: 188px; }
 }
 
 .answer-sound-btn svg,
+.exercise-demo-btn svg,
 .listen-only-btn svg {
   width: 13px;
   height: 13px;
   flex-shrink: 0;
+}
+
+.exercise-demo-btn svg {
+  color: var(--peach-strong);
+}
+
+.exercise-demo-btn.is-active {
+  background-color: var(--peach-soft);
+  border-color: var(--peach-strong);
+  color: var(--peach-strong);
 }
 
 .answer-sound-btn .answer-sound-icon {
@@ -10127,19 +10162,32 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 
 .solfege-keyboard-wrap.is-notation .notation-key-box-white {
   top: 76%;
-  font-size: 0.86rem;
-  padding: 0.22rem 0.14rem;
+  width: min(76%, 2.45rem);
+  font-size: clamp(0.72rem, 2.35vw, 0.84rem);
+  padding: 0.2rem 0.1rem;
 }
 
 .solfege-keyboard-wrap.is-notation .notation-key-box-black {
   top: 50%;
-  font-size: 0.54rem;
-  padding: 0.14rem 0.06rem;
+  width: calc(100% - 3px);
+  max-width: 2.35rem;
+  font-size: clamp(0.56rem, 1.85vw, 0.66rem);
+  line-height: 1.14;
+  padding: 0.14rem 0.04rem;
+  white-space: pre-line;
 }
 
 @media (min-width: 640px) {
   .solfege-keyboard-wrap.is-notation .piano-keyboard {
     height: 198px;
+  }
+  .solfege-keyboard-wrap.is-notation .notation-key-box-white {
+    font-size: 0.84rem;
+    padding: 0.22rem 0.14rem;
+  }
+  .solfege-keyboard-wrap.is-notation .notation-key-box-black {
+    font-size: 0.66rem;
+    padding: 0.16rem 0.06rem;
   }
 }
 
@@ -12314,10 +12362,12 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 #viewExercise.sing-hint-float .sing-along-hint {
   position: absolute;
   top: calc(100% + 0.35rem);
-  left: 0.3rem;
-  right: 0.3rem;
+  inset-inline: 0.3rem;
   margin-top: 0;
-  z-index: 20;
+  z-index: 25;
+  max-height: min(48dvh, 260px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
   box-shadow: 0 10px 28px rgba(31, 51, 66, 0.22), var(--shadow-card);
 }
 
@@ -14958,7 +15008,7 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   border-radius: var(--radius-md);
   background: var(--surface-warm);
   border: 1px solid var(--border-soft);
-  padding: 8px 6px 6px;
+  padding: 8px 4px 6px;
   overflow: hidden;
 }
 
@@ -14966,7 +15016,8 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   display: block;
   width: 100%;
   height: auto;
-  max-height: 250px;
+  max-height: 410px;
+  margin: 0 auto;
 }
 
 .nns-svg-zone {
@@ -15044,6 +15095,10 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 .nns-svg-role {
   fill: var(--raccoon-dark);
   opacity: 0.85;
+}
+
+.nns-svg-role-sub {
+  opacity: 0.88;
 }
 
 .nns-svg-node-tonic .nns-svg-role { fill: var(--sage-strong); opacity: 1; }
@@ -15612,6 +15667,241 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   }
 }
 
+/* =====================================================
+   VORMACHEN-DEMO / INTERAKTIVES ÜBUNGS-TUTORIAL
+   ===================================================== */
+#viewExercise {
+  position: relative;
+}
+
+.ex-tutorial-backdrop {
+  position: absolute;
+  inset: -4px;
+  z-index: 38;
+  background: rgba(15, 22, 32, 0.56);
+  backdrop-filter: blur(1.5px);
+  -webkit-backdrop-filter: blur(1.5px);
+  pointer-events: auto;
+  animation: exTutorialFadeIn 0.2s ease-out;
+}
+
+[data-appearance="dark"] .ex-tutorial-backdrop {
+  background: rgba(4, 6, 12, 0.72);
+}
+
+@keyframes exTutorialFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.ex-tutorial-card {
+  position: absolute;
+  inset-inline: 0.65rem;
+  max-width: 440px;
+  margin-inline: auto;
+  z-index: 52;
+  background-color: var(--surface-white);
+  border: 2px solid var(--peach-strong);
+  border-radius: var(--radius-lg);
+  padding: 0.78rem 0.88rem;
+  box-shadow: 0 18px 44px rgba(15, 22, 32, 0.34), var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.52rem;
+  animation: fadeSlideDown 0.18s ease-out;
+}
+
+.ex-tutorial-card.is-pos-center {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.ex-tutorial-card.is-pos-top {
+  top: 0.65rem;
+}
+
+.ex-tutorial-card.is-pos-bottom {
+  bottom: 4.4rem;
+}
+
+.ex-tutorial-card.is-compact {
+  padding: 0.56rem 0.76rem;
+  gap: 0.36rem;
+}
+
+.ex-tutorial-head {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.ex-tutorial-mascot {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ex-tutorial-card.is-compact .ex-tutorial-mascot {
+  width: 34px;
+  height: 34px;
+}
+
+.ex-tutorial-mascot > svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.ex-tutorial-head-copy {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+  gap: 0.08rem;
+}
+
+.ex-tutorial-badge {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--peach-strong);
+}
+
+.ex-tutorial-title {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+  line-height: 1.2;
+}
+
+.ex-tutorial-card.is-compact .ex-tutorial-title {
+  font-size: 0.84rem;
+}
+
+.ex-tutorial-close {
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-soft);
+  background: var(--surface-warm);
+  color: var(--raccoon-mid);
+  font-size: 0.82rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ex-tutorial-text {
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: var(--raccoon-mid);
+  margin: 0;
+}
+
+.ex-tutorial-card.is-compact .ex-tutorial-text {
+  font-size: 0.78rem;
+  line-height: 1.32;
+}
+
+.ex-tutorial-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.ex-tutorial-btn {
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 0.44rem 0.78rem;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--border-strong);
+  background: var(--surface-warm);
+  color: var(--raccoon-dark);
+  cursor: pointer;
+  transition: transform 0.1s ease, filter 0.15s ease;
+}
+
+.ex-tutorial-btn:active {
+  transform: scale(0.97);
+}
+
+.ex-tutorial-btn.is-primary {
+  background: var(--btn-primary-bg);
+  border-color: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
+}
+
+.ex-tutorial-btn.is-secondary {
+  background: var(--surface-white);
+  border-color: var(--border-strong);
+  color: var(--raccoon-dark);
+}
+
+.ex-tutorial-btn.is-ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--raccoon-muted);
+  font-size: 0.71rem;
+  padding: 0.24rem 0.32rem;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.ex-tutorial-card.is-compact .ex-tutorial-btn {
+  font-size: 0.72rem;
+  padding: 0.28rem 0.64rem;
+}
+
+.tutorial-spotlight {
+  position: relative !important;
+  z-index: 44 !important;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 0 0 3px var(--peach-strong), 0 0 0 8px color-mix(in srgb, var(--peach-strong) 26%, transparent), 0 14px 36px rgba(15, 22, 32, 0.32) !important;
+  transition: box-shadow 0.24s ease;
+}
+
+.bottom-dock .tutorial-spotlight {
+  background-color: var(--bg-base);
+  padding: 6px;
+  margin: -6px;
+}
+
+@keyframes tutorialTargetPulse {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--sage-strong) 55%, transparent); }
+  55%  { box-shadow: 0 0 0 7px color-mix(in srgb, var(--sage-strong) 18%, transparent); }
+  100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--sage-strong) 0%, transparent); }
+}
+
+.tutorial-target-pulse {
+  animation: tutorialTargetPulse 0.95s ease-out infinite;
+  outline: 2.5px solid var(--sage-strong);
+  outline-offset: 1px;
+}
+
+#viewExercise.is-tutorial-running .bottom-dock .degrees-grid,
+#viewExercise.is-tutorial-running .bottom-dock .solfege-keyboard-wrap,
+#viewExercise.is-tutorial-running .bottom-dock .rhythm-tap-wrap,
+#viewExercise.is-tutorial-running .bottom-dock .melody-rhythm-picker {
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ex-tutorial-backdrop,
+  .ex-tutorial-card,
+  .tutorial-target-pulse {
+    animation: none;
+  }
+}
+
 </style>
   <script>
     (function () {
@@ -15627,12 +15917,12 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
         document.documentElement.lang = lang;
         document.documentElement.dir = lang === "ur" ? "rtl" : "ltr";
         document.documentElement.setAttribute("data-lang", lang);
-        if (lang === "en") document.title = "Lauscher • Listen · Understand · Play";
-        else if (lang === "es") document.title = "Lauscher • Escucha · Comprende · Toca";
-        else if (lang === "fr") document.title = "Lauscher • Écouter · Comprendre · Pratiquer";
-        else if (lang === "pl") document.title = "Lauscher • Słuchaj · Rozumiej · Graj";
-        else if (lang === "uk") document.title = "Lauscher • Слухай · Розумій · Грай";
-        else if (lang === "ur") document.title = "Lauscher • سنو · سمجھو · بجاؤ";
+        if (lang === "en") document.title = "Lauscher • Listen a little closer.";
+        else if (lang === "es") document.title = "Lauscher • Escucha un poco más de cerca.";
+        else if (lang === "fr") document.title = "Lauscher • Écouter d’un peu plus près.";
+        else if (lang === "pl") document.title = "Lauscher • Wsłuchaj się uważniej.";
+        else if (lang === "uk") document.title = "Lauscher • Прислухайся трохи уважніше.";
+        else if (lang === "ur") document.title = "Lauscher • ذرا غور سے سنیں۔";
         var appearance = (prefs.appearance === "light" || prefs.appearance === "dark" || prefs.appearance === "system") ? prefs.appearance : "light";
         var isBuiltInTheme = (prefs.theme === "waldlichtung" || prefs.theme === "morgentau" || prefs.theme === "abenddaemmerung" || prefs.theme === "metal");
         var isCustomTheme = (prefs.theme === "custom_1" || prefs.theme === "custom_2" || prefs.theme === "custom_3");
@@ -15698,7 +15988,7 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
         <div class="splash-badge"></div>
       </div>
       <div class="splash-title">Lauscher</div>
-      <div class="splash-sub" data-i18n="app.tagline">Hören · Verstehen · Musizieren</div>
+      <div class="splash-sub" data-i18n="app.tagline">Genauer hinhören.</div>
     </div>
   </div>
 
@@ -16157,7 +16447,7 @@ const LAUSCHER_MASCOT_METAL_VARIANTS = {
             <div class="brand-title-wrap">
               <span id="headerMainTitle" class="brand-name">Übungen</span>
             </div>
-            <span id="subHeaderInfo" class="brand-sub" data-i18n="app.tagline">Hören · Verstehen · Musizieren</span>
+            <span id="subHeaderInfo" class="brand-sub" data-i18n="app.tagline">Genauer hinhören.</span>
           </div>
         </div>
       </div>
@@ -17484,6 +17774,13 @@ const LAUSCHER_MASCOT_METAL_VARIANTS = {
               </svg>
               <span id="answerSoundBtnLabel" data-i18n="ex.answerSoundOn">Notenton: An</span>
             </button>
+            <button id="exerciseDemoBtn" type="button" class="exercise-demo-btn" title="Übung einmal vormachen lassen" data-i18n-title="ex.demoBtnTitle" data-i18n-aria="ex.demoBtnAria">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9.5"/>
+                <polygon points="10 8.2 16 12 10 15.8 10 8.2" fill="currentColor" stroke="none"/>
+              </svg>
+              <span id="exerciseDemoBtnLabel" data-i18n="ex.demoBtn">Demo</span>
+            </button>
             <button id="listenOnlyBtn" type="button" class="listen-only-btn" aria-pressed="false" title="Nur-Hören-Modus ein-/ausschalten" data-i18n-title="ex.listenOnlyTitle" data-i18n-aria="ex.listenOnlyAria">
               <span class="listen-only-dot" aria-hidden="true"></span>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -17519,6 +17816,21 @@ const LAUSCHER_MASCOT_METAL_VARIANTS = {
           </button>
         </div>
 
+      </div>
+
+      <!-- Abdunkelung & schwebende Vormachen-Demo / Tutorial-Karte (ändert niemals die Übungshöhe) -->
+      <div id="exerciseTutorialBackdrop" class="ex-tutorial-backdrop hidden" aria-hidden="true"></div>
+      <div id="exerciseTutorialCard" class="ex-tutorial-card hidden" role="dialog" aria-modal="false" aria-live="polite">
+        <div class="ex-tutorial-head">
+          <div id="exTutorialMascot" class="ex-tutorial-mascot" aria-hidden="true"></div>
+          <div class="ex-tutorial-head-copy">
+            <span id="exTutorialStepBadge" class="ex-tutorial-badge">VORMACHEN</span>
+            <strong id="exTutorialTitle" class="ex-tutorial-title">So funktioniert diese Übung</strong>
+          </div>
+          <button type="button" id="exTutorialCloseBtn" class="ex-tutorial-close" aria-label="Schließen">✕</button>
+        </div>
+        <p id="exTutorialText" class="ex-tutorial-text"></p>
+        <div id="exTutorialActions" class="ex-tutorial-actions"></div>
       </div>
     </main>
 
@@ -18305,6 +18617,18 @@ const LAUSCHER_MASCOT_METAL_VARIANTS = {
         <div class="settings-group-label" data-i18n="settings.groupAudio">Übungen</div>
 
         <div class="settings-section">
+          <h4 data-i18n="settings.tutorialsHeading">Übungs-Tutorials (Vormachen)</h4>
+          <p class="settings-hint" data-i18n="settings.tutorialsHint">Zeigt beim ersten Start einer neuen Übungsart eine kurze Beispielrunde mit visuellen Hinweisen.</p>
+          <div id="exerciseTutorialsGroup" class="btn-group" role="group" aria-label="Übungs-Tutorials automatisch zeigen" data-i18n-aria="settings.tutorialsAria">
+            <button type="button" class="opt-btn active" data-ex-tutorials="on" aria-pressed="true" data-i18n="settings.autoNextOn">Ein</button>
+            <button type="button" class="opt-btn" data-ex-tutorials="off" aria-pressed="false" data-i18n="settings.autoNextOff">Aus</button>
+          </div>
+          <div class="settings-sub-field">
+            <button type="button" id="resetTutorialsBtn" class="btn-tool" data-i18n="settings.tutorialsResetBtn">Alle Einführungen erneut zeigen</button>
+          </div>
+        </div>
+
+        <div class="settings-section">
           <h4 data-i18n="settings.singHeading">Mitsingen</h4>
           <p class="settings-hint" data-i18n="settings.singHint">Einladungen zum Mitsingen und Mitsummen bei Intervall- und Solfège-Übungen.</p>
           <span class="account-label" data-i18n="settings.singTipsLabel">Mitsing-Tipps</span>
@@ -18530,7 +18854,7 @@ const LAUSCHER_MASCOT_METAL_VARIANTS = {
             <svg class="about-squircle-defs" width="0" height="0" focusable="false"><clipPath id="lauscherSquircle" clipPathUnits="objectBoundingBox"><path d="M1.0000 0.5000 L0.9996 0.6680 L0.9983 0.7214 L0.9961 0.7601 L0.9931 0.7912 L0.9892 0.8175 L0.9844 0.8405 L0.9787 0.8608 L0.9720 0.8789 L0.9644 0.8952 L0.9558 0.9100 L0.9461 0.9233 L0.9353 0.9353 L0.9233 0.9461 L0.9100 0.9558 L0.8952 0.9644 L0.8789 0.9720 L0.8608 0.9787 L0.8405 0.9844 L0.8175 0.9892 L0.7912 0.9931 L0.7601 0.9961 L0.7214 0.9983 L0.6680 0.9996 L0.5000 1.0000 L0.3320 0.9996 L0.2786 0.9983 L0.2399 0.9961 L0.2088 0.9931 L0.1825 0.9892 L0.1595 0.9844 L0.1392 0.9787 L0.1211 0.9720 L0.1048 0.9644 L0.0900 0.9558 L0.0767 0.9461 L0.0647 0.9353 L0.0539 0.9233 L0.0442 0.9100 L0.0356 0.8952 L0.0280 0.8789 L0.0213 0.8608 L0.0156 0.8405 L0.0108 0.8175 L0.0069 0.7912 L0.0039 0.7601 L0.0017 0.7214 L0.0004 0.6680 L0.0000 0.5000 L0.0004 0.3320 L0.0017 0.2786 L0.0039 0.2399 L0.0069 0.2088 L0.0108 0.1825 L0.0156 0.1595 L0.0213 0.1392 L0.0280 0.1211 L0.0356 0.1048 L0.0442 0.0900 L0.0539 0.0767 L0.0647 0.0647 L0.0767 0.0539 L0.0900 0.0442 L0.1048 0.0356 L0.1211 0.0280 L0.1392 0.0213 L0.1595 0.0156 L0.1825 0.0108 L0.2088 0.0069 L0.2399 0.0039 L0.2786 0.0017 L0.3320 0.0004 L0.5000 0.0000 L0.6680 0.0004 L0.7214 0.0017 L0.7601 0.0039 L0.7912 0.0069 L0.8175 0.0108 L0.8405 0.0156 L0.8608 0.0213 L0.8789 0.0280 L0.8952 0.0356 L0.9100 0.0442 L0.9233 0.0539 L0.9353 0.0647 L0.9461 0.0767 L0.9558 0.0900 L0.9644 0.1048 L0.9720 0.1211 L0.9787 0.1392 L0.9844 0.1595 L0.9892 0.1825 L0.9931 0.2088 L0.9961 0.2399 L0.9983 0.2786 L0.9996 0.3320 Z"/></clipPath></svg>
           </div>
           <h2 class="about-app-name">Lauscher</h2>
-          <span class="about-app-tagline" data-i18n="app.tagline">Hören · Verstehen · Musizieren</span>
+          <span class="about-app-tagline" data-i18n="app.tagline">Genauer hinhören.</span>
           <span id="aboutVersionBadge" class="about-version-badge">Version 0.9.0-beta</span>
           <p class="about-app-desc" data-i18n="about.description">Lauscher ist dein ruhiger, werbe- und trackingfreier Begleiter für musikalisches Gehörtraining, Notenlesen, Musiktheorie, Einsingen und Studio-Hören – komplett lokal auf deinem Gerät und ohne Punktedruck.</p>
         </div>
@@ -19205,6 +19529,10 @@ class EarLabSampledInstrument {
           voiceVel = Math.max(0.02, Math.min(1, safeVel * velJitter));
         }
       }
+      const gainMult = Number.isFinite(envOverride?.gainMult)
+        ? Math.max(0.05, Math.min(1.5, envOverride.gainMult))
+        : 1.0;
+      voiceVel *= gainMult;
 
       const envGain = this.rawCtx.createGain();
       const gainParam = envGain.gain;
@@ -20916,7 +21244,11 @@ class AudioEngine {
       const stepDur = Math.max(0.2, durationSec);
       const totalWindowSec = isSeq ? ((notes.length - 1) * arpeggioStepMs) / 1000 + stepDur : stepDur;
       const samplerNotes = isSeq ? notes : [...new Set(notes)];
-      const vel = Math.min(1, (isSeq ? 0.92 : Math.min(1, 1.05 / Math.sqrt(samplerNotes.length))) * safeGainScale);
+      const baseVel = isSeq ? 0.92 : Math.min(1, 1.05 / Math.sqrt(samplerNotes.length));
+      const vel = Math.min(1, baseVel * Math.min(1, safeGainScale));
+      const samplerEnv = safeGainScale > 1
+        ? { ...(envOverride || {}), gainMult: (Number.isFinite(envOverride?.gainMult) ? envOverride.gainMult : 1) * safeGainScale }
+        : envOverride;
       const entry = { demoSampler };
       this.activeDemoNodes.push(entry);
 
@@ -20927,10 +21259,10 @@ class AudioEngine {
       if (isSeq) {
         samplerNotes.forEach((n, idx) => {
           const tNote = baseAt + (idx * arpeggioStepMs) / 1000;
-          demoSampler.triggerAttackRelease(n, stepDur, tNote, vel, envOverride);
+          demoSampler.triggerAttackRelease(n, stepDur, tNote, vel, samplerEnv);
         });
       } else {
-        demoSampler.triggerAttackRelease(samplerNotes, stepDur, baseAt, vel, envOverride);
+        demoSampler.triggerAttackRelease(samplerNotes, stepDur, baseAt, vel, samplerEnv);
       }
 
       setTimeout(() => {
@@ -22102,22 +22434,22 @@ function getLocalizedModeLevelLabel(kind, lvl) {
 
 registerColocatedStatic({
   "app.title": {
-    de: "Lauscher • Hören · Verstehen · Musizieren",
-    en: "Lauscher • Listen · Understand · Play",
-    fr: "Lauscher • Écouter · Comprendre · Pratiquer",
-    es: "Lauscher • Escucha · Comprende · Toca",
-    pl: "Lauscher • Słuchaj · Rozumiej · Graj",
-    uk: "Lauscher • Слухай · Розумій · Грай",
-    ur: "Lauscher • سنو · سمجھو · بجاؤ"
+    de: "Lauscher • Genauer hinhören.",
+    en: "Lauscher • Listen a little closer.",
+    fr: "Lauscher • Écouter d’un peu plus près.",
+    es: "Lauscher • Escucha un poco más de cerca.",
+    pl: "Lauscher • Wsłuchaj się uważniej.",
+    uk: "Lauscher • Прислухайся трохи уважніше.",
+    ur: "Lauscher • ذرا غور سے سنیں۔"
   },
   "app.tagline": {
-    de: "Hören · Verstehen · Musizieren",
-    en: "Listen · Understand · Play",
-    fr: "Écouter · Comprendre · Pratiquer",
-    es: "Escucha · Comprende · Toca",
-    pl: "Słuchaj · Rozumiej · Graj",
-    uk: "Слухай · Розумій · Грай",
-    ur: "سنو · سمجھو · بجاؤ"
+    de: "Genauer hinhören.",
+    en: "Listen a little closer.",
+    fr: "Écouter d’un peu plus près.",
+    es: "Escucha un poco más de cerca.",
+    pl: "Wsłuchaj się uważniej.",
+    uk: "Прислухайся трохи уважніше.",
+    ur: "ذرا غور سے سنیں۔"
   },
   "app.portraitOnlyTitle": {
     de: "Bitte im Hochformat nutzen",
@@ -26933,6 +27265,69 @@ registerColocatedStatic({
     pl: "Ta sekcja zostanie podłączona w przyszłej wersji.",
     uk: "Цей розділ буде підключено в наступній версії.",
     ur: "یہ حصہ اگلے ورژن میں شامل کیا جائے گا۔"
+  },
+  "ex.demoBtn": {
+    de: "Demo",
+    en: "Demo",
+    fr: "Démo",
+    es: "Demo",
+    pl: "Demo",
+    uk: "Демо",
+    ur: "ڈیمو"
+  },
+  "ex.demoBtnTitle": {
+    de: "Übung einmal vormachen lassen",
+    en: "Watch a quick example walkthrough",
+    fr: "Voir une courte démonstration",
+    es: "Ver una breve demostración",
+    pl: "Zobacz krótką demonstrację",
+    uk: "Подивитись коротку демонстрацію",
+    ur: "مختصر مثال دیکھیں"
+  },
+  "ex.demoBtnAria": {
+    de: "Übung einmal vormachen",
+    en: "Demonstrate exercise once",
+    fr: "Montrer un exemple",
+    es: "Mostrar un ejemplo",
+    pl: "Pokaż przykład ćwiczenia",
+    uk: "Показати приклад вправи",
+    ur: "مشق کی ایک مثال دکھائیں"
+  },
+  "settings.tutorialsHeading": {
+    de: "Übungs-Tutorials (Vormachen)",
+    en: "Exercise Tutorials (Walkthrough)",
+    fr: "Tutoriels d’exercice (Démonstration)",
+    es: "Tutoriales de ejercicio (Demostración)",
+    pl: "Samouczki ćwiczeń (Pokaz)",
+    uk: "Підказки до вправ (Демонстрація)",
+    ur: "مشق کے رہنما (ڈیمو)"
+  },
+  "settings.tutorialsHint": {
+    de: "Zeigt beim ersten Start einer neuen Übungsart eine kurze Beispielrunde mit visuellen Hinweisen.",
+    en: "Shows a quick guided example round the first time you open a new exercise type.",
+    fr: "Affiche un court exemple guidé la première fois que vous ouvrez un nouveau type d’exercice.",
+    es: "Muestra un breve ejemplo guiado la primera vez que abres un nuevo tipo de ejercicio.",
+    pl: "Pokazuje krótki przykład z podpowiedziami przy pierwszym uruchomieniu nowego typu ćwiczenia.",
+    uk: "Показує короткий приклад із підказками під час першого відкриття нового типу вправи.",
+    ur: "نئی قسم کی مشق پہلی بار کھولنے پر بصری اشاروں کے ساتھ ایک مختصر مثال دکھاتا ہے۔"
+  },
+  "settings.tutorialsAria": {
+    de: "Übungs-Tutorials automatisch zeigen",
+    en: "Show exercise tutorials automatically",
+    fr: "Afficher automatiquement les tutoriels d’exercice",
+    es: "Mostrar tutoriales de ejercicio automáticamente",
+    pl: "Automatycznie pokazuj samouczki ćwiczeń",
+    uk: "Автоматично показувати підказки до вправ",
+    ur: "مشق کے رہنما خودکار دکھائیں"
+  },
+  "settings.tutorialsResetBtn": {
+    de: "Alle Einführungen erneut zeigen",
+    en: "Reset seen tutorials",
+    fr: "Réinitialiser les tutoriels vus",
+    es: "Volver a mostrar todos los tutoriales",
+    pl: "Pokaż ponownie wszystkie samouczki",
+    uk: "Показати всі вступні підказки знову",
+    ur: "تمام رہنما دوبارہ دکھائیں"
   }
 });
 
@@ -32051,12 +32446,12 @@ registerColocatedPhrases({
     uk: "Послухай два такти перкусії та визнач основний пульс і акценти такту",
     ur: "دو بار پرکشن سنیں اور بنیادی بیٹ نیز پہلے زور کی پہچان کریں"
   },
-  "Hören · Verstehen · Musizieren": {
-    fr: "Écouter · Comprendre · Pratiquer",
-    es: "Escucha · Comprende · Toca",
-    pl: "Słuchaj · Rozumiej · Graj",
-    uk: "Слухай · Розумій · Грай",
-    ur: "سنو · سمجھو · بجاؤ"
+  "Genauer hinhören.": {
+    fr: "Écouter d’un peu plus près.",
+    es: "Escucha un poco más de cerca.",
+    pl: "Wsłuchaj się uważniej.",
+    uk: "Прислухайся трохи уважніше.",
+    ur: "ذرا غور سے سنیں۔"
   },
   "I, IV, V und vi": {
     fr: "I, IV, V et vi",
@@ -40610,6 +41005,552 @@ registerColocatedPhrases({
     pl: "Dostosuj tonację / znaki przykluczowe",
     uk: "Налаштувати тональність / ключові знаки",
     ur: "کلید / کی سگنیچر تبدیل کریں"
+  },
+  "Alle Übungs-Einführungen wurden zurückgesetzt.": {
+    fr: "Tous les tutoriels d’exercice ont été réinitialisés.",
+    es: "Se han restablecido todos los tutoriales de ejercicio.",
+    pl: "Wszystkie samouczki ćwiczeń zostały zresetowane.",
+    uk: "Усі вступні підказки до вправ скинуто.",
+    ur: "تمام مشقوں کے رہنما دوبارہ فعال کر دیے گئے ہیں۔"
+  },
+  "So funktioniert: Kadenz": {
+    fr: "Comment ça marche : Cadence",
+    es: "Cómo funciona: Cadencia",
+    pl: "Jak to działa: Kadencja",
+    uk: "Як це працює: Каденція",
+    ur: "یہ کیسے کام کرتا ہے: کیڈنس"
+  },
+  "Höre die 4 Takte der Kadenz, erkenne die fehlende Akkordstufe und tippe sie unten an.": {
+    fr: "Écoutez les 4 mesures de la cadence, reconnaissez le degré manquant et touchez-le en bas.",
+    es: "Escucha los 4 compases de la cadencia, reconoce el grado que falta y tócalo abajo.",
+    pl: "Posłuchaj 4 taktów kadencji, rozpoznaj brakujący stopień akordu i dotknij go poniżej.",
+    uk: "Послухай 4 такти каденції, упізнай відсутній ступінь акорду та натисни його нижче.",
+    ur: "کیڈنس کے 4 بار سنیں، غائب ڈگری پہچانیں اور نیچے ٹیپ کریں۔"
+  },
+  "Hör zu: Die 4 Takte laufen oben mit – achte besonders auf den markierten Zieltakt.": {
+    fr: "Écoutez : les 4 mesures défilent en haut — concentrez-vous sur la mesure cible.",
+    es: "Escucha: los 4 compases avanzan arriba — concéntrate en el compás marcado.",
+    pl: "Posłuchaj: 4 takty przesuwają się u góry — zwróć uwagę na wyróżniony takt docelowy.",
+    uk: "Слухай: 4 такти йдуть угорі — зосередься на виділеному цільовому такті.",
+    ur: "سنیں: اوپر 4 بار چل رہے ہیں — نمایاں ہدف بار پر دھیان دیں۔"
+  },
+  "Das war {lbl}! Tippe genau auf diese Kachel, um zu lösen.": {
+    fr: "C’était {lbl} ! Touchez cette case pour répondre.",
+    es: "¡Era {lbl}! Toca esta casilla para responder.",
+    pl: "To było {lbl}! Dotknij tego kafelka, aby odpowiedzieć.",
+    uk: "Це було {lbl}! Натисни цю плитку для відповіді.",
+    ur: "یہ {lbl} تھا! جواب کے لیے اس ٹائل پر ٹیپ کریں۔"
+  },
+  "So funktioniert: Intervalle": {
+    fr: "Comment ça marche : Intervalles",
+    es: "Cómo funciona: Intervalos",
+    pl: "Jak to działa: Interwały",
+    uk: "Як це працює: Інтервали",
+    ur: "یہ کیسے کام کرتا ہے: انٹرولز"
+  },
+  "Vergleiche den Abstand zwischen den beiden Tönen und wähle unten das passende Intervall.": {
+    fr: "Comparez l’écart entre les deux notes et choisissez l’intervalle correspondant en bas.",
+    es: "Compara la distancia entre ambas notas y elige el intervalo correspondiente abajo.",
+    pl: "Porównaj odległość między dwoma dźwiękami i wybierz pasujący interwał poniżej.",
+    uk: "Порівняй відстань між двома звуками та обери відповідний інтервал нижче.",
+    ur: "دونوں سُروں کے درمیان فاصلہ موازنہ کریں اور نیچے درست انٹرول چنیں۔"
+  },
+  "Hör zu: Erst der Ausgangston, dann der Zielton – achte auf den Abstand dazwischen.": {
+    fr: "Écoutez : notez l’écart entre la note de départ et la note cible.",
+    es: "Escucha: fíjate en la distancia entre la nota de partida y la nota objetivo.",
+    pl: "Posłuchaj: zwróć uwagę na odległość między dźwiękiem wyjściowym a docelowym.",
+    uk: "Слухай: зверни увагу на відстань між початковим і цільовим звуком.",
+    ur: "سنیں: ابتدائی اور ہدف سُر کے درمیانی فاصلے پر غور کریں۔"
+  },
+  "Das gesuchte Intervall ist {lbl} – die passende Kachel leuchtet unten auf.": {
+    fr: "L’intervalle recherché est {lbl} — la bonne case s’allume en bas.",
+    es: "El intervalo buscado es {lbl} — la casilla correcta se ilumina abajo.",
+    pl: "Szukany interwał to {lbl} — właściwy kafelek podświetla się poniżej.",
+    uk: "Шуканий інтервал — {lbl}, потрібна плитка підсвічується нижче.",
+    ur: "مطلوبہ انٹرول {lbl} ہے — درست ٹائل نیچے روشن ہو رہی ہے۔"
+  },
+  "So funktioniert: Akkorde": {
+    fr: "Comment ça marche : Accords",
+    es: "Cómo funciona: Acordes",
+    pl: "Jak to działa: Akordy",
+    uk: "Як це працює: Акорди",
+    ur: "یہ کیسے کام کرتا ہے: کارڈز"
+  },
+  "Höre dir den Klang oder die Lage des Akkords an und wähle unten den passenden Typ.": {
+    fr: "Écoutez la couleur ou le renversement de l’accord et choisissez le bon type en bas.",
+    es: "Escucha la sonoridad o la inversión del acorde y elige el tipo correspondiente abajo.",
+    pl: "Posłuchaj brzmienia lub przewrotu akordu i wybierz odpowiedni typ poniżej.",
+    uk: "Послухай звучання або обернення акорду та обери відповідний тип нижче.",
+    ur: "کارڈ کا رنگ یا انورژن سنیں اور نیچے درست قسم چنیں۔"
+  },
+  "Hör zu: Achte auf den Gesamtklang (hell, dunkel, gespannt) und den tiefsten Ton.": {
+    fr: "Écoutez : prêtez attention à la couleur globale (clair, sombre, tendu) et à la basse.",
+    es: "Escucha: presta atención al color general (brillante, oscuro, tenso) y al bajo.",
+    pl: "Posłuchaj: zwróć uwagę na ogólne brzmienie (jasne, ciemne, napięte) i dźwięk basowy.",
+    uk: "Слухай: зверни увагу на загальний тембр (світлий, темний, напружений) і басовий звук.",
+    ur: "سنیں: مجموعی رنگ (روشن، گہرا، تناؤ) اور سب سے نچلے سُر پر توجہ دیں۔"
+  },
+  "Dieser Akkord ist {lbl} – wähle unten die markierte Kachel.": {
+    fr: "Cet accord est {lbl} — sélectionnez la case mise en évidence en bas.",
+    es: "Este acorde es {lbl} — selecciona la casilla resaltada abajo.",
+    pl: "Ten akord to {lbl} — wybierz podświetlony kafelek poniżej.",
+    uk: "Цей акорд — {lbl}, обери підсвічену плитку нижче.",
+    ur: "یہ کارڈ {lbl} ہے — نیچے نمایاں ٹائل چنیں۔"
+  },
+  "So funktioniert: Tonleitern & Modi": {
+    fr: "Comment ça marche : Gammes & Modes",
+    es: "Cómo funciona: Escalas y Modos",
+    pl: "Jak to działa: Skale i Tryby",
+    uk: "Як це працює: Гами та Лади",
+    ur: "یہ کیسے کام کرتا ہے: اسکیلز اور موڈز"
+  },
+  "Der Grundton gibt dir Halt – erkenne am typischen Charakterton den Modus und tippe ihn an.": {
+    fr: "La fondamentale vous ancre — reconnaissez le mode à sa note typique et touchez-le.",
+    es: "La tónica te da referencia — reconoce el modo por su nota característica y tócalo.",
+    pl: "Dźwięk podstawowy daje oparcie — rozpoznaj tryb po nucie charakterystycznej i dotknij go.",
+    uk: "Тоніка дає опору — упізнай лад за характерним звуком і натисни його.",
+    ur: "بنیادی سُر سہارا دیتا ہے — مخصوص رنگ سے موڈ پہچانیں اور نیچے ٹیپ کریں۔"
+  },
+  "Hör zu: Achte auf die besondere Klangfarbe über dem Grundton.": {
+    fr: "Écoutez : concentrez-vous sur la couleur caractéristique au-dessus de la fondamentale.",
+    es: "Escucha: fíjate en el color característico sobre la tónica.",
+    pl: "Posłuchaj: skup się na charakterystycznym zabarwieniu nad dźwiękiem podstawowym.",
+    uk: "Слухай: зосередься на характерному забарвленні над тонікою.",
+    ur: "سنیں: بنیادی سُر کے اوپر مخصوص رنگ پر غور کریں۔"
+  },
+  "Diese Klangfarbe gehört zu {lbl} – tippe unten auf die hervorgehobene Kachel.": {
+    fr: "Cette couleur correspond à {lbl} — touchez la case mise en évidence en bas.",
+    es: "Ese color pertenece a {lbl} — toca la casilla resaltada abajo.",
+    pl: "To brzmienie należy do {lbl} — dotknij podświetlonego kafelka poniżej.",
+    uk: "Це забарвлення належить до {lbl} — натисни підсвічену плитку нижче.",
+    ur: "یہ رنگ {lbl} کا ہے — نیچے نمایاں ٹائل پر ٹیپ کریں۔"
+  },
+  "So funktioniert: Solfège": {
+    fr: "Comment ça marche : Solfège",
+    es: "Cómo funciona: Solfeo",
+    pl: "Jak to działa: Solfeż",
+    uk: "Як це працює: Сольфеджіо",
+    ur: "یہ کیسے کام کرتا ہے: سولفیج"
+  },
+  "Erst hörst du die Tonart-Kadenz, dann einen einzelnen Zielton – tippe seine Taste auf der Klaviatur.": {
+    fr: "Vous entendez d’abord la cadence de la tonalité, puis une note cible — touchez sa touche au clavier.",
+    es: "Primero escuchas la cadencia de la tonalidad y luego una nota objetivo — toca su tecla en el teclado.",
+    pl: "Najpierw słyszysz kadencję tonacji, potem pojedynczy dźwięk — dotknij jego klawisza na klawiaturze.",
+    uk: "Спочатку звучить каденція тональності, потім один цільовий звук — натисни його клавішу.",
+    ur: "پہلے کلید کا کیڈنس سنائی دیتا ہے، پھر ایک ہدف سُر — کی بورڈ پر اس کی کلید دبائیں۔"
+  },
+  "Hör zu: Die Kadenz verankert Do – merk dir danach genau den einzelnen Zielton.": {
+    fr: "Écoutez : la cadence ancre Do — mémorisez ensuite la note cible unique.",
+    es: "Escucha: la cadencia fija Do — después memoriza con precisión la nota objetivo.",
+    pl: "Posłuchaj: kadencja utrwala Do — potem zapamiętaj dokładnie pojedynczy dźwięk.",
+    uk: "Слухай: каденція закріплює До — далі запам’ятай окремий цільовий звук.",
+    ur: "سنیں: کیڈنس ڈو کو پکا کرتا ہے — پھر اکیلے ہدف سُر پر دھیان دیں۔"
+  },
+  "Das war {lbl}! Nach dem Antippen löst sich der Ton musikalisch zu Do auf.": {
+    fr: "C’était {lbl} ! Après l’appui, la note se résout musicalement vers Do.",
+    es: "¡Era {lbl}! Al tocarla, la nota resuelve musicalmente hacia Do.",
+    pl: "To było {lbl}! Po dotknięciu dźwięk rozwiązuje się muzycznie do Do.",
+    uk: "Це було {lbl}! Після натискання звук музично розв’язується в До.",
+    ur: "یہ {lbl} تھا! ٹیپ کرنے کے بعد سُر موسیقی کے انداز میں ڈو پر حل ہو جاتا ہے۔"
+  },
+  "So funktioniert: Melodie": {
+    fr: "Comment ça marche : Mélodie",
+    es: "Cómo funciona: Melodía",
+    pl: "Jak to działa: Melodia",
+    uk: "Як це працює: Мелодія",
+    ur: "یہ کیسے کام کرتا ہے: دھن"
+  },
+  "Höre die kurze Melodie und spiele sie anschließend Ton für Ton auf der Klaviatur nach.": {
+    fr: "Écoutez la courte mélodie, puis rejouez-la note par note sur le clavier.",
+    es: "Escucha la breve melodía y luego tócala nota a nota en el teclado.",
+    pl: "Posłuchaj krótkiej melodii, a następnie zagraj ją dźwięk po dźwięku na klawiaturze.",
+    uk: "Послухай коротку мелодію, а потім зіграй її нота за нотою на клавіатурі.",
+    ur: "مختصر دھن سنیں اور پھر کی بورڈ پر ایک ایک سُر کر کے بجائیں۔"
+  },
+  "Hör zu: Die Töne laufen oben der Reihe nach durch.": {
+    fr: "Écoutez : les notes défilent dans l’ordre en haut.",
+    es: "Escucha: las notas avanzan en orden arriba.",
+    pl: "Posłuchaj: dźwięki przesuwają się kolejno u góry.",
+    uk: "Слухай: ноти проходять по черзі вгорі.",
+    ur: "سنیں: سُر اوپر ترتیب سے چل رہے ہیں۔"
+  },
+  "Jetzt wird Ton für Ton auf der Klaviatur nachgespielt – jede grüne Taste löst den nächsten Platz.": {
+    fr: "On rejoue maintenant note par note sur le clavier — chaque touche verte valide l’emplacement suivant.",
+    es: "Ahora se toca nota a nota en el teclado — cada tecla verde completa el siguiente lugar.",
+    pl: "Teraz odtwarzamy dźwięk po dźwięku na klawiaturze — każdy zielony klawisz uzupełnia kolejne miejsce.",
+    uk: "Тепер граємо нота за нотою на клавіатурі — кожна зелена клавіша заповнює наступне місце.",
+    ur: "اب کی بورڈ پر ایک ایک سُر بجایا جا رہا ہے — ہر سبز کلید اگلی جگہ مکمل کرتی ہے۔"
+  },
+  "So funktioniert: Melodie-Diktat": {
+    fr: "Comment ça marche : Dictée mélodique",
+    es: "Cómo funciona: Dictado melódico",
+    pl: "Jak to działa: Dyktando melodyczne",
+    uk: "Як це працює: Мелодичний диктант",
+    ur: "یہ کیسے کام کرتا ہے: میلوڈی ڈکٹیشن"
+  },
+  "Wähle für jeden Ton der Melodie sowohl die richtige Klaviatur-Taste als auch den Notenwert.": {
+    fr: "Pour chaque note de la mélodie, choisissez la bonne touche du clavier et la bonne valeur rythmique.",
+    es: "Para cada nota de la melodía, elige tanto la tecla correcta como la figura rítmica.",
+    pl: "Dla każdego dźwięku melodii wybierz zarówno właściwy klawisz, jak i wartość rytmiczną.",
+    uk: "Для кожної ноти мелодії обери і правильну клавішу, і ритмічну тривалість.",
+    ur: "دھن کے ہر سُر کے لیے درست کی بورڈ کلید اور نوٹ کی قدر دونوں چنیں۔"
+  },
+  "Hör zu: Merke dir Melodieverlauf und Rhythmus der Phrase.": {
+    fr: "Écoutez : mémorisez la courbe mélodique et le rythme de la phrase.",
+    es: "Escucha: memoriza tanto el contorno melódico como el ritmo de la frase.",
+    pl: "Posłuchaj: zapamiętaj linię melodyczną i rytm frazy.",
+    uk: "Слухай: запам’ятай мелодичний рух і ритм фрази.",
+    ur: "سنیں: دھن کا اتار چڑھاؤ اور تال دونوں یاد رکھیں۔"
+  },
+  "Pro Platz erst Taste antippen, dann den passenden Notenwert wählen – schon rückt der nächste Ton nach.": {
+    fr: "Pour chaque position, touchez la touche puis la valeur rythmique pour passer à la note suivante.",
+    es: "En cada posición, toca la tecla y elige la figura rítmica para pasar a la siguiente nota.",
+    pl: "Dla każdego miejsca wybierz klawisz i wartość nuty, aby przejść do kolejnego dźwięku.",
+    uk: "Для кожної позиції натисни клавішу та обери тривалість, щоб перейти до наступної ноти.",
+    ur: "ہر جگہ کے لیے پہلے کلید دبائیں، پھر نوٹ کی قدر چنیں تاکہ اگلا سُر آئے۔"
+  },
+  "So funktioniert: Rhythmus-Diktat": {
+    fr: "Comment ça marche : Dictée rythmique",
+    es: "Cómo funciona: Dictado rítmico",
+    pl: "Jak to działa: Dyktando rytmiczne",
+    uk: "Як це працює: Ритмічний диктант",
+    ur: "یہ کیسے کام کرتا ہے: رِدم ڈکٹیشن"
+  },
+  "Höre den 4-Schlag-Rhythmus und setze unten für jede Zählzeit das passende Notenbild ein.": {
+    fr: "Écoutez le rythme sur 4 temps et choisissez en bas la figure correspondant à chaque temps.",
+    es: "Escucha el ritmo de 4 tiempos y coloca abajo la figura rítmica de cada pulso.",
+    pl: "Posłuchaj 4-miarowego rytmu i wybierz poniżej pasującą figurę dla każdego uderzenia.",
+    uk: "Послухай ритм на 4 долі та обери нижче відповідний ритмічний малюнок для кожної долі.",
+    ur: "4 بیٹ کا رِدم سنیں اور نیچے ہر بیٹ کے لیے درست نوٹ پیٹرن چنیں۔"
+  },
+  "Hör zu: Nach dem Einzähler erklingt das Muster über 4 Zählzeiten.": {
+    fr: "Écoutez : après le décompte, le motif joue sur 4 temps.",
+    es: "Escucha: tras la cuenta previa suena el patrón de 4 tiempos.",
+    pl: "Posłuchaj: po odliczeniu rozbrzmiewa wzór na 4 uderzenia.",
+    uk: "Слухай: після відліку звучить малюнок на 4 долі.",
+    ur: "سنیں: گنتی کے بعد 4 بیٹ کا پیٹرن بجے گا۔"
+  },
+  "Jetzt werden die 4 Zählzeiten nacheinander über die Rhythmus-Kacheln unten eingetragen.": {
+    fr: "Les 4 temps sont maintenant remplis un par un à l’aide des cases rythmiques en bas.",
+    es: "Ahora los 4 tiempos se completan uno a uno con las casillas rítmicas de abajo.",
+    pl: "Teraz 4 uderzenia są kolejno uzupełniane za pomocą kafelków rytmicznych poniżej.",
+    uk: "Тепер 4 долі по черзі заповнюються за допомогою ритмічних плиток нижче.",
+    ur: "اب نیچے رِدم ٹائلز سے چاروں بیٹ ایک ایک کر کے بھرے جا رہے ہیں۔"
+  },
+  "So funktioniert: Rhythmus klopfen": {
+    fr: "Comment ça marche : Frapper le rythme",
+    es: "Cómo funciona: Marcar el ritmo",
+    pl: "Jak to działa: Wyklaskiwanie rytmu",
+    uk: "Як це працює: Відстукування ритму",
+    ur: "یہ کیسے کام کرتا ہے: رِدم ٹیپ"
+  },
+  "Nach dem Einzähler hörst du das Muster – danach klopfst du es exakt im Takt auf das Pad.": {
+    fr: "Après le décompte, vous entendez le motif — puis vous le frappez en rythme sur le pad.",
+    es: "Tras la cuenta previa escuchas el patrón — luego lo marcas a tiempo sobre el pad.",
+    pl: "Po odliczeniu słyszysz wzór — potem wyklaskujesz go dokładnie w rytmie na padzie.",
+    uk: "Після відліку звучить малюнок — потім ти точно відстукуєш його в ритмі на педі.",
+    ur: "گنتی کے بعد آپ پیٹرن سنیں گے — پھر اسے بالکل تال میں پیڈ پر ٹیپ کریں گے۔"
+  },
+  "Hör zu & schau aufs Pad: Erst der Einzähler, dann blitzt das Pad genau auf jedem Ziel-Schlag auf.": {
+    fr: "Écoutez et regardez le pad : après le décompte, le pad s’allume exactement sur chaque coup.",
+    es: "Escucha y mira el pad: tras la cuenta, el pad destella exactamente en cada golpe.",
+    pl: "Słuchaj i patrz na pad: po odliczeniu pad błyska dokładnie na każde uderzenie.",
+    uk: "Слухай і дивись на пед: після відліку пед спалахує точно на кожен удар.",
+    ur: "سنیں اور پیڈ دیکھیں: گنتی کے بعد ہر درست ضرب پر پیڈ روشن ہوگا۔"
+  },
+  "Schau genau hin: Immer wenn das Pad grün aufblitzt, wird geklopft!": {
+    fr: "Regardez bien : on frappe le pad à chaque éclair vert !",
+    es: "¡Fíjate bien: se toca el pad cada vez que destella en verde!",
+    pl: "Patrz uważnie: uderzamy w pad za każdym razem, gdy błyśnie na zielono!",
+    uk: "Дивись уважно: натискай пед щоразу, коли він спалахує зеленим!",
+    ur: "غور سے دیکھیں: جب بھی پیڈ سبز چمکے، تبھی ٹیپ کرنا ہے!"
+  },
+  "So funktioniert: Taktart & Groove": {
+    fr: "Comment ça marche : Mesure & Groove",
+    es: "Cómo funciona: Compás y Groove",
+    pl: "Jak to działa: Metrum i Groove",
+    uk: "Як це працює: Розмір і Ґрув",
+    ur: "یہ کیسے کام کرتا ہے: میٹر اور گروو"
+  },
+  "Achte auf den betonten ersten Schlag und das Grundmuster – wähle dann unten die passende Kachel.": {
+    fr: "Repérez le premier temps accentué et le groove — choisissez ensuite la bonne case en bas.",
+    es: "Fíjate en el primer tiempo acentuado y el patrón — luego elige la casilla adecuada abajo.",
+    pl: "Zwróć uwagę na akcentowaną jedynkę i puls — potem wybierz odpowiedni kafelek poniżej.",
+    uk: "Зверни увагу на акцентовану першу долю та малюнок — потім обери потрібну плитку нижче.",
+    ur: "پہلی زور دار بیٹ اور تال کے انداز پر غور کریں — پھر نیچے درست ٹائل چنیں۔"
+  },
+  "Hör zu: Zähle leise bis zur nächsten betonten Eins mit.": {
+    fr: "Écoutez : comptez doucement jusqu’au prochain temps fort.",
+    es: "Escucha: cuenta en voz baja hasta el siguiente tiempo fuerte.",
+    pl: "Posłuchaj: licz cicho do kolejnej akcentowanej jedynki.",
+    uk: "Слухай: тихо рахуй до наступної акцентованої першої долі.",
+    ur: "سنیں: اگلی زور دار پہلی بیٹ تک آہستہ گنتی کریں۔"
+  },
+  "Das gehörte Muster ist {lbl} – tippe unten auf diese Kachel.": {
+    fr: "Le motif entendu est {lbl} — touchez cette case en bas.",
+    es: "El patrón escuchado es {lbl} — toca esta casilla abajo.",
+    pl: "Usłyszany wzór to {lbl} — dotknij tego kafelka poniżej.",
+    uk: "Почутий малюнок — {lbl}, натисни цю плитку нижче.",
+    ur: "سنا گیا پیٹرن {lbl} ہے — نیچے اس ٹائل پر ٹیپ کریں۔"
+  },
+  "So funktioniert: Notenlesen": {
+    fr: "Comment ça marche : Lecture de notes",
+    es: "Cómo funciona: Lectura de notas",
+    pl: "Jak to działa: Czytanie nut",
+    uk: "Як це працює: Читання нот",
+    ur: "یہ کیسے کام کرتا ہے: نوٹ پڑھنا"
+  },
+  "Lies immer die vorderste markierte Note links im Notensystem ab und tippe die passende Taste.": {
+    fr: "Lisez toujours la note mise en évidence tout à gauche et touchez la touche correspondante.",
+    es: "Lee siempre la nota resaltada más a la izquierda del pentagrama y toca su tecla.",
+    pl: "Czytaj zawsze pierwszą wyróżnioną nutę po lewej na pięciolinii i dotknij właściwego klawisza.",
+    uk: "Завжди читай першу виділену ноту ліворуч на нотному стані та натискай відповідну клавішу.",
+    ur: "ہمیشہ بائیں جانب سب سے پہلا نمایاں نوٹ پڑھیں اور درست کلید دبائیں۔"
+  },
+  "Schau auf die erste Note links im System (inklusive Vorzeichen).": {
+    fr: "Regardez la première note à gauche sur la portée (armure et altérations comprises).",
+    es: "Observa la primera nota a la izquierda del pentagrama (incluyendo alteraciones).",
+    pl: "Spójrz na pierwszą nutę po lewej na pięciolinii (wraz ze znakami chromatycznymi).",
+    uk: "Подивись на першу ноту ліворуч на стані (разом зі знаками альтерації).",
+    ur: "اسٹاف پر بائیں جانب پہلے نوٹ کو دیکھیں (بشمول علامات)۔"
+  },
+  "Diese Note ist {lbl} – tippe die grün markierte Taste, dann rückt die nächste Note nach.": {
+    fr: "Cette note est {lbl} — touchez la touche verte et la note suivante avance.",
+    es: "Esta nota es {lbl} — toca la tecla verde y avanzará la siguiente nota.",
+    pl: "Ta nuta to {lbl} — dotknij zielonego klawisza, a pojawi się kolejna nuta.",
+    uk: "Ця нота — {lbl}, натисни зелену клавішу, і з’явиться наступна нота.",
+    ur: "یہ نوٹ {lbl} ہے — سبز کلید دبائیں تو اگلا نوٹ سامنے آ جائے گا۔"
+  },
+  "So funktioniert: Akkorde lesen": {
+    fr: "Comment ça marche : Lecture d’accords",
+    es: "Cómo funciona: Lectura de acordes",
+    pl: "Jak to działa: Czytanie akordów",
+    uk: "Як це працює: Читання акордів",
+    ur: "یہ کیسے کام کرتا ہے: کارڈز پڑھنا"
+  },
+  "Lies den vordersten Akkord im Notensystem von unten nach oben und wähle die passende Kachel.": {
+    fr: "Lisez l’accord le plus à gauche de bas en haut et choisissez la case correspondante.",
+    es: "Lee el acorde más a la izquierda de abajo arriba y elige la casilla correspondiente.",
+    pl: "Przeczytaj pierwszy akord od dołu do góry i wybierz odpowiedni kafelek.",
+    uk: "Прочитай перший акорд знизу вгору та обери відповідну плитку.",
+    ur: "بائیں جانب سب سے پہلا کارڈ نیچے سے اوپر پڑھیں اور درست ٹائل چنیں۔"
+  },
+  "Schau auf den markierten Akkord links – Grundton, Terz und Klangfarbe bestimmen die Antwort.": {
+    fr: "Observez l’accord à gauche — fondamentale, tierce et intervalles déterminent la réponse.",
+    es: "Observa el acorde a la izquierda — fundamental, tercera e intervalos definen la respuesta.",
+    pl: "Spójrz na wyróżniony akord po lewej — prymy, tercja i interwały wyznaczają odpowiedź.",
+    uk: "Подивись на виділений акорд ліворуч — тоніка, терція та інтервали визначають відповідь.",
+    ur: "بائیں جانب نمایاں کارڈ دیکھیں — بنیادی سُر، تیسرا سُر اور وقفے جواب بتاتے ہیں۔"
+  },
+  "Der notierte Akkord ist {lbl} – tippe unten auf die passende Kachel.": {
+    fr: "L’accord noté est {lbl} — touchez la case correspondante en bas.",
+    es: "El acorde escrito es {lbl} — toca la casilla correspondiente abajo.",
+    pl: "Zapisany akord to {lbl} — dotknij właściwego kafelka poniżej.",
+    uk: "Записаний акорд — {lbl}, натисни відповідну плитку нижче.",
+    ur: "لکھا ہوا کارڈ {lbl} ہے — نیچے درست ٹائل پر ٹیپ کریں۔"
+  },
+  "So funktioniert: Frequenz- & EQ-Training": {
+    fr: "Comment ça marche : Fréquences & EQ",
+    es: "Cómo funciona: Frecuencias y EQ",
+    pl: "Jak to działa: Częstotliwości i EQ",
+    uk: "Як це працює: Частоти та EQ",
+    ur: "یہ کیسے کام کرتا ہے: فریکوئنسی اور EQ"
+  },
+  "Vergleiche das neutrale Rauschen (Flat) mit dem EQ-Boost und wähle das angehobene Frequenzband.": {
+    fr: "Comparez le bruit neutre (Flat) au boost EQ et choisissez la bande accentuée.",
+    es: "Compara el ruido neutro (Flat) con el realce EQ y elige la banda realzada.",
+    pl: "Porównaj neutralny szum (Flat) z podbiciem EQ i wybierz podbite pasmo.",
+    uk: "Порівняй нейтральний шум (Flat) з підсиленням EQ та обери підсилену смугу.",
+    ur: "فلیٹ شور اور EQ بوسٹ کا موازنہ کریں اور بڑھائی گئی فریکوئنسی چنیں۔"
+  },
+  "Höre die reine Tonhöhe des Sinustons und ordne sie unten der passenden Frequenz zu.": {
+    fr: "Écoutez la hauteur pure de la sinusoïde et associez-la à sa fréquence en bas.",
+    es: "Escucha la altura pura del tono senoidal y relaciónala con su frecuencia abajo.",
+    pl: "Posłuchaj czystej wysokości sinusoidy i dopasuj ją do częstotliwości poniżej.",
+    uk: "Послухай чисту висоту синусоїди та співстав її з частотою нижче.",
+    ur: "خالص سائن ٹون کی پچ سنیں اور نیچے درست فریکوئنسی چنیں۔"
+  },
+  "Hör zu: Erst neutrales Rauschen (Flat), dann schaltet der EQ-Boost dazu.": {
+    fr: "Écoutez : d’abord le bruit neutre (Flat), puis le boost EQ s’active.",
+    es: "Escucha: primero ruido neutro (Flat), luego se activa el realce EQ.",
+    pl: "Posłuchaj: najpierw neutralny szum (Flat), potem włącza się podbicie EQ.",
+    uk: "Слухай: спочатку нейтральний шум (Flat), потім вмикається підсилення EQ.",
+    ur: "سنیں: پہلے فلیٹ شور، پھر EQ بوسٹ آن ہوگا۔"
+  },
+  "Hör zu: Präge dir die Höhe des Sinustons ein.": {
+    fr: "Écoutez : concentrez-vous sur la hauteur exacte du son pur.",
+    es: "Escucha: concéntrate en la altura exacta de la onda senoidal.",
+    pl: "Posłuchaj: skup się na dokładnej wysokości czystego tonu.",
+    uk: "Слухай: зосередься на точній висоті чистого тону.",
+    ur: "سنیں: سائن ٹون کی عین پچ پر دھیان دیں۔"
+  },
+  "Die gesuchte Frequenz ist {lbl} – tippe unten auf die hervorgehobene Kachel.": {
+    fr: "La fréquence recherchée est {lbl} — touchez la case mise en évidence en bas.",
+    es: "La frecuencia buscada es {lbl} — toca la casilla resaltada abajo.",
+    pl: "Szukana częstotliwość to {lbl} — dotknij podświetlonego kafelka poniżej.",
+    uk: "Шукана частота — {lbl}, натисни підсвічену плитку нижче.",
+    ur: "مطلوبہ فریکوئنسی {lbl} ہے — نیچے نمایاں ٹائل پر ٹیپ کریں۔"
+  },
+  "So funktioniert diese Übung": {
+    fr: "Comment fonctionne cet exercice",
+    es: "Cómo funciona este ejercicio",
+    pl: "Jak działa to ćwiczenie",
+    uk: "Як працює ця вправа",
+    ur: "یہ مشق کیسے کام کرتی ہے"
+  },
+  "Höre die Aufgabe an und wähle anschließend unten die passende Antwort.": {
+    fr: "Écoutez l’exemple puis choisissez la bonne réponse en bas.",
+    es: "Escucha el ejemplo y luego elige la respuesta correcta abajo.",
+    pl: "Posłuchaj przykładu, a następnie wybierz właściwą odpowiedź poniżej.",
+    uk: "Послухай приклад, а потім обери правильну відповідь нижче.",
+    ur: "مثال سنیں اور پھر نیچے درست جواب چنیں۔"
+  },
+  "Hör genau hin – das Beispiel läuft gerade.": {
+    fr: "Écoutez attentivement — l’exemple est en cours.",
+    es: "Escucha con atención — el ejemplo está sonando.",
+    pl: "Posłuchaj uważnie — przykład właśnie gra.",
+    uk: "Слухай уважно — приклад саме звучить.",
+    ur: "غور سے سنیں — مثال چل رہی ہے۔"
+  },
+  "Die Lösung ist {lbl}.": {
+    fr: "La réponse est {lbl}.",
+    es: "La respuesta es {lbl}.",
+    pl: "Rozwiązanie to {lbl}.",
+    uk: "Правильна відповідь — {lbl}.",
+    ur: "درست جواب {lbl} ہے۔"
+  },
+  "NEUE ÜBUNG • VORMACHEN": {
+    fr: "NOUVEL EXERCICE • DÉMO",
+    es: "NUEVO EJERCICIO • DEMO",
+    pl: "NOWE ĆWICZENIE • POKAZ",
+    uk: "НОВА ВПРАВА • ДЕМО",
+    ur: "نئی مشق • ڈیمو"
+  },
+  "▶ Beispiel vormachen": {
+    fr: "▶ Voir un exemple",
+    es: "▶ Ver un ejemplo",
+    pl: "▶ Pokaż przykład",
+    uk: "▶ Показати приклад",
+    ur: "▶ مثال دکھائیں"
+  },
+  "Direkt starten": {
+    fr: "Commencer directement",
+    es: "Empezar directamente",
+    pl: "Zacznij od razu",
+    uk: "Почати одразу",
+    ur: "براہِ راست شروع کریں"
+  },
+  "Nicht mehr automatisch zeigen": {
+    fr: "Ne plus afficher automatiquement",
+    es: "No mostrar automáticamente",
+    pl: "Nie pokazuj automatycznie",
+    uk: "Більше не показувати автоматично",
+    ur: "خودکار طور پر دوبارہ نہ دکھائیں"
+  },
+  "SCHRITT 1 / 2 · ZUHÖREN": {
+    fr: "ÉTAPE 1 / 2 · ÉCOUTER",
+    es: "PASO 1 / 2 · ESCUCHAR",
+    pl: "KROK 1 / 2 · SŁUCHAJ",
+    uk: "КРОК 1 / 2 · СЛУХАЙ",
+    ur: "مرحلہ 1 / 2 · سنیں"
+  },
+  "SCHRITT 1 / 2 · EQ-BOOST": {
+    fr: "ÉTAPE 1 / 2 · BOOST EQ",
+    es: "PASO 1 / 2 · REALCE EQ",
+    pl: "KROK 1 / 2 · PODBICIE EQ",
+    uk: "КРОК 1 / 2 · ПІДСИЛЕННЯ EQ",
+    ur: "مرحلہ 1 / 2 · EQ بوسٹ"
+  },
+  "SCHRITT 2 / 2 · ANTWORT": {
+    fr: "ÉTAPE 2 / 2 · RÉPONSE",
+    es: "PASO 2 / 2 · RESPUESTA",
+    pl: "KROK 2 / 2 · ODPOWIEDŹ",
+    uk: "КРОК 2 / 2 · ВІДПОВІДЬ",
+    ur: "مرحلہ 2 / 2 · جواب"
+  },
+  "SCHRITT 2 / 2 · MITKLOPFEN": {
+    fr: "ÉTAPE 2 / 2 · FRAPPER",
+    es: "PASO 2 / 2 · MARCAR",
+    pl: "KROK 2 / 2 · KLASKAJ",
+    uk: "КРОК 2 / 2 · ВІДСТУКУЙ",
+    ur: "مرحلہ 2 / 2 · ساتھ ٹیپ کریں"
+  },
+  "Erst den Puls aufnehmen…": {
+    fr: "Ressentez d’abord la pulsation…",
+    es: "Siente primero el pulso…",
+    pl: "Najpierw wyczuj puls…",
+    uk: "Спочатку відчуй пульс…",
+    ur: "پہلے تال محسوس کریں…"
+  },
+  "Jetzt im Takt klopfen!": {
+    fr: "Frappez en rythme maintenant !",
+    es: "¡Marca a tiempo ahora!",
+    pl: "Teraz klaskaj w rytmie!",
+    uk: "Тепер відстукуй у ритмі!",
+    ur: "اب تال میں ٹیپ کریں!"
+  },
+  "Jedes grüne Aufblitzen = 1 Tippen": {
+    fr: "Chaque éclair vert = 1 appui",
+    es: "Cada destello verde = 1 toque",
+    pl: "Każdy zielony błysk = 1 dotknięcie",
+    uk: "Кожен зелений спалах = 1 натискання",
+    ur: "ہر سبز چمک = 1 ٹیپ"
+  },
+  "Jetzt ist der EQ-Boost aktiv – hörst du, welches Frequenzband hervortritt?": {
+    fr: "Le boost EQ est actif — entendez-vous quelle bande ressort ?",
+    es: "El realce EQ está activo — ¿notas qué banda sobresale?",
+    pl: "Podbicie EQ jest aktywne — słyszysz, które pasmo się wybija?",
+    uk: "Підсилення EQ активне — чуєш, яка смуга виділяється?",
+    ur: "اب EQ بوسٹ فعال ہے — کیا آپ سن سکتے ہیں کون سی فریکوئنسی نمایاں ہے؟"
+  },
+  "BEREIT!": {
+    fr: "PRÊT !",
+    es: "¡LISTO!",
+    pl: "GOTOWE!",
+    uk: "ГОТОВО!",
+    ur: "تیار!"
+  },
+  "Jetzt bist du dran!": {
+    fr: "À vous de jouer !",
+    es: "¡Ahora te toca!",
+    pl: "Teraz twoja kolej!",
+    uk: "Тепер твоя черга!",
+    ur: "اب آپ کی باری!"
+  },
+  "Wir laden dir gleich eine frische Aufgabe – tippe einfach direkt los!": {
+    fr: "Un nouvel exercice arrive — commencez directement !",
+    es: "Cargaremos un nuevo ejercicio — ¡empieza directamente!",
+    pl: "Załadujemy nowe zadanie — po prostu zacznij!",
+    uk: "Завантажимо нове завдання — просто починай!",
+    ur: "ہم نیا سوال لوڈ کر رہے ہیں — بس فوراً شروع کریں!"
+  },
+  "Wir laden dir jetzt eine frische Aufgabe – drücke unten auf Abspielen, sobald du bereit bist.": {
+    fr: "Nous chargeons un nouvel exercice — appuyez sur Lire dès que vous êtes prêt.",
+    es: "Cargaremos un nuevo ejercicio — pulsa Reproducir cuando estés listo.",
+    pl: "Załadujemy nowe zadanie — naciśnij Odtwórz poniżej, gdy będziesz gotowy.",
+    uk: "Завантажимо нове завдання — натисни Відтворити нижче, коли будеш готовий.",
+    ur: "ہم آپ کے لیے نئی مشق لوڈ کر رہے ہیں — جب تیار ہوں نیچے پلے دبائیں۔"
+  },
+  "▶ Jetzt selbst probieren": {
+    fr: "▶ Essayer moi-même",
+    es: "▶ Probarlo ahora",
+    pl: "▶ Spróbuj samodzielnie",
+    uk: "▶ Спробувати самостійно",
+    ur: "▶ خود آزمائیں"
+  },
+  "Nochmal ansehen": {
+    fr: "Revoir",
+    es: "Ver de nuevo",
+    pl: "Zobacz ponownie",
+    uk: "Подивитись ще раз",
+    ur: "دوبارہ دیکھیں"
+  },
+  "Abbrechen": {
+    fr: "Annuler",
+    es: "Cancelar",
+    pl: "Anuluj",
+    uk: "Скасувати",
+    ur: "منسوخ کریں"
   }
 });
 
@@ -77561,6 +78502,8 @@ function createDefaultProfile() {
     singAlongPause: false,
     singAlongIntroCounts: {},
     singAlongIntroDone: false,
+    exerciseTutorials: true,
+    seenTutorials: [],
     modesRootHintSeen: false,
     cadenceKeyHintSeen: false,
     tuner: {}
@@ -77673,6 +78616,10 @@ function sanitizeUserProfile(raw) {
           .map(([k, v]) => [k, Math.max(0, Math.min(99, Math.round(Number(v))))]))
       : {},
     singAlongIntroDone: Boolean(raw.singAlongIntroDone),
+    exerciseTutorials: raw.exerciseTutorials !== false,
+    seenTutorials: Array.isArray(raw.seenTutorials)
+      ? Array.from(new Set(raw.seenTutorials.filter(k => typeof k === "string" && /^[a-z0-9-]{2,32}$/.test(k)))).slice(0, 32)
+      : [],
     modesRootHintSeen: Boolean(raw.modesRootHintSeen),
     cadenceKeyHintSeen: Boolean(raw.cadenceKeyHintSeen),
     tuner: sanitizeTunerPrefs(raw.tuner)
@@ -78403,8 +79350,8 @@ class AppState {
     if (this.currentView === "home") {
       mainTitle.textContent = tr("Übungen", "Home");
       el.textContent = typeof getStaticI18nText === "function"
-        ? (getStaticI18nText("app.tagline") || tr("Hören · Verstehen · Musizieren", "Listen · Understand · Play"))
-        : tr("Hören · Verstehen · Musizieren", "Listen · Understand · Play");
+        ? (getStaticI18nText("app.tagline") || tr("Genauer hinhören.", "Listen a little closer."))
+        : tr("Genauer hinhören.", "Listen a little closer.");
     } else if (this.currentView === "tools") {
       mainTitle.textContent = tr("Werkzeuge", "Tools");
       el.textContent = tr("Metronom, Tuner, Freies Spiel & Griffbrett", "Metronome, Tuner, Free Play & Fretboard");
@@ -79135,6 +80082,24 @@ function nextWhiteMidi(midi) {
   let m = midi + 1;
   while (!isWhiteMidi(m)) m++;
   return m;
+}
+
+/**
+ * Liefert die konsistenten Grenzen der 1-Oktav-Klaviatur für Solfège & Melodie:
+ * - Alle aktiven Skalentöne (auch bei schwarzen Tonarten wie Des, Es, Fis, As, B)
+ *   sitzen vollständig auf regulären weißen Tasten.
+ * - Links und rechts schließt jeweils genau eine schmale, inaktive Rahmentaste an.
+ */
+function getSolfegeKeyboardBounds(rootMidi) {
+  const safeRoot = Number.isFinite(rootMidi) ? rootMidi : 60;
+  const firstFullWhite = isWhiteMidi(safeRoot) ? safeRoot : prevWhiteMidi(safeRoot);
+  const lastFullWhite = isWhiteMidi(safeRoot + 12) ? (safeRoot + 12) : nextWhiteMidi(safeRoot + 12);
+  return {
+    firstFullWhite,
+    lastFullWhite,
+    firstWhite: prevWhiteMidi(firstFullWhite),
+    lastWhite: nextWhiteMidi(lastFullWhite)
+  };
 }
 
 function pickRandomNonCKey(excludeKey = null) {
@@ -82170,6 +83135,9 @@ function switchView(targetView, options = {}) {
   if (typeof state.listenOnly === "object" && state.listenOnly.active && (targetView !== "exercise" || prevView !== "exercise")) {
     setListenOnlyMode(false, { keepPlayback: true });
   }
+  if (prevView === "exercise" && targetView !== "exercise" && typeof stopExerciseTutorial === "function") {
+    stopExerciseTutorial({ keepPlayback: true });
+  }
   if (prevView === "exercise" && targetView !== "exercise" && state.exam?.active) {
     cleanupActiveExamState({ restoreSettings: !options.examCompletedTransition });
   }
@@ -82337,6 +83305,9 @@ function switchView(targetView, options = {}) {
       loadCurrentExamQuestion();
     } else if (!options.fromHistory || !state.currentExercise) {
       generateExercise();
+      if (!state.exam?.active && typeof maybeOfferExerciseTutorial === "function") {
+        maybeOfferExerciseTutorial(state.currentExercise);
+      }
     } else if (state.profileDisplayDirty) {
       renderUI();
     } else if (state.currentExercise?.type === "cadence" && !state.exam?.active) {
@@ -83957,6 +84928,36 @@ function getCategoryBadgeSVG(kind) {
         <line x1="-2.5" y1="-13.5" x2="-2.5" y2="4.2" stroke-width="2.0"/>
         <path d="M-2.5 -0.8 C1.2 -3.6, 5.2 -1.8, 4.8 1.5 C4.3 4.2, 0.2 5.2, -2.5 4.2" stroke-width="2.2"/>
       </g>`;
+  } else if (kind === "keysig-nat") {
+    body = `
+      <g transform="translate(16.2, 23.8) scale(0.92)" stroke="currentColor" stroke-linecap="round">
+        <line x1="-2.8" y1="-9" x2="-2.8" y2="9" stroke-width="1.95"/>
+        <line x1="2.8" y1="-10" x2="2.8" y2="8" stroke-width="1.95"/>
+        <line x1="-6" y1="-2.2" x2="6" y2="-4.2" stroke-width="2.65"/>
+        <line x1="-6" y1="3.8" x2="6" y2="1.8" stroke-width="2.65"/>
+      </g>
+      <line x1="23.0" y1="31.5" x2="27.2" y2="16.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.45"/>
+      <g transform="translate(33.8, 24.0) scale(0.96)" stroke="currentColor" stroke-linecap="round">
+        <line x1="-3.0" y1="-10.5" x2="-3.0" y2="4.6" stroke-width="1.95"/>
+        <line x1="3.0" y1="-4.6" x2="3.0" y2="10.5" stroke-width="1.95"/>
+        <line x1="-3.0" y1="-2.6" x2="3.0" y2="-4.4" stroke-width="2.55"/>
+        <line x1="-3.0" y1="4.4" x2="3.0" y2="2.6" stroke-width="2.55"/>
+      </g>`;
+  } else if (kind === "nat-sharp") {
+    body = `
+      <g transform="translate(14.8, 24.0) scale(0.96)" stroke="currentColor" stroke-linecap="round">
+        <line x1="-3.0" y1="-10.5" x2="-3.0" y2="4.6" stroke-width="1.95"/>
+        <line x1="3.0" y1="-4.6" x2="3.0" y2="10.5" stroke-width="1.95"/>
+        <line x1="-3.0" y1="-2.6" x2="3.0" y2="-4.4" stroke-width="2.55"/>
+        <line x1="-3.0" y1="4.4" x2="3.0" y2="2.6" stroke-width="2.55"/>
+      </g>
+      <line x1="21.0" y1="31.5" x2="25.2" y2="16.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.45"/>
+      <g transform="translate(32.0, 23.8) scale(0.92)" stroke="currentColor" stroke-linecap="round">
+        <line x1="-2.8" y1="-9" x2="-2.8" y2="9" stroke-width="1.95"/>
+        <line x1="2.8" y1="-10" x2="2.8" y2="8" stroke-width="1.95"/>
+        <line x1="-6" y1="-2.2" x2="6" y2="-4.2" stroke-width="2.65"/>
+        <line x1="-6" y1="3.8" x2="6" y2="1.8" stroke-width="2.65"/>
+      </g>`;
   } else if (kind === "melody-dict") {
     body = `
       <ellipse cx="14.5" cy="32" rx="4.2" ry="3.0" transform="rotate(-18 14.5 32)" fill="currentColor"/>
@@ -85545,7 +86546,8 @@ function openCategoryPage(categoryKey, options = {}) {
         },
         {
           lvl: 4,
-          badge: hasSelectedKey ? "♮/♯" : "♯/♭",
+          badge: hasSelectedKey ? getCategoryBadgeSVG("nat-sharp") : getCategoryBadgeSVG("keysig"),
+          nodeClass: "node-circle-icon",
           title: hasSelectedKey
             ? tr("Stufe 4: + Auflösungszeichen (♮)", "Level 4: + Naturals (♮)")
             : tr("Stufe 4: 3 Hilfsl. + Vorzeichen", "Level 4: 3 Ledgers + ♯/♭"),
@@ -85588,7 +86590,8 @@ function openCategoryPage(categoryKey, options = {}) {
           keyMode: "all",
           lvl: 4,
           circle: "circle-peach",
-          badge: "♯/♮",
+          nodeClass: "node-circle-icon",
+          badge: getCategoryBadgeSVG("keysig-nat"),
           title: tr("Tonarten + Auflösungszeichen", "Key Signatures + Naturals (♮)"),
           sub: tr("Blattspiel-Profi mit ♮ &amp; Wechselvorzeichen", "Pro sight-reading with ♮ &amp; accidentals")
         }
@@ -85650,7 +86653,7 @@ function openCategoryPage(categoryKey, options = {}) {
             <div class="subpage-nodes-grid">
               ${KEY_SIGNATURE_CARDS.map(kc => `
                 <button class="subpage-node-btn" data-launch-notation-key="${kc.id}" data-notation-keymode-launch="${kc.keyMode}" data-notation-mode="${trainerClefMode}" data-notation-lvl="${kc.lvl}">
-                  <div class="node-circle ${kc.circle}">${kc.badge}</div>
+                  <div class="node-circle ${kc.circle}${kc.nodeClass ? ` ${kc.nodeClass}` : ""}">${kc.badge}</div>
                   <span class="node-title">${kc.title}</span>
                   <span class="node-sub">${kc.sub}</span>
                 </button>
@@ -87423,8 +88426,7 @@ function generateSolfegeExercise(rootMidi) {
   const audioResolveMidis = chosenStep.resolveOffsets.map(off => rootMidi + off + octaveShift);
   const cadenceBars = buildContextCadenceBars(rootMidi, tonality);
 
-  const leftFrameMidi = prevWhiteMidi(rootMidi);
-  const rightFrameMidi = nextWhiteMidi(rootMidi + 12);
+  const { firstWhite: leftFrameMidi, lastWhite: rightFrameMidi } = getSolfegeKeyboardBounds(rootMidi);
   const leftFrameName = getWhiteNoteLabel(((leftFrameMidi % 12) + 12) % 12);
   const rightFrameName = getWhiteNoteLabel(((rightFrameMidi % 12) + 12) % 12);
   const keyBaseName = getKeyDisplayName(state.currentKey, tonality);
@@ -87516,8 +88518,7 @@ function generateMelodyExercise(rootMidi) {
     };
   });
 
-  const leftFrameMidi = prevWhiteMidi(rootMidi);
-  const rightFrameMidi = nextWhiteMidi(rootMidi + 12);
+  const { firstWhite: leftFrameMidi, lastWhite: rightFrameMidi } = getSolfegeKeyboardBounds(rootMidi);
   const leftFrameName = getWhiteNoteLabel(((leftFrameMidi % 12) + 12) % 12);
   const rightFrameName = getWhiteNoteLabel(((rightFrameMidi % 12) + 12) % 12);
   const keyBaseName = getKeyDisplayName(state.currentKey);
@@ -88296,8 +89297,9 @@ function refreshExerciseLocalization(ex) {
   if (ex.type === "solfege") {
     const keyCode = ex.keyCode || state.currentKey;
     const tonality = ex.tonality || "major";
-    const leftFrameName = getWhiteNoteLabel(((prevWhiteMidi(ex.rootMidi) % 12) + 12) % 12);
-    const rightFrameName = getWhiteNoteLabel(((nextWhiteMidi(ex.rootMidi + 12) % 12) + 12) % 12);
+    const { firstWhite: leftFrameMidi, lastWhite: rightFrameMidi } = getSolfegeKeyboardBounds(ex.rootMidi);
+    const leftFrameName = getWhiteNoteLabel(((leftFrameMidi % 12) + 12) % 12);
+    const rightFrameName = getWhiteNoteLabel(((rightFrameMidi % 12) + 12) % 12);
     ex.keyName = `${getKeyDisplayName(keyCode, tonality)} (${leftFrameName}–${rightFrameName})`;
     if (ex.targetItem?.key) {
       const baseStep = getSolfegeScaleSteps(tonality).find(s => s.key === ex.targetItem.key);
@@ -88311,8 +89313,9 @@ function refreshExerciseLocalization(ex) {
     const keyCode = ex.keyCode || state.currentKey;
     const rangeCfg = getLocalizedMelodyRange(ex.range) || getLocalizedMelodyRange("do-fa");
     const preferFlat = FLAT_KEYS.has(keyCode);
-    const leftFrameName = getWhiteNoteLabel(((prevWhiteMidi(ex.rootMidi) % 12) + 12) % 12);
-    const rightFrameName = getWhiteNoteLabel(((nextWhiteMidi(ex.rootMidi + 12) % 12) + 12) % 12);
+    const { firstWhite: leftFrameMidi, lastWhite: rightFrameMidi } = getSolfegeKeyboardBounds(ex.rootMidi);
+    const leftFrameName = getWhiteNoteLabel(((leftFrameMidi % 12) + 12) % 12);
+    const rightFrameName = getWhiteNoteLabel(((rightFrameMidi % 12) + 12) % 12);
     ex.rangeLabel = rangeCfg.label;
     ex.keyName = `${getKeyDisplayName(keyCode)} (${leftFrameName}–${rightFrameName})`;
     ex.cadenceBars = buildContextCadenceBars(ex.rootMidi);
@@ -88336,11 +89339,43 @@ function refreshExerciseLocalization(ex) {
  */
 
 /**
- * Baut die 1-Oktav-Klaviatur dynamisch für jede beliebige Tonart auf:
- * - Zeigt an beiden Enden jeweils eine weiße Rahmentaste nur halb breit (nicht in der Tonart benutzt); die gewonnene Breite wird proportional auf die Tasten dazwischen verteilt.
- * - Alle 8 Töne der aktuellen Dur-Tonleiter (egal ob weiße oder schwarze Taste) werden eindeutig über ihr mittiges Solfège-Kästchen (Do–Re–Mi–Fa–Sol–La–Ti–Do) markiert.
- * - Innere Tasten außerhalb der Tonart behalten ihre reguläre Klaviatur-Farbe (ohne Kästchen); nur die beiden äußeren halben Rahmentasten bleiben dezent abgesetzt.
+ * Einheitliche Klaviatur-Geometrie für alle Übungen mit Klaviatur-Eingabe (Solfège, Melodie, Notenlesen):
+ * - Alle regulären weißen Tasten besitzen exakt dieselbe Breite (Gewicht 1.0).
+ * - Beide äußeren inaktiven Rahmentasten sind einheitlich schmaler (ca. 1/3 einer Taste statt 1/2),
+ *   lassen aber genügend Raum, damit angrenzende schwarze Tasten nie am Rand abgeschnitten werden.
+ * - Bei Tonarten auf schwarzen Tasten (Des, Es, Fis, As, B) bleiben die weißen Träger-Tasten
+ *   links und rechts der beiden Do-Tasten volle weiße Tasten.
  */
+const PIANO_FRAME_KEY_WEIGHT = 0.36;
+const PIANO_BLACK_KEY_RATIO = 0.62;
+
+function applyPianoKeyboardGeometry(whiteKeyEls, whiteKeys, blackKeyEls, blackKeys) {
+  const weights = whiteKeys.map(wk => (wk.isFrame ? PIANO_FRAME_KEY_WEIGHT : 1));
+  const totalWeight = weights.reduce((sum, w) => sum + w, 0) || 1;
+  const cumWeights = [];
+  let runningWeight = 0;
+
+  weights.forEach((w, idx) => {
+    runningWeight += w;
+    cumWeights.push(runningWeight);
+    const el = whiteKeyEls[idx];
+    if (el) {
+      el.style.flex = "0 0 auto";
+      el.style.width = `${(w / totalWeight) * 100}%`;
+      el.classList.toggle("is-last-white", idx === whiteKeys.length - 1);
+    }
+  });
+
+  const blackWidthPct = (100 / totalWeight) * PIANO_BLACK_KEY_RATIO;
+  blackKeys.forEach((bk, idx) => {
+    const blackEl = blackKeyEls[idx];
+    if (!blackEl) return;
+    const k = bk.afterWhiteIdx;
+    blackEl.style.left = `${(cumWeights[k] / totalWeight) * 100}%`;
+    blackEl.style.width = `${blackWidthPct}%`;
+  });
+}
+
 const NOTATION_BLACK_LABELS_DE = {
   1: "Cis\nDes",
   3: "Dis\nEs",
@@ -88358,8 +89393,8 @@ const NOTATION_BLACK_LABELS_INTL = {
 
 function renderNotationKeyboard(wrap, ex) {
   wrap.classList.add("is-notation");
-  const firstWhite = 59; // H3 / B3 als halbe linke Rahmentaste
-  const lastWhite = 72;  // C5 als halbe rechte Rahmentaste
+  const firstWhite = 59; // H3 / B3 als schmale linke Rahmentaste
+  const lastWhite = 72;  // C5 als schmale rechte Rahmentaste
   const showBlackLabels = Boolean(ex?.allowAccidentals || (ex?.keySignatureId && ex.keySignatureId !== "none"));
   const useIntl = typeof state !== "undefined" && state?.profile?.notation === "intl";
   const blackLabelMap = useIntl ? NOTATION_BLACK_LABELS_INTL : NOTATION_BLACK_LABELS_DE;
@@ -88391,6 +89426,8 @@ function renderNotationKeyboard(wrap, ex) {
 
   const kb = document.createElement("div");
   kb.className = "piano-keyboard";
+  const whiteKeyEls = [];
+  const blackKeyEls = [];
 
   whiteKeys.forEach(wk => {
     const keyBtn = document.createElement("button");
@@ -88411,19 +89448,13 @@ function renderNotationKeyboard(wrap, ex) {
       hint.className = "piano-note-hint";
       hint.textContent = wk.noteLabel;
       keyBtn.appendChild(hint);
+      keyBtn.tabIndex = -1;
+      keyBtn.setAttribute("aria-disabled", "true");
     }
 
+    whiteKeyEls.push(keyBtn);
     kb.appendChild(keyBtn);
   });
-
-  const totalWeight = whiteKeys.reduce((sum, wk) => sum + (wk.isFrame ? 0.5 : 1), 0);
-  const cumWeights = [];
-  let runningWeight = 0;
-  whiteKeys.forEach(wk => {
-    runningWeight += wk.isFrame ? 0.5 : 1;
-    cumWeights.push(runningWeight);
-  });
-  const blackWidthPct = (100 / totalWeight) * 0.62;
 
   blackKeys.forEach(bk => {
     const blackEl = document.createElement("button");
@@ -88433,10 +89464,6 @@ function renderNotationKeyboard(wrap, ex) {
     blackEl.dataset.midi = bk.midi;
     blackEl.dataset.pc = bk.pc;
 
-    const k = bk.afterWhiteIdx;
-    blackEl.style.left = `${(cumWeights[k] / totalWeight) * 100}%`;
-    blackEl.style.width = `${blackWidthPct}%`;
-
     if (showBlackLabels && bk.noteLabel) {
       const box = document.createElement("span");
       box.className = "solfege-key-box solfege-key-box-black notation-key-box-black";
@@ -88444,8 +89471,11 @@ function renderNotationKeyboard(wrap, ex) {
       blackEl.appendChild(box);
     }
     blackEl.addEventListener("click", (e) => handleNotationKeyClick(bk, blackEl, { inputEvent: e }));
+    blackKeyEls.push(blackEl);
     kb.appendChild(blackEl);
   });
+
+  applyPianoKeyboardGeometry(whiteKeyEls, whiteKeys, blackKeyEls, blackKeys);
 
   wrap.innerHTML = "";
   wrap.appendChild(kb);
@@ -88466,8 +89496,7 @@ function renderSolfegeKeyboard() {
     ? state.currentExercise.rootMidi
     : HARMONIC_DATA.roots[state.currentKey].midi;
 
-  const firstWhite = prevWhiteMidi(rootMidi);
-  const lastWhite = nextWhiteMidi(rootMidi + 12);
+  const { firstWhite, lastWhite } = getSolfegeKeyboardBounds(rootMidi);
 
   // Zuordnung der 8 Tonleiter-Töne (Dur: Do–Ti–Do, Moll: Do–Re–Me–Fa–Sol–Le–Te–Do) in dieser Oktave
   const scaleSteps = getSolfegeScaleSteps(state.currentExercise?.tonality || "major");
@@ -88512,6 +89541,8 @@ function renderSolfegeKeyboard() {
 
   const kb = document.createElement("div");
   kb.className = "piano-keyboard";
+  const whiteKeyEls = [];
+  const blackKeyEls = [];
 
   whiteKeys.forEach(wk => {
     const keyBtn = document.createElement("button");
@@ -88541,17 +89572,9 @@ function renderSolfegeKeyboard() {
       keyBtn.setAttribute("aria-disabled", "true");
     }
 
+    whiteKeyEls.push(keyBtn);
     kb.appendChild(keyBtn);
   });
-
-  const totalWeight = whiteKeys.reduce((sum, wk) => sum + (wk.isFrame ? 0.5 : 1), 0);
-  const cumWeights = [];
-  let runningWeight = 0;
-  whiteKeys.forEach(wk => {
-    runningWeight += wk.isFrame ? 0.5 : 1;
-    cumWeights.push(runningWeight);
-  });
-  const blackWidthPct = (100 / totalWeight) * 0.62;
 
   blackKeys.forEach(bk => {
     const blackEl = document.createElement(bk.inScale ? "button" : "div");
@@ -88561,11 +89584,6 @@ function renderSolfegeKeyboard() {
     blackEl.dataset.midi = bk.midi;
     if (bk.syllable) blackEl.dataset.syllable = bk.syllable;
 
-    // Position exakt auf der Trennlinie zwischen den gewichteten weißen Tasten (wie im Freien Spiel)
-    const k = bk.afterWhiteIdx;
-    blackEl.style.left = `${(cumWeights[k] / totalWeight) * 100}%`;
-    blackEl.style.width = `${blackWidthPct}%`;
-
     if (bk.inScale && bk.syllable) {
       const box = document.createElement("span");
       box.className = "solfege-key-box solfege-key-box-black";
@@ -88574,8 +89592,11 @@ function renderSolfegeKeyboard() {
       blackEl.addEventListener("click", (e) => onKeyboardKeyClick(bk, blackEl, { inputEvent: e }));
     }
 
+    blackKeyEls.push(blackEl);
     kb.appendChild(blackEl);
   });
+
+  applyPianoKeyboardGeometry(whiteKeyEls, whiteKeys, blackKeyEls, blackKeys);
 
   wrap.innerHTML = "";
   wrap.appendChild(kb);
@@ -89603,6 +90624,8 @@ function renderUI() {
     if (isChordTempoPinned) {
       pinnedBpmPopover.classList.add("is-pinned");
       pinnedBpmPopover.classList.remove("hidden");
+      pinnedBpmPopover.style.top = "";
+      pinnedBpmPopover.style.maxHeight = "";
     } else if (pinnedBpmPopover.classList.contains("is-pinned")) {
       pinnedBpmPopover.classList.remove("is-pinned");
       pinnedBpmPopover.classList.add("hidden");
@@ -90231,6 +91254,9 @@ function renderUI() {
   resetCentralStage();
   updatePlayButtonUI(false);
   syncListenOnlyUI();
+  if (typeof syncExerciseDemoButtonUI === "function") {
+    syncExerciseDemoButtonUI();
+  }
   document.getElementById("feedbackContainer").classList.add("hidden");
   syncExamExerciseControls();
   fitExerciseLayout();
@@ -90325,9 +91351,60 @@ const EXERCISE_FIT_LEVELS = 3;
 // Beschreibung auf eine Zeile gekürzt wird. Darunter werden lieber Kacheln/Knöpfe verdichtet,
 // damit Text und Maskottchen der Bühne nicht abgeschnitten wirken.
 const EXERCISE_MIN_STAGE_PX = 98;
+let lastExerciseFitSnapshot = "";
 
-// reset = neue Aufgabe oder neue Fenstergröße. Sonst (Feedback-Karte o. Ä. erscheint) wird innerhalb
-// derselben Aufgabe nur weiter verdichtet, nie zurück – damit die Antwortknöpfe nicht springen.
+function getExerciseFitSnapshot() {
+  const view = document.getElementById("viewExercise");
+  if (!view || view.classList.contains("hidden") || view.clientHeight <= 0) return "";
+  const card = document.getElementById("exerciseModuleCard");
+  const dock = view.querySelector(".bottom-dock");
+  return `${view.clientWidth}x${view.clientHeight}:${card?.offsetHeight || 0}:${dock?.offsetHeight || 0}`;
+}
+
+function hasActiveExerciseResultExtension() {
+  const fb = document.getElementById("feedbackContainer");
+  if (fb && !fb.classList.contains("hidden")) return true;
+  const tl = document.getElementById("rhythmTapTimeline");
+  if (tl && !tl.classList.contains("hidden")) return true;
+  return false;
+}
+
+/** Positioniert schwebende Einstellungs-Popovers direkt unterhalb von .module-header
+ *  und begrenzt ihre Höhe sicher auf den sichtbaren Bereich von #viewExercise. */
+function positionOpenModulePopovers() {
+  const card = document.getElementById("exerciseModuleCard");
+  const view = document.getElementById("viewExercise");
+  if (!card) return;
+  const header = card.querySelector(".module-header");
+  const headerBottom = header ? (header.offsetTop + header.offsetHeight + 4) : 48;
+  const cardTopInView = card.offsetTop || 0;
+  const viewH = view && view.clientHeight > 0 ? view.clientHeight : window.innerHeight;
+  const maxPopoverH = Math.max(110, Math.min(420, viewH - cardTopInView - headerBottom - 12));
+  card.querySelectorAll(":scope > .module-inline-popover").forEach(pop => {
+    if (pop.classList.contains("is-pinned")) {
+      pop.style.top = "";
+      pop.style.maxHeight = "";
+      return;
+    }
+    if (pop.classList.contains("hidden")) return;
+    pop.style.top = `${headerBottom}px`;
+    pop.style.maxHeight = `${maxPopoverH}px`;
+  });
+  const singHint = document.getElementById("singAlongHint");
+  if (singHint) {
+    if (view?.classList.contains("sing-hint-float") && !singHint.classList.contains("hidden") && viewH > 0) {
+      const floatTop = cardTopInView + card.offsetHeight + 6;
+      const maxHintH = Math.max(96, Math.min(260, viewH - floatTop - 12));
+      singHint.style.maxHeight = `${maxHintH}px`;
+    } else {
+      singHint.style.maxHeight = "";
+    }
+  }
+}
+
+// reset = neue Aufgabe oder neue Fenstergröße. Solange keine Feedback-Karte / Tap-Auswertung aktiv ist,
+// darf das Layout immer zur optimalen (größtmöglichen) Stufe zurückkehren; nur bei aktiver Ergebnis-Karte
+// wird innerhalb derselben Aufgabe nicht zurückgesprungen, damit die Antwortknöpfe ruhig bleiben.
 function fitExerciseLayout(reset = true) {
   const view = document.getElementById("viewExercise");
   if (!view) return;
@@ -90336,38 +91413,81 @@ function fitExerciseLayout(reset = true) {
       view.dataset.fitLevel = "0"; // beim Einblenden misst der ResizeObserver neu
       view.classList.remove("sing-hint-float", "fit-overflow");
       for (let i = 1; i <= EXERCISE_FIT_LEVELS; i++) view.classList.remove(`fit-${i}`);
+      lastExerciseFitSnapshot = "";
     }
     return;
   }
-  const stageWrap = view.querySelector(".stage-wrapper");
-  const stageCard = stageWrap?.querySelector(".central-stage");
-  const fits = () => view.scrollHeight <= view.clientHeight + 1 &&
-    (!stageWrap || stageWrap.clientHeight >= EXERCISE_MIN_STAGE_PX) &&
-    (!stageCard || stageCard.scrollHeight <= stageCard.clientHeight + 2);
-  const floor = reset ? 0 : (parseInt(view.dataset.fitLevel, 10) || 0);
-  view.classList.remove("sing-hint-float", "fit-overflow");
-  const runLevels = () => {
-    for (let i = 1; i <= EXERCISE_FIT_LEVELS; i++) view.classList.remove(`fit-${i}`);
-    let lvl = floor;
-    if (lvl > 0) view.classList.add(`fit-${lvl}`);
-    while (lvl < EXERCISE_FIT_LEVELS && !fits()) {
-      if (lvl > 0) view.classList.remove(`fit-${lvl}`);
-      lvl += 1;
-      view.classList.add(`fit-${lvl}`);
-    }
-    return lvl;
-  };
-  let level = runLevels();
-  // Mitsing-Einführung passt nicht mehr hinein → schwebend über der Bühne zeigen
-  const singHint = document.getElementById("singAlongHint");
-  if (!fits() && singHint && !singHint.classList.contains("hidden")) {
-    view.classList.add("sing-hint-float");
-    level = runLevels();
+  const card = document.getElementById("exerciseModuleCard");
+  const openFloatingPopovers = card
+    ? Array.from(card.querySelectorAll(":scope > .module-inline-popover:not(.is-pinned):not(.hidden)"))
+    : [];
+  const tutorialCard = document.getElementById("exerciseTutorialCard");
+  if (tutorialCard && !tutorialCard.classList.contains("hidden")) {
+    openFloatingPopovers.push(tutorialCard);
   }
-  if (view.scrollHeight > view.clientHeight + 1) view.classList.add("fit-overflow");
-  view.dataset.fitLevel = String(level);
-  const grid = document.getElementById("degreeButtonsGrid");
-  if (grid && (grid.querySelector(".degree-step") || grid.classList.contains("grid-chords"))) fitChoiceNamesToTiles(grid);
+  const tutorialBackdrop = document.getElementById("exerciseTutorialBackdrop");
+  if (tutorialBackdrop && !tutorialBackdrop.classList.contains("hidden")) {
+    openFloatingPopovers.push(tutorialBackdrop);
+  }
+  // Schwebende Einstellungs-Popovers & Tutorial-Karte für die synchrone Messung ausblenden, damit sie
+  // view.scrollHeight selbst auf sehr kleinen Bildschirmen nie verfälschen (kein Paint dazwischen).
+  openFloatingPopovers.forEach(pop => { pop.style.display = "none"; });
+
+  try {
+    const stageWrap = view.querySelector(".stage-wrapper");
+    const stageCard = stageWrap?.querySelector(".central-stage");
+    const fits = () => view.scrollHeight <= view.clientHeight + 1 &&
+      (!stageWrap || stageWrap.clientHeight >= EXERCISE_MIN_STAGE_PX) &&
+      (!stageCard || stageCard.scrollHeight <= stageCard.clientHeight + 2);
+    const keepFloor = !reset && hasActiveExerciseResultExtension();
+    const floor = keepFloor ? (parseInt(view.dataset.fitLevel, 10) || 0) : 0;
+    const singHint = document.getElementById("singAlongHint");
+    const singHintVisible = Boolean(singHint && !singHint.classList.contains("hidden"));
+
+    view.classList.remove("sing-hint-float", "fit-overflow");
+    const runLevels = (startLvl = floor) => {
+      for (let i = 1; i <= EXERCISE_FIT_LEVELS; i++) view.classList.remove(`fit-${i}`);
+      let lvl = startLvl;
+      if (lvl > 0) view.classList.add(`fit-${lvl}`);
+      while (lvl < EXERCISE_FIT_LEVELS && !fits()) {
+        if (lvl > 0) view.classList.remove(`fit-${lvl}`);
+        lvl += 1;
+        view.classList.add(`fit-${lvl}`);
+      }
+      return lvl;
+    };
+
+    let level;
+    if (singHintVisible) {
+      // Erst messen, welches Level die eigentliche Übung (ohne Mitsing-Karte im Fluss) braucht:
+      // manuell aufgeklappte Mitsing-Karte schwebt immer; automatisches Intro bleibt nur im Fluss,
+      // wenn es ohne zusätzliche Verdichtung hineinpasst.
+      view.classList.add("sing-hint-float");
+      singHint.style.display = "none";
+      level = runLevels(floor);
+      if (!state?.singAlongExpanded) {
+        singHint.style.display = "";
+        view.classList.remove("sing-hint-float");
+        if (!fits()) {
+          view.classList.add("sing-hint-float");
+          singHint.style.display = "none";
+        }
+      }
+    } else {
+      level = runLevels(floor);
+    }
+
+    if (view.scrollHeight > view.clientHeight + 1) view.classList.add("fit-overflow");
+    view.dataset.fitLevel = String(level);
+    const grid = document.getElementById("degreeButtonsGrid");
+    if (grid && (grid.querySelector(".degree-step") || grid.classList.contains("grid-chords"))) fitChoiceNamesToTiles(grid);
+    lastExerciseFitSnapshot = getExerciseFitSnapshot();
+  } finally {
+    const singHintEl = document.getElementById("singAlongHint");
+    if (singHintEl) singHintEl.style.display = "";
+    openFloatingPopovers.forEach(pop => { pop.style.display = ""; });
+    positionOpenModulePopovers();
+  }
 }
 
 let exerciseFitQueued = null;
@@ -90387,7 +91507,14 @@ function queueFitExerciseLayout(reset = false) {
 function initExerciseFitObserver() {
   window.addEventListener("resize", () => queueFitExerciseLayout(true));
   if (typeof ResizeObserver !== "function") return;
-  const ro = new ResizeObserver(() => queueFitExerciseLayout(false));
+  const ro = new ResizeObserver(() => {
+    const snap = getExerciseFitSnapshot();
+    if (!snap || snap === lastExerciseFitSnapshot) {
+      positionOpenModulePopovers();
+      return;
+    }
+    queueFitExerciseLayout(false);
+  });
   ["viewExercise", "exerciseModuleCard"].forEach(id => {
     const el = document.getElementById(id);
     if (el) ro.observe(el);
@@ -91022,7 +92149,9 @@ function showAwaitingAnswerStage(ex = state.currentExercise) {
 
 function completePromptPlayback(ex = state.currentExercise) {
   stopPlayback({ preserveStage: true });
-  if (state.listenOnly?.active) {
+  if (typeof isExerciseTutorialRunning === "function" && isExerciseTutorialRunning()) {
+    onExerciseTutorialPlaybackEnded(ex);
+  } else if (state.listenOnly?.active) {
     handleListenOnlyPromptEnded(ex);
   } else if (ex && state.currentExercise === ex && !isCurrentExerciseSolved(ex)) {
     if (shouldRunHumPause(ex)) startHumPause(ex);
@@ -93685,6 +94814,9 @@ function setListenOnlyMode(enabled, options = {}) {
     return;
   }
 
+  if (nextActive && typeof isExerciseTutorialActive === "function" && isExerciseTutorialActive()) {
+    stopExerciseTutorial({ keepPlayback: true });
+  }
   state.listenOnly.active = true;
   if (isNotationMode(state.currentExercise?.type)) {
     syncNotationPaceUI();
@@ -93716,7 +94848,11 @@ async function playSequence(options = {}) {
 
   const ex = state.currentExercise;
   const currentId = audioEngine.playbackId;
-  const keepPromptLooping = () => Boolean(state.settings.loop && !state.listenOnly?.active);
+  const keepPromptLooping = () => Boolean(
+    state.settings.loop
+    && !state.listenOnly?.active
+    && !(typeof isExerciseTutorialRunning === "function" && isExerciseTutorialRunning())
+  );
 
   // Notation (Notenlesen):
   // - Im Nur-Hören-Modus: linke Note markieren & kurz Zeit zum Mitlesen lassen
@@ -93998,7 +95134,9 @@ async function playSequence(options = {}) {
       state.isPlaying = false;
       updatePlayButtonUI(false);
 
-      if (state.listenOnly?.active) {
+      if (typeof isExerciseTutorialRunning === "function" && isExerciseTutorialRunning()) {
+        onExerciseTutorialPlaybackEnded(ex);
+      } else if (state.listenOnly?.active) {
         handleListenOnlyPromptEnded(ex);
       } else if (!state.rhythmDictationCompleted) {
         showAwaitingAnswerStage(ex);
@@ -94334,7 +95472,9 @@ async function playSequence(options = {}) {
         state.isPlaying = false;
         updatePlayButtonUI(false);
 
-        if (state.listenOnly?.active) {
+        if (typeof isExerciseTutorialRunning === "function" && isExerciseTutorialRunning()) {
+          onExerciseTutorialPlaybackEnded(ex);
+        } else if (state.listenOnly?.active) {
           handleListenOnlyPromptEnded(ex);
         } else if (!state.melodyCompleted) {
           showAwaitingAnswerStage(ex);
@@ -94431,7 +95571,9 @@ async function playSequence(options = {}) {
       state.isPlaying = false;
       updatePlayButtonUI(false);
 
-      if (state.listenOnly?.active) {
+      if (typeof isExerciseTutorialRunning === "function" && isExerciseTutorialRunning()) {
+        onExerciseTutorialPlaybackEnded(ex);
+      } else if (state.listenOnly?.active) {
         handleListenOnlyPromptEnded(ex);
       } else if (!state.melodyCompleted) {
         showAwaitingAnswerStage(ex);
@@ -94520,7 +95662,9 @@ async function playSequence(options = {}) {
           } else {
             state.isPlaying = false;
             updatePlayButtonUI(false);
-            if (state.listenOnly?.active) {
+            if (typeof isExerciseTutorialRunning === "function" && isExerciseTutorialRunning()) {
+              onExerciseTutorialPlaybackEnded(ex);
+            } else if (state.listenOnly?.active) {
               handleListenOnlyPromptEnded(ex);
             } else if (!state.solfegeAnswered) {
               showAwaitingAnswerStage(ex);
@@ -94862,6 +96006,1003 @@ function updatePlayButtonUI(isPlaying) {
   }
 }
 
+
+</script>
+<script>
+// =====================================================
+// VORMACHEN-DEMO / INTERAKTIVER TUTORIAL-MODUS
+// Zeigt pro Übungsmechanik eine kompakte Live-Beispielrunde
+// mit Audio, Fokus-Spotlight und visueller Antwort-Hervorhebung.
+// =====================================================
+
+const _exTutorial = {
+  active: false,
+  phase: "idle", // "idle" | "intro" | "listen" | "demo" | "done"
+  token: 0,
+  groupId: null,
+  timers: [],
+  spotlightEls: [],
+  markedEls: [],
+  demoEx: null
+};
+
+function isExerciseTutorialsEnabled() {
+  return state?.profile?.exerciseTutorials !== false;
+}
+
+function getSeenTutorialSet() {
+  const list = Array.isArray(state?.profile?.seenTutorials) ? state.profile.seenTutorials : [];
+  return new Set(list);
+}
+
+function markTutorialGroupSeen(groupId) {
+  if (!groupId) return;
+  if (!state.profile) state.profile = createDefaultProfile();
+  const list = Array.isArray(state.profile.seenTutorials) ? [...state.profile.seenTutorials] : [];
+  if (!list.includes(groupId)) {
+    list.push(groupId);
+    state.profile.seenTutorials = list.slice(0, 32);
+    saveUserProfile(state.profile);
+  }
+}
+
+function setExerciseTutorialsPreference(enabled) {
+  if (!state.profile) state.profile = createDefaultProfile();
+  state.profile.exerciseTutorials = Boolean(enabled);
+  saveUserProfile(state.profile);
+  syncTutorialSettingsControls();
+}
+
+function resetSeenExerciseTutorials() {
+  if (!state.profile) state.profile = createDefaultProfile();
+  state.profile.seenTutorials = [];
+  state.profile.exerciseTutorials = true;
+  saveUserProfile(state.profile);
+  syncTutorialSettingsControls();
+  if (typeof showAppToast === "function") {
+    showAppToast(
+      tr("Alle Übungs-Einführungen wurden zurückgesetzt.", "All exercise tutorials have been reset."),
+      "info"
+    );
+  }
+}
+
+function syncTutorialSettingsControls() {
+  const on = isExerciseTutorialsEnabled();
+  document.querySelectorAll("[data-ex-tutorials]").forEach(btn => {
+    const active = (btn.dataset.exTutorials === "on") === on;
+    btn.classList.toggle("active", active);
+    btn.setAttribute("aria-pressed", String(active));
+  });
+}
+
+function getTutorialGroupId(ex = state?.currentExercise) {
+  if (!ex || !ex.type) return null;
+  const type = String(ex.type);
+  if (type === "cadence") return "cadence";
+  if (type === "solfege") return "solfege";
+  if (type === "melody") return ex.melodyStyle === "dictation" ? "melody-dictation" : "melody";
+  if (type === "rhythm-dictation") return "rhythm-dictation";
+  if (type === "rhythm-tap") return "rhythm-tap";
+  if (type === "rhythm-meter" || type === "rhythm-groove") return "rhythm-choice";
+  if (isNotationMode(type)) return ex.isChordReading ? "notation-chords" : "notation-keys";
+  if (type === "prod-tone" || type === "prod-eq-noise") return "production";
+  if (type.startsWith("modes-")) return "modes";
+  if (type === "interval-chords" || type === "chord-inversions" || isChordArpeggioMode(type)) return "chord";
+  if (type.startsWith("interval-")) return "interval";
+  return null;
+}
+
+function getTutorialMeta(groupId, ex) {
+  switch (groupId) {
+    case "cadence":
+      return {
+        title: tr("So funktioniert: Kadenz", "How it works: Cadence"),
+        intro: tr(
+          "Höre die 4 Takte der Kadenz, erkenne die fehlende Akkordstufe und tippe sie unten an.",
+          "Listen to the 4-bar cadence, spot the missing chord degree, and tap it below."
+        ),
+        listen: tr(
+          "Hör zu: Die 4 Takte laufen oben mit – achte besonders auf den markierten Zieltakt.",
+          "Listen closely: the 4 bars play at the top — focus on the highlighted target bar."
+        ),
+        answerPrompt: (lbl) => tf(
+          "Das war {lbl}! Tippe genau auf diese Kachel, um zu lösen.",
+          "That was {lbl}! Tap this tile to answer.",
+          { lbl }
+        )
+      };
+    case "interval":
+      return {
+        title: tr("So funktioniert: Intervalle", "How it works: Intervals"),
+        intro: tr(
+          "Vergleiche den Abstand zwischen den beiden Tönen und wähle unten das passende Intervall.",
+          "Compare the distance between the two notes and pick the matching interval below."
+        ),
+        listen: tr(
+          "Hör zu: Erst der Ausgangston, dann der Zielton – achte auf den Abstand dazwischen.",
+          "Listen: notice the distance between the reference note and the target note."
+        ),
+        answerPrompt: (lbl) => tf(
+          "Das gesuchte Intervall ist {lbl} – die passende Kachel leuchtet unten auf.",
+          "The target interval is {lbl} — the matching tile lights up below.",
+          { lbl }
+        )
+      };
+    case "chord":
+      return {
+        title: tr("So funktioniert: Akkorde", "How it works: Chords"),
+        intro: tr(
+          "Höre dir den Klang oder die Lage des Akkords an und wähle unten den passenden Typ.",
+          "Listen to the chord quality or inversion and select the matching tile below."
+        ),
+        listen: tr(
+          "Hör zu: Achte auf den Gesamtklang (hell, dunkel, gespannt) und den tiefsten Ton.",
+          "Listen: focus on the overall color (bright, dark, tense) and the bass note."
+        ),
+        answerPrompt: (lbl) => tf(
+          "Dieser Akkord ist {lbl} – wähle unten die markierte Kachel.",
+          "This chord is {lbl} — choose the highlighted tile below.",
+          { lbl }
+        )
+      };
+    case "modes":
+      return {
+        title: tr("So funktioniert: Tonleitern & Modi", "How it works: Scales & Modes"),
+        intro: tr(
+          "Der Grundton gibt dir Halt – erkenne am typischen Charakterton den Modus und tippe ihn an.",
+          "The root gives you an anchor — spot the mode by its signature color and tap it below."
+        ),
+        listen: tr(
+          "Hör zu: Achte auf die besondere Klangfarbe über dem Grundton.",
+          "Listen: focus on the characteristic color tone over the root."
+        ),
+        answerPrompt: (lbl) => tf(
+          "Diese Klangfarbe gehört zu {lbl} – tippe unten auf die hervorgehobene Kachel.",
+          "That color belongs to {lbl} — tap the highlighted tile below.",
+          { lbl }
+        )
+      };
+    case "solfege":
+      return {
+        title: tr("So funktioniert: Solfège", "How it works: Solfège"),
+        intro: tr(
+          "Erst hörst du die Tonart-Kadenz, dann einen einzelnen Zielton – tippe seine Taste auf der Klaviatur.",
+          "First you hear the key cadence, then one target note — tap its key on the keyboard."
+        ),
+        listen: tr(
+          "Hör zu: Die Kadenz verankert Do – merk dir danach genau den einzelnen Zielton.",
+          "Listen: the cadence anchors Do — then focus on the single target pitch."
+        ),
+        answerPrompt: (lbl) => tf(
+          "Das war {lbl}! Nach dem Antippen löst sich der Ton musikalisch zu Do auf.",
+          "That was {lbl}! After tapping, the note resolves musically back to Do.",
+          { lbl }
+        )
+      };
+    case "melody":
+      return {
+        title: tr("So funktioniert: Melodie", "How it works: Melody"),
+        intro: tr(
+          "Höre die kurze Melodie und spiele sie anschließend Ton für Ton auf der Klaviatur nach.",
+          "Listen to the short melody, then play it back note by note on the keyboard."
+        ),
+        listen: tr(
+          "Hör zu: Die Töne laufen oben der Reihe nach durch.",
+          "Listen: follow the melody slots along the top."
+        ),
+        answerPrompt: () => tr(
+          "Jetzt wird Ton für Ton auf der Klaviatur nachgespielt – jede grüne Taste löst den nächsten Platz.",
+          "Now play back note by note on the keyboard — each green key fills the next slot."
+        )
+      };
+    case "melody-dictation":
+      return {
+        title: tr("So funktioniert: Melodie-Diktat", "How it works: Melody Dictation"),
+        intro: tr(
+          "Wähle für jeden Ton der Melodie sowohl die richtige Klaviatur-Taste als auch den Notenwert.",
+          "For each note of the melody, pick both the right keyboard key and its rhythmic note value."
+        ),
+        listen: tr(
+          "Hör zu: Merke dir Melodieverlauf und Rhythmus der Phrase.",
+          "Listen: memorize both the pitch contour and the rhythm of the phrase."
+        ),
+        answerPrompt: () => tr(
+          "Pro Platz erst Taste antippen, dann den passenden Notenwert wählen – schon rückt der nächste Ton nach.",
+          "For each slot, tap the key and the matching note value to advance."
+        )
+      };
+    case "rhythm-dictation":
+      return {
+        title: tr("So funktioniert: Rhythmus-Diktat", "How it works: Rhythm Dictation"),
+        intro: tr(
+          "Höre den 4-Schlag-Rhythmus und setze unten für jede Zählzeit das passende Notenbild ein.",
+          "Listen to the 4-beat rhythm and pick the matching rhythm pattern for each beat below."
+        ),
+        listen: tr(
+          "Hör zu: Nach dem Einzähler erklingt das Muster über 4 Zählzeiten.",
+          "Listen: after the count-in, the 4-beat pattern plays."
+        ),
+        answerPrompt: () => tr(
+          "Jetzt werden die 4 Zählzeiten nacheinander über die Rhythmus-Kacheln unten eingetragen.",
+          "Now each of the 4 beats is filled in step by step using the rhythm tiles below."
+        )
+      };
+    case "rhythm-tap":
+      return {
+        title: tr("So funktioniert: Rhythmus klopfen", "How it works: Rhythm Tap"),
+        intro: tr(
+          "Nach dem Einzähler hörst du das Muster – danach klopfst du es exakt im Takt auf das Pad.",
+          "After the count-in you hear the pattern — then tap it right in time on the pad."
+        ),
+        listen: tr(
+          "Hör zu & schau aufs Pad: Erst der Einzähler, dann blitzt das Pad genau auf jedem Ziel-Schlag auf.",
+          "Listen & watch the pad: after the count-in, the pad flashes on every target beat."
+        ),
+        answerPrompt: () => tr(
+          "Schau genau hin: Immer wenn das Pad grün aufblitzt, wird geklopft!",
+          "Watch closely: tap the pad right whenever it flashes green!"
+        )
+      };
+    case "rhythm-choice":
+      return {
+        title: tr("So funktioniert: Taktart & Groove", "How it works: Meter & Groove"),
+        intro: tr(
+          "Achte auf den betonten ersten Schlag und das Grundmuster – wähle dann unten die passende Kachel.",
+          "Listen for the accented beat one and the feel — then pick the matching tile below."
+        ),
+        listen: tr(
+          "Hör zu: Zähle leise bis zur nächsten betonten Eins mit.",
+          "Listen: quietly count along until the next accented beat one."
+        ),
+        answerPrompt: (lbl) => tf(
+          "Das gehörte Muster ist {lbl} – tippe unten auf diese Kachel.",
+          "That pattern is {lbl} — tap this tile below.",
+          { lbl }
+        )
+      };
+    case "notation-keys":
+      return {
+        title: tr("So funktioniert: Notenlesen", "How it works: Sight-Reading"),
+        intro: tr(
+          "Lies immer die vorderste markierte Note links im Notensystem ab und tippe die passende Taste.",
+          "Always read the leftmost highlighted note on the staff and tap its key on the keyboard."
+        ),
+        listen: tr(
+          "Schau auf die erste Note links im System (inklusive Vorzeichen).",
+          "Look at the leftmost note on the staff (including any key signature or accidental)."
+        ),
+        answerPrompt: (lbl) => tf(
+          "Diese Note ist {lbl} – tippe die grün markierte Taste, dann rückt die nächste Note nach.",
+          "This note is {lbl} — tap the green key and the next note slides in.",
+          { lbl }
+        )
+      };
+    case "notation-chords":
+      return {
+        title: tr("So funktioniert: Akkorde lesen", "How it works: Chord Reading"),
+        intro: tr(
+          "Lies den vordersten Akkord im Notensystem von unten nach oben und wähle die passende Kachel.",
+          "Read the leftmost chord on the staff from bottom to top and pick the matching tile."
+        ),
+        listen: tr(
+          "Schau auf den markierten Akkord links – Grundton, Terz und Klangfarbe bestimmen die Antwort.",
+          "Inspect the highlighted chord on the left — root, third, and intervals determine the answer."
+        ),
+        answerPrompt: (lbl) => tf(
+          "Der notierte Akkord ist {lbl} – tippe unten auf die passende Kachel.",
+          "The written chord is {lbl} — tap the matching tile below.",
+          { lbl }
+        )
+      };
+    case "production":
+      return {
+        title: tr("So funktioniert: Frequenz- & EQ-Training", "How it works: Frequency & EQ"),
+        intro: ex?.type === "prod-eq-noise"
+          ? tr(
+              "Vergleiche das neutrale Rauschen (Flat) mit dem EQ-Boost und wähle das angehobene Frequenzband.",
+              "Compare the flat noise against the EQ boost and pick the boosted frequency band."
+            )
+          : tr(
+              "Höre die reine Tonhöhe des Sinustons und ordne sie unten der passenden Frequenz zu.",
+              "Listen to the pure sine pitch and match it to its frequency tile below."
+            ),
+        listen: ex?.type === "prod-eq-noise"
+          ? tr(
+              "Hör zu: Erst neutrales Rauschen (Flat), dann schaltet der EQ-Boost dazu.",
+              "Listen: first flat noise, then the EQ boost switches in."
+            )
+          : tr(
+              "Hör zu: Präge dir die Höhe des Sinustons ein.",
+              "Listen: focus on the exact pitch of the sine wave."
+            ),
+        answerPrompt: (lbl) => tf(
+          "Die gesuchte Frequenz ist {lbl} – tippe unten auf die hervorgehobene Kachel.",
+          "The target frequency is {lbl} — tap the highlighted tile below.",
+          { lbl }
+        )
+      };
+    default:
+      return {
+        title: tr("So funktioniert diese Übung", "How this exercise works"),
+        intro: tr(
+          "Höre die Aufgabe an und wähle anschließend unten die passende Antwort.",
+          "Listen to the prompt and select the matching answer below."
+        ),
+        listen: tr("Hör genau hin – das Beispiel läuft gerade.", "Listen closely — the example is playing."),
+        answerPrompt: (lbl) => tf("Die Lösung ist {lbl}.", "The answer is {lbl}.", { lbl })
+      };
+  }
+}
+
+function isExerciseTutorialActive() {
+  return Boolean(_exTutorial.active);
+}
+
+function isExerciseTutorialRunning() {
+  return Boolean(_exTutorial.active && (_exTutorial.phase === "listen" || _exTutorial.phase === "demo"));
+}
+
+function clearTutorialTimers() {
+  _exTutorial.timers.forEach(id => clearTimeout(id));
+  _exTutorial.timers = [];
+}
+
+function scheduleTutorialTimer(fn, delayMs, token = _exTutorial.token) {
+  const id = setTimeout(() => {
+    _exTutorial.timers = _exTutorial.timers.filter(t => t !== id);
+    if (!_exTutorial.active || _exTutorial.token !== token || state.currentView !== "exercise") return;
+    fn();
+  }, Math.max(0, Math.round(delayMs)));
+  _exTutorial.timers.push(id);
+  return id;
+}
+
+const TUTORIAL_READ_LEAD_MS = 1750;       // Lesezeit für Schritt 1, bevor das Audio losläuft
+const TUTORIAL_POST_AUDIO_PAUSE_MS = 950; // Ruhige Pause nach Audio-Ende vor Schritt 2
+
+function setTutorialBackdropVisible(visible) {
+  document.getElementById("exerciseTutorialBackdrop")?.classList.toggle("hidden", !visible);
+}
+
+function clearTutorialSpotlights() {
+  _exTutorial.spotlightEls.forEach(el => el?.classList?.remove("tutorial-spotlight"));
+  _exTutorial.spotlightEls = [];
+  _exTutorial.markedEls.forEach(el => {
+    el?.classList?.remove("tutorial-target-pulse", "btn-correct", "key-correct", "is-hit", "bar-active", "tile-selected-pulse");
+  });
+  _exTutorial.markedEls = [];
+  document.getElementById("viewExercise")?.classList.remove("is-tutorial-running");
+}
+
+function setTutorialSpotlight(elements) {
+  _exTutorial.spotlightEls.forEach(el => el?.classList?.remove("tutorial-spotlight"));
+  _exTutorial.spotlightEls = [];
+  const list = (Array.isArray(elements) ? elements : [elements]).filter(Boolean);
+  list.forEach(el => {
+    el.classList.add("tutorial-spotlight");
+    _exTutorial.spotlightEls.push(el);
+  });
+}
+
+function markTutorialTargetEl(el, extraClasses = []) {
+  if (!el) return;
+  el.classList.add("tutorial-target-pulse", ...extraClasses);
+  if (!_exTutorial.markedEls.includes(el)) {
+    _exTutorial.markedEls.push(el);
+  }
+}
+
+function updateTutorialCardUI({ badge, title, text, mood = "idle", compact = false, position = "center", actions = [] }) {
+  const card = document.getElementById("exerciseTutorialCard");
+  if (!card) return;
+  setTutorialBackdropVisible(true);
+  card.classList.remove("hidden", "is-compact", "is-pos-top", "is-pos-bottom", "is-pos-center");
+  if (compact) card.classList.add("is-compact");
+  card.classList.add(position === "top" ? "is-pos-top" : (position === "bottom" ? "is-pos-bottom" : "is-pos-center"));
+
+  const badgeEl = document.getElementById("exTutorialStepBadge");
+  const titleEl = document.getElementById("exTutorialTitle");
+  const textEl = document.getElementById("exTutorialText");
+  const actionsEl = document.getElementById("exTutorialActions");
+  const mascotEl = document.getElementById("exTutorialMascot");
+
+  if (badgeEl) badgeEl.textContent = badge || "";
+  if (titleEl) titleEl.textContent = title || "";
+  if (textEl) textEl.textContent = text || "";
+
+  if (mascotEl && typeof rotateMascotSlot === "function") {
+    rotateMascotSlot(mascotEl, mood, false, { slot: "tutorial", keepIfSameMood: true });
+  }
+
+  if (actionsEl) {
+    actionsEl.innerHTML = "";
+    actions.forEach(act => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = act.cls || "ex-tutorial-btn";
+      btn.textContent = act.label;
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        act.onClick?.();
+      });
+      actionsEl.appendChild(btn);
+    });
+  }
+}
+
+function syncExerciseDemoButtonUI() {
+  const btn = document.getElementById("exerciseDemoBtn");
+  if (!btn) return;
+  const hide = Boolean(state.exam?.active);
+  btn.classList.toggle("hidden", hide);
+  btn.classList.toggle("is-active", isExerciseTutorialActive());
+}
+
+function stopExerciseTutorial(options = {}) {
+  const wasRunning = isExerciseTutorialRunning();
+  const hadCard = _exTutorial.active;
+  _exTutorial.token += 1;
+  _exTutorial.active = false;
+  _exTutorial.phase = "idle";
+  _exTutorial.demoEx = null;
+  clearTutorialTimers();
+  clearTutorialSpotlights();
+  setTutorialBackdropVisible(false);
+
+  const card = document.getElementById("exerciseTutorialCard");
+  card?.classList.add("hidden");
+  syncExerciseDemoButtonUI();
+
+  if (wasRunning && !options.keepPlayback) {
+    stopPlayback();
+  }
+  if (options.refreshExercise && hadCard && state.currentView === "exercise" && !state.exam?.active) {
+    generateExercise();
+  }
+}
+
+function maybeOfferExerciseTutorial(ex = state?.currentExercise) {
+  if (!ex || state.currentView !== "exercise") return false;
+  if (state.exam?.active || state.listenOnly?.active) return false;
+  if (!isExerciseTutorialsEnabled()) return false;
+  const groupId = getTutorialGroupId(ex);
+  if (!groupId || getSeenTutorialSet().has(groupId)) return false;
+
+  openExerciseTutorialIntro(ex, groupId);
+  return true;
+}
+
+function openExerciseTutorialIntro(ex = state?.currentExercise, explicitGroupId = null) {
+  if (!ex || state.currentView !== "exercise" || state.exam?.active) return;
+  const groupId = explicitGroupId || getTutorialGroupId(ex);
+  if (!groupId) return;
+
+  stopExerciseTutorial({ keepPlayback: false });
+  if (typeof closeTransientPopovers === "function") closeTransientPopovers();
+
+  _exTutorial.active = true;
+  _exTutorial.phase = "intro";
+  _exTutorial.groupId = groupId;
+  _exTutorial.demoEx = ex;
+  syncExerciseDemoButtonUI();
+
+  const meta = getTutorialMeta(groupId, ex);
+  updateTutorialCardUI({
+    badge: tr("NEUE ÜBUNG • VORMACHEN", "NEW EXERCISE • WALKTHROUGH"),
+    title: meta.title,
+    text: meta.intro,
+    mood: "idle",
+    compact: false,
+    position: "center",
+    actions: [
+      {
+        label: tr("▶ Beispiel vormachen", "▶ Show me once"),
+        cls: "ex-tutorial-btn is-primary",
+        onClick: () => runExerciseTutorialDemo()
+      },
+      {
+        label: tr("Direkt starten", "Start right away"),
+        cls: "ex-tutorial-btn is-secondary",
+        onClick: () => {
+          markTutorialGroupSeen(groupId);
+          stopExerciseTutorial();
+        }
+      },
+      {
+        label: tr("Nicht mehr automatisch zeigen", "Don’t show automatically"),
+        cls: "ex-tutorial-btn is-ghost",
+        onClick: () => {
+          setExerciseTutorialsPreference(false);
+          stopExerciseTutorial();
+        }
+      }
+    ]
+  });
+}
+
+async function startExerciseTutorialManually() {
+  const ex = state?.currentExercise;
+  if (!ex || state.currentView !== "exercise" || state.exam?.active) return;
+  if (isExerciseTutorialActive()) {
+    stopExerciseTutorial({ refreshExercise: _exTutorial.phase === "demo" || _exTutorial.phase === "done" });
+    return;
+  }
+  await runExerciseTutorialDemo();
+}
+
+function getTutorialTargetDisplayLabel(ex, groupId) {
+  if (!ex) return "";
+  if (groupId === "solfege") {
+    return getSolfegeDisplayLabel(ex.targetItem?.syllable || "Do");
+  }
+  if (groupId === "notation-keys") {
+    return ex.targetItem?.displayName || ex.targetItem?.letter || "";
+  }
+  if (groupId === "notation-chords") {
+    return ex.targetItem?.displayName || ex.targetItem?.label || "";
+  }
+  const item = ex.targetItem;
+  if (!item) return "";
+  const sym = item.roman || item.symbol || item.short || "";
+  const lbl = item.label || item.name || "";
+  if (sym && lbl && sym !== lbl) return `${sym} (${lbl})`;
+  return sym || lbl || "";
+}
+
+async function runExerciseTutorialDemo(options = {}) {
+  if (state.currentView !== "exercise" || state.exam?.active) return;
+
+  if (state.listenOnly?.active && typeof setListenOnlyMode === "function") {
+    setListenOnlyMode(false, { keepPlayback: false });
+  }
+  if (typeof closeTransientPopovers === "function") closeTransientPopovers();
+  if (typeof cancelHumPause === "function") cancelHumPause(false);
+
+  clearTutorialTimers();
+  clearTutorialSpotlights();
+  stopPlayback();
+
+  // Falls aktuelle Aufgabe schon gelöst ist oder explizit ein neues Beispiel angefordert wurde
+  if (options.fresh || !state.currentExercise || isCurrentExerciseSolved(state.currentExercise)) {
+    generateExercise();
+  }
+  const ex = state.currentExercise;
+  const groupId = getTutorialGroupId(ex);
+  if (!ex || !groupId) return;
+
+  _exTutorial.token += 1;
+  const token = _exTutorial.token;
+  _exTutorial.active = true;
+  _exTutorial.phase = "listen";
+  _exTutorial.groupId = groupId;
+  _exTutorial.demoEx = ex;
+  document.getElementById("viewExercise")?.classList.add("is-tutorial-running");
+  syncExerciseDemoButtonUI();
+
+  const meta = getTutorialMeta(groupId, ex);
+  updateTutorialCardUI({
+    badge: tr("SCHRITT 1 / 2 · ZUHÖREN", "STEP 1 / 2 · LISTEN"),
+    title: meta.title,
+    text: meta.listen,
+    mood: "listening",
+    compact: true,
+    position: "bottom",
+    actions: [
+      {
+        label: tr("Abbrechen", "Cancel"),
+        cls: "ex-tutorial-btn is-secondary",
+        onClick: () => stopExerciseTutorial({ refreshExercise: true })
+      }
+    ]
+  });
+
+  // Oberes Modul komplett im Spotlight hervorheben (alles andere ist abgedunkelt)
+  setTutorialSpotlight(document.getElementById("exerciseModuleCard"));
+
+  await ensureAudioReady();
+  if (!_exTutorial.active || _exTutorial.token !== token || state.currentView !== "exercise") return;
+
+  // Entspannter Lese-Vorlauf, damit der Nutzer den Hinweis lesen kann, bevor der erste Ton startet
+  const readLeadMs = groupId === "rhythm-tap" ? 1950 : TUTORIAL_READ_LEAD_MS;
+  scheduleTutorialTimer(async () => {
+    // Sonderfall 1: Rhythmus-Tap (1 Takt Vorzähler -> 1 Takt Muster mit live aufblitzendem Tap-Pad!)
+    if (groupId === "rhythm-tap") {
+      runRhythmTapTutorialDemo(ex, meta, token);
+      return;
+    }
+
+    // Sonderfall 2: Studio EQ-Vergleich (Flat -> EQ-Boost -> Antwort zeigen)
+    if (ex.type === "prod-eq-noise") {
+      runProdEqTutorialDemo(ex, meta, token);
+      return;
+    }
+
+    // Sonderfall 3: Notenlesen (linke Note / Akkord anspielen -> kurz Zeit zum Ablesen -> Antwort)
+    if (groupId === "notation-keys" || groupId === "notation-chords") {
+      const playNotes = getNotationPlayNotes(ex.targetItem);
+      if (playNotes && playNotes.length) {
+        audioEngine.playStep(playNotes, ex.isChordReading ? 1.25 : 1.0, null, "interval");
+      }
+      scheduleTutorialTimer(() => {
+        runExerciseTutorialAnswerPhase(ex, groupId, meta, token);
+      }, ex.isChordReading ? 1750 : 1500, token);
+      return;
+    }
+
+    // Standardfall: reguläre Audio-Sequenz der Übung abspielen; Ende ruft onExerciseTutorialPlaybackEnded(ex)
+    await playSequence();
+  }, readLeadMs, token);
+}
+
+function onExerciseTutorialPlaybackEnded(ex) {
+  if (!_exTutorial.active || _exTutorial.phase !== "listen") return;
+  if (!ex || ex !== _exTutorial.demoEx) return;
+  const token = _exTutorial.token;
+  const groupId = _exTutorial.groupId;
+  const meta = getTutorialMeta(groupId, ex);
+  scheduleTutorialTimer(() => {
+    runExerciseTutorialAnswerPhase(ex, groupId, meta, token);
+  }, TUTORIAL_POST_AUDIO_PAUSE_MS, token);
+}
+
+function runRhythmTapTutorialDemo(ex, meta, token) {
+  const beatMs = 60000 / (state.activeBpm || 90);
+  const beatsPerBar = ex.beatsPerBar || 4;
+  const barMs = beatsPerBar * beatMs;
+  const events = [];
+
+  for (let b = 0; b < beatsPerBar; b++) {
+    events.push([Math.round(b * beatMs), b === 0 ? "accent" : "tick", b === 0 ? 0.92 : 0.7]);
+    events.push([Math.round(barMs + b * beatMs), b === 0 ? "accent" : "tick", b === 0 ? 0.56 : 0.36]);
+  }
+  const hitDelaysMs = [];
+  (ex.tapSlots || []).forEach((slot, beatIdx) => {
+    (slot.cell?.offsets || []).forEach(off => {
+      const relMs = Math.round((beatIdx + off) * beatMs);
+      events.push([Math.round(barMs + relMs), "clave", 0.96]);
+      hitDelaysMs.push({ relMs, beatIdx });
+    });
+  });
+
+  const baseAudioSec = audioEngine.getAudioTime() + 0.05;
+  audioEngine.playRhythmSequence(events, baseAudioSec);
+
+  const padBtn = document.getElementById("rhythmTapPadBtn");
+  const padTitle = document.getElementById("rhythmPadTitle");
+  const padSub = document.getElementById("rhythmPadSub");
+
+  // Takt 1: Vorzähler
+  for (let b = 0; b < beatsPerBar; b++) {
+    scheduleTutorialTimer(() => {
+      if (padTitle) padTitle.textContent = tf("Vorzähler: {n}", "Count-in: {n}", { n: b + 1 });
+      if (padSub) padSub.textContent = tr("Erst den Puls aufnehmen…", "Feel the pulse first…");
+    }, 50 + Math.round(b * beatMs), token);
+  }
+
+  // Takt 2: Demo-Klopfen – Fokus wandert aufs Pad und blitzt exakt auf jedem Schlag auf!
+  scheduleTutorialTimer(() => {
+    _exTutorial.phase = "demo";
+    setTutorialSpotlight(document.getElementById("rhythmTapPadWrap") || padBtn);
+    updateTutorialCardUI({
+      badge: tr("SCHRITT 2 / 2 · MITKLOPFEN", "STEP 2 / 2 · TAP IN TIME"),
+      title: meta.title,
+      text: meta.answerPrompt(),
+      mood: "happy",
+      compact: true,
+      position: "top",
+      actions: [
+        {
+          label: tr("Abbrechen", "Cancel"),
+          cls: "ex-tutorial-btn is-secondary",
+          onClick: () => stopExerciseTutorial({ refreshExercise: true })
+        }
+      ]
+    });
+    if (padTitle) padTitle.textContent = tr("Jetzt im Takt klopfen!", "Tap in time now!");
+    if (padSub) padSub.textContent = tr("Jedes grüne Aufblitzen = 1 Tippen", "Every green flash = 1 tap");
+  }, 50 + Math.round(barMs - 60), token);
+
+  for (let b = 0; b < beatsPerBar; b++) {
+    scheduleTutorialTimer(() => {
+      for (let i = 0; i < beatsPerBar; i++) {
+        document.getElementById(`barCard_${i}`)?.classList.toggle("bar-active", i === b);
+      }
+    }, 50 + Math.round(barMs + b * beatMs), token);
+  }
+
+  hitDelaysMs.forEach(({ relMs }) => {
+    scheduleTutorialTimer(() => {
+      if (!padBtn) return;
+      padBtn.classList.add("is-hit", "tutorial-target-pulse");
+      if (!_exTutorial.markedEls.includes(padBtn)) _exTutorial.markedEls.push(padBtn);
+      scheduleTutorialTimer(() => {
+        padBtn.classList.remove("is-hit");
+      }, Math.min(200, Math.round(beatMs * 0.45)), token);
+    }, 50 + Math.round(barMs + relMs), token);
+  });
+
+  scheduleTutorialTimer(() => {
+    for (let i = 0; i < beatsPerBar; i++) {
+      document.getElementById(`barCard_${i}`)?.classList.remove("bar-active");
+    }
+    revealTutorialDoneActions({
+      groupId: _exTutorial.groupId,
+      title: meta.title,
+      text: meta.answerPrompt(),
+      position: "top",
+      token
+    });
+  }, 50 + Math.round(2 * barMs + 600), token);
+}
+
+function runProdEqTutorialDemo(ex, meta, token) {
+  audioEngine.startProductionNoiseLoop({
+    freqHz: ex.targetItem.freqHz,
+    q: ex.q,
+    gainDb: ex.boostDb,
+    startBypassed: true,
+    maxDurationSec: 12
+  });
+  const refBtn = document.getElementById("tonicRefBtn");
+  refBtn?.classList.add("btn-active");
+
+  scheduleTutorialTimer(() => {
+    audioEngine.setProductionNoiseBypass(false);
+    refBtn?.classList.remove("btn-active");
+    updateTutorialCardUI({
+      badge: tr("SCHRITT 1 / 2 · EQ-BOOST", "STEP 1 / 2 · EQ BOOST"),
+      title: meta.title,
+      text: tr(
+        "Jetzt ist der EQ-Boost aktiv – hörst du, welches Frequenzband hervortritt?",
+        "Now the EQ boost is active — hear which frequency band stands out?"
+      ),
+      mood: "listening",
+      compact: true,
+      position: "bottom",
+      actions: [
+        {
+          label: tr("Abbrechen", "Cancel"),
+          cls: "ex-tutorial-btn is-secondary",
+          onClick: () => stopExerciseTutorial({ refreshExercise: true })
+        }
+      ]
+    });
+  }, 1900, token);
+
+  scheduleTutorialTimer(() => {
+    audioEngine.stopPlayback();
+    runExerciseTutorialAnswerPhase(ex, "production", meta, token);
+  }, 4300, token);
+}
+
+function revealTutorialDoneActions({ groupId, title, text, position = "top", token }) {
+  if (!_exTutorial.active || _exTutorial.token !== token || state.currentView !== "exercise") return;
+  _exTutorial.phase = "done";
+  markTutorialGroupSeen(groupId);
+  // Spotlight & grüne Lösung bleiben ruhig sichtbar – der Nutzer bestimmt selbst, wann es weitergeht!
+  updateTutorialCardUI({
+    badge: tr("BEREIT!", "READY!"),
+    title: title || tr("Jetzt bist du dran!", "Now it’s your turn!"),
+    text: text || "",
+    mood: "happy",
+    compact: false,
+    position,
+    actions: [
+      {
+        label: tr("▶ Jetzt selbst probieren", "▶ Try it myself"),
+        cls: "ex-tutorial-btn is-primary",
+        onClick: () => stopExerciseTutorial({ refreshExercise: true })
+      },
+      {
+        label: tr("Nochmal ansehen", "Watch again"),
+        cls: "ex-tutorial-btn is-secondary",
+        onClick: () => runExerciseTutorialDemo({ fresh: true })
+      }
+    ]
+  });
+}
+
+function runExerciseTutorialAnswerPhase(ex, groupId, meta, token) {
+  if (!_exTutorial.active || _exTutorial.token !== token || state.currentView !== "exercise") return;
+  _exTutorial.phase = "demo";
+
+  const label = getTutorialTargetDisplayLabel(ex, groupId);
+  const answerText = meta.answerPrompt(label);
+  const isMultiStep = groupId === "melody" || groupId === "melody-dictation" || groupId === "rhythm-dictation";
+  const inputContainer = groupId === "solfege" || groupId === "melody" || groupId === "melody-dictation" || groupId === "notation-keys"
+    ? document.getElementById("solfegeKeyboardWrap")
+    : document.getElementById("degreeButtonsGrid");
+
+  const spotEls = [inputContainer];
+  if (isMultiStep) {
+    spotEls.unshift(document.getElementById("exerciseModuleCard"));
+  }
+  if (groupId === "melody-dictation") {
+    const picker = document.getElementById("melodyRhythmPicker");
+    if (picker && !picker.classList.contains("hidden")) spotEls.push(picker);
+  }
+  setTutorialSpotlight(spotEls);
+
+  const cardPos = isMultiStep ? "center" : "top";
+  updateTutorialCardUI({
+    badge: tr("SCHRITT 2 / 2 · ANTWORT", "STEP 2 / 2 · ANSWER"),
+    title: meta.title,
+    text: answerText,
+    mood: "happy",
+    compact: true,
+    position: cardPos,
+    actions: [
+      {
+        label: tr("Abbrechen", "Cancel"),
+        cls: "ex-tutorial-btn is-secondary",
+        onClick: () => stopExerciseTutorial({ refreshExercise: true })
+      }
+    ]
+  });
+
+  // 1. Melodie & Melodie-Diktat: ruhig Schritt für Schritt auf der Klaviatur (+ Notenwert) vormachen
+  if (groupId === "melody" || groupId === "melody-dictation") {
+    const slots = (ex.melodySlots || []).slice(0, 5);
+    const stepMs = groupId === "melody-dictation" ? 1250 : 980;
+    const startDelay = 700;
+    slots.forEach((slot, idx) => {
+      scheduleTutorialTimer(() => {
+        document.querySelectorAll("#solfegeKeyboardWrap .tutorial-target-pulse").forEach(el => {
+          el.classList.remove("tutorial-target-pulse", "key-correct");
+        });
+        document.querySelectorAll("#melodyRhythmPicker .tutorial-target-pulse").forEach(el => {
+          el.classList.remove("tutorial-target-pulse");
+        });
+        const card = document.getElementById(`barCard_${idx}`);
+        if (card) markTutorialTargetEl(card, ["bar-active"]);
+        const keyEl = document.getElementById(`solfegeKey_${slot.midi}`)
+          || document.getElementById(`solfegeKey_${slot.playedMidi}`)
+          || document.querySelector(`#solfegeKeyboardWrap [data-syllable="${slot.syllable}"]`);
+        if (keyEl) markTutorialTargetEl(keyEl, ["key-correct"]);
+        if (groupId === "melody-dictation" && slot.rhythmKey) {
+          const rBtn = document.querySelector(`#melodyRhythmPicker [data-melody-rhythm="${slot.rhythmKey}"]`);
+          if (rBtn) markTutorialTargetEl(rBtn, []);
+        }
+        if (Number.isFinite(slot.playedMidi)) {
+          audioEngine.playStep([midiToNote(slot.playedMidi)], 0.55, null, "interval");
+        }
+      }, startDelay + idx * stepMs, token);
+    });
+    scheduleTutorialTimer(() => {
+      revealTutorialDoneActions({ groupId, title: meta.title, text: answerText, position: cardPos, token });
+    }, startDelay + Math.max(1100, slots.length * stepMs + 350), token);
+    return;
+  }
+
+  // 2. Rhythmus-Diktat: 4 Zählzeiten ruhig Schritt für Schritt vormachen
+  if (groupId === "rhythm-dictation") {
+    const slots = ex.rhythmSlots || [];
+    const stepMs = 960;
+    const startDelay = 700;
+    const beatMs = 60000 / (state.activeBpm || 90);
+    slots.forEach((slot, idx) => {
+      scheduleTutorialTimer(() => {
+        document.querySelectorAll("#degreeButtonsGrid .tutorial-target-pulse").forEach(el => {
+          el.classList.remove("tutorial-target-pulse", "btn-correct");
+        });
+        const card = document.getElementById(`barCard_${idx}`);
+        if (card) {
+          markTutorialTargetEl(card, ["bar-active"]);
+          const romanEl = card.querySelector(".bar-roman");
+          const lblEl = card.querySelector(".bar-label");
+          if (romanEl && typeof getRhythmCellSVG === "function") {
+            romanEl.innerHTML = getRhythmCellSVG(slot.cellKey, 40, 22);
+          }
+          if (lblEl && slot.cell?.short) lblEl.textContent = slot.cell.short;
+        }
+        const btn = Array.from(document.querySelectorAll("#degreeButtonsGrid .degree-btn"))
+          .find(el => el.dataset.choice === slot.cellKey);
+        if (btn) markTutorialTargetEl(btn, ["btn-correct"]);
+        const cellEvents = (slot.cell?.offsets || []).map(off => [Math.round(off * beatMs), "clave", 0.92]);
+        if (cellEvents.length) audioEngine.playRhythmSequence(cellEvents);
+      }, startDelay + idx * stepMs, token);
+    });
+    scheduleTutorialTimer(() => {
+      revealTutorialDoneActions({ groupId, title: meta.title, text: answerText, position: cardPos, token });
+    }, startDelay + Math.max(1100, slots.length * stepMs + 350), token);
+    return;
+  }
+
+  // 3. Solfège: Taste grün aufleuchten + Auflösung zur Tonika spielen, dann ruhig stehen bleiben
+  if (groupId === "solfege") {
+    const target = ex.targetItem;
+    const keyBtn = document.getElementById(`solfegeKey_${target?.midi}`)
+      || document.querySelector(`#solfegeKeyboardWrap [data-syllable="${target?.syllable}"]`);
+    if (keyBtn) markTutorialTargetEl(keyBtn, ["key-correct"]);
+    if (target && Array.isArray(target.audioResolveMidis) && target.audioResolveMidis.length) {
+      const steps = buildSolfegeResolutionSchedule(target.audioResolveMidis.length, state.activeBpm || 120);
+      target.audioResolveMidis.forEach((midi, idx) => {
+        const st = steps[idx] || { delayMs: idx * 320, durationSec: 0.5 };
+        scheduleTutorialTimer(() => {
+          audioEngine.playStep([midiToNote(midi)], st.durationSec, null, "interval");
+        }, st.delayMs, token);
+      });
+      const last = steps[steps.length - 1] || { delayMs: 800, durationSec: 0.8 };
+      scheduleTutorialTimer(() => {
+        revealTutorialDoneActions({ groupId, title: meta.title, text: answerText, position: cardPos, token });
+      }, last.delayMs + Math.round(last.durationSec * 1000) + 250, token);
+    } else {
+      scheduleTutorialTimer(() => {
+        revealTutorialDoneActions({ groupId, title: meta.title, text: answerText, position: cardPos, token });
+      }, 650, token);
+    }
+    return;
+  }
+
+  // 4. Notenlesen (Klaviatur): passende Taste grün markieren + Ton anspielen, dann ruhig stehen bleiben
+  if (groupId === "notation-keys") {
+    const target = ex.targetItem;
+    const pc = Number(target?.pc);
+    const keyBtn = Array.from(document.querySelectorAll("#solfegeKeyboardWrap .piano-white-key:not(.piano-key-frame), #solfegeKeyboardWrap .piano-black-key"))
+      .find(el => Number(el.dataset.pc) === pc);
+    if (keyBtn) markTutorialTargetEl(keyBtn, ["key-correct"]);
+    const playNotes = getNotationPlayNotes(target);
+    if (playNotes?.length) {
+      audioEngine.playStep(playNotes, 0.9, null, "interval");
+    }
+    scheduleTutorialTimer(() => {
+      revealTutorialDoneActions({ groupId, title: meta.title, text: answerText, position: cardPos, token });
+    }, 650, token);
+    return;
+  }
+
+  // 5. Alle Kachel-Übungen (Kadenz, Intervall, Akkord, Modi, Taktart/Groove, Noten-Akkorde, Studio)
+  const targetKey = ex.targetItem?.key;
+  const targetBtn = Array.from(document.querySelectorAll("#degreeButtonsGrid .degree-btn"))
+    .find(el => el.dataset.choice === targetKey);
+  if (targetBtn) markTutorialTargetEl(targetBtn, ["btn-correct"]);
+
+  if (groupId === "cadence" && Number.isFinite(ex.targetIndex)) {
+    const card = document.getElementById(`barCard_${ex.targetIndex}`);
+    if (card) {
+      markTutorialTargetEl(card, ["bar-active"]);
+      const romanEl = card.querySelector(".bar-roman");
+      const lblEl = card.querySelector(".bar-label");
+      if (romanEl && ex.targetItem?.roman) romanEl.textContent = ex.targetItem.roman;
+      if (lblEl && ex.targetItem?.short) lblEl.textContent = ex.targetItem.short;
+    }
+    if (ex.targetItem?.notes) {
+      audioEngine.playStep(ex.targetItem.notes, 1.15, ex.targetItem.bass, "cadence");
+    }
+  } else if (groupId === "notation-chords") {
+    const playNotes = getNotationPlayNotes(ex.targetItem);
+    if (playNotes?.length) audioEngine.playStep(playNotes, 1.15, null, "interval");
+  }
+
+  scheduleTutorialTimer(() => {
+    revealTutorialDoneActions({ groupId, title: meta.title, text: answerText, position: cardPos, token });
+  }, 650, token);
+}
+
+function initExerciseTutorialUI() {
+  document.getElementById("exerciseDemoBtn")?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    startExerciseTutorialManually();
+  });
+  document.getElementById("exTutorialCloseBtn")?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const shouldRefresh = _exTutorial.phase === "demo" || _exTutorial.phase === "done";
+    if (_exTutorial.groupId && _exTutorial.phase === "intro") {
+      markTutorialGroupSeen(_exTutorial.groupId);
+    }
+    stopExerciseTutorial({ refreshExercise: shouldRefresh });
+  });
+  document.querySelectorAll("[data-ex-tutorials]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      setExerciseTutorialsPreference(btn.dataset.exTutorials === "on");
+    });
+  });
+  document.getElementById("resetTutorialsBtn")?.addEventListener("click", () => {
+    resetSeenExerciseTutorials();
+  });
+  syncTutorialSettingsControls();
+}
 
 </script>
 <script>
@@ -95486,6 +97627,9 @@ function getBreakReminderMinutes() {
 
 function syncBreakReminderControls() {
   syncSingAlongSettingsControls();
+  if (typeof syncTutorialSettingsControls === "function") {
+    syncTutorialSettingsControls();
+  }
   const enabled = state?.profile?.breakReminderEnabled !== false;
   const mins = getBreakReminderMinutes();
 
@@ -97391,6 +99535,9 @@ function startBrandWordStyling() {
 document.addEventListener("DOMContentLoaded", () => {
   startBrandWordStyling();
   initExerciseFitObserver();
+  if (typeof initExerciseTutorialUI === "function") {
+    initExerciseTutorialUI();
+  }
   bindGlobalPointerInputTracker();
   hydrateMascotStaticSlots();
   startMascotAmbientRotation();
@@ -97835,6 +99982,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.getElementById("playBtn")?.addEventListener("click", () => {
+    if (typeof isExerciseTutorialActive === "function" && isExerciseTutorialActive()) {
+      stopExerciseTutorial({ keepPlayback: false });
+    }
     if (state.exam?.active) {
       if (state.exam.currentAnswered && state.exam.feedbackMode === "instant") {
         advanceExamQuestion();
@@ -97858,6 +100008,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.getElementById("skipBtn")?.addEventListener("click", () => {
+    if (typeof isExerciseTutorialActive === "function" && isExerciseTutorialActive()) {
+      stopExerciseTutorial({ keepPlayback: false });
+    }
     if (state.exam?.active) {
       if (state.exam.currentAnswered) {
         advanceExamQuestion();
@@ -98199,6 +100352,7 @@ document.addEventListener("DOMContentLoaded", () => {
     closeAllInlinePopovers(inlineBpmPopover);
     const isHidden = inlineBpmPopover.classList.toggle("hidden");
     moduleBpmBtn.classList.toggle("chip-open", !isHidden);
+    if (!isHidden && typeof positionOpenModulePopovers === "function") positionOpenModulePopovers();
   });
 
   document.getElementById("singAlongChipBtn")?.addEventListener("click", (e) => {
@@ -98209,6 +100363,7 @@ document.addEventListener("DOMContentLoaded", () => {
     state.singAlongExpanded = !isOpen;
     if (isOpen && ex) ex.singIntroShown = false;
     syncSingAlongUI(ex);
+    if (typeof queueFitExerciseLayout === "function") queueFitExerciseLayout(isOpen);
   });
   document.getElementById("singAlongDismissBtn")?.addEventListener("click", () => {
     const ex = state.currentExercise;
@@ -98219,6 +100374,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (ex) ex.singIntroShown = false;
     state.singAlongExpanded = false;
     syncSingAlongUI(ex);
+    if (typeof queueFitExerciseLayout === "function") queueFitExerciseLayout(true);
   });
   document.getElementById("singAlongPauseToggle")?.addEventListener("click", () => {
     setSingAlongPreference("singAlongPause", !state.profile?.singAlongPause);
@@ -98238,6 +100394,7 @@ document.addEventListener("DOMContentLoaded", () => {
     renderModesPadPopover();
     const isHidden = inlineModesPadPopover.classList.toggle("hidden");
     modesPadBtn.classList.toggle("chip-open", !isHidden);
+    if (!isHidden && typeof positionOpenModulePopovers === "function") positionOpenModulePopovers();
   });
 
   melodyPulseBtn?.addEventListener("click", (e) => {
@@ -98261,6 +100418,7 @@ document.addEventListener("DOMContentLoaded", () => {
     closeAllInlinePopovers(inlineKeyPopover);
     const isHidden = inlineKeyPopover.classList.toggle("hidden");
     moduleKeyBtn.classList.toggle("chip-open", !isHidden);
+    if (!isHidden && typeof positionOpenModulePopovers === "function") positionOpenModulePopovers();
   });
 
   moduleNotationKeyBtn?.addEventListener("click", (e) => {
@@ -98270,6 +100428,7 @@ document.addEventListener("DOMContentLoaded", () => {
     renderInlineNotationKeyPopover();
     const isHidden = inlineNotationKeyPopover.classList.toggle("hidden");
     moduleNotationKeyBtn.classList.toggle("chip-open", !isHidden);
+    if (!isHidden && typeof positionOpenModulePopovers === "function") positionOpenModulePopovers();
   });
 
   moduleNotationPaceBtn?.addEventListener("click", (e) => {
@@ -98279,6 +100438,7 @@ document.addEventListener("DOMContentLoaded", () => {
     syncNotationPaceUI();
     const isHidden = inlineNotationPacePopover.classList.toggle("hidden");
     moduleNotationPaceBtn.classList.toggle("chip-open", !isHidden);
+    if (!isHidden && typeof positionOpenModulePopovers === "function") positionOpenModulePopovers();
   });
 
   inlineNotationPaceSlider?.addEventListener("input", (e) => {
@@ -98290,6 +100450,7 @@ document.addEventListener("DOMContentLoaded", () => {
     closeAllInlinePopovers(inlineTimeSigPopover);
     const isHidden = inlineTimeSigPopover.classList.toggle("hidden");
     moduleTimeSigBtn.classList.toggle("chip-open", !isHidden);
+    if (!isHidden && typeof positionOpenModulePopovers === "function") positionOpenModulePopovers();
   });
 
   [inlineBpmPopover, inlineKeyPopover, inlineNotationKeyPopover, inlineNotationPacePopover, inlineTimeSigPopover, inlineModesRootPopover, inlineModesPadPopover].forEach(pop => {
@@ -98305,6 +100466,7 @@ document.addEventListener("DOMContentLoaded", () => {
     renderModesRootPopover();
     const isHidden = inlineModesRootPopover.classList.toggle("hidden");
     modesRootBadge.classList.toggle("chip-open", !isHidden);
+    if (!isHidden && typeof positionOpenModulePopovers === "function") positionOpenModulePopovers();
   };
   modesRootBadge?.addEventListener("click", toggleModesRootPopover);
   modesRootBadge?.addEventListener("keydown", (e) => {
@@ -98861,8 +101023,12 @@ document.addEventListener("DOMContentLoaded", () => {
     stepWarmupIndex(1);
   });
 
-  // Leertaste als Takt-/Tap-Taste (Rhythmus) bzw. Start/Pause (Einsing-Helfer)
+  // Leertaste als Takt-/Tap-Taste (Rhythmus) bzw. Start/Pause (Einsing-Helfer); Escape schließt Tutorial
   document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && typeof isExerciseTutorialActive === "function" && isExerciseTutorialActive()) {
+      stopExerciseTutorial({ refreshExercise: true });
+      return;
+    }
     if (e.code !== "Space" && e.key !== " ") return;
     if (e.repeat) return;
     const tag = e.target?.tagName;
@@ -104312,6 +106478,7 @@ function openFreeplayView(returnView = "tools") {
 const FB_MAX_FRET = 15;
 const FB_FRET_PX = 44;
 const FB_INLAY_FRETS = new Set([3, 5, 7, 9, 12, 15]);
+const FB_GUITAR_GAIN_BOOST = 1.15;
 
 const FB_TUNINGS = [
   { id: "standard", de: "Standard (E)",      en: "Standard (E)",      midis: [40, 45, 50, 55, 59, 64] },
@@ -104932,7 +107099,7 @@ function scrollFretboardToRange(minFret, maxFret) {
 async function playFretboardSingleNote(midi, stringIdx = null, fret = null) {
   await ensureAudioReady();
   const noteName = midiToNote(midi);
-  audioEngine.playInstrumentSample("guitar", [noteName], 1.15, 0, 1.0);
+  audioEngine.playInstrumentSample("guitar", [noteName], 1.15, 0, 1.0 * FB_GUITAR_GAIN_BOOST);
   if (stringIdx !== null && fret !== null) {
     pulseFretboardPosition(stringIdx, fret, 360);
   }
@@ -104949,7 +107116,7 @@ async function playFretboardFrets(frets, stepMs = 30) {
 
   const noteNames = sounding.map(n => midiToNote(n.midi));
   const durSec = stepMs > 80 ? 1.15 : 1.75;
-  audioEngine.playInstrumentSample("guitar", noteNames, durSec, stepMs, 1.0);
+  audioEngine.playInstrumentSample("guitar", noteNames, durSec, stepMs, 1.0 * FB_GUITAR_GAIN_BOOST);
 
   sounding.forEach((n, idx) => {
     const tid = setTimeout(() => {
@@ -105005,7 +107172,7 @@ async function playFretboardScaleRun() {
 
   const stepMs = 195;
   const noteNames = sequence.map(n => midiToNote(n.midi));
-  audioEngine.playInstrumentSample("guitar", noteNames, 0.52, stepMs, 0.98);
+  audioEngine.playInstrumentSample("guitar", noteNames, 0.52, stepMs, 0.98 * FB_GUITAR_GAIN_BOOST);
 
   sequence.forEach((n, idx) => {
     const tid = setTimeout(() => {
@@ -105028,7 +107195,7 @@ async function playFretboardScaleCompanionChord() {
   const base = 48 + _fb.scaleRoot;
   const q = getFretboardQualityDef(scale.companion || "maj");
   const notes = q.intervals.map(i => midiToNote(base + i));
-  audioEngine.playInstrumentSample("guitar", notes, 1.6, 32, 1.0);
+  audioEngine.playInstrumentSample("guitar", notes, 1.6, 32, 1.0 * FB_GUITAR_GAIN_BOOST);
 }
 
 function loadFretboardChordVoicings(options = {}) {
@@ -106277,24 +108444,26 @@ function renderNashvilleDiagramSVG(keyEntry, mode) {
 
   // Obere Reihe: die 3 Hauptfunktionen (1, 4, 5).
   // Untere Reihe: ihre jeweiligen Parallelen & Stellvertreter im passenden Funktionsbereich.
+  // 2er-Untergruppen (3-/7° in Dur bzw. 2°/♭6 in Moll) sind gestaffelt, damit das Diagramm
+  // vertikal großzügig und auf Mobilgeräten gut lesbar & bequem tippbar bleibt.
   const nodes = mode === "minor"
     ? [
-        { item: resolved[0], x: 280, y: 50,  r: 34, cls: "nns-svg-node-tonic nns-svg-node-root" }, // 1- (t)
-        { item: resolved[3], x: 96,  y: 74,  r: 29, cls: "nns-svg-node-subdom" },                  // 4- (s)
-        { item: resolved[4], x: 464, y: 74,  r: 29, cls: "nns-svg-node-dom" },                     // 5- (d)
-        { item: resolved[1], x: 56,  y: 164, r: 23, cls: "nns-svg-node-subdom" },                  // 2° (s²)
-        { item: resolved[5], x: 136, y: 164, r: 23, cls: "nns-svg-node-subdom" },                  // ♭6 (sP)
-        { item: resolved[2], x: 280, y: 164, r: 24, cls: "nns-svg-node-tonic" },                   // ♭3 (tP)
-        { item: resolved[6], x: 464, y: 164, r: 24, cls: "nns-svg-node-dom" }                      // ♭7 (dP)
+        { item: resolved[0], x: 228, y: 58,  r: 36, cls: "nns-svg-node-tonic nns-svg-node-root" }, // 1- (t)
+        { item: resolved[3], x: 78,  y: 86,  r: 32, cls: "nns-svg-node-subdom" },                  // 4- (s)
+        { item: resolved[4], x: 378, y: 86,  r: 32, cls: "nns-svg-node-dom" },                     // 5- (d)
+        { item: resolved[5], x: 112, y: 204, r: 27, cls: "nns-svg-node-subdom" },                  // ♭6 (sP)
+        { item: resolved[1], x: 44,  y: 266, r: 27, cls: "nns-svg-node-subdom" },                  // 2° (s²)
+        { item: resolved[2], x: 228, y: 232, r: 29, cls: "nns-svg-node-tonic" },                   // ♭3 (tP)
+        { item: resolved[6], x: 378, y: 232, r: 29, cls: "nns-svg-node-dom" }                      // ♭7 (dP)
       ]
     : [
-        { item: resolved[0], x: 280, y: 50,  r: 34, cls: "nns-svg-node-tonic nns-svg-node-root" }, // 1 (T)
-        { item: resolved[3], x: 96,  y: 74,  r: 29, cls: "nns-svg-node-subdom" },                  // 4 (S)
-        { item: resolved[4], x: 464, y: 74,  r: 29, cls: "nns-svg-node-dom" },                     // 5 (D)
-        { item: resolved[1], x: 96,  y: 164, r: 24, cls: "nns-svg-node-subdom" },                  // 2- (Sp)
-        { item: resolved[5], x: 280, y: 164, r: 24, cls: "nns-svg-node-tonic" },                   // 6- (Tp)
-        { item: resolved[2], x: 424, y: 164, r: 23, cls: "nns-svg-node-dom" },                     // 3- (Dp / Tg)
-        { item: resolved[6], x: 504, y: 164, r: 23, cls: "nns-svg-node-dom" }                      // 7° (Đ⁷)
+        { item: resolved[0], x: 228, y: 58,  r: 36, cls: "nns-svg-node-tonic nns-svg-node-root" }, // 1 (T)
+        { item: resolved[3], x: 78,  y: 86,  r: 32, cls: "nns-svg-node-subdom" },                  // 4 (S)
+        { item: resolved[4], x: 378, y: 86,  r: 32, cls: "nns-svg-node-dom" },                     // 5 (D)
+        { item: resolved[1], x: 78,  y: 232, r: 29, cls: "nns-svg-node-subdom" },                  // 2- (Sp)
+        { item: resolved[5], x: 228, y: 232, r: 29, cls: "nns-svg-node-tonic" },                   // 6- (Tp)
+        { item: resolved[2], x: 344, y: 204, r: 27, cls: "nns-svg-node-dom" },                     // 3- (Dp / Tg)
+        { item: resolved[6], x: 412, y: 266, r: 27, cls: "nns-svg-node-dom" }                      // 7° (Đ⁷)
       ];
 
   const tonicLbl = escapeHtml(nnsFunctionZoneLabel("tonic"));
@@ -106303,21 +108472,21 @@ function renderNashvilleDiagramSVG(keyEntry, mode) {
 
   const relationLines = mode === "minor"
     ? `
-      <line x1="84" y1="120" x2="64" y2="140" stroke="var(--lilac-strong)" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.55"/>
-      <line x1="108" y1="120" x2="128" y2="140" stroke="var(--lilac-strong)" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.55"/>
-      <line x1="280" y1="104" x2="280" y2="138" stroke="var(--sage-strong)" stroke-width="1.6" stroke-dasharray="3 4" opacity="0.55"/>
-      <line x1="464" y1="120" x2="464" y2="138" stroke="var(--peach-strong)" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.55"/>
+      <line x1="64" y1="154" x2="48" y2="237" stroke="var(--lilac-strong)" stroke-width="1.6" stroke-dasharray="3 4" opacity="0.55"/>
+      <line x1="90" y1="154" x2="104" y2="175" stroke="var(--lilac-strong)" stroke-width="1.6" stroke-dasharray="3 4" opacity="0.55"/>
+      <line x1="228" y1="138" x2="228" y2="199" stroke="var(--sage-strong)" stroke-width="1.7" stroke-dasharray="3 4" opacity="0.55"/>
+      <line x1="378" y1="154" x2="378" y2="199" stroke="var(--peach-strong)" stroke-width="1.6" stroke-dasharray="3 4" opacity="0.55"/>
     `
     : `
-      <line x1="96" y1="120" x2="96" y2="138" stroke="var(--lilac-strong)" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.55"/>
-      <line x1="280" y1="104" x2="280" y2="138" stroke="var(--sage-strong)" stroke-width="1.6" stroke-dasharray="3 4" opacity="0.55"/>
-      <line x1="452" y1="120" x2="432" y2="140" stroke="var(--peach-strong)" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.55"/>
-      <line x1="476" y1="120" x2="496" y2="140" stroke="var(--peach-strong)" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.55"/>
-      <line x1="308" y1="74" x2="404" y2="148" stroke="var(--sage-strong)" stroke-width="1.4" stroke-dasharray="2 4" opacity="0.4"/>
+      <line x1="78" y1="154" x2="78" y2="199" stroke="var(--lilac-strong)" stroke-width="1.6" stroke-dasharray="3 4" opacity="0.55"/>
+      <line x1="228" y1="138" x2="228" y2="199" stroke="var(--sage-strong)" stroke-width="1.7" stroke-dasharray="3 4" opacity="0.55"/>
+      <line x1="366" y1="154" x2="352" y2="175" stroke="var(--peach-strong)" stroke-width="1.6" stroke-dasharray="3 4" opacity="0.55"/>
+      <line x1="392" y1="154" x2="408" y2="237" stroke="var(--peach-strong)" stroke-width="1.6" stroke-dasharray="3 4" opacity="0.55"/>
+      <line x1="258" y1="84" x2="324" y2="184" stroke="var(--sage-strong)" stroke-width="1.5" stroke-dasharray="2 4" opacity="0.42"/>
     `;
 
   return `
-    <svg class="nns-diagram-svg" viewBox="0 0 560 250" role="img" aria-label="${escapeHtml(tf("Nashville-Diagramm für {key}", "Nashville diagram for {key}", { key: formatNnsKeyTitle(keyEntry, mode) }))}" xmlns="http://www.w3.org/2000/svg">
+    <svg class="nns-diagram-svg" viewBox="0 0 456 368" role="img" aria-label="${escapeHtml(tf("Nashville-Diagramm für {key}", "Nashville diagram for {key}", { key: formatNnsKeyTitle(keyEntry, mode) }))}" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="nnsArrowDom" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
           <path d="M 1 2 L 8 5 L 1 8 z" fill="var(--peach-strong)"/>
@@ -106327,31 +108496,42 @@ function renderNashvilleDiagramSVG(keyEntry, mode) {
         </marker>
       </defs>
 
-      <rect x="12" y="34" width="168" height="208" rx="18" class="nns-svg-zone nns-svg-zone-subdom"/>
-      <rect x="196" y="10" width="168" height="232" rx="20" class="nns-svg-zone nns-svg-zone-tonic"/>
-      <rect x="380" y="34" width="168" height="208" rx="18" class="nns-svg-zone nns-svg-zone-dom"/>
+      <rect x="6" y="32" width="144" height="326" rx="18" class="nns-svg-zone nns-svg-zone-subdom"/>
+      <rect x="156" y="10" width="144" height="348" rx="20" class="nns-svg-zone nns-svg-zone-tonic"/>
+      <rect x="306" y="32" width="144" height="326" rx="18" class="nns-svg-zone nns-svg-zone-dom"/>
 
-      <text x="96" y="231" text-anchor="middle" font-family="Andika, sans-serif" font-size="11" font-weight="700" class="nns-svg-zone-lbl-subdom">${subdomLbl}</text>
-      <text x="280" y="231" text-anchor="middle" font-family="Andika, sans-serif" font-size="11" font-weight="700" class="nns-svg-zone-lbl-tonic">${tonicLbl}</text>
-      <text x="464" y="231" text-anchor="middle" font-family="Andika, sans-serif" font-size="11" font-weight="700" class="nns-svg-zone-lbl-dom">${domLbl}</text>
+      <text x="78" y="347" text-anchor="middle" font-family="Andika, sans-serif" font-size="12" font-weight="700" class="nns-svg-zone-lbl-subdom">${subdomLbl}</text>
+      <text x="228" y="347" text-anchor="middle" font-family="Andika, sans-serif" font-size="12" font-weight="700" class="nns-svg-zone-lbl-tonic">${tonicLbl}</text>
+      <text x="378" y="347" text-anchor="middle" font-family="Andika, sans-serif" font-size="12" font-weight="700" class="nns-svg-zone-lbl-dom">${domLbl}</text>
 
-      <path d="M 244 58 Q 184 60 128 72" fill="none" stroke="var(--lilac-strong)" stroke-width="2" stroke-dasharray="4 4" opacity="0.72" marker-end="url(#nnsArrowSub)"/>
-      <path d="M 128 86 Q 280 122 432 86" fill="none" stroke="var(--peach-strong)" stroke-width="2" stroke-dasharray="5 4" opacity="0.65" marker-end="url(#nnsArrowDom)"/>
-      <path d="M 434 66 Q 376 46 318 50" fill="none" stroke="var(--peach-strong)" stroke-width="2.3" opacity="0.88" marker-end="url(#nnsArrowDom)"/>
+      <path d="M 190 66 Q 148 68 112 80" fill="none" stroke="var(--lilac-strong)" stroke-width="2.1" stroke-dasharray="4 4" opacity="0.72" marker-end="url(#nnsArrowSub)"/>
+      <path d="M 110 102 Q 228 168 346 102" fill="none" stroke="var(--peach-strong)" stroke-width="2.1" stroke-dasharray="5 4" opacity="0.65" marker-end="url(#nnsArrowDom)"/>
+      <path d="M 346 74 Q 306 52 266 56" fill="none" stroke="var(--peach-strong)" stroke-width="2.4" opacity="0.88" marker-end="url(#nnsArrowDom)"/>
       ${relationLines}
 
       ${nodes.map(n => {
         const badge = nnsDiagramNodeBadge(n.item.roleKey);
         const roleLabel = nnsDegreeRoleLabel(n.item.roleKey);
+        const badgeParts = String(badge || "").split(" · ");
+        const badgeY = n.y + n.r + 14;
+        const badgeMarkup = badgeParts.length >= 2
+          ? `<text x="${n.x}" y="${badgeY}" text-anchor="middle" font-family="Andika, sans-serif" font-size="12" font-weight="700" class="nns-svg-role">
+              <tspan x="${n.x}" dy="0">${escapeHtml(badgeParts[0])}</tspan>
+              <tspan x="${n.x}" dy="13" font-size="10.8" class="nns-svg-role-sub">${escapeHtml(badgeParts.slice(1).join(" · "))}</tspan>
+            </text>`
+          : `<text x="${n.x}" y="${badgeY}" text-anchor="middle" font-family="Andika, sans-serif" font-size="11.5" font-weight="700" class="nns-svg-role">${escapeHtml(badge)}</text>`;
+        const numSize = n.r >= 35 ? 21 : (n.r >= 31 ? 18.5 : (n.r >= 28 ? 17 : 16));
+        const chordSize = n.r >= 35 ? 14 : (n.r >= 31 ? 13 : (n.r >= 28 ? 12.5 : 12));
+        const chordDy = n.r >= 35 ? 16 : (n.r >= 31 ? 15 : 14);
         return `
         <g class="nns-svg-node ${n.cls}" role="button" tabindex="0"
            data-nns-play="${escapeHtml(n.item.token)}"
            data-nns-flash="${escapeHtml(n.item.token)}"
            aria-label="${escapeHtml(`${n.item.token}: ${n.item.chordName} (${n.item.roman}, ${roleLabel})`)}">
           <circle cx="${n.x}" cy="${n.y}" r="${n.r}"/>
-          <text x="${n.x}" y="${n.y - 3}" text-anchor="middle" font-family="Andika, sans-serif" font-size="${n.r >= 33 ? 18.5 : (n.r >= 28 ? 16 : 14)}" font-weight="700" class="nns-svg-num">${escapeHtml(n.item.token)}</text>
-          <text x="${n.x}" y="${n.y + (n.r >= 33 ? 15.5 : 13)}" text-anchor="middle" font-family="Andika, sans-serif" font-size="${n.r >= 33 ? 12.5 : 11}" font-weight="700" class="nns-svg-chord">${escapeHtml(n.item.chordName)}</text>
-          <text x="${n.x}" y="${n.y + n.r + 13}" text-anchor="middle" font-family="Andika, sans-serif" font-size="9.3" font-weight="700" class="nns-svg-role">${escapeHtml(badge)}</text>
+          <text x="${n.x}" y="${n.y - 3.5}" text-anchor="middle" font-family="Andika, sans-serif" font-size="${numSize}" font-weight="700" class="nns-svg-num">${escapeHtml(n.item.token)}</text>
+          <text x="${n.x}" y="${n.y + chordDy}" text-anchor="middle" font-family="Andika, sans-serif" font-size="${chordSize}" font-weight="700" class="nns-svg-chord">${escapeHtml(n.item.chordName)}</text>
+          ${badgeMarkup}
         </g>
       `;
       }).join("")}
@@ -109174,6 +111354,7 @@ function requestExamAbort() {
 
 function cancelExamAbort() {
   document.getElementById("examAbortConfirmBanner")?.classList.add("hidden");
+  if (typeof queueFitExerciseLayout === "function") queueFitExerciseLayout(true);
 }
 
 function abortCategoryExam() {

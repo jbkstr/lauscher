@@ -6,6 +6,7 @@
 const FB_MAX_FRET = 15;
 const FB_FRET_PX = 44;
 const FB_INLAY_FRETS = new Set([3, 5, 7, 9, 12, 15]);
+const FB_GUITAR_GAIN_BOOST = 1.15;
 
 const FB_TUNINGS = [
   { id: "standard", de: "Standard (E)",      en: "Standard (E)",      midis: [40, 45, 50, 55, 59, 64] },
@@ -626,7 +627,7 @@ function scrollFretboardToRange(minFret, maxFret) {
 async function playFretboardSingleNote(midi, stringIdx = null, fret = null) {
   await ensureAudioReady();
   const noteName = midiToNote(midi);
-  audioEngine.playInstrumentSample("guitar", [noteName], 1.15, 0, 1.0);
+  audioEngine.playInstrumentSample("guitar", [noteName], 1.15, 0, 1.0 * FB_GUITAR_GAIN_BOOST);
   if (stringIdx !== null && fret !== null) {
     pulseFretboardPosition(stringIdx, fret, 360);
   }
@@ -643,7 +644,7 @@ async function playFretboardFrets(frets, stepMs = 30) {
 
   const noteNames = sounding.map(n => midiToNote(n.midi));
   const durSec = stepMs > 80 ? 1.15 : 1.75;
-  audioEngine.playInstrumentSample("guitar", noteNames, durSec, stepMs, 1.0);
+  audioEngine.playInstrumentSample("guitar", noteNames, durSec, stepMs, 1.0 * FB_GUITAR_GAIN_BOOST);
 
   sounding.forEach((n, idx) => {
     const tid = setTimeout(() => {
@@ -699,7 +700,7 @@ async function playFretboardScaleRun() {
 
   const stepMs = 195;
   const noteNames = sequence.map(n => midiToNote(n.midi));
-  audioEngine.playInstrumentSample("guitar", noteNames, 0.52, stepMs, 0.98);
+  audioEngine.playInstrumentSample("guitar", noteNames, 0.52, stepMs, 0.98 * FB_GUITAR_GAIN_BOOST);
 
   sequence.forEach((n, idx) => {
     const tid = setTimeout(() => {
@@ -722,7 +723,7 @@ async function playFretboardScaleCompanionChord() {
   const base = 48 + _fb.scaleRoot;
   const q = getFretboardQualityDef(scale.companion || "maj");
   const notes = q.intervals.map(i => midiToNote(base + i));
-  audioEngine.playInstrumentSample("guitar", notes, 1.6, 32, 1.0);
+  audioEngine.playInstrumentSample("guitar", notes, 1.6, 32, 1.0 * FB_GUITAR_GAIN_BOOST);
 }
 
 function loadFretboardChordVoicings(options = {}) {

@@ -1485,6 +1485,9 @@ function setListenOnlyMode(enabled, options = {}) {
     return;
   }
 
+  if (nextActive && typeof isExerciseTutorialActive === "function" && isExerciseTutorialActive()) {
+    stopExerciseTutorial({ keepPlayback: true });
+  }
   state.listenOnly.active = true;
   if (isNotationMode(state.currentExercise?.type)) {
     syncNotationPaceUI();
@@ -1516,7 +1519,11 @@ async function playSequence(options = {}) {
 
   const ex = state.currentExercise;
   const currentId = audioEngine.playbackId;
-  const keepPromptLooping = () => Boolean(state.settings.loop && !state.listenOnly?.active);
+  const keepPromptLooping = () => Boolean(
+    state.settings.loop
+    && !state.listenOnly?.active
+    && !(typeof isExerciseTutorialRunning === "function" && isExerciseTutorialRunning())
+  );
 
   // Notation (Notenlesen):
   // - Im Nur-Hören-Modus: linke Note markieren & kurz Zeit zum Mitlesen lassen
@@ -1798,7 +1805,9 @@ async function playSequence(options = {}) {
       state.isPlaying = false;
       updatePlayButtonUI(false);
 
-      if (state.listenOnly?.active) {
+      if (typeof isExerciseTutorialRunning === "function" && isExerciseTutorialRunning()) {
+        onExerciseTutorialPlaybackEnded(ex);
+      } else if (state.listenOnly?.active) {
         handleListenOnlyPromptEnded(ex);
       } else if (!state.rhythmDictationCompleted) {
         showAwaitingAnswerStage(ex);
@@ -2134,7 +2143,9 @@ async function playSequence(options = {}) {
         state.isPlaying = false;
         updatePlayButtonUI(false);
 
-        if (state.listenOnly?.active) {
+        if (typeof isExerciseTutorialRunning === "function" && isExerciseTutorialRunning()) {
+          onExerciseTutorialPlaybackEnded(ex);
+        } else if (state.listenOnly?.active) {
           handleListenOnlyPromptEnded(ex);
         } else if (!state.melodyCompleted) {
           showAwaitingAnswerStage(ex);
@@ -2231,7 +2242,9 @@ async function playSequence(options = {}) {
       state.isPlaying = false;
       updatePlayButtonUI(false);
 
-      if (state.listenOnly?.active) {
+      if (typeof isExerciseTutorialRunning === "function" && isExerciseTutorialRunning()) {
+        onExerciseTutorialPlaybackEnded(ex);
+      } else if (state.listenOnly?.active) {
         handleListenOnlyPromptEnded(ex);
       } else if (!state.melodyCompleted) {
         showAwaitingAnswerStage(ex);
@@ -2320,7 +2333,9 @@ async function playSequence(options = {}) {
           } else {
             state.isPlaying = false;
             updatePlayButtonUI(false);
-            if (state.listenOnly?.active) {
+            if (typeof isExerciseTutorialRunning === "function" && isExerciseTutorialRunning()) {
+              onExerciseTutorialPlaybackEnded(ex);
+            } else if (state.listenOnly?.active) {
               handleListenOnlyPromptEnded(ex);
             } else if (!state.solfegeAnswered) {
               showAwaitingAnswerStage(ex);

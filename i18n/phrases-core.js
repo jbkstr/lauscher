@@ -1173,12 +1173,12 @@ registerColocatedPhrases({
     uk: "Послухай два такти перкусії та визнач основний пульс і акценти такту",
     ur: "دو بار پرکشن سنیں اور بنیادی بیٹ نیز پہلے زور کی پہچان کریں"
   },
-  "Hören · Verstehen · Musizieren": {
-    fr: "Écouter · Comprendre · Pratiquer",
-    es: "Escucha · Comprende · Toca",
-    pl: "Słuchaj · Rozumiej · Graj",
-    uk: "Слухай · Розумій · Грай",
-    ur: "سنو · سمجھو · بجاؤ"
+  "Genauer hinhören.": {
+    fr: "Écouter d’un peu plus près.",
+    es: "Escucha un poco más de cerca.",
+    pl: "Wsłuchaj się uważniej.",
+    uk: "Прислухайся трохи уважніше.",
+    ur: "ذرا غور سے سنیں۔"
   },
   "I, IV, V und vi": {
     fr: "I, IV, V et vi",

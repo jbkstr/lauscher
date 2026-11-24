@@ -619,6 +619,9 @@ function getBreakReminderMinutes() {
 
 function syncBreakReminderControls() {
   syncSingAlongSettingsControls();
+  if (typeof syncTutorialSettingsControls === "function") {
+    syncTutorialSettingsControls();
+  }
   const enabled = state?.profile?.breakReminderEnabled !== false;
   const mins = getBreakReminderMinutes();
 

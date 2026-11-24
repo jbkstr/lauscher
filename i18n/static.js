@@ -5,22 +5,22 @@
 
 registerColocatedStatic({
   "app.title": {
-    de: "Lauscher • Hören · Verstehen · Musizieren",
-    en: "Lauscher • Listen · Understand · Play",
-    fr: "Lauscher • Écouter · Comprendre · Pratiquer",
-    es: "Lauscher • Escucha · Comprende · Toca",
-    pl: "Lauscher • Słuchaj · Rozumiej · Graj",
-    uk: "Lauscher • Слухай · Розумій · Грай",
-    ur: "Lauscher • سنو · سمجھو · بجاؤ"
+    de: "Lauscher • Genauer hinhören.",
+    en: "Lauscher • Listen a little closer.",
+    fr: "Lauscher • Écouter d’un peu plus près.",
+    es: "Lauscher • Escucha un poco más de cerca.",
+    pl: "Lauscher • Wsłuchaj się uważniej.",
+    uk: "Lauscher • Прислухайся трохи уважніше.",
+    ur: "Lauscher • ذرا غور سے سنیں۔"
   },
   "app.tagline": {
-    de: "Hören · Verstehen · Musizieren",
-    en: "Listen · Understand · Play",
-    fr: "Écouter · Comprendre · Pratiquer",
-    es: "Escucha · Comprende · Toca",
-    pl: "Słuchaj · Rozumiej · Graj",
-    uk: "Слухай · Розумій · Грай",
-    ur: "سنو · سمجھو · بجاؤ"
+    de: "Genauer hinhören.",
+    en: "Listen a little closer.",
+    fr: "Écouter d’un peu plus près.",
+    es: "Escucha un poco más de cerca.",
+    pl: "Wsłuchaj się uważniej.",
+    uk: "Прислухайся трохи уважніше.",
+    ur: "ذرا غور سے سنیں۔"
   },
   "app.portraitOnlyTitle": {
     de: "Bitte im Hochformat nutzen",
@@ -4836,5 +4836,68 @@ registerColocatedStatic({
     pl: "Ta sekcja zostanie podłączona w przyszłej wersji.",
     uk: "Цей розділ буде підключено в наступній версії.",
     ur: "یہ حصہ اگلے ورژن میں شامل کیا جائے گا۔"
+  },
+  "ex.demoBtn": {
+    de: "Demo",
+    en: "Demo",
+    fr: "Démo",
+    es: "Demo",
+    pl: "Demo",
+    uk: "Демо",
+    ur: "ڈیمو"
+  },
+  "ex.demoBtnTitle": {
+    de: "Übung einmal vormachen lassen",
+    en: "Watch a quick example walkthrough",
+    fr: "Voir une courte démonstration",
+    es: "Ver una breve demostración",
+    pl: "Zobacz krótką demonstrację",
+    uk: "Подивитись коротку демонстрацію",
+    ur: "مختصر مثال دیکھیں"
+  },
+  "ex.demoBtnAria": {
+    de: "Übung einmal vormachen",
+    en: "Demonstrate exercise once",
+    fr: "Montrer un exemple",
+    es: "Mostrar un ejemplo",
+    pl: "Pokaż przykład ćwiczenia",
+    uk: "Показати приклад вправи",
+    ur: "مشق کی ایک مثال دکھائیں"
+  },
+  "settings.tutorialsHeading": {
+    de: "Übungs-Tutorials (Vormachen)",
+    en: "Exercise Tutorials (Walkthrough)",
+    fr: "Tutoriels d’exercice (Démonstration)",
+    es: "Tutoriales de ejercicio (Demostración)",
+    pl: "Samouczki ćwiczeń (Pokaz)",
+    uk: "Підказки до вправ (Демонстрація)",
+    ur: "مشق کے رہنما (ڈیمو)"
+  },
+  "settings.tutorialsHint": {
+    de: "Zeigt beim ersten Start einer neuen Übungsart eine kurze Beispielrunde mit visuellen Hinweisen.",
+    en: "Shows a quick guided example round the first time you open a new exercise type.",
+    fr: "Affiche un court exemple guidé la première fois que vous ouvrez un nouveau type d’exercice.",
+    es: "Muestra un breve ejemplo guiado la primera vez que abres un nuevo tipo de ejercicio.",
+    pl: "Pokazuje krótki przykład z podpowiedziami przy pierwszym uruchomieniu nowego typu ćwiczenia.",
+    uk: "Показує короткий приклад із підказками під час першого відкриття нового типу вправи.",
+    ur: "نئی قسم کی مشق پہلی بار کھولنے پر بصری اشاروں کے ساتھ ایک مختصر مثال دکھاتا ہے۔"
+  },
+  "settings.tutorialsAria": {
+    de: "Übungs-Tutorials automatisch zeigen",
+    en: "Show exercise tutorials automatically",
+    fr: "Afficher automatiquement les tutoriels d’exercice",
+    es: "Mostrar tutoriales de ejercicio automáticamente",
+    pl: "Automatycznie pokazuj samouczki ćwiczeń",
+    uk: "Автоматично показувати підказки до вправ",
+    ur: "مشق کے رہنما خودکار دکھائیں"
+  },
+  "settings.tutorialsResetBtn": {
+    de: "Alle Einführungen erneut zeigen",
+    en: "Reset seen tutorials",
+    fr: "Réinitialiser les tutoriels vus",
+    es: "Volver a mostrar todos los tutoriales",
+    pl: "Pokaż ponownie wszystkie samouczki",
+    uk: "Показати всі вступні підказки знову",
+    ur: "تمام رہنما دوبارہ دکھائیں"
   }
 });

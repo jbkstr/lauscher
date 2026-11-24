@@ -1843,6 +1843,7 @@ function requestExamAbort() {
 
 function cancelExamAbort() {
   document.getElementById("examAbortConfirmBanner")?.classList.add("hidden");
+  if (typeof queueFitExerciseLayout === "function") queueFitExerciseLayout(true);
 }
 
 function abortCategoryExam() {
