@@ -13423,6 +13423,195 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   }
 }
 
+/* Tuner-Erweiterungen: Anzeige-Leiste (Zeiger/Strobe), Strobe-Band, Kontext-Optionen & Sweetened-Offsets */
+.tuner-display-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+  min-height: 26px;
+  margin-bottom: -0.12rem;
+}
+.tuner-badges {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 0.26rem;
+  min-width: 0;
+  overflow: hidden;
+}
+.tuner-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.14rem 0.46rem;
+  border-radius: var(--radius-pill);
+  background: var(--surface-warm);
+  border: 1px solid var(--border-soft);
+  color: var(--raccoon-mid);
+  font-size: 0.65rem;
+  font-weight: 800;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+.tuner-badge.is-live {
+  background: var(--lilac-soft, var(--surface-warm));
+  border-color: var(--lilac-strong);
+  color: var(--lilac-strong);
+}
+.tuner-view-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.12rem;
+  padding: 0.14rem;
+  border-radius: var(--radius-pill);
+  background: var(--surface-warm);
+  border: 1px solid var(--border-soft);
+  flex: 0 0 auto;
+}
+.tuner-view-btn {
+  padding: 0.16rem 0.56rem;
+  border-radius: var(--radius-pill);
+  border: 0;
+  background: transparent;
+  color: var(--raccoon-mid);
+  font-size: 0.68rem;
+  font-weight: 800;
+  line-height: 1.2;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  touch-action: manipulation;
+}
+.tuner-view-btn.active {
+  background: var(--surface-white);
+  color: var(--raccoon-dark);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+#tunerGauge.hidden,
+.tuner-strobe-wrap.hidden {
+  display: none;
+}
+.tuner-strobe-wrap {
+  width: 100%;
+  margin: 0.35rem 0 0.45rem;
+  border-radius: var(--radius-md);
+  background: var(--surface-warm);
+  border: 1.5px solid var(--border-soft);
+  padding: 0.28rem 0.2rem;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+.tuner-display.is-in-tune .tuner-strobe-wrap {
+  border-color: var(--sage-strong);
+}
+.tuner-strobe {
+  display: block;
+  width: 100%;
+  height: clamp(64px, 13.5vh, 112px);
+}
+
+.tuner-context-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.45rem;
+  min-height: 30px;
+}
+.tuner-context-row.hidden {
+  display: none;
+}
+.tuner-ctx-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--raccoon-muted);
+  white-space: nowrap;
+  flex: 0 0 auto;
+}
+.tuner-ctx-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.16rem;
+  padding: 0.14rem;
+  border-radius: var(--radius-pill);
+  background: var(--surface-warm);
+  border: 1px solid var(--border-soft);
+  flex: 1 1 auto;
+  max-width: 248px;
+}
+.tuner-ctx-btn {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 0.2rem 0.4rem;
+  border-radius: var(--radius-pill);
+  border: 0;
+  background: transparent;
+  color: var(--raccoon-mid);
+  font-size: 0.71rem;
+  font-weight: 800;
+  line-height: 1.2;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  touch-action: manipulation;
+}
+.tuner-ctx-btn.active {
+  background: var(--surface-white);
+  color: var(--raccoon-dark);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.tuner-string-main {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.05rem;
+}
+#viewTuner .tuner-string-chip.has-offset {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 0.06rem;
+  gap: 0;
+}
+#viewTuner .tuner-string-chip.has-offset .tuner-string-name {
+  font-size: 0.9rem;
+  line-height: 1.05;
+}
+.tuner-string-off {
+  font-size: 0.56rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--raccoon-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-height: 680px) {
+  #viewTuner .tuner-gauge {
+    min-height: min(30cqw, 92px);
+  }
+  #viewTuner .tuner-setup-card {
+    gap: 0.34rem;
+    padding: 0.48rem 0.68rem;
+  }
+  #viewTuner .tuner-strobe-wrap {
+    margin: 0.22rem 0 0.28rem;
+  }
+  #viewTuner .tuner-strobe {
+    height: clamp(54px, 11vh, 84px);
+  }
+  #viewTuner .tuner-dropdown-host .multi-dropdown-trigger {
+    min-height: 36px;
+    padding: 0.34rem 0.56rem;
+  }
+  #viewTuner .tuner-mode-btn {
+    padding: 0.34rem;
+  }
+}
+
 /* Rhythmus-Stufensymbole: gezeichnete Noten & Taktangaben, mittig und kreisfüllend */
 .node-circle.node-circle-icon {
   padding: 0;

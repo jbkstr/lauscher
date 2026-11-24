@@ -2,130 +2,14 @@
 // CHROMATISCHER TUNER (#viewTuner)
 // Rohmikrofon (Android AudioSource.UNPROCESSED / Web getUserMedia ohne OS-DSP)
 // → universeller Bandpass (25 Hz HP / 4,2 kHz LP)
-// → Adaptives Noise-Gate + RMS-Normalisierung + Transienten-Ausblendung + Decay-Pitch-Lock
+// → Adaptives Noise-Gate + RMS-Normalisierung + Profil-DSP
+// → Onset-Detektor (Pegel + Spectral Flux) + Transienten-Masking + Decay-Pitch-Lock
+// → Zero-Phase-Kammfilter + Tiefton-Dezimierung (4× Anti-Aliasing)
 // → MPM/NSDF + Oberton-HPS (Residualton) + Parabolische Interpolation
-// → Median-Filter + EMA mit Sprung-Reset → Zeiger, Spektrum & Saiten.
+// → Vibrato-Mittelung + Hybrider Quadratur-Phasen-Tracker (0,1 Cent)
+// → Median-Filter + EMA mit Sprung-Reset → Zeiger / Strobe, Spektrum & Saiten.
 // Alles läuft lokal; das Mikrofon wird beim Verlassen sofort freigegeben.
 // =====================================================
-
-// Zentrale Tuning-Parameter (für einfaches Feinjustieren an einer Stelle gebündelt)
-const TUNER_CONFIG = Object.freeze({
-  // Referenz & Anzeige
-  a4Default: 440,
-  a4Min: 430,
-  a4Max: 450,
-  centsRange: 50,               // Zeigerausschlag ±50 Cent
-  gaugeDeg: 58,                 // Winkel bei ±50 Cent
-
-  // Sliding-Window-Analyse & Bandpass
-  windowSize: 8192,             // ~170 ms bei 48 kHz (≥ 5 Perioden selbst bei tiefem B0 = 30,9 Hz)
-  windowSizeHighSr: 16384,      // Fenstergröße bei Sample-Rates > 64 kHz (z. B. 96 kHz Audio-Interface)
-  hopMs: 25,                    // Hop Size für flüssige Auswertung (20–30 ms)
-  hpHz: 25,                     // Universeller Hochpass gegen Trittschall / Rumpeln (4. Ordnung)
-  lpHz: 4200,                   // Universeller Tiefpass gegen hochfrequentes Zischen & Aliasing (4. Ordnung)
-  bw4Q1: 0.5411961,             // 4. Ordnung Butterworth Stufe 1
-  bw4Q2: 1.3065630,             // 4. Ordnung Butterworth Stufe 2
-
-  // 1) Adaptives Noise-Gate & RMS-Normalisierung
-  noiseFloorInitMs: 350,        // Kurze Grundrausch-Messung direkt nach Start
-  noiseFloorDefaultDb: -60,     // Start-Schätzwert vor den ersten Frames
-  noiseFloorMinDb: -78,         // Untere Schranke (digitale Stille)
-  noiseFloorMaxDb: -28,         // Obere Schranke (sehr laute Umgebung)
-  noiseFloorAdaptDownAlpha: 0.06, // Nachführung nach unten in Spielpausen
-  noiseFloorAdaptUpAlpha: 0.025,  // Langsame Nachführung nach oben in Spielpausen
-  noiseGateOffsetDb: 13.5,      // Öffnungsschwelle relativ zum Noise-Floor (+12 bis +15 dB)
-  noiseGateCloseOffsetDb: 9.5,  // Hysterese-Schließschwelle im Ausklang
-  noiseGateAbsMinRms: 0.0005,   // Absolutes Minimum (~ -66 dBFS) gegen Null-Puffer
-  rmsNormTarget: 0.2,           // Ziel-RMS für Normalisierung vor Pitch-Analyse
-
-  // 2) Anschlag (Transienten) & Ausklang (Pitch-Lock)
-  transientRiseDb: 9.0,         // Sprunghafter Pegelanstieg pro Hop für Anschlag-Erkennung
-  transientBlankMs: 45,         // Anschlag-Ausblendung (30–50 ms) gegen Zupf-Überschwinger
-  pitchLockMinStableFrames: 3,  // Stabile gültige Frames vor Aktivierung des Pitch-Locks
-  pitchLockStableCents: 35,     // Max. Abweichung für „stabil erkannt“
-  pitchLockWindowRatio: 0.18,   // Suchfenster im Ausklang: ±18 % um letzte stabile Frequenz
-  decayDropDb: 2.5,             // Pegelabfall unter Peak ab dem Ausklang angenommen wird
-  pitchLockMissLimit: 2,        // Fehlschläge bei starkem Signal bis zum Legato-Unlock
-
-  // 4) Konfidenz, Ausreißer-Filterung & ruhige UI
-  clarityMin: 0.78,             // Reguläre Konfidenz-Schwelle (NSDF-Clarity)
-  clarityLockMin: 0.70,         // Leicht gelockerte Konfidenz-Schwelle im Pitch-Lock-Ausklang
-  clarityInTuneMin: 0.88,       // Hohe Konfidenz für „Sauber gestimmt“-Bestätigung
-  medianLength: 5,              // Median-Filterlänge (3–5 gültige Messwerte)
-  medianLengthVoice: 7,         // Etwas längerer Median für Gesang
-  emaAlpha: 0.28,               // EMA-Glättungsfaktor für Instrumente
-  emaAlphaVoice: 0.16,          // Ruhigerer EMA-Faktor für Gesang
-  emaResetCents: 65,            // Sofortiger EMA-Reset bei Frequenzsprung > 50–80 Cent
-  holdMs: 360,                  // Haltezeit bei Signalverlust / niedriger Konfidenz
-  idleFadeMs: 460,              // Sanfter Übergang in den Ruhezustand nach der Haltezeit
-  inTuneHoldMs: 450             // Haltedauer in der Zielzone für „Sauber gestimmt!“
-});
-
-const TUNER_A4_DEFAULT = TUNER_CONFIG.a4Default;
-const TUNER_A4_MIN = TUNER_CONFIG.a4Min;
-const TUNER_A4_MAX = TUNER_CONFIG.a4Max;
-const TUNER_CENTS_RANGE = TUNER_CONFIG.centsRange;
-const TUNER_GAUGE_DEG = TUNER_CONFIG.gaugeDeg;
-const TUNER_HP_HZ = TUNER_CONFIG.hpHz;
-const TUNER_LP_HZ = TUNER_CONFIG.lpHz;
-const TUNER_BW4_Q1 = TUNER_CONFIG.bw4Q1;
-const TUNER_BW4_Q2 = TUNER_CONFIG.bw4Q2;
-
-// Instrumente & Stimmungen (Noten in internationaler Schreibweise, tiefste Saite zuerst)
-const TUNER_INSTRUMENTS = {
-  chromatic: { de: "Chromatisch", en: "Chromatic", range: [30, 1800], tolerance: 4, tunings: null },
-  guitar: { de: "Gitarre", en: "Guitar", tolerance: 4, tunings: {
-    standard: { de: "Standard", en: "Standard", notes: ["E2", "A2", "D3", "G3", "B3", "E4"] },
-    halfDown: { de: "Halbton tiefer", en: "Half step down", notes: ["Eb2", "Ab2", "Db3", "Gb3", "Bb3", "Eb4"], flat: true },
-    dropD: { de: "Drop D", en: "Drop D", notes: ["D2", "A2", "D3", "G3", "B3", "E4"] },
-    dadgad: { de: "DADGAD", en: "DADGAD", notes: ["D2", "A2", "D3", "G3", "A3", "D4"] },
-    openG: { de: "Open G", en: "Open G", notes: ["D2", "G2", "D3", "G3", "B3", "D4"] },
-    openD: { de: "Open D", en: "Open D", notes: ["D2", "A2", "D3", "F#3", "A3", "D4"] }
-  } },
-  eguitar: { de: "E-Gitarre", en: "Electric guitar", tolerance: 4, tunings: {
-    standard: { de: "Standard", en: "Standard", notes: ["E2", "A2", "D3", "G3", "B3", "E4"] },
-    halfDown: { de: "Halbton tiefer", en: "Half step down", notes: ["Eb2", "Ab2", "Db3", "Gb3", "Bb3", "Eb4"], flat: true },
-    dropD: { de: "Drop D", en: "Drop D", notes: ["D2", "A2", "D3", "G3", "B3", "E4"] },
-    dropC: { de: "Drop C", en: "Drop C", notes: ["C2", "G2", "C3", "F3", "A3", "D4"] },
-    sevenString: { de: "7-saitig", en: "7-string", notes: ["B1", "E2", "A2", "D3", "G3", "B3", "E4"] }
-  } },
-  ebass: { de: "E-Bass", en: "Electric bass", tolerance: 4, tunings: {
-    four: { de: "4-saitig", en: "4-string", notes: ["E1", "A1", "D2", "G2"] },
-    five: { de: "5-saitig", en: "5-string", notes: ["B0", "E1", "A1", "D2", "G2"] },
-    dropD: { de: "Drop D", en: "Drop D", notes: ["D1", "A1", "D2", "G2"] },
-    halfDown: { de: "Halbton tiefer", en: "Half step down", notes: ["Eb1", "Ab1", "Db2", "Gb2"], flat: true }
-  } },
-  mandolin: { de: "Mandoline", en: "Mandolin", tolerance: 4, tunings: {
-    standard: { de: "Standard", en: "Standard", notes: ["G3", "D4", "A4", "E5"] }
-  } },
-  banjo: { de: "Banjo", en: "Banjo", tolerance: 4, tunings: {
-    openG: { de: "Open G", en: "Open G", notes: ["G4", "D3", "G3", "B3", "D4"] },
-    doubleC: { de: "Double C", en: "Double C", notes: ["G4", "C3", "G3", "C4", "D4"] }
-  } },
-  violin: { de: "Violine", en: "Violin", tolerance: 4, tunings: {
-    standard: { de: "Standard", en: "Standard", notes: ["G3", "D4", "A4", "E5"] }
-  } },
-  viola: { de: "Viola", en: "Viola", tolerance: 4, tunings: {
-    standard: { de: "Standard", en: "Standard", notes: ["C3", "G3", "D4", "A4"] }
-  } },
-  cello: { de: "Cello", en: "Cello", tolerance: 4, tunings: {
-    standard: { de: "Standard", en: "Standard", notes: ["C2", "G2", "D3", "A3"] }
-  } },
-  doublebass: { de: "Kontrabass", en: "Double bass", tolerance: 4, tunings: {
-    orchestra: { de: "Orchester", en: "Orchestral", notes: ["E1", "A1", "D2", "G2"] },
-    solo: { de: "Solo", en: "Solo", notes: ["F#1", "B1", "E2", "A2"] }
-  } },
-  voice: { de: "Gesang", en: "Voice", range: [65, 1300], tolerance: 10, smooth: true, tunings: null }
-};
-
-const TUNER_NOTE_LETTER_PC = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
-
-function tunerNoteToMidi(name) {
-  const m = /^([A-G])([#b]?)(-?\d)$/.exec(String(name || ""));
-  if (!m) return 69;
-  const acc = m[2] === "#" ? 1 : (m[2] === "b" ? -1 : 0);
-  return (parseInt(m[3], 10) + 1) * 12 + TUNER_NOTE_LETTER_PC[m[1]] + acc;
-}
 
 function getTunerPrefs() {
   const raw = state.profile?.tuner || {};
@@ -135,28 +19,21 @@ function getTunerPrefs() {
     const insts = state.profile?.instruments || [];
     instrument = insts.includes("Gitarre") ? "guitar"
       : (insts.includes("Bass") ? "ebass"
-        : (insts.includes("Streicher") ? "violin"
-          : (insts.includes("Gesang") ? "voice" : "chromatic")));
+        : (insts.includes("Klavier") ? "piano"
+          : (insts.includes("Bläser") ? "winds"
+            : (insts.includes("Streicher") ? "violin"
+              : (insts.includes("Gesang") ? "voice" : "chromatic")))));
   }
   const tunings = TUNER_INSTRUMENTS[instrument].tunings;
   const tuning = tunings ? (tunings[raw.tuning] ? raw.tuning : Object.keys(tunings)[0]) : "";
   const a4 = Math.max(TUNER_A4_MIN, Math.min(TUNER_A4_MAX, Math.round(Number(raw.a4) || TUNER_A4_DEFAULT)));
   const mode = raw.mode === "single" ? "single" : "auto";
-  const targetMidi = Number.isFinite(Number(raw.targetMidi)) ? Math.max(24, Math.min(96, Math.round(Number(raw.targetMidi)))) : 69;
-  return { instrument, tuning, a4, mode, targetMidi };
-}
-
-// Läuft schon beim Laden des Profils (vor den Tuner-Konstanten) → nur Literale verwenden
-function sanitizeTunerPrefs(raw) {
-  if (!raw || typeof raw !== "object") return {};
-  const out = {};
-  const instrumentKeys = ["chromatic", "guitar", "eguitar", "ebass", "mandolin", "banjo", "violin", "viola", "cello", "doublebass", "voice"];
-  if (instrumentKeys.includes(raw.instrument)) out.instrument = raw.instrument;
-  if (typeof raw.tuning === "string" && /^[A-Za-z]{1,24}$/.test(raw.tuning)) out.tuning = raw.tuning;
-  if (Number.isFinite(Number(raw.a4))) out.a4 = Math.max(430, Math.min(450, Math.round(Number(raw.a4))));
-  out.mode = raw.mode === "single" ? "single" : "auto";
-  if (Number.isFinite(Number(raw.targetMidi))) out.targetMidi = Math.max(24, Math.min(96, Math.round(Number(raw.targetMidi))));
-  return out;
+  const targetMidi = Number.isFinite(Number(raw.targetMidi)) ? Math.max(21, Math.min(108, Math.round(Number(raw.targetMidi)))) : 69;
+  const displayMode = raw.displayMode === "strobe" ? "strobe" : "gauge";
+  const transposition = TUNER_TRANSPOSITIONS[raw.transposition] ? raw.transposition : "C";
+  const guitarSweetened = Boolean(raw.guitarSweetened);
+  const pianoStretch = Boolean(raw.pianoStretch);
+  return { instrument, tuning, a4, mode, targetMidi, displayMode, transposition, guitarSweetened, pianoStretch };
 }
 
 function setTunerPrefs(patch) {
@@ -165,7 +42,7 @@ function setTunerPrefs(patch) {
   saveUserProfile(state.profile);
 }
 
-// Aktive Saiten (oder leer bei Chromatisch/Gesang)
+// Aktive Saiten (oder leer bei Chromatisch/Klavier/Bläser/Gesang)
 function getTunerStrings(prefs = getTunerPrefs()) {
   const inst = TUNER_INSTRUMENTS[prefs.instrument];
   const tuning = inst.tunings ? inst.tunings[prefs.tuning] : null;
@@ -174,22 +51,17 @@ function getTunerStrings(prefs = getTunerPrefs()) {
 }
 
 function getTunerRange(prefs = getTunerPrefs()) {
-  const inst = TUNER_INSTRUMENTS[prefs.instrument];
+  const inst = TUNER_INSTRUMENTS[prefs.instrument] || TUNER_INSTRUMENTS.chromatic;
+  const profile = getTunerDspProfile(prefs.instrument);
   const strings = getTunerStrings(prefs);
   if (strings.length) {
-    const lo = Math.min(...strings.map(st => st.midi));
-    const hi = Math.max(...strings.map(st => st.midi));
-    return [tunerMidiToFreq(lo, prefs.a4) / 1.45, tunerMidiToFreq(hi, prefs.a4) * 1.6];
+    const loMidi = Math.min(...strings.map(st => st.midi));
+    const hiMidi = Math.max(...strings.map(st => st.midi));
+    const lo = Math.max(25, Math.min(tunerMidiToFreq(loMidi, prefs.a4) / 1.4, profile.searchRange[0]));
+    const hi = Math.min(4200, Math.max(tunerMidiToFreq(hiMidi, prefs.a4) * 1.6, profile.searchRange[1]));
+    return [lo, hi];
   }
-  return inst.range || [30, 1800];
-}
-
-function tunerMidiToFreq(midi, a4 = TUNER_A4_DEFAULT) {
-  return a4 * Math.pow(2, (midi - 69) / 12);
-}
-
-function tunerFreqToMidiFloat(freq, a4 = TUNER_A4_DEFAULT) {
-  return 69 + 12 * Math.log2(freq / a4);
+  return inst.range || profile.searchRange || [27, 2000];
 }
 
 function formatTunerNote(midi, preferFlat = false) {
@@ -202,7 +74,7 @@ const _tuner = {
   ctx: null, stream: null, source: null, filterNodes: [], analyser: null, sink: null,
   nativeActive: false, nativeSampleRate: 0, nativeSource: "", nativeSeq: -1, nativePending: false,
   activeSampleRate: 0, windowSize: TUNER_CONFIG.windowSize, bluetoothMic: false,
-  running: false, starting: false, rafId: 0, lastHopAt: 0,
+  running: false, starting: false, rafId: 0, lastHopAt: 0, lastFrameAt: 0,
   // Wiederverwendete TypedArrays für GC-freien Audio-Analyse-Loop
   timeBuf: null, filteredBuf: null, freqBuf: null, work: null, nsdf: null,
   fftRe: null, fftIm: null, fftWin: null, fftMag: null, fftBitRev: null, fftSizeWork: 0,
@@ -210,6 +82,13 @@ const _tuner = {
   noiseInitSamples: new Float32Array(24), noiseInitCount: 0, noiseInitUntil: 0,
   noiseFloorDb: TUNER_CONFIG.noiseFloorDefaultDb,
   gateOpen: false, prevHopDb: -120, peakDb: -120, transientUntil: 0,
+  // Modulare DSP-Bausteine (alle GC-frei mit vorab allokierten Puffern)
+  downsampler: new TunerLowFreqDownsampler(),
+  combFilter: new TunerHarmonicCombFilter(),
+  onsetDetector: new TunerOnsetDetector(),
+  vibratoTracker: new TunerVibratoTracker(),
+  phaseTracker: new TunerPhaseTracker(),
+  vibratoActive: false, phaseActive: false,
   // Pitch-Lock (Ausklang)
   lockFreq: 0, lockActive: false, stableFreq: 0, stableCount: 0, lockMissCount: 0,
   // Median-Filter & EMA
@@ -218,14 +97,15 @@ const _tuner = {
   emaFreq: 0, smoothCents: null, displayMidi: null, lastFreq: 0, lastClarity: 0,
   lastPitchAt: 0, idleFadeStartAt: 0, idleStartCents: 0, inQuietFade: false,
   inTuneSince: 0, inTune: false, tunedStrings: new Set(),
-  pitchResult: { freq: 0, clarity: 0, rms: 0, hopRms: 0, hopDb: -120, windowDb: -120 },
-  loopCtx: { prefs: null, inst: null, tol: 4, strings: null, flat: false, isSingle: false, targetMidi: null, now: 0 },
+  // Strobe-Zustand
+  strobePhase: 0, strobeCents: 0, strobeActive: false,
+  // Wiederverwendete Ergebnis- & Kontextobjekte (0 Heap-Allokationen im Loop)
+  levelResult: { rms: 0, hopRms: 0, hopDb: -120, windowDb: -120 },
+  pitchResult: { freq: 0, clarity: 0, rms: 0, windowDb: -120 },
+  lowPitchResult: { freq: 0, clarity: 0, rms: 0, windowDb: -120 },
+  loopCtx: { prefs: null, inst: null, profile: null, tol: 4, strings: null, flat: false, isSingle: false, targetMidi: null, now: 0 },
   refUntil: 0, refNodes: null, wakeLock: null, colors: null, gaugeBuilt: false, openDropdown: null
 };
-
-function tunerRmsToDb(rms) {
-  return 20 * Math.log10(Math.max(1e-7, rms));
-}
 
 function resetTunerMedian() {
   _tuner.medianCount = 0;
@@ -251,8 +131,14 @@ function resetTunerTrackingState(now = performance.now()) {
   _tuner.peakDb = -120;
   _tuner.transientUntil = 0;
   _tuner.lastHopAt = 0;
+  _tuner.lastFrameAt = now;
   resetTunerPitchLock();
   resetTunerMedian();
+  _tuner.onsetDetector.reset();
+  _tuner.vibratoTracker.reset();
+  _tuner.phaseTracker.reset();
+  _tuner.vibratoActive = false;
+  _tuner.phaseActive = false;
   _tuner.emaFreq = 0;
   _tuner.smoothCents = null;
   _tuner.displayMidi = null;
@@ -264,12 +150,13 @@ function resetTunerTrackingState(now = performance.now()) {
   _tuner.inQuietFade = false;
   _tuner.inTuneSince = 0;
   _tuner.inTune = false;
+  _tuner.strobeCents = 0;
+  _tuner.strobeActive = false;
 }
 
 /**
  * Universeller Bandpass (25 Hz Hochpass + 4,2 kHz Tiefpass, 4. Ordnung Butterworth, −24 dB/Okt.)
- * für Roh-PCM-Puffer (nativer Android-Pfad). Nutzt exakt dieselben Filterstufen wie die
- * kaskadierten BiquadFilterNodes im WebAudio-Pfad.
+ * für Roh-PCM-Puffer (nativer Android-Pfad, falls das Plugin nicht bereits gefiltert hat).
  */
 function applyTunerBandpass(input, sampleRate, outBuf) {
   const n = input.length;
@@ -278,30 +165,11 @@ function applyTunerBandpass(input, sampleRate, outBuf) {
   for (let i = 0; i < n; i++) mean += input[i];
   mean /= Math.max(1, n);
 
-  const calcBiquad = (type, fc, q) => {
-    const clampedFc = Math.max(5, Math.min(sampleRate * 0.45, fc));
-    const w0 = (2 * Math.PI * clampedFc) / sampleRate;
-    const cosW = Math.cos(w0);
-    const alpha = Math.sin(w0) / (2 * q);
-    let b0, b1, b2;
-    if (type === "highpass") {
-      b0 = (1 + cosW) * 0.5;
-      b1 = -(1 + cosW);
-      b2 = (1 + cosW) * 0.5;
-    } else {
-      b0 = (1 - cosW) * 0.5;
-      b1 = 1 - cosW;
-      b2 = (1 - cosW) * 0.5;
-    }
-    const a0 = 1 + alpha;
-    return { b0: b0 / a0, b1: b1 / a0, b2: b2 / a0, a1: (-2 * cosW) / a0, a2: (1 - alpha) / a0 };
-  };
-
   const stages = [
-    calcBiquad("highpass", TUNER_HP_HZ, TUNER_BW4_Q1),
-    calcBiquad("highpass", TUNER_HP_HZ, TUNER_BW4_Q2),
-    calcBiquad("lowpass", TUNER_LP_HZ, TUNER_BW4_Q1),
-    calcBiquad("lowpass", TUNER_LP_HZ, TUNER_BW4_Q2)
+    computeTunerBiquadCoeffs("highpass", TUNER_HP_HZ, TUNER_BW4_Q1, sampleRate),
+    computeTunerBiquadCoeffs("highpass", TUNER_HP_HZ, TUNER_BW4_Q2, sampleRate),
+    computeTunerBiquadCoeffs("lowpass", TUNER_LP_HZ, TUNER_BW4_Q1, sampleRate),
+    computeTunerBiquadCoeffs("lowpass", TUNER_LP_HZ, TUNER_BW4_Q2, sampleRate)
   ];
 
   for (let i = 0; i < n; i++) out[i] = input[i] - mean;
@@ -327,8 +195,8 @@ function applyTunerBandpass(input, sampleRate, outBuf) {
 }
 
 /**
- * Schnelle In-Place-Radix-2-FFT (Hann-gefenstert) für Oberton-Analyse (HPS / Residualton)
- * sowie Spektrum-Anzeige im nativen Android-Modus.
+ * Schnelle In-Place-Radix-2-FFT (Hann-gefenstert) für Oberton-Analyse (HPS / Residualton),
+ * Spectral Flux (Onset-Erkennung) sowie Spektrum-Anzeige im nativen Android-Modus.
  */
 function ensureTunerFftBuffers(n) {
   if (_tuner.fftSizeWork === n && _tuner.fftRe && _tuner.fftIm && _tuner.fftWin && _tuner.fftMag && _tuner.fftBitRev) {
@@ -436,7 +304,6 @@ function tunerSpectralNoiseFloor(mag, freqHz, binHz) {
   let count = 0;
   for (let b = lo; b <= hi && count < vals.length; b++) {
     if (Math.abs(b - center) <= 2) continue;
-    // In-Place-Insertionsort ohne Heap-Allokation
     const v = mag[b];
     let pos = count;
     while (pos > 0 && vals[pos - 1] > v) {
@@ -471,7 +338,6 @@ function estimateTunerHpsFreq(mag, binHz, minFreq, maxFreq) {
     const m3 = tunerSpectralPeakAround(mag, f * 3, binHz);
     const m4 = tunerSpectralPeakAround(mag, f * 4, binHz);
     const m5 = f * 5 < maxBin * binHz ? tunerSpectralPeakAround(mag, f * 5, binHz) : m4;
-    // Klassisches HPS (1..4) + Residualton-HPS (2..5) für fehlenden Grundton im Tiefbass
     const hpsFull = m1 * m2 * m3 * m4;
     const hpsMissing = f < 220 ? m2 * m3 * m4 * m5 * 0.9 : 0;
     const score = Math.max(hpsFull, hpsMissing);
@@ -485,7 +351,7 @@ function estimateTunerHpsFreq(mag, binHz, minFreq, maxFreq) {
 }
 
 function measureTunerSignalLevels(input, sampleRate) {
-  const out = _tuner.pitchResult;
+  const out = _tuner.levelResult;
   const rawLen = input.length;
   const hopSamples = Math.max(64, Math.min(rawLen, Math.round((sampleRate * TUNER_CONFIG.hopMs) / 1000)));
   const hopStart = rawLen - hopSamples;
@@ -499,7 +365,6 @@ function measureTunerSignalLevels(input, sampleRate) {
   }
   const hopRms = Math.sqrt(hopEnergy / hopSamples);
 
-  // Schneller Gesamtfenster-RMS (mit kleinem Stride für minimalen Overhead)
   const stride = rawLen > 4096 ? 4 : 2;
   let winMean = 0;
   let winCount = 0;
@@ -523,21 +388,11 @@ function measureTunerSignalLevels(input, sampleRate) {
 }
 
 /**
- * Oberton-fähige Tonhöhen-Erkennung (GC-frei mit wiederverwendeten TypedArrays):
- * 1) Dynamische Sample-Rate-Dezimierung + DC-Entfernung + RMS-Normalisierung
- * 2) McLeod Pitch Method (NSDF) im Sliding-Window (~170 ms), im Ausklang optional
- *    über Pitch-Lock eng um die letzte stabile Frequenz begrenzt
- * 3) Residualton-/Oktav-Disambiguierung über FFT (ungerade Obertöne 3f/5f & HPS),
- *    damit z. B. ein tiefes E1 (41,2 Hz) auch ohne starken Grundton nicht auf E2 (82,4 Hz) kippt
- * 4) Parabolische Interpolation über die Nachbarwerte für Sub-Cent-Genauigkeit.
+ * Bereitet das reguläre (2×/4× hardware-dezimierte) Arbeitsfenster + RMS-Normalisierung + FFT-Spektrum vor.
+ * Wird pro Hop einmal berechnet und sowohl für Spectral-Flux-Onsets als auch für MPM/NSDF & Spektrum genutzt.
  */
-function detectTunerPitch(input, sampleRate, minFreq, maxFreq, smoothDbOut = null, lockFreq = 0, spectrumOnly = false) {
-  const out = _tuner.pitchResult;
-  out.freq = 0;
-  out.clarity = 0;
-
+function prepareTunerMainWorkBuffer(input, sampleRate, smoothDbOut = null) {
   const rawLen = input.length;
-  // Dezimierung abhängig von der tatsächlichen Hardware-Sample-Rate
   const dec = sampleRate > 72000 ? 4 : (sampleRate > 36000 ? 2 : 1);
   const n = Math.floor(rawLen / dec);
   if (!_tuner.work || _tuner.work.length !== n) _tuner.work = new Float32Array(n);
@@ -572,11 +427,6 @@ function detectTunerPitch(input, sampleRate, minFreq, maxFreq, smoothDbOut = nul
     rawEnergy += v * v;
   }
   const windowRms = Math.sqrt(rawEnergy / Math.max(1, n));
-  out.rms = windowRms;
-  out.windowDb = tunerRmsToDb(windowRms);
-
-  // RMS-Normalisierung vor Pitch-Analyse (unabhängig von Geräte-Mikrofonempfindlichkeit).
-  // Für die visuelle Spektrum-Anzeige (smoothDbOut) wird der reale dB-Pegelversatz mitgegeben.
   let energy = rawEnergy;
   let dbGainOffset = 0;
   if (windowRms > 1e-7) {
@@ -585,26 +435,35 @@ function detectTunerPitch(input, sampleRate, minFreq, maxFreq, smoothDbOut = nul
     energy = n * TUNER_CONFIG.rmsNormTarget * TUNER_CONFIG.rmsNormTarget;
     dbGainOffset = -20 * Math.log10(normGain);
   }
-
   const sr = sampleRate / dec;
   const mag = computeTunerMagnitudeSpectrum(x, smoothDbOut, dbGainOffset);
+  return { x, n, sr, energy, windowRms, mag, binHz: sr / n };
+}
 
-  if (spectrumOnly) return out;
-  if (windowRms < TUNER_CONFIG.noiseGateAbsMinRms) return out;
+/**
+ * Kern-MPM/NSDF + Residualton-/Oktav-Disambiguierung + Parabolische Interpolation
+ * auf einem bereits vorverarbeiteten (und ggf. kammgefilterten oder tief-dezimierten) Signal.
+ */
+function runTunerNsdf(x, n, sr, minFreq, maxFreq, mag, binHz, lockFreq, outObj) {
+  outObj.freq = 0;
+  outObj.clarity = 0;
 
-  // Optionales Pitch-Lock-Suchfenster im Ausklang (±15–20 % um letzte stabile Frequenz)
   const lockRatio = TUNER_CONFIG.pitchLockWindowRatio;
   const searchMinFreq = lockFreq > 0 ? Math.max(minFreq, lockFreq * (1 - lockRatio)) : minFreq;
   const searchMaxFreq = lockFreq > 0 ? Math.min(maxFreq, lockFreq * (1 + lockRatio)) : maxFreq;
-  if (searchMaxFreq <= searchMinFreq) return out;
+  if (searchMaxFreq <= searchMinFreq) return outObj;
 
   const minLag = Math.max(2, Math.floor(sr / searchMaxFreq));
   const maxLag = Math.min(Math.floor(n * 0.52), Math.ceil(sr / searchMinFreq));
-  if (maxLag <= minLag) return out;
+  if (maxLag <= minLag) return outObj;
 
   if (!_tuner.nsdf || _tuner.nsdf.length < maxLag + 2) _tuner.nsdf = new Float32Array(maxLag + 2);
   const nsdf = _tuner.nsdf;
   nsdf.fill(0, 0, maxLag + 2);
+
+  let energy = 0;
+  for (let i = 0; i < n; i++) energy += x[i] * x[i];
+  if (energy <= 1e-9) return outObj;
 
   // m(τ) inkrementell: Summe der Quadrate beider Fensterteile
   let m = 2 * energy;
@@ -617,8 +476,6 @@ function detectTunerPitch(input, sampleRate, minFreq, maxFreq, smoothDbOut = nul
     nsdf[tau] = m > 1e-9 ? (2 * acf) / m : 0;
   }
 
-  // Positive Bereiche nach dem ersten Nulldurchgang: jeweils höchste Spitze merken (ohne Heap-Allokation).
-  // Start ab tau = minLag, damit nsdf[p - 1] und nsdf[p + 1] für die Parabel-Interpolation immer berechnet sind.
   const peaks = _tuner.peaks;
   const peakHeights = _tuner.peakHeights;
   let peakCount = 0;
@@ -639,9 +496,8 @@ function detectTunerPitch(input, sampleRate, minFreq, maxFreq, smoothDbOut = nul
   if (bestInRegion >= 0 && bestInRegion < maxLag && peakCount < peaks.length) {
     peaks[peakCount++] = bestInRegion;
   }
-  if (!peakCount) return out;
+  if (!peakCount) return outObj;
 
-  // Parabolisch interpolierte Spitzenhöhe (vermeidet Oktav-Fehlsprünge bei kurzen Lags / hohen Tönen)
   const calcPeakHeight = (p) => {
     const a = nsdf[p - 1];
     const b = nsdf[p];
@@ -668,9 +524,7 @@ function detectTunerPitch(input, sampleRate, minFreq, maxFreq, smoothDbOut = nul
   }
   let chosen = peaks[chosenIdx];
   let chosenHeight = peakHeights[chosenIdx];
-  const binHz = sr / n;
 
-  // Hilfsfunktion: stärksten NSDF-Peak im ±6%-Fenster um einen Ziel-Lag finden
   const findPeakIdxNear = (targetLag) => {
     if (targetLag < minLag || targetLag > maxLag) return -1;
     const tol = Math.max(2, targetLag * 0.06);
@@ -686,15 +540,12 @@ function detectTunerPitch(input, sampleRate, minFreq, maxFreq, smoothDbOut = nul
     return bestIdx;
   };
 
-  // Residualton-/Oktav-Prüfung (2× und 3× Lag) nur außerhalb des engen Pitch-Locks:
-  // Bei fehlendem/schwachem Grundton (z. B. tiefes E1 = 41,2 Hz) verraten die ungeraden Obertöne
-  // (3f, 5f) bzw. der Grundton 1f eindeutig die wahre Grundfrequenz.
+  // Residualton-/Oktav-Prüfung (2× und 3× Lag) außerhalb des engen Pitch-Locks
   if (!lockFreq) {
     for (let pass = 0; pass < 2; pass++) {
       let improved = false;
       const hCur = chosenHeight;
 
-      // 1) Oktave tiefer (fCur / 2 → Lag ~ 2 * chosen)
       const idx2 = findPeakIdxNear(chosen * 2);
       if (idx2 >= 0) {
         const p2 = peaks[idx2];
@@ -703,7 +554,7 @@ function detectTunerPitch(input, sampleRate, minFreq, maxFreq, smoothDbOut = nul
         const nsdfRise = h2 > hCur + 0.03;
         let hasAnyOddOrFund = !mag;
         let spectralProof = false;
-        if (mag) {
+        if (mag && binHz) {
           const m1 = tunerSpectralPeakAround(mag, fSub, binHz);
           const m2 = tunerSpectralPeakAround(mag, fSub * 2, binHz);
           const m3 = tunerSpectralPeakAround(mag, fSub * 3, binHz);
@@ -729,7 +580,6 @@ function detectTunerPitch(input, sampleRate, minFreq, maxFreq, smoothDbOut = nul
         }
       }
 
-      // 2) Duodezime tiefer (fCur / 3 → Lag ~ 3 * chosen, falls 3. Oberton extrem dominierte)
       if (!improved) {
         const idx3 = findPeakIdxNear(chosen * 3);
         if (idx3 >= 0) {
@@ -739,7 +589,7 @@ function detectTunerPitch(input, sampleRate, minFreq, maxFreq, smoothDbOut = nul
           const nsdfRise = h3 > hCur + 0.04;
           let hasAnyNonTriple = !mag;
           let spectralProof = false;
-          if (mag) {
+          if (mag && binHz) {
             const m2 = tunerSpectralPeakAround(mag, fSub * 2, binHz);
             const m3 = tunerSpectralPeakAround(mag, fSub * 3, binHz);
             const m4 = tunerSpectralPeakAround(mag, fSub * 4, binHz);
@@ -763,8 +613,8 @@ function detectTunerPitch(input, sampleRate, minFreq, maxFreq, smoothDbOut = nul
       if (!improved) break;
     }
 
-    // HPS-Absicherung bei grenzwertiger NSDF-Klarheit (z. B. stark verrauschtes/obertonlastiges Signal)
-    if (mag && chosenHeight < 0.82) {
+    // HPS-Absicherung bei grenzwertiger NSDF-Klarheit
+    if (mag && binHz && chosenHeight < 0.82) {
       const hpsFreq = estimateTunerHpsFreq(mag, binHz, searchMinFreq, searchMaxFreq);
       if (hpsFreq > 0) {
         const idxHps = findPeakIdxNear(sr / hpsFreq);
@@ -776,7 +626,7 @@ function detectTunerPitch(input, sampleRate, minFreq, maxFreq, smoothDbOut = nul
     }
   }
 
-  // Parabolische Interpolation über die Nachbarwerte (chosen - 1, chosen, chosen + 1) für Sub-Cent-Genauigkeit
+  // Parabolische Interpolation für Sub-Cent-Genauigkeit
   const a = nsdf[chosen - 1];
   const b = nsdf[chosen];
   const c = nsdf[chosen + 1];
@@ -785,9 +635,112 @@ function detectTunerPitch(input, sampleRate, minFreq, maxFreq, smoothDbOut = nul
   const lag = chosen + shift;
   const clarity = Math.min(1, b - 0.25 * (a - c) * shift);
   const freq = sr / lag;
-  if (!Number.isFinite(freq) || freq < searchMinFreq * 0.9 || freq > searchMaxFreq * 1.1) return out;
-  out.freq = freq;
-  out.clarity = clarity;
+  if (!Number.isFinite(freq) || freq < searchMinFreq * 0.9 || freq > searchMaxFreq * 1.1) return outObj;
+  outObj.freq = freq;
+  outObj.clarity = clarity;
+  return outObj;
+}
+
+/**
+ * Dual-Pfad Pitch-Erkennung (GC-frei):
+ * - Bass-Profil oder tiefer Lock (< 155 Hz): Anti-Aliasing-Tiefpass + 4×/8× Tiefton-Dezimierung
+ * - Sonstige Profile mit minFreq < 155 Hz: paralleler schneller Tiefton-Pfad (27–160 Hz) + Hauptpfad (135–maxF)
+ * - Im Decay-Lock: dynamisches Zero-Phase-Kammfilter auf Grundton & Obertöne gegen Nachbarsaiten
+ */
+function detectTunerPitchWithProfile(rawSignal, sampleRate, prep, minFreq, maxFreq, profile, lockFreq) {
+  const out = _tuner.pitchResult;
+  out.freq = 0;
+  out.clarity = 0;
+  out.rms = prep.windowRms;
+  out.windowDb = tunerRmsToDb(prep.windowRms);
+  if (prep.windowRms < TUNER_CONFIG.noiseGateAbsMinRms) return out;
+
+  const combMix = lockFreq > 0 ? (profile.combFilterMix || 0) : 0;
+  const combPasses = profile.combPasses || 1;
+  const lowTrigger = TUNER_CONFIG.lowDecimTriggerHz;
+
+  const runLowPath = (loMin, loMax, loLock) => {
+    const decRes = _tuner.downsampler.process(rawSignal, sampleRate);
+    let lowSig = decRes.buffer;
+    const lowLen = decRes.length;
+    const lowSr = decRes.sampleRate;
+    // RMS-Normalisierung des dezimierten Tieftonsignals (In-Place)
+    let e = 0;
+    for (let i = 0; i < lowLen; i++) e += lowSig[i] * lowSig[i];
+    const rms = Math.sqrt(e / Math.max(1, lowLen));
+    if (rms < TUNER_CONFIG.noiseGateAbsMinRms * 0.35) {
+      _tuner.lowPitchResult.freq = 0;
+      _tuner.lowPitchResult.clarity = 0;
+      return _tuner.lowPitchResult;
+    }
+    const g = TUNER_CONFIG.rmsNormTarget / rms;
+    for (let i = 0; i < lowLen; i++) lowSig[i] *= g;
+    if (loLock > 0 && combMix > 0.01) {
+      lowSig = _tuner.combFilter.process(lowSig, lowSr, loLock, combMix, combPasses);
+    }
+    return runTunerNsdf(lowSig, lowLen, lowSr, loMin, loMax, prep.mag, prep.binHz, loLock, _tuner.lowPitchResult);
+  };
+
+  // 1) Reiner Tiefton-Pfad: Bass-Profil oder aktiver Pitch-Lock unterhalb 155 Hz
+  if (
+    profile.useLowDecimation === "always" ||
+    (profile.useLowDecimation === "auto" && lockFreq > 0 && lockFreq < lowTrigger)
+  ) {
+    const lowRes = runLowPath(minFreq, maxFreq, lockFreq);
+    out.freq = lowRes.freq;
+    out.clarity = lowRes.clarity;
+    return out;
+  }
+
+  // 2) Regulärer Pfad (optional mit harmonischem Kammfilter im Pitch-Lock)
+  const useParallelLow = profile.useLowDecimation === "auto" && !lockFreq && minFreq < lowTrigger;
+  const mainMinFreq = useParallelLow ? Math.max(minFreq, lowTrigger * 0.84) : minFreq;
+  let mainSig = prep.x;
+  if (lockFreq > 0 && combMix > 0.01) {
+    mainSig = _tuner.combFilter.process(mainSig, prep.sr, lockFreq, combMix, combPasses);
+  }
+  runTunerNsdf(mainSig, prep.n, prep.sr, mainMinFreq, maxFreq, prep.mag, prep.binHz, lockFreq, out);
+
+  // 3) Paralleler Tiefton-Pfad im automatischen Modus für tiefe Töne (< 155 Hz)
+  if (useParallelLow) {
+    const lowMaxFreq = Math.min(maxFreq, lowTrigger * 1.08);
+    if (lowMaxFreq > minFreq) {
+      const lowRes = runLowPath(minFreq, lowMaxFreq, 0);
+      if (lowRes.freq > 0 && lowRes.clarity >= TUNER_CONFIG.clarityLockMin) {
+        if (!out.freq || out.clarity < TUNER_CONFIG.clarityMin) {
+          out.freq = lowRes.freq;
+          out.clarity = lowRes.clarity;
+        } else {
+          // Prüfen, ob Hauptpfad lediglich einen Oberton (2×/3×) des tiefen Grundtons gefunden hat
+          const ratio = out.freq / lowRes.freq;
+          const isSubHarmonic = (Math.abs(ratio - 2) < 0.09) || (Math.abs(ratio - 3) < 0.12);
+          if (isSubHarmonic && prep.mag && prep.binHz) {
+            const fSub = lowRes.freq;
+            const m1 = tunerSpectralPeakAround(prep.mag, fSub, prep.binHz);
+            const m2 = tunerSpectralPeakAround(prep.mag, fSub * 2, prep.binHz);
+            const m3 = tunerSpectralPeakAround(prep.mag, fSub * 3, prep.binHz);
+            const m4 = tunerSpectralPeakAround(prep.mag, fSub * 4, prep.binHz);
+            const m5 = tunerSpectralPeakAround(prep.mag, fSub * 5, prep.binHz);
+            const fl1 = tunerSpectralNoiseFloor(prep.mag, fSub, prep.binHz);
+            const fl3 = tunerSpectralNoiseFloor(prep.mag, fSub * 3, prep.binHz);
+            const fl5 = tunerSpectralNoiseFloor(prep.mag, fSub * 5, prep.binHz);
+            const fundSig = m1 > fl1 * 3.2 ? m1 : 0;
+            const oddSig = (m3 > fl3 * 3.0 ? m3 : 0) + (m5 > fl5 * 3.0 ? m5 : 0);
+            const evenSig = m2 + m4;
+            const spectralSubProof = fundSig > m2 * 0.22 || (evenSig > 1e-6 && oddSig > evenSig * 0.20);
+            if (spectralSubProof && lowRes.clarity >= out.clarity * 0.88) {
+              out.freq = lowRes.freq;
+              out.clarity = Math.max(lowRes.clarity, out.clarity);
+            }
+          } else if (lowRes.clarity > out.clarity + 0.04) {
+            out.freq = lowRes.freq;
+            out.clarity = lowRes.clarity;
+          }
+        }
+      }
+    }
+  }
+
   return out;
 }
 
@@ -798,6 +751,8 @@ function readTunerColors() {
     ink: v("--raccoon-dark", "#1F3342"),
     muted: v("--raccoon-muted", "#7A8A94"),
     border: v("--border-soft", "#DDE3E0"),
+    surface: v("--surface-warm", "#F7F4EE"),
+    white: v("--surface-white", "#FFFFFF"),
     lilac: v("--lilac-strong", "#7B6FB3"),
     peach: v("--peach-strong", "#E0704F"),
     sage: v("--sage-strong", "#2E6F4E")
@@ -847,12 +802,10 @@ function updateTunerGaugeZone() {
   zone.setAttribute("d", `M ${pt(-a)} A ${r} ${r} 0 0 1 ${pt(a)}`);
 }
 
-// Sichtbarer Ausschnitt des Zeigerinstruments passt sich der verfügbaren Höhe an: immer volle Breite,
-// bei viel Höhe mit Drehpunkt (bis 180 Einheiten), bei wenig nur der Skalenbogen (ab 118 Einheiten)
+// Sichtbarer Ausschnitt des Zeigerinstruments passt sich der verfügbaren Höhe an
 function updateTunerGaugeViewBox() {
   const svg = document.getElementById("tunerGauge");
   if (!svg || !svg.clientWidth) return;
-  // Erst das ganze Instrument anbieten, dann messen, wie viel Höhe das Layout tatsächlich hergibt
   svg.setAttribute("viewBox", "0 0 300 180");
   if (!svg.clientHeight) return;
   const vbH = Math.max(118, Math.min(180, Math.round((svg.clientHeight / svg.clientWidth) * 300)));
@@ -865,6 +818,147 @@ function setTunerNeedle(cents) {
   if (!needle) return;
   const clamped = Math.max(-TUNER_CENTS_RANGE - 4, Math.min(TUNER_CENTS_RANGE + 4, cents || 0));
   needle.style.transform = `rotate(${((clamped / TUNER_CENTS_RANGE) * TUNER_GAUGE_DEG).toFixed(2)}deg)`;
+}
+
+// ---------- Strobe-Anzeige (0,1 Cent Präzision, 60 fps) ----------
+function drawTunerStrobe(dtSec) {
+  const canvas = document.getElementById("tunerStrobe");
+  if (!canvas || !canvas.getContext || canvas.classList.contains("hidden")) return;
+  const wrap = document.getElementById("tunerStrobeWrap");
+  if (wrap && wrap.classList.contains("hidden")) return;
+
+  const dpr = Math.min(2, window.devicePixelRatio || 1);
+  const w = Math.max(10, Math.round(canvas.clientWidth * dpr));
+  const h = Math.max(10, Math.round(canvas.clientHeight * dpr));
+  if (canvas.width !== w || canvas.height !== h) {
+    canvas.width = w;
+    canvas.height = h;
+  }
+  const g = canvas.getContext("2d");
+  g.clearRect(0, 0, w, h);
+  if (!_tuner.colors) readTunerColors();
+  const col = _tuner.colors;
+  const reducedMotion = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+
+  const active = _tuner.running && _tuner.strobeActive;
+  const cents = active ? _tuner.strobeCents : 0;
+  const absCents = Math.abs(cents);
+  const tol = TUNER_INSTRUMENTS[getTunerPrefs().instrument]?.tolerance || 4;
+
+  // Phase kontinuierlich fortschreiben: links (< 0) = zu tief, rechts (> 0) = zu hoch, 0 = Stillstand
+  if (active && !reducedMotion && dtSec > 0) {
+    // Sanfte nichtlineare Kompression ab > 25 Cent, damit die Bewegung stets klar ablesbar bleibt
+    const effective = Math.sign(cents) * (absCents <= 25 ? absCents : 25 + Math.log1p(absCents - 25) * 4.5);
+    _tuner.strobePhase = (_tuner.strobePhase + effective * TUNER_CONFIG.strobeSpeedScale * dtSec) % 1000;
+  }
+
+  // Farbwahl je nach Stimmungszustand
+  const barColor = !active
+    ? col.muted
+    : (_tuner.inTune || absCents <= Math.max(1.5, tol * 0.5) ? col.sage : col.peach);
+
+  const padX = 22 * dpr;
+  const bandW = Math.max(20, w - padX * 2);
+
+  if (reducedMotion) {
+    // Barrierefreie Präzisions-Skala ohne Lauf-Animation (±25 Cent)
+    const midX = w * 0.5;
+    const midY = h * 0.5;
+    g.strokeStyle = col.border;
+    g.lineWidth = 2 * dpr;
+    g.beginPath();
+    g.moveTo(padX, midY);
+    g.lineTo(w - padX, midY);
+    g.stroke();
+
+    const clamped = Math.max(-25, Math.min(25, cents));
+    const px = midX + (clamped / 25) * (bandW * 0.48);
+    g.fillStyle = barColor;
+    g.globalAlpha = active ? 0.92 : 0.35;
+    g.beginPath();
+    g.roundRect?.(px - 6 * dpr, h * 0.22, 12 * dpr, h * 0.56, 6 * dpr);
+    if (!g.roundRect) g.rect(px - 6 * dpr, h * 0.22, 12 * dpr, h * 0.56);
+    g.fill();
+    g.globalAlpha = 1;
+  } else {
+    // 3-Bahnen-Strobe: obere & untere Feinbahn (2× Frequenz) + mittlere Hauptbahn (1×)
+    const drawTrack = (y, trackH, cycles, phaseMult, baseAlpha) => {
+      const periodPx = bandW / cycles;
+      const shift = (((_tuner.strobePhase * phaseMult) % 1) + 1) % 1;
+      const barW = periodPx * 0.44;
+      const r = Math.min(trackH * 0.32, barW * 0.35);
+      g.save();
+      g.beginPath();
+      g.rect(padX, y, bandW, trackH);
+      g.clip();
+      g.fillStyle = barColor;
+      const startK = -2;
+      const endK = cycles + 2;
+      for (let k = startK; k <= endK; k++) {
+        const cx = padX + (k + shift) * periodPx;
+        // Sanfte Rand-Vignette für ruhiges Ein- und Ausgleiten
+        const distNorm = Math.abs((cx - w * 0.5) / (bandW * 0.5));
+        const edgeFade = Math.max(0, Math.min(1, 1.15 - distNorm * 0.9));
+        g.globalAlpha = baseAlpha * edgeFade;
+        const bx = cx - barW * 0.5;
+        if (g.roundRect) {
+          g.beginPath();
+          g.roundRect(bx, y, barW, trackH, r);
+          g.fill();
+        } else {
+          g.fillRect(bx, y, barW, trackH);
+        }
+      }
+      g.restore();
+      g.globalAlpha = 1;
+    };
+
+    const topH = Math.max(6 * dpr, h * 0.16);
+    const mainH = Math.max(14 * dpr, h * 0.36);
+    const gap = Math.max(3 * dpr, h * 0.07);
+    const totalH = topH * 2 + mainH + gap * 2;
+    const y0 = (h - totalH) * 0.5;
+
+    const alphaMain = active ? 0.92 : 0.22;
+    const alphaFine = active ? 0.52 : 0.14;
+    drawTrack(y0, topH, 12, 2.0, alphaFine);
+    drawTrack(y0 + topH + gap, mainH, 6, 1.0, alphaMain);
+    drawTrack(y0 + topH + gap + mainH + gap, topH, 12, 2.0, alphaFine);
+  }
+
+  // Feste Mittelmarkierung (Referenzlinie + kleine Dreiecke oben/unten)
+  const midX = w * 0.5;
+  g.strokeStyle = active && _tuner.inTune ? col.sage : col.ink;
+  g.globalAlpha = active ? 0.72 : 0.35;
+  g.lineWidth = 1.6 * dpr;
+  g.beginPath();
+  g.moveTo(midX, 6 * dpr);
+  g.lineTo(midX, h - 6 * dpr);
+  g.stroke();
+
+  g.fillStyle = active && _tuner.inTune ? col.sage : col.ink;
+  g.beginPath();
+  g.moveTo(midX - 4.5 * dpr, 1 * dpr);
+  g.lineTo(midX + 4.5 * dpr, 1 * dpr);
+  g.lineTo(midX, 7 * dpr);
+  g.closePath();
+  g.fill();
+  g.beginPath();
+  g.moveTo(midX - 4.5 * dpr, h - 1 * dpr);
+  g.lineTo(midX + 4.5 * dpr, h - 1 * dpr);
+  g.lineTo(midX, h - 7 * dpr);
+  g.closePath();
+  g.fill();
+
+  // Dezente ♭ / ♯ Orientierung links & rechts
+  g.globalAlpha = 0.65;
+  g.fillStyle = col.muted;
+  g.font = `700 ${Math.round(12 * dpr)}px Andika, sans-serif`;
+  g.textAlign = "center";
+  g.textBaseline = "middle";
+  g.fillText("♭", 11 * dpr, h * 0.5);
+  g.fillText("♯", w - 11 * dpr, h * 0.5);
+  g.globalAlpha = 1;
 }
 
 // ---------- Spektrum ----------
@@ -898,7 +992,7 @@ function drawTunerSpectrum(detectFreq, targetFreq, inTune) {
   g.textBaseline = "bottom";
   const strings = getTunerStrings(prefs);
   const marks = strings.length
-    ? strings.map(st => ({ f: tunerMidiToFreq(st.midi, prefs.a4), label: formatTunerNote(st.midi, st.flat).name, idx: st.index }))
+    ? strings.map(st => ({ f: getTunerTargetFreq(st.midi, prefs, st.index), label: formatTunerNote(st.midi, st.flat).name, idx: st.index }))
     : [];
   if (!strings.length) {
     for (let midi = 12; midi <= 120; midi += 12) {
@@ -990,12 +1084,47 @@ function drawTunerSpectrum(detectFreq, targetFreq, inTune) {
   }
 }
 
-// ---------- Anzeige ----------
+// ---------- Anzeige & Badges ----------
 function setTunerStatus(text, kind = "") {
   const el = document.getElementById("tunerStatus");
   if (!el) return;
   el.textContent = text;
   el.dataset.kind = kind;
+}
+
+function renderTunerBadges(prefs = getTunerPrefs()) {
+  const host = document.getElementById("tunerBadges");
+  if (!host) return;
+  const inst = TUNER_INSTRUMENTS[prefs.instrument] || TUNER_INSTRUMENTS.chromatic;
+  const items = [];
+  if (inst.supportsTransposition && prefs.transposition !== "C") {
+    items.push({ label: prefs.transposition, live: false });
+  }
+  if (inst.supportsSweetened && prefs.guitarSweetened) {
+    items.push({ label: tr("Sweetened", "Sweetened"), live: false });
+  }
+  if (inst.supportsStretch && prefs.pianoStretch) {
+    items.push({ label: tr("Railsback", "Railsback"), live: false });
+  }
+  if (_tuner.running && _tuner.vibratoActive) {
+    items.push({ label: tr("Vibrato", "Vibrato"), live: true });
+  }
+  const key = items.map(it => `${it.label}:${it.live ? 1 : 0}`).join("|");
+  if (host.dataset.badgeKey === key) return;
+  host.dataset.badgeKey = key;
+  host.innerHTML = items.map(it =>
+    `<span class="tuner-badge${it.live ? " is-live" : ""}">${escapeHtml(it.label)}</span>`
+  ).join("");
+}
+
+function formatTunerCentsText(cents, highPrecision) {
+  if (highPrecision) {
+    const val = Math.round(cents * 10) / 10;
+    if (Math.abs(val) < 0.05) return "± 0.0 ¢";
+    return `${val > 0 ? "+" : "−"} ${Math.abs(val).toFixed(1)} ¢`;
+  }
+  const rounded = Math.round(cents);
+  return `${rounded > 0 ? "+" : (rounded < 0 ? "−" : "±")} ${Math.abs(rounded)} ¢`;
 }
 
 function renderTunerReadout(info) {
@@ -1007,14 +1136,15 @@ function renderTunerReadout(info) {
   const targetEl = document.getElementById("tunerTargetLabel");
   if (!display) return;
   const prefs = getTunerPrefs();
+  const transposeSemis = getTunerTranspositionSemis(prefs);
+  const preferFlatTrans = transposeSemis !== 0;
 
   if (targetEl) {
-    // Einzelton: Ziel in der Messzeile („Ziel: E4 • +3 ¢ • 330 Hz“); automatisch ohne Zusatz
     const isSingle = prefs.mode === "single";
     if (isSingle) {
       const t = getTunerTargetMidi(prefs);
-      const flat = getTunerStrings(prefs).some(st => st.flat);
-      const tn = formatTunerNote(t, flat);
+      const flat = getTunerStrings(prefs).some(st => st.flat) || preferFlatTrans;
+      const tn = formatTunerNote(t + transposeSemis, flat);
       targetEl.textContent = tf("Ziel: {note}", "Target: {note}", { note: `${tn.name}${tn.octave}` });
     } else {
       targetEl.textContent = "";
@@ -1023,19 +1153,22 @@ function renderTunerReadout(info) {
     document.getElementById("tunerTargetDot")?.classList.toggle("hidden", !isSingle);
   }
 
+  renderTunerBadges(prefs);
+
   if (!info) {
     display.classList.toggle("is-quiet", _tuner.running);
     return;
   }
   display.classList.remove("is-quiet", "is-idle");
-  const note = formatTunerNote(info.midi, info.flat);
+  const note = formatTunerNote(info.midi + transposeSemis, info.flat || preferFlatTrans);
   if (nameEl) nameEl.textContent = note.name;
   if (octEl) octEl.textContent = note.octave;
-  const rounded = Math.round(info.cents);
-  if (centsEl) centsEl.textContent = `${rounded > 0 ? "+" : (rounded < 0 ? "−" : "±")} ${Math.abs(rounded)} ¢`;
+  const highPrecision = prefs.displayMode === "strobe";
+  if (centsEl) centsEl.textContent = formatTunerCentsText(info.cents, highPrecision);
   if (freqEl) freqEl.textContent = `${info.freq.toFixed(1)} Hz`;
-  display.classList.toggle("is-sharp", rounded > (info.tol || 4));
-  display.classList.toggle("is-flat", rounded < -(info.tol || 4));
+  const tol = info.tol || 4;
+  display.classList.toggle("is-sharp", info.cents > tol);
+  display.classList.toggle("is-flat", info.cents < -tol);
 }
 
 function getTunerTargetMidi(prefs = getTunerPrefs()) {
@@ -1047,6 +1180,14 @@ function getTunerTargetMidi(prefs = getTunerPrefs()) {
   return prefs.targetMidi || 69;
 }
 
+function getTunerTargetStringIndex(prefs = getTunerPrefs(), midi = null) {
+  const strings = getTunerStrings(prefs);
+  if (!strings.length) return -1;
+  const m = midi !== null ? midi : getTunerTargetMidi(prefs);
+  const hit = strings.find(st => st.midi === m);
+  return hit ? hit.index : -1;
+}
+
 function renderTunerStrings() {
   const row = document.getElementById("tunerStringsRow");
   const stepper = document.getElementById("tunerNoteStepper");
@@ -1054,21 +1195,86 @@ function renderTunerStrings() {
   if (!row) return;
   const prefs = getTunerPrefs();
   const strings = getTunerStrings(prefs);
+  const transposeSemis = getTunerTranspositionSemis(prefs);
   row.classList.toggle("hidden", strings.length === 0);
   stepper?.classList.toggle("hidden", strings.length > 0 || prefs.mode !== "single");
   if (stepNote) {
-    const tn = formatTunerNote(prefs.targetMidi || 69);
+    const tn = formatTunerNote((prefs.targetMidi || 69) + transposeSemis, transposeSemis !== 0);
     stepNote.textContent = `${tn.name}${tn.octave}`;
   }
   const target = getTunerTargetMidi(prefs);
+  const showSweet = Boolean(TUNER_INSTRUMENTS[prefs.instrument]?.supportsSweetened && prefs.guitarSweetened);
   row.innerHTML = strings.map(st => {
     const n = formatTunerNote(st.midi, st.flat);
     const isTarget = prefs.mode === "single" && st.midi === target;
     const tuned = _tuner.tunedStrings.has(st.index);
-    return `<button class="tuner-string-chip${isTarget ? " is-target" : ""}${tuned ? " is-tuned" : ""}" type="button" data-tuner-string="${st.index}" aria-pressed="${isTarget}" aria-label="${escapeHtml(tf("Saite {n}: {note}", "String {n}: {note}", { n: strings.length - st.index, note: n.name + n.octave }))}">
-      <span class="tuner-string-name">${escapeHtml(n.name)}</span><span class="tuner-string-oct">${escapeHtml(n.octave)}</span>
+    const offset = showSweet ? getTunerSweetenedOffset(prefs, st.index, st.midi) : 0;
+    const offHtml = showSweet && Math.abs(offset) >= 0.05
+      ? `<span class="tuner-string-off">${offset > 0 ? "+" : "−"}${Math.abs(offset).toFixed(1)}</span>`
+      : "";
+    return `<button class="tuner-string-chip${isTarget ? " is-target" : ""}${tuned ? " is-tuned" : ""}${showSweet ? " has-offset" : ""}" type="button" data-tuner-string="${st.index}" aria-pressed="${isTarget}" aria-label="${escapeHtml(tf("Saite {n}: {note}", "String {n}: {note}", { n: strings.length - st.index, note: n.name + n.octave }))}">
+      <span class="tuner-string-main"><span class="tuner-string-name">${escapeHtml(n.name)}</span><span class="tuner-string-oct">${escapeHtml(n.octave)}</span></span>${offHtml}
     </button>`;
   }).join("");
+}
+
+function renderTunerContextRow(prefs = getTunerPrefs()) {
+  const row = document.getElementById("tunerContextRow");
+  if (!row) return;
+  const inst = TUNER_INSTRUMENTS[prefs.instrument] || TUNER_INSTRUMENTS.chromatic;
+
+  if (inst.supportsTransposition) {
+    row.classList.remove("hidden");
+    const keys = Object.keys(TUNER_TRANSPOSITIONS);
+    const buttons = keys.map(k => {
+      const def = TUNER_TRANSPOSITIONS[k];
+      const on = prefs.transposition === k;
+      return `<button type="button" class="tuner-ctx-btn${on ? " active" : ""}" role="radio" aria-checked="${on}" data-tuner-transpose="${k}">${escapeHtml(def.label)}</button>`;
+    }).join("");
+    row.innerHTML = `<span class="tuner-ctx-label">${escapeHtml(tr("Transposition", "Transposition"))}</span><div class="tuner-ctx-group" role="radiogroup" aria-label="${escapeHtml(tr("Transposition", "Transposition"))}">${buttons}</div>`;
+    return;
+  }
+
+  if (inst.supportsSweetened) {
+    row.classList.remove("hidden");
+    const on = Boolean(prefs.guitarSweetened);
+    row.innerHTML = `<span class="tuner-ctx-label">${escapeHtml(tr("Intonation", "Intonation"))}</span><div class="tuner-ctx-group" role="radiogroup" aria-label="${escapeHtml(tr("Intonation", "Intonation"))}">
+      <button type="button" class="tuner-ctx-btn${!on ? " active" : ""}" role="radio" aria-checked="${!on}" data-tuner-sweetened="0">${escapeHtml(tr("Gleichstufig", "Equal"))}</button>
+      <button type="button" class="tuner-ctx-btn${on ? " active" : ""}" role="radio" aria-checked="${on}" data-tuner-sweetened="1">${escapeHtml(tr("Sweetened", "Sweetened"))}</button>
+    </div>`;
+    return;
+  }
+
+  if (inst.supportsStretch) {
+    row.classList.remove("hidden");
+    const on = Boolean(prefs.pianoStretch);
+    row.innerHTML = `<span class="tuner-ctx-label">${escapeHtml(tr("Spreizung", "Stretch"))}</span><div class="tuner-ctx-group" role="radiogroup" aria-label="${escapeHtml(tr("Spreizung", "Stretch"))}">
+      <button type="button" class="tuner-ctx-btn${!on ? " active" : ""}" role="radio" aria-checked="${!on}" data-tuner-stretch="0">${escapeHtml(tr("Gleichstufig", "Equal"))}</button>
+      <button type="button" class="tuner-ctx-btn${on ? " active" : ""}" role="radio" aria-checked="${on}" data-tuner-stretch="1">${escapeHtml(tr("Railsback", "Railsback"))}</button>
+    </div>`;
+    return;
+  }
+
+  row.classList.add("hidden");
+  row.innerHTML = "";
+}
+
+function syncTunerDisplayModeUI(prefs = getTunerPrefs()) {
+  const isStrobe = prefs.displayMode === "strobe";
+  const gauge = document.getElementById("tunerGauge");
+  const strobeWrap = document.getElementById("tunerStrobeWrap");
+  gauge?.classList.toggle("hidden", isStrobe);
+  strobeWrap?.classList.toggle("hidden", !isStrobe);
+  document.querySelectorAll("[data-tuner-view]").forEach(btn => {
+    const on = btn.dataset.tunerView === prefs.displayMode;
+    btn.classList.toggle("active", on);
+    btn.setAttribute("aria-checked", String(on));
+  });
+  if (isStrobe) {
+    drawTunerStrobe(0);
+  } else {
+    updateTunerGaugeViewBox();
+  }
 }
 
 // Einfachauswahl im Stil der Konto-Auswahl „Deine Instrumente / Rollen“ (Klassen .multi-dropdown-*)
@@ -1119,6 +1325,10 @@ function selectTunerInstrument(instrument) {
   const tunings = TUNER_INSTRUMENTS[instrument]?.tunings;
   if (!TUNER_INSTRUMENTS[instrument]) return;
   _tuner.tunedStrings.clear();
+  resetTunerPitchLock();
+  resetTunerMedian();
+  _tuner.vibratoTracker.reset();
+  _tuner.phaseTracker.reset();
   const firstTuning = tunings ? Object.keys(tunings)[0] : "";
   const firstNote = tunings ? tunerNoteToMidi(tunings[firstTuning].notes[0]) : getTunerPrefs().targetMidi;
   setTunerPrefs({ instrument, tuning: firstTuning, targetMidi: firstNote });
@@ -1146,11 +1356,13 @@ function syncTunerSetupUI() {
     selectedKey: prefs.instrument,
     options: Object.entries(TUNER_INSTRUMENTS).map(([key, def]) => {
       const first = def.tunings ? Object.values(def.tunings)[0] : null;
-      return {
-        key,
-        label: tr(def.de, def.en),
-        hint: first ? tuningNotes(first) : (key === "voice" ? tr("Alle Töne, ruhige Anzeige", "All notes, calm display") : tr("Alle Töne", "All notes"))
-      };
+      let hint;
+      if (first) hint = tuningNotes(first);
+      else if (key === "voice") hint = tr("Alle Töne, ruhige Anzeige", "All notes, calm display");
+      else if (key === "winds") hint = tr("Vibrato-Mittelung & Transposition", "Vibrato averaging & transposition");
+      else if (key === "piano") hint = tr("88 Tasten & Railsback-Spreizung", "88 keys & Railsback stretch");
+      else hint = tr("Alle Töne", "All notes");
+      return { key, label: tr(def.de, def.en), hint };
     }),
     onSelect: selectTunerInstrument
   });
@@ -1168,6 +1380,10 @@ function syncTunerSetupUI() {
   } else if (tunField) {
     tunField.innerHTML = "";
   }
+
+  renderTunerContextRow(prefs);
+  syncTunerDisplayModeUI(prefs);
+
   document.querySelectorAll("[data-tuner-mode]").forEach(btn => {
     const on = btn.dataset.tunerMode === prefs.mode;
     btn.classList.toggle("active", on);
@@ -1238,7 +1454,6 @@ function isTunerTrackBluetooth(track) {
   if (isTunerBluetoothMicLabel(track.label)) return true;
   try {
     const settings = typeof track.getSettings === "function" ? track.getSettings() : null;
-    // Bluetooth Handsfree/HFP arbeitet typischerweise mit 8 kHz oder 16 kHz Sprachbandbreite
     if (settings && Number(settings.sampleRate) > 0 && Number(settings.sampleRate) <= 16000) {
       return true;
     }
@@ -1253,7 +1468,6 @@ async function findTunerBuiltInMicDeviceId(excludeDeviceId = "") {
     const inputs = devices.filter(d => d.kind === "audioinput" && d.deviceId && d.deviceId !== excludeDeviceId);
     const builtIn = inputs.find(d => isTunerBuiltInMicLabel(d.label));
     if (builtIn) return builtIn.deviceId;
-    // Fallback: beliebiges benanntes Nicht-Bluetooth-Mikrofon (außer "default"/"communications")
     const nonBt = inputs.find(d =>
       d.label &&
       d.deviceId !== "default" &&
@@ -1274,7 +1488,6 @@ function buildRawTunerConstraintCandidates(deviceId = "", exactDevice = false) {
     autoGainControl: { ideal: false },
     voiceIsolation: { ideal: false },
     channelCount: { ideal: 1 },
-    // Legacy-Chromium-Flags für ältere Android-WebViews
     googEchoCancellation: false,
     googAutoGainControl: false,
     googNoiseSuppression: false,
@@ -1298,7 +1511,6 @@ async function acquireRawTunerStreamWithConstraints(candidates) {
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
       const track = stream.getAudioTracks?.()[0];
       if (track && typeof track.applyConstraints === "function") {
-        // Einige mobile Browser/WebViews übernehmen die Raw-Flags erst zuverlässig per applyConstraints
         track.applyConstraints({
           echoCancellation: false,
           noiseSuppression: false,
@@ -1318,18 +1530,6 @@ async function acquireRawTunerStreamWithConstraints(candidates) {
   throw lastErr || new Error("Microphone unavailable");
 }
 
-/**
- * Öffnet das Mikrofon im Browser/WebView ohne OS-Sprachverarbeitung
- * (keine Echo Cancellation, keine Noise Suppression, kein AGC, keine Voice Isolation).
- * Bevorzugt nach Möglichkeit das interne Mikrofon statt eines Bluetooth-HFP-Mikrofons.
- *
- * Hinweis zu Plattform-Grenzen:
- * - Android-App (Capacitor): nutzt nativ MediaRecorder.AudioSource.UNPROCESSED (RawAudioTunerPlugin.java)
- *   und bevorzugt dort AudioDeviceInfo.TYPE_BUILTIN_MIC.
- * - iOS / Browser (Web-Kontext): AVAudioSessionModeMeasurement ist nur in nativen iOS-Apps verfügbar;
- *   im Web-Kontext setzen wir navigator.audioSession.type = "play-and-record" und die Web-Audio-Constraints
- *   (echoCancellation/noiseSuppression/autoGainControl/voiceIsolation: false).
- */
 async function requestRawTunerMediaStream() {
   const preferredBuiltInId = await findTunerBuiltInMicDeviceId();
   let stream = await acquireRawTunerStreamWithConstraints(
@@ -1338,8 +1538,6 @@ async function requestRawTunerMediaStream() {
   let track = stream.getAudioTracks?.()[0];
   let isBt = isTunerTrackBluetooth(track);
 
-  // Nach erteilter Mikrofon-Freigabe stehen Geräte-Labels bereit: falls BT-HFP aktiv ist,
-  // gezielt versuchen, auf das interne Mikrofon zu wechseln.
   if (isBt) {
     const activeId = track?.getSettings?.()?.deviceId || "";
     const builtInId = await findTunerBuiltInMicDeviceId(activeId);
@@ -1352,9 +1550,7 @@ async function requestRawTunerMediaStream() {
         stream = altStream;
         track = stream.getAudioTracks?.()[0];
         isBt = isTunerTrackBluetooth(track);
-      } catch (_) {
-        // Wechsel nicht möglich → bestehendes BT-Mikrofon weiter nutzen und dezenten Hinweis anzeigen
-      }
+      } catch (_) {}
     }
   }
   return { stream, bluetoothMic: isBt };
@@ -1375,7 +1571,7 @@ async function startTunerSession() {
   try {
     stopPlayback();
 
-    // 1) Android-App: gezielter Zugriff auf das Rohsignal über AudioSource.UNPROCESSED
+    // 1) Android-App: Rohsignal über AudioSource.UNPROCESSED
     if (nativePlugin) {
       try {
         const info = await nativePlugin.start();
@@ -1418,7 +1614,6 @@ async function startTunerSession() {
           permErr.name = "NotAllowedError";
           throw permErr;
         }
-        // Fallback auf getUserMedia, falls das native AudioRecord auf einem Gerät nicht startet
         if (!hasMedia) throw nativeErr;
       }
     }
@@ -1437,13 +1632,10 @@ async function startTunerSession() {
     const Ctx = window.AudioContext || window.webkitAudioContext;
     const ctx = _tuner.ctx && _tuner.ctx.state !== "closed" ? _tuner.ctx : new Ctx();
     if (ctx.state === "suspended") await ctx.resume();
-    // Tatsächliche Hardware-Sample-Rate dynamisch aus dem AudioContext auslesen
     const actualSr = Number(ctx.sampleRate) || 48000;
     const winSize = actualSr > 64000 ? TUNER_CONFIG.windowSizeHighSr : TUNER_CONFIG.windowSize;
     const source = ctx.createMediaStreamSource(stream);
 
-    // Universelles Bandpass-Vorfilter (4. Ordnung Butterworth, −24 dB/Okt.):
-    // 25 Hz Hochpass gegen Trittschall/Rumpeln + 4,2 kHz Tiefpass gegen hochfrequentes Zischen
     const lpHz = Math.min(TUNER_LP_HZ, actualSr * 0.45);
     const makeBiquad = (type, freq, q) => {
       const node = ctx.createBiquadFilter();
@@ -1459,11 +1651,9 @@ async function startTunerSession() {
       makeBiquad("lowpass", lpHz, TUNER_BW4_Q2)
     ];
 
-    // AnalyserNode dient als Audio-Thread-Ringpuffer (Sliding Window über winSize Samples)
     const analyser = ctx.createAnalyser();
     analyser.fftSize = winSize;
     analyser.smoothingTimeConstant = 0.55;
-    // Stummer Abzweig zum Ausgang hält die Kette in allen Browsern (Safari) aktiv – ohne Rückkopplung
     const sink = ctx.createGain();
     sink.gain.value = 0;
     let chain = source;
@@ -1533,8 +1723,6 @@ function releaseTunerMicStream() {
   _tuner.analyser = null;
   _tuner.sink = null;
   state.tunerStream = null;
-  // iOS/Safari: Audio-Sitzung nach dem Mikrofon wieder auf reine Wiedergabe stellen, damit
-  // Bluetooth-Kopfhörer nicht im (verzerrten) Telefonie-Modus bleiben
   try {
     if (stream && navigator.audioSession && navigator.audioSession.type !== "playback") {
       navigator.audioSession.type = "playback";
@@ -1562,11 +1750,13 @@ function stopTunerSession() {
   display?.classList.remove("is-in-tune", "is-sharp", "is-flat", "is-quiet");
   display?.classList.add("is-idle");
   setTunerNeedle(0);
+  renderTunerBadges();
   syncTunerStartButton();
   if (wasRunning) {
     setTunerStatus(tr("Tuner pausiert.", "Tuner paused."));
   }
   if (document.getElementById("tunerSpectrum")) drawTunerSpectrum(0, null, false);
+  drawTunerStrobe(0);
 }
 
 async function requestTunerWakeLock() {
@@ -1582,7 +1772,7 @@ function releaseTunerWakeLock() {
   _tuner.wakeLock = null;
 }
 
-// ---------- Messschleife: Noise-Floor, Transienten, Pitch-Lock, Median & EMA ----------
+// ---------- Messschleife: Noise-Floor, Onsets, Kammfilter, Tiefton-Pfad, Vibrato & Phasen-Tracker ----------
 function clampTunerNoiseFloor(db) {
   return Math.max(TUNER_CONFIG.noiseFloorMinDb, Math.min(TUNER_CONFIG.noiseFloorMaxDb, db));
 }
@@ -1590,7 +1780,6 @@ function clampTunerNoiseFloor(db) {
 function updateTunerNoiseFloor(hopDb, now) {
   if (!Number.isFinite(hopDb)) return;
   if (now < _tuner.noiseInitUntil) {
-    // Initiale Grundrausch-Messung: 30.-Perzentil (robust gegen sofortiges Anspielen)
     const buf = _tuner.noiseInitSamples;
     if (_tuner.noiseInitCount < buf.length) {
       let pos = _tuner.noiseInitCount;
@@ -1605,7 +1794,6 @@ function updateTunerNoiseFloor(hopDb, now) {
     }
     return;
   }
-  // Langsame Nachführung ausschließlich in Spielpausen (unterhalb der Gate-Öffnungsschwelle)
   if (!_tuner.gateOpen && hopDb < _tuner.noiseFloorDb + TUNER_CONFIG.noiseGateOffsetDb) {
     const alpha = hopDb < _tuner.noiseFloorDb
       ? TUNER_CONFIG.noiseFloorAdaptDownAlpha
@@ -1637,8 +1825,6 @@ function pushTunerMedian(freq, maxLen) {
   if (_tuner.medianCount >= 2 && curMedian > 0) {
     const jumpCents = Math.abs(1200 * Math.log2(freq / curMedian));
     if (jumpCents > TUNER_CONFIG.emaResetCents) {
-      // Einzelner Ausreißer (Oktav-/Quintsprung) wird vom Median verworfen;
-      // 2 konsistente Frames auf einem neuen Ton (z. B. Legato-Wechsel) setzen den Median direkt um.
       if (_tuner.jumpCandFreq > 0 && Math.abs(1200 * Math.log2(freq / _tuner.jumpCandFreq)) <= TUNER_CONFIG.pitchLockStableCents) {
         _tuner.jumpCandCount++;
         if (_tuner.jumpCandCount >= 2) {
@@ -1672,16 +1858,17 @@ function pushTunerMedian(freq, maxLen) {
 function handleTunerNoPitch(now) {
   if (!_tuner.lastPitchAt) return;
   const elapsed = now - _tuner.lastPitchAt;
-  // Phase 1: Kurze stabile Haltezeit bei niedrigem Pegel / geringer Konfidenz
   if (elapsed <= TUNER_CONFIG.holdMs) return;
 
-  // Phase 2: Sanfter Übergang in den Ruhezustand (Anzeige dimmen & Nadel weich zur Mitte führen)
   const fadeElapsed = elapsed - TUNER_CONFIG.holdMs;
   if (fadeElapsed < TUNER_CONFIG.idleFadeMs) {
     if (!_tuner.inQuietFade) {
       _tuner.inQuietFade = true;
       _tuner.idleFadeStartAt = now;
       _tuner.idleStartCents = _tuner.smoothCents || 0;
+      _tuner.strobeActive = false;
+      _tuner.vibratoActive = false;
+      _tuner.phaseActive = false;
       if (_tuner.inTune || _tuner.inTuneSince) {
         _tuner.inTune = false;
         _tuner.inTuneSince = 0;
@@ -1697,9 +1884,14 @@ function handleTunerNoPitch(now) {
     return;
   }
 
-  // Phase 3: Ruhezustand
   resetTunerMedian();
   resetTunerPitchLock();
+  _tuner.vibratoTracker.reset();
+  _tuner.phaseTracker.reset();
+  _tuner.vibratoActive = false;
+  _tuner.phaseActive = false;
+  _tuner.strobeActive = false;
+  _tuner.strobeCents = 0;
   _tuner.emaFreq = 0;
   _tuner.smoothCents = null;
   _tuner.inQuietFade = false;
@@ -1715,9 +1907,10 @@ function handleTunerNoPitch(now) {
 
 function analyzeTunerBuffer(signal, sampleRate, smoothDbOut, ctx) {
   const now = ctx.now;
+  const profile = ctx.profile || getTunerDspProfile(ctx.prefs.instrument);
   const [minF, maxF] = getTunerRange(ctx.prefs);
 
-  // 1) Schnelle Pegelmessung für den aktuellen Hop & das Gesamtfenster (GC-frei, ohne doppelte FFT)
+  // 1) Schnelle Pegelmessung für den aktuellen Hop & das Gesamtfenster
   const levelProbe = measureTunerSignalLevels(signal, sampleRate);
   const hopDb = levelProbe.hopDb;
   const windowDb = levelProbe.windowDb;
@@ -1741,73 +1934,98 @@ function analyzeTunerBuffer(signal, sampleRate, smoothDbOut, ctx) {
       _tuner.gateOpen = false;
       _tuner.peakDb = -120;
       resetTunerPitchLock();
+      _tuner.onsetDetector.reset();
+      _tuner.vibratoTracker.reset();
+      _tuner.phaseTracker.reset();
+      _tuner.vibratoActive = false;
+      _tuner.phaseActive = false;
     } else if (hopDb > _tuner.peakDb) {
       _tuner.peakDb = hopDb;
     }
   }
 
-  // Gate geschlossen → ggf. natives Spektrum abklingen lassen, kein Pitch-Update
+  // Gate geschlossen → ggf. natives Spektrum aktualisieren, kein Pitch-Update
   if (!_tuner.gateOpen) {
-    if (smoothDbOut) detectTunerPitch(signal, sampleRate, minF, maxF, smoothDbOut, 0, true);
+    if (smoothDbOut) prepareTunerMainWorkBuffer(signal, sampleRate, smoothDbOut);
     handleTunerNoPitch(now);
     return;
   }
 
-  // 2) Anschlag / Transient erkennen (sprunghafter Pegelanstieg) → 30–50 ms verwerfen
-  const isTransientJump = prevHopDb > -115 && (hopDb - prevHopDb) >= TUNER_CONFIG.transientRiseDb && hopDb >= gateOpenDb;
-  if (isTransientJump) {
-    _tuner.transientUntil = now + TUNER_CONFIG.transientBlankMs;
+  // 2) Spektrum & Onset-Erkennung (Energieanstieg + Spectral Flux)
+  const prep = prepareTunerMainWorkBuffer(signal, sampleRate, smoothDbOut);
+  const onset = _tuner.onsetDetector.evaluate(
+    prep.mag,
+    hopDb,
+    prevHopDb,
+    _tuner.noiseFloorDb,
+    gateOpenDb,
+    profile
+  );
+
+  // Profil-gesteuertes Transienten-Masking (0 ms bei Bläser/Gesang/Streicher, 35–45 ms Gitarre, 70 ms Bass)
+  if (profile.transientBlankMs > 0 && onset.isTransient) {
+    _tuner.transientUntil = now + profile.transientBlankMs;
     _tuner.peakDb = hopDb;
     resetTunerPitchLock();
     resetTunerMedian();
-    if (smoothDbOut) detectTunerPitch(signal, sampleRate, minF, maxF, smoothDbOut, 0, true);
+    _tuner.vibratoTracker.reset();
+    _tuner.phaseTracker.reset();
     return;
   }
-  if (now < _tuner.transientUntil) {
-    if (smoothDbOut) detectTunerPitch(signal, sampleRate, minF, maxF, smoothDbOut, 0, true);
-    return;
+  if (now < _tuner.transientUntil) return;
+
+  // Spectral-Flux-Onset (z. B. weicher Saitenwechsel ohne Pegelsprung): Pitch-Lock sauber lösen
+  if (onset.isOnset && _tuner.lockActive) {
+    resetTunerPitchLock();
+    resetTunerMedian();
+    _tuner.phaseTracker.reset();
+    _tuner.peakDb = Math.max(_tuner.peakDb, hopDb);
   }
 
-  // 3) Decay-Erkennung & Pitch-Lock aktivieren, sobald ein stabiler Ton ausklingt
-  const isDecaying = _tuner.stableCount >= TUNER_CONFIG.pitchLockMinStableFrames &&
+  // 3) Onset-gekoppelter Decay-Pitch-Lock (Schutz gegen mitschwingende Nachbarsaiten)
+  const isDecaying = !onset.isOnset &&
+    _tuner.stableCount >= TUNER_CONFIG.pitchLockMinStableFrames &&
     _tuner.lockFreq > 0 &&
     (hopDb < _tuner.peakDb - TUNER_CONFIG.decayDropDb || hopDb <= prevHopDb + 0.5);
   _tuner.lockActive = isDecaying;
 
-  let res = detectTunerPitch(
+  let res = detectTunerPitchWithProfile(
     signal,
     sampleRate,
+    prep,
     minF,
     maxF,
-    smoothDbOut,
-    isDecaying ? _tuner.lockFreq : 0,
-    false
+    profile,
+    isDecaying ? _tuner.lockFreq : 0
   );
 
   let clarityThreshold = isDecaying ? TUNER_CONFIG.clarityLockMin : TUNER_CONFIG.clarityMin;
 
-  // Legato-Schutz: Wenn im Pitch-Lock trotz starkem Signal kein Ton mehr gefunden wird (z. B. Saiten-/Tonwechsel
-  // ohne Zupf-Transient bei Gesang/Streichern), Pitch-Lock lösen und sofort im vollen Bereich suchen.
+  // Legato-/Sicherheits-Unlock: bei starkem, anhaltend fremdem Signal nach profilabhängigem Limit lösen
   if (isDecaying && (!res.freq || res.clarity < clarityThreshold)) {
-    if (hopDb >= gateOpenDb + 3) {
+    const unlockMargin = profile.onsetLockStrict ? 5.5 : 3.0;
+    const missLimit = profile.pitchLockMissLimit || TUNER_CONFIG.pitchLockMissLimit;
+    if (hopDb >= gateOpenDb + unlockMargin) {
       _tuner.lockMissCount++;
-      if (_tuner.lockMissCount >= TUNER_CONFIG.pitchLockMissLimit) {
+      if (_tuner.lockMissCount >= missLimit) {
         resetTunerPitchLock();
         clarityThreshold = TUNER_CONFIG.clarityMin;
-        res = detectTunerPitch(signal, sampleRate, minF, maxF, null, 0, false);
+        res = detectTunerPitchWithProfile(signal, sampleRate, prep, minF, maxF, profile, 0);
       }
     }
   } else if (isDecaying) {
     _tuner.lockMissCount = 0;
   }
 
-  applyTunerPitchResult(res, clarityThreshold, ctx);
+  applyTunerPitchResult(res, clarityThreshold, signal, sampleRate, ctx);
 }
 
-function applyTunerPitchResult(res, clarityThreshold, ctx) {
-  const { inst, now } = ctx;
+function applyTunerPitchResult(res, clarityThreshold, rawSignal, sampleRate, ctx) {
+  const { inst, profile, now } = ctx;
   if (res.freq && res.clarity >= clarityThreshold) {
-    const histLen = inst.smooth ? TUNER_CONFIG.medianLengthVoice : TUNER_CONFIG.medianLength;
+    const histLen = inst.smooth
+      ? TUNER_CONFIG.medianLengthVoice
+      : (profile?.medianLength || TUNER_CONFIG.medianLength);
     const median = pushTunerMedian(res.freq, histLen);
 
     // Stabilität für Pitch-Lock fortschreiben
@@ -1826,7 +2044,7 @@ function applyTunerPitchResult(res, clarityThreshold, ctx) {
     _tuner.lastFreq = median;
     _tuner.lastClarity = res.clarity;
     _tuner.lastPitchAt = now;
-    updateTunerReading(median, res.clarity, clarityThreshold, ctx);
+    updateTunerReading(median, res.clarity, clarityThreshold, rawSignal, sampleRate, ctx);
   } else {
     handleTunerNoPitch(now);
   }
@@ -1837,9 +2055,9 @@ function pollNativeTunerFrame(ctx) {
   const plugin = getNativeRawAudioTunerPlugin();
   if (!plugin) return;
   _tuner.nativePending = true;
-  // Aktuelle Kontextwerte für den asynchronen Callback sichern
   const snapPrefs = ctx.prefs;
   const snapInst = ctx.inst;
+  const snapProfile = ctx.profile;
   const snapTol = ctx.tol;
   const snapStrings = ctx.strings;
   const snapFlat = ctx.flat;
@@ -1865,6 +2083,7 @@ function pollNativeTunerFrame(ctx) {
     const loopCtx = _tuner.loopCtx;
     loopCtx.prefs = snapPrefs;
     loopCtx.inst = snapInst;
+    loopCtx.profile = snapProfile;
     loopCtx.tol = snapTol;
     loopCtx.strings = snapStrings;
     loopCtx.flat = snapFlat;
@@ -1881,6 +2100,9 @@ function tunerLoop() {
   if (!_tuner.running || (!_tuner.analyser && !_tuner.nativeActive)) return;
   _tuner.rafId = requestAnimationFrame(tunerLoop);
   const now = performance.now();
+  const dtSec = _tuner.lastFrameAt ? Math.min(0.05, Math.max(0, (now - _tuner.lastFrameAt) / 1000)) : 0;
+  _tuner.lastFrameAt = now;
+
   const prefs = getTunerPrefs();
   const isSingle = prefs.mode === "single";
   const targetMidi = isSingle ? getTunerTargetMidi(prefs) : null;
@@ -1891,11 +2113,13 @@ function tunerLoop() {
     if (now < _tuner.refUntil) {
       setTunerStatus(tr("Referenzton …", "Reference tone …"));
     } else {
-      const inst = TUNER_INSTRUMENTS[prefs.instrument];
+      const inst = TUNER_INSTRUMENTS[prefs.instrument] || TUNER_INSTRUMENTS.chromatic;
+      const profile = getTunerDspProfile(prefs.instrument);
       const strings = getTunerStrings(prefs);
       const loopCtx = _tuner.loopCtx;
       loopCtx.prefs = prefs;
       loopCtx.inst = inst;
+      loopCtx.profile = profile;
       loopCtx.tol = inst.tolerance || 4;
       loopCtx.strings = strings;
       loopCtx.flat = strings.some(st => st.flat);
@@ -1911,20 +2135,66 @@ function tunerLoop() {
       }
     }
   } else if (_tuner.inQuietFade) {
-    // Sanfte Nadel-Rückführung in den Ruhezustand flüssig mit 60/120 fps fortschreiben
     handleTunerNoPitch(now);
   }
 
+  if (prefs.displayMode === "strobe") {
+    drawTunerStrobe(dtSec);
+  }
+
   const showFreq = now - _tuner.lastPitchAt <= (TUNER_CONFIG.holdMs + TUNER_CONFIG.idleFadeMs) ? _tuner.lastFreq : 0;
-  drawTunerSpectrum(showFreq, targetMidi !== null ? tunerMidiToFreq(targetMidi, prefs.a4) : null, _tuner.inTune);
+  const targetFreq = targetMidi !== null ? getTunerTargetFreq(targetMidi, prefs, getTunerTargetStringIndex(prefs, targetMidi)) : null;
+  drawTunerSpectrum(showFreq, targetFreq, _tuner.inTune);
 }
 
-function updateTunerReading(freq, clarity, clarityThreshold, ctx) {
-  const { prefs, tol, strings, flat, isSingle, targetMidi, now } = ctx;
+function updateTunerReading(freq, clarity, clarityThreshold, rawSignal, sampleRate, ctx) {
+  const { prefs, inst, profile, tol, strings, flat, isSingle, targetMidi, now } = ctx;
   const midiFloat = tunerFreqToMidiFloat(freq, prefs.a4);
   const refMidi = isSingle ? targetMidi : Math.round(midiFloat);
-  const rawCents = (midiFloat - refMidi) * 100;
-  const freqJumpCents = _tuner.emaFreq > 0 ? Math.abs(1200 * Math.log2(freq / _tuner.emaFreq)) : Infinity;
+
+  // Passende Saite ermitteln (für Sweetened-Offset & Highlight)
+  const matchString = strings.find(st => Math.abs(midiFloat - st.midi) * 100 <= 60) || null;
+  const activeStringIndex = isSingle
+    ? getTunerTargetStringIndex(prefs, targetMidi)
+    : (matchString && matchString.midi === refMidi ? matchString.index : -1);
+
+  // Exakte Zielfrequenz inkl. A4, Sweetened Guitar oder Piano Railsback
+  const targetOffsetCents = getTunerTargetOffsetCents(prefs, refMidi, activeStringIndex);
+  const targetFreq = getTunerTargetFreq(refMidi, prefs, activeStringIndex);
+  let rawCents = 1200 * Math.log2(freq / targetFreq);
+  let refinedFreq = freq;
+
+  // 1) Vibrato-Erkennung & 1-Perioden-Mittelung (Bläser / Gesang / Streicher / Auto)
+  const vib = _tuner.vibratoTracker.push(midiFloat, now, profile?.vibratoMode || "off");
+  _tuner.vibratoActive = Boolean(vib.active);
+  if (vib.active) {
+    rawCents = vib.centerCents - (refMidi * 100 + targetOffsetCents);
+    refinedFreq = targetFreq * Math.pow(2, rawCents / 1200);
+    _tuner.phaseActive = false;
+  } else if (
+    profile?.phaseTrackerEnabled &&
+    rawSignal &&
+    sampleRate &&
+    Math.abs(rawCents) <= TUNER_CONFIG.phaseTrackEngageCents
+  ) {
+    // 2) Hybrider Quadratur-Phasen-Tracker (0,1 Cent Präzision ohne Verzögerung)
+    const ph = _tuner.phaseTracker.track(rawSignal, sampleRate, targetFreq, refMidi, freq);
+    if (ph.valid) {
+      const absC = Math.abs(rawCents);
+      const blend = absC <= TUNER_CONFIG.phaseTrackFullCents
+        ? 1
+        : Math.max(0, Math.min(1, (TUNER_CONFIG.phaseTrackEngageCents - absC) / (TUNER_CONFIG.phaseTrackEngageCents - TUNER_CONFIG.phaseTrackFullCents)));
+      rawCents = rawCents * (1 - blend) + ph.cents * blend;
+      refinedFreq = targetFreq * Math.pow(2, rawCents / 1200);
+      _tuner.phaseActive = blend > 0.3;
+    } else {
+      _tuner.phaseActive = false;
+    }
+  } else {
+    _tuner.phaseActive = false;
+  }
+
+  const freqJumpCents = _tuner.emaFreq > 0 ? Math.abs(1200 * Math.log2(refinedFreq / _tuner.emaFreq)) : Infinity;
 
   if (
     _tuner.displayMidi !== refMidi ||
@@ -1932,22 +2202,31 @@ function updateTunerReading(freq, clarity, clarityThreshold, ctx) {
     freqJumpCents > TUNER_CONFIG.emaResetCents ||
     Math.abs(rawCents - _tuner.smoothCents) > TUNER_CONFIG.emaResetCents
   ) {
-    // Neuer Ton oder großer Frequenzsprung (> 50–80 Cent, z. B. Saitenwechsel): sofortiger EMA-Reset
     _tuner.displayMidi = refMidi;
     _tuner.smoothCents = rawCents;
-    _tuner.emaFreq = freq;
+    _tuner.emaFreq = refinedFreq;
     _tuner.inTuneSince = 0;
+  } else if (vib.active) {
+    // Vibrato-Mittelwert ist bereits über eine volle Periode geglättet → zügig folgen
+    _tuner.smoothCents += 0.35 * (rawCents - _tuner.smoothCents);
+    _tuner.emaFreq += 0.35 * (refinedFreq - _tuner.emaFreq);
+  } else if (_tuner.phaseActive) {
+    // Phasen-Tracker liefert bereits ruhige 0,1-Cent-Werte → direkt übernehmen für Strobe-Reaktionszeit
+    _tuner.smoothCents += 0.55 * (rawCents - _tuner.smoothCents);
+    _tuner.emaFreq += 0.45 * (refinedFreq - _tuner.emaFreq);
   } else {
-    const alpha = TUNER_INSTRUMENTS[prefs.instrument].smooth ? TUNER_CONFIG.emaAlphaVoice : TUNER_CONFIG.emaAlpha;
+    const alpha = inst.smooth ? TUNER_CONFIG.emaAlphaVoice : (profile?.emaAlpha || TUNER_CONFIG.emaAlpha);
     _tuner.smoothCents += alpha * (rawCents - _tuner.smoothCents);
-    _tuner.emaFreq += alpha * (freq - _tuner.emaFreq);
+    _tuner.emaFreq += alpha * (refinedFreq - _tuner.emaFreq);
   }
+
   const cents = _tuner.smoothCents;
+  _tuner.strobeCents = cents;
+  _tuner.strobeActive = true;
   setTunerNeedle(cents);
-  renderTunerReadout({ midi: refMidi, cents, freq: _tuner.emaFreq || freq, flat, tol });
+  renderTunerReadout({ midi: refMidi, cents, freq: _tuner.emaFreq || refinedFreq, flat, tol });
 
   // Saite, die gerade klingt (±60 Cent)
-  const matchString = strings.find(st => Math.abs(midiFloat - st.midi) * 100 <= 60);
   document.querySelectorAll(".tuner-string-chip").forEach(chip => {
     chip.classList.toggle("is-sounding", Boolean(matchString) && Number(chip.dataset.tunerString) === matchString.index);
   });
@@ -2013,7 +2292,8 @@ function stopTunerReference() {
 async function playTunerReference(midi) {
   stopTunerReference();
   const prefs = getTunerPrefs();
-  const freq = tunerMidiToFreq(midi, prefs.a4);
+  const strIdx = getTunerTargetStringIndex(prefs, midi);
+  const freq = getTunerTargetFreq(midi, prefs, strIdx);
   const Ctx = window.AudioContext || window.webkitAudioContext;
   if (!Ctx) return;
   const ownCtx = !(_tuner.ctx && _tuner.ctx.state !== "closed");
@@ -2028,7 +2308,6 @@ async function playTunerReference(midi) {
   gain.gain.setTargetAtTime(vol * 0.72, t0 + 0.25, 0.4);
   gain.gain.setTargetAtTime(0.0001, t0 + dur - 0.35, 0.12);
   gain.connect(ctx.destination);
-  // Warmer, klar ortbarer Ton: Grundton + leise Obertöne
   const oscs = [[1, 1], [2, 0.28], [3, 0.1]].map(([mult, amp]) => {
     const o = ctx.createOscillator();
     const og = ctx.createGain();
@@ -2088,6 +2367,7 @@ function renderTunerView() {
   if (!_tuner.running) {
     setTunerStatus(tr("Tippe auf „Tuner starten“ – beim ersten Mal fragt dein Gerät nach dem Mikrofon.", "Tap “Start tuner” — your device asks for microphone access the first time."));
     drawTunerSpectrum(0, null, false);
+    drawTunerStrobe(0);
   }
 }
 
@@ -2100,7 +2380,6 @@ function bindTunerControls() {
     if (_tuner.running) stopTunerSession();
     else startTunerSession();
   });
-  // Auswahllisten schließen bei Klick daneben oder Escape
   document.addEventListener("click", (e) => {
     if (!_tuner.openDropdown) return;
     if (e.target?.closest?.("[data-tuner-dropdown]")) return;
@@ -2108,6 +2387,39 @@ function bindTunerControls() {
   });
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && _tuner.openDropdown) closeTunerDropdowns();
+  });
+  document.querySelectorAll("[data-tuner-view]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const next = btn.dataset.tunerView === "strobe" ? "strobe" : "gauge";
+      setTunerPrefs({ displayMode: next });
+      syncTunerDisplayModeUI();
+      renderTunerReadout(null);
+    });
+  });
+  document.getElementById("tunerContextRow")?.addEventListener("click", (e) => {
+    const trBtn = e.target.closest?.("[data-tuner-transpose]");
+    if (trBtn) {
+      const key = trBtn.dataset.tunerTranspose;
+      if (TUNER_TRANSPOSITIONS[key]) {
+        setTunerPrefs({ transposition: key });
+        syncTunerSetupUI();
+      }
+      return;
+    }
+    const swBtn = e.target.closest?.("[data-tuner-sweetened]");
+    if (swBtn) {
+      setTunerPrefs({ guitarSweetened: swBtn.dataset.tunerSweetened === "1" });
+      _tuner.tunedStrings.clear();
+      _tuner.phaseTracker.reset();
+      syncTunerSetupUI();
+      return;
+    }
+    const stBtn = e.target.closest?.("[data-tuner-stretch]");
+    if (stBtn) {
+      setTunerPrefs({ pianoStretch: stBtn.dataset.tunerStretch === "1" });
+      _tuner.phaseTracker.reset();
+      syncTunerSetupUI();
+    }
   });
   document.querySelectorAll("[data-tuner-mode]").forEach(btn => {
     btn.addEventListener("click", () => {
@@ -2121,14 +2433,13 @@ function bindTunerControls() {
     if (!chip) return;
     const st = getTunerStrings()[Number(chip.dataset.tunerString)];
     if (!st) return;
-    // Saite antippen = gezielt diese Saite stimmen
     setTunerPrefs({ mode: "single", targetMidi: st.midi });
     _tuner.displayMidi = null;
     syncTunerSetupUI();
   });
   const stepTarget = (delta) => {
     const prefs = getTunerPrefs();
-    setTunerPrefs({ targetMidi: Math.max(24, Math.min(96, (prefs.targetMidi || 69) + delta)) });
+    setTunerPrefs({ targetMidi: Math.max(21, Math.min(108, (prefs.targetMidi || 69) + delta)) });
     _tuner.displayMidi = null;
     syncTunerSetupUI();
   };
@@ -2137,6 +2448,7 @@ function bindTunerControls() {
   const stepA4 = (delta) => {
     const prefs = getTunerPrefs();
     setTunerPrefs({ a4: Math.max(TUNER_A4_MIN, Math.min(TUNER_A4_MAX, prefs.a4 + delta)) });
+    _tuner.phaseTracker.reset();
     syncTunerSetupUI();
   };
   document.getElementById("tunerA4DownBtn")?.addEventListener("click", () => stepA4(-1));
@@ -2149,16 +2461,18 @@ function bindTunerControls() {
     }
     playTunerReference(getTunerReferenceMidi());
   });
-  // Zeigerinstrument bei Größenänderung neu zuschneiden
   if (typeof ResizeObserver === "function") {
     const gauge = document.getElementById("tunerGauge");
     if (gauge) new ResizeObserver(() => updateTunerGaugeViewBox()).observe(gauge);
+    const strobe = document.getElementById("tunerStrobe");
+    if (strobe) new ResizeObserver(() => drawTunerStrobe(0)).observe(strobe);
   } else {
-    window.addEventListener("resize", updateTunerGaugeViewBox);
+    window.addEventListener("resize", () => {
+      updateTunerGaugeViewBox();
+      drawTunerStrobe(0);
+    });
   }
-  // Mobile Browser: beim Wechsel in den Hintergrund Mikrofon freigeben
   document.addEventListener("visibilitychange", () => {
     if (document.hidden && _tuner.running) stopTunerSession();
   });
 }
-
