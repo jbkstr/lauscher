@@ -2196,6 +2196,78 @@ registerColocatedPhrases({
     uk: "Хроматичний",
     ur: "کرومیٹک"
   },
+  "Sweetened": {
+    fr: "Sweetened",
+    es: "Sweetened",
+    it: "Sweetened",
+    pl: "Sweetened",
+    uk: "Sweetened",
+    ur: "سویٹنڈ"
+  },
+  "Railsback": {
+    fr: "Railsback",
+    es: "Railsback",
+    it: "Railsback",
+    pl: "Railsback",
+    uk: "Рейлсбек",
+    ur: "ریلز بیک"
+  },
+  "Vibrato": {
+    fr: "Vibrato",
+    es: "Vibrato",
+    it: "Vibrato",
+    pl: "Vibrato",
+    uk: "Вібрато",
+    ur: "وائبریٹو"
+  },
+  "Transposition": {
+    fr: "Transposition",
+    es: "Transposición",
+    it: "Trasposizione",
+    pl: "Transpozycja",
+    uk: "Транспозиція",
+    ur: "ٹرانسپوزیشن"
+  },
+  "Intonation": {
+    fr: "Intonation",
+    es: "Entonación",
+    it: "Intonazione",
+    pl: "Intonacja",
+    uk: "Інтонація",
+    ur: "انٹونیشن"
+  },
+  "Gleichstufig": {
+    fr: "Tempéré",
+    es: "Igual",
+    it: "Equabile",
+    pl: "Równomierny",
+    uk: "Рівномірний",
+    ur: "مساوی"
+  },
+  "Spreizung": {
+    fr: "Écartement",
+    es: "Estiramiento",
+    it: "Stiramento",
+    pl: "Rozciągnięcie",
+    uk: "Розтягнення",
+    ur: "اسٹریچ"
+  },
+  "Vibrato-Mittelung & Transposition": {
+    fr: "Moyennage vibrato & transposition",
+    es: "Promedio de vibrato y transposición",
+    it: "Media vibrato e trasposizione",
+    pl: "Uśrednianie vibrato i transpozycja",
+    uk: "Усереднення вібрато й транспозиція",
+    ur: "وائبریٹو اوسط اور ٹرانسپوزیشن"
+  },
+  "88 Tasten & Railsback-Spreizung": {
+    fr: "88 touches & courbe Railsback",
+    es: "88 teclas y curva Railsback",
+    it: "88 tasti e curva Railsback",
+    pl: "88 klawiszy i krzywa Railsbacka",
+    uk: "88 клавіш і крива Рейлсбека",
+    ur: "88 کلیدیں اور ریلز بیک کرو"
+  },
   "E-Gitarre": {
     fr: "Guitare électrique",
     es: "Guitarra eléctrica",

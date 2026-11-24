@@ -1294,6 +1294,46 @@ registerColocatedStatic({
     uk: "Спектр частот наживо",
     ur: "لائیو فریکوئنسی اسپیکٹرم"
   },
+  "tuner.viewModeAria": {
+    de: "Anzeige",
+    en: "Display",
+    fr: "Affichage",
+    es: "Pantalla",
+    it: "Visualizzazione",
+    pl: "Widok",
+    uk: "Відображення",
+    ur: "ڈسپلے"
+  },
+  "tuner.viewGauge": {
+    de: "Zeiger",
+    en: "Needle",
+    fr: "Aiguille",
+    es: "Aguja",
+    it: "Ago",
+    pl: "Wskazówka",
+    uk: "Стрілка",
+    ur: "سوئی"
+  },
+  "tuner.viewStrobe": {
+    de: "Strobe",
+    en: "Strobe",
+    fr: "Strobe",
+    es: "Strobe",
+    it: "Strobe",
+    pl: "Stroboskop",
+    uk: "Строб",
+    ur: "اسٹروب"
+  },
+  "tuner.strobeAria": {
+    de: "Strobe-Anzeige",
+    en: "Strobe display",
+    fr: "Affichage stroboscopique",
+    es: "Indicador estroboscópico",
+    it: "Display stroboscopico",
+    pl: "Wyświetlacz stroboskopowy",
+    uk: "Стробоскопічний індикатор",
+    ur: "اسٹروب ڈسپلے"
+  },
   "tools.freeplayPageTitle": {
     de: "Freies Spiel",
     en: "Free Play",

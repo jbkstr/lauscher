@@ -1196,8 +1196,8 @@
         </div>
 
         <div id="profileTitleField" class="account-field hidden">
-          <label class="account-label" for="profileTitleSelect" id="profileTitleLabel">Freigeschalteter Profil-Titel</label>
-          <select id="profileTitleSelect" class="account-select"></select>
+          <span class="account-label" id="profileTitleLabel">Freigeschalteter Profil-Titel</span>
+          <div id="profileTitleDropdown" class="profile-multi-dropdown-host mix-single-dropdown-host"></div>
         </div>
 
         <div id="profileAccessoryField" class="account-field hidden">
@@ -2135,6 +2135,13 @@
 
       <section class="module-card tuner-main-card">
         <div id="tunerDisplay" class="tuner-display is-idle">
+          <div class="tuner-display-bar">
+            <div id="tunerBadges" class="tuner-badges" aria-live="polite"></div>
+            <div class="tuner-view-toggle" role="radiogroup" aria-label="Anzeige" data-i18n-aria="tuner.viewModeAria">
+              <button id="tunerViewGaugeBtn" class="tuner-view-btn active" type="button" role="radio" aria-checked="true" data-tuner-view="gauge" data-i18n="tuner.viewGauge">Zeiger</button>
+              <button id="tunerViewStrobeBtn" class="tuner-view-btn" type="button" role="radio" aria-checked="false" data-tuner-view="strobe" data-i18n="tuner.viewStrobe">Strobe</button>
+            </div>
+          </div>
           <svg id="tunerGauge" class="tuner-gauge" viewBox="0 0 300 180" preserveAspectRatio="xMidYMin meet" aria-hidden="true">
             <path id="tunerGaugeZone" class="tuner-gauge-zone" d=""/>
             <g id="tunerGaugeTicks"></g>
@@ -2144,6 +2151,9 @@
             </g>
             <circle class="tuner-needle-hub" cx="150" cy="168" r="8"/>
           </svg>
+          <div id="tunerStrobeWrap" class="tuner-strobe-wrap hidden">
+            <canvas id="tunerStrobe" class="tuner-strobe" aria-label="Strobe-Anzeige" data-i18n-aria="tuner.strobeAria"></canvas>
+          </div>
           <div class="tuner-readout">
             <div id="tunerNoteBubble" class="tuner-note-bubble">
               <span id="tunerNoteName" class="tuner-note-name">–</span><span id="tunerNoteOctave" class="tuner-note-octave"></span>
@@ -2172,6 +2182,8 @@
           <div id="tunerInstrumentHost" class="tuner-dropdown-host" data-tuner-dropdown="instrument"></div>
           <div id="tunerTuningField" class="tuner-dropdown-host is-end" data-tuner-dropdown="tuning"></div>
         </div>
+
+        <div id="tunerContextRow" class="tuner-context-row hidden"></div>
 
         <div class="tuner-mode-toggle" role="radiogroup" aria-label="Erkennung" data-i18n-aria="tuner.modeAria">
           <button id="tunerModeAutoBtn" class="opt-btn tuner-mode-btn active" type="button" role="radio" aria-checked="true" data-tuner-mode="auto" data-i18n="tuner.modeAuto">Automatisch</button>
@@ -3119,6 +3131,7 @@
   <script src="legal.js"></script>
   <script src="js/catalogs.js"></script>
   <script src="js/achievements.js"></script>
+  <script src="js/tuner-dsp.js"></script>
   <script src="js/state.js"></script>
   <script src="js/notation.js"></script>
   <script src="js/notation-terms.js"></script>
