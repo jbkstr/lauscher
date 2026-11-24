@@ -43,15 +43,15 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 - Die Regel gilt nur für `#viewExercise`. Andere Ansichten (z. B. `#viewMetronome`) nutzen `.view-container` und dürfen scrollen – ihnen deshalb nicht die Klasse `.view-exercise-container` geben.
 - Neue Elemente in Übungen müssen in dieses System passen: bei neuen Blöcken im oberen Modul oder Antwortbereich auch `.fit-*`-Varianten ergänzen. Prüfen auf 375×667 und 360×640 mit allen Übungsarten und höchster Stufe (Messung: `view.scrollHeight <= view.clientHeight` und Bühne ≥ `EXERCISE_MIN_STAGE_PX`).
 
-## Mehrsprachigkeit (de, en, fr, es, it, pl, uk, ur)
+## Mehrsprachigkeit (de, en, fr, es, it, pl, tr, uk, ur)
 
 - Deutsch ist die Standard- und Quellsprache. Die Runtime-Engine liegt in [i18n.js](i18n.js); alle Übersetzungen liegen **ko-lokalisiert** (alle Sprachen pro Schlüssel direkt untereinander) in `i18n/`:
-  - [i18n/static.js](i18n/static.js): alle statischen UI-Texte (`data-i18n="key"` in `index.html`) für alle 8 Sprachen (`de`, `en`, `fr`, `es`, `it`, `pl`, `uk`, `ur`) via `registerColocatedStatic(...)`.
-  - [i18n/quotes.js](i18n/quotes.js): alle Startseiten-Zitate (`LAUSCHEBAER_QUOTES`) für alle 8 Sprachen via `registerColocatedQuotes(...)`.
+  - [i18n/static.js](i18n/static.js): alle statischen UI-Texte (`data-i18n="key"` in `index.html`) für alle 9 Sprachen (`de`, `en`, `fr`, `es`, `it`, `pl`, `tr`, `uk`, `ur`) via `registerColocatedStatic(...)`.
+  - [i18n/quotes.js](i18n/quotes.js): alle Startseiten-Zitate (`LAUSCHEBAER_QUOTES`) für alle 9 Sprachen via `registerColocatedQuotes(...)`.
   - [i18n/tables.js](i18n/tables.js): alle 23 Musik- und App-Tabellen (Intervalle, Akkorde, Modi, Rhythmus, Produktion, Profil usw.) via `registerColocatedTables(...)`.
-  - [i18n/phrases-core.js](i18n/phrases-core.js), [i18n/phrases-exercises.js](i18n/phrases-exercises.js), [i18n/phrases-tools.js](i18n/phrases-tools.js): dynamische `tr("Deutsch", "English")`- und `tf(de, en, vars)`-Übersetzungen für `fr`, `es`, `it`, `pl`, `uk`, `ur` nach deutschem Schlüssel via `registerColocatedPhrases(...)`.
+  - [i18n/phrases-core.js](i18n/phrases-core.js), [i18n/phrases-exercises.js](i18n/phrases-exercises.js), [i18n/phrases-tools.js](i18n/phrases-tools.js): dynamische `tr("Deutsch", "English")`- und `tf(de, en, vars)`-Übersetzungen für `fr`, `es`, `it`, `pl`, `tr`, `uk`, `ur` nach deutschem Schlüssel via `registerColocatedPhrases(...)`.
     - ⚠️ Wird ein deutscher Text in einem `tr()`/`tf()`-Aufruf geändert, muss derselbe Schlüssel in der passenden `i18n/phrases-*.js`-Datei angepasst werden – `python3 scripts/check-project.py --strict` deckt fehlende Schlüssel sofort auf.
-    - Neue Texte immer direkt für alle 8 Sprachen am selben Eintrag ergänzen. Achtung: `tr()`-Aufrufe mit Inline-Map (`{ fr: …, pl: … }`) brauchen ebenfalls alle 6 Zielsprachen (`fr`, `es`, `it`, `pl`, `uk`, `ur`).
+    - Neue Texte immer direkt für alle 9 Sprachen am selben Eintrag ergänzen. Achtung: `tr()`-Aufrufe mit Inline-Map (`{ fr: …, pl: … }`) brauchen ebenfalls alle 7 Zielsprachen (`fr`, `es`, `it`, `pl`, `tr`, `uk`, `ur`).
 - **Wissensbereich**: Deutsch steht in [knowledge.js](knowledge.js), die anderen Sprachen in `knowledge-xx.js` über `registerKnowledgeBundle(lang, bundle)`.
 - Bei Layout-Änderungen auch RTL (`ur`) und lange Texte (uk/pl/fr) beachten.
 
@@ -101,7 +101,7 @@ python3 -m http.server 8000
 ```
 
 Danach `http://localhost:8000` öffnen. Für den Nutzer gibt es die Doppelklick-Startdatei [Start-Lauscher.command](Start-Lauscher.command), die das Gleiche tut. **`index.html` nicht direkt per `file://` öffnen:** Chrome blockiert dort die Schriftdateien. Automatische Tests gibt es nicht.
-- **Projekt-Check nach Änderungen:** `python3 scripts/check-project.py` prüft Existenz aller in `index.html` geladenen Dateien, JS-Syntax (`node --check`) sowie globale `const`/`let`/`class`-Kollisionen über alle Skripte hinweg, i18n- und Knowledge-Parität über alle 8 Sprachen sowie den Stand von `lauscher-mobile.html` (`--no-bundle` überspringt den Bundle-Check; `--strict` wertet auch `tr()`/`tf()`- und Knowledge-Hinweise als Fehler).
+- **Projekt-Check nach Änderungen:** `python3 scripts/check-project.py` prüft Existenz aller in `index.html` geladenen Dateien, JS-Syntax (`node --check`) sowie globale `const`/`let`/`class`-Kollisionen über alle Skripte hinweg, i18n- und Knowledge-Parität über alle 9 Sprachen sowie den Stand von `lauscher-mobile.html` (`--no-bundle` überspringt den Bundle-Check; `--strict` wertet auch `tr()`/`tf()`- und Knowledge-Hinweise als Fehler).
 - **Browser-Test in der Claude-Desktop-App:** `file://` und ein per `preview_start`/`launch.json` gestarteter Server funktionieren nicht (macOS-Zugriffsschutz auf `~/Documents`). Was funktioniert: Server per Bash im Hintergrund starten (`python3 -m http.server 8811 --bind 127.0.0.1` im Projektordner, `run_in_background`), dann `preview_start` mit `url: http://localhost:8811/` aufrufen. Danach Server wieder stoppen.
 - Änderungen im Browser prüfen und dabei die Konsole auf Fehler achten. Wenn relevant, auch die Mobilbreite, ein dunkles Theme und eine weitere Sprache prüfen.
 

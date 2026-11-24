@@ -81,7 +81,7 @@ function openAboutLegal(kind = "privacy") {
     const el = document.getElementById(id);
     if (el) el.textContent = text || "";
   };
-  setText("aboutLegalBackBtn", `← ${tr("Zurück", "Back", { fr: "Retour", es: "Volver", it: "Indietro", pl: "Wstecz", uk: "Назад", ur: "واپس" })}`);
+  setText("aboutLegalBackBtn", `← ${tr("Zurück", "Back", { fr: "Retour", es: "Volver", it: "Indietro", pl: "Wstecz", tr: "Geri", uk: "Назад", ur: "واپس" })}`);
   setText("aboutLegalTitle", doc.title);
   setText("aboutLegalMeta", doc.updated);
   const draftEl = document.getElementById("aboutLegalDraft");
@@ -113,7 +113,7 @@ function openAboutLegal(kind = "privacy") {
   const baseUrl = doc.onlineUrl || (kind === "privacy" && typeof LAUSCHER_PRIVACY_URL === "string" ? LAUSCHER_PRIVACY_URL : "");
   if (onlineLink && baseUrl) {
     onlineLink.href = doc.lang === "en" ? `${baseUrl}?lang=en` : baseUrl;
-    onlineLink.textContent = `${tr("Online-Fassung öffnen", "Open online version", { fr: "Ouvrir la version en ligne", es: "Abrir la versión en línea", it: "Apri la versione online", pl: "Otwórz wersję online", uk: "Відкрити онлайн-версію", ur: "آن لائن ورژن کھولیں" })} ↗`;
+    onlineLink.textContent = `${tr("Online-Fassung öffnen", "Open online version", { fr: "Ouvrir la version en ligne", es: "Abrir la versión en línea", it: "Apri la versione online", pl: "Otwórz wersję online", tr: "Çevrimiçi sürümü aç", uk: "Відкрити онлайн-версію", ur: "آن لائن ورژن کھولیں" })} ↗`;
     onlineRow?.classList.remove("hidden");
   } else {
     onlineRow?.classList.add("hidden");
@@ -208,14 +208,15 @@ function buildContactMailUrl() {
     es: "Lauscher – Mensaje",
     it: "Lauscher – Messaggio",
     pl: "Lauscher – Wiadomość",
+    tr: "Lauscher – Mesaj",
     uk: "Lauscher – Повідомлення",
     ur: "Lauscher – پیغام"
   });
-  const greeting = tr("Hallo,", "Hi,", { fr: "Bonjour,", es: "Hola:", it: "Ciao,", pl: "Cześć,", uk: "Привіт,", ur: "السلام علیکم،" });
+  const greeting = tr("Hallo,", "Hi,", { fr: "Bonjour,", es: "Hola:", it: "Ciao,", pl: "Cześć,", tr: "Merhaba,", uk: "Привіт,", ur: "السلام علیکم،" });
   const isNativeApp = Boolean(getCapacitorNativePlugin("App"));
   const platform = isNativeApp
-    ? tr("Android-App", "Android app", { fr: "Application Android", es: "App de Android", it: "App Android", pl: "Aplikacja Android", uk: "Android-застосунок", ur: "اینڈرائیڈ ایپ" })
-    : tr("Browser", "Browser", { fr: "Navigateur", es: "Navegador", it: "Browser", pl: "Przeglądarka", uk: "Браузер", ur: "براؤزر" });
+    ? tr("Android-App", "Android app", { fr: "Application Android", es: "App de Android", it: "App Android", pl: "Aplikacja Android", tr: "Android uygulaması", uk: "Android-застосунок", ur: "اینڈرائیڈ ایپ" })
+    : tr("Browser", "Browser", { fr: "Navigateur", es: "Navegador", it: "Browser", pl: "Przeglądarka", tr: "Tarayıcı", uk: "Браузер", ur: "براؤزر" });
   const version = getAppVersionLabel();
   const lang = typeof getAppLanguage === "function" ? getAppLanguage() : "de";
   const infoLine = [version ? `Lauscher ${version}` : "Lauscher", platform, lang.toUpperCase()].join(" · ");
@@ -245,6 +246,7 @@ function showContactFallback() {
         es: "Si no se ha abierto ninguna app de correo, escribe a:",
         it: "Se non si è aperta nessuna app di posta, scrivi semplicemente a:",
         pl: "Jeśli nie otworzyła się aplikacja pocztowa, napisz po prostu na:",
+        tr: "E-posta uygulaması açılmadıysa doğrudan şu adrese yaz:",
         uk: "Якщо поштовий застосунок не відкрився, просто напиши на:",
         ur: "اگر کوئی میل ایپ نہیں کھلی تو اس پتے پر لکھیں:"
       }
@@ -272,11 +274,11 @@ function showAboutCopyFallback({ message = "", value = "", kind = "address" } = 
 
 function getCopyContactLabel(copied, kind = "address") {
   if (copied) {
-    return tr("✓ Kopiert", "✓ Copied", { fr: "✓ Copié", es: "✓ Copiado", it: "✓ Copiato", pl: "✓ Skopiowano", uk: "✓ Скопійовано", ur: "✓ کاپی ہو گیا" });
+    return tr("✓ Kopiert", "✓ Copied", { fr: "✓ Copié", es: "✓ Copiado", it: "✓ Copiato", pl: "✓ Skopiowano", tr: "✓ Kopyalandı", uk: "✓ Скопійовано", ur: "✓ کاپی ہو گیا" });
   }
   return kind === "link"
-    ? tr("Link kopieren", "Copy link", { fr: "Copier le lien", es: "Copiar enlace", it: "Copia link", pl: "Kopiuj link", uk: "Копіювати посилання", ur: "لنک کاپی کریں" })
-    : tr("Adresse kopieren", "Copy address", { fr: "Copier l’adresse", es: "Copiar dirección", it: "Copia indirizzo", pl: "Kopiuj adres", uk: "Копіювати адресу", ur: "پتہ کاپی کریں" });
+    ? tr("Link kopieren", "Copy link", { fr: "Copier le lien", es: "Copiar enlace", it: "Copia link", pl: "Kopiuj link", tr: "Bağlantıyı kopyala", uk: "Копіювати посилання", ur: "لنک کاپی کریں" })
+    : tr("Adresse kopieren", "Copy address", { fr: "Copier l’adresse", es: "Copiar dirección", it: "Copia indirizzo", pl: "Kopiuj adres", tr: "Adresi kopyala", uk: "Копіювати адресу", ur: "پتہ کاپی کریں" });
 }
 
 async function copyTextToClipboard(value, selectEl = null) {
@@ -327,6 +329,7 @@ function getShareLauscherText() {
       es: "Lauscher: entrenamiento auditivo tranquilo, sin anuncios ni rastreo. Aquí tienes la app para Android:",
       it: "Lauscher – allenamento dell’orecchio in tranquillità, senza pubblicità né tracciamento. Ecco l’app Android:",
       pl: "Lauscher – spokojny trening słuchu bez reklam i śledzenia. Aplikacja na Androida jest tutaj:",
+      tr: "Lauscher – reklamsız ve izlemesiz, sakin kulak eğitimi. Android uygulamasını burada bulabilirsin:",
       uk: "Lauscher – спокійне тренування слуху без реклами й стеження. Застосунок для Android тут:",
       ur: "Lauscher – اشتہارات اور ٹریکنگ کے بغیر پُرسکون سماعتی تربیت۔ اینڈرائیڈ ایپ یہاں ملے گی:"
     }
@@ -340,7 +343,7 @@ function renderAboutShareTargets(text, url) {
   const message = `${text} ${url}`;
   const mail = document.getElementById("aboutShareMail");
   if (mail) {
-    mail.textContent = tr("E-Mail", "Email", { fr: "E-mail", es: "Correo", it: "E-mail", pl: "E-mail", uk: "Ел. пошта", ur: "ای میل" });
+    mail.textContent = tr("E-Mail", "Email", { fr: "E-mail", es: "Correo", it: "E-mail", pl: "E-mail", tr: "E-posta", uk: "Ел. пошта", ur: "ای میل" });
     mail.href = `mailto:?subject=${encodeURIComponent("Lauscher")}&body=${encodeURIComponent(message)}`;
     mail.removeAttribute("target");
   }
@@ -357,7 +360,7 @@ async function shareLauscherApp() {
   const sharePlugin = getCapacitorNativePlugin("Share");
   try {
     if (sharePlugin) {
-      await sharePlugin.share({ title, text, url: LAUSCHER_SHARE_URL, dialogTitle: tr("Lauscher teilen", "Share Lauscher", { fr: "Partager Lauscher", es: "Compartir Lauscher", it: "Condividi Lauscher", pl: "Udostępnij Lauscher", uk: "Поділитися Lauscher", ur: "Lauscher شیئر کریں" }) });
+      await sharePlugin.share({ title, text, url: LAUSCHER_SHARE_URL, dialogTitle: tr("Lauscher teilen", "Share Lauscher", { fr: "Partager Lauscher", es: "Compartir Lauscher", it: "Condividi Lauscher", pl: "Udostępnij Lauscher", tr: "Lauscher'ı paylaş", uk: "Поділитися Lauscher", ur: "Lauscher شیئر کریں" }) });
       return;
     }
     if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
@@ -370,7 +373,7 @@ async function shareLauscherApp() {
   // Kein Teilen-Menü (z. B. Desktop-Browser): Link kopieren und anzeigen
   const copied = await copyTextToClipboard(LAUSCHER_SHARE_URL);
   if (copied) {
-    showAppToast(`✓ ${tr("Link zu Lauscher kopiert", "Link to Lauscher copied", { fr: "Lien vers Lauscher copié", es: "Enlace a Lauscher copiado", it: "Link di Lauscher copiato", pl: "Skopiowano link do Lauscher", uk: "Посилання на Lauscher скопійовано", ur: "Lauscher کا لنک کاپی ہو گیا" })}`, "success");
+    showAppToast(`✓ ${tr("Link zu Lauscher kopiert", "Link to Lauscher copied", { fr: "Lien vers Lauscher copié", es: "Enlace a Lauscher copiado", it: "Link di Lauscher copiato", pl: "Skopiowano link do Lauscher", tr: "Lauscher bağlantısı kopyalandı", uk: "Посилання на Lauscher скопійовано", ur: "Lauscher کا لنک کاپی ہو گیا" })}`, "success");
   }
   showAboutCopyFallback({
     message: tr(
@@ -381,6 +384,7 @@ async function shareLauscherApp() {
         es: "Tu dispositivo no ofrece aquí una ventana para compartir. Envía el enlace directamente o cópialo:",
         it: "Il tuo dispositivo non offre qui una finestra di condivisione. Invia direttamente il link o copialo:",
         pl: "Twoje urządzenie nie oferuje tu okna udostępniania. Wyślij link bezpośrednio albo go skopiuj:",
+        tr: "Cihazın burada bir paylaşım penceresi sunmuyor. Bağlantıyı doğrudan gönder veya kopyala:",
         uk: "Твій пристрій тут не пропонує вікна «Поділитися». Надішли посилання напряму або скопіюй його:",
         ur: "آپ کا آلہ یہاں شیئر کرنے کی ونڈو نہیں دیتا۔ لنک سیدھا بھیجیں یا کاپی کریں:"
       }
@@ -409,6 +413,7 @@ function openSupportPage() {
         es: "Si la página de apoyo no se abrió automáticamente, la encontrarás aquí:",
         it: "Se la pagina di supporto non si è aperta automaticamente, la trovi qui:",
         pl: "Jeśli strona wsparcia nie otworzyła się automatycznie, znajdziesz ją tutaj:",
+        tr: "Destek sayfası otomatik olarak açılmadıysa burada bulabilirsin:",
         uk: "Якщо сторінка підтримки не відкрилася автоматично, її можна знайти тут:",
         ur: "اگر سپورٹ صفحہ خودکار طور پر نہیں کھلا تو آپ اسے یہاں کھول سکتے ہیں:"
       }
@@ -437,6 +442,7 @@ function openWebVersionPage() {
         es: "Si la versión web no se abrió automáticamente, la encontrarás aquí:",
         it: "Se la versione web non si è aperta automaticamente, la trovi qui:",
         pl: "Jeśli wersja przeglądarkowa nie otworzyła się automatycznie, znajdziesz ją tutaj:",
+        tr: "Web sürümü otomatik olarak açılmadıysa burada bulabilirsin:",
         uk: "Якщо вебверсія не відкрилася автоматично, її можна знайти тут:",
         ur: "اگر ویب ورژن خودکار طور پر نہیں کھلا تو آپ اسے یہاں کھول سکتے ہیں:"
       }
@@ -1826,6 +1832,7 @@ function openKnowledgeRef(refKey, options = {}) {
       es: "Arreglo",
       it: "Arrangiamento",
       pl: "Aranżacja",
+      tr: "Aranjman",
       uk: "Аранжування",
       ur: "ارینجنگ (ترتیبِ موسیقی)"
     });
@@ -1837,6 +1844,7 @@ function openKnowledgeRef(refKey, options = {}) {
         es: "Cómo un simple boceto se convierte en una obra viva para grupo, coro u orquesta",
         it: "Come un semplice schizzo diventa un brano vivo per band, coro o orchestra",
         pl: "Jak zamienić prosty szkic w żywe brzmienie dla zespołu, chóru lub orkiestry",
+        tr: "Basit bir taslağın grup, koro veya orkestra için canlı bir esere dönüşmesi",
         uk: "Як перетворити простий ескіз на живе звучання для гурту, хору чи оркестру",
         ur: "ایک سادہ خاکے کو بینڈ، کوائر یا آرکسٹرا کے لیے جاندار موسیقی میں کیسے بدلا جائے"
       }

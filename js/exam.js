@@ -1643,6 +1643,7 @@ function handleExamRhythmDictationAnswer(ex, cellKey, btnElement) {
       es: "Patrón para el pulso {step}/4:",
       it: "Motivo per il battito {step}/4:",
       pl: "Wzór na miarę {step}/4:",
+      tr: "{step}/4 vuruş için desen:",
       uk: "Малюнок для долі {step}/4:",
       ur: "دھڑکن {step}/4 کا نمونہ:"
     });
