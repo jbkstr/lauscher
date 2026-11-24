@@ -10,10 +10,13 @@ const _exTutorial = {
   token: 0,
   groupId: null,
   timers: [],
+  autoPlayTimer: null,
   spotlightEls: [],
   markedEls: [],
   demoEx: null
 };
+
+const TUTORIAL_AUTO_START_DELAY_MS = 950;
 
 function isExerciseTutorialsEnabled() {
   return state?.profile?.exerciseTutorials !== false;
@@ -335,6 +338,10 @@ function isExerciseTutorialRunning() {
 function clearTutorialTimers() {
   _exTutorial.timers.forEach(id => clearTimeout(id));
   _exTutorial.timers = [];
+  if (_exTutorial.autoPlayTimer !== null) {
+    clearTimeout(_exTutorial.autoPlayTimer);
+    _exTutorial.autoPlayTimer = null;
+  }
 }
 
 function scheduleTutorialTimer(fn, delayMs, token = _exTutorial.token) {
@@ -487,8 +494,23 @@ function stopExerciseTutorial(options = {}) {
   }
   if (options.refreshExercise && hadCard && state.currentView === "exercise" && !state.exam?.active) {
     generateExercise();
-    if (options.autoPlay && !isNotationMode(state.currentExercise?.type)) {
-      playSequence();
+    const freshEx = state.currentExercise;
+    if (options.autoPlay && freshEx && !isNotationMode(freshEx.type)) {
+      if (typeof ensureAudioReady === "function") ensureAudioReady();
+      _exTutorial.autoPlayTimer = setTimeout(() => {
+        _exTutorial.autoPlayTimer = null;
+        if (
+          state.currentView !== "exercise"
+          || state.exam?.active
+          || state.listenOnly?.active
+          || state.isPlaying
+          || _exTutorial.active
+          || state.currentExercise !== freshEx
+        ) {
+          return;
+        }
+        playSequence();
+      }, TUTORIAL_AUTO_START_DELAY_MS);
     }
   }
 }

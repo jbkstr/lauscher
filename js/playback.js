@@ -280,6 +280,7 @@ async function handleRhythmDictationChoice(cellKey, btnElement, options = {}) {
     if (promptEl) promptEl.textContent = tf("Muster für Schlag {step}/4:", "Pattern for beat {step}/4:", { step: nextIdx + 1 }, {
       fr: "Motif pour le temps {step}/4 :",
       es: "Patrón para el pulso {step}/4:",
+      it: "Motivo per il battito {step}/4:",
       pl: "Wzór na miarę {step}/4:",
       uk: "Малюнок для долі {step}/4:",
       ur: "دھڑکن {step}/4 کا نمونہ:"
@@ -599,6 +600,8 @@ function handleRhythmTapInput(overrideRelMs = null, inputPoint = null) {
       subEl.textContent = n === 1 ? "1 تھاپ ریکارڈ ہوئی" : `${n} تھاپیں ریکارڈ ہوئیں`;
     } else if (lang === "es") {
       subEl.textContent = `${session.tapsMs.length} ${session.tapsMs.length === 1 ? "golpe registrado" : "golpes registrados"}`;
+    } else if (lang === "it") {
+      subEl.textContent = `${session.tapsMs.length} ${session.tapsMs.length === 1 ? "colpo registrato" : "colpi registrati"}`;
     } else if (lang === "fr") {
       subEl.textContent = `${session.tapsMs.length} ${session.tapsMs.length === 1 ? "frappe enregistrée" : "frappes enregistrées"}`;
     } else if (lang === "en") {

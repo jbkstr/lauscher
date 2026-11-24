@@ -255,6 +255,7 @@ const WARMUP_STEP_CATALOG = {
     vowelsEn: ["Oooo…", "Ohhh…", "Ahhh…", "Ehhh…", "Eeee…"],
     vowelsFr: ["Ouuu…", "Oooo…", "Aaaa…", "Éééé…", "Iiii…"],
     vowelsEs: ["Uuuu…", "Oooo…", "Aaaa…", "Eeee…", "Iiii…"],
+    vowelsIt: ["Uuuu…", "Oooo…", "Aaaa…", "Eeee…", "Iiii…"],
     vowelsPl: ["Uuuu…", "Oooo…", "Aaaa…", "Eeee…", "Iiii…"],
     vowelsUk: ["Уууу…", "Оооо…", "Аааа…", "Ееее…", "Іііі…"],
     vowelsUr: ["اُووو…", "اووو…", "آااا…", "اےےے…", "اِییی…"],
@@ -985,11 +986,13 @@ function runCurrentWarmupRound() {
         ? (step.vowelsUk || step.vowelsEn)
         : lang === "pl"
           ? (step.vowelsPl || step.vowelsEn)
-          : lang === "es"
-            ? (step.vowelsEs || step.vowelsDe)
-            : lang === "fr"
-              ? (step.vowelsFr || step.vowelsEn)
-              : (lang === "en" ? step.vowelsEn : step.vowelsDe);
+          : lang === "it"
+            ? (step.vowelsIt || step.vowelsDe)
+            : lang === "es"
+              ? (step.vowelsEs || step.vowelsDe)
+              : lang === "fr"
+                ? (step.vowelsFr || step.vowelsEn)
+                : (lang === "en" ? step.vowelsEn : step.vowelsDe);
     const stepMs = (step.vowelStepBeats || 1.9) * beatMs;
     const tonicNote = midiToNote(tonicMidi);
     const subDomNotes = [midiToNote(tonicMidi), midiToNote(tonicMidi + 5), midiToNote(tonicMidi + 9)];

@@ -1,6 +1,6 @@
 /**
  * Lauscher • Mehrsprachigkeit (i18n) – Runtime-Engine & ko-lokalisierte Registrierung
- * Standardsprache ist Deutsch ("de"); alle 7 aktiven Sprachen (de, en, fr, es, pl, uk, ur)
+ * Standardsprache ist Deutsch ("de"); alle 8 aktiven Sprachen (de, en, fr, es, it, pl, uk, ur)
  * werden in den ko-lokalisierten Dateien unter i18n/*.js gepflegt.
  */
 
@@ -41,7 +41,15 @@ const APP_LANGUAGES = {
     available: true,
     placeholder: false
   },
-  it: { code: "it", nativeName: "Italiano",   defaultNotation: "intl", defaultIntervalNotation: "intl", htmlLang: "it", available: false, placeholder: true },
+  it: {
+    code: "it",
+    nativeName: "Italiano",
+    defaultNotation: "intl",
+    defaultIntervalNotation: "intl",
+    htmlLang: "it",
+    available: true,
+    placeholder: false
+  },
   nl: { code: "nl", nativeName: "Nederlands", defaultNotation: "intl", defaultIntervalNotation: "intl", htmlLang: "nl", available: false, placeholder: true },
   no: { code: "no", nativeName: "Norsk",      defaultNotation: "de",   defaultIntervalNotation: "de",   htmlLang: "nb", available: false, placeholder: true },
   pl: {
