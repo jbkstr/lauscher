@@ -671,7 +671,7 @@ function getActivePaletteMeta() {
   if (customEntry?.paletteMeta) {
     return customEntry.paletteMeta;
   }
-  const effective = theme === "metal" ? "dark" : resolveEffectiveAppearance(state.settings.appearance);
+  const effective = (theme === "metal" || theme === "mitternacht") ? "dark" : resolveEffectiveAppearance(state.settings.appearance);
   const entry = THEME_PALETTE_META[theme] || THEME_PALETTE_META.waldlichtung;
   return entry[effective] || entry.light;
 }
@@ -693,7 +693,7 @@ function applyThemeAndAppearance() {
   }
   const effective = customEntry
     ? (customEntry.isDark ? "dark" : "light")
-    : (theme === "metal" ? "dark" : resolveEffectiveAppearance(appearance));
+    : ((theme === "metal" || theme === "mitternacht") ? "dark" : resolveEffectiveAppearance(appearance));
 
   state.settings.appearance = appearance;
   state.settings.theme = theme;
@@ -757,7 +757,7 @@ function applyThemeAndAppearance() {
       }
 
       const customCard = getCustomThemeEntry(cardTheme);
-      const cardPalette = customCard?.paletteMeta || (THEME_PALETTE_META[cardTheme] || THEME_PALETTE_META.waldlichtung)[cardTheme === "metal" ? "dark" : builtInEffective];
+      const cardPalette = customCard?.paletteMeta || (THEME_PALETTE_META[cardTheme] || THEME_PALETTE_META.waldlichtung)[(cardTheme === "metal" || cardTheme === "mitternacht") ? "dark" : builtInEffective];
       if (cardPalette && typeof card.querySelectorAll === "function") {
         card.querySelectorAll("[data-swatch]").forEach(dot => {
           const idx = parseInt(dot.dataset?.swatch, 10);

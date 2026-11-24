@@ -4146,13 +4146,37 @@ function getLocalizedSolfegeSteps() {
   );
 }
 
+const KNOWLEDGE_ARTICLE_ORDER = [
+  "art-why-ear-training",
+  "art-functional",
+  "art-talking-about-music",
+  "art-song-tricks",
+  "art-mnemonics",
+  "art-4chords",
+  "art-nashville-number-system",
+  "art-gravity",
+  "art-minor-plagal",
+  "art-physics-waves",
+  "art-world-music-cultures"
+];
+
 function getLocalizedKnowledgeArticles() {
-  return pickLocalizedKnowledgeData(
+  const articles = pickLocalizedKnowledgeData(
     KNOWLEDGE_ARTICLES,
     typeof KNOWLEDGE_ARTICLES_EN !== "undefined" ? KNOWLEDGE_ARTICLES_EN : undefined,
     typeof KNOWLEDGE_ARTICLES_FR !== "undefined" ? KNOWLEDGE_ARTICLES_FR : undefined,
     "knowledgeArticles"
   );
+  if (!Array.isArray(articles)) return [];
+  const rankMap = new Map(KNOWLEDGE_ARTICLE_ORDER.map((id, idx) => [id, idx]));
+  return articles
+    .map((art, idx) => ({ art, idx }))
+    .sort((a, b) => {
+      const ra = rankMap.has(a.art?.id) ? rankMap.get(a.art.id) : KNOWLEDGE_ARTICLE_ORDER.length;
+      const rb = rankMap.has(b.art?.id) ? rankMap.get(b.art.id) : KNOWLEDGE_ARTICLE_ORDER.length;
+      return ra !== rb ? ra - rb : a.idx - b.idx;
+    })
+    .map(entry => entry.art);
 }
 
 function getLocalizedPhysicsWaveExplanation(key) {

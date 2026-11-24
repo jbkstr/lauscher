@@ -175,75 +175,67 @@
   --shadow-float: 0 10px 28px rgba(62, 53, 79, 0.14);
 }
 
-/* Bonus-Theme 5 (Hell): Konzertsaal */
+/* Bonus-Theme 5 (Hell – Matinee): Konzertsaal */
 :root[data-theme="konzertsaal"] {
-  --bg-base: #F9F5EC;
-  --surface-white: #FFFDF8;
-  --surface-warm: #F1E9D9;
-  --surface-hover: #E7DCC6;
+  --bg-base: #F5EDE0;
+  --surface-white: #FFFDF7;
+  --surface-card: var(--surface-white);
+  --surface-warm: #EDE2CE;
+  --surface-soft: var(--surface-warm);
+  --surface-hover: #E3D3B7;
 
-  --sage: #E8D5A3;
-  --sage-soft: #FBF4E1;
-  --sage-strong: #6B551F;
+  /* Blattgold, Samt-Bordeaux & Patina-Grün */
+  --sage: #E5CC8A;
+  --sage-soft: #FAF1D8;
+  --sage-strong: #7A5912;
 
-  --peach: #D7B4A0;
-  --peach-soft: #F8ECE5;
-  --peach-strong: #8B412A;
+  --peach: #D9A29C;
+  --peach-soft: #F8E8E6;
+  --peach-strong: #872A31;
 
-  --lilac: #C9D3C0;
-  --lilac-soft: #EEF3EA;
-  --lilac-strong: #3A5434;
+  --lilac: #B9CCB8;
+  --lilac-soft: #E9F1E8;
+  --lilac-strong: #2C5139;
 
-  --icon-ink: #31251A;
-  --raccoon-dark: #453526;
-  --raccoon-mid: #6E5B48;
-  --raccoon-muted: #968370;
-  --border-soft: rgba(69, 53, 38, 0.12);
-  --border-strong: rgba(69, 53, 38, 0.24);
-  --tint-subtle: rgba(69, 53, 38, 0.08);
-  --tint-subtle-soft: rgba(69, 53, 38, 0.055);
+  --icon-ink: #241910;
+  --raccoon-dark: #2D2016;
+  --raccoon-mid: #5C4837;
+  --raccoon-muted: #86715D;
+  --border-soft: rgba(122, 89, 18, 0.19);
+  --border-strong: rgba(122, 89, 18, 0.36);
+  --tint-subtle: rgba(122, 89, 18, 0.085);
+  --tint-subtle-soft: rgba(122, 89, 18, 0.055);
 
-  --status-ok: #468F62;
-  --status-warn: #C97A36;
-  --status-err: #C75D57;
-  --shadow-card: 0 4px 16px rgba(69, 53, 38, 0.07);
-  --shadow-float: 0 10px 28px rgba(69, 53, 38, 0.15);
+  --btn-primary-bg: #2D2016;
+  --btn-primary-fg: #FFFBF0;
+  --piano-white-active-bg: #FFFDF5;
+  --piano-white-active-ink: #2D2016;
+  --piano-black-bg-top: #34261B;
+  --piano-black-bg-bottom: #1A120C;
+  --piano-black-border: #120C08;
+  --piano-black-solfege-bg: #FAF1D8;
+  --piano-black-solfege-ink: #2D2016;
+
+  --status-ok: #367B52;
+  --status-warn: #B86D1F;
+  --status-err: #A8353B;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --shadow-card: 0 4px 16px rgba(45, 32, 22, 0.085);
+  --shadow-float: 0 12px 30px rgba(45, 32, 22, 0.16);
+  --tactile-edge: rgba(122, 89, 18, 0.26);
+  --tactile-edge-solid: rgba(45, 32, 22, 0.34);
+
+  /* Konzertsaal Signature-Akzente */
+  --concert-gold: #C69B3D;
+  --concert-gold-soft: rgba(198, 155, 61, 0.24);
+  --concert-gold-line: rgba(154, 114, 28, 0.34);
+  --concert-velvet: #872A31;
 }
 
-/* Bonus-Theme 6 (Hell): Mitternachts-Jazz */
-:root[data-theme="mitternacht"] {
-  --bg-base: #F2F4FA;
-  --surface-white: #FFFFFF;
-  --surface-warm: #E7ECF6;
-  --surface-hover: #DCE3F1;
-
-  --sage: #B9CBEB;
-  --sage-soft: #EAF0FB;
-  --sage-strong: #284B7A;
-
-  --peach: #F0CF9B;
-  --peach-soft: #FDF5E6;
-  --peach-strong: #8E5A14;
-
-  --lilac: #B8DDD4;
-  --lilac-soft: #E8F6F2;
-  --lilac-strong: #1F6359;
-
-  --icon-ink: #1C243A;
-  --raccoon-dark: #26304C;
-  --raccoon-mid: #505C7A;
-  --raccoon-muted: #7C87A3;
-  --border-soft: rgba(38, 48, 76, 0.11);
-  --border-strong: rgba(38, 48, 76, 0.22);
-  --tint-subtle: rgba(38, 48, 76, 0.08);
-  --tint-subtle-soft: rgba(38, 48, 76, 0.055);
-
-  --status-ok: #389476;
-  --status-warn: #D68732;
-  --status-err: #CE5C6B;
-  --shadow-card: 0 4px 16px rgba(38, 48, 76, 0.06);
-  --shadow-float: 0 10px 28px rgba(38, 48, 76, 0.14);
-}
+/* Bonus-Theme 6 (Signature-Nacht): Mitternachts-Jazz – eigentliche Tokens stehen im Dark-Block */
 
 /* Dark Mode Basis (Waldlichtung & Salbei Dunkelgrau) */
 :root[data-appearance="dark"] {
@@ -377,74 +369,142 @@
   --status-err: #E67984;
 }
 
-/* Bonus-Theme 5 (Dunkel): Konzertsaal */
+/* Bonus-Theme 5 (Dunkel – Gala-Abend): Konzertsaal */
 :root[data-theme="konzertsaal"][data-appearance="dark"] {
-  --bg-base: #211D18;
-  --surface-white: #2C261F;
-  --surface-warm: #362F26;
-  --surface-hover: #42392E;
+  --bg-base: #17120D;
+  --surface-white: #231B14;
+  --surface-card: var(--surface-white);
+  --surface-warm: #2D231A;
+  --surface-soft: var(--surface-warm);
+  --surface-hover: #392C21;
 
-  --sage: #5E4D24;
-  --sage-soft: #3B321C;
-  --sage-strong: #E9CF8C;
+  /* Blattgold, Samt-Bordeaux & gedimmte Patina */
+  --sage: #5E481B;
+  --sage-soft: #332710;
+  --sage-strong: #EAC974;
 
-  --peach: #6A3E2F;
-  --peach-soft: #40271E;
-  --peach-strong: #F0B199;
+  --peach: #63272D;
+  --peach-soft: #38161A;
+  --peach-strong: #ED9D96;
 
-  --lilac: #3D4C39;
-  --lilac-soft: #2A3427;
-  --lilac-strong: #B8CEB0;
+  --lilac: #2A4333;
+  --lilac-soft: #1B2C21;
+  --lilac-strong: #A6CCA6;
 
-  --icon-ink: #F7F1E6;
-  --raccoon-dark: #F3ECE0;
-  --raccoon-mid: #C7BBA7;
-  --raccoon-muted: #998D7A;
-  --border-soft: rgba(243, 236, 224, 0.11);
-  --border-strong: rgba(243, 236, 224, 0.23);
-  --tint-subtle: rgba(243, 236, 224, 0.09);
-  --tint-subtle-soft: rgba(243, 236, 224, 0.065);
-  --btn-primary-bg: #EFE4CE;
-  --btn-primary-fg: #211D18;
+  --icon-ink: #FBF4E6;
+  --raccoon-dark: #F5ECDC;
+  --raccoon-mid: #C9B99F;
+  --raccoon-muted: #96856C;
+  --border-soft: rgba(234, 201, 116, 0.17);
+  --border-strong: rgba(234, 201, 116, 0.34);
+  --tint-subtle: rgba(234, 201, 116, 0.09);
+  --tint-subtle-soft: rgba(234, 201, 116, 0.06);
+  --btn-primary-bg: #E5C26B;
+  --btn-primary-fg: #1C150E;
+  --on-strong-accent: #1C150E;
 
-  --status-ok: #68BC8A;
-  --status-warn: #E89E54;
-  --status-err: #E27A74;
+  --piano-white-active-bg: #F6EEDB;
+  --piano-white-active-ink: #1C150E;
+  --piano-black-bg-top: #261D15;
+  --piano-black-bg-bottom: #110C08;
+  --piano-black-border: #090604;
+  --piano-black-solfege-bg: #2E2318;
+  --piano-black-solfege-ink: #F5ECDC;
+
+  --status-ok: #6AC08E;
+  --status-warn: #ECA154;
+  --status-err: #E67A7B;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --shadow-card: 0 6px 20px rgba(0, 0, 0, 0.45);
+  --shadow-float: 0 14px 36px rgba(0, 0, 0, 0.65);
+  --tactile-edge: rgba(0, 0, 0, 0.52);
+  --tactile-edge-solid: rgba(0, 0, 0, 0.68);
+
+  --concert-gold: #E5C26B;
+  --concert-gold-soft: rgba(229, 194, 107, 0.24);
+  --concert-gold-line: rgba(229, 194, 107, 0.32);
+  --concert-velvet: #C95B63;
+  color-scheme: dark;
 }
 
-/* Bonus-Theme 6 (Dunkel): Mitternachts-Jazz */
+/* Bonus-Theme 6 (Signature-Nacht): Mitternachts-Jazz */
+:root[data-theme="mitternacht"],
 :root[data-theme="mitternacht"][data-appearance="dark"] {
-  --bg-base: #161B29;
-  --surface-white: #1F2638;
-  --surface-warm: #283147;
-  --surface-hover: #323D57;
+  --bg-base: #0A0F1F;
+  --surface-white: #131B32;
+  --surface-card: var(--surface-white);
+  --surface-warm: #1B2542;
+  --surface-soft: var(--surface-warm);
+  --surface-hover: #243155;
 
-  --sage: #2E466E;
-  --sage-soft: #21314D;
-  --sage-strong: #94BEFA;
+  /* Blue-Note-Kobalt, warmes Club-Bernstein & Rauch-Türkis */
+  --sage: #1E3A6B;
+  --sage-soft: #132548;
+  --sage-strong: #74B5FF;
 
-  --peach: #6B4E23;
-  --peach-soft: #423117;
-  --peach-strong: #F2C67C;
+  --peach: #573C16;
+  --peach-soft: #31230E;
+  --peach-strong: #F4BE5E;
 
-  --lilac: #285852;
-  --lilac-soft: #1B3B37;
-  --lilac-strong: #7FD1C2;
+  --lilac: #164849;
+  --lilac-soft: #102F33;
+  --lilac-strong: #58DCD0;
 
-  --icon-ink: #EEF3FC;
-  --raccoon-dark: #E8EEFA;
-  --raccoon-mid: #B4C0D9;
-  --raccoon-muted: #8492B0;
-  --border-soft: rgba(232, 238, 250, 0.11);
-  --border-strong: rgba(232, 238, 250, 0.23);
-  --tint-subtle: rgba(232, 238, 250, 0.09);
-  --tint-subtle-soft: rgba(232, 238, 250, 0.065);
-  --btn-primary-bg: #E5ECFA;
-  --btn-primary-fg: #161B29;
+  --icon-ink: #F2F6FF;
+  --raccoon-dark: #ECF2FF;
+  --raccoon-mid: #AFBDD9;
+  --raccoon-muted: #7C8DB3;
+  --border-soft: rgba(132, 178, 255, 0.16);
+  --border-strong: rgba(244, 190, 94, 0.34);
+  --tint-subtle: rgba(116, 181, 255, 0.095);
+  --tint-subtle-soft: rgba(116, 181, 255, 0.06);
 
-  --status-ok: #5DC2A2;
-  --status-warn: #EBB054;
-  --status-err: #E67786;
+  --btn-primary-bg: #F4BE5E;
+  --btn-primary-fg: #0A0F1F;
+  --on-strong-accent: #0A0F1F;
+  --mute-bg: #3B1829;
+  --mute-border: rgba(240, 118, 146, 0.45);
+  --dot-idle-bg: #2C3757;
+
+  --piano-key-inactive-bg: #1A233E;
+  --piano-key-inactive-border: #2C3A62;
+  --piano-key-inactive-text: #7A8BB2;
+  --piano-white-active-bg: #EBF1FF;
+  --piano-white-active-ink: #0B1124;
+  --piano-black-bg-top: #18213D;
+  --piano-black-bg-bottom: #090D1A;
+  --piano-black-border: #050812;
+  --piano-black-out-bg: #323E60;
+  --piano-black-out-border: #1A223A;
+  --piano-black-solfege-bg: #1B2644;
+  --piano-black-solfege-ink: #ECF2FF;
+  --key-wrong-bg: #541B2D;
+  --key-wrong-ink: #FFD6E0;
+  --backdrop-scrim: rgba(5, 8, 18, 0.80);
+
+  --status-ok: #54D1B8;
+  --status-warn: #F4B954;
+  --status-err: #F0718D;
+
+  --radius-sm: 11px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --shadow-card: 0 8px 24px rgba(3, 6, 16, 0.52);
+  --shadow-float: 0 16px 40px rgba(3, 6, 16, 0.72);
+  --tactile-edge: rgba(3, 6, 16, 0.62);
+  --tactile-edge-solid: rgba(3, 6, 16, 0.78);
+
+  /* Mitternachts-Jazz Signature-Akzente */
+  --jazz-amber: #F4BE5E;
+  --jazz-amber-glow: rgba(244, 190, 94, 0.24);
+  --jazz-blue: #74B5FF;
+  --jazz-blue-glow: rgba(116, 181, 255, 0.22);
+  --jazz-teal: #58DCD0;
+  --jazz-glass: rgba(19, 27, 50, 0.84);
+  color-scheme: dark;
 }
 
 /* Theme 4 (Schwarz & Erwachsen): Metal */
@@ -14325,33 +14385,56 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 
 :root[data-theme="konzertsaal"] {
-  --fb-board-bg: #F5EFE2;
-  --fb-board-box-bg: rgba(232, 213, 163, 0.34);
-  --fb-nut-bg: #EBE1CC;
-  --fb-nut-wire: #6F5C47;
-  --fb-fret-wire: rgba(69, 53, 38, 0.28);
-  --fb-string-color: #93806B;
-  --fb-string-wound: #725F4B;
-  --fb-root-bg: #9C482E;
-  --fb-tone-bg: #6B551F;
-  --fb-char-bg: #3A5434;
-  --fb-barre-bg: rgba(107, 85, 31, 0.24);
-  --fb-barre-border: rgba(107, 85, 31, 0.48);
+  --fb-board-bg: #F3E9D8;
+  --fb-board-box-bg: rgba(229, 204, 138, 0.34);
+  --fb-nut-bg: #E7D9BE;
+  --fb-nut-wire: #6E5327;
+  --fb-fret-wire: rgba(122, 89, 18, 0.32);
+  --fb-string-color: #937C5B;
+  --fb-string-wound: #6C5535;
+  --fb-root-bg: #872A31;
+  --fb-tone-bg: #7A5912;
+  --fb-char-bg: #2C5139;
+  --fb-barre-bg: rgba(122, 89, 18, 0.24);
+  --fb-barre-border: rgba(122, 89, 18, 0.52);
 }
 
-:root[data-theme="mitternacht"] {
-  --fb-board-bg: #ECF0F8;
-  --fb-board-box-bg: rgba(185, 203, 235, 0.32);
-  --fb-nut-bg: #E0E7F4;
-  --fb-nut-wire: #4D5B7B;
-  --fb-fret-wire: rgba(38, 48, 76, 0.28);
-  --fb-string-color: #7785A3;
-  --fb-string-wound: #556382;
-  --fb-root-bg: #A06517;
-  --fb-tone-bg: #284B7A;
-  --fb-char-bg: #1F6359;
-  --fb-barre-bg: rgba(40, 75, 122, 0.24);
-  --fb-barre-border: rgba(40, 75, 122, 0.48);
+:root[data-theme="konzertsaal"][data-appearance="dark"] {
+  --fb-board-bg: #221A13;
+  --fb-board-box-bg: rgba(229, 194, 107, 0.16);
+  --fb-nut-bg: #2E2318;
+  --fb-nut-wire: #D4B263;
+  --fb-fret-wire: rgba(234, 201, 116, 0.26);
+  --fb-string-color: #B49F7E;
+  --fb-string-wound: #D3BE9B;
+  --fb-root-bg: #D96B70;
+  --fb-root-fg: #1C150E;
+  --fb-tone-bg: #E5C26B;
+  --fb-tone-fg: #1C150E;
+  --fb-char-bg: #9EC79E;
+  --fb-char-fg: #142117;
+  --fb-barre-bg: rgba(229, 194, 107, 0.24);
+  --fb-barre-border: rgba(229, 194, 107, 0.54);
+}
+
+:root[data-theme="mitternacht"],
+:root[data-theme="mitternacht"][data-appearance="dark"] {
+  --fb-board-bg: #111930;
+  --fb-board-box-bg: rgba(116, 181, 255, 0.15);
+  --fb-nut-bg: #1A2546;
+  --fb-nut-wire: #8FB9F5;
+  --fb-fret-wire: rgba(132, 178, 255, 0.24);
+  --fb-string-color: #8CA2CC;
+  --fb-string-wound: #B5C8EC;
+  --fb-inlay-color: rgba(244, 190, 94, 0.22);
+  --fb-root-bg: #F4BE5E;
+  --fb-root-fg: #0A0F1F;
+  --fb-tone-bg: #74B5FF;
+  --fb-tone-fg: #091326;
+  --fb-char-bg: #58DCD0;
+  --fb-char-fg: #081C1D;
+  --fb-barre-bg: rgba(244, 190, 94, 0.22);
+  --fb-barre-border: rgba(244, 190, 94, 0.52);
 }
 
 :root[data-appearance="dark"] {
@@ -17360,15 +17443,352 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   color: var(--raccoon-muted);
 }
 
+/* =====================================================
+   MEILENSTEIN-THEMES: VEREDELTE AUSWAHLKARTEN
+   ===================================================== */
+.theme-preview-item.is-bonus-theme {
+  position: relative;
+  overflow: hidden;
+  border-width: 1.5px;
+  transition: transform 0.14s ease, border-color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.theme-preview-item.is-bonus-theme .theme-name::before {
+  content: "✦ ";
+  font-size: 0.72em;
+  opacity: 0.85;
+}
+
+.theme-preview-item.is-bonus-theme[data-theme-choice="konzertsaal"] {
+  background: linear-gradient(135deg, rgba(229, 204, 138, 0.22) 0%, var(--surface-white) 52%, rgba(135, 42, 49, 0.08) 100%);
+  border-color: rgba(168, 126, 36, 0.48);
+  box-shadow: inset 0 0 0 1px rgba(229, 204, 138, 0.28), var(--shadow-card);
+}
+
+.theme-preview-item.is-bonus-theme[data-theme-choice="konzertsaal"] .theme-name {
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  letter-spacing: 0.01em;
+}
+
+.theme-preview-item.is-bonus-theme[data-theme-choice="konzertsaal"] .theme-name::before {
+  color: #B48420;
+}
+
+.theme-preview-item.is-bonus-theme[data-theme-choice="mitternacht"] {
+  background: linear-gradient(135deg, rgba(16, 28, 62, 0.14) 0%, var(--surface-white) 50%, rgba(244, 190, 94, 0.16) 100%);
+  border-color: rgba(77, 140, 232, 0.48);
+  box-shadow: inset 0 0 0 1px rgba(244, 190, 94, 0.22), var(--shadow-card);
+}
+
+:root[data-appearance="dark"] .theme-preview-item.is-bonus-theme[data-theme-choice="konzertsaal"] {
+  background: linear-gradient(135deg, rgba(229, 194, 107, 0.16) 0%, var(--surface-white) 55%, rgba(160, 58, 66, 0.14) 100%);
+  border-color: rgba(229, 194, 107, 0.45);
+}
+
+:root[data-appearance="dark"] .theme-preview-item.is-bonus-theme[data-theme-choice="mitternacht"] {
+  background: linear-gradient(135deg, rgba(30, 58, 107, 0.42) 0%, var(--surface-white) 54%, rgba(244, 190, 94, 0.14) 100%);
+  border-color: rgba(116, 181, 255, 0.45);
+}
+
+.theme-preview-item.is-bonus-theme[data-theme-choice="mitternacht"] .theme-name::before {
+  color: #D4972C;
+}
+
+.theme-preview-item.is-bonus-theme.active[data-theme-choice="konzertsaal"] {
+  border-color: #B88A28;
+  box-shadow: inset 0 0 0 1px rgba(229, 194, 107, 0.55), 0 4px 16px rgba(184, 138, 40, 0.22);
+}
+
+.theme-preview-item.is-bonus-theme.active[data-theme-choice="mitternacht"] {
+  border-color: #F4BE5E;
+  box-shadow: inset 0 0 0 1px rgba(244, 190, 94, 0.45), 0 4px 18px rgba(116, 181, 255, 0.22);
+}
+
 .theme-preview-item.is-bonus-locked {
-  opacity: 0.68;
+  opacity: 0.74;
   border-style: dashed;
 }
 
 .theme-preview-item.is-bonus-locked:hover {
-  opacity: 0.85;
+  opacity: 0.92;
 }
 
 .theme-preview-item.is-bonus-locked .theme-status {
   color: var(--raccoon-muted);
+}
+
+/* =====================================================
+   SIGNATURE-THEME 1 (5 MEILENSTEINE): KONZERTSAAL
+   Klassische Konzertprogramm-Ästhetik: warmes Bühnenlicht,
+   Serifen-Titel, architektonische Doppelrahmen & Blattgold
+   ===================================================== */
+:root[data-theme="konzertsaal"] body {
+  background-color: var(--bg-base);
+  background-image:
+    radial-gradient(ellipse 88% 48% at 50% -6%, rgba(229, 204, 138, 0.42) 0%, rgba(229, 204, 138, 0) 68%),
+    radial-gradient(ellipse 70% 42% at 50% 108%, rgba(135, 42, 49, 0.08) 0%, rgba(135, 42, 49, 0) 70%);
+}
+
+:root[data-theme="konzertsaal"][data-appearance="dark"] body {
+  background-color: var(--bg-base);
+  background-image:
+    radial-gradient(ellipse 82% 46% at 50% -8%, rgba(229, 194, 107, 0.20) 0%, rgba(229, 194, 107, 0) 66%),
+    radial-gradient(ellipse 74% 46% at 50% 108%, rgba(135, 42, 49, 0.16) 0%, rgba(135, 42, 49, 0) 72%);
+}
+
+/* Klassische Konzertprogramm-Typografie für Überschriften & Bühne */
+:root[data-theme="konzertsaal"] .brand-name,
+:root[data-theme="konzertsaal"] .section-heading,
+:root[data-theme="konzertsaal"] .stage-main,
+:root[data-theme="konzertsaal"] .account-card-head h3,
+:root[data-theme="konzertsaal"] .modal-header h2,
+:root[data-theme="konzertsaal"] .knowledge-card h4,
+:root[data-theme="konzertsaal"] .ach-card-title {
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  letter-spacing: 0.005em;
+}
+
+:root[data-theme="konzertsaal"] .stage-sub {
+  letter-spacing: 0.14em;
+  color: var(--sage-strong);
+}
+
+/* Edle Karten mit feiner Gold-Innenkontur (Doppelrahmen) */
+:root[data-theme="konzertsaal"] .category-nav-card,
+:root[data-theme="konzertsaal"] .account-card,
+:root[data-theme="konzertsaal"] .knowledge-card,
+:root[data-theme="konzertsaal"] .ach-card,
+:root[data-theme="konzertsaal"] .modal-dialog {
+  border-color: var(--border-strong);
+  box-shadow: inset 0 0 0 1px var(--concert-gold-soft), var(--shadow-card);
+}
+
+:root[data-theme="konzertsaal"] .category-nav-card {
+  border-inline-start-width: 4px;
+  background-image: linear-gradient(180deg, rgba(229, 204, 138, 0.09) 0%, transparent 45%);
+  box-shadow: inset 0 0 0 1px var(--concert-gold-soft), 0 2px 0 var(--tactile-edge), var(--shadow-card);
+}
+
+:root[data-theme="konzertsaal"][data-appearance="dark"] .category-nav-card {
+  background-image: linear-gradient(180deg, rgba(229, 194, 107, 0.07) 0%, transparent 48%);
+}
+
+:root[data-theme="konzertsaal"] .cat-icon-box {
+  border: 1px solid var(--concert-gold-line);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+/* Zentrale Bühne wie ein klassisches Notenpult mit Gold-Doppelrahmen */
+:root[data-theme="konzertsaal"] .central-stage {
+  border: 1.5px solid var(--concert-gold);
+  box-shadow:
+    inset 0 0 0 3px var(--surface-white),
+    inset 0 0 0 4px var(--concert-gold-soft),
+    var(--shadow-card);
+  background-image: radial-gradient(ellipse 90% 75% at 50% 0%, rgba(229, 204, 138, 0.16) 0%, transparent 72%);
+}
+
+:root[data-theme="konzertsaal"][data-appearance="dark"] .central-stage {
+  box-shadow:
+    inset 0 0 0 3px var(--surface-white),
+    inset 0 0 0 4px var(--concert-gold-soft),
+    0 10px 28px rgba(0, 0, 0, 0.5);
+  background-image: radial-gradient(ellipse 90% 75% at 50% 0%, rgba(229, 194, 107, 0.14) 0%, transparent 72%);
+}
+
+:root[data-theme="konzertsaal"] .central-stage.stage-playing {
+  box-shadow:
+    inset 0 0 0 3px var(--sage-soft),
+    inset 0 0 0 4px var(--concert-gold-line),
+    0 8px 24px rgba(198, 155, 61, 0.22);
+}
+
+/* Bottom-Nav im edlen Konzertsaal-Rahmen */
+:root[data-theme="konzertsaal"] .bottom-nav {
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: inset 0 0 0 1px var(--concert-gold-soft), var(--shadow-float);
+}
+
+:root[data-theme="konzertsaal"] .nav-tab.active .nav-icon-pill {
+  background: linear-gradient(180deg, var(--sage) 0%, rgba(198, 155, 61, 0.85) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42), 0 3px 12px rgba(122, 89, 18, 0.24);
+}
+
+:root[data-theme="konzertsaal"][data-appearance="dark"] .nav-tab.active .nav-icon-pill {
+  background: linear-gradient(180deg, #745922 0%, #523E16 100%);
+  color: #FFF7E0;
+  box-shadow: inset 0 1px 0 rgba(234, 201, 116, 0.4), 0 3px 14px rgba(229, 194, 107, 0.22);
+}
+
+/* Weiter-Button & Antworttasten mit Messing-/Elfenbein-Relief */
+:root[data-theme="konzertsaal"] .btn-primary-action.home-continue-fab {
+  background: linear-gradient(180deg, #EED697 0%, #D9B45A 100%);
+  color: #241910;
+  border-color: #9A721C;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), 0 3px 0 #8A6518, var(--shadow-float);
+}
+
+:root[data-theme="konzertsaal"][data-appearance="dark"] .btn-primary-action.home-continue-fab {
+  background: linear-gradient(180deg, #E8C978 0%, #C79E42 100%);
+  color: #1A120B;
+  border-color: #F4DC9A;
+  box-shadow: inset 0 1px 0 rgba(255, 250, 232, 0.55), 0 3px 0 #75581A, 0 10px 26px rgba(0, 0, 0, 0.55);
+}
+
+:root[data-theme="konzertsaal"] .degree-btn,
+:root[data-theme="konzertsaal"] .opt-btn,
+:root[data-theme="konzertsaal"] .dock-action-btn {
+  border-color: var(--border-strong);
+}
+
+:root[data-theme="konzertsaal"] .back-btn,
+:root[data-theme="konzertsaal"] .icon-btn {
+  border-color: var(--border-strong);
+  box-shadow: inset 0 0 0 1px var(--concert-gold-soft), var(--shadow-card);
+}
+
+/* =====================================================
+   SIGNATURE-THEME 2 (10 MEILENSTEINE): MITTERNACHTS-JAZZ
+   Blue-Note-Club-Atmosphäre: tiefes Indigo, Bernstein-Spotlights,
+   Rauchglas-Karten & dezente Bühnen-Halos
+   ===================================================== */
+:root[data-theme="mitternacht"] body {
+  background-color: var(--bg-base);
+  background-image:
+    radial-gradient(ellipse 78% 42% at 78% -4%, rgba(244, 190, 94, 0.17) 0%, rgba(244, 190, 94, 0) 64%),
+    radial-gradient(ellipse 84% 52% at 16% 18%, rgba(64, 126, 235, 0.20) 0%, rgba(64, 126, 235, 0) 66%),
+    radial-gradient(ellipse 76% 44% at 50% 106%, rgba(88, 220, 208, 0.12) 0%, rgba(88, 220, 208, 0) 68%);
+}
+
+:root[data-theme="mitternacht"] .brand-name {
+  letter-spacing: 0.015em;
+  text-shadow: 0 0 22px rgba(116, 181, 255, 0.24);
+}
+
+:root[data-theme="mitternacht"] .stage-sub {
+  color: var(--jazz-amber);
+  letter-spacing: 0.13em;
+}
+
+:root[data-theme="mitternacht"] .stage-main {
+  text-shadow: 0 0 24px rgba(116, 181, 255, 0.28);
+}
+
+/* Rauchglas-Karten mit feiner Lichtkante oben */
+:root[data-theme="mitternacht"] .category-nav-card,
+:root[data-theme="mitternacht"] .account-card,
+:root[data-theme="mitternacht"] .knowledge-card,
+:root[data-theme="mitternacht"] .ach-card,
+:root[data-theme="mitternacht"] .modal-dialog {
+  background-color: var(--jazz-glass);
+  background-image: linear-gradient(160deg, rgba(116, 181, 255, 0.08) 0%, rgba(19, 27, 50, 0.02) 52%, rgba(244, 190, 94, 0.05) 100%);
+  border-color: rgba(132, 178, 255, 0.20);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.09), var(--shadow-card);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+:root[data-theme="mitternacht"] .category-nav-card {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10), 0 2px 0 var(--tactile-edge), var(--shadow-card);
+}
+
+:root[data-theme="mitternacht"] .category-nav-card.card-accent-sage {
+  border-inline-start-color: var(--jazz-blue);
+}
+
+:root[data-theme="mitternacht"] .category-nav-card.card-accent-peach {
+  border-inline-start-color: var(--jazz-amber);
+}
+
+:root[data-theme="mitternacht"] .category-nav-card.card-accent-lilac {
+  border-inline-start-color: var(--jazz-teal);
+}
+
+:root[data-theme="mitternacht"] .cat-icon-box {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* Zentrale Jazz-Bühne im Club-Spotlight */
+:root[data-theme="mitternacht"] .central-stage {
+  background-color: var(--jazz-glass);
+  background-image:
+    radial-gradient(ellipse 85% 65% at 50% 0%, rgba(244, 190, 94, 0.14) 0%, transparent 70%),
+    linear-gradient(180deg, rgba(27, 39, 72, 0.55) 0%, rgba(15, 22, 43, 0.72) 100%);
+  border: 1.5px solid rgba(116, 181, 255, 0.30);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 0 28px rgba(64, 126, 235, 0.14),
+    var(--shadow-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+:root[data-theme="mitternacht"] .central-stage.stage-playing {
+  border-color: var(--jazz-blue);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 0 28px rgba(116, 181, 255, 0.32),
+    var(--shadow-card);
+}
+
+:root[data-theme="mitternacht"] .central-stage.stage-target,
+:root[data-theme="mitternacht"] .central-stage.stage-awaiting {
+  border-color: var(--jazz-amber);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 0 28px rgba(244, 190, 94, 0.28),
+    var(--shadow-card);
+}
+
+/* Schwebende Rauchglas-Navigationsleiste mit Club-Glow */
+:root[data-theme="mitternacht"] .bottom-nav {
+  background-color: rgba(15, 22, 42, 0.88);
+  border: 1px solid rgba(132, 178, 255, 0.24);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.10),
+    0 12px 32px rgba(3, 6, 16, 0.65);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+:root[data-theme="mitternacht"] .nav-tab.active {
+  color: #0A0F1F;
+}
+
+:root[data-theme="mitternacht"] .nav-tab.active .nav-icon-pill {
+  background: linear-gradient(135deg, #F6CA72 0%, #E09C34 100%);
+  color: #0A0F1F;
+  box-shadow: 0 0 18px rgba(244, 190, 94, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+/* Leuchtender Bernstein-FAB & Club-Buttons */
+:root[data-theme="mitternacht"] .btn-primary-action.home-continue-fab {
+  background: linear-gradient(135deg, #F8CD78 0%, #E29E35 100%);
+  color: #0A0F1F;
+  border-color: rgba(255, 232, 176, 0.72);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    0 3px 0 #7C5214,
+    0 8px 26px rgba(244, 190, 94, 0.34);
+}
+
+:root[data-theme="mitternacht"] .degree-btn,
+:root[data-theme="mitternacht"] .opt-btn,
+:root[data-theme="mitternacht"] .dock-action-btn,
+:root[data-theme="mitternacht"] .back-btn,
+:root[data-theme="mitternacht"] .icon-btn {
+  border-color: rgba(132, 178, 255, 0.22);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 2.5px 0 var(--tactile-edge), var(--shadow-card);
+}
+
+:root[data-theme="mitternacht"] .degree-btn.btn-correct,
+:root[data-theme="mitternacht"] .rhythm-tap-pad.is-ready {
+  box-shadow: 0 2.5px 0 var(--jazz-teal), 0 0 20px rgba(88, 220, 208, 0.28);
+}
+
+:root[data-theme="mitternacht"] .opt-btn.active {
+  border-color: var(--jazz-amber);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 0 16px rgba(244, 190, 94, 0.24);
 }
