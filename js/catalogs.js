@@ -961,54 +961,54 @@ const THEME_PALETTE_META = {
   },
   konzertsaal: {
     light: {
-      bg: "#F9F5EC",
-      swatches: ["#F9F5EC", "#E8D5A3", "#D7B4A0", "#C9D3C0"],
-      grid: "rgba(69, 53, 38, 0.24)",
-      zeroLine: "rgba(69, 53, 38, 0.12)",
-      track1Label: "#6B551F",
-      track2Label: "#8B412A",
-      track3Label: "#453526",
-      wave1: "#A8842E",
-      wave2: "#C26A4A",
-      wave3: "#453526"
+      bg: "#F5EDE0",
+      swatches: ["#F5EDE0", "#D9B45A", "#872A31", "#2C5139"],
+      grid: "rgba(45, 32, 22, 0.24)",
+      zeroLine: "rgba(45, 32, 22, 0.12)",
+      track1Label: "#7A5912",
+      track2Label: "#872A31",
+      track3Label: "#2D2016",
+      wave1: "#B88A28",
+      wave2: "#A8353B",
+      wave3: "#2C5139"
     },
     dark: {
-      bg: "#211D18",
-      swatches: ["#211D18", "#5E4D24", "#6A3E2F", "#3D4C39"],
-      grid: "rgba(243, 236, 224, 0.22)",
-      zeroLine: "rgba(243, 236, 224, 0.12)",
-      track1Label: "#E9CF8C",
-      track2Label: "#F0B199",
-      track3Label: "#F3ECE0",
-      wave1: "#DDB962",
-      wave2: "#E38B6A",
-      wave3: "#B8CEB0"
+      bg: "#17120D",
+      swatches: ["#17120D", "#E5C26B", "#872A31", "#A6CCA6"],
+      grid: "rgba(245, 236, 220, 0.22)",
+      zeroLine: "rgba(245, 236, 220, 0.12)",
+      track1Label: "#EAC974",
+      track2Label: "#ED9D96",
+      track3Label: "#F5ECDC",
+      wave1: "#E5C26B",
+      wave2: "#D96B70",
+      wave3: "#A6CCA6"
     }
   },
   mitternacht: {
     light: {
-      bg: "#F2F4FA",
-      swatches: ["#F2F4FA", "#B9CBEB", "#F0CF9B", "#B8DDD4"],
-      grid: "rgba(38, 48, 76, 0.24)",
-      zeroLine: "rgba(38, 48, 76, 0.12)",
-      track1Label: "#284B7A",
-      track2Label: "#8E5A14",
-      track3Label: "#26304C",
-      wave1: "#3D6FB3",
-      wave2: "#C9852B",
-      wave3: "#26304C"
+      bg: "#0A0F1F",
+      swatches: ["#0A0F1F", "#F4BE5E", "#74B5FF", "#58DCD0"],
+      grid: "rgba(236, 242, 255, 0.22)",
+      zeroLine: "rgba(236, 242, 255, 0.12)",
+      track1Label: "#74B5FF",
+      track2Label: "#F4BE5E",
+      track3Label: "#ECF2FF",
+      wave1: "#74B5FF",
+      wave2: "#F4BE5E",
+      wave3: "#58DCD0"
     },
     dark: {
-      bg: "#161B29",
-      swatches: ["#161B29", "#2E466E", "#6B4E23", "#285852"],
-      grid: "rgba(232, 238, 250, 0.22)",
-      zeroLine: "rgba(232, 238, 250, 0.12)",
-      track1Label: "#94BEFA",
-      track2Label: "#F2C67C",
-      track3Label: "#E8EEFA",
-      wave1: "#6CA6F5",
-      wave2: "#E6AC4E",
-      wave3: "#7FD1C2"
+      bg: "#0A0F1F",
+      swatches: ["#0A0F1F", "#F4BE5E", "#74B5FF", "#58DCD0"],
+      grid: "rgba(236, 242, 255, 0.22)",
+      zeroLine: "rgba(236, 242, 255, 0.12)",
+      track1Label: "#74B5FF",
+      track2Label: "#F4BE5E",
+      track3Label: "#ECF2FF",
+      wave1: "#74B5FF",
+      wave2: "#F4BE5E",
+      wave3: "#58DCD0"
     }
   }
 };
