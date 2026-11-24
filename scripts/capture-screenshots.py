@@ -522,6 +522,18 @@ def build_shot_js(shot_id: str, lang: str, theme: str, appearance: str) -> str:
       document.getElementById("settingsBackdrop")?.classList.add("modal-hidden");
       document.getElementById("aboutBackdrop")?.classList.add("modal-hidden");
 
+      // Meilenstein-Toasts nur in ausgewählten Shots (02, 06) zulassen
+      const allowMilestoneToast = {json.dumps(shot_id in ("02", "06"))};
+      const hideAppToast = () => {{
+        const t = document.getElementById("appToast");
+        if (t) {{
+          t.classList.remove("is-visible", "is-success", "is-error");
+          t.classList.add("hidden");
+          t.textContent = "";
+        }}
+      }};
+      hideAppToast();
+
       // Profil-State konsistent setzen (Fokus-Badges, keine störenden Erst-Hinweise)
       if (state.profile) {{
         state.profile.name = {json.dumps("Lena" if lang == "de" else "Alex")};
@@ -532,6 +544,7 @@ def build_shot_js(shot_id: str, lang: str, theme: str, appearance: str) -> str:
         state.profile.singAlongIntroDone = true;
         state.profile.modesRootHintSeen = true;
         state.profile.cadenceKeyHintSeen = true;
+        state.profile.showAchievements = allowMilestoneToast;
       }}
       if (typeof dismissModesRootHint === "function") dismissModesRootHint(true);
       if (typeof dismissCadenceKeyHint === "function") dismissCadenceKeyHint(true);
@@ -715,7 +728,9 @@ def build_shot_js(shot_id: str, lang: str, theme: str, appearance: str) -> str:
       if (typeof fitExerciseLayout === "function" && state.currentView === "exercise") {{
         fitExerciseLayout();
       }}
+      if (!allowMilestoneToast) hideAppToast();
       await wait(160);
+      if (!allowMilestoneToast) hideAppToast();
       return {{
         view: state.currentView,
         theme: document.documentElement.getAttribute("data-theme"),
