@@ -3315,5 +3315,537 @@ registerColocatedPhrases({
     pl: "Historia, symbole studyjne, akordy łamane i przykłady audio",
     uk: "Історія, студійні символи, слеш-акорди й аудіоприклади",
     ur: "تاریخ، چارٹ علامات، سلیش کورڈز اور آڈیو مثالیں"
+  },
+  // ===== Singen: Umbenennung, intensive Atemübungen & Sirenen =====
+  "Singen": {
+    fr: "Chant",
+    es: "Canto",
+    it: "Canto",
+    pl: "Śpiew",
+    uk: "Спів",
+    ur: "گانا"
+  },
+  "Geführtes Atem-, Sirenen- & Stimmtraining mit Live-Kurve, Klavier-/Chor-Begleitung und Halbton-Steuerung": {
+    fr: "Entraînement guidé du souffle, des sirènes et de la voix avec courbe en direct, piano/chœur et demi-tons",
+    es: "Entrenamiento guiado de respiración, sirenas y voz con curva en vivo, piano/coro y semitonos",
+    it: "Allenamento guidato di respiro, sirene e voce con curva dal vivo, pianoforte/coro e semitoni",
+    pl: "Prowadzony trening oddechu, syren i głosu z krzywą na żywo, fortepianem/chórem i półtonami",
+    uk: "Кероване тренування дихання, сирен і голосу з живою кривою, фортепіано/хором і півтонами",
+    ur: "لائیو کرو، پیانو/کورس اور سیمی ٹون کنٹرول کے ساتھ سانس، سائرن اور آواز کی رہنمائی مشق"
+  },
+  "▶ Singen starten": {
+    fr: "▶ Commencer à chanter",
+    es: "▶ Empezar a cantar",
+    it: "▶ Inizia a cantare",
+    pl: "▶ Rozpocznij śpiew",
+    uk: "▶ Почати спів",
+    ur: "▶ گانا شروع کریں"
+  },
+  "Nochmal singen": {
+    fr: "Chanter encore",
+    es: "Cantar de nuevo",
+    it: "Canta ancora",
+    pl: "Zaśpiewaj ponownie",
+    uk: "Повторити спів",
+    ur: "دوبارہ گائیں"
+  },
+  "TRAINING ABGESCHLOSSEN": {
+    fr: "SÉANCE TERMINÉE",
+    es: "SESIÓN COMPLETADA",
+    it: "SESSIONE COMPLETATA",
+    pl: "TRENING ZAKOŃCZONY",
+    uk: "ТРЕНУВАННЯ ЗАВЕРШЕНО",
+    ur: "مشق مکمل ہو گئی"
+  },
+  "2 Sirenen": {
+    fr: "2 Sirènes",
+    es: "2 Sirenas",
+    it: "2 Sirene",
+    pl: "2 Syreny",
+    uk: "2 Сирени",
+    ur: "2 سائرن"
+  },
+  "PHASE 2 • SIRENEN & REGISTER-FLOW": {
+    fr: "PHASE 2 • SIRÈNES & FLUIDITÉ",
+    es: "FASE 2 • SIRENAS Y REGISTROS",
+    it: "FASE 2 • SIRENE E REGISTRI",
+    pl: "FAZA 2 • SYRENY I PŁYNNOŚĆ",
+    uk: "ФАЗА 2 • СИРЕНИ ТА РЕГІСТРИ",
+    ur: "مرحلہ 2 • سائرن اور رجسٹر فلو"
+  },
+  "Atem & Stütze intensiv": {
+    fr: "Souffle & soutien intensif",
+    es: "Respiración y apoyo intensivo",
+    it: "Respiro e sostegno intensivo",
+    pl: "Intensywny oddech i podparcie",
+    uk: "Інтенсивне дихання й опора",
+    ur: "گہری سانس اور سپورٹ مشق"
+  },
+  "4–7–8 Entspannung, Farinelli-Atemleiter (4–10 s), langer Zisch-Ausatem (bis 20 s) & Stützstrom-Drill": {
+    fr: "Relaxation 4–7–8, échelle de Farinelli (4–10 s), long souffle sifflé (jusqu’à 20 s) & impulsions soutenues",
+    es: "Relajación 4–7–8, escala Farinelli (4–10 s), exhalación sostenida (hasta 20 s) y pulsos de apoyo",
+    it: "Rilassamento 4–7–8, scala Farinelli (4–10 s), soffio lungo (fino a 20 s) e impulsi sostenuti",
+    pl: "Relaks 4–7–8, drabina Farinellego (4–10 s), długi wydech (do 20 s) i impulsy z podparciem",
+    uk: "Релакс 4–7–8, сходи Фарінеллі (4–10 с), довгий видих (до 20 с) та імпульси з опорою",
+    ur: "4–7–8 سکون، فارینیلی سیڑھی (4–10 سیکنڈ)، طویل سانس (20 سیکنڈ تک) اور سپورٹ مشق"
+  },
+  "Sirenen & Register-Flow": {
+    fr: "Sirènes & passage de registres",
+    es: "Sirenas y fluidez de registros",
+    it: "Sirene e fluidità di registro",
+    pl: "Syreny i płynność rejestrów",
+    uk: "Сирени й плавність регістрів",
+    ur: "سائرن اور رجسٹر فلو"
+  },
+  "Stufenloses Gleiten durch das Passaggio: Quinte-Sirene, Oktav-Sirene & Achterbahn-Welle mit Live-Kurve": {
+    fr: "Glissés continus à travers le passage : sirène de quinte, d’octave & vague double avec courbe en direct",
+    es: "Deslizamiento continuo por el passaggio: sirena de 5.ª, de octava y onda doble con curva en vivo",
+    it: "Scivolamento continuo nel passaggio: sirena di quinta, d’ottava e onda doppia con curva dal vivo",
+    pl: "Płynne przejście przez passaggio: syrena kwintowa, oktawowa i podwójna fala z krzywą na żywo",
+    uk: "Плавне ковзання крізь пасаджо: квінтова, октавна сирена та подвійна хвиля з живою кривою",
+    ur: "لائیو کرو کے ساتھ ہموار گلائیڈ: پانچویں سائرن، آکٹیو سائرن اور ڈبل لہر"
+  },
+  "4–7–8 Entspannungsatmung": {
+    fr: "Respiration relaxante 4–7–8",
+    es: "Respiración relajante 4–7–8",
+    it: "Respirazione rilassante 4–7–8",
+    pl: "Oddech relaksacyjny 4–7–8",
+    uk: "Розслаблювальне дихання 4–7–8",
+    ur: "4–7–8 پُرسکون سانس"
+  },
+  "4 Ein · 7 Halten · 8 Aus": {
+    fr: "4 Insp. · 7 Retenir · 8 Exp.",
+    es: "4 Inh. · 7 Mantener · 8 Exh.",
+    it: "4 Insp. · 7 Tratt. · 8 Esp.",
+    pl: "4 Wdech · 7 Wstrz. · 8 Wydech",
+    uk: "4 Вдих · 7 Пауза · 8 Видих",
+    ur: "4 اندر · 7 روکیں · 8 باہر"
+  },
+  "Beruhigt Puls und Hochatmung vor dem Singen: 4 s ruhig einatmen, 7 s locker halten, 8 s weich ausströmen.": {
+    fr: "Apaise le pouls et relâche les épaules : 4 s d’inspiration, 7 s de suspension douce, 8 s d’expiration.",
+    es: "Calma el pulso y la tensión alta: inhala 4 s, mantén suave 7 s y exhala despacio 8 s.",
+    it: "Calma il battito e la tensione: inspira 4 s, mantieni morbido 7 s, espira dolcemente 8 s.",
+    pl: "Wycisza puls i napięcie przed śpiewem: 4 s wdechu, 7 s spokojnego zatrzymania, 8 s wydechu.",
+    uk: "Заспокоює пульс і знімає затиск: 4 с вдих, 7 с легка затримка, 8 с плавний видих.",
+    ur: "گانے سے پہلے ذہن اور سینے کا تناؤ کم کریں: 4 سیکنڈ سانس لیں، 7 سیکنڈ روکیں، 8 سیکنڈ نرمی سے نکالیں۔"
+  },
+  "4 s ruhig durch die Nase in den Bauch": {
+    fr: "4 s calme par le nez vers le ventre",
+    es: "4 s inhalación tranquila hacia el abdomen",
+    it: "4 s inspira con calma verso l’addome",
+    pl: "4 s spokojny wdech nosem do brzucha",
+    uk: "4 с спокійний вдих у живіт",
+    ur: "4 سیکنڈ نرمی سے پیٹ تک سانس لیں"
+  },
+  "7 s weit und entspannt halten – kein Druck": {
+    fr: "7 s retenir souplement sans pression",
+    es: "7 s mantener amplio y sin tensión",
+    it: "7 s mantieni aperto senza tensione",
+    pl: "7 s utrzymaj szeroko i bez napięcia",
+    uk: "7 с утримуй широко й без тиску",
+    ur: "7 سیکنڈ بغیر کھنچاؤ کے آرام سے روکیں"
+  },
+  "8 s sanft und gleichmäßig auf ffff / ssss": {
+    fr: "8 s d’expiration douce et régulière sur ffff / ssss",
+    es: "8 s de exhalación suave y constante en ffff / ssss",
+    it: "8 s di espirazione morbida e costante su ffff / ssss",
+    pl: "8 s miękkiego, równego wydechu na ffff / ssss",
+    uk: "8 с м’якого рівного видиху на ffff / ssss",
+    ur: "8 سیکنڈ ffff / ssss پر نرمی سے یکساں سانس نکالیں"
+  },
+  "Schultern & Bauchdecke komplett lösen": {
+    fr: "Relâcher complètement épaules et ventre",
+    es: "Soltar por completo hombros y abdomen",
+    it: "Rilassa del tutto spalle e addome",
+    pl: "Całkowicie rozluźnij barki i brzuch",
+    uk: "Повністю розслаб плечі та живіт",
+    ur: "کندھوں اور پیٹ کو مکمل ڈھیلا چھوڑ دیں"
+  },
+  "Farinelli-Atemleiter": {
+    fr: "Échelle respiratoire de Farinelli",
+    es: "Escala respiratoria de Farinelli",
+    it: "Scala respiratoria di Farinelli",
+    pl: "Drabina oddechowa Farinellego",
+    uk: "Дихальні сходи Фарінеллі",
+    ur: "فارینیلی سانس کی سیڑھی"
+  },
+  "4 → 6 → 8 → 10 Sek.": {
+    fr: "4 → 6 → 8 → 10 s",
+    es: "4 → 6 → 8 → 10 s",
+    it: "4 → 6 → 8 → 10 s",
+    pl: "4 → 6 → 8 → 10 s",
+    uk: "4 → 6 → 8 → 10 с",
+    ur: "4 → 6 → 8 → 10 سیکنڈ"
+  },
+  "Klassische Sänger-Steigerung: Einatmen, Rippen offen halten und Ausströmen werden jede Runde 2 Sekunden länger.": {
+    fr: "Exercice classique des chanteurs : inspiration, suspension des côtes et expiration gagnent 2 s à chaque tour.",
+    es: "Clásico vocal: inhalar, mantener costillas abiertas y exhalar crecen 2 s en cada vuelta.",
+    it: "Classico del canto: inspirazione, sospensione delle costole ed espirazione crescono di 2 s a giro.",
+    pl: "Klasyczne ćwiczenie śpiewaków: wdech, otwarcie żeber i wydech rosną o 2 s w każdej rundzie.",
+    uk: "Класична вправа співаків: вдих, утримання ребер і видих щоразу зростають на 2 секунди.",
+    ur: "گلوکاروں کی کلاسیکی مشق: ہر راؤنڈ میں سانس لینا، روکنا اور نکالنا 2 سیکنڈ بڑھتا جاتا ہے۔"
+  },
+  "Stufe 4–4–4": { fr: "Palier 4–4–4", es: "Nivel 4–4–4", it: "Grado 4–4–4", pl: "Poziom 4–4–4", uk: "Етап 4–4–4", ur: "مرحلہ 4–4–4" },
+  "Stufe 6–6–6": { fr: "Palier 6–6–6", es: "Nivel 6–6–6", it: "Grado 6–6–6", pl: "Poziom 6–6–6", uk: "Етап 6–6–6", ur: "مرحلہ 6–6–6" },
+  "Stufe 8–8–8": { fr: "Palier 8–8–8", es: "Nivel 8–8–8", it: "Grado 8–8–8", pl: "Poziom 8–8–8", uk: "Етап 8–8–8", ur: "مرحلہ 8–8–8" },
+  "Stufe 10–10–10": { fr: "Palier 10–10–10", es: "Nivel 10–10–10", it: "Grado 10–10–10", pl: "Poziom 10–10–10", uk: "Етап 10–10–10", ur: "مرحلہ 10–10–10" },
+  "Weiten": { fr: "Suspendre", es: "Expandir", it: "Sospendi", pl: "Utrzymaj", uk: "Утримай", ur: "پھیلائیں" },
+  "4 s gleichmäßig bis in die Flanken einatmen": {
+    fr: "4 s d’inspiration régulière dans les flancs",
+    es: "4 s inhalando con calma hacia las costillas",
+    it: "4 s inspira regolarmente nei fianchi",
+    pl: "4 s równomierny wdech w boki żeber",
+    uk: "4 с рівномірний вдих у боки ребер",
+    ur: "4 سیکنڈ پسلیوں تک یکساں سانس بھریں"
+  },
+  "4 s Rippen weit & Kehlkopf offen halten": {
+    fr: "4 s garder les côtes larges et la gorge ouverte",
+    es: "4 s mantener costillas abiertas y garganta libre",
+    it: "4 s mantieni costole ampie e gola aperta",
+    pl: "4 s utrzymaj szerokie żebra i otwarte gardło",
+    uk: "4 с тримай ребра широко, горло вільне",
+    ur: "4 سیکنڈ پسلیاں کھلی اور گلا آزاد رکھیں"
+  },
+  "4 s ruhiger Luftstrom auf ssss": {
+    fr: "4 s de flux d’air régulier sur ssss",
+    es: "4 s de flujo de aire uniforme en ssss",
+    it: "4 s di flusso d’aria regolare su ssss",
+    pl: "4 s spokojnego strumienia na ssss",
+    uk: "4 с рівного потоку повітря на ssss",
+    ur: "4 سیکنڈ ssss پر پرسکون ہوا نکالیں"
+  },
+  "Kurz entspannen vor der nächsten Stufe": {
+    fr: "Relâcher brièvement avant le palier suivant",
+    es: "Relajar brevemente antes del siguiente nivel",
+    it: "Rilassa un attimo prima del grado successivo",
+    pl: "Krótki relaks przed kolejnym poziomem",
+    uk: "Коротке розслаблення перед наступним етапом",
+    ur: "اگلے مرحلے سے پہلے ذرا آرام کریں"
+  },
+  "6 s langsam und dosiert einfüllen": {
+    fr: "6 s d’inspiration lente et dosée",
+    es: "6 s llenando despacio y con control",
+    it: "6 s riempi lentamente e con misura",
+    pl: "6 s powolnego, dozowanego wdechu",
+    uk: "6 с повільного дозованого вдиху",
+    ur: "6 سیکنڈ آہستہ اور متوازن سانس بھریں"
+  },
+  "6 s ruhig aufgespannt bleiben": {
+    fr: "6 s rester ouvert et détendu",
+    es: "6 s permanecer expandido y sereno",
+    it: "6 s resta aperto con calma",
+    pl: "6 s pozostań spokojnie otwarty",
+    uk: "6 с спокійно зберігай об’єм",
+    ur: "6 سیکنڈ سکون سے کھلا رکھیں"
+  },
+  "6 s fein dosiert auf ssss ausströmen": {
+    fr: "6 s d’expiration contrôlée sur ssss",
+    es: "6 s de exhalación controlada en ssss",
+    it: "6 s di espirazione controllata su ssss",
+    pl: "6 s kontrolowanego wydechu na ssss",
+    uk: "6 с контрольованого видиху на ssss",
+    ur: "6 سیکنڈ ssss پر نپی تلی ہوا نکالیں"
+  },
+  "Bauchdecke weich fallen lassen": {
+    fr: "Laisser le ventre se relâcher doucement",
+    es: "Dejar que el abdomen se suavice",
+    it: "Lascia ammorbidire l’addome",
+    pl: "Rozluźnij miękko brzuch",
+    uk: "М’яко розслаб живіт",
+    ur: "پیٹ کو نرمی سے ڈھیلا چھوڑ دیں"
+  },
+  "8 s fein einteilen – nicht zu früh voll sein": {
+    fr: "8 s bien doser — ne pas remplir trop vite",
+    es: "8 s dosificar bien sin llenarse antes de tiempo",
+    it: "8 s dosa bene senza riempirti troppo presto",
+    pl: "8 s dobrze rozłóż wdech — nie nabieraj za szybko",
+    uk: "8 с розподіли вдих рівномірно — не поспішай",
+    ur: "8 سیکنڈ میں آہستہ بھریں — جلدی نہ بھریں"
+  },
+  "8 s offen halten ohne den Hals zu schließen": {
+    fr: "8 s maintenir ouvert sans fermer la gorge",
+    es: "8 s mantener abierto sin cerrar la garganta",
+    it: "8 s mantieni aperto senza chiudere la gola",
+    pl: "8 s utrzymaj otwarcie bez zaciskania gardła",
+    uk: "8 с тримай відкрито, не затискаючи горло",
+    ur: "8 سیکنڈ گلا بند کیے بغیر کھلا رکھیں"
+  },
+  "8 s konstanter Stützstrom auf ssss": {
+    fr: "8 s de soutien constant sur ssss",
+    es: "8 s de apoyo constante en ssss",
+    it: "8 s di sostegno costante su ssss",
+    pl: "8 s stałego strumienia podparcia na ssss",
+    uk: "8 с рівної опори на ssss",
+    ur: "8 سیکنڈ ssss پر مسلسل متوازن بہاؤ"
+  },
+  "Kurz nachatmen für die Finalrunde": {
+    fr: "Respirer librement avant le dernier tour",
+    es: "Respira libre antes de la última ronda",
+    it: "Respira libero prima dell’ultimo giro",
+    pl: "Krótki oddech przed finałową rundą",
+    uk: "Короткий перепочинок перед фіналом",
+    ur: "آخری راؤنڈ کے لیے تازہ دم ہوں"
+  },
+  "10 s ultraruhig bis in Rücken & Flanken": {
+    fr: "10 s très calme jusque dans le dos et les flancs",
+    es: "10 s muy calmo hacia costillas y espalda",
+    it: "10 s calmissimo fino ai fianchi e alla schiena",
+    pl: "10 s bardzo spokojnie aż w boki i plecy",
+    uk: "10 с надспокійно у спину й боки",
+    ur: "10 سیکنڈ نہایت پرسکون انداز میں پیٹھ اور پہلوؤں تک بھریں"
+  },
+  "10 s Weite halten – Gesicht bleibt weich": {
+    fr: "10 s garder l’espace — visage détendu",
+    es: "10 s mantener amplitud con rostro relajado",
+    it: "10 s mantieni l’ampiezza con viso morbido",
+    pl: "10 s utrzymaj szerokość — twarz rozluźniona",
+    uk: "10 с тримай широту — обличчя м’яке",
+    ur: "10 سیکنڈ کشادگی برقرار رکھیں — چہرہ نرم رہے"
+  },
+  "10 s gleichmäßig bis zum letzten Moment": {
+    fr: "10 s régulier jusqu’à la dernière seconde",
+    es: "10 s parejo hasta el último instante",
+    it: "10 s costante fino all’ultimo istante",
+    pl: "10 s równo aż do samej końcówki",
+    uk: "10 с рівномірно до останньої миті",
+    ur: "10 سیکنڈ آخری لمحے تک یکساں نکالیں"
+  },
+  "Stark! Tief durchatmen und lösen": {
+    fr: "Bravo ! Respire librement et relâche",
+    es: "¡Genial! Respira natural y suelta",
+    it: "Ottimo! Respira libero e rilassa",
+    pl: "Świetnie! Oddychaj swobodnie i rozluźnij się",
+    uk: "Чудово! Вільно подихай і розслабся",
+    ur: "شاندار! قدرتی سانس لیں اور ڈھیلا چھوڑ دیں"
+  },
+  "Langer Zisch-Ausatem (Stütze)": {
+    fr: "Long souffle sifflé (soutien)",
+    es: "Exhalación siseada larga (apoyo)",
+    it: "Soffio lungo sibilato (sostegno)",
+    pl: "Długi wydech na „ssss” (podparcie)",
+    uk: "Довгий видих на «ssss» (опора)",
+    ur: "طویل سانس کی برداشت (سپورٹ)"
+  },
+  "8 → 12 → 16 → 20 Sek.": {
+    fr: "8 → 12 → 16 → 20 s",
+    es: "8 → 12 → 16 → 20 s",
+    it: "8 → 12 → 16 → 20 s",
+    pl: "8 → 12 → 16 → 20 s",
+    uk: "8 → 12 → 16 → 20 с",
+    ur: "8 → 12 → 16 → 20 سیکنڈ"
+  },
+  "Kurz und reflexartig einatmen (2 s), dann auf „ssss“ möglichst lange und gleichmäßig ohne Druckverlust ausströmen.": {
+    fr: "Inspiration courte et réflexe (2 s), puis souffle long et constant sur « ssss » sans faiblir.",
+    es: "Inhala rápido y relajado (2 s), luego mantén un «ssss» largo y parejo sin perder apoyo.",
+    it: "Inspira rapido e morbido (2 s), poi sostieni un «ssss» lungo e uniforme senza cedere.",
+    pl: "Krótki, naturalny wdech (2 s), a potem jak najdłuższy, równy strumień „ssss” bez spadku podparcia.",
+    uk: "Короткий природний вдих (2 с), а потім якомога довший рівний видих на «ssss» без просідання.",
+    ur: "2 سیکنڈ میں ہلکی سانس لیں، پھر ’ssss‘ پر طویل اور یکساں بہاؤ برقرار رکھیں۔"
+  },
+  "Ausdauer 8 s": { fr: "Endurance 8 s", es: "Resistencia 8 s", it: "Tenuta 8 s", pl: "Wytrzymałość 8 s", uk: "Витримка 8 с", ur: "برداشت 8 سیکنڈ" },
+  "Ausdauer 12 s": { fr: "Endurance 12 s", es: "Resistencia 12 s", it: "Tenuta 12 s", pl: "Wytrzymałość 12 s", uk: "Витримка 12 с", ur: "برداشت 12 سیکنڈ" },
+  "Ausdauer 16 s": { fr: "Endurance 16 s", es: "Resistencia 16 s", it: "Tenuta 16 s", pl: "Wytrzymałość 16 s", uk: "Витримка 16 с", ur: "برداشت 16 سیکنڈ" },
+  "Ausdauer 20 s": { fr: "Endurance 20 s", es: "Resistencia 20 s", it: "Tenuta 20 s", pl: "Wytrzymałość 20 s", uk: "Витримка 20 с", ur: "برداشت 20 سیکنڈ" },
+  "Einfallen": { fr: "Laisser entrer", es: "Tomar aire", it: "Lascia entrare", pl: "Wdech", uk: "Вдих", ur: "سانس لیں" },
+  "ssss…": { fr: "ssss…", es: "ssss…", it: "ssss…", pl: "ssss…", uk: "ssss…", ur: "ssss…" },
+  "2 s entspannt tief einfallen lassen": {
+    fr: "2 s laisser l’air descendre sans effort",
+    es: "2 s dejar entrar el aire profundo y suelto",
+    it: "2 s lascia scendere l’aria senza sforzo",
+    pl: "2 s pozwól powietrzu swobodnie opaść w dół",
+    uk: "2 с дозволь повітрю вільно опуститися вниз",
+    ur: "2 سیکنڈ میں ہوا کو قدرتی طور پر اندر آنے دیں"
+  },
+  "8 s völlig gleichmäßiger Luftstrom auf ssss": {
+    fr: "8 s de flux parfaitement régulier sur ssss",
+    es: "8 s de chorro completamente parejo en ssss",
+    it: "8 s di soffio perfettamente uniforme su ssss",
+    pl: "8 s idealnie równego strumienia na ssss",
+    uk: "8 с абсолютно рівного потоку на ssss",
+    ur: "8 سیکنڈ ssss پر بالکل یکساں بہاؤ"
+  },
+  "Bauchdecke lösen – Luft strömt von selbst nach": {
+    fr: "Relâcher le ventre — l’air revient tout seul",
+    es: "Soltar el abdomen — el aire entra solo",
+    it: "Rilassa l’addome — l’aria rientra da sola",
+    pl: "Puść brzuch — powietrze wróci samo",
+    uk: "Відпусти живіт — повітря зайде саме",
+    ur: "پیٹ ڈھیلا چھوڑیں — ہوا خود بخود اندر آئے گی"
+  },
+  "2 s locker in die Flanken einatmen": {
+    fr: "2 s d’inspiration souple dans les côtes",
+    es: "2 s inhalación fácil hacia los costados",
+    it: "2 s inspira morbido nei fianchi",
+    pl: "2 s swobodny wdech w boki żeber",
+    uk: "2 с легкий вдих у ребра",
+    ur: "2 سیکنڈ پسلیوں میں ہلکی سانس لیں"
+  },
+  "12 s schmal & sparsam dosieren – Rippen weit": {
+    fr: "12 s flux fin et économe — côtes ouvertes",
+    es: "12 s chorro fino y constante — costillas amplias",
+    it: "12 s filo d’aria sottile — costole aperte",
+    pl: "12 s wąski, oszczędny strumień — żebra szeroko",
+    uk: "12 с тонкий економний потік — ребра широко",
+    ur: "12 سیکنڈ باریک اور متوازن بہاؤ — پسلیاں کھلی"
+  },
+  "Kurz entspannen vor 16 Sekunden": {
+    fr: "Relâcher un instant avant les 16 secondes",
+    es: "Relaja brevemente antes de los 16 segundos",
+    it: "Rilassa un attimo prima dei 16 secondi",
+    pl: "Krótki odpoczynek przed 16 sekundami",
+    uk: "Короткий перепочинок перед 16 секундами",
+    ur: "16 سیکنڈ سے پہلے ذرا آرام کریں"
+  },
+  "2 s tief und geräuschlos einatmen": {
+    fr: "2 s d’inspiration profonde et silencieuse",
+    es: "2 s inhalación profunda y silenciosa",
+    it: "2 s inspira profondo e silenzioso",
+    pl: "2 s głęboki, bezgłośny wdech",
+    uk: "2 с глибокий безшумний вдих",
+    ur: "2 سیکنڈ گہری اور خاموش سانس لیں"
+  },
+  "16 s halten: feiner Strahl, nicht verschenken": {
+    fr: "16 s tenir : filet fin sans gaspiller l’air",
+    es: "16 s sostener: chorro fino sin desperdiciar aire",
+    it: "16 s tieni un filo d’aria sottile senza sprechi",
+    pl: "16 s utrzymaj cienki strumień, nie marnuj powietrza",
+    uk: "16 с тримай тонкий потік, не витрачай зайвого",
+    ur: "16 سیکنڈ باریک دھار قائم رکھیں، ہوا ضائع نہ کریں"
+  },
+  "Schultern lockern für die 20-s-Runde": {
+    fr: "Détendre les épaules pour le tour de 20 s",
+    es: "Suelta los hombros para la ronda de 20 s",
+    it: "Sciogli le spalle per il giro da 20 s",
+    pl: "Rozluźnij barki przed rundą 20 s",
+    uk: "Розслаб плечі перед раундом 20 с",
+    ur: "20 سیکنڈ کے راؤنڈ کے لیے کندھے ڈھیلے کریں"
+  },
+  "2,5 s tief & weit einatmen": {
+    fr: "2,5 s d’inspiration profonde et ample",
+    es: "2,5 s inhalación profunda y amplia",
+    it: "2,5 s inspira profondo e ampio",
+    pl: "2,5 s głęboki, szeroki wdech",
+    uk: "2,5 с глибокий широкий вдих",
+    ur: "2.5 سیکنڈ گہری اور کشادہ سانس لیں"
+  },
+  "20 s Königsklasse: ruhig & gleichmäßig halten": {
+    fr: "20 s maîtrise : garder un souffle calme et stable",
+    es: "20 s resistencia: mantener firme y sereno",
+    it: "20 s tenuta finale: resta calmo e regolare",
+    pl: "20 s wytrzymałości: spokojnie i równo do końca",
+    uk: "20 с витримки: спокійно й рівно до кінця",
+    ur: "20 سیکنڈ برداشت: آخر تک پُرسکون اور یکساں رکھیں"
+  },
+  "Hervorragend! Frei weiteratmen": {
+    fr: "Excellent ! Respire librement",
+    es: "¡Excelente! Respira con libertad",
+    it: "Eccellente! Respira liberamente",
+    pl: "Znakomicie! Oddychaj swobodnie",
+    uk: "Чудово! Дихай вільно",
+    ur: "زبردست! اب آزادانہ سانس لیں"
+  },
+  "Staccato- & Stützstrom-Wechsel": {
+    fr: "Impulsions staccato & flux soutenu",
+    es: "Staccato y flujo de apoyo",
+    it: "Staccato e flusso sostenuto",
+    pl: "Staccato i długie podparcie",
+    uk: "Стакато й опора потоку",
+    ur: "اسٹاکاٹو اور مسلسل سپورٹ"
+  },
+  "F – F – F – F – FFFFF!": {
+    fr: "F – F – F – F – FFFFF !",
+    es: "F – F – F – F – FFFFF!",
+    it: "F – F – F – F – FFFFF!",
+    pl: "F – F – F – F – FFFFF!",
+    uk: "F – F – F – F – FFFFF!",
+    ur: "F – F – F – F – FFFFF!"
+  },
+  "4 knackige Zwerchfell-Stöße direkt in einen stabil gehaltenen Ausatem überführen – ohne zwischendurch abzusetzen.": {
+    fr: "Enchaîne 4 impulsions nettes directement dans une expiration soutenue, sans couper le souffle.",
+    es: "Encadena 4 impulsos firmes directo a una exhalación sostenida sin cortar el aire.",
+    it: "Collega 4 impulsi netti direttamente a un’espirazione sostenuta senza interrompere il flusso.",
+    pl: "Połącz 4 sprężyste impulsy przepony prosto w stabilny długi wydech bez przerwy.",
+    uk: "Переведи 4 пружні поштовхи діафрагми прямо в рівний довгий видих без зупинки.",
+    ur: "بغیر رکے 4 تیز جھٹکوں کو سیدھا ایک طویل اور مستحکم سانس میں بدل دیں۔"
+  },
+  "Halten: FFF!": {
+    fr: "Tenir : FFF !",
+    es: "Sostener: ¡FFF!",
+    it: "Tieni: FFF!",
+    pl: "Trzymaj: FFF!",
+    uk: "Тримай: FFF!",
+    ur: "روک کر نکالیں: FFF!"
+  },
+  "Sanfte Quinte-Sirene": {
+    fr: "Sirène douce de quinte",
+    es: "Sirena suave de quinta",
+    it: "Sirena morbida di quinta",
+    pl: "Łagodna syrena kwintowa",
+    uk: "М’яка квінтова сирена",
+    ur: "نرم پانچویں سائرن"
+  },
+  "Ng / Brrrr / Wuu": {
+    fr: "Ng / Brrrr / Ouu",
+    es: "Ng / Brrrr / Uuu",
+    it: "Ng / Brrrr / Uuu",
+    pl: "Ng / Brrrr / Uuu",
+    uk: "Нг / Брррр / Ууу",
+    ur: "Ng / Brrrr / Woo"
+  },
+  "Stufenlos und weich wie eine Sirene nach oben und wieder zurück gleiten – keine Stufen, kein Druck!": {
+    fr: "Glisse doucement en continu vers le haut puis vers le bas comme une sirène — sans paliers ni pression !",
+    es: "Desliza con suavidad hacia arriba y abajo como una sirena — sin saltos ni tensión.",
+    it: "Scivola in modo continuo su e giù come una sirena — senza scalini né spinta!",
+    pl: "Płynnie ślizgaj się głosem w górę i w dół jak syrena — bez schodków i nacisku!",
+    uk: "Плавно ковзай голосом угору й униз, як сирена — без сходинок і тиску!",
+    ur: "سائرن کی طرح بغیر رکے نرمی سے اوپر اور نیچے پھسلیں — بغیر کسی دباؤ کے!"
+  },
+  "Oktav-Sirene (Passaggio)": {
+    fr: "Sirène d’octave (Passaggio)",
+    es: "Sirena de octava (Passaggio)",
+    it: "Sirena d’ottava (Passaggio)",
+    pl: "Syrena oktawowa (Passaggio)",
+    uk: "Октавна сирена (Пасаджо)",
+    ur: "آکٹیو سائرن (پاساجیو)"
+  },
+  "Ng / Wuu / Mmm": {
+    fr: "Ng / Ouu / Mmm",
+    es: "Ng / Uuu / Mmm",
+    it: "Ng / Uuu / Mmm",
+    pl: "Ng / Uuu / Mmm",
+    uk: "Нг / Ууу / Ммм",
+    ur: "Ng / Woo / Mmm"
+  },
+  "Lass die Stimme stufenlos durch den Registerübergang (Brust → Kopf → Brust) gleiten – oben schlank und leicht bleiben.": {
+    fr: "Laisse la voix glisser à travers le passage (poitrine → tête → poitrine) en restant légère dans l’aigu.",
+    es: "Deja que la voz cruce el passaggio (pecho → cabeza → pecho) manteniéndola ligera arriba.",
+    it: "Lascia scorrere la voce nel passaggio (petto → testa → petto) restando leggero in alto.",
+    pl: "Pozwól głosowi płynnie przejść przez passaggio (pierś → głowa → pierś) — lekko w górze.",
+    uk: "Проведи голос плавно крізь перехід (груди → голова → груди), залишаючись легким угорі.",
+    ur: "آواز کو سینے سے سر اور واپس سینے تک ہموار پھسلائیں — اوپر ہلکے رہیں۔"
+  },
+  "Sirenen-Welle (Achterbahn)": {
+    fr: "Vague sirène (montagnes russes)",
+    es: "Onda sirena (montaña rusa)",
+    it: "Onda sirena (montagne russe)",
+    pl: "Fala syreny (kolejka górska)",
+    uk: "Хвиля сирени (американські гірки)",
+    ur: "سائرن کی ڈبل لہر"
+  },
+  "Wuu ↗ ↘ ↗ ↘": {
+    fr: "Ouu ↗ ↘ ↗ ↘",
+    es: "Uuu ↗ ↘ ↗ ↘",
+    it: "Uuu ↗ ↘ ↗ ↘",
+    pl: "Uuu ↗ ↘ ↗ ↘",
+    uk: "Ууу ↗ ↘ ↗ ↘",
+    ur: "Woo ↗ ↘ ↗ ↘"
+  },
+  "Folge dem Leuchtpunkt geschmeidig über beide Gipfel – ideal für flexible Stimmführung durch alle Register.": {
+    fr: "Suis le point lumineux avec souplesse sur les deux sommets — idéal pour la flexibilité vocale.",
+    es: "Sigue el punto luminoso por ambas cimas — ideal para ganar flexibilidad entre registros.",
+    it: "Segui il punto luminoso con morbidezza su entrambe le vette — ideale per la flessibilità vocale.",
+    pl: "Podążaj miękko za świecącym punktem przez oba szczyty — świetne na elastyczność głosu.",
+    uk: "Плавно йди за світлою точкою через обидві вершини — чудово для гнучкості голосу.",
+    ur: "چمکتے نقطے کے ساتھ دونوں چوٹیوں پر نرمی سے چلیں — آواز میں لچک پیدا ہوتی ہے۔"
   }
 });

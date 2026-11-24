@@ -2250,15 +2250,15 @@ const CATEGORY_HELP_GUIDES = {
   },
   warmup: {
     tagClass: "tag-sage",
-    tag: "Anleitung • Einsing-Helfer",
-    title: "So funktioniert das geführte Einsingen",
-    lead: "Ideal für Chorprobe, Einzelunterricht oder vor dem Üben: Wähle zunächst einen von 5 Stimmumfängen (SATB) und starte eines von 5 strukturierten Programmen – komplett mit Atem-Kugel, Live-Klaviatur und Halbton-Steuerung.",
+    tag: "Anleitung • Singen",
+    title: "So funktioniert das Singen- & Stimmtraining",
+    lead: "Ideal für Chorprobe, Einzelunterricht oder vor dem Üben: Wähle zunächst einen von 5 Stimmumfängen (SATB) und starte eines von 7 strukturierten Programmen – von intensiven Atemübungen und stufenlosen Sirenen bis zu Tonleitern, Arpeggios und Chorklang.",
     sections: `
-      <h3>Die 5 Warmup-Programme &amp; 4 Phasen</h3>
+      <h3>Die 7 Programme &amp; 4 Phasen</h3>
       <ul class="article-steps-list">
-        <li><strong>5 Programme zur Wahl:</strong> Starte je nach Zeit und Ziel das <strong>5-Minuten Komplett-Einsingen</strong> (alle 4 Phasen, 11 Übungen inkl. Dur- &amp; Moll-Tonleitern), das <strong>Kompakt-Warmup (ca. 3 Min.)</strong> für den schnellen Unterrichtsstart, <strong>Tonleitern (Dur &amp; Moll)</strong>, das <strong>Arpeggio &amp; Register-Training</strong> oder <strong>Chor-Atem &amp; Intonation</strong>.</li>
-        <li><strong>Phase 1 – Atem &amp; Körper:</strong> Die animierte Atemkugel auf <code>ffff / ssss</code> und leichte Zwerchfell-Impulse (<code>P – T – K</code>) wecken die Stütze ohne Druck auf den Stimmlippen.</li>
-        <li><strong>Phase 2 – Stimmsitz &amp; Resonanz:</strong> Sanftes Summen / Lippenflattern (<code>Mmm / Brrr</code>) und Seufzer-Abgänge über die Quinte öffnen weich den Resonanzraum.</li>
+        <li><strong>7 Programme zur Wahl:</strong> Starte je nach Zeit und Ziel das <strong>5-Minuten Komplett-Einsingen</strong>, das <strong>Kompakt-Warmup (ca. 3 Min.)</strong>, <strong>Atem &amp; Stütze intensiv</strong> (4–7–8 Entspannung, Farinelli-Atemleiter 4–10 s, langer Zisch-Ausatem bis 20 s &amp; Staccato-Stützstrom), <strong>Sirenen &amp; Register-Flow</strong> (stufenloses Gleiten mit Live-Kurve), <strong>Tonleitern (Dur &amp; Moll)</strong>, <strong>Arpeggio &amp; Register-Training</strong> oder <strong>Chor-Atem &amp; Intonation</strong>.</li>
+        <li><strong>Phase 1 – Atem &amp; Körper:</strong> Die animierte Atemkugel mit Live-Sekunden-Countdown führt dich sicher durch Bauchatmung, 4–7–8, Farinelli-Steigerung, Zisch-Ausdauer und Zwerchfell-Impulse.</li>
+        <li><strong>Phase 2 – Resonanz &amp; Sirenen:</strong> Sanftes Summen / Lippenflattern (<code>Mmm / Brrr</code>), stufenlose <strong>Sirenen-Kurven</strong> (Quinte, Oktave, Achterbahn-Welle) für geschmeidige Registerübergänge (Passaggio) und Seufzer-Abgänge öffnen weich den Resonanzraum.</li>
         <li><strong>Phase 3 &amp; 4 – Tonleitern, Arpeggios &amp; Chorklang:</strong> Ganze Oktav-Tonleitern in <strong>Dur sowie natürlichem, harmonischem &amp; melodischem Moll</strong> und Dreiklangs-/Oktav-Arpeggios modulieren in Halbtonschritten passend für <strong>Chor-Mitte, Sopran, Alt, Tenor oder Bass</strong>, gefolgt von Vokal-Wandern (<code>U → O → A → E → I</code>) und einem schichtweisen SATB-Schlussakkord.</li>
       </ul>
 
@@ -2812,7 +2812,7 @@ function renderVocalsReferenceHTML() {
       <div class="k-btn-row">
         <button class="btn-tool" data-play-inst="true" data-style="choir" data-notes="C3,G3,E4,C5" data-dur="1.4" data-step="460">▶ Stimmaufbau (Bass → Sopran)</button>
         <button class="btn-tool" data-play-inst="true" data-style="choir" data-notes="C3,G3,E4,C5" data-dur="2.4" data-step="0">▶ Voller SATB-Chorklang</button>
-        <button class="btn-tool" data-open-warmup="true">▶ 5-Min.-Einsing-Helfer öffnen</button>
+        <button class="btn-tool" data-open-warmup="true">▶ Modul „Singen“ öffnen</button>
       </div>
     </article>
   `;

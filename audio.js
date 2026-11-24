@@ -2396,6 +2396,117 @@ class AudioEngine {
   }
 
   /**
+   * Spielt einen warmen, stufenlosen Vokal-Glide (Sirenenübung) entlang gegebener Waypoints.
+   * waypoints: [{ tFrac: 0..1, midi: number }, ...]
+   */
+  playWarmupSirenGlide(waypoints, durationSec = 4.2, options = {}) {
+    if (!this.isInitialized || !this.masterGain || !this.rawCtx) return;
+    if (!Array.isArray(waypoints) || waypoints.length < 2) return;
+
+    const rawCtx = this.rawCtx;
+    const dur = Math.max(0.8, Number(durationSec) || 4.2);
+    const startAt = Number.isFinite(options.atTime)
+      ? Math.max((rawCtx.currentTime || 0) + 0.02, options.atTime)
+      : ((rawCtx.currentTime || 0) + 0.03);
+    const endAt = startAt + dur;
+
+    const evalMidiAt = (frac) => {
+      const f = Math.max(0, Math.min(1, frac));
+      for (let i = 0; i < waypoints.length - 1; i++) {
+        const a = waypoints[i];
+        const b = waypoints[i + 1];
+        if (f <= b.tFrac || i === waypoints.length - 2) {
+          const span = Math.max(0.0001, b.tFrac - a.tFrac);
+          const u = Math.max(0, Math.min(1, (f - a.tFrac) / span));
+          // Weiche S-Kurve an Gipfel- und Talpunkten
+          const ease = 0.5 - 0.5 * Math.cos(Math.PI * u);
+          return a.midi + (b.midi - a.midi) * ease;
+        }
+      }
+      return waypoints[waypoints.length - 1].midi;
+    };
+
+    const midiToHz = (m) => 440 * Math.pow(2, (m - 69) / 12);
+    const sampleSteps = 32;
+    const startHz = Math.max(60, midiToHz(evalMidiAt(0)));
+
+    const filter = rawCtx.createBiquadFilter();
+    filter.type = "lowpass";
+    filter.Q.value = 0.75;
+    filter.frequency.setValueAtTime(Math.min(2200, Math.max(360, startHz * 2.9)), startAt);
+
+    const envGain = rawCtx.createGain();
+    const peakGain = 0.28;
+    const attackSec = Math.min(0.28, dur * 0.12);
+    const releaseSec = Math.min(0.35, dur * 0.14);
+    envGain.gain.setValueAtTime(0.0001, startAt);
+    envGain.gain.linearRampToValueAtTime(peakGain, startAt + attackSec);
+    envGain.gain.setValueAtTime(peakGain * 0.94, Math.max(startAt + attackSec + 0.02, endAt - releaseSec));
+    envGain.gain.linearRampToValueAtTime(0.0001, Math.max(startAt + attackSec + 0.04, endAt - 0.01));
+    envGain.gain.linearRampToValueAtTime(0, endAt);
+
+    filter.connect(envGain);
+    envGain.connect(this.masterGain);
+
+    let reverbSendGain = null;
+    const wetMix = Number.isFinite(this.instrumentReverbMix?.voice)
+      ? Math.max(0.10, Math.min(0.32, this.instrumentReverbMix.voice * 0.72))
+      : 0.22;
+    if (this.pianoReverbDamp && wetMix > 0.005) {
+      reverbSendGain = rawCtx.createGain();
+      reverbSendGain.gain.value = wetMix;
+      envGain.connect(reverbSendGain);
+      reverbSendGain.connect(this.pianoReverbDamp);
+    }
+
+    const oscSpecs = [
+      { type: "sine", mult: 1.0, gain: 0.64 },
+      { type: "triangle", mult: 0.999, gain: 0.20 },
+      { type: "sine", mult: 2.0, gain: 0.14 }
+    ];
+    const stopNodes = [];
+    const cleanupNodes = [filter, envGain];
+    if (reverbSendGain) cleanupNodes.push(reverbSendGain);
+
+    oscSpecs.forEach(spec => {
+      const osc = rawCtx.createOscillator();
+      osc.type = spec.type;
+      osc.frequency.setValueAtTime(startHz * spec.mult, startAt);
+      for (let s = 1; s <= sampleSteps; s++) {
+        const frac = s / sampleSteps;
+        const t = startAt + frac * dur;
+        const hz = Math.max(55, midiToHz(evalMidiAt(frac)));
+        osc.frequency.exponentialRampToValueAtTime(hz * spec.mult, t);
+        if (spec.mult === 1.0) {
+          filter.frequency.exponentialRampToValueAtTime(Math.min(2400, Math.max(360, hz * 2.9)), t);
+        }
+      }
+      const layerGain = rawCtx.createGain();
+      layerGain.gain.value = spec.gain;
+      osc.connect(layerGain);
+      layerGain.connect(filter);
+      stopNodes.push(osc);
+      cleanupNodes.push(osc, layerGain);
+    });
+
+    const breathVoice = { rawCtx, envGain, stopNodes, cleanupNodes, stopped: false, cleanupTimer: null };
+    const entry = { breathVoice };
+    this.activeDemoNodes.push(entry);
+
+    stopNodes.forEach(osc => {
+      osc.start(startAt);
+      osc.stop(endAt + 0.05);
+    });
+
+    breathVoice.cleanupTimer = setTimeout(() => {
+      if (breathVoice.stopped) return;
+      breathVoice.stopped = true;
+      cleanupNodes.forEach(node => { try { node.disconnect(); } catch (_) {} });
+      this.activeDemoNodes = this.activeDemoNodes.filter(item => item !== entry);
+    }, (Math.max(0, endAt - (rawCtx.currentTime || 0)) + 0.35) * 1000);
+  }
+
+  /**
    * Spielt eine weiche Streicher-Grundtonfläche ab und lässt nach definierter Verzögerung
    * den gesuchten Intervallton auf dem Klavier darüber erklingen.
    */

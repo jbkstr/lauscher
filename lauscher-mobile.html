@@ -7886,12 +7886,14 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 
 .warmup-breath-orb {
-  width: 72px;
-  height: 72px;
+  width: 74px;
+  height: 74px;
   border-radius: 50%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 0.08rem;
   text-align: center;
   padding: 0.25rem;
   background-color: var(--sage-soft);
@@ -7906,7 +7908,7 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   width: 102px;
   height: 102px;
   background-color: var(--sage);
-  transition-duration: 3.8s, 3.8s, 0.4s, 0.4s;
+  transition-duration: var(--breath-dur, 3.8s), var(--breath-dur, 3.8s), 0.4s, 0.4s;
   transition-timing-function: ease-in-out, ease-in-out, ease, ease;
 }
 
@@ -7919,17 +7921,17 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 
 .warmup-breath-orb.is-exhale {
-  width: 64px;
-  height: 64px;
+  width: 66px;
+  height: 66px;
   background-color: var(--sage-soft);
   border-color: var(--sage-strong);
-  transition-duration: 4.8s, 4.8s, 0.4s, 0.4s;
+  transition-duration: var(--breath-dur, 4.8s), var(--breath-dur, 4.8s), 0.4s, 0.4s;
   transition-timing-function: ease-in-out, ease-in-out, ease, ease;
 }
 
 .warmup-breath-orb.is-rest {
-  width: 72px;
-  height: 72px;
+  width: 74px;
+  height: 74px;
   background-color: var(--sage-soft);
   border-color: var(--sage);
   transition-duration: 1.0s;
@@ -7944,13 +7946,52 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 
 .warmup-breath-cue {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 800;
   color: var(--raccoon-dark);
-  line-height: 1.12;
+  line-height: 1.1;
   background: transparent;
   border: none;
   pointer-events: none;
+}
+
+.warmup-breath-timer {
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: var(--raccoon-muted);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* Live-Kurve für Sirenenübungen (#warmupSirenWrap) */
+.warmup-siren-wrap {
+  width: 100%;
+  max-width: 296px;
+  margin: 0.08rem auto 0.04rem;
+  padding: 0.18rem 0.28rem;
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--lilac-strong) 7%, var(--surface-white));
+  border: 1.5px solid color-mix(in srgb, var(--lilac-strong) 24%, var(--border-soft));
+  color: var(--raccoon-dark);
+  flex-shrink: 0;
+}
+
+.warmup-siren-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 82px;
+}
+
+.warmup-stage-card.is-siren-step .warmup-mascot {
+  display: none;
+}
+
+@media (max-height: 700px) {
+  .warmup-siren-svg {
+    max-height: 66px;
+  }
 }
 
 .warmup-keyboard-wrap {
@@ -14339,6 +14380,31 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   opacity: 0.35;
 }
 
+.fb-string-vibe-svg {
+  position: absolute;
+  left: 58px;
+  right: 0;
+  top: 0;
+  width: calc(100% - 58px);
+  height: 34px;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
+  color: var(--fb-string-color);
+}
+
+.fb-string-vibe-svg.is-wound {
+  color: var(--fb-string-wound);
+}
+
+.fb-string-vibe-halo {
+  color: var(--peach-strong);
+}
+
+.fb-string-vibe-core {
+  filter: drop-shadow(0 0 2px color-mix(in srgb, var(--peach-strong) 42%, transparent));
+}
+
 /* Sattel-Spalte (sticky links) */
 .fb-nut-cell {
   width: 58px;
@@ -17352,8 +17418,8 @@ const LAUSCHER_MASCOT_METAL_VARIANTS = {
             </svg>
           </div>
           <div class="cat-text-box">
-            <h3 data-i18n="home.catWarmup">Einsing-Helfer</h3>
-            <p data-i18n="home.catWarmupDesc">5-Minuten-Warmup: Atem, Summen, Arpeggios &amp; Chorklang</p>
+            <h3 data-i18n="home.catWarmup">Singen</h3>
+            <p data-i18n="home.catWarmupDesc">Atem, Sirenen, Einsingen, Tonleitern &amp; Chorklang</p>
           </div>
           <span class="cat-chevron">›</span>
         </button>
@@ -18642,8 +18708,11 @@ const LAUSCHER_MASCOT_METAL_VARIANTS = {
           <div id="warmupBreathOrbWrap" class="warmup-breath-orb-wrap hidden">
             <div id="warmupBreathOrb" class="warmup-breath-orb">
               <span id="warmupBreathCue" class="warmup-breath-cue">Einatmen</span>
+              <span id="warmupBreathTimer" class="warmup-breath-timer hidden"></span>
             </div>
           </div>
+
+          <div id="warmupSirenWrap" class="warmup-siren-wrap hidden" dir="ltr"></div>
 
           <h2 id="warmupStepTitle" class="warmup-step-title">Bauchatmung auf „ffff / ssss“</h2>
           <div id="warmupSyllableMain" class="warmup-syllable-main">ffff · ssss</div>
@@ -18676,7 +18745,7 @@ const LAUSCHER_MASCOT_METAL_VARIANTS = {
               <polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/>
             </svg>
           </button>
-          <button id="warmupPlayBtn" class="dock-action-btn" type="button" data-i18n="warmup.startBtn">▶ Einsingen starten</button>
+          <button id="warmupPlayBtn" class="dock-action-btn" type="button" data-i18n="warmup.startBtn">▶ Singen starten</button>
           <button id="warmupNextBtn" class="dock-icon-btn" type="button" title="Nächste Übung" aria-label="Nächste Übung" data-i18n-title="warmup.nextTitle" data-i18n-aria="warmup.nextTitle">
             <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
               <polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/>
@@ -22199,6 +22268,117 @@ class AudioEngine {
   }
 
   /**
+   * Spielt einen warmen, stufenlosen Vokal-Glide (Sirenenübung) entlang gegebener Waypoints.
+   * waypoints: [{ tFrac: 0..1, midi: number }, ...]
+   */
+  playWarmupSirenGlide(waypoints, durationSec = 4.2, options = {}) {
+    if (!this.isInitialized || !this.masterGain || !this.rawCtx) return;
+    if (!Array.isArray(waypoints) || waypoints.length < 2) return;
+
+    const rawCtx = this.rawCtx;
+    const dur = Math.max(0.8, Number(durationSec) || 4.2);
+    const startAt = Number.isFinite(options.atTime)
+      ? Math.max((rawCtx.currentTime || 0) + 0.02, options.atTime)
+      : ((rawCtx.currentTime || 0) + 0.03);
+    const endAt = startAt + dur;
+
+    const evalMidiAt = (frac) => {
+      const f = Math.max(0, Math.min(1, frac));
+      for (let i = 0; i < waypoints.length - 1; i++) {
+        const a = waypoints[i];
+        const b = waypoints[i + 1];
+        if (f <= b.tFrac || i === waypoints.length - 2) {
+          const span = Math.max(0.0001, b.tFrac - a.tFrac);
+          const u = Math.max(0, Math.min(1, (f - a.tFrac) / span));
+          // Weiche S-Kurve an Gipfel- und Talpunkten
+          const ease = 0.5 - 0.5 * Math.cos(Math.PI * u);
+          return a.midi + (b.midi - a.midi) * ease;
+        }
+      }
+      return waypoints[waypoints.length - 1].midi;
+    };
+
+    const midiToHz = (m) => 440 * Math.pow(2, (m - 69) / 12);
+    const sampleSteps = 32;
+    const startHz = Math.max(60, midiToHz(evalMidiAt(0)));
+
+    const filter = rawCtx.createBiquadFilter();
+    filter.type = "lowpass";
+    filter.Q.value = 0.75;
+    filter.frequency.setValueAtTime(Math.min(2200, Math.max(360, startHz * 2.9)), startAt);
+
+    const envGain = rawCtx.createGain();
+    const peakGain = 0.28;
+    const attackSec = Math.min(0.28, dur * 0.12);
+    const releaseSec = Math.min(0.35, dur * 0.14);
+    envGain.gain.setValueAtTime(0.0001, startAt);
+    envGain.gain.linearRampToValueAtTime(peakGain, startAt + attackSec);
+    envGain.gain.setValueAtTime(peakGain * 0.94, Math.max(startAt + attackSec + 0.02, endAt - releaseSec));
+    envGain.gain.linearRampToValueAtTime(0.0001, Math.max(startAt + attackSec + 0.04, endAt - 0.01));
+    envGain.gain.linearRampToValueAtTime(0, endAt);
+
+    filter.connect(envGain);
+    envGain.connect(this.masterGain);
+
+    let reverbSendGain = null;
+    const wetMix = Number.isFinite(this.instrumentReverbMix?.voice)
+      ? Math.max(0.10, Math.min(0.32, this.instrumentReverbMix.voice * 0.72))
+      : 0.22;
+    if (this.pianoReverbDamp && wetMix > 0.005) {
+      reverbSendGain = rawCtx.createGain();
+      reverbSendGain.gain.value = wetMix;
+      envGain.connect(reverbSendGain);
+      reverbSendGain.connect(this.pianoReverbDamp);
+    }
+
+    const oscSpecs = [
+      { type: "sine", mult: 1.0, gain: 0.64 },
+      { type: "triangle", mult: 0.999, gain: 0.20 },
+      { type: "sine", mult: 2.0, gain: 0.14 }
+    ];
+    const stopNodes = [];
+    const cleanupNodes = [filter, envGain];
+    if (reverbSendGain) cleanupNodes.push(reverbSendGain);
+
+    oscSpecs.forEach(spec => {
+      const osc = rawCtx.createOscillator();
+      osc.type = spec.type;
+      osc.frequency.setValueAtTime(startHz * spec.mult, startAt);
+      for (let s = 1; s <= sampleSteps; s++) {
+        const frac = s / sampleSteps;
+        const t = startAt + frac * dur;
+        const hz = Math.max(55, midiToHz(evalMidiAt(frac)));
+        osc.frequency.exponentialRampToValueAtTime(hz * spec.mult, t);
+        if (spec.mult === 1.0) {
+          filter.frequency.exponentialRampToValueAtTime(Math.min(2400, Math.max(360, hz * 2.9)), t);
+        }
+      }
+      const layerGain = rawCtx.createGain();
+      layerGain.gain.value = spec.gain;
+      osc.connect(layerGain);
+      layerGain.connect(filter);
+      stopNodes.push(osc);
+      cleanupNodes.push(osc, layerGain);
+    });
+
+    const breathVoice = { rawCtx, envGain, stopNodes, cleanupNodes, stopped: false, cleanupTimer: null };
+    const entry = { breathVoice };
+    this.activeDemoNodes.push(entry);
+
+    stopNodes.forEach(osc => {
+      osc.start(startAt);
+      osc.stop(endAt + 0.05);
+    });
+
+    breathVoice.cleanupTimer = setTimeout(() => {
+      if (breathVoice.stopped) return;
+      breathVoice.stopped = true;
+      cleanupNodes.forEach(node => { try { node.disconnect(); } catch (_) {} });
+      this.activeDemoNodes = this.activeDemoNodes.filter(item => item !== entry);
+    }, (Math.max(0, endAt - (rawCtx.currentTime || 0)) + 0.35) * 1000);
+  }
+
+  /**
    * Spielt eine weiche Streicher-Grundtonfläche ab und lässt nach definierter Verzögerung
    * den gesuchten Intervallton auf dem Klavier darüber erklingen.
    */
@@ -24178,24 +24358,24 @@ registerColocatedStatic({
     ur: "آواز اور کورس"
   },
   "home.catWarmup": {
-    de: "Einsing-Helfer",
-    en: "Vocal Warmup",
-    fr: "Échauffement vocal",
-    es: "Calentamiento vocal",
-    it: "Riscaldamento vocale",
-    pl: "Rozgrzewka głosowa",
-    uk: "Розспівка",
-    ur: "ووکل وارم اپ"
+    de: "Singen",
+    en: "Singing",
+    fr: "Chant",
+    es: "Canto",
+    it: "Canto",
+    pl: "Śpiew",
+    uk: "Спів",
+    ur: "گانا"
   },
   "home.catWarmupDesc": {
-    de: "5-Minuten-Warmup: Atem, Summen, Arpeggios & Chorklang",
-    en: "5-min routine: breath, humming, arpeggios & choir blend",
-    fr: "Routine 5 min : souffle, bouche fermée, arpèges & fondu choral",
-    es: "Rutina de 5 min: respiración, boca cerrada, arpegios y empaste coral",
-    it: "Routine da 5 min: respiro, bocca chiusa, arpeggi e impasto corale",
-    pl: "5-min trening: oddech, mormorando, arpeggia i brzmienie chóru",
-    uk: "5-хв програма: дихання, гудіння, арпеджіо та хорове злиття",
-    ur: "5 منٹ کا معمول: سانس، گنگنانا، آرپیجیو اور کورس بلینڈ"
+    de: "Atem, Sirenen, Einsingen, Tonleitern & Chorklang",
+    en: "Breath, sirens, vocal warmups, scales & choir blend",
+    fr: "Souffle, sirènes, échauffement, gammes & fondu choral",
+    es: "Respiración, sirenas, calentamiento, escalas y coro",
+    it: "Respiro, sirene, riscaldamento, scale e impasto corale",
+    pl: "Oddech, syreny, rozgrzewka, skale i brzmienie chóru",
+    uk: "Дихання, сирени, розспівка, гами та хорове злиття",
+    ur: "سانس، سائرن، آواز کی تیاری، اسکیلز اور کورس"
   },
   "tools.metronomeTitle": {
     de: "Metronom",
@@ -26918,14 +27098,14 @@ registerColocatedStatic({
     ur: "پچھلی مشق"
   },
   "warmup.startBtn": {
-    de: "▶ Einsingen starten",
-    en: "▶ Start Warmup",
-    fr: "▶ Démarrer l’échauffement",
-    es: "▶ Iniciar el calentamiento",
-    it: "▶ Avvia riscaldamento",
-    pl: "▶ Rozpocznij rozgrzewkę",
-    uk: "▶ Почати розспівку",
-    ur: "▶ وارم اپ شروع کریں"
+    de: "▶ Singen starten",
+    en: "▶ Start Singing",
+    fr: "▶ Commencer à chanter",
+    es: "▶ Empezar a cantar",
+    it: "▶ Inizia a cantare",
+    pl: "▶ Rozpocznij śpiew",
+    uk: "▶ Почати спів",
+    ur: "▶ گانا شروع کریں"
   },
   "warmup.nextTitle": {
     de: "Nächste Übung",
@@ -46987,6 +47167,538 @@ registerColocatedPhrases({
     pl: "Historia, symbole studyjne, akordy łamane i przykłady audio",
     uk: "Історія, студійні символи, слеш-акорди й аудіоприклади",
     ur: "تاریخ، چارٹ علامات، سلیش کورڈز اور آڈیو مثالیں"
+  },
+  // ===== Singen: Umbenennung, intensive Atemübungen & Sirenen =====
+  "Singen": {
+    fr: "Chant",
+    es: "Canto",
+    it: "Canto",
+    pl: "Śpiew",
+    uk: "Спів",
+    ur: "گانا"
+  },
+  "Geführtes Atem-, Sirenen- & Stimmtraining mit Live-Kurve, Klavier-/Chor-Begleitung und Halbton-Steuerung": {
+    fr: "Entraînement guidé du souffle, des sirènes et de la voix avec courbe en direct, piano/chœur et demi-tons",
+    es: "Entrenamiento guiado de respiración, sirenas y voz con curva en vivo, piano/coro y semitonos",
+    it: "Allenamento guidato di respiro, sirene e voce con curva dal vivo, pianoforte/coro e semitoni",
+    pl: "Prowadzony trening oddechu, syren i głosu z krzywą na żywo, fortepianem/chórem i półtonami",
+    uk: "Кероване тренування дихання, сирен і голосу з живою кривою, фортепіано/хором і півтонами",
+    ur: "لائیو کرو، پیانو/کورس اور سیمی ٹون کنٹرول کے ساتھ سانس، سائرن اور آواز کی رہنمائی مشق"
+  },
+  "▶ Singen starten": {
+    fr: "▶ Commencer à chanter",
+    es: "▶ Empezar a cantar",
+    it: "▶ Inizia a cantare",
+    pl: "▶ Rozpocznij śpiew",
+    uk: "▶ Почати спів",
+    ur: "▶ گانا شروع کریں"
+  },
+  "Nochmal singen": {
+    fr: "Chanter encore",
+    es: "Cantar de nuevo",
+    it: "Canta ancora",
+    pl: "Zaśpiewaj ponownie",
+    uk: "Повторити спів",
+    ur: "دوبارہ گائیں"
+  },
+  "TRAINING ABGESCHLOSSEN": {
+    fr: "SÉANCE TERMINÉE",
+    es: "SESIÓN COMPLETADA",
+    it: "SESSIONE COMPLETATA",
+    pl: "TRENING ZAKOŃCZONY",
+    uk: "ТРЕНУВАННЯ ЗАВЕРШЕНО",
+    ur: "مشق مکمل ہو گئی"
+  },
+  "2 Sirenen": {
+    fr: "2 Sirènes",
+    es: "2 Sirenas",
+    it: "2 Sirene",
+    pl: "2 Syreny",
+    uk: "2 Сирени",
+    ur: "2 سائرن"
+  },
+  "PHASE 2 • SIRENEN & REGISTER-FLOW": {
+    fr: "PHASE 2 • SIRÈNES & FLUIDITÉ",
+    es: "FASE 2 • SIRENAS Y REGISTROS",
+    it: "FASE 2 • SIRENE E REGISTRI",
+    pl: "FAZA 2 • SYRENY I PŁYNNOŚĆ",
+    uk: "ФАЗА 2 • СИРЕНИ ТА РЕГІСТРИ",
+    ur: "مرحلہ 2 • سائرن اور رجسٹر فلو"
+  },
+  "Atem & Stütze intensiv": {
+    fr: "Souffle & soutien intensif",
+    es: "Respiración y apoyo intensivo",
+    it: "Respiro e sostegno intensivo",
+    pl: "Intensywny oddech i podparcie",
+    uk: "Інтенсивне дихання й опора",
+    ur: "گہری سانس اور سپورٹ مشق"
+  },
+  "4–7–8 Entspannung, Farinelli-Atemleiter (4–10 s), langer Zisch-Ausatem (bis 20 s) & Stützstrom-Drill": {
+    fr: "Relaxation 4–7–8, échelle de Farinelli (4–10 s), long souffle sifflé (jusqu’à 20 s) & impulsions soutenues",
+    es: "Relajación 4–7–8, escala Farinelli (4–10 s), exhalación sostenida (hasta 20 s) y pulsos de apoyo",
+    it: "Rilassamento 4–7–8, scala Farinelli (4–10 s), soffio lungo (fino a 20 s) e impulsi sostenuti",
+    pl: "Relaks 4–7–8, drabina Farinellego (4–10 s), długi wydech (do 20 s) i impulsy z podparciem",
+    uk: "Релакс 4–7–8, сходи Фарінеллі (4–10 с), довгий видих (до 20 с) та імпульси з опорою",
+    ur: "4–7–8 سکون، فارینیلی سیڑھی (4–10 سیکنڈ)، طویل سانس (20 سیکنڈ تک) اور سپورٹ مشق"
+  },
+  "Sirenen & Register-Flow": {
+    fr: "Sirènes & passage de registres",
+    es: "Sirenas y fluidez de registros",
+    it: "Sirene e fluidità di registro",
+    pl: "Syreny i płynność rejestrów",
+    uk: "Сирени й плавність регістрів",
+    ur: "سائرن اور رجسٹر فلو"
+  },
+  "Stufenloses Gleiten durch das Passaggio: Quinte-Sirene, Oktav-Sirene & Achterbahn-Welle mit Live-Kurve": {
+    fr: "Glissés continus à travers le passage : sirène de quinte, d’octave & vague double avec courbe en direct",
+    es: "Deslizamiento continuo por el passaggio: sirena de 5.ª, de octava y onda doble con curva en vivo",
+    it: "Scivolamento continuo nel passaggio: sirena di quinta, d’ottava e onda doppia con curva dal vivo",
+    pl: "Płynne przejście przez passaggio: syrena kwintowa, oktawowa i podwójna fala z krzywą na żywo",
+    uk: "Плавне ковзання крізь пасаджо: квінтова, октавна сирена та подвійна хвиля з живою кривою",
+    ur: "لائیو کرو کے ساتھ ہموار گلائیڈ: پانچویں سائرن، آکٹیو سائرن اور ڈبل لہر"
+  },
+  "4–7–8 Entspannungsatmung": {
+    fr: "Respiration relaxante 4–7–8",
+    es: "Respiración relajante 4–7–8",
+    it: "Respirazione rilassante 4–7–8",
+    pl: "Oddech relaksacyjny 4–7–8",
+    uk: "Розслаблювальне дихання 4–7–8",
+    ur: "4–7–8 پُرسکون سانس"
+  },
+  "4 Ein · 7 Halten · 8 Aus": {
+    fr: "4 Insp. · 7 Retenir · 8 Exp.",
+    es: "4 Inh. · 7 Mantener · 8 Exh.",
+    it: "4 Insp. · 7 Tratt. · 8 Esp.",
+    pl: "4 Wdech · 7 Wstrz. · 8 Wydech",
+    uk: "4 Вдих · 7 Пауза · 8 Видих",
+    ur: "4 اندر · 7 روکیں · 8 باہر"
+  },
+  "Beruhigt Puls und Hochatmung vor dem Singen: 4 s ruhig einatmen, 7 s locker halten, 8 s weich ausströmen.": {
+    fr: "Apaise le pouls et relâche les épaules : 4 s d’inspiration, 7 s de suspension douce, 8 s d’expiration.",
+    es: "Calma el pulso y la tensión alta: inhala 4 s, mantén suave 7 s y exhala despacio 8 s.",
+    it: "Calma il battito e la tensione: inspira 4 s, mantieni morbido 7 s, espira dolcemente 8 s.",
+    pl: "Wycisza puls i napięcie przed śpiewem: 4 s wdechu, 7 s spokojnego zatrzymania, 8 s wydechu.",
+    uk: "Заспокоює пульс і знімає затиск: 4 с вдих, 7 с легка затримка, 8 с плавний видих.",
+    ur: "گانے سے پہلے ذہن اور سینے کا تناؤ کم کریں: 4 سیکنڈ سانس لیں، 7 سیکنڈ روکیں، 8 سیکنڈ نرمی سے نکالیں۔"
+  },
+  "4 s ruhig durch die Nase in den Bauch": {
+    fr: "4 s calme par le nez vers le ventre",
+    es: "4 s inhalación tranquila hacia el abdomen",
+    it: "4 s inspira con calma verso l’addome",
+    pl: "4 s spokojny wdech nosem do brzucha",
+    uk: "4 с спокійний вдих у живіт",
+    ur: "4 سیکنڈ نرمی سے پیٹ تک سانس لیں"
+  },
+  "7 s weit und entspannt halten – kein Druck": {
+    fr: "7 s retenir souplement sans pression",
+    es: "7 s mantener amplio y sin tensión",
+    it: "7 s mantieni aperto senza tensione",
+    pl: "7 s utrzymaj szeroko i bez napięcia",
+    uk: "7 с утримуй широко й без тиску",
+    ur: "7 سیکنڈ بغیر کھنچاؤ کے آرام سے روکیں"
+  },
+  "8 s sanft und gleichmäßig auf ffff / ssss": {
+    fr: "8 s d’expiration douce et régulière sur ffff / ssss",
+    es: "8 s de exhalación suave y constante en ffff / ssss",
+    it: "8 s di espirazione morbida e costante su ffff / ssss",
+    pl: "8 s miękkiego, równego wydechu na ffff / ssss",
+    uk: "8 с м’якого рівного видиху на ffff / ssss",
+    ur: "8 سیکنڈ ffff / ssss پر نرمی سے یکساں سانس نکالیں"
+  },
+  "Schultern & Bauchdecke komplett lösen": {
+    fr: "Relâcher complètement épaules et ventre",
+    es: "Soltar por completo hombros y abdomen",
+    it: "Rilassa del tutto spalle e addome",
+    pl: "Całkowicie rozluźnij barki i brzuch",
+    uk: "Повністю розслаб плечі та живіт",
+    ur: "کندھوں اور پیٹ کو مکمل ڈھیلا چھوڑ دیں"
+  },
+  "Farinelli-Atemleiter": {
+    fr: "Échelle respiratoire de Farinelli",
+    es: "Escala respiratoria de Farinelli",
+    it: "Scala respiratoria di Farinelli",
+    pl: "Drabina oddechowa Farinellego",
+    uk: "Дихальні сходи Фарінеллі",
+    ur: "فارینیلی سانس کی سیڑھی"
+  },
+  "4 → 6 → 8 → 10 Sek.": {
+    fr: "4 → 6 → 8 → 10 s",
+    es: "4 → 6 → 8 → 10 s",
+    it: "4 → 6 → 8 → 10 s",
+    pl: "4 → 6 → 8 → 10 s",
+    uk: "4 → 6 → 8 → 10 с",
+    ur: "4 → 6 → 8 → 10 سیکنڈ"
+  },
+  "Klassische Sänger-Steigerung: Einatmen, Rippen offen halten und Ausströmen werden jede Runde 2 Sekunden länger.": {
+    fr: "Exercice classique des chanteurs : inspiration, suspension des côtes et expiration gagnent 2 s à chaque tour.",
+    es: "Clásico vocal: inhalar, mantener costillas abiertas y exhalar crecen 2 s en cada vuelta.",
+    it: "Classico del canto: inspirazione, sospensione delle costole ed espirazione crescono di 2 s a giro.",
+    pl: "Klasyczne ćwiczenie śpiewaków: wdech, otwarcie żeber i wydech rosną o 2 s w każdej rundzie.",
+    uk: "Класична вправа співаків: вдих, утримання ребер і видих щоразу зростають на 2 секунди.",
+    ur: "گلوکاروں کی کلاسیکی مشق: ہر راؤنڈ میں سانس لینا، روکنا اور نکالنا 2 سیکنڈ بڑھتا جاتا ہے۔"
+  },
+  "Stufe 4–4–4": { fr: "Palier 4–4–4", es: "Nivel 4–4–4", it: "Grado 4–4–4", pl: "Poziom 4–4–4", uk: "Етап 4–4–4", ur: "مرحلہ 4–4–4" },
+  "Stufe 6–6–6": { fr: "Palier 6–6–6", es: "Nivel 6–6–6", it: "Grado 6–6–6", pl: "Poziom 6–6–6", uk: "Етап 6–6–6", ur: "مرحلہ 6–6–6" },
+  "Stufe 8–8–8": { fr: "Palier 8–8–8", es: "Nivel 8–8–8", it: "Grado 8–8–8", pl: "Poziom 8–8–8", uk: "Етап 8–8–8", ur: "مرحلہ 8–8–8" },
+  "Stufe 10–10–10": { fr: "Palier 10–10–10", es: "Nivel 10–10–10", it: "Grado 10–10–10", pl: "Poziom 10–10–10", uk: "Етап 10–10–10", ur: "مرحلہ 10–10–10" },
+  "Weiten": { fr: "Suspendre", es: "Expandir", it: "Sospendi", pl: "Utrzymaj", uk: "Утримай", ur: "پھیلائیں" },
+  "4 s gleichmäßig bis in die Flanken einatmen": {
+    fr: "4 s d’inspiration régulière dans les flancs",
+    es: "4 s inhalando con calma hacia las costillas",
+    it: "4 s inspira regolarmente nei fianchi",
+    pl: "4 s równomierny wdech w boki żeber",
+    uk: "4 с рівномірний вдих у боки ребер",
+    ur: "4 سیکنڈ پسلیوں تک یکساں سانس بھریں"
+  },
+  "4 s Rippen weit & Kehlkopf offen halten": {
+    fr: "4 s garder les côtes larges et la gorge ouverte",
+    es: "4 s mantener costillas abiertas y garganta libre",
+    it: "4 s mantieni costole ampie e gola aperta",
+    pl: "4 s utrzymaj szerokie żebra i otwarte gardło",
+    uk: "4 с тримай ребра широко, горло вільне",
+    ur: "4 سیکنڈ پسلیاں کھلی اور گلا آزاد رکھیں"
+  },
+  "4 s ruhiger Luftstrom auf ssss": {
+    fr: "4 s de flux d’air régulier sur ssss",
+    es: "4 s de flujo de aire uniforme en ssss",
+    it: "4 s di flusso d’aria regolare su ssss",
+    pl: "4 s spokojnego strumienia na ssss",
+    uk: "4 с рівного потоку повітря на ssss",
+    ur: "4 سیکنڈ ssss پر پرسکون ہوا نکالیں"
+  },
+  "Kurz entspannen vor der nächsten Stufe": {
+    fr: "Relâcher brièvement avant le palier suivant",
+    es: "Relajar brevemente antes del siguiente nivel",
+    it: "Rilassa un attimo prima del grado successivo",
+    pl: "Krótki relaks przed kolejnym poziomem",
+    uk: "Коротке розслаблення перед наступним етапом",
+    ur: "اگلے مرحلے سے پہلے ذرا آرام کریں"
+  },
+  "6 s langsam und dosiert einfüllen": {
+    fr: "6 s d’inspiration lente et dosée",
+    es: "6 s llenando despacio y con control",
+    it: "6 s riempi lentamente e con misura",
+    pl: "6 s powolnego, dozowanego wdechu",
+    uk: "6 с повільного дозованого вдиху",
+    ur: "6 سیکنڈ آہستہ اور متوازن سانس بھریں"
+  },
+  "6 s ruhig aufgespannt bleiben": {
+    fr: "6 s rester ouvert et détendu",
+    es: "6 s permanecer expandido y sereno",
+    it: "6 s resta aperto con calma",
+    pl: "6 s pozostań spokojnie otwarty",
+    uk: "6 с спокійно зберігай об’єм",
+    ur: "6 سیکنڈ سکون سے کھلا رکھیں"
+  },
+  "6 s fein dosiert auf ssss ausströmen": {
+    fr: "6 s d’expiration contrôlée sur ssss",
+    es: "6 s de exhalación controlada en ssss",
+    it: "6 s di espirazione controllata su ssss",
+    pl: "6 s kontrolowanego wydechu na ssss",
+    uk: "6 с контрольованого видиху на ssss",
+    ur: "6 سیکنڈ ssss پر نپی تلی ہوا نکالیں"
+  },
+  "Bauchdecke weich fallen lassen": {
+    fr: "Laisser le ventre se relâcher doucement",
+    es: "Dejar que el abdomen se suavice",
+    it: "Lascia ammorbidire l’addome",
+    pl: "Rozluźnij miękko brzuch",
+    uk: "М’яко розслаб живіт",
+    ur: "پیٹ کو نرمی سے ڈھیلا چھوڑ دیں"
+  },
+  "8 s fein einteilen – nicht zu früh voll sein": {
+    fr: "8 s bien doser — ne pas remplir trop vite",
+    es: "8 s dosificar bien sin llenarse antes de tiempo",
+    it: "8 s dosa bene senza riempirti troppo presto",
+    pl: "8 s dobrze rozłóż wdech — nie nabieraj za szybko",
+    uk: "8 с розподіли вдих рівномірно — не поспішай",
+    ur: "8 سیکنڈ میں آہستہ بھریں — جلدی نہ بھریں"
+  },
+  "8 s offen halten ohne den Hals zu schließen": {
+    fr: "8 s maintenir ouvert sans fermer la gorge",
+    es: "8 s mantener abierto sin cerrar la garganta",
+    it: "8 s mantieni aperto senza chiudere la gola",
+    pl: "8 s utrzymaj otwarcie bez zaciskania gardła",
+    uk: "8 с тримай відкрито, не затискаючи горло",
+    ur: "8 سیکنڈ گلا بند کیے بغیر کھلا رکھیں"
+  },
+  "8 s konstanter Stützstrom auf ssss": {
+    fr: "8 s de soutien constant sur ssss",
+    es: "8 s de apoyo constante en ssss",
+    it: "8 s di sostegno costante su ssss",
+    pl: "8 s stałego strumienia podparcia na ssss",
+    uk: "8 с рівної опори на ssss",
+    ur: "8 سیکنڈ ssss پر مسلسل متوازن بہاؤ"
+  },
+  "Kurz nachatmen für die Finalrunde": {
+    fr: "Respirer librement avant le dernier tour",
+    es: "Respira libre antes de la última ronda",
+    it: "Respira libero prima dell’ultimo giro",
+    pl: "Krótki oddech przed finałową rundą",
+    uk: "Короткий перепочинок перед фіналом",
+    ur: "آخری راؤنڈ کے لیے تازہ دم ہوں"
+  },
+  "10 s ultraruhig bis in Rücken & Flanken": {
+    fr: "10 s très calme jusque dans le dos et les flancs",
+    es: "10 s muy calmo hacia costillas y espalda",
+    it: "10 s calmissimo fino ai fianchi e alla schiena",
+    pl: "10 s bardzo spokojnie aż w boki i plecy",
+    uk: "10 с надспокійно у спину й боки",
+    ur: "10 سیکنڈ نہایت پرسکون انداز میں پیٹھ اور پہلوؤں تک بھریں"
+  },
+  "10 s Weite halten – Gesicht bleibt weich": {
+    fr: "10 s garder l’espace — visage détendu",
+    es: "10 s mantener amplitud con rostro relajado",
+    it: "10 s mantieni l’ampiezza con viso morbido",
+    pl: "10 s utrzymaj szerokość — twarz rozluźniona",
+    uk: "10 с тримай широту — обличчя м’яке",
+    ur: "10 سیکنڈ کشادگی برقرار رکھیں — چہرہ نرم رہے"
+  },
+  "10 s gleichmäßig bis zum letzten Moment": {
+    fr: "10 s régulier jusqu’à la dernière seconde",
+    es: "10 s parejo hasta el último instante",
+    it: "10 s costante fino all’ultimo istante",
+    pl: "10 s równo aż do samej końcówki",
+    uk: "10 с рівномірно до останньої миті",
+    ur: "10 سیکنڈ آخری لمحے تک یکساں نکالیں"
+  },
+  "Stark! Tief durchatmen und lösen": {
+    fr: "Bravo ! Respire librement et relâche",
+    es: "¡Genial! Respira natural y suelta",
+    it: "Ottimo! Respira libero e rilassa",
+    pl: "Świetnie! Oddychaj swobodnie i rozluźnij się",
+    uk: "Чудово! Вільно подихай і розслабся",
+    ur: "شاندار! قدرتی سانس لیں اور ڈھیلا چھوڑ دیں"
+  },
+  "Langer Zisch-Ausatem (Stütze)": {
+    fr: "Long souffle sifflé (soutien)",
+    es: "Exhalación siseada larga (apoyo)",
+    it: "Soffio lungo sibilato (sostegno)",
+    pl: "Długi wydech na „ssss” (podparcie)",
+    uk: "Довгий видих на «ssss» (опора)",
+    ur: "طویل سانس کی برداشت (سپورٹ)"
+  },
+  "8 → 12 → 16 → 20 Sek.": {
+    fr: "8 → 12 → 16 → 20 s",
+    es: "8 → 12 → 16 → 20 s",
+    it: "8 → 12 → 16 → 20 s",
+    pl: "8 → 12 → 16 → 20 s",
+    uk: "8 → 12 → 16 → 20 с",
+    ur: "8 → 12 → 16 → 20 سیکنڈ"
+  },
+  "Kurz und reflexartig einatmen (2 s), dann auf „ssss“ möglichst lange und gleichmäßig ohne Druckverlust ausströmen.": {
+    fr: "Inspiration courte et réflexe (2 s), puis souffle long et constant sur « ssss » sans faiblir.",
+    es: "Inhala rápido y relajado (2 s), luego mantén un «ssss» largo y parejo sin perder apoyo.",
+    it: "Inspira rapido e morbido (2 s), poi sostieni un «ssss» lungo e uniforme senza cedere.",
+    pl: "Krótki, naturalny wdech (2 s), a potem jak najdłuższy, równy strumień „ssss” bez spadku podparcia.",
+    uk: "Короткий природний вдих (2 с), а потім якомога довший рівний видих на «ssss» без просідання.",
+    ur: "2 سیکنڈ میں ہلکی سانس لیں، پھر ’ssss‘ پر طویل اور یکساں بہاؤ برقرار رکھیں۔"
+  },
+  "Ausdauer 8 s": { fr: "Endurance 8 s", es: "Resistencia 8 s", it: "Tenuta 8 s", pl: "Wytrzymałość 8 s", uk: "Витримка 8 с", ur: "برداشت 8 سیکنڈ" },
+  "Ausdauer 12 s": { fr: "Endurance 12 s", es: "Resistencia 12 s", it: "Tenuta 12 s", pl: "Wytrzymałość 12 s", uk: "Витримка 12 с", ur: "برداشت 12 سیکنڈ" },
+  "Ausdauer 16 s": { fr: "Endurance 16 s", es: "Resistencia 16 s", it: "Tenuta 16 s", pl: "Wytrzymałość 16 s", uk: "Витримка 16 с", ur: "برداشت 16 سیکنڈ" },
+  "Ausdauer 20 s": { fr: "Endurance 20 s", es: "Resistencia 20 s", it: "Tenuta 20 s", pl: "Wytrzymałość 20 s", uk: "Витримка 20 с", ur: "برداشت 20 سیکنڈ" },
+  "Einfallen": { fr: "Laisser entrer", es: "Tomar aire", it: "Lascia entrare", pl: "Wdech", uk: "Вдих", ur: "سانس لیں" },
+  "ssss…": { fr: "ssss…", es: "ssss…", it: "ssss…", pl: "ssss…", uk: "ssss…", ur: "ssss…" },
+  "2 s entspannt tief einfallen lassen": {
+    fr: "2 s laisser l’air descendre sans effort",
+    es: "2 s dejar entrar el aire profundo y suelto",
+    it: "2 s lascia scendere l’aria senza sforzo",
+    pl: "2 s pozwól powietrzu swobodnie opaść w dół",
+    uk: "2 с дозволь повітрю вільно опуститися вниз",
+    ur: "2 سیکنڈ میں ہوا کو قدرتی طور پر اندر آنے دیں"
+  },
+  "8 s völlig gleichmäßiger Luftstrom auf ssss": {
+    fr: "8 s de flux parfaitement régulier sur ssss",
+    es: "8 s de chorro completamente parejo en ssss",
+    it: "8 s di soffio perfettamente uniforme su ssss",
+    pl: "8 s idealnie równego strumienia na ssss",
+    uk: "8 с абсолютно рівного потоку на ssss",
+    ur: "8 سیکنڈ ssss پر بالکل یکساں بہاؤ"
+  },
+  "Bauchdecke lösen – Luft strömt von selbst nach": {
+    fr: "Relâcher le ventre — l’air revient tout seul",
+    es: "Soltar el abdomen — el aire entra solo",
+    it: "Rilassa l’addome — l’aria rientra da sola",
+    pl: "Puść brzuch — powietrze wróci samo",
+    uk: "Відпусти живіт — повітря зайде саме",
+    ur: "پیٹ ڈھیلا چھوڑیں — ہوا خود بخود اندر آئے گی"
+  },
+  "2 s locker in die Flanken einatmen": {
+    fr: "2 s d’inspiration souple dans les côtes",
+    es: "2 s inhalación fácil hacia los costados",
+    it: "2 s inspira morbido nei fianchi",
+    pl: "2 s swobodny wdech w boki żeber",
+    uk: "2 с легкий вдих у ребра",
+    ur: "2 سیکنڈ پسلیوں میں ہلکی سانس لیں"
+  },
+  "12 s schmal & sparsam dosieren – Rippen weit": {
+    fr: "12 s flux fin et économe — côtes ouvertes",
+    es: "12 s chorro fino y constante — costillas amplias",
+    it: "12 s filo d’aria sottile — costole aperte",
+    pl: "12 s wąski, oszczędny strumień — żebra szeroko",
+    uk: "12 с тонкий економний потік — ребра широко",
+    ur: "12 سیکنڈ باریک اور متوازن بہاؤ — پسلیاں کھلی"
+  },
+  "Kurz entspannen vor 16 Sekunden": {
+    fr: "Relâcher un instant avant les 16 secondes",
+    es: "Relaja brevemente antes de los 16 segundos",
+    it: "Rilassa un attimo prima dei 16 secondi",
+    pl: "Krótki odpoczynek przed 16 sekundami",
+    uk: "Короткий перепочинок перед 16 секундами",
+    ur: "16 سیکنڈ سے پہلے ذرا آرام کریں"
+  },
+  "2 s tief und geräuschlos einatmen": {
+    fr: "2 s d’inspiration profonde et silencieuse",
+    es: "2 s inhalación profunda y silenciosa",
+    it: "2 s inspira profondo e silenzioso",
+    pl: "2 s głęboki, bezgłośny wdech",
+    uk: "2 с глибокий безшумний вдих",
+    ur: "2 سیکنڈ گہری اور خاموش سانس لیں"
+  },
+  "16 s halten: feiner Strahl, nicht verschenken": {
+    fr: "16 s tenir : filet fin sans gaspiller l’air",
+    es: "16 s sostener: chorro fino sin desperdiciar aire",
+    it: "16 s tieni un filo d’aria sottile senza sprechi",
+    pl: "16 s utrzymaj cienki strumień, nie marnuj powietrza",
+    uk: "16 с тримай тонкий потік, не витрачай зайвого",
+    ur: "16 سیکنڈ باریک دھار قائم رکھیں، ہوا ضائع نہ کریں"
+  },
+  "Schultern lockern für die 20-s-Runde": {
+    fr: "Détendre les épaules pour le tour de 20 s",
+    es: "Suelta los hombros para la ronda de 20 s",
+    it: "Sciogli le spalle per il giro da 20 s",
+    pl: "Rozluźnij barki przed rundą 20 s",
+    uk: "Розслаб плечі перед раундом 20 с",
+    ur: "20 سیکنڈ کے راؤنڈ کے لیے کندھے ڈھیلے کریں"
+  },
+  "2,5 s tief & weit einatmen": {
+    fr: "2,5 s d’inspiration profonde et ample",
+    es: "2,5 s inhalación profunda y amplia",
+    it: "2,5 s inspira profondo e ampio",
+    pl: "2,5 s głęboki, szeroki wdech",
+    uk: "2,5 с глибокий широкий вдих",
+    ur: "2.5 سیکنڈ گہری اور کشادہ سانس لیں"
+  },
+  "20 s Königsklasse: ruhig & gleichmäßig halten": {
+    fr: "20 s maîtrise : garder un souffle calme et stable",
+    es: "20 s resistencia: mantener firme y sereno",
+    it: "20 s tenuta finale: resta calmo e regolare",
+    pl: "20 s wytrzymałości: spokojnie i równo do końca",
+    uk: "20 с витримки: спокійно й рівно до кінця",
+    ur: "20 سیکنڈ برداشت: آخر تک پُرسکون اور یکساں رکھیں"
+  },
+  "Hervorragend! Frei weiteratmen": {
+    fr: "Excellent ! Respire librement",
+    es: "¡Excelente! Respira con libertad",
+    it: "Eccellente! Respira liberamente",
+    pl: "Znakomicie! Oddychaj swobodnie",
+    uk: "Чудово! Дихай вільно",
+    ur: "زبردست! اب آزادانہ سانس لیں"
+  },
+  "Staccato- & Stützstrom-Wechsel": {
+    fr: "Impulsions staccato & flux soutenu",
+    es: "Staccato y flujo de apoyo",
+    it: "Staccato e flusso sostenuto",
+    pl: "Staccato i długie podparcie",
+    uk: "Стакато й опора потоку",
+    ur: "اسٹاکاٹو اور مسلسل سپورٹ"
+  },
+  "F – F – F – F – FFFFF!": {
+    fr: "F – F – F – F – FFFFF !",
+    es: "F – F – F – F – FFFFF!",
+    it: "F – F – F – F – FFFFF!",
+    pl: "F – F – F – F – FFFFF!",
+    uk: "F – F – F – F – FFFFF!",
+    ur: "F – F – F – F – FFFFF!"
+  },
+  "4 knackige Zwerchfell-Stöße direkt in einen stabil gehaltenen Ausatem überführen – ohne zwischendurch abzusetzen.": {
+    fr: "Enchaîne 4 impulsions nettes directement dans une expiration soutenue, sans couper le souffle.",
+    es: "Encadena 4 impulsos firmes directo a una exhalación sostenida sin cortar el aire.",
+    it: "Collega 4 impulsi netti direttamente a un’espirazione sostenuta senza interrompere il flusso.",
+    pl: "Połącz 4 sprężyste impulsy przepony prosto w stabilny długi wydech bez przerwy.",
+    uk: "Переведи 4 пружні поштовхи діафрагми прямо в рівний довгий видих без зупинки.",
+    ur: "بغیر رکے 4 تیز جھٹکوں کو سیدھا ایک طویل اور مستحکم سانس میں بدل دیں۔"
+  },
+  "Halten: FFF!": {
+    fr: "Tenir : FFF !",
+    es: "Sostener: ¡FFF!",
+    it: "Tieni: FFF!",
+    pl: "Trzymaj: FFF!",
+    uk: "Тримай: FFF!",
+    ur: "روک کر نکالیں: FFF!"
+  },
+  "Sanfte Quinte-Sirene": {
+    fr: "Sirène douce de quinte",
+    es: "Sirena suave de quinta",
+    it: "Sirena morbida di quinta",
+    pl: "Łagodna syrena kwintowa",
+    uk: "М’яка квінтова сирена",
+    ur: "نرم پانچویں سائرن"
+  },
+  "Ng / Brrrr / Wuu": {
+    fr: "Ng / Brrrr / Ouu",
+    es: "Ng / Brrrr / Uuu",
+    it: "Ng / Brrrr / Uuu",
+    pl: "Ng / Brrrr / Uuu",
+    uk: "Нг / Брррр / Ууу",
+    ur: "Ng / Brrrr / Woo"
+  },
+  "Stufenlos und weich wie eine Sirene nach oben und wieder zurück gleiten – keine Stufen, kein Druck!": {
+    fr: "Glisse doucement en continu vers le haut puis vers le bas comme une sirène — sans paliers ni pression !",
+    es: "Desliza con suavidad hacia arriba y abajo como una sirena — sin saltos ni tensión.",
+    it: "Scivola in modo continuo su e giù come una sirena — senza scalini né spinta!",
+    pl: "Płynnie ślizgaj się głosem w górę i w dół jak syrena — bez schodków i nacisku!",
+    uk: "Плавно ковзай голосом угору й униз, як сирена — без сходинок і тиску!",
+    ur: "سائرن کی طرح بغیر رکے نرمی سے اوپر اور نیچے پھسلیں — بغیر کسی دباؤ کے!"
+  },
+  "Oktav-Sirene (Passaggio)": {
+    fr: "Sirène d’octave (Passaggio)",
+    es: "Sirena de octava (Passaggio)",
+    it: "Sirena d’ottava (Passaggio)",
+    pl: "Syrena oktawowa (Passaggio)",
+    uk: "Октавна сирена (Пасаджо)",
+    ur: "آکٹیو سائرن (پاساجیو)"
+  },
+  "Ng / Wuu / Mmm": {
+    fr: "Ng / Ouu / Mmm",
+    es: "Ng / Uuu / Mmm",
+    it: "Ng / Uuu / Mmm",
+    pl: "Ng / Uuu / Mmm",
+    uk: "Нг / Ууу / Ммм",
+    ur: "Ng / Woo / Mmm"
+  },
+  "Lass die Stimme stufenlos durch den Registerübergang (Brust → Kopf → Brust) gleiten – oben schlank und leicht bleiben.": {
+    fr: "Laisse la voix glisser à travers le passage (poitrine → tête → poitrine) en restant légère dans l’aigu.",
+    es: "Deja que la voz cruce el passaggio (pecho → cabeza → pecho) manteniéndola ligera arriba.",
+    it: "Lascia scorrere la voce nel passaggio (petto → testa → petto) restando leggero in alto.",
+    pl: "Pozwól głosowi płynnie przejść przez passaggio (pierś → głowa → pierś) — lekko w górze.",
+    uk: "Проведи голос плавно крізь перехід (груди → голова → груди), залишаючись легким угорі.",
+    ur: "آواز کو سینے سے سر اور واپس سینے تک ہموار پھسلائیں — اوپر ہلکے رہیں۔"
+  },
+  "Sirenen-Welle (Achterbahn)": {
+    fr: "Vague sirène (montagnes russes)",
+    es: "Onda sirena (montaña rusa)",
+    it: "Onda sirena (montagne russe)",
+    pl: "Fala syreny (kolejka górska)",
+    uk: "Хвиля сирени (американські гірки)",
+    ur: "سائرن کی ڈبل لہر"
+  },
+  "Wuu ↗ ↘ ↗ ↘": {
+    fr: "Ouu ↗ ↘ ↗ ↘",
+    es: "Uuu ↗ ↘ ↗ ↘",
+    it: "Uuu ↗ ↘ ↗ ↘",
+    pl: "Uuu ↗ ↘ ↗ ↘",
+    uk: "Ууу ↗ ↘ ↗ ↘",
+    ur: "Woo ↗ ↘ ↗ ↘"
+  },
+  "Folge dem Leuchtpunkt geschmeidig über beide Gipfel – ideal für flexible Stimmführung durch alle Register.": {
+    fr: "Suis le point lumineux avec souplesse sur les deux sommets — idéal pour la flexibilité vocale.",
+    es: "Sigue el punto luminoso por ambas cimas — ideal para ganar flexibilidad entre registros.",
+    it: "Segui il punto luminoso con morbidezza su entrambe le vette — ideale per la flessibilità vocale.",
+    pl: "Podążaj miękko za świecącym punktem przez oba szczyty — świetne na elastyczność głosu.",
+    uk: "Плавно йди за світлою точкою через обидві вершини — чудово для гнучкості голосу.",
+    ur: "چمکتے نقطے کے ساتھ دونوں چوٹیوں پر نرمی سے چلیں — آواز میں لچک پیدا ہوتی ہے۔"
   }
 });
 
@@ -60512,15 +61224,15 @@ const CATEGORY_HELP_GUIDES = {
   },
   warmup: {
     tagClass: "tag-sage",
-    tag: "Anleitung • Einsing-Helfer",
-    title: "So funktioniert das geführte Einsingen",
-    lead: "Ideal für Chorprobe, Einzelunterricht oder vor dem Üben: Wähle zunächst einen von 5 Stimmumfängen (SATB) und starte eines von 5 strukturierten Programmen – komplett mit Atem-Kugel, Live-Klaviatur und Halbton-Steuerung.",
+    tag: "Anleitung • Singen",
+    title: "So funktioniert das Singen- & Stimmtraining",
+    lead: "Ideal für Chorprobe, Einzelunterricht oder vor dem Üben: Wähle zunächst einen von 5 Stimmumfängen (SATB) und starte eines von 7 strukturierten Programmen – von intensiven Atemübungen und stufenlosen Sirenen bis zu Tonleitern, Arpeggios und Chorklang.",
     sections: `
-      <h3>Die 5 Warmup-Programme &amp; 4 Phasen</h3>
+      <h3>Die 7 Programme &amp; 4 Phasen</h3>
       <ul class="article-steps-list">
-        <li><strong>5 Programme zur Wahl:</strong> Starte je nach Zeit und Ziel das <strong>5-Minuten Komplett-Einsingen</strong> (alle 4 Phasen, 11 Übungen inkl. Dur- &amp; Moll-Tonleitern), das <strong>Kompakt-Warmup (ca. 3 Min.)</strong> für den schnellen Unterrichtsstart, <strong>Tonleitern (Dur &amp; Moll)</strong>, das <strong>Arpeggio &amp; Register-Training</strong> oder <strong>Chor-Atem &amp; Intonation</strong>.</li>
-        <li><strong>Phase 1 – Atem &amp; Körper:</strong> Die animierte Atemkugel auf <code>ffff / ssss</code> und leichte Zwerchfell-Impulse (<code>P – T – K</code>) wecken die Stütze ohne Druck auf den Stimmlippen.</li>
-        <li><strong>Phase 2 – Stimmsitz &amp; Resonanz:</strong> Sanftes Summen / Lippenflattern (<code>Mmm / Brrr</code>) und Seufzer-Abgänge über die Quinte öffnen weich den Resonanzraum.</li>
+        <li><strong>7 Programme zur Wahl:</strong> Starte je nach Zeit und Ziel das <strong>5-Minuten Komplett-Einsingen</strong>, das <strong>Kompakt-Warmup (ca. 3 Min.)</strong>, <strong>Atem &amp; Stütze intensiv</strong> (4–7–8 Entspannung, Farinelli-Atemleiter 4–10 s, langer Zisch-Ausatem bis 20 s &amp; Staccato-Stützstrom), <strong>Sirenen &amp; Register-Flow</strong> (stufenloses Gleiten mit Live-Kurve), <strong>Tonleitern (Dur &amp; Moll)</strong>, <strong>Arpeggio &amp; Register-Training</strong> oder <strong>Chor-Atem &amp; Intonation</strong>.</li>
+        <li><strong>Phase 1 – Atem &amp; Körper:</strong> Die animierte Atemkugel mit Live-Sekunden-Countdown führt dich sicher durch Bauchatmung, 4–7–8, Farinelli-Steigerung, Zisch-Ausdauer und Zwerchfell-Impulse.</li>
+        <li><strong>Phase 2 – Resonanz &amp; Sirenen:</strong> Sanftes Summen / Lippenflattern (<code>Mmm / Brrr</code>), stufenlose <strong>Sirenen-Kurven</strong> (Quinte, Oktave, Achterbahn-Welle) für geschmeidige Registerübergänge (Passaggio) und Seufzer-Abgänge öffnen weich den Resonanzraum.</li>
         <li><strong>Phase 3 &amp; 4 – Tonleitern, Arpeggios &amp; Chorklang:</strong> Ganze Oktav-Tonleitern in <strong>Dur sowie natürlichem, harmonischem &amp; melodischem Moll</strong> und Dreiklangs-/Oktav-Arpeggios modulieren in Halbtonschritten passend für <strong>Chor-Mitte, Sopran, Alt, Tenor oder Bass</strong>, gefolgt von Vokal-Wandern (<code>U → O → A → E → I</code>) und einem schichtweisen SATB-Schlussakkord.</li>
       </ul>
 
@@ -61074,7 +61786,7 @@ function renderVocalsReferenceHTML() {
       <div class="k-btn-row">
         <button class="btn-tool" data-play-inst="true" data-style="choir" data-notes="C3,G3,E4,C5" data-dur="1.4" data-step="460">▶ Stimmaufbau (Bass → Sopran)</button>
         <button class="btn-tool" data-play-inst="true" data-style="choir" data-notes="C3,G3,E4,C5" data-dur="2.4" data-step="0">▶ Voller SATB-Chorklang</button>
-        <button class="btn-tool" data-open-warmup="true">▶ 5-Min.-Einsing-Helfer öffnen</button>
+        <button class="btn-tool" data-open-warmup="true">▶ Modul „Singen“ öffnen</button>
       </div>
     </article>
   `;
@@ -88584,7 +89296,7 @@ function getCategoryTitle(categoryKey) {
     notation: tr("Notation", "Notation"),
     production: tr("Produktion", "Production"),
     modes: tr("Tonleitern & Modi", "Scales & Modes"),
-    warmup: tr("Stimme & Chor", "Voice & Choir")
+    warmup: tr("Singen", "Singing")
   };
   return catNames[categoryKey] || tr("Übungen", "Exercises");
 }
@@ -97960,7 +98672,7 @@ function openCategoryPage(categoryKey, options = {}) {
 
       <div class="subpage-section">
         <h3 class="subpage-section-title">${tr("2. Einsing-Programm starten", "2. Start Warmup Routine")}</h3>
-        <p class="subpage-section-desc">${tr("Geführtes Einsingen mit Atem-Cues, Klavier-/Chor-Begleitung, Live-Klaviatur und Halbton-Steuerung", "Guided vocal warmup with breath cues, piano/choir accompaniment, live keyboard & semitone control")}</p>
+        <p class="subpage-section-desc">${tr("Geführtes Atem-, Sirenen- & Stimmtraining mit Live-Kurve, Klavier-/Chor-Begleitung und Halbton-Steuerung", "Guided breath, siren & vocal training with live curve, piano/choir accompaniment & semitone control")}</p>
         <div class="subpage-nodes-grid">
           ${WARMUP_PRESETS.map(p => `
             <button class="subpage-node-btn" type="button" data-launch-warmup="${p.id}">
@@ -113022,6 +113734,201 @@ const WARMUP_STEP_CATALOG = {
     pulseCount: 4,
     restBeats: 2.5
   },
+  "breath-478": {
+    id: "breath-478",
+    phaseId: "breath",
+    kind: "breath-orb",
+    titleDe: "4–7–8 Entspannungsatmung",
+    titleEn: "4–7–8 Relaxing Breath",
+    syllableDe: "4 Ein · 7 Halten · 8 Aus",
+    syllableEn: "4 In · 7 Hold · 8 Out",
+    hintDe: "Beruhigt Puls und Hochatmung vor dem Singen: 4 s ruhig einatmen, 7 s locker halten, 8 s weich ausströmen.",
+    hintEn: "Calms nerves and upper-chest tension: inhale 4 s, hold gently 7 s, exhale softly for 8 s.",
+    cycles: 4,
+    cyclePhases: [
+      { cue: "inhale", sec: 4.0, cueNoteOffset: 7,    de: "Einatmen", en: "Inhale",  detailDe: "4 s ruhig durch die Nase in den Bauch",     detailEn: "4 s calm inhale into the belly" },
+      { cue: "hold",   sec: 7.0, cueNoteOffset: null, de: "Halten",   en: "Hold",    detailDe: "7 s weit und entspannt halten – kein Druck", detailEn: "7 s gentle hold — no throat tension" },
+      { cue: "exhale", sec: 8.0, cueNoteOffset: 0,    de: "Ausatmen", en: "Exhale",  detailDe: "8 s sanft und gleichmäßig auf ffff / ssss",  detailEn: "8 s soft, steady exhale on ffff / ssss" },
+      { cue: "rest",   sec: 1.5, cueNoteOffset: null, de: "Lösen",    en: "Release", detailDe: "Schultern & Bauchdecke komplett lösen",      detailEn: "Release shoulders & belly completely" }
+    ]
+  },
+  "breath-farinelli": {
+    id: "breath-farinelli",
+    phaseId: "breath",
+    kind: "breath-orb",
+    titleDe: "Farinelli-Atemleiter",
+    titleEn: "Farinelli Breath Ladder",
+    syllableDe: "4 → 6 → 8 → 10 Sek.",
+    syllableEn: "4 → 6 → 8 → 10 sec",
+    hintDe: "Klassische Sänger-Steigerung: Einatmen, Rippen offen halten und Ausströmen werden jede Runde 2 Sekunden länger.",
+    hintEn: "Classic singer’s drill: inhale, open-rib hold, and steady exhale grow by 2 seconds each round.",
+    cycleRounds: [
+      {
+        labelDe: "Stufe 4–4–4", labelEn: "Step 4–4–4",
+        phases: [
+          { cue: "inhale", sec: 4.0, cueNoteOffset: 7,    de: "Einatmen", en: "Inhale",  detailDe: "4 s gleichmäßig bis in die Flanken einatmen", detailEn: "4 s steady inhale into lower ribs" },
+          { cue: "hold",   sec: 4.0, cueNoteOffset: null, de: "Weiten",   en: "Suspend", detailDe: "4 s Rippen weit & Kehlkopf offen halten",     detailEn: "4 s suspend ribs wide, throat open" },
+          { cue: "exhale", sec: 4.0, cueNoteOffset: 0,    de: "Ausatmen", en: "Exhale",  detailDe: "4 s ruhiger Luftstrom auf ssss",              detailEn: "4 s steady airflow on ssss" },
+          { cue: "rest",   sec: 2.0, cueNoteOffset: null, de: "Lösen",    en: "Release", detailDe: "Kurz entspannen vor der nächsten Stufe",      detailEn: "Relax briefly before the next step" }
+        ]
+      },
+      {
+        labelDe: "Stufe 6–6–6", labelEn: "Step 6–6–6",
+        phases: [
+          { cue: "inhale", sec: 6.0, cueNoteOffset: 7,    de: "Einatmen", en: "Inhale",  detailDe: "6 s langsam und dosiert einfüllen",           detailEn: "6 s slow, measured inhale" },
+          { cue: "hold",   sec: 6.0, cueNoteOffset: null, de: "Weiten",   en: "Suspend", detailDe: "6 s ruhig aufgespannt bleiben",               detailEn: "6 s stay gently expanded" },
+          { cue: "exhale", sec: 6.0, cueNoteOffset: 0,    de: "Ausatmen", en: "Exhale",  detailDe: "6 s fein dosiert auf ssss ausströmen",        detailEn: "6 s steady controlled ssss exhale" },
+          { cue: "rest",   sec: 2.0, cueNoteOffset: null, de: "Lösen",    en: "Release", detailDe: "Bauchdecke weich fallen lassen",              detailEn: "Let the belly soften" }
+        ]
+      },
+      {
+        labelDe: "Stufe 8–8–8", labelEn: "Step 8–8–8",
+        phases: [
+          { cue: "inhale", sec: 8.0, cueNoteOffset: 7,    de: "Einatmen", en: "Inhale",  detailDe: "8 s fein einteilen – nicht zu früh voll sein", detailEn: "8 s pace the inhale — don’t rush" },
+          { cue: "hold",   sec: 8.0, cueNoteOffset: null, de: "Weiten",   en: "Suspend", detailDe: "8 s offen halten ohne den Hals zu schließen",  detailEn: "8 s keep open without locking the throat" },
+          { cue: "exhale", sec: 8.0, cueNoteOffset: 0,    de: "Ausatmen", en: "Exhale",  detailDe: "8 s konstanter Stützstrom auf ssss",           detailEn: "8 s constant supported ssss stream" },
+          { cue: "rest",   sec: 2.0, cueNoteOffset: null, de: "Lösen",    en: "Release", detailDe: "Kurz nachatmen für die Finalrunde",           detailEn: "Reset for the final round" }
+        ]
+      },
+      {
+        labelDe: "Stufe 10–10–10", labelEn: "Step 10–10–10",
+        phases: [
+          { cue: "inhale", sec: 10.0, cueNoteOffset: 7,    de: "Einatmen", en: "Inhale",  detailDe: "10 s ultraruhig bis in Rücken & Flanken",     detailEn: "10 s ultra-calm fill into ribs & back" },
+          { cue: "hold",   sec: 10.0, cueNoteOffset: null, de: "Weiten",   en: "Suspend", detailDe: "10 s Weite halten – Gesicht bleibt weich",    detailEn: "10 s hold width — keep face soft" },
+          { cue: "exhale", sec: 10.0, cueNoteOffset: 0,    de: "Ausatmen", en: "Exhale",  detailDe: "10 s gleichmäßig bis zum letzten Moment",     detailEn: "10 s steady all the way to the finish" },
+          { cue: "rest",   sec: 2.0,  cueNoteOffset: null, de: "Lösen",    en: "Release", detailDe: "Stark! Tief durchatmen und lösen",            detailEn: "Great! Breathe naturally and release" }
+        ]
+      }
+    ]
+  },
+  "breath-sustain": {
+    id: "breath-sustain",
+    phaseId: "breath",
+    kind: "breath-orb",
+    titleDe: "Langer Zisch-Ausatem (Stütze)",
+    titleEn: "Long Hiss Exhale (Support)",
+    syllableDe: "8 → 12 → 16 → 20 Sek.",
+    syllableEn: "8 → 12 → 16 → 20 sec",
+    hintDe: "Kurz und reflexartig einatmen (2 s), dann auf „ssss“ möglichst lange und gleichmäßig ohne Druckverlust ausströmen.",
+    hintEn: "Take a quick, relaxed 2 s drop-in breath, then sustain a steady, even “ssss” stream without collapsing.",
+    cycleRounds: [
+      {
+        labelDe: "Ausdauer 8 s", labelEn: "Sustain 8 s",
+        phases: [
+          { cue: "inhale", sec: 2.0, cueNoteOffset: 7,    de: "Einfallen", en: "Drop in", detailDe: "2 s entspannt tief einfallen lassen",           detailEn: "2 s relaxed low drop-in breath" },
+          { cue: "exhale", sec: 8.0, cueNoteOffset: 0,    de: "ssss…",     en: "ssss…",   detailDe: "8 s völlig gleichmäßiger Luftstrom auf ssss",   detailEn: "8 s completely even airflow on ssss", tickEverySec: 4 },
+          { cue: "rest",   sec: 2.0, cueNoteOffset: null, de: "Lösen",     en: "Release", detailDe: "Bauchdecke lösen – Luft strömt von selbst nach", detailEn: "Release belly — let air drop back in" }
+        ]
+      },
+      {
+        labelDe: "Ausdauer 12 s", labelEn: "Sustain 12 s",
+        phases: [
+          { cue: "inhale", sec: 2.0,  cueNoteOffset: 7,    de: "Einfallen", en: "Drop in", detailDe: "2 s locker in die Flanken einatmen",           detailEn: "2 s easy breath into the ribs" },
+          { cue: "exhale", sec: 12.0, cueNoteOffset: 0,    de: "ssss…",     en: "ssss…",   detailDe: "12 s schmal & sparsam dosieren – Rippen weit", detailEn: "12 s narrow, steady stream — keep ribs wide", tickEverySec: 4 },
+          { cue: "rest",   sec: 2.0,  cueNoteOffset: null, de: "Lösen",     en: "Release", detailDe: "Kurz entspannen vor 16 Sekunden",              detailEn: "Relax briefly before 16 seconds" }
+        ]
+      },
+      {
+        labelDe: "Ausdauer 16 s", labelEn: "Sustain 16 s",
+        phases: [
+          { cue: "inhale", sec: 2.0,  cueNoteOffset: 7,    de: "Einfallen", en: "Drop in", detailDe: "2 s tief und geräuschlos einatmen",            detailEn: "2 s deep, silent inhale" },
+          { cue: "exhale", sec: 16.0, cueNoteOffset: 0,    de: "ssss…",     en: "ssss…",   detailDe: "16 s halten: feiner Strahl, nicht verschenken", detailEn: "16 s hold: thin steady stream, no waste", tickEverySec: 4 },
+          { cue: "rest",   sec: 2.5,  cueNoteOffset: null, de: "Lösen",     en: "Release", detailDe: "Schultern lockern für die 20-s-Runde",         detailEn: "Loosen shoulders for the 20 s round" }
+        ]
+      },
+      {
+        labelDe: "Ausdauer 20 s", labelEn: "Sustain 20 s",
+        phases: [
+          { cue: "inhale", sec: 2.5,  cueNoteOffset: 7,    de: "Einfallen", en: "Drop in", detailDe: "2,5 s tief & weit einatmen",                   detailEn: "2.5 s deep, wide inhale" },
+          { cue: "exhale", sec: 20.0, cueNoteOffset: 0,    de: "ssss…",     en: "ssss…",   detailDe: "20 s Königsklasse: ruhig & gleichmäßig halten", detailEn: "20 s endurance: steady & calm to the end", tickEverySec: 4 },
+          { cue: "rest",   sec: 2.0,  cueNoteOffset: null, de: "Lösen",     en: "Release", detailDe: "Hervorragend! Frei weiteratmen",               detailEn: "Excellent! Breathe freely again" }
+        ]
+      }
+    ]
+  },
+  "breath-staccato-sustain": {
+    id: "breath-staccato-sustain",
+    phaseId: "breath",
+    kind: "breath-pulse",
+    titleDe: "Staccato- & Stützstrom-Wechsel",
+    titleEn: "Staccato-to-Sustain Core Drill",
+    syllableDe: "F – F – F – F – FFFFF!",
+    syllableEn: "F – F – F – F – FFFFF!",
+    hintDe: "4 knackige Zwerchfell-Stöße direkt in einen stabil gehaltenen Ausatem überführen – ohne zwischendurch abzusetzen.",
+    hintEn: "Fire 4 crisp core impulses straight into one steady sustained exhale without breaking airflow.",
+    rounds: 4,
+    pulseCount: 4,
+    sustainBeats: 4.5,
+    restBeats: 2.5
+  },
+  "siren-fifth": {
+    id: "siren-fifth",
+    phaseId: "resonance",
+    kind: "vocal-siren",
+    titleDe: "Sanfte Quinte-Sirene",
+    titleEn: "Gentle 5th Vocal Siren",
+    syllableDe: "Ng / Brrrr / Wuu",
+    syllableEn: "Ng / Brrrr / Woo",
+    degreesText: "1 ↗ 5 ↘ 1 (Glide)",
+    hintDe: "Stufenlos und weich wie eine Sirene nach oben und wieder zurück gleiten – keine Stufen, kein Druck!",
+    hintEn: "Glide smoothly up and back down like a siren — continuous pitch, zero strain!",
+    sirenWaypoints: [
+      { tFrac: 0.0, semi: 0 },
+      { tFrac: 0.5, semi: 7 },
+      { tFrac: 1.0, semi: 0 }
+    ],
+    glideBeats: 5.5,
+    keyOffsets: [0, 1, 2, 3, 4, 5],
+    cueChordBeats: 1.2,
+    breathGapBeats: 0.75,
+    postRestBeats: 0.9
+  },
+  "siren-octave": {
+    id: "siren-octave",
+    phaseId: "resonance",
+    kind: "vocal-siren",
+    titleDe: "Oktav-Sirene (Passaggio)",
+    titleEn: "Octave Siren (Passaggio)",
+    syllableDe: "Ng / Wuu / Mmm",
+    syllableEn: "Ng / Woo / Mmm",
+    degreesText: "1 ↗ 8 ↘ 1 (Glide)",
+    hintDe: "Lass die Stimme stufenlos durch den Registerübergang (Brust → Kopf → Brust) gleiten – oben schlank und leicht bleiben.",
+    hintEn: "Slide smoothly through your vocal bridge (chest → head → chest) — stay light and narrow at the top.",
+    sirenWaypoints: [
+      { tFrac: 0.0, semi: 0 },
+      { tFrac: 0.5, semi: 12 },
+      { tFrac: 1.0, semi: 0 }
+    ],
+    glideBeats: 7.0,
+    keyOffsets: [0, 1, 2, 3, 4],
+    cueChordBeats: 1.2,
+    breathGapBeats: 0.8,
+    postRestBeats: 1.0
+  },
+  "siren-wave": {
+    id: "siren-wave",
+    phaseId: "resonance",
+    kind: "vocal-siren",
+    titleDe: "Sirenen-Welle (Achterbahn)",
+    titleEn: "Rollercoaster Siren Wave",
+    syllableDe: "Wuu ↗ ↘ ↗ ↘",
+    syllableEn: "Woo ↗ ↘ ↗ ↘",
+    degreesText: "1 ↗ 5 ↘ 3 ↗ 8 ↘ 1",
+    hintDe: "Folge dem Leuchtpunkt geschmeidig über beide Gipfel – ideal für flexible Stimmführung durch alle Register.",
+    hintEn: "Follow the glowing dot smoothly across both peaks — builds effortless flexibility through the registers.",
+    sirenWaypoints: [
+      { tFrac: 0.00, semi: 0 },
+      { tFrac: 0.27, semi: 7 },
+      { tFrac: 0.48, semi: 4 },
+      { tFrac: 0.75, semi: 12 },
+      { tFrac: 1.00, semi: 0 }
+    ],
+    glideBeats: 8.5,
+    keyOffsets: [0, 1, 2, 3],
+    cueChordBeats: 1.2,
+    breathGapBeats: 0.8,
+    postRestBeats: 1.0
+  },
   "humming-wave": {
     id: "humming-wave",
     phaseId: "resonance",
@@ -113258,6 +114165,7 @@ const WARMUP_PRESETS = [
       { id: "breath-circle", cycles: 3 },
       { id: "diaphragm-pulse", rounds: 4 },
       { id: "humming-wave", keyOffsets: [0, 1, 2, 3, 4] },
+      { id: "siren-fifth", keyOffsets: [0, 2, 4] },
       { id: "fifth-sigh", keyOffsets: [4, 3, 2, 1] },
       { id: "major-scale", keyOffsets: [0, 1, 2] },
       { id: "minor-natural-scale", keyOffsets: [0, 1, 2] },
@@ -113283,6 +114191,37 @@ const WARMUP_PRESETS = [
       { id: "triad-syllables" },
       { id: "vowel-blend", keyOffsets: [0, 2] },
       { id: "choir-cadence", keyOffsets: [0, 2] }
+    ]
+  },
+  {
+    id: "breath-intensive",
+    badge: "4·7·8",
+    circle: "circle-sage",
+    titleDe: "Atem & Stütze intensiv",
+    titleEn: "Intensive Breath & Support",
+    descDe: "4–7–8 Entspannung, Farinelli-Atemleiter (4–10 s), langer Zisch-Ausatem (bis 20 s) & Stützstrom-Drill",
+    descEn: "4–7–8 relaxation, Farinelli ladder (4–10 s), long hiss sustain (up to 20 s) & core pulse-to-sustain",
+    steps: [
+      { id: "breath-478" },
+      { id: "breath-farinelli" },
+      { id: "breath-sustain" },
+      { id: "breath-staccato-sustain" }
+    ]
+  },
+  {
+    id: "siren-flow",
+    badge: "∿",
+    circle: "circle-lilac",
+    titleDe: "Sirenen & Register-Flow",
+    titleEn: "Vocal Sirens & Register Flow",
+    descDe: "Stufenloses Gleiten durch das Passaggio: Quinte-Sirene, Oktav-Sirene & Achterbahn-Welle mit Live-Kurve",
+    descEn: "Smooth gliding through your vocal bridge: 5th siren, octave siren & rollercoaster wave with live pitch curve",
+    steps: [
+      { id: "breath-circle", cycles: 2 },
+      { id: "siren-fifth" },
+      { id: "siren-octave" },
+      { id: "siren-wave" },
+      { id: "cool-down-arp", keyOffsets: [4, 3, 2] }
     ]
   },
   {
@@ -113377,6 +114316,12 @@ function getWarmupPhaseInfo(phaseId) {
 }
 
 function getWarmupPhasePillLabel(phase, steps) {
+  if (phase.id === "resonance" && Array.isArray(steps)) {
+    const p2Steps = steps.filter(s => s.phaseId === "resonance");
+    const hasSirens = p2Steps.some(s => s.kind === "vocal-siren");
+    const hasNonSirens = p2Steps.some(s => s.kind !== "vocal-siren");
+    if (hasSirens && !hasNonSirens) return tr("2 Sirenen", "2 Sirens");
+  }
   if (phase.id === "arpeggio" && Array.isArray(steps)) {
     const p3Steps = steps.filter(s => s.phaseId === "arpeggio");
     const hasScales = p3Steps.some(s => s.isScale);
@@ -113388,6 +114333,9 @@ function getWarmupPhasePillLabel(phase, steps) {
 }
 
 function getWarmupStagePhaseLabel(step, phaseInfo) {
+  if (step?.kind === "vocal-siren") {
+    return tr("PHASE 2 • SIRENEN & REGISTER-FLOW", "PHASE 2 • VOCAL SIRENS & FLOW");
+  }
   if (step?.phaseId === "arpeggio" && step?.isScale) {
     return tr("PHASE 3 • TONLEITERN (DUR & MOLL)", "PHASE 3 • SCALES (MAJOR & MINOR)");
   }
@@ -113415,11 +114363,20 @@ function getWarmupStepRoundCount(step) {
 function getWarmupRoundDurationSec(step, bpm = WARMUP_DEFAULT_BPM) {
   const beatSec = 60 / Math.max(60, Math.min(140, Number(bpm) || WARMUP_DEFAULT_BPM));
   if (step.kind === "breath-orb") {
+    if (Array.isArray(step.cycleRounds) && step.cycleRounds.length > 0) {
+      return step.cycleRounds.reduce(
+        (sum, r) => sum + (r.phases || []).reduce((ps, p) => ps + p.sec, 0),
+        0
+      );
+    }
     const oneCycle = (step.cyclePhases || []).reduce((sum, p) => sum + p.sec, 0);
     return (step.cycles || 3) * oneCycle;
   }
   if (step.kind === "breath-pulse") {
-    return ((step.pulseCount || 4) + (step.restBeats || 2.5)) * beatSec;
+    return ((step.pulseCount || 4) + (step.sustainBeats || 0) + (step.restBeats || 2.5)) * beatSec;
+  }
+  if (step.kind === "vocal-siren") {
+    return ((step.cueChordBeats || 1.2) + (step.breathGapBeats || 0.75) + (step.glideBeats || 6.0) + (step.postRestBeats || 0.9)) * beatSec;
   }
   if (step.kind === "vowel-blend") {
     const vowelsLen = (step.vowelsDe || []).length || 5;
@@ -113458,10 +114415,181 @@ function getWarmupTonicMidi(step, roundIdx = 0, w = state.warmup) {
   return Math.max(36, Math.min(82, rawMidi));
 }
 
+let _warmupBreathPhaseTimerId = null;
+let _warmupSirenRafId = null;
+
+function stopWarmupBreathPhaseTimer() {
+  if (_warmupBreathPhaseTimerId !== null) {
+    clearInterval(_warmupBreathPhaseTimerId);
+    _warmupBreathPhaseTimerId = null;
+  }
+}
+
+function startWarmupBreathPhaseTimer(durationSec, token) {
+  stopWarmupBreathPhaseTimer();
+  const timerEl = document.getElementById("warmupBreathTimer");
+  if (!timerEl) return;
+  const totalSec = Math.max(1, Number(durationSec) || 1);
+  const startWall = Date.now();
+  const update = () => {
+    if (!state.warmup || state.warmup.token !== token || state.warmup.status !== "running") {
+      stopWarmupBreathPhaseTimer();
+      return;
+    }
+    const left = Math.max(0, totalSec - (Date.now() - startWall) / 1000);
+    const shown = Math.ceil(left);
+    timerEl.classList.remove("hidden");
+    timerEl.textContent = shown > 0 ? `${shown} s` : "";
+  };
+  update();
+  _warmupBreathPhaseTimerId = setInterval(update, 160);
+}
+
+function stopWarmupSirenAnimation() {
+  if (_warmupSirenRafId !== null) {
+    cancelAnimationFrame(_warmupSirenRafId);
+    _warmupSirenRafId = null;
+  }
+}
+
+function evalWarmupSirenSemi(waypoints, frac) {
+  if (!Array.isArray(waypoints) || waypoints.length === 0) return 0;
+  const f = Math.max(0, Math.min(1, frac));
+  for (let i = 0; i < waypoints.length - 1; i++) {
+    const a = waypoints[i];
+    const b = waypoints[i + 1];
+    if (f <= b.tFrac || i === waypoints.length - 2) {
+      const span = Math.max(0.0001, b.tFrac - a.tFrac);
+      const u = Math.max(0, Math.min(1, (f - a.tFrac) / span));
+      const ease = 0.5 - 0.5 * Math.cos(Math.PI * u);
+      return a.semi + (b.semi - a.semi) * ease;
+    }
+  }
+  return waypoints[waypoints.length - 1].semi || 0;
+}
+
+function renderWarmupSirenStage(step, tonicMidi, progressFrac = -1) {
+  const wrap = document.getElementById("warmupSirenWrap");
+  if (!wrap || !step || step.kind !== "vocal-siren") return;
+  const wps = Array.isArray(step.sirenWaypoints) && step.sirenWaypoints.length >= 2
+    ? step.sirenWaypoints
+    : [{ tFrac: 0, semi: 0 }, { tFrac: 0.5, semi: 7 }, { tFrac: 1, semi: 0 }];
+
+  const maxSemi = Math.max(5, ...wps.map(p => p.semi || 0));
+  const keyInfo = getWarmupKeyNameFromMidi(tonicMidi, "major");
+  const lowNoteLabel = midiToGermanNote(tonicMidi, keyInfo.preferFlat);
+  const highNoteLabel = midiToGermanNote(tonicMidi + maxSemi, keyInfo.preferFlat);
+
+  const x0 = 34;
+  const x1 = 248;
+  const yBot = 74;
+  const yTop = 20;
+  const toX = (f) => x0 + f * (x1 - x0);
+  const toY = (semi) => yBot - (semi / maxSemi) * (yBot - yTop);
+
+  const samples = 48;
+  const pts = [];
+  for (let i = 0; i <= samples; i++) {
+    const f = i / samples;
+    pts.push(`${toX(f).toFixed(1)},${toY(evalWarmupSirenSemi(wps, f)).toFixed(1)}`);
+  }
+  const fullPath = `M ${pts[0]} L ${pts.slice(1).join(" L ")}`;
+
+  const activeFrac = progressFrac >= 0 ? Math.max(0, Math.min(1, progressFrac)) : 0;
+  const curSemi = evalWarmupSirenSemi(wps, activeFrac);
+  const dotX = toX(activeFrac);
+  const dotY = toY(curSemi);
+
+  let activePath = "";
+  if (progressFrac >= 0) {
+    const activePts = [];
+    const activeSteps = Math.max(2, Math.round(samples * activeFrac));
+    for (let i = 0; i <= activeSteps; i++) {
+      const f = (i / activeSteps) * activeFrac;
+      activePts.push(`${toX(f).toFixed(1)},${toY(evalWarmupSirenSemi(wps, f)).toFixed(1)}`);
+    }
+    activePath = `M ${activePts[0]} L ${activePts.slice(1).join(" L ")}`;
+  }
+
+  wrap.innerHTML = `
+    <svg class="warmup-siren-svg" viewBox="0 0 280 94" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <line x1="${x0}" y1="${yTop}" x2="${x1}" y2="${yTop}" stroke="currentColor" stroke-width="1" stroke-dasharray="3 4" opacity="0.22"/>
+      <line x1="${x0}" y1="${yBot}" x2="${x1}" y2="${yBot}" stroke="currentColor" stroke-width="1" stroke-dasharray="3 4" opacity="0.22"/>
+      <text x="${x0 - 6}" y="${yTop + 4}" text-anchor="end" font-family="Andika, sans-serif" font-size="10.5" font-weight="700" fill="var(--lilac-strong, #8b7ec8)">${escapeHtml(highNoteLabel)}</text>
+      <text x="${x0 - 6}" y="${yBot + 4}" text-anchor="end" font-family="Andika, sans-serif" font-size="10.5" font-weight="700" fill="currentColor" opacity="0.72">${escapeHtml(lowNoteLabel)}</text>
+      <path class="warmup-siren-track" d="${fullPath}" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.22"/>
+      <path id="warmupSirenActivePath" class="warmup-siren-active" d="${activePath}" fill="none" stroke="var(--lilac-strong, #8b7ec8)" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle id="warmupSirenGlow" cx="${dotX.toFixed(1)}" cy="${dotY.toFixed(1)}" r="${progressFrac >= 0 ? 11 : 7}" fill="var(--peach-strong, #e07a5f)" opacity="${progressFrac >= 0 ? 0.28 : 0.16}"/>
+      <circle id="warmupSirenDot" cx="${dotX.toFixed(1)}" cy="${dotY.toFixed(1)}" r="5.6" fill="var(--peach-strong, #e07a5f)" stroke="var(--surface-white, #fff)" stroke-width="2"/>
+    </svg>
+  `;
+}
+
+function startWarmupSirenAnimation(step, tonicMidi, glideDurMs, token) {
+  stopWarmupSirenAnimation();
+  const wps = step.sirenWaypoints || [{ tFrac: 0, semi: 0 }, { tFrac: 0.5, semi: 7 }, { tFrac: 1, semi: 0 }];
+  const maxSemi = Math.max(5, ...wps.map(p => p.semi || 0));
+  const x0 = 34;
+  const x1 = 248;
+  const yBot = 74;
+  const yTop = 20;
+  const toX = (f) => x0 + f * (x1 - x0);
+  const toY = (semi) => yBot - (semi / maxSemi) * (yBot - yTop);
+
+  renderWarmupSirenStage(step, tonicMidi, 0);
+  const startMs = (typeof performance !== "undefined" && typeof performance.now === "function") ? performance.now() : Date.now();
+  const reducedMotion = Boolean(typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+
+  const tick = (nowMs) => {
+    _warmupSirenRafId = null;
+    if (!state.warmup || state.warmup.token !== token || state.warmup.status !== "running" || state.currentView !== "warmup") {
+      return;
+    }
+    const frac = Math.max(0, Math.min(1, (nowMs - startMs) / Math.max(200, glideDurMs)));
+    const curSemi = evalWarmupSirenSemi(wps, frac);
+    const dot = document.getElementById("warmupSirenDot");
+    const glow = document.getElementById("warmupSirenGlow");
+    const activePath = document.getElementById("warmupSirenActivePath");
+
+    if (dot && glow) {
+      const cx = toX(frac).toFixed(1);
+      const cy = toY(curSemi).toFixed(1);
+      dot.setAttribute("cx", cx);
+      dot.setAttribute("cy", cy);
+      glow.setAttribute("cx", cx);
+      glow.setAttribute("cy", cy);
+      glow.setAttribute("r", reducedMotion ? "8" : String((10 + Math.sin(frac * Math.PI * 6) * 2).toFixed(1)));
+    }
+    if (activePath) {
+      const stepsCount = Math.max(2, Math.round(44 * frac));
+      const pts = [];
+      for (let i = 0; i <= stepsCount; i++) {
+        const f = (i / stepsCount) * frac;
+        pts.push(`${toX(f).toFixed(1)},${toY(evalWarmupSirenSemi(wps, f)).toFixed(1)}`);
+      }
+      activePath.setAttribute("d", `M ${pts[0]} L ${pts.slice(1).join(" L ")}`);
+    }
+
+    const nearestMidi = Math.round(tonicMidi + curSemi);
+    if (!state.warmup.activeMidis || state.warmup.activeMidis[0] !== nearestMidi) {
+      state.warmup.activeMidis = [nearestMidi];
+      updateWarmupKeyboardHighlights(tonicMidi, [nearestMidi]);
+    }
+
+    if (frac < 1) {
+      _warmupSirenRafId = requestAnimationFrame(tick);
+    }
+  };
+
+  _warmupSirenRafId = requestAnimationFrame(tick);
+}
+
 function clearWarmupTimers() {
   const w = state.warmup;
   if (!w) return;
   w.token += 1;
+  stopWarmupBreathPhaseTimer();
+  stopWarmupSirenAnimation();
   if (w.timerId !== null) {
     clearTimeout(w.timerId);
     w.timerId = null;
@@ -113676,9 +114804,10 @@ function renderWarmupView() {
   }
 
   const isBreath = step.kind === "breath-orb" || step.kind === "breath-pulse";
+  const isSiren = step.kind === "vocal-siren";
   const stageCard = document.getElementById("warmupStageCard");
   if (stageCard) {
-    stageCard.className = `central-stage warmup-stage-card ${phaseInfo.cls}${isBreath && w.status !== "completed" ? " is-breath-step" : ""}`;
+    stageCard.className = `central-stage warmup-stage-card ${phaseInfo.cls}${isBreath && w.status !== "completed" ? " is-breath-step" : ""}${isSiren && w.status !== "completed" ? " is-siren-step" : ""}`;
   }
 
   const mascotEl = document.getElementById("warmupMascotWrap");
@@ -113690,13 +114819,14 @@ function renderWarmupView() {
   const phaseBadgeEl = document.getElementById("warmupPhaseBadge");
   if (phaseBadgeEl) {
     phaseBadgeEl.textContent = w.status === "completed"
-      ? tr("EINSINGEN ABGESCHLOSSEN", "WARMUP COMPLETE")
+      ? tr("TRAINING ABGESCHLOSSEN", "SESSION COMPLETE")
       : getWarmupStagePhaseLabel(step, phaseInfo);
   }
 
   const orbWrap = document.getElementById("warmupBreathOrbWrap");
   const orb = document.getElementById("warmupBreathOrb");
   const orbCue = document.getElementById("warmupBreathCue");
+  const orbTimer = document.getElementById("warmupBreathTimer");
   if (orbWrap && orb && orbCue) {
     orbWrap.classList.toggle("hidden", !isBreath || w.status === "completed");
     orb.className = "warmup-breath-orb";
@@ -113706,6 +114836,19 @@ function renderWarmupView() {
     else if (w.breathCueKey === "rest") orb.classList.add("is-rest");
     else if (w.breathCueKey === "pulse") orb.classList.add("is-pulse");
     orbCue.textContent = w.breathCueText || tr("Bereit", "Ready");
+    if (orbTimer && (!isBreath || w.status !== "running")) {
+      orbTimer.classList.add("hidden");
+      orbTimer.textContent = "";
+    }
+  }
+
+  const sirenWrap = document.getElementById("warmupSirenWrap");
+  if (sirenWrap) {
+    const showSiren = isSiren && w.status !== "completed";
+    sirenWrap.classList.toggle("hidden", !showSiren);
+    if (showSiren) {
+      renderWarmupSirenStage(step, tonicMidi, -1);
+    }
   }
 
   const titleStepEl = document.getElementById("warmupStepTitle");
@@ -113780,10 +114923,10 @@ function renderWarmupView() {
       playBtn.textContent = tr("▶ Weiter", "▶ Resume");
       playBtn.classList.remove("btn-stop");
     } else if (w.status === "completed") {
-      playBtn.innerHTML = `${REFRESH_ICON_SVG}${escapeHtml(tr("Nochmal einsingen", "Warmup Again"))}`;
+      playBtn.innerHTML = `${REFRESH_ICON_SVG}${escapeHtml(tr("Nochmal singen", "Sing Again"))}`;
       playBtn.classList.remove("btn-stop");
     } else {
-      playBtn.textContent = tr("▶ Einsingen starten", "▶ Start Warmup");
+      playBtn.textContent = tr("▶ Singen starten", "▶ Start Singing");
       playBtn.classList.remove("btn-stop");
     }
   }
@@ -113866,69 +115009,122 @@ function runCurrentWarmupRound() {
   };
 
   if (step.kind === "breath-orb") {
-    const cycles = step.cycles || 3;
-    const oneCycleMs = (step.cyclePhases || []).reduce((sum, p) => sum + p.sec * 1000, 0);
+    const roundsList = Array.isArray(step.cycleRounds) && step.cycleRounds.length > 0
+      ? step.cycleRounds
+      : Array.from({ length: step.cycles || 3 }, () => ({
+          labelDe: null,
+          labelEn: null,
+          phases: step.cyclePhases || []
+        }));
     // Tiefes, erdendes Bass-Register (C2–H2 als Grundton) für ruhige Atemführung
     let breathBaseMidi = tonicMidi;
     while (breathBaseMidi > 47) breathBaseMidi -= 12;
     while (breathBaseMidi < 36) breathBaseMidi += 12;
     let cursorMs = 0;
-    for (let c = 0; c < cycles; c++) {
-      step.cyclePhases.forEach(p => {
+    roundsList.forEach((rnd, rIdx) => {
+      const roundLabel = rnd.labelDe
+        ? `${tr(rnd.labelDe, rnd.labelEn)} (${rIdx + 1}/${roundsList.length})`
+        : `${tr("Zyklus", "Cycle")} ${rIdx + 1}/${roundsList.length}`;
+      (rnd.phases || []).forEach(p => {
         const atMs = cursorMs;
-        cursorMs += p.sec * 1000;
-        const cycleLabel = `${tr("Zyklus", "Cycle")} ${c + 1}/${cycles}`;
+        const phaseMs = p.sec * 1000;
+        cursorMs += phaseMs;
         audioEngine.registerTimer(() => {
           if (state.warmup.token !== token || state.warmup.status !== "running") return;
           w.breathCueKey = p.cue;
           w.breathCueText = tr(p.de, p.en);
-          w.hintText = `${cycleLabel} • ${tr(p.detailDe || step.hintDe, p.detailEn || step.hintEn)}`;
+          w.hintText = `${roundLabel} • ${tr(p.detailDe || step.hintDe, p.detailEn || step.hintEn)}`;
           const orb = document.getElementById("warmupBreathOrb");
           const cueEl = document.getElementById("warmupBreathCue");
           const hintEl = document.getElementById("warmupStageHint");
           if (orb) {
+            orb.style.setProperty("--breath-dur", `${Math.max(0.4, p.sec * 0.94).toFixed(2)}s`);
             orb.className = "warmup-breath-orb";
             orb.classList.add(`is-${p.cue}`);
           }
           if (cueEl) cueEl.textContent = w.breathCueText;
           if (hintEl) hintEl.textContent = w.hintText;
+          startWarmupBreathPhaseTimer(p.sec, token);
           if (p.cueNoteOffset !== null && p.cueNoteOffset !== undefined) {
             audioEngine.playWarmupBreathTone(breathBaseMidi + p.cueNoteOffset, p.sec, { phase: p.cue });
           }
         }, atMs);
+
+        // Sanfte Orientierungs-Ticks alle N Sekunden bei sehr langen Ausatem-Phasen (z. B. 8–20 s)
+        if (p.tickEverySec && p.sec >= p.tickEverySec * 2) {
+          for (let secMark = p.tickEverySec; secMark < p.sec - 0.5; secMark += p.tickEverySec) {
+            audioEngine.registerTimer(() => {
+              if (state.warmup.token !== token || state.warmup.status !== "running") return;
+              audioEngine.triggerPercussion("clave", null, 0.34);
+            }, atMs + secMark * 1000);
+          }
+        }
       });
-    }
-    scheduleWarmupCallback(advanceRoundOrStep, cycles * oneCycleMs + 220, token);
+    });
+    scheduleWarmupCallback(advanceRoundOrStep, cursorMs + 220, token);
     return;
   }
 
   if (step.kind === "breath-pulse") {
     const pulses = step.pulseCount || 4;
+    const sustainBeats = step.sustainBeats || 0;
+    let breathBaseMidi = tonicMidi;
+    while (breathBaseMidi > 47) breathBaseMidi -= 12;
+    while (breathBaseMidi < 36) breathBaseMidi += 12;
+
     for (let i = 0; i < pulses; i++) {
       audioEngine.registerTimer(() => {
         if (state.warmup.token !== token || state.warmup.status !== "running") return;
+        stopWarmupBreathPhaseTimer();
         audioEngine.triggerPercussion(i === 0 ? "accent" : "clave", null, i === 0 ? 0.92 : 0.78);
         w.breathCueKey = "pulse";
         w.breathCueText = `${tr("Impuls", "Pulse")} ${i + 1}/${pulses}`;
         const orb = document.getElementById("warmupBreathOrb");
         const cueEl = document.getElementById("warmupBreathCue");
+        const timerEl = document.getElementById("warmupBreathTimer");
         if (orb) {
-          orb.classList.add("is-pulse");
+          orb.className = "warmup-breath-orb is-pulse";
           setTimeout(() => orb.classList.remove("is-pulse"), Math.min(200, Math.round(beatMs * 0.4)));
         }
         if (cueEl) cueEl.textContent = w.breathCueText;
+        if (timerEl) { timerEl.classList.add("hidden"); timerEl.textContent = ""; }
       }, i * beatMs);
     }
+
+    if (sustainBeats > 0) {
+      const sustainSec = (sustainBeats * beatMs) / 1000;
+      audioEngine.registerTimer(() => {
+        if (state.warmup.token !== token || state.warmup.status !== "running") return;
+        w.breathCueKey = "exhale";
+        w.breathCueText = tr("Halten: FFF!", "Sustain: FFF!");
+        const orb = document.getElementById("warmupBreathOrb");
+        const cueEl = document.getElementById("warmupBreathCue");
+        if (orb) {
+          orb.style.setProperty("--breath-dur", `${Math.max(0.5, sustainSec * 0.94).toFixed(2)}s`);
+          orb.className = "warmup-breath-orb is-exhale";
+        }
+        if (cueEl) cueEl.textContent = w.breathCueText;
+        startWarmupBreathPhaseTimer(sustainSec, token);
+        audioEngine.playWarmupBreathTone(breathBaseMidi, sustainSec, { phase: "exhale" });
+      }, pulses * beatMs);
+    }
+
     audioEngine.registerTimer(() => {
       if (state.warmup.token !== token || state.warmup.status !== "running") return;
+      stopWarmupBreathPhaseTimer();
       w.breathCueKey = "inhale";
       w.breathCueText = tr("Einatmen", "Breathe in");
       const cueEl = document.getElementById("warmupBreathCue");
       const orb = document.getElementById("warmupBreathOrb");
-      if (orb) orb.className = "warmup-breath-orb is-inhale";
+      const timerEl = document.getElementById("warmupBreathTimer");
+      if (orb) {
+        orb.style.setProperty("--breath-dur", `${Math.max(0.6, ((step.restBeats || 2.5) * beatMs) / 1000 * 0.85).toFixed(2)}s`);
+        orb.className = "warmup-breath-orb is-inhale";
+      }
       if (cueEl) cueEl.textContent = w.breathCueText;
-    }, pulses * beatMs);
-    scheduleWarmupCallback(advanceRoundOrStep, (pulses + (step.restBeats || 2.5)) * beatMs, token);
+      if (timerEl) { timerEl.classList.add("hidden"); timerEl.textContent = ""; }
+    }, (pulses + sustainBeats) * beatMs);
+    scheduleWarmupCallback(advanceRoundOrStep, (pulses + sustainBeats + (step.restBeats || 2.5)) * beatMs, token);
     return;
   }
 
@@ -113938,6 +115134,23 @@ function runCurrentWarmupRound() {
   playWarmupTriadCue(tonicMidi, Math.max(0.55, cueMs / 1000 * 0.92), w.soundMode, stepTonality);
   w.activeMidis = getWarmupCueTriadMidis(tonicMidi, stepTonality);
   updateWarmupKeyboardHighlights(tonicMidi, w.activeMidis);
+
+  if (step.kind === "vocal-siren") {
+    const glideMs = (step.glideBeats || 6.0) * beatMs;
+    const glideSec = glideMs / 1000;
+    const waypoints = (step.sirenWaypoints || [{ tFrac: 0, semi: 0 }, { tFrac: 0.5, semi: 7 }, { tFrac: 1, semi: 0 }])
+      .map(wp => ({ tFrac: wp.tFrac, midi: tonicMidi + (wp.semi || 0) }));
+
+    audioEngine.registerTimer(() => {
+      if (state.warmup.token !== token || state.warmup.status !== "running") return;
+      audioEngine.playWarmupSirenGlide(waypoints, glideSec);
+      startWarmupSirenAnimation(step, tonicMidi, glideMs, token);
+    }, startVocalMs);
+
+    const endMs = startVocalMs + glideMs + (step.postRestBeats || 0.9) * beatMs;
+    scheduleWarmupCallback(advanceRoundOrStep, endMs, token);
+    return;
+  }
 
   if (step.kind === "vowel-blend") {
     const lang = typeof getAppLanguage === "function" ? getAppLanguage() : "de";
@@ -118627,9 +119840,166 @@ const _fb = {
   scaleBoxes: [],
   // Runtime
   timers: [],
+  vibrations: new Map(),
+  vibeRafId: null,
   voicingCache: new Map(),
   bound: false
 };
+
+// Physikalisch abgestufte Saiten-Parameter (Index 0 = tiefe E6 bis 5 = hohe e1)
+const FB_STRING_VIBE_CFG = [
+  { width: 3.1, maxAmp: 3.2, freq: 0.056, wound: true },
+  { width: 2.7, maxAmp: 2.8, freq: 0.068, wound: true },
+  { width: 2.3, maxAmp: 2.5, freq: 0.082, wound: true },
+  { width: 1.9, maxAmp: 2.2, freq: 0.098, wound: false },
+  { width: 1.5, maxAmp: 1.85, freq: 0.116, wound: false },
+  { width: 1.2, maxAmp: 1.55, freq: 0.136, wound: false }
+];
+
+function isFretboardReducedMotion() {
+  try {
+    return Boolean(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  } catch (_) {
+    return false;
+  }
+}
+
+function resetFretboardStringWire(row) {
+  if (!row) return;
+  row.classList.remove("is-vibrating");
+  const wire = row.querySelector(".fb-string-wire");
+  if (wire) {
+    wire.style.width = "";
+    wire.style.right = "";
+  }
+  row.querySelector(".fb-string-vibe-svg")?.remove();
+}
+
+function stopFretboardStringVibrations() {
+  if (_fb.vibeRafId !== null) {
+    cancelAnimationFrame(_fb.vibeRafId);
+    _fb.vibeRafId = null;
+  }
+  _fb.vibrations.clear();
+  document.querySelectorAll("#fbNeckHost .fb-string-row").forEach(resetFretboardStringWire);
+}
+
+function ensureFretboardVibeSvg(row, stringIdx) {
+  let svg = row.querySelector(".fb-string-vibe-svg");
+  if (svg) return svg;
+  const ns = "http://www.w3.org/2000/svg";
+  const cfg = FB_STRING_VIBE_CFG[stringIdx] || FB_STRING_VIBE_CFG[3];
+  svg = document.createElementNS(ns, "svg");
+  svg.setAttribute("class", `fb-string-vibe-svg${cfg.wound ? " is-wound" : ""}`);
+  svg.setAttribute("aria-hidden", "true");
+  svg.setAttribute("preserveAspectRatio", "none");
+
+  const halo = document.createElementNS(ns, "path");
+  halo.setAttribute("class", "fb-string-vibe-halo");
+  halo.setAttribute("fill", "currentColor");
+  halo.setAttribute("stroke", "none");
+
+  const core = document.createElementNS(ns, "path");
+  core.setAttribute("class", "fb-string-vibe-core");
+  core.setAttribute("fill", "none");
+  core.setAttribute("stroke", "currentColor");
+  core.setAttribute("stroke-width", String(cfg.width));
+  core.setAttribute("stroke-linecap", "round");
+
+  svg.appendChild(halo);
+  svg.appendChild(core);
+  row.appendChild(svg);
+  return svg;
+}
+
+function stepFretboardStringVibrations(nowMs) {
+  _fb.vibeRafId = null;
+  const host = document.getElementById("fbNeckHost");
+  if (!host || !host.isConnected || _fb.vibrations.size === 0) {
+    if (_fb.vibrations.size > 0 && (!host || !host.isConnected)) {
+      _fb.vibrations.clear();
+    }
+    return;
+  }
+
+  const reducedMotion = isFretboardReducedMotion();
+  const toDelete = [];
+
+  _fb.vibrations.forEach((vibe, stringIdx) => {
+    const row = host.querySelector(`.fb-string-row[data-string-idx="${stringIdx}"]`);
+    const elapsed = nowMs - vibe.startMs;
+    if (!row || elapsed >= vibe.durationMs) {
+      resetFretboardStringWire(row);
+      toDelete.push(stringIdx);
+      return;
+    }
+
+    const totalW = Math.max(FB_MAX_FRET * FB_FRET_PX, row.clientWidth - 58);
+    const startX = vibe.fret > 0 ? Math.min(totalW - 12, vibe.fret * FB_FRET_PX - 4) : 0;
+    const spanW = Math.max(12, totalW - startX);
+    const progress = Math.max(0, Math.min(1, elapsed / vibe.durationMs));
+    const env = Math.exp(-3.3 * progress) * (1 - progress * 0.25);
+
+    const cfg = FB_STRING_VIBE_CFG[stringIdx] || FB_STRING_VIBE_CFG[3];
+    // Kurze gegriffene Saiten in hohen Bünden schwingen minimal straffer aus
+    const fretDamp = Math.max(0.58, 1 - vibe.fret * 0.025);
+    const amp = reducedMotion ? 0 : cfg.maxAmp * fretDamp * env;
+    const dy = amp * Math.sin(elapsed * cfg.freq * (1 + vibe.fret * 0.035));
+
+    // Ruhender Saitenteil links vom gegriffenen Bund bleibt still
+    row.classList.add("is-vibrating");
+    const wire = row.querySelector(".fb-string-wire");
+    if (wire) {
+      wire.style.right = "auto";
+      wire.style.width = `${startX}px`;
+    }
+
+    const svg = ensureFretboardVibeSvg(row, stringIdx);
+    svg.setAttribute("viewBox", `0 0 ${totalW} 34`);
+    const midY = 17;
+    // Virtueller Steg rechts außerhalb des sichtbaren 15. Bunds → natürliche Biegung ohne Knick am Rand
+    const bridgeX = totalW + 170;
+    const ctrlX = startX + (bridgeX - startX) * 0.46;
+
+    const core = svg.querySelector(".fb-string-vibe-core");
+    const halo = svg.querySelector(".fb-string-vibe-halo");
+
+    if (core) {
+      core.setAttribute("d", `M ${startX} ${midY} Q ${ctrlX.toFixed(1)} ${(midY + dy).toFixed(2)} ${bridgeX} ${midY}`);
+      core.style.opacity = String(0.88 + 0.12 * env);
+    }
+    if (halo) {
+      const hEnv = reducedMotion ? (cfg.width * 0.6 + 1.4 * env) : (Math.max(cfg.width * 0.5, amp * 0.92 + cfg.width * 0.45));
+      halo.setAttribute(
+        "d",
+        `M ${startX} ${midY} Q ${ctrlX.toFixed(1)} ${(midY - hEnv).toFixed(2)} ${bridgeX} ${midY} Q ${ctrlX.toFixed(1)} ${(midY + hEnv).toFixed(2)} ${startX} ${midY} Z`
+      );
+      halo.style.opacity = String((reducedMotion ? 0.34 : 0.24) * env);
+    }
+  });
+
+  toDelete.forEach(s => _fb.vibrations.delete(s));
+
+  if (_fb.vibrations.size > 0) {
+    _fb.vibeRafId = requestAnimationFrame(stepFretboardStringVibrations);
+  }
+}
+
+function vibrateFretboardString(stringIdx, fret = 0, durationMs = 1050) {
+  if (!Number.isInteger(stringIdx) || stringIdx < 0 || stringIdx > 5) return;
+  const safeFret = Number.isFinite(fret) ? Math.max(0, Math.min(FB_MAX_FRET, Math.round(fret))) : 0;
+  const nowMs = (typeof performance !== "undefined" && typeof performance.now === "function")
+    ? performance.now()
+    : Date.now();
+  _fb.vibrations.set(stringIdx, {
+    fret: safeFret,
+    startMs: nowMs,
+    durationMs: Math.max(320, durationMs)
+  });
+  if (_fb.vibeRafId === null) {
+    _fb.vibeRafId = requestAnimationFrame(stepFretboardStringVibrations);
+  }
+}
 
 function getFretboardTuning() {
   return FB_TUNINGS.find(t => t.id === _fb.tuningId) || FB_TUNINGS[0];
@@ -118653,11 +120023,13 @@ function clearFretboardTimers() {
   _fb.timers.forEach(id => clearTimeout(id));
   _fb.timers = [];
   document.querySelectorAll("#fbNeckHost .is-playing").forEach(el => el.classList.remove("is-playing"));
+  stopFretboardStringVibrations();
 }
 
-function pulseFretboardPosition(stringIdx, fret, durationMs = 360) {
+function pulseFretboardPosition(stringIdx, fret, durationMs = 360, vibeDurationMs = null) {
   const host = document.getElementById("fbNeckHost");
   if (!host) return;
+  vibrateFretboardString(stringIdx, fret, vibeDurationMs ?? Math.max(durationMs * 2.1, 780));
   let target = null;
   if (fret === 0) {
     target = host.querySelector(`.fb-nut-btn[data-fb-s="${stringIdx}"]`);
@@ -119127,7 +120499,7 @@ async function playFretboardSingleNote(midi, stringIdx = null, fret = null) {
   const noteName = midiToNote(midi);
   audioEngine.playInstrumentSample("guitar", [noteName], 1.15, 0, 1.0 * FB_GUITAR_GAIN_BOOST);
   if (stringIdx !== null && fret !== null) {
-    pulseFretboardPosition(stringIdx, fret, 360);
+    pulseFretboardPosition(stringIdx, fret, 360, 1050);
   }
 }
 
@@ -119146,7 +120518,7 @@ async function playFretboardFrets(frets, stepMs = 30) {
 
   sounding.forEach((n, idx) => {
     const tid = setTimeout(() => {
-      pulseFretboardPosition(n.stringIdx, n.fret, stepMs > 80 ? 320 : 520);
+      pulseFretboardPosition(n.stringIdx, n.fret, stepMs > 80 ? 320 : 520, stepMs > 80 ? 920 : 1280);
     }, idx * stepMs);
     _fb.timers.push(tid);
   });
@@ -119202,7 +120574,7 @@ async function playFretboardScaleRun() {
 
   sequence.forEach((n, idx) => {
     const tid = setTimeout(() => {
-      pulseFretboardPosition(n.stringIdx, n.fret, 230);
+      pulseFretboardPosition(n.stringIdx, n.fret, 230, 500);
     }, idx * stepMs);
     _fb.timers.push(tid);
   });
@@ -119620,14 +120992,22 @@ function renderFretboardStage() {
     if (primary.noteRoles.length === 0) {
       notesRow.innerHTML = `<span class="freeplay-notes-placeholder">${escapeHtml(tr("Noch keine Töne ausgewählt", "No notes selected yet"))}</span>`;
     } else {
-      notesRow.innerHTML = primary.noteRoles.map(n => `
-        <button type="button" class="freeplay-note-pill${n.isRoot ? " is-root" : ""}" data-fb-pill-midi="${n.midi}">
+      notesRow.innerHTML = primary.noteRoles.map(n => {
+        const matchPos = sounding.find(sn => sn.midi === n.midi);
+        const posAttrs = matchPos ? ` data-fb-pill-s="${matchPos.stringIdx}" data-fb-pill-f="${matchPos.fret}"` : "";
+        return `
+        <button type="button" class="freeplay-note-pill${n.isRoot ? " is-root" : ""}" data-fb-pill-midi="${n.midi}"${posAttrs}>
           <span>${escapeHtml(n.label)}</span>
           <span class="freeplay-note-pill-role">${escapeHtml(n.role)}</span>
         </button>
-      `).join("");
+      `;
+      }).join("");
       notesRow.querySelectorAll("[data-fb-pill-midi]").forEach(btn => {
-        btn.addEventListener("click", () => playFretboardSingleNote(Number(btn.dataset.fbPillMidi)));
+        btn.addEventListener("click", () => {
+          const s = btn.dataset.fbPillS !== undefined ? Number(btn.dataset.fbPillS) : null;
+          const f = btn.dataset.fbPillF !== undefined ? Number(btn.dataset.fbPillF) : null;
+          playFretboardSingleNote(Number(btn.dataset.fbPillMidi), s, f);
+        });
       });
     }
   }

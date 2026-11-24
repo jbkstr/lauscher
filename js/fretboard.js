@@ -129,9 +129,166 @@ const _fb = {
   scaleBoxes: [],
   // Runtime
   timers: [],
+  vibrations: new Map(),
+  vibeRafId: null,
   voicingCache: new Map(),
   bound: false
 };
+
+// Physikalisch abgestufte Saiten-Parameter (Index 0 = tiefe E6 bis 5 = hohe e1)
+const FB_STRING_VIBE_CFG = [
+  { width: 3.1, maxAmp: 3.2, freq: 0.056, wound: true },
+  { width: 2.7, maxAmp: 2.8, freq: 0.068, wound: true },
+  { width: 2.3, maxAmp: 2.5, freq: 0.082, wound: true },
+  { width: 1.9, maxAmp: 2.2, freq: 0.098, wound: false },
+  { width: 1.5, maxAmp: 1.85, freq: 0.116, wound: false },
+  { width: 1.2, maxAmp: 1.55, freq: 0.136, wound: false }
+];
+
+function isFretboardReducedMotion() {
+  try {
+    return Boolean(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  } catch (_) {
+    return false;
+  }
+}
+
+function resetFretboardStringWire(row) {
+  if (!row) return;
+  row.classList.remove("is-vibrating");
+  const wire = row.querySelector(".fb-string-wire");
+  if (wire) {
+    wire.style.width = "";
+    wire.style.right = "";
+  }
+  row.querySelector(".fb-string-vibe-svg")?.remove();
+}
+
+function stopFretboardStringVibrations() {
+  if (_fb.vibeRafId !== null) {
+    cancelAnimationFrame(_fb.vibeRafId);
+    _fb.vibeRafId = null;
+  }
+  _fb.vibrations.clear();
+  document.querySelectorAll("#fbNeckHost .fb-string-row").forEach(resetFretboardStringWire);
+}
+
+function ensureFretboardVibeSvg(row, stringIdx) {
+  let svg = row.querySelector(".fb-string-vibe-svg");
+  if (svg) return svg;
+  const ns = "http://www.w3.org/2000/svg";
+  const cfg = FB_STRING_VIBE_CFG[stringIdx] || FB_STRING_VIBE_CFG[3];
+  svg = document.createElementNS(ns, "svg");
+  svg.setAttribute("class", `fb-string-vibe-svg${cfg.wound ? " is-wound" : ""}`);
+  svg.setAttribute("aria-hidden", "true");
+  svg.setAttribute("preserveAspectRatio", "none");
+
+  const halo = document.createElementNS(ns, "path");
+  halo.setAttribute("class", "fb-string-vibe-halo");
+  halo.setAttribute("fill", "currentColor");
+  halo.setAttribute("stroke", "none");
+
+  const core = document.createElementNS(ns, "path");
+  core.setAttribute("class", "fb-string-vibe-core");
+  core.setAttribute("fill", "none");
+  core.setAttribute("stroke", "currentColor");
+  core.setAttribute("stroke-width", String(cfg.width));
+  core.setAttribute("stroke-linecap", "round");
+
+  svg.appendChild(halo);
+  svg.appendChild(core);
+  row.appendChild(svg);
+  return svg;
+}
+
+function stepFretboardStringVibrations(nowMs) {
+  _fb.vibeRafId = null;
+  const host = document.getElementById("fbNeckHost");
+  if (!host || !host.isConnected || _fb.vibrations.size === 0) {
+    if (_fb.vibrations.size > 0 && (!host || !host.isConnected)) {
+      _fb.vibrations.clear();
+    }
+    return;
+  }
+
+  const reducedMotion = isFretboardReducedMotion();
+  const toDelete = [];
+
+  _fb.vibrations.forEach((vibe, stringIdx) => {
+    const row = host.querySelector(`.fb-string-row[data-string-idx="${stringIdx}"]`);
+    const elapsed = nowMs - vibe.startMs;
+    if (!row || elapsed >= vibe.durationMs) {
+      resetFretboardStringWire(row);
+      toDelete.push(stringIdx);
+      return;
+    }
+
+    const totalW = Math.max(FB_MAX_FRET * FB_FRET_PX, row.clientWidth - 58);
+    const startX = vibe.fret > 0 ? Math.min(totalW - 12, vibe.fret * FB_FRET_PX - 4) : 0;
+    const spanW = Math.max(12, totalW - startX);
+    const progress = Math.max(0, Math.min(1, elapsed / vibe.durationMs));
+    const env = Math.exp(-3.3 * progress) * (1 - progress * 0.25);
+
+    const cfg = FB_STRING_VIBE_CFG[stringIdx] || FB_STRING_VIBE_CFG[3];
+    // Kurze gegriffene Saiten in hohen Bünden schwingen minimal straffer aus
+    const fretDamp = Math.max(0.58, 1 - vibe.fret * 0.025);
+    const amp = reducedMotion ? 0 : cfg.maxAmp * fretDamp * env;
+    const dy = amp * Math.sin(elapsed * cfg.freq * (1 + vibe.fret * 0.035));
+
+    // Ruhender Saitenteil links vom gegriffenen Bund bleibt still
+    row.classList.add("is-vibrating");
+    const wire = row.querySelector(".fb-string-wire");
+    if (wire) {
+      wire.style.right = "auto";
+      wire.style.width = `${startX}px`;
+    }
+
+    const svg = ensureFretboardVibeSvg(row, stringIdx);
+    svg.setAttribute("viewBox", `0 0 ${totalW} 34`);
+    const midY = 17;
+    // Virtueller Steg rechts außerhalb des sichtbaren 15. Bunds → natürliche Biegung ohne Knick am Rand
+    const bridgeX = totalW + 170;
+    const ctrlX = startX + (bridgeX - startX) * 0.46;
+
+    const core = svg.querySelector(".fb-string-vibe-core");
+    const halo = svg.querySelector(".fb-string-vibe-halo");
+
+    if (core) {
+      core.setAttribute("d", `M ${startX} ${midY} Q ${ctrlX.toFixed(1)} ${(midY + dy).toFixed(2)} ${bridgeX} ${midY}`);
+      core.style.opacity = String(0.88 + 0.12 * env);
+    }
+    if (halo) {
+      const hEnv = reducedMotion ? (cfg.width * 0.6 + 1.4 * env) : (Math.max(cfg.width * 0.5, amp * 0.92 + cfg.width * 0.45));
+      halo.setAttribute(
+        "d",
+        `M ${startX} ${midY} Q ${ctrlX.toFixed(1)} ${(midY - hEnv).toFixed(2)} ${bridgeX} ${midY} Q ${ctrlX.toFixed(1)} ${(midY + hEnv).toFixed(2)} ${startX} ${midY} Z`
+      );
+      halo.style.opacity = String((reducedMotion ? 0.34 : 0.24) * env);
+    }
+  });
+
+  toDelete.forEach(s => _fb.vibrations.delete(s));
+
+  if (_fb.vibrations.size > 0) {
+    _fb.vibeRafId = requestAnimationFrame(stepFretboardStringVibrations);
+  }
+}
+
+function vibrateFretboardString(stringIdx, fret = 0, durationMs = 1050) {
+  if (!Number.isInteger(stringIdx) || stringIdx < 0 || stringIdx > 5) return;
+  const safeFret = Number.isFinite(fret) ? Math.max(0, Math.min(FB_MAX_FRET, Math.round(fret))) : 0;
+  const nowMs = (typeof performance !== "undefined" && typeof performance.now === "function")
+    ? performance.now()
+    : Date.now();
+  _fb.vibrations.set(stringIdx, {
+    fret: safeFret,
+    startMs: nowMs,
+    durationMs: Math.max(320, durationMs)
+  });
+  if (_fb.vibeRafId === null) {
+    _fb.vibeRafId = requestAnimationFrame(stepFretboardStringVibrations);
+  }
+}
 
 function getFretboardTuning() {
   return FB_TUNINGS.find(t => t.id === _fb.tuningId) || FB_TUNINGS[0];
@@ -155,11 +312,13 @@ function clearFretboardTimers() {
   _fb.timers.forEach(id => clearTimeout(id));
   _fb.timers = [];
   document.querySelectorAll("#fbNeckHost .is-playing").forEach(el => el.classList.remove("is-playing"));
+  stopFretboardStringVibrations();
 }
 
-function pulseFretboardPosition(stringIdx, fret, durationMs = 360) {
+function pulseFretboardPosition(stringIdx, fret, durationMs = 360, vibeDurationMs = null) {
   const host = document.getElementById("fbNeckHost");
   if (!host) return;
+  vibrateFretboardString(stringIdx, fret, vibeDurationMs ?? Math.max(durationMs * 2.1, 780));
   let target = null;
   if (fret === 0) {
     target = host.querySelector(`.fb-nut-btn[data-fb-s="${stringIdx}"]`);
@@ -629,7 +788,7 @@ async function playFretboardSingleNote(midi, stringIdx = null, fret = null) {
   const noteName = midiToNote(midi);
   audioEngine.playInstrumentSample("guitar", [noteName], 1.15, 0, 1.0 * FB_GUITAR_GAIN_BOOST);
   if (stringIdx !== null && fret !== null) {
-    pulseFretboardPosition(stringIdx, fret, 360);
+    pulseFretboardPosition(stringIdx, fret, 360, 1050);
   }
 }
 
@@ -648,7 +807,7 @@ async function playFretboardFrets(frets, stepMs = 30) {
 
   sounding.forEach((n, idx) => {
     const tid = setTimeout(() => {
-      pulseFretboardPosition(n.stringIdx, n.fret, stepMs > 80 ? 320 : 520);
+      pulseFretboardPosition(n.stringIdx, n.fret, stepMs > 80 ? 320 : 520, stepMs > 80 ? 920 : 1280);
     }, idx * stepMs);
     _fb.timers.push(tid);
   });
@@ -704,7 +863,7 @@ async function playFretboardScaleRun() {
 
   sequence.forEach((n, idx) => {
     const tid = setTimeout(() => {
-      pulseFretboardPosition(n.stringIdx, n.fret, 230);
+      pulseFretboardPosition(n.stringIdx, n.fret, 230, 500);
     }, idx * stepMs);
     _fb.timers.push(tid);
   });
@@ -1122,14 +1281,22 @@ function renderFretboardStage() {
     if (primary.noteRoles.length === 0) {
       notesRow.innerHTML = `<span class="freeplay-notes-placeholder">${escapeHtml(tr("Noch keine Töne ausgewählt", "No notes selected yet"))}</span>`;
     } else {
-      notesRow.innerHTML = primary.noteRoles.map(n => `
-        <button type="button" class="freeplay-note-pill${n.isRoot ? " is-root" : ""}" data-fb-pill-midi="${n.midi}">
+      notesRow.innerHTML = primary.noteRoles.map(n => {
+        const matchPos = sounding.find(sn => sn.midi === n.midi);
+        const posAttrs = matchPos ? ` data-fb-pill-s="${matchPos.stringIdx}" data-fb-pill-f="${matchPos.fret}"` : "";
+        return `
+        <button type="button" class="freeplay-note-pill${n.isRoot ? " is-root" : ""}" data-fb-pill-midi="${n.midi}"${posAttrs}>
           <span>${escapeHtml(n.label)}</span>
           <span class="freeplay-note-pill-role">${escapeHtml(n.role)}</span>
         </button>
-      `).join("");
+      `;
+      }).join("");
       notesRow.querySelectorAll("[data-fb-pill-midi]").forEach(btn => {
-        btn.addEventListener("click", () => playFretboardSingleNote(Number(btn.dataset.fbPillMidi)));
+        btn.addEventListener("click", () => {
+          const s = btn.dataset.fbPillS !== undefined ? Number(btn.dataset.fbPillS) : null;
+          const f = btn.dataset.fbPillF !== undefined ? Number(btn.dataset.fbPillF) : null;
+          playFretboardSingleNote(Number(btn.dataset.fbPillMidi), s, f);
+        });
       });
     }
   }
