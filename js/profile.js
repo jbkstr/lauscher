@@ -432,7 +432,7 @@ function renderSessionTimerUI() {
 /** Beschriftung des „Eigene Zeit“-Chips: ohne eigenen Wert neutral, sonst mit der gewählten Minutenzahl. */
 function getSessionTimerCustomChipLabel(mins = null) {
   if (!Number.isFinite(mins)) {
-    return tr("Eigene Zeit", "Set your own", { fr: "Autre durée", es: "Otra duración", it: "Durata personalizzata", pl: "Własny czas", tr: "Özel süre", uk: "Свій час", ur: "اپنا وقت" });
+    return tr("Eigene Zeit", "Set your own", { fr: "Autre durée", es: "Otra duración", it: "Durata personalizzata", pl: "Własny czas", tr: "Özel süre", uk: "Свій час", ur: "اپنا وقت", ar: "وقت مخصص" });
   }
   return tf("Eigene: {n} Min", "Own: {n} min", { n: mins });
 }
@@ -1607,7 +1607,7 @@ function renderCustomThemeMiniPreview() {
   const ed = state.customThemeEditor;
   const built = buildDerivedCustomThemeVars(ed.colors);
   const v = built.cssVars;
-  const previewName = (ed.name || "").trim() || tr("Vorschau", "Preview", { fr: "Aperçu", it: "Anteprima", tr: "Önizleme" });
+  const previewName = (ed.name || "").trim() || tr("Vorschau", "Preview", { fr: "Aperçu", it: "Anteprima", tr: "Önizleme", ar: "معاينة" });
 
   wrap.style.backgroundColor = v["--bg-base"];
   wrap.style.borderColor = v["--border-strong"];
@@ -1616,7 +1616,7 @@ function renderCustomThemeMiniPreview() {
     <div class="theme-mini-card" style="background:${escapeHtml(v["--surface-white"])};border:1px solid ${escapeHtml(v["--border-soft"])};">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;">
         <strong style="font-size:0.8rem;color:${escapeHtml(v["--raccoon-dark"])};">${escapeHtml(previewName)}</strong>
-        <span style="font-size:0.68rem;color:${escapeHtml(v["--raccoon-mid"])};">${tr("Live-Vorschau", "Live Preview", { fr: "Aperçu en direct", it: "Anteprima dal vivo", tr: "Canlı önizleme" })}</span>
+        <span style="font-size:0.68rem;color:${escapeHtml(v["--raccoon-mid"])};">${tr("Live-Vorschau", "Live Preview", { fr: "Aperçu en direct", it: "Anteprima dal vivo", tr: "Canlı önizleme", ar: "معاينة مباشرة" })}</span>
       </div>
       <div class="theme-mini-badges">
         <span class="theme-mini-pill" style="background:${escapeHtml(v["--sage"])};color:${escapeHtml(v["--sage-strong"])};">${tr("Tonika / Salbei", "Tonic / Sage")}</span>
@@ -2317,7 +2317,8 @@ function getAppResetConfirmLabel(secondsLeft = 0) {
     pl: "Usuń wszystko na stałe",
     tr: "Her şeyi kalıcı olarak sil",
     uk: "Остаточно видалити все",
-    ur: "سب کچھ مستقل طور پر حذف کریں"
+    ur: "سب کچھ مستقل طور پر حذف کریں",
+    ar: "حذف كل شيء نهائياً"
   });
   return secondsLeft > 0 ? `${base} (${secondsLeft})` : base;
 }
@@ -2330,7 +2331,7 @@ function armAppResetConfirm() {
 
   const btn = document.getElementById("appResetBtn");
   if (btn) {
-    btn.textContent = tr("Abbrechen", "Cancel", { fr: "Annuler", es: "Cancelar", it: "Annulla", pl: "Anuluj", tr: "İptal", uk: "Скасувати", ur: "منسوخ کریں" });
+    btn.textContent = tr("Abbrechen", "Cancel", { fr: "Annuler", es: "Cancelar", it: "Annulla", pl: "Anuluj", tr: "İptal", uk: "Скасувати", ur: "منسوخ کریں", ar: "إلغاء" });
     btn.classList.add("is-cancel-mode");
   }
   const panel = document.getElementById("appResetConfirmPanel");
@@ -2347,7 +2348,8 @@ function armAppResetConfirm() {
         pl: "Na pewno usunąć wszystko? Ustawienia, motywy i profil zostaną utracone – tego nie da się cofnąć. Wskazówka: najpierw zapisz profil w Konto → Kopia zapasowa.",
         tr: "Her şeyi gerçekten silmek istiyor musun? Ayarlar, temalar ve profilin kaybolacak – bu işlem geri alınamaz. İpucu: Önce Hesap → Yedekleme altından profilini yedekle.",
         uk: "Справді видалити все? Налаштування, теми й профіль буде втрачено – це не можна скасувати. Порада: спершу збережи профіль у Профіль → Резервна копія.",
-        ur: "کیا واقعی سب کچھ حذف کرنا ہے؟ سیٹنگز، تھیمز اور پروفائل ختم ہو جائیں گے – اسے واپس نہیں کیا جا سکتا۔ مشورہ: پہلے اکاؤنٹ → بیک اپ میں اپنا پروفائل محفوظ کریں۔"
+        ur: "کیا واقعی سب کچھ حذف کرنا ہے؟ سیٹنگز، تھیمز اور پروفائل ختم ہو جائیں گے – اسے واپس نہیں کیا جا سکتا۔ مشورہ: پہلے اکاؤنٹ → بیک اپ میں اپنا پروفائل محفوظ کریں۔",
+        ar: "هل تريد حقاً حذف كل شيء؟ ستُفقد الإعدادات والسمات والملف الشخصي – ولا يمكن التراجع عن هذا الإجراء. نصيحة: احفظ ملفك أولاً من الحساب ← النسخ الاحتياطي."
       }
     );
   }

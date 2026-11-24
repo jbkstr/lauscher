@@ -1,6 +1,6 @@
 /**
- * Lauscher • Statische UI-Texte (data-i18n, alle 9 Sprachen ko-lokalisiert)
- * Jeder Schlüssel bündelt de, en, fr, es, it, pl, uk, ur und tr direkt untereinander.
+ * Lauscher • Statische UI-Texte (data-i18n, alle 10 Sprachen ko-lokalisiert)
+ * Jeder Schlüssel bündelt de, en, fr, es, it, pl, uk, ur, tr und ar direkt untereinander.
  */
 
 registerColocatedStatic({
@@ -13,7 +13,8 @@ registerColocatedStatic({
     pl: "Lauscher • Wsłuchaj się uważniej.",
     uk: "Lauscher • Прислухайся трохи уважніше.",
     ur: "Lauscher • ذرا غور سے سنیں۔",
-    tr: "Lauscher • Biraz daha dikkatli dinle."
+    tr: "Lauscher • Biraz daha dikkatli dinle.",
+    ar: "Lauscher • استمع بتركيز أكبر."
   },
   "app.tagline": {
     de: "Genauer hinhören.",
@@ -24,7 +25,8 @@ registerColocatedStatic({
     pl: "Wsłuchaj się uważniej.",
     uk: "Прислухайся трохи уважніше.",
     ur: "ذرا غور سے سنیں۔",
-    tr: "Biraz daha dikkatli dinle."
+    tr: "Biraz daha dikkatli dinle.",
+    ar: "استمع بتركيز أكبر."
   },
   "app.portraitOnlyTitle": {
     de: "Bitte im Hochformat nutzen",
@@ -35,7 +37,8 @@ registerColocatedStatic({
     pl: "Używaj w orientacji pionowej",
     uk: "Будь ласка, використовуй портретний режим",
     ur: "براہِ کرم پورٹریٹ موڈ استعمال کریں",
-    tr: "Lütfen Dikey Modda Kullan"
+    tr: "Lütfen Dikey Modda Kullan",
+    ar: "يُرجى استخدام الوضع العمودي"
   },
   "app.portraitOnlySub": {
     de: "Drehe dein Smartphone ins Hochformat (Portrait-Modus), um weiterzuüben.",
@@ -46,7 +49,8 @@ registerColocatedStatic({
     pl: "Obróć telefon pionowo (tryb portretowy), aby kontynuować ćwiczenie.",
     uk: "Поверни смартфон вертикально (портретний режим), щоб продовжити заняття.",
     ur: "مشق جاری رکھنے کے لیے اپنے فون کو سیدھا (پورٹریٹ موڈ میں) رکھیں۔",
-    tr: "Çalışmaya devam etmek için telefonunu dikey konuma (portre modu) çevir."
+    tr: "Çalışmaya devam etmek için telefonunu dikey konuma (portre modu) çevir.",
+    ar: "أدِر هاتفك إلى الوضع العمودي لمواصلة التدرّب."
   },
   "welcome.stepProgress": {
     de: "Schritt {n} von {total}",
@@ -57,7 +61,8 @@ registerColocatedStatic({
     pl: "Krok {n} z {total}",
     uk: "Крок {n} із {total}",
     ur: "مرحلہ {n} از {total}",
-    tr: "Adım {n} / {total}"
+    tr: "Adım {n} / {total}",
+    ar: "الخطوة {n} من {total}"
   },
   "welcome.backBtn": {
     de: "← Zurück",
@@ -68,7 +73,8 @@ registerColocatedStatic({
     pl: "← Wstecz",
     uk: "← Назад",
     ur: "→ واپس",
-    tr: "← Geri"
+    tr: "← Geri",
+    ar: "→ رجوع"
   },
   "welcome.nextBtn": {
     de: "Weiter →",
@@ -79,7 +85,8 @@ registerColocatedStatic({
     pl: "Dalej →",
     uk: "Далі →",
     ur: "اگلا ←",
-    tr: "İleri →"
+    tr: "İleri →",
+    ar: "التالي ←"
   },
   "welcome.lookTitle": {
     de: "Wähle deinen Look",
@@ -90,7 +97,8 @@ registerColocatedStatic({
     pl: "Wybierz swój styl",
     uk: "Обери свій вигляд",
     ur: "اپنا انداز منتخب کریں",
-    tr: "Görünümünü Seç"
+    tr: "Görünümünü Seç",
+    ar: "اختر مظهرك"
   },
   "welcome.lookSub": {
     de: "Erscheinungsbild und Farbschema für entspanntes Üben.",
@@ -101,7 +109,8 @@ registerColocatedStatic({
     pl: "Dopasuj tryb wyświetlania i paletę barw dla wygodnego ćwiczenia.",
     uk: "Налаштуй режим оформлення та палітру кольорів для комфортного навчання.",
     ur: "آنکھوں کے سکون کے لیے ظاہری شکل اور رنگوں کا تھیم منتخب کریں۔",
-    tr: "Gözlerine en rahat gelen görünümü ve renk paletini seç."
+    tr: "Gözlerine en rahat gelen görünümü ve renk paletini seç.",
+    ar: "اختر المظهر ولوحة الألوان الأكثر راحة لعينيك أثناء التدرّب."
   },
   "welcome.lookCustomHint": {
     de: "Tipp: Später kannst du unter ‚Mein Konto → Themes & Farbdesigner‘ jederzeit bis zu 3 ganz eigene Themes gestalten!",
@@ -112,7 +121,8 @@ registerColocatedStatic({
     pl: "Wskazówka: później w dziale „Mój profil → Motywy i studio kolorów” możesz stworzyć aż 3 własne motywy!",
     uk: "Підказка: згодом у розділі «Мій профіль → Теми та кольори» ти зможеш створити до 3 власних палітр!",
     ur: "مشورہ: بعد میں آپ کسی بھی وقت «میرا اکاؤنٹ ← تھیمز اور کلر اسٹوڈیو» میں 3 تک ذاتی نوعیت کے تھیم خود بنا سکتے ہیں!",
-    tr: "İpucu: Daha sonra «Hesabım → Temalar ve Renk Stüdyosu» altından istediğin zaman 3'e kadar tamamen özel renk teması oluşturabilirsin!"
+    tr: "İpucu: Daha sonra «Hesabım → Temalar ve Renk Stüdyosu» altından istediğin zaman 3'e kadar tamamen özel renk teması oluşturabilirsin!",
+    ar: "نصيحة: يمكنك لاحقًا إنشاء ما يصل إلى 3 سمات ألوان مخصّصة بالكامل في أي وقت من «حسابي ← السمات ومصمّم الألوان»!"
   },
   "welcome.autoNextTitle": {
     de: "Nach richtiger Lösung weiter?",
@@ -123,7 +133,8 @@ registerColocatedStatic({
     pl: "Odtwarzać kolejne zadanie?",
     uk: "Продовжувати автоматично?",
     ur: "صحیح جواب کے بعد خودکار آگے بڑھیں؟",
-    tr: "Sonraki Görev Otomatik Çalsın mı?"
+    tr: "Sonraki Görev Otomatik Çalsın mı?",
+    ar: "تشغيل التمرين التالي تلقائيًا؟"
   },
   "welcome.autoNextSub": {
     de: "Bestimme, ob automatisch die nächste Aufgabe abgespielt wird.",
@@ -134,7 +145,8 @@ registerColocatedStatic({
     pl: "Zdecyduj, czy po trafnej odpowiedzi od razu ruszy następne pytanie.",
     uk: "Виріши, чи запускати наступне завдання одразу після правильної відповіді.",
     ur: "طے کریں کہ اگلا سوال خود بخود چلے یا آپ کے کلک کا انتظار کرے۔",
-    tr: "Doğru yanıtın hemen ardından bir sonraki alıştırmanın otomatik başlayıp başlamayacağını seç."
+    tr: "Doğru yanıtın hemen ardından bir sonraki alıştırmanın otomatik başlayıp başlamayacağını seç.",
+    ar: "اختر ما إذا كان التمرين التالي سيبدأ تلقائيًا فور الإجابة الصحيحة."
   },
   "welcome.autoNextOnTitle": {
     de: "Automatisch weiterspielen (Empfohlen)",
@@ -145,7 +157,8 @@ registerColocatedStatic({
     pl: "Odtwarzaj automatycznie (Polecane)",
     uk: "Автоматичний запуск (Рекомендовано)",
     ur: "خودکار اگلا سوال (تجویز کردہ)",
-    tr: "Sonrakini Otomatik Çal (Önerilen)"
+    tr: "Sonrakini Otomatik Çal (Önerilen)",
+    ar: "تشغيل تلقائي للتالي (موصى به)"
   },
   "welcome.autoNextOnDesc": {
     de: "Startet nach einer richtigen Antwort sofort die nächste Aufgabe für flüssigen Spielfluss.",
@@ -156,7 +169,8 @@ registerColocatedStatic({
     pl: "Po poprawnej odpowiedzi od razu uruchamia kolejne zadanie, utrzymując płynny rytm nauki.",
     uk: "Одразу програє наступне запитання після вірної відповіді для плавного темпу занять.",
     ur: "ہر صحیح جواب کے فوراً بعد اگلی مشق چلاتا ہے تاکہ تسلسل برقرار رہے۔",
-    tr: "Kesintisiz ve akıcı bir çalışma için her çözümün hemen ardından yeni görevi başlatır."
+    tr: "Kesintisiz ve akıcı bir çalışma için her çözümün hemen ardından yeni görevi başlatır.",
+    ar: "يبدأ التمرين التالي فورًا بعد الحل الصحيح لتجربة تدرّب سلسة ومتواصلة."
   },
   "welcome.autoNextOffTitle": {
     de: "Manuell abspielen",
@@ -167,7 +181,8 @@ registerColocatedStatic({
     pl: "Odtwarzanie ręczne",
     uk: "Ручний запуск",
     ur: "خود پلے کریں",
-    tr: "Manuel Oynatma"
+    tr: "Manuel Oynatma",
+    ar: "تشغيل يدوي"
   },
   "welcome.autoNextOffDesc": {
     de: "Wartet nach jeder Lösung, bis du bewusst selbst den nächsten Ton abspielst.",
@@ -178,7 +193,8 @@ registerColocatedStatic({
     pl: "Po rozwiązaniu czeka spokojnie, aż samodzielnie klikniesz „Odtwórz”.",
     uk: "Зупиняється після розв’язку, доки ти сам не натиснеш кнопку відтворення.",
     ur: "ہر حل کے بعد رکتا ہے تاکہ آپ اطمینان سے سنیں اور خود اگلا سُر چلائیں۔",
-    tr: "Her çözümün ardından bir sonraki alıştırma için sen Çal'a basana kadar bekler."
+    tr: "Her çözümün ardından bir sonraki alıştırma için sen Çal'a basana kadar bekler.",
+    ar: "ينتظر بعد كل حل حتى تضغط بنفسك على زر التشغيل للتمرين التالي."
   },
   "welcome.profileTitle": {
     de: "Dein Musiker-Profil",
@@ -189,7 +205,8 @@ registerColocatedStatic({
     pl: "Twój profil muzyka",
     uk: "Твій профіль музиканта",
     ur: "آپ کا موسیقار پروفائل",
-    tr: "Müzisyen Profilin"
+    tr: "Müzisyen Profilin",
+    ar: "ملفك الموسيقي"
   },
   "welcome.profileSub": {
     de: "Wie darf dich Lauscher begrüßen und welche Instrumente spielst du?",
@@ -200,7 +217,8 @@ registerColocatedStatic({
     pl: "Jak Lauscher ma się z Tobą witać i na jakich instrumentach grasz?",
     uk: "Як Lauscher може до тебе звертатися та на яких інструментах ти граєш?",
     ur: "Lauscher آپ کو کس نام سے پکارے اور آپ کون سے ساز بجاتے ہیں؟",
-    tr: "Lauscher sana nasıl hitap etsin ve hangi enstrümanları çalıyorsun?"
+    tr: "Lauscher sana nasıl hitap etsin ve hangi enstrümanları çalıyorsun?",
+    ar: "بأي اسم تودّ أن يرحّب بك Lauscher، وما الآلات التي تعزفها؟"
   },
   "welcome.focusTitle": {
     de: "Dein Lernschwerpunkt",
@@ -211,7 +229,8 @@ registerColocatedStatic({
     pl: "Twój główny cel nauki",
     uk: "Твій навчальний фокус",
     ur: "آپ کا تعلیمی ہدف",
-    tr: "Çalışma Odağın"
+    tr: "Çalışma Odağın",
+    ar: "تركيزك التعليمي"
   },
   "welcome.focusSub": {
     de: "Worauf möchtest du dich zuerst konzentrieren?",
@@ -222,7 +241,8 @@ registerColocatedStatic({
     pl: "Od czego chcesz zacząć swoją przygodę?",
     uk: "На чому хочеш зосередитися насамперед?",
     ur: "آپ سب سے پہلے کس چیز پر توجہ دینا چاہتے ہیں؟",
-    tr: "İlk olarak neye öncelik vermek istersin?"
+    tr: "İlk olarak neye öncelik vermek istersin?",
+    ar: "ما الذي تودّ التركيز عليه أولًا؟"
   },
   "welcome.beginnerOptInBadge": {
     de: "Einsteiger-Tour",
@@ -233,7 +253,8 @@ registerColocatedStatic({
     pl: "Wprowadzenie dla początkujących",
     uk: "Вступ для новачків",
     ur: "نئے سیکھنے والوں کے لیے تعارف",
-    tr: "Başlangıç Turu"
+    tr: "Başlangıç Turu",
+    ar: "جولة المبتدئين"
   },
   "welcome.beginnerOptInTitle": {
     de: "Komplett neu in der Musikwelt?",
@@ -244,7 +265,8 @@ registerColocatedStatic({
     pl: "Stawiasz pierwsze kroki w świecie muzyki?",
     uk: "Зовсім нові у світі музики?",
     ur: "موسیقی کی دنیا میں بالکل نئے ہیں؟",
-    tr: "Müzik dünyasına yepyeni misin?"
+    tr: "Müzik dünyasına yepyeni misin?",
+    ar: "هل أنت جديد تمامًا في عالم الموسيقى؟"
   },
   "welcome.beginnerOptInDesc": {
     de: "Möchtest du vor dem Start in 3 kurzen Schritten erfahren, was Intervalle, Akkorde & Kadenzen sind und womit du am besten anfängst?",
@@ -255,7 +277,8 @@ registerColocatedStatic({
     pl: "Czy przed startem chcesz zobaczyć krótkie, 3-etapowe wprowadzenie wyjaśniające interwały, akordy i kadencje oraz od czego najlepiej zacząć?",
     uk: "Бажаєте перед стартом переглянути короткий вступ із 3 кроків (що таке інтервали, акорди, каденції та з чого найкраще почати)?",
     ur: "کیا آپ شروع کرنے سے پہلے 3 مختصر مراحل میں جاننا چاہیں گے کہ انٹرولز، کارڈز اور کیڈینسز کیا ہیں اور آغاز کہاں سے کرنا بہتر ہے؟",
-    tr: "Başlamadan önce aralıkları, akorları, kadansları ve ilk ne çalışman gerektiğini açıklayan 3 adımlık kısa bir tanıtım ister misin?"
+    tr: "Başlamadan önce aralıkları, akorları, kadansları ve ilk ne çalışman gerektiğini açıklayan 3 adımlık kısa bir tanıtım ister misin?",
+    ar: "هل ترغب في مقدّمة قصيرة من 3 خطوات قبل البدء تشرح المسافات والتآلفات والقفلات الموسيقية وبماذا تبدأ التدرّب؟"
   },
   "welcome.beginnerOptInNo": {
     de: "Direkt starten",
@@ -266,7 +289,8 @@ registerColocatedStatic({
     pl: "Zacznij od razu",
     uk: "Почати одразу",
     ur: "براہِ راست شروع کریں",
-    tr: "Doğrudan başla"
+    tr: "Doğrudan başla",
+    ar: "ابدأ مباشرة"
   },
   "welcome.beginnerOptInYes": {
     de: "Ja, Einführung starten",
@@ -277,7 +301,8 @@ registerColocatedStatic({
     pl: "Tak, uruchom wprowadzenie",
     uk: "Так, відкрити вступ",
     ur: "جی ہاں، تعارف شروع کریں",
-    tr: "Evet, tanıtımı başlat"
+    tr: "Evet, tanıtımı başlat",
+    ar: "نعم، ابدأ المقدّمة"
   },
   "welcome.begStep1Tag": {
     de: "Einsteiger-Einführung • 1 / 3",
@@ -288,7 +313,8 @@ registerColocatedStatic({
     pl: "Wprowadzenie • 1 / 3",
     uk: "Вступ для новачків • 1 / 3",
     ur: "بنیادی تعارف • 1 / 3",
-    tr: "Başlangıç Tanıtımı • 1 / 3"
+    tr: "Başlangıç Tanıtımı • 1 / 3",
+    ar: "مقدّمة المبتدئين • 1 / 3"
   },
   "welcome.begStep1Title": {
     de: "Die Bausteine der Musik – leicht erklärt",
@@ -299,7 +325,8 @@ registerColocatedStatic({
     pl: "Cegiełki muzyki — prosto i przystępnie",
     uk: "Цеглинки музики — простою мовою",
     ur: "موسیقی کی بنیادی اینٹیں — آسان الفاظ میں",
-    tr: "Müziğin Yapı Taşları — Basitçe"
+    tr: "Müziğin Yapı Taşları — Basitçe",
+    ar: "لبِنات الموسيقى الأساسية — بشرح مبسّط"
   },
   "welcome.begStep1Sub": {
     de: "Was für Musiker selbstverständlich klingt, besteht aus vier einfachen Grundideen:",
@@ -310,7 +337,8 @@ registerColocatedStatic({
     pl: "To, co dla muzyków brzmi oczywiście, opiera się na czterech prostych ideach:",
     uk: "Те, що для музикантів звучить звично, складається з чотирьох простих ідей:",
     ur: "جو اصطلاحات موسیقاروں کے لیے عام ہیں وہ دراصل چار سادہ تصورات پر مشتمل ہیں:",
-    tr: "Müzisyenlerin sıkça kullandığı terimler aslında dört basit fikre dayanır:"
+    tr: "Müzisyenlerin sıkça kullandığı terimler aslında dört basit fikre dayanır:",
+    ar: "المصطلحات التي يراها الموسيقيون بديهية تختصر في أربع أفكار بسيطة:"
   },
   "welcome.begTermIntervalsTitle": {
     de: "Intervalle (Ton-Abstände)",
@@ -321,7 +349,8 @@ registerColocatedStatic({
     pl: "Interwały (odległości między dźwiękami)",
     uk: "Інтервали (відстані між нотами)",
     ur: "انٹرولز (سُروں کا درمیانی فاصلہ)",
-    tr: "Aralıklar (Sesler Arasındaki Mesafeler)"
+    tr: "Aralıklar (Sesler Arasındaki Mesafeler)",
+    ar: "المسافات الموسيقية (الأبعاد بين النغمات)"
   },
   "welcome.begTermIntervalsDesc": {
     de: "Ein Intervall ist einfach der Abstand zwischen zwei Tönen – wie zwei Treppenstufen. Liegen sie nah beieinander, klingt es nach einem kleinen Schritt; liegen sie weit auseinander, nach einem großen Sprung. Aus solchen Sprüngen entsteht jede Melodie.",
@@ -332,7 +361,8 @@ registerColocatedStatic({
     pl: "Interwał to po prostu odległość między dwoma dźwiękami — jak stopnie na schodach. Bliskie dźwięki brzmią jak mały krok, a odległe jak duży skok. Z takich kroków i skoków powstaje każda melodia.",
     uk: "Інтервал — це просто відстань між двома звуками, наче сходинки. Близькі ноти звучать як малий крок, далекі — як широкий стрибок. Із таких кроків і стрибків будується кожна мелодія.",
     ur: "انٹرول صرف دو سُروں کے درمیان فاصلے کا نام ہے — جیسے سیڑھی کے دو قدم۔ قریبی سُر چھوٹے قدم جیسے اور دور کے سُر بڑی چھلانگ جیسے لگتے ہیں۔ ہر دھن انہیں سے بنتی ہے۔",
-    tr: "Aralık, iki ses arasındaki mesafedir — tıpkı bir merdivenin basamakları gibi. Yakın sesler küçük bir adım, uzak sesler ise geniş bir sıçrama gibi duyulur. Her melodi bu adım ve sıçramalardan oluşur."
+    tr: "Aralık, iki ses arasındaki mesafedir — tıpkı bir merdivenin basamakları gibi. Yakın sesler küçük bir adım, uzak sesler ise geniş bir sıçrama gibi duyulur. Her melodi bu adım ve sıçramalardan oluşur.",
+    ar: "المسافة هي ببساطة البُعد بين نغمتين — مثل درجتين على سلّم. النغمات المتقاربة تبدو كخطوة صغيرة، والمتباعدة كقفزة واسعة. وكل لحن يُبنى من هذه الخطوات والقفزات."
   },
   "welcome.begTermChordsTitle": {
     de: "Akkorde (Zusammenklänge)",
@@ -343,7 +373,8 @@ registerColocatedStatic({
     pl: "Akordy (współbrzmienia)",
     uk: "Акорди (співзвуччя)",
     ur: "کارڈز (اکٹھے بجنے والے سُر)",
-    tr: "Akorlar (Birlikte Tınlayan Sesler)"
+    tr: "Akorlar (Birlikte Tınlayan Sesler)",
+    ar: "التآلفات (نغمات تُعزف معًا)"
   },
   "welcome.begTermChordsDesc": {
     de: "Wenn drei oder mehr Töne gleichzeitig erklingen, nennt man das einen Akkord. Die beiden wichtigsten Klangfarben sind Dur (wirkt oft hell, offen, strahlend) und Moll (wirkt oft weich, nachdenklich, warm).",
@@ -354,7 +385,8 @@ registerColocatedStatic({
     pl: "Gdy trzy lub więcej dźwięków brzmi jednocześnie, tworzą akord. Dwa najważniejsze kolory to Dur (często jasny, otwarty, pogodny) oraz Moll (często miękki, refleksyjny, ciepły).",
     uk: "Коли три або більше звуків лунають одночасно, це акорд. Дві головні барви — Мажор (світлий, відкритий, сонячний) та Мінор (м’який, задумливий, теплий).",
     ur: "جب تین یا زیادہ سُر ایک ساتھ گونجتے ہیں تو کارڈ بنتا ہے۔ دو اہم ترین رنگ میجر (روشن اور کھلا) اور مائنر (نرم، گہرا اور پُرسکون) ہیں۔",
-    tr: "Üç veya daha fazla ses aynı anda tınladığında bir akor oluşturur. En önemli iki renk Majör (genellikle parlak, açık, güneşli) ve Minördür (genellikle yumuşak, düşünceli, sıcak)."
+    tr: "Üç veya daha fazla ses aynı anda tınladığında bir akor oluşturur. En önemli iki renk Majör (genellikle parlak, açık, güneşli) ve Minördür (genellikle yumuşak, düşünceli, sıcak).",
+    ar: "عندما ترنّ ثلاث نغمات أو أكثر في الوقت نفسه، تشكّل تآلفًا. وأهم لونين هما الكبير (مشرق ومفتوح غالبًا) والصغير (ناعم ودافئ وتأمّلي غالبًا)."
   },
   "welcome.begTermCadencesTitle": {
     de: "Kadenzen (Harmonische Wegweiser)",
@@ -365,7 +397,8 @@ registerColocatedStatic({
     pl: "Kadencje (harmoniczne drogowskazy)",
     uk: "Каденції (гармонічні орієнтири)",
     ur: "کیڈینسز (ہم آہنگی کے اشارے)",
-    tr: "Kadanslar (Armonik İşaret Levhaları)"
+    tr: "Kadanslar (Armonik İşaret Levhaları)",
+    ar: "القفلات الموسيقية (إشارات الهارموني)"
   },
   "welcome.begTermCadencesDesc": {
     de: "Eine Kadenz ist eine kurze Folge von Akkorden – wie Satzzeichen in einer Geschichte. Manche Akkorde bauen Spannung auf (wie ein Fragezeichen), andere führen wieder entspannt nach Hause zum Grundton (wie ein Punkt am Satzende).",
@@ -376,7 +409,8 @@ registerColocatedStatic({
     pl: "Kadencja to krótki ciąg akordów — jak znaki przestankowe w opowieści. Jedne akordy budują napięcie (jak znak zapytania), inne spokojnie wracają do dźwięku podstawowego (jak kropka na końcu zdania).",
     uk: "Каденція — це коротка послідовність акордів, мов розділові знаки в історії. Одні акорди створюють напругу (як знак питання), інші спокійно повертають додому до тоніки (як крапка в кінці речення).",
     ur: "کیڈینس کارڈز کا ایک چھوٹا سلسلہ ہے — جیسے کہانی میں رموزِ اوقاف۔ کچھ کارڈز تجسس پیدا کرتے ہیں (جیسے سوالیہ نشان) اور کچھ واپس بنیادی سُر پر سکون دیتے ہیں (جیسے جملے کے آخر میں فل اسٹاپ)۔",
-    tr: "Kadans, kısa bir akor dizisidir — bir hikâyedeki noktalama işaretleri gibi. Bazı akorlar gerilim kurar (soru işareti gibi), bazıları ise sakinleşerek toniğe, yani eve döner (cümle sonundaki nokta gibi)."
+    tr: "Kadans, kısa bir akor dizisidir — bir hikâyedeki noktalama işaretleri gibi. Bazı akorlar gerilim kurar (soru işareti gibi), bazıları ise sakinleşerek toniğe, yani eve döner (cümle sonundaki nokta gibi).",
+    ar: "القفلة هي تتابع قصير من التآلفات — مثل علامات الترقيم في القصة. بعض التآلفات تبني التوتر (كعلامة الاستفهام)، وأخرى تحلّ بهدوء عائدةً إلى درجة القرار (كالنقطة في نهاية الجملة)."
   },
   "welcome.begTermScalesTitle": {
     de: "Tonleitern, Solfège & Rhythmus",
@@ -387,7 +421,8 @@ registerColocatedStatic({
     pl: "Skale, Solfeż i Rytm",
     uk: "Гами, Сольфеджіо та Ритм",
     ur: "اسکیلز، سولفیج اور ردھم",
-    tr: "Gamlar, Solfej ve Ritim"
+    tr: "Gamlar, Solfej ve Ritim",
+    ar: "السلالم والصولفيج والإيقاع"
   },
   "welcome.begTermScalesDesc": {
     de: "Eine Tonleiter ist der Ton-Vorrat eines Liedes. Mit Solfège (Do–Re–Mi) bekommt jede Stufe einen festen Rufnamen im Ohr, und der Rhythmus gibt der Musik ihren Puls, zu dem man automatisch mitwippt.",
@@ -398,7 +433,8 @@ registerColocatedStatic({
     pl: "Skala to zestaw dźwięków utworu. Solfeż (Do–Re–Mi) nadaje każdemu stopniowi stałe imię w uchu, a rytm daje muzyce puls, do którego noga sama tupie.",
     uk: "Гама — це набір нот пісні. Сольфеджіо (До–Ре–Мі) дає кожному ступеню власне ім’я для слуху, а ритм задає пульс, під який хочеться рухатися.",
     ur: "اسکیل کسی گیت کے سُروں کا مجموعہ ہے۔ سولفیج (Do–Re–Mi) ہر درجے کو کان میں ایک پہچان دیتا ہے، اور ردھم موسیقی کو وہ نبض دیتا ہے جس پر قدم خود بخود تھپتھپاتے ہیں۔",
-    tr: "Gam, bir şarkının kullandığı ses havuzudur. Solfej (Do–Re–Mi) gamdaki her basamağa kulağında tanıdık bir ad verir; ritim ise ayağınla tempo tuttuğun düzenli nabzı sağlar."
+    tr: "Gam, bir şarkının kullandığı ses havuzudur. Solfej (Do–Re–Mi) gamdaki her basamağa kulağında tanıdık bir ad verir; ritim ise ayağınla tempo tuttuğun düzenli nabzı sağlar.",
+    ar: "السلم هو مجموعة النغمات التي تستخدمها المقطوعة. والصولفيج (Do–Re–Mi) يمنح كل درجة اسمًا مألوفًا في أذنك، بينما يمنح الإيقاع النبض الثابت الذي تتفاعل معه."
   },
   "welcome.begStep2Tag": {
     de: "Einsteiger-Einführung • 2 / 3",
@@ -409,7 +445,8 @@ registerColocatedStatic({
     pl: "Wprowadzenie • 2 / 3",
     uk: "Вступ для новачків • 2 / 3",
     ur: "بنیادی تعارف • 2 / 3",
-    tr: "Başlangıç Tanıtımı • 2 / 3"
+    tr: "Başlangıç Tanıtımı • 2 / 3",
+    ar: "مقدّمة المبتدئين • 2 / 3"
   },
   "welcome.begStep2Title": {
     de: "Was ist am Anfang sinnvoll zu üben?",
@@ -420,7 +457,8 @@ registerColocatedStatic({
     pl: "Co warto ćwiczyć na samym początku?",
     uk: "З чого найрозумніше почати?",
     ur: "شروع میں کس چیز کی مشق سب سے مفید ہے؟",
-    tr: "İlk Olarak Ne Çalışmak Mantıklı?"
+    tr: "İlk Olarak Ne Çalışmak Mantıklı?",
+    ar: "بماذا يُنصح أن تبدأ التدرّب؟"
   },
   "welcome.begStep2Sub": {
     de: "Du musst nicht alles auf einmal ausprobieren. Mit diesen 3 Schritten gelingt der Einstieg ganz entspannt:",
@@ -431,7 +469,8 @@ registerColocatedStatic({
     pl: "Nie musisz próbować wszystkiego naraz. Te 3 spokojne kroki to idealny start:",
     uk: "Не потрібно охоплювати все одразу. Ось 3 легкі кроки для комфортного старту:",
     ur: "سب کچھ ایک ساتھ کرنے کی ضرورت نہیں۔ آغاز کے لیے یہ 3 آسان قدم بہترین ہیں:",
-    tr: "Her şeyi bir anda denemek zorunda değilsin. Bu 3 yumuşak adım başlamak için idealdir:"
+    tr: "Her şeyi bir anda denemek zorunda değilsin. Bu 3 yumuşak adım başlamak için idealdir:",
+    ar: "لا داعي لتجربة كل شيء دفعة واحدة. هذه الخطوات الثلاث الهادئة مثالية للبداية:"
   },
   "welcome.begTip1Title": {
     de: "1. Intervalle (Stufe 1) & der „Nur hören“-Modus",
@@ -442,7 +481,8 @@ registerColocatedStatic({
     pl: "1. Interwały (Poziom 1) i tryb „Tylko słuchanie”",
     uk: "1. Інтервали (Рівень 1) і режим «Тільки слухати»",
     ur: "1. انٹرولز (لیول 1) اور ’صرف سنیں‘ موڈ",
-    tr: "1. Aralıklar (Seviye 1) ve Sadece Dinle Modu"
+    tr: "1. Aralıklar (Seviye 1) ve Sadece Dinle Modu",
+    ar: "1. المسافات (المستوى 1) ووضع «الاستماع فقط»"
   },
   "welcome.begTip1Desc": {
     de: "Starte mit „Intervalle • Stufe 1 (Grundlagen)“. Dort gibt es nur wenige, gut unterscheidbare Tonabstände. Tipp: Schalte oben im Modul ruhig zuerst den „Nur hören“-Modus ein, um den Klängen ohne Abfrage-Druck zu lauschen.",
@@ -453,7 +493,8 @@ registerColocatedStatic({
     pl: "Zacznij od „Interwały • Poziom 1 (Podstawy)” z kilkoma wyraźnymi odległościami. Wskazówka: włącz najpierw na górze tryb „Tylko słuchanie”, by spokojnie osłuchać się z brzmieniem bez presji zgadywania.",
     uk: "Почніть із «Інтервали • Рівень 1 (Основи)» з кількома виразними відстанями. Порада: спершу увімкніть угорі режим «Тільки слухати», щоб спокійно познайомитися зі звучанням без перевірок.",
     ur: "’انٹرولز • لیول 1 (بنیادی)‘ سے شروع کریں جہاں صرف چند واضح فاصلے ہوتے ہیں۔ مشورہ: پہلے اوپر ’صرف سنیں‘ موڈ آن کریں تاکہ بغیر کسی دباؤ کے آوازوں کو محسوس کر سکیں۔",
-    tr: "Yalnızca birkaç belirgin ses mesafesi kullanan «Aralıklar • Seviye 1 (Temeller)» ile başla. İpucu: Önce modülün üst kısmından «Sadece Dinle» modunu açarak test baskısı olmadan sesleri zihnine sindirebilirsin."
+    tr: "Yalnızca birkaç belirgin ses mesafesi kullanan «Aralıklar • Seviye 1 (Temeller)» ile başla. İpucu: Önce modülün üst kısmından «Sadece Dinle» modunu açarak test baskısı olmadan sesleri zihnine sindirebilirsin.",
+    ar: "ابدأ بـ «المسافات • المستوى 1 (الأساسيات)»، حيث توجد مسافات قليلة وواضحة التمييز. نصيحة: فعّل وضع «الاستماع فقط» أعلى التمرين أولًا لتتشبّع بالأصوات دون ضغط الاختبار."
   },
   "welcome.begTip2Title": {
     de: "2. Akkorde (Dur vs. Moll) & Rhythmus-Puls",
@@ -464,7 +505,8 @@ registerColocatedStatic({
     pl: "2. Akordy (Dur vs Moll) i puls rytmiczny",
     uk: "2. Акорди (Мажор vs Мінор) і пульс ритму",
     ur: "2. کارڈز (میجر بمقابلہ مائنر) اور ردھم کی نبض",
-    tr: "2. Akorlar (Majör ve Minör) ve Ritim Nabzı"
+    tr: "2. Akorlar (Majör ve Minör) ve Ritim Nabzı",
+    ar: "2. التآلفات (الكبير مقابل الصغير) ونبض الإيقاع"
   },
   "welcome.begTip2Desc": {
     de: "Achte bei „Akkorde • Stufe 1“ nur auf dein Bauchgefühl: Klingt der Akkord eher hell (Dur) oder weich und nachdenklich (Moll)? Im Modul „Rhythmus“ kannst du außerdem einfache Takte auf dem Tap-Pad nachklopfen.",
@@ -475,7 +517,8 @@ registerColocatedStatic({
     pl: "W „Akordy • Poziom 1” zaufaj intuicji: czy akord brzmi jasno (Dur), czy miękko i zadumanie (Moll)? W module „Rytm” możesz też wystukiwać proste takty na żywym padzie.",
     uk: "В «Акорди • Рівень 1» довіряйте відчуттям: акорд звучить світло (Мажор) чи м’яко й задумливо (Мінор)? А в модулі «Ритм» відстукуйте прості такти на педі.",
     ur: "’کارڈز • لیول 1‘ میں صرف اپنے احساس پر بھروسہ کریں: کیا آواز روشن ہے (میجر) یا نرم اور سنجیدہ (مائنر)؟ ’ردھم‘ ماڈیول میں آپ سادہ تال پیڈ پر بجا سکتے ہیں۔",
-    tr: "«Akorlar • Seviye 1»de sadece içgüdüne güven: akor parlak (Majör) mı yoksa yumuşak ve hüzünlü (Minör) mü geliyor? «Ritim» modülünde ayrıca basit ölçüleri canlı pad üzerinde tekrar vurabilirsin."
+    tr: "«Akorlar • Seviye 1»de sadece içgüdüne güven: akor parlak (Majör) mı yoksa yumuşak ve hüzünlü (Minör) mü geliyor? «Ritim» modülünde ayrıca basit ölçüleri canlı pad üzerinde tekrar vurabilirsin.",
+    ar: "في «التآلفات • المستوى 1»، اعتمد على إحساسك فقط: هل يبدو التآلف مشرقًا (كبير) أم ناعمًا وتأمّليًا (صغير)؟ وفي وحدة «الإيقاع» يمكنك أيضًا النقر على موازير بسيطة مباشرة."
   },
   "welcome.begTip3Title": {
     de: "3. Kurze Melodien (Do – Fa) & der Wissens-Hub",
@@ -486,7 +529,8 @@ registerColocatedStatic({
     pl: "3. Krótkie melodie (Do – Fa) i dział Wiedza",
     uk: "3. Короткі мелодії (До – Фа) та розділ «Знання»",
     ur: "3. مختصر دھنیں (Do – Fa) اور علم (Knowledge) حب",
-    tr: "3. Kısa Melodiler (Do – Fa) ve Bilgi Merkezi"
+    tr: "3. Kısa Melodiler (Do – Fa) ve Bilgi Merkezi",
+    ar: "3. ألحان قصيرة (Do – Fa) ومركز المعرفة"
   },
   "welcome.begTip3Desc": {
     de: "In „Melodien • Stufe 1“ baust du kleine Tonfolgen aus nur 4 Tönen nach. Und wann immer dir ein Begriff neu ist, tippe unten in der Leiste auf das Buch-Symbol (Wissen) – dort ist alles mit Klangbeispielen zum Antippen erklärt.",
@@ -497,7 +541,8 @@ registerColocatedStatic({
     pl: "W „Melodie • Poziom 1” układasz krótkie motywy z zaledwie 4 dźwięków. A gdy jakieś pojęcie jest nowe, dotknij ikony książki (Wiedza) na dole — wszystko ma tam przykłady dźwiękowe.",
     uk: "У «Мелодії • Рівень 1» ви складаєте короткі фрази всього з 4 нот. А якщо якийсь термін незнайомий, натисніть іконку книги (Знання) внизу — там усе пояснено з аудіоприкладами.",
     ur: "’دھنیں • لیول 1‘ میں صرف 4 سُروں سے چھوٹے جملے بنائیں۔ اور جب کوئی لفظ نیا لگے تو نیچے کتاب کے آئیکن (علم) کو دبائیں جہاں ہر موضوع صوتی مثالوں کے ساتھ موجود ہے۔",
-    tr: "«Melodiler • Seviye 1»de sadece 4 ses kullanarak kısa ezgileri yeniden kurarsın. Bir terim yabancı geldiğinde alt çubuktaki kitap simgesine (Bilgi) dokunarak etkileşimli sesli açıklamaları keşfet."
+    tr: "«Melodiler • Seviye 1»de sadece 4 ses kullanarak kısa ezgileri yeniden kurarsın. Bir terim yabancı geldiğinde alt çubuktaki kitap simgesine (Bilgi) dokunarak etkileşimli sesli açıklamaları keşfet.",
+    ar: "في «الألحان • المستوى 1»، تعيد بناء جمل قصيرة من 4 نغمات فقط. ومتى ما صادفك مصطلح جديد، اضغط على أيقونة الكتاب (المعرفة) في الشريط السفلي لاستكشاف شروحات تفاعلية مع أمثلة صوتية."
   },
   "welcome.begApplyPresetBtn": {
     de: "Empfohlenen Startpunkt (Intervalle • Stufe 1) auswählen",
@@ -508,7 +553,8 @@ registerColocatedStatic({
     pl: "Wybierz polecany punkt startowy (Interwały • Poziom 1)",
     uk: "Обрати рекомендований старт (Інтервали • Рівень 1)",
     ur: "تجویز کردہ آغاز (انٹرولز • لیول 1) منتخب کریں",
-    tr: "Önerilen başlangıç noktasını seç (Aralıklar • Seviye 1)"
+    tr: "Önerilen başlangıç noktasını seç (Aralıklar • Seviye 1)",
+    ar: "اختيار نقطة البداية الموصى بها (المسافات • المستوى 1)"
   },
   "welcome.begApplyPresetDone": {
     de: "✓ Empfohlener Startpunkt (Intervalle • Stufe 1) ausgewählt",
@@ -519,7 +565,8 @@ registerColocatedStatic({
     pl: "✓ Wybrano polecany punkt startowy (Interwały • Poziom 1)",
     uk: "✓ Рекомендований старт (Інтервали • Рівень 1) обрано",
     ur: "✓ تجویز کردہ آغاز (انٹرولز • لیول 1) منتخب ہو گیا",
-    tr: "✓ Önerilen başlangıç noktası (Aralıklar • Seviye 1) seçildi"
+    tr: "✓ Önerilen başlangıç noktası (Aralıklar • Seviye 1) seçildi",
+    ar: "✓ تم اختيار نقطة البداية الموصى بها (المسافات • المستوى 1)"
   },
   "welcome.begStep3Tag": {
     de: "Einsteiger-Einführung • 3 / 3",
@@ -530,7 +577,8 @@ registerColocatedStatic({
     pl: "Wprowadzenie • 3 / 3",
     uk: "Вступ для новачків • 3 / 3",
     ur: "بنیادی تعارف • 3 / 3",
-    tr: "Başlangıç Tanıtımı • 3 / 3"
+    tr: "Başlangıç Tanıtımı • 3 / 3",
+    ar: "مقدّمة المبتدئين • 3 / 3"
   },
   "welcome.begStep3Title": {
     de: "Lass dich am Anfang nicht erschlagen!",
@@ -541,7 +589,8 @@ registerColocatedStatic({
     pl: "Nie daj się przytłoczyć na starcie!",
     uk: "Не лякайтеся обсягу інформації на старті!",
     ur: "شروع میں معلومات کی کثرت سے بالکل نہ گھبرائیں!",
-    tr: "Başta Gözün Korkmasın!"
+    tr: "Başta Gözün Korkmasın!",
+    ar: "لا تشعر بالارتباك في البداية!"
   },
   "welcome.begStep3Sub": {
     de: "Ein ehrlicher Hinweis, bevor du deinen ersten Ton abspielst:",
@@ -552,7 +601,8 @@ registerColocatedStatic({
     pl: "Szczera myśl na zachętę, zanim zagrasz pierwszy dźwięk:",
     uk: "Щира підтримка перед тим, як пролунає ваша перша нота:",
     ur: "پہلا سُر بجانے سے پہلے ایک مخلصانہ حوصلہ افزائی:",
-    tr: "İlk notanı çalmadan önce samimi bir cesaretlendirme notu:"
+    tr: "İlk notanı çalmadan önce samimi bir cesaretlendirme notu:",
+    ar: "كلمة تشجيع صادقة قبل أن تسمع أول نغمة:"
   },
   "welcome.begEncourage1Title": {
     de: "Es ist völlig normal, sich anfangs überwältigt zu fühlen",
@@ -563,7 +613,8 @@ registerColocatedStatic({
     pl: "To zupełnie normalne, że na początku jest tego dużo",
     uk: "Відчувати перевантаження на початку — це цілком нормально",
     ur: "شروع میں الجھن یا بوجھ محسوس ہونا بالکل فطری ہے",
-    tr: "Başlangıçta bunalmış hissetmek tamamen normaldir"
+    tr: "Başlangıçta bunalmış hissetmek tamamen normaldir",
+    ar: "من الطبيعي تمامًا أن تشعر بكثرة المعلومات في البداية"
   },
   "welcome.begEncourage1Desc": {
     de: "Begriffe wie „Quinte“, „Kadenz“, „Solfège“ oder „Notenschlüssel“ wirken am Anfang oft wie eine riesige Flut an Informationen. Wenn du dich davon erst einmal erschlagen fühlst oder oft danebenliegst, ist das vollkommen normal – und bedeutet niemals, dass du „unmusikalisch“ bist!",
@@ -574,7 +625,8 @@ registerColocatedStatic({
     pl: "Słowa takie jak „kwinta”, „kadencja”, „solfeż” czy „klucz” mogą pierwszego dnia przytłaczać. Jeśli czujesz nadmiar informacji albo często się mylisz, to w 100% normalne — i nigdy nie oznacza braku słuchu muzycznego!",
     uk: "Слова на кшталт «квінта», «каденція», «сольфеджіо» чи «ключ» у перший день можуть здаватися лавиною інформації. Якщо спочатку важко або ви часто помиляєтеся — це абсолютно нормально і ніколи не означає, що у вас «немає слуху»!",
     ur: "’ففتھ‘، ’کیڈینس‘، ’سولفیج‘ یا ’کلیف‘ جیسے الفاظ پہلے دن بہت زیادہ لگ سکتے ہیں۔ اگر شروع میں یہ سب بھاری لگے یا کئی جوابات غلط ہوں تو یہ بالکل نارمل ہے — اس کا ہرگز یہ مطلب نہیں کہ آپ میں موسیقی کی صلاحیت نہیں!",
-    tr: "«Beşli», «kadans», «solfej» veya «anahtar» gibi terimler ilk günde büyük bir bilgi dalgası gibi gelebilir. Başta çok fazla gelirse ya da pek çok soruda yanılırsan bu tamamen normaldir — asla «müzik kulağın yok» demek değildir!"
+    tr: "«Beşli», «kadans», «solfej» veya «anahtar» gibi terimler ilk günde büyük bir bilgi dalgası gibi gelebilir. Başta çok fazla gelirse ya da pek çok soruda yanılırsan bu tamamen normaldir — asla «müzik kulağın yok» demek değildir!",
+    ar: "مصطلحات مثل «خامسة» أو «قفلة موسيقية» أو «صولفيج» أو «مفتاح» قد تبدو كسيل كبير من المعلومات في اليوم الأول. إذا شعرت بالارتباك أو أخطأت كثيرًا في البداية، فهذا طبيعي جدًا — ولا يعني أبدًا أنك «غير موسيقي»!"
   },
   "welcome.begEncourage2Title": {
     de: "Das Geheimnis ist einfach, entspannt am Ball zu bleiben",
@@ -585,7 +637,8 @@ registerColocatedStatic({
     pl: "Sekretem jest po prostu spokojna regularność",
     uk: "Секрет успіху — просто спокійно залишатися в тонусі",
     ur: "اصل راز صرف مستقل مزاجی اور سکون سے جڑے رہنا ہے",
-    tr: "Sır, kendi hızında istikrarlı devam etmektir"
+    tr: "Sır, kendi hızında istikrarlı devam etmektir",
+    ar: "السرّ هو الاستمرار بهدوء وفق وتيرتك الخاصة"
   },
   "welcome.begEncourage2Desc": {
     de: "Musikalisches Gehör wächst wie eine Sprache durch kleine, regelmäßige Gewohnheiten. Schon 5 ruhige Minuten alle paar Tage reichen aus. In Lauscher gibt es keinen Punktedruck: Jeder falsche Tipp ist einfach ein kostenloser Hör-Vergleich für dein Ohr.",
@@ -596,7 +649,8 @@ registerColocatedStatic({
     pl: "Słuch muzyczny rozwija się jak nowy język — małymi krokami. Wystarczy 5 spokojnych minut co kilka dni. W Lauscher nie ma presji punktów: każda pomyłka to po prostu darmowe porównanie dźwięków dla Twojego ucha.",
     uk: "Музичний слух розвивається як мова — маленькими регулярними кроками. Навіть 5 спокійних хвилин раз на кілька днів достатньо. У Lauscher немає тиску балів: кожна помилка — це просто безкоштовне порівняння для вашого вуха.",
     ur: "موسیقی کی سماعت کسی نئی زبان کی طرح چھوٹے، مستقل قدموں سے نکھرتی ہے۔ چند دنوں میں صرف 5 پرسکون منٹ بھی کافی ہیں۔ Lauscher میں اسکور کا کوئی دباؤ نہیں: ہر غلط اندازہ آپ کے کان کے لیے ایک مفت تقابلی سبق ہے۔",
-    tr: "Müzik kulağın tıpkı bir dil öğrenmek gibi küçük ve düzenli alışkanlıklarla gelişir. Birkaç günde bir sakin 5 dakika bile yeterlidir. Lauscher'da puan baskısı yoktur: her yanlış tahmin kulağın için ücretsiz bir dinleme karşılaştırmasıdır."
+    tr: "Müzik kulağın tıpkı bir dil öğrenmek gibi küçük ve düzenli alışkanlıklarla gelişir. Birkaç günde bir sakin 5 dakika bile yeterlidir. Lauscher'da puan baskısı yoktur: her yanlış tahmin kulağın için ücretsiz bir dinleme karşılaştırmasıdır.",
+    ar: "الأذن الموسيقية تنمو تمامًا مثل تعلّم لغة جديدة — عبر عادات صغيرة ومنتظمة. حتى 5 دقائق هادئة كل بضعة أيام تكفي. لا يوجد ضغط نقاط في Lauscher: كل إجابة خاطئة هي ببساطة مقارنة سمعية مجانية لأذنك."
   },
   "welcome.begEncourage3Title": {
     de: "Nimm dir Zeit & nutze alle Hörhilfen",
@@ -607,7 +661,8 @@ registerColocatedStatic({
     pl: "Daj sobie czas i korzystaj z podpowiedzi audio",
     uk: "Не поспішайте й користуйтеся підказками",
     ur: "اپنا وقت لیں اور تمام صوتی مدد استعمال کریں",
-    tr: "Acele etme ve dinleme yardımcılarını kullan"
+    tr: "Acele etme ve dinleme yardımcılarını kullan",
+    ar: "خذ وقتك واستفد من أدوات المساعدة السمعية"
   },
   "welcome.begEncourage3Desc": {
     de: "Nutze jederzeit „Grundton hören“, „Ton nochmal“ oder die A/B-Vergleiche. Mach eine Pause, sobald dein Kopf voll ist, und bleib einfach neugierig dran – schon nach kurzer Zeit wirst du staunen, was dein Ohr plötzlich wie von selbst erkennt!",
@@ -618,7 +673,8 @@ registerColocatedStatic({
     pl: "Używaj śmiało przycisków „Posłuchaj prymy”, „Powtórz dźwięk” i porównań A/B. Zrób przerwę, gdy głowa jest pełna, i po prostu bądź ciekawy — szybko zaskoczy Cię, jak wiele Twoje ucho zacznie samo rozpoznawać!",
     uk: "Сміливо вмикайте «Слухати тоніку», «Повторити ноту» або A/B-порівняння. Робіть паузу, коли голова втомлюється, і просто зберігайте цікавість — дуже скоро ви здивуєтеся, як багато ваше вухо почне впізнавати самостійно!",
     ur: "جب چاہیں ’بنیادی سُر سنیں‘، ’سُر دہرائیں‘ یا A/B موازنہ استعمال کریں۔ جب ذہن تھک جائے تو وقفہ لیں اور بس شوق سے جڑے رہیں — جلد ہی آپ حیران رہ جائیں گے کہ آپ کا کان خود بخود کتنی باریکیاں پہچاننے لگا ہے!",
-    tr: "İstediğin zaman «Kök Sesi Duy», «Sesi Tekrarla» veya A/B karşılaştırmalarını kullan. Kafan dolduğunda mola ver ve merakla devam et — çok geçmeden kulağının kendiliğinden neler tanıdığına şaşıracaksın!"
+    tr: "İstediğin zaman «Kök Sesi Duy», «Sesi Tekrarla» veya A/B karşılaştırmalarını kullan. Kafan dolduğunda mola ver ve merakla devam et — çok geçmeden kulağının kendiliğinden neler tanıdığına şaşıracaksın!",
+    ar: "استخدم «سماع النغمة الأساسية» أو «إعادة النغمة» أو مقارنات A/B في أي وقت. خذ استراحة متى شعرت بالتعب، وواصل بفضول — وسرعان ما ستندهش مما باتت أذنك تميّزه تلقائيًا!"
   },
   "welcome.greetBeginnerBtn": {
     de: "Komplett neu in der Musik? Kurze Einführung starten",
@@ -629,7 +685,8 @@ registerColocatedStatic({
     pl: "Nowy w muzyce? Uruchom krótkie wprowadzenie",
     uk: "Новачок у музиці? Відкрити короткий вступ",
     ur: "موسیقی میں نئے ہیں؟ مختصر تعارف شروع کریں",
-    tr: "Müziğe yepyeni misin? Kısa başlangıç tanıtımını aç"
+    tr: "Müziğe yepyeni misin? Kısa başlangıç tanıtımını aç",
+    ar: "جديد تمامًا في الموسيقى؟ ابدأ مقدّمة قصيرة للمبتدئين"
   },
   "welcome.greetTitle": {
     de: "Hallo! Schön, dass du da bist.",
@@ -640,7 +697,8 @@ registerColocatedStatic({
     pl: "Cześć! Miło Cię widzieć w Lauscher.",
     uk: "Привіт! Радий вітати тебе в Lauscher.",
     ur: "خوش آمدید! Lauscher میں آپ کا آنا بہت اچھا لگا۔",
-    tr: "Merhaba! Lauscher'a hoş geldin."
+    tr: "Merhaba! Lauscher'a hoş geldin.",
+    ar: "مرحبًا! أهلًا بك في Lauscher."
   },
   "welcome.greetNamedTitle": {
     de: "Hallo, {name}! Schön, dass du da bist.",
@@ -651,7 +709,8 @@ registerColocatedStatic({
     pl: "Cześć, {name}! Miło Cię widzieć w Lauscher.",
     uk: "Привіт, {name}! Радий вітати тебе в Lauscher.",
     ur: "خوش آمدید، {name}! Lauscher میں آپ کا آنا بہت اچھا لگا۔",
-    tr: "Merhaba, {name}! Lauscher'a hoş geldin."
+    tr: "Merhaba, {name}! Lauscher'a hoş geldin.",
+    ar: "مرحبًا يا {name}! أهلًا بك في Lauscher."
   },
   "welcome.greetBody": {
     de: "Ich bin Lauscher und freue mich darauf, mit dir zu hören, Noten zu entdecken und Musik zu verstehen. Viel Freude und Erfolg beim Lernen!",
@@ -662,7 +721,8 @@ registerColocatedStatic({
     pl: "Jestem Lauscher i z radością pomogę Ci ćwiczyć słuch muzyczny, czytać nuty oraz odkrywać harmonię. Ucz się we własnym tempie — dużo radości i sukcesów!",
     uk: "Я — Lauscher, і з радістю допоможу тобі тренувати слух, читати ноти та пізнавати музику. Займайся у своєму темпі — гарного настрою та задоволення від навчання!",
     ur: "میں Lauscher ہوں، اور آپ کے ساتھ کان کی تربیت، نوٹیشن پڑھنا اور موسیقی کا نظریہ سیکھنے کے لیے پُرجوش ہوں۔ آرام سے اپنے انداز میں مشق کریں اور سیکھنے کا لطف اٹھائیں!",
-    tr: "Ben Lauscher; kulak eğitimi, nota okuma ve müzik teorisini seninle birlikte keşfetmek için sabırsızlanıyorum. Acele etme ve öğrenirken bolca keyif al!"
+    tr: "Ben Lauscher; kulak eğitimi, nota okuma ve müzik teorisini seninle birlikte keşfetmek için sabırsızlanıyorum. Acele etme ve öğrenirken bolca keyif al!",
+    ar: "أنا Lauscher، ومتحمّس لاستكشاف تدريب الأذن وقراءة النوتة ونظريات الموسيقى معك. خذ وقتك واستمتع بالتعلّم!"
   },
   "welcome.continueBtn": {
     de: "Los geht’s →",
@@ -673,7 +733,8 @@ registerColocatedStatic({
     pl: "Zaczynajmy →",
     uk: "Починаймо →",
     ur: "چلو شروع کریں ←",
-    tr: "Hadi başlayalım →"
+    tr: "Hadi başlayalım →",
+    ar: "هيا نبدأ ←"
   },
   "welcome.redirectHint": {
     de: "Du wirst gleich zum Homescreen weitergeleitet …",
@@ -684,7 +745,8 @@ registerColocatedStatic({
     pl: "Za chwilę przejdziemy do ekranu głównego…",
     uk: "Зараз перейдемо на головний екран…",
     ur: "آپ کو ہوم اسکرین پر لے جایا جا رہا ہے…",
-    tr: "Ana sayfaya yönlendiriliyorsun…"
+    tr: "Ana sayfaya yönlendiriliyorsun…",
+    ar: "جارٍ نقلك إلى الشاشة الرئيسية…"
   },
   "nav.backTitle": {
     de: "Zurück",
@@ -695,7 +757,8 @@ registerColocatedStatic({
     pl: "Wstecz",
     uk: "Назад",
     ur: "واپس",
-    tr: "Geri"
+    tr: "Geri",
+    ar: "رجوع"
   },
   "header.masterVolTitle": {
     de: "Master-Lautstärke",
@@ -706,7 +769,8 @@ registerColocatedStatic({
     pl: "Głośność główna",
     uk: "Загальна гучність",
     ur: "ماسٹر والیوم",
-    tr: "Ana Ses Düzeyi"
+    tr: "Ana Ses Düzeyi",
+    ar: "مستوى الصوت الرئيسي"
   },
   "header.muteTitle": {
     de: "Stummschalten",
@@ -717,7 +781,8 @@ registerColocatedStatic({
     pl: "Wycisz dźwięk",
     uk: "Вимкнути звук",
     ur: "آواز بند کریں",
-    tr: "Sesi Kapat"
+    tr: "Sesi Kapat",
+    ar: "كتم الصوت"
   },
   "header.unmuteTitle": {
     de: "Ton einschalten",
@@ -728,7 +793,8 @@ registerColocatedStatic({
     pl: "Włącz dźwięk",
     uk: "Увімкнути звук",
     ur: "آواز آن کریں",
-    tr: "Sesi Aç"
+    tr: "Sesi Aç",
+    ar: "تشغيل الصوت"
   },
   "header.mixerTitle": {
     de: "Lautstärke",
@@ -739,7 +805,8 @@ registerColocatedStatic({
     pl: "Głośność",
     uk: "Гучність",
     ur: "والیوم",
-    tr: "Ses Düzeyi"
+    tr: "Ses Düzeyi",
+    ar: "مستوى الصوت"
   },
   "header.settingsTitle": {
     de: "Tonart, Tempo & Taktart",
@@ -750,7 +817,8 @@ registerColocatedStatic({
     pl: "Ustawienia, język i motyw",
     uk: "Налаштування, мова й тема",
     ur: "ترتیبات، زبان اور تھیم",
-    tr: "Ayarlar, Dil ve Tema"
+    tr: "Ayarlar, Dil ve Tema",
+    ar: "الإعدادات واللغة والمظهر"
   },
   "header.settingsAria": {
     de: "Einstellungen",
@@ -761,7 +829,8 @@ registerColocatedStatic({
     pl: "Ustawienia",
     uk: "Налаштування",
     ur: "ترتیبات",
-    tr: "Ayarlar"
+    tr: "Ayarlar",
+    ar: "الإعدادات"
   },
   "master.on": {
     de: "An",
@@ -772,7 +841,8 @@ registerColocatedStatic({
     pl: "Wł.",
     uk: "Увімк.",
     ur: "آن",
-    tr: "Açık"
+    tr: "Açık",
+    ar: "مفعّل"
   },
   "master.muted": {
     de: "Stumm",
@@ -783,7 +853,8 @@ registerColocatedStatic({
     pl: "Wycisz.",
     uk: "Без звуку",
     ur: "خاموش",
-    tr: "Sessiz"
+    tr: "Sessiz",
+    ar: "مكتوم"
   },
   "home.refreshQuoteTitle": {
     de: "Tippe für einen neuen Gedanken",
@@ -794,7 +865,8 @@ registerColocatedStatic({
     pl: "Dotknij, aby zobaczyć nową myśl",
     uk: "Натисни для нової поради",
     ur: "نئی بات یا مشورے کے لیے ٹیپ کریں",
-    tr: "Yeni bir ipucu için dokun"
+    tr: "Yeni bir ipucu için dokun",
+    ar: "اضغط لنصيحة جديدة"
   },
   "home.newQuote": {
     de: "Neu",
@@ -805,7 +877,8 @@ registerColocatedStatic({
     pl: "Nowa",
     uk: "Нова",
     ur: "نیا",
-    tr: "Yeni"
+    tr: "Yeni",
+    ar: "جديد"
   },
   "home.continue": {
     de: "▶ Weiterüben",
@@ -816,7 +889,8 @@ registerColocatedStatic({
     pl: "▶ Kontynuuj",
     uk: "▶ Продовжити",
     ur: "▶ مشق جاری رکھیں",
-    tr: "▶ Devam et"
+    tr: "▶ Devam et",
+    ar: "▶ متابعة التدرّب"
   },
   "home.startHere": {
     de: "▶ Beginne hier",
@@ -827,7 +901,8 @@ registerColocatedStatic({
     pl: "▶ Zacznij tutaj",
     uk: "▶ Почни тут",
     ur: "▶ یہاں سے شروع کریں",
-    tr: "▶ Buradan Başla"
+    tr: "▶ Buradan Başla",
+    ar: "▶ ابدأ من هنا"
   },
   "space.mixesHomeToggleLabel": {
     de: "Schnellstart auf der Startseite anzeigen",
@@ -838,7 +913,8 @@ registerColocatedStatic({
     pl: "Pokaż szybki start na ekranie głównym",
     uk: "Показувати швидкий старт на головній",
     ur: "ہوم اسکرین پر فوری آغاز دکھائیں",
-    tr: "Ana sayfada hızlı başlatmayı göster"
+    tr: "Ana sayfada hızlı başlatmayı göster",
+    ar: "إظهار البدء السريع في الشاشة الرئيسية"
   },
   "home.surpriseTitle": {
     de: "Zufällige Übung starten",
@@ -849,7 +925,8 @@ registerColocatedStatic({
     pl: "Uruchom losowe ćwiczenie",
     uk: "Запустити випадкову вправу",
     ur: "بے ترتیب مشق شروع کریں",
-    tr: "Rastgele bir alıştırma başlat"
+    tr: "Rastgele bir alıştırma başlat",
+    ar: "ابدأ تمرينًا عشوائيًا"
   },
   "home.surprise": {
     de: "Zufall",
@@ -860,7 +937,8 @@ registerColocatedStatic({
     pl: "Losuj",
     uk: "Випадкова",
     ur: "سرپرائز",
-    tr: "Rastgele"
+    tr: "Rastgele",
+    ar: "عشوائي"
   },
   "home.exercisesHeading": {
     de: "Gehörtraining & Musik",
@@ -871,7 +949,8 @@ registerColocatedStatic({
     pl: "Kształcenie słuchu i muzyka",
     uk: "Слух і музична теорія",
     ur: "سماعت اور موسیقی کا نظریہ",
-    tr: "Kulak Eğitimi ve Müzik"
+    tr: "Kulak Eğitimi ve Müzik",
+    ar: "تدريب الأذن والموسيقى"
   },
   "home.studioHeading": {
     de: "Studio & Mixing",
@@ -882,7 +961,8 @@ registerColocatedStatic({
     pl: "Studio i miksowanie",
     uk: "Студія та зведення",
     ur: "اسٹوڈیو اور مکسنگ",
-    tr: "Stüdyo ve Miks"
+    tr: "Stüdyo ve Miks",
+    ar: "الاستوديو والمكساج"
   },
   "home.catIntervals": {
     de: "Intervalle",
@@ -893,7 +973,8 @@ registerColocatedStatic({
     pl: "Interwały",
     uk: "Інтервали",
     ur: "انٹرولز (سُروں کا فاصلہ)",
-    tr: "Aralıklar"
+    tr: "Aralıklar",
+    ar: "المسافات الموسيقية"
   },
   "home.catIntervalsDesc": {
     de: "Aufwärts, abwärts & harmonisch gleichzeitig",
@@ -904,7 +985,8 @@ registerColocatedStatic({
     pl: "W górę, w dół oraz współbrzmienia harmoniczne",
     uk: "Висхідні, низхідні та гармонічні одночасно",
     ur: "چڑھتے، اترتے اور بیک وقت ہارمونک فاصلے",
-    tr: "Çıkıcı, inici ve eş zamanlı armonik aralıklar"
+    tr: "Çıkıcı, inici ve eş zamanlı armonik aralıklar",
+    ar: "صاعدة وهابطة وهارمونية متزامنة"
   },
   "home.catChords": {
     de: "Akkorde",
@@ -915,7 +997,8 @@ registerColocatedStatic({
     pl: "Akordy",
     uk: "Акорди",
     ur: "کارڈز",
-    tr: "Akorlar"
+    tr: "Akorlar",
+    ar: "التآلفات"
   },
   "home.catChordsDesc": {
     de: "Arpeggios auf-/abwärts, Vollklänge & Umkehrungen",
@@ -926,7 +1009,8 @@ registerColocatedStatic({
     pl: "Arpeggia w górę/dół, akordy pełne i przewroty",
     uk: "Арпеджіо вгору/вниз, співзвуччя та обернення",
     ur: "اوپر/نیچے آرپیجیو، مکمل کارڈز اور اُلٹاؤ (Inversions)",
-    tr: "Çıkıcı/inici arpejler, blok akorlar ve çevrimler"
+    tr: "Çıkıcı/inici arpejler, blok akorlar ve çevrimler",
+    ar: "أربيجيو صاعد وهابط، تآلفات كاملة وانقلابات"
   },
   "home.catCadences": {
     de: "Kadenzen",
@@ -937,7 +1021,8 @@ registerColocatedStatic({
     pl: "Kadencje",
     uk: "Каданси",
     ur: "کیڈینسز (کارڈ سلسلے)",
-    tr: "Kadanslar"
+    tr: "Kadanslar",
+    ar: "القفلات الموسيقية"
   },
   "home.catCadencesDesc": {
     de: "Harmonien & Akkordfolgen im Kontext erkennen",
@@ -948,7 +1033,8 @@ registerColocatedStatic({
     pl: "Rozpoznawaj funkcje i następstwa akordów w kontekście",
     uk: "Розпізнавай акорди й звороти в тональному контексті",
     ur: "اسکیل کے سیاق و سباق میں کارڈز اور ہارمونی پہچانیں",
-    tr: "Akorları ve dizileri armonik bağlamda duy"
+    tr: "Akorları ve dizileri armonik bağlamda duy",
+    ar: "تمييز التآلفات والتتابعات في السياق الهارموني"
   },
   "home.catSolfege": {
     de: "Solfège",
@@ -959,7 +1045,8 @@ registerColocatedStatic({
     pl: "Solfeż",
     uk: "Сольфеджіо",
     ur: "سولفیج (سرگم)",
-    tr: "Solfej"
+    tr: "Solfej",
+    ar: "الصولفيج"
   },
   "home.catSolfegeDesc": {
     de: "Tonstufen mit Do, Re, Mi in einer Tonart erleben",
@@ -970,7 +1057,8 @@ registerColocatedStatic({
     pl: "Czuj stopnie gamy (Do–Re–Mi) wewnątrz tonacji",
     uk: "Відчувай ступені ладу (Do–Re–Mi) всередині тональності",
     ur: "کسی کلید میں Do–Re–Mi کے درجات اور ذائقہ محسوس کریں",
-    tr: "Bir ton içindeki gam derecelerini (Do–Re–Mi) hisset"
+    tr: "Bir ton içindeki gam derecelerini (Do–Re–Mi) hisset",
+    ar: "استشعار درجات السلم (Do–Re–Mi) داخل المقام"
   },
   "home.catModes": {
     de: "Tonleitern & Modi",
@@ -981,7 +1069,8 @@ registerColocatedStatic({
     pl: "Skale i tryby",
     uk: "Гами та лади",
     ur: "اسکیلز اور موڈز",
-    tr: "Gamlar ve Modlar"
+    tr: "Gamlar ve Modlar",
+    ar: "السلالم والأنماط"
   },
   "home.catModesDesc": {
     de: "Kirchentonarten, Charaktertöne & modale Kadenzen",
@@ -992,7 +1081,8 @@ registerColocatedStatic({
     pl: "Skale kościelne, dźwięki charakterystyczne i kadencje modalne",
     uk: "Натуральні лади, характерні ступені й модальні кріплення",
     ur: "چرچ موڈز، خاص امتیازی سُر اور موڈل کارڈ لوپس",
-    tr: "Kilise modları, karakteristik sesler ve modal döngüler"
+    tr: "Kilise modları, karakteristik sesler ve modal döngüler",
+    ar: "الأنماط الكنسية، النغمات المميّزة ودورات التآلفات النمطية"
   },
   "home.catMelodies": {
     de: "Melodien",
@@ -1003,7 +1093,8 @@ registerColocatedStatic({
     pl: "Melodie",
     uk: "Мелодії",
     ur: "دھنیں (Melodies)",
-    tr: "Melodiler"
+    tr: "Melodiler",
+    ar: "الألحان"
   },
   "home.catMelodiesDesc": {
     de: "Kurze Tonfolgen nach Gehör Schritt für Schritt nachbauen",
@@ -1014,7 +1105,8 @@ registerColocatedStatic({
     pl: "Odwzorowuj ze słuchu krótkie frazy krok po kroku",
     uk: "Підбирай короткі мелодичні фрази крок за кроком на слух",
     ur: "چھوٹی دھنیں کان سے سن کر قدم بہ قدم ترتیب دیں",
-    tr: "Kısa ezgileri kulaktan adım adım çöz"
+    tr: "Kısa ezgileri kulaktan adım adım çöz",
+    ar: "تدوين ألحان قصيرة خطوة بخطوة عن طريق السمع"
   },
   "home.catRhythm": {
     de: "Rhythmus",
@@ -1025,7 +1117,8 @@ registerColocatedStatic({
     pl: "Rytm",
     uk: "Ритм",
     ur: "تال اور ردھم",
-    tr: "Ritim"
+    tr: "Ritim",
+    ar: "الإيقاع"
   },
   "home.catRhythmDesc": {
     de: "Taktarten, Puls und Notenwerte sicher erfassen",
@@ -1036,7 +1129,8 @@ registerColocatedStatic({
     pl: "Opanuj metrum, puls i wartości rytmiczne",
     uk: "Опановуй розміри, пульс і ритмічні поділки",
     ur: "ٹائم سگنیچرز، نبض (Beat) اور تقسیموں پر مہارت",
-    tr: "Ölçü birimleri, vuruş nabzı ve alt bölümlerde ustalaş"
+    tr: "Ölçü birimleri, vuruş nabzı ve alt bölümlerde ustalaş",
+    ar: "إتقان الأوزان الإيقاعية والنبض والتقسيمات"
   },
   "home.catNotation": {
     de: "Notation",
@@ -1047,7 +1141,8 @@ registerColocatedStatic({
     pl: "Czytanie nut",
     uk: "Нотна грамота",
     ur: "نوٹیشن (اسٹاف ریڈنگ)",
-    tr: "Nota Okuma"
+    tr: "Nota Okuma",
+    ar: "التدوين الموسيقي"
   },
   "home.catNotationDesc": {
     de: "Noten lesen im Violin-, Bass- & Altschlüssel mit Hilfslinien",
@@ -1058,7 +1153,8 @@ registerColocatedStatic({
     pl: "Czytaj nuty w kluczu wiolinowym, basowym i altowym z liniami dodanymi",
     uk: "Читання нот у скрипковому, басовому й альтовому ключах",
     ur: "ٹریبل، باس اور آلٹو کلیف میں لیجر لائنز کے ساتھ نوٹ پڑھیں",
-    tr: "Sol, Fa ve Alto anahtarlarında ek çizgilerle nota oku"
+    tr: "Sol, Fa ve Alto anahtarlarında ek çizgilerle nota oku",
+    ar: "قراءة النوتات في مفاتيح صول وفا وألتو مع الخطوط الإضافية"
   },
   "home.catProduction": {
     de: "Produktion",
@@ -1069,7 +1165,8 @@ registerColocatedStatic({
     pl: "Produkcja",
     uk: "Продакшн",
     ur: "پروڈکشن",
-    tr: "Prodüksiyon"
+    tr: "Prodüksiyon",
+    ar: "الإنتاج الصوتي"
   },
   "home.catProductionDesc": {
     de: "Frequenzen & EQ-Anhebungen im Noise heraushören",
@@ -1080,7 +1177,8 @@ registerColocatedStatic({
     pl: "Rozpoznawaj częstotliwości oraz podbicia EQ w szumie różowym",
     uk: "Розпізнавай частоти та підсилення еквалайзера в рожевому шумі",
     ur: "فریکوئنسیز اور پنک نوائز میں EQ بوسٹ پہچانیں",
-    tr: "Frekansları ve pembe gürültüdeki EQ yükseltmelerini tanı"
+    tr: "Frekansları ve pembe gürültüdeki EQ yükseltmelerini tanı",
+    ar: "تمييز الترددات وتعزيزات EQ في الضوضاء الوردية"
   },
   "home.voiceHeading": {
     de: "Stimme & Chor",
@@ -1091,7 +1189,8 @@ registerColocatedStatic({
     pl: "Głos i chór",
     uk: "Голос і хор",
     ur: "آواز اور کورس",
-    tr: "Ses ve Koro"
+    tr: "Ses ve Koro",
+    ar: "الصوت والكورال"
   },
   "home.catWarmup": {
     de: "Singen",
@@ -1102,7 +1201,8 @@ registerColocatedStatic({
     pl: "Śpiew",
     uk: "Спів",
     ur: "گانا",
-    tr: "Şan"
+    tr: "Şan",
+    ar: "الغناء"
   },
   "home.catWarmupDesc": {
     de: "Atem, Sirenen, Einsingen, Tonleitern & Chorklang",
@@ -1113,7 +1213,8 @@ registerColocatedStatic({
     pl: "Oddech, syreny, rozgrzewka, skale i brzmienie chóru",
     uk: "Дихання, сирени, розспівка, гами та хорове злиття",
     ur: "سانس، سائرن، آواز کی تیاری، اسکیلز اور کورس",
-    tr: "Nefes, sirenler, ses ısıtma, gamlar ve koro uyumu"
+    tr: "Nefes, sirenler, ses ısıtma, gamlar ve koro uyumu",
+    ar: "التنفّس، تمارين الإحماء الصوتي، السلالم وتجانس الكورال"
   },
   "tools.metronomeTitle": {
     de: "Metronom",
@@ -1124,7 +1225,8 @@ registerColocatedStatic({
     pl: "Metronom",
     uk: "Метроном",
     ur: "میٹرونوم",
-    tr: "Metronom"
+    tr: "Metronom",
+    ar: "المترونوم"
   },
   "tools.metronomeSub": {
     de: "Tap-Tempo, Zählzeiten, Unterteilungen & Profile",
@@ -1135,7 +1237,8 @@ registerColocatedStatic({
     pl: "Tap Tempo, akcenty miar, podziały i profile",
     uk: "Tap-темп, долі, поділки та профілі",
     ur: "ٹیپ ٹیمپو، بیٹس، ذیلی تقسیمیں اور پروفائلز",
-    tr: "Tap tempo, özel vuruşlar, alt bölümler ve profiller"
+    tr: "Tap tempo, özel vuruşlar, alt bölümler ve profiller",
+    ar: "نقر السرعة، نبضات مخصّصة، تقسيمات وملفات محفوظة"
   },
   "tools.tunerTitle": {
     de: "Tuner",
@@ -1146,7 +1249,8 @@ registerColocatedStatic({
     pl: "Stroik",
     uk: "Тюнер",
     ur: "ٹیونر",
-    tr: "Akort Aleti"
+    tr: "Akort Aleti",
+    ar: "الموالِف"
   },
   "tools.tunerSub": {
     de: "Stimmgerät & präzise Tonhöhen-Anzeige per Mikrofon",
@@ -1157,7 +1261,8 @@ registerColocatedStatic({
     pl: "Stroik chromatyczny i pomiar wysokości przez mikrofon",
     uk: "Хроматичний тюнер і точне визначення висоти через мікрофон",
     ur: "مائیکروفون کے ذریعے کرومیٹک ٹیونر اور درست سُر کی شناخت",
-    tr: "Mikrofonla kromatik akort ve canlı perde algılama"
+    tr: "Mikrofonla kromatik akort ve canlı perde algılama",
+    ar: "موالِف كروماتي وكشف مباشر لطبقة الصوت عبر الميكروفون"
   },
   "tools.freeplayTitle": {
     de: "Freies Spiel",
@@ -1168,7 +1273,8 @@ registerColocatedStatic({
     pl: "Swobodna gra",
     uk: "Вільна гра",
     ur: "آزاد مشق",
-    tr: "Ses Laboratuvarı"
+    tr: "Ses Laboratuvarı",
+    ar: "العزف الحر"
   },
   "tools.freeplaySub": {
     de: "Freie Klaviatur & Akkord-Flächen mit allen Mixer-Klängen",
@@ -1179,7 +1285,8 @@ registerColocatedStatic({
     pl: "Swobodna klawiatura i pady akordów z brzmieniami miksera",
     uk: "Вільна клавіатура й акордові педи з усіма тембрами мікшера",
     ur: "مکسر کے تمام سازوں کے ساتھ آزاد کی بورڈ اور کورڈ پیڈز",
-    tr: "Tüm mikser enstrümanlarıyla serbest klavye ve akor pad'leri"
+    tr: "Tüm mikser enstrümanlarıyla serbest klavye ve akor pad'leri",
+    ar: "لوحة مفاتيح حرّة ولوحات تآلفات بجميع آلات المازج"
   },
   "tools.fretboardTitle": {
     de: "Griffbrett",
@@ -1190,7 +1297,8 @@ registerColocatedStatic({
     pl: "Gryf gitary",
     uk: "Гриф гітари",
     ur: "گٹار فریٹ بورڈ",
-    tr: "Gitar Klavyesi"
+    tr: "Gitar Klavyesi",
+    ar: "رقبة الجيتار"
   },
   "tools.fretboardSub": {
     de: "Gitarren-Akkorde in allen Lagen, Umkehrsuche & Tonleitern",
@@ -1201,7 +1309,8 @@ registerColocatedStatic({
     pl: "Akordy w każdej pozycji, rozpoznawanie chwytów i skale",
     uk: "Акорди в усіх позиціях, зворотний пошук і гами",
     ur: "تمام پوزیشنز میں کورڈز، ریورس کورڈ فائنڈر اور اسکیلز",
-    tr: "Tüm pozisyonlarda gitar akorları, ters akor bulucu ve gamlar"
+    tr: "Tüm pozisyonlarda gitar akorları, ters akor bulucu ve gamlar",
+    ar: "تآلفات الجيتار بجميع الوضعيات، الباحث العكسي والسلالم"
   },
   "tools.circleTitle": {
     de: "Quintenzirkel",
@@ -1212,7 +1321,8 @@ registerColocatedStatic({
     pl: "Koło kwintowe",
     uk: "Кварто-квінтове коло",
     ur: "سرکل آف ففتھس",
-    tr: "Beşliler Çemberi"
+    tr: "Beşliler Çemberi",
+    ar: "دائرة الخامسات"
   },
   "tools.circleSub": {
     de: "Interaktives Klangrad, Akkorde, Vorzeichen & Modulation",
@@ -1223,7 +1333,8 @@ registerColocatedStatic({
     pl: "Interaktywna tarcza, akordy, znaki przykluczowe i modulacja",
     uk: "Інтерактивне коло, акорди, ключові знаки й модуляція",
     ur: "انٹرایکٹو پہیہ، کورڈز، کلیدی علامات اور ماڈیولیشن",
-    tr: "Etkileşimli ton çarkı, akorlar, donanımlar ve modülasyon"
+    tr: "Etkileşimli ton çarkı, akorlar, donanımlar ve modülasyon",
+    ar: "عجلة المقامات التفاعلية، التآلفات، دليل المقام والانتقال"
   },
   "tools.capoTitle": {
     de: "Kapodaster-Übersetzer",
@@ -1234,7 +1345,8 @@ registerColocatedStatic({
     pl: "Tłumacz kapodastra",
     uk: "Перекладач каподастра",
     ur: "کیپو ٹرانسلیٹر",
-    tr: "Kapo Çevirici"
+    tr: "Kapo Çevirici",
+    ar: "مترجم الكابو"
   },
   "tools.capoSub": {
     de: "Klingende Tonart, Kapo-Bund & Greif-Formen direkt umrechnen",
@@ -1245,7 +1357,8 @@ registerColocatedStatic({
     pl: "Przeliczaj tonację brzmiącą, próg kapodastra i chwyty gitarowe",
     uk: "Швидкий перерахунок звучання, ладу каподастра й гітарних аплікатур",
     ur: "اصل کی، کیپو فریٹ اور گٹار شیپس کو فوراً تبدیل کریں",
-    tr: "Duyulan ton, kapo perdesi ve akor kalıplarını anında çevir"
+    tr: "Duyulan ton, kapo perdesi ve akor kalıplarını anında çevir",
+    ar: "تحويل فوري للمقام المسموع وموضع الكابو وأشكال التآلفات"
   },
   "tools.nashvilleTitle": {
     de: "Nashville-Zahlensystem",
@@ -1256,7 +1369,8 @@ registerColocatedStatic({
     pl: "System liczbowy Nashville",
     uk: "Система цифр Нешвілла",
     ur: "نیش وِل نمبر سسٹم",
-    tr: "Nashville Sayı Sistemi"
+    tr: "Nashville Sayı Sistemi",
+    ar: "نظام أرقام ناشفيل"
   },
   "tools.nashvilleSub": {
     de: "Tonarten-Diagramm & 12-Tonarten-Matrix",
@@ -1267,7 +1381,8 @@ registerColocatedStatic({
     pl: "Diagram tonacji i tabela 12 tonacji",
     uk: "Діаграма тональностей і таблиця 12 тональностей",
     ur: "کی ڈایاگرام اور 12 کیز ٹیبل",
-    tr: "Ton diyagramı ve 12 tonluk matris"
+    tr: "Ton diyagramı ve 12 tonluk matris",
+    ar: "مخطط المقام ومصفوفة الـ 12 مقامًا"
   },
   "tools.soonBadge": {
     de: "Bald",
@@ -1278,7 +1393,8 @@ registerColocatedStatic({
     pl: "Wkrótce",
     uk: "Незабаром",
     ur: "جلد",
-    tr: "Yakında"
+    tr: "Yakında",
+    ar: "قريبًا"
   },
   "tools.previewBadge": {
     de: "Bald verfügbar",
@@ -1289,7 +1405,8 @@ registerColocatedStatic({
     pl: "Wkrótce dostępne",
     uk: "Незабаром",
     ur: "جلد دستیاب",
-    tr: "Çok yakında"
+    tr: "Çok yakında",
+    ar: "يتوفّر قريبًا"
   },
   "tools.tunerPageTitle": {
     de: "Chromatischer Tuner",
@@ -1300,7 +1417,8 @@ registerColocatedStatic({
     pl: "Stroik chromatyczny",
     uk: "Хроматичний тюнер",
     ur: "کرومیٹک ٹیونر",
-    tr: "Kromatik Akort Aleti"
+    tr: "Kromatik Akort Aleti",
+    ar: "الموالِف الكروماتي"
   },
   "tools.tunerPageDesc": {
     de: "Live-Tonhöhenerkennung und Kammerton-Referenz direkt über das Mikrofon deines Geräts.",
@@ -1311,7 +1429,8 @@ registerColocatedStatic({
     pl: "Wykrywanie wysokości dźwięku na żywo i ton wzorcowy przez mikrofon urządzenia.",
     uk: "Розпізнавання висоти звуку наживо та камертон через мікрофон пристрою.",
     ur: "آپ کے آلے کے مائیکروفون کے ذریعے براہِ راست سُر کی شناخت اور حوالہ جاتی سُر۔",
-    tr: "Cihazının mikrofonuyla doğrudan canlı perde algılama ve akort referansı."
+    tr: "Cihazının mikrofonuyla doğrudan canlı perde algılama ve akort referansı.",
+    ar: "كشف مباشر لطبقة الصوت ونغمة مرجعية للدوزنة عبر ميكروفون جهازك."
   },
   "tuner.modeAuto": {
     de: "Automatisch",
@@ -1322,7 +1441,8 @@ registerColocatedStatic({
     pl: "Automatycznie",
     uk: "Автоматично",
     ur: "خودکار",
-    tr: "Otomatik"
+    tr: "Otomatik",
+    ar: "تلقائي"
   },
   "tuner.modeSingle": {
     de: "Einzelton",
@@ -1333,7 +1453,8 @@ registerColocatedStatic({
     pl: "Pojedynczy dźwięk",
     uk: "Окрема нота",
     ur: "ایک سُر",
-    tr: "Tek nota"
+    tr: "Tek nota",
+    ar: "نغمة مفردة"
   },
   "tuner.modeAria": {
     de: "Erkennung",
@@ -1344,7 +1465,8 @@ registerColocatedStatic({
     pl: "Rozpoznawanie",
     uk: "Розпізнавання",
     ur: "شناخت",
-    tr: "Algılama"
+    tr: "Algılama",
+    ar: "وضع الكشف"
   },
   "tuner.referenceBtn": {
     de: "Referenzton",
@@ -1355,7 +1477,8 @@ registerColocatedStatic({
     pl: "Dźwięk wzorcowy",
     uk: "Еталонний тон",
     ur: "حوالہ سُر",
-    tr: "Referans sesi"
+    tr: "Referans sesi",
+    ar: "نغمة مرجعية"
   },
   "tuner.a4Label": {
     de: "Kammerton",
@@ -1366,7 +1489,8 @@ registerColocatedStatic({
     pl: "Kamerton",
     uk: "Камертон",
     ur: "معیاری سُر",
-    tr: "Referans frekans"
+    tr: "Referans frekans",
+    ar: "تردد الدوزنة"
   },
   "tuner.a4DownAria": {
     de: "Kammerton tiefer",
@@ -1377,7 +1501,8 @@ registerColocatedStatic({
     pl: "Niższy kamerton",
     uk: "Нижчий камертон",
     ur: "معیاری سُر نیچا",
-    tr: "Referans frekansı düşür"
+    tr: "Referans frekansı düşür",
+    ar: "خفض تردد الدوزنة"
   },
   "tuner.a4UpAria": {
     de: "Kammerton höher",
@@ -1388,7 +1513,8 @@ registerColocatedStatic({
     pl: "Wyższy kamerton",
     uk: "Вищий камертон",
     ur: "معیاری سُر اونچا",
-    tr: "Referans frekansı yükselt"
+    tr: "Referans frekansı yükselt",
+    ar: "رفع تردد الدوزنة"
   },
   "tuner.noteDownAria": {
     de: "Halbton tiefer",
@@ -1399,7 +1525,8 @@ registerColocatedStatic({
     pl: "Półton niżej",
     uk: "Півтон нижче",
     ur: "نیم سُر نیچے",
-    tr: "Yarım ton aşağı"
+    tr: "Yarım ton aşağı",
+    ar: "نصف درجة للأسفل"
   },
   "tuner.noteUpAria": {
     de: "Halbton höher",
@@ -1410,7 +1537,8 @@ registerColocatedStatic({
     pl: "Półton wyżej",
     uk: "Півтон вище",
     ur: "نیم سُر اوپر",
-    tr: "Yarım ton yukarı"
+    tr: "Yarım ton yukarı",
+    ar: "نصف درجة للأعلى"
   },
   "tuner.spectrumAria": {
     de: "Live-Frequenzspektrum",
@@ -1421,7 +1549,8 @@ registerColocatedStatic({
     pl: "Widmo częstotliwości na żywo",
     uk: "Спектр частот наживо",
     ur: "لائیو فریکوئنسی اسپیکٹرم",
-    tr: "Canlı frekans spektrumu"
+    tr: "Canlı frekans spektrumu",
+    ar: "طيف الترددات المباشر"
   },
   "tuner.viewModeAria": {
     de: "Anzeige",
@@ -1432,7 +1561,8 @@ registerColocatedStatic({
     pl: "Widok",
     uk: "Відображення",
     ur: "ڈسپلے",
-    tr: "Görünüm"
+    tr: "Görünüm",
+    ar: "العرض"
   },
   "tuner.viewGauge": {
     de: "Zeiger",
@@ -1443,7 +1573,8 @@ registerColocatedStatic({
     pl: "Wskazówka",
     uk: "Стрілка",
     ur: "سوئی",
-    tr: "İbre"
+    tr: "İbre",
+    ar: "مؤشّر"
   },
   "tuner.viewStrobe": {
     de: "Strobe",
@@ -1454,7 +1585,8 @@ registerColocatedStatic({
     pl: "Stroboskop",
     uk: "Строб",
     ur: "اسٹروب",
-    tr: "Stroboskop"
+    tr: "Stroboskop",
+    ar: "ستروب"
   },
   "tuner.strobeAria": {
     de: "Strobe-Anzeige",
@@ -1465,7 +1597,8 @@ registerColocatedStatic({
     pl: "Wyświetlacz stroboskopowy",
     uk: "Стробоскопічний індикатор",
     ur: "اسٹروب ڈسپلے",
-    tr: "Stroboskop görünümü"
+    tr: "Stroboskop görünümü",
+    ar: "عرض الستروب"
   },
   "tools.freeplayPageTitle": {
     de: "Freies Spiel",
@@ -1476,7 +1609,8 @@ registerColocatedStatic({
     pl: "Swobodna gra",
     uk: "Вільна гра",
     ur: "آزاد مشق",
-    tr: "Ses Laboratuvarı"
+    tr: "Ses Laboratuvarı",
+    ar: "العزف الحر"
   },
   "tools.freeplayPageDesc": {
     de: "Freie Klaviatur und Akkord-Flächen zum Ausprobieren, Improvisieren und Nachspielen mit deinen Mixer-Instrumenten.",
@@ -1487,7 +1621,8 @@ registerColocatedStatic({
     pl: "Swobodna klawiatura i pady akordów do improwizacji oraz grania z instrumentami z miksera.",
     uk: "Вільна клавіатура та акордові педи для імпровізації й гри з інструментами мікшера.",
     ur: "مکسر کے سازوں کے ساتھ آزادانہ بجانے، تجربہ کرنے اور کورڈ پیڈز کے لیے مفت کی بورڈ۔",
-    tr: "Doğaçlama yapmak, tınıları keşfetmek ve mikser enstrümanlarınla eşlik etmek için serbest klavye ve akor pad'leri."
+    tr: "Doğaçlama yapmak, tınıları keşfetmek ve mikser enstrümanlarınla eşlik etmek için serbest klavye ve akor pad'leri.",
+    ar: "لوحة مفاتيح حرّة ولوحات تآلفات للارتجال واستكشاف الأصوات والعزف بآلات المازج."
   },
   "tools.backBtn": {
     de: "← Zurück zu Werkzeuge",
@@ -1498,7 +1633,8 @@ registerColocatedStatic({
     pl: "← Powrót do narzędzi",
     uk: "← Назад до інструментів",
     ur: "اوزار پر واپس جائیں ←",
-    tr: "← Araçlar'a Dön"
+    tr: "← Araçlar'a Dön",
+    ar: "→ العودة إلى الأدوات"
   },
   "freeplay.playChord": {
     de: "▶ Akkord",
@@ -1509,7 +1645,8 @@ registerColocatedStatic({
     pl: "▶ Akord",
     uk: "▶ Акорд",
     ur: "▶ کورڈ",
-    tr: "▶ Akor"
+    tr: "▶ Akor",
+    ar: "▶ تآلف"
   },
   "freeplay.playArp": {
     de: "↗ Arpeggio",
@@ -1520,7 +1657,8 @@ registerColocatedStatic({
     pl: "↗ Arpeggio",
     uk: "↗ Арпеджіо",
     ur: "↗ آرپیجیو",
-    tr: "↗ Arpej"
+    tr: "↗ Arpej",
+    ar: "↗ أربيجيو"
   },
   "freeplay.clear": {
     de: "✕ Leeren",
@@ -1531,7 +1669,8 @@ registerColocatedStatic({
     pl: "✕ Wyczyść",
     uk: "✕ Очистити",
     ur: "✕ صاف کریں",
-    tr: "✕ Temizle"
+    tr: "✕ Temizle",
+    ar: "✕ مسح"
   },
   "freeplay.modeAria": {
     de: "Spielmodus",
@@ -1542,7 +1681,8 @@ registerColocatedStatic({
     pl: "Tryb gry",
     uk: "Режим гри",
     ur: "بجانے کا انداز",
-    tr: "Çalma modu"
+    tr: "Çalma modu",
+    ar: "وضع العزف"
   },
   "freeplay.modeLive": {
     de: "Frei",
@@ -1553,7 +1693,8 @@ registerColocatedStatic({
     pl: "Swobodnie",
     uk: "Вільно",
     ur: "آزاد",
-    tr: "Canlı"
+    tr: "Canlı",
+    ar: "حر"
   },
   "freeplay.modeHold": {
     de: "Akkord bauen",
@@ -1564,7 +1705,8 @@ registerColocatedStatic({
     pl: "Buduj akord",
     uk: "Зібрати акорд",
     ur: "کورڈ بنائیں",
-    tr: "Akor Kur"
+    tr: "Akor Kur",
+    ar: "بناء تآلف"
   },
   "freeplay.octDownAria": {
     de: "Oktave tiefer",
@@ -1575,7 +1717,8 @@ registerColocatedStatic({
     pl: "Oktawa niżej",
     uk: "Октава нижче",
     ur: "ایک آکٹیو نیچے",
-    tr: "Bir oktav aşağı"
+    tr: "Bir oktav aşağı",
+    ar: "أوكتاف للأسفل"
   },
   "freeplay.octUpAria": {
     de: "Oktave höher",
@@ -1586,7 +1729,8 @@ registerColocatedStatic({
     pl: "Oktawa wyżej",
     uk: "Октава вище",
     ur: "ایک آکٹیو اوپر",
-    tr: "Bir oktav yukarı"
+    tr: "Bir oktav yukarı",
+    ar: "أوكتاف للأعلى"
   },
   "freeplay.labelsBtn": {
     de: "Noten",
@@ -1597,7 +1741,8 @@ registerColocatedStatic({
     pl: "Nuty",
     uk: "Ноти",
     ur: "سُر",
-    tr: "Notalar"
+    tr: "Notalar",
+    ar: "النغمات"
   },
   "freeplay.instrumentsTitle": {
     de: "6 Mixer-Instrumente",
@@ -1608,7 +1753,8 @@ registerColocatedStatic({
     pl: "6 instrumentów miksera",
     uk: "6 інструментів мікшера",
     ur: "مکسر کے 6 ساز",
-    tr: "6 Mikser Enstrümanı"
+    tr: "6 Mikser Enstrümanı",
+    ar: "6 آلات في المازج"
   },
   "freeplay.instrumentsSub": {
     de: "Tippe zum Zuschalten oder Mischen – dein Klang gilt live",
@@ -1619,7 +1765,8 @@ registerColocatedStatic({
     pl: "Dotknij, aby włączyć lub połączyć — brzmienie działa na żywo",
     uk: "Натискай, щоб вмикати чи змішувати — звук змінюється наживо",
     ur: "ملا کر سننے کے لیے ٹیپ کریں — آواز فوراً بدلتی ہے",
-    tr: "Katmanlamak veya değiştirmek için dokun — anında duyulur"
+    tr: "Katmanlamak veya değiştirmek için dokun — anında duyulur",
+    ar: "اضغط لدمج الآلات أو التبديل بينها — يُسمع التغيير فورًا"
   },
   "freeplay.openMixerBtn": {
     de: "Regler & Hall",
@@ -1630,7 +1777,8 @@ registerColocatedStatic({
     pl: "Suwaki i pogłos",
     uk: "Мікшер і реверб",
     ur: "مکسر اور ریورب",
-    tr: "Sürgüler ve Yankı"
+    tr: "Sürgüler ve Yankı",
+    ar: "المزج والصدى"
   },
   "freeplay.presetSolo": {
     de: "Solo Klavier",
@@ -1641,7 +1789,8 @@ registerColocatedStatic({
     pl: "Solo fortepian",
     uk: "Соло фортепіано",
     ur: "سولو پیانو",
-    tr: "Solo Piyano"
+    tr: "Solo Piyano",
+    ar: "بيانو منفرد"
   },
   "freeplay.presetDuo": {
     de: "Duo",
@@ -1652,7 +1801,8 @@ registerColocatedStatic({
     pl: "Duet",
     uk: "Дует",
     ur: "ڈوئو",
-    tr: "Düo"
+    tr: "Düo",
+    ar: "ثنائي"
   },
   "freeplay.presetEnsemble": {
     de: "Ensemble",
@@ -1663,7 +1813,8 @@ registerColocatedStatic({
     pl: "Zespół",
     uk: "Ансамбль",
     ur: "انسمبل",
-    tr: "Ensemble"
+    tr: "Ensemble",
+    ar: "فرقة صغيرة"
   },
   "freeplay.presetOrchestra": {
     de: "Orchester",
@@ -1674,7 +1825,8 @@ registerColocatedStatic({
     pl: "Orkiestra",
     uk: "Оркестр",
     ur: "آرکسٹرا",
-    tr: "Orkestra"
+    tr: "Orkestra",
+    ar: "أوركسترا"
   },
   "freeplay.padsTitle": {
     de: "Akkord-Flächen & Impulse",
@@ -1685,7 +1837,8 @@ registerColocatedStatic({
     pl: "Pady akordów i inspiracje",
     uk: "Акордові педи та ідеї",
     ur: "کورڈ پیڈز اور تجاویز",
-    tr: "Akor Pad'leri ve İlhamlar"
+    tr: "Akor Pad'leri ve İlhamlar",
+    ar: "لوحات التآلفات والأفكار"
   },
   "freeplay.padsSub": {
     de: "Tippe einen Akkord an und verändere einzelne Tasten oben",
@@ -1696,7 +1849,8 @@ registerColocatedStatic({
     pl: "Dotknij akordu i zmieniaj pojedyncze klawisze wyżej",
     uk: "Обери акорд і змінюй окремі клавіші вище",
     ur: "کسی کورڈ کو ٹیپ کریں اور اوپر کلیدیں بدل کر تجربہ کریں",
-    tr: "Bir akora dokun, sonra yukarıdaki tek tek tuşları değiştir"
+    tr: "Bir akora dokun, sonra yukarıdaki tek tek tuşları değiştir",
+    ar: "اضغط على تآلف ثم عدّل المفاتيح الفردية أعلاه"
   },
   "freeplay.bridgeLabel": {
     de: "Direkt weiterüben:",
@@ -1707,7 +1861,8 @@ registerColocatedStatic({
     pl: "Przejdź do ćwiczenia:",
     uk: "Перейти до тренування:",
     ur: "سیدھے مشق کی طرف:",
-    tr: "Alıştırmaya geç:"
+    tr: "Alıştırmaya geç:",
+    ar: "انتقل مباشرة إلى التدرّب:"
   },
   "freeplay.jumpChords": {
     de: "Akkorde →",
@@ -1718,7 +1873,8 @@ registerColocatedStatic({
     pl: "Akordy →",
     uk: "Акорди →",
     ur: "کورڈز ←",
-    tr: "Akorlar →"
+    tr: "Akorlar →",
+    ar: "التآلفات ←"
   },
   "freeplay.jumpIntervals": {
     de: "Intervalle →",
@@ -1729,7 +1885,8 @@ registerColocatedStatic({
     pl: "Interwały →",
     uk: "Інтервали →",
     ur: "انٹرولز ←",
-    tr: "Aralıklar →"
+    tr: "Aralıklar →",
+    ar: "المسافات ←"
   },
   "freeplay.jumpCadences": {
     de: "Kadenzen →",
@@ -1740,7 +1897,8 @@ registerColocatedStatic({
     pl: "Kadencje →",
     uk: "Каданси →",
     ur: "کیڈینسز ←",
-    tr: "Kadanslar →"
+    tr: "Kadanslar →",
+    ar: "القفلات ←"
   },
   "fb.tabsAria": {
     de: "Griffbrett-Bereiche",
@@ -1751,7 +1909,8 @@ registerColocatedStatic({
     pl: "Sekcje gryfu",
     uk: "Розділи грифа",
     ur: "فریٹ بورڈ کے حصے",
-    tr: "Gitar klavyesi bölümleri"
+    tr: "Gitar klavyesi bölümleri",
+    ar: "أقسام رقبة الجيتار"
   },
   "fb.tabChords": {
     de: "Akkorde",
@@ -1762,7 +1921,8 @@ registerColocatedStatic({
     pl: "Akordy",
     uk: "Акорди",
     ur: "کورڈز",
-    tr: "Akorlar"
+    tr: "Akorlar",
+    ar: "التآلفات"
   },
   "fb.tabReverse": {
     de: "Akkord finden",
@@ -1773,7 +1933,8 @@ registerColocatedStatic({
     pl: "Znajdź akord",
     uk: "Знайти акорд",
     ur: "کورڈ تلاش کریں",
-    tr: "Akor Bul"
+    tr: "Akor Bul",
+    ar: "اكتشاف التآلف"
   },
   "fb.tabScales": {
     de: "Tonleitern",
@@ -1784,7 +1945,8 @@ registerColocatedStatic({
     pl: "Skale",
     uk: "Гами",
     ur: "اسکیلز",
-    tr: "Gamlar"
+    tr: "Gamlar",
+    ar: "السلالم"
   },
   "fb.modifiedBadge": {
     de: "Bearbeitet",
@@ -1795,7 +1957,8 @@ registerColocatedStatic({
     pl: "Zmieniony",
     uk: "Змінено",
     ur: "تبدیل شدہ",
-    tr: "Değiştirildi"
+    tr: "Değiştirildi",
+    ar: "معدّل"
   },
   "fb.strumBtn": {
     de: "▶ Anschlagen",
@@ -1806,7 +1969,8 @@ registerColocatedStatic({
     pl: "▶ Uderz",
     uk: "▶ Бій",
     ur: "▶ اسٹرم",
-    tr: "▶ Taramalı Çal"
+    tr: "▶ Taramalı Çal",
+    ar: "▶ ضرب الأوتار"
   },
   "fb.pluckBtn": {
     de: "↗ Zupfen",
@@ -1817,7 +1981,8 @@ registerColocatedStatic({
     pl: "↗ Arpeggio",
     uk: "↗ Перебір",
     ur: "↗ آرپیجیو",
-    tr: "↗ Tek Tek Çal"
+    tr: "↗ Tek Tek Çal",
+    ar: "↗ نبر متتابع"
   },
   "fb.prevPosAria": {
     de: "Vorherige Lage",
@@ -1828,7 +1993,8 @@ registerColocatedStatic({
     pl: "Poprzednia pozycja",
     uk: "Попередня позиція",
     ur: "پچھلی پوزیشن",
-    tr: "Önceki pozisyon"
+    tr: "Önceki pozisyon",
+    ar: "الوضعية السابقة"
   },
   "fb.nextPosAria": {
     de: "Nächste Lage",
@@ -1839,7 +2005,8 @@ registerColocatedStatic({
     pl: "Następna pozycja",
     uk: "Наступна позиція",
     ur: "اگلی پوزیشن",
-    tr: "Sonraki pozisyon"
+    tr: "Sonraki pozisyon",
+    ar: "الوضعية التالية"
   },
   "fb.openAllBtn": {
     de: "◯ Alle offen",
@@ -1850,7 +2017,8 @@ registerColocatedStatic({
     pl: "◯ Puste struny",
     uk: "◯ Усі відкриті",
     ur: "◯ سب کھلے تار",
-    tr: "◯ Tüm Teller Boş"
+    tr: "◯ Tüm Teller Boş",
+    ar: "◯ كلها مطلقة"
   },
   "fb.clearAllBtn": {
     de: "✕ Leeren",
@@ -1861,7 +2029,8 @@ registerColocatedStatic({
     pl: "✕ Wyczyść",
     uk: "✕ Очистити",
     ur: "✕ صاف کریں",
-    tr: "✕ Temizle"
+    tr: "✕ Temizle",
+    ar: "✕ مسح"
   },
   "fb.showPositionsBtn": {
     de: "→ Alle Lagen",
@@ -1872,7 +2041,8 @@ registerColocatedStatic({
     pl: "→ Wszystkie pozycje",
     uk: "→ Усі позиції",
     ur: "تمام پوزیشنز ←",
-    tr: "→ Tüm Pozisyonlar"
+    tr: "→ Tüm Pozisyonlar",
+    ar: "← جميع الوضعيات"
   },
   "fb.labelModeAria": {
     de: "Beschriftung",
@@ -1883,7 +2053,8 @@ registerColocatedStatic({
     pl: "Etykiety na gryfie",
     uk: "Підписи на грифі",
     ur: "فریٹ بورڈ لیبلز",
-    tr: "Nota etiketleri"
+    tr: "Nota etiketleri",
+    ar: "تسميات النغمات"
   },
   "fb.lblNotes": {
     de: "Noten",
@@ -1894,7 +2065,8 @@ registerColocatedStatic({
     pl: "Nuty",
     uk: "Ноти",
     ur: "سُر",
-    tr: "Notalar"
+    tr: "Notalar",
+    ar: "النغمات"
   },
   "fb.lblIntervals": {
     de: "Stufen",
@@ -1905,7 +2077,8 @@ registerColocatedStatic({
     pl: "Stopnie",
     uk: "Ступені",
     ur: "درجات",
-    tr: "Dereceler"
+    tr: "Dereceler",
+    ar: "الدرجات"
   },
   "fb.lblFingers": {
     de: "Finger",
@@ -1916,7 +2089,8 @@ registerColocatedStatic({
     pl: "Palce",
     uk: "Пальці",
     ur: "انگلیاں",
-    tr: "Parmaklar"
+    tr: "Parmaklar",
+    ar: "الأصابع"
   },
   "fb.rootLabel": {
     de: "Grundton",
@@ -1927,7 +2101,8 @@ registerColocatedStatic({
     pl: "Pryma (dźwięk bazowy)",
     uk: "Основний тон",
     ur: "بنیادی سُر",
-    tr: "Kök Ses"
+    tr: "Kök Ses",
+    ar: "النغمة الأساسية"
   },
   "fb.tuningLabel": {
     de: "Stimmung",
@@ -1938,7 +2113,8 @@ registerColocatedStatic({
     pl: "Strój",
     uk: "Стрій",
     ur: "ٹیوننگ",
-    tr: "Akort Düzeni"
+    tr: "Akort Düzeni",
+    ar: "الدوزنة"
   },
   "fb.qualityLabel": {
     de: "Akkordtyp / Qualität",
@@ -1949,7 +2125,8 @@ registerColocatedStatic({
     pl: "Typ / rodzaj akordu",
     uk: "Тип / забарвлення акорду",
     ur: "کورڈ کی قسم",
-    tr: "Akor Türü / Niteliği"
+    tr: "Akor Türü / Niteliği",
+    ar: "نوع / صفة التآلف"
   },
   "fb.bassLabel": {
     de: "Basston (Umkehrung / Slash-Akkord)",
@@ -1960,7 +2137,8 @@ registerColocatedStatic({
     pl: "Dźwięk basowy (przewrót / slash)",
     uk: "Басова нота (обернення / слеш)",
     ur: "بیس نوٹ (انورژن / سلیش کورڈ)",
-    tr: "Bas Sesi (Çevrim / Slash Akor)"
+    tr: "Bas Sesi (Çevrim / Slash Akor)",
+    ar: "نغمة الباص (انقلاب / تآلف مائل)"
   },
   "fb.reverseCardTitle": {
     de: "Eigene Griffe entschlüsseln",
@@ -1971,7 +2149,8 @@ registerColocatedStatic({
     pl: "Rozpoznaj własny chwyt",
     uk: "Розшифруй власну аплікатуру",
     ur: "کسی بھی گرفت کا نام معلوم کریں",
-    tr: "Herhangi Bir Basışı Çöz"
+    tr: "Herhangi Bir Basışı Çöz",
+    ar: "فكّ شيفرة أي قبضة"
   },
   "fb.reverseCardSub": {
     de: "Tippe Bünde auf dem Griffbrett an – links am Sattel wechselst du zwischen Leersaite (◯) und gedämpft (✕).",
@@ -1982,7 +2161,8 @@ registerColocatedStatic({
     pl: "Dotknij progów na gryfie — po lewej na siodełku przełączaj pustą strunę (◯) i tłumienie (✕).",
     uk: "Торкайся ладів на грифі — ліворуч біля поріжка перемикай відкриту струну (◯) і заглушену (✕).",
     ur: "فریٹ بورڈ پر فریٹس کو ٹیپ کریں — بائیں جانب نٹ پر کھلے تار (◯) اور بند تار (✕) بدلیں۔",
-    tr: "Klavyedeki perdelere dokun — soldaki üst eşikte boş (◯) veya susturulmuş (✕) telleri değiştir."
+    tr: "Klavyedeki perdelere dokun — soldaki üst eşikte boş (◯) veya susturulmuş (✕) telleri değiştir.",
+    ar: "اضغط على الدساتين في الرقبة — وعند الأنف يسارًا بدّل بين الوتر المطلق (◯) والمكتوم (✕)."
   },
   "fb.legendRoot": {
     de: "Grundton (1)",
@@ -1993,7 +2173,8 @@ registerColocatedStatic({
     pl: "Pryma (1)",
     uk: "Основний тон (1)",
     ur: "بنیادی سُر (1)",
-    tr: "Kök Ses (1)"
+    tr: "Kök Ses (1)",
+    ar: "الأساس (1)"
   },
   "fb.legendTone": {
     de: "Akkordton",
@@ -2004,7 +2185,8 @@ registerColocatedStatic({
     pl: "Składnik akordu",
     uk: "Акордний тон",
     ur: "کورڈ کا سُر",
-    tr: "Akor Sesi"
+    tr: "Akor Sesi",
+    ar: "نغمة التآلف"
   },
   "fb.legendOpen": {
     de: "Leersaite (0)",
@@ -2015,7 +2197,8 @@ registerColocatedStatic({
     pl: "Pusta struna (0)",
     uk: "Відкрита струна (0)",
     ur: "کھلا تار (0)",
-    tr: "Boş Tel (0)"
+    tr: "Boş Tel (0)",
+    ar: "وتر مطلق (0)"
   },
   "fb.legendChar": {
     de: "Charakterton / Blue Note",
@@ -2026,7 +2209,8 @@ registerColocatedStatic({
     pl: "Dźwięk charakt. / Blue Note",
     uk: "Характерний тон / Blue Note",
     ur: "امتیازی سُر / بلیو نوٹ",
-    tr: "Karakteristik / Blue Note"
+    tr: "Karakteristik / Blue Note",
+    ar: "نغمة مميّزة / بلو نوت"
   },
   "fb.legendScaleTone": {
     de: "Leiterton",
@@ -2037,7 +2221,8 @@ registerColocatedStatic({
     pl: "Dźwięk skali",
     uk: "Тон гами",
     ur: "اسکیل کا سُر",
-    tr: "Gam Sesi"
+    tr: "Gam Sesi",
+    ar: "نغمة السلم"
   },
   "fb.scaleRootLabel": {
     de: "Grundton der Tonleiter",
@@ -2048,7 +2233,8 @@ registerColocatedStatic({
     pl: "Tonika skali",
     uk: "Тоніка гами",
     ur: "اسکیل کا بنیادی سُر",
-    tr: "Gam Kök Sesi"
+    tr: "Gam Kök Sesi",
+    ar: "أساس السلم"
   },
   "fb.scaleTypeLabel": {
     de: "Tonleiter / Modus",
@@ -2059,7 +2245,8 @@ registerColocatedStatic({
     pl: "Skala / Modus",
     uk: "Гама / Лад",
     ur: "اسکیل / موڈ",
-    tr: "Gam / Mod"
+    tr: "Gam / Mod",
+    ar: "السلم / النمط"
   },
   "fb.scalePositionLabel": {
     de: "Griffbrett-Lage (CAGED-Boxen)",
@@ -2070,7 +2257,8 @@ registerColocatedStatic({
     pl: "Pozycja na gryfie (układy CAGED)",
     uk: "Позиція на грифі (бокси CAGED)",
     ur: "فریٹ بورڈ پوزیشن (CAGED باکسز)",
-    tr: "Klavye Pozisyonu (CAGED Kutuları)"
+    tr: "Klavye Pozisyonu (CAGED Kutuları)",
+    ar: "وضعية الرقبة (مربعات CAGED)"
   },
   "fb.jumpModes": {
     de: "Tonleitern & Modi →",
@@ -2081,7 +2269,8 @@ registerColocatedStatic({
     pl: "Skale i modusy →",
     uk: "Гами та лади →",
     ur: "اسکیلز اور موڈز ←",
-    tr: "Gamlar ve Modlar →"
+    tr: "Gamlar ve Modlar →",
+    ar: "السلالم والأنماط ←"
   },
   "knowledge.tabsAria": {
     de: "Wissensbereiche",
@@ -2092,7 +2281,8 @@ registerColocatedStatic({
     pl: "Działy wiedzy",
     uk: "Розділи знань",
     ur: "علم کے شعبے",
-    tr: "Bilgi bölümleri"
+    tr: "Bilgi bölümleri",
+    ar: "أقسام المعرفة"
   },
   "knowledge.tabTheory": {
     de: "Theorie",
@@ -2103,7 +2293,8 @@ registerColocatedStatic({
     pl: "Teoria",
     uk: "Теорія",
     ur: "نظریہ",
-    tr: "Teori"
+    tr: "Teori",
+    ar: "النظريات"
   },
   "knowledge.tabArticles": {
     de: "Artikel",
@@ -2114,7 +2305,8 @@ registerColocatedStatic({
     pl: "Artykuły",
     uk: "Статті",
     ur: "مضامین",
-    tr: "Makaleler"
+    tr: "Makaleler",
+    ar: "المقالات"
   },
   "knowledge.tabInstruments": {
     de: "Instrumente",
@@ -2125,7 +2317,8 @@ registerColocatedStatic({
     pl: "Instrumenty",
     uk: "Інструменти",
     ur: "ساز (Instruments)",
-    tr: "Enstrümanlar"
+    tr: "Enstrümanlar",
+    ar: "الآلات"
   },
   "knowledge.refHeading": {
     de: "Referenzmaterialien",
@@ -2136,7 +2329,8 @@ registerColocatedStatic({
     pl: "Materiały referencyjne",
     uk: "Довідники",
     ur: "حوالہ جاتی گائیڈز",
-    tr: "Başvuru Rehberleri"
+    tr: "Başvuru Rehberleri",
+    ar: "المراجع النظرية"
   },
   "knowledge.refIntervals": {
     de: "Intervalle",
@@ -2147,7 +2341,8 @@ registerColocatedStatic({
     pl: "Interwały",
     uk: "Інтервали",
     ur: "انٹرولز",
-    tr: "Aralıklar"
+    tr: "Aralıklar",
+    ar: "المسافات الموسيقية"
   },
   "knowledge.refIntervalsSub": {
     de: "Stimmungen, Lieder & Frequenzen",
@@ -2158,7 +2353,8 @@ registerColocatedStatic({
     pl: "Charakter, przykłady utworów i proporcje fal",
     uk: "Характер, музичні приклади й співвідношення частот",
     ur: "مزاج، مشہور گانے اور فریکوئنسی نسبتیں",
-    tr: "Karakter, şarkı ipuçları ve frekans oranları"
+    tr: "Karakter, şarkı ipuçları ve frekans oranları",
+    ar: "الطابع، أمثلة الأغاني ونسب الترددات"
   },
   "knowledge.refCadences": {
     de: "Kadenzen",
@@ -2169,7 +2365,8 @@ registerColocatedStatic({
     pl: "Kadencje",
     uk: "Каданси",
     ur: "کیڈینسز",
-    tr: "Kadanslar"
+    tr: "Kadanslar",
+    ar: "القفلات الموسيقية"
   },
   "knowledge.refCadencesSub": {
     de: "Harmonien & Pop-Formeln",
@@ -2180,7 +2377,8 @@ registerColocatedStatic({
     pl: "Harmonia i sprawdzone formuły przebojów",
     uk: "Гармонічні звороти та формули хітів",
     ur: "ہارمونک سلسلے اور پاپ ہٹ فارمولے",
-    tr: "Armonik diziler ve hit formülleri"
+    tr: "Armonik diziler ve hit formülleri",
+    ar: "التتابعات الهارمونية وصيغ الأغاني الشهيرة"
   },
   "knowledge.refPhysics": {
     de: "Physik & Klang",
@@ -2191,7 +2389,8 @@ registerColocatedStatic({
     pl: "Fizyka i dźwięk",
     uk: "Фізика і звук",
     ur: "فزکس اور آواز",
-    tr: "Fizik ve Ses"
+    tr: "Fizik ve Ses",
+    ar: "الفيزياء والصوت"
   },
   "knowledge.refPhysicsSub": {
     de: "Wellen-Labor & Obertöne",
@@ -2202,7 +2401,8 @@ registerColocatedStatic({
     pl: "Laboratorium fal, alikwoty i strojenie",
     uk: "Лабораторія хвиль, обертони та стрій",
     ur: "موجوں کی لیب، اوورٹونز اور ٹیوننگ",
-    tr: "Dalga laboratuvarı, doğuşkanlar ve akort"
+    tr: "Dalga laboratuvarı, doğuşkanlar ve akort",
+    ar: "مختبر الموجات، التوافقيات والدوزنة"
   },
   "knowledge.refSolfege": {
     de: "Solfège & Stufen",
@@ -2213,7 +2413,8 @@ registerColocatedStatic({
     pl: "Solfeż i stopnie",
     uk: "Сольфеджіо і ступені",
     ur: "سولفیج اور اسکیل درجات",
-    tr: "Solfej ve Gam Dereceleri"
+    tr: "Solfej ve Gam Dereceleri",
+    ar: "الصولفيج ودرجات السلم"
   },
   "knowledge.refSolfegeSub": {
     de: "Charakter der 7 Tonstufen",
@@ -2224,7 +2425,8 @@ registerColocatedStatic({
     pl: "Napięcie i rozwiązanie 7 stopni gamy",
     uk: "Тяжіння й розв’язання всіх 7 ступенів",
     ur: "ساتوں سُروں کا تناؤ اور حل (سرگم ربط)",
-    tr: "Tüm 7 derecenin gerilim ve çözülümü"
+    tr: "Tüm 7 derecenin gerilim ve çözülümü",
+    ar: "التوتر والحل للدرجات السبع جميعها"
   },
   "knowledge.refRhythm": {
     de: "Rhythmus & Takte",
@@ -2235,7 +2437,8 @@ registerColocatedStatic({
     pl: "Rytm i takty",
     uk: "Ритм і розмір",
     ur: "ردھم اور تال",
-    tr: "Ritim ve Ölçü"
+    tr: "Ritim ve Ölçü",
+    ar: "الإيقاع والوزن"
   },
   "knowledge.refRhythmSub": {
     de: "Puls, Notenwerte & Grooves",
@@ -2246,7 +2449,8 @@ registerColocatedStatic({
     pl: "Puls, podziały i groowy",
     uk: "Пульсація, тривалості та ґрув",
     ur: "نبض، نوٹ ویلیوز اور گرووز",
-    tr: "Vuruş, alt bölümler ve groove'lar"
+    tr: "Vuruş, alt bölümler ve groove'lar",
+    ar: "النبض، التقسيمات والجروف"
   },
   "knowledge.refVocals": {
     de: "Gesang & Stimme",
@@ -2257,7 +2461,8 @@ registerColocatedStatic({
     pl: "Śpiew i głos",
     uk: "Голос і спів",
     ur: "گلوکاری اور آواز",
-    tr: "Ses ve Şan"
+    tr: "Ses ve Şan",
+    ar: "الصوت والغناء"
   },
   "knowledge.refVocalsSub": {
     de: "Anatomie, Register & Chorsatz",
@@ -2268,7 +2473,8 @@ registerColocatedStatic({
     pl: "Anatomia, rejestry i chór SATB",
     uk: "Анатомія, регістри та хор SATB",
     ur: "اناٹومی، رجسٹرز اور SATB کورس",
-    tr: "Anatomi, ses bölgeleri ve SATB koro"
+    tr: "Anatomi, ses bölgeleri ve SATB koro",
+    ar: "التشريح الصوتي، الطبقات وتوزيع الكورال SATB"
   },
   "knowledge.refModes": {
     de: "Modi & Tonleitern",
@@ -2279,7 +2485,8 @@ registerColocatedStatic({
     pl: "Tryby i skale",
     uk: "Лади й гами",
     ur: "موڈز اور اسکیلز",
-    tr: "Modlar ve Gamlar"
+    tr: "Modlar ve Gamlar",
+    ar: "الأنماط والسلالم"
   },
   "knowledge.refModesSub": {
     de: "Kirchentonarten, Klangfarbe & Funktion",
@@ -2290,7 +2497,8 @@ registerColocatedStatic({
     pl: "Skale kościelne, barwa i funkcja",
     uk: "Діатонічні лади, барвисті ступені та функції",
     ur: "چرچ موڈز، رنگدار سُر اور کردار",
-    tr: "Kilise modları, renk sesleri ve işlev"
+    tr: "Kilise modları, renk sesleri ve işlev",
+    ar: "الأنماط الكنسية، النغمات الملوّنة والوظيفة"
   },
   "knowledge.refKeys": {
     de: "Tonarten & Vorzeichen",
@@ -2301,7 +2509,8 @@ registerColocatedStatic({
     pl: "Tonacje i znaki",
     uk: "Тональності й знаки",
     ur: "کلیدیں اور کی سگنیچر",
-    tr: "Tonlar ve Donanımlar"
+    tr: "Tonlar ve Donanımlar",
+    ar: "المقامات وأدلّتها"
   },
   "knowledge.refKeysSub": {
     de: "12 Tonarten, Vorzeichen & Moll-Varianten",
@@ -2312,7 +2521,8 @@ registerColocatedStatic({
     pl: "12 tonacji, znaki przykluczowe i odmiany moll",
     uk: "12 тональностей, ключові знаки й види мінору",
     ur: "12 کلیدیں، علامتیں اور مائنر اقسام",
-    tr: "12 ton, donanımlar ve minör türleri"
+    tr: "12 ton, donanımlar ve minör türleri",
+    ar: "12 مقامًا، علامات التحويل وأنواع السلم الصغير"
   },
   "knowledge.refCircle": {
     de: "Quintenzirkel",
@@ -2323,7 +2533,8 @@ registerColocatedStatic({
     pl: "Koło kwintowe",
     uk: "Кварто-квінтове коло",
     ur: "سرکل آف ففتھس",
-    tr: "Beşliler Çemberi"
+    tr: "Beşliler Çemberi",
+    ar: "دائرة الخامسات"
   },
   "knowledge.refCircleSub": {
     de: "Grundidee, Leselogik, Nutzen & Praxis",
@@ -2334,7 +2545,8 @@ registerColocatedStatic({
     pl: "Idea, logika odczytu, korzyści i praktyka",
     uk: "Основна ідея, логіка читання, користь і практика",
     ur: "بنیادی تصور، پڑھنے کی منطق، فوائد اور مشق",
-    tr: "Temel mantık, okuma yöntemi, faydalar ve pratik"
+    tr: "Temel mantık, okuma yöntemi, faydalar ve pratik",
+    ar: "الفكرة الأساسية، منطق القراءة، الفوائد والتطبيق"
   },
   "knowledge.refSingPlay": {
     de: "Singen & Spielen",
@@ -2345,7 +2557,8 @@ registerColocatedStatic({
     pl: "Śpiewaj i graj",
     uk: "Співай і грай",
     ur: "گانا اور بجانا",
-    tr: "Çal ve Söyle"
+    tr: "Çal ve Söyle",
+    ar: "الغناء والعزف معًا"
   },
   "knowledge.refSingPlaySub": {
     de: "Koordination, Groove & Praxis-Übungen",
@@ -2356,7 +2569,8 @@ registerColocatedStatic({
     pl: "Koordynacja, swoboda i ćwiczenia praktyczne",
     uk: "Координація, свобода та практичні вправи",
     ur: "ہم آہنگی، فلو اور عملی مشقیں",
-    tr: "Koordinasyon, akış ve pratik egzersizler"
+    tr: "Koordinasyon, akış ve pratik egzersizler",
+    ar: "التناسق الحركي، الانسيابية وتمارين عملية"
   },
   "knowledge.refNotation": {
     de: "Notenschrift & Schlüssel",
@@ -2367,7 +2581,8 @@ registerColocatedStatic({
     pl: "Notacja i klucze",
     uk: "Нотопис і ключі",
     ur: "نوٹیشن اور کلیفس",
-    tr: "Nota Okuma ve Anahtarlar"
+    tr: "Nota Okuma ve Anahtarlar",
+    ar: "التدوين والمفاتيح"
   },
   "knowledge.refNotationSub": {
     de: "Violin-, Bass- & Altschlüssel, Hilfslinien & Vorzeichen",
@@ -2378,7 +2593,8 @@ registerColocatedStatic({
     pl: "Klucz wiolinowy, basowy, altowy, linie dodane i znaki",
     uk: "Скрипковий, басовий, альтовий, додаткові лінійки й альтерація",
     ur: "ٹریبل، باس اور آلٹو کلیف، لیجر لائنز اور علامتیں",
-    tr: "Sol, Fa ve Alto anahtarları, ek çizgiler ve değiştiriciler"
+    tr: "Sol, Fa ve Alto anahtarları, ek çizgiler ve değiştiriciler",
+    ar: "مفاتيح صول وفا وألتو، الخطوط الإضافية وعلامات التحويل"
   },
   "knowledge.refNotationSymbols": {
     de: "Vortragszeichen & Symbole",
@@ -2389,7 +2605,8 @@ registerColocatedStatic({
     pl: "Symbole i oznaczenia",
     uk: "Символи й позначення",
     ur: "علامات اور ہدایات",
-    tr: "İfade İşaretleri ve Semboller"
+    tr: "İfade İşaretleri ve Semboller",
+    ar: "علامات التعبير والرموز"
   },
   "knowledge.refNotationSymbolsSub": {
     de: "Dynamik, Tempo, Artikulation, Coda & Ablauf",
@@ -2400,7 +2617,8 @@ registerColocatedStatic({
     pl: "Dynamika, tempo, artykulacja, Coda i przebieg",
     uk: "Динаміка, темп, артикуляція, Кода та форма",
     ur: "آواز، رفتار، ادائیگی، کوڈا اور ترتیب",
-    tr: "Dinamikler, tempo, artikülasyon, Coda ve akış"
+    tr: "Dinamikler, tempo, artikülasyon, Coda ve akış",
+    ar: "الديناميكية، السرعة، الأداء، الكودا وخرائط التكرار"
   },
   "knowledge.refArranging": {
     de: "Arrangieren",
@@ -2411,7 +2629,8 @@ registerColocatedStatic({
     pl: "Aranżacja",
     uk: "Аранжування",
     ur: "ارینجنگ (ترتیبِ موسیقی)",
-    tr: "Düzenleme (Aranjman)"
+    tr: "Düzenleme (Aranjman)",
+    ar: "التوزيع الموسيقي"
   },
   "knowledge.refArrangingSub": {
     de: "Stimmenverteilung, Spannungsbogen & Klangfarben",
@@ -2422,7 +2641,8 @@ registerColocatedStatic({
     pl: "Rozkład głosów, dramaturgia, warstwy i barwy",
     uk: "Розподіл голосів, драматургія, шари й тембри",
     ur: "آوازوں کی تقسیم، ساخت، پرتیں اور سازوں کا انتخاب",
-    tr: "Voicing'ler, form yayı, katmanlar ve enstrümantasyon"
+    tr: "Voicing'ler, form yayı, katmanlar ve enstrümantasyon",
+    ar: "توزيع الأصوات، قوس البناء، الطبقات والآلات"
   },
   "knowledge.articlesHeading": {
     de: "Artikel & Entdeckungen",
@@ -2433,7 +2653,8 @@ registerColocatedStatic({
     pl: "Artykuły i odkrycia",
     uk: "Статті та відкриття",
     ur: "مضامین اور انکشافات",
-    tr: "Makaleler ve İncelemeler"
+    tr: "Makaleler ve İncelemeler",
+    ar: "مقالات واكتشافات"
   },
   "knowledge.articlesIntro": {
     de: "Vertiefende Hintergründe zu Geschichte, Psychologie, Gehirn und Improvisation – mit direkten Hörbeispielen.",
@@ -2444,7 +2665,8 @@ registerColocatedStatic({
     pl: "Przystępne opracowania o historii, psychologii muzyki i słuchu — z przykładami dźwiękowymi w treści.",
     uk: "Ґрунтовні матеріали про історію, музичну психологію, нейронауку та імпровізацію — з аудіоприкладами прямо в тексті.",
     ur: "موسیقی کی تاریخ، نفسیات، دماغ اور امپرووائزیشن پر گہرے مضامین — فوری آڈیو مثالوں کے ساتھ۔",
-    tr: "Tarih, müzik psikolojisi, nörobilim ve doğaçlama üzerine derinlemesine yazılar — yerleşik ses örnekleriyle."
+    tr: "Tarih, müzik psikolojisi, nörobilim ve doğaçlama üzerine derinlemesine yazılar — yerleşik ses örnekleriyle.",
+    ar: "مقالات معمّقة حول التاريخ وعلم النفس الموسيقي وعلم الأعصاب والارتجال — مع أمثلة صوتية مدمجة."
   },
   "knowledge.instHeading": {
     de: "Instrumentenfamilien & Moderne Klänge",
@@ -2455,7 +2677,8 @@ registerColocatedStatic({
     pl: "Rodziny instrumentów i nowoczesny dźwięk",
     uk: "Родини інструментів і сучасний звук",
     ur: "سازوں کے خاندان اور جدید آوازیں",
-    tr: "Enstrüman Aileleri ve Modern Tını"
+    tr: "Enstrüman Aileleri ve Modern Tını",
+    ar: "عائلات الآلات والصوت الحديث"
   },
   "knowledge.instIntro": {
     de: "Entdecke, wie Instrumente physikalisch klingen, welche Tonumfänge und Spielweisen sie prägen – von der Violine bis zum Synthesizer.",
@@ -2466,7 +2689,8 @@ registerColocatedStatic({
     pl: "Poznaj, jak powstaje dźwięk instrumentów, ich skale, artykulacje i barwy — od skrzypiec po syntezator.",
     uk: "Дізнайся, як народжується звук інструментів, які їхні діапазони, штрихи та тембри — від скрипки до синтезатора.",
     ur: "جانیں کہ ساز طبعی طور پر کیسے آواز بناتے ہیں، ان کی رینج اور بجانے کا انداز کیا ہے — وائلن سے سنتھیسائزر تک۔",
-    tr: "Enstrümanların sesi nasıl ürettiğini, ses aralıklarını, çalım stillerini ve tınılarını keşfet — kemandan sentezleyiciye."
+    tr: "Enstrümanların sesi nasıl ürettiğini, ses aralıklarını, çalım stillerini ve tınılarını keşfet — kemandan sentezleyiciye.",
+    ar: "اكتشف كيف تُنتج الآلات الصوت، ونطاقاتها وأساليب عزفها وطوابعها — من الكمان إلى السنثسايزر."
   },
   "knowledge.instStrings": {
     de: "Streichinstrumente",
@@ -2477,7 +2701,8 @@ registerColocatedStatic({
     pl: "Smyczkowe",
     uk: "Смичкові струнні",
     ur: "تار والے کمانی ساز",
-    tr: "Yaylı Çalgılar"
+    tr: "Yaylı Çalgılar",
+    ar: "الوتريات القوسية"
   },
   "knowledge.instStringsSub": {
     de: "Violine, Viola, Cello & Kontrabass",
@@ -2488,7 +2713,8 @@ registerColocatedStatic({
     pl: "Skrzypce, altówka, wiolonczela i kontrabas",
     uk: "Скрипка, альт, віолончель і контрабас",
     ur: "وائلن، وائولا، چیلّو اور ڈبل باس",
-    tr: "Keman, viyola, viyolonsel ve kontrbas"
+    tr: "Keman, viyola, viyolonsel ve kontrbas",
+    ar: "الكمان، الفيولا، التشيلو والكونترباص"
   },
   "knowledge.instWoodwinds": {
     de: "Holzblasinstrumente",
@@ -2499,7 +2725,8 @@ registerColocatedStatic({
     pl: "Dęte drewniane",
     uk: "Дерев’яні духові",
     ur: "لکڑی کے پھونک ساز",
-    tr: "Tahta Üflemeliler"
+    tr: "Tahta Üflemeliler",
+    ar: "آلات النفخ الخشبية"
   },
   "knowledge.instWoodwindsSub": {
     de: "Flöte, Oboe, Klarinette, Fagott & Saxophon",
@@ -2510,7 +2737,8 @@ registerColocatedStatic({
     pl: "Flet, obój, klarnet, fagot i saksofon",
     uk: "Флейта, гобой, кларнет, фагот і саксофон",
     ur: "بانسری (فلوٹ)، اوبو، کلارنیٹ، بسون اور سیکسوفون",
-    tr: "Flüt, obua, klarnet, fagot ve saksafon"
+    tr: "Flüt, obua, klarnet, fagot ve saksafon",
+    ar: "الفلوت، الأوبوا، الكلارينيت، الفاجوت والساكسفون"
   },
   "knowledge.instBrass": {
     de: "Blechblasinstrumente",
@@ -2521,7 +2749,8 @@ registerColocatedStatic({
     pl: "Dęte blaszane",
     uk: "Мідні духові",
     ur: "پیتل کے پھونک ساز (Brass)",
-    tr: "Bakır Üflemeliler"
+    tr: "Bakır Üflemeliler",
+    ar: "آلات النفخ النحاسية"
   },
   "knowledge.instBrassSub": {
     de: "Trompete, Horn, Posaune & Tuba",
@@ -2532,7 +2761,8 @@ registerColocatedStatic({
     pl: "Trąbka, waltornia, puzon i tuba",
     uk: "Труба, валторна, тромбон і туба",
     ur: "ٹرمپٹ، فرنچ ہارن، ٹرامبون اور ٹیوبا",
-    tr: "Trompet, korno, trombon ve tuba"
+    tr: "Trompet, korno, trombon ve tuba",
+    ar: "الترومبيت، الهورن الفرنسي، الترومبون والتيوبا"
   },
   "knowledge.instKeyboards": {
     de: "Tasteninstrumente",
@@ -2543,7 +2773,8 @@ registerColocatedStatic({
     pl: "Klawiszowe",
     uk: "Клавішні інструменти",
     ur: "کی بورڈ ساز",
-    tr: "Tuşlu Çalgılar"
+    tr: "Tuşlu Çalgılar",
+    ar: "الآلات ذات المفاتيح"
   },
   "knowledge.instKeyboardsSub": {
     de: "Klavier, Cembalo, Orgel & E-Piano",
@@ -2554,7 +2785,8 @@ registerColocatedStatic({
     pl: "Fortepian, klawesyn, organy i elektryczne piana",
     uk: "Фортепіано, клавесин, орган і електропіано",
     ur: "پیانو، ہارپسی کارڈ، آرگن اور الیکٹرک پیانو",
-    tr: "Piyano, klavsen, org ve elektro piyano"
+    tr: "Piyano, klavsen, org ve elektro piyano",
+    ar: "البيانو، الهاربسيكورد، الأورغن والبيانو الكهربائي"
   },
   "knowledge.instPlucked": {
     de: "Zupf- & Gitarren",
@@ -2565,7 +2797,8 @@ registerColocatedStatic({
     pl: "Szarpane i gitary",
     uk: "Щипкові та гітари",
     ur: "مضرابی ساز اور گٹار",
-    tr: "Telli Çalgılar ve Gitarlar"
+    tr: "Telli Çalgılar ve Gitarlar",
+    ar: "الوتريات المنبورة والجيتار"
   },
   "knowledge.instPluckedSub": {
     de: "Akustik-, E-Gitarre, E-Bass & Harfe",
@@ -2576,7 +2809,8 @@ registerColocatedStatic({
     pl: "Gitara klasyczna, akustyczna, elektryczna, bas i harfa",
     uk: "Акустична й електрогітара, бас-гітара та арфа",
     ur: "ایکوسٹک، الیکٹرک گٹار، باس گٹار اور ہارپ",
-    tr: "Akustik gitar, elektro gitar, bas gitar ve arp"
+    tr: "Akustik gitar, elektro gitar, bas gitar ve arp",
+    ar: "الجيتار الأكوستيك والكهربائي، الباص والقيثارة"
   },
   "knowledge.instRhythm": {
     de: "Rhythmus-Instrumente",
@@ -2587,7 +2821,8 @@ registerColocatedStatic({
     pl: "Perkusja i bębny",
     uk: "Ударні та перкусія",
     ur: "تال اور پرکشن ساز",
-    tr: "Perküsyon ve Davul"
+    tr: "Perküsyon ve Davul",
+    ar: "الآلات الإيقاعية والطبول"
   },
   "knowledge.instRhythmSub": {
     de: "Drumset, Percussion & Rollen",
@@ -2598,7 +2833,8 @@ registerColocatedStatic({
     pl: "Zestaw perkusyjny, perkusjonalia świata i rola w groowie",
     uk: "Ударна установка, етнічна перкусія та ролі в ґруві",
     ur: "ڈرم کِٹ، ہینڈ پرکشن اور گروو کردار",
-    tr: "Bateri, el perküsyonu ve groove rolleri"
+    tr: "Bateri, el perküsyonu ve groove rolleri",
+    ar: "طقم الدرامز، الإيقاعات اليدوية وأدوار الجروف"
   },
   "knowledge.instElectronic": {
     de: "Moderne & Elektronik",
@@ -2609,7 +2845,8 @@ registerColocatedStatic({
     pl: "Elektronika i studio",
     uk: "Електроніка і студія",
     ur: "الیکٹرانک اور اسٹوڈیو",
-    tr: "Elektronik ve Stüdyo"
+    tr: "Elektronik ve Stüdyo",
+    ar: "الآلات الإلكترونية والاستوديو"
   },
   "knowledge.instElectronicSub": {
     de: "Synthesizer, Sampler, Drumcomputer & DAW",
@@ -2620,7 +2857,8 @@ registerColocatedStatic({
     pl: "Syntezatory, samplery, automaty perkusyjne i DAW",
     uk: "Синтезатори, семплери, драм-машини й DAW",
     ur: "سنتھس، سیمپلرز، ڈرم مشینز اور DAW",
-    tr: "Sentezleyiciler, sampler'lar, davul makineleri ve DAW"
+    tr: "Sentezleyiciler, sampler'lar, davul makineleri ve DAW",
+    ar: "السنثسايزر، السامبلر، آلات الإيقاع وبرامج DAW"
   },
   "knowledge.instEnsembles": {
     de: "Orchester & Bands",
@@ -2631,7 +2869,8 @@ registerColocatedStatic({
     pl: "Orkiestry i zespoły",
     uk: "Оркестри та гурти",
     ur: "آرکسٹرا اور بینڈز",
-    tr: "Orkestralar ve Gruplar"
+    tr: "Orkestralar ve Gruplar",
+    ar: "الأوركسترا والفرق الموسيقية"
   },
   "knowledge.instEnsemblesSub": {
     de: "Besetzungen, Klangrollen & Frequenzräume",
@@ -2642,7 +2881,8 @@ registerColocatedStatic({
     pl: "Składy, role i podział pasm częstotliwości",
     uk: "Склади, функції та частотний простір",
     ur: "سازوں کی تقسیم، کردار اور فریکوئنسی اسپیس",
-    tr: "Enstrümantasyon, roller ve frekans alanı"
+    tr: "Enstrümantasyon, roller ve frekans alanı",
+    ar: "التشكيلات، الأدوار الصوتية وتوزيع الترددات"
   },
   "space.localTag": {
     de: "Kein Punktestand",
@@ -2653,7 +2893,8 @@ registerColocatedStatic({
     pl: "Bez oceniania",
     uk: "Без оцінок",
     ur: "کوئی اسکور نہیں",
-    tr: "Puan Baskısı Yok"
+    tr: "Puan Baskısı Yok",
+    ar: "بلا نقاط"
   },
   "space.profileTitleDefault": {
     de: "Dein Musiker-Profil",
@@ -2664,7 +2905,8 @@ registerColocatedStatic({
     pl: "Twój profil muzyka",
     uk: "Твій профіль музиканта",
     ur: "آپ کا موسیقار پروفائل",
-    tr: "Müzisyen Profilin"
+    tr: "Müzisyen Profilin",
+    ar: "ملفك الموسيقي"
   },
   "space.profileSubDefault": {
     de: "Persönliche Vorlieben & entspannte Routinen – ganz ohne Fortschrittsdruck.",
@@ -2675,7 +2917,8 @@ registerColocatedStatic({
     pl: "Osobiste preferencje i spokojne nawyki ćwiczeń — bez presji punktów.",
     uk: "Особисті вподобання та спокійні звички занять — без жодного тиску на результат.",
     ur: "ذاتی ترجیحات اور پُرسکون مشق — کارکردگی کے کسی دباؤ کے بغیر۔",
-    tr: "Kişisel tercihler ve sakin çalışma rutinleri — sıfır performans baskısıyla."
+    tr: "Kişisel tercihler ve sakin çalışma rutinleri — sıfır performans baskısıyla.",
+    ar: "تفضيلات شخصية وروتين تدرّب هادئ — دون أي ضغط للأداء."
   },
   "space.nameLabel": {
     de: "Rufname für die Begrüßung",
@@ -2686,7 +2929,8 @@ registerColocatedStatic({
     pl: "Imię lub pseudonim do powitania",
     uk: "Ім’я або нікнейм для привітання",
     ur: "خوش آمدید کے لیے نام",
-    tr: "Karşılama için görünen ad"
+    tr: "Karşılama için görünen ad",
+    ar: "اسم العرض للترحيب"
   },
   "space.namePlaceholder": {
     de: "z. B. Dein Name (optional)",
@@ -2697,7 +2941,8 @@ registerColocatedStatic({
     pl: "np. Twoje imię (opcjonalnie)",
     uk: "напр. Твоє ім’я (необов’язково)",
     ur: "مثلاً آپ کا نام (اختیاری)",
-    tr: "ör. Adın (isteğe bağlı)"
+    tr: "ör. Adın (isteğe bağlı)",
+    ar: "مثلًا: اسمك (اختياري)"
   },
   "space.instrumentsLabel": {
     de: "Deine Instrumente / Rollen",
@@ -2708,7 +2953,8 @@ registerColocatedStatic({
     pl: "Twoje instrumenty / role",
     uk: "Твої інструменти / ролі",
     ur: "آپ کے ساز / کردار",
-    tr: "Enstrümanların / rollerin"
+    tr: "Enstrümanların / rollerin",
+    ar: "آلاتك / أدوارك"
   },
   "space.focusLabel": {
     de: "Trainings-Schwerpunkte",
@@ -2719,7 +2965,8 @@ registerColocatedStatic({
     pl: "Obszary ćwiczeń",
     uk: "Фокуси занять",
     ur: "مشق کے مراکز",
-    tr: "Çalışma odak alanları"
+    tr: "Çalışma odak alanları",
+    ar: "مجالات التركيز في التدرّب"
   },
   "space.accessoryLabel": {
     de: "Lauscher-Look",
@@ -2730,7 +2977,8 @@ registerColocatedStatic({
     pl: "Styl Lauscher",
     uk: "Стиль Lauscher",
     ur: "Lauscher انداز",
-    tr: "Lauscher stili"
+    tr: "Lauscher stili",
+    ar: "مظهر Lauscher"
   },
   "space.timerTitle": {
     de: "Achtsamer Session-Timer",
@@ -2741,7 +2989,8 @@ registerColocatedStatic({
     pl: "Uważny minutnik sesji",
     uk: "Уважний таймер сесії",
     ur: "توجہ بھرا سیشن ٹائمر",
-    tr: "Bilinçli Çalışma Zamanlayıcısı"
+    tr: "Bilinçli Çalışma Zamanlayıcısı",
+    ar: "مؤقّت الجلسة الواعية"
   },
   "space.timerSub": {
     de: "Schaltet sich bei Nicht-Nutzung automatisch wieder aus – zählt keine Lernhistorie.",
@@ -2752,7 +3001,8 @@ registerColocatedStatic({
     pl: "Zatrzymuje się automatycznie przy bezczynności — bez śledzenia ani statystyk.",
     uk: "Автоматично стає на паузу під час простою — не зберігає жодної історії відстеження.",
     ur: "استعمال نہ ہونے پر خودکار رک جاتا ہے — کوئی تعلیمی ہسٹری محفوظ نہیں کرتا۔",
-    tr: "Etkinlik olmadığında otomatik duraklar — hiçbir takip geçmişi tutmaz."
+    tr: "Etkinlik olmadığında otomatik duraklar — hiçbir takip geçmişi tutmaz.",
+    ar: "يتوقف تلقائيًا عند الخمول — ولا يحتفظ بأي سجلّ تتبّع."
   },
   "space.timerDuration": {
     de: "Wunschdauer",
@@ -2763,7 +3013,8 @@ registerColocatedStatic({
     pl: "Czas trwania sesji",
     uk: "Тривалість сесії",
     ur: "سیشن کی مدت",
-    tr: "Oturum süresi"
+    tr: "Oturum süresi",
+    ar: "مدة الجلسة"
   },
   "space.timerMin5": {
     de: "5 Min",
@@ -2774,7 +3025,8 @@ registerColocatedStatic({
     pl: "5 min",
     uk: "5 хв",
     ur: "5 منٹ",
-    tr: "5 dk"
+    tr: "5 dk",
+    ar: "5 د"
   },
   "space.timerMin10": {
     de: "10 Min",
@@ -2785,7 +3037,8 @@ registerColocatedStatic({
     pl: "10 min",
     uk: "10 хв",
     ur: "10 منٹ",
-    tr: "10 dk"
+    tr: "10 dk",
+    ar: "10 د"
   },
   "space.timerMin15": {
     de: "15 Min",
@@ -2796,7 +3049,8 @@ registerColocatedStatic({
     pl: "15 min",
     uk: "15 хв",
     ur: "15 منٹ",
-    tr: "15 dk"
+    tr: "15 dk",
+    ar: "15 د"
   },
   "space.timerMin20": {
     de: "20 Min",
@@ -2807,7 +3061,8 @@ registerColocatedStatic({
     pl: "20 min",
     uk: "20 хв",
     ur: "20 منٹ",
-    tr: "20 dk"
+    tr: "20 dk",
+    ar: "20 د"
   },
   "space.timerIdleLabel": {
     de: "Auto-Stopp bei Pause / Inaktivität",
@@ -2818,7 +3073,8 @@ registerColocatedStatic({
     pl: "Autostop przy bezczynności",
     uk: "Автостоп у разі простою",
     ur: "وقفے / غیر فعالی پر خودکار بندش",
-    tr: "Hareketsizlik sonrası otomatik durdur"
+    tr: "Hareketsizlik sonrası otomatik durdur",
+    ar: "إيقاف تلقائي بعد الخمول"
   },
   "space.timerIdle2": {
     de: "nach 2 Min",
@@ -2829,7 +3085,8 @@ registerColocatedStatic({
     pl: "po 2 min",
     uk: "через 2 хв",
     ur: "2 منٹ بعد",
-    tr: "2 dk sonra"
+    tr: "2 dk sonra",
+    ar: "بعد دقيقتين"
   },
   "space.timerIdle3": {
     de: "nach 3 Min",
@@ -2840,7 +3097,8 @@ registerColocatedStatic({
     pl: "po 3 min",
     uk: "через 3 хв",
     ur: "3 منٹ بعد",
-    tr: "3 dk sonra"
+    tr: "3 dk sonra",
+    ar: "بعد 3 د"
   },
   "space.timerIdle5": {
     de: "nach 5 Min",
@@ -2851,7 +3109,8 @@ registerColocatedStatic({
     pl: "po 5 min",
     uk: "через 5 хв",
     ur: "5 منٹ بعد",
-    tr: "5 dk sonra"
+    tr: "5 dk sonra",
+    ar: "بعد 5 د"
   },
   "space.timerIdleNever": {
     de: "Nie",
@@ -2862,7 +3121,8 @@ registerColocatedStatic({
     pl: "Nigdy",
     uk: "Ніколи",
     ur: "کبھی نہیں",
-    tr: "Asla"
+    tr: "Asla",
+    ar: "أبدًا"
   },
   "space.timerCustomUnit": {
     de: "Min",
@@ -2873,7 +3133,8 @@ registerColocatedStatic({
     pl: "min",
     uk: "хв",
     ur: "منٹ",
-    tr: "dk"
+    tr: "dk",
+    ar: "د"
   },
   "space.timerCustomApply": {
     de: "Übernehmen",
@@ -2884,7 +3145,8 @@ registerColocatedStatic({
     pl: "Zastosuj",
     uk: "Застосувати",
     ur: "لاگو کریں",
-    tr: "Uygula"
+    tr: "Uygula",
+    ar: "تطبيق"
   },
   "space.timerCustomDurHint": {
     de: "1–180 Min",
@@ -2895,7 +3157,8 @@ registerColocatedStatic({
     pl: "1–180 min",
     uk: "1–180 хв",
     ur: "1–180 منٹ",
-    tr: "1–180 dk"
+    tr: "1–180 dk",
+    ar: "1–180 د"
   },
   "space.timerCustomIdleHint": {
     de: "1–60 Min",
@@ -2906,7 +3169,8 @@ registerColocatedStatic({
     pl: "1–60 min",
     uk: "1–60 хв",
     ur: "1–60 منٹ",
-    tr: "1–60 dk"
+    tr: "1–60 dk",
+    ar: "1–60 د"
   },
   "space.timerCustomDurAria": {
     de: "Eigene Wunschdauer in Minuten",
@@ -2917,7 +3181,8 @@ registerColocatedStatic({
     pl: "Własny czas sesji w minutach",
     uk: "Власна тривалість у хвилинах",
     ur: "منٹوں میں اپنا دورانیہ",
-    tr: "Dakika cinsinden özel oturum süresi"
+    tr: "Dakika cinsinden özel oturum süresi",
+    ar: "مدة جلستك المخصّصة بالدقائق"
   },
   "space.timerCustomIdleAria": {
     de: "Eigene Auto-Stopp-Zeit in Minuten",
@@ -2928,7 +3193,8 @@ registerColocatedStatic({
     pl: "Własny czas automatycznego zatrzymania w minutach",
     uk: "Власний час автозупинки у хвилинах",
     ur: "منٹوں میں اپنا خودکار اسٹاپ وقت",
-    tr: "Dakika cinsinden özel otomatik durdurma süresi"
+    tr: "Dakika cinsinden özel otomatik durdurma süresi",
+    ar: "مدة الإيقاف التلقائي المخصّصة بالدقائق"
   },
   "space.timerReset": {
     de: "Zurücksetzen",
@@ -2939,7 +3205,8 @@ registerColocatedStatic({
     pl: "Reset",
     uk: "Скинути",
     ur: "ری سیٹ",
-    tr: "Sıfırla"
+    tr: "Sıfırla",
+    ar: "إعادة ضبط"
   },
   "space.timerCustomize": {
     de: "Dauer & Auto-Stopp anpassen",
@@ -2950,7 +3217,8 @@ registerColocatedStatic({
     pl: "Zmień czas i autostop",
     uk: "Налаштувати тривалість і автостоп",
     ur: "مدت اور آٹو اسٹاپ ترتیب دیں",
-    tr: "Süre ve Otomatik Durdurmayı Özelleştir"
+    tr: "Süre ve Otomatik Durdurmayı Özelleştir",
+    ar: "تخصيص المدة والإيقاف التلقائي"
   },
   "space.mixesTitle": {
     de: "Meine Übe-Mixe",
@@ -2961,7 +3229,8 @@ registerColocatedStatic({
     pl: "Moje miksy ćwiczeń",
     uk: "Мої мікси для занять",
     ur: "میرے پریکٹس مکسز",
-    tr: "Çalışma Karışımlarım"
+    tr: "Çalışma Karışımlarım",
+    ar: "خَلطات التدرّب الخاصة بي"
   },
   "space.mixesSub": {
     de: "Persönliche Favoriten-Konfigurationen – direkt startbar, ganz ohne Bewertung.",
@@ -2972,7 +3241,8 @@ registerColocatedStatic({
     pl: "Ulubione zestawy treningowe — szybki start jednym dotknięciem bez punktów.",
     uk: "Улюблені комбінації вправ — запуск одним дотиком без балів.",
     ur: "پسندیدہ ذاتی سیٹ اپ — ایک ٹیپ پر فوری شروع، بغیر کسی جانچ کے۔",
-    tr: "Kişisel favori kurulumlar — tek dokunuşla istediğin zaman başlat."
+    tr: "Kişisel favori kurulumlar — tek dokunuşla istediğin zaman başlat.",
+    ar: "إعداداتك المفضّلة — ابدأها في أي وقت بلمسة واحدة."
   },
   "space.mixCreateBtn": {
     de: "+ Neuen Mix erstellen",
@@ -2983,7 +3253,8 @@ registerColocatedStatic({
     pl: "+ Utwórz miks",
     uk: "+ Створити мікс",
     ur: "+ نیا مکس بنائیں",
-    tr: "+ Yeni Karışım Oluştur"
+    tr: "+ Yeni Karışım Oluştur",
+    ar: "+ إنشاء خلطة جديدة"
   },
   "space.mixSaveCurrentBtn": {
     de: "Aktuelle Übung merken",
@@ -2994,7 +3265,8 @@ registerColocatedStatic({
     pl: "Zapisz bieżące ćwiczenie",
     uk: "Зберегти поточну вправу",
     ur: "موجودہ مشق محفوظ کریں",
-    tr: "Mevcut Alıştırmayı Kaydet"
+    tr: "Mevcut Alıştırmayı Kaydet",
+    ar: "حفظ التمرين الحالي"
   },
   "space.mixNameLabel": {
     de: "Name des Mixes",
@@ -3005,7 +3277,8 @@ registerColocatedStatic({
     pl: "Nazwa miksu",
     uk: "Назва міксу",
     ur: "مکس کا نام",
-    tr: "Karışım adı"
+    tr: "Karışım adı",
+    ar: "اسم الخلطة"
   },
   "space.mixNamePlaceholder": {
     de: "z. B. Abend-Diktat",
@@ -3016,7 +3289,8 @@ registerColocatedStatic({
     pl: "np. Wieczorne dyktando",
     uk: "напр. Вечірній диктант",
     ur: "مثلاً شام کی مشق",
-    tr: "ör. Akşam Diktesi"
+    tr: "ör. Akşam Diktesi",
+    ar: "مثلًا: إملاء المساء"
   },
   "space.mixModuleLabel": {
     de: "Übungsmodul",
@@ -3027,7 +3301,8 @@ registerColocatedStatic({
     pl: "Moduł ćwiczeń",
     uk: "Модуль вправ",
     ur: "مشق ماڈیول",
-    tr: "Alıştırma modülü"
+    tr: "Alıştırma modülü",
+    ar: "وحدة التمرين"
   },
   "space.mixLevelLabel": {
     de: "Stufe / Umfang",
@@ -3038,7 +3313,8 @@ registerColocatedStatic({
     pl: "Poziom / Zakres",
     uk: "Рівень / Діапазон",
     ur: "لیول / رینج",
-    tr: "Seviye / Aralık"
+    tr: "Seviye / Aralık",
+    ar: "المستوى / النطاق"
   },
   "space.mixBpmLabel": {
     de: "Tempo",
@@ -3049,7 +3325,8 @@ registerColocatedStatic({
     pl: "Tempo",
     uk: "Темп",
     ur: "ٹیمپو (رفتار)",
-    tr: "Tempo"
+    tr: "Tempo",
+    ar: "سرعة الإيقاع"
   },
   "space.mixBpmDefault": {
     de: "Standardtempo",
@@ -3060,7 +3337,8 @@ registerColocatedStatic({
     pl: "Domyślne tempo",
     uk: "Типовий темп",
     ur: "طے شدہ ٹیمپو",
-    tr: "Varsayılan tempo"
+    tr: "Varsayılan tempo",
+    ar: "السرعة الافتراضية"
   },
   "space.mixBpm70": {
     de: "70 BPM (Ruhig)",
@@ -3071,7 +3349,8 @@ registerColocatedStatic({
     pl: "70 BPM (Spokojne)",
     uk: "70 BPM (Спокійний)",
     ur: "70 BPM (پُرسکون)",
-    tr: "70 BPM (Sakin)"
+    tr: "70 BPM (Sakin)",
+    ar: "70 BPM (هادئ)"
   },
   "space.mixBpm85": {
     de: "85 BPM (Entspannt)",
@@ -3082,7 +3361,8 @@ registerColocatedStatic({
     pl: "85 BPM (Swobodne)",
     uk: "85 BPM (Розслаблений)",
     ur: "85 BPM (آرام دہ)",
-    tr: "85 BPM (Rahat)"
+    tr: "85 BPM (Rahat)",
+    ar: "85 BPM (مريح)"
   },
   "space.mixBpm95": {
     de: "95 BPM (Mittel)",
@@ -3093,7 +3373,8 @@ registerColocatedStatic({
     pl: "95 BPM (Umiarkowane)",
     uk: "95 BPM (Помірний)",
     ur: "95 BPM (معتدل)",
-    tr: "95 BPM (Orta)"
+    tr: "95 BPM (Orta)",
+    ar: "95 BPM (معتدل)"
   },
   "space.mixBpm110": {
     de: "110 BPM (Flott)",
@@ -3104,7 +3385,8 @@ registerColocatedStatic({
     pl: "110 BPM (Żwawe)",
     uk: "110 BPM (Рухливий)",
     ur: "110 BPM (تازہ دم)",
-    tr: "110 BPM (Canlı)"
+    tr: "110 BPM (Canlı)",
+    ar: "110 BPM (نشيط)"
   },
   "space.mixBpm125": {
     de: "125 BPM (Sportlich)",
@@ -3115,7 +3397,8 @@ registerColocatedStatic({
     pl: "125 BPM (Szybkie)",
     uk: "125 BPM (Жвавий)",
     ur: "125 BPM (تیز)",
-    tr: "125 BPM (Hızlı)"
+    tr: "125 BPM (Hızlı)",
+    ar: "125 BPM (سريع)"
   },
   "space.mixSaveBtn": {
     de: "Mix speichern",
@@ -3126,7 +3409,8 @@ registerColocatedStatic({
     pl: "Zapisz miks",
     uk: "Зберегти мікс",
     ur: "مکس محفوظ کریں",
-    tr: "Karışımı Kaydet"
+    tr: "Karışımı Kaydet",
+    ar: "حفظ الخلطة"
   },
   "space.mixCancelBtn": {
     de: "Abbrechen",
@@ -3137,7 +3421,8 @@ registerColocatedStatic({
     pl: "Anuluj",
     uk: "Скасувати",
     ur: "منسوخ کریں",
-    tr: "İptal"
+    tr: "İptal",
+    ar: "إلغاء"
   },
   "space.notationTitle": {
     de: "Musikalische Schreibweise",
@@ -3148,7 +3433,8 @@ registerColocatedStatic({
     pl: "Zapis muzyczny",
     uk: "Музична нотація",
     ur: "موسیقی کی علامتی تحریر",
-    tr: "Müzik Notasyonu"
+    tr: "Müzik Notasyonu",
+    ar: "التدوين الموسيقي"
   },
   "space.notationSub": {
     de: "Steuert Tonnamen, Intervall-Kürzel & Tasten-Beschriftung in deinen Übungen.",
@@ -3159,7 +3445,8 @@ registerColocatedStatic({
     pl: "Określa nazwy dźwięków, symbole interwałów i podpisy klawiszy w ćwiczeniach.",
     uk: "Керує позначенням нот, скороченнями інтервалів і підписами клавіш у вправах.",
     ur: "آپ کی مشقوں میں سُروں کے نام، انٹرول علامتیں اور کی بورڈ لیبل کنٹرول کرتا ہے۔",
-    tr: "Alıştırmalardaki nota adlandırmasını, aralık sembollerini ve klavye etiketlerini belirler."
+    tr: "Alıştırmalardaki nota adlandırmasını, aralık sembollerini ve klavye etiketlerini belirler.",
+    ar: "يتحكّم في أسماء النغمات ورموز المسافات وتسميات لوحة المفاتيح في التمارين."
   },
   "space.notationSystem": {
     de: "Notensystem",
@@ -3170,7 +3457,8 @@ registerColocatedStatic({
     pl: "Nazewnictwo dźwięków",
     uk: "Позначення висот",
     ur: "سُروں کے ناموں کا نظام",
-    tr: "Nota Adlandırma"
+    tr: "Nota Adlandırma",
+    ar: "تسمية النغمات"
   },
   "space.notationDe": {
     de: "Deutsch (H / B / Cis)",
@@ -3181,7 +3469,8 @@ registerColocatedStatic({
     pl: "Polska / DE (H / B / Cis)",
     uk: "Німецька (H / B / Cis)",
     ur: "جرمن نظام (H / B / Cis)",
-    tr: "Alman Sistemi (H / B / Cis)"
+    tr: "Alman Sistemi (H / B / Cis)",
+    ar: "الألمانية (H / B / Cis)"
   },
   "space.notationIntl": {
     de: "International (B / Bb / C#)",
@@ -3192,7 +3481,8 @@ registerColocatedStatic({
     pl: "Międzynarodowa (B / Bb / C#)",
     uk: "Міжнародна (B / Bb / C#)",
     ur: "عالمی نظام (B / Bb / C#)",
-    tr: "Uluslararası (B / Bb / C#)"
+    tr: "Uluslararası (B / Bb / C#)",
+    ar: "الدولية (B / Bb / C#)"
   },
   "space.intervalNotationSystem": {
     de: "Intervall-Namensgebung",
@@ -3203,7 +3493,8 @@ registerColocatedStatic({
     pl: "Symbole interwałów",
     uk: "Назви інтервалів",
     ur: "انٹرول کے مخففات",
-    tr: "Aralık Adlandırma"
+    tr: "Aralık Adlandırma",
+    ar: "اختصارات المسافات"
   },
   "space.intervalNotationDe": {
     de: "Deutsch (P / G / k)",
@@ -3214,7 +3505,8 @@ registerColocatedStatic({
     pl: "Niemieckie (P / G / k)",
     uk: "Німецькі (P / G / k)",
     ur: "جرمن نظام (P / G / k)",
-    tr: "Alman Sistemi (P / G / k)"
+    tr: "Alman Sistemi (P / G / k)",
+    ar: "الألمانية (P / G / k)"
   },
   "space.intervalNotationIntl": {
     de: "International (P / M / m)",
@@ -3225,7 +3517,8 @@ registerColocatedStatic({
     pl: "Międzynarodowe (P / M / m)",
     uk: "Міжнародні (P / M / m)",
     ur: "عالمی نظام (P / M / m)",
-    tr: "Uluslararası (P / M / m)"
+    tr: "Uluslararası (P / M / m)",
+    ar: "الدولية (P / M / m)"
   },
   "space.solfegeLabelSystem": {
     de: "Klaviatur-Beschriftung (Solfège & Melodie)",
@@ -3236,7 +3529,8 @@ registerColocatedStatic({
     pl: "Podpisy klawiatury (Solfeż i melodie)",
     uk: "Підписи клавіатури (Сольфеджіо й мелодії)",
     ur: "کی بورڈ لیبلز (سولفیج اور دھنیں)",
-    tr: "Klavye Etiketleri (Solfej ve Melodiler)"
+    tr: "Klavye Etiketleri (Solfej ve Melodiler)",
+    ar: "تسميات لوحة المفاتيح (الصولفيج والألحان)"
   },
   "space.solfegeSyllables": {
     de: "Silben (Do – Ti)",
@@ -3247,7 +3541,8 @@ registerColocatedStatic({
     pl: "Sylaby (Do – Ti)",
     uk: "Склади (Do – Ti)",
     ur: "ہجّے (Do – Ti)",
-    tr: "Heceler (Do – Ti)"
+    tr: "Heceler (Do – Ti)",
+    ar: "المقاطع (Do – Ti)"
   },
   "space.solfegeNumbers": {
     de: "Stufenzahlen (1 – 7)",
@@ -3258,7 +3553,8 @@ registerColocatedStatic({
     pl: "Stopnie (1 – 7)",
     uk: "Номери ступенів (1 – 7)",
     ur: "اسکیل درجات (1 – 7)",
-    tr: "Gam Dereceleri (1 – 7)"
+    tr: "Gam Dereceleri (1 – 7)",
+    ar: "درجات السلم (1 – 7)"
   },
   "space.backupTitle": {
     de: "Lokal & Privat",
@@ -3269,7 +3565,8 @@ registerColocatedStatic({
     pl: "Lokalnie i prywatnie",
     uk: "Локально й приватно",
     ur: "مقامی اور نجی",
-    tr: "Yerel ve Gizli"
+    tr: "Yerel ve Gizli",
+    ar: "محلي وخاص"
   },
   "space.backupDisclosureSummary": {
     de: "Datensicherung & Konto zurücksetzen",
@@ -3280,7 +3577,8 @@ registerColocatedStatic({
     pl: "Kopia zapasowa i reset profilu",
     uk: "Резервна копія та скидання профілю",
     ur: "بیک اپ اور اکاؤنٹ ری سیٹ",
-    tr: "Hesabı Yedekle ve Sıfırla"
+    tr: "Hesabı Yedekle ve Sıfırla",
+    ar: "النسخ الاحتياطي وإعادة ضبط الحساب"
   },
   "space.backupSub": {
     de: "Kein Server, kein Tracking – deine Vorlieben & Prüfungen bleiben lokal und lassen sich als Datei sichern.",
@@ -3291,7 +3589,8 @@ registerColocatedStatic({
     pl: "Bez serwerów i śledzenia — Twoje ustawienia i wyniki egzaminów zostają w przeglądarce z możliwością eksportu.",
     uk: "Жодних серверів, жодного стеження — твої налаштування й іспити зберігаються локально й легко експортуються.",
     ur: "کوئی سرور نہیں، کوئی ٹریکنگ نہیں — آپ کی ترجیحات اور امتحان کا ریکارڈ مقامی طور پر محفوظ رہتا ہے اور فائل کے طور پر محفوظ کیا جا سکتا ہے۔",
-    tr: "Sunucu yok, takip yok — tercihlerin ve sınav geçmişin yerel olarak saklanır ve dosya olarak yedeklenebilir."
+    tr: "Sunucu yok, takip yok — tercihlerin ve sınav geçmişin yerel olarak saklanır ve dosya olarak yedeklenebilir.",
+    ar: "لا خوادم ولا تتبّع — تبقى تفضيلاتك وسجلّ اختباراتك محليًا ويمكن حفظها في ملف."
   },
   "space.exportBtn": {
     de: "Profil sichern",
@@ -3302,7 +3601,8 @@ registerColocatedStatic({
     pl: "Zapisz profil",
     uk: "Зберегти профіль",
     ur: "پروفائل محفوظ کریں",
-    tr: "Profili Yedekle"
+    tr: "Profili Yedekle",
+    ar: "نسخ احتياطي للملف"
   },
   "space.exportChooseHint": {
     de: "Wie möchtest du dein Profil sichern?",
@@ -3313,7 +3613,8 @@ registerColocatedStatic({
     pl: "Jak chcesz zapisać swój profil?",
     uk: "Як ти хочеш зберегти свій профіль?",
     ur: "آپ اپنا پروفائل کیسے محفوظ کرنا چاہتے ہیں؟",
-    tr: "Profilini nasıl yedeklemek istersin?"
+    tr: "Profilini nasıl yedeklemek istersin?",
+    ar: "كيف ترغب في حفظ نسخة احتياطية من ملفك؟"
   },
   "space.exportSaveLocalBtn": {
     de: "Auf Gerät speichern",
@@ -3324,7 +3625,8 @@ registerColocatedStatic({
     pl: "Zapisz na urządzeniu",
     uk: "Зберегти на пристрій",
     ur: "آلے پر محفوظ کریں",
-    tr: "Cihaza Kaydet"
+    tr: "Cihaza Kaydet",
+    ar: "حفظ على الجهاز"
   },
   "space.exportShareBtn": {
     de: "Teilen …",
@@ -3335,7 +3637,8 @@ registerColocatedStatic({
     pl: "Udostępnij …",
     uk: "Поділитися …",
     ur: "شیئر کریں …",
-    tr: "Paylaş …"
+    tr: "Paylaş …",
+    ar: "مشاركة …"
   },
   "space.importBtn": {
     de: "Profil laden",
@@ -3346,7 +3649,8 @@ registerColocatedStatic({
     pl: "Importuj profil",
     uk: "Імпорт профілю",
     ur: "پروفائل لوڈ کریں",
-    tr: "Profili İçe Aktar"
+    tr: "Profili İçe Aktar",
+    ar: "استيراد ملف"
   },
   "space.resetBtn": {
     de: "Konto zurücksetzen",
@@ -3357,7 +3661,8 @@ registerColocatedStatic({
     pl: "Wyczyść profil",
     uk: "Скинути профіль",
     ur: "اکاؤنٹ ری سیٹ",
-    tr: "Hesabı Sıfırla"
+    tr: "Hesabı Sıfırla",
+    ar: "إعادة ضبط الحساب"
   },
   "space.appResetBtn": {
     de: "App-Reset",
@@ -3368,7 +3673,8 @@ registerColocatedStatic({
     pl: "Resetuj aplikację",
     uk: "Скинути додаток",
     ur: "ایپ ری سیٹ",
-    tr: "Uygulamayı Sıfırla"
+    tr: "Uygulamayı Sıfırla",
+    ar: "إعادة ضبط التطبيق"
   },
   "space.examHistoryTitle": {
     de: "Prüfungsverlauf",
@@ -3379,7 +3685,8 @@ registerColocatedStatic({
     pl: "Historia egzaminów",
     uk: "Історія іспитів",
     ur: "امتحان کا ریکارڈ",
-    tr: "Sınav Geçmişi"
+    tr: "Sınav Geçmişi",
+    ar: "سجلّ الاختبارات"
   },
   "space.examHistorySub": {
     de: "Deine abgeschlossenen Kategorie-Prüfungen & Bestwerte (lokal auf deinem Gerät).",
@@ -3390,7 +3697,8 @@ registerColocatedStatic({
     pl: "Zapisane egzaminy kategorii i najlepsze wyniki (przechowywane lokalnie na urządzeniu).",
     uk: "Твої завершені іспити за категоріями та рекорди (зберігаються локально на цьому пристрої).",
     ur: "آپ کے مکمل کردہ زمرہ امتحانات اور بہترین نتائج (صرف آپ کے آلے پر محفوظ)۔",
-    tr: "Tamamladığın kategori sınavların ve en iyi sonuçların (cihazında yerel olarak saklanır)."
+    tr: "Tamamladığın kategori sınavların ve en iyi sonuçların (cihazında yerel olarak saklanır).",
+    ar: "اختبارات الفئات المكتملة وأفضل نتائجك (محفوظة محليًا على جهازك)."
   },
   "space.achievementsTitle": {
     de: "Meilensteine",
@@ -3401,7 +3709,8 @@ registerColocatedStatic({
     pl: "Kamienie milowe",
     uk: "Досягнення",
     ur: "سنگِ میل",
-    tr: "Dönüm Noktaları"
+    tr: "Dönüm Noktaları",
+    ar: "الإنجازات"
   },
   "space.achievementsSub": {
     de: "Kleine musikalische Erinnerungen – 100 % lokal, ohne Zwang und jederzeit abschaltbar.",
@@ -3412,7 +3721,8 @@ registerColocatedStatic({
     pl: "Drobne muzyczne wspomnienia — w 100% lokalne, bez presji i możliwe do wyłączenia w każdej chwili.",
     uk: "Невеликі музичні спогади — на 100% локально, без тиску й можна вимкнути будь-коли.",
     ur: "موسیقی کی چھوٹی یادگاریں — 100% مقامی، بغیر کسی دباؤ کے اور کسی بھی وقت بند کی جا سکتی ہیں۔",
-    tr: "Sakin müzikal hatıralar — %100 yerel, sıfır baskı ve istediğin zaman açılıp kapatılabilir."
+    tr: "Sakin müzikal hatıralar — %100 yerel, sıfır baskı ve istediğin zaman açılıp kapatılabilir.",
+    ar: "تذكارات موسيقية لطيفة — محلية 100%، بلا ضغط، ويمكن إخفاؤها في أي وقت."
   },
   "space.achievementsToggleAria": {
     de: "Meilensteine anzeigen",
@@ -3423,7 +3733,8 @@ registerColocatedStatic({
     pl: "Pokaż kamienie milowe",
     uk: "Показувати досягнення",
     ur: "سنگِ میل دکھائیں",
-    tr: "Dönüm noktalarını göster"
+    tr: "Dönüm noktalarını göster",
+    ar: "إظهار الإنجازات"
   },
   "space.examHistoryClear": {
     de: "Verlauf löschen",
@@ -3434,7 +3745,8 @@ registerColocatedStatic({
     pl: "Wyczyść historię",
     uk: "Очистити історію",
     ur: "ریکارڈ صاف کریں",
-    tr: "Geçmişi Temizle"
+    tr: "Geçmişi Temizle",
+    ar: "مسح السجلّ"
   },
   "space.examHistoryConfirmTitle": {
     de: "Prüfungsverlauf wirklich löschen?",
@@ -3445,7 +3757,8 @@ registerColocatedStatic({
     pl: "Na pewno usunąć historię egzaminów?",
     uk: "Дійсно видалити історію іспитів?",
     ur: "کیا واقعی امتحانی ریکارڈ حذف کرنا ہے؟",
-    tr: "Sınav geçmişi silinsin mi?"
+    tr: "Sınav geçmişi silinsin mi?",
+    ar: "حذف سجلّ الاختبارات؟"
   },
   "space.examHistoryConfirmSub": {
     de: "Alle gespeicherten Prüfungsergebnisse und Bestwerte werden dauerhaft entfernt.",
@@ -3456,7 +3769,8 @@ registerColocatedStatic({
     pl: "Wszystkie zapisane wyniki egzaminów i rekordy zostaną trwale usunięte.",
     uk: "Усі збережені результати іспитів та найкращі показники буде видалено назавжди.",
     ur: "تمام محفوظ امتحانی نتائج اور بہترین اسکور مستقل طور پر حذف ہو جائیں گے۔",
-    tr: "Kayıtlı tüm sınav sonuçları ve en iyi dereceler kalıcı olarak silinecek."
+    tr: "Kayıtlı tüm sınav sonuçları ve en iyi dereceler kalıcı olarak silinecek.",
+    ar: "سيتم حذف جميع نتائج الاختبارات المحفوظة وأفضل الأرقام نهائيًا."
   },
   "space.examHistoryConfirmBtn": {
     de: "Endgültig löschen",
@@ -3467,7 +3781,8 @@ registerColocatedStatic({
     pl: "Usuń na stałe",
     uk: "Видалити назавжди",
     ur: "مستقل طور پر حذف کریں",
-    tr: "Kalıcı Olarak Sil"
+    tr: "Kalıcı Olarak Sil",
+    ar: "حذف نهائي"
   },
   "space.examHistoryCancelBtn": {
     de: "Abbrechen",
@@ -3478,7 +3793,8 @@ registerColocatedStatic({
     pl: "Anuluj",
     uk: "Скасувати",
     ur: "منسوخ کریں",
-    tr: "İptal"
+    tr: "İptal",
+    ar: "إلغاء"
   },
   "ex.keyBtnTitle": {
     de: "Tonart-Modus wählen",
@@ -3489,7 +3805,8 @@ registerColocatedStatic({
     pl: "Wybierz tryb tonacji",
     uk: "Обрати режим тональності",
     ur: "کلید کا موڈ منتخب کریں",
-    tr: "Ton modunu seç"
+    tr: "Ton modunu seç",
+    ar: "اختر وضع المقام"
   },
   "ex.notationKeyBtnTitle": {
     de: "Tonart & Generalvorzeichen fürs Notenlesen wählen",
@@ -3500,7 +3817,8 @@ registerColocatedStatic({
     pl: "Wybierz tonację i znaki przykluczowe do czytania nut",
     uk: "Обрати тональність і ключові знаки для читання з аркуша",
     ur: "اسٹاف ریڈنگ کے لیے کلید اور کی سگنیچر منتخب کریں",
-    tr: "Deşifre için ton donanımını seç"
+    tr: "Deşifre için ton donanımını seç",
+    ar: "اختر دليل المقام لقراءة النوتة"
   },
   "ex.notationPaceBtnTitle": {
     de: "Tempo für den Nur-Hören-Modus wählen",
@@ -3511,7 +3829,8 @@ registerColocatedStatic({
     pl: "Wybierz tempo dla trybu samego słuchania",
     uk: "Обрати темп для режиму лише слухання",
     ur: "صرف سنیں موڈ کے لیے رفتار منتخب کریں",
-    tr: "Sadece Dinle modu için hızı seç"
+    tr: "Sadece Dinle modu için hızı seç",
+    ar: "اختر السرعة لوضع الاستماع فقط"
   },
   "ex.paceSlowEdge": {
     de: "Langsam",
@@ -3522,7 +3841,8 @@ registerColocatedStatic({
     pl: "Wolno",
     uk: "Повільно",
     ur: "آہستہ",
-    tr: "Yavaş"
+    tr: "Yavaş",
+    ar: "بطيء"
   },
   "ex.paceFastEdge": {
     de: "Schnell",
@@ -3533,7 +3853,8 @@ registerColocatedStatic({
     pl: "Szybko",
     uk: "Швидко",
     ur: "تیز",
-    tr: "Hızlı"
+    tr: "Hızlı",
+    ar: "سريع"
   },
   "ex.notationPaceSliderAria": {
     de: "Tempo von langsam bis schnell",
@@ -3544,7 +3865,8 @@ registerColocatedStatic({
     pl: "Tempo od wolnego do szybkiego",
     uk: "Темп від повільного до швидкого",
     ur: "آہستہ سے تیز تک رفتار",
-    tr: "Yavaştan hızlıya tempo ayarı"
+    tr: "Yavaştan hızlıya tempo ayarı",
+    ar: "السرعة من بطيء إلى سريع"
   },
   "ex.timeSigBtnTitle": {
     de: "Taktart wählen",
@@ -3555,7 +3877,8 @@ registerColocatedStatic({
     pl: "Wybierz metrum",
     uk: "Обрати музичний розмір",
     ur: "ٹائم سگنیچر (تال) منتخب کریں",
-    tr: "Ölçü birimini seç"
+    tr: "Ölçü birimini seç",
+    ar: "اختر الوزن الإيقاعي"
   },
   "ex.melodyPulseTitle": {
     de: "Metrum-Puls während der Melodie ein-/ausschalten",
@@ -3566,7 +3889,8 @@ registerColocatedStatic({
     pl: "Włącz lub wyłącz puls podczas melodii",
     uk: "Увімкнути або вимкнути пульс під час мелодії",
     ur: "دھن کے دوران نبض (Pulse) آن/آف کریں",
-    tr: "Melodi sırasında vuruş nabzını aç/kapat"
+    tr: "Melodi sırasında vuruş nabzını aç/kapat",
+    ar: "تبديل نبض الإيقاع أثناء اللحن"
   },
   "ex.bpmBtnTitle": {
     de: "Tempo-Schieberegler öffnen",
@@ -3577,7 +3901,8 @@ registerColocatedStatic({
     pl: "Otwórz suwak tempa",
     uk: "Відкрити повзунок темпу",
     ur: "ٹیمپو سلائیڈر کھولیں",
-    tr: "Tempo sürgüsünü aç"
+    tr: "Tempo sürgüsünü aç",
+    ar: "فتح شريط سرعة الإيقاع"
   },
   "ex.tempoLabel": {
     de: "Tempo:",
@@ -3588,7 +3913,8 @@ registerColocatedStatic({
     pl: "Tempo:",
     uk: "Темп:",
     ur: "ٹیمپو:",
-    tr: "Tempo:"
+    tr: "Tempo:",
+    ar: "السرعة:"
   },
   "ex.random": {
     de: "Zufall",
@@ -3599,7 +3925,8 @@ registerColocatedStatic({
     pl: "Losowa",
     uk: "Випадкова",
     ur: "بے ترتیب",
-    tr: "Rastgele"
+    tr: "Rastgele",
+    ar: "عشوائي"
   },
   "ex.keyLabel": {
     de: "Tonart:",
@@ -3610,7 +3937,8 @@ registerColocatedStatic({
     pl: "Tonacja:",
     uk: "Тональність:",
     ur: "کلید:",
-    tr: "Ton:"
+    tr: "Ton:",
+    ar: "المقام:"
   },
   "ex.keyFixed": {
     de: "Fest auf C",
@@ -3621,7 +3949,8 @@ registerColocatedStatic({
     pl: "Stała C-dur",
     uk: "Фіксована C-Dur / До",
     ur: "C پر مقرر",
-    tr: "Sabit Do"
+    tr: "Sabit Do",
+    ar: "ثابت على C"
   },
   "ex.keyEasy": {
     de: "Leichte (G, F, D, B)",
@@ -3632,7 +3961,8 @@ registerColocatedStatic({
     pl: "Proste (G, F, D, B)",
     uk: "Прості (G, F, D, Bb)",
     ur: "آسان کلیدیں (G, F, D, Bb)",
-    tr: "Kolay Tonlar (Sol, Fa, Re, Si♭)"
+    tr: "Kolay Tonlar (Sol, Fa, Re, Si♭)",
+    ar: "مقامات سهلة (G, F, D, Bb)"
   },
   "ex.keyAll": {
     de: "Alle 12 (Zufall)",
@@ -3643,7 +3973,8 @@ registerColocatedStatic({
     pl: "Wszystkie 12 (losowo)",
     uk: "Усі 12 (випадково)",
     ur: "تمام 12 (بے ترتیب)",
-    tr: "12 Tonun Tümü (Rastgele)"
+    tr: "12 Tonun Tümü (Rastgele)",
+    ar: "جميع الـ 12 (عشوائي)"
   },
   "ex.timeSigLabel": {
     de: "Taktart:",
@@ -3654,7 +3985,8 @@ registerColocatedStatic({
     pl: "Metrum:",
     uk: "Розмір:",
     ur: "ٹائم سگنیچر:",
-    tr: "Ölçü:"
+    tr: "Ölçü:",
+    ar: "الوزن:"
   },
   "ex.waltz34": {
     de: "3/4 Walzer",
@@ -3665,7 +3997,8 @@ registerColocatedStatic({
     pl: "3/4 Walc",
     uk: "3/4 Вальс",
     ur: "3/4 والٹز",
-    tr: "3/4 Vals"
+    tr: "3/4 Vals",
+    ar: "3/4 فالس"
   },
   "ex.diagCompare": {
     de: "A/B Vergleich",
@@ -3676,7 +4009,8 @@ registerColocatedStatic({
     pl: "Porównaj A/B",
     uk: "Порівняння A/B",
     ur: "A/B موازنہ",
-    tr: "A/B Karşılaştır"
+    tr: "A/B Karşılaştır",
+    ar: "مقارنة A/B"
   },
   "ex.diagBass": {
     de: "Bass / Grundton",
@@ -3687,7 +4021,8 @@ registerColocatedStatic({
     pl: "Bas / Tonika",
     uk: "Бас / Тоніка",
     ur: "باس / بنیادی سُر",
-    tr: "Bas / Kök Ses"
+    tr: "Bas / Kök Ses",
+    ar: "الباص / الأساس"
   },
   "ex.solfegeKeyTitle": {
     de: "Aktuelle Tonart (Tippen für Tonika-Akkord)",
@@ -3698,7 +4033,8 @@ registerColocatedStatic({
     pl: "Bieżąca tonacja (dotknij, aby usłyszeć akord toniki)",
     uk: "Поточна тональність (натисни, щоб почути тонічний акорд)",
     ur: "موجودہ کلید (ٹانک کارڈ کے لیے ٹیپ کریں)",
-    tr: "Mevcut ton (tonik akoru için dokun)"
+    tr: "Mevcut ton (tonik akoru için dokun)",
+    ar: "المقام الحالي (اضغط لسماع تآلف القرار)"
   },
   "ex.tonicBtnTitle": {
     de: "Tonika / Grundton anspielen",
@@ -3709,7 +4045,8 @@ registerColocatedStatic({
     pl: "Zagraj tonikę / dźwięk podstawowy",
     uk: "Програти тоніку / основний тон",
     ur: "ٹانک / بنیادی سُر بجائیں",
-    tr: "Toniği / kök sesi çal"
+    tr: "Toniği / kök sesi çal",
+    ar: "عزف درجة القرار / الأساس"
   },
   "ex.tonicRefDefault": {
     de: "Tonika (I)",
@@ -3720,7 +4057,8 @@ registerColocatedStatic({
     pl: "Tonika (I)",
     uk: "Тоніка (I)",
     ur: "ٹانک (I)",
-    tr: "Tonik (I)"
+    tr: "Tonik (I)",
+    ar: "القرار (I)"
   },
   "ex.repeatToneTitle": {
     de: "Gerade abgefragten Ton nochmal abspielen",
@@ -3731,7 +4069,8 @@ registerColocatedStatic({
     pl: "Powtórz szukany dźwięk",
     uk: "Повторити цільову ноту",
     ur: "موجودہ مطلوبہ سُر دوبارہ سنیں",
-    tr: "Hedef sesi tekrarla"
+    tr: "Hedef sesi tekrarla",
+    ar: "إعادة تشغيل النغمة المطلوبة"
   },
   "ex.repeatTone": {
     de: "Ton nochmal",
@@ -3742,7 +4081,8 @@ registerColocatedStatic({
     pl: "Powtórz dźwięk",
     uk: "Ще раз ноту",
     ur: "سُر دوبارہ سنیں",
-    tr: "Sesi Tekrarla"
+    tr: "Sesi Tekrarla",
+    ar: "إعادة النغمة"
   },
   "ex.dronePadVol": {
     de: "Grundton-Fläche",
@@ -3753,7 +4093,8 @@ registerColocatedStatic({
     pl: "Tło prymy",
     uk: "Тонічна педаль",
     ur: "بنیادی پیڈ",
-    tr: "Kök Ses Pedi"
+    tr: "Kök Ses Pedi",
+    ar: "وسادة الأساس المستمرّة"
   },
   "ex.dronePadVolAria": {
     de: "Lautstärke der Grundton-Fläche",
@@ -3764,7 +4105,8 @@ registerColocatedStatic({
     pl: "Głośność tła prymy",
     uk: "Гучність тонічної педалі",
     ur: "بنیادی پیڈ کی آواز",
-    tr: "Kök ses pedi ses düzeyi"
+    tr: "Kök ses pedi ses düzeyi",
+    ar: "مستوى صوت وسادة الأساس"
   },
   "ex.droneToneVol": {
     de: "Intervall",
@@ -3775,7 +4117,8 @@ registerColocatedStatic({
     pl: "Interwał",
     uk: "Інтервал",
     ur: "انٹرول",
-    tr: "Aralık"
+    tr: "Aralık",
+    ar: "المسافة"
   },
   "ex.droneToneVolAria": {
     de: "Lautstärke des Intervalls",
@@ -3786,7 +4129,8 @@ registerColocatedStatic({
     pl: "Głośność interwału",
     uk: "Гучність інтервалу",
     ur: "انٹرول کی آواز",
-    tr: "Aralık ses düzeyi"
+    tr: "Aralık ses düzeyi",
+    ar: "مستوى صوت المسافة"
   },
   "ex.answerSoundOn": {
     de: "Notenton: An",
@@ -3797,7 +4141,8 @@ registerColocatedStatic({
     pl: "Dźwięk nuty: Wł.",
     uk: "Звук ноти: Так",
     ur: "نوٹ آواز: آن",
-    tr: "Nota Sesi: Açık"
+    tr: "Nota Sesi: Açık",
+    ar: "صوت النغمة: مفعّل"
   },
   "ex.answerSoundTitle": {
     de: "Abspielen der richtigen Note ein-/ausschalten (Aus = stumm zur nächsten Note)",
@@ -3808,7 +4153,8 @@ registerColocatedStatic({
     pl: "Włącz/wyłącz dźwięk poprawnej nuty (Wył. = przejście w ciszy)",
     uk: "Увімк./вимк. звук правильної ноти (Ні = тихо до наступної ноти)",
     ur: "صحیح جواب پر نوٹ کی آواز آن/آف کریں (آف = خاموشی سے اگلے نوٹ پر جائیں)",
-    tr: "Doğru nota sesinin çalınmasını aç/kapat (Kapalı = sessizce sonraki notaya geç)"
+    tr: "Doğru nota sesinin çalınmasını aç/kapat (Kapalı = sessizce sonraki notaya geç)",
+    ar: "تبديل تشغيل صوت النغمة الصحيحة (إيقاف = الانتقال بصمت للنغمة التالية)"
   },
   "ex.answerSoundAria": {
     de: "Notenton bei richtiger Antwort ein-/ausschalten",
@@ -3819,7 +4165,8 @@ registerColocatedStatic({
     pl: "Dźwięk poprawnej nuty",
     uk: "Звук правильної ноти",
     ur: "صحیح جواب پر نوٹ آواز تبدیل کریں",
-    tr: "Doğru nota sesini aç/kapat"
+    tr: "Doğru nota sesini aç/kapat",
+    ar: "تبديل صوت النغمة الصحيحة"
   },
   "ex.listenOnly": {
     de: "Nur Hören",
@@ -3830,7 +4177,8 @@ registerColocatedStatic({
     pl: "Tylko słuchaj",
     uk: "Лише слухати",
     ur: "صرف سنیں",
-    tr: "Sadece Dinle"
+    tr: "Sadece Dinle",
+    ar: "استماع فقط"
   },
   "ex.listenOnlyTitle": {
     de: "Nur-Hören-Modus ein-/ausschalten",
@@ -3841,7 +4189,8 @@ registerColocatedStatic({
     pl: "Włącz lub wyłącz tryb „Tylko słuchaj”",
     uk: "Увімкнути або вимкнути режим «Лише слухати»",
     ur: "صرف سننے کا موڈ آن/آف کریں",
-    tr: "Sadece Dinle Modunu aç/kapat"
+    tr: "Sadece Dinle Modunu aç/kapat",
+    ar: "تبديل وضع الاستماع فقط"
   },
   "ex.listenOnlyAria": {
     de: "Nur-Hören-Modus",
@@ -3852,7 +4201,8 @@ registerColocatedStatic({
     pl: "Tryb „Tylko słuchaj”",
     uk: "Режим «Лише слухати»",
     ur: "صرف سننے کا موڈ",
-    tr: "Sadece Dinle Modu"
+    tr: "Sadece Dinle Modu",
+    ar: "وضع الاستماع فقط"
   },
   "ex.loopTitle": {
     de: "Endlosschleife umschalten",
@@ -3863,7 +4213,8 @@ registerColocatedStatic({
     pl: "Włącz lub wyłącz pętlę powtórzeń",
     uk: "Увімкнути або вимкнути повтор",
     ur: "مسلسل لوپ آن/آف کریں",
-    tr: "Döngüyü aç/kapat"
+    tr: "Döngüyü aç/kapat",
+    ar: "تبديل التكرار المستمر"
   },
   "ex.loopAria": {
     de: "Endlosschleife",
@@ -3874,7 +4225,8 @@ registerColocatedStatic({
     pl: "Powtarzanie w pętli",
     uk: "Повтор по колу",
     ur: "لوپ",
-    tr: "Döngü"
+    tr: "Döngü",
+    ar: "تكرار مستمر"
   },
   "ex.playBtn": {
     de: "▶ Abspielen",
@@ -3885,7 +4237,8 @@ registerColocatedStatic({
     pl: "▶ Odtwórz",
     uk: "▶ Слухати",
     ur: "▶ چلائیں",
-    tr: "▶ Çal"
+    tr: "▶ Çal",
+    ar: "▶ تشغيل"
   },
   "ex.skipTitle": {
     de: "Nächste Abfrage",
@@ -3896,7 +4249,8 @@ registerColocatedStatic({
     pl: "Następne zadanie",
     uk: "Наступна вправа",
     ur: "اگلی مشق",
-    tr: "Sonraki alıştırma"
+    tr: "Sonraki alıştırma",
+    ar: "التمرين التالي"
   },
   "ex.skipLabel": {
     de: "Überspringen",
@@ -3907,7 +4261,8 @@ registerColocatedStatic({
     pl: "Pomiń",
     uk: "Пропустити",
     ur: "چھوڑیں",
-    tr: "Geç"
+    tr: "Geç",
+    ar: "تخطّي"
   },
   "ex.examAbortBtn": {
     de: "Abbrechen",
@@ -3918,7 +4273,8 @@ registerColocatedStatic({
     pl: "Zakończ",
     uk: "Скасувати",
     ur: "منسوخ کریں",
-    tr: "İptal"
+    tr: "İptal",
+    ar: "إلغاء"
   },
   "ex.examAbortTitle": {
     de: "Prüfung wirklich abbrechen?",
@@ -3929,7 +4285,8 @@ registerColocatedStatic({
     pl: "Przerwać egzamin?",
     uk: "Перервати іспит?",
     ur: "امتحان واقعی منسوخ کریں؟",
-    tr: "Sınav iptal edilsin mi?"
+    tr: "Sınav iptal edilsin mi?",
+    ar: "إنهاء الاختبار؟"
   },
   "ex.examAbortSub": {
     de: "Der aktuelle Prüfdurchlauf wird nicht im Verlauf gespeichert.",
@@ -3940,7 +4297,8 @@ registerColocatedStatic({
     pl: "Bieżące podejście nie zostanie zapisane w historii.",
     uk: "Поточний прохід іспиту не буде збережено в історії.",
     ur: "موجودہ امتحان کی پیش رفت ریکارڈ میں محفوظ نہیں کی جائے گی۔",
-    tr: "Mevcut sınav ilerlemen geçmişe kaydedilmeyecek."
+    tr: "Mevcut sınav ilerlemen geçmişe kaydedilmeyecek.",
+    ar: "لن يُحفظ تقدّمك في هذا الاختبار داخل السجلّ."
   },
   "ex.examContinueBtn": {
     de: "Weiterprüfen",
@@ -3951,7 +4309,8 @@ registerColocatedStatic({
     pl: "Kontynuuj",
     uk: "Продовжити",
     ur: "جاری رکھیں",
-    tr: "Devam Et"
+    tr: "Devam Et",
+    ar: "مواصلة الاختبار"
   },
   "ex.examConfirmAbortBtn": {
     de: "Prüfung beenden",
@@ -3962,7 +4321,8 @@ registerColocatedStatic({
     pl: "Zakończ egzamin",
     uk: "Завершити іспит",
     ur: "امتحان ختم کریں",
-    tr: "Sınavı Bitir"
+    tr: "Sınavı Bitir",
+    ar: "إنهاء الاختبار"
   },
   "warmup.defaultTitle": {
     de: "5-Minuten Einsingen",
@@ -3973,7 +4333,8 @@ registerColocatedStatic({
     pl: "5-min rozgrzewka",
     uk: "5-хв розспівка",
     ur: "5 منٹ ووکل وارم اپ",
-    tr: "5 Dk Ses Isıtma"
+    tr: "5 Dk Ses Isıtma",
+    ar: "إحماء صوتي 5 دقائق"
   },
   "warmup.voiceBtnTitle": {
     de: "Tonumfang wählen",
@@ -3984,7 +4345,8 @@ registerColocatedStatic({
     pl: "Wybierz rejestr głosu",
     uk: "Обрати вокальний діапазон",
     ur: "آواز کی رینج منتخب کریں",
-    tr: "Ses aralığını seç"
+    tr: "Ses aralığını seç",
+    ar: "اختر النطاق الصوتي"
   },
   "warmup.soundBtnTitle": {
     de: "Begleitklang wählen",
@@ -3995,7 +4357,8 @@ registerColocatedStatic({
     pl: "Wybierz barwę akompaniamentu",
     uk: "Обрати тембр супроводу",
     ur: "ساتھ بجنے والا ساز منتخب کریں",
-    tr: "Eşlik sesini seç"
+    tr: "Eşlik sesini seç",
+    ar: "اختر صوت المرافقة"
   },
   "warmup.voiceLabel": {
     de: "Tonumfang:",
@@ -4006,7 +4369,8 @@ registerColocatedStatic({
     pl: "Rejestr:",
     uk: "Діапазон:",
     ur: "رینج:",
-    tr: "Ses Aralığı:"
+    tr: "Ses Aralığı:",
+    ar: "النطاق:"
   },
   "warmup.voiceMixed": {
     de: "Chor-Mitte",
@@ -4017,7 +4381,8 @@ registerColocatedStatic({
     pl: "Chór (średni)",
     uk: "Хор (середній)",
     ur: "کورس مڈ",
-    tr: "Koro Orta"
+    tr: "Koro Orta",
+    ar: "وسط الكورال"
   },
   "warmup.voiceSoprano": {
     de: "Sopran",
@@ -4028,7 +4393,8 @@ registerColocatedStatic({
     pl: "Sopran",
     uk: "Сопрано",
     ur: "سوپرانو",
-    tr: "Soprano"
+    tr: "Soprano",
+    ar: "سوبرانو"
   },
   "warmup.voiceAlto": {
     de: "Alt",
@@ -4039,7 +4405,8 @@ registerColocatedStatic({
     pl: "Alt",
     uk: "Альт",
     ur: "آلٹو",
-    tr: "Alto"
+    tr: "Alto",
+    ar: "ألتو"
   },
   "warmup.voiceTenor": {
     de: "Tenor",
@@ -4050,7 +4417,8 @@ registerColocatedStatic({
     pl: "Tenor",
     uk: "Тенор",
     ur: "ٹینر",
-    tr: "Tenor"
+    tr: "Tenor",
+    ar: "تينور"
   },
   "warmup.voiceBass": {
     de: "Bass",
@@ -4061,7 +4429,8 @@ registerColocatedStatic({
     pl: "Bas",
     uk: "Бас",
     ur: "باس",
-    tr: "Bas"
+    tr: "Bas",
+    ar: "باص"
   },
   "warmup.soundLabel": {
     de: "Klang:",
@@ -4072,7 +4441,8 @@ registerColocatedStatic({
     pl: "Barwa:",
     uk: "Звук:",
     ur: "آواز:",
-    tr: "Ses:"
+    tr: "Ses:",
+    ar: "الصوت:"
   },
   "warmup.soundPiano": {
     de: "Klavier",
@@ -4083,7 +4453,8 @@ registerColocatedStatic({
     pl: "Fortepian",
     uk: "Фортепіано",
     ur: "پیانو",
-    tr: "Piyano"
+    tr: "Piyano",
+    ar: "بيانو"
   },
   "warmup.soundBoth": {
     de: "Klavier + Stimme",
@@ -4094,7 +4465,8 @@ registerColocatedStatic({
     pl: "Fortepian + głos",
     uk: "Фортепіано + голос",
     ur: "پیانو + آواز",
-    tr: "Piyano + Ses"
+    tr: "Piyano + Ses",
+    ar: "بيانو + صوت"
   },
   "warmup.soundVoice": {
     de: "Stimme",
@@ -4105,7 +4477,8 @@ registerColocatedStatic({
     pl: "Głos",
     uk: "Голос",
     ur: "آواز",
-    tr: "Ses"
+    tr: "Ses",
+    ar: "صوت"
   },
   "warmup.semiDownTitle": {
     de: "Einen Halbton tiefer modulieren",
@@ -4116,7 +4489,8 @@ registerColocatedStatic({
     pl: "Obniż o półton",
     uk: "Модулювати на півтон нижче",
     ur: "ایک سیمی ٹون نیچے لے جائیں",
-    tr: "Bir yarım ton aşağı transpoze et"
+    tr: "Bir yarım ton aşağı transpoze et",
+    ar: "خفض نصف درجة"
   },
   "warmup.semiDown": {
     de: "−1 Halbton",
@@ -4127,7 +4501,8 @@ registerColocatedStatic({
     pl: "−1 półton",
     uk: "−1 півтон",
     ur: "−1 سیمی ٹون",
-    tr: "−1 Yarım Ton"
+    tr: "−1 Yarım Ton",
+    ar: "−1 نصف درجة"
   },
   "warmup.replayTitle": {
     de: "Aktuelles Muster wiederholen",
@@ -4138,7 +4513,8 @@ registerColocatedStatic({
     pl: "Powtórz bieżące ćwiczenie",
     uk: "Повторити поточну вправу",
     ur: "موجودہ پیٹرن دوبارہ چلائیں",
-    tr: "Mevcut kalıbı tekrarla"
+    tr: "Mevcut kalıbı tekrarla",
+    ar: "إعادة النمط الحالي"
   },
   "warmup.replayStep": {
     de: "Nochmal",
@@ -4149,7 +4525,8 @@ registerColocatedStatic({
     pl: "Powtórz",
     uk: "Повторити",
     ur: "دوبارہ",
-    tr: "Tekrarla"
+    tr: "Tekrarla",
+    ar: "إعادة"
   },
   "warmup.semiUpTitle": {
     de: "Einen Halbton höher modulieren",
@@ -4160,7 +4537,8 @@ registerColocatedStatic({
     pl: "Podwyższ o półton",
     uk: "Модулювати на півтон вище",
     ur: "ایک سیمی ٹون اوپر لے جائیں",
-    tr: "Bir yarım ton yukarı transpoze et"
+    tr: "Bir yarım ton yukarı transpoze et",
+    ar: "رفع نصف درجة"
   },
   "warmup.semiUp": {
     de: "+1 Halbton",
@@ -4171,7 +4549,8 @@ registerColocatedStatic({
     pl: "+1 półton",
     uk: "+1 півтон",
     ur: "+1 سیمی ٹون",
-    tr: "+1 Yarım Ton"
+    tr: "+1 Yarım Ton",
+    ar: "+1 نصف درجة"
   },
   "warmup.prevTitle": {
     de: "Vorherige Übung",
@@ -4182,7 +4561,8 @@ registerColocatedStatic({
     pl: "Poprzedni krok",
     uk: "Попередній крок",
     ur: "پچھلی مشق",
-    tr: "Önceki alıştırma"
+    tr: "Önceki alıştırma",
+    ar: "التمرين السابق"
   },
   "warmup.startBtn": {
     de: "▶ Singen starten",
@@ -4193,7 +4573,8 @@ registerColocatedStatic({
     pl: "▶ Rozpocznij śpiew",
     uk: "▶ Почати спів",
     ur: "▶ گانا شروع کریں",
-    tr: "▶ Şarkı Söylemeye Başla"
+    tr: "▶ Şarkı Söylemeye Başla",
+    ar: "▶ ابدأ الغناء"
   },
   "warmup.nextTitle": {
     de: "Nächste Übung",
@@ -4204,7 +4585,8 @@ registerColocatedStatic({
     pl: "Następny krok",
     uk: "Наступний крок",
     ur: "اگلی مشق",
-    tr: "Sonraki alıştırma"
+    tr: "Sonraki alıştırma",
+    ar: "التمرين التالي"
   },
   "nav.mainAria": {
     de: "Hauptnavigation",
@@ -4215,7 +4597,8 @@ registerColocatedStatic({
     pl: "Nawigacja główna",
     uk: "Головна навігація",
     ur: "مرکزی نیویگیشن",
-    tr: "Ana gezinme"
+    tr: "Ana gezinme",
+    ar: "التنقّل الرئيسي"
   },
   "nav.home": {
     de: "Startseite",
@@ -4226,7 +4609,8 @@ registerColocatedStatic({
     pl: "Start",
     uk: "Головна",
     ur: "ہوم",
-    tr: "Ana Sayfa"
+    tr: "Ana Sayfa",
+    ar: "الرئيسية"
   },
   "nav.tools": {
     de: "Werkzeuge",
@@ -4237,7 +4621,8 @@ registerColocatedStatic({
     pl: "Narzędzia",
     uk: "Інструменти",
     ur: "اوزار",
-    tr: "Araçlar"
+    tr: "Araçlar",
+    ar: "الأدوات"
   },
   "nav.knowledge": {
     de: "Wissen",
@@ -4248,7 +4633,8 @@ registerColocatedStatic({
     pl: "Wiedza",
     uk: "Знання",
     ur: "علم و معلومات",
-    tr: "Bilgi"
+    tr: "Bilgi",
+    ar: "المعرفة"
   },
   "nav.space": {
     de: "Mein Konto",
@@ -4259,7 +4645,8 @@ registerColocatedStatic({
     pl: "Mój profil",
     uk: "Мій профіль",
     ur: "میرا اکاؤنٹ",
-    tr: "Hesabım"
+    tr: "Hesabım",
+    ar: "حسابي"
   },
   "mixer.title": {
     de: "Lautstärke",
@@ -4270,7 +4657,8 @@ registerColocatedStatic({
     pl: "Głośność",
     uk: "Гучність",
     ur: "والیوم",
-    tr: "Ses Düzeyi"
+    tr: "Ses Düzeyi",
+    ar: "مستوى الصوت"
   },
   "mixer.tabsAria": {
     de: "Mixer-Bereich wählen",
@@ -4281,7 +4669,8 @@ registerColocatedStatic({
     pl: "Wybierz widok miksera",
     uk: "Обрати вкладку мікшера",
     ur: "مکسر کا منظر منتخب کریں",
-    tr: "Mikser bölümünü seç"
+    tr: "Mikser bölümünü seç",
+    ar: "اختر قسم المازج"
   },
   "mixer.tabLevels": {
     de: "Lautstärken",
@@ -4292,7 +4681,8 @@ registerColocatedStatic({
     pl: "Głośność",
     uk: "Гучність",
     ur: "والیوم",
-    tr: "Ses Düzeyleri"
+    tr: "Ses Düzeyleri",
+    ar: "مستويات الصوت"
   },
   "mixer.tabReverb": {
     de: "Raumhall",
@@ -4303,7 +4693,8 @@ registerColocatedStatic({
     pl: "Pogłos",
     uk: "Реверберація",
     ur: "ہال گونج",
-    tr: "Yankı (Reverb)"
+    tr: "Yankı (Reverb)",
+    ar: "الصدى"
   },
   "mixer.levelsHeading": {
     de: "Instrumente",
@@ -4314,7 +4705,8 @@ registerColocatedStatic({
     pl: "Instrumenty",
     uk: "Інструменти",
     ur: "ساز",
-    tr: "Enstrümanlar"
+    tr: "Enstrümanlar",
+    ar: "الآلات"
   },
   "mixer.piano": {
     de: "Klavier",
@@ -4325,7 +4717,8 @@ registerColocatedStatic({
     pl: "Fortepian",
     uk: "Фортепіано",
     ur: "پیانو",
-    tr: "Piyano"
+    tr: "Piyano",
+    ar: "بيانو"
   },
   "mixer.guitar": {
     de: "Gitarre",
@@ -4336,7 +4729,8 @@ registerColocatedStatic({
     pl: "Gitara",
     uk: "Гітара",
     ur: "گٹار",
-    tr: "Gitar"
+    tr: "Gitar",
+    ar: "جيتار"
   },
   "mixer.strings": {
     de: "Streicher",
@@ -4347,7 +4741,8 @@ registerColocatedStatic({
     pl: "Smyczki",
     uk: "Струнні",
     ur: "اسٹرنگز",
-    tr: "Yaylılar"
+    tr: "Yaylılar",
+    ar: "وتريات"
   },
   "mixer.brass": {
     de: "Bläser",
@@ -4358,7 +4753,8 @@ registerColocatedStatic({
     pl: "Dęte blaszane",
     uk: "Духові",
     ur: "براس اور ونڈز",
-    tr: "Üflemeliler"
+    tr: "Üflemeliler",
+    ar: "نفخيات"
   },
   "mixer.voice": {
     de: "Stimme",
@@ -4369,7 +4765,8 @@ registerColocatedStatic({
     pl: "Głos",
     uk: "Голос",
     ur: "آواز",
-    tr: "Vokal"
+    tr: "Vokal",
+    ar: "صوت"
   },
   "mixer.bass": {
     de: "Bass",
@@ -4380,7 +4777,8 @@ registerColocatedStatic({
     pl: "Bas",
     uk: "Бас",
     ur: "باس",
-    tr: "Bas"
+    tr: "Bas",
+    ar: "باص"
   },
   "mixer.presetsHeading": {
     de: "Mix-Presets",
@@ -4391,7 +4789,8 @@ registerColocatedStatic({
     pl: "Presety brzmienia",
     uk: "Пресети звучання",
     ur: "مِکس پری سیٹس",
-    tr: "Miks Ön Ayarları"
+    tr: "Miks Ön Ayarları",
+    ar: "إعدادات المزج المسبقة"
   },
   "mixer.presetDuo": {
     de: "Duo (Klavier & Gitarre)",
@@ -4402,7 +4801,8 @@ registerColocatedStatic({
     pl: "Duet (Fortepian i gitara)",
     uk: "Дует (Фортепіано й гітара)",
     ur: "ڈوئو (پیانو اور گٹار)",
-    tr: "Düo (Piyano ve Gitar)"
+    tr: "Düo (Piyano ve Gitar)",
+    ar: "ثنائي (بيانو وجيتار)"
   },
   "mixer.presetEnsemble": {
     de: "Ensemble",
@@ -4413,7 +4813,8 @@ registerColocatedStatic({
     pl: "Zespół",
     uk: "Ансамбль",
     ur: "اینسمبل",
-    tr: "Ensemble"
+    tr: "Ensemble",
+    ar: "فرقة صغيرة"
   },
   "mixer.presetOrchestra": {
     de: "Orchester (Streicher & Bläser)",
@@ -4424,7 +4825,8 @@ registerColocatedStatic({
     pl: "Orkiestra (Smyczki i dęte)",
     uk: "Оркестр (Струнні й духові)",
     ur: "آرکسٹرا (اسٹرنگز اور براس)",
-    tr: "Orkestra (Yaylılar ve Üflemeliler)"
+    tr: "Orkestra (Yaylılar ve Üflemeliler)",
+    ar: "أوركسترا (وتريات ونفخيات)"
   },
   "mixer.presetPiano": {
     de: "Solo Klavier (Standard)",
@@ -4435,7 +4837,8 @@ registerColocatedStatic({
     pl: "Solo fortepian (Domyślny)",
     uk: "Фортепіано соло (Типовий)",
     ur: "سولو پیانو (معیاری)",
-    tr: "Solo Piyano (Varsayılan)"
+    tr: "Solo Piyano (Varsayılan)",
+    ar: "بيانو منفرد (افتراضي)"
   },
   "mixer.presetCustom": {
     de: "Benutzerdefiniert",
@@ -4446,7 +4849,8 @@ registerColocatedStatic({
     pl: "Własny",
     uk: "Власний",
     ur: "اپنی مرضی کا",
-    tr: "Özel"
+    tr: "Özel",
+    ar: "مخصّص"
   },
   "mixer.presetHint": {
     de: "Jede manuelle Änderung an den Reglern aktiviert automatisch „Benutzerdefiniert“.",
@@ -4457,7 +4861,8 @@ registerColocatedStatic({
     pl: "Każda ręczna zmiana suwaka przełącza preset w tryb własny.",
     uk: "Будь-який ручний рух повзунків перемикає пресет у режим «Власний».",
     ur: "کسی بھی سلائیڈر کو ہاتھ سے بدلنے پر خودکار «اپنی مرضی کا» فعال ہو جاتا ہے۔",
-    tr: "Herhangi bir sürgüyü elle değiştirmek ön ayarı «Özel» olarak değiştirir."
+    tr: "Herhangi bir sürgüyü elle değiştirmek ön ayarı «Özel» olarak değiştirir.",
+    ar: "أي تعديل يدوي على أشرطة التمرير يحوّل الإعداد تلقائيًا إلى «مخصّص»."
   },
   "settings.title": {
     de: "App-Einstellungen",
@@ -4468,7 +4873,8 @@ registerColocatedStatic({
     pl: "Ustawienia",
     uk: "Налаштування",
     ur: "ایپ کی ترتیبات",
-    tr: "Uygulama Ayarları"
+    tr: "Uygulama Ayarları",
+    ar: "إعدادات التطبيق"
   },
   "settings.groupAudio": {
     de: "Übungen",
@@ -4479,7 +4885,8 @@ registerColocatedStatic({
     pl: "Ćwiczenia",
     uk: "Вправи",
     ur: "مشقیں",
-    tr: "Çalışma"
+    tr: "Çalışma",
+    ar: "التدريب"
   },
   "settings.groupLanguageNotation": {
     de: "Sprache & Schreibweise",
@@ -4490,7 +4897,8 @@ registerColocatedStatic({
     pl: "Język i notacja",
     uk: "Мова та нотація",
     ur: "زبان اور تحریر",
-    tr: "Dil ve Notasyon"
+    tr: "Dil ve Notasyon",
+    ar: "اللغة والتدوين"
   },
   "settings.groupAppearance": {
     de: "Optik & Farbschema",
@@ -4501,7 +4909,8 @@ registerColocatedStatic({
     pl: "Wygląd i motywy",
     uk: "Вигляд і теми",
     ur: "ظاہری شکل اور تھیمز",
-    tr: "Görünüm ve Temalar"
+    tr: "Görünüm ve Temalar",
+    ar: "المظهر والسمات"
   },
   "settings.defaultTempoHeading": {
     de: "Standardtempo",
@@ -4512,7 +4921,8 @@ registerColocatedStatic({
     pl: "Domyślne tempo",
     uk: "Типовий темп",
     ur: "طے شدہ ٹیمپو",
-    tr: "Varsayılan Tempo"
+    tr: "Varsayılan Tempo",
+    ar: "سرعة الإيقاع الافتراضية"
   },
   "settings.defaultTempoHint": {
     de: "Wird beim Start einer Übung übernommen, bis du das Tempo im Modul manuell anpasst.",
@@ -4523,7 +4933,8 @@ registerColocatedStatic({
     pl: "Obowiązuje przy otwarciu modułu, dopóki nie zmienisz tempa bezpośrednio w ćwiczeniu.",
     uk: "Застосовується при відкритті вправи, доки ти не зміниш темп всередині модуля.",
     ur: "جب تک آپ ماڈیول کے اندر ٹیمپو نہیں بدلتے، ہر مشق اس رفتار سے شروع ہوگی۔",
-    tr: "Bir alıştırma açıldığında modül içinden değiştirilene kadar bu tempo uygulanır."
+    tr: "Bir alıştırma açıldığında modül içinden değiştirilene kadar bu tempo uygulanır.",
+    ar: "تُطبَّق عند فتح أي تمرين حتى تغيّر السرعة يدويًا داخل الوحدة."
   },
   "settings.pianoSoundHeading": {
     de: "Raumklang & Hall",
@@ -4534,7 +4945,8 @@ registerColocatedStatic({
     pl: "Przestrzeń i pogłos",
     uk: "Простір і реверберація",
     ur: "کمرے کی گونج اور آواز",
-    tr: "Oda Tınısı ve Yankı"
+    tr: "Oda Tınısı ve Yankı",
+    ar: "صوت الغرفة والصدى"
   },
   "settings.pianoSoundHint": {
     de: "Wähle einen Raumcharakter für den gesamten Mix und passe den Hall-Anteil pro Instrument an.",
@@ -4545,7 +4957,8 @@ registerColocatedStatic({
     pl: "Wybierz charakter sali dla całego miksu i dopasuj poziom pogłosu dla każdego instrumentu.",
     uk: "Обирай характер приміщення для всього міксу й налаштовуй реверберацію для кожного інструмента окремо.",
     ur: "پورے مکس کے لیے کمرے کا مزاج چنیں اور ہر ساز کے لیے الگ ہال گونج سیٹ کریں۔",
-    tr: "Miks için bir oda karakteri seç ve her enstrümanın yankısını ayrı ayrı ince ayarla."
+    tr: "Miks için bir oda karakteri seç ve her enstrümanın yankısını ayrı ayrı ince ayarla.",
+    ar: "اختر طابع الغرفة للمزج بالكامل واضبط مقدار الصدى لكل آلة على حدة."
   },
   "settings.pianoCharAria": {
     de: "Raumcharakter",
@@ -4556,7 +4969,8 @@ registerColocatedStatic({
     pl: "Charakter przestrzeni",
     uk: "Характер простору",
     ur: "کمرے کی گونج کا مزاج",
-    tr: "Oda karakteri"
+    tr: "Oda karakteri",
+    ar: "طابع الغرفة"
   },
   "settings.pianoCharDry": {
     de: "Trocken",
@@ -4567,7 +4981,8 @@ registerColocatedStatic({
     pl: "Studio / Suchy",
     uk: "Студія / Сухий",
     ur: "خشک / اسٹوڈیو",
-    tr: "Stüdyo / Kuru"
+    tr: "Stüdyo / Kuru",
+    ar: "استوديو / جاف"
   },
   "settings.pianoCharNatural": {
     de: "Natürlich",
@@ -4578,7 +4993,8 @@ registerColocatedStatic({
     pl: "Naturalny",
     uk: "Природний",
     ur: "قدرتی",
-    tr: "Doğal"
+    tr: "Doğal",
+    ar: "طبيعي"
   },
   "settings.pianoCharConcert": {
     de: "Konzertsaal",
@@ -4589,7 +5005,8 @@ registerColocatedStatic({
     pl: "Sala koncertowa",
     uk: "Концертний зал",
     ur: "کنسرٹ ہال",
-    tr: "Konser Salonu"
+    tr: "Konser Salonu",
+    ar: "قاعة حفلات"
   },
   "settings.reverbPerInstHeading": {
     de: "Hall pro Instrument",
@@ -4600,7 +5017,8 @@ registerColocatedStatic({
     pl: "Pogłos na instrument",
     uk: "Реверберація по інструментах",
     ur: "ہر ساز کی گونج",
-    tr: "Enstrüman Başına Yankı"
+    tr: "Enstrüman Başına Yankı",
+    ar: "الصدى لكل آلة"
   },
   "settings.reverbInstAria": {
     de: "Instrument für Hall-Einstellung",
@@ -4611,7 +5029,8 @@ registerColocatedStatic({
     pl: "Instrument do regulacji pogłosu",
     uk: "Інструмент для налаштування реверберації",
     ur: "گونج کے لیے ساز منتخب کریں",
-    tr: "Yankı ayarı için enstrüman"
+    tr: "Yankı ayarı için enstrüman",
+    ar: "اختر الآلة لضبط الصدى"
   },
   "settings.pianoReverbLabel": {
     de: "Raumhall",
@@ -4622,7 +5041,8 @@ registerColocatedStatic({
     pl: "Pogłos",
     uk: "Реверберація",
     ur: "ہال گونج",
-    tr: "Yankı"
+    tr: "Yankı",
+    ar: "الصدى"
   },
   "settings.pianoReverbAria": {
     de: "Instrumenten-Raumhall",
@@ -4633,7 +5053,8 @@ registerColocatedStatic({
     pl: "Poziom pogłosu instrumentu",
     uk: "Рівень реверберації інструмента",
     ur: "ساز کی ہال گونج",
-    tr: "Enstrüman oda yankısı"
+    tr: "Enstrüman oda yankısı",
+    ar: "صدى الغرفة للآلة"
   },
   "settings.pianoTestBtn": {
     de: "▶ Klang testen",
@@ -4644,7 +5065,8 @@ registerColocatedStatic({
     pl: "▶ Przetestuj brzmienie",
     uk: "▶ Прослухати звук",
     ur: "▶ آواز ٹیسٹ کریں",
-    tr: "▶ Sesi Önizle"
+    tr: "▶ Sesi Önizle",
+    ar: "▶ معاينة الصوت"
   },
   "settings.autoNextHeading": {
     de: "Nächste Abfragung automatisch abspielen",
@@ -4655,7 +5077,8 @@ registerColocatedStatic({
     pl: "Automatyczne następne pytanie",
     uk: "Автозапуск наступного завдання",
     ur: "اگلا سوال خودکار چلائیں",
-    tr: "Sonraki Görevi Otomatik Çal"
+    tr: "Sonraki Görevi Otomatik Çal",
+    ar: "تشغيل التمرين التالي تلقائيًا"
   },
   "settings.autoNextHint": {
     de: "Spielt nach einer richtigen Lösung automatisch die nächste Aufgabe ab.",
@@ -4666,7 +5089,8 @@ registerColocatedStatic({
     pl: "Po trafnej odpowiedzi automatycznie odtwarza kolejne zadanie.",
     uk: "Автоматично програє наступне завдання після правильної відповіді.",
     ur: "صحیح جواب کے بعد اگلی مشق خود بخود چل پڑے گی۔",
-    tr: "Doğru yanıtın ardından bir sonraki görevi otomatik olarak çalar."
+    tr: "Doğru yanıtın ardından bir sonraki görevi otomatik olarak çalar.",
+    ar: "يشغّل التمرين التالي تلقائيًا بعد كل إجابة صحيحة."
   },
   "settings.autoNextAria": {
     de: "Nächste Abfragung automatisch abspielen",
@@ -4677,7 +5101,8 @@ registerColocatedStatic({
     pl: "Automatyczne następne pytanie",
     uk: "Автозапуск наступного завдання",
     ur: "اگلا سوال خودکار چلائیں",
-    tr: "Sonraki görevi otomatik çal"
+    tr: "Sonraki görevi otomatik çal",
+    ar: "تشغيل التمرين التالي تلقائيًا"
   },
   "settings.singHeading": {
     de: "Mitsingen",
@@ -4688,7 +5113,8 @@ registerColocatedStatic({
     pl: "Śpiewanie",
     uk: "Спів разом",
     ur: "ساتھ گانا",
-    tr: "Eşlik Ederek Söyle"
+    tr: "Eşlik Ederek Söyle",
+    ar: "الغناء المصاحب"
   },
   "settings.singHint": {
     de: "Einladungen zum Mitsingen und Mitsummen bei Intervall- und Solfège-Übungen.",
@@ -4699,7 +5125,8 @@ registerColocatedStatic({
     pl: "Zachęty do śpiewania i nucenia w ćwiczeniach z interwałów i solfeżu.",
     uk: "Запрошення співати й наспівувати у вправах з інтервалів і сольфеджіо.",
     ur: "انٹرول اور سولفیج مشقوں میں ساتھ گانے اور گنگنانے کی دعوت۔",
-    tr: "Aralık ve solfej alıştırmalarında eşlik etme ve mırıldanma önerileri."
+    tr: "Aralık ve solfej alıştırmalarında eşlik etme ve mırıldanma önerileri.",
+    ar: "توجيهات للغناء والدندنة في تمارين المسافات والصولفيج."
   },
   "settings.singTipsLabel": {
     de: "Mitsing-Tipps",
@@ -4710,7 +5137,8 @@ registerColocatedStatic({
     pl: "Wskazówki do śpiewania",
     uk: "Підказки для співу",
     ur: "ساتھ گانے کی تجاویز",
-    tr: "Eşlik ipuçları"
+    tr: "Eşlik ipuçları",
+    ar: "نصائح الغناء المصاحب"
   },
   "settings.singPauseLabel": {
     de: "Summ-Pause nach dem Abspielen (3 Sek.)",
@@ -4721,7 +5149,8 @@ registerColocatedStatic({
     pl: "Pauza na nucenie po odtworzeniu (3 s)",
     uk: "Пауза для наспівування після відтворення (3 с)",
     ur: "سننے کے بعد گنگنانے کا وقفہ (3 سیکنڈ)",
-    tr: "Çaldıktan sonra mırıldanma molası (3 sn)"
+    tr: "Çaldıktan sonra mırıldanma molası (3 sn)",
+    ar: "وقفة للدندنة بعد التشغيل (3 ثوانٍ)"
   },
   "settings.autoNextOn": {
     de: "Ein",
@@ -4732,7 +5161,8 @@ registerColocatedStatic({
     pl: "Wł.",
     uk: "Увімк.",
     ur: "آن",
-    tr: "Açık"
+    tr: "Açık",
+    ar: "مفعّل"
   },
   "settings.autoNextOff": {
     de: "Aus",
@@ -4743,7 +5173,8 @@ registerColocatedStatic({
     pl: "Wył.",
     uk: "Вимк.",
     ur: "آف",
-    tr: "Kapalı"
+    tr: "Kapalı",
+    ar: "متوقف"
   },
   "settings.breakReminderHeading": {
     de: "Pausen-Erinnerung bei Übungen",
@@ -4754,7 +5185,8 @@ registerColocatedStatic({
     pl: "Przypomnienie o przerwie w ćwiczeniach",
     uk: "Нагадування про перерву у вправах",
     ur: "مشق کے دوران وقفے کی یاد دہانی",
-    tr: "Çalışma Molası Hatırlatıcısı"
+    tr: "Çalışma Molası Hatırlatıcısı",
+    ar: "تذكير باستراحة التدرّب"
   },
   "settings.breakReminderHint": {
     de: "Läuft leise und unsichtbar im Hintergrund, während du übst, und erinnert dich nach der gewählten Zeit freundlich an eine Pause.",
@@ -4765,7 +5197,8 @@ registerColocatedStatic({
     pl: "Działa dyskretnie w tle bez wyświetlania zegara podczas ćwiczeń i po wybranym czasie przypomina o odpoczynku.",
     uk: "Непомітно рахує час у фоні під час вправ і м’яко нагадує про відпочинок після обраного інтервалу.",
     ur: "آپ کے مشق کرتے وقت پس منظر میں خاموشی سے چلتی ہے اور مقررہ وقت کے بعد آرام کا پیغام دیتی ہے۔",
-    tr: "Çalışırken arka planda sessizce çalışır ve sana kısa bir mola vermeni nazikçe hatırlatır."
+    tr: "Çalışırken arka planda sessizce çalışır ve sana kısa bir mola vermeni nazikçe hatırlatır.",
+    ar: "يعمل بهدوء في الخلفية أثناء التدرّب ويذكّرك بلطف بأخذ استراحة."
   },
   "settings.breakReminderAria": {
     de: "Pausen-Erinnerung bei Übungen",
@@ -4776,7 +5209,8 @@ registerColocatedStatic({
     pl: "Przypomnienie o przerwie w ćwiczeniach",
     uk: "Нагадування про перерву у вправах",
     ur: "مشق کے دوران وقفے کی یاد دہانی",
-    tr: "Çalışma molası hatırlatıcısı"
+    tr: "Çalışma molası hatırlatıcısı",
+    ar: "تذكير باستراحة التدرّب"
   },
   "settings.breakReminderIntervalLabel": {
     de: "Erinnerung nach",
@@ -4787,7 +5221,8 @@ registerColocatedStatic({
     pl: "Przypomnij po",
     uk: "Нагадувати через",
     ur: "یاد دہانی کا وقت",
-    tr: "Hatırlatma süresi"
+    tr: "Hatırlatma süresi",
+    ar: "التذكير بعد"
   },
   "settings.breakReminderSliderAria": {
     de: "Pausen-Erinnerung nach Minuten",
@@ -4798,7 +5233,8 @@ registerColocatedStatic({
     pl: "Czas do przypomnienia o przerwie w minutach",
     uk: "Інтервал нагадування про перерву в хвилинах",
     ur: "منٹوں میں وقفے کی یاد دہانی",
-    tr: "Dakika cinsinden mola hatırlatma aralığı"
+    tr: "Dakika cinsinden mola hatırlatma aralığı",
+    ar: "مدة التذكير بالاستراحة بالدقائق"
   },
   "break.tag": {
     de: "Kurze Übe-Pause",
@@ -4809,7 +5245,8 @@ registerColocatedStatic({
     pl: "Chwila wytchnienia",
     uk: "Коротка перерва",
     ur: "مختصر وقفہ",
-    tr: "Kısa Çalışma Molası"
+    tr: "Kısa Çalışma Molası",
+    ar: "استراحة تدرّب قصيرة"
   },
   "break.title": {
     de: "Zeit für eine kurze Pause",
@@ -4820,7 +5257,8 @@ registerColocatedStatic({
     pl: "Czas na krótką przerwę",
     uk: "Час зробити невелику паузу",
     ur: "تھوڑے آرام کا وقت ہو گیا ہے",
-    tr: "Kısa Bir Mola Zamanı"
+    tr: "Kısa Bir Mola Zamanı",
+    ar: "حان وقت استراحة قصيرة"
   },
   "break.takePauseBtn": {
     de: "Pause einlegen",
@@ -4831,7 +5269,8 @@ registerColocatedStatic({
     pl: "Zrób przerwę",
     uk: "Зробити перерву",
     ur: "وقفہ کریں",
-    tr: "Mola Ver"
+    tr: "Mola Ver",
+    ar: "أخذ استراحة"
   },
   "break.continueBtn": {
     de: "Weiterüben",
@@ -4842,7 +5281,8 @@ registerColocatedStatic({
     pl: "Ćwicz dalej",
     uk: "Продовжити вправи",
     ur: "مشق جاری رکھیں",
-    tr: "Çalışmaya Devam Et"
+    tr: "Çalışmaya Devam Et",
+    ar: "مواصلة التدرّب"
   },
   "break.disableBtn": {
     de: "Erinnerung ausschalten",
@@ -4853,7 +5293,8 @@ registerColocatedStatic({
     pl: "Wyłącz przypomnienie",
     uk: "Вимкнути нагадування",
     ur: "یاد دہانی بند کریں",
-    tr: "Hatırlatıcıyı Kapat"
+    tr: "Hatırlatıcıyı Kapat",
+    ar: "إيقاف التذكير"
   },
   "settings.quickMixHeading": {
     de: "Quick-Mixe (Startseite)",
@@ -4864,7 +5305,8 @@ registerColocatedStatic({
     pl: "Szybkie miksy (Ekran startowy)",
     uk: "Швидкі мікси (Головна)",
     ur: "کوئیک مکسز (ہوم اسکرین)",
-    tr: "Hızlı Karışımlar (Ana Sayfa)"
+    tr: "Hızlı Karışımlar (Ana Sayfa)",
+    ar: "الخلطات السريعة (الرئيسية)"
   },
   "settings.quickMixHint": {
     de: "Passe deine Schnellstart-Mixe jederzeit in ‚Mein Konto‘ an oder lege neue Favoriten an.",
@@ -4875,7 +5317,8 @@ registerColocatedStatic({
     pl: "Zarządzaj ulubionymi miksami na ekranie głównym w dowolnej chwili w dziale „Mój profil”.",
     uk: "Змінюй мікси швидкого старту на головному екрані будь-коли в розділі «Мій профіль» або додавай улюблені.",
     ur: "کسی بھی وقت «میرا اکاؤنٹ» میں جا کر اپنے فوری مکسز بدلیں یا نئے پسندیدہ بنائیں۔",
-    tr: "Ana sayfadaki hızlı başlatma karışımlarını istediğin zaman «Hesabım» bölümünden düzenleyebilir veya yeni favoriler ekleyebilirsin."
+    tr: "Ana sayfadaki hızlı başlatma karışımlarını istediğin zaman «Hesabım» bölümünden düzenleyebilir veya yeni favoriler ekleyebilirsin.",
+    ar: "عدّل خلطات البدء السريع في أي وقت من «حسابي» أو أضف مفضّلات جديدة."
   },
   "settings.manageMixesBtn": {
     de: "Quick-Mixe anpassen →",
@@ -4886,7 +5329,8 @@ registerColocatedStatic({
     pl: "Skonfiguruj szybkie miksy →",
     uk: "Налаштувати швидкі мікси →",
     ur: "کوئیک مکسز ترتیب دیں ←",
-    tr: "Hızlı Karışımları Düzenle →"
+    tr: "Hızlı Karışımları Düzenle →",
+    ar: "تخصيص الخلطات السريعة ←"
   },
   "settings.languageHeading": {
     de: "Anwendungssprache",
@@ -4897,7 +5341,8 @@ registerColocatedStatic({
     pl: "Język aplikacji",
     uk: "Мова застосунку",
     ur: "ایپ کی زبان",
-    tr: "Uygulama Dili"
+    tr: "Uygulama Dili",
+    ar: "لغة التطبيق"
   },
   "settings.languageHint": {
     de: "Wähle die Sprache der App. Alle Menüs, Übungen und Musikbegriffe passen sich sofort an.",
@@ -4908,7 +5353,8 @@ registerColocatedStatic({
     pl: "Natychmiast zmienia język całego interfejsu, objaśnień i pojęć muzycznych.",
     uk: "Обери мову застосунку. Усі меню, вправи та музичні терміни оновлюються миттєво.",
     ur: "ایپ کی زبان منتخب کریں۔ تمام مینوز، مشقیں اور موسیقی کی اصطلاحات فوری بدل جاتی ہیں۔",
-    tr: "Uygulama dilini seç. Tüm menüler, alıştırmalar ve müzik terimleri anında uyarlanır."
+    tr: "Uygulama dilini seç. Tüm menüler, alıştırmalar ve müzik terimleri anında uyarlanır.",
+    ar: "اختر لغة التطبيق. تتكيّف جميع القوائم والتمارين والمصطلحات الموسيقية فورًا."
   },
   "settings.languageSelectAria": {
     de: "Anwendungssprache wählen",
@@ -4919,7 +5365,8 @@ registerColocatedStatic({
     pl: "Wybierz język aplikacji",
     uk: "Обрати мову застосунку",
     ur: "ایپ کی زبان منتخب کریں",
-    tr: "Uygulama dilini seç"
+    tr: "Uygulama dilini seç",
+    ar: "اختر لغة التطبيق"
   },
   "settings.langDe": {
     de: "Deutsch",
@@ -4930,7 +5377,8 @@ registerColocatedStatic({
     pl: "Deutsch",
     uk: "Deutsch",
     ur: "Deutsch",
-    tr: "Deutsch"
+    tr: "Deutsch",
+    ar: "Deutsch"
   },
   "settings.langEn": {
     de: "English",
@@ -4941,7 +5389,8 @@ registerColocatedStatic({
     pl: "English",
     uk: "English",
     ur: "English",
-    tr: "English"
+    tr: "English",
+    ar: "English"
   },
   "settings.langFr": {
     de: "Français",
@@ -4952,7 +5401,8 @@ registerColocatedStatic({
     pl: "Français",
     uk: "Français",
     ur: "Français",
-    tr: "Français"
+    tr: "Français",
+    ar: "Français"
   },
   "settings.langSoon": {
     de: "demnächst",
@@ -4963,7 +5413,8 @@ registerColocatedStatic({
     pl: "wkrótce",
     uk: "незабаром",
     ur: "جلد آرہا ہے",
-    tr: "çok yakında"
+    tr: "çok yakında",
+    ar: "قريبًا"
   },
   "settings.appearanceHeading": {
     de: "Erscheinungsbild",
@@ -4974,7 +5425,8 @@ registerColocatedStatic({
     pl: "Motyw jasny / ciemny",
     uk: "Оформлення",
     ur: "ظاہری انداز",
-    tr: "Görünüm"
+    tr: "Görünüm",
+    ar: "المظهر"
   },
   "settings.appearanceAria": {
     de: "Erscheinungsbild",
@@ -4985,7 +5437,8 @@ registerColocatedStatic({
     pl: "Wygląd",
     uk: "Оформлення",
     ur: "ظاہری انداز",
-    tr: "Görünüm"
+    tr: "Görünüm",
+    ar: "المظهر"
   },
   "settings.appearanceHint": {
     de: "Wähle Hell, Dunkel oder passe dich automatisch an dein Gerät an.",
@@ -4996,7 +5449,8 @@ registerColocatedStatic({
     pl: "Wybierz tryb jasny, ciemny lub automatyczne dopasowanie do urządzenia.",
     uk: "Обери світлу тему, темну тему або автоматичний режим системи.",
     ur: "روشن، تاریک یا اپنے آلے کے سسٹم کے مطابق خودکار انداز چنیں۔",
-    tr: "Açık, Karanlık veya cihazının sistem görünümünü takip et."
+    tr: "Açık, Karanlık veya cihazının sistem görünümünü takip et.",
+    ar: "اختر الفاتح أو الداكن أو اتبع مظهر نظام جهازك تلقائيًا."
   },
   "settings.appearanceLight": {
     de: "Hell",
@@ -5007,7 +5461,8 @@ registerColocatedStatic({
     pl: "Jasny",
     uk: "Світле",
     ur: "روشن",
-    tr: "Açık"
+    tr: "Açık",
+    ar: "فاتح"
   },
   "settings.appearanceDark": {
     de: "Dunkel",
@@ -5018,7 +5473,8 @@ registerColocatedStatic({
     pl: "Ciemny",
     uk: "Темне",
     ur: "تاریک",
-    tr: "Karanlık"
+    tr: "Karanlık",
+    ar: "داكن"
   },
   "settings.appearanceSystem": {
     de: "System",
@@ -5029,7 +5485,8 @@ registerColocatedStatic({
     pl: "Systemowy",
     uk: "Системне",
     ur: "سسٹم",
-    tr: "Sistem"
+    tr: "Sistem",
+    ar: "النظام"
   },
   "settings.themeHeading": {
     de: "Farbschema / Themes",
@@ -5040,7 +5497,8 @@ registerColocatedStatic({
     pl: "Palety kolorów / Motywy",
     uk: "Палітри кольорів / Теми",
     ur: "رنگ اسکیم / تھیمز",
-    tr: "Renk Düzeni / Temalar"
+    tr: "Renk Düzeni / Temalar",
+    ar: "لوحة الألوان / السمات"
   },
   "settings.themeHint": {
     de: "Alle Farbpaletten funktionieren sowohl im hellen als auch im dunklen Modus.",
@@ -5051,7 +5509,8 @@ registerColocatedStatic({
     pl: "Każda paleta działa zarówno w trybie jasnym, jak i ciemnym.",
     uk: "Кожна палітра підтримує як світлий, так і темний режими.",
     ur: "ہر رنگ پیلیٹ روشن اور تاریک دونوں موڈز میں کام کرتا ہے۔",
-    tr: "Her renk paleti hem Açık hem de Karanlık modu destekler."
+    tr: "Her renk paleti hem Açık hem de Karanlık modu destekler.",
+    ar: "كل لوحة ألوان تدعم كِلَا الوضعين الفاتح والداكن."
   },
   "settings.themeForest": {
     de: "Folk",
@@ -5062,7 +5521,8 @@ registerColocatedStatic({
     pl: "Folk",
     uk: "Фолк",
     ur: "فوک",
-    tr: "Folk"
+    tr: "Folk",
+    ar: "فولك"
   },
   "settings.themeCoast": {
     de: "Klassik",
@@ -5073,7 +5533,8 @@ registerColocatedStatic({
     pl: "Klasyka",
     uk: "Класика",
     ur: "کلاسیکی",
-    tr: "Klasik"
+    tr: "Klasik",
+    ar: "كلاسيكي"
   },
   "settings.themeDusk": {
     de: "Jazz",
@@ -5084,7 +5545,8 @@ registerColocatedStatic({
     pl: "Jazz",
     uk: "Джаз",
     ur: "جاز",
-    tr: "Caz"
+    tr: "Caz",
+    ar: "جاز"
   },
   "settings.themeMetal": {
     de: "Metal",
@@ -5095,7 +5557,8 @@ registerColocatedStatic({
     pl: "Metal",
     uk: "Метал",
     ur: "میٹل",
-    tr: "Metal"
+    tr: "Metal",
+    ar: "ميتال"
   },
   "settings.themeConcert": {
     de: "Konzertsaal",
@@ -5106,7 +5569,8 @@ registerColocatedStatic({
     pl: "Sala koncertowa",
     uk: "Концертний зал",
     ur: "کنسرٹ ہال",
-    tr: "Konser Salonu"
+    tr: "Konser Salonu",
+    ar: "قاعة حفلات"
   },
   "settings.themeMidnight": {
     de: "Mitternachts-Jazz",
@@ -5117,7 +5581,8 @@ registerColocatedStatic({
     pl: "Północny jazz",
     uk: "Опівнічний джаз",
     ur: "آدھی رات جاز",
-    tr: "Gece Yarısı Cazı"
+    tr: "Gece Yarısı Cazı",
+    ar: "جاز منتصف الليل"
   },
   "settings.themeActive": {
     de: "Aktiv",
@@ -5128,7 +5593,8 @@ registerColocatedStatic({
     pl: "Aktywny",
     uk: "Активна",
     ur: "فعال",
-    tr: "Etkin"
+    tr: "Etkin",
+    ar: "نشط"
   },
   "settings.themeSelect": {
     de: "Auswählen",
@@ -5139,7 +5605,8 @@ registerColocatedStatic({
     pl: "Wybierz",
     uk: "Обрати",
     ur: "منتخب کریں",
-    tr: "Seç"
+    tr: "Seç",
+    ar: "اختيار"
   },
   "settings.customizeThemesBtn": {
     de: "Eigenes Theme im Konto gestalten →",
@@ -5150,7 +5617,8 @@ registerColocatedStatic({
     pl: "Zaprojektuj własny motyw w Profilu →",
     uk: "Створити власну тему в профілі →",
     ur: "اکاؤنٹ میں اپنا تھیم بنائیں ←",
-    tr: "Hesap'ta Özel Tema Tasarla →"
+    tr: "Hesap'ta Özel Tema Tasarla →",
+    ar: "تصميم سمة مخصّصة في حسابي ←"
   },
   "space.themesTitle": {
     de: "Themes & Farbdesigner",
@@ -5161,7 +5629,8 @@ registerColocatedStatic({
     pl: "Motywy i studio kolorów",
     uk: "Теми та студія кольорів",
     ur: "تھیمز اور رنگ اسٹوڈیو",
-    tr: "Temalar ve Renk Stüdyosu"
+    tr: "Temalar ve Renk Stüdyosu",
+    ar: "السمات ومصمّم الألوان"
   },
   "space.themesSub": {
     de: "Wähle ein bestehendes Theme oder gestalte bis zu 3 eigene Farbschemas mit R/G/B/A-Farbwähler.",
@@ -5172,7 +5641,8 @@ registerColocatedStatic({
     pl: "Wybierz gotową paletę albo stwórz do 3 własnych motywów w edytorze R/G/B/A.",
     uk: "Обери готову палітру або створи до 3 власних тем у редакторі R/G/B/A.",
     ur: "کوئی موجودہ پیلیٹ چنیں یا R/G/B/A کلر پکر سے 3 تک اپنے ذاتی تھیمز بنائیں۔",
-    tr: "Yerleşik bir palet seç veya R/G/B/A renk seçiciyle 3'e kadar özel tema tasarla."
+    tr: "Yerleşik bir palet seç veya R/G/B/A renk seçiciyle 3'e kadar özel tema tasarla.",
+    ar: "اختر لوحة جاهزة أو صمّم ما يصل إلى 3 سمات خاصة بك عبر منتقي الألوان R/G/B/A."
   },
   "space.customSlotsLabel": {
     de: "Deine 3 eigenen Theme-Plätze",
@@ -5183,7 +5653,8 @@ registerColocatedStatic({
     pl: "Twoje 3 własne miejsca na motywy",
     uk: "Твої 3 слоти власних тем",
     ur: "آپ کی 3 ذاتی تھیم جگہیں",
-    tr: "3 Özel Tema Yuvan"
+    tr: "3 Özel Tema Yuvan",
+    ar: "خانات السمات المخصّصة (3)"
   },
   "space.createCustomThemeBtn": {
     de: "Eigenes Theme kreieren",
@@ -5194,7 +5665,8 @@ registerColocatedStatic({
     pl: "Stwórz własny motyw",
     uk: "Створити свою тему",
     ur: "اپنا تھیم تخلیق کریں",
-    tr: "Özel Tema Oluştur"
+    tr: "Özel Tema Oluştur",
+    ar: "إنشاء سمة مخصّصة"
   },
   "space.editorSlotLabel": {
     de: "Speicherplatz (1–3)",
@@ -5205,7 +5677,8 @@ registerColocatedStatic({
     pl: "Miejsce zapisu (1–3)",
     uk: "Слот збереження (1–3)",
     ur: "محفوظ کرنے کی جگہ (1–3)",
-    tr: "Kayıt Yuvası (1–3)"
+    tr: "Kayıt Yuvası (1–3)",
+    ar: "خانة الحفظ (1–3)"
   },
   "space.customThemeNameLabel": {
     de: "Name des Themes",
@@ -5216,7 +5689,8 @@ registerColocatedStatic({
     pl: "Nazwa motywu",
     uk: "Назва теми",
     ur: "تھیم کا نام",
-    tr: "Tema Adı"
+    tr: "Tema Adı",
+    ar: "اسم السمة"
   },
   "space.customThemeNamePlaceholder": {
     de: "z. B. Studio Warm",
@@ -5227,7 +5701,8 @@ registerColocatedStatic({
     pl: "np. Ciepłe studio",
     uk: "напр. Тепла студія",
     ur: "مثلاً اسٹوڈیو وارم",
-    tr: "ör. Sıcak Stüdyo"
+    tr: "ör. Sıcak Stüdyo",
+    ar: "مثلًا: دفء الاستوديو"
   },
   "space.templateLabel": {
     de: "Basis-Vorlage",
@@ -5238,7 +5713,8 @@ registerColocatedStatic({
     pl: "Szablon startowy",
     uk: "Базовий шаблон",
     ur: "بنیادی ٹیمپلیٹ",
-    tr: "Temel Şablon"
+    tr: "Temel Şablon",
+    ar: "القالب الأساسي"
   },
   "space.loadTemplateBtn": {
     de: "Laden",
@@ -5249,7 +5725,8 @@ registerColocatedStatic({
     pl: "Wczytaj",
     uk: "Завантажити",
     ur: "لوڈ کریں",
-    tr: "Yükle"
+    tr: "Yükle",
+    ar: "تحميل"
   },
   "space.pickRoleLabel": {
     de: "Farben anpassen (Antippen öffnet / schließt Color-Picker)",
@@ -5260,7 +5737,8 @@ registerColocatedStatic({
     pl: "Edytuj kolory (dotknij, aby rozwinąć lub zwinąć selektor)",
     uk: "Налаштувати кольори (натисни, щоб відкрити/закрити палітру)",
     ur: "رنگ ترتیب دیں (کلر پکر کھولنے / بند کرنے کے لیے ٹیپ کریں)",
-    tr: "Renkleri özelleştir (seçiciyi açmak / kapatmak için dokun)"
+    tr: "Renkleri özelleştir (seçiciyi açmak / kapatmak için dokun)",
+    ar: "تخصيص الألوان (اضغط لفتح / إغلاق المنتقي)"
   },
   "space.rgbaPickerLabel": {
     de: "Farbe per Color-Picker (R, G, B, A) anpassen",
@@ -5271,7 +5749,8 @@ registerColocatedStatic({
     pl: "Ustaw kolor w palecie RGBA",
     uk: "Налаштувати колір у палітрі RGBA",
     ur: "کلر پکر (R, G, B, A) سے رنگ بدلیں",
-    tr: "RGBA renk seçiciyle rengi ayarla"
+    tr: "RGBA renk seçiciyle rengi ayarla",
+    ar: "ضبط اللون بمنتقي RGBA"
   },
   "space.nativePickerTitle": {
     de: "System-Farbwähler öffnen",
@@ -5282,7 +5761,8 @@ registerColocatedStatic({
     pl: "Otwórz systemowy selektor kolorów",
     uk: "Відкрити системну палітру кольорів",
     ur: "سسٹم کلر پکر کھولیں",
-    tr: "Sistem renk seçicisini aç"
+    tr: "Sistem renk seçicisini aç",
+    ar: "فتح منتقي ألوان النظام"
   },
   "space.hueLabel": {
     de: "Farbton",
@@ -5293,7 +5773,8 @@ registerColocatedStatic({
     pl: "Odcień",
     uk: "Відтінок",
     ur: "رنگت (Hue)",
-    tr: "Ton"
+    tr: "Ton",
+    ar: "درجة اللون"
   },
   "space.livePreviewLabel": {
     de: "Live in der App ansehen",
@@ -5304,7 +5785,8 @@ registerColocatedStatic({
     pl: "Podgląd na żywo w całej aplikacji",
     uk: "Живий попередній перегляд у всьому застосунку",
     ur: "ایپ میں براہِ راست دیکھیں",
-    tr: "Uygulama genelinde canlı önizle"
+    tr: "Uygulama genelinde canlı önizle",
+    ar: "معاينة فورية في التطبيق"
   },
   "space.saveCustomThemeBtn": {
     de: "Theme speichern & aktivieren",
@@ -5315,7 +5797,8 @@ registerColocatedStatic({
     pl: "Zapisz i aktywuj",
     uk: "Зберегти й активувати",
     ur: "تھیم محفوظ اور فعال کریں",
-    tr: "Temayı Kaydet ve Etkinleştir"
+    tr: "Temayı Kaydet ve Etkinleştir",
+    ar: "حفظ وتفعيل السمة"
   },
   "space.cancelCustomThemeBtn": {
     de: "Schließen",
@@ -5326,7 +5809,8 @@ registerColocatedStatic({
     pl: "Zamknij",
     uk: "Закрити",
     ur: "بند کریں",
-    tr: "Kapat"
+    tr: "Kapat",
+    ar: "إغلاق"
   },
   "space.tplForestLight": {
     de: "Folk • Hell",
@@ -5337,7 +5821,8 @@ registerColocatedStatic({
     pl: "Folk • Jasny",
     uk: "Фолк • Світла",
     ur: "فوک • روشن",
-    tr: "Folk • Açık"
+    tr: "Folk • Açık",
+    ar: "فولك • فاتح"
   },
   "space.tplForestDark": {
     de: "Folk • Dunkel",
@@ -5348,7 +5833,8 @@ registerColocatedStatic({
     pl: "Folk • Ciemny",
     uk: "Фолк • Темна",
     ur: "فوک • تاریک",
-    tr: "Folk • Karanlık"
+    tr: "Folk • Karanlık",
+    ar: "فولك • داكن"
   },
   "space.tplCoastLight": {
     de: "Klassik • Hell",
@@ -5359,7 +5845,8 @@ registerColocatedStatic({
     pl: "Klasyka • Jasny",
     uk: "Класика • Світла",
     ur: "کلاسیکی • روشن",
-    tr: "Klasik • Açık"
+    tr: "Klasik • Açık",
+    ar: "كلاسيكي • فاتح"
   },
   "space.tplCoastDark": {
     de: "Klassik • Dunkel",
@@ -5370,7 +5857,8 @@ registerColocatedStatic({
     pl: "Klasyka • Ciemny",
     uk: "Класика • Темна",
     ur: "کلاسیکی • تاریک",
-    tr: "Klasik • Karanlık"
+    tr: "Klasik • Karanlık",
+    ar: "كلاسيكي • داكن"
   },
   "space.tplDuskLight": {
     de: "Jazz • Hell",
@@ -5381,7 +5869,8 @@ registerColocatedStatic({
     pl: "Jazz • Jasny",
     uk: "Джаз • Світла",
     ur: "جاز • روشن",
-    tr: "Caz • Açık"
+    tr: "Caz • Açık",
+    ar: "جاز • فاتح"
   },
   "space.tplDuskDark": {
     de: "Jazz • Dunkel",
@@ -5392,7 +5881,8 @@ registerColocatedStatic({
     pl: "Jazz • Ciemny",
     uk: "Джаз • Темна",
     ur: "جاز • تاریک",
-    tr: "Caz • Karanlık"
+    tr: "Caz • Karanlık",
+    ar: "جاز • داكن"
   },
   "space.tplMetal": {
     de: "Metal • Dunkel",
@@ -5403,7 +5893,8 @@ registerColocatedStatic({
     pl: "Metal • Ciemny",
     uk: "Метал • Темна",
     ur: "میٹل • تاریک",
-    tr: "Metal • Karanlık"
+    tr: "Metal • Karanlık",
+    ar: "ميتال • داكن"
   },
   "metro.bpmEditTitle": {
     de: "Tippen, um BPM genau einzugeben",
@@ -5414,7 +5905,8 @@ registerColocatedStatic({
     pl: "Dotknij, aby wpisać dokładne BPM",
     uk: "Торкнися, щоб ввести точний BPM",
     ur: "درست BPM درج کرنے کے لیے ٹیپ کریں",
-    tr: "Tam BPM girmek için dokun"
+    tr: "Tam BPM girmek için dokun",
+    ar: "اضغط لإدخال قيمة BPM دقيقة"
   },
   "metro.bpmEditAria": {
     de: "BPM genau eingeben",
@@ -5425,7 +5917,8 @@ registerColocatedStatic({
     pl: "Wpisz dokładne BPM",
     uk: "Ввести точний BPM",
     ur: "درست BPM درج کریں",
-    tr: "Tam BPM gir"
+    tr: "Tam BPM gir",
+    ar: "إدخال قيمة BPM دقيقة"
   },
   "metro.bpmInputAria": {
     de: "Genaue BPM eingeben (30–240)",
@@ -5436,7 +5929,8 @@ registerColocatedStatic({
     pl: "Wpisz dokładne BPM (30–240)",
     uk: "Ввести точний BPM (30–240)",
     ur: "درست BPM درج کریں (30–240)",
-    tr: "Tam BPM gir (30–240)"
+    tr: "Tam BPM gir (30–240)",
+    ar: "إدخال قيمة BPM دقيقة (30–240)"
   },
   "metro.tapTitle": {
     de: "Tippen für Live-Tempo (Tap-Tempo)",
@@ -5447,7 +5941,8 @@ registerColocatedStatic({
     pl: "Stukaj równomiernie, aby wyznaczyć tempo na żywo (Tap Tempo)",
     uk: "Натискай для визначення темпу наживо (Tap Tempo)",
     ur: "لائیو رفتار جاننے کے لیے ٹیپ کریں (Tap Tempo)",
-    tr: "Canlı tempo için dokun (Tap Tempo)"
+    tr: "Canlı tempo için dokun (Tap Tempo)",
+    ar: "انقر لتحديد السرعة مباشرة (Tap Tempo)"
   },
   "metro.tapAria": {
     de: "Tap-Tempo",
@@ -5458,7 +5953,8 @@ registerColocatedStatic({
     pl: "Tap Tempo",
     uk: "Tap-темп",
     ur: "ٹیپ ٹیمپو",
-    tr: "Tap Tempo"
+    tr: "Tap Tempo",
+    ar: "نقر السرعة"
   },
   "metro.tapLabel": {
     de: "TAP",
@@ -5469,7 +5965,8 @@ registerColocatedStatic({
     pl: "TAP",
     uk: "TAP",
     ur: "TAP",
-    tr: "TAP"
+    tr: "TAP",
+    ar: "نقر"
   },
   "metro.tapHint": {
     de: "Tempo tippen",
@@ -5480,7 +5977,8 @@ registerColocatedStatic({
     pl: "Wystukaj tempo",
     uk: "Відбити темп",
     ur: "ٹیمپو ٹیپ کریں",
-    tr: "Tempo vur"
+    tr: "Tempo vur",
+    ar: "انقر للسرعة"
   },
   "metro.sliderAria": {
     de: "Tempo in BPM",
@@ -5491,7 +5989,8 @@ registerColocatedStatic({
     pl: "Tempo w BPM",
     uk: "Темп у BPM",
     ur: "BPM میں رفتار",
-    tr: "BPM cinsinden tempo"
+    tr: "BPM cinsinden tempo",
+    ar: "السرعة بوحدة BPM"
   },
   "metro.startBtn": {
     de: "▶ Metronom starten",
@@ -5502,7 +6001,8 @@ registerColocatedStatic({
     pl: "▶ Uruchom metronom",
     uk: "▶ Запустити метроном",
     ur: "▶ میٹرونوم شروع کریں",
-    tr: "▶ Metronomu Başlat"
+    tr: "▶ Metronomu Başlat",
+    ar: "▶ تشغيل المترونوم"
   },
   "metro.beatsHeading": {
     de: "Zählzeiten & Betonung",
@@ -5513,7 +6013,8 @@ registerColocatedStatic({
     pl: "Miary taktu i akcenty",
     uk: "Долі такту й акценти",
     ur: "بیٹس اور زور (Accents)",
-    tr: "Vuruşlar ve Vurgular"
+    tr: "Vuruşlar ve Vurgular",
+    ar: "النبضات والنبر"
   },
   "metro.beatRemoveTitle": {
     de: "Zählzeit entfernen",
@@ -5524,7 +6025,8 @@ registerColocatedStatic({
     pl: "Usuń miarę",
     uk: "Прибрати долю",
     ur: "بیٹ کم کریں",
-    tr: "Vuruşu kaldır"
+    tr: "Vuruşu kaldır",
+    ar: "إزالة نبضة"
   },
   "metro.beatAddTitle": {
     de: "Zählzeit hinzufügen",
@@ -5535,7 +6037,8 @@ registerColocatedStatic({
     pl: "Dodaj miarę",
     uk: "Додати долю",
     ur: "بیٹ شامل کریں",
-    tr: "Vuruş ekle"
+    tr: "Vuruş ekle",
+    ar: "إضافة نبضة"
   },
   "metro.presetsAria": {
     de: "Takt-Vorlagen",
@@ -5546,7 +6049,8 @@ registerColocatedStatic({
     pl: "Szablony metra",
     uk: "Шаблони розмірів",
     ur: "تال کے سانچے",
-    tr: "Ölçü ön ayarları"
+    tr: "Ölçü ön ayarları",
+    ar: "قوالب الأوزان"
   },
   "metro.beatsAria": {
     de: "Zählzeiten",
@@ -5557,7 +6061,8 @@ registerColocatedStatic({
     pl: "Miary taktu",
     uk: "Долі такту",
     ur: "بیٹس",
-    tr: "Vuruşlar"
+    tr: "Vuruşlar",
+    ar: "النبضات"
   },
   "metro.stateAccent": {
     de: "Akzent",
@@ -5568,7 +6073,8 @@ registerColocatedStatic({
     pl: "Akcent",
     uk: "Акцент",
     ur: "اکسنٹ",
-    tr: "Vurgulu"
+    tr: "Vurgulu",
+    ar: "نبر"
   },
   "metro.stateNormal": {
     de: "Normal",
@@ -5579,7 +6085,8 @@ registerColocatedStatic({
     pl: "Zwykła",
     uk: "Звичайна",
     ur: "نارمل",
-    tr: "Normal"
+    tr: "Normal",
+    ar: "عادي"
   },
   "metro.stateMuted": {
     de: "Stumm",
@@ -5590,7 +6097,8 @@ registerColocatedStatic({
     pl: "Cisza",
     uk: "Тиша",
     ur: "خاموش",
-    tr: "Sessiz"
+    tr: "Sessiz",
+    ar: "صامت"
   },
   "metro.subdivLabel": {
     de: "Unterteilung:",
@@ -5601,7 +6109,8 @@ registerColocatedStatic({
     pl: "Podziały:",
     uk: "Дроблення:",
     ur: "ذیلی تقسیم:",
-    tr: "Alt bölüm:"
+    tr: "Alt bölüm:",
+    ar: "التقسيم:"
   },
   "metro.sub1": {
     de: "1×",
@@ -5612,7 +6121,8 @@ registerColocatedStatic({
     pl: "1×",
     uk: "1×",
     ur: "1×",
-    tr: "1×"
+    tr: "1×",
+    ar: "1×"
   },
   "metro.sub2": {
     de: "2×",
@@ -5623,7 +6133,8 @@ registerColocatedStatic({
     pl: "2×",
     uk: "2×",
     ur: "2×",
-    tr: "2×"
+    tr: "2×",
+    ar: "2×"
   },
   "metro.sub3": {
     de: "3×",
@@ -5634,7 +6145,8 @@ registerColocatedStatic({
     pl: "3×",
     uk: "3×",
     ur: "3×",
-    tr: "3×"
+    tr: "3×",
+    ar: "3×"
   },
   "metro.sub4": {
     de: "4×",
@@ -5645,7 +6157,8 @@ registerColocatedStatic({
     pl: "4×",
     uk: "4×",
     ur: "4×",
-    tr: "4×"
+    tr: "4×",
+    ar: "4×"
   },
   "metro.subShuffle": {
     de: "Shuffle",
@@ -5656,7 +6169,8 @@ registerColocatedStatic({
     pl: "Shuffle",
     uk: "Шафл",
     ur: "شفل",
-    tr: "Shuffle"
+    tr: "Shuffle",
+    ar: "شفل"
   },
   "metro.subShuffleTitle": {
     de: "Shuffle: Achtel im Triolen-Feeling (lang – kurz)",
@@ -5667,7 +6181,8 @@ registerColocatedStatic({
     pl: "Shuffle: ósemki w feelingu triolowym (długa – krótka)",
     uk: "Шафл: восьмі з тріольним відчуттям (довга – коротка)",
     ur: "شفل: ٹرپلٹ احساس کے ساتھ آٹھویں (لمبا – چھوٹا)",
-    tr: "Shuffle: üçleme hissiyle sekizlik notalar (uzun – kısa)"
+    tr: "Shuffle: üçleme hissiyle sekizlik notalar (uzun – kısa)",
+    ar: "شفل: ذوات سن بإحساس ثلاثي (طويل – قصير)"
   },
   "metro.profilesHeading": {
     de: "Metronom-Profile",
@@ -5678,7 +6193,8 @@ registerColocatedStatic({
     pl: "Profile metronomu",
     uk: "Профілі метронома",
     ur: "میٹرونوم پروفائلز",
-    tr: "Metronom Profilleri"
+    tr: "Metronom Profilleri",
+    ar: "ملفات المترونوم"
   },
   "metro.profileNamePlaceholder": {
     de: "Profilname (z. B. 7/8 Funk · 116 BPM)",
@@ -5689,7 +6205,8 @@ registerColocatedStatic({
     pl: "Nazwa profilu (np. 7/8 Funk · 116 BPM)",
     uk: "Назва профілю (напр. 7/8 Фанк · 116 BPM)",
     ur: "پروفائل کا نام (مثلاً 7/8 Funk · 116 BPM)",
-    tr: "Profil adı (ör. 7/8 Funk · 116 BPM)"
+    tr: "Profil adı (ör. 7/8 Funk · 116 BPM)",
+    ar: "اسم الملف (مثلًا 7/8 Funk · 116 BPM)"
   },
   "metro.profileNameAria": {
     de: "Metronom-Profilname",
@@ -5700,7 +6217,8 @@ registerColocatedStatic({
     pl: "Nazwa profilu metronomu",
     uk: "Назва профілю метронома",
     ur: "میٹرونوم پروفائل کا نام",
-    tr: "Metronom profil adı"
+    tr: "Metronom profil adı",
+    ar: "اسم ملف المترونوم"
   },
   "metro.saveProfileBtn": {
     de: "Speichern",
@@ -5711,7 +6229,8 @@ registerColocatedStatic({
     pl: "Zapisz",
     uk: "Зберегти",
     ur: "محفوظ کریں",
-    tr: "Kaydet"
+    tr: "Kaydet",
+    ar: "حفظ"
   },
   "metro.soundHeading": {
     de: "Klick-Sounds",
@@ -5722,7 +6241,8 @@ registerColocatedStatic({
     pl: "Brzmienia kliku",
     uk: "Звуки кліку",
     ur: "کلک آوازیں",
-    tr: "Klik Sesleri"
+    tr: "Klik Sesleri",
+    ar: "أصوات النقرة"
   },
   "metro.soundDesc": {
     de: "Wähle aus verschiedenen Klick- und Percussion-Stimmen für dein Metronom.",
@@ -5733,7 +6253,8 @@ registerColocatedStatic({
     pl: "Wybierz spośród różnych brzmień kliku i perkusji dla swojego metronomu.",
     uk: "Обирайте серед різних кліків та перкусійних звуків для свого метронома.",
     ur: "اپنے میٹرونوم کے لیے مختلف کلک اور پرکشن آوازوں میں سے منتخب کریں۔",
-    tr: "Metronomun için farklı klik ve perküsyon sesleri arasından seçim yap."
+    tr: "Metronomun için farklı klik ve perküsyon sesleri arasından seçim yap.",
+    ar: "اختر من بين أصوات النقرات والإيقاعات المختلفة للمترونوم."
   },
   "metro.soundStandard": {
     de: "Standard-Klick",
@@ -5744,7 +6265,8 @@ registerColocatedStatic({
     pl: "Standardowy klik",
     uk: "Стандартний клік",
     ur: "معیاری کلک",
-    tr: "Standart Klik"
+    tr: "Standart Klik",
+    ar: "نقرة قياسية"
   },
   "metro.soundWoodblock": {
     de: "Woodblock",
@@ -5755,7 +6277,8 @@ registerColocatedStatic({
     pl: "Woodblock",
     uk: "Вудблок",
     ur: "ووڈ بلاک",
-    tr: "Woodblock"
+    tr: "Woodblock",
+    ar: "وود بلوك"
   },
   "metro.soundCowbell": {
     de: "Cowbell",
@@ -5766,7 +6289,8 @@ registerColocatedStatic({
     pl: "Cowbell",
     uk: "Ковбел",
     ur: "کاؤ بیل",
-    tr: "Cowbell"
+    tr: "Cowbell",
+    ar: "كاو بيل"
   },
   "metro.soundRimshot": {
     de: "Rimshot",
@@ -5777,7 +6301,8 @@ registerColocatedStatic({
     pl: "Rimshot",
     uk: "Рімшот",
     ur: "رِم شاٹ",
-    tr: "Rimshot"
+    tr: "Rimshot",
+    ar: "ريم شوت"
   },
   "metro.mixHeading": {
     de: "Lautstärke",
@@ -5788,7 +6313,8 @@ registerColocatedStatic({
     pl: "Głośność",
     uk: "Гучність",
     ur: "والیوم",
-    tr: "Ses Düzeyi"
+    tr: "Ses Düzeyi",
+    ar: "مستوى الصوت"
   },
   "metro.volMaster": {
     de: "Gesamtlautstärke",
@@ -5799,7 +6325,8 @@ registerColocatedStatic({
     pl: "Głośność główna",
     uk: "Загальна гучність",
     ur: "مجموعی والیوم",
-    tr: "Ana ses düzeyi"
+    tr: "Ana ses düzeyi",
+    ar: "الصوت الرئيسي"
   },
   "metro.volMasterAria": {
     de: "Gesamtlautstärke des Metronoms anpassen",
@@ -5810,7 +6337,8 @@ registerColocatedStatic({
     pl: "Dostosuj głośność główną metronomu",
     uk: "Налаштувати загальну гучність метронома",
     ur: "میٹرونوم کا مجموعی والیوم ترتیب دیں",
-    tr: "Metronom ana ses düzeyini ayarla"
+    tr: "Metronom ana ses düzeyini ayarla",
+    ar: "ضبط الصوت الرئيسي للمترونوم"
   },
   "metro.volAccent": {
     de: "Akzente",
@@ -5821,7 +6349,8 @@ registerColocatedStatic({
     pl: "Akcenty",
     uk: "Акценти",
     ur: "اکسنٹس (زور)",
-    tr: "Vurgular"
+    tr: "Vurgular",
+    ar: "النبضات المنبورة"
   },
   "metro.volAccentAria": {
     de: "Lautstärke der akzentuierten Zählzeiten anpassen",
@@ -5832,7 +6361,8 @@ registerColocatedStatic({
     pl: "Dostosuj głośność akcentowanych miar",
     uk: "Налаштувати гучність акцентованих долей",
     ur: "زور والی بیٹس کا والیوم ترتیب دیں",
-    tr: "Vurgulu vuruş ses düzeyini ayarla"
+    tr: "Vurgulu vuruş ses düzeyini ayarla",
+    ar: "ضبط صوت النبضات المنبورة"
   },
   "metro.volNormal": {
     de: "Normale Zählzeiten",
@@ -5843,7 +6373,8 @@ registerColocatedStatic({
     pl: "Zwykłe miary",
     uk: "Звичайні долі",
     ur: "عام بیٹس",
-    tr: "Normal vuruşlar"
+    tr: "Normal vuruşlar",
+    ar: "النبضات العادية"
   },
   "metro.volNormalAria": {
     de: "Lautstärke der normalen Zählzeiten anpassen",
@@ -5854,7 +6385,8 @@ registerColocatedStatic({
     pl: "Dostosuj głośność zwykłych miar",
     uk: "Налаштувати гучність звичайних долей",
     ur: "عام بیٹس کا والیوم ترتیب دیں",
-    tr: "Normal vuruş ses düzeyini ayarla"
+    tr: "Normal vuruş ses düzeyini ayarla",
+    ar: "ضبط صوت النبضات العادية"
   },
   "settings.appResetHeading": {
     de: "App zurücksetzen",
@@ -5865,7 +6397,8 @@ registerColocatedStatic({
     pl: "Resetuj aplikację",
     uk: "Скинути застосунок",
     ur: "ایپ ری سیٹ کریں",
-    tr: "Uygulamayı Sıfırla"
+    tr: "Uygulamayı Sıfırla",
+    ar: "إعادة ضبط التطبيق"
   },
   "settings.appResetHint": {
     de: "Setzt alle lokalen Einstellungen, Themes und Profildaten zurück und startet die Einrichtung neu.",
@@ -5876,7 +6409,8 @@ registerColocatedStatic({
     pl: "Resetuje wszystkie lokalne ustawienia, motywy i dane profilu oraz ponownie uruchamia konfigurację.",
     uk: "Скидає всі локальні налаштування, теми та дані профілю й перезапускає початкове налаштування.",
     ur: "تمام مقامی ترتیبات، تھیمز اور پروفائل ڈیٹا ری سیٹ کر کے ابتدائی سیٹ اپ دوبارہ شروع کرتا ہے۔",
-    tr: "Tüm yerel ayarları, temaları ve profil verilerini sıfırlar ve başlangıç tanıtımını yeniden başlatır."
+    tr: "Tüm yerel ayarları, temaları ve profil verilerini sıfırlar ve başlangıç tanıtımını yeniden başlatır.",
+    ar: "يعيد ضبط جميع الإعدادات والسمات وبيانات الملف المحلي ويعيد تشغيل جولة الإعداد."
   },
   "settings.aboutHeading": {
     de: "Über die App",
@@ -5887,7 +6421,8 @@ registerColocatedStatic({
     pl: "O aplikacji",
     uk: "Про застосунок",
     ur: "ایپ کے بارے میں",
-    tr: "Uygulama Hakkında"
+    tr: "Uygulama Hakkında",
+    ar: "حول التطبيق"
   },
   "settings.openAboutBtn": {
     de: "Über Lauscher →",
@@ -5898,7 +6433,8 @@ registerColocatedStatic({
     pl: "O aplikacji Lauscher →",
     uk: "Про Lauscher →",
     ur: "Lauscher کے بارے میں →",
-    tr: "Lauscher Hakkında →"
+    tr: "Lauscher Hakkında →",
+    ar: "حول Lauscher ←"
   },
   "about.title": {
     de: "Über Lauscher",
@@ -5909,7 +6445,8 @@ registerColocatedStatic({
     pl: "O aplikacji Lauscher",
     uk: "Про Lauscher",
     ur: "Lauscher کے بارے میں",
-    tr: "Lauscher Hakkında"
+    tr: "Lauscher Hakkında",
+    ar: "حول Lauscher"
   },
   "about.version": {
     de: "Version",
@@ -5920,7 +6457,8 @@ registerColocatedStatic({
     pl: "Wersja",
     uk: "Версія",
     ur: "ورژن",
-    tr: "Sürüm"
+    tr: "Sürüm",
+    ar: "الإصدار"
   },
   "about.description": {
     de: "Lauscher ist dein ruhiger, werbe- und trackingfreier Begleiter für musikalisches Gehörtraining, Notenlesen, Musiktheorie, Einsingen und Studio-Hören – komplett lokal auf deinem Gerät und ohne Punktedruck.",
@@ -5931,7 +6469,8 @@ registerColocatedStatic({
     pl: "Lauscher to Twój spokojny, wolny od reklam i śledzenia towarzysz do kształcenia słuchu, czytania nut, teorii muzyki, rozśpiewki i słuchania studyjnego — w 100% lokalnie na Twoim urządzeniu i bez presji punktów.",
     uk: "Lauscher — ваш спокійний супутник без реклами та відстеження для розвитку музичного слуху, читання нот, теорії музики, розспівування та студійного слухання — повністю локально на вашому пристрої та без тиску балів.",
     ur: "Lauscher موسیقی کی سماعت کی تربیت، نوٹ پڑھنے، میوزک تھیوری، ووکل وارم اپ اور اسٹوڈیو سننے کے لیے آپ کا پرسکون، اشتہارات اور ٹریکنگ سے پاک ساتھی ہے — بغیر کسی اسکور کے دباؤ کے مکمل طور پر آپ کے آلے پر۔",
-    tr: "Lauscher; kulak eğitimi, nota okuma, müzik teorisi, ses ısıtma ve stüdyo dinlemesi için sakin, reklamsız ve takipçisiz yol arkadaşındır — puan baskısı olmadan cihazında %100 yerel olarak çalışır."
+    tr: "Lauscher; kulak eğitimi, nota okuma, müzik teorisi, ses ısıtma ve stüdyo dinlemesi için sakin, reklamsız ve takipçisiz yol arkadaşındır — puan baskısı olmadan cihazında %100 yerel olarak çalışır.",
+    ar: "Lauscher هو رفيقك الهادئ والخالي من الإعلانات والتتبّع لتدريب الأذن الموسيقية، قراءة النوتة، نظريات الموسيقى، الإحماء الصوتي والاستماع الاستوديوي — يعمل محليًا 100% على جهازك دون أي ضغط للنقاط."
   },
   "about.linksHeading": {
     de: "Kontakt, Unterstützung & Rechtliches",
@@ -5942,7 +6481,8 @@ registerColocatedStatic({
     pl: "Kontakt, wsparcie i informacje prawne",
     uk: "Контакти, підтримка та правова інформація",
     ur: "رابطہ، تعاون اور قانونی معلومات",
-    tr: "İletişim, Destek ve Yasal"
+    tr: "İletişim, Destek ve Yasal",
+    ar: "التواصل والدعم والشؤون القانونية"
   },
   "about.linkContact": {
     de: "Nachricht an den Entwickler / Kontakt",
@@ -5953,7 +6493,8 @@ registerColocatedStatic({
     pl: "Wiadomość do twórcy / Kontakt",
     uk: "Повідомлення розробнику / Контакт",
     ur: "ڈویلپر کو پیغام / رابطہ",
-    tr: "Geliştiriciye Yaz / İletişim"
+    tr: "Geliştiriciye Yaz / İletişim",
+    ar: "مراسلة المطوّر / التواصل"
   },
   "about.linkRate": {
     de: "App bewerten",
@@ -5964,7 +6505,8 @@ registerColocatedStatic({
     pl: "Oceń aplikację",
     uk: "Оцінити застосунок",
     ur: "ایپ کی درجہ بندی کریں",
-    tr: "Uygulamayı Değerlendir"
+    tr: "Uygulamayı Değerlendir",
+    ar: "تقييم التطبيق"
   },
   "about.linkShare": {
     de: "Lauscher teilen",
@@ -5975,7 +6517,8 @@ registerColocatedStatic({
     pl: "Udostępnij Lauscher",
     uk: "Поділитися Lauscher",
     ur: "Lauscher شیئر کریں",
-    tr: "Lauscher'ı Paylaş"
+    tr: "Lauscher'ı Paylaş",
+    ar: "مشاركة Lauscher"
   },
   "about.linkWebVersion": {
     de: "Webversion",
@@ -5986,7 +6529,8 @@ registerColocatedStatic({
     pl: "Wersja przeglądarkowa",
     uk: "Вебверсія",
     ur: "ویب ورژن",
-    tr: "Web Sürümü"
+    tr: "Web Sürümü",
+    ar: "نسخة الويب"
   },
   "about.linkGetApp": {
     de: "Hol dir die App",
@@ -5997,7 +6541,8 @@ registerColocatedStatic({
     pl: "Pobierz aplikację",
     uk: "Завантажити застосунок",
     ur: "ایپ حاصل کریں",
-    tr: "Uygulamayı İndir"
+    tr: "Uygulamayı İndir",
+    ar: "الحصول على التطبيق"
   },
   "about.linkDonate": {
     de: "Lauscher unterstützen",
@@ -6008,7 +6553,8 @@ registerColocatedStatic({
     pl: "Wesprzyj Lauscher",
     uk: "Підтримати Lauscher",
     ur: "Lauscher کی حمایت کریں",
-    tr: "Lauscher'ı Destekle"
+    tr: "Lauscher'ı Destekle",
+    ar: "دعم Lauscher"
   },
   "about.linkPrivacy": {
     de: "Datenschutz",
@@ -6019,7 +6565,8 @@ registerColocatedStatic({
     pl: "Polityka prywatności",
     uk: "Конфіденційність",
     ur: "رازداری کی پالیسی",
-    tr: "Gizlilik Politikası"
+    tr: "Gizlilik Politikası",
+    ar: "سياسة الخصوصية"
   },
   "about.linkTerms": {
     de: "Nutzungsbedingungen",
@@ -6030,7 +6577,8 @@ registerColocatedStatic({
     pl: "Warunki korzystania",
     uk: "Умови використання",
     ur: "استعمال کی شرائط",
-    tr: "Kullanım Koşulları"
+    tr: "Kullanım Koşulları",
+    ar: "شروط الاستخدام"
   },
   "about.linkLicenses": {
     de: "Lizenzen",
@@ -6041,7 +6589,8 @@ registerColocatedStatic({
     pl: "Licencje",
     uk: "Ліцензії",
     ur: "لائسنس",
-    tr: "Lisanslar"
+    tr: "Lisanslar",
+    ar: "التراخيص"
   },
   "about.placeholderHint": {
     de: "Dieser Bereich wird in einer späteren Version verknüpft.",
@@ -6052,7 +6601,8 @@ registerColocatedStatic({
     pl: "Ta sekcja zostanie podłączona w przyszłej wersji.",
     uk: "Цей розділ буде підключено в наступній версії.",
     ur: "یہ حصہ اگلے ورژن میں شامل کیا جائے گا۔",
-    tr: "Bu bölüm gelecek bir sürümde bağlanacaktır."
+    tr: "Bu bölüm gelecek bir sürümde bağlanacaktır.",
+    ar: "سيتم ربط هذا القسم في إصدار قادم."
   },
   "ex.demoBtn": {
     de: "Demo",
@@ -6063,7 +6613,8 @@ registerColocatedStatic({
     pl: "Demo",
     uk: "Демо",
     ur: "ڈیمو",
-    tr: "Demo"
+    tr: "Demo",
+    ar: "عرض توضيحي"
   },
   "ex.demoBtnTitle": {
     de: "Übung einmal vormachen lassen",
@@ -6074,7 +6625,8 @@ registerColocatedStatic({
     pl: "Zobacz krótką demonstrację",
     uk: "Подивитись коротку демонстрацію",
     ur: "مختصر مثال دیکھیں",
-    tr: "Kısa bir örnek anlatım izle"
+    tr: "Kısa bir örnek anlatım izle",
+    ar: "مشاهدة مثال توضيحي سريع"
   },
   "ex.demoBtnAria": {
     de: "Übung einmal vormachen",
@@ -6085,7 +6637,8 @@ registerColocatedStatic({
     pl: "Pokaż przykład ćwiczenia",
     uk: "Показати приклад вправи",
     ur: "مشق کی ایک مثال دکھائیں",
-    tr: "Alıştırmayı bir kez göster"
+    tr: "Alıştırmayı bir kez göster",
+    ar: "عرض مثال توضيحي للتمرين مرة واحدة"
   },
   "settings.tutorialsHeading": {
     de: "Übungs-Tutorials (Vormachen)",
@@ -6096,7 +6649,8 @@ registerColocatedStatic({
     pl: "Samouczki ćwiczeń (Pokaz)",
     uk: "Підказки до вправ (Демонстрація)",
     ur: "مشق کے رہنما (ڈیمو)",
-    tr: "Alıştırma Tanıtımları (Örnek Tur)"
+    tr: "Alıştırma Tanıtımları (Örnek Tur)",
+    ar: "شروحات التمارين (عرض توضيحي)"
   },
   "settings.tutorialsHint": {
     de: "Zeigt beim ersten Start einer neuen Übungsart eine kurze Beispielrunde mit visuellen Hinweisen.",
@@ -6107,7 +6661,8 @@ registerColocatedStatic({
     pl: "Pokazuje krótki przykład z podpowiedziami przy pierwszym uruchomieniu nowego typu ćwiczenia.",
     uk: "Показує короткий приклад із підказками під час першого відкриття нового типу вправи.",
     ur: "نئی قسم کی مشق پہلی بار کھولنے پر بصری اشاروں کے ساتھ ایک مختصر مثال دکھاتا ہے۔",
-    tr: "Yeni bir alıştırma türünü ilk kez açtığında kısa ve rehberli bir örnek tur gösterir."
+    tr: "Yeni bir alıştırma türünü ilk kez açtığında kısa ve rehberli bir örnek tur gösterir.",
+    ar: "يعرض جولة مثال قصيرة وموجّهة في المرة الأولى التي تفتح فيها نوع تمرين جديدًا."
   },
   "settings.tutorialsAria": {
     de: "Übungs-Tutorials automatisch zeigen",
@@ -6118,7 +6673,8 @@ registerColocatedStatic({
     pl: "Automatycznie pokazuj samouczki ćwiczeń",
     uk: "Автоматично показувати підказки до вправ",
     ur: "مشق کے رہنما خودکار دکھائیں",
-    tr: "Alıştırma tanıtımlarını otomatik göster"
+    tr: "Alıştırma tanıtımlarını otomatik göster",
+    ar: "إظهار شروحات التمارين تلقائيًا"
   },
   "settings.tutorialsResetBtn": {
     de: "Alle Einführungen erneut zeigen",
@@ -6129,6 +6685,7 @@ registerColocatedStatic({
     pl: "Pokaż ponownie wszystkie samouczki",
     uk: "Показати всі вступні підказки знову",
     ur: "تمام رہنما دوبارہ دکھائیں",
-    tr: "Görülen tanıtımları sıfırla"
+    tr: "Görülen tanıtımları sıfırla",
+    ar: "إعادة عرض جميع الشروحات"
   }
 });

@@ -276,7 +276,7 @@ function analyzeFreeplayMidis(rawMidis) {
     const preferFlat = [3, 8, 10].includes(pc);
     const label = formatFreeplayMidiLabel(m, preferFlat);
     const freqNum = 440 * Math.pow(2, (m - 69) / 12);
-    const freqStr = (typeof getAppLanguage === "function" && ["en", "ur"].includes(getAppLanguage()))
+    const freqStr = (typeof getAppLanguage === "function" && ["en", "ur", "ar"].includes(getAppLanguage()))
       ? freqNum.toFixed(1)
       : freqNum.toFixed(1).replace(".", ",");
     return {
