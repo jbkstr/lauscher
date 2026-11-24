@@ -582,13 +582,17 @@ class AppState {
       mainTitle.textContent = tr("Ergebnis", "Result");
       el.textContent = getCategoryTitle(resCat);
     } else if (this.currentView === "warmup") {
+      const presetId = this.warmup?.presetId || "full-5min";
       const preset = typeof getLocalizedWarmupPreset === "function"
-        ? getLocalizedWarmupPreset(this.warmup?.presetId || "full-5min")
+        ? getLocalizedWarmupPreset(presetId)
         : null;
       const range = typeof getLocalizedWarmupVoiceRange === "function"
         ? getLocalizedWarmupVoiceRange(this.warmup?.voiceRange || "mixed")
         : null;
-      mainTitle.textContent = tr("Einsing-Helfer", "Vocal Warmup");
+      const isWarmupPreset = presetId === "full-5min" || presetId === "quick-3min";
+      mainTitle.textContent = isWarmupPreset
+        ? tr("Einsing-Helfer", "Vocal Warmup")
+        : tr("Singen", "Singing");
       el.textContent = `${preset ? preset.title : tr("5-Minuten Einsingen", "5-Min Warmup")} • ${range ? range.label : tr("Chor-Mitte", "Choir Mid")}`;
     } else if (this.currentView === "metronome") {
       const metro = this.metronome || {};

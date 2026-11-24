@@ -3325,6 +3325,14 @@ registerColocatedPhrases({
     uk: "Спів",
     ur: "گانا"
   },
+  "2. Programm starten": {
+    fr: "2. Lancer un programme",
+    es: "2. Iniciar programa",
+    it: "2. Avvia programma",
+    pl: "2. Uruchom program",
+    uk: "2. Запустити програму",
+    ur: "2. پروگرام شروع کریں"
+  },
   "Geführtes Atem-, Sirenen- & Stimmtraining mit Live-Kurve, Klavier-/Chor-Begleitung und Halbton-Steuerung": {
     fr: "Entraînement guidé du souffle, des sirènes et de la voix avec courbe en direct, piano/chœur et demi-tons",
     es: "Entrenamiento guiado de respiración, sirenas y voz con curva en vivo, piano/coro y semitonos",
