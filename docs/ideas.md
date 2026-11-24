@@ -35,3 +35,5 @@ Gesammelte Pläne, die bewusst auf später verschoben sind. Neue Einträge oben 
 
 ### Hinweis
 Am besten zusammen mit dem geplanten **visuellen Update** angehen, denn dann werden die Maskottchen-Grafiken ohnehin ersetzt. Die Accessoires sollten dann als Ebenen zu den neuen Grafiken passen, für alle Stimmungen.
+
+Das lokale Meilenstein-System in [js/achievements.js](../js/achievements.js) kann später direkt als Auslöser genutzt werden, um einzelne Lauscher-Looks freizuschalten (analog zu den Bonus-Themes und Profil-Titeln).

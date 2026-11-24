@@ -2394,6 +2394,20 @@ function recordExerciseStreakSuccess(ex) {
       : 0;
   }
   renderStageStreakUI();
+  if (typeof recordAchievementEvent === "function") {
+    const mode = ex.type || state?.settings?.mode || "";
+    const isNotationStaff = mode.startsWith("notation-") && mode !== "notation-symbols";
+    const isIntervalMode = mode.startsWith("interval-") && mode !== "interval-chords";
+    recordAchievementEvent({
+      type: "exercise-solved",
+      mode,
+      streak: state.streakState.count,
+      clefId: isNotationStaff ? (ex.targetItem?.clefId || ex.baseClefId || "") : "",
+      isTritone: isIntervalMode && Number(ex.targetItem?.semitones) === 6,
+      isFlowOrder: mode === "notation-symbols" && ex.promptKind === "flow-order",
+      isBlindTap: mode === "rhythm-tap" && Boolean(ex.blind)
+    });
+  }
   return {
     count: state.streakState.count,
     isMilestone: state.streakState.activeNoticeMilestone > 0

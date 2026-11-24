@@ -230,6 +230,9 @@ function captureCurrentExerciseAsMix(customTitle = "") {
   state.profile.mixes = [mix, ...(state.profile.mixes || [])].slice(0, 16);
   saveUserProfile(state.profile);
   renderProfileMixes();
+  if (typeof recordAchievementEvent === "function") {
+    recordAchievementEvent({ type: "personal-style" });
+  }
   return mix;
 }
 
@@ -1448,6 +1451,8 @@ function renderProfileAccountView() {
   syncLanguageControls(state.settings.language);
 
   renderExamHistoryCard();
+  if (typeof renderProfileTitleSelector === "function") renderProfileTitleSelector();
+  if (typeof renderSpaceAchievementsCard === "function") renderSpaceAchievementsCard();
   renderSessionTimerUI();
   renderProfileMixes();
   renderMixCreatorDropdowns();
@@ -1935,6 +1940,9 @@ function saveCustomThemeSlot() {
   rescueColorPickerToHost();
   document.getElementById("customThemeEditor")?.classList.add("hidden");
   setThemePreference(entry.id);
+  if (typeof recordAchievementEvent === "function") {
+    recordAchievementEvent({ type: "personal-style" });
+  }
   return entry;
 }
 
@@ -2218,6 +2226,9 @@ function importUserProfileJSON(rawText) {
       return { ok: false, error: tr("Ungültiges Profil-Format.", "Invalid profile format.") };
     }
     state.profile = sanitizeUserProfile(candidate);
+    if (typeof syncRetroactiveAchievements === "function") {
+      syncRetroactiveAchievements({ save: false });
+    }
     saveUserProfile(state.profile);
     if (state.customThemeEditor) state.customThemeEditor.open = false;
     stopSessionTimer("idle", null, "idle");

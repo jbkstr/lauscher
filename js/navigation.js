@@ -1215,6 +1215,9 @@ function switchView(targetView, options = {}) {
   if (targetView === "exercise" || targetView === "warmup") {
     markPracticeStarted();
   }
+  if (!options.refreshOnly && typeof recordAchievementEvent === "function" && typeof ACHIEVEMENT_TOOL_VIEWS !== "undefined" && ACHIEVEMENT_TOOL_VIEWS.has(targetView)) {
+    recordAchievementEvent({ type: "tool-used", tool: targetView });
+  }
 
   // Beim Starten eines Übungsmoduls wird zunächst das modulspezifische Standardtempo übernommen
   // (Kadenz & Solfège: 120 BPM, übrige Module: defaultBpm), bis der Nutzer im Modul manuell anpasst (außer bei Mix-Direktstart mit eigenem BPM).
@@ -1458,6 +1461,9 @@ function openKnowledgeRef(refKey, options = {}) {
     state.knowledgeReturnView = options.returnView || (state.currentView === "circle" ? "circle" : "knowledge");
   }
   state.activeKnowledgeDetail = { kind: "ref", key: refKey };
+  if (!options.refreshOnly && refKey && typeof recordAchievementEvent === "function") {
+    recordAchievementEvent({ type: "knowledge-seen", key: `ref:${refKey}` });
+  }
 
   if (refKey === "intervals") {
     state.knowledgeTitle = tr("Intervalle", "Intervals");
@@ -1874,6 +1880,9 @@ function openKnowledgeArticle(articleId, options = {}) {
     state.knowledgeReturnView = options.returnView || "knowledge";
   }
   state.activeKnowledgeDetail = { kind: "article", id: articleId };
+  if (!options.refreshOnly && articleId && typeof recordAchievementEvent === "function") {
+    recordAchievementEvent({ type: "knowledge-seen", key: `article:${articleId}` });
+  }
   state.knowledgeTitle = art.tag;
   state.knowledgeSub = art.title;
 

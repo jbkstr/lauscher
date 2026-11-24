@@ -1659,6 +1659,9 @@ function finishWarmupSession() {
   w.breathCueKey = "idle";
   w.vowelLabel = "";
   renderWarmupView();
+  if (typeof recordAchievementEvent === "function") {
+    recordAchievementEvent({ type: "warmup-finished", presetId: w.presetId });
+  }
 }
 
 function toggleWarmupPlayPause() {

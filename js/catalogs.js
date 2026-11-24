@@ -382,7 +382,7 @@ function getMascotSVG(mood = "idle", showAccessory = false, options = null) {
 const VISUAL_PREFS_STORAGE_KEY = "lauschebaer_visual_prefs_v1";
 const CUSTOM_THEMES_STORAGE_KEY = "lauschebaer_custom_themes_v1";
 const VALID_APPEARANCES = ["light", "dark", "system"];
-const VALID_THEMES = ["waldlichtung", "morgentau", "abenddaemmerung", "metal"];
+const VALID_THEMES = ["waldlichtung", "morgentau", "abenddaemmerung", "metal", "konzertsaal", "mitternacht"];
 const CUSTOM_THEME_SLOT_IDS = ["custom_1", "custom_2", "custom_3"];
 const ALL_VALID_THEMES = [...VALID_THEMES, ...CUSTOM_THEME_SLOT_IDS];
 
@@ -956,6 +956,58 @@ const THEME_PALETTE_META = {
       wave1: "#58A6E6",
       wave2: "#EB6A78",
       wave3: "#9EA6B4"
+    }
+  },
+  konzertsaal: {
+    light: {
+      bg: "#F9F5EC",
+      swatches: ["#F9F5EC", "#E8D5A3", "#D7B4A0", "#C9D3C0"],
+      grid: "rgba(69, 53, 38, 0.24)",
+      zeroLine: "rgba(69, 53, 38, 0.12)",
+      track1Label: "#6B551F",
+      track2Label: "#8B412A",
+      track3Label: "#453526",
+      wave1: "#A8842E",
+      wave2: "#C26A4A",
+      wave3: "#453526"
+    },
+    dark: {
+      bg: "#211D18",
+      swatches: ["#211D18", "#5E4D24", "#6A3E2F", "#3D4C39"],
+      grid: "rgba(243, 236, 224, 0.22)",
+      zeroLine: "rgba(243, 236, 224, 0.12)",
+      track1Label: "#E9CF8C",
+      track2Label: "#F0B199",
+      track3Label: "#F3ECE0",
+      wave1: "#DDB962",
+      wave2: "#E38B6A",
+      wave3: "#B8CEB0"
+    }
+  },
+  mitternacht: {
+    light: {
+      bg: "#F2F4FA",
+      swatches: ["#F2F4FA", "#B9CBEB", "#F0CF9B", "#B8DDD4"],
+      grid: "rgba(38, 48, 76, 0.24)",
+      zeroLine: "rgba(38, 48, 76, 0.12)",
+      track1Label: "#284B7A",
+      track2Label: "#8E5A14",
+      track3Label: "#26304C",
+      wave1: "#3D6FB3",
+      wave2: "#C9852B",
+      wave3: "#26304C"
+    },
+    dark: {
+      bg: "#161B29",
+      swatches: ["#161B29", "#2E466E", "#6B4E23", "#285852"],
+      grid: "rgba(232, 238, 250, 0.22)",
+      zeroLine: "rgba(232, 238, 250, 0.12)",
+      track1Label: "#94BEFA",
+      track2Label: "#F2C67C",
+      track3Label: "#E8EEFA",
+      wave1: "#6CA6F5",
+      wave2: "#E6AC4E",
+      wave3: "#7FD1C2"
     }
   }
 };
@@ -2328,7 +2380,12 @@ function createDefaultProfile() {
     seenTutorials: [],
     modesRootHintSeen: false,
     cadenceKeyHintSeen: false,
-    tuner: {}
+    tuner: {},
+    showAchievements: true,
+    selectedTitleId: "",
+    achievements: typeof createDefaultAchievementsData === "function"
+      ? createDefaultAchievementsData()
+      : { unlocked: {}, stats: {} }
   };
 }
 
@@ -2444,7 +2501,14 @@ function sanitizeUserProfile(raw) {
       : [],
     modesRootHintSeen: Boolean(raw.modesRootHintSeen),
     cadenceKeyHintSeen: Boolean(raw.cadenceKeyHintSeen),
-    tuner: sanitizeTunerPrefs(raw.tuner)
+    tuner: sanitizeTunerPrefs(raw.tuner),
+    showAchievements: raw.showAchievements !== false,
+    selectedTitleId: typeof raw.selectedTitleId === "string" && /^[a-z0-9-]{2,32}$/.test(raw.selectedTitleId)
+      ? raw.selectedTitleId
+      : "",
+    achievements: typeof sanitizeAchievementsData === "function"
+      ? sanitizeAchievementsData(raw.achievements)
+      : (raw.achievements && typeof raw.achievements === "object" ? raw.achievements : { unlocked: {}, stats: {} })
   };
 }
 

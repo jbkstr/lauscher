@@ -3044,6 +3044,36 @@ registerColocatedStatic({
     uk: "Твої завершені іспити за категоріями та рекорди (зберігаються локально на цьому пристрої).",
     ur: "آپ کے مکمل کردہ زمرہ امتحانات اور بہترین نتائج (صرف آپ کے آلے پر محفوظ)۔"
   },
+  "space.achievementsTitle": {
+    de: "Meilensteine",
+    en: "Milestones",
+    fr: "Jalons",
+    es: "Logros",
+    it: "Traguardi",
+    pl: "Kamienie milowe",
+    uk: "Досягнення",
+    ur: "سنگِ میل"
+  },
+  "space.achievementsSub": {
+    de: "Kleine musikalische Erinnerungen – 100 % lokal, ohne Zwang und jederzeit abschaltbar.",
+    en: "Gentle musical keepsakes — 100% local, zero pressure, and toggleable anytime.",
+    fr: "Petits repères musicaux — 100 % locaux, sans pression et désactivables à tout moment.",
+    es: "Pequeños recuerdos musicales — 100 % locales, sin presión y desactivables cuando quieras.",
+    it: "Piccoli traguardi musicali — 100% locali, senza pressione e disattivabili in qualsiasi momento.",
+    pl: "Drobne muzyczne wspomnienia — w 100% lokalne, bez presji i możliwe do wyłączenia w każdej chwili.",
+    uk: "Невеликі музичні спогади — на 100% локально, без тиску й можна вимкнути будь-коли.",
+    ur: "موسیقی کی چھوٹی یادگاریں — 100% مقامی، بغیر کسی دباؤ کے اور کسی بھی وقت بند کی جا سکتی ہیں۔"
+  },
+  "space.achievementsToggleAria": {
+    de: "Meilensteine anzeigen",
+    en: "Show milestones",
+    fr: "Afficher les jalons",
+    es: "Mostrar logros",
+    it: "Mostra traguardi",
+    pl: "Pokaż kamienie milowe",
+    uk: "Показувати досягнення",
+    ur: "سنگِ میل دکھائیں"
+  },
   "space.examHistoryClear": {
     de: "Verlauf löschen",
     en: "Clear History",
@@ -4563,6 +4593,26 @@ registerColocatedStatic({
     pl: "Metal",
     uk: "Метал",
     ur: "میٹل"
+  },
+  "settings.themeConcert": {
+    de: "Konzertsaal",
+    en: "Concert Hall",
+    fr: "Salle de concert",
+    es: "Sala de conciertos",
+    it: "Sala da concerto",
+    pl: "Sala koncertowa",
+    uk: "Концертний зал",
+    ur: "کنسرٹ ہال"
+  },
+  "settings.themeMidnight": {
+    de: "Mitternachts-Jazz",
+    en: "Midnight Jazz",
+    fr: "Jazz de minuit",
+    es: "Jazz de medianoche",
+    it: "Jazz di mezzanotte",
+    pl: "Północny jazz",
+    uk: "Опівнічний джаз",
+    ur: "آدھی رات جاز"
   },
   "settings.themeActive": {
     de: "Aktiv",
