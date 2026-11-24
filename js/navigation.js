@@ -4885,7 +4885,7 @@ function openCategoryPage(categoryKey, options = {}) {
       </div>
 
       <div class="subpage-section">
-        <h3 class="subpage-section-title">${tr("2. Einsing-Programm starten", "2. Start Warmup Routine")}</h3>
+        <h3 class="subpage-section-title">${tr("2. Programm starten", "2. Start Routine")}</h3>
         <p class="subpage-section-desc">${tr("Geführtes Atem-, Sirenen- & Stimmtraining mit Live-Kurve, Klavier-/Chor-Begleitung und Halbton-Steuerung", "Guided breath, siren & vocal training with live curve, piano/choir accompaniment & semitone control")}</p>
         <div class="subpage-nodes-grid">
           ${WARMUP_PRESETS.map(p => `
