@@ -4,30 +4,36 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 
 ## Tech-Stack & Architektur
 
-- **Vanilla JS, kein Framework, kein npm, kein Build-Schritt, keine externen JS-Bibliotheken.** Alle Dateien sind klassische globale Skripte, die [index.html](index.html) per `<script>` in fester Reihenfolge lädt: `samples/*-bundle.js` → `audio.js` → `i18n.js` → `i18n/*.js` → `knowledge*.js` → `version.js` → `legal.js` → `js/catalogs.js` … `js/profile.js` → `app.js` → `js/warmup.js` … `js/exam.js`. Es gibt keine ES-Module und kein `import`/`export`, und alles teilt sich einen globalen Scope. Externe CDNs oder Netzwerkaufrufe gibt es nicht, und das soll so bleiben.
-- **Datei- & Modul-Karte (App-Logik):** Große Dateien gezielt per `grep -n` oder direkt im passenden Modul öffnen.
-  - [js/catalogs.js](js/catalogs.js) (~2.180 Z.): Themes, Custom-Theme-Persistenz, Visual-Prefs, Profil-Defaults & Musik-Kataloge (Stufen, Intervalle, Akkorde, Modi, Rhythmus, Produktion, Metronom)
-  - [js/state.js](js/state.js) (~1.160 Z.): `AppState`, `state`, `audioEngine`, Theme-/Sprach-/Settings-/AutoNext-/Piano-/Drone-Sync
-  - [js/notation.js](js/notation.js) (~1.840 Z.): Notensystem- & Rhythmus-SVG-Renderer, Melodie-/Kadenz-/Akkord-/Groove-Event-Builder, Tap-Auswertung
-  - [js/navigation.js](js/navigation.js) (~3.930 Z.): Routing, History & Capacitor-Bridge, Tab-Swipe, Über-/Rechts-Fenster, Wissens-Hub (Wellen-/Spektrum-Tools), Kategorie- & Hilfe-Seiten
-  - [js/generators.js](js/generators.js) (~2.040 Z.): Sitzungs-Gedächtnis (Anti-Repeat) & alle Übungs-Generatoren (`generateExercise` für alle Kategorien)
-  - [js/exercises.js](js/exercises.js) (~3.720 Z.): Übungs-UI, Klaviaturen (Notation/Solfège), Melodie-Notensystem, Modi-Popovers, Mitsingen/Summ-Pause, `renderUI`, Antwort-Kacheln, `fitExerciseLayout`, Bühne/Maskottchen, Inline-Notationskopf
-  - [js/playback.js](js/playback.js) (~2.560 Z.): Antwort-Auswertung (`handleAnswer`), Rhythmus-Tap-Pad, EQ-Vergleich, Modi-Wiedergabe, Nur-Hören-Modus, `playSequence`, Play-Button-UI
-  - [js/profile.js](js/profile.js) (~2.390 Z.): Mixer-Sync, Home-Schnellmix & Begrüßung, Sitzungs-Timer & Pausen-Erinnerung, Übe-Mixe, eigene Dropdowns, Mein Konto, Farb-Editor, Toasts, Profil-Backup & App-Reset
-  - [app.js](app.js) (~1.580 Z.): Einstiegspunkt – Markenname-Styling (`startBrandWordStyling`) & `DOMContentLoaded`-Initialisierung
-  - [js/warmup.js](js/warmup.js) (~1.140 Z.): Einsing-Helfer (`#viewWarmup`)
-  - [js/metronome.js](js/metronome.js) (~930 Z.): Praxis-Metronom (`#viewMetronome`, `initMetronomeEventListeners`)
-  - [js/tuner.js](js/tuner.js) (~1.020 Z.): Chromatischer Tuner (`#viewTuner`)
+- **Vanilla JS, kein Framework, kein npm, kein Build-Schritt, keine externen JS-Bibliotheken.** Alle Dateien sind klassische globale Skripte, die [index.html](index.html) per `<script>` in fester Reihenfolge lädt: `samples/*-bundle.js` → `audio.js` → `i18n.js` → `i18n/*.js` → `knowledge*.js` → `version.js` → `legal.js` → `js/catalogs.js` → `js/achievements.js` → `js/tuner-dsp.js` → `js/state.js` … `js/profile.js` → `app.js` → `js/warmup.js` … `js/capo.js` → `js/onboarding.js` → `js/exam.js`. Es gibt keine ES-Module und kein `import`/`export`, und alles teilt sich einen globalen Scope. Externe CDNs oder Netzwerkaufrufe gibt es nicht, und das soll so bleiben.
+- **Datei- & Modul-Karte (App-Logik):** Große Dateien gezielt per `grep -n` oder direkt im passenden Modul öffnen. Zeilenzahlen sind Richtwerte (Stand 2026-11-24).
+  - [js/catalogs.js](js/catalogs.js) (~2.700 Z.): Themes, Custom-Theme-Persistenz, Visual-Prefs, Profil-Defaults & Musik-Kataloge (Stufen, Intervalle, Akkorde, Modi, Rhythmus, Produktion, Metronom)
+  - [js/achievements.js](js/achievements.js) (~950 Z.): Lokale Meilensteine, Musiker-Titel & Bonus-Themes (gespeichert in `state.profile.achievements`, Texte in [i18n/achievements.js](i18n/achievements.js)). Enthält den Entwickler-Schalter `DEV_ACHIEVEMENTS_TAP_UNLOCK_ENABLED` (7× Tippen aufs Versions-Badge), der vor einem Release auf `false` muss.
+  - [js/tuner-dsp.js](js/tuner-dsp.js) (~940 Z.): Reine Tuner-Signalverarbeitung ohne DOM (Instrumenten-Profile, Tiefton-Dezimierung, Onset-Erkennung, Pitch-Lock)
+  - [js/state.js](js/state.js) (~1.340 Z.): `AppState`, `state`, `audioEngine`, Theme-/Sprach-/Settings-/AutoNext-/Piano-/Drone-Sync
+  - [js/notation.js](js/notation.js) (~1.870 Z.): Notensystem- & Rhythmus-SVG-Renderer, Melodie-/Kadenz-/Akkord-/Groove-Event-Builder, Tap-Auswertung
+  - [js/notation-terms.js](js/notation-terms.js) (~1.300 Z.): Notationsbegriffe, Symbole & SVGs für die Übung `notation-symbols` und das Nachschlagewerk im Wissens-Hub (Texte in [i18n/notation-terms.js](i18n/notation-terms.js))
+  - [js/navigation.js](js/navigation.js) (~5.170 Z.): Routing, History & Capacitor-Bridge, Tab-Swipe, Über-/Rechts-Fenster, Wissens-Hub (Wellen-/Spektrum-Tools), Quintenzirkel (`#viewCircle`), Kategorie- & Hilfe-Seiten
+  - [js/generators.js](js/generators.js) (~2.550 Z.): Sitzungs-Gedächtnis (Anti-Repeat) & alle Übungs-Generatoren (`generateExercise` für alle Kategorien)
+  - [js/exercises.js](js/exercises.js) (~4.300 Z.): Übungs-UI, Klaviaturen (Notation/Solfège), Melodie-Notensystem, Modi-Popovers, Mitsingen/Summ-Pause, `renderUI`, Antwort-Kacheln, `fitExerciseLayout`, Bühne/Maskottchen, Inline-Notationskopf
+  - [js/playback.js](js/playback.js) (~2.730 Z.): Antwort-Auswertung (`handleAnswer`), Rhythmus-Tap-Pad, EQ-Vergleich, Modi-Wiedergabe, Nur-Hören-Modus, `playSequence`, Play-Button-UI
+  - [js/tutorial.js](js/tutorial.js) (~1.120 Z.): Interaktive Vormach-Tutorials pro Übungsmechanik (`#exerciseTutorialBackdrop`, `openExerciseTutorialIntro`)
+  - [js/profile.js](js/profile.js) (~2.470 Z.): Mixer-Sync, Home-Schnellmix & Begrüßung, Sitzungs-Timer & Pausen-Erinnerung, Übe-Mixe, eigene Dropdowns, Mein Konto, Farb-Editor, Toasts, Profil-Backup & App-Reset
+  - [app.js](app.js) (~1.620 Z.): Einstiegspunkt – Markenname-Styling (`startBrandWordStyling`) & `DOMContentLoaded`-Initialisierung
+  - [js/warmup.js](js/warmup.js) (~1.810 Z.): Singen / Einsing-Helfer (`#viewWarmup`)
+  - [js/metronome.js](js/metronome.js) (~940 Z.): Praxis-Metronom (`#viewMetronome`, `initMetronomeEventListeners`)
+  - [js/tuner.js](js/tuner.js) (~2.480 Z.): Chromatischer Tuner, UI & Mikrofon (`#viewTuner`), nutzt `js/tuner-dsp.js`
   - [js/freeplay.js](js/freeplay.js) (~1.130 Z.): Klang-Labor / Freies Spiel (`#viewFreeplay`)
-  - [js/fretboard.js](js/fretboard.js) (~1.640 Z.): Gitarren-Griffbrett (`#viewFretboard`)
-  - [js/onboarding.js](js/onboarding.js) (~520 Z.): Willkommens-Wizard & Startup-Splash (`#welcomeOnboarding`, `#startupSplash`)
-  - [js/exam.js](js/exam.js) (~2.280 Z.): Kategorie-Prüfungsmodus, Auswertung, Audio-Review & Verlauf
+  - [js/fretboard.js](js/fretboard.js) (~1.810 Z.): Gitarren-Griffbrett (`#viewFretboard`)
+  - [js/nashville.js](js/nashville.js) (~590 Z.): Nashville Number System (`#viewNashville`) und gemeinsame Tonarten-/Akkord-Helfer
+  - [js/capo.js](js/capo.js) (~270 Z.): Kapodaster-Übersetzer (`#viewCapo`), nutzt die Helfer aus `js/nashville.js`
+  - [js/onboarding.js](js/onboarding.js) (~560 Z.): Willkommens-Wizard & Startup-Splash (`#welcomeOnboarding`, `#startupSplash`)
+  - [js/exam.js](js/exam.js) (~2.640 Z.): Kategorie-Prüfungsmodus, Auswertung, Audio-Review & Verlauf
 - **[audio.js](audio.js)**: Reine native WebAudio-Engine (ohne Tone.js) – `AudioEngine`, `EarLabSampledInstrument`, `EarLabNativeSynth`, automatisches Multi-Stem-Headroom-Scaling (`stemMixCompGain`), Master-Compressor + transparenter `WaveShaperNode`-Soft-Clipper (`±0,94` Decke gegen digitales Clipping), synchron generierter Faltungshall (1,15 s mobil / 1,65 s Desktop, ohne `OfflineAudioContext`/Freeverb), globales Voice-Budget (22 mobil / 36 Desktop), Sample-Ende-Schutz, Zero-Copy-Trim-Offsets, knacksfreies Ausblenden per `setTargetAtTime` und Playback-bewusstes, schonendes Sample-Decoding. Samples kommen aus `window.EARLAB_SAMPLE_PACKS`; fehlt ein Sample, springt `EarLabNativeSynth` ein. `playStep()` triggert nur Stems mit Mixer-Pegel > 0.
 - **Audio auf iPhone (Safari/WKWebView):** Ton darf nur direkt im Tipp gestartet werden. Klick-Handler, die sofort einen Klang auslösen, rufen `prepareAudioNonBlocking()` auf (synchroner Unlock + `buildAudioGraphSync`) statt vorher `await ensureAudioReady()` – ein `await` vor dem Abspielen verliert auf iOS die Nutzer-Geste. Die Unlock-Listener im Init bleiben aktiv, bis `audioEngine.isAudioUnlocked()` wahr ist, und werden nach Rückkehr aus dem Hintergrund neu scharf gestellt (`markAudioSessionInterrupted`).
 - **[styles.css](styles.css)**: Alle Themes laufen über CSS-Variablen und `data-theme` / `data-appearance` / `data-lang` auf `<html>`. RTL (Urdu) läuft über `dir="rtl"`.
 - **Schrift: Andika** (SIL Open Font License, [fonts/Andika/](fonts/Andika/)). Eingebunden per `@font-face` ganz oben in styles.css. Andika hat nur Regular und Bold: Stärke 100–549 nutzt Regular, 550–1000 Bold. Für Urdu bleibt die arabische Schrift-Kette (Andika hat keine arabischen Zeichen). Keine eigenen `font-family`-Werte (auch kein Monospace) setzen. Ausnahmen sind SVG-`<text>` mit `font-family`-Attribut und Canvas (`ctx.font`): Dort muss „Andika“ explizit genannt werden. index.html lädt die Fonts per `<link rel="preload">` vor; das Build-Skript entfernt diese Links im Bundle.
 - **Markenname „Lauscher“ wird immer fett und kursiv dargestellt.** Ein `MutationObserver` in app.js (`startBrandWordStyling`) umschließt jedes sichtbare „Lauscher“ automatisch mit `<span class="brand-word">`. In Texten und Übersetzungen deshalb **nie** von Hand formatieren. Wer Text-Knoten direkt manipuliert, muss `.brand-word`-Spans berücksichtigen (siehe `setElementLocalizedText` in i18n.js).
-- **Navigation:** untere Leiste `#bottomNav` mit 4 Reitern: Übungen (`home`) | Werkzeuge (`tools`, `#viewTools` mit Metronom `#viewMetronome`, chromatischem Tuner `#viewTuner`, Freiem Spiel/Klang-Labor `#viewFreeplay` und Gitarren-Griffbrett `#viewFretboard`) | Wissen (`knowledge`, erster Reiter heißt „Theorie“) | Konto (`space`).
+- **Navigation:** untere Leiste `#bottomNav` mit 4 Reitern: Übungen (`home`) | Werkzeuge (`tools`, `#viewTools` mit Metronom `#viewMetronome`, chromatischem Tuner `#viewTuner`, Freiem Spiel/Klang-Labor `#viewFreeplay` und Gitarren-Griffbrett `#viewFretboard`, Quintenzirkel `#viewCircle`, Nashville Number System `#viewNashville` und Kapodaster-Übersetzer `#viewCapo`) | Wissen (`knowledge`, erster Reiter heißt „Theorie“) | Konto (`space`).
 - **Startseite:** „Weiterüben“ ist ein schwebender Knopf (`#quickStartBtn.home-continue-fab`). Ist im Profil ein Name gesetzt, sprechen Startseiten-Zitate und Übungs-Bühne den Nutzer persönlich an (`getProfileUserName`, `getPersonalized…StageSubtext`).
 - **Nur Hochformat:** Auf Handys im Querformat legt sich `#portraitLockOverlay` per Media-Query über die App; in der Android-App setzt das Sync-Skript zusätzlich `android:screenOrientation="portrait"`.
 - **Dropdowns:** Auswahlfelder nutzen eigene Dropdowns statt `<select>`: `renderProfileSingleDropdown({containerEl, key, options, selectedKey, onSelect})` für Einfachauswahl (z. B. Sprache in den Einstellungen, Übe-Mix-Erstellung), Mehrfachauswahl im gleichen Stil (`multi-dropdown-*`). Das offene Dropdown steht in `_openProfileDropdownKey`; Außenklick und Android-„Zurück“ schließen es automatisch.
@@ -41,13 +47,14 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 - Aufbau: oberes Modul (`#exerciseModuleCard`) und Antwortbereich (`.bottom-dock`) behalten ihre Höhe; die **mittlere Bühne** (`.stage-wrapper`) nimmt nur den Restplatz und verdichtet sich per Container-Query (`@container exstage`) bis zur Querform bzw. reinen Textzeile.
 - Reicht das nicht, setzt `fitExerciseLayout()` in app.js stufenweise `.fit-1` … `.fit-3` auf `#viewExercise` (Regeln am Ende von styles.css). Ein `ResizeObserver` misst neu, wenn z. B. die Vergleichskarte erscheint; innerhalb einer Aufgabe wird nur weiter verdichtet, nie zurück. Die Mitsing-Einführung schwebt bei Platzmangel über der Bühne (`.sing-hint-float`).
 - Die Regel gilt nur für `#viewExercise`. Andere Ansichten (z. B. `#viewMetronome`) nutzen `.view-container` und dürfen scrollen – ihnen deshalb nicht die Klasse `.view-exercise-container` geben.
-- Neue Elemente in Übungen müssen in dieses System passen: bei neuen Blöcken im oberen Modul oder Antwortbereich auch `.fit-*`-Varianten ergänzen. Prüfen auf 375×667 und 360×640 mit allen Übungsarten und höchster Stufe (Messung: `view.scrollHeight <= view.clientHeight` und Bühne ≥ `EXERCISE_MIN_STAGE_PX`).
+- Neue Elemente in Übungen müssen in dieses System passen: bei neuen Blöcken im oberen Modul oder Antwortbereich auch `.fit-*`-Varianten ergänzen. Prüfen auf 375×667 und 360×640 mit allen Übungsarten und höchster Stufe (Messung: `view.scrollHeight <= view.clientHeight` und Bühne ≥ `EXERCISE_MIN_STAGE_PX`). Achtung: Ein offenes Übungs-Tutorial (`#exerciseTutorialBackdrop`, `inset: -4px`) erhöht `scrollHeight` um 4 px. Vor dem Messen also das Tutorial schließen.
 
 ## Mehrsprachigkeit (de, en, fr, es, it, pl, tr, uk, ur, ar)
 
 - Deutsch ist die Standard- und Quellsprache. Die Runtime-Engine liegt in [i18n.js](i18n.js); alle Übersetzungen liegen **ko-lokalisiert** (alle Sprachen pro Schlüssel direkt untereinander) in `i18n/`:
   - [i18n/static.js](i18n/static.js): alle statischen UI-Texte (`data-i18n="key"` in `index.html`) für alle 10 Sprachen (`de`, `en`, `fr`, `es`, `it`, `pl`, `tr`, `uk`, `ur`, `ar`) via `registerColocatedStatic(...)`.
   - [i18n/quotes.js](i18n/quotes.js): alle Startseiten-Zitate (`LAUSCHEBAER_QUOTES`) für alle 10 Sprachen via `registerColocatedQuotes(...)`.
+  - [i18n/notation-terms.js](i18n/notation-terms.js) und [i18n/achievements.js](i18n/achievements.js): Texte für Notationssymbole bzw. Meilensteine, Titel & Bonus-Themes (alle 10 Sprachen).
   - [i18n/tables.js](i18n/tables.js): alle 23 Musik- und App-Tabellen (Intervalle, Akkorde, Modi, Rhythmus, Produktion, Profil usw.) via `registerColocatedTables(...)`.
   - [i18n/phrases-core.js](i18n/phrases-core.js), [i18n/phrases-exercises.js](i18n/phrases-exercises.js), [i18n/phrases-tools.js](i18n/phrases-tools.js): dynamische `tr("Deutsch", "English")`- und `tf(de, en, vars)`-Übersetzungen für `fr`, `es`, `it`, `pl`, `tr`, `uk`, `ur`, `ar` nach deutschem Schlüssel via `registerColocatedPhrases(...)`.
     - ⚠️ Wird ein deutscher Text in einem `tr()`/`tf()`-Aufruf geändert, muss derselbe Schlüssel in der passenden `i18n/phrases-*.js`-Datei angepasst werden – `python3 scripts/check-project.py --strict` deckt fehlende Schlüssel sofort auf.
@@ -58,7 +65,7 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 ## Daten & Speicher
 
 - Alles liegt lokal in `localStorage`. Schlüssel: `lauschebaer_visual_prefs_v1`, `lauschebaer_profile_v1`, `lauschebaer_custom_themes_v1`.
-- Die Struktur gespeicherter Daten nicht ohne Migration ändern, da bestehende Profile weiter funktionieren müssen. Export und Import laufen über `lauscher-profil-JJJJ-MM-TT.json` (`exportUserProfileBackup` / `importUserProfileJSON`, nur Profil, kein Fortschritt).
+- Die Struktur gespeicherter Daten nicht ohne Migration ändern, da bestehende Profile weiter funktionieren müssen. Export und Import laufen über `lauscher-profil-JJJJ-MM-TT.json` (`exportUserProfileBackup` / `importUserProfileJSON`, nur Profil, kein Übungsfortschritt). Die Meilensteine (`state.profile.achievements`) liegen im Profil: Sie werden mitgesichert und beim Import ersetzt (danach gleicht `syncRetroactiveAchievements` nach).
 
 ## Samples
 
@@ -67,7 +74,7 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 
 ## Mobile-Bundle
 
-- [lauscher-mobile.html](lauscher-mobile.html) (~12,7 MB) ist eine **komplett eigenständige Einzeldatei** mit allen CSS-, JS-, Font- und Sample-Inhalten inline (keine externe `tone.js` mehr nötig).
+- [lauscher-mobile.html](lauscher-mobile.html) (~15,8 MB) ist eine **komplett eigenständige Einzeldatei** mit allen CSS-, JS-, Font- und Sample-Inhalten inline (keine externe `tone.js` mehr nötig).
 - Die Datei wird von [scripts/build-mobile-bundle.py](scripts/build-mobile-bundle.py) aus `index.html` erzeugt: `styles.css` und alle `<script src>` werden inline eingesetzt. Lokale Dateien, die im CSS per `url(...)` eingebunden sind (die Fonts & Icons), werden als Base64 eingebettet. Diese Datei nie direkt bearbeiten und nicht lesen (zu groß).
 - **Nach jeder Änderung an index.html, styles.css oder einer JS-Datei das Bundle neu bauen und mitcommitten:**
   ```bash
@@ -90,8 +97,9 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 ## Version, Build-Nummer & Releases
 
 - **Einzige Quelle:** [version.js](version.js) (`LAUSCHER_VERSION = { name, build, date }`). `name` ist die sichtbare Version (SemVer, z. B. `0.9.0-beta`), `build` die fortlaufende Build-Nummer (= Android `versionCode`, darf nie sinken).
-- **Hochzählen nur per Skript:** `python3 scripts/bump-version.py` (Build +1) bzw. `--name 0.9.1-beta` (neue Version + Build +1); legt oben in [CHANGELOG.md](CHANGELOG.md) einen Abschnitt aus den Commits seit dem letzten Tag an. **Der Changelog wird auf Englisch geführt.** `--show` zeigt den Stand. Nur bei einem echten Release hochzählen, nicht bei jeder Änderung.
+- **Hochzählen nur per Skript:** `python3 scripts/bump-version.py` (Build +1) bzw. `--name 0.9.1-beta` (neue Version + Build +1); legt oben in [CHANGELOG.md](CHANGELOG.md) einen Abschnitt aus den Commits seit dem letzten Tag an. **Der Changelog wird auf Englisch geführt.** Änderungen seit dem letzten Release sammeln sich oben unter `## Unreleased`; das Skript macht daraus beim Hochzählen den neuen Versionsabschnitt (ohne zusätzliche Commit-Liste). `--show` zeigt den Stand. Nur bei einem echten Release hochzählen, nicht bei jeder Änderung.
 - Das Über-Fenster (`renderAboutVersionBadge`) und die Infozeile der Kontakt-Mail lesen `version.js`; `scripts/sync-android.sh` schreibt `versionName`/`versionCode` in `android/app/build.gradle`.
+- **Vor jedem Release:** `DEV_ACHIEVEMENTS_TAP_UNLOCK_ENABLED` in [js/achievements.js](js/achievements.js) auf `false` und prüfen, ob `LAUSCHER_LEGAL_DRAFT` in [legal.js](legal.js) noch `true` sein soll.
 - **APK-Release:** signiert in Android Studio (Build → Generate Signed App Bundle / APK → APK → release). Die Datei heißt automatisch `lauscher-<name>-build<build>-release.apk` (vom Sync-Skript in `build.gradle` eingetragen, Marker `LAUSCHER_APK_NAMING`). Dann Git-Tag `v<name>` und GitHub-Release mit der APK als Anhang. APKs nie ins Repo committen. Der Release-Keystore liegt außerhalb des Repos und darf nie verloren gehen (sonst keine Updates mehr möglich).
 
 ## Lokal starten & testen

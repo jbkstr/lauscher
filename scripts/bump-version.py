@@ -7,7 +7,8 @@ Lauscher • Version hochzählen (version.js + CHANGELOG.md)
   python3 scripts/bump-version.py --show             # aktuellen Stand anzeigen
 
 - Die Build-Nummer (Android versionCode) steigt bei jedem Aufruf um 1 und darf nie sinken.
-- In CHANGELOG.md (auf Englisch) wird oben ein neuer Abschnitt angelegt, vorbefüllt mit den
+- In CHANGELOG.md (auf Englisch) wird ein vorhandener „## Unreleased“-Abschnitt zum neuen Release;
+  sonst wird oben ein neuer Abschnitt angelegt, vorbefüllt mit den
   Commit-Titeln seit dem letzten Git-Tag (danach kürzen und auf Englisch für Nutzer formulieren).
 - Das Skript committet und taggt nichts; die nächsten Schritte werden am Ende ausgegeben.
 Nur Python-Standardbibliothek.
@@ -66,6 +67,12 @@ def add_changelog_section(name, build, date):
     section = f"{header}\n\n{hint}\n{body}\n"
     if CHANGELOG_FILE.exists():
         text = CHANGELOG_FILE.read_text(encoding="utf-8")
+        # Bereits gepflegter „## Unreleased“-Abschnitt wird zum neuen Release (ohne Commit-Liste)
+        unreleased = re.search(r"^## Unreleased[^\n]*$", text, flags=re.MULTILINE)
+        if unreleased:
+            text = text[:unreleased.start()] + header + text[unreleased.end():]
+            CHANGELOG_FILE.write_text(text, encoding="utf-8")
+            return
         marker = "\n## "
         idx = text.find(marker)
         text = (text[:idx + 1] + section + "\n" + text[idx + 1:]) if idx != -1 else (text.rstrip() + "\n\n" + section)
@@ -100,7 +107,7 @@ def main():
     tag_exists = bool(git("tag", "--list", tag))
     print(f"✓ Version: {name} (Build {build}) → {new_name} (Build {new_build})")
     if not args.no_changelog:
-        print("✓ CHANGELOG.md: neuer Abschnitt angelegt – bitte Einträge prüfen")
+        print("✓ CHANGELOG.md: Abschnitt angelegt bzw. „Unreleased“ übernommen – bitte Einträge prüfen")
     print("\nNächste Schritte:")
     print("  1. ./scripts/sync-android.sh --no-open   (überträgt Version ins Android-Projekt)")
     print("  2. In Android Studio: Build → Generate Signed App Bundle / APK → APK → release")
