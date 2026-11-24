@@ -668,7 +668,7 @@ function setSelectedProfileTitle(titleId) {
 function renderProfileTitleSelector() {
   const badgeEl = document.getElementById("spaceProfileTitleBadge");
   const fieldEl = document.getElementById("profileTitleField");
-  const selectEl = document.getElementById("profileTitleSelect");
+  const hostEl = document.getElementById("profileTitleDropdown");
   const labelEl = document.getElementById("profileTitleLabel");
 
   const enabled = state?.profile?.showAchievements !== false;
@@ -689,20 +689,36 @@ function renderProfileTitleSelector() {
     labelEl.textContent = formatAchievementUI("titleLabel");
   }
 
-  if (!fieldEl || !selectEl) return;
+  if (!fieldEl || !hostEl) return;
   if (!enabled || unlockedTitles.length === 0) {
     fieldEl.classList.add("hidden");
+    hostEl.innerHTML = "";
     return;
   }
 
   fieldEl.classList.remove("hidden");
   const currentId = typeof state.profile.selectedTitleId === "string" ? state.profile.selectedTitleId : "";
-  const optionsHtml = [
-    `<option value="">${escapeHtml(getLocalizedAchievementTitleLabel("none"))}</option>`,
-    ...unlockedTitles.map(t => `<option value="${escapeHtml(t.id)}">${escapeHtml(getLocalizedAchievementTitleLabel(t.id))}</option>`)
-  ].join("");
-  selectEl.innerHTML = optionsHtml;
-  selectEl.value = unlockedTitles.some(t => t.id === currentId) ? currentId : "";
+  const selectedKey = unlockedTitles.some(t => t.id === currentId) ? currentId : "";
+  const options = [
+    { key: "", label: getLocalizedAchievementTitleLabel("none") },
+    ...unlockedTitles.map(t => ({
+      key: t.id,
+      label: getLocalizedAchievementTitleLabel(t.id)
+    }))
+  ];
+
+  if (typeof renderProfileSingleDropdown === "function") {
+    renderProfileSingleDropdown({
+      containerEl: hostEl,
+      key: "profile-title",
+      options,
+      selectedKey,
+      ariaLabelledBy: "profileTitleLabel",
+      onSelect: (nextId) => {
+        setSelectedProfileTitle(nextId);
+      }
+    });
+  }
 }
 
 function renderSpaceAchievementsCard() {
@@ -927,14 +943,6 @@ function initAchievementsSystem() {
       setAchievementsEnabled(btn.dataset.achievementsToggle === "on");
     });
   });
-
-  const titleSelect = document.getElementById("profileTitleSelect");
-  if (titleSelect && titleSelect.dataset.achBound !== "1") {
-    titleSelect.dataset.achBound = "1";
-    titleSelect.addEventListener("change", () => {
-      setSelectedProfileTitle(titleSelect.value);
-    });
-  }
 
   bindDevAchievementsVersionTap();
   renderProfileTitleSelector();
