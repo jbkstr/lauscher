@@ -1273,7 +1273,8 @@ const MIX_MODE_CATALOG = {
   "notation-alto":         { label: "Notation • Altschlüssel",      levels: [1, 2, 3, 4] },
   "notation-mixed":        { label: "Notation • Schlüssel-Mix",     levels: [1, 2, 3, 4] },
   "notation-grand":        { label: "Notation • Doppelsystem",      levels: [1, 2, 3, 4] },
-  "notation-chords":       { label: "Notation • Akkorde lesen",     levels: [1, 2, 3, 4] }
+  "notation-chords":       { label: "Notation • Akkorde lesen",     levels: [1, 2, 3, 4] },
+  "notation-symbols":      { label: "Notation • Symbole & Begriffe", levels: [1, 2, 3, 4, 5] }
 };
 
 function createDefaultMixes() {
@@ -1917,6 +1918,17 @@ const EXAM_CATEGORY_LEVELS = {
         },
         modes: ["notation-treble", "notation-bass", "notation-alto"],
         apply: { notationDifficulty: 4, notationKeyMode: "all" }
+      },
+      {
+        id: "notation_l7",
+        levelNumber: 7,
+        title: { de: "Stufe 7 • Symbole, Begriffe & Ablauf", en: "Level 7 • Symbols, Terms & Roadmaps" },
+        desc: {
+          de: "Dynamik, Tempo, Artikulation, Verzierungen, Coda, Segno & Spielreihenfolgen",
+          en: "Dynamics, tempo, articulation, ornaments, Coda, Segno & score roadmaps"
+        },
+        modes: ["notation-symbols"],
+        apply: { notationDifficulty: 5, notationKeyMode: "none" }
       }
     ]
   }
@@ -2542,7 +2554,8 @@ const MODE_CATEGORY_MAP = {
   "notation-alto":         "notation",
   "notation-mixed":        "notation",
   "notation-grand":        "notation",
-  "notation-chords":       "notation"
+  "notation-chords":       "notation",
+  "notation-symbols":      "notation"
 };
 
 /**

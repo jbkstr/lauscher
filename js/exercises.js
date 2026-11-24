@@ -1199,8 +1199,9 @@ function renderUI() {
   const isSolfege = ex.type === "solfege";
   const isMelody = ex.type === "melody";
   const isNotation = isNotationMode(ex.type);
+  const isNotationSymbols = isNotationSymbolsMode(ex.type);
   const isNotationChordChoice = isNotationChordMode(ex.type);
-  const isKeyboardMode = isSolfege || isMelody || (isNotation && !isNotationChordChoice);
+  const isKeyboardMode = isSolfege || isMelody || (isNotation && !isNotationChordChoice && !isNotationSymbols);
   syncAnswerCueState();
   const isRhythmMeter = ex.type === "rhythm-meter";
   const isRhythmDict = ex.type === "rhythm-dictation";
@@ -1215,9 +1216,11 @@ function renderUI() {
   document.getElementById("exerciseModuleCard")?.classList.toggle("is-solfege", isSolfege || isMelody);
   document.getElementById("exerciseModuleCard")?.classList.toggle("is-melody", isMelody || isRhythmDict || isRhythmTap);
   document.getElementById("exerciseModuleCard")?.classList.toggle("is-notation", isNotation);
+  document.getElementById("exerciseModuleCard")?.classList.toggle("is-notation-symbols", isNotationSymbols);
   document.getElementById("centralStageCard")?.classList.toggle("is-solfege", isSolfege || isMelody);
   document.getElementById("centralStageCard")?.classList.toggle("is-melody", isMelody);
   document.getElementById("centralStageCard")?.classList.toggle("is-notation", isNotation);
+  document.getElementById("centralStageCard")?.classList.toggle("is-notation-symbols", isNotationSymbols);
   document.getElementById("centralStageCard")?.classList.toggle("is-rhythm-tap", isRhythmTap);
 
   // Im oberen Aufgabenmodul eingebettete Steuerungs-Buttons aktualisieren:
@@ -1242,11 +1245,11 @@ function renderUI() {
   }
 
   if (moduleNotationKeyBtn) {
-    moduleNotationKeyBtn.classList.toggle("hidden", !isNotation);
+    moduleNotationKeyBtn.classList.toggle("hidden", !isNotation || isNotationSymbols);
   }
 
   syncNotationPaceVisibility(ex);
-  if (isNotation) {
+  if (isNotation && !isNotationSymbols) {
     syncNotationPaceUI();
   }
 
@@ -1310,7 +1313,7 @@ function renderUI() {
     moduleKeyBtn?.classList.remove("chip-open");
     moduleTimeSigBtn?.classList.remove("chip-open");
   }
-  if (!isNotation) {
+  if (!isNotation || isNotationSymbols) {
     document.getElementById("inlineNotationKeyPopover")?.classList.add("hidden");
     moduleNotationKeyBtn?.classList.remove("chip-open");
     document.getElementById("inlineNotationPacePopover")?.classList.add("hidden");
@@ -1453,9 +1456,11 @@ function renderUI() {
   if (skipBtn) {
     skipBtn.classList.remove("is-labeled");
     const skipHint = isNotation && !state.exam?.active
-      ? (ex?.isChordReading
-          ? tr("Aktuellen Akkord überspringen", "Skip current chord")
-          : tr("Aktuelle Note überspringen", "Skip current note"))
+      ? (isNotationSymbols
+          ? tr("Aktuelle Frage überspringen", "Skip current question")
+          : (ex?.isChordReading
+              ? tr("Aktuellen Akkord überspringen", "Skip current chord")
+              : tr("Aktuelle Note überspringen", "Skip current note")))
       : tr("Nächste Abfrage", "Next Prompt");
     skipBtn.title = skipHint;
     skipBtn.setAttribute("aria-label", skipHint);
@@ -1711,7 +1716,9 @@ function renderUI() {
   }
 
   barsGrid.innerHTML = "";
-  if (isNotation) {
+  if (isNotationSymbols) {
+    renderNotationSymbolPromptPanel(ex, barsGrid);
+  } else if (isNotation) {
     renderNotationStaffPanel(ex, Boolean(ex.notationDidShift), barsGrid);
     ex.notationDidShift = false;
   } else if (isMelody) {
@@ -1943,13 +1950,54 @@ function renderExerciseChoiceButtonsGrid(ex, btnGrid = document.getElementById("
   const isProd = ex.type === "prod-tone" || ex.type === "prod-eq-noise";
   const isModes = ex.type.startsWith("modes-");
   const isNotationChordChoice = isNotationChordMode(ex.type);
+  const isNotationSymbols = isNotationSymbolsMode(ex.type);
   const useCompactNames = isModes || isNotationChordChoice;
 
   btnGrid.classList.remove("hidden");
   btnGrid.innerHTML = "";
   const isInterval = !isCadence;
-  btnGrid.classList.toggle("grid-intervals", isInterval);
+  btnGrid.classList.toggle("grid-intervals", isInterval && !isNotationSymbols);
   btnGrid.classList.toggle("grid-chords", isChordMode(ex.type) || isNotationChordChoice || isRhythmGroove || isProd || isModes);
+  btnGrid.classList.toggle("grid-notation-symbols", isNotationSymbols);
+  btnGrid.classList.toggle("is-svg-choices", isNotationSymbols && ex.promptKind === "meaning-to-symbol");
+  btnGrid.classList.toggle("is-flow-choices", isNotationSymbols && ex.promptKind === "flow-order");
+
+  if (isNotationSymbols) {
+    const choices = Array.isArray(ex.choices) ? ex.choices : [];
+    btnGrid.style.removeProperty("--max-cols");
+    const gridWrap = document.createElement("div");
+    gridWrap.className = `nts-choices-grid${ex.promptKind === "flow-order" ? " is-flow" : ""}${ex.promptKind === "meaning-to-symbol" ? " is-svg" : ""}`;
+    choices.forEach(choiceKey => {
+      const meta = ex.symbolChoiceMeta?.[choiceKey] || { key: choiceKey, short: choiceKey };
+      const btn = document.createElement("button");
+      btn.className = "degree-btn nts-choice-btn";
+      btn.dataset.choice = choiceKey;
+
+      if (meta.isSvgChoice) {
+        btn.classList.add("is-svg-tile");
+        btn.innerHTML = `<div class="nts-choice-svg-wrap" dir="ltr">${buildNotationSymbolSVG(meta.svgKey, { compact: true })}</div>`;
+        btn.setAttribute("aria-label", meta.term || choiceKey);
+      } else if (meta.isFlowOrder) {
+        btn.classList.add("is-flow-tile");
+        const span = document.createElement("span");
+        span.className = "nts-choice-flow-text";
+        span.setAttribute("dir", "ltr");
+        span.textContent = meta.text || choiceKey;
+        btn.appendChild(span);
+      } else {
+        btn.classList.add("is-text-tile");
+        const span = document.createElement("span");
+        span.className = "nts-choice-meaning-text";
+        span.textContent = meta.short || choiceKey;
+        btn.appendChild(span);
+      }
+
+      btn.addEventListener("click", (e) => handleAnswer(choiceKey, btn, { inputEvent: e }));
+      gridWrap.appendChild(btn);
+    });
+    btnGrid.appendChild(gridWrap);
+    return;
+  }
 
   const choices = Array.isArray(ex.choices) ? ex.choices : [];
   const layout = computeBalancedRows(choices);
@@ -2587,7 +2635,7 @@ function updateStageMascot(mood, options = null) {
 function isKeyboardAnswerExercise(ex = state.currentExercise) {
   const type = ex?.type;
   if (!type) return false;
-  return type === "solfege" || type === "melody" || (isNotationMode(type) && !isNotationChordMode(type));
+  return type === "solfege" || type === "melody" || (isNotationMode(type) && !isNotationChordMode(type) && !isNotationSymbolsMode(type));
 }
 
 /**
@@ -2611,6 +2659,10 @@ function setCentralStageMode(stageStateClass) {
   if (!stage) return;
   syncAnswerCueState(stageStateClass);
   const exType = state.currentExercise?.type;
+  if (isNotationSymbolsMode(exType)) {
+    stage.className = `central-stage ${stageStateClass} is-notation is-notation-symbols`;
+    return;
+  }
   if (isNotationMode(exType)) {
     stage.className = `central-stage ${stageStateClass} is-notation`;
     return;
@@ -2634,6 +2686,20 @@ function resetCentralStage() {
   updateStageMascot("idle", { forceRotate: true });
   const ex = state.currentExercise;
   const mode = ex?.type;
+  if (isNotationSymbolsMode(mode)) {
+    const lvlLabel = typeof getNotationSymbolsLevelLabel === "function"
+      ? getNotationSymbolsLevelLabel(ex?.level || 1)
+      : "";
+    document.getElementById("stageSubtext").textContent = tr("NOTATIONS-WISSEN", "NOTATION KNOWLEDGE");
+    document.getElementById("stageMainText").textContent = lvlLabel || tr("Symbole & Begriffe", "Symbols & Markings");
+    document.getElementById("stageFunctionText").textContent = ex?.promptKind === "flow-order"
+      ? tr("Folge den Sprung- & Wiederholungszeichen und wähle die Spielreihenfolge.", "Follow the repeats & jump signs and pick the play order.")
+      : (ex?.promptKind === "meaning-to-symbol"
+          ? tr("Finde das passende Notationssymbol zur Beschreibung oben.", "Pick the matching notation symbol for the description above.")
+          : tr("Wähle unten die richtige Bedeutung für dieses Zeichen.", "Pick the right meaning for this symbol below."));
+    renderStageStreakUI();
+    return;
+  }
   if (isNotationMode(mode)) {
     const clefName = getLocalizedNotationClefName(ex?.targetItem?.clefId || ex?.baseClefId || "treble");
     document.getElementById("stageSubtext").textContent = tr("NOTENLESEN", "SIGHT-READING");
@@ -3269,7 +3335,7 @@ function syncNotationPaceUI() {
 function syncNotationPaceVisibility(ex = state.currentExercise) {
   const paceBtn = document.getElementById("moduleNotationPaceBtn");
   if (!paceBtn) return false;
-  const show = Boolean(ex) && isNotationMode(ex.type) && Boolean(state.listenOnly?.active);
+  const show = Boolean(ex) && isNotationStaffMode(ex.type) && Boolean(state.listenOnly?.active);
   const changed = paceBtn.classList.contains("hidden") === show;
   paceBtn.classList.toggle("hidden", !show);
   if (!show) {
@@ -3289,6 +3355,32 @@ function setNotationListenOnlyPace(nextVal) {
 
 function syncNotationHeaderUI(ex = state.currentExercise) {
   if (!ex || !isNotationMode(ex.type)) return;
+  if (isNotationSymbolsMode(ex.type)) {
+    const moduleTitleEl = document.getElementById("moduleTitleText");
+    const targetBadgeEl = document.getElementById("targetBarBadge");
+    const tonicRefRow = document.getElementById("tonicRefRow");
+    const tonicRefBtn = document.getElementById("tonicRefBtn");
+    const inputPromptText = document.getElementById("inputPromptText");
+    if (moduleTitleEl) {
+      moduleTitleEl.textContent = tr("Symbole & Spielanweisungen", "Symbols & Markings");
+    }
+    if (targetBadgeEl) {
+      const lvlTag = typeof getNotationSymbolsLevelLabel === "function" ? getNotationSymbolsLevelLabel(ex.level || 1) : String(ex.level || 1);
+      targetBadgeEl.textContent = tf("Stufe {lvl} • {tag}", "Level {lvl} • {tag}", { lvl: ex.level || 1, tag: lvlTag });
+    }
+    tonicRefRow?.classList.add("hidden");
+    tonicRefBtn?.classList.add("hidden");
+    if (inputPromptText) {
+      if (ex.promptKind === "flow-order") {
+        inputPromptText.textContent = tr("Spielreihenfolge wählen:", "Choose the play order:");
+      } else if (ex.promptKind === "meaning-to-symbol") {
+        inputPromptText.textContent = tr("Passendes Symbol wählen:", "Pick the matching symbol:");
+      } else {
+        inputPromptText.textContent = tr("Bedeutung wählen:", "Pick the meaning:");
+      }
+    }
+    return;
+  }
   syncNotationPaceUI();
   const targetClefId = ex.targetItem?.clefId || ex.baseClefId || "treble";
   const targetClefName = getLocalizedNotationClefName(targetClefId);
@@ -3728,8 +3820,183 @@ async function handleNotationKeyClick(clickedKeyDef, keyBtn, options = {}) {
   );
 }
 
+function cancelNotationSymbolAdvance(ex = state.currentExercise) {
+  if (!ex) return;
+  ex.advanceToken = (ex.advanceToken || 0) + 1;
+  if (ex.advanceTimerId) {
+    clearTimeout(ex.advanceTimerId);
+    ex.advanceTimerId = null;
+  }
+}
+
+function renderNotationSymbolPromptPanel(ex, targetGrid = document.getElementById("barsGrid")) {
+  if (!ex || !targetGrid) return;
+  const panel = document.createElement("div");
+  panel.className = `notation-staff-panel notation-symbol-panel is-${ex.promptKind || "symbol-to-meaning"}${ex.notationPanelState ? " " + ex.notationPanelState : ""}`;
+  panel.id = "notationStaffPanel";
+
+  if (ex.promptKind === "flow-order") {
+    panel.innerHTML = `
+      <div class="nts-prompt-flow-wrap" dir="ltr">${buildNotationFlowDiagramSVG(ex.flowScenarioId)}</div>
+      <div class="nts-prompt-question">${escapeHtml(ex.promptQuestion || "")}</div>
+    `;
+  } else if (ex.promptKind === "meaning-to-symbol") {
+    panel.innerHTML = `
+      <div class="nts-prompt-kind-badge">${escapeHtml(tr("Welches Symbol passt?", "Which symbol matches?"))}</div>
+      <div class="nts-prompt-meaning-lead">${escapeHtml(ex.promptQuestion || "")}</div>
+    `;
+  } else {
+    // symbol-to-meaning
+    const showTermLine = ex.promptTitle && ex.svgKey && !["largo", "adagio", "andante", "moderato", "allegretto", "allegro", "vivace", "presto", "dolce", "cantabile", "maestoso", "scherzando", "leggiero", "sotto-voce", "pizzicato", "con-sordino", "tutti-solo", "attacca", "simile", "a-tempo", "rubato", "piu-mosso", "meno-mosso", "fine", "dc-al-fine", "morendo"].includes(ex.svgKey);
+    panel.innerHTML = `
+      <div class="nts-prompt-svg-wrap" dir="ltr">${buildNotationSymbolSVG(ex.svgKey)}</div>
+      ${showTermLine ? `<div class="nts-prompt-term-sub">${escapeHtml(ex.promptTitle)}</div>` : ""}
+    `;
+  }
+
+  targetGrid.innerHTML = "";
+  targetGrid.appendChild(panel);
+}
+
+function showNotationSymbolHint(ex = state.currentExercise) {
+  if (!ex || !ex.isNotationSymbols || ex.isSolved || state.exam?.active) return;
+  ex.hintRevealed = true;
+  const target = ex.targetItem;
+  if (!target) return;
+  const hintText = target.tip
+    || (ex.promptKind === "flow-order"
+        ? tr("Lies zuerst von links nach rechts bis zum Sprungzeichen, ignoriere Fine/Coda im 1. Durchgang!", "Read left to right to the jump sign first, ignoring Fine/Coda on pass 1!")
+        : target.explanation);
+  if (document.getElementById("centralStageCard")) {
+    setCentralStageMode("stage-target");
+    updateStageMascot("thinking");
+    document.getElementById("stageSubtext").textContent = tr("MERKHILFE", "HINT");
+    document.getElementById("stageMainText").textContent = ex.promptKind === "meaning-to-symbol"
+      ? (target.abbr || target.termLabel)
+      : (target.termLabel || tr("Hinweis", "Hint"));
+    document.getElementById("stageFunctionText").textContent = hintText;
+  }
+  queueFitExerciseLayout(false);
+}
+
+function handleNotationSymbolChoice(selectedKey, btnElement, options = {}) {
+  const ex = state.currentExercise;
+  if (!ex || !ex.isNotationSymbols || !ex.targetItem) return;
+  const capturedInputPoint = resolveInputPointFromOptions(options);
+
+  if (state.exam?.active) {
+    handleExamNotationSymbolAnswer(ex, selectedKey, btnElement);
+    return;
+  }
+  if (ex.isSolved) return;
+
+  const target = ex.targetItem;
+  const isCorrect = selectedKey === target.key;
+
+  if (!isCorrect) {
+    resetExerciseStreakOnAttempt(ex);
+    if (ex.reviewScope && ex.reviewKey) {
+      rememberSessionMistake(ex.reviewScope, ex.reviewKey);
+    }
+    ex.notationPanelState = "is-wrong";
+    btnElement?.classList.add("btn-wrong");
+    const panelEl = document.getElementById("notationStaffPanel");
+    panelEl?.classList.remove("is-correct");
+    panelEl?.classList.add("is-wrong");
+
+    if (document.getElementById("centralStageCard")) {
+      setCentralStageMode("stage-wrong");
+      updateStageMascot("thinking");
+      const chosenMeta = ex.symbolChoiceMeta?.[selectedKey];
+      const wrongHint = (ex.promptKind === "meaning-to-symbol" && chosenMeta)
+        ? tf("Das war „{term}“ ({short}). Probier es nochmal!", "That was “{term}” ({short}). Try again!", {
+            term: chosenMeta.term,
+            short: chosenMeta.short
+          })
+        : (target.tip || tr("Noch nicht ganz – probier eine andere Antwort oder tippe auf „Hinweis“.", "Not quite — try another answer or tap “Hint”."));
+      document.getElementById("stageSubtext").textContent = tr("NOCH NICHT GANZ", "NOT QUITE");
+      document.getElementById("stageMainText").textContent = tr("Fast!", "Almost!");
+      document.getElementById("stageFunctionText").textContent = wrongHint;
+    }
+    return;
+  }
+
+  ex.isSolved = true;
+  state.exerciseSolved = true;
+  if (ex.reviewScope && ex.reviewKey) {
+    recordSessionReviewSuccess(ex.reviewScope, ex.reviewKey);
+  }
+
+  btnElement?.classList.remove("btn-wrong");
+  btnElement?.classList.add("btn-correct");
+  ex.notationPanelState = "is-correct";
+  const panelEl = document.getElementById("notationStaffPanel");
+  panelEl?.classList.remove("is-wrong");
+  panelEl?.classList.add("is-correct");
+
+  const streakRes = recordExerciseStreakSuccess(ex);
+  if (document.getElementById("centralStageCard")) {
+    setCentralStageMode("stage-playing");
+    updateStageMascot("happy");
+    triggerCelebrationFeedback(btnElement, { isMilestone: streakRes.isMilestone, inputPoint: capturedInputPoint });
+    document.getElementById("stageSubtext").textContent = getPersonalizedCorrectStageSubtext(tr("RICHTIG!", "CORRECT!"));
+    document.getElementById("stageMainText").textContent = ex.promptKind === "flow-order"
+      ? target.displayName
+      : `${target.termLabel} (${target.abbr})`;
+    document.getElementById("stageFunctionText").textContent = target.explanation || target.shortMeaning || "";
+    renderStageStreakUI();
+  }
+  updatePlayButtonUI(false);
+  queueFitExerciseLayout(false);
+
+  if (state.settings.autoNextAfterCorrect) {
+    cancelNotationSymbolAdvance(ex);
+    const token = ex.advanceToken;
+    ex.advanceTimerId = setTimeout(() => {
+      ex.advanceTimerId = null;
+      if (state.currentView !== "exercise" || state.currentExercise !== ex || ex.advanceToken !== token || state.exam?.active) return;
+      generateExercise();
+    }, 1550);
+  }
+}
+
+function skipNotationSymbol() {
+  const ex = state.currentExercise;
+  if (!ex || !ex.isNotationSymbols || state.exam?.active || !ex.targetItem) return;
+  cancelNotationSymbolAdvance(ex);
+  if (ex.isSolved) {
+    generateExercise();
+    return;
+  }
+  const target = ex.targetItem;
+  resetExerciseStreakOnAttempt(ex);
+  if (ex.reviewScope && ex.reviewKey) {
+    rememberSessionMistake(ex.reviewScope, ex.reviewKey);
+  }
+  ex.isSolved = true;
+  state.exerciseSolved = true;
+  document.querySelectorAll("#degreeButtonsGrid .degree-btn").forEach(el => {
+    if (el.dataset.choice === target.key) el.classList.add("btn-correct");
+  });
+  if (document.getElementById("centralStageCard")) {
+    setCentralStageMode("stage-target");
+    updateStageMascot("idle");
+    document.getElementById("stageSubtext").textContent = tr("AUFLÖSUNG", "SOLUTION");
+    document.getElementById("stageMainText").textContent = ex.promptKind === "flow-order"
+      ? target.displayName
+      : `${target.termLabel} (${target.abbr})`;
+    document.getElementById("stageFunctionText").textContent = target.explanation || target.shortMeaning || "";
+  }
+  updatePlayButtonUI(false);
+  queueFitExerciseLayout(false);
+}
+
 function skipNotationNote() {
   const ex = state.currentExercise;
+  if (ex?.isNotationSymbols) {
+    skipNotationSymbol();
+    return;
+  }
   if (!ex || !isNotationMode(ex.type) || state.exam?.active || !ex.targetItem) return;
   cancelNotationChordAdvance(ex);
   const target = ex.targetItem;

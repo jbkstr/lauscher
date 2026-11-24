@@ -77,7 +77,10 @@ function getTutorialGroupId(ex = state?.currentExercise) {
   if (type === "rhythm-dictation") return "rhythm-dictation";
   if (type === "rhythm-tap") return "rhythm-tap";
   if (type === "rhythm-meter" || type === "rhythm-groove") return "rhythm-choice";
-  if (isNotationMode(type)) return ex.isChordReading ? "notation-chords" : "notation-keys";
+  if (isNotationMode(type)) {
+    if (isNotationSymbolsMode(type)) return null;
+    return ex.isChordReading ? "notation-chords" : "notation-keys";
+  }
   if (type === "prod-tone" || type === "prod-eq-noise") return "production";
   if (type.startsWith("modes-")) return "modes";
   if (type === "interval-chords" || type === "chord-inversions" || isChordArpeggioMode(type)) return "chord";
@@ -469,7 +472,7 @@ function updateTutorialCardUI({ badge, title, text, mood = "idle", compact = fal
 function syncExerciseDemoButtonUI() {
   const btn = document.getElementById("exerciseDemoBtn");
   if (!btn) return;
-  const hide = Boolean(state.exam?.active);
+  const hide = Boolean(state.exam?.active) || !getTutorialGroupId();
   btn.classList.toggle("hidden", hide);
   btn.classList.toggle("is-active", isExerciseTutorialActive());
 }

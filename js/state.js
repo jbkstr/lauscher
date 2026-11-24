@@ -315,7 +315,8 @@ class AppState {
         resolvedKeyMode = maybeLevel;
       }
     }
-    const lvl = Math.max(1, Math.min(4, parseInt(rawLevel, 10) || 1));
+    const maxLvl = isNotationSymbolsMode(validMode) ? 5 : 4;
+    const lvl = Math.max(1, Math.min(maxLvl, parseInt(rawLevel, 10) || 1));
     this.settings.mode = validMode;
     this.settings.notationDifficulty = lvl;
     if (resolvedKeyMode !== undefined) {
@@ -438,14 +439,17 @@ class AppState {
       return `${prefix} • ${lvlWord} ${lvl} (${getLocalizedModeLevelLabel("cadence", lvl)})`;
     }
     if (isNotationMode(this.settings.mode)) {
-      const lvl = Math.max(1, Math.min(4, parseInt(this.settings.notationDifficulty, 10) || 1));
+      const isSym = isNotationSymbolsMode(this.settings.mode);
+      const maxLvl = isSym ? 5 : 4;
+      const lvl = Math.max(1, Math.min(maxLvl, parseInt(this.settings.notationDifficulty, 10) || 1));
       const clefNames = {
-        "notation-treble": tr("Violinschlüssel", "Treble Clef"),
-        "notation-bass":   tr("Bassschlüssel", "Bass Clef"),
-        "notation-alto":   tr("Altschlüssel", "Alto Clef"),
-        "notation-mixed":  tr("Schlüssel-Mix", "Mixed Clefs"),
-        "notation-grand":  tr("Doppelsystem", "Grand Staff"),
-        "notation-chords": tr("Akkorde lesen", "Chord Reading")
+        "notation-treble":  tr("Violinschlüssel", "Treble Clef"),
+        "notation-bass":    tr("Bassschlüssel", "Bass Clef"),
+        "notation-alto":    tr("Altschlüssel", "Alto Clef"),
+        "notation-mixed":   tr("Schlüssel-Mix", "Mixed Clefs"),
+        "notation-grand":   tr("Doppelsystem", "Grand Staff"),
+        "notation-chords":  tr("Akkorde lesen", "Chord Reading"),
+        "notation-symbols": tr("Symbole & Spielanweisungen", "Symbols & Markings")
       };
       const lvlNames = {
         1: tr("5 Linien", "On Staff"),
@@ -455,9 +459,11 @@ class AppState {
       };
       const clefText = clefNames[this.settings.mode] || tr("Violinschlüssel", "Treble Clef");
       const prefix = includeCategory ? `${tr("Notation", "Notation")}: ${clefText}` : clefText;
-      const keyMode = normalizeNotationKeyMode(this.settings.notationKeyMode);
+      const keyMode = isSym ? "none" : normalizeNotationKeyMode(this.settings.notationKeyMode);
       const keyTag = keyMode !== "none" ? ` • ${getLocalizedNotationKeyModeLabel(keyMode, true)}` : "";
-      const lvlText = this.settings.mode === "notation-chords" ? getNotationChordLevelTag(lvl) : lvlNames[lvl];
+      const lvlText = isSym
+        ? (typeof getNotationSymbolsLevelLabel === "function" ? getNotationSymbolsLevelLabel(lvl) : String(lvl))
+        : (this.settings.mode === "notation-chords" ? getNotationChordLevelTag(lvl) : lvlNames[lvl]);
       return `${prefix} • ${lvlWord} ${lvl} (${lvlText})${keyTag}`;
     }
     if (isChordQualityMode(this.settings.mode)) {
@@ -912,7 +918,7 @@ function syncAnswerSoundToggleUI() {
   const btn = document.getElementById("answerSoundToggleBtn");
   const lbl = document.getElementById("answerSoundBtnLabel");
   const enabled = shouldPlayCorrectAnswerAudio();
-  const isNotationPractice = isNotationMode(state?.currentExercise?.type) && !state?.exam?.active;
+  const isNotationPractice = isNotationStaffMode(state?.currentExercise?.type) && !state?.exam?.active;
   if (btn) {
     btn.classList.toggle("hidden", !isNotationPractice);
     btn.classList.toggle("is-muted", !enabled);

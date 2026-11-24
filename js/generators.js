@@ -1940,11 +1940,245 @@ function populateNotationExerciseQueue(ex) {
   ex.keyName = getLocalizedNotationClefName(ex.targetItem?.clefId || ex.baseClefId || "treble");
 }
 
+const _notationSymbolsRecentIds = [];
+
+function shuffleNotationArray(arr) {
+  const copy = [...arr];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
+function generateNotationSymbolsExercise(levelOverride = null) {
+  const lvl = Math.max(1, Math.min(5, parseInt(levelOverride ?? state.settings.notationDifficulty, 10) || 1));
+  const scope = `notation-symbols:${lvl}`;
+  tickSessionReview(scope);
+
+  const levelPool = lvl === 5
+    ? NOTATION_TERMS_CATALOG
+    : NOTATION_TERMS_CATALOG.filter(item => item.level === lvl);
+  const allowFlow = lvl === 4 || lvl === 5;
+  const flowChance = lvl === 4 ? 0.34 : 0.18;
+
+  // Fällige Wiederholung aus dem Sitzungs-Gedächtnis bevorzugen
+  const allReviewKeys = [
+    ...levelPool.map(e => `term:${e.id}`),
+    ...(allowFlow ? NOTATION_FLOW_SCENARIOS.map(s => `flow:${s.id}`) : [])
+  ];
+  const lastId = _notationSymbolsRecentIds[_notationSymbolsRecentIds.length - 1] || null;
+  const dueReviewKey = pickSessionReviewKey(scope, allReviewKeys, lastId);
+
+  let chosenFlow = null;
+  let chosenEntry = null;
+
+  if (dueReviewKey && dueReviewKey.startsWith("flow:") && allowFlow) {
+    const fid = dueReviewKey.slice(5);
+    chosenFlow = NOTATION_FLOW_SCENARIOS.find(s => s.id === fid) || null;
+  } else if (dueReviewKey && dueReviewKey.startsWith("term:")) {
+    const tid = dueReviewKey.slice(5);
+    chosenEntry = levelPool.find(e => e.id === tid) || null;
+  }
+
+  if (!chosenFlow && !chosenEntry) {
+    if (allowFlow && Math.random() < flowChance) {
+      const flowCandidates = NOTATION_FLOW_SCENARIOS.filter(s => !_notationSymbolsRecentIds.slice(-3).includes(`flow:${s.id}`));
+      const pool = flowCandidates.length ? flowCandidates : NOTATION_FLOW_SCENARIOS;
+      chosenFlow = pool[Math.floor(Math.random() * pool.length)];
+    } else {
+      const recentWindow = Math.min(6, Math.max(2, Math.floor(levelPool.length / 2)));
+      const recentSlice = _notationSymbolsRecentIds.slice(-recentWindow);
+      const fresh = levelPool.filter(e => !recentSlice.includes(`term:${e.id}`));
+      const pool = fresh.length ? fresh : levelPool;
+      chosenEntry = pool[Math.floor(Math.random() * pool.length)];
+    }
+  }
+
+  let ex;
+  if (chosenFlow) {
+    const recentKey = `flow:${chosenFlow.id}`;
+    _notationSymbolsRecentIds.push(recentKey);
+    if (_notationSymbolsRecentIds.length > 16) _notationSymbolsRecentIds.shift();
+
+    const flowTxt = getNotationFlowText(chosenFlow.id);
+    const choiceObjs = shuffleNotationArray([
+      { key: chosenFlow.correctOrder, text: chosenFlow.correctOrder, isCorrect: true },
+      ...chosenFlow.wrongOrders.slice(0, 3).map(ord => ({ key: ord, text: ord, isCorrect: false }))
+    ]);
+
+    ex = {
+      type: "notation-symbols",
+      isNotationSymbols: true,
+      level: lvl,
+      promptKind: "flow-order",
+      reviewScope: scope,
+      reviewKey: recentKey,
+      flowScenarioId: chosenFlow.id,
+      promptTitle: flowTxt.title,
+      promptQuestion: flowTxt.prompt,
+      choices: choiceObjs.map(c => c.key),
+      symbolChoiceMeta: Object.fromEntries(choiceObjs.map(c => [c.key, {
+        key: c.key,
+        text: c.text,
+        isFlowOrder: true
+      }])),
+      targetItem: {
+        key: chosenFlow.correctOrder,
+        displayName: chosenFlow.correctOrder,
+        termLabel: flowTxt.title,
+        explanation: flowTxt.desc,
+        tip: "",
+        flowScenarioId: chosenFlow.id
+      },
+      isSolved: false,
+      hintRevealed: false,
+      notationPanelState: "",
+      advanceTimerId: null,
+      advanceToken: 0,
+      bars: []
+    };
+  } else {
+    const entry = chosenEntry || levelPool[0];
+    const recentKey = `term:${entry.id}`;
+    _notationSymbolsRecentIds.push(recentKey);
+    if (_notationSymbolsRecentIds.length > 16) _notationSymbolsRecentIds.shift();
+
+    // Fragetyp wählen: „meaning-to-symbol“ (~38 % wenn visuell starkes Symbol & genug Symbol-Distraktoren im Pool)
+    const symbolCandidatesPool = levelPool.filter(e => e.id !== entry.id && e.canBeSymbolChoice);
+    const useMeaningToSymbol = Boolean(entry.canBeSymbolChoice && symbolCandidatesPool.length >= 3 && Math.random() < 0.38);
+    const promptKind = useMeaningToSymbol ? "meaning-to-symbol" : "symbol-to-meaning";
+
+    // 3 plausible Distraktoren bauen (zuerst confusables, dann gleiche Gruppe, dann Gesamtpool)
+    const distractors = [];
+    const addCandidate = (cand) => {
+      if (!cand || cand.id === entry.id) return;
+      if (distractors.some(d => d.id === cand.id)) return;
+      if (useMeaningToSymbol && !cand.canBeSymbolChoice) return;
+      // Sicherstellen, dass keine zwei Kacheln denselben Text haben
+      const candTxt = getNotationTermText(cand.id).short;
+      const entryTxt = getNotationTermText(entry.id).short;
+      if (!useMeaningToSymbol && (candTxt === entryTxt || distractors.some(d => getNotationTermText(d.id).short === candTxt))) return;
+      distractors.push(cand);
+    };
+
+    shuffleNotationArray(entry.confusables || []).forEach(cid => {
+      if (distractors.length < 3) addCandidate(getNotationTermEntry(cid));
+    });
+    if (distractors.length < 3) {
+      shuffleNotationArray(levelPool.filter(e => e.group === entry.group)).forEach(c => {
+        if (distractors.length < 3) addCandidate(c);
+      });
+    }
+    if (distractors.length < 3) {
+      shuffleNotationArray(NOTATION_TERMS_CATALOG.filter(e => e.group === entry.group)).forEach(c => {
+        if (distractors.length < 3) addCandidate(c);
+      });
+    }
+    if (distractors.length < 3) {
+      shuffleNotationArray(NOTATION_TERMS_CATALOG).forEach(c => {
+        if (distractors.length < 3) addCandidate(c);
+      });
+    }
+
+    const allEntries = shuffleNotationArray([entry, ...distractors.slice(0, 3)]);
+    const targetTxt = getNotationTermText(entry.id);
+
+    const choiceMeta = {};
+    allEntries.forEach(item => {
+      const itemTxt = getNotationTermText(item.id);
+      choiceMeta[item.id] = {
+        key: item.id,
+        term: item.term,
+        abbr: item.abbr,
+        svgKey: item.svgKey,
+        short: itemTxt.short,
+        isSvgChoice: useMeaningToSymbol
+      };
+    });
+
+    ex = {
+      type: "notation-symbols",
+      isNotationSymbols: true,
+      level: lvl,
+      promptKind: promptKind,
+      reviewScope: scope,
+      reviewKey: recentKey,
+      termId: entry.id,
+      svgKey: entry.svgKey,
+      group: entry.group,
+      promptTitle: entry.term,
+      promptAbbr: entry.abbr,
+      promptQuestion: useMeaningToSymbol ? targetTxt.short : "",
+      choices: allEntries.map(e => e.id),
+      symbolChoiceMeta: choiceMeta,
+      targetItem: {
+        key: entry.id,
+        displayName: useMeaningToSymbol ? `${entry.term} (${entry.abbr})` : targetTxt.short,
+        termLabel: entry.term,
+        abbr: entry.abbr,
+        shortMeaning: targetTxt.short,
+        explanation: targetTxt.desc,
+        tip: targetTxt.tip,
+        svgKey: entry.svgKey
+      },
+      isSolved: false,
+      hintRevealed: false,
+      notationPanelState: "",
+      advanceTimerId: null,
+      advanceToken: 0,
+      bars: []
+    };
+  }
+
+  state.currentExercise = ex;
+}
+
+function refreshNotationSymbolExerciseLocalization(ex) {
+  if (!ex || !ex.isNotationSymbols) return;
+  if (ex.promptKind === "flow-order" && ex.flowScenarioId) {
+    const flowTxt = getNotationFlowText(ex.flowScenarioId);
+    ex.promptTitle = flowTxt.title;
+    ex.promptQuestion = flowTxt.prompt;
+    if (ex.targetItem) {
+      ex.targetItem.termLabel = flowTxt.title;
+      ex.targetItem.explanation = flowTxt.desc;
+    }
+    return;
+  }
+  const entry = getNotationTermEntry(ex.termId);
+  if (!entry) return;
+  const targetTxt = getNotationTermText(entry.id);
+  const useMeaningToSymbol = ex.promptKind === "meaning-to-symbol";
+  ex.promptQuestion = useMeaningToSymbol ? targetTxt.short : "";
+  if (ex.targetItem) {
+    ex.targetItem.displayName = useMeaningToSymbol ? `${entry.term} (${entry.abbr})` : targetTxt.short;
+    ex.targetItem.shortMeaning = targetTxt.short;
+    ex.targetItem.explanation = targetTxt.desc;
+    ex.targetItem.tip = targetTxt.tip;
+  }
+  if (ex.symbolChoiceMeta) {
+    Object.keys(ex.symbolChoiceMeta).forEach(cid => {
+      const cEntry = getNotationTermEntry(cid);
+      if (cEntry) {
+        ex.symbolChoiceMeta[cid].short = getNotationTermText(cid).short;
+      }
+    });
+  }
+}
+
 function generateNotationExercise(modeOverride = state.settings.mode) {
   if (state.currentExercise?.isChordReading) {
     cancelNotationChordAdvance(state.currentExercise);
   }
+  if (state.currentExercise?.isNotationSymbols && typeof cancelNotationSymbolAdvance === "function") {
+    cancelNotationSymbolAdvance(state.currentExercise);
+  }
   const mode = isNotationMode(modeOverride) ? modeOverride : "notation-treble";
+  if (isNotationSymbolsMode(mode)) {
+    generateNotationSymbolsExercise();
+    return;
+  }
   const lvl = Math.max(1, Math.min(4, parseInt(state.settings.notationDifficulty, 10) || 1));
   const keyMode = normalizeNotationKeyMode(state.settings.notationKeyMode);
   const initialKeySig = resolveNotationKeySignatureId(keyMode);
@@ -2298,6 +2532,11 @@ function refreshExerciseLocalization(ex) {
       slot.label = getLocalizedSolfegeStepLabel(slot.key, baseStep?.label || slot.label);
       slot.germanNote = midiToGermanNote(slot.playedMidi, preferFlat).replace(/[0-9]/g, "");
     });
+    return;
+  }
+
+  if (isNotationSymbolsMode(ex.type)) {
+    refreshNotationSymbolExerciseLocalization(ex);
     return;
   }
 

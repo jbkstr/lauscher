@@ -517,11 +517,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // Transport-Steuerung in der Übung
   syncAnswerSoundToggleUI();
   document.getElementById("answerSoundToggleBtn")?.addEventListener("click", () => {
-    if (state.exam?.active || !isNotationMode(state.currentExercise?.type)) return;
+    if (state.exam?.active || !isNotationStaffMode(state.currentExercise?.type)) return;
     setPlayCorrectAnswerAudioPreference(!(state.settings.playCorrectAnswerAudio !== false));
   });
   document.getElementById("listenOnlyBtn")?.addEventListener("click", () => {
-    if (state.exam?.active) return;
+    if (state.exam?.active || isNotationSymbolsMode(state.currentExercise?.type)) return;
     setListenOnlyMode(!state.listenOnly.active);
   });
 

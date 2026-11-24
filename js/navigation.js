@@ -1785,8 +1785,34 @@ function openKnowledgeRef(refKey, options = {}) {
     state.knowledgeSub = tr("Notensystem, Schlüssel, Hilfslinien & Vorzeichen sicher beherrschen", "Master the 5-line staff, clefs, ledger lines & accidentals");
 
     const html = typeof renderNotationReferenceHTML === "function" ? renderNotationReferenceHTML() : "";
-    container.innerHTML = `<div class="knowledge-list">${html}</div>`;
+    const crosslinkHtml = `
+      <article class="knowledge-card nts-crosslink-card">
+        <div class="k-card-top-row">
+          <span class="k-card-tag tag-lilac">${escapeHtml(tr("Vortragszeichen & Symbole", "Expression Marks & Symbols"))}</span>
+          <span class="k-ratio-chip" dir="ltr">pp • ff • rit. • Coda</span>
+        </div>
+        <h4>${escapeHtml(tr("Dynamik, Tempo, Artikulation & Ablauf nachschlagen", "Look up dynamics, tempo, articulation & score roadmaps"))}</h4>
+        <p>${escapeHtml(tr("Alle wichtigen Spielanweisungen, Verzierungen und Sprungzeichen (Segno, Coda, Volten) mit Erklärungen und Hörbeispielen.", "All essential performance markings, ornaments and jump signs (Segno, Coda, voltas) with explanations and audio demos."))}</p>
+        <div class="k-btn-row">
+          <button type="button" class="btn-primary-action" data-open-ref-inline="notation-symbols">${escapeHtml(tr("Vortragszeichen & Symbole öffnen →", "Open Expression Marks & Symbols →"))}</button>
+        </div>
+      </article>
+    `;
+    container.innerHTML = `<div class="knowledge-list">${html}${crosslinkHtml}</div>`;
+    container.querySelectorAll("[data-open-ref-inline]").forEach(btn => {
+      btn.addEventListener("click", () => openKnowledgeDetail(btn.dataset.openRefInline));
+    });
     bindKnowledgeAudioButtons(container);
+
+  } else if (refKey === "notation-symbols") {
+    state.knowledgeTitle = tr("Vortragszeichen & Symbole", "Expression Marks & Symbols");
+    state.knowledgeSub = tr("Dynamik, Tempo, Artikulation, Verzierungen, Coda & Ablauf", "Dynamics, tempo, articulation, ornaments, Coda & roadmaps");
+
+    const html = typeof renderNotationSymbolsReferenceHTML === "function" ? renderNotationSymbolsReferenceHTML() : "";
+    container.innerHTML = `<div class="knowledge-list">${html}</div>`;
+    if (typeof bindNotationSymbolsKnowledgeHandlers === "function") {
+      bindNotationSymbolsKnowledgeHandlers(container);
+    }
 
   } else if (refKey === "arranging") {
     state.knowledgeTitle = tr("Arrangieren", "Arranging", {
@@ -4402,6 +4428,22 @@ function openCategoryPage(categoryKey, options = {}) {
           { lvl: 3, badge: "6/64",   nodeClass: "node-circle-compact node-circle-nowrap", title: tr("Stufe 3: Umkehrungen", "Level 3: Inversions"),             sub: tr("Dreiklänge & Sus in allen Lagen, beide Schlüssel", "Triads & sus in all inversions, both clefs") },
           { lvl: 4, badge: "E7",     title: tr("Stufe 4: Alle Typen & Septakkorde", "Level 4: All Types & 7th Chords"), sub: tr("E, Em, E7, Emaj7, Esus4 u. v. m. inkl. Umkehrungen", "E, Em, E7, Emaj7, Esus4 & more + inversions") }
         ]
+      },
+      {
+        mode: "notation-symbols",
+        circleClass: "circle-lilac",
+        title: tr("Symbole & Spielanweisungen", "Symbols & Markings"),
+        desc: tr(
+          "Mehr als nur Notenköpfe: Trainiere Dynamik, Tempo, Artikulation, Verzierungen, Spielweisen sowie Ablauf- & Sprungzeichen (Segno, Coda, Voltenklammern).",
+          "More than noteheads: master dynamics, tempo, articulation, ornaments, performance terms and score roadmaps (Segno, Coda, volta brackets)."
+        ),
+        levels: [
+          { lvl: 1, badge: "mf",     nodeClass: "node-circle-compact node-circle-nowrap", title: tr("Stufe 1: Dynamik & Lautstärke", "Level 1: Dynamics & Volume"), sub: tr("ppp bis fff, Crescendo/Decrescendo, sfz, fp & subito p", "ppp to fff, crescendo/decrescendo, sfz, fp & subito p") },
+          { lvl: 2, badge: "rit.",   nodeClass: "node-circle-compact node-circle-nowrap", title: tr("Stufe 2: Tempo, Agogik & Ausdruck", "Level 2: Tempo, Agogics & Character"), sub: tr("Largo bis Presto, rit./accel., Fermate, dolce & maestoso", "Largo to Presto, rit./accel., fermata, dolce & maestoso") },
+          { lvl: 3, badge: "tr",     nodeClass: "node-circle-compact node-circle-nowrap", title: tr("Stufe 3: Artikulation & Spielweisen", "Level 3: Articulation & Playing Styles"), sub: tr("Staccato, Legato, Haltebogen, Triller, 8va, Pedal & pizz.", "Staccato, legato, ties, trills, 8va, pedal & pizz.") },
+          { lvl: 4, badge: "D.S.",   nodeClass: "node-circle-compact node-circle-nowrap", title: tr("Stufe 4: Ablauf, Form & Coda", "Level 4: Form, Repeats & Coda"), sub: tr("Wiederholung, 1./2. Klammer, D.C., Segno, Coda & Spielreihenfolge", "Repeats, 1st/2nd endings, D.C., Segno, Coda & play order") },
+          { lvl: 5, badge: "★",      title: tr("Stufe 5: Alle Bereiche gemischt", "Level 5: All Areas Mixed"), sub: tr("Kompletter Profi-Mix aus Begriffen, Symbolen & Ablauf-Partituren", "Full pro mix of terms, symbols & score roadmap puzzles") }
+        ]
       }
     ];
 
@@ -4504,6 +4546,17 @@ function openCategoryPage(categoryKey, options = {}) {
         badgeHtml: `<div class="node-circle circle-peach node-circle-icon">${getCategoryBadgeSVG("keysig")}</div>`,
         meta: tf("{n} Stufen", "{n} Levels", { n: 4 }),
         isBeginner: false
+      },
+      {
+        id: "notation-symbols",
+        title: tr("Symbole & Spielanweisungen", "Symbols & Markings"),
+        desc: tr(
+          "Dynamik (pp–ff, sfz), Tempo & Ausdruck, Artikulation & Verzierungen sowie Ablauf- und Sprungzeichen (Wiederholung, Volten, Segno, Coda).",
+          "Dynamics (pp–ff, sfz), tempo &amp; character, articulation &amp; ornaments, plus repeats, voltas, Segno &amp; Coda."
+        ),
+        badgeHtml: `<div class="node-circle circle-lilac node-circle-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 10.5C6.5 4.8 17.5 4.8 19 10.5"/><circle cx="12" cy="9.2" r="1.35" fill="currentColor" stroke="none"/><text x="12" y="20.5" text-anchor="middle" font-family="Andika, Georgia, serif" font-size="11.5" font-weight="700" font-style="italic" fill="currentColor" stroke="none">mf</text></svg></div>`,
+        meta: tf("{n} Stufen", "{n} Levels", { n: 5 }),
+        isBeginner: true
       }
     ].map(item => ({ ...item, titleHtml: formatStackedParenTitle(item.title) }));
 
@@ -4725,11 +4778,12 @@ function openCategoryPage(categoryKey, options = {}) {
         `;
       } else {
         const sec = NOTATION_SECTIONS.find(s => s.mode === selectedNotType.id);
+        const isSymbolsSec = sec.mode === "notation-symbols";
         container.innerHTML = `
           <div class="subpage-section">
             <div class="subpage-section-head-row">
               <h3 class="subpage-section-title">${formatStackedParenTitle(sec.title)}</h3>
-              <span class="subpage-section-key-pill">${escapeHtml(getLocalizedNotationKeyModeLabel(selectedKeyMode, true))}</span>
+              ${isSymbolsSec ? "" : `<span class="subpage-section-key-pill">${escapeHtml(getLocalizedNotationKeyModeLabel(selectedKeyMode, true))}</span>`}
             </div>
             <p class="subpage-section-desc">${sec.desc}</p>
             <div class="subpage-nodes-grid">
@@ -4741,20 +4795,32 @@ function openCategoryPage(categoryKey, options = {}) {
                 </button>
               `).join("")}
             </div>
+            ${isSymbolsSec ? `
+              <div class="nts-category-ref-row">
+                <button type="button" class="btn-tool nts-category-ref-btn" data-open-nts-ref="1">
+                  ${escapeHtml(tr("Im Wissens-Hub nachschlagen: Vortragszeichen & Symbole →", "Look up in Knowledge Hub: Expression Marks & Symbols →"))}
+                </button>
+              </div>
+            ` : ""}
           </div>
 
-          <details class="notation-key-collapse"${notationKeyDrawerOpen ? " open" : ""}>
-            <summary class="notation-key-collapse-summary">
-              <span>${escapeHtml(tr("Tonart / Generalvorzeichen anpassen", "Customize Key Signature"))}</span>
-              <span class="subpage-section-key-pill">${escapeHtml(getLocalizedNotationKeyModeLabel(selectedKeyMode, true))}</span>
-            </summary>
-            <div class="notation-key-collapse-body">${keyToolbarHtml}</div>
-          </details>
+          ${isSymbolsSec ? "" : `
+            <details class="notation-key-collapse"${notationKeyDrawerOpen ? " open" : ""}>
+              <summary class="notation-key-collapse-summary">
+                <span>${escapeHtml(tr("Tonart / Generalvorzeichen anpassen", "Customize Key Signature"))}</span>
+                <span class="subpage-section-key-pill">${escapeHtml(getLocalizedNotationKeyModeLabel(selectedKeyMode, true))}</span>
+              </summary>
+              <div class="notation-key-collapse-body">${keyToolbarHtml}</div>
+            </details>
+          `}
         `;
 
         const detailsEl = container.querySelector(".notation-key-collapse");
         detailsEl?.addEventListener("toggle", () => {
           notationKeyDrawerOpen = Boolean(detailsEl.open);
+        });
+        container.querySelectorAll("[data-open-nts-ref]").forEach(btn => {
+          btn.addEventListener("click", () => openKnowledgeDetail("notation-symbols"));
         });
       }
 

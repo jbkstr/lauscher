@@ -201,6 +201,14 @@ function isNotationMode(mode = state?.settings?.mode) {
   return typeof mode === "string" && mode.startsWith("notation-");
 }
 
+function isNotationSymbolsMode(mode = state?.settings?.mode) {
+  return mode === "notation-symbols";
+}
+
+function isNotationStaffMode(mode = state?.settings?.mode) {
+  return isNotationMode(mode) && !isNotationSymbolsMode(mode);
+}
+
 function getNotationClefFromMode(mode = state?.settings?.mode) {
   if (mode === "notation-bass") return "bass";
   if (mode === "notation-alto") return "alto";

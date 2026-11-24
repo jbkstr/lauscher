@@ -469,6 +469,15 @@ registerColocatedTables({
       pl: "Nuty • Czytanie akordów",
       uk: "Нотопис • Читання акордів",
       ur: "نوٹیشن • کارڈز پڑھنا"
+    },
+    "notation-symbols": {
+      en: "Notation • Symbols & Markings",
+      fr: "Notation • Symboles & indications",
+      es: "Notación • Símbolos e indicaciones",
+      it: "Notazione • Simboli e indicazioni",
+      pl: "Nuty • Symbole i oznaczenia",
+      uk: "Нотопис • Символи й позначення",
+      ur: "نوٹیشن • علامات اور ہدایات"
     }
   },
   defaultMixTitles: {

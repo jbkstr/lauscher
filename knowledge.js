@@ -2274,11 +2274,12 @@ const CATEGORY_HELP_GUIDES = {
     title: "So funktioniert das Notenlesen-Training",
     lead: "Trainiere flüssiges Vom-Blatt-Lesen über 6 Modi: im Violin-, Bass- und Altschlüssel, im Schlüssel-Mix, im zweizeiligen Klavier-Doppelsystem sowie beim Erkennen ganzer Akkorde (inkl. Umkehrungen &amp; Septakkorde).",
     sections: `
-      <h3>Alle 6 Übungsmodi &amp; Eingabe</h3>
+      <h3>Alle 7 Übungsmodi &amp; Eingabe</h3>
       <ul class="article-steps-list">
         <li><strong>1. Einzelnoten-Schlüssel (6 Noten im Fluss):</strong> Im <strong>Violin-</strong>, <strong>Bass-</strong>, <strong>Altschlüssel</strong> und im <strong>Schlüssel-Mix</strong> (wechselt alle 3 Noten mit kleinem Schlüsselsignal) sowie im zweizeiligen <strong>Doppelsystem</strong> (Violin- &amp; Bassschlüssel gemeinsam) leuchtet links die aktuelle Zielnote. Du tippst sie unten auf der Klaviatur an – bei Treffer rückt die Reihe flüssig weiter.</li>
         <li><strong>2. Akkorde lesen (5 Akkorde, Multiple Choice):</strong> Gestapelte Dreiklänge &amp; Septakkorde erscheinen direkt im Notensystem. Statt Einzeltasten wählst du unten aus <strong>Akkordsymbol-Kacheln</strong> (z. B. <code>E, Em, E7, Esus4</code>): Stufe 1 im Violinschlüssel, Stufe 2 im Bassschlüssel, Stufe 3 mit Umkehrungen in beiden Schlüsseln und Stufe 4 mit allen Typen &amp; Septakkorden.</li>
-        <li><strong>3. Irrtümer &amp; Überspringen:</strong> Falsche Tasten oder Kacheln färben sich rot und stoppen die Reihe, damit du Position, Schlüssel oder Umkehrung ruhig prüfen kannst. Mit <strong>Überspringen</strong> siehst du die Lösung auf der Bühne und rückst sofort weiter.</li>
+        <li><strong>3. Symbole &amp; Spielanweisungen (5 Stufen):</strong> Trainiere über 60 musikalische Begriffe, Vortragszeichen und Ablaufregeln in 5 Stufen – von Dynamik (<code>ppp</code>–<code>fff</code>, <code>sfz</code>, <code>fp</code>) und Tempo/Ausdruck über Artikulation &amp; Verzierungen bis zu Wiederholungen, Voltenklammern, <strong>Segno</strong> &amp; <strong>Coda</strong> inkl. Spielreihenfolge-Partituren. Im Wissens-Hub findest du dazu das ausführliche Nachschlagewerk <strong>Vortragszeichen &amp; Symbole</strong> (mit Hörbeispielen).</li>
+        <li><strong>4. Irrtümer &amp; Überspringen:</strong> Falsche Tasten oder Kacheln färben sich rot und stoppen die Reihe, damit du Position, Schlüssel, Umkehrung oder Symbol ruhig prüfen kannst. Mit <strong>Überspringen</strong> siehst du die Lösung auf der Bühne und rückst sofort weiter.</li>
       </ul>
 
       <h3>Schwierigkeitsstufen &amp; Generalvorzeichen</h3>
