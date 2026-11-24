@@ -2,7 +2,7 @@
 
 All released versions of Lauscher. New sections are created by `python3 scripts/bump-version.py`.
 
-## Unreleased
+## 0.10.0-beta (Build 2) – 2026-11-24
 
 **New**
 - 3 more languages: Italian, Turkish and Arabic (with right-to-left layout) – now 10 languages in total
