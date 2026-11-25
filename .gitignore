@@ -5,6 +5,15 @@
 # Rohes Sample-Quellmaterial (für den Browser nicht nötig)
 daw-sampling/
 
+# Audio-Samples liegen im privaten Repo jbkstr/lauscher-samples (scripts/samples.sh pull|push).
+# Öffentlich bleiben nur die Maskottchen-Grafiken.
+samples/*
+!samples/mascot-bundle.js
+!samples/mascot-metal-bundle.js
+
+# Mobile-Bundle enthält alle Samples inline → nur lokal bauen (scripts/build-mobile-bundle.py)
+lauscher-mobile.html
+
 # Editoren & Tools
 .vscode/
 .idea/

@@ -70,6 +70,9 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 ## Samples
 
 - `samples/<instrument>/*.m4a` sind die Rohdateien, `samples/*-bundle.js` dieselben Samples als Base64 (damit es keine CORS-Probleme bei `file://` gibt). Zur Laufzeit lädt die App **nur die Bundles**.
+- **Audio-Samples sind nicht im öffentlichen Repo.** Sie liegen im privaten Repo `jbkstr/lauscher-samples` (lokal `~/Documents/GitHub/lauscher-samples`, änderbar per `LAUSCHER_SAMPLES_DIR`) und sind hier per `.gitignore` ausgeschlossen. Öffentlich bleiben nur die Maskottchen-Grafiken (`samples/mascot*-bundle.js`).
+  - **In einem frischen Checkout/Worktree zuerst `scripts/samples.sh pull`**, sonst fehlen die Bundles (Projekt-Check meldet es; `sync-android.sh` holt sie automatisch).
+  - Nach Änderungen an Samples: `scripts/samples.sh push ["Nachricht"]` (committet und pusht im privaten Repo). Sample-Dateien nie im öffentlichen Repo committen.
 - Das Generator-Skript (`daw-sampling/process_samples.py`) ist **nicht im Repo**. Bundles also nicht von Hand bearbeiten.
 - **Lizenz zuerst prüfen:** Neue Samples nur aus Quellen, deren Lizenz die Weitergabe einzelner Töne in einer App ausdrücklich erlaubt (z. B. CC0 oder eine schriftliche Erlaubnis). Kostenlose Sample-Libraries bzw. Plugins erlauben das meist **nicht**: Die Ample-Sound-EULA (Ample Guitar M Lite) verbietet es z. B. in Abschnitt 6, deshalb wurde Release 0.10.1-beta mit 0.10.2-beta zurückgenommen.
 - **Aufnahme-Pipeline (aktuell ungenutzt, für eine lizenzrechtlich passende Library):** `scripts/make-guitar-sampling-midi.py` (MIDI-Aufnahmevorlage E2–C6 chromatisch, Layer mf/p/f) → Export als lange WAV nach `daw-sampling/guitar-recording/` → `scripts/slice-guitar-samples.py <wav>` (Einzeltöne nach `slices/`) → `scripts/build-guitar-samples.py <slices>` (Mono, Pegelangleich, 3,2 s, AAC 48 kbit/s → `samples/guitar/*.m4a`, `samples/guitar/p|f/*.m4a` und `samples/guitar-bundle.js`). Braucht macOS (`afconvert`).
@@ -77,9 +80,9 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 
 ## Mobile-Bundle
 
-- [lauscher-mobile.html](lauscher-mobile.html) (~15,8 MB) ist eine **komplett eigenständige Einzeldatei** mit allen CSS-, JS-, Font- und Sample-Inhalten inline (keine externe `tone.js` mehr nötig).
+- `lauscher-mobile.html` (~15,8 MB, **nur lokal, nicht im Repo**, weil es alle Samples enthält) ist eine **komplett eigenständige Einzeldatei** mit allen CSS-, JS-, Font- und Sample-Inhalten inline (keine externe `tone.js` mehr nötig).
 - Die Datei wird von [scripts/build-mobile-bundle.py](scripts/build-mobile-bundle.py) aus `index.html` erzeugt: `styles.css` und alle `<script src>` werden inline eingesetzt. Lokale Dateien, die im CSS per `url(...)` eingebunden sind (die Fonts & Icons), werden als Base64 eingebettet. Diese Datei nie direkt bearbeiten und nicht lesen (zu groß).
-- **Nach jeder Änderung an index.html, styles.css oder einer JS-Datei das Bundle neu bauen und mitcommitten:**
+- **Nach jeder Änderung an index.html, styles.css oder einer JS-Datei das Bundle neu bauen** (wird nicht committet; der Projekt-Check prüft den lokalen Stand, `sync-android.sh` baut es ohnehin neu):
   ```bash
   python3 scripts/build-mobile-bundle.py          # neu bauen
   python3 scripts/build-mobile-bundle.py --check  # prüfen, ob aktuell (Exit-Code 1 = veraltet)
@@ -122,6 +125,6 @@ Danach `http://localhost:8000` öffnen. Für den Nutzer gibt es die Doppelklick-
 - `localStorage`-Zugriffe immer in `try/catch` (wie im bestehenden Code).
 - Keine neuen Abhängigkeiten, CDNs, Analytics oder Netzwerkaufrufe einbauen. Datenschutz ist ein Kernversprechen der App.
 - **Dateinamen im Repository sind immer auf Englisch** (auch für neue Dateien, Doku-Dateien, Skripte und Assets).
-- Deployment über GitHub Pages (Branch `main`, Root-Ordner). Repo: `github.com/jbkstr/lauscher`, Web-App: `https://jbkstr.github.io/lauscher/`, Datenschutz: `…/lauscher/privacy.html`, Nutzungsbedingungen: `…/lauscher/terms.html`, Lizenzen: `…/lauscher/licenses.html`. Der lokale Ordner heißt noch `projekt-lauschebear`.
+- Deployment über GitHub Pages per GitHub Action [.github/workflows/pages.yml](.github/workflows/pages.yml) bei jedem Push auf `main`: Sie holt die Samples per Deploy-Key (Secret `SAMPLES_DEPLOY_KEY`, nur Lesezugriff auf `jbkstr/lauscher-samples`) und veröffentlicht Repo + Samples. Status: `gh run list --workflow pages.yml`. Repo: `github.com/jbkstr/lauscher`, Web-App: `https://jbkstr.github.io/lauscher/`, Datenschutz: `…/lauscher/privacy.html`, Nutzungsbedingungen: `…/lauscher/terms.html`, Lizenzen: `…/lauscher/licenses.html`. Der lokale Ordner heißt noch `projekt-lauschebear`.
 - **Ideen für später** stehen in [docs/ideas.md](docs/ideas.md). Wünscht der Nutzer etwas „für später“, dort eintragen. Vor Arbeiten an betroffenen Bereichen (z. B. Maskottchen, Visual-Update) dort nachsehen.
 - Abgeschaltete, aber aufbewahrte Features laufen über Schalter-Konstanten (z. B. `MASCOT_LOOKS_ENABLED` in app.js) statt über gelöschten Code.

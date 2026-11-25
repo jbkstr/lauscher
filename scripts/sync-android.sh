@@ -53,6 +53,7 @@ TARGET_DIR="$(cd "$TARGET_DIR" && pwd)"
 WWW_DIR="$TARGET_DIR/www"
 
 echo "1/4 • Prüfe Projekt-Skripte & baue Mobile-Bundle …"
+"$REPO_ROOT/scripts/samples.sh" pull --if-missing
 python3 "$REPO_ROOT/scripts/check-project.py" --no-bundle
 python3 "$REPO_ROOT/scripts/build-mobile-bundle.py" >/dev/null
 

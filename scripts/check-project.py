@@ -48,7 +48,8 @@ def extract_index_assets(index_html: str) -> tuple[list[str], list[str]]:
 def check_files_exist(root: Path, paths: list[str], errors: list[str]) -> None:
     for rel in paths:
         if not (root / rel).is_file():
-            errors.append(f"Datei aus index.html fehlt: {rel}")
+            hint = " (Audio-Samples liegen im privaten Repo: scripts/samples.sh pull)" if rel.startswith("samples/") else ""
+            errors.append(f"Datei aus index.html fehlt: {rel}{hint}")
 
 
 def check_js_syntax(root: Path, node_bin: str, scripts: list[str], errors: list[str]) -> int:

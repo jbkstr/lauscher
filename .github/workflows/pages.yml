@@ -1,0 +1,61 @@
+# Lauscher • Web-App auf GitHub Pages veröffentlichen.
+# Die Audio-Samples liegen im privaten Repo jbkstr/lauscher-samples und werden nur hier beim Bauen
+# der Website eingesetzt (Zugriff per Deploy-Key im Secret SAMPLES_DEPLOY_KEY, nur Lesezugriff).
+name: Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Quellcode holen
+        uses: actions/checkout@v4
+
+      - name: Samples aus privatem Repo holen
+        uses: actions/checkout@v4
+        with:
+          repository: jbkstr/lauscher-samples
+          ssh-key: ${{ secrets.SAMPLES_DEPLOY_KEY }}
+          path: _samples
+
+      - name: Website zusammenstellen
+        run: |
+          set -euo pipefail
+          for i in bass brass guitar percussion piano strings voice; do
+            mkdir -p samples/$i
+            cp _samples/$i/*.m4a samples/$i/
+            cp _samples/$i-bundle.js samples/
+          done
+          mkdir -p _site
+          rsync -a ./ _site/ \
+            --exclude '.git' --exclude '.github' --exclude '_samples' --exclude '_site' \
+            --exclude 'daw-sampling' --exclude '.claude'
+          # Pflichtdateien prüfen, damit nie eine Website ohne Samples live geht
+          for f in index.html samples/piano-bundle.js samples/guitar-bundle.js; do
+            test -s "_site/$f" || { echo "Fehlt: $f"; exit 1; }
+          done
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
