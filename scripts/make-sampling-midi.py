@@ -12,7 +12,8 @@ Aufbau (60 BPM, 4/4 → 1 Takt = 4 s, 1 Schlag = 1 s):
   - zusätzlich cue-list.csv mit allen Zeiten (für scripts/slice-samples.py)
 
 Presets:
-  guitar  E2 … C6, 8-s-Slots (5 s gehalten), Velocity mf 84 / p 50 / f 110
+  guitar  C2 … C6, 8-s-Slots (5 s gehalten), Velocity mf 84 / p 50 / f 110
+  guitar-live  E2 … C6, nur mf, 8-s-Slots (5 s gehalten) – Vorlage zum Selbst-Einspielen auf einer echten Gitarre
   piano   C1 … C7, 8-s-Slots (6 s gehalten), Velocity mf 82 / p 48 / f 112, Sustain-Pedal aus
 
 Aufruf:
@@ -35,13 +36,20 @@ PRESETS = {
     "guitar": {
         "title": "Lauscher Guitar Sampling",
         "track": "Guitar",
-        "low": 40, "high": 84,            # E2 … C6
+        "low": 36, "high": 84,            # C2 … C6 (Studio One: C1 … C5, dort ist C3 = MIDI 60)
         "slot_bars": 2, "note_beats": 5,  # 8 s Slot, 5 s gehalten
         "layers": [
             ("mf", 84, 64),   # Hauptlayer: natürlicher, voller Anschlag ohne Härte
             ("p", 50, 48),    # weicher Anschlag
             ("f", 110, 72),   # kräftig, aber unter dem „Slap/Buzz“-Bereich ab ~120
         ],
+    },
+    "guitar-live": {
+        "title": "Lauscher Guitar Live Recording",
+        "track": "Guitar",
+        "low": 40, "high": 84,            # E2 … C6 (tiefster Ton einer normal gestimmten Gitarre)
+        "slot_bars": 2, "note_beats": 5,  # 8 s Slot: Note beginnt = anschlagen, Note endet = abdämpfen
+        "layers": [("mf", 84, 64)],
     },
     "piano": {
         "title": "Lauscher Piano Sampling",

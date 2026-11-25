@@ -45,7 +45,7 @@ PEAK_CEILING_DB = -1.0
 
 PRESETS = {
     "guitar": {
-        "source": "daw-sampling/guitar-recording/slices/",
+        "source": "Meta Steel Guitar (Meta Open Sound, CC0 1.0) via scripts/import-sfz-samples.py",
         "channels": 1,
         "bitrate": 48000,
         "level": {"mode": "tilt", "target_db": -13.4, "tilt_db_per_semi": -0.336},
