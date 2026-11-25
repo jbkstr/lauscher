@@ -2,7 +2,7 @@
 
 All released versions of Lauscher. New sections are created by `python3 scripts/bump-version.py`.
 
-## Unreleased
+## 0.12.0-beta (Build 7) – 2026-11-25
 
 **New**
 - Practice progress is remembered: Lauscher keeps the exercise you last chose and the level and options of every exercise across restarts, and "Continue" picks up where you left off.
