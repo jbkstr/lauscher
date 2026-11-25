@@ -2104,13 +2104,18 @@ html[lang="ar"] .btn-primary-action.home-continue-fab { width: 174px; }
   flex: 1;
 }
 
+/* Mix-Namen bis zu zwei Zeilen zeigen, erst danach mit „…“ kürzen */
 .account-mix-title {
   font-size: 0.82rem;
   font-weight: 800;
   color: var(--raccoon-dark);
-  white-space: nowrap;
+  line-height: 1.2;
   overflow: hidden;
-  text-overflow: ellipsis;
+  overflow-wrap: break-word;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
 }
 
 .account-mix-meta {
@@ -2859,7 +2864,20 @@ html[lang="ar"] .btn-primary-action.home-continue-fab { width: 174px; }
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   gap: 0.5rem;
+}
+
+/* Text nimmt den Platz, der Abspiel-Knopf bleibt einzeilig und rutscht bei Bedarf unter den Text */
+.song-cheat-row > div {
+  flex: 1 1 11rem;
+  min-width: 0;
+}
+
+.song-cheat-row > button {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  max-width: 100%;
 }
 
 .song-cheat-row > div > strong {
@@ -3964,6 +3982,32 @@ html[lang="ar"] .btn-primary-action.home-continue-fab { width: 174px; }
   font-size: 0.75rem;
 }
 
+/* Schmale Handys: Unterzeilen wie „2er-Marsch“ / „16.-Synkope“ passen sonst um wenige Pixel nicht
+   in die 4er-Kacheln und werden mit „…“ abgeschnitten */
+@media (max-width: 380px) {
+  .degree-btn {
+    padding-inline: 0.2rem;
+  }
+
+  .degree-label,
+  .degrees-grid.grid-intervals .degree-label {
+    font-size: 0.69rem;
+    letter-spacing: -0.01em;
+  }
+
+  /* Passt ein Wort trotzdem nicht (z. B. „Vermindert“ in 5er-Reihen), lieber mit Trennstrich
+     umbrechen als mit „…“ abschneiden */
+  .degree-label {
+    white-space: normal;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    overflow-wrap: break-word;
+    line-height: 1.08;
+    text-align: center;
+    text-overflow: clip;
+  }
+}
+
 .btn-correct {
   background-color: var(--sage) !important;
   border-color: var(--sage-strong) !important;
@@ -4203,12 +4247,13 @@ html[lang="ar"] .btn-primary-action.home-continue-fab { width: 174px; }
   color: var(--raccoon-dark);
 }
 
+/* Lange Namen (fr/pl/uk) dürfen zweizeilig werden statt mit „…“ zu enden */
 .mixer-name {
   min-width: 0;
   line-height: 1.15;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
 }
 
 .mixer-row input[type="range"] {
@@ -4427,12 +4472,19 @@ html[lang="ar"] .btn-primary-action.home-continue-fab { width: 174px; }
 
 .spectrum-head {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 0.4rem;
+  gap: 0.15rem 0.4rem;
   font-size: 0.76rem;
   font-weight: 800;
   color: var(--raccoon-dark);
+}
+
+/* Verhältnis-Angaben (z. B. „9:8 · 16:9“) nie mitten drin umbrechen – lieber als eigene Zeile unter den Titel */
+.spectrum-head > span + span {
+  white-space: nowrap;
+  color: var(--text-muted);
 }
 
 .spectrum-sub {
@@ -6192,6 +6244,36 @@ body,
   border-radius: var(--radius-sm);
   padding: 0.42rem 0.6rem;
   line-height: 1.4;
+  display: flex;
+  flex-direction: column;
+  gap: 0.32rem;
+}
+
+.cof-scale-title {
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: var(--text-muted, var(--raccoon-dark));
+}
+
+/* Noten der Tonleiter: eine Zeile mit gleich breiten Feldern (kein Umbruch mitten in der Leiter) */
+.cof-scale-notes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 0.24rem;
+}
+
+.cof-scale-notes li {
+  text-align: center;
+  font-size: 0.86rem;
+  font-weight: 800;
+  padding: 0.22rem 0;
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-base);
+  border: 1px solid var(--border-soft);
+  white-space: nowrap;
 }
 
 .cof-chord-grid {
@@ -6266,6 +6348,39 @@ body,
   display: block;
   color: var(--raccoon-dark);
   margin-bottom: 0.14rem;
+}
+
+/* Dreh-Modulation: Schritte als Kette, Umbruch nur zwischen den Schritten */
+.cof-pivot-path {
+  list-style: none;
+  margin: 0.2rem 0 0.36rem;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.28rem 0.2rem;
+}
+
+.cof-pivot-path li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  white-space: nowrap;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+}
+
+.cof-pivot-path li + li::before {
+  content: "→";
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.cof-pivot-path li > span {
+  padding: 0.12rem 0.42rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-base);
+  border: 1px solid var(--border-soft);
 }
 
 @media (max-width: 420px) {
@@ -7923,11 +8038,12 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   padding: 0.22rem 0.22rem;
   font-size: 0.65rem;
   font-weight: 800;
+  line-height: 1.15;
   cursor: pointer;
   text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
 }
 
 .warmup-phase-pill.is-done {
@@ -14225,20 +14341,25 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 .freeplay-inst-top {
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 0.24rem;
 }
 
+/* Lange Instrumentnamen (z. B. „Cuivres & Vents“, „Dęte blaszane“) umbrechen statt mit „…“ abschneiden */
 .freeplay-inst-name {
   font-size: 0.76rem;
   font-weight: 800;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.15;
+  min-width: 0;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
 }
 
 .freeplay-inst-pct {
+  flex-shrink: 0;
+  line-height: 1.15;
   font-size: 0.66rem;
   font-weight: 800;
   font-variant-numeric: tabular-nums;
@@ -16400,7 +16521,8 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 #viewExercise.is-tutorial-running .bottom-dock .degrees-grid,
 #viewExercise.is-tutorial-running .bottom-dock .solfege-keyboard-wrap,
 #viewExercise.is-tutorial-running .bottom-dock .rhythm-tap-wrap,
-#viewExercise.is-tutorial-running .bottom-dock .melody-rhythm-picker {
+#viewExercise.is-tutorial-running .bottom-dock .melody-rhythm-picker,
+#viewExercise.is-tutorial-running #exerciseModuleCard {
   pointer-events: none;
 }
 
@@ -39662,15 +39784,6 @@ registerColocatedPhrases({
     tr: "Modülasyon ve Geçişler",
     ar: "الانتقال النغمي والمسارات"
   },
-  "Tonleiter:": {
-    es: "Escala:",
-    it: "Scala:",
-    pl: "Skala:",
-    uk: "Гама:",
-    ur: "اسکیل:",
-    tr: "Gam:",
-    ar: "السلم:"
-  },
   "Tippen zum Anhören": {
     es: "Toca para escuchar el acorde",
     it: "Tocca per ascoltare",
@@ -39779,14 +39892,14 @@ registerColocatedPhrases({
     tr: "Triton kutbu (6 adım):",
     ar: "قطب الترايتون (6 خطوات):"
   },
-  "Elegante Dreh-Modulation:": {
-    es: "Modulación elegante por acorde pivote:",
-    it: "Modulazione elegante con accordo perno:",
-    pl: "Płynna modulacja przez wspólny akord:",
-    uk: "Плавна модуляція через спільний акорд:",
-    ur: "نفیس محوری ماڈیولیشن:",
-    tr: "Zarif eksen modülasyonu:",
-    ar: "انتقال نغمي محوري أنيق:"
+  "Elegante Dreh-Modulation": {
+    es: "Modulación elegante por acorde pivote",
+    it: "Modulazione elegante con accordo perno",
+    pl: "Płynna modulacja przez wspólny akord",
+    uk: "Плавна модуляція через спільний акорд",
+    ur: "نفیس محوری ماڈیولیشن",
+    tr: "Zarif eksen modülasyonu",
+    ar: "انتقال نغمي محوري أنيق"
   },
   "Ein gemeinsamer Mollakkord dient als Drehachse und leitet das Ohr unauffällig in die Nachbartonart.": {
     es: "Un acorde menor común sirve de eje y lleva el oído con discreción a la tonalidad vecina.",
@@ -71962,8 +72075,10 @@ function renderCircleOfFifthsToolHTML(selectedIdx = 0, ringMode = "major", activ
   if (safeTab === "chords") {
     tabBodyHTML = `
       <div class="cof-scale-strip">
-        <strong>${lc("Tonleiter:", "Scale:", "Gamme :")}</strong>
-        <span>${harmonic.scaleLabels.join(" – ")}</span>
+        <strong class="cof-scale-title">${lc("Tonleiter", "Scale", "Gamme")}</strong>
+        <ol class="cof-scale-notes" dir="ltr">
+          ${harmonic.scaleLabels.map(n => `<li>${n}</li>`).join("")}
+        </ol>
       </div>
       <div class="cof-chord-grid">
         ${harmonic.chords.map(ch => `
@@ -71990,9 +72105,10 @@ function renderCircleOfFifthsToolHTML(selectedIdx = 0, ringMode = "major", activ
       <p class="k-tip"><strong>${lc("Klang & Instrumente:", "Sound & Instruments:", "Son & Instruments :")}</strong> ${curDisp.vibeText}</p>
     `;
   } else {
-    const pivotLabel = safeRing === "minor"
-      ? `${curDisp.minorWheel} (i) → ${leftDisp.minorWheel} (iv) → V7 → ${curDisp.majorFull} (III)`
-      : `${curDisp.majorFull} (I) → ${curDisp.minorWheel} (vi = ii) → V7 → ${rightDisp.majorFull}`;
+    // Schritte der Dreh-Modulation einzeln, damit sie nur zwischen den Schritten umbrechen
+    const pivotSteps = safeRing === "minor"
+      ? [`${curDisp.minorWheel} (i)`, `${leftDisp.minorWheel} (iv)`, "V7", `${curDisp.majorFull} (III)`]
+      : [`${curDisp.majorFull} (I)`, `${curDisp.minorWheel} (vi = ii)`, "V7", rightDisp.majorFull];
     tabBodyHTML = `
       <div class="cof-mod-grid">
         <div class="cof-mod-box">
@@ -72006,14 +72122,17 @@ function renderCircleOfFifthsToolHTML(selectedIdx = 0, ringMode = "major", activ
           ${lc("Tritonus-Pol (6 Schritte):", "Tritone Pole (6 steps):", "Pôle triton (6 pas) :")} <code>${safeRing === "minor" ? triDisp.minorFull : triDisp.majorFull}</code>
         </div>
       </div>
-      <p class="k-tip">
-        <strong>${lc("Elegante Dreh-Modulation:", "Smooth Pivot Modulation:", "Modulation par accord pivot :")}</strong>
-        <code>${pivotLabel}</code> — ${lc(
+      <div class="cof-mod-box cof-pivot-box">
+        <strong>${lc("Elegante Dreh-Modulation", "Smooth Pivot Modulation", "Modulation par accord pivot")}</strong>
+        <ol class="cof-pivot-path" dir="ltr">
+          ${pivotSteps.map(step => `<li><span>${step}</span></li>`).join("")}
+        </ol>
+        <span>${lc(
           "Ein gemeinsamer Mollakkord dient als Drehachse und leitet das Ohr unauffällig in die Nachbartonart.",
           "Notice how one shared minor chord smoothly pivots the ear into the neighboring key.",
           "Remarquez comment un accord mineur commun sert de pivot pour glisser en douceur vers la tonalité voisine."
-        )}
-      </p>
+        )}</span>
+      </div>
       <div class="k-btn-row">
         <button class="btn-tool" data-play-cof-mod="${activeCadenceMidi}" data-key-mode="${safeRing}">▶ ${lc("Modulation anhören", "Hear Smooth Modulation", "Écouter la modulation")}</button>
       </div>
@@ -113483,6 +113602,11 @@ function handleNativeBackButton() {
     return true;
   }
 
+  // Offenes Übungs-Tutorial zuerst schließen (wie Escape), statt die Übung zu verlassen
+  if (typeof dismissExerciseTutorialByUser === "function" && dismissExerciseTutorialByUser()) {
+    return true;
+  }
+
   const examBanner = document.getElementById("examAbortConfirmBanner");
   if (examBanner && !examBanner.classList.contains("hidden")) {
     cancelExamAbort();
@@ -121490,6 +121614,24 @@ function markSingAlongIntroForExercise(ex) {
   saveUserProfile(p);
 }
 
+/**
+ * Ein Übungs-Tutorial startet: die automatische Mitsing-Einführung dieser Aufgabe
+ * zurückstellen, damit nicht zwei Erklär-Fenster gleichzeitig offen sind. Der
+ * Zähler wird zurückgegeben, die Einführung kommt bei einer späteren Aufgabe.
+ */
+function deferSingAlongIntroForTutorial(ex = state.currentExercise) {
+  if (!ex?.singIntroShown) return;
+  ex.singIntroShown = false;
+  const p = state.profile;
+  if (p?.singAlongIntroCounts && typeof p.singAlongIntroCounts === "object") {
+    const seen = Number(p.singAlongIntroCounts[ex.type]) || 0;
+    if (seen > 0) {
+      p.singAlongIntroCounts[ex.type] = seen - 1;
+      saveUserProfile(p);
+    }
+  }
+}
+
 /** Karte, Chip und Summ-Pause-Schalter im Übungskopf synchronisieren. */
 function syncSingAlongUI(ex = state.currentExercise) {
   const card = document.getElementById("singAlongHint");
@@ -121497,7 +121639,9 @@ function syncSingAlongUI(ex = state.currentExercise) {
   const singText = ex ? getSingAlongHintText(ex.type) : null;
   const available = Boolean(singText) && isSingAlongTipsEnabled() && !state.exam?.active;
   const expanded = available && Boolean(state.singAlongExpanded);
-  const showCard = available && (expanded || Boolean(ex?.singIntroShown));
+  // Während ein Übungs-Tutorial offen ist, bleibt die Mitsing-Karte zu (sonst zwei Fenster gleichzeitig).
+  const tutorialOpen = typeof isExerciseTutorialActive === "function" && isExerciseTutorialActive();
+  const showCard = available && !tutorialOpen && (expanded || Boolean(ex?.singIntroShown));
 
   if (chip) {
     chip.classList.toggle("hidden", !available);
@@ -127850,6 +127994,15 @@ function setTutorialBackdropVisible(visible) {
   document.getElementById("exerciseTutorialBackdrop")?.classList.toggle("hidden", !visible);
 }
 
+/** Mitsing-Karte an den Tutorial-Zustand anpassen (offen → zu, beendet → wieder erlaubt). */
+function syncSingAlongForTutorial(starting) {
+  if (starting && typeof deferSingAlongIntroForTutorial === "function") {
+    deferSingAlongIntroForTutorial(_exTutorial.demoEx || state?.currentExercise);
+  }
+  if (typeof syncSingAlongUI === "function") syncSingAlongUI();
+  if (typeof queueFitExerciseLayout === "function") queueFitExerciseLayout(true);
+}
+
 function clearTutorialSpotlights() {
   _exTutorial.spotlightEls.forEach(el => el?.classList?.remove("tutorial-spotlight"));
   _exTutorial.spotlightEls = [];
@@ -127938,6 +128091,7 @@ function stopExerciseTutorial(options = {}) {
   const card = document.getElementById("exerciseTutorialCard");
   card?.classList.add("hidden");
   syncExerciseDemoButtonUI();
+  if (hadCard) syncSingAlongForTutorial(false);
 
   if ((wasRunning || hadCard) && !options.keepPlayback) {
     stopPlayback();
@@ -127965,6 +128119,20 @@ function stopExerciseTutorial(options = {}) {
   }
 }
 
+/**
+ * Nutzer schließt das Tutorial (✕, Escape, Android-„Zurück“): Einführung gilt als gesehen,
+ * nach einer Vorführung gibt es eine frische Aufgabe.
+ */
+function dismissExerciseTutorialByUser() {
+  if (!isExerciseTutorialActive()) return false;
+  const shouldRefresh = _exTutorial.phase === "demo" || _exTutorial.phase === "done";
+  if (_exTutorial.groupId && _exTutorial.phase === "intro") {
+    markTutorialGroupSeen(_exTutorial.groupId);
+  }
+  stopExerciseTutorial({ refreshExercise: shouldRefresh });
+  return true;
+}
+
 function maybeOfferExerciseTutorial(ex = state?.currentExercise) {
   if (!ex || state.currentView !== "exercise") return false;
   if (state.exam?.active || state.listenOnly?.active) return false;
@@ -127989,6 +128157,7 @@ function openExerciseTutorialIntro(ex = state?.currentExercise, explicitGroupId 
   _exTutorial.groupId = groupId;
   _exTutorial.demoEx = ex;
   syncExerciseDemoButtonUI();
+  syncSingAlongForTutorial(true);
 
   const meta = getTutorialMeta(groupId, ex);
   updateTutorialCardUI({
@@ -128082,6 +128251,7 @@ async function runExerciseTutorialDemo(options = {}) {
   _exTutorial.demoEx = ex;
   document.getElementById("viewExercise")?.classList.add("is-tutorial-running");
   syncExerciseDemoButtonUI();
+  syncSingAlongForTutorial(true);
 
   const meta = getTutorialMeta(groupId, ex);
   updateTutorialCardUI({
@@ -128549,11 +128719,7 @@ function initExerciseTutorialUI() {
   });
   document.getElementById("exTutorialCloseBtn")?.addEventListener("click", (e) => {
     e.stopPropagation();
-    const shouldRefresh = _exTutorial.phase === "demo" || _exTutorial.phase === "done";
-    if (_exTutorial.groupId && _exTutorial.phase === "intro") {
-      markTutorialGroupSeen(_exTutorial.groupId);
-    }
-    stopExerciseTutorial({ refreshExercise: shouldRefresh });
+    dismissExerciseTutorialByUser();
   });
   document.querySelectorAll("[data-ex-tutorials]").forEach(btn => {
     btn.addEventListener("click", () => {
@@ -129345,6 +129511,13 @@ function dismissBreakReminder(action = "continue") {
 /**
  * Zählt aktive Übezeit im Hintergrund ohne sichtbare Daueranzeige und meldet sich nach X Minuten.
  */
+function isBreakReminderBlockedByOtherWindow() {
+  if (typeof isExerciseTutorialActive === "function" && isExerciseTutorialActive()) return true;
+  if (typeof getOpenModalName === "function" && getOpenModalName()) return true;
+  const welcome = document.getElementById("welcomeOnboarding");
+  return Boolean(welcome && !welcome.classList.contains("hidden"));
+}
+
 function tickBreakReminder(nowWallMs = Date.now()) {
   const br = state?.breakReminder;
   if (!br || !state?.profile?.breakReminderEnabled) {
@@ -129370,6 +129543,9 @@ function tickBreakReminder(nowWallMs = Date.now()) {
   const targetSec = getBreakReminderMinutes() * 60;
   if (br.elapsedSec >= targetSec) {
     if (state.exam?.active) return;
+    // Nicht über ein anderes Fenster legen: Tutorial, offenes Modal (Mixer/Einstellungen/Über)
+    // oder Willkommens-Wizard. Die Erinnerung kommt, sobald wieder frei ist.
+    if (isBreakReminderBlockedByOtherWindow()) return;
     openBreakReminderModal();
   }
 }
@@ -132617,8 +132793,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Leertaste als Takt-/Tap-Taste (Rhythmus) bzw. Start/Pause (Einsing-Helfer); Escape schließt Tutorial
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && typeof isExerciseTutorialActive === "function" && isExerciseTutorialActive()) {
-      stopExerciseTutorial({ refreshExercise: true });
+    const tutorialOpen = typeof isExerciseTutorialActive === "function" && isExerciseTutorialActive();
+    if (e.key === "Escape" && tutorialOpen && !getOpenModalName()) {
+      dismissExerciseTutorialByUser();
       return;
     }
     if (e.code !== "Space" && e.key !== " ") return;
@@ -132646,6 +132823,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (state.currentView !== "exercise" || state.settings.mode !== "rhythm-tap" || state.listenOnly?.active) return;
+    // Offenes Tutorial: Leertaste darf weder Wiedergabe starten noch in die Vorführung tippen
+    if (tutorialOpen) {
+      e.preventDefault();
+      return;
+    }
 
     e.preventDefault();
     const session = state.rhythmTapSession;

@@ -403,6 +403,15 @@ function setTutorialBackdropVisible(visible) {
   document.getElementById("exerciseTutorialBackdrop")?.classList.toggle("hidden", !visible);
 }
 
+/** Mitsing-Karte an den Tutorial-Zustand anpassen (offen → zu, beendet → wieder erlaubt). */
+function syncSingAlongForTutorial(starting) {
+  if (starting && typeof deferSingAlongIntroForTutorial === "function") {
+    deferSingAlongIntroForTutorial(_exTutorial.demoEx || state?.currentExercise);
+  }
+  if (typeof syncSingAlongUI === "function") syncSingAlongUI();
+  if (typeof queueFitExerciseLayout === "function") queueFitExerciseLayout(true);
+}
+
 function clearTutorialSpotlights() {
   _exTutorial.spotlightEls.forEach(el => el?.classList?.remove("tutorial-spotlight"));
   _exTutorial.spotlightEls = [];
@@ -491,6 +500,7 @@ function stopExerciseTutorial(options = {}) {
   const card = document.getElementById("exerciseTutorialCard");
   card?.classList.add("hidden");
   syncExerciseDemoButtonUI();
+  if (hadCard) syncSingAlongForTutorial(false);
 
   if ((wasRunning || hadCard) && !options.keepPlayback) {
     stopPlayback();
@@ -518,6 +528,20 @@ function stopExerciseTutorial(options = {}) {
   }
 }
 
+/**
+ * Nutzer schließt das Tutorial (✕, Escape, Android-„Zurück“): Einführung gilt als gesehen,
+ * nach einer Vorführung gibt es eine frische Aufgabe.
+ */
+function dismissExerciseTutorialByUser() {
+  if (!isExerciseTutorialActive()) return false;
+  const shouldRefresh = _exTutorial.phase === "demo" || _exTutorial.phase === "done";
+  if (_exTutorial.groupId && _exTutorial.phase === "intro") {
+    markTutorialGroupSeen(_exTutorial.groupId);
+  }
+  stopExerciseTutorial({ refreshExercise: shouldRefresh });
+  return true;
+}
+
 function maybeOfferExerciseTutorial(ex = state?.currentExercise) {
   if (!ex || state.currentView !== "exercise") return false;
   if (state.exam?.active || state.listenOnly?.active) return false;
@@ -542,6 +566,7 @@ function openExerciseTutorialIntro(ex = state?.currentExercise, explicitGroupId 
   _exTutorial.groupId = groupId;
   _exTutorial.demoEx = ex;
   syncExerciseDemoButtonUI();
+  syncSingAlongForTutorial(true);
 
   const meta = getTutorialMeta(groupId, ex);
   updateTutorialCardUI({
@@ -635,6 +660,7 @@ async function runExerciseTutorialDemo(options = {}) {
   _exTutorial.demoEx = ex;
   document.getElementById("viewExercise")?.classList.add("is-tutorial-running");
   syncExerciseDemoButtonUI();
+  syncSingAlongForTutorial(true);
 
   const meta = getTutorialMeta(groupId, ex);
   updateTutorialCardUI({
@@ -1102,11 +1128,7 @@ function initExerciseTutorialUI() {
   });
   document.getElementById("exTutorialCloseBtn")?.addEventListener("click", (e) => {
     e.stopPropagation();
-    const shouldRefresh = _exTutorial.phase === "demo" || _exTutorial.phase === "done";
-    if (_exTutorial.groupId && _exTutorial.phase === "intro") {
-      markTutorialGroupSeen(_exTutorial.groupId);
-    }
-    stopExerciseTutorial({ refreshExercise: shouldRefresh });
+    dismissExerciseTutorialByUser();
   });
   document.querySelectorAll("[data-ex-tutorials]").forEach(btn => {
     btn.addEventListener("click", () => {
