@@ -263,8 +263,14 @@ class EarLabSampledInstrument {
     this.activeVoices = [];
     this._played = [];
     this._humanizeCounter = 0;
+    // Optionale Velocity-Layer (z. B. Gitarre p/f), geteilt zwischen Haupt- und Demo-Sampler
+    this.velocityLayerStore = options.velocityLayerStore || null;
 
-    this.samples = Object.entries(this.urls)
+    this.samples = EarLabSampledInstrument.buildSampleList(this.urls);
+  }
+
+  static buildSampleList(bufferMap) {
+    return Object.entries(bufferMap || {})
       .map(([note, entry]) => {
         const isObj = entry && typeof entry === "object" && entry.buffer;
         return {
@@ -294,14 +300,15 @@ class EarLabSampledInstrument {
     return 440 * Math.pow(2, (midi - 69) / 12);
   }
 
-  findClosestSample(targetMidi) {
-    let best = this.samples[0];
+  findClosestSample(targetMidi, sampleList = null) {
+    const list = sampleList && sampleList.length > 0 ? sampleList : this.samples;
+    let best = list[0];
     let bestDist = Infinity;
-    for (let i = 0; i < this.samples.length; i++) {
-      const d = Math.abs(this.samples[i].midi - targetMidi);
+    for (let i = 0; i < list.length; i++) {
+      const d = Math.abs(list[i].midi - targetMidi);
       if (d < bestDist) {
         bestDist = d;
-        best = this.samples[i];
+        best = list[i];
       }
     }
     return best;
@@ -426,9 +433,14 @@ class EarLabSampledInstrument {
     // Pro Akkord einmalig gewürfelte, dezente Roll-Varianz (nie zweimal identisch, nie übertrieben)
     const chordRollFactor = 0.65 + triRand01() * 0.70;
     const invertRoll = this.chordRollMode === "roll" && resolvedEntries.length >= 3 && Math.random() < 0.16;
+    // Klangfarbe nach ausdrücklich angegebener Dynamik (nicht nach der akkordbedingt abgesenkten Velocity);
+    // noch nicht decodierte Layer werden angestoßen, bis dahin klingt der Hauptlayer
+    const layerSamples = this.velocityLayerStore && Number.isFinite(envOverride?.dynamic)
+      ? this.velocityLayerStore.pick(envOverride.dynamic)
+      : null;
 
     resolvedEntries.forEach(({ targetMidi }) => {
-      const chosen = this.findClosestSample(targetMidi);
+      const chosen = this.findClosestSample(targetMidi, layerSamples);
       if (!chosen) return;
 
       while (this.activeVoices.length >= this.maxPolyphony) {
@@ -1494,6 +1506,7 @@ class AudioEngine {
       chordRollMode: samplerOpts.chordRollMode,
       maxPolyphony: samplerOpts.maxPolyphony ?? 16,
       getSoundProfile: samplerOpts.getSoundProfile,
+      velocityLayerStore: samplerOpts.velocityLayerStore || null,
       onVoiceStart: (v) => this.registerVoice(v),
       onVoiceEnd: (v) => this.unregisterVoice(v)
     });
@@ -1517,6 +1530,7 @@ class AudioEngine {
     const isPiano = stemKey === "piano";
     const stemTargetNode = (isPiano && this.pianoToneFilter) ? this.pianoToneFilter : gainNode;
     const pianoProfGetter = isPiano ? () => this.getActivePianoProfile() : null;
+    const velocityLayerStore = this.createVelocityLayerStore(stemKey, packs[stemKey]);
 
     const promise = (async () => {
       try {
@@ -1532,7 +1546,8 @@ class AudioEngine {
           noteJitterMs: cfg.noteJitterMs,
           chordRollMode: cfg.chordRollMode,
           maxPolyphony: cfg.maxPolyphony,
-          getSoundProfile: pianoProfGetter
+          getSoundProfile: pianoProfGetter,
+          velocityLayerStore
         }, isBackgroundWave);
         if (!decoded) return;
 
@@ -1587,6 +1602,7 @@ class AudioEngine {
           chordRollMode: cfg.chordRollMode,
           maxPolyphony: cfg.maxPolyphony,
           getSoundProfile: pianoProfGetter,
+          velocityLayerStore,
           onVoiceStart: (v) => this.registerVoice(v),
           onVoiceEnd: (v) => this.unregisterVoice(v)
         });
@@ -1616,6 +1632,43 @@ class AudioEngine {
 
     this.stemLoadingPromises[stemKey] = promise;
     return promise;
+  }
+
+  /**
+   * Velocity-Layer eines Sample-Packs (pack.velocityLayers = { p: { maxDynamic, notes }, f: { minDynamic, notes } }).
+   * Die Layer werden erst beim ersten Bedarf schonend decodiert (spart RAM, solange keine Übung Dynamik vorgibt);
+   * bis dahin liefert pick() null und der Sampler spielt den Hauptlayer.
+   */
+  createVelocityLayerStore(stemKey, pack) {
+    const defs = pack?.velocityLayers;
+    if (!defs || typeof defs !== "object") return null;
+    const engine = this;
+    const store = {
+      samples: {},
+      loading: {},
+      pick(dynamic) {
+        const name = Object.keys(defs).find(key => {
+          const def = defs[key] || {};
+          if (Number.isFinite(def.maxDynamic) && dynamic <= def.maxDynamic) return true;
+          if (Number.isFinite(def.minDynamic) && dynamic >= def.minDynamic) return true;
+          return false;
+        });
+        if (!name) return null;
+        if (store.samples[name]) return store.samples[name];
+        if (!store.loading[name]) {
+          store.loading[name] = engine.decodeSamplePackBuffers({ notes: defs[name].notes || {} }, true, true)
+            .then(decoded => {
+              const list = decoded ? EarLabSampledInstrument.buildSampleList(decoded.bufferMap) : [];
+              if (list.length > 0) store.samples[name] = list;
+            })
+            .catch(err => {
+              console.warn(`Velocity-Layer "${stemKey}/${name}" konnte nicht decodiert werden:`, err);
+            });
+        }
+        return null;
+      }
+    };
+    return store;
   }
 
   prioritizeStemDecode(stemKey) {
@@ -2587,7 +2640,14 @@ class AudioEngine {
           : (timingOpts?.legato === true
               ? (uniqNotes.length <= 1 ? "melody" : "chord")
               : (_mode === "cadence" && uniqNotes.length >= 2 ? "chord" : null)));
-    const envOverride = legatoMode ? { legatoGroup: legatoMode } : null;
+    const hasExplicitDynamic = Number.isFinite(timingOpts?.velocity);
+    const envOverride = (legatoMode || hasExplicitDynamic)
+      ? {
+          ...(legatoMode ? { legatoGroup: legatoMode } : {}),
+          // Ausdrücklich angegebene Spieldynamik wählt bei Instrumenten mit Velocity-Layern die Anschlagsfarbe
+          ...(hasExplicitDynamic ? { dynamic: velScale } : {})
+        }
+      : null;
 
     // Nur aktive Stems (> 0,5 %) auslösen; im Mehr-Instrumenten-Zusammenspiel feiner menschlicher Ensemble-Versatz
     const activeChordStems = hasNotes

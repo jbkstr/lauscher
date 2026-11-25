@@ -71,10 +71,12 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 
 - `samples/<instrument>/*.m4a` sind die Rohdateien, `samples/*-bundle.js` dieselben Samples als Base64 (damit es keine CORS-Probleme bei `file://` gibt). Zur Laufzeit lädt die App **nur die Bundles**.
 - Das Generator-Skript (`daw-sampling/process_samples.py`) ist **nicht im Repo**. Bundles also nicht von Hand bearbeiten.
+- **Ausnahme Gitarre:** komplett per Skript im Repo erzeugt. `scripts/make-guitar-sampling-midi.py` (MIDI-Aufnahmevorlage E2–C6 chromatisch, Layer mf/p/f) → Export als lange WAV nach `daw-sampling/guitar-recording/` → `scripts/slice-guitar-samples.py <wav>` (Einzeltöne nach `slices/`) → `scripts/build-guitar-samples.py <slices>` (Mono, Pegelangleich, 3,2 s, AAC 48 kbit/s → `samples/guitar/*.m4a`, `samples/guitar/p|f/*.m4a` und `samples/guitar-bundle.js`). Braucht macOS (`afconvert`).
+- **Velocity-Layer:** Ein Pack kann `velocityLayers: { p: { maxDynamic, notes }, f: { minDynamic, notes } }` enthalten (bisher nur Gitarre). Die Engine decodiert sie erst beim ersten Bedarf (`createVelocityLayerStore`) und wählt sie nur bei ausdrücklich übergebener Dynamik (`playStep(..., { velocity })` → `envOverride.dynamic`), nicht anhand der akkordbedingt abgesenkten Velocity. Ohne Angabe klingt immer der Hauptlayer `notes` (mf).
 
 ## Mobile-Bundle
 
-- [lauscher-mobile.html](lauscher-mobile.html) (~15,8 MB) ist eine **komplett eigenständige Einzeldatei** mit allen CSS-, JS-, Font- und Sample-Inhalten inline (keine externe `tone.js` mehr nötig).
+- [lauscher-mobile.html](lauscher-mobile.html) (~19,6 MB) ist eine **komplett eigenständige Einzeldatei** mit allen CSS-, JS-, Font- und Sample-Inhalten inline (keine externe `tone.js` mehr nötig).
 - Die Datei wird von [scripts/build-mobile-bundle.py](scripts/build-mobile-bundle.py) aus `index.html` erzeugt: `styles.css` und alle `<script src>` werden inline eingesetzt. Lokale Dateien, die im CSS per `url(...)` eingebunden sind (die Fonts & Icons), werden als Base64 eingebettet. Diese Datei nie direkt bearbeiten und nicht lesen (zu groß).
 - **Nach jeder Änderung an index.html, styles.css oder einer JS-Datei das Bundle neu bauen und mitcommitten:**
   ```bash
