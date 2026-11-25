@@ -4,6 +4,9 @@ All released versions of Lauscher. New sections are created by `python3 scripts/
 
 ## Unreleased
 
+**New**
+- Web version: Lauscher can be installed to the home screen as an app and works offline. App files, fonts and sounds are kept in the browser cache; updates are applied silently on the next reload.
+
 **Improved**
 - The sing-along tip no longer opens while an exercise tutorial is showing; it appears on a later exercise instead
 - The break reminder waits until an open tutorial, settings, mixer or about window is closed instead of popping up over it
@@ -17,9 +20,6 @@ All released versions of Lauscher. New sections are created by `python3 scripts/
 - Long instrument names (French, Polish, Ukrainian) in Free Play and the mixer, warm-up phase buttons and practice mix titles now wrap instead of being cut off
 - Singing, breathing exercises: every breathing phase now has its own sound. Inhale: a rising two-note chime and a swelling, airy sound. Hold: a single singing-bowl strike and a calm, steady tone. Exhale: a falling two-note chime and a warm sound that gets softer and darker. Release: a short, soft wooden tone, then silence. Core pulses use a short "F!" air puff, and long exhales get soft drop-like ticks every few seconds. The cue tones are pitched higher than before, so they can also be heard on phone speakers.
 - Singing, breathing exercises: a small legend below the breathing circle shows the phases of the current exercise (inhale, hold, exhale, release or pulse) and highlights the one that is playing. When the exercise is not running, tap a phase to hear its sound.
-
-**Fixed**
-- Urdu: the breathing phase "Release" was translated as "solve"; it now reads "let go / relax".
 - Milestone bonus themes now have their own stage sets instead of just new colors. Concert Hall: velvet curtain valance with gold trim, side curtains that open while music plays, a spotlight, a golden sheen on correct answers and gold note particles. Midnight Jazz: brick club wall, slowly drifting smoke, a neon title that flickers on, a neon note sign and a pulsing neon stage frame while playing, a teal neon flash on correct answers and glowing note particles.
 - Unlocking a bonus theme now opens a small reveal with an animated scene (curtain opens / neon sign lights up), a short signature melody and a "Use it now" button, instead of only a toast.
 - Concert Hall no longer uses a serif system font; all text stays in Andika.
@@ -31,13 +31,12 @@ All released versions of Lauscher. New sections are created by `python3 scripts/
 - iPhone/iPad: metronome, warm-up, tuner and other sound sessions stop cleanly when Lauscher goes to the background, instead of staying "on" but silent. After an interruption (Siri, alarm, call), the next tap brings the sound back.
 - Profile backup on iPhone/iPad: in the Home Screen app, "Save to device" opens the share sheet ("Save to Files") instead of a download that does not work there. In the browser, the message now says "Download started" instead of claiming the file was saved, and the download no longer fails when Safari asks for confirmation.
 - Touch screens: buttons no longer stay highlighted after tapping, long presses no longer open the iOS context menu, and text fields move into view above the on-screen keyboard.
-
-## 0.11.1-beta (Build 6) – 2026-11-25
-
-**Improved**
 - Guitar: new steel-string acoustic guitar sound from the Meta Steel Guitar (Meta Open Sound, CC0), every semitone from E2 to C6 (previously every third semitone), with soft, normal and strong attack layers.
 - Licenses: credit for the guitar samples.
 - Guitar in cadences and solfège: the guitar now plays real guitar chord shapes (open chords and barre chords over 4–6 strings, strummed, inversions with the right bass note) instead of copying the piano voicing.
+
+**Fixed**
+- Urdu: the breathing phase "Release" was translated as "solve"; it now reads "let go / relax".
 
 ## 0.11.1-beta (Build 6) – 2026-11-25
 
