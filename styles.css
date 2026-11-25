@@ -16392,7 +16392,8 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 #viewExercise.is-tutorial-running .bottom-dock .degrees-grid,
 #viewExercise.is-tutorial-running .bottom-dock .solfege-keyboard-wrap,
 #viewExercise.is-tutorial-running .bottom-dock .rhythm-tap-wrap,
-#viewExercise.is-tutorial-running .bottom-dock .melody-rhythm-picker {
+#viewExercise.is-tutorial-running .bottom-dock .melody-rhythm-picker,
+#viewExercise.is-tutorial-running #exerciseModuleCard {
   pointer-events: none;
 }
 

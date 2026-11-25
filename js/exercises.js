@@ -1082,6 +1082,24 @@ function markSingAlongIntroForExercise(ex) {
   saveUserProfile(p);
 }
 
+/**
+ * Ein Übungs-Tutorial startet: die automatische Mitsing-Einführung dieser Aufgabe
+ * zurückstellen, damit nicht zwei Erklär-Fenster gleichzeitig offen sind. Der
+ * Zähler wird zurückgegeben, die Einführung kommt bei einer späteren Aufgabe.
+ */
+function deferSingAlongIntroForTutorial(ex = state.currentExercise) {
+  if (!ex?.singIntroShown) return;
+  ex.singIntroShown = false;
+  const p = state.profile;
+  if (p?.singAlongIntroCounts && typeof p.singAlongIntroCounts === "object") {
+    const seen = Number(p.singAlongIntroCounts[ex.type]) || 0;
+    if (seen > 0) {
+      p.singAlongIntroCounts[ex.type] = seen - 1;
+      saveUserProfile(p);
+    }
+  }
+}
+
 /** Karte, Chip und Summ-Pause-Schalter im Übungskopf synchronisieren. */
 function syncSingAlongUI(ex = state.currentExercise) {
   const card = document.getElementById("singAlongHint");
@@ -1089,7 +1107,9 @@ function syncSingAlongUI(ex = state.currentExercise) {
   const singText = ex ? getSingAlongHintText(ex.type) : null;
   const available = Boolean(singText) && isSingAlongTipsEnabled() && !state.exam?.active;
   const expanded = available && Boolean(state.singAlongExpanded);
-  const showCard = available && (expanded || Boolean(ex?.singIntroShown));
+  // Während ein Übungs-Tutorial offen ist, bleibt die Mitsing-Karte zu (sonst zwei Fenster gleichzeitig).
+  const tutorialOpen = typeof isExerciseTutorialActive === "function" && isExerciseTutorialActive();
+  const showCard = available && !tutorialOpen && (expanded || Boolean(ex?.singIntroShown));
 
   if (chip) {
     chip.classList.toggle("hidden", !available);

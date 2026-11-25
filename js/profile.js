@@ -775,6 +775,13 @@ function dismissBreakReminder(action = "continue") {
 /**
  * Zählt aktive Übezeit im Hintergrund ohne sichtbare Daueranzeige und meldet sich nach X Minuten.
  */
+function isBreakReminderBlockedByOtherWindow() {
+  if (typeof isExerciseTutorialActive === "function" && isExerciseTutorialActive()) return true;
+  if (typeof getOpenModalName === "function" && getOpenModalName()) return true;
+  const welcome = document.getElementById("welcomeOnboarding");
+  return Boolean(welcome && !welcome.classList.contains("hidden"));
+}
+
 function tickBreakReminder(nowWallMs = Date.now()) {
   const br = state?.breakReminder;
   if (!br || !state?.profile?.breakReminderEnabled) {
@@ -800,6 +807,9 @@ function tickBreakReminder(nowWallMs = Date.now()) {
   const targetSec = getBreakReminderMinutes() * 60;
   if (br.elapsedSec >= targetSec) {
     if (state.exam?.active) return;
+    // Nicht über ein anderes Fenster legen: Tutorial, offenes Modal (Mixer/Einstellungen/Über)
+    // oder Willkommens-Wizard. Die Erinnerung kommt, sobald wieder frei ist.
+    if (isBreakReminderBlockedByOtherWindow()) return;
     openBreakReminderModal();
   }
 }
