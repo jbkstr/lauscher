@@ -2,6 +2,12 @@
 
 All released versions of Lauscher. New sections are created by `python3 scripts/bump-version.py`.
 
+## Unreleased
+
+**Improved**
+- Completely new guitar sound: re-recorded from a royalty-free sample library, every semitone from E2 to C6 (previously every third semitone), longer natural sustain, even volume across all strings
+- Guitar plays with three attack layers (soft, normal, strong): dynamics demos and accented beats now change the guitar's tone colour, not just its volume
+
 ## 0.10.0-beta (Build 2) – 2026-11-24
 
 **New**
