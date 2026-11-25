@@ -2,6 +2,15 @@
 
 All released versions of Lauscher. New sections are created by `python3 scripts/bump-version.py`.
 
+## Unreleased
+
+**Improved**
+- Singing, breathing exercises: every breathing phase now has its own sound. Inhale: a rising two-note chime and a swelling, airy sound. Hold: a single singing-bowl strike and a calm, steady tone. Exhale: a falling two-note chime and a warm sound that gets softer and darker. Release: a short, soft wooden tone, then silence. Core pulses use a short "F!" air puff, and long exhales get soft drop-like ticks every few seconds. The cue tones are pitched higher than before, so they can also be heard on phone speakers.
+- Singing, breathing exercises: a small legend below the breathing circle shows the phases of the current exercise (inhale, hold, exhale, release or pulse) and highlights the one that is playing. When the exercise is not running, tap a phase to hear its sound.
+
+**Fixed**
+- Urdu: the breathing phase "Release" was translated as "solve"; it now reads "let go / relax".
+
 ## 0.11.1-beta (Build 6) – 2026-11-25
 
 **Improved**
