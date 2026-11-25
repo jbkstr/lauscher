@@ -18084,7 +18084,6 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 
 :root[data-theme="mitternacht"] .brand-name {
   letter-spacing: 0.015em;
-  text-shadow: 0 0 22px rgba(116, 181, 255, 0.24);
 }
 
 :root[data-theme="mitternacht"] .stage-sub {
@@ -18401,14 +18400,10 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   to { transform: translate3d(5%, -3%, 0) rotate(7deg); }
 }
 
-/* Leuchtreklame-Titel: zündet beim Wechsel ins Theme einmal flackernd */
+/* Seitentitel bleibt bewusst ruhig (kein Neon-Schein, kein Flackern): .app-brand schneidet
+   überstehende Schatten ab, dadurch wäre der Kasten hinter dem Titel sichtbar geworden. */
 :root[data-theme="mitternacht"] .brand-name {
   color: #FFF1D6;
-  text-shadow:
-    0 0 2px rgba(255, 241, 214, 0.85),
-    0 0 9px rgba(244, 190, 94, 0.7),
-    0 0 22px rgba(244, 190, 94, 0.38);
-  animation: jazzNeonIgnite 1.5s steps(1, end) 1 both;
 }
 
 @keyframes jazzNeonIgnite {
@@ -18745,7 +18740,6 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 /* Weniger Bewegung: Szenen stehen still im Endzustand */
 @media (prefers-reduced-motion: reduce) {
   :root[data-theme="mitternacht"] body::before,
-  :root[data-theme="mitternacht"] .brand-name,
   :root[data-theme="mitternacht"] .central-stage.stage-playing,
   :root[data-theme="mitternacht"] .central-stage.stage-playing::before,
   :root[data-theme="mitternacht"] .central-stage.stage-celebrate::before,
