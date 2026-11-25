@@ -41,10 +41,10 @@ const WARMUP_STEP_CATALOG = {
     hintEn: "Keep shoulders relaxed — breathe low into the belly and exhale steadily on ffff/ssss.",
     cycles: 4,
     cyclePhases: [
-      { cue: "inhale", sec: 4.0, cueNoteOffset: 7,    de: "Einatmen", en: "Inhale",  detailDe: "Tief in den Bauch einatmen…",         detailEn: "Inhale deeply into the belly…" },
-      { cue: "hold",   sec: 1.5, cueNoteOffset: null, de: "Halten",   en: "Hold",    detailDe: "Kurz weich und offen halten",         detailEn: "Hold gently without tension" },
-      { cue: "exhale", sec: 5.5, cueNoteOffset: 0,    de: "Ausatmen", en: "Exhale",  detailDe: "Gleichmäßig ausströmen: ffff / ssss", detailEn: "Exhale steadily: ffff / ssss" },
-      { cue: "rest",   sec: 1.5, cueNoteOffset: null, de: "Lösen",    en: "Release", detailDe: "Bauchdecke lösen & nachspüren",       detailEn: "Release & soften between cycles" }
+      { cue: "inhale", sec: 4.0, de: "Einatmen", en: "Inhale",  detailDe: "Tief in den Bauch einatmen…",         detailEn: "Inhale deeply into the belly…" },
+      { cue: "hold",   sec: 1.5, de: "Halten",   en: "Hold",    detailDe: "Kurz weich und offen halten",         detailEn: "Hold gently without tension" },
+      { cue: "exhale", sec: 5.5, de: "Ausatmen", en: "Exhale",  detailDe: "Gleichmäßig ausströmen: ffff / ssss", detailEn: "Exhale steadily: ffff / ssss" },
+      { cue: "rest",   sec: 1.5, de: "Lösen",    en: "Release", detailDe: "Bauchdecke lösen & nachspüren",       detailEn: "Release & soften between cycles" }
     ]
   },
   "diaphragm-pulse": {
@@ -73,10 +73,10 @@ const WARMUP_STEP_CATALOG = {
     hintEn: "Calms nerves and upper-chest tension: inhale 4 s, hold gently 7 s, exhale softly for 8 s.",
     cycles: 4,
     cyclePhases: [
-      { cue: "inhale", sec: 4.0, cueNoteOffset: 7,    de: "Einatmen", en: "Inhale",  detailDe: "4 s ruhig durch die Nase in den Bauch",     detailEn: "4 s calm inhale into the belly" },
-      { cue: "hold",   sec: 7.0, cueNoteOffset: null, de: "Halten",   en: "Hold",    detailDe: "7 s weit und entspannt halten – kein Druck", detailEn: "7 s gentle hold — no throat tension" },
-      { cue: "exhale", sec: 8.0, cueNoteOffset: 0,    de: "Ausatmen", en: "Exhale",  detailDe: "8 s sanft und gleichmäßig auf ffff / ssss",  detailEn: "8 s soft, steady exhale on ffff / ssss" },
-      { cue: "rest",   sec: 1.5, cueNoteOffset: null, de: "Lösen",    en: "Release", detailDe: "Schultern & Bauchdecke komplett lösen",      detailEn: "Release shoulders & belly completely" }
+      { cue: "inhale", sec: 4.0, de: "Einatmen", en: "Inhale",  detailDe: "4 s ruhig durch die Nase in den Bauch",     detailEn: "4 s calm inhale into the belly" },
+      { cue: "hold",   sec: 7.0, de: "Halten",   en: "Hold",    detailDe: "7 s weit und entspannt halten – kein Druck", detailEn: "7 s gentle hold — no throat tension" },
+      { cue: "exhale", sec: 8.0, de: "Ausatmen", en: "Exhale",  detailDe: "8 s sanft und gleichmäßig auf ffff / ssss",  detailEn: "8 s soft, steady exhale on ffff / ssss" },
+      { cue: "rest",   sec: 1.5, de: "Lösen",    en: "Release", detailDe: "Schultern & Bauchdecke komplett lösen",      detailEn: "Release shoulders & belly completely" }
     ]
   },
   "breath-farinelli": {
@@ -93,37 +93,37 @@ const WARMUP_STEP_CATALOG = {
       {
         labelDe: "Stufe 4–4–4", labelEn: "Step 4–4–4",
         phases: [
-          { cue: "inhale", sec: 4.0, cueNoteOffset: 7,    de: "Einatmen", en: "Inhale",  detailDe: "4 s gleichmäßig bis in die Flanken einatmen", detailEn: "4 s steady inhale into lower ribs" },
-          { cue: "hold",   sec: 4.0, cueNoteOffset: null, de: "Weiten",   en: "Suspend", detailDe: "4 s Rippen weit & Kehlkopf offen halten",     detailEn: "4 s suspend ribs wide, throat open" },
-          { cue: "exhale", sec: 4.0, cueNoteOffset: 0,    de: "Ausatmen", en: "Exhale",  detailDe: "4 s ruhiger Luftstrom auf ssss",              detailEn: "4 s steady airflow on ssss" },
-          { cue: "rest",   sec: 2.0, cueNoteOffset: null, de: "Lösen",    en: "Release", detailDe: "Kurz entspannen vor der nächsten Stufe",      detailEn: "Relax briefly before the next step" }
+          { cue: "inhale", sec: 4.0, de: "Einatmen", en: "Inhale",  detailDe: "4 s gleichmäßig bis in die Flanken einatmen", detailEn: "4 s steady inhale into lower ribs" },
+          { cue: "hold",   sec: 4.0, de: "Weiten",   en: "Suspend", detailDe: "4 s Rippen weit & Kehlkopf offen halten",     detailEn: "4 s suspend ribs wide, throat open" },
+          { cue: "exhale", sec: 4.0, de: "Ausatmen", en: "Exhale",  detailDe: "4 s ruhiger Luftstrom auf ssss",              detailEn: "4 s steady airflow on ssss" },
+          { cue: "rest",   sec: 2.0, de: "Lösen",    en: "Release", detailDe: "Kurz entspannen vor der nächsten Stufe",      detailEn: "Relax briefly before the next step" }
         ]
       },
       {
         labelDe: "Stufe 6–6–6", labelEn: "Step 6–6–6",
         phases: [
-          { cue: "inhale", sec: 6.0, cueNoteOffset: 7,    de: "Einatmen", en: "Inhale",  detailDe: "6 s langsam und dosiert einfüllen",           detailEn: "6 s slow, measured inhale" },
-          { cue: "hold",   sec: 6.0, cueNoteOffset: null, de: "Weiten",   en: "Suspend", detailDe: "6 s ruhig aufgespannt bleiben",               detailEn: "6 s stay gently expanded" },
-          { cue: "exhale", sec: 6.0, cueNoteOffset: 0,    de: "Ausatmen", en: "Exhale",  detailDe: "6 s fein dosiert auf ssss ausströmen",        detailEn: "6 s steady controlled ssss exhale" },
-          { cue: "rest",   sec: 2.0, cueNoteOffset: null, de: "Lösen",    en: "Release", detailDe: "Bauchdecke weich fallen lassen",              detailEn: "Let the belly soften" }
+          { cue: "inhale", sec: 6.0, de: "Einatmen", en: "Inhale",  detailDe: "6 s langsam und dosiert einfüllen",           detailEn: "6 s slow, measured inhale" },
+          { cue: "hold",   sec: 6.0, de: "Weiten",   en: "Suspend", detailDe: "6 s ruhig aufgespannt bleiben",               detailEn: "6 s stay gently expanded" },
+          { cue: "exhale", sec: 6.0, de: "Ausatmen", en: "Exhale",  detailDe: "6 s fein dosiert auf ssss ausströmen",        detailEn: "6 s steady controlled ssss exhale" },
+          { cue: "rest",   sec: 2.0, de: "Lösen",    en: "Release", detailDe: "Bauchdecke weich fallen lassen",              detailEn: "Let the belly soften" }
         ]
       },
       {
         labelDe: "Stufe 8–8–8", labelEn: "Step 8–8–8",
         phases: [
-          { cue: "inhale", sec: 8.0, cueNoteOffset: 7,    de: "Einatmen", en: "Inhale",  detailDe: "8 s fein einteilen – nicht zu früh voll sein", detailEn: "8 s pace the inhale — don’t rush" },
-          { cue: "hold",   sec: 8.0, cueNoteOffset: null, de: "Weiten",   en: "Suspend", detailDe: "8 s offen halten ohne den Hals zu schließen",  detailEn: "8 s keep open without locking the throat" },
-          { cue: "exhale", sec: 8.0, cueNoteOffset: 0,    de: "Ausatmen", en: "Exhale",  detailDe: "8 s konstanter Stützstrom auf ssss",           detailEn: "8 s constant supported ssss stream" },
-          { cue: "rest",   sec: 2.0, cueNoteOffset: null, de: "Lösen",    en: "Release", detailDe: "Kurz nachatmen für die Finalrunde",           detailEn: "Reset for the final round" }
+          { cue: "inhale", sec: 8.0, de: "Einatmen", en: "Inhale",  detailDe: "8 s fein einteilen – nicht zu früh voll sein", detailEn: "8 s pace the inhale — don’t rush" },
+          { cue: "hold",   sec: 8.0, de: "Weiten",   en: "Suspend", detailDe: "8 s offen halten ohne den Hals zu schließen",  detailEn: "8 s keep open without locking the throat" },
+          { cue: "exhale", sec: 8.0, de: "Ausatmen", en: "Exhale",  detailDe: "8 s konstanter Stützstrom auf ssss",           detailEn: "8 s constant supported ssss stream" },
+          { cue: "rest",   sec: 2.0, de: "Lösen",    en: "Release", detailDe: "Kurz nachatmen für die Finalrunde",           detailEn: "Reset for the final round" }
         ]
       },
       {
         labelDe: "Stufe 10–10–10", labelEn: "Step 10–10–10",
         phases: [
-          { cue: "inhale", sec: 10.0, cueNoteOffset: 7,    de: "Einatmen", en: "Inhale",  detailDe: "10 s ultraruhig bis in Rücken & Flanken",     detailEn: "10 s ultra-calm fill into ribs & back" },
-          { cue: "hold",   sec: 10.0, cueNoteOffset: null, de: "Weiten",   en: "Suspend", detailDe: "10 s Weite halten – Gesicht bleibt weich",    detailEn: "10 s hold width — keep face soft" },
-          { cue: "exhale", sec: 10.0, cueNoteOffset: 0,    de: "Ausatmen", en: "Exhale",  detailDe: "10 s gleichmäßig bis zum letzten Moment",     detailEn: "10 s steady all the way to the finish" },
-          { cue: "rest",   sec: 2.0,  cueNoteOffset: null, de: "Lösen",    en: "Release", detailDe: "Stark! Tief durchatmen und lösen",            detailEn: "Great! Breathe naturally and release" }
+          { cue: "inhale", sec: 10.0, de: "Einatmen", en: "Inhale",  detailDe: "10 s ultraruhig bis in Rücken & Flanken",     detailEn: "10 s ultra-calm fill into ribs & back" },
+          { cue: "hold",   sec: 10.0, de: "Weiten",   en: "Suspend", detailDe: "10 s Weite halten – Gesicht bleibt weich",    detailEn: "10 s hold width — keep face soft" },
+          { cue: "exhale", sec: 10.0, de: "Ausatmen", en: "Exhale",  detailDe: "10 s gleichmäßig bis zum letzten Moment",     detailEn: "10 s steady all the way to the finish" },
+          { cue: "rest",   sec: 2.0,  de: "Lösen",    en: "Release", detailDe: "Stark! Tief durchatmen und lösen",            detailEn: "Great! Breathe naturally and release" }
         ]
       }
     ]
@@ -142,33 +142,33 @@ const WARMUP_STEP_CATALOG = {
       {
         labelDe: "Ausdauer 8 s", labelEn: "Sustain 8 s",
         phases: [
-          { cue: "inhale", sec: 2.0, cueNoteOffset: 7,    de: "Einfallen", en: "Drop in", detailDe: "2 s entspannt tief einfallen lassen",           detailEn: "2 s relaxed low drop-in breath" },
-          { cue: "exhale", sec: 8.0, cueNoteOffset: 0,    de: "ssss…",     en: "ssss…",   detailDe: "8 s völlig gleichmäßiger Luftstrom auf ssss",   detailEn: "8 s completely even airflow on ssss", tickEverySec: 4 },
-          { cue: "rest",   sec: 2.0, cueNoteOffset: null, de: "Lösen",     en: "Release", detailDe: "Bauchdecke lösen – Luft strömt von selbst nach", detailEn: "Release belly — let air drop back in" }
+          { cue: "inhale", sec: 2.0, de: "Einfallen", en: "Drop in", detailDe: "2 s entspannt tief einfallen lassen",           detailEn: "2 s relaxed low drop-in breath" },
+          { cue: "exhale", sec: 8.0, de: "ssss…",     en: "ssss…",   detailDe: "8 s völlig gleichmäßiger Luftstrom auf ssss",   detailEn: "8 s completely even airflow on ssss", tickEverySec: 4 },
+          { cue: "rest",   sec: 2.0, de: "Lösen",     en: "Release", detailDe: "Bauchdecke lösen – Luft strömt von selbst nach", detailEn: "Release belly — let air drop back in" }
         ]
       },
       {
         labelDe: "Ausdauer 12 s", labelEn: "Sustain 12 s",
         phases: [
-          { cue: "inhale", sec: 2.0,  cueNoteOffset: 7,    de: "Einfallen", en: "Drop in", detailDe: "2 s locker in die Flanken einatmen",           detailEn: "2 s easy breath into the ribs" },
-          { cue: "exhale", sec: 12.0, cueNoteOffset: 0,    de: "ssss…",     en: "ssss…",   detailDe: "12 s schmal & sparsam dosieren – Rippen weit", detailEn: "12 s narrow, steady stream — keep ribs wide", tickEverySec: 4 },
-          { cue: "rest",   sec: 2.0,  cueNoteOffset: null, de: "Lösen",     en: "Release", detailDe: "Kurz entspannen vor 16 Sekunden",              detailEn: "Relax briefly before 16 seconds" }
+          { cue: "inhale", sec: 2.0,  de: "Einfallen", en: "Drop in", detailDe: "2 s locker in die Flanken einatmen",           detailEn: "2 s easy breath into the ribs" },
+          { cue: "exhale", sec: 12.0, de: "ssss…",     en: "ssss…",   detailDe: "12 s schmal & sparsam dosieren – Rippen weit", detailEn: "12 s narrow, steady stream — keep ribs wide", tickEverySec: 4 },
+          { cue: "rest",   sec: 2.0,  de: "Lösen",     en: "Release", detailDe: "Kurz entspannen vor 16 Sekunden",              detailEn: "Relax briefly before 16 seconds" }
         ]
       },
       {
         labelDe: "Ausdauer 16 s", labelEn: "Sustain 16 s",
         phases: [
-          { cue: "inhale", sec: 2.0,  cueNoteOffset: 7,    de: "Einfallen", en: "Drop in", detailDe: "2 s tief und geräuschlos einatmen",            detailEn: "2 s deep, silent inhale" },
-          { cue: "exhale", sec: 16.0, cueNoteOffset: 0,    de: "ssss…",     en: "ssss…",   detailDe: "16 s halten: feiner Strahl, nicht verschenken", detailEn: "16 s hold: thin steady stream, no waste", tickEverySec: 4 },
-          { cue: "rest",   sec: 2.5,  cueNoteOffset: null, de: "Lösen",     en: "Release", detailDe: "Schultern lockern für die 20-s-Runde",         detailEn: "Loosen shoulders for the 20 s round" }
+          { cue: "inhale", sec: 2.0,  de: "Einfallen", en: "Drop in", detailDe: "2 s tief und geräuschlos einatmen",            detailEn: "2 s deep, silent inhale" },
+          { cue: "exhale", sec: 16.0, de: "ssss…",     en: "ssss…",   detailDe: "16 s halten: feiner Strahl, nicht verschenken", detailEn: "16 s hold: thin steady stream, no waste", tickEverySec: 4 },
+          { cue: "rest",   sec: 2.5,  de: "Lösen",     en: "Release", detailDe: "Schultern lockern für die 20-s-Runde",         detailEn: "Loosen shoulders for the 20 s round" }
         ]
       },
       {
         labelDe: "Ausdauer 20 s", labelEn: "Sustain 20 s",
         phases: [
-          { cue: "inhale", sec: 2.5,  cueNoteOffset: 7,    de: "Einfallen", en: "Drop in", detailDe: "2,5 s tief & weit einatmen",                   detailEn: "2.5 s deep, wide inhale" },
-          { cue: "exhale", sec: 20.0, cueNoteOffset: 0,    de: "ssss…",     en: "ssss…",   detailDe: "20 s Königsklasse: ruhig & gleichmäßig halten", detailEn: "20 s endurance: steady & calm to the end", tickEverySec: 4 },
-          { cue: "rest",   sec: 2.0,  cueNoteOffset: null, de: "Lösen",     en: "Release", detailDe: "Hervorragend! Frei weiteratmen",               detailEn: "Excellent! Breathe freely again" }
+          { cue: "inhale", sec: 2.5,  de: "Einfallen", en: "Drop in", detailDe: "2,5 s tief & weit einatmen",                   detailEn: "2.5 s deep, wide inhale" },
+          { cue: "exhale", sec: 20.0, de: "ssss…",     en: "ssss…",   detailDe: "20 s Königsklasse: ruhig & gleichmäßig halten", detailEn: "20 s endurance: steady & calm to the end", tickEverySec: 4 },
+          { cue: "rest",   sec: 2.0,  de: "Lösen",     en: "Release", detailDe: "Hervorragend! Frei weiteratmen",               detailEn: "Excellent! Breathe freely again" }
         ]
       }
     ]
@@ -744,6 +744,124 @@ function getWarmupTonicMidi(step, roundIdx = 0, w = state.warmup) {
   return Math.max(36, Math.min(82, rawMidi));
 }
 
+// Atem-Legende: zeigt, welcher Klang zu welcher Atemphase gehört (Chips unter der Atemkugel).
+// Außerhalb einer laufenden Übung spielt ein Tipp auf einen Chip den Klang zum Probehören.
+const WARMUP_BREATH_LEGEND_ITEMS = {
+  inhale: { de: "Einatmen", en: "Inhale",  icon: '<path d="M3 11 11 3"/><path d="M5.5 3H11v5.5"/>' },
+  hold:   { de: "Halten",   en: "Hold",    icon: '<path d="M2 6h10a5 5 0 0 1-10 0z"/>' },
+  exhale: { de: "Ausatmen", en: "Exhale",  icon: '<path d="M3 3l8 8"/><path d="M11 5.5V11H5.5"/>' },
+  rest:   { de: "Lösen",    en: "Release", icon: '<circle cx="7" cy="7" r="2.6" fill="currentColor" stroke="none"/>' },
+  pulse:  { de: "Impuls",   en: "Pulse",   icon: '<path d="M8.2 1.5 3.8 8h3.4l-1 4.5L10.6 6H7.2z"/>' }
+};
+const WARMUP_BREATH_PREVIEW_SEC = { inhale: 2.8, hold: 2.4, exhale: 2.8, rest: 1.4, pulse: 0.5 };
+let _warmupBreathPreviewTimerId = null;
+
+// Tiefes, erdendes Bass-Register (C2–H2 als Grundton) für ruhige Atemführung
+function getWarmupBreathBaseMidi(tonicMidi) {
+  let base = Number.isFinite(tonicMidi) ? tonicMidi : 48;
+  while (base > 47) base -= 12;
+  while (base < 36) base += 12;
+  return base;
+}
+
+function getWarmupBreathLegendCues(step) {
+  if (!step) return [];
+  if (step.kind === "breath-pulse") {
+    return ["pulse", (step.sustainBeats || 0) > 0 ? "exhale" : null, "inhale"].filter(Boolean);
+  }
+  if (step.kind !== "breath-orb") return [];
+  const used = new Set();
+  const rounds = Array.isArray(step.cycleRounds) && step.cycleRounds.length > 0
+    ? step.cycleRounds
+    : [{ phases: step.cyclePhases || [] }];
+  rounds.forEach(rnd => (rnd.phases || []).forEach(p => used.add(p.cue)));
+  return ["inhale", "hold", "exhale", "rest"].filter(cue => used.has(cue));
+}
+
+function syncWarmupBreathLegendActive(cueKey) {
+  const legend = document.getElementById("warmupBreathLegend");
+  if (!legend) return;
+  legend.querySelectorAll(".warmup-breath-legend-chip").forEach(chip => {
+    chip.classList.toggle("is-active", chip.dataset.cue === cueKey);
+  });
+}
+
+function renderWarmupBreathLegend(step, show) {
+  const legend = document.getElementById("warmupBreathLegend");
+  if (!legend) return;
+  const cues = show ? getWarmupBreathLegendCues(step) : [];
+  legend.classList.toggle("hidden", cues.length === 0);
+  if (cues.length === 0) return;
+  const w = state.warmup;
+  const lang = getAppLanguage();
+  const buildKey = `${step.id}|${lang}`;
+  if (legend.dataset.key !== buildKey) {
+    legend.dataset.key = buildKey;
+    legend.innerHTML = "";
+    const chipsRow = document.createElement("div");
+    chipsRow.className = "warmup-breath-legend-chips";
+    cues.forEach(cue => {
+      const item = WARMUP_BREATH_LEGEND_ITEMS[cue];
+      const label = tr(item.de, item.en);
+      const chip = document.createElement("button");
+      chip.type = "button";
+      chip.className = "warmup-breath-legend-chip";
+      chip.dataset.cue = cue;
+      chip.title = `${tr("Klang anhören", "Play sound")}: ${label}`;
+      chip.setAttribute("aria-label", chip.title);
+      chip.innerHTML = `<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${item.icon}</svg><span></span>`;
+      chip.querySelector("span").textContent = label;
+      chip.addEventListener("click", () => previewWarmupBreathCue(cue));
+      chipsRow.appendChild(chip);
+    });
+    const hint = document.createElement("span");
+    hint.className = "warmup-breath-legend-hint";
+    hint.textContent = tr("Antippen zum Anhören", "Tap to listen");
+    legend.append(chipsRow, hint);
+  }
+  legend.classList.toggle("is-running", w?.status === "running");
+  syncWarmupBreathLegendActive(w?.status === "running" ? w.breathCueKey : "");
+}
+
+function previewWarmupBreathCue(cue) {
+  const w = state.warmup;
+  if (!w || w.status === "running" || !WARMUP_BREATH_LEGEND_ITEMS[cue]) return;
+  const steps = getWarmupStepsForPreset(w.presetId);
+  const step = steps[Math.min(w.stepIndex, steps.length - 1)];
+  const baseMidi = getWarmupBreathBaseMidi(getWarmupTonicMidi(step, w.keyOffsetIndex || 0, w));
+  const durSec = WARMUP_BREATH_PREVIEW_SEC[cue] || 2;
+  const play = () => {
+    if (state.warmup.status === "running") return;
+    audioEngine.stopPlayback?.();
+    if (cue === "pulse") audioEngine.playWarmupBreathPulse(baseMidi, true);
+    else audioEngine.playWarmupBreathCue(cue, baseMidi, durSec);
+  };
+  // iOS: Ton direkt im Tipp starten (kein await vor dem Abspielen)
+  if (typeof prepareAudioNonBlocking === "function") prepareAudioNonBlocking();
+  if (audioEngine.isInitialized) play();
+  else ensureAudioReady().then(play).catch(() => {});
+
+  // Kugel und Chip zeigen kurz die angehörte Phase
+  const orb = document.getElementById("warmupBreathOrb");
+  const cueEl = document.getElementById("warmupBreathCue");
+  if (orb) {
+    orb.style.setProperty("--breath-dur", `${Math.max(0.3, durSec * 0.9).toFixed(2)}s`);
+    orb.className = `warmup-breath-orb is-${cue}`;
+  }
+  if (cueEl) {
+    const item = WARMUP_BREATH_LEGEND_ITEMS[cue];
+    cueEl.textContent = tr(item.de, item.en);
+  }
+  syncWarmupBreathLegendActive(cue);
+  if (_warmupBreathPreviewTimerId !== null) clearTimeout(_warmupBreathPreviewTimerId);
+  const checkToken = w.token;
+  _warmupBreathPreviewTimerId = setTimeout(() => {
+    _warmupBreathPreviewTimerId = null;
+    if (state.warmup.token !== checkToken || state.warmup.status === "running") return;
+    if (state.currentView === "warmup") renderWarmupView();
+  }, Math.max(700, durSec * 1000 + 250));
+}
+
 let _warmupBreathPhaseTimerId = null;
 let _warmupSirenRafId = null;
 
@@ -1165,6 +1283,7 @@ function renderWarmupView() {
     else if (w.breathCueKey === "rest") orb.classList.add("is-rest");
     else if (w.breathCueKey === "pulse") orb.classList.add("is-pulse");
     orbCue.textContent = w.breathCueText || tr("Bereit", "Ready");
+    renderWarmupBreathLegend(step, isBreath && w.status !== "completed");
     if (orbTimer && (!isBreath || w.status !== "running")) {
       orbTimer.classList.add("hidden");
       orbTimer.textContent = "";
@@ -1345,10 +1464,7 @@ function runCurrentWarmupRound() {
           labelEn: null,
           phases: step.cyclePhases || []
         }));
-    // Tiefes, erdendes Bass-Register (C2–H2 als Grundton) für ruhige Atemführung
-    let breathBaseMidi = tonicMidi;
-    while (breathBaseMidi > 47) breathBaseMidi -= 12;
-    while (breathBaseMidi < 36) breathBaseMidi += 12;
+    const breathBaseMidi = getWarmupBreathBaseMidi(tonicMidi);
     let cursorMs = 0;
     roundsList.forEach((rnd, rIdx) => {
       const roundLabel = rnd.labelDe
@@ -1373,10 +1489,10 @@ function runCurrentWarmupRound() {
           }
           if (cueEl) cueEl.textContent = w.breathCueText;
           if (hintEl) hintEl.textContent = w.hintText;
+          syncWarmupBreathLegendActive(p.cue);
           startWarmupBreathPhaseTimer(p.sec, token);
-          if (p.cueNoteOffset !== null && p.cueNoteOffset !== undefined) {
-            audioEngine.playWarmupBreathTone(breathBaseMidi + p.cueNoteOffset, p.sec, { phase: p.cue });
-          }
+          // Eigener Klang pro Atemphase (Einatmen/Halten/Ausatmen/Lösen)
+          audioEngine.playWarmupBreathCue(p.cue, breathBaseMidi, p.sec);
         }, atMs);
 
         // Sanfte Orientierungs-Ticks alle N Sekunden bei sehr langen Ausatem-Phasen (z. B. 8–20 s)
@@ -1384,7 +1500,7 @@ function runCurrentWarmupRound() {
           for (let secMark = p.tickEverySec; secMark < p.sec - 0.5; secMark += p.tickEverySec) {
             audioEngine.registerTimer(() => {
               if (state.warmup.token !== token || state.warmup.status !== "running") return;
-              audioEngine.triggerPercussion("clave", null, 0.34);
+              audioEngine.playWarmupBreathTick(breathBaseMidi);
             }, atMs + secMark * 1000);
           }
         }
@@ -1397,15 +1513,13 @@ function runCurrentWarmupRound() {
   if (step.kind === "breath-pulse") {
     const pulses = step.pulseCount || 4;
     const sustainBeats = step.sustainBeats || 0;
-    let breathBaseMidi = tonicMidi;
-    while (breathBaseMidi > 47) breathBaseMidi -= 12;
-    while (breathBaseMidi < 36) breathBaseMidi += 12;
+    const breathBaseMidi = getWarmupBreathBaseMidi(tonicMidi);
 
     for (let i = 0; i < pulses; i++) {
       audioEngine.registerTimer(() => {
         if (state.warmup.token !== token || state.warmup.status !== "running") return;
         stopWarmupBreathPhaseTimer();
-        audioEngine.triggerPercussion(i === 0 ? "accent" : "clave", null, i === 0 ? 0.92 : 0.78);
+        audioEngine.playWarmupBreathPulse(breathBaseMidi, i === 0);
         w.breathCueKey = "pulse";
         w.breathCueText = `${tr("Impuls", "Pulse")} ${i + 1}/${pulses}`;
         const orb = document.getElementById("warmupBreathOrb");
@@ -1417,6 +1531,7 @@ function runCurrentWarmupRound() {
         }
         if (cueEl) cueEl.textContent = w.breathCueText;
         if (timerEl) { timerEl.classList.add("hidden"); timerEl.textContent = ""; }
+        syncWarmupBreathLegendActive("pulse");
       }, i * beatMs);
     }
 
@@ -1433,8 +1548,9 @@ function runCurrentWarmupRound() {
           orb.className = "warmup-breath-orb is-exhale";
         }
         if (cueEl) cueEl.textContent = w.breathCueText;
+        syncWarmupBreathLegendActive("exhale");
         startWarmupBreathPhaseTimer(sustainSec, token);
-        audioEngine.playWarmupBreathTone(breathBaseMidi, sustainSec, { phase: "exhale" });
+        audioEngine.playWarmupBreathCue("exhale", breathBaseMidi, sustainSec);
       }, pulses * beatMs);
     }
 
@@ -1452,6 +1568,8 @@ function runCurrentWarmupRound() {
       }
       if (cueEl) cueEl.textContent = w.breathCueText;
       if (timerEl) { timerEl.classList.add("hidden"); timerEl.textContent = ""; }
+      syncWarmupBreathLegendActive("inhale");
+      audioEngine.playWarmupBreathCue("inhale", breathBaseMidi, ((step.restBeats || 2.5) * beatMs) / 1000);
     }, (pulses + sustainBeats) * beatMs);
     scheduleWarmupCallback(advanceRoundOrStep, (pulses + sustainBeats + (step.restBeats || 2.5)) * beatMs, token);
     return;

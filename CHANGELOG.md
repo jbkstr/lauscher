@@ -15,6 +15,11 @@ All released versions of Lauscher. New sections are created by `python3 scripts/
 - Knowledge articles: play buttons next to song examples no longer get squeezed into narrow multi-line pills; ratio labels (e.g. "9:8 · 16:9") no longer break apart
 - Small phones: answer tile captions (e.g. "2er-Marsch", "Vermindert") are hyphenated instead of cut off with "…"
 - Long instrument names (French, Polish, Ukrainian) in Free Play and the mixer, warm-up phase buttons and practice mix titles now wrap instead of being cut off
+- Singing, breathing exercises: every breathing phase now has its own sound. Inhale: a rising two-note chime and a swelling, airy sound. Hold: a single singing-bowl strike and a calm, steady tone. Exhale: a falling two-note chime and a warm sound that gets softer and darker. Release: a short, soft wooden tone, then silence. Core pulses use a short "F!" air puff, and long exhales get soft drop-like ticks every few seconds. The cue tones are pitched higher than before, so they can also be heard on phone speakers.
+- Singing, breathing exercises: a small legend below the breathing circle shows the phases of the current exercise (inhale, hold, exhale, release or pulse) and highlights the one that is playing. When the exercise is not running, tap a phase to hear its sound.
+
+**Fixed**
+- Urdu: the breathing phase "Release" was translated as "solve"; it now reads "let go / relax".
 
 ## 0.11.1-beta (Build 6) – 2026-11-25
 

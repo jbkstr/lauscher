@@ -410,7 +410,7 @@ registerColocatedPhrases({
     it: "Rilascia",
     pl: "Rozluźnij",
     uk: "Відпустити",
-    ur: "حل کریں",
+    ur: "ڈھیلا چھوڑیں",
     tr: "Gevşe",
     ar: "استرخاء"
   },
@@ -4905,5 +4905,25 @@ registerColocatedPhrases({
     ur: "چمکتے نقطے کے ساتھ دونوں چوٹیوں پر نرمی سے چلیں — آواز میں لچک پیدا ہوتی ہے۔",
     tr: "Işıklı noktayı her iki zirve boyunca akıcı biçimde izle — tüm ses bölgelerinde esneklik için idealdir.",
     ar: "اتبع النقطة المضيئة بمرونة فوق القمتين — مثالي لقيادة صوتية مرنة عبر جميع الطبقات."
+  },
+  "Klang anhören": {
+    fr: "Écouter le son",
+    es: "Escuchar el sonido",
+    it: "Ascolta il suono",
+    pl: "Posłuchaj dźwięku",
+    uk: "Послухати звук",
+    ur: "آواز سنیں",
+    tr: "Sesi dinle",
+    ar: "استمع إلى الصوت"
+  },
+  "Antippen zum Anhören": {
+    fr: "Touchez pour écouter",
+    es: "Toca para escuchar",
+    it: "Tocca per ascoltare",
+    pl: "Dotknij, aby posłuchać",
+    uk: "Торкніться, щоб послухати",
+    ur: "سننے کے لیے ٹیپ کریں",
+    tr: "Dinlemek için dokunun",
+    ar: "اضغط للاستماع"
   }
 });
