@@ -2824,6 +2824,26 @@ registerColocatedPhrases({
     tr: "Profil dosyası oluşturuldu (ilerleme verisi içermez).",
     ar: "تم إنشاء ملف النسخة الاحتياطية (لا يحتوي على التقدّم)."
   },
+  "Download gestartet": {
+    fr: "Téléchargement lancé",
+    es: "Descarga iniciada",
+    it: "Download avviato",
+    pl: "Pobieranie rozpoczęte",
+    uk: "Завантаження розпочато",
+    ur: "ڈاؤن لوڈ شروع ہو گیا",
+    tr: "İndirme başladı",
+    ar: "بدأ التنزيل"
+  },
+  "Download gestartet ({file})": {
+    fr: "Téléchargement lancé ({file})",
+    es: "Descarga iniciada ({file})",
+    it: "Download avviato ({file})",
+    pl: "Pobieranie rozpoczęte ({file})",
+    uk: "Завантаження розпочато ({file})",
+    ur: "ڈاؤن لوڈ شروع ہو گیا ({file})",
+    tr: "İndirme başladı ({file})",
+    ar: "بدأ التنزيل ({file})"
+  },
   "Profil lokal gespeichert": {
     fr: "Profil enregistré localement",
     es: "Perfil guardado localmente",
@@ -7898,5 +7918,75 @@ registerColocatedPhrases({
     ur: "فوکس",
     tr: "Odağın",
     ar: "تركيزك"
+  },
+  "Automatisch ({ms} ms)": {
+    fr: "Automatique ({ms} ms)",
+    es: "Automático ({ms} ms)",
+    it: "Automatico ({ms} ms)",
+    pl: "Automatycznie ({ms} ms)",
+    uk: "Автоматично ({ms} мс)",
+    ur: "خودکار ({ms} ms)",
+    tr: "Otomatik ({ms} ms)",
+    ar: "تلقائي ({ms} مللي ثانية)"
+  },
+  "Eingemessen: {ms} ms": {
+    fr: "Calibré : {ms} ms",
+    es: "Calibrado: {ms} ms",
+    it: "Calibrato: {ms} ms",
+    pl: "Skalibrowano: {ms} ms",
+    uk: "Відкалібровано: {ms} мс",
+    ur: "کیلیبریٹ شدہ: {ms} ms",
+    tr: "Kalibre edildi: {ms} ms",
+    ar: "تمت المعايرة: {ms} مللي ثانية"
+  },
+  "Gemessen: {ms} ms – gespeichert.": {
+    fr: "Mesuré : {ms} ms – enregistré.",
+    es: "Medido: {ms} ms – guardado.",
+    it: "Misurato: {ms} ms – salvato.",
+    pl: "Zmierzono: {ms} ms – zapisano.",
+    uk: "Виміряно: {ms} мс – збережено.",
+    ur: "ناپا گیا: {ms} ms – محفوظ ہو گیا۔",
+    tr: "Ölçüldü: {ms} ms – kaydedildi.",
+    ar: "تم القياس: {ms} مللي ثانية – تم الحفظ."
+  },
+  "Zu wenige oder zu ungleichmäßige Taps – bitte noch einmal versuchen.": {
+    fr: "Trop peu de tapes ou trop irrégulières – réessaie.",
+    es: "Muy pocos toques o demasiado irregulares: inténtalo de nuevo.",
+    it: "Troppo pochi tocchi o troppo irregolari – riprova.",
+    pl: "Za mało stuknięć lub zbyt nierówne – spróbuj ponownie.",
+    uk: "Замало натискань або вони надто нерівні – спробуй ще раз.",
+    ur: "بہت کم یا بہت بے ترتیب ٹیپ – براہ کرم دوبارہ کوشش کریں۔",
+    tr: "Çok az veya çok düzensiz dokunuş – lütfen tekrar dene.",
+    ar: "نقرات قليلة جدًا أو غير منتظمة – يُرجى المحاولة مرة أخرى."
+  },
+  "{n} von {total} Taps": {
+    fr: "{n} tapes sur {total}",
+    es: "{n} de {total} toques",
+    it: "{n} tocchi su {total}",
+    pl: "{n} z {total} stuknięć",
+    uk: "{n} з {total} натискань",
+    ur: "{total} میں سے {n} ٹیپ",
+    tr: "{total} dokunuştan {n}",
+    ar: "{n} من {total} نقرات"
+  },
+  "Wird vorbereitet …": {
+    fr: "Préparation …",
+    es: "Preparando …",
+    it: "Preparazione …",
+    pl: "Przygotowywanie …",
+    uk: "Підготовка …",
+    ur: "تیاری ہو رہی ہے …",
+    tr: "Hazırlanıyor …",
+    ar: "جارٍ التحضير …"
+  },
+  "Hör auf den Vorzähler und tippe dann im Takt der Klicks.": {
+    fr: "Écoute le décompte, puis tape au rythme des clics.",
+    es: "Escucha la cuenta previa y luego toca al ritmo de los clics.",
+    it: "Ascolta il conteggio iniziale, poi tocca a tempo con i clic.",
+    pl: "Posłuchaj odliczania, a potem stukaj w rytm kliknięć.",
+    uk: "Послухай відлік, а потім натискай у такт клацанням.",
+    ur: "پہلے گنتی سنیں، پھر کلکس کی تال پر ٹیپ کریں۔",
+    tr: "Sayımı dinle, sonra tıklamaların temposunda dokun.",
+    ar: "استمع إلى العدّ التمهيدي، ثم انقر مع إيقاع النقرات."
   }
 });

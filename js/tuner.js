@@ -1568,6 +1568,7 @@ async function startTunerSession() {
   syncTunerStartButton();
   setTunerBluetoothNotice(false);
   setTunerStatus(tr("Mikrofon wird gestartet …", "Starting microphone …"));
+  let pendingStream = null;
   try {
     stopPlayback();
 
@@ -1619,19 +1620,27 @@ async function startTunerSession() {
     }
 
     // 2) Browser / iOS / WebView: getUserMedia ohne OS-DSP + universeller Bandpass (25 Hz – 4,2 kHz)
-    try {
-      if (navigator.audioSession && navigator.audioSession.type !== "play-and-record") {
-        navigator.audioSession.type = "play-and-record";
-      }
-    } catch (_) {}
+    setTunerCaptureSession(true);
     const { stream, bluetoothMic } = await requestRawTunerMediaStream();
+    pendingStream = stream;
     if (state.currentView !== "tuner") {
-      stream.getTracks().forEach(t => t.stop());
       return;
     }
     const Ctx = window.AudioContext || window.webkitAudioContext;
     const ctx = _tuner.ctx && _tuner.ctx.state !== "closed" ? _tuner.ctx : new Ctx();
-    if (ctx.state === "suspended") await ctx.resume();
+    _tuner.ctx = ctx;
+    // resume() kann auf iOS hängen bzw. der Kontext "interrupted" sein → mit Zeitlimit abwarten
+    if (ctx.state === "suspended" || ctx.state === "interrupted") {
+      await Promise.race([
+        Promise.resolve(ctx.resume()).catch(() => {}),
+        new Promise(resolve => setTimeout(resolve, 1500))
+      ]);
+    }
+    if (ctx.state !== "running") {
+      const ctxErr = new Error(`AudioContext state: ${ctx.state}`);
+      ctxErr.name = "AudioContextNotRunning";
+      throw ctxErr;
+    }
     const actualSr = Number(ctx.sampleRate) || 48000;
     const winSize = actualSr > 64000 ? TUNER_CONFIG.windowSizeHighSr : TUNER_CONFIG.windowSize;
     const source = ctx.createMediaStreamSource(stream);
@@ -1677,6 +1686,7 @@ async function startTunerSession() {
       running: true
     });
     state.tunerStream = stream;
+    pendingStream = null;
     setTunerBluetoothNotice(bluetoothMic);
     readTunerColors();
     requestTunerWakeLock();
@@ -1685,6 +1695,18 @@ async function startTunerSession() {
     _tuner.rafId = requestAnimationFrame(tunerLoop);
   } catch (err) {
     const name = err?.name || "";
+    // Bereits geöffnetes Mikrofon nicht verwaist laufen lassen (sonst bleibt die Aufnahme-Anzeige an)
+    if (pendingStream) {
+      try { pendingStream.getTracks().forEach(t => t.stop()); } catch (_) {}
+      pendingStream = null;
+    }
+    if (!_tuner.running) {
+      setTunerCaptureSession(false);
+      if (_tuner.ctx && !_tuner.analyser) {
+        try { _tuner.ctx.close(); } catch (_) {}
+        _tuner.ctx = null;
+      }
+    }
     if (name === "NotAllowedError" || name === "SecurityError") {
       setTunerStatus(tr("Mikrofon-Zugriff verweigert – bitte in den Browser- bzw. App-Einstellungen erlauben.", "Microphone access denied — please allow it in your browser or app settings."), "warn");
     } else if (name === "NotFoundError" || name === "OverconstrainedError") {
@@ -1693,9 +1715,25 @@ async function startTunerSession() {
       setTunerStatus(tr("Das Mikrofon konnte nicht gestartet werden.", "The microphone could not be started."), "warn");
     }
   } finally {
+    // Ansicht während des Starts verlassen: offenes Mikrofon wieder schließen
+    if (pendingStream) {
+      try { pendingStream.getTracks().forEach(t => t.stop()); } catch (_) {}
+      if (!_tuner.running) setTunerCaptureSession(false);
+    }
     _tuner.starting = false;
     syncTunerStartButton();
   }
+}
+
+/** Hält die iOS-AudioSession während der Mikrofon-Nutzung auf "play-and-record". */
+function setTunerCaptureSession(active) {
+  if (typeof audioEngine !== "undefined" && audioEngine) audioEngine.captureSessionActive = Boolean(active);
+  try {
+    if (navigator.audioSession) {
+      const wanted = active ? "play-and-record" : "playback";
+      if (navigator.audioSession.type !== wanted) navigator.audioSession.type = wanted;
+    }
+  } catch (_) {}
 }
 
 function releaseTunerMicStream() {
@@ -1723,11 +1761,7 @@ function releaseTunerMicStream() {
   _tuner.analyser = null;
   _tuner.sink = null;
   state.tunerStream = null;
-  try {
-    if (stream && navigator.audioSession && navigator.audioSession.type !== "playback") {
-      navigator.audioSession.type = "playback";
-    }
-  } catch (_) {}
+  setTunerCaptureSession(false);
 }
 
 function stopTunerSession() {
@@ -2294,11 +2328,18 @@ async function playTunerReference(midi) {
   const prefs = getTunerPrefs();
   const strIdx = getTunerTargetStringIndex(prefs, midi);
   const freq = getTunerTargetFreq(midi, prefs, strIdx);
-  const Ctx = window.AudioContext || window.webkitAudioContext;
-  if (!Ctx) return;
-  const ownCtx = !(_tuner.ctx && _tuner.ctx.state !== "closed");
-  const ctx = ownCtx ? new Ctx() : _tuner.ctx;
-  try { if (ctx.state === "suspended") await ctx.resume(); } catch (_) {}
+  // Läuft der Tuner, klingt der Ton im Mikrofon-Kontext; sonst im (synchron entsperrten) Haupt-Kontext
+  // der App. So entsteht pro Tipp kein neuer AudioContext (iOS erlaubt nur wenige gleichzeitig).
+  const ownCtx = false;
+  let ctx = (_tuner.running && _tuner.ctx && _tuner.ctx.state !== "closed") ? _tuner.ctx : null;
+  if (!ctx) {
+    if (typeof prepareAudioNonBlocking === "function") prepareAudioNonBlocking();
+    ctx = audioEngine?.getRawAudioContext?.() || null;
+  }
+  if (!ctx || ctx.state === "closed") return;
+  if (ctx.state === "suspended" || ctx.state === "interrupted") {
+    try { Promise.resolve(ctx.resume()).catch(() => {}); } catch (_) {}
+  }
   const dur = 2.2;
   const t0 = ctx.currentTime + 0.02;
   const gain = ctx.createGain();

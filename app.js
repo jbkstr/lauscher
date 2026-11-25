@@ -96,6 +96,42 @@ function initPwaServiceWorker() {
   }
 }
 
+/**
+ * Bildschirmtastatur (v. a. iOS): Die App scrollt selbst nicht und 100dvh schrumpft beim Einblenden
+ * der Tastatur nicht. Liegt ein fokussiertes Textfeld danach unter der Tastatur, wird es in seinem
+ * Scroll-Container sichtbar gerückt.
+ */
+function initKeyboardFocusVisibility() {
+  const vv = window.visualViewport;
+  if (!vv) return;
+  let focusedField = null;
+  const ensureFieldVisible = () => {
+    const el = focusedField;
+    if (!el || document.activeElement !== el) return;
+    const rect = el.getBoundingClientRect();
+    const visibleTop = vv.offsetTop;
+    const visibleBottom = vv.offsetTop + vv.height;
+    if (rect.bottom > visibleBottom - 8 || rect.top < visibleTop) {
+      try {
+        el.scrollIntoView({ block: "center", behavior: "smooth" });
+      } catch (_) {
+        el.scrollIntoView();
+      }
+    }
+  };
+  document.addEventListener("focusin", (e) => {
+    const el = e.target;
+    if (!(el instanceof HTMLElement)) return;
+    if (!el.matches('input[type="text"], input[type="number"], input[type="search"], input:not([type]), textarea')) return;
+    focusedField = el;
+    setTimeout(ensureFieldVisible, 350);
+  });
+  document.addEventListener("focusout", () => {
+    focusedField = null;
+  });
+  vv.addEventListener("resize", ensureFieldVisible);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   startBrandWordStyling();
   initExerciseFitObserver();
@@ -1445,8 +1481,19 @@ document.addEventListener("DOMContentLoaded", () => {
         audioEngine?.markAudioSessionInterrupted?.();
         armAudioUnlockListeners();
       }
+    } else if (document.visibilityState === "hidden" && isIOSLikeDevice() && !window.Capacitor?.isNativePlatform?.()) {
+      // iOS-Safari/Home-Bildschirm-App: WebAudio wird im Hintergrund unterbrochen → Sitzungen sauber stoppen
+      // (die Android-App erledigt das über appStateChange in initCapacitorNativeBridge)
+      if (typeof stopAllAudioSessionsForBackground === "function") stopAllAudioSessionsForBackground();
     }
   });
+  // Unterbrechung bei sichtbarer Seite (Siri, Wecker, Anruf-Banner): Unlock-Listener neu scharf stellen,
+  // damit schon der nächste beliebige Tipp die Ausgabe wieder freigibt
+  if (audioEngine) {
+    audioEngine.onSessionInterrupted = () => {
+      if (document.visibilityState === "visible") armAudioUnlockListeners();
+    };
+  }
   initTabSwipeNavigation();
   initCapacitorNativeBridge();
   initPwaServiceWorker();
@@ -1455,6 +1502,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   applyThemeAndAppearance();
   syncAutoNextControls();
+  if (typeof initTapLatencySettings === "function") initTapLatencySettings();
+  if (typeof initStoragePersistence === "function") initStoragePersistence().catch(() => {});
+  initKeyboardFocusVisibility();
   syncPianoSoundControls();
   syncDroneMixControls();
 

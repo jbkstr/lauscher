@@ -50,6 +50,18 @@ function isIOSLikeDevice() {
 }
 
 /**
+ * iOS/iPadOS und Geräte mit wenig Arbeitsspeicher: Inaktive Instrumente nicht im Hintergrund
+ * decodieren. Entpackte PCM-Daten aller Packs belegen sonst mehrere hundert MB, und Safari/WebKit
+ * lädt die Seite bei Speicherdruck neu. Diese Stems werden erst bei Bedarf geladen
+ * (Mixer-Pegel > 0 über setMixerGains, Instrumenten-Demos über playInstrumentSample, prefetchStem).
+ */
+function shouldDeferInactiveStemDecode() {
+  if (isIOSLikeDevice()) return true;
+  const mem = typeof navigator !== "undefined" ? Number(navigator.deviceMemory) : NaN;
+  return Number.isFinite(mem) && mem > 0 && mem <= 3;
+}
+
+/**
  * Erkennt Mobilgeräte (Android, iOS/iPadOS) und Safari/WebKit, die von kürzeren Faltungs-IRs,
  * strafferem Voice-Budget und etwas größerem Scheduling-Lookahead besonders profitieren.
  */
@@ -814,6 +826,11 @@ class AudioEngine {
     this._iosUnlockAudioEl = null;
     this._iosHtmlAudioUnlocked = false;
     this._silentBufferPlayed = false;
+    // true, solange der Tuner das Mikrofon nutzt: Die iOS-AudioSession muss dann "play-and-record"
+    // bleiben, sonst schaltet iOS die laufende Aufnahme stumm bzw. beendet sie.
+    this.captureSessionActive = false;
+    // Optionaler Callback, wenn iOS die Audio-Ausgabe unterbricht (Anruf, Siri, Wecker …)
+    this.onSessionInterrupted = null;
 
     this.liteReverb = shouldUseLiteReverb();
     this.maxGlobalVoices = this.liteReverb ? 28 : 44;
@@ -935,6 +952,7 @@ class AudioEngine {
         if (this.rawCtx.state === "interrupted" || this.rawCtx.state === "suspended") {
           this._iosHtmlAudioUnlocked = false;
           this._silentBufferPlayed = false;
+          try { this.onSessionInterrupted?.(this.rawCtx.state); } catch (_) {}
         }
       });
     }
@@ -984,8 +1002,9 @@ class AudioEngine {
   unlockAudioSessionSync() {
     try {
       if (typeof navigator !== "undefined" && navigator.audioSession) {
-        if (navigator.audioSession.type !== "playback") {
-          navigator.audioSession.type = "playback";
+        const wantedType = this.captureSessionActive ? "play-and-record" : "playback";
+        if (navigator.audioSession.type !== wantedType) {
+          navigator.audioSession.type = wantedType;
         }
       }
     } catch (_) {}
@@ -1676,6 +1695,14 @@ class AudioEngine {
     return store;
   }
 
+  /**
+   * Lädt die Samples eines Instruments vorab, z. B. beim Öffnen einer Ansicht, die es sicher braucht.
+   */
+  prefetchStem(stemKey) {
+    if (!this.graphBuilt) return;
+    this.prioritizeStemDecode(stemKey);
+  }
+
   prioritizeStemDecode(stemKey) {
     if (!stemKey || this.sampledStems[stemKey] || this.stemLoadingPromises[stemKey]) return;
     const packs = typeof window !== "undefined" ? window.EARLAB_SAMPLE_PACKS : null;
@@ -1743,7 +1770,9 @@ class AudioEngine {
       });
       await this.wave1SamplesPromise;
 
-      // Welle 2 (inaktive Orchester-/Band-Stems) extrem schonend im Hintergrund (pausiert während Wiedergabe)
+      // Welle 2 (inaktive Orchester-/Band-Stems) extrem schonend im Hintergrund (pausiert während Wiedergabe).
+      // Auf iOS & Geräten mit wenig RAM entfällt sie: Stems werden dort nur bei Bedarf geladen.
+      if (shouldDeferInactiveStemDecode()) return;
       for (const [stemKey, cfg] of wave2Entries) {
         if (this.sampledStems[stemKey]) continue;
         await this.waitForPlaybackBreath(1400);
@@ -2240,6 +2269,11 @@ class AudioEngine {
 
     const safeGainScale = Math.max(0.01, Math.min(1.25, Number.isFinite(gainScale) ? gainScale : 1.0));
     const demoSampler = this.demoSamplers[style] || (style === "piano" ? this.demoPiano : null);
+    if (!demoSampler) {
+      // Noch nicht geladenes Instrument: jetzt decodieren (diese Probe nutzt noch den Synth-Fallback)
+      const stemKey = Object.keys(SAMPLED_STEM_CONFIG).find(k => SAMPLED_STEM_CONFIG[k].demoStyle === style);
+      if (stemKey) this.prioritizeStemDecode(stemKey);
+    }
     if (demoSampler) {
       const isSeq = arpeggioStepMs > 0 && notes.length > 1;
       const stepDur = Math.max(0.2, durationSec);

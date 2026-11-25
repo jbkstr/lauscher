@@ -3568,6 +3568,18 @@ registerColocatedStatic({
     tr: "Yerel ve Gizli",
     ar: "محلي وخاص"
   },
+  "space.safariStorageHint": {
+    de: "Hinweis für Safari: iOS löscht lokale Daten von Webseiten, die 7 Tage lang nicht geöffnet wurden. Sichere dein Profil ab und zu. Als App auf dem Home-Bildschirm („Teilen → Zum Home-Bildschirm“) bleiben die Daten erhalten – sie startet aber mit eigenem Speicher, also vorher Profil sichern und dort laden.",
+    en: "Note for Safari: iOS deletes local data of websites that haven’t been opened for 7 days. Back up your profile now and then. As an app on your Home Screen (“Share → Add to Home Screen”) your data is kept – but it starts with its own storage, so back up your profile first and load it there.",
+    fr: "Remarque pour Safari : iOS supprime les données locales des sites qui n’ont pas été ouverts depuis 7 jours. Sauvegarde ton profil de temps en temps. En tant qu’app sur l’écran d’accueil (« Partager → Sur l’écran d’accueil »), les données sont conservées – mais elle démarre avec son propre stockage : sauvegarde d’abord ton profil, puis charge-le là-bas.",
+    es: "Nota para Safari: iOS borra los datos locales de los sitios web que no se han abierto en 7 días. Haz una copia de tu perfil de vez en cuando. Como app en la pantalla de inicio («Compartir → Añadir a pantalla de inicio») los datos se conservan, pero empieza con su propio almacenamiento: guarda antes tu perfil y cárgalo allí.",
+    it: "Nota per Safari: iOS elimina i dati locali dei siti web non aperti da 7 giorni. Salva ogni tanto il tuo profilo. Come app nella schermata Home («Condividi → Aggiungi alla schermata Home») i dati restano, ma parte con una memoria propria: salva prima il profilo e caricalo lì.",
+    pl: "Uwaga dla Safari: iOS usuwa lokalne dane stron, których nie otwierano przez 7 dni. Od czasu do czasu zrób kopię profilu. Jako aplikacja na ekranie początkowym („Udostępnij → Do ekranu początkowego”) dane zostają – ale startuje z własną pamięcią, więc najpierw zapisz profil i wczytaj go tam.",
+    uk: "Примітка для Safari: iOS видаляє локальні дані сайтів, які не відкривали 7 днів. Час від часу зберігай профіль. Як застосунок на початковому екрані («Поширити → На початковий екран») дані зберігаються, але він стартує з власним сховищем – тож спершу збережи профіль і завантаж його там.",
+    ur: "Safari کے لیے نوٹ: iOS اُن ویب سائٹس کا مقامی ڈیٹا حذف کر دیتا ہے جو 7 دن سے نہیں کھولی گئیں۔ وقتاً فوقتاً اپنا پروفائل محفوظ کریں۔ ہوم اسکرین پر ایپ کے طور پر („شیئر ← ہوم اسکرین میں شامل کریں“) ڈیٹا محفوظ رہتا ہے – لیکن یہ اپنی الگ اسٹوریج سے شروع ہوتی ہے، اس لیے پہلے پروفائل محفوظ کریں اور وہاں لوڈ کریں۔",
+    tr: "Safari için not: iOS, 7 gündür açılmayan web sitelerinin yerel verilerini siler. Profilini arada bir yedekle. Ana ekranda uygulama olarak („Paylaş → Ana Ekrana Ekle”) veriler korunur – ancak kendi depolamasıyla başlar; önce profilini yedekle ve orada yükle.",
+    ar: "ملاحظة لـ Safari: يحذف iOS البيانات المحلية للمواقع التي لم تُفتح منذ 7 أيام. احفظ نسخة من ملفك الشخصي من حين لآخر. كتطبيق على الشاشة الرئيسية («مشاركة ← إضافة إلى الشاشة الرئيسية») تبقى البيانات محفوظة، لكنه يبدأ بتخزين خاص به، لذا احفظ ملفك الشخصي أولًا ثم حمّله هناك."
+  },
   "space.backupDisclosureSummary": {
     de: "Datensicherung & Konto zurücksetzen",
     en: "Backup & Reset Account",
@@ -5103,6 +5115,66 @@ registerColocatedStatic({
     ur: "اگلا سوال خودکار چلائیں",
     tr: "Sonraki görevi otomatik çal",
     ar: "تشغيل التمرين التالي تلقائيًا"
+  },
+  "settings.tapLatencyHeading": {
+    de: "Rhythmus: Tap-Verzögerung",
+    en: "Rhythm: tap latency",
+    fr: "Rythme : latence des tapes",
+    es: "Ritmo: retraso de los toques",
+    it: "Ritmo: ritardo dei tocchi",
+    pl: "Rytm: opóźnienie stuknięć",
+    uk: "Ритм: затримка натискань",
+    ur: "ردم: ٹیپ میں تاخیر",
+    tr: "Ritim: dokunma gecikmesi",
+    ar: "الإيقاع: تأخّر النقرات"
+  },
+  "settings.tapLatencyHint": {
+    de: "Bluetooth-Kopfhörer und manche Geräte spielen Töne hörbar verzögert ab. Miss die Verzögerung einmal, damit deine Taps fair gewertet werden.",
+    en: "Bluetooth headphones and some devices play sounds with an audible delay. Measure the delay once so your taps are scored fairly.",
+    fr: "Les écouteurs Bluetooth et certains appareils jouent les sons avec un retard audible. Mesure ce retard une fois pour que tes tapes soient évaluées équitablement.",
+    es: "Los auriculares Bluetooth y algunos dispositivos reproducen los sonidos con un retraso audible. Mide el retraso una vez para que tus toques se evalúen con justicia.",
+    it: "Le cuffie Bluetooth e alcuni dispositivi riproducono i suoni con un ritardo udibile. Misura il ritardo una volta, così i tuoi tocchi vengono valutati correttamente.",
+    pl: "Słuchawki Bluetooth i niektóre urządzenia odtwarzają dźwięki z słyszalnym opóźnieniem. Zmierz je raz, aby Twoje stuknięcia były oceniane uczciwie.",
+    uk: "Bluetooth-навушники та деякі пристрої відтворюють звук із помітною затримкою. Виміряй її один раз, щоб твої натискання оцінювалися чесно.",
+    ur: "بلوٹوتھ ہیڈ فون اور کچھ آلات آوازیں سنائی دینے والی تاخیر سے چلاتے ہیں۔ ایک بار تاخیر ناپ لیں تاکہ آپ کے ٹیپ منصفانہ طور پر جانچے جائیں۔",
+    tr: "Bluetooth kulaklıklar ve bazı cihazlar sesleri duyulur bir gecikmeyle çalar. Dokunuşlarının adil değerlendirilmesi için gecikmeyi bir kez ölç.",
+    ar: "تشغّل سماعات البلوتوث وبعض الأجهزة الأصوات بتأخير مسموع. قِس التأخير مرة واحدة لتُقيَّم نقراتك بإنصاف."
+  },
+  "settings.tapLatencyCalibrateBtn": {
+    de: "Verzögerung messen",
+    en: "Measure latency",
+    fr: "Mesurer la latence",
+    es: "Medir el retraso",
+    it: "Misura il ritardo",
+    pl: "Zmierz opóźnienie",
+    uk: "Виміряти затримку",
+    ur: "تاخیر ناپیں",
+    tr: "Gecikmeyi ölç",
+    ar: "قياس التأخّر"
+  },
+  "settings.tapLatencyResetBtn": {
+    de: "Zurücksetzen",
+    en: "Reset",
+    fr: "Réinitialiser",
+    es: "Restablecer",
+    it: "Ripristina",
+    pl: "Resetuj",
+    uk: "Скинути",
+    ur: "ری سیٹ کریں",
+    tr: "Sıfırla",
+    ar: "إعادة الضبط"
+  },
+  "settings.tapLatencyPad": {
+    de: "Hier im Takt tippen",
+    en: "Tap here in time",
+    fr: "Tape ici en rythme",
+    es: "Toca aquí a tempo",
+    it: "Tocca qui a tempo",
+    pl: "Stukaj tutaj do rytmu",
+    uk: "Натискай тут у такт",
+    ur: "یہاں تال کے ساتھ ٹیپ کریں",
+    tr: "Buraya tempoda dokun",
+    ar: "انقر هنا مع الإيقاع"
   },
   "settings.singHeading": {
     de: "Mitsingen",

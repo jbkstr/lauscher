@@ -23,6 +23,14 @@ All released versions of Lauscher. New sections are created by `python3 scripts/
 - Milestone bonus themes now have their own stage sets instead of just new colors. Concert Hall: velvet curtain valance with gold trim, side curtains that open while music plays, a spotlight, a golden sheen on correct answers and gold note particles. Midnight Jazz: brick club wall, slowly drifting smoke, a neon title that flickers on, a neon note sign and a pulsing neon stage frame while playing, a teal neon flash on correct answers and glowing note particles.
 - Unlocking a bonus theme now opens a small reveal with an animated scene (curtain opens / neon sign lights up), a short signature melody and a "Use it now" button, instead of only a toast.
 - Concert Hall no longer uses a serif system font; all text stays in Andika.
+- Rhythm tapping: taps are now measured against the sound you actually hear, so the delay of speakers and audio buffers no longer counts as "late". New setting "Rhythm: tap latency" with a short calibration for Bluetooth headphones (e.g. AirPods), whose delay iOS does not report.
+- Small screens: exercises get an extra compact level for very short windows (e.g. iPhone SE in Safari with toolbars), so the grand staff and the stage are no longer cut off.
+- iPhone/iPad: instruments that are muted in the mixer are only loaded when they are needed. This saves a lot of memory and keeps Safari from reloading the page on older devices.
+- iPhone/iPad: Lauscher asks the browser to keep its local data permanently and shows a note in Safari that iOS deletes website data after 7 days without use. Adding Lauscher to the Home Screen now opens it as a full-screen app with its own icon.
+- Tuner on iPhone: playing other sounds while the tuner listens no longer interrupts the microphone, the reference tone no longer opens a new audio engine on every tap, and the tuner no longer gets stuck on "Starting microphone …" after a phone call or Siri.
+- iPhone/iPad: metronome, warm-up, tuner and other sound sessions stop cleanly when Lauscher goes to the background, instead of staying "on" but silent. After an interruption (Siri, alarm, call), the next tap brings the sound back.
+- Profile backup on iPhone/iPad: in the Home Screen app, "Save to device" opens the share sheet ("Save to Files") instead of a download that does not work there. In the browser, the message now says "Download started" instead of claiming the file was saved, and the download no longer fails when Safari asks for confirmation.
+- Touch screens: buttons no longer stay highlighted after tapping, long presses no longer open the iOS context menu, and text fields move into view above the on-screen keyboard.
 
 ## 0.11.1-beta (Build 6) – 2026-11-25
 

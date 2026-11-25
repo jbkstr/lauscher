@@ -1616,6 +1616,8 @@
           </div>
         </div>
 
+        <p id="spaceStorageHint" class="account-storage-hint hidden" data-i18n="space.safariStorageHint">Hinweis für Safari: iOS löscht lokale Daten von Webseiten, die 7 Tage lang nicht geöffnet wurden. Sichere dein Profil ab und zu. Als App auf dem Home-Bildschirm („Teilen → Zum Home-Bildschirm“) bleiben die Daten erhalten – sie startet aber mit eigenem Speicher, also vorher Profil sichern und dort laden.</p>
+
         <details class="account-disclosure" id="spaceBackupDisclosure">
           <summary data-i18n="space.backupDisclosureSummary">Datensicherung &amp; Konto zurücksetzen</summary>
           <div class="account-disclosure-body">
@@ -2726,6 +2728,22 @@
             <button type="button" class="opt-btn active" data-auto-next="on" aria-pressed="true" data-i18n="settings.autoNextOn">Ein</button>
             <button type="button" class="opt-btn" data-auto-next="off" aria-pressed="false" data-i18n="settings.autoNextOff">Aus</button>
           </div>
+        </div>
+
+        <div class="settings-section" id="tapLatencySection">
+          <h4 data-i18n="settings.tapLatencyHeading">Rhythmus: Tap-Verzögerung</h4>
+          <p class="settings-hint" data-i18n="settings.tapLatencyHint">Bluetooth-Kopfhörer und manche Geräte spielen Töne hörbar verzögert ab. Miss die Verzögerung einmal, damit deine Taps fair gewertet werden.</p>
+          <div class="tap-latency-row">
+            <span id="tapLatencyVal" class="tap-latency-val"></span>
+            <button type="button" id="tapLatencyResetBtn" class="btn-tool hidden" data-i18n="settings.tapLatencyResetBtn">Zurücksetzen</button>
+          </div>
+          <div class="settings-sub-field">
+            <button type="button" id="tapLatencyCalibrateBtn" class="btn-tool" data-i18n="settings.tapLatencyCalibrateBtn">Verzögerung messen</button>
+          </div>
+          <div id="tapLatencyCalib" class="tap-latency-calib hidden">
+            <button type="button" id="tapLatencyPad" class="tap-latency-pad" data-i18n="settings.tapLatencyPad">Hier im Takt tippen</button>
+          </div>
+          <p id="tapLatencyStatus" class="settings-hint tap-latency-status" aria-live="polite"></p>
         </div>
 
         <div class="settings-section">
