@@ -17480,7 +17480,6 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 
 .theme-preview-item.is-bonus-theme[data-theme-choice="konzertsaal"] .theme-name {
-  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
   letter-spacing: 0.01em;
 }
 
@@ -17550,7 +17549,7 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
     radial-gradient(ellipse 74% 46% at 50% 108%, rgba(135, 42, 49, 0.16) 0%, rgba(135, 42, 49, 0) 72%);
 }
 
-/* Klassische Konzertprogramm-Typografie für Überschriften & Bühne */
+/* Konzertprogramm-Typografie (bleibt bei Andika, nur feiner gesperrt) */
 :root[data-theme="konzertsaal"] .brand-name,
 :root[data-theme="konzertsaal"] .section-heading,
 :root[data-theme="konzertsaal"] .stage-main,
@@ -17558,8 +17557,7 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 :root[data-theme="konzertsaal"] .modal-header h2,
 :root[data-theme="konzertsaal"] .knowledge-card h4,
 :root[data-theme="konzertsaal"] .ach-card-title {
-  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
-  letter-spacing: 0.005em;
+  letter-spacing: 0.012em;
 }
 
 :root[data-theme="konzertsaal"] .stage-sub {
@@ -17805,4 +17803,556 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 :root[data-theme="mitternacht"] .opt-btn.active {
   border-color: var(--jazz-amber);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 0 16px rgba(244, 190, 94, 0.24);
+}
+
+/* =====================================================
+   BONUS-THEMES: BÜHNENBILDER, EFFEKTE & FREISCHALT-MOMENT
+   Beide Meilenstein-Themes bekommen eigene Szenen statt nur
+   eigener Farben: Konzertsaal = Samtvorhang, Goldborte & Spotlight,
+   Mitternachts-Jazz = Ziegelwand, Rauch & Neonlicht.
+   Alle Deko-Ebenen liegen per z-index: -1 hinter dem Inhalt.
+   ===================================================== */
+
+:root[data-theme="konzertsaal"] {
+  --concert-velvet-deep: #5E1A20;
+  --concert-velvet-light: #B4434B;
+  --juice-1: #B48420;
+  --juice-2: #872A31;
+  --juice-3: #7A5912;
+  --juice-4: #2C5139;
+}
+
+:root[data-theme="konzertsaal"][data-appearance="dark"] {
+  --concert-velvet: #7A222A;
+  --concert-velvet-deep: #44101A;
+  --concert-velvet-light: #A63A43;
+  --juice-1: #E5C26B;
+  --juice-2: #ED9D96;
+  --juice-3: #F4DC9A;
+  --juice-4: #A6CCA6;
+}
+
+:root[data-theme="mitternacht"] {
+  --jazz-pink: #FF7AB6;
+  --juice-1: #F4BE5E;
+  --juice-2: #74B5FF;
+  --juice-3: #58DCD0;
+  --juice-4: #FF7AB6;
+  --jazz-neon-note: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40' fill='none' stroke='%2358DCD0' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14.5 30V10l18-4v20'/%3E%3Cpath d='M14.5 15l18-4'/%3E%3Cellipse cx='10.5' cy='30' rx='4.4' ry='3.5'/%3E%3Cellipse cx='28.5' cy='26' rx='4.4' ry='3.5'/%3E%3C/svg%3E");
+  --jazz-bricks: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='36'%3E%3Cpath d='M0 .5H56M0 18.5H56M.5 0V18M28.5 18V36' stroke='%2384B2FF' stroke-opacity='.075' fill='none'/%3E%3C/svg%3E");
+}
+
+/* Body wird Stapelkontext, damit die Deko-Ebenen über dem Hintergrund liegen */
+:root[data-theme="konzertsaal"] body,
+:root[data-theme="mitternacht"] body {
+  position: relative;
+  z-index: 0;
+}
+
+/* ---------- KONZERTSAAL ---------- */
+
+/* Samt-Volant mit Goldborte am oberen Bildschirmrand (liegt im Safe-Area-/Kopfabstand) */
+:root[data-theme="konzertsaal"] body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: calc(9px + max(env(safe-area-inset-top, 0px), var(--safe-area-inset-top, 0px)));
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, var(--concert-velvet-deep) 0, var(--concert-velvet) 100%) 0 0 / 100% calc(100% - 8px) no-repeat,
+    linear-gradient(var(--concert-gold), var(--concert-gold)) 0 calc(100% - 8px) / 100% 1.5px no-repeat,
+    radial-gradient(9px 8px at 50% 0, var(--concert-velvet-light) 0, var(--concert-velvet) 55%, var(--concert-velvet-deep) 92%, transparent 97%) 50% 100% / 18px 8px repeat-x;
+  filter: drop-shadow(0 2px 3px rgba(45, 32, 22, 0.22));
+}
+
+/* Bühne: Volant oben, seitliche Samtvorhänge, die sich beim Abspielen öffnen */
+:root[data-theme="konzertsaal"] .central-stage {
+  isolation: isolate;
+}
+
+:root[data-theme="konzertsaal"] .central-stage::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 12px;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: calc(var(--radius-lg) - 2px) calc(var(--radius-lg) - 2px) 0 0;
+  background:
+    linear-gradient(var(--concert-gold), var(--concert-gold)) 0 0 / 100% 2px no-repeat,
+    radial-gradient(11px 10px at 50% 0, var(--concert-velvet-light) 0, var(--concert-velvet) 55%, var(--concert-velvet-deep) 92%, transparent 97%) 50% 0 / 22px 12px repeat-x;
+  filter: drop-shadow(0 2px 2px rgba(45, 32, 22, 0.2));
+}
+
+:root[data-theme="konzertsaal"] .central-stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: calc(var(--radius-lg) - 2px);
+  background-image:
+    linear-gradient(90deg, var(--concert-velvet-deep) 0%, var(--concert-velvet) 32%, var(--concert-velvet-light) 50%, var(--concert-velvet) 68%, var(--concert-velvet-deep) 100%),
+    linear-gradient(90deg, var(--concert-velvet-deep) 0%, var(--concert-velvet) 32%, var(--concert-velvet-light) 50%, var(--concert-velvet) 68%, var(--concert-velvet-deep) 100%);
+  background-position: left top, right top;
+  background-size: 13px 100%, 13px 100%;
+  background-repeat: no-repeat;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 34%, transparent 86%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 34%, transparent 86%);
+  transition: background-size 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root[data-theme="konzertsaal"] .central-stage.stage-playing::after {
+  background-size: 6px 100%, 6px 100%;
+}
+
+/* Spotlight-Kegel von oben, solange Musik spielt */
+:root[data-theme="konzertsaal"] .central-stage.stage-playing {
+  background-image:
+    conic-gradient(from 156deg at 50% -22%, transparent 0deg, rgba(255, 228, 160, 0.34) 24deg, transparent 48deg),
+    radial-gradient(ellipse 90% 75% at 50% 0%, rgba(229, 204, 138, 0.22) 0%, transparent 72%);
+}
+
+:root[data-theme="konzertsaal"][data-appearance="dark"] .central-stage.stage-playing {
+  background-image:
+    conic-gradient(from 156deg at 50% -22%, transparent 0deg, rgba(255, 220, 140, 0.16) 24deg, transparent 48deg),
+    radial-gradient(ellipse 90% 75% at 50% 0%, rgba(229, 194, 107, 0.18) 0%, transparent 72%);
+}
+
+/* Richtige Antwort: goldener Glanz, der über die Bühne zieht */
+:root[data-theme="konzertsaal"] .central-stage.stage-celebrate .stage-burst-layer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: calc(var(--radius-lg) - 2px);
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 38%, rgba(255, 236, 178, 0.62) 50%, transparent 62%) 90% 0 / 300% 100% no-repeat;
+  animation: concertGoldGlint 720ms cubic-bezier(0.3, 0.8, 0.4, 1) forwards;
+}
+
+@keyframes concertGoldGlint {
+  from { background-position: 90% 0; }
+  to { background-position: 10% 0; }
+}
+
+/* Überschriften mit Goldraute & feiner Linie */
+:root[data-theme="konzertsaal"] .section-heading::after {
+  content: "";
+  display: block;
+  width: 3em;
+  height: 6px;
+  margin-top: 0.26rem;
+  background:
+    radial-gradient(circle at 3px 50%, var(--concert-gold) 0 2.4px, transparent 2.9px) 0 0 / 7px 100% no-repeat,
+    linear-gradient(90deg, var(--concert-gold), transparent) 8px 50% / calc(100% - 8px) 1.5px no-repeat;
+}
+
+[dir="rtl"]:root[data-theme="konzertsaal"] .section-heading::after,
+:root[dir="rtl"][data-theme="konzertsaal"] .section-heading::after {
+  background:
+    radial-gradient(circle at calc(100% - 3px) 50%, var(--concert-gold) 0 2.4px, transparent 2.9px) 100% 0 / 7px 100% no-repeat,
+    linear-gradient(270deg, var(--concert-gold), transparent) 0 50% / calc(100% - 8px) 1.5px no-repeat;
+}
+
+/* ---------- MITTERNACHTS-JAZZ ---------- */
+
+/* Club-Wand: Ziegel, Lichtkegel & dunkler Boden */
+:root[data-theme="mitternacht"] body {
+  background-image:
+    radial-gradient(ellipse 78% 42% at 78% -4%, rgba(244, 190, 94, 0.17) 0%, rgba(244, 190, 94, 0) 64%),
+    radial-gradient(ellipse 84% 52% at 16% 18%, rgba(64, 126, 235, 0.20) 0%, rgba(64, 126, 235, 0) 66%),
+    radial-gradient(ellipse 76% 44% at 50% 106%, rgba(88, 220, 208, 0.12) 0%, rgba(88, 220, 208, 0) 68%),
+    linear-gradient(180deg, rgba(3, 6, 16, 0) 55%, rgba(3, 6, 16, 0.5) 100%),
+    var(--jazz-bricks);
+  background-size: auto, auto, auto, auto, 56px 36px;
+}
+
+/* Langsam ziehender Rauch */
+:root[data-theme="mitternacht"] body::before {
+  content: "";
+  position: fixed;
+  inset: -25%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(38% 26% at 28% 38%, rgba(150, 182, 255, 0.075), transparent),
+    radial-gradient(34% 22% at 72% 58%, rgba(88, 220, 208, 0.055), transparent),
+    radial-gradient(30% 20% at 56% 24%, rgba(244, 190, 94, 0.05), transparent);
+  animation: jazzSmokeDrift 48s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes jazzSmokeDrift {
+  from { transform: translate3d(-5%, 2%, 0) rotate(0deg); }
+  to { transform: translate3d(5%, -3%, 0) rotate(7deg); }
+}
+
+/* Leuchtreklame-Titel: zündet beim Wechsel ins Theme einmal flackernd */
+:root[data-theme="mitternacht"] .brand-name {
+  color: #FFF1D6;
+  text-shadow:
+    0 0 2px rgba(255, 241, 214, 0.85),
+    0 0 9px rgba(244, 190, 94, 0.7),
+    0 0 22px rgba(244, 190, 94, 0.38);
+  animation: jazzNeonIgnite 1.5s steps(1, end) 1 both;
+}
+
+@keyframes jazzNeonIgnite {
+  0% { opacity: 0.25; }
+  12% { opacity: 1; }
+  18% { opacity: 0.35; }
+  30% { opacity: 1; }
+  36% { opacity: 0.55; }
+  44%, 100% { opacity: 1; }
+}
+
+/* Überschriften mit Neonröhre */
+:root[data-theme="mitternacht"] .section-heading::after {
+  content: "";
+  display: block;
+  width: 2.4em;
+  height: 2px;
+  margin-top: 0.3rem;
+  border-radius: 2px;
+  background: var(--jazz-blue);
+  box-shadow: 0 0 4px var(--jazz-blue), 0 0 12px rgba(116, 181, 255, 0.55);
+}
+
+/* Bühne: Neon-Notenschild (an, sobald Musik spielt) & Bernstein-Spot */
+:root[data-theme="mitternacht"] .central-stage {
+  isolation: isolate;
+}
+
+:root[data-theme="mitternacht"] .central-stage::before {
+  content: "";
+  position: absolute;
+  top: 0.5rem;
+  inset-inline-start: 0.6rem;
+  width: 24px;
+  height: 24px;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--jazz-neon-note) center / contain no-repeat;
+  opacity: 0.22;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+:root[data-theme="mitternacht"] .central-stage.stage-playing::before,
+:root[data-theme="mitternacht"] .central-stage.stage-celebrate::before {
+  opacity: 1;
+  filter: drop-shadow(0 0 2px #58DCD0) drop-shadow(0 0 7px rgba(88, 220, 208, 0.75));
+  animation: jazzNeonIgnite 0.9s steps(1, end) 1 both;
+}
+
+:root[data-theme="mitternacht"] .central-stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: calc(var(--radius-lg) - 2px);
+  background: conic-gradient(from 154deg at 50% -26%, transparent 0deg, rgba(244, 190, 94, 0.22) 26deg, transparent 52deg);
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+
+:root[data-theme="mitternacht"] .central-stage.stage-playing::after {
+  opacity: 1;
+}
+
+/* Neonröhren-Rahmen pulsiert im Takt der Wiedergabe */
+:root[data-theme="mitternacht"] .central-stage.stage-playing {
+  animation: jazzNeonPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes jazzNeonPulse {
+  0%, 100% {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 0 18px rgba(116, 181, 255, 0.22), var(--shadow-card);
+  }
+  50% {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 0 0 1px rgba(116, 181, 255, 0.35), 0 0 34px rgba(116, 181, 255, 0.46), var(--shadow-card);
+  }
+}
+
+/* Richtige Antwort: türkiser Neon-Blitz */
+:root[data-theme="mitternacht"] .central-stage.stage-celebrate {
+  animation: jazzNeonCelebrate 620ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes jazzNeonCelebrate {
+  0% { transform: scale(1); }
+  35% {
+    transform: scale(1.02);
+    border-color: var(--jazz-teal);
+    box-shadow: 0 0 0 2px rgba(88, 220, 208, 0.35), 0 0 38px rgba(88, 220, 208, 0.55), var(--shadow-float);
+  }
+  100% { transform: scale(1); }
+}
+
+/* Leuchtende Noten-Partikel */
+:root[data-theme="mitternacht"] .juice-particle {
+  filter: drop-shadow(0 0 3px currentColor) drop-shadow(0 0 8px currentColor);
+}
+
+/* Kompakte Bühne (wenig Platz in Übungen): Deko zurücknehmen */
+@container exstage (max-height: 94px) {
+  :root[data-theme="konzertsaal"] .central-stage::before,
+  :root[data-theme="mitternacht"] .central-stage::before {
+    display: none;
+  }
+  :root[data-theme="konzertsaal"] .central-stage::after {
+    background-size: 5px 100%, 5px 100%;
+  }
+}
+
+/* ---------- THEME-AUSWAHL: MINI-SZENEN ---------- */
+.theme-preview-item.is-bonus-theme[data-theme-choice="konzertsaal"]::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.theme-preview-item.is-bonus-theme[data-theme-choice="konzertsaal"] {
+  padding-top: 0.86rem;
+}
+
+.theme-preview-item.is-bonus-theme[data-theme-choice="konzertsaal"]::after {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 9px;
+  background:
+    linear-gradient(#C69B3D, #C69B3D) 0 0 / 100% 1.5px no-repeat,
+    radial-gradient(8px 8px at 50% 0, #B4434B 0, #872A31 55%, #5E1A20 92%, transparent 97%) 50% 0 / 16px 9px repeat-x;
+}
+
+.theme-preview-item.is-bonus-theme[data-theme-choice="mitternacht"] .theme-name::before {
+  content: "";
+  display: inline-block;
+  font-size: 1em;
+  width: 1.05em;
+  height: 1.05em;
+  margin-inline-end: 0.28em;
+  vertical-align: -0.16em;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40' fill='none' stroke='%2358DCD0' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14.5 30V10l18-4v20'/%3E%3Cpath d='M14.5 15l18-4'/%3E%3Cellipse cx='10.5' cy='30' rx='4.4' ry='3.5'/%3E%3Cellipse cx='28.5' cy='26' rx='4.4' ry='3.5'/%3E%3C/svg%3E") center / contain no-repeat;
+  filter: drop-shadow(0 0 2px rgba(88, 220, 208, 0.8));
+  opacity: 1;
+}
+
+.theme-preview-item.is-bonus-theme.is-bonus-locked .theme-name::before {
+  filter: grayscale(1);
+  opacity: 0.55;
+}
+
+.theme-preview-item.is-bonus-theme.is-bonus-locked::after {
+  filter: grayscale(1);
+  opacity: 0.45;
+}
+
+/* ---------- FREISCHALT-DIALOG ---------- */
+.theme-unlock-dialog {
+  max-width: 380px;
+  text-align: center;
+}
+
+.theme-unlock-scene {
+  position: relative;
+  height: 138px;
+  overflow: hidden;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.theme-unlock-scene::before,
+.theme-unlock-scene::after,
+.theme-unlock-scene-art {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.theme-unlock-body {
+  padding: 1.05rem 1.3rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.42rem;
+}
+
+.theme-unlock-tag {
+  display: inline-block;
+  padding: 0.16rem 0.62rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--sage-soft);
+  color: var(--sage-strong);
+}
+
+.theme-unlock-name {
+  margin: 0.1rem 0 0;
+  font-size: 1.32rem;
+  font-weight: 800;
+  color: var(--raccoon-dark);
+}
+
+.theme-unlock-tagline {
+  margin: 0;
+  max-width: 32ch;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--raccoon-mid);
+}
+
+.theme-unlock-earned {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--raccoon-muted);
+}
+
+.theme-unlock-actions {
+  padding: 1.1rem 1.3rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.52rem;
+}
+
+.theme-unlock-actions .btn-primary-action {
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.theme-unlock-later {
+  width: 100%;
+  padding: 0.55rem 0.9rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-strong);
+  background: transparent;
+  color: var(--raccoon-mid);
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.theme-unlock-later:hover {
+  background-color: var(--tint-subtle);
+}
+
+/* Szene „Konzertsaal“: Vorhang auf! */
+[data-unlock-theme="konzertsaal"] .theme-unlock-scene {
+  background:
+    radial-gradient(ellipse 36% 14% at 50% 86%, rgba(255, 228, 160, 0.5), transparent 70%),
+    conic-gradient(from 155deg at 50% -18%, transparent 0deg, rgba(255, 228, 160, 0.42) 25deg, transparent 50deg),
+    linear-gradient(180deg, transparent 76%, #6B4423 76%, #3E2513 100%),
+    #1E130D;
+}
+
+[data-unlock-theme="konzertsaal"] .theme-unlock-scene-art {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 22px;
+  z-index: 2;
+  background:
+    linear-gradient(#5E1A20, #872A31) 0 0 / 100% 8px no-repeat,
+    linear-gradient(#E5C26B, #E5C26B) 0 8px / 100% 2px no-repeat,
+    radial-gradient(15px 12px at 50% 0, #B4434B 0, #872A31 55%, #5E1A20 92%, transparent 97%) 50% 10px / 30px 12px repeat-x;
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.45));
+}
+
+[data-unlock-theme="konzertsaal"] .theme-unlock-scene::before,
+[data-unlock-theme="konzertsaal"] .theme-unlock-scene::after {
+  top: 0;
+  bottom: 0;
+  width: 51%;
+  z-index: 1;
+  background: repeating-linear-gradient(90deg, #4A1217 0, #872A31 9px, #B4434B 14px, #872A31 19px, #4A1217 27px);
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.55);
+  animation: concertCurtainOpen 1.5s cubic-bezier(0.65, 0, 0.35, 1) 0.35s both;
+}
+
+[data-unlock-theme="konzertsaal"] .theme-unlock-scene::before {
+  left: 0;
+  border-bottom-right-radius: 40% 14px;
+}
+
+[data-unlock-theme="konzertsaal"] .theme-unlock-scene::after {
+  right: 0;
+  border-bottom-left-radius: 40% 14px;
+}
+
+@keyframes concertCurtainOpen {
+  from { width: 51%; }
+  to { width: 17%; }
+}
+
+/* Szene „Mitternachts-Jazz“: Neonschild geht an */
+[data-unlock-theme="mitternacht"] .theme-unlock-scene {
+  background:
+    radial-gradient(ellipse 40% 16% at 50% 100%, rgba(88, 220, 208, 0.22), transparent 70%),
+    radial-gradient(ellipse 60% 70% at 50% 40%, rgba(64, 126, 235, 0.25), transparent 70%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='36'%3E%3Cpath d='M0 .5H56M0 18.5H56M.5 0V18M28.5 18V36' stroke='%2384B2FF' stroke-opacity='.14' fill='none'/%3E%3C/svg%3E") 0 0 / 56px 36px,
+    linear-gradient(180deg, #0D1430, #070B19);
+}
+
+[data-unlock-theme="mitternacht"] .theme-unlock-scene::before {
+  inset: 0;
+  background: conic-gradient(from 152deg at 72% -20%, transparent 0deg, rgba(244, 190, 94, 0.3) 28deg, transparent 56deg);
+}
+
+[data-unlock-theme="mitternacht"] .theme-unlock-scene-art {
+  top: 50%;
+  left: 50%;
+  width: 66px;
+  height: 66px;
+  margin: -36px 0 0 -33px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40' fill='none' stroke='%2358DCD0' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14.5 30V10l18-4v20'/%3E%3Cpath d='M14.5 15l18-4'/%3E%3Cellipse cx='10.5' cy='30' rx='4.4' ry='3.5'/%3E%3Cellipse cx='28.5' cy='26' rx='4.4' ry='3.5'/%3E%3C/svg%3E") center / contain no-repeat;
+  filter: drop-shadow(0 0 3px #58DCD0) drop-shadow(0 0 12px rgba(88, 220, 208, 0.8));
+  animation: jazzNeonIgnite 1.6s steps(1, end) 0.3s both;
+}
+
+[data-unlock-theme="mitternacht"] .theme-unlock-scene::after {
+  left: 22%;
+  right: 22%;
+  bottom: 16px;
+  height: 2px;
+  border-radius: 2px;
+  background: #FF7AB6;
+  box-shadow: 0 0 4px #FF7AB6, 0 0 14px rgba(255, 122, 182, 0.7);
+  animation: jazzNeonIgnite 1.6s steps(1, end) 0.7s both;
+}
+
+/* Weniger Bewegung: Szenen stehen still im Endzustand */
+@media (prefers-reduced-motion: reduce) {
+  :root[data-theme="mitternacht"] body::before,
+  :root[data-theme="mitternacht"] .brand-name,
+  :root[data-theme="mitternacht"] .central-stage.stage-playing,
+  :root[data-theme="mitternacht"] .central-stage.stage-playing::before,
+  :root[data-theme="mitternacht"] .central-stage.stage-celebrate::before,
+  [data-unlock-theme] .theme-unlock-scene-art,
+  [data-unlock-theme] .theme-unlock-scene::before,
+  [data-unlock-theme] .theme-unlock-scene::after {
+    animation: none;
+  }
+  :root[data-theme="konzertsaal"] .central-stage::after {
+    transition: none;
+  }
+  :root[data-theme="konzertsaal"] .central-stage.stage-celebrate .stage-burst-layer::before {
+    display: none;
+  }
+  [data-unlock-theme="konzertsaal"] .theme-unlock-scene::before,
+  [data-unlock-theme="konzertsaal"] .theme-unlock-scene::after {
+    width: 17%;
+  }
 }
