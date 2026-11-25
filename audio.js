@@ -2359,98 +2359,367 @@ class AudioEngine {
   }
 
   /**
-   * Spielt einen ruhigen, tiefen Bass-Klangteppich für die Atemübung im Einsing-Helfer ab.
+   * Atem-Cues für den Einsing-Helfer: Jede Atemphase hat einen eigenen, klar unterscheidbaren Klang.
+   * - inhale: aufsteigendes Glocken-Signal (Grundton → Quinte) + anschwellender Luft-/Klangteppich
+   * - hold:   einzelner Klangschalen-Schlag + ruhiger, unbewegter Halteton
+   * - exhale: absteigendes Glocken-Signal (Quinte → Grundton) + sich schließender, leiser werdender Teppich
+   * - rest:   weicher, kurzer Holzton (Marimba-artig) – danach Stille zum Lösen
+   * Die Signaltöne liegen bewusst im Mittenbereich (C4–G6), damit sie auch über Handy-Lautsprecher hörbar sind.
    */
-  playWarmupBreathTone(noteOrMidi, durationSec = 4.0, options = {}) {
+  playWarmupBreathCue(phase, baseNoteOrMidi, durationSec = 4.0) {
     if (!this.isInitialized || !this.masterGain || !this.rawCtx) return;
-    const midi = EarLabSampledInstrument.noteToMidi(noteOrMidi);
-    if (midi === null) return;
-
-    const rawCtx = this.rawCtx;
-    const freq = 440 * Math.pow(2, (midi - 69) / 12);
+    const baseMidi = EarLabSampledInstrument.noteToMidi(baseNoteOrMidi);
+    if (baseMidi === null) return;
+    const voice = this.createWarmupBreathCueVoice();
+    if (!voice) return;
+    const { rawCtx } = voice;
     const dur = Math.max(0.4, Number(durationSec) || 4.0);
-    const phase = options.phase || "inhale";
-    const startAt = (rawCtx.currentTime || 0) + 0.025;
-    const endAt = startAt + dur;
-    const attackSec = Math.min(0.85, Math.max(0.18, dur * 0.22));
-    const releaseSec = Math.min(1.10, Math.max(0.24, dur * 0.27));
-    const sustainEndAt = Math.max(startAt + attackSec + 0.02, endAt - releaseSec);
+    const t0 = (rawCtx.currentTime || 0) + 0.025;
+    const tEnd = t0 + dur;
+    const hz = (m) => 440 * Math.pow(2, (m - 69) / 12);
+    let tailSec = 0.4;
 
-    const filter = rawCtx.createBiquadFilter();
-    filter.type = "lowpass";
-    filter.Q.value = 0.65;
-    const lowCutoff = Math.max(155, Math.min(360, freq * 2.45));
-    const highCutoff = Math.max(250, Math.min(520, freq * 4.10));
     if (phase === "inhale") {
-      filter.frequency.setValueAtTime(lowCutoff, startAt);
-      filter.frequency.exponentialRampToValueAtTime(highCutoff, startAt + dur * 0.72);
-      filter.frequency.exponentialRampToValueAtTime(lowCutoff * 1.18, endAt);
+      this.addBreathBell(voice, hz(baseMidi + 36), t0, 0.21, 1.3);
+      this.addBreathBell(voice, hz(baseMidi + 43), t0 + 0.2, 0.24, 1.6);
+      // Luft strömt ein: Rauschen wird lauter und heller
+      this.addBreathNoiseBed(voice, t0 + 0.12, tEnd, {
+        fromHz: 420, toHz: 1700, peak: 0.075, peakFrac: 0.86, shape: "swell"
+      });
+      this.addBreathPadBed(voice, [hz(baseMidi + 12), hz(baseMidi + 19)], t0 + 0.1, tEnd, {
+        fromHz: 260, toHz: 1150, peak: 0.20, peakFrac: 0.84, shape: "swell"
+      });
+      tailSec = 1.7;
+    } else if (phase === "hold") {
+      this.addBreathBowl(voice, hz(baseMidi + 31), t0, 0.26, Math.min(6.0, Math.max(2.0, dur * 0.85)));
+      this.addBreathPadBed(voice, [hz(baseMidi + 24), hz(baseMidi + 31)], t0 + 0.25, tEnd, {
+        fromHz: 900, toHz: 900, peak: 0.045, peakFrac: 0.12, shape: "flat", oscType: "sine"
+      });
+      tailSec = Math.min(6.0, Math.max(2.0, dur * 0.85)) + 0.3;
+    } else if (phase === "exhale") {
+      this.addBreathBell(voice, hz(baseMidi + 43), t0, 0.24, 1.3);
+      this.addBreathBell(voice, hz(baseMidi + 36), t0 + 0.2, 0.21, 1.6);
+      // Luft strömt aus: warmer Teppich wird dunkler und leiser
+      this.addBreathPadBed(voice, [hz(baseMidi + 12), hz(baseMidi + 24)], t0 + 0.08, tEnd, {
+        fromHz: 1150, toHz: 260, peak: 0.22, peakFrac: 0.14, shape: "fade"
+      });
+      this.addBreathNoiseBed(voice, t0 + 0.08, Math.min(tEnd, t0 + 0.08 + Math.max(1.2, dur * 0.35)), {
+        fromHz: 1500, toHz: 450, peak: 0.03, peakFrac: 0.12, shape: "fade"
+      });
+      tailSec = 1.7;
+    } else if (phase === "rest") {
+      this.addBreathWoodTone(voice, hz(baseMidi + 24), t0, 0.22);
+      this.addBreathWoodTone(voice, hz(baseMidi + 12), t0 + 0.012, 0.12);
+      tailSec = 1.3;
     } else {
-      filter.frequency.setValueAtTime(highCutoff * 0.90, startAt);
-      filter.frequency.exponentialRampToValueAtTime(lowCutoff * 0.92, endAt);
+      return;
     }
 
-    const envGain = rawCtx.createGain();
-    const freqBoost = freq < 110 ? Math.min(1.18, 1 + ((110 - freq) / 50) * 0.16) : 1.0;
-    const peakGain = Math.min(0.40, 0.33 * freqBoost);
-    envGain.gain.setValueAtTime(0.0001, startAt);
-    envGain.gain.linearRampToValueAtTime(peakGain * 0.32, startAt + attackSec * 0.35);
-    envGain.gain.linearRampToValueAtTime(peakGain, startAt + attackSec);
-    envGain.gain.linearRampToValueAtTime(phase === "exhale" ? peakGain * 0.80 : peakGain * 0.94, sustainEndAt);
-    envGain.gain.linearRampToValueAtTime(0.0001, Math.max(sustainEndAt + 0.02, endAt - 0.012));
-    envGain.gain.linearRampToValueAtTime(0, endAt);
+    this.finishWarmupBreathCueVoice(voice, Math.max(dur, tailSec));
+  }
 
-    filter.connect(envGain);
-    envGain.connect(this.masterGain);
+  /** Kurzer, knackiger „F!“-Impuls (Luftstoß + tiefer Schub) für die Zwerchfell-Impulse. */
+  playWarmupBreathPulse(baseNoteOrMidi, accent = false) {
+    if (!this.isInitialized || !this.masterGain || !this.rawCtx) return;
+    const baseMidi = EarLabSampledInstrument.noteToMidi(baseNoteOrMidi);
+    if (baseMidi === null) return;
+    const voice = this.createWarmupBreathCueVoice({ reverb: false });
+    if (!voice) return;
+    const { rawCtx } = voice;
+    const t0 = (rawCtx.currentTime || 0) + 0.015;
+    const level = accent ? 1.0 : 0.78;
 
-    let reverbSendGain = null;
-    const wetMix = Number.isFinite(this.instrumentReverbMix?.strings)
-      ? Math.max(0, Math.min(0.28, this.instrumentReverbMix.strings * 0.65))
-      : 0.20;
-    if (this.pianoReverbDamp && wetMix > 0.005) {
-      reverbSendGain = rawCtx.createGain();
-      reverbSendGain.gain.value = wetMix;
-      envGain.connect(reverbSendGain);
-      reverbSendGain.connect(this.pianoReverbDamp);
+    // Luftstoß
+    const noise = this.createBreathNoiseSource(voice);
+    const bp = rawCtx.createBiquadFilter();
+    bp.type = "bandpass";
+    bp.Q.value = 1.1;
+    bp.frequency.setValueAtTime(accent ? 2100 : 1700, t0);
+    bp.frequency.exponentialRampToValueAtTime(900, t0 + 0.11);
+    const ng = rawCtx.createGain();
+    ng.gain.setValueAtTime(0.0001, t0);
+    ng.gain.linearRampToValueAtTime(0.34 * level, t0 + 0.006);
+    ng.gain.exponentialRampToValueAtTime(0.0008, t0 + 0.13);
+    noise.connect(bp);
+    bp.connect(ng);
+    ng.connect(voice.outGain);
+    noise.start(t0);
+    noise.stop(t0 + 0.16);
+    voice.stopNodes.push(noise);
+    voice.cleanupNodes.push(noise, bp, ng);
+
+    // Tiefer Schub (kurz nach unten gleitend), eine Oktave über dem Atem-Grundton
+    const osc = rawCtx.createOscillator();
+    osc.type = "sine";
+    const f = 440 * Math.pow(2, (baseMidi + 12 - 69) / 12);
+    osc.frequency.setValueAtTime(f * 1.9, t0);
+    osc.frequency.exponentialRampToValueAtTime(f, t0 + 0.05);
+    const og = rawCtx.createGain();
+    og.gain.setValueAtTime(0.0001, t0);
+    og.gain.linearRampToValueAtTime(0.42 * level, t0 + 0.005);
+    og.gain.exponentialRampToValueAtTime(0.0008, t0 + 0.17);
+    osc.connect(og);
+    og.connect(voice.outGain);
+    osc.start(t0);
+    osc.stop(t0 + 0.2);
+    voice.stopNodes.push(osc);
+    voice.cleanupNodes.push(osc, og);
+
+    this.finishWarmupBreathCueVoice(voice, 0.25);
+  }
+
+  /** Leiser „Tropfen“-Tick zur Orientierung in sehr langen Ausatem-Phasen. */
+  playWarmupBreathTick(baseNoteOrMidi) {
+    if (!this.isInitialized || !this.masterGain || !this.rawCtx) return;
+    const baseMidi = EarLabSampledInstrument.noteToMidi(baseNoteOrMidi);
+    if (baseMidi === null) return;
+    const voice = this.createWarmupBreathCueVoice();
+    if (!voice) return;
+    const { rawCtx } = voice;
+    const t0 = (rawCtx.currentTime || 0) + 0.015;
+    const f = 440 * Math.pow(2, (baseMidi + 48 - 69) / 12);
+    const osc = rawCtx.createOscillator();
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(f * 1.35, t0);
+    osc.frequency.exponentialRampToValueAtTime(f, t0 + 0.035);
+    const g = rawCtx.createGain();
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.linearRampToValueAtTime(0.12, t0 + 0.004);
+    g.gain.exponentialRampToValueAtTime(0.0006, t0 + 0.22);
+    osc.connect(g);
+    g.connect(voice.outGain);
+    osc.start(t0);
+    osc.stop(t0 + 0.25);
+    voice.stopNodes.push(osc);
+    voice.cleanupNodes.push(osc, g);
+    this.finishWarmupBreathCueVoice(voice, 0.3);
+  }
+
+  createWarmupBreathCueVoice(options = {}) {
+    const rawCtx = this.rawCtx;
+    if (!rawCtx || !this.masterGain) return null;
+    const outGain = rawCtx.createGain();
+    outGain.gain.value = 1;
+    outGain.connect(this.masterGain);
+    const cleanupNodes = [outGain];
+    if (options.reverb !== false && this.pianoReverbDamp) {
+      const wetMix = Number.isFinite(this.instrumentReverbMix?.strings)
+        ? Math.max(0, Math.min(0.30, this.instrumentReverbMix.strings * 0.7))
+        : 0.22;
+      if (wetMix > 0.005) {
+        const send = rawCtx.createGain();
+        send.gain.value = wetMix;
+        outGain.connect(send);
+        send.connect(this.pianoReverbDamp);
+        cleanupNodes.push(send);
+      }
     }
+    // envGain = Ausgangsregler, über den stopBreathEntryNow() knacksfrei ausblendet
+    return { rawCtx, outGain, envGain: outGain, stopNodes: [], cleanupNodes, stopped: false, cleanupTimer: null };
+  }
 
-    const oscSpecs = [
-      { type: "sine", freq, gain: 0.58 },
-      { type: "triangle", freq: freq * 0.9988, gain: 0.22 },
-      { type: "triangle", freq: freq * 1.0012, gain: 0.22 },
-      { type: "sine", freq: freq * 2, gain: 0.20 }
-    ];
-    const stopNodes = [];
-    const cleanupNodes = [filter, envGain];
-    if (reverbSendGain) cleanupNodes.push(reverbSendGain);
-
-    oscSpecs.forEach(spec => {
-      const osc = rawCtx.createOscillator();
-      osc.type = spec.type;
-      osc.frequency.setValueAtTime(spec.freq, startAt);
-      const layerGain = rawCtx.createGain();
-      layerGain.gain.value = spec.gain;
-      osc.connect(layerGain);
-      layerGain.connect(filter);
-      stopNodes.push(osc);
-      cleanupNodes.push(osc, layerGain);
-    });
-
-    const breathVoice = { rawCtx, envGain, stopNodes, cleanupNodes, stopped: false, cleanupTimer: null };
-    const entry = { breathVoice };
+  finishWarmupBreathCueVoice(voice, totalSec) {
+    const entry = { breathVoice: voice };
     this.activeDemoNodes.push(entry);
-
-    stopNodes.forEach(osc => {
-      osc.start(startAt);
-      osc.stop(endAt + 0.04);
-    });
-
-    breathVoice.cleanupTimer = setTimeout(() => {
-      if (breathVoice.stopped) return;
-      breathVoice.stopped = true;
-      cleanupNodes.forEach(node => { try { node.disconnect(); } catch (_) {} });
+    voice.cleanupTimer = setTimeout(() => {
+      if (voice.stopped) return;
+      voice.stopped = true;
+      voice.cleanupNodes.forEach(node => { try { node.disconnect(); } catch (_) {} });
       this.activeDemoNodes = this.activeDemoNodes.filter(item => item !== entry);
-    }, (dur + 0.35) * 1000);
+    }, (totalSec + 0.5) * 1000);
+  }
+
+  getBreathNoiseBuffer() {
+    if (this._breathNoiseBuffer && this._breathNoiseBuffer.sampleRate === this.rawCtx.sampleRate) {
+      return this._breathNoiseBuffer;
+    }
+    const rawCtx = this.rawCtx;
+    const len = Math.floor(rawCtx.sampleRate * 2);
+    const buf = rawCtx.createBuffer(1, len, rawCtx.sampleRate);
+    const data = buf.getChannelData(0);
+    // Leicht gefärbtes (rosa-artiges) Rauschen klingt weicher als weißes Rauschen
+    let b0 = 0, b1 = 0, b2 = 0;
+    for (let i = 0; i < len; i++) {
+      const white = Math.random() * 2 - 1;
+      b0 = 0.99765 * b0 + white * 0.0990460;
+      b1 = 0.96300 * b1 + white * 0.2965164;
+      b2 = 0.57000 * b2 + white * 1.0526913;
+      data[i] = (b0 + b1 + b2 + white * 0.1848) * 0.18;
+    }
+    this._breathNoiseBuffer = buf;
+    return buf;
+  }
+
+  createBreathNoiseSource(voice) {
+    const src = voice.rawCtx.createBufferSource();
+    src.buffer = this.getBreathNoiseBuffer();
+    src.loop = true;
+    return src;
+  }
+
+  /** Weicher Glockenton (leicht obertonreich, schnell ausklingend). */
+  addBreathBell(voice, freq, at, level, decaySec) {
+    const { rawCtx } = voice;
+    const partials = [
+      { ratio: 1, gain: 1, decay: 1 },
+      { ratio: 2.0, gain: 0.28, decay: 0.55 },
+      { ratio: 3.01, gain: 0.10, decay: 0.35 },
+      { ratio: 4.2, gain: 0.05, decay: 0.22 }
+    ];
+    partials.forEach(p => {
+      const osc = rawCtx.createOscillator();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(freq * p.ratio, at);
+      const g = rawCtx.createGain();
+      const d = Math.max(0.12, decaySec * p.decay);
+      g.gain.setValueAtTime(0.0001, at);
+      g.gain.linearRampToValueAtTime(level * p.gain, at + 0.008);
+      g.gain.exponentialRampToValueAtTime(0.0005, at + d);
+      osc.connect(g);
+      g.connect(voice.outGain);
+      osc.start(at);
+      osc.stop(at + d + 0.05);
+      voice.stopNodes.push(osc);
+      voice.cleanupNodes.push(osc, g);
+    });
+  }
+
+  /** Klangschale: unharmonische Teiltöne mit leichter Schwebung, lang ausklingend. */
+  addBreathBowl(voice, freq, at, level, decaySec) {
+    const { rawCtx } = voice;
+    const partials = [
+      { ratio: 1, gain: 0.62, decay: 1 },
+      { ratio: 1.0035, gain: 0.38, decay: 0.95 },
+      { ratio: 2.71, gain: 0.30, decay: 0.6 },
+      { ratio: 5.15, gain: 0.08, decay: 0.3 }
+    ];
+    partials.forEach(p => {
+      const osc = rawCtx.createOscillator();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(freq * p.ratio, at);
+      const g = rawCtx.createGain();
+      const d = Math.max(0.3, decaySec * p.decay);
+      g.gain.setValueAtTime(0.0001, at);
+      g.gain.linearRampToValueAtTime(level * p.gain, at + 0.012);
+      g.gain.exponentialRampToValueAtTime(0.0004, at + d);
+      osc.connect(g);
+      g.connect(voice.outGain);
+      osc.start(at);
+      osc.stop(at + d + 0.05);
+      voice.stopNodes.push(osc);
+      voice.cleanupNodes.push(osc, g);
+    });
+  }
+
+  /** Weicher, kurzer Holzton (Marimba-artig) für „Lösen“. */
+  addBreathWoodTone(voice, freq, at, level) {
+    const { rawCtx } = voice;
+    const partials = [
+      { ratio: 1, gain: 1, decay: 0.95 },
+      { ratio: 3.93, gain: 0.16, decay: 0.18 },
+      { ratio: 9.2, gain: 0.03, decay: 0.06 }
+    ];
+    partials.forEach(p => {
+      const osc = rawCtx.createOscillator();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(freq * p.ratio, at);
+      const g = rawCtx.createGain();
+      const d = Math.max(0.05, p.decay);
+      g.gain.setValueAtTime(0.0001, at);
+      g.gain.linearRampToValueAtTime(level * p.gain, at + 0.005);
+      g.gain.exponentialRampToValueAtTime(0.0005, at + d);
+      osc.connect(g);
+      g.connect(voice.outGain);
+      osc.start(at);
+      osc.stop(at + d + 0.05);
+      voice.stopNodes.push(osc);
+      voice.cleanupNodes.push(osc, g);
+    });
+  }
+
+  /**
+   * Lautstärke-Hüllkurve für Klangteppiche.
+   * shape "swell": langsam anschwellen bis peakFrac, dann kurz ausblenden
+   * shape "fade":  schnell einblenden bis peakFrac, dann langsam leiser werden
+   * shape "flat":  einblenden, gleichbleibend halten, am Ende ausblenden
+   */
+  applyBreathBedEnvelope(param, from, to, peak, peakFrac, shape) {
+    const dur = Math.max(0.2, to - from);
+    const peakAt = from + dur * Math.max(0.05, Math.min(0.95, peakFrac));
+    const releaseSec = Math.min(0.45, dur * 0.12);
+    param.setValueAtTime(0.0001, from);
+    if (shape === "swell") {
+      param.linearRampToValueAtTime(peak * 0.25, from + (peakAt - from) * 0.3);
+      param.linearRampToValueAtTime(peak, peakAt);
+      param.linearRampToValueAtTime(0.0001, to);
+    } else if (shape === "fade") {
+      param.linearRampToValueAtTime(peak, peakAt);
+      param.linearRampToValueAtTime(peak * 0.35, Math.max(peakAt + 0.02, to - releaseSec));
+      param.linearRampToValueAtTime(0.0001, to);
+    } else {
+      param.linearRampToValueAtTime(peak, peakAt);
+      param.setValueAtTime(peak, Math.max(peakAt + 0.02, to - releaseSec));
+      param.linearRampToValueAtTime(0.0001, to);
+    }
+  }
+
+  addBreathNoiseBed(voice, from, to, opts) {
+    const { rawCtx } = voice;
+    if (to - from < 0.2) return;
+    const src = this.createBreathNoiseSource(voice);
+    const bp = rawCtx.createBiquadFilter();
+    bp.type = "bandpass";
+    bp.Q.value = 0.85;
+    bp.frequency.setValueAtTime(opts.fromHz, from);
+    bp.frequency.exponentialRampToValueAtTime(opts.toHz, to);
+    const g = rawCtx.createGain();
+    this.applyBreathBedEnvelope(g.gain, from, to, opts.peak, opts.peakFrac, opts.shape);
+    src.connect(bp);
+    bp.connect(g);
+    g.connect(voice.outGain);
+    src.start(from, Math.random() * 1.5);
+    src.stop(to + 0.05);
+    voice.stopNodes.push(src);
+    voice.cleanupNodes.push(src, bp, g);
+  }
+
+  addBreathPadBed(voice, freqs, from, to, opts) {
+    const { rawCtx } = voice;
+    if (to - from < 0.2) return;
+    const lp = rawCtx.createBiquadFilter();
+    lp.type = "lowpass";
+    lp.Q.value = 0.6;
+    lp.frequency.setValueAtTime(opts.fromHz, from);
+    if (opts.toHz !== opts.fromHz) lp.frequency.exponentialRampToValueAtTime(opts.toHz, to);
+    const g = rawCtx.createGain();
+    this.applyBreathBedEnvelope(g.gain, from, to, opts.peak, opts.peakFrac, opts.shape);
+    lp.connect(g);
+    g.connect(voice.outGain);
+    voice.cleanupNodes.push(lp, g);
+    const perFreq = 1 / Math.max(1, freqs.length);
+    freqs.forEach((f, idx) => {
+      const layers = opts.oscType === "sine"
+        ? [{ type: "sine", detune: 0, gain: 1 }]
+        : [
+            { type: "sine", detune: 0, gain: 0.55 },
+            { type: "triangle", detune: -4, gain: 0.3 },
+            { type: "triangle", detune: 4, gain: 0.3 }
+          ];
+      layers.forEach(layer => {
+        const osc = rawCtx.createOscillator();
+        osc.type = layer.type;
+        osc.frequency.setValueAtTime(f, from);
+        osc.detune.setValueAtTime(layer.detune, from);
+        const lg = rawCtx.createGain();
+        lg.gain.value = layer.gain * perFreq * (idx === 0 ? 1 : 0.8);
+        osc.connect(lg);
+        lg.connect(lp);
+        osc.start(from);
+        osc.stop(to + 0.05);
+        voice.stopNodes.push(osc);
+        voice.cleanupNodes.push(osc, lg);
+      });
+    });
   }
 
   /**

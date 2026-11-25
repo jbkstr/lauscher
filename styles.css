@@ -8167,6 +8167,88 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   pointer-events: none;
 }
 
+/* Atem-Legende: welcher Klang gehört zu welcher Phase (#warmupBreathLegend) */
+.warmup-breath-legend {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.16rem;
+  flex-shrink: 0;
+  width: 100%;
+}
+
+.warmup-breath-legend-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.22rem;
+}
+
+.warmup-breath-legend-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.18rem 0.44rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--border-soft);
+  background-color: var(--surface-white);
+  color: var(--raccoon-muted);
+  font: inherit;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1.15;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.warmup-breath-legend-chip svg {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+.warmup-breath-legend-chip.is-active {
+  color: var(--raccoon-dark);
+}
+
+.warmup-breath-legend-chip.is-active[data-cue="inhale"] {
+  background-color: var(--sage);
+  border-color: var(--sage-strong);
+}
+
+.warmup-breath-legend-chip.is-active[data-cue="hold"] {
+  background-color: var(--lilac-soft);
+  border-color: var(--lilac-strong);
+}
+
+.warmup-breath-legend-chip.is-active[data-cue="exhale"],
+.warmup-breath-legend-chip.is-active[data-cue="rest"] {
+  background-color: var(--sage-soft);
+  border-color: var(--sage-strong);
+}
+
+.warmup-breath-legend-chip.is-active[data-cue="pulse"] {
+  background-color: var(--peach);
+  border-color: var(--peach-strong);
+}
+
+.warmup-breath-legend-hint {
+  font-size: 0.64rem;
+  font-weight: 600;
+  color: var(--raccoon-muted);
+  line-height: 1.1;
+}
+
+/* Während die Übung läuft: nur anzeigen, nicht antippen (Hinweis behält seinen Platz, damit nichts springt) */
+.warmup-breath-legend.is-running .warmup-breath-legend-chip {
+  pointer-events: none;
+  cursor: default;
+}
+
+.warmup-breath-legend.is-running .warmup-breath-legend-hint {
+  visibility: hidden;
+}
+
 /* Live-Kurve für Sirenenübungen (#warmupSirenWrap) */
 .warmup-siren-wrap {
   width: 100%;
@@ -8378,6 +8460,15 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   }
   .warmup-breath-cue {
     font-size: 0.76rem;
+  }
+  .warmup-breath-legend-chip {
+    font-size: 0.66rem;
+    padding: 0.16rem 0.36rem;
+    gap: 0.16rem;
+  }
+  .warmup-breath-legend-chip svg {
+    width: 11px;
+    height: 11px;
   }
   .warmup-kb {
     height: 56px;
