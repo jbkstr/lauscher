@@ -343,10 +343,79 @@ def check_mobile_bundle(root: Path, errors: list[str]) -> None:
         errors.append(f"Mobile-Bundle veraltet (build-mobile-bundle.py --check):\n{msg}")
 
 
+def check_pwa(root: Path, node_bin: str, errors: list[str]) -> None:
+    manifest_path = root / "manifest.webmanifest"
+    if not manifest_path.is_file():
+        errors.append("PWA-Manifest fehlt: manifest.webmanifest")
+    else:
+        try:
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            for icon in manifest.get("icons", []):
+                src = icon.get("src", "")
+                if src and not (root / src).is_file():
+                    errors.append(f"Icon aus manifest.webmanifest fehlt: {src}")
+        except json.JSONDecodeError as exc:
+            errors.append(f"Ungültiges JSON in manifest.webmanifest: {exc}")
+
+    sw_path = root / "sw.js"
+    if not sw_path.is_file():
+        errors.append("Service Worker fehlt: sw.js (erzeugen mit: python3 scripts/build-sw.py)")
+        return
+
+    syn = subprocess.run([node_bin, "--check", str(sw_path)], capture_output=True, text=True)
+    if syn.returncode != 0:
+        errors.append(f"JS-Syntaxfehler in sw.js:\n{(syn.stderr or syn.stdout or '').strip()}")
+        return
+
+    res = subprocess.run(
+        [sys.executable, str(root / "scripts" / "build-sw.py"), "--check"],
+        capture_output=True,
+        text=True,
+    )
+    if res.returncode != 0:
+        msg = (res.stderr or res.stdout or "").strip()
+        errors.append(f"Service Worker veraltet (build-sw.py --check):\n{msg}")
+
+
+def check_legal_pages(root: Path, errors: list[str]) -> None:
+    url_re = re.compile(r'url\(\s*["\']?([^"\')]+)["\']?\s*\)')
+    for page in ("privacy.html", "terms.html", "licenses.html"):
+        p = root / page
+        if not p.is_file():
+            errors.append(f"Öffentliche Rechtstext-Seite fehlt: {page}")
+            continue
+        html = p.read_text(encoding="utf-8")
+        refs = (
+            SCRIPT_SRC_RE.findall(html)
+            + STYLESHEET_HREF_RE.findall(html)
+            + url_re.findall(html)
+        )
+        for ref in refs:
+            clean = ref.strip().split("?")[0].split("#")[0]
+            if not clean or re.match(r"^(https?:|//|data:)", clean, re.I):
+                continue
+            if not (root / clean).is_file():
+                errors.append(f"In {page} referenzierte Datei fehlt: {clean}")
+
+
+def check_logic_tests(root: Path, node_bin: str, errors: list[str]) -> int:
+    test_script = root / "scripts" / "run-tests.js"
+    if not test_script.is_file():
+        return 0
+    res = subprocess.run([node_bin, str(test_script)], capture_output=True, text=True)
+    if res.returncode != 0:
+        msg = (res.stderr or res.stdout or "").strip()
+        errors.append(f"Logik-Tests fehlgeschlagen (scripts/run-tests.js):\n{msg}")
+        return 0
+    m = re.search(r"✓\s+(\d+)\s+Logik-Tests bestanden", res.stdout)
+    return int(m.group(1)) if m else 1
+
+
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Prüft Syntax, i18n/Knowledge-Parität und Bundle-Stand.")
+    parser = argparse.ArgumentParser(description="Prüft Syntax, i18n/Knowledge-Parität, PWA, Tests und Bundle-Stand.")
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parent.parent)
     parser.add_argument("--no-bundle", action="store_true", help="Bundle-Check überspringen")
+    parser.add_argument("--no-tests", action="store_true", help="Logik-Tests überspringen")
     parser.add_argument("--strict", action="store_true", help="Alle Hinweise (tr/tf & Knowledge-Lücken) als Fehler werten")
     args = parser.parse_args()
 
@@ -373,6 +442,11 @@ def main() -> int:
 
     if not args.no_bundle:
         check_mobile_bundle(root, errors)
+    check_pwa(root, node_bin, errors)
+    check_legal_pages(root, errors)
+    tests_passed = 0
+    if not args.no_tests and not errors:
+        tests_passed = check_logic_tests(root, node_bin, errors)
 
     if args.strict and warnings:
         errors.extend(warnings)
@@ -389,11 +463,13 @@ def main() -> int:
             print(f"  - {e}", file=sys.stderr)
         return 1
 
+    test_summary = f", {tests_passed} Logik-Tests" if tests_passed else ""
     print(
         f"✓ Projekt-Check bestanden: {js_checked} JS-Dateien, "
         f"{stats.get('staticKeys', '?')} data-i18n-Keys (10 Sprachen), "
         f"{stats.get('quotesCount', '?')} Quotes, "
         f"{stats.get('knowledgeArticles', '?')} Wissensartikel"
+        f"{test_summary}"
         + (" (ohne Bundle-Check)" if args.no_bundle else ", Bundle aktuell")
         + "."
     )

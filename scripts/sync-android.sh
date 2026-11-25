@@ -54,6 +54,7 @@ WWW_DIR="$TARGET_DIR/www"
 
 echo "1/4 • Prüfe Projekt-Skripte & baue Mobile-Bundle …"
 "$REPO_ROOT/scripts/samples.sh" pull --if-missing
+python3 "$REPO_ROOT/scripts/build-sw.py" >/dev/null
 python3 "$REPO_ROOT/scripts/check-project.py" --no-bundle
 python3 "$REPO_ROOT/scripts/build-mobile-bundle.py" >/dev/null
 
@@ -97,6 +98,9 @@ if [ -f "$REPO_ROOT/fonts/Andika/OFL.txt" ]; then
 fi
 mkdir -p "$WWW_DIR/icons"
 cp "$REPO_ROOT"/icons/*.jpg "$WWW_DIR/icons/"
+if ls "$REPO_ROOT"/icons/*.png >/dev/null 2>&1; then
+  cp "$REPO_ROOT"/icons/*.png "$WWW_DIR/icons/"
+fi
 
 echo "3/4 • Prüfe Capacitor & Plugins (app, filesystem, share) in $TARGET_DIR …"
 cd "$TARGET_DIR"

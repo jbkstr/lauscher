@@ -8,10 +8,11 @@ Die vollständigen Konventionen, Layout-Regeln, i18n-Details und Release-Abläuf
 - **Dateinamen im Repository sind immer auf Englisch.**
 - **Kein npm, kein Bundler, keine ES-Module, keine CDNs/Netzwerkaufrufe.** Alle Skripte laufen als klassische globale `<script>`-Tags in [index.html](index.html).
 - Nach Änderungen an Web-Dateien (`index.html`, `styles.css`, JS, Fonts, Samples) immer ausführen:
-  1. `python3 scripts/build-mobile-bundle.py`
-  2. `python3 scripts/check-project.py`
-  3. `./scripts/sync-android.sh --no-open`
-- Neue JS-/CSS-Dateien nur in [index.html](index.html) einbinden – sowohl `scripts/build-mobile-bundle.py` als auch `scripts/sync-android.sh` und `scripts/check-project.py` lesen sie dort automatisch aus.
+  1. `python3 scripts/build-sw.py`
+  2. `python3 scripts/build-mobile-bundle.py`
+  3. `python3 scripts/check-project.py`
+  4. `./scripts/sync-android.sh --no-open`
+- Neue JS-/CSS-Dateien nur in [index.html](index.html) einbinden – sowohl `scripts/build-sw.py`, `scripts/build-mobile-bundle.py` als auch `scripts/sync-android.sh` und `scripts/check-project.py` lesen sie dort automatisch aus.
 
 ## Modul- & Dateikarte
 Große Dateien nie komplett einlesen, sondern gezielt per `grep -n` suchen.
@@ -24,9 +25,13 @@ Große Dateien nie komplett einlesen, sondern gezielt per `grep -n` suchen.
 | [js/catalogs.js](js/catalogs.js) | Themes, Custom-Theme-Persistenz, Profil-Defaults & Musik-Kataloge |
 | [js/state.js](js/state.js) | `AppState`, `state`, `audioEngine`, Einstellungs-/Theme-/Sprach-Sync |
 | [js/notation.js](js/notation.js) | Notensystem- & Rhythmus-SVG-Renderer, Melodie-/Kadenz-/Akkord-/Groove-Builder |
-| [js/navigation.js](js/navigation.js) | Routing, History, Capacitor-Bridge, Über/Rechtliches, Wissens-Hub, Kategorienseiten |
+| [js/navigation.js](js/navigation.js) | Routing, History, Capacitor-Bridge, Über/Rechtliches & Startseiten-Zitate |
+| [js/knowledge-ui.js](js/knowledge-ui.js) | Wissens-Hub, Artikel, Referenzen, Quintenzirkel & interaktive Theorie-Tools |
+| [js/categories.js](js/categories.js) | Kategorie-Übersichten (`#viewCategory`) & Kategorie-Hilfeseiten |
 | [js/generators.js](js/generators.js) | Sitzungs-Gedächtnis (Anti-Repeat) & alle Übungs-Generatoren (`generateExercise`) |
-| [js/exercises.js](js/exercises.js) | Übungs-UI, Klaviaturen, Melodie-/Notations-Bühne, Mitsingen, `renderUI`, `fitExerciseLayout` |
+| [js/exercises.js](js/exercises.js) | Übungs-UI, Klaviaturen, Melodie-Notensystem, Mitsingen, `renderUI` & Antwort-Kacheln |
+| [js/exercise-stage.js](js/exercise-stage.js) | Feste Übungshöhe (`fitExerciseLayout`), Streak, Music-Juice & zentrale Bühne/Maskottchen |
+| [js/exercise-notation.js](js/exercise-notation.js) | Notenlesen- & Symbol-Übungs-UI, Inline-Notationskopf, Warteschlange & Nur-Hören |
 | [js/playback.js](js/playback.js) | `handleAnswer`, Rhythmus-Tap-Pad, EQ-Vergleich, Nur-Hören & `playSequence` |
 | [js/profile.js](js/profile.js) | Mixer-Sync, Home-Schnellmix, Timer, Konto, Farb-Editor, Toasts, Backup & Reset |
 | [app.js](app.js) | Einstiegspunkt: Markenname-Styling (`startBrandWordStyling`) & `DOMContentLoaded`-Init |
@@ -41,6 +46,8 @@ Große Dateien nie komplett einlesen, sondern gezielt per `grep -n` suchen.
 | `knowledge.js`, `knowledge-{ar,en,es,fr,it,pl,tr,uk,ur}.js` | Wissensartikel, interaktive Theorie-Tools & Kategorie-Hilfen (10 Sprachen) |
 | [legal.js](legal.js) | Datenschutzerklärung, Nutzungsbedingungen & Open-Source-Lizenzen (auch für `privacy.html`, `terms.html`, `licenses.html`) |
 | [version.js](version.js) | Einzige Quelle für Version & Build-Nummer (`scripts/bump-version.py`) |
-| [scripts/check-project.py](scripts/check-project.py) | Prüft Dateien, JS-Syntax, globale Scope-Kollisionen, i18n/Knowledge-Parität & Bundle-Stand |
+| [scripts/check-project.py](scripts/check-project.py) | Prüft Dateien, JS-Syntax, globale Scope-Kollisionen, i18n/Knowledge-Parität, PWA, Logik-Tests & Bundle-Stand |
+| [scripts/run-tests.js](scripts/run-tests.js) | Automatisierte Node-Logik-Tests (Tuner-DSP, alle Übungs-Generatoren, Rhythmus-Tap, Notation, Nashville, Meilensteine) |
+| [scripts/build-sw.py](scripts/build-sw.py) | Erzeugt [sw.js](sw.js) für PWA & Offline-Betrieb (`--check` prüft den Stand) |
 | [scripts/build-mobile-bundle.py](scripts/build-mobile-bundle.py) | Erzeugt die Einzeldatei [lauscher-mobile.html](lauscher-mobile.html) (nie direkt bearbeiten) |
 | [scripts/sync-android.sh](scripts/sync-android.sh) | Prüft, baut Bundle, klont Webdateien dynamisch nach `~/Documents/lauscher-android/www/` & führt `cap sync android` aus |

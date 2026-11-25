@@ -38,6 +38,7 @@ DATA_URI_MIME = {
 }
 
 PRELOAD_FONT_RE = re.compile(r'^[ \t]*<link rel="preload" href="[^"]+" as="font"[^>]*>[ \t]*\n', re.M)
+PWA_LINK_RE = re.compile(r'^[ \t]*<link rel="(?:manifest|icon|apple-touch-icon)"[^>]*>[ \t]*\n', re.M)
 STYLESHEET_RE = re.compile(r'^([ \t]*)<link rel="stylesheet" href="([^"]+)">[ \t]*$', re.M)
 SCRIPT_RE = re.compile(r'^([ \t]*)<script src="([^"]+)"></script>[ \t]*$', re.M)
 
@@ -91,6 +92,7 @@ def build(root: Path) -> str:
         return f"<script>\n{js}\n</script>"
 
     html = PRELOAD_FONT_RE.sub("", html)  # Fonts sind im Bundle per data:-URI eingebettet
+    html = PWA_LINK_RE.sub("", html)      # Einzeldatei (file://) nutzt kein externes Manifest/Icons
     html = STYLESHEET_RE.sub(inline_style, html)
     html = SCRIPT_RE.sub(inline_script, html)
 

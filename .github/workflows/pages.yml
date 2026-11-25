@@ -40,12 +40,13 @@ jobs:
             cp _samples/$i/*.m4a samples/$i/
             cp _samples/$i-bundle.js samples/
           done
+          python3 scripts/build-sw.py
           mkdir -p _site
           rsync -a ./ _site/ \
             --exclude '.git' --exclude '.github' --exclude '_samples' --exclude '_site' \
             --exclude 'daw-sampling' --exclude '.claude'
-          # Pflichtdateien prüfen, damit nie eine Website ohne Samples live geht
-          for f in index.html samples/piano-bundle.js samples/guitar-bundle.js; do
+          # Pflichtdateien prüfen, damit nie eine Website ohne Samples oder PWA live geht
+          for f in index.html manifest.webmanifest sw.js samples/piano-bundle.js samples/guitar-bundle.js; do
             test -s "_site/$f" || { echo "Fehlt: $f"; exit 1; }
           done
 

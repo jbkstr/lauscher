@@ -12,9 +12,13 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
   - [js/state.js](js/state.js) (~1.340 Z.): `AppState`, `state`, `audioEngine`, Theme-/Sprach-/Settings-/AutoNext-/Piano-/Drone-Sync
   - [js/notation.js](js/notation.js) (~1.870 Z.): Notensystem- & Rhythmus-SVG-Renderer, Melodie-/Kadenz-/Akkord-/Groove-Event-Builder, Tap-Auswertung
   - [js/notation-terms.js](js/notation-terms.js) (~1.300 Z.): Notationsbegriffe, Symbole & SVGs für die Übung `notation-symbols` und das Nachschlagewerk im Wissens-Hub (Texte in [i18n/notation-terms.js](i18n/notation-terms.js))
-  - [js/navigation.js](js/navigation.js) (~5.170 Z.): Routing, History & Capacitor-Bridge, Tab-Swipe, Über-/Rechts-Fenster, Wissens-Hub (Wellen-/Spektrum-Tools), Quintenzirkel (`#viewCircle`), Kategorie- & Hilfe-Seiten
+  - [js/navigation.js](js/navigation.js) (~1.510 Z.): Routing, History & Capacitor-Bridge, Tab-Swipe, Über-/Rechts-Fenster & Startseiten-Zitate
+  - [js/knowledge-ui.js](js/knowledge-ui.js) (~1.500 Z.): Wissens-Hub, Artikel, Referenzen, Wellen-/Spektrum-Tools & Quintenzirkel (`#viewCircle`)
+  - [js/categories.js](js/categories.js) (~2.160 Z.): Einsteiger-Badges, Kategorie-Übersichten (`#viewCategory`) & Kategorie-Hilfeseiten (`#viewCategoryHelp`)
   - [js/generators.js](js/generators.js) (~2.550 Z.): Sitzungs-Gedächtnis (Anti-Repeat) & alle Übungs-Generatoren (`generateExercise` für alle Kategorien)
-  - [js/exercises.js](js/exercises.js) (~4.300 Z.): Übungs-UI, Klaviaturen (Notation/Solfège), Melodie-Notensystem, Modi-Popovers, Mitsingen/Summ-Pause, `renderUI`, Antwort-Kacheln, `fitExerciseLayout`, Bühne/Maskottchen, Inline-Notationskopf
+  - [js/exercises.js](js/exercises.js) (~2.420 Z.): Übungs-UI, Klaviaturen (Notation/Solfège), Melodie-Notensystem, Modi-Popovers, Mitsingen/Summ-Pause, `renderUI`, Antwort-Kacheln
+  - [js/exercise-stage.js](js/exercise-stage.js) (~860 Z.): Feste Übungshöhe (`fitExerciseLayout`), Streak-Meilensteine, Music-Juice & zentrale Bühne/Maskottchen
+  - [js/exercise-notation.js](js/exercise-notation.js) (~1.040 Z.): Notenlesen- & Symbol-Übungs-UI, Inline-Notationskopf, Warteschlange & Nur-Hören-Notenlesen
   - [js/playback.js](js/playback.js) (~2.730 Z.): Antwort-Auswertung (`handleAnswer`), Rhythmus-Tap-Pad, EQ-Vergleich, Modi-Wiedergabe, Nur-Hören-Modus, `playSequence`, Play-Button-UI
   - [js/tutorial.js](js/tutorial.js) (~1.120 Z.): Interaktive Vormach-Tutorials pro Übungsmechanik (`#exerciseTutorialBackdrop`, `openExerciseTutorialIntro`)
   - [js/profile.js](js/profile.js) (~2.470 Z.): Mixer-Sync, Home-Schnellmix & Begrüßung, Sitzungs-Timer & Pausen-Erinnerung, Übe-Mixe, eigene Dropdowns, Mein Konto, Farb-Editor, Toasts, Profil-Backup & App-Reset
@@ -79,9 +83,11 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 - **Klavier:** Quelle Accurate-Salamander Grand Piano V6.2e (Chisato Yamauchi, auf Basis von Salamander Grand Piano von Alexander Holm), Lizenz **CC BY 3.0**, Namensnennung steht in [legal.js](legal.js) (Lizenzen). Stereo, mf jeder zweite Halbton C1–C7, p/f in kleinen Terzen C2–C6. Liegt der nächste Layer-Ton mehr als 2 Halbtöne entfernt, spielt die Engine den Hauptlayer.
 - **Velocity-Layer:** Ein Pack kann `velocityLayers: { p: { maxDynamic, notes }, f: { minDynamic, notes } }` enthalten (derzeit nur das Klavier). Die Engine decodiert sie erst beim ersten Bedarf (`createVelocityLayerStore`) und wählt sie nur bei ausdrücklich übergebener Dynamik (`playStep(..., { velocity })` → `envOverride.dynamic`), nicht anhand der akkordbedingt abgesenkten Velocity. Ohne Angabe klingt immer der Hauptlayer `notes` (mf).
 
-## Mobile-Bundle
+## Mobile-Bundle & PWA (Service Worker)
 
-- `lauscher-mobile.html` (~19,5 MB, **nur lokal, nicht im Repo**, weil es alle Samples enthält) ist eine **komplett eigenständige Einzeldatei** mit allen CSS-, JS-, Font- und Sample-Inhalten inline (keine externe `tone.js` mehr nötig).
+- **PWA & Offline-Betrieb:** [manifest.webmanifest](manifest.webmanifest), Icons in `icons/` (`icon-192.png`, `icon-512.png`, `apple-touch-icon.png`) und der Service Worker [sw.js](sw.js) machen die Web-Version installierbar und offline nutzbar. `app.js` (`initPwaServiceWorker`) registriert `sw.js` nur im Web (`https:` / `localhost`), nicht bei `file://` und nicht in der nativen Capacitor-App. Updates laufen still im Hintergrund (`skipWaiting`, kein Hinweis) und werden beim nächsten Neuladen aktiv.
+- **`sw.js` nicht von Hand bearbeiten**, sondern nach Änderungen an Web-Dateien per `python3 scripts/build-sw.py` neu erzeugen (`--check` prüft den Stand und läuft automatisch in `scripts/check-project.py`; `sync-android.sh` und `.github/workflows/pages.yml` bauen `sw.js` automatisch neu).
+- `lauscher-mobile.html` (~15,8 MB, **nur lokal, nicht im Repo**, weil es alle Samples enthält) ist eine **komplett eigenständige Einzeldatei** mit allen CSS-, JS-, Font- und Sample-Inhalten inline (keine externe `tone.js` mehr nötig).
 - Die Datei wird von [scripts/build-mobile-bundle.py](scripts/build-mobile-bundle.py) aus `index.html` erzeugt: `styles.css` und alle `<script src>` werden inline eingesetzt. Lokale Dateien, die im CSS per `url(...)` eingebunden sind (die Fonts & Icons), werden als Base64 eingebettet. Diese Datei nie direkt bearbeiten und nicht lesen (zu groß).
 - **Nach jeder Änderung an index.html, styles.css oder einer JS-Datei das Bundle neu bauen** (wird nicht committet; der Projekt-Check prüft den lokalen Stand, `sync-android.sh` baut es ohnehin neu):
   ```bash
@@ -115,8 +121,8 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 python3 -m http.server 8000
 ```
 
-Danach `http://localhost:8000` öffnen. Für den Nutzer gibt es die Doppelklick-Startdatei [Start-Lauscher.command](Start-Lauscher.command), die das Gleiche tut. **`index.html` nicht direkt per `file://` öffnen:** Chrome blockiert dort die Schriftdateien. Automatische Tests gibt es nicht.
-- **Projekt-Check nach Änderungen:** `python3 scripts/check-project.py` prüft Existenz aller in `index.html` geladenen Dateien, JS-Syntax (`node --check`) sowie globale `const`/`let`/`class`-Kollisionen über alle Skripte hinweg, i18n- und Knowledge-Parität über alle 10 Sprachen sowie den Stand von `lauscher-mobile.html` (`--no-bundle` überspringt den Bundle-Check; `--strict` wertet auch `tr()`/`tf()`- und Knowledge-Hinweise als Fehler).
+Danach `http://localhost:8000` öffnen. Für den Nutzer gibt es die Doppelklick-Startdatei [Start-Lauscher.command](Start-Lauscher.command), die das Gleiche tut. **`index.html` nicht direkt per `file://` öffnen:** Chrome blockiert dort die Schriftdateien.
+- **Projekt-Check & Logik-Tests nach Änderungen:** `python3 scripts/check-project.py` prüft Existenz aller in `index.html` und den Rechtstext-Seiten geladenen Dateien, JS-Syntax (`node --check`) sowie globale `const`/`let`/`class`-Kollisionen über alle Skripte hinweg, i18n- und Knowledge-Parität über alle 10 Sprachen, PWA-Manifest & `sw.js`, die automatisierten Logik-Tests ([scripts/run-tests.js](scripts/run-tests.js)) sowie den Stand von `lauscher-mobile.html` (`--no-bundle` überspringt den Bundle-Check; `--no-tests` überspringt die Logik-Tests; `--strict` wertet auch `tr()`/`tf()`- und Knowledge-Hinweise als Fehler).
 - **Browser-Test in der Claude-Desktop-App:** `file://` und ein per `preview_start`/`launch.json` gestarteter Server funktionieren nicht (macOS-Zugriffsschutz auf `~/Documents`). Was funktioniert: Server per Bash im Hintergrund starten (`python3 -m http.server 8811 --bind 127.0.0.1` im Projektordner, `run_in_background`), dann `preview_start` mit `url: http://localhost:8811/` aufrufen. Danach Server wieder stoppen.
 - Änderungen im Browser prüfen und dabei die Konsole auf Fehler achten. Wenn relevant, auch die Mobilbreite, ein dunkles Theme und eine weitere Sprache prüfen.
 

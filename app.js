@@ -73,6 +73,29 @@ function startBrandWordStyling() {
   observer.observe(document.body, { childList: true, characterData: true, subtree: true });
 }
 
+function initPwaServiceWorker() {
+  if (typeof navigator === "undefined" || !("serviceWorker" in navigator)) return;
+  if (typeof window === "undefined" || !window.location) return;
+  try {
+    if (window.Capacitor && typeof window.Capacitor.isNativePlatform === "function" && window.Capacitor.isNativePlatform()) {
+      return;
+    }
+  } catch (_) {}
+  const proto = window.location.protocol;
+  const host = window.location.hostname;
+  const isLocal = host === "localhost" || host === "127.0.0.1" || host === "[::1]";
+  if (proto !== "https:" && !(proto === "http:" && isLocal)) return;
+
+  const register = () => {
+    navigator.serviceWorker.register("./sw.js", { updateViaCache: "none" }).catch(() => {});
+  };
+  if (document.readyState === "complete") {
+    register();
+  } else {
+    window.addEventListener("load", register, { once: true });
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   startBrandWordStyling();
   initExerciseFitObserver();
@@ -1425,6 +1448,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   initTabSwipeNavigation();
   initCapacitorNativeBridge();
+  initPwaServiceWorker();
   if (typeof initAchievementsSystem === "function") {
     initAchievementsSystem();
   }
