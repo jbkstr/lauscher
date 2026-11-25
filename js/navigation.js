@@ -475,6 +475,7 @@ function setModalVisibility(modalName) {
   document.getElementById("settingsBackdrop")?.classList.toggle("modal-hidden", modalName !== "settings");
   document.getElementById("aboutBackdrop")?.classList.toggle("modal-hidden", modalName !== "about");
   if (modalName !== "settings") {
+    if (typeof cancelTapLatencyCalibration === "function") cancelTapLatencyCalibration("");
     if (state.appResetConfirmArmed && typeof disarmAppResetConfirm === "function") {
       disarmAppResetConfirm();
     }
@@ -482,8 +483,12 @@ function setModalVisibility(modalName) {
       _openProfileDropdownKey = null;
       if (typeof renderSettingsLanguageDropdown === "function") renderSettingsLanguageDropdown();
     }
-  } else if (typeof renderSettingsLanguageDropdown === "function") {
-    renderSettingsLanguageDropdown();
+  } else {
+    if (typeof renderSettingsLanguageDropdown === "function") renderSettingsLanguageDropdown();
+    if (typeof renderTapLatencySettings === "function") {
+      if (typeof setTapLatencyCalibStatus === "function") setTapLatencyCalibStatus("");
+      renderTapLatencySettings();
+    }
   }
   if (modalName === "about") {
     renderAboutModalContent();
@@ -838,12 +843,7 @@ function initCapacitorNativeBridge() {
   capApp.addListener("appStateChange", ({ isActive } = {}) => {
     if (isActive === false) {
       if (typeof syncNativeStorageMirror === "function") syncNativeStorageMirror(true);
-      stopPlayback();
-      if (typeof stopMetronome === "function") stopMetronome();
-      if (typeof pauseWarmupSession === "function") pauseWarmupSession({ keepPlayback: false });
-      if (typeof stopTunerSession === "function") stopTunerSession();
-      if (typeof stopFreeplaySession === "function") stopFreeplaySession();
-      if (typeof stopFretboardSession === "function") stopFretboardSession();
+      stopAllAudioSessionsForBackground();
       stopBreakReminderTicker();
     } else if (isActive === true) {
       syncNativeSystemBars();
@@ -853,6 +853,20 @@ function initCapacitorNativeBridge() {
       }
     }
   });
+}
+
+/**
+ * Stoppt alle laufenden Klang-Sitzungen, wenn die App in den Hintergrund geht (Android-App über
+ * appStateChange, iOS-Safari/Home-Bildschirm-App über visibilitychange). iOS unterbricht WebAudio im
+ * Hintergrund ohnehin; ohne Stopp blieben Metronom & Co. als „läuft“ markiert, aber stumm.
+ */
+function stopAllAudioSessionsForBackground() {
+  stopPlayback();
+  if (typeof stopMetronome === "function") stopMetronome();
+  if (typeof pauseWarmupSession === "function") pauseWarmupSession({ keepPlayback: false });
+  if (typeof stopTunerSession === "function") stopTunerSession();
+  if (typeof stopFreeplaySession === "function") stopFreeplaySession();
+  if (typeof stopFretboardSession === "function") stopFretboardSession();
 }
 
 const MAIN_TAB_ORDER = ["home", "tools", "knowledge", "space"];

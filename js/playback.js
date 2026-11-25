@@ -397,6 +397,222 @@ async function repeatRhythmDictationBeat(slotIdx = null) {
   }, Math.round(2 * beatMs + 140));
 }
 
+// ===== Tap-Latenz-Ausgleich (Rhythmus-Taps) =====
+// Getippt wird auf den hörbaren Klang, die Audio-Uhr (currentTime) läuft aber um die Ausgabe-Latenz
+// voraus (iOS mit latencyHint "playback" ca. 20–50 ms, Bluetooth-Kopfhörer 150–250 ms+) und springt
+// zudem in Puffer-Schritten. Taps werden deshalb gegen die Zeit des gerade HÖRBAREN Samples gemessen
+// (getOutputTimestamp, fein interpoliert), abzüglich eines eingemessenen Zusatzes (z. B. Bluetooth,
+// das iOS nicht meldet). Der Zusatz ist gerätespezifisch und liegt deshalb nicht im (exportierbaren) Profil.
+const TAP_LATENCY_STORAGE_KEY = "lauschebaer_tap_latency_v1";
+const TAP_LATENCY_MIN_MS = -80;
+const TAP_LATENCY_MAX_MS = 400;
+const TAP_LATENCY_CALIB_BEAT_MS = 750;
+const TAP_LATENCY_CALIB_COUNT_IN = 4;
+const TAP_LATENCY_CALIB_CLICKS = 12;
+const TAP_LATENCY_CALIB_MIN_TAPS = 6;
+const TAP_LATENCY_CALIB_MAX_SPREAD_MS = 45;
+let _tapLatencyExtraCache;
+let _tapLatencyCalib = null;
+
+function clampTapLatencyMs(v) {
+  return Math.max(TAP_LATENCY_MIN_MS, Math.min(TAP_LATENCY_MAX_MS, Math.round(v)));
+}
+
+function getTapAudioContext() {
+  return typeof audioEngine !== "undefined" ? (audioEngine?.getRawAudioContext?.() || null) : null;
+}
+
+function getReportedOutputLatencyMs() {
+  const ctx = getTapAudioContext();
+  if (!ctx) return 0;
+  const out = Number(ctx.outputLatency);
+  const base = Number(ctx.baseLatency);
+  const sumSec = (Number.isFinite(out) && out > 0 ? out : 0) + (Number.isFinite(base) && base > 0 ? base : 0);
+  return Math.round(Math.min(0.5, sumSec) * 1000);
+}
+
+/**
+ * Audio-Uhrzeit (Sekunden) des gerade hörbaren Samples. getOutputTimestamp() enthält die
+ * Ausgabe-Latenz bereits und wird per performance.now() interpoliert; Fallback: currentTime
+ * minus gemeldeter outputLatency/baseLatency.
+ */
+function getAudibleAudioClockSec() {
+  const ctx = getTapAudioContext();
+  if (ctx && ctx.state === "running" && typeof ctx.getOutputTimestamp === "function"
+    && typeof performance !== "undefined") {
+    try {
+      const ts = ctx.getOutputTimestamp();
+      const ctxT = Number(ts?.contextTime);
+      const perfT = Number(ts?.performanceTime);
+      if (Number.isFinite(ctxT) && Number.isFinite(perfT) && ctxT > 0 && perfT > 0) {
+        const t = ctxT + (performance.now() - perfT) / 1000;
+        if (Number.isFinite(t) && Math.abs(t - ctx.currentTime) < 0.6) return t;
+      }
+    } catch (_) {}
+  }
+  return getAudioClockSec() - getReportedOutputLatencyMs() / 1000;
+}
+
+/** Automatisch erkannte Ausgabe-Latenz in ms (nur zur Anzeige, auf 5 ms gerundet). */
+function getAutoOutputLatencyMs() {
+  const ctx = getTapAudioContext();
+  if (!ctx || ctx.state !== "running") return getReportedOutputLatencyMs();
+  const diffMs = (getAudioClockSec() - getAudibleAudioClockSec()) * 1000;
+  return Number.isFinite(diffMs) ? Math.max(0, Math.round(diffMs / 5) * 5) : 0;
+}
+
+function loadTapLatencyExtraMs() {
+  if (_tapLatencyExtraCache !== undefined) return _tapLatencyExtraCache;
+  let val = null;
+  try {
+    const raw = localStorage.getItem(TAP_LATENCY_STORAGE_KEY);
+    if (raw) {
+      const n = Number(JSON.parse(raw)?.extraMs);
+      if (Number.isFinite(n)) val = clampTapLatencyMs(n);
+    }
+  } catch (_) {}
+  _tapLatencyExtraCache = val;
+  return val;
+}
+
+function saveTapLatencyExtraMs(extraMs) {
+  _tapLatencyExtraCache = Number.isFinite(extraMs) ? clampTapLatencyMs(extraMs) : null;
+  try {
+    if (_tapLatencyExtraCache === null) {
+      localStorage.removeItem(TAP_LATENCY_STORAGE_KEY);
+    } else {
+      localStorage.setItem(TAP_LATENCY_STORAGE_KEY, JSON.stringify({ extraMs: _tapLatencyExtraCache, measuredAt: Date.now() }));
+    }
+  } catch (_) {}
+}
+
+/** Gesamtausgleich in ms (automatisch + eingemessen) – für Anzeige und den Wanduhr-Fallback. */
+function getRhythmTapLatencyMs() {
+  return clampTapLatencyMs(getAutoOutputLatencyMs() + (loadTapLatencyExtraMs() ?? 0));
+}
+
+function renderTapLatencySettings() {
+  const valEl = document.getElementById("tapLatencyVal");
+  if (valEl) {
+    valEl.textContent = loadTapLatencyExtraMs() === null
+      ? tf("Automatisch ({ms} ms)", "Automatic ({ms} ms)", { ms: getAutoOutputLatencyMs() })
+      : tf("Eingemessen: {ms} ms", "Calibrated: {ms} ms", { ms: getRhythmTapLatencyMs() });
+  }
+  document.getElementById("tapLatencyResetBtn")?.classList.toggle("hidden", loadTapLatencyExtraMs() === null);
+  const calibBtn = document.getElementById("tapLatencyCalibrateBtn");
+  if (calibBtn) calibBtn.disabled = Boolean(_tapLatencyCalib);
+}
+
+function setTapLatencyCalibStatus(text) {
+  const el = document.getElementById("tapLatencyStatus");
+  if (el) el.textContent = text || "";
+}
+
+function cancelTapLatencyCalibration(statusText = "") {
+  const calib = _tapLatencyCalib;
+  if (!calib) return;
+  _tapLatencyCalib = null;
+  clearTimeout(calib.endTimer);
+  try { audioEngine.stopPlayback(); } catch (_) {}
+  document.getElementById("tapLatencyCalib")?.classList.add("hidden");
+  setTapLatencyCalibStatus(statusText);
+  renderTapLatencySettings();
+}
+
+function finishTapLatencyCalibration() {
+  const calib = _tapLatencyCalib;
+  if (!calib) return;
+  const diffs = Object.values(calib.diffsByClick).sort((a, b) => a - b);
+  const median = (arr) => {
+    const s = [...arr].sort((a, b) => a - b);
+    const mid = Math.floor(s.length / 2);
+    return s.length % 2 ? s[mid] : (s[mid - 1] + s[mid]) / 2;
+  };
+  let statusText;
+  if (diffs.length >= TAP_LATENCY_CALIB_MIN_TAPS) {
+    const med = median(diffs);
+    const spread = median(diffs.map(d => Math.abs(d - med)));
+    if (spread <= TAP_LATENCY_CALIB_MAX_SPREAD_MS) {
+      // Taps wurden bereits gegen die hörbare Zeit gemessen → Median = nicht gemeldeter Zusatz
+      saveTapLatencyExtraMs(med);
+      statusText = tf("Gemessen: {ms} ms – gespeichert.", "Measured: {ms} ms – saved.", { ms: getRhythmTapLatencyMs() });
+    }
+  }
+  if (!statusText) {
+    statusText = tr("Zu wenige oder zu ungleichmäßige Taps – bitte noch einmal versuchen.", "Too few or too uneven taps – please try again.");
+  }
+  cancelTapLatencyCalibration(statusText);
+}
+
+function handleTapLatencyPadInput() {
+  const calib = _tapLatencyCalib;
+  if (!calib || !calib.running) return;
+  const relMs = (getAudibleAudioClockSec() - calib.startSec) * 1000;
+  // Fenster -25 % … +75 % je Klick: Latenz verschiebt Taps fast immer nach hinten
+  const idx = Math.floor((relMs + calib.beatMs * 0.25) / calib.beatMs);
+  const pad = document.getElementById("tapLatencyPad");
+  if (pad) {
+    pad.classList.remove("is-hit");
+    void pad.offsetWidth;
+    pad.classList.add("is-hit");
+    setTimeout(() => pad.classList.remove("is-hit"), 115);
+  }
+  if (idx < TAP_LATENCY_CALIB_COUNT_IN || idx >= TAP_LATENCY_CALIB_COUNT_IN + TAP_LATENCY_CALIB_CLICKS) return;
+  if (Object.prototype.hasOwnProperty.call(calib.diffsByClick, idx)) return;
+  calib.diffsByClick[idx] = relMs - idx * calib.beatMs;
+  setTapLatencyCalibStatus(tf("{n} von {total} Taps", "{n} of {total} taps", {
+    n: Object.keys(calib.diffsByClick).length,
+    total: TAP_LATENCY_CALIB_CLICKS
+  }));
+}
+
+async function startTapLatencyCalibration() {
+  if (_tapLatencyCalib) return;
+  // Unlock synchron in der Nutzer-Geste (iOS), danach darf gewartet werden
+  unlockWebAudioSync();
+  stopPlayback();
+  const calib = { running: false, startSec: 0, beatMs: TAP_LATENCY_CALIB_BEAT_MS, diffsByClick: {}, endTimer: 0 };
+  _tapLatencyCalib = calib;
+  document.getElementById("tapLatencyCalib")?.classList.remove("hidden");
+  setTapLatencyCalibStatus(tr("Wird vorbereitet …", "Getting ready …"));
+  renderTapLatencySettings();
+  try {
+    await ensureAudioReady();
+  } catch (_) {}
+  if (_tapLatencyCalib !== calib) return;
+
+  const total = TAP_LATENCY_CALIB_COUNT_IN + TAP_LATENCY_CALIB_CLICKS;
+  const events = [];
+  for (let i = 0; i < total; i++) {
+    const isCountIn = i < TAP_LATENCY_CALIB_COUNT_IN;
+    events.push([i * calib.beatMs, i % 4 === 0 ? "accent" : "tick", isCountIn ? 0.92 : 0.78]);
+  }
+  calib.startSec = getAudioClockSec() + 0.12;
+  calib.running = true;
+  audioEngine.playRhythmSequence(events, calib.startSec);
+  setTapLatencyCalibStatus(tr("Hör auf den Vorzähler und tippe dann im Takt der Klicks.", "Listen to the count-in, then tap along with the clicks."));
+  calib.endTimer = setTimeout(finishTapLatencyCalibration, 120 + total * calib.beatMs + 600);
+}
+
+function initTapLatencySettings() {
+  document.getElementById("tapLatencyCalibrateBtn")?.addEventListener("click", () => {
+    startTapLatencyCalibration();
+  });
+  document.getElementById("tapLatencyResetBtn")?.addEventListener("click", () => {
+    saveTapLatencyExtraMs(null);
+    setTapLatencyCalibStatus("");
+    renderTapLatencySettings();
+  });
+  document.getElementById("tapLatencyPad")?.addEventListener("pointerdown", (e) => {
+    e.preventDefault();
+    handleTapLatencyPadInput();
+  });
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) cancelTapLatencyCalibration("");
+  });
+  renderTapLatencySettings();
+}
+
 function getAudioClockSec() {
   if (typeof audioEngine !== "undefined" && typeof audioEngine.getAudioTime === "function") {
     try {
@@ -556,11 +772,12 @@ function handleRhythmTapInput(overrideRelMs = null, inputPoint = null) {
   if (typeof overrideRelMs === "number" && Number.isFinite(overrideRelMs)) {
     relMs = overrideRelMs;
   } else {
+    // Gemessen wird gegen den hörbaren Klang (Ausgabe-Latenz inkl.), abzüglich eingemessenem Zusatz
     const nowAudioSec = getAudioClockSec();
     if (Math.abs(nowAudioSec - session.audioEpochSec) > 0.005) {
-      relMs = (nowAudioSec - session.playerBarAudioStartSec) * 1000;
+      relMs = (getAudibleAudioClockSec() - session.playerBarAudioStartSec) * 1000 - (loadTapLatencyExtraMs() ?? 0);
     } else {
-      relMs = Date.now() - session.playerBarWallStartMs;
+      relMs = Date.now() - session.playerBarWallStartMs - getRhythmTapLatencyMs();
     }
   }
 

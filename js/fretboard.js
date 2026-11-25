@@ -1805,6 +1805,8 @@ function stopFretboardSession() {
 function openFretboardView(returnView = "tools") {
   state.fretboardReturnView = returnView;
   loadFretboardChordVoicings({ resetIndex: false });
+  // Gitarren-Samples vorab laden (auf iOS werden inaktive Instrumente nicht im Hintergrund decodiert)
+  audioEngine?.prefetchStem?.("guitar");
   switchView("fretboard");
 }
 

@@ -2084,12 +2084,16 @@ window.addEventListener("resize", () => {
 
 // ---------- FESTE ÜBUNGSHÖHE ----------
 // Die Übung scrollt nie. Bleibt für die mittlere Bühne zu wenig Platz, wird stufenweise verdichtet
-// (#viewExercise.fit-1 … fit-3 in styles.css). Die Bühne selbst passt sich per Container-Query an.
-const EXERCISE_FIT_LEVELS = 3;
+// (#viewExercise.fit-1 … fit-4 in styles.css). Die Bühne selbst passt sich per Container-Query an.
+// fit-4 ist die Notreserve für sehr niedrige Fenster (z. B. iPhone SE in Safari mit Leisten, ~480 px
+// Übungshöhe): Sie baut auf fit-3 auf (beide Klassen aktiv) und lässt die Bühne bis zur Statuszeile schrumpfen.
+const EXERCISE_FIT_LEVELS = 4;
 // Mindesthöhe der Bühne: knapp über der Container-Query-Stufe (max-height: 96px), ab der die
 // Beschreibung auf eine Zeile gekürzt wird. Darunter werden lieber Kacheln/Knöpfe verdichtet,
 // damit Text und Maskottchen der Bühne nicht abgeschnitten wirken.
 const EXERCISE_MIN_STAGE_PX = 98;
+// Auf Stufe 4 genügt eine einzeilige Status-Bühne (Container-Query-Textzeile)
+const EXERCISE_MIN_STAGE_PX_FIT4 = 44;
 let lastExerciseFitSnapshot = "";
 
 function getExerciseFitSnapshot() {
@@ -2176,7 +2180,7 @@ function fitExerciseLayout(reset = true) {
     const stageWrap = view.querySelector(".stage-wrapper");
     const stageCard = stageWrap?.querySelector(".central-stage");
     const fits = () => view.scrollHeight <= view.clientHeight + 1 &&
-      (!stageWrap || stageWrap.clientHeight >= EXERCISE_MIN_STAGE_PX) &&
+      (!stageWrap || stageWrap.clientHeight >= (view.classList.contains("fit-4") ? EXERCISE_MIN_STAGE_PX_FIT4 : EXERCISE_MIN_STAGE_PX)) &&
       (!stageCard || stageCard.scrollHeight <= stageCard.clientHeight + 2);
     const keepFloor = !reset && hasActiveExerciseResultExtension();
     const floor = keepFloor ? (parseInt(view.dataset.fitLevel, 10) || 0) : 0;
@@ -2185,13 +2189,16 @@ function fitExerciseLayout(reset = true) {
 
     view.classList.remove("sing-hint-float", "fit-overflow");
     const runLevels = (startLvl = floor) => {
-      for (let i = 1; i <= EXERCISE_FIT_LEVELS; i++) view.classList.remove(`fit-${i}`);
+      const applyLevel = (l) => {
+        for (let i = 1; i <= EXERCISE_FIT_LEVELS; i++) view.classList.remove(`fit-${i}`);
+        if (l > 0) view.classList.add(`fit-${l}`);
+        if (l >= 4) view.classList.add("fit-3"); // fit-4 erweitert fit-3
+      };
       let lvl = startLvl;
-      if (lvl > 0) view.classList.add(`fit-${lvl}`);
+      applyLevel(lvl);
       while (lvl < EXERCISE_FIT_LEVELS && !fits()) {
-        if (lvl > 0) view.classList.remove(`fit-${lvl}`);
         lvl += 1;
-        view.classList.add(`fit-${lvl}`);
+        applyLevel(lvl);
       }
       return lvl;
     };

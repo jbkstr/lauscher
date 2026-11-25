@@ -2045,6 +2045,38 @@ function getCapacitorNativePlugin(name) {
   return cap.Plugins?.[name] || null;
 }
 
+// ---------- Speicher-Persistenz (Safari/iOS) ----------
+// Safari löscht script-beschreibbaren Speicher (localStorage) von Seiten, die 7 Tage lang nicht
+// geöffnet wurden. Home-Bildschirm-Web-Apps und die native App sind davon ausgenommen.
+function isStandaloneWebApp() {
+  try {
+    if (typeof navigator !== "undefined" && navigator.standalone === true) return true;
+    return Boolean(window.matchMedia?.("(display-mode: standalone)")?.matches);
+  } catch (_) {
+    return false;
+  }
+}
+
+async function initStoragePersistence() {
+  const isNative = Boolean(window.Capacitor?.isNativePlatform?.());
+  let persisted = false;
+  try {
+    const storage = typeof navigator !== "undefined" ? navigator.storage : null;
+    if (!isNative && storage && typeof storage.persist === "function") {
+      persisted = typeof storage.persisted === "function" ? await storage.persisted() : false;
+      // Firefox (Desktop/Android) fragt hier per Dialog nach – dort nicht ungefragt anstoßen
+      const ua = String(navigator.userAgent || "");
+      const isGeckoFirefox = /Firefox\//.test(ua) && !/FxiOS/.test(ua);
+      if (!persisted && !isGeckoFirefox) {
+        persisted = await storage.persist();
+      }
+    }
+  } catch (_) {}
+  const showSafariHint = !isNative && !persisted && !isStandaloneWebApp()
+    && typeof isIOSLikeDevice === "function" && isIOSLikeDevice();
+  document.getElementById("spaceStorageHint")?.classList.toggle("hidden", !showSafariHint);
+}
+
 function getProfileBackupFileName() {
   const d = new Date();
   const pad = n => String(n).padStart(2, "0");
@@ -2066,7 +2098,8 @@ function downloadProfileBackupFile(json, fileName) {
   document.body?.appendChild?.(a);
   a.click?.();
   a.remove?.();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  // Safari (iOS) fragt erst „Laden?“ – die Blob-URL muss so lange gültig bleiben
+  setTimeout(() => URL.revokeObjectURL(url), 60000);
   return true;
 }
 
@@ -2143,11 +2176,34 @@ async function saveProfileBackupLocally() {
     }
   }
 
+  // iOS-Home-Bildschirm-App: Downloads sind dort unzuverlässig → Teilen-Menü („In Dateien sichern“)
+  if (typeof isIOSLikeDevice === "function" && isIOSLikeDevice() && isStandaloneWebApp()
+    && typeof File !== "undefined" && typeof navigator.share === "function") {
+    try {
+      const file = new File([json], fileName, { type: "application/json" });
+      if (!navigator.canShare || navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file] });
+        setSpaceBackupStatus(
+          `✓ ${tf("Profil-Sicherung geteilt ({file})", "Profile backup shared ({file})", { file: fileName })}`,
+          false,
+          { toastText: `✓ ${tr("Profil-Sicherung geteilt", "Profile backup shared")}` }
+        );
+        return;
+      }
+    } catch (err) {
+      if (isShareCancelError(err)) {
+        setSpaceBackupStatus(tr("Sicherung abgebrochen – es wurde nichts gespeichert.", "Backup cancelled – nothing was saved."), true, { toast: false });
+        return;
+      }
+    }
+  }
+
   if (downloadProfileBackupFile(json, fileName)) {
+    // Ob der Download wirklich gespeichert wurde, kann der Browser nicht melden
     setSpaceBackupStatus(
-      `✓ ${tf("Profil lokal gespeichert ({file})", "Profile saved locally ({file})", { file: fileName })}`,
+      `✓ ${tf("Download gestartet ({file})", "Download started ({file})", { file: fileName })}`,
       false,
-      { toastText: toastOk }
+      { toastText: `✓ ${tr("Download gestartet", "Download started")}` }
     );
   } else {
     setSpaceBackupStatus(failMsg, true);
