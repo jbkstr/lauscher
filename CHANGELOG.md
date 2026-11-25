@@ -2,6 +2,11 @@
 
 All released versions of Lauscher. New sections are created by `python3 scripts/bump-version.py`.
 
+## Unreleased
+
+**Improved**
+- Cadences and solfège: when the bass is muted in the mixer (the default piano mix), the piano now plays the bass note with the left hand, so cadences no longer sound thin.
+
 ## 0.11.0-beta (Build 5) – 2026-11-25
 
 **Improved**

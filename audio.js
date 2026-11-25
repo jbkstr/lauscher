@@ -2671,6 +2671,14 @@ class AudioEngine {
       return ms / 1000;
     };
 
+    // Ist die Bass-Spur stumm, übernimmt das Klavier den Basston als linke Hand (sonst klingen Kadenzen
+    // im Standard-Mix nur in der Mittellage). Lautstärke bleibt die der Akkordtöne.
+    const pianoLeftHand = !hasBass && !harmonicVoices && bassNote && hasNotes
+      && timingOpts?.pianoBass !== false
+      && activeChordStems.includes("piano") && !uniqNotes.includes(bassNote)
+      ? bassNote
+      : null;
+
     if (hasNotes) {
       activeChordStems.forEach(stemKey => {
         const inst = this[stemKey];
@@ -2679,7 +2687,8 @@ class AudioEngine {
         if (harmonicVoices) {
           harmonicVoices.forEach(v => inst.triggerAttackRelease([v.note], v.dur, v.at + stemOffset, v.vel, envOverride));
         } else {
-          inst.triggerAttackRelease(uniqNotes, dur, at + stemOffset, chordVel, envOverride);
+          const stemNotes = stemKey === "piano" && pianoLeftHand ? [pianoLeftHand, ...uniqNotes] : uniqNotes;
+          inst.triggerAttackRelease(stemNotes, dur, at + stemOffset, chordVel, envOverride);
         }
       });
     }
