@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Zerlegt den langen Gitarren-Export (eine WAV-Datei aus lauscher-guitar-sampling.mid) in Einzeltöne.
+Zerlegt einen langen Sampling-Export (eine WAV-Datei aus einer Vorlage von scripts/make-sampling-midi.py) in Einzeltöne.
 
-- liest die Zeiten aus cue-list.csv (Zeit 0 = Anfang der Datei, inkl. 1 Takt Vorlauf)
+- liest die Zeiten aus cue-list.csv (Standard: neben der WAV; Zeit 0 = Anfang der Datei, inkl. 1 Takt Vorlauf)
 - findet pro Ton den echten Anschlag (gleicht DAW-/Plugin-Latenz automatisch aus)
 - schneidet ab Anschlag − 3 ms bis kurz vor den nächsten Slot, kürzt Stille am Ende,
   setzt ein Fade-out (50 ms) und schreibt <Note>_<Layer>.wav im Originalformat
@@ -11,7 +11,7 @@ Zerlegt den langen Gitarren-Export (eine WAV-Datei aus lauscher-guitar-sampling.
 Nur Python-Standardbibliothek. Unterstützt WAV PCM 16/24/32 Bit und Float 32 Bit.
 
 Aufruf:
-  python3 scripts/slice-guitar-samples.py <export.wav> [--cues cue-list.csv] [--out ordner]
+  python3 scripts/slice-samples.py <export.wav> [--cues cue-list.csv] [--out ordner]
 """
 import argparse
 import array
@@ -103,7 +103,7 @@ def block_peaks(arr, ch, frames_per_block):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("wav")
-    ap.add_argument("--cues", default=str(Path(__file__).resolve().parent.parent / "daw-sampling/guitar-recording/cue-list.csv"))
+    ap.add_argument("--cues", default=None)
     ap.add_argument("--out", default=None)
     args = ap.parse_args()
 
@@ -112,7 +112,8 @@ def main():
     total_frames = len(w["raw"]) // w["block"]
     out_dir = Path(args.out) if args.out else Path(args.wav).resolve().parent / "slices"
     out_dir.mkdir(parents=True, exist_ok=True)
-    cues = list(csv.DictReader(open(args.cues, encoding="utf-8")))
+    cue_path = Path(args.cues) if args.cues else Path(args.wav).resolve().parent / "cue-list.csv"
+    cues = list(csv.DictReader(open(cue_path, encoding="utf-8")))
     print(f"{args.wav}: {rate} Hz, {w['bits']} Bit{' float' if w['tag'] == 3 else ''}, {ch} Kanal/Kanäle, "
           f"{total_frames / rate / 60:.2f} min  →  {len(cues)} Töne")
 

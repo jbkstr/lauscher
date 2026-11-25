@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Bereitet die geschnittenen Gitarren-Einzeltöne (scripts/slice-guitar-samples.py) für die App auf
+Bereitet die geschnittenen Gitarren-Einzeltöne (scripts/slice-samples.py) für die App auf
 und baut samples/guitar-bundle.js neu.
 
 Pro Ton:
@@ -35,7 +35,7 @@ import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-_spec = importlib.util.spec_from_file_location("slicer", ROOT / "scripts/slice-guitar-samples.py")
+_spec = importlib.util.spec_from_file_location("slicer", ROOT / "scripts/slice-samples.py")
 slicer = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(slicer)
 

@@ -1,17 +1,22 @@
 #!/usr/bin/env python3
 """
-Erzeugt die MIDI-Aufnahmevorlage für das Gitarren-Sampling (ohne externe Bibliotheken).
+Erzeugt MIDI-Aufnahmevorlagen für das Sampling eines Instruments (ohne externe Bibliotheken).
 
 Aufbau (60 BPM, 4/4 → 1 Takt = 4 s, 1 Schlag = 1 s):
   - Takt 1: Vorlauf mit Controller-Reset (keine Noten)
-  - pro Ton ein Slot von 2 Takten = 8 s: Ton klingt 5 s, danach 3 s Stille zum Ausklingen
-  - drei Dynamik-Layer nacheinander (eigene Spuren, zeitlich hintereinander):
-      mf (Hauptlayer, Pflicht) → p (optional) → f (optional)
-  - chromatisch E2 … C6 (MIDI 40 … 84) = 45 Töne pro Layer
+  - pro Ton ein Slot von SLOT_BARS Takten: Ton wird NOTE_BEATS Sekunden gehalten, Rest = Ausklingen
+  - mehrere Dynamik-Layer nacheinander (eigene Spuren, zeitlich hintereinander),
+    der erste ist der Hauptlayer (mf), die weiteren sind optional
+  - chromatisch über den Tonumfang des Presets
   - jeder Ton hat einen Marker „<Layer>_<Note>“ (z. B. „mf_E2“) zum Schneiden/Benennen
+  - zusätzlich cue-list.csv mit allen Zeiten (für scripts/slice-samples.py)
+
+Presets:
+  guitar  E2 … C6, 8-s-Slots (5 s gehalten), Velocity mf 84 / p 50 / f 110
+  piano   C1 … C7, 8-s-Slots (6 s gehalten), Velocity mf 82 / p 48 / f 112, Sustain-Pedal aus
 
 Aufruf:
-  python3 scripts/make-guitar-sampling-midi.py [ausgabe.mid]
+  python3 scripts/make-sampling-midi.py <preset> [ausgabe.mid]
 """
 import struct
 import sys
@@ -21,19 +26,35 @@ PPQ = 960
 BPM = 60
 BEAT = PPQ
 BAR = 4 * BEAT
-SLOT_BARS = 2                 # 8 s pro Ton
-NOTE_BEATS = 5                # 5 s gehalten, 3 s Ausklingen
 LEAD_IN_BARS = 1
 LAYER_GAP_BARS = 2            # Pause zwischen den Layern
-NOTE_LOW, NOTE_HIGH = 40, 84  # E2 … C6
 CHANNEL = 0
 
-# (Name, Note-On-Velocity, Release-Velocity)
-LAYERS = [
-    ("mf", 84, 64),   # Hauptlayer: natürlicher, voller Anschlag ohne Härte
-    ("p", 50, 48),    # weicher Anschlag (optional)
-    ("f", 110, 72),   # kräftig, aber unter dem „Slap/Buzz“-Bereich ab ~120 (optional)
-]
+# Layer: (Name, Note-On-Velocity, Release-Velocity)
+PRESETS = {
+    "guitar": {
+        "title": "Lauscher Guitar Sampling",
+        "track": "Guitar",
+        "low": 40, "high": 84,            # E2 … C6
+        "slot_bars": 2, "note_beats": 5,  # 8 s Slot, 5 s gehalten
+        "layers": [
+            ("mf", 84, 64),   # Hauptlayer: natürlicher, voller Anschlag ohne Härte
+            ("p", 50, 48),    # weicher Anschlag
+            ("f", 110, 72),   # kräftig, aber unter dem „Slap/Buzz“-Bereich ab ~120
+        ],
+    },
+    "piano": {
+        "title": "Lauscher Piano Sampling",
+        "track": "Piano",
+        "low": 24, "high": 96,            # C1 … C7 (Übungen nutzen C2 … C6, Rest = Reserve)
+        "slot_bars": 2, "note_beats": 6,  # 8 s Slot, 6 s gehalten (Bass klingt lang), 2 s Dämpfer-Ausklang
+        "layers": [
+            ("mf", 82, 64),   # Hauptlayer: runder, offener Anschlag
+            ("p", 48, 48),    # weich, gedeckte Klangfarbe
+            ("f", 112, 72),   # brillant, ohne den härtesten Hammer-Layer
+        ],
+    },
+}
 
 NAMES = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
 
@@ -87,7 +108,13 @@ def reset_events(tick):
 
 
 def main():
-    out = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("daw-sampling/guitar-recording/lauscher-guitar-sampling.mid")
+    if len(sys.argv) < 2 or sys.argv[1] not in PRESETS:
+        sys.exit(__doc__)
+    name = sys.argv[1]
+    cfg = PRESETS[name]
+    out = Path(sys.argv[2]) if len(sys.argv) > 2 else Path(f"daw-sampling/{name}-recording/lauscher-{name}-sampling.mid")
+    SLOT_BARS, NOTE_BEATS, LAYERS = cfg["slot_bars"], cfg["note_beats"], cfg["layers"]
+    NOTE_LOW, NOTE_HIGH = cfg["low"], cfg["high"]
     out.parent.mkdir(parents=True, exist_ok=True)
 
     notes = list(range(NOTE_LOW, NOTE_HIGH + 1))
@@ -95,7 +122,7 @@ def main():
 
     # Spur 0: Tempo, Takt, Marker
     conductor = [
-        (0, 0, meta(0x03, b"Lauscher Guitar Sampling")),
+        (0, 0, meta(0x03, cfg["title"].encode())),
         (0, 1, meta(0x51, (60_000_000 // BPM).to_bytes(3, "big"))),
         (0, 2, meta(0x58, bytes([4, 2, 24, 8]))),
     ]
@@ -104,7 +131,7 @@ def main():
 
     bar = LEAD_IN_BARS
     for li, (layer, vel, rel_vel) in enumerate(LAYERS):
-        ev = [(0, 0, meta(0x03, f"Guitar {layer}{' (optional)' if li else ''}".encode()))]
+        ev = [(0, 0, meta(0x03, f"{cfg['track']} {layer}{' (optional)' if li else ''}".encode()))]
         ev += [(0, 1, d) for _, _, d in reset_events(0)]
         conductor.append((bar * BAR, 3, meta(0x06, f"Layer {layer} (velocity {vel})".encode())))
         for i, midi in enumerate(notes):
