@@ -790,6 +790,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const settingsModal = document.getElementById("settingsBackdrop");
   const aboutModal = document.getElementById("aboutBackdrop");
   const breakModal = document.getElementById("breakReminderBackdrop");
+  const themeUnlockModal = document.getElementById("themeUnlockBackdrop");
 
   document.getElementById("openAboutFromSettingsBtn")?.addEventListener("click", () => {
     openAboutModal();
@@ -874,7 +875,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   syncBreakReminderControls();
 
-  [mixerModal, settingsModal, aboutModal, breakModal].forEach(backdrop => {
+  [mixerModal, settingsModal, aboutModal, breakModal, themeUnlockModal].forEach(backdrop => {
     backdrop?.addEventListener("click", (e) => {
       if (e.target === backdrop) closeActiveModal();
     });
@@ -1608,7 +1609,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.repeat) return;
     const tag = e.target?.tagName;
     if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
-    const openModal = ["mixerBackdrop", "settingsBackdrop", "aboutBackdrop", "breakReminderBackdrop"].some(
+    const openModal = ["mixerBackdrop", "settingsBackdrop", "aboutBackdrop", "breakReminderBackdrop", "themeUnlockBackdrop"].some(
       id => {
         const el = document.getElementById(id);
         return el && !el.classList.contains("modal-hidden") && !el.classList.contains("hidden");

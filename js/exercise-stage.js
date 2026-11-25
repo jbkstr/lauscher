@@ -372,7 +372,13 @@ const MUSIC_JUICE_SVGS = {
 };
 
 const JUICE_SYMBOL_ROTATION = ["treble", "beamed", "bass", "quarter", "alto", "eighth", "sixteenth", "half"];
-const JUICE_THEME_COLORS = ["var(--sage-strong)", "var(--lilac-strong)", "var(--status-ok)", "var(--raccoon-dark)"];
+// Themes können die Partikelfarben über --juice-1 … --juice-4 überschreiben (z. B. Bonus-Themes)
+const JUICE_THEME_COLORS = [
+  "var(--juice-1, var(--sage-strong))",
+  "var(--juice-2, var(--lilac-strong))",
+  "var(--juice-3, var(--status-ok))",
+  "var(--juice-4, var(--raccoon-dark))"
+];
 
 const JUICE_PARTICLE_PRESETS = {
   micro: [
