@@ -1575,8 +1575,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Leertaste als Takt-/Tap-Taste (Rhythmus) bzw. Start/Pause (Einsing-Helfer); Escape schließt Tutorial
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && typeof isExerciseTutorialActive === "function" && isExerciseTutorialActive()) {
-      stopExerciseTutorial({ refreshExercise: true });
+    const tutorialOpen = typeof isExerciseTutorialActive === "function" && isExerciseTutorialActive();
+    if (e.key === "Escape" && tutorialOpen && !getOpenModalName()) {
+      dismissExerciseTutorialByUser();
       return;
     }
     if (e.code !== "Space" && e.key !== " ") return;
@@ -1604,6 +1605,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (state.currentView !== "exercise" || state.settings.mode !== "rhythm-tap" || state.listenOnly?.active) return;
+    // Offenes Tutorial: Leertaste darf weder Wiedergabe starten noch in die Vorführung tippen
+    if (tutorialOpen) {
+      e.preventDefault();
+      return;
+    }
 
     e.preventDefault();
     const session = state.rhythmTapSession;

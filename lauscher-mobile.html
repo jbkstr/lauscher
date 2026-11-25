@@ -16400,7 +16400,8 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 #viewExercise.is-tutorial-running .bottom-dock .degrees-grid,
 #viewExercise.is-tutorial-running .bottom-dock .solfege-keyboard-wrap,
 #viewExercise.is-tutorial-running .bottom-dock .rhythm-tap-wrap,
-#viewExercise.is-tutorial-running .bottom-dock .melody-rhythm-picker {
+#viewExercise.is-tutorial-running .bottom-dock .melody-rhythm-picker,
+#viewExercise.is-tutorial-running #exerciseModuleCard {
   pointer-events: none;
 }
 
@@ -113483,6 +113484,11 @@ function handleNativeBackButton() {
     return true;
   }
 
+  // Offenes Übungs-Tutorial zuerst schließen (wie Escape), statt die Übung zu verlassen
+  if (typeof dismissExerciseTutorialByUser === "function" && dismissExerciseTutorialByUser()) {
+    return true;
+  }
+
   const examBanner = document.getElementById("examAbortConfirmBanner");
   if (examBanner && !examBanner.classList.contains("hidden")) {
     cancelExamAbort();
@@ -121490,6 +121496,24 @@ function markSingAlongIntroForExercise(ex) {
   saveUserProfile(p);
 }
 
+/**
+ * Ein Übungs-Tutorial startet: die automatische Mitsing-Einführung dieser Aufgabe
+ * zurückstellen, damit nicht zwei Erklär-Fenster gleichzeitig offen sind. Der
+ * Zähler wird zurückgegeben, die Einführung kommt bei einer späteren Aufgabe.
+ */
+function deferSingAlongIntroForTutorial(ex = state.currentExercise) {
+  if (!ex?.singIntroShown) return;
+  ex.singIntroShown = false;
+  const p = state.profile;
+  if (p?.singAlongIntroCounts && typeof p.singAlongIntroCounts === "object") {
+    const seen = Number(p.singAlongIntroCounts[ex.type]) || 0;
+    if (seen > 0) {
+      p.singAlongIntroCounts[ex.type] = seen - 1;
+      saveUserProfile(p);
+    }
+  }
+}
+
 /** Karte, Chip und Summ-Pause-Schalter im Übungskopf synchronisieren. */
 function syncSingAlongUI(ex = state.currentExercise) {
   const card = document.getElementById("singAlongHint");
@@ -121497,7 +121521,9 @@ function syncSingAlongUI(ex = state.currentExercise) {
   const singText = ex ? getSingAlongHintText(ex.type) : null;
   const available = Boolean(singText) && isSingAlongTipsEnabled() && !state.exam?.active;
   const expanded = available && Boolean(state.singAlongExpanded);
-  const showCard = available && (expanded || Boolean(ex?.singIntroShown));
+  // Während ein Übungs-Tutorial offen ist, bleibt die Mitsing-Karte zu (sonst zwei Fenster gleichzeitig).
+  const tutorialOpen = typeof isExerciseTutorialActive === "function" && isExerciseTutorialActive();
+  const showCard = available && !tutorialOpen && (expanded || Boolean(ex?.singIntroShown));
 
   if (chip) {
     chip.classList.toggle("hidden", !available);
@@ -127850,6 +127876,15 @@ function setTutorialBackdropVisible(visible) {
   document.getElementById("exerciseTutorialBackdrop")?.classList.toggle("hidden", !visible);
 }
 
+/** Mitsing-Karte an den Tutorial-Zustand anpassen (offen → zu, beendet → wieder erlaubt). */
+function syncSingAlongForTutorial(starting) {
+  if (starting && typeof deferSingAlongIntroForTutorial === "function") {
+    deferSingAlongIntroForTutorial(_exTutorial.demoEx || state?.currentExercise);
+  }
+  if (typeof syncSingAlongUI === "function") syncSingAlongUI();
+  if (typeof queueFitExerciseLayout === "function") queueFitExerciseLayout(true);
+}
+
 function clearTutorialSpotlights() {
   _exTutorial.spotlightEls.forEach(el => el?.classList?.remove("tutorial-spotlight"));
   _exTutorial.spotlightEls = [];
@@ -127938,6 +127973,7 @@ function stopExerciseTutorial(options = {}) {
   const card = document.getElementById("exerciseTutorialCard");
   card?.classList.add("hidden");
   syncExerciseDemoButtonUI();
+  if (hadCard) syncSingAlongForTutorial(false);
 
   if ((wasRunning || hadCard) && !options.keepPlayback) {
     stopPlayback();
@@ -127965,6 +128001,20 @@ function stopExerciseTutorial(options = {}) {
   }
 }
 
+/**
+ * Nutzer schließt das Tutorial (✕, Escape, Android-„Zurück“): Einführung gilt als gesehen,
+ * nach einer Vorführung gibt es eine frische Aufgabe.
+ */
+function dismissExerciseTutorialByUser() {
+  if (!isExerciseTutorialActive()) return false;
+  const shouldRefresh = _exTutorial.phase === "demo" || _exTutorial.phase === "done";
+  if (_exTutorial.groupId && _exTutorial.phase === "intro") {
+    markTutorialGroupSeen(_exTutorial.groupId);
+  }
+  stopExerciseTutorial({ refreshExercise: shouldRefresh });
+  return true;
+}
+
 function maybeOfferExerciseTutorial(ex = state?.currentExercise) {
   if (!ex || state.currentView !== "exercise") return false;
   if (state.exam?.active || state.listenOnly?.active) return false;
@@ -127989,6 +128039,7 @@ function openExerciseTutorialIntro(ex = state?.currentExercise, explicitGroupId 
   _exTutorial.groupId = groupId;
   _exTutorial.demoEx = ex;
   syncExerciseDemoButtonUI();
+  syncSingAlongForTutorial(true);
 
   const meta = getTutorialMeta(groupId, ex);
   updateTutorialCardUI({
@@ -128082,6 +128133,7 @@ async function runExerciseTutorialDemo(options = {}) {
   _exTutorial.demoEx = ex;
   document.getElementById("viewExercise")?.classList.add("is-tutorial-running");
   syncExerciseDemoButtonUI();
+  syncSingAlongForTutorial(true);
 
   const meta = getTutorialMeta(groupId, ex);
   updateTutorialCardUI({
@@ -128549,11 +128601,7 @@ function initExerciseTutorialUI() {
   });
   document.getElementById("exTutorialCloseBtn")?.addEventListener("click", (e) => {
     e.stopPropagation();
-    const shouldRefresh = _exTutorial.phase === "demo" || _exTutorial.phase === "done";
-    if (_exTutorial.groupId && _exTutorial.phase === "intro") {
-      markTutorialGroupSeen(_exTutorial.groupId);
-    }
-    stopExerciseTutorial({ refreshExercise: shouldRefresh });
+    dismissExerciseTutorialByUser();
   });
   document.querySelectorAll("[data-ex-tutorials]").forEach(btn => {
     btn.addEventListener("click", () => {
@@ -129345,6 +129393,13 @@ function dismissBreakReminder(action = "continue") {
 /**
  * Zählt aktive Übezeit im Hintergrund ohne sichtbare Daueranzeige und meldet sich nach X Minuten.
  */
+function isBreakReminderBlockedByOtherWindow() {
+  if (typeof isExerciseTutorialActive === "function" && isExerciseTutorialActive()) return true;
+  if (typeof getOpenModalName === "function" && getOpenModalName()) return true;
+  const welcome = document.getElementById("welcomeOnboarding");
+  return Boolean(welcome && !welcome.classList.contains("hidden"));
+}
+
 function tickBreakReminder(nowWallMs = Date.now()) {
   const br = state?.breakReminder;
   if (!br || !state?.profile?.breakReminderEnabled) {
@@ -129370,6 +129425,9 @@ function tickBreakReminder(nowWallMs = Date.now()) {
   const targetSec = getBreakReminderMinutes() * 60;
   if (br.elapsedSec >= targetSec) {
     if (state.exam?.active) return;
+    // Nicht über ein anderes Fenster legen: Tutorial, offenes Modal (Mixer/Einstellungen/Über)
+    // oder Willkommens-Wizard. Die Erinnerung kommt, sobald wieder frei ist.
+    if (isBreakReminderBlockedByOtherWindow()) return;
     openBreakReminderModal();
   }
 }
@@ -132617,8 +132675,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Leertaste als Takt-/Tap-Taste (Rhythmus) bzw. Start/Pause (Einsing-Helfer); Escape schließt Tutorial
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && typeof isExerciseTutorialActive === "function" && isExerciseTutorialActive()) {
-      stopExerciseTutorial({ refreshExercise: true });
+    const tutorialOpen = typeof isExerciseTutorialActive === "function" && isExerciseTutorialActive();
+    if (e.key === "Escape" && tutorialOpen && !getOpenModalName()) {
+      dismissExerciseTutorialByUser();
       return;
     }
     if (e.code !== "Space" && e.key !== " ") return;
@@ -132646,6 +132705,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (state.currentView !== "exercise" || state.settings.mode !== "rhythm-tap" || state.listenOnly?.active) return;
+    // Offenes Tutorial: Leertaste darf weder Wiedergabe starten noch in die Vorführung tippen
+    if (tutorialOpen) {
+      e.preventDefault();
+      return;
+    }
 
     e.preventDefault();
     const session = state.rhythmTapSession;
