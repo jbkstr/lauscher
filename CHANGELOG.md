@@ -5,6 +5,8 @@ All released versions of Lauscher. New sections are created by `python3 scripts/
 ## Unreleased
 
 **Improved**
+- Guitar: new steel-string acoustic guitar sound from the Meta Steel Guitar (Meta Open Sound, CC0), every semitone from E2 to C6 (previously every third semitone), with soft, normal and strong attack layers.
+- Licenses: credit for the guitar samples.
 - Cadences and solfège: when the bass is muted in the mixer (the default piano mix), the piano now plays the bass note with the left hand, so cadences no longer sound thin.
 
 ## 0.11.0-beta (Build 5) – 2026-11-25
