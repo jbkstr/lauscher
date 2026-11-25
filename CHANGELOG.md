@@ -2,10 +2,12 @@
 
 All released versions of Lauscher. New sections are created by `python3 scripts/bump-version.py`.
 
-## Unreleased
+## 0.11.1-beta (Build 6) – 2026-11-25
 
 **Improved**
 - Cadences and solfège: when the bass is muted in the mixer (the default piano mix), the piano now plays the bass note with the left hand, so cadences no longer sound thin.
+- Home quotes: 20 new quotes in all 10 languages (tuner, capo translator, fretboard, free play, milestones, tuning facts and more). Outdated quotes were corrected (language list, number of themes, circle of fifths location, Singing section, no more "Surprise" button) and some facts made more accurate.
+- Knowledge section: fact check across articles, guides and instrument profiles in all 10 languages (first interval of "Eine kleine Nachtmusik", Pachelbel's Canon dated to around 1700, half-diminished iiø7 in Locrian, circle of fifths meeting point at F♯/G♭, levels 4 and 5 of the melody exam, 7 notation exam levels, spectrum header). German texts: bass clef reading trick, contrabassoon and saxophone ranges, trombone tuning, oboe as tuning reference and smaller wording fixes.
 
 ## 0.11.0-beta (Build 5) – 2026-11-25
 

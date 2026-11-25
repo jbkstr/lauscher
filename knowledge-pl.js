@@ -79,7 +79,7 @@ const INTERVAL_ENCYCLOPEDIA_PL = [
     mood: "Wezwanie, fanfara, uroczysta otwartość, przestrzeń",
     physics: "Jako przewrót kwinty czystej w oktawie kwarta zachowuje zwartą proporcję 4:3. Sama brzmi mocno, choć nad basem często chce opaść o półton do tercji.",
     songsAsc: "„Mazurek Dąbrowskiego” / hymny fanfarowe, Marsz weselny Wagnera, temat z „Harry’ego Pottera”, „Amazing Grace”",
-    songsDesc: "„Eine kleine Nachtmusik” Mozarta (drugi skok), „O Come, All Ye Faithful”"
+    songsDesc: "„Eine kleine Nachtmusik” Mozarta (pierwszy skok), „O Come, All Ye Faithful”"
   },
   {
     key: "TT",
@@ -257,7 +257,7 @@ const CADENCE_ENCYCLOPEDIA_PL = [
     bars: ["I", "V", "vi", "iii", "IV", "I", "IV", "V"],
     stepMs: 1500,
     chordDur: 1.38,
-    whyItWorks: "Genialna linia basowa z 1680 roku: bas kroczy i przeskakuje symetrycznymi stopniami (**C → G → A → E → F → C → F → G**). Każdy akord płynnie podaje rękę następnemu w nieskończonym 8-taktowym kole.",
+    whyItWorks: "Genialna linia basowa z czasów około 1700 roku: bas kroczy i przeskakuje symetrycznymi stopniami (**C → G → A → E → F → C → F → G**). Każdy akord płynnie podaje rękę następnemu w nieskończonym 8-taktowym kole.",
     songs: [
       "„Kanon D-dur” — Johann Pachelbel",
       "„Basket Case” — Green Day",
@@ -311,7 +311,7 @@ const CADENCE_ENCYCLOPEDIA_PL = [
       "„Zombie” — The Cranberries (Em – C – G – D)",
       "„Save Tonight” — Eagle-Eye Cherry",
       "„Numb” — Linkin Park",
-      "„Hello” — Adele (zwrotka)"
+      "„Despacito” — Luis Fonsi"
     ]
   },
   {
@@ -930,7 +930,7 @@ const KNOWLEDGE_ARTICLES_PL = [
 
         <h3>Kultowe utwory z tym chwytem</h3>
         <ul class="article-steps-list">
-          <li><strong>The Beatles — „In My Life”</strong> (na słowach „I’ll remember you”) oraz <strong>„Blackbird”</strong></li>
+          <li><strong>The Beatles — „In My Life”</strong></li>
           <li><strong>Radiohead — „Creep”</strong> (cały fundament zwrotki i refrenu: G – H – C – Cm)</li>
           <li><strong>Oasis — „Don’t Look Back in Anger”</strong> (finał pre-chorusu)</li>
           <li><strong>Green Day — „Wake Me Up When September Ends”</strong></li>
@@ -972,7 +972,7 @@ const KNOWLEDGE_ARTICLES_PL = [
           <div class="spectrum-row">
             <div class="spectrum-head">
               <span>1. Konsonans doskonały (Pełne stopienie)</span>
-              <span>1:1 · 2:1 · 3:2</span>
+              <span>1:1 · 2:1 · 3:2 · 4:3</span>
             </div>
             <div class="spectrum-bar-track"><div class="spectrum-bar-fill sage" style="width:96%"></div></div>
             <div class="spectrum-sub">Oktawa (2:1), kwinta (3:2) i kwarta (4:3): tak przejrzyste i zwarte, że brzmią niemal jak jeden dźwięk — idealne do burdonów, power chordów i monumentalnych finałów.</div>
@@ -2045,6 +2045,7 @@ const CATEGORY_HELP_GUIDES_PL = {
         <li><strong>Poziom 1 — Do–Fa:</strong> Frazy 4–5-nutowe w dolnym tetrachordzie (<code>Do, Re, Mi, Fa</code>).</li>
         <li><strong>Poziom 2 — Sol–Do:</strong> Frazy 4–6-nutowe w górnym rejestrze (<code>Sol, La, Ti, Do</code>).</li>
         <li><strong>Poziom 3 — Cała gama:</strong> Wszystkie siedem stopni (od <code>Do</code> do <code>Do</code>) w frazach 4–6-nutowych.</li>
+        <li><strong>Egzamin kategorii, poziomy 4 i 5:</strong> poziom 4 — Mistrz obejmuje całą gamę w zmiennych tonacjach i kilku oktawach; poziom 5 to dyktando kombi (wysokość i rytm, 4–6 nut).</li>
         <li><strong>Tonacje, oktawy i pomoce:</strong> Ćwicz w stałym <code>C-dur</code> lub losowych tonacjach, w jednej lub wielu oktawach. U góry ustawisz <strong>Tonację</strong>, <strong>Puls: Wł./Wył.</strong> i <strong>Tempo (BPM)</strong>; u dołu czekają <strong>Tonika (Do)</strong>, przycisk <strong>Autonastępne</strong> (po lewej), <strong>Tylko słuchaj</strong> oraz 5-poziomowy <strong>Egzamin kategorii</strong>.</li>
       </ul>
     `
@@ -3222,7 +3223,7 @@ const MODES_ENCYCLOPEDIA_PL = [
     charNote: "Kwinta zmniejszona (b5, np. Ges) + b2",
     vamp: "i° – bII (Cm7b5 – Des)",
     desc: "Jedyna skala diatoniczna pozbawiona stabilnej kwinty czystej nad toniką. Sam akord toniki jest zmniejszony lub półzmniejszony (m7b5), dając wrażenie braku gruntu pod stopami.",
-    usage: "<strong>W muzyce:</strong> Rzadko spotykana jako samodzielna tonacja całego utworu (jak klimat <em>Army of Me</em> Björk lub prog-metal), lecz niezastąpiona w jazzie nad akordami półzmniejszonymi (ii°7 w molowym ii–V–i) i w kinie grozy.",
+    usage: "<strong>W muzyce:</strong> Rzadko spotykana jako samodzielna tonacja całego utworu (jak klimat <em>Army of Me</em> Björk lub prog-metal), lecz niezastąpiona w jazzie nad akordami półzmniejszonymi (iiø7 w molowym ii–V–i) i w kinie grozy.",
     notes: "C4,Db4,Eb4,F4,Gb4,Ab4,Bb4,C5",
     vampChords: [["C3", "Eb4", "Gb4", "Bb4"], ["Db3", "F4", "Ab4"]]
   },
@@ -3778,7 +3779,7 @@ function renderCircleOfFifthsTheoryHTML_PL() {
         Zaraz po oktawie (<code>2:1</code>) <strong>kwinta czysta (3:2)</strong> jest najsilniejszą relacją akustyczną w muzyce. Jeśli wspinasz się kwintami od <strong>C</strong> (<code>C → G → D → A → E → H → Fis…</code>), w każdym kroku podwyższa się dokładnie jeden dźwięk na nowy dźwięk prowadzący — zgodnie z ruchem zegara przybywa po <strong>jednym krzyżyku (♯)</strong>. Ruch w drugą stronę (kwinty w dół lub <strong>kwarty w górę</strong>: <code>C → F → B → Es → As → Des → Ges</code>) ociepla brzmienie i dodaje po <strong>jednym bemolu (♭)</strong>.
       </p>
       <p>
-        Po 12 krokach strój równomiernie temperowany zamyka krąg dokładnie na <strong>godzinie 6 (Fis / Ges)</strong>, gdzie 6 krzyżyków i 6 bemoli trafia w dokładnie te same klawisze (<strong>enharmonia</strong>). Zamiast uczyć się 12 osobnych gam na pamięć, dostajesz jedną przejrzystą mapę!
+        Po 6 krokach w każdą stronę strona krzyżyków i bemoli spotykają się na <strong>godzinie 6 (Fis / Ges)</strong>, gdzie w stroju równomiernie temperowanym 6 krzyżyków i 6 bemoli trafia w dokładnie te same klawisze. Po 12 kwintach wracasz do C (<strong>enharmonia</strong>). Zamiast uczyć się 12 osobnych gam na pamięć, dostajesz jedną przejrzystą mapę!
       </p>
       <div class="k-compare-grid">
         <div class="k-compare-box is-peach">

@@ -80,7 +80,7 @@ const INTERVAL_ENCYCLOPEDIA_EN = [
     mood: "Calling, ceremonial, fanfare-like, wide open",
     physics: "As the inversion of the Perfect 5th inside an octave, the 4th holds a clean 4:3 ratio. Alone it sounds rock solid, though above a bass it often wants to settle down a step to the 3rd.",
     songsAsc: "“Here Comes the Bride” (Wedding March), “Harry Potter” (Hedwig’s Theme first leap), “Amazing Grace”",
-    songsDesc: "“Eine kleine Nachtmusik” (Mozart – second interval), “O Come, All Ye Faithful”"
+    songsDesc: "“Eine kleine Nachtmusik” (Mozart – first interval), “O Come, All Ye Faithful”"
   },
   {
     key: "TT",
@@ -258,7 +258,7 @@ const CADENCE_ENCYCLOPEDIA_EN = [
     bars: ["I", "V", "vi", "iii", "IV", "I", "IV", "V"],
     stepMs: 1500,
     chordDur: 1.38,
-    whyItWorks: "A stroke of bassline genius from 1680: the bass steps down and leaps cleanly (**C → G → A → E → F → C → F → G**). Every link interlocks seamlessly, creating an eight-bar loop that sounds both serene and endlessly forward-moving.",
+    whyItWorks: "A stroke of bassline genius from around 1700: the bass steps down and leaps cleanly (**C → G → A → E → F → C → F → G**). Every link interlocks seamlessly, creating an eight-bar loop that sounds both serene and endlessly forward-moving.",
     songs: [
       "“Canon in D” – Johann Pachelbel",
       "“Basket Case” – Green Day",
@@ -312,7 +312,7 @@ const CADENCE_ENCYCLOPEDIA_EN = [
       "“Zombie” – The Cranberries (Em – C – G – D)",
       "“Save Tonight” – Eagle-Eye Cherry",
       "“Numb” – Linkin Park",
-      "“Hello” – Adele (verse)"
+      "“Despacito” – Luis Fonsi"
     ]
   },
   {
@@ -931,7 +931,7 @@ const KNOWLEDGE_ARTICLES_EN = [
 
         <h3>Iconic Songs Built Around This Move</h3>
         <ul class="article-steps-list">
-          <li><strong>The Beatles – “In My Life”</strong> (on “I’ll remember you”) and <strong>“Blackbird”</strong></li>
+          <li><strong>The Beatles – “In My Life”</strong></li>
           <li><strong>Radiohead – “Creep”</strong> (the entire verse and chorus loop: G – B – C – Cm)</li>
           <li><strong>Oasis – “Don’t Look Back in Anger”</strong> (right at the tail of the pre-chorus)</li>
           <li><strong>Green Day – “Wake Me Up When September Ends”</strong></li>
@@ -973,7 +973,7 @@ const KNOWLEDGE_ARTICLES_EN = [
           <div class="spectrum-row">
             <div class="spectrum-head">
               <span>1. Perfect Consonance (Complete Fusion)</span>
-              <span>1:1 · 2:1 · 3:2</span>
+              <span>1:1 · 2:1 · 3:2 · 4:3</span>
             </div>
             <div class="spectrum-bar-track"><div class="spectrum-bar-fill sage" style="width:96%"></div></div>
             <div class="spectrum-sub">Octave (2:1), Perfect 5th (3:2) &amp; Perfect 4th (4:3): So pure and locked together that you almost hear one compound sound — built for power chords, drones, and resonant endings.</div>
@@ -2086,6 +2086,7 @@ const CATEGORY_HELP_GUIDES_EN = {
         <li><strong>Level 1 – Do–Fa:</strong> 4–5 note phrases drawn from the lower tetrachord (<code>Do, Re, Mi, Fa</code>).</li>
         <li><strong>Level 2 – Sol–Do:</strong> 4–6 note phrases focused on the upper tension space (<code>Sol, La, Ti, Do</code>).</li>
         <li><strong>Level 3 – Full Key:</strong> All seven Solfège degrees (<code>Do</code> through <code>Do</code>) across 4–6 notes.</li>
+        <li><strong>Category Exam, Levels 4 &amp; 5:</strong> Level 4 – Master uses the full scale in changing keys across several octaves; Level 5 is a full melody dictation (pitch &amp; rhythm, 4–6 notes).</li>
         <li><strong>Key Modes, Octaves &amp; Helpers:</strong> Train in fixed <code>C Major</code> or random keys, and within 1 octave or across multiple registers. Above the staff, control <strong>Key</strong>, <strong>Pulse: On/Off</strong>, and <strong>Tempo (BPM)</strong>; below sit <strong>Tonic (Do)</strong>, <strong>Auto-Next</strong> (bottom left), <strong>Listen Only</strong>, plus a 5-level <strong>Category Exam</strong>.</li>
       </ul>
     `
@@ -2218,7 +2219,7 @@ const CATEGORY_HELP_GUIDES_EN = {
 
       <div class="article-highlight-box">
         <h4>Audio Controls, Listen Only &amp; Exam</h4>
-        <p>Above the input area, <strong>Note Audio: On/Off</strong> lets you mute playback completely for silent sheet-reading practice. Below, <strong>▶ Hear Note</strong> / <strong>▶ Hear Chord</strong> gives an optional audio hint in free practice — while inside the 6-level <strong>Category Exam</strong> it switches to <strong>▶ Anchor Pitch</strong> (<code>G4</code> / <code>F3</code> / <code>C4</code>) so answers aren’t given away. On the right, <strong>Listen Only</strong> drives automatic sight-reading at your chosen <strong>Pace</strong> (<em>Very slow</em> to <em>Very fast</em>).</p>
+        <p>Above the input area, <strong>Note Audio: On/Off</strong> lets you mute playback completely for silent sheet-reading practice. Below, <strong>▶ Hear Note</strong> / <strong>▶ Hear Chord</strong> gives an optional audio hint in free practice — while inside the 7-level <strong>Category Exam</strong> it switches to <strong>▶ Anchor Pitch</strong> (<code>G4</code> / <code>F3</code> / <code>C4</code>) so answers aren’t given away. On the right, <strong>Listen Only</strong> drives automatic sight-reading at your chosen <strong>Pace</strong> (<em>Very slow</em> to <em>Very fast</em>).</p>
       </div>
     `
   }
@@ -3268,7 +3269,7 @@ const MODES_ENCYCLOPEDIA_EN = [
     charNote: "Diminished 5th (b5, e.g. Gb) + b2",
     vamp: "i° – bII (Cm7b5 – Db)",
     desc: "The sole diatonic mode lacking a stable Perfect 5th above its root. Instead, the tonic triad itself is diminished / half-diminished (m7b5), brimming with restlessness.",
-    usage: "<strong>Musical Use:</strong> Rare as an entire home key (e.g., Björk’s <em>Army of Me</em> feel, prog metal), yet indispensable in jazz over half-diminished chords (ii°7 in minor ii–V–i turnarounds) and suspense scoring.",
+    usage: "<strong>Musical Use:</strong> Rare as an entire home key (e.g., Björk’s <em>Army of Me</em> feel, prog metal), yet indispensable in jazz over half-diminished chords (iiø7 in minor ii–V–i turnarounds) and suspense scoring.",
     notes: "C4,Db4,Eb4,F4,Gb4,Ab4,Bb4,C5",
     vampChords: [["C3", "Eb4", "Gb4", "Bb4"], ["Db3", "F4", "Ab4"]]
   },
@@ -3839,7 +3840,7 @@ function renderCircleOfFifthsTheoryHTML_EN() {
         Right after the octave (<code>2:1</code>), the <strong>perfect fifth (3:2)</strong> is the strongest acoustic bond in music. If you keep climbing up by fifths starting from <strong>C</strong> (<code>C → G → D → A → E → B → F♯…</code>), each step raises just one scale note to create the next key’s new leading tone — adding <strong>one sharp (♯)</strong> clockwise. Going counter-clockwise in fifths down (which is the same as up in <strong>fourths</strong>: <code>C → F → B♭ → E♭ → A♭ → D♭ → G♭</code>) softens tension step by step and adds <strong>one flat (♭)</strong> each move.
       </p>
       <p>
-        After 12 steps, equal temperament closes the spiral back onto itself at <strong>6 o’clock (F♯ / G♭)</strong>, where 6 sharps and 6 flats sound on the exact same piano keys (<strong>enharmonic equivalence</strong>). Instead of memorizing 12 isolated scales, you get one single musical compass!
+        After 6 steps in each direction, the sharp and flat sides meet at <strong>6 o’clock (F♯ / G♭)</strong>, where in equal temperament 6 sharps and 6 flats sound on the exact same piano keys. After 12 fifths you are back at C (<strong>enharmonic equivalence</strong>). Instead of memorizing 12 isolated scales, you get one single musical compass!
       </p>
       <div class="k-compare-grid">
         <div class="k-compare-box is-peach">

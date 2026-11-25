@@ -80,7 +80,7 @@ const INTERVAL_ENCYCLOPEDIA_FR = [
     mood: "Appel, solennelle, fanfare, grand espace ouvert",
     physics: "Renversement de la quinte juste dans l’octave, la quarte possède un rapport net de 4:3. Seule, elle est très stable ; au-dessus d’une basse, elle appelle souvent une descente vers la tierce.",
     songsAsc: "« La Marseillaise » (levée « Al-lons »), « Marche nuptiale » (Wagner), thème d’« Harry Potter » (Hedwig)",
-    songsDesc: "« Une petite musique de nuit » (Mozart – deuxième intervalle), « Adeste Fideles »"
+    songsDesc: "« Une petite musique de nuit » (Mozart – premier intervalle), « Adeste Fideles »"
   },
   {
     key: "TT",
@@ -258,7 +258,7 @@ const CADENCE_ENCYCLOPEDIA_FR = [
     bars: ["I", "V", "vi", "iii", "IV", "I", "IV", "V"],
     stepMs: 1500,
     chordDur: 1.38,
-    whyItWorks: "Un coup de génie à la basse datant de 1680 : la basse descend et bondit avec évidence (**Do → Sol → La → Mi → Fa → Do → Fa → Sol**). Chaque maillon s’emboîte sans accroc, créant une boucle de huit mesures à la fois sereine et propulsive.",
+    whyItWorks: "Un coup de génie à la basse datant des alentours de 1700 : la basse descend et bondit avec évidence (**Do → Sol → La → Mi → Fa → Do → Fa → Sol**). Chaque maillon s’emboîte sans accroc, créant une boucle de huit mesures à la fois sereine et propulsive.",
     songs: [
       "« Canon en Ré » – Johann Pachelbel",
       "« Basket Case » – Green Day",
@@ -312,7 +312,7 @@ const CADENCE_ENCYCLOPEDIA_FR = [
       "« Zombie » – The Cranberries (Mim – Do – Sol – Ré)",
       "« Save Tonight » – Eagle-Eye Cherry",
       "« Numb » – Linkin Park",
-      "« Hello » – Adele (couplet)"
+      "« Despacito » – Luis Fonsi"
     ]
   },
   {
@@ -931,7 +931,7 @@ const KNOWLEDGE_ARTICLES_FR = [
 
         <h3>Morceaux cultes bâtis sur ce tour harmonique</h3>
         <ul class="article-steps-list">
-          <li><strong>The Beatles – « In My Life »</strong> (sur « I’ll remember you ») et <strong>« Blackbird »</strong></li>
+          <li><strong>The Beatles – « In My Life »</strong></li>
           <li><strong>Radiohead – « Creep »</strong> (toute la boucle du morceau : Sol – Si – Do – Dom)</li>
           <li><strong>Oasis – « Don’t Look Back in Anger »</strong> (à la fin du pré-refrain)</li>
           <li><strong>Green Day – « Wake Me Up When September Ends »</strong></li>
@@ -973,7 +973,7 @@ const KNOWLEDGE_ARTICLES_FR = [
           <div class="spectrum-row">
             <div class="spectrum-head">
               <span>1. Consonance parfaite (Fusion totale)</span>
-              <span>1:1 · 2:1 · 3:2</span>
+              <span>1:1 · 2:1 · 3:2 · 4:3</span>
             </div>
             <div class="spectrum-bar-track"><div class="spectrum-bar-fill sage" style="width:96%"></div></div>
             <div class="spectrum-sub">Octave (2:1), Quinte juste (3:2) &amp; Quarte juste (4:3) : si pures et verrouillées qu’on croit entendre un seul son — taillées pour les power chords, bourdons et cadences finales.</div>
@@ -2033,6 +2033,7 @@ const CATEGORY_HELP_GUIDES_FR = {
         <li><strong>Niveau 1 – Do–Fa :</strong> Phrases de 4 à 5 notes issues du tétracorde inférieur (<code>Do, Re, Mi, Fa</code>).</li>
         <li><strong>Niveau 2 – Sol–Do :</strong> Phrases de 4 à 6 notes sur la moitié supérieure (<code>Sol, La, Ti, Do</code>).</li>
         <li><strong>Niveau 3 – Tonalité complète :</strong> Les sept degrés (<code>Do</code> à <code>Do</code>) sur 4 à 6 notes.</li>
+        <li><strong>Examen de catégorie, niveaux 4 &amp; 5 :</strong> le niveau 4 – Maître utilise toute la gamme dans des tonalités changeantes sur plusieurs octaves ; le niveau 5 est une dictée mélodique combinée (hauteur &amp; rythme, 4 à 6 notes).</li>
         <li><strong>Tonalités, octaves &amp; aides :</strong> Entraînez-vous en <code>Do majeur</code> ou dans des tonalités aléatoires, sur 1 ou plusieurs octaves. En haut, réglez <strong>Tonalité</strong>, <strong>Pulsation : Oui/Non</strong> et <strong>Tempo (BPM)</strong> ; en bas se trouvent <strong>Tonique (Do)</strong>, <strong>Suivant auto</strong> (à gauche), <strong>Écoute seule</strong> ainsi que l’<strong>Examen</strong> à 5 niveaux.</li>
       </ul>
     `
@@ -3206,7 +3207,7 @@ const MODES_ENCYCLOPEDIA_FR = [
     charNote: "Quinte diminuée (b5, ex. Sol♭) + b2",
     vamp: "i° – bII (Dom7b5 – Ré♭)",
     desc: "Le seul mode diatonique privé d’une quinte juste stable sur sa fondamentale. À la place, la triade tonique elle-même est diminuée / demi-diminuée (m7b5), chargée de fébrilité.",
-    usage: "<strong>Usage musical :</strong> Rare comme tonalité complète (ex. Björk <em>Army of Me</em>, metal progressif), mais indispensable en jazz sur les accords demi-diminués (ii°7 des ii–V–i mineurs) et les scènes de tension.",
+    usage: "<strong>Usage musical :</strong> Rare comme tonalité complète (ex. Björk <em>Army of Me</em>, metal progressif), mais indispensable en jazz sur les accords demi-diminués (iiø7 des ii–V–i mineurs) et les scènes de tension.",
     notes: "C4,Db4,Eb4,F4,Gb4,Ab4,Bb4,C5",
     vampChords: [["C3", "Eb4", "Gb4", "Bb4"], ["Db3", "F4", "Ab4"]]
   },
@@ -3775,7 +3776,7 @@ function renderCircleOfFifthsTheoryHTML_FR() {
         Juste après l’octave (<code>2:1</code>), la <strong>quinte juste (3:2)</strong> est le lien acoustique le plus puissant en musique. En montant de quinte en quinte depuis <strong>Do</strong> (<code>Do → Sol → Ré → La → Mi → Si → Fa♯…</code>), chaque pas élève une seule note pour former la sensible suivante — ajoutant <strong>un dièse (♯)</strong> dans le sens horaire. En descendant par quintes (soit en montant par <strong>quartes</strong> : <code>Do → Fa → Si♭ → Mi♭ → La♭ → Ré♭ → Sol♭</code>), la couleur s’adoucit à chaque pas et ajoute <strong>un bémol (♭)</strong> dans le sens antihoraire.
       </p>
       <p>
-        Au bout de 12 pas, le tempérament égal referme la spirale sur elle-même à <strong>6 heures (Fa♯ / Sol♭)</strong>, où 6 dièses et 6 bémols tombent exactement sur les mêmes touches du piano (<strong>enharmonie</strong>). Au lieu de mémoriser 12 gammes isolées, vous tenez une seule boussole musicale !
+        Après 6 pas dans chaque sens, le côté des dièses et celui des bémols se rejoignent à <strong>6 heures (Fa♯ / Sol♭)</strong>, où, en tempérament égal, 6 dièses et 6 bémols tombent exactement sur les mêmes touches du piano. Après 12 quintes, vous revenez à Do (<strong>enharmonie</strong>). Au lieu de mémoriser 12 gammes isolées, vous tenez une seule boussole musicale !
       </p>
       <div class="k-compare-grid">
         <div class="k-compare-box is-peach">

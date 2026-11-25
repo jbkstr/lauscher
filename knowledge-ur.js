@@ -80,7 +80,7 @@ const INTERVAL_ENCYCLOPEDIA_UR = [
     mood: "بلند آواز پکار، پروقار، کشادہ اور کھلا",
     physics: "آکٹیو کے اندر پرفیکٹ ففتھ کا عکس ہونے کے باعث فورتھ 4:3 کی صاف نسبت رکھتا ہے۔ اکیلا مضبوط لگتا ہے مگر باس کے اوپر اکثر ایک قدم نیچے تھرڈ پر اترنا چاہتا ہے۔",
     songsAsc: "«Here Comes the Bride» (شادی کا مارچ)، «Harry Potter» (پہلی چھلانگ)، «Amazing Grace»",
-    songsDesc: "موزارٹ کی «Eine kleine Nachtmusik» (دوسرا انٹرول)، «O Come, All Ye Faithful»"
+    songsDesc: "موزارٹ کی «Eine kleine Nachtmusik» (پہلا انٹرول)، «O Come, All Ye Faithful»"
   },
   {
     key: "TT",
@@ -258,7 +258,7 @@ const CADENCE_ENCYCLOPEDIA_UR = [
     bars: ["I", "V", "vi", "iii", "IV", "I", "IV", "V"],
     stepMs: 1500,
     chordDur: 1.38,
-    whyItWorks: "1680ء کی باس لائن کا کمال: باس نیچے اترتا اور صفائی سے چھلانگ لگاتا ہے (**C → G → A → E → F → C → F → G**)۔ آٹھ بار کا یہ چکر بیک وقت پُرسکون اور مسلسل رواں لگتا ہے۔",
+    whyItWorks: "تقریباً 1700ء کی باس لائن کا کمال: باس نیچے اترتا اور صفائی سے چھلانگ لگاتا ہے (**C → G → A → E → F → C → F → G**)۔ آٹھ بار کا یہ چکر بیک وقت پُرسکون اور مسلسل رواں لگتا ہے۔",
     songs: [
       "«Canon in D» – یوہان پاخیل بیل",
       "«Basket Case» – گرین ڈے",
@@ -312,7 +312,7 @@ const CADENCE_ENCYCLOPEDIA_UR = [
       "«Zombie» – دی کرین بیریز (Em – C – G – D)",
       "«Save Tonight» – ایگل آئی چیری",
       "«Numb» – لنکن پارک",
-      "«Hello» – ایڈیل (بند)"
+      "«Despacito» – لوئس فونسی"
     ]
   },
   {
@@ -921,7 +921,7 @@ const KNOWLEDGE_ARTICLES_UR = [
 
         <h3>اس موڑ پر مبنی مشہور گانے</h3>
         <ul class="article-steps-list">
-          <li><strong>دی بیٹلز – «In My Life»</strong> اور <strong>«Blackbird»</strong></li>
+          <li><strong>دی بیٹلز – «In My Life»</strong></li>
           <li><strong>ریڈیو ہیڈ – «Creep»</strong> (پورا بند اور کورس: G – B – C – Cm)</li>
           <li><strong>اویسس – «Don’t Look Back in Anger»</strong> (پری کورس کے آخر میں)</li>
           <li><strong>گرین ڈے – «Wake Me Up When September Ends»</strong></li>
@@ -963,7 +963,7 @@ const KNOWLEDGE_ARTICLES_UR = [
           <div class="spectrum-row">
             <div class="spectrum-head">
               <span>1. کامل ہم آہنگی (مکمل ملاپ)</span>
-              <span>1:1 · 2:1 · 3:2</span>
+              <span>1:1 · 2:1 · 3:2 · 4:3</span>
             </div>
             <div class="spectrum-bar-track"><div class="spectrum-bar-fill sage" style="width:96%"></div></div>
             <div class="spectrum-sub">آکٹیو (2:1)، پرفیکٹ ففتھ (3:2) اور پرفیکٹ فورتھ (4:3): اتنے صاف کہ گویا ایک آواز بن جائیں — پاور کارڈز، ڈرون اور مضبوط اختتام کے لیے بہترین۔</div>
@@ -2037,6 +2037,7 @@ const CATEGORY_HELP_GUIDES_UR = {
         <li><strong>لیول 1 – Do–Fa:</strong> زیریں ٹیٹرا کارڈ (<code>Do, Re, Mi, Fa</code>) سے 4–5 نوٹس۔</li>
         <li><strong>لیول 2 – Sol–Do:</strong> بالائی حصے (<code>Sol, La, Ti, Do</code>) سے 4–6 نوٹس۔</li>
         <li><strong>لیول 3 – مکمل کلید:</strong> تمام سات درجات (<code>Do</code> تا <code>Do</code>) پر 4–6 نوٹس۔</li>
+        <li><strong>زمرہ امتحان، لیول 4 اور 5:</strong> لیول 4 – ماسٹر بدلتی کلیدوں اور کئی آکٹیو میں پورا اسکیل استعمال کرتا ہے؛ لیول 5 مکمل دھن ڈکٹیشن ہے (سُر اور ردھم، 4–6 نوٹس)۔</li>
         <li><strong>کلیدیں، آکٹیو اور مددگار بٹن:</strong> <code>C میجر</code> یا بدلتی کلیدوں اور ایک یا متعدد آکٹیو میں مشق کریں۔ اوپر <strong>کلید</strong>، <strong>نبض: آن/آف</strong> اور <strong>ٹیمپو (BPM)</strong> بدلیں؛ نیچے <strong>ٹانک (Do)</strong>، بائیں جانب <strong>خودکار اگلا</strong> بٹن، <strong>صرف سنیں</strong> اور 5 سطحی <strong>زمرہ امتحان</strong> موجود ہیں۔</li>
       </ul>
     `
@@ -3213,7 +3214,7 @@ const MODES_ENCYCLOPEDIA_UR = [
     charNote: "ڈِمنشڈ ففتھ (b5، مثلاً Gb) + کومل رے (b2)",
     vamp: "i° – bII (Cm7b5 – Db)",
     desc: "واحد ڈایاٹونک موڈ جس میں جڑ سے خالص پرفیکٹ ففتھ نہیں ہوتا۔ خود ٹانک کارڈ بھی ہاف ڈِمنشڈ (m7b5) ہوتا ہے، جو مسلسل بے چینی رکھتا ہے۔",
-    usage: "<strong>استعمال:</strong> اکیلی کلید کے طور پر نایاب، مگر مائنر جاز (ii°7) اور سنسنی خیز پس منظر کے لیے ناگزیر۔",
+    usage: "<strong>استعمال:</strong> اکیلی کلید کے طور پر نایاب، مگر مائنر جاز (iiø7) اور سنسنی خیز پس منظر کے لیے ناگزیر۔",
     notes: "C4,Db4,Eb4,F4,Gb4,Ab4,Bb4,C5",
     vampChords: [["C3", "Eb4", "Gb4", "Bb4"], ["Db3", "F4", "Ab4"]]
   },
@@ -3627,7 +3628,7 @@ function renderCircleOfFifthsTheoryHTML_UR() {
         آکٹیو (<code>2:1</code>) کے بعد <strong>پرفیکٹ ففتھ (3:2)</strong> مضبوط ترین صوتی بندھن ہے۔ <strong>C</strong> سے ففتھس میں اوپر چڑھیں (<code>C → G → D → A → E → B → F♯…</code>) تو ہر قدم پر ایک نیا <strong>شارپ (♯)</strong> شامل ہوتا ہے۔ الٹی سمت ففتھس نیچے (یا فورتھس اوپر: <code>C → F → B♭ → E♭ → A♭ → D♭ → G♭</code>) چلیں تو ہر قدم پر ایک نیا <strong>فلیٹ (♭)</strong> آتا ہے۔
       </p>
       <p>
-        12 قدموں کے بعد مساوی تقسیم <strong>6 بجے (F♯ / G♭)</strong> پر دائرہ بند کر دیتی ہے، جہاں 6 شارپس اور 6 فلیٹس عین ایک ہی کنجیوں پر بجتے ہیں (<strong>این ہارمونک برابری</strong>)۔ یوں 12 الگ اسکیلز رٹنے کے بجائے ایک کمپاس مل جاتا ہے!
+        دونوں سمتوں میں 6، 6 قدموں کے بعد شارپ اور فلیٹ کی طرفیں <strong>6 بجے (F♯ / G♭)</strong> پر ملتی ہیں، جہاں مساوی تقسیم میں 6 شارپس اور 6 فلیٹس عین ایک ہی کنجیوں پر بجتے ہیں۔ 12 ففتھس کے بعد آپ دوبارہ C پر ہوتے ہیں (<strong>این ہارمونک برابری</strong>)۔ یوں 12 الگ اسکیلز رٹنے کے بجائے ایک کمپاس مل جاتا ہے!
       </p>
       <div class="k-compare-grid">
         <div class="k-compare-box is-peach">

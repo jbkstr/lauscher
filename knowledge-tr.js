@@ -80,7 +80,7 @@ const INTERVAL_ENCYCLOPEDIA_TR = [
     mood: "Çağrı, görkemli, fanfar, geniş açık alan",
     physics: "Oktav içinde tam beşlinin çevrimi olan dörtlünün net bir 4:3 oranı vardır. Tek başına çok kararlıdır; bir bas sesinin üzerinde çoğu zaman üçlüye inmeyi ister.",
     songsAsc: "«La Marseillaise» (çıkışlı başlangıç), «Düğün Marşı» (Wagner), «Harry Potter» teması (Hedwig)",
-    songsDesc: "«Eine kleine Nachtmusik» (Mozart, ikinci aralık), «Adeste Fideles»"
+    songsDesc: "«Eine kleine Nachtmusik» (Mozart, ilk aralık), «Adeste Fideles»"
   },
   {
     key: "TT",
@@ -258,7 +258,7 @@ const CADENCE_ENCYCLOPEDIA_TR = [
     bars: ["I", "V", "vi", "iii", "IV", "I", "IV", "V"],
     stepMs: 1500,
     chordDur: 1.38,
-    whyItWorks: "1680'den kalma dahiyane bir bas yürüyüşü: bas çizgisi son derece doğal bir akışla iner ve atlar (**Do → Sol → La → Mi → Fa → Do → Fa → Sol**). Her halka zahmetsizce birbirine geçerek hem dingin hem sürükleyici sekiz ölçülük bir döngü kurar.",
+    whyItWorks: "1700'ler civarından kalma dahiyane bir bas yürüyüşü: bas çizgisi son derece doğal bir akışla iner ve atlar (**Do → Sol → La → Mi → Fa → Do → Fa → Sol**). Her halka zahmetsizce birbirine geçerek hem dingin hem sürükleyici sekiz ölçülük bir döngü kurar.",
     songs: [
       "«Re Majör Kanon» – Johann Pachelbel",
       "«Basket Case» – Green Day",
@@ -312,7 +312,7 @@ const CADENCE_ENCYCLOPEDIA_TR = [
       "«Zombie» – The Cranberries (Em – C – G – D)",
       "«Save Tonight» – Eagle-Eye Cherry",
       "«Numb» – Linkin Park",
-      "«Hello» – Adele (kıta)"
+      "«Despacito» – Luis Fonsi"
     ]
   },
   {
@@ -931,7 +931,7 @@ const KNOWLEDGE_ARTICLES_TR = [
 
         <h3>Bu armonik dönüş üzerine kurulu kült parçalar</h3>
         <ul class="article-steps-list">
-          <li><strong>The Beatles – «In My Life»</strong> («I'll remember you» kısmında) ve <strong>«Blackbird»</strong></li>
+          <li><strong>The Beatles – «In My Life»</strong></li>
           <li><strong>Radiohead – «Creep»</strong> (tüm parçanın döngüsü: G – B – C – Cm)</li>
           <li><strong>Oasis – «Don't Look Back in Anger»</strong> (nakarat öncesi köprünün sonunda)</li>
           <li><strong>Green Day – «Wake Me Up When September Ends»</strong></li>
@@ -973,7 +973,7 @@ const KNOWLEDGE_ARTICLES_TR = [
           <div class="spectrum-row">
             <div class="spectrum-head">
               <span>1. Tam konsonans (tam kaynaşma)</span>
-              <span>1:1 · 2:1 · 3:2</span>
+              <span>1:1 · 2:1 · 3:2 · 4:3</span>
             </div>
             <div class="spectrum-bar-track"><div class="spectrum-bar-fill sage" style="width:96%"></div></div>
             <div class="spectrum-sub">Oktav (2:1), tam beşli (3:2) ve tam dörtlü (4:3): tek bir ses gibi duyulacak kadar saf ve kenetli; power chord'lar, dem sesleri ve final kadansları için biçilmiş kaftan.</div>
@@ -2033,6 +2033,7 @@ const CATEGORY_HELP_GUIDES_TR = {
         <li><strong>Seviye 1 – Do–Fa:</strong> Alt dörtlüden (<code>Do, Re, Mi, Fa</code>) 4–5 notalık cümleler.</li>
         <li><strong>Seviye 2 – Sol–Do:</strong> Üst yarıdan (<code>Sol, La, Ti, Do</code>) 4–6 notalık cümleler.</li>
         <li><strong>Seviye 3 – Tam ton:</strong> 4–6 notada yedi derecenin tamamı (<code>Do</code>'dan <code>Do</code>'ya).</li>
+        <li><strong>Kategori sınavı, seviye 4 ve 5:</strong> Seviye 4 – Usta, değişen tonlarda ve birden fazla oktavda dizinin tamamını kullanır; seviye 5 birleşik bir melodi diktesidir (perde ve ritim, 4–6 nota).</li>
         <li><strong>Tonlar, oktavlar &amp; yardımcılar:</strong> <code>Do majör</code> veya rastgele tonlarda, 1 ya da birden fazla oktavda çalış. Üstte <strong>Ton</strong>, <strong>Vuruş: açık/kapalı</strong> ve <strong>Tempo (BPM)</strong> ayarlanır; altta <strong>Tonik (Do)</strong>, <strong>Otomatik İleri</strong> (solda), <strong>Yalnızca Dinle</strong> ve 5 seviyeli <strong>Sınav</strong> yer alır.</li>
       </ul>
     `
@@ -3204,7 +3205,7 @@ const MODES_ENCYCLOPEDIA_TR = [
     charNote: "Eksik beşli (b5, ör. Sol♭) + b2",
     vamp: "i° – bII (Dom7b5 – Re♭)",
     desc: "Kendi kök sesi üzerinde kararlı bir tam beşlisi bulunmayan tek diyatonik mod. Bunun yerine tonik akorunun kendisi eksik / yarı eksiktir (m7b5) ve tedirginlikle yüklüdür.",
-    usage: "<strong>Müzikal kullanım:</strong> Tüm bir parçanın tonu olarak nadirdir (ör. Björk <em>Army of Me</em>, progresif metal), ama cazda yarı eksik akorlar (minör ii–V–i'deki ii°7) ve gerilim sahnelerinde vazgeçilmezdir.",
+    usage: "<strong>Müzikal kullanım:</strong> Tüm bir parçanın tonu olarak nadirdir (ör. Björk <em>Army of Me</em>, progresif metal), ama cazda yarı eksik akorlar (minör ii–V–i'deki iiø7) ve gerilim sahnelerinde vazgeçilmezdir.",
     notes: "C4,Db4,Eb4,F4,Gb4,Ab4,Bb4,C5",
     vampChords: [["C3", "Eb4", "Gb4", "Bb4"], ["Db3", "F4", "Ab4"]]
   },
@@ -3772,7 +3773,7 @@ function renderCircleOfFifthsTheoryHTML_TR() {
         Oktavdan (<code>2:1</code>) hemen sonra <strong>tam beşli (3:2)</strong> müzikteki en güçlü akustik bağdır. <strong>Do</strong>'dan başlayarak beşli beşli yukarı çık (<code>Do → Sol → Re → La → Mi → Si → Fa♯…</code>): her adım bir sonraki yeden sesi oluşturmak için tek bir notayı yükseltir ve saat yönünde <strong>bir diyez (♯)</strong> ekler. Beşli beşli aşağı in (yani <strong>dörtlü</strong> çık: <code>Do → Fa → Si♭ → Mi♭ → La♭ → Re♭ → Sol♭</code>): her adımda renk yumuşar ve saat yönünün tersinde <strong>bir bemol (♭)</strong> eklenir.
       </p>
       <p>
-        12 adımdan sonra eşit tampere sistem spirali <strong>saat 6 konumunda (Fa♯ / Sol♭)</strong> kendi üzerine kapatır; burada 6 diyez ve 6 bemol piyanoda birebir aynı tuşlara düşer (<strong>anarmoni</strong>). 12 ayrı diziyi ezberlemek yerine tek bir müzikal pusulan olur!
+        Her iki yönde 6 adımdan sonra diyez ve bemol tarafları <strong>saat 6 konumunda (Fa♯ / Sol♭)</strong> buluşur; eşit tampere sistemde 6 diyez ve 6 bemol piyanoda birebir aynı tuşlara düşer. 12 beşliden sonra yeniden Do'ya dönersin (<strong>anarmoni</strong>). 12 ayrı diziyi ezberlemek yerine tek bir müzikal pusulan olur!
       </p>
       <div class="k-compare-grid">
         <div class="k-compare-box is-peach">

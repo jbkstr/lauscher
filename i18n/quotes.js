@@ -113,16 +113,16 @@ registerColocatedQuotes([
     ar: { cat: "أهلاً بك", text: "«لا عجلة اليوم: أحياناً يحتاج الصوت الجديد إلى مرتين أو ثلاث قبل أن يستقر في الذهن فجأة.»" }
   },
   {
-    de: { cat: "Willkommen", text: "„Unentschlossen? Der Zufall-Button gleich darunter sucht dir sofort eine passende Hör-Runde heraus.“" },
-    en: { cat: "Welcome", text: "“Not sure where to start? Tap Surprise right below and I’ll pick an exercise for you.”" },
-    fr: { cat: "Bienvenue", text: "« Tu hésites par où commencer ? Touche Aléatoire juste là et je te choisis un défi ! »" },
-    es: { cat: "Bienvenida", text: "«¿No sabes por dónde empezar? Toca Aleatorio justo ahí y te elijo un reto.»" },
-    it: { cat: "Benvenuto", text: "«Indeciso su da dove iniziare? Tocca il pulsante “Sorpresa” qui sotto e sceglierò subito un esercizio adatto a te.»" },
-    pl: { cat: "Powitanie", text: "„Nie wiesz, od czego zacząć? Kliknij „Losuj” poniżej, a wybiorę ćwiczenie specjalnie dla Ciebie.”" },
-    uk: { cat: "Ласкаво просимо", text: "«Не знаєш, із чого почати? Натисни «Випадкова» просто нижче, і я оберу вправу для тебе.»" },
-    ur: { cat: "خوش آمدید", text: "«سمجھ نہیں آ رہا کہاں سے شروع کریں؟ نیچے سرپرائز دبائیں، میں خود آپ کے لیے مشق چنتا ہوں۔»" },
-    tr: { cat: "Hoş Geldin", text: "“Nereden başlayacağına karar veremedin mi? Hemen aşağıdaki Rastgele düğmesine bas, senin için bir alıştırma seçeyim.”" },
-    ar: { cat: "أهلاً بك", text: "«لست متأكداً من أين تبدأ؟ اضغط زر المفاجأة في الأسفل وسأختار لك جولة مناسبة فوراً.»" }
+    de: { cat: "Willkommen", text: "„Unentschlossen? Tipp einfach auf ‚Weiterüben‘ – dann geht es genau dort weiter, wo du zuletzt aufgehört hast.“" },
+    en: { cat: "Welcome", text: "“Can’t decide? Just tap ‘Continue’ and pick up right where you left off.”" },
+    fr: { cat: "Bienvenue", text: "« Tu hésites ? Touche simplement “Continuer” et reprends exactement là où tu t’étais arrêté. »" },
+    es: { cat: "Bienvenida", text: "«¿No te decides? Toca “Seguir practicando” y retoma justo donde lo dejaste.»" },
+    it: { cat: "Benvenuto", text: "«Indeciso? Tocca “Continua” e riprendi esattamente da dove avevi lasciato.»" },
+    pl: { cat: "Powitanie", text: "„Nie możesz się zdecydować? Stuknij ‚Kontynuuj’ i wróć dokładnie do miejsca, w którym ostatnio przerwano.”" },
+    uk: { cat: "Ласкаво просимо", text: "«Не можеш вирішити? Торкнися „Продовжити“ — і повертайся саме туди, де зупинилося останнє заняття.»" },
+    ur: { cat: "خوش آمدید", text: "«فیصلہ نہیں ہو پا رہا؟ بس ‹مشق جاری رکھیں› دبائیں اور وہیں سے آگے بڑھیں جہاں پچھلی بار رکے تھے۔»" },
+    tr: { cat: "Hoş Geldin", text: "“Karar veremedin mi? ‘Devam et’ düğmesine dokun, en son kaldığın yerden sürdür.”" },
+    ar: { cat: "أهلاً بك", text: "«محتار؟ اضغط ‹متابعة التدرّب› لتكمل من حيث توقفت آخر مرة.»" }
   },
   {
     de: { cat: "Willkommen", text: "„Jeder große Musiker hat einmal damit angefangen, erst mal nur zwei Töne sicher auseinanderzuhalten.“" },
@@ -149,16 +149,16 @@ registerColocatedQuotes([
     ar: { cat: "أهلاً بك", text: "«بهدوء عبر السماعات أو بصوت عالٍ في الغرفة — خمس دقائق من الاستماع المركّز تصنع فرقاً رائعاً.»" }
   },
   {
-    de: { cat: "Willkommen", text: "„Stimme schon aufgewärmt? Im ‚Einsing-Helfer‘ begleitest du deine Stimmlage in fünf Minuten vom lockeren Brummen bis zum Chorklang!“" },
-    en: { cat: "Welcome", text: "“Ready to warm up your voice? Vocal Warmup guides your range in five minutes from gentle humming right up to choir blend!”" },
-    fr: { cat: "Bienvenue", text: "« Envie d’échauffer ta voix ? L’Échauffement vocal t’accompagne en cinq minutes du souffle doux jusqu’aux accords de chœur ! »" },
-    es: { cat: "Bienvenida", text: "«¿Quieres calentar la voz? El calentamiento vocal te acompaña en cinco minutos, de la respiración suave a los acordes de coro.»" },
-    it: { cat: "Benvenuto", text: "«Voce già calda? Nel “Riscaldamento vocale” accompagni la tua estensione in cinque minuti, dal mormorio leggero fino al suono corale!»" },
-    pl: { cat: "Powitanie", text: "„Głos już rozgrzany? W „Rozgrzewce głosowej” w pięć minut przejdziesz od spokojnego oddechu do pełnego chóru!”" },
-    uk: { cat: "Ласкаво просимо", text: "«Голос уже розігрітий? У «Розспівці» за п’ять хвилин можна пройти шлях від м’якого гудіння до злагодженого хорового звучання!»" },
-    ur: { cat: "خوش آمدید", text: "«آواز کو گرم کرنے کے لیے تیار ہیں؟ ووکل وارم اپ پانچ منٹ میں ہلکی گنگناہٹ سے کورس بلینڈ تک لے جاتا ہے!»" },
-    tr: { cat: "Hoş Geldin", text: "“Sesini ısıtmaya hazır mısın? Ses Isıtma rehberi, ses aralığını beş dakikada hafif mırıldanmadan koro tınısına taşır!”" },
-    ar: { cat: "أهلاً بك", text: "«هل أحميت صوتك؟ في وحدة «الغناء والإحماء» ترافق طبقتك الصوتية خلال خمس دقائق من الهمهمة اللطيفة حتى تناغم الجوقة!»" }
+    de: { cat: "Willkommen", text: "„Stimme schon aufgewärmt? Im Bereich ‚Singen‘ begleitet dich ein Fünf-Minuten-Einsingen vom lockeren Brummen bis zum Chorklang!“" },
+    en: { cat: "Welcome", text: "“Ready to warm up your voice? In ‘Singing’, a five-minute warm-up takes you from gentle humming right up to a full choir sound!”" },
+    fr: { cat: "Bienvenue", text: "« Envie d’échauffer ta voix ? Dans “Chant”, un échauffement de cinq minutes t’emmène du fredonnement doux jusqu’au son de chœur ! »" },
+    es: { cat: "Bienvenida", text: "«¿Quieres calentar la voz? En “Canto”, un calentamiento de cinco minutos te lleva del tarareo suave hasta el sonido de coro.»" },
+    it: { cat: "Benvenuto", text: "«Voce già calda? In “Canto” un riscaldamento di cinque minuti ti accompagna dal mormorio leggero fino al suono corale!»" },
+    pl: { cat: "Powitanie", text: "„Głos już rozgrzany? W dziale ‚Śpiew’ pięciominutowa rozgrzewka poprowadzi Cię od spokojnego mruczenia aż do brzmienia chóru!”" },
+    uk: { cat: "Ласкаво просимо", text: "«Голос уже розігрітий? У розділі „Спів“ п’ятихвилинна розспівка проведе тебе від м’якого гудіння до хорового звучання!»" },
+    ur: { cat: "خوش آمدید", text: "«آواز کو گرم کرنے کے لیے تیار ہیں؟ ‹گانا› حصے میں پانچ منٹ کی وارم اپ آپ کو ہلکی گنگناہٹ سے کورس کی آواز تک لے جاتی ہے!»" },
+    tr: { cat: "Hoş Geldin", text: "“Sesini ısıttın mı? ‘Şan’ bölümündeki beş dakikalık ısınma seni hafif mırıldanmadan koro tınısına kadar götürür!”" },
+    ar: { cat: "أهلاً بك", text: "«هل أحميت صوتك؟ في قسم ‹الغناء› يأخذك إحماء من خمس دقائق من الهمهمة اللطيفة حتى صوت الجوقة!»" }
   },
   {
     de: { cat: "Willkommen", text: "„Keine Hand frei zum Tippen? Schalte einfach ‚Nur Hören‘ ein und lass dir die Übungen entspannt zum Mitdenken vorspielen!“" },
@@ -173,16 +173,16 @@ registerColocatedQuotes([
     ar: { cat: "أهلاً بك", text: "«يداك مشغولتان؟ شغّل وضع «الاستماع فقط» ودع التمارين تُعزف بسلاسة بينما تدرّب أذنك ذهنياً!»" }
   },
   {
-    de: { cat: "Willkommen", text: "„Neugierig auf Fachbegriffe in einer anderen Sprache? Unter den Einstellungen wechselst du live zwischen Deutsch, English, Español, Français, Polski, Українська und اردو!“" },
-    en: { cat: "Welcome", text: "“Curious how music terms sound abroad? Open Settings to switch live anytime between Deutsch, English, Español, Français, Polski, Українська, and اردو!”" },
-    fr: { cat: "Bienvenue", text: "« Curieux de découvrir les termes musicaux ailleurs ? Dans les Paramètres, passe en direct entre français, allemand, anglais, espagnol, polonais, ukrainien et ourdou ! »" },
-    es: { cat: "Bienvenida", text: "«¿Curiosidad por los términos musicales en otros idiomas? En Ajustes puedes cambiar al instante entre español, alemán, inglés, francés, polaco, ucraniano y urdu.»" },
-    it: { cat: "Benvenuto", text: "«Curioso di scoprire i termini musicali in altre lingue? Nelle Impostazioni puoi passare all’istante tra italiano, tedesco, inglese, spagnolo, francese, polacco, ucraino e urdu!»" },
-    pl: { cat: "Powitanie", text: "„Ciekawi Cię, jak terminy muzyczne brzmią w innych językach? W Ustawieniach przełączysz natychmiast między Polski, Deutsch, English, Español, Français, Українська i اردو!”" },
-    uk: { cat: "Ласкаво просимо", text: "«Цікаво, як музичні терміни звучать іншими мовами? У Налаштуваннях можна миттєво перемикатися між Українською, Deutsch, English, Español, Français, Polski та اردو!»" },
-    ur: { cat: "خوش آمدید", text: "«جاننا چاہتے ہیں موسیقی کی اصطلاحات دوسری زبانوں میں کیسی لگتی ہیں؟ ترتیبات میں جا کر اردو، Deutsch، English، Español، Français، Polski اور Українська میں فوری بدلیں!»" },
-    tr: { cat: "Hoş Geldin", text: "“Müzik terimlerinin başka dillerde nasıl söylendiğini merak ediyor musun? Ayarlar'dan istediğin an Deutsch, English, Español, Français, Italiano, Polski, Українська, اردو ve Türkçe arasında geçiş yapabilirsin!”" },
-    ar: { cat: "أهلاً بك", text: "«فضولي لمعرفة المصطلحات الموسيقية بلغات أخرى؟ من الإعدادات يمكنك التبديل فوراً بين Deutsch وEnglish وEspañol وFrançais وItaliano وPolski وTürkçe وУкраїнська واردو والعربية!»" }
+    de: { cat: "Willkommen", text: "„Neugierig auf Fachbegriffe in einer anderen Sprache? In den Einstellungen wechselst du jederzeit zwischen zehn Sprachen – von Italiano über Türkçe bis العربية!“" },
+    en: { cat: "Welcome", text: "“Curious how music terms sound in other languages? In Settings you can switch between ten languages anytime — from Italiano to Türkçe to العربية!”" },
+    fr: { cat: "Bienvenue", text: "« Curieux de découvrir les termes musicaux dans d’autres langues ? Dans les Paramètres, tu passes à tout moment d’une langue à l’autre parmi dix — de l’Italiano au Türkçe jusqu’à l’العربية ! »" },
+    es: { cat: "Bienvenida", text: "«¿Curiosidad por los términos musicales en otros idiomas? En Ajustes puedes cambiar en cualquier momento entre diez idiomas: ¡del Italiano al Türkçe o al العربية!»" },
+    it: { cat: "Benvenuto", text: "«Curioso di scoprire i termini musicali in altre lingue? Nelle Impostazioni puoi passare in qualsiasi momento tra dieci lingue, dal Deutsch al Türkçe fino a العربية!»" },
+    pl: { cat: "Powitanie", text: "„Ciekawi Cię, jak terminy muzyczne brzmią w innych językach? W Ustawieniach w każdej chwili przełączysz się między dziesięcioma językami — od Italiano przez Türkçe po العربية!”" },
+    uk: { cat: "Ласкаво просимо", text: "«Цікаво, як музичні терміни звучать іншими мовами? У Налаштуваннях можна будь-коли перемикатися між десятьма мовами — від Italiano й Türkçe до العربية!»" },
+    ur: { cat: "خوش آمدید", text: "«جاننا چاہتے ہیں کہ موسیقی کی اصطلاحات دوسری زبانوں میں کیسی لگتی ہیں؟ ترتیبات میں آپ کسی بھی وقت دس زبانوں کے درمیان بدل سکتے ہیں — Deutsch سے Türkçe اور العربية تک!»" },
+    tr: { cat: "Hoş Geldin", text: "“Müzik terimlerinin başka dillerde nasıl söylendiğini merak ediyor musun? Ayarlar’dan istediğin an on dil arasında geçiş yapabilirsin — Deutsch’tan Italiano’ya, oradan العربية’ya!”" },
+    ar: { cat: "أهلاً بك", text: "«فضولي لمعرفة المصطلحات الموسيقية بلغات أخرى؟ من الإعدادات يمكنك التبديل في أي وقت بين عشر لغات — من Deutsch إلى Türkçe وحتى اردو!»" }
   },
   {
     de: { cat: "Willkommen", text: "„Bereit für eine kleine Herausforderung? Jede Übungskategorie bietet ihre eigene Prüfung – ganz ohne Zeitdruck und mit Bestwert im Konto!“" },
@@ -233,16 +233,16 @@ registerColocatedQuotes([
     ar: { cat: "تشجيع", text: "«عندما يبدو تآلفان متشابهين جداً، أنصت فقط إلى أعمق نغمة باص في الأسفل!»" }
   },
   {
-    de: { cat: "Mutmacher", text: "„Noch unsicher? Nutz in der Übung jederzeit den grünen Tonika-Knopf als festen Anker.“" },
-    en: { cat: "Encouragement", text: "“Feeling lost in a progression? Tap the green Tonic button anytime to ground your ear.”" },
-    fr: { cat: "Encouragement", text: "« Un doute en cours de cadence ? Touche le bouton vert Tonique pour retrouver ton ancrage. »" },
-    es: { cat: "Ánimo", text: "«¿Dudas en mitad de la cadencia? Toca el botón verde Tónica para recuperar tu ancla.»" },
-    it: { cat: "Incoraggiamento", text: "«Ancora incerto? Durante l’esercizio tocca quando vuoi il pulsante verde Tonica per ritrovare la tua ancora.»" },
-    pl: { cat: "Motywacja", text: "„Zgubiłeś się w przebiegu? Zielony przycisk Toniki w każdej chwili przywróci pewne oparcie.”" },
-    uk: { cat: "Підбадьорення", text: "«Згубився в послідовності? Натисни зелену кнопку Тоніки будь-якої миті, щоб зафіксувати опору.»" },
-    ur: { cat: "حوصلہ افزائی", text: "«کارڈ سلسلے میں راستہ کھو بیٹھے؟ کسی بھی وقت سبز ٹانک بٹن دبا کر کان کو دوبارہ سُر میں لے آئیں۔»" },
-    tr: { cat: "Motivasyon", text: "“Hâlâ emin değil misin? Alıştırma sırasında yeşil Tonik düğmesine istediğin zaman basarak kulağını sabitleyebilirsin.”" },
-    ar: { cat: "تشجيع", text: "«لا تزال غير متأكد؟ استخدم زر التونيك الأخضر في أي وقت كمرساة ثابتة لأذنك.»" }
+    de: { cat: "Mutmacher", text: "„Noch unsicher? Der Tonika-Knopf in der Übung spielt dir jederzeit den Grundton als festen Anker vor.“" },
+    en: { cat: "Encouragement", text: "“Still unsure? The Tonic button in the exercise plays the home note anytime as a steady anchor.”" },
+    fr: { cat: "Encouragement", text: "« Encore un doute ? Le bouton Tonique de l’exercice te rejoue à tout moment la note de base comme point d’ancrage. »" },
+    es: { cat: "Ánimo", text: "«¿Aún con dudas? El botón Tónica del ejercicio te toca en cualquier momento la nota base como ancla segura.»" },
+    it: { cat: "Incoraggiamento", text: "«Ancora incerto? Il pulsante Tonica nell’esercizio ti fa sentire in qualsiasi momento la nota di base come ancora sicura.»" },
+    pl: { cat: "Motywacja", text: "„Wciąż niepewnie? Przycisk Toniki w ćwiczeniu w każdej chwili zagra dźwięk podstawowy jako stały punkt odniesienia.”" },
+    uk: { cat: "Підбадьорення", text: "«Ще вагаєшся? Кнопка Тоніки у вправі будь-коли зіграє основний тон як надійну опору.»" },
+    ur: { cat: "حوصلہ افزائی", text: "«ابھی بھی یقین نہیں؟ مشق میں ٹانک بٹن کسی بھی وقت بنیادی سُر بجا کر آپ کو مضبوط سہارا دیتا ہے۔»" },
+    tr: { cat: "Motivasyon", text: "“Hâlâ emin değil misin? Alıştırmadaki Tonik düğmesi ana sesi istediğin an sağlam bir dayanak olarak çalar.”" },
+    ar: { cat: "تشجيع", text: "«لا تزال غير متأكد؟ زر التونيك في التمرين يعزف لك النغمة الأساسية في أي وقت كمرساة ثابتة.»" }
   },
   {
     de: { cat: "Mutmacher", text: "„Schließ beim nächsten Abspielen ruhig kurz die Augen – ohne Ablenkung nimmt man viel feinere Details wahr.“" },
@@ -269,16 +269,16 @@ registerColocatedQuotes([
     ar: { cat: "تشجيع", text: "«المسافات الهابطة تبدو صعبة في البداية — تخيّل أنك تنزل سلماً خطوة بعد خطوة!»" }
   },
   {
-    de: { cat: "Mutmacher", text: "„Bei den Melodien hilft inneres Mitsingen: Merk dir zuerst nur den ersten und den letzten Ton der Vierer-Reihe.“" },
-    en: { cat: "Encouragement", text: "“In Melodies, try singing silently inside your head: catch the first and last note of the four first.”" },
-    fr: { cat: "Encouragement", text: "« En Mélodies, chante dans ta tête : attrape d’abord la première et la dernière note des quatre. »" },
-    es: { cat: "Ánimo", text: "«En Melodías, canta mentalmente: atrapa primero la primera y la última de las cuatro notas.»" },
-    it: { cat: "Incoraggiamento", text: "«Nelle Melodie aiuta cantare dentro di sé: fissa per prima cosa solo la prima e l’ultima nota della sequenza di quattro.»" },
-    pl: { cat: "Motywacja", text: "„W Melodiach śpiewaj w myślach razem z nagraniem: najpierw złap pierwszy i ostatni z czterech dźwięków.”" },
-    uk: { cat: "Підбадьорення", text: "«У Мелодіях спробуй заспівати подумки про себе: спочатку впіймай першу та останню ноти з чотирьох.»" },
-    ur: { cat: "حوصلہ افزائی", text: "«دھنوں میں دل ہی دل میں خاموشی سے گائیں: پہلے چار میں سے پہلا اور آخری سُر پکڑیں۔»" },
-    tr: { cat: "Motivasyon", text: "“Melodilerde içinden eşlik etmek işe yarar: önce dörtlü dizinin sadece ilk ve son sesini yakala.”" },
-    ar: { cat: "تشجيع", text: "«في الألحان يساعد الغناء الداخلي: احفظ أولاً النغمة الأولى والأخيرة فقط من الجملة.»" }
+    de: { cat: "Mutmacher", text: "„Bei den Melodien hilft inneres Mitsingen: Merk dir zuerst nur den ersten und den letzten Ton – die Mitte füllt sich dann fast von allein.“" },
+    en: { cat: "Encouragement", text: "“In Melodies, sing along inside your head: catch just the first and last note first — the middle often fills itself in.”" },
+    fr: { cat: "Encouragement", text: "« En Mélodies, chante dans ta tête : attrape d’abord la première et la dernière note — le milieu suit souvent tout seul. »" },
+    es: { cat: "Ánimo", text: "«En Melodías, canta mentalmente: atrapa primero la primera y la última nota; el centro suele completarse casi solo.»" },
+    it: { cat: "Incoraggiamento", text: "«Nelle Melodie aiuta cantare dentro di sé: fissa prima solo la prima e l’ultima nota, il centro si riempie quasi da solo.»" },
+    pl: { cat: "Motywacja", text: "„W Melodiach śpiewaj w myślach: najpierw złap tylko pierwszy i ostatni dźwięk — środek często dopowie się sam.”" },
+    uk: { cat: "Підбадьорення", text: "«У Мелодіях співай подумки: спершу впіймай лише першу й останню ноту — середина часто складеться сама.»" },
+    ur: { cat: "حوصلہ افزائی", text: "«دھنوں میں دل ہی دل میں گائیں: پہلے صرف پہلا اور آخری سُر پکڑیں — درمیان والے اکثر خود ہی سمجھ آ جاتے ہیں۔»" },
+    tr: { cat: "Motivasyon", text: "“Melodilerde içinden eşlik et: önce sadece ilk ve son sesi yakala — ortası çoğu zaman kendiliğinden yerine oturur.”" },
+    ar: { cat: "تشجيع", text: "«في الألحان يساعد الغناء الداخلي: احفظ أولاً النغمة الأولى والأخيرة فقط — وغالباً ما يكتمل الوسط من تلقاء نفسه.»" }
   },
   {
     de: { cat: "Mutmacher", text: "„Der Leitton Ti will fast immer nach oben zum Do – hör mal hin, wie stark diese Spannung zieht!“" },
@@ -473,16 +473,16 @@ registerColocatedQuotes([
     ar: { cat: "نصيحة", text: "«في المازج ينتظرك أيضاً إعداد «أوركسترا» — مثالي عندما تريد أن تتألق القفلات كقاعة حفلات كبيرة.»" }
   },
   {
-    de: { cat: "Tipp", text: "„Zu hell am Abend? Über das Zahnrad oben rechts schaltest du jederzeit auf ‚Dunkel‘ und vier Farbdesigns inklusive Metal um.“" },
-    en: { cat: "Tip", text: "“Practicing late at night? Tap the gear icon at top right for Dark mode and four built-in themes including Metal.”" },
-    fr: { cat: "Astuce", text: "« Tu pratiques tard le soir ? Ouvre la roue dentée pour le mode Sombre et quatre thèmes dont Metal. »" },
-    es: { cat: "Consejo", text: "«¿Practicas tarde por la noche? Abre la rueda dentada para el modo oscuro y cuatro temas, entre ellos Metal.»" },
-    it: { cat: "Consiglio", text: "«Troppo luminoso la sera? Con l’ingranaggio in alto a destra passi in qualsiasi momento alla modalità scura e a quattro temi, incluso Metal.»" },
-    pl: { cat: "Wskazówka", text: "„Ćwiczysz wieczorem? Kliknij koło zębate u góry, aby włączyć tryb ciemny i cztery motywy kolorystyczne, w tym Metal.”" },
-    uk: { cat: "Порада", text: "«Тренуєшся пізно ввечері? Натисни шестерню вгорі праворуч, щоб увімкнути темний режим і чотири теми оформлення включно з Metal.»" },
-    ur: { cat: "مشورہ", text: "«رات دیر کو مشق کر رہے ہیں؟ اوپر کونے میں گیئر آئیکون دبا کر ڈارک موڈ اور Metal سمیت چار رنگین تھیمز آزمائیں۔»" },
-    tr: { cat: "İpucu", text: "“Akşamları ekran çok mu parlak? Sağ üstteki dişli simgesinden istediğin zaman Karanlık moda ve Metal dahil dört renk temasına geçebilirsin.”" },
-    ar: { cat: "نصيحة", text: "«الإضاءة ساطعة ليلاً؟ من أيقونة الإعدادات في الأعلى يمكنك التبديل فوراً إلى الوضع الداكن وسمات ألوان متنوعة منها Metal.»" }
+    de: { cat: "Tipp", text: "„Zu hell am Abend? Über das Zahnrad oben rechts schaltest du jederzeit auf ‚Dunkel‘ oder wählst eines von sechs Farbdesigns – Metal inklusive.“" },
+    en: { cat: "Tip", text: "“Too bright in the evening? Tap the gear icon at top right to switch to Dark mode or pick one of six themes — Metal included.”" },
+    fr: { cat: "Astuce", text: "« Trop lumineux le soir ? Touche la roue dentée en haut pour passer en mode Sombre ou choisir l’un des six thèmes — Metal compris. »" },
+    es: { cat: "Consejo", text: "«¿Demasiado brillo por la noche? Toca la rueda dentada de arriba para el modo oscuro o elige uno de los seis temas, Metal incluido.»" },
+    it: { cat: "Consiglio", text: "«Troppo luminoso la sera? Con l’ingranaggio in alto passi alla modalità scura o scegli uno dei sei temi, Metal compreso.»" },
+    pl: { cat: "Wskazówka", text: "„Za jasno wieczorem? Koło zębate u góry włączy tryb ciemny albo jeden z sześciu motywów — łącznie z Metal.”" },
+    uk: { cat: "Порада", text: "«Занадто яскраво ввечері? Через шестерню вгорі увімкни темний режим або обери одну з шести тем — разом із Metal.»" },
+    ur: { cat: "مشورہ", text: "«شام کو اسکرین بہت روشن ہے؟ اوپر گیئر آئیکون سے ڈارک موڈ آن کریں یا Metal سمیت چھ تھیمز میں سے کوئی ایک چنیں۔»" },
+    tr: { cat: "İpucu", text: "“Akşamları ekran çok mu parlak? Üstteki dişli simgesinden Karanlık moda geç ya da Metal dahil altı temadan birini seç.”" },
+    ar: { cat: "نصيحة", text: "«الإضاءة ساطعة مساءً؟ من أيقونة الترس في الأعلى انتقل إلى الوضع الداكن أو اختر واحدة من ست سمات — منها Metal.»" }
   },
   {
     de: { cat: "Tipp", text: "„Deine Quick-Mixe auf der Startseite verwaltest du jederzeit unter ‚Mein Konto‘ – dort legst du auch eigene Favoriten an!“" },
@@ -545,16 +545,16 @@ registerColocatedQuotes([
     ar: { cat: "نصيحة", text: "«في «الإنتاج • معادل الضوضاء الوردية»، استخدم عادة مهندسي الصوت: بدّل باستمرار إلى «بدون معادل» حتى يبرز النطاق المعزَّز فوراً!»" }
   },
   {
-    de: { cat: "Tipp", text: "„Dreh im Bereich ‚Wissen‘ am interaktiven Quintenzirkel: Nachbar-Tonarten teilen sechs von sieben Tönen und klingen beim Modulieren samtweich!“" },
-    en: { cat: "Tip", text: "“Spin the interactive Circle of Fifths inside Knowledge: neighboring keys share six of seven notes, making key changes glide smoothly!”" },
-    fr: { cat: "Astuce", text: "« Fais tourner le Cycle des quintes interactif dans Savoir : deux tonalités voisines partagent six notes sur sept, pour des modulations toutes douces ! »" },
-    es: { cat: "Consejo", text: "«Gira el círculo de quintas interactivo en Saber: dos tonalidades vecinas comparten seis de siete notas, ¡para modulaciones muy suaves!»" },
-    it: { cat: "Consiglio", text: "«Gira il circolo delle quinte interattivo nella sezione “Sapere”: le tonalità vicine condividono sei note su sette e modulano con dolcezza!»" },
-    pl: { cat: "Wskazówka", text: "„Zakręć interaktywnym Kołem kwintowym w Wiedzy: sąsiednie tonacje mają 6 wspólnych dźwięków z 7, dlatego przejścia brzmią tak miękko!”" },
-    uk: { cat: "Порада", text: "«Покрути інтерактивне Кварто-квінтове коло в Знаннях: сусідні тональності мають шість спільних нот із семи, тому модуляції звучать так м’яко!»" },
-    ur: { cat: "مشورہ", text: "«علم کے حصے میں انٹرایکٹو سرکل آف ففتھس گھمائیں: پڑوسی کلیدوں میں سات میں سے چھ نوٹ مشترک ہوتے ہیں، اسی لیے تبدیلی ہموار لگتی ہے!»" },
-    tr: { cat: "İpucu", text: "“Bilgi bölümündeki etkileşimli Beşliler Çemberi'ni çevir: komşu tonlar yedi sesten altısını paylaşır, bu yüzden modülasyonları ipek gibi yumuşaktır!”" },
-    ar: { cat: "نصيحة", text: "«أدِر دائرة الخامسات التفاعلية في قسم «المعرفة»: المقامات المتجاورة تتشارك 6 من أصل 7 نغمات، فتبدو الانتقالات بينها سلسة للغاية!»" }
+    de: { cat: "Tipp", text: "„Dreh unter ‚Werkzeuge‘ am interaktiven Quintenzirkel: Nachbar-Tonarten teilen sechs von sieben Tönen und klingen beim Modulieren samtweich!“" },
+    en: { cat: "Tip", text: "“Spin the interactive Circle of Fifths under Tools: neighboring keys share six of seven notes, so key changes glide smoothly!”" },
+    fr: { cat: "Astuce", text: "« Fais tourner le cycle des quintes interactif dans Outils : deux tonalités voisines partagent six notes sur sept, pour des modulations toutes douces ! »" },
+    es: { cat: "Consejo", text: "«Gira el círculo de quintas interactivo en Herramientas: dos tonalidades vecinas comparten seis de siete notas, ¡para modulaciones muy suaves!»" },
+    it: { cat: "Consiglio", text: "«Gira il circolo delle quinte interattivo in “Strumenti”: le tonalità vicine condividono sei note su sette e modulano con dolcezza!»" },
+    pl: { cat: "Wskazówka", text: "„Zakręć interaktywnym kołem kwintowym w Narzędziach: sąsiednie tonacje mają sześć z siedmiu dźwięków wspólnych, dlatego przejścia brzmią tak miękko!”" },
+    uk: { cat: "Порада", text: "«Покрути інтерактивне квінтове коло в Інструментах: сусідні тональності мають шість спільних нот із семи, тому модуляції звучать так м’яко!»" },
+    ur: { cat: "مشورہ", text: "«اوزار میں انٹرایکٹو سرکل آف ففتھس گھمائیں: پڑوسی کلیدوں میں سات میں سے چھ سُر مشترک ہوتے ہیں، اسی لیے تبدیلی ہموار لگتی ہے!»" },
+    tr: { cat: "İpucu", text: "“Araçlar’daki etkileşimli Beşliler Çemberi’ni çevir: komşu tonlar yedi sesten altısını paylaşır, bu yüzden modülasyonlar ipek gibi yumuşaktır!”" },
+    ar: { cat: "نصيحة", text: "«أدِر دائرة الخامسات التفاعلية في ‹الأدوات›: المقامات المتجاورة تتشارك 6 من أصل 7 نغمات، فتبدو الانتقالات بينها سلسة للغاية!»" }
   },
   {
     de: { cat: "Tipp", text: "„Bei ‚Tonleitern & Modi‘ musst du nicht alle sieben Töne prüfen – such zuerst nur nach dem einen Charakterton wie der #4 bei Lydisch!“" },
@@ -581,16 +581,16 @@ registerColocatedQuotes([
     ar: { cat: "نصيحة", text: "«تريد مظهراً خاصاً بك؟ في محرر الألوان داخل حسابك يمكنك تصميم حتى ثلاث سمات ألوان مخصصة بألوانك المفضلة!»" }
   },
   {
-    de: { cat: "Wusstest du?", text: "„Fast jeder zweite Pop-Hit nutzt dieselben vier Akkorde: I – V – vi – IV.“" },
-    en: { cat: "Did You Know?", text: "“Roughly half of modern pop hits rely on the same four chords: I – V – vi – IV.”" },
-    fr: { cat: "Le saviez-vous ?", text: "« Près de la moitié des tubes pop modernes reposent sur les quatre mêmes accords : I – V – vi – IV. »" },
-    es: { cat: "¿Lo sabías?", text: "«Casi la mitad de los éxitos pop modernos se basan en los mismos cuatro acordes: I – V – vi – IV.»" },
-    it: { cat: "Lo sapevi?", text: "«Quasi la metà dei successi pop moderni usa gli stessi quattro accordi: I – V – vi – IV.»" },
-    pl: { cat: "Czy wiesz, że…", text: "„Prawie połowa współczesnych hitów pop opiera się na tych samych czterech akordach: I – V – vi – IV.”" },
-    uk: { cat: "Цікавий факт", text: "«Приблизно половина сучасних поп-хітів тримається на тих самих чотирьох акордах: I – V – vi – IV.»" },
-    ur: { cat: "کیا آپ جانتے ہیں؟", text: "«جدید پاپ کے تقریباً آدھے ہٹ گانے ایک ہی چار کارڈز پر چلتے ہیں: I – V – vi – IV۔»" },
-    tr: { cat: "Biliyor muydun?", text: "“Modern pop hitlerinin neredeyse yarısı aynı dört akoru kullanır: I – V – vi – IV.”" },
-    ar: { cat: "هل تعلم؟", text: "«قرابة نصف أغاني البوب الحديثة تعتمد على التآلفات الأربعة نفسها: I – V – vi – IV.»" }
+    de: { cat: "Wusstest du?", text: "„Unzählige Pop-Hits kommen mit denselben vier Akkorden aus: I – V – vi – IV. Hör beim nächsten Radiosong mal genau hin!“" },
+    en: { cat: "Did You Know?", text: "“Countless pop hits get by with the same four chords: I – V – vi – IV. Listen closely to the next song on the radio!”" },
+    fr: { cat: "Le saviez-vous ?", text: "« D’innombrables tubes pop se contentent des quatre mêmes accords : I – V – vi – IV. Écoute bien la prochaine chanson à la radio ! »" },
+    es: { cat: "¿Lo sabías?", text: "«Innumerables éxitos pop se las arreglan con los mismos cuatro acordes: I – V – vi – IV. ¡Escucha con atención la próxima canción en la radio!»" },
+    it: { cat: "Lo sapevi?", text: "«Innumerevoli successi pop si reggono sugli stessi quattro accordi: I – V – vi – IV. Ascolta bene la prossima canzone alla radio!»" },
+    pl: { cat: "Czy wiesz, że…", text: "„Niezliczone przeboje pop opierają się na tych samych czterech akordach: I – V – vi – IV. Wsłuchaj się w następną piosenkę w radiu!”" },
+    uk: { cat: "Цікавий факт", text: "«Безліч поп-хітів обходяться тими самими чотирма акордами: I – V – vi – IV. Прислухайся до наступної пісні по радіо!»" },
+    ur: { cat: "کیا آپ جانتے ہیں؟", text: "«بے شمار پاپ ہٹ گانے انہی چار کارڈز پر چلتے ہیں: I – V – vi – IV۔ اگلی بار ریڈیو پر کوئی گانا غور سے سنیں!»" },
+    tr: { cat: "Biliyor muydun?", text: "“Sayısız pop hiti aynı dört akorla yetinir: I – V – vi – IV. Radyodaki bir sonraki şarkıyı dikkatle dinle!”" },
+    ar: { cat: "هل تعلم؟", text: "«عدد لا يحصى من أغاني البوب يكتفي بالتآلفات الأربعة نفسها: I – V – vi – IV. استمع جيداً للأغنية التالية في الراديو!»" }
   },
   {
     de: { cat: "Wusstest du?", text: "„Bei einer Oktave schwingt der obere Ton exakt doppelt so schnell wie der untere (Verhältnis 2:1).“" },
@@ -665,16 +665,16 @@ registerColocatedQuotes([
     ar: { cat: "هل تعلم؟", text: "«اللحن الشهير لفيلم Jaws يستمد كل توتره من أصغر خطوة في الموسيقى: الثانية الصغيرة!»" }
   },
   {
-    de: { cat: "Wusstest du?", text: "„Die Silben ‚Do, Re, Mi‘ stammen von Guido von Arezzo – er nutzte schon vor fast 1000 Jahren einen Hymnus als Merkhilfe.“" },
-    en: { cat: "Did You Know?", text: "“The syllables ‘Do, Re, Mi’ go back nearly 1,000 years to Guido of Arezzo, who pulled them from a medieval hymn.”" },
-    fr: { cat: "Le saviez-vous ?", text: "« Les syllabes Do, Ré, Mi ont presque mille ans : Guy d’Arezzo les a tirées d’un hymne médiéval ! »" },
-    es: { cat: "¿Lo sabías?", text: "«Las sílabas Do, Re, Mi tienen casi mil años: ¡Guido d’Arezzo las tomó de un himno medieval!»" },
-    it: { cat: "Lo sapevi?", text: "«Le sillabe “Do, Re, Mi” hanno quasi mille anni: Guido d’Arezzo le ricavò da un inno medievale come aiuto per la memoria!»" },
-    pl: { cat: "Czy wiesz, że…", text: "„Nazwy „Do, Re, Mi…” wymyślono prawie 1000 lat temu — Guido z Arezzo wziął je z pierwszych sylab średniowiecznego hymnu.”" },
-    uk: { cat: "Цікавий факт", text: "«Назви нот «До, Ре, Мі…» виникли майже 1000 років тому — Гвідо д’Ареццо взяв їх із перших складів середньовічного гімну.»" },
-    ur: { cat: "کیا آپ جانتے ہیں؟", text: "«‹Do, Re, Mi› کے ہجّے تقریباً 1000 سال پرانے ہیں جب گویڈو آف اریزو نے انہیں ایک قدیم نظم سے اخذ کیا — بالکل ہندوستانی سرگم سا رے گا ما کی طرح۔»" },
-    tr: { cat: "Biliyor muydun?", text: "“‘Do, Re, Mi’ heceleri yaklaşık 1000 yıl önce yaşamış Guido d'Arezzo'dan gelir — bunları bir ilahiden hafıza yardımcısı olarak almıştı.”" },
-    ar: { cat: "هل تعلم؟", text: "«مقاطع «دو، ري، مي» تعود إلى نحو ألف عام مع غويدو دا أريتسو الذي استلهمها من ترنيمة قديمة لتسهيل الحفظ.»" }
+    de: { cat: "Wusstest du?", text: "„Die Silben Re, Mi, Fa, Sol, La stammen von Guido von Arezzo, der vor fast 1000 Jahren einen Hymnus als Merkhilfe nutzte – aus seinem ‚Ut‘ wurde erst später das ‚Do‘.“" },
+    en: { cat: "Did You Know?", text: "“The syllables Re, Mi, Fa, Sol, La go back nearly 1,000 years to Guido of Arezzo, who took them from a hymn — his ‘Ut’ only later became ‘Do’.”" },
+    fr: { cat: "Le saviez-vous ?", text: "« Les syllabes Ré, Mi, Fa, Sol, La remontent à Guy d’Arezzo, il y a près de mille ans, qui les tira d’un hymne — son “Ut” ne devint “Do” que plus tard. »" },
+    es: { cat: "¿Lo sabías?", text: "«Las sílabas Re, Mi, Fa, Sol, La vienen de Guido d’Arezzo, hace casi mil años, que las tomó de un himno; su “Ut” no se convirtió en “Do” hasta más tarde.»" },
+    it: { cat: "Lo sapevi?", text: "«Le sillabe Re, Mi, Fa, Sol, La risalgono a Guido d’Arezzo, quasi mille anni fa, che le ricavò da un inno: il suo “Ut” divenne “Do” solo più tardi.»" },
+    pl: { cat: "Czy wiesz, że…", text: "„Sylaby Re, Mi, Fa, Sol, La pochodzą od Guida z Arezzo, który prawie 1000 lat temu wziął je z hymnu — jego ‚Ut’ dopiero później zmieniło się w ‚Do’.”" },
+    uk: { cat: "Цікавий факт", text: "«Склади Ре, Мі, Фа, Соль, Ля походять від Гвідо д’Ареццо, який майже 1000 років тому взяв їх із гімну, — його „Ut“ лише згодом стало „До“.»" },
+    ur: { cat: "کیا آپ جانتے ہیں؟", text: "«Re، Mi، Fa، Sol، La کے ہجّے تقریباً 1000 سال پہلے گویڈو آف اریزو نے ایک حمد سے لیے تھے — ان کا ‹Ut› بعد میں جا کر ‹Do› بنا۔»" },
+    tr: { cat: "Biliyor muydun?", text: "“Re, Mi, Fa, Sol, La heceleri yaklaşık 1000 yıl önce onları bir ilahiden alan Guido d’Arezzo’ya dayanır — onun ‘Ut’ hecesi ancak sonradan ‘Do’ oldu.”" },
+    ar: { cat: "هل تعلم؟", text: "«مقاطع ري، مي، فا، صول، لا تعود إلى غويدو دا أريتسو قبل نحو ألف عام، إذ أخذها من ترنيمة — أما مقطعه ‹Ut› فلم يصبح ‹دو› إلا لاحقاً.»" }
   },
   {
     de: { cat: "Wusstest du?", text: "„Warum klingen Klavier und Gitarre beim selben Ton verschieden? Jedes Instrument mischt eigene leise Obertöne dazu!“" },
@@ -701,15 +701,15 @@ registerColocatedQuotes([
     ar: { cat: "هل تعلم؟", text: "«في «الفيزياء والصوت» يمكنك مشاهدة الموجات مباشرة لترى لماذا تبدو المسافات المتناغمة هادئة بينما تتلألأ المتنافرة.»" }
   },
   {
-    de: { cat: "Wusstest du?", text: "„Der Violinschlüssel hieß früher schlicht G-Schlüssel: Seine runde Schnecke umschlingt exakt die 2. Linie von unten – das eingestrichene g'!“" },
-    en: { cat: "Did You Know?", text: "“The Treble clef is actually a stylized letter G: its inner curl loops right around the second line from the bottom — G4 above Middle C!”" },
-    fr: { cat: "Le saviez-vous ?", text: "« La clé de Sol n’est autre qu’un G calligraphié : sa spirale centrale encercle pile la 2e ligne du bas, la note Sol4 ! »" },
-    es: { cat: "¿Lo sabías?", text: "«La clave de sol no es otra cosa que una G caligráfica: ¡su espiral central rodea justo la 2.ª línea desde abajo, la nota Sol4!»" },
+    de: { cat: "Wusstest du?", text: "„Der Violinschlüssel ist eigentlich ein verschnörkeltes G: Seine runde Schnecke umschlingt genau die 2. Linie von unten – dort sitzt das eingestrichene g'!“" },
+    en: { cat: "Did You Know?", text: "“The treble clef is actually a stylized letter G: its inner curl loops right around the second line from the bottom — G4 above middle C!”" },
+    fr: { cat: "Le saviez-vous ?", text: "« La clé de sol n’est autre qu’un G calligraphié : sa spirale centrale encercle pile la 2e ligne en partant du bas, la note sol4 ! »" },
+    es: { cat: "¿Lo sabías?", text: "«La clave de sol no es otra cosa que una G caligráfica: ¡su espiral central rodea justo la 2.ª línea desde abajo, la nota sol4!»" },
     it: { cat: "Lo sapevi?", text: "«La chiave di violino è in realtà una lettera G stilizzata: la sua spirale interna avvolge esattamente la seconda linea dal basso, il Sol4!»" },
-    pl: { cat: "Czy wiesz, że…", text: "„Klucz wiolinowy to stylizowana litera G: jego środkowy ślimak otacza dokładnie drugą linię pięciolinii — czyli nutę G razkreślne (g1)!”" },
-    uk: { cat: "Цікавий факт", text: "«Скрипковий ключ насправді походить від стилізованої літери G: його внутрішній завиток точно обіймає другу знизу лінійку — ноту соль першої октави (G4)!»" },
+    pl: { cat: "Czy wiesz, że…", text: "„Klucz wiolinowy to stylizowana litera G: jego środkowy ślimak otacza dokładnie drugą linię od dołu — czyli dźwięk g razkreślne (g1)!”" },
+    uk: { cat: "Цікавий факт", text: "«Скрипковий ключ насправді — стилізована літера G: його внутрішній завиток обіймає саме другу знизу лінію — ноту соль першої октави (G4)!»" },
     ur: { cat: "کیا آپ جانتے ہیں؟", text: "«ٹریبل کلیف دراصل سجایا ہوا حرف G ہے: اس کا اندرونی گھیرا نیچے سے دوسری لائن — یعنی مڈل C سے اوپر G4 — کے گرد گھومتا ہے!»" },
-    tr: { cat: "Biliyor muydun?", text: "“Sol anahtarı aslında stilize edilmiş bir G harfidir: iç kıvrımı alttan 2. çizgiyi, yani orta Do'nun üstündeki Sol (G4) sesini sarar!”" },
+    tr: { cat: "Biliyor muydun?", text: "“Sol anahtarı aslında süslenmiş bir G harfidir: iç kıvrımı alttan 2. çizgiyi, yani orta Do’nun üstündeki Sol (G4) sesini sarar!”" },
     ar: { cat: "هل تعلم؟", text: "«مفتاح صول هو في الأصل حرف G مزخرف: حلزونه الداخلي يلتف تماماً حول الخط الثاني من الأسفل — نغمة G4!»" }
   },
   {
@@ -965,16 +965,16 @@ registerColocatedQuotes([
     ar: { cat: "تشجيع", text: "«خمس دقائق هادئة في الصباح تصنع العجائب لأذنك — يواصل دماغك بعدها فرز الأصوات الجديدة بهدوء في الخلفية طوال اليوم.»" }
   },
   {
-    de: { cat: "Tipp", text: "„Ein Ton, den du einmal kurz nachgesummt hast, verankert sich doppelt so tief im Gehör – ganz egal, wie perfekt oder schräg deine Stimme dabei klingt!“" },
-    en: { cat: "Tip", text: "“A note you hum back just once sinks twice as deep into your musical memory — no matter how polished or wobbly your voice feels!”" },
-    fr: { cat: "Astuce", text: "« Une note que tu fredonnes ne serait-ce qu’une fois s’ancre deux fois plus profondément dans l’oreille — peu importe la justesse parfaite de ta voix ! »" },
-    es: { cat: "Consejo", text: "«Una nota que tarareas aunque sea una vez se graba el doble de profundo en tu oído, ¡sin importar lo perfecta o insegura que suene tu voz!»" },
-    it: { cat: "Consiglio", text: "«Una nota che canticchi anche una sola volta si fissa il doppio più a fondo nella memoria uditiva — non importa quanto precisa o incerta sia la tua voce!»" },
-    pl: { cat: "Wskazówka", text: "„Dźwięk, który choć raz krótko zanuciłeś, utrwala się w słuchu dwa razy głębiej — nieważne, jak idealnie albo krzywo brzmi Twój głos!”" },
-    uk: { cat: "Порада", text: "«Нота, яку ти бодай раз тихо наспівав, закріплюється у слуху вдвічі глибше — і зовсім не важливо, наскільки ідеально звучить голос!»" },
-    ur: { cat: "مشورہ", text: "«جو سُر آپ ایک بار ہلکے سے گنگنا لیں، وہ کان میں دوگنا گہرا بیٹھ جاتا ہے — چاہے آپ کی آواز کتنی ہی سادہ یا لرزتی ہوئی کیوں نہ ہو!»" },
-    tr: { cat: "İpucu", text: "“Bir kez kısaca mırıldandığın bir ses, kulağında iki kat daha derine yerleşir — sesin ne kadar kusursuz ya da detone çıkarsa çıksın!”" },
-    ar: { cat: "نصيحة", text: "«النغمة التي تهمهم بها مرة واحدة فقط تترسخ بضعف العمق في ذاكرتك السمعية — مهما بدا صوتك مثالياً أو متردداً!»" }
+    de: { cat: "Tipp", text: "„Summ einen Ton ruhig einmal kurz nach – so prägt er sich viel tiefer ein, ganz egal, wie perfekt oder schräg deine Stimme dabei klingt!“" },
+    en: { cat: "Tip", text: "“Hum a note back just once — it sticks much deeper in your memory, no matter how polished or wobbly your voice sounds!”" },
+    fr: { cat: "Astuce", text: "« Fredonne une note ne serait-ce qu’une fois : elle s’ancre bien plus profondément, peu importe que ta voix soit juste ou un peu bancale ! »" },
+    es: { cat: "Consejo", text: "«Tararea una nota aunque sea una vez: se te grabará mucho más hondo, ¡sin importar lo perfecta o insegura que suene tu voz!»" },
+    it: { cat: "Consiglio", text: "«Canticchia una nota anche solo una volta: si fissa molto più a fondo nella memoria, non importa quanto precisa o incerta sia la tua voce!»" },
+    pl: { cat: "Wskazówka", text: "„Zanuć dźwięk choć raz — utrwali się dużo głębiej, nieważne, czy Twój głos brzmi idealnie, czy trochę krzywo!”" },
+    uk: { cat: "Порада", text: "«Наспівай ноту бодай раз — вона закарбується значно глибше, і зовсім не важливо, наскільки ідеально чи хитко звучить голос!»" },
+    ur: { cat: "مشورہ", text: "«کسی سُر کو بس ایک بار ہلکے سے گنگنا لیں — وہ کہیں زیادہ گہرائی سے یاد رہتا ہے، چاہے آپ کی آواز کتنی ہی سادہ یا لرزتی ہوئی کیوں نہ ہو!»" },
+    tr: { cat: "İpucu", text: "“Bir sesi bir kez kısaca mırıldan — sesin ne kadar kusursuz ya da detone çıkarsa çıksın, aklında çok daha derin yer eder!”" },
+    ar: { cat: "نصيحة", text: "«همهم بالنغمة ولو مرة واحدة — ستترسخ في ذاكرتك بعمق أكبر بكثير، مهما بدا صوتك مثالياً أو متردداً!»" }
   },
   {
     de: { cat: "Wusstest du?", text: "„Viele Profis nutzen noch nach Jahrzehnten kleine Liedanfänge im Kopf als Intervall-Eselsbrücke – im Wissensbereich findest du unsere liebsten Merkhilfen dazu!“" },
@@ -1011,6 +1011,246 @@ registerColocatedQuotes([
     ur: { cat: "حوصلہ افزائی", text: "«سماعت کی تربیت آہستہ آہستہ مضبوط ہونے والے پٹھوں جیسی ہے: ایک منٹ میں فرق نہیں لگتا، لیکن ایک دن اچانک ریڈیو پر ہر کارڈ تبدیلی صاف سنائی دینے لگتی ہے!»" },
     tr: { cat: "Motivasyon", text: "“Kulak eğitimi ağır çekimde kas geliştirmek gibidir: bir dakika sonra fark etmezsin ama bir gün radyodaki her akor değişimini birdenbire duymaya başlarsın!”" },
     ar: { cat: "تشجيع", text: "«تدريب الأذن يشبه بناء العضلات بالحركة البطيئة: لا تلاحظه بعد دقيقة، لكن يوماً ما ستسمع فجأة كل تغيير تآلف في الراديو!»" }
+  },
+  {
+    de: { cat: "Willkommen", text: "„Schön, dass du wieder reinschaust! Ein paar Töne zum Aufwärmen, und deine Ohren sind sofort wieder im Spiel.“" },
+    en: { cat: "Welcome", text: "“Great to see you again! A few warm-up notes and your ears are right back in the game.”" },
+    fr: { cat: "Bienvenue", text: "« Content de te revoir ! Quelques notes pour t’échauffer, et tes oreilles sont de nouveau dans le jeu. »" },
+    es: { cat: "Bienvenida", text: "«¡Qué bien que vuelvas! Unas cuantas notas para calentar y tus oídos vuelven a estar en juego.»" },
+    it: { cat: "Benvenuto", text: "«Che bello rivederti! Qualche nota per scaldarti e le tue orecchie sono subito di nuovo in gioco.»" },
+    pl: { cat: "Powitanie", text: "„Miło, że znowu zaglądasz! Kilka dźwięków na rozgrzewkę i Twoje uszy od razu wracają do gry.”" },
+    uk: { cat: "Ласкаво просимо", text: "«Радий, що ти знову тут! Кілька нот для розминки — і твої вуха одразу знову в грі.»" },
+    ur: { cat: "خوش آمدید", text: "«دوبارہ آپ کو دیکھ کر خوشی ہوئی! چند سُر وارم اپ کے لیے، اور آپ کے کان فوراً پھر سے تیار۔»" },
+    tr: { cat: "Hoş Geldin", text: "“Yeniden uğramana sevindim! Isınmak için birkaç ses, ve kulakların hemen yeniden oyunda.”" },
+    ar: { cat: "أهلاً بك", text: "«سعيد برؤيتك مجدداً! بضع نغمات للإحماء، وتعود أذناك فوراً إلى اللعب.»" }
+  },
+  {
+    de: { cat: "Willkommen", text: "„Heute ist ein guter Tag für Musik. Wonach ist dir: Rhythmus, Akkorde oder ein bisschen Theorie?“" },
+    en: { cat: "Welcome", text: "“Today is a good day for music. What are you in the mood for: rhythm, chords, or a little theory?”" },
+    fr: { cat: "Bienvenue", text: "« Aujourd’hui est un bon jour pour la musique. Tu as envie de quoi : rythme, accords ou un peu de théorie ? »" },
+    es: { cat: "Bienvenida", text: "«Hoy es un buen día para la música. ¿Qué te apetece: ritmo, acordes o un poco de teoría?»" },
+    it: { cat: "Benvenuto", text: "«Oggi è una bella giornata per la musica. Di cosa hai voglia: ritmo, accordi o un po’ di teoria?»" },
+    pl: { cat: "Powitanie", text: "„Dziś jest dobry dzień na muzykę. Na co masz ochotę: rytm, akordy czy odrobinę teorii?”" },
+    uk: { cat: "Ласкаво просимо", text: "«Сьогодні гарний день для музики. Чого хочеться: ритму, акордів чи трохи теорії?»" },
+    ur: { cat: "خوش آمدید", text: "«آج موسیقی کے لیے اچھا دن ہے۔ کس چیز کا موڈ ہے: ردم، کارڈز یا تھوڑی سی تھیوری؟»" },
+    tr: { cat: "Hoş Geldin", text: "“Bugün müzik için güzel bir gün. Canın ne istiyor: ritim, akorlar ya da biraz teori?”" },
+    ar: { cat: "أهلاً بك", text: "«اليوم يوم جميل للموسيقى. ما الذي تميل إليه: الإيقاع، التآلفات أم قليل من النظرية؟»" }
+  },
+  {
+    de: { cat: "Mutmacher", text: "„Musikalisches Hören ist kein Talent, das man hat oder nicht – es ist eine Fähigkeit, die mit jeder Runde ein Stück wächst.“" },
+    en: { cat: "Encouragement", text: "“Musical listening isn’t a talent you either have or don’t — it’s a skill that grows a little with every round.”" },
+    fr: { cat: "Encouragement", text: "« L’écoute musicale n’est pas un don qu’on a ou pas : c’est une compétence qui grandit un peu à chaque séance. »" },
+    es: { cat: "Ánimo", text: "«El oído musical no es un talento que se tiene o no: es una habilidad que crece un poco con cada ronda.»" },
+    it: { cat: "Incoraggiamento", text: "«L’orecchio musicale non è un talento che si ha o non si ha: è un’abilità che cresce un po’ a ogni sessione.»" },
+    pl: { cat: "Motywacja", text: "„Słuch muzyczny to nie talent, który się ma albo nie — to umiejętność, która rośnie z każdą rundą.”" },
+    uk: { cat: "Підбадьорення", text: "«Музичний слух — не талант, який або є, або немає, а навичка, що трохи зростає з кожним заняттям.»" },
+    ur: { cat: "حوصلہ افزائی", text: "«موسیقی کو سننے کی صلاحیت کوئی ایسا تحفہ نہیں جو ہو یا نہ ہو — یہ ایک مہارت ہے جو ہر مشق کے ساتھ تھوڑی بڑھتی ہے۔»" },
+    tr: { cat: "Motivasyon", text: "“Müzikal kulak ya olan ya olmayan bir yetenek değildir — her turda biraz daha gelişen bir beceridir.”" },
+    ar: { cat: "تشجيع", text: "«الأذن الموسيقية ليست موهبة إما أن تملكها أو لا — بل مهارة تنمو قليلاً مع كل جولة.»" }
+  },
+  {
+    de: { cat: "Mutmacher", text: "„Heute will nichts klappen? Ganz normal! Ohren haben Tagesform – morgen klingt dieselbe Aufgabe oft schon viel klarer.“" },
+    en: { cat: "Encouragement", text: "“Nothing working today? Totally normal! Ears have good and bad days — tomorrow the same task often sounds much clearer.”" },
+    fr: { cat: "Encouragement", text: "« Rien ne marche aujourd’hui ? C’est tout à fait normal ! L’oreille a ses jours — demain, le même exercice sonnera souvent bien plus clair. »" },
+    es: { cat: "Ánimo", text: "«¿Hoy no sale nada? ¡Es totalmente normal! El oído tiene días buenos y malos: mañana el mismo ejercicio sonará mucho más claro.»" },
+    it: { cat: "Incoraggiamento", text: "«Oggi non va niente? Del tutto normale! Anche le orecchie hanno le loro giornate: domani lo stesso esercizio suonerà spesso molto più chiaro.»" },
+    pl: { cat: "Motywacja", text: "„Dziś nic nie wychodzi? To zupełnie normalne! Uszy też mają lepsze i gorsze dni — jutro to samo zadanie często zabrzmi dużo wyraźniej.”" },
+    uk: { cat: "Підбадьорення", text: "«Сьогодні нічого не виходить? Це цілком нормально! У вух теж бувають різні дні — завтра те саме завдання часто звучатиме значно ясніше.»" },
+    ur: { cat: "حوصلہ افزائی", text: "«آج کچھ ٹھیک نہیں ہو رہا؟ بالکل عام بات ہے! کانوں کا بھی اپنا دن ہوتا ہے — کل یہی مشق اکثر کہیں زیادہ صاف سنائی دیتی ہے۔»" },
+    tr: { cat: "Motivasyon", text: "“Bugün hiçbir şey olmuyor mu? Çok normal! Kulakların da iyi ve kötü günleri olur — yarın aynı alıştırma çoğu zaman çok daha net gelir.”" },
+    ar: { cat: "تشجيع", text: "«لا شيء ينجح اليوم؟ هذا طبيعي تماماً! للأذن أيام جيدة وأخرى أقل — غداً سيبدو التمرين نفسه أوضح بكثير غالباً.»" }
+  },
+  {
+    de: { cat: "Mutmacher", text: "„Vergleich dich nicht mit anderen, sondern mit dir von letzter Woche – genau da hört man den Fortschritt.“" },
+    en: { cat: "Encouragement", text: "“Don’t compare yourself to others — compare yourself to last week’s you. That’s where you’ll hear the progress.”" },
+    fr: { cat: "Encouragement", text: "« Ne te compare pas aux autres, mais à toi-même la semaine dernière : c’est là qu’on entend le progrès. »" },
+    es: { cat: "Ánimo", text: "«No te compares con los demás, sino contigo de la semana pasada: ahí es donde se oye el progreso.»" },
+    it: { cat: "Incoraggiamento", text: "«Non confrontarti con gli altri, ma con te stesso della settimana scorsa: è lì che si sente il progresso.»" },
+    pl: { cat: "Motywacja", text: "„Nie porównuj się z innymi, tylko ze sobą sprzed tygodnia — właśnie tam słychać postęp.”" },
+    uk: { cat: "Підбадьорення", text: "«Не порівнюй себе з іншими — порівнюй із собою минулого тижня. Саме там чути прогрес.»" },
+    ur: { cat: "حوصلہ افزائی", text: "«خود کا دوسروں سے موازنہ نہ کریں، بلکہ پچھلے ہفتے والے خود سے کریں — ترقی وہیں سنائی دیتی ہے۔»" },
+    tr: { cat: "Motivasyon", text: "“Kendini başkalarıyla değil, geçen haftaki hâlinle karşılaştır — ilerlemeyi tam orada duyarsın.”" },
+    ar: { cat: "تشجيع", text: "«لا تقارن نفسك بالآخرين، بل بنفسك في الأسبوع الماضي — هناك بالضبط تسمع التقدم.»" }
+  },
+  {
+    de: { cat: "Mutmacher", text: "„Ein Akkord klingt für dich noch wie der andere? Spiel beide abwechselnd und beschreib sie mit einem Wort – ‚hell‘, ‚traurig‘, ‚schwebend‘. Gefühle merkt sich das Ohr besser als Namen.“" },
+    en: { cat: "Encouragement", text: "“Two chords still sound alike to you? Play them back to back and describe each with one word — ‘bright’, ‘sad’, ‘floating’. Your ear remembers feelings better than names.”" },
+    fr: { cat: "Encouragement", text: "« Deux accords se ressemblent encore ? Joue-les l’un après l’autre et décris chacun d’un mot — “lumineux”, “triste”, “flottant”. L’oreille retient mieux les émotions que les noms. »" },
+    es: { cat: "Ánimo", text: "«¿Dos acordes aún te suenan iguales? Tócalos uno tras otro y descríbelos con una palabra: “luminoso”, “triste”, “flotante”. El oído recuerda mejor las sensaciones que los nombres.»" },
+    it: { cat: "Incoraggiamento", text: "«Due accordi ti sembrano ancora uguali? Suonali uno dopo l’altro e descrivili con una parola: “luminoso”, “triste”, “sospeso”. L’orecchio ricorda meglio le sensazioni dei nomi.»" },
+    pl: { cat: "Motywacja", text: "„Dwa akordy wciąż brzmią dla Ciebie podobnie? Zagraj je na zmianę i opisz każdy jednym słowem — ‚jasny’, ‚smutny’, ‚zawieszony’. Ucho lepiej pamięta emocje niż nazwy.”" },
+    uk: { cat: "Підбадьорення", text: "«Два акорди досі звучать однаково? Зіграй їх по черзі й опиши кожен одним словом — „світлий“, „сумний“, „завислий“. Вухо краще пам’ятає відчуття, ніж назви.»" },
+    ur: { cat: "حوصلہ افزائی", text: "«دو کارڈز ابھی ایک جیسے لگتے ہیں؟ انہیں باری باری بجائیں اور ہر ایک کو ایک لفظ میں بیان کریں — ‹روشن›، ‹اداس›، ‹تیرتا ہوا›۔ کان ناموں سے زیادہ احساسات یاد رکھتا ہے۔»" },
+    tr: { cat: "Motivasyon", text: "“İki akor sana hâlâ aynı mı geliyor? Onları art arda çal ve her birini tek kelimeyle anlat — ‘parlak’, ‘hüzünlü’, ‘havada asılı’. Kulak isimlerden çok hisleri hatırlar.”" },
+    ar: { cat: "تشجيع", text: "«لا يزال تآلفان يبدوان متشابهين؟ اعزفهما بالتناوب وصِف كلاً منهما بكلمة واحدة — ‹مشرق›، ‹حزين›، ‹معلّق›. الأذن تتذكر المشاعر أفضل من الأسماء.»" }
+  },
+  {
+    de: { cat: "Tipp", text: "„Klingt deine Gitarre schief? Der Tuner unter ‚Werkzeuge‘ zeigt dir per Mikrofon live, ob eine Saite zu hoch oder zu tief ist – bis auf den Cent genau.“" },
+    en: { cat: "Tip", text: "“Guitar sounding off? The Tuner under Tools listens through your microphone and shows live whether a string is sharp or flat — down to the cent.”" },
+    fr: { cat: "Astuce", text: "« Ta guitare sonne faux ? L’Accordeur dans Outils écoute via le micro et t’indique en direct si une corde est trop haute ou trop basse — au cent près. »" },
+    es: { cat: "Consejo", text: "«¿Tu guitarra suena desafinada? El Afinador de Herramientas escucha por el micrófono y te muestra en directo si una cuerda está alta o baja, al cent exacto.»" },
+    it: { cat: "Consiglio", text: "«La chitarra suona stonata? L’Accordatore in “Strumenti” ascolta dal microfono e ti mostra in tempo reale se una corda è crescente o calante, al cent preciso.»" },
+    pl: { cat: "Wskazówka", text: "„Gitara brzmi fałszywie? Stroik w Narzędziach słucha przez mikrofon i na żywo pokazuje, czy struna jest za wysoko, czy za nisko — z dokładnością do centa.”" },
+    uk: { cat: "Порада", text: "«Гітара звучить фальшиво? Тюнер в Інструментах слухає через мікрофон і в реальному часі показує, чи струна зависока чи занизька — з точністю до цента.»" },
+    ur: { cat: "مشورہ", text: "«گٹار بے سُرا لگ رہا ہے؟ اوزار میں ٹیونر مائیکروفون سے سن کر فوراً بتاتا ہے کہ تار اونچا ہے یا نیچا — ایک سینٹ تک درست۔»" },
+    tr: { cat: "İpucu", text: "“Gitarın akortsuz mu geliyor? Araçlar’daki Akort Aleti mikrofonla dinler ve bir telin tiz mi pes mi olduğunu canlı gösterir — sent hassasiyetinde.”" },
+    ar: { cat: "نصيحة", text: "«جيتارك نشاز؟ الموالِف في ‹الأدوات› يستمع عبر الميكروفون ويُظهر مباشرةً إن كان الوتر مرتفعاً أو منخفضاً — بدقة السِّنت.»" }
+  },
+  {
+    de: { cat: "Tipp", text: "„Kapo im 3. Bund, aber das Lied steht in Es-Dur? Der Kapodaster-Übersetzer verrät dir sofort, dass du einfach C-Dur-Griffe spielen kannst.“" },
+    en: { cat: "Tip", text: "“Capo on fret 3 but the song is in E♭ major? The Capo Translator tells you instantly that you can simply play C major shapes.”" },
+    fr: { cat: "Astuce", text: "« Capodastre en case 3 mais la chanson est en mi♭ majeur ? Le traducteur de capodastre t’indique aussitôt que tu peux simplement jouer des formes de do majeur. »" },
+    es: { cat: "Consejo", text: "«¿Cejilla en el traste 3 pero la canción está en mi♭ mayor? El traductor de cejilla te dice al instante que puedes tocar simplemente posiciones de do mayor.»" },
+    it: { cat: "Consiglio", text: "«Capotasto al 3° tasto ma il brano è in Mi♭ maggiore? Il Traduttore capotasto ti dice subito che puoi suonare semplicemente le forme di Do maggiore.»" },
+    pl: { cat: "Wskazówka", text: "„Kapodaster na 3. progu, a piosenka jest w Es-dur? Tłumacz kapodastra od razu podpowie, że wystarczy grać chwyty z C-dur.”" },
+    uk: { cat: "Порада", text: "«Каподастр на 3-му ладу, а пісня в мі-бемоль мажорі? Перекладач каподастра одразу підкаже, що можна просто грати аплікатури до мажору.»" },
+    ur: { cat: "مشورہ", text: "«کیپو تیسرے فریٹ پر ہے مگر گانا E♭ میجر میں ہے؟ کیپو ٹرانسلیٹر فوراً بتا دیتا ہے کہ آپ بس C میجر کی شکلیں بجا سکتے ہیں۔»" },
+    tr: { cat: "İpucu", text: "“Kapo 3. perdede ama şarkı Mi♭ majörde mi? Kapo Çevirici, sadece Do majör tutuşlarıyla çalabileceğini hemen söyler.”" },
+    ar: { cat: "نصيحة", text: "«الكابو على الدستان الثالث لكن الأغنية في مي♭ الكبير؟ مترجم الكابو يخبرك فوراً أنه يكفيك عزف أشكال دو الكبير.»" }
+  },
+  {
+    de: { cat: "Tipp", text: "„Im Griffbrett unter ‚Werkzeuge‘ findest du jeden Gitarrenakkord in allen Lagen – und siehst, wie eine Tonleiter quer über den Hals wandert.“" },
+    en: { cat: "Tip", text: "“The Fretboard under Tools shows every guitar chord in all positions — and how a scale travels across the whole neck.”" },
+    fr: { cat: "Astuce", text: "« Le manche de guitare dans Outils te montre chaque accord dans toutes les positions — et comment une gamme voyage sur tout le manche. »" },
+    es: { cat: "Consejo", text: "«El mástil de guitarra de Herramientas te muestra cada acorde en todas las posiciones, y cómo una escala recorre todo el mástil.»" },
+    it: { cat: "Consiglio", text: "«La Tastiera chitarra in “Strumenti” ti mostra ogni accordo in tutte le posizioni e come una scala si sposta lungo tutto il manico.»" },
+    pl: { cat: "Wskazówka", text: "„Gryf gitary w Narzędziach pokazuje każdy akord we wszystkich pozycjach — i to, jak gama wędruje po całym gryfie.”" },
+    uk: { cat: "Порада", text: "«Гриф гітари в Інструментах показує кожен акорд у всіх позиціях — і те, як гама мандрує всім грифом.»" },
+    ur: { cat: "مشورہ", text: "«اوزار میں گٹار فریٹ بورڈ ہر کارڈ کو تمام پوزیشنز میں دکھاتا ہے — اور یہ بھی کہ اسکیل پوری گردن پر کیسے پھیلتا ہے۔»" },
+    tr: { cat: "İpucu", text: "“Araçlar’daki Gitar Klavyesi her akoru tüm pozisyonlarda gösterir — ve bir dizinin sapın üzerinde nasıl ilerlediğini.”" },
+    ar: { cat: "نصيحة", text: "«‹رقبة الجيتار› في الأدوات تعرض كل تآلف في جميع الأوضاع — وكيف ينتقل السلّم الموسيقي على طول الرقبة.»" }
+  },
+  {
+    de: { cat: "Tipp", text: "„Lust, einfach mal draufloszuspielen? Im ‚Freien Spiel‘ klimperst du mit deinen Mixer-Instrumenten auf der Klaviatur oder auf Akkord-Flächen – ganz ohne Abfrage.“" },
+    en: { cat: "Tip", text: "“Feel like just playing around? In Free Play you can noodle on the keyboard or on chord pads with your mixer instruments — no quiz at all.”" },
+    fr: { cat: "Astuce", text: "« Envie de jouer librement ? Dans Jeu libre, pianote sur le clavier ou sur des pads d’accords avec les instruments de ton mixeur — sans aucune question. »" },
+    es: { cat: "Consejo", text: "«¿Te apetece tocar sin más? En Juego libre puedes improvisar en el teclado o en pads de acordes con los instrumentos de tu mezclador, sin preguntas.»" },
+    it: { cat: "Consiglio", text: "«Voglia di suonare liberamente? In “Suono libero” improvvisi sulla tastiera o sui pad di accordi con gli strumenti del mixer, senza nessuna domanda.»" },
+    pl: { cat: "Wskazówka", text: "„Masz ochotę po prostu pograć? W Swobodnej grze pobrzdąkasz na klawiaturze lub na polach akordów instrumentami z miksera — bez żadnych pytań.”" },
+    uk: { cat: "Порада", text: "«Хочеш просто пограти? У Вільній грі можна імпровізувати на клавіатурі чи акордових панелях інструментами з мікшера — без жодних запитань.»" },
+    ur: { cat: "مشورہ", text: "«بس یوں ہی بجانے کا دل ہے؟ ‹آزاد مشق› میں اپنے مکسر کے سازوں کے ساتھ کی بورڈ یا کارڈ پیڈز پر بجائیں — بغیر کسی سوال کے۔»" },
+    tr: { cat: "İpucu", text: "“Öylesine çalmak mı istiyorsun? Ses Laboratuvarı’nda mikserindeki enstrümanlarla klavyede ya da akor pedlerinde serbestçe çal — hiç soru yok.”" },
+    ar: { cat: "نصيحة", text: "«ترغب في العزف بحرية؟ في ‹العزف الحر› اعزف على لوحة المفاتيح أو على لوحات التآلفات بآلات المازج — بلا أي أسئلة.»" }
+  },
+  {
+    de: { cat: "Tipp", text: "„Unter ‚Mein Konto‘ sammelst du ganz nebenbei Meilensteine und Musiker-Titel – manche schalten sogar Bonus-Farbthemes frei. Alles bleibt lokal und lässt sich jederzeit abschalten.“" },
+    en: { cat: "Tip", text: "“Under My Account you collect milestones and musician titles along the way — some even unlock bonus themes. Everything stays on your device and can be turned off anytime.”" },
+    fr: { cat: "Astuce", text: "« Dans Mon compte, tu collectes en chemin des jalons et des titres de musicien — certains débloquent même des thèmes bonus. Tout reste sur ton appareil et se désactive à tout moment. »" },
+    es: { cat: "Consejo", text: "«En Mi cuenta vas reuniendo logros y títulos de músico; algunos incluso desbloquean temas extra. Todo se queda en tu dispositivo y puedes desactivarlo cuando quieras.»" },
+    it: { cat: "Consiglio", text: "«In “Il mio account” raccogli strada facendo traguardi e titoli da musicista, alcuni sbloccano persino temi bonus. Tutto resta sul tuo dispositivo e si può disattivare in qualsiasi momento.»" },
+    pl: { cat: "Wskazówka", text: "„W Moim profilu przy okazji zbierasz kamienie milowe i tytuły muzyczne — niektóre odblokowują nawet dodatkowe motywy. Wszystko zostaje na Twoim urządzeniu i można to w każdej chwili wyłączyć.”" },
+    uk: { cat: "Порада", text: "«У Моєму профілі ти мимохідь збираєш досягнення й музичні титули — деякі навіть відкривають бонусні теми. Усе залишається на твоєму пристрої й вимикається будь-коли.»" },
+    ur: { cat: "مشورہ", text: "«‹میرا اکاؤنٹ› میں آپ چلتے چلتے سنگِ میل اور موسیقار کے خطاب جمع کرتے ہیں — کچھ تو بونس تھیمز بھی کھول دیتے ہیں۔ سب کچھ آپ کے آلے پر رہتا ہے اور کبھی بھی بند کیا جا سکتا ہے۔»" },
+    tr: { cat: "İpucu", text: "“Hesabım bölümünde yol boyunca dönüm noktaları ve müzisyen unvanları toplarsın — bazıları bonus temaların kilidini bile açar. Her şey cihazında kalır ve istediğin an kapatılabilir.”" },
+    ar: { cat: "نصيحة", text: "«في ‹حسابي› تجمع على الطريق إنجازات وألقاباً موسيقية — وبعضها يفتح سمات إضافية. كل شيء يبقى على جهازك ويمكن إيقافه في أي وقت.»" }
+  },
+  {
+    de: { cat: "Tipp", text: "„Für die Produktions-Übungen lohnen sich Kopfhörer: Feine EQ-Unterschiede und tiefe Bässe gehen über Handy-Lautsprecher schnell verloren.“" },
+    en: { cat: "Tip", text: "“Headphones pay off for the Production exercises: subtle EQ differences and deep bass easily get lost on phone speakers.”" },
+    fr: { cat: "Astuce", text: "« Pour les exercices de Production, mieux vaut un casque : les nuances d’égalisation et les basses profondes se perdent vite sur un haut-parleur de téléphone. »" },
+    es: { cat: "Consejo", text: "«Para los ejercicios de Producción valen la pena los auriculares: las diferencias sutiles de EQ y los graves profundos se pierden en el altavoz del móvil.»" },
+    it: { cat: "Consiglio", text: "«Per gli esercizi di Produzione conviene usare le cuffie: le sottili differenze di EQ e i bassi profondi si perdono facilmente negli altoparlanti del telefono.»" },
+    pl: { cat: "Wskazówka", text: "„Do ćwiczeń z Produkcji warto użyć słuchawek: subtelne różnice w EQ i głęboki bas łatwo giną w głośniku telefonu.”" },
+    uk: { cat: "Порада", text: "«Для вправ із Продакшну варто взяти навушники: тонкі відмінності еквалайзера та глибокий бас легко губляться в динаміку телефона.»" },
+    ur: { cat: "مشورہ", text: "«پروڈکشن کی مشقوں کے لیے ہیڈفونز بہتر ہیں: باریک EQ فرق اور گہرا باس فون کے اسپیکر پر آسانی سے کھو جاتے ہیں۔»" },
+    tr: { cat: "İpucu", text: "“Prodüksiyon alıştırmaları için kulaklık kullanmaya değer: ince EQ farkları ve derin baslar telefon hoparlöründe kolayca kaybolur.”" },
+    ar: { cat: "نصيحة", text: "«لتمارين الإنتاج الصوتي تستحق السماعات العناء: فروق المعادل الدقيقة والجهير العميق تضيع بسهولة في سماعة الهاتف.»" }
+  },
+  {
+    de: { cat: "Tipp", text: "„Beim Rhythmus-Klopfen hilft lautes Mitzählen: ‚eins-und-zwei-und‘ hält den Puls stabil, auch wenn die Noten tanzen.“" },
+    en: { cat: "Tip", text: "“When tapping rhythms, count out loud: ‘one-and-two-and’ keeps the pulse steady even when the notes start dancing.”" },
+    fr: { cat: "Astuce", text: "« Quand tu tapes un rythme, compte à voix haute : “un-et-deux-et” garde la pulsation stable, même quand les notes dansent. »" },
+    es: { cat: "Consejo", text: "«Al marcar ritmos, cuenta en voz alta: “uno-y-dos-y” mantiene el pulso estable aunque las notas bailen.»" },
+    it: { cat: "Consiglio", text: "«Quando batti un ritmo, conta ad alta voce: “uno-e-due-e” mantiene stabile la pulsazione anche quando le note ballano.»" },
+    pl: { cat: "Wskazówka", text: "„Przy wystukiwaniu rytmu licz na głos: ‚raz-i-dwa-i’ trzyma puls w ryzach, nawet gdy nuty zaczynają tańczyć.”" },
+    uk: { cat: "Порада", text: "«Коли відстукуєш ритм, рахуй уголос: „раз-і-два-і“ тримає пульс рівним, навіть коли ноти починають танцювати.»" },
+    ur: { cat: "مشورہ", text: "«ردم تھپتھپاتے وقت بلند آواز میں گنیں: ‹ایک-اور-دو-اور› نبض کو مستحکم رکھتا ہے، چاہے سُر کتنے ہی ناچیں۔»" },
+    tr: { cat: "İpucu", text: "“Ritim vururken yüksek sesle say: ‘bir-ve-iki-ve’ notalar dans etse bile nabzı sabit tutar.”" },
+    ar: { cat: "نصيحة", text: "«عند النقر على الإيقاع عُدّ بصوت عالٍ: ‹واحد-و-اثنان-و› يحافظ على ثبات النبض حتى عندما ترقص النغمات.»" }
+  },
+  {
+    de: { cat: "Tipp", text: "„Beim Notenlesen zuerst die Richtung, dann den Abstand: Geht es nach oben oder unten – und ist es ein Schritt oder ein Sprung?“" },
+    en: { cat: "Tip", text: "“When reading notes, check direction first, then distance: up or down — and is it a step or a leap?”" },
+    fr: { cat: "Astuce", text: "« En lisant les notes, regarde d’abord la direction, puis l’écart : ça monte ou ça descend — et c’est un pas ou un saut ? »" },
+    es: { cat: "Consejo", text: "«Al leer notas, fíjate primero en la dirección y luego en la distancia: ¿sube o baja? ¿Es un paso o un salto?»" },
+    it: { cat: "Consiglio", text: "«Leggendo le note, guarda prima la direzione e poi la distanza: sale o scende? È un passo o un salto?»" },
+    pl: { cat: "Wskazówka", text: "„Czytając nuty, najpierw sprawdź kierunek, potem odległość: w górę czy w dół — i czy to krok, czy skok?”" },
+    uk: { cat: "Порада", text: "«Читаючи ноти, спершу дивись на напрямок, потім на відстань: угору чи вниз — і це крок чи стрибок?»" },
+    ur: { cat: "مشورہ", text: "«نوٹس پڑھتے وقت پہلے سمت دیکھیں، پھر فاصلہ: اوپر جا رہا ہے یا نیچے — اور یہ ایک قدم ہے یا چھلانگ؟»" },
+    tr: { cat: "İpucu", text: "“Nota okurken önce yöne, sonra mesafeye bak: yukarı mı aşağı mı — ve bu bir adım mı, yoksa sıçrama mı?”" },
+    ar: { cat: "نصيحة", text: "«عند قراءة النوتة انظر أولاً إلى الاتجاه ثم إلى المسافة: صعوداً أم هبوطاً — وهل هي خطوة أم قفزة؟»" }
+  },
+  {
+    de: { cat: "Wusstest du?", text: "„Der Kammerton a' schwingt meist mit 440 Hz – viele Orchester stimmen aber etwas höher, oft auf 442 oder 443 Hz, weil es brillanter klingt.“" },
+    en: { cat: "Did You Know?", text: "“Concert pitch A4 usually vibrates at 440 Hz — but many orchestras tune a little higher, often to 442 or 443 Hz, for a more brilliant sound.”" },
+    fr: { cat: "Le saviez-vous ?", text: "« Le la du diapason vibre généralement à 440 Hz — mais beaucoup d’orchestres s’accordent un peu plus haut, souvent à 442 ou 443 Hz, pour un son plus brillant. »" },
+    es: { cat: "¿Lo sabías?", text: "«El la de referencia suele vibrar a 440 Hz, pero muchas orquestas afinan algo más alto, a menudo a 442 o 443 Hz, para un sonido más brillante.»" },
+    it: { cat: "Lo sapevi?", text: "«Il La del diapason vibra di solito a 440 Hz, ma molte orchestre accordano un po’ più in alto, spesso a 442 o 443 Hz, per un suono più brillante.»" },
+    pl: { cat: "Czy wiesz, że…", text: "„Dźwięk wzorcowy a1 drga zwykle z częstotliwością 440 Hz — wiele orkiestr stroi się jednak nieco wyżej, często na 442 lub 443 Hz, bo brzmi to jaśniej.”" },
+    uk: { cat: "Цікавий факт", text: "«Камертонне ля першої октави зазвичай коливається з частотою 440 Гц — але багато оркестрів строять трохи вище, часто 442 чи 443 Гц, бо так звучить яскравіше.»" },
+    ur: { cat: "کیا آپ جانتے ہیں؟", text: "«معیاری A4 سُر عموماً 440 Hz پر تھرتھراتا ہے — لیکن کئی آرکسٹرا ذرا اونچا، اکثر 442 یا 443 Hz پر، سُر ملاتے ہیں تاکہ آواز زیادہ چمکدار لگے۔»" },
+    tr: { cat: "Biliyor muydun?", text: "“Diyapazon La sesi genellikle 440 Hz’de titreşir — ama birçok orkestra daha parlak bir tını için biraz daha tiz, çoğu zaman 442 ya da 443 Hz’e akort eder.”" },
+    ar: { cat: "هل تعلم؟", text: "«نغمة لا المرجعية (A4) تهتز عادةً بتردد 440 هرتز — لكن كثيراً من الأوركسترات تضبط أعلى قليلاً، غالباً على 442 أو 443 هرتز، لصوت أكثر لمعاناً.»" }
+  },
+  {
+    de: { cat: "Wusstest du?", text: "„Ein Halbton liegt nur etwa sechs Prozent über dem vorigen Ton – und genau zwölf solcher Schritte ergeben eine Oktave.“" },
+    en: { cat: "Did You Know?", text: "“A semitone is only about six percent higher than the note before — and exactly twelve of those steps make an octave.”" },
+    fr: { cat: "Le saviez-vous ?", text: "« Un demi-ton n’est qu’environ six pour cent plus aigu que la note précédente — et exactement douze de ces pas forment une octave. »" },
+    es: { cat: "¿Lo sabías?", text: "«Un semitono está solo un seis por ciento por encima de la nota anterior, y exactamente doce de esos pasos forman una octava.»" },
+    it: { cat: "Lo sapevi?", text: "«Un semitono è solo circa il sei per cento più acuto della nota precedente, ed esattamente dodici di questi passi formano un’ottava.»" },
+    pl: { cat: "Czy wiesz, że…", text: "„Półton jest zaledwie o około sześć procent wyższy od poprzedniego dźwięku — a dokładnie dwanaście takich kroków daje oktawę.”" },
+    uk: { cat: "Цікавий факт", text: "«Півтон лише приблизно на шість відсотків вищий за попередній звук — і рівно дванадцять таких кроків складають октаву.»" },
+    ur: { cat: "کیا آپ جانتے ہیں؟", text: "«ایک سیمی ٹون پچھلے سُر سے صرف تقریباً چھ فیصد اونچا ہوتا ہے — اور ٹھیک بارہ ایسے قدم مل کر ایک آکٹیو بناتے ہیں۔»" },
+    tr: { cat: "Biliyor muydun?", text: "“Bir yarım ses, önceki sesten yalnızca yaklaşık yüzde altı daha tizdir — ve tam on iki böyle adım bir oktav eder.”" },
+    ar: { cat: "هل تعلم؟", text: "«نصف الدرجة أعلى من النغمة السابقة بنحو ستة بالمئة فقط — واثنتا عشرة خطوة كهذه بالضبط تشكّل أوكتافاً.»" }
+  },
+  {
+    de: { cat: "Wusstest du?", text: "„Die große Terz auf dem Klavier ist rund 14 Cent höher als die ‚reine‘ Terz aus der Natur – Chöre und Streicher gleichen das oft ganz unbewusst aus.“" },
+    en: { cat: "Did You Know?", text: "“The major third on a piano is about 14 cents wider than the ‘pure’ natural third — choirs and string players often adjust for it without even noticing.”" },
+    fr: { cat: "Le saviez-vous ?", text: "« La tierce majeure du piano est environ 14 cents plus large que la tierce “pure” naturelle — chœurs et cordes la corrigent souvent sans même s’en rendre compte. »" },
+    es: { cat: "¿Lo sabías?", text: "«La tercera mayor del piano es unos 14 cents más amplia que la tercera “pura” natural; coros y cuerdas suelen corregirla sin darse cuenta.»" },
+    it: { cat: "Lo sapevi?", text: "«La terza maggiore del pianoforte è circa 14 cent più larga della terza “pura” naturale: cori e archi spesso la correggono senza nemmeno accorgersene.»" },
+    pl: { cat: "Czy wiesz, że…", text: "„Tercja wielka na fortepianie jest o około 14 centów szersza od ‚czystej’ tercji naturalnej — chóry i smyczki często korygują to zupełnie nieświadomie.”" },
+    uk: { cat: "Цікавий факт", text: "«Велика терція на фортепіано приблизно на 14 центів ширша за „чисту“ натуральну терцію — хори та струнні часто вирівнюють це зовсім неусвідомлено.»" },
+    ur: { cat: "کیا آپ جانتے ہیں؟", text: "«پیانو پر میجر تھرڈ قدرتی ‹خالص› تھرڈ سے تقریباً 14 سینٹ زیادہ چوڑا ہوتا ہے — کورس اور تار والے ساز بجانے والے اکثر انجانے میں اسے درست کر لیتے ہیں۔»" },
+    tr: { cat: "Biliyor muydun?", text: "“Piyanodaki büyük üçlü, doğal ‘saf’ üçlüden yaklaşık 14 sent daha geniştir — korolar ve yaylı çalgıcılar bunu çoğu zaman farkında olmadan düzeltir.”" },
+    ar: { cat: "هل تعلم؟", text: "«الثالثة الكبيرة على البيانو أوسع بنحو 14 سِنتاً من الثالثة ‹النقية› الطبيعية — والجوقات وعازفو الوتريات يعدّلونها غالباً دون أن يشعروا.»" }
+  },
+  {
+    de: { cat: "Wusstest du?", text: "„Junge Ohren hören etwa von 20 Hz bis 20.000 Hz – mit den Jahren sinkt die obere Grenze ganz natürlich. Gönn deinen Ohren also Pausen und nicht zu viel Lautstärke!“" },
+    en: { cat: "Did You Know?", text: "“Young ears hear roughly from 20 Hz to 20,000 Hz — and the upper limit naturally drops with age. So give your ears breaks and not too much volume!”" },
+    fr: { cat: "Le saviez-vous ?", text: "« Une oreille jeune entend environ de 20 Hz à 20 000 Hz — et la limite haute baisse naturellement avec l’âge. Offre donc des pauses à tes oreilles, et pas trop de volume ! »" },
+    es: { cat: "¿Lo sabías?", text: "«Un oído joven percibe aproximadamente de 20 Hz a 20 000 Hz, y el límite superior baja con los años de forma natural. ¡Dale pausas a tus oídos y no abuses del volumen!»" },
+    it: { cat: "Lo sapevi?", text: "«Un orecchio giovane sente all’incirca da 20 Hz a 20.000 Hz, e con gli anni il limite superiore scende in modo naturale. Concedi pause alle tue orecchie e non esagerare col volume!»" },
+    pl: { cat: "Czy wiesz, że…", text: "„Młode uszy słyszą mniej więcej od 20 Hz do 20 000 Hz — z wiekiem górna granica naturalnie się obniża. Daj więc uszom przerwy i nie przesadzaj z głośnością!”" },
+    uk: { cat: "Цікавий факт", text: "«Молоді вуха чують приблизно від 20 Гц до 20 000 Гц — з роками верхня межа природно знижується. Тож давай вухам перерви й не зловживай гучністю!»" },
+    ur: { cat: "کیا آپ جانتے ہیں؟", text: "«جوان کان تقریباً 20 Hz سے 20,000 Hz تک سنتے ہیں — اور عمر کے ساتھ اوپری حد قدرتی طور پر کم ہو جاتی ہے۔ اس لیے کانوں کو وقفہ دیں اور آواز بہت تیز نہ رکھیں!»" },
+    tr: { cat: "Biliyor muydun?", text: "“Genç kulaklar kabaca 20 Hz ile 20.000 Hz arasını duyar — üst sınır yaşla birlikte doğal olarak düşer. Kulaklarına mola ver ve sesi fazla açma!”" },
+    ar: { cat: "هل تعلم؟", text: "«الأذن الشابة تسمع تقريباً من 20 هرتز إلى 20000 هرتز — والحد الأعلى ينخفض طبيعياً مع العمر. فامنح أذنيك فترات راحة ولا تُفرط في رفع الصوت!»" }
+  },
+  {
+    de: { cat: "Wusstest du?", text: "„Das Nashville-Zahlensystem entstand Ende der 1950er in Nashvilles Studios: Akkorde wurden als Ziffern notiert, damit die Band jedes Lied sofort in jeder Tonart spielen konnte.“" },
+    en: { cat: "Did You Know?", text: "“The Nashville Number System was born in Nashville’s studios in the late 1950s: chords were written as numbers so the band could play any song in any key on the spot.”" },
+    fr: { cat: "Le saviez-vous ?", text: "« Le Nashville Number System est né à la fin des années 1950 dans les studios de Nashville : les accords notés en chiffres permettaient au groupe de jouer chaque chanson dans n’importe quelle tonalité. »" },
+    es: { cat: "¿Lo sabías?", text: "«El sistema numérico de Nashville nació a finales de los años 50 en los estudios de Nashville: los acordes se escribían como números para que la banda tocara cualquier canción en cualquier tono al momento.»" },
+    it: { cat: "Lo sapevi?", text: "«Il Nashville Number System nacque alla fine degli anni ’50 negli studi di Nashville: gli accordi scritti come numeri permettevano alla band di suonare ogni brano in qualsiasi tonalità all’istante.»" },
+    pl: { cat: "Czy wiesz, że…", text: "„System liczbowy Nashville powstał pod koniec lat 50. w studiach Nashville: akordy zapisywano cyframi, by zespół mógł od razu zagrać każdą piosenkę w dowolnej tonacji.”" },
+    uk: { cat: "Цікавий факт", text: "«Нешвільська система чисел з’явилася наприкінці 1950-х у студіях Нешвілла: акорди записували цифрами, щоб гурт міг одразу зіграти будь-яку пісню в будь-якій тональності.»" },
+    ur: { cat: "کیا آپ جانتے ہیں؟", text: "«نیش وِل نمبر سسٹم 1950 کی دہائی کے آخر میں نیش وِل کے اسٹوڈیوز میں پیدا ہوا: کارڈز کو اعداد میں لکھا جاتا تاکہ بینڈ کوئی بھی گانا فوراً کسی بھی کلید میں بجا سکے۔»" },
+    tr: { cat: "Biliyor muydun?", text: "“Nashville Sayı Sistemi 1950’lerin sonunda Nashville stüdyolarında doğdu: akorlar rakamlarla yazılırdı ki grup her şarkıyı anında her tonda çalabilsin.”" },
+    ar: { cat: "هل تعلم؟", text: "«وُلد نظام ناشفيل الرقمي في أواخر الخمسينيات في استوديوهات ناشفيل: كانت التآلفات تُكتب أرقاماً ليتمكن الفريق من عزف أي أغنية فوراً بأي مقام.»" }
+  },
+  {
+    de: { cat: "Wusstest du?", text: "„Wir Waschbären haben besonders feinfühlige Vorderpfoten – und ich obendrein ziemlich gut gespitzte Ohren. Perfekte Voraussetzungen fürs Lauschen!“" },
+    en: { cat: "Did You Know?", text: "“We raccoons have extra-sensitive front paws — and I happen to have very well-tuned ears on top. Perfect for listening!”" },
+    fr: { cat: "Le saviez-vous ?", text: "« Nous, les ratons laveurs, avons des pattes avant très sensibles — et moi, en plus, des oreilles bien affûtées. Parfait pour écouter ! »" },
+    es: { cat: "¿Lo sabías?", text: "«Los mapaches tenemos unas patas delanteras muy sensibles, y yo además unas orejas muy atentas. ¡Perfecto para escuchar!»" },
+    it: { cat: "Lo sapevi?", text: "«Noi procioni abbiamo zampe anteriori sensibilissime, e io in più orecchie ben tese. Perfetto per ascoltare!»" },
+    pl: { cat: "Czy wiesz, że…", text: "„My, szopy, mamy wyjątkowo czułe przednie łapki — a ja do tego porządnie nastawione uszy. Idealnie do słuchania!”" },
+    uk: { cat: "Цікавий факт", text: "«Ми, єноти, маємо надзвичайно чутливі передні лапки — а я ще й добре нашорошені вуха. Ідеально для слухання!»" },
+    ur: { cat: "کیا آپ جانتے ہیں؟", text: "«ہم ریکونز کے اگلے پنجے بہت حساس ہوتے ہیں — اور میرے کان تو اوپر سے خوب چوکنّے ہیں۔ سننے کے لیے بالکل موزوں!»" },
+    tr: { cat: "Biliyor muydun?", text: "“Biz rakunların ön patileri çok hassastır — benim de üstüne üstlük kulaklarım hep diktir. Dinlemek için mükemmel!”" },
+    ar: { cat: "هل تعلم؟", text: "«نحن حيوانات الراكون نملك أقداماً أمامية شديدة الحساسية — وأنا فوق ذلك أذنان مرهفتان جداً. مثالي للاستماع!»" }
   },
   {
     weight: 4,

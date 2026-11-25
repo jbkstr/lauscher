@@ -119,7 +119,7 @@ const INTERVAL_ENCYCLOPEDIA = [
     mood: "Aufrufend, feierlich, fanfarenartig, offen",
     physics: "Als Umkehrung der Quinte in die Oktave hat die Quarte das sehr glatte Verhältnis 4:3. Allein gespielt wirkt sie extrem stabil, über einem Bass kann sie aber nach Auflösung in die Terz verlangen.",
     songsAsc: "„Here Comes the Bride“ (Hochzeitsmarsch), „Harry Potter“ (Hedwig’s Theme – erster Sprung), „Amazing Grace“",
-    songsDesc: "„Eine kleine Nachtmusik“ (Mozart – 2. Intervall), „Oh Come, All Ye Faithful“"
+    songsDesc: "„Eine kleine Nachtmusik“ (Mozart – erstes Intervall), „Oh Come, All Ye Faithful“"
   },
   {
     key: "TT",
@@ -298,7 +298,7 @@ const CADENCE_ENCYCLOPEDIA = [
     bars: ["I", "V", "vi", "iii", "IV", "I", "IV", "V"],
     stepMs: 1500,
     chordDur: 1.38,
-    whyItWorks: "Eine geniale Basslinie aus dem Jahr 1680: Der Bass schreitet abwechselnd abwärts und in Quarten voran (**C → G → A → E → F → C → F → G**). Jeder Schritt verzahnt sich nahtlos mit dem nächsten, sodass die ganze achttaktige Kette gleichzeitig beruhigend und endlos vorwärtstreibend klingt.",
+    whyItWorks: "Eine geniale Basslinie aus der Zeit um 1700: Der Bass schreitet abwechselnd abwärts und in Quarten voran (**C → G → A → E → F → C → F → G**). Jeder Schritt verzahnt sich nahtlos mit dem nächsten, sodass die ganze achttaktige Kette gleichzeitig beruhigend und endlos vorwärtstreibend klingt.",
     songs: [
       "„Kanon in D“ – Johann Pachelbel",
       "„Basket Case“ – Green Day",
@@ -354,7 +354,7 @@ const CADENCE_ENCYCLOPEDIA = [
       "„Zombie“ – The Cranberries (Em – C – G – D)",
       "„Save Tonight“ – Eagle-Eye Cherry",
       "„Numb“ – Linkin Park",
-      "„Hello“ – Adele (Strophe)"
+      "„Despacito“ – Luis Fonsi"
     ]
   },
   {
@@ -982,11 +982,10 @@ const KNOWLEDGE_ARTICLES = [
 
         <h3>Berühmte Songs mit genau diesem Effekt</h3>
         <ul class="article-steps-list">
-          <li><strong>The Beatles – „In My Life“</strong> (bei „I’ll remember you“) und <strong>„Blackbird“</strong></li>
+          <li><strong>The Beatles – „In My Life“</strong></li>
           <li><strong>Radiohead – „Creep“</strong> (die kompletten Strophen und der Refrain: G – H – C – Cm)</li>
           <li><strong>Oasis – „Don’t Look Back in Anger“</strong> (vor dem Ende des Refrains)</li>
           <li><strong>Green Day – „Wake Me Up When September Ends“</strong></li>
-          <li>Fast jedes große <strong>Disney- & Pixar-Finale</strong> (z. B. <em>Toy Story – You’ve Got a Friend in Me</em>)</li>
         </ul>
       </div>
     `
@@ -1024,7 +1023,7 @@ const KNOWLEDGE_ARTICLES = [
           <div class="spectrum-row">
             <div class="spectrum-head">
               <span>1. Perfekte Konsonanz (Maximale Verschmelzung)</span>
-              <span>1:1 · 2:1 · 3:2</span>
+              <span>1:1 · 2:1 · 3:2 · 4:3</span>
             </div>
             <div class="spectrum-bar-track"><div class="spectrum-bar-fill sage" style="width:96%"></div></div>
             <div class="spectrum-sub">Oktave (2:1), Quinte (3:2) &amp; Quarte (4:3): So glatt und stabil, dass man kaum noch zwei getrennte Stimmen heraushört – ideal für Powerchords, offene Bordun-Klänge oder Schlussakkorde.</div>
@@ -1250,7 +1249,7 @@ const KNOWLEDGE_ARTICLES = [
 
         <h3>1. Das westliche Dilemma: Warum wir das Klavier „leicht verstimmt“ haben</h3>
         <p>
-          In der Naturphysik schwingen Intervalle in glatten Zahlenverhältnissen (<em>Reine Stimmung</em>): Eine reine Quinte schwingt exakt <code>3:2</code> (ca. 701,96 Cent), eine reine große Terz <code>5:4</code> (386,31 Cent). Baut man jedoch zwölf reine Quinten übereinander, landet man nicht genau sieben Oktaven höher – es bleibt ein kleiner Überschuss von etwa <strong>23,5 Cent</strong> (das <em>Pythagoräische Komma</em>). Auf einem starren Tasteninstrument bedeutet das: Stimmst du eine Tonart kristallklar rein, klingen entfernte Tonarten grausam verstimmt.
+          In der Naturphysik schwingen Intervalle in glatten Zahlenverhältnissen (<em>Reine Stimmung</em>): Eine reine Quinte schwingt exakt <code>3:2</code> (ca. 701,96 Cent), eine reine große Terz <code>5:4</code> (386,31 Cent). Baut man jedoch zwölf reine Quinten übereinander, landet man nicht genau sieben Oktaven höher – es bleibt ein kleiner Überschuss von etwa <strong>23,5 Cent</strong> (das <em>Pythagoreische Komma</em>). Auf einem starren Tasteninstrument bedeutet das: Stimmst du eine Tonart kristallklar rein, klingen entfernte Tonarten grausam verstimmt.
         </p>
 
         <div class="k-compare-grid">
@@ -1480,7 +1479,7 @@ const KNOWLEDGE_ARTICLES = [
           <div class="song-cheat-row">
             <div>
               <strong>Die 3 Schlüssel-Ankerpunkte (G-, F- und C-Schlüssel)</strong>
-              <span>• <strong>Violinschlüssel = G-Schlüssel:</strong> Die Schnecke kreist um die 2. Linie (<strong>g'</strong>).<br>• <strong>Bassschlüssel = F-Schlüssel:</strong> Die zwei Punkte rahmen die 4. Linie (<strong>f</strong>) ein. <em>Umrechen-Trick:</em> Jede Note im Bassschlüssel liegt genau <strong>zwei Töne (eine Terz) tiefer im Namen / zwei Stufen verschoben</strong> als im Violinschlüssel!<br>• <strong>Altschlüssel = C-Schlüssel:</strong> Die Einbuchtung in der Mitte zeigt exakt auf die 3. Linie = das <strong>Schlüsselloch-C (c')</strong>!</span>
+              <span>• <strong>Violinschlüssel = G-Schlüssel:</strong> Die Schnecke kreist um die 2. Linie (<strong>g'</strong>).<br>• <strong>Bassschlüssel = F-Schlüssel:</strong> Die zwei Punkte rahmen die 4. Linie (<strong>f</strong>) ein. <em>Umrechnungs-Trick:</em> Jede Note im Bassschlüssel heißt <strong>zwei Stufen (eine Terz) höher im Namen</strong> als an derselben Stelle im Violinschlüssel (unterste Linie: <strong>e</strong> → <strong>G</strong>)!<br>• <strong>Altschlüssel = C-Schlüssel:</strong> Die Einbuchtung in der Mitte zeigt exakt auf die 3. Linie = das <strong>Schlüsselloch-C (c')</strong>!</span>
             </div>
           </div>
         </div>
@@ -1494,7 +1493,7 @@ const KNOWLEDGE_ARTICLES = [
           <li><strong>E-Bass &amp; Kontrabass (4 Saiten: E – A – D – G):</strong> <em>„<strong>E</strong>in <strong>A</strong>nfänger <strong>D</strong>er <strong>G</strong>itarre“</em> – identisch mit den vier tiefen Gitarrensaiten (alles reine Quarten aufwärts).</li>
           <li><strong>Violine / Geige (4 Saiten: G – D – A – E):</strong> <em>„<strong>G</strong>eh <strong>D</strong>u <strong>A</strong>lter <strong>E</strong>sel“</em> – exakt die ersten vier Schritte des Quintenzirkels in reinen Quinten aufwärts!</li>
           <li><strong>Viola (Bratsche) &amp; Violoncello (4 Saiten: C – G – D – A):</strong> <em>„<strong>C</strong>äsar <strong>G</strong>ing <strong>D</strong>urch <strong>A</strong>frika“</em> (oder <em>„<strong>C</strong>lowns <strong>G</strong>ehen <strong>D</strong>urch <strong>A</strong>frika“</em> – ebenfalls reine Quinten aufwärts ab C).</li>
-          <li><strong>Ukulele (4 Saiten in C-Stimmung: G – C – E – A):</strong> <em>„<strong>G</strong>ute <strong>C</strong>lowns <strong>E</strong>ssen <strong>A</strong>pfelmus“</em> – und klanglich passen die vier leeren Saiten exakt auf die Melodie <em>„Meine Oma fährt im Hühnerstall Motorrad“</em>!</li>
+          <li><strong>Ukulele (4 Saiten in C-Stimmung: G – C – E – A):</strong> <em>„<strong>G</strong>ute <strong>C</strong>lowns <strong>E</strong>ssen <strong>A</strong>pfelmus“</em> – und klanglich passen die vier leeren Saiten exakt auf die Melodie <em>„My Dog Has Fleas“</em>!</li>
         </ul>
 
         <h3>4. Intervalle sofort an Liedanfängen erkennen</h3>
@@ -2157,6 +2156,7 @@ const CATEGORY_HELP_GUIDES = {
         <li><strong>Stufe 1 – Do–Fa:</strong> 4–5-tönige Phrasen aus dem unteren Tetrachord (<code>Do, Re, Mi, Fa</code>).</li>
         <li><strong>Stufe 2 – Sol–Do:</strong> 4–6-tönige Phrasen aus dem oberen Raum bis zur Oktave (<code>Sol, La, Ti, Do</code>).</li>
         <li><strong>Stufe 3 – Ganze Tonart:</strong> Alle sieben Solfège-Stufen (<code>Do</code> bis <code>Do</code>) über 4–6 Töne.</li>
+        <li><strong>Kategorie-Prüfung, Stufe 4 &amp; 5:</strong> Stufe 4 – Meister nutzt alle Töne in wechselnden Tonarten über mehrere Oktaven, Stufe 5 ist ein Kombi-Melodiediktat (Tonhöhe &amp; Rhythmus, 4–6 Töne).</li>
         <li><strong>Tonarten, Oktaven &amp; Helfer:</strong> Trainiere fest in <code>C-Dur</code> oder in wechselnden Zufallstonarten, innerhalb 1 Oktave oder über mehrere Oktaven. Oben steuerst du <strong>Tonart</strong>, <strong>Puls: An/Aus</strong> und <strong>Tempo (BPM)</strong>; unten liegen <strong>Tonika (Do)</strong>, <strong>Auto-Weiter</strong> (links), <strong>Nur Hören</strong> sowie die 5-stufige <strong>Kategorie-Prüfung</strong>.</li>
       </ul>
     `
@@ -2290,7 +2290,7 @@ const CATEGORY_HELP_GUIDES = {
 
       <div class="article-highlight-box">
         <h4>Audio-Steuerung, Nur Hören &amp; Prüfung</h4>
-        <p>Über der Eingabe schaltet <strong>Notenton: An/Aus</strong> die Klangwiedergabe stumm, wenn du ganz lautlos vom Blatt lesen willst. Unten spielt <strong>▶ Ton anhören</strong> bzw. <strong>▶ Akkord anhören</strong> die linke Zielvorgabe als optionale Hörhilfe vor – in der 6-stufigen <strong>Kategorie-Prüfung</strong> verwandelt sich der Button in <strong>▶ Ankerton</strong> (<code>g'</code> / <code>f</code> / <code>c'</code>), um die Lösung nicht zu verraten. Rechts startet <strong>Nur Hören</strong> mit dem wählbaren <strong>Tempo</strong> (<em>Sehr langsam</em> bis <em>Sehr schnell</em>) den automatischen Lesedurchlauf.</p>
+        <p>Über der Eingabe schaltet <strong>Notenton: An/Aus</strong> die Klangwiedergabe stumm, wenn du ganz lautlos vom Blatt lesen willst. Unten spielt <strong>▶ Ton anhören</strong> bzw. <strong>▶ Akkord anhören</strong> die linke Zielvorgabe als optionale Hörhilfe vor – in der 7-stufigen <strong>Kategorie-Prüfung</strong> verwandelt sich der Button in <strong>▶ Ankerton</strong> (<code>g'</code> / <code>f</code> / <code>c'</code>), um die Lösung nicht zu verraten. Rechts startet <strong>Nur Hören</strong> mit dem wählbaren <strong>Tempo</strong> (<em>Sehr langsam</em> bis <em>Sehr schnell</em>) den automatischen Lesedurchlauf.</p>
       </div>
     `
   }
@@ -2926,7 +2926,7 @@ const INSTRUMENT_MODULES_DATA = {
         range: "b – a³ (Englischhorn in F)",
         tuning: "Oboe in C • Kammerton a¹",
         role: "Stimmton-Geberin & ausdrucksvolle Solokantilenen",
-        desc: "Zwei winzige, aufeinander gebundene Schilfblättchen vibrieren gegeneinander in einem eng-konischen Holzrohr. Das liefert ein extrem obertonreiches, leicht näselnd-eindringliches Timbre. Weil ihre Tonhöhe kaum durch Hitze oder Ansatz schwankt, stimmt sich das gesamte Sinfonieorchester auf das <strong>a¹ der Oboe</strong> ein. Das Englischhorn ist ihre große Alt-Schwester mit birnenförmigem Becher für wehmütige Soli.",
+        desc: "Zwei winzige, aufeinander gebundene Schilfblättchen vibrieren gegeneinander in einem eng-konischen Holzrohr. Das liefert ein extrem obertonreiches, leicht näselnd-eindringliches Timbre. Weil ihr Ton so durchdringend ist und sich ihre Stimmung spontan kaum anpassen lässt, stimmt sich das gesamte Sinfonieorchester auf das <strong>a¹ der Oboe</strong> ein. Das Englischhorn ist ihre große Alt-Schwester mit birnenförmigem Becher für wehmütige Soli.",
         demos: [
           { label: "Oboen-Klang (Schilfblatt)", style: "reed", notes: "A4,C5,E5,D5,C5,A4", dur: 0.95, step: 310 }
         ]
@@ -2947,10 +2947,10 @@ const INSTRUMENT_MODULES_DATA = {
         name: "Fagott & Kontrafagott",
         tag: "Doppelrohrblatt (Bass)",
         tagClass: "tag-peach",
-        range: "B₁ – e² (Kontra ab B₂)",
+        range: "B₁ – e² (Kontrafagott ab B₂)",
         tuning: "Klingend in C (gefaltetes Rohr)",
         role: "Trockener Staccato-Bass & singender Tenor",
-        desc: "Fast 2,60 m konische Röhre werden durch eine U-Krümmung handlich gefaltet. Tief angestoßen liefert das Fagott trockene, humorvoll-knackige Staccati; gebunden in der Mittellage singt es warm wie ein menschlicher Bariton. Das Kontrafagott reicht bis zum tiefsten Kontra-B hinab.",
+        desc: "Fast 2,60 m konische Röhre werden durch eine U-Krümmung handlich gefaltet. Tief angestoßen liefert das Fagott trockene, humorvoll-knackige Staccati; gebunden in der Mittellage singt es warm wie ein menschlicher Bariton. Das Kontrafagott reicht bis zum Subkontra-B (B₂) hinab.",
         demos: [
           { label: "Fagott-Tiefe hören", style: "reed", notes: "Bb1,F2,Bb2,D3,F3", dur: 1.0, step: 330 }
         ]
@@ -2959,10 +2959,10 @@ const INSTRUMENT_MODULES_DATA = {
         name: "Saxophon-Familie (Sopran, Alt, Tenor, Bariton)",
         tag: "Moderne Holzbläser-Brücke",
         tagClass: "tag-lilac",
-        range: "Je nach Typ Des² bis f³ (klingend)",
+        range: "Je nach Typ ca. Des bis es³ (klingend)",
         tuning: "Meist Es (Alt/Bariton) oder B (Sopran/Tenor)",
         role: "Jazz, Bigband, Funk, Soul & Pop-Solo",
-        desc: "Um 1840 von Adolphe Sax erfunden als akustischer Hybrid: Es verbindet das Einfachrohrblatt der Klarinette mit dem weiten konischen Korpus der Oboe (aus Messing gefertigt). Dadurch überbläst es normal in die Oktave, vereint bläserische Durchschlagskraft mit Holzbläser-Beweglichkeit und lässt sich vom hauchenden Subtone bis zum schreienden Growl extrem verbiegen.",
+        desc: "Um 1840 von Adolphe Sax erfunden als akustischer Hybrid: Es verbindet das Einfachrohrblatt der Klarinette mit einem weiten konischen Messingkorpus. Dadurch überbläst es normal in die Oktave, vereint bläserische Durchschlagskraft mit Holzbläser-Beweglichkeit und lässt sich vom hauchenden Subtone bis zum schreienden Growl extrem verbiegen.",
         demos: [
           { label: "Tenor-/Alt-Saxophon-Farbe", style: "reed", notes: "C4,Eb4,F4,F#4,G4,Bb4", dur: 0.9, step: 250 }
         ]
@@ -3017,7 +3017,7 @@ const INSTRUMENT_MODULES_DATA = {
         tag: "Stufenloser Zug (7 Positionen)",
         tagClass: "tag-lilac",
         range: "E – f² (mit Quartventil bis H₁)",
-        tuning: "Klingend in B notiert",
+        tuning: "Grundstimmung B, notiert klingend (nicht transponierend)",
         role: "Satter Akkordsatz, Glissando & Jazz-Soli",
         desc: "Statt Ventilen verlängert ein leichtgängiger U-Zug das zylindrische Rohr in 7 Halbton-Positionen. Vorteil: Posaunisten können Mikrointervalle völlig rein nach Gehör korrigieren und echte stufenlose <strong>Glissandi</strong> (Stürze von Ton zu Ton) spielen.",
         demos: [
@@ -3075,7 +3075,7 @@ const INSTRUMENT_MODULES_DATA = {
         tag: "Saiten gezupft (Kiele / Plektren)",
         tagClass: "tag-sage",
         range: "F₁ – f³",
-        tuning: "Oft historische Temperaturen (Werckmeister/Valotti)",
+        tuning: "Oft historische Temperierungen (Werckmeister/Vallotti)",
         role: "Barocke Basso-Continuo-Basis & silbriger Anschlag",
         desc: "Statt Hämmer zu werfen, zupft ein kleiner Federkiel (heute Delrin) beim Tastendruck die Saite an. Darum hat der Fingerdruck kaum Einfluss auf die Lautstärke: Dynamik entsteht beim Cembalo durch Registerzüge (4', 8', Koppeln) und durch dichte vs. lichte Akkorde und Verzierungen. Extrem obertonreich und rhythmisch prägnant.",
         demos: [
@@ -3494,7 +3494,7 @@ const MODES_ENCYCLOPEDIA = [
     charNote: "Verminderte Quinte (b5, z. B. ges) + b2",
     vamp: "i° – bII (Cm7b5 – Db)",
     desc: "Der einzige diatonische Modus ohne reine Quinte über dem Grundton. Statt Ruhe bildet der Grundakkord einen verminderten Dreiklang / halbverminderten m7b5-Klang voller Reibung.",
-    usage: "<strong>Musikalische Funktion:</strong> Selten als komplettes Song-Fundament (z. B. Björk <em>Army of Me</em>-Anklänge, Prog-Metal), dafür im Jazz das unverzichtbare Werkzeug über Halbvermindert (ii°7 in Moll-II-V-I-Kadenzen) und in Horror-/Suspense-Scores.",
+    usage: "<strong>Musikalische Funktion:</strong> Selten als komplettes Song-Fundament (z. B. Björk <em>Army of Me</em>-Anklänge, Prog-Metal), dafür im Jazz das unverzichtbare Werkzeug über Halbvermindert (iiø7 in Moll-II-V-I-Kadenzen) und in Horror-/Suspense-Scores.",
     notes: "C4,Db4,Eb4,F4,Gb4,Ab4,Bb4,C5",
     vampChords: [["C3", "Eb4", "Gb4", "Bb4"], ["Db3", "F4", "Ab4"]]
   },
@@ -3776,7 +3776,7 @@ const KEYS_CIRCLE_DATA = [
     minorName: "d-Moll",
     rootMidi: 53,
     minorMidi: 62,
-    accidentalList: "1♭: b (Beethoven: H → B)",
+    accidentalList: "1♭: b (aus h wird b)",
     chords: "I F · ii Gm · iii Am · IV Bb · V C · vi Dm",
     instrumentTip: "Warm-pastoraler Klang; Wohlfühltonart für Hörner, Flöten & Chöre"
   }
@@ -3909,7 +3909,7 @@ function renderKeysReferenceHTML(circleFilter = "all") {
         </div>
         <div class="physics-fact-item">
           <strong>Varianttonart (gleicher Grundton)</strong>
-          Bleibt auf demselben Zentrum, wechselt aber Dur und Moll: <code>C-Dur ↔ c-Moll</code> (Unterschied: 3 Vorzeichen!). Starke emotionale Farbänderung (Aufhellung „Picardy Third“ oder Eintrübung).
+          Bleibt auf demselben Zentrum, wechselt aber Dur und Moll: <code>C-Dur ↔ c-Moll</code> (Unterschied: 3 Vorzeichen!). Starke emotionale Farbänderung (Aufhellung wie die „picardische Terz“ oder Eintrübung).
         </div>
         <div class="physics-fact-item">
           <strong>Quintverwandtschaft (Nachbarn im Zirkel)</strong>
@@ -4684,7 +4684,7 @@ function renderCircleOfFifthsTheoryHTML() {
         Nach der Oktave (<code>2:1</code>) ist die <strong>reine Quinte (3:2)</strong> das engste akustische Verwandtschaftsverhältnis der Musik. Geht man von <strong>C</strong> aus Schritt für Schritt eine Quinte nach oben (<code>C → G → D → A → E → H → Fis…</code>), wird jedes Mal genau ein Ton um einen Halbton erhöht, um den neuen Leitton herzustellen – es kommt im Uhrzeigersinn je ein <strong>Kreuz (♯)</strong> hinzu. Geht man rückwärts in Quinten nach unten (gleichbedeutend mit Quarten nach oben: <code>C → F → B → Es → As → Des → Ges</code>), wird bei jedem Schritt ein Ton erniedrigt – es entsteht je ein <strong>Be (♭)</strong>.
       </p>
       <p>
-        Nach 12 Schritten schließt unsere gleichstufige Stimmung den Kreis bei <strong>6 Uhr (Fis / Ges)</strong> wieder perfekt zusammen, weil 6♯ und 6♭ exakt dieselben Tasten treffen (<strong>Enharmonische Verwechslung</strong>). Statt 12 isolierte Tonleitern auswendig zu lernen, erhältst du einen einzigen musikalischen Kompass!
+        Nach je 6 Schritten in beide Richtungen treffen sich Kreuz- und B-Seite bei <strong>6 Uhr (Fis / Ges)</strong>, weil 6♯ und 6♭ in unserer gleichstufigen Stimmung exakt dieselben Tasten treffen. Nach 12 Quinten bist du wieder bei C (<strong>Enharmonische Verwechslung</strong>). Statt 12 isolierte Tonleitern auswendig zu lernen, erhältst du einen einzigen musikalischen Kompass!
       </p>
       <div class="k-compare-grid">
         <div class="k-compare-box is-peach">

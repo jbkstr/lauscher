@@ -80,7 +80,7 @@ const INTERVAL_ENCYCLOPEDIA_ES = [
     mood: "Llamada, solemne, fanfarria, gran espacio abierto",
     physics: "Inversión de la quinta justa dentro de la octava, la cuarta tiene una proporción nítida de 4:3. Sola es muy estable; sobre un bajo, a menudo pide bajar a la tercera.",
     songsAsc: "«La Marsellesa» (anacrusa «Al-lons»), «Marcha nupcial» (Wagner), tema de «Harry Potter» (Hedwig)",
-    songsDesc: "«Pequeña serenata nocturna» (Mozart, segundo intervalo), «Adeste Fideles»"
+    songsDesc: "«Pequeña serenata nocturna» (Mozart, primer intervalo), «Adeste Fideles»"
   },
   {
     key: "TT",
@@ -258,7 +258,7 @@ const CADENCE_ENCYCLOPEDIA_ES = [
     bars: ["I", "V", "vi", "iii", "IV", "I", "IV", "V"],
     stepMs: 1500,
     chordDur: 1.38,
-    whyItWorks: "Un golpe de genio en el bajo de 1680: el bajo desciende y salta con toda naturalidad (**Do → Sol → La → Mi → Fa → Do → Fa → Sol**). Cada eslabón encaja sin tropiezos, creando un bucle de ocho compases sereno y a la vez impulsor.",
+    whyItWorks: "Un golpe de genio en el bajo de hacia 1700: el bajo desciende y salta con toda naturalidad (**Do → Sol → La → Mi → Fa → Do → Fa → Sol**). Cada eslabón encaja sin tropiezos, creando un bucle de ocho compases sereno y a la vez impulsor.",
     songs: [
       "«Canon en Re» – Johann Pachelbel",
       "«Basket Case» – Green Day",
@@ -312,7 +312,7 @@ const CADENCE_ENCYCLOPEDIA_ES = [
       "«Zombie» – The Cranberries (Mim – Do – Sol – Re)",
       "«Save Tonight» – Eagle-Eye Cherry",
       "«Numb» – Linkin Park",
-      "«Hello» – Adele (estrofa)"
+      "«Despacito» – Luis Fonsi"
     ]
   },
   {
@@ -931,7 +931,7 @@ const KNOWLEDGE_ARTICLES_ES = [
 
         <h3>Canciones de culto construidas sobre este giro armónico</h3>
         <ul class="article-steps-list">
-          <li><strong>The Beatles – «In My Life»</strong> (en «I’ll remember you») y <strong>«Blackbird»</strong></li>
+          <li><strong>The Beatles – «In My Life»</strong></li>
           <li><strong>Radiohead – «Creep»</strong> (todo el bucle de la canción: Sol – Si – Do – Dom)</li>
           <li><strong>Oasis – «Don’t Look Back in Anger»</strong> (al final del preestribillo)</li>
           <li><strong>Green Day – «Wake Me Up When September Ends»</strong></li>
@@ -973,7 +973,7 @@ const KNOWLEDGE_ARTICLES_ES = [
           <div class="spectrum-row">
             <div class="spectrum-head">
               <span>1. Consonancia perfecta (fusión total)</span>
-              <span>1:1 · 2:1 · 3:2</span>
+              <span>1:1 · 2:1 · 3:2 · 4:3</span>
             </div>
             <div class="spectrum-bar-track"><div class="spectrum-bar-fill sage" style="width:96%"></div></div>
             <div class="spectrum-sub">Octava (2:1), quinta justa (3:2) &amp; cuarta justa (4:3): tan puras y encajadas que parece oírse un solo sonido; hechas a medida para power chords, bordones y cadencias finales.</div>
@@ -2033,6 +2033,7 @@ const CATEGORY_HELP_GUIDES_ES = {
         <li><strong>Nivel 1 – Do–Fa:</strong> Frases de 4 a 5 notas del tetracordo inferior (<code>Do, Re, Mi, Fa</code>).</li>
         <li><strong>Nivel 2 – Sol–Do:</strong> Frases de 4 a 6 notas sobre la mitad superior (<code>Sol, La, Ti, Do</code>).</li>
         <li><strong>Nivel 3 – Tonalidad completa:</strong> Los siete grados (<code>Do</code> a <code>Do</code>) en 4 a 6 notas.</li>
+        <li><strong>Examen de categoría, niveles 4 y 5:</strong> el nivel 4 – Maestro usa toda la escala en tonalidades cambiantes y en varias octavas; el nivel 5 es un dictado melódico combinado (altura y ritmo, 4 a 6 notas).</li>
         <li><strong>Tonalidades, octavas &amp; ayudas:</strong> Practica en <code>Do mayor</code> o en tonalidades aleatorias, en 1 o varias octavas. Arriba, ajusta <strong>Tonalidad</strong>, <strong>Pulso: sí/no</strong> y <strong>Tempo (BPM)</strong>; abajo están <strong>Tónica (Do)</strong>, <strong>Siguiente automático</strong> (a la izquierda), <strong>Solo escucha</strong> y el <strong>Examen</strong> de 5 niveles.</li>
       </ul>
     `
@@ -3206,7 +3207,7 @@ const MODES_ENCYCLOPEDIA_ES = [
     charNote: "Quinta disminuida (b5, p. ej., Sol♭) + b2",
     vamp: "i° – bII (Dom7b5 – Re♭)",
     desc: "El único modo diatónico sin una quinta justa estable sobre su fundamental. En su lugar, la propia tríada de tónica es disminuida / semidisminuida (m7b5), cargada de inquietud.",
-    usage: "<strong>Uso musical:</strong> Raro como tonalidad completa (p. ej., Björk <em>Army of Me</em>, metal progresivo), pero indispensable en el jazz sobre los acordes semidisminuidos (ii°7 de los ii–V–i menores) y en las escenas de tensión.",
+    usage: "<strong>Uso musical:</strong> Raro como tonalidad completa (p. ej., Björk <em>Army of Me</em>, metal progresivo), pero indispensable en el jazz sobre los acordes semidisminuidos (iiø7 de los ii–V–i menores) y en las escenas de tensión.",
     notes: "C4,Db4,Eb4,F4,Gb4,Ab4,Bb4,C5",
     vampChords: [["C3", "Eb4", "Gb4", "Bb4"], ["Db3", "F4", "Ab4"]]
   },
@@ -3775,7 +3776,7 @@ function renderCircleOfFifthsTheoryHTML_ES() {
         Justo después de la octava (<code>2:1</code>), la <strong>quinta justa (3:2)</strong> es el vínculo acústico más potente de la música. Al subir de quinta en quinta desde <strong>Do</strong> (<code>Do → Sol → Re → La → Mi → Si → Fa♯…</code>), cada paso eleva una sola nota para formar la siguiente sensible, añadiendo <strong>un sostenido (♯)</strong> en el sentido de las agujas del reloj. Al bajar por quintas (es decir, subiendo por <strong>cuartas</strong>: <code>Do → Fa → Si♭ → Mi♭ → La♭ → Re♭ → Sol♭</code>), el color se suaviza a cada paso y se añade <strong>un bemol (♭)</strong> en sentido contrario.
       </p>
       <p>
-        Al cabo de 12 pasos, el temperamento igual cierra la espiral sobre sí misma a <strong>las 6 en punto (Fa♯ / Sol♭)</strong>, donde 6 sostenidos y 6 bemoles caen exactamente en las mismas teclas del piano (<strong>enarmonía</strong>). En lugar de memorizar 12 escalas aisladas, ¡tienes una sola brújula musical!
+        Tras 6 pasos en cada dirección, el lado de los sostenidos y el de los bemoles se encuentran a <strong>las 6 en punto (Fa♯ / Sol♭)</strong>, donde, en el temperamento igual, 6 sostenidos y 6 bemoles caen exactamente en las mismas teclas del piano. Tras 12 quintas vuelves a Do (<strong>enarmonía</strong>). En lugar de memorizar 12 escalas aisladas, ¡tienes una sola brújula musical!
       </p>
       <div class="k-compare-grid">
         <div class="k-compare-box is-peach">

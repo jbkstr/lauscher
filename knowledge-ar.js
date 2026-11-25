@@ -80,7 +80,7 @@ const INTERVAL_ENCYCLOPEDIA_AR = [
     mood: "ندائي، احتفالي، يشبه الأبواق، واسع ومنفتح",
     physics: "باعتبارها انقلاباً للخامسة التامة داخل الأوكتاف، تحتفظ الرابعة بنسبة 4:3 النقية. تبدو صلبة بمفردها، لكنها فوق نغمة باس غالباً ما تميل للاستقرار خطوةً إلى الثالثة.",
     songsAsc: "«Here Comes the Bride» (مارش الزفاف)، «Harry Potter» (أول قفزة في لحن هيدويغ)، «Amazing Grace»",
-    songsDesc: "«Eine kleine Nachtmusik» (موتسارت – المسافة الثانية)، «O Come, All Ye Faithful»"
+    songsDesc: "«Eine kleine Nachtmusik» (موتسارت – المسافة الأولى)، «O Come, All Ye Faithful»"
   },
   {
     key: "TT",
@@ -258,7 +258,7 @@ const CADENCE_ENCYCLOPEDIA_AR = [
     bars: ["I", "V", "vi", "iii", "IV", "I", "IV", "V"],
     stepMs: 1500,
     chordDur: 1.38,
-    whyItWorks: "عبقرية في خط الباس من عام 1680: يهبط الباس ويقفز بسلاسة فائقة (**C → G → A → E → F → C → F → G**). كل حلقة تتشابك بانسيابية مع التالية، فتكوّن دورة من ثماني موازير تبدو هادئة ومندفعة إلى الأمام بلا نهاية.",
+    whyItWorks: "عبقرية في خط الباس من حوالي عام 1700: يهبط الباس ويقفز بسلاسة فائقة (**C → G → A → E → F → C → F → G**). كل حلقة تتشابك بانسيابية مع التالية، فتكوّن دورة من ثماني موازير تبدو هادئة ومندفعة إلى الأمام بلا نهاية.",
     songs: [
       "«Canon in D» – يوهان باخيلبيل",
       "«Basket Case» – Green Day",
@@ -312,7 +312,7 @@ const CADENCE_ENCYCLOPEDIA_AR = [
       "«Zombie» – The Cranberries (Em – C – G – D)",
       "«Save Tonight» – Eagle-Eye Cherry",
       "«Numb» – Linkin Park",
-      "«Hello» – Adele (المقطع)"
+      "«Despacito» – Luis Fonsi"
     ]
   },
   {
@@ -931,7 +931,7 @@ const KNOWLEDGE_ARTICLES_AR = [
 
         <h3>أغانٍ أيقونية بُنيت حول هذه الحركة</h3>
         <ul class="article-steps-list">
-          <li><strong>The Beatles – «In My Life»</strong> (عند عبارة «I’ll remember you») و <strong>«Blackbird»</strong></li>
+          <li><strong>The Beatles – «In My Life»</strong></li>
           <li><strong>Radiohead – «Creep»</strong> (دورة المقطع واللازمة بأكملها: G – B – C – Cm)</li>
           <li><strong>Oasis – «Don’t Look Back in Anger»</strong> (في نهاية ما قبل اللازمة مباشرةً)</li>
           <li><strong>Green Day – «Wake Me Up When September Ends»</strong></li>
@@ -973,7 +973,7 @@ const KNOWLEDGE_ARTICLES_AR = [
           <div class="spectrum-row">
             <div class="spectrum-head">
               <span>1. ائتلاف تام (اندماج كامل)</span>
-              <span>1:1 · 2:1 · 3:2</span>
+              <span>1:1 · 2:1 · 3:2 · 4:3</span>
             </div>
             <div class="spectrum-bar-track"><div class="spectrum-bar-fill sage" style="width:96%"></div></div>
             <div class="spectrum-sub">الأوكتاف (2:1)، الخامسة التامة (3:2) والرابعة التامة (4:3): نقية ومتماسكة لدرجة أنك تكاد تسمع صوتاً واحداً مركباً — مثالية لتآلفات الباور والنغمات الممتدة والخاتمات الرنانة.</div>
@@ -2086,6 +2086,7 @@ const CATEGORY_HELP_GUIDES_AR = {
         <li><strong>المستوى 1 – Do–Fa:</strong> جمل من 4–5 نغمات مأخوذة من التتراكورد السفلي (<code>Do, Re, Mi, Fa</code>).</li>
         <li><strong>المستوى 2 – Sol–Do:</strong> جمل من 4–6 نغمات مركّزة على فضاء التوتر العلوي (<code>Sol, La, Ti, Do</code>).</li>
         <li><strong>المستوى 3 – السلم الكامل:</strong> جميع درجات الصولفيج السبع (من <code>Do</code> إلى <code>Do</code>) عبر 4–6 نغمات.</li>
+        <li><strong>اختبار الفئة، المستويان 4 و5:</strong> يستخدم المستوى 4 – المحترف السلم كاملاً في سلالم متغيرة عبر عدة أوكتافات؛ والمستوى 5 إملاء لحني كامل (طبقة الصوت والإيقاع، 4–6 نغمات).</li>
         <li><strong>أوضاع السلم والأوكتافات والمساعدات:</strong> تدرّب في <code>دو الكبير</code> الثابت أو في سلالم عشوائية، وضمن أوكتاف واحد أو عبر عدة طبقات. وفوق المدرج تحكّم في <strong>السلم</strong> و<strong>النبض: تشغيل/إيقاف</strong> و<strong>سرعة الإيقاع (BPM)</strong>؛ وتحته تجد <strong>القرار (Do)</strong> و<strong>التالي تلقائياً</strong> و<strong>الاستماع فقط</strong>، بالإضافة إلى <strong>اختبار الفئة</strong> ذي الـ 5 مستويات.</li>
       </ul>
     `
@@ -3256,7 +3257,7 @@ const MODES_ENCYCLOPEDIA_AR = [
     charNote: "خامسة ناقصة (b5، مثل Gb) + b2",
     vamp: "i° – bII (Cm7b5 – Db)",
     desc: "النمط الدياتوني الوحيد الذي يفتقر إلى خامسة تامة مستقرة فوق نغمته الأساسية. بدلاً من ذلك يكون تآلف القرار نفسه ناقصاً أو نصف ناقص (m7b5) ومشحوناً بالقلق.",
-    usage: "<strong>الاستخدام الموسيقي:</strong> نادر كمقام رئيسي لمقطوعة كاملة (مثل بيورك <em>Army of Me</em> والبروغريسيف ميتال)، لكنه لا غنى عنه في الجاز فوق التآلفات نصف الناقصة (ii°7 في تتابع ii–V–i الصغير) ومشاهد التوتر.",
+    usage: "<strong>الاستخدام الموسيقي:</strong> نادر كمقام رئيسي لمقطوعة كاملة (مثل بيورك <em>Army of Me</em> والبروغريسيف ميتال)، لكنه لا غنى عنه في الجاز فوق التآلفات نصف الناقصة (iiø7 في تتابع ii–V–i الصغير) ومشاهد التوتر.",
     notes: "C4,Db4,Eb4,F4,Gb4,Ab4,Bb4,C5",
     vampChords: [["C3", "Eb4", "Gb4", "Bb4"], ["Db3", "F4", "Ab4"]]
   },
@@ -3824,7 +3825,7 @@ function renderCircleOfFifthsTheoryHTML_AR() {
         مباشرة بعد الأوكتاف (<code>2:1</code>)، تُعد <strong>الخامسة التامة (3:2)</strong> أقوى رابط صوتي في الموسيقى. اصعد بخامسات متتالية بدءاً من <strong>C</strong> (<code>C → G → D → A → E → B → F♯…</code>): في كل خطوة ترتفع نغمة واحدة لصنع النغمة الحساسة الجديدة، فتُضاف <strong>علامة دييز (♯)</strong> واحدة مع عقارب الساعة. واهبط بخامسات (أي اصعد <strong>برابعات</strong>: <code>C → F → B♭ → E♭ → A♭ → D♭ → G♭</code>): يزداد اللون دفئاً وتُضاف <strong>علامة بيمول (♭)</strong> واحدة عكس عقارب الساعة.
       </p>
       <p>
-        بعد 12 خطوة، يُغلق التعديل المتساوي اللولب على نفسه عند <strong>الساعة 6 (F♯ / G♭)</strong> حيث تقع 6 علامات دييز و6 علامات بيمول على مفاتيح البيانو نفسها تماماً (<strong>الترادف الإنهارموني</strong>). وبدلاً من حفظ 12 سلماً منفصلاً، تمتلك بوصلة موسيقية واحدة!
+        بعد 6 خطوات في كل اتجاه يلتقي جانب الدييز وجانب البيمول عند <strong>الساعة 6 (F♯ / G♭)</strong>، حيث تقع في التعديل المتساوي 6 علامات دييز و6 علامات بيمول على مفاتيح البيانو نفسها تماماً. وبعد 12 خامسة تعود إلى C (<strong>الترادف الإنهارموني</strong>). وبدلاً من حفظ 12 سلماً منفصلاً، تمتلك بوصلة موسيقية واحدة!
       </p>
       <div class="k-compare-grid">
         <div class="k-compare-box is-peach">
