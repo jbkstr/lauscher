@@ -2,7 +2,7 @@
 
 All released versions of Lauscher. New sections are created by `python3 scripts/bump-version.py`.
 
-## Unreleased
+## 0.13.0-beta (Build 8) – 2026-11-25
 
 **New**
 - Sing-back exercises with microphone feedback: "Sing Intervals" (in Intervals) and "Sing Degrees" (in Solfège). Lauscher plays a root note or a cadence, then you sing the target note and Lauscher listens through the microphone. Grading is generous and octave-independent (men can sing an octave lower); close attempts count as a hit, and no cent numbers are shown. After the attempt a pitch trace shows your voice against the target band, with a hint whether the target lies higher or lower. Voice range (mixed, soprano, alto, tenor, bass) and interval direction (ascending, descending, mixed) are selectable. The microphone is only on during the exercise; nothing is recorded or stored. Privacy policy updated accordingly.
