@@ -1,6 +1,6 @@
 // Lauscher • Service Worker (automatisch erzeugt von scripts/build-sw.py – nicht von Hand bearbeiten)
 const CACHE_PREFIX = "lauscher-";
-const CACHE_NAME = "lauscher-0.11.1-beta-b6-9b2a815cf00a";
+const CACHE_NAME = "lauscher-0.11.1-beta-b6-1e1e90ab1244";
 const PRECACHE_URLS = [
   "./",
   "./index.html",
@@ -72,6 +72,8 @@ const PRECACHE_URLS = [
   "./fonts/Andika/Andika-Regular.ttf",
   "./icons/app-icon.jpg",
   "./icons/apple-touch-icon.png",
+  "./icons/favicon-32.png",
+  "./icons/favicon-64.png",
   "./icons/icon-192.png",
   "./icons/icon-512.png"
 ];

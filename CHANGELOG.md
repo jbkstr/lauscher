@@ -8,6 +8,7 @@ All released versions of Lauscher. New sections are created by `python3 scripts/
 - Practice progress is remembered: Lauscher keeps the exercise you last chose and the level and options of every exercise across restarts, and "Continue" picks up where you left off.
 - Complete backup for switching phones: "Back Up Profile" now also saves your practice progress and display settings (theme, light/dark, language), alongside your profile, exam history and milestones. Older backup files can still be loaded.
 - Web version: Lauscher can be installed to the home screen as an app and works offline. App files, fonts and sounds are kept in the browser cache; updates are applied silently on the next reload.
+- Web version: the browser tab shows a round version of the app icon as favicon (also on the privacy, terms and licenses pages). The web app manifest now lists separate regular and maskable icons.
 
 **Improved**
 - The sing-along tip no longer opens while an exercise tutorial is showing; it appears on a later exercise instead
