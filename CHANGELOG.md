@@ -10,6 +10,11 @@ All released versions of Lauscher. New sections are created by `python3 scripts/
 - Android back button and Escape now close an open exercise tutorial first (instead of leaving the exercise)
 - Space bar no longer starts rhythm playback behind an open tutorial
 - The exercise header (tempo, key, sing-along chip) can no longer be tapped during a tutorial walkthrough
+- Circle of Fifths: the scale is now shown under a "Scale" heading as a single row of notes instead of an inline list that could wrap
+- Circle of Fifths: the pivot modulation path is shown as a chain of steps that only wraps between steps
+- Knowledge articles: play buttons next to song examples no longer get squeezed into narrow multi-line pills; ratio labels (e.g. "9:8 · 16:9") no longer break apart
+- Small phones: answer tile captions (e.g. "2er-Marsch", "Vermindert") are hyphenated instead of cut off with "…"
+- Long instrument names (French, Polish, Ukrainian) in Free Play and the mixer, warm-up phase buttons and practice mix titles now wrap instead of being cut off
 
 ## 0.11.1-beta (Build 6) – 2026-11-25
 

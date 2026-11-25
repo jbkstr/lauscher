@@ -4893,8 +4893,10 @@ function renderCircleOfFifthsToolHTML(selectedIdx = 0, ringMode = "major", activ
   if (safeTab === "chords") {
     tabBodyHTML = `
       <div class="cof-scale-strip">
-        <strong>${lc("Tonleiter:", "Scale:", "Gamme :")}</strong>
-        <span>${harmonic.scaleLabels.join(" – ")}</span>
+        <strong class="cof-scale-title">${lc("Tonleiter", "Scale", "Gamme")}</strong>
+        <ol class="cof-scale-notes" dir="ltr">
+          ${harmonic.scaleLabels.map(n => `<li>${n}</li>`).join("")}
+        </ol>
       </div>
       <div class="cof-chord-grid">
         ${harmonic.chords.map(ch => `
@@ -4921,9 +4923,10 @@ function renderCircleOfFifthsToolHTML(selectedIdx = 0, ringMode = "major", activ
       <p class="k-tip"><strong>${lc("Klang & Instrumente:", "Sound & Instruments:", "Son & Instruments :")}</strong> ${curDisp.vibeText}</p>
     `;
   } else {
-    const pivotLabel = safeRing === "minor"
-      ? `${curDisp.minorWheel} (i) → ${leftDisp.minorWheel} (iv) → V7 → ${curDisp.majorFull} (III)`
-      : `${curDisp.majorFull} (I) → ${curDisp.minorWheel} (vi = ii) → V7 → ${rightDisp.majorFull}`;
+    // Schritte der Dreh-Modulation einzeln, damit sie nur zwischen den Schritten umbrechen
+    const pivotSteps = safeRing === "minor"
+      ? [`${curDisp.minorWheel} (i)`, `${leftDisp.minorWheel} (iv)`, "V7", `${curDisp.majorFull} (III)`]
+      : [`${curDisp.majorFull} (I)`, `${curDisp.minorWheel} (vi = ii)`, "V7", rightDisp.majorFull];
     tabBodyHTML = `
       <div class="cof-mod-grid">
         <div class="cof-mod-box">
@@ -4937,14 +4940,17 @@ function renderCircleOfFifthsToolHTML(selectedIdx = 0, ringMode = "major", activ
           ${lc("Tritonus-Pol (6 Schritte):", "Tritone Pole (6 steps):", "Pôle triton (6 pas) :")} <code>${safeRing === "minor" ? triDisp.minorFull : triDisp.majorFull}</code>
         </div>
       </div>
-      <p class="k-tip">
-        <strong>${lc("Elegante Dreh-Modulation:", "Smooth Pivot Modulation:", "Modulation par accord pivot :")}</strong>
-        <code>${pivotLabel}</code> — ${lc(
+      <div class="cof-mod-box cof-pivot-box">
+        <strong>${lc("Elegante Dreh-Modulation", "Smooth Pivot Modulation", "Modulation par accord pivot")}</strong>
+        <ol class="cof-pivot-path" dir="ltr">
+          ${pivotSteps.map(step => `<li><span>${step}</span></li>`).join("")}
+        </ol>
+        <span>${lc(
           "Ein gemeinsamer Mollakkord dient als Drehachse und leitet das Ohr unauffällig in die Nachbartonart.",
           "Notice how one shared minor chord smoothly pivots the ear into the neighboring key.",
           "Remarquez comment un accord mineur commun sert de pivot pour glisser en douceur vers la tonalité voisine."
-        )}
-      </p>
+        )}</span>
+      </div>
       <div class="k-btn-row">
         <button class="btn-tool" data-play-cof-mod="${activeCadenceMidi}" data-key-mode="${safeRing}">▶ ${lc("Modulation anhören", "Hear Smooth Modulation", "Écouter la modulation")}</button>
       </div>

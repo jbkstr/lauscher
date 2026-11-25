@@ -4821,15 +4821,6 @@ registerColocatedPhrases({
     tr: "Modülasyon ve Geçişler",
     ar: "الانتقال النغمي والمسارات"
   },
-  "Tonleiter:": {
-    es: "Escala:",
-    it: "Scala:",
-    pl: "Skala:",
-    uk: "Гама:",
-    ur: "اسکیل:",
-    tr: "Gam:",
-    ar: "السلم:"
-  },
   "Tippen zum Anhören": {
     es: "Toca para escuchar el acorde",
     it: "Tocca per ascoltare",
@@ -4938,14 +4929,14 @@ registerColocatedPhrases({
     tr: "Triton kutbu (6 adım):",
     ar: "قطب الترايتون (6 خطوات):"
   },
-  "Elegante Dreh-Modulation:": {
-    es: "Modulación elegante por acorde pivote:",
-    it: "Modulazione elegante con accordo perno:",
-    pl: "Płynna modulacja przez wspólny akord:",
-    uk: "Плавна модуляція через спільний акорд:",
-    ur: "نفیس محوری ماڈیولیشن:",
-    tr: "Zarif eksen modülasyonu:",
-    ar: "انتقال نغمي محوري أنيق:"
+  "Elegante Dreh-Modulation": {
+    es: "Modulación elegante por acorde pivote",
+    it: "Modulazione elegante con accordo perno",
+    pl: "Płynna modulacja przez wspólny akord",
+    uk: "Плавна модуляція через спільний акорд",
+    ur: "نفیس محوری ماڈیولیشن",
+    tr: "Zarif eksen modülasyonu",
+    ar: "انتقال نغمي محوري أنيق"
   },
   "Ein gemeinsamer Mollakkord dient als Drehachse und leitet das Ohr unauffällig in die Nachbartonart.": {
     es: "Un acorde menor común sirve de eje y lleva el oído con discreción a la tonalidad vecina.",
