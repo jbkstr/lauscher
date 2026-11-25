@@ -10,7 +10,7 @@
  * scripts/sync-android.sh überträgt name/build automatisch in android/app/build.gradle.
  */
 const LAUSCHER_VERSION = {
-  name: "0.10.1-beta",
-  build: 3,
+  name: "0.10.2-beta",
+  build: 4,
   date: "2026-11-25"
 };

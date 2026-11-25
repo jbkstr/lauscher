@@ -2,6 +2,11 @@
 
 All released versions of Lauscher. New sections are created by `python3 scripts/bump-version.py`.
 
+## 0.10.2-beta (Build 4) – 2026-11-25
+
+**Changed**
+- Guitar: back to the previous guitar samples. The license of the sample library used in 0.10.1-beta does not allow its sounds to be redistributed inside an app.
+
 ## 0.10.1-beta (Build 3) – 2026-11-25
 
 **Improved**
