@@ -797,6 +797,11 @@ function handleNativeBackButton() {
     return true;
   }
 
+  // Offenes Übungs-Tutorial zuerst schließen (wie Escape), statt die Übung zu verlassen
+  if (typeof dismissExerciseTutorialByUser === "function" && dismissExerciseTutorialByUser()) {
+    return true;
+  }
+
   const examBanner = document.getElementById("examAbortConfirmBanner");
   if (examBanner && !examBanner.classList.contains("hidden")) {
     cancelExamAbort();

@@ -2,6 +2,15 @@
 
 All released versions of Lauscher. New sections are created by `python3 scripts/bump-version.py`.
 
+## Unreleased
+
+**Improved**
+- The sing-along tip no longer opens while an exercise tutorial is showing; it appears on a later exercise instead
+- The break reminder waits until an open tutorial, settings, mixer or about window is closed instead of popping up over it
+- Android back button and Escape now close an open exercise tutorial first (instead of leaving the exercise)
+- Space bar no longer starts rhythm playback behind an open tutorial
+- The exercise header (tempo, key, sing-along chip) can no longer be tapped during a tutorial walkthrough
+
 ## 0.11.1-beta (Build 6) – 2026-11-25
 
 **Improved**
