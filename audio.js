@@ -246,6 +246,103 @@ function buildWhiteNoiseBuffer(rawCtx, seconds = 1.0) {
 }
 
 /**
+ * Gitarren-Griffe für Kadenzen: Sucht zu einem Akkord (Tonnamen + Basston) einen Griff, wie ihn ein Gitarrist
+ * in Standardstimmung (E2 A2 D3 G3 B3 E4) spielen würde: 4–6 zusammenhängende Saiten, tiefster Ton = Basston,
+ * alle Akkordtöne (bei Vierklängen darf einer fehlen), Spannweite ≤ 3 Bünde, höchstens 4 Finger bzw. Barré + 3.
+ * Bevorzugt volle Griffe, offene Akkorde und tiefe Lagen.
+ * Ergebnis: Tonnamen von tief nach hoch, oder null (dann spielt die Gitarre die übergebenen Töne).
+ */
+const GUITAR_STANDARD_TUNING = [40, 45, 50, 55, 59, 64];
+const GUITAR_VOICING_NAMES = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
+const guitarVoicingCache = new Map();
+
+function getGuitarChordVoicing(notes, bassNote = null) {
+  const pcOf = (m) => ((m % 12) + 12) % 12;
+  const midis = (notes || []).map(n => EarLabSampledInstrument.noteToMidi(n)).filter(Number.isFinite);
+  if (midis.length < 3) return null;
+  const pcs = [...new Set(midis.map(pcOf))];
+  const bassMidi = EarLabSampledInstrument.noteToMidi(bassNote);
+  const bassPc = Number.isFinite(bassMidi) ? pcOf(bassMidi) : pcOf(Math.min(...midis));
+  if (!pcs.includes(bassPc)) pcs.push(bassPc);
+  if (pcs.length < 3 || pcs.length > 4) return null;
+  const cacheKey = `${pcs.slice().sort((a, b) => a - b).join(",")}/${bassPc}`;
+  if (guitarVoicingCache.has(cacheKey)) return guitarVoicingCache.get(cacheKey);
+
+  // Bei Vierklängen (Grundton + Terz + Quinte + Sexte/Septime) darf nur die Quinte fehlen
+  let omittablePc = null;
+  if (pcs.length === 4) {
+    for (const r of pcs) {
+      const iv = new Set(pcs.map(p => pcOf(p - r)));
+      if (iv.has(7) && (iv.has(3) || iv.has(4)) && (iv.has(9) || iv.has(10) || iv.has(11))) {
+        omittablePc = pcOf(r + 7);
+        break;
+      }
+    }
+  }
+
+  const tuning = GUITAR_STANDARD_TUNING;
+  let best = null;
+  const evaluate = (frets) => {
+    const played = [];
+    for (let s = 0; s < 6; s++) if (frets[s] >= 0) played.push(s);
+    if (played.length < 4 || played[played.length - 1] - played[0] + 1 !== played.length) return;
+    const sounding = played.map(s => tuning[s] + frets[s]);
+    if (pcOf(sounding[0]) !== bassPc || Math.min(...sounding) !== sounding[0]) return;
+    const covered = new Set(sounding.map(pcOf));
+    const missingPcs = pcs.filter(pc => !covered.has(pc));
+    if (missingPcs.length > 1 || (missingPcs.length === 1 && missingPcs[0] !== omittablePc)) return;
+    const missing = missingPcs.length;
+    const fretted = played.map(s => frets[s]).filter(f => f > 0);
+    const minF = fretted.length ? Math.min(...fretted) : 0;
+    const maxF = fretted.length ? Math.max(...fretted) : 0;
+    if (maxF - minF > 3) return;
+    const hasOpen = played.some(s => frets[s] === 0);
+    let fingers = fretted.length;
+    let barre = false;
+    if (fingers > 4) {
+      // Barré: Zeigefinger über den tiefsten Bund, nur ohne Leersaiten oberhalb der tiefsten Barré-Saite
+      const barreFrom = played.find(s => frets[s] === minF);
+      if (!played.some(s => s > barreFrom && frets[s] === 0)) {
+        fingers = 1 + fretted.filter(f => f > minF).length;
+        barre = true;
+      }
+    }
+    if (fingers > 4) return;
+    const unisons = sounding.length - new Set(sounding).size; // gleicher Ton auf zwei Saiten klingt nicht nach Griff
+    let score = -3 * played.length + 0.9 * minF + 2 * missing + 4 * unisons; // fehlende Quinte ist bei Gitarren üblich
+    score += 1.5 * (maxF - minF);                     // Spreizung
+    if (barre) score += frets[played[0]] === minF ? 3 : 6; // Barré, ungewohnt, wenn der Basston darüber gegriffen wird
+    if (hasOpen) score += minF > 4 ? 5 : (maxF > 3 ? 1.5 * (maxF - 3) : -1); // offene Griffe bevorzugen, aber ohne Streckung
+    if (played[played.length - 1] !== 5) score += 2;  // hohe E-Saite nicht gespielt
+    if (sounding[0] > 52) score += 0.5 * (sounding[0] - 52); // Basston über E3
+    if (!best || score < best.score) best = { score, sounding };
+  };
+
+  const frets = new Array(6);
+  for (let pos = 0; pos <= 9; pos++) {
+    const lo = Math.max(1, pos);
+    const hi = pos === 0 ? 3 : pos + 3;
+    const options = tuning.map(open => {
+      const opts = [-1];
+      if (pcs.includes(pcOf(open))) opts.push(0);
+      for (let f = lo; f <= hi; f++) if (pcs.includes(pcOf(open + f))) opts.push(f);
+      return opts;
+    });
+    const walk = (s) => {
+      if (s === 6) { evaluate(frets); return; }
+      for (const f of options[s]) { frets[s] = f; walk(s + 1); }
+    };
+    walk(0);
+  }
+
+  const result = best
+    ? best.sounding.map(m => `${GUITAR_VOICING_NAMES[pcOf(m)]}${Math.floor(m / 12) - 1}`)
+    : null;
+  guitarVoicingCache.set(cacheKey, result);
+  return result;
+}
+
+/**
  * Schlanker nativer WebAudio-Sampler für Studio-Samples.
  * Features:
  * - Zero-Copy Trim-Offset (keine doppelten AudioBuffer im RAM).
@@ -2982,6 +3079,13 @@ class AudioEngine {
       ? bassNote
       : null;
 
+    // In Kadenzen greift die Gitarre echte Gitarren-Akkorde (eigener Griff über 4–6 Saiten, angeschlagen)
+    // statt der Klavier-Lage; ohne passenden Griff spielt sie die übergebenen Töne
+    const guitarVoicing = !harmonicVoices && _mode === "cadence" && timingOpts?.guitarVoicing !== false
+      && uniqNotes.length >= 3 && activeChordStems.includes("guitar")
+      ? getGuitarChordVoicing(uniqNotes, bassNote)
+      : null;
+
     if (hasNotes) {
       activeChordStems.forEach(stemKey => {
         const inst = this[stemKey];
@@ -2989,6 +3093,9 @@ class AudioEngine {
         const stemOffset = sampleEnsembleOffsetSec(stemKey);
         if (harmonicVoices) {
           harmonicVoices.forEach(v => inst.triggerAttackRelease([v.note], v.dur, v.at + stemOffset, v.vel, envOverride));
+        } else if (stemKey === "guitar" && guitarVoicing) {
+          const guitarVel = Math.min(1, 1.02 / Math.sqrt(guitarVoicing.length)) * velScale;
+          inst.triggerAttackRelease(guitarVoicing, dur, at + stemOffset, guitarVel, envOverride);
         } else {
           const stemNotes = stemKey === "piano" && pianoLeftHand ? [pianoLeftHand, ...uniqNotes] : uniqNotes;
           inst.triggerAttackRelease(stemNotes, dur, at + stemOffset, chordVel, envOverride);

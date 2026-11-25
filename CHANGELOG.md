@@ -37,6 +37,11 @@ All released versions of Lauscher. New sections are created by `python3 scripts/
 **Improved**
 - Guitar: new steel-string acoustic guitar sound from the Meta Steel Guitar (Meta Open Sound, CC0), every semitone from E2 to C6 (previously every third semitone), with soft, normal and strong attack layers.
 - Licenses: credit for the guitar samples.
+- Guitar in cadences and solfège: the guitar now plays real guitar chord shapes (open chords and barre chords over 4–6 strings, strummed, inversions with the right bass note) instead of copying the piano voicing.
+
+## 0.11.1-beta (Build 6) – 2026-11-25
+
+**Improved**
 - Cadences and solfège: when the bass is muted in the mixer (the default piano mix), the piano now plays the bass note with the left hand, so cadences no longer sound thin.
 - Home quotes: 20 new quotes in all 10 languages (tuner, capo translator, fretboard, free play, milestones, tuning facts and more). Outdated quotes were corrected (language list, number of themes, circle of fifths location, Singing section, no more "Surprise" button) and some facts made more accurate.
 - Knowledge section: fact check across articles, guides and instrument profiles in all 10 languages (first interval of "Eine kleine Nachtmusik", Pachelbel's Canon dated to around 1700, half-diminished iiø7 in Locrian, circle of fifths meeting point at F♯/G♭, levels 4 and 5 of the melody exam, 7 notation exam levels, spectrum header). German texts: bass clef reading trick, contrabassoon and saxophone ranges, trombone tuning, oboe as tuning reference and smaller wording fixes.

@@ -659,7 +659,8 @@ async function playFreeplayNotes(rawMidis, options = {}) {
   }
 
   audioEngine.playStep(upperSum > 0.001 ? noteNames : [], dur, bassNote, "cadence", {
-    velocity: options.velocity ?? 0.95
+    velocity: options.velocity ?? 0.95,
+    guitarVoicing: false // im Freien Spiel klingen genau die angetippten Töne
   });
 }
 
