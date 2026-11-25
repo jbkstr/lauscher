@@ -2,7 +2,7 @@
 
 All released versions of Lauscher. New sections are created by `python3 scripts/bump-version.py`.
 
-## Unreleased
+## 0.11.0-beta (Build 5) – 2026-11-25
 
 **Improved**
 - Piano: new, more natural piano sound from the Accurate-Salamander Grand Piano (CC BY 3.0), in stereo, from C1 to C7. Soft and loud notes now also sound different (separate piano and forte layers from C2 to C6).
