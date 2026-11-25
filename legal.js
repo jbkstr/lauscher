@@ -524,6 +524,15 @@ const LAUSCHER_LEGAL_DOCS = {
 
   <article class="legal-license-card">
     <div class="legal-license-head">
+      <strong class="legal-license-name">Meta Steel Guitar (Gitarren-Samples)</strong>
+      <span class="legal-license-badge">CC0 1.0</span>
+    </div>
+    <p class="legal-license-meta">Klang der Gitarre · Web &amp; Android-App</p>
+    <p class="legal-license-copy">„Meta Steel Guitar“ aus <a href="https://github.com/facebookincubator/Meta-open-sound" target="_blank" rel="noopener">Meta Open Sound</a> vom Creative Audio Team von Meta Platforms, Inc., gemeinfrei gestellt unter <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.de" target="_blank" rel="noopener">CC0 1.0 Universal</a>. Eine Namensnennung ist nicht erforderlich; sie erfolgt hier als Dank. <strong>Bearbeitet:</strong> Für Lauscher wurden einzelne Töne in drei Anschlagstärken ausgewählt, gekürzt, ausgeblendet, zu Mono zusammengeführt, in der Lautstärke angeglichen und als AAC kodiert.</p>
+  </article>
+
+  <article class="legal-license-card">
+    <div class="legal-license-head">
       <strong class="legal-license-name">Capacitor &amp; Plugins</strong>
       <span class="legal-license-badge">MIT</span>
     </div>
@@ -556,7 +565,7 @@ ${LAUSCHER_MIT_BODY}</div>
 </div>
 
 <h3>Lauscher – Eigene Inhalte &amp; Klang-Samples</h3>
-<p>Quellcode, Übungslogik, Texte, Übersetzungen, Gestaltung, Grafiken, das Maskottchen („Lauschebär“) sowie die übrigen eingebetteten Instrumenten- und Perkussions-Samples stammen aus dem Projekt Lauscher (© 2026 Jens Strauch). Alle Rechte vorbehalten, soweit nicht anders angegeben; die oben genannten Klavier-Samples stehen unter CC BY 3.0. Einzelheiten zur erlaubten Nutzung findest du in den <a href="https://jbkstr.github.io/lauscher/terms.html" data-legal-nav="terms">Nutzungsbedingungen</a>.</p>
+<p>Quellcode, Übungslogik, Texte, Übersetzungen, Gestaltung, Grafiken, das Maskottchen („Lauschebär“) sowie die übrigen eingebetteten Instrumenten- und Perkussions-Samples stammen aus dem Projekt Lauscher (© 2026 Jens Strauch). Alle Rechte vorbehalten, soweit nicht anders angegeben; die oben genannten Klavier-Samples stehen unter CC BY 3.0, die Gitarren-Samples unter CC0 1.0. Einzelheiten zur erlaubten Nutzung findest du in den <a href="https://jbkstr.github.io/lauscher/terms.html" data-legal-nav="terms">Nutzungsbedingungen</a>.</p>
 <p>Vielen Dank an alle Entwicklerinnen, Entwickler und Gemeinschaften hinter den oben genannten freien Projekten.</p>
 `
     },
@@ -593,6 +602,15 @@ ${LAUSCHER_MIT_BODY}</div>
 
   <article class="legal-license-card">
     <div class="legal-license-head">
+      <strong class="legal-license-name">Meta Steel Guitar (guitar samples)</strong>
+      <span class="legal-license-badge">CC0 1.0</span>
+    </div>
+    <p class="legal-license-meta">Guitar sound · Web &amp; Android app</p>
+    <p class="legal-license-copy">“Meta Steel Guitar” from <a href="https://github.com/facebookincubator/Meta-open-sound" target="_blank" rel="noopener">Meta Open Sound</a> by the Creative Audio team at Meta Platforms, Inc., dedicated to the public domain under <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener">CC0 1.0 Universal</a>. Attribution is not required; it is given here as a thank-you. <strong>Modified:</strong> for Lauscher, single notes were selected at three velocities, trimmed, faded out, mixed down to mono, level-matched and encoded as AAC.</p>
+  </article>
+
+  <article class="legal-license-card">
+    <div class="legal-license-head">
       <strong class="legal-license-name">Capacitor &amp; Plugins</strong>
       <span class="legal-license-badge">MIT</span>
     </div>
@@ -625,7 +643,7 @@ ${LAUSCHER_MIT_BODY}</div>
 </div>
 
 <h3>Lauscher – Original content &amp; audio samples</h3>
-<p>Source code, exercise logic, texts, translations, visual design, artwork, the mascot (“Lauschebär”) and the other embedded instrument and percussion samples are part of the Lauscher project (© 2026 Jens Strauch). All rights reserved unless stated otherwise; the piano samples listed above are licensed under CC BY 3.0. For permitted uses, see the <a href="https://jbkstr.github.io/lauscher/terms.html?lang=en" data-legal-nav="terms">Terms of Use</a>.</p>
+<p>Source code, exercise logic, texts, translations, visual design, artwork, the mascot (“Lauschebär”) and the other embedded instrument and percussion samples are part of the Lauscher project (© 2026 Jens Strauch). All rights reserved unless stated otherwise; the piano samples listed above are licensed under CC BY 3.0 and the guitar samples under CC0 1.0. For permitted uses, see the <a href="https://jbkstr.github.io/lauscher/terms.html?lang=en" data-legal-nav="terms">Terms of Use</a>.</p>
 <p>Many thanks to all developers and communities behind the free and open-source projects listed above.</p>
 `
     }
