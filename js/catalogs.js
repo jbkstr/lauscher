@@ -1331,6 +1331,17 @@ const MIX_MODE_CATALOG = {
   "notation-symbols":      { label: "Notation • Symbole & Begriffe", levels: [1, 2, 3, 4, 5] }
 };
 
+// Unterübungen „… treffen“: Lauscher hört per Mikrofon zu, ob du den gesuchten Ton singst
+// (js/sing-match.js). Bewusst nicht in MIX_MODE_CATALOG (keine Übe-Mixe mit Mikrofon).
+const SING_MATCH_MODE_CATALOG = {
+  "sing-interval": { label: "Intervalle treffen", levels: [1, 2, 3, 4, 5, 6, 7, 8, 9] },
+  "sing-degree":   { label: "Stufen treffen",     levels: [1, 2, 3, 4, 5] }
+};
+
+function isSingMatchMode(mode) {
+  return Object.prototype.hasOwnProperty.call(SING_MATCH_MODE_CATALOG, String(mode || ""));
+}
+
 function createDefaultMixes() {
   return [
     { id: "mix_warmup",    title: "Morgen-Warmup",      mode: "solfege",          level: 3,       melodyRange: "do-fa", melodyKeyMode: "fixed", melodyOctaveMode: "single", bpm: 0 },
@@ -2378,6 +2389,7 @@ function createDefaultProfile() {
     singAlongPause: false,
     singAlongIntroCounts: {},
     singAlongIntroDone: false,
+    singVoiceRange: "",
     exerciseTutorials: true,
     seenTutorials: [],
     modesRootHintSeen: false,
@@ -2415,7 +2427,9 @@ const PRACTICE_LEVEL_KEYS = {
   modesScaleDifficulty: "modes-scale",
   modesCharDifficulty: "modes-char",
   modesCadenceDifficulty: "modes-cadence",
-  notationDifficulty: "notation-symbols"
+  notationDifficulty: "notation-symbols",
+  singIntervalDifficulty: "sing-interval",
+  singDegreeDifficulty: "sing-degree"
 };
 
 const PRACTICE_PITCH_CLASS_VALUES = Array.from({ length: 12 }, (_, pc) => String(pc));
@@ -2440,11 +2454,12 @@ const PRACTICE_OPTION_RULES = {
   rhythmTapReadMode: "bool",
   rhythmTapClick: "bool",
   notationKeyMode: /^[A-Za-z0-9#_-]{1,24}$/,
-  notationKeyTrainerClef: /^notation-[a-z]{3,10}$/
+  notationKeyTrainerClef: /^notation-[a-z]{3,10}$/,
+  singIntervalDirection: ["up", "down", "mixed"]
 };
 
 function getPracticeValidModes() {
-  return [...Object.keys(MIX_MODE_CATALOG), "interval-custom"];
+  return [...Object.keys(MIX_MODE_CATALOG), ...Object.keys(SING_MATCH_MODE_CATALOG), "interval-custom"];
 }
 
 function sanitizePracticeProgress(raw) {
@@ -2454,7 +2469,7 @@ function sanitizePracticeProgress(raw) {
     out.mode = raw.mode;
   }
   Object.entries(PRACTICE_LEVEL_KEYS).forEach(([key, catalogMode]) => {
-    const levels = MIX_MODE_CATALOG[catalogMode]?.levels || [];
+    const levels = (MIX_MODE_CATALOG[catalogMode] || SING_MATCH_MODE_CATALOG[catalogMode])?.levels || [];
     const lvl = parseInt(raw[key], 10);
     if (levels.includes(lvl)) out[key] = lvl;
   });
@@ -2585,6 +2600,8 @@ function sanitizeUserProfile(raw) {
           .map(([k, v]) => [k, Math.max(0, Math.min(99, Math.round(Number(v))))]))
       : {},
     singAlongIntroDone: Boolean(raw.singAlongIntroDone),
+    // Stimmlage für „… treffen“ ("" = noch nicht gewählt)
+    singVoiceRange: ["mixed", "soprano", "alto", "tenor", "bass"].includes(raw.singVoiceRange) ? raw.singVoiceRange : "",
     exerciseTutorials: raw.exerciseTutorials !== false,
     seenTutorials: Array.isArray(raw.seenTutorials)
       ? Array.from(new Set(raw.seenTutorials.filter(k => typeof k === "string" && /^[a-z0-9-]{2,32}$/.test(k)))).slice(0, 32)
@@ -2710,7 +2727,9 @@ const MODE_CATEGORY_MAP = {
   "notation-mixed":        "notation",
   "notation-grand":        "notation",
   "notation-chords":       "notation",
-  "notation-symbols":      "notation"
+  "notation-symbols":      "notation",
+  "sing-interval":         "interval",
+  "sing-degree":           "solfege"
 };
 
 /**

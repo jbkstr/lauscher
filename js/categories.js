@@ -188,6 +188,9 @@ function formatStackedParenTitle(title) {
   return `<span class="stacked-title-main">${m[1]}</span><span class="stacked-title-paren">${m[2]}</span>`;
 }
 
+// Mikrofon-Symbol für die „… treffen“-Karten (Nachsingen mit Rückmeldung)
+const SING_MATCH_NODE_MIC_SVG = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2.5" width="6" height="12" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0"/><line x1="12" y1="17.5" x2="12" y2="21.5"/><line x1="8.5" y1="21.5" x2="15.5" y2="21.5"/></svg>`;
+
 function renderCategoryTypeMenu(container, categoryKey, items, options = {}) {
   container.innerHTML = `
     ${options.introHtml || ""}
@@ -381,6 +384,17 @@ function openCategoryPage(categoryKey, options = {}) {
         badgeHtml: `<div class="node-circle circle-peach node-circle-compact">${tr("Frei", "Free")}</div>`,
         meta: tr("Frei wählbar • alle 4 Spielarten", "Custom • all 4 playback modes"),
         isBeginner: false
+      },
+      {
+        id: "sing-interval",
+        title: getSingMatchModeTitle("sing-interval"),
+        desc: tr(
+          "Der Ausgangston erklingt, du singst das angezeigte Intervall – Lauscher hört über das Mikrofon zu und sagt dir, ob du getroffen hast.",
+          "The root note plays, you sing the interval shown — Lauscher listens through the microphone and tells you whether you hit it."
+        ),
+        badgeHtml: `<div class="node-circle circle-sage">${SING_MATCH_NODE_MIC_SVG}</div>`,
+        meta: tr("9 Stufen • mit Mikrofon", "9 Levels • with microphone"),
+        isBeginner: false
       }
     ];
 
@@ -467,6 +481,65 @@ function openCategoryPage(categoryKey, options = {}) {
     if (!selectedIntItem) {
       state.activeCategorySection = null;
       renderCategoryTypeMenu(container, categoryKey, INTERVAL_TYPE_ITEMS);
+    } else if (selectedIntItem.id === "sing-interval") {
+      state.activeCategorySectionTitle = selectedIntItem.title;
+      const renderSingIntervalSubpage = () => {
+        const curDir = ["up", "down", "mixed"].includes(state.settings.singIntervalDirection) ? state.settings.singIntervalDirection : "up";
+        const sec = { circle: "circle-sage", dir: curDir === "mixed" ? null : curDir };
+        const groups = getSectionCardGroups(sec);
+        const renderSingCards = (cards) => cards.map(card => `
+          <button class="subpage-node-btn" data-launch-sing-int="${card.lvl}">
+            ${card.circleHtml}
+            <span class="node-title">${card.title}</span>
+            <span class="node-sub">${card.sub}</span>
+          </button>
+        `).join("");
+        container.innerHTML = `
+          <div class="subpage-section">
+            <h3 class="subpage-section-title">${escapeHtml(selectedIntItem.title)}</h3>
+            <p class="subpage-section-desc">${selectedIntItem.desc}</p>
+            <div class="notation-key-toolbar">
+              <div class="notation-key-quick-group">
+                <span class="notation-key-quick-label">${tr("Richtung:", "Direction:")}</span>
+                <div class="notation-key-quick-row">
+                  ${["up", "down", "mixed"].map(dir => `
+                    <button type="button" class="k-filter-pill${curDir === dir ? " active" : ""}" data-sing-int-dir="${dir}" aria-pressed="${curDir === dir}">
+                      ${escapeHtml(getSingIntervalDirectionLabel(dir))}
+                    </button>
+                  `).join("")}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="subpage-section">
+            <h3 class="subpage-section-title">${tr("Dur-Intervalle", "Major Intervals")}</h3>
+            <div class="subpage-nodes-grid">${renderSingCards(groups.major)}</div>
+          </div>
+          <div class="subpage-section">
+            <h3 class="subpage-section-title">${tr("Moll-Intervalle", "Minor Intervals")}</h3>
+            <div class="subpage-nodes-grid">${renderSingCards(groups.minor)}</div>
+          </div>
+          <div class="subpage-section">
+            <h3 class="subpage-section-title">${tr("Chromatisch (Alle 15 Intervalle)", "Chromatic (All 15 Intervals)")}</h3>
+            <div class="subpage-nodes-grid">${renderSingCards(groups.chromatic)}</div>
+          </div>
+        `;
+        container.querySelectorAll("[data-sing-int-dir]").forEach(btn => {
+          btn.addEventListener("click", () => {
+            state.settings.singIntervalDirection = btn.dataset.singIntDir;
+            renderSingIntervalSubpage();
+          });
+        });
+        container.querySelectorAll("[data-launch-sing-int]").forEach(btn => {
+          btn.addEventListener("click", () => {
+            state.setMode("sing-interval");
+            state.setSingMatchLevel("sing-interval", btn.dataset.launchSingInt);
+            state.exerciseReturnView = "category";
+            switchView("exercise");
+          });
+        });
+      };
+      renderSingIntervalSubpage();
     } else if (selectedIntItem.id === "interval-custom") {
       state.activeCategorySectionTitle = selectedIntItem.title;
       const renderCustomIntervalSubpage = () => {
@@ -894,6 +967,17 @@ function openCategoryPage(categoryKey, options = {}) {
         badgeHtml: `<div class="node-circle circle-peach node-circle-compact">${tr("Frei", "Free")}</div>`,
         meta: tr("Frei wählbar • Dur & Moll", "Custom • Major & Minor"),
         isBeginner: false
+      },
+      {
+        id: "sing-degree",
+        title: getSingMatchModeTitle("sing-degree"),
+        desc: tr(
+          "Eine Kadenz stellt die Tonart ein, dann singst du die angezeigte Stufe – Lauscher hört über das Mikrofon zu.",
+          "A cadence sets the key, then you sing the degree shown — Lauscher listens through the microphone."
+        ),
+        badgeHtml: `<div class="node-circle circle-sage">${SING_MATCH_NODE_MIC_SVG}</div>`,
+        meta: tr("5 Stufen • mit Mikrofon", "5 Levels • with microphone"),
+        isBeginner: false
       }
     ];
 
@@ -912,6 +996,38 @@ function openCategoryPage(categoryKey, options = {}) {
     if (!selectedSolfType) {
       state.activeCategorySection = null;
       renderCategoryTypeMenu(container, categoryKey, SOLFEGE_TYPE_ITEMS);
+    } else if (selectedSolfType.id === "sing-degree") {
+      state.activeCategorySectionTitle = selectedSolfType.title;
+      const singDegreeCards = [
+        { lvl: 1, circle: "circle-sage", badge: "Do Mi Sol", title: tr("Stufe 1: Dreiklang", "Level 1: Triad") },
+        { lvl: 2, circle: "circle-sage", badge: "Do–Fa", title: tr("Stufe 2: Untere Hälfte", "Level 2: Lower Half") },
+        { lvl: 3, circle: "circle-sage", badge: "Sol–Do", title: tr("Stufe 3: Obere Hälfte", "Level 3: Upper Half") },
+        { lvl: 4, circle: "circle-peach", badge: tr("Dur", "Maj"), title: tr("Stufe 4: Dur-Tonleiter", "Level 4: Major Scale") },
+        { lvl: 5, circle: "circle-lilac", badge: tr("Moll", "Min"), title: tr("Stufe 5: Moll-Tonleiter", "Level 5: Minor Scale") }
+      ];
+      container.innerHTML = `
+        <div class="subpage-section">
+          <h3 class="subpage-section-title">${escapeHtml(selectedSolfType.title)}</h3>
+          <p class="subpage-section-desc">${selectedSolfType.desc}</p>
+          <div class="subpage-nodes-grid">
+            ${singDegreeCards.map(card => `
+              <button class="subpage-node-btn" data-launch-sing-degree="${card.lvl}">
+                <div class="node-circle ${card.circle} node-circle-compact">${escapeHtml(card.badge)}</div>
+                <span class="node-title">${card.title}</span>
+                <span class="node-sub">${escapeHtml(getSingDegreeLevelLabel(card.lvl))}</span>
+              </button>
+            `).join("")}
+          </div>
+        </div>
+      `;
+      container.querySelectorAll("[data-launch-sing-degree]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          state.setMode("sing-degree");
+          state.setSingMatchLevel("sing-degree", btn.dataset.launchSingDegree);
+          state.exerciseReturnView = "category";
+          switchView("exercise");
+        });
+      });
     } else if (selectedSolfType.id === "major") {
       state.activeCategorySectionTitle = selectedSolfType.title;
       container.innerHTML = `

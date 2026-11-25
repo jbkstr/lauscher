@@ -298,7 +298,9 @@ runTest("Übungs-Generatoren: alle Modi über mehrere Stufen ohne Fehler & valid
     { mode: "notation-bass",       levelKey: "notationDifficulty",    levels: [1, 2, 3, 4] },
     { mode: "notation-grand",      levelKey: "notationDifficulty",    levels: [1, 2, 3, 4] },
     { mode: "notation-chords",     levelKey: "notationChordsDifficulty", levels: [1, 2, 3] },
-    { mode: "notation-symbols",    levelKey: "notationSymbolsDifficulty", levels: [1, 2, 3] }
+    { mode: "notation-symbols",    levelKey: "notationSymbolsDifficulty", levels: [1, 2, 3] },
+    { mode: "sing-interval",       levelKey: "singIntervalDifficulty", levels: [1, 2, 3, 4, 5, 6, 7, 8, 9] },
+    { mode: "sing-degree",         levelKey: "singDegreeDifficulty",  levels: [1, 2, 3, 4, 5] }
   ];
 
   let generatedCount = 0;
@@ -494,6 +496,119 @@ runTest("Profil-Sicherung: Übungsstand, Prüfungsverlauf & Meilensteine (Export
   assert.equal(appState.profile.name, "Alt");
   assert.equal(appState.settings.intervalDifficulty, 6);
   assert.equal(appState.profile.practice.intervalDifficulty, 6);
+});
+
+// =====================================================
+// „… treffen“: Nachsingen mit Rückmeldung (Auswertung & Aufgaben)
+// =====================================================
+function makeSungFrames(segments, hopMs = 25) {
+  // segments: [{ ms, midi | null }] → Messpunkte wie aus js/pitch-capture.js
+  const frames = [];
+  let t = 0;
+  for (const seg of segments) {
+    const n = Math.round(seg.ms / hopMs);
+    for (let i = 0; i < n; i++) {
+      const voiced = seg.midi !== null && seg.midi !== undefined;
+      const midi = voiced ? (typeof seg.midi === "function" ? seg.midi(i, n) : seg.midi) : null;
+      frames.push({ t, db: voiced ? -30 : -70, floorDb: -70, voiced, freq: voiced ? 440 : 0, midi, clarity: voiced ? 0.95 : 0 });
+      t += hopMs;
+    }
+  }
+  return frames;
+}
+
+runTest("Nachsingen: großzügige, oktavunabhängige Auswertung ohne Cent-Werte", () => {
+  const target = 67; // G4
+  const clean = sb.evaluateSungPitch(makeSungFrames([{ ms: 900, midi: 67.05 }]), target);
+  assert.equal(clean.status, "hit");
+  assert.equal(clean.direction, "center");
+
+  // gut ein halber Halbton zu hoch zählt noch als Treffer (mit Richtungshinweis)
+  const sharp = sb.evaluateSungPitch(makeSungFrames([{ ms: 900, midi: 67.55 }]), target);
+  assert.equal(sharp.status, "hit");
+  assert.equal(sharp.direction, "high");
+
+  // eine Oktave tiefer (Männerstimme) zählt gleich
+  const octaveDown = sb.evaluateSungPitch(makeSungFrames([{ ms: 900, midi: 55.1 }]), target);
+  assert.equal(octaveDown.status, "hit");
+
+  // ein Ganzton daneben: kein Treffer, aber „Fast“ mit Richtung
+  const near = sb.evaluateSungPitch(makeSungFrames([{ ms: 900, midi: 65.9 }]), target);
+  assert.equal(near.status, "miss");
+  assert.equal(near.nearMiss, true);
+  assert.equal(near.direction, "low");
+
+  // klar daneben (Terz)
+  const far = sb.evaluateSungPitch(makeSungFrames([{ ms: 900, midi: 71 }]), target);
+  assert.equal(far.status, "miss");
+  assert.equal(far.nearMiss, false);
+
+  // Anschleifen von unten wird ignoriert, der gehaltene Ton zählt
+  const scoop = sb.evaluateSungPitch(makeSungFrames([
+    { ms: 175, midi: (i, n) => 65.6 + (1.4 * i) / n },
+    { ms: 800, midi: 67 }
+  ]), target);
+  assert.equal(scoop.status, "hit");
+
+  // zu kurz oder Stille: nichts gehört
+  assert.equal(sb.evaluateSungPitch(makeSungFrames([{ ms: 200, midi: 67 }]), target).status, "none");
+  assert.equal(sb.evaluateSungPitch(makeSungFrames([{ ms: 1500, midi: null }]), target).status, "none");
+
+  // Faltung auf ±6 Halbtöne
+  assert.ok(Math.abs(sb.foldSingMatchSemis(12.2) - 0.2) < 1e-9);
+  assert.ok(Math.abs(sb.foldSingMatchSemis(-11.5) - 0.5) < 1e-9);
+});
+
+runTest("Nachsingen: Aufgaben liegen in der gewählten Stimmlage", () => {
+  sb.renderUI = () => {};
+  const spans = getLex("SING_MATCH_VOICE_SPANS");
+  for (const voice of ["mixed", "soprano", "alto", "tenor", "bass"]) {
+    appState.profile.singVoiceRange = voice;
+    const [lo, hi] = spans[voice];
+    for (const dir of ["up", "down", "mixed"]) {
+      appState.settings.mode = "sing-interval";
+      appState.settings.singIntervalDirection = dir;
+      appState.settings.singIntervalDifficulty = 5;
+      for (let i = 0; i < 12; i++) {
+        sb.generateExercise();
+        const ex = appState.currentExercise;
+        assert.equal(ex.type, "sing-interval");
+        assert.ok(ex.singTask && Number.isFinite(ex.singTask.targetMidi), "singTask fehlt");
+        assert.ok(ex.rootMidi >= lo && ex.rootMidi <= hi, `${voice}: Ausgangston ${ex.rootMidi} außerhalb ${lo}–${hi}`);
+        assert.ok(ex.targetMidi >= lo && ex.targetMidi <= hi, `${voice}/${dir}: Zielton ${ex.targetMidi} außerhalb ${lo}–${hi}`);
+        if (dir === "up") assert.ok(ex.targetMidi >= ex.rootMidi);
+        if (dir === "down") assert.ok(ex.targetMidi <= ex.rootMidi);
+      }
+    }
+    appState.settings.mode = "sing-degree";
+    for (const lvl of [1, 4, 5]) {
+      appState.settings.singDegreeDifficulty = lvl;
+      for (let i = 0; i < 8; i++) {
+        sb.generateExercise();
+        const ex = appState.currentExercise;
+        assert.equal(ex.type, "sing-degree");
+        assert.equal(ex.cadenceChords.length, 4);
+        assert.ok(ex.targetMidi >= lo && ex.targetMidi <= hi + 1, `${voice} L${lvl}: Zielton ${ex.targetMidi} außerhalb ${lo}–${hi}`);
+        assert.ok(ex.choices.includes(ex.reviewKey), "Stufe nicht im Tonvorrat");
+      }
+    }
+  }
+  appState.profile.singVoiceRange = "";
+});
+
+runTest("Nachsingen: Stimm-Profil erkennt gesungene Töne", () => {
+  const sr = 48000;
+  const profile = sb.getTunerDspProfile("voice");
+  assert.ok(profile && profile.searchRange[0] <= 70, "Stimm-Profil fehlt");
+  for (const midi of [43, 52, 60, 69, 79]) {
+    const freq = 440 * Math.pow(2, (midi - 69) / 12);
+    const sig = makeHarmonicSignal(freq, sr, 4096, [1.0, 0.6, 0.35, 0.2, 0.1]);
+    const prep = sb.prepareTunerMainWorkBuffer(sig, sr, null);
+    const res = sb.detectTunerPitchWithProfile(sig, sr, prep, profile.searchRange[0], profile.searchRange[1], profile, 0);
+    assert.ok(res.freq > 0, `MIDI ${midi}: kein Ton erkannt`);
+    const errSemis = Math.abs(sb.tunerFreqToMidiFloat(res.freq, 440) - midi);
+    assert.ok(errSemis < 0.15, `MIDI ${midi}: ${res.freq.toFixed(1)} Hz statt ${freq.toFixed(1)} Hz`);
+  }
 });
 
 // Ergebnis-Ausgabe

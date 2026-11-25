@@ -1,6 +1,6 @@
 // Lauscher • Service Worker (automatisch erzeugt von scripts/build-sw.py – nicht von Hand bearbeiten)
 const CACHE_PREFIX = "lauscher-";
-const CACHE_NAME = "lauscher-0.12.0-beta-b7-76fb3e140ae1";
+const CACHE_NAME = "lauscher-0.12.0-beta-b7-e5d024bd35e8";
 const PRECACHE_URLS = [
   "./",
   "./index.html",
@@ -26,6 +26,7 @@ const PRECACHE_URLS = [
   "./i18n/phrases-core.js",
   "./i18n/phrases-exercises.js",
   "./i18n/phrases-tools.js",
+  "./i18n/phrases-sing.js",
   "./i18n/notation-terms.js",
   "./i18n/achievements.js",
   "./knowledge-en.js",
@@ -60,6 +61,8 @@ const PRECACHE_URLS = [
   "./js/warmup.js",
   "./js/metronome.js",
   "./js/tuner.js",
+  "./js/pitch-capture.js",
+  "./js/sing-match.js",
   "./js/freeplay.js",
   "./js/fretboard.js",
   "./js/nashville.js",

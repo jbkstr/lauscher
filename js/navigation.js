@@ -523,6 +523,7 @@ function closeTransientPopovers() {
     ["inlineTimeSigPopover", "moduleTimeSigBtn"],
     ["inlineModesRootPopover", "targetBarBadge"],
     ["inlineModesPadPopover", "modesPadBtn"],
+    ["inlineSingVoicePopover", "singVoiceChipBtn"],
     ["warmupVoicePopover", "warmupVoiceBtn"],
     ["warmupSoundPopover", "warmupSoundBtn"],
     ["warmupBpmPopover", "warmupBpmBtn"]
@@ -746,6 +747,7 @@ function hasOpenTransientPopover() {
     "inlineTimeSigPopover",
     "inlineModesRootPopover",
     "inlineModesPadPopover",
+    "inlineSingVoicePopover",
     "warmupVoicePopover",
     "warmupSoundPopover",
     "warmupBpmPopover"
@@ -873,6 +875,7 @@ function stopAllAudioSessionsForBackground() {
   if (typeof stopMetronome === "function") stopMetronome();
   if (typeof pauseWarmupSession === "function") pauseWarmupSession({ keepPlayback: false });
   if (typeof stopTunerSession === "function") stopTunerSession();
+  if (typeof stopSingMatchCapture === "function") stopSingMatchCapture();
   if (typeof stopFreeplaySession === "function") stopFreeplaySession();
   if (typeof stopFretboardSession === "function") stopFretboardSession();
 }
@@ -1223,6 +1226,9 @@ function switchView(targetView, options = {}) {
   }
   if (prevView === "tuner" && targetView !== "tuner" && typeof stopTunerSession === "function") {
     stopTunerSession();
+  }
+  if (prevView === "exercise" && targetView !== "exercise" && typeof stopSingMatchCapture === "function") {
+    stopSingMatchCapture();
   }
   if (prevView === "freeplay" && targetView !== "freeplay" && typeof stopFreeplaySession === "function") {
     stopFreeplaySession();

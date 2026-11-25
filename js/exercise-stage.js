@@ -636,6 +636,10 @@ function setCentralStageMode(stageStateClass) {
     stage.className = `central-stage ${stageStateClass} is-rhythm-tap`;
     return;
   }
+  if (isSingMatchMode(exType)) {
+    stage.className = `central-stage ${stageStateClass} is-sing-match`;
+    return;
+  }
   const isKeyboardLayout = exType === "solfege" || exType === "melody";
   stage.className = isKeyboardLayout
     ? `central-stage ${stageStateClass} is-solfege${exType === "melody" ? " is-melody" : ""}`
@@ -676,6 +680,11 @@ function resetCentralStage() {
       : (ex?.isChordReading
           ? tr("Lies den ersten Akkord links und wähle das Symbol unten — oder „Überspringen“.", "Read the leftmost chord and pick its symbol below — or tap “Skip”.")
           : tr("Lies die erste Note links — oder tippe „Überspringen“.", "Read the leftmost note — or tap “Skip”."));
+    renderStageStreakUI();
+    return;
+  }
+  if (isSingMatchMode(mode) && typeof syncSingMatchStage === "function") {
+    syncSingMatchStage(ex);
     renderStageStreakUI();
     return;
   }

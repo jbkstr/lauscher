@@ -270,6 +270,10 @@ function generateExercise() {
     generateChordExercise(rootMidi, state.settings.mode);
   } else if (state.settings.mode === "chord-inversions") {
     generateChordInversionExercise(rootMidi);
+  } else if (state.settings.mode === "sing-interval") {
+    generateSingIntervalExercise();
+  } else if (state.settings.mode === "sing-degree") {
+    generateSingDegreeExercise();
   } else {
     generateIntervalExercise(rootMidi, state.settings.mode);
   }
@@ -288,6 +292,7 @@ function generateExercise() {
     state.streakState.activeNoticeMilestone = 0;
   }
   cancelHumPause();
+  if (typeof onSingMatchExerciseGenerated === "function") onSingMatchExerciseGenerated(state.currentExercise);
   markSingAlongIntroForExercise(state.currentExercise);
   renderUI();
   if (typeof rememberPracticeProgress === "function") rememberPracticeProgress();
@@ -560,28 +565,23 @@ function getIntervalCustomSummaryLabel() {
   return `${scaleLbl} (${rootLbl})`;
 }
 
+/** Intervall-Auswahl je Stufe (gemeinsam für Intervall-Übungen und „Intervalle treffen“). */
+function getIntervalPoolForLevel(lvl) {
+  if (lvl === 2) return ["P1", "M2", "M3", "P4"];
+  if (lvl === 3) return ["P5", "M6", "M7", "P8"];
+  if (lvl === 4) return ["P1", "M2", "M3", "P4", "P5", "M6", "M7", "P8"];
+  if (lvl === 5) return Object.keys(HARMONIC_DATA.intervals);
+  if (lvl === 6) return ["P1", "m3", "P5", "P8"];
+  if (lvl === 7) return ["P1", "M2", "m3", "P4"];
+  if (lvl === 8) return ["P5", "m6", "m7", "P8"];
+  if (lvl === 9) return ["P1", "M2", "m3", "P4", "P5", "m6", "m7", "P8"];
+  if (lvl === 10) return getActiveIntervalCustomPool();
+  return ["P1", "M3", "P5", "P8"];
+}
+
 function generateIntervalExercise(rootMidi, intervalMode) {
   const lvl = parseInt(state.settings.intervalDifficulty, 10) || 1;
-  let pool = ["P1", "M3", "P5", "P8"];
-  if (lvl === 2) {
-    pool = ["P1", "M2", "M3", "P4"];
-  } else if (lvl === 3) {
-    pool = ["P5", "M6", "M7", "P8"];
-  } else if (lvl === 4) {
-    pool = ["P1", "M2", "M3", "P4", "P5", "M6", "M7", "P8"];
-  } else if (lvl === 5) {
-    pool = Object.keys(HARMONIC_DATA.intervals);
-  } else if (lvl === 6) {
-    pool = ["P1", "m3", "P5", "P8"];
-  } else if (lvl === 7) {
-    pool = ["P1", "M2", "m3", "P4"];
-  } else if (lvl === 8) {
-    pool = ["P5", "m6", "m7", "P8"];
-  } else if (lvl === 9) {
-    pool = ["P1", "M2", "m3", "P4", "P5", "m6", "m7", "P8"];
-  } else if (lvl === 10) {
-    pool = getActiveIntervalCustomPool();
-  }
+  let pool = getIntervalPoolForLevel(lvl);
   if (state.exam?.active && Array.isArray(state.exam.fixedIntervalPool) && state.exam.fixedIntervalPool.length >= 2) {
     pool = [...state.exam.fixedIntervalPool];
   }
@@ -698,6 +698,183 @@ function generateIntervalExercise(rootMidi, intervalMode) {
     choices: pool,
     reviewScope: intervalMode,
     reviewKey: chosenKey
+  };
+}
+
+// ---------- „… treffen“: Aufgaben zum Nachsingen (Auswertung per Mikrofon in js/sing-match.js) ----------
+let lastSingMatchRootMidi = null;
+
+function pickSingMatchRootMidi(minRoot, maxRoot) {
+  let lo = Math.round(minRoot);
+  let hi = Math.round(maxRoot);
+  if (hi < lo) {
+    const mid = Math.round((lo + hi) / 2);
+    lo = mid;
+    hi = mid;
+  }
+  const candidates = [];
+  for (let m = lo; m <= hi; m++) {
+    if (m !== lastSingMatchRootMidi) candidates.push(m);
+  }
+  const picked = candidates.length ? candidates[Math.floor(Math.random() * candidates.length)] : lo;
+  lastSingMatchRootMidi = picked;
+  return picked;
+}
+
+function generateSingIntervalExercise() {
+  const levels = SING_MATCH_MODE_CATALOG["sing-interval"].levels;
+  const lvlRaw = parseInt(state.settings.singIntervalDifficulty, 10);
+  const lvl = levels.includes(lvlRaw) ? lvlRaw : 1;
+  const pool = getIntervalPoolForLevel(lvl);
+  const dirSetting = state.settings.singIntervalDirection || "up";
+  const isDown = dirSetting === "down" || (dirSetting === "mixed" && Math.random() < 0.5);
+  const sign = isDown ? -1 : 1;
+
+  const chosenKey = pickTargetKeyWithSessionReview("sing-interval", pool, getLastTargetKeyForType("sing-interval"));
+  const def = getLocalizedIntervalDef(chosenKey);
+  const semis = def.semitones;
+  const [voiceLo, voiceHi] = getSingMatchVoiceSpan();
+  const rootMidi = isDown
+    ? pickSingMatchRootMidi(voiceLo + semis, voiceHi)
+    : pickSingMatchRootMidi(voiceLo, voiceHi - semis);
+  const targetMidi = rootMidi + sign * semis;
+
+  const rootPc = ((rootMidi % 12) + 12) % 12;
+  const refPreferFlat = MELODIC_FLAT_KEY_PCS.has(rootPc);
+  const targetPreferFlat = isDown
+    ? (refPreferFlat || DOWNWARD_FLAT_INTERVAL_KEYS.has(chosenKey))
+    : (refPreferFlat || MINOR_INTERVAL_KEYS.has(chosenKey));
+  const refDisplay = midiToGermanNote(rootMidi, refPreferFlat);
+  const targetDisplay = midiToGermanNote(targetMidi, targetPreferFlat);
+  const arrow = isDown ? "↘" : "↗";
+  state.currentKey = WARMUP_KEY_CODES_BY_PC[rootPc] || "C";
+
+  state.currentExercise = {
+    type: "sing-interval",
+    isSingMatch: true,
+    rootMidi,
+    targetMidi,
+    directionSign: sign,
+    keyName: `${tr("Ausgangston", "Root")} ${refDisplay.replace(/[0-9]/g, "")}`,
+    targetIndex: 1,
+    targetItem: {
+      ...def,
+      key: chosenKey,
+      rootMidi,
+      targetMidi,
+      directionSign: sign,
+      refNote: midiToNote(rootMidi),
+      targetNote: midiToNote(targetMidi),
+      displayMain: targetDisplay,
+      notes: [midiToNote(rootMidi), midiToNote(targetMidi)]
+    },
+    bars: [
+      { symbol: refDisplay, label: tr("Ausgangston", "Root Note"), short: "♪", notes: [midiToNote(rootMidi)], bass: null },
+      { symbol: targetDisplay, label: def.label, short: def.short, notes: [midiToNote(targetMidi)], bass: null, key: chosenKey }
+    ],
+    choices: pool,
+    reviewScope: "sing-interval",
+    reviewKey: chosenKey,
+    singTask: {
+      kind: "interval",
+      refMidi: rootMidi,
+      targetMidi,
+      refPreferFlat,
+      targetPreferFlat,
+      taskMain: `${def.short} ${arrow}`,
+      taskLabel: def.label
+    }
+  };
+}
+
+// Stufen für „Stufen treffen“: Tonvorrat & Tongeschlecht
+const SING_DEGREE_LEVELS = {
+  1: { tonality: "major", keys: ["Do_low", "Mi", "Sol"] },
+  2: { tonality: "major", keys: ["Do_low", "Re", "Mi", "Fa"] },
+  3: { tonality: "major", keys: ["Sol", "La", "Ti", "Do_high"] },
+  4: { tonality: "major", keys: null },
+  5: { tonality: "minor", keys: null }
+};
+
+function getSingDegreeLevelConfig(level = state?.settings?.singDegreeDifficulty) {
+  const lvl = parseInt(level, 10);
+  return SING_DEGREE_LEVELS[lvl] || SING_DEGREE_LEVELS[1];
+}
+
+function getSingDegreeStepLabel(step) {
+  return getSolfegeDisplayLabel(step?.syllable || "Do");
+}
+
+function generateSingDegreeExercise() {
+  const cfg = getSingDegreeLevelConfig();
+  const tonality = cfg.tonality;
+  const steps = getSolfegeScaleSteps(tonality);
+  const activeSteps = cfg.keys ? steps.filter(st => cfg.keys.includes(st.key)) : steps;
+  const activeKeys = activeSteps.map(st => st.key);
+  const reviewScope = tonality === "minor" ? "sing-degree-minor" : "sing-degree";
+  const chosenKey = pickTargetKeyWithSessionReview(reviewScope, activeKeys, getLastTargetKeyForType("sing-degree"));
+  const step = activeSteps.find(st => st.key === chosenKey) || activeSteps[0];
+
+  // Tonika passend zur Stimmlage: Do bis obere Do muss bequem singbar sein; pro Sitzung gleiche Tonart
+  const [voiceLo, voiceHi] = getSingMatchVoiceSpan();
+  const maxTonic = Math.max(voiceLo, voiceHi - 12);
+  let tonicMidi = Number(state.singDegreeSessionTonic);
+  if (!Number.isFinite(tonicMidi) || tonicMidi < voiceLo || tonicMidi > maxTonic || state.singDegreeSessionTonality !== tonality) {
+    tonicMidi = pickSingMatchRootMidi(voiceLo, maxTonic);
+    state.singDegreeSessionTonic = tonicMidi;
+    state.singDegreeSessionTonality = tonality;
+  }
+  const targetMidi = tonicMidi + step.semitones;
+  const keyInfo = getWarmupKeyNameFromMidi(tonicMidi, tonality);
+  state.currentKey = keyInfo.keyCode;
+
+  // Kadenz-Lage für die Akkorde (mittlere Lage, unabhängig von der Stimmlage)
+  const tonicPc = ((tonicMidi % 12) + 12) % 12;
+  const cadenceRootMidi = 55 + ((tonicPc - 55 % 12 + 12) % 12);
+  const degreeKeys = tonality === "minor" ? ["i", "iv", "V", "i"] : ["I", "IV", "V", "I"];
+  const cadenceChords = degreeKeys.map(dk => {
+    const n = buildChordNotes(cadenceRootMidi, HARMONIC_DATA.degrees[dk]);
+    return { notes: n.chordNotes, bass: n.bassNote };
+  });
+  const stepLabel = getSingDegreeStepLabel(step);
+
+  state.currentExercise = {
+    type: "sing-degree",
+    isSingMatch: true,
+    rootMidi: tonicMidi,
+    targetMidi,
+    tonality,
+    keyCode: keyInfo.keyCode,
+    keyName: keyInfo.keyName,
+    targetIndex: 1,
+    cadenceChords,
+    targetItem: {
+      ...step,
+      label: getLocalizedSolfegeStepLabel(step.key, step.label),
+      key: step.key,
+      midi: targetMidi,
+      targetMidi,
+      refNote: midiToNote(tonicMidi),
+      targetNote: midiToNote(targetMidi),
+      displayMain: stepLabel
+    },
+    bars: [
+      { symbol: keyInfo.keyName, label: tr("Tonart", "Key"), short: `${getSolfegeDisplayLabel("Do")} = ${midiToGermanNote(tonicMidi, keyInfo.preferFlat).replace(/[0-9]/g, "")}`, notes: [midiToNote(tonicMidi)], bass: null },
+      { symbol: stepLabel, label: getLocalizedSolfegeStepLabel(step.key, step.label), short: stepLabel, notes: [midiToNote(targetMidi)], bass: null, key: step.key }
+    ],
+    choices: activeKeys,
+    reviewScope,
+    reviewKey: step.key,
+    singTask: {
+      kind: "degree",
+      refMidi: tonicMidi,
+      targetMidi,
+      refPreferFlat: keyInfo.preferFlat,
+      targetPreferFlat: keyInfo.preferFlat,
+      taskMain: stepLabel,
+      taskLabel: getLocalizedSolfegeStepLabel(step.key, step.label),
+      scaleSteps: steps
+    }
   };
 }
 

@@ -641,7 +641,7 @@ function syncExamExerciseControls() {
   }
 
   if (answerSoundBtn) answerSoundBtn.classList.toggle("hidden", isExam || !isNotationStaffMode(state?.currentExercise?.type));
-  if (listenBtn) listenBtn.classList.toggle("hidden", isExam || isNotationSymbolsMode(state?.currentExercise?.type));
+  if (listenBtn) listenBtn.classList.toggle("hidden", isExam || isNotationSymbolsMode(state?.currentExercise?.type) || isSingMatchMode(state?.currentExercise?.type));
   if (loopBtn) loopBtn.classList.toggle("hidden", isExam);
 
   [keyBtn, notationKeyBtn, notationPaceBtn, timeBtn, bpmBtn, melodyPulseBtn].forEach(btn => {

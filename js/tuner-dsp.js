@@ -172,6 +172,23 @@ const TUNER_DSP_PROFILES = Object.freeze({
     pitchLockMissLimit: 2,
     phaseTrackerEnabled: true
   }),
+  // Singstimme in Übungen („… treffen“, js/pitch-capture.js): kürzeres Fenster, Suchbereich der Stimme
+  voice: Object.freeze({
+    id: "voice",
+    searchRange: [65, 1100],    // C2 bis Cis6 (tiefer Bass bis hoher Sopran)
+    transientBlankMs: 0,
+    transientRiseDb: 99,
+    onsetFluxThreshold: 99,
+    onsetLockStrict: false,
+    useLowDecimation: "auto",   // Tiefe Männerstimmen (< 155 Hz) über den Tiefton-Pfad absichern
+    combFilterMix: 0,
+    combPasses: 1,
+    vibratoMode: "active",
+    medianLength: 3,
+    emaAlpha: 0.3,
+    pitchLockMissLimit: 2,
+    phaseTrackerEnabled: false
+  }),
   piano: Object.freeze({
     id: "piano",
     searchRange: [25, 4200],    // A0 (27,5 Hz) bis C8 (4186 Hz)

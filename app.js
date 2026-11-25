@@ -640,12 +640,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     stopPlayback();
     generateExercise();
-    if (state.settings.mode === "solfege" || state.settings.mode === "melody" || state.settings.mode === "rhythm-dictation") {
+    if (state.settings.mode === "solfege" || state.settings.mode === "melody" || state.settings.mode === "rhythm-dictation" || isSingMatchMode(state.settings.mode)) {
       playSequence();
     }
   });
 
   document.getElementById("repeatToneBtn")?.addEventListener("click", () => {
+    if (isSingMatchMode(state.settings.mode)) {
+      playSingMatchTargetReveal();
+      return;
+    }
     if (state.listenOnly.active) {
       setListenOnlyMode(false, { keepPlayback: true });
     }
@@ -690,6 +694,9 @@ document.addEventListener("DOMContentLoaded", () => {
     } else if (state.settings.mode === "rhythm-tap") {
       state.settings.rhythmTapAutoNext = !state.settings.rhythmTapAutoNext;
       loopBtn.classList.toggle("btn-active", state.settings.rhythmTapAutoNext);
+    } else if (isSingMatchMode(state.settings.mode)) {
+      state.settings.singMatchAutoNext = !state.settings.singMatchAutoNext;
+      loopBtn.classList.toggle("btn-active", state.settings.singMatchAutoNext);
     } else {
       state.settings.loop = !state.settings.loop;
       if (state.settings.loop && state.listenOnly.active) {
@@ -721,9 +728,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Tonika / Ausgangston / Rhythmus-Klick-Referenz
   document.getElementById("tonicRefBtn")?.addEventListener("click", async () => {
-    await ensureAudioReady();
     const mode = state.settings.mode;
     const ex = state.currentExercise;
+    // „… treffen“: Ausgangston bzw. Do in der Stimmlage – direkt im Tipp (iOS), Mikrofon kurz taub schalten
+    if (isSingMatchMode(mode) && ex?.singTask) {
+      prepareAudioNonBlocking();
+      if (typeof abortSingMatchRound === "function") abortSingMatchRound();
+      if (typeof setPitchCaptureFloorFrozen === "function") setPitchCaptureFloorFrozen(true);
+      audioEngine.playStep([midiToNote(ex.singTask.refMidi)], 1.1, null, "interval");
+      setTimeout(() => {
+        if (typeof setPitchCaptureFloorFrozen === "function") setPitchCaptureFloorFrozen(false);
+      }, 1500);
+      return;
+    }
+    await ensureAudioReady();
 
     if (mode === "rhythm-tap") {
       if (ex?.blind) return;
@@ -1062,7 +1080,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!isHidden && typeof positionOpenModulePopovers === "function") positionOpenModulePopovers();
   });
 
-  [inlineBpmPopover, inlineKeyPopover, inlineNotationKeyPopover, inlineNotationPacePopover, inlineTimeSigPopover, inlineModesRootPopover, inlineModesPadPopover].forEach(pop => {
+  [inlineBpmPopover, inlineKeyPopover, inlineNotationKeyPopover, inlineNotationPacePopover, inlineTimeSigPopover, inlineModesRootPopover, inlineModesPadPopover, document.getElementById("inlineSingVoicePopover")].forEach(pop => {
     pop?.addEventListener("click", (e) => e.stopPropagation());
   });
 
@@ -1087,6 +1105,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.addEventListener("click", () => {
     closeAllInlinePopovers();
+    if (typeof closeSingMatchVoicePopover === "function") closeSingMatchVoicePopover();
   });
 
   function setActivePresetButton(presetKey) {

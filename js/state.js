@@ -57,6 +57,10 @@ class AppState {
       notationKeyTrainerClef: "notation-treble",
       notationKeyTrainerLevel: 2,
       notationListenOnlyPace: 50,
+      singIntervalDifficulty: 1,   // „Intervalle treffen“ (gleiche Stufen wie die Intervall-Übungen, ohne „Frei“)
+      singIntervalDirection: "up", // "up" | "down" | "mixed"
+      singDegreeDifficulty: 1,     // „Stufen treffen“
+      singMatchAutoNext: true,     // Nach einem Treffer automatisch die nächste Aufgabe vorspielen
       keyMode: "fixed",
       timeSig: "4/4",
       defaultBpm: 90,
@@ -228,6 +232,15 @@ class AppState {
     this.updateQuickStartLabel();
   }
 
+  setSingMatchLevel(mode, level) {
+    const key = mode === "sing-degree" ? "singDegreeDifficulty" : "singIntervalDifficulty";
+    const levels = SING_MATCH_MODE_CATALOG[mode]?.levels || [1];
+    const lvl = parseInt(level, 10);
+    this.settings[key] = levels.includes(lvl) ? lvl : levels[0];
+    this.updateHeaderSubtext();
+    this.updateQuickStartLabel();
+  }
+
   setIntervalDifficulty(level) {
     this.settings.intervalDifficulty = parseInt(level, 10);
     this.updateHeaderSubtext();
@@ -361,6 +374,9 @@ class AppState {
       return includeCategory
         ? `${tr("Melodien", "Melodies")} • ${styleTag} • ${rangeInfo.label} (${keyLabel}, ${octLabel})`
         : `${styleTag} • ${rangeInfo.label} • ${keyLabel}, ${octLabel}`;
+    }
+    if (isSingMatchMode(this.settings.mode) && typeof getSingMatchSummaryText === "function") {
+      return getSingMatchSummaryText(this.settings.mode, includeCategory);
     }
     if (this.settings.mode === "solfege") {
       const lvl = parseInt(this.settings.solfegeDifficulty, 10) || 1;

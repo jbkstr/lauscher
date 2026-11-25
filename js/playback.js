@@ -1415,7 +1415,7 @@ function syncListenOnlyUI() {
   const btn = document.getElementById("listenOnlyBtn");
   const lbl = document.getElementById("listenOnlyBtnLabel");
   const active = Boolean(state.listenOnly?.active);
-  const hideForMode = Boolean(state.exam?.active) || isNotationSymbolsMode(state.currentExercise?.type);
+  const hideForMode = Boolean(state.exam?.active) || isNotationSymbolsMode(state.currentExercise?.type) || isSingMatchMode(state.currentExercise?.type);
   if (syncNotationPaceVisibility() && typeof queueFitExerciseLayout === "function") queueFitExerciseLayout(true);
   if (btn) {
     btn.classList.toggle("hidden", hideForMode);
@@ -1739,6 +1739,12 @@ function setListenOnlyMode(enabled, options = {}) {
 
 async function playSequence(options = {}) {
   cancelHumPause();
+  // „… treffen“: Vorspielen & Zuhören laufen über js/sing-match.js
+  if (isSingMatchMode(state.currentExercise?.type)) {
+    if (state.currentExercise.isSolved) generateExercise();
+    startSingMatchRound({ withPrompt: true });
+    return;
+  }
   if (isNotationSymbolsMode(state.currentExercise?.type)) {
     if (state.exam?.active) {
       if (state.exam.currentAnswered && state.exam.feedbackMode === "instant") {
@@ -2857,6 +2863,7 @@ async function playSequence(options = {}) {
 function stopPlayback(options = {}) {
   state.isPlaying = false;
   state.rhythmTapSession = null;
+  if (typeof abortSingMatchRound === "function") abortSingMatchRound();
   audioEngine.stopPlayback();
   updatePlayButtonUI(false);
 

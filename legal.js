@@ -105,7 +105,7 @@ const LAUSCHER_LEGAL_DOCS = {
 <ul>
   <li>Lauscher hat <strong>kein Benutzerkonto, keine Werbung, kein Tracking und keine Analyse-Werkzeuge</strong>.</li>
   <li>Lauscher betreibt <strong>keinen eigenen Server</strong>. Deine Einstellungen und dein Profil bleiben <strong>ausschließlich auf deinem Gerät</strong>. Ich als Entwickler habe darauf keinen Zugriff.</li>
-  <li>Das <strong>Mikrofon</strong> wird nur im Stimmgerät (Tuner) genutzt, und nur, wenn du es startest. Der Ton wird in Echtzeit auf deinem Gerät ausgewertet, <strong>nicht aufgezeichnet, nicht gespeichert und nicht übertragen</strong>.</li>
+  <li>Das <strong>Mikrofon</strong> wird nur im Stimmgerät (Tuner) und in den Nachsing-Übungen („Intervalle treffen“, „Stufen treffen“) genutzt, und nur, wenn du es startest. Der Ton wird in Echtzeit auf deinem Gerät ausgewertet, <strong>nicht aufgezeichnet, nicht gespeichert und nicht übertragen</strong>.</li>
   <li>Daten verlassen dein Gerät nur, wenn <strong>du</strong> es auslöst: wenn du eine Profil-Sicherung teilst, mir eine E-Mail schreibst oder den externen Unterstützungs-Link (Ko-fi) öffnest.</li>
 </ul>
 
@@ -133,11 +133,11 @@ const LAUSCHER_LEGAL_DOCS = {
   <li>durch Deinstallieren der App bzw. Löschen der Website-Daten im Browser.</li>
 </ul>
 
-<h3>3. Mikrofon (Stimmgerät / Tuner)</h3>
-<p>Wenn du im Werkzeug „Tuner“ auf Start tippst, fragt dein Gerät nach der Erlaubnis für das Mikrofon. Mit deiner Erlaubnis wertet Lauscher das Mikrofonsignal <strong>in Echtzeit auf deinem Gerät</strong> aus, um die Tonhöhe anzuzeigen.</p>
+<h3>3. Mikrofon (Stimmgerät / Tuner und Nachsing-Übungen)</h3>
+<p>Wenn du im Werkzeug „Tuner“ auf Start tippst oder in einer Nachsing-Übung („Intervalle treffen“, „Stufen treffen“) die Aufgabe startest bzw. aufs Mikrofon-Feld tippst, fragt dein Gerät nach der Erlaubnis für das Mikrofon. Mit deiner Erlaubnis wertet Lauscher das Mikrofonsignal <strong>in Echtzeit auf deinem Gerät</strong> aus, um die Tonhöhe anzuzeigen bzw. zu prüfen, ob du den gesuchten Ton getroffen hast.</p>
 <ul>
   <li>Es findet <strong>keine Aufnahme</strong> statt. Das Signal wird <strong>nicht gespeichert und nicht übertragen</strong>.</li>
-  <li>Das Mikrofon wird beendet, sobald du den Tuner stoppst oder verlässt.</li>
+  <li>Das Mikrofon wird beendet, sobald du den Tuner stoppst oder verlässt bzw. die Nachsing-Übung verlässt, die App in den Hintergrund geht oder du eine Weile nicht singst.</li>
   <li>Ohne Erlaubnis funktioniert die übrige App unverändert.</li>
   <li>Du kannst die Erlaubnis jederzeit in den Einstellungen deines Geräts bzw. Browsers widerrufen.</li>
 </ul>
@@ -180,7 +180,7 @@ const LAUSCHER_LEGAL_DOCS = {
 <div class="legal-table-wrap"><table>
   <thead><tr><th>Berechtigung</th><th>Wofür</th><th>Wann</th></tr></thead>
   <tbody>
-    <tr><td>Mikrofon</td><td>Tonhöhenerkennung im Tuner</td><td>nur nach deiner Zustimmung beim ersten Start des Tuners</td></tr>
+    <tr><td>Mikrofon</td><td>Tonhöhenerkennung im Tuner und in den Nachsing-Übungen</td><td>nur nach deiner Zustimmung beim ersten Start des Tuners bzw. einer Nachsing-Übung</td></tr>
     <tr><td>Speicher (nur bis Android 10)</td><td>Profil-Sicherung im Ordner „Dokumente/Lauscher“</td><td>nur beim lokalen Speichern einer Sicherung</td></tr>
     <tr><td>Internet</td><td>Standard-Berechtigung des verwendeten App-Rahmens (Capacitor); Lauscher nutzt sie nicht, um Daten zu senden oder Inhalte nachzuladen</td><td>wird nicht abgefragt</td></tr>
   </tbody>
@@ -230,7 +230,7 @@ const LAUSCHER_LEGAL_DOCS = {
 <ul>
   <li>Lauscher has <strong>no user account, no ads, no tracking and no analytics tools</strong>.</li>
   <li>Lauscher runs <strong>no server of its own</strong>. Your settings and your profile stay <strong>on your device only</strong>. As the developer, I have no access to them.</li>
-  <li>The <strong>microphone</strong> is used only by the tuner, and only when you start it. The sound is analyzed in real time on your device and is <strong>not recorded, not stored and not transmitted</strong>.</li>
+  <li>The <strong>microphone</strong> is used only by the tuner and the sing-back exercises (“Sing Intervals”, “Sing Degrees”), and only when you start them. The sound is analyzed in real time on your device and is <strong>not recorded, not stored and not transmitted</strong>.</li>
   <li>Data only leaves your device when <strong>you</strong> trigger it: when you share a profile backup, send me an email or open the external support link (Ko-fi).</li>
 </ul>
 
@@ -258,11 +258,11 @@ const LAUSCHER_LEGAL_DOCS = {
   <li>by uninstalling the app or clearing the website data in your browser.</li>
 </ul>
 
-<h3>3. Microphone (tuner)</h3>
-<p>When you tap Start in the “Tuner” tool, your device asks for microphone permission. With your permission, Lauscher analyzes the microphone signal <strong>in real time on your device</strong> to display the pitch.</p>
+<h3>3. Microphone (tuner and sing-back exercises)</h3>
+<p>When you tap Start in the “Tuner” tool, or start a task or tap the microphone pad in a sing-back exercise (“Sing Intervals”, “Sing Degrees”), your device asks for microphone permission. With your permission, Lauscher analyzes the microphone signal <strong>in real time on your device</strong> to display the pitch or to check whether you hit the target note.</p>
 <ul>
   <li>There is <strong>no recording</strong>. The signal is <strong>neither stored nor transmitted</strong>.</li>
-  <li>The microphone is switched off as soon as you stop or leave the tuner.</li>
+  <li>The microphone is switched off as soon as you stop or leave the tuner, leave the sing-back exercise, the app goes to the background or you have not sung for a while.</li>
   <li>Without permission, the rest of the app works as usual.</li>
   <li>You can revoke the permission at any time in your device or browser settings.</li>
 </ul>
@@ -305,7 +305,7 @@ const LAUSCHER_LEGAL_DOCS = {
 <div class="legal-table-wrap"><table>
   <thead><tr><th>Permission</th><th>Purpose</th><th>When</th></tr></thead>
   <tbody>
-    <tr><td>Microphone</td><td>Pitch detection in the tuner</td><td>only after your consent when you first start the tuner</td></tr>
+    <tr><td>Microphone</td><td>Pitch detection in the tuner and the sing-back exercises</td><td>only after your consent when you first start the tuner or a sing-back exercise</td></tr>
     <tr><td>Storage (up to Android 10 only)</td><td>Saving a profile backup to “Documents/Lauscher”</td><td>only when you save a backup locally</td></tr>
     <tr><td>Internet</td><td>Default permission of the app framework used (Capacitor); Lauscher does not use it to send data or load content</td><td>not requested</td></tr>
   </tbody>

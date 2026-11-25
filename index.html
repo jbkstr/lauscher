@@ -1685,6 +1685,8 @@
               <button id="modesPadBtn" class="module-chip-btn chip-sage hidden" type="button" aria-pressed="false">Grundton-Fläche: Aus</button>
             <button id="melodyPulseBtn" class="module-chip-btn chip-sage hidden" type="button" title="Metrum-Puls während der Melodie ein-/ausschalten" data-i18n-title="ex.melodyPulseTitle">Puls: An</button>
               <button id="singAlongChipBtn" type="button" class="module-chip-btn chip-sage hidden" aria-expanded="false" aria-controls="singAlongHint">Mitsingen</button>
+              <button id="singVoiceChipBtn" type="button" class="module-chip-btn chip-sage hidden" aria-expanded="false" aria-controls="inlineSingVoicePopover">Stimme</button>
+              <button id="singDirChipBtn" type="button" class="module-chip-btn chip-peach hidden">↗</button>
               <button id="moduleBpmBtn" class="module-chip-btn chip-lilac" title="Tempo-Schieberegler öffnen" data-i18n-title="ex.bpmBtnTitle">90 BPM</button>
             </div>
           </div>
@@ -1711,6 +1713,9 @@
         <!-- Grundton-Auswahl (Tonleitern & Modi) – Inhalt wird in app.js aufgebaut -->
         <div id="inlineModesRootPopover" class="module-inline-popover modes-root-popover hidden"></div>
         <div id="inlineModesPadPopover" class="module-inline-popover modes-pad-popover hidden"></div>
+
+        <!-- Stimmlage für „… treffen“ (Inhalt aus js/sing-match.js) -->
+        <div id="inlineSingVoicePopover" class="module-inline-popover sing-voice-popover hidden"></div>
 
         <!-- Direkt ausklappbare Taktart-Auswahl (im Kadenzmodus) -->
         <div id="inlineTimeSigPopover" class="module-inline-popover hidden">
@@ -1850,6 +1855,7 @@
         <div id="melodyRhythmPicker" class="melody-rhythm-picker hidden"></div>
         <div id="solfegeKeyboardWrap" class="solfege-keyboard-wrap hidden"></div>
         <div id="rhythmTapPadWrap" class="rhythm-tap-wrap hidden"></div>
+        <div id="singPadWrap" class="sing-pad-wrap hidden"></div>
 
         <div id="examPostAnswerBar" class="exam-post-answer-bar hidden">
           <button id="examNextQuestionBtn" type="button" class="btn-primary-action exam-next-btn">Nächste Frage →</button>
@@ -3167,6 +3173,7 @@
   <script src="i18n/phrases-core.js"></script>
   <script src="i18n/phrases-exercises.js"></script>
   <script src="i18n/phrases-tools.js"></script>
+  <script src="i18n/phrases-sing.js"></script>
   <script src="i18n/notation-terms.js"></script>
   <script src="i18n/achievements.js"></script>
   <script src="knowledge-en.js"></script>
@@ -3201,6 +3208,8 @@
   <script src="js/warmup.js"></script>
   <script src="js/metronome.js"></script>
   <script src="js/tuner.js"></script>
+  <script src="js/pitch-capture.js"></script>
+  <script src="js/sing-match.js"></script>
   <script src="js/freeplay.js"></script>
   <script src="js/fretboard.js"></script>
   <script src="js/nashville.js"></script>

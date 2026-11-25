@@ -1236,6 +1236,7 @@ function renderUI() {
   const isProd = isProdTone || isProdEqNoise;
   const isModes = ex.type.startsWith("modes-");
   const isCadence = ex.type === "cadence";
+  const isSingMatch = isSingMatchMode(ex.type);
 
   document.getElementById("exerciseModuleCard")?.classList.toggle("is-solfege", isSolfege || isMelody);
   document.getElementById("exerciseModuleCard")?.classList.toggle("is-melody", isMelody || isRhythmDict || isRhythmTap);
@@ -1308,7 +1309,7 @@ function renderUI() {
   const isBlockChord = isBlockChordMode(ex.type);
   const isChordTempoPinned = isChordArpeggioMode(ex.type) && !state.exam?.active;
   if (moduleBpmBtn) {
-    moduleBpmBtn.classList.toggle("hidden", isProd || isModes || isNotation || isBlockChord || isChordTempoPinned);
+    moduleBpmBtn.classList.toggle("hidden", isProd || isModes || isNotation || isBlockChord || isChordTempoPinned || isSingMatch);
     moduleBpmBtn.textContent = `${state.activeBpm} BPM`;
     if (isChordTempoPinned || isBlockChord) moduleBpmBtn.classList.remove("chip-open");
   }
@@ -1343,7 +1344,7 @@ function renderUI() {
     document.getElementById("inlineNotationPacePopover")?.classList.add("hidden");
     moduleNotationPaceBtn?.classList.remove("chip-open");
   }
-  if (isProd || isModes || isNotation || isBlockChord) {
+  if (isProd || isModes || isNotation || isBlockChord || isSingMatch) {
     document.getElementById("inlineBpmPopover")?.classList.add("hidden");
     moduleBpmBtn?.classList.remove("chip-open");
   }
@@ -1438,6 +1439,9 @@ function renderUI() {
   } else if (isProdTone) {
     if (tonicRefLabel) tonicRefLabel.textContent = tr("Ref: 1 kHz", "Ref: 1 kHz");
     if (tonicRefBtn) tonicRefBtn.title = tr("1 kHz-Referenzton zur Orientierung anspielen", "Play a 1 kHz reference sine tone");
+  } else if (isSingMatch) {
+    if (tonicRefLabel) tonicRefLabel.textContent = ex.type === "sing-degree" ? tr("Tonika (Do)", "Tonic (Do)") : tr("Ausgangston", "Root Note");
+    if (tonicRefBtn) tonicRefBtn.title = tr("Tonika / Grundton anspielen", "Play tonic / root note");
   } else if (isModes) {
     if (tonicRefLabel) tonicRefLabel.textContent = tr("Anker-Quinte", "Anchor Fifth");
     if (tonicRefBtn) tonicRefBtn.title = tr("Neutrale Grundton-Quinte (ohne Terz) anhören", "Hear the neutral root-fifth anchor (no 3rd)");
@@ -1456,7 +1460,7 @@ function renderUI() {
   // „🔊 Stufe nochmal“ / „Ton nochmal“ / „Schlag nochmal“ / „Nur anhören“
   const repeatBtn = document.getElementById("repeatToneBtn");
   if (repeatBtn) {
-    const showRepeat = isCadence || isSolfege || isMelody || isRhythmDict || isRhythmTap;
+    const showRepeat = isCadence || isSolfege || isMelody || isRhythmDict || isRhythmTap || isSingMatch;
     repeatBtn.classList.toggle("hidden", !showRepeat);
     const repeatSpan = repeatBtn.querySelector("span");
     if (isCadence) {
@@ -1468,6 +1472,9 @@ function renderUI() {
     } else if (isRhythmTap) {
       if (repeatSpan) repeatSpan.textContent = tr("Nur anhören", "Listen Only");
       repeatBtn.title = tr("Muster einmal ohne Eingabefenster anhören", "Listen to the pattern once without tapping");
+    } else if (isSingMatch) {
+      if (repeatSpan) repeatSpan.textContent = tr("Ziel anhören", "Hear Target");
+      repeatBtn.title = tr("Zielton anhören (zählt dann nicht mehr für die Serie)", "Hear the target note (then it no longer counts for your streak)");
     } else {
       if (repeatSpan) repeatSpan.textContent = tr("Ton nochmal", "Replay Tone");
       repeatBtn.title = tr("Gerade abgefragten Ton nochmal abspielen", "Replay the current target note");
@@ -1516,6 +1523,12 @@ function renderUI() {
       loopBtn.setAttribute("aria-label", tr("Nächste Klopfrunde automatisch starten", "Auto-start next tap round"));
       loopBtn.classList.remove("btn-active-green");
       loopBtn.classList.toggle("btn-active", state.settings.rhythmTapAutoNext);
+    } else if (isSingMatch) {
+      loopBtn.innerHTML = ICON_AUTO_NEXT_SVG;
+      loopBtn.title = tr("Nach einem Treffer automatisch die nächste Aufgabe vorspielen", "Automatically play the next task after a hit");
+      loopBtn.setAttribute("aria-label", tr("Nächste Aufgabe automatisch vorspielen", "Auto-play next task"));
+      loopBtn.classList.remove("btn-active-green");
+      loopBtn.classList.toggle("btn-active", state.settings.singMatchAutoNext);
     } else {
       loopBtn.innerHTML = ICON_LOOP_SVG;
       loopBtn.title = isSolfege
@@ -1696,6 +1709,17 @@ function renderUI() {
     if (moduleTitleEl) moduleTitleEl.textContent = tr("A/B-Referenz (Noise)", "A/B Reference (Noise)");
     if (targetBadgeEl) targetBadgeEl.textContent = ex.keyName;
     document.getElementById("inputPromptText").textContent = tr("Welche Frequenz wird per EQ angehoben?", "Which frequency is boosted by the EQ?");
+  } else if (isSingMatch) {
+    barsGrid.classList.add("cols-2");
+    if (moduleTitleEl) moduleTitleEl.textContent = getSingMatchModeTitle(ex.type);
+    if (targetBadgeEl) {
+      targetBadgeEl.textContent = ex.type === "sing-degree"
+        ? (ex.keyName || "")
+        : `${tr("Stufe", "Level")} ${state.settings.singIntervalDifficulty || 1}`;
+    }
+    document.getElementById("inputPromptText").textContent = ex.type === "sing-degree"
+      ? tf("Sing {target} in der Tonart:", "Sing {target} in the key:", { target: ex.singTask.taskMain })
+      : tf("Sing {target} vom Ausgangston:", "Sing {target} from the root:", { target: ex.singTask.taskLabel });
   } else if (ex.type === "interval-melodic") {
     barsGrid.classList.add("cols-2");
     if (moduleTitleEl) moduleTitleEl.textContent = tr("Tonfolge (2 Töne)", "2-Note Sequence");
@@ -1857,7 +1881,7 @@ function renderUI() {
       const isTarget = !isSolfege && (hideAllNonRef ? bar.key !== "ref" : idx === ex.targetIndex);
       const isDroneCard = ex.type === "interval-drone";
       // Intervalle: melodisch „Ton 1 / Ton 2“ statt „Takt“, harmonisch (gleichzeitig) ohne Überschrift
-      const isMelodicIntervalCard = ex.type === "interval-melodic" || ex.type === "interval-melodic-down";
+      const isMelodicIntervalCard = ex.type === "interval-melodic" || ex.type === "interval-melodic-down" || ex.type === "sing-interval";
       const hideBarTag = ex.type === "interval-harmonic";
       const card = document.createElement("div");
       card.className = `bar-card ${isTarget ? "bar-target" : ""}${isProdEqNoise || ((isModes || isDroneCard) && idx === 0) ? " bar-card-clickable" : ""}`;
@@ -1881,12 +1905,14 @@ function renderUI() {
 
       const mainText = document.createElement("div");
       mainText.className = "bar-roman";
-      mainText.textContent = isTarget ? "?" : bar.symbol;
+      mainText.textContent = isTarget ? (isSingMatch ? ex.singTask.taskMain : "?") : bar.symbol;
+      if (isSingMatch && !isTarget) tag.textContent = ex.type === "sing-degree" ? tr("Tonart", "Key") : tr("Ausgangston", "Root Note");
+      if (isSingMatch && isTarget) tag.textContent = tr("Dein Ton", "Your Note");
 
       const lbl = document.createElement("span");
       lbl.className = "bar-label";
       lbl.textContent = isTarget
-        ? (ex.type === "cadence"
+        ? (isSingMatch ? tr("Sing es!", "Sing it!") : ex.type === "cadence"
             ? tr("Gesucht", "Target")
             : (isChordQualityMode(ex.type)
                 ? tr("Akkord ?", "Chord ?")
@@ -1962,14 +1988,22 @@ function renderUI() {
     solfegeWrap.classList.add("hidden");
     tapPadWrap?.classList.remove("hidden");
     renderRhythmTapPad();
+  } else if (isSingMatch) {
+    btnGrid.classList.add("hidden");
+    melodyRhythmPicker?.classList.add("hidden");
+    solfegeWrap.classList.add("hidden");
+    tapPadWrap?.classList.add("hidden");
   } else {
     melodyRhythmPicker?.classList.add("hidden");
     solfegeWrap.classList.add("hidden");
     tapPadWrap?.classList.add("hidden");
     renderExerciseChoiceButtonsGrid(ex, btnGrid);
   }
+  document.getElementById("singPadWrap")?.classList.toggle("hidden", !isSingMatch);
 
   resetCentralStage();
+  syncSingMatchStage(ex);
+  syncSingMatchUI(ex);
   updatePlayButtonUI(false);
   syncListenOnlyUI();
   if (typeof syncExerciseDemoButtonUI === "function") {
