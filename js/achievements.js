@@ -22,9 +22,30 @@ const ACHIEVEMENT_TOOL_VIEWS = new Set([
   "nashville"
 ]);
 
+// Jedes Bonus-Theme hat ein eigenes Bühnenbild (styles.css), eine Kurzbeschreibung und
+// eine kleine Erkennungsmelodie für den Freischalt-Moment: [Startzeit s, Töne, Dauer s].
 const ACHIEVEMENT_BONUS_THEMES = [
-  { id: "konzertsaal", requiredCount: 5, nameKey: "themeConcert" },
-  { id: "mitternacht", requiredCount: 10, nameKey: "themeMidnight" }
+  {
+    id: "konzertsaal",
+    requiredCount: 5,
+    nameKey: "themeConcert",
+    taglineKey: "taglineConcert",
+    jingle: [
+      [0, ["C4"], 0.5], [0.14, ["E4"], 0.5], [0.28, ["G4"], 0.5], [0.42, ["C5"], 0.7],
+      [0.78, ["C3", "G3", "E4", "G4", "C5"], 1.8]
+    ]
+  },
+  {
+    id: "mitternacht",
+    requiredCount: 10,
+    nameKey: "themeMidnight",
+    taglineKey: "taglineMidnight",
+    jingle: [
+      [0, ["D3", "F4", "A4", "C5", "E5"], 0.6],
+      [0.5, ["G2", "F4", "B4", "E5"], 0.6],
+      [1.0, ["C3", "E4", "G4", "B4", "D5"], 2.0]
+    ]
+  }
 ];
 
 const ACHIEVEMENT_TITLES = [
@@ -365,6 +386,83 @@ function getBonusThemeLockInfo(themeId) {
   };
 }
 
+/* ---------- Freischalt-Moment für Bonus-Themes ---------- */
+
+let _bonusThemeRevealTimer = null;
+let _bonusThemeRevealId = null;
+
+function showBonusThemeUnlockToast(themeDef) {
+  if (typeof showAppToast !== "function") return;
+  showAppToast(`${formatAchievementUI("bonusToast")} ${formatAchievementUI(themeDef.nameKey)}`, "success", 4200);
+}
+
+/** Wartet kurz, damit die Erfolgs-Animation der Übung erst ausspielen kann. */
+function scheduleBonusThemeUnlockReveal(themeDef) {
+  if (!themeDef) return;
+  if (_bonusThemeRevealTimer) clearTimeout(_bonusThemeRevealTimer);
+  _bonusThemeRevealTimer = setTimeout(() => {
+    _bonusThemeRevealTimer = null;
+    openBonusThemeUnlockModal(themeDef);
+  }, 950);
+}
+
+function playBonusThemeJingle(themeDef) {
+  if (typeof audioEngine === "undefined" || !audioEngine.isInitialized || !audioEngine.rawCtx) return;
+  if (state.master?.muted || !Array.isArray(themeDef?.jingle)) return;
+  const t0 = (audioEngine.rawCtx.currentTime || 0) + 0.05;
+  themeDef.jingle.forEach(([offset, notes, dur]) => {
+    try {
+      audioEngine.playStep(notes, dur, null, "interval", { atTime: t0 + offset, legato: false });
+    } catch (_) {}
+  });
+}
+
+function openBonusThemeUnlockModal(themeDef) {
+  const backdrop = document.getElementById("themeUnlockBackdrop");
+  const blockedByOtherModal = typeof getOpenModalName === "function" && getOpenModalName();
+  const busyInExam = Boolean(state.exam?.active);
+  if (!backdrop || typeof setModalVisibility !== "function" || blockedByOtherModal || busyInExam) {
+    showBonusThemeUnlockToast(themeDef);
+    return;
+  }
+  _bonusThemeRevealId = themeDef.id;
+  backdrop.dataset.unlockTheme = themeDef.id;
+  const setText = (id, text) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = text;
+  };
+  setText("themeUnlockTag", formatAchievementUI("unlockTitle"));
+  setText("themeUnlockName", formatAchievementUI(themeDef.nameKey));
+  setText("themeUnlockTagline", formatAchievementUI(themeDef.taglineKey));
+  setText("themeUnlockEarned", formatAchievementUI("unlockEarned", { n: themeDef.requiredCount }));
+  setText("themeUnlockApplyBtn", formatAchievementUI("unlockApply"));
+  setText("themeUnlockLaterBtn", formatAchievementUI("unlockLater"));
+  const isActive = state.settings?.theme === themeDef.id;
+  document.getElementById("themeUnlockApplyBtn")?.classList.toggle("hidden", isActive);
+  if (typeof stopPlayback === "function") stopPlayback();
+  setModalVisibility("themeUnlock");
+  if (typeof pushAppHistory === "function") pushAppHistory("themeUnlock");
+  playBonusThemeJingle(themeDef);
+}
+
+function applyRevealedBonusTheme() {
+  const themeId = _bonusThemeRevealId;
+  if (typeof closeActiveModal === "function") closeActiveModal();
+  if (!themeId || typeof setThemePreference !== "function") return;
+  setThemePreference(themeId);
+  const def = ACHIEVEMENT_BONUS_THEMES.find(t => t.id === themeId);
+  if (def && typeof showAppToast === "function") {
+    showAppToast(`✦ ${formatAchievementUI(def.nameKey)}`, "success", 2600);
+  }
+}
+
+function initBonusThemeUnlockModal() {
+  document.getElementById("themeUnlockApplyBtn")?.addEventListener("click", () => applyRevealedBonusTheme());
+  document.getElementById("themeUnlockLaterBtn")?.addEventListener("click", () => {
+    if (typeof closeActiveModal === "function") closeActiveModal();
+  });
+}
+
 function getUnlockedAchievementTitles() {
   const data = ensureProfileAchievements();
   return ACHIEVEMENT_TITLES.filter(t => Boolean(data.unlocked[t.milestoneId]));
@@ -583,11 +681,8 @@ function recordAchievementEvent(event) {
 
     if (state.profile.showAchievements !== false && typeof showAppToast === "function") {
       if (newlyUnlockedTheme) {
-        showAppToast(
-          `${formatAchievementUI("bonusToast")} ${formatAchievementUI(newlyUnlockedTheme.nameKey)}`,
-          "success",
-          4200
-        );
+        // Eigener Freischalt-Moment mit Vorschau statt nur eines Toasts
+        scheduleBonusThemeUnlockReveal(newlyUnlockedTheme);
       } else {
         const primary = newlyUnlocked[newlyUnlocked.length - 1];
         const copy = getLocalizedAchievementCopy(primary.id);
@@ -945,6 +1040,7 @@ function initAchievementsSystem() {
   });
 
   bindDevAchievementsVersionTap();
+  initBonusThemeUnlockModal();
   renderProfileTitleSelector();
   renderSpaceAchievementsCard();
 }

@@ -31,6 +31,8 @@ function getOpenModalName() {
   if (about && !about.classList.contains("modal-hidden")) return "about";
   const breakModal = document.getElementById("breakReminderBackdrop");
   if (breakModal && !breakModal.classList.contains("modal-hidden")) return "break";
+  const themeUnlock = document.getElementById("themeUnlockBackdrop");
+  if (themeUnlock && !themeUnlock.classList.contains("modal-hidden")) return "themeUnlock";
   return null;
 }
 
@@ -474,6 +476,7 @@ function setModalVisibility(modalName) {
   document.getElementById("mixerBackdrop")?.classList.toggle("modal-hidden", modalName !== "mixer");
   document.getElementById("settingsBackdrop")?.classList.toggle("modal-hidden", modalName !== "settings");
   document.getElementById("aboutBackdrop")?.classList.toggle("modal-hidden", modalName !== "about");
+  document.getElementById("themeUnlockBackdrop")?.classList.toggle("modal-hidden", modalName !== "themeUnlock");
   if (modalName !== "settings") {
     if (state.appResetConfirmArmed && typeof disarmAppResetConfirm === "function") {
       disarmAppResetConfirm();

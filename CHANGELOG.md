@@ -2,6 +2,13 @@
 
 All released versions of Lauscher. New sections are created by `python3 scripts/bump-version.py`.
 
+## Unreleased
+
+**Improved**
+- Milestone bonus themes now have their own stage sets instead of just new colors. Concert Hall: velvet curtain valance with gold trim, side curtains that open while music plays, a spotlight, a golden sheen on correct answers and gold note particles. Midnight Jazz: brick club wall, slowly drifting smoke, a neon title that flickers on, a neon note sign and a pulsing neon stage frame while playing, a teal neon flash on correct answers and glowing note particles.
+- Unlocking a bonus theme now opens a small reveal with an animated scene (curtain opens / neon sign lights up), a short signature melody and a "Use it now" button, instead of only a toast.
+- Concert Hall no longer uses a serif system font; all text stays in Andika.
+
 ## 0.11.1-beta (Build 6) – 2026-11-25
 
 **Improved**
