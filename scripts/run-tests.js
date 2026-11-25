@@ -346,6 +346,221 @@ runTest("Sitzungs-Gedächtnis: Fehler merken, herunterzählen & erfolgreich abha
   assert.equal(Boolean(sb.getSessionReviewBucket(scope, false)?.has("M3")), false);
 });
 
+runTest("Sitzungs-Gedächtnis: Kadenzen, Taktart & Produktion holen Verwechseltes zurück", () => {
+  sb.renderUI = () => {};
+  const specs = [
+    { mode: "cadence",       levelKey: "difficulty",            level: 1, extra: { cadencePos: "end" } },
+    { mode: "cadence",       levelKey: "difficulty",            level: 1, extra: { cadencePos: "random" } },
+    { mode: "cadence",       levelKey: "difficulty",            level: 3, extra: { cadencePos: "end" } },
+    { mode: "cadence-minor", levelKey: "difficulty",            level: 4, extra: { cadencePos: "random" } },
+    { mode: "rhythm-meter",  levelKey: "rhythmMeterDifficulty", level: 3 },
+    { mode: "prod-tone",     levelKey: "prodToneDifficulty",    level: 3 },
+    { mode: "prod-eq-noise", levelKey: "prodEqNoiseDifficulty", level: 3 }
+  ];
+  const prevCadencePos = appState.settings.cadencePos;
+  for (const spec of specs) {
+    const label = `${spec.mode} L${spec.level} ${spec.extra?.cadencePos || ""}`.trim();
+    appState.settings.mode = spec.mode;
+    appState.settings[spec.levelKey] = spec.level;
+    Object.assign(appState.settings, spec.extra || {});
+    // Mehrere Durchläufe, weil die Auswahl zufällig ist
+    for (let run = 0; run < 15; run++) {
+      sb.generateExercise();
+      const missed = appState.currentExercise;
+      sb.getSessionReviewBucket(missed.reviewScope, false)?.clear(); // jeder Durchlauf für sich
+      assert.ok(missed.reviewScope && missed.reviewKey != null, `${label}: reviewScope/reviewKey fehlt`);
+      assert.equal(missed.reviewKey, missed.targetItem.key, `${label}: reviewKey ≠ Zielantwort`);
+      sb.noteSessionReviewAnswer(missed, false);
+
+      let backAt = -1;
+      for (let i = 1; i <= 6; i++) {
+        sb.generateExercise();
+        const ex = appState.currentExercise;
+        if (ex.targetItem.key === missed.reviewKey) {
+          if (i === 1) assert.fail(`${label}: Verwechseltes kam direkt in der nächsten Aufgabe`);
+          backAt = i;
+          sb.noteSessionReviewAnswer(ex, true);
+          break;
+        }
+        sb.noteSessionReviewAnswer(ex, true);
+      }
+      assert.ok(backAt > 1, `${label}: "${missed.reviewKey}" kam in 6 Aufgaben nicht wieder`);
+    }
+    sb.getSessionReviewBucket(appState.currentExercise.reviewScope, false)?.clear();
+  }
+  appState.settings.cadencePos = prevCadencePos;
+});
+
+runTest("Sitzungs-Gedächtnis: einmal pro Aufgabe zählen, Moll-Solfège & nur Erstversuch", () => {
+  sb.renderUI = () => {};
+
+  // Notationssymbole: Wartezeit sinkt pro Aufgabe um genau 1
+  appState.settings.mode = "notation-symbols";
+  appState.settings.notationDifficulty = 2;
+  sb.generateExercise();
+  const symScope = appState.currentExercise.reviewScope;
+  sb.rememberSessionMistake(symScope, "__probe__");
+  const probe = sb.getSessionReviewBucket(symScope, false).get("__probe__");
+  const waitBefore = probe.wait;
+  sb.generateExercise();
+  assert.equal(probe.wait, waitBefore - 1, "Notationssymbole zählen die Wartezeit doppelt herunter");
+  sb.getSessionReviewBucket(symScope, false).clear();
+
+  // Nur der erste Versuch zählt: falsch, dann richtig → kein Treffer gutgeschrieben
+  const ex = appState.currentExercise;
+  sb.noteSessionReviewAnswer(ex, false);
+  sb.noteSessionReviewAnswer(ex, true);
+  assert.equal(sb.getSessionReviewBucket(symScope, false).get(ex.reviewKey).hits, 0);
+  sb.getSessionReviewBucket(symScope, false).clear();
+
+  // Moll-Solfège: ein überfälliger Fehler kommt nie direkt nach derselben Stufe
+  appState.settings.mode = "solfege";
+  appState.settings.solfegeDifficulty = 11;
+  for (let run = 0; run < 20; run++) {
+    sb.generateExercise();
+    const prev = appState.currentExercise;
+    assert.equal(prev.reviewScope, "solfege-minor");
+    sb.rememberSessionMistake("solfege-minor", prev.reviewKey);
+    const entry = sb.getSessionReviewBucket("solfege-minor", false).get(prev.reviewKey);
+    entry.wait = -5; // überfällig → würde sicher eingestreut
+    sb.generateExercise();
+    assert.notEqual(appState.currentExercise.reviewKey, prev.reviewKey, "Moll-Solfège wiederholt die Stufe direkt");
+    sb.getSessionReviewBucket("solfege-minor", false)?.clear();
+  }
+
+  // Prüfungen zählen die Wartezeit nicht herunter
+  sb.rememberSessionMistake("__exam_scope__", "A");
+  const examEntry = sb.getSessionReviewBucket("__exam_scope__", false).get("A");
+  const examWait = examEntry.wait;
+  const prevExam = appState.exam;
+  appState.exam = { active: true };
+  sb.tickSessionReview("__exam_scope__");
+  appState.exam = prevExam;
+  assert.equal(examEntry.wait, examWait);
+  sb.getSessionReviewBucket("__exam_scope__", false).clear();
+});
+
+runTest("Sitzungs-Gedächtnis: Kontrast, wachsende Abstände & Platz schaffen", () => {
+  appState.exam = null;
+  const scope = "__unit_contrast__";
+  const ex = { reviewScope: scope, reviewKey: "M6" };
+  sb.noteSessionReviewAnswer(ex, false, "m6");
+  sb.noteSessionReviewAnswer(ex, false, "P5"); // zweiter Fehlversuch zählt nicht
+  const bucket = sb.getSessionReviewBucket(scope, false);
+  assert.ok(bucket.has("M6") && bucket.has("m6"), "Ziel und gewählte Antwort fehlen im Gedächtnis");
+  assert.equal(bucket.has("P5"), false, "nur der erste Fehlversuch liefert den Kontrast");
+  assert.equal(bucket.get("m6").contrast, true);
+  assert.ok(bucket.get("M6").wait >= 2 && bucket.get("M6").wait <= 3);
+
+  // Echte Fehler kommen vor Kontrast-Einträgen dran
+  bucket.forEach(e => { e.wait = -5; });
+  assert.equal(sb.pickSessionReviewKey(scope, ["M6", "m6", "P5", "P4"], null), "M6");
+
+  // Kontrast: ein Treffer genügt
+  sb.recordSessionReviewSuccess(scope, "m6");
+  assert.equal(bucket.has("m6"), false);
+
+  // Ein Kontrast-Eintrag schwächt einen echten Fehler nicht ab
+  sb.rememberSessionMistake(scope, "M6", null, false, { contrast: true });
+  assert.equal(bucket.get("M6").contrast, false);
+
+  // Wachsender Abstand: nach dem 1. Treffer 5–8 Aufgaben, mehrfach Verwechseltes braucht 3 Treffer
+  sb.rememberSessionMistake(scope, "M6"); // 2. Fehler → misses = 2
+  const m6 = bucket.get("M6");
+  assert.equal(m6.misses >= 2, true);
+  sb.recordSessionReviewSuccess(scope, "M6");
+  assert.ok(m6.wait >= 5 && m6.wait <= 8, `Abstand nach 1. Treffer: ${m6.wait}`);
+  sb.recordSessionReviewSuccess(scope, "M6");
+  assert.ok(bucket.has("M6"), "mehrfach Verwechseltes braucht 3 Treffer");
+  assert.ok(m6.wait >= 8 && m6.wait <= 11, `Abstand nach 2. Treffer: ${m6.wait}`);
+  sb.recordSessionReviewSuccess(scope, "M6");
+  assert.equal(Boolean(sb.getSessionReviewBucket(scope, false)?.has("M6")), false);
+
+  // Platz schaffen: Kontrast und fast Gelerntes gehen vor frischen Fehlern
+  ["a", "b", "c", "d", "e"].forEach(k => sb.rememberSessionMistake(scope, k));
+  sb.recordSessionReviewSuccess(scope, "b");
+  sb.rememberSessionMistake(scope, "x", null, false, { contrast: true });
+  sb.rememberSessionMistake(scope, "f"); // 7 Einträge → x (Kontrast) fliegt
+  const b2 = sb.getSessionReviewBucket(scope, false);
+  assert.equal(b2.has("x"), false);
+  sb.rememberSessionMistake(scope, "g"); // → b (schon ein Treffer) fliegt
+  assert.equal(b2.has("b"), false);
+  assert.ok(["a", "c", "d", "e", "f", "g"].every(k => b2.has(k)));
+  sb.clearSessionReviewMemory();
+
+  // Kleiner Pool, alles wartet: nie die vorige Aufgabe
+  sb.rememberSessionMistake(scope, "I");
+  sb.rememberSessionMistake(scope, "IV");
+  sb.rememberSessionMistake(scope, "V");
+  const freeKeys = Array.from(sb.filterCoolingSessionReviewKeys(scope, ["I", "IV", "V"], "I"));
+  assert.equal(freeKeys.includes("I"), false);
+  sb.clearSessionReviewMemory();
+});
+
+runTest("Schwächen-Gewichte: lernen, abklingen, gewichtet ziehen & sichern", () => {
+  appState.exam = null;
+  const profileBackup = appState.profile;
+  appState.profile = sb.createDefaultProfile();
+  const scope = "interval-melodic";
+
+  sb.noteSessionReviewAnswer({ reviewScope: scope, reviewKey: "M6" }, false, "m6");
+  assert.equal(sb.getReviewWeight(scope, "M6"), 1);
+  assert.equal(sb.getReviewWeight(scope, "m6"), 0.5);
+  sb.noteSessionReviewAnswer({ reviewScope: scope, reviewKey: "m6" }, true);
+  assert.equal(sb.getReviewWeight(scope, "m6"), 0, "Treffer auf Anhieb baut die Schwäche ab");
+  assert.equal(appState.profile.reviewWeights[scope].m6, undefined);
+
+  // Abklingen: nach 4 Tagen die Hälfte, nach 2 Wochen weg (beim Laden aufgeräumt)
+  const today = sb.getReviewWeightDay();
+  assert.ok(Math.abs(sb.getEffectiveReviewWeight([2, today - 4], today) - 1) < 1e-9);
+  const loaded = sb.sanitizeReviewWeights({
+    "interval-melodic": { M6: [2, today - 1], P4: [1, today - 20], "<bad>": "x" },
+    "BAD SCOPE": { a: [1, today] },
+    "notation-symbols:2": { "term:presto": [9, today] }
+  });
+  assert.ok(loaded["interval-melodic"].M6);
+  assert.equal(loaded["interval-melodic"].P4, undefined);
+  assert.equal(loaded["BAD SCOPE"], undefined);
+  assert.equal(loaded["notation-symbols:2"]["term:presto"][0], 4, "Gewicht wird auf das Maximum begrenzt");
+
+  // Gewichtete Auswahl: Schwaches kommt deutlich öfter, in Prüfungen gleich verteilt
+  appState.profile.reviewWeights = { [scope]: { M6: [4, today] } };
+  const pool = ["P1", "M3", "P5", "M6"];
+  const count = (n) => { let c = 0; for (let i = 0; i < n; i++) if (sb.pickWeightedReviewItem(scope, pool) === "M6") c++; return c / n; };
+  const share = count(4000);
+  assert.ok(share > 0.45 && share < 0.65, `Anteil des schwachen Elements: ${share}`); // erwartet 4/7 ≈ 0,57
+  appState.exam = { active: true };
+  const examShare = count(4000);
+  appState.exam = null;
+  assert.ok(examShare > 0.18 && examShare < 0.32, `Prüfung nicht gleich verteilt: ${examShare}`);
+
+  // Prüfungsantworten verändern keine Gewichte
+  appState.exam = { active: true };
+  sb.noteSessionReviewAnswer({ reviewScope: scope, reviewKey: "P1" }, false, "M3");
+  appState.exam = null;
+  assert.equal(sb.getReviewWeight(scope, "P1"), 0);
+
+  // Sicherung: Gewichte wandern mit; alte Sicherungen ohne Feld behalten die aktuellen
+  const json = sb.exportUserProfileJSON();
+  assert.ok(JSON.parse(json).profile.reviewWeights[scope].M6);
+  appState.profile = sb.createDefaultProfile();
+  sb.importUserProfileJSON(json);
+  assert.ok(sb.getReviewWeight(scope, "M6") > 3.9);
+  const oldBackup = JSON.parse(json);
+  delete oldBackup.profile.reviewWeights;
+  sb.importUserProfileJSON(JSON.stringify(oldBackup));
+  assert.ok(sb.getReviewWeight(scope, "M6") > 3.9, "Import ohne Gewichte löscht die aktuellen");
+
+  // Konto zurücksetzen leert Gewichte und Sitzungs-Gedächtnis
+  sb.rememberSessionMistake(scope, "M6");
+  sb.resetUserProfile();
+  assert.equal(sb.getReviewWeight(scope, "M6"), 0);
+  assert.equal(sb.getSessionReviewBucket(scope, false), null);
+
+  appState.profile = profileBackup;
+  sb.clearSessionReviewMemory();
+});
+
 // =====================================================
 // 3. Rhythmus-Auswertung & Notations-/Akkord-Helfer
 // =====================================================

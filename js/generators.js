@@ -3,19 +3,39 @@
  */
 
 // ---------- SITZUNGS-GEDÄCHTNIS ----------
-// Verwechselte Intervalle, Akkorde, Modi, Solfège-Stufen und Noten kommen in den nächsten
-// 2–5 Aufgaben gezielt wieder dran, bis sie zweimal auf Anhieb sitzen – nie direkt hintereinander.
-// Nur im Arbeitsspeicher: keine Anzeige, keine Punkte, nichts wird gespeichert.
+// Verwechselte Intervalle, Akkorde, Kadenz-Stufen, Modi, Solfège-Stufen, Noten, Taktarten und
+// Frequenzbänder kommen in den nächsten Aufgaben gezielt wieder dran – nie direkt hintereinander:
+// - Fehler: frühestens 2–3 Aufgaben später, nach dem ersten Treffer mit wachsendem Abstand (5–8, dann 8–11).
+// - Gelöscht wird ein Eintrag erst nach 2 Treffern auf Anhieb (3, wenn er mehrmals verwechselt wurde).
+// - Kontrast: Die fälschlich gewählte Antwort kommt ebenfalls einmal wieder, damit beide Seiten
+//   einer Verwechslung (z. B. kleine/große Sexte) geübt werden.
+// Das Sitzungs-Gedächtnis liegt nur im Arbeitsspeicher. Über Neustarts hinweg wirken die
+// Schwächen-Gewichte (siehe unten), die lokal im Profil liegen. Keine Anzeige, keine Punkte.
 const SESSION_REVIEW_HITS_NEEDED = 2;
-const SESSION_REVIEW_MAX_PER_SCOPE = 4;
+const SESSION_REVIEW_HITS_NEEDED_REPEATED = 3; // bei mehrfach verwechselten Elementen
+const SESSION_REVIEW_MAX_PER_SCOPE = 6;
 const SESSION_REVIEW_PICK_CHANCE = 0.6;   // Chance, ein fälliges Element einzustreuen
 const SESSION_REVIEW_OVERDUE = -2;         // so viele Aufgaben „überfällig“ → wird sicher eingestreut
 const sessionReviewMemory = new Map();     // scope -> Map(key -> entry)
 
+function randomIntInclusive(min, max) {
+  return min + Math.floor(Math.random() * (max - min + 1));
+}
+
+// Wartezeit bis zur nächsten Wiederholung (in Aufgaben bzw. beim Notenlesen in Noten)
 function randomSessionReviewWait(entry = null) {
-  // Notenlesen: Die Warteschlange (Platz 3–5) sorgt schon für den Abstand
-  if (entry?.queueBased) return 0;
-  return 2 + Math.floor(Math.random() * 2); // frühestens in der 2. oder 3. Aufgabe danach
+  const hits = entry?.hits || 0;
+  if (entry?.queueBased) {
+    // Notenlesen: Nach einem Fehler sorgt die Warteschlange (Platz 3–5) schon für den Abstand
+    return hits === 0 ? 0 : (hits === 1 ? randomIntInclusive(4, 6) : randomIntInclusive(7, 9));
+  }
+  if (hits === 0) return entry?.contrast ? randomIntInclusive(3, 4) : randomIntInclusive(2, 3);
+  return hits === 1 ? randomIntInclusive(5, 8) : randomIntInclusive(8, 11);
+}
+
+function getSessionReviewHitsNeeded(entry) {
+  if (entry?.contrast) return 1;
+  return (entry?.misses || 0) >= 2 ? SESSION_REVIEW_HITS_NEEDED_REPEATED : SESSION_REVIEW_HITS_NEEDED;
 }
 
 function getSessionReviewBucket(scope, create = false) {
@@ -28,10 +48,37 @@ function getSessionReviewBucket(scope, create = false) {
   return bucket || null;
 }
 
-function rememberSessionMistake(scope, key, payload = null, queueBased = false) {
+function clearSessionReviewMemory() {
+  sessionReviewMemory.clear();
+}
+
+// Platz schaffen: zuerst Kontrast-Einträge, dann fast Gelerntes (meiste Treffer), sonst der älteste Fehler
+function trimSessionReviewBucket(bucket, keepKey) {
+  while (bucket.size > SESSION_REVIEW_MAX_PER_SCOPE) {
+    let victim = null;
+    let victimRank = -1;
+    bucket.forEach(entry => {
+      if (entry.key === keepKey) return;
+      const rank = (entry.contrast ? 100 : 0) + (entry.hits || 0);
+      if (rank > victimRank) { // bei Gleichstand bleibt der ältere (früher eingefügte) Eintrag das Opfer
+        victim = entry;
+        victimRank = rank;
+      }
+    });
+    if (!victim) break;
+    bucket.delete(victim.key);
+  }
+}
+
+function rememberSessionMistake(scope, key, payload = null, queueBased = false, { contrast = false } = {}) {
   if (!scope || key == null || state.exam?.active) return;
   const bucket = getSessionReviewBucket(scope, true);
-  const entry = bucket.get(key) || { key: key, payload: null };
+  const existing = bucket.get(key) || null;
+  // Ein echter Fehler wird durch einen Kontrast-Eintrag nicht abgeschwächt
+  if (contrast && existing && !existing.contrast) return;
+  const entry = existing || { key: key, payload: null };
+  entry.contrast = Boolean(contrast);
+  entry.misses = contrast ? 0 : ((existing && !existing.contrast ? existing.misses || 0 : 0) + 1);
   entry.queueBased = Boolean(queueBased);
   entry.hits = 0;
   entry.wait = randomSessionReviewWait(entry);
@@ -40,9 +87,7 @@ function rememberSessionMistake(scope, key, payload = null, queueBased = false) 
   if (payload) entry.payload = payload;
   bucket.delete(key);
   bucket.set(key, entry);
-  while (bucket.size > SESSION_REVIEW_MAX_PER_SCOPE) {
-    bucket.delete(bucket.keys().next().value); // ältesten Fehler vergessen
-  }
+  trimSessionReviewBucket(bucket, key);
 }
 
 function recordSessionReviewSuccess(scope, key) {
@@ -51,7 +96,7 @@ function recordSessionReviewSuccess(scope, key) {
   if (!entry) return;
   entry.hits += 1;
   entry.pending = false;
-  if (entry.hits >= SESSION_REVIEW_HITS_NEEDED) {
+  if (entry.hits >= getSessionReviewHitsNeeded(entry)) {
     bucket.delete(key);
     if (bucket.size === 0) sessionReviewMemory.delete(scope);
   } else {
@@ -61,6 +106,8 @@ function recordSessionReviewSuccess(scope, key) {
 
 // Eine neue Aufgabe beginnt: Wartezeiten herunterzählen, liegengebliebene Einstreuungen freigeben
 function tickSessionReview(scope, isStillQueued = null) {
+  // Prüfungsfragen zählen nicht als Übungsaufgaben (sonst wäre danach alles auf einmal „überfällig“)
+  if (state.exam?.active) return;
   const bucket = getSessionReviewBucket(scope);
   if (!bucket) return;
   bucket.forEach(entry => {
@@ -81,7 +128,10 @@ function pickDueSessionReviewEntry(scope, isAllowed = null) {
   if (!due.length) return null;
   const overdue = due.filter(e => e.queueBased || e.wait <= SESSION_REVIEW_OVERDUE);
   if (!overdue.length && Math.random() >= SESSION_REVIEW_PICK_CHANCE) return null;
-  const pool = overdue.length ? overdue : due;
+  let pool = overdue.length ? overdue : due;
+  // Echte Fehler vor Kontrast-Einträgen
+  const misses = pool.filter(e => !e.contrast);
+  if (misses.length) pool = misses;
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
@@ -100,14 +150,107 @@ function filterCoolingSessionReviewKeys(scope, pool, lastKey = null) {
   const bucket = getSessionReviewBucket(scope);
   if (!bucket || state.exam?.active) return pool;
   const free = pool.filter(k => !bucket.has(k) || (bucket.get(k).wait <= 0 && k !== lastKey));
-  return free.length ? free : pool;
+  if (free.length) return free;
+  // Kleiner Pool, alles wartet: nie die vorige Aufgabe, und frische Fehler (noch kein Treffer)
+  // zuletzt – lieber ein Element, das schon einmal gesessen hat, etwas früher wiederholen
+  const notLast = pool.filter(k => k !== lastKey);
+  const candidates = notLast.length ? notLast : pool;
+  const settled = candidates.filter(k => (bucket.get(k)?.hits || 0) > 0);
+  return settled.length ? settled : candidates;
 }
 
 function pickTargetKeyWithSessionReview(scope, pool, lastKey = null) {
   const reviewKey = pickSessionReviewKey(scope, pool, lastKey);
   if (reviewKey != null) return reviewKey;
   const free = filterCoolingSessionReviewKeys(scope, pool, lastKey);
-  return free[Math.floor(Math.random() * free.length)];
+  return pickWeightedReviewItem(scope, free);
+}
+
+// ---------- SCHWÄCHEN-GEWICHTE (über Neustarts, lokal im Profil: profile.reviewWeights) ----------
+// Pro Übung und Element ein kleines Gewicht: Fehler erhöhen es, Treffer auf Anhieb senken es, und es
+// klingt mit den Tagen ab (Halbwertszeit REVIEW_WEIGHT_HALF_LIFE_DAYS). Die normale Zufallsauswahl zieht
+// schwierige Elemente dadurch etwas häufiger – auch in späteren Sitzungen. Nur im Üben, nie in Prüfungen.
+// Format & Prüfung: sanitizeReviewWeights() in js/catalogs.js ({ scope: { key: [gewicht, tag] } }).
+const REVIEW_WEIGHT_MISS = 1;
+const REVIEW_WEIGHT_CONTRAST = 0.5;
+const REVIEW_WEIGHT_HIT = 0.5;            // Abzug pro Treffer auf Anhieb
+const REVIEW_WEIGHT_HALF_LIFE_DAYS = 4;      // auch in sanitizeReviewWeights() (js/catalogs.js)
+const REVIEW_WEIGHT_PICK_FACTOR = 0.75;   // Auswahl-Gewicht = 1 + Faktor × Schwäche (max. 1 + 0,75 × 4 = 4×)
+let _reviewWeightsSaveTimer = null;
+
+function getReviewWeightDay(nowMs = Date.now()) {
+  return Math.floor(nowMs / 86400000);
+}
+
+function getEffectiveReviewWeight(rec, today = getReviewWeightDay()) {
+  if (!Array.isArray(rec)) return 0;
+  const [w, day] = rec;
+  const age = Math.max(0, today - day);
+  return w * Math.pow(0.5, age / REVIEW_WEIGHT_HALF_LIFE_DAYS);
+}
+
+function getReviewWeight(scope, key) {
+  const rec = state?.profile?.reviewWeights?.[scope]?.[key];
+  return rec ? getEffectiveReviewWeight(rec) : 0;
+}
+
+function adjustReviewWeight(scope, key, delta) {
+  if (!scope || key == null || state.exam?.active || !state?.profile) return;
+  if (!state.profile.reviewWeights || typeof state.profile.reviewWeights !== "object") {
+    state.profile.reviewWeights = {};
+  }
+  const all = state.profile.reviewWeights;
+  const k = String(key);
+  const today = getReviewWeightDay();
+  const current = getEffectiveReviewWeight(all[scope]?.[k], today);
+  if (!current && delta <= 0) return;
+  const next = Math.min(REVIEW_WEIGHT_MAX, current + delta);
+  if (!all[scope]) all[scope] = {};
+  if (next < REVIEW_WEIGHT_MIN) {
+    delete all[scope][k];
+    if (!Object.keys(all[scope]).length) delete all[scope];
+  } else {
+    all[scope][k] = [Math.round(next * 100) / 100, today];
+  }
+  scheduleReviewWeightsSave();
+}
+
+function flushReviewWeightsSave() {
+  if (!_reviewWeightsSaveTimer) return;
+  clearTimeout(_reviewWeightsSaveTimer);
+  _reviewWeightsSaveTimer = null;
+  if (state?.profile && typeof saveUserProfile === "function") saveUserProfile(state.profile);
+}
+
+// Mehrere Antworten kurz hintereinander nur einmal speichern
+function scheduleReviewWeightsSave() {
+  if (_reviewWeightsSaveTimer) return;
+  _reviewWeightsSaveTimer = setTimeout(flushReviewWeightsSave, 1500);
+}
+
+if (typeof window !== "undefined" && typeof window.addEventListener === "function") {
+  window.addEventListener("pagehide", flushReviewWeightsSave);
+}
+if (typeof document !== "undefined" && typeof document.addEventListener === "function") {
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") flushReviewWeightsSave();
+  });
+}
+
+// Zufallsauswahl, bei der schwierige Elemente etwas häufiger kommen (in Prüfungen gleich verteilt)
+function pickWeightedReviewItem(scope, items, keyOf = item => item) {
+  if (!Array.isArray(items) || !items.length) return undefined;
+  if (items.length === 1) return items[0];
+  const weights = state.exam?.active
+    ? items.map(() => 1)
+    : items.map(item => 1 + REVIEW_WEIGHT_PICK_FACTOR * getReviewWeight(scope, keyOf(item)));
+  const total = weights.reduce((sum, w) => sum + w, 0);
+  let r = Math.random() * total;
+  for (let i = 0; i < items.length; i++) {
+    r -= weights[i];
+    if (r < 0) return items[i];
+  }
+  return items[items.length - 1];
 }
 
 function getLastTargetKeyForType(type) {
@@ -115,19 +258,28 @@ function getLastTargetKeyForType(type) {
   return prev && prev.type === type ? (prev.reviewKey ?? prev.targetItem?.key ?? null) : null;
 }
 
-// Antwort-Ergebnis für Übungen mit reviewScope/reviewKey (einmal pro Aufgabe zählt der erste Versuch)
-function noteSessionReviewAnswer(ex, isCorrect) {
+/**
+ * Antwort-Ergebnis für Übungen mit reviewScope/reviewKey. Es zählt nur der erste Versuch einer Aufgabe.
+ * chosenReviewKey: der Review-Schlüssel der fälschlich gewählten Antwort (für den Kontrast), sonst null.
+ */
+function noteSessionReviewAnswer(ex, isCorrect, chosenReviewKey = null) {
   if (!ex?.reviewScope || ex.reviewKey == null || state.exam?.active) return;
   if (!isCorrect) {
     if (!ex.reviewMissed) {
       ex.reviewMissed = true;
       rememberSessionMistake(ex.reviewScope, ex.reviewKey);
+      adjustReviewWeight(ex.reviewScope, ex.reviewKey, REVIEW_WEIGHT_MISS);
+      if (chosenReviewKey != null && chosenReviewKey !== ex.reviewKey) {
+        rememberSessionMistake(ex.reviewScope, chosenReviewKey, null, false, { contrast: true });
+        adjustReviewWeight(ex.reviewScope, chosenReviewKey, REVIEW_WEIGHT_CONTRAST);
+      }
     }
     return;
   }
   if (!ex.reviewMissed && !ex.reviewCounted) {
     ex.reviewCounted = true;
     recordSessionReviewSuccess(ex.reviewScope, ex.reviewKey);
+    adjustReviewWeight(ex.reviewScope, ex.reviewKey, -REVIEW_WEIGHT_HIT);
   }
 }
 
@@ -360,12 +512,25 @@ function generateCadenceExercise(rootMidi, tonality = "major") {
   const l1Patterns = cadencesL1.map(toTonality);
   const l1RandomPool = cadencesL1RandomPool.map(toTonality);
 
+  // Sitzungs-Gedächtnis: Eine fällige verwechselte Stufe landet gezielt an der gesuchten Position.
+  // Sonst bleibt alles zufällig wie bisher, nur Stufen in der Wartezeit werden dort ausgelassen.
+  const reviewScope = isMinor ? "cadence-minor" : "cadence";
+  const lastTargetKey = getLastTargetKeyForType("cadence");
+  const isFixedL1 = state.settings.difficulty === 1 && !isRandomPos;
+  const targetPool = isFixedL1 ? [...new Set(l1Patterns.map(p => p[3]))] : available;
+  const reviewChord = pickSessionReviewKey(reviewScope, targetPool, lastTargetKey);
+  const freeTargets = filterCoolingSessionReviewKeys(reviewScope, targetPool, lastTargetKey);
+  const pickTargetChord = () => reviewChord ?? pickWeightedReviewItem(reviewScope, freeTargets);
+
   let raw;
   if (state.settings.difficulty === 1) {
     if (!isRandomPos) {
-      raw = l1Patterns[Math.floor(Math.random() * l1Patterns.length)];
+      const wantedTargets = reviewChord ? [reviewChord] : freeTargets;
+      const fitting = l1Patterns.filter(p => wantedTargets.includes(p[3]));
+      const patternPool = fitting.length ? fitting : l1Patterns;
+      raw = pickWeightedReviewItem(reviewScope, patternPool, p => p[3]);
     } else {
-      const wantedChord = available[Math.floor(Math.random() * available.length)];
+      const wantedChord = pickTargetChord();
       const matches = l1RandomPool.filter(p =>
         p[targetIndex] === wantedChord && (targetIndex > 0 || p.slice(1).includes(tonic))
       );
@@ -374,9 +539,10 @@ function generateCadenceExercise(rootMidi, tonality = "major") {
         : l1RandomPool[Math.floor(Math.random() * l1RandomPool.length)];
     }
   } else if (!isRandomPos) {
-    raw = [tonic, ...Array.from({ length: 3 }, () => available[Math.floor(Math.random() * available.length)])];
+    raw = [tonic, ...Array.from({ length: 2 }, () => available[Math.floor(Math.random() * available.length)]), pickTargetChord()];
   } else {
     raw = Array.from({ length: 4 }, () => available[Math.floor(Math.random() * available.length)]);
+    raw[targetIndex] = pickTargetChord();
     if (targetIndex > 0) {
       raw[0] = tonic;
     } else if (![1, 2, 3].some(i => raw[i] === tonic)) {
@@ -405,7 +571,9 @@ function generateCadenceExercise(rootMidi, tonality = "major") {
     targetIndex: targetIndex,
     targetItem: bars[targetIndex],
     bars: bars,
-    choices: available
+    choices: available,
+    reviewScope: reviewScope,
+    reviewKey: bars[targetIndex].key
   };
 }
 
@@ -799,7 +967,7 @@ function generateChordInversionExercise(rootMidi) {
 function generateRhythmMeterExercise() {
   const lvl = state.settings.rhythmMeterDifficulty || 1;
   const pool = RHYTHM_METER_LEVELS[lvl] || RHYTHM_METER_LEVELS[1];
-  const chosenKey = pool[Math.floor(Math.random() * pool.length)];
+  const chosenKey = pickTargetKeyWithSessionReview("rhythm-meter", pool, getLastTargetKeyForType("rhythm-meter"));
   const targetDef = getLocalizedRhythmMeter(chosenKey) || getLocalizedRhythmMeter("4/4");
 
   const bars = [
@@ -814,16 +982,25 @@ function generateRhythmMeterExercise() {
     targetIndex: 0,
     targetItem: { ...targetDef, key: chosenKey, displayMain: targetDef.symbol },
     bars: bars,
-    choices: pool
+    choices: pool,
+    reviewScope: "rhythm-meter",
+    reviewKey: chosenKey
   };
+}
+
+// Produktion: wie bei den Modi nie zweimal dasselbe Band hintereinander, verwechselte Bänder kommen gezielt wieder
+function pickProdChoiceWithSessionReview(exType, choices) {
+  const prevKey = state.currentExercise?.type === exType ? state.currentExercise.targetItem?.key : null;
+  const candidates = choices.length > 1 ? choices.filter(k => k !== prevKey) : choices;
+  const reviewKey = pickSessionReviewKey(exType, choices, prevKey);
+  const freeCandidates = filterCoolingSessionReviewKeys(exType, candidates, prevKey);
+  return reviewKey ?? (pickWeightedReviewItem(exType, freeCandidates) || choices[0]);
 }
 
 function generateProdToneExercise() {
   const lvl = state.settings.prodToneDifficulty || 1;
   const cfg = PROD_TONE_LEVELS[lvl] || PROD_TONE_LEVELS[1];
-  const prevKey = state.currentExercise?.type === "prod-tone" ? state.currentExercise.targetItem?.key : null;
-  const candidates = cfg.choices.length > 1 ? cfg.choices.filter(k => k !== prevKey) : cfg.choices;
-  const chosenKey = candidates[Math.floor(Math.random() * candidates.length)] || cfg.choices[0];
+  const chosenKey = pickProdChoiceWithSessionReview("prod-tone", cfg.choices);
   const targetDef = getLocalizedProdFreq(chosenKey) || getLocalizedProdFreq("1000");
 
   state.currentExercise = {
@@ -836,7 +1013,9 @@ function generateProdToneExercise() {
     bars: [
       { symbol: targetDef.symbol, short: targetDef.short, label: targetDef.label, key: chosenKey }
     ],
-    choices: cfg.choices
+    choices: cfg.choices,
+    reviewScope: "prod-tone",
+    reviewKey: chosenKey
   };
 }
 
@@ -848,9 +1027,7 @@ function formatEqParamsLabel(boostDb, q) {
 function generateProdEqNoiseExercise() {
   const lvl = state.settings.prodEqNoiseDifficulty || 1;
   const cfg = PROD_EQ_NOISE_LEVELS[lvl] || PROD_EQ_NOISE_LEVELS[1];
-  const prevKey = state.currentExercise?.type === "prod-eq-noise" ? state.currentExercise.targetItem?.key : null;
-  const candidates = cfg.choices.length > 1 ? cfg.choices.filter(k => k !== prevKey) : cfg.choices;
-  const chosenKey = candidates[Math.floor(Math.random() * candidates.length)] || cfg.choices[0];
+  const chosenKey = pickProdChoiceWithSessionReview("prod-eq-noise", cfg.choices);
   const targetDef = getLocalizedProdFreq(chosenKey) || getLocalizedProdFreq("1000");
 
   state.currentExercise = {
@@ -867,7 +1044,9 @@ function generateProdEqNoiseExercise() {
       { symbol: "Flat", short: tr("Original-Noise", "Original Noise"), label: tr("Klicken für Flat-Vergleich (Bypass)", "Click for Flat A/B comparison (Bypass)"), key: "ref" },
       { symbol: targetDef.symbol, short: targetDef.short, label: targetDef.label, key: chosenKey }
     ],
-    choices: cfg.choices
+    choices: cfg.choices,
+    reviewScope: "prod-eq-noise",
+    reviewKey: chosenKey
   };
 }
 
@@ -1081,7 +1260,7 @@ function buildModesExercise(exType, level, levelCfg) {
     : levelCfg.choices;
   const reviewKey = pickSessionReviewKey(exType, levelCfg.choices, prevKey);
   const freeCandidates = filterCoolingSessionReviewKeys(exType, candidates, prevKey);
-  const chosenKey = reviewKey ?? (freeCandidates[Math.floor(Math.random() * freeCandidates.length)] || levelCfg.choices[0]);
+  const chosenKey = reviewKey ?? (pickWeightedReviewItem(exType, freeCandidates) || levelCfg.choices[0]);
   const targetDef = getLocalizedModeDef(chosenKey) || getLocalizedModeDef("ionian");
 
   const rootMidi = resolveModesRootMidi(levelCfg);
@@ -1384,10 +1563,11 @@ function generateSolfegeExercise(rootMidi) {
   const activeSemitones = activeSteps.map(st => st.semitones);
   const reviewScope = tonality === "minor" ? "solfege-minor" : "solfege";
 
-  const solfegeLastKey = getLastTargetKeyForType(reviewScope);
+  // Typ ist immer "solfege" (auch in Moll), der Scope unterscheidet nur das Gedächtnis
+  const solfegeLastKey = getLastTargetKeyForType("solfege");
   const solfegeReviewKey = pickSessionReviewKey(reviewScope, activeKeys, solfegeLastKey);
   const solfegeFreeKeys = filterCoolingSessionReviewKeys(reviewScope, activeKeys, solfegeLastKey);
-  const solfegeKey = solfegeReviewKey ?? solfegeFreeKeys[Math.floor(Math.random() * solfegeFreeKeys.length)];
+  const solfegeKey = solfegeReviewKey ?? pickWeightedReviewItem(reviewScope, solfegeFreeKeys);
   const chosenStep = activeSteps.find(st => st.key === solfegeKey) || activeSteps[0];
   const keyboardMidi = rootMidi + chosenStep.semitones;
 
@@ -1957,7 +2137,7 @@ function shuffleNotationArray(arr) {
 function generateNotationSymbolsExercise(levelOverride = null) {
   const lvl = Math.max(1, Math.min(5, parseInt(levelOverride ?? state.settings.notationDifficulty, 10) || 1));
   const scope = `notation-symbols:${lvl}`;
-  tickSessionReview(scope);
+  // Heruntergezählt wird nur einmal pro Aufgabe, in pickSessionReviewKey()
 
   const levelPool = lvl === 5
     ? NOTATION_TERMS_CATALOG
@@ -1988,13 +2168,13 @@ function generateNotationSymbolsExercise(levelOverride = null) {
     if (allowFlow && Math.random() < flowChance) {
       const flowCandidates = NOTATION_FLOW_SCENARIOS.filter(s => !_notationSymbolsRecentIds.slice(-3).includes(`flow:${s.id}`));
       const pool = flowCandidates.length ? flowCandidates : NOTATION_FLOW_SCENARIOS;
-      chosenFlow = pool[Math.floor(Math.random() * pool.length)];
+      chosenFlow = pickWeightedReviewItem(scope, pool, s => `flow:${s.id}`);
     } else {
       const recentWindow = Math.min(6, Math.max(2, Math.floor(levelPool.length / 2)));
       const recentSlice = _notationSymbolsRecentIds.slice(-recentWindow);
       const fresh = levelPool.filter(e => !recentSlice.includes(`term:${e.id}`));
       const pool = fresh.length ? fresh : levelPool;
-      chosenEntry = pool[Math.floor(Math.random() * pool.length)];
+      chosenEntry = pickWeightedReviewItem(scope, pool, e => `term:${e.id}`);
     }
   }
 

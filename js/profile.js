@@ -2333,7 +2333,13 @@ function importUserProfileJSON(rawText) {
       setSpaceBackupStatus(tr("Datei konnte nicht als Profil gelesen werden.", "Could not read file as a profile."), true);
       return { ok: false, error: tr("Ungültiges Profil-Format.", "Invalid profile format.") };
     }
+    const prevReviewWeights = state.profile?.reviewWeights || {};
     state.profile = sanitizeUserProfile(candidate);
+    // Sicherungen ohne Schwächen-Gewichte (älter als dieses Feld): die aktuellen behalten
+    if (!candidate.reviewWeights || typeof candidate.reviewWeights !== "object") {
+      state.profile.reviewWeights = sanitizeReviewWeights(prevReviewWeights);
+    }
+    if (typeof clearSessionReviewMemory === "function") clearSessionReviewMemory();
     if (typeof syncRetroactiveAchievements === "function") {
       syncRetroactiveAchievements({ save: false });
     }
@@ -2379,6 +2385,8 @@ function importUserProfileJSON(rawText) {
 
 function resetUserProfile() {
   state.profile = createDefaultProfile();
+  // Schwächen-Gewichte sind mit dem neuen Profil leer; das Sitzungs-Gedächtnis ebenfalls leeren
+  if (typeof clearSessionReviewMemory === "function") clearSessionReviewMemory();
   // Übungsstand (Stufen & Optionen aller Übungen) ebenfalls auf die App-Standards
   applyPracticeProgressToSettings({}, { resetMissing: true });
   const langCfg = typeof getLanguageConfig === "function" ? getLanguageConfig(state.settings.language) : null;

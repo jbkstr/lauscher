@@ -725,11 +725,13 @@ function handleNotationSymbolChoice(selectedKey, btnElement, options = {}) {
   const target = ex.targetItem;
   const isCorrect = selectedKey === target.key;
 
+  // Sitzungs-Gedächtnis wie bei allen anderen Übungen: nur der erste Versuch zählt.
+  // Kontrast nur bei Begriffen (die Kacheln der Ablauf-Rätsel sind keine eigenen Aufgaben).
+  const contrastKey = !isCorrect && ex.promptKind !== "flow-order" && selectedKey ? `term:${selectedKey}` : null;
+  noteSessionReviewAnswer(ex, isCorrect, contrastKey);
+
   if (!isCorrect) {
     resetExerciseStreakOnAttempt(ex);
-    if (ex.reviewScope && ex.reviewKey) {
-      rememberSessionMistake(ex.reviewScope, ex.reviewKey);
-    }
     ex.notationPanelState = "is-wrong";
     btnElement?.classList.add("btn-wrong");
     const panelEl = document.getElementById("notationStaffPanel");
@@ -755,9 +757,6 @@ function handleNotationSymbolChoice(selectedKey, btnElement, options = {}) {
 
   ex.isSolved = true;
   state.exerciseSolved = true;
-  if (ex.reviewScope && ex.reviewKey) {
-    recordSessionReviewSuccess(ex.reviewScope, ex.reviewKey);
-  }
 
   btnElement?.classList.remove("btn-wrong");
   btnElement?.classList.add("btn-correct");
@@ -952,7 +951,13 @@ async function handleSolfegeKeyClick(clickedKeyDef, keyBtn, options = {}) {
   const isCorrect = clickedKeyDef.midi === target.midi ||
     (target.syllable === "Do" && clickedKeyDef.syllable === "Do");
 
-  if (!isListenOnly) noteSessionReviewAnswer(ex, isCorrect);
+  // Kontrast: die Stufe der fälschlich gedrückten Taste (leitereigene Tasten, sonst keiner)
+  let contrastKey = null;
+  if (!isCorrect && Number.isFinite(clickedKeyDef?.midi) && Number.isFinite(ex.rootMidi)) {
+    const chosenStep = getSolfegeScaleSteps(ex.tonality).find(st => ex.rootMidi + st.semitones === clickedKeyDef.midi);
+    contrastKey = chosenStep?.key ?? null;
+  }
+  if (!isListenOnly) noteSessionReviewAnswer(ex, isCorrect, contrastKey);
 
   if (!isCorrect) {
     // Falsche Antwort: Taste nur rot färben (KEIN Ton erklingt, damit der gehörte Zielton im Ohr bleibt)

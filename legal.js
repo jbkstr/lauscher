@@ -119,7 +119,7 @@ const LAUSCHER_LEGAL_DOCS = {
 <ul>
   <li><strong>Darstellung und Sprache:</strong> gewähltes Farbschema, hell/dunkel, App-Sprache.</li>
   <li><strong>Profil:</strong> optional ein Name oder Spitzname, mit dem dich die App anspricht; gewählte Instrumente bzw. Rollen und Trainingsschwerpunkte; Notations- und Anzeigeoptionen; Übungsdauer und Pausen-Erinnerung; Klang- und Mixer-Einstellungen; Metronom-Profile, eigene Übe-Mixe und Tuner-Einstellungen; eigene Farbschemata; die letzten Prüfungsergebnisse (höchstens 25 Einträge).</li>
-  <li><strong>Übungsstand:</strong> die zuletzt gewählte Übung sowie die gewählte Stufe und Optionen je Übung, damit du nach einem Neustart dort weitermachen kannst.</li>
+  <li><strong>Übungsstand:</strong> die zuletzt gewählte Übung sowie die gewählte Stufe und Optionen je Übung, damit du nach einem Neustart dort weitermachen kannst. Außerdem merkt sich Lauscher, welche Antworten dir zuletzt schwerfielen (z. B. verwechselte Intervalle), damit sie beim Üben etwas häufiger drankommen. Diese Angaben verblassen nach einigen Tagen von selbst.</li>
   <li><strong>Meilensteine:</strong> freigeschaltete Meilensteine und die Zähler, die sie auslösen (z. B. Anzahl gelöster Aufgaben, Übungstage, bestandene Prüfungsbereiche).</li>
   <li><strong>Gerätespezifisch:</strong> eine selbst eingemessene Tap-Latenz für Rhythmus-Übungen (nur auf diesem Gerät, nicht Teil der Profil-Sicherung).</li>
 </ul>
@@ -244,7 +244,7 @@ const LAUSCHER_LEGAL_DOCS = {
 <ul>
   <li><strong>Appearance and language:</strong> chosen color theme, light/dark mode, app language.</li>
   <li><strong>Profile:</strong> optionally a name or nickname the app uses to address you; selected instruments or roles and training focuses; notation and display options; practice duration and break reminder; sound and mixer settings; metronome profiles, your own practice mixes and tuner settings; custom color themes; your most recent exam results (at most 25 entries).</li>
-  <li><strong>Practice progress:</strong> the exercise you last chose, plus the level and options you chose for each exercise, so you can pick up where you left off after a restart.</li>
+  <li><strong>Practice progress:</strong> the exercise you last chose, plus the level and options you chose for each exercise, so you can pick up where you left off after a restart. Lauscher also remembers which answers you recently found difficult (e.g. intervals you mixed up), so they come up a little more often when you practice. This information fades by itself after a few days.</li>
   <li><strong>Milestones:</strong> unlocked milestones and the counters that trigger them (e.g. number of solved tasks, practice days, passed exam areas).</li>
   <li><strong>Device-specific:</strong> a tap latency you calibrated yourself for rhythm exercises (on this device only, not part of the profile backup).</li>
 </ul>
