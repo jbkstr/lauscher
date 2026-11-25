@@ -980,6 +980,81 @@ function setPlayCorrectAnswerAudioPreference(nextEnabled) {
   syncAnswerSoundToggleUI();
 }
 
+// ---------- ÜBUNGSSTAND (profile.practice, Prüfung in js/catalogs.js) ----------
+// Merkt sich die zuletzt gestartete Übung samt Stufen & Optionen, damit Neustart, Handywechsel
+// (Profil-Sicherung) und „Weiterüben“ dort weitermachen. Prüfungen ändern den Übungsstand nicht.
+let _practiceDefaultSettings = null;
+
+function getPracticeProgressKeys() {
+  return ["mode", ...Object.keys(PRACTICE_LEVEL_KEYS), "notationKeyTrainerLevel", ...Object.keys(PRACTICE_OPTION_RULES), "intervalCustomPool"];
+}
+
+function snapshotPracticeSettings(settings = state.settings) {
+  const raw = {};
+  getPracticeProgressKeys().forEach(key => {
+    if (settings[key] !== undefined) raw[key] = settings[key];
+  });
+  return sanitizePracticeProgress(raw);
+}
+
+function rememberPracticeProgress() {
+  if (typeof state === "undefined" || !state?.profile || state.exam?.active) return;
+  if (!_practiceDefaultSettings) _practiceDefaultSettings = snapshotPracticeSettings();
+  const snap = snapshotPracticeSettings();
+  const prev = state.profile.practice || {};
+  if (JSON.stringify(snap) === JSON.stringify(prev)) return;
+  state.profile.practice = snap;
+  saveUserProfile(state.profile);
+}
+
+/**
+ * Übernimmt einen gespeicherten Übungsstand in state.settings (Start, Profil laden).
+ * resetMissing: Schlüssel ohne gespeicherten Wert auf die App-Standards zurücksetzen (Konto zurücksetzen).
+ */
+function applyPracticeProgressToSettings(practice = state?.profile?.practice, { resetMissing = false } = {}) {
+  if (typeof state === "undefined" || !state?.settings || state.exam?.active) return false;
+  if (!_practiceDefaultSettings) _practiceDefaultSettings = snapshotPracticeSettings();
+  const saved = sanitizePracticeProgress(practice);
+  const next = resetMissing ? { ..._practiceDefaultSettings, ...saved } : saved;
+  if (resetMissing && !Object.prototype.hasOwnProperty.call(saved, "intervalCustomPool")) {
+    next.intervalCustomPool = null;
+  }
+  if (!Object.keys(next).length) return false;
+
+  // Feinprüfung gegen die Musik-Kataloge (erst jetzt geladen)
+  if (typeof INTERVAL_SCALE_PRESETS === "object" && next.intervalCustomScale && !INTERVAL_SCALE_PRESETS[next.intervalCustomScale]) {
+    delete next.intervalCustomScale;
+  }
+  if (Array.isArray(next.intervalCustomPool) && typeof HARMONIC_DATA === "object") {
+    const pool = next.intervalCustomPool.filter(k => Object.prototype.hasOwnProperty.call(HARMONIC_DATA.intervals, k));
+    next.intervalCustomPool = pool.length >= 2 ? pool : null;
+  }
+  if (typeof MELODY_RANGE_CONFIG === "object" && next.melodyRange && !MELODY_RANGE_CONFIG[next.melodyRange]) {
+    delete next.melodyRange;
+  }
+  if (next.notationKeyMode !== undefined && typeof normalizeNotationKeyMode === "function") {
+    next.notationKeyMode = normalizeNotationKeyMode(next.notationKeyMode);
+  }
+  if (next.notationKeyTrainerClef !== undefined && typeof isNotationMode === "function" && !isNotationMode(next.notationKeyTrainerClef)) {
+    delete next.notationKeyTrainerClef;
+  }
+  // Notensystem-Übungen haben 4 Stufen, nur „Symbole & Begriffe“ hat 5
+  const nextMode = next.mode || state.settings.mode;
+  if (next.notationDifficulty > 4 && typeof isNotationStaffMode === "function" && isNotationStaffMode(nextMode)) {
+    next.notationDifficulty = 4;
+  }
+
+  const solfegeLevel = next.solfegeDifficulty;
+  delete next.solfegeDifficulty;
+  Object.assign(state.settings, next);
+  // Solfège über den Setter, damit Stufen mit „fester Zufallstonart“ ihre Sitzungstonart würfeln
+  if (solfegeLevel !== undefined && typeof state.setSolfegeDifficulty === "function") {
+    state.setSolfegeDifficulty(solfegeLevel);
+  }
+  if (typeof state.updateHeaderSubtext === "function") state.updateHeaderSubtext();
+  return true;
+}
+
 function setAutoNextPreference(nextEnabled) {
   const enabled = nextEnabled !== false && nextEnabled !== "off";
   state.settings.autoNextAfterCorrect = enabled;

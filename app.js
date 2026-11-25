@@ -133,6 +133,8 @@ function initKeyboardFocusVisibility() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Gemerkten Übungsstand (Übung, Stufen, Optionen) übernehmen – erst hier sind alle Kataloge geladen
+  applyPracticeProgressToSettings();
   startBrandWordStyling();
   initExerciseFitObserver();
   if (typeof initExerciseTutorialUI === "function") {

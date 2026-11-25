@@ -3616,6 +3616,18 @@ registerColocatedStatic({
     tr: "Profili Yedekle",
     ar: "نسخ احتياطي للملف"
   },
+  "space.backupContents": {
+    de: "„Profil sichern“ speichert alles für einen Gerätewechsel in einer Datei: Profil, Übungsstand, Prüfungsverlauf, Meilensteine und Darstellung.",
+    en: "“Back Up Profile” saves everything you need to switch devices in one file: profile, practice progress, exam history, milestones and display settings.",
+    fr: "« Sauvegarder le profil » enregistre tout ce qu’il faut pour changer d’appareil dans un seul fichier : profil, progression, historique des examens, jalons et affichage.",
+    es: "«Guardar perfil» guarda en un solo archivo todo lo necesario para cambiar de dispositivo: perfil, progreso de práctica, historial de exámenes, logros y apariencia.",
+    it: "«Salva profilo» salva in un unico file tutto il necessario per cambiare dispositivo: profilo, progressi, cronologia degli esami, traguardi e aspetto.",
+    pl: "„Zapisz profil” zapisuje w jednym pliku wszystko, czego potrzeba przy zmianie urządzenia: profil, postępy w ćwiczeniach, historię egzaminów, kamienie milowe i wygląd.",
+    uk: "«Зберегти профіль» зберігає в одному файлі все для переходу на інший пристрій: профіль, прогрес вправ, історію іспитів, досягнення та вигляд.",
+    ur: "„پروفائل محفوظ کریں“ ڈیوائس بدلنے کے لیے سب کچھ ایک فائل میں محفوظ کرتا ہے: پروفائل، مشق کی پیش رفت، امتحانات کی تاریخ، سنگِ میل اور ظاہری ترتیبات۔",
+    tr: "„Profili Yedekle“ cihaz değiştirmek için gereken her şeyi tek bir dosyaya kaydeder: profil, alıştırma ilerlemesi, sınav geçmişi, dönüm noktaları ve görünüm.",
+    ar: "«نسخ احتياطي للملف» يحفظ كل ما تحتاجه لتغيير الجهاز في ملف واحد: الملف الشخصي وتقدم التمارين وسجل الاختبارات والإنجازات وإعدادات العرض."
+  },
   "space.exportChooseHint": {
     de: "Wie möchtest du dein Profil sichern?",
     en: "How would you like to back up your profile?",

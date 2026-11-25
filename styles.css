@@ -6788,6 +6788,14 @@ body,
   border-top: 1px solid var(--border-soft);
 }
 
+/* Was die Profil-Sicherung enthält */
+.account-backup-contents {
+  margin: 0.45rem 0 0;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--raccoon-muted);
+}
+
 /* Wissensbereich: Querverweis & Klapp-Karten */
 .k-sibling-bar {
   display: flex;

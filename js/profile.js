@@ -2035,13 +2035,55 @@ function exportUserProfileJSON() {
     colors: t.colors,
     updatedAt: t.updatedAt
   } : null);
+  // Übungsstand immer frisch aus den aktuellen Einstellungen (auch wenn seit dem Start nichts geübt wurde)
+  if (typeof snapshotPracticeSettings === "function" && !state.exam?.active) {
+    cleanProf.practice = snapshotPracticeSettings();
+  }
+  // Version 2: komplette Sicherung für den Gerätewechsel. profile enthält Profil, Übungsstand (practice),
+  // Prüfungsverlauf (examHistory) und Meilensteine (achievements); display die Darstellung.
+  // Bewusst nicht enthalten: gerätespezifische Werte wie die Tap-Latenz.
   const payload = {
     app: "Lauschebaer",
-    version: 1,
-    progressStored: false,
+    version: 2,
+    exportedAt: new Date().toISOString(),
+    appVersion: typeof LAUSCHER_VERSION === "object" ? `${LAUSCHER_VERSION.name} (${LAUSCHER_VERSION.build})` : "",
+    progressStored: true,
+    display: {
+      appearance: state.settings.appearance,
+      theme: state.settings.theme,
+      language: state.settings.language,
+      autoNextAfterCorrect: state.settings.autoNextAfterCorrect !== false,
+      playCorrectAnswerAudio: state.settings.playCorrectAnswerAudio !== false
+    },
     profile: cleanProf
   };
   return JSON.stringify(payload, null, 2);
+}
+
+/** Darstellung aus einer Sicherung übernehmen (Theme, Hell/Dunkel, Sprache, Automatisch weiter, Notenton). */
+function applyImportedDisplayPrefs(display) {
+  if (!display || typeof display !== "object") return;
+  if (typeof display.autoNextAfterCorrect === "boolean" && display.autoNextAfterCorrect !== (state.settings.autoNextAfterCorrect !== false)) {
+    setAutoNextPreference(display.autoNextAfterCorrect);
+  }
+  if (typeof display.playCorrectAnswerAudio === "boolean" && display.playCorrectAnswerAudio !== (state.settings.playCorrectAnswerAudio !== false)) {
+    setPlayCorrectAnswerAudioPreference(display.playCorrectAnswerAudio);
+  }
+  if (VALID_APPEARANCES.includes(display.appearance)) {
+    state.settings.appearance = display.appearance;
+  }
+  // Theme nur, wenn es mit dem geladenen Profil verfügbar ist (Bonus-Theme freigeschaltet, eigenes Theme vorhanden)
+  const theme = display.theme;
+  const bonusInfo = typeof getBonusThemeLockInfo === "function" ? getBonusThemeLockInfo(theme) : { isBonus: false };
+  const themeOk = ALL_VALID_THEMES.includes(theme)
+    && !(bonusInfo.isBonus && !bonusInfo.unlocked)
+    && (!CUSTOM_THEME_SLOT_IDS.includes(theme) || Boolean(getCustomThemeEntry(theme)));
+  if (themeOk) state.settings.theme = theme;
+  saveVisualPrefs(state.settings.appearance, state.settings.theme, state.settings.language);
+  const lang = typeof normalizeAppLanguage === "function" ? normalizeAppLanguage(display.language) : null;
+  if (lang && lang !== state.settings.language) {
+    setLanguagePreference(lang);
+  }
 }
 
 // ---------- Profil-Sicherung (Export) ----------
@@ -2295,7 +2337,17 @@ function importUserProfileJSON(rawText) {
     if (typeof syncRetroactiveAchievements === "function") {
       syncRetroactiveAchievements({ save: false });
     }
+    // Ältere Sicherungen (Version 1) enthalten keinen Übungsstand: dann den aktuellen behalten
+    const hasPractice = Object.keys(state.profile.practice || {}).length > 0;
+    if (hasPractice) {
+      applyPracticeProgressToSettings(state.profile.practice);
+    } else if (typeof snapshotPracticeSettings === "function") {
+      state.profile.practice = snapshotPracticeSettings();
+    }
     saveUserProfile(state.profile);
+    if (parsed && parsed.profile && parsed.display) {
+      applyImportedDisplayPrefs(parsed.display);
+    }
     if (state.customThemeEditor) state.customThemeEditor.open = false;
     stopSessionTimer("idle", null, "idle");
     applyThemeAndAppearance();
@@ -2315,7 +2367,9 @@ function importUserProfileJSON(rawText) {
     resetBreakReminderTimer();
     syncBreakReminderControls();
     if (typeof renderMetronomeProfiles === "function") renderMetronomeProfiles();
-    setSpaceBackupStatus(tr("Profil erfolgreich geladen!", "Profile loaded successfully!"));
+    setSpaceBackupStatus(hasPractice
+      ? tr("Sicherung geladen: Profil, Übungsstand, Prüfungsverlauf und Meilensteine.", "Backup loaded: profile, practice progress, exam history and milestones.")
+      : tr("Profil erfolgreich geladen!", "Profile loaded successfully!"));
     return { ok: true };
   } catch (_err) {
     setSpaceBackupStatus(tr("Datei konnte nicht als Profil gelesen werden.", "Could not read file as a profile."), true);
@@ -2325,6 +2379,8 @@ function importUserProfileJSON(rawText) {
 
 function resetUserProfile() {
   state.profile = createDefaultProfile();
+  // Übungsstand (Stufen & Optionen aller Übungen) ebenfalls auf die App-Standards
+  applyPracticeProgressToSettings({}, { resetMissing: true });
   const langCfg = typeof getLanguageConfig === "function" ? getLanguageConfig(state.settings.language) : null;
   if (langCfg) {
     if (!state.profile.notationManual) state.profile.notation = langCfg.defaultNotation;

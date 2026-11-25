@@ -2774,6 +2774,16 @@ registerColocatedPhrases({
     tr: "Profil başarıyla yüklendi!",
     ar: "تم تحميل الملف الشخصي بنجاح!"
   },
+  "Sicherung geladen: Profil, Übungsstand, Prüfungsverlauf und Meilensteine.": {
+    fr: "Sauvegarde chargée : profil, progression, historique des examens et jalons.",
+    es: "Copia cargada: perfil, progreso de práctica, historial de exámenes y logros.",
+    it: "Backup caricato: profilo, progressi, cronologia degli esami e traguardi.",
+    pl: "Kopia wczytana: profil, postępy w ćwiczeniach, historia egzaminów i kamienie milowe.",
+    uk: "Резервну копію завантажено: профіль, прогрес вправ, історія іспитів і досягнення.",
+    ur: "بیک اپ لوڈ ہو گیا: پروفائل، مشق کی پیش رفت، امتحانات کی تاریخ اور سنگِ میل۔",
+    tr: "Yedek yüklendi: profil, alıştırma ilerlemesi, sınav geçmişi ve dönüm noktaları.",
+    ar: "تم تحميل النسخة الاحتياطية: الملف الشخصي وتقدم التمارين وسجل الاختبارات والإنجازات."
+  },
   "Profil, Timer & Vorlieben": {
     fr: "Profil, minuteur & préférences",
     es: "Perfil, temporizador y preferencias",

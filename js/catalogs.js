@@ -2387,8 +2387,96 @@ function createDefaultProfile() {
     selectedTitleId: "",
     achievements: typeof createDefaultAchievementsData === "function"
       ? createDefaultAchievementsData()
-      : { unlocked: {}, stats: {} }
+      : { unlocked: {}, stats: {} },
+    practice: {}
   };
+}
+
+// ---------- ÜBUNGSSTAND ----------
+// Zuletzt gewählte Übung sowie Stufe & Optionen je Übung. Liegt im Profil (profile.practice),
+// überdauert Neustarts („Weiterüben“ macht dort weiter) und wandert mit in die Profil-Sicherung.
+// Hier nur die strukturelle Prüfung (läuft schon beim Laden des Profils, bevor notation.js/
+// generators.js geladen sind); die Feinprüfung gegen die Musik-Kataloge macht
+// applyPracticeProgressToSettings() in js/state.js.
+
+// Stufen-Schlüssel in state.settings → Übung in MIX_MODE_CATALOG, deren Stufenliste die Obergrenze liefert
+const PRACTICE_LEVEL_KEYS = {
+  difficulty: "cadence",
+  intervalDifficulty: "interval-melodic",
+  chordDifficulty: "interval-chords",
+  chordInversionDifficulty: "chord-inversions",
+  solfegeDifficulty: "solfege",
+  rhythmMeterDifficulty: "rhythm-meter",
+  rhythmDictationDifficulty: "rhythm-dictation",
+  rhythmTapDifficulty: "rhythm-tap",
+  rhythmGrooveDifficulty: "rhythm-groove",
+  prodToneDifficulty: "prod-tone",
+  prodEqNoiseDifficulty: "prod-eq-noise",
+  modesScaleDifficulty: "modes-scale",
+  modesCharDifficulty: "modes-char",
+  modesCadenceDifficulty: "modes-cadence",
+  notationDifficulty: "notation-symbols"
+};
+
+const PRACTICE_PITCH_CLASS_VALUES = Array.from({ length: 12 }, (_, pc) => String(pc));
+
+// Optionen: Liste = erlaubte Werte, "bool" = Wahrheitswert, RegExp = Format (Feinprüfung später)
+const PRACTICE_OPTION_RULES = {
+  cadencePos: ["last", "random"],
+  intervalCustomRoot: ["random", ...PRACTICE_PITCH_CLASS_VALUES],
+  intervalCustomScale: ["ionian", "aeolian", "harm_minor", "mel_minor", "dorian", "phrygian", "lydian", "mixolydian", "locrian", "chromatic"],
+  intervalCustomScope: ["triad", "lower", "upper", "full"],
+  solfegeCustomKey: ["random", "C", "G", "D", "A", "E", "B", "F#", "Db", "Ab", "Eb", "Bb", "F"],
+  solfegeCustomTonality: ["major", "minor"],
+  solfegeCustomRange: ["do-fa", "sol-do", "full"],
+  solfegeCustomOctave: ["single", "multi"],
+  melodyRange: ["do-fa", "sol-do", "full"],
+  melodyKeyMode: ["fixed", "random"],
+  melodyOctaveMode: ["single", "multi"],
+  melodyStyle: ["steady", "rhythmic", "dictation"],
+  melodyPulse: "bool",
+  modesRootPad: "bool",
+  modesRoot: ["auto", "random", ...PRACTICE_PITCH_CLASS_VALUES],
+  rhythmTapReadMode: "bool",
+  rhythmTapClick: "bool",
+  notationKeyMode: /^[A-Za-z0-9#_-]{1,24}$/,
+  notationKeyTrainerClef: /^notation-[a-z]{3,10}$/
+};
+
+function getPracticeValidModes() {
+  return [...Object.keys(MIX_MODE_CATALOG), "interval-custom"];
+}
+
+function sanitizePracticeProgress(raw) {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return {};
+  const out = {};
+  if (typeof raw.mode === "string" && getPracticeValidModes().includes(raw.mode)) {
+    out.mode = raw.mode;
+  }
+  Object.entries(PRACTICE_LEVEL_KEYS).forEach(([key, catalogMode]) => {
+    const levels = MIX_MODE_CATALOG[catalogMode]?.levels || [];
+    const lvl = parseInt(raw[key], 10);
+    if (levels.includes(lvl)) out[key] = lvl;
+  });
+  const trainerLvl = parseInt(raw.notationKeyTrainerLevel, 10);
+  if (trainerLvl >= 1 && trainerLvl <= 3) out.notationKeyTrainerLevel = trainerLvl;
+  Object.entries(PRACTICE_OPTION_RULES).forEach(([key, rule]) => {
+    const val = raw[key];
+    if (rule === "bool") {
+      if (typeof val === "boolean") out[key] = val;
+    } else if (Array.isArray(rule)) {
+      if (typeof val === "string" && rule.includes(val)) out[key] = val;
+    } else if (rule instanceof RegExp) {
+      if (typeof val === "string" && rule.test(val)) out[key] = val;
+    }
+  });
+  // Eigene Intervall-Auswahl: null (= aus der Tonleiter) oder 2–16 Intervall-Kürzel
+  if (Array.isArray(raw.intervalCustomPool)) {
+    const pool = Array.from(new Set(raw.intervalCustomPool
+      .filter(k => typeof k === "string" && /^[A-Za-z0-9]{2,4}$/.test(k)))).slice(0, 16);
+    if (pool.length >= 2) out.intervalCustomPool = pool;
+  }
+  return out;
 }
 
 function sanitizeMixEntry(raw, fallbackIdx = 0) {
@@ -2510,7 +2598,8 @@ function sanitizeUserProfile(raw) {
       : "",
     achievements: typeof sanitizeAchievementsData === "function"
       ? sanitizeAchievementsData(raw.achievements)
-      : (raw.achievements && typeof raw.achievements === "object" ? raw.achievements : { unlocked: {}, stats: {} })
+      : (raw.achievements && typeof raw.achievements === "object" ? raw.achievements : { unlocked: {}, stats: {} }),
+    practice: sanitizePracticeProgress(raw.practice)
   };
 }
 

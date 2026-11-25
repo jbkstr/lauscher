@@ -468,6 +468,7 @@ function applyRestoredNativeAppState() {
   state.settings.playCorrectAnswerAudio = restoredVisual.playCorrectAnswerAudio;
   state.settings.onboardingDone = restoredVisual.onboardingDone;
   state.profile = loadUserProfile();
+  if (typeof applyPracticeProgressToSettings === "function") applyPracticeProgressToSettings();
 
   if (typeof applyThemeAndAppearance === "function") applyThemeAndAppearance();
   if (typeof applyStaticDomLanguage === "function") applyStaticDomLanguage(state.settings.language);

@@ -119,8 +119,11 @@ const LAUSCHER_LEGAL_DOCS = {
 <ul>
   <li><strong>Darstellung und Sprache:</strong> gewähltes Farbschema, hell/dunkel, App-Sprache.</li>
   <li><strong>Profil:</strong> optional ein Name oder Spitzname, mit dem dich die App anspricht; gewählte Instrumente bzw. Rollen und Trainingsschwerpunkte; Notations- und Anzeigeoptionen; Übungsdauer und Pausen-Erinnerung; Klang- und Mixer-Einstellungen; Metronom-Profile, eigene Übe-Mixe und Tuner-Einstellungen; eigene Farbschemata; die letzten Prüfungsergebnisse (höchstens 25 Einträge).</li>
+  <li><strong>Übungsstand:</strong> die zuletzt gewählte Übung sowie die gewählte Stufe und Optionen je Übung, damit du nach einem Neustart dort weitermachen kannst.</li>
+  <li><strong>Meilensteine:</strong> freigeschaltete Meilensteine und die Zähler, die sie auslösen (z. B. Anzahl gelöster Aufgaben, Übungstage, bestandene Prüfungsbereiche).</li>
+  <li><strong>Gerätespezifisch:</strong> eine selbst eingemessene Tap-Latenz für Rhythmus-Übungen (nur auf diesem Gerät, nicht Teil der Profil-Sicherung).</li>
 </ul>
-<p>Bewusst <strong>nicht</strong> gespeichert werden ein Lernverlauf oder Übungsstatistiken über einzelne Sitzungen hinaus. Die Merkhilfe für verwechselte Intervalle u. Ä. existiert nur, solange die App geöffnet ist.</p>
+<p>Darüber hinaus wird <strong>kein</strong> Lernverlauf gespeichert: keine einzelnen Antworten aus Übungen und keine Sitzungsprotokolle. Die Merkhilfe für verwechselte Intervalle u. Ä. existiert nur, solange die App geöffnet ist.</p>
 <p><strong>Zweck und Rechtsgrundlage:</strong> Die Speicherung ist technisch erforderlich, damit die von dir genutzten Funktionen so arbeiten, wie du sie eingestellt hast. Grundlage ist § 25 Abs. 2 Nr. 2 TDDDG und, soweit personenbezogene Daten betroffen sind (etwa dein freiwillig eingegebener Name), Art. 6 Abs. 1 lit. b DSGVO.</p>
 <p><strong>Empfänger:</strong> keine. Diese Daten werden nicht an mich oder Dritte übertragen. Auch die automatische Android-Datensicherung in dein Google-Konto ist für Lauscher abgeschaltet; zum Umzug auf ein neues Gerät nutzt du die Profil-Sicherung (Abschnitt 4).</p>
 <p><strong>Löschung:</strong> Du kannst die Daten jederzeit selbst löschen:</p>
@@ -141,7 +144,7 @@ const LAUSCHER_LEGAL_DOCS = {
 <p>Rechtsgrundlage ist deine Einwilligung (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG), die du über die Berechtigungsabfrage erteilst.</p>
 
 <h3>4. Profil-Sicherung (Export und Import)</h3>
-<p>Unter <strong>Konto → Datensicherung</strong> kannst du dein Profil als Datei („lauscher-profil-JJJJ-MM-TT.json“) sichern und später wieder laden. Die Datei enthält die in Abschnitt 2 genannten Profildaten, aber keinen Lernfortschritt.</p>
+<p>Unter <strong>Konto → Datensicherung</strong> kannst du dein Profil als Datei („lauscher-profil-JJJJ-MM-TT.json“) sichern und später wieder laden. Die Datei enthält die in Abschnitt 2 genannten Daten (Darstellung und Sprache, Profil, Prüfungsergebnisse, Übungsstand und Meilensteine), damit du sie z. B. auf ein neues Gerät mitnehmen kannst. Gerätespezifische Werte wie die Tap-Latenz sind nicht enthalten.</p>
 <ul>
   <li><strong>Lokal speichern:</strong> Die Datei wird auf deinem Gerät abgelegt. In der Android-App ist das der Ordner „Dokumente/Lauscher“, im Browser der Download-Ordner. Auf älteren Android-Versionen (bis Android 10) fragt die App dafür nach der Speicher-Berechtigung.</li>
   <li><strong>Teilen:</strong> Wenn du „Teilen“ wählst, öffnet sich das Teilen-Menü deines Geräts. Du entscheidest selbst, wohin die Datei geht, z. B. in einen Cloud-Speicher, per Messenger oder per E-Mail. Für diese Weitergabe gelten die Datenschutzbestimmungen des jeweils gewählten Dienstes. Lauscher selbst überträgt dabei nichts an mich.</li>
@@ -241,8 +244,11 @@ const LAUSCHER_LEGAL_DOCS = {
 <ul>
   <li><strong>Appearance and language:</strong> chosen color theme, light/dark mode, app language.</li>
   <li><strong>Profile:</strong> optionally a name or nickname the app uses to address you; selected instruments or roles and training focuses; notation and display options; practice duration and break reminder; sound and mixer settings; metronome profiles, your own practice mixes and tuner settings; custom color themes; your most recent exam results (at most 25 entries).</li>
+  <li><strong>Practice progress:</strong> the exercise you last chose, plus the level and options you chose for each exercise, so you can pick up where you left off after a restart.</li>
+  <li><strong>Milestones:</strong> unlocked milestones and the counters that trigger them (e.g. number of solved tasks, practice days, passed exam areas).</li>
+  <li><strong>Device-specific:</strong> a tap latency you calibrated yourself for rhythm exercises (on this device only, not part of the profile backup).</li>
 </ul>
-<p>Lauscher deliberately does <strong>not</strong> store a learning history or practice statistics beyond a single session. The helper that brings back confused intervals and the like only exists while the app is open.</p>
+<p>Beyond that, <strong>no</strong> learning history is stored: no individual answers from exercises and no session logs. The helper that brings back confused intervals and the like only exists while the app is open.</p>
 <p><strong>Purpose and legal basis:</strong> This storage is technically necessary so that the features you use work the way you set them up. The legal basis is Section 25(2) no. 2 TDDDG (German Telecommunications Digital Services Data Protection Act) and, where personal data is involved (such as a name you choose to enter), Art. 6(1)(b) GDPR.</p>
 <p><strong>Recipients:</strong> none. This data is not transmitted to me or to third parties. Android’s automatic backup to your Google account is also switched off for Lauscher; to move to a new device, use the profile backup (section 4).</p>
 <p><strong>Deletion:</strong> You can delete this data yourself at any time:</p>
@@ -263,7 +269,7 @@ const LAUSCHER_LEGAL_DOCS = {
 <p>The legal basis is your consent (Art. 6(1)(a) GDPR, Section 25(1) TDDDG), which you give through the permission prompt.</p>
 
 <h3>4. Profile backup (export and import)</h3>
-<p>Under <strong>Account → Backup</strong> you can save your profile as a file (“lauscher-profil-YYYY-MM-DD.json”) and load it again later. The file contains the profile data listed in section 2, but no learning progress.</p>
+<p>Under <strong>Account → Backup</strong> you can save your profile as a file (“lauscher-profil-YYYY-MM-DD.json”) and load it again later. The file contains the data listed in section 2 (appearance and language, profile, exam results, practice progress and milestones), so you can take it to a new device, for example. Device-specific values such as the tap latency are not included.</p>
 <ul>
   <li><strong>Save locally:</strong> The file is stored on your device. In the Android app this is the folder “Documents/Lauscher”; in the browser it is your downloads folder. On older Android versions (up to Android 10) the app asks for storage permission for this.</li>
   <li><strong>Share:</strong> If you choose “Share”, your device's share menu opens. You decide where the file goes, e.g. to a cloud storage service, a messenger or email. The privacy terms of the service you choose apply to this. Lauscher itself does not send anything to me in the process.</li>

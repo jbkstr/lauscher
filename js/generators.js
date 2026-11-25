@@ -290,6 +290,7 @@ function generateExercise() {
   cancelHumPause();
   markSingAlongIntroForExercise(state.currentExercise);
   renderUI();
+  if (typeof rememberPracticeProgress === "function") rememberPracticeProgress();
 }
 
 // Moll-Kadenzen: gleiche Stufen-Logik wie Dur, Stufen bezogen auf die Moll-Tonika.

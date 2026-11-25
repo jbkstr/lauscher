@@ -427,6 +427,75 @@ runTest("Meilensteine: Retroaktive Synchronisation auf Profilen", () => {
   assert.ok(appState.profile && typeof appState.profile.achievements === "object");
 });
 
+// =====================================================
+// 6. Profil-Sicherung: Übungsstand, Prüfungsverlauf & Meilensteine
+// =====================================================
+runTest("Profil-Sicherung: Übungsstand, Prüfungsverlauf & Meilensteine (Export, Import, alte Sicherungen)", () => {
+  // Ungültige Werte fliegen raus, gültige bleiben
+  const clean = sb.sanitizePracticeProgress({
+    mode: "solfege", solfegeDifficulty: 7, intervalDifficulty: 99, melodyStyle: "jazz",
+    modesRoot: "5", rhythmTapClick: false, intervalCustomPool: ["P1", "M3", "<x>"], foo: "bar"
+  });
+  assert.equal(clean.mode, "solfege");
+  assert.equal(clean.solfegeDifficulty, 7);
+  assert.equal(clean.intervalDifficulty, undefined);
+  assert.equal(clean.melodyStyle, undefined);
+  assert.equal(clean.modesRoot, "5");
+  assert.equal(clean.rhythmTapClick, false);
+  assert.deepEqual(Array.from(clean.intervalCustomPool), ["P1", "M3"]);
+  assert.equal(clean.foo, undefined);
+
+  // Übungsstand merken
+  appState.exam = null;
+  appState.settings.mode = "interval-melodic";
+  appState.settings.intervalDifficulty = 6;
+  appState.settings.chordDifficulty = 3;
+  appState.settings.melodyStyle = "dictation";
+  sb.rememberPracticeProgress();
+  assert.equal(appState.profile.practice.mode, "interval-melodic");
+  assert.equal(appState.profile.practice.intervalDifficulty, 6);
+
+  // Prüfung & Meilenstein ins Profil legen
+  const catKey = Object.keys(getLex("EXAM_CATEGORY_LEVELS"))[0];
+  const preset = getLex("EXAM_CATEGORY_LEVELS")[catKey].presets[0];
+  appState.profile.examHistory = [{ id: "exam_test_1", categoryKey: catKey, levelId: preset.id, totalQuestions: 10, earnedScore: 8, correctCount: 8, percent: 80, completedAt: 1700000000000 }];
+  const achId = Array.from(getLex("ACHIEVEMENT_VALID_IDS"))[0];
+  appState.profile.achievements.unlocked[achId] = 1700000000000;
+
+  const json = sb.exportUserProfileJSON();
+  const payload = JSON.parse(json);
+  assert.equal(payload.version, 2);
+  assert.equal(payload.progressStored, true);
+  assert.equal(payload.profile.practice.intervalDifficulty, 6);
+  assert.equal(payload.profile.practice.melodyStyle, "dictation");
+  assert.equal(payload.profile.examHistory.length, 1);
+  assert.ok(payload.profile.achievements.unlocked[achId] > 0);
+  assert.equal(typeof payload.display.language, "string");
+
+  // Neues Gerät simulieren: Stand zurücksetzen, dann Sicherung laden
+  appState.settings.mode = "cadence";
+  appState.settings.intervalDifficulty = 1;
+  appState.settings.chordDifficulty = 1;
+  appState.settings.melodyStyle = "rhythmic";
+  appState.profile = sb.createDefaultProfile();
+  const res = sb.importUserProfileJSON(json);
+  assert.equal(res.ok, true);
+  assert.equal(appState.settings.mode, "interval-melodic");
+  assert.equal(appState.settings.intervalDifficulty, 6);
+  assert.equal(appState.settings.chordDifficulty, 3);
+  assert.equal(appState.settings.melodyStyle, "dictation");
+  assert.equal(appState.profile.examHistory.length, 1);
+  assert.ok(appState.profile.achievements.unlocked[achId] > 0);
+
+  // Alte Sicherung (Version 1, ohne Übungsstand): aktueller Übungsstand bleibt erhalten
+  const v1 = JSON.stringify({ app: "Lauschebaer", version: 1, progressStored: false, profile: { name: "Alt" } });
+  const resV1 = sb.importUserProfileJSON(v1);
+  assert.equal(resV1.ok, true);
+  assert.equal(appState.profile.name, "Alt");
+  assert.equal(appState.settings.intervalDifficulty, 6);
+  assert.equal(appState.profile.practice.intervalDifficulty, 6);
+});
+
 // Ergebnis-Ausgabe
 const failed = results.filter(r => !r.ok);
 for (const r of results) {
