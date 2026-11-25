@@ -19,7 +19,7 @@ function triRand01() {
 }
 
 const SAMPLED_STEM_CONFIG = {
-  piano:   { demoStyle: "piano",   attackSec: 0.004, legatoAttackSec: 0.007, legatoStartSkipSec: 0.000, releaseSec: 0.62, legatoOverlapSec: 0.025, chordCrossfadeSec: 0.16, melodyCrossfadeSec: 0.15, chordSpreadMs: 9,  noteJitterMs: 3.5, chordRollMode: "roll",     ensembleRangeMs: [0, 4],  fallbackMult: 0.72, sampledMult: 0.90, demoGain: 0.85, useReverb: true,  maxPolyphony: 16 },
+  piano:   { demoStyle: "piano",   attackSec: 0.004, legatoAttackSec: 0.007, legatoStartSkipSec: 0.000, releaseSec: 0.62, legatoOverlapSec: 0.025, chordCrossfadeSec: 0.16, melodyCrossfadeSec: 0.15, chordSpreadMs: 9,  noteJitterMs: 3.5, chordRollMode: "roll",     ensembleRangeMs: [0, 4],  fallbackMult: 0.72, sampledMult: 0.92, demoGain: 0.85, useReverb: true,  maxPolyphony: 16 },
   guitar:  { demoStyle: "guitar",  attackSec: 0.004, legatoAttackSec: 0.008, legatoStartSkipSec: 0.000, releaseSec: 0.58, legatoOverlapSec: 0.022, chordCrossfadeSec: 0.15, melodyCrossfadeSec: 0.14, chordSpreadMs: 14, noteJitterMs: 3.0, chordRollMode: "roll",     ensembleRangeMs: [2, 8],  fallbackMult: 0.65, sampledMult: 0.78, demoGain: 0.85, useReverb: true,  maxPolyphony: 12 },
   strings: { demoStyle: "strings", attackSec: 0.024, legatoAttackSec: 0.048, legatoStartSkipSec: 0.042, releaseSec: 0.72, legatoOverlapSec: 0.055, chordCrossfadeSec: 0.16, melodyCrossfadeSec: 0.14, chordSpreadMs: 11, noteJitterMs: 5.0, chordRollMode: "ensemble", ensembleRangeMs: [4, 13], fallbackMult: 0.55, sampledMult: 0.58, demoGain: 0.85, useReverb: true,  maxPolyphony: 12 },
   brass:   { demoStyle: "brass",   attackSec: 0.012, legatoAttackSec: 0.026, legatoStartSkipSec: 0.018, releaseSec: 0.50, legatoOverlapSec: 0.036, chordCrossfadeSec: 0.13, melodyCrossfadeSec: 0.12, chordSpreadMs: 8,  noteJitterMs: 4.5, chordRollMode: "ensemble", ensembleRangeMs: [3, 10], fallbackMult: 0.42, sampledMult: 0.62, demoGain: 0.85, useReverb: true,  maxPolyphony: 12 },
@@ -440,7 +440,12 @@ class EarLabSampledInstrument {
       : null;
 
     resolvedEntries.forEach(({ targetMidi }) => {
-      const chosen = this.findClosestSample(targetMidi, layerSamples);
+      let chosen = this.findClosestSample(targetMidi, layerSamples);
+      // Layer deckt nicht jeden Ton ab (z. B. Klavier p/f nur C2–C6): bei weitem Abstand lieber den Hauptlayer,
+      // statt ein Sample stark zu transponieren
+      if (layerSamples && chosen && Math.abs(chosen.midi - targetMidi) > 2) {
+        chosen = this.findClosestSample(targetMidi);
+      }
       if (!chosen) return;
 
       while (this.activeVoices.length >= this.maxPolyphony) {

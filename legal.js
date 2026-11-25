@@ -492,7 +492,7 @@ const LAUSCHER_LEGAL_DOCS = {
   licenses: {
     de: {
       title: "Lizenzen",
-      updated: "Stand: 19.11.2026",
+      updated: "Stand: 25.11.2026",
       html: `
 <p><strong>Lauscher</strong> kommt mit sehr wenigen externen Bestandteilen aus und lädt keine Bibliotheken, Schriftarten oder Dienste von fremden Servern nach. Alle genutzten Open-Source-Komponenten sind vollständig lokal eingebunden und unten mit ihren Lizenzhinweisen aufgeführt.</p>
 
@@ -509,6 +509,15 @@ const LAUSCHER_LEGAL_DOCS = {
       <summary>Vollständigen Lizenztext anzeigen (SIL OFL 1.1)</summary>
       <div class="legal-license-text">${LAUSCHER_OFL_1_1_TEXT}</div>
     </details>
+  </article>
+
+  <article class="legal-license-card">
+    <div class="legal-license-head">
+      <strong class="legal-license-name">Accurate-Salamander Grand Piano (Klavier-Samples)</strong>
+      <span class="legal-license-badge">CC BY 3.0</span>
+    </div>
+    <p class="legal-license-meta">Klang des Klaviers · Web &amp; Android-App</p>
+    <p class="legal-license-copy">„Accurate-Salamander Grand Piano“ von Chisato Yamauchi (<a href="https://www.ir.isas.jaxa.jp/~cyamauch/AccurateSalamander/" target="_blank" rel="noopener">Accurate-Salamander Project</a>), auf Grundlage von „Salamander Grand Piano“ von Alexander Holm, lizenziert unter <a href="https://creativecommons.org/licenses/by/3.0/deed.de" target="_blank" rel="noopener">Creative Commons Namensnennung 3.0 (CC BY 3.0)</a>. <strong>Bearbeitet:</strong> Für Lauscher wurden einzelne Töne in drei Anschlagstärken aufgenommen, gekürzt, ausgeblendet, in der Lautstärke angeglichen und als AAC kodiert.</p>
   </article>
 
   <article class="legal-license-card">
@@ -545,13 +554,13 @@ ${LAUSCHER_MIT_BODY}</div>
 </div>
 
 <h3>Lauscher – Eigene Inhalte &amp; Klang-Samples</h3>
-<p>Quellcode, Übungslogik, Texte, Übersetzungen, Gestaltung, Grafiken, das Maskottchen („Lauschebär“) sowie die eingebetteten Instrumenten- und Perkussions-Samples stammen aus dem Projekt Lauscher (© 2026 Jens Strauch). Alle Rechte vorbehalten, soweit nicht anders angegeben. Einzelheiten zur erlaubten Nutzung findest du in den <a href="https://jbkstr.github.io/lauscher/terms.html" data-legal-nav="terms">Nutzungsbedingungen</a>.</p>
+<p>Quellcode, Übungslogik, Texte, Übersetzungen, Gestaltung, Grafiken, das Maskottchen („Lauschebär“) sowie die übrigen eingebetteten Instrumenten- und Perkussions-Samples stammen aus dem Projekt Lauscher (© 2026 Jens Strauch). Alle Rechte vorbehalten, soweit nicht anders angegeben; die oben genannten Klavier-Samples stehen unter CC BY 3.0. Einzelheiten zur erlaubten Nutzung findest du in den <a href="https://jbkstr.github.io/lauscher/terms.html" data-legal-nav="terms">Nutzungsbedingungen</a>.</p>
 <p>Vielen Dank an alle Entwicklerinnen, Entwickler und Gemeinschaften hinter den oben genannten freien Projekten.</p>
 `
     },
     en: {
       title: "Licenses",
-      updated: "Last updated: 19 November 2026",
+      updated: "Last updated: 25 November 2026",
       langNotice: "Original license texts of third-party components are binding in their English wording.",
       html: `
 <p><strong>Lauscher</strong> relies on very few external components and never loads libraries, fonts or services from third-party servers. All open-source components used are bundled locally and listed below with their license notices.</p>
@@ -569,6 +578,15 @@ ${LAUSCHER_MIT_BODY}</div>
       <summary>Show full license text (SIL OFL 1.1)</summary>
       <div class="legal-license-text">${LAUSCHER_OFL_1_1_TEXT}</div>
     </details>
+  </article>
+
+  <article class="legal-license-card">
+    <div class="legal-license-head">
+      <strong class="legal-license-name">Accurate-Salamander Grand Piano (piano samples)</strong>
+      <span class="legal-license-badge">CC BY 3.0</span>
+    </div>
+    <p class="legal-license-meta">Piano sound · Web &amp; Android app</p>
+    <p class="legal-license-copy">“Accurate-Salamander Grand Piano” by Chisato Yamauchi (<a href="https://www.ir.isas.jaxa.jp/~cyamauch/AccurateSalamander/" target="_blank" rel="noopener">Accurate-Salamander Project</a>), based on “Salamander Grand Piano” by Alexander Holm, licensed under <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">Creative Commons Attribution 3.0 (CC BY 3.0)</a>. <strong>Modified:</strong> for Lauscher, single notes were rendered at three velocities, trimmed, faded out, level-matched and encoded as AAC.</p>
   </article>
 
   <article class="legal-license-card">
@@ -605,7 +623,7 @@ ${LAUSCHER_MIT_BODY}</div>
 </div>
 
 <h3>Lauscher – Original content &amp; audio samples</h3>
-<p>Source code, exercise logic, texts, translations, visual design, artwork, the mascot (“Lauschebär”) and the embedded instrument and percussion samples are part of the Lauscher project (© 2026 Jens Strauch). All rights reserved unless stated otherwise. For permitted uses, see the <a href="https://jbkstr.github.io/lauscher/terms.html?lang=en" data-legal-nav="terms">Terms of Use</a>.</p>
+<p>Source code, exercise logic, texts, translations, visual design, artwork, the mascot (“Lauschebär”) and the other embedded instrument and percussion samples are part of the Lauscher project (© 2026 Jens Strauch). All rights reserved unless stated otherwise; the piano samples listed above are licensed under CC BY 3.0. For permitted uses, see the <a href="https://jbkstr.github.io/lauscher/terms.html?lang=en" data-legal-nav="terms">Terms of Use</a>.</p>
 <p>Many thanks to all developers and communities behind the free and open-source projects listed above.</p>
 `
     }
