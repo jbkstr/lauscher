@@ -424,7 +424,7 @@ function openKnowledgeRef(refKey, options = {}) {
     `;
     container.innerHTML = `<div class="knowledge-list">${html}${crosslinkHtml}</div>`;
     container.querySelectorAll("[data-open-ref-inline]").forEach(btn => {
-      btn.addEventListener("click", () => openKnowledgeDetail(btn.dataset.openRefInline));
+      btn.addEventListener("click", () => openKnowledgeRef(btn.dataset.openRefInline));
     });
     bindKnowledgeAudioButtons(container);
 

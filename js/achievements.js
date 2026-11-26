@@ -222,7 +222,7 @@ const ACHIEVEMENT_VALID_TITLE_IDS = new Set(ACHIEVEMENT_TITLES.map(t => t.id));
 let _achievementsActiveFilter = "all";
 
 function getAchievementLanguageCode() {
-  if (typeof getCurrentAppLanguage === "function") return getCurrentAppLanguage();
+  if (typeof getAppLanguage === "function") return getAppLanguage();
   return state?.settings?.language || "de";
 }
 

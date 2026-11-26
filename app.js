@@ -424,7 +424,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!file || typeof FileReader === "undefined") return;
     const reader = new FileReader();
     reader.onload = () => {
-      importUserProfileJSON(reader.result);
+      importUserProfileJSON(reader.result, { confirmOverwrite: true });
     };
     reader.readAsText(file);
     e.target.value = "";
@@ -1249,20 +1249,23 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("btnDiagCompare")?.addEventListener("click", async () => {
     if (!state.wrongAnswerData) return;
     await ensureAudioReady();
+    // Fester Bezug: „Weiter“ setzt state.wrongAnswerData auf null, während Timer noch laufen
+    const diag = state.wrongAnswerData;
+    if (!diag) return;
     const ex = state.currentExercise;
     const rootMidi = HARMONIC_DATA.roots[state.currentKey].midi;
 
     if (ex.type === "prod-tone") {
       stopPlayback();
-      audioEngine.playProductionTone(state.wrongAnswerData.chosen.freqHz, 0.85);
+      audioEngine.playProductionTone(diag.chosen.freqHz, 0.85);
       audioEngine.registerTimer(() => {
-        audioEngine.playProductionTone(state.wrongAnswerData.target.freqHz, 1.05);
+        audioEngine.playProductionTone(diag.target.freqHz, 1.05);
       }, 1100);
     } else if (ex.type === "prod-eq-noise") {
       stopPlayback();
       audioEngine.playProductionNoiseEQ({
         mode: "boost-only",
-        freqHz: state.wrongAnswerData.chosen.freqHz,
+        freqHz: diag.chosen.freqHz,
         q: ex.q,
         gainDb: ex.boostDb,
         durationSec: 1.05
@@ -1270,7 +1273,7 @@ document.addEventListener("DOMContentLoaded", () => {
       audioEngine.registerTimer(() => {
         audioEngine.playProductionNoiseEQ({
           mode: "boost-only",
-          freqHz: state.wrongAnswerData.target.freqHz,
+          freqHz: diag.target.freqHz,
           q: ex.q,
           gainDb: ex.boostDb,
           durationSec: 1.25
@@ -1278,12 +1281,12 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 1350);
     } else if (ex.type.startsWith("modes-")) {
       stopPlayback();
-      const dur1 = playModeExercisePattern(ex, state.wrongAnswerData.chosen, 0);
-      playModeExercisePattern(ex, state.wrongAnswerData.target, dur1 + 420);
+      const dur1 = playModeExercisePattern(ex, diag.chosen, 0);
+      playModeExercisePattern(ex, diag.target, dur1 + 420);
     } else if (ex.type === "rhythm-meter") {
       const bpm = state.activeBpm || 90;
-      const chosenBar = buildRhythmMeterEvents(state.wrongAnswerData.chosen.key, bpm, 1, false);
-      const targetBar = buildRhythmMeterEvents(state.wrongAnswerData.target.key, bpm, 1, false);
+      const chosenBar = buildRhythmMeterEvents(diag.chosen.key, bpm, 1, false);
+      const targetBar = buildRhythmMeterEvents(diag.target.key, bpm, 1, false);
       audioEngine.stopPlayback();
       const baseSec = getAudioClockSec() + 0.04;
       audioEngine.playRhythmSequence(chosenBar.events, baseSec);
@@ -1306,26 +1309,30 @@ document.addEventListener("DOMContentLoaded", () => {
           barMs: res.barMs
         };
       };
-      const chosenSlice = sliceBar(state.wrongAnswerData.chosen.key);
-      const targetSlice = sliceBar(state.wrongAnswerData.target.key);
+      const chosenSlice = sliceBar(diag.chosen.key);
+      const targetSlice = sliceBar(diag.target.key);
       audioEngine.stopPlayback();
       audioEngine.playRhythmSequence(chosenSlice.events);
       audioEngine.registerTimer(() => {
         audioEngine.playRhythmSequence(targetSlice.events);
       }, Math.round(chosenSlice.barMs + 360));
     } else if (ex.type === "cadence") {
-      const chosen = buildChordNotes(rootMidi, state.wrongAnswerData.chosen);
+      stopPlayback();
+      const chosen = buildChordNotes(rootMidi, diag.chosen);
+      const target = diag.target;
+      const comparePlaybackId = audioEngine.playbackId;
       audioEngine.playStep(chosen.chordNotes, 0.9, chosen.bassNote, "cadence");
-      setTimeout(() => {
-        audioEngine.playStep(state.wrongAnswerData.target.notes, 1.2, state.wrongAnswerData.target.bass, "cadence");
+      audioEngine.registerTimer(() => {
+        if (audioEngine.playbackId !== comparePlaybackId || !target?.notes) return;
+        audioEngine.playStep(target.notes, 1.2, target.bass, "cadence");
       }, 1000);
     } else if (ex.type === "interval-melodic" || ex.type === "interval-melodic-down") {
       stopPlayback();
       const baseRootMidi = ex.targetItem.rootMidi ?? rootMidi;
       const dirSign = ex.type === "interval-melodic-down" ? -1 : 1;
       const refNote = ex.targetItem.refNote || midiToNote(baseRootMidi);
-      const chosenTarget = midiToNote(baseRootMidi + dirSign * state.wrongAnswerData.chosen.semitones);
-      const actualTarget = state.wrongAnswerData.target.targetNote;
+      const chosenTarget = midiToNote(baseRootMidi + dirSign * diag.chosen.semitones);
+      const actualTarget = diag.target.targetNote;
       const { stepMs, note1DurSec, note2DurSec } = getMelodicIntervalTiming(state.activeBpm);
       const pauseBetweenPairsMs = Math.max(420, Math.round(stepMs * 0.75));
       const secondPairStartMs = stepMs + Math.round(note2DurSec * 1000) + pauseBetweenPairsMs;
@@ -1338,8 +1345,8 @@ document.addEventListener("DOMContentLoaded", () => {
       stopPlayback();
       const cmpId = audioEngine.playbackId;
       const baseRoot = ex.targetItem.rootMidi || rootMidi;
-      const chosenNotes = (state.wrongAnswerData.chosen.offsets || [0, 4, 7]).map(s => midiToNote(baseRoot + s));
-      const targetNotes = state.wrongAnswerData.target.notes || [];
+      const chosenNotes = (diag.chosen.offsets || [0, 4, 7]).map(s => midiToNote(baseRoot + s));
+      const targetNotes = diag.target.notes || [];
 
       if (isChordArpeggioMode(ex.type)) {
         const reverse = ex.type === "chord-arp-down";
@@ -1374,20 +1381,20 @@ document.addEventListener("DOMContentLoaded", () => {
       stopPlayback();
       const cmpId = audioEngine.playbackId;
       const baseRoot = ex.targetItem.rootMidi ?? rootMidi;
-      const chosenStep = state.wrongAnswerData.chosen.stepIndex ?? 0;
+      const chosenStep = diag.chosen.stepIndex ?? 0;
       const chosenInv = buildChordInversionNotes(baseRoot, ex.chordKey, chosenStep, ex.rootKey || state.currentKey);
       audioEngine.playStep(chosenInv.notes, 1.05, null, "cadence");
       audioEngine.registerTimer(() => {
         if (audioEngine.playbackId !== cmpId) return;
-        audioEngine.playStep(state.wrongAnswerData.target.notes, 1.25, null, "cadence");
+        audioEngine.playStep(diag.target.notes, 1.25, null, "cadence");
       }, 1150);
     } else if (ex.type === "interval-drone") {
       stopPlayback();
       const cmpId = audioEngine.playbackId;
       const baseRootMidi = ex.targetItem.rootMidi ?? rootMidi;
       const padNotes = ex.padNotes || [midiToNote(baseRootMidi - 12), ex.targetItem.refNote || midiToNote(baseRootMidi)];
-      const chosenTarget = midiToNote(baseRootMidi + state.wrongAnswerData.chosen.semitones);
-      const actualTarget = state.wrongAnswerData.target.targetNote;
+      const chosenTarget = midiToNote(baseRootMidi + diag.chosen.semitones);
+      const actualTarget = diag.target.targetNote;
       audioEngine.playDroneIntervalCue(padNotes, [chosenTarget], { delayMs: 650, padDurSec: 1.75, pianoDurSec: 0.95 });
       audioEngine.registerTimer(() => {
         if (audioEngine.playbackId !== cmpId) return;
@@ -1397,12 +1404,12 @@ document.addEventListener("DOMContentLoaded", () => {
       stopPlayback();
       const baseRootMidi = ex.targetItem.rootMidi ?? rootMidi;
       const refNote = ex.targetItem.refNote || midiToNote(baseRootMidi);
-      const chosenTarget = midiToNote(baseRootMidi + state.wrongAnswerData.chosen.semitones);
+      const chosenTarget = midiToNote(baseRootMidi + diag.chosen.semitones);
       const stepMode = ex.type === "interval-harmonic" ? "interval-harmonic" : "cadence";
 
       audioEngine.playStep([refNote, chosenTarget], 1.15, null, stepMode);
       audioEngine.registerTimer(() => {
-        audioEngine.playStep(state.wrongAnswerData.target.notes, 1.35, null, stepMode);
+        audioEngine.playStep(diag.target.notes, 1.35, null, stepMode);
       }, 1250);
     }
   });

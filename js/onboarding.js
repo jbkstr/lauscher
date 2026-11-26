@@ -98,7 +98,9 @@ function applyWelcomeBeginnerPreset() {
     state.settings.intervalDifficulty = 1;
   }
   if (!state.profile) state.profile = createDefaultProfile();
-  // Lernschwerpunkt bleibt unverändert (es gibt keinen eigenen Intervall-Schwerpunkt)
+  // Lernschwerpunkt bleibt unverändert (es gibt keinen eigenen Intervall-Schwerpunkt).
+  // Startpunkt als Übungsstand merken, sonst gilt er nach einem Neustart vor der ersten Übung nicht mehr
+  if (typeof rememberPracticeProgress === "function") rememberPracticeProgress();
   saveUserProfile(state.profile);
   renderProfileAccountView();
   renderHomeProfileGreeting();

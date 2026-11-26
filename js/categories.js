@@ -2226,7 +2226,7 @@ function openCategoryPage(categoryKey, options = {}) {
           notationKeyDrawerOpen = Boolean(detailsEl.open);
         });
         container.querySelectorAll("[data-open-nts-ref]").forEach(btn => {
-          btn.addEventListener("click", () => openKnowledgeDetail("notation-symbols"));
+          btn.addEventListener("click", () => openKnowledgeRef("notation-symbols", { returnView: "category" }));
         });
       }
 

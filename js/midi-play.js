@@ -113,6 +113,32 @@ function evaluateMidiScaleStep(task, stepIdx, playedMidi, anchorMidi = null, opt
 }
 
 /**
+ * Verfehlter Grundton: Oktavlage aus dem übrigen Durchlauf schätzen (Grundton-Oktave mit der
+ * kleinsten Abweichung zu allen gespielten Tönen), statt fest die Aufgaben-Oktave anzunehmen.
+ * Sonst zählen z. B. am 88-Tasten-Klavier in Oktave 3 alle folgenden richtigen Töne als Oktavfehler.
+ */
+function inferMidiScaleAnchorMidi(task, intervals, played, fallbackRoot) {
+  const rootPc = ((Math.round(Number(task?.rootPc ?? fallbackRoot)) % 12) + 12) % 12;
+  const samples = [];
+  for (let i = 0; i < intervals.length && i < played.length; i++) {
+    const p = Math.round(Number(played[i]));
+    if (Number.isFinite(p)) samples.push({ p, interval: Math.round(Number(intervals[i])) });
+  }
+  if (!samples.length) return fallbackRoot;
+  let best = fallbackRoot;
+  let bestCost = Infinity;
+  for (let anchor = rootPc; anchor <= 127; anchor += 12) {
+    const cost = samples.reduce((sum, s) => sum + Math.abs(s.p - (anchor + s.interval)), 0);
+    const closerToFallback = Math.abs(anchor - fallbackRoot) < Math.abs(best - fallbackRoot);
+    if (cost < bestCost || (cost === bestCost && closerToFallback)) {
+      best = anchor;
+      bestCost = cost;
+    }
+  }
+  return best;
+}
+
+/**
  * Bewertet einen kompletten Tonleiter-Durchlauf im Prüfungsmodus (midi-scale).
  * Die Nutzer spielen die komplette Tonleiter durch; jeder richtige Schritt bringt anteilige Punkte.
  */
@@ -131,11 +157,19 @@ function evaluateMidiScaleExamRun(task, playedMidis, options = {}) {
   for (let i = 0; i < total; i++) {
     const pMidi = i < played.length ? Math.round(Number(played[i])) : NaN;
     const stepRes = evaluateMidiScaleStep(task, i, pMidi, anchorMidi, options);
+    let firstExpected = null;
     if (i === 0) {
-      anchorMidi = stepRes.ok && Number.isFinite(stepRes.nextAnchorMidi) ? stepRes.nextAnchorMidi : fallbackRoot;
+      if (stepRes.ok && Number.isFinite(stepRes.nextAnchorMidi)) {
+        anchorMidi = stepRes.nextAnchorMidi;
+        firstExpected = Number.isFinite(stepRes.expectedMidi) ? stepRes.expectedMidi : anchorMidi;
+      } else {
+        // Bildschirm-Klaviatur (exactRoot) zeigt genau eine Oktave: dort gilt die Aufgaben-Oktave
+        anchorMidi = options.exactRoot ? fallbackRoot : inferMidiScaleAnchorMidi(task, intervals, played, fallbackRoot);
+        firstExpected = anchorMidi;
+      }
     }
     const expMidi = i === 0
-      ? (stepRes.ok && Number.isFinite(stepRes.expectedMidi) ? stepRes.expectedMidi : fallbackRoot)
+      ? firstExpected
       : anchorMidi + Math.round(Number(intervals[i]));
     expectedMidis.push(expMidi);
     steps.push({

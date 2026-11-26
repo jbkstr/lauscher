@@ -278,7 +278,8 @@ function formatMidiNoteDisplay(midi) {
   if (!Number.isFinite(m) || m < 0 || m > 127) return "?";
   const pc = ((m % 12) + 12) % 12;
   const oct = Math.floor(m / 12) - 1;
-  const useGerman = typeof isGermanNotationActive === "function" ? isGermanNotationActive() : false;
+  // Deutsche H/B-Schreibweise wie im Nashville-Werkzeug (Sprache Deutsch, Notenschrift nicht international)
+  const useGerman = typeof nnsUseGermanH === "function" ? nnsUseGermanH() : false;
   const names = useGerman
     ? ["C", "C♯", "D", "E♭", "E", "F", "F♯", "G", "A♭", "A", "B", "H"]
     : ["C", "C♯", "D", "E♭", "E", "F", "F♯", "G", "A♭", "A", "B♭", "B"];
@@ -310,6 +311,16 @@ function saveMidiPrefs() {
   try {
     localStorage.setItem(MIDI_PREFS_STORAGE_KEY, JSON.stringify(_midi.prefs));
   } catch (e) {}
+}
+
+/** App-Reset: MIDI trennen (Local Control wiederherstellen) und Geräte-Einstellungen löschen */
+function resetMidiForAppReset() {
+  const pending = _midi.prefs.enabled ? disableMidiInput() : null;
+  _midi.prefs = { ...DEFAULT_MIDI_PREFS };
+  try {
+    localStorage.removeItem(MIDI_PREFS_STORAGE_KEY);
+  } catch (e) {}
+  Promise.resolve(pending).catch(() => {}).finally(() => syncAllMidiUI());
 }
 
 function getMidiPrefs() {
