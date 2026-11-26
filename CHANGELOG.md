@@ -2,6 +2,11 @@
 
 All released versions of Lauscher. New sections are created by `python3 scripts/bump-version.py`.
 
+## Unreleased
+
+**Improved**
+- 24 new mascot poses for Lauscher (idle, listening, happy, awaiting, question, thinking, break), several with small props like a tuning fork, metronome, tambourine or puzzle piece. Lauscher now rotates through 57 poses instead of 33.
+
 ## 0.13.0-beta (Build 8) – 2026-11-25
 
 **New**
