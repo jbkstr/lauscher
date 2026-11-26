@@ -36,3 +36,6 @@ keystore.properties
 
 # Lokale Screenshot-Datenbank (generiert via scripts/capture-screenshots.py)
 screenshots/
+
+# Interne Doku (Audit-Berichte, Konzepte, Ideen) bleibt nur lokal im Haupt-Checkout
+docs/
