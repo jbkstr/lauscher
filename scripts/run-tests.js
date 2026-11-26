@@ -757,7 +757,9 @@ runTest("MIDI: Bildschirm-Klaviatur deckt jede Aufgabe ab & Tonleiter-Start ist 
     assert.ok(r, "Bereich fehlt");
     needed.forEach(m => assert.ok(m >= r.lo && m <= r.hi, `Ton ${m} außerhalb ${r.lo}–${r.hi}`));
     assert.ok(isWhite(r.firstWhite) && isWhite(r.lastWhite));
-    assert.ok(r.firstWhite < r.lo && r.lastWhite > r.hi);
+    assert.ok(r.firstWhite <= r.lo && r.lastWhite >= r.hi);
+    // Keine ausgegrauten Extra-Rahmentasten: weiße Grenzen liegen direkt auf oder 1 Halbton neben lo/hi
+    assert.ok(r.lo - r.firstWhite <= 1 && r.lastWhite - r.hi <= 1, `Unnötiger Rand: ${r.firstWhite}..${r.lo} / ${r.hi}..${r.lastWhite}`);
     // höchstens gut zwei Oktaven, damit die Tasten auf dem Handy tippbar bleiben
     assert.ok(r.lastWhite - r.firstWhite <= 26, `Bereich zu groß: ${r.lastWhite - r.firstWhite}`);
     return r;

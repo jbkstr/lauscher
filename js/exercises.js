@@ -3,39 +3,32 @@
  */
 
 /**
- * Einheitliche Klaviatur-Geometrie für alle Übungen mit Klaviatur-Eingabe (Solfège, Melodie, Notenlesen):
- * - Alle regulären weißen Tasten besitzen exakt dieselbe Breite (Gewicht 1.0).
- * - Beide äußeren inaktiven Rahmentasten sind einheitlich schmaler (ca. 1/3 einer Taste statt 1/2),
- *   lassen aber genügend Raum, damit angrenzende schwarze Tasten nie am Rand abgeschnitten werden.
- * - Bei Tonarten auf schwarzen Tasten (Des, Es, Fis, As, B) bleiben die weißen Träger-Tasten
- *   links und rechts der beiden Do-Tasten volle weiße Tasten.
+ * Einheitliche Klaviatur-Geometrie für alle Übungen mit Klaviatur-Eingabe
+ * (Solfège, Melodie, Notenlesen, aktive MIDI-Spielübungen) – identisch zum Freien Spiel:
+ * - Alle weißen Tasten besitzen exakt dieselbe Breite (100% / whiteCount), ohne schmale ausgegraute Rahmentasten.
+ * - Alle schwarzen Tasten besitzen dieselbe Breite (62 % einer weißen Taste) und sitzen zentriert
+ *   auf der Trennlinie zwischen zwei vollen weißen Tasten.
  */
-const PIANO_FRAME_KEY_WEIGHT = 0.36;
 const PIANO_BLACK_KEY_RATIO = 0.62;
 
 function applyPianoKeyboardGeometry(whiteKeyEls, whiteKeys, blackKeyEls, blackKeys) {
-  const weights = whiteKeys.map(wk => (wk.isFrame ? PIANO_FRAME_KEY_WEIGHT : 1));
-  const totalWeight = weights.reduce((sum, w) => sum + w, 0) || 1;
-  const cumWeights = [];
-  let runningWeight = 0;
+  const whiteCount = whiteKeys.length || 1;
+  const whiteWidthPct = 100 / whiteCount;
 
-  weights.forEach((w, idx) => {
-    runningWeight += w;
-    cumWeights.push(runningWeight);
+  whiteKeys.forEach((_, idx) => {
     const el = whiteKeyEls[idx];
     if (el) {
       el.style.flex = "0 0 auto";
-      el.style.width = `${(w / totalWeight) * 100}%`;
-      el.classList.toggle("is-last-white", idx === whiteKeys.length - 1);
+      el.style.width = `${whiteWidthPct}%`;
+      el.classList.toggle("is-last-white", idx === whiteCount - 1);
     }
   });
 
-  const blackWidthPct = (100 / totalWeight) * PIANO_BLACK_KEY_RATIO;
+  const blackWidthPct = whiteWidthPct * PIANO_BLACK_KEY_RATIO;
   blackKeys.forEach((bk, idx) => {
     const blackEl = blackKeyEls[idx];
     if (!blackEl) return;
-    const k = bk.afterWhiteIdx;
-    blackEl.style.left = `${(cumWeights[k] / totalWeight) * 100}%`;
+    blackEl.style.left = `${((bk.afterWhiteIdx + 1) / whiteCount) * 100}%`;
     blackEl.style.width = `${blackWidthPct}%`;
   });
 }
@@ -57,8 +50,8 @@ const NOTATION_BLACK_LABELS_INTL = {
 
 function renderNotationKeyboard(wrap, ex) {
   wrap.classList.add("is-notation");
-  const firstWhite = 59; // H3 / B3 als schmale linke Rahmentaste
-  const lastWhite = 72;  // C5 als schmale rechte Rahmentaste
+  const firstWhite = 60; // C4
+  const lastWhite = 71;  // H4 / B4 – genau eine chromatische Oktave ohne ausgegraute Rahmentasten
   const showBlackLabels = Boolean(ex?.allowAccidentals || (ex?.keySignatureId && ex.keySignatureId !== "none"));
   const useIntl = typeof state !== "undefined" && state?.profile?.notation === "intl";
   const blackLabelMap = useIntl ? NOTATION_BLACK_LABELS_INTL : NOTATION_BLACK_LABELS_DE;
@@ -68,15 +61,13 @@ function renderNotationKeyboard(wrap, ex) {
 
   for (let m = firstWhite; m <= lastWhite; m++) {
     const pc = ((m % 12) + 12) % 12;
-    const isFrame = (m === firstWhite || m === lastWhite);
     if (isWhiteMidi(m)) {
       const noteLabel = getWhiteNoteLabel(pc);
       whiteKeys.push({
         midi: m,
         pc: pc,
         noteLabel: noteLabel,
-        isFrame: isFrame,
-        inScale: !isFrame
+        inScale: true
       });
     } else {
       blackKeys.push({
@@ -96,25 +87,16 @@ function renderNotationKeyboard(wrap, ex) {
   whiteKeys.forEach(wk => {
     const keyBtn = document.createElement("button");
     keyBtn.type = "button";
-    keyBtn.className = `piano-white-key ${wk.isFrame ? "piano-key-frame piano-key-inactive" : "piano-key-scale"}`;
+    keyBtn.className = "piano-white-key piano-key-scale";
     keyBtn.id = `solfegeKey_${wk.midi}`;
     keyBtn.dataset.midi = wk.midi;
     keyBtn.dataset.pc = wk.pc;
 
-    if (wk.inScale) {
-      const box = document.createElement("span");
-      box.className = "solfege-key-box notation-key-box-white";
-      box.textContent = wk.noteLabel;
-      keyBtn.appendChild(box);
-      keyBtn.addEventListener("click", (e) => handleNotationKeyClick(wk, keyBtn, { inputEvent: e }));
-    } else {
-      const hint = document.createElement("span");
-      hint.className = "piano-note-hint";
-      hint.textContent = wk.noteLabel;
-      keyBtn.appendChild(hint);
-      keyBtn.tabIndex = -1;
-      keyBtn.setAttribute("aria-disabled", "true");
-    }
+    const box = document.createElement("span");
+    box.className = "solfege-key-box notation-key-box-white";
+    box.textContent = wk.noteLabel;
+    keyBtn.appendChild(box);
+    keyBtn.addEventListener("click", (e) => handleNotationKeyClick(wk, keyBtn, { inputEvent: e }));
 
     whiteKeyEls.push(keyBtn);
     kb.appendChild(keyBtn);
@@ -180,15 +162,13 @@ function renderSolfegeKeyboard() {
 
   for (let m = firstWhite; m <= lastWhite; m++) {
     const pc = ((m % 12) + 12) % 12;
-    const isFrame = (m === firstWhite || m === lastWhite);
-    const syllable = !isFrame && scaleMap.has(m) ? scaleMap.get(m) : null;
+    const syllable = scaleMap.has(m) ? scaleMap.get(m) : null;
     const inScale = Boolean(syllable);
 
     if (isWhiteMidi(m)) {
       whiteKeys.push({
         midi: m,
         noteLabel: getWhiteNoteLabel(pc),
-        isFrame: isFrame,
         inScale: inScale,
         syllable: syllable
       });
@@ -212,7 +192,7 @@ function renderSolfegeKeyboard() {
     const keyBtn = document.createElement("button");
     keyBtn.type = "button";
     const scaleClass = wk.inScale ? "piano-key-scale" : "piano-key-inactive";
-    keyBtn.className = `piano-white-key ${wk.isFrame ? "piano-key-frame" : ""} ${scaleClass}`;
+    keyBtn.className = `piano-white-key ${scaleClass}`;
     keyBtn.id = `solfegeKey_${wk.midi}`;
     keyBtn.dataset.midi = wk.midi;
     if (wk.syllable) keyBtn.dataset.syllable = wk.syllable;

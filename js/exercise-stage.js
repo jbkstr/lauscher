@@ -15,6 +15,7 @@ const EXERCISE_MIN_STAGE_PX = 98;
 // Auf Stufe 4 genügt eine einzeilige Status-Bühne (Container-Query-Textzeile)
 const EXERCISE_MIN_STAGE_PX_FIT4 = 44;
 let lastExerciseFitSnapshot = "";
+let lastExerciseFitViewSize = "";
 
 function getExerciseFitSnapshot() {
   const view = document.getElementById("viewExercise");
@@ -22,6 +23,12 @@ function getExerciseFitSnapshot() {
   const card = document.getElementById("exerciseModuleCard");
   const dock = view.querySelector(".bottom-dock");
   return `${view.clientWidth}x${view.clientHeight}:${card?.offsetHeight || 0}:${dock?.offsetHeight || 0}`;
+}
+
+function getExerciseFitViewSize() {
+  const view = document.getElementById("viewExercise");
+  if (!view || view.classList.contains("hidden") || view.clientHeight <= 0) return "";
+  return `${view.clientWidth}x${view.clientHeight}`;
 }
 
 function hasActiveExerciseResultExtension() {
@@ -65,10 +72,15 @@ function positionOpenModulePopovers() {
   }
 }
 
-// reset = neue Aufgabe oder neue Fenstergröße. Solange keine Feedback-Karte / Tap-Auswertung aktiv ist,
-// darf das Layout immer zur optimalen (größtmöglichen) Stufe zurückkehren; nur bei aktiver Ergebnis-Karte
-// wird innerhalb derselben Aufgabe nicht zurückgesprungen, damit die Antwortknöpfe ruhig bleiben.
+// reset = neue Aufgabe, neue Fenstergröße oder größerer Layoutwechsel (z. B. Popover/MIDI-Klaviatur zu).
+// Bei reset = false (z. B. ResizeObserver innerhalb derselben Aufgabe) wird nur weiter verdichtet, nie zurück –
+// so bleiben Antwortknöpfe & Klaviatur ruhig und ein Oszillieren zwischen fit-Stufen ist ausgeschlossen.
 function fitExerciseLayout(reset = true) {
+  if (exerciseFitTimerId) {
+    clearTimeout(exerciseFitTimerId);
+    exerciseFitTimerId = 0;
+  }
+  exerciseFitQueued = null;
   const view = document.getElementById("viewExercise");
   if (!view) return;
   if (view.classList.contains("hidden") || view.clientHeight <= 0) {
@@ -77,6 +89,7 @@ function fitExerciseLayout(reset = true) {
       view.classList.remove("sing-hint-float", "fit-overflow");
       for (let i = 1; i <= EXERCISE_FIT_LEVELS; i++) view.classList.remove(`fit-${i}`);
       lastExerciseFitSnapshot = "";
+      lastExerciseFitViewSize = "";
     }
     return;
   }
@@ -102,7 +115,7 @@ function fitExerciseLayout(reset = true) {
     const fits = () => view.scrollHeight <= view.clientHeight + 1 &&
       (!stageWrap || stageWrap.clientHeight >= (view.classList.contains("fit-4") ? EXERCISE_MIN_STAGE_PX_FIT4 : EXERCISE_MIN_STAGE_PX)) &&
       (!stageCard || stageCard.scrollHeight <= stageCard.clientHeight + 2);
-    const keepFloor = !reset && hasActiveExerciseResultExtension();
+    const keepFloor = !reset;
     const floor = keepFloor ? (parseInt(view.dataset.fitLevel, 10) || 0) : 0;
     const singHint = document.getElementById("singAlongHint");
     const singHintVisible = Boolean(singHint && !singHint.classList.contains("hidden"));
@@ -148,6 +161,7 @@ function fitExerciseLayout(reset = true) {
     const grid = document.getElementById("degreeButtonsGrid");
     if (grid && (grid.querySelector(".degree-step") || grid.classList.contains("grid-chords"))) fitChoiceNamesToTiles(grid);
     lastExerciseFitSnapshot = getExerciseFitSnapshot();
+    lastExerciseFitViewSize = getExerciseFitViewSize();
   } finally {
     const singHintEl = document.getElementById("singAlongHint");
     if (singHintEl) singHintEl.style.display = "";
@@ -157,15 +171,17 @@ function fitExerciseLayout(reset = true) {
 }
 
 let exerciseFitQueued = null;
+let exerciseFitTimerId = 0;
 function queueFitExerciseLayout(reset = false) {
   if (exerciseFitQueued !== null) {
     exerciseFitQueued = exerciseFitQueued || reset;
     return;
   }
   exerciseFitQueued = reset;
-  setTimeout(() => {
+  exerciseFitTimerId = setTimeout(() => {
     const doReset = exerciseFitQueued;
     exerciseFitQueued = null;
+    exerciseFitTimerId = 0;
     fitExerciseLayout(doReset);
   }, 0);
 }
@@ -179,7 +195,9 @@ function initExerciseFitObserver() {
       positionOpenModulePopovers();
       return;
     }
-    queueFitExerciseLayout(false);
+    const viewSize = getExerciseFitViewSize();
+    const viewResized = Boolean(viewSize && viewSize !== lastExerciseFitViewSize);
+    queueFitExerciseLayout(viewResized);
   });
   ["viewExercise", "exerciseModuleCard"].forEach(id => {
     const el = document.getElementById(id);

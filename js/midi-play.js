@@ -647,19 +647,21 @@ function renderMidiPlayPad(ex = state?.currentExercise) {
 
   let bodyHtml = "";
   if (ex.type === "midi-interval") {
-    const rootLbl = task.rootLabel || formatMidiNoteDisplay(task.rootMidi);
-    const hintText = _midiPlay.showSolutionHint || ex.isSolved
-      ? `${rootLbl} → ${task.targetLabel || formatMidiNoteDisplay(task.targetMidi)}`
-      : `${rootLbl} → ?`;
-    const lastText = _midiPlay.lastPlayedMidi !== null
-      ? tf("Zuletzt: {note}", "Last: {note}", { note: formatMidiNoteDisplay(_midiPlay.lastPlayedMidi) })
-      : tr("Warte auf Taste …", "Waiting for key …");
-    bodyHtml = `
-      <div class="midi-pad-pills-row">
-        <span class="midi-pad-pill is-root">${escapeHtml(hintText)}</span>
-        <span class="midi-pad-pill">${escapeHtml(lastText)}</span>
-      </div>
-    `;
+    if (connected) {
+      const rootLbl = task.rootLabel || formatMidiNoteDisplay(task.rootMidi);
+      const hintText = _midiPlay.showSolutionHint || ex.isSolved
+        ? `${rootLbl} → ${task.targetLabel || formatMidiNoteDisplay(task.targetMidi)}`
+        : `${rootLbl} → ?`;
+      const lastText = _midiPlay.lastPlayedMidi !== null
+        ? tf("Zuletzt: {note}", "Last: {note}", { note: formatMidiNoteDisplay(_midiPlay.lastPlayedMidi) })
+        : tr("Warte auf Taste …", "Waiting for key …");
+      bodyHtml = `
+        <div class="midi-pad-pills-row">
+          <span class="midi-pad-pill is-root">${escapeHtml(hintText)}</span>
+          <span class="midi-pad-pill">${escapeHtml(lastText)}</span>
+        </div>
+      `;
+    }
   } else if (ex.type === "midi-chord") {
     const held = getMidiPlayActiveChordNotes();
     const res = evaluateMidiChordAttempt(task, held);
@@ -674,7 +676,7 @@ function renderMidiPlayPad(ex = state?.currentExercise) {
       : tr("Greife den Akkord …", "Hold the chord …");
     bodyHtml = `
       <div class="midi-pad-steps-row">${dots}</div>
-      <div class="midi-pad-live-line">${escapeHtml(heldLabel)}</div>
+      ${connected ? `<div class="midi-pad-live-line">${escapeHtml(heldLabel)}</div>` : ""}
     `;
   } else if (ex.type === "midi-scale") {
     const cur = task.currentStep || 0;
@@ -696,9 +698,7 @@ function renderMidiPlayPad(ex = state?.currentExercise) {
           ${ex.isSolved ? `<button type="button" class="btn-primary-action midi-pad-btn" data-midi-pad-action="next">${escapeHtml(tr("Weiter", "Next"))}</button>` : ""}
         </div>
       </div>
-      <div class="midi-pad-body">
-        ${bodyHtml}
-      </div>
+      ${bodyHtml ? `<div class="midi-pad-body">${bodyHtml}</div>` : ""}
     </div>
   `;
 
@@ -738,7 +738,7 @@ function syncMidiPlayPadUI() {
  * Tastenbereich der Bildschirm-Klaviatur je Aufgabe (reine Funktion, testbar).
  * Intervall: Ausgangston bis zum größten Intervall der Stufe (mind. Oktave) in Spielrichtung, Tonleiter: Grundton bis Oktave,
  * Akkord: je 5 Halbtöne unter dem tiefsten und über dem höchsten Akkordton (andere Lagen bleiben greifbar).
- * Liefert { lo, hi } (spielbar) und { firstWhite, lastWhite } (inkl. schmaler Rahmentasten).
+ * Liefert { lo, hi } (Aufgaben-Spanne) und { firstWhite, lastWhite } (volle äußere weiße Tasten ohne ausgegraute Rahmentasten).
  */
 function getMidiPlayFallbackRange(ex) {
   const task = ex?.midiTask;
@@ -770,15 +770,20 @@ function getMidiPlayFallbackRange(ex) {
     hi = Math.max(...mids) + 5;
   }
   const isWhite = (m) => [0, 2, 4, 5, 7, 9, 11].includes(((m % 12) + 12) % 12);
-  let whiteLo = lo;
-  while (!isWhite(whiteLo)) whiteLo--;
-  let whiteHi = hi;
-  while (!isWhite(whiteHi)) whiteHi++;
-  let firstWhite = whiteLo - 1;
+  let firstWhite = lo;
   while (!isWhite(firstWhite)) firstWhite--;
-  let lastWhite = whiteHi + 1;
+  let lastWhite = hi;
   while (!isWhite(lastWhite)) lastWhite++;
   return { lo, hi, firstWhite, lastWhite };
+}
+
+function getMidiKeyboardBlackLabel(pc) {
+  const norm = ((pc % 12) + 12) % 12;
+  const useIntl = typeof state !== "undefined" && state?.profile?.notation === "intl";
+  if (useIntl) {
+    return { 1: "C♯", 3: "E♭", 6: "F♯", 8: "A♭", 10: "B♭" }[norm] || "";
+  }
+  return { 1: "Cis", 3: "Es", 6: "Fis", 8: "As", 10: "B" }[norm] || "";
 }
 
 function renderMidiPlayFallbackKeyboard(ex = state?.currentExercise) {
@@ -798,7 +803,7 @@ function renderMidiPlayFallbackKeyboard(ex = state?.currentExercise) {
       wrap.classList.add("hidden");
       wrap.classList.remove("is-midi-fallback");
       wrap.innerHTML = "";
-      if (typeof queueFitExerciseLayout === "function") queueFitExerciseLayout(false);
+      if (typeof queueFitExerciseLayout === "function") queueFitExerciseLayout(true);
     }
     return;
   }
@@ -810,25 +815,33 @@ function renderMidiPlayFallbackKeyboard(ex = state?.currentExercise) {
   wrap.classList.remove("hidden");
 
   const rootMidi = ex.type === "midi-chord" ? null : Math.round(Number(ex.midiTask.rootMidi));
+  const rootShortLabel = ex.midiTask.rootLabel
+    ? String(ex.midiTask.rootLabel).replace(/\d+$/, "")
+    : (ex.midiTask.rootName || "");
   const whiteKeys = [];
   const blackKeys = [];
   for (let m = range.firstWhite; m <= range.lastWhite; m++) {
     const pc = ((m % 12) + 12) % 12;
-    const playable = m >= range.lo && m <= range.hi;
+    const oct = Math.floor(m / 12) - 1;
     if (isWhiteMidi(m)) {
       whiteKeys.push({
         midi: m,
         pc,
-        isFrame: m === range.firstWhite || m === range.lastWhite || !playable,
-        label: getWhiteNoteLabel(pc)
+        label: pc === 0 ? `${getWhiteNoteLabel(pc)}${oct}` : getWhiteNoteLabel(pc)
       });
     } else {
-      blackKeys.push({ midi: m, pc, afterWhiteIdx: whiteKeys.length - 1, playable });
+      blackKeys.push({
+        midi: m,
+        pc,
+        afterWhiteIdx: whiteKeys.length - 1,
+        label: (m === rootMidi && rootShortLabel) ? rootShortLabel : getMidiKeyboardBlackLabel(pc)
+      });
     }
   }
 
+  const isDense = whiteKeys.length > 10;
   const kb = document.createElement("div");
-  kb.className = "piano-keyboard midi-fallback-kb";
+  kb.className = `piano-keyboard midi-fallback-kb${isDense ? " is-dense" : ""}`;
   const whiteKeyEls = [];
   const blackKeyEls = [];
   const bindKey = (el, midi) => {
@@ -838,25 +851,18 @@ function renderMidiPlayFallbackKeyboard(ex = state?.currentExercise) {
   whiteKeys.forEach(wk => {
     const keyBtn = document.createElement("button");
     keyBtn.type = "button";
-    keyBtn.className = `piano-white-key ${wk.isFrame ? "piano-key-frame piano-key-inactive" : "piano-key-scale"}`;
+    const isRoot = wk.midi === rootMidi;
+    const isC = wk.pc === 0;
+    keyBtn.className = `piano-white-key piano-key-scale${isC ? " is-c-key" : ""}${isRoot ? " is-root-key" : ""}`;
     keyBtn.dataset.midi = wk.midi;
+    keyBtn.setAttribute("aria-label", formatMidiNoteDisplay(wk.midi));
+
     const hint = document.createElement("span");
     hint.className = "piano-note-hint";
     hint.textContent = wk.label;
-    if (wk.midi === rootMidi) {
-      const dot = document.createElement("span");
-      dot.className = "tonic-dot midi-fallback-root-dot";
-      dot.setAttribute("aria-hidden", "true");
-      keyBtn.appendChild(dot);
-    }
     keyBtn.appendChild(hint);
-    if (wk.isFrame) {
-      keyBtn.tabIndex = -1;
-      keyBtn.setAttribute("aria-disabled", "true");
-    } else {
-      keyBtn.setAttribute("aria-label", formatMidiNoteDisplay(wk.midi));
-      bindKey(keyBtn, wk.midi);
-    }
+
+    bindKey(keyBtn, wk.midi);
     whiteKeyEls.push(keyBtn);
     kb.appendChild(keyBtn);
   });
@@ -864,21 +870,19 @@ function renderMidiPlayFallbackKeyboard(ex = state?.currentExercise) {
   blackKeys.forEach(bk => {
     const blackEl = document.createElement("button");
     blackEl.type = "button";
-    blackEl.className = `piano-black-key${bk.playable ? " key-in-scale" : ""}`;
+    const isRoot = bk.midi === rootMidi;
+    blackEl.className = `piano-black-key key-in-scale${isRoot ? " is-root-key" : ""}`;
     blackEl.dataset.midi = bk.midi;
-    if (bk.midi === rootMidi) {
-      const dot = document.createElement("span");
-      dot.className = "tonic-dot midi-fallback-root-dot";
-      dot.setAttribute("aria-hidden", "true");
-      blackEl.appendChild(dot);
+    blackEl.setAttribute("aria-label", formatMidiNoteDisplay(bk.midi));
+
+    if ((!isDense || isRoot) && bk.label) {
+      const lbl = document.createElement("span");
+      lbl.className = "piano-black-label";
+      lbl.textContent = bk.label;
+      blackEl.appendChild(lbl);
     }
-    if (bk.playable) {
-      blackEl.setAttribute("aria-label", formatMidiNoteDisplay(bk.midi));
-      bindKey(blackEl, bk.midi);
-    } else {
-      blackEl.tabIndex = -1;
-      blackEl.setAttribute("aria-hidden", "true");
-    }
+
+    bindKey(blackEl, bk.midi);
     blackKeyEls.push(blackEl);
     kb.appendChild(blackEl);
   });

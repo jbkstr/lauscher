@@ -896,7 +896,7 @@ function revealNotationListenOnly(ex, token) {
     });
   } else {
     const keyBtn = document.getElementById(`solfegeKey_${60 + Number(target.pc)}`) ||
-      Array.from(document.querySelectorAll("#solfegeKeyboardWrap .piano-white-key:not(.piano-key-frame), #solfegeKeyboardWrap .piano-black-key"))
+      Array.from(document.querySelectorAll("#solfegeKeyboardWrap .piano-white-key, #solfegeKeyboardWrap .piano-black-key"))
         .find(el => parseInt(el.dataset.pc, 10) === Number(target.pc)) || null;
     document.querySelectorAll("#solfegeKeyboardWrap .piano-white-key, #solfegeKeyboardWrap .piano-black-key").forEach(el => {
       el.classList.remove("key-wrong", "key-correct");

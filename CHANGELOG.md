@@ -4,7 +4,11 @@ All released versions of Lauscher. New sections are created by `python3 scripts/
 
 ## Unreleased
 
+**Fixed**
+- Fixed a layout resize-oscillation glitch in "Play Intervals" (and other MIDI play exercises) on mobile/app viewports caused by animated height/padding transitions on `.bar-card` interacting with `fitExerciseLayout()` and `ResizeObserver`.
+
 **Improved**
+- Unified the exercise on-screen keyboards (MIDI play exercises, Sight-Reading, Solfège, Melodies) with the Free Play keyboard design language: equal key widths across all white and black keys, no narrow greyed-out outer frame keys, subtle C-key octave orientation, and peach root-note highlighting in both light and dark themes.
 - MIDI in Firefox & Web MIDI: avoid redundant `onstatechange` loops when ports open, explicitly open input/output ports (for reliable notes & `CC 122`), watch the browser's MIDI permission state (`navigator.permissions`) so granting Firefox's site-permission add-on connects automatically without losing the enabled setting, add gentle device re-checking when waiting for a keyboard (plus on window focus and opening Settings), and add a one-click "Rescan devices" button with a short Firefox tip.
 
 ## 0.14.0-beta (Build 10) – 2026-11-26

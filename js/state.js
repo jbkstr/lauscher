@@ -1424,8 +1424,7 @@ function nextWhiteMidi(midi) {
 /**
  * Liefert die konsistenten Grenzen der 1-Oktav-Klaviatur für Solfège & Melodie:
  * - Alle aktiven Skalentöne (auch bei schwarzen Tonarten wie Des, Es, Fis, As, B)
- *   sitzen vollständig auf regulären weißen Tasten.
- * - Links und rechts schließt jeweils genau eine schmale, inaktive Rahmentaste an.
+ *   sitzen vollständig zwischen gleich breiten regulären weißen Tasten (keine schmalen Rahmentasten).
  */
 function getSolfegeKeyboardBounds(rootMidi) {
   const safeRoot = Number.isFinite(rootMidi) ? rootMidi : 60;
@@ -1434,8 +1433,8 @@ function getSolfegeKeyboardBounds(rootMidi) {
   return {
     firstFullWhite,
     lastFullWhite,
-    firstWhite: prevWhiteMidi(firstFullWhite),
-    lastWhite: nextWhiteMidi(lastFullWhite)
+    firstWhite: firstFullWhite,
+    lastWhite: lastFullWhite
   };
 }
 

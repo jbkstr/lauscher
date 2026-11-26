@@ -3251,7 +3251,7 @@ html[lang="ar"] .btn-primary-action.home-continue-fab { width: 174px; }
   justify-content: center;
   text-align: center;
   min-width: 0;
-  transition: all 0.2s;
+  transition: background-color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
 }
 
 .bar-tag {
@@ -3617,56 +3617,52 @@ html[lang="ar"] .btn-primary-action.home-continue-fab { width: 174px; }
   border-right: none;
 }
 
-.piano-white-key:active {
+.piano-white-key.is-c-key {
+  background: linear-gradient(180deg, var(--surface-white) 0%, var(--sage-soft) 100%);
+}
+
+.piano-white-key.is-c-key .piano-note-hint {
+  color: var(--sage-strong);
+  opacity: 0.92;
+}
+
+.piano-white-key.is-root-key {
+  background: linear-gradient(180deg, var(--peach) 0%, var(--peach-soft) 100%);
+  box-shadow: inset 0 3px 6px rgba(156, 74, 26, 0.22);
+}
+
+.piano-white-key.is-root-key .piano-note-hint {
+  color: var(--peach-strong);
+  opacity: 1;
+}
+
+.piano-white-key:not(.piano-key-inactive):active {
   background: linear-gradient(180deg, var(--sage) 0%, var(--sage-soft) 100%);
   box-shadow: inset 0 3px 6px rgba(46, 111, 78, 0.22);
   transform: translateY(1.5px);
 }
 
-/* Äußere Rahmen-Tasten (an beiden Enden schmaler als halbe Taste, dezent abgesetzt) */
-.piano-key-frame {
-  flex: 0.36 1 0%;
-  background: var(--piano-key-inactive-bg);
-  border-right: 1px solid var(--piano-key-inactive-border);
-  cursor: default;
-  box-shadow: inset 0 -3px 0 rgba(61, 64, 91, 0.06);
-}
-
 /* Innere Tasten außerhalb der aktuellen Tonleiter behalten normale weiße Klaviatur-Optik; Markierung erfolgt über Solfège-Kästchen */
-.piano-key-inactive:not(.piano-key-frame) {
+.piano-key-inactive {
   background: linear-gradient(180deg, var(--piano-white-active-bg) 0%, var(--surface-white) 85%, var(--surface-warm) 100%);
   color: var(--piano-white-active-ink);
   cursor: default;
 }
 
-.piano-key-frame .piano-note-hint {
-  color: var(--piano-key-inactive-text);
-  opacity: 0.68;
-}
-
-.piano-key-inactive:not(.piano-key-frame) .piano-note-hint {
+.piano-key-inactive .piano-note-hint {
   opacity: 0.55;
 }
 
-.piano-key-frame:active,
 .piano-key-inactive:active {
+  background: linear-gradient(180deg, var(--piano-white-active-bg) 0%, var(--surface-white) 85%, var(--surface-warm) 100%);
   transform: none;
   box-shadow: none;
-}
-
-.piano-key-frame:active {
-  background: var(--piano-key-inactive-bg);
-  box-shadow: inset 0 -3px 0 rgba(61, 64, 91, 0.06);
-}
-
-.piano-key-inactive:not(.piano-key-frame):active {
-  background: linear-gradient(180deg, var(--piano-white-active-bg) 0%, var(--surface-white) 85%, var(--surface-warm) 100%);
 }
 
 /* Einheitliche Solfège-/Ton-Kästchen auf weißen und schwarzen Tasten */
 .solfege-key-box {
   position: absolute;
-  top: 70%;
+  top: 72%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: var(--bg-base);
@@ -3739,7 +3735,7 @@ html[lang="ar"] .btn-primary-action.home-continue-fab { width: 174px; }
 .piano-black-key {
   position: absolute;
   top: 0;
-  height: 56%;
+  height: 58%;
   transform: translateX(-50%);
   background: linear-gradient(180deg, var(--piano-black-bg-top) 0%, var(--piano-black-bg-bottom) 100%);
   color: #FFFFFF;
@@ -3749,7 +3745,11 @@ html[lang="ar"] .btn-primary-action.home-continue-fab { width: 174px; }
   z-index: 4;
   pointer-events: none;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.28);
-  padding: 0;
+  padding: 0 0 0.32rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
   transition: background 0.08s ease, transform 0.06s ease, box-shadow 0.08s ease;
 }
 
@@ -3759,10 +3759,25 @@ html[lang="ar"] .btn-primary-action.home-continue-fab { width: 174px; }
   z-index: 5;
 }
 
+.piano-black-key.is-root-key {
+  background: linear-gradient(180deg, var(--peach-strong) 0%, var(--peach) 100%);
+  border-color: var(--peach-strong);
+  color: var(--on-strong-accent);
+}
+
 .piano-black-key.key-in-scale:active {
   background: linear-gradient(180deg, var(--sage-strong) 0%, var(--sage) 100%);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22);
   transform: translateX(-50%) translateY(1.5px);
+}
+
+.piano-black-label {
+  font-size: 0.54rem;
+  font-weight: 800;
+  line-height: 1;
+  pointer-events: none;
+  opacity: 0.92;
+  white-space: nowrap;
 }
 
 .solfege-key-box-black {
@@ -5540,30 +5555,34 @@ body,
 }
 
 [data-appearance="dark"] .freeplay-kb-white.is-c-key,
-[data-appearance="dark"] .warmup-kb-white.is-c-key {
+[data-appearance="dark"] .warmup-kb-white.is-c-key,
+[data-appearance="dark"] .piano-white-key.is-c-key {
   background: var(--piano-white-active-bg);
   background: linear-gradient(180deg, var(--piano-white-active-bg) 0%, color-mix(in srgb, var(--piano-white-active-bg) 82%, var(--sage) 18%) 100%);
 }
 
 [data-appearance="dark"] .freeplay-kb-white.is-c-key .freeplay-kb-white-label,
-[data-appearance="dark"] .warmup-kb-white.is-c-key .warmup-kb-note {
+[data-appearance="dark"] .warmup-kb-white.is-c-key .warmup-kb-note,
+[data-appearance="dark"] .piano-white-key.is-c-key .piano-note-hint {
   color: var(--piano-white-active-ink);
 }
 
 [data-appearance="dark"] .freeplay-kb-white.is-root-key,
-[data-appearance="dark"] .warmup-kb-white.is-tonic {
+[data-appearance="dark"] .warmup-kb-white.is-tonic,
+[data-appearance="dark"] .piano-white-key.is-root-key {
   background: linear-gradient(180deg, var(--peach) 0%, var(--peach-soft) 100%);
 }
 
 [data-appearance="dark"] .freeplay-kb-white.is-root-key .freeplay-kb-white-label,
-[data-appearance="dark"] .warmup-kb-white.is-tonic .warmup-kb-note {
+[data-appearance="dark"] .warmup-kb-white.is-tonic .warmup-kb-note,
+[data-appearance="dark"] .piano-white-key.is-root-key .piano-note-hint {
   color: var(--peach-strong);
 }
 
 [data-appearance="dark"] .freeplay-kb-white.is-active,
 [data-appearance="dark"] .freeplay-kb-white.is-pressed,
 [data-appearance="dark"] .warmup-kb-white.is-active,
-[data-appearance="dark"] .piano-white-key:not(.piano-key-frame):not(.piano-key-inactive):active {
+[data-appearance="dark"] .piano-white-key:not(.piano-key-inactive):active {
   background: linear-gradient(180deg, var(--sage) 0%, var(--sage-soft) 100%);
 }
 
@@ -5578,14 +5597,7 @@ body,
   color: var(--sage-strong);
 }
 
-[data-appearance="dark"] .piano-key-frame {
-  background: var(--piano-key-inactive-bg);
-  border-right-color: var(--piano-key-inactive-border);
-  color: var(--piano-key-inactive-text);
-  box-shadow: inset 0 2px 6px rgba(10, 12, 16, 0.34);
-}
-
-[data-appearance="dark"] .piano-key-inactive:not(.piano-key-frame) {
+[data-appearance="dark"] .piano-key-inactive {
   background: var(--piano-white-active-bg);
   background: linear-gradient(180deg, var(--piano-white-active-bg) 0%, color-mix(in srgb, var(--piano-white-active-bg) 88%, #000000 12%) 100%);
   border-right-color: rgba(15, 17, 24, 0.28);
@@ -5597,6 +5609,12 @@ body,
 [data-appearance="dark"] .freeplay-kb-black {
   background: linear-gradient(180deg, var(--piano-black-bg-top) 0%, var(--piano-black-bg-bottom) 100%);
   border-color: var(--piano-black-border);
+}
+
+[data-appearance="dark"] .piano-black-key.is-root-key {
+  background: linear-gradient(180deg, var(--peach-strong) 0%, var(--peach) 100%);
+  border-color: var(--peach-strong);
+  color: var(--on-strong-accent);
 }
 
 [data-appearance="dark"] .piano-black-key.key-out-of-scale {
@@ -8884,7 +8902,7 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   box-shadow: 0 0.5px 0 var(--tactile-edge);
 }
 
-.piano-white-key:not(.piano-key-frame):not(.piano-key-inactive):active {
+.piano-white-key:not(.piano-key-inactive):active {
   transform: translateY(1.5px);
   box-shadow: inset 0 3px 6px rgba(46, 111, 78, 0.22);
 }
@@ -10526,7 +10544,7 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   color: var(--raccoon-mid);
   font-family: inherit;
   cursor: pointer;
-  transition: all 0.14s ease;
+  transition: background-color 0.14s ease, border-color 0.14s ease, color 0.14s ease, transform 0.14s ease;
 }
 
 .melody-style-tab strong {
@@ -19392,59 +19410,75 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   text-align: center;
 }
 
-/* Bildschirm-Klaviatur als Rückfall ohne MIDI-Gerät (js/midi-play.js) */
+/* Bildschirm-Klaviatur als Rückfall ohne MIDI-Gerät (js/midi-play.js) – im Stil des Freien Spiels */
 .solfege-keyboard-wrap.is-midi-fallback {
   padding: 0.22rem 0 0.14rem 0;
 }
 .solfege-keyboard-wrap.is-midi-fallback .piano-keyboard {
-  height: 150px;
+  height: 146px;
 }
 .midi-fallback-kb .piano-white-key {
-  gap: 0.3rem;
+  padding: 0 0 0.42rem 0;
 }
-.midi-fallback-kb .midi-fallback-root-dot {
-  flex: 0 0 auto;
+.midi-fallback-kb .piano-note-hint {
+  font-size: 0.68rem;
+  opacity: 0.92;
+}
+.midi-fallback-kb.is-dense .piano-note-hint {
+  font-size: clamp(0.54rem, 1.75vw, 0.64rem);
+}
+.midi-fallback-kb .piano-black-key {
+  height: 60%;
+  padding: 0 0 0.34rem 0;
+}
+.midi-fallback-kb.is-dense .piano-black-label {
+  font-size: 0.48rem;
 }
 .midi-fallback-kb .piano-white-key.is-selected {
   background: linear-gradient(180deg, var(--lilac) 0%, var(--lilac-soft) 100%);
   box-shadow: inset 0 3px 6px rgba(61, 64, 91, 0.18);
 }
+.midi-fallback-kb .piano-white-key.is-selected .piano-note-hint {
+  color: var(--lilac-strong);
+  opacity: 1;
+}
 .midi-fallback-kb .piano-black-key.is-selected {
   background: linear-gradient(180deg, var(--lilac-strong) 0%, var(--lilac) 100%);
   border-color: var(--lilac-strong);
+  color: var(--on-strong-accent);
 }
 .midi-fallback-kb .piano-white-key.is-done {
-  background: linear-gradient(180deg, var(--sage-soft) 0%, var(--surface-white) 100%);
+  background: linear-gradient(180deg, var(--sage) 0%, var(--sage-soft) 100%);
+  box-shadow: inset 0 3px 6px rgba(46, 111, 78, 0.18);
+}
+.midi-fallback-kb .piano-white-key.is-done .piano-note-hint {
+  color: var(--sage-strong);
+  opacity: 1;
 }
 .midi-fallback-kb .piano-black-key.is-done {
   background: linear-gradient(180deg, var(--sage-strong) 0%, var(--sage) 100%);
   border-color: var(--sage-strong);
+  color: var(--on-strong-accent);
 }
-/* Dunkelmodus: Tasten bleiben hell, deshalb ein helles Grün statt der dunklen Sage-Töne */
+/* Dunkelmodus: Tasten bleiben hell, deshalb klares Hellgrün / Hellflieder mit dunkler Beschriftung */
 [data-appearance="dark"] .midi-fallback-kb .piano-white-key.is-done {
   background: linear-gradient(180deg, #BFE0C9 0%, #E6F3EA 100%);
 }
 [data-appearance="dark"] .midi-fallback-kb .piano-white-key.is-selected {
   background: linear-gradient(180deg, #CFC4F5 0%, #ECE7FD 100%);
 }
-.midi-fallback-kb .piano-black-key .midi-fallback-root-dot {
-  position: absolute;
-  bottom: 6px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: var(--sage);
+[data-appearance="dark"] .midi-fallback-kb .piano-white-key.is-done .piano-note-hint,
+[data-appearance="dark"] .midi-fallback-kb .piano-white-key.is-selected .piano-note-hint {
+  color: var(--piano-white-active-ink);
 }
 /* Mit Bildschirm-Klaviatur zeigt das Pad keine zusätzlichen Notenzeilen (Auswahl & Ausgangston stehen auf den Tasten bzw. in der Karte) */
 .midi-play-pad-wrap.has-screen-kb .midi-pad-live-line,
 .midi-play-pad-wrap.has-screen-kb .midi-pad-pills-row {
   display: none;
 }
-.midi-play-pad-wrap.has-screen-kb .midi-pad-body:not(:has(> :not(.midi-pad-live-line):not(.midi-pad-pills-row))) {
-  display: none;
-}
 @media (min-width: 640px) {
   .solfege-keyboard-wrap.is-midi-fallback .piano-keyboard {
-    height: 170px;
+    height: 168px;
   }
 }
 
@@ -19487,6 +19521,15 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 #viewExercise.fit-3.fit-4 .solfege-keyboard-wrap.is-midi-fallback .piano-keyboard {
   height: 88px;
+}
+#viewExercise.fit-3 .midi-fallback-kb .piano-black-key {
+  padding-bottom: 0.2rem;
+}
+#viewExercise.fit-3 .midi-fallback-kb .piano-black-label {
+  font-size: 0.48rem;
+}
+#viewExercise.fit-3.fit-4 .midi-fallback-kb .piano-black-label {
+  display: none;
 }
 #viewExercise.fit-2 .midi-play-pad-wrap.has-screen-kb .midi-pad-body,
 #viewExercise.fit-3 .midi-play-pad-wrap.has-screen-kb .midi-pad-body {

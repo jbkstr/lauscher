@@ -1089,7 +1089,7 @@ function runExerciseTutorialAnswerPhase(ex, groupId, meta, token) {
   if (groupId === "notation-keys") {
     const target = ex.targetItem;
     const pc = Number(target?.pc);
-    const keyBtn = Array.from(document.querySelectorAll("#solfegeKeyboardWrap .piano-white-key:not(.piano-key-frame), #solfegeKeyboardWrap .piano-black-key"))
+    const keyBtn = Array.from(document.querySelectorAll("#solfegeKeyboardWrap .piano-white-key, #solfegeKeyboardWrap .piano-black-key"))
       .find(el => Number(el.dataset.pc) === pc);
     if (keyBtn) markTutorialTargetEl(keyBtn, ["key-correct"]);
     scheduleTutorialTimer(() => {
