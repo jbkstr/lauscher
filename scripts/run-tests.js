@@ -758,8 +758,11 @@ runTest("MIDI: Bildschirm-Klaviatur deckt jede Aufgabe ab & Tonleiter-Start ist 
     needed.forEach(m => assert.ok(m >= r.lo && m <= r.hi, `Ton ${m} außerhalb ${r.lo}–${r.hi}`));
     assert.ok(isWhite(r.firstWhite) && isWhite(r.lastWhite));
     assert.ok(r.firstWhite <= r.lo && r.lastWhite >= r.hi);
-    // Keine ausgegrauten Extra-Rahmentasten: weiße Grenzen liegen direkt auf oder 1 Halbton neben lo/hi
-    assert.ok(r.lo - r.firstWhite <= 1 && r.lastWhite - r.hi <= 1, `Unnötiger Rand: ${r.firstWhite}..${r.lo} / ${r.hi}..${r.lastWhite}`);
+    // Bei Intervall & Tonleiter rastet das Fenster sauber auf C oder F ein (12–15 weiße Tasten)
+    if (ex.type === "midi-interval" || ex.type === "midi-scale") {
+      const startPc = ((r.firstWhite % 12) + 12) % 12;
+      assert.ok(startPc === 0 || startPc === 5, `Unerwarteter Fenster-Anker pc=${startPc}`);
+    }
     // höchstens gut zwei Oktaven, damit die Tasten auf dem Handy tippbar bleiben
     assert.ok(r.lastWhite - r.firstWhite <= 26, `Bereich zu groß: ${r.lastWhite - r.firstWhite}`);
     return r;
@@ -793,6 +796,16 @@ runTest("MIDI: Bildschirm-Klaviatur deckt jede Aufgabe ab & Tonleiter-Start ist 
       }
     }
   }
+
+  // Hysterese: zwei aufeinanderfolgende Aufgaben im selben C/F-Block halten die Klaviatur stabil
+  const ex1 = { type: "midi-interval", choices: ["P8"], midiTask: { rootMidi: 62, targetMidi: 74, directionSign: 1 } }; // D4..D5
+  const r1 = sb.getMidiPlayFallbackRange(ex1, null);
+  assert.equal(r1.firstWhite, 60); // C4..G5
+  assert.equal(r1.lastWhite, 79);
+  const ex2 = { type: "midi-interval", choices: ["P8"], midiTask: { rootMidi: 67, targetMidi: 79, directionSign: 1 } }; // G4..G5
+  const r2 = sb.getMidiPlayFallbackRange(ex2, { type: "midi-interval", firstWhite: r1.firstWhite, lastWhite: r1.lastWhite });
+  assert.equal(r2.firstWhite, r1.firstWhite, "Klaviatur sollte bei passender Folgeaufgabe nicht springen");
+  assert.equal(r2.lastWhite, r1.lastWhite);
 
   // Bildschirm: Tonleiter muss auf dem angezeigten Grundton starten (nicht eine Oktave höher)
   const scaleTask = { rootMidi: 60, rootPc: 0, scaleIntervals: [0, 2, 4, 5, 7, 9, 11, 12] };

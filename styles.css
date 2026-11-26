@@ -12646,6 +12646,10 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   display: none !important;
 }
 
+.nowrap-group {
+  white-space: nowrap;
+}
+
 /* ==========================================
    FESTE ÜBUNGSHÖHE (vor allem mobil)
    Die Übung scrollt nie: Oberes Modul und Antwortbereich behalten ihre Höhe,

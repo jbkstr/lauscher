@@ -978,7 +978,8 @@ function openCategoryPage(categoryKey, options = {}) {
       {
         id: "dictation",
         title: tr("Kombi-Diktat", "Full Dictation"),
-        desc: tr("Tonhöhe UND Notenlänge (♪, ♩, ♩., 𝅗𝅥) gemeinsam nach Gehör heraushören", "Identify both pitch AND note duration (♪, ♩, ♩., 𝅗𝅥) together by ear"),
+        desc: tr("Tonhöhe UND Notenlänge (♪, ♩, ♩., 𝅗𝅥) gemeinsam nach Gehör heraushören", "Identify both pitch AND note duration (♪, ♩, ♩., 𝅗𝅥) together by ear")
+          .replace("(♪, ♩, ♩., 𝅗𝅥)", '<span class="nowrap-group">(♪, ♩, ♩., 𝅗𝅥)</span>'),
         badgeHtml: `<div class="node-circle circle-lilac node-circle-icon">${getCategoryBadgeSVG("melody-dict")}</div>`,
         meta: tr("3 Tonräume • Do–Fa, Sol–Do & Ganze Tonart", "3 Ranges • Do–Fa, Sol–Do & Full Key"),
         isBeginner: false
@@ -992,7 +993,8 @@ function openCategoryPage(categoryKey, options = {}) {
         return tr("4 halbe Noten über alle sieben Solfège-Stufen (Do bis Do)", "4 half notes across all seven Solfège degrees (Do to Do)");
       }
       if (style === "dictation") {
-        if (range === "do-fa") return tr("4–5 Töne (Do–Fa): Erkenne Tonstufe UND Notenlänge (♪, ♩, ♩., 𝅗𝅥)", "4–5 notes (Do–Fa): identify pitch AND note duration (♪, ♩, ♩., 𝅗𝅥)");
+        if (range === "do-fa") return tr("4–5 Töne (Do–Fa): Erkenne Tonstufe UND Notenlänge (♪, ♩, ♩., 𝅗𝅥)", "4–5 notes (Do–Fa): identify pitch AND note duration (♪, ♩, ♩., 𝅗𝅥)")
+          .replace("(♪, ♩, ♩., 𝅗𝅥)", '<span class="nowrap-group">(♪, ♩, ♩., 𝅗𝅥)</span>');
         if (range === "sol-do") return tr("4–6 Töne (Sol–Do): Rhythmus und Tonhöhe gemeinsam im Puls erfassen", "4–6 notes (Sol–Do): capture rhythm and pitch together in pulse");
         return tr("4–6 Töne über die ganze Tonart – vollständiges Melodiediktat", "4–6 notes across the full scale — complete melody dictation");
       }

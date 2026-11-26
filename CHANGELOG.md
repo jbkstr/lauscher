@@ -8,6 +8,8 @@ All released versions of Lauscher. New sections are created by `python3 scripts/
 - Fixed a layout resize-oscillation glitch in "Play Intervals" (and other MIDI play exercises) on mobile/app viewports caused by animated height/padding transitions on `.bar-card` interacting with `fitExerciseLayout()` and `ResizeObserver`.
 
 **Improved**
+- Stabilized the on-screen keyboard in "Play Intervals", "Play Scales & Modes" and "Play Chords" using natural C/F-anchored 12-key blocks with window hysteresis, so the keyboard stays steady while the root note moves naturally across the keys instead of sticking to the edge.
+- Kept the note-duration symbols `(♪, ♩, ♩., 𝅗𝅥)` together on one line in the Melodies "Full Dictation" card across all 10 languages.
 - Active MIDI play exams: added separate "Active Playing (MIDI / Keyboard)" exam levels to Intervals (3 levels), Chords (4 levels incl. inversions and 7th chords), and Scales & Modes (3 levels with full scale play-through, partial per-step scoring, step-by-step error breakdown, and audio review), kept cleanly separated from listening exams.
 - Multi-level Grand Staff (`notation-grand`) training expanded to 5 progressive piano levels: single notes (5 lines), extended single notes (±2 ledgers & accidentals), two-hand dyads (1 bass + 1 treble simultaneously), 3–4-note piano chord voicings split across both hands, and mixed sight-reading master level with live notehead highlighting via MIDI.
 - Compact MIDI reading mode: when a MIDI keyboard is connected during sight-reading, the on-screen keyboard collapses behind a one-tap toggle to give the Grand Staff significantly more vertical space on phones and tablets.

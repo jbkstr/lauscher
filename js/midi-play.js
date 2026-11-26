@@ -25,6 +25,7 @@ const _midiPlay = {
   fallbackSelectedMidis: new Set(),
   fallbackKbShown: false,
   fallbackKbEx: null,
+  lastFallbackRange: null,
   showSolutionHint: false
 };
 
@@ -1065,11 +1066,12 @@ function syncMidiPlayPadUI() {
 
 /**
  * Tastenbereich der Bildschirm-Klaviatur je Aufgabe (reine Funktion, testbar).
- * Intervall: Ausgangston bis zum größten Intervall der Stufe (mind. Oktave) in Spielrichtung, Tonleiter: Grundton bis Oktave,
- * Akkord: je 5 Halbtöne unter dem tiefsten und über dem höchsten Akkordton (andere Lagen bleiben greifbar).
- * Liefert { lo, hi } (Aufgaben-Spanne) und { firstWhite, lastWhite } (volle äußere weiße Tasten ohne ausgegraute Rahmentasten).
+ * Rastet auf natürlichen C- und F-Klaviaturblöcken (standardmäßig 12 weiße Tasten = 19 Halbtöne,
+ * bei größeren Spannen wie Nonen 13–14 weiße Tasten) ein und hält per Hysterese (prevRange) das
+ * bisherige Fenster bei, solange die neue Aufgabe hineinpasst. So bleibt die Klaviatur ruhig und
+ * der Ausgangston wandert natürlich über die Tasten statt immer am Rand zu kleben.
  */
-function getMidiPlayFallbackRange(ex) {
+function getMidiPlayFallbackRange(ex, prevRange = null) {
   const task = ex?.midiTask;
   if (!task) return null;
   let lo;
@@ -1098,12 +1100,61 @@ function getMidiPlayFallbackRange(ex) {
     lo = Math.min(...mids) - 5;
     hi = Math.max(...mids) + 5;
   }
+
   const isWhite = (m) => [0, 2, 4, 5, 7, 9, 11].includes(((m % 12) + 12) % 12);
-  let firstWhite = lo;
-  while (!isWhite(firstWhite)) firstWhite--;
-  let lastWhite = hi;
-  while (!isWhite(lastWhite)) lastWhite++;
-  return { lo, hi, firstWhite, lastWhite };
+  let whiteLo = lo;
+  while (!isWhite(whiteLo)) whiteLo--;
+  let whiteHi = hi;
+  while (!isWhite(whiteHi)) whiteHi++;
+
+  const neededSemis = whiteHi - whiteLo;
+  // Fenster-Hysterese: bisheriges Fenster beibehalten, wenn die neue Aufgabe komplett hineinpasst
+  if (
+    prevRange &&
+    prevRange.type === ex.type &&
+    Number.isFinite(prevRange.firstWhite) &&
+    Number.isFinite(prevRange.lastWhite) &&
+    prevRange.firstWhite <= whiteLo &&
+    prevRange.lastWhite >= whiteHi &&
+    (prevRange.lastWhite - prevRange.firstWhite) <= Math.max(21, neededSemis + 4)
+  ) {
+    return { lo, hi, firstWhite: prevRange.firstWhite, lastWhite: prevRange.lastWhite };
+  }
+
+  // Feste C- oder F-Anker (2er-/3er-Gruppen der schwarzen Tasten bleiben stets intakt):
+  // +19 = 12 weiße Tasten (C–G / F–C), +21 = 13 (C–A / F–D), +23 = 14 (C–H / F–E), +24 = 15 (C–C / F–F)
+  const windowOffsets = ex.type === "midi-chord" ? [19, 21, 23] : [19, 21, 23, 24];
+  const targetMid = (lo + hi) / 2;
+  for (const off of windowOffsets) {
+    if (off < neededSemis) continue;
+    const candidates = [];
+    const minAnchor = whiteHi - off;
+    const maxAnchor = whiteLo;
+    for (let m = Math.max(24, minAnchor); m <= maxAnchor; m++) {
+      const pc = ((m % 12) + 12) % 12;
+      if (pc !== 0 && pc !== 5) continue;
+      if (m <= whiteLo && (m + off) >= whiteHi) {
+        candidates.push({ firstWhite: m, lastWhite: m + off, isC: pc === 0 });
+      }
+    }
+    if (candidates.length > 0) {
+      candidates.sort((a, b) => {
+        const distA = Math.abs(((a.firstWhite + a.lastWhite) / 2) - targetMid);
+        const distB = Math.abs(((b.firstWhite + b.lastWhite) / 2) - targetMid);
+        if (Math.abs(distA - distB) > 1.5) return distA - distB;
+        if (prevRange && Number.isFinite(prevRange.firstWhite)) {
+          const jumpA = Math.abs(a.firstWhite - prevRange.firstWhite);
+          const jumpB = Math.abs(b.firstWhite - prevRange.firstWhite);
+          if (jumpA !== jumpB) return jumpA - jumpB;
+        }
+        if (a.isC !== b.isC) return a.isC ? -1 : 1;
+        return distA - distB;
+      });
+      return { lo, hi, firstWhite: candidates[0].firstWhite, lastWhite: candidates[0].lastWhite };
+    }
+  }
+
+  return { lo, hi, firstWhite: whiteLo, lastWhite: whiteHi };
 }
 
 function getMidiKeyboardBlackLabel(pc) {
@@ -1137,8 +1188,9 @@ function renderMidiPlayFallbackKeyboard(ex = state?.currentExercise) {
     return;
   }
 
-  const range = getMidiPlayFallbackRange(ex);
+  const range = getMidiPlayFallbackRange(ex, _midiPlay.lastFallbackRange);
   if (!range) return;
+  _midiPlay.lastFallbackRange = { type: ex.type, firstWhite: range.firstWhite, lastWhite: range.lastWhite };
   wrap.classList.remove("is-notation");
   wrap.classList.add("is-midi-fallback");
   wrap.classList.remove("hidden");
