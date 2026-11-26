@@ -733,7 +733,9 @@ function dispatchMidiNoteOn(midi, velocity, deviceName) {
   // 3) Rhythmus • Nachklopfen
   if (ex.type === "rhythm-tap") {
     // Während der Aufnahme klingt der Tap-Klick; außerhalb der Aufnahme den App-Ton spielen
-    const tapped = typeof handleRhythmTapInput === "function" ? handleRhythmTapInput() : null;
+    const tapped = typeof handleRhythmTapInput === "function"
+      ? handleRhythmTapInput(null, null, { silent: !_midi.prefs.appSound })
+      : null;
     if (tapped === null) playMidiAppTone(midi, velocity, 0.6);
     return;
   }
@@ -818,7 +820,7 @@ function handleNotationMidiNoteOn(ex, midi, velocity) {
     if (res.ok) {
       const btn = document.querySelector(`#degreeButtonsGrid .degree-btn[data-choice="${CSS.escape(target.key)}"]`) || null;
       if (typeof handleNotationChordChoice === "function") {
-        handleNotationChordChoice(target.key, btn, { fromMidi: true });
+        handleNotationChordChoice(target.key, btn, { fromMidi: true, skipCorrectAudio: true });
       }
       return;
     }
@@ -879,7 +881,7 @@ function handleNotationMidiNoteOn(ex, midi, velocity) {
       handleNotationKeyClick(
         { midi, pc, noteLabel, midiExactOk: match.ok, fromMidi: true },
         keyBtn,
-        { fromMidi: true, midiExactOk: match.ok, skipCorrectAudio: _midi.prefs.appSound }
+        { fromMidi: true, midiExactOk: match.ok, skipCorrectAudio: true }
       );
     }
     return;
@@ -896,7 +898,7 @@ function handleNotationMidiNoteOn(ex, midi, velocity) {
         null,
         {
           fromMidi: true,
-          skipCorrectAudio: _midi.prefs.appSound,
+          skipCorrectAudio: true,
           midiWrongOctave: { octaveDiff: match.octaveDiff, targetMidi: target.midi, noteLabel }
         }
       );
@@ -904,18 +906,14 @@ function handleNotationMidiNoteOn(ex, midi, velocity) {
     return;
   }
 
-  if (match.status === "wrong") {
-    playMidiAppTone(midi, velocity, 0.65);
-  } else if (_midi.prefs.appSound) {
-    // Bei Treffer übernimmt playMidiAppTone mit echter Anschlagstärke (kein Doppel-Ton!)
-    playMidiAppTone(midi, velocity, 0.65);
-  }
+  // Gespielter Ton klingt nur über playMidiAppTone (respektiert „App-Klang“); die Übung spielt kein zweites Echo
+  playMidiAppTone(midi, velocity, 0.65);
 
   if (typeof handleNotationKeyClick === "function") {
     handleNotationKeyClick(
       { midi, pc, noteLabel, fromMidi: true },
       keyBtn,
-      { fromMidi: true, skipCorrectAudio: _midi.prefs.appSound }
+      { fromMidi: true, skipCorrectAudio: true }
     );
   }
 }
@@ -973,13 +971,11 @@ function handleMelodyMidiNoteOn(ex, midi, velocity) {
   const isActiveScaleKey = Boolean(keyBtn && (keyBtn.classList.contains("piano-key-scale") || keyBtn.classList.contains("key-in-scale")));
 
   if (isActiveScaleKey && keySyllable && typeof handleMelodyKeyClick === "function") {
-    const curSlot = ex.melodySlots?.[ex.melodyStep || 0];
-    const willHit = curSlot && curSlot.syllable === keySyllable;
-    if (!willHit) playMidiAppTone(midi, velocity, 0.55);
+    playMidiAppTone(midi, velocity, 0.55);
     handleMelodyKeyClick(
       { midi: keyMidi, pc, syllable: keySyllable, noteLabel: formatMidiNoteDisplay(midi) },
       keyBtn,
-      { fromMidi: true }
+      { fromMidi: true, skipInputAudio: true }
     );
     return;
   }
@@ -1057,6 +1053,8 @@ function renderMidiDeviceDropdown() {
     key: "settings-midi-device",
     options,
     selectedKey: validKey,
+    // Ohne onToggle würde renderProfileSingleDropdown die Konto-Ansicht neu zeichnen und das Menü bliebe zu
+    onToggle: () => renderMidiDeviceDropdown(),
     onSelect: (nextKey) => {
       _midi.prefs.selectedDeviceId = nextKey;
       saveMidiPrefs();

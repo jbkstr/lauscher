@@ -2377,7 +2377,7 @@ async function handleMelodyKeyClick(clickedKeyDef, keyBtn, options = {}) {
   if (!slot) return;
 
   if (ex.melodyStyle === "dictation" && slot.pitchSolved) {
-    if (!state.isPlaying && clickedKeyDef.syllable === slot.syllable) {
+    if (!state.isPlaying && !options.skipInputAudio && clickedKeyDef.syllable === slot.syllable) {
       const beatSec = 60 / (state.activeBpm || 90);
       const rawDur = Math.max(0.22, Math.min(0.95, (slot.durationBeats || 1) * beatSec * 0.86));
       audioEngine.playStep([slot.noteName], rawDur, null, "interval");
@@ -2409,7 +2409,8 @@ async function handleMelodyKeyClick(clickedKeyDef, keyBtn, options = {}) {
   keyBtn.classList.add("key-correct");
 
   const isLast = currentSlotIdx >= tot - 1;
-  if (!state.isPlaying) {
+  // options.skipInputAudio: MIDI-Eingabe – der gespielte Ton kam schon vom Instrument bzw. playMidiAppTone
+  if (!state.isPlaying && !options.skipInputAudio) {
     const beatSec = 60 / (state.activeBpm || 90);
     const rawDur = Math.max(0.22, Math.min(0.95, (slot.durationBeats || 1) * beatSec * 0.86));
     audioEngine.playStep([slot.noteName], isLast ? Math.max(rawDur, 0.55) : rawDur, null, "interval");

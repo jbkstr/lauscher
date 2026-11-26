@@ -1141,6 +1141,8 @@ function bindProfileDropdownOutsideCloser() {
       _openProfileDropdownKey = null;
       if (prevKey === "settings-language") {
         if (typeof renderSettingsLanguageDropdown === "function") renderSettingsLanguageDropdown();
+      } else if (prevKey === "settings-midi-device") {
+        if (typeof renderMidiDeviceDropdown === "function") renderMidiDeviceDropdown();
       } else {
         renderProfileAccountView();
       }

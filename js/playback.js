@@ -757,7 +757,7 @@ async function playRhythmTapDemoOnly(options = {}) {
   }, 50 + Math.round(2 * barMs + 140));
 }
 
-function handleRhythmTapInput(overrideRelMs = null, inputPoint = null) {
+function handleRhythmTapInput(overrideRelMs = null, inputPoint = null, options = {}) {
   const session = state.rhythmTapSession;
   const ex = state.currentExercise;
   if (!session || session.ended || session.phase !== "listen" || !ex || ex.type !== "rhythm-tap") {
@@ -784,7 +784,8 @@ function handleRhythmTapInput(overrideRelMs = null, inputPoint = null) {
   const roundedMs = Math.round(relMs);
   session.tapsMs.push(roundedMs);
 
-  audioEngine.triggerPercussion("clave", null, 0.92);
+  // options.silent: MIDI-Tap mit ausgeschaltetem App-Klang (das Instrument klingt selbst)
+  if (!options.silent) audioEngine.triggerPercussion("clave", null, 0.92);
 
   const padBtn = document.getElementById("rhythmTapPadBtn");
   const subEl = document.getElementById("rhythmPadSub");

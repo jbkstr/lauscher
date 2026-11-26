@@ -488,7 +488,7 @@ async function handleNotationChordChoice(selectedKey, btnElement, options = {}) 
   audioEngine.stopPlayback();
   state.isPlaying = false;
   updatePlayButtonUI(false);
-  if (isListenOnly || shouldPlayCorrectAnswerAudio()) {
+  if ((isListenOnly || shouldPlayCorrectAnswerAudio()) && !options.skipCorrectAudio) {
     audioEngine.playStep(getNotationPlayNotes(target), 1.1, null, "interval");
   }
 
