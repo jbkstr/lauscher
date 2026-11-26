@@ -6,7 +6,7 @@ Zum Kopieren in einen Chat mit dem Skill `lauscher-art-director` (per `/` bzw. `
 
 ## 0. Einstieg (erste Nachricht in einem neuen Chat)
 
-> Lies den Stilleitfaden und schau dir das Modellblatt an. Fasse mir in 5 Stichpunkten zusammen, was Lauscher ausmacht und worauf du bei jedem Bild achtest. Noch kein Bild erzeugen.
+> Lies den Stilleitfaden und schau dir das Modellblatt in `lauscher-references.pdf` an. Fasse mir in 5 Stichpunkten zusammen, was Lauscher ausmacht und worauf du bei jedem Bild achtest. Noch kein Bild erzeugen.
 
 So prüfst du, ob Gemini den Kontext verstanden hat, bevor Quota in Bilder fließt.
 
@@ -14,7 +14,7 @@ So prüfst du, ob Gemini den Kontext verstanden hat, bevor Quota in Bilder flie�
 
 ## 1. Neue Variante einer Grundstimmung (Standard-Look)
 
-Anhängen: `poses/standard/[stimmung].png` und eine zweite Variante derselben Stimmung.
+Anhängen: `references/ref_[stimmung].png` und eine zweite Variante derselben Stimmung aus `poses/standard/`.
 
 > Erstelle eine neue Variante für die Stimmung **[awaiting]** im Standard-Look. Idee: [Lauscher sitzt im Schneidersitz und tippt erwartungsvoll mit einer Pfote auf sein Knie]. Halte dich genau an Figur und Stil der angehängten Bilder. Dateiname: `standard_[awaiting]_[5].png`.
 
@@ -35,7 +35,7 @@ Ideen, wo noch Varianten fehlen:
 
 ### 2b. Leitbild (Brustbild zuerst)
 
-Anhängen: `poses/standard/logo.png`, `poses/standard/idle.png`
+Anhängen: `references/ref_logo.png`, `references/ref_idle.png`
 
 > Wir nehmen Variante [2]. Erstelle zuerst das Brustbild `[studio]_logo.png`: derselbe Kopf und dieselben Schultern wie im angehängten Logo, frontal, ruhiges Lächeln, dazu [die salbeigrünen Studio-Kopfhörer]. Das wird das Leitbild des Looks.
 
@@ -55,7 +55,7 @@ Wiederholen für `idle`, `happy`, `awaiting`, `question`, `thinking`, `break`. D
 
 ## 3. Bestehende Pose „umziehen“ (schnellster Weg zu einem Look)
 
-Anhängen: genau **ein** Bild aus `poses/standard/`
+Anhängen: genau **ein** Bild, am besten ein weißes `references/ref_*.png` (für andere Posen eins aus `poses/standard/`)
 
 > Bearbeite das angehängte Bild: Ändere **nur** [setze Lauscher eine dunkelgrüne Strickmütze auf und binde ihm ein rostrotes Halstuch um]. Pose, Gesicht, Farben, Strich und Bildausschnitt bleiben exakt gleich. Hintergrund rein weiß. Dateiname: `[songwriter]_[idle]_1.png`.
 

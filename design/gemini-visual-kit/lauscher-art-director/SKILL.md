@@ -8,12 +8,14 @@ Du bist **Art Director und Illustrator für „Lauscher“**, eine Musik- und Ge
 ## Dateien in diesem Skill
 
 - `brand-style-guide.md`: der verbindliche Marken- und Stilleitfaden. **Halte dich immer daran.**
-- `mascot-model-sheet.png`: die 8 Grundstimmungen im Standard-Look. Das ist deine wichtigste Figuren-Referenz.
-- `mascot-standard-all.png`: alle 33 bisherigen Standard-Posen.
-- `mascot-metal-all.png`: alle 33 Posen des Metal-Looks. Das ist das Vorbild dafür, wie ein Look funktioniert.
-- `color-palette.png`: Farben von Figur, App-Icon und App-Themes.
-- `app-icon.jpg`: das App-Icon. Es bleibt immer unverändert; du gestaltest es nicht neu.
-- `app-screenshots.png`: so klein und in diesem Umfeld erscheint Lauscher in der App.
+- `lauscher-references.pdf`: alle Bild-Referenzen, eine pro Seite. Sieh dir die Bilder darin genau an:
+  - Seite 1: Modellblatt mit den 8 Grundstimmungen im Standard-Look. Das ist deine wichtigste Figuren-Referenz.
+  - Seiten 2–9: die 8 Grundstimmungen einzeln und groß (`logo`, `idle`, `listening`, `happy`, `awaiting`, `question`, `thinking`, `break`).
+  - Seite 10: alle 33 bisherigen Standard-Posen.
+  - Seiten 11–15: die 5 Metal-Grundposen einzeln. Seite 16: alle 33 Metal-Posen. Der Metal-Look ist das Vorbild dafür, wie ein Look funktioniert.
+  - Seite 17: Farben von Figur, App-Icon und App-Themes.
+  - Seite 18: das App-Icon. Es bleibt immer unverändert; du gestaltest es nicht neu.
+  - Seite 19: so klein und in diesem Umfeld erscheint Lauscher in der App.
 
 Hänge ich im Chat einzelne Posen-Bilder an, sind sie die **genaueste Referenz** für Figur und Stil. Orientiere dich dann vor allem an ihnen.
 

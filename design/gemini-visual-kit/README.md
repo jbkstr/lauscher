@@ -6,10 +6,10 @@ Mit diesem Paket kann Gemini neue Bilder von Lauscher erstellen (neue Posen, Loo
 
 | Datei | Wofür |
 |---|---|
-| `lauscher-art-director/` | **Der Gemini-Skill**, als Ordner zum Hochladen. Darin: `SKILL.md` (der Prompt mit Name und Beschreibung), `brand-style-guide.md` (Figur, Stil, Stimmungen, technische Vorgaben, Looks, Checkliste, Dateinamen) und 6 Referenzbilder: `mascot-model-sheet.png` (8 Grundstimmungen, die wichtigste Referenz), `mascot-standard-all.png`, `mascot-metal-all.png`, `color-palette.png`, `app-icon.jpg`, `app-screenshots.png` |
-| `skill-extra-files/` | **Zusätzliche Dateien für den Skill** (beim Erstellen mit hochladen): die 8 Grundstimmungen (`ref_*.png`) und die 5 Metal-Grundposen (`metal_ref_*.png`) als Einzelbilder, 512 × 512 px auf Weiß. Weiß statt transparent, weil manche Bild-KIs Transparenz als Schwarz lesen. Aus 128–168 px hochgerechnet, daher etwas weich. |
+| `lauscher-art-director/` | **Der Gemini-Skill**, als Ordner zum Hochladen. Enthält nur Formate, die Skills annehmen: `SKILL.md` (der Prompt mit Name und Beschreibung), `brand-style-guide.md` (Figur, Stil, Stimmungen, technische Vorgaben, Looks, Checkliste, Dateinamen) und `lauscher-references.pdf` (alle Referenzbilder, eine pro Seite, 19 Seiten). |
 | `task-prompts.md` | Fertige Prompts zum Kopieren: neue Varianten, neuer Look, Umziehen, Szenen, Nachbessern, Übergabe. Kann zusätzlich in den Skill, dann reicht im Chat z. B. „Mach Schritt 2a für den Look Studio“. |
-| `poses/standard/*.png`, `poses/metal/*.png` | Alle Posen als Einzelbilder, so wie sie in der App stecken (transparent, 128–168 px), zum Anhängen im Chat |
+| `references/` | Die Referenzbilder aus der PDF als einzelne Bilddateien, **zum Anhängen im Chat**: Modellblatt, Übersichtsbögen, Farbpalette, App-Icon, Screenshots sowie die 8 Grundstimmungen (`ref_*.png`) und 5 Metal-Grundposen (`metal_ref_*.png`), 512 × 512 px auf Weiß. Weiß statt transparent, weil manche Bild-KIs Transparenz als Schwarz lesen. Aus 128–168 px hochgerechnet, daher etwas weich. |
+| `poses/standard/*.png`, `poses/metal/*.png` | Alle 67 Posen, so wie sie in der App stecken (transparent, 128–168 px) |
 
 ## Einrichten (einmalig, ca. 2 Minuten)
 
@@ -20,21 +20,21 @@ Gemini hat Gems im November 2026 durch **Skills** ersetzt. Ein Skill ist ein Ord
 3. **Create** → **Upload** → den Ordner `lauscher-art-director` wählen → **Open**.
    - Klappt der Ordner nicht, den Ordner zippen und die ZIP-Datei hochladen. `SKILL.md` muss dabei direkt in der obersten Ebene liegen.
    - Der Ordnername muss dem Skill-Namen entsprechen (`lauscher-art-director`). Deshalb nicht umbenennen.
-4. **Zusätzliche Dateien hinzufügen** (beim Erstellen oder später über **Add files**): alle Bilder aus `skill-extra-files/` und optional `task-prompts.md`. Die Dateien liegen bewusst außerhalb des Skill-Ordners, damit du selbst entscheidest, was mit hinein soll.
+4. **Optional `task-prompts.md` als zusätzliche Datei hinzufügen** (beim Erstellen oder später über **Add files**).
 5. Prüfen, ob der Skill aktiv ist. Gemini nutzt ihn dann automatisch, sobald es um Lauscher geht. Gezielt aufrufen kannst du ihn im Chat mit `/` (bald `@`) und `lauscher-art-director`.
 
 **Schon einen Gem angelegt?** Den hat Gemini automatisch in einen Skill umgewandelt. Öffne ihn auf der Skills-Seite und ersetze ihn über **More** → **Replace skill** durch den Ordner. Alternativ löschst du ihn und lädst den Ordner neu hoch.
 
-**Nach Änderungen** am Leitfaden oder an `SKILL.md`: ebenfalls **More** → **Replace skill**. Danach prüfen, ob die zusätzlichen Dateien noch da sind, und sie notfalls erneut hinzufügen, denn „Replace“ ersetzt den ganzen Skill.
+**Nach Änderungen** am Leitfaden oder an `SKILL.md`: ebenfalls **More** → **Replace skill**. Danach prüfen, ob `task-prompts.md` noch da ist, denn „Replace“ ersetzt den ganzen Skill.
 
-**Bietet Gemini beim Ordner-Upload kein Hinzufügen einzelner Dateien an**, die Extras vor dem Hochladen in eine Kopie des Skill-Ordners legen oder den Skill danach bearbeiten und sie dort hinzufügen.
+**Bilddateien** (PNG/JPG) nimmt der Skill-Upload nicht an, nur PDF, CSV, PY, TXT und MD. Deshalb stecken alle Bild-Referenzen in `lauscher-references.pdf`. Neue Leitbilder (z. B. das freigegebene Brustbild eines Looks) also nicht einzeln hochladen, sondern Claude Code bitten, sie in die PDF aufzunehmen.
 
-**Ohne Skill:** In einem neuen Chat den Text von `SKILL.md` (ohne den Kopf zwischen den `---`-Zeilen) als erste Nachricht schicken und die anderen Dateien aus dem Ordner anhängen. Das musst du dann in jedem neuen Chat wiederholen.
+**Ohne Skill:** In einem neuen Chat den Text von `SKILL.md` (ohne den Kopf zwischen den `---`-Zeilen) als erste Nachricht schicken und `brand-style-guide.md` sowie `lauscher-references.pdf` anhängen. Das musst du dann in jedem neuen Chat wiederholen.
 
 ## Arbeiten
 
 1. Neuen Chat öffnen, mit `/` den Skill wählen und mit dem **Einstiegs-Prompt** aus `task-prompts.md` (Abschnitt 0) prüfen, ob Gemini den Kontext verstanden hat.
-2. Für jede Bildaufgabe **1–3 passende Einzelbilder aus `poses/` anhängen**. Die Dateien im Skill nutzt Gemini zwar als Kontext, angehängte Bilder hält es aber deutlich genauer ein.
+2. Für jede Bildaufgabe **1–3 passende Einzelbilder anhängen**, am besten die weißen `ref_*.png` aus `references/` oder weitere Posen aus `poses/`. Im Chat werden Bilder angenommen. Die PDF im Skill nutzt Gemini als Kontext, direkt angehängte Bilder hält es aber deutlich genauer ein.
    - **Erst testen:** Google dokumentiert nicht, ob die Bildgenerierung mit aktivem Skill voll funktioniert (Canvas, Deep Research, Video und Musik gehen mit Skills ausdrücklich nicht). Klappt die Bildgenerierung nicht, den Weg „Ohne Skill“ nehmen.
 3. Ein Bild pro Runde erzeugen lassen, bewerten, gezielt nachbessern (Abschnitt 5).
 4. Für **Looks** zuerst das Brustbild (`<look>_logo.png`) als Leitbild festzurren und danach die anderen Stimmungen davon ableiten. Am schnellsten und konsistentesten ist „Umziehen“ (Abschnitt 3): ein bestehendes Bild bearbeiten lassen statt neu zeichnen.
