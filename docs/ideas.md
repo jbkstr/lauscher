@@ -33,6 +33,9 @@ Gesammelte Pläne, die bewusst auf später verschoben sind. Neue Einträge oben 
 
    Das App-Icon (siehe [design/app-icon-current.jpg](../design/app-icon-current.jpg)) bleibt immer unverändert.
 
+### Bilder erstellen
+Neue Lauscher-Bilder und Looks entstehen in Gemini. Prompt, Stilleitfaden und Referenzen liegen in [design/gemini-visual-kit/](../design/gemini-visual-kit/README.md), fertige Bilder unter `design/gemini-output/<datum>/`.
+
 ### Hinweis
 Am besten zusammen mit dem geplanten **visuellen Update** angehen, denn dann werden die Maskottchen-Grafiken ohnehin ersetzt. Die Accessoires sollten dann als Ebenen zu den neuen Grafiken passen, für alle Stimmungen.
 
