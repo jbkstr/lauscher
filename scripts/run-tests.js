@@ -802,6 +802,16 @@ runTest("MIDI: Bildschirm-Klaviatur deckt jede Aufgabe ab & Tonleiter-Start ist 
   assert.equal(sb.evaluateMidiScaleStep(scaleTask, 0, 72, null).ok, true);
 });
 
+runTest("MIDI: Gerätelisten-Vergleich verhindert statechange-Schleifen", () => {
+  const d1 = { id: "a", name: "Casio PX-S", hasInput: true, hasOutput: true };
+  const d2 = { id: "b", name: "Roland FP-30X", hasInput: true, hasOutput: false };
+  assert.equal(sb.haveMidiDeviceListsChanged([d1, d2], [d2, d1]), false);
+  assert.equal(sb.haveMidiDeviceListsChanged([d1], [d1]), false);
+  assert.equal(sb.haveMidiDeviceListsChanged([d1], [d1, d2]), true);
+  assert.equal(sb.haveMidiDeviceListsChanged([], [d1]), true);
+  assert.equal(sb.haveMidiDeviceListsChanged([d1], []), true);
+});
+
 // Ergebnis-Ausgabe
 const failed = results.filter(r => !r.ok);
 for (const r of results) {

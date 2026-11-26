@@ -2769,11 +2769,18 @@
             <button type="button" class="opt-btn active" data-midi-enabled="off" aria-pressed="true" data-i18n="settings.autoNextOff">Aus</button>
           </div>
           <p id="midiStatusText" class="settings-hint midi-status-text" aria-live="polite"></p>
+          <div id="midiQuickActionsRow" class="midi-quick-actions hidden">
+            <button type="button" id="midiActivateBtn" class="btn-tool hidden" data-i18n="settings.midiActivateBtn">MIDI jetzt verbinden</button>
+          </div>
 
           <div id="midiOptionsWrap" class="midi-options-wrap hidden">
             <div class="settings-sub-field">
-              <span class="account-label" data-i18n="settings.midiDeviceLabel">MIDI-Gerät</span>
+              <div class="midi-device-head">
+                <span class="account-label" data-i18n="settings.midiDeviceLabel">MIDI-Gerät</span>
+                <button type="button" id="midiRescanBtn" class="btn-tool midi-rescan-btn" data-i18n="settings.midiRescanBtn">Geräte neu suchen</button>
+              </div>
               <div id="midiDeviceDropdownWrap" class="midi-device-dropdown-wrap"></div>
+              <p id="midiFirefoxHint" class="settings-hint midi-firefox-hint hidden" aria-live="polite"></p>
             </div>
 
             <div id="midiBleWrap" class="settings-sub-field midi-ble-wrap hidden">

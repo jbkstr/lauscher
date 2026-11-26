@@ -1183,5 +1183,65 @@ registerColocatedPhrases({
     ur: "3 درجے • MIDI یا اسکرین",
     tr: "3 seviye • MIDI veya ekran",
     ar: "3 مستويات • MIDI أو الشاشة"
+  },
+  "{n} MIDI-Gerät(e) gefunden": {
+    fr: "{n} appareil(s) MIDI trouvé(s)",
+    es: "{n} dispositivo(s) MIDI encontrado(s)",
+    it: "{n} dispositivo/i MIDI trovato/i",
+    pl: "Znaleziono urządzenia MIDI: {n}",
+    uk: "Знайдено MIDI-пристроїв: {n}",
+    ur: "{n} MIDI آلات ملے",
+    tr: "{n} MIDI cihazı bulundu",
+    ar: "تم العثور على {n} جهاز MIDI"
+  },
+  "Kein MIDI-Gerät gefunden – prüfe Kabel/Bluetooth": {
+    fr: "Aucun appareil MIDI trouvé – vérifie le câble ou le Bluetooth",
+    es: "No se encontró ningún dispositivo MIDI: revisa el cable o Bluetooth",
+    it: "Nessun dispositivo MIDI trovato: controlla cavo o Bluetooth",
+    pl: "Nie znaleziono urządzenia MIDI – sprawdź kabel/Bluetooth",
+    uk: "MIDI-пристрій не знайдено – перевір кабель/Bluetooth",
+    ur: "کوئی MIDI آلہ نہیں ملا – کیبل/بلوٹوتھ چیک کریں",
+    tr: "MIDI cihazı bulunamadı – kabloyu veya Bluetooth’u kontrol et",
+    ar: "لم يُعثر على جهاز MIDI – تحقّق من الكابل أو البلوتوث"
+  },
+  "Dein Browser braucht einen kurzen Klick, um MIDI für diese Sitzung freizugeben.": {
+    fr: "Ton navigateur a besoin d’un clic pour activer le MIDI pour cette session.",
+    es: "Tu navegador necesita un clic para activar MIDI en esta sesión.",
+    it: "Il browser richiede un clic per attivare il MIDI in questa sessione.",
+    pl: "Przeglądarka wymaga kliknięcia, aby włączyć MIDI w tej sesji.",
+    uk: "Браузеру потрібен один клік, щоб увімкнути MIDI для цієї сесії.",
+    ur: "اس سیشن کے لیے MIDI فعال کرنے کو آپ کے براؤزر کو ایک کلک درکار ہے۔",
+    tr: "Tarayıcının bu oturumda MIDI’yi etkinleştirmesi için kısa bir tıklama gerekiyor.",
+    ar: "يحتاج متصفحك إلى نقرة سريعة لتفعيل MIDI لهذه الجلسة."
+  },
+  "Firefox-Hinweis: Nachträglich angeschlossene Keyboards erkennt Firefox nicht immer automatisch. Tippe auf „Geräte neu suchen“ – falls es nicht erscheint, starte Firefox mit angeschlossenem Keyboard neu (Chrome/Edge unterstützen direktes Plug & Play).": {
+    fr: "Info Firefox : Firefox ne détecte pas toujours les claviers branchés après le démarrage. Clique sur « Actualiser les appareils » ; s’il n’apparaît pas, redémarre Firefox avec le clavier branché (Chrome/Edge prennent en charge le plug & play direct).",
+    es: "Nota de Firefox: Firefox no siempre detecta teclados conectados después de abrirlo. Pulsa «Buscar de nuevo»; si sigue sin aparecer, reinicia Firefox con el teclado conectado (Chrome/Edge admiten conexión directa).",
+    it: "Nota Firefox: Firefox non rileva sempre le tastiere collegate dopo l’avvio. Tocca «Cerca dispositivi»; se non appare, riavvia Firefox con la tastiera collegata (Chrome/Edge supportano il plug & play diretto).",
+    pl: "Wskazówka dla Firefoksa: Firefox nie zawsze wykrywa klawiatury podłączone po uruchomieniu. Kliknij „Szukaj urządzeń ponownie” – jeśli się nie pojawi, uruchom Firefoksa ponownie z podłączoną klawiaturą (Chrome/Edge obsługują plug & play).",
+    uk: "Порада для Firefox: Firefox не завжди виявляє клавіатури, підключені після запуску. Натисни «Оновити пристрої» — якщо не з’явиться, перезапусти Firefox із підключеною клавіатурою (Chrome/Edge підтримують пряме підключення).",
+    ur: "فائرفاکس نوٹ: بعد میں لگائے گئے کی بورڈز کو فائرفاکس ہمیشہ خودکار نہیں پہچانتا۔ «آلات دوبارہ تلاش کریں» دبائیں – اگر پھر بھی نہ دکھے تو کی بورڈ لگا کر فائرفاکس دوبارہ شروع کریں (Chrome/Edge فوری Plug & Play سپورٹ کرتے ہیں)۔",
+    tr: "Firefox notu: Firefox sonradan bağlanan klavyeleri her zaman otomatik algılamaz. “Cihazları yeniden tara”ya dokun – görünmezse klavye bağlıyken Firefox’u yeniden başlat (Chrome/Edge anında tak-çalıştır destekler).",
+    ar: "ملاحظة لـ Firefox: لا يكتشف Firefox دائمًا لوحات المفاتيح الموصولة بعد تشغيله. اضغط «إعادة البحث عن الأجهزة» — وإذا لم تظهر، أعد تشغيل Firefox والآلة موصولة (يدعم Chrome/Edge التوصيل الفوري)."
+  },
+  "Jetzt verbinden": {
+    fr: "Connecter",
+    es: "Conectar ahora",
+    it: "Connetti ora",
+    pl: "Połącz teraz",
+    uk: "Підключити",
+    ur: "ابھی جوڑیں",
+    tr: "Şimdi bağla",
+    ar: "توصيل الآن"
+  },
+  "Neu suchen": {
+    fr: "Actualiser",
+    es: "Buscar de nuevo",
+    it: "Aggiorna",
+    pl: "Szukaj ponownie",
+    uk: "Оновити",
+    ur: "دوبارہ تلاش",
+    tr: "Yeniden tara",
+    ar: "إعادة البحث"
   }
 });

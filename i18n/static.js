@@ -6820,6 +6820,30 @@ registerColocatedStatic({
     tr: "MIDI cihazı",
     ar: "جهاز MIDI"
   },
+  "settings.midiActivateBtn": {
+    de: "MIDI jetzt verbinden",
+    en: "Connect MIDI now",
+    fr: "Connecter MIDI maintenant",
+    es: "Conectar MIDI ahora",
+    it: "Connetti MIDI ora",
+    pl: "Połącz MIDI teraz",
+    uk: "Підключити MIDI зараз",
+    ur: "ابھی MIDI جوڑیں",
+    tr: "MIDI’yi şimdi bağla",
+    ar: "توصيل MIDI الآن"
+  },
+  "settings.midiRescanBtn": {
+    de: "Geräte neu suchen",
+    en: "Rescan devices",
+    fr: "Actualiser les appareils",
+    es: "Buscar de nuevo",
+    it: "Cerca dispositivi",
+    pl: "Szukaj urządzeń ponownie",
+    uk: "Оновити пристрої",
+    ur: "آلات دوبارہ تلاش کریں",
+    tr: "Cihazları yeniden tara",
+    ar: "إعادة البحث عن الأجهزة"
+  },
   "settings.midiBleScanBtn": {
     de: "Bluetooth-MIDI-Instrument suchen",
     en: "Scan for Bluetooth MIDI instrument",

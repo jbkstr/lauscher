@@ -19178,6 +19178,28 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   flex-direction: column;
   gap: 0.55rem;
 }
+.midi-quick-actions {
+  margin-top: 0.45rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.midi-device-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.25rem;
+}
+.midi-rescan-btn {
+  padding: 0.26rem 0.62rem !important;
+  font-size: 0.76rem !important;
+  min-height: 30px;
+}
+.midi-firefox-hint {
+  margin-top: 0.35rem;
+}
 .midi-ble-wrap {
   display: flex;
   flex-direction: column;

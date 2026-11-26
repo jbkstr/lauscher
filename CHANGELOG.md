@@ -2,6 +2,11 @@
 
 All released versions of Lauscher. New sections are created by `python3 scripts/bump-version.py`.
 
+## Unreleased
+
+**Improved**
+- MIDI in Firefox & Web MIDI: avoid redundant `onstatechange` loops when ports open, explicitly open input/output ports (for reliable notes & `CC 122`), watch the browser's MIDI permission state (`navigator.permissions`) so granting Firefox's site-permission add-on connects automatically without losing the enabled setting, add gentle device re-checking when waiting for a keyboard (plus on window focus and opening Settings), and add a one-click "Rescan devices" button with a short Firefox tip.
+
 ## 0.14.0-beta (Build 10) – 2026-11-26
 
 **New**

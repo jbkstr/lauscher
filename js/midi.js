@@ -22,9 +22,15 @@ const DEFAULT_MIDI_PREFS = Object.freeze({
 const _midi = {
   prefs: { ...DEFAULT_MIDI_PREFS },
   transport: "none",         // "native" | "web" | "none"
-  status: "idle",            // "idle" | "unsupported" | "connecting" | "permission-denied" | "ready" | "connected"
+  status: "idle",            // "idle" | "unsupported" | "connecting" | "needs-activation" | "permission-denied" | "ready" | "connected"
   lastErrorName: "",         // z. B. "SecurityError", wenn der Browser den Zugriff ablehnt
   webAccess: null,
+  boundWebInputs: new Map(), // devId -> MIDIInput (verhindert doppelte open()/onstatechange-Schleifen)
+  webPollTimer: 0,
+  webRecheckInFlight: false,
+  permissionStatus: null,
+  permissionState: "unknown", // "unknown" | "granted" | "prompt" | "denied"
+  lastRescanAt: 0,
   nativeListenersBound: false,
   devices: [],               // [{ id, name, manufacturer, type, hasInput, hasOutput }]
   activeNotes: new Set(),    // aktuell gedrückte MIDI-Notennummern (physisch)
@@ -39,6 +45,23 @@ const _midi = {
   localControlApplied: false,
   notationChordHeld: new Set()
 };
+
+function isFirefoxBrowser() {
+  return typeof navigator !== "undefined" && /firefox/i.test(navigator.userAgent || "");
+}
+
+/**
+ * Vergleicht zwei Gerätelisten anhand von ID, Name und Typ.
+ * Verhindert unnötige UI-Neuzeichnungen und CC-122-Wiederholungen, wenn ein Port
+ * lediglich von "closed" auf "open" wechselt (onstatechange-Schleife in Firefox/Chrome).
+ */
+function haveMidiDeviceListsChanged(prevList, nextList) {
+  const norm = (list) => (Array.isArray(list) ? list : [])
+    .map(d => `${d.id || ""}|${d.name || ""}|${d.hasInput !== false ? 1 : 0}|${d.hasOutput ? 1 : 0}`)
+    .sort()
+    .join("\n");
+  return norm(prevList) !== norm(nextList);
+}
 
 // ---------- Reine, testbare Protokoll- & Bewertungsfunktionen ----------
 
@@ -387,7 +410,13 @@ function sendMidiRawMessage(bytes, deviceId = null) {
         if (!selectedDev || output.name !== selectedDev.name) return;
       }
       try {
-        output.send(bytes);
+        if (output.connection !== "open" && typeof output.open === "function") {
+          Promise.resolve(output.open()).then(() => {
+            try { output.send(bytes); } catch (e) {}
+          }).catch(() => {});
+        } else {
+          output.send(bytes);
+        }
       } catch (e) {}
     });
   }
@@ -437,7 +466,86 @@ function playMidiAppTone(midi, velocity = 90, durSec = 0.85) {
   audioEngine.playStep([noteName], durSec, null, "interval", { velocity: velNorm });
 }
 
-// ---------- Verbindung aufbauen & beenden ----------
+// ---------- Verbindung aufbauen, Berechtigung beobachten & beenden ----------
+
+async function queryMidiPermissionState() {
+  if (typeof navigator === "undefined" || !navigator.permissions || typeof navigator.permissions.query !== "function") {
+    return "unknown";
+  }
+  try {
+    const status = await navigator.permissions.query({ name: "midi" });
+    _midi.permissionStatus = status;
+    _midi.permissionState = status.state || "unknown";
+    if (!status._lauscherBound) {
+      status._lauscherBound = true;
+      status.onchange = () => {
+        const nextState = status.state || "unknown";
+        _midi.permissionState = nextState;
+        // Sobald Firefox die Website-Berechtigung nachträglich erteilt (z. B. nach Add-on-Bestätigung),
+        // automatisch verbinden, ohne dass ein zweiter Klick oder Seiten-Neuladen nötig ist
+        if (nextState === "granted" && (_midi.prefs.enabled || _midi.status === "permission-denied" || _midi.status === "needs-activation")) {
+          _midi.prefs.enabled = true;
+          saveMidiPrefs();
+          enableWebMidiTransport({ userInitiated: false, silentRefresh: false });
+        } else if (nextState === "denied" && _midi.prefs.enabled) {
+          _midi.status = "permission-denied";
+          stopWebMidiPollTimer();
+          syncAllMidiUI();
+        }
+      };
+    }
+    return _midi.permissionState;
+  } catch (e) {
+    return "unknown";
+  }
+}
+
+function stopWebMidiPollTimer() {
+  if (_midi.webPollTimer) {
+    clearInterval(_midi.webPollTimer);
+    _midi.webPollTimer = 0;
+  }
+}
+
+/**
+ * Firefox meldet nachträglich angeschlossene MIDI-Geräte nicht immer über onstatechange.
+ * Solange die Berechtigung bereits erteilt ist, kein Gerät verbunden ist und die Seite
+ * sichtbar ist, fragt Lauscher die Geräteliste sanft nach (ohne jemals einen Dialog auszulösen).
+ */
+function syncWebMidiPollTimer() {
+  stopWebMidiPollTimer();
+  if (!_midi.prefs.enabled || _midi.transport !== "web") return;
+  if (_midi.devices.length > 0) return;
+  if (typeof document !== "undefined" && document.visibilityState === "hidden") return;
+  // Nur pollen, wenn Web MIDI bereits einmal bewilligt wurde (nie einen unerwarteten Prompt auslösen!)
+  const hasPermission = Boolean(_midi.webAccess) || _midi.permissionState === "granted";
+  if (!hasPermission) return;
+
+  const settingsOpen = typeof getOpenModalName === "function" && getOpenModalName() === "settings";
+  const intervalMs = settingsOpen ? 3000 : 6000;
+  _midi.webPollTimer = setInterval(() => {
+    if (!_midi.prefs.enabled || _midi.transport !== "web" || _midi.devices.length > 0) {
+      stopWebMidiPollTimer();
+      return;
+    }
+    if (typeof document !== "undefined" && document.visibilityState === "hidden") {
+      stopWebMidiPollTimer();
+      return;
+    }
+    enableWebMidiTransport({ userInitiated: false, silentRefresh: true });
+  }, intervalMs);
+}
+
+function detachWebMidiAccess(access) {
+  if (!access) return;
+  try {
+    access.onstatechange = null;
+    access.inputs?.forEach(input => {
+      if (input) input.onmidimessage = null;
+    });
+  } catch (e) {}
+  _midi.boundWebInputs.clear();
+}
 
 async function enableMidiInput(fromUserGesture = true) {
   _midi.transport = detectMidiTransport();
@@ -451,19 +559,38 @@ async function enableMidiInput(fromUserGesture = true) {
 
   _midi.prefs.enabled = true;
   saveMidiPrefs();
-  // Sofort „Ein“ und „Verbinde …“ zeigen: Firefox wartet hier ggf. auf die Installation des Hilfsprogramms
-  _midi.status = "connecting";
   _midi.lastErrorName = "";
-  syncAllMidiUI();
 
   if (_midi.transport === "native") {
+    _midi.status = "connecting";
+    syncAllMidiUI();
     return enableNativeMidiTransport();
   }
-  return enableWebMidiTransport(fromUserGesture);
+
+  // Beim automatischen Wiederverbinden nach Seitenstart (ohne Klick):
+  // Erst prüfen, ob die Berechtigung bereits erteilt ist – sonst in Firefox keinen
+  // zum Scheitern verurteilten Prompt ohne Nutzergeste auslösen und MIDI nicht still abschalten!
+  const perm = await queryMidiPermissionState();
+  if (!fromUserGesture && perm === "prompt") {
+    _midi.status = "needs-activation";
+    syncAllMidiUI();
+    return false;
+  }
+  if (!fromUserGesture && perm === "denied") {
+    _midi.status = "permission-denied";
+    syncAllMidiUI();
+    return false;
+  }
+
+  // Sofort „Ein“ und „Verbinde …“ zeigen: Firefox wartet hier ggf. auf die Installation des Hilfsprogramms
+  _midi.status = "connecting";
+  syncAllMidiUI();
+  return enableWebMidiTransport({ userInitiated: fromUserGesture, silentRefresh: false });
 }
 
 async function disableMidiInput() {
   stopNativeBleScan();
+  stopWebMidiPollTimer();
   if (_midi.localControlApplied) {
     applyMidiLocalControl(false);
   }
@@ -472,11 +599,8 @@ async function disableMidiInput() {
   saveMidiPrefs();
 
   if (_midi.transport === "web" && _midi.webAccess) {
-    try {
-      _midi.webAccess.inputs.forEach(input => {
-        input.onmidimessage = null;
-      });
-    } catch (e) {}
+    detachWebMidiAccess(_midi.webAccess);
+    _midi.webAccess = null;
   } else if (_midi.transport === "native") {
     const plugin = getNativeMidiPlugin();
     if (plugin && typeof plugin.stop === "function") {
@@ -490,29 +614,69 @@ async function disableMidiInput() {
   syncAllMidiUI();
 }
 
-async function enableWebMidiTransport() {
+async function enableWebMidiTransport({ userInitiated = true, silentRefresh = false } = {}) {
+  if (_midi.webRecheckInFlight) return false;
+  _midi.webRecheckInFlight = true;
+  _midi.lastRescanAt = Date.now();
   try {
+    // Beim stillen Nachfragen (z. B. Polling oder Fenster-Fokus) nie einen Berechtigungsdialog erzwingen
+    if (!userInitiated && !_midi.webAccess) {
+      const perm = await queryMidiPermissionState();
+      if (perm !== "granted" && perm !== "unknown") {
+        _midi.status = perm === "denied" ? "permission-denied" : "needs-activation";
+        syncAllMidiUI();
+        return false;
+      }
+    }
+
     const access = await navigator.requestMIDIAccess({ sysex: false });
+    if (!_midi.prefs.enabled) {
+      detachWebMidiAccess(access);
+      return false;
+    }
+
+    const prevAccess = _midi.webAccess;
+    if (prevAccess && prevAccess !== access) {
+      detachWebMidiAccess(prevAccess);
+    }
     _midi.webAccess = access;
+    _midi.permissionState = "granted";
+    _midi.lastErrorName = "";
+
     access.onstatechange = () => {
-      refreshWebMidiDevices();
+      refreshWebMidiDevices({ fromStateChange: true, forceLocalControl: false });
     };
-    refreshWebMidiDevices();
+
+    refreshWebMidiDevices({ fromStateChange: false, forceLocalControl: !silentRefresh });
     return true;
   } catch (err) {
+    if (silentRefresh && _midi.webAccess) {
+      // Stiller Re-Check fehlgeschlagen, bestehende Verbindung behalten
+      return false;
+    }
     _midi.status = "permission-denied";
     _midi.lastErrorName = String(err?.name || "");
-    _midi.prefs.enabled = false;
-    saveMidiPrefs();
+    stopWebMidiPollTimer();
+    if (userInitiated) {
+      // Bei explizitem Klick abgelehnt: Schalter zurück auf Aus, Grund bleibt im Status sichtbar
+      _midi.prefs.enabled = false;
+      saveMidiPrefs();
+    }
+    // Permission-Watcher trotzdem aktiv halten, falls Firefox die Berechtigung kurz danach erteilt
+    queryMidiPermissionState();
     syncAllMidiUI();
     return false;
+  } finally {
+    _midi.webRecheckInFlight = false;
   }
 }
 
-function refreshWebMidiDevices() {
+function refreshWebMidiDevices({ fromStateChange = false, forceLocalControl = false } = {}) {
   if (!_midi.webAccess || !_midi.prefs.enabled) return;
   const list = [];
+  const connectedIds = new Set();
   const outputNames = new Set();
+
   _midi.webAccess.outputs.forEach(out => {
     if (out && out.state === "connected") outputNames.add(out.name || out.id);
   });
@@ -521,6 +685,7 @@ function refreshWebMidiDevices() {
     if (!input || input.state !== "connected") return;
     const devId = input.id;
     const devName = (input.name || "MIDI").trim();
+    connectedIds.add(devId);
     list.push({
       id: devId,
       name: devName,
@@ -529,20 +694,87 @@ function refreshWebMidiDevices() {
       hasInput: true,
       hasOutput: outputNames.has(devName) || _midi.webAccess.outputs.size > 0
     });
-    input.onmidimessage = (ev) => {
-      if (!_midi.prefs.enabled) return;
-      if (!isMidiEventFromSelectedDevice(devId)) return;
-      const parsed = parseMidiMessageBytes(ev.data);
-      parsed.forEach(msg => handleParsedMidiEvent(msg, devId, devName));
-    };
+
+    // Port nur einmalig binden & öffnen – sonst löst jedes onmidimessage = ... erneut statechange aus!
+    if (_midi.boundWebInputs.get(devId) !== input) {
+      _midi.boundWebInputs.set(devId, input);
+      input.onmidimessage = (ev) => {
+        if (!_midi.prefs.enabled) return;
+        if (!isMidiEventFromSelectedDevice(devId)) return;
+        const parsed = parseMidiMessageBytes(ev.data);
+        parsed.forEach(msg => handleParsedMidiEvent(msg, devId, devName));
+      };
+      if (input.connection !== "open" && typeof input.open === "function") {
+        Promise.resolve(input.open()).catch(() => {});
+      }
+    }
   });
 
+  // Getrennte Ports sauber abmelden
+  for (const [oldId, oldPort] of _midi.boundWebInputs.entries()) {
+    if (!connectedIds.has(oldId)) {
+      try { if (oldPort) oldPort.onmidimessage = null; } catch (e) {}
+      _midi.boundWebInputs.delete(oldId);
+    }
+  }
+
+  const prevDevices = _midi.devices;
+  const changed = haveMidiDeviceListsChanged(prevDevices, list);
+  const nextStatus = list.length > 0 ? "connected" : "ready";
+  const statusChanged = _midi.status !== nextStatus;
+
   _midi.devices = list;
-  _midi.status = list.length > 0 ? "connected" : "ready";
-  if (list.length > 0 && shouldSilenceExternalKeyboard()) {
+  _midi.status = nextStatus;
+
+  // Redundantes statechange (nur Port-Status closed -> open) ignorieren:
+  // schließt kein offenes Dropdown und sendet kein unnötiges CC-122-Gewitter
+  if (fromStateChange && !changed && !statusChanged) {
+    return;
+  }
+
+  if (list.length > 0 && shouldSilenceExternalKeyboard() && (changed || forceLocalControl || !_midi.localControlApplied)) {
     applyMidiLocalControl(true);
   }
-  syncAllMidiUI();
+  if (list.length === 0) {
+    _midi.localControlApplied = false;
+  }
+
+  syncWebMidiPollTimer();
+  syncAllMidiUI({ devicesChanged: changed });
+}
+
+async function rescanMidiDevices({ userInitiated = true } = {}) {
+  if (!_midi.prefs.enabled) return false;
+  _midi.transport = detectMidiTransport();
+  if (_midi.transport === "native") {
+    const plugin = getNativeMidiPlugin();
+    if (plugin && typeof plugin.start === "function") {
+      try {
+        const res = await plugin.start();
+        updateNativeDeviceList(res?.devices || []);
+        return true;
+      } catch (e) {}
+    }
+    return false;
+  }
+  if (_midi.transport === "web") {
+    if (userInitiated) {
+      _midi.status = "connecting";
+      syncAllMidiUI();
+    }
+    const ok = await enableWebMidiTransport({ userInitiated, silentRefresh: !userInitiated });
+    if (userInitiated && ok && typeof showAppToast === "function") {
+      const n = getSelectedMidiDevices().length;
+      showAppToast(
+        n > 0
+          ? tf("{n} MIDI-Gerät(e) gefunden", "{n} MIDI device(s) found", { n })
+          : tr("Kein MIDI-Gerät gefunden – prüfe Kabel/Bluetooth", "No MIDI device found — check cable/Bluetooth"),
+        n > 0 ? "success" : "error"
+      );
+    }
+    return ok;
+  }
+  return false;
 }
 
 async function enableNativeMidiTransport() {
@@ -1039,14 +1271,19 @@ function getMidiStatusSummaryText() {
   }
   // Vor „Ausgeschaltet“ prüfen: Nach einer Ablehnung ist MIDI wieder aus, der Grund soll aber sichtbar sein
   if (_midi.status === "permission-denied") {
-    const isFirefox = typeof navigator !== "undefined" && /firefox/i.test(navigator.userAgent || "");
-    const base = isFirefox && _midi.transport === "web"
+    const base = isFirefoxBrowser() && _midi.transport === "web"
       ? tr(
         "MIDI-Zugriff wurde verweigert. Firefox braucht ein Hilfsprogramm (Website-Berechtigung) und erkennt nur Geräte, die schon beim Start angeschlossen waren: Keyboard anschließen, Firefox ganz neu starten, MIDI einschalten und die Installation erlauben. Schon abgelehnt? Unter Add-ons → Website-Berechtigungen prüfen.",
         "MIDI access was denied. Firefox needs a helper add-on (site permission) and only detects devices connected when it starts: plug in your keyboard, fully restart Firefox, turn MIDI on and allow the installation. Already declined? Check Add-ons → Site permissions."
       )
       : tr("MIDI-Zugriff wurde verweigert. Bitte in den Browser- oder App-Einstellungen erlauben.", "MIDI access was denied. Please allow it in your browser or app settings.");
     return _midi.lastErrorName ? `${base} (${_midi.lastErrorName})` : base;
+  }
+  if (_midi.status === "needs-activation") {
+    return tr(
+      "Dein Browser braucht einen kurzen Klick, um MIDI für diese Sitzung freizugeben.",
+      "Your browser needs a quick click to activate MIDI for this session."
+    );
   }
   if (!_midi.prefs.enabled) {
     return tr("Ausgeschaltet – aktiviere MIDI, um ein Digitalpiano oder Keyboard per Bluetooth/USB zu nutzen.", "Off — enable MIDI to play with a Bluetooth or USB digital piano or keyboard.");
@@ -1149,7 +1386,7 @@ function renderMidiBleDevicesUI() {
   });
 }
 
-function syncMidiSettingsUI() {
+function syncMidiSettingsUI(options = {}) {
   _midi.transport = detectMidiTransport();
   const unsupported = _midi.transport === "none";
 
@@ -1170,9 +1407,34 @@ function syncMidiSettingsUI() {
     statusEl.classList.toggle("is-unsupported", unsupported);
   }
 
+  const needsAct = Boolean(_midi.prefs.enabled && _midi.status === "needs-activation" && !unsupported);
+  const quickRow = document.getElementById("midiQuickActionsRow");
+  const activateBtn = document.getElementById("midiActivateBtn");
+  if (quickRow) quickRow.classList.toggle("hidden", !needsAct);
+  if (activateBtn) activateBtn.classList.toggle("hidden", !needsAct);
+
   const optionsWrap = document.getElementById("midiOptionsWrap");
   if (optionsWrap) {
-    optionsWrap.classList.toggle("hidden", !_midi.prefs.enabled || unsupported);
+    optionsWrap.classList.toggle("hidden", !_midi.prefs.enabled || unsupported || needsAct);
+  }
+
+  const ffHint = document.getElementById("midiFirefoxHint");
+  if (ffHint) {
+    const showFfHint = Boolean(
+      _midi.prefs.enabled &&
+      _midi.transport === "web" &&
+      isFirefoxBrowser() &&
+      _midi.devices.length === 0 &&
+      _midi.status !== "connecting" &&
+      _midi.status !== "needs-activation"
+    );
+    ffHint.classList.toggle("hidden", !showFfHint);
+    if (showFfHint) {
+      ffHint.textContent = tr(
+        "Firefox-Hinweis: Nachträglich angeschlossene Keyboards erkennt Firefox nicht immer automatisch. Tippe auf „Geräte neu suchen“ – falls es nicht erscheint, starte Firefox mit angeschlossenem Keyboard neu (Chrome/Edge unterstützen direktes Plug & Play).",
+        "Firefox note: Firefox doesn’t always detect keyboards plugged in after startup. Tap “Rescan devices” — if it still doesn’t show up, restart Firefox with the keyboard connected (Chrome/Edge support instant plug & play)."
+      );
+    }
   }
 
   const appSoundGroup = document.getElementById("midiAppSoundGroup");
@@ -1211,8 +1473,20 @@ function syncMidiSettingsUI() {
     tester.textContent = tr("Spiele eine Taste auf deinem MIDI-Instrument zum Testen …", "Press a key on your MIDI instrument to test …");
   }
 
-  renderMidiDeviceDropdown();
+  // Offenes Geräte-Dropdown nicht während eines stillen Polling-Ticks schließen
+  const dropdownOpen = typeof _openProfileDropdownKey !== "undefined" && _openProfileDropdownKey === "settings-midi-device";
+  if (!dropdownOpen || options.devicesChanged) {
+    renderMidiDeviceDropdown();
+  }
   renderMidiBleDevicesUI();
+
+  // Beim Öffnen der Einstellungen in Web MIDI still nach neu angeschlossenen Geräten schauen (max. alle 2 s)
+  const settingsOpen = typeof getOpenModalName === "function" && getOpenModalName() === "settings";
+  if (settingsOpen && _midi.prefs.enabled && _midi.transport === "web" && _midi.devices.length === 0 &&
+      _midi.webAccess && (Date.now() - _midi.lastRescanAt) > 2000) {
+    syncWebMidiPollTimer();
+    enableWebMidiTransport({ userInitiated: false, silentRefresh: true });
+  }
 }
 
 function isMidiSupportedForExercise(ex) {
@@ -1293,6 +1567,11 @@ function renderInlineMidiPopover() {
           ${escapeHtml(_midi.prefs.notationExactOctave ? tr("Oktave: Exakt", "Octave: Exact") : tr("Oktave: Tolerant", "Octave: Any"))}
         </button>
       ` : ""}
+      ${!connected && _midi.prefs.enabled ? `
+        <button type="button" class="popover-pill-btn" data-midi-pop="rescan">
+          ${escapeHtml(_midi.status === "needs-activation" ? tr("Jetzt verbinden", "Connect now") : tr("Neu suchen", "Rescan"))}
+        </button>
+      ` : ""}
       <button type="button" class="popover-pill-btn" data-midi-pop="openSettings">
         ${escapeHtml(tr("Einstellungen …", "Settings …"))}
       </button>
@@ -1313,6 +1592,12 @@ function renderInlineMidiPopover() {
         saveMidiPrefs();
         syncAllMidiUI();
         renderInlineMidiPopover();
+      } else if (act === "rescan") {
+        if (_midi.status === "needs-activation") {
+          enableMidiInput(true).then(() => renderInlineMidiPopover());
+        } else {
+          rescanMidiDevices({ userInitiated: true }).then(() => renderInlineMidiPopover());
+        }
       } else if (act === "openSettings") {
         closeInlineMidiPopover();
         if (typeof openSettingsModal === "function") openSettingsModal("midi");
@@ -1342,8 +1627,8 @@ function closeInlineMidiPopover() {
   if (chip) chip.setAttribute("aria-expanded", "false");
 }
 
-function syncAllMidiUI() {
-  syncMidiSettingsUI();
+function syncAllMidiUI(options = {}) {
+  syncMidiSettingsUI(options);
   syncMidiStatusChips();
   if (typeof syncMidiPlayPadUI === "function") syncMidiPlayPadUI();
 }
@@ -1352,6 +1637,7 @@ function syncAllMidiUI() {
 
 function onMidiAppBackground() {
   stopNativeBleScan();
+  stopWebMidiPollTimer();
   clearMidiHeldNotes();
   if (_midi.localControlApplied) {
     applyMidiLocalControl(false);
@@ -1359,7 +1645,15 @@ function onMidiAppBackground() {
 }
 
 function onMidiAppForeground() {
-  if (_midi.prefs.enabled && shouldSilenceExternalKeyboard() && _midi.devices.length > 0) {
+  if (!_midi.prefs.enabled) return;
+  if (_midi.transport === "web") {
+    syncWebMidiPollTimer();
+    if (_midi.devices.length === 0 && (_midi.webAccess || _midi.permissionState === "granted") &&
+        (Date.now() - _midi.lastRescanAt) > 1500) {
+      enableWebMidiTransport({ userInitiated: false, silentRefresh: true });
+    }
+  }
+  if (shouldSilenceExternalKeyboard() && _midi.devices.length > 0) {
     applyMidiLocalControl(true);
   }
 }
@@ -1410,6 +1704,14 @@ function initMidiModule() {
     else startNativeBleScan();
   });
 
+  document.getElementById("midiRescanBtn")?.addEventListener("click", () => {
+    rescanMidiDevices({ userInitiated: true });
+  });
+
+  document.getElementById("midiActivateBtn")?.addEventListener("click", () => {
+    enableMidiInput(true);
+  });
+
   document.getElementById("exerciseMidiChipBtn")?.addEventListener("click", (e) => {
     e.stopPropagation();
     toggleInlineMidiPopover();
@@ -1419,10 +1721,18 @@ function initMidiModule() {
     if (typeof openSettingsModal === "function") openSettingsModal("midi");
   });
 
-  // Beim Schließen der Seite Local Control sauber wiederherstellen
+  // Beim Schließen der Seite Local Control sauber wiederherstellen;
+  // bei Fenster-Fokus (z. B. Rückkehr aus Audio-MIDI-Setup) in Firefox/Web MIDI still nach Geräten suchen
   if (typeof window !== "undefined") {
     window.addEventListener("pagehide", () => {
       onMidiAppBackground();
+    });
+    window.addEventListener("focus", () => {
+      if (_midi.prefs.enabled && _midi.transport === "web" && _midi.devices.length === 0 &&
+          (_midi.webAccess || _midi.permissionState === "granted") &&
+          (Date.now() - _midi.lastRescanAt) > 1500) {
+        enableWebMidiTransport({ userInitiated: false, silentRefresh: true });
+      }
     });
   }
 
@@ -1430,6 +1740,7 @@ function initMidiModule() {
   if (_midi.prefs.enabled && _midi.transport !== "none") {
     enableMidiInput(false);
   } else {
+    if (_midi.transport === "web") queryMidiPermissionState();
     syncAllMidiUI();
   }
 }
