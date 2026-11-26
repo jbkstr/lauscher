@@ -641,6 +641,21 @@ runTest("MIDI: Protokoll-Parser (NoteOn, Vel0-Off, Running Status, Sustain, Real
   assert.equal(ev4[0].midi, 64);
 });
 
+runTest("MIDI: Geräteauswahl übersteht geänderte IDs und blockiert nie still", () => {
+  const devices = [
+    { id: "3Kb9+/Zq7w==", name: "Digital Piano", hasInput: true },
+    { id: "x1", name: "Pad Controller", hasInput: true }
+  ];
+  assert.equal(sb.resolveMidiDeviceSelection("all", "", devices), "all");
+  assert.equal(sb.resolveMidiDeviceSelection("x1", "Pad Controller", devices), "x1");
+  // Firefox vergibt nach Neustart eine neue ID → per Name wiederfinden
+  assert.equal(sb.resolveMidiDeviceSelection("alteID==", "Digital Piano", devices), "3Kb9+/Zq7w==");
+  // Unbekannte ID ohne passenden Namen → alle Geräte statt Stille
+  assert.equal(sb.resolveMidiDeviceSelection("alteID==", "", devices), "all");
+  assert.equal(sb.resolveMidiDeviceSelection("alteID==", "Anderes Gerät", devices), "all");
+  assert.equal(sb.resolveMidiDeviceSelection("x1", "Pad Controller", []), "all");
+});
+
 runTest("MIDI: Notenlesen verlangt exakte Oktave & erkennt Oktav-Abweichung", () => {
   const target = { midi: 48, pc: 0 }; // C3
   const hit = sb.evaluateMidiNotationMatch(target, 48, { exactOctave: true });

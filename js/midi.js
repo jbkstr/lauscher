@@ -13,6 +13,7 @@ const MIDI_PREFS_STORAGE_KEY = "lauschebaer_midi_prefs_v1";
 const DEFAULT_MIDI_PREFS = Object.freeze({
   enabled: false,
   selectedDeviceId: "all",
+  selectedDeviceName: "",    // Name zur Wiedererkennung, falls sich die ID ändert (Firefox, Neuverbinden)
   appSound: true,            // Standard: App-eigene Klänge beim MIDI-Spiel
   localControlOff: true,     // Standard: CC 122 = 0 ans E-Piano senden (Eigenklang aus)
   notationExactOctave: true  // Standard: beim Notenlesen die echte Oktave verlangen
@@ -271,6 +272,7 @@ function loadMidiPrefs() {
     return {
       enabled: Boolean(parsed.enabled),
       selectedDeviceId: typeof parsed.selectedDeviceId === "string" && parsed.selectedDeviceId ? parsed.selectedDeviceId : "all",
+      selectedDeviceName: typeof parsed.selectedDeviceName === "string" ? parsed.selectedDeviceName : "",
       appSound: parsed.appSound !== undefined ? Boolean(parsed.appSound) : true,
       localControlOff: parsed.localControlOff !== undefined ? Boolean(parsed.localControlOff) : true,
       notationExactOctave: parsed.notationExactOctave !== undefined ? Boolean(parsed.notationExactOctave) : true
@@ -298,12 +300,37 @@ function isMidiConnected() {
   return Boolean(_midi.prefs.enabled && getSelectedMidiDevices().length > 0);
 }
 
+/**
+ * Ermittelt das tatsächlich aktive Gerät: gespeicherte ID, sonst ein Gerät mit
+ * gleichem Namen (IDs ändern sich z. B. in Firefox oder nach dem Neuverbinden),
+ * sonst "all". So blockiert eine veraltete Auswahl nie still alle Eingaben.
+ */
+function resolveMidiDeviceSelection(selectedId, selectedName, devices) {
+  if (!selectedId || selectedId === "all") return "all";
+  const inputs = Array.isArray(devices) ? devices.filter(d => d && d.hasInput !== false) : [];
+  if (inputs.some(d => d.id === selectedId)) return selectedId;
+  if (selectedName) {
+    const byName = inputs.find(d => d.name === selectedName);
+    if (byName) return byName.id;
+  }
+  return "all";
+}
+
+function getEffectiveMidiDeviceId() {
+  return resolveMidiDeviceSelection(_midi.prefs.selectedDeviceId, _midi.prefs.selectedDeviceName, _midi.devices);
+}
+
+function isMidiEventFromSelectedDevice(devId) {
+  const effective = getEffectiveMidiDeviceId();
+  return effective === "all" || devId === effective;
+}
+
 function getSelectedMidiDevices() {
   if (!Array.isArray(_midi.devices)) return [];
   const inputs = _midi.devices.filter(d => d.hasInput !== false);
-  if (_midi.prefs.selectedDeviceId === "all") return inputs;
-  const exact = inputs.filter(d => d.id === _midi.prefs.selectedDeviceId);
-  return exact.length > 0 ? exact : inputs;
+  const effective = getEffectiveMidiDeviceId();
+  if (effective === "all") return inputs;
+  return inputs.filter(d => d.id === effective);
 }
 
 function getNativeMidiPlugin() {
@@ -343,7 +370,7 @@ function shouldSilenceExternalKeyboard() {
 }
 
 function sendMidiRawMessage(bytes, deviceId = null) {
-  const targetId = deviceId || _midi.prefs.selectedDeviceId || "all";
+  const targetId = deviceId || getEffectiveMidiDeviceId();
   if (_midi.transport === "native") {
     const plugin = getNativeMidiPlugin();
     if (!plugin || typeof plugin.sendMessage !== "function") return;
@@ -498,7 +525,7 @@ function refreshWebMidiDevices() {
     });
     input.onmidimessage = (ev) => {
       if (!_midi.prefs.enabled) return;
-      if (_midi.prefs.selectedDeviceId !== "all" && devId !== _midi.prefs.selectedDeviceId) return;
+      if (!isMidiEventFromSelectedDevice(devId)) return;
       const parsed = parseMidiMessageBytes(ev.data);
       parsed.forEach(msg => handleParsedMidiEvent(msg, devId, devName));
     };
@@ -526,7 +553,7 @@ async function enableNativeMidiTransport() {
       if (!_midi.prefs.enabled || !ev) return;
       const devId = String(ev.deviceId || "");
       const devName = String(ev.deviceName || "MIDI");
-      if (_midi.prefs.selectedDeviceId !== "all" && devId !== _midi.prefs.selectedDeviceId) return;
+      if (!isMidiEventFromSelectedDevice(devId)) return;
       const parsed = parseMidiMessageBytes([ev.status & 0xFF, ev.data1 & 0x7F, ev.data2 & 0x7F]);
       parsed.forEach(msg => handleParsedMidiEvent(msg, devId, devName));
     });
@@ -1047,7 +1074,7 @@ function renderMidiDeviceDropdown() {
       label: d.type === "bluetooth" ? `${d.name} (Bluetooth)` : d.name
     }))
   ];
-  const validKey = options.some(o => o.key === _midi.prefs.selectedDeviceId) ? _midi.prefs.selectedDeviceId : "all";
+  const validKey = getEffectiveMidiDeviceId();
   renderProfileSingleDropdown({
     containerEl: container,
     key: "settings-midi-device",
@@ -1057,6 +1084,7 @@ function renderMidiDeviceDropdown() {
     onToggle: () => renderMidiDeviceDropdown(),
     onSelect: (nextKey) => {
       _midi.prefs.selectedDeviceId = nextKey;
+      _midi.prefs.selectedDeviceName = nextKey === "all" ? "" : (_midi.devices.find(d => d.id === nextKey)?.name || "");
       saveMidiPrefs();
       syncMidiLocalControlState();
       syncAllMidiUI();
