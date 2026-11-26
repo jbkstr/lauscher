@@ -14,6 +14,9 @@ samples/*
 # Mobile-Bundle enthält alle Samples inline → nur lokal bauen (scripts/build-mobile-bundle.py)
 lauscher-mobile.html
 
+# Rohbilder aus Gemini (groß, nur Ausgangsmaterial; eingebaut wird über samples/mascot-bundle.js)
+design/gemini-output/
+
 # Editoren & Tools
 .vscode/
 .idea/
