@@ -2349,10 +2349,212 @@ function pickNotationGrandClef(ex) {
   return clefId;
 }
 
+function findNotationStaffStepsForLetter(clefId, letterIdx, minStep, maxStep) {
+  const res = [];
+  for (let s = minStep; s <= maxStep; s++) {
+    const probe = getNotationNoteFromStaffStep(clefId, s, 0);
+    if (NOTATION_LETTERS.indexOf(probe.letter) === letterIdx) res.push(s);
+  }
+  return res;
+}
+
+function buildNotationGrandMultiEntry(trebleTones, bassTones, keySig, chordSymbol = "") {
+  const sortedBass = [...bassTones].sort((a, b) => a.midi - b.midi);
+  const sortedTreble = [...trebleTones].sort((a, b) => a.midi - b.midi);
+  const allTones = [...sortedBass, ...sortedTreble].sort((a, b) => a.midi - b.midi);
+  const targetMidis = [...new Set(allTones.map(t => t.midi))].sort((a, b) => a - b);
+  const pcs = [...new Set(allTones.map(t => t.pc))];
+  const lhText = sortedBass.map(t => t.displayName).join("–");
+  const rhText = sortedTreble.map(t => t.displayName).join("–");
+  const handSummary = `${lhText} + ${rhText}`;
+  const displayName = chordSymbol ? `${chordSymbol} (${handSummary})` : handSummary;
+
+  return {
+    ...allTones[0],
+    isGrandMulti: true,
+    isChord: true,
+    clefId: "grand",
+    keySignatureId: keySig,
+    trebleTones: sortedTreble,
+    bassTones: sortedBass,
+    chordTones: allTones,
+    targetMidis,
+    pcs,
+    playNotes: allTones.map(t => t.noteName),
+    chordSymbol: chordSymbol || "",
+    displayName,
+    shortName: chordSymbol || handSummary,
+    toneNames: allTones.map(t => t.displayName).join(" · "),
+    handSummary,
+    key: `grand:${targetMidis.join(",")}`
+  };
+}
+
+function pickNotationGrandSingleNote(ex, prevNote = null) {
+  const keySig = normalizeNotationKeySigId(ex.keySignatureId || "none");
+  const clefId = pickNotationGrandClef(ex);
+  if ((ex.level || 1) === 1) {
+    return pickRandomNotationNoteItem(clefId, 1, prevNote, keySig);
+  }
+  // Stufe 2: ±2 Hilfslinien + Versetzungszeichen (♯/♭)
+  for (let attempt = 0; attempt < 24; attempt++) {
+    const step = -4 + Math.floor(Math.random() * 17); // -4..12 (±2 Hilfslinien)
+    const probe = getNotationNoteFromStaffStep(clefId, step, 0, keySig);
+    let acc = getKeySignatureAccidentalForLetter(keySig, probe.letter);
+    if (keySig === "none" && Math.random() < 0.36) {
+      acc = Math.random() < 0.5 ? 1 : -1;
+      // Doppelte Enharmonik (Eis/His/Ces/Fes) vermeiden
+      if ((probe.letter === "E" || probe.letter === "B") && acc === 1) acc = 0;
+      if ((probe.letter === "C" || probe.letter === "F") && acc === -1) acc = 0;
+    } else if (keySig !== "none" && Math.random() < 0.14) {
+      acc = acc === 0 ? (Math.random() < 0.5 ? 1 : -1) : 0;
+      if ((probe.letter === "E" || probe.letter === "B") && acc === 1) acc = getKeySignatureAccidentalForLetter(keySig, probe.letter);
+      if ((probe.letter === "C" || probe.letter === "F") && acc === -1) acc = getKeySignatureAccidentalForLetter(keySig, probe.letter);
+    }
+    const item = getNotationNoteFromStaffStep(clefId, step, acc, keySig);
+    if (prevNote && prevNote.midi === item.midi && attempt < 18) continue;
+    return item;
+  }
+  return pickRandomNotationNoteItem(clefId, 2, prevNote, keySig);
+}
+
+const GRAND_STAFF_CHORD_ROOTS_EASY = [
+  { letter: "C", acc: 0 }, { letter: "D", acc: 0 }, { letter: "E", acc: 0 },
+  { letter: "F", acc: 0 }, { letter: "G", acc: 0 }, { letter: "A", acc: 0 },
+  { letter: "B", acc: -1 }, { letter: "E", acc: -1 }
+];
+const GRAND_STAFF_CHORD_ROOTS_ALL = [
+  ...GRAND_STAFF_CHORD_ROOTS_EASY,
+  { letter: "B", acc: 0 }, { letter: "A", acc: -1 }, { letter: "D", acc: -1 }, { letter: "F", acc: 1 }
+];
+
+function buildNotationGrandDyadItem(ex, prevNote = null, extended = false) {
+  const keySig = normalizeNotationKeySigId(ex.keySignatureId || "none");
+  const bassMin = extended ? -2 : 0;
+  const bassMax = extended ? 9 : 8;
+  const trebleMin = extended ? -3 : -2;
+  const trebleMax = extended ? 10 : 8;
+  // Harmonisch angenehme Zweihand-Abstände in diatonischen Stufen (Terz, Quarte, Quinte, Sexte, Oktave, Dezime)
+  const goodSemiMod = new Set([0, 3, 4, 5, 7, 8, 9]);
+
+  for (let attempt = 0; attempt < 48; attempt++) {
+    const bStep = bassMin + Math.floor(Math.random() * (bassMax - bassMin + 1));
+    const tStep = trebleMin + Math.floor(Math.random() * (trebleMax - trebleMin + 1));
+    const bProbe = getNotationNoteFromStaffStep("bass", bStep, 0, keySig);
+    const tProbe = getNotationNoteFromStaffStep("treble", tStep, 0, keySig);
+    let bAcc = getKeySignatureAccidentalForLetter(keySig, bProbe.letter);
+    let tAcc = getKeySignatureAccidentalForLetter(keySig, tProbe.letter);
+    if (extended && keySig === "none") {
+      if (Math.random() < 0.24 && !["E", "B"].includes(bProbe.letter)) bAcc = 1;
+      if (Math.random() < 0.24 && !["C", "F"].includes(tProbe.letter)) tAcc = -1;
+    }
+    const bTone = getNotationNoteFromStaffStep("bass", bStep, bAcc, keySig);
+    const tTone = getNotationNoteFromStaffStep("treble", tStep, tAcc, keySig);
+    const diff = tTone.midi - bTone.midi;
+    if (diff < 7 || diff > 24) continue;
+    if (!goodSemiMod.has(((diff % 12) + 12) % 12) && attempt < 36) continue;
+    if (prevNote?.isGrandMulti && prevNote.targetMidis?.join(",") === `${bTone.midi},${tTone.midi}` && attempt < 40) continue;
+    return buildNotationGrandMultiEntry([tTone], [bTone], keySig);
+  }
+  const fbBass = getNotationNoteFromStaffStep("bass", 3, 0, keySig);
+  const fbTreble = getNotationNoteFromStaffStep("treble", 0, 0, keySig);
+  return buildNotationGrandMultiEntry([fbTreble], [fbBass], keySig);
+}
+
+function buildNotationGrandChordVoicingItem(ex, prevNote = null, allowSevenths = false) {
+  const keySig = normalizeNotationKeySigId(ex.keySignatureId || "none");
+  const rootsPool = allowSevenths ? GRAND_STAFF_CHORD_ROOTS_ALL : GRAND_STAFF_CHORD_ROOTS_EASY;
+  const qualities = allowSevenths
+    ? ["maj", "min", "maj7", "dom7", "min7"]
+    : ["maj", "min"];
+
+  for (let attempt = 0; attempt < 60; attempt++) {
+    const rSpec = rootsPool[Math.floor(Math.random() * rootsPool.length)];
+    const qKey = qualities[Math.floor(Math.random() * qualities.length)];
+    const spelled = spellNotationChord(rSpec.letter, rSpec.acc, qKey);
+    if (!spelled || !Array.isArray(spelled.toneSpecs) || spelled.toneSpecs.length < 3) continue;
+
+    const specs = spelled.toneSpecs;
+    const isSeventh = specs.length >= 4;
+    let bassSpecs;
+    let trebleSpecs;
+
+    if (isSeventh) {
+      // Vierklang auf beide Hände aufgeteilt: (1+5) links + (3+7) rechts oder (1+7) links + (3+5) rechts
+      if (Math.random() < 0.55) {
+        bassSpecs = [specs[0], specs[2]];
+        trebleSpecs = [specs[1], specs[3]];
+      } else {
+        bassSpecs = [specs[0], specs[3]];
+        trebleSpecs = [specs[1], specs[2]];
+      }
+    } else if (Math.random() < 0.5) {
+      // Klassisches Klavier-Voicing: Basston links + Dreiklang rechts (inkl. Umkehrung)
+      const inv = Math.floor(Math.random() * 3);
+      bassSpecs = [specs[0]];
+      trebleSpecs = specs.slice(inv).concat(specs.slice(0, inv));
+    } else {
+      // Offene 3-stimmige Verteilung auf beide Hände: (1+5) links + (3) rechts oder (1) links + (3+5) rechts
+      if (Math.random() < 0.6) {
+        bassSpecs = [specs[0], specs[2]];
+        trebleSpecs = [specs[1]];
+      } else {
+        bassSpecs = [specs[0]];
+        trebleSpecs = [specs[1], specs[2]];
+      }
+    }
+
+    const buildHandTones = (clefId, handSpecs, minStep, maxStep) => {
+      const offsets = [0];
+      for (let i = 1; i < handSpecs.length; i++) {
+        let d = (handSpecs[i].letterIdx - handSpecs[i - 1].letterIdx + 7) % 7;
+        if (d === 0) d = 7;
+        offsets.push(offsets[i - 1] + d);
+      }
+      const span = offsets[offsets.length - 1];
+      if (span > 7) return null; // pro Hand höchstens eine Oktave Spannweite
+      const candidates = findNotationStaffStepsForLetter(clefId, handSpecs[0].letterIdx, minStep, maxStep - span);
+      if (candidates.length === 0) return null;
+      const baseStep = candidates[Math.floor(Math.random() * candidates.length)];
+      return offsets.map((o, idx) => getNotationNoteFromStaffStep(clefId, baseStep + o, handSpecs[idx].acc, keySig));
+    };
+
+    const bassTones = buildHandTones("bass", bassSpecs, -1, 8);
+    const trebleTones = buildHandTones("treble", trebleSpecs, -2, 9);
+    if (!bassTones || !trebleTones) continue;
+    // Keine überkreuzten Hände
+    if (trebleTones[0].midi <= bassTones[bassTones.length - 1].midi + 1) continue;
+
+    const symbol = formatNotationChordSymbol(rSpec.letter, rSpec.acc, qKey);
+    const entry = buildNotationGrandMultiEntry(trebleTones, bassTones, keySig, symbol);
+    if (prevNote?.isGrandMulti && prevNote.key === entry.key && attempt < 48) continue;
+    return entry;
+  }
+
+  // Rückfall: C-Dur (C3 links + E4–G4 rechts)
+  const fbBass = [getNotationNoteFromStaffStep("bass", 3, 0, keySig)];
+  const fbTreble = [
+    getNotationNoteFromStaffStep("treble", 0, 0, keySig),
+    getNotationNoteFromStaffStep("treble", 2, 0, keySig)
+  ];
+  return buildNotationGrandMultiEntry(fbTreble, fbBass, keySig, "C");
+}
+
+function buildNotationGrandItem(ex, prevNote = null) {
+  const lvl = Math.max(1, Math.min(5, parseInt(ex?.level, 10) || 1));
+  if (lvl <= 2) return pickNotationGrandSingleNote(ex, prevNote);
+  if (lvl === 3) return buildNotationGrandDyadItem(ex, prevNote, false);
+  if (lvl === 4) return buildNotationGrandChordVoicingItem(ex, prevNote, false);
+  // Stufe 5: Meisterstufe Blattspiel – Mix aus Zweiklängen, Dreiklängen & Septakkorden in beiden Systemen
+  const roll = Math.random();
+  if (roll < 0.22) return buildNotationGrandDyadItem(ex, prevNote, true);
+  return buildNotationGrandChordVoicingItem(ex, prevNote, true);
+}
+
 function buildNextNotationQueueNote(ex, prevNote = null) {
   if (isNotationChordMode(ex.type)) return buildNotationChordItem(ex, prevNote);
   if (isNotationGrandMode(ex.type)) {
-    return pickRandomNotationNoteItem(pickNotationGrandClef(ex), ex.level, prevNote, ex.keySignatureId || "none");
+    return buildNotationGrandItem(ex, prevNote);
   }
   let clefId = ex.baseClefId || "treble";
   if (ex.isMixedClef && !state.exam?.active) {
@@ -2370,7 +2572,8 @@ function buildNextNotationQueueNote(ex, prevNote = null) {
 
 function populateNotationExerciseQueue(ex) {
   if (!ex) return;
-  const queueLen = state.exam?.active ? 1 : (ex.isChordReading ? 5 : NOTATION_QUEUE_SIZE);
+  const isGrandMultiLvl = Boolean(ex.isGrandStaff && (ex.level || 1) >= 3);
+  const queueLen = state.exam?.active ? 1 : ((ex.isChordReading || isGrandMultiLvl) ? 5 : NOTATION_QUEUE_SIZE);
   ex.notationQueue = [];
   ex.mixedCounter = 0;
   for (let i = 0; i < queueLen; i++) {
@@ -2621,14 +2824,16 @@ function generateNotationExercise(modeOverride = state.settings.mode) {
     generateNotationSymbolsExercise();
     return;
   }
-  const lvl = Math.max(1, Math.min(4, parseInt(state.settings.notationDifficulty, 10) || 1));
+  const isGrand = isNotationGrandMode(mode);
+  const maxLvl = isGrand ? 5 : 4;
+  const lvl = Math.max(1, Math.min(maxLvl, parseInt(state.settings.notationDifficulty, 10) || 1));
   const keyMode = normalizeNotationKeyMode(state.settings.notationKeyMode);
   const initialKeySig = resolveNotationKeySignatureId(keyMode);
   const isMixed = mode === "notation-mixed";
   const initialClef = isMixed
     ? NOTATION_ACTIVE_CLEFS[Math.floor(Math.random() * NOTATION_ACTIVE_CLEFS.length)]
     : (isNotationChordMode(mode) ? (NOTATION_CHORD_LEVELS[lvl]?.clefs?.[0] || "treble") : getNotationClefFromMode(mode));
-  const lvlCfg = NOTATION_LEVELS[lvl] || NOTATION_LEVELS[1];
+  const lvlCfg = NOTATION_LEVELS[Math.min(4, lvl)] || NOTATION_LEVELS[1];
 
   const ex = {
     type: mode,
@@ -2637,11 +2842,12 @@ function generateNotationExercise(modeOverride = state.settings.mode) {
     keySignatureId: initialKeySig,
     keySignaturePhraseProgress: 0,
     keySignaturePhraseLength: NOTATION_KEY_PHRASE_LEN,
-    allowAccidentals: Boolean(lvlCfg.allowAccidentals || initialKeySig !== "none"),
+    allowAccidentals: Boolean(lvlCfg.allowAccidentals || (isGrand && lvl >= 2) || initialKeySig !== "none"),
     isMixedClef: isMixed,
-    isGrandStaff: isNotationGrandMode(mode),
+    isGrandStaff: isGrand,
     isChordReading: isNotationChordMode(mode),
     chordFoundPcs: [],
+    grandFoundMidis: [],
     chordAdvanceLock: false,
     chordAdvanceToken: 0,
     chordAdvanceTimerId: null,
@@ -2669,6 +2875,16 @@ function refreshNotationQueueLocalization(ex) {
   if (!ex || !Array.isArray(ex.notationQueue)) return;
   const exSig = normalizeNotationKeySigId(ex.keySignatureId || "none");
   ex.notationQueue = ex.notationQueue.map(n => {
+    if (n?.isGrandMulti && Array.isArray(n.trebleTones) && Array.isArray(n.bassTones)) {
+      const sig = n.keySignatureId || exSig;
+      const trebleTones = n.trebleTones.map(t =>
+        getNotationNoteFromStaffStep("treble", t.staffStep, t.accidental, sig, t.shownAccidental)
+      );
+      const bassTones = n.bassTones.map(t =>
+        getNotationNoteFromStaffStep("bass", t.staffStep, t.accidental, sig, t.shownAccidental)
+      );
+      return buildNotationGrandMultiEntry(trebleTones, bassTones, sig, n.chordSymbol || "");
+    }
     if (n?.isChord && Array.isArray(n.chordTones)) {
       const sig = n.keySignatureId || exSig;
       const tones = n.chordTones.map(t =>

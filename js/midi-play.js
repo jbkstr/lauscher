@@ -10,11 +10,17 @@
 // =====================================================
 
 const MIDI_PLAY_CONFIG = Object.freeze({
-  autoNextDelayMs: 1450
+  autoNextDelayMs: 1450,
+  // Einschwingzeit für Akkorde am MIDI-Keyboard im Prüfungsmodus (ms ab voller Stimmenzahl)
+  examChordSettleMs: 320
 });
 
 const _midiPlay = {
   autoNextTimer: 0,
+  chordSettleTimer: 0,
+  chordSettleArmed: false,
+  chordLastFullHeld: [],
+  examScaleSteps: [],
   lastPlayedMidi: null,
   fallbackSelectedMidis: new Set(),
   fallbackKbShown: false,
@@ -105,6 +111,49 @@ function evaluateMidiScaleStep(task, stepIdx, playedMidi, anchorMidi = null, opt
   return { ok: false, status: "wrong", nextAnchorMidi: baseAnchor, expectedMidi, expectedPc, playedMidi: pMidi };
 }
 
+/**
+ * Bewertet einen kompletten Tonleiter-Durchlauf im Prüfungsmodus (midi-scale).
+ * Die Nutzer spielen die komplette Tonleiter durch; jeder richtige Schritt bringt anteilige Punkte.
+ */
+function evaluateMidiScaleExamRun(task, playedMidis, options = {}) {
+  const intervals = Array.isArray(task?.scaleIntervals) ? task.scaleIntervals : [];
+  const total = intervals.length;
+  const fallbackRoot = Math.round(Number(task?.rootMidi ?? 60));
+  if (!task || total === 0) {
+    return { total: 0, correctCount: 0, score: 0, status: "wrong", anchorMidi: fallbackRoot, expectedMidis: [], steps: [], wrongSteps: [] };
+  }
+  const played = Array.isArray(playedMidis) ? playedMidis : [];
+  let anchorMidi = null;
+  const steps = [];
+  const expectedMidis = [];
+
+  for (let i = 0; i < total; i++) {
+    const pMidi = i < played.length ? Math.round(Number(played[i])) : NaN;
+    const stepRes = evaluateMidiScaleStep(task, i, pMidi, anchorMidi, options);
+    if (i === 0) {
+      anchorMidi = stepRes.ok && Number.isFinite(stepRes.nextAnchorMidi) ? stepRes.nextAnchorMidi : fallbackRoot;
+    }
+    const expMidi = i === 0
+      ? (stepRes.ok && Number.isFinite(stepRes.expectedMidi) ? stepRes.expectedMidi : fallbackRoot)
+      : anchorMidi + Math.round(Number(intervals[i]));
+    expectedMidis.push(expMidi);
+    steps.push({
+      stepIdx: i,
+      stepNumber: i + 1,
+      expectedMidi: expMidi,
+      playedMidi: Number.isFinite(pMidi) ? pMidi : null,
+      ok: Boolean(stepRes.ok),
+      wrongOctave: stepRes.status === "wrong-octave"
+    });
+  }
+
+  const correctCount = steps.filter(s => s.ok).length;
+  const score = Math.round((correctCount / total) * 100) / 100;
+  const status = correctCount === total ? "correct" : (correctCount > 0 ? "partial" : "wrong");
+  const wrongSteps = steps.filter(s => !s.ok);
+  return { total, correctCount, score, status, anchorMidi, expectedMidis, steps, wrongSteps };
+}
+
 // ---------- Texte & Zusammenfassungen ----------
 
 function getMidiPlayModeTitle(mode) {
@@ -189,10 +238,17 @@ function cancelMidiPlayTimers() {
     clearTimeout(_midiPlay.autoNextTimer);
     _midiPlay.autoNextTimer = 0;
   }
+  if (_midiPlay.chordSettleTimer) {
+    clearTimeout(_midiPlay.chordSettleTimer);
+    _midiPlay.chordSettleTimer = 0;
+  }
 }
 
 function resetMidiPlayRuntimeState() {
   cancelMidiPlayTimers();
+  _midiPlay.chordSettleArmed = false;
+  _midiPlay.chordLastFullHeld = [];
+  _midiPlay.examScaleSteps = [];
   _midiPlay.lastPlayedMidi = null;
   _midiPlay.fallbackSelectedMidis.clear();
   _midiPlay.showSolutionHint = false;
@@ -356,6 +412,11 @@ function handleMidiPlayNoteOn(midi, velocity = 90, options = {}) {
   if (fromScreen) playMidiPlayScreenTone(midi);
   else playMidiAppTone(midi, velocity, 0.85);
   _midiPlay.lastPlayedMidi = midi;
+
+  const isExam = Boolean(state?.exam?.active);
+  if (isExam) {
+    return handleMidiPlayExamNoteOn(ex, midi, { fromScreen });
+  }
 
   if (ex.isSolved) return null;
 
@@ -527,9 +588,224 @@ function handleMidiPlayNoteOn(midi, velocity = 90, options = {}) {
   return null;
 }
 
+// ---------- Prüfungs-Eingabelogik (js/exam.js) ----------
+
+function scheduleMidiExamChordSettle(ex, heldSnapshot) {
+  if (_midiPlay.chordSettleTimer) {
+    clearTimeout(_midiPlay.chordSettleTimer);
+    _midiPlay.chordSettleTimer = 0;
+  }
+  _midiPlay.chordSettleArmed = true;
+  _midiPlay.chordLastFullHeld = [...heldSnapshot];
+  _midiPlay.chordSettleTimer = setTimeout(() => {
+    _midiPlay.chordSettleTimer = 0;
+    const exam = state?.exam;
+    if (!exam || !exam.active || exam.currentAnswered || state.currentExercise !== ex) return;
+    const currentHeld = getMidiPlayActiveChordNotes();
+    const finalHeld = currentHeld.length >= ex.midiTask.targetMidis.length
+      ? currentHeld
+      : (_midiPlay.chordLastFullHeld.length > 0 ? [..._midiPlay.chordLastFullHeld] : currentHeld);
+    _midiPlay.chordSettleArmed = false;
+    _midiPlay.chordLastFullHeld = [];
+    const res = evaluateMidiChordAttempt(ex.midiTask, finalHeld);
+    if (typeof handleExamMidiChordAnswer === "function") {
+      handleExamMidiChordAnswer(ex, finalHeld, res);
+    }
+  }, MIDI_PLAY_CONFIG.examChordSettleMs);
+}
+
+function submitMidiPlayExamChord() {
+  const ex = state?.currentExercise;
+  const exam = state?.exam;
+  if (!exam || !exam.active || exam.currentAnswered || !ex || ex.type !== "midi-chord" || !ex.midiTask) return;
+  const held = getMidiPlayActiveChordNotes();
+  if (held.length === 0) return;
+  cancelMidiPlayTimers();
+  _midiPlay.chordSettleArmed = false;
+  _midiPlay.chordLastFullHeld = [];
+  const res = evaluateMidiChordAttempt(ex.midiTask, held);
+  if (typeof handleExamMidiChordAnswer === "function") {
+    handleExamMidiChordAnswer(ex, held, res);
+  }
+}
+
+function handleMidiPlayExamNoteOn(ex, midi, options = {}) {
+  const exam = state?.exam;
+  if (!exam || !exam.active || exam.currentAnswered || !ex?.midiTask) return null;
+  const fromScreen = Boolean(options.fromScreen);
+  const task = ex.midiTask;
+
+  // 1) Intervalle spielen: 1 Versuch pro Frage
+  if (ex.type === "midi-interval") {
+    const res = evaluateMidiIntervalAttempt(task, midi);
+    if (typeof handleExamMidiIntervalAnswer === "function") {
+      handleExamMidiIntervalAnswer(ex, midi, res, { fromScreen });
+    }
+    return res;
+  }
+
+  // 2) Akkorde greifen: Bildschirm wählt aus + „Antwort prüfen“; MIDI mit kurzer Einschwingzeit
+  if (ex.type === "midi-chord") {
+    const held = getMidiPlayActiveChordNotes();
+    const total = task.targetMidis.length;
+    if (fromScreen) {
+      if (document.getElementById("centralStageCard")) {
+        setCentralStageMode("stage-playing");
+        updateStageMascot("listening");
+        document.getElementById("stageSubtext").textContent = tf("GEWÄHLTE TÖNE {n}/{total}", "SELECTED NOTES {n}/{total}", {
+          n: held.length,
+          total
+        });
+        document.getElementById("stageMainText").textContent = held.map(formatMidiNoteDisplay).join(" · ");
+        document.getElementById("stageFunctionText").textContent = tr(
+          "Tippe auf „Antwort prüfen“, sobald dein Akkord steht.",
+          "Tap “Check Answer” once your chord is ready."
+        );
+      }
+      renderMidiPlayPad(ex);
+      syncMidiPlayFallbackKeyboardMarks(ex);
+      return { ok: false, status: "selecting" };
+    }
+
+    const res = evaluateMidiChordAttempt(task, held);
+    if (res.ok) {
+      cancelMidiPlayTimers();
+      _midiPlay.chordSettleArmed = false;
+      _midiPlay.chordLastFullHeld = [];
+      if (typeof handleExamMidiChordAnswer === "function") {
+        handleExamMidiChordAnswer(ex, held, res);
+      }
+      return res;
+    }
+
+    if (held.length >= total) {
+      scheduleMidiExamChordSettle(ex, held);
+    }
+
+    if (document.getElementById("centralStageCard")) {
+      setCentralStageMode("stage-playing");
+      updateStageMascot("listening");
+      document.getElementById("stageSubtext").textContent = tf("GEGRIFFENE TÖNE {n}/{total}", "HELD NOTES {n}/{total}", {
+        n: held.length,
+        total
+      });
+      document.getElementById("stageMainText").textContent = held.map(formatMidiNoteDisplay).join(" · ");
+      document.getElementById("stageFunctionText").textContent = tr(
+        "Halte alle Akkordtöne gleichzeitig gedrückt!",
+        "Hold all chord tones together!"
+      );
+    }
+    renderMidiPlayPad(ex);
+    return res;
+  }
+
+  // 3) Tonleitern & Modi spielen: Komplett durchspielen mit anteiliger Auswertung am Ende
+  if (ex.type === "midi-scale") {
+    const stepIdx = _midiPlay.examScaleSteps.length;
+    const total = task.scaleIntervals.length;
+    if (stepIdx >= total) return null;
+
+    const stepRes = evaluateMidiScaleStep(task, stepIdx, midi, task.anchorMidi, { exactRoot: fromScreen });
+    if (stepIdx === 0) {
+      task.anchorMidi = stepRes.ok && Number.isFinite(stepRes.nextAnchorMidi)
+        ? stepRes.nextAnchorMidi
+        : Math.round(Number(task.rootMidi));
+    }
+    const expMidi = stepIdx === 0
+      ? (stepRes.ok && Number.isFinite(stepRes.expectedMidi) ? stepRes.expectedMidi : Math.round(Number(task.rootMidi)))
+      : Number(task.anchorMidi) + Number(task.scaleIntervals[stepIdx]);
+
+    _midiPlay.examScaleSteps.push({
+      stepIdx,
+      stepNumber: stepIdx + 1,
+      expectedMidi: expMidi,
+      playedMidi: midi,
+      ok: Boolean(stepRes.ok),
+      wrongOctave: stepRes.status === "wrong-octave"
+    });
+    task.currentStep = _midiPlay.examScaleSteps.length;
+
+    if (task.currentStep >= total) {
+      const playedList = _midiPlay.examScaleSteps.map(s => s.playedMidi);
+      const runRes = evaluateMidiScaleExamRun(task, playedList, { exactRoot: fromScreen });
+      if (typeof handleExamMidiScaleFinished === "function") {
+        handleExamMidiScaleFinished(ex, runRes);
+      }
+      return stepRes;
+    }
+
+    const isBlind = exam.feedbackMode === "blind";
+    if (document.getElementById("centralStageCard")) {
+      if (isBlind) {
+        setCentralStageMode("stage-playing");
+        updateStageMascot("listening");
+        document.getElementById("stageSubtext").textContent = tf("TON {n} VON {tot}", "NOTE {n} OF {tot}", {
+          n: task.currentStep,
+          tot: total
+        });
+        document.getElementById("stageMainText").textContent = formatMidiNoteDisplay(midi);
+        document.getElementById("stageFunctionText").textContent = tr("Weiter aufwärts zum nächsten Ton!", "Continue upward to the next note!");
+      } else if (stepRes.ok) {
+        setCentralStageMode("stage-playing");
+        updateStageMascot("listening");
+        document.getElementById("stageSubtext").textContent = tf("TON {n} VON {tot}", "NOTE {n} OF {tot}", {
+          n: task.currentStep,
+          tot: total
+        });
+        document.getElementById("stageMainText").textContent = `${formatMidiNoteDisplay(midi)} ✓`;
+        document.getElementById("stageFunctionText").textContent = tr("Weiter aufwärts zum nächsten Ton!", "Continue upward to the next note!");
+      } else {
+        setCentralStageMode("stage-wrong");
+        updateStageMascot("thinking");
+        document.getElementById("stageSubtext").textContent = tf("TON {n} VON {tot} • DANEBEN", "NOTE {n} OF {tot} • OFF", {
+          n: task.currentStep,
+          tot: total
+        });
+        document.getElementById("stageMainText").textContent = `${formatMidiNoteDisplay(midi)} (${tr("Ziel", "Target")}: ${formatMidiNoteDisplay(expMidi)})`;
+        document.getElementById("stageFunctionText").textContent = tr("Spiele die Tonleiter einfach weiter bis zum Schluss!", "Keep playing the rest of the scale to the end!");
+      }
+    }
+    renderMidiPlayPad(ex);
+    syncMidiPlayFallbackKeyboardMarks(ex);
+    return stepRes;
+  }
+
+  return null;
+}
+
 function handleMidiPlayNoteOff(midi) {
   const ex = state?.currentExercise;
   if (!ex || ex.type !== "midi-chord" || ex.isSolved) return;
+  const exam = state?.exam;
+  if (exam && exam.active && !exam.currentAnswered) {
+    const held = getMidiPlayActiveChordNotes();
+    if (held.length >= ex.midiTask.targetMidis.length) {
+      const res = evaluateMidiChordAttempt(ex.midiTask, held);
+      if (res.ok) {
+        cancelMidiPlayTimers();
+        _midiPlay.chordSettleArmed = false;
+        _midiPlay.chordLastFullHeld = [];
+        if (typeof handleExamMidiChordAnswer === "function") {
+          handleExamMidiChordAnswer(ex, held, res);
+        }
+        return;
+      }
+      if (_midiPlay.chordSettleArmed) {
+        _midiPlay.chordLastFullHeld = [...held];
+      }
+    } else if (_midiPlay.chordSettleArmed && held.length === 0) {
+      // Alle Tasten nach vollständigem Griff losgelassen → direkt auswerten
+      cancelMidiPlayTimers();
+      const finalHeld = [..._midiPlay.chordLastFullHeld];
+      _midiPlay.chordSettleArmed = false;
+      _midiPlay.chordLastFullHeld = [];
+      const res = evaluateMidiChordAttempt(ex.midiTask, finalHeld);
+      if (typeof handleExamMidiChordAnswer === "function") {
+        handleExamMidiChordAnswer(ex, finalHeld, res);
+      }
+      return;
+    }
+  }
   renderMidiPlayPad(ex);
 }
 
@@ -537,7 +813,8 @@ function handleMidiPlayNoteOff(midi) {
 function toggleMidiPlayFallbackChordNote(midi) {
   const ex = state?.currentExercise;
   if (!ex || ex.type !== "midi-chord" || !ex.midiTask) return;
-  if (ex.isSolved) {
+  const isExam = Boolean(state?.exam?.active);
+  if (ex.isSolved || (isExam && state.exam.currentAnswered)) {
     playMidiPlayScreenTone(midi);
     return;
   }
@@ -550,16 +827,28 @@ function toggleMidiPlayFallbackChordNote(midi) {
       renderMidiPlayPad(ex);
     } else {
       const held = getMidiPlayActiveChordNotes();
-      const res = evaluateMidiChordAttempt(ex.midiTask, held);
       if (document.getElementById("centralStageCard")) {
         setCentralStageMode("stage-playing");
         updateStageMascot("listening");
-        document.getElementById("stageSubtext").textContent = tf("AKKORDTON {found}/{total}", "CHORD TONE {found}/{total}", {
-          found: res.matchedCount,
-          total: res.totalCount
-        });
-        document.getElementById("stageMainText").textContent = held.map(formatMidiNoteDisplay).join(" · ");
-        document.getElementById("stageFunctionText").textContent = tr("Tippe alle Akkordtöne an – nochmal tippen hebt die Auswahl auf.", "Tap all chord tones — tap again to deselect.");
+        if (isExam) {
+          document.getElementById("stageSubtext").textContent = tf("GEWÄHLTE TÖNE {n}/{total}", "SELECTED NOTES {n}/{total}", {
+            n: held.length,
+            total: ex.midiTask.targetMidis.length
+          });
+          document.getElementById("stageMainText").textContent = held.map(formatMidiNoteDisplay).join(" · ");
+          document.getElementById("stageFunctionText").textContent = tr(
+            "Tippe auf „Antwort prüfen“, sobald dein Akkord steht.",
+            "Tap “Check Answer” once your chord is ready."
+          );
+        } else {
+          const res = evaluateMidiChordAttempt(ex.midiTask, held);
+          document.getElementById("stageSubtext").textContent = tf("AKKORDTON {found}/{total}", "CHORD TONE {found}/{total}", {
+            found: res.matchedCount,
+            total: res.totalCount
+          });
+          document.getElementById("stageMainText").textContent = held.map(formatMidiNoteDisplay).join(" · ");
+          document.getElementById("stageFunctionText").textContent = tr("Tippe alle Akkordtöne an – nochmal tippen hebt die Auswahl auf.", "Tap all chord tones — tap again to deselect.");
+        }
       }
       renderMidiPlayPad(ex);
     }
@@ -627,6 +916,8 @@ function renderMidiPlayPad(ex = state?.currentExercise) {
 
   wrap.classList.remove("hidden");
   const task = ex.midiTask;
+  const isExam = Boolean(state?.exam?.active);
+  const isBlindExam = isExam && state.exam.feedbackMode === "blind";
   const connected = typeof isMidiConnected === "function" && isMidiConnected();
   const enabled = typeof isMidiEnabled === "function" && isMidiEnabled();
   wrap.classList.toggle("has-screen-kb", !connected);
@@ -649,7 +940,9 @@ function renderMidiPlayPad(ex = state?.currentExercise) {
   if (ex.type === "midi-interval") {
     if (connected) {
       const rootLbl = task.rootLabel || formatMidiNoteDisplay(task.rootMidi);
-      const hintText = _midiPlay.showSolutionHint || ex.isSolved
+      const revealTarget = !isExam && (_midiPlay.showSolutionHint || ex.isSolved)
+        || (isExam && !isBlindExam && state.exam.currentAnswered);
+      const hintText = revealTarget
         ? `${rootLbl} → ${task.targetLabel || formatMidiNoteDisplay(task.targetMidi)}`
         : `${rootLbl} → ?`;
       const lastText = _midiPlay.lastPlayedMidi !== null
@@ -664,11 +957,17 @@ function renderMidiPlayPad(ex = state?.currentExercise) {
     }
   } else if (ex.type === "midi-chord") {
     const held = getMidiPlayActiveChordNotes();
-    const res = evaluateMidiChordAttempt(task, held);
     const total = task.targetMidis.length;
+    const revealNotes = (!isExam && (_midiPlay.showSolutionHint || ex.isSolved))
+      || (isExam && !isBlindExam && state.exam.currentAnswered);
+    const res = isExam ? null : evaluateMidiChordAttempt(task, held);
     const dots = Array.from({ length: total }, (_, idx) => {
-      const filled = ex.isSolved || idx < res.matchedCount;
-      const hintNote = (_midiPlay.showSolutionHint || ex.isSolved) ? formatMidiNoteDisplay(task.targetMidis[idx]) : (idx + 1);
+      const hintNote = revealNotes ? formatMidiNoteDisplay(task.targetMidis[idx]) : (idx + 1);
+      if (isExam) {
+        const recorded = idx < held.length;
+        return `<span class="midi-step-dot${recorded ? " is-recorded" : ""}">${escapeHtml(String(hintNote))}</span>`;
+      }
+      const filled = ex.isSolved || (res && idx < res.matchedCount);
       return `<span class="midi-step-dot${filled ? " is-done" : ""}">${escapeHtml(String(hintNote))}</span>`;
     }).join("");
     const heldLabel = held.length > 0
@@ -681,6 +980,24 @@ function renderMidiPlayPad(ex = state?.currentExercise) {
   } else if (ex.type === "midi-scale") {
     const cur = task.currentStep || 0;
     const stepsHtml = task.scaleNoteNames.map((nm, idx) => {
+      if (isExam) {
+        const rec = _midiPlay.examScaleSteps[idx] || null;
+        const active = !state.exam.currentAnswered && idx === cur;
+        let cls = "";
+        let label = idx === 0 ? nm : "•";
+        if (rec) {
+          if (isBlindExam) {
+            cls = " is-recorded";
+            label = formatMidiNoteDisplay(rec.playedMidi).replace(/\d+$/, "");
+          } else {
+            cls = rec.ok ? " is-done" : " is-wrong";
+            label = nm;
+          }
+        } else if (!isBlindExam && state.exam.currentAnswered) {
+          label = nm;
+        }
+        return `<span class="midi-step-dot${cls}${active ? " is-current" : ""}">${escapeHtml(label)}</span>`;
+      }
       const done = ex.isSolved || idx < cur;
       const active = !ex.isSolved && idx === cur;
       const showName = done || idx === 0 || _midiPlay.showSolutionHint;
@@ -689,14 +1006,24 @@ function renderMidiPlayPad(ex = state?.currentExercise) {
     bodyHtml = `<div class="midi-pad-steps-row is-scale">${stepsHtml}</div>`;
   }
 
+  let actionsHtml = "";
+  if (isExam) {
+    if (ex.type === "midi-chord" && !connected && !state.exam.currentAnswered) {
+      const canSubmit = _midiPlay.fallbackSelectedMidis.size > 0;
+      actionsHtml = `<button type="button" class="btn-primary-action midi-pad-btn" data-midi-pad-action="submit-chord"${canSubmit ? "" : " disabled"}>${escapeHtml(tr("Antwort prüfen", "Check Answer"))}</button>`;
+    }
+  } else {
+    actionsHtml = `
+      <button type="button" class="btn-tool midi-pad-btn" data-midi-pad-action="hint">${escapeHtml(tr("Lösung", "Solution"))}</button>
+      ${ex.isSolved ? `<button type="button" class="btn-primary-action midi-pad-btn" data-midi-pad-action="next">${escapeHtml(tr("Weiter", "Next"))}</button>` : ""}
+    `;
+  }
+
   wrap.innerHTML = `
     <div class="midi-pad-card">
       <div class="midi-pad-top">
         ${statusPillHtml}
-        <div class="midi-pad-mini-actions">
-          <button type="button" class="btn-tool midi-pad-btn" data-midi-pad-action="hint">${escapeHtml(tr("Lösung", "Solution"))}</button>
-          ${ex.isSolved ? `<button type="button" class="btn-primary-action midi-pad-btn" data-midi-pad-action="next">${escapeHtml(tr("Weiter", "Next"))}</button>` : ""}
-        </div>
+        ${actionsHtml ? `<div class="midi-pad-mini-actions">${actionsHtml}</div>` : ""}
       </div>
       ${bodyHtml ? `<div class="midi-pad-body">${bodyHtml}</div>` : ""}
     </div>
@@ -711,6 +1038,8 @@ function renderMidiPlayPad(ex = state?.currentExercise) {
         playMidiPlaySolution(ex);
       } else if (act === "next") {
         generateExercise();
+      } else if (act === "submit-chord") {
+        submitMidiPlayExamChord();
       }
     });
   });
@@ -899,14 +1228,25 @@ function syncMidiPlayFallbackKeyboardMarks(ex = state?.currentExercise) {
   const wrap = document.getElementById("solfegeKeyboardWrap");
   if (!wrap || !wrap.classList.contains("is-midi-fallback") || !ex?.midiTask) return;
   const task = ex.midiTask;
+  const isExam = Boolean(state?.exam?.active);
+  const isBlindExam = isExam && state.exam.feedbackMode === "blind";
   const doneMidis = new Set();
-  if (ex.type === "midi-scale" && Number.isFinite(Number(task.anchorMidi))) {
-    const anchor = Number(task.anchorMidi);
-    for (let i = 0; i < (task.currentStep || 0); i++) doneMidis.add(anchor + Number(task.scaleIntervals[i]));
+  const recordedMidis = new Set();
+  if (ex.type === "midi-scale") {
+    if (isExam) {
+      _midiPlay.examScaleSteps.forEach(s => {
+        if (isBlindExam) recordedMidis.add(s.playedMidi);
+        else if (s.ok) doneMidis.add(s.playedMidi);
+      });
+    } else if (Number.isFinite(Number(task.anchorMidi))) {
+      const anchor = Number(task.anchorMidi);
+      for (let i = 0; i < (task.currentStep || 0); i++) doneMidis.add(anchor + Number(task.scaleIntervals[i]));
+    }
   }
   wrap.querySelectorAll("[data-midi]").forEach(el => {
     const m = parseInt(el.dataset.midi, 10);
-    el.classList.toggle("is-selected", ex.type === "midi-chord" && _midiPlay.fallbackSelectedMidis.has(m));
+    const isSel = (ex.type === "midi-chord" && _midiPlay.fallbackSelectedMidis.has(m)) || recordedMidis.has(m);
+    el.classList.toggle("is-selected", isSel);
     el.classList.toggle("is-done", doneMidis.has(m));
   });
 }
@@ -918,8 +1258,21 @@ function handleMidiPlayFallbackKeyTap(midi, keyEl) {
     toggleMidiPlayFallbackChordNote(midi);
     return;
   }
+  const isExam = Boolean(state?.exam?.active);
   const res = handleMidiPlayNoteOn(midi, 96, { fromScreen: true });
   if (!res || !keyEl) return;
+  if (isExam) {
+    // Im Blind-Modus kein richtig/falsch aufblitzen; bei abgeschlossener Frage markiert js/exam.js dauerhaft
+    if (state.exam.feedbackMode === "blind") {
+      keyEl.classList.add("key-exam-recorded");
+      setTimeout(() => keyEl.classList.remove("key-exam-recorded"), 260);
+    } else if (!state.exam.currentAnswered) {
+      const cls = res.ok ? "key-correct" : "key-wrong";
+      keyEl.classList.add(cls);
+      setTimeout(() => keyEl.classList.remove(cls), 320);
+    }
+    return;
+  }
   const cls = res.ok ? "key-correct" : "key-wrong";
   keyEl.classList.add(cls);
   setTimeout(() => keyEl.classList.remove(cls), 320);

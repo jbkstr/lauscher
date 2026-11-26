@@ -1326,7 +1326,7 @@ const MIX_MODE_CATALOG = {
   "notation-bass":         { label: "Notation • Bassschlüssel",     levels: [1, 2, 3, 4] },
   "notation-alto":         { label: "Notation • Altschlüssel",      levels: [1, 2, 3, 4] },
   "notation-mixed":        { label: "Notation • Schlüssel-Mix",     levels: [1, 2, 3, 4] },
-  "notation-grand":        { label: "Notation • Doppelsystem",      levels: [1, 2, 3, 4] },
+  "notation-grand":        { label: "Notation • Doppelsystem",      levels: [1, 2, 3, 4, 5] },
   "notation-chords":       { label: "Notation • Akkorde lesen",     levels: [1, 2, 3, 4] },
   "notation-symbols":      { label: "Notation • Symbole & Begriffe", levels: [1, 2, 3, 4, 5] }
 };
@@ -1472,6 +1472,45 @@ const EXAM_CATEGORY_LEVELS = {
         },
         modes: ["interval-melodic", "interval-melodic-down", "interval-harmonic", "interval-drone"],
         apply: { intervalDifficulty: 10 }
+      },
+      {
+        id: "midi_interval_l1",
+        levelNumber: 1,
+        examGroup: "play",
+        badge: { de: "Spielen • Stufe 1", en: "Play • Level 1" },
+        title: { de: "Intervalle spielen • Grundlagen", en: "Play Intervals • Foundations" },
+        desc: {
+          de: "Prime, Terzen, Quarte, Quinte & Oktave aufwärts am MIDI-Keyboard oder auf der Klaviatur",
+          en: "Unison, 3rds, 4th, 5th & octave ascending on MIDI or on-screen keyboard"
+        },
+        modes: ["midi-interval"],
+        apply: { midiIntervalDifficulty: 2, midiIntervalDirection: "up" }
+      },
+      {
+        id: "midi_interval_l2",
+        levelNumber: 2,
+        examGroup: "play",
+        badge: { de: "Spielen • Stufe 2", en: "Play • Level 2" },
+        title: { de: "Intervalle spielen • Alle Oktav-Intervalle", en: "Play Intervals • Full Octave" },
+        desc: {
+          de: "Alle 12 Intervalle bis zur Oktave aufwärts & abwärts gemischt spielen",
+          en: "Play all 12 intervals up to the octave in mixed ascending & descending directions"
+        },
+        modes: ["midi-interval"],
+        apply: { midiIntervalDifficulty: 6, midiIntervalDirection: "mixed" }
+      },
+      {
+        id: "midi_interval_l3",
+        levelNumber: 3,
+        examGroup: "play",
+        badge: { de: "Spielen • Stufe 3", en: "Play • Level 3" },
+        title: { de: "Intervalle spielen • Profi (inkl. Nonen)", en: "Play Intervals • Pro (incl. Ninths)" },
+        desc: {
+          de: "Alle Intervalle inkl. Tritonus, kl. & gr. None in gemischten Richtungen",
+          en: "All intervals incl. tritone, minor & major ninth in mixed directions"
+        },
+        modes: ["midi-interval"],
+        apply: { midiIntervalDifficulty: 9, midiIntervalDirection: "mixed" }
       }
     ]
   },
@@ -1521,6 +1560,58 @@ const EXAM_CATEGORY_LEVELS = {
         },
         modes: ["chord-arp-up", "chord-arp-down", "interval-chords", "chord-inversions"],
         apply: { chordDifficulty: 3, chordInversionDifficulty: 3, keyMode: "all" }
+      },
+      {
+        id: "midi_chord_l1",
+        levelNumber: 1,
+        examGroup: "play",
+        badge: { de: "Spielen • Stufe 1", en: "Play • Level 1" },
+        title: { de: "Akkorde greifen • Dur & Moll", en: "Play Chords • Major & Minor" },
+        desc: {
+          de: "Dur- und Moll-Dreiklänge direkt auf dem MIDI-Keyboard oder der Klaviatur greifen",
+          en: "Play major and minor triads directly on MIDI or on-screen keyboard"
+        },
+        modes: ["midi-chord"],
+        apply: { midiChordDifficulty: 1 }
+      },
+      {
+        id: "midi_chord_l2",
+        levelNumber: 2,
+        examGroup: "play",
+        badge: { de: "Spielen • Stufe 2", en: "Play • Level 2" },
+        title: { de: "Akkorde greifen • Alle Dreiklänge", en: "Play Chords • All Triads" },
+        desc: {
+          de: "Dur, Moll, vermindert & übermäßig in allen Tonarten greifen",
+          en: "Play major, minor, diminished & augmented triads across all keys"
+        },
+        modes: ["midi-chord"],
+        apply: { midiChordDifficulty: 2 }
+      },
+      {
+        id: "midi_chord_l3",
+        levelNumber: 3,
+        examGroup: "play",
+        badge: { de: "Spielen • Stufe 3", en: "Play • Level 3" },
+        title: { de: "Akkorde greifen • Umkehrungen", en: "Play Chords • Inversions" },
+        desc: {
+          de: "Dreiklänge in Grundstellung, 1. und 2. Umkehrung mit Basston-Prüfung",
+          en: "Triads in root position, 1st and 2nd inversion with bass-note check"
+        },
+        modes: ["midi-chord"],
+        apply: { midiChordDifficulty: 3 }
+      },
+      {
+        id: "midi_chord_l4",
+        levelNumber: 4,
+        examGroup: "play",
+        badge: { de: "Spielen • Stufe 4", en: "Play • Level 4" },
+        title: { de: "Akkorde greifen • Vierklänge (Sept)", en: "Play Chords • 7th Chords" },
+        desc: {
+          de: "Maj7, Dominant-Sept, Moll-7 & Halbvermindert-7 sicher greifen",
+          en: "Play Maj7, Dom7, Min7 & Half-diminished 7th chords"
+        },
+        modes: ["midi-chord"],
+        apply: { midiChordDifficulty: 4 }
       }
     ]
   },
@@ -1777,6 +1868,45 @@ const EXAM_CATEGORY_LEVELS = {
         },
         modes: ["modes-scale", "modes-char", "modes-cadence"],
         apply: { modesScaleDifficulty: 3, modesCharDifficulty: 3, modesCadenceDifficulty: 2, keyMode: "random" }
+      },
+      {
+        id: "midi_scale_l1",
+        levelNumber: 1,
+        examGroup: "play",
+        badge: { de: "Spielen • Stufe 1", en: "Play • Level 1" },
+        title: { de: "Tonleitern spielen • Dur & Moll", en: "Play Scales • Major & Minor" },
+        desc: {
+          de: "Dur- und natürliche Moll-Tonleitern komplett aufwärts durchspielen (anteilige Wertung)",
+          en: "Play major and natural minor scales ascending in full (partial credit per step)"
+        },
+        modes: ["midi-scale"],
+        apply: { midiScaleDifficulty: 1 }
+      },
+      {
+        id: "midi_scale_l2",
+        levelNumber: 2,
+        examGroup: "play",
+        badge: { de: "Spielen • Stufe 2", en: "Play • Level 2" },
+        title: { de: "Modi spielen • Alle 7 Kirchentonarten", en: "Play Modes • All 7 Church Modes" },
+        desc: {
+          de: "Ionisch bis Lokrisch aufwärts durchspielen mit stufengenauer Fehler-Rückschau",
+          en: "Play Ionian through Locrian ascending with step-by-step error review"
+        },
+        modes: ["midi-scale"],
+        apply: { midiScaleDifficulty: 2 }
+      },
+      {
+        id: "midi_scale_l3",
+        levelNumber: 3,
+        examGroup: "play",
+        badge: { de: "Spielen • Stufe 3", en: "Play • Level 3" },
+        title: { de: "Skalen spielen • Erweitert (+ Pent./Harm.)", en: "Play Scales • Extended (+ Pent./Harm.)" },
+        desc: {
+          de: "Alle Kirchentonarten plus Pentatonik, Harmonisch & Melodisch Moll durchspielen",
+          en: "Play all church modes plus pentatonic, harmonic & melodic minor"
+        },
+        modes: ["midi-scale"],
+        apply: { midiScaleDifficulty: 3 }
       }
     ]
   },

@@ -343,7 +343,7 @@ class AppState {
         resolvedKeyMode = maybeLevel;
       }
     }
-    const maxLvl = isNotationSymbolsMode(validMode) ? 5 : 4;
+    const maxLvl = (isNotationSymbolsMode(validMode) || validMode === "notation-grand") ? 5 : 4;
     const lvl = Math.max(1, Math.min(maxLvl, parseInt(rawLevel, 10) || 1));
     this.settings.mode = validMode;
     this.settings.notationDifficulty = lvl;
@@ -474,7 +474,7 @@ class AppState {
     }
     if (isNotationMode(this.settings.mode)) {
       const isSym = isNotationSymbolsMode(this.settings.mode);
-      const maxLvl = isSym ? 5 : 4;
+      const maxLvl = (isSym || this.settings.mode === "notation-grand") ? 5 : 4;
       const lvl = Math.max(1, Math.min(maxLvl, parseInt(this.settings.notationDifficulty, 10) || 1));
       const clefNames = {
         "notation-treble":  tr("Violinschlüssel", "Treble Clef"),
@@ -1073,9 +1073,9 @@ function applyPracticeProgressToSettings(practice = state?.profile?.practice, { 
   if (next.notationKeyTrainerClef !== undefined && typeof isNotationMode === "function" && !isNotationMode(next.notationKeyTrainerClef)) {
     delete next.notationKeyTrainerClef;
   }
-  // Notensystem-Übungen haben 4 Stufen, nur „Symbole & Begriffe“ hat 5
+  // Notensystem-Übungen haben 4 Stufen, „Doppelsystem“ und „Symbole & Begriffe“ haben 5
   const nextMode = next.mode || state.settings.mode;
-  if (next.notationDifficulty > 4 && typeof isNotationStaffMode === "function" && isNotationStaffMode(nextMode)) {
+  if (next.notationDifficulty > 4 && typeof isNotationStaffMode === "function" && isNotationStaffMode(nextMode) && nextMode !== "notation-grand") {
     next.notationDifficulty = 4;
   }
 

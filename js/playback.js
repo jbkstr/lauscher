@@ -1748,6 +1748,15 @@ async function playSequence(options = {}) {
   }
   // Aktive MIDI-Spielübungen: Grundton/Referenz anspielen (oder nächste Aufgabe wenn gelöst)
   if (isMidiPlayMode(state.currentExercise?.type)) {
+    if (state.exam?.active) {
+      if (state.exam.currentAnswered) {
+        if (state.exam.feedbackMode === "instant") advanceExamQuestion();
+        return;
+      }
+      if (!tryConsumeExamReplay({ isInitialAuto: Boolean(options.examAutoStart) })) return;
+      if (typeof playMidiPlayPrompt === "function") playMidiPlayPrompt(state.currentExercise);
+      return;
+    }
     if (state.currentExercise.isSolved) generateExercise();
     if (typeof playMidiPlayPrompt === "function") playMidiPlayPrompt(state.currentExercise);
     return;

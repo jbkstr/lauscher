@@ -1273,5 +1273,655 @@ registerColocatedPhrases({
     ur: "فائرفاکس اس ونڈو میں Web MIDI فراہم نہیں کر رہا (مثلاً پرائیویٹ ونڈو یا dom.webmidi.enabled بند ہے)۔ Lauscher کو عام فائرفاکس ونڈو یا Chrome/Edge میں کھولیں۔",
     tr: "Firefox bu pencerede Web MIDI sunmuyor (ör. Gizli Pencere veya kapalı dom.webmidi.enabled). Lauscher’ı normal bir Firefox penceresinde ya da Chrome/Edge’de aç.",
     ar: "لا يوفّر Firefox ميزة Web MIDI في هذه النافذة (مثل التصفح الخاص أو تعطيل dom.webmidi.enabled). افتح Lauscher في نافذة Firefox عادية أو في Chrome/Edge."
+  },
+  "Hören & Erkennen": {
+    fr: "Écoute & reconnaissance",
+    es: "Escucha y reconocimiento",
+    it: "Ascolto e riconoscimento",
+    pl: "Słuchanie i rozpoznawanie",
+    uk: "Слухання та розпізнавання",
+    ur: "سننا اور پہچاننا",
+    tr: "Dinleme ve Tanıma",
+    ar: "الاستماع والتمييز"
+  },
+  "Aktiv spielen (MIDI / Klaviatur)": {
+    fr: "Jeu actif (MIDI / clavier)",
+    es: "Interpretación activa (MIDI / teclado)",
+    it: "Esecuzione attiva (MIDI / tastiera)",
+    pl: "Aktywne granie (MIDI / klawiatura)",
+    uk: "Активна гра (MIDI / клавіатура)",
+    ur: "عملی بجاؤ (MIDI / کی بورڈ)",
+    tr: "Aktif Çalma (MIDI / Klavye)",
+    ar: "العزف التفاعلي (MIDI / لوحة المفاتيح)"
+  },
+  "Spiele deine Antworten direkt am MIDI-Keyboard oder auf der Bildschirm-Klaviatur.": {
+    fr: "Joue tes réponses directement sur ton clavier MIDI ou sur le clavier à l’écran.",
+    es: "Toca tus respuestas directamente en tu teclado MIDI o en el teclado en pantalla.",
+    it: "Suona le tue risposte direttamente sulla tastiera MIDI o sulla tastiera su schermo.",
+    pl: "Zagraj odpowiedzi bezpośrednio na klawiaturze MIDI lub na klawiaturze ekranowej.",
+    uk: "Грай відповіді безпосередньо на MIDI-клавіатурі або на екранній клавіатурі.",
+    ur: "اپنے جوابات براہِ راست MIDI کی بورڈ یا اسکرین کی بورڈ پر بجائیں۔",
+    tr: "Yanıtlarını doğrudan MIDI klavyende veya ekran klavyesinde çal.",
+    ar: "اعزف إجاباتك مباشرة على لوحة مفاتيح MIDI أو لوحة المفاتيح على الشاشة."
+  },
+  "Spielen • Stufe 1": {
+    fr: "Jeu • Niveau 1",
+    es: "Tocar • Nivel 1",
+    it: "Suona • Livello 1",
+    pl: "Granie • Poziom 1",
+    uk: "Гра • Рівень 1",
+    ur: "بجانا • سطح 1",
+    tr: "Çalma • Seviye 1",
+    ar: "عزف • المستوى 1"
+  },
+  "Spielen • Stufe 2": {
+    fr: "Jeu • Niveau 2",
+    es: "Tocar • Nivel 2",
+    it: "Suona • Livello 2",
+    pl: "Granie • Poziom 2",
+    uk: "Гра • Рівень 2",
+    ur: "بجانا • سطح 2",
+    tr: "Çalma • Seviye 2",
+    ar: "عزف • المستوى 2"
+  },
+  "Spielen • Stufe 3": {
+    fr: "Jeu • Niveau 3",
+    es: "Tocar • Nivel 3",
+    it: "Suona • Livello 3",
+    pl: "Granie • Poziom 3",
+    uk: "Гра • Рівень 3",
+    ur: "بجانا • سطح 3",
+    tr: "Çalma • Seviye 3",
+    ar: "عزف • المستوى 3"
+  },
+  "Spielen • Stufe 4": {
+    fr: "Jeu • Niveau 4",
+    es: "Tocar • Nivel 4",
+    it: "Suona • Livello 4",
+    pl: "Granie • Poziom 4",
+    uk: "Гра • Рівень 4",
+    ur: "بجانا • سطح 4",
+    tr: "Çalma • Seviye 4",
+    ar: "عزف • المستوى 4"
+  },
+  "Intervalle spielen • Grundlagen": {
+    fr: "Jouer les intervalles • Bases",
+    es: "Tocar intervalos • Fundamentos",
+    it: "Suona gli intervalli • Basi",
+    pl: "Granie interwałów • Podstawy",
+    uk: "Грати інтервали • Основи",
+    ur: "انٹرول بجانا • بنیادیات",
+    tr: "Aralık Çalma • Temeller",
+    ar: "عزف المسافات • الأساسيات"
+  },
+  "Prime, Terzen, Quarte, Quinte & Oktave aufwärts am MIDI-Keyboard oder auf der Klaviatur": {
+    fr: "Unisson, tierces, quarte, quinte et octave ascendants au clavier MIDI ou à l’écran",
+    es: "Unísono, terceras, cuarta, quinta y octava ascendentes en teclado MIDI o en pantalla",
+    it: "Unisono, terze, quarta, quinta e ottava ascendenti su tastiera MIDI o su schermo",
+    pl: "Pryma, tercje, kwarta, kwinta i oktawa w górę na klawiaturze MIDI lub ekranowej",
+    uk: "Прима, терції, кварта, квінта й октава вгору на MIDI- або екранній клавіатурі",
+    ur: "یونی سن، تھرڈز، فورتھ، ففتھ اور اوکٹیو اوپر کی طرف MIDI یا اسکرین کی بورڈ پر",
+    tr: "MIDI veya ekran klavyesinde çıkıcı ünison, üçlüler, dörtlü, beşli ve oktav",
+    ar: "الموحدة والثالثات والرابعة والخامسة والأوكتاف صعودًا على MIDI أو لوحة المفاتيح"
+  },
+  "Intervalle spielen • Alle Oktav-Intervalle": {
+    fr: "Jouer les intervalles • Toute l’octave",
+    es: "Tocar intervalos • Toda la octava",
+    it: "Suona gli intervalli • Tutta l’ottava",
+    pl: "Granie interwałów • Pełna oktawa",
+    uk: "Грати інтервали • Повна октава",
+    ur: "انٹرول بجانا • مکمل اوکٹیو",
+    tr: "Aralık Çalma • Tam Oktav",
+    ar: "عزف المسافات • أوكتاف كامل"
+  },
+  "Alle 12 Intervalle bis zur Oktave aufwärts & abwärts gemischt spielen": {
+    fr: "Jouer les 12 intervalles jusqu’à l’octave en directions montante et descendante mélangées",
+    es: "Tocar los 12 intervalos hasta la octava en direcciones ascendente y descendente mezcladas",
+    it: "Suona tutti i 12 intervalli fino all’ottava in direzioni ascendenti e discendenti miste",
+    pl: "Zagraj wszystkie 12 interwałów do oktawy w mieszanych kierunkach w górę i w dół",
+    uk: "Зіграй усі 12 інтервалів до октави у змішаному напрямку вгору та вниз",
+    ur: "اوکٹیو تک تمام 12 انٹرولز اوپر اور نیچے مخلوط سمتوں میں بجائیں",
+    tr: "Oktava kadar tüm 12 aralığı karışık çıkıcı ve inici yönlerde çal",
+    ar: "اعزف جميع المسافات الـ12 حتى الأوكتاف صعودًا وهبوطًا بشكل مختلط"
+  },
+  "Intervalle spielen • Profi (inkl. Nonen)": {
+    fr: "Jouer les intervalles • Pro (avec neuvièmes)",
+    es: "Tocar intervalos • Pro (incl. novenas)",
+    it: "Suona gli intervalli • Pro (incl. none)",
+    pl: "Granie interwałów • Pro (z nonami)",
+    uk: "Грати інтервали • Профі (з нонами)",
+    ur: "انٹرول بجانا • پرو (بشمول نائنتھ)",
+    tr: "Aralık Çalma • Pro (Dokuzlular dahil)",
+    ar: "عزف المسافات • محترف (مع التاسعة)"
+  },
+  "Alle Intervalle inkl. Tritonus, kl. & gr. None in gemischten Richtungen": {
+    fr: "Tous les intervalles dont triton, 9e mineure et majeure en directions mélangées",
+    es: "Todos los intervalos incl. tritono, 9.ª menor y mayor en direcciones mezcladas",
+    it: "Tutti gli intervalli incl. tritono, 9ª minore e maggiore in direzioni miste",
+    pl: "Wszystkie interwały z trytonem, noną małą i wielką w mieszanych kierunkach",
+    uk: "Усі інтервали, включно з тритоном, малою та великою ноною, у змішаних напрямках",
+    ur: "تمام انٹرولز بشمول ٹرائٹون، مائنر اور میجر نائنتھ مخلوط سمتوں میں",
+    tr: "Karışık yönlerde triton, küçük ve büyük dokuzlu dahil tüm aralıklar",
+    ar: "جميع المسافات بما فيها التريتون والتاسعة الصغيرة والكبيرة في اتجاهات مختلطة"
+  },
+  "Akkorde greifen • Dur & Moll": {
+    fr: "Jouer les accords • Majeur & mineur",
+    es: "Tocar acordes • Mayor y menor",
+    it: "Suona gli accordi • Maggiore e minore",
+    pl: "Granie akordów • Dur i moll",
+    uk: "Брати акорди • Мажор і мінор",
+    ur: "کارڈ بجانا • میجر اور مائنر",
+    tr: "Akor Basma • Majör ve Minör",
+    ar: "عزف الكوردات • كبير وصغير"
+  },
+  "Dur- und Moll-Dreiklänge direkt auf dem MIDI-Keyboard oder der Klaviatur greifen": {
+    fr: "Plaque des triades majeures et mineures au clavier MIDI ou à l’écran",
+    es: "Toca tríadas mayores y menores en el teclado MIDI o en pantalla",
+    it: "Suona triadi maggiori e minori sulla tastiera MIDI o su schermo",
+    pl: "Zagraj trójdźwięki durowe i molowe na klawiaturze MIDI lub ekranowej",
+    uk: "Бери мажорні та мінорні тризвуки на MIDI- або екранній клавіатурі",
+    ur: "میجر اور مائنر ٹرائیڈز براہِ راست MIDI یا اسکرین کی بورڈ پر بجائیں",
+    tr: "Majör ve minör üçlü akorları doğrudan MIDI veya ekran klavyesinde bas",
+    ar: "اعزف الثلاثيات الكبيرة والصغيرة مباشرة على لوحة مفاتيح MIDI أو الشاشة"
+  },
+  "Akkorde greifen • Alle Dreiklänge": {
+    fr: "Jouer les accords • Toutes les triades",
+    es: "Tocar acordes • Todas las tríadas",
+    it: "Suona gli accordi • Tutte le triadi",
+    pl: "Granie akordów • Wszystkie trójdźwięki",
+    uk: "Брати акорди • Усі тризвуки",
+    ur: "کارڈ بجانا • تمام ٹرائیڈز",
+    tr: "Akor Basma • Tüm Üçlü Akorlar",
+    ar: "عزف الكوردات • جميع الثلاثيات"
+  },
+  "Dur, Moll, vermindert & übermäßig in allen Tonarten greifen": {
+    fr: "Majeur, mineur, diminué et augmenté dans toutes les tonalités",
+    es: "Mayor, menor, disminuido y aumentado en todas las tonalidades",
+    it: "Maggiore, minore, diminuito e aumentato in tutte le tonalità",
+    pl: "Dur, moll, zmniejszone i zwiększone we wszystkich tonacjach",
+    uk: "Мажор, мінор, зменшені та збільшені в усіх тональностях",
+    ur: "میجر، مائنر، ڈمنشڈ اور آگمینٹڈ تمام اسکیلز میں بجائیں",
+    tr: "Tüm tonlarda majör, minör, eksik ve artık akorlar bas",
+    ar: "كبير وصغير وناقص وزائد في جميع المقامات"
+  },
+  "Akkorde greifen • Umkehrungen": {
+    fr: "Jouer les accords • Renversements",
+    es: "Tocar acordes • Inversiones",
+    it: "Suona gli accordi • Rivolti",
+    pl: "Granie akordów • Przewroty",
+    uk: "Брати акорди • Обернення",
+    ur: "کارڈ بجانا • انورژنز",
+    tr: "Akor Basma • Çevrimler",
+    ar: "عزف الكوردات • الانقلابات"
+  },
+  "Dreiklänge in Grundstellung, 1. und 2. Umkehrung mit Basston-Prüfung": {
+    fr: "Triades à l’état fondamental, 1er et 2e renversement avec contrôle de la basse",
+    es: "Tríadas en estado fundamental, 1.ª y 2.ª inversión con control del bajo",
+    it: "Triadi allo stato fondamentale, 1° e 2° rivolto con verifica del basso",
+    pl: "Trójdźwięki w pozycji zasadniczej, 1. i 2. przewrocie ze sprawdzaniem basu",
+    uk: "Тризвуки в основному вигляді, 1-му та 2-му оберненні з перевіркою баса",
+    ur: "بنیادی حالت، پہلی اور دوسری انورژن کے ساتھ بیس نوٹ کی جانچ",
+    tr: "Bas notası kontrolüyle kök durum, 1. ve 2. çevrim üçlü akorlar",
+    ar: "ثلاثيات في الوضع الأساسي والانقلاب الأول والثاني مع فحص نغمة الباص"
+  },
+  "Akkorde greifen • Vierklänge (Sept)": {
+    fr: "Jouer les accords • Accords de 7e",
+    es: "Tocar acordes • Cuatríadas (7.ª)",
+    it: "Suona gli accordi • Quadriadi (7ª)",
+    pl: "Granie akordów • Czterodźwięki (septymowe)",
+    uk: "Брати акорди • Септакорди",
+    ur: "کارڈ بجانا • سیونتھ کارڈز",
+    tr: "Akor Basma • Yedili Akorlar",
+    ar: "عزف الكوردات • الكوردات السباعية"
+  },
+  "Maj7, Dominant-Sept, Moll-7 & Halbvermindert-7 sicher greifen": {
+    fr: "Plaque avec assurance Maj7, 7e de dominante, m7 et demi-diminué 7",
+    es: "Toca con seguridad Maj7, 7 de dominante, m7 y semidisminuido 7",
+    it: "Suona con sicurezza Maj7, settima di dominante, m7 e semidiminuito 7",
+    pl: "Pewnie zagraj Maj7, dominantowy 7, m7 oraz półzmniejszony 7",
+    uk: "Впевнено бери Maj7, домінантсептакорд, m7 та напівзменшений 7",
+    ur: "Maj7، ڈومیننٹ 7، مائنر 7 اور ہاف ڈمنشڈ 7 اعتماد کے ساتھ بجائیں",
+    tr: "Maj7, dominant yedili, m7 ve yarı-eksik 7 akorlarını güvenle bas",
+    ar: "اعزف Maj7 وسباعي السائدة وm7 ونصف الناقص بثقة"
+  },
+  "Tonleitern spielen • Dur & Moll": {
+    fr: "Jouer les gammes • Majeur & mineur",
+    es: "Tocar escalas • Mayor y menor",
+    it: "Suona le scale • Maggiore e minore",
+    pl: "Granie skal • Dur i moll",
+    uk: "Грати гами • Мажор і мінор",
+    ur: "اسکیلز بجانا • میجر اور مائنر",
+    tr: "Gam Çalma • Majör ve Minör",
+    ar: "عزف السلالم • كبير وصغير"
+  },
+  "Dur- und natürliche Moll-Tonleitern komplett aufwärts durchspielen (anteilige Wertung)": {
+    fr: "Joue les gammes majeures et mineures naturelles en entier (notation par degré)",
+    es: "Toca escalas mayores y menores naturales completas hacia arriba (puntuación parcial)",
+    it: "Suona scale maggiori e minori naturali complete in salita (punteggio parziale)",
+    pl: "Zagraj pełne skale durowe i molowe naturalne w górę (ocena częściowa)",
+    uk: "Повністю зіграй мажорні та натуральні мінорні гами вгору (часткове оцінювання)",
+    ur: "میجر اور قدرتی مائنر اسکیلز مکمل اوپر کی طرف بجائیں (جزوی اسکور)",
+    tr: "Majör ve doğal minör gamları baştan sona çıkıcı çal (kısmi puanlama)",
+    ar: "اعزف السلالم الكبيرة والصغيرة الطبيعية كاملة صعودًا (تقييم جزئي لكل درجة)"
+  },
+  "Modi spielen • Alle 7 Kirchentonarten": {
+    fr: "Jouer les modes • Les 7 modes",
+    es: "Tocar modos • Los 7 modos",
+    it: "Suona i modi • Tutti i 7 modi",
+    pl: "Granie skal • Wszystkie 7 modusów",
+    uk: "Грати лади • Усі 7 ладів",
+    ur: "موڈز بجانا • تمام 7 چرچ موڈز",
+    tr: "Mod Çalma • Tüm 7 Kilise Modu",
+    ar: "عزف المقامات • الأنماط السبعة"
+  },
+  "Ionisch bis Lokrisch aufwärts durchspielen mit stufengenauer Fehler-Rückschau": {
+    fr: "D’ionien à locrien en montant, avec bilan précis de chaque degré",
+    es: "De jónico a locrio hacia arriba con revisión exacta por grado",
+    it: "Da ionico a locrio in salita con riepilogo dettagliato di ogni grado",
+    pl: "Od jońskiej po lokrycką w górę z dokładnym podglądem błędów na stopniach",
+    uk: "Від іонійського до локрійського вгору з точним розбором помилок по ступенях",
+    ur: "آئونین سے لوکرین تک اوپر کی طرف بجائیں، ہر درجے کی غلطی کی تفصیل کے ساتھ",
+    tr: "İyonyen’den Lokriyen’e çıkıcı çal, adım adım hata incelemesiyle",
+    ar: "من الأيوني إلى اللوكري صعودًا مع مراجعة دقيقة لكل درجة"
+  },
+  "Skalen spielen • Erweitert (+ Pent./Harm.)": {
+    fr: "Jouer les gammes • Étendu (+ pent./harm.)",
+    es: "Tocar escalas • Ampliado (+ pent./arm.)",
+    it: "Suona le scale • Esteso (+ pent./arm.)",
+    pl: "Granie skal • Rozszerzone (+ pent./harm.)",
+    uk: "Грати гами • Розширено (+ пент./гарм.)",
+    ur: "اسکیلز بجانا • توسیع شدہ (+ پینٹا/ہارمونک)",
+    tr: "Gam Çalma • Genişletilmiş (+ Pent./Harm.)",
+    ar: "عزف السلالم • موسّع (+ خماسي/توافقي)"
+  },
+  "Alle Kirchentonarten plus Pentatonik, Harmonisch & Melodisch Moll durchspielen": {
+    fr: "Tous les modes plus pentatonique, mineur harmonique et mélodique en entier",
+    es: "Todos los modos más pentatónica, menor armónica y melódica completas",
+    it: "Tutti i modi più pentatonica, minore armonica e melodica complete",
+    pl: "Wszystkie modusy oraz pentatonika, moll harmoniczna i melodyczna w całości",
+    uk: "Усі лади, а також пентатоніка, гармонічний і мелодичний мінор повністю",
+    ur: "تمام چرچ موڈز بشمول پینٹاٹونک، ہارمونک اور میلوڈک مائنر مکمل بجائیں",
+    tr: "Tüm kilise modları ile pentatonik, armonik ve melodik minörü baştan sona çal",
+    ar: "جميع الأنماط بالإضافة إلى الخماسي والصغير التوافقي واللحني كاملة"
+  },
+  "Antwort prüfen": {
+    fr: "Vérifier",
+    es: "Comprobar",
+    it: "Verifica",
+    pl: "Sprawdź",
+    uk: "Перевірити",
+    ur: "جواب چیک کریں",
+    tr: "Yanıtı Kontrol Et",
+    ar: "تحقق من الإجابة"
+  },
+  "GEWÄHLTE TÖNE {n}/{total}": {
+    fr: "NOTES CHOISIES {n}/{total}",
+    es: "NOTAS ELEGIDAS {n}/{total}",
+    it: "NOTE SCELTE {n}/{total}",
+    pl: "WYBRANE DŹWIĘKI {n}/{total}",
+    uk: "ОБРАНІ НОТИ {n}/{total}",
+    ur: "منتخب سُر {n}/{total}",
+    tr: "SEÇİLEN NOTALAR {n}/{total}",
+    ar: "النغمات المختارة {n}/{total}"
+  },
+  "Tippe auf „Antwort prüfen“, sobald dein Akkord steht.": {
+    fr: "Appuie sur « Vérifier » dès que ton accord est prêt.",
+    es: "Pulsa «Comprobar» cuando tu acorde esté listo.",
+    it: "Tocca «Verifica» appena il tuo accordo è pronto.",
+    pl: "Stuknij „Sprawdź”, gdy Twój akord jest gotowy.",
+    uk: "Натисни «Перевірити», коли твій акорд готовий.",
+    ur: "جب آپ کا کارڈ مکمل ہو جائے تو «جواب چیک کریں» پر ٹیپ کریں۔",
+    tr: "Akorun hazır olduğunda “Yanıtı Kontrol Et”e dokun.",
+    ar: "اضغط «تحقق من الإجابة» عندما يصبح الكورد جاهزًا."
+  },
+  "GEGRIFFENE TÖNE {n}/{total}": {
+    fr: "NOTES TENUES {n}/{total}",
+    es: "NOTAS PULSADAS {n}/{total}",
+    it: "NOTE TENUTE {n}/{total}",
+    pl: "TRZYMANE DŹWIĘKI {n}/{total}",
+    uk: "НАТИСНУТІ НОТИ {n}/{total}",
+    ur: "دبائے گئے سُر {n}/{total}",
+    tr: "BASILI NOTALAR {n}/{total}",
+    ar: "النغمات المضغوطة {n}/{total}"
+  },
+  "TON {n} VON {tot} • DANEBEN": {
+    fr: "NOTE {n} SUR {tot} • À CÔTÉ",
+    es: "NOTA {n} DE {tot} • DESVIADA",
+    it: "NOTA {n} DI {tot} • FUORI",
+    pl: "DŹWIĘK {n} Z {tot} • BŁĄD",
+    uk: "НОТА {n} З {tot} • НЕ ТА",
+    ur: "سُر {n} از {tot} • غلط",
+    tr: "NOTA {n} / {tot} • YANLIŞ",
+    ar: "النغمة {n} من {tot} • غير دقيقة"
+  },
+  "Ziel": {
+    fr: "Cible",
+    es: "Objetivo",
+    it: "Obiettivo",
+    pl: "Cel",
+    uk: "Ціль",
+    ur: "ہدف",
+    tr: "Hedef",
+    ar: "الهدف"
+  },
+  "Spiele die Tonleiter einfach weiter bis zum Schluss!": {
+    fr: "Continue simplement la gamme jusqu’à la fin !",
+    es: "¡Sigue tocando la escala hasta el final!",
+    it: "Continua pure la scala fino alla fine!",
+    pl: "Graj po prostu skalę dalej aż do końca!",
+    uk: "Просто грай гаму далі до самого кінця!",
+    ur: "بس آخر تک اسکیل بجاتے رہیں!",
+    tr: "Gamı sonuna kadar çalmaya devam et!",
+    ar: "واصل عزف السلم حتى النهاية!"
+  },
+  "Richtiger Ton, aber {dir}": {
+    fr: "Bonne note, mais {dir}",
+    es: "Nota correcta, pero {dir}",
+    it: "Nota giusta, ma {dir}",
+    pl: "Dobry dźwięk, ale {dir}",
+    uk: "Правильна нота, але {dir}",
+    ur: "درست سُر، لیکن {dir}",
+    tr: "Doğru nota ama {dir}",
+    ar: "نغمة صحيحة ولكن {dir}"
+  },
+  "Basston musste {bass} sein": {
+    fr: "La basse devait être {bass}",
+    es: "El bajo debía ser {bass}",
+    it: "Il basso doveva essere {bass}",
+    pl: "Basem musiał być dźwięk {bass}",
+    uk: "Басовою нотою мала бути {bass}",
+    ur: "بیس نوٹ {bass} ہونا چاہیے تھا",
+    tr: "Bas notası {bass} olmalıydı",
+    ar: "كان يجب أن تكون نغمة الباص {bass}"
+  },
+  "Töne": {
+    fr: "Notes",
+    es: "Notas",
+    it: "Note",
+    pl: "Dźwięki",
+    uk: "Ноти",
+    ur: "سُر",
+    tr: "Notalar",
+    ar: "النغمات"
+  },
+  "Ton {n}: {got} statt {exp}": {
+    fr: "Note {n} : {got} au lieu de {exp}",
+    es: "Nota {n}: {got} en lugar de {exp}",
+    it: "Nota {n}: {got} invece di {exp}",
+    pl: "Dźwięk {n}: {got} zamiast {exp}",
+    uk: "Нота {n}: {got} замість {exp}",
+    ur: "سُر {n}: {exp} کے بجائے {got}",
+    tr: "Nota {n}: {exp} yerine {got}",
+    ar: "النغمة {n}: {got} بدلًا من {exp}"
+  },
+  "TONLEITER ERFASST": {
+    fr: "GAMME ENREGISTRÉE",
+    es: "ESCALA REGISTRADA",
+    it: "SCALA REGISTRATA",
+    pl: "SKALA ZAPISANA",
+    uk: "ГАМУ ЗАФІКСОВАНО",
+    ur: "اسکیل محفوظ ہو گیا",
+    tr: "GAM KAYDEDİLDİ",
+    ar: "تم تسجيل السلم"
+  },
+  "{ok}/{tot} TÖNE RICHTIG": {
+    fr: "{ok}/{tot} NOTES JUSTES",
+    es: "{ok}/{tot} NOTAS CORRECTAS",
+    it: "{ok}/{tot} NOTE GIUSTE",
+    pl: "{ok}/{tot} POPRAWNYCH DŹWIĘKÓW",
+    uk: "{ok}/{tot} ПРАВИЛЬНИХ НОТ",
+    ur: "{ok}/{tot} درست سُر",
+    tr: "{ok}/{tot} DOĞRU NOTA",
+    ar: "{ok}/{tot} نغمات صحيحة"
+  },
+  "Dein Spiel:": {
+    fr: "Ton jeu :",
+    es: "Tu interpretación:",
+    it: "La tua esecuzione:",
+    pl: "Twoja gra:",
+    uk: "Твоя гра:",
+    ur: "آپ کا بجاؤ:",
+    tr: "Senin çalışın:",
+    ar: "عزفك:"
+  },
+  "Mein Spiel": {
+    fr: "Mon jeu",
+    es: "Mi interpretación",
+    it: "La mia esecuzione",
+    pl: "Moja gra",
+    uk: "Моя гра",
+    ur: "میرا بجاؤ",
+    tr: "Benim Çalışım",
+    ar: "عزفي"
+  },
+  "Klaviersystem mit beiden Schlüsseln gleichzeitig: von Einzelnoten über zweihändige Zweiklänge bis zu Akkorden auf beide Hände verteilt.": {
+    fr: "Système piano avec les deux clés à la fois : des notes seules aux intervalles à deux mains jusqu’aux accords répartis sur les deux mains.",
+    es: "Pentagrama doble de piano con ambas claves a la vez: desde notas sueltas hasta intervalos a dos manos y acordes repartidos entre ambas manos.",
+    it: "Pentagramma doppio per pianoforte con entrambe le chiavi insieme: dalle note singole ai bicordi a due mani fino agli accordi distribuiti su entrambe le mani.",
+    pl: "Pięciolinia fortepianowa z oboma kluczami naraz: od pojedynczych nut, przez dwudźwięki oburącz, aż po akordy rozłożone na obie ręce.",
+    uk: "Фортепіанна подвійна система з обома ключами водночас: від окремих нот і двоголосся обома руками до акордів на дві руки.",
+    ur: "دونوں کلیفز کے ساتھ پیانو گرینڈ اسٹاف: اکیلے سُروں سے دو ہاتھوں کے ڈائڈز اور دونوں ہاتھوں پر تقسیم کارڈز تک۔",
+    tr: "İki anahtarlı piyano çift porte sistemi: tek notalardan iki elle çift seslere ve iki ele dağılmış akorlara kadar.",
+    ar: "مدرّج البيانو المزدوج بالمفتاحين معًا: من النغمات المفردة إلى الثنائيات بكلتا اليدين والكوردات الموزّعة على اليدين."
+  },
+  "Stufe 1: Einzelnoten (Stammtöne)": {
+    fr: "Niveau 1 : Notes seules (naturelles)",
+    es: "Nivel 1: Notas sueltas (naturales)",
+    it: "Livello 1: Note singole (naturali)",
+    pl: "Poziom 1: Pojedyncze nuty (podstawowe)",
+    uk: "Рівень 1: Окремі ноти (натуральні)",
+    ur: "سطح 1: اکیلے سُر (سادہ)",
+    tr: "Seviye 1: Tek Notalar (Doğal)",
+    ar: "المستوى 1: نغمات مفردة (طبيعية)"
+  },
+  "Violin- & Bassschlüssel abwechselnd im 5-Linien-System": {
+    fr: "Clé de sol et clé de fa en alternance sur les 5 lignes",
+    es: "Clave de sol y clave de fa alternando en las 5 líneas",
+    it: "Chiave di violino e di basso alternate sulle 5 righe",
+    pl: "Klucz wiolinowy i basowy naprzemiennie na 5 liniach",
+    uk: "Скрипковий і басовий ключі по черзі на 5 лініях",
+    ur: "5 لکیروں پر ٹریبل اور بیس کلیف باری باری",
+    tr: "5 çizgide dönüşümlü sol ve fa anahtarı",
+    ar: "مفتاح صول وفا بالتناوب على الخطوط الخمسة"
+  },
+  "Stufe 2: Einzelnoten erweitert": {
+    fr: "Niveau 2 : Notes seules étendues",
+    es: "Nivel 2: Notas sueltas ampliadas",
+    it: "Livello 2: Note singole estese",
+    pl: "Poziom 2: Pojedyncze nuty rozszerzone",
+    uk: "Рівень 2: Окремі ноти розширено",
+    ur: "سطح 2: اکیلے سُر (توسیع شدہ)",
+    tr: "Seviye 2: Genişletilmiş Tek Notalar",
+    ar: "المستوى 2: نغمات مفردة موسّعة"
+  },
+  "Beide Schlüssel mit ±2 Hilfslinien & Versetzungszeichen": {
+    fr: "Les deux clés avec ±2 lignes supplémentaires et altérations",
+    es: "Ambas claves con ±2 líneas adicionales y alteraciones",
+    it: "Entrambe le chiavi con ±2 tagli addizionali e alterazioni",
+    pl: "Oba klucze z ±2 liniami dodanymi i znakami chromatycznymi",
+    uk: "Обидва ключі з ±2 додатковими лініями та знаками альтерації",
+    ur: "دونوں کلیفز ±2 اضافی لکیروں اور علامات کے ساتھ",
+    tr: "±2 ek çizgi ve değiştirici işaretlerle her iki anahtar",
+    ar: "المفتاحان مع خطَّين إضافيين وعلامات التحويل"
+  },
+  "Stufe 3: Zweihändige Zweiklänge": {
+    fr: "Niveau 3 : Intervalles à deux mains",
+    es: "Nivel 3: Intervalos a dos manos",
+    it: "Livello 3: Bicordi a due mani",
+    pl: "Poziom 3: Dwudźwięki oburącz",
+    uk: "Рівень 3: Двоголосся обома руками",
+    ur: "سطح 3: دو ہاتھوں کے دو سُر",
+    tr: "Seviye 3: İki Elle Çift Sesler",
+    ar: "المستوى 3: ثنائيات بكلتا اليدين"
+  },
+  "Je 1 Note links (Bass) und rechts (Violin) gleichzeitig": {
+    fr: "1 note à gauche (fa) et 1 note à droite (sol) en même temps",
+    es: "1 nota a la izquierda (fa) y 1 a la derecha (sol) a la vez",
+    it: "1 nota a sinistra (basso) e 1 a destra (violino) insieme",
+    pl: "Po 1 nucie w lewej (bas) i prawej (wiolin) jednocześnie",
+    uk: "По 1 ноті лівою (бас) і правою (скрипковий) одночасно",
+    ur: "بائیں (بیس) اور دائیں (ٹریبل) میں ایک ایک سُر ایک ساتھ",
+    tr: "Solda (fa) 1 ve sağda (sol) 1 nota aynı anda",
+    ar: "نغمة واحدة باليسار (باص) وأخرى باليمين (صول) معًا"
+  },
+  "Stufe 4: Akkorde im Doppelsystem": {
+    fr: "Niveau 4 : Accords sur double portée",
+    es: "Nivel 4: Acordes en pentagrama doble",
+    it: "Livello 4: Accordi su doppio pentagramma",
+    pl: "Poziom 4: Akordy na podwójnej pięciolinii",
+    uk: "Рівень 4: Акорди в подвійній системі",
+    ur: "سطح 4: گرینڈ اسٹاف پر کارڈز",
+    tr: "Seviye 4: Çift Portede Akorlar",
+    ar: "المستوى 4: كوردات في المدرّج المزدوج"
+  },
+  "3–4 Töne: Basston links + Dreiklang/Voicing über beide Hände": {
+    fr: "3–4 notes : basse à gauche + triade/voicing sur les deux mains",
+    es: "3–4 notas: bajo a la izquierda + tríada/voicing entre ambas manos",
+    it: "3–4 note: basso a sinistra + triade/voicing su entrambe le mani",
+    pl: "3–4 dźwięki: bas w lewej + trójdźwięk/voicing na obie ręce",
+    uk: "3–4 ноти: бас ліворуч + тризвук/войсинг на обидві руки",
+    ur: "3–4 سُر: بائیں بیس نوٹ + دونوں ہاتھوں پر ٹرائیڈ/وائسنگ",
+    tr: "3–4 nota: solda bas + iki ele dağılmış üçlü/voicing",
+    ar: "3–4 نغمات: باص باليسار + ثلاثي/توزيع على كلتا اليدين"
+  },
+  "Stufe 5: Meisterstufe Blattspiel": {
+    fr: "Niveau 5 : Maîtrise du déchiffrage",
+    es: "Nivel 5: Maestría en lectura a vista",
+    it: "Livello 5: Maestria di lettura a prima vista",
+    pl: "Poziom 5: Mistrz czytania a vista",
+    uk: "Рівень 5: Майстер читання з аркуша",
+    ur: "سطح 5: سائٹ ریڈنگ ماسٹر",
+    tr: "Seviye 5: Deşifre Ustası",
+    ar: "المستوى 5: إتقان القراءة الوهلية"
+  },
+  "Gemischte Zweiklänge, Dreiklänge & Septakkorde in beiden Systemen": {
+    fr: "Intervalles, triades et accords de 7e mélangés sur les deux portées",
+    es: "Intervalos, tríadas y acordes de 7.ª mezclados en ambos pentagramas",
+    it: "Bicordi, triadi e accordi di 7ª misti su entrambi i pentagrammi",
+    pl: "Mieszane dwudźwięki, trójdźwięki i akordy septymowe na obu pięcioliniach",
+    uk: "Змішані двоголосся, тризвуки та септакорди в обох системах",
+    ur: "دونوں اسٹافز میں مخلوط ڈائڈز، ٹرائیڈز اور سیونتھ کارڈز",
+    tr: "Her iki portede karışık çift sesler, üçlüler ve yedili akorlar",
+    ar: "مزيج من الثنائيات والثلاثيات والكوردات السباعية في المدرّجين"
+  },
+  "Beide Systeme links am MIDI-Keyboard greifen:": {
+    fr: "Joue les deux portées à gauche sur ton clavier MIDI :",
+    es: "Toca ambos pentagramas de la izquierda en tu teclado MIDI:",
+    it: "Suona entrambi i pentagrammi a sinistra sulla tastiera MIDI:",
+    pl: "Zagraj oba systemy po lewej na klawiaturze MIDI:",
+    uk: "Зіграй обидві системи ліворуч на MIDI-клавіатурі:",
+    ur: "بائیں جانب دونوں اسٹافز کو MIDI کی بورڈ پر بجائیں:",
+    tr: "Soldaki her iki porteyi MIDI klavyende çal:",
+    ar: "اعزف المدرّجين على اليسار باستخدام لوحة مفاتيح MIDI:"
+  },
+  "Alle Töne links auf der Klaviatur antippen:": {
+    fr: "Appuie sur toutes les notes à gauche sur le clavier :",
+    es: "Pulsa todas las notas de la izquierda en el teclado:",
+    it: "Tocca tutte le note a sinistra sulla tastiera:",
+    pl: "Stuknij wszystkie dźwięki po lewej na klawiaturze:",
+    uk: "Натисни всі ноти ліворуч на клавіатурі:",
+    ur: "بائیں جانب کے تمام سُر کی بورڈ پر ٹیپ کریں:",
+    tr: "Soldaki tüm notalara klavyede dokun:",
+    ar: "اضغط جميع النغمات على اليسار على لوحة المفاتيح:"
+  },
+  "Einzelnoten • 5 Linien": {
+    fr: "Notes seules • 5 lignes",
+    es: "Notas sueltas • 5 líneas",
+    it: "Note singole • 5 righe",
+    pl: "Pojedyncze nuty • 5 linii",
+    uk: "Окремі ноти • 5 ліній",
+    ur: "اکیلے سُر • 5 لکیریں",
+    tr: "Tek Notalar • 5 Çizgi",
+    ar: "نغمات مفردة • 5 خطوط"
+  },
+  "Einzelnoten • ±2 Hilfsl. + ♯/♭": {
+    fr: "Notes seules • ±2 lignes + ♯/♭",
+    es: "Notas sueltas • ±2 adic. + ♯/♭",
+    it: "Note singole • ±2 tagli + ♯/♭",
+    pl: "Pojedyncze nuty • ±2 linie + ♯/♭",
+    uk: "Окремі ноти • ±2 лінії + ♯/♭",
+    ur: "اکیلے سُر • ±2 اضافی + ♯/♭",
+    tr: "Tek Notalar • ±2 Ek + ♯/♭",
+    ar: "نغمات مفردة • ±2 خط + ♯/♭"
+  },
+  "Zweihändig • Zweiklänge": {
+    fr: "Deux mains • Intervalles",
+    es: "Dos manos • Intervalos",
+    it: "Due mani • Bicordi",
+    pl: "Oburącz • Dwudźwięki",
+    uk: "Обидві руки • Двоголосся",
+    ur: "دو ہاتھ • دو سُر",
+    tr: "İki El • Çift Sesler",
+    ar: "يدان • ثنائيات"
+  },
+  "Akkorde • Beide Hände": {
+    fr: "Accords • Deux mains",
+    es: "Acordes • Dos manos",
+    it: "Accordi • Due mani",
+    pl: "Akordy • Obie ręce",
+    uk: "Акорди • Обидві руки",
+    ur: "کارڈز • دونوں ہاتھ",
+    tr: "Akorlar • İki El",
+    ar: "كوردات • كلتا اليدين"
+  },
+  "Meisterstufe Blattspiel": {
+    fr: "Maîtrise déchiffrage",
+    es: "Maestría lectura",
+    it: "Maestria lettura",
+    pl: "Mistrz a vista",
+    uk: "Майстер з аркуша",
+    ur: "سائٹ ریڈنگ ماسٹر",
+    tr: "Deşifre Ustası",
+    ar: "إتقان القراءة"
+  },
+  "2 Hände (Violin + Bass)": {
+    fr: "2 mains (sol + fa)",
+    es: "2 manos (sol + fa)",
+    it: "2 mani (violino + basso)",
+    pl: "2 ręce (wiolin + bas)",
+    uk: "2 руки (скрипковий + бас)",
+    ur: "2 ہاتھ (ٹریبل + بیس)",
+    tr: "2 El (Sol + Fa)",
+    ar: "يدان (صول + باص)"
+  },
+  "Klaviatur zeigen": {
+    fr: "Afficher le clavier",
+    es: "Mostrar teclado",
+    it: "Mostra tastiera",
+    pl: "Pokaż klawiaturę",
+    uk: "Показати клавіатуру",
+    ur: "کی بورڈ دکھائیں",
+    tr: "Klavyeyi Göster",
+    ar: "إظهار لوحة المفاتيح"
+  },
+  "Klaviatur ausblenden": {
+    fr: "Masquer le clavier",
+    es: "Ocultar teclado",
+    it: "Nascondi tastiera",
+    pl: "Ukryj klawiaturę",
+    uk: "Сховати клавіатуру",
+    ur: "کی بورڈ چھپائیں",
+    tr: "Klavyeyi Gizle",
+    ar: "إخفاء لوحة المفاتيح"
+  },
+  "SAUBER GEGRIFFEN!": {
+    fr: "BIEN PLAQUÉ !",
+    es: "¡BIEN TOCADO!",
+    it: "SUONATO BENE!",
+    pl: "ŚWIETNIE ZAGRANE!",
+    uk: "ЧИСТО ВЗЯТО!",
+    ur: "شاندار بجایا!",
+    tr: "TEMİZ BASILDI!",
+    ar: "عزف متقن!"
+  },
+  "Halte alle Töne in beiden Systemen gleichzeitig gedrückt!": {
+    fr: "Maintiens ensemble toutes les notes des deux portées !",
+    es: "¡Mantén pulsadas a la vez todas las notas de ambos pentagramas!",
+    it: "Tieni premute insieme tutte le note di entrambi i pentagrammi!",
+    pl: "Przytrzymaj jednocześnie wszystkie dźwięki z obu systemów!",
+    uk: "Утримуй одночасно всі ноти в обох системах!",
+    ur: "دونوں اسٹافز کے تمام سُر ایک ساتھ دبائے رکھیں!",
+    tr: "Her iki portedeki tüm notaları aynı anda basılı tut!",
+    ar: "اضغط معًا على جميع النغمات في كلا المدرّجين!"
   }
 });

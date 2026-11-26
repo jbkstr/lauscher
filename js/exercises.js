@@ -2008,6 +2008,7 @@ function renderUI() {
   if (typeof renderMidiPlayPad === "function") renderMidiPlayPad(ex);
   if (typeof syncMidiDirChip === "function") syncMidiDirChip();
   if (typeof syncMidiStatusChips === "function") syncMidiStatusChips();
+  if (typeof syncNotationMidiKeyboardVisibility === "function") syncNotationMidiKeyboardVisibility(ex);
   updatePlayButtonUI(false);
   syncListenOnlyUI();
   if (typeof syncExerciseDemoButtonUI === "function") {

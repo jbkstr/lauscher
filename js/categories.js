@@ -1807,9 +1807,16 @@ function openCategoryPage(categoryKey, options = {}) {
         circleClass: "circle-sage",
         title: tr("Doppelsystem (Violin- &amp; Bassschlüssel)", "Grand Staff (Treble &amp; Bass)"),
         desc: tr(
-          "Klaviersystem mit beiden Schlüsseln gleichzeitig: Die Noten springen zwischen oberem und unterem System – wie beim Klavierspielen mit zwei Händen.",
-          "Piano-style grand staff with both clefs at once: notes jump between the upper and lower staff — just like reading for two hands."
-        )
+          "Klaviersystem mit beiden Schlüsseln gleichzeitig: von Einzelnoten über zweihändige Zweiklänge bis zu Akkorden auf beide Hände verteilt.",
+          "Piano grand staff with both clefs at once: from single notes to two-hand dyads and chords split across both hands."
+        ),
+        levels: [
+          { lvl: 1, badge: "1",     title: tr("Stufe 1: Einzelnoten (Stammtöne)", "Level 1: Single Notes (Naturals)"), sub: tr("Violin- & Bassschlüssel abwechselnd im 5-Linien-System", "Treble & bass clefs alternating on the 5 staff lines") },
+          { lvl: 2, badge: "♯/♭",   nodeClass: "node-circle-compact node-circle-nowrap", title: tr("Stufe 2: Einzelnoten erweitert", "Level 2: Extended Single Notes"), sub: tr("Beide Schlüssel mit ±2 Hilfslinien & Versetzungszeichen", "Both clefs with ±2 ledger lines & accidentals") },
+          { lvl: 3, badge: "1+1",   nodeClass: "node-circle-compact node-circle-nowrap", title: tr("Stufe 3: Zweihändige Zweiklänge", "Level 3: Two-Hand Dyads"), sub: tr("Je 1 Note links (Bass) und rechts (Violin) gleichzeitig", "1 note in bass (LH) and 1 in treble (RH) together") },
+          { lvl: 4, badge: "♫",     title: tr("Stufe 4: Akkorde im Doppelsystem", "Level 4: Grand Staff Chords"), sub: tr("3–4 Töne: Basston links + Dreiklang/Voicing über beide Hände", "3–4 notes: bass note left + triad/voicing across both hands") },
+          { lvl: 5, badge: "★",     title: tr("Stufe 5: Meisterstufe Blattspiel", "Level 5: Sight-Reading Master"), sub: tr("Gemischte Zweiklänge, Dreiklänge & Septakkorde in beiden Systemen", "Mixed dyads, triads & 7th voicings across both staves") }
+        ]
       },
       {
         mode: "notation-chords",
@@ -1915,11 +1922,11 @@ function openCategoryPage(categoryKey, options = {}) {
         id: "notation-grand",
         title: tr("Doppelsystem (Violin- &amp; Bassschlüssel)", "Grand Staff (Treble &amp; Bass)"),
         desc: tr(
-          "Klaviersystem mit beiden Schlüsseln gleichzeitig: Die Noten springen zwischen oberem und unterem System – wie beim Klavierspielen mit zwei Händen.",
-          "Piano-style grand staff with both clefs at once: notes jump between the upper and lower staff — just like reading for two hands."
+          "Klaviersystem mit beiden Schlüsseln gleichzeitig: von Einzelnoten über zweihändige Zweiklänge bis zu Akkorden auf beide Hände verteilt.",
+          "Piano grand staff with both clefs at once: from single notes to two-hand dyads and chords split across both hands."
         ),
         badgeHtml: `<div class="node-circle circle-sage node-circle-icon">${getCategoryBadgeSVG("grand")}</div>`,
-        meta: tf("{n} Stufen", "{n} Levels", { n: 4 }),
+        meta: tf("{n} Stufen", "{n} Levels", { n: 5 }),
         isBeginner: false
       },
       {

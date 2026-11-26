@@ -9460,6 +9460,40 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   color: var(--raccoon-mid);
 }
 
+.exam-group-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.exam-group-section:last-child {
+  margin-bottom: 0;
+}
+
+.exam-group-header {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 2px 2px 0;
+}
+
+.exam-group-title {
+  margin: 0;
+  font-size: 0.84rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--raccoon-mid);
+}
+
+.exam-group-sub {
+  margin: 0;
+  font-size: 0.76rem;
+  line-height: 1.35;
+  color: var(--raccoon-muted);
+}
+
 .exam-level-grid {
   display: flex;
   flex-direction: column;
@@ -9475,6 +9509,10 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.exam-level-card.is-play-exam {
+  border-color: var(--peach);
 }
 
 .exam-level-top {
@@ -9500,6 +9538,12 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   background: var(--lilac-soft);
   color: var(--lilac-strong);
   border: 1px solid var(--lilac);
+}
+
+.exam-level-pill.is-play-pill {
+  background: var(--peach-soft);
+  color: var(--peach-strong);
+  border-color: var(--peach);
 }
 
 .exam-svg-icon {
@@ -10626,10 +10670,70 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   max-height: 250px;
 }
 
+/* Bei angeschlossenem MIDI-Keyboard und eingeklappter Bildschirm-Klaviatur: viel Platz fürs Doppelsystem */
+#viewExercise.has-midi-kb-collapsed .notation-staff-svg.is-grand-staff {
+  max-height: 310px;
+}
+
 @media (min-width: 640px) {
   .notation-staff-svg.is-grand-staff {
     max-height: 290px;
   }
+  #viewExercise.has-midi-kb-collapsed .notation-staff-svg.is-grand-staff {
+    max-height: 350px;
+  }
+}
+
+@media (min-width: 768px) {
+  .notation-staff-svg.is-grand-staff {
+    max-height: 335px;
+  }
+  #viewExercise.has-midi-kb-collapsed .notation-staff-svg.is-grand-staff {
+    max-height: 390px;
+  }
+}
+
+/* Kompakte MIDI-Notenlesen-Leiste (#notationMidiBar) im Bottom-Dock */
+.notation-midi-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.36rem 0.68rem;
+  border-radius: 12px;
+  border: 1.5px solid var(--sage);
+  background: linear-gradient(160deg, var(--sage-soft) 0%, var(--surface-white) 100%);
+}
+.notation-midi-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+.notation-midi-bar-dev {
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: var(--sage-strong);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.notation-midi-bar-held {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--raccoon-dark);
+  padding: 0.1rem 0.44rem;
+  border-radius: 999px;
+  background: var(--surface-white);
+  border: 1px solid var(--border-soft);
+  white-space: nowrap;
+}
+.notation-midi-kb-toggle {
+  padding: 0.24rem 0.56rem !important;
+  font-size: 0.72rem !important;
+  min-height: 28px;
+  flex-shrink: 0;
 }
 
 .notation-queue-strip {
@@ -19402,6 +19506,21 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   border-color: var(--sage-strong);
   background: var(--sage);
   color: var(--surface-white);
+}
+.midi-step-dot.is-recorded {
+  border-color: var(--lilac-strong);
+  background: var(--lilac-soft);
+  color: var(--lilac-strong);
+}
+.midi-step-dot.is-wrong {
+  border-color: var(--status-err);
+  background: var(--status-err);
+  color: #FFFFFF;
+}
+.midi-pad-btn:disabled {
+  opacity: 0.48;
+  cursor: default;
+  pointer-events: none;
 }
 .midi-pad-live-line {
   font-size: 0.76rem;

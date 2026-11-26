@@ -1035,11 +1035,33 @@ function dispatchMidiNoteOff(midi) {
     handleFreeplayMidiNoteOff(midi);
     return;
   }
-  if (view === "exercise" && state?.currentExercise &&
-      typeof isMidiPlayMode === "function" && isMidiPlayMode(state.currentExercise.type) &&
+  const ex = state?.currentExercise;
+  if (view === "exercise" && ex &&
+      typeof isMidiPlayMode === "function" && isMidiPlayMode(ex.type) &&
       typeof handleMidiPlayNoteOff === "function") {
     handleMidiPlayNoteOff(midi);
+    return;
   }
+  if (view === "exercise" && ex && ex.isGrandStaff && ex.targetItem?.isGrandMulti && !ex.chordAdvanceLock) {
+    updateGrandStaffMidiLiveFound(ex);
+    if (typeof syncNotationMidiKeyboardVisibility === "function") syncNotationMidiKeyboardVisibility(ex);
+  } else if (view === "exercise" && ex && typeof isNotationStaffMode === "function" && isNotationStaffMode(ex.type) && !ex.isChordReading) {
+    if (typeof syncNotationMidiKeyboardVisibility === "function") syncNotationMidiKeyboardVisibility(ex);
+  }
+}
+
+function updateGrandStaffMidiLiveFound(ex) {
+  if (!ex || !ex.targetItem?.isGrandMulti) return;
+  const targetMidis = Array.isArray(ex.targetItem.targetMidis) ? ex.targetItem.targetMidis : [];
+  const held = getMidiHeldNotesArray();
+  if (_midi.prefs.notationExactOctave) {
+    const heldSet = new Set(held);
+    ex.grandFoundMidis = targetMidis.filter(m => heldSet.has(m));
+  } else {
+    const heldPcs = new Set(held.map(m => ((m % 12) + 12) % 12));
+    ex.grandFoundMidis = targetMidis.filter(m => heldPcs.has(((m % 12) + 12) % 12));
+  }
+  if (typeof renderNotationStaffPanel === "function") renderNotationStaffPanel(ex, false);
 }
 
 // ---------- Phase-1 Übungs-Adapter: Notenlesen, Solfège, Melodie ----------
@@ -1063,6 +1085,66 @@ function findSolfegeKeyboardBtnByPc(pc) {
 function handleNotationMidiNoteOn(ex, midi, velocity) {
   if (!ex || !ex.targetItem) {
     playMidiAppTone(midi, velocity, 0.75);
+    return;
+  }
+
+  // Doppelsystem mehrstimmig (Stufen 3–5): Zweiklänge & Akkorde über beide Hände greifen!
+  if (ex.isGrandStaff && ex.targetItem.isGrandMulti) {
+    playMidiAppTone(midi, velocity, 0.9);
+    if (typeof syncNotationMidiKeyboardVisibility === "function") syncNotationMidiKeyboardVisibility(ex);
+    if (ex.chordAdvanceLock) return;
+    const target = ex.targetItem;
+    const targetMidis = Array.isArray(target.targetMidis) ? target.targetMidis : [];
+    const held = getMidiHeldNotesArray();
+    const res = evaluateMidiChordMatch(targetMidis, held, {
+      requireExactMidis: _midi.prefs.notationExactOctave
+    });
+
+    updateGrandStaffMidiLiveFound(ex);
+
+    if (res.ok) {
+      if (typeof handleNotationGrandMultiSolved === "function") {
+        handleNotationGrandMultiSolved(ex, { fromMidi: true, skipCorrectAudio: true });
+      }
+      return;
+    }
+
+    const isWrongAttempt = res.status === "wrong-octave" || (res.status === "wrong-notes" && held.length >= targetMidis.length);
+    if (isWrongAttempt) {
+      if (typeof resetExerciseStreakOnAttempt === "function") resetExerciseStreakOnAttempt(ex);
+      if (typeof noteNotationReviewAnswer === "function") noteNotationReviewAnswer(ex, target, false);
+    }
+
+    if (document.getElementById("centralStageCard")) {
+      if (res.status === "wrong-octave") {
+        setCentralStageMode("stage-wrong");
+        updateStageMascot("thinking");
+        document.getElementById("stageSubtext").textContent = tr("RICHTIGER AKKORD, ANDERE OKTAVE", "RIGHT CHORD, WRONG OCTAVE");
+        document.getElementById("stageMainText").textContent = held.map(formatMidiNoteDisplay).join(" · ");
+        document.getElementById("stageFunctionText").textContent = tr(
+          "Spiele den Akkord in der notierten Oktavlage!",
+          "Play the chord in the written octave!"
+        );
+      } else if (res.status === "incomplete" && res.matchedCount > 0) {
+        setCentralStageMode("stage-playing");
+        updateStageMascot("listening");
+        document.getElementById("stageSubtext").textContent = tf("AKKORDTON {found}/{total}", "CHORD TONE {found}/{total}", {
+          found: res.matchedCount,
+          total: res.totalCount
+        });
+        document.getElementById("stageMainText").textContent = held.map(formatMidiNoteDisplay).join(" · ");
+        document.getElementById("stageFunctionText").textContent = tr("Halte alle Töne in beiden Systemen gleichzeitig gedrückt!", "Hold all notes in both staves together!");
+      } else if (res.status === "wrong-notes" && held.length >= targetMidis.length) {
+        setCentralStageMode("stage-wrong");
+        updateStageMascot("thinking");
+        document.getElementById("stageSubtext").textContent = tr("NOCH NICHT GANZ", "NOT QUITE");
+        document.getElementById("stageMainText").textContent = held.map(formatMidiNoteDisplay).join(" · ");
+        document.getElementById("stageFunctionText").textContent = tr(
+          "Prüfe Vorzeichen und Lage im Notensystem.",
+          "Check accidentals and octave on the staff."
+        );
+      }
+    }
     return;
   }
 
@@ -1648,6 +1730,15 @@ function syncAllMidiUI(options = {}) {
   syncMidiSettingsUI(options);
   syncMidiStatusChips();
   if (typeof syncMidiPlayPadUI === "function") syncMidiPlayPadUI();
+  if (typeof syncNotationMidiKeyboardVisibility === "function") {
+    const view = document.getElementById("viewExercise");
+    const wasCollapsed = Boolean(view?.classList.contains("has-midi-kb-collapsed"));
+    syncNotationMidiKeyboardVisibility();
+    const isCollapsed = Boolean(view?.classList.contains("has-midi-kb-collapsed"));
+    if (wasCollapsed !== isCollapsed && typeof queueFitExerciseLayout === "function") {
+      queueFitExerciseLayout(true);
+    }
+  }
 }
 
 // ---------- App-Lebenszyklus (Hintergrund / Vordergrund / Start) ----------

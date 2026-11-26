@@ -221,7 +221,8 @@ function getLocalizedNotationClefName(clefId) {
     treble: tr("Violinschlüssel", "Treble Clef"),
     bass:   tr("Bassschlüssel", "Bass Clef"),
     alto:   tr("Altschlüssel", "Alto Clef"),
-    tenor:  tr("Tenorschlüssel", "Tenor Clef")
+    tenor:  tr("Tenorschlüssel", "Tenor Clef"),
+    grand:  tr("Doppelsystem", "Grand Staff")
   };
   return names[clefId] || names.treble;
 }
@@ -468,6 +469,9 @@ function buildNotationNoteGlyph(item, nx, opts = {}) {
     ? [...item.chordTones].sort((a, b) => a.staffStep - b.staffStep)
     : [item];
   const found = new Set((opts.foundPcs || []).map(Number));
+  const foundMidis = Array.isArray(opts.foundMidis) && opts.foundMidis.length > 0
+    ? new Set(opts.foundMidis.map(Number))
+    : null;
   let minY = Infinity;
   let maxY = -Infinity;
 
@@ -521,7 +525,10 @@ function buildNotationNoteGlyph(item, nx, opts = {}) {
     const hx = headX[i];
     minY = Math.min(minY, ty - 7);
     maxY = Math.max(maxY, ty + 7);
-    const isFound = item?.isChord && found.has(Number(t.pc));
+    const isFound = Boolean(
+      (item?.isChord || opts.highlightFound) &&
+      (foundMidis ? foundMidis.has(Number(t.midi)) : found.has(Number(t.pc)))
+    );
     const fill = isFound ? "var(--sage-strong, #2E6F4E)" : "currentColor";
     return `<ellipse${isFound ? ' class="notation-chord-found"' : ""} cx="${hx.toFixed(1)}" cy="${ty.toFixed(1)}" rx="7.0" ry="5.1" transform="rotate(-18 ${hx.toFixed(1)} ${ty.toFixed(1)})" fill="${fill}"/>`;
   }).join("");
@@ -549,7 +556,9 @@ function buildNotationGrandStaffSVG(notes, options = {}) {
   const trebleSig = getNotationKeySignatureSteps("treble", keySigId);
   const bassSig = getNotationKeySignatureSteps("bass", keySigId);
   const keySigCount = Math.max(trebleSig.length, bassSig.length);
-  const width = Number(options.width) || (340 + (keySigCount > 0 ? Math.min(52, keySigCount * 8 + 4) : 0));
+  const hasMulti = list.some(it => it && it.isGrandMulti);
+  const baseWidth = hasMulti ? 364 : 340;
+  const width = Number(options.width) || (baseWidth + (keySigCount > 0 ? Math.min(52, keySigCount * 8 + 4) : 0));
   const startX = 18;
   const endX = width - 8;
   const highlightFirst = options.highlightFirst !== false;
@@ -584,20 +593,45 @@ function buildNotationGrandStaffSVG(notes, options = {}) {
   let inkMinY = topY - 22;
   let inkMaxY = bottomY + 10;
 
-  const firstNoteX = Math.max(startX + 74, Math.round(keySigRightEdge + 22));
+  const firstNoteX = Math.max(startX + (hasMulti ? 82 : 74), Math.round(keySigRightEdge + (hasMulti ? 28 : 22)));
+  const maxSpacing = hasMulti ? 58 : 46;
+  const minSpacing = hasMulti ? 40 : 30;
   const spacing = list.length > 1
-    ? Math.min(46, Math.max(30, Math.floor((endX - firstNoteX - 16) / Math.max(1, list.length - 1))))
+    ? Math.min(maxSpacing, Math.max(minSpacing, Math.floor((endX - firstNoteX - 18) / Math.max(1, list.length - 1))))
     : 0;
 
   const notesHtml = list.map((item, idx) => {
     if (!item) return "";
     const nx = firstNoteX + idx * spacing;
-    const dy = item.clefId === "bass" ? off : 0;
     const isTarget = highlightFirst && idx === 0;
-    const glyph = buildNotationNoteGlyph(item, nx, { foundPcs: isTarget ? options.foundPcs : null });
+    const fadeOp = isTarget ? 1 : Math.max(0.64, 0.78 - idx * 0.028);
+    const glyphOpts = {
+      foundPcs: isTarget ? options.foundPcs : null,
+      foundMidis: isTarget ? options.foundMidis : null,
+      highlightFound: isTarget
+    };
+
+    if (item.isGrandMulti) {
+      let inner = "";
+      if (Array.isArray(item.trebleTones) && item.trebleTones.length > 0) {
+        const tg = buildNotationNoteGlyph({ isChord: true, chordTones: item.trebleTones }, nx, glyphOpts);
+        inkMinY = Math.min(inkMinY, tg.minY);
+        inkMaxY = Math.max(inkMaxY, tg.maxY);
+        inner += `<g class="notation-grand-treble">${tg.html}</g>`;
+      }
+      if (Array.isArray(item.bassTones) && item.bassTones.length > 0) {
+        const bg = buildNotationNoteGlyph({ isChord: true, chordTones: item.bassTones }, nx, glyphOpts);
+        inkMinY = Math.min(inkMinY, bg.minY + off);
+        inkMaxY = Math.max(inkMaxY, bg.maxY + off);
+        inner += `<g class="notation-grand-bass" transform="translate(0 ${off})">${bg.html}</g>`;
+      }
+      return `<g class="notation-note-group is-grand-multi ${isTarget ? "is-target" : "is-upcoming"}" opacity="${fadeOp.toFixed(2)}">${inner}</g>`;
+    }
+
+    const dy = item.clefId === "bass" ? off : 0;
+    const glyph = buildNotationNoteGlyph(item, nx, glyphOpts);
     inkMinY = Math.min(inkMinY, glyph.minY + dy);
     inkMaxY = Math.max(inkMaxY, glyph.maxY + dy);
-    const fadeOp = isTarget ? 1 : Math.max(0.64, 0.78 - idx * 0.028);
     return `<g class="notation-note-group ${isTarget ? "is-target" : "is-upcoming"}" opacity="${fadeOp.toFixed(2)}" transform="translate(0 ${dy})">${glyph.html}</g>`;
   }).join("");
 

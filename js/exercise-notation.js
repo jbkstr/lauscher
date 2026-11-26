@@ -241,7 +241,9 @@ function syncNotationHeaderUI(ex = state.currentExercise) {
   if (targetBadgeEl) {
     targetBadgeEl.textContent = tf("Stufe {lvl} • {tag}", "Level {lvl} • {tag}", {
       lvl: ex.level || 1,
-      tag: ex.isChordReading ? getNotationChordLevelTag(ex.level) : getNotationLedgerLevelTag(ex)
+      tag: ex.isChordReading
+        ? getNotationChordLevelTag(ex.level)
+        : (ex.isGrandStaff ? getNotationGrandLevelTag(ex.level) : getNotationLedgerLevelTag(ex))
     });
   }
   tonicRefRow?.classList.add("hidden");
@@ -251,12 +253,26 @@ function syncNotationHeaderUI(ex = state.currentExercise) {
       inputPromptText.textContent = ex.keySignatureId && ex.keySignatureId !== "none"
         ? tr("Akkord links (mit Vorzeichen) wählen:", "Pick the left chord (mind key sig.):")
         : tr("Akkord links wählen:", "Pick the left chord:");
+    } else if (ex.isGrandStaff && ex.targetItem?.isGrandMulti) {
+      const midiConn = typeof isMidiConnected === "function" && isMidiConnected();
+      inputPromptText.textContent = midiConn
+        ? tr("Beide Systeme links am MIDI-Keyboard greifen:", "Play both staves on the left via MIDI:")
+        : tr("Alle Töne links auf der Klaviatur antippen:", "Tap all left notes on the keyboard:");
     } else {
       inputPromptText.textContent = ex.keySignatureId && ex.keySignatureId !== "none"
         ? tr("Note links (mit Vorzeichen) wählen:", "Play left note (mind key sig.):")
         : tr("Note links wählen:", "Play left note:");
     }
   }
+}
+
+function getNotationGrandLevelTag(level) {
+  const lvl = Math.max(1, Math.min(5, parseInt(level, 10) || 1));
+  if (lvl === 1) return tr("Einzelnoten • 5 Linien", "Single Notes • 5 Lines");
+  if (lvl === 2) return tr("Einzelnoten • ±2 Hilfsl. + ♯/♭", "Single Notes • ±2 Ledgers + ♯/♭");
+  if (lvl === 3) return tr("Zweihändig • Zweiklänge", "Two Hands • Dyads");
+  if (lvl === 4) return tr("Akkorde • Beide Hände", "Chords • Both Hands");
+  return tr("Meisterstufe Blattspiel", "Sight-Reading Master");
 }
 
 function getNotationChordLevelTag(level) {
@@ -282,7 +298,9 @@ function renderNotationStaffPanel(ex, didShift = false, targetGrid = document.ge
   const target = ex.targetItem || ex.notationQueue?.[0];
   const clefId = target?.clefId || ex.baseClefId || "treble";
   const keySigId = normalizeNotationKeySigId(ex.keySignatureId || target?.keySignatureId || "none");
-  const clefName = getLocalizedNotationClefName(clefId);
+  const clefName = target?.isGrandMulti
+    ? tr("2 Hände (Violin + Bass)", "2 Hands (Treble + Bass)")
+    : getLocalizedNotationClefName(clefId);
   // Der frühere Lagen-Hinweis oben rechts („Im 5-Linien-System“ …) entfällt bewusst.
   const showClefPill = Boolean((ex.isMixedClef || ex.isGrandStaff) && !state.exam?.active);
   const showKeySigPill = keySigId !== "none";
@@ -304,6 +322,8 @@ function renderNotationStaffPanel(ex, didShift = false, targetGrid = document.ge
     ? buildNotationGrandStaffSVG(ex.notationQueue, {
         keySignatureId: keySigId,
         highlightFirst: true,
+        foundPcs: Array.isArray(ex.chordFoundPcs) && ex.chordFoundPcs.length > 0 ? ex.chordFoundPcs : null,
+        foundMidis: Array.isArray(ex.grandFoundMidis) && ex.grandFoundMidis.length > 0 ? ex.grandFoundMidis : null,
         didShift: Boolean(didShift)
       })
     : buildNotationStaffSVG(ex.notationQueue, {
@@ -351,6 +371,7 @@ function shiftAndAdvanceNotationQueue(ex, feedbackKind, stageSub, stageMain, sta
   if (!ex) return;
   cancelNotationChordAdvance(ex);
   ex.chordFoundPcs = [];
+  ex.grandFoundMidis = [];
   const rotatedKeySig = advanceNotationPhraseKeyIfNeeded(ex);
   if (!rotatedKeySig) {
     const queue = Array.isArray(ex.notationQueue) ? ex.notationQueue.slice(1) : [];
@@ -533,6 +554,104 @@ async function handleNotationChordChoice(selectedKey, btnElement, options = {}) 
     ex.chordAdvanceLock = false;
     shiftAndAdvanceNotationQueue(ex, "correct", stageSub, stageMain, stageDesc, btnElement);
   }, 260);
+}
+
+/**
+ * Kompakter MIDI-Modus im Notenlesen: Ist ein MIDI-Keyboard verbunden, kann die Bildschirm-Klaviatur
+ * eingeklappt bleiben, sodass besonders das Doppelsystem auf Smartphones deutlich größer dargestellt wird.
+ */
+function syncNotationMidiKeyboardVisibility(ex = state?.currentExercise) {
+  const view = document.getElementById("viewExercise");
+  const bar = document.getElementById("notationMidiBar");
+  const kbWrap = document.getElementById("solfegeKeyboardWrap");
+  if (!bar || !kbWrap) return;
+
+  const isNotationKb = Boolean(
+    state?.currentView === "exercise" &&
+    ex &&
+    isNotationStaffMode(ex.type) &&
+    !ex.isChordReading
+  );
+  const connected = typeof isMidiConnected === "function" && isMidiConnected();
+  if (!isNotationKb || !connected) {
+    bar.classList.add("hidden");
+    bar.innerHTML = "";
+    view?.classList.remove("has-midi-kb-collapsed");
+    if (isNotationKb) kbWrap.classList.remove("hidden");
+    return;
+  }
+
+  const expanded = Boolean(state.notationMidiKbExpanded);
+  const collapsed = !expanded;
+  kbWrap.classList.toggle("hidden", collapsed);
+  view?.classList.toggle("has-midi-kb-collapsed", collapsed);
+
+  const devs = typeof getSelectedMidiDevices === "function" ? getSelectedMidiDevices() : [];
+  const devName = devs[0]?.name || "MIDI";
+  const held = typeof getMidiHeldNotesArray === "function" ? getMidiHeldNotesArray() : [];
+  const heldText = held.length > 0 && typeof formatMidiNoteDisplay === "function"
+    ? held.map(formatMidiNoteDisplay).join(" · ")
+    : "";
+
+  bar.classList.remove("hidden");
+  bar.innerHTML = `
+    <div class="notation-midi-bar-left">
+      <span class="midi-dot" aria-hidden="true"></span>
+      <span class="notation-midi-bar-dev">${escapeHtml(devName)}</span>
+      ${heldText ? `<span class="notation-midi-bar-held">${escapeHtml(heldText)}</span>` : ""}
+    </div>
+    <button type="button" class="btn-tool notation-midi-kb-toggle" data-notation-midi-kb-toggle="1">
+      ${escapeHtml(collapsed ? tr("Klaviatur zeigen", "Show Keyboard") : tr("Klaviatur ausblenden", "Hide Keyboard"))}
+    </button>
+  `;
+  bar.querySelector("[data-notation-midi-kb-toggle]")?.addEventListener("click", () => {
+    state.notationMidiKbExpanded = !state.notationMidiKbExpanded;
+    syncNotationMidiKeyboardVisibility(state.currentExercise);
+    if (typeof queueFitExerciseLayout === "function") queueFitExerciseLayout(true);
+  });
+}
+
+function handleNotationGrandMultiSolved(ex, options = {}) {
+  if (!ex || !ex.targetItem || !ex.targetItem.isGrandMulti || ex.chordAdvanceLock) return;
+  const target = ex.targetItem;
+  ex.chordAdvanceLock = true;
+  const advanceToken = (ex.chordAdvanceToken || 0) + 1;
+  ex.chordAdvanceToken = advanceToken;
+
+  ex.grandFoundMidis = [...(target.targetMidis || [])];
+  ex.notationPanelState = "is-correct";
+  ex.notationSolvedCount = (ex.notationSolvedCount || 0) + 1;
+
+  recordExerciseStreakSuccess(ex);
+  noteNotationReviewAnswer(ex, target, true);
+  triggerCelebrationFeedback(document.getElementById("notationStaffPanel"), {});
+
+  if (!options.skipCorrectAudio && shouldPlayCorrectAnswerAudio()) {
+    audioEngine.playStep(getNotationPlayNotes(target), 0.95, null, "chord");
+  }
+
+  renderNotationStaffPanel(ex, false);
+  const stageSub = getPersonalizedCorrectStageSubtext(tr("SAUBER GEGRIFFEN!", "CLEANLY PLAYED!"));
+  const stageMain = `${target.shortName} ✓`;
+  const stageDesc = target.toneNames || target.handSummary || "";
+
+  if (document.getElementById("centralStageCard")) {
+    setCentralStageMode("stage-playing");
+    updateStageMascot("happy");
+    document.getElementById("stageSubtext").textContent = stageSub;
+    document.getElementById("stageMainText").textContent = stageMain;
+    document.getElementById("stageFunctionText").textContent = stageDesc;
+    renderStageStreakUI();
+  }
+
+  ex.chordAdvanceTimerId = setTimeout(() => {
+    ex.chordAdvanceTimerId = null;
+    if (state.currentView !== "exercise" || state.currentExercise !== ex || ex.chordAdvanceToken !== advanceToken || state.exam?.active) {
+      return;
+    }
+    ex.chordAdvanceLock = false;
+    shiftAndAdvanceNotationQueue(ex, "correct", stageSub, stageMain, stageDesc, null);
+  }, 280);
 }
 
 async function handleNotationKeyClick(clickedKeyDef, keyBtn, options = {}) {

@@ -49,7 +49,10 @@ function getLocalizedExamModeName(mode) {
     "notation-mixed": tr("Schlüssel-Mix", "Clef Mix"),
     "notation-grand": tr("Doppelsystem", "Grand Staff"),
     "notation-chords": tr("Akkorde lesen", "Chord Reading"),
-    "notation-symbols": tr("Symbole & Begriffe", "Symbols & Markings")
+    "notation-symbols": tr("Symbole & Begriffe", "Symbols & Markings"),
+    "midi-interval": tr("Intervalle spielen", "Play Intervals"),
+    "midi-chord": tr("Akkorde greifen", "Play Chords"),
+    "midi-scale": tr("Tonleitern & Modi spielen", "Play Scales & Modes")
   };
   return names[mode] || mode;
 }
@@ -302,7 +305,7 @@ function openExamSetupPage(categoryKey = state.activeCategory, options = {}) {
     ? `<span class="exam-best-pill">${getExamIconSVG("star", 12)}<span>${escapeHtml(tf("Bestwert: {pct}%", "Best: {pct}%", { pct: catBest }))}</span></span>`
     : "";
 
-  const levelsHtml = catCfg.presets.map(preset => {
+  const renderPresetCard = (preset) => {
     const levelBest = getCategoryBestExamPercent(categoryKey, preset.id);
     const bestHtml = levelBest !== null
       ? `<span class="exam-best-pill">${getExamIconSVG("star", 12)}<span>${escapeHtml(tf("Bestwert: {pct}%", "Best: {pct}%", { pct: levelBest }))}</span></span>`
@@ -316,13 +319,14 @@ function openExamSetupPage(categoryKey = state.activeCategory, options = {}) {
     const customBoxHtml = preset.isCustomIntervalExam
       ? buildExamCustomIntervalControlsHtml()
       : (preset.isCustomSolfegeExam ? buildExamCustomSolfegeControlsHtml() : "");
+    const isPlayGroup = preset.examGroup === "play";
 
     return `
-      <article class="exam-level-card" data-exam-level-card="${escapeHtml(preset.id)}">
+      <article class="exam-level-card${isPlayGroup ? " is-play-exam" : ""}" data-exam-level-card="${escapeHtml(preset.id)}">
         <div class="exam-level-top">
           <div>
             <div class="exam-level-badges">
-              <span class="exam-level-pill">${escapeHtml(pillText)}</span>
+              <span class="exam-level-pill${isPlayGroup ? " is-play-pill" : ""}">${escapeHtml(pillText)}</span>
               ${bestHtml}
             </div>
             <h3 class="exam-level-title">${escapeHtml(tr(preset.title.de, preset.title.en))}</h3>
@@ -338,7 +342,30 @@ function openExamSetupPage(categoryKey = state.activeCategory, options = {}) {
         </div>
       </article>
     `;
-  }).join("");
+  };
+
+  const listenPresets = catCfg.presets.filter(p => p.examGroup !== "play");
+  const playPresets = catCfg.presets.filter(p => p.examGroup === "play");
+  const levelsSectionsHtml = (listenPresets.length > 0 && playPresets.length > 0)
+    ? `
+      <section class="exam-group-section">
+        <div class="exam-group-header">
+          <h3 class="exam-group-title">${escapeHtml(tr("Hören & Erkennen", "Listening & Recognition"))}</h3>
+        </div>
+        <div class="exam-level-grid">${listenPresets.map(renderPresetCard).join("")}</div>
+      </section>
+      <section class="exam-group-section">
+        <div class="exam-group-header">
+          <h3 class="exam-group-title">${escapeHtml(tr("Aktiv spielen (MIDI / Klaviatur)", "Active Playing (MIDI / Keyboard)"))}</h3>
+          <p class="exam-group-sub">${escapeHtml(tr(
+            "Spiele deine Antworten direkt am MIDI-Keyboard oder auf der Bildschirm-Klaviatur.",
+            "Play your answers directly on your MIDI keyboard or the on-screen keyboard."
+          ))}</p>
+        </div>
+        <div class="exam-level-grid">${playPresets.map(renderPresetCard).join("")}</div>
+      </section>
+    `
+    : `<div class="exam-level-grid">${catCfg.presets.map(renderPresetCard).join("")}</div>`;
 
   container.innerHTML = `
     <div class="exam-setup-hero">
@@ -391,7 +418,7 @@ function openExamSetupPage(categoryKey = state.activeCategory, options = {}) {
       </div>
     </section>
 
-    <div class="exam-level-grid">${levelsHtml}</div>
+    ${levelsSectionsHtml}
   `;
 
   container.querySelectorAll("[data-exam-custom-select]").forEach(sel => {
@@ -540,6 +567,7 @@ function applyExamLevelSettings(preset, targetMode, overrideDifficulty = null) {
 }
 
 function clearExamTimers(examObj = state.exam) {
+  if (typeof cancelMidiPlayTimers === "function") cancelMidiPlayTimers();
   if (!examObj) return;
   if (examObj.advanceTimerId !== null && examObj.advanceTimerId !== undefined) {
     clearTimeout(examObj.advanceTimerId);
@@ -633,6 +661,7 @@ function syncExamExerciseControls() {
   const timeBtn = document.getElementById("moduleTimeSigBtn");
   const bpmBtn = document.getElementById("moduleBpmBtn");
   const melodyPulseBtn = document.getElementById("melodyPulseBtn");
+  const midiDirBtn = document.getElementById("midiDirChipBtn");
 
   statusEl?.classList.toggle("hidden", !isExam);
   if (!isExam) {
@@ -644,7 +673,7 @@ function syncExamExerciseControls() {
   if (listenBtn) listenBtn.classList.toggle("hidden", isExam || isNotationSymbolsMode(state?.currentExercise?.type) || isSingMatchMode(state?.currentExercise?.type) || isMidiPlayMode(state?.currentExercise?.type));
   if (loopBtn) loopBtn.classList.toggle("hidden", isExam);
 
-  [keyBtn, notationKeyBtn, notationPaceBtn, timeBtn, bpmBtn, melodyPulseBtn].forEach(btn => {
+  [keyBtn, notationKeyBtn, notationPaceBtn, timeBtn, bpmBtn, melodyPulseBtn, midiDirBtn].forEach(btn => {
     if (!btn) return;
     btn.classList.toggle("exam-locked", isExam);
     btn.disabled = isExam;
@@ -1800,6 +1829,262 @@ function handleExamRhythmTapFinished(ex, session, res) {
   showExamPostAnswerNextBar();
 }
 
+function handleExamMidiIntervalAnswer(ex, playedMidi, res, options = {}) {
+  const exam = state?.exam;
+  if (!exam || !exam.active || exam.currentAnswered || !ex?.midiTask) return;
+
+  exam.currentAnswered = true;
+  clearExamTimers(exam);
+  state.exerciseSolved = true;
+  ex.isSolved = true;
+
+  const task = ex.midiTask;
+  const isCorrect = Boolean(res?.ok);
+  const rootLbl = task.rootLabel || formatMidiNoteDisplay(task.rootMidi);
+  const targetLbl = task.targetLabel || formatMidiNoteDisplay(task.targetMidi);
+  const playedLbl = formatMidiNoteDisplay(playedMidi);
+
+  let detailNote = "";
+  if (!isCorrect) {
+    if (res?.status === "wrong-octave") {
+      const dirWord = res.octaveDiff > 0 ? tr("zu hoch", "too high") : tr("zu tief", "too low");
+      detailNote = tf("Richtiger Ton, aber {dir}", "Right note, but {dir}", { dir: dirWord });
+    } else if (typeof describePlayedIntervalFromSemis === "function") {
+      detailNote = describePlayedIntervalFromSemis(res?.playedSemis || 0);
+    }
+  }
+
+  recordExamQuestionEntry({
+    mode: "midi-interval",
+    status: isCorrect ? "correct" : "wrong",
+    score: isCorrect ? 1 : 0,
+    chosenKey: String(playedMidi),
+    targetKey: String(task.targetMidi),
+    chosenLabel: `${rootLbl} → ${playedLbl}`,
+    targetLabel: `${task.intervalName} ${task.directionArrow} (${rootLbl} → ${targetLbl})`,
+    detailNote,
+    audioSnapshot: {
+      type: "midi-interval",
+      refNote: midiToNote(task.rootMidi),
+      targetNoteName: midiToNote(task.targetMidi),
+      chosenNoteName: midiToNote(playedMidi)
+    }
+  });
+
+  if (typeof renderMidiPlayPad === "function") renderMidiPlayPad(ex);
+
+  if (exam.feedbackMode === "blind") {
+    const keyEl = document.querySelector(`#solfegeKeyboardWrap [data-midi="${playedMidi}"]`);
+    keyEl?.classList.add("key-exam-recorded");
+    if (document.getElementById("centralStageCard")) {
+      setCentralStageMode("stage-playing");
+      updateStageMascot("listening");
+      document.getElementById("stageSubtext").textContent = tr("ANTWORT ERFASST", "ANSWER RECORDED");
+      document.getElementById("stageMainText").textContent = playedLbl;
+      document.getElementById("stageFunctionText").textContent = tr("Weiter zur nächsten Frage…", "Moving to the next question…");
+    }
+    scheduleExamAutoAdvance(300);
+    return;
+  }
+
+  document.querySelectorAll("#solfegeKeyboardWrap [data-midi]").forEach(el => {
+    el.classList.remove("key-wrong", "key-correct", "key-exam-recorded");
+  });
+  const targetKeyEl = document.querySelector(`#solfegeKeyboardWrap [data-midi="${task.targetMidi}"]`);
+  const playedKeyEl = document.querySelector(`#solfegeKeyboardWrap [data-midi="${playedMidi}"]`);
+
+  if (isCorrect) {
+    targetKeyEl?.classList.add("key-correct");
+    if (document.getElementById("centralStageCard")) {
+      setCentralStageMode("stage-correct");
+      updateStageMascot("happy");
+      document.getElementById("stageSubtext").textContent = tr("SAUBER GESPIELT!", "NICELY PLAYED!");
+      document.getElementById("stageMainText").textContent = `${task.intervalName} ✓`;
+      document.getElementById("stageFunctionText").textContent = `${rootLbl} → ${targetLbl}`;
+    }
+  } else {
+    playedKeyEl?.classList.add("key-wrong");
+    targetKeyEl?.classList.add("key-correct");
+    if (document.getElementById("centralStageCard")) {
+      setCentralStageMode("stage-wrong");
+      updateStageMascot("thinking");
+      document.getElementById("stageSubtext").textContent = res?.status === "wrong-octave"
+        ? tr("RICHTIGER TON, ANDERE OKTAVE", "RIGHT NOTE, WRONG OCTAVE")
+        : tr("NOCH NICHT GANZ", "NOT QUITE");
+      document.getElementById("stageMainText").textContent = `${playedLbl} (${tr("Ziel", "Target")}: ${targetLbl})`;
+      document.getElementById("stageFunctionText").textContent = `${task.intervalName} ${task.directionArrow} (${rootLbl} → ${targetLbl})`;
+    }
+  }
+  showExamPostAnswerNextBar();
+}
+
+function handleExamMidiChordAnswer(ex, heldMidis, res) {
+  const exam = state?.exam;
+  if (!exam || !exam.active || exam.currentAnswered || !ex?.midiTask) return;
+
+  exam.currentAnswered = true;
+  clearExamTimers(exam);
+  state.exerciseSolved = true;
+  ex.isSolved = true;
+
+  const task = ex.midiTask;
+  const sortedHeld = Array.isArray(heldMidis) ? [...heldMidis].sort((a, b) => a - b) : [];
+  const isCorrect = Boolean(res?.ok);
+  const chosenDisplay = sortedHeld.length > 0
+    ? sortedHeld.map(formatMidiNoteDisplay).join(" · ")
+    : "–";
+  const targetDisplay = `${task.chordLabel} (${task.toneNamesDisplay})`;
+
+  let detailNote = "";
+  if (!isCorrect && res?.status === "wrong-bass") {
+    detailNote = tf("Basston musste {bass} sein", "Bass note had to be {bass}", { bass: task.expectedBassName });
+  }
+
+  recordExamQuestionEntry({
+    mode: "midi-chord",
+    status: isCorrect ? "correct" : "wrong",
+    score: isCorrect ? 1 : 0,
+    chosenKey: sortedHeld.join(","),
+    targetKey: (task.targetMidis || []).join(","),
+    chosenLabel: chosenDisplay,
+    targetLabel: targetDisplay,
+    detailNote,
+    audioSnapshot: {
+      type: "midi-chord",
+      targetNotes: (task.targetMidis || []).map(m => midiToNote(m)),
+      chosenNotes: sortedHeld.map(m => midiToNote(m))
+    }
+  });
+
+  if (typeof renderMidiPlayPad === "function") renderMidiPlayPad(ex);
+
+  if (exam.feedbackMode === "blind") {
+    if (document.getElementById("centralStageCard")) {
+      setCentralStageMode("stage-playing");
+      updateStageMascot("listening");
+      document.getElementById("stageSubtext").textContent = tr("ANTWORT ERFASST", "ANSWER RECORDED");
+      document.getElementById("stageMainText").textContent = chosenDisplay;
+      document.getElementById("stageFunctionText").textContent = tr("Weiter zur nächsten Frage…", "Moving to the next question…");
+    }
+    scheduleExamAutoAdvance(320);
+    return;
+  }
+
+  const targetPcSet = new Set((task.targetMidis || []).map(m => ((m % 12) + 12) % 12));
+  document.querySelectorAll("#solfegeKeyboardWrap [data-midi]").forEach(el => {
+    el.classList.remove("key-wrong", "key-correct", "is-selected");
+    const m = parseInt(el.dataset.midi, 10);
+    const pc = ((m % 12) + 12) % 12;
+    if (sortedHeld.includes(m)) {
+      el.classList.add(isCorrect || targetPcSet.has(pc) ? "key-correct" : "key-wrong");
+    } else if (!isCorrect && (task.targetMidis || []).includes(m)) {
+      el.classList.add("key-correct");
+    }
+  });
+
+  if (document.getElementById("centralStageCard")) {
+    if (isCorrect) {
+      setCentralStageMode("stage-correct");
+      updateStageMascot("happy");
+      document.getElementById("stageSubtext").textContent = tr("SAUBER GESPIELT!", "NICELY PLAYED!");
+      document.getElementById("stageMainText").textContent = `${task.chordLabel} ✓`;
+      document.getElementById("stageFunctionText").textContent = task.toneNamesDisplay;
+    } else {
+      setCentralStageMode("stage-wrong");
+      updateStageMascot("thinking");
+      document.getElementById("stageSubtext").textContent = res?.status === "wrong-bass"
+        ? tr("BASSTON PRÜFEN", "CHECK THE BASS NOTE")
+        : tr("NOCH NICHT GANZ", "NOT QUITE");
+      document.getElementById("stageMainText").textContent = task.chordLabel;
+      document.getElementById("stageFunctionText").textContent = detailNote
+        ? `${detailNote} • ${task.toneNamesDisplay}`
+        : `${tr("Töne", "Notes")}: ${task.toneNamesDisplay}`;
+    }
+  }
+  showExamPostAnswerNextBar();
+}
+
+function handleExamMidiScaleFinished(ex, runRes) {
+  const exam = state?.exam;
+  if (!exam || !exam.active || exam.currentAnswered || !ex?.midiTask) return;
+
+  exam.currentAnswered = true;
+  clearExamTimers(exam);
+  state.exerciseSolved = true;
+  ex.isSolved = true;
+
+  const task = ex.midiTask;
+  const steps = Array.isArray(runRes?.steps) ? runRes.steps : [];
+  const wrongSteps = Array.isArray(runRes?.wrongSteps) ? runRes.wrongSteps : [];
+  const total = runRes?.total || task.scaleIntervals.length;
+  const okCount = runRes?.correctCount || 0;
+  const status = runRes?.status || "wrong";
+  const score = Number.isFinite(Number(runRes?.score)) ? Number(runRes.score) : 0;
+
+  const playedDisplay = steps
+    .map(s => (Number.isFinite(s.playedMidi) ? formatMidiNoteDisplay(s.playedMidi) : "?"))
+    .join(" – ");
+  const targetDisplay = `${task.scaleTitle} (${task.scaleNoteNames.join(" – ")})`;
+  const errorDetail = wrongSteps.length > 0
+    ? wrongSteps.slice(0, 4).map(s => {
+        const got = Number.isFinite(s.playedMidi) ? formatMidiNoteDisplay(s.playedMidi) : "?";
+        const exp = Number.isFinite(s.expectedMidi) ? formatMidiNoteDisplay(s.expectedMidi) : "?";
+        return tf("Ton {n}: {got} statt {exp}", "Note {n}: {got} instead of {exp}", { n: s.stepNumber, got, exp });
+      }).join(" · ")
+    : "";
+
+  recordExamQuestionEntry({
+    mode: "midi-scale",
+    status,
+    score,
+    chosenKey: steps.map(s => s.playedMidi).join(","),
+    targetKey: (runRes?.expectedMidis || task.scaleMidis || []).join(","),
+    chosenLabel: `${okCount}/${total} (${playedDisplay})`,
+    targetLabel: targetDisplay,
+    detailNote: errorDetail,
+    audioSnapshot: {
+      type: "midi-scale",
+      targetNotes: (runRes?.expectedMidis || task.scaleMidis || []).map(m => midiToNote(m)),
+      chosenNotes: steps.filter(s => Number.isFinite(s.playedMidi)).map(s => midiToNote(s.playedMidi))
+    }
+  });
+
+  if (typeof renderMidiPlayPad === "function") renderMidiPlayPad(ex);
+  if (typeof syncMidiPlayFallbackKeyboardMarks === "function") syncMidiPlayFallbackKeyboardMarks(ex);
+
+  if (exam.feedbackMode === "blind") {
+    if (document.getElementById("centralStageCard")) {
+      setCentralStageMode("stage-playing");
+      updateStageMascot("listening");
+      document.getElementById("stageSubtext").textContent = tr("TONLEITER ERFASST", "SCALE RECORDED");
+      document.getElementById("stageMainText").textContent = task.scaleTitle;
+      document.getElementById("stageFunctionText").textContent = tr("Weiter zur nächsten Frage…", "Moving to the next question…");
+    }
+    scheduleExamAutoAdvance(340);
+    return;
+  }
+
+  if (document.getElementById("centralStageCard")) {
+    if (status === "correct") {
+      setCentralStageMode("stage-correct");
+      updateStageMascot("happy");
+      document.getElementById("stageSubtext").textContent = tr("SAUBER GESPIELT!", "NICELY PLAYED!");
+      document.getElementById("stageMainText").textContent = `${task.scaleTitle} ✓`;
+      document.getElementById("stageFunctionText").textContent = task.scaleNoteNames.join(" – ");
+    } else {
+      setCentralStageMode("stage-wrong");
+      updateStageMascot("thinking");
+      document.getElementById("stageSubtext").textContent = tf("{ok}/{tot} TÖNE RICHTIG", "{ok}/{tot} NOTES CORRECT", {
+        ok: okCount,
+        tot: total
+      });
+      document.getElementById("stageMainText").textContent = task.scaleTitle;
+      document.getElementById("stageFunctionText").textContent = errorDetail || task.scaleNoteNames.join(" – ");
+    }
+  }
+  showExamPostAnswerNextBar();
+}
+
 function skipCurrentExamQuestion() {
   const exam = state?.exam;
   const ex = state?.currentExercise;
@@ -1900,6 +2185,33 @@ function skipCurrentExamQuestion() {
       targetNoteName: ex.targetItem.noteName,
       chosenNoteName: null
     };
+  } else if (isMidiPlayMode(curMode) && ex?.midiTask) {
+    const task = ex.midiTask;
+    if (curMode === "midi-interval") {
+      const rootLbl = task.rootLabel || formatMidiNoteDisplay(task.rootMidi);
+      const targetLbl = task.targetLabel || formatMidiNoteDisplay(task.targetMidi);
+      targetLabel = `${task.intervalName} ${task.directionArrow} (${rootLbl} → ${targetLbl})`;
+      snapshot = {
+        type: "midi-interval",
+        refNote: midiToNote(task.rootMidi),
+        targetNoteName: midiToNote(task.targetMidi),
+        chosenNoteName: null
+      };
+    } else if (curMode === "midi-chord") {
+      targetLabel = `${task.chordLabel} (${task.toneNamesDisplay})`;
+      snapshot = {
+        type: "midi-chord",
+        targetNotes: (task.targetMidis || []).map(m => midiToNote(m)),
+        chosenNotes: null
+      };
+    } else if (curMode === "midi-scale") {
+      targetLabel = `${task.scaleTitle} (${task.scaleNoteNames.join(" – ")})`;
+      snapshot = {
+        type: "midi-scale",
+        targetNotes: (task.scaleMidis || []).map(m => midiToNote(m)),
+        chosenNotes: null
+      };
+    }
   } else if (ex) {
     targetLabel = getExamChoiceDisplayText(curMode, ex.targetItem?.key);
     snapshot = buildExamChoiceSnapshot(ex, null);
@@ -2120,8 +2432,9 @@ function renderExamResultView() {
     );
     const canCompareAB = Boolean(
       !isOk && canPlayChosen && canPlayTarget &&
-      !["melody", "rhythm-dictation", "rhythm-tap"].includes(item.mode)
+      !["melody", "rhythm-dictation", "rhythm-tap", "midi-scale"].includes(item.mode)
     );
+    const isMidiPlayItem = typeof isMidiPlayMode === "function" && isMidiPlayMode(item.mode);
 
     return `
       <article class="exam-review-item ${cardCls}" data-review-idx="${itemIdx}">
@@ -2135,7 +2448,7 @@ function renderExamResultView() {
         ` : ""}
         <div class="exam-review-answers">
           <div class="exam-review-line">
-            <span class="exam-review-lbl">${escapeHtml(tr("Deine Wahl:", "Your pick:"))}</span>
+            <span class="exam-review-lbl">${escapeHtml(isMidiPlayItem ? tr("Dein Spiel:", "Your play:") : tr("Deine Wahl:", "Your pick:"))}</span>
             <span>${escapeHtml(chosenDisplay)}${item.detailNote ? ` (${escapeHtml(item.detailNote)})` : ""}</span>
           </div>
           ${!isOk ? `
@@ -2147,7 +2460,7 @@ function renderExamResultView() {
         </div>
         ${canPlayTarget ? `
           <div class="exam-review-audio">
-            ${canPlayChosen ? `<button type="button" class="btn-tool exam-review-audio-btn" data-review-play="${itemIdx}:chosen">${getExamIconSVG("play", 12)}<span>${escapeHtml(tr("Meine Wahl", "My Choice"))}</span></button>` : ""}
+            ${canPlayChosen ? `<button type="button" class="btn-tool exam-review-audio-btn" data-review-play="${itemIdx}:chosen">${getExamIconSVG("play", 12)}<span>${escapeHtml(isMidiPlayItem ? tr("Mein Spiel", "My Play") : tr("Meine Wahl", "My Choice"))}</span></button>` : ""}
             <button type="button" class="btn-tool exam-review-audio-btn" data-review-play="${itemIdx}:target">${getExamIconSVG("play", 12)}<span>${escapeHtml(tr("Richtige Lösung", "Target Sound"))}</span></button>
             ${canCompareAB ? `<button type="button" class="btn-tool exam-review-audio-btn" data-review-play="${itemIdx}:compare">${getExamIconSVG("compare", 12)}<span>${escapeHtml(tr("A/B Vergleich", "A/B Compare"))}</span></button>` : ""}
           </div>
@@ -2493,6 +2806,38 @@ function playSingleExamReviewSnapshot(snap, side) {
       });
     }
     return 1220;
+  }
+
+  if (type === "midi-interval") {
+    const refNote = snap.refNote;
+    const secondNote = side === "chosen" ? snap.chosenNoteName : snap.targetNoteName;
+    if (!refNote || !secondNote) return 0;
+    audioEngine.playStep([refNote], 0.55, null, "interval", { velocity: 0.76 });
+    audioEngine.registerTimer(() => {
+      if (audioEngine.playbackId !== currentId) return;
+      audioEngine.playStep([secondNote], 0.9, null, "interval", { velocity: 0.84 });
+    }, 480);
+    return 1420;
+  }
+
+  if (type === "midi-chord") {
+    const notes = side === "chosen" ? snap.chosenNotes : snap.targetNotes;
+    if (!Array.isArray(notes) || notes.length === 0) return 0;
+    audioEngine.playStep(notes, 1.35, null, "chord", { velocity: 0.78 });
+    return 1400;
+  }
+
+  if (type === "midi-scale") {
+    const notes = side === "chosen" ? snap.chosenNotes : snap.targetNotes;
+    if (!Array.isArray(notes) || notes.length === 0) return 0;
+    const stepMs = 230;
+    notes.forEach((n, idx) => {
+      audioEngine.registerTimer(() => {
+        if (audioEngine.playbackId !== currentId) return;
+        audioEngine.playStep([n], idx === notes.length - 1 ? 0.7 : 0.34, null, "interval", { velocity: 0.78 });
+      }, idx * stepMs);
+    });
+    return Math.max(0, notes.length - 1) * stepMs + 750;
   }
 
   if (type && type.startsWith("modes-")) {

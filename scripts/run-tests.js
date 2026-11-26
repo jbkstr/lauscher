@@ -814,6 +814,93 @@ runTest("MIDI: Gerätelisten-Vergleich verhindert statechange-Schleifen", () => 
   assert.equal(sb.haveMidiDeviceListsChanged([d1], []), true);
 });
 
+runTest("MIDI-Prüfungen: Tonleiter-Durchspiel-Wertung (anteilig) & Prüfungs-Presets", () => {
+  const cMajor = { rootMidi: 60, rootPc: 0, scaleIntervals: [0, 2, 4, 5, 7, 9, 11, 12] };
+
+  // 1) Perfekter Durchlauf (auch eine Oktave tiefer am MIDI-Keyboard gestartet)
+  const perfect = sb.evaluateMidiScaleExamRun(cMajor, [48, 50, 52, 53, 55, 57, 59, 60]);
+  assert.equal(perfect.status, "correct");
+  assert.equal(perfect.score, 1);
+  assert.equal(perfect.correctCount, 8);
+  assert.equal(perfect.wrongSteps.length, 0);
+
+  // 2) Anteiliger Durchlauf: 7 von 8 richtig (Stufe 4 Fis statt F)
+  const partial = sb.evaluateMidiScaleExamRun(cMajor, [60, 62, 64, 66, 67, 69, 71, 72]);
+  assert.equal(partial.status, "partial");
+  assert.equal(partial.correctCount, 7);
+  assert.equal(partial.score, 0.88);
+  assert.equal(partial.wrongSteps.length, 1);
+  assert.equal(partial.wrongSteps[0].stepNumber, 4);
+  assert.equal(partial.wrongSteps[0].expectedMidi, 65);
+  assert.equal(partial.wrongSteps[0].playedMidi, 66);
+
+  // 3) Falscher Startton fällt sauber auf erwartete Start-Oktave zurück, Rest wird weiter bewertet
+  const wrongStart = sb.evaluateMidiScaleExamRun(cMajor, [61, 62, 64, 65, 67, 69, 71, 72]);
+  assert.equal(wrongStart.status, "partial");
+  assert.equal(wrongStart.correctCount, 7);
+  assert.equal(wrongStart.wrongSteps[0].stepNumber, 1);
+
+  // 4) Bildschirm-Klaviatur (exactRoot: true) verlangt die angezeigte Oktave auf Schritt 0
+  const wrongOctScreen = sb.evaluateMidiScaleExamRun(cMajor, [72, 62, 64, 65, 67, 69, 71, 72], { exactRoot: true });
+  assert.equal(wrongOctScreen.steps[0].ok, false);
+  assert.equal(wrongOctScreen.steps[0].wrongOctave, true);
+  assert.equal(wrongOctScreen.correctCount, 7);
+
+  // 5) Alle 3 Spiel-Prüfungskategorien enthalten sauber getrennte examGroup:"play"-Presets
+  const cats = getLex("EXAM_CATEGORY_LEVELS");
+  for (const [catKey, modeName, minCount] of [
+    ["interval", "midi-interval", 3],
+    ["chords", "midi-chord", 4],
+    ["modes", "midi-scale", 3]
+  ]) {
+    const playPresets = (cats[catKey]?.presets || []).filter(p => p.examGroup === "play");
+    assert.ok(playPresets.length >= minCount, `Zu wenige Play-Presets in ${catKey}`);
+    playPresets.forEach(p => {
+      assert.deepEqual(Array.from(p.modes), [modeName]);
+      assert.ok(p.apply && Object.keys(p.apply).length > 0, `apply fehlt in ${p.id}`);
+    });
+  }
+});
+
+runTest("Doppelsystem (Grand Staff): Stufen 1–5 erzeugen gültige ein- und zweihändige Aufgaben & SVGs", () => {
+  appState.settings.mode = "notation-grand";
+  appState.settings.notationKeyMode = "none";
+  for (const lvl of [1, 2, 3, 4, 5]) {
+    appState.settings.notationDifficulty = lvl;
+    for (let i = 0; i < 10; i++) {
+      sb.generateNotationExercise("notation-grand");
+      const ex = appState.currentExercise;
+      assert.equal(ex.type, "notation-grand");
+      assert.equal(ex.level, lvl);
+      assert.ok(ex.isGrandStaff);
+      const t = ex.targetItem;
+      assert.ok(t, `targetItem fehlt auf Stufe ${lvl}`);
+      if (lvl <= 2) {
+        assert.ok(!t.isGrandMulti, `Stufe ${lvl} sollte Einzelnoten erzeugen`);
+        assert.ok(t.clefId === "treble" || t.clefId === "bass");
+      } else {
+        assert.ok(t.isGrandMulti, `Stufe ${lvl} sollte mehrstimmige Grand-Staff-Aufgaben erzeugen`);
+        assert.ok(t.bassTones.length >= 1 && t.trebleTones.length >= 1, `Beide Systeme erwartet auf Stufe ${lvl}`);
+        const maxBass = Math.max(...t.bassTones.map(n => n.midi));
+        const minTreble = Math.min(...t.trebleTones.map(n => n.midi));
+        assert.ok(minTreble > maxBass, `Überkreuzte Hände: Bass ${maxBass} >= Violin ${minTreble}`);
+        if (lvl === 3) {
+          assert.equal(t.targetMidis.length, 2, "Stufe 3 erwartet Zweiklänge (1+1)");
+        } else if (lvl === 4) {
+          assert.ok(t.targetMidis.length >= 3 && t.targetMidis.length <= 4, `Stufe 4 erwartet 3–4 Töne, war ${t.targetMidis.length}`);
+        }
+        // SVG muss beide Systeme zeichnen und foundMidis unterstützen
+        const svg = sb.buildNotationGrandStaffSVG(ex.notationQueue, {
+          keySignatureId: ex.keySignatureId,
+          foundMidis: [t.bassTones[0].midi]
+        });
+        assert.ok(svg.includes("notation-grand-treble") && svg.includes("notation-grand-bass"));
+        assert.ok(svg.includes("notation-chord-found"));
+      }
+    }
+  }
+});
+
 // Ergebnis-Ausgabe
 const failed = results.filter(r => !r.ok);
 for (const r of results) {
