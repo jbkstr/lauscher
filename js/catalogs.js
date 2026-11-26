@@ -2423,34 +2423,6 @@ const DEFAULT_BREAK_REMINDER_MINUTES = 15;
 const BREAK_REMINDER_MIN_MINUTES = 5;
 const BREAK_REMINDER_MAX_MINUTES = 30;
 
-// Achtsamer Session-Timer: Wunschdauer frei wählbar (1–180 Min), Auto-Stopp 1–60 Min oder 0 = „Nie“.
-// Ältere Profile (nur 5/10/15/20 bzw. 2/3/5) bleiben damit gültig.
-const SESSION_TIMER_PRESETS = [5, 10, 15, 20];
-const SESSION_TIMER_MIN_MINUTES = 1;
-const SESSION_TIMER_MAX_MINUTES = 180;
-const SESSION_IDLE_PRESETS = [2, 3, 5];
-const SESSION_IDLE_MIN_MINUTES = 1;
-const SESSION_IDLE_MAX_MINUTES = 60;
-const SESSION_IDLE_NEVER = 0;
-
-function sanitizeSessionTimerMinutes(val) {
-  const num = parseInt(val, 10);
-  if (!Number.isFinite(num) || num < SESSION_TIMER_MIN_MINUTES || num > SESSION_TIMER_MAX_MINUTES) return 10;
-  return num;
-}
-
-function sanitizeSessionIdleMinutes(val) {
-  const num = parseInt(val, 10);
-  if (num === SESSION_IDLE_NEVER) return SESSION_IDLE_NEVER;
-  if (!Number.isFinite(num) || num < SESSION_IDLE_MIN_MINUTES || num > SESSION_IDLE_MAX_MINUTES) return 3;
-  return num;
-}
-
-/** Auto-Stopp-Minuten des Timers; 0 bedeutet „Nie“ (kein automatisches Beenden). */
-function getSessionIdleMinutes() {
-  return sanitizeSessionIdleMinutes(state?.profile?.inactivityMinutes ?? 3);
-}
-
 function sanitizeBreakReminderMinutes(val) {
   const num = parseInt(val, 10);
   if (!Number.isFinite(num)) return DEFAULT_BREAK_REMINDER_MINUTES;
@@ -2511,8 +2483,6 @@ function createDefaultProfile() {
     intervalNotation: "de",
     intervalNotationManual: false,
     solfegeLabels: "syllables",
-    sessionMinutes: 10,
-    inactivityMinutes: 3,
     breakReminderEnabled: DEFAULT_BREAK_REMINDER_ENABLED,
     breakReminderMinutes: DEFAULT_BREAK_REMINDER_MINUTES,
     mixes: createDefaultMixes(),
@@ -2688,8 +2658,6 @@ function sanitizeUserProfile(raw) {
     : def.instruments;
   const focuses = normalizeProfileFocuses(raw.focuses, raw.focus);
   const companionAccessories = normalizeProfileAccessories(raw.companionAccessories, raw.companionAccessory);
-  const sessMins = sanitizeSessionTimerMinutes(raw.sessionMinutes);
-  const idleMins = sanitizeSessionIdleMinutes(raw.inactivityMinutes);
   const breakEnabled = raw.breakReminderEnabled === undefined ? DEFAULT_BREAK_REMINDER_ENABLED : Boolean(raw.breakReminderEnabled);
   const breakMinutes = sanitizeBreakReminderMinutes(raw.breakReminderMinutes);
 
@@ -2726,8 +2694,6 @@ function sanitizeUserProfile(raw) {
     intervalNotation: raw.intervalNotation === "intl" ? "intl" : "de",
     intervalNotationManual: Boolean(raw.intervalNotationManual),
     solfegeLabels: raw.solfegeLabels === "numbers" ? "numbers" : "syllables",
-    sessionMinutes: sessMins,
-    inactivityMinutes: idleMins,
     breakReminderEnabled: breakEnabled,
     breakReminderMinutes: breakMinutes,
     mixes: mixes,

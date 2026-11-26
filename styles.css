@@ -1617,8 +1617,7 @@ html[lang="ar"] .btn-primary-action.home-continue-fab { width: 174px; }
   gap: 0.65rem;
 }
 
-#spaceExamHistoryCard,
-#spaceTimerCard {
+#spaceExamHistoryCard {
   border-inline-end-color: var(--peach);
 }
 
@@ -2019,29 +2018,6 @@ html[lang="ar"] .btn-primary-action.home-continue-fab { width: 174px; }
   flex-wrap: wrap;
   gap: 0.35rem;
   align-items: center;
-}
-
-.timer-display-box {
-  background-color: var(--surface-warm);
-  border: 1.5px solid var(--border-soft);
-  border-radius: var(--radius-md);
-  padding: 0.62rem 0.8rem;
-  text-align: center;
-}
-
-.timer-digits {
-  font-size: 1.65rem;
-  font-weight: 900;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.03em;
-  color: var(--raccoon-dark);
-  line-height: 1.1;
-}
-
-.timer-note {
-  font-size: 0.73rem;
-  color: var(--raccoon-mid);
-  margin-top: 0.22rem;
 }
 
 .account-btn-row {
@@ -6705,64 +6681,7 @@ body,
   }
 }
 
-/* Achtsamer Session-Timer: Eingabezeile für eine eigene Minutenzahl */
-.timer-custom-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.45rem;
-  margin-top: 0.5rem;
-}
-
-.timer-custom-input {
-  width: 4.6rem;
-  font-family: inherit;
-  font-size: 0.95rem;
-  font-weight: 800;
-  font-variant-numeric: tabular-nums;
-  text-align: center;
-  color: var(--raccoon-dark);
-  background-color: var(--surface-white);
-  border: 1.5px solid var(--border-strong);
-  border-radius: var(--radius-pill);
-  padding: 0.32rem 0.5rem;
-  appearance: textfield;
-  -moz-appearance: textfield;
-}
-
-.timer-custom-input::-webkit-outer-spin-button,
-.timer-custom-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.timer-custom-input:focus-visible {
-  outline: none;
-  border-color: var(--sage-strong);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--sage) 45%, transparent);
-}
-
-.timer-custom-unit {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--raccoon-mid);
-}
-
-.timer-custom-hint {
-  flex-basis: 100%;
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: var(--raccoon-muted);
-}
-
-/* Aufklappbare Konto-Detailblöcke & Kompakte Timer-Zusammenfassung */
-.timer-config-summary {
-  margin: 0.2rem 0 0;
-  font-size: 0.74rem;
-  font-weight: 700;
-  color: var(--raccoon-muted);
-}
-
+/* Aufklappbare Konto-Detailblöcke */
 .account-disclosure {
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-md);

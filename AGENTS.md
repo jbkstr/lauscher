@@ -33,7 +33,7 @@ Große Dateien nie komplett einlesen, sondern gezielt per `grep -n` suchen.
 | [js/exercise-stage.js](js/exercise-stage.js) | Feste Übungshöhe (`fitExerciseLayout`), Streak, Music-Juice & zentrale Bühne/Maskottchen |
 | [js/exercise-notation.js](js/exercise-notation.js) | Notenlesen- & Symbol-Übungs-UI, Inline-Notationskopf, Warteschlange & Nur-Hören |
 | [js/playback.js](js/playback.js) | `handleAnswer`, Rhythmus-Tap-Pad, EQ-Vergleich, Nur-Hören & `playSequence` |
-| [js/profile.js](js/profile.js) | Mixer-Sync, Home-Schnellmix, Timer, Konto, Farb-Editor, Toasts, Backup & Reset |
+| [js/profile.js](js/profile.js) | Mixer-Sync, Home-Schnellmix, Pausen-Erinnerung, Konto, Farb-Editor, Toasts, Backup & Reset |
 | [app.js](app.js) | Einstiegspunkt: Markenname-Styling (`startBrandWordStyling`) & `DOMContentLoaded`-Init |
 | [js/warmup.js](js/warmup.js) | Einsing-Helfer (`#viewWarmup`) |
 | [js/metronome.js](js/metronome.js) | Praxis-Metronom (`#viewMetronome`) |

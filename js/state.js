@@ -185,17 +185,6 @@ class AppState {
       pickerHsv: rgbToHsv(parseCssColorToRgba("#FAF7F2")),
       livePreview: true
     };
-    const initSec = (this.profile.sessionMinutes || 10) * 60;
-    this.sessionTimer = {
-      status: "idle", // 'idle' | 'running' | 'paused' | 'completed' | 'auto-stopped'
-      totalSec: initSec,
-      remainingSec: initSec,
-      lastActivityWallMs: Date.now(),
-      hiddenSinceWallMs: null,
-      intervalId: null,
-      noteKind: "idle",
-      statusNote: tr("Bereit für eine entspannte Session.", "Ready for a calm session.")
-    };
     this.breakReminder = {
       elapsedSec: 0,
       intervalId: null,
@@ -668,14 +657,6 @@ class AppState {
     } else {
       mainTitle.textContent = getCategoryTitle(getCategoryForMode(this.settings.mode));
       el.textContent = this.getModeSummaryText(false);
-    }
-
-    if (
-      this.currentView !== "space" &&
-      this.sessionTimer &&
-      (this.sessionTimer.status === "running" || this.sessionTimer.status === "paused")
-    ) {
-      el.textContent = `${el.textContent}  •  ${formatSessionMMSS(this.sessionTimer.remainingSec)}`;
     }
   }
 

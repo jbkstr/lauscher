@@ -4,46 +4,6 @@
  */
 
 registerColocatedPhrases({
-  "Läuft (ohne Auto-Stopp).": {
-    fr: "En cours (sans arrêt automatique).",
-    es: "En marcha (sin parada automática).",
-    it: "In corso (senza arresto automatico).",
-    pl: "Trwa (bez automatycznego zatrzymania).",
-    uk: "Триває (без автозупинки).",
-    ur: "جاری ہے (خودکار اسٹاپ کے بغیر)۔",
-    tr: "Çalışıyor (otomatik durdurma yok).",
-    ar: "قيد التشغيل (دون إيقاف تلقائي)."
-  },
-  "{dur} Min • ohne Auto-Stopp": {
-    fr: "{dur} min • sans arrêt automatique",
-    es: "{dur} min • sin parada automática",
-    it: "{dur} min • senza arresto automatico",
-    pl: "{dur} min • bez automatycznego zatrzymania",
-    uk: "{dur} хв • без автозупинки",
-    ur: "{dur} منٹ • خودکار اسٹاپ کے بغیر",
-    tr: "{dur} dk • otomatik durdurma yok",
-    ar: "{dur} د • دون إيقاف تلقائي"
-  },
-  "Eigene: {n} Min": {
-    fr: "Autre : {n} min",
-    es: "Otra: {n} min",
-    it: "Altro: {n} min",
-    pl: "Własny: {n} min",
-    uk: "Свій: {n} хв",
-    ur: "اپنا: {n} منٹ",
-    tr: "Özel: {n} dk",
-    ar: "مخصّص: {n} د"
-  },
-  "Bitte eine ganze Zahl zwischen {min} und {max} eingeben.": {
-    fr: "Merci d’indiquer un nombre entier entre {min} et {max}.",
-    es: "Introduce un número entero entre {min} y {max}.",
-    it: "Inserisci un numero intero tra {min} e {max}.",
-    pl: "Podaj liczbę całkowitą od {min} do {max}.",
-    uk: "Введи ціле число від {min} до {max}.",
-    ur: "براہ کرم {min} اور {max} کے درمیان پورا عدد لکھیں۔",
-    tr: "Lütfen {min} ile {max} arasında bir tam sayı gir.",
-    ar: "يرجى إدخال عدد صحيح بين {min} و{max}."
-  },
   "Pendel": {
     fr: "Boucle",
     es: "Bucle",
@@ -684,36 +644,6 @@ registerColocatedPhrases({
     tr: "Seç",
     ar: "اختيار"
   },
-  "Auto-Stopp": {
-    fr: "Arrêt auto",
-    es: "Parada auto",
-    it: "Arresto auto",
-    pl: "Autostop",
-    uk: "Автостоп",
-    ur: "آٹو اسٹاپ",
-    tr: "Otomatik durdur",
-    ar: "إيقاف تلقائي"
-  },
-  "Automatisch beendet nach {mins} Min Inaktivität.": {
-    fr: "Arrêt automatique après {mins} min d’inactivité.",
-    es: "Parada automática tras {mins} min de inactividad.",
-    it: "Arresto automatico dopo {mins} min di inattività.",
-    pl: "Zatrzymano automatycznie po {mins} min bezczynności.",
-    uk: "Автоматично зупинено після {mins} хв бездії.",
-    ur: "{mins} منٹ غیر فعالی کے بعد خودکار بند۔",
-    tr: "{mins} dk hareketsizlik sonrası otomatik sonlandırıldı.",
-    ar: "توقّف تلقائيًا بعد {mins} دقيقة من عدم النشاط."
-  },
-  "Automatisch beendet nach {mins} Min Pause.": {
-    fr: "Arrêt automatique après {mins} min d’absence.",
-    es: "Parada automática tras {mins} min de ausencia.",
-    it: "Arresto automatico dopo {mins} min di pausa.",
-    pl: "Zatrzymano automatycznie po {mins} min przerwy.",
-    uk: "Автоматично зупинено після {mins} хв перерви.",
-    ur: "{mins} منٹ وقفے کے بعد خودکار بند۔",
-    tr: "{mins} dk duraklama sonrası otomatik sonlandırıldı.",
-    ar: "توقّف تلقائيًا بعد {mins} دقيقة من التوقف المؤقت."
-  },
   "Basis": {
     fr: "Bases",
     es: "Bases",
@@ -813,16 +743,6 @@ registerColocatedPhrases({
     ur: "تیار",
     tr: "Hazır",
     ar: "جاهز"
-  },
-  "Bereit für eine entspannte Session.": {
-    fr: "Prêt pour une session sereine.",
-    es: "Listo para una sesión tranquila.",
-    it: "Pronto per una sessione rilassata.",
-    pl: "Gotowy do spokojnej sesji.",
-    uk: "Готовий до спокійного заняття.",
-    ur: "پُرسکون مشق کے لیے تیار۔",
-    tr: "Rahat bir çalışma oturumuna hazır.",
-    ar: "جاهز لجلسة مريحة."
   },
   "Blindflug: Vorzähler → Demo → Klopfe im Kopf weiter!": {
     fr: "Mode aveugle : Décompte → Démo → Gardez la pulsation en tête !",
@@ -1423,16 +1343,6 @@ registerColocatedPhrases({
     ur: "گلوکاری اور آواز",
     tr: "Şan ve Ses",
     ar: "الغناء والصوت"
-  },
-  "Geschafft": {
-    fr: "Terminé",
-    es: "Terminado",
-    it: "Fatto",
-    pl: "Zakończono",
-    uk: "Завершено",
-    ur: "مکمل",
-    tr: "Tamamlandı",
-    ar: "تم الإنجاز"
   },
   "Gleichzeitig": {
     fr: "Harmonique",
@@ -2184,16 +2094,6 @@ registerColocatedPhrases({
     tr: "Çalışıyor",
     ar: "قيد التشغيل"
   },
-  "Läuft (stoppt automatisch nach {mins} Min Inaktivität).": {
-    fr: "En cours (arrêt auto après {mins} min d’inactivité).",
-    es: "En curso (parada automática tras {mins} min de inactividad).",
-    it: "In corso (arresto automatico dopo {mins} min di inattività).",
-    pl: "Działa (autostop po {mins} min bezczynności).",
-    uk: "Працює (автостоп через {mins} хв бездії).",
-    ur: "جاری ہے ({mins} منٹ غیر فعالی پر خودکار بند)۔",
-    tr: "Çalışıyor ({mins} dk hareketsizlik sonrası otomatik durur).",
-    ar: "قيد التشغيل (يتوقف تلقائيًا بعد {mins} دقيقة من عدم النشاط)."
-  },
   "MELODIE GELÖST! (4/4)": {
     fr: "MÉLODIE RÉSOLUE ! (4/4)",
     es: "¡MELODÍA RESUELTA! (4/4)",
@@ -2653,16 +2553,6 @@ registerColocatedPhrases({
     ur: "وقتی طور پر رکا",
     tr: "Duraklatıldı",
     ar: "متوقف مؤقتًا"
-  },
-  "Pausiert – tippe auf „Fortsetzen“, wenn es weitergeht.": {
-    fr: "En pause — touchez « Reprendre » quand vous êtes prêt.",
-    es: "En pausa: toca «Reanudar» cuando estés listo.",
-    it: "In pausa – tocca «Riprendi» quando vuoi continuare.",
-    pl: "Wstrzymano — naciśnij „Wznów”, aby kontynuować.",
-    uk: "На паузі — натисни «Продовжити», коли будеш готовий.",
-    ur: "وقتی طور پر رکا — جاری رکھنے کے لیے «جاری رکھیں» دبائیں۔",
-    tr: "Duraklatıldı – devam etmek için “Devam et”e dokun.",
-    ar: "متوقف مؤقتًا – اضغط على «متابعة» عند الاستعداد."
   },
   "Pfirsich (Fläche)": {
     fr: "Pêche (Fond)",
@@ -3239,16 +3129,6 @@ registerColocatedPhrases({
     ur: "سیونتھ کارڈز (4)",
     tr: "Yedili Akorlar (4)",
     ar: "تآلفات سباعية (4)"
-  },
-  "Session geschafft! Gönn deinen Ohren eine kurze Pause – hier wird nichts gezählt.": {
-    fr: "Session terminée ! Offrez une pause à vos oreilles — rien n’est comptabilisé ici.",
-    es: "¡Sesión terminada! Regala un descanso a tus oídos: aquí no se cuenta nada.",
-    it: "Sessione completata! Concedi una breve pausa alle tue orecchie – qui non si conta nulla.",
-    pl: "Sesja ukończona! Daj uszom chwilę odpoczynku — nic tu nie liczymy.",
-    uk: "Сесію завершено! Дай вухам короткий відпочинок — тут нічого не обліковується.",
-    ur: "سیشن مکمل! اپنے کانوں کو مختصر آرام دیں — یہاں کچھ شمار نہیں ہوتا۔",
-    tr: "Oturum tamamlandı! Kulaklarına kısa bir mola ver – burada hiçbir şey sayılmaz.",
-    ar: "أنهيت الجلسة! امنح أذنيك استراحة قصيرة – لا يُحتسب هنا أي شيء."
   },
   "Singen & Spielen": {
     fr: "Chanter & Jouer",
@@ -4520,16 +4400,6 @@ registerColocatedPhrases({
     tr: "Rastgele bir başlangıç sesinden aşağı doğru iki ses sırayla çalar",
     ar: "تُعزف نغمتان بالتتابع هبوطًا من نغمة بداية عشوائية"
   },
-  "{dur} Min • Auto-Stopp {idle} Min": {
-    fr: "{dur} min • Arrêt auto {idle} min",
-    es: "{dur} min • Parada auto {idle} min",
-    it: "{dur} min • Stop auto {idle} min",
-    pl: "{dur} min • Autostop {idle} min",
-    uk: "{dur} хв • Автостоп {idle} хв",
-    ur: "{dur} منٹ • آٹو اسٹاپ {idle} منٹ",
-    tr: "{dur} dk • Otomatik durdur {idle} dk",
-    ar: "{dur} د • إيقاف تلقائي {idle} د"
-  },
   "{f} in C-Dur anhören": {
     fr: "Écouter {f} en Do majeur",
     es: "Escuchar {f} en Do mayor",
@@ -4600,16 +4470,6 @@ registerColocatedPhrases({
     tr: "⏸ Duraklat",
     ar: "⏸ إيقاف مؤقت"
   },
-  "⏸ Pausieren": {
-    fr: "⏸ Pause",
-    es: "⏸ Pausa",
-    it: "⏸ Pausa",
-    pl: "⏸ Wstrzymaj",
-    uk: "⏸ Пауза",
-    ur: "⏸ روکیں",
-    tr: "⏸ Duraklat",
-    ar: "⏸ إيقاف مؤقت"
-  },
   "⏸ Welle anhalten": {
     fr: "⏸ Mettre l’onde en pause",
     es: "⏸ Pausar la onda",
@@ -4639,26 +4499,6 @@ registerColocatedPhrases({
     ur: "▶ وارم اپ شروع کریں",
     tr: "▶ Ses ısıtmayı başlat",
     ar: "▶ بدء الإحماء الصوتي"
-  },
-  "▶ Fortsetzen": {
-    fr: "▶ Reprendre",
-    es: "▶ Reanudar",
-    it: "▶ Riprendi",
-    pl: "▶ Wznów",
-    uk: "▶ Продовжити",
-    ur: "▶ جاری رکھیں",
-    tr: "▶ Devam et",
-    ar: "▶ متابعة"
-  },
-  "▶ Session starten": {
-    fr: "▶ Démarrer la session",
-    es: "▶ Iniciar la sesión",
-    it: "▶ Avvia sessione",
-    pl: "▶ Rozpocznij sesję",
-    uk: "▶ Почати сесію",
-    ur: "▶ سیشن شروع کریں",
-    tr: "▶ Oturumu başlat",
-    ar: "▶ بدء الجلسة"
   },
   "▶ Starten": {
     fr: "▶ Lancer",

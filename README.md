@@ -94,10 +94,9 @@ Inside the **Knowledge** (`Wissen`) tab, interactive audio examples accompany ev
   - *Waldlichtung & Salbei*, *Morgentau & Küste*, and *Abenddämmerung* — each with dedicated **Light**, **Dark**, and **System** appearance modes.
   - **Metal** — a sleek, dark obsidian black theme (`#090A0D`) built for a clean, adult look with dual accents (**Cold Steel Blue** & **Crimson Red**).
   - **Custom Theme Studio:** 3 persistent user slots with live RGBA/color-pad customization per UI color token starting from any built-in template.
-- **Account (`Konto`) & Mindful Timers:**
+- **Account (`Konto`) & Break Reminder:**
   - Multi-select dropdown menus with tag pills for **Your Instruments** and **Training Focus**. *(Lauscher mascot looks are temporarily hidden — see [`docs/ideas.md`](docs/ideas.md).)*
   - **Background Break Reminder (`5–30 min`):** Silent background exercise timer (default `15 min`, quick presets `5 / 10 / 15 / 20 / 25 min`) that gently prompts for an ear break without showing a distracting countdown during practice.
-  - **Mindful Session Timer:** Configurable session pacing (`5–20 min`) with automatic inactivity pause (`2–5 min`).
 - **100% Local Privacy (`localStorage`):** No accounts, analytics, or external storage. Export, restore, or reset your complete profile, mixes, custom themes, and exam history anytime via **`lauscher-profil-YYYY-MM-DD.json`**.
 
 ---

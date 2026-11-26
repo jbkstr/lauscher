@@ -21,7 +21,7 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
   - [js/exercise-notation.js](js/exercise-notation.js) (~1.040 Z.): Notenlesen- & Symbol-Übungs-UI, Inline-Notationskopf, Warteschlange & Nur-Hören-Notenlesen
   - [js/playback.js](js/playback.js) (~2.730 Z.): Antwort-Auswertung (`handleAnswer`), Rhythmus-Tap-Pad, EQ-Vergleich, Modi-Wiedergabe, Nur-Hören-Modus, `playSequence`, Play-Button-UI
   - [js/tutorial.js](js/tutorial.js) (~1.120 Z.): Interaktive Vormach-Tutorials pro Übungsmechanik (`#exerciseTutorialBackdrop`, `openExerciseTutorialIntro`)
-  - [js/profile.js](js/profile.js) (~2.470 Z.): Mixer-Sync, Home-Schnellmix & Begrüßung, Sitzungs-Timer & Pausen-Erinnerung, Übe-Mixe, eigene Dropdowns, Mein Konto, Farb-Editor, Toasts, Profil-Backup & App-Reset
+  - [js/profile.js](js/profile.js) (~2.200 Z.): Mixer-Sync, Home-Schnellmix & Begrüßung, Pausen-Erinnerung, Übe-Mixe, eigene Dropdowns, Mein Konto, Farb-Editor, Toasts, Profil-Backup & App-Reset
   - [app.js](app.js) (~1.620 Z.): Einstiegspunkt – Markenname-Styling (`startBrandWordStyling`) & `DOMContentLoaded`-Initialisierung
   - [js/warmup.js](js/warmup.js) (~1.810 Z.): Singen / Einsing-Helfer (`#viewWarmup`)
   - [js/metronome.js](js/metronome.js) (~940 Z.): Praxis-Metronom (`#viewMetronome`, `initMetronomeEventListeners`)

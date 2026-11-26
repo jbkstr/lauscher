@@ -158,7 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderKnowledgeHub();
   generateExercise();
 
-  // Globale Aktivitätserfassung für den automatischen Inaktivitäts-Stopp des Session-Timers
+  // Globale Aktivitätserfassung für die Hintergrund-Pausen-Erinnerung
   let lastActivitySampleMs = 0;
   const onAnyUserActivity = () => {
     const now = Date.now();
@@ -170,30 +170,17 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("keydown", onAnyUserActivity);
   document.addEventListener("scroll", onAnyUserActivity);
   document.addEventListener("visibilitychange", () => {
-    const st = state.sessionTimer;
     const br = state.breakReminder;
+    if (!br) return;
     if (document.hidden) {
-      if (st && st.status === "running") st.hiddenSinceWallMs = Date.now();
-      if (br) br.hiddenSinceWallMs = Date.now();
+      br.hiddenSinceWallMs = Date.now();
     } else {
-      if (br) {
-        br.hiddenSinceWallMs = null;
-        br.lastActivityWallMs = Date.now();
-      }
-      if (st && st.status === "running" && st.hiddenSinceWallMs !== null) {
-        const idleMinsVis = getSessionIdleMinutes();
-        const idleLimitMs = idleMinsVis * 60 * 1000;
-        if (idleMinsVis !== SESSION_IDLE_NEVER && Date.now() - st.hiddenSinceWallMs >= idleLimitMs) {
-          stopSessionTimer("auto-stopped", null, "auto-stopped-pause");
-        } else {
-          st.hiddenSinceWallMs = null;
-          markSessionActivity();
-        }
-      }
+      br.hiddenSinceWallMs = null;
+      br.lastActivityWallMs = Date.now();
     }
   });
 
-  // Konto-Steuerung: Profil, Session-Timer, Übe-Mixe, Notation & Backup
+  // Konto-Steuerung: Profil, Übe-Mixe, Notation & Backup
   document.getElementById("profileNameInput")?.addEventListener("input", (e) => {
     state.profile.name = String(e.target.value || "").trim().slice(0, 24);
     saveUserProfile(state.profile);
@@ -204,30 +191,6 @@ document.addEventListener("DOMContentLoaded", () => {
         : tr("Dein Musiker-Profil", "Your Musician Profile");
     }
     renderHomeProfileGreeting();
-  });
-
-  document.querySelectorAll("[data-timer-mins]").forEach(btn => {
-    btn.addEventListener("click", () => setSessionDurationMinutes(btn.dataset.timerMins));
-  });
-  document.querySelectorAll("[data-timer-idle]").forEach(btn => {
-    btn.addEventListener("click", () => setSessionIdleMinutes(btn.dataset.timerIdle));
-  });
-  // Eigene Minutenzahl für Wunschdauer & Auto-Stopp (Übernehmen-Knopf oder Enter)
-  [["duration", "timerDurationCustomApply", "timerDurationCustomInput"], ["idle", "timerIdleCustomApply", "timerIdleCustomInput"]].forEach(([kind, applyId, inputId]) => {
-    document.getElementById(applyId)?.addEventListener("click", () => applySessionTimerCustomValue(kind));
-    document.getElementById(inputId)?.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        applySessionTimerCustomValue(kind);
-      }
-    });
-  });
-  document.getElementById("timerToggleBtn")?.addEventListener("click", () => {
-    if (state.sessionTimer.status === "running") pauseSessionTimer();
-    else startOrResumeSessionTimer();
-  });
-  document.getElementById("timerResetBtn")?.addEventListener("click", () => {
-    stopSessionTimer("idle", null, "idle");
   });
 
   document.getElementById("mixModeSelect")?.addEventListener("change", () => {

@@ -1,5 +1,5 @@
 /**
- * Lauscher • Mixer-Sync, Home-Schnellmix, Sitzungs-Timer, Konto, Farb-Editor, Toasts, Profil-Backup & Reset
+ * Lauscher • Mixer-Sync, Home-Schnellmix, Pausen-Erinnerung, Konto, Farb-Editor, Toasts, Profil-Backup & Reset
  */
 
 function syncMixerSliders() {
@@ -17,15 +17,11 @@ function syncMixerSliders() {
 }
 
 /**
- * Markiert Nutzeraktivität für die automatische Inaktivitäts-Abschaltung des Session-Timers.
+ * Markiert Nutzeraktivität für die Hintergrund-Pausen-Erinnerung.
  */
 function markSessionActivity() {
   if (typeof state === "undefined") return;
   const now = Date.now();
-  if (state.sessionTimer) {
-    state.sessionTimer.lastActivityWallMs = now;
-    state.sessionTimer.hiddenSinceWallMs = null;
-  }
   if (state.breakReminder) {
     state.breakReminder.lastActivityWallMs = now;
     if (state.currentView === "exercise" && !state.breakReminder.promptOpen && state.breakReminder.pausedOnBreak) {
@@ -342,281 +338,6 @@ function renderHomeProfileGreeting() {
   refreshCurrentQuoteLocalization();
   renderHomeQuickMixBar();
   syncHomeFocusHighlights();
-}
-
-function getSessionTimerLocalizedNote(st) {
-  if (!st) return tr("Bereit für eine entspannte Session.", "Ready for a calm session.");
-  const idleMins = getSessionIdleMinutes();
-  if (st.noteKind === "custom" && st.statusNote) return st.statusNote;
-  if (st.noteKind === "running" && idleMins === SESSION_IDLE_NEVER) {
-    return tr("Läuft (ohne Auto-Stopp).", "Running (no auto-stop).");
-  }
-  if (st.noteKind === "running") {
-    return tf("Läuft (stoppt automatisch nach {mins} Min Inaktivität).", "Running (auto-stops after {mins} min idle).", { mins: idleMins });
-  }
-  if (st.noteKind === "paused") {
-    return tr("Pausiert – tippe auf „Fortsetzen“, wenn es weitergeht.", "Paused — tap “Resume” whenever you’re ready.");
-  }
-  if (st.noteKind === "completed") {
-    return tr("Session geschafft! Gönn deinen Ohren eine kurze Pause – hier wird nichts gezählt.", "Session complete! Give your ears a quick rest — nothing is tracked here.");
-  }
-  if (st.noteKind === "auto-stopped-idle") {
-    return tf("Automatisch beendet nach {mins} Min Inaktivität.", "Auto-stopped after {mins} min of inactivity.", { mins: idleMins });
-  }
-  if (st.noteKind === "auto-stopped-pause") {
-    return tf("Automatisch beendet nach {mins} Min Pause.", "Auto-stopped after {mins} min away.", { mins: idleMins });
-  }
-  return tr("Bereit für eine entspannte Session.", "Ready for a calm session.");
-}
-
-function renderSessionTimerUI() {
-  const st = state.sessionTimer;
-  if (!st) return;
-
-  const displayEl = document.getElementById("spaceTimerDisplay");
-  const badgeEl = document.getElementById("spaceTimerStatusBadge");
-  const noteEl = document.getElementById("spaceTimerNote");
-  const toggleBtn = document.getElementById("timerToggleBtn");
-
-  if (displayEl) displayEl.textContent = formatSessionMMSS(st.remainingSec);
-  const localizedNote = getSessionTimerLocalizedNote(st);
-  if (st.noteKind !== "custom") st.statusNote = localizedNote;
-  if (noteEl) noteEl.textContent = localizedNote;
-
-  if (badgeEl) {
-    const statusMap = {
-      "idle": tr("Bereit", "Ready"),
-      "running": tr("Läuft", "Running"),
-      "paused": tr("Pausiert", "Paused"),
-      "completed": tr("Geschafft", "Done"),
-      "auto-stopped": tr("Auto-Stopp", "Auto-Stop")
-    };
-    badgeEl.textContent = statusMap[st.status] || tr("Bereit", "Ready");
-  }
-
-  if (toggleBtn) {
-    if (st.status === "running") {
-      toggleBtn.textContent = tr("⏸ Pausieren", "⏸ Pause");
-    } else if (st.status === "paused") {
-      toggleBtn.textContent = tr("▶ Fortsetzen", "▶ Resume");
-    } else {
-      toggleBtn.textContent = tr("▶ Session starten", "▶ Start Session");
-    }
-  }
-
-  const durMins = sanitizeSessionTimerMinutes(state.profile.sessionMinutes);
-  const idleMinsNow = getSessionIdleMinutes();
-  const durIsCustom = !SESSION_TIMER_PRESETS.includes(durMins);
-  const idleIsCustom = idleMinsNow !== SESSION_IDLE_NEVER && !SESSION_IDLE_PRESETS.includes(idleMinsNow);
-  document.querySelectorAll("[data-timer-mins]").forEach(btn => {
-    const isCustomBtn = btn.dataset.timerMins === "custom";
-    btn.classList.toggle("active", isCustomBtn ? durIsCustom : parseInt(btn.dataset.timerMins, 10) === durMins);
-  });
-  document.querySelectorAll("[data-timer-idle]").forEach(btn => {
-    const isCustomBtn = btn.dataset.timerIdle === "custom";
-    btn.classList.toggle("active", isCustomBtn ? idleIsCustom : parseInt(btn.dataset.timerIdle, 10) === idleMinsNow);
-  });
-  const durCustomBtn = document.getElementById("timerDurationCustomBtn");
-  if (durCustomBtn) durCustomBtn.textContent = getSessionTimerCustomChipLabel(durIsCustom ? durMins : null);
-  const idleCustomBtn = document.getElementById("timerIdleCustomBtn");
-  if (idleCustomBtn) idleCustomBtn.textContent = getSessionTimerCustomChipLabel(idleIsCustom ? idleMinsNow : null);
-
-  const summaryEl = document.getElementById("spaceTimerConfigSummary");
-  if (summaryEl) {
-    summaryEl.textContent = idleMinsNow === SESSION_IDLE_NEVER
-      ? tf("{dur} Min • ohne Auto-Stopp", "{dur} min • no auto-stop", { dur: durMins })
-      : tf("{dur} Min • Auto-Stopp {idle} Min", "{dur} min • Auto-stop {idle} min", { dur: durMins, idle: idleMinsNow });
-  }
-}
-
-/** Beschriftung des „Eigene Zeit“-Chips: ohne eigenen Wert neutral, sonst mit der gewählten Minutenzahl. */
-function getSessionTimerCustomChipLabel(mins = null) {
-  if (!Number.isFinite(mins)) {
-    return tr("Eigene Zeit", "Set your own", { fr: "Autre durée", es: "Otra duración", it: "Durata personalizzata", pl: "Własny czas", tr: "Özel süre", uk: "Свій час", ur: "اپنا وقت", ar: "وقت مخصص" });
-  }
-  return tf("Eigene: {n} Min", "Own: {n} min", { n: mins });
-}
-
-/** Klappt die Eingabezeile für eine eigene Minutenzahl auf/zu und füllt den aktuellen Wert vor. */
-function toggleSessionTimerCustomRow(kind, forceOpen = null) {
-  const isIdle = kind === "idle";
-  const row = document.getElementById(isIdle ? "timerIdleCustomRow" : "timerDurationCustomRow");
-  const btn = document.getElementById(isIdle ? "timerIdleCustomBtn" : "timerDurationCustomBtn");
-  const input = document.getElementById(isIdle ? "timerIdleCustomInput" : "timerDurationCustomInput");
-  if (!row) return;
-  const open = forceOpen === null ? row.classList.contains("hidden") : Boolean(forceOpen);
-  row.classList.toggle("hidden", !open);
-  btn?.setAttribute("aria-expanded", String(open));
-  if (open && input) {
-    const cur = isIdle ? getSessionIdleMinutes() : sanitizeSessionTimerMinutes(state.profile.sessionMinutes);
-    input.value = cur > 0 ? String(cur) : "";
-    try { input.focus({ preventScroll: true }); input.select(); } catch (_) {}
-  }
-}
-
-/** Übernimmt die eingegebene Minutenzahl (mit Bereichsprüfung). */
-function applySessionTimerCustomValue(kind) {
-  const isIdle = kind === "idle";
-  const input = document.getElementById(isIdle ? "timerIdleCustomInput" : "timerDurationCustomInput");
-  const min = isIdle ? SESSION_IDLE_MIN_MINUTES : SESSION_TIMER_MIN_MINUTES;
-  const max = isIdle ? SESSION_IDLE_MAX_MINUTES : SESSION_TIMER_MAX_MINUTES;
-  const raw = String(input?.value ?? "").trim().replace(",", ".");
-  const num = Number(raw);
-  if (!raw || !Number.isInteger(num) || num < min || num > max) {
-    showAppToast(tf("Bitte eine ganze Zahl zwischen {min} und {max} eingeben.", "Please enter a whole number between {min} and {max}.", { min, max }), "error");
-    try { input?.focus(); } catch (_) {}
-    return;
-  }
-  if (isIdle) setSessionIdleMinutes(num);
-  else setSessionDurationMinutes(num);
-  toggleSessionTimerCustomRow(kind, false);
-}
-
-function stopSessionTimer(nextStatus = "idle", customNote = null, noteKind = null) {
-  const st = state.sessionTimer;
-  if (!st) return;
-  if (st.intervalId !== null) {
-    clearInterval(st.intervalId);
-    st.intervalId = null;
-  }
-  st.status = nextStatus;
-  st.hiddenSinceWallMs = null;
-  st.totalSec = (state.profile.sessionMinutes || 10) * 60;
-  st.remainingSec = st.totalSec;
-  if (noteKind) {
-    st.noteKind = noteKind;
-    st.statusNote = customNote || getSessionTimerLocalizedNote(st);
-  } else if (customNote) {
-    st.noteKind = "custom";
-    st.statusNote = customNote;
-  } else if (nextStatus === "idle") {
-    st.noteKind = "idle";
-    st.statusNote = getSessionTimerLocalizedNote(st);
-  }
-  renderSessionTimerUI();
-  state.updateHeaderSubtext();
-}
-
-function completeSessionTimer() {
-  const st = state.sessionTimer;
-  if (!st) return;
-  if (st.intervalId !== null) {
-    clearInterval(st.intervalId);
-    st.intervalId = null;
-  }
-  st.status = "completed";
-  st.remainingSec = 0;
-  st.hiddenSinceWallMs = null;
-  st.noteKind = "completed";
-  st.statusNote = getSessionTimerLocalizedNote(st);
-
-  if (typeof audioEngine !== "undefined" && audioEngine.isInitialized && !state.master.muted) {
-    audioEngine.playStep(["C5"], 0.45, null, "interval");
-    setTimeout(() => audioEngine.playStep(["E5", "G5"], 0.85, null, "interval"), 220);
-  }
-
-  renderSessionTimerUI();
-  state.updateHeaderSubtext();
-}
-
-function tickSessionTimer(nowWallMs = Date.now()) {
-  const st = state.sessionTimer;
-  if (!st || st.status !== "running") return;
-
-  if (state.isPlaying) {
-    st.lastActivityWallMs = nowWallMs;
-    st.hiddenSinceWallMs = null;
-  }
-
-  const idleMins = getSessionIdleMinutes();
-  const idleLimitMs = idleMins * 60 * 1000;
-  const inactiveSinceWall = nowWallMs - st.lastActivityWallMs;
-  const hiddenDuration = st.hiddenSinceWallMs !== null ? (nowWallMs - st.hiddenSinceWallMs) : 0;
-
-  // Auto-Stopp „Nie“: Timer läuft unabhängig von Inaktivität bis zum Ende
-  if (idleMins !== SESSION_IDLE_NEVER && (inactiveSinceWall >= idleLimitMs || hiddenDuration >= idleLimitMs)) {
-    stopSessionTimer("auto-stopped", null, "auto-stopped-idle");
-    return;
-  }
-
-  st.remainingSec = Math.max(0, st.remainingSec - 1);
-  if (st.remainingSec <= 0) {
-    completeSessionTimer();
-    return;
-  }
-
-  renderSessionTimerUI();
-  state.updateHeaderSubtext();
-}
-
-function startOrResumeSessionTimer() {
-  const st = state.sessionTimer;
-  if (!st) return;
-  markSessionActivity();
-
-  if (st.status !== "paused") {
-    st.totalSec = (state.profile.sessionMinutes || 10) * 60;
-    st.remainingSec = st.totalSec;
-  }
-  st.status = "running";
-  st.noteKind = "running";
-  st.statusNote = getSessionTimerLocalizedNote(st);
-
-  if (st.intervalId !== null) clearInterval(st.intervalId);
-  st.intervalId = setInterval(() => tickSessionTimer(), 1000);
-
-  renderSessionTimerUI();
-  state.updateHeaderSubtext();
-}
-
-function pauseSessionTimer() {
-  const st = state.sessionTimer;
-  if (!st || st.status !== "running") return;
-  if (st.intervalId !== null) {
-    clearInterval(st.intervalId);
-    st.intervalId = null;
-  }
-  st.status = "paused";
-  st.noteKind = "paused";
-  st.statusNote = getSessionTimerLocalizedNote(st);
-  renderSessionTimerUI();
-  state.updateHeaderSubtext();
-}
-
-function setSessionDurationMinutes(mins) {
-  if (mins === "custom") {
-    toggleSessionTimerCustomRow("duration");
-    return;
-  }
-  toggleSessionTimerCustomRow("duration", false);
-  const parsed = sanitizeSessionTimerMinutes(mins);
-  state.profile.sessionMinutes = parsed;
-  saveUserProfile(state.profile);
-  if (state.sessionTimer.status === "idle" || state.sessionTimer.status === "completed" || state.sessionTimer.status === "auto-stopped") {
-    state.sessionTimer.totalSec = parsed * 60;
-    state.sessionTimer.remainingSec = parsed * 60;
-    state.sessionTimer.status = "idle";
-    state.sessionTimer.noteKind = "idle";
-    state.sessionTimer.statusNote = getSessionTimerLocalizedNote(state.sessionTimer);
-  }
-  renderSessionTimerUI();
-  state.updateHeaderSubtext();
-}
-
-function setSessionIdleMinutes(mins) {
-  if (mins === "custom") {
-    toggleSessionTimerCustomRow("idle");
-    return;
-  }
-  toggleSessionTimerCustomRow("idle", false);
-  const parsed = sanitizeSessionIdleMinutes(mins);
-  state.profile.inactivityMinutes = parsed;
-  saveUserProfile(state.profile);
-  if (state.sessionTimer.status === "running") {
-    state.sessionTimer.noteKind = "running";
-    state.sessionTimer.statusNote = getSessionTimerLocalizedNote(state.sessionTimer);
-  }
-  renderSessionTimerUI();
 }
 
 function getBreakReminderMinutes() {
@@ -1465,7 +1186,6 @@ function renderProfileAccountView() {
   renderExamHistoryCard();
   if (typeof renderProfileTitleSelector === "function") renderProfileTitleSelector();
   if (typeof renderSpaceAchievementsCard === "function") renderSpaceAchievementsCard();
-  renderSessionTimerUI();
   renderProfileMixes();
   renderMixCreatorDropdowns();
   renderCustomThemeSection();
@@ -2351,7 +2071,6 @@ function importUserProfileJSON(rawText) {
       applyImportedDisplayPrefs(parsed.display);
     }
     if (state.customThemeEditor) state.customThemeEditor.open = false;
-    stopSessionTimer("idle", null, "idle");
     applyThemeAndAppearance();
     applyProfileDisplayChanges();
     renderProfileAccountView();
@@ -2402,7 +2121,6 @@ function resetUserProfile() {
   state.examHistoryClearArmed = false;
   state.streakState = { count: 0, activeNoticeMilestone: 0, scopeKey: null };
   if (typeof renderStageStreakUI === "function") renderStageStreakUI();
-  stopSessionTimer("idle", null, "idle");
   resetBreakReminderTimer();
   syncBreakReminderControls();
   if (typeof resetMetronomeStateToDefault === "function") resetMetronomeStateToDefault();
@@ -2513,7 +2231,6 @@ function performFullAppReset() {
   audioEngine?.stopPlayback?.();
   state.isPlaying = false;
   updatePlayButtonUI?.(false);
-  stopSessionTimer("idle", null, "idle");
 
   state.appResetConfirmArmed = false;
   state.resetConfirmArmed = false;

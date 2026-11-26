@@ -1547,68 +1547,7 @@
         </div>
       </section>
 
-      <!-- 5. Achtsamer Session-Timer mit automatischer Inaktivitäts-Abschaltung -->
-      <section class="account-card" id="spaceTimerCard">
-        <div class="account-card-head">
-          <div>
-            <h3 data-i18n="space.timerTitle">Achtsamer Session-Timer</h3>
-            <p class="account-card-sub" data-i18n="space.timerSub">Schaltet sich bei Nicht-Nutzung automatisch wieder aus – zählt keine Lernhistorie.</p>
-          </div>
-          <span id="spaceTimerStatusBadge" class="k-ratio-chip">Bereit</span>
-        </div>
-
-        <div class="timer-display-box">
-          <div id="spaceTimerDisplay" class="timer-digits">10:00</div>
-          <p id="spaceTimerNote" class="timer-note">Bereit für eine entspannte Session.</p>
-          <p id="spaceTimerConfigSummary" class="timer-config-summary">10 Min • Auto-Stopp 3 Min</p>
-        </div>
-
-        <details class="account-disclosure" id="timerSettingsDisclosure">
-          <summary data-i18n="space.timerCustomize">Dauer &amp; Auto-Stopp anpassen</summary>
-          <div class="account-disclosure-body">
-            <div class="account-field">
-              <span class="account-label" data-i18n="space.timerDuration">Wunschdauer</span>
-              <div id="timerDurationGroup" class="account-chip-group">
-                <button type="button" class="k-filter-pill" data-timer-mins="5" data-i18n="space.timerMin5">5 Min</button>
-                <button type="button" class="k-filter-pill active" data-timer-mins="10" data-i18n="space.timerMin10">10 Min</button>
-                <button type="button" class="k-filter-pill" data-timer-mins="15" data-i18n="space.timerMin15">15 Min</button>
-                <button type="button" class="k-filter-pill" data-timer-mins="20" data-i18n="space.timerMin20">20 Min</button>
-                <button type="button" id="timerDurationCustomBtn" class="k-filter-pill" data-timer-mins="custom" aria-expanded="false" aria-controls="timerDurationCustomRow">Eigene Zeit</button>
-              </div>
-              <div id="timerDurationCustomRow" class="timer-custom-row hidden">
-                <input id="timerDurationCustomInput" class="timer-custom-input" type="number" inputmode="numeric" min="1" max="180" step="1" aria-label="Eigene Wunschdauer in Minuten" data-i18n-aria="space.timerCustomDurAria">
-                <span class="timer-custom-unit" data-i18n="space.timerCustomUnit">Min</span>
-                <button type="button" id="timerDurationCustomApply" class="btn-tool timer-custom-apply" data-i18n="space.timerCustomApply">Übernehmen</button>
-                <span class="timer-custom-hint" data-i18n="space.timerCustomDurHint">1–180 Min</span>
-              </div>
-            </div>
-
-            <div class="account-field">
-              <span class="account-label" data-i18n="space.timerIdleLabel">Auto-Stopp bei Pause / Inaktivität</span>
-              <div id="timerIdleGroup" class="account-chip-group">
-                <button type="button" class="k-filter-pill" data-timer-idle="2" data-i18n="space.timerIdle2">nach 2 Min</button>
-                <button type="button" class="k-filter-pill active" data-timer-idle="3" data-i18n="space.timerIdle3">nach 3 Min</button>
-                <button type="button" class="k-filter-pill" data-timer-idle="5" data-i18n="space.timerIdle5">nach 5 Min</button>
-                <button type="button" id="timerIdleCustomBtn" class="k-filter-pill" data-timer-idle="custom" aria-expanded="false" aria-controls="timerIdleCustomRow">Eigene Zeit</button>
-                <button type="button" class="k-filter-pill" data-timer-idle="0" data-i18n="space.timerIdleNever">Nie</button>
-              </div>
-              <div id="timerIdleCustomRow" class="timer-custom-row hidden">
-                <input id="timerIdleCustomInput" class="timer-custom-input" type="number" inputmode="numeric" min="1" max="60" step="1" aria-label="Eigene Auto-Stopp-Zeit in Minuten" data-i18n-aria="space.timerCustomIdleAria">
-                <span class="timer-custom-unit" data-i18n="space.timerCustomUnit">Min</span>
-                <button type="button" id="timerIdleCustomApply" class="btn-tool timer-custom-apply" data-i18n="space.timerCustomApply">Übernehmen</button>
-                <span class="timer-custom-hint" data-i18n="space.timerCustomIdleHint">1–60 Min</span>
-              </div>
-            </div>
-          </div>
-        </details>
-
-        <div class="account-btn-row">
-          <button id="timerToggleBtn" type="button" class="btn-primary-action account-action-main">▶ Session starten</button>
-          <button id="timerResetBtn" type="button" class="btn-tool" data-i18n="space.timerReset">Zurücksetzen</button>
-        </div>
-      </section>
-
-      <!-- 6. Lokal-Konto & Datensicherung (kompakt einklappbar) -->
+      <!-- 5. Lokal-Konto & Datensicherung (kompakt einklappbar) -->
       <section class="account-card">
         <div class="account-card-head">
           <div>
