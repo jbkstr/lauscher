@@ -2764,6 +2764,7 @@
         <div class="settings-section" id="midiSettingsSection">
           <h4 data-i18n="settings.midiHeading">MIDI-Instrument (Bluetooth &amp; USB)</h4>
           <p class="settings-hint" data-i18n="settings.midiHint">Spiele Notenlesen, Solfège, Melodien, Rhythmus, Freies Spiel und MIDI-Übungen direkt auf deinem Digitalpiano oder Keyboard.</p>
+          <p id="midiFirefoxHint" class="settings-hint midi-firefox-hint hidden" aria-live="polite"></p>
           <div id="midiEnabledGroup" class="btn-group" role="group" aria-label="MIDI-Eingabe" data-i18n-aria="settings.midiAria">
             <button type="button" class="opt-btn" data-midi-enabled="on" aria-pressed="false" data-i18n="settings.autoNextOn">Ein</button>
             <button type="button" class="opt-btn active" data-midi-enabled="off" aria-pressed="true" data-i18n="settings.autoNextOff">Aus</button>
@@ -2780,7 +2781,6 @@
                 <button type="button" id="midiRescanBtn" class="btn-tool midi-rescan-btn" data-i18n="settings.midiRescanBtn">Geräte neu suchen</button>
               </div>
               <div id="midiDeviceDropdownWrap" class="midi-device-dropdown-wrap"></div>
-              <p id="midiFirefoxHint" class="settings-hint midi-firefox-hint hidden" aria-live="polite"></p>
             </div>
 
             <div id="midiBleWrap" class="settings-sub-field midi-ble-wrap hidden">

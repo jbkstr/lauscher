@@ -19198,7 +19198,14 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   min-height: 30px;
 }
 .midi-firefox-hint {
-  margin-top: 0.35rem;
+  margin: 0.4rem 0 0.55rem 0;
+  padding: 0.55rem 0.75rem;
+  border-radius: 12px;
+  border: 1.5px solid var(--peach-strong);
+  background: var(--peach-soft);
+  color: var(--raccoon-dark);
+  font-size: 0.78rem;
+  line-height: 1.38;
 }
 .midi-ble-wrap {
   display: flex;

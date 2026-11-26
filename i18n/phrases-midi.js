@@ -1214,15 +1214,15 @@ registerColocatedPhrases({
     tr: "Tarayıcının bu oturumda MIDI’yi etkinleştirmesi için kısa bir tıklama gerekiyor.",
     ar: "يحتاج متصفحك إلى نقرة سريعة لتفعيل MIDI لهذه الجلسة."
   },
-  "Firefox-Hinweis: Nachträglich angeschlossene Keyboards erkennt Firefox nicht immer automatisch. Tippe auf „Geräte neu suchen“ – falls es nicht erscheint, starte Firefox mit angeschlossenem Keyboard neu (Chrome/Edge unterstützen direktes Plug & Play).": {
-    fr: "Info Firefox : Firefox ne détecte pas toujours les claviers branchés après le démarrage. Clique sur « Actualiser les appareils » ; s’il n’apparaît pas, redémarre Firefox avec le clavier branché (Chrome/Edge prennent en charge le plug & play direct).",
-    es: "Nota de Firefox: Firefox no siempre detecta teclados conectados después de abrirlo. Pulsa «Buscar de nuevo»; si sigue sin aparecer, reinicia Firefox con el teclado conectado (Chrome/Edge admiten conexión directa).",
-    it: "Nota Firefox: Firefox non rileva sempre le tastiere collegate dopo l’avvio. Tocca «Cerca dispositivi»; se non appare, riavvia Firefox con la tastiera collegata (Chrome/Edge supportano il plug & play diretto).",
-    pl: "Wskazówka dla Firefoksa: Firefox nie zawsze wykrywa klawiatury podłączone po uruchomieniu. Kliknij „Szukaj urządzeń ponownie” – jeśli się nie pojawi, uruchom Firefoksa ponownie z podłączoną klawiaturą (Chrome/Edge obsługują plug & play).",
-    uk: "Порада для Firefox: Firefox не завжди виявляє клавіатури, підключені після запуску. Натисни «Оновити пристрої» — якщо не з’явиться, перезапусти Firefox із підключеною клавіатурою (Chrome/Edge підтримують пряме підключення).",
-    ur: "فائرفاکس نوٹ: بعد میں لگائے گئے کی بورڈز کو فائرفاکس ہمیشہ خودکار نہیں پہچانتا۔ «آلات دوبارہ تلاش کریں» دبائیں – اگر پھر بھی نہ دکھے تو کی بورڈ لگا کر فائرفاکس دوبارہ شروع کریں (Chrome/Edge فوری Plug & Play سپورٹ کرتے ہیں)۔",
-    tr: "Firefox notu: Firefox sonradan bağlanan klavyeleri her zaman otomatik algılamaz. “Cihazları yeniden tara”ya dokun – görünmezse klavye bağlıyken Firefox’u yeniden başlat (Chrome/Edge anında tak-çalıştır destekler).",
-    ar: "ملاحظة لـ Firefox: لا يكتشف Firefox دائمًا لوحات المفاتيح الموصولة بعد تشغيله. اضغط «إعادة البحث عن الأجهزة» — وإذا لم تظهر، أعد تشغيل Firefox والآلة موصولة (يدعم Chrome/Edge التوصيل الفوري)."
+  "Hinweis für Firefox: Firefox macht Web MIDI leider umständlich (eigenes Berechtigungs-Add-on, kein MIDI in lokalen Dateien, oft kein Plug & Play nach Browserstart). Für reibungsloses MIDI am Computer empfehlen wir Chrome, Edge oder Brave – oder die Lauscher Android-App.": {
+    fr: "Info pour Firefox : Firefox rend Web MIDI contraignant (module d’autorisation dédié, pas de MIDI sur fichiers locaux, détection souvent absente après démarrage). Pour un MIDI fluide sur ordinateur, nous recommandons Chrome, Edge ou Brave – ou l’app Android Lauscher.",
+    es: "Aviso para Firefox: Firefox complica Web MIDI (requiere un complemento de permisos, bloquea archivos locales y a menudo no detecta teclados conectados tras abrirlo). Para MIDI sin problemas en el ordenador recomendamos Chrome, Edge o Brave, o la app Android de Lauscher.",
+    it: "Nota per Firefox: Firefox rende Web MIDI macchinoso (richiede un componente di autorizzazione, blocca i file locali e spesso non rileva le tastiere collegate dopo l’avvio). Per un MIDI fluido su computer consigliamo Chrome, Edge o Brave oppure l’app Android Lauscher.",
+    pl: "Uwaga dla Firefoksa: Firefox utrudnia korzystanie z Web MIDI (wymaga dodatku uprawnień, blokuje pliki lokalne i często nie wykrywa klawiatur podłączonych po uruchomieniu). Do bezproblemowego MIDI na komputerze polecamy Chrome, Edge lub Brave – albo aplikację Lauscher na Androida.",
+    uk: "Примітка для Firefox: Firefox ускладнює Web MIDI (вимагає додаток дозволів, блокує локальні файли й часто не бачить клавіатури, під’єднані після запуску). Для зручного MIDI на комп’ютері радимо Chrome, Edge або Brave — чи Android-застосунок Lauscher.",
+    ur: "فائرفاکس کے لیے نوٹ: فائرفاکس Web MIDI کو پیچیدہ بنا دیتا ہے (الگ اجازت ایڈ آن درکار، مقامی فائلوں میں بند، اور بعد میں لگائے گئے کی بورڈز اکثر نہیں ملتے)۔ کمپیوٹر پر بغیر رکاوٹ MIDI کے لیے ہم Chrome، Edge یا Brave – یا Lauscher Android ایپ کی تجویز دیتے ہیں۔",
+    tr: "Firefox notu: Firefox’ta Web MIDI zahmetlidir (ayrı izin eklentisi ister, yerel dosyalarda çalışmaz ve tarayıcı açıldıktan sonra takılan klavyeleri sıkça görmez). Bilgisayarda sorunsuz MIDI için Chrome, Edge veya Brave’i – ya da Lauscher Android uygulamasını öneririz.",
+    ar: "ملاحظة لـ Firefox: يجعل Firefox استخدام Web MIDI معقّدًا (يتطلب إضافة إذن خاصة، ويحظر الملفات المحلية، وغالبًا لا يكتشف لوحات المفاتيح الموصولة بعد التشغيل). لتجربة MIDI سلسة على الكمبيوتر ننصح بـ Chrome أو Edge أو Brave، أو تطبيق Lauscher لنظام Android."
   },
   "Jetzt verbinden": {
     fr: "Connecter",
@@ -1243,5 +1243,35 @@ registerColocatedPhrases({
     ur: "دوبارہ تلاش",
     tr: "Yeniden tara",
     ar: "إعادة البحث"
+  },
+  "Über eine lokale Datei (file://) sperrt dieser Browser Web MIDI aus Sicherheitsgründen. Öffne Lauscher über Start-Lauscher.command (http://localhost:8000), über https:// oder öffne lauscher-mobile.html in Chrome/Edge.": {
+    fr: "Ce navigateur bloque Web MIDI pour les fichiers locaux (file://). Ouvre Lauscher via Start-Lauscher.command (http://localhost:8000), en https:// ou ouvre lauscher-mobile.html dans Chrome/Edge.",
+    es: "Este navegador bloquea Web MIDI en archivos locales (file://). Abre Lauscher con Start-Lauscher.command (http://localhost:8000), mediante https:// o abre lauscher-mobile.html en Chrome/Edge.",
+    it: "Questo browser blocca Web MIDI per i file locali (file://). Apri Lauscher tramite Start-Lauscher.command (http://localhost:8000), su https:// oppure apri lauscher-mobile.html in Chrome/Edge.",
+    pl: "Ta przeglądarka blokuje Web MIDI dla plików lokalnych (file://). Otwórz Lauscher przez Start-Lauscher.command (http://localhost:8000), przez https:// lub otwórz lauscher-mobile.html w Chrome/Edge.",
+    uk: "Цей браузер блокує Web MIDI для локальних файлів (file://). Відкрий Lauscher через Start-Lauscher.command (http://localhost:8000), через https:// або відкрий lauscher-mobile.html у Chrome/Edge.",
+    ur: "یہ براؤزر مقامی فائلوں (file://) پر Web MIDI کو بند رکھتا ہے۔ Lauscher کو Start-Lauscher.command (http://localhost:8000) یا https:// کے ذریعے کھولیں، یا lauscher-mobile.html کو Chrome/Edge میں کھولیں۔",
+    tr: "Bu tarayıcı yerel dosyalarda (file://) Web MIDI’yi engeller. Lauscher’ı Start-Lauscher.command (http://localhost:8000) veya https:// üzerinden aç ya da lauscher-mobile.html dosyasını Chrome/Edge ile aç.",
+    ar: "يحظر هذا المتصفح Web MIDI للملفات المحلية (file://). افتح Lauscher عبر Start-Lauscher.command (http://localhost:8000) أو عبر https:// أو افتح lauscher-mobile.html في Chrome/Edge."
+  },
+  "Web MIDI braucht eine sichere Verbindung (https:// oder localhost). Über unverschlüsseltes http:// sperrt der Browser den MIDI-Zugriff.": {
+    fr: "Web MIDI nécessite une connexion sécurisée (https:// ou localhost). Le navigateur bloque le MIDI en http:// non chiffré.",
+    es: "Web MIDI requiere una conexión segura (https:// o localhost). El navegador bloquea el acceso MIDI por http:// sin cifrar.",
+    it: "Web MIDI richiede una connessione sicura (https:// o localhost). Il browser blocca l’accesso MIDI su http:// non cifrato.",
+    pl: "Web MIDI wymaga bezpiecznego połączenia (https:// lub localhost). Przeglądarka blokuje MIDI przez nieszyfrowane http://.",
+    uk: "Web MIDI потребує захищеного з’єднання (https:// або localhost). Браузер блокує MIDI через незашифрований http://.",
+    ur: "Web MIDI کے لیے محفوظ کنکشن (https:// یا localhost) ضروری ہے۔ غیر محفوظ http:// پر براؤزر MIDI تک رسائی روک دیتا ہے۔",
+    tr: "Web MIDI güvenli bir bağlantı (https:// veya localhost) gerektirir. Tarayıcı şifresiz http:// üzerinden MIDI erişimini engeller.",
+    ar: "يتطلب Web MIDI اتصالًا آمنًا (https:// أو localhost). يحظر المتصفح الوصول إلى MIDI عبر http:// غير المشفّر."
+  },
+  "Firefox stellt Web MIDI in diesem Fenster nicht bereit (z. B. Privates Fenster oder abgeschaltetes dom.webmidi.enabled). Öffne Lauscher in einem normalen Firefox-Fenster oder in Chrome/Edge.": {
+    fr: "Firefox ne propose pas Web MIDI dans cette fenêtre (ex. navigation privée ou dom.webmidi.enabled désactivé). Ouvre Lauscher dans une fenêtre Firefox normale ou dans Chrome/Edge.",
+    es: "Firefox no ofrece Web MIDI en esta ventana (p. ej. ventana privada o dom.webmidi.enabled desactivado). Abre Lauscher en una ventana normal de Firefox o en Chrome/Edge.",
+    it: "Firefox non rende disponibile Web MIDI in questa finestra (es. finestra privata o dom.webmidi.enabled disattivato). Apri Lauscher in una normale finestra Firefox o in Chrome/Edge.",
+    pl: "Firefox nie udostępnia Web MIDI w tym oknie (np. tryb prywatny lub wyłączone dom.webmidi.enabled). Otwórz Lauscher w zwykłym oknie Firefoksa lub w Chrome/Edge.",
+    uk: "Firefox не надає Web MIDI у цьому вікні (напр., приватне вікно або вимкнене dom.webmidi.enabled). Відкрий Lauscher у звичайному вікні Firefox або в Chrome/Edge.",
+    ur: "فائرفاکس اس ونڈو میں Web MIDI فراہم نہیں کر رہا (مثلاً پرائیویٹ ونڈو یا dom.webmidi.enabled بند ہے)۔ Lauscher کو عام فائرفاکس ونڈو یا Chrome/Edge میں کھولیں۔",
+    tr: "Firefox bu pencerede Web MIDI sunmuyor (ör. Gizli Pencere veya kapalı dom.webmidi.enabled). Lauscher’ı normal bir Firefox penceresinde ya da Chrome/Edge’de aç.",
+    ar: "لا يوفّر Firefox ميزة Web MIDI في هذه النافذة (مثل التصفح الخاص أو تعطيل dom.webmidi.enabled). افتح Lauscher في نافذة Firefox عادية أو في Chrome/Edge."
   }
 });

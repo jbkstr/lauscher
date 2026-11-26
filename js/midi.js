@@ -1264,6 +1264,26 @@ function handleMelodyMidiNoteOn(ex, midi, velocity) {
 
 function getMidiStatusSummaryText() {
   if (_midi.transport === "none") {
+    const proto = typeof window !== "undefined" ? String(window.location?.protocol || "") : "";
+    const secure = typeof window !== "undefined" ? window.isSecureContext : true;
+    if (proto === "file:") {
+      return tr(
+        "Über eine lokale Datei (file://) sperrt dieser Browser Web MIDI aus Sicherheitsgründen. Öffne Lauscher über Start-Lauscher.command (http://localhost:8000), über https:// oder öffne lauscher-mobile.html in Chrome/Edge.",
+        "This browser blocks Web MIDI for local files (file://). Open Lauscher via Start-Lauscher.command (http://localhost:8000), over https://, or open lauscher-mobile.html in Chrome/Edge."
+      );
+    }
+    if (secure === false) {
+      return tr(
+        "Web MIDI braucht eine sichere Verbindung (https:// oder localhost). Über unverschlüsseltes http:// sperrt der Browser den MIDI-Zugriff.",
+        "Web MIDI requires a secure connection (https:// or localhost). The browser blocks MIDI over unencrypted http://."
+      );
+    }
+    if (isFirefoxBrowser()) {
+      return tr(
+        "Firefox stellt Web MIDI in diesem Fenster nicht bereit (z. B. Privates Fenster oder abgeschaltetes dom.webmidi.enabled). Öffne Lauscher in einem normalen Firefox-Fenster oder in Chrome/Edge.",
+        "Firefox does not expose Web MIDI in this window (e.g. Private Browsing or disabled dom.webmidi.enabled). Open Lauscher in a normal Firefox window or in Chrome/Edge."
+      );
+    }
     return tr(
       "Dein aktueller Browser unterstützt kein Web MIDI (z. B. Safari/iOS). Nutze Chrome, Edge oder Firefox am Computer oder die Lauscher Android-App.",
       "Your current browser does not support Web MIDI (e.g. Safari/iOS). Use Chrome, Edge or Firefox on desktop, or the Lauscher Android app."
@@ -1421,18 +1441,15 @@ function syncMidiSettingsUI(options = {}) {
   const ffHint = document.getElementById("midiFirefoxHint");
   if (ffHint) {
     const showFfHint = Boolean(
-      _midi.prefs.enabled &&
-      _midi.transport === "web" &&
       isFirefoxBrowser() &&
-      _midi.devices.length === 0 &&
-      _midi.status !== "connecting" &&
-      _midi.status !== "needs-activation"
+      _midi.transport !== "native" &&
+      !isMidiConnected()
     );
     ffHint.classList.toggle("hidden", !showFfHint);
     if (showFfHint) {
       ffHint.textContent = tr(
-        "Firefox-Hinweis: Nachträglich angeschlossene Keyboards erkennt Firefox nicht immer automatisch. Tippe auf „Geräte neu suchen“ – falls es nicht erscheint, starte Firefox mit angeschlossenem Keyboard neu (Chrome/Edge unterstützen direktes Plug & Play).",
-        "Firefox note: Firefox doesn’t always detect keyboards plugged in after startup. Tap “Rescan devices” — if it still doesn’t show up, restart Firefox with the keyboard connected (Chrome/Edge support instant plug & play)."
+        "Hinweis für Firefox: Firefox macht Web MIDI leider umständlich (eigenes Berechtigungs-Add-on, kein MIDI in lokalen Dateien, oft kein Plug & Play nach Browserstart). Für reibungsloses MIDI am Computer empfehlen wir Chrome, Edge oder Brave – oder die Lauscher Android-App.",
+        "Note for Firefox: Firefox makes Web MIDI cumbersome (requires a site-permission add-on, blocks local files, and often misses keyboards plugged in after startup). For smooth plug-and-play MIDI on desktop, we recommend Chrome, Edge or Brave — or the Lauscher Android app."
       );
     }
   }
