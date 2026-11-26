@@ -864,6 +864,16 @@ registerColocatedPhrases({
     tr: "M/m",
     ar: "ك/ص"
   },
+  "Dein aktuelles Profil mit Übungsstand, Prüfungen und Meilensteinen wird durch die Sicherung ersetzt. Fortfahren?": {
+    fr: "Ton profil actuel, avec ta progression, tes examens et tes succès, sera remplacé par la sauvegarde. Continuer ?",
+    es: "Tu perfil actual, con tu progreso, exámenes y logros, se sustituirá por la copia de seguridad. ¿Continuar?",
+    it: "Il tuo profilo attuale, con progressi, esami e traguardi, verrà sostituito dal backup. Continuare?",
+    pl: "Twój obecny profil wraz z postępami, egzaminami i osiągnięciami zostanie zastąpiony kopią zapasową. Kontynuować?",
+    uk: "Твій поточний профіль із прогресом, іспитами та досягненнями буде замінено резервною копією. Продовжити?",
+    ur: "آپ کا موجودہ پروفائل، مشق کی پیش رفت، امتحانات اور سنگ میل سمیت، بیک اپ سے بدل دیا جائے گا۔ جاری رکھیں؟",
+    tr: "Mevcut profilin; ilerlemen, sınavların ve başarıların dahil yedekle değiştirilecek. Devam edilsin mi?",
+    ar: "سيتم استبدال ملفك الحالي، بما في ذلك تقدّمك في التمرين والاختبارات والإنجازات، بالنسخة الاحتياطية. هل تريد المتابعة؟"
+  },
   "Datei konnte nicht als Profil gelesen werden.": {
     fr: "Impossible de lire ce fichier comme profil.",
     es: "No se puede leer este archivo como perfil.",

@@ -496,6 +496,14 @@ runTest("Profil-Sicherung: Übungsstand, Prüfungsverlauf & Meilensteine (Export
   assert.equal(appState.profile.name, "Alt");
   assert.equal(appState.settings.intervalDifficulty, 6);
   assert.equal(appState.profile.practice.intervalDifficulty, 6);
+
+  // Fremde JSON-Dateien dürfen das Profil nicht überschreiben
+  const nameBefore = appState.profile.name;
+  for (const bad of ["{}", "[1,2,3]", '{"name":"pkg","version":"1.0.0"}', '{"app":"Other","profile":{"name":"X"}}', "kein json"]) {
+    const r = sb.importUserProfileJSON(bad);
+    assert.equal(r.ok, false, `Import sollte abgelehnt werden: ${bad}`);
+  }
+  assert.equal(appState.profile.name, nameBefore);
 });
 
 // =====================================================
@@ -852,6 +860,13 @@ runTest("MIDI-Prüfungen: Tonleiter-Durchspiel-Wertung (anteilig) & Prüfungs-Pr
   assert.equal(wrongStart.status, "partial");
   assert.equal(wrongStart.correctCount, 7);
   assert.equal(wrongStart.wrongSteps[0].stepNumber, 1);
+
+  // 3b) Falscher Startton in Oktave 3 (88-Tasten-Klavier): Rest zählt in Oktave 3 weiter als richtig
+  const wrongStartLow = sb.evaluateMidiScaleExamRun(cMajor, [49, 50, 52, 53, 55, 57, 59, 60]);
+  assert.equal(wrongStartLow.correctCount, 7);
+  assert.equal(wrongStartLow.anchorMidi, 48);
+  assert.equal(wrongStartLow.wrongSteps[0].stepNumber, 1);
+  assert.equal(wrongStartLow.wrongSteps[0].expectedMidi, 48);
 
   // 4) Bildschirm-Klaviatur (exactRoot: true) verlangt die angezeigte Oktave auf Schritt 0
   const wrongOctScreen = sb.evaluateMidiScaleExamRun(cMajor, [72, 62, 64, 65, 67, 69, 71, 72], { exactRoot: true });

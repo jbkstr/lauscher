@@ -2047,13 +2047,42 @@ async function exportUserProfileBackup() {
   await saveProfileBackupLocally();
 }
 
-function importUserProfileJSON(rawText) {
+/**
+ * Liefert das Profil-Objekt einer Lauscher-Sicherung oder null, wenn die Datei keine ist.
+ * Akzeptiert das Sicherungsformat ({ app: "Lauschebaer", profile }) und ältere Dateien,
+ * die direkt ein Profil-Objekt enthalten (mindestens zwei bekannte Profil-Schlüssel).
+ */
+function getProfileBackupCandidate(parsed) {
+  const isPlainObject = (v) => Boolean(v) && typeof v === "object" && !Array.isArray(v);
+  if (!isPlainObject(parsed)) return null;
+  if (parsed.app === "Lauschebaer") {
+    return isPlainObject(parsed.profile) ? parsed.profile : null;
+  }
+  if (parsed.app !== undefined) return null;
+  const knownKeys = Object.keys(createDefaultProfile());
+  const hits = knownKeys.filter(k => Object.prototype.hasOwnProperty.call(parsed, k)).length;
+  return hits >= 2 ? parsed : null;
+}
+
+function importUserProfileJSON(rawText, options = {}) {
   try {
-    const parsed = JSON.parse(String(rawText || ""));
-    const candidate = parsed && parsed.profile ? parsed.profile : parsed;
-    if (!candidate || typeof candidate !== "object") {
+    let parsed = null;
+    try {
+      parsed = JSON.parse(String(rawText || ""));
+    } catch (_parseErr) {
+      parsed = null;
+    }
+    const candidate = getProfileBackupCandidate(parsed);
+    if (!candidate) {
       setSpaceBackupStatus(tr("Datei konnte nicht als Profil gelesen werden.", "Could not read file as a profile."), true);
       return { ok: false, error: tr("Ungültiges Profil-Format.", "Invalid profile format.") };
+    }
+    if (options.confirmOverwrite && typeof window !== "undefined" && typeof window.confirm === "function") {
+      const confirmed = window.confirm(tr(
+        "Dein aktuelles Profil mit Übungsstand, Prüfungen und Meilensteinen wird durch die Sicherung ersetzt. Fortfahren?",
+        "Your current profile, including practice progress, exams and milestones, will be replaced by the backup. Continue?"
+      ));
+      if (!confirmed) return { ok: false, cancelled: true };
     }
     state.profile = sanitizeUserProfile(candidate);
     if (typeof syncRetroactiveAchievements === "function") {
@@ -2264,6 +2293,13 @@ function performFullAppReset() {
   if (typeof clearNativeStorageMirror === "function") {
     clearNativeStorageMirror();
   }
+  // Gerätespezifische Einstellungen (MIDI, Tap-Latenz) gehören beim vollständigen Reset ebenfalls dazu
+  if (typeof resetMidiForAppReset === "function") resetMidiForAppReset();
+  if (typeof saveTapLatencyExtraMs === "function") saveTapLatencyExtraMs(null);
+  // Übungs-Einstellungen auf Standard, sonst schreibt generateExercise() die alten Stufen sofort zurück
+  if (typeof applyPracticeProgressToSettings === "function") {
+    applyPracticeProgressToSettings({}, { resetMissing: true });
+  }
 
   clearCustomThemeCssVars();
   applyThemeAndAppearance();
@@ -2302,6 +2338,9 @@ function performFullAppReset() {
   renderKnowledgeHub();
   pickRandomQuote();
   generateExercise();
+  // generateExercise() legt das Profil neu an – damit ein Neustart mitten im Onboarding
+  // es nicht überspringt, „Onboarding offen“ ausdrücklich speichern
+  saveVisualPrefs(state.settings.appearance, state.settings.theme, "de", true, true, false);
 
   setModalVisibility(null);
   switchView("home", { animate: false, skipHistoryPush: true });

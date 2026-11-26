@@ -1223,7 +1223,7 @@ function bindNotationSymbolsKnowledgeHandlers(container) {
   container.querySelectorAll("[data-nts-open-practice]").forEach(btn => {
     btn.addEventListener("click", () => {
       if (typeof openCategoryPage === "function") {
-        openCategoryPage("notation", "notation-symbols");
+        openCategoryPage("notation", { sectionId: "notation-symbols" });
       }
     });
   });
@@ -1231,8 +1231,8 @@ function bindNotationSymbolsKnowledgeHandlers(container) {
   container.querySelectorAll("[data-nts-open-ref]").forEach(btn => {
     btn.addEventListener("click", () => {
       const targetRef = btn.dataset.ntsOpenRef;
-      if (targetRef && typeof openKnowledgeDetail === "function") {
-        openKnowledgeDetail(targetRef);
+      if (targetRef && typeof openKnowledgeRef === "function") {
+        openKnowledgeRef(targetRef);
       }
     });
   });

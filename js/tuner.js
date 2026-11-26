@@ -1636,6 +1636,10 @@ async function startTunerSession() {
         new Promise(resolve => setTimeout(resolve, 1500))
       ]);
     }
+    // Während des Wartens verlassen: Stream schließt der finally-Block
+    if (state.currentView !== "tuner") {
+      return;
+    }
     if (ctx.state !== "running") {
       const ctxErr = new Error(`AudioContext state: ${ctx.state}`);
       ctxErr.name = "AudioContextNotRunning";
@@ -1795,7 +1799,14 @@ function stopTunerSession() {
 
 async function requestTunerWakeLock() {
   try {
-    if (navigator.wakeLock?.request) _tuner.wakeLock = await navigator.wakeLock.request("screen");
+    if (!navigator.wakeLock?.request) return;
+    const lock = await navigator.wakeLock.request("screen");
+    // Tuner inzwischen gestoppt: Sperre sofort wieder freigeben, sonst bleibt der Bildschirm an
+    if (!_tuner.running) {
+      try { lock?.release?.(); } catch (_) {}
+      return;
+    }
+    _tuner.wakeLock = lock;
   } catch (_) {
     _tuner.wakeLock = null;
   }

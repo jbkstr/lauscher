@@ -72,6 +72,8 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
 
     const advanceToNextExercise = () => {
       if (state.currentView !== "exercise") return;
+      // Inzwischen übersprungen, neue Aufgabe oder Prüfung gestartet: nichts überschreiben
+      if (state.exam?.active || state.currentExercise !== ex) return;
       if (isListenOnly) {
         if (!state.listenOnly.active || state.listenOnly.token !== listenOnlyToken) return;
         generateExercise();
@@ -174,7 +176,7 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
     } else if (isListenOnly) {
       scheduleListenOnlyStep(advanceToNextExercise, listenOnlyPostRevealMs, listenOnlyToken);
     } else {
-      setTimeout(advanceToNextExercise, 1050);
+      scheduleSimpleRevealAdvance(audioEngine.playbackId, 1050);
     }
 
   } else {

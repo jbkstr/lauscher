@@ -1,6 +1,6 @@
 // Lauscher • Service Worker (automatisch erzeugt von scripts/build-sw.py – nicht von Hand bearbeiten)
 const CACHE_PREFIX = "lauscher-";
-const CACHE_NAME = "lauscher-0.14.0-beta-b10-d904b1d528a9";
+const CACHE_NAME = "lauscher-0.14.0-beta-b10-ab97b1e0e5b9";
 const PRECACHE_URLS = [
   "./",
   "./index.html",

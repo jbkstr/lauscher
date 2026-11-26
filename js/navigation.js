@@ -908,6 +908,13 @@ function stopAllAudioSessionsForBackground() {
   if (typeof onMidiAppBackground === "function") onMidiAppBackground();
   if (typeof stopFreeplaySession === "function") stopFreeplaySession();
   if (typeof stopFretboardSession === "function") stopFretboardSession();
+  // Nur-Hören-Modus stellt sonst per Timer weiter Aufgaben, Nashville/Kapodaster und Tutorial-Vorspiel laufen weiter
+  if (state.listenOnly?.active && typeof setListenOnlyMode === "function") setListenOnlyMode(false);
+  if (typeof stopNashvillePlayback === "function") stopNashvillePlayback();
+  if (typeof isExerciseTutorialRunning === "function" && isExerciseTutorialRunning() &&
+      typeof stopExerciseTutorial === "function") {
+    stopExerciseTutorial();
+  }
 }
 
 const MAIN_TAB_ORDER = ["home", "tools", "knowledge", "space"];

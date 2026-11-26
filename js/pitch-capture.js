@@ -27,6 +27,7 @@ const PITCH_CAPTURE_CONFIG = Object.freeze({
 const _pitchCapture = {
   running: false,
   startPromise: null,
+  startGen: 0,          // wird von stopPitchCapture() erhöht → bricht einen laufenden Start ab
   ctx: null,
   stream: null,
   source: null,
@@ -105,11 +106,18 @@ async function startPitchCaptureInternal() {
   }
 
   resetPitchCaptureTracking();
+  // Wurde während eines await gestoppt (z. B. „Zurück“ im Berechtigungsdialog), nicht mehr starten
+  const startGen = _pitchCapture.startGen;
+  const isStartCancelled = () => startGen !== _pitchCapture.startGen;
 
   // 1) Android-App: Rohsignal über das native Plugin (AudioSource.UNPROCESSED)
   if (nativePlugin) {
     try {
       const info = await nativePlugin.start();
+      if (isStartCancelled()) {
+        try { nativePlugin.stop?.()?.catch?.(() => {}); } catch (_) {}
+        return { ok: false, reason: "cancelled" };
+      }
       const sr = Number(info?.sampleRate) || 48000;
       const bufSize = Number(info?.bufferSize) || PITCH_CAPTURE_CONFIG.windowSize;
       Object.assign(_pitchCapture, {
@@ -137,11 +145,19 @@ async function startPitchCaptureInternal() {
     if (!audioEngine.isInitialized || !audioEngine.rawCtx) {
       await ensureAudioReady();
     }
+    const throwIfCancelled = () => {
+      if (!isStartCancelled()) return;
+      const cancelErr = new Error("Pitch capture start cancelled");
+      cancelErr.name = "PitchCaptureCancelled";
+      throw cancelErr;
+    };
+    throwIfCancelled();
     const ctx = audioEngine.rawCtx;
     if (!ctx) throw new Error("No AudioContext");
 
     const { stream, bluetoothMic } = await requestRawTunerMediaStream();
     pendingStream = stream;
+    throwIfCancelled();
 
     // Nach dem Wechsel auf "play-and-record" kann der Context auf iOS kurz unterbrochen sein
     if (ctx.state === "suspended" || ctx.state === "interrupted") {
@@ -150,6 +166,7 @@ async function startPitchCaptureInternal() {
         new Promise(resolve => setTimeout(resolve, 1500))
       ]);
     }
+    throwIfCancelled();
     if (ctx.state !== "running") {
       const ctxErr = new Error(`AudioContext state: ${ctx.state}`);
       ctxErr.name = "AudioContextNotRunning";
@@ -208,12 +225,14 @@ async function startPitchCaptureInternal() {
       try { pendingStream.getTracks().forEach(t => t.stop()); } catch (_) {}
     }
     if (!_pitchCapture.running && typeof setTunerCaptureSession === "function") setTunerCaptureSession(false);
+    if (err?.name === "PitchCaptureCancelled") return { ok: false, reason: "cancelled" };
     return { ok: false, reason: mapPitchCaptureError(err) };
   }
 }
 
 /** Mikrofon schließen (der AudioContext gehört der Engine und bleibt offen). */
 function stopPitchCapture() {
+  _pitchCapture.startGen++;
   if (_pitchCapture.timerId) clearInterval(_pitchCapture.timerId);
   _pitchCapture.timerId = 0;
   const wasRunning = _pitchCapture.running;
