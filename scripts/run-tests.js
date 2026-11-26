@@ -734,6 +734,59 @@ runTest("MIDI: Phase-2 Generatoren erzeugen gültige Aufgaben (Intervalle, Akkor
   }
 });
 
+runTest("MIDI: Bildschirm-Klaviatur deckt jede Aufgabe ab & Tonleiter-Start ist dort exakt", () => {
+  sb.renderUI = () => {};
+  const isWhite = (m) => [0, 2, 4, 5, 7, 9, 11].includes(((m % 12) + 12) % 12);
+  const checkRange = (ex, needed) => {
+    const r = sb.getMidiPlayFallbackRange(ex);
+    assert.ok(r, "Bereich fehlt");
+    needed.forEach(m => assert.ok(m >= r.lo && m <= r.hi, `Ton ${m} außerhalb ${r.lo}–${r.hi}`));
+    assert.ok(isWhite(r.firstWhite) && isWhite(r.lastWhite));
+    assert.ok(r.firstWhite < r.lo && r.lastWhite > r.hi);
+    // höchstens gut zwei Oktaven, damit die Tasten auf dem Handy tippbar bleiben
+    assert.ok(r.lastWhite - r.firstWhite <= 26, `Bereich zu groß: ${r.lastWhite - r.firstWhite}`);
+    return r;
+  };
+  for (const [mode, key, levels] of [
+    ["midi-interval", "midiIntervalDifficulty", [1, 5, 9]],
+    ["midi-chord", "midiChordDifficulty", [1, 2, 3, 4]],
+    ["midi-scale", "midiScaleDifficulty", [1, 2, 3]]
+  ]) {
+    appState.settings.mode = mode;
+    for (const lvl of levels) {
+      appState.settings[key] = lvl;
+      for (const dir of ["up", "down"]) {
+        appState.settings.midiIntervalDirection = dir;
+        for (let i = 0; i < 12; i++) {
+          sb.generateExercise();
+          const ex = appState.currentExercise;
+          const t = ex.midiTask;
+          if (mode === "midi-interval") checkRange(ex, [t.rootMidi, t.targetMidi]);
+          else if (mode === "midi-chord") {
+            const r = checkRange(ex, t.targetMidis);
+            // Umkehrungen: eine falsche Lage (Basston eine Oktave höher oder Oberton eine Oktave tiefer) muss greifbar sein
+            if (t.inversion > 0) {
+              const bassUp = t.targetMidis[0] + 12;
+              const topDown = t.targetMidis[t.targetMidis.length - 1] - 12;
+              assert.ok(bassUp <= r.hi || topDown >= r.lo, "Keine andere Lage greifbar");
+            }
+          }
+          else checkRange(ex, t.scaleMidis);
+        }
+      }
+    }
+  }
+
+  // Bildschirm: Tonleiter muss auf dem angezeigten Grundton starten (nicht eine Oktave höher)
+  const scaleTask = { rootMidi: 60, rootPc: 0, scaleIntervals: [0, 2, 4, 5, 7, 9, 11, 12] };
+  const topStart = sb.evaluateMidiScaleStep(scaleTask, 0, 72, null, { exactRoot: true });
+  assert.equal(topStart.ok, false);
+  assert.equal(topStart.status, "wrong-octave");
+  assert.equal(sb.evaluateMidiScaleStep(scaleTask, 0, 60, null, { exactRoot: true }).ok, true);
+  // Ohne exactRoot (MIDI) darf jede Oktave starten
+  assert.equal(sb.evaluateMidiScaleStep(scaleTask, 0, 72, null).ok, true);
+});
+
 // Ergebnis-Ausgabe
 const failed = results.filter(r => !r.ok);
 for (const r of results) {

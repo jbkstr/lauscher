@@ -12,7 +12,7 @@ Lauscher nimmt Noten direkt von einem angeschlossenen Digitalpiano oder MIDI-Key
    - **Safari / iOS:** Freundlicher Hinweis, dass der Browser kein Web MIDI unterstützt.
 2. **App-Klang & Local Control:**
    - Standardmäßig erklingen die **App-eigenen Klänge** (`appSound: true`).
-   - Zusätzlich sendet Lauscher standardmäßig **MIDI `CC 122 = 0` (Local Control Off)** an verbundene MIDI-Ausgänge (`localControlOff: true`), damit das E-Piano selbst stumm bleibt, und stellt beim Deaktivieren, Hintergrundwechsel oder Schließen **`CC 122 = 127` (Local Control On)** wieder her.
+   - Zusätzlich sendet Lauscher standardmäßig **MIDI `CC 122 = 0` (Local Control Off)** an verbundene MIDI-Ausgänge (`localControlOff: true`), damit das E-Piano selbst stumm bleibt (deshalb spielt Lauscher bei aktivem MIDI in **jeder** Ansicht den App-Ton, auch dort, wo MIDI keine Übung steuert), und stellt beim Deaktivieren, Hintergrundwechsel oder Schließen **`CC 122 = 127` (Local Control On)** wieder her.
 3. **Notenlesen – exakte Oktave:**
    - Standardmäßig wird beim Notenlesen die **exakte notierte Oktave** verlangt (`notationExactOctave: true`), mit gezielter Rückmeldung bei falscher Oktave (z. B. *„1 Oktave zu hoch“*). Für kleine 25-Tasten-Keyboards lässt sich dies in den Einstellungen oder im MIDI-Schnellmenü umschalten.
 4. **Unterstützte Bereiche (Phase 1):**
@@ -24,6 +24,7 @@ Lauscher nimmt Noten direkt von einem angeschlossenen Digitalpiano oder MIDI-Key
    - **Intervalle spielen** (`midi-interval`, Kategorie Intervalle, 9 Stufen, Aufwärts/Abwärts/Gemischt)
    - **Akkorde greifen** (`midi-chord`, Kategorie Akkorde, 4 Stufen inkl. Umkehrungen mit Basston-Prüfung und Vierklängen)
    - **Tonleitern & Modi spielen** (`midi-scale`, Kategorie Tonleitern & Modi, 3 Stufen inkl. aller 7 Kirchentonarten, Harmonisch/Melodisch Moll & Pentatonik)
+   - Ohne verbundenes MIDI-Gerät erscheint eine **Bildschirm-Klaviatur** (`renderMidiPlayFallbackKeyboard`, Bereich je Aufgabe aus `getMidiPlayFallbackRange`), sodass die Übungen auch auf dem iPhone/in Safari spielbar sind. Bei „Akkorde greifen“ wählt Tippen einen Ton an bzw. wieder ab.
    - Bewusst nicht in `MIX_MODE_CATALOG` (wie die Mikrofon-Übungen), aber im Übungsstand (`profile.practice`) und über „Weiterüben“ gespeichert.
 6. **Aktivierung & Datenschutz:**
    - Standardmäßig **Aus** (`lauschebaer_midi_prefs_v1`, gerätespezifisch, nicht im Profil-Export), sodass beim ersten Start nie ungefragt nach MIDI-/Bluetooth-Berechtigungen gefragt wird.

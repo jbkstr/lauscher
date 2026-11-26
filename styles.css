@@ -19363,6 +19363,62 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   text-align: center;
 }
 
+/* Bildschirm-Klaviatur als Rückfall ohne MIDI-Gerät (js/midi-play.js) */
+.solfege-keyboard-wrap.is-midi-fallback {
+  padding: 0.22rem 0 0.14rem 0;
+}
+.solfege-keyboard-wrap.is-midi-fallback .piano-keyboard {
+  height: 150px;
+}
+.midi-fallback-kb .piano-white-key {
+  gap: 0.3rem;
+}
+.midi-fallback-kb .midi-fallback-root-dot {
+  flex: 0 0 auto;
+}
+.midi-fallback-kb .piano-white-key.is-selected {
+  background: linear-gradient(180deg, var(--lilac) 0%, var(--lilac-soft) 100%);
+  box-shadow: inset 0 3px 6px rgba(61, 64, 91, 0.18);
+}
+.midi-fallback-kb .piano-black-key.is-selected {
+  background: linear-gradient(180deg, var(--lilac-strong) 0%, var(--lilac) 100%);
+  border-color: var(--lilac-strong);
+}
+.midi-fallback-kb .piano-white-key.is-done {
+  background: linear-gradient(180deg, var(--sage-soft) 0%, var(--surface-white) 100%);
+}
+.midi-fallback-kb .piano-black-key.is-done {
+  background: linear-gradient(180deg, var(--sage-strong) 0%, var(--sage) 100%);
+  border-color: var(--sage-strong);
+}
+/* Dunkelmodus: Tasten bleiben hell, deshalb ein helles Grün statt der dunklen Sage-Töne */
+[data-appearance="dark"] .midi-fallback-kb .piano-white-key.is-done {
+  background: linear-gradient(180deg, #BFE0C9 0%, #E6F3EA 100%);
+}
+[data-appearance="dark"] .midi-fallback-kb .piano-white-key.is-selected {
+  background: linear-gradient(180deg, #CFC4F5 0%, #ECE7FD 100%);
+}
+.midi-fallback-kb .piano-black-key .midi-fallback-root-dot {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--sage);
+}
+/* Mit Bildschirm-Klaviatur zeigt das Pad keine zusätzlichen Notenzeilen (Auswahl & Ausgangston stehen auf den Tasten bzw. in der Karte) */
+.midi-play-pad-wrap.has-screen-kb .midi-pad-live-line,
+.midi-play-pad-wrap.has-screen-kb .midi-pad-pills-row {
+  display: none;
+}
+.midi-play-pad-wrap.has-screen-kb .midi-pad-body:not(:has(> :not(.midi-pad-live-line):not(.midi-pad-pills-row))) {
+  display: none;
+}
+@media (min-width: 640px) {
+  .solfege-keyboard-wrap.is-midi-fallback .piano-keyboard {
+    height: 170px;
+  }
+}
+
 /* Feste Übungshöhe: MIDI-Spiel-Pad schrittweise verdichten */
 #viewExercise.fit-1 .midi-play-pad-wrap,
 #viewExercise.fit-2 .midi-play-pad-wrap,
@@ -19390,4 +19446,20 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 #viewExercise.fit-3.fit-4 .midi-pad-live-line {
   display: none;
+}
+#viewExercise.fit-1 .solfege-keyboard-wrap.is-midi-fallback .piano-keyboard {
+  height: 128px;
+}
+#viewExercise.fit-2 .solfege-keyboard-wrap.is-midi-fallback .piano-keyboard {
+  height: 112px;
+}
+#viewExercise.fit-3 .solfege-keyboard-wrap.is-midi-fallback .piano-keyboard {
+  height: 100px;
+}
+#viewExercise.fit-3.fit-4 .solfege-keyboard-wrap.is-midi-fallback .piano-keyboard {
+  height: 88px;
+}
+#viewExercise.fit-2 .midi-play-pad-wrap.has-screen-kb .midi-pad-body,
+#viewExercise.fit-3 .midi-play-pad-wrap.has-screen-kb .midi-pad-body {
+  gap: 0.2rem;
 }

@@ -556,10 +556,12 @@ async function handleNotationKeyClick(clickedKeyDef, keyBtn, options = {}) {
   }
 
   const target = ex.targetItem;
-  let isCorrect = Boolean(clickedKeyDef && Number(clickedKeyDef.pc) === Number(target.pc));
+  // MIDI mit exakter Oktave: richtige Tonklasse, aber falsche Oktave zählt als Fehler
+  const midiWrongOctave = options.midiWrongOctave || null;
+  let isCorrect = !midiWrongOctave && Boolean(clickedKeyDef && Number(clickedKeyDef.pc) === Number(target.pc));
 
   // Akkorde lesen: jeder richtige Akkordton wird markiert; fertig, wenn alle gefunden sind
-  if (target.isChord && Array.isArray(target.pcs)) {
+  if (target.isChord && Array.isArray(target.pcs) && !midiWrongOctave) {
     const clickedPc = Number(clickedKeyDef?.pc);
     isCorrect = Boolean(clickedKeyDef) && target.pcs.includes(clickedPc);
     if (isCorrect) {
@@ -618,6 +620,22 @@ async function handleNotationKeyClick(clickedKeyDef, keyBtn, options = {}) {
         : tf("Schau genau in den {clef} — oder tippe „Überspringen“.", "Check the {clef} carefully — or tap “Skip”.", {
             clef: getLocalizedNotationClefName(target.clefId)
           });
+      if (midiWrongOctave) {
+        const absOct = Math.abs(midiWrongOctave.octaveDiff) || 1;
+        const dirHint = midiWrongOctave.octaveDiff > 0
+          ? (absOct === 1 ? tr("1 Oktave zu hoch", "1 octave too high") : tf("{n} Oktaven zu hoch", "{n} octaves too high", { n: absOct }))
+          : (absOct === 1 ? tr("1 Oktave zu tief", "1 octave too low") : tf("{n} Oktaven zu tief", "{n} octaves too low", { n: absOct }));
+        const targetLbl = typeof formatMidiNoteDisplay === "function"
+          ? formatMidiNoteDisplay(midiWrongOctave.targetMidi)
+          : target.displayName;
+        document.getElementById("stageSubtext").textContent = tr("RICHTIGER TON, ANDERE OKTAVE", "RIGHT NOTE, WRONG OCTAVE");
+        document.getElementById("stageMainText").textContent = `${midiWrongOctave.noteLabel} (${dirHint})`;
+        document.getElementById("stageFunctionText").textContent = tf(
+          "Gesucht ist {target} – spiele in der notierten Oktave.",
+          "Target is {target} — play in the written octave.",
+          { target: targetLbl }
+        );
+      }
     }
     return;
   }

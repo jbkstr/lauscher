@@ -654,76 +654,6 @@ registerColocatedPhrases({
     tr: "Yarım/tam ses adımını kontrol et ve bu notayı tekrar dene.",
     ar: "تحقّق من خطوة نصف الدرجة أو الدرجة الكاملة وجرّب هذه النغمة مجددًا."
   },
-  "GRUNDTON: {root}": {
-    fr: "NOTE DE BASE : {root}",
-    es: "NOTA BASE: {root}",
-    it: "NOTA BASE: {root}",
-    pl: "DŹWIĘK PODSTAWOWY: {root}",
-    uk: "ОСНОВНИЙ ТОН: {root}",
-    ur: "بنیادی سُر: {root}",
-    tr: "KÖK NOTA: {root}",
-    ar: "نغمة الأساس: {root}"
-  },
-  "Spiele den Zielton auf deinem MIDI-Keyboard!": {
-    fr: "Joue la note cible sur ton clavier MIDI !",
-    es: "¡Toca la nota objetivo en tu teclado MIDI!",
-    it: "Suona la nota obiettivo sulla tua tastiera MIDI!",
-    pl: "Zagraj szukany dźwięk na klawiaturze MIDI!",
-    uk: "Зіграй цільову ноту на своїй MIDI-клавіатурі!",
-    ur: "اپنے MIDI کی بورڈ پر مطلوبہ سُر بجائیں!",
-    tr: "MIDI klavyende hedef notayı çal!",
-    ar: "اعزف النغمة المطلوبة على كيبورد MIDI!"
-  },
-  "UMKEHRUNG • BASS: {bass}": {
-    fr: "RENVERSEMENT • BASSE : {bass}",
-    es: "INVERSIÓN • BAJO: {bass}",
-    it: "RIVOLTO • BASSO: {bass}",
-    pl: "PRZEWRÓT • BAS: {bass}",
-    uk: "ОБЕРНЕННЯ • БАС: {bass}",
-    ur: "انورژن • بیس: {bass}",
-    tr: "ÇEVRİM • BAS: {bass}",
-    ar: "انقلاب • الباص: {bass}"
-  },
-  "AKKORD GREIFEN": {
-    fr: "JOUER L’ACCORD",
-    es: "TOCAR ACORDE",
-    it: "SUONA L’ACCORDO",
-    pl: "CHWYĆ AKORD",
-    uk: "ЗІГРАЙ АКОРД",
-    ur: "کارڈ بجائیں",
-    tr: "AKORU ÇAL",
-    ar: "اعزف الكورد"
-  },
-  "halte alle Töne gleichzeitig gedrückt": {
-    fr: "maintiens toutes les notes en même temps",
-    es: "mantén todas las notas a la vez",
-    it: "tieni premute tutte le note insieme",
-    pl: "przytrzymaj wszystkie dźwięki naraz",
-    uk: "утримуй усі ноти одночасно",
-    ur: "تمام سُر ایک ساتھ دبائے رکھیں",
-    tr: "tüm notaları aynı anda basılı tut",
-    ar: "اضغط على جميع النغمات معًا"
-  },
-  "Greife alle Akkordtöne gleichzeitig auf deinem MIDI-Keyboard!": {
-    fr: "Maintiens toutes les notes de l’accord ensemble sur ton clavier MIDI !",
-    es: "¡Mantén pulsadas todas las notas del acorde a la vez en tu teclado MIDI!",
-    it: "Tieni premute tutte le note dell’accordo insieme sulla tua tastiera MIDI!",
-    pl: "Chwyć wszystkie dźwięki akordu naraz na klawiaturze MIDI!",
-    uk: "Утримуй усі ноти акорду одночасно на своїй MIDI-клавіатурі!",
-    ur: "اپنے MIDI کی بورڈ پر کارڈ کے تمام سُر ایک ساتھ دبائیں!",
-    tr: "MIDI klavyende tüm akor notalarını aynı anda basılı tut!",
-    ar: "اضغط على جميع نغمات الكورد معًا على كيبورد MIDI!"
-  },
-  "TONLEITER AUFWÄRTS SPIELEN": {
-    fr: "JOUER LA GAMME EN MONTANT",
-    es: "TOCAR ESCALA ASCENDENTE",
-    it: "SUONA LA SCALA ASCENDENTE",
-    pl: "ZAGRAJ GAMĘ W GÓRĘ",
-    uk: "ЗІГРАЙ ГАМУ ВГОРУ",
-    ur: "اسکیل اوپر کی طرف بجائیں",
-    tr: "GAMI YUKARI DOĞRU ÇAL",
-    ar: "اعزف السلم صعودًا"
-  },
   "Starte auf {root} und spiele alle {n} Töne aufwärts.": {
     fr: "Commence sur {root} et joue les {n} notes en montant.",
     es: "Empieza en {root} y toca las {n} notas hacia arriba.",
@@ -785,14 +715,14 @@ registerColocatedPhrases({
     ar: "اعزف الكورد …"
   },
   "Lösung": {
-    fr: "Indice",
-    es: "Pista",
-    it: "Aiuto",
-    pl: "Podpowiedź",
-    uk: "Підказка",
-    ur: "اشارہ",
-    tr: "İpucu",
-    ar: "تلميح"
+    fr: "Solution",
+    es: "Solución",
+    it: "Soluzione",
+    pl: "Rozwiązanie",
+    uk: "Розв’язок",
+    ur: "حل",
+    tr: "Çözüm",
+    ar: "الحل"
   },
   "Weiter": {
     fr: "Suivant",
@@ -813,46 +743,6 @@ registerColocatedPhrases({
     ur: "چڑھتا اسکیل",
     tr: "Çıkıcı gam",
     ar: "سلم صاعد"
-  },
-  "Der Ausgangston erklingt, du spielst das angezeigte Intervall direkt auf deinem MIDI-Keyboard oder Digitalpiano.": {
-    fr: "La note de départ retentit et tu joues l’intervalle affiché directement sur ton clavier MIDI ou piano numérique.",
-    es: "Suena la nota de partida y tocas el intervalo indicado directamente en tu teclado MIDI o piano digital.",
-    it: "Suona la nota di partenza e suoni l’intervallo indicato direttamente sulla tastiera MIDI o pianoforte digitale.",
-    pl: "Brzmi dźwięk wyjściowy, a ty grasz pokazany interwał bezpośrednio na klawiaturze MIDI lub pianinie cyfrowym.",
-    uk: "Звучить вихідний тон, а ти граєш показаний інтервал безпосередньо на MIDI-клавіатурі чи цифровому піаніно.",
-    ur: "ابتدائی سُر بجتا ہے اور آپ دکھایا گیا وقفہ براہِ راست اپنے MIDI کی بورڈ یا ڈیجیٹل پیانو پر بجاتے ہیں۔",
-    tr: "Başlangıç sesi çalar, gösterilen aralığı doğrudan MIDI klavyende veya dijital piyanonda çalarsın.",
-    ar: "تُعزف نغمة الأساس وتعزف الفاصل المعروض مباشرة على كيبورد MIDI أو البيانو الرقمي."
-  },
-  "9 Stufen • mit MIDI": {
-    fr: "9 niveaux • avec MIDI",
-    es: "9 niveles • con MIDI",
-    it: "9 livelli • con MIDI",
-    pl: "9 poziomów • z MIDI",
-    uk: "9 рівнів • з MIDI",
-    ur: "9 درجے • MIDI کے ساتھ",
-    tr: "9 seviye • MIDI ile",
-    ar: "9 مستويات • مع MIDI"
-  },
-  "Greife den angezeigten Akkord (inkl. Umkehrungen & Vierklängen) direkt auf deinem MIDI-Keyboard oder Digitalpiano.": {
-    fr: "Joue l’accord affiché (renversements et accords de 7e inclus) directement sur ton clavier MIDI ou piano numérique.",
-    es: "Toca el acorde indicado (incl. inversiones y acordes de 7.ª) directamente en tu teclado MIDI o piano digital.",
-    it: "Suona l’accordo indicato (rivolti e accordi di 7ª inclusi) direttamente sulla tastiera MIDI o pianoforte digitale.",
-    pl: "Chwyć pokazany akord (w tym przewroty i czterodźwięki) bezpośrednio na klawiaturze MIDI lub pianinie cyfrowym.",
-    uk: "Зіграй показаний акорд (зокрема обернення та септакорди) безпосередньо на MIDI-клавіатурі чи цифровому піаніно.",
-    ur: "دکھایا گیا کارڈ (انورژن اور ساتویں کارڈز سمیت) براہِ راست اپنے MIDI کی بورڈ یا ڈیجیٹل پیانو پر بجائیں۔",
-    tr: "Gösterilen akoru (çevrimler ve yedili akorlar dâhil) doğrudan MIDI klavyende veya dijital piyanonda çal.",
-    ar: "اعزف الكورد المعروض (بما في ذلك الانقلابات والرباعيات) مباشرة على كيبورد MIDI أو البيانو الرقمي."
-  },
-  "4 Stufen • mit MIDI": {
-    fr: "4 niveaux • avec MIDI",
-    es: "4 niveles • con MIDI",
-    it: "4 livelli • con MIDI",
-    pl: "4 poziomy • z MIDI",
-    uk: "4 рівні • з MIDI",
-    ur: "4 درجے • MIDI کے ساتھ",
-    tr: "4 seviye • MIDI ile",
-    ar: "4 مستويات • مع MIDI"
   },
   "Stufe 1: Dur &amp; Moll": {
     fr: "Niveau 1 : Majeur &amp; mineur",
@@ -933,26 +823,6 @@ registerColocatedPhrases({
     ur: "4. اسکیلز اور موڈز بجائیں",
     tr: "4. Gam ve modları çal",
     ar: "4. عزف السلالم والمقامات"
-  },
-  "Spiele die angezeigte Tonleiter oder Kirchentonart Schritt für Schritt aufwärts auf deinem MIDI-Keyboard.": {
-    fr: "Joue la gamme ou le mode affiché note par note en montant sur ton clavier MIDI.",
-    es: "Toca la escala o modo indicado paso a paso hacia arriba en tu teclado MIDI.",
-    it: "Suona la scala o il modo indicato nota per nota salendo sulla tua tastiera MIDI.",
-    pl: "Zagraj pokazaną gamę lub skalę kościelną krok po kroku w górę na klawiaturze MIDI.",
-    uk: "Зіграй показану гаму або лад крок за кроком угору на своїй MIDI-клавіатурі.",
-    ur: "اپنے MIDI کی بورڈ پر دکھایا گیا اسکیل یا موڈ قدم بہ قدم اوپر کی طرف بجائیں۔",
-    tr: "Gösterilen gamı veya modu MIDI klavyende adım adım yukarı doğru çal.",
-    ar: "اعزف السلم أو المقام المعروض خطوة بخطوة صعودًا على كيبورد MIDI."
-  },
-  "3 Stufen • mit MIDI": {
-    fr: "3 niveaux • avec MIDI",
-    es: "3 niveles • con MIDI",
-    it: "3 livelli • con MIDI",
-    pl: "3 poziomy • z MIDI",
-    uk: "3 рівні • з MIDI",
-    ur: "3 درجے • MIDI کے ساتھ",
-    tr: "3 seviye • MIDI ile",
-    ar: "3 مستويات • مع MIDI"
   },
   "Ionisch &amp; Äolisch über leichte Grundtöne": {
     fr: "Ionien et éolien sur des toniques simples",
@@ -1113,5 +983,185 @@ registerColocatedPhrases({
     ur: "مائنر پینٹاٹونک",
     tr: "Minör pentatonik",
     ar: "خماسي صغير"
+  },
+  "Basston": {
+    fr: "Note de basse",
+    es: "Nota del bajo",
+    it: "Nota di basso",
+    pl: "Dźwięk basowy",
+    uk: "Басовий звук",
+    ur: "باس سُر",
+    tr: "Bas notası",
+    ar: "نغمة الباص"
+  },
+  "Basston anspielen": {
+    fr: "Jouer la note de basse",
+    es: "Tocar la nota del bajo",
+    it: "Suona la nota di basso",
+    pl: "Zagraj dźwięk basowy",
+    uk: "Зіграти басовий звук",
+    ur: "باس سُر بجائیں",
+    tr: "Bas notasını çal",
+    ar: "عزف نغمة الباص"
+  },
+  "Greife den Akkord auf der Klaviatur:": {
+    fr: "Joue l’accord sur le clavier :",
+    es: "Toca el acorde en el teclado:",
+    it: "Suona l’accordo sulla tastiera:",
+    pl: "Zagraj akord na klawiaturze:",
+    uk: "Зіграй акорд на клавіатурі:",
+    ur: "کی بورڈ پر کورڈ بجائیں:",
+    tr: "Akoru klavyede çal:",
+    ar: "اعزف الوتر على لوحة المفاتيح:"
+  },
+  "Spiele die Tonleiter aufwärts auf der Klaviatur:": {
+    fr: "Joue la gamme en montant sur le clavier :",
+    es: "Toca la escala ascendente en el teclado:",
+    it: "Suona la scala ascendente sulla tastiera:",
+    pl: "Zagraj gamę w górę na klawiaturze:",
+    uk: "Зіграй гаму вгору на клавіатурі:",
+    ur: "کی بورڈ پر اسکیل اوپر کی طرف بجائیں:",
+    tr: "Diziyi klavyede yukarı doğru çal:",
+    ar: "اعزف السلم صعودًا على لوحة المفاتيح:"
+  },
+  "Spiele das gesuchte Intervall auf der Klaviatur:": {
+    fr: "Joue l’intervalle demandé sur le clavier :",
+    es: "Toca el intervalo buscado en el teclado:",
+    it: "Suona l’intervallo richiesto sulla tastiera:",
+    pl: "Zagraj szukany interwał na klawiaturze:",
+    uk: "Зіграй потрібний інтервал на клавіатурі:",
+    ur: "کی بورڈ پر مطلوبہ وقفہ بجائیں:",
+    tr: "İstenen aralığı klavyede çal:",
+    ar: "اعزف المسافة المطلوبة على لوحة المفاتيح:"
+  },
+  "Tippe alle Akkordtöne an – nochmal tippen hebt die Auswahl auf.": {
+    fr: "Touche toutes les notes de l’accord – touche à nouveau pour désélectionner.",
+    es: "Toca todas las notas del acorde; vuelve a tocar para quitar la selección.",
+    it: "Tocca tutte le note dell’accordo – tocca di nuovo per deselezionare.",
+    pl: "Dotknij wszystkich dźwięków akordu – ponowne dotknięcie usuwa wybór.",
+    uk: "Торкнися всіх звуків акорду – повторний дотик скасовує вибір.",
+    ur: "کورڈ کے تمام سُر تھپتھپائیں – دوبارہ تھپتھپانے سے انتخاب ہٹ جاتا ہے۔",
+    tr: "Akorun tüm seslerine dokun – tekrar dokunmak seçimi kaldırır.",
+    ar: "المس جميع نغمات الوتر – المس مرة أخرى لإلغاء التحديد."
+  },
+  "Dein Einsatz": {
+    fr: "À toi",
+    es: "Tu turno",
+    it: "Tocca a te",
+    pl: "Twoja kolej",
+    uk: "Твоя черга",
+    ur: "آپ کی باری",
+    tr: "Sıra sende",
+    ar: "دورك"
+  },
+  "Tippe den Zielton ab {root} auf der Klaviatur.": {
+    fr: "Touche la note cible à partir de {root} sur le clavier.",
+    es: "Toca la nota objetivo desde {root} en el teclado.",
+    it: "Tocca la nota di arrivo a partire da {root} sulla tastiera.",
+    pl: "Dotknij dźwięku docelowego od {root} na klawiaturze.",
+    uk: "Торкнися цільового звуку від {root} на клавіатурі.",
+    ur: "کی بورڈ پر {root} سے ہدف سُر تھپتھپائیں۔",
+    tr: "Klavyede {root} sesinden hedef sese dokun.",
+    ar: "المس النغمة المستهدفة من {root} على لوحة المفاتيح."
+  },
+  "Spiele den Zielton ab {root} auf deinem MIDI-Keyboard.": {
+    fr: "Joue la note cible à partir de {root} sur ton clavier MIDI.",
+    es: "Toca la nota objetivo desde {root} en tu teclado MIDI.",
+    it: "Suona la nota di arrivo a partire da {root} sulla tua tastiera MIDI.",
+    pl: "Zagraj dźwięk docelowy od {root} na swojej klawiaturze MIDI.",
+    uk: "Зіграй цільовий звук від {root} на своїй MIDI-клавіатурі.",
+    ur: "اپنے MIDI کی بورڈ پر {root} سے ہدف سُر بجائیں۔",
+    tr: "MIDI klavyende {root} sesinden hedef sesi çal.",
+    ar: "اعزف النغمة المستهدفة من {root} على لوحة MIDI الخاصة بك."
+  },
+  "Tippe alle Akkordtöne an.": {
+    fr: "Touche toutes les notes de l’accord.",
+    es: "Toca todas las notas del acorde.",
+    it: "Tocca tutte le note dell’accordo.",
+    pl: "Dotknij wszystkich dźwięków akordu.",
+    uk: "Торкнися всіх звуків акорду.",
+    ur: "کورڈ کے تمام سُر تھپتھپائیں۔",
+    tr: "Akorun tüm seslerine dokun.",
+    ar: "المس جميع نغمات الوتر."
+  },
+  "Halte alle Akkordtöne gleichzeitig gedrückt.": {
+    fr: "Maintiens toutes les notes de l’accord enfoncées en même temps.",
+    es: "Mantén pulsadas todas las notas del acorde a la vez.",
+    it: "Tieni premute tutte le note dell’accordo insieme.",
+    pl: "Przytrzymaj wszystkie dźwięki akordu jednocześnie.",
+    uk: "Утримуй усі звуки акорду одночасно.",
+    ur: "کورڈ کے تمام سُر ایک ساتھ دبائے رکھیں۔",
+    tr: "Akorun tüm seslerini aynı anda basılı tut.",
+    ar: "اضغط على جميع نغمات الوتر معًا."
+  },
+  "{bass} muss ganz unten liegen.": {
+    fr: "{bass} doit être la note la plus grave.",
+    es: "{bass} debe ser la nota más grave.",
+    it: "{bass} deve essere la nota più bassa.",
+    pl: "{bass} musi być najniższym dźwiękiem.",
+    uk: "{bass} має бути найнижчим звуком.",
+    ur: "{bass} سب سے نیچا سُر ہونا چاہیے۔",
+    tr: "{bass} en alttaki ses olmalı.",
+    ar: "يجب أن تكون {bass} أخفض نغمة."
+  },
+  "Der Ausgangston erklingt, du spielst das angezeigte Intervall auf deinem MIDI-Keyboard – ohne Gerät auf der Bildschirm-Klaviatur.": {
+    fr: "La note de départ retentit, tu joues l’intervalle affiché sur ton clavier MIDI – sans appareil, sur le clavier à l’écran.",
+    es: "Suena la nota de partida y tocas el intervalo mostrado en tu teclado MIDI; sin dispositivo, en el teclado en pantalla.",
+    it: "Suona la nota di partenza e tu suoni l’intervallo indicato sulla tua tastiera MIDI – senza dispositivo, sulla tastiera a schermo.",
+    pl: "Brzmi dźwięk wyjściowy, a ty grasz pokazany interwał na klawiaturze MIDI – bez urządzenia na klawiaturze ekranowej.",
+    uk: "Звучить вихідний звук, а ти граєш показаний інтервал на MIDI-клавіатурі – без пристрою на екранній клавіатурі.",
+    ur: "ابتدائی سُر بجتا ہے، آپ دکھایا گیا وقفہ اپنے MIDI کی بورڈ پر بجاتے ہیں – آلے کے بغیر اسکرین کی بورڈ پر۔",
+    tr: "Başlangıç sesi çalar, gösterilen aralığı MIDI klavyende çalarsın – cihaz yoksa ekran klavyesinde.",
+    ar: "تُعزف نغمة البداية، وتعزف المسافة المعروضة على لوحة MIDI – وبدون جهاز على لوحة المفاتيح على الشاشة."
+  },
+  "9 Stufen • MIDI oder Bildschirm": {
+    fr: "9 niveaux • MIDI ou écran",
+    es: "9 niveles • MIDI o pantalla",
+    it: "9 livelli • MIDI o schermo",
+    pl: "9 poziomów • MIDI lub ekran",
+    uk: "9 рівнів • MIDI або екран",
+    ur: "9 درجے • MIDI یا اسکرین",
+    tr: "9 seviye • MIDI veya ekran",
+    ar: "9 مستويات • MIDI أو الشاشة"
+  },
+  "Greife den angezeigten Akkord (inkl. Umkehrungen & Vierklängen) auf deinem MIDI-Keyboard – ohne Gerät auf der Bildschirm-Klaviatur.": {
+    fr: "Joue l’accord affiché (renversements et accords de septième inclus) sur ton clavier MIDI – sans appareil, sur le clavier à l’écran.",
+    es: "Toca el acorde mostrado (con inversiones y cuatriadas) en tu teclado MIDI; sin dispositivo, en el teclado en pantalla.",
+    it: "Suona l’accordo indicato (rivolti e quadriadi inclusi) sulla tua tastiera MIDI – senza dispositivo, sulla tastiera a schermo.",
+    pl: "Zagraj pokazany akord (z przewrotami i czterodźwiękami) na klawiaturze MIDI – bez urządzenia na klawiaturze ekranowej.",
+    uk: "Зіграй показаний акорд (з оберненнями й септакордами) на MIDI-клавіатурі – без пристрою на екранній клавіатурі.",
+    ur: "دکھایا گیا کورڈ (الٹ پلٹ اور سیونتھ کورڈز سمیت) اپنے MIDI کی بورڈ پر بجائیں – آلے کے بغیر اسکرین کی بورڈ پر۔",
+    tr: "Gösterilen akoru (çevrimler ve dörtlü akorlar dahil) MIDI klavyende çal – cihaz yoksa ekran klavyesinde.",
+    ar: "اعزف الوتر المعروض (مع الانقلابات والأوتار الرباعية) على لوحة MIDI – وبدون جهاز على لوحة المفاتيح على الشاشة."
+  },
+  "4 Stufen • MIDI oder Bildschirm": {
+    fr: "4 niveaux • MIDI ou écran",
+    es: "4 niveles • MIDI o pantalla",
+    it: "4 livelli • MIDI o schermo",
+    pl: "4 poziomy • MIDI lub ekran",
+    uk: "4 рівні • MIDI або екран",
+    ur: "4 درجے • MIDI یا اسکرین",
+    tr: "4 seviye • MIDI veya ekran",
+    ar: "4 مستويات • MIDI أو الشاشة"
+  },
+  "Spiele die angezeigte Tonleiter oder Kirchentonart Schritt für Schritt aufwärts – auf deinem MIDI-Keyboard oder der Bildschirm-Klaviatur.": {
+    fr: "Joue la gamme ou le mode affiché note par note en montant – sur ton clavier MIDI ou le clavier à l’écran.",
+    es: "Toca la escala o el modo mostrado paso a paso en sentido ascendente, en tu teclado MIDI o en el teclado en pantalla.",
+    it: "Suona la scala o il modo indicato nota per nota in salita – sulla tua tastiera MIDI o sulla tastiera a schermo.",
+    pl: "Zagraj pokazaną gamę lub skalę modalną krok po kroku w górę – na klawiaturze MIDI lub ekranowej.",
+    uk: "Зіграй показану гаму чи лад крок за кроком угору – на MIDI-клавіатурі або на екранній клавіатурі.",
+    ur: "دکھایا گیا اسکیل یا موڈ قدم بہ قدم اوپر کی طرف بجائیں – اپنے MIDI کی بورڈ یا اسکرین کی بورڈ پر۔",
+    tr: "Gösterilen diziyi veya modu adım adım yukarı doğru çal – MIDI klavyende ya da ekran klavyesinde.",
+    ar: "اعزف السلم أو المقام المعروض خطوة بخطوة صعودًا – على لوحة MIDI أو لوحة المفاتيح على الشاشة."
+  },
+  "3 Stufen • MIDI oder Bildschirm": {
+    fr: "3 niveaux • MIDI ou écran",
+    es: "3 niveles • MIDI o pantalla",
+    it: "3 livelli • MIDI o schermo",
+    pl: "3 poziomy • MIDI lub ekran",
+    uk: "3 рівні • MIDI або екран",
+    ur: "3 درجے • MIDI یا اسکرین",
+    tr: "3 seviye • MIDI veya ekran",
+    ar: "3 مستويات • MIDI أو الشاشة"
   }
 });

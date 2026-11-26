@@ -154,7 +154,7 @@ function renderSolfegeKeyboard() {
     return;
   }
 
-  wrap.classList.remove("is-notation");
+  wrap.classList.remove("is-notation", "is-midi-fallback");
 
   const rootMidi = (state.currentExercise && state.currentExercise.rootMidi)
     ? state.currentExercise.rootMidi
@@ -1444,8 +1444,12 @@ function renderUI() {
     if (tonicRefLabel) tonicRefLabel.textContent = ex.type === "sing-degree" ? tr("Tonika (Do)", "Tonic (Do)") : tr("Ausgangston", "Root Note");
     if (tonicRefBtn) tonicRefBtn.title = tr("Tonika / Grundton anspielen", "Play tonic / root note");
   } else if (isMidiPlay) {
-    if (tonicRefLabel) tonicRefLabel.textContent = tr("Ausgangston", "Root Note");
-    if (tonicRefBtn) tonicRefBtn.title = tr("Tonika / Grundton anspielen", "Play tonic / root note");
+    if (tonicRefLabel) tonicRefLabel.textContent = getMidiPlayRefLabel(ex.type);
+    if (tonicRefBtn) {
+      tonicRefBtn.title = ex.type === "midi-chord"
+        ? tr("Basston anspielen", "Play bass note")
+        : tr("Tonika / Grundton anspielen", "Play tonic / root note");
+    }
   } else if (isModes) {
     if (tonicRefLabel) tonicRefLabel.textContent = tr("Anker-Quinte", "Anchor Fifth");
     if (tonicRefBtn) tonicRefBtn.title = tr("Neutrale Grundton-Quinte (ohne Terz) anhören", "Hear the neutral root-fifth anchor (no 3rd)");
@@ -1730,11 +1734,7 @@ function renderUI() {
     if (targetBadgeEl) {
       targetBadgeEl.textContent = `${tr("Stufe", "Level")} ${ex.level || 1}`;
     }
-    document.getElementById("inputPromptText").textContent = ex.type === "midi-chord"
-      ? tr("Greife den Akkord auf deinem MIDI-Keyboard:", "Play the chord on your MIDI keyboard:")
-      : (ex.type === "midi-scale"
-          ? tr("Spiele die Tonleiter aufwärts auf deinem MIDI-Keyboard:", "Play the scale ascending on your MIDI keyboard:")
-          : tr("Spiele das gesuchte Intervall auf deinem MIDI-Keyboard:", "Play the target interval on your MIDI keyboard:"));
+    document.getElementById("inputPromptText").textContent = getMidiPlayInputPrompt(ex.type);
   } else if (ex.type === "interval-melodic") {
     barsGrid.classList.add("cols-2");
     if (moduleTitleEl) moduleTitleEl.textContent = tr("Tonfolge (2 Töne)", "2-Note Sequence");
@@ -1980,6 +1980,7 @@ function renderUI() {
   const melodyRhythmPicker = document.getElementById("melodyRhythmPicker");
   const solfegeWrap = document.getElementById("solfegeKeyboardWrap");
   const tapPadWrap = document.getElementById("rhythmTapPadWrap");
+  solfegeWrap.classList.remove("is-midi-fallback");
 
   if (isKeyboardMode) {
     btnGrid.classList.add("hidden");
@@ -2010,6 +2011,8 @@ function renderUI() {
     melodyRhythmPicker?.classList.add("hidden");
     solfegeWrap.classList.add("hidden");
     tapPadWrap?.classList.add("hidden");
+    // MIDI-Spielübungen ohne verbundenes Gerät: Bildschirm-Klaviatur als Rückfall
+    if (isMidiPlay && typeof renderMidiPlayFallbackKeyboard === "function") renderMidiPlayFallbackKeyboard(ex);
   } else {
     melodyRhythmPicker?.classList.add("hidden");
     solfegeWrap.classList.add("hidden");

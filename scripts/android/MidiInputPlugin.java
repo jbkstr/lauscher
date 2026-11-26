@@ -91,6 +91,9 @@ public class MidiInputPlugin extends Plugin {
         final String type;
         final MidiDeviceInfo info;
         MidiDevice device;
+        // Zusätzlicher Geräte-Handle aus openBluetoothDevice(), falls dasselbe Gerät parallel schon
+        // über onDeviceAdded geöffnet wurde: hält die BLE-Verbindung offen, Ports laufen über "device".
+        MidiDevice keepAliveDevice;
         final List<MidiOutputPort> outputPorts = new ArrayList<>(); // Gerät -> App (Empfang)
         final List<MidiInputPort> inputPorts = new ArrayList<>();   // App -> Gerät (Senden, z. B. CC 122)
         int runningStatus = 0;
@@ -536,8 +539,13 @@ public class MidiInputPlugin extends Plugin {
 
     private void closeConnectionResources(OpenMidiConn conn, boolean restoreLocalControl) {
         if (restoreLocalControl && !conn.inputPorts.isEmpty()) {
-            // Local Control On (CC 122 = 127) auf Kanal 1 sicherheitshalber wiederherstellen
-            byte[] restore = new byte[] { (byte) 0xB0, 122, 127 };
+            // Local Control On (CC 122 = 127) wie in js/midi.js auf allen 16 Kanälen wiederherstellen
+            byte[] restore = new byte[48];
+            for (int ch = 0; ch < 16; ch++) {
+                restore[ch * 3] = (byte) (0xB0 | ch);
+                restore[ch * 3 + 1] = 122;
+                restore[ch * 3 + 2] = 127;
+            }
             for (MidiInputPort inPort : conn.inputPorts) {
                 try {
                     inPort.send(restore, 0, restore.length);
@@ -555,6 +563,10 @@ public class MidiInputPlugin extends Plugin {
         if (conn.device != null) {
             try { conn.device.close(); } catch (IOException ignored) {}
             conn.device = null;
+        }
+        if (conn.keepAliveDevice != null) {
+            try { conn.keepAliveDevice.close(); } catch (IOException ignored) {}
+            conn.keepAliveDevice = null;
         }
     }
 
@@ -730,11 +742,34 @@ public class MidiInputPlugin extends Plugin {
             }
             MidiDeviceInfo info = device.getInfo();
             String id = String.valueOf(info.getId());
-            OpenMidiConn conn = new OpenMidiConn(id, btName, "", "bluetooth", info);
+            // MidiManager meldet das neue BLE-Gerät zusätzlich über onDeviceAdded. Je nach Reihenfolge
+            // ist es dort schon (fertig oder gerade) geöffnet worden – dann nicht doppelt öffnen.
+            boolean attachNew;
+            OpenMidiConn conn;
             synchronized (lock) {
-                connections.put(id, conn);
+                OpenMidiConn existing = connections.get(id);
+                if (existing != null && existing.device != null) {
+                    // Schon über onDeviceAdded verbunden: diesen Handle nur als Verbindungshalter behalten
+                    if (existing.keepAliveDevice == null) {
+                        existing.keepAliveDevice = device;
+                    } else {
+                        try { device.close(); } catch (IOException ignored) {}
+                    }
+                    conn = existing;
+                    attachNew = false;
+                } else {
+                    // Noch nicht (fertig) geöffnet: dieser Handle übernimmt; ein parallel laufendes
+                    // openDevice() erkennt in attachOpenedDevice die ersetzte Verbindung und schließt sich.
+                    conn = new OpenMidiConn(id, btName, "", "bluetooth", info);
+                    connections.put(id, conn);
+                    attachNew = true;
+                }
             }
-            attachOpenedDevice(conn, device);
+            if (attachNew) {
+                attachOpenedDevice(conn, device);
+            } else {
+                emitDevicesChanged();
+            }
             JSObject ret = new JSObject();
             ret.put("connected", true);
             ret.put("deviceId", id);

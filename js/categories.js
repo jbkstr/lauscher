@@ -400,11 +400,11 @@ function openCategoryPage(categoryKey, options = {}) {
         id: "midi-interval",
         title: typeof getMidiPlayModeTitle === "function" ? getMidiPlayModeTitle("midi-interval") : tr("Intervalle spielen", "Play Intervals"),
         desc: tr(
-          "Der Ausgangston erklingt, du spielst das angezeigte Intervall direkt auf deinem MIDI-Keyboard oder Digitalpiano.",
-          "The root note plays and you play the shown interval directly on your MIDI keyboard or digital piano."
+          "Der Ausgangston erklingt, du spielst das angezeigte Intervall auf deinem MIDI-Keyboard – ohne Gerät auf der Bildschirm-Klaviatur.",
+          "The root note plays and you play the shown interval on your MIDI keyboard — or on the on-screen keyboard without a device."
         ),
         badgeHtml: `<div class="node-circle circle-lilac"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M7.5 5v8.5M12 5v8.5M16.5 5v8.5"/><rect x="6" y="5" width="3" height="7" rx="0.6" fill="currentColor"/><rect x="10.5" y="5" width="3" height="7" rx="0.6" fill="currentColor"/><rect x="15" y="5" width="3" height="7" rx="0.6" fill="currentColor"/></svg></div>`,
-        meta: tr("9 Stufen • mit MIDI", "9 Levels • with MIDI"),
+        meta: tr("9 Stufen • MIDI oder Bildschirm", "9 Levels • MIDI or screen"),
         isBeginner: false
       }
     ];
@@ -597,6 +597,7 @@ function openCategoryPage(categoryKey, options = {}) {
         container.querySelectorAll("[data-midi-int-dir]").forEach(btn => {
           btn.addEventListener("click", () => {
             state.settings.midiIntervalDirection = btn.dataset.midiIntDir;
+            if (typeof rememberPracticeProgress === "function") rememberPracticeProgress();
             renderMidiIntervalSubpage();
           });
         });
@@ -850,11 +851,11 @@ function openCategoryPage(categoryKey, options = {}) {
         id: "midi-chord",
         title: typeof getMidiPlayModeTitle === "function" ? getMidiPlayModeTitle("midi-chord") : tr("Akkorde greifen", "Play Chords"),
         desc: tr(
-          "Greife den angezeigten Akkord (inkl. Umkehrungen & Vierklängen) direkt auf deinem MIDI-Keyboard oder Digitalpiano.",
-          "Play the shown chord (including inversions & 7th chords) directly on your MIDI keyboard or digital piano."
+          "Greife den angezeigten Akkord (inkl. Umkehrungen & Vierklängen) auf deinem MIDI-Keyboard – ohne Gerät auf der Bildschirm-Klaviatur.",
+          "Play the shown chord (including inversions & 7th chords) on your MIDI keyboard — or on the on-screen keyboard without a device."
         ),
         badgeHtml: `<div class="node-circle circle-lilac"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M7.5 5v8.5M12 5v8.5M16.5 5v8.5"/><rect x="6" y="5" width="3" height="7" rx="0.6" fill="currentColor"/><rect x="10.5" y="5" width="3" height="7" rx="0.6" fill="currentColor"/><rect x="15" y="5" width="3" height="7" rx="0.6" fill="currentColor"/></svg></div>`,
-        meta: tr("4 Stufen • mit MIDI", "4 Levels • with MIDI"),
+        meta: tr("4 Stufen • MIDI oder Bildschirm", "4 Levels • MIDI or screen"),
         isBeginner: false
       }
     ];
@@ -1708,11 +1709,11 @@ function openCategoryPage(categoryKey, options = {}) {
         title: tr("4. Tonleitern &amp; Modi spielen", "4. Play Scales &amp; Modes"),
         plainTitle: typeof getMidiPlayModeTitle === "function" ? getMidiPlayModeTitle("midi-scale") : tr("Tonleitern & Modi spielen", "Play Scales & Modes"),
         desc: tr(
-          "Spiele die angezeigte Tonleiter oder Kirchentonart Schritt für Schritt aufwärts auf deinem MIDI-Keyboard.",
-          "Play the shown scale or church mode step by step upward on your MIDI keyboard."
+          "Spiele die angezeigte Tonleiter oder Kirchentonart Schritt für Schritt aufwärts – auf deinem MIDI-Keyboard oder der Bildschirm-Klaviatur.",
+          "Play the shown scale or church mode step by step upward — on your MIDI keyboard or the on-screen keyboard."
         ),
         badgeHtml: `<div class="node-circle circle-lilac"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M7.5 5v8.5M12 5v8.5M16.5 5v8.5"/><rect x="6" y="5" width="3" height="7" rx="0.6" fill="currentColor"/><rect x="10.5" y="5" width="3" height="7" rx="0.6" fill="currentColor"/><rect x="15" y="5" width="3" height="7" rx="0.6" fill="currentColor"/></svg></div>`,
-        meta: tr("3 Stufen • mit MIDI", "3 Levels • with MIDI"),
+        meta: tr("3 Stufen • MIDI oder Bildschirm", "3 Levels • MIDI or screen"),
         isBeginner: false,
         cardsHtml: `
           <button class="subpage-node-btn" data-launch-modes="midi-scale" data-modes-lvl="1">

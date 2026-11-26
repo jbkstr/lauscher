@@ -5,7 +5,8 @@
 //  - „Akkorde greifen“           (midi-chord,    Kategorie Akkorde)
 //  - „Tonleitern & Modi spielen“ (midi-scale,    Kategorie Tonleitern & Modi)
 // Lauscher gibt Grundton und Ziel vor, du spielst die Antwort direkt
-// auf deinem MIDI-Instrument (mit Bildschirm-Rückfall ohne Gerät).
+// auf deinem MIDI-Instrument. Ohne verbundenes Gerät erscheint eine
+// Bildschirm-Klaviatur im Antwortbereich (#solfegeKeyboardWrap.is-midi-fallback).
 // =====================================================
 
 const MIDI_PLAY_CONFIG = Object.freeze({
@@ -16,6 +17,8 @@ const _midiPlay = {
   autoNextTimer: 0,
   lastPlayedMidi: null,
   fallbackSelectedMidis: new Set(),
+  fallbackKbShown: false,
+  fallbackKbEx: null,
   showSolutionHint: false
 };
 
@@ -67,7 +70,7 @@ function evaluateMidiChordAttempt(task, heldMidis) {
  * Schritt 0 akzeptiert den Grundton in beliebiger Oktave und verankert ab dort die Oktavlage,
  * sodass jede weitere Stufe sauber aufwärts erwartet wird.
  */
-function evaluateMidiScaleStep(task, stepIdx, playedMidi, anchorMidi = null) {
+function evaluateMidiScaleStep(task, stepIdx, playedMidi, anchorMidi = null, options = {}) {
   const pMidi = Math.round(Number(playedMidi));
   if (!task || !Array.isArray(task.scaleIntervals) || stepIdx < 0 || stepIdx >= task.scaleIntervals.length) {
     return { ok: false, status: "wrong", nextAnchorMidi: anchorMidi, expectedMidi: null, expectedPc: null, playedMidi: pMidi };
@@ -78,6 +81,11 @@ function evaluateMidiScaleStep(task, stepIdx, playedMidi, anchorMidi = null) {
   const playedPc = ((pMidi % 12) + 12) % 12;
 
   if (stepIdx === 0) {
+    // options.exactRoot: Start nur auf dem vorgegebenen Grundton (Bildschirm-Klaviatur zeigt genau eine Oktave)
+    if (playedPc === rootPc && options.exactRoot && pMidi !== Math.round(Number(task.rootMidi))) {
+      const octaveDiff = Math.round((pMidi - Number(task.rootMidi)) / 12);
+      return { ok: false, status: "wrong-octave", nextAnchorMidi: null, expectedMidi: task.rootMidi, expectedPc: rootPc, playedMidi: pMidi, octaveDiff };
+    }
     if (playedPc === rootPc) {
       return { ok: true, status: "correct", nextAnchorMidi: pMidi, expectedMidi: pMidi, expectedPc: rootPc, playedMidi: pMidi };
     }
@@ -103,6 +111,31 @@ function getMidiPlayModeTitle(mode) {
   if (mode === "midi-chord") return tr("Akkorde greifen", "Play Chords");
   if (mode === "midi-scale") return tr("Tonleitern & Modi spielen", "Play Scales & Modes");
   return tr("Intervalle spielen", "Play Intervals");
+}
+
+// Beschriftung des Referenzton-Knopfs: Intervall → Ausgangston, Akkord → Basston, Tonleiter → Grundton
+function getMidiPlayRefLabel(mode) {
+  if (mode === "midi-chord") return tr("Basston", "Bass Note");
+  if (mode === "midi-scale") return tr("Grundton", "Root");
+  return tr("Ausgangston", "Root Note");
+}
+
+// Eingabe-Hinweis über dem Antwortbereich – je nachdem, ob ein MIDI-Gerät verbunden ist
+function getMidiPlayInputPrompt(mode) {
+  const connected = typeof isMidiConnected === "function" && isMidiConnected();
+  if (mode === "midi-chord") {
+    return connected
+      ? tr("Greife den Akkord auf deinem MIDI-Keyboard:", "Play the chord on your MIDI keyboard:")
+      : tr("Greife den Akkord auf der Klaviatur:", "Play the chord on the keyboard:");
+  }
+  if (mode === "midi-scale") {
+    return connected
+      ? tr("Spiele die Tonleiter aufwärts auf deinem MIDI-Keyboard:", "Play the scale ascending on your MIDI keyboard:")
+      : tr("Spiele die Tonleiter aufwärts auf der Klaviatur:", "Play the scale ascending on the keyboard:");
+  }
+  return connected
+    ? tr("Spiele das gesuchte Intervall auf deinem MIDI-Keyboard:", "Play the target interval on your MIDI keyboard:")
+    : tr("Spiele das gesuchte Intervall auf der Klaviatur:", "Play the target interval on the keyboard:");
 }
 
 function getMidiChordLevelLabel(lvl) {
@@ -291,6 +324,7 @@ function handleMidiPlaySolved(ex, headline, subline) {
   }
 
   renderMidiPlayPad(ex);
+  syncMidiPlayFallbackKeyboardMarks(ex);
 
   if (state.settings.autoNextAfterCorrect) {
     _midiPlay.autoNextTimer = setTimeout(() => {
@@ -301,14 +335,29 @@ function handleMidiPlaySolved(ex, headline, subline) {
   }
 }
 
-function handleMidiPlayNoteOn(midi, velocity = 90) {
-  const ex = state?.currentExercise;
-  if (!ex || !ex.midiTask || !isMidiPlayMode(ex.type)) return;
+function playMidiPlayScreenTone(midi, durSec = 0.85) {
+  if (typeof audioEngine === "undefined" || !audioEngine) return;
+  if (typeof prepareAudioNonBlocking === "function") prepareAudioNonBlocking();
+  const noteName = typeof midiToNote === "function" ? midiToNote(midi) : null;
+  if (!noteName) return;
+  audioEngine.playStep([noteName], durSec, null, "interval", { velocity: 0.8 });
+}
 
-  playMidiAppTone(midi, velocity, 0.85);
+/**
+ * Verarbeitet einen gespielten Ton (MIDI-Taste oder Bildschirm-Klaviatur mit options.fromScreen).
+ * Gibt das Bewertungsergebnis zurück (für die Tasten-Rückmeldung der Bildschirm-Klaviatur).
+ */
+function handleMidiPlayNoteOn(midi, velocity = 90, options = {}) {
+  const ex = state?.currentExercise;
+  if (!ex || !ex.midiTask || !isMidiPlayMode(ex.type)) return null;
+  const fromScreen = Boolean(options.fromScreen);
+
+  // Bildschirm-Tasten klingen immer; MIDI-Tasten nur mit eingeschaltetem App-Klang
+  if (fromScreen) playMidiPlayScreenTone(midi);
+  else playMidiAppTone(midi, velocity, 0.85);
   _midiPlay.lastPlayedMidi = midi;
 
-  if (ex.isSolved) return;
+  if (ex.isSolved) return null;
 
   const task = ex.midiTask;
 
@@ -316,13 +365,13 @@ function handleMidiPlayNoteOn(midi, velocity = 90) {
   if (ex.type === "midi-interval") {
     const res = evaluateMidiIntervalAttempt(task, midi);
     if (res.ok) {
-      const targetLbl = formatMidiNoteDisplay(task.targetMidi);
+      const targetLbl = task.targetLabel || formatMidiNoteDisplay(task.targetMidi);
       handleMidiPlaySolved(
         ex,
         `${task.intervalName} ✓`,
-        `${formatMidiNoteDisplay(task.rootMidi)} → ${targetLbl}`
+        `${task.rootLabel || formatMidiNoteDisplay(task.rootMidi)} → ${targetLbl}`
       );
-      return;
+      return res;
     }
 
     if (typeof resetExerciseStreakOnAttempt === "function") resetExerciseStreakOnAttempt(ex);
@@ -338,7 +387,7 @@ function handleMidiPlayNoteOn(midi, velocity = 90) {
         document.getElementById("stageFunctionText").textContent = tf(
           "Gesucht: {dir} ab {root}",
           "Target: {dir} from {root}",
-          { dir: task.directionArrow, root: formatMidiNoteDisplay(task.rootMidi) }
+          { dir: task.directionArrow, root: task.rootLabel || formatMidiNoteDisplay(task.rootMidi) }
         );
       } else {
         const playedName = describePlayedIntervalFromSemis(res.playedSemis);
@@ -347,12 +396,12 @@ function handleMidiPlayNoteOn(midi, velocity = 90) {
         document.getElementById("stageFunctionText").textContent = tf(
           "Gesucht: {name} {arrow} ab {root}",
           "Target: {name} {arrow} from {root}",
-          { name: task.intervalName, arrow: task.directionArrow, root: formatMidiNoteDisplay(task.rootMidi) }
+          { name: task.intervalName, arrow: task.directionArrow, root: task.rootLabel || formatMidiNoteDisplay(task.rootMidi) }
         );
       }
     }
     renderMidiPlayPad(ex);
-    return;
+    return res;
   }
 
   // 2) Akkorde greifen
@@ -366,12 +415,18 @@ function handleMidiPlayNoteOn(midi, velocity = 90) {
         `${task.chordLabel} ✓`,
         task.toneNamesDisplay
       );
-      return;
+      return res;
+    }
+
+    // Vollständig gegriffener, aber falscher Akkord zählt wie ein falscher Tipp (wie bei den anderen Übungen)
+    const isWrongAttempt = res.status === "wrong-bass" || (res.status === "wrong-notes" && held.length >= task.targetMidis.length);
+    if (isWrongAttempt) {
+      if (typeof resetExerciseStreakOnAttempt === "function") resetExerciseStreakOnAttempt(ex);
+      if (typeof noteSessionReviewAnswer === "function") noteSessionReviewAnswer(ex, false);
     }
 
     if (document.getElementById("centralStageCard")) {
       if (res.status === "wrong-bass") {
-        if (typeof resetExerciseStreakOnAttempt === "function") resetExerciseStreakOnAttempt(ex);
         setCentralStageMode("stage-wrong");
         updateStageMascot("thinking");
         document.getElementById("stageSubtext").textContent = tr("BASSTON PRÜFEN", "CHECK THE BASS NOTE");
@@ -382,7 +437,6 @@ function handleMidiPlayNoteOn(midi, velocity = 90) {
           { inv: task.inversionLabel, bass: task.expectedBassName }
         );
       } else if (res.status === "wrong-notes" && held.length >= task.targetMidis.length) {
-        if (typeof resetExerciseStreakOnAttempt === "function") resetExerciseStreakOnAttempt(ex);
         setCentralStageMode("stage-wrong");
         updateStageMascot("thinking");
         document.getElementById("stageSubtext").textContent = tr("NOCH NICHT GANZ", "NOT QUITE");
@@ -400,17 +454,20 @@ function handleMidiPlayNoteOn(midi, velocity = 90) {
           total: res.totalCount
         });
         document.getElementById("stageMainText").textContent = held.map(formatMidiNoteDisplay).join(" · ");
-        document.getElementById("stageFunctionText").textContent = tr("Halte alle Akkordtöne gleichzeitig gedrückt!", "Hold all chord tones together!");
+        document.getElementById("stageFunctionText").textContent = fromScreen || _midiPlay.fallbackSelectedMidis.size > 0
+          ? tr("Tippe alle Akkordtöne an – nochmal tippen hebt die Auswahl auf.", "Tap all chord tones — tap again to deselect.")
+          : tr("Halte alle Akkordtöne gleichzeitig gedrückt!", "Hold all chord tones together!");
       }
     }
     renderMidiPlayPad(ex);
-    return;
+    syncMidiPlayFallbackKeyboardMarks(ex);
+    return res;
   }
 
   // 3) Tonleitern & Modi spielen
   if (ex.type === "midi-scale") {
     const stepIdx = task.currentStep || 0;
-    const res = evaluateMidiScaleStep(task, stepIdx, midi, task.anchorMidi);
+    const res = evaluateMidiScaleStep(task, stepIdx, midi, task.anchorMidi, { exactRoot: fromScreen });
 
     if (res.ok) {
       task.anchorMidi = res.nextAnchorMidi;
@@ -422,7 +479,7 @@ function handleMidiPlayNoteOn(midi, velocity = 90) {
           `${task.scaleTitle} ✓`,
           task.scaleNoteNames.join(" – ")
         );
-        return;
+        return res;
       }
 
       if (document.getElementById("centralStageCard")) {
@@ -436,10 +493,12 @@ function handleMidiPlayNoteOn(midi, velocity = 90) {
         document.getElementById("stageFunctionText").textContent = tr("Weiter aufwärts zum nächsten Ton!", "Continue upward to the next note!");
       }
       renderMidiPlayPad(ex);
-      return;
+      syncMidiPlayFallbackKeyboardMarks(ex);
+      return res;
     }
 
     if (typeof resetExerciseStreakOnAttempt === "function") resetExerciseStreakOnAttempt(ex);
+    if (typeof noteSessionReviewAnswer === "function") noteSessionReviewAnswer(ex, false);
     if (document.getElementById("centralStageCard")) {
       setCentralStageMode("stage-wrong");
       updateStageMascot("thinking");
@@ -463,13 +522,51 @@ function handleMidiPlayNoteOn(midi, velocity = 90) {
       }
     }
     renderMidiPlayPad(ex);
+    return res;
   }
+  return null;
 }
 
 function handleMidiPlayNoteOff(midi) {
   const ex = state?.currentExercise;
   if (!ex || ex.type !== "midi-chord" || ex.isSolved) return;
   renderMidiPlayPad(ex);
+}
+
+// Bildschirm-Klaviatur bei „Akkorde greifen“: Tippen wählt einen Ton an bzw. wieder ab
+function toggleMidiPlayFallbackChordNote(midi) {
+  const ex = state?.currentExercise;
+  if (!ex || ex.type !== "midi-chord" || !ex.midiTask) return;
+  if (ex.isSolved) {
+    playMidiPlayScreenTone(midi);
+    return;
+  }
+  if (_midiPlay.fallbackSelectedMidis.has(midi)) {
+    _midiPlay.fallbackSelectedMidis.delete(midi);
+    syncMidiPlayFallbackKeyboardMarks(ex);
+    if (_midiPlay.fallbackSelectedMidis.size === 0) {
+      _midiPlay.lastPlayedMidi = null;
+      syncMidiPlayStage(ex);
+      renderMidiPlayPad(ex);
+    } else {
+      const held = getMidiPlayActiveChordNotes();
+      const res = evaluateMidiChordAttempt(ex.midiTask, held);
+      if (document.getElementById("centralStageCard")) {
+        setCentralStageMode("stage-playing");
+        updateStageMascot("listening");
+        document.getElementById("stageSubtext").textContent = tf("AKKORDTON {found}/{total}", "CHORD TONE {found}/{total}", {
+          found: res.matchedCount,
+          total: res.totalCount
+        });
+        document.getElementById("stageMainText").textContent = held.map(formatMidiNoteDisplay).join(" · ");
+        document.getElementById("stageFunctionText").textContent = tr("Tippe alle Akkordtöne an – nochmal tippen hebt die Auswahl auf.", "Tap all chord tones — tap again to deselect.");
+      }
+      renderMidiPlayPad(ex);
+    }
+    return;
+  }
+  _midiPlay.fallbackSelectedMidis.add(midi);
+  handleMidiPlayNoteOn(midi, 96, { fromScreen: true });
 }
 
 function getMidiPlayActiveChordNotes() {
@@ -485,36 +582,38 @@ function syncMidiPlayStage(ex = state?.currentExercise) {
   const task = ex.midiTask;
   if (!document.getElementById("centralStageCard")) return;
   if (ex.isSolved) return;
+  // Läuft die Aufgabe schon (Ton gespielt / Akkordtöne angewählt), die Rückmeldung auf der Bühne stehen lassen,
+  // z. B. wenn renderUI durch Theme- oder Sprachwechsel erneut läuft
+  if (_midiPlay.lastPlayedMidi !== null || _midiPlay.fallbackSelectedMidis.size > 0) return;
 
+  // Die Aufgabe selbst steht schon in der Karte oben – die Bühne zeigt nur Status & Anleitung
   setCentralStageMode("stage-target");
   updateStageMascot("awaiting");
+  const onScreen = !(typeof isMidiConnected === "function" && isMidiConnected());
+  document.getElementById("stageSubtext").textContent = getMidiPlayModeTitle(ex.type).toUpperCase();
+  document.getElementById("stageMainText").textContent = tr("Dein Einsatz", "Your turn");
 
+  let instruction = "";
   if (ex.type === "midi-interval") {
-    document.getElementById("stageSubtext").textContent = tf("GRUNDTON: {root}", "ROOT NOTE: {root}", {
-      root: formatMidiNoteDisplay(task.rootMidi)
-    });
-    document.getElementById("stageMainText").textContent = `${task.intervalName} ${task.directionArrow}`;
-    document.getElementById("stageFunctionText").textContent = tr(
-      "Spiele den Zielton auf deinem MIDI-Keyboard!",
-      "Play the target note on your MIDI keyboard!"
-    );
+    const rootLbl = task.rootLabel || formatMidiNoteDisplay(task.rootMidi);
+    instruction = onScreen
+      ? tf("Tippe den Zielton ab {root} auf der Klaviatur.", "Tap the target note from {root} on the keyboard.", { root: rootLbl })
+      : tf("Spiele den Zielton ab {root} auf deinem MIDI-Keyboard.", "Play the target note from {root} on your MIDI keyboard.", { root: rootLbl });
   } else if (ex.type === "midi-chord") {
-    document.getElementById("stageSubtext").textContent = task.requireBassPc !== null
-      ? tf("UMKEHRUNG • BASS: {bass}", "INVERSION • BASS: {bass}", { bass: task.expectedBassName })
-      : tr("AKKORD GREIFEN", "PLAY CHORD");
-    document.getElementById("stageMainText").textContent = task.chordLabel;
-    document.getElementById("stageFunctionText").textContent = task.inversionDesc
-      ? `${task.inversionDesc} – ${tr("halte alle Töne gleichzeitig gedrückt", "hold all notes together")}`
-      : tr("Greife alle Akkordtöne gleichzeitig auf deinem MIDI-Keyboard!", "Hold all chord tones together on your MIDI keyboard!");
+    const how = onScreen
+      ? tr("Tippe alle Akkordtöne an.", "Tap all chord tones.")
+      : tr("Halte alle Akkordtöne gleichzeitig gedrückt.", "Hold all chord tones together.");
+    instruction = task.requireBassPc !== null
+      ? `${tf("{bass} muss ganz unten liegen.", "{bass} must be the lowest note.", { bass: task.expectedBassName })} ${how}`
+      : how;
   } else if (ex.type === "midi-scale") {
-    document.getElementById("stageSubtext").textContent = tr("TONLEITER AUFWÄRTS SPIELEN", "PLAY SCALE ASCENDING");
-    document.getElementById("stageMainText").textContent = task.scaleTitle;
-    document.getElementById("stageFunctionText").textContent = tf(
+    instruction = tf(
       "Starte auf {root} und spiele alle {n} Töne aufwärts.",
       "Start on {root} and play all {n} notes upward.",
       { root: task.rootName, n: task.scaleIntervals.length }
     );
   }
+  document.getElementById("stageFunctionText").textContent = instruction;
 }
 
 function renderMidiPlayPad(ex = state?.currentExercise) {
@@ -530,6 +629,7 @@ function renderMidiPlayPad(ex = state?.currentExercise) {
   const task = ex.midiTask;
   const connected = typeof isMidiConnected === "function" && isMidiConnected();
   const enabled = typeof isMidiEnabled === "function" && isMidiEnabled();
+  wrap.classList.toggle("has-screen-kb", !connected);
 
   let statusPillHtml = "";
   if (connected) {
@@ -547,9 +647,10 @@ function renderMidiPlayPad(ex = state?.currentExercise) {
 
   let bodyHtml = "";
   if (ex.type === "midi-interval") {
+    const rootLbl = task.rootLabel || formatMidiNoteDisplay(task.rootMidi);
     const hintText = _midiPlay.showSolutionHint || ex.isSolved
-      ? `${formatMidiNoteDisplay(task.rootMidi)} → ${formatMidiNoteDisplay(task.targetMidi)}`
-      : `${formatMidiNoteDisplay(task.rootMidi)} → ?`;
+      ? `${rootLbl} → ${task.targetLabel || formatMidiNoteDisplay(task.targetMidi)}`
+      : `${rootLbl} → ?`;
     const lastText = _midiPlay.lastPlayedMidi !== null
       ? tf("Zuletzt: {note}", "Last: {note}", { note: formatMidiNoteDisplay(_midiPlay.lastPlayedMidi) })
       : tr("Warte auf Taste …", "Waiting for key …");
@@ -591,8 +692,7 @@ function renderMidiPlayPad(ex = state?.currentExercise) {
       <div class="midi-pad-top">
         ${statusPillHtml}
         <div class="midi-pad-mini-actions">
-          <button type="button" class="btn-tool midi-pad-btn" data-midi-pad-action="root">${escapeHtml(tr("Grundton", "Root"))}</button>
-          <button type="button" class="btn-tool midi-pad-btn" data-midi-pad-action="hint">${escapeHtml(tr("Lösung", "Hint"))}</button>
+          <button type="button" class="btn-tool midi-pad-btn" data-midi-pad-action="hint">${escapeHtml(tr("Lösung", "Solution"))}</button>
           ${ex.isSolved ? `<button type="button" class="btn-primary-action midi-pad-btn" data-midi-pad-action="next">${escapeHtml(tr("Weiter", "Next"))}</button>` : ""}
         </div>
       </div>
@@ -607,8 +707,6 @@ function renderMidiPlayPad(ex = state?.currentExercise) {
       const act = btn.dataset.midiPadAction;
       if (act === "setup") {
         if (typeof openSettingsModal === "function") openSettingsModal("midi");
-      } else if (act === "root") {
-        playMidiPlayPrompt(ex);
       } else if (act === "hint") {
         playMidiPlaySolution(ex);
       } else if (act === "next") {
@@ -622,7 +720,204 @@ function renderMidiPlayPad(ex = state?.currentExercise) {
 
 function syncMidiPlayPadUI() {
   if (state?.currentView === "exercise" && state?.currentExercise && isMidiPlayMode(state.currentExercise.type)) {
-    renderMidiPlayPad(state.currentExercise);
+    const ex = state.currentExercise;
+    renderMidiPlayPad(ex);
     syncMidiDirChip();
+    // Gerät verbunden/getrennt: Bildschirm-Klaviatur ein- bzw. ausblenden
+    const wantKb = !(typeof isMidiConnected === "function" && isMidiConnected());
+    if (wantKb !== _midiPlay.fallbackKbShown || _midiPlay.fallbackKbEx !== ex) {
+      renderMidiPlayFallbackKeyboard(ex);
+      if (!ex.isSolved && _midiPlay.lastPlayedMidi === null && _midiPlay.fallbackSelectedMidis.size === 0) syncMidiPlayStage(ex);
+    }
   }
 }
+
+// ---------- Bildschirm-Klaviatur (Rückfall ohne MIDI-Gerät) ----------
+
+/**
+ * Tastenbereich der Bildschirm-Klaviatur je Aufgabe (reine Funktion, testbar).
+ * Intervall: Ausgangston bis zum größten Intervall der Stufe (mind. Oktave) in Spielrichtung, Tonleiter: Grundton bis Oktave,
+ * Akkord: je 5 Halbtöne unter dem tiefsten und über dem höchsten Akkordton (andere Lagen bleiben greifbar).
+ * Liefert { lo, hi } (spielbar) und { firstWhite, lastWhite } (inkl. schmaler Rahmentasten).
+ */
+function getMidiPlayFallbackRange(ex) {
+  const task = ex?.midiTask;
+  if (!task) return null;
+  let lo;
+  let hi;
+  if (ex.type === "midi-interval") {
+    const root = Math.round(Number(task.rootMidi));
+    // Spannweite = größtes Intervall der Stufe (bis zur großen None), damit der Zielton nicht aus der Lage verrät
+    const poolSemis = (Array.isArray(ex.choices) ? ex.choices : [])
+      .map(k => (typeof HARMONIC_DATA !== "undefined" ? Number(HARMONIC_DATA.intervals?.[k]?.semitones) : NaN))
+      .filter(Number.isFinite);
+    const span = Math.max(12, Math.abs(Number(task.targetMidi) - root), ...poolSemis);
+    if (Number(task.directionSign) < 0) {
+      lo = root - span;
+      hi = root;
+    } else {
+      lo = root;
+      hi = root + span;
+    }
+  } else if (ex.type === "midi-scale") {
+    lo = Math.round(Number(task.rootMidi));
+    hi = lo + Math.max(12, ...task.scaleIntervals.map(Number));
+  } else {
+    // Je 5 Halbtöne Luft: so lässt sich jeder Akkordton auch eine Oktave versetzt greifen,
+    // die Klaviatur verrät also nicht, welche Umkehrung gesucht ist
+    const mids = task.targetMidis.map(Number);
+    lo = Math.min(...mids) - 5;
+    hi = Math.max(...mids) + 5;
+  }
+  const isWhite = (m) => [0, 2, 4, 5, 7, 9, 11].includes(((m % 12) + 12) % 12);
+  let whiteLo = lo;
+  while (!isWhite(whiteLo)) whiteLo--;
+  let whiteHi = hi;
+  while (!isWhite(whiteHi)) whiteHi++;
+  let firstWhite = whiteLo - 1;
+  while (!isWhite(firstWhite)) firstWhite--;
+  let lastWhite = whiteHi + 1;
+  while (!isWhite(lastWhite)) lastWhite++;
+  return { lo, hi, firstWhite, lastWhite };
+}
+
+function renderMidiPlayFallbackKeyboard(ex = state?.currentExercise) {
+  const wrap = document.getElementById("solfegeKeyboardWrap");
+  if (!wrap) return;
+  const connected = typeof isMidiConnected === "function" && isMidiConnected();
+  const show = Boolean(ex && ex.midiTask && isMidiPlayMode(ex.type) && !connected);
+  if (ex && ex.midiTask && isMidiPlayMode(ex.type)) {
+    const promptEl = document.getElementById("inputPromptText");
+    if (promptEl) promptEl.textContent = getMidiPlayInputPrompt(ex.type);
+  }
+  _midiPlay.fallbackKbShown = show;
+  _midiPlay.fallbackKbEx = ex || null;
+  document.getElementById("midiPlayPadWrap")?.classList.toggle("has-screen-kb", show);
+  if (!show) {
+    if (wrap.classList.contains("is-midi-fallback")) {
+      wrap.classList.add("hidden");
+      wrap.classList.remove("is-midi-fallback");
+      wrap.innerHTML = "";
+      if (typeof queueFitExerciseLayout === "function") queueFitExerciseLayout(false);
+    }
+    return;
+  }
+
+  const range = getMidiPlayFallbackRange(ex);
+  if (!range) return;
+  wrap.classList.remove("is-notation");
+  wrap.classList.add("is-midi-fallback");
+  wrap.classList.remove("hidden");
+
+  const rootMidi = ex.type === "midi-chord" ? null : Math.round(Number(ex.midiTask.rootMidi));
+  const whiteKeys = [];
+  const blackKeys = [];
+  for (let m = range.firstWhite; m <= range.lastWhite; m++) {
+    const pc = ((m % 12) + 12) % 12;
+    const playable = m >= range.lo && m <= range.hi;
+    if (isWhiteMidi(m)) {
+      whiteKeys.push({
+        midi: m,
+        pc,
+        isFrame: m === range.firstWhite || m === range.lastWhite || !playable,
+        label: getWhiteNoteLabel(pc)
+      });
+    } else {
+      blackKeys.push({ midi: m, pc, afterWhiteIdx: whiteKeys.length - 1, playable });
+    }
+  }
+
+  const kb = document.createElement("div");
+  kb.className = "piano-keyboard midi-fallback-kb";
+  const whiteKeyEls = [];
+  const blackKeyEls = [];
+  const bindKey = (el, midi) => {
+    el.addEventListener("click", () => handleMidiPlayFallbackKeyTap(midi, el));
+  };
+
+  whiteKeys.forEach(wk => {
+    const keyBtn = document.createElement("button");
+    keyBtn.type = "button";
+    keyBtn.className = `piano-white-key ${wk.isFrame ? "piano-key-frame piano-key-inactive" : "piano-key-scale"}`;
+    keyBtn.dataset.midi = wk.midi;
+    const hint = document.createElement("span");
+    hint.className = "piano-note-hint";
+    hint.textContent = wk.label;
+    if (wk.midi === rootMidi) {
+      const dot = document.createElement("span");
+      dot.className = "tonic-dot midi-fallback-root-dot";
+      dot.setAttribute("aria-hidden", "true");
+      keyBtn.appendChild(dot);
+    }
+    keyBtn.appendChild(hint);
+    if (wk.isFrame) {
+      keyBtn.tabIndex = -1;
+      keyBtn.setAttribute("aria-disabled", "true");
+    } else {
+      keyBtn.setAttribute("aria-label", formatMidiNoteDisplay(wk.midi));
+      bindKey(keyBtn, wk.midi);
+    }
+    whiteKeyEls.push(keyBtn);
+    kb.appendChild(keyBtn);
+  });
+
+  blackKeys.forEach(bk => {
+    const blackEl = document.createElement("button");
+    blackEl.type = "button";
+    blackEl.className = `piano-black-key${bk.playable ? " key-in-scale" : ""}`;
+    blackEl.dataset.midi = bk.midi;
+    if (bk.midi === rootMidi) {
+      const dot = document.createElement("span");
+      dot.className = "tonic-dot midi-fallback-root-dot";
+      dot.setAttribute("aria-hidden", "true");
+      blackEl.appendChild(dot);
+    }
+    if (bk.playable) {
+      blackEl.setAttribute("aria-label", formatMidiNoteDisplay(bk.midi));
+      bindKey(blackEl, bk.midi);
+    } else {
+      blackEl.tabIndex = -1;
+      blackEl.setAttribute("aria-hidden", "true");
+    }
+    blackKeyEls.push(blackEl);
+    kb.appendChild(blackEl);
+  });
+
+  applyPianoKeyboardGeometry(whiteKeyEls, whiteKeys, blackKeyEls, blackKeys);
+  wrap.innerHTML = "";
+  wrap.appendChild(kb);
+  syncMidiPlayFallbackKeyboardMarks(ex);
+  if (typeof queueFitExerciseLayout === "function") queueFitExerciseLayout(false);
+}
+
+// Markiert angewählte Akkordtöne bzw. bereits gespielte Tonleiter-Töne
+function syncMidiPlayFallbackKeyboardMarks(ex = state?.currentExercise) {
+  const wrap = document.getElementById("solfegeKeyboardWrap");
+  if (!wrap || !wrap.classList.contains("is-midi-fallback") || !ex?.midiTask) return;
+  const task = ex.midiTask;
+  const doneMidis = new Set();
+  if (ex.type === "midi-scale" && Number.isFinite(Number(task.anchorMidi))) {
+    const anchor = Number(task.anchorMidi);
+    for (let i = 0; i < (task.currentStep || 0); i++) doneMidis.add(anchor + Number(task.scaleIntervals[i]));
+  }
+  wrap.querySelectorAll("[data-midi]").forEach(el => {
+    const m = parseInt(el.dataset.midi, 10);
+    el.classList.toggle("is-selected", ex.type === "midi-chord" && _midiPlay.fallbackSelectedMidis.has(m));
+    el.classList.toggle("is-done", doneMidis.has(m));
+  });
+}
+
+function handleMidiPlayFallbackKeyTap(midi, keyEl) {
+  const ex = state?.currentExercise;
+  if (!ex || !ex.midiTask || !isMidiPlayMode(ex.type)) return;
+  if (ex.type === "midi-chord") {
+    toggleMidiPlayFallbackChordNote(midi);
+    return;
+  }
+  const res = handleMidiPlayNoteOn(midi, 96, { fromScreen: true });
+  if (!res || !keyEl) return;
+  const cls = res.ok ? "key-correct" : "key-wrong";
+  keyEl.classList.add(cls);
+  setTimeout(() => keyEl.classList.remove(cls), 320);
+}
+

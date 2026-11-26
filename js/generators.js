@@ -854,6 +854,8 @@ function generateMidiIntervalExercise() {
       targetMidi,
       directionSign: sign,
       directionArrow: arrow,
+      rootLabel: refDisplay,
+      targetLabel: targetDisplay,
       intervalKey: chosenKey,
       intervalName: def.label,
       intervalShort: def.short
@@ -999,7 +1001,8 @@ function generateMidiScaleExercise() {
   const extra = MIDI_EXTRA_SCALES[scaleKey];
   const modeDef = extra ? null : (getLocalizedModeDef(scaleKey) || getLocalizedModeDef("ionian"));
   const intervals = extra ? [...extra.intervals] : [...modeDef.intervals];
-  const scaleName = extra ? tr(extra.labelDe, extra.labelEn) : (modeDef.roman || modeDef.short || scaleKey);
+  // baseRoman: Name ohne angehängte Stufe („Lydisch“ statt „Lydisch (4)“)
+  const scaleName = extra ? tr(extra.labelDe, extra.labelEn) : (modeDef.baseRoman || modeDef.roman || modeDef.short || scaleKey);
 
   const rootMidi = 60 + rootPc - (rootPc >= 9 ? 12 : 0); // A3 (57) bis G#4 (68)
   const preferFlat = ["dorian", "phrygian", "mixolydian", "aeolian", "locrian", "harm_minor", "pent_minor"].includes(scaleKey)

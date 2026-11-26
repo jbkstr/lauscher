@@ -695,14 +695,13 @@ function isBlockingOverlayOpenForMidi() {
 }
 
 function dispatchMidiNoteOn(midi, velocity, deviceName) {
-  // Wenn Einstellungen offen sind: Live-Tester darf klingen, aber keine Übung im Hintergrund auslösen
-  const settingsOpen = typeof getOpenModalName === "function" && getOpenModalName() === "settings";
-  if (settingsOpen) {
+  // Offene Fenster/Overlays (Einstellungen mit Live-Tester, Tutorial, Onboarding …):
+  // Taste klingt, löst aber keine Übung im Hintergrund aus. Wichtig, weil Local Control Off
+  // den Eigenklang des E-Pianos stummschaltet – ohne App-Ton bliebe es sonst still.
+  if (isBlockingOverlayOpenForMidi()) {
     playMidiAppTone(midi, velocity, 0.75);
     return;
   }
-
-  if (isBlockingOverlayOpenForMidi()) return;
 
   const view = state?.currentView;
 
@@ -716,7 +715,11 @@ function dispatchMidiNoteOn(midi, velocity, deviceName) {
     return;
   }
 
-  if (view !== "exercise" || !state?.currentExercise) return;
+  // Ansichten ohne MIDI-Anbindung (Startseite, Wissen, Werkzeuge …): einfach den App-Ton spielen
+  if (view !== "exercise" || !state?.currentExercise) {
+    playMidiAppTone(midi, velocity, 0.85);
+    return;
+  }
   const ex = state.currentExercise;
 
   // 2) Phase-2 MIDI-Spielübungen („Intervalle spielen“, „Akkorde greifen“, „Tonleitern & Modi spielen“)
@@ -729,9 +732,9 @@ function dispatchMidiNoteOn(midi, velocity, deviceName) {
 
   // 3) Rhythmus • Nachklopfen
   if (ex.type === "rhythm-tap") {
-    if (typeof handleRhythmTapInput === "function") {
-      handleRhythmTapInput();
-    }
+    // Während der Aufnahme klingt der Tap-Klick; außerhalb der Aufnahme den App-Ton spielen
+    const tapped = typeof handleRhythmTapInput === "function" ? handleRhythmTapInput() : null;
+    if (tapped === null) playMidiAppTone(midi, velocity, 0.6);
     return;
   }
 
@@ -753,6 +756,9 @@ function dispatchMidiNoteOn(midi, velocity, deviceName) {
     handleMelodyMidiNoteOn(ex, midi, velocity);
     return;
   }
+
+  // 7) Übungen ohne MIDI-Eingabe (Hörübungen, Symbole …): nur klingen lassen
+  playMidiAppTone(midi, velocity, 0.85);
 }
 
 function dispatchMidiNoteOff(midi) {
@@ -787,22 +793,16 @@ function findSolfegeKeyboardBtnByPc(pc) {
   }) || null;
 }
 
-function flashScreenKeyForMidi(midi, cls = "midi-key-hit") {
-  const pc = ((midi % 12) + 12) % 12;
-  const exactEl = document.getElementById(`solfegeKey_${midi}`) || findSolfegeKeyboardBtnByPc(pc);
-  if (!exactEl) return null;
-  exactEl.classList.add(cls);
-  setTimeout(() => exactEl.classList.remove(cls), 220);
-  return exactEl;
-}
-
 function handleNotationMidiNoteOn(ex, midi, velocity) {
-  if (!ex || !ex.targetItem) return;
+  if (!ex || !ex.targetItem) {
+    playMidiAppTone(midi, velocity, 0.75);
+    return;
+  }
 
   // Akkorde lesen (notation-chords): Akkord direkt auf dem MIDI-Keyboard greifen!
   if (ex.isChordReading && ex.targetItem.isChord) {
-    if (ex.chordAdvanceLock) return;
     playMidiAppTone(midi, velocity, 0.9);
+    if (ex.chordAdvanceLock) return;
     const target = ex.targetItem;
     const targetMidis = Array.isArray(target.chordTones)
       ? target.chordTones.map(t => Number(t.midi)).filter(Number.isFinite)
@@ -821,6 +821,13 @@ function handleNotationMidiNoteOn(ex, midi, velocity) {
         handleNotationChordChoice(target.key, btn, { fromMidi: true });
       }
       return;
+    }
+
+    // Vollständig gegriffener, aber falscher Akkord zählt wie ein falscher Tipp
+    const isWrongAttempt = res.status === "wrong-octave" || (res.status === "wrong-notes" && held.length >= targetMidis.length);
+    if (isWrongAttempt) {
+      if (typeof resetExerciseStreakOnAttempt === "function") resetExerciseStreakOnAttempt(ex);
+      if (typeof noteNotationReviewAnswer === "function") noteNotationReviewAnswer(ex, target, false);
     }
 
     if (document.getElementById("centralStageCard")) {
@@ -878,33 +885,20 @@ function handleNotationMidiNoteOn(ex, midi, velocity) {
     return;
   }
 
+  // Falsche Oktave: über die normale Fehlerbehandlung (Serie, Sitzungs-Wiederholung, Panel),
+  // die Bühne zeigt danach zusätzlich, wie viele Oktaven daneben gespielt wurde.
   if (match.status === "wrong-octave") {
     playMidiAppTone(midi, velocity, 0.75);
-    flashScreenKeyForMidi(midi, "key-wrong");
-    if (typeof resetExerciseStreakOnAttempt === "function") resetExerciseStreakOnAttempt(ex);
-    if (typeof noteNotationReviewAnswer === "function") noteNotationReviewAnswer(ex, target, false);
-    ex.notationPanelState = "is-wrong";
-    const panelEl = document.getElementById("notationStaffPanel");
-    panelEl?.classList.remove("is-correct");
-    panelEl?.classList.add("is-wrong");
-    setTimeout(() => {
-      if (ex.notationPanelState === "is-wrong") ex.notationPanelState = "";
-      panelEl?.classList.remove("is-wrong");
-    }, 360);
-
-    if (document.getElementById("centralStageCard")) {
-      setCentralStageMode("stage-wrong");
-      updateStageMascot("thinking");
-      const absOct = Math.abs(match.octaveDiff);
-      const dirHint = match.octaveDiff > 0
-        ? (absOct === 1 ? tr("1 Oktave zu hoch", "1 octave too high") : tf("{n} Oktaven zu hoch", "{n} octaves too high", { n: absOct }))
-        : (absOct === 1 ? tr("1 Oktave zu tief", "1 octave too low") : tf("{n} Oktaven zu tief", "{n} octaves too low", { n: absOct }));
-      document.getElementById("stageSubtext").textContent = tr("RICHTIGER TON, ANDERE OKTAVE", "RIGHT NOTE, WRONG OCTAVE");
-      document.getElementById("stageMainText").textContent = `${noteLabel} (${dirHint})`;
-      document.getElementById("stageFunctionText").textContent = tf(
-        "Gesucht ist {target} – spiele in der notierten Oktave.",
-        "Target is {target} — play in the written octave.",
-        { target: formatMidiNoteDisplay(target.midi) }
+    if (typeof handleNotationKeyClick === "function") {
+      // Keine Bildschirmtaste rot färben: dort läge ja die richtige Tonklasse
+      handleNotationKeyClick(
+        { midi, pc, noteLabel, fromMidi: true },
+        null,
+        {
+          fromMidi: true,
+          skipCorrectAudio: _midi.prefs.appSound,
+          midiWrongOctave: { octaveDiff: match.octaveDiff, targetMidi: target.midi, noteLabel }
+        }
       );
     }
     return;
@@ -927,7 +921,10 @@ function handleNotationMidiNoteOn(ex, midi, velocity) {
 }
 
 function handleSolfegeMidiNoteOn(ex, midi, velocity) {
-  if (!ex || state.solfegeAnswered) return;
+  if (!ex || state.solfegeAnswered) {
+    playMidiAppTone(midi, velocity, 0.75);
+    return;
+  }
   const pc = ((midi % 12) + 12) % 12;
   const keyBtn = findSolfegeKeyboardBtnByPc(pc);
   const keySyllable = keyBtn?.dataset?.syllable || null;
@@ -965,7 +962,10 @@ function handleSolfegeMidiNoteOn(ex, midi, velocity) {
 }
 
 function handleMelodyMidiNoteOn(ex, midi, velocity) {
-  if (!ex || state.melodyCompleted) return;
+  if (!ex || state.melodyCompleted) {
+    playMidiAppTone(midi, velocity, 0.75);
+    return;
+  }
   const pc = ((midi % 12) + 12) % 12;
   const keyBtn = findSolfegeKeyboardBtnByPc(pc);
   const keySyllable = keyBtn?.dataset?.syllable || null;

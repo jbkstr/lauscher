@@ -6,9 +6,9 @@ All released versions of Lauscher. New sections are created by `python3 scripts/
 
 **New**
 - MIDI keyboard & digital piano input (USB & Bluetooth LE MIDI): play directly in Free Play (live chord/inversion analyzer with sustain pedal), Sight-Reading (single notes & chords, requiring the exact written octave by default with octave-difference hints), Solfège, Melodies, Rhythm Tap and Exams.
-- Three new active MIDI play-back exercises: "Play Intervals" (Intervals, 9 levels, ascending/descending/mixed), "Play Chords" (Chords, 4 levels including inversions with bass-note checking and 7th chords) and "Play Scales & Modes" (Scales & Modes, 3 levels including all 7 church modes, harmonic/melodic minor and pentatonics).
+- Three new active MIDI play-back exercises: "Play Intervals" (Intervals, 9 levels, ascending/descending/mixed), "Play Chords" (Chords, 4 levels including inversions with bass-note checking and 7th chords) and "Play Scales & Modes" (Scales & Modes, 3 levels including all 7 church modes, harmonic/melodic minor and pentatonics). Without a connected MIDI device they can be played on an on-screen keyboard, so they also work on iPhone and in Safari.
 - Android app native MIDI plugin (`MidiInputPlugin.java` via `android.media.midi.MidiManager`) with built-in Bluetooth LE MIDI scanner & connection, plus Web MIDI API support in Chrome/Edge/Firefox on desktop.
-- By default, Lauscher plays its own instrument sounds on MIDI input and automatically sends MIDI `CC 122 = 0` (Local Control Off) to silence the keyboard's built-in speakers, restoring `CC 122 = 127` (Local Control On) on exit or background. All options are configurable in Settings and via the in-exercise MIDI status chip. Privacy policy updated accordingly.
+- By default, Lauscher plays its own instrument sounds on MIDI input and automatically sends MIDI `CC 122 = 0` (Local Control Off) to silence the keyboard's built-in speakers, restoring `CC 122 = 127` (Local Control On) on all 16 channels on exit or background. While MIDI is active, every key you play sounds through Lauscher on every screen, so the silenced keyboard never goes quiet. All options are configurable in Settings and via the in-exercise MIDI status chip. Privacy policy updated accordingly.
 
 ## 0.13.1-beta (Build 9) – 2026-11-26
 
