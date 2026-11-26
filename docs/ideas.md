@@ -4,6 +4,23 @@ Gesammelte Pläne, die bewusst auf später verschoben sind. Neue Einträge oben 
 
 ---
 
+## MIDI-Unterstützung für iOS, iPadOS & native macOS-App (CoreMIDI)
+
+**Status:** zurückgestellt bis ein iOS-Launch ansteht (Stand 2026-11-26).
+
+### Ausgangslage
+- Auf **macOS** funktioniert die Web-MIDI-Anbindung ([js/midi.js](../js/midi.js)) bereits heute in Chrome, Edge, Firefox, Brave und Opera (USB-MIDI sowie Bluetooth-MIDI nach Kopplung über *Audio-MIDI-Setup*).
+- **Safari / iOS-PWA** unterstützt wegen Apple WebKit weder Web MIDI noch Web Bluetooth.
+
+### Plan für den iOS-Launch
+- Paralleles Capacitor-iOS-Projekt (analog zu `~/Documents/lauscher-android` und [scripts/sync-android.sh](../scripts/sync-android.sh)) mit `scripts/sync-ios.sh` und einem nativen Swift-Plugin `scripts/ios/MidiInputPlugin.swift`.
+- Nutzt dieselbe JS-Plugin-Schnittstelle `MidiInput` aus [js/midi.js](../js/midi.js), sodass im Web-Code kaum Anpassungen nötig sind:
+  - **CoreMIDI** für USB-MIDI, Bluetooth-MIDI sowie `CC 122 = 0` / `127` (Local Control Off/On).
+  - **`CoreAudioKit.CABTMIDICentralViewController`** als nativer System-Dialog zum Koppeln von Bluetooth-MIDI-Instrumenten.
+- Bonus: Über Mac Catalyst / „Designed for iPad“ läuft dieselbe App auch direkt als native macOS-App ohne Browser-Umweg.
+
+---
+
 ## Lauscher-Looks (Accessoires für das Maskottchen)
 
 **Status:** vorerst ausgeblendet (seit 2026-11).
