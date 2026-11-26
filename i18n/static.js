@@ -6893,16 +6893,16 @@ registerColocatedStatic({
     ar: "كتم الصوت الداخلي للكيبورد"
   },
   "settings.midiLocalCtrlHint": {
-    de: "Sendet MIDI CC 122 = 0 ans Instrument (und schaltet ihn beim Beenden wieder an). Falls dein E-Piano trotzdem mitklingt, dreh einfach seine Lautstärke herunter.",
-    en: "Sends MIDI CC 122 = 0 to your instrument (and restores it on exit). If your piano still sounds, simply turn its volume down.",
-    fr: "Envoie MIDI CC 122 = 0 à l’instrument (et le réactive à la fermeture). Si ton piano sonne encore, baisse simplement son volume.",
-    es: "Envía MIDI CC 122 = 0 al instrumento (y lo reactiva al salir). Si tu piano sigue sonando, baja simplemente su volumen.",
-    it: "Invia MIDI CC 122 = 0 allo strumento (e lo riattiva all’uscita). Se il pianoforte suona ancora, abbassa semplicemente il suo volume.",
-    pl: "Wysyła MIDI CC 122 = 0 do instrumentu (i włącza z powrotem przy wyjściu). Jeśli pianino nadal gra, po prostu ścisz jego głośność.",
-    uk: "Надсилає MIDI CC 122 = 0 на інструмент (і повертає при виході). Якщо піаніно все одно звучить, просто зменш його гучність.",
-    ur: "آلے کو MIDI CC 122 = 0 بھیجتا ہے (اور بند کرتے وقت بحال کر دیتا ہے)۔ اگر پیانو پھر بھی بجے تو اس کا والیوم کم کر دیں۔",
-    tr: "Enstrümana MIDI CC 122 = 0 gönderir (çıkışta tekrar açar). Piyano hâlâ ses veriyorsa sesini kısman yeterli.",
-    ar: "يُرسل MIDI CC 122 = 0 إلى الآلة (ويعيد تفعيله عند الإغلاق). إذا استمر البيانو في إصدار الصوت فاخفض صوته ببساطة."
+    de: "Sendet MIDI CC 122 = 0 ans Instrument (und schaltet den Eigenklang beim Beenden wieder an). Manche Instrumente ignorieren diesen Befehl, z. B. Casio Privia PX-S. Schalte Local Control dann direkt am Instrument aus (siehe Anleitung) oder dreh einfach seine Lautstärke herunter – die MIDI-Daten kommen trotzdem an.",
+    en: "Sends MIDI CC 122 = 0 to your instrument (and restores its sound on exit). Some instruments ignore this command, e.g. Casio Privia PX-S. In that case, turn Local Control off on the instrument itself (see its manual) or simply turn its volume down – the MIDI data still arrives.",
+    fr: "Envoie MIDI CC 122 = 0 à l’instrument (et rétablit son son à la fermeture). Certains instruments ignorent cette commande, par ex. Casio Privia PX-S. Désactive alors Local Control directement sur l’instrument (voir son manuel) ou baisse simplement son volume – les données MIDI arrivent quand même.",
+    es: "Envía MIDI CC 122 = 0 al instrumento (y restablece su sonido al salir). Algunos instrumentos ignoran este comando, p. ej. Casio Privia PX-S. En ese caso, desactiva Local Control en el propio instrumento (consulta su manual) o simplemente baja su volumen: los datos MIDI siguen llegando.",
+    it: "Invia MIDI CC 122 = 0 allo strumento (e ne ripristina il suono all’uscita). Alcuni strumenti ignorano questo comando, ad es. Casio Privia PX-S. In tal caso disattiva Local Control direttamente sullo strumento (vedi il manuale) o abbassa semplicemente il suo volume: i dati MIDI arrivano comunque.",
+    pl: "Wysyła MIDI CC 122 = 0 do instrumentu (i przywraca jego dźwięk przy wyjściu). Niektóre instrumenty ignorują to polecenie, np. Casio Privia PX-S. Wtedy wyłącz Local Control bezpośrednio na instrumencie (zobacz instrukcję) albo po prostu ścisz jego głośność – dane MIDI i tak docierają.",
+    uk: "Надсилає MIDI CC 122 = 0 на інструмент (і повертає його звук при виході). Деякі інструменти ігнорують цю команду, напр. Casio Privia PX-S. Тоді вимкни Local Control безпосередньо на інструменті (див. інструкцію) або просто зменш його гучність – MIDI-дані все одно надходять.",
+    ur: "آلے کو MIDI CC 122 = 0 بھیجتا ہے (اور بند کرتے وقت اس کی آواز بحال کر دیتا ہے)۔ کچھ آلات یہ حکم نظرانداز کرتے ہیں، مثلاً Casio Privia PX-S۔ ایسی صورت میں Local Control براہِ راست آلے پر بند کریں (ہدایت نامہ دیکھیں) یا بس اس کا والیوم کم کر دیں – MIDI ڈیٹا پھر بھی پہنچتا ہے۔",
+    tr: "Enstrümana MIDI CC 122 = 0 gönderir (çıkışta sesini geri açar). Bazı enstrümanlar bu komutu yok sayar, ör. Casio Privia PX-S. Bu durumda Local Control’ü doğrudan enstrümanda kapat (kılavuzuna bak) ya da sadece sesini kıs – MIDI verileri yine de gelir.",
+    ar: "يُرسل MIDI CC 122 = 0 إلى الآلة (ويعيد صوتها عند الإغلاق). بعض الآلات تتجاهل هذا الأمر، مثل Casio Privia PX-S. في هذه الحالة أوقف Local Control من الآلة نفسها (راجع دليلها) أو اخفض صوتها ببساطة – فبيانات MIDI تصل رغم ذلك."
   },
   "settings.midiExactOctaveLabel": {
     de: "Notenlesen: Exakte Oktave verlangen",

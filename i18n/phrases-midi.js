@@ -244,6 +244,26 @@ registerColocatedPhrases({
     tr: "MIDI erişimi reddedildi. Lütfen tarayıcı veya uygulama ayarlarından izin ver.",
     ar: "تم رفض الوصول إلى MIDI. يرجى السماح به من إعدادات المتصفح أو التطبيق."
   },
+  "MIDI-Zugriff wurde verweigert. Firefox braucht ein Hilfsprogramm (Website-Berechtigung) und erkennt nur Geräte, die schon beim Start angeschlossen waren: Keyboard anschließen, Firefox ganz neu starten, MIDI einschalten und die Installation erlauben. Schon abgelehnt? Unter Add-ons → Website-Berechtigungen prüfen.": {
+    fr: "L’accès MIDI a été refusé. Firefox a besoin d’un module complémentaire (autorisation de site) et ne détecte que les appareils branchés au démarrage : branche ton clavier, redémarre complètement Firefox, active MIDI et autorise l’installation. Déjà refusé ? Vérifie dans Modules complémentaires → Autorisations de sites.",
+    es: "Se denegó el acceso MIDI. Firefox necesita un complemento auxiliar (permiso del sitio) y solo detecta los dispositivos conectados al iniciarse: conecta tu teclado, reinicia Firefox por completo, activa MIDI y permite la instalación. ¿Ya lo rechazaste? Revisa Complementos → Permisos del sitio.",
+    it: "Accesso MIDI negato. Firefox ha bisogno di un componente aggiuntivo (permesso del sito) e rileva solo i dispositivi collegati all’avvio: collega la tastiera, riavvia completamente Firefox, attiva MIDI e consenti l’installazione. Già rifiutato? Controlla in Componenti aggiuntivi → Permessi dei siti.",
+    pl: "Odmówiono dostępu do MIDI. Firefox potrzebuje dodatku pomocniczego (uprawnienie witryny) i wykrywa tylko urządzenia podłączone przy uruchomieniu: podłącz klawiaturę, uruchom Firefoksa całkowicie od nowa, włącz MIDI i zezwól na instalację. Już odrzucono? Sprawdź w Dodatki → Uprawnienia witryn.",
+    uk: "Доступ до MIDI заборонено. Firefox потребує допоміжного додатка (дозвіл сайту) і бачить лише пристрої, підключені під час запуску: підключи клавіатуру, повністю перезапусти Firefox, увімкни MIDI й дозволь встановлення. Уже відхилено? Перевір у Додатки → Дозволи сайтів.",
+    ur: "MIDI تک رسائی مسترد کر دی گئی۔ Firefox کو ایک مددگار ایڈ آن (سائٹ کی اجازت) درکار ہے اور وہ صرف وہی آلات پہچانتا ہے جو شروع ہوتے وقت جڑے ہوں: کی بورڈ جوڑیں، Firefox کو مکمل طور پر دوبارہ شروع کریں، MIDI آن کریں اور انسٹالیشن کی اجازت دیں۔ پہلے انکار کر چکے ہیں؟ ایڈ آنز ← سائٹ کی اجازتیں دیکھیں۔",
+    tr: "MIDI erişimi reddedildi. Firefox bir yardımcı eklentiye (site izni) ihtiyaç duyar ve yalnızca açılışta bağlı olan cihazları tanır: klavyeni bağla, Firefox’u tamamen yeniden başlat, MIDI’yi aç ve kuruluma izin ver. Daha önce reddettin mi? Eklentiler → Site izinleri bölümünü kontrol et.",
+    ar: "تم رفض الوصول إلى MIDI. يحتاج Firefox إلى إضافة مساعدة (إذن الموقع) ولا يتعرّف إلا على الأجهزة الموصولة عند تشغيله: صِل لوحة المفاتيح، وأعد تشغيل Firefox بالكامل، وفعّل MIDI، واسمح بالتثبيت. هل رفضت ذلك سابقًا؟ تحقق من الإضافات ← أذونات المواقع."
+  },
+  "Verbinde mit MIDI … Erlaube den Zugriff, falls dein Browser nachfragt.": {
+    fr: "Connexion MIDI … Autorise l’accès si ton navigateur le demande.",
+    es: "Conectando con MIDI … Permite el acceso si tu navegador lo pide.",
+    it: "Connessione MIDI … Consenti l’accesso se il browser lo chiede.",
+    pl: "Łączenie z MIDI … Zezwól na dostęp, jeśli przeglądarka o to zapyta.",
+    uk: "Підключення до MIDI … Дозволь доступ, якщо браузер запитає.",
+    ur: "MIDI سے رابطہ ہو رہا ہے … اگر براؤزر پوچھے تو رسائی کی اجازت دیں۔",
+    tr: "MIDI’ye bağlanılıyor … Tarayıcın sorarsa erişime izin ver.",
+    ar: "جارٍ الاتصال بـ MIDI … اسمح بالوصول إذا طلب المتصفح ذلك."
+  },
   "Warte auf MIDI-Gerät … Schließe ein USB-Keyboard an oder verbinde dein Digitalpiano per Bluetooth.": {
     fr: "En attente d’un appareil MIDI … Branche un clavier USB ou connecte ton piano numérique en Bluetooth.",
     es: "Esperando dispositivo MIDI … Conecta un teclado USB o vincula tu piano digital por Bluetooth.",

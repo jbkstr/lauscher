@@ -22,7 +22,8 @@ const DEFAULT_MIDI_PREFS = Object.freeze({
 const _midi = {
   prefs: { ...DEFAULT_MIDI_PREFS },
   transport: "none",         // "native" | "web" | "none"
-  status: "idle",            // "idle" | "unsupported" | "permission-denied" | "ready" | "connected"
+  status: "idle",            // "idle" | "unsupported" | "connecting" | "permission-denied" | "ready" | "connected"
+  lastErrorName: "",         // z. B. "SecurityError", wenn der Browser den Zugriff ablehnt
   webAccess: null,
   nativeListenersBound: false,
   devices: [],               // [{ id, name, manufacturer, type, hasInput, hasOutput }]
@@ -450,6 +451,10 @@ async function enableMidiInput(fromUserGesture = true) {
 
   _midi.prefs.enabled = true;
   saveMidiPrefs();
+  // Sofort „Ein“ und „Verbinde …“ zeigen: Firefox wartet hier ggf. auf die Installation des Hilfsprogramms
+  _midi.status = "connecting";
+  _midi.lastErrorName = "";
+  syncAllMidiUI();
 
   if (_midi.transport === "native") {
     return enableNativeMidiTransport();
@@ -496,6 +501,7 @@ async function enableWebMidiTransport() {
     return true;
   } catch (err) {
     _midi.status = "permission-denied";
+    _midi.lastErrorName = String(err?.name || "");
     _midi.prefs.enabled = false;
     saveMidiPrefs();
     syncAllMidiUI();
@@ -1031,11 +1037,22 @@ function getMidiStatusSummaryText() {
       "Your current browser does not support Web MIDI (e.g. Safari/iOS). Use Chrome, Edge or Firefox on desktop, or the Lauscher Android app."
     );
   }
+  // Vor „Ausgeschaltet“ prüfen: Nach einer Ablehnung ist MIDI wieder aus, der Grund soll aber sichtbar sein
+  if (_midi.status === "permission-denied") {
+    const isFirefox = typeof navigator !== "undefined" && /firefox/i.test(navigator.userAgent || "");
+    const base = isFirefox && _midi.transport === "web"
+      ? tr(
+        "MIDI-Zugriff wurde verweigert. Firefox braucht ein Hilfsprogramm (Website-Berechtigung) und erkennt nur Geräte, die schon beim Start angeschlossen waren: Keyboard anschließen, Firefox ganz neu starten, MIDI einschalten und die Installation erlauben. Schon abgelehnt? Unter Add-ons → Website-Berechtigungen prüfen.",
+        "MIDI access was denied. Firefox needs a helper add-on (site permission) and only detects devices connected when it starts: plug in your keyboard, fully restart Firefox, turn MIDI on and allow the installation. Already declined? Check Add-ons → Site permissions."
+      )
+      : tr("MIDI-Zugriff wurde verweigert. Bitte in den Browser- oder App-Einstellungen erlauben.", "MIDI access was denied. Please allow it in your browser or app settings.");
+    return _midi.lastErrorName ? `${base} (${_midi.lastErrorName})` : base;
+  }
   if (!_midi.prefs.enabled) {
     return tr("Ausgeschaltet – aktiviere MIDI, um ein Digitalpiano oder Keyboard per Bluetooth/USB zu nutzen.", "Off — enable MIDI to play with a Bluetooth or USB digital piano or keyboard.");
   }
-  if (_midi.status === "permission-denied") {
-    return tr("MIDI-Zugriff wurde verweigert. Bitte in den Browser- oder App-Einstellungen erlauben.", "MIDI access was denied. Please allow it in your browser or app settings.");
+  if (_midi.status === "connecting") {
+    return tr("Verbinde mit MIDI … Erlaube den Zugriff, falls dein Browser nachfragt.", "Connecting to MIDI … Allow access if your browser asks.");
   }
   const devs = getSelectedMidiDevices();
   if (devs.length === 0) {
