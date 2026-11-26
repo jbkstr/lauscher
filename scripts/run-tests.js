@@ -611,6 +611,129 @@ runTest("Nachsingen: Stimm-Profil erkennt gesungene Töne", () => {
   }
 });
 
+runTest("MIDI: Protokoll-Parser (NoteOn, Vel0-Off, Running Status, Sustain, Realtime-Filter)", () => {
+  const ev1 = sb.parseMidiMessageBytes([0x90, 60, 96]);
+  assert.equal(ev1.length, 1);
+  assert.equal(ev1[0].type, "noteon");
+  assert.equal(ev1[0].midi, 60);
+  assert.equal(ev1[0].velocity, 96);
+
+  // Note-On mit Velocity 0 muss als Note-Off erkannt werden
+  const ev2 = sb.parseMidiMessageBytes([0x90, 60, 0]);
+  assert.equal(ev2.length, 1);
+  assert.equal(ev2[0].type, "noteoff");
+  assert.equal(ev2[0].midi, 60);
+
+  // Running Status + Clock (0xF8) + Active Sensing (0xFE) dazwischen + Sustain CC 64
+  const ev3 = sb.parseMidiMessageBytes([0xF8, 0x90, 60, 80, 0xFE, 64, 75, 0xB0, 64, 127]);
+  assert.equal(ev3.length, 3);
+  assert.equal(ev3[0].midi, 60);
+  assert.equal(ev3[1].type, "noteon");
+  assert.equal(ev3[1].midi, 64);
+  assert.equal(ev3[2].type, "cc");
+  assert.equal(ev3[2].cc, 64);
+  assert.equal(ev3[2].value, 127);
+
+  // SysEx wird übersprungen
+  const ev4 = sb.parseMidiMessageBytes([0xF0, 0x7E, 0x7F, 0x06, 0x01, 0xF7, 0x80, 64, 0]);
+  assert.equal(ev4.length, 1);
+  assert.equal(ev4[0].type, "noteoff");
+  assert.equal(ev4[0].midi, 64);
+});
+
+runTest("MIDI: Notenlesen verlangt exakte Oktave & erkennt Oktav-Abweichung", () => {
+  const target = { midi: 48, pc: 0 }; // C3
+  const hit = sb.evaluateMidiNotationMatch(target, 48, { exactOctave: true });
+  assert.equal(hit.ok, true);
+  assert.equal(hit.status, "correct");
+
+  const octHigh = sb.evaluateMidiNotationMatch(target, 60, { exactOctave: true });
+  assert.equal(octHigh.ok, false);
+  assert.equal(octHigh.status, "wrong-octave");
+  assert.equal(octHigh.octaveDiff, 1);
+
+  const octLow = sb.evaluateMidiNotationMatch(target, 36, { exactOctave: true });
+  assert.equal(octLow.ok, false);
+  assert.equal(octLow.status, "wrong-octave");
+  assert.equal(octLow.octaveDiff, -1);
+
+  const tolerant = sb.evaluateMidiNotationMatch(target, 60, { exactOctave: false });
+  assert.equal(tolerant.ok, true);
+  assert.equal(tolerant.status, "correct");
+
+  const wrong = sb.evaluateMidiNotationMatch(target, 50, { exactOctave: true });
+  assert.equal(wrong.ok, false);
+  assert.equal(wrong.status, "wrong");
+});
+
+runTest("MIDI: Akkord-, Umkehrungs- & Tonleiter-Auswertung (Phase 2)", () => {
+  // Exakter Akkord (C-Dur in 1. Umkehrung: E4-G4-C5)
+  const chordTask = { targetMidis: [64, 67, 72], requireBassPc: 4 };
+  assert.equal(sb.evaluateMidiChordAttempt(chordTask, [64, 67, 72]).ok, true);
+  // Gleiche Töne, aber C im Bass statt E -> wrong-bass
+  const badBass = sb.evaluateMidiChordAttempt(chordTask, [60, 64, 67]);
+  assert.equal(badBass.ok, false);
+  assert.equal(badBass.status, "wrong-bass");
+  // Falscher Ton dabei (F# statt G) -> wrong-notes
+  assert.equal(sb.evaluateMidiChordAttempt(chordTask, [64, 66, 72]).status, "wrong-notes");
+  // Noch unvollständig -> incomplete
+  assert.equal(sb.evaluateMidiChordAttempt(chordTask, [64, 67]).status, "incomplete");
+
+  // Tonleiter-Schritte: Schritt 0 verankert Oktave (z. B. C3 = 48), danach aufwärts
+  const scaleTask = { rootMidi: 60, rootPc: 0, scaleIntervals: [0, 2, 4, 5, 7, 9, 11, 12] };
+  const s0 = sb.evaluateMidiScaleStep(scaleTask, 0, 48, null);
+  assert.equal(s0.ok, true);
+  assert.equal(s0.nextAnchorMidi, 48);
+  const s1 = sb.evaluateMidiScaleStep(scaleTask, 1, 50, s0.nextAnchorMidi);
+  assert.equal(s1.ok, true);
+  const s1WrongOct = sb.evaluateMidiScaleStep(scaleTask, 1, 62, s0.nextAnchorMidi);
+  assert.equal(s1WrongOct.ok, false);
+  assert.equal(s1WrongOct.status, "wrong-octave");
+
+  // Intervall spielen: C4 -> E4 (M3)
+  const intTask = { rootMidi: 60, targetMidi: 64 };
+  assert.equal(sb.evaluateMidiIntervalAttempt(intTask, 64).ok, true);
+  assert.equal(sb.evaluateMidiIntervalAttempt(intTask, 76).status, "wrong-octave");
+  const m3 = sb.evaluateMidiIntervalAttempt(intTask, 63);
+  assert.equal(m3.ok, false);
+  assert.equal(m3.playedSemis, 3);
+});
+
+runTest("MIDI: Phase-2 Generatoren erzeugen gültige Aufgaben (Intervalle, Akkorde, Tonleitern)", () => {
+  sb.renderUI = () => {};
+  appState.settings.mode = "midi-interval";
+  for (const lvl of [1, 5, 9]) {
+    appState.settings.midiIntervalDifficulty = lvl;
+    for (const dir of ["up", "down", "mixed"]) {
+      appState.settings.midiIntervalDirection = dir;
+      sb.generateExercise();
+      const ex = appState.currentExercise;
+      assert.equal(ex.type, "midi-interval");
+      assert.ok(ex.midiTask && Number.isFinite(ex.midiTask.targetMidi));
+      if (dir === "up") assert.ok(ex.midiTask.targetMidi >= ex.midiTask.rootMidi);
+      if (dir === "down") assert.ok(ex.midiTask.targetMidi <= ex.midiTask.rootMidi);
+    }
+  }
+  appState.settings.mode = "midi-chord";
+  for (const lvl of [1, 2, 3, 4]) {
+    appState.settings.midiChordDifficulty = lvl;
+    sb.generateExercise();
+    const ex = appState.currentExercise;
+    assert.equal(ex.type, "midi-chord");
+    assert.ok(ex.midiTask.targetMidis.length >= (lvl === 4 ? 4 : 3));
+    if (lvl === 3) assert.notEqual(ex.midiTask.requireBassPc, null);
+  }
+  appState.settings.mode = "midi-scale";
+  for (const lvl of [1, 2, 3]) {
+    appState.settings.midiScaleDifficulty = lvl;
+    sb.generateExercise();
+    const ex = appState.currentExercise;
+    assert.equal(ex.type, "midi-scale");
+    assert.ok(ex.midiTask.scaleIntervals.length >= 6);
+    assert.equal(ex.midiTask.scaleMidis.length, ex.midiTask.scaleIntervals.length);
+  }
+});
+
 // Ergebnis-Ausgabe
 const failed = results.filter(r => !r.ok);
 for (const r of results) {

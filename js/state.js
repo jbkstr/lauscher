@@ -61,6 +61,10 @@ class AppState {
       singIntervalDirection: "up", // "up" | "down" | "mixed"
       singDegreeDifficulty: 1,     // „Stufen treffen“
       singMatchAutoNext: true,     // Nach einem Treffer automatisch die nächste Aufgabe vorspielen
+      midiIntervalDifficulty: 1,   // „Intervalle spielen“ (MIDI)
+      midiIntervalDirection: "up", // "up" | "down" | "mixed"
+      midiChordDifficulty: 1,      // „Akkorde greifen“ (MIDI)
+      midiScaleDifficulty: 1,      // „Tonleitern & Modi spielen“ (MIDI)
       keyMode: "fixed",
       timeSig: "4/4",
       defaultBpm: 90,
@@ -241,6 +245,17 @@ class AppState {
     this.updateQuickStartLabel();
   }
 
+  setMidiPlayLevel(mode, level) {
+    const key = mode === "midi-chord"
+      ? "midiChordDifficulty"
+      : (mode === "midi-scale" ? "midiScaleDifficulty" : "midiIntervalDifficulty");
+    const levels = MIDI_PLAY_MODE_CATALOG[mode]?.levels || [1];
+    const lvl = parseInt(level, 10);
+    this.settings[key] = levels.includes(lvl) ? lvl : levels[0];
+    this.updateHeaderSubtext();
+    this.updateQuickStartLabel();
+  }
+
   setIntervalDifficulty(level) {
     this.settings.intervalDifficulty = parseInt(level, 10);
     this.updateHeaderSubtext();
@@ -377,6 +392,9 @@ class AppState {
     }
     if (isSingMatchMode(this.settings.mode) && typeof getSingMatchSummaryText === "function") {
       return getSingMatchSummaryText(this.settings.mode, includeCategory);
+    }
+    if (isMidiPlayMode(this.settings.mode) && typeof getMidiPlaySummaryText === "function") {
+      return getMidiPlaySummaryText(this.settings.mode, includeCategory);
     }
     if (this.settings.mode === "solfege") {
       const lvl = parseInt(this.settings.solfegeDifficulty, 10) || 1;
@@ -865,6 +883,7 @@ function setLanguagePreference(nextLang) {
   syncAnswerSoundToggleUI();
   syncBreakReminderControls();
   syncPianoSoundControls();
+  if (typeof syncAllMidiUI === "function") syncAllMidiUI();
   applyThemeAndAppearance();
 
   const muteBtn = document.getElementById("masterMuteToggle");

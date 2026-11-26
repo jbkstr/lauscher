@@ -1687,6 +1687,8 @@
               <button id="singAlongChipBtn" type="button" class="module-chip-btn chip-sage hidden" aria-expanded="false" aria-controls="singAlongHint">Mitsingen</button>
               <button id="singVoiceChipBtn" type="button" class="module-chip-btn chip-sage hidden" aria-expanded="false" aria-controls="inlineSingVoicePopover">Stimme</button>
               <button id="singDirChipBtn" type="button" class="module-chip-btn chip-peach hidden">↗</button>
+              <button id="midiDirChipBtn" type="button" class="module-chip-btn chip-peach hidden">↗</button>
+              <button id="exerciseMidiChipBtn" type="button" class="module-chip-btn chip-lilac midi-status-chip hidden" aria-expanded="false" aria-controls="inlineMidiPopover">MIDI</button>
               <button id="moduleBpmBtn" class="module-chip-btn chip-lilac" title="Tempo-Schieberegler öffnen" data-i18n-title="ex.bpmBtnTitle">90 BPM</button>
             </div>
           </div>
@@ -1716,6 +1718,9 @@
 
         <!-- Stimmlage für „… treffen“ (Inhalt aus js/sing-match.js) -->
         <div id="inlineSingVoicePopover" class="module-inline-popover sing-voice-popover hidden"></div>
+
+        <!-- MIDI-Schnellmenü in der Übung (Inhalt aus js/midi.js) -->
+        <div id="inlineMidiPopover" class="module-inline-popover midi-inline-popover hidden"></div>
 
         <!-- Direkt ausklappbare Taktart-Auswahl (im Kadenzmodus) -->
         <div id="inlineTimeSigPopover" class="module-inline-popover hidden">
@@ -1856,6 +1861,7 @@
         <div id="solfegeKeyboardWrap" class="solfege-keyboard-wrap hidden"></div>
         <div id="rhythmTapPadWrap" class="rhythm-tap-wrap hidden"></div>
         <div id="singPadWrap" class="sing-pad-wrap hidden"></div>
+        <div id="midiPlayPadWrap" class="midi-play-pad-wrap hidden"></div>
 
         <div id="examPostAnswerBar" class="exam-post-answer-bar hidden">
           <button id="examNextQuestionBtn" type="button" class="btn-primary-action exam-next-btn">Nächste Frage →</button>
@@ -2282,6 +2288,7 @@
           </div>
 
           <button id="freeplayLabelsBtn" type="button" class="k-filter-pill active freeplay-labels-btn" aria-pressed="true" data-i18n="freeplay.labelsBtn">Noten</button>
+          <button id="freeplayMidiChipBtn" type="button" class="k-filter-pill midi-status-chip hidden">MIDI</button>
         </div>
 
         <div id="freeplayKeyboardWrap" class="freeplay-keyboard-wrap"></div>
@@ -2754,6 +2761,58 @@
           <p id="tapLatencyStatus" class="settings-hint tap-latency-status" aria-live="polite"></p>
         </div>
 
+        <div class="settings-section" id="midiSettingsSection">
+          <h4 data-i18n="settings.midiHeading">MIDI-Instrument (Bluetooth &amp; USB)</h4>
+          <p class="settings-hint" data-i18n="settings.midiHint">Spiele Notenlesen, Solfège, Melodien, Rhythmus, Freies Spiel und MIDI-Übungen direkt auf deinem Digitalpiano oder Keyboard.</p>
+          <div id="midiEnabledGroup" class="btn-group" role="group" aria-label="MIDI-Eingabe" data-i18n-aria="settings.midiAria">
+            <button type="button" class="opt-btn" data-midi-enabled="on" aria-pressed="false" data-i18n="settings.autoNextOn">Ein</button>
+            <button type="button" class="opt-btn active" data-midi-enabled="off" aria-pressed="true" data-i18n="settings.autoNextOff">Aus</button>
+          </div>
+          <p id="midiStatusText" class="settings-hint midi-status-text" aria-live="polite"></p>
+
+          <div id="midiOptionsWrap" class="midi-options-wrap hidden">
+            <div class="settings-sub-field">
+              <span class="account-label" data-i18n="settings.midiDeviceLabel">MIDI-Gerät</span>
+              <div id="midiDeviceDropdownWrap" class="midi-device-dropdown-wrap"></div>
+            </div>
+
+            <div id="midiBleWrap" class="settings-sub-field midi-ble-wrap hidden">
+              <button type="button" id="midiBleScanBtn" class="btn-tool midi-ble-scan-btn" data-i18n="settings.midiBleScanBtn">Bluetooth-MIDI-Instrument suchen</button>
+              <p id="midiBleStatus" class="settings-hint midi-ble-status hidden" aria-live="polite"></p>
+              <div id="midiBleList" class="midi-ble-list hidden"></div>
+            </div>
+
+            <div class="settings-sub-field">
+              <span class="account-label" data-i18n="settings.midiAppSoundLabel">App-Klang bei MIDI-Eingabe</span>
+              <div id="midiAppSoundGroup" class="btn-group" role="group" aria-label="App-Klang bei MIDI-Eingabe" data-i18n-aria="settings.midiAppSoundAria">
+                <button type="button" class="opt-btn active" data-midi-app-sound="on" aria-pressed="true" data-i18n="settings.autoNextOn">Ein</button>
+                <button type="button" class="opt-btn" data-midi-app-sound="off" aria-pressed="false" data-i18n="settings.autoNextOff">Aus</button>
+              </div>
+              <p class="settings-hint" data-i18n="settings.midiAppSoundHint">Standardmäßig erklingen die Lauscher-Klänge. Schalte dies aus, falls du lieber den Klang deines Digitalpianos hörst.</p>
+            </div>
+
+            <div id="midiLocalCtrlRow" class="settings-sub-field">
+              <span class="account-label" data-i18n="settings.midiLocalCtrlLabel">Keyboard-Eigenklang stummschalten (Local Control Aus)</span>
+              <div id="midiLocalCtrlGroup" class="btn-group" role="group" aria-label="Keyboard-Eigenklang stummschalten" data-i18n-aria="settings.midiLocalCtrlAria">
+                <button type="button" class="opt-btn active" data-midi-local-off="on" aria-pressed="true" data-i18n="settings.autoNextOn">Ein</button>
+                <button type="button" class="opt-btn" data-midi-local-off="off" aria-pressed="false" data-i18n="settings.autoNextOff">Aus</button>
+              </div>
+              <p class="settings-hint" data-i18n="settings.midiLocalCtrlHint">Sendet MIDI CC 122 = 0 ans Instrument (und schaltet ihn beim Beenden wieder an). Falls dein E-Piano trotzdem mitklingt, dreh einfach seine Lautstärke herunter.</p>
+            </div>
+
+            <div class="settings-sub-field">
+              <span class="account-label" data-i18n="settings.midiExactOctaveLabel">Notenlesen: Exakte Oktave verlangen</span>
+              <div id="midiExactOctaveGroup" class="btn-group" role="group" aria-label="Notenlesen exakte Oktave" data-i18n-aria="settings.midiExactOctaveAria">
+                <button type="button" class="opt-btn active" data-midi-exact-oct="on" aria-pressed="true" data-i18n="settings.autoNextOn">Ein</button>
+                <button type="button" class="opt-btn" data-midi-exact-oct="off" aria-pressed="false" data-i18n="settings.autoNextOff">Aus</button>
+              </div>
+              <p class="settings-hint" data-i18n="settings.midiExactOctaveHint">Verlangt beim Vom-Blatt-Spielen genau die notierte Oktave (empfohlen fürs E-Piano; nur bei kleinen 25-Tasten-Keyboards ausschalten).</p>
+            </div>
+
+            <div id="midiLiveTester" class="midi-live-tester" aria-live="polite"></div>
+          </div>
+        </div>
+
         <div class="settings-section">
           <h4 data-i18n="settings.breakReminderHeading">Pausen-Erinnerung bei Übungen</h4>
           <p class="settings-hint" data-i18n="settings.breakReminderHint">Läuft leise und unsichtbar im Hintergrund, während du übst, und erinnert dich nach der gewählten Zeit freundlich an eine Pause.</p>
@@ -3174,6 +3233,7 @@
   <script src="i18n/phrases-exercises.js"></script>
   <script src="i18n/phrases-tools.js"></script>
   <script src="i18n/phrases-sing.js"></script>
+  <script src="i18n/phrases-midi.js"></script>
   <script src="i18n/notation-terms.js"></script>
   <script src="i18n/achievements.js"></script>
   <script src="knowledge-en.js"></script>
@@ -3210,6 +3270,8 @@
   <script src="js/tuner.js"></script>
   <script src="js/pitch-capture.js"></script>
   <script src="js/sing-match.js"></script>
+  <script src="js/midi.js"></script>
+  <script src="js/midi-play.js"></script>
   <script src="js/freeplay.js"></script>
   <script src="js/fretboard.js"></script>
   <script src="js/nashville.js"></script>

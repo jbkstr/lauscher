@@ -197,6 +197,31 @@ PYEOF
     echo "  → Berechtigung WRITE_EXTERNAL_STORAGE (maxSdkVersion=29) im AndroidManifest ergänzt"
   fi
 
+  # Bluetooth-LE-MIDI (Android 12+ nutzt BLUETOOTH_SCAN mit neverForLocation + BLUETOOTH_CONNECT;
+  # Android <= 11 nutzt BLUETOOTH/BLUETOOTH_ADMIN + ACCESS_FINE_LOCATION nur für die BLE-Gerätesuche)
+  python3 - "$MANIFEST" <<'PYEOF'
+import sys
+path = sys.argv[1]
+s = open(path, encoding="utf-8").read()
+additions = [
+    ('android.permission.BLUETOOTH"', '    <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />\n'),
+    ('android.permission.BLUETOOTH_ADMIN"', '    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />\n'),
+    ('android.permission.ACCESS_FINE_LOCATION"', '    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" android:maxSdkVersion="30" />\n'),
+    ('android.permission.BLUETOOTH_SCAN"', '    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" android:usesPermissionFlags="neverForLocation" />\n'),
+    ('android.permission.BLUETOOTH_CONNECT"', '    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />\n'),
+    ('android.software.midi"', '    <uses-feature android:name="android.software.midi" android:required="false" />\n'),
+    ('android.hardware.bluetooth_le"', '    <uses-feature android:name="android.hardware.bluetooth_le" android:required="false" />\n'),
+]
+changed = False
+for needle, line in additions:
+    if needle not in s:
+        s = s.replace("</manifest>", line + "</manifest>", 1)
+        changed = True
+if changed:
+    open(path, "w", encoding="utf-8").write(s)
+    print("  → MIDI- & Bluetooth-LE-Berechtigungen im AndroidManifest ergänzt")
+PYEOF
+
   # Keine automatische Android-Sicherung ins Google-Konto: Profil & Einstellungen bleiben auf dem Gerät
   # (Datenschutzversprechen; Umzug aufs neue Handy über „Profil sichern“)
   if grep -q 'android:allowBackup="true"' "$MANIFEST"; then
@@ -262,13 +287,19 @@ PYEOF
   fi
 fi
 
-# Natives Rohmikrofon-Plugin (AudioSource.UNPROCESSED) für den Tuner kopieren & in MainActivity registrieren
+# Native Plugins (Rohmikrofon für Tuner + USB/Bluetooth-MIDI) kopieren & in MainActivity registrieren
 ANDROID_JAVA_DIR="$TARGET_DIR/android/app/src/main/java/de/jbkstr/lauscher"
 RAW_PLUGIN_SRC="$REPO_ROOT/scripts/android/RawAudioTunerPlugin.java"
-if [ -d "$ANDROID_JAVA_DIR" ] && [ -f "$RAW_PLUGIN_SRC" ]; then
-  cp "$RAW_PLUGIN_SRC" "$ANDROID_JAVA_DIR/RawAudioTunerPlugin.java"
+MIDI_PLUGIN_SRC="$REPO_ROOT/scripts/android/MidiInputPlugin.java"
+if [ -d "$ANDROID_JAVA_DIR" ]; then
+  if [ -f "$RAW_PLUGIN_SRC" ]; then
+    cp "$RAW_PLUGIN_SRC" "$ANDROID_JAVA_DIR/RawAudioTunerPlugin.java"
+  fi
+  if [ -f "$MIDI_PLUGIN_SRC" ]; then
+    cp "$MIDI_PLUGIN_SRC" "$ANDROID_JAVA_DIR/MidiInputPlugin.java"
+  fi
   MAIN_ACTIVITY="$ANDROID_JAVA_DIR/MainActivity.java"
-  if [ -f "$MAIN_ACTIVITY" ] && ! grep -q "RawAudioTunerPlugin" "$MAIN_ACTIVITY"; then
+  if [ -f "$MAIN_ACTIVITY" ] && { ! grep -q "RawAudioTunerPlugin" "$MAIN_ACTIVITY" || ! grep -q "MidiInputPlugin" "$MAIN_ACTIVITY"; }; then
     cat > "$MAIN_ACTIVITY" <<'EOF'
 package de.jbkstr.lauscher;
 
@@ -279,11 +310,12 @@ public class MainActivity extends BridgeActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         registerPlugin(RawAudioTunerPlugin.class);
+        registerPlugin(MidiInputPlugin.class);
         super.onCreate(savedInstanceState);
     }
 }
 EOF
-    echo "  → RawAudioTunerPlugin (AudioSource.UNPROCESSED) in MainActivity registriert"
+    echo "  → RawAudioTunerPlugin & MidiInputPlugin in MainActivity registriert"
   fi
 fi
 

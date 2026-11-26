@@ -472,6 +472,23 @@ function openAboutModal() {
   }
 }
 
+function openSettingsModal(focusSection = null) {
+  const prevModal = getOpenModalName();
+  if (prevModal !== "settings") {
+    setModalVisibility("settings");
+    if (prevModal) {
+      replaceAppHistory("settings");
+    } else {
+      pushAppHistory("settings");
+    }
+  }
+  if (focusSection === "midi") {
+    requestAnimationFrame(() => {
+      document.getElementById("midiSettingsSection")?.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+  }
+}
+
 function setModalVisibility(modalName) {
   document.getElementById("mixerBackdrop")?.classList.toggle("modal-hidden", modalName !== "mixer");
   document.getElementById("settingsBackdrop")?.classList.toggle("modal-hidden", modalName !== "settings");
@@ -479,15 +496,18 @@ function setModalVisibility(modalName) {
   document.getElementById("themeUnlockBackdrop")?.classList.toggle("modal-hidden", modalName !== "themeUnlock");
   if (modalName !== "settings") {
     if (typeof cancelTapLatencyCalibration === "function") cancelTapLatencyCalibration("");
+    if (typeof stopNativeBleScan === "function") stopNativeBleScan();
     if (state.appResetConfirmArmed && typeof disarmAppResetConfirm === "function") {
       disarmAppResetConfirm();
     }
-    if (typeof _openProfileDropdownKey !== "undefined" && _openProfileDropdownKey === "settings-language") {
+    if (typeof _openProfileDropdownKey !== "undefined" && (_openProfileDropdownKey === "settings-language" || _openProfileDropdownKey === "settings-midi-device")) {
       _openProfileDropdownKey = null;
       if (typeof renderSettingsLanguageDropdown === "function") renderSettingsLanguageDropdown();
+      if (typeof renderMidiDeviceDropdown === "function") renderMidiDeviceDropdown();
     }
   } else {
     if (typeof renderSettingsLanguageDropdown === "function") renderSettingsLanguageDropdown();
+    if (typeof syncMidiSettingsUI === "function") syncMidiSettingsUI();
     if (typeof renderTapLatencySettings === "function") {
       if (typeof setTapLatencyCalibStatus === "function") setTapLatencyCalibStatus("");
       renderTapLatencySettings();
@@ -524,6 +544,7 @@ function closeTransientPopovers() {
     ["inlineModesRootPopover", "targetBarBadge"],
     ["inlineModesPadPopover", "modesPadBtn"],
     ["inlineSingVoicePopover", "singVoiceChipBtn"],
+    ["inlineMidiPopover", "exerciseMidiChipBtn"],
     ["warmupVoicePopover", "warmupVoiceBtn"],
     ["warmupSoundPopover", "warmupSoundBtn"],
     ["warmupBpmPopover", "warmupBpmBtn"]
@@ -541,6 +562,9 @@ function closeTransientPopovers() {
     if (typeof renderMixCreatorDropdowns === "function") renderMixCreatorDropdowns();
     if (prevKey === "settings-language" && typeof renderSettingsLanguageDropdown === "function") {
       renderSettingsLanguageDropdown();
+    }
+    if (prevKey === "settings-midi-device" && typeof renderMidiDeviceDropdown === "function") {
+      renderMidiDeviceDropdown();
     }
   }
 }
@@ -748,6 +772,7 @@ function hasOpenTransientPopover() {
     "inlineModesRootPopover",
     "inlineModesPadPopover",
     "inlineSingVoicePopover",
+    "inlineMidiPopover",
     "warmupVoicePopover",
     "warmupSoundPopover",
     "warmupBpmPopover"
@@ -789,9 +814,11 @@ function handleNativeBackButton() {
   }
 
   if (getOpenModalName()) {
-    if (getOpenModalName() === "settings" && typeof _openProfileDropdownKey !== "undefined" && _openProfileDropdownKey === "settings-language") {
+    if (getOpenModalName() === "settings" && typeof _openProfileDropdownKey !== "undefined" && (_openProfileDropdownKey === "settings-language" || _openProfileDropdownKey === "settings-midi-device")) {
+      const prevKey = _openProfileDropdownKey;
       _openProfileDropdownKey = null;
-      if (typeof renderSettingsLanguageDropdown === "function") renderSettingsLanguageDropdown();
+      if (prevKey === "settings-language" && typeof renderSettingsLanguageDropdown === "function") renderSettingsLanguageDropdown();
+      if (prevKey === "settings-midi-device" && typeof renderMidiDeviceDropdown === "function") renderMidiDeviceDropdown();
       return true;
     }
     if (getOpenModalName() === "about" && isAboutLegalOpen()) {
@@ -857,6 +884,7 @@ function initCapacitorNativeBridge() {
       stopBreakReminderTicker();
     } else if (isActive === true) {
       syncNativeSystemBars();
+      if (typeof onMidiAppForeground === "function") onMidiAppForeground();
       if (state?.currentView === "exercise" && state.breakReminder?.pausedOnBreak === false && state.profile?.breakReminderEnabled) {
         state.breakReminder.lastActivityWallMs = Date.now();
         startBreakReminderTicker();
@@ -876,6 +904,8 @@ function stopAllAudioSessionsForBackground() {
   if (typeof pauseWarmupSession === "function") pauseWarmupSession({ keepPlayback: false });
   if (typeof stopTunerSession === "function") stopTunerSession();
   if (typeof stopSingMatchCapture === "function") stopSingMatchCapture();
+  if (typeof cancelMidiPlayTimers === "function") cancelMidiPlayTimers();
+  if (typeof onMidiAppBackground === "function") onMidiAppBackground();
   if (typeof stopFreeplaySession === "function") stopFreeplaySession();
   if (typeof stopFretboardSession === "function") stopFretboardSession();
 }

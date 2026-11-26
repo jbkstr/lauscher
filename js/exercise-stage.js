@@ -640,6 +640,10 @@ function setCentralStageMode(stageStateClass) {
     stage.className = `central-stage ${stageStateClass} is-sing-match`;
     return;
   }
+  if (isMidiPlayMode(exType)) {
+    stage.className = `central-stage ${stageStateClass} is-midi-play`;
+    return;
+  }
   const isKeyboardLayout = exType === "solfege" || exType === "melody";
   stage.className = isKeyboardLayout
     ? `central-stage ${stageStateClass} is-solfege${exType === "melody" ? " is-melody" : ""}`
@@ -685,6 +689,11 @@ function resetCentralStage() {
   }
   if (isSingMatchMode(mode) && typeof syncSingMatchStage === "function") {
     syncSingMatchStage(ex);
+    renderStageStreakUI();
+    return;
+  }
+  if (isMidiPlayMode(mode) && typeof syncMidiPlayStage === "function") {
+    syncMidiPlayStage(ex);
     renderStageStreakUI();
     return;
   }

@@ -741,6 +741,10 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 1500);
       return;
     }
+    if (isMidiPlayMode(mode) && ex?.midiTask) {
+      if (typeof playMidiPlayPrompt === "function") playMidiPlayPrompt(ex);
+      return;
+    }
     await ensureAudioReady();
 
     if (mode === "rhythm-tap") {
@@ -1502,10 +1506,14 @@ document.addEventListener("DOMContentLoaded", () => {
         audioEngine?.markAudioSessionInterrupted?.();
         armAudioUnlockListeners();
       }
-    } else if (document.visibilityState === "hidden" && isIOSLikeDevice() && !window.Capacitor?.isNativePlatform?.()) {
-      // iOS-Safari/Home-Bildschirm-App: WebAudio wird im Hintergrund unterbrochen → Sitzungen sauber stoppen
-      // (die Android-App erledigt das über appStateChange in initCapacitorNativeBridge)
-      if (typeof stopAllAudioSessionsForBackground === "function") stopAllAudioSessionsForBackground();
+      if (typeof onMidiAppForeground === "function") onMidiAppForeground();
+    } else if (document.visibilityState === "hidden") {
+      if (typeof onMidiAppBackground === "function") onMidiAppBackground();
+      if (isIOSLikeDevice() && !window.Capacitor?.isNativePlatform?.()) {
+        // iOS-Safari/Home-Bildschirm-App: WebAudio wird im Hintergrund unterbrochen → Sitzungen sauber stoppen
+        // (die Android-App erledigt das über appStateChange in initCapacitorNativeBridge)
+        if (typeof stopAllAudioSessionsForBackground === "function") stopAllAudioSessionsForBackground();
+      }
     }
   });
   // Unterbrechung bei sichtbarer Seite (Siri, Wecker, Anruf-Banner): Unlock-Listener neu scharf stellen,
@@ -1524,6 +1532,10 @@ document.addEventListener("DOMContentLoaded", () => {
   applyThemeAndAppearance();
   syncAutoNextControls();
   if (typeof initTapLatencySettings === "function") initTapLatencySettings();
+  if (typeof initMidiModule === "function") initMidiModule();
+  document.getElementById("midiDirChipBtn")?.addEventListener("click", () => {
+    if (typeof cycleMidiIntervalDirection === "function") cycleMidiIntervalDirection();
+  });
   if (typeof initStoragePersistence === "function") initStoragePersistence().catch(() => {});
   initKeyboardFocusVisibility();
   syncPianoSoundControls();

@@ -873,6 +873,56 @@ function handleFreeplayKeyUp(midi) {
   el?.classList.remove("is-pressed");
 }
 
+function handleFreeplayMidiNoteOn(midi, velocity = 90, options = {}) {
+  const playSound = options.playSound !== false;
+  clearFreeplayArpTimers();
+  _freeplay.activePadId = null;
+  updateFreeplayPadHighlights();
+
+  if (_freeplay.mode === "hold") {
+    const idx = _freeplay.latchedMidis.indexOf(midi);
+    if (idx >= 0) {
+      _freeplay.latchedMidis.splice(idx, 1);
+      if (playSound && _freeplay.latchedMidis.length > 0) {
+        playFreeplayNotes(_freeplay.latchedMidis, { durSec: 1.1 });
+      }
+    } else {
+      _freeplay.latchedMidis.push(midi);
+      _freeplay.latchedMidis.sort((a, b) => a - b);
+      if (playSound) playFreeplayNotes(_freeplay.latchedMidis, { durSec: 1.3 });
+    }
+    updateFreeplayAnalyzerUI();
+    return;
+  }
+
+  const now = Date.now();
+  if (_freeplay.pressedMidis.size === 0 && (now - _freeplay.lastTapWallMs) > 950) {
+    _freeplay.recentMidis = [];
+  }
+  _freeplay.lastTapWallMs = now;
+  _freeplay.pressedMidis.add(midi);
+  if (!_freeplay.recentMidis.includes(midi)) {
+    _freeplay.recentMidis.push(midi);
+    if (_freeplay.recentMidis.length > 8) _freeplay.recentMidis.shift();
+  }
+
+  if (playSound) {
+    const velNorm = Math.max(0.28, Math.min(1.0, 0.25 + (Math.max(1, Math.min(127, velocity)) / 127) * 0.75));
+    playFreeplayNotes([midi], { durSec: 1.15, velocity: velNorm });
+  }
+  updateFreeplayAnalyzerUI();
+}
+
+function handleFreeplayMidiNoteOff(midi) {
+  handleFreeplayKeyUp(midi);
+}
+
+function handleFreeplayMidiSustain(isDown) {
+  if (!isDown && _freeplay.pressedMidis.size === 0) {
+    updateFreeplayAnalyzerUI();
+  }
+}
+
 function setFreeplayMode(nextMode) {
   const target = nextMode === "hold" ? "hold" : "live";
   if (_freeplay.mode === target) return;
@@ -1126,5 +1176,6 @@ function openTunerView(returnView = "tools") {
 function openFreeplayView(returnView = "tools") {
   state.freeplayReturnView = returnView;
   switchView("freeplay");
+  if (typeof syncMidiStatusChips === "function") syncMidiStatusChips();
 }
 

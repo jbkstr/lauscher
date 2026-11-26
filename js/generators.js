@@ -274,6 +274,12 @@ function generateExercise() {
     generateSingIntervalExercise();
   } else if (state.settings.mode === "sing-degree") {
     generateSingDegreeExercise();
+  } else if (state.settings.mode === "midi-interval") {
+    generateMidiIntervalExercise();
+  } else if (state.settings.mode === "midi-chord") {
+    generateMidiChordExercise();
+  } else if (state.settings.mode === "midi-scale") {
+    generateMidiScaleExercise();
   } else {
     generateIntervalExercise(rootMidi, state.settings.mode);
   }
@@ -292,6 +298,7 @@ function generateExercise() {
     state.streakState.activeNoticeMilestone = 0;
   }
   cancelHumPause();
+  if (typeof resetMidiPlayRuntimeState === "function") resetMidiPlayRuntimeState();
   if (typeof onSingMatchExerciseGenerated === "function") onSingMatchExerciseGenerated(state.currentExercise);
   markSingAlongIntroForExercise(state.currentExercise);
   renderUI();
@@ -783,6 +790,258 @@ function generateSingIntervalExercise() {
       targetPreferFlat,
       taskMain: `${def.short} ${arrow}`,
       taskLabel: def.label
+    }
+  };
+}
+
+// ---------- Phase-2 MIDI-Spielübungen ----------
+
+let _lastMidiPlayKey = null;
+
+function generateMidiIntervalExercise() {
+  const levels = MIDI_PLAY_MODE_CATALOG["midi-interval"].levels;
+  const lvlRaw = parseInt(state.settings.midiIntervalDifficulty, 10);
+  const lvl = levels.includes(lvlRaw) ? lvlRaw : 1;
+  const pool = getIntervalPoolForLevel(lvl);
+  const dirSetting = state.settings.midiIntervalDirection || "up";
+  const isDown = dirSetting === "down" || (dirSetting === "mixed" && Math.random() < 0.5);
+  const sign = isDown ? -1 : 1;
+
+  const chosenKey = pickTargetKeyWithSessionReview("midi-interval", pool, getLastTargetKeyForType("midi-interval"));
+  const def = getLocalizedIntervalDef(chosenKey);
+  const semis = def.semitones;
+  // Bequemer Klavier-Mittelbereich: C3 (48) bis G5 (79)
+  const lo = isDown ? 52 + semis : 52;
+  const hi = isDown ? 74 : 74 - semis;
+  const rootMidi = lo + Math.floor(Math.random() * Math.max(1, hi - lo + 1));
+  const targetMidi = rootMidi + sign * semis;
+  const rootPc = ((rootMidi % 12) + 12) % 12;
+  const refPreferFlat = MELODIC_FLAT_KEY_PCS.has(rootPc);
+  const refDisplay = midiToGermanNote(rootMidi, refPreferFlat);
+  const targetDisplay = midiToGermanNote(targetMidi, refPreferFlat);
+  const arrow = isDown ? "↘" : "↗";
+  state.currentKey = WARMUP_KEY_CODES_BY_PC[rootPc] || "C";
+
+  state.currentExercise = {
+    type: "midi-interval",
+    isMidiPlay: true,
+    level: lvl,
+    rootMidi,
+    targetMidi,
+    directionSign: sign,
+    keyName: `${tr("Ausgangston", "Root")} ${refDisplay}`,
+    targetIndex: 1,
+    targetItem: {
+      ...def,
+      key: chosenKey,
+      rootMidi,
+      targetMidi,
+      refNote: midiToNote(rootMidi),
+      targetNote: midiToNote(targetMidi),
+      displayMain: targetDisplay,
+      notes: [midiToNote(rootMidi), midiToNote(targetMidi)]
+    },
+    bars: [
+      { symbol: refDisplay, label: tr("Ausgangston", "Root Note"), short: "♪", notes: [midiToNote(rootMidi)], bass: null },
+      { symbol: `${def.short} ${arrow}`, label: def.label, short: def.short, notes: [midiToNote(targetMidi)], bass: null, key: chosenKey }
+    ],
+    choices: pool,
+    reviewScope: "midi-interval",
+    reviewKey: chosenKey,
+    midiTask: {
+      kind: "interval",
+      rootMidi,
+      targetMidi,
+      directionSign: sign,
+      directionArrow: arrow,
+      intervalKey: chosenKey,
+      intervalName: def.label,
+      intervalShort: def.short
+    }
+  };
+}
+
+const MIDI_CHORD_DEFINITIONS = {
+  maj:  { intervals: [0, 4, 7],     suffix: "",     labelDe: "Dur",          labelEn: "Major" },
+  min:  { intervals: [0, 3, 7],     suffix: "m",    labelDe: "Moll",         labelEn: "Minor" },
+  dim:  { intervals: [0, 3, 6],     suffix: "°",    labelDe: "Vermindert",   labelEn: "Diminished" },
+  aug:  { intervals: [0, 4, 8],     suffix: "+",    labelDe: "Übermäßig",    labelEn: "Augmented" },
+  maj7: { intervals: [0, 4, 7, 11], suffix: "maj7", labelDe: "Major 7",      labelEn: "Major 7" },
+  dom7: { intervals: [0, 4, 7, 10], suffix: "7",    labelDe: "Dominant 7",   labelEn: "Dominant 7" },
+  min7: { intervals: [0, 3, 7, 10], suffix: "m7",   labelDe: "Moll 7",       labelEn: "Minor 7" },
+  m7b5: { intervals: [0, 3, 6, 10], suffix: "ø7",   labelDe: "Halbverm. 7",  labelEn: "Half-dim. 7" }
+};
+
+function generateMidiChordExercise() {
+  const levels = MIDI_PLAY_MODE_CATALOG["midi-chord"].levels;
+  const lvlRaw = parseInt(state.settings.midiChordDifficulty, 10);
+  const lvl = levels.includes(lvlRaw) ? lvlRaw : 1;
+
+  const easyRoots = [0, 2, 4, 5, 7, 9, 10]; // C, D, E, F, G, A, B/Bb
+  const allRoots = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  let qualities = ["maj", "min"];
+  let roots = easyRoots;
+  let allowInversions = false;
+  if (lvl === 2) {
+    qualities = ["maj", "min", "dim", "aug"];
+    roots = allRoots;
+  } else if (lvl === 3) {
+    qualities = ["maj", "min"];
+    roots = easyRoots;
+    allowInversions = true;
+  } else if (lvl === 4) {
+    qualities = ["maj7", "dom7", "min7", "m7b5"];
+    roots = allRoots;
+  }
+
+  let rootPc = roots[Math.floor(Math.random() * roots.length)];
+  let qKey = qualities[Math.floor(Math.random() * qualities.length)];
+  let inversion = allowInversions ? Math.floor(Math.random() * 3) : 0;
+  let comboKey = `${rootPc}_${qKey}_${inversion}`;
+  for (let tries = 0; tries < 6 && comboKey === _lastMidiPlayKey; tries++) {
+    rootPc = roots[Math.floor(Math.random() * roots.length)];
+    qKey = qualities[Math.floor(Math.random() * qualities.length)];
+    inversion = allowInversions ? Math.floor(Math.random() * 3) : 0;
+    comboKey = `${rootPc}_${qKey}_${inversion}`;
+  }
+  _lastMidiPlayKey = comboKey;
+
+  const qDef = MIDI_CHORD_DEFINITIONS[qKey] || MIDI_CHORD_DEFINITIONS.maj;
+  const rootMidi = 60 + rootPc - (rootPc >= 8 ? 12 : 0); // G3 (55) bis G4 (67)
+  let midis = qDef.intervals.map(semi => rootMidi + semi);
+  for (let inv = 0; inv < inversion; inv++) {
+    midis[0] += 12;
+    midis.sort((a, b) => a - b);
+  }
+
+  const preferFlat = MELODIC_FLAT_KEY_PCS.has(rootPc) || qKey === "min" || qKey === "dim" || qKey === "m7b5";
+  const rootName = midiToGermanNote(rootMidi, preferFlat).replace(/[0-9]/g, "");
+  const bassMidi = midis[0];
+  const bassPc = ((bassMidi % 12) + 12) % 12;
+  const bassName = midiToGermanNote(bassMidi, preferFlat).replace(/[0-9]/g, "");
+  const chordSym = `${rootName}${qDef.suffix}`;
+  const invLabels = [
+    tr("Grundstellung", "Root Position"),
+    tr("1. Umkehrung", "1st Inversion"),
+    tr("2. Umkehrung", "2nd Inversion")
+  ];
+  const invLabel = allowInversions ? invLabels[inversion] : "";
+  const chordLabel = allowInversions && inversion > 0 ? `${chordSym}/${bassName}` : chordSym;
+  const toneNamesDisplay = midis.map(m => midiToGermanNote(m, preferFlat).replace(/[0-9]/g, "")).join(" – ");
+  state.currentKey = WARMUP_KEY_CODES_BY_PC[rootPc] || "C";
+
+  state.currentExercise = {
+    type: "midi-chord",
+    isMidiPlay: true,
+    level: lvl,
+    rootMidi: bassMidi,
+    keyName: chordLabel,
+    targetIndex: 0,
+    targetItem: {
+      key: comboKey,
+      label: `${rootName}-${tr(qDef.labelDe, qDef.labelEn)}`,
+      displayMain: chordLabel,
+      notes: midis.map(m => midiToNote(m, preferFlat))
+    },
+    bars: [
+      { symbol: chordLabel, label: invLabel || tr(qDef.labelDe, qDef.labelEn), short: chordSym, notes: midis.map(m => midiToNote(m, preferFlat)), bass: null, key: comboKey }
+    ],
+    choices: [],
+    reviewScope: "midi-chord",
+    reviewKey: qKey,
+    midiTask: {
+      kind: "chord",
+      rootMidi: bassMidi,
+      targetMidis: midis,
+      qualityKey: qKey,
+      chordLabel,
+      inversion,
+      inversionLabel: invLabel,
+      inversionDesc: allowInversions ? `${invLabel} (${tr("Bass", "Bass")}: ${bassName})` : "",
+      requireBassPc: allowInversions ? bassPc : null,
+      expectedBassName: bassName,
+      toneNamesDisplay
+    }
+  };
+}
+
+const MIDI_EXTRA_SCALES = {
+  mel_minor:  { intervals: [0, 2, 3, 5, 7, 9, 11, 12], labelDe: "Melodisch Moll",  labelEn: "Melodic Minor" },
+  pent_major: { intervals: [0, 2, 4, 7, 9, 12],        labelDe: "Dur-Pentatonik",  labelEn: "Major Pentatonic" },
+  pent_minor: { intervals: [0, 3, 5, 7, 10, 12],       labelDe: "Moll-Pentatonik", labelEn: "Minor Pentatonic" }
+};
+
+function generateMidiScaleExercise() {
+  const levels = MIDI_PLAY_MODE_CATALOG["midi-scale"].levels;
+  const lvlRaw = parseInt(state.settings.midiScaleDifficulty, 10);
+  const lvl = levels.includes(lvlRaw) ? lvlRaw : 1;
+
+  let scalePool = ["ionian", "aeolian"];
+  let roots = [0, 2, 4, 5, 7, 9]; // C, D, E, F, G, A
+  if (lvl === 2) {
+    scalePool = ["ionian", "dorian", "phrygian", "lydian", "mixolydian", "aeolian", "locrian"];
+    roots = [0, 2, 4, 5, 7, 9];
+  } else if (lvl === 3) {
+    scalePool = ["ionian", "dorian", "phrygian", "lydian", "mixolydian", "aeolian", "locrian", "harm_minor", "mel_minor", "pent_major", "pent_minor"];
+    roots = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  }
+
+  let scaleKey = scalePool[Math.floor(Math.random() * scalePool.length)];
+  let rootPc = roots[Math.floor(Math.random() * roots.length)];
+  let comboKey = `scale_${rootPc}_${scaleKey}`;
+  for (let tries = 0; tries < 6 && comboKey === _lastMidiPlayKey; tries++) {
+    scaleKey = scalePool[Math.floor(Math.random() * scalePool.length)];
+    rootPc = roots[Math.floor(Math.random() * roots.length)];
+    comboKey = `scale_${rootPc}_${scaleKey}`;
+  }
+  _lastMidiPlayKey = comboKey;
+
+  const extra = MIDI_EXTRA_SCALES[scaleKey];
+  const modeDef = extra ? null : (getLocalizedModeDef(scaleKey) || getLocalizedModeDef("ionian"));
+  const intervals = extra ? [...extra.intervals] : [...modeDef.intervals];
+  const scaleName = extra ? tr(extra.labelDe, extra.labelEn) : (modeDef.roman || modeDef.short || scaleKey);
+
+  const rootMidi = 60 + rootPc - (rootPc >= 9 ? 12 : 0); // A3 (57) bis G#4 (68)
+  const preferFlat = ["dorian", "phrygian", "mixolydian", "aeolian", "locrian", "harm_minor", "pent_minor"].includes(scaleKey)
+    || MELODIC_FLAT_KEY_PCS.has(rootPc);
+  const rootName = midiToGermanNote(rootMidi, preferFlat).replace(/[0-9]/g, "");
+  const scaleMidis = intervals.map(semi => rootMidi + semi);
+  const scaleNoteNames = scaleMidis.map(m => midiToGermanNote(m, preferFlat).replace(/[0-9]/g, ""));
+  const scaleTitle = `${rootName} ${scaleName}`;
+  state.currentKey = WARMUP_KEY_CODES_BY_PC[rootPc] || "C";
+
+  state.currentExercise = {
+    type: "midi-scale",
+    isMidiPlay: true,
+    level: lvl,
+    rootMidi,
+    keyName: scaleTitle,
+    targetIndex: 0,
+    targetItem: {
+      key: comboKey,
+      label: scaleTitle,
+      displayMain: scaleTitle,
+      notes: scaleMidis.map(m => midiToNote(m, preferFlat))
+    },
+    bars: [
+      { symbol: scaleTitle, label: tr("Tonleiter aufwärts", "Ascending Scale"), short: scaleName, notes: scaleMidis.map(m => midiToNote(m, preferFlat)), bass: null, key: comboKey }
+    ],
+    choices: [],
+    reviewScope: "midi-scale",
+    reviewKey: scaleKey,
+    midiTask: {
+      kind: "scale",
+      rootMidi,
+      rootPc,
+      rootName,
+      scaleKey,
+      scaleName,
+      scaleTitle,
+      scaleIntervals: intervals,
+      scaleMidis,
+      scaleNoteNames,
+      currentStep: 0,
+      anchorMidi: null
     }
   };
 }

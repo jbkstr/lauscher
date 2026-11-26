@@ -1110,7 +1110,9 @@ function handleExamNotationAnswer(ex, clickedKeyDef, keyBtn) {
   ex.isSolved = true;
 
   const target = ex.targetItem;
-  const isCorrect = Boolean(clickedKeyDef && Number(clickedKeyDef.pc) === Number(target.pc));
+  const isCorrect = clickedKeyDef?.fromMidi && typeof clickedKeyDef.midiExactOk === "boolean"
+    ? clickedKeyDef.midiExactOk
+    : Boolean(clickedKeyDef && Number(clickedKeyDef.pc) === Number(target.pc));
   const rawPickedLabel = clickedKeyDef?.noteLabel
     ? String(clickedKeyDef.noteLabel).replace(/\s*\n\s*/g, " / ")
     : "?";

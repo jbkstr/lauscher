@@ -395,6 +395,17 @@ function openCategoryPage(categoryKey, options = {}) {
         badgeHtml: `<div class="node-circle circle-sage">${SING_MATCH_NODE_MIC_SVG}</div>`,
         meta: tr("9 Stufen • mit Mikrofon", "9 Levels • with microphone"),
         isBeginner: false
+      },
+      {
+        id: "midi-interval",
+        title: typeof getMidiPlayModeTitle === "function" ? getMidiPlayModeTitle("midi-interval") : tr("Intervalle spielen", "Play Intervals"),
+        desc: tr(
+          "Der Ausgangston erklingt, du spielst das angezeigte Intervall direkt auf deinem MIDI-Keyboard oder Digitalpiano.",
+          "The root note plays and you play the shown interval directly on your MIDI keyboard or digital piano."
+        ),
+        badgeHtml: `<div class="node-circle circle-lilac"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M7.5 5v8.5M12 5v8.5M16.5 5v8.5"/><rect x="6" y="5" width="3" height="7" rx="0.6" fill="currentColor"/><rect x="10.5" y="5" width="3" height="7" rx="0.6" fill="currentColor"/><rect x="15" y="5" width="3" height="7" rx="0.6" fill="currentColor"/></svg></div>`,
+        meta: tr("9 Stufen • mit MIDI", "9 Levels • with MIDI"),
+        isBeginner: false
       }
     ];
 
@@ -540,6 +551,65 @@ function openCategoryPage(categoryKey, options = {}) {
         });
       };
       renderSingIntervalSubpage();
+    } else if (selectedIntItem.id === "midi-interval") {
+      state.activeCategorySectionTitle = selectedIntItem.title;
+      const renderMidiIntervalSubpage = () => {
+        const curDir = ["up", "down", "mixed"].includes(state.settings.midiIntervalDirection) ? state.settings.midiIntervalDirection : "up";
+        const sec = { circle: "circle-lilac", dir: curDir === "mixed" ? null : curDir };
+        const groups = getSectionCardGroups(sec);
+        const renderMidiCards = (cards) => cards.map(card => `
+          <button class="subpage-node-btn" data-launch-midi-int="${card.lvl}">
+            ${card.circleHtml}
+            <span class="node-title">${card.title}</span>
+            <span class="node-sub">${card.sub}</span>
+          </button>
+        `).join("");
+        container.innerHTML = `
+          <div class="subpage-section">
+            <h3 class="subpage-section-title">${escapeHtml(selectedIntItem.title)}</h3>
+            <p class="subpage-section-desc">${selectedIntItem.desc}</p>
+            <div class="notation-key-toolbar">
+              <div class="notation-key-quick-group">
+                <span class="notation-key-quick-label">${tr("Richtung:", "Direction:")}</span>
+                <div class="notation-key-quick-row">
+                  ${["up", "down", "mixed"].map(dir => `
+                    <button type="button" class="k-filter-pill${curDir === dir ? " active" : ""}" data-midi-int-dir="${dir}" aria-pressed="${curDir === dir}">
+                      ${escapeHtml(getMidiIntervalDirectionLabel(dir))}
+                    </button>
+                  `).join("")}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="subpage-section">
+            <h3 class="subpage-section-title">${tr("Dur-Intervalle", "Major Intervals")}</h3>
+            <div class="subpage-nodes-grid">${renderMidiCards(groups.major)}</div>
+          </div>
+          <div class="subpage-section">
+            <h3 class="subpage-section-title">${tr("Moll-Intervalle", "Minor Intervals")}</h3>
+            <div class="subpage-nodes-grid">${renderMidiCards(groups.minor)}</div>
+          </div>
+          <div class="subpage-section">
+            <h3 class="subpage-section-title">${tr("Chromatisch (Alle 15 Intervalle)", "Chromatic (All 15 Intervals)")}</h3>
+            <div class="subpage-nodes-grid">${renderMidiCards(groups.chromatic)}</div>
+          </div>
+        `;
+        container.querySelectorAll("[data-midi-int-dir]").forEach(btn => {
+          btn.addEventListener("click", () => {
+            state.settings.midiIntervalDirection = btn.dataset.midiIntDir;
+            renderMidiIntervalSubpage();
+          });
+        });
+        container.querySelectorAll("[data-launch-midi-int]").forEach(btn => {
+          btn.addEventListener("click", () => {
+            state.setMode("midi-interval");
+            state.setMidiPlayLevel("midi-interval", btn.dataset.launchMidiInt);
+            state.exerciseReturnView = "category";
+            switchView("exercise");
+          });
+        });
+      };
+      renderMidiIntervalSubpage();
     } else if (selectedIntItem.id === "interval-custom") {
       state.activeCategorySectionTitle = selectedIntItem.title;
       const renderCustomIntervalSubpage = () => {
@@ -775,6 +845,17 @@ function openCategoryPage(categoryKey, options = {}) {
         badgeHtml: `<div class="node-circle circle-sage node-circle-compact node-circle-nowrap">1/3/5</div>`,
         meta: tf("{n} Stufen", "{n} Levels", { n: 3 }),
         isBeginner: false
+      },
+      {
+        id: "midi-chord",
+        title: typeof getMidiPlayModeTitle === "function" ? getMidiPlayModeTitle("midi-chord") : tr("Akkorde greifen", "Play Chords"),
+        desc: tr(
+          "Greife den angezeigten Akkord (inkl. Umkehrungen & Vierklängen) direkt auf deinem MIDI-Keyboard oder Digitalpiano.",
+          "Play the shown chord (including inversions & 7th chords) directly on your MIDI keyboard or digital piano."
+        ),
+        badgeHtml: `<div class="node-circle circle-lilac"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M7.5 5v8.5M12 5v8.5M16.5 5v8.5"/><rect x="6" y="5" width="3" height="7" rx="0.6" fill="currentColor"/><rect x="10.5" y="5" width="3" height="7" rx="0.6" fill="currentColor"/><rect x="15" y="5" width="3" height="7" rx="0.6" fill="currentColor"/></svg></div>`,
+        meta: tr("4 Stufen • mit MIDI", "4 Levels • with MIDI"),
+        isBeginner: false
       }
     ];
 
@@ -782,6 +863,36 @@ function openCategoryPage(categoryKey, options = {}) {
     if (!selectedChordType) {
       state.activeCategorySection = null;
       renderCategoryTypeMenu(container, categoryKey, CHORD_TYPE_ITEMS);
+    } else if (selectedChordType.id === "midi-chord") {
+      state.activeCategorySectionTitle = selectedChordType.title;
+      container.innerHTML = `
+        <div class="subpage-section">
+          <h3 class="subpage-section-title">${escapeHtml(selectedChordType.title)}</h3>
+          <p class="subpage-section-desc">${selectedChordType.desc}</p>
+          <div class="subpage-nodes-grid">
+            <button class="subpage-node-btn" data-launch-chord="midi-chord" data-chord-lvl="1">
+              <div class="node-circle circle-lilac">Δ/m</div>
+              <span class="node-title">${tr("Stufe 1: Dur &amp; Moll", "Level 1: Major &amp; Minor")}</span>
+              <span class="node-sub">${tr("Dur- &amp; Moll-Dreiklänge in leichten Tonarten", "Major &amp; minor triads in easy keys")}</span>
+            </button>
+            <button class="subpage-node-btn" data-launch-chord="midi-chord" data-chord-lvl="2">
+              <div class="node-circle circle-lilac">°/+</div>
+              <span class="node-title">${tr("Stufe 2: Alle Dreiklänge", "Level 2: All Triads")}</span>
+              <span class="node-sub">${tr("Dur, Moll, Vermindert &amp; Übermäßig in allen 12 Tonarten", "Major, minor, diminished &amp; augmented in all 12 keys")}</span>
+            </button>
+            <button class="subpage-node-btn" data-launch-chord="midi-chord" data-chord-lvl="3">
+              <div class="node-circle circle-lilac node-circle-compact node-circle-nowrap">1/3/5</div>
+              <span class="node-title">${tr("Stufe 3: Umkehrungen", "Level 3: Inversions")}</span>
+              <span class="node-sub">${tr("Grundstellung, 1. &amp; 2. Umkehrung – Basston wird geprüft!", "Root pos., 1st &amp; 2nd inversion — bass note is checked!")}</span>
+            </button>
+            <button class="subpage-node-btn" data-launch-chord="midi-chord" data-chord-lvl="4">
+              <div class="node-circle circle-lilac">7</div>
+              <span class="node-title">${tr("Stufe 4: Vierklänge (Sept)", "Level 4: 7th Chords")}</span>
+              <span class="node-sub">maj7, 7, m7 &amp; ø7</span>
+            </button>
+          </div>
+        </div>
+      `;
     } else if (selectedChordType.id === "chord-inversions") {
       state.activeCategorySectionTitle = selectedChordType.title;
       container.innerHTML = `
@@ -834,6 +945,8 @@ function openCategoryPage(categoryKey, options = {}) {
           state.setMode(mode);
           if (mode === "chord-inversions") {
             state.setChordInversionDifficulty(btn.dataset.chordLvl);
+          } else if (mode === "midi-chord") {
+            state.setMidiPlayLevel("midi-chord", btn.dataset.chordLvl);
           } else {
             state.setChordDifficulty(btn.dataset.chordLvl);
           }
@@ -1589,6 +1702,35 @@ function openCategoryPage(categoryKey, options = {}) {
             <span class="node-sub">${tr("Inkl. Lydisch (I–II) &amp; Phrygisch (i–bII)", "Incl. Lydian (I–II) &amp; Phrygian (i–bII)")}</span>
           </button>
         `
+      },
+      {
+        id: "midi-scale",
+        title: tr("4. Tonleitern &amp; Modi spielen", "4. Play Scales &amp; Modes"),
+        plainTitle: typeof getMidiPlayModeTitle === "function" ? getMidiPlayModeTitle("midi-scale") : tr("Tonleitern & Modi spielen", "Play Scales & Modes"),
+        desc: tr(
+          "Spiele die angezeigte Tonleiter oder Kirchentonart Schritt für Schritt aufwärts auf deinem MIDI-Keyboard.",
+          "Play the shown scale or church mode step by step upward on your MIDI keyboard."
+        ),
+        badgeHtml: `<div class="node-circle circle-lilac"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M7.5 5v8.5M12 5v8.5M16.5 5v8.5"/><rect x="6" y="5" width="3" height="7" rx="0.6" fill="currentColor"/><rect x="10.5" y="5" width="3" height="7" rx="0.6" fill="currentColor"/><rect x="15" y="5" width="3" height="7" rx="0.6" fill="currentColor"/></svg></div>`,
+        meta: tr("3 Stufen • mit MIDI", "3 Levels • with MIDI"),
+        isBeginner: false,
+        cardsHtml: `
+          <button class="subpage-node-btn" data-launch-modes="midi-scale" data-modes-lvl="1">
+            <div class="node-circle circle-lilac">D/m</div>
+            <span class="node-title">${tr("Stufe 1: Dur &amp; Moll", "Level 1: Major &amp; Minor")}</span>
+            <span class="node-sub">${tr("Ionisch &amp; Äolisch über leichte Grundtöne", "Ionian &amp; Aeolian on easy roots")}</span>
+          </button>
+          <button class="subpage-node-btn" data-launch-modes="midi-scale" data-modes-lvl="2">
+            <div class="node-circle circle-lilac">7×</div>
+            <span class="node-title">${tr("Stufe 2: 7 Kirchentonarten", "Level 2: All 7 Modes")}</span>
+            <span class="node-sub">${tr("Ionisch, Dorisch, Phrygisch, Lydisch, Mixolydisch, Äolisch, Lokrisch", "Ionian, Dorian, Phrygian, Lydian, Mixolydian, Aeolian, Locrian")}</span>
+          </button>
+          <button class="subpage-node-btn" data-launch-modes="midi-scale" data-modes-lvl="3">
+            <div class="node-circle circle-lilac">+5</div>
+            <span class="node-title">${tr("Stufe 3: Erweitert &amp; alle 12 Tonarten", "Level 3: Extended &amp; All 12 Keys")}</span>
+            <span class="node-sub">${tr("+ Harmonisch/Melodisch Moll &amp; Pentatonik", "+ Harmonic/Melodic Minor &amp; Pentatonic")}</span>
+          </button>
+        `
       }
     ];
 
@@ -1608,7 +1750,13 @@ function openCategoryPage(categoryKey, options = {}) {
 
       container.querySelectorAll("[data-launch-modes]").forEach(btn => {
         btn.addEventListener("click", () => {
-          state.setModesLevel(btn.dataset.launchModes, btn.dataset.modesLvl);
+          const mode = btn.dataset.launchModes;
+          if (mode === "midi-scale") {
+            state.setMode("midi-scale");
+            state.setMidiPlayLevel("midi-scale", btn.dataset.modesLvl);
+          } else {
+            state.setModesLevel(mode, btn.dataset.modesLvl);
+          }
           state.exerciseReturnView = "category";
           switchView("exercise");
         });

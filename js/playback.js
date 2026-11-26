@@ -1415,7 +1415,7 @@ function syncListenOnlyUI() {
   const btn = document.getElementById("listenOnlyBtn");
   const lbl = document.getElementById("listenOnlyBtnLabel");
   const active = Boolean(state.listenOnly?.active);
-  const hideForMode = Boolean(state.exam?.active) || isNotationSymbolsMode(state.currentExercise?.type) || isSingMatchMode(state.currentExercise?.type);
+  const hideForMode = Boolean(state.exam?.active) || isNotationSymbolsMode(state.currentExercise?.type) || isSingMatchMode(state.currentExercise?.type) || isMidiPlayMode(state.currentExercise?.type);
   if (syncNotationPaceVisibility() && typeof queueFitExerciseLayout === "function") queueFitExerciseLayout(true);
   if (btn) {
     btn.classList.toggle("hidden", hideForMode);
@@ -1743,6 +1743,12 @@ async function playSequence(options = {}) {
   if (isSingMatchMode(state.currentExercise?.type)) {
     if (state.currentExercise.isSolved) generateExercise();
     startSingMatchRound({ withPrompt: true });
+    return;
+  }
+  // Aktive MIDI-Spielübungen: Grundton/Referenz anspielen (oder nächste Aufgabe wenn gelöst)
+  if (isMidiPlayMode(state.currentExercise?.type)) {
+    if (state.currentExercise.isSolved) generateExercise();
+    if (typeof playMidiPlayPrompt === "function") playMidiPlayPrompt(state.currentExercise);
     return;
   }
   if (isNotationSymbolsMode(state.currentExercise?.type)) {

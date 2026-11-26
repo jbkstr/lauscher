@@ -1342,6 +1342,18 @@ function isSingMatchMode(mode) {
   return Object.prototype.hasOwnProperty.call(SING_MATCH_MODE_CATALOG, String(mode || ""));
 }
 
+// Aktive MIDI-Spielübungen (js/midi-play.js): Intervalle spielen, Akkorde greifen,
+// Tonleitern & Modi spielen. Bewusst nicht in MIX_MODE_CATALOG (erwarten ein MIDI-Instrument).
+const MIDI_PLAY_MODE_CATALOG = {
+  "midi-interval": { label: "Intervalle spielen",         levels: [1, 2, 3, 4, 5, 6, 7, 8, 9] },
+  "midi-chord":    { label: "Akkorde greifen",            levels: [1, 2, 3, 4] },
+  "midi-scale":    { label: "Tonleitern & Modi spielen",  levels: [1, 2, 3] }
+};
+
+function isMidiPlayMode(mode) {
+  return Object.prototype.hasOwnProperty.call(MIDI_PLAY_MODE_CATALOG, String(mode || ""));
+}
+
 function createDefaultMixes() {
   return [
     { id: "mix_warmup",    title: "Morgen-Warmup",      mode: "solfege",          level: 3,       melodyRange: "do-fa", melodyKeyMode: "fixed", melodyOctaveMode: "single", bpm: 0 },
@@ -2429,7 +2441,10 @@ const PRACTICE_LEVEL_KEYS = {
   modesCadenceDifficulty: "modes-cadence",
   notationDifficulty: "notation-symbols",
   singIntervalDifficulty: "sing-interval",
-  singDegreeDifficulty: "sing-degree"
+  singDegreeDifficulty: "sing-degree",
+  midiIntervalDifficulty: "midi-interval",
+  midiChordDifficulty: "midi-chord",
+  midiScaleDifficulty: "midi-scale"
 };
 
 const PRACTICE_PITCH_CLASS_VALUES = Array.from({ length: 12 }, (_, pc) => String(pc));
@@ -2455,11 +2470,17 @@ const PRACTICE_OPTION_RULES = {
   rhythmTapClick: "bool",
   notationKeyMode: /^[A-Za-z0-9#_-]{1,24}$/,
   notationKeyTrainerClef: /^notation-[a-z]{3,10}$/,
-  singIntervalDirection: ["up", "down", "mixed"]
+  singIntervalDirection: ["up", "down", "mixed"],
+  midiIntervalDirection: ["up", "down", "mixed"]
 };
 
 function getPracticeValidModes() {
-  return [...Object.keys(MIX_MODE_CATALOG), ...Object.keys(SING_MATCH_MODE_CATALOG), "interval-custom"];
+  return [
+    ...Object.keys(MIX_MODE_CATALOG),
+    ...Object.keys(SING_MATCH_MODE_CATALOG),
+    ...Object.keys(MIDI_PLAY_MODE_CATALOG),
+    "interval-custom"
+  ];
 }
 
 function sanitizePracticeProgress(raw) {
@@ -2469,7 +2490,7 @@ function sanitizePracticeProgress(raw) {
     out.mode = raw.mode;
   }
   Object.entries(PRACTICE_LEVEL_KEYS).forEach(([key, catalogMode]) => {
-    const levels = (MIX_MODE_CATALOG[catalogMode] || SING_MATCH_MODE_CATALOG[catalogMode])?.levels || [];
+    const levels = (MIX_MODE_CATALOG[catalogMode] || SING_MATCH_MODE_CATALOG[catalogMode] || MIDI_PLAY_MODE_CATALOG[catalogMode])?.levels || [];
     const lvl = parseInt(raw[key], 10);
     if (levels.includes(lvl)) out[key] = lvl;
   });
@@ -2729,7 +2750,10 @@ const MODE_CATEGORY_MAP = {
   "notation-chords":       "notation",
   "notation-symbols":      "notation",
   "sing-interval":         "interval",
-  "sing-degree":           "solfege"
+  "sing-degree":           "solfege",
+  "midi-interval":         "interval",
+  "midi-chord":            "chords",
+  "midi-scale":            "modes"
 };
 
 /**

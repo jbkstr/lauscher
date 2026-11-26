@@ -1237,6 +1237,7 @@ function renderUI() {
   const isModes = ex.type.startsWith("modes-");
   const isCadence = ex.type === "cadence";
   const isSingMatch = isSingMatchMode(ex.type);
+  const isMidiPlay = isMidiPlayMode(ex.type);
 
   document.getElementById("exerciseModuleCard")?.classList.toggle("is-solfege", isSolfege || isMelody);
   document.getElementById("exerciseModuleCard")?.classList.toggle("is-melody", isMelody || isRhythmDict || isRhythmTap);
@@ -1309,7 +1310,7 @@ function renderUI() {
   const isBlockChord = isBlockChordMode(ex.type);
   const isChordTempoPinned = isChordArpeggioMode(ex.type) && !state.exam?.active;
   if (moduleBpmBtn) {
-    moduleBpmBtn.classList.toggle("hidden", isProd || isModes || isNotation || isBlockChord || isChordTempoPinned || isSingMatch);
+    moduleBpmBtn.classList.toggle("hidden", isProd || isModes || isNotation || isBlockChord || isChordTempoPinned || isSingMatch || isMidiPlay);
     moduleBpmBtn.textContent = `${state.activeBpm} BPM`;
     if (isChordTempoPinned || isBlockChord) moduleBpmBtn.classList.remove("chip-open");
   }
@@ -1441,6 +1442,9 @@ function renderUI() {
     if (tonicRefBtn) tonicRefBtn.title = tr("1 kHz-Referenzton zur Orientierung anspielen", "Play a 1 kHz reference sine tone");
   } else if (isSingMatch) {
     if (tonicRefLabel) tonicRefLabel.textContent = ex.type === "sing-degree" ? tr("Tonika (Do)", "Tonic (Do)") : tr("Ausgangston", "Root Note");
+    if (tonicRefBtn) tonicRefBtn.title = tr("Tonika / Grundton anspielen", "Play tonic / root note");
+  } else if (isMidiPlay) {
+    if (tonicRefLabel) tonicRefLabel.textContent = tr("Ausgangston", "Root Note");
     if (tonicRefBtn) tonicRefBtn.title = tr("Tonika / Grundton anspielen", "Play tonic / root note");
   } else if (isModes) {
     if (tonicRefLabel) tonicRefLabel.textContent = tr("Anker-Quinte", "Anchor Fifth");
@@ -1720,6 +1724,17 @@ function renderUI() {
     document.getElementById("inputPromptText").textContent = ex.type === "sing-degree"
       ? tf("Sing {target} in der Tonart:", "Sing {target} in the key:", { target: ex.singTask.taskMain })
       : tf("Sing {target} vom Ausgangston:", "Sing {target} from the root:", { target: ex.singTask.taskLabel });
+  } else if (isMidiPlay) {
+    barsGrid.classList.add(ex.type === "midi-interval" ? "cols-2" : "cols-1");
+    if (moduleTitleEl) moduleTitleEl.textContent = getMidiPlayModeTitle(ex.type);
+    if (targetBadgeEl) {
+      targetBadgeEl.textContent = `${tr("Stufe", "Level")} ${ex.level || 1}`;
+    }
+    document.getElementById("inputPromptText").textContent = ex.type === "midi-chord"
+      ? tr("Greife den Akkord auf deinem MIDI-Keyboard:", "Play the chord on your MIDI keyboard:")
+      : (ex.type === "midi-scale"
+          ? tr("Spiele die Tonleiter aufwärts auf deinem MIDI-Keyboard:", "Play the scale ascending on your MIDI keyboard:")
+          : tr("Spiele das gesuchte Intervall auf deinem MIDI-Keyboard:", "Play the target interval on your MIDI keyboard:"));
   } else if (ex.type === "interval-melodic") {
     barsGrid.classList.add("cols-2");
     if (moduleTitleEl) moduleTitleEl.textContent = tr("Tonfolge (2 Töne)", "2-Note Sequence");
@@ -1905,14 +1920,16 @@ function renderUI() {
 
       const mainText = document.createElement("div");
       mainText.className = "bar-roman";
-      mainText.textContent = isTarget ? (isSingMatch ? ex.singTask.taskMain : "?") : bar.symbol;
+      mainText.textContent = isTarget ? (isSingMatch ? ex.singTask.taskMain : (isMidiPlay ? bar.symbol : "?")) : bar.symbol;
       if (isSingMatch && !isTarget) tag.textContent = ex.type === "sing-degree" ? tr("Tonart", "Key") : tr("Ausgangston", "Root Note");
       if (isSingMatch && isTarget) tag.textContent = tr("Dein Ton", "Your Note");
+      if (isMidiPlay && !isTarget) tag.textContent = tr("Ausgangston", "Root Note");
+      if (isMidiPlay && isTarget) tag.textContent = tr("Spiele per MIDI", "Play via MIDI");
 
       const lbl = document.createElement("span");
       lbl.className = "bar-label";
       lbl.textContent = isTarget
-        ? (isSingMatch ? tr("Sing es!", "Sing it!") : ex.type === "cadence"
+        ? (isSingMatch ? tr("Sing es!", "Sing it!") : (isMidiPlay ? bar.label : ex.type === "cadence"
             ? tr("Gesucht", "Target")
             : (isChordQualityMode(ex.type)
                 ? tr("Akkord ?", "Chord ?")
@@ -1928,7 +1945,7 @@ function renderUI() {
                                     ? ex.keyName
                                     : (isModes
                                         ? (ex.type === "modes-cadence" ? tr("Pendel ?", "Loop ?") : (ex.type === "modes-char" ? tr("Farbe ?", "Color ?") : tr("Modus ?", "Mode ?")))
-                                        : tr("Intervall ?", "Interval ?")))))))))
+                                        : tr("Intervall ?", "Interval ?"))))))))))
         : bar.short;
 
       if (!hideBarTag) card.appendChild(tag);
@@ -1988,7 +2005,7 @@ function renderUI() {
     solfegeWrap.classList.add("hidden");
     tapPadWrap?.classList.remove("hidden");
     renderRhythmTapPad();
-  } else if (isSingMatch) {
+  } else if (isSingMatch || isMidiPlay) {
     btnGrid.classList.add("hidden");
     melodyRhythmPicker?.classList.add("hidden");
     solfegeWrap.classList.add("hidden");
@@ -2000,10 +2017,14 @@ function renderUI() {
     renderExerciseChoiceButtonsGrid(ex, btnGrid);
   }
   document.getElementById("singPadWrap")?.classList.toggle("hidden", !isSingMatch);
+  document.getElementById("midiPlayPadWrap")?.classList.toggle("hidden", !isMidiPlay);
 
   resetCentralStage();
   syncSingMatchStage(ex);
   syncSingMatchUI(ex);
+  if (typeof renderMidiPlayPad === "function") renderMidiPlayPad(ex);
+  if (typeof syncMidiDirChip === "function") syncMidiDirChip();
+  if (typeof syncMidiStatusChips === "function") syncMidiStatusChips();
   updatePlayButtonUI(false);
   syncListenOnlyUI();
   if (typeof syncExerciseDemoButtonUI === "function") {

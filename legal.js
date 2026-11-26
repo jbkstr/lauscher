@@ -181,6 +181,7 @@ const LAUSCHER_LEGAL_DOCS = {
   <thead><tr><th>Berechtigung</th><th>Wofür</th><th>Wann</th></tr></thead>
   <tbody>
     <tr><td>Mikrofon</td><td>Tonhöhenerkennung im Tuner und in den Nachsing-Übungen</td><td>nur nach deiner Zustimmung beim ersten Start des Tuners bzw. einer Nachsing-Übung</td></tr>
+    <tr><td>MIDI &amp; Bluetooth (Geräte in der Nähe)</td><td>Verbindung mit einem USB- oder Bluetooth-MIDI-Instrument (Digitalpiano/Keyboard) für lokale Eingaben</td><td>nur wenn du MIDI in den Einstellungen einschaltest bzw. nach Bluetooth-MIDI-Instrumenten suchst; Spielsignale werden nicht aufgezeichnet oder übertragen</td></tr>
     <tr><td>Speicher (nur bis Android 10)</td><td>Profil-Sicherung im Ordner „Dokumente/Lauscher“</td><td>nur beim lokalen Speichern einer Sicherung</td></tr>
     <tr><td>Internet</td><td>Standard-Berechtigung des verwendeten App-Rahmens (Capacitor); Lauscher nutzt sie nicht, um Daten zu senden oder Inhalte nachzuladen</td><td>wird nicht abgefragt</td></tr>
   </tbody>
@@ -306,6 +307,7 @@ const LAUSCHER_LEGAL_DOCS = {
   <thead><tr><th>Permission</th><th>Purpose</th><th>When</th></tr></thead>
   <tbody>
     <tr><td>Microphone</td><td>Pitch detection in the tuner and the sing-back exercises</td><td>only after your consent when you first start the tuner or a sing-back exercise</td></tr>
+    <tr><td>MIDI &amp; Bluetooth (Nearby devices)</td><td>Connecting a USB or Bluetooth MIDI instrument (digital piano/keyboard) for local input</td><td>only when you enable MIDI in settings or scan for Bluetooth MIDI instruments; played notes are never recorded or transmitted</td></tr>
     <tr><td>Storage (up to Android 10 only)</td><td>Saving a profile backup to “Documents/Lauscher”</td><td>only when you save a backup locally</td></tr>
     <tr><td>Internet</td><td>Default permission of the app framework used (Capacitor); Lauscher does not use it to send data or load content</td><td>not requested</td></tr>
   </tbody>
