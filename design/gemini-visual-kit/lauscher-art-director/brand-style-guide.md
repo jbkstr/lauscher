@@ -45,7 +45,7 @@ Ein Waschbär (auf Deutsch „Waschbär“ + „lauschen“ = „Lauschebär“)
 
 ### 2.3 Die 8 Grundstimmungen
 
-Die App wählt das Bild nach Stimmung. Pro Stimmung gibt es mehrere Varianten, die abwechselnd gezeigt werden (siehe `references/mascot-model-sheet.png` und `mascot-standard-all.png`).
+Die App wählt das Bild nach Stimmung. Pro Stimmung gibt es mehrere Varianten, die abwechselnd gezeigt werden (siehe `mascot-model-sheet.png` und `mascot-standard-all.png`).
 
 | Schlüssel | Wann sichtbar | Körpersprache |
 |---|---|---|
@@ -75,7 +75,7 @@ Ein **Look** ist ein durchgängiges Outfit bzw. Thema für Lauscher, das überal
 
 ### 3.1 Vorbild: der Metal-Look
 
-Den gibt es schon (Bonus-Theme „Metal“, siehe `references/mascot-metal-all.png`): dieselbe Figur im selben Stil, dazu schwarze Leder-Kutte mit Nieten, Nieten-Armbänder, manchmal Beanie oder runde Sonnenbrille, dazu E-Gitarre, Drumsticks, Snare, Verstärker, Mikro-Ständer. Er bleibt trotz Metal-Attitüde **freundlich** (Pommesgabel, Grinsen, nie bedrohlich).
+Den gibt es schon (Bonus-Theme „Metal“, siehe `mascot-metal-all.png`): dieselbe Figur im selben Stil, dazu schwarze Leder-Kutte mit Nieten, Nieten-Armbänder, manchmal Beanie oder runde Sonnenbrille, dazu E-Gitarre, Drumsticks, Snare, Verstärker, Mikro-Ständer. Er bleibt trotz Metal-Attitüde **freundlich** (Pommesgabel, Grinsen, nie bedrohlich).
 
 ### 3.2 Was ein Look mindestens braucht
 
@@ -109,7 +109,7 @@ Abstrakte, schräg gestellte **Ohr-Form** im Flat-Design: dunkler Navy-Blob (`#2
 
 ### 4.2 App-Farben
 
-Die Oberfläche ist hell, warm und ruhig, mit Pastell-Akzenten (Salbei, Pfirsich, Flieder) und dunkler Tinte für Text. Es gibt mehrere Themes (Waldlichtung, Morgentau, Abenddämmerung, je hell und dunkel; dazu die freischaltbaren Bonus-Themes Konzertsaal, Mitternacht und Metal). Werte siehe `references/color-palette.png`.
+Die Oberfläche ist hell, warm und ruhig, mit Pastell-Akzenten (Salbei, Pfirsich, Flieder) und dunkler Tinte für Text. Es gibt mehrere Themes (Waldlichtung, Morgentau, Abenddämmerung, je hell und dunkel; dazu die freischaltbaren Bonus-Themes Konzertsaal, Mitternacht und Metal). Werte siehe `color-palette.png`.
 
 Lauscher muss auf **hellen wie dunklen** Hintergründen gut aussehen. Die warme Tusche-Kontur trennt ihn auch vom dunklen Grund.
 

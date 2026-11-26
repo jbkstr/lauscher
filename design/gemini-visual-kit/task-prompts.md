@@ -1,6 +1,6 @@
 # Fertige Prompts für Gemini
 
-Zum Kopieren in den Chat mit dem Lauscher-Gem. Text in `[eckigen Klammern]` anpassen. Hänge bei Bildaufgaben immer **1–3 passende Einzelbilder** aus `poses/` an, denn angehängte Bilder hält Gemini am genauesten ein.
+Zum Kopieren in einen Chat mit dem Skill `lauscher-art-director` (per `/` bzw. `@` auswählen oder einfach drauflos schreiben). Text in `[eckigen Klammern]` anpassen. Hänge bei Bildaufgaben immer **1–3 passende Einzelbilder** aus `poses/` an, denn angehängte Bilder hält Gemini am genauesten ein.
 
 ---
 
@@ -65,7 +65,7 @@ Tipp: Gemini kann Bilder gezielt bearbeiten. Für Looks ist das oft konsistenter
 
 ## 4. Illustration / Szene
 
-Anhängen: `references/mascot-model-sheet.png` und 1 passende Pose
+Anhängen: 1 passende Pose aus `poses/` (das Modellblatt steckt schon im Skill)
 
 > Erstelle eine Illustration für [den Moment, in dem das Bonus-Theme „Konzertsaal“ freigeschaltet wird]: [Lauscher verbeugt sich auf einer kleinen Bühne mit rotem Vorhang, warmes Bühnenlicht]. Querformat [16:9]. Hintergrund im selben Aquarell-Stil, sehr hell und zurückhaltend, viel Weißraum, Lauscher deutlich im Vordergrund. Kein Text. Dateiname: `scene_[unlock_concert].png`.
 
