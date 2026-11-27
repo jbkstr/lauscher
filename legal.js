@@ -96,7 +96,7 @@ const LAUSCHER_LEGAL_DOCS = {
   privacy: {
     de: {
       title: "Datenschutzerklärung",
-      updated: "Stand: 19.11.2026",
+      updated: "Stand: 27.11.2026",
       draftNotice: "Entwurf – noch nicht rechtlich geprüft.",
       html: `
 <p>Diese Datenschutzerklärung gilt für die App <strong>Lauscher</strong>. Das umfasst die Android-App und die Web-Version unter <a href="https://jbkstr.github.io/lauscher/" target="_blank" rel="noopener">jbkstr.github.io/lauscher</a>. Sie erklärt, welche Daten anfallen, wo sie bleiben und welche Rechte du hast.</p>
@@ -121,9 +121,12 @@ const LAUSCHER_LEGAL_DOCS = {
   <li><strong>Profil:</strong> optional ein Name oder Spitzname, mit dem dich die App anspricht; gewählte Instrumente bzw. Rollen und Trainingsschwerpunkte; Notations- und Anzeigeoptionen; Übungsdauer und Pausen-Erinnerung; Klang- und Mixer-Einstellungen; Metronom-Profile, eigene Übe-Mixe und Tuner-Einstellungen; eigene Farbschemata; die letzten Prüfungsergebnisse (höchstens 25 Einträge).</li>
   <li><strong>Übungsstand:</strong> die zuletzt gewählte Übung sowie die gewählte Stufe und Optionen je Übung, damit du nach einem Neustart dort weitermachen kannst. Außerdem merkt sich Lauscher, welche Antworten dir zuletzt schwerfielen (z. B. verwechselte Intervalle), damit sie beim Üben etwas häufiger drankommen. Diese Angaben verblassen nach einigen Tagen von selbst.</li>
   <li><strong>Meilensteine:</strong> freigeschaltete Meilensteine und die Zähler, die sie auslösen (z. B. Anzahl gelöster Aufgaben, Übungstage, bestandene Prüfungsbereiche).</li>
-  <li><strong>Gerätespezifisch:</strong> eine selbst eingemessene Tap-Latenz für Rhythmus-Übungen (nur auf diesem Gerät, nicht Teil der Profil-Sicherung).</li>
+  <li><strong>Entdecker-Modus:</strong> ob der vereinfachte Modus für Kinder und Einsteiger aktiv ist und – falls du eine einrichtest – die 4-stellige Eltern-/Lehrkraft-PIN. Die PIN wird nicht im Klartext gespeichert, sondern nur als Prüfwert (Hash), mit dem die App die Eingabe vergleicht.</li>
+  <li><strong>Gerätespezifisch:</strong> eine selbst eingemessene Tap-Latenz für Rhythmus-Übungen und die MIDI-Einstellungen (nur auf diesem Gerät, nicht Teil der Profil-Sicherung).</li>
+  <li><strong>Laufende Prüfung:</strong> Während einer Prüfung legt die App den aktuellen Stand (Aufgaben und bisherige Antworten) im Sitzungsspeicher („sessionStorage“) ab, damit ein versehentliches Neuladen die Prüfung nicht abbricht. Dieser Zwischenstand wird beim Beenden oder Abbrechen der Prüfung gelöscht und verschwindet spätestens, wenn der Tab bzw. die App geschlossen wird.</li>
 </ul>
 <p>Darüber hinaus wird <strong>kein</strong> Lernverlauf gespeichert: keine einzelnen Antworten aus Übungen und keine Sitzungsprotokolle. Die Merkhilfe für verwechselte Intervalle u. Ä. existiert nur, solange die App geöffnet ist.</p>
+<p><strong>Hausaufgaben-Links und QR-Codes:</strong> Wenn du eine Übung oder einen Übe-Mix teilst, erzeugt die App einen Link bzw. QR-Code auf deinem Gerät. Er enthält nur die Übung, Stufe, Optionen und einen optionalen Titel – keine Profildaten. Die Angaben stehen im Teil nach dem „#“ des Links, den Browser nicht an den Server übertragen. Wohin du den Link schickst (z. B. per Messenger), entscheidest du selbst; dafür gelten die Datenschutzbestimmungen des jeweiligen Dienstes.</p>
 <p><strong>Zweck und Rechtsgrundlage:</strong> Die Speicherung ist technisch erforderlich, damit die von dir genutzten Funktionen so arbeiten, wie du sie eingestellt hast. Grundlage ist § 25 Abs. 2 Nr. 2 TDDDG und, soweit personenbezogene Daten betroffen sind (etwa dein freiwillig eingegebener Name), Art. 6 Abs. 1 lit. b DSGVO.</p>
 <p><strong>Empfänger:</strong> keine. Diese Daten werden nicht an mich oder Dritte übertragen. Auch die automatische Android-Datensicherung in dein Google-Konto ist für Lauscher abgeschaltet; zum Umzug auf ein neues Gerät nutzt du die Profil-Sicherung (Abschnitt 4).</p>
 <p><strong>Löschung:</strong> Du kannst die Daten jederzeit selbst löschen:</p>
@@ -221,7 +224,7 @@ const LAUSCHER_LEGAL_DOCS = {
     },
     en: {
       title: "Privacy Policy",
-      updated: "Last updated: 19 November 2026",
+      updated: "Last updated: 27 November 2026",
       draftNotice: "Draft – not yet legally reviewed.",
       langNotice: "This is a translation. The German version is the legally binding one.",
       html: `
@@ -247,9 +250,12 @@ const LAUSCHER_LEGAL_DOCS = {
   <li><strong>Profile:</strong> optionally a name or nickname the app uses to address you; selected instruments or roles and training focuses; notation and display options; practice duration and break reminder; sound and mixer settings; metronome profiles, your own practice mixes and tuner settings; custom color themes; your most recent exam results (at most 25 entries).</li>
   <li><strong>Practice progress:</strong> the exercise you last chose, plus the level and options you chose for each exercise, so you can pick up where you left off after a restart. Lauscher also remembers which answers you recently found difficult (e.g. intervals you mixed up), so they come up a little more often when you practice. This information fades by itself after a few days.</li>
   <li><strong>Milestones:</strong> unlocked milestones and the counters that trigger them (e.g. number of solved tasks, practice days, passed exam areas).</li>
-  <li><strong>Device-specific:</strong> a tap latency you calibrated yourself for rhythm exercises (on this device only, not part of the profile backup).</li>
+  <li><strong>Explorer Mode:</strong> whether the simplified mode for kids and beginners is on and – if you set one up – the 4-digit parent/teacher PIN. The PIN is not stored in plain text, only as a check value (hash) the app compares your input against.</li>
+  <li><strong>Device-specific:</strong> a tap latency you calibrated yourself for rhythm exercises and the MIDI settings (on this device only, not part of the profile backup).</li>
+  <li><strong>Running exam:</strong> during an exam, the app keeps the current state (questions and answers so far) in session storage (“sessionStorage”) so that an accidental reload does not cancel the exam. This interim state is deleted when you finish or cancel the exam and disappears at the latest when the tab or app is closed.</li>
 </ul>
 <p>Beyond that, <strong>no</strong> learning history is stored: no individual answers from exercises and no session logs. The helper that brings back confused intervals and the like only exists while the app is open.</p>
+<p><strong>Homework links and QR codes:</strong> When you share an exercise or a practice mix, the app creates a link or QR code on your device. It only contains the exercise, level, options and an optional title – no profile data. This information sits in the part of the link after the “#”, which browsers do not send to the server. Where you send the link (e.g. via a messenger) is up to you; that service's privacy policy applies.</p>
 <p><strong>Purpose and legal basis:</strong> This storage is technically necessary so that the features you use work the way you set them up. The legal basis is Section 25(2) no. 2 TDDDG (German Telecommunications Digital Services Data Protection Act) and, where personal data is involved (such as a name you choose to enter), Art. 6(1)(b) GDPR.</p>
 <p><strong>Recipients:</strong> none. This data is not transmitted to me or to third parties. Android’s automatic backup to your Google account is also switched off for Lauscher; to move to a new device, use the profile backup (section 4).</p>
 <p><strong>Deletion:</strong> You can delete this data yourself at any time:</p>

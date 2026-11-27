@@ -2,7 +2,7 @@
 
 All released versions of Lauscher. New sections are created by `python3 scripts/bump-version.py`.
 
-## Unreleased
+## 0.16.0-beta (Build 12) – 2026-11-27
 
 **Added**
 - Explorer Mode for kids and music beginners (`js/explorer.js`), selectable during onboarding and in App Settings: hides advanced areas (Studio/EQ, church modes, Nashville, Capo, Circle of Fifths, advanced theory articles and higher exercise levels), keeps cadences (levels 1–2) and approachable stages across all core categories, switches exams to gentle 10-question instant-feedback runs, and adds an optional 4-digit parent/teacher PIN (stored locally as a salted hash) that protects turning off Explorer Mode and triggering an app reset. Homework links always stay unrestricted.
@@ -20,6 +20,9 @@ All released versions of Lauscher. New sections are created by `python3 scripts/
 - Notation symbols: a missed term no longer comes back sooner than intended, and getting it right on a second try no longer counts as knowing it.
 - Minor solfège: a missed degree can no longer be repeated in the very next exercise.
 - Exams no longer count toward the practice review, so missed items don't all return at once after an exam.
+
+**Changed**
+- Privacy policy updated for Explorer Mode (PIN stored only as a hash), the temporary exam state in `sessionStorage`, device-specific MIDI settings, and homework links/QR codes (data only in the `#` fragment, never sent to a server).
 
 ## 0.15.0-beta (Build 11) – 2026-11-27
 
