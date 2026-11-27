@@ -11087,7 +11087,7 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 
 /* =====================================================
-   WERKZEUGE (#viewTools) & TOOL-VORSCHAUEN (#viewTuner / #viewFreeplay)
+   WERKZEUGE (#viewTools) & WERKZEUG-HINWEISE (#viewTuner)
    ===================================================== */
 .tools-card-list {
   gap: 0.68rem;
@@ -11121,66 +11121,6 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   margin-bottom: 0;
 }
 
-.tools-launcher-icon {
-  width: 54px;
-  height: 54px;
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--icon-ink);
-  flex-shrink: 0;
-}
-
-.tools-launcher-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.12rem 0.5rem;
-  border-radius: var(--radius-pill);
-  font-size: 0.64rem;
-  font-weight: 800;
-  color: var(--raccoon-muted);
-  background-color: var(--surface-warm);
-  border: 1px solid var(--border-soft);
-}
-
-.tool-preview-view {
-  justify-content: center;
-  align-items: center;
-}
-
-.tool-preview-card {
-  width: 100%;
-  max-width: 460px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 0.65rem;
-  padding: 1.45rem 1.2rem;
-}
-
-.tool-preview-icon {
-  width: 64px;
-  height: 64px;
-  border-radius: 20px;
-}
-
-.tool-preview-title {
-  font-size: 1.12rem;
-  font-weight: 900;
-  color: var(--raccoon-dark);
-  line-height: 1.25;
-}
-
-.tool-preview-desc {
-  font-size: 0.84rem;
-  line-height: 1.45;
-  color: var(--raccoon-muted);
-  max-width: 38ch;
-}
-
 .tool-env-notice {
   font-size: 0.76rem;
   line-height: 1.4;
@@ -11198,9 +11138,6 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   color: var(--raccoon-dark);
 }
 
-.tool-preview-back-btn {
-  margin-top: 0.25rem;
-}
 
 /* =====================================================
    METRONOM-ANSICHT (#viewMetronome)
@@ -13620,7 +13557,10 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   height: 30px;
 }
 
-/* Tuner passt ohne Scrollen auf eine Seite: Zeigerinstrument nimmt den Restplatz */
+/* Tuner passt ohne Scrollen auf eine Seite (zusammengeführt, vorher über ~300 Zeilen verteilt).
+   Aufbau der Hauptkarte: Zeigerinstrument in voller Breite, Höhe zwischen Skalenbogen (300:118) und
+   ganzem Instrument (300:180) – js/tuner.js (updateTunerGaugeViewBox) passt den sichtbaren Ausschnitt an.
+   Das Spektrum ist ein schmaler Streifen; übriger Platz verteilt sich gleichmäßig. */
 #viewTuner {
   overflow-y: hidden;
   gap: 0.55rem;
@@ -13631,36 +13571,45 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   min-height: 0;
   gap: 0.4rem;
   padding: 0.6rem 0.75rem 0.7rem;
+  justify-content: space-evenly;
+  container-type: inline-size;
 }
 #viewTuner .tuner-display {
-  flex: 1 1 auto;
+  flex: 0 1 auto;
   min-height: 0;
+  justify-content: flex-start;
 }
 #viewTuner .tuner-gauge {
-  flex: 1 1 0;
-  min-height: 52px;
-  max-height: 150px;
-  width: auto;
-  height: 100%;
-  max-width: 100%;
+  flex: 0 1 auto;
+  width: 100%;
+  max-width: none;
+  height: auto;
+  aspect-ratio: auto;
+  min-height: min(38cqw, 120px);
+  max-height: min(57cqw, 250px);
 }
 #viewTuner .tuner-readout {
   flex: 0 0 auto;
   gap: 0.14rem;
 }
 #viewTuner .tuner-note-name {
-  font-size: clamp(1.75rem, 5.6vh, 2.5rem);
+  font-size: clamp(1.75rem, 6vh, 3rem);
 }
 #viewTuner .tuner-note-bubble {
   min-width: 92px;
   padding: 0.08rem 0.95rem 0.14rem;
 }
 #viewTuner .tuner-spectrum-wrap {
+  display: flex;
   flex: 0 0 auto;
+  min-height: 0;
+  max-height: none;
   padding: 0.22rem 0.35rem 0.14rem;
 }
 #viewTuner .tuner-spectrum {
-  height: clamp(44px, 9vh, 74px);
+  flex: 1 1 auto;
+  min-height: 0;
+  height: clamp(40px, 8vh, 72px);
 }
 #viewTuner .tuner-status {
   flex: 0 0 auto;
@@ -13706,10 +13655,17 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 #viewTuner .tuner-mode-btn {
   padding: 0.42rem;
 }
+/* Saiten immer in einer Zeile (auch 7-Saiter): Chips werden bei Bedarf schmaler */
+#viewTuner .tuner-strings-row {
+  flex-wrap: nowrap;
+}
 #viewTuner .tuner-string-chip {
-  min-width: 42px;
+  flex: 0 1 46px;
+  min-width: 34px;
   height: 42px;
   padding-top: 0.6rem;
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
 }
 #viewTuner .tuner-tools-row {
   flex-wrap: nowrap;
@@ -13741,27 +13697,22 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 /* Sehr flache Bildschirme: weitere Reserve */
 @media (max-height: 600px) {
+  #viewTuner .tuner-main-card {
+    justify-content: flex-start;
+  }
+  #viewTuner .tuner-gauge {
+    min-height: 56px;
+  }
   #viewTuner .tuner-spectrum {
-    height: 40px;
+    height: 30px;
   }
   #viewTuner .tuner-string-chip {
     height: 38px;
-    min-width: 38px;
     padding-top: 0.5rem;
   }
   #viewTuner .tuner-start-btn {
     height: 38px;
   }
-}
-/* Saiten immer in einer Zeile (auch 7-Saiter): Chips werden bei Bedarf schmaler */
-#viewTuner .tuner-strings-row {
-  flex-wrap: nowrap;
-}
-#viewTuner .tuner-string-chip {
-  flex: 0 1 46px;
-  min-width: 34px;
-  padding-left: 0.2rem;
-  padding-right: 0.2rem;
 }
 
 /* Tuner: Instrument- & Stimmungsauswahl im Stil der Konto-Auswahl; Liste klappt nach oben auf
@@ -13797,56 +13748,13 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 .tuner-dropdown-host .multi-dropdown-check {
   border-radius: 50%;
 }
-.tuner-dropdown-host .multi-dropdown-trigger.is-open .multi-dropdown-caret {
-  transform: none;
-}
 .tuner-dropdown-host .multi-dropdown-caret {
   transform: rotate(180deg);
 }
 .tuner-dropdown-host .multi-dropdown-trigger.is-open .multi-dropdown-caret {
   transform: rotate(0deg);
 }
-/* Kein Leerraum unter der Notenanzeige: Zeigerinstrument behält sein Seitenverhältnis
-   (schrumpft nur bei Platzmangel), das Spektrum füllt den restlichen Platz */
-#viewTuner .tuner-main-card {
-  justify-content: center;
-}
-#viewTuner .tuner-display {
-  flex: 0 1 auto;
-}
-#viewTuner .tuner-gauge {
-  flex: 0 1 auto;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 300 / 118;
-  min-height: 52px;
-  max-height: 150px;
-}
-#viewTuner .tuner-spectrum-wrap {
-  flex: 1 1 auto;
-  min-height: 52px;
-  max-height: 200px;
-  display: flex;
-}
-#viewTuner .tuner-spectrum {
-  flex: 1 1 auto;
-  height: auto;
-  min-height: 0;
-}
-@media (max-height: 600px) {
-  #viewTuner .tuner-spectrum-wrap {
-    min-height: 44px;
-  }
-  #viewTuner .tuner-spectrum {
-    height: auto;
-  }
-}
-/* Zeigerinstrument hat Vorrang; das Spektrum bekommt nur den verbleibenden Platz */
-#viewTuner .tuner-spectrum-wrap {
-  flex: 1 1 0;
-  max-height: 250px;
-}
-/* Zeigerinstrument als Fokus: klassisches Messinstrument mit Drehpunkt, Spektrum als schmaler Streifen */
+/* Zeigerinstrument: klassisches Messinstrument mit Drehpunkt */
 .tuner-needle-hub {
   fill: var(--raccoon-dark);
   stroke: var(--surface-white);
@@ -13858,80 +13766,6 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 .tuner-display.is-in-tune .tuner-needle-hub {
   fill: var(--sage-strong);
-}
-#viewTuner .tuner-display {
-  flex: 1 1 auto;
-  min-height: 0;
-  justify-content: center;
-}
-#viewTuner .tuner-gauge {
-  flex: 0 1 auto;
-  width: 100%;
-  max-width: 420px;
-  height: auto;
-  aspect-ratio: 300 / 180;
-  min-height: 70px;
-  max-height: 250px;
-}
-#viewTuner .tuner-note-name {
-  font-size: clamp(1.75rem, 6vh, 3rem);
-}
-#viewTuner .tuner-spectrum-wrap {
-  flex: 0 0 auto;
-  min-height: 0;
-  max-height: none;
-}
-#viewTuner .tuner-spectrum {
-  flex: 1 1 auto;
-  height: clamp(40px, 8vh, 72px);
-}
-#viewTuner .tuner-display {
-  flex: 0 1 auto;
-}
-/* Übrigen Platz gleichmäßig zwischen Zeiger, Spektrum, Hinweis und Start verteilen */
-#viewTuner .tuner-main-card {
-  justify-content: space-evenly;
-}
-/* Zeigerinstrument: volle Breite, Höhe zwischen Skalenbogen (300:118) und ganzem Instrument (300:180).
-   app.js (updateTunerGaugeViewBox) passt den sichtbaren Ausschnitt an. */
-#viewTuner .tuner-main-card {
-  container-type: inline-size;
-}
-#viewTuner .tuner-display {
-  flex: 1 1 auto;
-  min-height: 0;
-  justify-content: flex-start;
-}
-#viewTuner .tuner-gauge {
-  flex: 1 1 auto;
-  width: 100%;
-  max-width: none;
-  aspect-ratio: auto;
-  height: auto;
-  min-height: min(38cqw, 120px);
-  max-height: min(57cqw, 250px);
-}
-@media (max-height: 600px) {
-  #viewTuner .tuner-gauge {
-    min-height: 56px;
-  }
-  #viewTuner .tuner-main-card {
-    justify-content: flex-start;
-  }
-}
-#viewTuner .tuner-display {
-  flex: 0 1 auto;
-}
-#viewTuner .tuner-gauge {
-  flex: 0 1 auto;
-}
-@media (max-height: 600px) {
-  #viewTuner .tuner-spectrum {
-    height: 30px;
-  }
-  #viewTuner .tuner-spectrum-wrap {
-    min-height: 0;
-  }
 }
 
 /* Tuner-Erweiterungen: Anzeige-Leiste (Zeiger/Strobe), Strobe-Band, Kontext-Optionen & Sweetened-Offsets */

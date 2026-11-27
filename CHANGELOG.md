@@ -5,11 +5,17 @@ All released versions of Lauscher. New sections are created by `python3 scripts/
 ## Unreleased
 
 **Fixed**
+- Hardened imported profile backups: exam review snapshots are now structurally validated, so a manipulated backup can no longer inject markup into the exam review (e.g. via an unknown notation symbol key).
+- Custom themes only apply safe colour values; the startup script ignores anything like `url(…)` from manipulated storage.
 - Android MIDI: after sending Local Control On (`CC 122 = 127`) on exit, the app now waits briefly (USB 40 ms, Bluetooth LE 300 ms) before closing the ports, so the restore command is not lost and the keyboard no longer stays silent.
 - Tuner: the microphone now runs in the app's main audio context (like the sing-back exercises) instead of opening a second `AudioContext`, which iOS only allows a few of at a time.
 - Fixed a layout resize-oscillation glitch in "Play Intervals" (and other MIDI play exercises) on mobile/app viewports caused by animated height/padding transitions on `.bar-card` interacting with `fitExerciseLayout()` and `ResizeObserver`.
 
 **Improved**
+- Added a Content-Security-Policy: the app may only load its own files, which enforces the "no network requests" promise in the browser.
+- Profiles now carry a schema version with step-by-step migration; custom themes are stored once in the profile (the theme storage is only a render cache for the startup script).
+- Code hygiene: merged the duplicated tuner styles (same look, about 100 lines less), removed unused tool-preview styles, enabled strict mode in six smaller modules, and the project check now also reports accidental implicit globals.
+- README brought up to date (native WebAudio engine, Tools tab, MIDI, sing-back exercises, i18n layout, PWA, deployment).
 - MIDI settings: added a short tip on what to do if the instrument stays silent after a crash or an unplugged cable.
 - Stabilized the on-screen keyboard in "Play Intervals", "Play Scales & Modes" and "Play Chords" using natural C/F-anchored 12-key blocks with window hysteresis, so the keyboard stays steady while the root note moves naturally across the keys instead of sticking to the edge.
 - Kept the note-duration symbols `(♪, ♩, ♩., 𝅗𝅥)` together on one line in the Melodies "Full Dictation" card across all 10 languages.

@@ -581,7 +581,8 @@ function buildNotationSymbolSVG(svgKey, opts = {}) {
         ${buildCodaGlyphInner(92, 36, 0.68, accent)}
       `);
     default:
-      return wordCard(svgKey || "?", "", accent, 18);
+      // Unbekannter Schlüssel (z. B. aus einem importierten Prüfungsverlauf): nur als Text, nie als Markup
+      return wordCard(svgKey ? escapeHtml(String(svgKey).slice(0, 24)) : "?", "", accent, 18);
   }
 }
 

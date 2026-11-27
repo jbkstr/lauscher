@@ -8,6 +8,7 @@
 //   _tuner frei (vor dem Start wird ein laufender Tuner sicherheitshalber beendet).
 // Nichts wird aufgezeichnet oder gespeichert: Jeder Puffer wird sofort ausgewertet und überschrieben.
 // =====================================================
+"use strict";
 
 const PITCH_CAPTURE_CONFIG = Object.freeze({
   windowSize: 4096,          // ~85 ms bei 48 kHz: reicht für tiefe Männerstimmen, reagiert schneller als der Tuner

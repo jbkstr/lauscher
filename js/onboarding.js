@@ -1,6 +1,7 @@
 // =====================================================
 // WILLKOMMENS-ASSISTENT & STARTBILDSCHIRM (#welcomeOnboarding, #startupSplash)
 // =====================================================
+"use strict";
 
 const WELCOME_WIZARD_STEPS = [
   "welcomeStepLang",

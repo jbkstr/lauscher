@@ -8,6 +8,8 @@ hinter `typeof name === "function"` steckt. Diese Prüfung findet beides ohne np
 
   1. Aufrufe `name(...)` bzw. `new Name(...)`, deren Name nirgends deklariert ist
   2. `typeof name === "function"`-Guards auf Namen, die nirgends deklariert sind
+  3. Zuweisungen `name = …` an Namen, die nirgends deklariert sind (versehentliche implizite Globale,
+     mit "use strict" ein ReferenceError)
 
 Bewusst grob: Ein Name gilt als deklariert, sobald er in irgendeiner Datei als Funktion, Variable, Klasse,
 Parameter oder Destrukturierung vorkommt. Das übersieht seltene Fälle, meldet dafür praktisch nie falsch.
@@ -284,6 +286,18 @@ def find_issues(root: Path, scripts: list[str]) -> list[str]:
                 continue
             line = src.count("\n", 0, m.start()) + 1
             issues.append(f"{rel}:{line}: Guard „typeof {name} === \"function\"“ auf global nirgends deklarierten Namen")
+        # Zuweisungen an nirgends deklarierte Namen = versehentliche implizite Globale
+        # (im Sloppy Mode still, mit "use strict" ein ReferenceError)
+        for m in re.finditer(rf"(?<![.\w$])({IDENT})\s*(?:=(?![=>])|[-+*/%]=|\*\*=|\|\|=|&&=|\?\?=|\+\+|--)", code):
+            name = m.group(1)
+            if name in known:
+                continue
+            key = (rel, "=" + name)
+            if key in seen:
+                continue
+            seen.add(key)
+            line = code.count("\n", 0, m.start()) + 1
+            issues.append(f"{rel}:{line}: Zuweisung an „{name}“, aber „{name}“ ist nirgends deklariert (implizite Globale)")
     return issues
 
 
