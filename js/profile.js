@@ -2239,7 +2239,8 @@ function importUserProfileJSON(rawText, options = {}) {
       ));
       if (!confirmed) return { ok: false, cancelled: true };
     }
-    state.profile = sanitizeUserProfile(candidate);
+    // Sicherungen älterer Versionen schrittweise umbauen (ohne Themes dieses Geräts: der Import ersetzt alles)
+    state.profile = sanitizeUserProfile(migrateUserProfileSchema(candidate));
     if (typeof syncRetroactiveAchievements === "function") {
       syncRetroactiveAchievements({ save: false });
     }

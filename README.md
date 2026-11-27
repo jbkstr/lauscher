@@ -1,156 +1,136 @@
 # Lauscher • Ear Training, Music Theory & Studio Listening
 
-**Lauscher** (*Listen a little closer.*) is an interactive, ad-free, and tracker-free web application for musical ear training, music theory, sight-reading, vocal warmup, and studio mixing ear training — running directly in the browser with no backend server, no login, and no score pressure.
+**Lauscher** (*Listen a little closer.*) is an ad-free, tracker-free web app for ear training, music theory, sight-reading, singing and studio listening. It runs entirely in the browser: no backend, no login, no analytics, no network requests. It also installs as an offline-capable PWA and ships as an Android app (Capacitor).
+
+Web app: **https://jbkstr.github.io/lauscher/**
 
 ---
 
 ## Table of Contents
 
 - [Features Overview](#features-overview)
-- [Knowledge Hub & Interactive Reference](#knowledge-hub--interactive-reference)
-- [Audio Engine & Two-Tab Mixer](#audio-engine--two-tab-mixer)
-- [Onboarding, Languages, Themes & Account](#onboarding-languages-themes--account)
+- [Tools](#tools)
+- [Knowledge Hub](#knowledge-hub)
+- [Audio Engine & Samples](#audio-engine--samples)
+- [Languages, Themes & Account](#languages-themes--account)
 - [Project Structure](#project-structure)
-- [Run Locally & Test on Mobile](#run-locally--test-on-mobile)
-- [GitHub & GitHub Pages Notes](#github--github-pages-notes)
+- [Run Locally & Test](#run-locally--test)
+- [Deployment & Android App](#deployment--android-app)
 
 ---
 
 ## Features Overview
 
-### 9 Core Training & Exam Modules
+### 9 training categories
 
-Every training area includes graded difficulty levels, listening aids (A/B comparison, root/bass reveal, tonic cadence context), **Listen-Only Mode**, and live tempo control:
+Every category has graded levels, listening aids (A/B comparison, root/bass reveal, tonic context), a **Listen-Only Mode** and tempo control:
 
-1. **Intervals & Chords**
-   - Melodic intervals (**ascending** and **descending**), **harmonic intervals**, and **root-pad drone** training across 3 levels (Foundations, Diatonic Major, All 13 Chromatic Intervals / up to the 9th).
-   - **Chord quality & inversion recognition** across 4 levels — from basic triads and root-position/inverted voicings up to seventh chords, jazz extensions (`maj9`, `7♭9`, `7♯9`), ascending/descending arpeggios, and block chords in all 12 keys.
-2. **Cadences**
-   - Identify harmonic functions and chord progressions across 4 levels (`I–IV–V–vi` through diatonic degrees, secondary dominants, and tritone substitution `♭II7`).
-   - Selectable target position (**Bar 4** or **Random Bar 1–4**), key mode, and meter (`4/4`, `3/4`, `6/8`, `5/4`, or random).
-   - **Minor cadences** (`cadence-minor`): the same exercises in minor keys across 4 levels (`i–iv–V–VI` through natural vs. harmonic dominant `v`/`V`, `ii°`, `III`, `VII`, Neapolitan `N6`, minor ii–V `iiø7` and `♭II7`), with matching exam levels.
-3. **Solfège**
-   - Identify all 7 scale degrees (`Do–Ti` / `1–7`) on an interactive keyboard inside a `I–vi–IV–V` harmonic context across 6 levels (from fixed C Major single-octave up to rotating keys and multi-octave spans after every answer).
-4. **Scales & Modes**
-   - **Mode recognition:** Ionian, Dorian, Phrygian, Lydian, Mixolydian, Aeolian, Locrian, and Harmonic Minor (including transposed tonal centers).
-   - Mode names include their degree of the major scale (e.g. *Dorian (2)*); an optional **Root Pad** chip plays the mode's root as a sustained strings pad underneath.
-   - **Characteristic color tones:** Hear defining modal intervals (`♯4`, `♭7`, `♮6`, `♭2`, `♭5`, `♯7`).
-   - **Modal cadences & vamps:** Recognize iconic modal loops (`i–IV`, `I–♭VII`, `I–II`, `i–♭II`, etc.).
-5. **Melodies**
-   - 5 progressive levels from single-octave `Do–Fa` and `Sol–Do` tetrachords (`4–6` notes) to full-scale randomized keys, multi-octave expressive phrases, and **Level 5 Combined Melody Dictation** (identifying both pitch and rhythmic note durations together). The phrase is shown on a real staff (clef, key signature, meter, bar lines): unsolved notes appear as rhythm slashes on the middle line — in dictation even without stems — so no pitch is given away before you answer.
-6. **Rhythm**
-   - **Meter & Time Signatures:** `4/4`, `3/4`, `2/4`, `6/8`, `5/4`, `7/8`.
-   - **4-Beat Rhythm Dictation:** Quarter notes, eighths, rests, offbeats, triplets, sixteenths, dotted values, and syncopation.
-   - **Tap-Back Pad:** Tap phrases back live, including **Blind Mode** where the click mutes during your turn.
-   - **Tap from Notation:** the rhythm is written on a one-line staff (no demo); after a 1-bar count-in you tap it along with the metronome (Level 4 without metronome). A timeline shows exact / close / missed notes and extra taps; tolerance is capped at 35 % of the shortest note gap.
-   - Rhythm dictation and tap exercises are displayed on a one-line percussion staff instead of tiles.
-   - **Groove, Accents & Micro-Timing:** Groove feel, offbeat accent detection, and timing offsets down to `±28 ms`.
-7. **Notation & Sight-Reading**
-   - 6 progressive levels spanning **Treble**, **Bass**, and **Alto** clefs — from notes inside the 5-line staff up to `±3` ledger lines, accidentals (`♯/♭`), **all 12 key signatures**, natural signs (`♮`), an interactive keyboard, Skip button, and a 6-note scrolling queue.
-   - **Chord Reading:** stacked triads and seventh chords (root position & inversions, treble/bass) — tap all chord tones in any order.
-   - **Grand Staff:** treble and bass clef at once; notes jump between both staves.
-8. **Production (Studio & Mixing)**
-   - **Pure Sine Frequency Recognition:** From `63 Hz` (sub-bass) up to `12 kHz` (air band) across 5, 8, or 13 bands.
-   - **Pink Noise EQ Boost:** Hear broad and narrow peaking EQ boosts (up to **13 ISO third-octave bands** with `Q 4.5` at `+3 dB`), complete with loudness matching, live A/B bypass, and a built-in **-14 dBFS safety limiter**.
-9. **Category Exam Mode**
-   - Dedicated graded exams for all **9 training categories** with selectable **10, 20, or 50 questions**.
-   - Supports **Instant Feedback** or **Blind Exam Mode**, configurable replay limits, partial-credit scoring (including split pitch/rhythm evaluation for combined melody dictation), post-exam **Audio Review**, and saved results in your local Exam History.
+1. **Intervals** – melodic (ascending/descending) and harmonic intervals, root-pad drone training, plus **Sing Intervals** (sing the answer into the microphone) and **Play Intervals** (on a MIDI keyboard or the on-screen keyboard).
+2. **Chords** – chord quality and inversions from triads to seventh chords and extensions, plus **Play Chords** with bass-note checking for inversions.
+3. **Cadences** – harmonic functions and progressions in major and minor (secondary dominants, tritone substitution, Neapolitan), selectable meter and target bar.
+4. **Solfège** – all 7 scale degrees (`Do–Ti` / `1–7`) in a harmonic context on an interactive keyboard, plus **Sing Degrees**.
+5. **Scales & Modes** – church modes, harmonic/melodic minor and pentatonics, characteristic colour tones, modal vamps, plus **Play Scales & Modes**.
+6. **Melodies** – from short tetrachords to full dictation of pitch and rhythm, shown on a real staff.
+7. **Rhythm** – meters, rhythm dictation, tap-back and tap-from-notation (latency-compensated), groove, accents and micro-timing.
+8. **Notation & Sight-Reading** – treble, bass and alto clef, ledger lines, key signatures, chord reading, grand staff and notation symbols.
+9. **Production** – sine frequency recognition and pink-noise EQ boosts with loudness matching and A/B bypass.
 
-### Practice Tools
+**Category exams** for all 9 categories: 10/20/50 questions, instant or blind feedback, partial credit, audio review afterwards and a local exam history.
 
-- **Vocal Warmup (`5-Minute Warmup`):** 4 guided phases (*1 Breath & Body*, *2 Resonance & Tone*, *3 Arpeggios & Range*, *4 Vowels & Choir Blend*) with SATB / Mixed Choir range presets, Piano / Voice / Piano+Voice accompaniment, BPM slider (`65–135 BPM`), and localized vowel drills across all languages.
-- **Dedicated Tools Tab (`Tools`):** Houses standalone practice utilities separated from the exercises — **Metronome**, **Chromatic Tuner**, plus a prepared view for **Free Play (Coming Soon)**.
-- **Chromatic Tuner:** Live pitch detection via microphone (McLeod pitch method, sub-cent accurate), needle gauge (±50 cents with in-tune zone), live frequency spectrum with a pointer at the detected pitch, and a celebration animation once a note sits cleanly in tune. Switch between **automatic** detection of all notes and a **single target note**; play pure **reference tones**; adjustable concert pitch (`A = 430–450 Hz`). Presets for guitar (Standard, half step down, Drop D, DADGAD, Open G, Open D), electric guitar (incl. Drop C & 7-string), electric bass (4/5-string, Drop D, half step down), mandolin, banjo (Open G, Double C), violin, viola, cello, double bass (orchestral & solo) and voice. Tuned strings get a check mark; the screen stays awake while tuning. Requires HTTPS or `localhost` (and the `RECORD_AUDIO` permission in the Android app, added automatically by `scripts/sync-android.sh`).
-- **Metronome:** Built-in precision metronome with **Tap Tempo**, `30–240 BPM` slider, visual pendulum orb, `1–16` customizable beats (accent, normal, mute), subdivisions (`1×–4×` plus **Shuffle** with a swung triplet feel), meter chips (`2/4`, `3/4`, `4/4`, `5/4`, `6/8`, `7/8`), master volume control, and savable meter/BPM profiles.
-- **Invisible Session Memory:** Mixed-up intervals, chords, inversions, modes, solfège degrees, and notes are quietly worked back into the next 2–5 exercises (never back to back) until you get them right on the first try twice. It lives only in memory for the current session: no score, no display, nothing stored.
+**MIDI input** (USB & Bluetooth LE): play sight-reading, solfège, melodies, rhythm taps, exams and the MIDI play exercises on a digital piano (Web MIDI in Chrome/Edge/Firefox, native plugin in the Android app). Lauscher can switch off the keyboard's own sound (Local Control) while it plays its own sounds.
+
+**Invisible session memory:** items you got wrong come back within the next few exercises until you answer them right – only in memory, nothing is stored or shown.
 
 ---
 
-## Knowledge Hub & Interactive Reference
+## Tools
 
-Inside the **Knowledge** (`Wissen`) tab, interactive audio examples accompany every topic across three sections:
+The **Tools** tab holds standalone utilities:
 
-- **Theory (12 interactive modules):** Intervals, Cadences, Physics & Sound, Solfège & Degrees, Rhythm & Meters, Singing & Voice, Modes & Scales, Keys & Signatures, **Interactive Circle of Fifths**, Sing & Play, Notation & Clefs, and Arranging.
-- **Articles (9 deep-dive guides):** Ear training fundamentals, communicating about music, the 4-chord progression, harmonic gravity, minor plagal cadences, acoustic physics & waves, songwriting tricks, functional harmony, and world music traditions.
-- **Instruments (8 families):** Strings, Woodwinds, Brass, Keyboards, Plucked Instruments, Rhythm & Percussion, Electronic Instruments, and Ensembles & Orchestras.
+- **Metronome** – tap tempo, `30–240 BPM`, accents, subdivisions incl. shuffle, meter chips and savable profiles.
+- **Chromatic Tuner** – live pitch detection via microphone, needle and strobe display, spectrum, reference tones, adjustable concert pitch and presets for many string instruments and voice. Needs HTTPS or `localhost`.
+- **Free Play (Sound Lab)** – play all instruments freely, with a live chord/inversion analyser for MIDI input.
+- **Guitar Fretboard**, **Circle of Fifths**, **Nashville Number System** and **Capo Transposer**.
 
----
-
-## Audio Engine & Two-Tab Mixer
-
-- **Custom Sample Engine ([`audio.js`](audio.js)):** Powered by **Tone.js (`14.8.49`)** and `EarLabSampledInstrument` using WebAudio buffers decoded from **96 embedded DAW studio samples** (`89` across 6 melodic instrument packs: `piano`, `guitar`, `strings`, `brass`, `voice`, `bass`, plus `7` percussion samples), with automatic WebAudio synth fallback.
-- **Two-Tab Mixer (`Volumes` & `Room Reverb`):**
-  - **Volumes Tab:** Live faders for all 6 instrument tracks plus instant mix presets (*Duo (Piano & Guitar)*, *Ensemble*, *Orchestra*, *Solo Piano*, *Custom*).
-  - **Room Reverb Tab:** Switch global room ambience between **Dry (`0%`)**, **Natural (`24%` piano default)**, and **Concert Hall (`48%` piano default)**, or fine-tune reverb individually per instrument (`Piano`, `Guitar`, `Strings`, `Brass`, `Voice`, `Bass`) with inline sound-preview (`▶`) buttons.
-- **Home Quick-Mixes:** Launch saved favorite mix setups directly from the home quick-mix bar.
+There is also a guided **vocal warmup** with range presets and accompaniment.
 
 ---
 
-## Onboarding, Languages, Themes & Account
+## Knowledge Hub
 
-- **6-Step Guided Onboarding:** First launch walks new users step by step (`1 of 6` to `6 of 6`) through **Language**, **Theme / Look** (with a note that custom themes can be created anytime), **Auto-Advance after correct answers**, **Musician Profile**, **Training Focus**, and a personalized welcome screen.
-- **10 Languages & Full RTL Support:** Instant live UI and knowledge-hub switching between **Deutsch (`de`)**, **English (`en`)**, **Español (`es`)**, **Français (`fr`)**, **Italiano (`it`)**, **Polski (`pl`)**, **Türkçe (`tr`)**, **Українська (`uk`)**, **اردو (`ur`)**, and **العربية (`ar`)** (full RTL layout for Urdu & Arabic including mirrored swipe direction) — plus automatic or manual switching between German (`H / B / Cis`) and International (`B / Bb / C#`) note naming.
-- **4 Built-In Themes + 3 Custom RGBA Theme Slots:**
-  - *Waldlichtung & Salbei*, *Morgentau & Küste*, and *Abenddämmerung* — each with dedicated **Light**, **Dark**, and **System** appearance modes.
-  - **Metal** — a sleek, dark obsidian black theme (`#090A0D`) built for a clean, adult look with dual accents (**Cold Steel Blue** & **Crimson Red**).
-  - **Custom Theme Studio:** 3 persistent user slots with live RGBA/color-pad customization per UI color token starting from any built-in template.
-- **Account (`Konto`) & Break Reminder:**
-  - Multi-select dropdown menus with tag pills for **Your Instruments** and **Training Focus**. *(Lauscher mascot looks are temporarily hidden.)*
-  - **Background Break Reminder (`5–30 min`):** Silent background exercise timer (default `15 min`, quick presets `5 / 10 / 15 / 20 / 25 min`) that gently prompts for an ear break without showing a distracting countdown during practice.
-- **100% Local Privacy (`localStorage`):** No accounts, analytics, or external storage. Export, restore, or reset your complete profile, mixes, custom themes, and exam history anytime via **`lauscher-profil-YYYY-MM-DD.json`**.
+The **Knowledge** tab contains interactive theory modules with audio examples (intervals, cadences, sound physics, solfège, rhythm, modes, keys, circle of fifths, notation and more), in-depth articles, instrument guides and a notation reference – in all 10 languages.
+
+---
+
+## Audio Engine & Samples
+
+- **[`audio.js`](audio.js)** is a native WebAudio engine (no external libraries): sampled instruments (`EarLabSampledInstrument`) with a synth fallback, master compressor and soft clipper, generated convolution reverb, a global voice budget and click-free release.
+- **Instruments:** piano, guitar, strings, brass, voice, bass and percussion. Piano and guitar have velocity layers.
+  - Piano: *Accurate-Salamander Grand Piano* (CC BY 3.0), guitar: *Meta Open Sound – Steel Guitar* (CC0). Full credits are in the in-app licenses ([`licenses.html`](licenses.html)).
+- **The audio samples are not part of this public repository.** They live in a private samples repo and are fetched with `scripts/samples.sh pull`.
+- The mixer sets levels and reverb per instrument; saved mixes can be launched from the home screen.
+
+---
+
+## Languages, Themes & Account
+
+- **10 languages:** Deutsch, English, Español, Français, Italiano, Polski, Türkçe, Українська, اردو and العربية, with full RTL layout for Urdu and Arabic, plus German (`H / B / Cis`) or international (`B / Bb / C#`) note names.
+- **Themes:** 6 built-in themes (*Waldlichtung*, *Morgentau*, *Abenddämmerung*, *Konzertsaal*, *Metal*, *Mitternacht*) with light/dark/system modes, plus 3 custom theme slots.
+- **Account:** musician profile, training focus, break reminder, milestones and musician titles.
+- **100 % local:** everything stays in `localStorage`. Back up, restore or reset your whole profile (practice progress, exam history, milestones, mixes, themes) as `lauscher-profil-YYYY-MM-DD.json`.
 
 ---
 
 ## Project Structure
 
+All JavaScript files are classic scripts that `index.html` loads in a fixed order and that share one global scope – no framework, no npm, no build step, no external libraries.
+
 | File / Folder | Purpose |
 | :--- | :--- |
-| [`index.html`](index.html) | Main HTML structure (views, onboarding wizard, modals, navigation) |
-| [`styles.css`](styles.css) | Complete UI styling, responsive layout, RTL support, and all Light/Dark/Metal/Custom theme tokens |
-| [`app.js`](app.js) | Core app logic, exercise & exam generators, history/swipe navigation, mixer, onboarding, and Account/Theme studio |
-| [`audio.js`](audio.js) | `AudioEngine`, `EarLabSampledInstrument`, per-instrument reverb sends, limiter, pink-noise EQ & percussion |
-| [`i18n.js`](i18n.js), [`i18n-fr.js`](i18n-fr.js), [`i18n-pl.js`](i18n-pl.js), [`i18n-uk.js`](i18n-uk.js), [`i18n-ur.js`](i18n-ur.js) | Multilingual UI strings, musical terminology, and RTL localization (`DE / EN / FR / PL / UK / UR`) |
-| [`knowledge.js`](knowledge.js), [`knowledge-en.js`](knowledge-en.js), [`knowledge-es.js`](knowledge-es.js), [`knowledge-fr.js`](knowledge-fr.js), [`knowledge-it.js`](knowledge-it.js), [`knowledge-pl.js`](knowledge-pl.js), [`knowledge-tr.js`](knowledge-tr.js), [`knowledge-uk.js`](knowledge-uk.js), [`knowledge-ur.js`](knowledge-ur.js), [`knowledge-ar.js`](knowledge-ar.js) | Localized knowledge modules, articles, instrument guides & Circle of Fifths content across all 10 languages |
-| [`fonts/Andika/`](fonts/Andika/) | App font **Andika** by SIL International (SIL Open Font License, see `OFL.txt`) |
-| [`samples/`](samples/) | Pre-processed Base64 JS instrument & percussion bundles (`*-bundle.js`) for instant browser audio without CORS errors |
-| [`lauscher-mobile.html`](lauscher-mobile.html) | Self-contained single-file bundle (CSS, JS samples & app code inline) for quick mobile/offline device testing — **generated, do not edit by hand** |
-| [`scripts/build-mobile-bundle.py`](scripts/build-mobile-bundle.py) | Rebuilds `lauscher-mobile.html` from `index.html` and all source files (Python standard library only) |
-| `daw-sampling/` | Raw DAW stem source material (`exports/*.wav`, MIDI templates, `process_samples.py`) — **not needed by the browser** |
+| [`index.html`](index.html) | Markup for all views, modals and navigation, plus a small inline script that applies theme and language before the first paint |
+| [`styles.css`](styles.css) | All styling; themes via CSS variables and `data-theme` / `data-appearance` / `data-lang` |
+| [`app.js`](app.js) | Entry point: initialisation on `DOMContentLoaded` |
+| [`js/`](js/) | App modules – e.g. `catalogs.js` (catalogs & profile storage), `state.js`, `generators.js`, `exercises.js`, `playback.js`, `exam.js`, `tuner.js`, `midi.js`, `freeplay.js`, `fretboard.js` |
+| [`audio.js`](audio.js) | WebAudio engine |
+| [`i18n.js`](i18n.js) + [`i18n/`](i18n/) | Translation runtime; translations are co-located (all 10 languages per key) in `i18n/*.js` |
+| [`knowledge.js`](knowledge.js), `knowledge-xx.js` | Knowledge hub content (German source, other languages lazy-loaded) |
+| [`legal.js`](legal.js) | Privacy policy, terms and open-source licenses (also used by `privacy.html`, `terms.html`, `licenses.html`) |
+| [`version.js`](version.js) | Single source of the version name and build number |
+| [`sw.js`](sw.js), [`manifest.webmanifest`](manifest.webmanifest) | PWA: offline cache and install manifest (`sw.js` is generated by `scripts/build-sw.py`) |
+| [`fonts/Andika/`](fonts/Andika/) | App font **Andika** by SIL International (SIL Open Font License) |
+| `samples/` | Instrument bundles (`*-bundle.js`, Base64, from the private samples repo) and the mascot graphics |
+| [`scripts/`](scripts/) | Project check, logic tests, mobile bundle, service worker, Android sync, version bump and sample tooling |
 
 ---
 
-## Run Locally & Test on Mobile
+## Run Locally & Test
 
-**Easiest on macOS:** double-click [`Start-Lauscher.command`](Start-Lauscher.command). It starts a small local web server and opens the app in your browser (close the Terminal window to stop it).
-
-> Don't open `index.html` directly via double-click (`file://`): browsers such as Chrome block loading the app font (Andika) from local files.
-
-Because all studio samples ship as JS bundles, any static HTTP server works out of the box (no Node.js/npm build step required):
+**On macOS:** double-click [`Start-Lauscher.command`](Start-Lauscher.command). Or start any static web server:
 
 ```bash
 python3 -m http.server 8000
 ```
 
-Then open `http://localhost:8000` in your browser.
+Then open `http://localhost:8000`. Don't open `index.html` via `file://` – browsers block the font files there.
 
-- **Single-file bundle for mobile testing:** [`lauscher-mobile.html`](lauscher-mobile.html) inlines all CSS, sample bundles, and app scripts into a single HTML file and loads `Tone.js` locally from [`tone.js`](tone.js) (keep `tone.js` next to `lauscher-mobile.html`). *(On iOS, open the HTML file via **Safari** over an HTTPS/local web server URL or a WebView wrapper rather than iOS QuickLook.)*
-- **Rebuild the bundle after every change** to `index.html`, `styles.css`, any `.js` file, or the fonts (fonts referenced in `styles.css` are embedded as Base64):
+In a fresh checkout, fetch the samples first (needs access to the private samples repo):
 
 ```bash
-python3 scripts/build-mobile-bundle.py
+scripts/samples.sh pull
 ```
 
-  Use `python3 scripts/build-mobile-bundle.py --check` to verify the bundle is up to date (exit code `1` if it is outdated).
+**Project check & logic tests** (file references, JS syntax, undefined names, dead DOM IDs, translation parity, PWA files, logic tests):
+
+```bash
+python3 scripts/check-project.py
+```
+
+**Single-file bundle:** `scripts/build-mobile-bundle.py` builds `lauscher-mobile.html`, a self-contained file with all CSS, JS, fonts and samples inline (not committed, because it contains the samples). `--check` tells you whether it is up to date.
 
 ---
 
-## GitHub & GitHub Pages Notes
+## Deployment & Android App
 
-For deploying via **GitHub Pages**, the large raw audio source files in `daw-sampling/` (~199 MB) are **not** required. The repository's `.gitignore` already excludes them:
-
-```gitignore
-daw-sampling/
-.DS_Store
-```
-
-Then enable **Settings → Pages → Deploy from a branch (`main` / `root`)** in your GitHub repository to launch the app directly over HTTPS on desktop, Android, and iOS.
+- **GitHub Pages:** every push to `main` runs [`.github/workflows/pages.yml`](.github/workflows/pages.yml). It runs the project check, fetches the samples with a read-only deploy key and publishes the app. Nothing goes live if the check fails.
+- **Android:** the Capacitor project lives outside this repo. [`scripts/sync-android.sh`](scripts/sync-android.sh) copies the web files, installs the native plugins (microphone, MIDI, file system, share) and syncs the project.
+- **Versions:** bumped only with `python3 scripts/bump-version.py`; see [`CHANGELOG.md`](CHANGELOG.md).

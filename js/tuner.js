@@ -1620,15 +1620,18 @@ async function startTunerSession() {
     }
 
     // 2) Browser / iOS / WebView: getUserMedia ohne OS-DSP + universeller Bandpass (25 Hz – 4,2 kHz)
+    //    im Haupt-AudioContext der Engine (wie js/pitch-capture.js): ein Context für Wiedergabe und
+    //    Aufnahme – iOS erlaubt nur wenige gleichzeitig, und die AudioSession gilt für alle.
+    //    Synchron vor dem ersten await entsperren, damit die Nutzer-Geste (iPhone) noch zählt.
     setTunerCaptureSession(true);
+    if (typeof unlockWebAudioSync === "function") unlockWebAudioSync();
+    const ctx = audioEngine?.getRawAudioContext?.() || null;
+    if (!ctx || ctx.state === "closed") throw new Error("No AudioContext");
     const { stream, bluetoothMic } = await requestRawTunerMediaStream();
     pendingStream = stream;
     if (state.currentView !== "tuner") {
       return;
     }
-    const Ctx = window.AudioContext || window.webkitAudioContext;
-    const ctx = _tuner.ctx && _tuner.ctx.state !== "closed" ? _tuner.ctx : new Ctx();
-    _tuner.ctx = ctx;
     // resume() kann auf iOS hängen bzw. der Kontext "interrupted" sein → mit Zeitlimit abwarten
     if (ctx.state === "suspended" || ctx.state === "interrupted") {
       await Promise.race([
@@ -1706,10 +1709,6 @@ async function startTunerSession() {
     }
     if (!_tuner.running) {
       setTunerCaptureSession(false);
-      if (_tuner.ctx && !_tuner.analyser) {
-        try { _tuner.ctx.close(); } catch (_) {}
-        _tuner.ctx = null;
-      }
     }
     if (name === "NotAllowedError" || name === "SecurityError") {
       setTunerStatus(tr("Mikrofon-Zugriff verweigert – bitte in den Browser- bzw. App-Einstellungen erlauben.", "Microphone access denied — please allow it in your browser or app settings."), "warn");
@@ -1777,11 +1776,8 @@ function stopTunerSession() {
   releaseTunerMicStream();
   stopTunerReference();
   releaseTunerWakeLock();
-  if (_tuner.ctx && _tuner.ctx.state !== "closed") {
-    const ctx = _tuner.ctx;
-    _tuner.ctx = null;
-    try { ctx.close(); } catch (_) {}
-  }
+  // Der AudioContext gehört der Engine und bleibt offen (nur die Knoten wurden oben getrennt)
+  _tuner.ctx = null;
   resetTunerTrackingState(performance.now());
   setTunerBluetoothNotice(false);
   const display = document.getElementById("tunerDisplay");
@@ -2330,7 +2326,6 @@ function stopTunerReference() {
     nodes.gain.gain.cancelScheduledValues(t);
     nodes.gain.gain.setTargetAtTime(0, t, 0.03);
     nodes.oscs.forEach(o => { try { o.stop(t + 0.2); } catch (_) {} });
-    if (nodes.ownCtx) setTimeout(() => { try { nodes.ctx.close(); } catch (_) {} }, 400);
   } catch (_) {}
 }
 
@@ -2339,14 +2334,10 @@ async function playTunerReference(midi) {
   const prefs = getTunerPrefs();
   const strIdx = getTunerTargetStringIndex(prefs, midi);
   const freq = getTunerTargetFreq(midi, prefs, strIdx);
-  // Läuft der Tuner, klingt der Ton im Mikrofon-Kontext; sonst im (synchron entsperrten) Haupt-Kontext
-  // der App. So entsteht pro Tipp kein neuer AudioContext (iOS erlaubt nur wenige gleichzeitig).
-  const ownCtx = false;
-  let ctx = (_tuner.running && _tuner.ctx && _tuner.ctx.state !== "closed") ? _tuner.ctx : null;
-  if (!ctx) {
-    if (typeof prepareAudioNonBlocking === "function") prepareAudioNonBlocking();
-    ctx = audioEngine?.getRawAudioContext?.() || null;
-  }
+  // Der Ton klingt im (synchron entsperrten) Haupt-Kontext der App, den auch das Tuner-Mikrofon nutzt.
+  // So entsteht pro Tipp kein neuer AudioContext (iOS erlaubt nur wenige gleichzeitig).
+  if (typeof prepareAudioNonBlocking === "function") prepareAudioNonBlocking();
+  const ctx = audioEngine?.getRawAudioContext?.() || null;
   if (!ctx || ctx.state === "closed") return;
   if (ctx.state === "suspended" || ctx.state === "interrupted") {
     try { Promise.resolve(ctx.resume()).catch(() => {}); } catch (_) {}
@@ -2372,7 +2363,7 @@ async function playTunerReference(midi) {
     o.stop(t0 + dur + 0.1);
     return o;
   });
-  _tuner.refNodes = { ctx, gain, oscs, ownCtx };
+  _tuner.refNodes = { ctx, gain, oscs };
   _tuner.refUntil = performance.now() + (dur + 0.25) * 1000;
   const btn = document.getElementById("tunerRefBtn");
   btn?.classList.add("is-playing");
@@ -2380,7 +2371,6 @@ async function playTunerReference(midi) {
     btn?.classList.remove("is-playing");
     if (_tuner.refNodes?.oscs === oscs) {
       _tuner.refNodes = null;
-      if (ownCtx) { try { ctx.close(); } catch (_) {} }
     }
   }, (dur + 0.2) * 1000);
 }

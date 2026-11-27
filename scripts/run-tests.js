@@ -920,6 +920,99 @@ runTest("Doppelsystem (Grand Staff): Stufen 1–5 erzeugen gültige ein- und zwe
   }
 });
 
+// =====================================================
+// Profil-Schema, Theme-Speicher & Härtung gegen manipulierte Sicherungen
+// =====================================================
+runTest("Profil-Schema: Migration 1 → 2 & Theme-Speicher ist nur noch Darstellungs-Cache", () => {
+  const ls = sb.localStorage;
+  const PROFILE_KEY = getLex("PERSONAL_PROFILE_STORAGE_KEY");
+  const THEMES_KEY = getLex("CUSTOM_THEMES_STORAGE_KEY");
+  const CURRENT = getLex("PROFILE_SCHEMA_VERSION");
+  const legacyTheme = { id: "custom_2", slotIndex: 1, name: "Altes Theme", colors: { bgBase: "#102030", sage: "#33aa66" } };
+  ls.setItem(PROFILE_KEY, JSON.stringify({ name: "Alt", customThemes: [null, null, null] }));
+  ls.setItem(THEMES_KEY, JSON.stringify([null, legacyTheme, null]));
+
+  // Schema 1: Lücke im Profil wird einmalig aus dem Alt-Speicher gefüllt
+  const migrated = sb.loadUserProfile();
+  assert.equal(migrated.schemaVersion, CURRENT);
+  assert.equal(migrated.name, "Alt");
+  assert.equal(migrated.customThemes[1]?.name, "Altes Theme");
+
+  // Speichern: Profil hält die Farben, der Theme-Speicher nur noch, was das <head>-Skript braucht
+  sb.saveUserProfile(migrated);
+  const storedProfile = JSON.parse(ls.getItem(PROFILE_KEY));
+  assert.equal(storedProfile.schemaVersion, CURRENT);
+  assert.ok(storedProfile.customThemes[1]?.colors?.bgBase, "Profil soll die Grundfarben enthalten");
+  const cache = JSON.parse(ls.getItem(THEMES_KEY));
+  assert.ok(cache[1]?.cssVars && cache[1].metaBg, "Cache soll CSS-Variablen & metaBg enthalten");
+  assert.equal(cache[1].colors, undefined, "Cache soll keine Grundfarben mehr doppelt speichern");
+
+  // Schema 2: Der Cache wird beim Laden nicht mehr gelesen (gelöschtes Theme kommt nicht zurück)
+  ls.setItem(PROFILE_KEY, JSON.stringify({ ...storedProfile, customThemes: [null, null, null] }));
+  ls.setItem(THEMES_KEY, JSON.stringify([null, legacyTheme, null]));
+  assert.equal(sb.loadUserProfile().customThemes[1], null);
+
+  // Import einer alten Sicherung: wird migriert, aber nie mit Themes dieses Geräts gemischt
+  const imported = sb.migrateUserProfileSchema({ name: "Backup" });
+  assert.equal(imported.schemaVersion, CURRENT);
+  assert.equal(imported.customThemes, undefined);
+  ls.removeItem(PROFILE_KEY);
+  ls.removeItem(THEMES_KEY);
+});
+
+runTest("Härtung: Prüfungs-Snapshots aus Sicherungen werden strukturell bereinigt", () => {
+  const melody = {
+    type: "melody", activeBpm: 92, melodyStyle: "dictation", melodyPulse: true, beatsPerBar: 4,
+    targetSlots: [{ syllable: "Do", noteName: "C4", beatOffset: 0, durationBeats: 1, rhythmKey: "q", velocity: 0.8 }],
+    chosenSlots: [{ syllable: "Re", noteName: "D4", beatOffset: 0, durationBeats: 1, rhythmKey: "q", velocity: 0.8 }]
+  };
+  assert.deepEqual(JSON.parse(JSON.stringify(sb.sanitizeExamAudioSnapshot(melody))), melody, "gültige Snapshots bleiben unverändert");
+  const cadence = { type: "cadence", currentKey: "F#", activeTimeSig: "6/8", chosenKey: "ii-V-I", targetKey: "IV-V-I", rootMidi: 66 };
+  assert.deepEqual(JSON.parse(JSON.stringify(sb.sanitizeExamAudioSnapshot(cadence))), cadence);
+
+  const evil = JSON.parse('{"type":"notation-symbols","svgKey":"<img src=x onerror=alert(1)>","promptText":"ok","__proto__":{"polluted":1},"bad key":1,"deep":{"a":{"b":{"c":{"d":{"e":1}}}}},"n":1e999}');
+  const clean = sb.sanitizeExamAudioSnapshot(evil);
+  assert.equal(clean.svgKey, undefined, "Markup in Bezeichner-Feldern fliegt raus");
+  assert.equal(clean.promptText, "ok");
+  assert.equal(clean["bad key"], undefined);
+  assert.equal(({}).polluted, undefined);
+  assert.equal(clean.n, undefined, "Unendlich ist kein gültiger Zahlenwert");
+  assert.equal(clean.deep.a.b.c, undefined, "Verschachtelung ist begrenzt");
+  assert.equal(sb.sanitizeExamAudioSnapshot("x"), null);
+  assert.equal(sb.sanitizeExamAudioSnapshot([1, 2]), null);
+  assert.equal(sb.sanitizeExamAudioSnapshot({ tapsMs: new Array(5000).fill(1) }).tapsMs.length, 128);
+
+  // Auch ein unbekannter Symbol-Schlüssel wird im SVG nur als Text gezeigt
+  const svg = sb.buildNotationSymbolSVG("<b>x</b>", { compact: true });
+  assert.ok(!svg.includes("<b>"), "unbekannter svgKey darf kein Markup erzeugen");
+});
+
+runTest("Härtung: Eigene Themes setzen nur harmlose CSS-Variablen (JS & <head>-Skript gleich)", () => {
+  const templates = getLex("CUSTOM_THEME_TEMPLATES");
+  for (const [tplKey, colors] of Object.entries(templates)) {
+    const built = sb.buildDerivedCustomThemeVars(colors);
+    for (const [prop, val] of Object.entries(built.cssVars)) {
+      assert.ok(sb.isSafeCustomThemeCssVar(prop, val), `Vorlage ${tplKey}: ${prop} = ${val} würde verworfen`);
+    }
+    assert.ok(/^#[0-9a-fA-F]{3,8}$/.test(built.metaBg), `Vorlage ${tplKey}: metaBg ${built.metaBg}`);
+  }
+  for (const bad of ["url(https://example.com/x.png)", "URL( //x )", "image-set(x)", "red; background: blue", "expression(alert(1))", "var(--x)", "\"quoted\""]) {
+    assert.equal(sb.isSafeCustomThemeCssVar("--bg-base", bad), false, `sollte abgelehnt werden: ${bad}`);
+  }
+  assert.equal(sb.isSafeCustomThemeCssVar("color", "#fff"), false, "nur eigene CSS-Variablen (--…)");
+
+  // Das Inline-Skript in index.html muss dieselben Regeln nutzen
+  const html = fs.readFileSync(path.join(ROOT, "index.html"), "utf8");
+  const pick = (name) => {
+    const m = html.match(new RegExp(`var ${name} = (/.+?/[a-z]*);`));
+    assert.ok(m, `${name} fehlt im <head>-Skript`);
+    return m[1];
+  };
+  assert.equal(pick("CUSTOM_VAR_NAME_RE"), String(getLex("CUSTOM_THEME_VAR_NAME_RE")));
+  assert.equal(pick("CUSTOM_VAR_VALUE_RE"), String(getLex("CUSTOM_THEME_VAR_VALUE_RE")));
+  assert.equal(pick("CUSTOM_VAR_BLOCKED_RE"), String(getLex("CUSTOM_THEME_VAR_BLOCKED_RE")));
+});
+
 // Ergebnis-Ausgabe
 const failed = results.filter(r => !r.ok);
 for (const r of results) {

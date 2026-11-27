@@ -9,6 +9,7 @@
 // - Hybrider Quadratur-Phasen-Tracker (0,1 Cent Präzision)
 // Alle Audio-Loop-Puffer werden vorab allokiert und GC-frei wiederverwendet.
 // =====================================================
+"use strict";
 
 // Zentrale Tuning- & DSP-Parameter
 const TUNER_CONFIG = Object.freeze({

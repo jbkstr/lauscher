@@ -6700,6 +6700,18 @@ registerColocatedStatic({
     tr: "Enstrümana MIDI CC 122 = 0 gönderir (çıkışta sesini geri açar). Bazı enstrümanlar bu komutu yok sayar, ör. Casio Privia PX-S. Bu durumda Local Control’ü doğrudan enstrümanda kapat (kılavuzuna bak) ya da sadece sesini kıs – MIDI verileri yine de gelir.",
     ar: "يُرسل MIDI CC 122 = 0 إلى الآلة (ويعيد صوتها عند الإغلاق). بعض الآلات تتجاهل هذا الأمر، مثل Casio Privia PX-S. في هذه الحالة أوقف Local Control من الآلة نفسها (راجع دليلها) أو اخفض صوتها ببساطة – فبيانات MIDI تصل رغم ذلك."
   },
+  "settings.midiLocalCtrlRecoverHint": {
+    de: "Bleibt das Instrument nach einem Absturz der App oder einem gezogenen Kabel stumm, schalte es einmal aus und wieder ein – dann klingt es wieder normal.",
+    en: "If the instrument stays silent after the app crashed or the cable was unplugged, switch it off and on again – then it sounds normal again.",
+    fr: "Si l’instrument reste muet après un plantage de l’app ou un câble débranché, éteins-le puis rallume-le – il retrouvera son son normal.",
+    es: "Si el instrumento se queda en silencio tras un cierre inesperado de la app o al desconectar el cable, apágalo y vuelve a encenderlo: así volverá a sonar con normalidad.",
+    it: "Se lo strumento resta muto dopo un arresto anomalo dell’app o dopo aver staccato il cavo, spegnilo e riaccendilo: tornerà a suonare normalmente.",
+    pl: "Jeśli instrument milczy po awarii aplikacji lub odłączeniu kabla, wyłącz go i włącz ponownie – wtedy znów zabrzmi normalnie.",
+    uk: "Якщо інструмент мовчить після збою застосунку або від’єднання кабелю, вимкни й знову увімкни його – тоді він знову звучатиме нормально.",
+    ur: "اگر ایپ کے اچانک بند ہونے یا کیبل نکلنے کے بعد آلہ خاموش رہے تو اسے ایک بار بند کر کے دوبارہ چلائیں – پھر وہ معمول کے مطابق بجے گا۔",
+    tr: "Uygulama çöktükten ya da kablo çekildikten sonra enstrüman sessiz kalırsa, onu bir kez kapatıp yeniden aç – sonra yine normal ses verir.",
+    ar: "إذا بقيت الآلة صامتة بعد توقف التطبيق المفاجئ أو فصل الكابل، فأطفئها ثم شغّلها من جديد – وستعود إلى صوتها الطبيعي."
+  },
   "settings.midiExactOctaveLabel": {
     de: "Notenlesen: Exakte Oktave verlangen",
     en: "Sight-reading: require exact octave",

@@ -2,6 +2,11 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
+  <!-- Content-Security-Policy: Die App lädt nichts von fremden Servern – das schreibt die CSP fest (auch gegen
+       manipulierte Theme-Werte wie url(https://…)). 'unsafe-inline' bleibt nötig: Inline-Skripte im <head>,
+       das Mobile-Bundle (alles inline) und Capacitors eingefügtes Bridge-Skript. data: für Maskottchen,
+       eingebettete Fonts im Bundle und den stummen iOS-Entsperr-Ton; blob: für den Profil-Download. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; media-src 'self' data: blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Lauscher • Genauer hinhören.</title>
   <meta name="theme-color" id="metaThemeColor" content="#FAF7F2">
@@ -60,12 +65,20 @@
               }
             }
             if (customEntry && customEntry.cssVars) {
+              // Nur harmlose Farb-/Schatten-Werte übernehmen (kein url(…) usw. aus manipuliertem Speicher).
+              // Gleiche Regeln wie isSafeCustomThemeCssVar() in js/catalogs.js – beide gemeinsam ändern.
+              var CUSTOM_VAR_NAME_RE = /^--[a-z0-9-]{1,40}$/;
+              var CUSTOM_VAR_VALUE_RE = /^[#a-zA-Z0-9 ,.%()-]{1,120}$/;
+              var CUSTOM_VAR_BLOCKED_RE = /url|image|expression|attr|src|var/i;
               var cssKeys = Object.keys(customEntry.cssVars);
-              for (var ki = 0; ki < cssKeys.length; ki++) {
-                document.documentElement.style.setProperty(cssKeys[ki], customEntry.cssVars[cssKeys[ki]]);
+              for (var ki = 0; ki < cssKeys.length && ki < 80; ki++) {
+                var cssVal = customEntry.cssVars[cssKeys[ki]];
+                if (!CUSTOM_VAR_NAME_RE.test(cssKeys[ki]) || typeof cssVal !== "string") continue;
+                if (!CUSTOM_VAR_VALUE_RE.test(cssVal) || CUSTOM_VAR_BLOCKED_RE.test(cssVal)) continue;
+                document.documentElement.style.setProperty(cssKeys[ki], cssVal);
               }
               effective = customEntry.isDark ? "dark" : "light";
-              appliedCustomBg = customEntry.metaBg || "";
+              appliedCustomBg = (typeof customEntry.metaBg === "string" && /^#[0-9a-fA-F]{3,8}$/.test(customEntry.metaBg)) ? customEntry.metaBg : "";
             } else {
               theme = "waldlichtung";
             }
@@ -2657,6 +2670,7 @@
                 <button type="button" class="opt-btn" data-midi-local-off="off" aria-pressed="false" data-i18n="settings.autoNextOff">Aus</button>
               </div>
               <p class="settings-hint" data-i18n="settings.midiLocalCtrlHint">Sendet MIDI CC 122 = 0 ans Instrument (und schaltet den Eigenklang beim Beenden wieder an). Manche Instrumente ignorieren diesen Befehl, z. B. Casio Privia PX-S. Schalte Local Control dann direkt am Instrument aus (siehe Anleitung) oder dreh einfach seine Lautstärke herunter – die MIDI-Daten kommen trotzdem an.</p>
+              <p class="settings-hint" data-i18n="settings.midiLocalCtrlRecoverHint">Bleibt das Instrument nach einem Absturz der App oder einem gezogenen Kabel stumm, schalte es einmal aus und wieder ein – dann klingt es wieder normal.</p>
             </div>
 
             <div class="settings-sub-field">

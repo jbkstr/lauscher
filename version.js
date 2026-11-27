@@ -9,6 +9,7 @@
  * Nicht von Hand ändern, sondern mit:  python3 scripts/bump-version.py
  * scripts/sync-android.sh überträgt name/build automatisch in android/app/build.gradle.
  */
+"use strict";
 const LAUSCHER_VERSION = {
   name: "0.14.0-beta",
   build: 10,

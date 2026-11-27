@@ -5,6 +5,7 @@
 // auf „Klingt in“ sowie direkt anhörbaren Akkorden.
 // Nutzt die gemeinsamen Tonarten-/Akkord-Helfer aus js/nashville.js.
 // =====================================================
+"use strict";
 
 let _capoOpenDropdown = null; // "capoKey" | "capoFret" | "capoShape" | null
 let _capoOutsideClickBound = false;
