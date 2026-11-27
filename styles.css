@@ -19802,12 +19802,14 @@ html.is-pinch-zoomed .view-container {
   }
 
   /* Übungen (#viewExercise): Zweispaltiges Klavierpult-Layout
-     Links: Aufgabe/Notensystem oben + Maskottchen-Bühne darunter
-     Rechts: Feedback + Antwortkacheln/Klaviatur + Play-Dock ganz unten */
+     Links „Aufgabe & Hören“: Aufgabe/Notensystem oben, Maskottchen-Bühne füllt die Mitte,
+     Abspiel-Leiste (.dock-bar, per syncExerciseLandscapeDock umgehängt) direkt darunter.
+     Rechts „Antworten“: Rückmeldung, Tonika, Eingabe-Hinweis und Antwortkacheln/Klaviatur,
+     als ruhiges Antwort-Pult vertikal mittig. */
   #viewExercise {
     display: grid;
-    grid-template-columns: minmax(0, 45fr) minmax(0, 55fr);
-    grid-template-rows: auto auto auto minmax(0, 1fr);
+    grid-template-columns: minmax(0, 44fr) minmax(0, 56fr);
+    grid-template-rows: auto auto auto minmax(0, 1fr) auto;
     column-gap: 0.85rem;
     row-gap: 0;
     align-items: stretch;
@@ -19843,39 +19845,73 @@ html.is-pinch-zoomed .view-container {
     z-index: 1;
   }
 
+  /* Bühne füllt die linke Spalte ganz aus (keine Leerfläche über/unter der Karte) */
   :where(#viewExercise) > .stage-wrapper .central-stage {
     width: 100%;
     max-width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+  }
+
+  #viewExercise > .dock-bar {
+    grid-column: 1;
+    grid-row: 5;
+    margin-top: 0.48rem;
+    z-index: 2;
   }
 
   :where(#viewExercise) > .bottom-dock {
     grid-column: 2;
-    grid-row: 3 / 5;
+    grid-row: 3 / 6;
     min-height: 0;
     height: 100%;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    gap: 0.44rem;
+    justify-content: safe center;
+    gap: 0.5rem;
+    padding: 0.7rem 0.75rem;
+    background-color: var(--surface-white);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
   }
 
-  #viewExercise > .bottom-dock > .dock-bar {
-    margin-top: auto;
+  /* Rückmeldung bleibt oben im Pult, die Antworten darunter mittig im Restplatz */
+  #viewExercise > .bottom-dock > #feedbackContainer:not(.hidden) {
+    margin-bottom: auto;
   }
 
   #viewExercise > .bottom-dock > #examPostAnswerBar:not(.hidden) {
     margin-top: auto;
   }
 
-  #viewExercise > .bottom-dock > #examPostAnswerBar:not(.hidden) + .dock-bar {
-    margin-top: 0;
+  /* Auf größeren Fenstern dürfen Antwortkacheln etwas wachsen (besser treffbar, weniger Leerfläche) */
+  @media (min-height: 620px) {
+    #viewExercise:not(.fit-1):not(.fit-2):not(.fit-3) .degrees-grid .degree-btn {
+      min-height: 4.4rem;
+    }
   }
 
-  /* Einsing-Helfer (#viewWarmup): Links Steuerung + Klaviatur/Dock, Rechts volle Bühnenhöhe (Atem-Kugel) */
+  /* Große Bühne: Maskottchen & Status dürfen mitwachsen */
+  @container exstage (min-height: 300px) {
+    .central-stage .stage-mascot {
+      width: 88px;
+      height: 88px;
+      margin-bottom: 0.4rem;
+    }
+    .central-stage .stage-main {
+      font-size: 1.9rem;
+    }
+  }
+
+  /* Einsing-Helfer (#viewWarmup): Rechts große Bühne (Atem-Kugel, Sirene, Silben),
+     links ein zusammenhängendes Steuer-Pult (Kopf, Klaviatur/Halbton-Knöpfe, Abspielen),
+     vertikal mittig statt oben/unten auseinandergerissen. */
   #viewWarmup {
     display: grid;
-    grid-template-columns: minmax(0, 48fr) minmax(0, 52fr);
-    grid-template-rows: auto minmax(0, 1fr);
+    grid-template-columns: minmax(0, 42fr) minmax(0, 58fr);
+    grid-template-rows: minmax(0, 1fr) auto auto minmax(0, 1fr);
     column-gap: 0.85rem;
     row-gap: 0;
     gap: 0 0.85rem;
@@ -19884,26 +19920,25 @@ html.is-pinch-zoomed .view-container {
 
   #viewWarmup > .warmup-header-card {
     grid-column: 1;
-    grid-row: 1;
-    align-self: start;
-    margin-bottom: 0.45rem;
+    grid-row: 2;
+    align-self: end;
+    margin-bottom: 0.6rem;
     z-index: 6;
   }
 
   #viewWarmup > .warmup-bottom-dock {
     grid-column: 1;
-    grid-row: 2;
+    grid-row: 3;
     min-height: 0;
-    height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    gap: 0.4rem;
+    justify-content: flex-start;
+    gap: 0.5rem;
   }
 
   #viewWarmup > .warmup-stage-wrapper {
     grid-column: 2;
-    grid-row: 1 / 3;
+    grid-row: 1 / 5;
     min-height: 0;
     height: 100%;
     padding: 0;
@@ -19971,6 +20006,20 @@ html.is-pinch-zoomed .view-container {
 
   #viewExercise {
     column-gap: 0.62rem;
+  }
+
+  /* Einsing-Helfer: Steuer-Pult braucht auf flachen Phones mehr Breite (Chips, Klaviatur, Abspielen) */
+  #viewWarmup {
+    grid-template-columns: minmax(0, 54fr) minmax(0, 46fr);
+    column-gap: 0.62rem;
+  }
+
+  #viewWarmup > .warmup-header-card {
+    margin-bottom: 0.3rem;
+  }
+
+  #viewWarmup > .warmup-bottom-dock {
+    gap: 0.28rem;
   }
 
   :where(#viewExercise) > #examStatusBar,

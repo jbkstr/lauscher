@@ -28,6 +28,22 @@ function isExerciseLandscapeSplit(view) {
   }
 }
 
+// Querformat (Klavierpult): Die Abspiel-Leiste (.dock-bar) gehört zur linken Spalte „Aufgabe & Hören“
+// direkt unter die Bühne; rechts bleiben nur die Antworten. Im Hochformat wandert sie zurück ans Ende
+// von .bottom-dock. Event-Listener hängen an den Knöpfen und bleiben beim Umhängen erhalten.
+function syncExerciseLandscapeDock(view) {
+  if (!view) return;
+  const dock = view.querySelector(":scope > .bottom-dock");
+  const bar = view.querySelector(":scope > .dock-bar") || dock?.querySelector(":scope > .dock-bar");
+  const stageWrap = view.querySelector(":scope > .stage-wrapper");
+  if (!dock || !bar || !stageWrap) return;
+  if (isExerciseLandscapeSplit(view)) {
+    if (bar.parentElement !== view) stageWrap.after(bar);
+  } else if (bar.parentElement !== dock) {
+    dock.appendChild(bar);
+  }
+}
+
 function getExerciseFitSnapshot() {
   const view = document.getElementById("viewExercise");
   if (!view || view.classList.contains("hidden") || view.clientHeight <= 0) return "";
@@ -104,6 +120,7 @@ function fitExerciseLayout(reset = true) {
     }
     return;
   }
+  syncExerciseLandscapeDock(view);
   const card = document.getElementById("exerciseModuleCard");
   const openFloatingPopovers = card
     ? Array.from(card.querySelectorAll(":scope > .module-inline-popover:not(.is-pinned):not(.hidden)"))
@@ -184,7 +201,17 @@ function fitExerciseLayout(reset = true) {
     lastExerciseFitViewSize = getExerciseFitViewSize();
   } finally {
     const singHintEl = document.getElementById("singAlongHint");
-    if (singHintEl) singHintEl.style.display = "";
+    if (singHintEl) {
+      singHintEl.style.display = "";
+      // Querformat: Die schwebende Mitsing-Karte darf die Abspiel-Leiste unter der Bühne nicht verdecken
+      const bar = view.querySelector(":scope > .dock-bar");
+      if (bar && card && view.classList.contains("sing-hint-float")) {
+        const room = bar.getBoundingClientRect().top - card.getBoundingClientRect().bottom - 10;
+        singHintEl.style.maxHeight = `${Math.max(72, Math.floor(room))}px`;
+      } else {
+        singHintEl.style.maxHeight = "";
+      }
+    }
     openFloatingPopovers.forEach(pop => { pop.style.display = ""; });
     positionOpenModulePopovers();
   }
