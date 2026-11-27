@@ -466,10 +466,6 @@ document.addEventListener("DOMContentLoaded", () => {
     performFullAppReset();
   });
 
-  try {
-    window.screen?.orientation?.lock?.("portrait")?.catch?.(() => {});
-  } catch (_e) {}
-
   const triggerHeroQuoteRefresh = () => {
     pickRandomQuote();
     const tapMood = Math.random() < 0.25 ? "happy" : "idle";

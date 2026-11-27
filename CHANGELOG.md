@@ -5,6 +5,7 @@ All released versions of Lauscher. New sections are created by `python3 scripts/
 ## Unreleased
 
 **Added**
+- Full landscape support across tablets, desktops and smartphones (removed the portrait lock in the web app, PWA manifest and Android build). In landscape, `.app-shell` expands up to 1120 px with a two-column piano-stand layout for exercises (task/staff and mascot stage on the left, answers/keyboard and play dock on the right) and vocal warm-up, wider piano/fretboard views, multi-column category/tool grids, and comfortable reading widths for knowledge articles.
 - Shareable homework links & offline QR codes (`js/homework.js`): teachers can share any active exercise (top-bar QR button) or saved practice mix as a serverless `#hw=…` link (short `#mix=mode:level` also supported) with a locally rendered SVG QR code. Students opening a link get a friendly start card ("Your homework") with one-tap launch and an option to save it as a practice mix.
 
 **Improved**

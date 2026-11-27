@@ -1362,6 +1362,19 @@ runTest("Hausaufgaben-Links & Offline-QR-Code: Roundtrip, Sanitization & ISO-Str
   assert.ok(svg.startsWith("<svg ") && svg.includes('fill="#ffffff"') && svg.includes('fill="#1a1a1a"'));
 });
 
+runTest("Querformat-Unterstützung: keine Hochformat-Sperre & 2-Spalten-Layout vorhanden", () => {
+  const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, "manifest.webmanifest"), "utf8"));
+  assert.equal(manifest.orientation, "any", "manifest.webmanifest muss Querformat erlauben");
+
+  const html = fs.readFileSync(path.join(ROOT, "index.html"), "utf8");
+  assert.ok(!html.includes("portraitLockOverlay"), "Hochformat-Sperre darf nicht mehr im Markup stehen");
+
+  const css = fs.readFileSync(path.join(ROOT, "styles.css"), "utf8");
+  assert.ok(!css.includes(".portrait-lock-overlay"), "Hochformat-Sperre darf nicht mehr im CSS stehen");
+  assert.ok(css.includes("@media (orientation: landscape) and (min-width: 600px)"), "Landscape-Breakpoint fehlt");
+  assert.equal(sb.isExerciseLandscapeSplit(null), false);
+});
+
 // Ergebnis-Ausgabe
 const failed = results.filter(r => !r.ok);
 for (const r of results) {

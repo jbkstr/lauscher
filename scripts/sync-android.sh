@@ -229,18 +229,18 @@ PYEOF
     echo "  → android:allowBackup=\"false\" im AndroidManifest gesetzt"
   fi
 
-  # App auf Hochformat (Portrait) festlegen
+  # Hoch- und Querformat (Klavierpult / Tablet / Smartphone) erlauben
   python3 - "$MANIFEST" <<'PYEOF'
 import re, sys
 path = sys.argv[1]
 s = open(path, encoding="utf-8").read()
 if 'android:screenOrientation=' in s:
-    s_new = re.sub(r'android:screenOrientation="[^"]*"', 'android:screenOrientation="portrait"', s)
+    s_new = re.sub(r'android:screenOrientation="[^"]*"', 'android:screenOrientation="unspecified"', s)
 else:
-    s_new = re.sub(r'(<activity\b)', r'\1\n            android:screenOrientation="portrait"', s, count=1)
+    s_new = s
 if s_new != s:
     open(path, "w", encoding="utf-8").write(s_new)
-    print("  → android:screenOrientation=\"portrait\" im AndroidManifest gesetzt")
+    print("  → android:screenOrientation=\"unspecified\" im AndroidManifest gesetzt (Hoch- & Querformat)")
 PYEOF
 fi
 

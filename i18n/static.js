@@ -28,30 +28,6 @@ registerColocatedStatic({
     tr: "Biraz daha dikkatli dinle.",
     ar: "استمع بتركيز أكبر."
   },
-  "app.portraitOnlyTitle": {
-    de: "Bitte im Hochformat nutzen",
-    en: "Please Use Portrait Mode",
-    fr: "Utilise le mode portrait",
-    es: "Usa el modo vertical",
-    it: "Usa la modalità verticale",
-    pl: "Używaj w orientacji pionowej",
-    uk: "Будь ласка, використовуй портретний режим",
-    ur: "براہِ کرم پورٹریٹ موڈ استعمال کریں",
-    tr: "Lütfen Dikey Modda Kullan",
-    ar: "يُرجى استخدام الوضع العمودي"
-  },
-  "app.portraitOnlySub": {
-    de: "Drehe dein Smartphone ins Hochformat (Portrait-Modus), um weiterzuüben.",
-    en: "Rotate your phone to portrait orientation to continue practicing.",
-    fr: "Tourne ton téléphone à la verticale (mode portrait) pour continuer à t’entraîner.",
-    es: "Gira tu teléfono en vertical (modo retrato) para seguir practicando.",
-    it: "Ruota il telefono in verticale (modalità ritratto) per continuare ad allenarti.",
-    pl: "Obróć telefon pionowo (tryb portretowy), aby kontynuować ćwiczenie.",
-    uk: "Поверни смартфон вертикально (портретний режим), щоб продовжити заняття.",
-    ur: "مشق جاری رکھنے کے لیے اپنے فون کو سیدھا (پورٹریٹ موڈ میں) رکھیں۔",
-    tr: "Çalışmaya devam etmek için telefonunu dikey konuma (portre modu) çevir.",
-    ar: "أدِر هاتفك إلى الوضع العمودي لمواصلة التدرّب."
-  },
   "welcome.stepProgress": {
     de: "Schritt {n} von {total}",
     en: "Step {n} of {total}",
