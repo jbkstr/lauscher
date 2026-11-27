@@ -99,6 +99,7 @@ function loadAppSandbox() {
   }
 
   const storage = new Map();
+  const sessionStore = new Map();
   const docEl = createStubElement();
   const bodyEl = createStubElement();
   const headEl = createStubElement();
@@ -106,7 +107,7 @@ function loadAppSandbox() {
   const sandbox = {
     console,
     Math, Date, JSON, Object, Array, Map, Set, Number, String, Boolean, RegExp, Error, TypeError, RangeError, Promise,
-    parseInt, parseFloat, isNaN, isFinite, encodeURIComponent, decodeURIComponent,
+    parseInt, parseFloat, isNaN, isFinite, encodeURIComponent, decodeURIComponent, URLSearchParams, TextEncoder,
     Float32Array, Float64Array, Int16Array, Int32Array, Uint8Array, Uint16Array, Uint32Array,
     setTimeout: () => 0,
     clearTimeout() {},
@@ -121,6 +122,12 @@ function loadAppSandbox() {
       setItem: (k, v) => { storage.set(k, String(v)); },
       removeItem: (k) => { storage.delete(k); },
       clear: () => { storage.clear(); }
+    },
+    sessionStorage: {
+      getItem: (k) => (sessionStore.has(k) ? sessionStore.get(k) : null),
+      setItem: (k, v) => { sessionStore.set(k, String(v)); },
+      removeItem: (k) => { sessionStore.delete(k); },
+      clear: () => { sessionStore.clear(); }
     },
     document: {
       readyState: "complete",
@@ -140,7 +147,7 @@ function loadAppSandbox() {
       removeEventListener() {},
       matchMedia: () => ({ matches: false, addEventListener() {}, removeEventListener() {} }),
       history: { pushState() {}, replaceState() {}, back() {} },
-      location: { protocol: "https:", hostname: "jbkstr.github.io", hash: "", search: "", href: "https://jbkstr.github.io/lauscher/" },
+      location: { protocol: "https:", hostname: "jbkstr.github.io", origin: "https://jbkstr.github.io", pathname: "/lauscher/", hash: "", search: "", href: "https://jbkstr.github.io/lauscher/" },
       innerWidth: 390,
       innerHeight: 844,
       devicePixelRatio: 2
@@ -153,6 +160,7 @@ function loadAppSandbox() {
   sandbox.self = sandbox;
   sandbox.window.document = sandbox.document;
   sandbox.window.localStorage = sandbox.localStorage;
+  sandbox.window.sessionStorage = sandbox.sessionStorage;
   sandbox.window.navigator = sandbox.navigator;
 
   vm.createContext(sandbox);
@@ -1011,6 +1019,132 @@ runTest("Härtung: Eigene Themes setzen nur harmlose CSS-Variablen (JS & <head>-
   assert.equal(pick("CUSTOM_VAR_NAME_RE"), String(getLex("CUSTOM_THEME_VAR_NAME_RE")));
   assert.equal(pick("CUSTOM_VAR_VALUE_RE"), String(getLex("CUSTOM_THEME_VAR_VALUE_RE")));
   assert.equal(pick("CUSTOM_VAR_BLOCKED_RE"), String(getLex("CUSTOM_THEME_VAR_BLOCKED_RE")));
+});
+
+runTest("Prüfungs-Zwischenstand: sessionStorage speichert, validiert und räumt sauber auf", () => {
+  const st = getLex("state");
+  sb.clearActiveExamSession();
+  assert.equal(sb.loadSavedExamSession(), null);
+
+  const preset = sb.getExamPresetById("interval", "interval_l1");
+  assert.ok(preset, "Preset interval_l1 muss existieren");
+
+  st.exam = {
+    active: true,
+    categoryKey: "interval",
+    levelId: preset.id,
+    levelNumber: preset.levelNumber,
+    feedbackMode: "blind",
+    maxReplays: 2,
+    totalQuestions: 10,
+    currentIdx: 2,
+    plan: new Array(10).fill("interval-melodic"),
+    difficultyPlan: null,
+    fixedIntervalPool: null,
+    useCustomIntervalRoot: false,
+    questions: [
+      { qIndex: 1, mode: "interval-melodic", status: "correct", score: 1, chosenKey: "P5", targetKey: "P5", chosenLabel: "Reine Quinte", targetLabel: "Reine Quinte", detailNote: "", audioSnapshot: null },
+      { qIndex: 2, mode: "interval-melodic", status: "wrong", score: 0, chosenKey: "P4", targetKey: "P5", chosenLabel: "Reine Quarte", targetLabel: "Reine Quinte", detailNote: "", audioSnapshot: null }
+    ],
+    currentAnswered: false,
+    currentPromptPlayedOnce: false,
+    currentReplaysUsed: 0,
+    startedWallMs: Date.now() - 45000,
+    advanceTimerId: null,
+    autoPlayTimerId: null,
+    prevSettings: { ...st.settings },
+    prevHasManualBpm: false
+  };
+  sb.saveActiveExamSession();
+
+  const restored = sb.loadSavedExamSession();
+  assert.ok(restored, "Gültige laufende Prüfung muss wiederhergestellt werden");
+  assert.equal(restored.categoryKey, "interval");
+  assert.equal(restored.levelId, preset.id);
+  assert.equal(restored.currentIdx, 2);
+  assert.equal(restored.questions.length, 2);
+
+  // Manipulierter bzw. abgelaufener Eintrag wird verworfen und gelöscht
+  const key = getLex("EXAM_SESSION_STORAGE_KEY");
+  sb.sessionStorage.setItem(key, JSON.stringify({ v: 1, categoryKey: "interval", levelId: "does_not_exist", plan: ["interval-melodic"], totalQuestions: 1, savedAt: Date.now() }));
+  assert.equal(sb.loadSavedExamSession(), null);
+  assert.equal(sb.sessionStorage.getItem(key), null, "Ungültiger Eintrag muss gelöscht werden");
+
+  sb.sessionStorage.setItem(key, JSON.stringify({ v: 1, categoryKey: "interval", levelId: preset.id, plan: ["interval-melodic"], totalQuestions: 1, savedAt: Date.now() - 24 * 60 * 60 * 1000 }));
+  assert.equal(sb.loadSavedExamSession(), null, "Abgelaufene Prüfung wird nicht geladen");
+
+  st.exam = null;
+  sb.clearActiveExamSession();
+});
+
+runTest("Hausaufgaben-Links & Offline-QR-Code: Roundtrip, Sanitization & ISO-Struktur", () => {
+  const cases = [
+    { mode: "interval-melodic", level: 3, bpm: 85 },
+    { mode: "cadence", level: 2, cadencePos: "random", keyMode: "easy", timeSignature: "3/4", bpm: 95 },
+    { mode: "melody", level: "sol-do", melodyRange: "sol-do", melodyKeyMode: "random", melodyOctaveMode: "multi", melodyStyle: "rhythmic", melodyPulse: false },
+    { mode: "notation-treble", level: 2, notationKeyMode: "G" },
+    { mode: "interval-custom", level: 1, intervalCustomRoot: "0", intervalCustomScale: "dorian", intervalCustomScope: "lower", intervalCustomPool: ["m3", "M3", "P5"] },
+    { mode: "sing-interval", level: 4, singIntervalDirection: "mixed" },
+    { mode: "midi-interval", level: 2, midiIntervalDirection: "down" },
+    { mode: "rhythm-tap", level: 3, rhythmTapReadMode: true, rhythmTapClick: false, bpm: 100 },
+    { mode: "modes-scale", level: 2, modesRoot: "7", modesRootPad: true }
+  ];
+
+  for (const sample of cases) {
+    const hash = sb.encodeHomeworkHash(sample);
+    assert.ok(hash.startsWith("#hw="), `Hash für ${sample.mode}: ${hash}`);
+    const parsed = sb.parseHomeworkHash(hash);
+    assert.ok(parsed, `Parser für ${sample.mode}`);
+    assert.equal(parsed.mode, sample.mode);
+    assert.equal(parsed.level, sample.level);
+    if (sample.bpm) assert.equal(parsed.bpm, sample.bpm);
+    if (sample.notationKeyMode) assert.equal(parsed.notationKeyMode, sample.notationKeyMode);
+    if (sample.intervalCustomPool) assert.deepEqual(Array.from(parsed.intervalCustomPool), sample.intervalCustomPool);
+    if (sample.singIntervalDirection) assert.equal(parsed.singIntervalDirection, sample.singIntervalDirection);
+    if (sample.midiIntervalDirection) assert.equal(parsed.midiIntervalDirection, sample.midiIntervalDirection);
+  }
+
+  // Kurzform #mix=mode:level[:bpm]
+  const shortParsed = sb.parseHomeworkHash("#mix=interval-melodic:2:80");
+  assert.ok(shortParsed);
+  assert.equal(shortParsed.mode, "interval-melodic");
+  assert.equal(shortParsed.level, 2);
+  assert.equal(shortParsed.bpm, 80);
+
+  // Doppelt encodiertes Fragment (z. B. durch Messenger-Apps)
+  const reEncoded = sb.parseHomeworkHash("#hw=m%3Dinterval-melodic%26l%3D2%26bpm%3D85");
+  assert.ok(reEncoded);
+  assert.equal(reEncoded.mode, "interval-melodic");
+  assert.equal(reEncoded.level, 2);
+  assert.equal(reEncoded.bpm, 85);
+
+  // Ungültige / bösartige Hashes werden abgelehnt
+  assert.equal(sb.parseHomeworkHash("#hw=m=evil-mode&l=1"), null);
+  assert.equal(sb.parseHomeworkHash("#hw=" + "a".repeat(600)), null);
+  assert.equal(sb.parseHomeworkHash("#other=123"), null);
+
+  // Offline-QR-Code: gültige Matrix, Finder-Ecken, Reed-Solomon-Syndrome = 0 und sauberes SVG
+  const url = sb.buildHomeworkShareUrl({ mode: "interval-melodic", level: 2, bpm: 85 });
+  assert.ok(url.startsWith("https://jbkstr.github.io/lauscher/#hw="));
+  const qr = sb.generateQrMatrix(url);
+  assert.ok(qr && qr.version >= 1 && qr.version <= 10, "QR-Version muss in V1–V10 liegen");
+  // Alle 3 Finder-Zentren (3,3), (3,size-4), (size-4,3) sind dunkel, umgeben von weißem Ring
+  for (const [r, c] of [[3, 3], [3, qr.size - 4], [qr.size - 4, 3]]) {
+    assert.equal(qr.modules[r][c], 1);
+    assert.equal(qr.modules[r - 2][c], 0);
+    assert.equal(qr.modules[r - 3][c], 1);
+  }
+  // Reed-Solomon-Syndrom-Check auf V1-M
+  const cw = sb.qrBuildCodewordsM(sb.qrUtf8Bytes("Hello, world!"), 1);
+  let root = 1;
+  for (let k = 0; k < 10; k++) {
+    let syn = 0;
+    for (const b of cw) syn = sb.qrGfMul(syn, root) ^ b;
+    assert.equal(syn, 0, `RS-Syndrom an Wurzel ${k} muss 0 sein`);
+    root = sb.qrGfMul(root, 2);
+  }
+  const svg = sb.renderQrCodeSvg(url);
+  assert.ok(svg.startsWith("<svg ") && svg.includes('fill="#ffffff"') && svg.includes('fill="#1a1a1a"'));
 });
 
 // Ergebnis-Ausgabe

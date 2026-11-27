@@ -817,6 +817,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const aboutModal = document.getElementById("aboutBackdrop");
   const breakModal = document.getElementById("breakReminderBackdrop");
   const themeUnlockModal = document.getElementById("themeUnlockBackdrop");
+  const homeworkShareModal = document.getElementById("homeworkShareBackdrop");
+  const homeworkStartModal = document.getElementById("homeworkStartBackdrop");
+  if (typeof initHomeworkControls === "function") initHomeworkControls();
 
   document.getElementById("openAboutFromSettingsBtn")?.addEventListener("click", () => {
     openAboutModal();
@@ -911,9 +914,14 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   syncBreakReminderControls();
 
-  [mixerModal, settingsModal, aboutModal, breakModal, themeUnlockModal].forEach(backdrop => {
+  [mixerModal, settingsModal, aboutModal, breakModal, themeUnlockModal, homeworkShareModal, homeworkStartModal].forEach(backdrop => {
     backdrop?.addEventListener("click", (e) => {
-      if (e.target === backdrop) closeActiveModal();
+      if (e.target === backdrop) {
+        if (backdrop === homeworkStartModal && typeof clearHomeworkUrlHash === "function") {
+          clearHomeworkUrlHash();
+        }
+        closeActiveModal();
+      }
     });
   });
 
@@ -1667,13 +1675,7 @@ document.addEventListener("DOMContentLoaded", () => {
       try { keyboardFocused = focusedControl.matches(":focus-visible"); } catch (_) {}
       if (keyboardFocused) return;
     }
-    const openModal = ["mixerBackdrop", "settingsBackdrop", "aboutBackdrop", "breakReminderBackdrop", "themeUnlockBackdrop"].some(
-      id => {
-        const el = document.getElementById(id);
-        return el && !el.classList.contains("modal-hidden") && !el.classList.contains("hidden");
-      }
-    );
-    if (openModal) return;
+    if (getOpenModalName()) return;
 
     if (state.currentView === "warmup") {
       e.preventDefault();

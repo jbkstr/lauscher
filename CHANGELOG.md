@@ -2,6 +2,14 @@
 
 All released versions of Lauscher. New sections are created by `python3 scripts/bump-version.py`.
 
+## Unreleased
+
+**Added**
+- Shareable homework links & offline QR codes (`js/homework.js`): teachers can share any active exercise (top-bar QR button) or saved practice mix as a serverless `#hw=…` link (short `#mix=mode:level` also supported) with a locally rendered SVG QR code. Students opening a link get a friendly start card ("Your homework") with one-tap launch and an option to save it as a practice mix.
+
+**Improved**
+- Active exams are now saved in `sessionStorage` after each question, so an accidental page reload or pull-to-refresh restores the running exam instead of losing progress.
+
 ## 0.15.0-beta (Build 11) – 2026-11-27
 
 **Fixed**

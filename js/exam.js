@@ -592,7 +592,198 @@ function cleanupActiveExamState(options = {}) {
     }
   }
   state.exam = null;
+  clearActiveExamSession();
   syncExamExerciseControls();
+}
+
+const EXAM_SESSION_STORAGE_KEY = "lauschebaer_active_exam_v1";
+const EXAM_SESSION_MAX_AGE_MS = 12 * 60 * 60 * 1000;
+
+function clearActiveExamSession() {
+  try {
+    if (typeof sessionStorage !== "undefined") {
+      sessionStorage.removeItem(EXAM_SESSION_STORAGE_KEY);
+    }
+  } catch (_) {}
+}
+
+function saveActiveExamSession() {
+  const exam = state?.exam;
+  if (!exam || !exam.active) {
+    clearActiveExamSession();
+    return;
+  }
+  try {
+    if (typeof sessionStorage === "undefined") return;
+    const payload = {
+      v: 1,
+      categoryKey: exam.categoryKey,
+      levelId: exam.levelId,
+      levelNumber: exam.levelNumber,
+      feedbackMode: exam.feedbackMode,
+      maxReplays: exam.maxReplays,
+      totalQuestions: exam.totalQuestions,
+      currentIdx: Math.max(0, Math.min(exam.totalQuestions, exam.questions.length)),
+      plan: Array.isArray(exam.plan) ? exam.plan : [],
+      difficultyPlan: Array.isArray(exam.difficultyPlan) ? exam.difficultyPlan : null,
+      fixedIntervalPool: Array.isArray(exam.fixedIntervalPool) ? exam.fixedIntervalPool : null,
+      useCustomIntervalRoot: Boolean(exam.useCustomIntervalRoot),
+      solfegeSessionKey: state.solfegeSessionKey || null,
+      questions: Array.isArray(exam.questions) ? exam.questions : [],
+      startedWallMs: exam.startedWallMs || Date.now(),
+      savedAt: Date.now(),
+      prevSettings: exam.prevSettings ? { ...exam.prevSettings } : null,
+      prevHasManualBpm: Boolean(exam.prevHasManualBpm)
+    };
+    sessionStorage.setItem(EXAM_SESSION_STORAGE_KEY, JSON.stringify(payload));
+  } catch (_) {}
+}
+
+function loadSavedExamSession() {
+  let rawStr = null;
+  try {
+    if (typeof sessionStorage === "undefined") return null;
+    rawStr = sessionStorage.getItem(EXAM_SESSION_STORAGE_KEY);
+  } catch (_) {
+    return null;
+  }
+  if (!rawStr) return null;
+
+  let raw = null;
+  try {
+    raw = JSON.parse(rawStr);
+  } catch (_) {
+    clearActiveExamSession();
+    return null;
+  }
+  if (!raw || typeof raw !== "object" || raw.v !== 1) {
+    clearActiveExamSession();
+    return null;
+  }
+  const savedAt = Number(raw.savedAt);
+  if (!Number.isFinite(savedAt) || (Date.now() - savedAt) > EXAM_SESSION_MAX_AGE_MS || savedAt > Date.now() + 60000) {
+    clearActiveExamSession();
+    return null;
+  }
+  const preset = getExamPresetById(raw.categoryKey, raw.levelId);
+  if (!preset || preset.id !== raw.levelId) {
+    clearActiveExamSession();
+    return null;
+  }
+  const validModes = typeof getPracticeValidModes === "function" ? getPracticeValidModes() : [];
+  if (!Array.isArray(raw.plan) || raw.plan.length === 0 || raw.plan.length > 50) {
+    clearActiveExamSession();
+    return null;
+  }
+  const plan = raw.plan.filter(m => typeof m === "string" && (validModes.length === 0 || validModes.includes(m)));
+  if (plan.length !== raw.plan.length) {
+    clearActiveExamSession();
+    return null;
+  }
+  const totalQuestions = Math.max(1, Math.min(50, parseInt(raw.totalQuestions, 10) || plan.length));
+  if (totalQuestions !== plan.length) {
+    clearActiveExamSession();
+    return null;
+  }
+  const difficultyPlan = Array.isArray(raw.difficultyPlan) && raw.difficultyPlan.length === totalQuestions
+    ? raw.difficultyPlan.map(d => (Number.isInteger(d) ? d : null))
+    : null;
+  const fixedIntervalPool = Array.isArray(raw.fixedIntervalPool)
+    ? raw.fixedIntervalPool.filter(k => typeof k === "string" && /^[A-Za-z0-9]{2,4}$/.test(k)).slice(0, 16)
+    : null;
+  const rawQuestions = Array.isArray(raw.questions) ? raw.questions.slice(0, totalQuestions) : [];
+  const questions = typeof sanitizeExamReviewItem === "function"
+    ? rawQuestions.map((item, idx) => sanitizeExamReviewItem(item, idx)).filter(Boolean)
+    : rawQuestions;
+
+  const basePrev = state?.settings ? { ...state.settings } : {};
+  if (raw.prevSettings && typeof raw.prevSettings === "object" && !Array.isArray(raw.prevSettings)) {
+    Object.keys(basePrev).forEach(k => {
+      if (Object.prototype.hasOwnProperty.call(raw.prevSettings, k)) {
+        const val = raw.prevSettings[k];
+        if (typeof val === typeof basePrev[k] || basePrev[k] === null) {
+          basePrev[k] = val;
+        }
+      }
+    });
+  }
+
+  return {
+    preset,
+    categoryKey: raw.categoryKey,
+    levelId: preset.id,
+    levelNumber: preset.levelNumber,
+    feedbackMode: raw.feedbackMode === "instant" ? "instant" : "blind",
+    maxReplays: raw.maxReplays === 0 ? 0 : 2,
+    totalQuestions,
+    currentIdx: Math.max(0, Math.min(totalQuestions, questions.length)),
+    plan,
+    difficultyPlan,
+    fixedIntervalPool: fixedIntervalPool && fixedIntervalPool.length > 0 ? fixedIntervalPool : null,
+    useCustomIntervalRoot: Boolean(raw.useCustomIntervalRoot),
+    solfegeSessionKey: typeof raw.solfegeSessionKey === "string" ? raw.solfegeSessionKey : null,
+    questions,
+    startedWallMs: Number.isFinite(Number(raw.startedWallMs)) ? Number(raw.startedWallMs) : Date.now(),
+    prevSettings: basePrev,
+    prevHasManualBpm: Boolean(raw.prevHasManualBpm)
+  };
+}
+
+function restoreActiveExamSessionIfPresent() {
+  if (state?.exam?.active) return false;
+  const saved = loadSavedExamSession();
+  if (!saved) return false;
+
+  state.activeCategory = saved.categoryKey;
+  state.examSetupCategory = saved.categoryKey;
+  state.exerciseReturnView = "exam-setup";
+  if (saved.solfegeSessionKey) state.solfegeSessionKey = saved.solfegeSessionKey;
+
+  state.exam = {
+    active: true,
+    categoryKey: saved.categoryKey,
+    levelId: saved.levelId,
+    levelNumber: saved.levelNumber,
+    feedbackMode: saved.feedbackMode,
+    maxReplays: saved.maxReplays,
+    totalQuestions: saved.totalQuestions,
+    currentIdx: saved.currentIdx,
+    plan: saved.plan,
+    difficultyPlan: saved.difficultyPlan,
+    fixedIntervalPool: saved.fixedIntervalPool,
+    useCustomIntervalRoot: saved.useCustomIntervalRoot,
+    questions: saved.questions,
+    currentAnswered: false,
+    currentPromptPlayedOnce: false,
+    currentReplaysUsed: 0,
+    startedWallMs: saved.startedWallMs,
+    advanceTimerId: null,
+    autoPlayTimerId: null,
+    prevSettings: saved.prevSettings,
+    prevHasManualBpm: saved.prevHasManualBpm
+  };
+
+  if (saved.questions.length >= saved.totalQuestions) {
+    completeCategoryExam();
+    return true;
+  }
+
+  const nextMode = saved.plan[saved.currentIdx] || saved.preset.modes?.[0] || "cadence";
+  const nextDiff = Array.isArray(saved.difficultyPlan) ? saved.difficultyPlan[saved.currentIdx] : null;
+  applyExamLevelSettings(saved.preset, nextMode, Number.isInteger(nextDiff) ? nextDiff : null);
+  switchView("exercise", { preserveBpm: true, skipExamLoad: true, animate: false, skipHistoryPush: true });
+  loadCurrentExamQuestion({ suppressAutoPlay: true });
+  if (typeof showAppToast === "function") {
+    showAppToast(
+      tf(
+        "Prüfung wiederhergestellt (Frage {n}/{total}) – tippe auf Abspielen.",
+        "Exam restored (question {n}/{total}) — tap Play.",
+        { n: saved.currentIdx + 1, total: saved.totalQuestions }
+      ),
+      "success"
+    );
+  }
+  return true;
 }
 
 function startCategoryExam(categoryKey, levelId) {
@@ -643,6 +834,7 @@ function startCategoryExam(categoryKey, levelId) {
     prevHasManualBpm: Boolean(state.hasManualExerciseBpm)
   };
 
+  saveActiveExamSession();
   applyExamLevelSettings(preset, plan[0], difficultyPlan ? difficultyPlan[0] : null);
   switchView("exercise", { preserveBpm: true });
 }
@@ -683,6 +875,9 @@ function syncExamExerciseControls() {
     closeTransientPopovers();
     if (typeof dismissCadenceKeyHint === "function") dismissCadenceKeyHint(false);
     renderExamStatusBar();
+  }
+  if (typeof syncExerciseHomeworkButtonVisibility === "function") {
+    syncExerciseHomeworkButtonVisibility();
   }
   renderStageStreakUI();
 }
@@ -787,7 +982,7 @@ function triggerExamPlayAction() {
   playSequence();
 }
 
-function loadCurrentExamQuestion() {
+function loadCurrentExamQuestion(options = {}) {
   const exam = state?.exam;
   if (!exam || !exam.active) return;
 
@@ -810,7 +1005,7 @@ function loadCurrentExamQuestion() {
   syncExamExerciseControls();
 
   // Rhythmus-Nachklopfen & Notation warten auf bewusste Nutzereingabe (kein automatisches Zielton-Audio!)
-  if (planMode !== "rhythm-tap" && !isNotationMode(planMode)) {
+  if (!options.suppressAutoPlay && planMode !== "rhythm-tap" && !isNotationMode(planMode)) {
     exam.autoPlayTimerId = setTimeout(() => {
       if (!state.exam || state.exam !== exam || !exam.active || state.currentView !== "exercise") return;
       if (exam.currentAnswered || exam.currentPromptPlayedOnce) return;
@@ -971,6 +1166,7 @@ function recordExamQuestionEntry(entry) {
     audioSnapshot: entry.audioSnapshot || null
   });
   renderExamStatusBar();
+  saveActiveExamSession();
 }
 
 function handleExamChoiceAnswer(ex, selectedKey, btnElement) {
@@ -2243,6 +2439,7 @@ function advanceExamQuestion() {
   }
 
   exam.currentIdx += 1;
+  saveActiveExamSession();
   loadCurrentExamQuestion();
 }
 

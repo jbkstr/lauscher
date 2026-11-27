@@ -564,6 +564,14 @@ function renderProfileMixes() {
       </div>
       <div class="account-mix-actions">
         <button type="button" class="btn-tool" data-launch-mix="${escapeHtml(mix.id)}">${tr("▶ Starten", "▶ Start")}</button>
+        <button type="button" class="account-mix-share" data-share-mix="${escapeHtml(mix.id)}" title="${tr("Als Hausaufgabe teilen", "Share as homework")}" aria-label="${tr("Als Hausaufgabe teilen", "Share as homework")}">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="7" height="7" rx="1"/>
+            <rect x="14" y="3" width="7" height="7" rx="1"/>
+            <rect x="3" y="14" width="7" height="7" rx="1"/>
+            <path d="M14 14h3v3h-3zM19 14h2v2M14 19h2v2M19 19h2v2"/>
+          </svg>
+        </button>
         <button type="button" class="account-mix-del" data-delete-mix="${escapeHtml(mix.id)}" title="${tr("Mix entfernen", "Remove mix")}" aria-label="${tr("Mix entfernen", "Remove mix")}">✕</button>
       </div>
     </div>
@@ -571,6 +579,11 @@ function renderProfileMixes() {
 
   listEl.querySelectorAll("[data-launch-mix]").forEach(btn => {
     btn.addEventListener("click", () => launchProfileMix(btn.dataset.launchMix));
+  });
+  listEl.querySelectorAll("[data-share-mix]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (typeof openHomeworkShareForMix === "function") openHomeworkShareForMix(btn.dataset.shareMix);
+    });
   });
   listEl.querySelectorAll("[data-delete-mix]").forEach(btn => {
     btn.addEventListener("click", () => deleteProfileMix(btn.dataset.deleteMix));
@@ -2449,7 +2462,8 @@ function performFullAppReset() {
   if (typeof clearNativeStorageMirror === "function") {
     clearNativeStorageMirror();
   }
-  // Gerätespezifische Einstellungen (MIDI, Tap-Latenz) gehören beim vollständigen Reset ebenfalls dazu
+  // Gerätespezifische Einstellungen (MIDI, Tap-Latenz) und laufende Prüfung beim Reset leeren
+  if (typeof clearActiveExamSession === "function") clearActiveExamSession();
   if (typeof resetMidiForAppReset === "function") resetMidiForAppReset();
   if (typeof saveTapLatencyExtraMs === "function") saveTapLatencyExtraMs(null);
   // Übungs-Einstellungen auf Standard, sonst schreibt generateExercise() die alten Stufen sofort zurück

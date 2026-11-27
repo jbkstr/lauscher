@@ -7863,5 +7863,105 @@ registerColocatedPhrases({
   "Theme „{name}“ gelöscht.": {
     fr: "Thème « {name} » supprimé.", es: "Tema «{name}» eliminado.", it: "Tema «{name}» eliminato.", pl: "Usunięto motyw „{name}”.",
     uk: "Тему «{name}» видалено.", ur: "تھیم „{name}“ حذف ہو گئی۔", tr: "“{name}” teması silindi.", ar: "تم حذف السمة «{name}»."
+  },
+  "Prüfung wiederhergestellt (Frage {n}/{total}) – tippe auf Abspielen.": {
+    fr: "Examen restauré (question {n}/{total}) — appuie sur Lecture.",
+    es: "Examen restaurado (pregunta {n}/{total}): pulsa Reproducir.",
+    it: "Esame ripristinato (domanda {n}/{total}) — tocca Riproduci.",
+    pl: "Przywrócono egzamin (pytanie {n}/{total}) — stuknij Odtwórz.",
+    uk: "Іспит відновлено (питання {n}/{total}) — натисни «Відтворити».",
+    ur: "امتحان بحال ہو گیا (سوال {n}/{total}) — چلانے کے لیے ٹیپ کریں۔",
+    tr: "Sınav geri yüklendi (soru {n}/{total}) — Çal düğmesine dokun.",
+    ar: "تمت استعادة الاختبار (سؤال {n}/{total}) — انقر على تشغيل."
+  },
+  "Als Hausaufgabe teilen": {
+    fr: "Partager en devoir", es: "Compartir como tarea", it: "Condividi come compito", pl: "Udostępnij jako zadanie domowe",
+    uk: "Поділитися як домашнім завданням", ur: "ہوم ورک کے طور پر شیئر کریں", tr: "Ödev olarak paylaş", ar: "مشاركة كواجب منزلي"
+  },
+  "Intervalle • Eigene Auswahl": {
+    fr: "Intervalles • Sélection libre", es: "Intervalos • Selección propia", it: "Intervalli • Selezione libera", pl: "Interwały • Własny wybór",
+    uk: "Інтервали • Власний вибір", ur: "وقفے • ذاتی انتخاب", tr: "Aralıklar • Özel seçim", ar: "المسافات • اختيار مخصص"
+  },
+  "{n} Intervalle": {
+    fr: "{n} intervalles", es: "{n} intervalos", it: "{n} intervalli", pl: "{n} interwałów",
+    uk: "{n} інтервалів", ur: "{n} وقفے", tr: "{n} aralık", ar: "{n} مسافات"
+  },
+  "Eigene Auswahl": {
+    fr: "Sélection libre", es: "Selección propia", it: "Selezione libera", pl: "Własny wybór",
+    uk: "Власний вибір", ur: "ذاتی انتخاب", tr: "Özel seçim", ar: "اختيار مخصص"
+  },
+  "Tonart: Leichte": {
+    fr: "Tonalité : faciles", es: "Tonalidad: fáciles", it: "Tonalità: facili", pl: "Tonacja: łatwe",
+    uk: "Тональність: прості", ur: "سر: آسان", tr: "Ton: Kolay", ar: "المقام: سهل"
+  },
+  "Tonart: Alle 12": {
+    fr: "Tonalité : les 12", es: "Tonalidad: las 12", it: "Tonalità: tutte e 12", pl: "Tonacja: wszystkie 12",
+    uk: "Тональність: усі 12", ur: "سر: تمام 12", tr: "Ton: Tümü (12)", ar: "المقام: الكل 12"
+  },
+  "Taktart: Zufall": {
+    fr: "Mesure : aléatoire", es: "Compás: aleatorio", it: "Tempo: casuale", pl: "Metrum: losowe",
+    uk: "Розмір: випадковий", ur: "تال: بے ترتیب", tr: "Ölçü: Rastgele", ar: "الوزن: عشوائي"
+  },
+  "Zufällige Tonart": {
+    fr: "Tonalité aléatoire", es: "Tonalidad aleatoria", it: "Tonalità casuale", pl: "Losowa tonacja",
+    uk: "Випадкова тональність", ur: "بے ترتیب سر", tr: "Rastgele ton", ar: "مقام عشوائي"
+  },
+  "Vom Blatt": {
+    fr: "À vue", es: "A primera vista", it: "A prima vista", pl: "A vista",
+    uk: "З листа", ur: "بغیر تیاری کے", tr: "Deşifre", ar: "قراءة فورية"
+  },
+  "Grundton: Zufall": {
+    fr: "Fondamentale : aléatoire", es: "Tónica: aleatoria", it: "Tonica: casuale", pl: "Pryma: losowa",
+    uk: "Основний тон: випадковий", ur: "بنیادی سر: بے ترتیب", tr: "Kök ses: Rastgele", ar: "النغمة الأساسية: عشوائية"
+  },
+  "Grundton: {n}": {
+    fr: "Fondamentale : {n}", es: "Tónica: {n}", it: "Tonica: {n}", pl: "Pryma: {n}",
+    uk: "Основний тон: {n}", ur: "بنیادی سر: {n}", tr: "Kök ses: {n}", ar: "النغمة الأساسية: {n}"
+  },
+  "Gemischt (↗/↘)": {
+    fr: "Mixte (↗/↘)", es: "Mixto (↗/↘)", it: "Misto (↗/↘)", pl: "Mieszane (↗/↘)",
+    uk: "Змішані (↗/↘)", ur: "مخلوط (↗/↘)", tr: "Karışık (↗/↘)", ar: "مختلط (↗/↘)"
+  },
+  "Tonart: Zufall": {
+    fr: "Tonalité : aléatoire", es: "Tonalidad: aleatoria", it: "Tonalità: casuale", pl: "Tonacja: losowa",
+    uk: "Тональність: випадкова", ur: "سر: بے ترتیب", tr: "Ton: Rastgele", ar: "المقام: عشوائي"
+  },
+  "QR-Code für diese Hausaufgabe": {
+    fr: "Code QR pour ce devoir", es: "Código QR para esta tarea", it: "Codice QR per questo compito", pl: "Kod QR dla tego zadania",
+    uk: "QR-код для цього завдання", ur: "اس ہوم ورک کے لیے کیو آر کوڈ", tr: "Bu ödev için QR kod", ar: "رمز QR لهذا الواجب"
+  },
+  "Link ist für einen QR-Code zu lang – bitte kopieren.": {
+    fr: "Le lien est trop long pour un code QR — merci de le copier.",
+    es: "El enlace es demasiado largo para un código QR; cópialo.",
+    it: "Il link è troppo lungo per un codice QR — copialo.",
+    pl: "Link jest za długi na kod QR — skopiuj go.",
+    uk: "Посилання задовге для QR-коду — будь ласка, скопіюй його.",
+    ur: "لنک کیو آر کوڈ کے لیے بہت لمبا ہے — براہِ کرم اسے کاپی کریں۔",
+    tr: "Bağlantı QR kod için çok uzun — lütfen kopyala.",
+    ar: "الرابط طويل جدًا لرمز QR — يرجى نسخه."
+  },
+  "Hausaufgaben-Link kopiert": {
+    fr: "Lien du devoir copié", es: "Enlace de la tarea copiado", it: "Link del compito copiato", pl: "Skopiowano link do zadania",
+    uk: "Посилання на завдання скопійовано", ur: "ہوم ورک کا لنک کاپی ہو گیا", tr: "Ödev bağlantısı kopyalandı", ar: "تم نسخ رابط الواجب"
+  },
+  "Bitte Link manuell kopieren": {
+    fr: "Copie le lien manuellement", es: "Copia el enlace manualmente", it: "Copia il link manualmente", pl: "Skopiuj link ręcznie",
+    uk: "Скопіюй посилання вручну", ur: "براہِ کرم لنک خود کاپی کریں", tr: "Lütfen bağlantıyı elle kopyala", ar: "يرجى نسخ الرابط يدويًا"
+  },
+  "Lauscher Hausaufgabe": {
+    fr: "Devoir Lauscher", es: "Tarea de Lauscher", it: "Compito Lauscher", pl: "Zadanie domowe Lauscher",
+    uk: "Домашнє завдання Lauscher", ur: "Lauscher ہوم ورک", tr: "Lauscher Ödevi", ar: "واجب Lauscher"
+  },
+  "Als Übe-Mix speichern": {
+    fr: "Enregistrer comme mix", es: "Guardar como mezcla", it: "Salva come mix", pl: "Zapisz jako miks",
+    uk: "Зберегти як мікс", ur: "مشقی مکس کے طور پر محفوظ کریں", tr: "Çalışma karması olarak kaydet", ar: "حفظ كمزيج تدريب"
+  },
+  "Als Übe-Mix gespeichert": {
+    fr: "Enregistré comme mix", es: "Guardado como mezcla", it: "Salvato come mix", pl: "Zapisano jako miks",
+    uk: "Збережено як мікс", ur: "مشقی مکس کے طور پر محفوظ ہو گیا", tr: "Çalışma karması olarak kaydedildi", ar: "تم الحفظ كمزيج تدريب"
+  },
+  "Hausaufgabe als Übe-Mix gespeichert": {
+    fr: "Devoir enregistré comme mix", es: "Tarea guardada como mezcla", it: "Compito salvato come mix", pl: "Zadanie zapisane jako miks",
+    uk: "Завдання збережено як мікс", ur: "ہوم ورک مشقی مکس کے طور پر محفوظ ہو گیا", tr: "Ödev çalışma karması olarak kaydedildi", ar: "تم حفظ الواجب كمزيج تدريب"
   }
 });

@@ -33,6 +33,10 @@ function getOpenModalName() {
   if (breakModal && !breakModal.classList.contains("modal-hidden")) return "break";
   const themeUnlock = document.getElementById("themeUnlockBackdrop");
   if (themeUnlock && !themeUnlock.classList.contains("modal-hidden")) return "themeUnlock";
+  const hwShare = document.getElementById("homeworkShareBackdrop");
+  if (hwShare && !hwShare.classList.contains("modal-hidden")) return "homeworkShare";
+  const hwStart = document.getElementById("homeworkStartBackdrop");
+  if (hwStart && !hwStart.classList.contains("modal-hidden")) return "homeworkStart";
   return null;
 }
 
@@ -495,7 +499,9 @@ const MODAL_BACKDROP_IDS = {
   settings: "settingsBackdrop",
   about: "aboutBackdrop",
   break: "breakReminderBackdrop",
-  themeUnlock: "themeUnlockBackdrop"
+  themeUnlock: "themeUnlockBackdrop",
+  homeworkShare: "homeworkShareBackdrop",
+  homeworkStart: "homeworkStartBackdrop"
 };
 let _modalA11yOpenName = null;
 let _modalReturnFocusEl = null;
@@ -537,6 +543,8 @@ function setModalVisibility(modalName) {
   document.getElementById("settingsBackdrop")?.classList.toggle("modal-hidden", modalName !== "settings");
   document.getElementById("aboutBackdrop")?.classList.toggle("modal-hidden", modalName !== "about");
   document.getElementById("themeUnlockBackdrop")?.classList.toggle("modal-hidden", modalName !== "themeUnlock");
+  document.getElementById("homeworkShareBackdrop")?.classList.toggle("modal-hidden", modalName !== "homeworkShare");
+  document.getElementById("homeworkStartBackdrop")?.classList.toggle("modal-hidden", modalName !== "homeworkStart");
   if (modalName !== "settings") {
     if (typeof cancelTapLatencyCalibration === "function") cancelTapLatencyCalibration("");
     if (typeof stopNativeBleScan === "function") stopNativeBleScan();
@@ -1439,6 +1447,9 @@ function switchView(targetView, options = {}) {
   const showBottomNav = !isTabSwipeBlockedView(targetView);
   document.getElementById("bottomNav")?.classList.toggle("hidden", !showBottomNav);
   document.getElementById("backBtn")?.classList.toggle("hidden", isMainTabView);
+  if (typeof syncExerciseHomeworkButtonVisibility === "function") {
+    syncExerciseHomeworkButtonVisibility();
+  }
 
   document.querySelectorAll(".nav-tab").forEach(tab => {
     tab.classList.toggle("active", Boolean(activeTab && tab.dataset.nav === activeTab));

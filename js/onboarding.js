@@ -420,6 +420,9 @@ function completeWelcomeOnboarding() {
     _welcomeOnboardingState.selecting = false;
     _welcomeOnboardingState.exiting = false;
     _welcomeOnboardingState.exitTimer = null;
+    if (typeof consumePendingHomeworkIfAny === "function") {
+      consumePendingHomeworkIfAny();
+    }
   }, exitDuration);
 }
 
@@ -486,6 +489,9 @@ function applyRestoredNativeAppState() {
 
 function initStartupSplash() {
   hydrateMascotStaticSlots();
+  if (typeof capturePendingHomeworkFromLocation === "function") {
+    capturePendingHomeworkFromLocation();
+  }
   const splash = document.getElementById("startupSplash");
   const welcome = document.getElementById("welcomeOnboarding");
 
@@ -506,6 +512,26 @@ function initStartupSplash() {
     if (typeof document !== "undefined" && document.documentElement?.removeAttribute) {
       document.documentElement.removeAttribute("data-first-run");
     }
+
+    // Hausaufgaben-Link (#hw=… / #mix=…) oder wiederhergestellte Prüfung überspringen den Splash
+    if (typeof hasPendingHomeworkFromUrl === "function" && hasPendingHomeworkFromUrl()) {
+      if (splash) {
+        splash.classList.add("splash-out");
+        splash.classList.add("splash-hidden");
+      }
+      if (typeof consumePendingHomeworkIfAny === "function") {
+        consumePendingHomeworkIfAny();
+      }
+      return;
+    }
+    if (typeof restoreActiveExamSessionIfPresent === "function" && restoreActiveExamSessionIfPresent()) {
+      if (splash) {
+        splash.classList.add("splash-out");
+        splash.classList.add("splash-hidden");
+      }
+      return;
+    }
+
     if (!splash) return;
 
     splash.classList.remove("splash-out");
