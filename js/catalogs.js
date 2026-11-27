@@ -420,6 +420,7 @@ const CUSTOM_THEME_MANAGED_CSS_VARS = [
   "--piano-black-out-bg", "--piano-black-out-border", "--piano-black-solfege-bg", "--piano-black-solfege-ink",
   "--key-wrong-bg", "--key-wrong-ink", "--backdrop-scrim",
   "--status-ok", "--status-warn", "--status-err",
+  "--status-ok-text", "--status-warn-text", "--status-err-text",
   "--shadow-card", "--shadow-float"
 ];
 
@@ -721,6 +722,10 @@ function buildDerivedCustomThemeVars(rawColors) {
     "--status-ok": colors.statusOk,
     "--status-warn": colors.statusWarn,
     "--status-err": colors.statusErr,
+    // Eigene Themes: Schrift in Statusfarbe = gewählte Farbe (Kontrast liegt in der Hand der Gestalterin/des Gestalters)
+    "--status-ok-text": colors.statusOk,
+    "--status-warn-text": colors.statusWarn,
+    "--status-err-text": colors.statusErr,
     "--shadow-card": isDark
       ? "0 4px 16px rgba(10, 12, 16, 0.28)"
       : `0 4px 16px rgba(${c.raccoonDark.r}, ${c.raccoonDark.g}, ${c.raccoonDark.b}, 0.06)`,

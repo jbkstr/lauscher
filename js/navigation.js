@@ -489,6 +489,49 @@ function openSettingsModal(focusSection = null) {
   }
 }
 
+// Barrierefreiheit der Modals: Fokus hinein, Hintergrund inert, Fokus beim Schließen zurück
+const MODAL_BACKDROP_IDS = {
+  mixer: "mixerBackdrop",
+  settings: "settingsBackdrop",
+  about: "aboutBackdrop",
+  break: "breakReminderBackdrop",
+  themeUnlock: "themeUnlockBackdrop"
+};
+let _modalA11yOpenName = null;
+let _modalReturnFocusEl = null;
+
+function syncModalAccessibility(modalName) {
+  const name = modalName && MODAL_BACKDROP_IDS[modalName] ? modalName : null;
+  const prev = _modalA11yOpenName;
+  if (name === prev) return;
+  _modalA11yOpenName = name;
+  const shell = document.querySelector(".app-shell");
+  if (shell) shell.inert = Boolean(name);
+  Object.entries(MODAL_BACKDROP_IDS).forEach(([key, id]) => {
+    const el = document.getElementById(id);
+    if (el) el.setAttribute("aria-hidden", key === name ? "false" : "true");
+  });
+
+  if (name) {
+    if (!prev) {
+      const active = document.activeElement;
+      _modalReturnFocusEl = active && active !== document.body && typeof active.focus === "function" ? active : null;
+    }
+    const dialog = document.getElementById(MODAL_BACKDROP_IDS[name])?.querySelector(".modal-dialog");
+    if (dialog) {
+      if (!dialog.hasAttribute("tabindex")) dialog.setAttribute("tabindex", "-1");
+      try { dialog.focus({ preventScroll: true }); } catch (_) { dialog.focus?.(); }
+    }
+    return;
+  }
+
+  const returnEl = _modalReturnFocusEl;
+  _modalReturnFocusEl = null;
+  if (returnEl && returnEl.isConnected && !returnEl.closest("[inert], .hidden, .modal-hidden")) {
+    try { returnEl.focus({ preventScroll: true }); } catch (_) {}
+  }
+}
+
 function setModalVisibility(modalName) {
   document.getElementById("mixerBackdrop")?.classList.toggle("modal-hidden", modalName !== "mixer");
   document.getElementById("settingsBackdrop")?.classList.toggle("modal-hidden", modalName !== "settings");
@@ -527,6 +570,7 @@ function setModalVisibility(modalName) {
       startBreakReminderTicker();
     }
   }
+  syncModalAccessibility(modalName);
 }
 
 function closeTransientPopovers() {
@@ -1142,7 +1186,24 @@ function handleHorizontalTabSwipe({ startX, startY, endX, endY, durationMs, view
   return navigateToMainTab(nextTab, swipeDir);
 }
 
+// Pinch-Zoom (Barrierefreiheit): eingezoomt kein Reiter-Wischen, Ansicht frei verschiebbar
+function isPagePinchZoomed() {
+  const scale = window.visualViewport?.scale;
+  return Number.isFinite(scale) && scale > 1.02;
+}
+
+function initPinchZoomStateTracking() {
+  const vv = window.visualViewport;
+  if (!vv || typeof vv.addEventListener !== "function") return;
+  const sync = () => {
+    document.documentElement.classList.toggle("is-pinch-zoomed", isPagePinchZoomed());
+  };
+  vv.addEventListener("resize", sync, { passive: true });
+  sync();
+}
+
 function initTabSwipeNavigation() {
+  initPinchZoomStateTracking();
   const swipeSurface = document.querySelector(".app-shell") || document.body || document.documentElement;
   if (!swipeSurface || typeof swipeSurface.addEventListener !== "function") return;
 
@@ -1155,7 +1216,7 @@ function initTabSwipeNavigation() {
       tracker = null;
       return;
     }
-    if (isTabSwipeBlockedView(state.currentView) || getOpenModalName() !== null) {
+    if (isTabSwipeBlockedView(state.currentView) || getOpenModalName() !== null || isPagePinchZoomed()) {
       tracker = null;
       return;
     }

@@ -137,6 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
   applyPracticeProgressToSettings();
   startBrandWordStyling();
   initExerciseFitObserver();
+  initAnswerFeedbackAnnouncer();
   if (typeof initExerciseTutorialUI === "function") {
     initExerciseTutorialUI();
   }
@@ -853,6 +854,16 @@ document.addEventListener("DOMContentLoaded", () => {
     replaceAppHistory(null);
     setTimeout(() => {
       document.getElementById("spaceMixesCard")?.scrollIntoView?.({ behavior: "smooth", block: "start" });
+    }, 60);
+  });
+  // Farbdesigner im Konto → Theme-Auswahl gibt es nur in den App-Einstellungen
+  document.getElementById("spaceChooseThemeBtn")?.addEventListener("click", () => {
+    if (getOpenModalName() !== "settings") {
+      setModalVisibility("settings");
+      pushAppHistory("settings");
+    }
+    setTimeout(() => {
+      document.getElementById("settingsAppearanceGroupLabel")?.scrollIntoView?.({ behavior: "smooth", block: "start" });
     }, 60);
   });
   document.getElementById("settingsCustomizeThemesBtn")?.addEventListener("click", () => {
@@ -1638,10 +1649,24 @@ document.addEventListener("DOMContentLoaded", () => {
       dismissExerciseTutorialByUser();
       return;
     }
+    // Escape schließt das offene Modal (offene Dropdowns fangen Escape vorher selbst ab)
+    if (e.key === "Escape" && !e.defaultPrevented && getOpenModalName()) {
+      e.preventDefault();
+      closeActiveModal();
+      return;
+    }
     if (e.code !== "Space" && e.key !== " ") return;
     if (e.repeat) return;
     const tag = e.target?.tagName;
     if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+    // Per Tastatur fokussierte Bedienelemente behalten die Leertaste (Knopf auslösen, Dropdown öffnen) –
+    // außer dem Tap-Pad, das genau dafür da ist. Nach Mausklick (kein :focus-visible) bleibt die Abkürzung.
+    const focusedControl = e.target?.closest?.('button, a[href], summary, [role="button"], [role="option"], [role="listbox"], [role="menuitem"], [role="switch"], [role="checkbox"], [contenteditable=""], [contenteditable="true"]');
+    if (focusedControl && focusedControl.id !== "rhythmTapPadBtn") {
+      let keyboardFocused = true;
+      try { keyboardFocused = focusedControl.matches(":focus-visible"); } catch (_) {}
+      if (keyboardFocused) return;
+    }
     const openModal = ["mixerBackdrop", "settingsBackdrop", "aboutBackdrop", "breakReminderBackdrop", "themeUnlockBackdrop"].some(
       id => {
         const el = document.getElementById(id);

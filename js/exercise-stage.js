@@ -207,6 +207,53 @@ function initExerciseFitObserver() {
   if (dock) ro.observe(dock);
 }
 
+// Barrierefreiheit: Richtig/Falsch für Bildschirmleser ansagen (#a11yAnnouncer, aria-live="polite").
+// Ein Beobachter auf den Antwort-Kacheln fängt alle Auswertungswege (Übung, Prüfung, Notenlesen) zentral ab.
+let a11yAnnounceTimerId = 0;
+
+function announceForScreenReader(text) {
+  const el = document.getElementById("a11yAnnouncer");
+  if (!el || !text) return;
+  el.textContent = "";
+  clearTimeout(a11yAnnounceTimerId);
+  // Kurz leeren und neu setzen, damit gleiche Ansagen hintereinander wieder vorgelesen werden
+  a11yAnnounceTimerId = setTimeout(() => {
+    el.textContent = String(text);
+  }, 60);
+}
+
+function getAnswerButtonA11yText(btn) {
+  // innerText trennt die Zeilen der Kachel (z. B. „IV“ + „Subdom.“), textContent würde sie zusammenkleben
+  const raw = btn?.getAttribute?.("aria-label") || btn?.innerText || btn?.textContent || "";
+  return raw.replace(/\s+/g, " ").trim().slice(0, 80);
+}
+
+function initAnswerFeedbackAnnouncer() {
+  const view = document.getElementById("viewExercise");
+  if (!view || typeof MutationObserver !== "function") return;
+  const mo = new MutationObserver((records) => {
+    for (const rec of records) {
+      const el = rec.target;
+      if (!(el instanceof Element)) continue;
+      const had = String(rec.oldValue || "");
+      const answer = getAnswerButtonA11yText(el);
+      if (el.classList.contains("btn-correct") && !/\bbtn-correct\b/.test(had)) {
+        announceForScreenReader(answer
+          ? tf("Richtig: {answer}", "Correct: {answer}", { answer })
+          : tr("Richtig!", "Correct!"));
+        return;
+      }
+      if (el.classList.contains("btn-wrong") && !/\bbtn-wrong\b/.test(had)) {
+        announceForScreenReader(answer
+          ? tf("Leider falsch: {answer}", "Not quite: {answer}", { answer })
+          : tr("Leider falsch.", "Not quite."));
+        return;
+      }
+    }
+  });
+  mo.observe(view, { subtree: true, attributes: true, attributeFilter: ["class"], attributeOldValue: true });
+}
+
 const STREAK_MILESTONES = new Set([3, 5, 8, 10, 15, 20, 25, 30, 40, 50, 75, 100]);
 
 function isStreakMilestone(count) {

@@ -11,6 +11,21 @@ All released versions of Lauscher. New sections are created by `python3 scripts/
 - Tuner: the microphone now runs in the app's main audio context (like the sing-back exercises) instead of opening a second `AudioContext`, which iOS only allows a few of at a time.
 - Fixed a layout resize-oscillation glitch in "Play Intervals" (and other MIDI play exercises) on mobile/app viewports caused by animated height/padding transitions on `.bar-card` interacting with `fitExerciseLayout()` and `ResizeObserver`.
 
+**Accessibility**
+- Screen readers now announce "Correct" / "Not quite" with the chosen answer (polite live region), and answer tiles show ✓ / ✗ in addition to color.
+- Pinch-zoom is allowed again (removed `user-scalable=no`). Double-tap zoom stays off, and keyboards and tap pads block pinch so two-finger chords don't zoom. Text fields use at least 16 px on touch devices so iOS doesn't zoom in on focus.
+- Dialogs (Settings, Volume, About, Break, Theme unlock) move focus into the dialog, lock the background (`inert`), close with Escape and return focus afterwards.
+- Custom dropdowns work with the keyboard (arrow keys, Home/End, Escape) and keep focus when they redraw.
+- Space only triggers metronome, warm-up and rhythm-tap shortcuts when no button or dropdown has keyboard focus.
+- Notation symbol search keeps the input (focus, cursor, on-screen keyboard) and only redraws the results.
+- Unlabeled black keys get screen-reader names; text in knowledge articles can be selected and copied; the settings button tooltip is correct again.
+- Secondary text (`--raccoon-muted`) and status colors used as text now reach at least 4.5:1 contrast in all built-in themes (separate `--status-*-text` tokens; fills unchanged).
+- Small buttons get a 44 × 44 px tap area on touch devices without changing the layout.
+- Deleting a practice mix or a custom theme can be undone from the toast; account and app reset keep their two-step confirmation.
+
+**Changed**
+- Theme selection lives only in App Settings → "Look & Color Scheme". The account tab keeps the "Color Studio" for creating and editing up to 3 custom themes, with a shortcut to the theme selection.
+
 **Improved**
 - Added a Content-Security-Policy: the app may only load its own files, which enforces the "no network requests" promise in the browser.
 - Profiles now carry a schema version with step-by-step migration; custom themes are stored once in the profile (the theme storage is only a render cache for the startup script).

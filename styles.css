@@ -58,7 +58,7 @@
   --icon-ink: #232533;
   --raccoon-dark: #3D405B;
   --raccoon-mid: #5E6278;
-  --raccoon-muted: #85889E;
+  --raccoon-muted: #66697E; /* ≥ 4.5:1 auf allen Flächen */
   --text-muted: var(--raccoon-muted);
   --border-soft: rgba(61, 64, 91, 0.11);
   --border-strong: rgba(61, 64, 91, 0.22);
@@ -92,6 +92,10 @@
   --status-ok: #48A878;
   --status-warn: #E58C3A;
   --status-err: #D96B6B;
+  /* Statusfarben als Schrift: ≥ 4.5:1 auf allen Flächen (Flächen/Icons nutzen weiter --status-*) */
+  --status-ok-text: #087B4E;
+  --status-warn-text: #A75300;
+  --status-err-text: #B3494C;
 
   --radius-sm: 10px;
   --radius-md: 14px;
@@ -127,7 +131,7 @@
   --icon-ink: #1E2836;
   --raccoon-dark: #2E3B4E;
   --raccoon-mid: #536378;
-  --raccoon-muted: #7B8A9E;
+  --raccoon-muted: #5D6B7E; /* ≥ 4.5:1 auf allen Flächen */
   --border-soft: rgba(46, 59, 78, 0.11);
   --border-strong: rgba(46, 59, 78, 0.22);
   --tint-subtle: rgba(46, 59, 78, 0.08);
@@ -136,6 +140,10 @@
   --status-ok: #3B98AE;
   --status-warn: #DC8541;
   --status-err: #D6666D;
+  /* Statusfarben als Schrift: ≥ 4.5:1 auf allen Flächen (Flächen/Icons nutzen weiter --status-*) */
+  --status-ok-text: #02758A;
+  --status-warn-text: #A75400;
+  --status-err-text: #B2464F;
   --shadow-card: 0 4px 16px rgba(46, 59, 78, 0.06);
   --shadow-float: 0 10px 28px rgba(46, 59, 78, 0.14);
 }
@@ -162,7 +170,7 @@
   --icon-ink: #292236;
   --raccoon-dark: #3E354F;
   --raccoon-mid: #635875;
-  --raccoon-muted: #8A7F9B;
+  --raccoon-muted: #6E637E; /* ≥ 4.5:1 auf allen Flächen */
   --border-soft: rgba(62, 53, 79, 0.11);
   --border-strong: rgba(62, 53, 79, 0.22);
   --tint-subtle: rgba(62, 53, 79, 0.08);
@@ -171,6 +179,10 @@
   --status-ok: #3F9E78;
   --status-warn: #DF7B57;
   --status-err: #D5636E;
+  /* Statusfarben als Schrift: ≥ 4.5:1 auf allen Flächen (Flächen/Icons nutzen weiter --status-*) */
+  --status-ok-text: #047854;
+  --status-warn-text: #AC4D29;
+  --status-err-text: #B14350;
   --shadow-card: 0 4px 16px rgba(62, 53, 79, 0.06);
   --shadow-float: 0 10px 28px rgba(62, 53, 79, 0.14);
 }
@@ -200,7 +212,7 @@
   --icon-ink: #241910;
   --raccoon-dark: #2D2016;
   --raccoon-mid: #5C4837;
-  --raccoon-muted: #86715D;
+  --raccoon-muted: #74604C; /* ≥ 4.5:1 auf allen Flächen */
   --border-soft: rgba(122, 89, 18, 0.19);
   --border-strong: rgba(122, 89, 18, 0.36);
   --tint-subtle: rgba(122, 89, 18, 0.085);
@@ -219,6 +231,10 @@
   --status-ok: #367B52;
   --status-warn: #B86D1F;
   --status-err: #A8353B;
+  /* Statusfarben als Schrift: ≥ 4.5:1 auf allen Flächen (Flächen/Icons nutzen weiter --status-*) */
+  --status-ok-text: #2B7148;
+  --status-warn-text: #995100;
+  --status-err-text: var(--status-err);
 
   --radius-sm: 6px;
   --radius-md: 10px;
@@ -260,7 +276,7 @@
   --icon-ink: #F2F3F7;
   --raccoon-dark: #ECEDF3;
   --raccoon-mid: #B8BDCB;
-  --raccoon-muted: #8C92A4;
+  --raccoon-muted: #9DA3B5; /* ≥ 4.5:1 auf allen Flächen */
   --border-soft: rgba(236, 237, 243, 0.10);
   --border-strong: rgba(236, 237, 243, 0.22);
   --tint-subtle: rgba(236, 237, 243, 0.09);
@@ -291,6 +307,10 @@
   --status-ok: #5EC290;
   --status-warn: #F09C52;
   --status-err: #E67E7E;
+  /* Statusfarben als Schrift: ≥ 4.5:1 auf allen Flächen (Flächen/Icons nutzen weiter --status-*) */
+  --status-ok-text: var(--status-ok);
+  --status-warn-text: var(--status-warn);
+  --status-err-text: #EF8686;
 
   --shadow-card: 0 4px 16px rgba(10, 12, 16, 0.28);
   --shadow-float: 0 12px 30px rgba(8, 10, 14, 0.42);
@@ -321,7 +341,7 @@
   --icon-ink: #F0F4F8;
   --raccoon-dark: #E8EEF4;
   --raccoon-mid: #B4C0CE;
-  --raccoon-muted: #8693A4;
+  --raccoon-muted: #97A4B5; /* ≥ 4.5:1 auf allen Flächen */
   --border-soft: rgba(232, 238, 244, 0.10);
   --border-strong: rgba(232, 238, 244, 0.22);
   --tint-subtle: rgba(232, 238, 244, 0.09);
@@ -332,6 +352,10 @@
   --status-ok: #59B9CE;
   --status-warn: #EC9854;
   --status-err: #E47B82;
+  /* Statusfarben als Schrift: ≥ 4.5:1 auf allen Flächen (Flächen/Icons nutzen weiter --status-*) */
+  --status-ok-text: var(--status-ok);
+  --status-warn-text: var(--status-warn);
+  --status-err-text: #ED838A;
 }
 
 /* Theme 3 (Dunkelgrau): Abenddämmerung */
@@ -356,7 +380,7 @@
   --icon-ink: #F2EFF7;
   --raccoon-dark: #ECE9F4;
   --raccoon-mid: #BCB6CB;
-  --raccoon-muted: #908AA1;
+  --raccoon-muted: #A19BB2; /* ≥ 4.5:1 auf allen Flächen */
   --border-soft: rgba(236, 233, 244, 0.10);
   --border-strong: rgba(236, 233, 244, 0.22);
   --tint-subtle: rgba(236, 233, 244, 0.09);
@@ -367,6 +391,10 @@
   --status-ok: #5EC09B;
   --status-warn: #ED8D69;
   --status-err: #E67984;
+  /* Statusfarben als Schrift: ≥ 4.5:1 auf allen Flächen (Flächen/Icons nutzen weiter --status-*) */
+  --status-ok-text: var(--status-ok);
+  --status-warn-text: var(--status-warn);
+  --status-err-text: #E97C87;
 }
 
 /* Bonus-Theme 5 (Dunkel – Gala-Abend): Konzertsaal */
@@ -394,7 +422,7 @@
   --icon-ink: #FBF4E6;
   --raccoon-dark: #F5ECDC;
   --raccoon-mid: #C9B99F;
-  --raccoon-muted: #96856C;
+  --raccoon-muted: #9C8B72; /* ≥ 4.5:1 auf allen Flächen */
   --border-soft: rgba(234, 201, 116, 0.17);
   --border-strong: rgba(234, 201, 116, 0.34);
   --tint-subtle: rgba(234, 201, 116, 0.09);
@@ -414,6 +442,10 @@
   --status-ok: #6AC08E;
   --status-warn: #ECA154;
   --status-err: #E67A7B;
+  /* Statusfarben als Schrift: ≥ 4.5:1 auf allen Flächen (Flächen/Icons nutzen weiter --status-*) */
+  --status-ok-text: var(--status-ok);
+  --status-warn-text: var(--status-warn);
+  --status-err-text: var(--status-err);
 
   --radius-sm: 6px;
   --radius-md: 10px;
@@ -456,7 +488,7 @@
   --icon-ink: #F2F6FF;
   --raccoon-dark: #ECF2FF;
   --raccoon-mid: #AFBDD9;
-  --raccoon-muted: #7C8DB3;
+  --raccoon-muted: #7D8FB5; /* ≥ 4.5:1 auf allen Flächen */
   --border-soft: rgba(132, 178, 255, 0.16);
   --border-strong: rgba(244, 190, 94, 0.34);
   --tint-subtle: rgba(116, 181, 255, 0.095);
@@ -488,6 +520,10 @@
   --status-ok: #54D1B8;
   --status-warn: #F4B954;
   --status-err: #F0718D;
+  /* Statusfarben als Schrift: ≥ 4.5:1 auf allen Flächen (Flächen/Icons nutzen weiter --status-*) */
+  --status-ok-text: var(--status-ok);
+  --status-warn-text: var(--status-warn);
+  --status-err-text: var(--status-err);
 
   --radius-sm: 11px;
   --radius-md: 16px;
@@ -532,7 +568,7 @@
   --icon-ink: #F2F4F8;
   --raccoon-dark: #ECEFF4;
   --raccoon-mid: #A3ABB8;
-  --raccoon-muted: #6C7482;
+  --raccoon-muted: #7D8694; /* ≥ 4.5:1 auf allen Flächen */
   --border-soft: rgba(255, 255, 255, 0.10);
   --border-strong: rgba(255, 255, 255, 0.24);
   --tint-subtle: rgba(255, 255, 255, 0.08);
@@ -563,6 +599,10 @@
   --status-ok: #46B884;
   --status-warn: #E58C45;
   --status-err: #E65A68;
+  /* Statusfarben als Schrift: ≥ 4.5:1 auf allen Flächen (Flächen/Icons nutzen weiter --status-*) */
+  --status-ok-text: var(--status-ok);
+  --status-warn-text: var(--status-warn);
+  --status-err-text: var(--status-err);
 
   --radius-sm: 5px;
   --radius-md: 7px;
@@ -818,7 +858,7 @@ input, textarea, select, [contenteditable="true"] {
 
 .mute-btn.muted {
   background-color: #FDE8E8;
-  color: var(--status-err);
+  color: var(--status-err-text);
   border-color: rgba(217, 107, 107, 0.3);
 }
 
@@ -856,7 +896,8 @@ input, textarea, select, [contenteditable="true"] {
   min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  touch-action: pan-y;
+  /* pan-y: waagrechte Wischgesten gehören der Reiter-Navigation; Pinch-Zoom bleibt erlaubt (Barrierefreiheit) */
+  touch-action: pan-y pinch-zoom;
   padding-bottom: 0.8rem;
   display: flex;
   flex-direction: column;
@@ -2053,7 +2094,7 @@ html[lang="ar"] .btn-primary-action.home-continue-fab { width: 174px; }
 }
 
 #viewSpace .btn-tool.account-btn-danger {
-  color: var(--status-err);
+  color: var(--status-err-text);
   border-color: rgba(217, 107, 107, 0.4);
 }
 
@@ -2122,7 +2163,7 @@ html[lang="ar"] .btn-primary-action.home-continue-fab { width: 174px; }
 @media (hover: hover) {
   .account-mix-del:hover {
     border-color: var(--status-err);
-    color: var(--status-err);
+    color: var(--status-err-text);
   }
 }
 
@@ -2159,7 +2200,7 @@ html[lang="ar"] .btn-primary-action.home-continue-fab { width: 174px; }
 }
 
 .account-btn-danger {
-  color: var(--status-err);
+  color: var(--status-err-text);
   border-color: var(--status-err);
 }
 
@@ -2227,7 +2268,7 @@ html[lang="ar"] .btn-primary-action.home-continue-fab { width: 174px; }
 }
 
 .account-status-msg.is-error {
-  color: var(--status-err);
+  color: var(--status-err-text);
   background-color: var(--mute-bg);
   border-color: rgba(217, 107, 107, 0.45);
 }
@@ -2277,7 +2318,7 @@ html[lang="ar"] .btn-primary-action.home-continue-fab { width: 174px; }
 }
 
 .app-toast.is-error {
-  background-color: var(--status-err);
+  background-color: var(--status-err-text);
   color: #FFFFFF;
   border-color: rgba(255, 255, 255, 0.22);
 }
@@ -3545,7 +3586,7 @@ html[lang="ar"] .btn-primary-action.home-continue-fab { width: 174px; }
   direction: ltr;
   user-select: none;
   -webkit-user-select: none;
-  touch-action: manipulation;
+  touch-action: pan-x pan-y; /* kein Pinch-Zoom beim Akkordgreifen */
 }
 
 .piano-keyboard {
@@ -5833,7 +5874,7 @@ body,
 
 .bar-card.rhythm-tap-missed .bar-roman,
 .bar-card.rhythm-tap-missed .bar-label {
-  color: var(--status-err);
+  color: var(--status-err-text);
 }
 
 .tonic-btn.click-muted {
@@ -5868,7 +5909,7 @@ body,
   padding: 0.9rem 1rem;
   cursor: pointer;
   user-select: none;
-  touch-action: manipulation;
+  touch-action: pan-x pan-y; /* kein Pinch-Zoom beim Mehrfinger-Tippen */
   transition: transform 0.08s ease, background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
 }
 
@@ -6852,7 +6893,7 @@ body,
   user-select: none;
   -webkit-user-select: none;
   -webkit-touch-callout: none;
-  touch-action: manipulation;
+  touch-action: pan-x pan-y; /* kein Pinch-Zoom beim Mehrfinger-Tippen */
   transition: transform 0.08s ease, background 0.18s ease;
 }
 
@@ -7531,6 +7572,14 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 .custom-theme-slot-card.active .custom-theme-slot-badge {
   background: var(--sage);
   color: var(--sage-strong);
+}
+
+/* Aktives eigenes Theme: nur Hinweis – ausgewählt wird in den App-Einstellungen */
+.custom-theme-slot-active {
+  font-size: 0.66rem;
+  font-weight: 800;
+  color: var(--sage-strong);
+  white-space: nowrap;
 }
 
 .custom-theme-slot-name {
@@ -8451,7 +8500,7 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   direction: ltr;
   user-select: none;
   -webkit-user-select: none;
-  touch-action: manipulation;
+  touch-action: pan-x pan-y; /* kein Pinch-Zoom beim Akkordgreifen */
 }
 
 .warmup-kb {
@@ -9641,7 +9690,7 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 
 .exam-status-pill.is-exhausted {
   background: var(--mute-bg);
-  color: var(--status-err);
+  color: var(--status-err-text);
   border-color: var(--mute-border);
 }
 
@@ -10064,15 +10113,15 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 
 .exam-review-status.is-ok {
-  color: var(--status-ok);
+  color: var(--status-ok-text);
 }
 
 .exam-review-status.is-warn {
-  color: var(--status-warn);
+  color: var(--status-warn-text);
 }
 
 .exam-review-status.is-err {
-  color: var(--status-err);
+  color: var(--status-err-text);
 }
 
 .exam-review-answers {
@@ -10276,15 +10325,15 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 
 .exam-history-pct.is-ok {
-  color: var(--status-ok);
+  color: var(--status-ok-text);
 }
 
 .exam-history-pct.is-mid {
-  color: var(--status-warn);
+  color: var(--status-warn-text);
 }
 
 .exam-history-pct.is-low {
-  color: var(--status-err);
+  color: var(--status-err-text);
 }
 
 .exam-history-open-hint {
@@ -10359,7 +10408,7 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 
 .melody-rhythm-chip.is-partial-ok {
-  color: var(--status-ok);
+  color: var(--status-ok-text);
   background: var(--sage-soft);
   border-color: var(--sage-strong);
 }
@@ -10457,13 +10506,13 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 .melody-rhythm-btn.is-correct {
   border-color: var(--status-ok);
   background: var(--sage-soft);
-  color: var(--status-ok);
+  color: var(--status-ok-text);
 }
 
 .melody-rhythm-btn.is-wrong {
   border-color: var(--status-err);
   background: var(--key-wrong-bg);
-  color: var(--status-err);
+  color: var(--status-err-text);
 }
 
 .melody-rhythm-btn.is-recorded {
@@ -10713,7 +10762,7 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 
 .notation-staff-panel.is-wrong .notation-note-group.is-target {
-  color: var(--status-err);
+  color: var(--status-err-text);
 }
 
 .notation-staff-panel.is-correct .notation-note-group.is-target {
@@ -11941,7 +11990,7 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 
 @media (hover: hover) {
   .metro-profile-icon-btn.is-delete:hover {
-    color: var(--status-err);
+    color: var(--status-err-text);
     border-color: var(--status-err);
   }
 }
@@ -12133,7 +12182,7 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 }
 
 .settings-reset-status {
-  color: var(--status-err) !important;
+  color: var(--status-err-text) !important;
   font-weight: 700;
   margin-top: 0.42rem;
 }
@@ -14296,7 +14345,7 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
   direction: ltr;
   user-select: none;
   -webkit-user-select: none;
-  touch-action: manipulation;
+  touch-action: pan-x pan-y; /* kein Pinch-Zoom beim Akkordgreifen */
 }
 
 .freeplay-kb {
@@ -19415,4 +19464,146 @@ body.is-hum-pause #viewExercise.answer-ready .degrees-grid::before {
 #viewExercise.fit-2 .midi-play-pad-wrap.has-screen-kb .midi-pad-body,
 #viewExercise.fit-3 .midi-play-pad-wrap.has-screen-kb .midi-pad-body {
   gap: 0.2rem;
+}
+
+/* ==========================================
+   BARRIEREFREIHEIT: ZOOM & EINGABEFELDER
+   ========================================== */
+/* Kein Doppeltipp-Zoom (verzögert sonst jeden Tipp), Pinch-Zoom bleibt erlaubt */
+html {
+  touch-action: manipulation;
+}
+
+/* Eingezoomt: Ansicht darf auch waagrecht verschoben werden (Reiter-Wischen ist dann aus) */
+html.is-pinch-zoomed .view-container {
+  touch-action: manipulation;
+}
+
+/* iOS zoomt beim Fokussieren von Feldern unter 16 px automatisch hinein */
+@media (pointer: coarse) {
+  input[type="text"],
+  input[type="search"],
+  input[type="number"],
+  input:not([type]),
+  textarea,
+  select {
+    font-size: max(16px, 1em) !important;
+  }
+}
+
+/* Nur für Bildschirmleser sichtbar */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Richtig/Falsch nicht nur über Farbe zeigen (Farbsehschwäche): ✓ / ✗ in der Kachel-Ecke */
+.degree-btn.btn-correct::after,
+.degree-btn.btn-wrong::after {
+  position: absolute;
+  top: 3px;
+  inset-inline-end: 6px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.degree-btn.btn-correct::after {
+  content: "✓";
+  color: var(--sage-strong);
+}
+
+.degree-btn.btn-wrong::after {
+  content: "✗";
+  color: var(--peach-strong);
+}
+
+/* Wissensartikel: Text markier- und kopierbar (Rest der App bleibt ohne Textauswahl) */
+#knowledgeDetailContent :is(p, li, h2, h3, h4, h5, td, th, blockquote, dd, dt, figcaption) {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+/* Modal-Dialog bekommt beim Öffnen den Fokus (für Bildschirmleser), ohne Fokusrahmen */
+.modal-dialog:focus {
+  outline: none;
+}
+
+/* Toast mit Aktion („Rückgängig“): antippbar, Text und Knopf nebeneinander */
+.app-toast.has-action {
+  pointer-events: auto;
+  /* left: 50 % halbiert sonst die verfügbare Breite (Shrink-to-fit) */
+  width: max-content;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.32rem 0.38rem 0.32rem 1rem;
+  text-align: start;
+}
+
+.app-toast.has-action:not(.is-visible) {
+  pointer-events: none;
+}
+
+.app-toast-text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.app-toast-action {
+  flex: 0 0 auto;
+  min-height: 44px;
+  padding: 0 0.95rem;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid currentColor;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+@media (hover: hover) {
+  .app-toast-action:hover {
+    background: rgba(255, 255, 255, 0.16);
+  }
+}
+
+/* ==========================================
+   BARRIEREFREIHEIT: TIPPFLÄCHEN ≥ 44 × 44 PX
+   ========================================== */
+/* Auf Touch-Geräten wächst nur die unsichtbare Tippfläche (zentriertes ::before), das Layout bleibt gleich –
+   wichtig für die feste Übungshöhe inkl. .fit-*-Stufen. :where() hält die Spezifität bei 0, damit
+   eigene position-Werte (z. B. absolute) gewinnen. Neue kleine Knöpfe hier ergänzen, sofern sie
+   ::before nicht selbst nutzen und nicht overflow: hidden haben. */
+@media (pointer: coarse) {
+  :where(.icon-btn, .back-btn, .modal-close-btn, .ex-tutorial-close, .ex-tutorial-btn, .module-chip-btn,
+    .tonic-btn, .exercise-demo-btn, .listen-only-btn, .dock-icon-btn, .dock-action-btn, .hero-quote-new-btn,
+    .mute-btn, .account-mix-del, .k-filter-pill, .nav-tab, .opt-btn, .btn-tool, .multi-dropdown-trigger,
+    .home-continue-fab, .multi-selected-tag) {
+    position: relative;
+  }
+
+  :is(.icon-btn, .back-btn, .modal-close-btn, .ex-tutorial-close, .ex-tutorial-btn, .module-chip-btn,
+    .tonic-btn, .exercise-demo-btn, .listen-only-btn, .dock-icon-btn, .dock-action-btn, .hero-quote-new-btn,
+    .mute-btn, .account-mix-del, .k-filter-pill, .nav-tab, .opt-btn, .btn-tool, .multi-dropdown-trigger,
+    .home-continue-fab, .multi-selected-tag)::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: max(100%, 44px);
+    height: max(100%, 44px);
+    transform: translate(-50%, -50%);
+  }
 }

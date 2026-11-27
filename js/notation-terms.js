@@ -1131,7 +1131,7 @@ function renderNotationSymbolsReferenceHTML(filterGroup = _ntsKnowledgeFilter, s
         `).join("")}
       </div>
       <div class="nts-search-wrap">
-        <input type="search" id="ntsKnowledgeSearchInput" class="nts-search-input" value="${esc(searchQuery || "")}" placeholder="${esc(getNotationRefUIText("searchPlaceholder"))}" autocomplete="off" spellcheck="false">
+        <input type="search" id="ntsKnowledgeSearchInput" class="nts-search-input" aria-label="${esc(getNotationRefUIText("searchPlaceholder"))}" value="${esc(searchQuery || "")}" placeholder="${esc(getNotationRefUIText("searchPlaceholder"))}" autocomplete="off" spellcheck="false">
         ${hasSearch ? `<button type="button" class="btn-tool nts-search-clear" data-nts-clear-search="1">${esc(getNotationRefUIText("searchClear"))}</button>` : ""}
       </div>
     </div>
@@ -1212,14 +1212,57 @@ function renderNotationSymbolsReferenceHTML(filterGroup = _ntsKnowledgeFilter, s
   `;
 }
 
-function bindNotationSymbolsKnowledgeHandlers(container) {
-  if (!container) return;
-
-  container.querySelectorAll("[data-nts-demo]").forEach(btn => {
+function bindNotationSymbolsDemoButtons(root) {
+  root?.querySelectorAll("[data-nts-demo]").forEach(btn => {
     btn.addEventListener("click", () => {
       playNotationTermDemo(btn.dataset.ntsDemo);
     });
   });
+}
+
+// Suche: nur die Trefferliste neu zeichnen – Suchfeld, Fokus, Cursor und Bildschirmtastatur bleiben erhalten
+function refreshNotationSymbolsSearchResults(container) {
+  const resultsWrap = container?.querySelector("#ntsKnowledgeResultsWrap");
+  if (!resultsWrap) return false;
+  const tpl = document.createElement("template");
+  tpl.innerHTML = renderNotationSymbolsReferenceHTML(_ntsKnowledgeFilter, _ntsKnowledgeSearch);
+  const nextResults = tpl.content.querySelector("#ntsKnowledgeResultsWrap");
+  if (!nextResults) return false;
+  resultsWrap.innerHTML = nextResults.innerHTML;
+  bindNotationSymbolsDemoButtons(resultsWrap);
+
+  const searchWrap = container.querySelector(".nts-search-wrap");
+  const hasSearch = String(_ntsKnowledgeSearch || "").trim().length > 0;
+  const clearBtn = searchWrap?.querySelector("[data-nts-clear-search]");
+  if (hasSearch && !clearBtn && searchWrap) {
+    const nextClear = tpl.content.querySelector("[data-nts-clear-search]");
+    if (nextClear) {
+      searchWrap.appendChild(nextClear);
+      bindNotationSymbolsClearSearchButton(container, nextClear);
+    }
+  } else if (!hasSearch && clearBtn) {
+    clearBtn.remove();
+  }
+  return true;
+}
+
+function bindNotationSymbolsClearSearchButton(container, btn) {
+  btn?.addEventListener("click", () => {
+    _ntsKnowledgeSearch = "";
+    const input = container.querySelector("#ntsKnowledgeSearchInput");
+    if (input) input.value = "";
+    if (!refreshNotationSymbolsSearchResults(container)) {
+      container.innerHTML = `<div class="knowledge-list">${renderNotationSymbolsReferenceHTML(_ntsKnowledgeFilter, _ntsKnowledgeSearch)}</div>`;
+      bindNotationSymbolsKnowledgeHandlers(container);
+    }
+    container.querySelector("#ntsKnowledgeSearchInput")?.focus();
+  });
+}
+
+function bindNotationSymbolsKnowledgeHandlers(container) {
+  if (!container) return;
+
+  bindNotationSymbolsDemoButtons(container);
 
   container.querySelectorAll("[data-nts-open-practice]").forEach(btn => {
     btn.addEventListener("click", () => {
@@ -1247,28 +1290,15 @@ function bindNotationSymbolsKnowledgeHandlers(container) {
   });
 
   container.querySelectorAll("[data-nts-clear-search]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      _ntsKnowledgeSearch = "";
-      container.innerHTML = `<div class="knowledge-list">${renderNotationSymbolsReferenceHTML(_ntsKnowledgeFilter, _ntsKnowledgeSearch)}</div>`;
-      bindNotationSymbolsKnowledgeHandlers(container);
-      container.querySelector("#ntsKnowledgeSearchInput")?.focus();
-    });
+    bindNotationSymbolsClearSearchButton(container, btn);
   });
 
   const searchInput = container.querySelector("#ntsKnowledgeSearchInput");
   if (searchInput) {
+    searchInput.setAttribute("aria-controls", "ntsKnowledgeResultsWrap");
     searchInput.addEventListener("input", () => {
-      const caret = searchInput.selectionStart;
       _ntsKnowledgeSearch = searchInput.value || "";
-      container.innerHTML = `<div class="knowledge-list">${renderNotationSymbolsReferenceHTML(_ntsKnowledgeFilter, _ntsKnowledgeSearch)}</div>`;
-      bindNotationSymbolsKnowledgeHandlers(container);
-      const nextInput = container.querySelector("#ntsKnowledgeSearchInput");
-      if (nextInput) {
-        nextInput.focus();
-        if (typeof caret === "number") {
-          try { nextInput.setSelectionRange(caret, caret); } catch (_) {}
-        }
-      }
+      refreshNotationSymbolsSearchResults(container);
     });
   }
 }

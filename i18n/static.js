@@ -113,16 +113,16 @@ registerColocatedStatic({
     ar: "اختر المظهر ولوحة الألوان الأكثر راحة لعينيك أثناء التدرّب."
   },
   "welcome.lookCustomHint": {
-    de: "Tipp: Später kannst du unter ‚Mein Konto → Themes & Farbdesigner‘ jederzeit bis zu 3 ganz eigene Themes gestalten!",
-    en: "Tip: Later you can create up to 3 completely custom color themes anytime in ‘My Account → Themes & Color Studio’!",
-    fr: "Astuce : plus tard, vous pourrez créer jusqu’à 3 thèmes entièrement personnalisés dans « Mon compte → Thèmes & Studio » !",
-    es: "Consejo: más adelante podrás crear hasta 3 temas totalmente personalizados en «Mi cuenta → Temas y estudio».",
-    it: "Consiglio: più avanti potrai creare fino a 3 temi personalizzati in «Il mio account → Temi e studio colori»!",
-    pl: "Wskazówka: później w dziale „Mój profil → Motywy i studio kolorów” możesz stworzyć aż 3 własne motywy!",
-    uk: "Підказка: згодом у розділі «Мій профіль → Теми та кольори» ти зможеш створити до 3 власних палітр!",
-    ur: "مشورہ: بعد میں آپ کسی بھی وقت «میرا اکاؤنٹ ← تھیمز اور کلر اسٹوڈیو» میں 3 تک ذاتی نوعیت کے تھیم خود بنا سکتے ہیں!",
-    tr: "İpucu: Daha sonra «Hesabım → Temalar ve Renk Stüdyosu» altından istediğin zaman 3'e kadar tamamen özel renk teması oluşturabilirsin!",
-    ar: "نصيحة: يمكنك لاحقًا إنشاء ما يصل إلى 3 سمات ألوان مخصّصة بالكامل في أي وقت من «حسابي ← السمات ومصمّم الألوان»!"
+    de: "Tipp: Später kannst du unter ‚Mein Konto → Farbdesigner‘ jederzeit bis zu 3 ganz eigene Themes gestalten!",
+    en: "Tip: Later you can create up to 3 completely custom color themes anytime in ‘My Account → Color Studio’!",
+    fr: "Astuce : plus tard, vous pourrez créer jusqu’à 3 thèmes entièrement personnalisés dans « Mon compte → Studio Couleurs » !",
+    es: "Consejo: más adelante podrás crear hasta 3 temas totalmente personalizados en «Mi cuenta → Estudio de colores».",
+    it: "Consiglio: più avanti potrai creare fino a 3 temi personalizzati in «Il mio account → Designer colori»!",
+    pl: "Wskazówka: później w dziale „Mój profil → Studio kolorów” możesz stworzyć aż 3 własne motywy!",
+    uk: "Підказка: згодом у розділі «Мій профіль → Студія кольорів» ти зможеш створити до 3 власних палітр!",
+    ur: "مشورہ: بعد میں آپ کسی بھی وقت «میرا اکاؤنٹ ← رنگ اسٹوڈیو» میں 3 تک ذاتی نوعیت کے تھیم خود بنا سکتے ہیں!",
+    tr: "İpucu: Daha sonra «Hesabım → Renk Stüdyosu» altından istediğin zaman 3’e kadar tamamen özel renk teması oluşturabilirsin!",
+    ar: "نصيحة: يمكنك لاحقًا إنشاء ما يصل إلى 3 سمات ألوان مخصّصة بالكامل في أي وقت من «حسابي ← مصمّم الألوان»!"
   },
   "welcome.autoNextTitle": {
     de: "Nach richtiger Lösung weiter?",
@@ -809,7 +809,7 @@ registerColocatedStatic({
     ar: "مستوى الصوت"
   },
   "header.settingsTitle": {
-    de: "Tonart, Tempo & Taktart",
+    de: "Einstellungen, Sprache & Theme",
     en: "Settings, Language & Theme",
     fr: "Paramètres, langue et thème",
     es: "Ajustes, idioma y tema",
@@ -5465,28 +5465,40 @@ registerColocatedStatic({
     ar: "تصميم سمة مخصّصة في حسابي ←"
   },
   "space.themesTitle": {
-    de: "Themes & Farbdesigner",
-    en: "Themes & Color Studio",
-    fr: "Thèmes & Studio Couleurs",
-    es: "Temas y colores del estudio",
-    it: "Temi e designer colori",
-    pl: "Motywy i studio kolorów",
-    uk: "Теми та студія кольорів",
-    ur: "تھیمز اور رنگ اسٹوڈیو",
-    tr: "Temalar ve Renk Stüdyosu",
-    ar: "السمات ومصمّم الألوان"
+    de: "Farbdesigner",
+    en: "Color Studio",
+    fr: "Studio Couleurs",
+    es: "Estudio de colores",
+    it: "Designer colori",
+    pl: "Studio kolorów",
+    uk: "Студія кольорів",
+    ur: "رنگ اسٹوڈیو",
+    tr: "Renk Stüdyosu",
+    ar: "مصمّم الألوان"
+  },
+  "space.chooseThemeInSettingsBtn": {
+    de: "Theme auswählen →",
+    en: "Choose theme →",
+    fr: "Choisir un thème →",
+    es: "Elegir tema →",
+    it: "Scegli tema →",
+    pl: "Wybierz motyw →",
+    uk: "Обрати тему →",
+    ur: "تھیم منتخب کریں ←",
+    tr: "Tema seç →",
+    ar: "اختر سمة ←"
   },
   "space.themesSub": {
-    de: "Wähle ein bestehendes Theme oder gestalte bis zu 3 eigene Farbschemas mit R/G/B/A-Farbwähler.",
-    en: "Pick a built-in palette or craft up to 3 custom themes with the R/G/B/A color picker.",
-    fr: "Choisissez une palette intégrée ou créez jusqu’à 3 thèmes personnels avec le sélecteur R/V/B/A.",
-    es: "Elige una paleta integrada o crea hasta 3 temas propios con el selector R/G/B/A.",
-    it: "Scegli un tema predefinito o crea fino a 3 palette personali con il selettore R/G/B/A.",
-    pl: "Wybierz gotową paletę albo stwórz do 3 własnych motywów w edytorze R/G/B/A.",
-    uk: "Обери готову палітру або створи до 3 власних тем у редакторі R/G/B/A.",
-    ur: "کوئی موجودہ پیلیٹ چنیں یا R/G/B/A کلر پکر سے 3 تک اپنے ذاتی تھیمز بنائیں۔",
-    tr: "Yerleşik bir palet seç veya R/G/B/A renk seçiciyle 3'e kadar özel tema tasarla.",
-    ar: "اختر لوحة جاهزة أو صمّم ما يصل إلى 3 سمات خاصة بك عبر منتقي الألوان R/G/B/A."
+    de: "Gestalte bis zu 3 eigene Farbschemas mit R/G/B/A-Farbwähler. Auswählen kannst du sie – wie alle Themes – in den App-Einstellungen unter „Optik & Farbschema“.",
+    en: "Craft up to 3 custom themes with the R/G/B/A color picker. You choose them – like every theme – in the app settings under “Appearance & Themes”.",
+    fr: "Créez jusqu’à 3 thèmes personnels avec le sélecteur R/V/B/A. Vous les choisissez – comme tous les thèmes – dans les réglages de l’app, sous « Apparence & Thèmes ».",
+    es: "Crea hasta 3 temas propios con el selector R/G/B/A. Los eliges, como todos los temas, en los ajustes de la app, en «Apariencia y temas».",
+    it: "Crea fino a 3 palette personali con il selettore R/G/B/A. Le scegli – come tutti i temi – nelle impostazioni dell’app, in «Aspetto e temi».",
+    pl: "Stwórz do 3 własnych motywów w edytorze R/G/B/A. Wybierasz je – jak wszystkie motywy – w ustawieniach aplikacji w sekcji „Wygląd i motywy”.",
+    uk: "Створи до 3 власних тем у редакторі R/G/B/A. Обирати їх – як і всі теми – можна в налаштуваннях застосунку в розділі «Вигляд і теми».",
+    ur: "R/G/B/A کلر پکر سے 3 تک اپنے ذاتی تھیمز بنائیں۔ انہیں – باقی تمام تھیمز کی طرح – ایپ سیٹنگز میں «ظاہری شکل اور تھیمز» کے تحت منتخب کریں۔",
+    tr: "R/G/B/A renk seçiciyle 3’e kadar özel tema tasarla. Onları – tüm temalar gibi – uygulama ayarlarında «Görünüm ve Temalar» altında seçersin.",
+    ar: "صمّم ما يصل إلى 3 سمات خاصة بك عبر منتقي الألوان R/G/B/A. تختارها – مثل كل السمات – من إعدادات التطبيق ضمن «المظهر والسمات»."
   },
   "space.customSlotsLabel": {
     de: "Deine 3 eigenen Theme-Plätze",

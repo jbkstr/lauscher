@@ -7186,3 +7186,22 @@ registerColocatedPhrases({
     ar: "بدون صوت"
   }
 });
+
+registerColocatedPhrases({
+  "Richtig: {answer}": {
+    fr: "Correct : {answer}", es: "Correcto: {answer}", it: "Giusto: {answer}", pl: "Dobrze: {answer}",
+    uk: "Правильно: {answer}", ur: "درست: {answer}", tr: "Doğru: {answer}", ar: "صحيح: {answer}"
+  },
+  "Richtig!": {
+    fr: "Correct !", es: "¡Correcto!", it: "Giusto!", pl: "Dobrze!",
+    uk: "Правильно!", ur: "درست!", tr: "Doğru!", ar: "صحيح!"
+  },
+  "Leider falsch: {answer}": {
+    fr: "Pas tout à fait : {answer}", es: "No del todo: {answer}", it: "Non proprio: {answer}", pl: "Niestety źle: {answer}",
+    uk: "На жаль, ні: {answer}", ur: "افسوس، غلط: {answer}", tr: "Maalesef yanlış: {answer}", ar: "للأسف خطأ: {answer}"
+  },
+  "Leider falsch.": {
+    fr: "Pas tout à fait.", es: "No del todo.", it: "Non proprio.", pl: "Niestety źle.",
+    uk: "На жаль, ні.", ur: "افسوس، غلط۔", tr: "Maalesef yanlış.", ar: "للأسف خطأ."
+  }
+});
