@@ -64,42 +64,6 @@ registerColocatedStatic({
     tr: "İleri →",
     ar: "التالي ←"
   },
-  "welcome.lookTitle": {
-    de: "Wähle deinen Look",
-    en: "Choose Your Look",
-    fr: "Choisissez votre style",
-    es: "Elige tu estilo",
-    it: "Scegli il tuo stile",
-    pl: "Wybierz swój styl",
-    uk: "Обери свій вигляд",
-    ur: "اپنا انداز منتخب کریں",
-    tr: "Görünümünü Seç",
-    ar: "اختر مظهرك"
-  },
-  "welcome.lookSub": {
-    de: "Erscheinungsbild und Farbschema für entspanntes Üben.",
-    en: "Pick the appearance and color palette that feels best for your eyes.",
-    fr: "Réglez l’apparence et la palette de couleurs pour un confort visuel optimal.",
-    es: "Ajusta la apariencia y la paleta de colores para una lectura cómoda.",
-    it: "Aspetto e combinazione di colori per allenarti in tutto relax.",
-    pl: "Dopasuj tryb wyświetlania i paletę barw dla wygodnego ćwiczenia.",
-    uk: "Налаштуй режим оформлення та палітру кольорів для комфортного навчання.",
-    ur: "آنکھوں کے سکون کے لیے ظاہری شکل اور رنگوں کا تھیم منتخب کریں۔",
-    tr: "Gözlerine en rahat gelen görünümü ve renk paletini seç.",
-    ar: "اختر المظهر ولوحة الألوان الأكثر راحة لعينيك أثناء التدرّب."
-  },
-  "welcome.lookCustomHint": {
-    de: "Tipp: Später kannst du unter ‚Mein Konto → Farbdesigner‘ jederzeit bis zu 3 ganz eigene Themes gestalten!",
-    en: "Tip: Later you can create up to 3 completely custom color themes anytime in ‘My Account → Color Studio’!",
-    fr: "Astuce : plus tard, vous pourrez créer jusqu’à 3 thèmes entièrement personnalisés dans « Mon compte → Studio Couleurs » !",
-    es: "Consejo: más adelante podrás crear hasta 3 temas totalmente personalizados en «Mi cuenta → Estudio de colores».",
-    it: "Consiglio: più avanti potrai creare fino a 3 temi personalizzati in «Il mio account → Designer colori»!",
-    pl: "Wskazówka: później w dziale „Mój profil → Studio kolorów” możesz stworzyć aż 3 własne motywy!",
-    uk: "Підказка: згодом у розділі «Мій профіль → Студія кольорів» ти зможеш створити до 3 власних палітр!",
-    ur: "مشورہ: بعد میں آپ کسی بھی وقت «میرا اکاؤنٹ ← رنگ اسٹوڈیو» میں 3 تک ذاتی نوعیت کے تھیم خود بنا سکتے ہیں!",
-    tr: "İpucu: Daha sonra «Hesabım → Renk Stüdyosu» altından istediğin zaman 3’e kadar tamamen özel renk teması oluşturabilirsin!",
-    ar: "نصيحة: يمكنك لاحقًا إنشاء ما يصل إلى 3 سمات ألوان مخصّصة بالكامل في أي وقت من «حسابي ← مصمّم الألوان»!"
-  },
   "welcome.autoNextTitle": {
     de: "Nach richtiger Lösung weiter?",
     en: "Auto-Play Next Prompt?",

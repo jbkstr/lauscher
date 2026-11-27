@@ -5,7 +5,6 @@
 
 const WELCOME_WIZARD_STEPS = [
   "welcomeStepLang",
-  "welcomeStepLook",
   "welcomeStepProfile",
   "welcomeStepFocus",
   "welcomeStepGreet"
@@ -13,7 +12,6 @@ const WELCOME_WIZARD_STEPS = [
 
 const BEGINNER_WELCOME_WIZARD_STEPS = [
   "welcomeStepLang",
-  "welcomeStepLook",
   "welcomeStepProfile",
   "welcomeStepFocus",
   "welcomeStepBeginner1",
@@ -261,12 +259,6 @@ function bindWelcomeOnboardingControls() {
   if (!overlay || overlay._welcomeWizardBound) return;
   overlay._welcomeWizardBound = true;
 
-  document.querySelectorAll("[data-welcome-appearance]").forEach(btn => {
-    btn.addEventListener("click", () => setAppearancePreference(btn.dataset.welcomeAppearance));
-  });
-  document.querySelectorAll("[data-welcome-theme]").forEach(btn => {
-    btn.addEventListener("click", () => setThemePreference(btn.dataset.welcomeTheme));
-  });
   document.getElementById("welcomeBeginnerOptInNoBtn")?.addEventListener("click", () => {
     setWelcomeBeginnerIntroOptIn(false);
   });
@@ -297,7 +289,6 @@ function bindWelcomeOnboardingControls() {
   });
 
   [
-    "welcomeLookBackBtn", "welcomeLookNextBtn",
     "welcomeProfileBackBtn", "welcomeProfileNextBtn",
     "welcomeFocusBackBtn", "welcomeFocusNextBtn",
     "welcomeBeginner1BackBtn", "welcomeBeginner1NextBtn",
@@ -331,7 +322,6 @@ function goToWelcomeStep(targetIdx, options = {}) {
   autoFill?.classList.remove("is-counting");
 
   renderWelcomeProgress(nextIdx);
-  if (nextStepId === "welcomeStepLook") applyThemeAndAppearance();
   if (nextStepId === "welcomeStepProfile") renderWelcomeProfileStep();
   if (nextStepId === "welcomeStepFocus") {
     renderWelcomeFocusStep();

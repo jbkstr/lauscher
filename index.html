@@ -173,85 +173,7 @@
         <div id="welcomeLangList" class="welcome-lang-list" role="list"></div>
       </div>
 
-      <!-- Seite 2: Look (Erscheinungsbild & Theme + Hinweis zu eigenen Themes) -->
-      <div id="welcomeStepLook" class="welcome-step hidden">
-        <h2 id="welcomeLookTitle" class="welcome-step-title" data-i18n="welcome.lookTitle">Wähle deinen Look</h2>
-        <p id="welcomeLookSub" class="welcome-step-sub" data-i18n="welcome.lookSub">Erscheinungsbild und Farbschema für entspanntes Üben.</p>
-
-        <div class="welcome-panel">
-          <div class="welcome-field">
-            <span class="account-label" data-i18n="settings.appearanceHeading">Erscheinungsbild</span>
-            <div class="btn-group btn-group-3" id="welcomeAppearanceGroup" role="group" aria-label="Erscheinungsbild" data-i18n-aria="settings.appearanceAria">
-              <button class="opt-btn active" type="button" data-welcome-appearance="light" data-i18n="settings.appearanceLight">Hell</button>
-              <button class="opt-btn" type="button" data-welcome-appearance="dark" data-i18n="settings.appearanceDark">Dunkel</button>
-              <button class="opt-btn" type="button" data-welcome-appearance="system" data-i18n="settings.appearanceSystem">System</button>
-            </div>
-          </div>
-
-          <div class="welcome-field">
-            <span class="account-label" data-i18n="settings.themeHeading">Farbschema / Themes</span>
-            <div class="theme-preview-list space-builtin-theme-list" id="welcomeThemeList">
-              <button class="theme-preview-item active" type="button" data-welcome-theme="waldlichtung">
-                <div class="theme-info">
-                  <span class="theme-name" data-i18n="settings.themeForest">Folk</span>
-                  <span class="theme-status" data-welcome-theme-status>Aktiv</span>
-                </div>
-                <div class="theme-swatches">
-                  <span class="swatch-dot" style="background:#FAF7F2;"></span>
-                  <span class="swatch-dot" style="background:#B8E0C8;"></span>
-                  <span class="swatch-dot" style="background:#FFD6BA;"></span>
-                  <span class="swatch-dot" style="background:#DCD3FF;"></span>
-                </div>
-              </button>
-              <button class="theme-preview-item" type="button" data-welcome-theme="morgentau">
-                <div class="theme-info">
-                  <span class="theme-name" data-i18n="settings.themeCoast">Klassik</span>
-                  <span class="theme-status" data-welcome-theme-status>Auswählen</span>
-                </div>
-                <div class="theme-swatches">
-                  <span class="swatch-dot" style="background:#F3F8FA;"></span>
-                  <span class="swatch-dot" style="background:#B5DCE8;"></span>
-                  <span class="swatch-dot" style="background:#F9DFC6;"></span>
-                  <span class="swatch-dot" style="background:#C8D3F5;"></span>
-                </div>
-              </button>
-              <button class="theme-preview-item" type="button" data-welcome-theme="abenddaemmerung">
-                <div class="theme-info">
-                  <span class="theme-name" data-i18n="settings.themeDusk">Jazz</span>
-                  <span class="theme-status" data-welcome-theme-status>Auswählen</span>
-                </div>
-                <div class="theme-swatches">
-                  <span class="swatch-dot" style="background:#F7F4F8;"></span>
-                  <span class="swatch-dot" style="background:#BFE0D4;"></span>
-                  <span class="swatch-dot" style="background:#F5CDC4;"></span>
-                  <span class="swatch-dot" style="background:#D8C7F5;"></span>
-                </div>
-              </button>
-              <button class="theme-preview-item" type="button" data-welcome-theme="metal">
-                <div class="theme-info">
-                  <span class="theme-name" data-i18n="settings.themeMetal">Metal</span>
-                  <span class="theme-status" data-welcome-theme-status>Auswählen</span>
-                </div>
-                <div class="theme-swatches">
-                  <span class="swatch-dot" style="background:#090A0D;"></span>
-                  <span class="swatch-dot" style="background:#2D6394;"></span>
-                  <span class="swatch-dot" style="background:#B52B3B;"></span>
-                  <span class="swatch-dot" style="background:#9EA6B4;"></span>
-                </div>
-              </button>
-            </div>
-          </div>
-
-          <p id="welcomeLookCustomHint" class="welcome-hint-note" data-i18n="welcome.lookCustomHint">Tipp: Später kannst du unter ‚Mein Konto → Themes &amp; Farbdesigner‘ jederzeit bis zu 3 ganz eigene Themes gestalten!</p>
-        </div>
-
-        <div class="welcome-nav-row">
-          <button type="button" id="welcomeLookBackBtn" class="btn-tool welcome-back-btn" data-welcome-nav="prev" data-i18n="welcome.backBtn">← Zurück</button>
-          <button type="button" id="welcomeLookNextBtn" class="btn-primary-action welcome-next-btn" data-welcome-nav="next" data-i18n="welcome.nextBtn">Weiter →</button>
-        </div>
-      </div>
-
-      <!-- Seite 3: Eigenes Musiker-Profil -->
+      <!-- Seite 2: Eigenes Musiker-Profil -->
       <div id="welcomeStepProfile" class="welcome-step hidden">
         <h2 id="welcomeProfileTitle" class="welcome-step-title" data-i18n="welcome.profileTitle">Dein Musiker-Profil</h2>
         <p id="welcomeProfileSub" class="welcome-step-sub" data-i18n="welcome.profileSub">Wie darf dich Lauscher begrüßen und welche Instrumente spielst du?</p>
@@ -279,8 +201,6 @@
         <p id="welcomeFocusSub" class="welcome-step-sub" data-i18n="welcome.focusSub">Worauf möchtest du dich zuerst konzentrieren?</p>
 
         <div class="welcome-panel">
-          <div id="welcomeFocusList" class="welcome-focus-grid" role="radiogroup"></div>
-
           <div id="welcomeBeginnerOptInCard" class="welcome-beginner-optin-card">
             <div class="welcome-beginner-optin-head">
               <span class="k-card-tag tag-sage" data-i18n="welcome.beginnerOptInBadge">Einsteiger-Tour</span>
@@ -292,6 +212,8 @@
               <button type="button" id="welcomeBeginnerOptInYesBtn" class="opt-btn" data-welcome-beginner-optin="yes" aria-pressed="false" data-i18n="welcome.beginnerOptInYes">Ja, Einführung starten</button>
             </div>
           </div>
+
+          <div id="welcomeFocusList" class="welcome-focus-grid" role="radiogroup"></div>
         </div>
 
         <div class="welcome-nav-row">

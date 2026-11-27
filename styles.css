@@ -5127,10 +5127,10 @@ html[lang="ar"] .btn-primary-action.home-continue-fab { width: 174px; }
   display: flex;
   flex-direction: column;
   gap: 0.46rem;
-  padding: 0.78rem 0.84rem;
+  padding: 0.82rem 0.88rem;
   border-radius: var(--radius-md);
-  background-color: var(--surface-warm);
-  border: 1.5px solid var(--border-soft);
+  background-color: var(--sage-soft);
+  border: 1.5px solid var(--sage-strong);
 }
 
 .welcome-beginner-optin-head {

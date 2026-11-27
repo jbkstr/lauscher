@@ -737,19 +737,17 @@ function applyThemeAndAppearance() {
   }
 
   if (typeof document !== "undefined" && typeof document.querySelectorAll === "function") {
-    document.querySelectorAll("button[data-appearance], button[data-welcome-appearance]").forEach(btn => {
+    document.querySelectorAll("button[data-appearance]").forEach(btn => {
       const btnVal = btn.dataset?.appearance
-        || btn.dataset?.welcomeAppearance
-        || btn.getAttribute?.("data-appearance")
-        || btn.getAttribute?.("data-welcome-appearance");
+        || btn.getAttribute?.("data-appearance");
       const isSelected = btnVal === appearance;
       btn.classList?.toggle("active", isSelected);
       btn.setAttribute?.("aria-pressed", String(isSelected));
     });
 
     const builtInEffective = resolveEffectiveAppearance(appearance);
-    document.querySelectorAll("[data-theme-choice], [data-welcome-theme]").forEach(card => {
-      const cardTheme = card.dataset?.themeChoice || card.dataset?.welcomeTheme;
+    document.querySelectorAll("[data-theme-choice]").forEach(card => {
+      const cardTheme = card.dataset?.themeChoice;
       const bonusInfo = typeof getBonusThemeLockInfo === "function" ? getBonusThemeLockInfo(cardTheme) : { isBonus: false, unlocked: true };
       const isLocked = Boolean(bonusInfo.isBonus && !bonusInfo.unlocked);
       const isSelected = !isLocked && cardTheme === theme;

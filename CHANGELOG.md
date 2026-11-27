@@ -9,6 +9,7 @@ All released versions of Lauscher. New sections are created by `python3 scripts/
 - Shareable homework links & offline QR codes (`js/homework.js`): teachers can share any active exercise (top-bar QR button) or saved practice mix as a serverless `#hw=…` link (short `#mix=mode:level` also supported) with a locally rendered SVG QR code. Students opening a link get a friendly start card ("Your homework") with one-tap launch and an option to save it as a practice mix.
 
 **Improved**
+- Streamlined onboarding: removed the separate theme-selection step (themes live in App Settings) and moved the beginner tour prompt to the top of the learning-focus step so newcomers notice it right away.
 - Active exams are now saved in `sessionStorage` after each question, so an accidental page reload or pull-to-refresh restores the running exam instead of losing progress.
 - Smarter review of mistakes: when you mix two answers up (e.g. minor and major sixth), both come back, so you practise telling them apart. A missed item returns soon and then at growing intervals, and items you mix up repeatedly need one more correct answer before they count as learned.
 - Lauscher now remembers across restarts which items you recently found difficult and picks them a little more often when practising. This stays on your device, fades after a few days, is included in the profile backup and is never used in exams.
