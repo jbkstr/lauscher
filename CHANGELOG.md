@@ -2,9 +2,19 @@
 
 All released versions of Lauscher. New sections are created by `python3 scripts/bump-version.py`.
 
-## Unreleased
+## 0.15.0-beta (Build 11) – 2026-11-27
 
 **Fixed**
+- Light custom themes no longer crash when they are applied.
+- The "Expression marks & symbols" buttons in the knowledge hub and the practice link from there open the right pages again.
+- MIDI note names follow German H/B notation when it is selected; milestone texts follow the app language.
+- A full app reset also clears MIDI and tap-latency settings and practice settings, and the welcome screen stays pending after a restart.
+- Profile import rejects files that are not Lauscher backups and asks before overwriting the current profile.
+- Auto-advance and the cadence A/B compare no longer fire late after skipping or leaving an exercise.
+- Leaving the tuner or a sing-back exercise while the microphone is still starting no longer leaves it running; the screen wake lock is released.
+- Going to the background also stops listen-only mode, Nashville playback and tutorial demos.
+- The beginner preset from onboarding is kept as practice progress.
+- The MIDI scale exam recognizes the played octave even when the first note is missed.
 - Hardened imported profile backups: exam review snapshots are now structurally validated, so a manipulated backup can no longer inject markup into the exam review (e.g. via an unknown notation symbol key).
 - Custom themes only apply safe colour values; the startup script ignores anything like `url(…)` from manipulated storage.
 - Android MIDI: after sending Local Control On (`CC 122 = 127`) on exit, the app now waits briefly (USB 40 ms, Bluetooth LE 300 ms) before closing the ports, so the restore command is not lost and the keyboard no longer stays silent.
@@ -27,6 +37,11 @@ All released versions of Lauscher. New sections are created by `python3 scripts/
 - Theme selection lives only in App Settings → "Look & Color Scheme". The account tab keeps the "Color Studio" for creating and editing up to 3 custom themes, with a shortcut to the theme selection.
 
 **Improved**
+- Faster start and less memory: instrument samples (~12 MB) load in the background without blocking the start and are freed from memory after decoding; knowledge texts in other languages load only when needed.
+- Updates of the web app no longer re-download all samples: the service worker keeps samples in their own cache and only fetches changed files.
+- The Tools tab now shows a metronome icon instead of eighth notes.
+- Removed the Mindful Session Timer from the account tab.
+- Safety net for development: the project check now flags calls to undeclared functions and lookups of missing element IDs, the logic tests cover every exercise mode from the app's own catalogs, and the web deployment only goes live when the check passes.
 - Added a Content-Security-Policy: the app may only load its own files, which enforces the "no network requests" promise in the browser.
 - Profiles now carry a schema version with step-by-step migration; custom themes are stored once in the profile (the theme storage is only a render cache for the startup script).
 - Code hygiene: merged the duplicated tuner styles (same look, about 100 lines less), removed unused tool-preview styles, enabled strict mode in six smaller modules, and the project check now also reports accidental implicit globals.
