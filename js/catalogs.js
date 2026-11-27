@@ -2601,6 +2601,13 @@ function migrateUserProfileSchema(raw, options = {}) {
   return out;
 }
 
+const VALID_INTERVAL_DISTANCE_HELP = ["off", "semitones", "keys", "frets"];
+
+function sanitizeIntervalDistanceHelp(raw) {
+  const val = String(raw || "").trim().toLowerCase();
+  return VALID_INTERVAL_DISTANCE_HELP.includes(val) ? val : "off";
+}
+
 function createDefaultProfile() {
   return {
     schemaVersion: PROFILE_SCHEMA_VERSION,
@@ -2615,6 +2622,8 @@ function createDefaultProfile() {
     notationManual: false,
     intervalNotation: "de",
     intervalNotationManual: false,
+    intervalDistanceHelp: "off",
+    intervalDistanceHelpManual: false,
     solfegeLabels: "syllables",
     breakReminderEnabled: DEFAULT_BREAK_REMINDER_ENABLED,
     breakReminderMinutes: DEFAULT_BREAK_REMINDER_MINUTES,
@@ -2862,6 +2871,8 @@ function sanitizeUserProfile(raw) {
     notationManual: Boolean(raw.notationManual),
     intervalNotation: raw.intervalNotation === "intl" ? "intl" : "de",
     intervalNotationManual: Boolean(raw.intervalNotationManual),
+    intervalDistanceHelp: sanitizeIntervalDistanceHelp(raw.intervalDistanceHelp),
+    intervalDistanceHelpManual: Boolean(raw.intervalDistanceHelpManual),
     solfegeLabels: raw.solfegeLabels === "numbers" ? "numbers" : "syllables",
     breakReminderEnabled: breakEnabled,
     breakReminderMinutes: breakMinutes,

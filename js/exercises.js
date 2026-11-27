@@ -1367,6 +1367,7 @@ function renderUI() {
   }
 
   syncSingAlongUI(ex);
+  if (typeof syncIntervalHelpChipUI === "function") syncIntervalHelpChipUI(ex);
 
   const solfegeKeyBtn = document.getElementById("solfegeKeyBtn");
   const solfegeKeyBtnLabel = document.getElementById("solfegeKeyBtnLabel");
@@ -1722,17 +1723,23 @@ function renderUI() {
     barsGrid.classList.add("cols-2");
     if (moduleTitleEl) moduleTitleEl.textContent = tr("Tonfolge (2 Töne)", "2-Note Sequence");
     if (targetBadgeEl) targetBadgeEl.textContent = isCustomIntervalEx ? `${getIntervalCustomBadgeLabel()} ▾` : tr("Ziel: Ton 2 ↗", "Target: Note 2 ↗");
-    document.getElementById("inputPromptText").textContent = tr("Welches Intervall erklingt aufwärts?", "Which ascending interval do you hear?");
+    document.getElementById("inputPromptText").textContent = (typeof isIntervalPlainLanguageActive === "function" && isIntervalPlainLanguageActive())
+      ? getIntervalPlainPromptText(ex.type)
+      : tr("Welches Intervall erklingt aufwärts?", "Which ascending interval do you hear?");
   } else if (ex.type === "interval-melodic-down") {
     barsGrid.classList.add("cols-2");
     if (moduleTitleEl) moduleTitleEl.textContent = tr("Tonfolge (2 Töne)", "2-Note Sequence");
     if (targetBadgeEl) targetBadgeEl.textContent = isCustomIntervalEx ? `${getIntervalCustomBadgeLabel()} ▾` : tr("Ziel: Ton 2 ↘", "Target: Note 2 ↘");
-    document.getElementById("inputPromptText").textContent = tr("Welches Intervall erklingt abwärts?", "Which descending interval do you hear?");
+    document.getElementById("inputPromptText").textContent = (typeof isIntervalPlainLanguageActive === "function" && isIntervalPlainLanguageActive())
+      ? getIntervalPlainPromptText(ex.type)
+      : tr("Welches Intervall erklingt abwärts?", "Which descending interval do you hear?");
   } else if (ex.type === "interval-drone") {
     barsGrid.classList.add("cols-2");
     if (moduleTitleEl) moduleTitleEl.textContent = tr("Fläche + Intervall", "Pad + Interval");
     if (targetBadgeEl) targetBadgeEl.textContent = isCustomIntervalEx ? `${getIntervalCustomBadgeLabel()} ▾` : tr("Streicher ➔ Klavier", "Strings ➔ Piano");
-    document.getElementById("inputPromptText").textContent = tr("Welches Intervall hörst du über der Fläche?", "Which interval do you hear over the pad?");
+    document.getElementById("inputPromptText").textContent = (typeof isIntervalPlainLanguageActive === "function" && isIntervalPlainLanguageActive())
+      ? getIntervalPlainPromptText(ex.type)
+      : tr("Welches Intervall hörst du über der Fläche?", "Which interval do you hear over the pad?");
   } else if (ex.type === "chord-arp-up") {
     barsGrid.classList.add("cols-1");
     if (moduleTitleEl) moduleTitleEl.textContent = tr("Akkord-Töne", "Chord Notes");
@@ -1772,7 +1779,9 @@ function renderUI() {
     barsGrid.classList.add("cols-1");
     if (moduleTitleEl) moduleTitleEl.textContent = tr("Tonpaar (Gleichzeitig)", "2-Note Dyad");
     if (targetBadgeEl) targetBadgeEl.textContent = isCustomIntervalEx ? `${getIntervalCustomBadgeLabel()} ▾` : tr("Zusammenklang", "Dyad");
-    document.getElementById("inputPromptText").textContent = tr("Welches Intervall erklingt?", "Which harmonic interval do you hear?");
+    document.getElementById("inputPromptText").textContent = (typeof isIntervalPlainLanguageActive === "function" && isIntervalPlainLanguageActive())
+      ? getIntervalPlainPromptText("interval-harmonic")
+      : tr("Welches Intervall erklingt?", "Which harmonic interval do you hear?");
   }
 
   barsGrid.innerHTML = "";
@@ -2006,6 +2015,9 @@ function renderUI() {
   document.getElementById("midiPlayPadWrap")?.classList.toggle("hidden", !isMidiPlay);
 
   resetCentralStage();
+  if (typeof renderStageIntervalVisual === "function") {
+    renderStageIntervalVisual(ex, { mode: "anchor" });
+  }
   syncSingMatchStage(ex);
   syncSingMatchUI(ex);
   if (typeof renderMidiPlayPad === "function") renderMidiPlayPad(ex);
@@ -2080,6 +2092,19 @@ function renderExerciseChoiceButtonsGrid(ex, btnGrid = document.getElementById("
   }
 
   const choices = Array.isArray(ex.choices) ? ex.choices : [];
+  const intervalHelpMode = (typeof isIntervalRecognitionType === "function" && isIntervalRecognitionType(ex.type) && typeof getEffectiveIntervalDistanceHelp === "function")
+    ? getEffectiveIntervalDistanceHelp()
+    : "off";
+  const hasIntervalHelp = intervalHelpMode !== "off";
+  const useIntervalSimpleHeadline = hasIntervalHelp && typeof isIntervalPlainLanguageActive === "function" && isIntervalPlainLanguageActive();
+  let maxPoolSemitones = 12;
+  if (hasIntervalHelp) {
+    choices.forEach(choiceKey => {
+      const semi = Number(getChoiceItem(ex.type, choiceKey)?.semitones) || 0;
+      if (semi > maxPoolSemitones) maxPoolSemitones = semi;
+    });
+  }
+  btnGrid.classList.toggle("has-interval-help", hasIntervalHelp);
   const layout = computeBalancedRows(choices);
   btnGrid.style.setProperty("--max-cols", layout.maxCols);
 
@@ -2091,12 +2116,20 @@ function renderExerciseChoiceButtonsGrid(ex, btnGrid = document.getElementById("
       const item = getChoiceItem(ex.type, choiceKey);
       const btn = document.createElement("button");
       btn.className = "degree-btn";
+      if (hasIntervalHelp) btn.classList.add("has-interval-help");
       btn.dataset.choice = choiceKey;
+
+      const distInfo = hasIntervalHelp
+        ? formatIntervalTileDistance(item.semitones, ex.type, intervalHelpMode, useIntervalSimpleHeadline)
+        : null;
 
       const sym = document.createElement("div");
       sym.className = "degree-roman";
       if (isRhythmDict) {
         sym.innerHTML = getRhythmCellSVG(item.key, 42, 24);
+      } else if (distInfo && useIntervalSimpleHeadline) {
+        sym.textContent = distInfo.headline;
+        sym.setAttribute("dir", "ltr");
       } else {
         sym.textContent = item.degreeTag ? item.baseRoman : (item.roman || item.symbol);
       }
@@ -2114,6 +2147,23 @@ function renderExerciseChoiceButtonsGrid(ex, btnGrid = document.getElementById("
         btn.appendChild(step);
       }
       btn.appendChild(l);
+      if (distInfo) {
+        const sub = document.createElement("span");
+        sub.className = "degree-distance-sub";
+        sub.textContent = distInfo.subline;
+        btn.appendChild(sub);
+
+        const bar = document.createElement("span");
+        bar.className = `degree-distance-bar${ex.type === "interval-melodic-down" ? " is-down" : ""}${distInfo.isZero ? " is-zero" : ""}`;
+        bar.setAttribute("aria-hidden", "true");
+        const fill = document.createElement("span");
+        fill.className = "degree-distance-fill";
+        if (!distInfo.isZero) {
+          fill.style.width = `${getIntervalDistanceBarPercent(item.semitones, maxPoolSemitones)}%`;
+        }
+        bar.appendChild(fill);
+        btn.appendChild(bar);
+      }
       btn.addEventListener("click", (e) => handleAnswer(choiceKey, btn, { inputEvent: e }));
       rowEl.appendChild(btn);
     });
@@ -2464,7 +2514,10 @@ function renderWrongChoiceFeedbackCard(ex, chosenDef, fallbackKey = "?", showCar
   }
   const fbText = document.getElementById("feedbackText");
   if (fbText && chosenDef) {
-    fbText.textContent = tf("Gewählt: {sym} ({lbl}).", "Selected: {sym} ({lbl}).", {
+    const intervalHint = typeof formatIntervalWrongChoiceFeedback === "function"
+      ? formatIntervalWrongChoiceFeedback(ex, chosenDef)
+      : "";
+    fbText.textContent = intervalHint || tf("Gewählt: {sym} ({lbl}).", "Selected: {sym} ({lbl}).", {
       sym: chosenDef.roman || chosenDef.symbol || fallbackKey,
       lbl: chosenDef.label || fallbackKey
     });

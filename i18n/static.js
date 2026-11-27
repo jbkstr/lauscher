@@ -7107,5 +7107,101 @@ registerColocatedStatic({
     ur: "ان لاک کریں",
     tr: "Kilidi aç",
     ar: "فتح القفل"
+  },
+  "ex.intervalHelpTitle": {
+    de: "Abstandshilfe (Halbtöne, Klaviertasten oder Gitarrenbünde)",
+    en: "Distance help (semitones, piano keys, or guitar frets)",
+    fr: "Aide de distance (demi-tons, touches de piano ou frettes de guitare)",
+    es: "Ayuda de distancia (semitonos, teclas de piano o trastes de guitarra)",
+    it: "Aiuto distanza (semitoni, tasti del pianoforte o tasti della chitarra)",
+    pl: "Pomoc odległości (półtony, klawisze pianina lub progi gitary)",
+    uk: "Підказка відстані (півтони, клавіші піаніно або лади гітари)",
+    ur: "فاصلے کی مدد (سیمی ٹونز، پیانو کیز یا گٹار فریٹس)",
+    tr: "Mesafe yardımı (yarım ton, piyano tuşu veya gitar perdesi)",
+    ar: "مساعدة المسافة (أنصاف نغمات أو مفاتيح البيانو أو عتبات الجيتار)"
+  },
+  "ex.intervalHelpLabel": {
+    de: "Abstandshilfe:",
+    en: "Distance help:",
+    fr: "Aide de distance :",
+    es: "Ayuda de distancia:",
+    it: "Aiuto distanza:",
+    pl: "Pomoc odległości:",
+    uk: "Підказка відстані:",
+    ur: "فاصلے کی مدد:",
+    tr: "Mesafe yardımı:",
+    ar: "مساعدة المسافة:"
+  },
+  "space.intervalDistanceHelp": {
+    de: "Intervall-Abstandshilfe",
+    en: "Interval Distance Help",
+    fr: "Aide de distance des intervalles",
+    es: "Ayuda de distancia en intervalos",
+    it: "Aiuto distanza negli intervalli",
+    pl: "Pomoc odległości w interwałach",
+    uk: "Підказка відстані для інтервалів",
+    ur: "انٹرول فاصلے کی مدد",
+    tr: "Aralık Mesafe Yardımı",
+    ar: "مساعدة مسافة الأبعاد"
+  },
+  "space.intervalDistanceHelpHint": {
+    de: "Zeigt Schritte & eine Mini-Ansicht für Anfänger und Kinder (im Entdecker-Modus automatisch aktiv).",
+    en: "Shows steps & a mini visual for beginners and kids (automatically active in Explorer Mode).",
+    fr: "Affiche les pas et un mini-schéma pour débutants et enfants (actif par défaut en mode Explorateur).",
+    es: "Muestra pasos y una mini vista para principiantes y niños (activo automáticamente en el modo Explorador).",
+    it: "Mostra i passi e una mini vista per principianti e bambini (attivo automaticamente in modalità Esploratore).",
+    pl: "Pokazuje kroki i minipodgląd dla początkujących i dzieci (automatycznie aktywne w trybie Odkrywcy).",
+    uk: "Показує кроки та мінісхему для початківців і дітей (автоматично активна в режимі Дослідника).",
+    ur: "نئے سیکھنے والوں اور بچوں کے لیے قدم اور منی تصویر دکھاتا ہے (ایکسپلورر موڈ میں خودکار فعال)۔",
+    tr: "Yeni başlayanlar ve çocuklar için adımları ve mini görünümü gösterir (Kaşif Modunda otomatik etkindir).",
+    ar: "يعرض الخطوات وعرضًا مصغرًا للمبتدئين والأطفال (مفعّل تلقائيًا في وضع المستكشف)."
+  },
+  "space.intervalHelpOff": {
+    de: "Aus",
+    en: "Off",
+    fr: "Désactivée",
+    es: "Desactivada",
+    it: "Disattivata",
+    pl: "Wył.",
+    uk: "Вимк.",
+    ur: "بند",
+    tr: "Kapalı",
+    ar: "إيقاف"
+  },
+  "space.intervalHelpSemitones": {
+    de: "Halbtöne",
+    en: "Semitones",
+    fr: "Demi-tons",
+    es: "Semitonos",
+    it: "Semitoni",
+    pl: "Półtony",
+    uk: "Півтони",
+    ur: "سیمی ٹونز",
+    tr: "Yarım ton",
+    ar: "أنصاف نغمات"
+  },
+  "space.intervalHelpKeys": {
+    de: "Klaviertasten",
+    en: "Piano Keys",
+    fr: "Touches",
+    es: "Teclas",
+    it: "Tasti piano",
+    pl: "Klawisze",
+    uk: "Клавіші",
+    ur: "پیانو کیز",
+    tr: "Piyano tuşları",
+    ar: "مفاتيح البيانو"
+  },
+  "space.intervalHelpFrets": {
+    de: "Gitarrenbünde",
+    en: "Guitar Frets",
+    fr: "Frettes",
+    es: "Trastes",
+    it: "Tasti chitarra",
+    pl: "Progi",
+    uk: "Лади",
+    ur: "گٹار فریٹس",
+    tr: "Gitar perdeleri",
+    ar: "عتبات الجيتار"
   }
 });

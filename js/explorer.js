@@ -377,6 +377,10 @@ function setExplorerMode(enabled, options = {}) {
   }
 
   if (typeof renderKnowledgeHub === "function") renderKnowledgeHub();
+  if (typeof syncIntervalHelpSettingsUI === "function") syncIntervalHelpSettingsUI();
+  if (state.currentView === "exercise" && typeof applyProfileDisplayChanges === "function") {
+    applyProfileDisplayChanges();
+  }
   if (typeof populateMixCreatorControls === "function") populateMixCreatorControls({ forceRepopulate: true });
   if (typeof renderHomeQuickMixBar === "function") renderHomeQuickMixBar();
   if (typeof renderHomeProfileGreeting === "function") renderHomeProfileGreeting();

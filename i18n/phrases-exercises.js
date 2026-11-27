@@ -7205,3 +7205,216 @@ registerColocatedPhrases({
     uk: "На жаль, ні.", ur: "افسوس، غلط۔", tr: "Maalesef yanlış.", ar: "للأسف خطأ."
   }
 });
+
+registerColocatedPhrases({
+  "Gleicher Ton": {
+    fr: "Même note", es: "Misma nota", it: "Stessa nota", pl: "Ten sam dźwięk",
+    uk: "Той самий тон", ur: "وہی سُر", tr: "Aynı nota", ar: "نفس النغمة"
+  },
+  "1 Taste": {
+    fr: "1 touche", es: "1 tecla", it: "1 tasto", pl: "1 klawisz",
+    uk: "1 клавіша", ur: "1 کی", tr: "1 tuş", ar: "مفتاح واحد"
+  },
+  "{n} Tasten": {
+    fr: "{n} touches", es: "{n} teclas", it: "{n} tasti", pl: "{n} klaw.",
+    uk: "{n} клав.", ur: "{n} کیز", tr: "{n} tuş", ar: "{n} مفاتيح"
+  },
+  "1 Bund": {
+    fr: "1 frette", es: "1 traste", it: "1 tasto", pl: "1 próg",
+    uk: "1 лад", ur: "1 فریٹ", tr: "1 perde", ar: "عتبة واحدة"
+  },
+  "{n} Bünde": {
+    fr: "{n} frettes", es: "{n} trastes", it: "{n} tasti", pl: "{n} progi",
+    uk: "{n} ладів", ur: "{n} فریٹس", tr: "{n} perde", ar: "{n} عتبات"
+  },
+  "1 Halbton": {
+    fr: "1 demi-ton", es: "1 semitono", it: "1 semitono", pl: "1 półton",
+    uk: "1 півтон", ur: "1 سیمی ٹون", tr: "1 yarım ton", ar: "نصف نغمة"
+  },
+  "{n} Halbtöne": {
+    fr: "{n} demi-tons", es: "{n} semitonos", it: "{n} semitoni", pl: "{n} półtonów",
+    uk: "{n} півтонів", ur: "{n} سیمی ٹونز", tr: "{n} yarım ton", ar: "{n} أنصاف نغمات"
+  },
+  "{n} HT": {
+    fr: "{n} DT", es: "{n} ST", it: "{n} ST", pl: "{n} PT",
+    uk: "{n} ПТ", ur: "{n} ST", tr: "{n} YT", ar: "{n} ن"
+  },
+  "Hilfe: Aus": {
+    fr: "Aide : Non", es: "Ayuda: No", it: "Aiuto: No", pl: "Pomoc: Wył.",
+    uk: "Підказка: Вимк.", ur: "مدد: بند", tr: "Yardım: Kapalı", ar: "المساعدة: إيقاف"
+  },
+  "Hilfe: Halbtöne": {
+    fr: "Aide : Demi-tons", es: "Ayuda: Semitonos", it: "Aiuto: Semitoni", pl: "Pomoc: Półtony",
+    uk: "Підказка: Півтони", ur: "مدد: سیمی ٹونز", tr: "Yardım: Yarım ton", ar: "المساعدة: أنصاف"
+  },
+  "Hilfe: Tasten": {
+    fr: "Aide : Touches", es: "Ayuda: Teclas", it: "Aiuto: Tasti", pl: "Pomoc: Klawisze",
+    uk: "Підказка: Клавіші", ur: "مدد: کیز", tr: "Yardım: Tuşlar", ar: "المساعدة: مفاتيح"
+  },
+  "Hilfe: Bünde": {
+    fr: "Aide : Frettes", es: "Ayuda: Trastes", it: "Aiuto: Chitarra", pl: "Pomoc: Progi",
+    uk: "Підказка: Лади", ur: "مدد: فریٹس", tr: "Yardım: Perdeler", ar: "المساعدة: عتبات"
+  },
+  "Wie weit springt der 2. Ton nach oben?": {
+    fr: "De combien la 2e note saute-t-elle vers le haut ?",
+    es: "¿Cuánto salta hacia arriba la 2.ª nota?",
+    it: "Di quanto salta verso l’alto la 2ª nota?",
+    pl: "Jak daleko w górę skacze 2. dźwięk?",
+    uk: "Як далеко вгору стрибає 2-й тон?",
+    ur: "دوسرا سُر کتنا اوپر چھلانگ لگاتا ہے؟",
+    tr: "2. nota ne kadar yukarı sıçrıyor?",
+    ar: "إلى أي مدى تقفز النغمة الثانية للأعلى؟"
+  },
+  "Wie weit fällt der 2. Ton nach unten?": {
+    fr: "De combien la 2e note descend-elle ?",
+    es: "¿Cuánto baja la 2.ª nota?",
+    it: "Di quanto scende la 2ª nota?",
+    pl: "Jak daleko w dół spada 2. dźwięk?",
+    uk: "Як далеко вниз падає 2-й тон?",
+    ur: "دوسرا سُر کتنا نیچے اترتا ہے؟",
+    tr: "2. nota ne kadar aşağı iniyor?",
+    ar: "إلى أي مدى تنخفض النغمة الثانية للأسفل؟"
+  },
+  "Wie weit liegen die beiden Töne auseinander?": {
+    fr: "Quel est l’écart entre les deux notes ?",
+    es: "¿Qué distancia hay entre las dos notas?",
+    it: "Quanto sono distanti le due note?",
+    pl: "Jak daleko od siebie leżą te dwa dźwięki?",
+    uk: "Як далеко один від одного ці два тони?",
+    ur: "دونوں سُروں کے درمیان کتنا فاصلہ ہے؟",
+    tr: "İki nota birbirinden ne kadar uzak?",
+    ar: "كم المسافة بين النغمتين؟"
+  },
+  "Wie weit liegt der Klavierton über der Fläche?": {
+    fr: "À quelle distance la note de piano se situe-t-elle au-dessus de la nappe ?",
+    es: "¿A qué distancia está la nota del piano sobre el colchón sonoro?",
+    it: "Quanto è distante la nota del pianoforte sopra il tappeto sonoro?",
+    pl: "Jak wysoko nad tłem leży dźwięk pianina?",
+    uk: "Як високо над фоном звучить нота піаніно?",
+    ur: "پیانو کا سُر بیک گراؤنڈ سُر سے کتنا اوپر ہے؟",
+    tr: "Piyano notası arka plan sesinin ne kadar üzerinde?",
+    ar: "كم ترتفع نغمة البيانو فوق الخلفية الصوتية؟"
+  },
+  "{name}, wie weit springt der 2. Ton? Tippe den Abstand an.": {
+    fr: "{name}, de combien la 2e note a-t-elle sauté ? Choisis la distance.",
+    es: "{name}, ¿cuánto saltó la 2.ª nota? Toca la distancia.",
+    it: "{name}, di quanto è saltata la 2ª nota? Scegli la distanza.",
+    pl: "{name}, jak daleko skoczył 2. dźwięk? Wybierz odległość.",
+    uk: "{name}, як далеко стрибнув 2-й тон? Обери відстань.",
+    ur: "{name}، دوسرا سُر کتنا دور گیا؟ نیچے فاصلہ چنیں۔",
+    tr: "{name}, 2. nota ne kadar sıçradı? Aşağıdan mesafeyi seç.",
+    ar: "{name}، إلى أي مدى قفزت النغمة الثانية؟ اختر المسافة بالأسفل."
+  },
+  "Wie weit springt der 2. Ton? Tippe den Abstand an.": {
+    fr: "De combien la 2e note a-t-elle sauté ? Choisis la distance.",
+    es: "¿Cuánto saltó la 2.ª nota? Toca la distancia.",
+    it: "Di quanto è saltata la 2ª nota? Scegli la distanza.",
+    pl: "Jak daleko skoczył 2. dźwięk? Wybierz odległość.",
+    uk: "Як далеко стрибнув 2-й тон? Обери відстань.",
+    ur: "دوسرا سُر کتنا دور گیا؟ نیچے فاصلہ چنیں۔",
+    tr: "2. nota ne kadar sıçradı? Aşağıdan mesafeyi seç.",
+    ar: "إلى أي مدى قفزت النغمة الثانية؟ اختر المسافة بالأسفل."
+  },
+  "{label} • Gleicher Ton ({note})": {
+    fr: "{label} • Même note ({note})",
+    es: "{label} • Misma nota ({note})",
+    it: "{label} • Stessa nota ({note})",
+    pl: "{label} • Ten sam dźwięk ({note})",
+    uk: "{label} • Той самий тон ({note})",
+    ur: "{label} • وہی سُر ({note})",
+    tr: "{label} • Aynı nota ({note})",
+    ar: "{label} • نفس النغمة ({note})"
+  },
+  "{label} • {dist} nach rechts ({from} → {to})": {
+    fr: "{label} • {dist} vers la droite ({from} → {to})",
+    es: "{label} • {dist} a la derecha ({from} → {to})",
+    it: "{label} • {dist} a destra ({from} → {to})",
+    pl: "{label} • {dist} w prawo ({from} → {to})",
+    uk: "{label} • {dist} праворуч ({from} → {to})",
+    ur: "{label} • {dist} دائیں جانب ({from} → {to})",
+    tr: "{label} • {dist} sağa ({from} → {to})",
+    ar: "{label} • {dist} لليمين ({from} → {to})"
+  },
+  "{label} • {dist} nach links ({from} → {to})": {
+    fr: "{label} • {dist} vers la gauche ({from} → {to})",
+    es: "{label} • {dist} a la izquierda ({from} → {to})",
+    it: "{label} • {dist} a sinistra ({from} → {to})",
+    pl: "{label} • {dist} w lewo ({from} → {to})",
+    uk: "{label} • {dist} ліворуч ({from} → {to})",
+    ur: "{label} • {dist} بائیں جانب ({from} → {to})",
+    tr: "{label} • {dist} sola ({from} → {to})",
+    ar: "{label} • {dist} لليسار ({from} → {to})"
+  },
+  "{label} • {dist} höher ({from} → {to})": {
+    fr: "{label} • {dist} plus haut ({from} → {to})",
+    es: "{label} • {dist} más alto ({from} → {to})",
+    it: "{label} • {dist} più in alto ({from} → {to})",
+    pl: "{label} • {dist} wyżej ({from} → {to})",
+    uk: "{label} • {dist} вище ({from} → {to})",
+    ur: "{label} • {dist} اوپر ({from} → {to})",
+    tr: "{label} • {dist} daha tiz ({from} → {to})",
+    ar: "{label} • {dist} أعلى ({from} → {to})"
+  },
+  "{label} • {dist} tiefer ({from} → {to})": {
+    fr: "{label} • {dist} plus bas ({from} → {to})",
+    es: "{label} • {dist} más bajo ({from} → {to})",
+    it: "{label} • {dist} più in basso ({from} → {to})",
+    pl: "{label} • {dist} niżej ({from} → {to})",
+    uk: "{label} • {dist} нижче ({from} → {to})",
+    ur: "{label} • {dist} نیچے ({from} → {to})",
+    tr: "{label} • {dist} daha pes ({from} → {to})",
+    ar: "{label} • {dist} أخفض ({from} → {to})"
+  },
+  "{label} • {dist} auseinander ({from} + {to})": {
+    fr: "{label} • {dist} d’écart ({from} + {to})",
+    es: "{label} • {dist} de distancia ({from} + {to})",
+    it: "{label} • {dist} di distanza ({from} + {to})",
+    pl: "{label} • {dist} odstępu ({from} + {to})",
+    uk: "{label} • {dist} між ними ({from} + {to})",
+    ur: "{label} • {dist} کا فاصلہ ({from} + {to})",
+    tr: "{label} • {dist} aralıkla ({from} + {to})",
+    ar: "{label} • بمسافة {dist} ({from} + {to})"
+  },
+  "{label} • {dist} ({from} → {to})": {
+    fr: "{label} • {dist} ({from} → {to})",
+    es: "{label} • {dist} ({from} → {to})",
+    it: "{label} • {dist} ({from} → {to})",
+    pl: "{label} • {dist} ({from} → {to})",
+    uk: "{label} • {dist} ({from} → {to})",
+    ur: "{label} • {dist} ({from} → {to})",
+    tr: "{label} • {dist} ({from} → {to})",
+    ar: "{label} • {dist} ({from} → {to})"
+  },
+  "Gewählt: {lbl} ({dist}) – der gesuchte Sprung war kleiner.": {
+    fr: "Choisi : {lbl} ({dist}) – le saut recherché était plus petit.",
+    es: "Elegido: {lbl} ({dist}) – el salto buscado era más pequeño.",
+    it: "Scelto: {lbl} ({dist}) – il salto cercato era più piccolo.",
+    pl: "Wybrano: {lbl} ({dist}) – szukany skok był mniejszy.",
+    uk: "Обрано: {lbl} ({dist}) – шуканий стрибок був меншим.",
+    ur: "منتخب: {lbl} ({dist}) – مطلوبہ فاصلہ اس سے کم تھا۔",
+    tr: "Seçilen: {lbl} ({dist}) – aranan sıçrama daha küçüktü.",
+    ar: "المختار: {lbl} ({dist}) – القفزة المطلوبة كانت أصغر."
+  },
+  "Gewählt: {lbl} ({dist}) – der gesuchte Sprung war größer.": {
+    fr: "Choisi : {lbl} ({dist}) – le saut recherché était plus grand.",
+    es: "Elegido: {lbl} ({dist}) – el salto buscado era más grande.",
+    it: "Scelto: {lbl} ({dist}) – il salto cercato era più grande.",
+    pl: "Wybrano: {lbl} ({dist}) – szukany skok był większy.",
+    uk: "Обрано: {lbl} ({dist}) – шуканий стрибок був більшим.",
+    ur: "منتخب: {lbl} ({dist}) – مطلوبہ فاصلہ اس سے زیادہ تھا۔",
+    tr: "Seçilen: {lbl} ({dist}) – aranan sıçrama daha büyüktü.",
+    ar: "المختار: {lbl} ({dist}) – القفزة المطلوبة كانت أكبر."
+  },
+  "Dein Tipp: {dist}": {
+    fr: "Ton choix : {dist}", es: "Tu elección: {dist}", it: "La tua scelta: {dist}", pl: "Twój wybór: {dist}",
+    uk: "Твій вибір: {dist}", ur: "آپ کا انتخاب: {dist}", tr: "Seçimin: {dist}", ar: "اختيارك: {dist}"
+  },
+  "Gesucht (?)": {
+    fr: "Recherché (?)", es: "Buscado (?)", it: "Cercato (?)", pl: "Szukany (?)",
+    uk: "Шуканий (?)", ur: "مطلوبہ (?)", tr: "Aranan (?)", ar: "المطلوب (?)"
+  },
+  "Start": {
+    fr: "Départ", es: "Inicio", it: "Partenza", pl: "Start",
+    uk: "Старт", ur: "آغاز", tr: "Başlangıç", ar: "البداية"
+  }
+});

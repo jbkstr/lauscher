@@ -850,7 +850,13 @@ function applyProfileDisplayChanges() {
         const stageMain = document.getElementById("stageMainText");
         const stageFn = document.getElementById("stageFunctionText");
         if (stageMain) stageMain.textContent = ex.targetItem.roman || ex.targetItem.symbol;
-        if (stageFn) stageFn.textContent = ex.targetItem.label;
+        const intervalRevealDesc = typeof formatIntervalRevealDescription === "function"
+          ? formatIntervalRevealDescription(ex)
+          : "";
+        if (stageFn) stageFn.textContent = intervalRevealDesc || ex.targetItem.label;
+        if (typeof renderStageIntervalVisual === "function") {
+          renderStageIntervalVisual(ex, { mode: "reveal" });
+        }
         const targetCard = document.getElementById(`barCard_${ex.targetIndex}`);
         if (targetCard) {
           const romanEl = targetCard.querySelector(".bar-roman");
@@ -865,6 +871,9 @@ function applyProfileDisplayChanges() {
       }
       if (state.lastAnswerWasWrong && state.wrongAnswerData?.chosen) {
         const chosenDef = state.wrongAnswerData.chosen;
+        if (typeof renderStageIntervalVisual === "function") {
+          renderStageIntervalVisual(ex, { mode: "wrong", chosenDef });
+        }
         renderWrongChoiceFeedbackCard(ex, chosenDef, chosenDef.key || "?", false);
       }
       state.profileDisplayDirty = false;
@@ -1355,6 +1364,7 @@ function renderProfileAccountView() {
   document.querySelectorAll("[data-interval-notation]").forEach(btn => {
     btn.classList.toggle("active", btn.dataset.intervalNotation === (p.intervalNotation === "intl" ? "intl" : "de"));
   });
+  if (typeof syncIntervalHelpSettingsUI === "function") syncIntervalHelpSettingsUI();
   document.querySelectorAll("[data-solfege-labels]").forEach(btn => {
     btn.classList.toggle("active", btn.dataset.solfegeLabels === p.solfegeLabels);
   });

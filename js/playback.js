@@ -56,7 +56,13 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
     }
     document.getElementById("stageSubtext").textContent = getPersonalizedCorrectStageSubtext(tr("RICHTIG!", "CORRECT!"));
     document.getElementById("stageMainText").textContent = ex.targetItem.roman || ex.targetItem.symbol;
-    document.getElementById("stageFunctionText").textContent = ex.targetItem.label;
+    const intervalRevealDesc = (typeof formatIntervalRevealDescription === "function")
+      ? formatIntervalRevealDescription(ex)
+      : "";
+    document.getElementById("stageFunctionText").textContent = intervalRevealDesc || ex.targetItem.label;
+    const showedIntervalVisual = typeof renderStageIntervalVisual === "function"
+      ? renderStageIntervalVisual(ex, { mode: "reveal" })
+      : false;
 
     const revealAllNonRef = ex.type === "rhythm-meter" ||
       (ex.type === "rhythm-groove" && ex.grooveKind === "style");
@@ -178,7 +184,7 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
     } else if (isListenOnly) {
       scheduleListenOnlyStep(advanceToNextExercise, listenOnlyPostRevealMs, listenOnlyToken);
     } else {
-      scheduleSimpleRevealAdvance(audioEngine.playbackId, 1050);
+      scheduleSimpleRevealAdvance(audioEngine.playbackId, showedIntervalVisual ? 1850 : 1050);
     }
 
   } else {
@@ -203,6 +209,9 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
               ? tr("Vergleiche beide Modi über demselben Grundton:", "Compare both modes over the same root:")
               : tr("Hör dir beide Klänge direkt nacheinander an:", "Hear both sounds back-to-back:")));
 
+    if (typeof renderStageIntervalVisual === "function") {
+      renderStageIntervalVisual(ex, { mode: "wrong", chosenDef });
+    }
     renderWrongChoiceFeedbackCard(ex, chosenDef, selectedKey, true);
   }
 }
@@ -2658,10 +2667,15 @@ async function playSequence(options = {}) {
             updateStageMascot("question");
             document.getElementById("stageSubtext").textContent = tf("TON {n} • GESUCHT", "NOTE {n} • TARGET", { n: index + 1 });
             document.getElementById("stageMainText").textContent = "?";
-            document.getElementById("stageFunctionText").textContent = tr("Welches Intervall erklingt jetzt?", "Which interval plays now?");
+            document.getElementById("stageFunctionText").textContent = (typeof isIntervalPlainLanguageActive === "function" && isIntervalPlainLanguageActive())
+              ? getIntervalPlainPromptText(ex.type)
+              : tr("Welches Intervall erklingt jetzt?", "Which interval plays now?");
           } else {
             setCentralStageMode("stage-playing");
             updateStageMascot("listening");
+            if (!ex.isSolved && typeof renderStageIntervalVisual === "function") {
+              renderStageIntervalVisual(ex, { mode: "anchor" });
+            }
             document.getElementById("stageSubtext").textContent = tf("TON 1 • {bpm} BPM", "NOTE 1 • {bpm} BPM", { bpm: state.activeBpm });
             document.getElementById("stageMainText").textContent = bar.symbol;
             document.getElementById("stageFunctionText").textContent = bar.label;
@@ -2692,6 +2706,9 @@ async function playSequence(options = {}) {
       document.getElementById("barCard_1")?.classList.remove("bar-active");
       setCentralStageMode("stage-playing");
       updateStageMascot("listening");
+      if (!ex.isSolved && typeof renderStageIntervalVisual === "function") {
+        renderStageIntervalVisual(ex, { mode: "anchor" });
+      }
       document.getElementById("stageSubtext").textContent = tf("FLÄCHE • {bpm} BPM", "PAD • {bpm} BPM", { bpm: state.activeBpm });
       document.getElementById("stageMainText").textContent = ex.bars[0]?.symbol || "?";
       document.getElementById("stageFunctionText").textContent =
@@ -2709,8 +2726,9 @@ async function playSequence(options = {}) {
           updateStageMascot("question");
           document.getElementById("stageSubtext").textContent = tr("KLAVIER • GESUCHT", "PIANO • TARGET");
           document.getElementById("stageMainText").textContent = "?";
-          document.getElementById("stageFunctionText").textContent =
-            tr("Welches Intervall erklingt über der Grundton-Fläche?", "Which interval plays over the root pad?");
+          document.getElementById("stageFunctionText").textContent = (typeof isIntervalPlainLanguageActive === "function" && isIntervalPlainLanguageActive())
+            ? getIntervalPlainPromptText("interval-drone")
+            : tr("Welches Intervall erklingt über der Grundton-Fläche?", "Which interval plays over the root pad?");
         }
       });
 
@@ -2856,7 +2874,9 @@ async function playSequence(options = {}) {
                 ? tr("Welcher Akkordton liegt im Bass?", "Which chord tone is in the bass?")
                 : (isChordQualityMode(ex.type)
                     ? tr("Welcher Akkord erklingt jetzt?", "Which chord quality plays now?")
-                    : tr("Welches Intervall erklingt jetzt?", "Which interval plays now?")));
+                    : ((typeof isIntervalPlainLanguageActive === "function" && isIntervalPlainLanguageActive())
+                        ? getIntervalPlainPromptText(ex.type)
+                        : tr("Welches Intervall erklingt jetzt?", "Which interval plays now?"))));
         } else {
           setCentralStageMode("stage-playing");
           updateStageMascot("listening");

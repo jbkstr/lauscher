@@ -20243,6 +20243,491 @@ html.is-pinch-zoomed .view-container {
 }
 
 /* ==========================================
+   INTERVALL-ABSTANDSHILFE & MINI-VISUALISIERUNG
+   ========================================== */
+.settings-sub-hint {
+  margin-top: -0.1rem;
+  margin-bottom: 0.42rem;
+}
+
+.degree-btn.has-interval-help {
+  padding-bottom: 0.32rem;
+}
+
+.degree-distance-sub {
+  font-size: 0.67rem;
+  font-weight: 700;
+  color: var(--peach-strong);
+  line-height: 1.15;
+  margin-top: 0.08rem;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.degree-btn.btn-correct .degree-distance-sub {
+  color: var(--status-ok-text);
+}
+
+.degree-btn.btn-wrong .degree-distance-sub {
+  color: var(--status-err-text);
+}
+
+.degree-distance-bar {
+  width: 78%;
+  height: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--tint-subtle);
+  margin-top: 0.22rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+.degree-distance-bar.is-down {
+  justify-content: flex-end;
+}
+
+.degree-distance-bar.is-zero {
+  justify-content: center;
+  background: transparent;
+}
+
+.degree-distance-fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--peach-strong);
+  opacity: 0.72;
+  transition: width 0.15s ease;
+}
+
+.degree-distance-bar.is-zero .degree-distance-fill {
+  width: 5px;
+  height: 5px;
+  opacity: 0.6;
+}
+
+.degree-btn.btn-correct .degree-distance-fill {
+  background: var(--status-ok);
+  opacity: 1;
+}
+
+.degree-btn.btn-wrong .degree-distance-fill {
+  background: var(--status-err);
+  opacity: 0.85;
+}
+
+/* Feste Übungshöhe: kompakte Abstufung für Kachel-Abstandshilfe */
+#viewExercise.fit-1 .degree-distance-sub {
+  font-size: 0.63rem;
+  margin-top: 0.04rem;
+}
+
+#viewExercise.fit-1 .degree-distance-bar {
+  margin-top: 0.16rem;
+}
+
+#viewExercise.fit-2 .degree-distance-sub {
+  font-size: 0.6rem;
+  margin-top: 0.02rem;
+}
+
+#viewExercise.fit-2 .degree-distance-bar,
+#viewExercise.fit-3 .degree-distance-bar {
+  height: 3px;
+  margin-top: 0.12rem;
+}
+
+#viewExercise.fit-3 .degree-distance-sub {
+  font-size: 0.56rem;
+  margin-top: 0;
+}
+
+#viewExercise.fit-3.fit-4 .degree-distance-bar {
+  display: none;
+}
+
+/* Mini-Klaviatur & Mini-Griffbrett in der zentralen Bühne */
+.stage-interval-visual {
+  width: 100%;
+  max-width: 340px;
+  margin-top: 0.26rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.stage-interval-visual.hidden {
+  display: none;
+}
+
+.interval-visual-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 70px;
+  overflow: visible;
+}
+
+.central-stage.has-interval-visual {
+  padding-top: 0.48rem;
+  padding-bottom: 0.44rem;
+}
+
+.central-stage.has-interval-visual .stage-mascot {
+  width: 38px;
+  height: 38px;
+  margin-bottom: 0.08rem;
+}
+
+.central-stage.has-interval-visual .stage-main {
+  font-size: 1.32rem;
+  line-height: 1.12;
+  margin: 0.02rem 0;
+}
+
+@container exstage (max-height: 184px) {
+  .central-stage.has-interval-visual {
+    padding: 0.3rem 0.72rem;
+  }
+  .central-stage.has-interval-visual .stage-mascot {
+    width: 28px;
+    height: 28px;
+    margin-bottom: 0.04rem;
+  }
+  .central-stage.has-interval-visual .stage-main {
+    font-size: 1.08rem;
+  }
+  .central-stage.has-interval-visual .stage-desc {
+    -webkit-line-clamp: 1;
+  }
+  .central-stage.has-interval-visual .stage-interval-visual {
+    margin-top: 0.16rem;
+    max-width: 312px;
+  }
+  .central-stage.has-interval-visual .interval-visual-svg {
+    max-height: 54px;
+  }
+}
+
+@container exstage (max-height: 152px) {
+  .central-stage.has-interval-visual {
+    grid-template-rows: auto auto auto auto;
+    padding: 0.26rem 0.72rem;
+  }
+  .central-stage.has-interval-visual .stage-desc {
+    -webkit-line-clamp: 1;
+  }
+  .central-stage.has-interval-visual .stage-interval-visual {
+    grid-column: 1 / -1;
+    grid-row: 4;
+    justify-self: center;
+    margin-top: 0.14rem;
+    max-width: 300px;
+  }
+  .central-stage.has-interval-visual .interval-visual-svg {
+    max-height: 48px;
+  }
+}
+
+@container exstage (max-height: 114px) {
+  .central-stage.has-interval-visual .stage-interval-visual {
+    display: none;
+  }
+}
+
+/* SVG-Farben: Bogen, Anker-Linie & Pill-Beschriftung */
+.ivis-stem {
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.ivis-stem.is-anchor {
+  stroke: var(--lilac-strong);
+  opacity: 0.78;
+}
+
+.ivis-stem.is-mystery {
+  stroke: var(--peach-strong);
+  opacity: 0.88;
+}
+
+.ivis-arc {
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.ivis-arc.is-reveal {
+  stroke: var(--status-ok);
+}
+
+.ivis-arc.is-wrong {
+  stroke: var(--status-warn);
+}
+
+.ivis-arc.is-anchor {
+  stroke: var(--lilac-strong);
+  opacity: 0.72;
+}
+
+.ivis-arc.is-mystery {
+  stroke: var(--peach-strong);
+  opacity: 0.85;
+}
+
+.ivis-arrow.is-reveal {
+  fill: var(--status-ok);
+}
+
+.ivis-arrow.is-wrong {
+  fill: var(--status-warn);
+}
+
+.ivis-arrow.is-anchor {
+  fill: var(--lilac-strong);
+  opacity: 0.75;
+}
+
+.ivis-arrow.is-mystery {
+  fill: var(--peach-strong);
+}
+
+.ivis-pill.is-reveal {
+  fill: var(--sage-soft);
+  stroke: var(--status-ok);
+  stroke-width: 1;
+}
+
+.ivis-pill.is-wrong {
+  fill: var(--peach-soft);
+  stroke: var(--status-warn);
+  stroke-width: 1;
+}
+
+.ivis-pill.is-anchor {
+  fill: var(--lilac-soft);
+  stroke: var(--lilac-strong);
+  stroke-width: 1;
+}
+
+.ivis-pill.is-mystery {
+  fill: var(--peach-soft);
+  stroke: var(--peach-strong);
+  stroke-width: 1;
+}
+
+.ivis-pill-text {
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.ivis-pill-text.is-reveal {
+  fill: var(--status-ok-text);
+}
+
+.ivis-pill-text.is-wrong {
+  fill: var(--status-warn-text);
+}
+
+.ivis-pill-text.is-anchor {
+  fill: var(--lilac-strong);
+}
+
+.ivis-pill-text.is-mystery {
+  fill: var(--peach-strong);
+}
+
+/* SVG-Farben: Mini-Klaviatur */
+.ikb-white {
+  fill: var(--piano-white-active-bg);
+  stroke: var(--border-strong);
+  stroke-width: 1;
+}
+
+.ikb-white.is-root {
+  fill: var(--lilac-strong);
+  stroke: var(--lilac-strong);
+}
+
+.ikb-white.is-end.is-reveal,
+.ikb-white.is-same.is-reveal {
+  fill: var(--status-ok);
+  stroke: var(--status-ok);
+}
+
+.ikb-white.is-end.is-wrong,
+.ikb-white.is-same.is-wrong {
+  fill: var(--status-warn);
+  stroke: var(--status-warn);
+}
+
+.ikb-white.is-step.is-reveal {
+  fill: var(--sage-soft);
+}
+
+.ikb-white.is-step.is-wrong {
+  fill: var(--peach-soft);
+}
+
+.ikb-black {
+  fill: var(--piano-black-bg-top);
+  stroke: var(--piano-black-border);
+  stroke-width: 0.9;
+}
+
+.ikb-black.is-root {
+  fill: var(--lilac-strong);
+  stroke: var(--surface-white);
+  stroke-width: 1.1;
+}
+
+.ikb-black.is-end.is-reveal,
+.ikb-black.is-same.is-reveal {
+  fill: var(--status-ok);
+  stroke: var(--surface-white);
+  stroke-width: 1.1;
+}
+
+.ikb-black.is-end.is-wrong,
+.ikb-black.is-same.is-wrong {
+  fill: var(--status-warn);
+  stroke: var(--surface-white);
+  stroke-width: 1.1;
+}
+
+.ikb-black.is-step.is-reveal {
+  fill: var(--sage-strong);
+}
+
+.ikb-black.is-step.is-wrong {
+  fill: var(--peach-strong);
+}
+
+.ikb-key-lbl {
+  font-size: 9px;
+  font-weight: 700;
+  fill: var(--piano-white-active-ink);
+}
+
+.ikb-key-lbl.is-black-lbl {
+  font-size: 7.4px;
+}
+
+.ikb-key-lbl.is-on-fill {
+  fill: var(--on-strong-accent);
+}
+
+.ikb-step-dot.is-reveal {
+  fill: var(--status-ok);
+}
+
+.ikb-step-dot.is-wrong {
+  fill: var(--status-warn);
+}
+
+.ikb-step-dot.is-on-black {
+  stroke: var(--surface-white);
+  stroke-width: 0.8;
+}
+
+.ikb-step-num {
+  font-size: 7.2px;
+  font-weight: 700;
+  fill: var(--on-strong-accent);
+}
+
+/* SVG-Farben: Mini-Griffbrett */
+.ifb-board {
+  fill: var(--surface-warm);
+  stroke: var(--border-strong);
+  stroke-width: 1;
+}
+
+.ifb-nut {
+  fill: var(--raccoon-dark);
+}
+
+.ifb-wire {
+  stroke: var(--border-strong);
+  stroke-width: 1.1;
+}
+
+.ifb-inlay {
+  fill: var(--border-strong);
+  opacity: 0.65;
+}
+
+.ifb-string {
+  stroke: var(--raccoon-mid);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+.ifb-span.is-reveal {
+  fill: var(--sage);
+  opacity: 0.58;
+}
+
+.ifb-span.is-wrong {
+  fill: var(--peach);
+  opacity: 0.68;
+}
+
+.ifb-dot.is-root {
+  fill: var(--lilac-strong);
+  stroke: var(--surface-white);
+  stroke-width: 1.2;
+}
+
+.ifb-dot.is-end.is-reveal,
+.ifb-dot.is-same.is-reveal {
+  fill: var(--status-ok);
+  stroke: var(--surface-white);
+  stroke-width: 1.2;
+}
+
+.ifb-dot.is-end.is-wrong,
+.ifb-dot.is-same.is-wrong {
+  fill: var(--status-warn);
+  stroke: var(--surface-white);
+  stroke-width: 1.2;
+}
+
+.ifb-dot-lbl {
+  font-size: 7.8px;
+  font-weight: 700;
+  fill: var(--on-strong-accent);
+}
+
+.ifb-step-dot.is-reveal {
+  fill: var(--status-ok);
+}
+
+.ifb-step-dot.is-wrong {
+  fill: var(--status-warn);
+}
+
+.ifb-step-num {
+  font-size: 7px;
+  font-weight: 700;
+  fill: var(--on-strong-accent);
+}
+
+.ifb-fret-num {
+  font-size: 7.6px;
+  font-weight: 700;
+  fill: var(--raccoon-muted);
+}
+
+.ifb-fret-num.is-active {
+  fill: var(--raccoon-dark);
+}
+
+/* ==========================================
    BARRIEREFREIHEIT: TIPPFLÄCHEN ≥ 44 × 44 PX
    ========================================== */
 /* Auf Touch-Geräten wächst nur die unsichtbare Tippfläche (zentriertes ::before), das Layout bleibt gleich –

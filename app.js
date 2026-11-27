@@ -393,6 +393,13 @@ document.addEventListener("DOMContentLoaded", () => {
       renderProfileAccountView();
     });
   });
+  document.querySelectorAll("[data-interval-distance-help]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (typeof setIntervalDistanceHelpPreference === "function") {
+        setIntervalDistanceHelpPreference(btn.dataset.intervalDistanceHelp);
+      }
+    });
+  });
   document.querySelectorAll("[data-solfege-labels]").forEach(btn => {
     btn.addEventListener("click", () => {
       state.profile.solfegeLabels = btn.dataset.solfegeLabels === "numbers" ? "numbers" : "syllables";
@@ -953,6 +960,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const inlineNotationPacePopover = document.getElementById("inlineNotationPacePopover");
   const inlineNotationPaceSlider = document.getElementById("inlineNotationPaceSlider");
   const inlineTimeSigPopover = document.getElementById("inlineTimeSigPopover");
+  const inlineIntervalHelpPopover = document.getElementById("inlineIntervalHelpPopover");
+  const intervalHelpChipBtn = document.getElementById("intervalHelpChipBtn");
 
   function closeAllInlinePopovers(exceptPopover = null) {
     [
@@ -961,6 +970,7 @@ document.addEventListener("DOMContentLoaded", () => {
       [inlineNotationKeyPopover, moduleNotationKeyBtn],
       [inlineNotationPacePopover, moduleNotationPaceBtn],
       [inlineTimeSigPopover, moduleTimeSigBtn],
+      [inlineIntervalHelpPopover, intervalHelpChipBtn],
       [inlineModesRootPopover, modesRootBadge],
       [inlineModesPadPopover, modesPadBtn]
     ].forEach(([pop, btn]) => {
@@ -968,6 +978,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (pop && pop !== exceptPopover) {
         pop.classList.add("hidden");
         btn?.classList.remove("chip-open");
+        if (btn === intervalHelpChipBtn) btn.setAttribute("aria-expanded", "false");
       }
     });
   }
@@ -1078,7 +1089,28 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!isHidden && typeof positionOpenModulePopovers === "function") positionOpenModulePopovers();
   });
 
-  [inlineBpmPopover, inlineKeyPopover, inlineNotationKeyPopover, inlineNotationPacePopover, inlineTimeSigPopover, inlineModesRootPopover, inlineModesPadPopover, document.getElementById("inlineSingVoicePopover")].forEach(pop => {
+  intervalHelpChipBtn?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (state.exam?.active || !inlineIntervalHelpPopover) return;
+    closeAllInlinePopovers(inlineIntervalHelpPopover);
+    const isHidden = inlineIntervalHelpPopover.classList.toggle("hidden");
+    intervalHelpChipBtn.classList.toggle("chip-open", !isHidden);
+    intervalHelpChipBtn.setAttribute("aria-expanded", String(!isHidden));
+    if (!isHidden && typeof positionOpenModulePopovers === "function") positionOpenModulePopovers();
+  });
+
+  document.querySelectorAll("[data-inline-interval-help]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (typeof setIntervalDistanceHelpPreference === "function") {
+        setIntervalDistanceHelpPreference(btn.dataset.inlineIntervalHelp);
+      }
+      inlineIntervalHelpPopover?.classList.add("hidden");
+      intervalHelpChipBtn?.classList.remove("chip-open");
+      intervalHelpChipBtn?.setAttribute("aria-expanded", "false");
+    });
+  });
+
+  [inlineBpmPopover, inlineKeyPopover, inlineNotationKeyPopover, inlineNotationPacePopover, inlineTimeSigPopover, inlineIntervalHelpPopover, inlineModesRootPopover, inlineModesPadPopover, document.getElementById("inlineSingVoicePopover")].forEach(pop => {
     pop?.addEventListener("click", (e) => e.stopPropagation());
   });
 
@@ -1337,6 +1369,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 1000);
     } else if (ex.type === "interval-melodic" || ex.type === "interval-melodic-down") {
       stopPlayback();
+      const cmpId = audioEngine.playbackId;
       const baseRootMidi = ex.targetItem.rootMidi ?? rootMidi;
       const dirSign = ex.type === "interval-melodic-down" ? -1 : 1;
       const refNote = ex.targetItem.refNote || midiToNote(baseRootMidi);
@@ -1346,10 +1379,25 @@ document.addEventListener("DOMContentLoaded", () => {
       const pauseBetweenPairsMs = Math.max(420, Math.round(stepMs * 0.75));
       const secondPairStartMs = stepMs + Math.round(note2DurSec * 1000) + pauseBetweenPairsMs;
 
+      if (typeof renderStageIntervalVisual === "function") {
+        renderStageIntervalVisual(ex, { mode: "compare-a", chosenDef: diag.chosen });
+      }
       audioEngine.playStep([refNote], note1DurSec, null, "cadence");
-      audioEngine.registerTimer(() => audioEngine.playStep([chosenTarget], note2DurSec, null, "cadence"), stepMs);
-      audioEngine.registerTimer(() => audioEngine.playStep([refNote], note1DurSec, null, "cadence"), secondPairStartMs);
-      audioEngine.registerTimer(() => audioEngine.playStep([actualTarget], note2DurSec, null, "cadence"), secondPairStartMs + stepMs);
+      audioEngine.registerTimer(() => {
+        if (audioEngine.playbackId !== cmpId) return;
+        audioEngine.playStep([chosenTarget], note2DurSec, null, "cadence");
+      }, stepMs);
+      audioEngine.registerTimer(() => {
+        if (audioEngine.playbackId !== cmpId) return;
+        if (typeof renderStageIntervalVisual === "function") {
+          renderStageIntervalVisual(ex, { mode: "compare-b" });
+        }
+        audioEngine.playStep([refNote], note1DurSec, null, "cadence");
+      }, secondPairStartMs);
+      audioEngine.registerTimer(() => {
+        if (audioEngine.playbackId !== cmpId) return;
+        audioEngine.playStep([actualTarget], note2DurSec, null, "cadence");
+      }, secondPairStartMs + stepMs);
     } else if (isChordQualityMode(ex.type)) {
       stopPlayback();
       const cmpId = audioEngine.playbackId;
@@ -1404,20 +1452,34 @@ document.addEventListener("DOMContentLoaded", () => {
       const padNotes = ex.padNotes || [midiToNote(baseRootMidi - 12), ex.targetItem.refNote || midiToNote(baseRootMidi)];
       const chosenTarget = midiToNote(baseRootMidi + diag.chosen.semitones);
       const actualTarget = diag.target.targetNote;
+      if (typeof renderStageIntervalVisual === "function") {
+        renderStageIntervalVisual(ex, { mode: "compare-a", chosenDef: diag.chosen });
+      }
       audioEngine.playDroneIntervalCue(padNotes, [chosenTarget], { delayMs: 650, padDurSec: 1.75, pianoDurSec: 0.95 });
       audioEngine.registerTimer(() => {
         if (audioEngine.playbackId !== cmpId) return;
+        if (typeof renderStageIntervalVisual === "function") {
+          renderStageIntervalVisual(ex, { mode: "compare-b" });
+        }
         audioEngine.playDroneIntervalCue(padNotes, [actualTarget], { delayMs: 650, padDurSec: 1.9, pianoDurSec: 1.1 });
       }, 1950);
     } else {
       stopPlayback();
+      const cmpId = audioEngine.playbackId;
       const baseRootMidi = ex.targetItem.rootMidi ?? rootMidi;
       const refNote = ex.targetItem.refNote || midiToNote(baseRootMidi);
       const chosenTarget = midiToNote(baseRootMidi + diag.chosen.semitones);
       const stepMode = ex.type === "interval-harmonic" ? "interval-harmonic" : "cadence";
 
+      if (typeof renderStageIntervalVisual === "function") {
+        renderStageIntervalVisual(ex, { mode: "compare-a", chosenDef: diag.chosen });
+      }
       audioEngine.playStep([refNote, chosenTarget], 1.15, null, stepMode);
       audioEngine.registerTimer(() => {
+        if (audioEngine.playbackId !== cmpId) return;
+        if (typeof renderStageIntervalVisual === "function") {
+          renderStageIntervalVisual(ex, { mode: "compare-b" });
+        }
         audioEngine.playStep(diag.target.notes, 1.35, null, stepMode);
       }, 1250);
     }

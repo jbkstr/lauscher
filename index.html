@@ -1516,6 +1516,7 @@
               <button id="modesPadBtn" class="module-chip-btn chip-sage hidden" type="button" aria-pressed="false">Grundton-Fläche: Aus</button>
             <button id="melodyPulseBtn" class="module-chip-btn chip-sage hidden" type="button" title="Metrum-Puls während der Melodie ein-/ausschalten" data-i18n-title="ex.melodyPulseTitle">Puls: An</button>
               <button id="singAlongChipBtn" type="button" class="module-chip-btn chip-sage hidden" aria-expanded="false" aria-controls="singAlongHint">Mitsingen</button>
+              <button id="intervalHelpChipBtn" type="button" class="module-chip-btn chip-peach hidden" aria-expanded="false" aria-controls="inlineIntervalHelpPopover" title="Abstandshilfe (Halbtöne, Klaviertasten oder Gitarrenbünde)" data-i18n-title="ex.intervalHelpTitle">Hilfe: Aus</button>
               <button id="singVoiceChipBtn" type="button" class="module-chip-btn chip-sage hidden" aria-expanded="false" aria-controls="inlineSingVoicePopover">Stimme</button>
               <button id="singDirChipBtn" type="button" class="module-chip-btn chip-peach hidden">↗</button>
               <button id="midiDirChipBtn" type="button" class="module-chip-btn chip-peach hidden">↗</button>
@@ -1552,6 +1553,17 @@
 
         <!-- MIDI-Schnellmenü in der Übung (Inhalt aus js/midi.js) -->
         <div id="inlineMidiPopover" class="module-inline-popover midi-inline-popover hidden"></div>
+
+        <!-- Direkt ausklappbare Intervall-Abstandshilfe (Aus / Halbtöne / Klaviertasten / Gitarrenbünde) -->
+        <div id="inlineIntervalHelpPopover" class="module-inline-popover hidden">
+          <span class="popover-label" data-i18n="ex.intervalHelpLabel">Abstandshilfe:</span>
+          <div class="popover-pills-row">
+            <button type="button" class="popover-pill-btn active" data-inline-interval-help="off" data-i18n="space.intervalHelpOff">Aus</button>
+            <button type="button" class="popover-pill-btn" data-inline-interval-help="semitones" data-i18n="space.intervalHelpSemitones">Halbtöne</button>
+            <button type="button" class="popover-pill-btn" data-inline-interval-help="keys" data-i18n="space.intervalHelpKeys">Klaviertasten</button>
+            <button type="button" class="popover-pill-btn" data-inline-interval-help="frets" data-i18n="space.intervalHelpFrets">Gitarrenbünde</button>
+          </div>
+        </div>
 
         <!-- Direkt ausklappbare Taktart-Auswahl (im Kadenzmodus) -->
         <div id="inlineTimeSigPopover" class="module-inline-popover hidden">
@@ -1625,6 +1637,7 @@
           <span id="stageSubtext" class="stage-sub">STATUS</span>
           <div id="stageMainText" class="stage-main">Bereit</div>
           <span id="stageFunctionText" class="stage-desc">Drücke unten auf Abspielen</span>
+          <div id="stageIntervalVisual" class="stage-interval-visual hidden" dir="ltr" aria-hidden="true"></div>
           <div id="stageStreakNotice" class="stage-streak-notice hidden" aria-live="polite"></div>
         </div>
       </div>
@@ -2741,6 +2754,16 @@
             </div>
           </div>
           <div class="settings-sub-field">
+            <span class="account-label" data-i18n="space.intervalDistanceHelp">Intervall-Abstandshilfe</span>
+            <p class="settings-hint settings-sub-hint" data-i18n="space.intervalDistanceHelpHint">Zeigt Schritte &amp; eine Mini-Ansicht für Anfänger und Kinder (im Entdecker-Modus automatisch aktiv).</p>
+            <div class="btn-group" id="profileIntervalDistanceHelpGroup" role="group" aria-label="Intervall-Abstandshilfe" data-i18n-aria="space.intervalDistanceHelp">
+              <button type="button" class="opt-btn active" data-interval-distance-help="off" aria-pressed="true" data-i18n="space.intervalHelpOff">Aus</button>
+              <button type="button" class="opt-btn" data-interval-distance-help="semitones" aria-pressed="false" data-i18n="space.intervalHelpSemitones">Halbtöne</button>
+              <button type="button" class="opt-btn" data-interval-distance-help="keys" aria-pressed="false" data-i18n="space.intervalHelpKeys">Klaviertasten</button>
+              <button type="button" class="opt-btn" data-interval-distance-help="frets" aria-pressed="false" data-i18n="space.intervalHelpFrets">Gitarrenbünde</button>
+            </div>
+          </div>
+          <div class="settings-sub-field">
             <span class="account-label" data-i18n="space.solfegeLabelSystem">Klaviatur-Beschriftung (Solfège &amp; Melodie)</span>
             <div class="btn-group" id="profileSolfegeLabelGroup">
               <button type="button" class="opt-btn opt-btn-stacked active" data-solfege-labels="syllables" data-i18n="space.solfegeSyllables" data-i18n-stacked="1"><span class="opt-btn-line-main">Silben</span><span class="opt-btn-line-sub">(Do – Ti)</span></button>
@@ -3184,6 +3207,7 @@
   <script src="js/tuner-dsp.js"></script>
   <script src="js/state.js"></script>
   <script src="js/notation.js"></script>
+  <script src="js/interval-help.js"></script>
   <script src="js/notation-terms.js"></script>
   <script src="js/navigation.js"></script>
   <script src="js/knowledge-ui.js"></script>

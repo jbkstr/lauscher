@@ -938,6 +938,10 @@ function getAwaitingStageHint(ex, personalizeHint = false) {
       : tr("Welcher Akkordton saß ganz unten im Bass? Wähle die Umkehrung.", "Which chord tone sat lowest in the bass? Pick the inversion below.");
   }
   if (type.startsWith("interval")) {
+    if (typeof isIntervalPlainLanguageActive === "function" && isIntervalPlainLanguageActive()
+        && typeof getIntervalPlainStageHintText === "function") {
+      return getIntervalPlainStageHintText(name);
+    }
     return name
       ? tf("{name}, wie weit fühlte sich der Abstand an? Wähle das Intervall.", "{name}, how wide did that leap feel? Pick the interval below.", { name })
       : tr("Wie weit fühlte sich der Abstand an? Wähle das Intervall.", "How wide did that leap feel? Pick the interval below.");

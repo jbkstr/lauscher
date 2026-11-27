@@ -1520,6 +1520,111 @@ runTest("Onboarding-Willkommensmelodie: Klavier-Komposition & Schutz vor stopPla
   assert.equal(engine.activeWelcomeSession, null);
 });
 
+runTest("Intervall-Abstandshilfe: Modus, Entdecker-Auto, Texte & Mini-SVG", () => {
+  const st = getLex("state");
+  const prevHelp = st.profile.intervalDistanceHelp;
+  const prevManual = st.profile.intervalDistanceHelpManual;
+  const prevInstruments = Array.isArray(st.profile.instruments) ? [...st.profile.instruments] : ["Klavier"];
+  const prevExplorer = st.settings.explorerMode;
+  const prevExam = st.exam;
+
+  try {
+    // Sanitization & Profil-Defaults
+    assert.equal(sb.sanitizeIntervalDistanceHelp("keys"), "keys");
+    assert.equal(sb.sanitizeIntervalDistanceHelp("frets"), "frets");
+    assert.equal(sb.sanitizeIntervalDistanceHelp("semitones"), "semitones");
+    assert.equal(sb.sanitizeIntervalDistanceHelp("invalid"), "off");
+    const defProfile = sb.createDefaultProfile();
+    assert.equal(defProfile.intervalDistanceHelp, "off");
+    assert.equal(defProfile.intervalDistanceHelpManual, false);
+
+    // Normalmodus ohne manuelle Wahl -> off
+    st.settings.explorerMode = false;
+    st.profile.intervalDistanceHelp = "off";
+    st.profile.intervalDistanceHelpManual = false;
+    st.profile.instruments = ["Klavier"];
+    st.exam = { active: false };
+    assert.equal(sb.getEffectiveIntervalDistanceHelp(), "off");
+
+    // Entdecker-Modus aktiviert automatisch Klaviertasten (oder Bünde bei reinem Saiten-Profil)
+    st.settings.explorerMode = true;
+    assert.equal(sb.getEffectiveIntervalDistanceHelp(), "keys");
+    assert.equal(sb.isIntervalPlainLanguageActive(), true);
+    st.profile.instruments = ["Gitarre"];
+    assert.equal(sb.getEffectiveIntervalDistanceHelp(), "frets");
+
+    // Manuelle Überschreibung gewinnt auch im Entdecker-Modus
+    st.profile.intervalDistanceHelp = "semitones";
+    st.profile.intervalDistanceHelpManual = true;
+    assert.equal(sb.getEffectiveIntervalDistanceHelp(), "semitones");
+
+    // In Prüfungen ist die Abstandshilfe immer aus
+    st.exam = { active: true };
+    assert.equal(sb.getEffectiveIntervalDistanceHelp(), "off");
+    assert.equal(sb.getEffectiveIntervalDistanceHelp({ ignoreExam: true }), "semitones");
+    st.exam = { active: false };
+
+    // Kachel-Formatierung & proportionaler Balken
+    const upM3 = sb.formatIntervalTileDistance(4, "interval-melodic", "keys", true);
+    assert.equal(upM3.headline, "+4");
+    assert.equal(upM3.subline, "4 Tasten");
+    assert.equal(upM3.isZero, false);
+
+    const downM3 = sb.formatIntervalTileDistance(4, "interval-melodic-down", "frets", false);
+    assert.equal(downM3.headline, "−4");
+    assert.equal(downM3.subline, "−4 Bünde");
+
+    const unison = sb.formatIntervalTileDistance(0, "interval-melodic", "keys", true);
+    assert.equal(unison.headline, "= 0");
+    assert.equal(unison.subline, "Gleicher Ton");
+    assert.equal(unison.isZero, true);
+
+    assert.equal(sb.getIntervalDistanceBarPercent(0, 12), 0);
+    assert.ok(sb.getIntervalDistanceBarPercent(4, 12) < sb.getIntervalDistanceBarPercent(7, 12));
+    assert.equal(sb.getIntervalDistanceBarPercent(12, 12), 100);
+
+    // Feedback- & Auflösungs-Texte
+    const sampleEx = {
+      type: "interval-melodic",
+      effectiveRootMidi: 60,
+      targetMidi: 64,
+      refPreferFlat: false,
+      targetPreferFlat: false,
+      targetItem: { key: "M3", symbol: "G3", label: "Große Terz", short: "gr. Terz", semitones: 4, rootMidi: 60, directionSign: 1 }
+    };
+    const revealTxt = sb.formatIntervalRevealDescription(sampleEx, "keys");
+    assert.ok(revealTxt.includes("4 Tasten") && revealTxt.includes("C4") && revealTxt.includes("E4"), `Unerwarteter Auflösungstext: ${revealTxt}`);
+
+    const wrongLarge = sb.formatIntervalWrongChoiceFeedback(sampleEx, { key: "P5", short: "Quinte", semitones: 7 }, "keys");
+    assert.ok(wrongLarge.includes("7 Tasten") && wrongLarge.includes("kleiner"), `Unerwartetes Fehler-Feedback: ${wrongLarge}`);
+
+    const wrongSmall = sb.formatIntervalWrongChoiceFeedback(sampleEx, { key: "P1", short: "Prime", semitones: 0 }, "keys");
+    assert.ok(wrongSmall.includes("größer"), `Unerwartetes Fehler-Feedback (zu klein): ${wrongSmall}`);
+
+    // Mini-Klaviatur & Mini-Griffbrett SVGs
+    const kbSvg = sb.buildIntervalMiniKeyboardSVG({
+      rootMidi: 60, endMidi: 64, directionSign: 1, variant: "reveal", badgeText: "+4 Tasten"
+    });
+    assert.ok(kbSvg.includes("<svg") && kbSvg.includes("is-keyboard") && kbSvg.includes("+4 Tasten") && kbSvg.includes("is-root") && kbSvg.includes("is-end"), "Mini-Klaviatur SVG unvollständig");
+
+    const fbSvg = sb.buildIntervalMiniFretboardSVG({
+      rootMidi: 60, endMidi: 64, directionSign: 1, variant: "reveal", badgeText: "+4 Bünde"
+    });
+    assert.ok(fbSvg.includes("<svg") && fbSvg.includes("is-fretboard") && fbSvg.includes("+4 Bünde") && fbSvg.includes("ifb-dot"), "Mini-Griffbrett SVG unvollständig");
+
+    const anchorSvg = sb.buildIntervalMiniKeyboardSVG({
+      rootMidi: 67, endMidi: null, directionSign: -1, variant: "anchor", badgeText: "Start: G", isAnchorOnly: true
+    });
+    assert.ok(anchorSvg.includes("ivis-stem") && !anchorSvg.includes("ivis-arc") && !anchorSvg.includes("is-end"), "Anker-SVG darf keinen Bogen und keinen Zielton anzeigen");
+  } finally {
+    st.profile.intervalDistanceHelp = prevHelp;
+    st.profile.intervalDistanceHelpManual = prevManual;
+    st.profile.instruments = prevInstruments;
+    st.settings.explorerMode = prevExplorer;
+    st.exam = prevExam;
+  }
+});
+
 // Ergebnis-Ausgabe
 const failed = results.filter(r => !r.ok);
 for (const r of results) {
