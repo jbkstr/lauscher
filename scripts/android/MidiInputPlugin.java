@@ -517,13 +517,22 @@ public class MidiInputPlugin extends Plugin {
         return sent;
     }
 
+    // Wartezeit zwischen dem Senden von Local Control On und dem Schließen: Der Treiber bzw. der
+    // Bluetooth-MIDI-Dienst verschickt die Bytes asynchron. Schließen wir Ports/Gerät sofort, kann
+    // CC 122 = 127 verloren gehen und das Instrument bleibt stumm. BLE braucht mehrere
+    // Verbindungsintervalle (48 Bytes ≈ 3–5 BLE-Pakete), USB nur einen kurzen Moment.
+    private static final long LOCAL_CONTROL_RESTORE_WAIT_USB_MS = 40;
+    private static final long LOCAL_CONTROL_RESTORE_WAIT_BLE_MS = 300;
+
     private void closeSingleDevice(String id, boolean restoreLocalControl) {
         OpenMidiConn conn;
         synchronized (lock) {
             conn = connections.remove(id);
         }
         if (conn == null) return;
-        closeConnectionResources(conn, restoreLocalControl);
+        List<OpenMidiConn> single = new ArrayList<>();
+        single.add(conn);
+        closeConnections(single, restoreLocalControl);
     }
 
     private void closeAllDevices(boolean restoreLocalControl) {
@@ -532,26 +541,58 @@ public class MidiInputPlugin extends Plugin {
             snapshot = new ArrayList<>(connections.values());
             connections.clear();
         }
-        for (OpenMidiConn conn : snapshot) {
-            closeConnectionResources(conn, restoreLocalControl);
+        closeConnections(snapshot, restoreLocalControl);
+    }
+
+    /**
+     * Schickt (falls gewünscht) Local Control On an alle Verbindungen, wartet einmal gemeinsam,
+     * bis die Bytes draußen sind, und schließt erst dann Ports und Geräte.
+     */
+    private void closeConnections(List<OpenMidiConn> conns, boolean restoreLocalControl) {
+        if (conns.isEmpty()) return;
+        long waitMs = 0;
+        if (restoreLocalControl) {
+            for (OpenMidiConn conn : conns) {
+                if (sendLocalControlRestore(conn)) {
+                    long connWait = "bluetooth".equals(conn.type)
+                        ? LOCAL_CONTROL_RESTORE_WAIT_BLE_MS
+                        : LOCAL_CONTROL_RESTORE_WAIT_USB_MS;
+                    waitMs = Math.max(waitMs, connWait);
+                }
+            }
+        }
+        if (waitMs > 0) {
+            try {
+                Thread.sleep(waitMs);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+        for (OpenMidiConn conn : conns) {
+            closeConnectionResources(conn);
         }
     }
 
-    private void closeConnectionResources(OpenMidiConn conn, boolean restoreLocalControl) {
-        if (restoreLocalControl && !conn.inputPorts.isEmpty()) {
-            // Local Control On (CC 122 = 127) wie in js/midi.js auf allen 16 Kanälen wiederherstellen
-            byte[] restore = new byte[48];
-            for (int ch = 0; ch < 16; ch++) {
-                restore[ch * 3] = (byte) (0xB0 | ch);
-                restore[ch * 3 + 1] = 122;
-                restore[ch * 3 + 2] = 127;
-            }
-            for (MidiInputPort inPort : conn.inputPorts) {
-                try {
-                    inPort.send(restore, 0, restore.length);
-                } catch (IOException ignored) {}
-            }
+    /** Local Control On (CC 122 = 127) wie in js/midi.js auf allen 16 Kanälen. true = mindestens ein Port hat gesendet. */
+    private boolean sendLocalControlRestore(OpenMidiConn conn) {
+        if (conn.inputPorts.isEmpty()) return false;
+        byte[] restore = new byte[48];
+        for (int ch = 0; ch < 16; ch++) {
+            restore[ch * 3] = (byte) (0xB0 | ch);
+            restore[ch * 3 + 1] = 122;
+            restore[ch * 3 + 2] = 127;
         }
+        boolean sent = false;
+        for (MidiInputPort inPort : conn.inputPorts) {
+            try {
+                inPort.send(restore, 0, restore.length);
+                sent = true;
+            } catch (IOException ignored) {}
+        }
+        return sent;
+    }
+
+    private void closeConnectionResources(OpenMidiConn conn) {
         for (MidiOutputPort p : conn.outputPorts) {
             try { p.close(); } catch (IOException ignored) {}
         }
