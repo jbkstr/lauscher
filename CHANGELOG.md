@@ -2,6 +2,11 @@
 
 All released versions of Lauscher. New sections are created by `python3 scripts/bump-version.py`.
 
+## Unreleased
+
+**Removed**
+- The piano welcome melody on the final onboarding step is switched off for now; it sounded too synthetic.
+
 ## 0.17.0-beta (Build 13) – 2026-11-27
 
 **Added**

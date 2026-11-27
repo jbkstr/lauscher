@@ -32,7 +32,12 @@ const _welcomeOnboardingState = {
   melodyToken: 0
 };
 
+// Begrüßungsmelodie im letzten Onboarding-Schritt: vorerst abgeschaltet (klang zu synthetisch),
+// Code bleibt für eine spätere, natürlichere Variante erhalten (audio.js: playOnboardingWelcomeMelody).
+const ONBOARDING_WELCOME_MELODY_ENABLED = false;
+
 function triggerWelcomeOnboardingMelody() {
+  if (!ONBOARDING_WELCOME_MELODY_ENABLED) return;
   if (typeof audioEngine === "undefined" || typeof audioEngine.playOnboardingWelcomeMelody !== "function") return;
   if (typeof prepareAudioNonBlocking === "function") {
     prepareAudioNonBlocking();
