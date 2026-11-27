@@ -1068,24 +1068,29 @@ function isFirstRunOnboardingNeeded() {
 function loadVisualPrefs() {
   try {
     if (typeof localStorage === "undefined") {
-      return { appearance: "light", theme: "waldlichtung", language: "de", autoNextAfterCorrect: true, playCorrectAnswerAudio: true, onboardingDone: true };
+      return { appearance: "light", theme: "waldlichtung", language: "de", autoNextAfterCorrect: true, playCorrectAnswerAudio: true, onboardingDone: true, explorerMode: false, explorerPinHash: "" };
     }
     const raw = localStorage.getItem(VISUAL_PREFS_STORAGE_KEY);
     if (!raw) {
       const hasProfile = Boolean(localStorage.getItem(PERSONAL_PROFILE_STORAGE_KEY));
-      return { appearance: "light", theme: "waldlichtung", language: "de", autoNextAfterCorrect: true, playCorrectAnswerAudio: true, onboardingDone: hasProfile };
+      return { appearance: "light", theme: "waldlichtung", language: "de", autoNextAfterCorrect: true, playCorrectAnswerAudio: true, onboardingDone: hasProfile, explorerMode: false, explorerPinHash: "" };
     }
     const parsed = JSON.parse(raw);
+    const pinHash = typeof parsed?.explorerPinHash === "string" && /^v1:[0-9a-f]{16}$/.test(parsed.explorerPinHash)
+      ? parsed.explorerPinHash
+      : "";
     return {
       appearance: VALID_APPEARANCES.includes(parsed?.appearance) ? parsed.appearance : "light",
       theme: ALL_VALID_THEMES.includes(parsed?.theme) ? parsed.theme : "waldlichtung",
       language: typeof normalizeAppLanguage === "function" ? normalizeAppLanguage(parsed?.language) : (parsed?.language === "en" ? "en" : "de"),
       autoNextAfterCorrect: parsed?.autoNextAfterCorrect !== false,
       playCorrectAnswerAudio: parsed?.playCorrectAnswerAudio !== false,
-      onboardingDone: parsed?.onboardingDone !== false
+      onboardingDone: parsed?.onboardingDone !== false,
+      explorerMode: parsed?.explorerMode === true,
+      explorerPinHash: pinHash
     };
   } catch (_err) {
-    return { appearance: "light", theme: "waldlichtung", language: "de", autoNextAfterCorrect: true, playCorrectAnswerAudio: true, onboardingDone: true };
+    return { appearance: "light", theme: "waldlichtung", language: "de", autoNextAfterCorrect: true, playCorrectAnswerAudio: true, onboardingDone: true, explorerMode: false, explorerPinHash: "" };
   }
 }
 
@@ -1190,7 +1195,9 @@ function saveVisualPrefs(
   language = (typeof state !== "undefined" ? state?.settings?.language : null),
   autoNextAfterCorrect = (typeof state !== "undefined" ? state?.settings?.autoNextAfterCorrect : true),
   playCorrectAnswerAudio = (typeof state !== "undefined" ? state?.settings?.playCorrectAnswerAudio : true),
-  onboardingDone = (typeof state !== "undefined" ? state?.settings?.onboardingDone : true)
+  onboardingDone = (typeof state !== "undefined" ? state?.settings?.onboardingDone : true),
+  explorerMode = (typeof state !== "undefined" ? Boolean(state?.settings?.explorerMode) : false),
+  explorerPinHash = (typeof state !== "undefined" ? (state?.settings?.explorerPinHash || "") : "")
 ) {
   try {
     if (typeof localStorage === "undefined") return;
@@ -1198,6 +1205,10 @@ function saveVisualPrefs(
     const validAutoNext = autoNextAfterCorrect !== false;
     const validAnswerAudio = playCorrectAnswerAudio !== false;
     const validOnboardingDone = onboardingDone !== false;
+    const validExplorerMode = explorerMode === true;
+    const validPinHash = typeof explorerPinHash === "string" && /^v1:[0-9a-f]{16}$/.test(explorerPinHash)
+      ? explorerPinHash
+      : "";
     localStorage.setItem(
       VISUAL_PREFS_STORAGE_KEY,
       JSON.stringify({
@@ -1206,7 +1217,9 @@ function saveVisualPrefs(
         language: validLang,
         autoNextAfterCorrect: validAutoNext,
         playCorrectAnswerAudio: validAnswerAudio,
-        onboardingDone: validOnboardingDone
+        onboardingDone: validOnboardingDone,
+        explorerMode: validExplorerMode,
+        explorerPinHash: validPinHash
       })
     );
     syncNativeStorageMirror();

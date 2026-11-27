@@ -597,19 +597,27 @@ function populateMixCreatorControls(options = {}) {
   if (!modeSel || !lvlSel) return;
 
   const prevMode = modeSel.value;
+  const allowedModeKeys = Object.keys(MIX_MODE_CATALOG).filter(k =>
+    typeof isModeAllowedInExplorerMix !== "function" || isModeAllowedInExplorerMix(k)
+  );
   if (options.forceRepopulate || !modeSel.dataset.populated) {
-    modeSel.innerHTML = Object.entries(MIX_MODE_CATALOG)
-      .map(([k]) => `<option value="${k}">${escapeHtml(getLocalizedMixModeLabel(k))}</option>`)
+    modeSel.innerHTML = allowedModeKeys
+      .map(k => `<option value="${k}">${escapeHtml(getLocalizedMixModeLabel(k))}</option>`)
       .join("");
-    if (prevMode && MIX_MODE_CATALOG[prevMode]) {
+    if (prevMode && allowedModeKeys.includes(prevMode)) {
       modeSel.value = prevMode;
+    } else if (allowedModeKeys.length > 0) {
+      modeSel.value = allowedModeKeys[0];
     }
     modeSel.dataset.populated = "1";
   }
 
   const prevLvl = lvlSel.value;
-  const chosenMode = MIX_MODE_CATALOG[modeSel.value] ? modeSel.value : "cadence";
-  const levels = MIX_MODE_CATALOG[chosenMode].levels;
+  const chosenMode = allowedModeKeys.includes(modeSel.value) ? modeSel.value : (allowedModeKeys[0] || "cadence");
+  const rawLevels = MIX_MODE_CATALOG[chosenMode].levels;
+  const levels = typeof getExplorerAllowedLevelsForMix === "function"
+    ? getExplorerAllowedLevelsForMix(chosenMode, rawLevels)
+    : rawLevels;
   lvlSel.innerHTML = levels.map(l => `
     <option value="${escapeHtml(l)}">${escapeHtml(getLevelDisplayForMix(chosenMode, l))}</option>
   `).join("");
@@ -758,9 +766,12 @@ function renderMixCreatorDropdowns() {
   const bpmHost = document.getElementById("mixBpmDropdown");
   if (!modeSel || !lvlSel || !bpmSel) return;
 
-  const chosenMode = MIX_MODE_CATALOG[modeSel.value] ? modeSel.value : "cadence";
+  const allowedModeKeys = Object.keys(MIX_MODE_CATALOG).filter(k =>
+    typeof isModeAllowedInExplorerMix !== "function" || isModeAllowedInExplorerMix(k)
+  );
+  const chosenMode = allowedModeKeys.includes(modeSel.value) ? modeSel.value : (allowedModeKeys[0] || "cadence");
   if (modeHost) {
-    const modeOptions = Object.keys(MIX_MODE_CATALOG).map(k => ({
+    const modeOptions = allowedModeKeys.map(k => ({
       key: k,
       label: getLocalizedMixModeLabel(k)
     }));
@@ -778,7 +789,10 @@ function renderMixCreatorDropdowns() {
   }
 
   if (lvlHost) {
-    const levels = MIX_MODE_CATALOG[chosenMode].levels || [];
+    const rawLevels = MIX_MODE_CATALOG[chosenMode].levels || [];
+    const levels = typeof getExplorerAllowedLevelsForMix === "function"
+      ? getExplorerAllowedLevelsForMix(chosenMode, rawLevels)
+      : rawLevels;
     const levelOptions = levels.map(l => ({
       key: String(l),
       label: getLevelDisplayForMix(chosenMode, l)
@@ -1943,7 +1957,8 @@ function exportUserProfileJSON() {
       theme: state.settings.theme,
       language: state.settings.language,
       autoNextAfterCorrect: state.settings.autoNextAfterCorrect !== false,
-      playCorrectAnswerAudio: state.settings.playCorrectAnswerAudio !== false
+      playCorrectAnswerAudio: state.settings.playCorrectAnswerAudio !== false,
+      explorerMode: Boolean(state.settings.explorerMode)
     },
     profile: cleanProf
   };
@@ -1969,7 +1984,14 @@ function applyImportedDisplayPrefs(display) {
     && !(bonusInfo.isBonus && !bonusInfo.unlocked)
     && (!CUSTOM_THEME_SLOT_IDS.includes(theme) || Boolean(getCustomThemeEntry(theme)));
   if (themeOk) state.settings.theme = theme;
+  if (typeof display.explorerMode === "boolean") {
+    const pinLocked = typeof isExplorerPinLockActive === "function" && isExplorerPinLockActive();
+    if (!pinLocked) {
+      state.settings.explorerMode = display.explorerMode;
+    }
+  }
   saveVisualPrefs(state.settings.appearance, state.settings.theme, state.settings.language);
+  if (typeof syncExplorerModeUI === "function") syncExplorerModeUI();
   const lang = typeof normalizeAppLanguage === "function" ? normalizeAppLanguage(display.language) : null;
   if (lang && lang !== state.settings.language) {
     setLanguagePreference(lang);
@@ -2456,6 +2478,8 @@ function performFullAppReset() {
   state.settings.rhythmDictationAutoNext = true;
   state.settings.rhythmTapAutoNext = true;
   state.settings.onboardingDone = false;
+  state.settings.explorerMode = false;
+  state.settings.explorerPinHash = "";
   if (state.customThemeEditor) state.customThemeEditor.open = false;
 
   try {
@@ -2487,6 +2511,7 @@ function performFullAppReset() {
   syncLanguageControls("de");
   syncAnswerSoundToggleUI();
   syncAutoNextControls();
+  if (typeof syncExplorerModeUI === "function") syncExplorerModeUI();
   syncPianoSoundControls();
   syncDroneMixControls();
 

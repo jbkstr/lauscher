@@ -8,7 +8,10 @@
 function renderKnowledgeHub() {
   const listEl = document.getElementById("articlesNavList");
   if (!listEl || typeof getLocalizedKnowledgeArticles !== "function") return;
-  const articles = getLocalizedKnowledgeArticles();
+  const rawArticles = getLocalizedKnowledgeArticles();
+  const articles = typeof filterExplorerKnowledgeArticles === "function"
+    ? filterExplorerKnowledgeArticles(rawArticles)
+    : rawArticles;
 
   listEl.innerHTML = articles.map(art => `
     <button class="category-nav-card" data-open-article="${art.id}">

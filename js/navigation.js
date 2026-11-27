@@ -37,6 +37,8 @@ function getOpenModalName() {
   if (hwShare && !hwShare.classList.contains("modal-hidden")) return "homeworkShare";
   const hwStart = document.getElementById("homeworkStartBackdrop");
   if (hwStart && !hwStart.classList.contains("modal-hidden")) return "homeworkStart";
+  const explorerPin = document.getElementById("explorerPinBackdrop");
+  if (explorerPin && !explorerPin.classList.contains("modal-hidden")) return "explorerPin";
   return null;
 }
 
@@ -501,7 +503,8 @@ const MODAL_BACKDROP_IDS = {
   break: "breakReminderBackdrop",
   themeUnlock: "themeUnlockBackdrop",
   homeworkShare: "homeworkShareBackdrop",
-  homeworkStart: "homeworkStartBackdrop"
+  homeworkStart: "homeworkStartBackdrop",
+  explorerPin: "explorerPinBackdrop"
 };
 let _modalA11yOpenName = null;
 let _modalReturnFocusEl = null;
@@ -545,6 +548,7 @@ function setModalVisibility(modalName) {
   document.getElementById("themeUnlockBackdrop")?.classList.toggle("modal-hidden", modalName !== "themeUnlock");
   document.getElementById("homeworkShareBackdrop")?.classList.toggle("modal-hidden", modalName !== "homeworkShare");
   document.getElementById("homeworkStartBackdrop")?.classList.toggle("modal-hidden", modalName !== "homeworkStart");
+  document.getElementById("explorerPinBackdrop")?.classList.toggle("modal-hidden", modalName !== "explorerPin");
   if (modalName !== "settings") {
     if (typeof cancelTapLatencyCalibration === "function") cancelTapLatencyCalibration("");
     if (typeof stopNativeBleScan === "function") stopNativeBleScan();

@@ -3137,16 +3137,16 @@ registerColocatedStatic({
     ar: "التدوين الموسيقي"
   },
   "space.notationSub": {
-    de: "Steuert Tonnamen, Intervall-Kürzel & Tasten-Beschriftung in deinen Übungen.",
-    en: "Controls note naming, interval symbols & keyboard labels across exercises.",
-    fr: "Règle les noms de notes, abréviations d’intervalles et repères du clavier dans les exercices.",
-    es: "Define los nombres de las notas, las abreviaturas de intervalos y las marcas del teclado en los ejercicios.",
-    it: "Controlla i nomi delle note, i simboli degli intervalli e le etichette della tastiera nei tuoi esercizi.",
-    pl: "Określa nazwy dźwięków, symbole interwałów i podpisy klawiszy w ćwiczeniach.",
-    uk: "Керує позначенням нот, скороченнями інтервалів і підписами клавіш у вправах.",
-    ur: "آپ کی مشقوں میں سُروں کے نام، انٹرول علامتیں اور کی بورڈ لیبل کنٹرول کرتا ہے۔",
-    tr: "Alıştırmalardaki nota adlandırmasını, aralık sembollerini ve klavye etiketlerini belirler.",
-    ar: "يتحكّم في أسماء النغمات ورموز المسافات وتسميات لوحة المفاتيح في التمارين."
+    de: "Tonnamen und Beschriftungen in deinen Übungen.",
+    en: "Note names and labels used in your exercises.",
+    fr: "Noms des notes et étiquettes dans tes exercices.",
+    es: "Nombres de notas y etiquetas en tus ejercicios.",
+    it: "Nomi delle note ed etichette nei tuoi esercizi.",
+    pl: "Nazwy dźwięków i oznaczenia w ćwiczeniach.",
+    uk: "Назви нот і підписи у твоїх вправах.",
+    ur: "آپ کی مشقوں میں سروں کے نام اور لیبلز۔",
+    tr: "Alıştırmalardaki nota adları ve etiketler.",
+    ar: "أسماء النغمات والتسميات في تمارينك."
   },
   "space.notationSystem": {
     de: "Notensystem",
@@ -4577,16 +4577,16 @@ registerColocatedStatic({
     ar: "مخصّص"
   },
   "mixer.presetHint": {
-    de: "Jede manuelle Änderung an den Reglern aktiviert automatisch „Benutzerdefiniert“.",
-    en: "Adjusting any slider manually switches the preset to “Custom”.",
-    fr: "Tout réglage manuel des curseurs passe automatiquement en mode « Personnalisé ».",
-    es: "Cualquier ajuste manual de los controles pasa automáticamente al modo «Personalizado».",
-    it: "Ogni modifica manuale ai cursori attiva automaticamente «Personalizzato».",
-    pl: "Każda ręczna zmiana suwaka przełącza preset w tryb własny.",
-    uk: "Будь-який ручний рух повзунків перемикає пресет у режим «Власний».",
-    ur: "کسی بھی سلائیڈر کو ہاتھ سے بدلنے پر خودکار «اپنی مرضی کا» فعال ہو جاتا ہے۔",
-    tr: "Herhangi bir sürgüyü elle değiştirmek ön ayarı «Özel» olarak değiştirir.",
-    ar: "أي تعديل يدوي على أشرطة التمرير يحوّل الإعداد تلقائيًا إلى «مخصّص»."
+    de: "Eigene Regler-Änderungen werden als „Benutzerdefiniert“ übernommen.",
+    en: "Manual slider changes switch automatically to Custom.",
+    fr: "Les réglages manuels passent automatiquement en Personnalisé.",
+    es: "Los cambios manuales pasan automáticamente a Personalizado.",
+    it: "Le modifiche manuali passano automaticamente a Personalizzato.",
+    pl: "Ręczne zmiany suwaków przełączają na Własny.",
+    uk: "Ручні зміни повзунків автоматично переходять у «Власний».",
+    ur: "دستی تبدیلیوں پر خودکار طور پر «حسبِ ضرورت» فعال ہو جاتا ہے۔",
+    tr: "El ile yapılan değişiklikler otomatik olarak Özel’e geçer.",
+    ar: "التعديلات اليدوية تنتقل تلقائيًا إلى «مخصّص»."
   },
   "settings.title": {
     de: "App-Einstellungen",
@@ -4673,16 +4673,16 @@ registerColocatedStatic({
     ar: "صوت الغرفة والصدى"
   },
   "settings.pianoSoundHint": {
-    de: "Wähle einen Raumcharakter für den gesamten Mix und passe den Hall-Anteil pro Instrument an.",
-    en: "Choose a room character for the mix and fine-tune reverb for each instrument individually.",
-    fr: "Choisissez un caractère de salle pour tout le mix et ajustez la réverbération par instrument.",
-    es: "Elige un carácter de sala para toda la mezcla y ajusta la reverberación de cada instrumento.",
-    it: "Scegli un carattere ambientale per l’intero mix e regola la quota di riverbero per ogni singolo strumento.",
-    pl: "Wybierz charakter sali dla całego miksu i dopasuj poziom pogłosu dla każdego instrumentu.",
-    uk: "Обирай характер приміщення для всього міксу й налаштовуй реверберацію для кожного інструмента окремо.",
-    ur: "پورے مکس کے لیے کمرے کا مزاج چنیں اور ہر ساز کے لیے الگ ہال گونج سیٹ کریں۔",
-    tr: "Miks için bir oda karakteri seç ve her enstrümanın yankısını ayrı ayrı ince ayarla.",
-    ar: "اختر طابع الغرفة للمزج بالكامل واضبط مقدار الصدى لكل آلة على حدة."
+    de: "Wähle den Raumklang und passe den Hall je Instrument an.",
+    en: "Pick a room sound and adjust reverb per instrument.",
+    fr: "Choisis une ambiance de salle et règle la réverbération par instrument.",
+    es: "Elige un ambiente de sala y ajusta la reverberación por instrumento.",
+    it: "Scegli un ambiente e regola il riverbero per ogni strumento.",
+    pl: "Wybierz brzmienie sali i dopasuj pogłos dla każdego instrumentu.",
+    uk: "Обери звучання кімнати та налаштуй реверберацію для кожного інструмента.",
+    ur: "کمرے کی گونج منتخب کریں اور ہر ساز کا ہال ایڈجسٹ کریں۔",
+    tr: "Oda tınısını seç ve her enstrüman için yankıyı ayarla.",
+    ar: "اختر طابع الصوت المكاني واضبط الصدى لكل آلة."
   },
   "settings.pianoCharAria": {
     de: "Raumcharakter",
@@ -4841,16 +4841,16 @@ registerColocatedStatic({
     ar: "الإيقاع: تأخّر النقرات"
   },
   "settings.tapLatencyHint": {
-    de: "Bluetooth-Kopfhörer und manche Geräte spielen Töne hörbar verzögert ab. Miss die Verzögerung einmal, damit deine Taps fair gewertet werden.",
-    en: "Bluetooth headphones and some devices play sounds with an audible delay. Measure the delay once so your taps are scored fairly.",
-    fr: "Les écouteurs Bluetooth et certains appareils jouent les sons avec un retard audible. Mesure ce retard une fois pour que tes tapes soient évaluées équitablement.",
-    es: "Los auriculares Bluetooth y algunos dispositivos reproducen los sonidos con un retraso audible. Mide el retraso una vez para que tus toques se evalúen con justicia.",
-    it: "Le cuffie Bluetooth e alcuni dispositivi riproducono i suoni con un ritardo udibile. Misura il ritardo una volta, così i tuoi tocchi vengono valutati correttamente.",
-    pl: "Słuchawki Bluetooth i niektóre urządzenia odtwarzają dźwięki z słyszalnym opóźnieniem. Zmierz je raz, aby Twoje stuknięcia były oceniane uczciwie.",
-    uk: "Bluetooth-навушники та деякі пристрої відтворюють звук із помітною затримкою. Виміряй її один раз, щоб твої натискання оцінювалися чесно.",
-    ur: "بلوٹوتھ ہیڈ فون اور کچھ آلات آوازیں سنائی دینے والی تاخیر سے چلاتے ہیں۔ ایک بار تاخیر ناپ لیں تاکہ آپ کے ٹیپ منصفانہ طور پر جانچے جائیں۔",
-    tr: "Bluetooth kulaklıklar ve bazı cihazlar sesleri duyulur bir gecikmeyle çalar. Dokunuşlarının adil değerlendirilmesi için gecikmeyi bir kez ölç.",
-    ar: "تشغّل سماعات البلوتوث وبعض الأجهزة الأصوات بتأخير مسموع. قِس التأخير مرة واحدة لتُقيَّم نقراتك بإنصاف."
+    de: "Gleicht verzögerten Ton bei Bluetooth-Kopfhörern fürs Nachklopfen aus.",
+    en: "Compensates for Bluetooth headphone delay when tapping rhythms.",
+    fr: "Compense le décalage des écouteurs Bluetooth pour les exercices de rythme.",
+    es: "Compensa el retraso de auriculares Bluetooth al marcar ritmos.",
+    it: "Compensa il ritardo delle cuffie Bluetooth negli esercizi di ritmo.",
+    pl: "Wyrównuje opóźnienie słuchawek Bluetooth przy wystukiwaniu rytmu.",
+    uk: "Компенсує затримку Bluetooth-навушників під час відбивання ритму.",
+    ur: "بلوٹوتھ ہیڈفون کی تاخیر کو تال کی مشق کے لیے درست کرتا ہے۔",
+    tr: "Ritim dokunma alıştırmalarında Bluetooth kulaklık gecikmesini dengeler.",
+    ar: "يعوّض تأخر سماعات البلوتوث عند النقر على الإيقاع."
   },
   "settings.tapLatencyCalibrateBtn": {
     de: "Verzögerung messen",
@@ -4901,16 +4901,16 @@ registerColocatedStatic({
     ar: "الغناء المصاحب"
   },
   "settings.singHint": {
-    de: "Einladungen zum Mitsingen und Mitsummen bei Intervall- und Solfège-Übungen.",
-    en: "Invitations to sing and hum along in interval and solfège exercises.",
-    fr: "Invitations à chanter et fredonner dans les exercices d’intervalles et de solfège.",
-    es: "Invitaciones a cantar y tararear en los ejercicios de intervalos y solfeo.",
-    it: "Inviti a cantare e canticchiare negli esercizi di intervalli e solfeggio.",
-    pl: "Zachęty do śpiewania i nucenia w ćwiczeniach z interwałów i solfeżu.",
-    uk: "Запрошення співати й наспівувати у вправах з інтервалів і сольфеджіо.",
-    ur: "انٹرول اور سولفیج مشقوں میں ساتھ گانے اور گنگنانے کی دعوت۔",
-    tr: "Aralık ve solfej alıştırmalarında eşlik etme ve mırıldanma önerileri.",
-    ar: "توجيهات للغناء والدندنة في تمارين المسافات والصولفيج."
+    de: "Erinnert dich beim Üben ans Mitsingen und Mitsummen.",
+    en: "Reminds you to sing or hum along while practicing.",
+    fr: "Te rappelle de chanter ou fredonner pendant l’entraînement.",
+    es: "Te recuerda cantar o tararear mientras practicas.",
+    it: "Ti ricorda di cantare o canticchiare mentre ti alleni.",
+    pl: "Przypomina o śpiewaniu lub nuceniu podczas ćwiczeń.",
+    uk: "Нагадує підспівувати або мугикати під час вправ.",
+    ur: "مشق کے دوران ساتھ گانے یا گنگنانے کی یاد دلاتا ہے۔",
+    tr: "Çalışırken eşlik ederek söylemeni veya mırıldanmanı hatırlatır.",
+    ar: "يذكّرك بالغناء أو الدندنة أثناء التدريب."
   },
   "settings.singTipsLabel": {
     de: "Mitsing-Tipps",
@@ -4973,16 +4973,16 @@ registerColocatedStatic({
     ar: "تذكير باستراحة التدرّب"
   },
   "settings.breakReminderHint": {
-    de: "Läuft leise und unsichtbar im Hintergrund, während du übst, und erinnert dich nach der gewählten Zeit freundlich an eine Pause.",
-    en: "Runs quietly and invisibly in the background while you practice and gently reminds you to take a break.",
-    fr: "Tourne discrètement en arrière-plan pendant vos exercices et vous invite gentiment à faire une pause après la durée choisie.",
-    es: "Funciona discretamente en segundo plano mientras practicas y te invita amablemente a hacer una pausa tras el tiempo elegido.",
-    it: "Scorre silenziosamente in background mentre ti eserciti e ti ricorda con gentilezza di fare una pausa dopo il tempo scelto.",
-    pl: "Działa dyskretnie w tle bez wyświetlania zegara podczas ćwiczeń i po wybranym czasie przypomina o odpoczynku.",
-    uk: "Непомітно рахує час у фоні під час вправ і м’яко нагадує про відпочинок після обраного інтервалу.",
-    ur: "آپ کے مشق کرتے وقت پس منظر میں خاموشی سے چلتی ہے اور مقررہ وقت کے بعد آرام کا پیغام دیتی ہے۔",
-    tr: "Çalışırken arka planda sessizce çalışır ve sana kısa bir mola vermeni nazikçe hatırlatır.",
-    ar: "يعمل بهدوء في الخلفية أثناء التدرّب ويذكّرك بلطف بأخذ استراحة."
+    de: "Erinnert dich beim Üben nach der gewählten Zeit an eine Pause.",
+    en: "Reminds you to take a break after your chosen practice time.",
+    fr: "Te rappelle de faire une pause après la durée choisie.",
+    es: "Te recuerda hacer una pausa tras el tiempo elegido.",
+    it: "Ti ricorda di fare una pausa dopo il tempo scelto.",
+    pl: "Przypomina o przerwie po wybranym czasie ćwiczenia.",
+    uk: "Нагадує зробити перерву через вибраний час.",
+    ur: "منتخب وقت کے بعد وقفہ لینے کی یاد دلاتا ہے۔",
+    tr: "Seçtiğin sürenin ardından mola vermeni hatırlatır.",
+    ar: "يذكّرك بأخذ استراحة بعد المدة المختارة."
   },
   "settings.breakReminderAria": {
     de: "Pausen-Erinnerung bei Übungen",
@@ -5093,16 +5093,16 @@ registerColocatedStatic({
     ar: "الخلطات السريعة (الرئيسية)"
   },
   "settings.quickMixHint": {
-    de: "Passe deine Schnellstart-Mixe jederzeit in ‚Mein Konto‘ an oder lege neue Favoriten an.",
-    en: "Customize your home quick-launch mixes anytime in ‘My Account’ or add new favorites.",
-    fr: "Personnalisez vos mix de démarrage rapide dans « Mon compte » ou ajoutez vos favoris.",
-    es: "Personaliza tus mezclas de inicio rápido en «Mi cuenta» o añade tus favoritas.",
-    it: "Personalizza i tuoi mix di avvio rapido in qualsiasi momento in «Il mio account» o aggiungi nuovi preferiti.",
-    pl: "Zarządzaj ulubionymi miksami na ekranie głównym w dowolnej chwili w dziale „Mój profil”.",
-    uk: "Змінюй мікси швидкого старту на головному екрані будь-коли в розділі «Мій профіль» або додавай улюблені.",
-    ur: "کسی بھی وقت «میرا اکاؤنٹ» میں جا کر اپنے فوری مکسز بدلیں یا نئے پسندیدہ بنائیں۔",
-    tr: "Ana sayfadaki hızlı başlatma karışımlarını istediğin zaman «Hesabım» bölümünden düzenleyebilir veya yeni favoriler ekleyebilirsin.",
-    ar: "عدّل خلطات البدء السريع في أي وقت من «حسابي» أو أضف مفضّلات جديدة."
+    de: "Verwalte deine Übe-Favoriten für die Startseite.",
+    en: "Manage your favorite practice shortcuts for the home screen.",
+    fr: "Gère tes raccourcis d’entraînement favoris pour l’accueil.",
+    es: "Gestiona tus favoritos de práctica para la pantalla de inicio.",
+    it: "Gestisci i tuoi esercizi preferiti per la schermata iniziale.",
+    pl: "Zarządzaj ulubionymi skrótami ćwiczeń na ekranie głównym.",
+    uk: "Керуй улюбленими швидкими вправами на головному екрані.",
+    ur: "ہوم اسکرین کے لیے اپنی پسندیدہ مشقوں کا انتظام کریں۔",
+    tr: "Ana ekran için favori çalışma kısayollarını yönet.",
+    ar: "أدِر اختصارات التدريب المفضلة لديك على الشاشة الرئيسية."
   },
   "settings.manageMixesBtn": {
     de: "Quick-Mixe anpassen →",
@@ -5129,16 +5129,16 @@ registerColocatedStatic({
     ar: "لغة التطبيق"
   },
   "settings.languageHint": {
-    de: "Wähle die Sprache der App. Alle Menüs, Übungen und Musikbegriffe passen sich sofort an.",
-    en: "Choose the app language. All menus, exercises, and musical terms adapt immediately.",
-    fr: "Choisissez la langue de l’application. Menus, exercices et termes musicaux s’adaptent immédiatement.",
-    es: "Elige el idioma de la aplicación. Menús, ejercicios y términos musicales se adaptan al instante.",
-    it: "Scegli la lingua dell’app. Tutti i menu, gli esercizi e i termini musicali si adattano all’istante.",
-    pl: "Natychmiast zmienia język całego interfejsu, objaśnień i pojęć muzycznych.",
-    uk: "Обери мову застосунку. Усі меню, вправи та музичні терміни оновлюються миттєво.",
-    ur: "ایپ کی زبان منتخب کریں۔ تمام مینوز، مشقیں اور موسیقی کی اصطلاحات فوری بدل جاتی ہیں۔",
-    tr: "Uygulama dilini seç. Tüm menüler, alıştırmalar ve müzik terimleri anında uyarlanır.",
-    ar: "اختر لغة التطبيق. تتكيّف جميع القوائم والتمارين والمصطلحات الموسيقية فورًا."
+    de: "Sprache der App sofort wechseln.",
+    en: "Switch the app language immediately.",
+    fr: "Change immédiatement la langue de l’application.",
+    es: "Cambia el idioma de la aplicación al instante.",
+    it: "Cambia subito la lingua dell’app.",
+    pl: "Zmień język aplikacji od razu.",
+    uk: "Миттєво змінює мову застосунку.",
+    ur: "ایپ کی زبان فوراً تبدیل کریں۔",
+    tr: "Uygulama dilini hemen değiştir.",
+    ar: "غيّر لغة التطبيق فورًا."
   },
   "settings.languageSelectAria": {
     de: "Anwendungssprache wählen",
@@ -5225,16 +5225,16 @@ registerColocatedStatic({
     ar: "المظهر"
   },
   "settings.appearanceHint": {
-    de: "Wähle Hell, Dunkel oder passe dich automatisch an dein Gerät an.",
-    en: "Choose Light, Dark, or follow your device system appearance.",
-    fr: "Choisissez Clair, Sombre ou le mode automatique du système.",
-    es: "Elige claro, oscuro o el modo automático del sistema.",
-    it: "Scegli Chiaro, Scuro oppure segui automaticamente il tema del tuo dispositivo.",
-    pl: "Wybierz tryb jasny, ciemny lub automatyczne dopasowanie do urządzenia.",
-    uk: "Обери світлу тему, темну тему або автоматичний режим системи.",
-    ur: "روشن، تاریک یا اپنے آلے کے سسٹم کے مطابق خودکار انداز چنیں۔",
-    tr: "Açık, Karanlık veya cihazının sistem görünümünü takip et.",
-    ar: "اختر الفاتح أو الداكن أو اتبع مظهر نظام جهازك تلقائيًا."
+    de: "Hell, Dunkel oder wie auf deinem Gerät.",
+    en: "Light, Dark, or matching your device.",
+    fr: "Clair, sombre ou selon ton appareil.",
+    es: "Claro, oscuro o según tu dispositivo.",
+    it: "Chiaro, scuro o come il tuo dispositivo.",
+    pl: "Jasny, ciemny lub jak na urządzeniu.",
+    uk: "Світла, темна або як на твоєму пристрої.",
+    ur: "روشن، تاریک یا آپ کے آلے کے مطابق۔",
+    tr: "Açık, koyu veya cihazına uygun.",
+    ar: "فاتح، داكن، أو مطابق لجهازك."
   },
   "settings.appearanceLight": {
     de: "Hell",
@@ -5285,16 +5285,16 @@ registerColocatedStatic({
     ar: "لوحة الألوان / السمات"
   },
   "settings.themeHint": {
-    de: "Alle Farbpaletten funktionieren sowohl im hellen als auch im dunklen Modus.",
-    en: "Every color palette supports both Light and Dark modes.",
-    fr: "Chaque palette fonctionne aussi bien en mode clair qu’en mode sombre.",
-    es: "Cada paleta funciona igual de bien en modo claro que en modo oscuro.",
-    it: "Tutte le palette di colori funzionano sia in modalità chiara che in modalità scura.",
-    pl: "Każda paleta działa zarówno w trybie jasnym, jak i ciemnym.",
-    uk: "Кожна палітра підтримує як світлий, так і темний режими.",
-    ur: "ہر رنگ پیلیٹ روشن اور تاریک دونوں موڈز میں کام کرتا ہے۔",
-    tr: "Her renk paleti hem Açık hem de Karanlık modu destekler.",
-    ar: "كل لوحة ألوان تدعم كِلَا الوضعين الفاتح والداكن."
+    de: "Farben für hellen und dunklen Modus.",
+    en: "Color palettes for light and dark mode.",
+    fr: "Palettes de couleurs pour les modes clair et sombre.",
+    es: "Paletas de colores para modo claro y oscuro.",
+    it: "Palette di colori per modalità chiara e scura.",
+    pl: "Palety kolorów dla trybu jasnego i ciemnego.",
+    uk: "Кольорові палітри для світлого й темного режиму.",
+    ur: "روشن اور تاریک موڈ کے لیے رنگوں کے انتخاب۔",
+    tr: "Açık ve koyu mod için renk paletleri.",
+    ar: "لوحات ألوان للوضع الفاتح والداكن."
   },
   "settings.themeForest": {
     de: "Folk",
@@ -6197,16 +6197,16 @@ registerColocatedStatic({
     ar: "إعادة ضبط التطبيق"
   },
   "settings.appResetHint": {
-    de: "Setzt alle lokalen Einstellungen, Themes und Profildaten zurück und startet die Einrichtung neu.",
-    en: "Resets all local settings, themes, and profile data and restarts the setup intro.",
-    fr: "Réinitialise tous les paramètres locaux, thèmes et données de profil, puis relance l'introduction.",
-    es: "Restablece todos los ajustes locales, temas y datos de perfil, y vuelve a iniciar la introducción.",
-    it: "Ripristina tutte le impostazioni locali, i temi e i dati del profilo e riavvia la configurazione iniziale.",
-    pl: "Resetuje wszystkie lokalne ustawienia, motywy i dane profilu oraz ponownie uruchamia konfigurację.",
-    uk: "Скидає всі локальні налаштування, теми та дані профілю й перезапускає початкове налаштування.",
-    ur: "تمام مقامی ترتیبات، تھیمز اور پروفائل ڈیٹا ری سیٹ کر کے ابتدائی سیٹ اپ دوبارہ شروع کرتا ہے۔",
-    tr: "Tüm yerel ayarları, temaları ve profil verilerini sıfırlar ve başlangıç tanıtımını yeniden başlatır.",
-    ar: "يعيد ضبط جميع الإعدادات والسمات وبيانات الملف المحلي ويعيد تشغيل جولة الإعداد."
+    de: "Löscht alle Daten auf diesem Gerät und startet neu.",
+    en: "Deletes all data on this device and starts fresh.",
+    fr: "Efface toutes les données sur cet appareil et repart à zéro.",
+    es: "Borra todos los datos de este dispositivo y empieza de nuevo.",
+    it: "Elimina tutti i dati su questo dispositivo e riparte da zero.",
+    pl: "Usuwa wszystkie dane na tym urządzeniu i zaczyna od nowa.",
+    uk: "Видаляє всі дані на цьому пристрої та починає спочатку.",
+    ur: "اس آلے کا تمام ڈیٹا حذف کر کے نئے سرے سے شروع کرتا ہے۔",
+    tr: "Bu cihazdaki tüm verileri siler ve yeniden başlar.",
+    ar: "يحذف جميع البيانات على هذا الجهاز ويبدأ من جديد."
   },
   "settings.aboutHeading": {
     de: "Über die App",
@@ -6449,16 +6449,16 @@ registerColocatedStatic({
     ar: "شروحات التمارين (عرض توضيحي)"
   },
   "settings.tutorialsHint": {
-    de: "Zeigt beim ersten Start einer neuen Übungsart eine kurze Beispielrunde mit visuellen Hinweisen.",
-    en: "Shows a quick guided example round the first time you open a new exercise type.",
-    fr: "Affiche un court exemple guidé la première fois que vous ouvrez un nouveau type d’exercice.",
-    es: "Muestra un breve ejemplo guiado la primera vez que abres un nuevo tipo de ejercicio.",
-    it: "Mostra un breve turno di esempio con indicazioni visive la prima volta che avvii un nuovo tipo di esercizio.",
-    pl: "Pokazuje krótki przykład z podpowiedziami przy pierwszym uruchomieniu nowego typu ćwiczenia.",
-    uk: "Показує короткий приклад із підказками під час першого відкриття нового типу вправи.",
-    ur: "نئی قسم کی مشق پہلی بار کھولنے پر بصری اشاروں کے ساتھ ایک مختصر مثال دکھاتا ہے۔",
-    tr: "Yeni bir alıştırma türünü ilk kez açtığında kısa ve rehberli bir örnek tur gösterir.",
-    ar: "يعرض جولة مثال قصيرة وموجّهة في المرة الأولى التي تفتح فيها نوع تمرين جديدًا."
+    de: "Zeigt bei neuen Übungen zuerst eine kurze Beispielrunde.",
+    en: "Shows a short example round first when trying a new exercise.",
+    fr: "Montre d’abord un court exemple pour chaque nouvel exercice.",
+    es: "Muestra primero un breve ejemplo en cada ejercicio nuevo.",
+    it: "Mostra prima un breve esempio per ogni nuovo esercizio.",
+    pl: "Pokazuje najpierw krótki przykład w nowym ćwiczeniu.",
+    uk: "Спочатку показує короткий приклад у новій вправі.",
+    ur: "نئی مشق شروع کرنے پر پہلے ایک مختصر مثال دکھاتا ہے۔",
+    tr: "Yeni bir alıştırmada önce kısa bir örnek tur gösterir.",
+    ar: "يعرض جولة مثال قصيرة أولًا عند تجربة تمرين جديد."
   },
   "settings.tutorialsAria": {
     de: "Übungs-Tutorials automatisch zeigen",
@@ -6497,16 +6497,16 @@ registerColocatedStatic({
     ar: "آلة MIDI (بلوتوث وUSB)"
   },
   "settings.midiHint": {
-    de: "Spiele Notenlesen, Solfège, Melodien, Rhythmus, Freies Spiel und MIDI-Übungen direkt auf deinem Digitalpiano oder Keyboard.",
-    en: "Play sight-reading, solfège, melodies, rhythm, free play and MIDI exercises directly on your digital piano or keyboard.",
-    fr: "Joue le déchiffrage, le solfège, les mélodies, le rythme, le jeu libre et les exercices MIDI directement sur ton piano numérique ou clavier.",
-    es: "Toca lectura musical, solfeo, melodías, ritmo, juego libre y ejercicios MIDI directamente en tu piano digital o teclado.",
-    it: "Suona lettura a prima vista, solfeggio, melodie, ritmo, gioco libero ed esercizi MIDI direttamente sul tuo pianoforte digitale o tastiera.",
-    pl: "Graj czytanie nut, solfeż, melodie, rytm, swobodną grę i ćwiczenia MIDI bezpośrednio na pianinie cyfrowym lub klawiaturze.",
-    uk: "Грай читання нот, сольфеджіо, мелодії, ритм, вільну гру та MIDI-вправи безпосередньо на цифровому піаніно чи клавіатурі.",
-    ur: "نوٹ خوانی، سولفیج، دھنیں، تال، آزاد کھیل اور MIDI مشقیں براہِ راست اپنے ڈیجیٹل پیانو یا کی بورڈ پر بجائیں۔",
-    tr: "Nota okuma, solfej, melodi, ritim, serbest çalım ve MIDI alıştırmalarını doğrudan dijital piyanonda veya klavyende çal.",
-    ar: "اعزف قراءة النوتة والصولفيج والألحان والإيقاع والعزف الحر وتمارين MIDI مباشرة على البيانو الرقمي أو الكيبورد."
+    de: "Verbinde dein E-Piano oder Keyboard, um direkt in den Übungen mitzuspielen.",
+    en: "Connect your digital piano or keyboard to play directly in exercises.",
+    fr: "Connecte ton piano numérique ou clavier pour jouer directement dans les exercices.",
+    es: "Conecta tu piano digital o teclado para tocar directamente en los ejercicios.",
+    it: "Collega il tuo pianoforte digitale o tastiera per suonare direttamente negli esercizi.",
+    pl: "Podłącz pianino cyfrowe lub klawiaturę, aby grać bezpośrednio w ćwiczeniach.",
+    uk: "Підключи цифрове піаніно або клавіатуру, щоб грати прямо у вправах.",
+    ur: "مشقوں میں براہِ راست بجانے کے لیے اپنا ڈیجیٹل پیانو یا کی بورڈ جوڑیں۔",
+    tr: "Alıştırmalarda doğrudan çalmak için dijital piyanoyu veya klavyeni bağla.",
+    ar: "وصّل البيانو الرقمي أو لوحة المفاتيح للعزف مباشرة داخل التمارين."
   },
   "settings.midiAria": {
     de: "MIDI-Eingabe",
@@ -6593,28 +6593,28 @@ registerColocatedStatic({
     ar: "صوت التطبيق عند إدخال MIDI"
   },
   "settings.midiAppSoundHint": {
-    de: "Standardmäßig erklingen die Lauscher-Klänge. Schalte dies aus, falls du lieber den Klang deines Digitalpianos hörst.",
-    en: "By default Lauscher plays its own sounds. Turn this off if you prefer to hear your digital piano’s own sound.",
-    fr: "Par défaut, Lauscher joue ses propres sons. Désactive cette option si tu préfères entendre le son de ton piano numérique.",
-    es: "Por defecto suenan los instrumentos de Lauscher. Desactívalo si prefieres escuchar el sonido propio de tu piano digital.",
-    it: "Per impostazione predefinita Lauscher riproduce i propri suoni. Disattivalo se preferisci sentire il suono del tuo pianoforte digitale.",
-    pl: "Domyślnie brzmią dźwięki Lauscher. Wyłącz tę opcję, jeśli wolisz słyszeć własne brzmienie pianina cyfrowego.",
-    uk: "Типово звучать інструменти Lauscher. Вимкни це, якщо хочеш чути власний звук свого цифрового піаніно.",
-    ur: "بطورِ ڈیفالٹ Lauscher کی اپنی آوازیں بجتی ہیں۔ اگر آپ اپنے ڈیجیٹل پیانو کی آواز سننا چاہتے ہیں تو اسے بند کر دیں۔",
-    tr: "Varsayılan olarak Lauscher sesleri çalar. Dijital piyanonun kendi sesini duymak istersen bunu kapat.",
-    ar: "افتراضيًا تُعزف أصوات Lauscher. أوقِف هذا الخيار إذا كنت تفضّل سماع صوت البيانو الرقمي نفسه."
+    de: "Aus, wenn du lieber den eigenen Klang deines Instruments hörst.",
+    en: "Turn off if you prefer hearing your own instrument’s sound.",
+    fr: "Désactive si tu préfères entendre le son de ton propre instrument.",
+    es: "Desactívalo si prefieres escuchar el sonido de tu propio instrumento.",
+    it: "Disattiva se preferisci sentire il suono del tuo strumento.",
+    pl: "Wyłącz, jeśli wolisz słyszeć brzmienie własnego instrumentu.",
+    uk: "Вимкни, якщо хочеш чути власне звучання свого інструмента.",
+    ur: "اگر آپ اپنے ساز کی اپنی آواز سننا پسند کرتے ہیں تو اسے بند کر دیں۔",
+    tr: "Kendi enstrümanının sesini duymayı tercih ediyorsan kapat.",
+    ar: "أوقِفه إذا كنت تفضّل سماع صوت آلتك نفسها."
   },
   "settings.midiLocalCtrlLabel": {
-    de: "Keyboard-Eigenklang stummschalten (Local Control Aus)",
-    en: "Mute keyboard’s internal sound (Local Control Off)",
-    fr: "Couper le son interne du clavier (Local Control Off)",
-    es: "Silenciar el sonido interno del teclado (Local Control Off)",
-    it: "Silenzia il suono interno della tastiera (Local Control Off)",
-    pl: "Wycisz własny dźwięk klawiatury (Local Control Off)",
-    uk: "Вимкнути власний звук клавіатури (Local Control Off)",
-    ur: "کی بورڈ کی اندرونی آواز خاموش کریں (Local Control Off)",
-    tr: "Klavyenin kendi sesini sustur (Local Control Kapalı)",
-    ar: "كتم الصوت الداخلي للكيبورد (إيقاف Local Control)"
+    de: "Eigenklang des Instruments stummschalten",
+    en: "Mute instrument’s built-in sound",
+    fr: "Couper le son intégré de l’instrument",
+    es: "Silenciar el sonido propio del instrumento",
+    it: "Silenzia il suono interno dello strumento",
+    pl: "Wycisz własne brzmienie instrumentu",
+    uk: "Вимкнути власний звук інструмента",
+    ur: "ساز کی اپنی آواز خاموش کریں",
+    tr: "Enstrümanın kendi sesini kapat",
+    ar: "كتم الصوت المدمج للآلة"
   },
   "settings.midiLocalCtrlAria": {
     de: "Keyboard-Eigenklang stummschalten",
@@ -6629,28 +6629,28 @@ registerColocatedStatic({
     ar: "كتم الصوت الداخلي للكيبورد"
   },
   "settings.midiLocalCtrlHint": {
-    de: "Sendet MIDI CC 122 = 0 ans Instrument (und schaltet den Eigenklang beim Beenden wieder an). Manche Instrumente ignorieren diesen Befehl, z. B. Casio Privia PX-S. Schalte Local Control dann direkt am Instrument aus (siehe Anleitung) oder dreh einfach seine Lautstärke herunter – die MIDI-Daten kommen trotzdem an.",
-    en: "Sends MIDI CC 122 = 0 to your instrument (and restores its sound on exit). Some instruments ignore this command, e.g. Casio Privia PX-S. In that case, turn Local Control off on the instrument itself (see its manual) or simply turn its volume down – the MIDI data still arrives.",
-    fr: "Envoie MIDI CC 122 = 0 à l’instrument (et rétablit son son à la fermeture). Certains instruments ignorent cette commande, par ex. Casio Privia PX-S. Désactive alors Local Control directement sur l’instrument (voir son manuel) ou baisse simplement son volume – les données MIDI arrivent quand même.",
-    es: "Envía MIDI CC 122 = 0 al instrumento (y restablece su sonido al salir). Algunos instrumentos ignoran este comando, p. ej. Casio Privia PX-S. En ese caso, desactiva Local Control en el propio instrumento (consulta su manual) o simplemente baja su volumen: los datos MIDI siguen llegando.",
-    it: "Invia MIDI CC 122 = 0 allo strumento (e ne ripristina il suono all’uscita). Alcuni strumenti ignorano questo comando, ad es. Casio Privia PX-S. In tal caso disattiva Local Control direttamente sullo strumento (vedi il manuale) o abbassa semplicemente il suo volume: i dati MIDI arrivano comunque.",
-    pl: "Wysyła MIDI CC 122 = 0 do instrumentu (i przywraca jego dźwięk przy wyjściu). Niektóre instrumenty ignorują to polecenie, np. Casio Privia PX-S. Wtedy wyłącz Local Control bezpośrednio na instrumencie (zobacz instrukcję) albo po prostu ścisz jego głośność – dane MIDI i tak docierają.",
-    uk: "Надсилає MIDI CC 122 = 0 на інструмент (і повертає його звук при виході). Деякі інструменти ігнорують цю команду, напр. Casio Privia PX-S. Тоді вимкни Local Control безпосередньо на інструменті (див. інструкцію) або просто зменш його гучність – MIDI-дані все одно надходять.",
-    ur: "آلے کو MIDI CC 122 = 0 بھیجتا ہے (اور بند کرتے وقت اس کی آواز بحال کر دیتا ہے)۔ کچھ آلات یہ حکم نظرانداز کرتے ہیں، مثلاً Casio Privia PX-S۔ ایسی صورت میں Local Control براہِ راست آلے پر بند کریں (ہدایت نامہ دیکھیں) یا بس اس کا والیوم کم کر دیں – MIDI ڈیٹا پھر بھی پہنچتا ہے۔",
-    tr: "Enstrümana MIDI CC 122 = 0 gönderir (çıkışta sesini geri açar). Bazı enstrümanlar bu komutu yok sayar, ör. Casio Privia PX-S. Bu durumda Local Control’ü doğrudan enstrümanda kapat (kılavuzuna bak) ya da sadece sesini kıs – MIDI verileri yine de gelir.",
-    ar: "يُرسل MIDI CC 122 = 0 إلى الآلة (ويعيد صوتها عند الإغلاق). بعض الآلات تتجاهل هذا الأمر، مثل Casio Privia PX-S. في هذه الحالة أوقف Local Control من الآلة نفسها (راجع دليلها) أو اخفض صوتها ببساطة – فبيانات MIDI تصل رغم ذلك."
+    de: "Verhindert doppelten Klang beim Spielen. Klingt dein Instrument trotzdem mit, dreh einfach seine Lautstärke leise.",
+    en: "Prevents double sound while playing. If your instrument still sounds, simply turn its volume down.",
+    fr: "Évite le double son en jouant. Si ton instrument sonne quand même, baisse simplement son volume.",
+    es: "Evita el sonido doble al tocar. Si tu instrumento sigue sonando, simplemente baja su volumen.",
+    it: "Evita il doppio suono mentre suoni. Se lo strumento suona ancora, abbassa semplicemente il suo volume.",
+    pl: "Zapobiega podwójnemu dźwiękowi podczas gry. Jeśli instrument nadal gra, po prostu go ścisz.",
+    uk: "Запобігає подвійному звучанню під час гри. Якщо інструмент усе одно звучить, просто зменш його гучність.",
+    ur: "بجاتے وقت دوہری آواز سے بچاتا ہے۔ اگر ساز پھر بھی بجے تو بس اس کی آواز کم کر دیں۔",
+    tr: "Çalarken çift sesi önler. Enstrümanın yine de ses veriyorsa sesini kısman yeterli.",
+    ar: "يمنع تداخل الصوت المزدوج أثناء العزف. إذا استمرت الآلة بإصدار الصوت، اخفض صوتها فقط."
   },
   "settings.midiLocalCtrlRecoverHint": {
-    de: "Bleibt das Instrument nach einem Absturz der App oder einem gezogenen Kabel stumm, schalte es einmal aus und wieder ein – dann klingt es wieder normal.",
-    en: "If the instrument stays silent after the app crashed or the cable was unplugged, switch it off and on again – then it sounds normal again.",
-    fr: "Si l’instrument reste muet après un plantage de l’app ou un câble débranché, éteins-le puis rallume-le – il retrouvera son son normal.",
-    es: "Si el instrumento se queda en silencio tras un cierre inesperado de la app o al desconectar el cable, apágalo y vuelve a encenderlo: así volverá a sonar con normalidad.",
-    it: "Se lo strumento resta muto dopo un arresto anomalo dell’app o dopo aver staccato il cavo, spegnilo e riaccendilo: tornerà a suonare normalmente.",
-    pl: "Jeśli instrument milczy po awarii aplikacji lub odłączeniu kabla, wyłącz go i włącz ponownie – wtedy znów zabrzmi normalnie.",
-    uk: "Якщо інструмент мовчить після збою застосунку або від’єднання кабелю, вимкни й знову увімкни його – тоді він знову звучатиме нормально.",
-    ur: "اگر ایپ کے اچانک بند ہونے یا کیبل نکلنے کے بعد آلہ خاموش رہے تو اسے ایک بار بند کر کے دوبارہ چلائیں – پھر وہ معمول کے مطابق بجے گا۔",
-    tr: "Uygulama çöktükten ya da kablo çekildikten sonra enstrüman sessiz kalırsa, onu bir kez kapatıp yeniden aç – sonra yine normal ses verir.",
-    ar: "إذا بقيت الآلة صامتة بعد توقف التطبيق المفاجئ أو فصل الكابل، فأطفئها ثم شغّلها من جديد – وستعود إلى صوتها الطبيعي."
+    de: "Bleibt dein Instrument später stumm, schalte es kurz aus und wieder ein.",
+    en: "If your instrument stays silent later, turn it off and back on.",
+    fr: "Si ton instrument reste muet ensuite, éteins-le puis rallume-le.",
+    es: "Si tu instrumento queda en silencio después, apágalo y vuelve a encenderlo.",
+    it: "Se lo strumento resta muto in seguito, spegnilo e riaccendilo.",
+    pl: "Jeśli instrument pozostanie później cichy, wyłącz go i włącz ponownie.",
+    uk: "Якщо інструмент потім залишиться без звуку, вимкни його й увімкни знову.",
+    ur: "اگر ساز بعد میں خاموش رہے تو اسے بند کر کے دوبارہ چالو کریں۔",
+    tr: "Enstrümanın daha sonra sessiz kalırsa kapatıp tekrar aç.",
+    ar: "إذا بقيت آلتك صامتة لاحقًا، أطفئها ثم أعد تشغيلها."
   },
   "settings.midiExactOctaveLabel": {
     de: "Notenlesen: Exakte Oktave verlangen",
@@ -6677,16 +6677,16 @@ registerColocatedStatic({
     ar: "الأوكتاف الدقيق في قراءة النوتة"
   },
   "settings.midiExactOctaveHint": {
-    de: "Verlangt beim Vom-Blatt-Spielen genau die notierte Oktave (empfohlen fürs E-Piano; nur bei kleinen 25-Tasten-Keyboards ausschalten).",
-    en: "Requires the exact written octave when sight-reading (recommended for digital pianos; only turn off for small 25-key controllers).",
-    fr: "Exige exactement l’octave écrite en déchiffrage (recommandé sur piano numérique ; à désactiver uniquement pour les petits claviers 25 touches).",
-    es: "Exige la octava exacta escrita al leer a primera vista (recomendado para pianos digitales; desactívalo solo con teclados pequeños de 25 teclas).",
-    it: "Richiede l’ottava esatta scritta nella lettura a prima vista (consigliato per pianoforti digitali; disattiva solo per piccole tastiere a 25 tasti).",
-    pl: "Wymaga dokładnej zapisanej oktawy podczas czytania nut (zalecane dla pianin cyfrowych; wyłącz tylko na małych klawiaturach 25-klawiszowych).",
-    uk: "Вимагає точної записаної октави під час читання з листа (рекомендовано для цифрових піаніно; вимикай лише для малих 25-клавішних контролерів).",
-    ur: "نوٹ خوانی میں عین لکھی ہوئی اوکٹیو لازم رکھتا ہے (ڈیجیٹل پیانو کے لیے تجویز کردہ؛ صرف 25 بٹنوں والے چھوٹے کی بورڈ کے لیے بند کریں)۔",
-    tr: "Deşifrede tam yazılan oktavı ister (dijital piyanolar için önerilir; yalnızca küçük 25 tuşlu klavyelerde kapat).",
-    ar: "يشترط الأوكتاف المكتوب بدقة عند القراءة من النوتة (موصى به للبيانو الرقمي؛ أوقِفه فقط مع لوحات المفاتيح الصغيرة ذات 25 مفتاحًا)."
+    de: "Prüft beim Notenlesen die genaue Oktave (bei kleinen Keyboards ausschalten).",
+    en: "Checks the exact octave when reading notes (turn off for small keyboards).",
+    fr: "Vérifie l’octave exacte en lecture de notes (à désactiver sur petits claviers).",
+    es: "Comprueba la octava exacta al leer notas (desactívalo en teclados pequeños).",
+    it: "Controlla l’ottava esatta nella lettura delle note (disattiva per tastiere piccole).",
+    pl: "Sprawdza dokładną oktawę podczas czytania nut (wyłącz na małych klawiaturach).",
+    uk: "Перевіряє точну октаву під час читання нот (вимкни для малих клавіатур).",
+    ur: "نوٹ پڑھتے وقت عین اوکٹیو جانچتا ہے (چھوٹے کی بورڈز کے لیے بند کریں)۔",
+    tr: "Nota okurken tam oktavı kontrol eder (küçük klavyelerde kapat).",
+    ar: "يتحقق من الأوكتاف الدقيق عند قراءة النوتة (أوقِفه مع لوحات المفاتيح الصغيرة)."
   },
   "common.close": {
     de: "Schließen",
@@ -6831,5 +6831,209 @@ registerColocatedStatic({
     ur: "بعد میں",
     tr: "Daha sonra",
     ar: "لاحقًا"
+  },
+  "explorer.badge": {
+    de: "Entdecker-Modus",
+    en: "Explorer Mode",
+    fr: "Mode Découverte",
+    es: "Modo Explorador",
+    it: "Modalità Esploratore",
+    pl: "Tryb Odkrywcy",
+    uk: "Режим відкривача",
+    ur: "ایکسپلورر موڈ",
+    tr: "Kaşif Modu",
+    ar: "وضع الاستكشاف"
+  },
+  "explorer.homeBadgeTitle": {
+    de: "Entdecker-Modus in den Einstellungen verwalten",
+    en: "Manage Explorer Mode in Settings",
+    fr: "Gérer le mode Découverte dans les réglages",
+    es: "Gestionar el modo Explorador en los ajustes",
+    it: "Gestisci la modalità Esploratore nelle impostazioni",
+    pl: "Zarządzaj trybem Odkrywcy w ustawieniach",
+    uk: "Керувати режимом відкривача в налаштуваннях",
+    ur: "سیٹنگز میں ایکسپلورر موڈ کا انتظام کریں",
+    tr: "Ayarlardan Kaşif Modu’nu yönet",
+    ar: "إدارة وضع الاستكشاف في الإعدادات"
+  },
+  "explorer.welcomeTitle": {
+    de: "Für Kinder & Musik-Einsteiger",
+    en: "For kids & music beginners",
+    fr: "Pour enfants et débutants",
+    es: "Para niños y principiantes",
+    it: "Per bambini e principianti",
+    pl: "Dla dzieci i początkujących",
+    uk: "Для дітей і початківців",
+    ur: "بچوں اور نئے سیکھنے والوں کے لیے",
+    tr: "Çocuklar ve yeni başlayanlar için",
+    ar: "للأطفال والمبتدئين في الموسيقى"
+  },
+  "explorer.welcomeDesc": {
+    de: "Zeigt nur die wichtigsten Übungen und leichte Prüfungen. Eine Eltern-PIN kannst du später in den Einstellungen festlegen.",
+    en: "Shows only the core exercises and gentle exams. You can set a parent PIN anytime in Settings.",
+    fr: "Affiche seulement les exercices essentiels et des examens doux. Tu peux ajouter un PIN parental plus tard dans les réglages.",
+    es: "Muestra solo los ejercicios esenciales y exámenes sencillos. Puedes añadir un PIN parental después en los ajustes.",
+    it: "Mostra solo gli esercizi essenziali ed esami semplici. Puoi impostare un PIN genitori più tardi nelle impostazioni.",
+    pl: "Pokazuje tylko najważniejsze ćwiczenia i proste egzaminy. PIN rodzicielski możesz ustawić później w ustawieniach.",
+    uk: "Показує лише головні вправи й легкі іспити. Батьківський PIN можна додати пізніше в налаштуваннях.",
+    ur: "صرف اہم مشقیں اور آسان امتحانات دکھاتا ہے۔ والدین کا PIN بعد میں سیٹنگز میں مقرر کیا جا سکتا ہے۔",
+    tr: "Yalnızca temel alıştırmaları ve kolay sınavları gösterir. Ebeveyn PIN’ini daha sonra ayarlardan belirleyebilirsin.",
+    ar: "يعرض التمارين الأساسية والاختبارات السهلة فقط. يمكنك تعيين رمز PIN للأهل لاحقًا في الإعدادات."
+  },
+  "explorer.optAll": {
+    de: "Alle Inhalte",
+    en: "All content",
+    fr: "Tout le contenu",
+    es: "Todo el contenido",
+    it: "Tutti i contenuti",
+    pl: "Wszystkie treści",
+    uk: "Усі матеріали",
+    ur: "تمام مواد",
+    tr: "Tüm içerikler",
+    ar: "كل المحتوى"
+  },
+  "explorer.optOn": {
+    de: "Entdecker-Modus",
+    en: "Explorer Mode",
+    fr: "Mode Découverte",
+    es: "Modo Explorador",
+    it: "Modalità Esploratore",
+    pl: "Tryb Odkrywcy",
+    uk: "Режим відкривача",
+    ur: "ایکسپلورر موڈ",
+    tr: "Kaşif Modu",
+    ar: "وضع الاستكشاف"
+  },
+  "explorer.settingsHeading": {
+    de: "Entdecker-Modus (Kinder & Einsteiger)",
+    en: "Explorer Mode (Kids & Beginners)",
+    fr: "Mode Découverte (Enfants et débutants)",
+    es: "Modo Explorador (Niños y principiantes)",
+    it: "Modalità Esploratore (Bambini e principianti)",
+    pl: "Tryb Odkrywcy (Dzieci i początkujący)",
+    uk: "Режим відкривача (Діти та початківці)",
+    ur: "ایکسپلورر موڈ (بچے اور نئے سیکھنے والے)",
+    tr: "Kaşif Modu (Çocuklar ve Yeni Başlayanlar)",
+    ar: "وضع الاستكشاف (الأطفال والمبتدئون)"
+  },
+  "explorer.settingsHint": {
+    de: "Zeigt nur die wichtigsten Übungen und kurze 10-Fragen-Prüfungen. Hausaufgaben-Links funktionieren immer.",
+    en: "Shows only the core exercises and short 10-question exams. Homework links always work.",
+    fr: "Affiche seulement les exercices essentiels et de courts examens de 10 questions. Les liens de devoir fonctionnent toujours.",
+    es: "Muestra solo los ejercicios esenciales y exámenes cortos de 10 preguntas. Los enlaces de tareas siempre funcionan.",
+    it: "Mostra solo gli esercizi essenziali e brevi esami da 10 domande. I link dei compiti funzionano sempre.",
+    pl: "Pokazuje tylko najważniejsze ćwiczenia i krótkie egzaminy z 10 pytaniami. Linki do zadań zawsze działają.",
+    uk: "Показує лише головні вправи й короткі іспити з 10 питань. Посилання на завдання завжди працюють.",
+    ur: "صرف اہم مشقیں اور 10 سوالات کے مختصر امتحانات دکھاتا ہے۔ ہوم ورک لنکس ہمیشہ کام کرتے ہیں۔",
+    tr: "Yalnızca temel alıştırmaları ve 10 soruluk kısa sınavları gösterir. Ödev bağlantıları her zaman çalışır.",
+    ar: "يعرض التمارين الأساسية واختبارات قصيرة من 10 أسئلة فقط. روابط الواجبات تعمل دائمًا."
+  },
+  "explorer.pinSettingsHint": {
+    de: "Schützt den Entdecker-Modus und das Zurücksetzen mit einer 4-stelligen PIN.",
+    en: "Protects Explorer Mode and app reset with a 4-digit PIN.",
+    fr: "Protège le mode Découverte et la réinitialisation par un code PIN à 4 chiffres.",
+    es: "Protege el modo Explorador y el restablecimiento con un PIN de 4 dígitos.",
+    it: "Protegge la modalità Esploratore e il ripristino con un PIN di 4 cifre.",
+    pl: "Chroni tryb Odkrywcy i reset aplikacji 4-cyfrowym kodem PIN.",
+    uk: "Захищає режим відкривача та скидання застосунку 4-значним PIN-кодом.",
+    ur: "ایکسپلورر موڈ اور ری سیٹ کو 4 ہندسوں کے PIN سے محفوظ رکھتا ہے۔",
+    tr: "Kaşif Modu’nu ve sıfırlamayı 4 haneli bir PIN ile korur.",
+    ar: "يحمي وضع الاستكشاف وإعادة الضبط برمز PIN من 4 أرقام."
+  },
+  "explorer.setPinBtn": {
+    de: "Eltern-PIN festlegen",
+    en: "Set parent PIN",
+    fr: "Définir un PIN parental",
+    es: "Establecer PIN parental",
+    it: "Imposta PIN genitori",
+    pl: "Ustaw PIN rodzicielski",
+    uk: "Встановити батьківський PIN",
+    ur: "والدین کا PIN مقرر کریں",
+    tr: "Ebeveyn PIN’i belirle",
+    ar: "تعيين رمز PIN للأهل"
+  },
+  "explorer.removePinBtn": {
+    de: "PIN entfernen",
+    en: "Remove PIN",
+    fr: "Supprimer le PIN",
+    es: "Quitar PIN",
+    it: "Rimuovi PIN",
+    pl: "Usuń PIN",
+    uk: "Видалити PIN",
+    ur: "PIN ہٹائیں",
+    tr: "PIN’i kaldır",
+    ar: "إزالة الرمز"
+  },
+  "explorer.pinModalTitle": {
+    de: "Eltern-PIN eingeben",
+    en: "Enter parent PIN",
+    fr: "Entrer le PIN parental",
+    es: "Introducir PIN parental",
+    it: "Inserisci il PIN genitori",
+    pl: "Wpisz PIN rodzicielski",
+    uk: "Введи батьківський PIN",
+    ur: "والدین کا PIN درج کریں",
+    tr: "Ebeveyn PIN’ini gir",
+    ar: "أدخل رمز PIN للأهل"
+  },
+  "explorer.pinLabel": {
+    de: "4-stellige PIN",
+    en: "4-digit PIN",
+    fr: "Code PIN à 4 chiffres",
+    es: "PIN de 4 dígitos",
+    it: "PIN di 4 cifre",
+    pl: "4-cyfrowy PIN",
+    uk: "4-значний PIN",
+    ur: "4 ہندسوں کا PIN",
+    tr: "4 haneli PIN",
+    ar: "رمز PIN من 4 أرقام"
+  },
+  "explorer.pinConfirmLabel": {
+    de: "PIN wiederholen",
+    en: "Repeat PIN",
+    fr: "Répéter le PIN",
+    es: "Repetir PIN",
+    it: "Ripeti il PIN",
+    pl: "Powtórz PIN",
+    uk: "Повтори PIN",
+    ur: "PIN دوبارہ درج کریں",
+    tr: "PIN’i tekrarla",
+    ar: "أعد إدخال الرمز"
+  },
+  "explorer.pinSetupNote": {
+    de: "Bitte notiere dir diese PIN – da Lauscher ohne Konto und Server läuft, gibt es kein „PIN vergessen“ per E-Mail.",
+    en: "Please write down this PIN — since Lauscher runs without an account or server, there is no email PIN recovery.",
+    fr: "Note bien ce code PIN : comme Lauscher fonctionne sans compte ni serveur, il n’y a pas de récupération par e-mail.",
+    es: "Anota este PIN: como Lauscher funciona sin cuenta ni servidor, no hay recuperación por correo electrónico.",
+    it: "Annota questo PIN: poiché Lauscher funziona senza account né server, non esiste il recupero via e-mail.",
+    pl: "Zapisz ten kod PIN — ponieważ Lauscher działa bez konta i serwera, nie ma odzyskiwania PIN-u przez e-mail.",
+    uk: "Будь ласка, запиши цей PIN — оскільки Lauscher працює без облікового запису й сервера, відновлення через ел. пошту немає.",
+    ur: "براہِ کرم یہ PIN لکھ لیں — چونکہ Lauscher بغیر اکاؤنٹ اور سرور کے چلتا ہے، اس لیے ای میل سے PIN بحال نہیں ہو سکتا۔",
+    tr: "Lütfen bu PIN’i not et — Lauscher hesap ve sunucu olmadan çalıştığı için e-posta ile PIN kurtarma yoktur.",
+    ar: "يرجى تدوين هذا الرمز — بما أن Lauscher يعمل بدون حساب أو خادم، فلا توجد استعادة للرمز عبر البريد الإلكتروني."
+  },
+  "explorer.pinCancelBtn": {
+    de: "Abbrechen",
+    en: "Cancel",
+    fr: "Annuler",
+    es: "Cancelar",
+    it: "Annulla",
+    pl: "Anuluj",
+    uk: "Скасувати",
+    ur: "منسوخ کریں",
+    tr: "İptal",
+    ar: "إلغاء"
+  },
+  "explorer.pinSubmitBtn": {
+    de: "Entsperren",
+    en: "Unlock",
+    fr: "Déverrouiller",
+    es: "Desbloquear",
+    it: "Sblocca",
+    pl: "Odblokuj",
+    uk: "Розблокувати",
+    ur: "ان لاک کریں",
+    tr: "Kilidi aç",
+    ar: "فتح القفل"
   }
 });

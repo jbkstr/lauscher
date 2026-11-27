@@ -192,10 +192,13 @@ function formatStackedParenTitle(title) {
 const SING_MATCH_NODE_MIC_SVG = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2.5" width="6" height="12" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0"/><line x1="12" y1="17.5" x2="12" y2="21.5"/><line x1="8.5" y1="21.5" x2="15.5" y2="21.5"/></svg>`;
 
 function renderCategoryTypeMenu(container, categoryKey, items, options = {}) {
+  const visibleItems = typeof filterExplorerCategoryItems === "function"
+    ? filterExplorerCategoryItems(categoryKey, items)
+    : items;
   container.innerHTML = `
     ${options.introHtml || ""}
     <div class="category-types-list">
-      ${items.map(item => `
+      ${visibleItems.map(item => `
         <button type="button" class="category-type-card" data-open-cat-section="${escapeHtml(item.id)}">
           <span class="category-type-badge-wrap" aria-hidden="true">${item.badgeHtml}</span>
           <span class="category-type-body">
@@ -2322,6 +2325,10 @@ function openCategoryPage(categoryKey, options = {}) {
         openWarmupView(btn.dataset.launchWarmup, { returnView: "category" });
       });
     });
+  }
+
+  if (typeof applyExplorerCategoryNodeFilter === "function") {
+    applyExplorerCategoryNodeFilter(container, categoryKey);
   }
 
   const isCategoryMainPage = !state.activeCategorySection;

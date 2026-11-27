@@ -209,6 +209,9 @@ function renderWelcomeFocusStep() {
     btn.type = "button";
     btn.className = `welcome-choice-card welcome-focus-card${isActive ? " active" : ""}`;
     btn.dataset.welcomeFocus = opt.key;
+    if (opt.key === "production" || opt.key === "modes") {
+      btn.setAttribute?.("data-explorer-hide", "1");
+    }
     btn.setAttribute?.("aria-pressed", String(isActive));
     btn.innerHTML = `<strong>${escapeHtml(def.label)}</strong><span>${escapeHtml(def.hint)}</span>`;
     btn.addEventListener("click", () => {
@@ -326,6 +329,7 @@ function goToWelcomeStep(targetIdx, options = {}) {
   if (nextStepId === "welcomeStepFocus") {
     renderWelcomeFocusStep();
     syncWelcomeBeginnerOptInUI();
+    if (typeof syncExplorerModeUI === "function") syncExplorerModeUI();
   }
   if (nextStepId === "welcomeStepBeginner2") syncWelcomeBeginnerOptInUI();
   if (nextStepId === "welcomeStepGreet") renderWelcomeGreetStep();
@@ -463,7 +467,10 @@ function applyRestoredNativeAppState() {
   state.settings.autoNextAfterCorrect = restoredVisual.autoNextAfterCorrect;
   state.settings.playCorrectAnswerAudio = restoredVisual.playCorrectAnswerAudio;
   state.settings.onboardingDone = restoredVisual.onboardingDone;
+  state.settings.explorerMode = Boolean(restoredVisual.explorerMode);
+  state.settings.explorerPinHash = restoredVisual.explorerPinHash || "";
   state.profile = loadUserProfile();
+  if (typeof syncExplorerModeUI === "function") syncExplorerModeUI();
   if (typeof applyPracticeProgressToSettings === "function") applyPracticeProgressToSettings();
 
   if (typeof applyThemeAndAppearance === "function") applyThemeAndAppearance();

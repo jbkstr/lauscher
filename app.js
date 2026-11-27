@@ -457,6 +457,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // Erster Tipp öffnet die Bestätigung, ein zweiter Tipp an derselben Stelle bricht ab.
     if (state.appResetConfirmArmed) {
       disarmAppResetConfirm();
+    } else if (typeof requestExplorerPinProtectedAction === "function" && typeof isExplorerPinLockActive === "function" && isExplorerPinLockActive()) {
+      requestExplorerPinProtectedAction(() => armAppResetConfirm(), {
+        description: tr(
+          "Gib die Eltern-PIN ein, um den App-Reset freizugeben.",
+          "Enter the parent PIN to unlock the app reset."
+        ),
+        returnModal: "settings"
+      });
     } else {
       armAppResetConfirm();
     }
@@ -815,7 +823,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const themeUnlockModal = document.getElementById("themeUnlockBackdrop");
   const homeworkShareModal = document.getElementById("homeworkShareBackdrop");
   const homeworkStartModal = document.getElementById("homeworkStartBackdrop");
+  const explorerPinModal = document.getElementById("explorerPinBackdrop");
   if (typeof initHomeworkControls === "function") initHomeworkControls();
+  if (typeof initExplorerModeControls === "function") initExplorerModeControls();
 
   document.getElementById("openAboutFromSettingsBtn")?.addEventListener("click", () => {
     openAboutModal();
@@ -910,11 +920,15 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   syncBreakReminderControls();
 
-  [mixerModal, settingsModal, aboutModal, breakModal, themeUnlockModal, homeworkShareModal, homeworkStartModal].forEach(backdrop => {
+  [mixerModal, settingsModal, aboutModal, breakModal, themeUnlockModal, homeworkShareModal, homeworkStartModal, explorerPinModal].forEach(backdrop => {
     backdrop?.addEventListener("click", (e) => {
       if (e.target === backdrop) {
         if (backdrop === homeworkStartModal && typeof clearHomeworkUrlHash === "function") {
           clearHomeworkUrlHash();
+        }
+        if (backdrop === explorerPinModal && typeof closeExplorerPinModalToReturn === "function") {
+          closeExplorerPinModalToReturn();
+          return;
         }
         closeActiveModal();
       }

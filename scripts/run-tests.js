@@ -1375,6 +1375,60 @@ runTest("Querformat-Unterstützung: keine Hochformat-Sperre & 2-Spalten-Layout v
   assert.equal(sb.isExerciseLandscapeSplit(null), false);
 });
 
+runTest("Entdecker-Modus & Eltern-PIN: Hash, Sperre, Filter & Hausaufgaben-Freigabe", () => {
+  const st = getLex("state");
+  assert.equal(sb.isValidExplorerPin("1234"), true);
+  assert.equal(sb.isValidExplorerPin("123"), false);
+  assert.equal(sb.isValidExplorerPin("12a4"), false);
+
+  const h1 = sb.hashExplorerPin("2580");
+  const h2 = sb.hashExplorerPin("1357");
+  assert.ok(/^v1:[0-9a-f]{16}$/.test(h1), `Unerwartetes Hash-Format: ${h1}`);
+  assert.notEqual(h1, h2);
+  assert.ok(!h1.includes("2580"), "PIN darf nie im Klartext im Hash stehen");
+
+  sb.setExplorerMode(true, { toast: false });
+  assert.equal(sb.isExplorerModeEnabled(), true);
+  assert.equal(sb.document.documentElement.getAttribute("data-explorer-mode"), "1");
+  assert.equal(sb.isExplorerPinLockActive(), false);
+
+  sb.saveExplorerPinHash(h1);
+  assert.equal(sb.isExplorerPinLockActive(), true);
+  assert.equal(sb.verifyExplorerPin("2580"), true);
+  assert.equal(sb.verifyExplorerPin("0000"), false);
+
+  // Import mit explorerMode: false darf aktive PIN-Sperre nicht umgehen
+  sb.applyImportedDisplayPrefs({ explorerMode: false, appearance: "light", theme: "waldlichtung" });
+  assert.equal(sb.isExplorerModeEnabled(), true, "Import darf aktiven PIN-geschützten Entdecker-Modus nicht abschalten");
+
+  // Kategorie- & Mix-Filter: Kadenzen bleiben drin (major-last, minor-last), Studio/Modi raus
+  const filteredCad = sb.filterExplorerCategoryItems("cadence", [
+    { id: "major-last", meta: "4 Stufen" },
+    { id: "major-random", meta: "4 Stufen" },
+    { id: "minor-last", meta: "4 Stufen" }
+  ]);
+  assert.deepEqual(filteredCad.map(x => x.id), ["major-last", "minor-last"]);
+  assert.equal(sb.isModeAllowedInExplorerMix("cadence"), true);
+  assert.equal(sb.isModeAllowedInExplorerMix("prod-eq-noise"), false);
+  assert.equal(sb.isModeAllowedInExplorerMix("modes-scale"), false);
+  assert.deepEqual(Array.from(sb.getExplorerAllowedLevelsForMix("cadence", [1, 2, 3, 4])), [1, 2]);
+  assert.deepEqual(Array.from(sb.getExplorerAllowedLevelsForMix("melody", ["do-fa", "sol-do", "full"])), ["do-fa", "sol-do"]);
+
+  // Prüfungen im Entdecker-Modus: nur Einsteiger-Stufen <= 2, keine Custom-Prüfung
+  const presets = sb.filterExplorerExamPresets("interval", getLex("EXAM_CATEGORY_LEVELS").interval.presets);
+  assert.ok(presets.length > 0 && presets.every(p => p.levelNumber <= 2 && !p.isCustomIntervalExam));
+
+  // Hausaufgaben-Links bleiben auch im Entdecker-Modus voll funktionsfähig
+  const hw = sb.parseHomeworkHash("#hw=m=modes-scale&l=2");
+  assert.ok(hw && hw.mode === "modes-scale" && hw.level === 2);
+
+  // Aufräumen für nachfolgende Tests
+  sb.saveExplorerPinHash("");
+  sb.setExplorerMode(false, { toast: false });
+  assert.equal(st.settings.explorerMode, false);
+  assert.equal(sb.document.documentElement.getAttribute("data-explorer-mode"), null);
+});
+
 // Ergebnis-Ausgabe
 const failed = results.filter(r => !r.ok);
 for (const r of results) {

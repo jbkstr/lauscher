@@ -7963,5 +7963,143 @@ registerColocatedPhrases({
   "Hausaufgabe als Übe-Mix gespeichert": {
     fr: "Devoir enregistré comme mix", es: "Tarea guardada como mezcla", it: "Compito salvato come mix", pl: "Zadanie zapisane jako miks",
     uk: "Завдання збережено як мікс", ur: "ہوم ورک مشقی مکس کے طور پر محفوظ ہو گیا", tr: "Ödev çalışma karması olarak kaydedildi", ar: "تم حفظ الواجب كمزيج تدريب"
+  },
+  "{n} Bereiche": {
+    fr: "{n} plages", es: "{n} rangos", it: "{n} estensioni", pl: "{n} zakresy",
+    uk: "{n} діапазони", ur: "{n} حدود", tr: "{n} aralık", ar: "{n} نطاقات"
+  },
+  "Entdecker-Modus (PIN)": {
+    fr: "Mode Découverte (PIN)", es: "Modo Explorador (PIN)", it: "Modalità Esploratore (PIN)", pl: "Tryb Odkrywcy (PIN)",
+    uk: "Режим відкривача (PIN)", ur: "ایکسپلورر موڈ (PIN)", tr: "Kaşif Modu (PIN)", ar: "وضع الاستكشاف (PIN)"
+  },
+  "Entdecker-Modus": {
+    fr: "Mode Découverte", es: "Modo Explorador", it: "Modalità Esploratore", pl: "Tryb Odkrywcy",
+    uk: "Режим відкривача", ur: "ایکسپلورر موڈ", tr: "Kaşif Modu", ar: "وضع الاستكشاف"
+  },
+  "🔒 Eltern-PIN aktiv": {
+    fr: "🔒 PIN parental actif", es: "🔒 PIN parental activo", it: "🔒 PIN genitori attivo", pl: "🔒 PIN rodzicielski aktywny",
+    uk: "🔒 Батьківський PIN активний", ur: "🔒 والدین کا PIN فعال ہے", tr: "🔒 Ebeveyn PIN’i etkin", ar: "🔒 رمز PIN للأهل مُفعّل"
+  },
+  "Keine PIN gesetzt": {
+    fr: "Aucun PIN défini", es: "Sin PIN configurado", it: "Nessun PIN impostato", pl: "Brak ustawionego PIN-u",
+    uk: "PIN не встановлено", ur: "کوئی PIN مقرر نہیں", tr: "PIN ayarlanmadı", ar: "لم يتم تعيين رمز PIN"
+  },
+  "Eltern-PIN ändern": {
+    fr: "Modifier le PIN parental", es: "Cambiar PIN parental", it: "Cambia PIN genitori", pl: "Zmień PIN rodzicielski",
+    uk: "Змінити батьківський PIN", ur: "والدین کا PIN تبدیل کریں", tr: "Ebeveyn PIN’ini değiştir", ar: "تغيير رمز PIN للأهل"
+  },
+  "Eltern-PIN festlegen": {
+    fr: "Définir un PIN parental", es: "Establecer PIN parental", it: "Imposta PIN genitori", pl: "Ustaw PIN rodzicielski",
+    uk: "Встановити батьківський PIN", ur: "والدین کا PIN مقرر کریں", tr: "Ebeveyn PIN’i belirle", ar: "تعيين رمز PIN للأهل"
+  },
+  "Entdecker-Modus aktiviert": {
+    fr: "Mode Découverte activé", es: "Modo Explorador activado", it: "Modalità Esploratore attivata", pl: "Tryb Odkrywcy włączony",
+    uk: "Режим відкривача увімкнено", ur: "ایکسپلورر موڈ فعال ہو گیا", tr: "Kaşif Modu açıldı", ar: "تم تفعيل وضع الاستكشاف"
+  },
+  "Alle Inhalte wieder sichtbar": {
+    fr: "Tout le contenu est à nouveau visible", es: "Todo el contenido vuelve a ser visible", it: "Tutti i contenuti sono di nuovo visibili", pl: "Wszystkie treści są znowu widoczne",
+    uk: "Усі матеріали знову видимі", ur: "تمام مواد دوبارہ ظاہر ہو گیا", tr: "Tüm içerikler yeniden görünür", ar: "أصبح كل المحتوى مرئيًا مجددًا"
+  },
+  "Eltern-PIN eingeben": {
+    fr: "Entrer le PIN parental", es: "Introducir PIN parental", it: "Inserisci il PIN genitori", pl: "Wpisz PIN rodzicielski",
+    uk: "Введи батьківський PIN", ur: "والدین کا PIN درج کریں", tr: "Ebeveyn PIN’ini gir", ar: "أدخل رمز PIN للأهل"
+  },
+  "Vergib eine 4-stellige PIN, damit Kinder den Entdecker-Modus nicht selbst ausschalten können.": {
+    fr: "Définis un PIN à 4 chiffres afin que les enfants ne puissent pas désactiver le mode Découverte eux-mêmes.",
+    es: "Establece un PIN de 4 dígitos para que los niños no puedan desactivar el modo Explorador por sí solos.",
+    it: "Imposta un PIN di 4 cifre affinché i bambini non possano disattivare da soli la modalità Esploratore.",
+    pl: "Ustaw 4-cyfrowy PIN, aby dzieci nie mogły same wyłączyć trybu Odkrywcy.",
+    uk: "Встанови 4-значний PIN, щоб діти не могли самі вимкнути режим відкривача.",
+    ur: "4 ہندسوں کا PIN مقرر کریں تاکہ بچے خود ایکسپلورر موڈ بند نہ کر سکیں۔",
+    tr: "Çocukların Kaşif Modu’nu kendilerinin kapatamaması için 4 haneli bir PIN belirle.",
+    ar: "عيّن رمز PIN من 4 أرقام حتى لا يتمكن الأطفال من إيقاف وضع الاستكشاف بأنفسهم."
+  },
+  "Bitte gib die 4-stellige Eltern- oder Lehrkraft-PIN ein, um fortzufahren.": {
+    fr: "Entre le PIN parental ou enseignant à 4 chiffres pour continuer.",
+    es: "Introduce el PIN de 4 dígitos de padres o docentes para continuar.",
+    it: "Inserisci il PIN di 4 cifre di genitori o insegnanti per continuare.",
+    pl: "Wpisz 4-cyfrowy PIN rodzica lub nauczyciela, aby kontynuować.",
+    uk: "Введи 4-значний PIN батьків або вчителя, щоб продовжити.",
+    ur: "جاری رکھنے کے لیے والدین یا استاد کا 4 ہندسوں کا PIN درج کریں۔",
+    tr: "Devam etmek için 4 haneli ebeveyn veya öğretmen PIN’ini gir.",
+    ar: "يرجى إدخال رمز PIN للأهل أو المعلم المكوّن من 4 أرقام للمتابعة."
+  },
+  "PIN speichern": {
+    fr: "Enregistrer le PIN", es: "Guardar PIN", it: "Salva PIN", pl: "Zapisz PIN",
+    uk: "Зберегти PIN", ur: "PIN محفوظ کریں", tr: "PIN’i kaydet", ar: "حفظ الرمز"
+  },
+  "Entsperren": {
+    fr: "Déverrouiller", es: "Desbloquear", it: "Sblocca", pl: "Odblokuj",
+    uk: "Розблокувати", ur: "ان لاک کریں", tr: "Kilidi aç", ar: "فتح القفل"
+  },
+  "Bitte gib genau 4 Ziffern ein.": {
+    fr: "Entre exactement 4 chiffres.", es: "Introduce exactamente 4 dígitos.", it: "Inserisci esattamente 4 cifre.", pl: "Wpisz dokładnie 4 cyfry.",
+    uk: "Введи рівно 4 цифри.", ur: "براہِ کرم ٹھیک 4 ہندسے درج کریں۔", tr: "Lütfen tam 4 rakam gir.", ar: "يرجى إدخال 4 أرقام بالضبط."
+  },
+  "Die beiden PINs stimmen nicht überein.": {
+    fr: "Les deux codes PIN ne correspondent pas.", es: "Los dos PIN no coinciden.", it: "I due PIN non corrispondono.", pl: "Oba kody PIN nie są identyczne.",
+    uk: "Обидва PIN-коди не збігаються.", ur: "دونوں PIN آپس میں مطابقت نہیں رکھتے۔", tr: "İki PIN eşleşmiyor.", ar: "رمزا PIN غير متطابقين."
+  },
+  "Eltern-PIN gespeichert": {
+    fr: "PIN parental enregistré", es: "PIN parental guardado", it: "PIN genitori salvato", pl: "Zapisano PIN rodzicielski",
+    uk: "Батьківський PIN збережено", ur: "والدین کا PIN محفوظ ہو گیا", tr: "Ebeveyn PIN’i kaydedildi", ar: "تم حفظ رمز PIN للأهل"
+  },
+  "Falsche PIN – bitte erneut versuchen.": {
+    fr: "Code PIN incorrect — réessaie.", es: "PIN incorrecto; inténtalo de nuevo.", it: "PIN errato — riprova.", pl: "Nieprawidłowy PIN — spróbuj ponownie.",
+    uk: "Неправильний PIN — спробуй ще раз.", ur: "غلط PIN — دوبارہ کوشش کریں۔", tr: "Yanlış PIN — lütfen tekrar dene.", ar: "رمز PIN غير صحيح — حاول مجددًا."
+  },
+  "Gib die Eltern-PIN ein, um den Entdecker-Modus zu verlassen und alle Inhalte freizugeben.": {
+    fr: "Entre le PIN parental pour quitter le mode Découverte et afficher tout le contenu.",
+    es: "Introduce el PIN parental para salir del modo Explorador y mostrar todo el contenido.",
+    it: "Inserisci il PIN genitori per uscire dalla modalità Esploratore e mostrare tutti i contenuti.",
+    pl: "Wpisz PIN rodzicielski, aby wyjść z trybu Odkrywcy i odblokować wszystkie treści.",
+    uk: "Введи батьківський PIN, щоб вийти з режиму відкривача й відкрити всі матеріали.",
+    ur: "ایکسپلورر موڈ سے نکلنے اور تمام مواد کھولنے کے لیے والدین کا PIN درج کریں۔",
+    tr: "Kaşif Modu’ndan çıkmak ve tüm içerikleri açmak için ebeveyn PIN’ini gir.",
+    ar: "أدخل رمز PIN للأهل للخروج من وضع الاستكشاف وإظهار كل المحتوى."
+  },
+  "Gib zuerst die aktuelle Eltern-PIN ein, um eine neue festzulegen.": {
+    fr: "Entre d’abord le PIN parental actuel pour en définir un nouveau.",
+    es: "Introduce primero el PIN parental actual para configurar uno nuevo.",
+    it: "Inserisci prima il PIN genitori attuale per impostarne uno nuovo.",
+    pl: "Najpierw wpisz obecny PIN rodzicielski, aby ustawić nowy.",
+    uk: "Спочатку введи поточний батьківський PIN, щоб встановити новий.",
+    ur: "نیا PIN مقرر کرنے کے لیے پہلے موجودہ والدین کا PIN درج کریں۔",
+    tr: "Yeni bir PIN belirlemek için önce mevcut ebeveyn PIN’ini gir.",
+    ar: "أدخل رمز PIN الحالي للأهل أولًا لتعيين رمز جديد."
+  },
+  "Gib die Eltern-PIN ein, um den PIN-Schutz zu entfernen.": {
+    fr: "Entre le PIN parental pour supprimer la protection par PIN.",
+    es: "Introduce el PIN parental para quitar la protección por PIN.",
+    it: "Inserisci il PIN genitori per rimuovere la protezione con PIN.",
+    pl: "Wpisz PIN rodzicielski, aby usunąć ochronę PIN-em.",
+    uk: "Введи батьківський PIN, щоб прибрати захист PIN-кодом.",
+    ur: "PIN تحفظ ہٹانے کے لیے والدین کا PIN درج کریں۔",
+    tr: "PIN korumasını kaldırmak için ebeveyn PIN’ini gir.",
+    ar: "أدخل رمز PIN للأهل لإزالة الحماية بالرمز."
+  },
+  "Eltern-PIN entfernt": {
+    fr: "PIN parental supprimé", es: "PIN parental eliminado", it: "PIN genitori rimosso", pl: "Usunięto PIN rodzicielski",
+    uk: "Батьківський PIN видалено", ur: "والدین کا PIN ہٹا دیا گیا", tr: "Ebeveyn PIN’i kaldırıldı", ar: "تمت إزالة رمز PIN للأهل"
+  },
+  "Entdecker-Prüfung: 10 kurze Fragen mit direktem Sofort-Feedback und unbegrenztem Anhören.": {
+    fr: "Examen Découverte : 10 questions courtes avec retour immédiat et écoutes illimitées.",
+    es: "Examen Explorador: 10 preguntas cortas con respuesta inmediata y escuchas ilimitadas.",
+    it: "Esame Esploratore: 10 domande brevi con feedback immediato e ascolti illimitati.",
+    pl: "Egzamin Odkrywcy: 10 krótkich pytań z natychmiastową informacją zwrotną i nieograniczonym odsłuchem.",
+    uk: "Іспит відкривача: 10 коротких питань із миттєвим відгуком і необмеженим прослуховуванням.",
+    ur: "ایکسپلورر امتحان: فوری تاثرات اور لامحدود سننے کے ساتھ 10 مختصر سوالات۔",
+    tr: "Kaşif Sınavı: Anında geri bildirim ve sınırsız dinleme ile 10 kısa soru.",
+    ar: "اختبار الاستكشاف: 10 أسئلة قصيرة مع تقييم فوري واستماع غير محدود."
+  },
+  "Gib die Eltern-PIN ein, um den App-Reset freizugeben.": {
+    fr: "Entre le PIN parental pour autoriser la réinitialisation de l’application.",
+    es: "Introduce el PIN parental para desbloquear el restablecimiento de la aplicación.",
+    it: "Inserisci il PIN genitori per sbloccare il ripristino dell’app.",
+    pl: "Wpisz PIN rodzicielski, aby odblokować reset aplikacji.",
+    uk: "Введи батьківський PIN, щоб розблокувати скидання застосунку.",
+    ur: "ایپ ری سیٹ کھولنے کے لیے والدین کا PIN درج کریں۔",
+    tr: "Uygulama sıfırlamasını açmak için ebeveyn PIN’ini gir.",
+    ar: "أدخل رمز PIN للأهل للسماح بإعادة ضبط التطبيق."
   }
 });

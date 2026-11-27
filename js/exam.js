@@ -299,7 +299,18 @@ function openExamSetupPage(categoryKey = state.activeCategory, options = {}) {
   if (!container) return;
 
   const catCfg = EXAM_CATEGORY_LEVELS[categoryKey];
-  const cfg = state.examConfig || { count: 10, feedbackMode: "blind", maxReplays: 2 };
+  const explorerActive = typeof isExplorerModeEnabled === "function" && isExplorerModeEnabled();
+  const cfg = explorerActive
+    ? { count: 10, feedbackMode: "instant", maxReplays: 0 }
+    : (state.examConfig || { count: 10, feedbackMode: "blind", maxReplays: 2 });
+  if (explorerActive && state.examConfig) {
+    state.examConfig.count = 10;
+    state.examConfig.feedbackMode = "instant";
+    state.examConfig.maxReplays = 0;
+  }
+  const visiblePresets = typeof filterExplorerExamPresets === "function"
+    ? filterExplorerExamPresets(categoryKey, catCfg.presets)
+    : catCfg.presets;
   const catBest = getCategoryBestExamPercent(categoryKey);
   const catBestPill = catBest !== null
     ? `<span class="exam-best-pill">${getExamIconSVG("star", 12)}<span>${escapeHtml(tf("Bestwert: {pct}%", "Best: {pct}%", { pct: catBest }))}</span></span>`
@@ -344,8 +355,8 @@ function openExamSetupPage(categoryKey = state.activeCategory, options = {}) {
     `;
   };
 
-  const listenPresets = catCfg.presets.filter(p => p.examGroup !== "play");
-  const playPresets = catCfg.presets.filter(p => p.examGroup === "play");
+  const listenPresets = visiblePresets.filter(p => p.examGroup !== "play");
+  const playPresets = visiblePresets.filter(p => p.examGroup === "play");
   const levelsSectionsHtml = (listenPresets.length > 0 && playPresets.length > 0)
     ? `
       <section class="exam-group-section">
@@ -365,7 +376,55 @@ function openExamSetupPage(categoryKey = state.activeCategory, options = {}) {
         <div class="exam-level-grid">${playPresets.map(renderPresetCard).join("")}</div>
       </section>
     `
-    : `<div class="exam-level-grid">${catCfg.presets.map(renderPresetCard).join("")}</div>`;
+    : `<div class="exam-level-grid">${visiblePresets.map(renderPresetCard).join("")}</div>`;
+
+  const configPanelHtml = explorerActive
+    ? `
+      <section class="exam-config-panel explorer-exam-banner" aria-label="${escapeHtml(tr("Prüfungsoptionen", "Exam options"))}">
+        <p class="explorer-exam-note">${escapeHtml(tr(
+          "Entdecker-Prüfung: 10 kurze Fragen mit direktem Sofort-Feedback und unbegrenztem Anhören.",
+          "Explorer Exam: 10 short questions with instant feedback and unlimited replays."
+        ))}</p>
+      </section>
+    `
+    : `
+      <section class="exam-config-panel" aria-label="${escapeHtml(tr("Prüfungsoptionen", "Exam options"))}">
+        <div class="exam-config-row">
+          <span class="exam-config-label">${escapeHtml(tr("Fragenanzahl", "Questions"))}</span>
+          <div class="account-chip-group">
+            ${[10, 20, 50].map(n => `
+              <button type="button" class="k-filter-pill ${cfg.count === n ? "active" : ""}" data-exam-count="${n}">
+                ${escapeHtml(tf("{n} Fragen", "{n} Questions", { n }))}
+              </button>
+            `).join("")}
+          </div>
+        </div>
+
+        <div class="exam-config-row">
+          <span class="exam-config-label">${escapeHtml(tr("Rückmeldung", "Feedback Mode"))}</span>
+          <div class="account-chip-group">
+            <button type="button" class="k-filter-pill ${cfg.feedbackMode === "blind" ? "active" : ""}" data-exam-feedback="blind">
+              ${escapeHtml(tr("Auswertung am Ende (Blind)", "Evaluate at End (Blind)"))}
+            </button>
+            <button type="button" class="k-filter-pill ${cfg.feedbackMode === "instant" ? "active" : ""}" data-exam-feedback="instant">
+              ${escapeHtml(tr("Sofort-Feedback", "Instant Feedback"))}
+            </button>
+          </div>
+        </div>
+
+        <div class="exam-config-row">
+          <span class="exam-config-label">${escapeHtml(tr("Wiederholungs-Limit", "Replay Limit"))}</span>
+          <div class="account-chip-group">
+            <button type="button" class="k-filter-pill ${cfg.maxReplays === 2 ? "active" : ""}" data-exam-replays="2">
+              ${escapeHtml(tr("Max. 2× anhören", "Max 2 Replays"))}
+            </button>
+            <button type="button" class="k-filter-pill ${cfg.maxReplays === 0 ? "active" : ""}" data-exam-replays="0">
+              ${escapeHtml(tr("Unbegrenzt", "Unlimited"))}
+            </button>
+          </div>
+        </div>
+      </section>
+    `;
 
   container.innerHTML = `
     <div class="exam-setup-hero">
@@ -381,42 +440,7 @@ function openExamSetupPage(categoryKey = state.activeCategory, options = {}) {
       </p>
     </div>
 
-    <section class="exam-config-panel" aria-label="${escapeHtml(tr("Prüfungsoptionen", "Exam options"))}">
-      <div class="exam-config-row">
-        <span class="exam-config-label">${escapeHtml(tr("Fragenanzahl", "Questions"))}</span>
-        <div class="account-chip-group">
-          ${[10, 20, 50].map(n => `
-            <button type="button" class="k-filter-pill ${cfg.count === n ? "active" : ""}" data-exam-count="${n}">
-              ${escapeHtml(tf("{n} Fragen", "{n} Questions", { n }))}
-            </button>
-          `).join("")}
-        </div>
-      </div>
-
-      <div class="exam-config-row">
-        <span class="exam-config-label">${escapeHtml(tr("Rückmeldung", "Feedback Mode"))}</span>
-        <div class="account-chip-group">
-          <button type="button" class="k-filter-pill ${cfg.feedbackMode === "blind" ? "active" : ""}" data-exam-feedback="blind">
-            ${escapeHtml(tr("Auswertung am Ende (Blind)", "Evaluate at End (Blind)"))}
-          </button>
-          <button type="button" class="k-filter-pill ${cfg.feedbackMode === "instant" ? "active" : ""}" data-exam-feedback="instant">
-            ${escapeHtml(tr("Sofort-Feedback", "Instant Feedback"))}
-          </button>
-        </div>
-      </div>
-
-      <div class="exam-config-row">
-        <span class="exam-config-label">${escapeHtml(tr("Wiederholungs-Limit", "Replay Limit"))}</span>
-        <div class="account-chip-group">
-          <button type="button" class="k-filter-pill ${cfg.maxReplays === 2 ? "active" : ""}" data-exam-replays="2">
-            ${escapeHtml(tr("Max. 2× anhören", "Max 2 Replays"))}
-          </button>
-          <button type="button" class="k-filter-pill ${cfg.maxReplays === 0 ? "active" : ""}" data-exam-replays="0">
-            ${escapeHtml(tr("Unbegrenzt", "Unlimited"))}
-          </button>
-        </div>
-      </div>
-    </section>
+    ${configPanelHtml}
 
     ${levelsSectionsHtml}
   `;
@@ -794,8 +818,11 @@ function startCategoryExam(categoryKey, levelId) {
     cleanupActiveExamState({ restoreSettings: true });
   }
 
-  const cfg = state.examConfig || { count: 10, feedbackMode: "blind", maxReplays: 2 };
-  const total = [10, 20, 50].includes(cfg.count) ? cfg.count : 10;
+  const explorerActive = typeof isExplorerModeEnabled === "function" && isExplorerModeEnabled();
+  const cfg = explorerActive
+    ? { count: 10, feedbackMode: "instant", maxReplays: 0 }
+    : (state.examConfig || { count: 10, feedbackMode: "blind", maxReplays: 2 });
+  const total = explorerActive ? 10 : ([10, 20, 50].includes(cfg.count) ? cfg.count : 10);
   const plan = buildExamQuestionPlan(preset.modes, total);
   const difficultyPlan = buildExamDifficultyPlan(preset.difficultyCycle, total);
 

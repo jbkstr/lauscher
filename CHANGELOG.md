@@ -5,6 +5,7 @@ All released versions of Lauscher. New sections are created by `python3 scripts/
 ## Unreleased
 
 **Added**
+- Explorer Mode for kids and music beginners (`js/explorer.js`), selectable during onboarding and in App Settings: hides advanced areas (Studio/EQ, church modes, Nashville, Capo, Circle of Fifths, advanced theory articles and higher exercise levels), keeps cadences (levels 1–2) and approachable stages across all core categories, switches exams to gentle 10-question instant-feedback runs, and adds an optional 4-digit parent/teacher PIN (stored locally as a salted hash) that protects turning off Explorer Mode and triggering an app reset. Homework links always stay unrestricted.
 - Full landscape support across tablets, desktops and smartphones (removed the portrait lock in the web app, PWA manifest and Android build). In landscape, `.app-shell` expands up to 1120 px with a two-column piano-stand layout for exercises (task/staff and mascot stage on the left, answers/keyboard and play dock on the right) and vocal warm-up, wider piano/fretboard views, multi-column category/tool grids, and comfortable reading widths for knowledge articles.
 - Shareable homework links & offline QR codes (`js/homework.js`): teachers can share any active exercise (top-bar QR button) or saved practice mix as a serverless `#hw=…` link (short `#mix=mode:level` also supported) with a locally rendered SVG QR code. Students opening a link get a friendly start card ("Your homework") with one-tap launch and an option to save it as a practice mix.
 

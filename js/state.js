@@ -78,7 +78,9 @@ class AppState {
       appearance: initialVisual.appearance,
       theme: initialVisual.theme,
       language: initialVisual.language,
-      onboardingDone: initialVisual.onboardingDone !== false
+      onboardingDone: initialVisual.onboardingDone !== false,
+      explorerMode: initialVisual.explorerMode === true,
+      explorerPinHash: initialVisual.explorerPinHash || ""
     };
 
     this.master = {
