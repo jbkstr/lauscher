@@ -16,6 +16,44 @@ function registerKnowledgeBundle(langCode, bundle) {
   };
 }
 
+// Nachladen der Wissens-Sprachen (außer DE/EN). index.html führt sie als
+// Platzhalter auf (type="text/plain" mit data-lazy-lang und data-lazy-src); im Mobile-Bundle sind sie
+// bereits eingebettet (dann gibt es keine solchen Platzhalter und hier passiert nichts).
+const _knowledgeLazyLoads = {};
+
+/**
+ * Lädt die Wissenstexte einer Sprache nach, falls nötig. Ruft onLoaded nach erfolgreichem Laden auf
+ * (Ansichten neu zeichnen). Bis dahin greifen die bestehenden Fallbacks (Englisch).
+ */
+function ensureKnowledgeLanguageLoaded(lang, onLoaded) {
+  if (typeof document === "undefined" || !document.querySelector) return false;
+  const placeholder = document.querySelector(`script[data-lazy-lang="${lang}"][data-lazy-src]`);
+  if (!placeholder) return false;
+  const entry = _knowledgeLazyLoads[lang];
+  if (entry?.done) return false;
+  if (!entry) {
+    const record = { done: false, callbacks: [] };
+    _knowledgeLazyLoads[lang] = record;
+    const script = document.createElement("script");
+    script.src = placeholder.getAttribute("data-lazy-src");
+    script.async = true;
+    script.onload = () => {
+      record.done = true;
+      record.callbacks.splice(0).forEach(fn => {
+        try { fn(lang); } catch (err) { console.warn("Wissens-Ansicht nach Nachladen:", err); }
+      });
+    };
+    script.onerror = () => {
+      // Beim nächsten Sprachwechsel bzw. Start erneut versuchen (z. B. offline ohne Cache)
+      delete _knowledgeLazyLoads[lang];
+      script.remove();
+    };
+    document.head.appendChild(script);
+  }
+  if (typeof onLoaded === "function") _knowledgeLazyLoads[lang].callbacks.push(onLoaded);
+  return true;
+}
+
 function pickLocalizedKnowledgeData(deValue, enValue, frValue, dataKey) {
   const lang = typeof getAppLanguage === "function" ? getAppLanguage() : "de";
   if (dataKey && LOCALIZED_KNOWLEDGE_BY_LANG[lang]?.data?.[dataKey] !== undefined) {

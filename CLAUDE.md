@@ -72,7 +72,7 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
   - [i18n/phrases-core.js](i18n/phrases-core.js), [i18n/phrases-exercises.js](i18n/phrases-exercises.js), [i18n/phrases-tools.js](i18n/phrases-tools.js): dynamische `tr("Deutsch", "English")`- und `tf(de, en, vars)`-Übersetzungen für `fr`, `es`, `it`, `pl`, `tr`, `uk`, `ur`, `ar` nach deutschem Schlüssel via `registerColocatedPhrases(...)`.
     - ⚠️ Wird ein deutscher Text in einem `tr()`/`tf()`-Aufruf geändert, muss derselbe Schlüssel in der passenden `i18n/phrases-*.js`-Datei angepasst werden – `python3 scripts/check-project.py --strict` deckt fehlende Schlüssel sofort auf.
     - Neue Texte immer direkt für alle 10 Sprachen am selben Eintrag ergänzen. Achtung: `tr()`-Aufrufe mit Inline-Map (`{ fr: …, pl: … }`) brauchen ebenfalls alle 8 Zielsprachen (`fr`, `es`, `it`, `pl`, `tr`, `uk`, `ur`, `ar`).
-- **Wissensbereich**: Deutsch steht in [knowledge.js](knowledge.js), die anderen Sprachen in `knowledge-xx.js` über `registerKnowledgeBundle(lang, bundle)`.
+- **Wissensbereich**: Deutsch steht in [knowledge.js](knowledge.js), die anderen Sprachen in `knowledge-xx.js` über `registerKnowledgeBundle(lang, bundle)`. Nur DE und EN (Fallback) laden beim Start; alle anderen stehen in index.html als Platzhalter `<script type="text/plain" data-lazy-lang="xx" data-lazy-src="…">` und werden per `ensureKnowledgeLanguageLoaded` (knowledge.js) bei Start bzw. Sprachwechsel nachgeladen, danach zeichnet `refreshKnowledgeDependentViews` (js/state.js) die Wissens-Ansichten neu.
 - Bei Layout-Änderungen auch RTL (`ur`, `ar`) und lange Texte (uk/pl/fr) beachten.
 
 ## Daten & Speicher
@@ -85,6 +85,7 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 ## Samples
 
 - `samples/<instrument>/*.m4a` sind die Rohdateien, `samples/*-bundle.js` dieselben Samples als Base64 (damit es keine CORS-Probleme bei `file://` gibt). Zur Laufzeit lädt die App **nur die Bundles**.
+- **Nicht-blockierendes Laden:** Die Instrument-Bundles stehen in index.html als Platzhalter (`data-lazy-sample` / `data-lazy-src`); audio.js lädt sie sofort im Hintergrund (`startSamplePackBundleLoading`), die Engine wartet pro Pack per `waitForSamplePackBundle`. Nach dem Decodieren gibt `releasePackSourceStrings` die Base64-Strings frei. Build-, Sync-, SW- und Prüfskripte erfassen Platzhalter über `data-lazy-src`; das Mobile-Bundle bettet sie normal ein. Die Maskottchen-Bundles bleiben normale Skripte.
 - **Audio-Samples sind nicht im öffentlichen Repo.** Sie liegen im privaten Repo `jbkstr/lauscher-samples` (lokal `~/Documents/GitHub/lauscher-samples`, änderbar per `LAUSCHER_SAMPLES_DIR`) und sind hier per `.gitignore` ausgeschlossen. Öffentlich bleiben nur die Maskottchen-Grafiken (`samples/mascot*-bundle.js`).
   - **In einem frischen Checkout/Worktree zuerst `scripts/samples.sh pull`**, sonst fehlen die Bundles (Projekt-Check meldet es; `sync-android.sh` holt sie automatisch).
   - Nach Änderungen an Samples: `scripts/samples.sh push ["Nachricht"]` (committet und pusht im privaten Repo). Sample-Dateien nie im öffentlichen Repo committen.
@@ -98,6 +99,7 @@ Web-App für Gehörbildung und Musiktheorie mit dem Waschbär-Maskottchen „Lau
 ## Mobile-Bundle & PWA (Service Worker)
 
 - **PWA & Offline-Betrieb:** [manifest.webmanifest](manifest.webmanifest), Icons in `icons/` (`icon-192.png`, `icon-512.png`, `apple-touch-icon.png`) und der Service Worker [sw.js](sw.js) machen die Web-Version installierbar und offline nutzbar. `app.js` (`initPwaServiceWorker`) registriert `sw.js` nur im Web (`https:` / `localhost`), nicht bei `file://` und nicht in der nativen Capacitor-App. Updates laufen still im Hintergrund (`skipWaiting`, kein Hinweis) und werden beim nächsten Neuladen aktiv.
+- **Zwei Caches:** App-Hülle (Name mit Version + Inhalts-Hash) und dauerhafter Sample-Cache `lauscher-samples` mit Hash pro Datei im Schlüssel – Code-Updates laden die Samples nicht neu, nur geänderte Sample-Dateien.
 - **`sw.js` nicht von Hand bearbeiten**, sondern nach Änderungen an Web-Dateien per `python3 scripts/build-sw.py` neu erzeugen (`--check` prüft den Stand und läuft automatisch in `scripts/check-project.py`; `sync-android.sh` und `.github/workflows/pages.yml` bauen `sw.js` automatisch neu).
 - `lauscher-mobile.html` (~15,8 MB, **nur lokal, nicht im Repo**, weil es alle Samples enthält) ist eine **komplett eigenständige Einzeldatei** mit allen CSS-, JS-, Font- und Sample-Inhalten inline (keine externe `tone.js` mehr nötig).
 - Die Datei wird von [scripts/build-mobile-bundle.py](scripts/build-mobile-bundle.py) aus `index.html` erzeugt: `styles.css` und alle `<script src>` werden inline eingesetzt. Lokale Dateien, die im CSS per `url(...)` eingebunden sind (die Fonts & Icons), werden als Base64 eingebettet. Diese Datei nie direkt bearbeiten und nicht lesen (zu groß).

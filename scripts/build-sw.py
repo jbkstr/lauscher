@@ -4,7 +4,8 @@ Lauscher • Erzeugt den Service Worker (sw.js) für PWA & Offline-Nutzung.
 
 Liest alle benötigten lokalen Dateien automatisch aus index.html, fonts/, icons/
 und den Rechtstext-Seiten aus, berechnet einen Inhalts-Hash für die Cache-Version
-und schreibt sw.js ins Projekt-Wurzelverzeichnis.
+und schreibt sw.js ins Projekt-Wurzelverzeichnis. Samples (samples/*) landen in einem
+eigenen, dauerhaften Cache mit Hash pro Datei, damit Code-Updates sie nicht neu laden.
 
 Aufruf:
     python3 scripts/build-sw.py          # sw.js neu erzeugen
@@ -83,6 +84,11 @@ def collect_assets(root: Path) -> list[str]:
     return rels
 
 
+def is_sample_asset(rel: str) -> bool:
+    """Große Sample-Bundles liegen in einem eigenen, dauerhaften Cache (siehe render_sw)."""
+    return rel.startswith("samples/")
+
+
 def compute_content_hash(root: Path, rels: list[str]) -> str:
     h = hashlib.sha256()
     for rel in rels:
@@ -93,69 +99,112 @@ def compute_content_hash(root: Path, rels: list[str]) -> str:
     return h.hexdigest()[:12]
 
 
-def render_sw(cache_name: str, rels: list[str]) -> str:
-    urls = ["./"] + [f"./{rel}" for rel in rels]
-    urls_json = json.dumps(urls, indent=2, ensure_ascii=False)
-    return f"""// Lauscher • Service Worker (automatisch erzeugt von scripts/build-sw.py – nicht von Hand bearbeiten)
+def file_hash(root: Path, rel: str) -> str:
+    return hashlib.sha256((root / rel).read_bytes()).hexdigest()[:12]
+
+
+SW_TEMPLATE = r"""// Lauscher • Service Worker (automatisch erzeugt von scripts/build-sw.py – nicht von Hand bearbeiten)
+//
+// Zwei Caches:
+// - App-Hülle (Code, Styles, Fonts, Icons): Name enthält Version + Inhalts-Hash, wird bei jeder Änderung neu geladen.
+// - Samples (große *-bundle.js): ein dauerhafter Cache, Einträge pro Datei mit Inhalts-Hash im Schlüssel.
+//   Ein Update lädt nur Sample-Dateien neu, die sich wirklich geändert haben.
 const CACHE_PREFIX = "lauscher-";
-const CACHE_NAME = {json.dumps(cache_name)};
-const PRECACHE_URLS = {urls_json};
+const CACHE_NAME = __CACHE_NAME__;
+const SAMPLES_CACHE_NAME = "lauscher-samples";
+const PRECACHE_URLS = __PRECACHE_URLS__;
+// Sample-Datei → versionierter Cache-Schlüssel
+const SAMPLE_CACHE_KEYS = __SAMPLE_CACHE_KEYS__;
 
-self.addEventListener("install", (event) => {{
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(async (cache) => {{
-      const queue = PRECACHE_URLS.slice();
-      const concurrency = 6;
-      const worker = async () => {{
-        while (queue.length > 0) {{
-          const url = queue.shift();
-          const request = new Request(url, {{ cache: "reload" }});
-          const response = await fetch(request);
-          if (!response.ok) {{
-            throw new Error(`Precache fehlgeschlagen (${{response.status}}): ${{url}}`);
-          }}
-          await cache.put(url, response);
-        }}
-      }};
-      await Promise.all(Array.from({{ length: Math.min(concurrency, queue.length) }}, worker));
-    }}).then(() => self.skipWaiting())
-  );
-}});
+const SAMPLE_KEY_BY_HREF = new Map(
+  Object.entries(SAMPLE_CACHE_KEYS).map(([url, key]) => [new URL(url, self.location).href, key])
+);
 
-self.addEventListener("activate", (event) => {{
-  event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(
-        keys
-          .filter((key) => key.startsWith(CACHE_PREFIX) && key !== CACHE_NAME)
-          .map((key) => caches.delete(key))
-      )
-    )
-  );
-}});
+async function runQueue(items, concurrency, task) {
+  const queue = items.slice();
+  const worker = async () => {
+    while (queue.length > 0) await task(queue.shift());
+  };
+  await Promise.all(Array.from({ length: Math.min(concurrency, queue.length) }, worker));
+}
 
-self.addEventListener("fetch", (event) => {{
+async function fetchForCache(url) {
+  const response = await fetch(new Request(url, { cache: "reload" }));
+  if (!response.ok) throw new Error(`Precache fehlgeschlagen (${response.status}): ${url}`);
+  return response;
+}
+
+self.addEventListener("install", (event) => {
+  event.waitUntil((async () => {
+    const shell = await caches.open(CACHE_NAME);
+    await runQueue(PRECACHE_URLS, 6, async (url) => {
+      await shell.put(url, await fetchForCache(url));
+    });
+    const samples = await caches.open(SAMPLES_CACHE_NAME);
+    await runQueue(Object.entries(SAMPLE_CACHE_KEYS), 3, async ([url, key]) => {
+      if (await samples.match(key)) return; // unverändert → nicht erneut laden
+      await samples.put(key, await fetchForCache(url));
+    });
+    await self.skipWaiting();
+  })());
+});
+
+self.addEventListener("activate", (event) => {
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(
+      keys
+        .filter((key) => key.startsWith(CACHE_PREFIX) && key !== CACHE_NAME && key !== SAMPLES_CACHE_NAME)
+        .map((key) => caches.delete(key))
+    );
+    // Veraltete Sample-Versionen entfernen
+    const samples = await caches.open(SAMPLES_CACHE_NAME);
+    const wanted = new Set(Object.values(SAMPLE_CACHE_KEYS).map((key) => new URL(key, self.location).href));
+    const entries = await samples.keys();
+    await Promise.all(entries.filter((req) => !wanted.has(req.url)).map((req) => samples.delete(req)));
+  })());
+});
+
+self.addEventListener("fetch", (event) => {
   const request = event.request;
   if (request.method !== "GET") return;
 
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
 
-  if (request.mode === "navigate") {{
+  if (request.mode === "navigate") {
     event.respondWith(
-      caches.match(request, {{ ignoreSearch: true }}).then((cached) => {{
+      caches.match(request, { ignoreSearch: true }).then((cached) => {
         if (cached) return cached;
         return caches.match("./index.html").then((indexCached) => indexCached || fetch(request));
-      }})
+      })
     );
     return;
-  }}
+  }
+
+  const sampleKey = SAMPLE_KEY_BY_HREF.get(url.origin + url.pathname);
+  if (sampleKey) {
+    event.respondWith(
+      caches.open(SAMPLES_CACHE_NAME)
+        .then((samples) => samples.match(sampleKey))
+        .then((cached) => cached || fetch(request))
+    );
+    return;
+  }
 
   event.respondWith(
-    caches.match(request, {{ ignoreSearch: true }}).then((cached) => cached || fetch(request))
+    caches.match(request, { ignoreSearch: true }).then((cached) => cached || fetch(request))
   );
-}});
+});
 """
+
+
+def render_sw(cache_name: str, shell_rels: list[str], sample_keys: dict[str, str]) -> str:
+    urls = ["./"] + [f"./{rel}" for rel in shell_rels]
+    return (SW_TEMPLATE
+            .replace("__CACHE_NAME__", json.dumps(cache_name))
+            .replace("__PRECACHE_URLS__", json.dumps(urls, indent=2, ensure_ascii=False))
+            .replace("__SAMPLE_CACHE_KEYS__", json.dumps(sample_keys, indent=2, ensure_ascii=False)))
 
 
 def main() -> int:
@@ -169,10 +218,12 @@ def main() -> int:
     root = args.root.resolve()
     out = root / "sw.js"
     rels = collect_assets(root)
+    shell_rels = [rel for rel in rels if not is_sample_asset(rel)]
+    sample_keys = {f"./{rel}": f"./{rel}?h={file_hash(root, rel)}" for rel in rels if is_sample_asset(rel)}
     version_tag = read_version_tag(root)
-    digest = compute_content_hash(root, rels)
+    digest = compute_content_hash(root, shell_rels)
     cache_name = f"lauscher-{version_tag}-{digest}"
-    result = render_sw(cache_name, rels)
+    result = render_sw(cache_name, shell_rels, sample_keys)
 
     if args.check:
         current = out.read_text(encoding="utf-8") if out.is_file() else None
