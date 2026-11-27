@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <!-- Lauscher App-Icon (Master, ab ca. 48 px). Quelle für alle Icon-Dateien in icons/.
+       Ohr um 10 % quer zur 35°-Achse verbreitert, Innenteil auf 82 % verkleinert
+       und leicht zur breiten Randseite verschoben (gleichmäßigerer dunkler Rand). -->
+  <rect id="bg" width="1024" height="1024" fill="#B1C4B5"/>
+  <g id="ear" transform="translate(525 516) rotate(35) scale(1.1 1) rotate(-35) translate(-525 -516)">
+    <path fill="#243545" d="M 690 222 C 735 240, 752 330, 750 420 C 748 540, 690 640, 600 700 C 540 740, 480 770, 440 790 C 380 815, 300 800, 278 720 C 262 660, 300 600, 330 530 C 370 420, 420 340, 500 280 C 560 236, 640 205, 690 222 Z"/>
+    <path fill="#FF6A52" transform="translate(545 501) scale(0.82) translate(-557 -507)" d="M 512 372 C 510 326, 552 308, 597 312 C 652 318, 682 372, 678 442 C 673 535, 618 606, 540 656 C 482 693, 428 712, 398 706 C 362 698, 362 664, 392 642 C 448 602, 494 566, 506 500 C 514 456, 514 414, 512 372 Z"/>
+  </g>
+</svg>

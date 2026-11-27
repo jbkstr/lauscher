@@ -2,6 +2,11 @@
 
 All released versions of Lauscher. New sections are created by `python3 scripts/bump-version.py`.
 
+## Unreleased
+
+**Changed**
+- Refined app icon: the ear is slightly wider and the coral inner shape a bit smaller with a more even dark rim, so it stays clear at small sizes. The icon now comes from a vector master (`design/app-icon.svg`, plus `design/app-icon-small.svg` for favicons); all web, PWA and Apple icons were regenerated from it.
+
 ## 0.16.0-beta (Build 12) – 2026-11-27
 
 **Added**
