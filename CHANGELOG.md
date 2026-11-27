@@ -2,9 +2,18 @@
 
 All released versions of Lauscher. New sections are created by `python3 scripts/bump-version.py`.
 
-## Unreleased
+## 0.17.0-beta (Build 13) – 2026-11-27
+
+**Added**
+- Account role selector in My Account (self-learner, student, teacher, parent/family, band/choir). Sharing and homework texts follow the role: teachers "share as homework", everyone else "shares an exercise", and students and teachers see incoming links as "Your homework".
+- A short piano welcome melody plays on the final onboarding greeting step.
+
+**Improved**
+- Landscape layout reworked: desktops and tablets keep the familiar single-column focus layout (centered, max. 720 px) for exercises and warm-up, while short landscape phones (≤ 540 px height) switch to a compact two-column split with a centered transport bar at the bottom. The floating sing-along hint no longer covers the play bar.
 
 **Changed**
+- Explorer Mode hides and blocks the Metal theme (settings, color designer template and profile import); switching Explorer Mode on while Metal is active falls back to a friendly theme.
+- The "Instruments / roles" field is now just "Instruments"; the My Account header no longer mentions the removed timer.
 - Refined app icon: the ear is slightly wider and the coral inner shape a bit smaller with a more even dark rim, so it stays clear at small sizes. The icon now comes from a vector master (`design/app-icon.svg`, plus `design/app-icon-small.svg` for favicons); all web, PWA and Apple icons were regenerated from it.
 
 ## 0.16.0-beta (Build 12) – 2026-11-27
