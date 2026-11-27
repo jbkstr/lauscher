@@ -29,7 +29,9 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
   }
 
   const isCorrect = selectedKey === ex.targetItem.key;
-  if (!isListenOnly) noteSessionReviewAnswer(ex, isCorrect);
+  // Kontrast: die fälschlich gewählte Antwort kommt ebenfalls wieder (nur Antworten aus dem Aufgaben-Pool)
+  const contrastKey = !isCorrect && Array.isArray(ex.choices) && ex.choices.includes(selectedKey) ? selectedKey : null;
+  if (!isListenOnly) noteSessionReviewAnswer(ex, isCorrect, contrastKey);
 
   if (isCorrect) {
     ex.isSolved = true;

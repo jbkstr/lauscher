@@ -2252,8 +2252,14 @@ function importUserProfileJSON(rawText, options = {}) {
       ));
       if (!confirmed) return { ok: false, cancelled: true };
     }
+    const prevReviewWeights = state.profile?.reviewWeights || {};
     // Sicherungen älterer Versionen schrittweise umbauen (ohne Themes dieses Geräts: der Import ersetzt alles)
     state.profile = sanitizeUserProfile(migrateUserProfileSchema(candidate));
+    // Sicherungen ohne Schwächen-Gewichte (älter als dieses Feld): die aktuellen behalten
+    if (!candidate.reviewWeights || typeof candidate.reviewWeights !== "object") {
+      state.profile.reviewWeights = sanitizeReviewWeights(prevReviewWeights);
+    }
+    if (typeof clearSessionReviewMemory === "function") clearSessionReviewMemory();
     if (typeof syncRetroactiveAchievements === "function") {
       syncRetroactiveAchievements({ save: false });
     }
@@ -2298,6 +2304,8 @@ function importUserProfileJSON(rawText, options = {}) {
 
 function resetUserProfile() {
   state.profile = createDefaultProfile();
+  // Schwächen-Gewichte sind mit dem neuen Profil leer; das Sitzungs-Gedächtnis ebenfalls leeren
+  if (typeof clearSessionReviewMemory === "function") clearSessionReviewMemory();
   // Übungsstand (Stufen & Optionen aller Übungen) ebenfalls auf die App-Standards
   applyPracticeProgressToSettings({}, { resetMissing: true });
   const langCfg = typeof getLanguageConfig === "function" ? getLanguageConfig(state.settings.language) : null;

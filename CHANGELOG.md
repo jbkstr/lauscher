@@ -9,6 +9,14 @@ All released versions of Lauscher. New sections are created by `python3 scripts/
 
 **Improved**
 - Active exams are now saved in `sessionStorage` after each question, so an accidental page reload or pull-to-refresh restores the running exam instead of losing progress.
+- Smarter review of mistakes: when you mix two answers up (e.g. minor and major sixth), both come back, so you practise telling them apart. A missed item returns soon and then at growing intervals, and items you mix up repeatedly need one more correct answer before they count as learned.
+- Lauscher now remembers across restarts which items you recently found difficult and picks them a little more often when practising. This stays on your device, fades after a few days, is included in the profile backup and is never used in exams.
+- Cadences (major and minor), rhythm meter, production frequencies and EQ in noise now also bring back what you mixed up: a missed chord degree, time signature or frequency band returns a few exercises later, as it already did for intervals, chords, modes, solfège and note reading.
+
+**Fixed**
+- Notation symbols: a missed term no longer comes back sooner than intended, and getting it right on a second try no longer counts as knowing it.
+- Minor solfège: a missed degree can no longer be repeated in the very next exercise.
+- Exams no longer count toward the practice review, so missed items don't all return at once after an exam.
 
 ## 0.15.0-beta (Build 11) – 2026-11-27
 

@@ -2623,8 +2623,39 @@ function createDefaultProfile() {
     achievements: typeof createDefaultAchievementsData === "function"
       ? createDefaultAchievementsData()
       : { unlocked: {}, stats: {} },
-    practice: {}
+    practice: {},
+    reviewWeights: {}
   };
+}
+
+// ---------- SCHWÄCHEN-GEWICHTE (profile.reviewWeights) ----------
+// Pro Übung (Scope, z. B. "interval-melodic", "notation-symbols:2") und Element ein Gewicht samt Tag
+// der letzten Änderung: { scope: { key: [gewicht, tag] } }. Fehler erhöhen, Treffer senken es; es klingt
+// mit den Tagen ab. Steuert nur, wie oft die Zufallsauswahl ein Element zieht (js/generators.js).
+// Bleibt lokal und wandert mit in die Profil-Sicherung.
+const REVIEW_WEIGHT_MAX = 4;
+const REVIEW_WEIGHT_MIN = 0.15;           // darunter wird ein Eintrag gelöscht
+const REVIEW_WEIGHTS_MAX_SCOPES = 48;
+const REVIEW_WEIGHTS_MAX_KEYS_PER_SCOPE = 32;
+
+function sanitizeReviewWeights(raw) {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return {};
+  const out = {};
+  const today = Math.floor(Date.now() / 86400000);
+  // Abgeklungene Einträge (siehe getEffectiveReviewWeight, Halbwertszeit 4 Tage) beim Laden aufräumen
+  const isStillRelevant = (rec) => rec[0] * Math.pow(0.5, Math.max(0, today - rec[1]) / 4) >= REVIEW_WEIGHT_MIN;
+  Object.entries(raw).slice(0, REVIEW_WEIGHTS_MAX_SCOPES * 2).forEach(([scope, entries]) => {
+    if (Object.keys(out).length >= REVIEW_WEIGHTS_MAX_SCOPES) return;
+    if (!/^[a-z0-9:-]{2,40}$/.test(scope) || !entries || typeof entries !== "object" || Array.isArray(entries)) return;
+    const clean = Object.entries(entries)
+      .filter(([key, rec]) => key.length >= 1 && key.length <= 64 && Array.isArray(rec) && rec.length === 2 &&
+        Number.isFinite(rec[0]) && rec[0] >= REVIEW_WEIGHT_MIN && Number.isInteger(rec[1]) && rec[1] > 0 && isStillRelevant(rec))
+      .map(([key, rec]) => [key, [Math.min(REVIEW_WEIGHT_MAX, Math.round(rec[0] * 100) / 100), rec[1]]])
+      .sort((a, b) => b[1][0] - a[1][0]) // bei zu vielen Einträgen die stärksten Schwächen behalten
+      .slice(0, REVIEW_WEIGHTS_MAX_KEYS_PER_SCOPE);
+    if (clean.length) out[scope] = Object.fromEntries(clean);
+  });
+  return out;
 }
 
 // ---------- ÜBUNGSSTAND ----------
@@ -2845,7 +2876,8 @@ function sanitizeUserProfile(raw) {
     achievements: typeof sanitizeAchievementsData === "function"
       ? sanitizeAchievementsData(raw.achievements)
       : (raw.achievements && typeof raw.achievements === "object" ? raw.achievements : { unlocked: {}, stats: {} }),
-    practice: sanitizePracticeProgress(raw.practice)
+    practice: sanitizePracticeProgress(raw.practice),
+    reviewWeights: sanitizeReviewWeights(raw.reviewWeights)
   };
 }
 
