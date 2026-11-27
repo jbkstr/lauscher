@@ -6949,6 +6949,11 @@ body,
   margin-bottom: 0;
 }
 
+/* Zwei Hinweise direkt untereinander (z. B. Local Control) nicht aneinanderkleben */
+.settings-hint + .settings-hint {
+  margin-top: 0.45rem;
+}
+
 .mixer-tab-panel .settings-section .settings-hint.mixer-preset-hint {
   display: block;
   margin-top: 1.15rem;

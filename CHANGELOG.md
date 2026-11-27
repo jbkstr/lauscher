@@ -5,9 +5,12 @@ All released versions of Lauscher. New sections are created by `python3 scripts/
 ## Unreleased
 
 **Fixed**
+- Android MIDI: after sending Local Control On (`CC 122 = 127`) on exit, the app now waits briefly (USB 40 ms, Bluetooth LE 300 ms) before closing the ports, so the restore command is not lost and the keyboard no longer stays silent.
+- Tuner: the microphone now runs in the app's main audio context (like the sing-back exercises) instead of opening a second `AudioContext`, which iOS only allows a few of at a time.
 - Fixed a layout resize-oscillation glitch in "Play Intervals" (and other MIDI play exercises) on mobile/app viewports caused by animated height/padding transitions on `.bar-card` interacting with `fitExerciseLayout()` and `ResizeObserver`.
 
 **Improved**
+- MIDI settings: added a short tip on what to do if the instrument stays silent after a crash or an unplugged cable.
 - Stabilized the on-screen keyboard in "Play Intervals", "Play Scales & Modes" and "Play Chords" using natural C/F-anchored 12-key blocks with window hysteresis, so the keyboard stays steady while the root note moves naturally across the keys instead of sticking to the edge.
 - Kept the note-duration symbols `(♪, ♩, ♩., 𝅗𝅥)` together on one line in the Melodies "Full Dictation" card across all 10 languages.
 - Active MIDI play exams: added separate "Active Playing (MIDI / Keyboard)" exam levels to Intervals (3 levels), Chords (4 levels incl. inversions and 7th chords), and Scales & Modes (3 levels with full scale play-through, partial per-step scoring, step-by-step error breakdown, and audio review), kept cleanly separated from listening exams.
