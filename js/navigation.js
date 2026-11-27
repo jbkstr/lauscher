@@ -530,11 +530,6 @@ function setModalVisibility(modalName) {
 }
 
 function closeTransientPopovers() {
-  const volPop = document.getElementById("masterVolPopover");
-  if (volPop && !volPop.classList.contains("hidden")) {
-    volPop.classList.add("hidden");
-    document.getElementById("masterVolBtn")?.classList.remove("btn-open");
-  }
   [
     ["inlineBpmPopover", "moduleBpmBtn"],
     ["inlineKeyPopover", "moduleKeyBtn"],
@@ -1306,7 +1301,6 @@ function switchView(targetView, options = {}) {
     state.activeBpm = startBpm;
     const inlineSlider = document.getElementById("inlineBpmSlider");
     if (inlineSlider) inlineSlider.value = startBpm;
-    document.getElementById("inlineBpmRandomBtn")?.classList.remove("active");
   }
 
   const views = {

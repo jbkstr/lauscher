@@ -179,8 +179,8 @@ function startMascotAmbientRotation() {
     if (typeof document === "undefined" || document.hidden) return;
     if (typeof state === "undefined") return;
 
-    const breakModal = document.getElementById("breakReminderModal");
-    if (breakModal && !breakModal.classList.contains("hidden")) {
+    const breakModal = document.getElementById("breakReminderBackdrop");
+    if (breakModal && !breakModal.classList.contains("modal-hidden")) {
       rotateMascotSlot("breakReminderMascot", "break", true, { slot: "break", forceRotate: true });
       return;
     }
