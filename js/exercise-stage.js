@@ -29,18 +29,51 @@ function isExerciseLandscapeSplit(view) {
 }
 
 // Querformat (Klavierpult): Die Transportleiste (.dock-bar) steht zentriert unter beiden Spalten
-// (direktes Grid-Kind von #viewExercise bzw. #viewWarmup). Im Hochformat wandert sie zurück ans Ende
-// von .bottom-dock. Event-Listener hängen an den Knöpfen und bleiben beim Umhängen erhalten.
+// (direktes Grid-Kind von #viewExercise bzw. #viewWarmup), und in #viewExercise wandert der
+// Maskottchen-Begleiter in die rechte Bedienkarte (#tonicRefRow), damit die linke Bühne
+// vollständig frei für Text und Mini-Klaviatur/Griffbrett bleibt. Im Hochformat wandert alles zurück.
 function syncExerciseLandscapeDock(view) {
   if (!view) return;
   const dock = view.querySelector(":scope > .bottom-dock");
   const bar = view.querySelector(":scope > .dock-bar") || dock?.querySelector(":scope > .dock-bar");
   const stageWrap = view.querySelector(":scope > .stage-wrapper");
   if (!dock || !bar || !stageWrap) return;
-  if (isExerciseLandscapeSplit(view)) {
+  const isSplit = isExerciseLandscapeSplit(view);
+  if (isSplit) {
     if (bar.parentElement !== view) stageWrap.after(bar);
   } else if (bar.parentElement !== dock) {
     dock.appendChild(bar);
+  }
+
+  if (view.id !== "viewExercise") return;
+  const stageCard = document.getElementById("centralStageCard");
+  const mascot = document.getElementById("stageMascotWrap");
+  const tonicRow = document.getElementById("tonicRefRow");
+  if (!stageCard || !mascot) return;
+
+  const moveMascotToDock = Boolean(
+    isSplit
+    && !stageCard.classList.contains("is-sing-match")
+    && tonicRow
+    && !tonicRow.classList.contains("hidden")
+  );
+  if (moveMascotToDock) {
+    if (mascot.parentElement !== tonicRow) {
+      tonicRow.prepend(mascot);
+    }
+    mascot.classList.add("is-landscape-docked");
+    stageCard.classList.add("has-detached-mascot");
+  } else {
+    if (mascot.parentElement !== stageCard) {
+      const subEl = document.getElementById("stageSubtext");
+      if (subEl && subEl.parentElement === stageCard) {
+        stageCard.insertBefore(mascot, subEl);
+      } else {
+        stageCard.prepend(mascot);
+      }
+    }
+    mascot.classList.remove("is-landscape-docked");
+    stageCard.classList.remove("has-detached-mascot");
   }
 }
 
