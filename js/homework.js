@@ -977,6 +977,80 @@ function clearHomeworkUrlHash() {
 
 // ---------- 3. UI: TEILEN-MODAL (#homeworkShareBackdrop) & STARTKARTE (#homeworkStartBackdrop) ----------
 
+function getActiveProfileRole() {
+  const role = state?.profile?.role;
+  if (typeof PROFILE_ROLE_OPTIONS === "object" && role && Object.prototype.hasOwnProperty.call(PROFILE_ROLE_OPTIONS, role)) {
+    return role;
+  }
+  return typeof PROFILE_ROLE_DEFAULT === "string" ? PROFILE_ROLE_DEFAULT : "self";
+}
+
+function isTeacherShareRole() {
+  return getActiveProfileRole() === "teacher";
+}
+
+function isHomeworkReceiveRole() {
+  const role = getActiveProfileRole();
+  return role === "student" || role === "teacher";
+}
+
+function getHomeworkShareActionLabel() {
+  return isTeacherShareRole()
+    ? tr("Als Hausaufgabe teilen", "Share as homework")
+    : tr("Übung teilen", "Share exercise");
+}
+
+function syncHomeworkRoleCopy() {
+  if (typeof document === "undefined") return;
+  const asTeacher = isTeacherShareRole();
+  const receiveAsHomework = isHomeworkReceiveRole();
+  const lang = typeof getAppLanguage === "function" ? getAppLanguage() : "de";
+  const getText = (key, fallback) =>
+    (typeof getStaticI18nText === "function" ? getStaticI18nText(key, lang) : "") || fallback;
+
+  const headerBtn = document.getElementById("shareHomeworkHeaderBtn");
+  if (headerBtn) {
+    const titleKey = asTeacher ? "homework.headerBtnTitle" : "homework.exerciseHeaderBtnTitle";
+    const ariaKey = asTeacher ? "homework.headerBtnAria" : "homework.exerciseHeaderBtnAria";
+    headerBtn.setAttribute("data-i18n-title", titleKey);
+    headerBtn.setAttribute("data-i18n-aria", ariaKey);
+    headerBtn.setAttribute("title", getText(titleKey, asTeacher ? "Als Hausaufgabe teilen (Link & QR-Code)" : "Übung teilen (Link & QR-Code)"));
+    headerBtn.setAttribute("aria-label", getText(ariaKey, asTeacher ? "Als Hausaufgabe teilen" : "Übung teilen"));
+  }
+
+  const shareTitleEl = document.getElementById("homeworkShareTitle");
+  if (shareTitleEl) {
+    const key = asTeacher ? "homework.shareTitle" : "homework.exerciseShareTitle";
+    shareTitleEl.setAttribute("data-i18n", key);
+    const txt = getText(key, asTeacher ? "Hausaufgabe teilen" : "Übung teilen");
+    if (typeof setElementLocalizedText === "function") setElementLocalizedText(shareTitleEl, txt);
+    else shareTitleEl.textContent = txt;
+  }
+
+  const shareIntroEl = document.getElementById("homeworkShareIntro");
+  if (shareIntroEl) {
+    const key = asTeacher ? "homework.shareIntro" : "homework.exerciseShareIntro";
+    shareIntroEl.setAttribute("data-i18n", key);
+    const txt = getText(
+      key,
+      asTeacher
+        ? "Lass deine Schülerin oder deinen Schüler den QR-Code scannen oder schicke den Link – er öffnet genau diese Übung mit den aktuellen Einstellungen, ganz ohne Konto oder Server."
+        : "Teile den QR-Code oder schicke den Link – er öffnet genau diese Übung mit den aktuellen Einstellungen, ganz ohne Konto oder Server."
+    );
+    if (typeof setElementLocalizedText === "function") setElementLocalizedText(shareIntroEl, txt);
+    else shareIntroEl.textContent = txt;
+  }
+
+  const startHeadingEl = document.getElementById("homeworkStartHeading");
+  if (startHeadingEl) {
+    const key = receiveAsHomework ? "homework.startHeading" : "homework.exerciseStartHeading";
+    startHeadingEl.setAttribute("data-i18n", key);
+    const txt = getText(key, receiveAsHomework ? "Deine Hausaufgabe" : "Geteilte Übung");
+    if (typeof setElementLocalizedText === "function") setElementLocalizedText(startHeadingEl, txt);
+    else startHeadingEl.textContent = txt;
+  }
+}
+
 function syncExerciseHomeworkButtonVisibility() {
   const btn = document.getElementById("shareHomeworkHeaderBtn");
   if (!btn) return;
@@ -988,6 +1062,7 @@ function openHomeworkShareModal(payload = null) {
   const hw = sanitizeHomeworkPayload(payload || buildHomeworkPayloadFromCurrentExercise());
   if (!hw) return;
   _activeHomeworkShareData = hw;
+  syncHomeworkRoleCopy();
 
   const url = buildHomeworkShareUrl(hw);
   const titleEl = document.getElementById("homeworkShareSummaryTitle");
@@ -1006,7 +1081,9 @@ function openHomeworkShareModal(payload = null) {
   }
   if (qrWrap) {
     const qrSvg = renderQrCodeSvg(url, {
-      ariaLabel: tr("QR-Code für diese Hausaufgabe", "QR code for this homework")
+      ariaLabel: isTeacherShareRole()
+        ? tr("QR-Code für diese Hausaufgabe", "QR code for this homework")
+        : tr("QR-Code für diese Übung", "QR code for this exercise")
     });
     qrWrap.innerHTML = qrSvg || `<p class="homework-qr-fallback">${escapeHtml(tr("Link ist für einen QR-Code zu lang – bitte kopieren.", "Link is too long for a QR code — please copy it."))}</p>`;
   }
@@ -1038,7 +1115,10 @@ async function copyHomeworkShareLink() {
   if (!url) return;
   const copied = typeof copyTextToClipboard === "function" ? await copyTextToClipboard(url) : false;
   if (copied) {
-    showAppToast(`✓ ${tr("Hausaufgaben-Link kopiert", "Homework link copied")}`, "success");
+    const toastMsg = isTeacherShareRole()
+      ? tr("Hausaufgaben-Link kopiert", "Homework link copied")
+      : tr("Übungs-Link kopiert", "Exercise link copied");
+    showAppToast(`✓ ${toastMsg}`, "success");
   } else if (input) {
     input.focus();
     input.select();
@@ -1051,7 +1131,9 @@ async function triggerHomeworkNativeShare() {
   const url = buildHomeworkShareUrl(_activeHomeworkShareData);
   const modeLabel = getHomeworkModeDisplayName(_activeHomeworkShareData.mode);
   const levelLabel = getHomeworkLevelDisplay(_activeHomeworkShareData);
-  const title = tr("Lauscher Hausaufgabe", "Lauscher Homework");
+  const title = isTeacherShareRole()
+    ? tr("Lauscher Hausaufgabe", "Lauscher Homework")
+    : tr("Lauscher Übung", "Lauscher Exercise");
   const text = `${modeLabel} (${levelLabel})`;
 
   const sharePlugin = typeof getCapacitorNativePlugin === "function" ? getCapacitorNativePlugin("Share") : null;
@@ -1074,6 +1156,7 @@ function openHomeworkStartModal(hw) {
   const clean = sanitizeHomeworkPayload(hw);
   if (!clean) return false;
   _activeHomeworkStartData = clean;
+  syncHomeworkRoleCopy();
 
   const mascotEl = document.getElementById("homeworkStartMascot");
   const titleEl = document.getElementById("homeworkStartModeTitle");
@@ -1126,6 +1209,7 @@ function hasPendingHomeworkFromUrl() {
 }
 
 function initHomeworkControls() {
+  syncHomeworkRoleCopy();
   document.getElementById("shareHomeworkHeaderBtn")?.addEventListener("click", () => {
     openHomeworkShareModal();
   });
@@ -1169,7 +1253,10 @@ function initHomeworkControls() {
         btn.disabled = true;
         btn.textContent = `✓ ${tr("Als Übe-Mix gespeichert", "Saved as practice mix")}`;
       }
-      showAppToast(`✓ ${tr("Hausaufgabe als Übe-Mix gespeichert", "Homework saved as practice mix")}`, "success");
+      const savedMsg = isHomeworkReceiveRole()
+        ? tr("Hausaufgabe als Übe-Mix gespeichert", "Homework saved as practice mix")
+        : tr("Übung als Übe-Mix gespeichert", "Exercise saved as practice mix");
+      showAppToast(`✓ ${savedMsg}`, "success");
     }
   });
 

@@ -4,6 +4,63 @@
  */
 
 registerColocatedTables({
+  profileRoles: {
+    "self": {
+      en: { label: "Self-learner", hint: "I practice on my own" },
+      fr: { label: "Autodidacte", hint: "Je m’entraîne en autonomie" },
+      es: { label: "Autodidacta", hint: "Practico por mi cuenta" },
+      it: { label: "Autodidatta", hint: "Mi alleno in autonomia" },
+      pl: { label: "Samouk", hint: "Ćwiczę samodzielnie" },
+      uk: { label: "Самостійне навчання", hint: "Я тренуюся самостійно" },
+      ur: { label: "خود سیکھنے والا", hint: "میں خود مشق کرتا ہوں" },
+      tr: { label: "Kendi kendine öğrenen", hint: "Kendi başıma çalışıyorum" },
+      ar: { label: "متعلّم ذاتي", hint: "أتدرّب بمفردي" }
+    },
+    "student": {
+      en: { label: "Student", hint: "I take lessons or study music" },
+      fr: { label: "Élève / Étudiant", hint: "Je prends des cours ou j’étudie la musique" },
+      es: { label: "Estudiante", hint: "Tomo clases o estudio música" },
+      it: { label: "Studente / Allievo", hint: "Seguo lezioni o studio musica" },
+      pl: { label: "Uczeń / Student", hint: "Biorę lekcje lub studiuję muzykę" },
+      uk: { label: "Учень / Студент", hint: "Я відвідую уроки або вивчаю музику" },
+      ur: { label: "طالب علم", hint: "میں موسیقی کے اسباق لیتا ہوں یا پڑھتا ہوں" },
+      tr: { label: "Öğrenci", hint: "Ders alıyorum veya müzik okuyorum" },
+      ar: { label: "طالب", hint: "أتلقى دروسًا أو أدرس الموسيقى" }
+    },
+    "teacher": {
+      en: { label: "Teacher", hint: "I teach and assign exercises" },
+      fr: { label: "Enseignant", hint: "J’enseigne et je partage des devoirs" },
+      es: { label: "Docente", hint: "Enseño y asigno ejercicios" },
+      it: { label: "Insegnante", hint: "Insegno e assegno esercizi" },
+      pl: { label: "Nauczyciel", hint: "Uczę i zadaję ćwiczenia" },
+      uk: { label: "Викладач", hint: "Я викладаю й даю завдання" },
+      ur: { label: "استاد", hint: "میں سکھاتا ہوں اور مشقیں دیتا ہوں" },
+      tr: { label: "Öğretmen", hint: "Ders veriyorum ve ödev paylaşıyorum" },
+      ar: { label: "معلّم", hint: "أُدرّس وأشارك الواجبات" }
+    },
+    "parent": {
+      en: { label: "Parent / Family", hint: "I support a child’s practice" },
+      fr: { label: "Parent / Famille", hint: "J’accompagne un enfant dans sa pratique" },
+      es: { label: "Familia / Padres", hint: "Acompaño a un niño o niña al practicar" },
+      it: { label: "Genitore / Famiglia", hint: "Accompagno un bambino nello studio" },
+      pl: { label: "Rodzic / Rodzina", hint: "Wspieram dziecko w ćwiczeniu" },
+      uk: { label: "Батьки / Родина", hint: "Я допомагаю дитині з заняттями" },
+      ur: { label: "والدین / خاندان", hint: "میں بچے کی مشق میں مدد کرتا ہوں" },
+      tr: { label: "Veli / Aile", hint: "Çocuğumun çalışmasına eşlik ediyorum" },
+      ar: { label: "وليّ أمر / عائلة", hint: "أرافق طفلي أثناء التدريب" }
+    },
+    "ensemble": {
+      en: { label: "Band / Choir", hint: "I make music together with others" },
+      fr: { label: "Groupe / Chorale", hint: "Je fais de la musique avec d’autres" },
+      es: { label: "Banda / Coro", hint: "Hago música junto con otras personas" },
+      it: { label: "Band / Coro", hint: "Suono o canto insieme ad altri" },
+      pl: { label: "Zespół / Chór", hint: "Muzykuję razem z innymi" },
+      uk: { label: "Гурт / Хор", hint: "Я граю або співаю разом з іншими" },
+      ur: { label: "بینڈ / کوئر", hint: "میں دوسروں کے ساتھ مل کر موسیقی بجاتا ہوں" },
+      tr: { label: "Grup / Koro", hint: "Başkalarıyla birlikte müzik yapıyorum" },
+      ar: { label: "فرقة / جوقة", hint: "أعزف أو أغنّي مع الآخرين" }
+    }
+  },
   profileInstruments: {
     "Klavier": {
       en: "Piano",

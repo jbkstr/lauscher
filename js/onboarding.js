@@ -28,8 +28,40 @@ const _welcomeOnboardingState = {
   exiting: false,
   stepTimer: null,
   autoTimer: null,
-  exitTimer: null
+  exitTimer: null,
+  melodyToken: 0
 };
+
+function triggerWelcomeOnboardingMelody() {
+  if (typeof audioEngine === "undefined" || typeof audioEngine.playOnboardingWelcomeMelody !== "function") return;
+  if (typeof prepareAudioNonBlocking === "function") {
+    prepareAudioNonBlocking();
+  }
+  const token = ++_welcomeOnboardingState.melodyToken;
+  const startNow = () => {
+    if (_welcomeOnboardingState.melodyToken !== token) return;
+    if (typeof document !== "undefined" && document.hidden) return;
+    audioEngine.playOnboardingWelcomeMelody();
+  };
+
+  if (audioEngine.pianoUsingSampler) {
+    startNow();
+    return;
+  }
+
+  const waitTarget = audioEngine.stemLoadingPromises?.piano || audioEngine.wave1SamplesPromise;
+  if (waitTarget && typeof waitTarget.then === "function") {
+    Promise.race([
+      waitTarget.catch(() => {}),
+      new Promise(resolve => setTimeout(resolve, 350))
+    ]).then(() => {
+      startNow();
+    });
+    return;
+  }
+
+  startNow();
+}
 
 function getActiveWelcomeWizardSteps() {
   return _welcomeOnboardingState.beginnerIntroOptIn
@@ -302,6 +334,7 @@ function bindWelcomeOnboardingControls() {
     const btn = document.getElementById(btnId);
     if (!btn) return;
     btn.addEventListener("click", () => {
+      if (typeof prepareAudioNonBlocking === "function") prepareAudioNonBlocking();
       const dir = (btn.dataset?.welcomeNav === "prev" || btnId.endsWith("BackBtn")) ? -1 : 1;
       goToWelcomeStep(_welcomeOnboardingState.currentStep + dir);
     });
@@ -332,7 +365,10 @@ function goToWelcomeStep(targetIdx, options = {}) {
     if (typeof syncExplorerModeUI === "function") syncExplorerModeUI();
   }
   if (nextStepId === "welcomeStepBeginner2") syncWelcomeBeginnerOptInUI();
-  if (nextStepId === "welcomeStepGreet") renderWelcomeGreetStep();
+  if (nextStepId === "welcomeStepGreet") {
+    if (typeof prepareAudioNonBlocking === "function") prepareAudioNonBlocking();
+    renderWelcomeGreetStep();
+  }
 
   const applyStepVisibility = () => {
     BEGINNER_WELCOME_WIZARD_STEPS.forEach((stepId) => {
@@ -342,6 +378,7 @@ function goToWelcomeStep(targetIdx, options = {}) {
       el.classList.toggle("hidden", stepId !== nextStepId);
     });
     if (nextStepId === "welcomeStepGreet") {
+      triggerWelcomeOnboardingMelody();
       if (autoFill) autoFill.classList.add("is-counting");
       _welcomeOnboardingState.autoTimer = setTimeout(() => {
         completeWelcomeOnboarding();
@@ -424,6 +461,7 @@ function selectWelcomeLanguage(lang, clickedBtn) {
   if (_welcomeOnboardingState.selecting || _welcomeOnboardingState.exiting) return;
   _welcomeOnboardingState.selecting = true;
   clearWelcomeOnboardingTimers();
+  if (typeof prepareAudioNonBlocking === "function") prepareAudioNonBlocking();
 
   if (clickedBtn?.classList) clickedBtn.classList.add("is-selected");
   state.settings.onboardingDone = false;

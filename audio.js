@@ -909,6 +909,48 @@ class EarLabNativeSynth {
 }
 
 /**
+ * Lauscher-Willkommensmelodie für die letzte Onboarding-Seite (nur Klavier, F-Dur).
+ * Motiv: Warmes, neugierig-fröhliches pentatonisches Aufblühen (C4–F4–G4–A4 | G4–A4–C5–D5–C5 | G4–A4–C5–F5)
+ * über modernen akustischen Harmonien (Fadd9 → Bbmaj7 → Cadd9/C → Fadd9), ~4,0 s + warmer Ausklang.
+ * Das Schluss-Intervall C5→F5 spiegelt die Eröffnungsquarte C4→F4 eine Oktave höher wider.
+ */
+const ONBOARDING_WELCOME_MELODY = Object.freeze([
+  // Takt 1: Fadd9 – neugierig-fröhliches Öffnen
+  { t: 0.00,  note: "F3",  dur: 1.48, vel: 0.56, hand: "lh" },
+  { t: 0.00,  note: "C4",  dur: 0.24, vel: 0.68, hand: "rh" },
+  { t: 0.22,  note: "F4",  dur: 0.24, vel: 0.76, hand: "rh" },
+  { t: 0.44,  note: "C4",  dur: 1.04, vel: 0.44, hand: "lh" },
+  { t: 0.44,  note: "G4",  dur: 0.24, vel: 0.78, hand: "rh" },
+  { t: 0.67,  note: "A3",  dur: 0.88, vel: 0.46, hand: "lh" },
+  { t: 0.67,  note: "A4",  dur: 0.68, vel: 0.86, hand: "rh" },
+  { t: 1.36,  note: "G4",  dur: 0.22, vel: 0.72, hand: "rh" },
+  { t: 1.58,  note: "A4",  dur: 0.24, vel: 0.78, hand: "rh" },
+
+  // Takt 2: Bbmaj7 → Cadd9/C – warmer Bogen zum Gipfel D5 und sanfte Dominante
+  { t: 1.82,  note: "Bb2", dur: 0.96, vel: 0.58, hand: "lh" },
+  { t: 1.84,  note: "F3",  dur: 0.94, vel: 0.44, hand: "lh" },
+  { t: 1.82,  note: "C5",  dur: 0.44, vel: 0.86, hand: "rh" },
+  { t: 2.27,  note: "D4",  dur: 0.50, vel: 0.42, hand: "lh" },
+  { t: 2.27,  note: "D5",  dur: 0.25, vel: 0.90, hand: "rh" },
+  { t: 2.51,  note: "C5",  dur: 0.26, vel: 0.78, hand: "rh" },
+
+  { t: 2.76,  note: "C3",  dur: 1.00, vel: 0.58, hand: "lh" },
+  { t: 2.78,  note: "G3",  dur: 0.98, vel: 0.44, hand: "lh" },
+  { t: 2.80,  note: "D4",  dur: 0.44, vel: 0.40, hand: "lh" },
+  { t: 2.76,  note: "G4",  dur: 0.46, vel: 0.80, hand: "rh" },
+  { t: 3.24,  note: "E4",  dur: 0.52, vel: 0.48, hand: "lh" },
+  { t: 3.24,  note: "A4",  dur: 0.26, vel: 0.82, hand: "rh" },
+  { t: 3.50,  note: "C5",  dur: 0.28, vel: 0.86, hand: "rh" },
+
+  // Takt 3: Schlussklang Fadd9 – warmes, offenes Arpeggio, gespiegelte Quarte C5→F5
+  { t: 3.79,  note: "F3",  dur: 1.45, vel: 0.64, hand: "lh", releaseSec: 1.25 },
+  { t: 3.825, note: "C4",  dur: 1.40, vel: 0.48, hand: "lh", releaseSec: 1.20 },
+  { t: 3.86,  note: "G4",  dur: 1.35, vel: 0.52, hand: "lh", releaseSec: 1.15 },
+  { t: 3.895, note: "A4",  dur: 1.35, vel: 0.64, hand: "lh", releaseSec: 1.15 },
+  { t: 3.935, note: "F5",  dur: 1.50, vel: 0.84, hand: "rh", releaseSec: 1.30 }
+]);
+
+/**
  * EarLab Audio Engine (100 % native Web Audio API)
  */
 class AudioEngine {
@@ -965,6 +1007,9 @@ class AudioEngine {
     this.pianoUsingSampler = false;
     this.demoPiano = null;
     this.demoPianoGain = null;
+    this.demoPianoBufferMap = null;
+    this.demoPianoVelocityLayerStore = null;
+    this.activeWelcomeSession = null;
     this.guitar = null;
     this.guitarFallbackSynth = null;
     this.guitarGain = null;
@@ -1749,6 +1794,8 @@ class AudioEngine {
           this.pianoGainMultiplier = cfg.sampledMult;
           this.demoPianoGain = demoGain;
           this.demoPiano = demoSampler;
+          this.demoPianoBufferMap = decoded.bufferMap;
+          this.demoPianoVelocityLayerStore = velocityLayerStore;
         }
       } catch (stemErr) {
         console.warn(`Sample-Pack "${stemKey}" konnte nicht decodiert werden, nutze Synth-Fallback:`, stemErr);
@@ -2489,6 +2536,111 @@ class AudioEngine {
       try { tempGain.disconnect(); } catch (_) {}
       this.activeDemoNodes = this.activeDemoNodes.filter(item => item !== entry);
     }, (totalWindowSec + 0.95) * 1000);
+  }
+
+  /**
+   * Beendet eine eventuell laufende Onboarding-Willkommensmelodie (nur bei App-Hintergrund
+   * oder vor einem erneuten Start — bewusst NICHT bei stopPlayback() / Weiterklicken).
+   */
+  stopOnboardingWelcomeMelody() {
+    const session = this.activeWelcomeSession;
+    if (!session) return;
+    this.activeWelcomeSession = null;
+    if (session.cleanupTimer) {
+      clearTimeout(session.cleanupTimer);
+      session.cleanupTimer = null;
+    }
+    try {
+      session.instrument?.releaseAll?.();
+    } catch (_) {}
+    if (session.tempGain) {
+      setTimeout(() => {
+        try { session.tempGain.disconnect(); } catch (_) {}
+      }, 140);
+    }
+  }
+
+  /**
+   * Spielt die Lauscher-Willkommensmelodie (nur Klavier, F-Dur, ~4 s + warmer Ausklang)
+   * auf einem eigenen, von stopPlayback() entkoppelten Wiedergabepfad.
+   * Klickt der Nutzer auf der letzten Onboarding-Seite schnell weiter, läuft die Einspielung
+   * sauber und unterbrechungsfrei bis zum Schlussklang aus.
+   */
+  playOnboardingWelcomeMelody() {
+    if (!this.isInitialized || !this.masterGain || !this.rawCtx) return false;
+    if (this.rawCtx.state === "suspended" && typeof this.rawCtx.resume === "function") {
+      try { this.rawCtx.resume().catch(() => {}); } catch (_) {}
+    }
+    this.stopOnboardingWelcomeMelody();
+
+    const cfg = SAMPLED_STEM_CONFIG.piano;
+    let instrument = null;
+    let tempGain = null;
+
+    if (this.pianoUsingSampler && this.demoPianoBufferMap) {
+      const targetNode = this.demoPianoToneFilter || this.demoPianoGain || this.masterGain;
+      instrument = new EarLabSampledInstrument(this.demoPianoBufferMap, targetNode, {
+        rawCtx: this.rawCtx,
+        attackSec: cfg.attackSec,
+        legatoAttackSec: cfg.legatoAttackSec,
+        legatoStartSkipSec: cfg.legatoStartSkipSec,
+        releaseSec: cfg.releaseSec,
+        legatoOverlapSec: cfg.legatoOverlapSec,
+        chordCrossfadeSec: cfg.chordCrossfadeSec,
+        melodyCrossfadeSec: cfg.melodyCrossfadeSec,
+        chordSpreadMs: 0,
+        noteJitterMs: 0,
+        chordRollMode: cfg.chordRollMode,
+        maxPolyphony: 18,
+        getSoundProfile: () => this.getActivePianoProfile(),
+        velocityLayerStore: this.demoPianoVelocityLayerStore
+      });
+    } else {
+      tempGain = this.rawCtx.createGain();
+      tempGain.gain.value = 0.88;
+      tempGain.connect(this.pianoToneFilter || this.masterGain);
+      instrument = new EarLabNativeSynth(this.rawCtx, tempGain, {
+        oscType: "triangle",
+        filterHz: 3200,
+        detuneSpread: 0,
+        attack: 0.008,
+        decay: 1.2,
+        sustain: 0.24,
+        release: 0.9,
+        baseGain: 0.34,
+        maxPolyphony: 18
+      });
+    }
+
+    const baseAt = this.getAudioTime() + 0.045;
+    let maxEndOffset = 0;
+
+    ONBOARDING_WELCOME_MELODY.forEach((ev) => {
+      const env = {
+        humanize: false,
+        dynamic: ev.vel,
+        legatoGroup: ev.hand === "rh" ? "melody" : null
+      };
+      if (Number.isFinite(ev.releaseSec)) {
+        env.releaseSec = ev.releaseSec;
+      }
+      instrument.triggerAttackRelease([ev.note], ev.dur, baseAt + ev.t, ev.vel, env);
+      const endOffset = ev.t + ev.dur + (Number.isFinite(ev.releaseSec) ? ev.releaseSec : 1.05);
+      if (endOffset > maxEndOffset) maxEndOffset = endOffset;
+    });
+
+    const session = { instrument, tempGain, cleanupTimer: null };
+    this.activeWelcomeSession = session;
+    session.cleanupTimer = setTimeout(() => {
+      if (this.activeWelcomeSession === session) {
+        this.activeWelcomeSession = null;
+      }
+      if (session.tempGain) {
+        try { session.tempGain.disconnect(); } catch (_) {}
+      }
+    }, Math.ceil((maxEndOffset + 0.6) * 1000));
+
+    return true;
   }
 
   /**

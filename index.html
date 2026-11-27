@@ -190,7 +190,7 @@
             <input type="text" id="welcomeProfileNameInput" class="account-input" maxlength="24" placeholder="z. B. Alex" data-i18n-placeholder="space.namePlaceholder">
           </div>
           <div class="welcome-field">
-            <span class="account-label" data-i18n="space.instrumentsLabel">Deine Instrumente / Rollen</span>
+            <span class="account-label" data-i18n="space.instrumentsLabel">Deine Instrumente</span>
             <div id="welcomeInstrumentsGroup" class="profile-pills-wrap welcome-pills-wrap"></div>
           </div>
         </div>
@@ -1170,7 +1170,12 @@
         </div>
 
         <div class="account-field">
-          <span class="account-label" data-i18n="space.instrumentsLabel">Deine Instrumente / Rollen</span>
+          <span class="account-label" id="profileRoleLabel" data-i18n="space.roleLabel">Deine Rolle</span>
+          <div id="profileRoleDropdown" class="profile-multi-dropdown-host mix-single-dropdown-host"></div>
+        </div>
+
+        <div class="account-field">
+          <span class="account-label" data-i18n="space.instrumentsLabel">Deine Instrumente</span>
           <div id="profileInstrumentsGroup" class="profile-multi-dropdown-host"></div>
         </div>
 
@@ -2907,7 +2912,7 @@
         <button id="closeHomeworkShareBtn" class="modal-close-btn" type="button" aria-label="Schließen" data-i18n-aria="common.close">✕</button>
       </div>
       <div class="modal-body homework-modal-body">
-        <p class="homework-modal-intro" data-i18n="homework.shareIntro">Lass deine Schülerin den QR-Code scannen oder schicke den Link – er öffnet genau diese Übung mit den aktuellen Einstellungen, ganz ohne Konto oder Server.</p>
+        <p id="homeworkShareIntro" class="homework-modal-intro" data-i18n="homework.shareIntro">Lass deine Schülerin den QR-Code scannen oder schicke den Link – er öffnet genau diese Übung mit den aktuellen Einstellungen, ganz ohne Konto oder Server.</p>
         <div class="homework-summary-card">
           <strong id="homeworkShareSummaryTitle" class="homework-summary-title"></strong>
           <div id="homeworkShareSummaryChips" class="homework-chips"></div>

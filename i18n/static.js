@@ -2884,17 +2884,29 @@ registerColocatedStatic({
     tr: "ör. Adın (isteğe bağlı)",
     ar: "مثلًا: اسمك (اختياري)"
   },
+  "space.roleLabel": {
+    de: "Deine Rolle",
+    en: "Your role",
+    fr: "Votre rôle",
+    es: "Tu rol",
+    it: "Il tuo ruolo",
+    pl: "Twoja rola",
+    uk: "Твоя роль",
+    ur: "آپ کا کردار",
+    tr: "Rolün",
+    ar: "دورك"
+  },
   "space.instrumentsLabel": {
-    de: "Deine Instrumente / Rollen",
-    en: "Your instruments / roles",
-    fr: "Vos instruments / rôles",
-    es: "Tus instrumentos / roles",
-    it: "I tuoi strumenti / ruoli",
-    pl: "Twoje instrumenty / role",
-    uk: "Твої інструменти / ролі",
-    ur: "آپ کے ساز / کردار",
-    tr: "Enstrümanların / rollerin",
-    ar: "آلاتك / أدوارك"
+    de: "Deine Instrumente",
+    en: "Your instruments",
+    fr: "Vos instruments",
+    es: "Tus instrumentos",
+    it: "I tuoi strumenti",
+    pl: "Twoje instrumenty",
+    uk: "Твої інструменти",
+    ur: "آپ کے ساز",
+    tr: "Enstrümanların",
+    ar: "آلاتك الموسيقية"
   },
   "space.focusLabel": {
     de: "Trainings-Schwerpunkte",
@@ -6712,6 +6724,18 @@ registerColocatedStatic({
     tr: "Ödev olarak paylaş (bağlantı ve QR kod)",
     ar: "مشاركة كواجب منزلي (رابط ورمز QR)"
   },
+  "homework.exerciseHeaderBtnTitle": {
+    de: "Übung teilen (Link & QR-Code)",
+    en: "Share exercise (link & QR code)",
+    fr: "Partager l’exercice (lien et code QR)",
+    es: "Compartir ejercicio (enlace y código QR)",
+    it: "Condividi esercizio (link e codice QR)",
+    pl: "Udostępnij ćwiczenie (link i kod QR)",
+    uk: "Поділитися вправою (посилання і QR-код)",
+    ur: "مشق شیئر کریں (لنک اور کیو آر کوڈ)",
+    tr: "Alıştırmayı paylaş (bağlantı ve QR kod)",
+    ar: "مشاركة التمرين (رابط ورمز QR)"
+  },
   "homework.headerBtnAria": {
     de: "Als Hausaufgabe teilen",
     en: "Share as homework",
@@ -6723,6 +6747,18 @@ registerColocatedStatic({
     ur: "ہوم ورک کے طور پر شیئر کریں",
     tr: "Ödev olarak paylaş",
     ar: "مشاركة كواجب منزلي"
+  },
+  "homework.exerciseHeaderBtnAria": {
+    de: "Übung teilen",
+    en: "Share exercise",
+    fr: "Partager l’exercice",
+    es: "Compartir ejercicio",
+    it: "Condividi esercizio",
+    pl: "Udostępnij ćwiczenie",
+    uk: "Поділитися вправою",
+    ur: "مشق شیئر کریں",
+    tr: "Alıştırmayı paylaş",
+    ar: "مشاركة التمرين"
   },
   "homework.shareTitle": {
     de: "Hausaufgabe teilen",
@@ -6736,6 +6772,18 @@ registerColocatedStatic({
     tr: "Ödevi paylaş",
     ar: "مشاركة الواجب"
   },
+  "homework.exerciseShareTitle": {
+    de: "Übung teilen",
+    en: "Share exercise",
+    fr: "Partager l’exercice",
+    es: "Compartir ejercicio",
+    it: "Condividi esercizio",
+    pl: "Udostępnij ćwiczenie",
+    uk: "Поділитися вправою",
+    ur: "مشق شیئر کریں",
+    tr: "Alıştırmayı paylaş",
+    ar: "مشاركة التمرين"
+  },
   "homework.shareIntro": {
     de: "Lass deine Schülerin oder deinen Schüler den QR-Code scannen oder schicke den Link – er öffnet genau diese Übung mit den aktuellen Einstellungen, ganz ohne Konto oder Server.",
     en: "Let your student scan the QR code or send the link — it opens this exact exercise with the current settings, with no account or server needed.",
@@ -6747,6 +6795,18 @@ registerColocatedStatic({
     ur: "طالب علم کو کیو آر کوڈ اسکین کرنے دیں یا لنک بھیجیں — یہ موجودہ سیٹنگز کے ساتھ یہی مشق بغیر کسی اکاؤنٹ یا سرور کے کھول دیتا ہے۔",
     tr: "Öğrencinin QR kodu taramasını sağla veya bağlantıyı gönder — hesap ya da sunucu olmadan tam bu alıştırmayı mevcut ayarlarla açar.",
     ar: "دع الطالب يمسح رمز QR أو أرسل الرابط — يفتح هذا التمرين بالضبط بالإعدادات الحالية، دون حساب أو خادم."
+  },
+  "homework.exerciseShareIntro": {
+    de: "Teile den QR-Code oder schicke den Link – er öffnet genau diese Übung mit den aktuellen Einstellungen, ganz ohne Konto oder Server.",
+    en: "Share the QR code or send the link — it opens this exact exercise with the current settings, with no account or server needed.",
+    fr: "Partage le code QR ou envoie le lien : il ouvre exactement cet exercice avec les réglages actuels, sans compte ni serveur.",
+    es: "Comparte el código QR o envía el enlace: abre exactamente este ejercicio con los ajustes actuales, sin cuenta ni servidor.",
+    it: "Condividi il codice QR o invia il link: apre esattamente questo esercizio con le impostazioni attuali, senza account né server.",
+    pl: "Udostępnij kod QR lub wyślij link — otwiera dokładnie to ćwiczenie z bieżącymi ustawieniami, bez konta i serwera.",
+    uk: "Поділися QR-кодом або надішли посилання — воно відкриє саме цю вправу з поточними налаштуваннями, без облікового запису й сервера.",
+    ur: "کیو آر کوڈ شیئر کریں یا لنک بھیجیں — یہ موجودہ سیٹنگز کے ساتھ یہی مشق بغیر کسی اکاؤنٹ یا سرور کے کھول دیتا ہے۔",
+    tr: "QR kodu paylaş veya bağlantıyı gönder — hesap ya da sunucu olmadan tam bu alıştırmayı mevcut ayarlarla açar.",
+    ar: "شارك رمز QR أو أرسل الرابط — يفتح هذا التمرين بالضبط بالإعدادات الحالية، دون حساب أو خادم."
   },
   "homework.linkLabel": {
     de: "Direktlink",
@@ -6795,6 +6855,18 @@ registerColocatedStatic({
     ur: "آپ کا ہوم ورک",
     tr: "Ödevin",
     ar: "واجبك المنزلي"
+  },
+  "homework.exerciseStartHeading": {
+    de: "Geteilte Übung",
+    en: "Shared exercise",
+    fr: "Exercice partagé",
+    es: "Ejercicio compartido",
+    it: "Esercizio condiviso",
+    pl: "Udostępnione ćwiczenie",
+    uk: "Поділена вправа",
+    ur: "شیئر کی گئی مشق",
+    tr: "Paylaşılan alıştırma",
+    ar: "تمرين مشترك"
   },
   "homework.startLaunchBtn": {
     de: "▶ Loslegen",

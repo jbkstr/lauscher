@@ -951,6 +951,7 @@ function initCapacitorNativeBridge() {
  */
 function stopAllAudioSessionsForBackground() {
   stopPlayback();
+  audioEngine?.stopOnboardingWelcomeMelody?.();
   if (typeof stopMetronome === "function") stopMetronome();
   if (typeof pauseWarmupSession === "function") pauseWarmupSession({ keepPlayback: false });
   if (typeof stopTunerSession === "function") stopTunerSession();

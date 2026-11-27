@@ -453,6 +453,7 @@ function applyStaticDomLanguage(lang = getAppLanguage()) {
   });
 
   syncLanguageSelectOptions(activeLang);
+  if (typeof syncHomeworkRoleCopy === "function") syncHomeworkRoleCopy();
 }
 
 function getLocalizedTable(tableName, lang = getAppLanguage()) {
@@ -485,6 +486,13 @@ function localizeEntryByTable(base, tableName, key) {
 function getLocalizedQuotes() {
   if (getAppLanguage() === "de") return LAUSCHEBAER_QUOTES;
   return getLocalizedTable("quotes") || LOCALIZED_TABLES_BY_LANG.en?.quotes || LAUSCHEBAER_QUOTES;
+}
+
+function getLocalizedProfileRole(key) {
+  const base = PROFILE_ROLE_OPTIONS[key] || PROFILE_ROLE_OPTIONS[PROFILE_ROLE_DEFAULT];
+  if (getAppLanguage() === "de") return base;
+  const patch = getLocalizedTableEntry("profileRoles", base.key);
+  return patch ? { ...base, ...patch } : base;
 }
 
 function getLocalizedProfileInstrumentLabel(key) {

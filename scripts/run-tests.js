@@ -1438,6 +1438,88 @@ runTest("Entdecker-Modus & Eltern-PIN: Hash, Sperre, Filter & Hausaufgaben-Freig
   assert.equal(sb.document.documentElement.getAttribute("data-explorer-mode"), null);
 });
 
+runTest("Profil-Rolle: Entkopplung, Sanitization, i18n & rollenabhängige Teilen-Texte", () => {
+  const st = getLex("state");
+  const roles = getLex("PROFILE_ROLE_OPTIONS");
+  const defRole = getLex("PROFILE_ROLE_DEFAULT");
+  assert.equal(defRole, "self");
+  assert.deepEqual(Object.keys(roles), ["self", "student", "teacher", "parent", "ensemble"]);
+
+  const defProfile = sb.createDefaultProfile();
+  assert.equal(defProfile.role, "self");
+
+  // Sanitization: gültige Rolle bleibt, ungültige oder fehlende fällt auf "self" zurück
+  assert.equal(sb.sanitizeUserProfile({ role: "teacher", instruments: ["Gitarre"] }).role, "teacher");
+  assert.equal(sb.sanitizeUserProfile({ role: "student" }).role, "student");
+  assert.equal(sb.sanitizeUserProfile({ role: "ungueltig" }).role, "self");
+  assert.equal(sb.sanitizeUserProfile({}).role, "self");
+
+  // Alle Rollen haben Übersetzungen in allen 10 Sprachen
+  const langs = getLex("VALID_LANGUAGES");
+  langs.forEach(lang => {
+    st.settings.language = lang;
+    Object.keys(roles).forEach(rk => {
+      const loc = sb.getLocalizedProfileRole(rk);
+      assert.ok(loc && typeof loc.label === "string" && loc.label.length > 0, `Rolle ${rk} fehlt in ${lang}`);
+      assert.ok(typeof loc.hint === "string" && loc.hint.length > 0, `Rollen-Hint ${rk} fehlt in ${lang}`);
+    });
+  });
+  st.settings.language = "de";
+
+  // Rollenabhängige Texte für Teilen / Hausaufgaben
+  const prevRole = st.profile.role;
+  st.profile.role = "teacher";
+  assert.equal(sb.isTeacherShareRole(), true);
+  assert.equal(sb.isHomeworkReceiveRole(), true);
+  assert.equal(sb.getHomeworkShareActionLabel(), "Als Hausaufgabe teilen");
+
+  st.profile.role = "student";
+  assert.equal(sb.isTeacherShareRole(), false);
+  assert.equal(sb.isHomeworkReceiveRole(), true);
+  assert.equal(sb.getHomeworkShareActionLabel(), "Übung teilen");
+
+  st.profile.role = "self";
+  assert.equal(sb.isTeacherShareRole(), false);
+  assert.equal(sb.isHomeworkReceiveRole(), false);
+  assert.equal(sb.getHomeworkShareActionLabel(), "Übung teilen");
+
+  st.profile.role = prevRole;
+});
+
+runTest("Onboarding-Willkommensmelodie: Klavier-Komposition & Schutz vor stopPlayback()", () => {
+  const melody = getLex("ONBOARDING_WELCOME_MELODY");
+  const SampledInst = getLex("EarLabSampledInstrument");
+  const Engine = getLex("AudioEngine");
+  assert.ok(Array.isArray(melody) && melody.length >= 16);
+
+  // Jede Note muss gültig sein, Spielzeit zwischen 3 und 5 Sekunden
+  let maxStart = 0;
+  melody.forEach(ev => {
+    const midi = SampledInst.noteToMidi(ev.note);
+    assert.ok(Number.isInteger(midi) && midi >= 36 && midi <= 96, `Ungültige Note: ${ev.note}`);
+    assert.ok(ev.t >= 0 && ev.dur > 0 && ev.vel > 0 && ev.vel <= 1);
+    if (ev.t > maxStart) maxStart = ev.t;
+  });
+  assert.ok(maxStart >= 3.0 && maxStart <= 5.0, `Melodie-Länge außerhalb 3–5 s: ${maxStart}`);
+
+  // stopPlayback() darf eine laufende Welcome-Session NICHT vorzeitig abbrechen
+  const engine = new Engine();
+  let released = false;
+  engine.activeWelcomeSession = {
+    instrument: { releaseAll() { released = true; } },
+    tempGain: null,
+    cleanupTimer: null
+  };
+  engine.stopPlayback();
+  assert.equal(released, false, "stopPlayback() darf die Onboarding-Melodie nicht stoppen");
+  assert.ok(engine.activeWelcomeSession, "activeWelcomeSession muss bei stopPlayback() erhalten bleiben");
+
+  // Explizites stopOnboardingWelcomeMelody() (z. B. App-Hintergrund) stoppt sie sauber
+  engine.stopOnboardingWelcomeMelody();
+  assert.equal(released, true, "stopOnboardingWelcomeMelody() muss die Melodie sauber beenden");
+  assert.equal(engine.activeWelcomeSession, null);
+});
+
 // Ergebnis-Ausgabe
 const failed = results.filter(r => !r.ok);
 for (const r of results) {

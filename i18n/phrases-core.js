@@ -7878,6 +7878,10 @@ registerColocatedPhrases({
     fr: "Partager en devoir", es: "Compartir como tarea", it: "Condividi come compito", pl: "Udostępnij jako zadanie domowe",
     uk: "Поділитися як домашнім завданням", ur: "ہوم ورک کے طور پر شیئر کریں", tr: "Ödev olarak paylaş", ar: "مشاركة كواجب منزلي"
   },
+  "Übung teilen": {
+    fr: "Partager l’exercice", es: "Compartir ejercicio", it: "Condividi esercizio", pl: "Udostępnij ćwiczenie",
+    uk: "Поділитися вправою", ur: "مشق شیئر کریں", tr: "Alıştırmayı paylaş", ar: "مشاركة التمرين"
+  },
   "Intervalle • Eigene Auswahl": {
     fr: "Intervalles • Sélection libre", es: "Intervalos • Selección propia", it: "Intervalli • Selezione libera", pl: "Interwały • Własny wybór",
     uk: "Інтервали • Власний вибір", ur: "وقفے • ذاتی انتخاب", tr: "Aralıklar • Özel seçim", ar: "المسافات • اختيار مخصص"
@@ -7930,6 +7934,10 @@ registerColocatedPhrases({
     fr: "Code QR pour ce devoir", es: "Código QR para esta tarea", it: "Codice QR per questo compito", pl: "Kod QR dla tego zadania",
     uk: "QR-код для цього завдання", ur: "اس ہوم ورک کے لیے کیو آر کوڈ", tr: "Bu ödev için QR kod", ar: "رمز QR لهذا الواجب"
   },
+  "QR-Code für diese Übung": {
+    fr: "Code QR pour cet exercice", es: "Código QR para este ejercicio", it: "Codice QR per questo esercizio", pl: "Kod QR dla tego ćwiczenia",
+    uk: "QR-код для цієї вправи", ur: "اس مشق کے لیے کیو آر کوڈ", tr: "Bu alıştırma için QR kod", ar: "رمز QR لهذا التمرين"
+  },
   "Link ist für einen QR-Code zu lang – bitte kopieren.": {
     fr: "Le lien est trop long pour un code QR — merci de le copier.",
     es: "El enlace es demasiado largo para un código QR; cópialo.",
@@ -7944,6 +7952,10 @@ registerColocatedPhrases({
     fr: "Lien du devoir copié", es: "Enlace de la tarea copiado", it: "Link del compito copiato", pl: "Skopiowano link do zadania",
     uk: "Посилання на завдання скопійовано", ur: "ہوم ورک کا لنک کاپی ہو گیا", tr: "Ödev bağlantısı kopyalandı", ar: "تم نسخ رابط الواجب"
   },
+  "Übungs-Link kopiert": {
+    fr: "Lien de l’exercice copié", es: "Enlace del ejercicio copiado", it: "Link dell’esercizio copiato", pl: "Skopiowano link do ćwiczenia",
+    uk: "Посилання на вправу скопійовано", ur: "مشق کا لنک کاپی ہو گیا", tr: "Alıştırma bağlantısı kopyalandı", ar: "تم نسخ رابط التمرين"
+  },
   "Bitte Link manuell kopieren": {
     fr: "Copie le lien manuellement", es: "Copia el enlace manualmente", it: "Copia il link manualmente", pl: "Skopiuj link ręcznie",
     uk: "Скопіюй посилання вручну", ur: "براہِ کرم لنک خود کاپی کریں", tr: "Lütfen bağlantıyı elle kopyala", ar: "يرجى نسخ الرابط يدويًا"
@@ -7951,6 +7963,10 @@ registerColocatedPhrases({
   "Lauscher Hausaufgabe": {
     fr: "Devoir Lauscher", es: "Tarea de Lauscher", it: "Compito Lauscher", pl: "Zadanie domowe Lauscher",
     uk: "Домашнє завдання Lauscher", ur: "Lauscher ہوم ورک", tr: "Lauscher Ödevi", ar: "واجب Lauscher"
+  },
+  "Lauscher Übung": {
+    fr: "Exercice Lauscher", es: "Ejercicio de Lauscher", it: "Esercizio Lauscher", pl: "Ćwiczenie Lauscher",
+    uk: "Вправа Lauscher", ur: "Lauscher مشق", tr: "Lauscher Alıştırması", ar: "تمرين Lauscher"
   },
   "Als Übe-Mix speichern": {
     fr: "Enregistrer comme mix", es: "Guardar como mezcla", it: "Salva come mix", pl: "Zapisz jako miks",
@@ -7963,6 +7979,10 @@ registerColocatedPhrases({
   "Hausaufgabe als Übe-Mix gespeichert": {
     fr: "Devoir enregistré comme mix", es: "Tarea guardada como mezcla", it: "Compito salvato come mix", pl: "Zadanie zapisane jako miks",
     uk: "Завдання збережено як мікс", ur: "ہوم ورک مشقی مکس کے طور پر محفوظ ہو گیا", tr: "Ödev çalışma karması olarak kaydedildi", ar: "تم حفظ الواجب كمزيج تدريب"
+  },
+  "Übung als Übe-Mix gespeichert": {
+    fr: "Exercice enregistré comme mix", es: "Ejercicio guardado como mezcla", it: "Esercizio salvato come mix", pl: "Ćwiczenie zapisane jako miks",
+    uk: "Вправу збережено як мікс", ur: "مشق مشقی مکس کے طور پر محفوظ ہو گئی", tr: "Alıştırma çalışma karması olarak kaydedildi", ar: "تم حفظ التمرين كمزيج تدريب"
   },
   "{n} Bereiche": {
     fr: "{n} plages", es: "{n} rangos", it: "{n} estensioni", pl: "{n} zakresy",

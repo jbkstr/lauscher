@@ -1229,6 +1229,14 @@ function saveVisualPrefs(
 }
 
 const PERSONAL_PROFILE_STORAGE_KEY = "lauschebaer_profile_v1";
+const PROFILE_ROLE_DEFAULT = "self";
+const PROFILE_ROLE_OPTIONS = {
+  self:     { key: "self",     label: "Selbstlerner",      hint: "Ich übe eigenständig für mich" },
+  student:  { key: "student",  label: "Schüler / Student", hint: "Ich habe Unterricht oder studiere Musik" },
+  teacher:  { key: "teacher",  label: "Lehrkraft",         hint: "Ich unterrichte und gebe Aufgaben auf" },
+  parent:   { key: "parent",   label: "Eltern / Familie",  hint: "Ich begleite ein Kind beim Üben" },
+  ensemble: { key: "ensemble", label: "Band / Chor",       hint: "Ich musiziere gemeinsam mit anderen" }
+};
 const PROFILE_INSTRUMENT_OPTIONS = ["Klavier", "Gitarre", "Gesang", "Bass", "Percussion", "Streicher", "Bläser", "Produktion"];
 const PROFILE_FOCUS_OPTIONS = {
   allround:   { key: "allround",   label: "Allrounder",           hint: "Quer durch alle Übungen",          mode: "cadence" },
@@ -2597,6 +2605,7 @@ function createDefaultProfile() {
   return {
     schemaVersion: PROFILE_SCHEMA_VERSION,
     name: "",
+    role: PROFILE_ROLE_DEFAULT,
     instruments: ["Klavier"],
     focus: "allround",
     focuses: ["allround"],
@@ -2804,6 +2813,9 @@ function sanitizeUserProfile(raw) {
   const def = createDefaultProfile();
   if (!raw || typeof raw !== "object") return def;
 
+  const validRole = (typeof raw.role === "string" && Object.prototype.hasOwnProperty.call(PROFILE_ROLE_OPTIONS, raw.role))
+    ? raw.role
+    : PROFILE_ROLE_DEFAULT;
   const validInstruments = Array.isArray(raw.instruments)
     ? Array.from(new Set(
         raw.instruments
@@ -2840,6 +2852,7 @@ function sanitizeUserProfile(raw) {
   return {
     schemaVersion: PROFILE_SCHEMA_VERSION,
     name: String(raw.name || "").trim().slice(0, 24),
+    role: validRole,
     instruments: validInstruments,
     focus: focuses[0] || "allround",
     focuses: focuses,

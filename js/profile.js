@@ -556,6 +556,10 @@ function renderProfileMixes() {
     return;
   }
 
+  const shareMixLabel = typeof getHomeworkShareActionLabel === "function"
+    ? getHomeworkShareActionLabel()
+    : tr("Übung teilen", "Share exercise");
+
   listEl.innerHTML = mixes.map(mix => `
     <div class="account-mix-item" data-mix-id="${escapeHtml(mix.id)}">
       <div class="account-mix-info">
@@ -564,7 +568,7 @@ function renderProfileMixes() {
       </div>
       <div class="account-mix-actions">
         <button type="button" class="btn-tool" data-launch-mix="${escapeHtml(mix.id)}">${tr("▶ Starten", "▶ Start")}</button>
-        <button type="button" class="account-mix-share" data-share-mix="${escapeHtml(mix.id)}" title="${tr("Als Hausaufgabe teilen", "Share as homework")}" aria-label="${tr("Als Hausaufgabe teilen", "Share as homework")}">
+        <button type="button" class="account-mix-share" data-share-mix="${escapeHtml(mix.id)}" title="${escapeHtml(shareMixLabel)}" aria-label="${escapeHtml(shareMixLabel)}">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <rect x="3" y="3" width="7" height="7" rx="1"/>
             <rect x="14" y="3" width="7" height="7" rx="1"/>
@@ -1160,18 +1164,51 @@ function renderProfileAccountView() {
       : tr("Dein Musiker-Profil", "Your Musician Profile");
   }
   if (subEl) {
+    const roleDef = typeof getLocalizedProfileRole === "function"
+      ? getLocalizedProfileRole(p.role)
+      : (PROFILE_ROLE_OPTIONS[p.role] || PROFILE_ROLE_OPTIONS[PROFILE_ROLE_DEFAULT]);
     const instText = p.instruments && p.instruments.length > 0
       ? p.instruments.map(getLocalizedProfileInstrumentLabel).join(" • ")
       : tr("Kein Instrument gewählt", "No instrument selected");
     const focusSummary = focusDefs.length === 1
       ? focusDefs[0].hint
       : focusDefs.map(d => d.label).join(" • ");
-    subEl.textContent = `${instText} — ${focusSummary}`;
+    subEl.textContent = `${roleDef.label} • ${instText} — ${focusSummary}`;
   }
 
   const nameInput = document.getElementById("profileNameInput");
   if (nameInput && nameInput.value !== p.name) {
     nameInput.value = p.name;
+  }
+
+  const roleWrap = document.getElementById("profileRoleDropdown");
+  if (roleWrap) {
+    const activeRole = Object.prototype.hasOwnProperty.call(PROFILE_ROLE_OPTIONS, p.role)
+      ? p.role
+      : PROFILE_ROLE_DEFAULT;
+    const roleOptions = Object.values(PROFILE_ROLE_OPTIONS).map(opt => {
+      const def = typeof getLocalizedProfileRole === "function" ? getLocalizedProfileRole(opt.key) : opt;
+      return {
+        key: opt.key,
+        label: def.label,
+        hint: def.hint
+      };
+    });
+    renderProfileSingleDropdown({
+      containerEl: roleWrap,
+      key: "profile-role",
+      options: roleOptions,
+      selectedKey: activeRole,
+      ariaLabelledBy: "profileRoleLabel",
+      onSelect: (nextRole) => {
+        if (!Object.prototype.hasOwnProperty.call(PROFILE_ROLE_OPTIONS, nextRole)) return;
+        state.profile.role = nextRole;
+        saveUserProfile(state.profile);
+        if (typeof syncHomeworkRoleCopy === "function") syncHomeworkRoleCopy();
+        renderProfileAccountView();
+        renderHomeProfileGreeting();
+      }
+    });
   }
 
   const instWrap = document.getElementById("profileInstrumentsGroup");
@@ -1329,6 +1366,7 @@ function renderProfileAccountView() {
   renderProfileMixes();
   renderMixCreatorDropdowns();
   renderCustomThemeSection();
+  if (typeof syncHomeworkRoleCopy === "function") syncHomeworkRoleCopy();
 }
 
 function getThemeEditorTemplateColors(templateKey) {
