@@ -1568,6 +1568,18 @@ class AudioEngine {
     }
   }
 
+  /**
+   * Gibt die Base64-Quelltexte eines erfolgreich decodierten Packs frei. Nach dem Decodieren liegen die
+   * Töne als AudioBuffer vor; die Strings (zusammen ~13 MB, im JS-Heap doppelt so viel) braucht niemand mehr.
+   * Jeder Pack wird pro Seitenaufruf nur einmal decodiert (sampledStems / store.samples verhindern Wiederholungen).
+   */
+  releasePackSourceStrings(pack) {
+    if (pack && pack.notes && typeof pack.notes === "object") {
+      pack.notes = {};
+      pack.notesReleased = true;
+    }
+  }
+
   async decodeSamplePackBuffers(pack, normalizeNoteKeys = true, isBackgroundWave = false) {
     const rawCtx = this.getRawAudioContext();
     if (!pack || !pack.notes || !rawCtx || typeof rawCtx.createBufferSource !== "function") return null;
@@ -1671,6 +1683,8 @@ class AudioEngine {
           velocityLayerStore
         }, isBackgroundWave);
         if (!decoded) return;
+        // Hauptlayer liegt jetzt als AudioBuffer vor (Velocity-Layer bleiben bis zu ihrem eigenen Bedarf)
+        this.releasePackSourceStrings(packs[stemKey]);
 
         // Evtl. noch klingende Fallback-Synth-Stimmen weich verabschieden
         this[`${stemKey}FallbackSynth`]?.releaseAll?.();
@@ -1780,7 +1794,10 @@ class AudioEngine {
           store.loading[name] = engine.decodeSamplePackBuffers({ notes: defs[name].notes || {} }, true, true)
             .then(decoded => {
               const list = decoded ? EarLabSampledInstrument.buildSampleList(decoded.bufferMap) : [];
-              if (list.length > 0) store.samples[name] = list;
+              if (list.length > 0) {
+                store.samples[name] = list;
+                engine.releasePackSourceStrings(defs[name]);
+              }
             })
             .catch(err => {
               console.warn(`Velocity-Layer "${stemKey}/${name}" konnte nicht decodiert werden:`, err);
@@ -1804,7 +1821,14 @@ class AudioEngine {
     if (!stemKey || this.sampledStems[stemKey] || this.stemLoadingPromises[stemKey]) return;
     const packs = typeof window !== "undefined" ? window.EARLAB_SAMPLE_PACKS : null;
     const cfg = SAMPLED_STEM_CONFIG[stemKey];
-    if (!packs?.[stemKey] || !cfg) return;
+    if (!cfg) return;
+    if (!packs?.[stemKey]) {
+      // Bundle noch unterwegs: nach dem Eintreffen einmal erneut versuchen
+      if (isSamplePackBundlePending(stemKey)) {
+        waitForSamplePackBundle(stemKey).then(ok => { if (ok) this.prioritizeStemDecode(stemKey); });
+      }
+      return;
+    }
     this.loadSingleSampledStem(stemKey, cfg, packs, this.stemLevels, false).catch(() => {});
   }
 
@@ -1826,6 +1850,7 @@ class AudioEngine {
       });
 
       const loadPercussionPack = async () => {
+        await waitForSamplePackBundle("percussion");
         if (!packs.percussion || this.percUsingSamples) return;
         try {
           const decodedPerc = await this.decodeSamplePackBuffers(packs.percussion, false, false);
@@ -1836,6 +1861,7 @@ class AudioEngine {
             this.percSampleGain.connect(this.masterGain);
             this.percSamples = decodedPerc.bufferMap;
             this.percUsingSamples = true;
+            this.releasePackSourceStrings(packs.percussion);
           }
         } catch (percErr) {
           console.warn("Percussion-Sample-Pack konnte nicht decodiert werden, nutze Synth-Fallback:", percErr);
@@ -1852,11 +1878,13 @@ class AudioEngine {
       const runWave1 = async () => {
         const pianoEntry = priorityEntries.find(([k]) => k === "piano");
         if (pianoEntry) {
+          await waitForSamplePackBundle("piano");
           await this.loadSingleSampledStem(pianoEntry[0], pianoEntry[1], packs, levelMap, false);
         }
         await loadPercussionPack();
         for (const [stemKey, cfg] of priorityEntries) {
           if (stemKey === "piano") continue;
+          await waitForSamplePackBundle(stemKey);
           await this.loadSingleSampledStem(stemKey, cfg, packs, levelMap, false);
         }
         this.wave1SamplesReady = true;
@@ -1872,6 +1900,7 @@ class AudioEngine {
       if (shouldDeferInactiveStemDecode()) return;
       for (const [stemKey, cfg] of wave2Entries) {
         if (this.sampledStems[stemKey]) continue;
+        await waitForSamplePackBundle(stemKey);
         await this.waitForPlaybackBreath(1400);
         await this.loadSingleSampledStem(stemKey, cfg, packs, levelMap, true);
       }
@@ -3337,3 +3366,46 @@ class AudioEngine {
 }
 
 const audioEngine = new AudioEngine();
+
+// ---------------------------------------------------------------------------
+// Sample-Bundles nicht-blockierend laden
+// index.html führt die Instrument-Bundles als Platzhalter mit data-lazy-sample und data-lazy-src
+// auf (Platzhalter vom Typ text/plain). Sie werden hier sofort im Hintergrund geladen (Reihenfolge wie in index.html, Klavier zuerst), ohne
+// den ersten Bildaufbau zu blockieren. Die Engine wartet per waitForSamplePackBundle() auf das jeweilige Pack.
+// Im Mobile-Bundle sind die Samples eingebettet, dann gibt es keine Platzhalter.
+// ---------------------------------------------------------------------------
+const _samplePackBundleLoads = {};
+
+function startSamplePackBundleLoading() {
+  if (typeof window === "undefined" || typeof document === "undefined" || !document.querySelectorAll) return;
+  window.EARLAB_SAMPLE_PACKS = window.EARLAB_SAMPLE_PACKS || {};
+  document.querySelectorAll("script[data-lazy-sample][data-lazy-src]").forEach(placeholder => {
+    const key = placeholder.getAttribute("data-lazy-sample");
+    if (!key || _samplePackBundleLoads[key] || window.EARLAB_SAMPLE_PACKS[key]) return;
+    const entry = { pending: true, promise: null };
+    entry.promise = new Promise(resolve => {
+      const script = document.createElement("script");
+      script.src = placeholder.getAttribute("data-lazy-src");
+      script.async = false; // parallel laden, aber in fester Reihenfolge ausführen
+      script.onload = () => { entry.pending = false; resolve(Boolean(window.EARLAB_SAMPLE_PACKS[key])); };
+      script.onerror = () => {
+        entry.pending = false;
+        console.warn(`Sample-Bundle "${key}" konnte nicht geladen werden, nutze Synth-Fallback.`);
+        resolve(false);
+      };
+      document.head.appendChild(script);
+    });
+    _samplePackBundleLoads[key] = entry;
+  });
+}
+
+function isSamplePackBundlePending(key) {
+  return Boolean(_samplePackBundleLoads[key]?.pending);
+}
+
+function waitForSamplePackBundle(key) {
+  if (typeof window !== "undefined" && window.EARLAB_SAMPLE_PACKS?.[key]) return Promise.resolve(true);
+  return _samplePackBundleLoads[key]?.promise || Promise.resolve(false);
+}
+
+startSamplePackBundleLoading();

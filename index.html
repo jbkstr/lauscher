@@ -3164,13 +3164,16 @@
 
   <div id="appToast" class="app-toast hidden" role="status" aria-live="polite"></div>
 
-  <script src="samples/piano-bundle.js"></script>
-  <script src="samples/guitar-bundle.js"></script>
-  <script src="samples/strings-bundle.js"></script>
-  <script src="samples/brass-bundle.js"></script>
-  <script src="samples/bass-bundle.js"></script>
-  <script src="samples/percussion-bundle.js"></script>
-  <script src="samples/voice-bundle.js"></script>
+  <!-- Instrument-Samples (~12 MB) blockieren den Start nicht: audio.js lädt sie sofort im Hintergrund nach
+       (startSamplePackBundleLoading). Build-, Sync-, SW- und Prüfskripte finden sie über data-lazy-src;
+       das Mobile-Bundle bettet sie normal ein. -->
+  <script type="text/plain" data-lazy-sample="piano" data-lazy-src="samples/piano-bundle.js"></script>
+  <script type="text/plain" data-lazy-sample="percussion" data-lazy-src="samples/percussion-bundle.js"></script>
+  <script type="text/plain" data-lazy-sample="guitar" data-lazy-src="samples/guitar-bundle.js"></script>
+  <script type="text/plain" data-lazy-sample="strings" data-lazy-src="samples/strings-bundle.js"></script>
+  <script type="text/plain" data-lazy-sample="brass" data-lazy-src="samples/brass-bundle.js"></script>
+  <script type="text/plain" data-lazy-sample="bass" data-lazy-src="samples/bass-bundle.js"></script>
+  <script type="text/plain" data-lazy-sample="voice" data-lazy-src="samples/voice-bundle.js"></script>
   <script src="audio.js"></script>
   <script src="i18n.js"></script>
   <script src="i18n/static.js"></script>
@@ -3184,15 +3187,17 @@
   <script src="i18n/notation-terms.js"></script>
   <script src="i18n/achievements.js"></script>
   <script src="knowledge-en.js"></script>
-  <script src="knowledge-fr.js"></script>
   <script src="knowledge.js"></script>
-  <script src="knowledge-es.js"></script>
-  <script src="knowledge-it.js"></script>
-  <script src="knowledge-pl.js"></script>
-  <script src="knowledge-tr.js"></script>
-  <script src="knowledge-uk.js"></script>
-  <script src="knowledge-ur.js"></script>
-  <script src="knowledge-ar.js"></script>
+  <!-- Wissens-Sprachen außer DE/EN werden nur bei Bedarf geladen (ensureKnowledgeLanguageLoaded in knowledge.js).
+       Build-, Sync-, SW- und Prüfskripte finden die Dateien trotzdem über data-lazy-src; das Mobile-Bundle bettet sie normal ein. -->
+  <script type="text/plain" data-lazy-lang="fr" data-lazy-src="knowledge-fr.js"></script>
+  <script type="text/plain" data-lazy-lang="es" data-lazy-src="knowledge-es.js"></script>
+  <script type="text/plain" data-lazy-lang="it" data-lazy-src="knowledge-it.js"></script>
+  <script type="text/plain" data-lazy-lang="pl" data-lazy-src="knowledge-pl.js"></script>
+  <script type="text/plain" data-lazy-lang="tr" data-lazy-src="knowledge-tr.js"></script>
+  <script type="text/plain" data-lazy-lang="uk" data-lazy-src="knowledge-uk.js"></script>
+  <script type="text/plain" data-lazy-lang="ur" data-lazy-src="knowledge-ur.js"></script>
+  <script type="text/plain" data-lazy-lang="ar" data-lazy-src="knowledge-ar.js"></script>
   <script src="version.js"></script>
   <script src="legal.js"></script>
   <script src="js/catalogs.js"></script>

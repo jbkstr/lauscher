@@ -146,6 +146,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (typeof applyStaticDomLanguage === "function") {
     applyStaticDomLanguage(state.settings.language);
   }
+  // Wissenstexte der aktiven Sprache (außer DE/EN) nachladen; bis dahin gilt der englische Fallback
+  requestKnowledgeLanguage(state.settings.language);
   syncLanguageControls(state.settings.language);
   // Kopfzeilen-Titel ("Übungen") steht statisch in index.html – beim Start in der aktiven Sprache setzen.
   state.updateHeaderSubtext();

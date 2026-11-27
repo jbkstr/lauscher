@@ -1,6 +1,12 @@
 // Lauscher • Service Worker (automatisch erzeugt von scripts/build-sw.py – nicht von Hand bearbeiten)
+//
+// Zwei Caches:
+// - App-Hülle (Code, Styles, Fonts, Icons): Name enthält Version + Inhalts-Hash, wird bei jeder Änderung neu geladen.
+// - Samples (große *-bundle.js): ein dauerhafter Cache, Einträge pro Datei mit Inhalts-Hash im Schlüssel.
+//   Ein Update lädt nur Sample-Dateien neu, die sich wirklich geändert haben.
 const CACHE_PREFIX = "lauscher-";
-const CACHE_NAME = "lauscher-0.14.0-beta-b10-d48cf9880b08";
+const CACHE_NAME = "lauscher-0.14.0-beta-b10-81a6ac1c900c";
+const SAMPLES_CACHE_NAME = "lauscher-samples";
 const PRECACHE_URLS = [
   "./",
   "./index.html",
@@ -9,15 +15,6 @@ const PRECACHE_URLS = [
   "./terms.html",
   "./licenses.html",
   "./styles.css",
-  "./samples/mascot-bundle.js",
-  "./samples/mascot-metal-bundle.js",
-  "./samples/piano-bundle.js",
-  "./samples/guitar-bundle.js",
-  "./samples/strings-bundle.js",
-  "./samples/brass-bundle.js",
-  "./samples/bass-bundle.js",
-  "./samples/percussion-bundle.js",
-  "./samples/voice-bundle.js",
   "./audio.js",
   "./i18n.js",
   "./i18n/static.js",
@@ -31,8 +28,8 @@ const PRECACHE_URLS = [
   "./i18n/notation-terms.js",
   "./i18n/achievements.js",
   "./knowledge-en.js",
-  "./knowledge-fr.js",
   "./knowledge.js",
+  "./knowledge-fr.js",
   "./knowledge-es.js",
   "./knowledge-it.js",
   "./knowledge-pl.js",
@@ -83,38 +80,66 @@ const PRECACHE_URLS = [
   "./icons/icon-192.png",
   "./icons/icon-512.png"
 ];
+// Sample-Datei → versionierter Cache-Schlüssel
+const SAMPLE_CACHE_KEYS = {
+  "./samples/mascot-bundle.js": "./samples/mascot-bundle.js?h=49945bef884c",
+  "./samples/mascot-metal-bundle.js": "./samples/mascot-metal-bundle.js?h=98d0ca9500a0",
+  "./samples/piano-bundle.js": "./samples/piano-bundle.js?h=af6fe2445048",
+  "./samples/percussion-bundle.js": "./samples/percussion-bundle.js?h=330c2f47200a",
+  "./samples/guitar-bundle.js": "./samples/guitar-bundle.js?h=6aedc8876231",
+  "./samples/strings-bundle.js": "./samples/strings-bundle.js?h=c85d47494fa7",
+  "./samples/brass-bundle.js": "./samples/brass-bundle.js?h=9ba6b61607ce",
+  "./samples/bass-bundle.js": "./samples/bass-bundle.js?h=dd3c982724cd",
+  "./samples/voice-bundle.js": "./samples/voice-bundle.js?h=4d8bf0fb66fc"
+};
+
+const SAMPLE_KEY_BY_HREF = new Map(
+  Object.entries(SAMPLE_CACHE_KEYS).map(([url, key]) => [new URL(url, self.location).href, key])
+);
+
+async function runQueue(items, concurrency, task) {
+  const queue = items.slice();
+  const worker = async () => {
+    while (queue.length > 0) await task(queue.shift());
+  };
+  await Promise.all(Array.from({ length: Math.min(concurrency, queue.length) }, worker));
+}
+
+async function fetchForCache(url) {
+  const response = await fetch(new Request(url, { cache: "reload" }));
+  if (!response.ok) throw new Error(`Precache fehlgeschlagen (${response.status}): ${url}`);
+  return response;
+}
 
 self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(async (cache) => {
-      const queue = PRECACHE_URLS.slice();
-      const concurrency = 6;
-      const worker = async () => {
-        while (queue.length > 0) {
-          const url = queue.shift();
-          const request = new Request(url, { cache: "reload" });
-          const response = await fetch(request);
-          if (!response.ok) {
-            throw new Error(`Precache fehlgeschlagen (${response.status}): ${url}`);
-          }
-          await cache.put(url, response);
-        }
-      };
-      await Promise.all(Array.from({ length: Math.min(concurrency, queue.length) }, worker));
-    }).then(() => self.skipWaiting())
-  );
+  event.waitUntil((async () => {
+    const shell = await caches.open(CACHE_NAME);
+    await runQueue(PRECACHE_URLS, 6, async (url) => {
+      await shell.put(url, await fetchForCache(url));
+    });
+    const samples = await caches.open(SAMPLES_CACHE_NAME);
+    await runQueue(Object.entries(SAMPLE_CACHE_KEYS), 3, async ([url, key]) => {
+      if (await samples.match(key)) return; // unverändert → nicht erneut laden
+      await samples.put(key, await fetchForCache(url));
+    });
+    await self.skipWaiting();
+  })());
 });
 
 self.addEventListener("activate", (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(
-        keys
-          .filter((key) => key.startsWith(CACHE_PREFIX) && key !== CACHE_NAME)
-          .map((key) => caches.delete(key))
-      )
-    )
-  );
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(
+      keys
+        .filter((key) => key.startsWith(CACHE_PREFIX) && key !== CACHE_NAME && key !== SAMPLES_CACHE_NAME)
+        .map((key) => caches.delete(key))
+    );
+    // Veraltete Sample-Versionen entfernen
+    const samples = await caches.open(SAMPLES_CACHE_NAME);
+    const wanted = new Set(Object.values(SAMPLE_CACHE_KEYS).map((key) => new URL(key, self.location).href));
+    const entries = await samples.keys();
+    await Promise.all(entries.filter((req) => !wanted.has(req.url)).map((req) => samples.delete(req)));
+  })());
 });
 
 self.addEventListener("fetch", (event) => {
@@ -130,6 +155,16 @@ self.addEventListener("fetch", (event) => {
         if (cached) return cached;
         return caches.match("./index.html").then((indexCached) => indexCached || fetch(request));
       })
+    );
+    return;
+  }
+
+  const sampleKey = SAMPLE_KEY_BY_HREF.get(url.origin + url.pathname);
+  if (sampleKey) {
+    event.respondWith(
+      caches.open(SAMPLES_CACHE_NAME)
+        .then((samples) => samples.match(sampleKey))
+        .then((cached) => cached || fetch(request))
     );
     return;
   }

@@ -833,11 +833,38 @@ function syncLanguageControls(lang = state?.settings?.language || "de") {
   }
 }
 
+/**
+ * Zeichnet die Ansichten neu, die Wissenstexte zeigen – nach dem Nachladen einer Wissens-Sprache
+ * (ensureKnowledgeLanguageLoaded in knowledge.js). Nur wenn die Sprache noch aktiv ist.
+ */
+function refreshKnowledgeDependentViews(loadedLang) {
+  if (loadedLang && state.settings.language !== loadedLang) return;
+  renderKnowledgeHub();
+  if (state.currentView === "category-help") {
+    openCategoryHelpPage(state.activeCategory, { refreshOnly: true });
+  } else if (state.currentView === "circle" && typeof renderCircleOfFifthsView === "function") {
+    renderCircleOfFifthsView();
+  } else if (state.currentView === "knowledge-detail" && state.activeKnowledgeDetail) {
+    if (state.activeKnowledgeDetail.kind === "article") {
+      openKnowledgeArticle(state.activeKnowledgeDetail.id, { refreshOnly: true });
+    } else {
+      openKnowledgeRef(state.activeKnowledgeDetail.key, { refreshOnly: true });
+    }
+  }
+}
+
+function requestKnowledgeLanguage(lang) {
+  if (typeof ensureKnowledgeLanguageLoaded === "function") {
+    ensureKnowledgeLanguageLoaded(lang, refreshKnowledgeDependentViews);
+  }
+}
+
 function setLanguagePreference(nextLang) {
   const lang = typeof normalizeAppLanguage === "function" ? normalizeAppLanguage(nextLang) : (nextLang === "en" ? "en" : "de");
   const langCfg = typeof getLanguageConfig === "function" ? getLanguageConfig(lang) : null;
   state.settings.language = lang;
   saveVisualPrefs(state.settings.appearance, state.settings.theme, lang);
+  requestKnowledgeLanguage(lang);
 
   if (state.profile) {
     let profileUpdated = false;

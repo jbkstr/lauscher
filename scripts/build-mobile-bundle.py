@@ -41,6 +41,9 @@ PRELOAD_FONT_RE = re.compile(r'^[ \t]*<link rel="preload" href="[^"]+" as="font"
 PWA_LINK_RE = re.compile(r'^[ \t]*<link rel="(?:manifest|icon|apple-touch-icon)"[^>]*>[ \t]*\n', re.M)
 STYLESHEET_RE = re.compile(r'^([ \t]*)<link rel="stylesheet" href="([^"]+)">[ \t]*$', re.M)
 SCRIPT_RE = re.compile(r'^([ \t]*)<script src="([^"]+)"></script>[ \t]*$', re.M)
+# Nachladbare Wissens-Sprachen (<script type="text/plain" data-lazy-src="…">): im Bundle direkt einbetten,
+# denn die Einzeldatei soll ohne Nachladen komplett offline laufen.
+LAZY_SCRIPT_RE = re.compile(r'^([ \t]*)<script type="text/plain"[^>]*\bdata-lazy-src="([^"]+)"[^>]*></script>[ \t]*$', re.M)
 
 
 def read_text(path: Path) -> str:
@@ -95,6 +98,7 @@ def build(root: Path) -> str:
     html = PWA_LINK_RE.sub("", html)      # Einzeldatei (file://) nutzt kein externes Manifest/Icons
     html = STYLESHEET_RE.sub(inline_style, html)
     html = SCRIPT_RE.sub(inline_script, html)
+    html = LAZY_SCRIPT_RE.sub(inline_script, html)
 
     if not inlined:
         sys.exit("Fehler: In index.html wurden keine Stylesheets oder Skripte zum Einbetten gefunden.")
