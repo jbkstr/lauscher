@@ -7850,3 +7850,18 @@ registerColocatedPhrases({
     ar: "استمع إلى العدّ التمهيدي، ثم انقر مع إيقاع النقرات."
   }
 });
+
+registerColocatedPhrases({
+  "Rückgängig": {
+    fr: "Annuler", es: "Deshacer", it: "Annulla", pl: "Cofnij",
+    uk: "Скасувати", ur: "واپس کریں", tr: "Geri al", ar: "تراجع"
+  },
+  "Mix „{name}“ gelöscht.": {
+    fr: "Mix « {name} » supprimé.", es: "Mezcla «{name}» eliminada.", it: "Mix «{name}» eliminato.", pl: "Usunięto miks „{name}”.",
+    uk: "Мікс «{name}» видалено.", ur: "مکس „{name}“ حذف ہو گیا۔", tr: "“{name}” karması silindi.", ar: "تم حذف المزيج «{name}»."
+  },
+  "Theme „{name}“ gelöscht.": {
+    fr: "Thème « {name} » supprimé.", es: "Tema «{name}» eliminado.", it: "Tema «{name}» eliminato.", pl: "Usunięto motyw „{name}”.",
+    uk: "Тему «{name}» видалено.", ur: "تھیم „{name}“ حذف ہو گئی۔", tr: "“{name}” teması silindi.", ar: "تم حذف السمة «{name}»."
+  }
+});

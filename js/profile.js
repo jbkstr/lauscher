@@ -232,9 +232,22 @@ function captureCurrentExerciseAsMix(customTitle = "") {
 }
 
 function deleteProfileMix(mixId) {
-  state.profile.mixes = (state.profile.mixes || []).filter(m => m.id !== mixId);
+  const mixes = state.profile.mixes || [];
+  const idx = mixes.findIndex(m => m.id === mixId);
+  if (idx < 0) return;
+  const removed = mixes[idx];
+  state.profile.mixes = mixes.filter(m => m.id !== mixId);
   saveUserProfile(state.profile);
   renderProfileMixes();
+  showUndoToast(tf("Mix „{name}“ gelöscht.", "Mix “{name}” deleted.", { name: removed.name || "" }), () => {
+    const current = state.profile.mixes || [];
+    if (current.some(m => m.id === removed.id)) return;
+    const next = current.slice();
+    next.splice(Math.min(idx, next.length), 0, removed);
+    state.profile.mixes = next;
+    saveUserProfile(state.profile);
+    renderProfileMixes();
+  });
 }
 
 function renderHomeQuickMixBar() {
@@ -606,6 +619,8 @@ function renderProfileSingleDropdown({
 }) {
   if (!containerEl || typeof document === "undefined" || typeof document.createElement !== "function") return;
   bindProfileDropdownOutsideCloser();
+  bindProfileDropdownKeyboard();
+  const focusSnapshot = captureProfileDropdownFocus(containerEl, key);
   containerEl.dataset.profileDropdownHost = key;
   containerEl.innerHTML = "";
 
@@ -627,6 +642,7 @@ function renderProfileSingleDropdown({
   trigger.addEventListener("click", (e) => {
     e?.stopPropagation?.();
     _openProfileDropdownKey = isOpen ? null : key;
+    markProfileDropdownKeyboardOpen(e, key, !isOpen);
     if (typeof onToggle === "function") {
       onToggle(_openProfileDropdownKey === key);
     } else {
@@ -673,6 +689,7 @@ function renderProfileSingleDropdown({
 
   wrap.appendChild(menu);
   containerEl.appendChild(wrap);
+  restoreProfileDropdownFocus(containerEl, key, focusSnapshot);
 }
 
 function renderSettingsLanguageDropdown(lang = state?.settings?.language || "de") {
@@ -839,6 +856,105 @@ function applyProfileDisplayChanges() {
 
 let _openProfileDropdownKey = null;
 let _profileDropdownOutsideBound = false;
+let _profileDropdownKeyboardBound = false;
+let _profileDropdownPendingOptionFocus = null;
+
+// Barrierefreiheit: Dropdowns werden bei jeder Änderung neu gezeichnet – Fokus auf das gleiche Element zurücksetzen
+function captureProfileDropdownFocus(containerEl, key) {
+  const active = typeof document !== "undefined" ? document.activeElement : null;
+  if (!active || !containerEl?.contains?.(active)) return null;
+  if (active.dataset?.dropdownTrigger) return { kind: "trigger" };
+  if (active.dataset?.dropdownOption != null) return { kind: "option", value: active.dataset.dropdownOption };
+  if (active.dataset?.dropdownRemove != null) return { kind: "trigger" };
+  return { kind: "trigger" };
+}
+
+function restoreProfileDropdownFocus(containerEl, key, snapshot) {
+  if (!containerEl || typeof containerEl.querySelector !== "function") return;
+  const menu = containerEl.querySelector(".multi-dropdown-menu");
+  const menuOpen = Boolean(menu && !menu.classList.contains("hidden"));
+  const trigger = containerEl.querySelector("[data-dropdown-trigger]");
+  const focusEl = (el) => {
+    if (!el || typeof el.focus !== "function") return;
+    try { el.focus({ preventScroll: true }); } catch (_) { el.focus(); }
+  };
+  if (_profileDropdownPendingOptionFocus === key) {
+    _profileDropdownPendingOptionFocus = null;
+    if (menuOpen) {
+      const target = menu.querySelector(".multi-dropdown-option.is-selected:not(:disabled)") ||
+        menu.querySelector(".multi-dropdown-option:not(:disabled)");
+      if (target) {
+        focusEl(target);
+        return;
+      }
+    }
+  }
+  if (!snapshot) return;
+  if (snapshot.kind === "option" && menuOpen) {
+    const match = Array.from(menu.querySelectorAll("[data-dropdown-option]"))
+      .find(el => el.dataset.dropdownOption === snapshot.value && !el.disabled);
+    if (match) {
+      focusEl(match);
+      return;
+    }
+  }
+  focusEl(trigger);
+}
+
+// Per Tastatur geöffnet (click ohne Mauszeiger, detail = 0) → nach dem Neuzeichnen in die Liste springen
+function markProfileDropdownKeyboardOpen(e, key, opening) {
+  _profileDropdownPendingOptionFocus = opening && e && e.detail === 0 ? key : null;
+}
+
+function bindProfileDropdownKeyboard() {
+  if (_profileDropdownKeyboardBound || typeof document === "undefined" || typeof document.addEventListener !== "function") {
+    return;
+  }
+  _profileDropdownKeyboardBound = true;
+  document.addEventListener("keydown", (e) => {
+    const target = e.target;
+    if (!target || typeof target.closest !== "function") return;
+    const wrap = target.closest(".multi-dropdown-wrap");
+    if (!wrap || !wrap.closest("[data-profile-dropdown-host]")) return;
+    const trigger = wrap.querySelector("[data-dropdown-trigger]");
+    const menu = wrap.querySelector(".multi-dropdown-menu");
+    if (!trigger || !menu) return;
+    const isOpen = !menu.classList.contains("hidden");
+    const opts = Array.from(menu.querySelectorAll(".multi-dropdown-option:not(:disabled)"));
+
+    if (e.key === "Escape") {
+      if (!isOpen) return;
+      e.preventDefault();
+      e.stopPropagation();
+      trigger.click();
+      return;
+    }
+
+    if (target === trigger) {
+      if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
+      e.preventDefault();
+      if (!isOpen) {
+        _profileDropdownPendingOptionFocus = trigger.dataset.dropdownTrigger;
+        trigger.click();
+        return;
+      }
+      (e.key === "ArrowUp" ? opts[opts.length - 1] : opts[0])?.focus();
+      return;
+    }
+
+    const current = target.closest(".multi-dropdown-option");
+    if (!current || !menu.contains(current)) return;
+    const idx = opts.indexOf(current);
+    let next = null;
+    if (e.key === "ArrowDown") next = opts[Math.min(opts.length - 1, idx + 1)];
+    else if (e.key === "ArrowUp") next = idx <= 0 ? trigger : opts[idx - 1];
+    else if (e.key === "Home") next = opts[0];
+    else if (e.key === "End") next = opts[opts.length - 1];
+    else return;
+    e.preventDefault();
+    next?.focus();
+  }, true);
+}
 
 function bindProfileDropdownOutsideCloser() {
   if (_profileDropdownOutsideBound || typeof document === "undefined" || typeof document.addEventListener !== "function") {
@@ -894,6 +1010,8 @@ function renderProfileMultiDropdown({
 }) {
   if (!containerEl || typeof document === "undefined") return;
   bindProfileDropdownOutsideCloser();
+  bindProfileDropdownKeyboard();
+  const focusSnapshot = captureProfileDropdownFocus(containerEl, key);
   containerEl.dataset.profileDropdownHost = key;
   containerEl.innerHTML = "";
 
@@ -920,6 +1038,7 @@ function renderProfileMultiDropdown({
   trigger.addEventListener("click", (e) => {
     e?.stopPropagation?.();
     _openProfileDropdownKey = isOpen ? null : key;
+    markProfileDropdownKeyboardOpen(e, key, !isOpen);
     renderProfileAccountView();
   });
   wrap.appendChild(trigger);
@@ -996,6 +1115,7 @@ function renderProfileMultiDropdown({
     });
   }
   containerEl.appendChild(tagsRow);
+  restoreProfileDropdownFocus(containerEl, key, focusSnapshot);
 }
 
 function renderProfileAccountView() {
@@ -1243,13 +1363,13 @@ function renderCustomThemeSlots() {
           <div class="custom-theme-slot-head">
             <span class="custom-theme-slot-badge">${escapeHtml(slotBadge)}</span>
             <span class="custom-theme-slot-name">${escapeHtml(entry.name)}</span>
+            ${isActive ? `<span class="custom-theme-slot-active">${escapeHtml(tr("Aktiv", "Active"))}</span>` : ""}
           </div>
           <div class="theme-swatches">
             ${sw.map(col => `<span class="swatch-dot swatch-dot-checker"><span class="swatch-dot-fill" style="background:${escapeHtml(col)};"></span></span>`).join("")}
           </div>
         </div>
         <div class="custom-theme-slot-actions">
-          <button type="button" class="btn-tool" data-activate-custom-slot="${idx}">${isActive ? tr("Aktiv", "Active") : tr("Aktivieren", "Apply")}</button>
           <button type="button" class="btn-tool" data-edit-custom-slot="${idx}" title="${escapeHtml(tr("Theme bearbeiten", "Edit theme"))}">${tr("Bearbeiten", "Edit")}</button>
           <button type="button" class="account-mix-del" data-delete-custom-slot="${idx}" title="${escapeHtml(tr("Theme löschen", "Delete theme"))}" aria-label="${escapeHtml(tr("Theme löschen", "Delete theme"))}">✕</button>
         </div>
@@ -1257,14 +1377,6 @@ function renderCustomThemeSlots() {
     `;
   }).join("");
 
-  listEl.querySelectorAll("[data-activate-custom-slot]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const idx = parseInt(btn.dataset.activateCustomSlot, 10);
-      if (state.profile?.customThemes?.[idx]) {
-        setThemePreference(CUSTOM_THEME_SLOT_IDS[idx]);
-      }
-    });
-  });
   listEl.querySelectorAll("[data-edit-custom-slot]").forEach(btn => {
     btn.addEventListener("click", () => {
       openCustomThemeEditor(parseInt(btn.dataset.editCustomSlot, 10) || 0);
@@ -1674,16 +1786,30 @@ function saveCustomThemeSlot() {
 function deleteCustomThemeSlot(slotIndex) {
   const idx = Math.max(0, Math.min(2, Number(slotIndex) || 0));
   if (!Array.isArray(state.profile.customThemes)) return;
+  const removed = state.profile.customThemes[idx];
+  if (!removed) return;
   state.profile.customThemes[idx] = null;
   saveUserProfile(state.profile);
 
   const deletedId = CUSTOM_THEME_SLOT_IDS[idx];
-  if (state.settings.theme === deletedId) {
+  const wasActive = state.settings.theme === deletedId;
+  if (wasActive) {
     setThemePreference("waldlichtung");
   } else {
     renderCustomThemeSlots();
     renderSettingsCustomThemes();
   }
+  showUndoToast(tf("Theme „{name}“ gelöscht.", "Theme “{name}” deleted.", { name: removed.name || "" }), () => {
+    if (!Array.isArray(state.profile.customThemes) || state.profile.customThemes[idx]) return;
+    state.profile.customThemes[idx] = removed;
+    saveUserProfile(state.profile);
+    if (wasActive) {
+      setThemePreference(deletedId);
+    } else {
+      renderCustomThemeSlots();
+      renderSettingsCustomThemes();
+    }
+  });
 }
 
 function renderCustomThemeSection() {
@@ -1698,23 +1824,59 @@ function renderCustomThemeSection() {
 let _appToastHideTimer = null;
 let _appToastFadeTimer = null;
 
-function showAppToast(msg, variant = "success", durationMs = 3400) {
+function showAppToast(msg, variant = "success", durationMs = 3400, options = null) {
   const el = document.getElementById("appToast");
   if (!el || !msg) return;
   clearTimeout(_appToastHideTimer);
   clearTimeout(_appToastFadeTimer);
-  el.textContent = msg;
-  el.classList.remove("hidden", "is-visible", "is-success", "is-error");
+  el.textContent = "";
+  const textEl = document.createElement("span");
+  textEl.className = "app-toast-text";
+  textEl.textContent = msg;
+  el.appendChild(textEl);
+  // Optionale Aktion (z. B. „Rückgängig“ nach dem Löschen)
+  const hasAction = Boolean(options?.actionLabel && typeof options.onAction === "function");
+  if (hasAction) {
+    const actionBtn = document.createElement("button");
+    actionBtn.type = "button";
+    actionBtn.className = "app-toast-action";
+    actionBtn.textContent = options.actionLabel;
+    actionBtn.addEventListener("click", () => {
+      hideAppToast();
+      options.onAction();
+    }, { once: true });
+    el.appendChild(actionBtn);
+  }
+  el.classList.remove("hidden", "is-visible", "is-success", "is-error", "has-action");
   if (variant === "error") el.classList.add("is-error");
   else if (variant === "success") el.classList.add("is-success");
+  if (hasAction) el.classList.add("has-action");
   void el.offsetWidth;
   el.classList.add("is-visible");
-  _appToastFadeTimer = setTimeout(() => {
-    el.classList.remove("is-visible");
-    _appToastHideTimer = setTimeout(() => {
-      el.classList.add("hidden");
-    }, 220);
-  }, Math.max(1500, durationMs));
+  _appToastFadeTimer = setTimeout(hideAppToast, Math.max(hasAction ? 5000 : 1500, durationMs));
+}
+
+function hideAppToast() {
+  const el = document.getElementById("appToast");
+  if (!el) return;
+  clearTimeout(_appToastFadeTimer);
+  clearTimeout(_appToastHideTimer);
+  el.classList.remove("is-visible");
+  _appToastHideTimer = setTimeout(() => {
+    el.classList.add("hidden");
+    el.classList.remove("has-action");
+    el.textContent = "";
+  }, 220);
+}
+
+// Einheitliches Muster für destruktive Aktionen:
+// Wiederherstellbares (Übe-Mix, eigenes Theme) wird sofort gelöscht und per „Rückgängig“-Toast zurückgeholt;
+// Unwiderrufliches (Konto- und App-Reset) braucht eine zweite Bestätigung.
+function showUndoToast(msg, onUndo) {
+  showAppToast(msg, "success", 6500, {
+    actionLabel: tr("Rückgängig", "Undo"),
+    onAction: onUndo
+  });
 }
 
 function setSpaceBackupStatus(msg, isError = false, options = null) {
@@ -1737,7 +1899,7 @@ function setSettingsAppResetStatus(msg) {
   const el = document.getElementById("settingsAppResetStatus");
   if (!el) return;
   el.textContent = msg;
-  el.style.color = "var(--status-err)";
+  el.style.color = "var(--status-err-text)";
   el.classList.toggle("hidden", !msg);
 }
 

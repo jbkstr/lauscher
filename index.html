@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Lauscher • Genauer hinhören.</title>
   <meta name="theme-color" id="metaThemeColor" content="#FAF7F2">
   <meta name="mobile-web-app-capable" content="yes">
@@ -428,7 +428,7 @@
           </svg>
         </button>
 
-        <button id="openSettingsBtn" class="icon-btn" title="Tonart, Tempo & Taktart" aria-label="Einstellungen" data-i18n-title="header.settingsTitle" data-i18n-aria="header.settingsAria">
+        <button id="openSettingsBtn" class="icon-btn" title="Einstellungen, Sprache & Theme" aria-label="Einstellungen" data-i18n-title="header.settingsTitle" data-i18n-aria="header.settingsAria">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
           </svg>
@@ -1323,104 +1323,13 @@
         </div>
       </section>
 
-      <!-- 4. Farbschema & Eigene Themes (#spaceThemesCard) -->
+      <!-- 4. Farbdesigner: eigene Themes gestalten (#spaceThemesCard). Ausgewählt werden Themes nur in den
+           App-Einstellungen („Optik & Farbschema“), damit es dafür genau einen Ort gibt. -->
       <section class="account-card" id="spaceThemesCard">
         <div class="account-card-head">
           <div>
-            <h3 data-i18n="space.themesTitle">Themes &amp; Farbdesigner</h3>
-            <p class="account-card-sub" data-i18n="space.themesSub">Wähle ein bestehendes Theme oder gestalte bis zu 3 eigene Farbschemas mit R/G/B/A-Farbwähler.</p>
-          </div>
-        </div>
-
-        <div class="account-field">
-          <span class="account-label" data-i18n="settings.appearanceHeading">Erscheinungsbild</span>
-          <div class="btn-group btn-group-3" id="spaceAppearanceGroup" role="group" aria-label="Erscheinungsbild" data-i18n-aria="settings.appearanceAria">
-            <button class="opt-btn active" type="button" data-appearance="light" data-i18n="settings.appearanceLight">Hell</button>
-            <button class="opt-btn" type="button" data-appearance="dark" data-i18n="settings.appearanceDark">Dunkel</button>
-            <button class="opt-btn" type="button" data-appearance="system" data-i18n="settings.appearanceSystem">System</button>
-          </div>
-        </div>
-
-        <div class="account-field">
-          <span class="account-label" data-i18n="settings.themeHeading">Farbschema / Themes</span>
-          <div class="theme-preview-list space-builtin-theme-list" id="spaceBuiltinThemes">
-            <button class="theme-preview-item active" type="button" data-theme-choice="waldlichtung">
-              <div class="theme-info">
-                <span class="theme-name" data-i18n="settings.themeForest">Folk</span>
-                <span class="theme-status">Aktiv</span>
-              </div>
-              <div class="theme-swatches">
-                <span class="swatch-dot" data-swatch="0" style="background:#FAF7F2;"></span>
-                <span class="swatch-dot" data-swatch="1" style="background:#B8E0C8;"></span>
-                <span class="swatch-dot" data-swatch="2" style="background:#FFD6BA;"></span>
-                <span class="swatch-dot" data-swatch="3" style="background:#DCD3FF;"></span>
-              </div>
-            </button>
-
-            <button class="theme-preview-item" type="button" data-theme-choice="morgentau">
-              <div class="theme-info">
-                <span class="theme-name" data-i18n="settings.themeCoast">Klassik</span>
-                <span class="theme-status">Auswählen</span>
-              </div>
-              <div class="theme-swatches">
-                <span class="swatch-dot" data-swatch="0" style="background:#F3F8FA;"></span>
-                <span class="swatch-dot" data-swatch="1" style="background:#B5DCE8;"></span>
-                <span class="swatch-dot" data-swatch="2" style="background:#F9DFC6;"></span>
-                <span class="swatch-dot" data-swatch="3" style="background:#C8D3F5;"></span>
-              </div>
-            </button>
-
-            <button class="theme-preview-item" type="button" data-theme-choice="abenddaemmerung">
-              <div class="theme-info">
-                <span class="theme-name" data-i18n="settings.themeDusk">Jazz</span>
-                <span class="theme-status">Auswählen</span>
-              </div>
-              <div class="theme-swatches">
-                <span class="swatch-dot" data-swatch="0" style="background:#F7F4F8;"></span>
-                <span class="swatch-dot" data-swatch="1" style="background:#BFE0D4;"></span>
-                <span class="swatch-dot" data-swatch="2" style="background:#F5CDC4;"></span>
-                <span class="swatch-dot" data-swatch="3" style="background:#D8C7F5;"></span>
-              </div>
-            </button>
-
-            <button class="theme-preview-item" type="button" data-theme-choice="metal">
-              <div class="theme-info">
-                <span class="theme-name" data-i18n="settings.themeMetal">Metal</span>
-                <span class="theme-status">Auswählen</span>
-              </div>
-              <div class="theme-swatches">
-                <span class="swatch-dot" data-swatch="0" style="background:#090A0D;"></span>
-                <span class="swatch-dot" data-swatch="1" style="background:#2D6394;"></span>
-                <span class="swatch-dot" data-swatch="2" style="background:#B52B3B;"></span>
-                <span class="swatch-dot" data-swatch="3" style="background:#9EA6B4;"></span>
-              </div>
-            </button>
-
-            <button class="theme-preview-item is-bonus-theme" type="button" data-theme-choice="konzertsaal">
-              <div class="theme-info">
-                <span class="theme-name" data-i18n="settings.themeConcert">Konzertsaal</span>
-                <span class="theme-status">Ab 5 Meilensteinen</span>
-              </div>
-              <div class="theme-swatches">
-                <span class="swatch-dot" data-swatch="0" style="background:#F5EDE0;"></span>
-                <span class="swatch-dot" data-swatch="1" style="background:#D9B45A;"></span>
-                <span class="swatch-dot" data-swatch="2" style="background:#872A31;"></span>
-                <span class="swatch-dot" data-swatch="3" style="background:#2C5139;"></span>
-              </div>
-            </button>
-
-            <button class="theme-preview-item is-bonus-theme" type="button" data-theme-choice="mitternacht">
-              <div class="theme-info">
-                <span class="theme-name" data-i18n="settings.themeMidnight">Mitternachts-Jazz</span>
-                <span class="theme-status">Ab 10 Meilensteinen</span>
-              </div>
-              <div class="theme-swatches">
-                <span class="swatch-dot" data-swatch="0" style="background:#0A0F1F;"></span>
-                <span class="swatch-dot" data-swatch="1" style="background:#F4BE5E;"></span>
-                <span class="swatch-dot" data-swatch="2" style="background:#74B5FF;"></span>
-                <span class="swatch-dot" data-swatch="3" style="background:#58DCD0;"></span>
-              </div>
-            </button>
+            <h3 data-i18n="space.themesTitle">Farbdesigner</h3>
+            <p class="account-card-sub" data-i18n="space.themesSub">Gestalte bis zu 3 eigene Farbschemas mit R/G/B/A-Farbwähler. Auswählen kannst du sie – wie alle Themes – in den App-Einstellungen unter „Optik &amp; Farbschema“.</p>
           </div>
         </div>
 
@@ -1431,6 +1340,7 @@
 
         <div class="account-btn-row account-mix-toolbar">
           <button id="toggleCustomThemeEditorBtn" type="button" class="btn-tool" data-i18n="space.createCustomThemeBtn">Eigenes Theme kreieren</button>
+          <button id="spaceChooseThemeBtn" type="button" class="btn-tool" data-i18n="space.chooseThemeInSettingsBtn">Theme auswählen →</button>
         </div>
         <p id="customThemeStorageHint" class="account-card-sub custom-theme-storage-hint"></p>
 
@@ -1585,6 +1495,8 @@
     <!-- =====================================================
          ANSICHT 4: AKTIVE ÜBUNGS-BÜHNE (#viewExercise)
          ===================================================== -->
+    <!-- Barrierefreiheit: unsichtbare Ansage für Bildschirmleser (Richtig/Falsch) -->
+    <div id="a11yAnnouncer" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></div>
     <main id="viewExercise" class="view-exercise-container hidden">
 
       <div id="examStatusBar" class="exam-status-bar hidden">
@@ -2508,10 +2420,10 @@
   </div>
 
   <!-- Eigenständiges Modal: Lautstärke & Mixer -->
-  <div id="mixerBackdrop" class="modal-backdrop modal-hidden">
+  <div id="mixerBackdrop" class="modal-backdrop modal-hidden" role="dialog" aria-modal="true" aria-labelledby="mixerModalTitle">
     <div class="modal-dialog">
       <div class="modal-header">
-        <h3 data-i18n="mixer.title">Lautstärke</h3>
+        <h3 id="mixerModalTitle" data-i18n="mixer.title">Lautstärke</h3>
         <button id="closeMixerBtn" class="modal-close-btn">✕</button>
       </div>
       <div class="modal-body">
@@ -2637,10 +2549,10 @@
   </div>
 
   <!-- Eigenständiges Modal: Einstellungen -->
-  <div id="settingsBackdrop" class="modal-backdrop modal-hidden">
+  <div id="settingsBackdrop" class="modal-backdrop modal-hidden" role="dialog" aria-modal="true" aria-labelledby="settingsModalTitle">
     <div class="modal-dialog">
       <div class="modal-header">
-        <h3 data-i18n="settings.title">App-Einstellungen</h3>
+        <h3 id="settingsModalTitle" data-i18n="settings.title">App-Einstellungen</h3>
         <button id="closeSettingsBtn" class="modal-close-btn">✕</button>
       </div>
       <div class="modal-body">
@@ -2837,7 +2749,7 @@
           </div>
         </div>
 
-        <div class="settings-group-label" data-i18n="settings.groupAppearance">Optik &amp; Farbschema</div>
+        <div class="settings-group-label" id="settingsAppearanceGroupLabel" data-i18n="settings.groupAppearance">Optik &amp; Farbschema</div>
 
         <div class="settings-section">
           <h4 data-i18n="settings.appearanceHeading">Erscheinungsbild</h4>

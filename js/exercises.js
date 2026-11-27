@@ -110,6 +110,8 @@ function renderNotationKeyboard(wrap, ex) {
     blackEl.dataset.midi = bk.midi;
     blackEl.dataset.pc = bk.pc;
 
+    // Ohne sichtbare Beschriftung trotzdem für Bildschirmleser benennen
+    if (bk.noteLabel) blackEl.setAttribute("aria-label", bk.noteLabel);
     if (showBlackLabels && bk.noteLabel) {
       const box = document.createElement("span");
       box.className = "solfege-key-box solfege-key-box-black notation-key-box-black";
@@ -227,6 +229,7 @@ function renderSolfegeKeyboard() {
     blackEl.id = `solfegeKey_${bk.midi}`;
     blackEl.dataset.midi = bk.midi;
     if (bk.syllable) blackEl.dataset.syllable = bk.syllable;
+    if (!bk.inScale) blackEl.setAttribute("aria-hidden", "true");
 
     if (bk.inScale && bk.syllable) {
       const box = document.createElement("span");
