@@ -35,12 +35,14 @@ jobs:
       - name: Website zusammenstellen
         run: |
           set -euo pipefail
+          # Die App lädt nur die Bundles; die .m4a-Rohdateien werden nicht veröffentlicht
           for i in bass brass guitar percussion piano strings voice; do
-            mkdir -p samples/$i
-            cp _samples/$i/*.m4a samples/$i/
             cp _samples/$i-bundle.js samples/
           done
           python3 scripts/build-sw.py
+          # Projekt-Check (Syntax, undefinierte Namen, tote DOM-IDs, i18n, PWA, Logik-Tests)
+          # – schlägt er fehl, geht nichts live. Das Mobile-Bundle wird hier nicht gebaut.
+          python3 scripts/check-project.py --no-bundle
           mkdir -p _site
           rsync -a ./ _site/ \
             --exclude '.git' --exclude '.github' --exclude '_samples' --exclude '_site' \

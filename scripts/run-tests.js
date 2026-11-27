@@ -274,51 +274,41 @@ runTest("Übungs-Generatoren: alle Modi über mehrere Stufen ohne Fehler & valid
   // UI-Rendern im headless Test als No-Op stubben (getestet wird hier die reine Generator-Logik)
   sb.renderUI = () => {};
 
-  const modeMatrix = [
-    { mode: "cadence",             levelKey: "difficulty",            levels: [1, 2, 3, 4] },
-    { mode: "cadence-minor",       levelKey: "difficulty",            levels: [1, 2, 3, 4] },
-    { mode: "intervals-melodic",   levelKey: "intervalDifficulty",    levels: [1, 2, 3, 4, 5] },
-    { mode: "intervals-harmonic",  levelKey: "intervalDifficulty",    levels: [1, 2, 3, 4, 5] },
-    { mode: "intervals-custom",    levelKey: "intervalDifficulty",    levels: [1] },
-    { mode: "interval-chords",     levelKey: "chordDifficulty",       levels: [1, 2, 3] },
-    { mode: "interval-chords-arp", levelKey: "chordDifficulty",       levels: [1, 2, 3] },
-    { mode: "chord-inversions",    levelKey: "chordInversionDifficulty", levels: [1, 2, 3] },
-    { mode: "solfege",             levelKey: "solfegeDifficulty",     levels: [1, 2, 3, 4, 5] },
-    { mode: "melody",              levelKey: "melodyDifficulty",      levels: [1, 2, 3, 4, 5] },
-    { mode: "rhythm-meter",        levelKey: "rhythmMeterDifficulty", levels: [1, 2, 3] },
-    { mode: "rhythm-dictation",    levelKey: "rhythmDictationDifficulty", levels: [1, 2, 3] },
-    { mode: "rhythm-tap",          levelKey: "rhythmTapDifficulty",   levels: [1, 2, 3] },
-    { mode: "rhythm-groove",       levelKey: "rhythmGrooveDifficulty", levels: [1, 2, 3] },
-    { mode: "prod-tone",           levelKey: "prodToneDifficulty",    levels: [1, 2, 3] },
-    { mode: "prod-eq-noise",       levelKey: "prodEqNoiseDifficulty", levels: [1, 2, 3] },
-    { mode: "modes-scale",         levelKey: "modesScaleDifficulty",  levels: [1, 2, 3] },
-    { mode: "modes-char",          levelKey: "modesCharDifficulty",   levels: [1, 2, 3] },
-    { mode: "modes-cadence",       levelKey: "modesCadenceDifficulty", levels: [1, 2] },
-    { mode: "notation-treble",     levelKey: "notationDifficulty",    levels: [1, 2, 3, 4] },
-    { mode: "notation-bass",       levelKey: "notationDifficulty",    levels: [1, 2, 3, 4] },
-    { mode: "notation-grand",      levelKey: "notationDifficulty",    levels: [1, 2, 3, 4] },
-    { mode: "notation-chords",     levelKey: "notationChordsDifficulty", levels: [1, 2, 3] },
-    { mode: "notation-symbols",    levelKey: "notationSymbolsDifficulty", levels: [1, 2, 3] },
-    { mode: "sing-interval",       levelKey: "singIntervalDifficulty", levels: [1, 2, 3, 4, 5, 6, 7, 8, 9] },
-    { mode: "sing-degree",         levelKey: "singDegreeDifficulty",  levels: [1, 2, 3, 4, 5] }
-  ];
+  // Modi & Stufen direkt aus den App-Katalogen (statt einer eigenen Liste, die veralten kann)
+  const catalog = getLex("({ ...MIX_MODE_CATALOG, ...SING_MATCH_MODE_CATALOG, ...MIDI_PLAY_MODE_CATALOG })");
+  // Sing- & MIDI-Modi haben keine Übe-Mixe → Stufe direkt setzen
+  const directLevelKeys = {
+    "sing-interval": "singIntervalDifficulty",
+    "sing-degree": "singDegreeDifficulty",
+    "midi-interval": "midiIntervalDifficulty",
+    "midi-chord": "midiChordDifficulty",
+    "midi-scale": "midiScaleDifficulty"
+  };
+  // Jeder Modus muss seinen eigenen Generator erreichen (nicht den Intervall-Fallback in generateExercise)
+  const expectedTypeOverrides = { "cadence-minor": "cadence" };
 
   let generatedCount = 0;
-  for (const spec of modeMatrix) {
-    for (const lvl of spec.levels) {
-      appState.settings.mode = spec.mode;
-      appState.settings[spec.levelKey] = lvl;
+  for (const [mode, info] of Object.entries(catalog)) {
+    for (const lvl of info.levels) {
+      if (directLevelKeys[mode]) {
+        appState.settings.mode = mode;
+        appState.settings[directLevelKeys[mode]] = lvl;
+      } else {
+        sb.applyModeAndLevelFromConfig({ mode, level: lvl });
+      }
+      assert.equal(appState.settings.mode, mode, `${mode} L${lvl}: Modus wurde nicht übernommen`);
       for (let i = 0; i < 4; i++) {
         sb.generateExercise();
         const ex = appState.currentExercise;
-        assert.ok(ex && typeof ex === "object", `${spec.mode} L${lvl}: currentExercise fehlt`);
-        assert.ok(typeof ex.type === "string" && ex.type.length > 0, `${spec.mode} L${lvl}: ex.type fehlt`);
+        assert.ok(ex && typeof ex === "object", `${mode} L${lvl}: currentExercise fehlt`);
+        assert.ok(typeof ex.type === "string" && ex.type.length > 0, `${mode} L${lvl}: ex.type fehlt`);
+        assert.equal(ex.type, expectedTypeOverrides[mode] || mode, `${mode} L${lvl}: falscher Aufgabentyp (Fallback?)`);
         if (Array.isArray(ex.choices) && ex.choices.length > 0) {
           const targetKey = ex.targetKey ?? ex.correctKey ?? ex.target;
           if (typeof targetKey === "string") {
             assert.ok(
               ex.choices.includes(targetKey),
-              `${spec.mode} L${lvl}: Ziel "${targetKey}" nicht in choices [${ex.choices.join(", ")}]`
+              `${mode} L${lvl}: Ziel "${targetKey}" nicht in choices [${ex.choices.join(", ")}]`
             );
           }
         }
@@ -326,6 +316,7 @@ runTest("Übungs-Generatoren: alle Modi über mehrere Stufen ohne Fehler & valid
       }
     }
   }
+  assert.ok(Object.keys(catalog).length >= 33, `Katalog unvollständig: ${Object.keys(catalog).length} Modi`);
   assert.ok(generatedCount >= 250, `Erwartet >= 250 generierte Aufgaben, erhalten: ${generatedCount}`);
 });
 

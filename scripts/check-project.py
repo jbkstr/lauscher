@@ -116,6 +116,18 @@ for (const rel of files) {
     return len(checked_files)
 
 
+def check_undefined_identifiers(root: Path, scripts: list[str], errors: list[str]) -> None:
+    """Aufrufe & typeof-Guards auf Namen, die im gemeinsamen Scope nirgends deklariert sind (scripts/check_identifiers.py)."""
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import check_identifiers  # noqa: E402 (liegt neben diesem Skript)
+
+    for issue in check_identifiers.find_issues(root, scripts):
+        errors.append(f"Undefinierter Name: {issue}")
+    index_html = (root / "index.html").read_text(encoding="utf-8")
+    for issue in check_identifiers.find_dead_dom_ids(root, scripts, index_html):
+        errors.append(f"Tote DOM-ID: {issue}")
+
+
 def check_i18n_and_knowledge(
     root: Path,
     node_bin: str,
@@ -432,6 +444,8 @@ def main() -> int:
     scripts, styles = extract_index_assets(index_html)
     check_files_exist(root, scripts + styles, errors)
     js_checked = check_js_syntax(root, node_bin, scripts, errors)
+    if not errors:
+        check_undefined_identifiers(root, scripts, errors)
 
     i18n_knowledge_scripts = [
         s for s in scripts

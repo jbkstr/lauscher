@@ -1140,14 +1140,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const inlineBpmSlider = document.getElementById("inlineBpmSlider");
   const inlineBpmVal = document.getElementById("inlineBpmVal");
-  const inlineBpmRandomBtn = document.getElementById("inlineBpmRandomBtn");
 
   function syncExerciseBpmUI(newBpm, isManualInExercise = false) {
     if (isManualInExercise) {
       state.hasManualExerciseBpm = true;
     }
     state.settings.randomBpm = false;
-    inlineBpmRandomBtn?.classList.remove("active");
     state.settings.bpm = newBpm;
     state.activeBpm = newBpm;
 
@@ -1160,26 +1158,6 @@ document.addEventListener("DOMContentLoaded", () => {
   inlineBpmSlider?.addEventListener("input", (e) => {
     syncExerciseBpmUI(parseInt(e.target.value, 10), true);
   });
-
-  function toggleRandomBpm() {
-    state.hasManualExerciseBpm = true;
-    state.settings.randomBpm = !state.settings.randomBpm;
-    inlineBpmRandomBtn?.classList.toggle("active", state.settings.randomBpm);
-
-    if (state.settings.randomBpm) {
-      if (inlineBpmVal) inlineBpmVal.textContent = tr("Zufall", "Random");
-      cancelListenOnlyTimers();
-      stopPlayback();
-      generateExercise();
-      if (state.listenOnly.active) {
-        startListenOnlyCycle();
-      }
-    } else {
-      syncExerciseBpmUI(state.settings.bpm, true);
-    }
-  }
-
-  inlineBpmRandomBtn?.addEventListener("click", toggleRandomBpm);
 
   document.querySelectorAll("[data-timesig]").forEach(btn => {
     btn.addEventListener("click", () => {

@@ -174,7 +174,6 @@ function applyModeAndLevelFromConfig(cfg) {
     state.hasManualExerciseBpm = true;
     const inlineSlider = document.getElementById("inlineBpmSlider");
     if (inlineSlider) inlineSlider.value = b;
-    document.getElementById("inlineBpmRandomBtn")?.classList.remove("active");
   }
 }
 
@@ -328,12 +327,6 @@ function renderHomeProfileGreeting() {
     keepIfSameMood: state.currentView !== "home",
     forceRotate: state.currentView === "home"
   });
-
-  const bar = document.getElementById("homeProfileGreeting");
-  if (bar) {
-    bar.classList.add("hidden");
-    bar.innerHTML = "";
-  }
 
   refreshCurrentQuoteLocalization();
   renderHomeQuickMixBar();
