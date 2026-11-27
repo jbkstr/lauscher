@@ -9,6 +9,7 @@
 const EXPLORER_MODE_POLICY = {
   hiddenCategories: ["production", "modes"],
   hiddenTools: ["circle", "capo", "nashville"],
+  hiddenThemes: ["metal"],
   hiddenKnowledgeArticles: [
     "art-minor-plagal",
     "art-physics-waves",
@@ -218,6 +219,11 @@ function filterExplorerExamPresets(categoryKey, presets) {
   return filtered.length > 0 ? filtered : presets.slice(0, 1);
 }
 
+function isThemeAllowedInExplorer(themeId) {
+  if (!isExplorerModeEnabled()) return true;
+  return !EXPLORER_MODE_POLICY.hiddenThemes.includes(themeId);
+}
+
 function filterExplorerKnowledgeArticles(articles) {
   if (!isExplorerModeEnabled() || !Array.isArray(articles)) return articles;
   return articles.filter(art => art && !EXPLORER_MODE_POLICY.hiddenKnowledgeArticles.includes(art.id));
@@ -305,6 +311,19 @@ function syncExplorerModeUI() {
     obOn.classList.toggle("active", enabled);
     obOn.setAttribute("aria-pressed", String(enabled));
   }
+
+  // Metal-Vorlage im Farbdesigner im Entdecker-Modus ausblenden
+  const tplSelect = document.getElementById("customThemeTemplateSelect");
+  if (tplSelect && typeof tplSelect.querySelector === "function") {
+    const metalOpt = tplSelect.querySelector('option[value="metal-dark"]');
+    if (metalOpt) {
+      metalOpt.hidden = enabled;
+      metalOpt.disabled = enabled;
+    }
+    if (enabled && tplSelect.value === "metal-dark") {
+      tplSelect.value = "waldlichtung-light";
+    }
+  }
 }
 
 function setExplorerMode(enabled, options = {}) {
@@ -312,6 +331,11 @@ function setExplorerMode(enabled, options = {}) {
   if (!state?.settings) return;
   const prev = Boolean(state.settings.explorerMode);
   state.settings.explorerMode = next;
+
+  const switchedFromHiddenTheme = next && !isThemeAllowedInExplorer(state.settings.theme);
+  if (switchedFromHiddenTheme) {
+    state.settings.theme = "waldlichtung";
+  }
 
   if (next && !prev && options.applyFriendlyDefaults !== false) {
     // Sanfte, kindgerechte Defaults beim Einschalten
@@ -347,6 +371,10 @@ function setExplorerMode(enabled, options = {}) {
   }
 
   syncExplorerModeUI();
+
+  if (switchedFromHiddenTheme && typeof applyThemeAndAppearance === "function") {
+    applyThemeAndAppearance();
+  }
 
   if (typeof renderKnowledgeHub === "function") renderKnowledgeHub();
   if (typeof populateMixCreatorControls === "function") populateMixCreatorControls({ forceRepopulate: true });

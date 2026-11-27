@@ -52,6 +52,9 @@
         var isBuiltInTheme = (prefs.theme === "waldlichtung" || prefs.theme === "morgentau" || prefs.theme === "abenddaemmerung" || prefs.theme === "metal" || prefs.theme === "konzertsaal" || prefs.theme === "mitternacht");
         var isCustomTheme = (prefs.theme === "custom_1" || prefs.theme === "custom_2" || prefs.theme === "custom_3");
         var theme = (isBuiltInTheme || isCustomTheme) ? prefs.theme : "waldlichtung";
+        if (prefs && prefs.explorerMode === true && theme === "metal") {
+          theme = "waldlichtung";
+        }
         var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
         var effective = appearance === "system" ? (prefersDark ? "dark" : "light") : appearance;
         if (theme === "metal" || theme === "mitternacht") effective = "dark";
@@ -2796,7 +2799,7 @@
               </div>
             </button>
 
-            <button class="theme-preview-item" type="button" data-theme-choice="metal">
+            <button class="theme-preview-item" type="button" data-theme-choice="metal" data-explorer-hide="1">
               <div class="theme-info">
                 <span class="theme-name" data-i18n="settings.themeMetal">Metal</span>
                 <span class="theme-status">Auswählen</span>

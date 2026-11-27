@@ -1185,6 +1185,9 @@ function syncWarmupCountdownDisplay(liveDecrementSec = 0) {
 }
 
 function renderWarmupView() {
+  if (typeof syncExerciseLandscapeDock === "function") {
+    syncExerciseLandscapeDock(document.getElementById("viewWarmup"));
+  }
   const w = state.warmup;
   if (!w) return;
   const preset = getLocalizedWarmupPreset(w.presetId);

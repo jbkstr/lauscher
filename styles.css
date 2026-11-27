@@ -19801,154 +19801,38 @@ html.is-pinch-zoomed .view-container {
     margin-inline: auto;
   }
 
-  /* Übungen (#viewExercise): Zweispaltiges Klavierpult-Layout
-     Links „Aufgabe & Hören“: Aufgabe/Notensystem oben, Maskottchen-Bühne füllt die Mitte,
-     Abspiel-Leiste (.dock-bar, per syncExerciseLandscapeDock umgehängt) direkt darunter.
-     Rechts „Antworten“: Rückmeldung, Tonika, Eingabe-Hinweis und Antwortkacheln/Klaviatur,
-     als ruhiges Antwort-Pult vertikal mittig. */
-  #viewExercise {
-    display: grid;
-    grid-template-columns: minmax(0, 44fr) minmax(0, 56fr);
-    grid-template-rows: auto auto auto minmax(0, 1fr) auto;
-    column-gap: 0.85rem;
-    row-gap: 0;
-    align-items: stretch;
-    justify-content: stretch;
-  }
-
-  #viewExercise > #examStatusBar {
-    grid-column: 1 / -1;
-    grid-row: 1;
-    margin-bottom: 0.45rem;
-  }
-
-  #viewExercise > #examAbortConfirmBanner {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    margin-bottom: 0.45rem;
-  }
-
-  :where(#viewExercise) > #exerciseModuleCard {
-    grid-column: 1;
-    grid-row: 3;
-    align-self: start;
-    margin-bottom: 0.48rem;
-    z-index: 6;
-  }
-
-  :where(#viewExercise) > .stage-wrapper {
-    grid-column: 1;
-    grid-row: 4;
-    min-height: 0;
-    height: 100%;
-    padding: 0;
-    z-index: 1;
-  }
-
-  /* Bühne füllt die linke Spalte ganz aus (keine Leerfläche über/unter der Karte) */
-  :where(#viewExercise) > .stage-wrapper .central-stage {
-    width: 100%;
-    max-width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-  }
-
-  #viewExercise > .dock-bar {
-    grid-column: 1;
-    grid-row: 5;
-    margin-top: 0.48rem;
-    z-index: 2;
-  }
-
-  :where(#viewExercise) > .bottom-dock {
-    grid-column: 2;
-    grid-row: 3 / 6;
-    min-height: 0;
-    height: 100%;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: safe center;
-    gap: 0.5rem;
-    padding: 0.7rem 0.75rem;
-    background-color: var(--surface-white);
-    border: 1px solid var(--border-soft);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-card);
-  }
-
-  /* Rückmeldung bleibt oben im Pult, die Antworten darunter mittig im Restplatz */
-  #viewExercise > .bottom-dock > #feedbackContainer:not(.hidden) {
-    margin-bottom: auto;
-  }
-
-  #viewExercise > .bottom-dock > #examPostAnswerBar:not(.hidden) {
-    margin-top: auto;
-  }
-
-  /* Auf größeren Fenstern dürfen Antwortkacheln etwas wachsen (besser treffbar, weniger Leerfläche) */
-  @media (min-height: 620px) {
-    #viewExercise:not(.fit-1):not(.fit-2):not(.fit-3) .degrees-grid .degree-btn {
-      min-height: 4.4rem;
-    }
-  }
-
-  /* Große Bühne: Maskottchen & Status dürfen mitwachsen */
-  @container exstage (min-height: 300px) {
-    .central-stage .stage-mascot {
-      width: 88px;
-      height: 88px;
-      margin-bottom: 0.4rem;
-    }
-    .central-stage .stage-main {
-      font-size: 1.9rem;
-    }
-  }
-
-  /* Einsing-Helfer (#viewWarmup): Rechts große Bühne (Atem-Kugel, Sirene, Silben),
-     links ein zusammenhängendes Steuer-Pult (Kopf, Klaviatur/Halbton-Knöpfe, Abspielen),
-     vertikal mittig statt oben/unten auseinandergerissen. */
+  /* Übungen (#viewExercise) & Einsingen (#viewWarmup) auf Desktop & Tablet im Querformat:
+     Bewährtes, ruhiges 1-spaltiges Fokus-Pult (wie Portrait, aber großzügig auf 720 px verbreitert),
+     sodass der gewohnte Oben→Mitte→Unten-Fluss und volle Breite für Notensysteme & Klaviaturen
+     erhalten bleiben – ohne aufgeblasene Leerflächen. Das 2-Spalten-Layout greift gezielt erst auf
+     flachen Querformat-Smartphones (max-height: 540px). */
+  #viewExercise,
   #viewWarmup {
-    display: grid;
-    grid-template-columns: minmax(0, 42fr) minmax(0, 58fr);
-    grid-template-rows: minmax(0, 1fr) auto auto minmax(0, 1fr);
-    column-gap: 0.85rem;
-    row-gap: 0;
-    gap: 0 0.85rem;
-    align-items: stretch;
-  }
-
-  #viewWarmup > .warmup-header-card {
-    grid-column: 1;
-    grid-row: 2;
-    align-self: end;
-    margin-bottom: 0.6rem;
-    z-index: 6;
-  }
-
-  #viewWarmup > .warmup-bottom-dock {
-    grid-column: 1;
-    grid-row: 3;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: 0.5rem;
-  }
-
-  #viewWarmup > .warmup-stage-wrapper {
-    grid-column: 2;
-    grid-row: 1 / 5;
-    min-height: 0;
-    height: 100%;
-    padding: 0;
-  }
-
-  #viewWarmup > .warmup-stage-wrapper .warmup-stage-card {
+    max-width: 720px;
     width: 100%;
-    max-width: 100%;
-    height: 100%;
-    justify-content: center;
+    margin-inline: auto;
+  }
+
+  #viewExercise .central-stage {
+    max-width: 440px;
+  }
+
+  #viewWarmup .warmup-stage-card {
+    max-width: 480px;
+  }
+
+  #viewExercise .dock-bar,
+  #viewWarmup .dock-bar {
+    max-width: 520px;
+    width: 100%;
+    margin-inline: auto;
+  }
+
+  /* Auf größeren Fenstern dürfen Antwortkacheln sanft etwas komfortabler sein */
+  @media (min-height: 680px) {
+    #viewExercise:not(.fit-1):not(.fit-2):not(.fit-3) .degrees-grid .degree-btn {
+      min-height: 4.1rem;
+    }
   }
 }
 
@@ -19972,10 +19856,149 @@ html.is-pinch-zoomed .view-container {
   .notation-knowledge-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+}
 
+/* Flache Querformat-Bildschirme (Smartphones im Querformat, z. B. 667×375, 844×390, 932×430):
+   Hier reicht die Höhe nicht für vertikales Stapeln – Übungen & Einsingen wechseln auf ein
+   kompaktes 2-Spalten-Layout mit zentrierter Transportleiste (.dock-bar) unten. */
+@media (orientation: landscape) and (min-width: 600px) and (max-height: 540px) {
   #viewExercise,
   #viewWarmup {
-    column-gap: 1.15rem;
+    max-width: none;
+  }
+
+  #viewExercise {
+    display: grid;
+    grid-template-columns: minmax(0, 44fr) minmax(0, 56fr);
+    grid-template-rows: auto auto auto minmax(0, 1fr) auto;
+    column-gap: 0.72rem;
+    row-gap: 0;
+    align-items: stretch;
+    justify-content: stretch;
+  }
+
+  #viewExercise > #examStatusBar {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    margin-bottom: 0.35rem;
+  }
+
+  #viewExercise > #examAbortConfirmBanner {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin-bottom: 0.35rem;
+  }
+
+  :where(#viewExercise) > #exerciseModuleCard {
+    grid-column: 1;
+    grid-row: 3;
+    align-self: start;
+    margin-bottom: 0.36rem;
+    z-index: 6;
+  }
+
+  :where(#viewExercise) > .stage-wrapper {
+    grid-column: 1;
+    grid-row: 4;
+    min-height: 0;
+    height: 100%;
+    padding: 0;
+    z-index: 1;
+  }
+
+  :where(#viewExercise) > .stage-wrapper .central-stage {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+  }
+
+  #viewExercise > .dock-bar {
+    grid-column: 1 / -1;
+    grid-row: 5;
+    width: 100%;
+    max-width: 520px;
+    justify-self: center;
+    margin-top: 0.36rem;
+    z-index: 2;
+  }
+
+  :where(#viewExercise) > .bottom-dock {
+    grid-column: 2;
+    grid-row: 3 / 5;
+    min-height: 0;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: safe center;
+    gap: 0.38rem;
+    padding: 0.56rem 0.65rem;
+    background-color: var(--surface-white);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+  }
+
+  #viewExercise > .bottom-dock > #feedbackContainer:not(.hidden) {
+    margin-bottom: auto;
+  }
+
+  #viewExercise > .bottom-dock > #examPostAnswerBar:not(.hidden) {
+    margin-top: auto;
+  }
+
+  #viewWarmup {
+    display: grid;
+    grid-template-columns: minmax(0, 52fr) minmax(0, 48fr);
+    grid-template-rows: minmax(0, 1fr) auto auto minmax(0, 1fr) auto;
+    column-gap: 0.72rem;
+    row-gap: 0;
+    gap: 0 0.72rem;
+    align-items: stretch;
+  }
+
+  #viewWarmup > .warmup-header-card {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: end;
+    margin-bottom: 0.42rem;
+    z-index: 6;
+  }
+
+  #viewWarmup > .warmup-bottom-dock {
+    grid-column: 1;
+    grid-row: 3;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0.36rem;
+  }
+
+  #viewWarmup > .warmup-stage-wrapper {
+    grid-column: 2;
+    grid-row: 1 / 5;
+    min-height: 0;
+    height: 100%;
+    padding: 0;
+  }
+
+  #viewWarmup > .warmup-stage-wrapper .warmup-stage-card {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    justify-content: center;
+  }
+
+  #viewWarmup > .dock-bar {
+    grid-column: 1 / -1;
+    grid-row: 5;
+    width: 100%;
+    max-width: 520px;
+    justify-self: center;
+    margin-top: 0.36rem;
+    z-index: 2;
   }
 }
 
@@ -20032,8 +20055,14 @@ html.is-pinch-zoomed .view-container {
     padding: 0.46rem 0.56rem;
   }
 
+  #viewExercise > .dock-bar,
+  #viewWarmup > .dock-bar {
+    margin-top: 0.28rem;
+  }
+
   :where(#viewExercise) > .bottom-dock {
     gap: 0.28rem;
+    padding: 0.5rem 0.6rem;
   }
 
   .modal-dialog {

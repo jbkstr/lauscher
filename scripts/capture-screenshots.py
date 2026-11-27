@@ -8,16 +8,18 @@ npm, Playwright oder externe Python-Pakete.
 
 Erzeugt eine übersichtliche, marketing-orientierte Screenshot-Datenbank:
   screenshots/
-    gallery.html      (filterbare Übersicht mit Lightbox)
-    manifest.json     (Metadaten: Version, Commit, Theme, Sprache, Viewport)
-    de/app/*.png      (Smartphone-App 390×844 @3x = 1170×2532)
-    de/webapp/*.png   (Desktop-Webapp 1080×820 @2x = 2160×1640)
+    gallery.html           (filterbare Übersicht mit Lightbox)
+    manifest.json          (Metadaten: Version, Commit, Theme, Sprache, Viewport)
+    de/app/*.png           (Smartphone Hochformat 390×844 @3x = 1170×2532)
+    de/app-landscape/*.png (Smartphone Querformat 844×390 @3x = 2532×1170)
+    de/webapp/*.png        (Desktop/Tablet Querformat 1200×800 @2x = 2400×1600)
     en/app/*.png
+    en/app-landscape/*.png
     en/webapp/*.png
 
 Aufruf:
   python3 scripts/capture-screenshots.py
-  python3 scripts/capture-screenshots.py --langs de,en --platforms app,webapp
+  python3 scripts/capture-screenshots.py --langs de,en --platforms app,app-landscape,webapp
   python3 scripts/capture-screenshots.py --shots 01,02,14 --out screenshots
 """
 
@@ -58,19 +60,28 @@ CHROME_CANDIDATES = [
 
 PLATFORMS = {
     "app": {
-        "label_de": "App (Smartphone)",
-        "label_en": "App (Mobile)",
+        "label_de": "App (Hochformat)",
+        "label_en": "App (Portrait)",
         "width": 390,
         "height": 844,
         "scale": 3,
         "mobile": True,
         "native_mock": True,
     },
+    "app-landscape": {
+        "label_de": "App (Querformat)",
+        "label_en": "App (Landscape)",
+        "width": 844,
+        "height": 390,
+        "scale": 3,
+        "mobile": True,
+        "native_mock": True,
+    },
     "webapp": {
-        "label_de": "Webapp (Desktop)",
-        "label_en": "Web App (Desktop)",
-        "width": 1080,
-        "height": 820,
+        "label_de": "Webapp (Querformat)",
+        "label_en": "Web App (Landscape)",
+        "width": 1200,
+        "height": 800,
         "scale": 2,
         "mobile": False,
         "native_mock": False,
@@ -175,10 +186,10 @@ SHOTS = [
         "category": "tools",
         "theme": "abenddaemmerung",
         "appearance": "light",
-        "title_de": "Werkzeugkasten (6 Praxis-Tools)",
-        "title_en": "Practice Toolkit (6 Tools)",
-        "caption_de": "Metronom, Tuner, Freies Spiel, Griffbrett, Quintenzirkel und Nashville-Zahlensystem griffbereit in einer App.",
-        "caption_en": "Metronome, chromatic tuner, free play, fretboard, circle of fifths, and Nashville number system in one place.",
+        "title_de": "Werkzeugkasten (7 Praxis-Tools)",
+        "title_en": "Practice Toolkit (7 Tools)",
+        "caption_de": "Metronom, Quintenzirkel, Freies Spiel, Tuner, Griffbrett, Kapodaster-Übersetzer und Nashville-Zahlensystem griffbereit in einer App.",
+        "caption_en": "Metronome, circle of fifths, free play, chromatic tuner, fretboard, capo translator, and Nashville number system in one place.",
         "marketing_tag": "Toolkit Overview",
     },
     {
@@ -211,10 +222,10 @@ SHOTS = [
         "category": "tools",
         "theme": "morgentau",
         "appearance": "dark",
-        "title_de": "Nashville-Zahlensystem & Kapo-Übersetzer",
-        "title_en": "Nashville Number System & Capo Translator",
-        "caption_de": "Tonarten-Diagramm, 12-Tonarten-Matrix und unabhängiger Kapodaster-Übersetzer für Band & Songwriting.",
-        "caption_en": "Interactive chord degree chart, 12-key matrix, and standalone capo translator for bands and songwriters.",
+        "title_de": "Nashville-Zahlensystem (12-Tonarten-Matrix)",
+        "title_en": "Nashville Number System (12-Key Matrix)",
+        "caption_de": "Tonarten-Diagramm mit hörbaren Stufen-Akkorden und kompletter 12-Tonarten-Matrix für Band & Songwriting.",
+        "caption_en": "Interactive chord degree chart with playable chords and full 12-key matrix for bands and songwriters.",
         "marketing_tag": "Nashville / Unique Selling Point",
     },
     {
@@ -237,8 +248,8 @@ SHOTS = [
         "appearance": "dark",
         "title_de": "Wissensartikel mit Hörbeispielen",
         "title_en": "Knowledge Article with Audio Demos",
-        "caption_de": "11 tiefgehende Musiktheorie-Artikel in 7 Sprachen mit direkt abspielbaren Klangbeispielen.",
-        "caption_en": "11 in-depth music theory articles across 7 languages with playable interactive audio examples.",
+        "caption_de": "Tiefgehende Musiktheorie-Artikel in 10 Sprachen mit direkt abspielbaren Klangbeispielen.",
+        "caption_en": "In-depth music theory articles across 10 languages with playable interactive audio examples.",
         "marketing_tag": "Editorial Depth",
     },
     {
@@ -264,6 +275,30 @@ SHOTS = [
         "caption_de": "7 gesampelte Instrumente mit Raumcharakter (Trocken, Natürlich, Konzertsaal) und individuellem Hall-Anteil.",
         "caption_en": "7 sampled instruments with selectable room ambience (Dry, Natural, Concert Hall) and per-instrument reverb.",
         "marketing_tag": "Audio Quality",
+    },
+    {
+        "id": "16",
+        "slug": "explorer_mode_home_folk_light",
+        "category": "start",
+        "theme": "waldlichtung",
+        "appearance": "light",
+        "title_de": "Entdecker-Modus (Kinder & Einsteiger)",
+        "title_en": "Explorer Mode (Kids & Beginners)",
+        "caption_de": "Aufgeräumter Einstieg ohne Profi-Bereiche (Modi, Studio, Nashville) und mit optionaler 4-stelliger Eltern-PIN.",
+        "caption_en": "Focused beginner view hiding advanced areas (Modes, Studio, Nashville) with an optional 4-digit parent PIN.",
+        "marketing_tag": "Kids & Beginners",
+    },
+    {
+        "id": "17",
+        "slug": "account_profile_folk_light",
+        "category": "account",
+        "theme": "waldlichtung",
+        "appearance": "light",
+        "title_de": "Mein Konto (Profil, Mixe & Vorlieben)",
+        "title_en": "My Account (Profile, Mixes & Preferences)",
+        "caption_de": "Persönliches Musiker-Profil, Prüfungsverlauf, Meilensteine, eigene Übe-Mixe und Farbdesigner – 100 % lokal.",
+        "caption_en": "Personal musician profile, exam history, milestones, practice mixes, and custom theme designer — 100% local.",
+        "marketing_tag": "Local Account",
     },
 ]
 
@@ -454,6 +489,8 @@ def build_init_script(lang: str, native_mock: bool) -> str:
         "autoNextAfterCorrect": False,
         "playCorrectAnswerAudio": False,
         "onboardingDone": True,
+        "explorerMode": False,
+        "explorerPinHash": "",
     }
     profile = {
         "name": user_name,
@@ -464,6 +501,7 @@ def build_init_script(lang: str, native_mock: bool) -> str:
         "accessory": "headphones",
         "hasPracticed": True,
         "showHomeQuickMixes": False,
+        "exerciseTutorials": False,
         "singAlongTips": False,
         "singAlongIntroDone": True,
         "modesRootHintSeen": True,
@@ -481,6 +519,10 @@ def build_init_script(lang: str, native_mock: bool) -> str:
         """
     return f"""
     (() => {{
+      window.__shotErrors = [];
+      window.addEventListener("error", (e) => {{
+        window.__shotErrors.push(`${{e.filename || ""}}:${{e.lineno || 0}} ${{e.message || e}}`);
+      }});
       try {{
         localStorage.clear();
         localStorage.setItem("lauschebaer_visual_prefs_v1", {json.dumps(json.dumps(visual))});
@@ -517,13 +559,15 @@ def build_shot_js(shot_id: str, lang: str, theme: str, appearance: str) -> str:
       if (typeof stopPlayback === "function") stopPlayback();
       if (typeof stopMetronome === "function" && state?.metronome?.running) stopMetronome();
       if (typeof clearWarmupTimers === "function") clearWarmupTimers();
+      if (typeof stopExerciseTutorial === "function") stopExerciseTutorial({{ silent: true }});
       if (typeof closeAllModals === "function") closeAllModals();
       document.getElementById("mixerBackdrop")?.classList.add("modal-hidden");
       document.getElementById("settingsBackdrop")?.classList.add("modal-hidden");
       document.getElementById("aboutBackdrop")?.classList.add("modal-hidden");
+      document.getElementById("explorerPinBackdrop")?.classList.add("modal-hidden");
 
-      // Meilenstein-Toasts nur in ausgewählten Shots (02, 06) zulassen
-      const allowMilestoneToast = {json.dumps(shot_id in ("02", "06"))};
+      // Meilenstein-Toasts im Screenshot-Modus ausblenden, damit sie im Querformat keine Buttons verdecken
+      const allowMilestoneToast = false;
       const hideAppToast = () => {{
         const t = document.getElementById("appToast");
         if (t) {{
@@ -534,12 +578,13 @@ def build_shot_js(shot_id: str, lang: str, theme: str, appearance: str) -> str:
       }};
       hideAppToast();
 
-      // Profil-State konsistent setzen (Fokus-Badges, keine störenden Erst-Hinweise)
+      // Profil-State konsistent setzen (Fokus-Badges, keine störenden Erst-Hinweise/Tutorials)
       if (state.profile) {{
         state.profile.name = {json.dumps("Lena" if lang == "de" else "Alex")};
         state.profile.focus = "harmony";
         state.profile.focuses = ["harmony"];
         state.profile.hasPracticed = true;
+        state.profile.exerciseTutorials = false;
         state.profile.singAlongTips = false;
         state.profile.singAlongIntroDone = true;
         state.profile.modesRootHintSeen = true;
@@ -548,6 +593,12 @@ def build_shot_js(shot_id: str, lang: str, theme: str, appearance: str) -> str:
       }}
       if (typeof dismissModesRootHint === "function") dismissModesRootHint(true);
       if (typeof dismissCadenceKeyHint === "function") dismissCadenceKeyHint(true);
+
+      // Entdecker-Modus nur für Shot 16 aktivieren, sonst sauber deaktivieren
+      const wantExplorer = {json.dumps(shot_id == "16")};
+      state.settings.explorerMode = wantExplorer;
+      state.settings.explorerPinHash = wantExplorer && typeof hashExplorerPin === "function" ? hashExplorerPin("2580") : "";
+      if (typeof syncExplorerModeUI === "function") syncExplorerModeUI();
 
       // Theme, Appearance & Sprache setzen
       state.settings.language = {json.dumps(lang)};
@@ -577,12 +628,13 @@ def build_shot_js(shot_id: str, lang: str, theme: str, appearance: str) -> str:
         const exactSym = norm(targetSymbol);
         const exactKey = norm(targetKey);
         return btns.find(b =>
+          b.dataset.choice === targetKey ||
           b.dataset.choiceKey === targetKey ||
           b.dataset.key === targetKey ||
           b.dataset.degree === targetKey ||
           b.dataset.cell === targetKey
         ) || btns.find(b => {{
-          const head = norm(b.querySelector(".degree-symbol, .opt-main, strong, .chord-name, span")?.textContent);
+          const head = norm(b.querySelector(".degree-roman, .degree-symbol, .opt-main, strong, .chord-name, span")?.textContent);
           return (exactSym && head === exactSym) || (exactKey && head === exactKey);
         }}) || btns.find(b => {{
           const txt = norm(b.textContent);
@@ -721,13 +773,27 @@ def build_shot_js(shot_id: str, lang: str, theme: str, appearance: str) -> str:
         document.getElementById("openMixerBtn")?.click();
         await wait(60);
         document.getElementById("mixerTabReverbBtn")?.click();
+      }} else if (shotId === "16") {{
+        state.currentQuoteIndex = 0;
+        switchView("home", {{ skipHistoryPush: true }});
+        if (typeof refreshCurrentQuoteLocalization === "function") refreshCurrentQuoteLocalization();
+        if (typeof syncExplorerModeUI === "function") syncExplorerModeUI();
+        if (typeof syncHomeFocusHighlights === "function") syncHomeFocusHighlights();
+      }} else if (shotId === "17") {{
+        switchView("space", {{ skipHistoryPush: true }});
       }}
 
+      document.querySelectorAll(".view-container, .main-content").forEach(el => {{ el.scrollTop = 0; }});
       await document.fonts.ready;
+      window.dispatchEvent(new Event("resize"));
       await raf2();
       if (typeof fitExerciseLayout === "function" && state.currentView === "exercise") {{
-        fitExerciseLayout();
+        fitExerciseLayout(true);
       }}
+      if (typeof syncExerciseLandscapeDock === "function" && state.currentView === "warmup") {{
+        syncExerciseLandscapeDock(document.getElementById("viewWarmup"));
+      }}
+      await raf2();
       if (!allowMilestoneToast) hideAppToast();
       await wait(160);
       if (!allowMilestoneToast) hideAppToast();
@@ -930,7 +996,8 @@ def generate_gallery_html(manifest: dict, out_dir: Path):
     <div class="filter-group" data-filter="platform">
       <span class="filter-label">Format</span>
       <button class="pill active" data-val="all">Alle</button>
-      <button class="pill" data-val="app">App</button>
+      <button class="pill" data-val="app">App (Hoch)</button>
+      <button class="pill" data-val="app-landscape">App (Quer)</button>
       <button class="pill" data-val="webapp">Webapp</button>
     </div>
     <div class="filter-group" data-filter="theme">
@@ -984,7 +1051,7 @@ def generate_gallery_html(manifest: dict, out_dir: Path):
           <div class="card-body">
             <div class="badges">
               <span class="badge">${{it.lang.toUpperCase()}}</span>
-              <span class="badge">${{it.platform === "app" ? "App" : "Webapp"}}</span>
+              <span class="badge">${{it.platform === "app" ? "App · Hoch" : (it.platform === "app-landscape" ? "App · Quer" : "Webapp · Quer")}}</span>
               <span class="badge">${{it.themeLabel}} · ${{it.appearance === "dark" ? "Dunkel" : "Hell"}}</span>
               <span class="badge tag">${{it.marketingTag}}</span>
             </div>
@@ -1111,6 +1178,7 @@ def capture_matrix(chrome_bin: str, out_dir: Path, langs: list[str], platforms: 
                     target_dir.mkdir(parents=True, exist_ok=True)
 
                     # Viewport setzen
+                    is_landscape = plat["width"] > plat["height"]
                     cdp.call(
                         "Emulation.setDeviceMetricsOverride",
                         {
@@ -1118,6 +1186,10 @@ def capture_matrix(chrome_bin: str, out_dir: Path, langs: list[str], platforms: 
                             "height": plat["height"],
                             "deviceScaleFactor": plat["scale"],
                             "mobile": plat["mobile"],
+                            "screenOrientation": {
+                                "type": "landscapePrimary" if is_landscape else "portraitPrimary",
+                                "angle": 90 if is_landscape else 0,
+                            },
                         },
                     )
                     if plat["mobile"]:
@@ -1133,15 +1205,21 @@ def capture_matrix(chrome_bin: str, out_dir: Path, langs: list[str], platforms: 
                     init_script_id = init_res.get("identifier")
 
                     cdp.call("Page.navigate", {"url": f"{base_url}?shot_ctx={lang}_{plat_key}"})
-                    # Warten bis App-Init durch ist
-                    ready_deadline = time.time() + 20.0
+                    # Warten bis App-Init komplett durch ist
+                    ready_deadline = time.time() + 25.0
+                    is_ready = False
                     while time.time() < ready_deadline:
                         is_ready = cdp.eval_js(
-                            "Boolean(typeof state !== 'undefined' && typeof switchView === 'function' && document.getElementById('viewHome'))"
+                            "Boolean(document.readyState === 'complete' && typeof tr === 'function' && typeof state !== 'undefined' && typeof switchView === 'function' && typeof setExplorerMode === 'function' && document.getElementById('viewHome'))"
                         )
                         if is_ready:
                             break
                         time.sleep(0.15)
+                    if not is_ready:
+                        diag = cdp.eval_js(
+                            "({readyState: document.readyState, tr: typeof tr, state: typeof state, switchView: typeof switchView, setExplorerMode: typeof setExplorerMode, errors: window.__shotErrors || []})"
+                        )
+                        raise RuntimeError(f"App nicht bereit für {lang}/{plat_key}: {diag}")
                     time.sleep(0.35)
 
                     for shot in shots:
@@ -1218,7 +1296,7 @@ def main():
     parser = argparse.ArgumentParser(description="Erzeugt die Lauscher Screenshot-Datenbank (DE & EN, App & Webapp).")
     parser.add_argument("--out", default="screenshots", help="Zielordner (Standard: screenshots)")
     parser.add_argument("--langs", default="de,en", help="Sprachen kommagetrennt (Standard: de,en)")
-    parser.add_argument("--platforms", default="app,webapp", help="Plattformen kommagetrennt (Standard: app,webapp)")
+    parser.add_argument("--platforms", default="app,app-landscape,webapp", help="Plattformen kommagetrennt (Standard: app,app-landscape,webapp)")
     parser.add_argument("--shots", default="", help="Optionale Shot-IDs z. B. 01,02,14")
     parser.add_argument("--chrome", default="", help="Optionaler Pfad zu Chrome/Chromium")
     args = parser.parse_args()

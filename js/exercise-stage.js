@@ -28,8 +28,8 @@ function isExerciseLandscapeSplit(view) {
   }
 }
 
-// Querformat (Klavierpult): Die Abspiel-Leiste (.dock-bar) gehört zur linken Spalte „Aufgabe & Hören“
-// direkt unter die Bühne; rechts bleiben nur die Antworten. Im Hochformat wandert sie zurück ans Ende
+// Querformat (Klavierpult): Die Transportleiste (.dock-bar) steht zentriert unter beiden Spalten
+// (direktes Grid-Kind von #viewExercise bzw. #viewWarmup). Im Hochformat wandert sie zurück ans Ende
 // von .bottom-dock. Event-Listener hängen an den Knöpfen und bleiben beim Umhängen erhalten.
 function syncExerciseLandscapeDock(view) {
   if (!view) return;
@@ -234,13 +234,29 @@ function queueFitExerciseLayout(reset = false) {
 }
 
 function initExerciseFitObserver() {
-  window.addEventListener("resize", () => queueFitExerciseLayout(true));
+  const syncWarmupDock = () => {
+    const warmupView = document.getElementById("viewWarmup");
+    if (warmupView && !warmupView.classList.contains("hidden")) {
+      syncExerciseLandscapeDock(warmupView);
+    }
+  };
+  window.addEventListener("resize", () => {
+    queueFitExerciseLayout(true);
+    syncWarmupDock();
+  });
   window.addEventListener("orientationchange", () => {
     queueFitExerciseLayout(true);
-    setTimeout(() => queueFitExerciseLayout(true), 160);
+    syncWarmupDock();
+    setTimeout(() => {
+      queueFitExerciseLayout(true);
+      syncWarmupDock();
+    }, 160);
   });
   if (window.visualViewport && typeof window.visualViewport.addEventListener === "function") {
-    window.visualViewport.addEventListener("resize", () => queueFitExerciseLayout(true), { passive: true });
+    window.visualViewport.addEventListener("resize", () => {
+      queueFitExerciseLayout(true);
+      syncWarmupDock();
+    }, { passive: true });
   }
   if (typeof ResizeObserver !== "function") return;
   const ro = new ResizeObserver(() => {

@@ -584,7 +584,7 @@ class AppState {
       el.textContent = this.knowledgeSub;
     } else if (this.currentView === "space") {
       mainTitle.textContent = tr("Mein Konto", "My Account");
-      el.textContent = tr("Profil, Timer & Vorlieben", "Profile, Timer & Preferences");
+      el.textContent = tr("Profil, Mixe & Vorlieben", "Profile, Mixes & Preferences");
     } else if (this.currentView === "category" || this.currentView === "category-help") {
       if (this.currentView === "category" && this.activeCategorySection) {
         mainTitle.textContent = this.activeCategorySectionTitle || getCategoryTitle(this.activeCategory);
@@ -701,6 +701,10 @@ function applyThemeAndAppearance() {
     theme = "waldlichtung";
     saveVisualPrefs(appearance, theme, state.settings.language);
   }
+  if (typeof isThemeAllowedInExplorer === "function" && !isThemeAllowedInExplorer(theme)) {
+    theme = "waldlichtung";
+    saveVisualPrefs(appearance, theme, state.settings.language);
+  }
   if (typeof getBonusThemeLockInfo === "function") {
     const activeBonus = getBonusThemeLockInfo(theme);
     if (activeBonus.isBonus && !activeBonus.unlocked) {
@@ -802,6 +806,9 @@ function setAppearancePreference(nextAppearance) {
 }
 
 function setThemePreference(nextTheme) {
+  if (typeof isThemeAllowedInExplorer === "function" && !isThemeAllowedInExplorer(nextTheme)) {
+    return;
+  }
   if (typeof getBonusThemeLockInfo === "function") {
     const bonusInfo = getBonusThemeLockInfo(nextTheme);
     if (bonusInfo.isBonus && !bonusInfo.unlocked) {

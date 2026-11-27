@@ -5,7 +5,7 @@
 // - Samples (große *-bundle.js): ein dauerhafter Cache, Einträge pro Datei mit Inhalts-Hash im Schlüssel.
 //   Ein Update lädt nur Sample-Dateien neu, die sich wirklich geändert haben.
 const CACHE_PREFIX = "lauscher-";
-const CACHE_NAME = "lauscher-0.16.0-beta-b12-84de37352acf";
+const CACHE_NAME = "lauscher-0.16.0-beta-b12-3ac8594aadb3";
 const SAMPLES_CACHE_NAME = "lauscher-samples";
 const PRECACHE_URLS = [
   "./",

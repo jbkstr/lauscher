@@ -2684,15 +2684,15 @@ registerColocatedPhrases({
     tr: "Yedek yüklendi: profil, alıştırma ilerlemesi, sınav geçmişi ve dönüm noktaları.",
     ar: "تم تحميل النسخة الاحتياطية: الملف الشخصي وتقدم التمارين وسجل الاختبارات والإنجازات."
   },
-  "Profil, Timer & Vorlieben": {
-    fr: "Profil, minuteur & préférences",
-    es: "Perfil, temporizador y preferencias",
-    it: "Profilo, timer e preferenze",
-    pl: "Profil, minutnik i preferencje",
-    uk: "Профіль, таймер та вподобання",
-    ur: "پروفائل، ٹائمر اور ترجیحات",
-    tr: "Profil, Zamanlayıcı ve Tercihler",
-    ar: "الملف الشخصي، المؤقّت والتفضيلات"
+  "Profil, Mixe & Vorlieben": {
+    fr: "Profil, mix & préférences",
+    es: "Perfil, mezclas y preferencias",
+    it: "Profilo, mix e preferenze",
+    pl: "Profil, miksy i preferencje",
+    uk: "Профіль, мікси та вподобання",
+    ur: "پروفائل، مکسز اور ترجیحات",
+    tr: "Profil, Karışımlar ve Tercihler",
+    ar: "الملف الشخصي، الخَلطات والتفضيلات"
   },
   "Lauscher-Profil sichern": {
     fr: "Sauvegarder le profil Lauscher",

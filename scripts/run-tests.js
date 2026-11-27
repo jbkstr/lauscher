@@ -1387,19 +1387,28 @@ runTest("Entdecker-Modus & Eltern-PIN: Hash, Sperre, Filter & Hausaufgaben-Freig
   assert.notEqual(h1, h2);
   assert.ok(!h1.includes("2580"), "PIN darf nie im Klartext im Hash stehen");
 
+  // Metal-Theme ist im Entdecker-Modus gesperrt: aktives Metal wird auf waldlichtung zurückgesetzt
+  sb.setThemePreference("metal");
+  assert.equal(st.settings.theme, "metal");
   sb.setExplorerMode(true, { toast: false });
   assert.equal(sb.isExplorerModeEnabled(), true);
   assert.equal(sb.document.documentElement.getAttribute("data-explorer-mode"), "1");
   assert.equal(sb.isExplorerPinLockActive(), false);
+  assert.equal(sb.isThemeAllowedInExplorer("metal"), false);
+  assert.equal(sb.isThemeAllowedInExplorer("waldlichtung"), true);
+  assert.equal(st.settings.theme, "waldlichtung", "Aktivieren des Entdecker-Modus muss Metal-Theme abwählen");
+  sb.setThemePreference("metal");
+  assert.equal(st.settings.theme, "waldlichtung", "Metal-Theme darf im Entdecker-Modus nicht wählbar sein");
 
   sb.saveExplorerPinHash(h1);
   assert.equal(sb.isExplorerPinLockActive(), true);
   assert.equal(sb.verifyExplorerPin("2580"), true);
   assert.equal(sb.verifyExplorerPin("0000"), false);
 
-  // Import mit explorerMode: false darf aktive PIN-Sperre nicht umgehen
-  sb.applyImportedDisplayPrefs({ explorerMode: false, appearance: "light", theme: "waldlichtung" });
+  // Import mit explorerMode: false darf aktive PIN-Sperre nicht umgehen und Metal-Theme nicht aktivieren
+  sb.applyImportedDisplayPrefs({ explorerMode: false, appearance: "dark", theme: "metal" });
   assert.equal(sb.isExplorerModeEnabled(), true, "Import darf aktiven PIN-geschützten Entdecker-Modus nicht abschalten");
+  assert.equal(st.settings.theme, "waldlichtung", "Import darf Metal-Theme im Entdecker-Modus nicht aktivieren");
 
   // Kategorie- & Mix-Filter: Kadenzen bleiben drin (major-last, minor-last), Studio/Modi raus
   const filteredCad = sb.filterExplorerCategoryItems("cadence", [

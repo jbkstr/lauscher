@@ -1977,18 +1977,24 @@ function applyImportedDisplayPrefs(display) {
   if (VALID_APPEARANCES.includes(display.appearance)) {
     state.settings.appearance = display.appearance;
   }
-  // Theme nur, wenn es mit dem geladenen Profil verfügbar ist (Bonus-Theme freigeschaltet, eigenes Theme vorhanden)
-  const theme = display.theme;
-  const bonusInfo = typeof getBonusThemeLockInfo === "function" ? getBonusThemeLockInfo(theme) : { isBonus: false };
-  const themeOk = ALL_VALID_THEMES.includes(theme)
-    && !(bonusInfo.isBonus && !bonusInfo.unlocked)
-    && (!CUSTOM_THEME_SLOT_IDS.includes(theme) || Boolean(getCustomThemeEntry(theme)));
-  if (themeOk) state.settings.theme = theme;
   if (typeof display.explorerMode === "boolean") {
     const pinLocked = typeof isExplorerPinLockActive === "function" && isExplorerPinLockActive();
     if (!pinLocked) {
       state.settings.explorerMode = display.explorerMode;
     }
+  }
+  // Theme nur, wenn es mit dem geladenen Profil verfügbar ist (Bonus-Theme freigeschaltet, eigenes Theme vorhanden, im Entdecker-Modus erlaubt)
+  const theme = display.theme;
+  const bonusInfo = typeof getBonusThemeLockInfo === "function" ? getBonusThemeLockInfo(theme) : { isBonus: false };
+  const allowedInExplorer = typeof isThemeAllowedInExplorer !== "function" || isThemeAllowedInExplorer(theme);
+  const themeOk = ALL_VALID_THEMES.includes(theme)
+    && allowedInExplorer
+    && !(bonusInfo.isBonus && !bonusInfo.unlocked)
+    && (!CUSTOM_THEME_SLOT_IDS.includes(theme) || Boolean(getCustomThemeEntry(theme)));
+  if (themeOk) {
+    state.settings.theme = theme;
+  } else if (typeof isThemeAllowedInExplorer === "function" && !isThemeAllowedInExplorer(state.settings.theme)) {
+    state.settings.theme = "waldlichtung";
   }
   saveVisualPrefs(state.settings.appearance, state.settings.theme, state.settings.language);
   if (typeof syncExplorerModeUI === "function") syncExplorerModeUI();
