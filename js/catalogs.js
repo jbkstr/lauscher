@@ -788,12 +788,21 @@ function isCustomThemeStorageWritable() {
   }
 }
 
-function loadCustomThemesFromStorage() {
+// Eigene Themes: Einzige Quelle ist das Profil (profile.customThemes mit den Grundfarben).
+// lauschebaer_custom_themes_v1 ist nur ein abgeleiteter Darstellungs-Cache für das Inline-Skript im
+// <head> (fertige CSS-Variablen, damit beim Start nichts aufblitzt) und wird beim Laden nie gelesen.
+// Ältere Versionen (Profil-Schema 1) speicherten dort vollständige Einträge mit Farben; die liest nur
+// noch die Migration (loadLegacyCustomThemesFromStorage).
+function loadLegacyCustomThemesFromStorage() {
   try {
     if (typeof localStorage === "undefined") return [null, null, null];
     const raw = localStorage.getItem(CUSTOM_THEMES_STORAGE_KEY);
     if (!raw) return [null, null, null];
-    return sanitizeCustomThemesArray(JSON.parse(raw));
+    const list = JSON.parse(raw);
+    if (!Array.isArray(list)) return [null, null, null];
+    // Nur echte Alt-Einträge mit Grundfarben – reine Cache-Einträge lassen sich nicht zurückrechnen
+    const withColors = list.map(item => (item && typeof item === "object" && item.colors && typeof item.colors === "object") ? item : null);
+    return sanitizeCustomThemesArray(withColors);
   } catch (_err) {
     return [null, null, null];
   }
@@ -824,9 +833,17 @@ function notifyStorageSaveFailed() {
 
 function saveCustomThemesToStorage(slots) {
   const clean = sanitizeCustomThemesArray(slots);
+  // Nur was das <head>-Skript braucht (siehe loadLegacyCustomThemesFromStorage)
+  const renderCache = clean.map(t => t ? {
+    id: t.id,
+    slotIndex: t.slotIndex,
+    isDark: t.isDark,
+    metaBg: t.metaBg,
+    cssVars: t.cssVars
+  } : null);
   try {
     if (typeof localStorage !== "undefined") {
-      localStorage.setItem(CUSTOM_THEMES_STORAGE_KEY, JSON.stringify(clean));
+      localStorage.setItem(CUSTOM_THEMES_STORAGE_KEY, JSON.stringify(renderCache));
     }
   } catch (_err) {
     notifyStorageSaveFailed();
@@ -835,12 +852,25 @@ function saveCustomThemesToStorage(slots) {
   return clean;
 }
 
+// Gleiche Regeln wie das Inline-Skript im <head> von index.html (CUSTOM_VAR_*_RE) – beide gemeinsam ändern.
+// Abgeleitete Theme-Werte sind Hex-/rgba()-Farben und Schatten; url(…) & Co. kommen nie vor.
+const CUSTOM_THEME_VAR_NAME_RE = /^--[a-z0-9-]{1,40}$/;
+const CUSTOM_THEME_VAR_VALUE_RE = /^[#a-zA-Z0-9 ,.%()-]{1,120}$/;
+const CUSTOM_THEME_VAR_BLOCKED_RE = /url|image|expression|attr|src|var/i;
+
+function isSafeCustomThemeCssVar(prop, val) {
+  return typeof prop === "string" && typeof val === "string"
+    && CUSTOM_THEME_VAR_NAME_RE.test(prop)
+    && CUSTOM_THEME_VAR_VALUE_RE.test(val)
+    && !CUSTOM_THEME_VAR_BLOCKED_RE.test(val);
+}
+
 function applyCustomThemeCssVars(themeEntry) {
   if (typeof document === "undefined" || !document.documentElement || !themeEntry?.cssVars) return;
   const rootStyle = document.documentElement.style;
   if (!rootStyle || typeof rootStyle.setProperty !== "function") return;
   Object.entries(themeEntry.cssVars).forEach(([prop, val]) => {
-    rootStyle.setProperty(prop, val);
+    if (isSafeCustomThemeCssVar(prop, val)) rootStyle.setProperty(prop, val);
   });
   rootStyle.colorScheme = themeEntry.isDark ? "dark" : "light";
 }
@@ -2141,20 +2171,63 @@ const EXAM_CATEGORY_LEVELS = {
   }
 };
 
+// Prüfungs-Snapshots (Wiedergabe & Notenbild in der Auswertung) haben je Übungsart eine andere Form.
+// Statt eines Schemas pro Art gelten strukturelle Grenzen: nur JSON-Grundtypen, begrenzte Tiefe/Länge,
+// harmlose Schlüsselnamen. Felder, die als Bezeichner in SVG/HTML oder Nachschlage-Tabellen landen,
+// dürfen nur aus einfachen Zeichen bestehen (kein Markup aus manipulierten Sicherungen).
+const EXAM_SNAPSHOT_LIMITS = Object.freeze({ maxDepth: 4, maxKeys: 40, maxArray: 128, maxString: 240, maxNodes: 2500 });
+const EXAM_SNAPSHOT_KEY_RE = /^[A-Za-z][A-Za-z0-9_]{0,39}$/;
+const EXAM_SNAPSHOT_ID_FIELDS = new Set([
+  "type", "clefId", "keySignatureId", "svgKey", "flowScenarioId", "promptKind", "melodyStyle",
+  "grooveKind", "activeTimeSig", "chordKey", "currentKey", "chosenKey", "targetKey", "cellKey", "rhythmKey"
+]);
+const EXAM_SNAPSHOT_ID_RE = /^[\p{L}\p{N}_#.+\-/:♭♯]{0,48}$/u;
+
+function sanitizeExamAudioSnapshot(raw) {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return null;
+  const L = EXAM_SNAPSHOT_LIMITS;
+  let nodes = 0;
+  const clean = (value, depth, key) => {
+    if (++nodes > L.maxNodes) return undefined;
+    if (value === null) return null;
+    if (typeof value === "boolean") return value;
+    if (typeof value === "number") return Number.isFinite(value) ? value : undefined;
+    if (typeof value === "string") {
+      if (key && EXAM_SNAPSHOT_ID_FIELDS.has(key)) return EXAM_SNAPSHOT_ID_RE.test(value) ? value : undefined;
+      return value.slice(0, L.maxString);
+    }
+    if (typeof value !== "object" || depth >= L.maxDepth) return undefined;
+    if (Array.isArray(value)) {
+      const arr = [];
+      for (const item of value.slice(0, L.maxArray)) {
+        const c = clean(item, depth + 1, key);
+        arr.push(c === undefined ? null : c);
+      }
+      return arr;
+    }
+    const obj = {};
+    let count = 0;
+    for (const k of Object.keys(value)) {
+      if (count >= L.maxKeys) break;
+      if (!EXAM_SNAPSHOT_KEY_RE.test(k)) continue;
+      const c = clean(value[k], depth + 1, k);
+      if (c === undefined) continue;
+      obj[k] = c;
+      count++;
+    }
+    return obj;
+  };
+  const out = clean(raw, 0, "");
+  return out && nodes <= L.maxNodes ? out : null;
+}
+
 function sanitizeExamReviewItem(raw, idx = 0) {
   if (!raw || typeof raw !== "object") return null;
   const mode = String(raw.mode || "cadence").slice(0, 36);
   const status = ["correct", "partial", "wrong", "skipped"].includes(raw.status) ? raw.status : "wrong";
   const scoreNum = Number(raw.score);
   const score = Number.isFinite(scoreNum) ? Math.max(0, Math.min(1, Math.round(scoreNum * 100) / 100)) : 0;
-  let audioSnapshot = null;
-  if (raw.audioSnapshot && typeof raw.audioSnapshot === "object") {
-    try {
-      audioSnapshot = JSON.parse(JSON.stringify(raw.audioSnapshot));
-    } catch (e) {
-      audioSnapshot = null;
-    }
-  }
+  const audioSnapshot = sanitizeExamAudioSnapshot(raw.audioSnapshot);
   return {
     qIndex: Math.max(1, parseInt(raw.qIndex, 10) || (idx + 1)),
     mode: mode,
@@ -2470,8 +2543,41 @@ function sanitizeDroneMix(raw) {
   };
 }
 
+// Struktur-Version des gespeicherten Profils (lauschebaer_profile_v1). Ändert sich die Struktur so, dass
+// alte Daten umgebaut werden müssen: hochzählen und in migrateUserProfileSchema() einen Schritt ergänzen.
+// 1 = alles vor Einführung des Felds, 2 = eigene Themes nur noch im Profil (Theme-Speicher ist reiner Cache).
+const PROFILE_SCHEMA_VERSION = 2;
+
+/**
+ * Bringt ein gespeichertes bzw. importiertes Roh-Profil schrittweise auf PROFILE_SCHEMA_VERSION.
+ * Läuft vor sanitizeUserProfile(). options.legacyCustomThemes: Alt-Themes aus dem Theme-Speicher dieses
+ * Geräts (nur beim Laden, nie beim Import einer Sicherung – die ersetzt alles).
+ */
+function migrateUserProfileSchema(raw, options = {}) {
+  if (!raw || typeof raw !== "object") return raw;
+  const out = { ...raw };
+  const stored = Number(raw.schemaVersion);
+  let version = Number.isInteger(stored) && stored >= 1 ? stored : 1;
+  if (version < 2) {
+    // 1 → 2: Eigene Themes lagen teils nur im Theme-Speicher. Lücken im Profil einmalig daraus füllen.
+    const legacy = Array.isArray(options.legacyCustomThemes) ? options.legacyCustomThemes : null;
+    if (legacy) {
+      const slots = Array.isArray(out.customThemes) ? out.customThemes.slice(0, 3) : [];
+      for (let i = 0; i < 3; i++) {
+        if (!slots[i] && legacy[i]) slots[i] = legacy[i];
+        else if (!slots[i]) slots[i] = null;
+      }
+      out.customThemes = slots;
+    }
+    version = 2;
+  }
+  out.schemaVersion = version;
+  return out;
+}
+
 function createDefaultProfile() {
   return {
+    schemaVersion: PROFILE_SCHEMA_VERSION,
     name: "",
     instruments: ["Klavier"],
     focus: "allround",
@@ -2683,6 +2789,7 @@ function sanitizeUserProfile(raw) {
     : [];
 
   return {
+    schemaVersion: PROFILE_SCHEMA_VERSION,
     name: String(raw.name || "").trim().slice(0, 24),
     instruments: validInstruments,
     focus: focuses[0] || "allround",
@@ -2738,29 +2845,23 @@ function sanitizeUserProfile(raw) {
 }
 
 function loadUserProfile() {
-  const storageThemes = loadCustomThemesFromStorage();
   try {
-    if (typeof localStorage === "undefined") {
-      const def = createDefaultProfile();
-      def.customThemes = storageThemes;
-      return def;
-    }
+    if (typeof localStorage === "undefined") return createDefaultProfile();
     const raw = localStorage.getItem(PERSONAL_PROFILE_STORAGE_KEY);
     if (!raw) {
+      // Kein Profil, aber evtl. Alt-Themes aus einer sehr frühen Version
       const def = createDefaultProfile();
-      def.customThemes = storageThemes;
+      def.customThemes = loadLegacyCustomThemesFromStorage();
       return def;
     }
-    const prof = sanitizeUserProfile(JSON.parse(raw));
-    for (let i = 0; i < 3; i++) {
-      if (!prof.customThemes[i] && storageThemes[i]) {
-        prof.customThemes[i] = storageThemes[i];
-      }
-    }
-    return prof;
+    const parsed = JSON.parse(raw);
+    const needsLegacyThemes = !(Number(parsed?.schemaVersion) >= 2);
+    return sanitizeUserProfile(migrateUserProfileSchema(parsed, {
+      legacyCustomThemes: needsLegacyThemes ? loadLegacyCustomThemesFromStorage() : null
+    }));
   } catch (_err) {
     const def = createDefaultProfile();
-    def.customThemes = storageThemes;
+    def.customThemes = loadLegacyCustomThemesFromStorage();
     return def;
   }
 }

@@ -5,9 +5,15 @@ All released versions of Lauscher. New sections are created by `python3 scripts/
 ## Unreleased
 
 **Fixed**
+- Hardened imported profile backups: exam review snapshots are now structurally validated, so a manipulated backup can no longer inject markup into the exam review (e.g. via an unknown notation symbol key).
+- Custom themes only apply safe colour values; the startup script ignores anything like `url(…)` from manipulated storage.
 - Fixed a layout resize-oscillation glitch in "Play Intervals" (and other MIDI play exercises) on mobile/app viewports caused by animated height/padding transitions on `.bar-card` interacting with `fitExerciseLayout()` and `ResizeObserver`.
 
 **Improved**
+- Added a Content-Security-Policy: the app may only load its own files, which enforces the "no network requests" promise in the browser.
+- Profiles now carry a schema version with step-by-step migration; custom themes are stored once in the profile (the theme storage is only a render cache for the startup script).
+- Code hygiene: merged the duplicated tuner styles (same look, about 100 lines less), removed unused tool-preview styles, enabled strict mode in six smaller modules, and the project check now also reports accidental implicit globals.
+- README brought up to date (native WebAudio engine, Tools tab, MIDI, sing-back exercises, i18n layout, PWA, deployment).
 - Stabilized the on-screen keyboard in "Play Intervals", "Play Scales & Modes" and "Play Chords" using natural C/F-anchored 12-key blocks with window hysteresis, so the keyboard stays steady while the root note moves naturally across the keys instead of sticking to the edge.
 - Kept the note-duration symbols `(♪, ♩, ♩., 𝅗𝅥)` together on one line in the Melodies "Full Dictation" card across all 10 languages.
 - Active MIDI play exams: added separate "Active Playing (MIDI / Keyboard)" exam levels to Intervals (3 levels), Chords (4 levels incl. inversions and 7th chords), and Scales & Modes (3 levels with full scale play-through, partial per-step scoring, step-by-step error breakdown, and audio review), kept cleanly separated from listening exams.

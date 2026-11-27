@@ -2,6 +2,7 @@
 // WERKZEUG: NASHVILLE NUMBER SYSTEM (#viewNashville)
 // Interaktives Tonarten-Diagramm & 12-Tonarten-Matrix
 // =====================================================
+"use strict";
 
 const NNS_KEYS = [
   {
