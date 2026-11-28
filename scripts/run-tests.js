@@ -1625,6 +1625,108 @@ runTest("Intervall-Abstandshilfe: Modus, Entdecker-Auto, Texte & Mini-SVG", () =
   }
 });
 
+runTest("Lernhilfen (Akkorde, Kadenzen, Taktarten & Solfège): Modus-Auflösung, Hinweise & Akkord-SVG", () => {
+  const st = appState;
+  const prevHints = st.profile.exerciseHints;
+  const prevManual = st.profile.exerciseHintsManual;
+  const prevExplorer = st.settings.explorerMode;
+  const prevExam = st.exam;
+  try {
+    assert.equal(sb.isExerciseHintsSupportedType("interval-chords"), true);
+    assert.equal(sb.isExerciseHintsSupportedType("chord-arp-up"), true);
+    assert.equal(sb.isExerciseHintsSupportedType("chord-arp-down"), true);
+    assert.equal(sb.isExerciseHintsSupportedType("cadence"), true);
+    assert.equal(sb.isExerciseHintsSupportedType("rhythm-meter"), true);
+    assert.equal(sb.isExerciseHintsSupportedType("solfege"), true);
+    assert.equal(sb.isExerciseHintsSupportedType("interval-melodic"), false);
+    assert.equal(sb.isExerciseHintsSupportedType("melody"), false);
+
+    // Normalmodus ohne manuelle Wahl -> aus
+    st.settings.explorerMode = false;
+    st.profile.exerciseHints = false;
+    st.profile.exerciseHintsManual = false;
+    st.exam = { active: false };
+    assert.equal(sb.isExerciseHintsActive(), false);
+
+    // Entdecker-Modus aktiviert automatisch Lernhilfen
+    st.settings.explorerMode = true;
+    assert.equal(sb.isExerciseHintsActive(), true);
+
+    // Manuelle Überschreibung gewinnt im Entdecker-Modus
+    st.profile.exerciseHints = false;
+    st.profile.exerciseHintsManual = true;
+    assert.equal(sb.isExerciseHintsActive(), false);
+
+    st.profile.exerciseHints = true;
+    assert.equal(sb.isExerciseHintsActive(), true);
+
+    // In Prüfungen sind Lernhilfen immer aus
+    st.exam = { active: true };
+    assert.equal(sb.isExerciseHintsActive(), false);
+    assert.equal(sb.isExerciseHintsActive({ ignoreExam: true }), true);
+    st.exam = { active: false };
+
+    // Akkord-Stimmungen, Kadenz-Gefühle, Takt-Pulse
+    assert.ok(sb.getChordMoodHint("maj").length > 0);
+    assert.ok(sb.getChordMoodHint("min").length > 0);
+    assert.ok(sb.getChordMoodHint("7s9").length > 0);
+    assert.equal(sb.getChordMoodHint("unknown"), "");
+
+    assert.ok(sb.getCadenceFeelHint("I").length > 0);
+    assert.ok(sb.getCadenceFeelHint("V7").length > 0);
+    assert.ok(sb.getCadenceFeelHint("N6").length > 0);
+    assert.equal(sb.getCadenceFeelHint("unknown"), "");
+
+    const pat34 = sb.getMeterPulsePattern("3/4");
+    assert.deepEqual(Array.from(pat34.dots), ["accent", "weak", "weak"]);
+    assert.equal(pat34.count, "1 – 2 – 3");
+    assert.ok(sb.getMeterPulsePattern("7/8").dots.includes("gap"));
+    assert.equal(sb.getMeterPulsePattern("11/8"), null);
+
+    // Einfache Fragestellungen
+    assert.ok(sb.getPlainExercisePromptText({ type: "interval-chords" }).includes("Akkord"));
+    assert.ok(sb.getPlainExercisePromptText({ type: "cadence", targetIndex: 2 }).includes("3"));
+    assert.ok(sb.getPlainExercisePromptText({ type: "rhythm-meter" }).includes("Eins"));
+    assert.ok(sb.getPlainExercisePromptText({ type: "solfege" }).includes("Tonleiter"));
+
+    // Auflösungs- & Falschwahl-Texte
+    const chordEx = {
+      type: "interval-chords",
+      targetItem: { key: "maj", label: "Dur-Dreiklang", short: "Dur", symbol: "Dur", rootMidi: 60, offsets: [0, 4, 7] }
+    };
+    assert.ok(sb.formatExerciseHintRevealDescription(chordEx).includes("Hell"));
+    assert.ok(sb.formatExerciseHintWrongFeedback(chordEx, { key: "min", short: "Moll" }).includes("Weich"));
+
+    const meterEx = {
+      type: "rhythm-meter",
+      targetItem: { key: "3/4", label: "Dreivierteltakt", short: "3/4", symbol: "3/4" }
+    };
+    assert.ok(sb.formatExerciseHintRevealDescription(meterEx).includes("1 – 2 – 3"));
+    assert.ok(sb.formatExerciseHintWrongFeedback(meterEx, { key: "4/4", symbol: "4/4" }).includes("1 – 2 – 3 – 4"));
+
+    // Solfège-Richtungshinweis
+    assert.ok(sb.getSolfegeWrongDirectionHint(67, 64).includes("tiefer"));
+    assert.ok(sb.getSolfegeWrongDirectionHint(60, 64).includes("höher"));
+    assert.equal(sb.getSolfegeWrongDirectionHint(64, 64), "");
+
+    // Akkord-Mini-Klaviatur SVG (Reveal + A/B-Mystery)
+    const chordSvg = sb.buildChordMiniKeyboardSVG({
+      rootMidi: 60, offsets: [0, 4, 7], preferFlat: false, variant: "reveal", badgeText: "Dur • C · E · G"
+    });
+    assert.ok(chordSvg.includes("is-chord-kb") && chordSvg.includes("is-root") && chordSvg.includes("is-end") && chordSvg.includes("Dur • C · E · G"), "Akkord-SVG unvollständig");
+
+    const mysterySvg = sb.buildChordMiniKeyboardSVG({
+      rootMidi: 60, offsets: [0, 4, 7], preferFlat: false, variant: "mystery", badgeText: "Gesucht (?)", isCompareMystery: true
+    });
+    assert.ok(mysterySvg.includes("is-chord-kb") && mysterySvg.includes("is-root") && !mysterySvg.includes("is-end"), "A/B-Mystery-Akkord-SVG darf keine Zieltöne verraten");
+  } finally {
+    st.profile.exerciseHints = prevHints;
+    st.profile.exerciseHintsManual = prevManual;
+    st.settings.explorerMode = prevExplorer;
+    st.exam = prevExam;
+  }
+});
+
 // Ergebnis-Ausgabe
 const failed = results.filter(r => !r.ok);
 for (const r of results) {

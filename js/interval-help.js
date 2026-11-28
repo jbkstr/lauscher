@@ -752,3 +752,395 @@ function renderStageIntervalVisual(ex, options = {}) {
   stageCard.classList.add("has-interval-visual");
   return true;
 }
+
+// =====================================================
+// LERNHILFEN FÜR AKKORDE, KADENZEN, TAKTARTEN & SOLFÈGE
+// =====================================================
+// Einheitlicher Schalter „Lernhilfen in Übungen“ (im Entdecker-Modus automatisch aktiv,
+// in Prüfungen immer aus) + kompakter Chip im Modul-Header.
+
+function isExerciseHintsSupportedType(exType) {
+  return exType === "interval-chords"
+    || exType === "chord-arp-up"
+    || exType === "chord-arp-down"
+    || exType === "cadence"
+    || exType === "rhythm-meter"
+    || exType === "solfege";
+}
+
+function isExerciseHintsActive(options = {}) {
+  if (!options.ignoreExam && typeof state !== "undefined" && state?.exam?.active) {
+    return false;
+  }
+  const p = typeof state !== "undefined" ? state?.profile : null;
+  if (p?.exerciseHintsManual) {
+    return Boolean(p.exerciseHints);
+  }
+  if (typeof isExplorerModeEnabled === "function" && isExplorerModeEnabled()) {
+    return true;
+  }
+  return Boolean(p?.exerciseHints);
+}
+
+function setExerciseHintsPreference(enabled) {
+  const next = Boolean(enabled);
+  if (typeof state !== "undefined" && state?.profile) {
+    state.profile.exerciseHints = next;
+    state.profile.exerciseHintsManual = true;
+    if (typeof saveUserProfile === "function") {
+      saveUserProfile(state.profile);
+    }
+  }
+  syncExerciseHintsSettingsUI();
+  if (typeof state !== "undefined" && state?.currentExercise) {
+    syncExerciseHintsChipUI(state.currentExercise);
+  }
+  if (typeof applyProfileDisplayChanges === "function") {
+    applyProfileDisplayChanges();
+  }
+  if (typeof renderProfileAccountView === "function") {
+    renderProfileAccountView();
+  }
+}
+
+function syncExerciseHintsSettingsUI() {
+  const active = isExerciseHintsActive({ ignoreExam: true });
+  document.querySelectorAll("[data-exercise-hints]").forEach(btn => {
+    const isMatch = (btn.dataset.exerciseHints === "on") === active;
+    btn.classList.toggle("active", isMatch);
+    btn.setAttribute("aria-pressed", String(isMatch));
+  });
+}
+
+function syncExerciseHintsChipUI(ex) {
+  const chipBtn = document.getElementById("exerciseHintsChipBtn");
+  const isApplicable = Boolean(ex && isExerciseHintsSupportedType(ex.type) && !state?.exam?.active);
+  if (!chipBtn) return;
+  chipBtn.classList.toggle("hidden", !isApplicable);
+  if (isApplicable) {
+    const active = isExerciseHintsActive();
+    chipBtn.textContent = active ? tr("Hilfe: An", "Help: On") : tr("Hilfe: Aus", "Help: Off");
+    chipBtn.classList.toggle("btn-active", active);
+    chipBtn.classList.toggle("click-muted", !active);
+    chipBtn.setAttribute("aria-pressed", String(active));
+  }
+}
+
+function getChordMoodHint(chordKey) {
+  switch (chordKey) {
+    case "maj":   return tr("Hell • Offen", "Bright • Open");
+    case "min":   return tr("Weich • Warm", "Soft • Warm");
+    case "dim":   return tr("Gespannt", "Tense");
+    case "aug":   return tr("Schwebend", "Floating");
+    case "sus4":  return tr("Wartend", "Waiting");
+    case "sus2":  return tr("Luftig", "Airy");
+    case "7":     return tr("Drängend", "Driving");
+    case "maj7":  return tr("Verträumt", "Dreamy");
+    case "m7":    return tr("Samtig", "Velvety");
+    case "m7b5":  return tr("Düster", "Dark");
+    case "dim7":  return tr("Dramatisch", "Dramatic");
+    case "mMaj7": return tr("Geheimnisv.", "Mysterious");
+    case "maj9":  return tr("Strahlend", "Radiant");
+    case "7b9":   return tr("Würzig", "Spicy");
+    case "7s9":   return tr("Jazzig", "Jazzy");
+    default:      return "";
+  }
+}
+
+function getCadenceFeelHint(degreeKey) {
+  switch (degreeKey) {
+    case "I":
+    case "i":     return tr("Zuhause", "Home");
+    case "IV":
+    case "iv":    return tr("Aufbruch", "Lift-off");
+    case "V":
+    case "V7":
+    case "v":     return tr("Spannung", "Tension");
+    case "vi":    return tr("Weich", "Soft");
+    case "III":   return tr("Hell", "Bright");
+    case "ii":
+    case "iio":
+    case "ii7b5": return tr("Anlauf", "Step-up");
+    case "iii":   return tr("Schwebend", "Floating");
+    case "Vsus4": return tr("Wartend", "Waiting");
+    case "bVI":
+    case "VI":    return tr("Episch", "Epic");
+    case "bVII":
+    case "VII":   return tr("Rockig", "Rock");
+    case "I7":    return tr("Bluesig", "Bluesy");
+    case "Imaj7": return tr("Verträumt", "Dreamy");
+    case "IV7":   return tr("Funky", "Funky");
+    case "III7":
+    case "V/V":   return tr("Zugkraft", "Pull");
+    case "bII7":
+    case "N6":    return tr("Dramatisch", "Dramatic");
+    default:      return "";
+  }
+}
+
+const METER_PULSE_PATTERNS = {
+  "2/4": { dots: ["accent", "weak"], count: "1 – 2" },
+  "3/4": { dots: ["accent", "weak", "weak"], count: "1 – 2 – 3" },
+  "4/4": { dots: ["accent", "weak", "mid", "weak"], count: "1 – 2 – 3 – 4" },
+  "6/8": { dots: ["accent", "weak", "weak", "gap", "mid", "weak", "weak"], count: "1-2-3 · 4-5-6" },
+  "5/4": { dots: ["accent", "weak", "weak", "gap", "mid", "weak"], count: "1-2-3 · 4-5" },
+  "7/8": { dots: ["accent", "weak", "gap", "mid", "weak", "gap", "mid", "weak", "weak"], count: "2 + 2 + 3" }
+};
+
+function getMeterPulsePattern(meterKey) {
+  return METER_PULSE_PATTERNS[meterKey] || null;
+}
+
+function getPlainExercisePromptText(ex) {
+  if (!ex) return "";
+  if (ex.type === "interval-chords" || ex.type === "chord-arp-up" || ex.type === "chord-arp-down") {
+    return tr("Welche Akkord-Farbe hörst du?", "Which chord color do you hear?");
+  }
+  if (ex.type === "cadence") {
+    return tf("Wie fühlt sich Takt {bar} an?", "How does Bar {bar} feel?", { bar: (ex.targetIndex || 0) + 1 });
+  }
+  if (ex.type === "rhythm-meter") {
+    return tr("Bis wie viel zählst du bis zur starken Eins?", "How high do you count to the next strong beat?");
+  }
+  if (ex.type === "solfege") {
+    return tr("Wo sitzt der Ton in der Tonleiter? Tippe die Taste:", "Where does the note sit in the scale? Tap the key:");
+  }
+  return "";
+}
+
+function formatExerciseHintRevealDescription(ex) {
+  if (!ex || !ex.targetItem || !isExerciseHintsActive()) return "";
+  if (ex.type === "interval-chords" || ex.type === "chord-arp-up" || ex.type === "chord-arp-down") {
+    const mood = getChordMoodHint(ex.targetItem.key);
+    return mood ? `${ex.targetItem.label} • ${mood}` : ex.targetItem.label;
+  }
+  if (ex.type === "cadence") {
+    const feel = getCadenceFeelHint(ex.targetItem.key || ex.targetItem.roman);
+    return feel ? `${ex.targetItem.label} • ${feel}` : ex.targetItem.label;
+  }
+  if (ex.type === "rhythm-meter") {
+    const pat = getMeterPulsePattern(ex.targetItem.key);
+    return pat
+      ? tf("{label} • Zählen: {count}", "{label} • Count: {count}", { label: ex.targetItem.label, count: pat.count })
+      : ex.targetItem.label;
+  }
+  return "";
+}
+
+function formatExerciseHintWrongFeedback(ex, chosenDef, fallbackKey = "") {
+  if (!ex || !chosenDef || !isExerciseHintsActive() || state?.exam?.active) return "";
+  const chosenKey = chosenDef.key || fallbackKey || "";
+  if (ex.type === "interval-chords" || ex.type === "chord-arp-up" || ex.type === "chord-arp-down") {
+    const mood = getChordMoodHint(chosenKey);
+    if (!mood) return "";
+    return tf("Gewählt: {lbl} ({hint}).", "Selected: {lbl} ({hint}).", {
+      lbl: chosenDef.short || chosenDef.label || chosenDef.symbol || "?",
+      hint: mood
+    });
+  }
+  if (ex.type === "cadence") {
+    const feel = getCadenceFeelHint(chosenKey || chosenDef.roman);
+    if (!feel) return "";
+    return tf("Gewählt: {lbl} ({hint}).", "Selected: {lbl} ({hint}).", {
+      lbl: `${chosenDef.roman || chosenDef.symbol || "?"} ${chosenDef.short || ""}`.trim(),
+      hint: feel
+    });
+  }
+  if (ex.type === "rhythm-meter") {
+    const pat = getMeterPulsePattern(chosenKey);
+    if (!pat) return "";
+    return tf("Gewählt: {lbl} ({hint}).", "Selected: {lbl} ({hint}).", {
+      lbl: chosenDef.symbol || chosenDef.short || "?",
+      hint: pat.count
+    });
+  }
+  return "";
+}
+
+function getSolfegeWrongDirectionHint(clickedMidi, targetMidi) {
+  if (!isExerciseHintsActive() || state?.exam?.active) return "";
+  if (!Number.isFinite(clickedMidi) || !Number.isFinite(targetMidi)) return "";
+  if (clickedMidi > targetMidi) {
+    return tr("Zu hoch – der gesuchte Ton liegt tiefer.", "Too high — the target note is lower.");
+  }
+  if (clickedMidi < targetMidi) {
+    return tr("Zu tief – der gesuchte Ton liegt höher.", "Too low — the target note is higher.");
+  }
+  return "";
+}
+
+// ---------- MINI-KLAVIATUR FÜR AKKORDE (SVG) ----------
+
+function buildChordMiniKeyboardSVG(params) {
+  const rootMidi = params.rootMidi;
+  const offsets = Array.isArray(params.offsets) && params.offsets.length > 0 ? params.offsets : [0];
+  const preferFlat = Boolean(params.preferFlat);
+  const variant = params.variant || "reveal";
+  const badgeText = params.badgeText || "";
+  const isCompareMystery = Boolean(params.isCompareMystery);
+
+  const chordMidis = isCompareMystery ? [rootMidi] : offsets.map(off => rootMidi + off);
+  const chordSet = new Set(chordMidis);
+  const minMidi = Math.min(...chordMidis);
+  const maxMidi = Math.max(...chordMidis);
+
+  let winStart = minMidi;
+  if (isBlackMidiPitch(winStart)) winStart -= 1;
+  let winEnd = Math.max(maxMidi, winStart + 12);
+  if (isBlackMidiPitch(winEnd)) winEnd += 1;
+
+  const whiteMidis = [];
+  const blackMidis = [];
+  for (let m = winStart; m <= winEnd; m++) {
+    if (isBlackMidiPitch(m)) blackMidis.push(m);
+    else whiteMidis.push(m);
+  }
+
+  const padX = 4;
+  const totalW = 312;
+  const kbTop = 26;
+  const whiteH = 46;
+  const blackH = 28;
+  const wkW = totalW / Math.max(1, whiteMidis.length);
+  const bkW = wkW * 0.62;
+
+  const whiteIndexByMidi = new Map();
+  const keyCenterX = new Map();
+  whiteMidis.forEach((m, idx) => {
+    whiteIndexByMidi.set(m, idx);
+    keyCenterX.set(m, padX + (idx + 0.5) * wkW);
+  });
+  blackMidis.forEach(m => {
+    const prevIdx = whiteIndexByMidi.get(m - 1);
+    if (prevIdx !== undefined) {
+      keyCenterX.set(m, padX + (prevIdx + 1) * wkW);
+    }
+  });
+
+  const whiteRects = [];
+  const whiteDecor = [];
+  whiteMidis.forEach((m, idx) => {
+    const x = padX + idx * wkW;
+    const cx = x + wkW / 2;
+    let cls = "ikb-white";
+    const isRoot = m === rootMidi;
+    const isChordTone = !isRoot && chordSet.has(m);
+    if (isRoot) cls += " is-root";
+    else if (isChordTone) cls += ` is-end is-${variant}`;
+
+    whiteRects.push(
+      `<rect class="${cls}" x="${x.toFixed(2)}" y="${kbTop}" width="${(wkW - 0.6).toFixed(2)}" height="${whiteH}" rx="3" />`
+    );
+
+    if (isRoot || isChordTone) {
+      const lbl = getIntervalShortNoteName(m, preferFlat);
+      whiteDecor.push(
+        `<text class="ikb-key-lbl is-on-fill" x="${cx.toFixed(1)}" y="${kbTop + whiteH - 6}" text-anchor="middle" font-family="Andika, sans-serif">${escapeIntervalSvgText(lbl)}</text>`
+      );
+    }
+  });
+
+  const blackRects = [];
+  const blackDecor = [];
+  blackMidis.forEach(m => {
+    const cx = keyCenterX.get(m);
+    if (cx === undefined) return;
+    const x = cx - bkW / 2;
+    let cls = "ikb-black";
+    const isRoot = m === rootMidi;
+    const isChordTone = !isRoot && chordSet.has(m);
+    if (isRoot) cls += " is-root";
+    else if (isChordTone) cls += ` is-end is-${variant}`;
+
+    blackRects.push(
+      `<rect class="${cls}" x="${x.toFixed(2)}" y="${kbTop}" width="${bkW.toFixed(2)}" height="${blackH}" rx="2.4" />`
+    );
+
+    if (isRoot || isChordTone) {
+      const lbl = getIntervalShortNoteName(m, preferFlat);
+      blackDecor.push(
+        `<text class="ikb-key-lbl is-black-lbl is-on-fill" x="${cx.toFixed(1)}" y="${kbTop + blackH - 5}" text-anchor="middle" font-family="Andika, sans-serif">${escapeIntervalSvgText(lbl)}</text>`
+      );
+    }
+  });
+
+  // Oben zentriertes Akkord-Pill (oder Start-Anker bei A/B Phase B)
+  let topMarkup = "";
+  const rootX = keyCenterX.get(rootMidi) ?? (padX + totalW * 0.25);
+  if (isCompareMystery) {
+    topMarkup = buildIntervalAnchorMarkerSvgMarkup({
+      startX: rootX,
+      badgeText: badgeText || tr("Gesucht (?)", "Target (?)"),
+      variant: "mystery"
+    });
+  } else {
+    const endX = keyCenterX.get(maxMidi) ?? rootX;
+    const midX = (rootX + endX) / 2;
+    const pillW = Math.max(66, Math.min(250, badgeText.length * 6.0 + 18));
+    const pillX = Math.max(4, Math.min(316 - pillW, midX - pillW / 2));
+    topMarkup = `
+      <line class="ivis-chord-bracket is-${variant}" x1="${rootX.toFixed(1)}" y1="22.5" x2="${endX.toFixed(1)}" y2="22.5" />
+      <rect class="ivis-pill is-${variant}" x="${pillX.toFixed(1)}" y="1.5" width="${pillW.toFixed(1)}" height="15.5" rx="7.75" />
+      <text class="ivis-pill-text is-${variant}" x="${(pillX + pillW / 2).toFixed(1)}" y="12.2" text-anchor="middle" font-family="Andika, sans-serif">${escapeIntervalSvgText(badgeText)}</text>
+    `;
+  }
+
+  return `<svg class="interval-visual-svg is-keyboard is-chord-kb" viewBox="0 0 320 76" role="img" aria-hidden="true">${topMarkup}${whiteRects.join("")}${whiteDecor.join("")}${blackRects.join("")}${blackDecor.join("")}</svg>`;
+}
+
+function renderStageChordVisual(ex, options = {}) {
+  const wrap = document.getElementById("stageIntervalVisual");
+  const stageCard = document.getElementById("centralStageCard");
+  if (!wrap || !stageCard) return false;
+
+  const isChordEx = ex && (ex.type === "interval-chords" || ex.type === "chord-arp-up" || ex.type === "chord-arp-down");
+  if (!isChordEx || !isExerciseHintsActive() || state?.exam?.active) {
+    return false;
+  }
+
+  const rootMidi = ex.targetItem?.rootMidi;
+  if (!Number.isFinite(rootMidi)) return false;
+
+  const visualMode = options.mode || "reveal";
+  const preferFlat = typeof FLAT_KEYS !== "undefined" && FLAT_KEYS.has(ex.rootKey || state?.currentKey);
+
+  let offsets = Array.isArray(ex.targetItem?.offsets) ? ex.targetItem.offsets : (ex.offsets || [0, 4, 7]);
+  let variant = "reveal";
+  let badgeText = "";
+  let isCompareMystery = false;
+
+  if (visualMode === "wrong" || visualMode === "compare-a") {
+    const chosen = options.chosenDef;
+    if (!chosen || !Array.isArray(chosen.offsets)) return false;
+    offsets = chosen.offsets;
+    variant = "wrong";
+    const noteNames = offsets.map(o => getIntervalShortNoteName(rootMidi + o, preferFlat || (chosen.key === "min" || chosen.key === "dim" || chosen.key === "m7" || chosen.key === "m7b5" || chosen.key === "dim7"))).join(" · ");
+    badgeText = tf("Dein Tipp: {dist}", "Your pick: {dist}", { dist: `${chosen.short || chosen.symbol} (${noteNames})` });
+  } else if (visualMode === "compare-b") {
+    isCompareMystery = true;
+    variant = "mystery";
+    badgeText = tr("Gesucht (?)", "Target (?)");
+  } else {
+    const targetKey = ex.targetItem?.key || "";
+    const minorish = targetKey === "min" || targetKey === "dim" || targetKey === "m7" || targetKey === "m7b5" || targetKey === "dim7" || targetKey === "7" || targetKey === "7b9";
+    const noteNames = offsets.map(o => getIntervalShortNoteName(rootMidi + o, preferFlat || minorish)).join(" · ");
+    badgeText = `${ex.targetItem?.short || ex.targetItem?.symbol || ""} • ${noteNames}`;
+    variant = "reveal";
+  }
+
+  const useFlatForKeys = preferFlat || (variant === "reveal"
+    ? ["min", "dim", "m7", "m7b5", "dim7", "7", "7b9"].includes(ex.targetItem?.key)
+    : ["min", "dim", "m7", "m7b5", "dim7", "7", "7b9"].includes(options.chosenDef?.key));
+
+  wrap.innerHTML = buildChordMiniKeyboardSVG({
+    rootMidi,
+    offsets,
+    preferFlat: useFlatForKeys,
+    variant,
+    badgeText,
+    isCompareMystery
+  });
+  wrap.classList.remove("hidden");
+  stageCard.classList.add("has-interval-visual");
+  return true;
+}

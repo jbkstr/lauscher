@@ -400,6 +400,13 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+  document.querySelectorAll("[data-exercise-hints]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (typeof setExerciseHintsPreference === "function") {
+        setExerciseHintsPreference(btn.dataset.exerciseHints === "on");
+      }
+    });
+  });
   document.querySelectorAll("[data-solfege-labels]").forEach(btn => {
     btn.addEventListener("click", () => {
       state.profile.solfegeLabels = btn.dataset.solfegeLabels === "numbers" ? "numbers" : "syllables";
@@ -1110,6 +1117,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  document.getElementById("exerciseHintsChipBtn")?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (state.exam?.active) return;
+    closeAllInlinePopovers();
+    if (typeof isExerciseHintsActive === "function" && typeof setExerciseHintsPreference === "function") {
+      setExerciseHintsPreference(!isExerciseHintsActive());
+    }
+  });
+
   [inlineBpmPopover, inlineKeyPopover, inlineNotationKeyPopover, inlineNotationPacePopover, inlineTimeSigPopover, inlineIntervalHelpPopover, inlineModesRootPopover, inlineModesPadPopover, document.getElementById("inlineSingVoicePopover")].forEach(pop => {
     pop?.addEventListener("click", (e) => e.stopPropagation());
   });
@@ -1405,6 +1421,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const chosenNotes = (diag.chosen.offsets || [0, 4, 7]).map(s => midiToNote(baseRoot + s));
       const targetNotes = diag.target.notes || [];
 
+      if (typeof renderStageChordVisual === "function") {
+        renderStageChordVisual(ex, { mode: "compare-a", chosenDef: diag.chosen });
+      }
       if (isChordArpeggioMode(ex.type)) {
         const reverse = ex.type === "chord-arp-down";
         const seqChosen = reverse ? [...chosenNotes].reverse() : chosenNotes;
@@ -1426,11 +1445,20 @@ document.addEventListener("DOMContentLoaded", () => {
           });
         };
         scheduleArp(seqChosen, tChosen, 0);
+        audioEngine.registerTimer(() => {
+          if (audioEngine.playbackId !== cmpId) return;
+          if (typeof renderStageChordVisual === "function") {
+            renderStageChordVisual(ex, { mode: "compare-b" });
+          }
+        }, tChosen.cycleMs);
         scheduleArp(seqTarget, tTarget, tChosen.cycleMs);
       } else {
         audioEngine.playStep(chosenNotes, 1.05, null, "cadence");
         audioEngine.registerTimer(() => {
           if (audioEngine.playbackId !== cmpId) return;
+          if (typeof renderStageChordVisual === "function") {
+            renderStageChordVisual(ex, { mode: "compare-b" });
+          }
           audioEngine.playStep(targetNotes, 1.25, null, "cadence");
         }, 1150);
       }

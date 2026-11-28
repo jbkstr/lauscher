@@ -378,6 +378,7 @@ function setExplorerMode(enabled, options = {}) {
 
   if (typeof renderKnowledgeHub === "function") renderKnowledgeHub();
   if (typeof syncIntervalHelpSettingsUI === "function") syncIntervalHelpSettingsUI();
+  if (typeof syncExerciseHintsSettingsUI === "function") syncExerciseHintsSettingsUI();
   if (state.currentView === "exercise" && typeof applyProfileDisplayChanges === "function") {
     applyProfileDisplayChanges();
   }

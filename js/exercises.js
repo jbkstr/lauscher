@@ -1368,6 +1368,7 @@ function renderUI() {
 
   syncSingAlongUI(ex);
   if (typeof syncIntervalHelpChipUI === "function") syncIntervalHelpChipUI(ex);
+  if (typeof syncExerciseHintsChipUI === "function") syncExerciseHintsChipUI(ex);
 
   const solfegeKeyBtn = document.getElementById("solfegeKeyBtn");
   const solfegeKeyBtnLabel = document.getElementById("solfegeKeyBtnLabel");
@@ -1554,7 +1555,9 @@ function renderUI() {
         ? tf("Zufall • Takt {bar}", "Random • Bar {bar}", { bar: barNum })
         : tr("Ziel: Takt 4", "Target: Bar 4");
     }
-    document.getElementById("inputPromptText").textContent = tf("Tippe die Stufe für Takt {bar}:", "Choose the chord degree for Bar {bar}:", { bar: barNum });
+    document.getElementById("inputPromptText").textContent = (typeof isIntervalPlainLanguageActive === "function" && isIntervalPlainLanguageActive() && typeof getPlainExercisePromptText === "function")
+      ? getPlainExercisePromptText(ex)
+      : tf("Tippe die Stufe für Takt {bar}:", "Choose the chord degree for Bar {bar}:", { bar: barNum });
   } else if (ex.type === "solfege") {
     if (moduleTitleEl) moduleTitleEl.textContent = tr("Kontext Kadenz", "Context Cadence");
     if (targetBadgeEl) {
@@ -1574,7 +1577,9 @@ function renderUI() {
           : tr("Danach: Einzelton", "Then: Single Note");
       }
     }
-    document.getElementById("inputPromptText").textContent = tr("Tippe die gehörte Stufe auf der Klaviatur:", "Tap the heard scale degree on the keyboard:");
+    document.getElementById("inputPromptText").textContent = (typeof isIntervalPlainLanguageActive === "function" && isIntervalPlainLanguageActive() && typeof getPlainExercisePromptText === "function")
+      ? getPlainExercisePromptText(ex)
+      : tr("Tippe die gehörte Stufe auf der Klaviatur:", "Tap the heard scale degree on the keyboard:");
   } else if (ex.type === "melody") {
     syncMelodyHeaderAndPromptUI(ex);
   } else if (isNotation) {
@@ -1584,7 +1589,9 @@ function renderUI() {
     barsGrid.classList.add("cols-2");
     if (moduleTitleEl) moduleTitleEl.textContent = tr("2-Takt-Puls", "2-Bar Pulse");
     if (targetBadgeEl) targetBadgeEl.textContent = tf("Stufe {lvl}", "Level {lvl}", { lvl: ex.level });
-    document.getElementById("inputPromptText").textContent = tr("Welche Taktart hörst du?", "Which meter do you hear?");
+    document.getElementById("inputPromptText").textContent = (typeof isIntervalPlainLanguageActive === "function" && isIntervalPlainLanguageActive() && typeof getPlainExercisePromptText === "function")
+      ? getPlainExercisePromptText(ex)
+      : tr("Welche Taktart hörst du?", "Which meter do you hear?");
   } else if (isRhythmDict) {
     if (moduleTitleEl) moduleTitleEl.textContent = tr("4-Schlag-Raster", "4-Beat Grid");
     if (targetBadgeEl) {
@@ -1744,17 +1751,23 @@ function renderUI() {
     barsGrid.classList.add("cols-1");
     if (moduleTitleEl) moduleTitleEl.textContent = tr("Akkord-Töne", "Chord Notes");
     if (targetBadgeEl) targetBadgeEl.textContent = tr("Arpeggio ↗", "Arpeggio ↗");
-    document.getElementById("inputPromptText").textContent = tr("Welcher Akkord erklingt?", "Which chord quality do you hear?");
+    document.getElementById("inputPromptText").textContent = (typeof isIntervalPlainLanguageActive === "function" && isIntervalPlainLanguageActive() && typeof getPlainExercisePromptText === "function")
+      ? getPlainExercisePromptText(ex)
+      : tr("Welcher Akkord erklingt?", "Which chord quality do you hear?");
   } else if (ex.type === "chord-arp-down") {
     barsGrid.classList.add("cols-1");
     if (moduleTitleEl) moduleTitleEl.textContent = tr("Akkord-Töne", "Chord Notes");
     if (targetBadgeEl) targetBadgeEl.textContent = tr("Arpeggio ↘", "Arpeggio ↘");
-    document.getElementById("inputPromptText").textContent = tr("Welcher Akkord erklingt?", "Which chord quality do you hear?");
+    document.getElementById("inputPromptText").textContent = (typeof isIntervalPlainLanguageActive === "function" && isIntervalPlainLanguageActive() && typeof getPlainExercisePromptText === "function")
+      ? getPlainExercisePromptText(ex)
+      : tr("Welcher Akkord erklingt?", "Which chord quality do you hear?");
   } else if (ex.type === "interval-chords") {
     barsGrid.classList.add("cols-1");
     if (moduleTitleEl) moduleTitleEl.textContent = tr("Akkord-Klang", "Chord Voicing");
     if (targetBadgeEl) targetBadgeEl.textContent = tr("Mehrklang", "Chord");
-    document.getElementById("inputPromptText").textContent = tr("Welcher Akkord erklingt?", "Which chord quality do you hear?");
+    document.getElementById("inputPromptText").textContent = (typeof isIntervalPlainLanguageActive === "function" && isIntervalPlainLanguageActive() && typeof getPlainExercisePromptText === "function")
+      ? getPlainExercisePromptText(ex)
+      : tr("Welcher Akkord erklingt?", "Which chord quality do you hear?");
   } else if (ex.type === "chord-inversions") {
     barsGrid.classList.add("cols-1");
     if (moduleTitleEl) moduleTitleEl.textContent = tr("Basston-Analyse", "Bass Note Check");
@@ -2163,6 +2176,46 @@ function renderExerciseChoiceButtonsGrid(ex, btnGrid = document.getElementById("
         }
         bar.appendChild(fill);
         btn.appendChild(bar);
+      } else if (typeof isExerciseHintsActive === "function" && isExerciseHintsActive()) {
+        if (isChordQualityMode(ex.type) && typeof getChordMoodHint === "function") {
+          const moodText = getChordMoodHint(choiceKey);
+          if (moodText) {
+            btn.classList.add("has-exercise-hint");
+            const sub = document.createElement("span");
+            sub.className = "degree-hint-sub";
+            sub.textContent = moodText;
+            btn.appendChild(sub);
+          }
+        } else if (isCadence && typeof getCadenceFeelHint === "function") {
+          const feelText = getCadenceFeelHint(choiceKey);
+          if (feelText) {
+            btn.classList.add("has-exercise-hint");
+            const sub = document.createElement("span");
+            sub.className = "degree-hint-sub";
+            sub.textContent = feelText;
+            btn.appendChild(sub);
+          }
+        } else if (ex.type === "rhythm-meter" && typeof getMeterPulsePattern === "function") {
+          const pat = getMeterPulsePattern(choiceKey);
+          if (pat) {
+            btn.classList.add("has-exercise-hint");
+            const dotsWrap = document.createElement("span");
+            dotsWrap.className = "degree-meter-dots";
+            dotsWrap.setAttribute("dir", "ltr");
+            dotsWrap.setAttribute("aria-hidden", "true");
+            pat.dots.forEach(kind => {
+              const dot = document.createElement("span");
+              dot.className = kind === "gap" ? "meter-dot-gap" : `meter-dot is-${kind}`;
+              dotsWrap.appendChild(dot);
+            });
+            btn.appendChild(dotsWrap);
+            const cnt = document.createElement("span");
+            cnt.className = "degree-hint-sub is-meter-count";
+            cnt.setAttribute("dir", "ltr");
+            cnt.textContent = pat.count;
+            btn.appendChild(cnt);
+          }
+        }
       }
       btn.addEventListener("click", (e) => handleAnswer(choiceKey, btn, { inputEvent: e }));
       rowEl.appendChild(btn);
@@ -2517,7 +2570,10 @@ function renderWrongChoiceFeedbackCard(ex, chosenDef, fallbackKey = "?", showCar
     const intervalHint = typeof formatIntervalWrongChoiceFeedback === "function"
       ? formatIntervalWrongChoiceFeedback(ex, chosenDef)
       : "";
-    fbText.textContent = intervalHint || tf("Gewählt: {sym} ({lbl}).", "Selected: {sym} ({lbl}).", {
+    const exerciseHint = !intervalHint && typeof formatExerciseHintWrongFeedback === "function"
+      ? formatExerciseHintWrongFeedback(ex, chosenDef, fallbackKey)
+      : "";
+    fbText.textContent = intervalHint || exerciseHint || tf("Gewählt: {sym} ({lbl}).", "Selected: {sym} ({lbl}).", {
       sym: chosenDef.roman || chosenDef.symbol || fallbackKey,
       lbl: chosenDef.label || fallbackKey
     });

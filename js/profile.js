@@ -846,16 +846,21 @@ function applyProfileDisplayChanges() {
     refreshExerciseLocalization(ex);
     if (state.currentView === "exercise") {
       renderUI();
-      if (ex.isSolved && (String(ex.type || "").startsWith("interval-") || isChordMode(ex.type)) && ex.targetItem) {
+      if (ex.isSolved && (String(ex.type || "").startsWith("interval-") || isChordMode(ex.type) || ex.type === "cadence" || ex.type === "rhythm-meter") && ex.targetItem) {
         const stageMain = document.getElementById("stageMainText");
         const stageFn = document.getElementById("stageFunctionText");
         if (stageMain) stageMain.textContent = ex.targetItem.roman || ex.targetItem.symbol;
-        const intervalRevealDesc = typeof formatIntervalRevealDescription === "function"
+        const hintRevealDesc = typeof formatExerciseHintRevealDescription === "function"
+          ? formatExerciseHintRevealDescription(ex)
+          : "";
+        const intervalRevealDesc = !hintRevealDesc && typeof formatIntervalRevealDescription === "function"
           ? formatIntervalRevealDescription(ex)
           : "";
-        if (stageFn) stageFn.textContent = intervalRevealDesc || ex.targetItem.label;
-        if (typeof renderStageIntervalVisual === "function") {
-          renderStageIntervalVisual(ex, { mode: "reveal" });
+        if (stageFn) stageFn.textContent = hintRevealDesc || intervalRevealDesc || ex.targetItem.label;
+        if (typeof renderStageIntervalVisual === "function" && renderStageIntervalVisual(ex, { mode: "reveal" })) {
+          // Intervall-Visual gerendert
+        } else if (typeof renderStageChordVisual === "function") {
+          renderStageChordVisual(ex, { mode: "reveal" });
         }
         const targetCard = document.getElementById(`barCard_${ex.targetIndex}`);
         if (targetCard) {
@@ -871,8 +876,10 @@ function applyProfileDisplayChanges() {
       }
       if (state.lastAnswerWasWrong && state.wrongAnswerData?.chosen) {
         const chosenDef = state.wrongAnswerData.chosen;
-        if (typeof renderStageIntervalVisual === "function") {
-          renderStageIntervalVisual(ex, { mode: "wrong", chosenDef });
+        if (typeof renderStageIntervalVisual === "function" && renderStageIntervalVisual(ex, { mode: "wrong", chosenDef })) {
+          // Intervall-Visual gerendert
+        } else if (typeof renderStageChordVisual === "function") {
+          renderStageChordVisual(ex, { mode: "wrong", chosenDef });
         }
         renderWrongChoiceFeedbackCard(ex, chosenDef, chosenDef.key || "?", false);
       }
@@ -1365,6 +1372,7 @@ function renderProfileAccountView() {
     btn.classList.toggle("active", btn.dataset.intervalNotation === (p.intervalNotation === "intl" ? "intl" : "de"));
   });
   if (typeof syncIntervalHelpSettingsUI === "function") syncIntervalHelpSettingsUI();
+  if (typeof syncExerciseHintsSettingsUI === "function") syncExerciseHintsSettingsUI();
   document.querySelectorAll("[data-solfege-labels]").forEach(btn => {
     btn.classList.toggle("active", btn.dataset.solfegeLabels === p.solfegeLabels);
   });

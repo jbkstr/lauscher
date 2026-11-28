@@ -1517,6 +1517,7 @@
             <button id="melodyPulseBtn" class="module-chip-btn chip-sage hidden" type="button" title="Metrum-Puls während der Melodie ein-/ausschalten" data-i18n-title="ex.melodyPulseTitle">Puls: An</button>
               <button id="singAlongChipBtn" type="button" class="module-chip-btn chip-sage hidden" aria-expanded="false" aria-controls="singAlongHint">Mitsingen</button>
               <button id="intervalHelpChipBtn" type="button" class="module-chip-btn chip-peach hidden" aria-expanded="false" aria-controls="inlineIntervalHelpPopover" title="Abstandshilfe (Halbtöne, Klaviertasten oder Gitarrenbünde)" data-i18n-title="ex.intervalHelpTitle">Hilfe: Aus</button>
+              <button id="exerciseHintsChipBtn" type="button" class="module-chip-btn chip-peach hidden" aria-pressed="false" title="Einsteiger-Lernhilfe ein-/ausschalten" data-i18n-title="ex.exerciseHintsTitle">Hilfe: Aus</button>
               <button id="singVoiceChipBtn" type="button" class="module-chip-btn chip-sage hidden" aria-expanded="false" aria-controls="inlineSingVoicePopover">Stimme</button>
               <button id="singDirChipBtn" type="button" class="module-chip-btn chip-peach hidden">↗</button>
               <button id="midiDirChipBtn" type="button" class="module-chip-btn chip-peach hidden">↗</button>
@@ -2761,6 +2762,14 @@
               <button type="button" class="opt-btn" data-interval-distance-help="semitones" aria-pressed="false" data-i18n="space.intervalHelpSemitones">Halbtöne</button>
               <button type="button" class="opt-btn" data-interval-distance-help="keys" aria-pressed="false" data-i18n="space.intervalHelpKeys">Klaviertasten</button>
               <button type="button" class="opt-btn" data-interval-distance-help="frets" aria-pressed="false" data-i18n="space.intervalHelpFrets">Gitarrenbünde</button>
+            </div>
+          </div>
+          <div class="settings-sub-field">
+            <span class="account-label" data-i18n="space.exerciseHints">Lernhilfen in Übungen</span>
+            <p class="settings-hint settings-sub-hint" data-i18n="space.exerciseHintsHint">Zeigt Klangfarben &amp; Tasten bei Akkorden, Wegweiser bei Kadenzen, Puls-Punkte bei Taktarten &amp; Richtungs-Tipps in Solfège (im Entdecker-Modus aktiv).</p>
+            <div class="btn-group" id="profileExerciseHintsGroup" role="group" aria-label="Lernhilfen in Übungen" data-i18n-aria="space.exerciseHints">
+              <button type="button" class="opt-btn active" data-exercise-hints="off" aria-pressed="true" data-i18n="space.intervalHelpOff">Aus</button>
+              <button type="button" class="opt-btn" data-exercise-hints="on" aria-pressed="false" data-i18n="space.exerciseHintsOn">An</button>
             </div>
           </div>
           <div class="settings-sub-field">

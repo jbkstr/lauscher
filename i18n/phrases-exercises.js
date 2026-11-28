@@ -7416,5 +7416,193 @@ registerColocatedPhrases({
   "Start": {
     fr: "Départ", es: "Inicio", it: "Partenza", pl: "Start",
     uk: "Старт", ur: "آغاز", tr: "Başlangıç", ar: "البداية"
+  },
+  "Hilfe: An": {
+    fr: "Aide : Oui", es: "Ayuda: Sí", it: "Aiuto: Sì", pl: "Pomoc: Wł.",
+    uk: "Підказка: Увімк.", ur: "مدد: آن", tr: "Yardım: Açık", ar: "المساعدة: تشغيل"
+  },
+  "Hell • Offen": {
+    fr: "Clair • Ouvert", es: "Brillante • Abierto", it: "Chiaro • Aperto", pl: "Jasny • Otwarty",
+    uk: "Світлий • Відкритий", ur: "روشن • کھلا", tr: "Parlak • Açık", ar: "مشرق • مفتوح"
+  },
+  "Weich • Warm": {
+    fr: "Doux • Chaud", es: "Suave • Cálido", it: "Morbido • Caldo", pl: "Miękki • Ciepły",
+    uk: "М’який • Теплий", ur: "نرم • گرمجوش", tr: "Yumuşak • Sıcak", ar: "ناعم • دافئ"
+  },
+  "Gespannt": {
+    fr: "Tendu", es: "Tenso", it: "Teso", pl: "Napięty",
+    uk: "Напружений", ur: "تناؤ والا", tr: "Gergin", ar: "متوتر"
+  },
+  "Schwebend": {
+    fr: "Flottant", es: "Flotante", it: "Sospeso", pl: "Unoszący się",
+    uk: "Невагомий", ur: "تیرتا ہوا", tr: "Süzülen", ar: "معلّق"
+  },
+  "Wartend": {
+    fr: "En attente", es: "En espera", it: "In attesa", pl: "Czekający",
+    uk: "Очікувальний", ur: "منتظر", tr: "Bekleyen", ar: "مترقب"
+  },
+  "Luftig": {
+    fr: "Aérien", es: "Aireado", it: "Arioso", pl: "Zwiewny",
+    uk: "Повітряний", ur: "ہلکا پھلکا", tr: "Ferah", ar: "هوائي"
+  },
+  "Drängend": {
+    fr: "Pressant", es: "Impulsivo", it: "Incalzante", pl: "Popychający",
+    uk: "Напористий", ur: "بے چین", tr: "İtici", ar: "مندفع"
+  },
+  "Verträumt": {
+    fr: "Rêveur", es: "Soñador", it: "Sognante", pl: "Marzycielski",
+    uk: "Мрійливий", ur: "خوابناک", tr: "Rüyamsı", ar: "حالم"
+  },
+  "Samtig": {
+    fr: "Velouté", es: "Aterciopelado", it: "Vellutato", pl: "Aksamitny",
+    uk: "Оксамитовий", ur: "مخملی", tr: "Kadifemsi", ar: "مخملي"
+  },
+  "Düster": {
+    fr: "Sombre", es: "Oscuro", it: "Cupo", pl: "Mroczny",
+    uk: "Похмурий", ur: "گہرا", tr: "Karanlık", ar: "قاتم"
+  },
+  "Dramatisch": {
+    fr: "Dramatique", es: "Dramático", it: "Drammatico", pl: "Dramatyczny",
+    uk: "Драматичний", ur: "ڈرامائی", tr: "Dramatik", ar: "درامي"
+  },
+  "Geheimnisv.": {
+    fr: "Mystérieux", es: "Misterioso", it: "Misterioso", pl: "Tajemniczy",
+    uk: "Загадковий", ur: "پراسرار", tr: "Gizemli", ar: "غامض"
+  },
+  "Strahlend": {
+    fr: "Radieux", es: "Radiante", it: "Radioso", pl: "Promienny",
+    uk: "Сяючий", ur: "تابناک", tr: "Işıltılı", ar: "ساطع"
+  },
+  "Würzig": {
+    fr: "Épicé", es: "Picante", it: "Speziato", pl: "Pikantny",
+    uk: "Пікантний", ur: "تیکھا", tr: "Baharatlı", ar: "حارّ"
+  },
+  "Jazzig": {
+    fr: "Jazzy", es: "Jazzero", it: "Jazzy", pl: "Jazzowy",
+    uk: "Джазовий", ur: "جیز انداز", tr: "Caz tınılı", ar: "جازي"
+  },
+  "Zuhause": {
+    fr: "Maison", es: "Casa", it: "Casa", pl: "Dom",
+    uk: "Дім", ur: "گھر", tr: "Ev", ar: "البيت"
+  },
+  "Aufbruch": {
+    fr: "Départ", es: "Impulso", it: "Slancio", pl: "Wyruszenie",
+    uk: "Порив", ur: "روانگی", tr: "Yola çıkış", ar: "انطلاق"
+  },
+  "Spannung": {
+    fr: "Tension", es: "Tensión", it: "Tensione", pl: "Napięcie",
+    uk: "Напруга", ur: "تناؤ", tr: "Gerilim", ar: "توتر"
+  },
+  "Weich": {
+    fr: "Doux", es: "Suave", it: "Morbido", pl: "Miękko",
+    uk: "М’яко", ur: "نرم", tr: "Yumuşak", ar: "ناعم"
+  },
+  "Hell": {
+    fr: "Clair", es: "Brillante", it: "Chiaro", pl: "Jasno",
+    uk: "Світло", ur: "روشن", tr: "Parlak", ar: "مشرق"
+  },
+  "Anlauf": {
+    fr: "Élan", es: "Paso previo", it: "Rincorsa", pl: "Rozbieg",
+    uk: "Розбіг", ur: "تمہید", tr: "Hazırlık", ar: "تمهيد"
+  },
+  "Episch": {
+    fr: "Épique", es: "Épico", it: "Epico", pl: "Epicki",
+    uk: "Епічний", ur: "شاندار", tr: "Epik", ar: "ملحمي"
+  },
+  "Rockig": {
+    fr: "Rock", es: "Rockero", it: "Rock", pl: "Rockowy",
+    uk: "Роковий", ur: "راک انداز", tr: "Rock", ar: "روك"
+  },
+  "Bluesig": {
+    fr: "Bluesy", es: "Blusero", it: "Blues", pl: "Bluesowy",
+    uk: "Блюзовий", ur: "بلوز انداز", tr: "Blues", ar: "بلوز"
+  },
+  "Funky": {
+    fr: "Funky", es: "Funky", it: "Funky", pl: "Funky",
+    uk: "Фанковий", ur: "فنکی", tr: "Funky", ar: "فانكي"
+  },
+  "Zugkraft": {
+    fr: "Attraction", es: "Atracción", it: "Attrazione", pl: "Ciąg",
+    uk: "Тяжіння", ur: "کشش", tr: "Çekim", ar: "جذب"
+  },
+  "Welche Akkord-Farbe hörst du?": {
+    fr: "Quelle couleur d’accord entends-tu ?",
+    es: "¿Qué color de acorde escuchas?",
+    it: "Quale colore di accordo senti?",
+    pl: "Jaką barwę akordu słyszysz?",
+    uk: "Який колір акорду ти чуєш?",
+    ur: "آپ کو کورڈ کا کون سا رنگ سنائی دے رہا ہے؟",
+    tr: "Hangi akor rengini duyuyorsun?",
+    ar: "ما لون التآلف الذي تسمعه؟"
+  },
+  "Wie fühlt sich Takt {bar} an?": {
+    fr: "Que ressens-tu à la mesure {bar} ?",
+    es: "¿Cómo se siente el compás {bar}?",
+    it: "Che sensazione dà la battuta {bar}?",
+    pl: "Jak brzmi takt {bar}?",
+    uk: "Як відчувається такт {bar}?",
+    ur: "بار {bar} کیسا محسوس ہوتا ہے؟",
+    tr: "{bar}. ölçü nasıl hissettiriyor?",
+    ar: "كيف يبدو الإحساس في المازورة {bar}؟"
+  },
+  "Bis wie viel zählst du bis zur starken Eins?": {
+    fr: "Jusqu’à combien comptes-tu avant le temps fort 1 ?",
+    es: "¿Hasta cuánto cuentas hasta el pulso fuerte 1?",
+    it: "Fino a quanto conti prima dell’uno forte?",
+    pl: "Do ilu liczysz do mocnej jedynki?",
+    uk: "До скількох ти рахуєш до сильної долі 1?",
+    ur: "مضبوط ایک تک آپ کہاں تک گنتے ہیں؟",
+    tr: "Güçlü bire kadar kaça kadar sayıyorsun?",
+    ar: "إلى كم تعدّ حتى النبضة الأولى القوية؟"
+  },
+  "Wo sitzt der Ton in der Tonleiter? Tippe die Taste:": {
+    fr: "Où se situe la note dans la gamme ? Touche la touche :",
+    es: "¿Dónde está la nota en la escala? Toca la tecla:",
+    it: "Dov’è la nota nella scala? Tocca il tasto:",
+    pl: "Gdzie w gamie leży ten dźwięk? Dotknij klawisza:",
+    uk: "Де в гамі лежить ця нота? Натисни клавішу:",
+    ur: "سکیل میں یہ سر کہاں ہے؟ کی پر ٹیپ کریں:",
+    tr: "Nota dizide nerede? Tuşa dokun:",
+    ar: "أين تقع النغمة في السلم؟ اضغط على المفتاح:"
+  },
+  "{label} • Zählen: {count}": {
+    fr: "{label} • Compter : {count}",
+    es: "{label} • Contar: {count}",
+    it: "{label} • Contare: {count}",
+    pl: "{label} • Liczenie: {count}",
+    uk: "{label} • Рахунок: {count}",
+    ur: "{label} • گنتی: {count}",
+    tr: "{label} • Sayım: {count}",
+    ar: "{label} • العدّ: {count}"
+  },
+  "Gewählt: {lbl} ({hint}).": {
+    fr: "Choisi : {lbl} ({hint}).",
+    es: "Elegido: {lbl} ({hint}).",
+    it: "Scelto: {lbl} ({hint}).",
+    pl: "Wybrano: {lbl} ({hint}).",
+    uk: "Обрано: {lbl} ({hint}).",
+    ur: "منتخب: {lbl} ({hint})۔",
+    tr: "Seçilen: {lbl} ({hint}).",
+    ar: "المختار: {lbl} ({hint})."
+  },
+  "Zu hoch – der gesuchte Ton liegt tiefer.": {
+    fr: "Trop haut – la note recherchée est plus grave.",
+    es: "Demasiado alto: la nota buscada es más grave.",
+    it: "Troppo alto: la nota cercata è più grave.",
+    pl: "Za wysoko – szukany dźwięk jest niżej.",
+    uk: "Зависоко – шукана нота нижче.",
+    ur: "بہت اونچا – مطلوبہ سر اس سے نیچے ہے۔",
+    tr: "Çok tiz – aranan nota daha pes.",
+    ar: "مرتفع جدًا – النغمة المطلوبة أخفض."
+  },
+  "Zu tief – der gesuchte Ton liegt höher.": {
+    fr: "Trop bas – la note recherchée est plus aiguë.",
+    es: "Demasiado bajo: la nota buscada es más aguda.",
+    it: "Troppo basso: la nota cercata è più acuta.",
+    pl: "Za nisko – szukany dźwięk jest wyżej.",
+    uk: "Занизько – шукана нота вище.",
+    ur: "بہت نیچا – مطلوبہ سر اس سے اوپر ہے۔",
+    tr: "Çok pes – aranan nota daha tiz.",
+    ar: "منخفض جدًا – النغمة المطلوبة أعلى."
   }
 });

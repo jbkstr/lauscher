@@ -56,13 +56,15 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
     }
     document.getElementById("stageSubtext").textContent = getPersonalizedCorrectStageSubtext(tr("RICHTIG!", "CORRECT!"));
     document.getElementById("stageMainText").textContent = ex.targetItem.roman || ex.targetItem.symbol;
-    const intervalRevealDesc = (typeof formatIntervalRevealDescription === "function")
+    const hintRevealDesc = (typeof formatExerciseHintRevealDescription === "function")
+      ? formatExerciseHintRevealDescription(ex)
+      : "";
+    const intervalRevealDesc = !hintRevealDesc && (typeof formatIntervalRevealDescription === "function")
       ? formatIntervalRevealDescription(ex)
       : "";
-    document.getElementById("stageFunctionText").textContent = intervalRevealDesc || ex.targetItem.label;
-    const showedIntervalVisual = typeof renderStageIntervalVisual === "function"
-      ? renderStageIntervalVisual(ex, { mode: "reveal" })
-      : false;
+    document.getElementById("stageFunctionText").textContent = hintRevealDesc || intervalRevealDesc || ex.targetItem.label;
+    const showedIntervalVisual = (typeof renderStageIntervalVisual === "function" && renderStageIntervalVisual(ex, { mode: "reveal" }))
+      || (typeof renderStageChordVisual === "function" && renderStageChordVisual(ex, { mode: "reveal" }));
 
     const revealAllNonRef = ex.type === "rhythm-meter" ||
       (ex.type === "rhythm-groove" && ex.grooveKind === "style");
@@ -165,9 +167,9 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
           audioEngine.registerTimer(() => {
             if (audioEngine.playbackId !== arpeggioPlaybackId) return;
             advanceToNextExercise();
-          }, nextExerciseDelayMs);
+          }, Math.max(nextExerciseDelayMs, showedIntervalVisual ? 1750 : 0));
         },
-        () => scheduleSimpleRevealAdvance(arpeggioPlaybackId, 1050)
+        () => scheduleSimpleRevealAdvance(arpeggioPlaybackId, showedIntervalVisual ? 1750 : 1050)
       );
     } else if (arpBlockNotes && arpBlockNotes.length > 0) {
       const confirmPlaybackId = audioEngine.playbackId;
@@ -177,7 +179,7 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
         () => {
           if (!audioEngine.isInitialized || audioEngine.playbackId !== confirmPlaybackId) return;
           audioEngine.playStep(arpBlockNotes, blockDurSec, null, "cadence");
-          scheduleSimpleRevealAdvance(confirmPlaybackId, 1150);
+          scheduleSimpleRevealAdvance(confirmPlaybackId, showedIntervalVisual ? 1750 : 1150);
         },
         () => scheduleSimpleRevealAdvance(confirmPlaybackId, 1050)
       );
@@ -191,7 +193,8 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
     if (!isListenOnly) resetExerciseStreakOnAttempt(ex);
     btnElement.classList.add("btn-wrong");
     state.lastAnswerWasWrong = true;
-    const chosenDef = getChoiceItem(ex.type, selectedKey);
+    const rawChosenDef = getChoiceItem(ex.type, selectedKey);
+    const chosenDef = rawChosenDef ? { ...rawChosenDef, key: rawChosenDef.key || selectedKey } : rawChosenDef;
     state.wrongAnswerData = { chosen: chosenDef, target: ex.targetItem };
 
     setCentralStageMode("stage-wrong");
@@ -209,9 +212,9 @@ function handleAnswer(selectedKey, btnElement, options = {}) {
               ? tr("Vergleiche beide Modi über demselben Grundton:", "Compare both modes over the same root:")
               : tr("Hör dir beide Klänge direkt nacheinander an:", "Hear both sounds back-to-back:")));
 
-    if (typeof renderStageIntervalVisual === "function") {
-      renderStageIntervalVisual(ex, { mode: "wrong", chosenDef });
-    }
+    const showedWrongVisual = (typeof renderStageIntervalVisual === "function" && renderStageIntervalVisual(ex, { mode: "wrong", chosenDef }))
+      || (typeof renderStageChordVisual === "function" && renderStageChordVisual(ex, { mode: "wrong", chosenDef }));
+    void showedWrongVisual;
     renderWrongChoiceFeedbackCard(ex, chosenDef, selectedKey, true);
   }
 }

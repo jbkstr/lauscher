@@ -7203,5 +7203,53 @@ registerColocatedStatic({
     ur: "گٹار فریٹس",
     tr: "Gitar perdeleri",
     ar: "عتبات الجيتار"
+  },
+  "ex.exerciseHintsTitle": {
+    de: "Lernhilfen ein- oder ausschalten (Stimmung, Takt-Pulse, Mini-Klaviatur)",
+    en: "Toggle learning helps (mood hints, beat dots, mini keyboard)",
+    fr: "Activer ou désactiver les aides (humeur, pulsations, mini-clavier)",
+    es: "Activar o desactivar ayudas (carácter, pulsos, mini teclado)",
+    it: "Attiva o disattiva gli aiuti (colore, pulsazioni, mini tastiera)",
+    pl: "Włącz lub wyłącz pomoce (nastrój, puls taktu, miniklawiatura)",
+    uk: "Увімкнути або вимкнути підказки (настрій, пульс такту, мініклавіатура)",
+    ur: "سیکھنے کی مدد آن یا آف کریں (احساس، تال کے نقطے، منی کی بورڈ)",
+    tr: "Öğrenme yardımlarını aç veya kapat (renk, vuruş noktaları, mini klavye)",
+    ar: "تفعيل أو إيقاف المساعدات التعليمية (الطابع، نقاط الإيقاع، لوحة مفاتيح مصغّرة)"
+  },
+  "space.exerciseHints": {
+    de: "Lernhilfen in Übungen",
+    en: "Exercise Learning Helps",
+    fr: "Aides dans les exercices",
+    es: "Ayudas en ejercicios",
+    it: "Aiuti negli esercizi",
+    pl: "Pomoce w ćwiczeniach",
+    uk: "Підказки у вправах",
+    ur: "مشقوں میں سیکھنے کی مدد",
+    tr: "Alıştırma Öğrenme Yardımları",
+    ar: "مساعدات التعلم في التمارين"
+  },
+  "space.exerciseHintsHint": {
+    de: "Zeigt Klangfarben bei Akkorden & Kadenzen, Zähl-Punkte bei Taktarten und Richtungs-Hinweise beim Solfège (im Entdecker-Modus automatisch aktiv).",
+    en: "Shows mood hints for chords & cadences, beat pulse dots for meters, and direction hints in solfège (automatically active in Explorer Mode).",
+    fr: "Affiche le caractère des accords et cadences, les pulsations de mesure et la direction en solfège (actif par défaut en mode Explorateur).",
+    es: "Muestra el carácter en acordes y cadencias, puntos de pulso en compases y dirección en solfeo (activo automáticamente en el modo Explorador).",
+    it: "Mostra il carattere di accordi e cadenze, i punti di pulsazione nei metri e la direzione nel solfeggio (attivo automaticamente in modalità Esploratore).",
+    pl: "Pokazuje charakter akordów i kadencji, punkty pulsu w metrum i wskazówki kierunku w solfeżu (automatycznie aktywne w trybie Odkrywcy).",
+    uk: "Показує характер акордів і каденцій, точки пульсу для розмірів та підказки напрямку в сольфеджіо (автоматично активні в режимі Дослідника).",
+    ur: "کورڈز اور کیڈنس کا احساس، تال کے نقطے اور سولفیج میں سمت کی رہنمائی دکھاتا ہے (ایکسپلورر موڈ میں خودکار فعال)۔",
+    tr: "Akor ve kadanslarda renk ipuçları, ölçülerde vuruş noktaları ve solfejde yön ipucu gösterir (Kaşif Modunda otomatik etkindir).",
+    ar: "يعرض طابع التآلفات والقفلات، ونقاط الإيقاع للأوزان، وتلميحات الاتجاه في الصولفيج (مفعّل تلقائيًا في وضع المستكشف)."
+  },
+  "space.exerciseHintsOn": {
+    de: "An",
+    en: "On",
+    fr: "Activée",
+    es: "Activada",
+    it: "Attiva",
+    pl: "Wł.",
+    uk: "Увімк.",
+    ur: "آن",
+    tr: "Açık",
+    ar: "تشغيل"
   }
 });

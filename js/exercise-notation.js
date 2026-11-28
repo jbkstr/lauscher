@@ -1105,7 +1105,10 @@ async function handleSolfegeKeyClick(clickedKeyDef, keyBtn, options = {}) {
     updateStageMascot("thinking");
     document.getElementById("stageSubtext").textContent = tr("NOCH NICHT GANZ", "NOT QUITE");
     document.getElementById("stageMainText").textContent = `${getSolfegeDisplayLabel(clickedKeyDef.syllable)}? ${tr("Nein", "No")}`;
-    document.getElementById("stageFunctionText").textContent = tr("Tippe weiter oder hör dir den Ton nochmal an!", "Keep trying or replay the tone!");
+    const solfegeDirHint = typeof getSolfegeWrongDirectionHint === "function"
+      ? getSolfegeWrongDirectionHint(clickedKeyDef.midi, target.midi)
+      : "";
+    document.getElementById("stageFunctionText").textContent = solfegeDirHint || tr("Tippe weiter oder hör dir den Ton nochmal an!", "Keep trying or replay the tone!");
     return;
   }
 
