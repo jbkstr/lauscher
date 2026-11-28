@@ -2,6 +2,13 @@
 
 All released versions of Lauscher. New sections are created by `python3 scripts/bump-version.py`.
 
+## Unreleased
+
+**Improved**
+- The streak indicator ("✦ n in a row") now sits compactly in the top bar during exercises instead of on the stage; milestone notices hide again after a few seconds.
+- Solfège learning help: with learning helps on, the piano shows scale degree numbers above the syllables, highlights "Do" as the anchor and marks a wrong key with an arrow pointing towards the right tone.
+- Single sounds (chords and harmonic intervals) no longer show a "Bar 1" heading above the notation.
+
 ## 0.18.0-beta (Build 14) – 2026-11-28
 
 **Added**
