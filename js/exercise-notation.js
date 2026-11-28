@@ -1105,10 +1105,18 @@ async function handleSolfegeKeyClick(clickedKeyDef, keyBtn, options = {}) {
     updateStageMascot("thinking");
     document.getElementById("stageSubtext").textContent = tr("NOCH NICHT GANZ", "NOT QUITE");
     document.getElementById("stageMainText").textContent = `${getSolfegeDisplayLabel(clickedKeyDef.syllable)}? ${tr("Nein", "No")}`;
-    const solfegeDirHint = typeof getSolfegeWrongDirectionHint === "function"
-      ? getSolfegeWrongDirectionHint(clickedKeyDef.midi, target.midi)
-      : "";
-    document.getElementById("stageFunctionText").textContent = solfegeDirHint || tr("Tippe weiter oder hör dir den Ton nochmal an!", "Keep trying or replay the tone!");
+    const solfegeDirInfo = typeof getSolfegeWrongDirectionInfo === "function"
+      ? getSolfegeWrongDirectionInfo(clickedKeyDef.midi, target.midi, ex)
+      : null;
+    if (keyBtn) {
+      if (solfegeDirInfo) {
+        keyBtn.dataset.wrongDir = solfegeDirInfo.direction > 0 ? "→" : "←";
+      } else {
+        delete keyBtn.dataset.wrongDir;
+      }
+    }
+    document.getElementById("stageFunctionText").textContent = (solfegeDirInfo && solfegeDirInfo.text)
+      || tr("Tippe weiter oder hör dir den Ton nochmal an!", "Keep trying or replay the tone!");
     return;
   }
 
@@ -1129,6 +1137,7 @@ async function handleSolfegeKeyClick(clickedKeyDef, keyBtn, options = {}) {
   // Alle bisherigen Falsch-Markierungen aufheben (auf weißen & schwarzen Tonleiter-Tasten)
   document.querySelectorAll("#solfegeKeyboardWrap .piano-white-key, #solfegeKeyboardWrap .piano-black-key").forEach(el => {
     el.classList.remove("key-wrong", "key-correct");
+    delete el.dataset.wrongDir;
   });
 
   const initialGreenEl = document.getElementById(`solfegeKey_${target.midi}`) || keyBtn;

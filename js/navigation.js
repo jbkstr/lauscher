@@ -1491,6 +1491,8 @@ function switchView(targetView, options = {}) {
 
   if (prevView === "exercise" && targetView !== "exercise" && typeof resetExerciseStreakState === "function") {
     resetExerciseStreakState(null);
+  } else if (typeof renderStageStreakUI === "function") {
+    renderStageStreakUI();
   }
 
   if (targetView === "exercise") {

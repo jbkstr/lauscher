@@ -388,31 +388,49 @@ function getStreakMilestoneText(count) {
     : tf("{n} in Folge – starker Fokus!", "{n} in a row — razor-sharp focus!", { n: count });
 }
 
+let streakNoticeHideTimer = 0;
+
 function renderStageStreakUI() {
+  const isExerciseView = state?.currentView === "exercise";
   const isExam = Boolean(state?.exam?.active);
   const st = state?.streakState || { count: 0, activeNoticeMilestone: 0 };
-  const count = isExam ? 0 : (Number(st.count) || 0);
-  const milestone = isExam ? 0 : (Number(st.activeNoticeMilestone) || 0);
+  const count = (isExerciseView && !isExam) ? (Number(st.count) || 0) : 0;
+  const milestone = (isExerciseView && !isExam) ? (Number(st.activeNoticeMilestone) || 0) : 0;
 
   const pillEl = document.getElementById("stageStreakPill");
   if (pillEl) {
     if (count >= 3) {
-      pillEl.textContent = tf("✦ {n} in Folge", "✦ {n} in a row", { n: count });
+      const fullLabel = tf("✦ {n} in Folge", "✦ {n} in a row", { n: count });
+      const suffix = tr("in Folge", "in a row");
+      pillEl.innerHTML = `<span class="streak-pill-num">✦ ${count}</span><span class="streak-pill-suffix"> ${escapeHtml(suffix)}</span>`;
+      pillEl.setAttribute("title", fullLabel);
+      pillEl.setAttribute("aria-label", fullLabel);
       pillEl.classList.remove("hidden");
       pillEl.classList.toggle("is-high", count >= 8);
     } else {
       pillEl.textContent = "";
+      pillEl.removeAttribute("title");
+      pillEl.removeAttribute("aria-label");
       pillEl.classList.add("hidden");
       pillEl.classList.remove("is-high");
     }
   }
 
   const noticeEl = document.getElementById("stageStreakNotice");
+  if (streakNoticeHideTimer) {
+    clearTimeout(streakNoticeHideTimer);
+    streakNoticeHideTimer = 0;
+  }
   if (noticeEl) {
     if (milestone >= 3) {
       noticeEl.textContent = `✦ ${getStreakMilestoneText(milestone)}`;
       noticeEl.classList.remove("hidden");
       noticeEl.classList.toggle("is-high", milestone >= 8);
+      streakNoticeHideTimer = setTimeout(() => {
+        streakNoticeHideTimer = 0;
+        noticeEl.classList.add("hidden");
+        if (state?.streakState) state.streakState.activeNoticeMilestone = 0;
+      }, 2800);
     } else {
       noticeEl.textContent = "";
       noticeEl.classList.add("hidden");

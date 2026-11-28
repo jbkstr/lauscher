@@ -7604,5 +7604,59 @@ registerColocatedPhrases({
     ur: "بہت نیچا – مطلوبہ سر اس سے اوپر ہے۔",
     tr: "Çok pes – aranan nota daha tiz.",
     ar: "منخفض جدًا – النغمة المطلوبة أعلى."
+  },
+  "in Folge": {
+    fr: "d’affilée", es: "seguidos", it: "di fila", pl: "z rzędu",
+    uk: "поспіль", ur: "مسلسل", tr: "üst üste", ar: "متتالية"
+  },
+  "Wo sitzt der Ton? Do (1) ist dein Start-Anker:": {
+    fr: "Où se situe la note ? Do (1) est ton repère de départ :",
+    es: "¿Dónde está la nota? Do (1) es tu punto de partida:",
+    it: "Dov’è la nota? Do (1) è il tuo punto di partenza:",
+    pl: "Gdzie leży dźwięk? Do (1) to Twój punkt oparcia:",
+    uk: "Де лежить нота? Do (1) — твоя стартова опора:",
+    ur: "سر کہاں ہے؟ Do (1) آپ کا بنیادی سہارا ہے:",
+    tr: "Nota nerede? Do (1) senin başlangıç dayanağın:",
+    ar: "أين تقع النغمة؟ Do (1) هي نقطة البداية المرجعية:"
+  },
+  "Ganz nah – etwas höher (weiter rechts).": {
+    fr: "Tout près – un peu plus haut (vers la droite).",
+    es: "Muy cerca: un poco más alto (hacia la derecha).",
+    it: "Vicino: un po’ più alto (verso destra).",
+    pl: "Bardzo blisko – trochę wyżej (w prawo).",
+    uk: "Зовсім поруч – трохи вище (праворуч).",
+    ur: "بہت قریب – تھوڑا اوپر (دائیں طرف)۔",
+    tr: "Çok yakın – biraz daha tiz (sağda).",
+    ar: "قريب جدًا – أعلى قليلًا (إلى اليمين)."
+  },
+  "Zu tief – deutlich höher (weiter rechts).": {
+    fr: "Trop bas – nettement plus haut (vers la droite).",
+    es: "Demasiado bajo: bastante más alto (hacia la derecha).",
+    it: "Troppo basso: decisamente più alto (verso destra).",
+    pl: "Za nisko – wyraźnie wyżej (w prawo).",
+    uk: "Занизько – помітно вище (праворуч).",
+    ur: "بہت نیچا – کافی اوپر (دائیں طرف)۔",
+    tr: "Çok pes – belirgin biçimde daha tiz (sağda).",
+    ar: "منخفض جدًا – أعلى بوضوح (إلى اليمين)."
+  },
+  "Ganz nah – etwas tiefer (weiter links).": {
+    fr: "Tout près – un peu plus bas (vers la gauche).",
+    es: "Muy cerca: un poco más bajo (hacia la izquierda).",
+    it: "Vicino: un po’ più basso (verso sinistra).",
+    pl: "Bardzo blisko – trochę niżej (w lewo).",
+    uk: "Зовсім поруч – трохи нижче (ліворуч).",
+    ur: "بہت قریب – تھوڑا نیچے (بائیں طرف)۔",
+    tr: "Çok yakın – biraz daha pes (solda).",
+    ar: "قريب جدًا – أخفض قليلًا (إلى اليسار)."
+  },
+  "Zu hoch – deutlich tiefer (weiter links).": {
+    fr: "Trop haut – nettement plus bas (vers la gauche).",
+    es: "Demasiado alto: bastante más bajo (hacia la izquierda).",
+    it: "Troppo alto: decisamente più basso (verso sinistra).",
+    pl: "Za wysoko – wyraźnie niżej (w lewo).",
+    uk: "Зависоко – помітно нижче (ліворуч).",
+    ur: "بہت اونچا – کافی نیچے (بائیں طرف)۔",
+    tr: "Çok tiz – belirgin biçimde daha pes (solda).",
+    ar: "مرتفع جدًا – أخفض بوضوح (إلى اليسار)."
   }
 });

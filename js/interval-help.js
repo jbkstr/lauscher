@@ -903,7 +903,7 @@ function getPlainExercisePromptText(ex) {
     return tr("Bis wie viel zählst du bis zur starken Eins?", "How high do you count to the next strong beat?");
   }
   if (ex.type === "solfege") {
-    return tr("Wo sitzt der Ton in der Tonleiter? Tippe die Taste:", "Where does the note sit in the scale? Tap the key:");
+    return tr("Wo sitzt der Ton? Do (1) ist dein Start-Anker:", "Where is the note? Do (1) is your home anchor:");
   }
   return "";
 }
@@ -957,16 +957,87 @@ function formatExerciseHintWrongFeedback(ex, chosenDef, fallbackKey = "") {
   return "";
 }
 
-function getSolfegeWrongDirectionHint(clickedMidi, targetMidi) {
-  if (!isExerciseHintsActive() || state?.exam?.active) return "";
-  if (!Number.isFinite(clickedMidi) || !Number.isFinite(targetMidi)) return "";
-  if (clickedMidi > targetMidi) {
-    return tr("Zu hoch – der gesuchte Ton liegt tiefer.", "Too high — the target note is lower.");
+function getSolfegeDegreeBadgeText(semitoneOffset, tonality = "major") {
+  const off = Number(semitoneOffset);
+  if (!Number.isFinite(off)) return "";
+  if (off === 0) return "1";
+  if (off === 12) return "8";
+  const pc = ((off % 12) + 12) % 12;
+  if (tonality === "minor") {
+    switch (pc) {
+      case 0:  return "1";
+      case 2:  return "2";
+      case 3:  return "♭3";
+      case 5:  return "4";
+      case 7:  return "5";
+      case 8:  return "♭6";
+      case 10: return "♭7";
+      default: return "";
+    }
   }
-  if (clickedMidi < targetMidi) {
-    return tr("Zu tief – der gesuchte Ton liegt höher.", "Too low — the target note is higher.");
+  switch (pc) {
+    case 0:  return "1";
+    case 2:  return "2";
+    case 4:  return "3";
+    case 5:  return "4";
+    case 7:  return "5";
+    case 9:  return "6";
+    case 11: return "7";
+    default: return "";
   }
-  return "";
+}
+
+function getSolfegeWrongDirectionInfo(clickedMidi, targetMidi, ex = null) {
+  if (!isExerciseHintsActive() || state?.exam?.active) return null;
+  if (!Number.isFinite(clickedMidi) || !Number.isFinite(targetMidi)) return null;
+
+  // Bei Ziel „Do“ die nähere Oktave (unteres oder oberes Do) als Referenz nehmen,
+  // damit Richtung & Nähe immer fair bleiben.
+  let effectiveTargetMidi = targetMidi;
+  if (ex?.targetItem?.syllable === "Do" && Number.isFinite(ex.rootMidi)) {
+    const lowDo = ex.rootMidi;
+    const highDo = ex.rootMidi + 12;
+    const activeSet = Array.isArray(ex.activeSemitones) ? new Set(ex.activeSemitones) : null;
+    const candidates = [];
+    if (!activeSet || activeSet.has(0)) candidates.push(lowDo);
+    if (!activeSet || activeSet.has(12)) candidates.push(highDo);
+    if (candidates.length > 0) {
+      candidates.sort((a, b) => Math.abs(a - clickedMidi) - Math.abs(b - clickedMidi));
+      effectiveTargetMidi = candidates[0];
+    }
+  }
+
+  if (clickedMidi === effectiveTargetMidi) return null;
+  const direction = effectiveTargetMidi > clickedMidi ? 1 : -1;
+
+  // Abstand in Tonleiter-Stufen ermitteln (ohne die exakte Zahl als Rechen-Spoiler zu verraten)
+  let stepDiff = Math.abs(effectiveTargetMidi - clickedMidi) <= 2 ? 1 : 2;
+  if (ex && Number.isFinite(ex.rootMidi) && typeof getSolfegeScaleSteps === "function") {
+    const steps = getSolfegeScaleSteps(ex.tonality || "major");
+    const clickedIdx = steps.findIndex(st => ex.rootMidi + st.semitones === clickedMidi);
+    const targetIdx = steps.findIndex(st => ex.rootMidi + st.semitones === effectiveTargetMidi);
+    if (clickedIdx >= 0 && targetIdx >= 0) {
+      stepDiff = Math.abs(targetIdx - clickedIdx);
+    }
+  }
+
+  const isClose = stepDiff <= 1;
+  let text = "";
+  if (direction > 0) {
+    text = isClose
+      ? tr("Ganz nah – etwas höher (weiter rechts).", "Very close — a bit higher (to the right).")
+      : tr("Zu tief – deutlich höher (weiter rechts).", "Too low — noticeably higher (to the right).");
+  } else {
+    text = isClose
+      ? tr("Ganz nah – etwas tiefer (weiter links).", "Very close — a bit lower (to the left).")
+      : tr("Zu hoch – deutlich tiefer (weiter links).", "Too high — noticeably lower (to the left).");
+  }
+  return { direction, isClose, stepDiff, text };
+}
+
+function getSolfegeWrongDirectionHint(clickedMidi, targetMidi, ex = null) {
+  const info = getSolfegeWrongDirectionInfo(clickedMidi, targetMidi, ex);
+  return info ? info.text : "";
 }
 
 // ---------- MINI-KLAVIATUR FÜR AKKORDE (SVG) ----------

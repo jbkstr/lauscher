@@ -373,8 +373,9 @@
         </div>
       </div>
 
-      <!-- Rechts: Hausaufgabe teilen (in Übungen), Lautstärke & Einstellungen -->
+      <!-- Rechts: Streak-Pille (in Übungen), Hausaufgabe teilen, Lautstärke & Einstellungen -->
       <div class="header-actions">
+        <div id="stageStreakPill" class="stage-streak-pill hidden" aria-live="polite"></div>
         <button id="shareHomeworkHeaderBtn" type="button" class="icon-btn hidden" title="Als Hausaufgabe teilen (Link & QR-Code)" aria-label="Als Hausaufgabe teilen" data-i18n-title="homework.headerBtnTitle" data-i18n-aria="homework.headerBtnAria">
           <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <rect x="3" y="3" width="7" height="7" rx="1"/>
@@ -1632,16 +1633,15 @@
 
       <div class="stage-wrapper">
         <div id="centralStageCard" class="central-stage stage-idle">
-          <div id="stageStreakPill" class="stage-streak-pill hidden" aria-live="polite"></div>
           <div id="stageBurstLayer" class="stage-burst-layer" aria-hidden="true"></div>
           <div id="stageMascotWrap" class="stage-mascot"></div>
           <span id="stageSubtext" class="stage-sub">STATUS</span>
           <div id="stageMainText" class="stage-main">Bereit</div>
           <span id="stageFunctionText" class="stage-desc">Drücke unten auf Abspielen</span>
           <div id="stageIntervalVisual" class="stage-interval-visual hidden" dir="ltr" aria-hidden="true"></div>
-          <div id="stageStreakNotice" class="stage-streak-notice hidden" aria-live="polite"></div>
         </div>
       </div>
+      <div id="stageStreakNotice" class="stage-streak-notice hidden" aria-live="polite"></div>
 
       <div class="bottom-dock">
 

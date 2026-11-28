@@ -1687,7 +1687,7 @@ runTest("Lernhilfen (Akkorde, Kadenzen, Taktarten & Solfège): Modus-Auflösung,
     assert.ok(sb.getPlainExercisePromptText({ type: "interval-chords" }).includes("Akkord"));
     assert.ok(sb.getPlainExercisePromptText({ type: "cadence", targetIndex: 2 }).includes("3"));
     assert.ok(sb.getPlainExercisePromptText({ type: "rhythm-meter" }).includes("Eins"));
-    assert.ok(sb.getPlainExercisePromptText({ type: "solfege" }).includes("Tonleiter"));
+    assert.ok(sb.getPlainExercisePromptText({ type: "solfege" }).includes("Do (1)"));
 
     // Auflösungs- & Falschwahl-Texte
     const chordEx = {
@@ -1704,10 +1704,21 @@ runTest("Lernhilfen (Akkorde, Kadenzen, Taktarten & Solfège): Modus-Auflösung,
     assert.ok(sb.formatExerciseHintRevealDescription(meterEx).includes("1 – 2 – 3"));
     assert.ok(sb.formatExerciseHintWrongFeedback(meterEx, { key: "4/4", symbol: "4/4" }).includes("1 – 2 – 3 – 4"));
 
-    // Solfège-Richtungshinweis
-    assert.ok(sb.getSolfegeWrongDirectionHint(67, 64).includes("tiefer"));
-    assert.ok(sb.getSolfegeWrongDirectionHint(60, 64).includes("höher"));
-    assert.equal(sb.getSolfegeWrongDirectionHint(64, 64), "");
+    // Solfège-Stufen-Badges & präziser Richtungshinweis (nah vs. weit)
+    assert.equal(sb.getSolfegeDegreeBadgeText(0, "major"), "1");
+    assert.equal(sb.getSolfegeDegreeBadgeText(4, "major"), "3");
+    assert.equal(sb.getSolfegeDegreeBadgeText(3, "minor"), "♭3");
+    assert.equal(sb.getSolfegeDegreeBadgeText(12, "major"), "8");
+    const solfEx = { type: "solfege", rootMidi: 60, tonality: "major", targetItem: { midi: 64, syllable: "Mi" } };
+    const closeUp = sb.getSolfegeWrongDirectionInfo(62, 64, solfEx);
+    assert.equal(closeUp.direction, 1);
+    assert.equal(closeUp.isClose, true);
+    assert.ok(closeUp.text.includes("höher") && closeUp.text.includes("rechts"));
+    const farDown = sb.getSolfegeWrongDirectionInfo(67, 64, solfEx);
+    assert.equal(farDown.direction, -1);
+    assert.equal(farDown.isClose, false);
+    assert.ok(farDown.text.includes("tiefer") && farDown.text.includes("links"));
+    assert.equal(sb.getSolfegeWrongDirectionHint(64, 64, solfEx), "");
 
     // Akkord-Mini-Klaviatur SVG (Reveal + A/B-Mystery)
     const chordSvg = sb.buildChordMiniKeyboardSVG({

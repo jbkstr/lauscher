@@ -186,7 +186,11 @@ function renderSolfegeKeyboard() {
   }
 
   const kb = document.createElement("div");
-  kb.className = "piano-keyboard";
+  const solfegeTonality = state.currentExercise?.tonality || "major";
+  const showSolfegeHints = state.currentExercise?.type === "solfege"
+    && typeof isExerciseHintsActive === "function"
+    && isExerciseHintsActive();
+  kb.className = showSolfegeHints ? "piano-keyboard has-solfege-hints" : "piano-keyboard";
   const whiteKeyEls = [];
   const blackKeyEls = [];
 
@@ -194,15 +198,24 @@ function renderSolfegeKeyboard() {
     const keyBtn = document.createElement("button");
     keyBtn.type = "button";
     const scaleClass = wk.inScale ? "piano-key-scale" : "piano-key-inactive";
-    keyBtn.className = `piano-white-key ${scaleClass}`;
+    const isAnchor = showSolfegeHints && wk.inScale && wk.syllable === "Do";
+    keyBtn.className = `piano-white-key ${scaleClass}${isAnchor ? " is-solfege-anchor" : ""}`;
     keyBtn.id = `solfegeKey_${wk.midi}`;
     keyBtn.dataset.midi = wk.midi;
     if (wk.syllable) keyBtn.dataset.syllable = wk.syllable;
 
     if (wk.inScale && wk.syllable) {
       const box = document.createElement("span");
-      box.className = "solfege-key-box";
-      box.textContent = getSolfegeDisplayLabel(wk.syllable);
+      const degText = showSolfegeHints && typeof getSolfegeDegreeBadgeText === "function"
+        ? getSolfegeDegreeBadgeText(wk.midi - rootMidi, solfegeTonality)
+        : "";
+      if (degText) {
+        box.className = "solfege-key-box has-degree-num";
+        box.innerHTML = `<span class="solfege-step-num">${escapeHtml(degText)}</span><span class="solfege-step-syl">${escapeHtml(getSolfegeDisplayLabel(wk.syllable))}</span>`;
+      } else {
+        box.className = "solfege-key-box";
+        box.textContent = getSolfegeDisplayLabel(wk.syllable);
+      }
       keyBtn.appendChild(box);
     }
 
@@ -225,7 +238,8 @@ function renderSolfegeKeyboard() {
   blackKeys.forEach(bk => {
     const blackEl = document.createElement(bk.inScale ? "button" : "div");
     if (bk.inScale) blackEl.type = "button";
-    blackEl.className = `piano-black-key ${bk.inScale ? "key-in-scale" : "key-out-of-scale"}`;
+    const isAnchor = showSolfegeHints && bk.inScale && bk.syllable === "Do";
+    blackEl.className = `piano-black-key ${bk.inScale ? "key-in-scale" : "key-out-of-scale"}${isAnchor ? " is-solfege-anchor" : ""}`;
     blackEl.id = `solfegeKey_${bk.midi}`;
     blackEl.dataset.midi = bk.midi;
     if (bk.syllable) blackEl.dataset.syllable = bk.syllable;
@@ -233,8 +247,16 @@ function renderSolfegeKeyboard() {
 
     if (bk.inScale && bk.syllable) {
       const box = document.createElement("span");
-      box.className = "solfege-key-box solfege-key-box-black";
-      box.textContent = getSolfegeDisplayLabel(bk.syllable);
+      const degText = showSolfegeHints && typeof getSolfegeDegreeBadgeText === "function"
+        ? getSolfegeDegreeBadgeText(bk.midi - rootMidi, solfegeTonality)
+        : "";
+      if (degText) {
+        box.className = "solfege-key-box solfege-key-box-black has-degree-num";
+        box.innerHTML = `<span class="solfege-step-num">${escapeHtml(degText)}</span><span class="solfege-step-syl">${escapeHtml(getSolfegeDisplayLabel(bk.syllable))}</span>`;
+      } else {
+        box.className = "solfege-key-box solfege-key-box-black";
+        box.textContent = getSolfegeDisplayLabel(bk.syllable);
+      }
       blackEl.appendChild(box);
       blackEl.addEventListener("click", (e) => onKeyboardKeyClick(bk, blackEl, { inputEvent: e }));
     }
@@ -1577,7 +1599,11 @@ function renderUI() {
           : tr("Danach: Einzelton", "Then: Single Note");
       }
     }
-    document.getElementById("inputPromptText").textContent = (typeof isIntervalPlainLanguageActive === "function" && isIntervalPlainLanguageActive() && typeof getPlainExercisePromptText === "function")
+    document.getElementById("inputPromptText").textContent = (
+      ((typeof isExerciseHintsActive === "function" && isExerciseHintsActive())
+        || (typeof isIntervalPlainLanguageActive === "function" && isIntervalPlainLanguageActive()))
+      && typeof getPlainExercisePromptText === "function"
+    )
       ? getPlainExercisePromptText(ex)
       : tr("Tippe die gehörte Stufe auf der Klaviatur:", "Tap the heard scale degree on the keyboard:");
   } else if (ex.type === "melody") {
@@ -1900,9 +1926,9 @@ function renderUI() {
     ex.bars.forEach((bar, idx) => {
       const isTarget = !isSolfege && (hideAllNonRef ? bar.key !== "ref" : idx === ex.targetIndex);
       const isDroneCard = ex.type === "interval-drone";
-      // Intervalle: melodisch „Ton 1 / Ton 2“ statt „Takt“, harmonisch (gleichzeitig) ohne Überschrift
+      // Intervalle: melodisch „Ton 1 / Ton 2“ statt „Takt“; Einzelklänge (harmonische Intervalle & Akkorde) ohne „Takt 1“-Überschrift
       const isMelodicIntervalCard = ex.type === "interval-melodic" || ex.type === "interval-melodic-down" || ex.type === "sing-interval";
-      const hideBarTag = ex.type === "interval-harmonic";
+      const hideBarTag = ex.type === "interval-harmonic" || isChordQualityMode(ex.type) || ex.type === "chord-inversions";
       const card = document.createElement("div");
       card.className = `bar-card ${isTarget ? "bar-target" : ""}${isProdEqNoise || ((isModes || isDroneCard) && idx === 0) ? " bar-card-clickable" : ""}`;
       card.id = `barCard_${idx}`;
