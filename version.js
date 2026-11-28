@@ -11,7 +11,7 @@
  */
 "use strict";
 const LAUSCHER_VERSION = {
-  name: "0.17.0-beta",
-  build: 13,
-  date: "2026-11-27"
+  name: "0.18.0-beta",
+  build: 14,
+  date: "2026-11-28"
 };

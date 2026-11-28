@@ -2,7 +2,15 @@
 
 All released versions of Lauscher. New sections are created by `python3 scripts/bump-version.py`.
 
-## Unreleased
+## 0.18.0-beta (Build 14) – 2026-11-28
+
+**Added**
+- Interval distance help for beginners and kids: interval answer tiles can show the distance in semitones, piano keys or guitar frets with a proportional step bar, and after answering a mini keyboard or mini fretboard on the stage shows the interval. Selectable in App Settings and via a chip in the exercise header; active automatically in Explorer Mode (keys or frets depending on your instruments), always off in exams.
+- Learning helps in exercises: tone colours and keys for chords, signposts for cadences, pulse dots for meters and direction tips in solfège. One switch in App Settings plus a header chip; active automatically in Explorer Mode, always off in exams.
+- 16 new home screen quotes, including tips on the new distance and learning helps.
+
+**Improved**
+- Exercise stage on phones: the mascot is docked in a corner in portrait and moves to the right input panel in landscape, leaving more room for the task. In landscape the interval visual and the note-reading keyboard use the full available height.
 
 **Removed**
 - The piano welcome melody on the final onboarding step is switched off for now; it sounded too synthetic.
